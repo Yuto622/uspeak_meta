@@ -24,6 +24,16 @@ node --version
 cloudflared --version
 ```
 
+続けて、PowerShell スクリプトの実行を許可します。Windows は初期状態でこれを禁止しており、
+`npm` 自体も PowerShell スクリプトなので、解除しないと先に進めません。
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+確認を聞かれたら `Y` を押します。自分で用意したスクリプトは実行でき、インターネットから
+ダウンロードした署名なしスクリプトはブロックされたままになる設定です。1回だけで済みます。
+
 macOS の場合は Homebrew で入ります。
 
 ```sh
@@ -52,7 +62,15 @@ cd ~/uspeak_meta
 ./scripts/start-tunnel.sh '先生用の8文字以上のパスワード'
 ```
 
-初回は依存パッケージのインストールで1〜2分かかります。数十秒待つと URL が表示されます。
+初回は依存パッケージのインストールで数分かかります。完了すると URL が表示されます。
+
+インストールが途中で中断された場合（ウィンドウを閉じた、電源が切れた）は、
+サーバーフォルダで手動インストールしてからやり直してください。進行状況が画面に出ます。
+
+```powershell
+cd $HOME\uspeak_meta\server
+npm ci
+```
 
 ```
 =======================================================

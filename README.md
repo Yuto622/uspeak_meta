@@ -103,8 +103,11 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 自分の PC でサーバーを動かし、Cloudflare の無料トンネルで iPad から接続します。手順は `docs/TUNNEL_TESTING.md` を参照してください。
 
 ```powershell
-winget install --id OpenJS.NodeJS.LTS -e; winget install --id Cloudflare.cloudflared -e   # 初回のみ、実行後に PowerShell を開き直す
-.\scripts\start-tunnel.ps1 '先生用の8文字以上のパスワード'
+# 初回のみ。インストール後に PowerShell を開き直してから実行ポリシーを解除する
+winget install --id OpenJS.NodeJS.LTS -e; winget install --id Cloudflare.cloudflared -e
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+.\scripts\start-tunnel.ps1 -TeacherKey 先生用の8文字以上のパスワード
 ```
 
 ```sh
