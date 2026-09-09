@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+!.env.example
+server/data/
+loadtest-results/
+*.log
+.DS_Store
+client/dist/config.js

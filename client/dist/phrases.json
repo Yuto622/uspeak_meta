@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "note": "Preset chat phrases. Edit freely; ids must stay unique. The server validates ids against this same file.",
+  "categories": [
+    {
+      "id": "greetings",
+      "label": "あいさつ",
+      "phrases": [
+        { "id": "hello", "en": "Hello!", "ja": "こんにちは！" },
+        { "id": "hi-there", "en": "Hi there! How are you?", "ja": "やあ！元気？" },
+        { "id": "im-fine", "en": "I'm fine, thank you!", "ja": "元気です、ありがとう！" },
+        { "id": "nice-to-meet", "en": "Nice to meet you!", "ja": "はじめまして！" },
+        { "id": "good-morning", "en": "Good morning!", "ja": "おはよう！" },
+        { "id": "see-you", "en": "See you later!", "ja": "またあとで！" },
+        { "id": "bye", "en": "Goodbye!", "ja": "さようなら！" }
+      ]
+    },
+    {
+      "id": "play",
+      "label": "いっしょに",
+      "phrases": [
+        { "id": "lets-go", "en": "Let's go!", "ja": "行こう！" },
+        { "id": "follow-me", "en": "Follow me!", "ja": "ついてきて！" },
+        { "id": "come-here", "en": "Come here, please.", "ja": "ここに来て。" },
+        { "id": "wait", "en": "Wait for me!", "ja": "待って！" },
+        { "id": "lets-play", "en": "Let's play together!", "ja": "いっしょに遊ぼう！" },
+        { "id": "over-there", "en": "Look over there!", "ja": "あそこを見て！" },
+        { "id": "where-are-you", "en": "Where are you?", "ja": "どこにいるの？" }
+      ]
+    },
+    {
+      "id": "feelings",
+      "label": "きもち",
+      "phrases": [
+        { "id": "great", "en": "Great job!", "ja": "よくできたね！" },
+        { "id": "thank-you", "en": "Thank you!", "ja": "ありがとう！" },
+        { "id": "youre-welcome", "en": "You're welcome.", "ja": "どういたしまして。" },
+        { "id": "sorry", "en": "I'm sorry.", "ja": "ごめんなさい。" },
+        { "id": "happy", "en": "I'm so happy!", "ja": "とてもうれしい！" },
+        { "id": "fun", "en": "This is fun!", "ja": "楽しいね！" },
+        { "id": "wow", "en": "Wow! Amazing!", "ja": "わあ！すごい！" }
+      ]
+    },
+    {
+      "id": "class",
+      "label": "じゅぎょう",
+      "phrases": [
+        { "id": "yes", "en": "Yes!", "ja": "はい！" },
+        { "id": "no", "en": "No.", "ja": "いいえ。" },
+        { "id": "i-know", "en": "I know the answer!", "ja": "答えがわかった！" },
+        { "id": "help-me", "en": "Can you help me?", "ja": "手伝ってくれる？" },
+        { "id": "one-more", "en": "One more time, please.", "ja": "もう一回お願いします。" },
+        { "id": "i-did-it", "en": "I did it!", "ja": "できた！" },
+        { "id": "good-luck", "en": "Good luck!", "ja": "がんばって！" }
+      ]
+    }
+  ]
+}

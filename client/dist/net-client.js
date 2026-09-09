@@ -1,0 +1,403 @@
+// Multiplayer client layer. Owns the Colyseus room, the 20 Hz position stream, remote
+// avatars, reconnection (iPad background / lock / reload), server-authoritative wallet
+// mirroring, chat and teacher commands. Offline mode = this module stays idle.
+import { NET, STORAGE_KEYS, resolveServerUrl, defaultClassCode, storage } from './net-config.js';
+import { hooks } from './net-hooks.js';
+import { createRemotePlayers } from './remote-players.js';
+import { createChat } from './chat.js';
+import { createTeacherPanel } from './teacher.js';
+import { createLobby } from './lobby.js';
+
+export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak }) {
+  const Colyseus = globalThis.Colyseus;
+  const $ = (s) => document.querySelector(s);
+  const state = {
+    mode: 'offline', // offline | connecting | online | reconnecting
+    role: 'student', sessionId: null, name: '', classCode: '', teacherKey: '',
+    attempts: 0, intentionalLeave: false, chatPaused: false, teacherId: '',
+    lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
+    pendingTeleport: null, hiddenAt: 0, resumedAt: 0, lastAvatarJson: '',
+  };
+  let client = null;
+  let room = null;
+  let reconnectTimer = null;
+  let probeTimer = null;
+  const prefs = storage.get(localStorage, STORAGE_KEYS.prefs) || {};
+  const remotes = createRemotePlayers({ worldScene: scene, getInteriorScene: () => rpg.interiorScene });
+  const chip = createStatusChip();
+  const chat = createChat({ onSend: (id) => room?.send('chat', { id }), speak, toast, isPaused: () => state.chatPaused && state.role !== 'teacher' });
+  const teacher = createTeacherPanel({
+    send: (msg) => room?.send('teacher', msg), toast,
+    getPoint: () => ({ x: round(player.position.x, 2), z: round(player.position.z, 2) }),
+    getSpace: currentSpace, isInsideBuilding: () => currentSpace().startsWith('in:'),
+  });
+  const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs });
+  let ownBubble = null;
+  let ownBubbleUntil = 0;
+
+  if (!Colyseus) {
+    console.warn('[net] vendor/colyseus.js is missing; multiplayer disabled');
+    chip.set('offline', 'オフライン');
+  }
+
+  // ---- helpers -----------------------------------------------------------------
+
+  function round(v, d) { const p = 10 ** d; return Math.round(v * p) / p; }
+  function currentSpace() {
+    const interior = rpg.adventure?.magic?.interior;
+    if (interior?.active) return `in:${interior.building?.id || 'room'}`;
+    return rpg.state.current || 'willow';
+  }
+  function joinOptions() {
+    return { classCode: state.classCode, name: state.name, teacherKey: state.teacherKey || undefined, avatar: avatars.config };
+  }
+  function setMode(mode) {
+    state.mode = mode;
+    const count = room?.state?.players?.size || 0;
+    if (mode === 'online') chip.set('online', `オンライン · ${count}人`);
+    else if (mode === 'reconnecting') chip.set('reconnecting', '再接続中…');
+    else if (mode === 'connecting') chip.set('reconnecting', '接続中…');
+    else chip.set('offline', 'オフライン');
+    chat.setAvailable(mode === 'online' || mode === 'reconnecting');
+    teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
+  }
+  function saveSession() {
+    storage.set(sessionStorage, STORAGE_KEYS.session, { name: state.name, classCode: state.classCode, teacherKey: state.teacherKey, token: room?.reconnectionToken || '', sessionId: state.sessionId });
+    storage.set(localStorage, STORAGE_KEYS.prefs, { name: state.name, classCode: state.classCode });
+  }
+  function clearSession() { storage.remove(sessionStorage, STORAGE_KEYS.session); }
+
+  // ---- connection lifecycle ---------------------------------------------------------
+
+  async function connect({ name, classCode, teacherKey }, { silent = false } = {}) {
+    if (!Colyseus) { lobby.error('通信ライブラリが読み込めませんでした。'); return; }
+    state.name = name; state.classCode = classCode || 'default'; state.teacherKey = teacherKey || '';
+    state.intentionalLeave = false;
+    state.attempts = 0;
+    lobby.busy(true);
+    setMode('connecting');
+    try {
+      client = client || new Colyseus.Client(resolveServerUrl());
+      const r = await client.joinOrCreate('class', joinOptions());
+      bind(r, false);
+      lobby.close();
+    } catch (err) {
+      setMode('offline');
+      const msg = friendlyError(err);
+      if (silent) toast(msg); else lobby.open({ error: msg });
+    }
+  }
+
+  function friendlyError(err) {
+    const code = err?.code;
+    const text = String(err?.message || err || '');
+    if (code === 4001 || /name in use/.test(text)) return 'その名前はもう使われています。別の名前にしてね。';
+    if (code === 4000 || /name required/.test(text)) return 'なまえを入れてね。';
+    if (code === 4002 || /class is full/.test(text)) return 'このクラスは満員です。先生に伝えてください。';
+    if (/Failed to fetch|NetworkError|Load failed|ECONN|timeout/i.test(text)) return 'サーバーにつながりません。Wi-Fi を確認してください。';
+    return `接続できませんでした（${text.slice(0, 80)}）`;
+  }
+
+  function bind(r, viaToken) {
+    room = r;
+    state.sessionId = r.sessionId;
+    state.attempts = 0;
+    let welcomed = false;
+
+    r.onMessage('welcome', (m) => {
+      welcomed = true;
+      state.role = m.role;
+      state.chatPaused = !!m.chatPaused;
+      state.teacherId = m.teacherId || '';
+      setMode('online');
+      saveSession();
+      chat.setPaused();
+      teacher.setChatPaused(state.chatPaused);
+      if (m.wallet) applyWallet(m.wallet);
+      if (!viaToken) {
+        restoreProgress(m.progressJson);
+        if (m.position && m.restored) teleportTo(m.position, 'restore');
+        toast(m.role === 'teacher' ? `先生としてクラス「${m.classCode}」に参加しました。` : `クラス「${m.classCode}」に参加しました！`);
+      } else {
+        toast('再接続しました。');
+      }
+      state.lastSent.s = ''; // force a fresh position sample
+    });
+    r.onMessage('wallet', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.ok === false && m.error) toast(walletError(m.error)); });
+    r.onMessage('answer:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.ok === false && m.error !== 'too fast') console.warn('[net] answer rejected', m); });
+    r.onMessage('teleport', (m) => { teleportTo(m, m.reason); toast(m.reason === 'gather' ? `${m.by} 先生のところに集合！` : `${m.by} 先生が移動させました。`); });
+    r.onMessage('call', (m) => showCall(m));
+    r.onMessage('notice', (m) => toast(m.text));
+    r.onMessage('chat', (m) => onChat(m));
+    r.onMessage('chat:blocked', (m) => toast(m.reason === 'paused' ? 'チャットは先生によって一時停止中です。' : 'ゆっくり話そう。'));
+    r.onMessage('roster', (m) => teacher.onRoster(m));
+    r.onMessage('teacher:ack', (m) => teacher.onAck(m));
+    r.onMessage('progress:ack', () => {});
+    r.onMessage('pong', () => { clearTimeout(probeTimer); probeTimer = null; });
+
+    const seen = new Map();
+    r.state.players.onAdd((p, id) => {
+      if (id === r.sessionId) { chip.count(r.state.players.size); return; }
+      remotes.upsert(id, snapshot(p));
+      remotes.pushSample(id, { x: p.x, z: p.z, yaw: p.yaw });
+      seen.set(id, { x: p.x, z: p.z, yaw: p.yaw });
+      p.onChange(() => {
+        remotes.upsert(id, snapshot(p));
+        const prev = seen.get(id);
+        if (!prev || prev.x !== p.x || prev.z !== p.z || prev.yaw !== p.yaw) {
+          remotes.pushSample(id, { x: p.x, z: p.z, yaw: p.yaw });
+          seen.set(id, { x: p.x, z: p.z, yaw: p.yaw });
+        }
+      });
+      chip.count(r.state.players.size);
+    });
+    r.state.players.onRemove((p, id) => { remotes.remove(id); seen.delete(id); chip.count(r.state.players.size); });
+    r.state.listen('chatPaused', (v) => { state.chatPaused = !!v; chat.setPaused(); teacher.setChatPaused(!!v); });
+    r.state.listen('teacherId', (v) => { state.teacherId = v || ''; });
+
+    r.onError((code, message) => console.warn('[net] room error', code, message));
+    r.onLeave((code) => {
+      clearTimeout(probeTimer); probeTimer = null;
+      if (room !== r) return;
+      room = null;
+      if (state.intentionalLeave) { setMode('offline'); return; }
+      console.info('[net] connection lost', code);
+      setMode('reconnecting');
+      scheduleReconnect(0);
+    });
+    // Safety net: if no welcome arrives (should not happen), do not stay "connecting" forever.
+    setTimeout(() => { if (room === r && !welcomed) { console.warn('[net] no welcome received; retrying'); r.leave(false); } }, 8000);
+  }
+
+  function snapshot(p) { return { name: p.name, avatar: p.avatar, role: p.role, space: p.space, x: p.x, z: p.z, yaw: p.yaw, anim: p.anim, connected: p.connected }; }
+
+  function scheduleReconnect(delay) {
+    clearTimeout(reconnectTimer);
+    reconnectTimer = setTimeout(attemptReconnect, delay);
+  }
+
+  async function attemptReconnect() {
+    if (state.mode !== 'reconnecting' || room) return;
+    const session = storage.get(sessionStorage, STORAGE_KEYS.session) || {};
+    try {
+      let r = null;
+      if (session.token) {
+        try { r = await client.reconnect(session.token); } catch (err) { console.info('[net] token reconnect failed, joining by name:', err?.message || err); }
+      }
+      const viaToken = !!r;
+      if (!r) r = await client.joinOrCreate('class', joinOptions());
+      bind(r, viaToken);
+    } catch (err) {
+      state.attempts += 1;
+      if (state.attempts >= NET.RECONNECT_MAX_ATTEMPTS) {
+        setMode('offline');
+        lobby.open({ error: '再接続できませんでした。もう一度参加してください。' });
+        return;
+      }
+      const delay = NET.RECONNECT_DELAYS_MS[Math.min(state.attempts, NET.RECONNECT_DELAYS_MS.length - 1)];
+      console.info(`[net] reconnect attempt ${state.attempts} failed (${err?.message || err}); retry in ${delay}ms`);
+      scheduleReconnect(delay);
+    }
+  }
+
+  // Called when the page becomes visible / online again. Proves the socket within
+  // RESUME_PROBE_TIMEOUT_MS or forces a reconnect, so resume-after-lock stays under 3 s.
+  function resume() {
+    state.resumedAt = performance.now();
+    if (state.mode === 'reconnecting') { scheduleReconnect(0); return; }
+    if (state.mode !== 'online' || !room) return;
+    if (!room.connection?.isOpen) { room.leave(false); return; }
+    if (probeTimer) return;
+    room.send('ping', Date.now());
+    probeTimer = setTimeout(() => {
+      probeTimer = null;
+      console.info('[net] resume probe timed out; forcing reconnect');
+      room?.leave(false);
+    }, NET.RESUME_PROBE_TIMEOUT_MS);
+  }
+
+  function goOffline(fromLobby = false) {
+    state.intentionalLeave = true;
+    clearTimeout(reconnectTimer);
+    clearSession();
+    const r = room; room = null;
+    r?.leave(true);
+    for (const id of [...Array.from({ length: 0 })]) remotes.remove(id);
+    setMode('offline');
+    if (fromLobby) toast('オフラインで遊びます。右上のボタンからいつでも参加できます。');
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') resume();
+    else { state.hiddenAt = performance.now(); syncProgress(true); }
+  });
+  addEventListener('pageshow', (e) => { if (e.persisted) resume(); });
+  addEventListener('pagehide', () => { syncProgress(true); });
+  addEventListener('online', () => resume());
+  addEventListener('offline', () => { if (state.mode === 'online') chip.set('reconnecting', 'オフライン検出…'); });
+
+  // ---- server-authoritative wallet & progress ---------------------------------------
+
+  function applyWallet(w) {
+    try {
+      fishing.store.reconcile?.(w);
+      fishing.refreshWallet?.();
+    } catch (err) { console.warn('[net] wallet reconcile failed', err); }
+  }
+  function walletError(e) {
+    return { 'not enough coins': 'コインが足りません（サーバー確認）。', 'already owned': 'すでに持っています。', 'nothing to sell': '売れる魚がありません（サーバー確認）。' }[e] || `サーバーが処理できませんでした: ${e}`;
+  }
+  function restoreProgress(json) {
+    if (!json) return;
+    try {
+      const local = rpg.adventure?.progress?.state;
+      if (local?.starter) return; // this device already has a journey; keep it
+      const data = JSON.parse(json);
+      rpg.adventure.progress.restore(data);
+      rpg.activate('willow', true, true);
+      rpg.syncBuddy?.(true);
+      toast('前回の冒険の記録をサーバーから復元しました。');
+    } catch (err) { console.warn('[net] progress restore failed', err); }
+  }
+  function syncProgress(force = false) {
+    if (!room || state.mode !== 'online' || !rpg.adventure?.progress) return;
+    const now = performance.now();
+    if (!force && now - state.lastProgressAt < NET.PROGRESS_SYNC_MS) return;
+    let json = '';
+    try { json = JSON.stringify(rpg.adventure.progress.backup()); } catch { return; }
+    state.lastProgressAt = now;
+    if (json === state.lastProgressJson) return;
+    state.lastProgressJson = json;
+    room.send('progress', { json });
+  }
+  hooks.on('answer', ({ q, c }) => { if (room && state.mode === 'online') room.send('answer', { q, c }); });
+  hooks.on('economy', (op) => { if (room && state.mode === 'online') room.send('economy', op); });
+
+  // ---- teleport (teacher commands, restore) -----------------------------------------
+
+  function teleportTo(target, reason = 'move') {
+    if (!target || typeof target.space !== 'string' || target.space.startsWith('in:')) return false;
+    state.pendingTeleport = { space: target.space, x: Number(target.x) || 0, z: Number(target.z) || 0, reason };
+    return applyPendingTeleport();
+  }
+  function applyPendingTeleport() {
+    const t = state.pendingTeleport;
+    if (!t) return false;
+    if (park.state.busy) return false; // mid-ride: applied on the next frame it is free
+    try {
+      for (const d of document.querySelectorAll('dialog[open]')) if (d.id !== 'net-lobby') d.close();
+      if (rpg.isOpen) rpg.close();
+      if (fishing.state.busy) fishing.cancel?.();
+      if (rpg.adventure?.magic?.interior?.active) rpg.leaveSanctuary();
+      if (rpg.state.mode === 'flight') rpg.finishFlight();
+      if (rpg.state.current !== t.space) rpg.activate(t.space, true, true);
+      player.position.set(t.x, 0, t.z);
+      state.lastSent.s = '';
+    } catch (err) { console.warn('[net] teleport failed', err); }
+    state.pendingTeleport = null;
+    return true;
+  }
+  function showCall(m) {
+    let el = $('#net-call');
+    if (!el) { el = document.createElement('div'); el.id = 'net-call'; document.body.append(el); }
+    el.innerHTML = `<span>📢 ${escapeHtml(m.by)} 先生が呼んでいます</span><button type="button" id="net-call-go">先生のところへ行く</button><button type="button" class="secondary" id="net-call-later">あとで</button>`;
+    $('#net-call-go').onclick = () => { teleportTo(m, 'call'); el.remove(); };
+    $('#net-call-later').onclick = () => el.remove();
+    speak?.('Please come here!');
+  }
+
+  // ---- chat -----------------------------------------------------------------------
+
+  function onChat(m) {
+    const mine = m.from === state.sessionId;
+    const p = chat.receive({ name: m.name, id: m.id, mine });
+    if (!p) return;
+    if (mine) {
+      if (ownBubble) player.remove(ownBubble);
+      ownBubble = remotes.textSprite(p.en, { bg: '#fffaf0', color: '#263d33', size: 28, width: 640, scale: 0.62 });
+      ownBubble.position.set(0, 3.95, 0);
+      player.add(ownBubble);
+      ownBubbleUntil = performance.now() + NET.CHAT_BUBBLE_MS;
+    } else {
+      remotes.showBubble(m.from, p.en);
+    }
+  }
+
+  // ---- per-frame ----------------------------------------------------------------
+
+  function update(t, dt, { moving = false, running = false } = {}) {
+    const now = performance.now();
+    if (state.pendingTeleport) applyPendingTeleport();
+    if (ownBubble && now > ownBubbleUntil) { player.remove(ownBubble); ownBubble = null; }
+    remotes.update(t, currentSpace());
+    if (!room || state.mode !== 'online') return;
+    const anim = rpg.state.mode === 'flight' ? 'fly' : moving ? (running ? 'run' : 'walk') : 'idle';
+    if (now - state.lastSendAt >= 1000 / NET.SEND_HZ) {
+      const s = currentSpace();
+      const x = round(player.position.x, 2), z = round(player.position.z, 2), r = round(player.rotation.y, 3);
+      const last = state.lastSent;
+      const changed = s !== last.s || x !== last.x || z !== last.z || r !== last.r || anim !== last.a;
+      if (changed || now - state.lastSendAt >= NET.HEARTBEAT_MS) {
+        room.send('move', { s, x, z, r, a: anim, t: Date.now() % 4294967296 });
+        state.lastSent = { s, x, z, r, a: anim };
+        state.lastSendAt = now;
+      }
+    }
+    const avatarJson = JSON.stringify(avatars.config);
+    if (avatarJson !== state.lastAvatarJson) { state.lastAvatarJson = avatarJson; room.send('profile', { avatar: avatars.config }); }
+    syncProgress(false);
+  }
+
+  // ---- boot ---------------------------------------------------------------------
+
+  function createStatusChip() {
+    const el = document.createElement('button');
+    el.id = 'net-status';
+    el.type = 'button';
+    el.className = 'offline';
+    el.innerHTML = '<i></i><span>オフライン</span>';
+    el.onclick = () => {
+      if (state.mode === 'online' || state.mode === 'reconnecting') {
+        if (confirm('クラスから退出してオフラインで遊びますか？')) goOffline(true);
+      } else lobby.open({ name: state.name });
+    };
+    document.body.append(el);
+    return {
+      set(cls, text) { el.className = cls; el.querySelector('span').textContent = text; },
+      count(n) { if (state.mode === 'online') el.querySelector('span').textContent = `オンライン · ${n}人`; },
+    };
+  }
+
+  function boot() {
+    if (!Colyseus) return;
+    const session = storage.get(sessionStorage, STORAGE_KEYS.session);
+    const start = () => {
+      if (session?.name) {
+        // Same tab reloaded (or restored by Safari): rejoin automatically.
+        state.name = session.name; state.classCode = session.classCode || 'default'; state.teacherKey = session.teacherKey || '';
+        client = new Colyseus.Client(resolveServerUrl());
+        setMode('reconnecting');
+        scheduleReconnect(0);
+      } else {
+        lobby.open();
+      }
+    };
+    if (avatars.first) $('#avatar-dialog')?.addEventListener('close', start, { once: true });
+    else start();
+  }
+  boot();
+
+  return {
+    update, teleportTo, currentSpace,
+    get online() { return state.mode === 'online'; },
+    get role() { return state.role; },
+    get mode() { return state.mode; },
+    get sessionId() { return state.sessionId; },
+    get room() { return room; },
+    get remotes() { return remotes; },
+    openLobby: () => lobby.open({ name: state.name }),
+    leave: () => goOffline(true),
+  };
+}
+
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }

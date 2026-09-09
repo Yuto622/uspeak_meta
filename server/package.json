@@ -1,0 +1,30 @@
+{
+  "name": "uspeak-multiplayer-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Colyseus multiplayer server for U-Speak RPG classrooms",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test test/*.test.mjs",
+    "vendor": "node scripts/vendor-client-sdk.mjs",
+    "loadtest": "node loadtest/run.mjs"
+  },
+  "dependencies": {
+    "@googleapis/sheets": "^14.0.0",
+    "colyseus": "0.15.57",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "google-auth-library": "^11.0.2"
+  },
+  "devDependencies": {
+    "colyseus.js": "0.15.28",
+    "esbuild": "^0.24.2"
+  }
+}

@@ -1,0 +1,49 @@
+# Fly.io configuration: Tokyo region, always-on (no idle sleep), HTTPS/WSS only.
+# Deploy: fly launch --copy-config --no-deploy && fly secrets set ... && fly deploy
+app = "uspeak-multiplayer"
+primary_region = "nrt"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "2567"
+  MAX_CLIENTS = "30"
+  PATCH_RATE_MS = "100"
+  RECONNECT_GRACE_SEC = "60"
+  STORE_FLUSH_MS = "5000"
+  SERVE_CLIENT = "true"
+  # Must match the public URL of this app (used for CORS and WebSocket origin checks).
+  CORS_ORIGINS = "https://uspeak-multiplayer.fly.dev"
+
+[http_service]
+  internal_port = 2567
+  force_https = true
+  # Never stop the machine on idle: the first connection of a lesson must not wait for a cold start.
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+  [http_service.concurrency]
+    type = "connections"
+    soft_limit = 200
+    hard_limit = 250
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "15s"
+    method = "GET"
+    timeout = "5s"
+    path = "/healthz"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1
+
+[deploy]
+  # A single machine keeps every class in one process (rooms are in-memory).
+  strategy = "immediate"
