@@ -14,7 +14,11 @@ param(
   # cloudflared reaches Cloudflare over QUIC (UDP 7844) by default. Networks that
   # block UDP report "Allow outbound QUIC traffic on port 7844 or use HTTP2" and the
   # tunnel never serves; pass -Protocol http2 to fall back to TCP.
-  [ValidateSet('auto', 'http2', 'quic')][string]$Protocol = 'auto'
+  [ValidateSet('auto', 'http2', 'quic')][string]$Protocol = 'auto',
+  # cloudflared may resolve Cloudflare's edge to IPv6. On a network without working
+  # IPv6 that shows up as "dial tcp [2606:4700:...]:7844: i/o timeout"; pass 4 to
+  # force IPv4.
+  [ValidateSet('auto', '4', '6')][string]$EdgeIpVersion = 'auto'
 )
 $ErrorActionPreference = 'Stop'
 
@@ -85,6 +89,7 @@ try {
   Remove-Item $tunOut, $tunErr -ErrorAction SilentlyContinue
   $tunnelArgs = @('tunnel', '--url', "http://localhost:$Port")
   if ($Protocol -ne 'auto') { $tunnelArgs += @('--protocol', $Protocol) }
+  if ($EdgeIpVersion -ne 'auto') { $tunnelArgs += @('--edge-ip-version', $EdgeIpVersion) }
   $tunnel = Start-Process -FilePath 'cloudflared' -ArgumentList $tunnelArgs `
     -PassThru -NoNewWindow -RedirectStandardOutput $tunOut -RedirectStandardError $tunErr
 
@@ -110,7 +115,9 @@ try {
   Write-Host '  stop    : press Ctrl+C in this window'
   Write-Host ''
   Write-Host 'running. tunnel warnings, if any, appear below.'
-  Write-Host 'if you see "Allow outbound QUIC traffic on port 7844", stop and rerun with -Protocol http2.'
+  Write-Host 'if the log repeats "Serve tunnel error", stop and rerun with:'
+  Write-Host '  -Protocol http2                  (the network blocks QUIC on UDP 7844)'
+  Write-Host '  -Protocol http2 -EdgeIpVersion 4 (and it has no working IPv6 route)'
 
   # 5. Stay up until Ctrl+C or until either process dies, surfacing only real problems.
   $offset = 0

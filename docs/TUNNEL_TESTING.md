@@ -103,6 +103,26 @@ macOS / Linux では環境変数で指定します。
 PROTOCOL=http2 ./scripts/start-tunnel.sh '<キー>'
 ```
 
+**`dial tcp [2606:4700:...]:7844: i/o timeout` と出る**
+
+Cloudflare のエッジが IPv6 で解決されているのに、その回線が IPv6 を通していません。IPv4 を強制します。
+
+```powershell
+.\scripts\start-tunnel.ps1 -TeacherKey <キー> -Protocol http2 -EdgeIpVersion 4
+```
+
+```sh
+PROTOCOL=http2 EDGE_IP_VERSION=4 ./scripts/start-tunnel.sh '<キー>'
+```
+
+**それでもポート 7844 に届かない**
+
+回線が 7844 番を塞いでいます。切り分けと回避策は次のとおりです。
+
+- スマホのテザリングに切り替えて再実行する。通ればルーター側の制限が原因
+- Windows ファイアウォールで cloudflared の送信を許可する
+- どちらも駄目なら Fly.io にデプロイする。通常の HTTPS だけを使うのでこの問題は起きない
+
 **`port ... is already in use`**
 
 前回の起動が別のウィンドウで動いたままです。そのウィンドウで Ctrl+C を押すか、別のポートを指定します。

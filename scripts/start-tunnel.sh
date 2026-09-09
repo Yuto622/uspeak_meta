@@ -46,6 +46,8 @@ echo "==> opening the Cloudflare tunnel (this can take a few seconds)"
 # PROTOCOL=http2 falls back to TCP when the network blocks QUIC on UDP 7844.
 CF_ARGS=(tunnel --url "http://localhost:${PORT}")
 [ -n "${PROTOCOL:-}" ] && CF_ARGS+=(--protocol "$PROTOCOL")
+# EDGE_IP_VERSION=4 forces IPv4 when the network has no working IPv6 route.
+[ -n "${EDGE_IP_VERSION:-}" ] && CF_ARGS+=(--edge-ip-version "$EDGE_IP_VERSION")
 cloudflared "${CF_ARGS[@]}" 2>&1 | while IFS= read -r line; do
   if [[ "$line" =~ (https://[a-z0-9-]+\.trycloudflare\.com) ]]; then
     echo
