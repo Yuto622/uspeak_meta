@@ -14,6 +14,7 @@
     "test": "node --test test/*.test.mjs",
     "test:e2e": "node test/e2e/browser-sync.mjs",
     "test:scale": "node test/e2e/browser-scale.mjs 99",
+    "test:layout": "node test/e2e/browser-layout.mjs",
     "vendor": "node scripts/vendor-client-sdk.mjs",
     "loadtest": "node loadtest/run.mjs"
   },

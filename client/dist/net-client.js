@@ -54,7 +54,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
   function setMode(mode) {
     state.mode = mode;
     const count = room?.state?.players?.size || 0;
-    if (mode === 'online') chip.set('online', `オンライン · ${count}人`);
+    if (mode === 'online') chip.set('online', 'オンライン');
     else if (mode === 'reconnecting') chip.set('reconnecting', '再接続中…');
     else if (mode === 'connecting') chip.set('reconnecting', '接続中…');
     else chip.set('offline', 'オフライン');
@@ -355,17 +355,26 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     el.id = 'net-status';
     el.type = 'button';
     el.className = 'offline';
-    el.innerHTML = '<i></i><span>オフライン</span>';
+    el.innerHTML = '<i></i><b class="net-count" hidden></b><span class="net-label">オフライン</span>';
     el.onclick = () => {
       if (state.mode === 'online' || state.mode === 'reconnecting') {
         if (confirm('クラスから退出してオフラインで遊びますか？')) goOffline(true);
       } else lobby.open({ name: state.name });
     };
     document.body.append(el);
+    // The count lives in its own element so narrow screens can hide the words
+    // and still show how many people are in the room (see mobile.css).
+    const write = (cls, label, n) => {
+      el.className = cls;
+      el.querySelector('.net-label').textContent = label;
+      const b = el.querySelector('.net-count');
+      b.textContent = n == null ? '' : `${n}人`;
+      b.hidden = n == null;
+    };
     return {
-      set(cls, text) { el.className = cls; el.querySelector('span').textContent = text; },
-      count(n) { if (state.mode === 'online') el.querySelector('span').textContent = `オンライン · ${n}人`; },
-      refresh() { if (state.mode === 'online' && room) el.querySelector('span').textContent = `オンライン · ${room.state.players.size}人`; },
+      set(cls, text) { write(cls, text, cls === 'online' ? (room?.state?.players?.size ?? 1) : null); },
+      count(n) { if (state.mode === 'online') write('online', 'オンライン', n); },
+      refresh() { if (state.mode === 'online' && room) write('online', 'オンライン', room.state.players.size); },
     };
   }
 

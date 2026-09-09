@@ -52,6 +52,7 @@ cd server && npm test           # 判定・経済・Sheetsストア・ルーム�
 cd client && node tests/regression.mjs   # 既存 1 人用ゲームの回帰テスト
 cd server && npm run test:e2e   # 実ブラウザ3画面（先生+生徒2）の同期・再接続テスト。要 Playwright（npm i -D playwright && npx playwright install chromium）
 cd server && npm run test:scale # 実ブラウザ1画面 + ボット99接続（100人在室）の描画予算・復帰テスト
+cd server && npm run test:layout # スマホ・iPad 5サイズでの画面崩れ検査（はみ出し・要素の重なりを自動判定）
 ```
 
 ### 負荷テスト（25 接続・10 分）
@@ -189,9 +190,31 @@ fly logs
 | `fishing.js` / `adventure.js` | 回答時のフック 1 行ずつ |
 | `fishing-state.js` | 売買時のフック、サーバー値で上書きする `reconcile()` |
 | `rpg.js` | `activate(id, placePlayer, force)` の第 3 引数、`syncBuddy` 公開 |
-| 新規 | `net-config.js` `net-hooks.js` `net-client.js` `remote-players.js` `chat.js` `teacher.js` `lobby.js` `net.css` `phrases.json` `lesson-data.js` `vendor/colyseus.js` |
+| `index.html` | 右側のボタン群を `.right-rail` でまとめ、`viewport-fit=cover` を追加 |
+| 新規 | `net-config.js` `net-hooks.js` `net-client.js` `remote-players.js` `chat.js` `teacher.js` `lobby.js` `net.css` `mobile.css` `phrases.json` `lesson-data.js` `vendor/colyseus.js` |
 
 既存の localStorage 保存キーと 1 人用の挙動は変えていません。オンライン時はコイン・所持品がサーバーの値で上書きされます。
+
+## スマホ・タブレット対応
+
+`client/dist/mobile.css` が端末サイズ別の調整をまとめて担当します。デスクトップの見た目は変えていません。
+
+| 直した点 | 内容 |
+|---|---|
+| 移動ボタンが出ない | 画面幅600px以下でしか表示されず、iPad と横向きスマホでは指で歩けなかった。タッチ端末なら常に表示するよう変更 |
+| ホットバーの見切れ | 画面下のメニューが16pxはみ出していた。中央寄せのレイアウトに変更して全体を表示 |
+| 右側ボタンの画面外配置 | 地図・カメラ・RPG・釣り・図鑑が固定の縦位置で並び、横向きでは画面外に出ていた。1本の縦並び（`.right-rail`）にまとめ、入り切らない場合はスクロール |
+| クエストパネルの重なり | 内容が伸びて移動ボタンに重なっていた。高さに上限を付けてスクロール |
+| ノッチ・ホームバー | `env(safe-area-inset-*)` で iPhone の切り欠きを回避 |
+| マルチプレイUI | 接続状況の表示を「● 3人」に圧縮し、チャットと先生ボタンを移動ボタンと同じ帯の反対側へ配置 |
+
+検証は5サイズ（iPhone 縦横、小型スマホ、iPad 縦横）で自動化してあります。
+
+```sh
+cd server && npm run test:layout
+```
+
+はみ出しと要素の重なりを検出し、`server/loadtest-results/layout-*.png` にスクリーンショットを保存します。
 
 ## 既知の制約
 

@@ -1,0 +1,221 @@
+/* Phone and tablet layout corrections.
+   Loaded after every other stylesheet so these rules win on equal specificity.
+   Desktop (fine pointer, tall viewport) is left exactly as it was. */
+
+/* --- 1. On-screen movement pad on every touch device -----------------------
+   The original rule only showed the pad below 600px wide, so iPads and phones
+   in landscape had no way to walk without a keyboard. Bind it to the pointer
+   type instead of the width. */
+@media (pointer: coarse) {
+  .control-hint { display: none; }
+  .mobile-pad {
+    display: block;
+    position: fixed;
+    z-index: 4;
+    text-align: center;
+    left: calc(16px + env(safe-area-inset-left));
+    bottom: calc(142px + env(safe-area-inset-bottom));
+  }
+  .mobile-pad div { display: flex; }
+  .mobile-pad button {
+    width: 46px;
+    height: 46px;
+    margin: 3px;
+    font-size: 17px;
+    border: 1px solid #fff8;
+    background: #fcfbe4d0;
+    border-radius: 12px;
+    touch-action: none;
+  }
+}
+
+/* --- 2. Notch and home indicator ------------------------------------------ */
+@media (pointer: coarse) {
+  header {
+    top: calc(16px + env(safe-area-inset-top));
+    left: calc(16px + env(safe-area-inset-left));
+    right: calc(16px + env(safe-area-inset-right));
+  }
+  /* The hotbar is absolutely positioned inside a flex row whose other children are
+     hidden on touch, so the row collapses to zero height and the bar hangs off the
+     bottom of the screen. Put it back in flow and centre it with the flex row. */
+  .bottom {
+    bottom: calc(19px + env(safe-area-inset-bottom));
+    justify-content: center;
+  }
+  .hotbar { position: static; transform: none; }
+  .near { bottom: calc(96px + env(safe-area-inset-bottom)); }
+  .near button { max-width: calc(100vw - 220px); }
+}
+
+/* --- 3. Multiplayer controls ----------------------------------------------
+   The status chip and the two round buttons share the movement pad's band on
+   the opposite edge, so they never land on the game's own right-hand stack. */
+@media (pointer: coarse), (max-width: 650px) {
+  #net-status,
+  #net-chat-button,
+  #net-teacher-button {
+    top: auto;
+    bottom: calc(142px + env(safe-area-inset-bottom));
+  }
+  #net-chat-button { right: calc(12px + env(safe-area-inset-right)); }
+  #net-teacher-button { right: calc(66px + env(safe-area-inset-right)); }
+  #net-status {
+    right: calc(120px + env(safe-area-inset-right));
+    height: 46px;
+    box-sizing: border-box;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+  /* Online is the steady state: show just the dot and the head count so the
+     chip stays narrow. Transient states keep their words. */
+  #net-status.online .net-label { display: none; }
+  #net-status .net-count { font-weight: 700; }
+  #net-chat,
+  #net-teacher {
+    left: calc(10px + env(safe-area-inset-left));
+    right: calc(10px + env(safe-area-inset-right));
+    width: auto;
+    bottom: calc(196px + env(safe-area-inset-bottom));
+    max-height: calc(100vh - 270px);
+    max-height: calc(100dvh - 270px);
+  }
+  #net-lobby { padding: 22px 20px; }
+  #net-lobby h2 { font-size: 21px; }
+  .net-lobby-actions button { padding: 15px 16px; }
+  #net-call { top: calc(96px + env(safe-area-inset-top)); flex-wrap: wrap; justify-content: center; }
+}
+
+/* Single column of phrases on the narrowest screens. */
+@media (max-width: 420px) {
+  #net-chat-phrases { grid-template-columns: 1fr; }
+}
+
+/* --- 4. The right-hand rail ------------------------------------------------
+   On desktop the minimap, the camera toggles and the three action buttons are
+   five separately positioned fixed elements, each with its own top offset that
+   assumes a tall screen. On touch screens they become one scrollable column
+   instead, so nothing can fall off the bottom at any height. */
+@media (pointer: coarse) {
+  .right-rail {
+    position: fixed;
+    z-index: 3;
+    right: calc(14px + env(safe-area-inset-right));
+    top: calc(84px + env(safe-area-inset-top));
+    bottom: calc(196px + env(safe-area-inset-bottom));
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    pointer-events: none;
+  }
+  .right-rail::-webkit-scrollbar { display: none; }
+  .right-rail > * {
+    position: static;
+    width: 100%;
+    margin: 0;
+    flex: none;
+    pointer-events: auto;
+  }
+  .right-rail .map-panel { flex: none; }
+  .right-rail .scenery-controls { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .right-rail .scenery-controls button { font-size: 11px; padding: 8px 4px; }
+  /* Stack each button's label and its counter so a narrow rail never breaks a
+     word in half. */
+  .right-rail > button {
+    padding: 10px 8px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    line-height: 1.3;
+  }
+}
+
+/* Below roughly an iPhone's height the rail would have to scroll to reach the
+   three action buttons, so the minimap goes first: it is decorative, and the
+   full map is one tap away on the hotbar. */
+@media (pointer: coarse) and (max-height: 780px) {
+  .right-rail .map-panel { display: none; }
+}
+
+/* Narrow phones: keep the rail and the quest panel from touching. */
+@media (pointer: coarse) and (max-width: 420px) {
+  .right-rail { width: 132px; }
+  .quest-panel,
+  .park-panel,
+  #rpg-region-panel { width: 176px; }
+  .right-rail .scenery-controls button { font-size: 10px; padding: 7px 3px; }
+}
+
+/* Landscape phones are too short for the camera toggles as well; drop them so
+   the three action buttons always stay reachable. */
+@media (pointer: coarse) and (max-height: 560px) {
+  .right-rail {
+    top: calc(74px + env(safe-area-inset-top));
+    bottom: calc(150px + env(safe-area-inset-bottom));
+    width: 132px;
+  }
+  .right-rail .scenery-controls { display: none; }
+  .right-rail > button { font-size: 11px; padding: 8px 6px; }
+}
+
+/* --- 5. The left panel -----------------------------------------------------
+   The quest list grows with its content and would otherwise run under the
+   movement pad. Cap it and let it scroll. */
+@media (pointer: coarse) {
+  .quest-panel,
+  .park-panel,
+  #rpg-region-panel {
+    /* Ends above the movement pad at every height: the pad sits 142px up and is
+       about 104px tall, and the panel starts 118px down. */
+    max-height: calc(100vh - 380px);
+    max-height: calc(100dvh - 380px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+@media (pointer: coarse) and (max-height: 560px) {
+  .quest-panel,
+  .park-panel,
+  #rpg-region-panel {
+    /* Ends above the movement pad, which is 16px up and about 88px tall here. */
+    max-height: calc(100vh - 240px);
+    max-height: calc(100dvh - 240px);
+    width: 210px;
+  }
+  .mobile-pad { bottom: calc(16px + env(safe-area-inset-bottom)); }
+  .mobile-pad button { width: 40px; height: 40px; margin: 2px; }
+  /* The centred hotbar owns the bottom strip, so everything else stacks above it. */
+  .near { bottom: calc(150px + env(safe-area-inset-bottom)); }
+  #net-status,
+  #net-chat-button,
+  #net-teacher-button { bottom: calc(96px + env(safe-area-inset-bottom)); }
+  #net-chat-button { right: calc(176px + env(safe-area-inset-right)); }
+  #net-teacher-button { right: calc(230px + env(safe-area-inset-right)); }
+  #net-status { right: calc(284px + env(safe-area-inset-right)); }
+  #net-chat,
+  #net-teacher {
+    bottom: calc(150px + env(safe-area-inset-bottom));
+    max-height: calc(100vh - 230px);
+    max-height: calc(100dvh - 230px);
+  }
+}
+
+/* --- 6. Dialogs ------------------------------------------------------------
+   Long dialogs must scroll rather than overflow the screen. */
+@media (pointer: coarse) {
+  dialog {
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    overscroll-behavior: contain;
+  }
+}
