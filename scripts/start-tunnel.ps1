@@ -22,6 +22,15 @@ if (-not (Get-Command cloudflared -ErrorAction SilentlyContinue)) {
   throw 'cloudflared not found. Install it (winget install --id Cloudflare.cloudflared) and reopen PowerShell.'
 }
 
+# An earlier run left running in another window would otherwise fail deep inside the
+# server with a raw EADDRINUSE stack trace.
+$busy = Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue
+if ($busy) {
+  $owner = ($busy | Select-Object -First 1).OwningProcess
+  $name = (Get-Process -Id $owner -ErrorAction SilentlyContinue).ProcessName
+  throw "port $Port is already in use by process $owner ($name), most likely an earlier run of this script. Close that PowerShell window, or start this one on another port:  .\scripts\start-tunnel.ps1 -TeacherKey <key> -Port $($Port + 1)"
+}
+
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..')
 $serverDir = Join-Path $repo 'server'
 $logDir = Join-Path $repo '.tunnel-logs'

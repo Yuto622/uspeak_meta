@@ -15,6 +15,14 @@ PORT="${2:-2567}"
 command -v node >/dev/null || { echo "Node.js not found" >&2; exit 1; }
 command -v cloudflared >/dev/null || { echo "cloudflared not found: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/" >&2; exit 1; }
 
+# An earlier run still listening would otherwise fail with a raw EADDRINUSE trace.
+if (command -v lsof >/dev/null && lsof -iTCP:"$PORT" -sTCP:LISTEN -t >/dev/null 2>&1) \
+  || (command -v ss >/dev/null && ss -ltn "sport = :$PORT" 2>/dev/null | grep -q LISTEN); then
+  echo "port $PORT is already in use, most likely an earlier run of this script." >&2
+  echo "stop it, or start this one on another port:  $0 <teacher-key> $((PORT + 1))" >&2
+  exit 1
+fi
+
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO/server"
 # A partial node_modules (interrupted install) must not be mistaken for a finished one.
