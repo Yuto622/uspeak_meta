@@ -29,12 +29,15 @@ New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $outLog = Join-Path $logDir 'server.out.log'
 $errLog = Join-Path $logDir 'server.err.log'
 
-# 1. Dependencies (first run only).
-if (-not (Test-Path (Join-Path $serverDir 'node_modules'))) {
-  Write-Host '==> installing server dependencies (first run only)'
+# 1. Dependencies. Check for a real entry point, not just the folder: an install that
+#    was interrupted (closed window, flat battery) leaves a partial node_modules behind.
+$marker = Join-Path $serverDir 'node_modules\colyseus\package.json'
+if (-not (Test-Path $marker)) {
+  Write-Host '==> installing server dependencies (a few minutes on the first run)'
   Push-Location $serverDir
   try { npm ci } finally { Pop-Location }
-  if ($LASTEXITCODE -ne 0) { throw 'npm ci failed' }
+  if ($LASTEXITCODE -ne 0) { throw 'npm ci failed. Run it by hand in the server folder to see the error.' }
+  if (-not (Test-Path $marker)) { throw 'dependencies are still incomplete after npm ci' }
 }
 
 # 2. Start the server. Development mode, so any origin is accepted: the page and the

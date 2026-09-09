@@ -17,7 +17,9 @@ command -v cloudflared >/dev/null || { echo "cloudflared not found: https://deve
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO/server"
-[ -d node_modules ] || { echo "==> installing server dependencies (first run only)"; npm ci; }
+# A partial node_modules (interrupted install) must not be mistaken for a finished one.
+[ -f node_modules/colyseus/package.json ] || { echo "==> installing server dependencies (a few minutes on the first run)"; npm ci; }
+[ -f node_modules/colyseus/package.json ] || { echo "dependencies are still incomplete after npm ci" >&2; exit 1; }
 
 echo "==> starting server on port $PORT"
 TEACHER_KEY="$TEACHER_KEY" PORT="$PORT" NODE_ENV=development STORE_BACKEND=file node src/index.js &
