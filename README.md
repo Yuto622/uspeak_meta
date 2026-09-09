@@ -100,15 +100,25 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 
 ## Fly.io へのデプロイ（東京 nrt）
 
+付属のスクリプトが、アプリ作成・`fly.toml` のアプリ名と `CORS_ORIGINS` の同期・シークレット設定・デプロイ・疎通確認までを行います。
+
 ```sh
-# 初回
+# 初回も2回目以降も同じコマンド（アプリ名は世界で一意。取られていたら別名にする）
+./scripts/deploy-fly.sh uspeak-multiplayer '8文字以上の講師キー'
+
+# Google スプレッドシートも一緒に設定する場合
+export GOOGLE_SHEET_ID='<スプレッドシートID>'
+export GOOGLE_SERVICE_ACCOUNT_JSON="$(base64 -w0 service-account.json)"
+./scripts/deploy-fly.sh uspeak-multiplayer '8文字以上の講師キー'
+```
+
+手動で行う場合は次のとおりです。
+
+```sh
 fly launch --copy-config --no-deploy --name uspeak-multiplayer --region nrt
 fly secrets set TEACHER_KEY='<8文字以上の講師キー>' \
   CORS_ORIGINS='https://uspeak-multiplayer.fly.dev' \
   GOOGLE_SHEET_ID='<スプレッドシートID>' GOOGLE_SERVICE_ACCOUNT_JSON="$(base64 -w0 service-account.json)"
-fly deploy
-
-# 2回目以降
 fly deploy
 ```
 
