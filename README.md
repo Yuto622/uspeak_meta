@@ -103,13 +103,26 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 付属のスクリプトが、アプリ作成・`fly.toml` のアプリ名と `CORS_ORIGINS` の同期・シークレット設定・デプロイ・疎通確認までを行います。
 
 ```sh
-# 初回も2回目以降も同じコマンド（アプリ名は世界で一意。取られていたら別名にする）
+# macOS / Linux（初回も2回目以降も同じコマンド。アプリ名は世界で一意、取られていたら別名にする）
 ./scripts/deploy-fly.sh uspeak-multiplayer '8文字以上の講師キー'
 
 # Google スプレッドシートも一緒に設定する場合
 export GOOGLE_SHEET_ID='<スプレッドシートID>'
 export GOOGLE_SERVICE_ACCOUNT_JSON="$(base64 -w0 service-account.json)"
 ./scripts/deploy-fly.sh uspeak-multiplayer '8文字以上の講師キー'
+```
+
+Windows PowerShell の場合は同じ内容の `.ps1` を使います。
+
+```powershell
+.\scripts\deploy-fly.ps1 uspeak-multiplayer '8文字以上の講師キー'
+```
+
+Windows には git と flyctl が必要です。どちらも入っていなければ次で導入し、PowerShell を開き直してください。
+
+```powershell
+winget install --id Git.Git -e --source winget
+powershell -Command "iwr https://fly.io/install.ps1 -useb | iex"
 ```
 
 手動で行う場合は次のとおりです。
