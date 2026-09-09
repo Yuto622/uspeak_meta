@@ -43,7 +43,10 @@ curl -fsS "http://127.0.0.1:${PORT}/healthz" >/dev/null || { echo "the server di
 echo "==> server is healthy"
 
 echo "==> opening the Cloudflare tunnel (this can take a few seconds)"
-cloudflared tunnel --url "http://localhost:${PORT}" 2>&1 | while IFS= read -r line; do
+# PROTOCOL=http2 falls back to TCP when the network blocks QUIC on UDP 7844.
+CF_ARGS=(tunnel --url "http://localhost:${PORT}")
+[ -n "${PROTOCOL:-}" ] && CF_ARGS+=(--protocol "$PROTOCOL")
+cloudflared "${CF_ARGS[@]}" 2>&1 | while IFS= read -r line; do
   if [[ "$line" =~ (https://[a-z0-9-]+\.trycloudflare\.com) ]]; then
     echo
     echo "======================================================="

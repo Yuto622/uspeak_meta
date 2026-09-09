@@ -86,6 +86,31 @@ npm ci
 このウィンドウで **Ctrl+C** を押します。サーバーが止まり、URL も使えなくなります。
 次に起動すると URL は別のものになるので、生徒に配り直す必要があります。
 
+## つながらないとき
+
+**`Allow outbound QUIC traffic on port 7844` と出て URL が反応しない**
+
+cloudflared は既定で QUIC（UDP 7844）を使います。これを塞いでいるネットワークでは接続できません。
+Ctrl+C で止めて、HTTP/2（TCP）に切り替えて起動し直してください。
+
+```powershell
+.\scripts\start-tunnel.ps1 -TeacherKey <キー> -Protocol http2
+```
+
+macOS / Linux では環境変数で指定します。
+
+```sh
+PROTOCOL=http2 ./scripts/start-tunnel.sh '<キー>'
+```
+
+**`port ... is already in use`**
+
+前回の起動が別のウィンドウで動いたままです。そのウィンドウで Ctrl+C を押すか、別のポートを指定します。
+
+```powershell
+.\scripts\start-tunnel.ps1 -TeacherKey <キー> -Port 2568
+```
+
 ## 注意点
 
 - **PC をスリープさせない**こと。スリープすると全員切断されます。電源設定で「スリープしない」にしてください。

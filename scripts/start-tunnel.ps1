@@ -10,7 +10,11 @@
 # For classroom use deploy with scripts/deploy-fly.ps1 instead.
 param(
   [Parameter(Mandatory = $true)][string]$TeacherKey,
-  [int]$Port = 2567
+  [int]$Port = 2567,
+  # cloudflared reaches Cloudflare over QUIC (UDP 7844) by default. Networks that
+  # block UDP report "Allow outbound QUIC traffic on port 7844 or use HTTP2" and the
+  # tunnel never serves; pass -Protocol http2 to fall back to TCP.
+  [ValidateSet('auto', 'http2', 'quic')][string]$Protocol = 'auto'
 )
 $ErrorActionPreference = 'Stop'
 
@@ -79,7 +83,9 @@ try {
   $tunOut = Join-Path $logDir 'tunnel.out.log'
   $tunErr = Join-Path $logDir 'tunnel.err.log'
   Remove-Item $tunOut, $tunErr -ErrorAction SilentlyContinue
-  $tunnel = Start-Process -FilePath 'cloudflared' -ArgumentList @('tunnel', '--url', "http://localhost:$Port") `
+  $tunnelArgs = @('tunnel', '--url', "http://localhost:$Port")
+  if ($Protocol -ne 'auto') { $tunnelArgs += @('--protocol', $Protocol) }
+  $tunnel = Start-Process -FilePath 'cloudflared' -ArgumentList $tunnelArgs `
     -PassThru -NoNewWindow -RedirectStandardOutput $tunOut -RedirectStandardError $tunErr
 
   $url = $null
@@ -104,6 +110,7 @@ try {
   Write-Host '  stop    : press Ctrl+C in this window'
   Write-Host ''
   Write-Host 'running. tunnel warnings, if any, appear below.'
+  Write-Host 'if you see "Allow outbound QUIC traffic on port 7844", stop and rerun with -Protocol http2.'
 
   # 5. Stay up until Ctrl+C or until either process dies, surfacing only real problems.
   $offset = 0
