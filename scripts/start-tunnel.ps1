@@ -1,7 +1,7 @@
 # Run the multiplayer server on this PC and expose it to the internet through a free
 # Cloudflare quick tunnel. No cloud account and no credit card needed.
 #
-#   .\scripts\start-tunnel.ps1 'teacher-password'
+#   .\scripts\start-tunnel.ps1 -TeacherKey teacher-password
 #
 # Prints an https URL that iPads can open from anywhere. Press Ctrl+C to stop:
 # the tunnel closes, the server stops, and the URL stops working.
@@ -47,6 +47,7 @@ $env:PORT = "$Port"
 $env:NODE_ENV = 'development'
 $env:STORE_BACKEND = 'file'
 Write-Host "==> starting server on port $Port"
+$tunnel = $null
 $server = Start-Process -FilePath 'node' -ArgumentList 'src/index.js' -WorkingDirectory $serverDir `
   -PassThru -NoNewWindow -RedirectStandardOutput $outLog -RedirectStandardError $errLog
 
@@ -61,29 +62,56 @@ try {
   if (-not $ready) { Get-Content $errLog -Tail 20; throw 'the server did not become healthy' }
   Write-Host '==> server is healthy'
 
-  # 4. Open the tunnel and surface the public URL as soon as cloudflared prints it.
+  # 4. Open the tunnel. cloudflared writes its banner and the public URL to stderr, and
+  #    piping a native command's stderr into PowerShell turns every line into an error
+  #    record, which aborts the script under $ErrorActionPreference = 'Stop'. So capture
+  #    both streams to files and read the URL out of them instead.
   Write-Host '==> opening the Cloudflare tunnel (this can take a few seconds)'
-  Write-Host ''
-  $shown = $false
-  & cloudflared tunnel --url "http://localhost:$Port" 2>&1 | ForEach-Object {
-    $line = "$_"
-    if (-not $shown -and $line -match 'https://[a-z0-9-]+\.trycloudflare\.com') {
-      $url = $Matches[0]
-      $shown = $true
-      Write-Host ''
-      Write-Host '======================================================='
-      Write-Host "  open this on the iPads:  $url"
-      Write-Host '======================================================='
-      Write-Host '  students: name + class code'
-      Write-Host '  teacher : same page, open 先生用 and enter the key'
-      Write-Host '  stop    : press Ctrl+C in this window'
-      Write-Host ''
-    }
-    Write-Host $line
+  $tunOut = Join-Path $logDir 'tunnel.out.log'
+  $tunErr = Join-Path $logDir 'tunnel.err.log'
+  Remove-Item $tunOut, $tunErr -ErrorAction SilentlyContinue
+  $tunnel = Start-Process -FilePath 'cloudflared' -ArgumentList @('tunnel', '--url', "http://localhost:$Port") `
+    -PassThru -NoNewWindow -RedirectStandardOutput $tunOut -RedirectStandardError $tunErr
+
+  $url = $null
+  for ($i = 0; $i -lt 60; $i++) {
+    Start-Sleep -Milliseconds 700
+    $text = ((Get-Content $tunOut, $tunErr -Raw -ErrorAction SilentlyContinue) -join "`n")
+    if ($text -match 'https://[a-z0-9-]+\.trycloudflare\.com') { $url = $Matches[0]; break }
+    if ($tunnel.HasExited) { break }
   }
+  if (-not $url) {
+    Write-Host '--- cloudflared output ---'
+    Get-Content $tunErr -Tail 25 -ErrorAction SilentlyContinue
+    throw 'the tunnel did not report a URL'
+  }
+
+  Write-Host ''
+  Write-Host '======================================================='
+  Write-Host "  open this on the iPads:  $url"
+  Write-Host '======================================================='
+  Write-Host '  students: name + class code'
+  Write-Host '  teacher : same page, open the teacher section and enter the key'
+  Write-Host '  stop    : press Ctrl+C in this window'
+  Write-Host ''
+  Write-Host 'running. tunnel warnings, if any, appear below.'
+
+  # 5. Stay up until Ctrl+C or until either process dies, surfacing only real problems.
+  $offset = 0
+  while (-not $tunnel.HasExited -and -not $server.HasExited) {
+    Start-Sleep -Seconds 2
+    $lines = @(Get-Content $tunErr -ErrorAction SilentlyContinue)
+    if ($lines.Count -gt $offset) {
+      $lines[$offset..($lines.Count - 1)] | Where-Object { $_ -match 'ERR|WRN' } | ForEach-Object { Write-Host $_ }
+      $offset = $lines.Count
+    }
+  }
+  if ($server.HasExited) { Write-Warning 'the server stopped'; Get-Content $errLog -Tail 20 -ErrorAction SilentlyContinue }
+  if ($tunnel.HasExited) { Write-Warning 'the tunnel stopped'; Get-Content $tunErr -Tail 20 -ErrorAction SilentlyContinue }
 } finally {
   Write-Host ''
-  Write-Host '==> stopping the server'
+  Write-Host '==> stopping the tunnel and the server'
+  if ($tunnel -and -not $tunnel.HasExited) { Stop-Process -Id $tunnel.Id -Force -ErrorAction SilentlyContinue }
   if ($server -and -not $server.HasExited) { Stop-Process -Id $server.Id -Force -ErrorAction SilentlyContinue }
   Write-Host 'the tunnel URL no longer works. progress is saved in server/data/store.json.'
 }
