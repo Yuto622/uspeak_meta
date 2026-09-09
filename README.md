@@ -32,9 +32,10 @@
 cd server
 npm ci
 cp ../.env.example .env         # TEACHER_KEY などを編集
-npm run vendor                  # client/dist/vendor/colyseus.js を生成（初回とSDK更新時のみ）
 npm start                       # http://localhost:2567
 ```
+
+`client/dist/vendor/colyseus.js`（ブラウザ用 SDK）はコミット済みです。SDK を更新したときだけ `npm run vendor` で再生成します。
 
 ブラウザで http://localhost:2567 を開き、アバターを選び、ロビーで名前とクラスコードを入れて参加します。
 別タブ／別端末（同じ LAN なら `http://<PCのIP>:2567`）で同じクラスコードを入れると同期します。

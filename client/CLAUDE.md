@@ -59,3 +59,17 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 長い行にまとまったコードが多いため、整形する場合は機能変更と差分を分けると確認しやすくなります。
 元の公開コミットとファイルハッシュはSOURCE_MANIFEST.json参照。
 実プレイヤーのセーブや認証トークンは同梱していません。
+
+## マルチプレイ層（2026-09 追加）
+
+`net-config.js`（調整定数）/ `net-hooks.js`（ゲーム→通信のイベント）/ `net-client.js`（Colyseus 接続・再接続・20Hz送信）/
+`remote-players.js`（他プレイヤー描画・100ms補間）/ `chat.js` / `teacher.js` / `lobby.js` / `net.css` / `phrases.json`。
+サーバーは `../server/`。ルート README を参照。
+
+- 既存モジュールは `hooks.emit('answer', {q, c})`（game.js / fishing.js / adventure.js）と
+  `hooks.emit('economy', …)`（fishing-state.js）で通信層に通知するだけで、通信層に依存しない。
+- 正誤・コイン・捕獲・購入はオンライン時サーバーが確定し、`fishing.store.reconcile()` で上書きされる。
+- `rpg.activate(id, placePlayer, force)` の `force` は講師の集合で未解放地域へ移動するために追加。
+- `globalThis.uspeak` は実機デバッグ用の参照（`net`, `player`, `rpg`, `fishing`）。
+- 判定データ（`*-data.js`, `lesson-data.js`, `adventure-quiz.js`, `phrases.json`）はサーバーも import する。
+  これらのファイルの形を変えるときは `server/test` を実行すること。
