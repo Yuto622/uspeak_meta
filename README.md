@@ -98,6 +98,22 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 接続先 URL はクライアントに埋め込まれていません。`/config.js`（環境変数から生成）→ `<meta name="uspeak-server">` →
 `?server=` → ページと同じホスト、の順で決まります。https ページでは自動的に `wss://` になります。
 
+## カード登録なしで実機テストする
+
+自分の PC でサーバーを動かし、Cloudflare の無料トンネルで iPad から接続します。手順は `docs/TUNNEL_TESTING.md` を参照してください。
+
+```powershell
+winget install --id OpenJS.NodeJS.LTS -e; winget install --id Cloudflare.cloudflared -e   # 初回のみ、実行後に PowerShell を開き直す
+.\scripts\start-tunnel.ps1 '先生用の8文字以上のパスワード'
+```
+
+```sh
+./scripts/start-tunnel.sh '先生用の8文字以上のパスワード'   # macOS / Linux
+```
+
+表示された `https://....trycloudflare.com` を iPad で開きます。Ctrl+C で停止し、URL は無効になります。
+テスト専用で、URL は起動のたびに変わります。
+
 ## Fly.io へのデプロイ（東京 nrt）
 
 付属のスクリプトが、アプリ作成・`fly.toml` のアプリ名と `CORS_ORIGINS` の同期・シークレット設定・デプロイ・疎通確認までを行います。

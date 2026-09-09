@@ -1,0 +1,101 @@
+# カード登録なしで実機テストする（Cloudflare トンネル）
+
+自分の PC でサーバーを動かし、Cloudflare の無料トンネルでインターネットに公開します。
+クラウドのアカウントもクレジットカードも不要です。iPad から教室外でも接続できます。
+
+**テスト専用です。** URL は起動のたびに変わり、PC を閉じると使えなくなります。
+教室で正式に使うときは `scripts/deploy-fly.ps1` で Fly.io にデプロイしてください。
+
+## 1. 必要なものを入れる（初回のみ）
+
+Windows PowerShell で実行します。
+
+```powershell
+winget install --id Git.Git -e --source winget
+winget install --id OpenJS.NodeJS.LTS -e --source winget
+winget install --id Cloudflare.cloudflared -e --source winget
+```
+
+**インストール後は PowerShell を閉じて開き直してください。** そのあと確認します。
+
+```powershell
+git --version
+node --version
+cloudflared --version
+```
+
+macOS の場合は Homebrew で入ります。
+
+```sh
+brew install git node cloudflared
+```
+
+## 2. コードを取得（初回のみ）
+
+```powershell
+cd $HOME
+git clone https://github.com/Yuto622/uspeak_meta.git
+cd uspeak_meta
+```
+
+## 3. 起動する（毎回）
+
+```powershell
+cd $HOME\uspeak_meta
+.\scripts\start-tunnel.ps1 '先生用の8文字以上のパスワード'
+```
+
+macOS / Linux では次を使います。
+
+```sh
+cd ~/uspeak_meta
+./scripts/start-tunnel.sh '先生用の8文字以上のパスワード'
+```
+
+初回は依存パッケージのインストールで1〜2分かかります。数十秒待つと URL が表示されます。
+
+```
+=======================================================
+  open this on the iPads:  https://xxxx-yyyy-zzzz.trycloudflare.com
+=======================================================
+```
+
+この URL を iPad の Safari で開きます。生徒は名前とクラスコードを入れるだけです。
+先生は同じ URL を開き、ロビーの「先生用」にパスワードを入れます。
+
+## 4. 終了する
+
+このウィンドウで **Ctrl+C** を押します。サーバーが止まり、URL も使えなくなります。
+次に起動すると URL は別のものになるので、生徒に配り直す必要があります。
+
+## 注意点
+
+- **PC をスリープさせない**こと。スリープすると全員切断されます。電源設定で「スリープしない」にしてください。
+- URL を知っている人は誰でも入れます。授業以外の場所に貼らないでください。終了すれば無効になります。
+- PC の上り回線を全員で使います。25人なら常時 100 KB/s 程度なので家庭回線でも足りますが、
+  PC が教室外にある場合は PC 側の回線品質がそのまま遅延になります。
+- 学習記録は `server/data/store.json` に保存されます。Google スプレッドシートに送りたい場合は、
+  起動前に環境変数を設定してください（`docs/GOOGLE_SHEETS_SETUP.md` 参照）。
+
+```powershell
+$env:GOOGLE_SHEET_ID = 'スプレッドシートID'
+$env:GOOGLE_SERVICE_ACCOUNT_JSON = 'base64のサービスアカウントJSON'
+$env:STORE_BACKEND = 'sheets'
+.\scripts\start-tunnel.ps1 '先生用のパスワード'
+```
+
+## 実機テストで何を確認するか
+
+`docs/DEVICE_TEST_CHECKLIST.md` の A 節（接続・同期）と C 節（iPad のバックグラウンド復帰）を
+優先してください。この2つが通れば、Fly.io にデプロイしても同じ挙動になります。
+
+## Fly.io に移行するとき
+
+トンネルで問題がなければ、カードを登録して次を実行するだけです。コードは同じものが動きます。
+
+```powershell
+fly auth login
+.\scripts\deploy-fly.ps1 uspeak-multiplayer '先生用のパスワード'
+```
+
+違いは、URL が固定になること、PC を起動しなくてよいこと、CORS が本番用に絞られることの3点です。
