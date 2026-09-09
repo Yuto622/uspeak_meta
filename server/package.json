@@ -12,6 +12,7 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "test": "node --test test/*.test.mjs",
+    "test:e2e": "node test/e2e/browser-sync.mjs",
     "vendor": "node scripts/vendor-client-sdk.mjs",
     "loadtest": "node loadtest/run.mjs"
   },

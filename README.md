@@ -50,6 +50,7 @@ npm start                       # http://localhost:2567
 ```sh
 cd server && npm test           # 判定・経済・Sheetsストア・ルーム統合（実 WebSocket）
 cd client && node tests/regression.mjs   # 既存 1 人用ゲームの回帰テスト
+cd server && npm run test:e2e   # 実ブラウザ3画面（先生+生徒2）の同期・再接続テスト。要 Playwright（npm i -D playwright && npx playwright install chromium）
 ```
 
 ### 負荷テスト（25 接続・10 分）
