@@ -9,6 +9,7 @@ process.env.ANSWER_MIN_INTERVAL_MS = '0';
 process.env.CHAT_MIN_INTERVAL_MS = '0';
 process.env.MAX_CLIENTS = '3';
 process.env.LOG_LEVEL = 'error';
+process.env.AI_MIN_INTERVAL_MS = '0';
 
 const { startServer } = await import('../src/index.js');
 const { Client } = await import('colyseus.js');
@@ -175,5 +176,70 @@ test('unexpected disconnects keep the seat: token reconnect and same-name takeov
   await takeover.room.leave();
   await assert.rejects(() => new Client(url).joinOrCreate('class', { classCode: 'test-1', name: '   ' }), /name required/);
   await b.room.leave();
+  await sleep(100);
+});
+
+test('the errand quest is judged, rewarded and stamped by the server', async () => {
+  const a = await join('Mio');
+  const t = await join('Sensei2', { teacherKey: 'testkey12345' });
+
+  // The teacher picks today's errand; every client sees it in the shared state.
+  t.room.send('teacher', { cmd: 'mission', id: 'bakery-two-drinks' });
+  assert.equal((await nextMessage(t.room, 'teacher:ack')).ok, true);
+  await waitFor(() => a.room.state.missionId === 'bakery-two-drinks');
+  t.room.send('teacher', { cmd: 'mission', id: 'no-such-mission' });
+  assert.equal((await nextMessage(t.room, 'teacher:ack')).ok, false);
+
+  // A student cannot invent a mission.
+  a.room.send('mission:start', { id: 'no-such-mission' });
+  assert.equal((await nextMessage(a.room, 'mission:error')).reason, 'unknown mission');
+
+  a.room.send('mission:start', { id: 'bakery-two-drinks' });
+  const opened = await nextMessage(a.room, 'mission:opened');
+  assert.equal(opened.character, 'Oliver');
+  assert.equal(opened.goals.length, 3);
+  assert.ok(opened.opening.length > 0);
+  assert.ok(opened.turnLimit >= 2);
+
+  // Without an API key the scripted partner runs, so the flow is deterministic:
+  // it credits a goal when the child's words match that goal's example sentence.
+  const coinsBefore = a.welcome.wallet.coins;
+  a.room.send('mission:say', { text: "I'd like a juice please" });
+  let m = await nextMessage(a.room, 'mission:turn');
+  assert.deepEqual(m.goalsMet, ['ask']);
+  assert.equal(m.complete, false);
+  assert.equal(m.turn, 1);
+  assert.ok(m.reply.length > 0);
+
+  a.room.send('mission:say', { text: 'Two please' });
+  m = await nextMessage(a.room, 'mission:turn');
+  assert.deepEqual(m.goalsMet.sort(), ['ask', 'two']);
+  assert.equal(m.complete, false);
+
+  a.room.send('mission:say', { text: 'Thank you' });
+  m = await nextMessage(a.room, 'mission:turn');
+  assert.equal(m.complete, true);
+  assert.equal(m.reward, 30);
+  assert.equal(m.wallet.coins, coinsBefore + 30);
+  assert.ok(m.missionsDone.includes('bakery-two-drinks'), 'the clear is stamped');
+
+  // The reward is the server's to give: a client asking for it is refused.
+  a.room.send('economy', { op: 'award', amount: 9999 });
+  const w = await nextMessage(a.room, 'wallet');
+  assert.equal(w.ok, false);
+  assert.equal(w.wallet.coins, coinsBefore + 30);
+
+  // An empty utterance is ignored, and talking after the clear does nothing.
+  a.room.send('mission:say', { text: '   ' });
+  a.room.send('mission:say', { text: 'Hello again' });
+  await sleep(200);
+
+  // The stamp and the coins survive a rejoin.
+  await a.room.leave();
+  await sleep(100);
+  const again = await join('Mio');
+  assert.equal(again.welcome.wallet.coins, coinsBefore + 30);
+  assert.ok(again.welcome.missionsDone.includes('bakery-two-drinks'));
+  await Promise.all([again.room.leave(), t.room.leave()]);
   await sleep(100);
 });

@@ -8,6 +8,8 @@ import { judge, xpFor, JudgeError } from '../game/judge.js';
 import { applyOp, sanitizeWallet, EconomyError } from '../game/economy.js';
 import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
+import { MISSIONS } from '../game/missions.js';
+import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002 };
@@ -71,6 +73,9 @@ export class ClassRoom extends Room {
     this.onMessage('progress', (client, msg) => this.onProgress(client, msg));
     this.onMessage('chat', (client, msg) => this.onChat(client, msg));
     this.onMessage('teacher', (client, msg) => this.onTeacher(client, msg));
+    this.onMessage('mission:start', (client, msg) => this.onMissionStart(client, msg));
+    this.onMessage('mission:say', (client, msg) => this.onMissionSay(client, msg));
+    this.onMessage('mission:quit', (client) => this.onMissionQuit(client));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -78,6 +83,7 @@ export class ClassRoom extends Room {
     this.onMessage('wallet:get', (client) => client.send('wallet', { ok: true, op: 'get', ...this.walletPayload(client.sessionId) }));
     this.onMessage('ping', (client, t) => client.send('pong', { t, server: Date.now() }));
 
+    this.tutor = options.tutor || createTutor();
     this.lastPersistAll = Date.now();
     this.setSimulationInterval(() => this.tick(), 1000);
     log.info(`[room ${this.roomId}] created class=${this.classCode} max=${this.maxClients} patch=${config.patchRateMs}ms`);
@@ -247,7 +253,7 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(client.sessionId);
     if (!priv || !msg || typeof msg !== 'object') return;
     const op = { type: String(msg.op || ''), id: typeof msg.id === 'string' ? msg.id.slice(0, 40) : undefined, quantity: msg.quantity };
-    if (op.type === 'catch') { client.send('wallet', { ok: false, op: op.type, error: 'catches are awarded by answers', ...this.walletPayload(client.sessionId) }); return; }
+    if (op.type === 'catch' || op.type === 'award') { client.send('wallet', { ok: false, op: op.type, error: 'this reward is granted by the server', ...this.walletPayload(client.sessionId) }); return; }
     try {
       const entry = applyOp(priv.wallet, op);
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
@@ -316,6 +322,15 @@ export class ClassRoom extends Room {
         client.send('teacher:ack', { cmd, ok: true, paused: this.state.chatPaused });
         return;
       }
+      case 'mission': {
+        const id = typeof msg.id === 'string' ? msg.id : '';
+        if (id && !MISSIONS.byId.has(id)) { client.send('teacher:ack', { cmd, ok: false, error: 'unknown mission' }); return; }
+        this.state.missionId = id;
+        const mission = id ? MISSIONS.byId.get(id) : null;
+        this.broadcast('notice', { text: mission ? `今日のおつかい：${mission.title}` : 'おつかいの指定を解除しました。' }, { except: client });
+        client.send('teacher:ack', { cmd, ok: true, id });
+        return;
+      }
       case 'roster': {
         const roster = [];
         for (const [id, p] of this.state.players) {
@@ -353,12 +368,17 @@ export class ClassRoom extends Room {
       }),
       stats: { correct: Math.max(0, Math.floor(num(record.correct))), attempts: Math.max(0, Math.floor(num(record.attempts))) },
       progressJson: typeof record.progress_json === 'string' ? record.progress_json : '',
+      missionsDone: (parseJson(record.missions_json, []) || []).filter((id) => MISSIONS.byId.has(id)).slice(0, 200),
       progressAt: 0,
       lastAnswerAt: 0,
       lastChatAt: 0,
       lastMoveAt: 0,
       lastSeen: null,
       reconnect: null,
+      mission: null,
+      missionTurnsToday: 0,
+      missionDay: '',
+      lastMissionAt: 0,
     };
   }
 
@@ -374,8 +394,99 @@ export class ClassRoom extends Room {
       space: player.space, x: Math.round(player.x * 100) / 100, z: Math.round(player.z * 100) / 100,
       inventory_json: JSON.stringify(priv.wallet.inventory), owned_json: JSON.stringify(priv.wallet.owned),
       wands_json: JSON.stringify(priv.wallet.wands), wand: priv.wallet.wand,
-      progress_json: priv.progressJson, updated_at: iso, last_seen: priv.lastSeen,
+      progress_json: priv.progressJson, missions_json: JSON.stringify(priv.missionsDone || []),
+      updated_at: iso, last_seen: priv.lastSeen,
     });
+  }
+
+  // ---- errand quest -------------------------------------------------------------
+
+  // A child may only ever be in one mission at a time, and only the server decides
+  // when it is finished.
+  onMissionStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const mission = MISSIONS.byId.get(typeof msg?.id === 'string' ? msg.id : '');
+    if (!mission) { client.send('mission:error', { reason: 'unknown mission' }); return; }
+    priv.mission = { id: mission.id, turns: [], goalsMet: [], complete: false, startedAt: Date.now() };
+    client.send('mission:opened', {
+      id: mission.id, character: mission.character, place: mission.place,
+      opening: mission.opening, turnLimit: MISSIONS.turnLimit,
+      goals: mission.goals.map((g) => ({ id: g.id, ja: g.ja })),
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" started mission ${mission.id}`);
+  }
+
+  onMissionQuit(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv?.mission) return;
+    priv.mission = null;
+    client.send('mission:closed', { reason: 'quit' });
+  }
+
+  async onMissionSay(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const state = priv?.mission;
+    if (!priv || !state || state.complete) return;
+    const mission = MISSIONS.byId.get(state.id);
+    if (!mission) { priv.mission = null; return; }
+
+    const utterance = typeof msg?.text === 'string' ? msg.text.replace(/\s+/g, ' ').trim().slice(0, 200) : '';
+    if (!utterance) return;
+
+    const now = Date.now();
+    if (now - priv.lastMissionAt < config.ai.minIntervalMs) { client.send('mission:error', { reason: 'too fast' }); return; }
+    if (state.turns.length >= MISSIONS.turnLimit) { this.endMission(client, priv, mission, 'turn limit'); return; }
+    const day = new Date(now).toISOString().slice(0, 10);
+    if (priv.missionDay !== day) { priv.missionDay = day; priv.missionTurnsToday = 0; }
+    if (priv.missionTurnsToday >= config.ai.dailyTurnsPerStudent) { client.send('mission:error', { reason: 'daily limit' }); return; }
+    priv.lastMissionAt = now;
+    priv.missionTurnsToday += 1;
+
+    let result;
+    try {
+      result = await this.tutor.turn({ mission, history: state.turns, utterance, previousGoals: state.goalsMet });
+    } catch (err) {
+      log.warn(`[room ${this.roomId}] tutor failed:`, err.message);
+      client.send('mission:error', { reason: 'ai unavailable' });
+      return;
+    }
+    // The room may have moved on while we were waiting on the network.
+    if (this.priv.get(client.sessionId) !== priv || priv.mission !== state) return;
+
+    const gained = result.goalsMet.filter((id) => !state.goalsMet.includes(id));
+    state.goalsMet = result.goalsMet;
+    state.turns.push({ child: utterance, reply: result.reply });
+
+    this.store.appendLearning([
+      new Date(now).toISOString(), this.classCode, priv.name, `mission:${mission.id}`, 'mission',
+      utterance.slice(0, 80), gained.length ? 1 : 0, gained.length * 3, client.sessionId,
+    ]);
+    priv.stats.attempts += 1;
+    if (gained.length) priv.stats.correct += 1;
+
+    const payload = {
+      reply: result.reply, hint: result.hint, goalsMet: state.goalsMet, gained,
+      turn: state.turns.length, turnLimit: MISSIONS.turnLimit, complete: result.complete,
+    };
+    if (result.complete) {
+      const entry = applyOp(priv.wallet, { type: 'award', amount: mission.reward, id: `mission:${mission.id}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      state.complete = true;
+      if (!priv.missionsDone.includes(mission.id)) priv.missionsDone.push(mission.id);
+      payload.reward = mission.reward;
+      payload.missionsDone = [...priv.missionsDone];
+      payload.wallet = this.walletPayload(client.sessionId).wallet;
+      log.info(`[room ${this.roomId}] "${priv.name}" completed mission ${mission.id} in ${state.turns.length} turns`);
+    }
+    this.persist(client.sessionId);
+    client.send('mission:turn', payload);
+    if (result.complete) priv.mission = null;
+  }
+
+  endMission(client, priv, mission, reason) {
+    priv.mission = null;
+    client.send('mission:closed', { reason, goals: mission.goals.map((g) => g.id) });
   }
 
   coinRow(sessionId, entry) {
@@ -396,7 +507,8 @@ export class ClassRoom extends Room {
     return {
       sessionId, role: player.role, classCode: this.classCode, restored, position,
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
-      chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, maxClients: this.maxClients,
+      missionsDone: [...priv.missionsDone],
+      chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),
     };
   }

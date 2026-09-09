@@ -52,20 +52,11 @@
    The status chip and the two round buttons share the movement pad's band on
    the opposite edge, so they never land on the game's own right-hand stack. */
 @media (pointer: coarse), (max-width: 650px) {
-  #net-status,
-  #net-chat-button,
-  #net-teacher-button {
-    top: auto;
+  .net-dock {
+    right: calc(12px + env(safe-area-inset-right));
     bottom: calc(142px + env(safe-area-inset-bottom));
-  }
-  #net-chat-button { right: calc(12px + env(safe-area-inset-right)); }
-  #net-teacher-button { right: calc(66px + env(safe-area-inset-right)); }
-  #net-status {
-    right: calc(120px + env(safe-area-inset-right));
-    height: 46px;
-    box-sizing: border-box;
-    padding: 0 12px;
-    font-size: 13px;
+    /* Leaves the movement pad's column on the left alone; the dock wraps upward. */
+    max-width: calc(100vw - 200px - env(safe-area-inset-left) - env(safe-area-inset-right));
   }
   /* Online is the steady state: show just the dot and the head count so the
      chip stays narrow. Transient states keep their words. */
@@ -102,7 +93,9 @@
     z-index: 3;
     right: calc(14px + env(safe-area-inset-right));
     top: calc(84px + env(safe-area-inset-top));
-    bottom: calc(196px + env(safe-area-inset-bottom));
+    /* Clears the multiplayer dock, which wraps to two rows for a teacher (four
+       controls) on a narrow screen. */
+    bottom: calc(250px + env(safe-area-inset-bottom));
     width: 150px;
     display: flex;
     flex-direction: column;
@@ -196,12 +189,11 @@
   .mobile-pad button { width: 40px; height: 40px; margin: 2px; }
   /* The centred hotbar owns the bottom strip, so everything else stacks above it. */
   .near { bottom: calc(150px + env(safe-area-inset-bottom)); }
-  #net-status,
-  #net-chat-button,
-  #net-teacher-button { bottom: calc(96px + env(safe-area-inset-bottom)); }
-  #net-chat-button { right: calc(176px + env(safe-area-inset-right)); }
-  #net-teacher-button { right: calc(230px + env(safe-area-inset-right)); }
-  #net-status { right: calc(284px + env(safe-area-inset-right)); }
+  .net-dock {
+    bottom: calc(96px + env(safe-area-inset-bottom));
+    right: calc(160px + env(safe-area-inset-right));
+    max-width: calc(100vw - 480px);
+  }
   #net-chat,
   #net-teacher {
     bottom: calc(150px + env(safe-area-inset-bottom));

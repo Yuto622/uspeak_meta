@@ -7,6 +7,7 @@ import { createRemotePlayers } from './remote-players.js';
 import { createChat } from './chat.js';
 import { createTeacherPanel } from './teacher.js';
 import { createLobby } from './lobby.js';
+import { createMissionUI } from './mission.js';
 
 export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak }) {
   const Colyseus = globalThis.Colyseus;
@@ -30,8 +31,23 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     send: (msg) => room?.send('teacher', msg), toast,
     getPoint: () => ({ x: round(player.position.x, 2), z: round(player.position.z, 2) }),
     getSpace: currentSpace, isInsideBuilding: () => currentSpace().startsWith('in:'),
+    getMissions: () => mission.missions,
+  });
+  const mission = createMissionUI({
+    send: (type, payload) => room?.send(type, payload),
+    speak, toast, isOnline: () => state.mode === 'online',
   });
   const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs });
+  // Collect the controls into one dock so the layout is decided by flexbox, not by
+  // four separately maintained offsets.
+  const dock = document.createElement('div');
+  dock.className = 'net-dock';
+  document.body.append(dock);
+  for (const sel of ['#net-status', '#net-teacher-button', '#mission-button', '#net-chat-button']) {
+    const el = document.querySelector(sel);
+    if (el) dock.append(el);
+  }
+
   let ownBubble = null;
   let ownBubbleUntil = 0;
 
@@ -59,6 +75,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     else if (mode === 'connecting') chip.set('reconnecting', '接続中…');
     else chip.set('offline', 'オフライン');
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
+    mission.setAvailable(mode === 'online' || mode === 'reconnecting');
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
   }
   function saveSession() {
@@ -114,6 +131,8 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
       chat.setPaused();
       teacher.setChatPaused(state.chatPaused);
       if (m.wallet) applyWallet(m.wallet);
+      mission.setClassMission(m.missionId);
+      mission.setDone(m.missionsDone);
       if (!viaToken) {
         restoreProgress(m.progressJson);
         if (m.position && m.restored) teleportTo(m.position, 'restore');
@@ -132,6 +151,10 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('chat:blocked', (m) => toast(m.reason === 'paused' ? 'チャットは先生によって一時停止中です。' : 'ゆっくり話そう。'));
     r.onMessage('roster', (m) => teacher.onRoster(m));
     r.onMessage('teacher:ack', (m) => teacher.onAck(m));
+    r.onMessage('mission:opened', (m) => mission.onOpened(m));
+    r.onMessage('mission:turn', (m) => { if (m.wallet) applyWallet(m.wallet); mission.onTurn(m); });
+    r.onMessage('mission:closed', (m) => mission.onClosed(m));
+    r.onMessage('mission:error', (m) => mission.onError(m));
     r.onMessage('progress:ack', () => {});
     r.onMessage('pong', () => { clearTimeout(probeTimer); probeTimer = null; });
 
@@ -154,6 +177,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.state.players.onRemove((p, id) => { remotes.remove(id); seen.delete(id); chip.count(r.state.players.size); });
     r.state.listen('chatPaused', (v) => { state.chatPaused = !!v; chat.setPaused(); teacher.setChatPaused(!!v); });
     r.state.listen('teacherId', (v) => { state.teacherId = v || ''; });
+    r.state.listen('missionId', (v) => { mission.setClassMission(v); teacher.setMission(v); });
 
     r.onError((code, message) => console.warn('[net] room error', code, message));
     r.onLeave((code) => {
@@ -406,6 +430,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     get room() { return room; },
     get remotes() { return remotes; },
     openLobby: () => lobby.open({ name: state.name }),
+    openMission: () => mission.open(),
     leave: () => goOffline(true),
   };
 }

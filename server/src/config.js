@@ -35,6 +35,16 @@ export const config = Object.freeze({
     privateKey: (env.GOOGLE_PRIVATE_KEY ?? '').replace(/\\n/g, '\n').replace(/^"|"$/g, ''),
     jsonBase64: (env.GOOGLE_SERVICE_ACCOUNT_JSON ?? '').trim(),
   },
+  // The errand quest's AI partner. The key is read here and never leaves the server;
+  // nothing about it is sent to the browser.
+  ai: {
+    apiKey: (env.OPENAI_API_KEY ?? '').trim(),
+    model: (env.OPENAI_MODEL ?? 'gpt-4o-mini').trim(),
+    maxTokens: int('AI_MAX_TOKENS', 300),
+    timeoutMs: int('AI_TIMEOUT_MS', 20000),
+    minIntervalMs: int('AI_MIN_INTERVAL_MS', 1200),
+    dailyTurnsPerStudent: int('AI_DAILY_TURNS_PER_STUDENT', 200),
+  },
   publicServerUrl: (env.PUBLIC_SERVER_URL ?? '').trim(),
   publicDefaultClass: (env.PUBLIC_DEFAULT_CLASS ?? '').trim(),
   // Optional JSON object merged into the client's NET tuning constants, e.g.

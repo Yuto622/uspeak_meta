@@ -1,10 +1,11 @@
 // Teacher console. Every command is validated on the server; this is only the UI.
 import { NET } from './net-config.js';
 
-export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBuilding }) {
+export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBuilding, getMissions }) {
   let open = false;
   let roster = [];
   let chatPaused = false;
+  let missionId = '';
   let timer = null;
   const root = document.createElement('aside');
   root.id = 'net-teacher';
@@ -14,6 +15,8 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     <button type="button" id="net-t-gather" class="primary">📣 全員をここに集合</button>
     <button type="button" id="net-t-chat">⏸ チャットを一時停止</button>
   </div>
+  <label class="net-t-field" for="net-t-mission">今日のおつかい</label>
+  <select id="net-t-mission"><option value="">指定しない</option></select>
   <p class="net-fine" id="net-teacher-hint"></p>
   <table class="net-roster"><thead><tr><th>名前</th><th>場所</th><th>◈</th><th>正解</th><th></th></tr></thead><tbody id="net-roster"></tbody></table>`;
   document.body.append(root);
@@ -33,7 +36,21 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   }
   $('#net-t-gather').onclick = () => { const p = point(); if (p) send({ cmd: 'gather', ...p }); };
   $('#net-t-chat').onclick = () => send({ cmd: 'chat', paused: !chatPaused });
+  $('#net-t-mission').onchange = (e) => send({ cmd: 'mission', id: e.target.value });
   $('#net-teacher-close').onclick = () => toggle(false);
+
+  function fillMissions() {
+    const select = $('#net-t-mission');
+    const list = getMissions?.() || [];
+    if (!list.length || select.options.length > 1) return;
+    for (const m of list) {
+      const option = document.createElement('option');
+      option.value = m.id;
+      option.textContent = `${m.grade}級 · ${m.title}`;
+      select.append(option);
+    }
+    select.value = missionId;
+  }
   button.onclick = () => toggle();
 
   function renderRoster() {
@@ -49,7 +66,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     open = force ?? !open;
     root.hidden = !open;
     clearInterval(timer);
-    if (open) { send({ cmd: 'roster' }); timer = setInterval(() => send({ cmd: 'roster' }), NET.ROSTER_REFRESH_MS); }
+    if (open) { fillMissions(); send({ cmd: 'roster' }); timer = setInterval(() => send({ cmd: 'roster' }), NET.ROSTER_REFRESH_MS); }
   }
 
   return {
@@ -59,10 +76,12 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
       if (m.ok === false) toast(`先生コマンド失敗: ${m.error || m.cmd}`);
       else if (m.cmd === 'gather') toast(`${m.count} 人に集合を指示しました。`);
       else if (m.cmd === 'chat') { chatPaused = !!m.paused; toast(chatPaused ? 'チャットを一時停止しました。' : 'チャットを再開しました。'); if (open) renderRoster(); }
+      else if (m.cmd === 'mission') { missionId = m.id || ''; toast(m.id ? '今日のおつかいを設定しました。' : 'おつかいの指定を解除しました。'); }
       else if (m.cmd === 'call') toast('生徒を呼び出しました。');
       else if (m.cmd === 'move') toast('生徒をここへ移動させました。');
     },
     setChatPaused(v) { chatPaused = v; if (open) renderRoster(); },
+    setMission(id) { missionId = id || ''; const select = root.querySelector('#net-t-mission'); if (select) select.value = missionId; },
   };
 }
 

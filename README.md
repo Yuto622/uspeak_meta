@@ -191,9 +191,29 @@ fly logs
 | `fishing-state.js` | 売買時のフック、サーバー値で上書きする `reconcile()` |
 | `rpg.js` | `activate(id, placePlayer, force)` の第 3 引数、`syncBuddy` 公開 |
 | `index.html` | 右側のボタン群を `.right-rail` でまとめ、`viewport-fit=cover` を追加 |
-| 新規 | `net-config.js` `net-hooks.js` `net-client.js` `remote-players.js` `chat.js` `teacher.js` `lobby.js` `net.css` `mobile.css` `phrases.json` `lesson-data.js` `vendor/colyseus.js` |
+| 新規 | `net-config.js` `net-hooks.js` `net-client.js` `remote-players.js` `chat.js` `teacher.js` `lobby.js` `mission.js` `net.css` `mobile.css` `mission.css` `phrases.json` `missions.json` `lesson-data.js` `vendor/colyseus.js` |
 
 既存の localStorage 保存キーと 1 人用の挙動は変えていません。オンライン時はコイン・所持品がサーバーの値で上書きされます。
+
+## おつかいクエスト（AI英会話ミッション）
+
+キャラクターに英語で話しかけてお題をクリアする機能です。判定・報酬・学習ログはサーバーが確定します。
+詳細と運用は `docs/AI_MISSION.md` を参照してください。
+
+| 項目 | 実装 |
+|---|---|
+| ミッション | `client/dist/missions.json`（15本、英検5〜2級）。サーバーも同じファイルを読む |
+| AI | プロバイダをアダプタで分離。`OPENAI_API_KEY` 未設定なら台本パートナーで動作し、API料金ゼロ |
+| サーバー権威 | AIの返答も検証。存在しないお題IDは破棄、達成の取り消し不可、完了はサーバーが再計算 |
+| 報酬 | コインとスタンプ。`economy` の `award` はサーバー専用で、クライアントからは呼べない |
+| 先生 | 先生コンソールで「今日のおつかい」を指定。クラス全員の画面に出る |
+| コスト管理 | 1返答のトークン上限、連打制限、1日の発話上限、1ミッションの往復上限 |
+| 安全 | 個人情報を聞かない、AIだと明かさない、級ごとの語彙制限、全発話をログに記録 |
+
+```sh
+# ローカル。キーなしでも動きます（台本モード）
+OPENAI_API_KEY=sk-... OPENAI_MODEL=gpt-4o-mini npm start
+```
 
 ## スマホ・タブレット対応
 

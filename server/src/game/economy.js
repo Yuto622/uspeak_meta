@@ -77,6 +77,12 @@ export function applyOp(wallet, op) {
       wallet.wand = wand.id;
       return { op: 'buyWand', item: wand.id, quantity: 1, delta: -wand.price, balance: wallet.coins };
     }
+    // Server-only: never reachable from a client message (see ClassRoom.onEconomy).
+    case 'award': {
+      if (!Number.isSafeInteger(op.amount) || op.amount <= 0 || op.amount > 1000) throw new EconomyError('invalid award');
+      wallet.coins = Math.min(MAX_COINS, wallet.coins + op.amount);
+      return { op: 'award', item: op.id || 'award', quantity: 1, delta: wallet.coins - before, balance: wallet.coins };
+    }
     default:
       throw new EconomyError('unknown operation');
   }

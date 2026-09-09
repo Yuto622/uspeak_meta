@@ -38,6 +38,7 @@ export class RoomState extends Schema {
     this.classCode = '';
     this.chatPaused = false;
     this.teacherId = '';
+    this.missionId = '';
     this.players = new MapSchema();
   }
 }
@@ -45,5 +46,6 @@ defineTypes(RoomState, {
   classCode: 'string',
   chatPaused: 'boolean',
   teacherId: 'string',
+  missionId: 'string',
   players: { map: Player },
 });

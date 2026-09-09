@@ -14,6 +14,10 @@ primary_region = "nrt"
   PATCH_RATE_MS = "100"
   RECONNECT_GRACE_SEC = "60"
   STORE_FLUSH_MS = "5000"
+  # The errand quest's AI partner. OPENAI_API_KEY is a secret (fly secrets set), never
+  # put it here. Without it the quest falls back to its scripted partner.
+  OPENAI_MODEL = "gpt-4o-mini"
+  AI_MAX_TOKENS = "300"
   SERVE_CLIENT = "true"
   # Must match the public URL of this app (used for CORS and WebSocket origin checks).
   CORS_ORIGINS = "https://uspeak-multiplayer.fly.dev"

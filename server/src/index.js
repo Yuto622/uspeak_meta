@@ -8,6 +8,7 @@ import { Server, matchMaker, WebSocketTransport } from './colyseus.js';
 import { config, validateConfig } from './config.js';
 import { createStore } from './store/index.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
+import { createTutor } from './ai/tutor.js';
 import { log } from './log.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -95,7 +96,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
     verifyClient: (info, next) => next(originAllowed(info.origin)),
   });
   const gameServer = new Server({ transport, gracefullyShutdown: false });
-  gameServer.define('class', ClassRoom, { store }).filterBy(['classCode']);
+  const tutor = createTutor();
+  gameServer.define('class', ClassRoom, { store, tutor }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   log.info(`[server] listening on :${port} env=${config.nodeEnv} maxClients=${config.maxClients} cors=${config.corsOrigins.join(',') || '(dev: any)'} serveClient=${config.serveClient}`);
