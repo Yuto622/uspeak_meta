@@ -222,7 +222,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     clearSession();
     const r = room; room = null;
     r?.leave(true);
-    for (const id of [...Array.from({ length: 0 })]) remotes.remove(id);
+    remotes.clear();
     setMode('offline');
     if (fromLobby) toast('オフラインで遊びます。右上のボタンからいつでも参加できます。');
   }

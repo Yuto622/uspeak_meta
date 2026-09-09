@@ -13,6 +13,7 @@ import { log } from '../log.js';
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002 };
 const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only within a lesson window
 const STALE_MOVE_MS = 5000;
+const GHOST_MS = 3000; // silent connected seat considered dead (heartbeat is 500 ms)
 const PERSIST_ALL_MS = 30000;
 const WORLD_LIMIT = 600;
 const AVATAR_IDS = ['kai', 'mia', 'ren', 'leo', 'aya', 'noa', 'nova', 'bolt'];
@@ -89,7 +90,18 @@ export class ClassRoom extends Room {
     if (!name) throw new ServerError(ERR.NAME_REQUIRED, 'name required');
     const role = isTeacherKey(options?.teacherKey) ? 'teacher' : 'student';
     for (const [id, p] of this.state.players) {
-      if (p.name === name && p.connected && id !== client.sessionId) throw new ServerError(ERR.NAME_IN_USE, 'name in use');
+      if (p.name !== name || !p.connected || id === client.sessionId) continue;
+      // Live clients send a move/heartbeat at least every 500 ms. A seat that has been
+      // silent for GHOST_MS is a dead socket the transport has not noticed yet (iPad
+      // suspended mid-connection): evict it so the returning student can take over now
+      // instead of waiting for the ping timeout.
+      const priv = this.priv.get(id);
+      const silentFor = Date.now() - (priv?.lastMoveAt || 0);
+      if (silentFor < GHOST_MS) throw new ServerError(ERR.NAME_IN_USE, 'name in use');
+      p.connected = false;
+      const ghost = this.clients.find((c) => c.sessionId === id);
+      log.info(`[room ${this.roomId}] evicting silent seat "${name}" (${id}, ${silentFor}ms)`);
+      ghost?.leave(4003);
     }
     return { name, role, avatar: sanitizeAvatar(options?.avatar) };
   }

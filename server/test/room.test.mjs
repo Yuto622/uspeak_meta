@@ -161,9 +161,19 @@ test('unexpected disconnects keep the seat: token reconnect and same-name takeov
   assert.equal(fresh.welcome.restored, true);
   assert.equal(fresh.welcome.position.space, 'forest');
   await waitFor(() => b.room.state.players.size === 2 && !b.room.state.players.has(back.sessionId));
-  // A connected name cannot be joined twice.
+  // A connected name cannot be joined twice while it is alive (heartbeats within 3 s)...
+  fresh.room.send('move', { s: 'forest', x: 1, z: 1 });
   await assert.rejects(() => new Client(url).joinOrCreate('class', { classCode: 'test-1', name: 'Dai' }), /name in use/);
+  // ...but a seat silent for >3 s (dead iPad socket the server has not noticed) is evicted and taken over.
+  await sleep(3200);
+  const takeover = await join('Dai');
+  assert.equal(takeover.welcome.restored, true);
+  assert.equal(takeover.welcome.position.space, 'forest');
+  await waitFor(() => b.room.state.players.size === 2 && b.room.state.players.get(takeover.room.sessionId)?.connected === true);
+  fresh.room.removeAllListeners();
+  await sleep(100);
+  await takeover.room.leave();
   await assert.rejects(() => new Client(url).joinOrCreate('class', { classCode: 'test-1', name: '   ' }), /name required/);
-  await Promise.all([fresh.room.leave(), b.room.leave()]);
+  await b.room.leave();
   await sleep(100);
 });

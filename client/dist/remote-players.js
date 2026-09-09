@@ -152,5 +152,7 @@ export function createRemotePlayers({ worldScene, getInteriorScene }) {
     }
   }
 
-  return { upsert, pushSample, remove, showBubble, update, get count() { return remotes.size; }, get(id) { return remotes.get(id); }, textSprite };
+  function clear() { for (const id of [...remotes.keys()]) remove(id); }
+
+  return { upsert, pushSample, remove, clear, showBubble, update, get count() { return remotes.size; }, get(id) { return remotes.get(id); }, textSprite };
 }
