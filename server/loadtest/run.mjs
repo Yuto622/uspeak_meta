@@ -14,6 +14,7 @@ const URL = args.url || process.env.LOADTEST_URL || 'ws://localhost:2567';
 const CLIENTS = Number(args.clients || 25);
 const DURATION_S = Number(args.duration || 600);
 const CLASS = args.class || 'loadtest';
+const ROOMS = Math.max(1, Number(args.rooms || 1)); // spread clients over N classes (class code = CLASS-<n>)
 const SEND_HZ = Number(args.hz || 20);
 const HEALTH_URL = URL.replace(/^ws/, 'http') + '/healthz';
 const OUT_DIR = args.out || path.resolve('loadtest-results');
@@ -23,6 +24,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const nowMod = () => Date.now() % 4294967296;
 const pct = (arr, p) => { if (!arr.length) return 0; const s = [...arr].sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor((p / 100) * s.length))]; };
 const mean = (arr) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0);
+// Loops instead of Math.max(...arr): long runs collect hundreds of thousands of samples.
+const maxOf = (arr) => { let m = 0; for (const v of arr) if (v > m) m = v; return m; };
+const minOf = (arr) => { let m = Infinity; for (const v of arr) if (v < m) m = v; return arr.length ? m : 0; };
 
 const clients = [];
 const latencies = []; // ms, sampled
@@ -35,7 +39,8 @@ async function spawnClient(i) {
   const name = `bot${String(i + 1).padStart(2, '0')}`;
   const c = { name, bytes: 0, messages: 0, room: null, x: (Math.random() - 0.5) * 30, z: (Math.random() - 0.5) * 30, dir: Math.random() * Math.PI * 2, ok: true, joinedAt: 0 };
   const client = new Client(URL);
-  const room = await client.joinOrCreate('class', { classCode: CLASS, name, avatar: { id: 'kai' } });
+  const classCode = ROOMS > 1 ? `${CLASS}-${(i % ROOMS) + 1}` : CLASS;
+  const room = await client.joinOrCreate('class', { classCode, name, avatar: { id: 'kai' } });
   c.room = room;
   c.joinedAt = Date.now();
   // Count raw bytes at the socket level (state patches + messages).
@@ -56,7 +61,7 @@ async function spawnClient(i) {
 }
 
 async function main() {
-  console.log(`loadtest: ${CLIENTS} clients -> ${URL} class=${CLASS} for ${DURATION_S}s at ${SEND_HZ} Hz`);
+  console.log(`loadtest: ${CLIENTS} clients -> ${URL} class=${CLASS} rooms=${ROOMS} for ${DURATION_S}s at ${SEND_HZ} Hz`);
   for (let i = 0; i < CLIENTS; i++) {
     try { await spawnClient(i); } catch (err) { errors++; console.log(`spawn ${i} failed: ${err.message}`); }
     await sleep(80); // classroom-like staggered joins
@@ -96,16 +101,16 @@ async function main() {
   const cpuSamples = health.filter((h) => h.cpu != null).map((h) => h.cpu);
   const rssSamples = health.filter((h) => h.rss != null).map((h) => h.rss);
   const summary = {
-    url: URL, clients: clients.length, requested: CLIENTS, durationSec: Math.round(elapsed), sendHz: SEND_HZ,
-    bandwidthKBps: { mean: +mean(perClient).toFixed(2), min: +Math.min(...perClient).toFixed(2), max: +Math.max(...perClient).toFixed(2) },
-    broadcastLatencyMs: { samples: latencies.length, p50: pct(latencies, 50), p90: pct(latencies, 90), p95: pct(latencies, 95), p99: pct(latencies, 99), max: Math.max(0, ...latencies), mean: +mean(latencies).toFixed(1) },
-    server: { cpuPercent: { mean: +mean(cpuSamples).toFixed(1), max: Math.max(0, ...cpuSamples) }, rssMb: { mean: +mean(rssSamples).toFixed(1), max: Math.max(0, ...rssSamples) }, samples: health.length },
+    url: URL, clients: clients.length, requested: CLIENTS, rooms: ROOMS, durationSec: Math.round(elapsed), sendHz: SEND_HZ,
+    bandwidthKBps: { mean: +mean(perClient).toFixed(2), min: +minOf(perClient).toFixed(2), max: +maxOf(perClient).toFixed(2) },
+    broadcastLatencyMs: { samples: latencies.length, p50: pct(latencies, 50), p90: pct(latencies, 90), p95: pct(latencies, 95), p99: pct(latencies, 99), max: maxOf(latencies), mean: +mean(latencies).toFixed(1) },
+    server: { cpuPercent: { mean: +mean(cpuSamples).toFixed(1), max: maxOf(cpuSamples) }, rssMb: { mean: +mean(rssSamples).toFixed(1), max: maxOf(rssSamples) }, samples: health.length },
     disconnects, errors,
     verdict: disconnects === 0 && errors === 0 ? 'PASS: no disconnects' : `CHECK: ${disconnects} disconnects, ${errors} errors`,
   };
   console.log('\n===== LOAD TEST SUMMARY =====');
   console.table({
-    'clients': summary.clients, 'duration (s)': summary.durationSec,
+    'clients': summary.clients, 'rooms': summary.rooms, 'duration (s)': summary.durationSec,
     'downstream KB/s per client (mean/max)': `${summary.bandwidthKBps.mean} / ${summary.bandwidthKBps.max}`,
     'broadcast latency ms p50/p95/p99/max': `${summary.broadcastLatencyMs.p50} / ${summary.broadcastLatencyMs.p95} / ${summary.broadcastLatencyMs.p99} / ${summary.broadcastLatencyMs.max}`,
     'server CPU % (mean/max)': `${summary.server.cpuPercent.mean} / ${summary.server.cpuPercent.max}`,

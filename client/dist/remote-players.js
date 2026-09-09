@@ -23,7 +23,7 @@ function textSprite(text, { bg = '#345344', color = '#fff4d7', size = 30, width 
   return sprite;
 }
 
-export function createRemotePlayers({ worldScene, getInteriorScene }) {
+export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosition }) {
   const remotes = new Map(); // sessionId -> remote
   const isInterior = (space) => typeof space === 'string' && space.startsWith('in:');
 
@@ -32,6 +32,7 @@ export function createRemotePlayers({ worldScene, getInteriorScene }) {
     try { config = { ...config, ...JSON.parse(info.avatar || '{}') }; } catch { /* keep default */ }
     const group = new THREE.Group();
     const model = buildAvatar(config);
+    setShadows(model);
     group.add(model);
     const label = textSprite(info.role === 'teacher' ? `★ ${info.name}` : info.name, { bg: info.role === 'teacher' ? '#8a4b2c' : '#345344', scale: 0.55 });
     label.position.set(0, 3.15, 0);
@@ -53,6 +54,7 @@ export function createRemotePlayers({ worldScene, getInteriorScene }) {
       let config = { id: 'kai' };
       try { config = { ...config, ...JSON.parse(info.avatar) }; } catch { /* ignore */ }
       r.model = buildAvatar(config);
+      setShadows(r.model);
       r.group.add(r.model);
       r.avatarJson = info.avatar;
     }
@@ -126,11 +128,31 @@ export function createRemotePlayers({ worldScene, getInteriorScene }) {
     }
   }
 
+  // Per frame: pick the nearest MAX_RENDERED_REMOTES candidates in my space, render only those.
+  const candidates = [];
   function update(t, mySpace) {
     const now = performance.now();
     const interiorScene = getInteriorScene();
+    const me = getLocalPosition();
+    candidates.length = 0;
     for (const r of remotes.values()) {
-      const visible = r.connected && r.space === mySpace && r.anim !== 'fly';
+      r.render = false;
+      if (!r.connected || r.space !== mySpace || r.anim === 'fly') continue;
+      // Distance from the newest sample (cheap, no interpolation needed for culling).
+      const last = r.buffer[r.buffer.length - 1];
+      const dx = (last ? last.x : r.pos.x) - me.x;
+      const dz = (last ? last.z : r.pos.z) - me.z;
+      r.dist = Math.hypot(dx, dz);
+      if (r.dist > NET.REMOTE_CULL_DISTANCE) continue;
+      candidates.push(r);
+    }
+    if (candidates.length > NET.MAX_RENDERED_REMOTES) candidates.sort((a, b) => a.dist - b.dist);
+    const n = Math.min(candidates.length, NET.MAX_RENDERED_REMOTES);
+    for (let i = 0; i < n; i++) candidates[i].render = true;
+    stats.rendered = n;
+    stats.inSpace = candidates.length;
+    for (const r of remotes.values()) {
+      const visible = r.render;
       const wantParent = visible ? (isInterior(mySpace) ? interiorScene : worldScene) : null;
       if (r.parent !== wantParent) {
         r.parent?.remove(r.group);
@@ -138,8 +160,15 @@ export function createRemotePlayers({ worldScene, getInteriorScene }) {
         r.parent = wantParent;
       }
       r.group.visible = !!wantParent;
-      if (!wantParent) continue;
+      if (!wantParent) {
+        // Hidden: keep only the newest sample so a later reveal starts from fresh data.
+        if (r.buffer.length > 1) r.buffer.splice(0, r.buffer.length - 1);
+        continue;
+      }
       interpolate(r, now);
+      const near = r.dist <= NET.REMOTE_LABEL_DISTANCE;
+      r.label.visible = near;
+      if (r.bubble) r.bubble.visible = near;
       r.group.position.copy(r.pos);
       r.group.rotation.y = r.yaw;
       const moving = r.anim === 'walk' || r.anim === 'run';
@@ -147,12 +176,15 @@ export function createRemotePlayers({ worldScene, getInteriorScene }) {
       const limbs = r.model.userData.limbs || [];
       limbs.forEach((g, i) => { g.rotation.x = moving ? Math.sin(t * speed + (i % 2) * Math.PI) * (i < 2 ? 0.4 : 0.3) : 0; });
       r.group.position.y = moving ? Math.abs(Math.sin(t * 12)) * 0.075 : 0;
-      r.model.children.forEach((m) => { if (m.material) m.material.transparent = false; });
       if (r.bubble && now > r.bubbleUntil) { r.group.remove(r.bubble); r.bubble = null; }
     }
   }
 
   function clear() { for (const id of [...remotes.keys()]) remove(id); }
+  const stats = { rendered: 0, inSpace: 0 };
+  function setShadows(model) {
+    model.traverse((m) => { if (m.isMesh) { m.castShadow = NET.REMOTE_SHADOWS; m.receiveShadow = NET.REMOTE_SHADOWS; } });
+  }
 
-  return { upsert, pushSample, remove, clear, showBubble, update, get count() { return remotes.size; }, get(id) { return remotes.get(id); }, textSprite };
+  return { upsert, pushSample, remove, clear, showBubble, update, stats, get count() { return remotes.size; }, get(id) { return remotes.get(id); }, textSprite };
 }

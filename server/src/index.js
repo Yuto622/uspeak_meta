@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import cors from 'cors';
+import compression from 'compression';
 import { Server, matchMaker, WebSocketTransport } from './colyseus.js';
 import { config, validateConfig } from './config.js';
 import { createStore } from './store/index.js';
@@ -50,6 +51,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
   app.disable('x-powered-by');
   app.set('trust proxy', true);
   app.use(cors({ origin: (origin, cb) => cb(null, originAllowed(origin)), credentials: false }));
+  // gzip the static client: three.module.js is 1.27 MB raw (~300 KB gzipped), which matters
+  // when a whole class (or several) opens the page at the same moment on one Wi-Fi AP.
+  app.use(compression({ threshold: 1024 }));
 
   app.get('/healthz', (req, res) => {
     const mem = process.memoryUsage();

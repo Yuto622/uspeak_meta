@@ -23,7 +23,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
   let reconnectTimer = null;
   let probeTimer = null;
   const prefs = storage.get(localStorage, STORAGE_KEYS.prefs) || {};
-  const remotes = createRemotePlayers({ worldScene: scene, getInteriorScene: () => rpg.interiorScene });
+  const remotes = createRemotePlayers({ worldScene: scene, getInteriorScene: () => rpg.interiorScene, getLocalPosition: () => player.position });
   const chip = createStatusChip();
   const chat = createChat({ onSend: (id) => room?.send('chat', { id }), speak, toast, isPaused: () => state.chatPaused && state.role !== 'teacher' });
   const teacher = createTeacherPanel({
@@ -365,6 +365,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     return {
       set(cls, text) { el.className = cls; el.querySelector('span').textContent = text; },
       count(n) { if (state.mode === 'online') el.querySelector('span').textContent = `オンライン · ${n}人`; },
+      refresh() { if (state.mode === 'online' && room) el.querySelector('span').textContent = `オンライン · ${room.state.players.size}人`; },
     };
   }
 

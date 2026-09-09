@@ -27,6 +27,15 @@ export const NET = Object.freeze({
   CHAT_BUBBLE_MS: 4000,
   // Teacher roster refresh (ms).
   ROSTER_REFRESH_MS: 3000,
+  // ---- Rendering budget for large rooms (up to 100 players) ----
+  // Only the nearest N remote avatars are rendered; the rest are kept in memory but hidden.
+  MAX_RENDERED_REMOTES: 32,
+  // Beyond this distance (world units) a remote avatar is not rendered at all.
+  REMOTE_CULL_DISTANCE: 70,
+  // Beyond this distance name labels / bubbles are hidden (sprites are the costly part).
+  REMOTE_LABEL_DISTANCE: 35,
+  // Remote avatars never cast/receive shadows (shadow pass cost scales with mesh count).
+  REMOTE_SHADOWS: false,
 });
 
 export const STORAGE_KEYS = Object.freeze({

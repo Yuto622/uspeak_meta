@@ -9,6 +9,7 @@ primary_region = "nrt"
 [env]
   NODE_ENV = "production"
   PORT = "2567"
+  # Players per class room. Raise to 100 for a whole-school event in one world.
   MAX_CLIENTS = "30"
   PATCH_RATE_MS = "100"
   RECONNECT_GRACE_SEC = "60"
@@ -27,9 +28,10 @@ primary_region = "nrt"
   processes = ["app"]
 
   [http_service.concurrency]
+    # Each player = 1 WebSocket (+ short-lived HTTP for assets). Sized for 100+ concurrent players.
     type = "connections"
-    soft_limit = 200
-    hard_limit = 250
+    soft_limit = 400
+    hard_limit = 500
 
   [[http_service.checks]]
     grace_period = "10s"
@@ -39,8 +41,9 @@ primary_region = "nrt"
     path = "/healthz"
 
 [[vm]]
+  # 100 concurrent players measured at ~10% of one core and ~200 MB RSS; 1 GB leaves headroom.
   size = "shared-cpu-1x"
-  memory = "512mb"
+  memory = "1gb"
   cpu_kind = "shared"
   cpus = 1
 
