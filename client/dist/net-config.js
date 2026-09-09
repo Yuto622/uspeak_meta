@@ -1,6 +1,8 @@
 // Multiplayer tuning constants. Everything that may need adjusting on real classroom
 // Wi-Fi lives here, in one place.
-export const NET = Object.freeze({
+// Any key below can be overridden without editing code: window.USPEAK_CONFIG.net = {...}
+// (served by the server from the NET_OVERRIDES env variable, see /config.js).
+const DEFAULTS = {
   // Client -> server position updates (Hz). Server broadcasts at PATCH_RATE_MS (10 Hz).
   SEND_HZ: 20,
   // Even when standing still, send a keep-alive sample this often (ms).
@@ -36,7 +38,9 @@ export const NET = Object.freeze({
   REMOTE_LABEL_DISTANCE: 35,
   // Remote avatars never cast/receive shadows (shadow pass cost scales with mesh count).
   REMOTE_SHADOWS: false,
-});
+};
+const overrides = globalThis.USPEAK_CONFIG?.net;
+export const NET = Object.freeze({ ...DEFAULTS, ...(overrides && typeof overrides === 'object' ? overrides : {}) });
 
 export const STORAGE_KEYS = Object.freeze({
   prefs: 'uspeak-net-prefs-v1', // localStorage: last name / class (prefill only)

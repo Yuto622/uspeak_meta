@@ -51,6 +51,7 @@ npm start                       # http://localhost:2567
 cd server && npm test           # 判定・経済・Sheetsストア・ルーム統合（実 WebSocket）
 cd client && node tests/regression.mjs   # 既存 1 人用ゲームの回帰テスト
 cd server && npm run test:e2e   # 実ブラウザ3画面（先生+生徒2）の同期・再接続テスト。要 Playwright（npm i -D playwright && npx playwright install chromium）
+cd server && npm run test:scale # 実ブラウザ1画面 + ボット99接続（100人在室）の描画予算・復帰テスト
 ```
 
 ### 負荷テスト（25 接続・10 分）
@@ -63,6 +64,18 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 
 サーバー CPU / メモリ（`/healthz` を 5 秒ごとに取得）、1 クライアントあたりの下り帯域（KB/s）、
 ブロードキャスト遅延の分布（p50/p95/p99）、切断回数を表示し、`server/loadtest-results/*.json` に保存します。
+
+## 収容人数の目安（`docs/LOADTEST_RESULTS.md`）
+
+| 構成 | 結果 |
+|---|---|
+| 1 クラス 25 人 × 10 分 | 下り 4.3 KB/s/台、遅延 p95 49 ms、CPU 2%、切断 0 |
+| 4 クラス × 25 人 = 100 人同時 | 下り 4.2 KB/s/台、遅延 p95 50 ms、CPU 6%、切断 0 |
+| 1 ワールドに 100 人（`MAX_CLIENTS=100`） | 下り 16 KB/s/台、遅延 p95 75 ms、CPU 5.5%、切断 0 |
+
+クライアントは近い順に最大 32 人だけ描画し（`MAX_RENDERED_REMOTES`）、遠い人・ラベルは間引くので、
+1 ワールド 100 人でも iPad 側の描画負荷は一定に抑えられます。通常授業は「1 クラス = 1 ルーム」で運用し、
+学校全体のイベントで 1 ワールドにまとめたい場合だけ `MAX_CLIENTS` を上げてください。
 
 ## 環境変数
 
@@ -80,6 +93,7 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 | `STORE_FLUSH_MS` | 5000 | Sheets への書き込み間隔 |
 | `GOOGLE_SHEET_ID` ほか | | `docs/GOOGLE_SHEETS_SETUP.md` 参照 |
 | `PUBLIC_SERVER_URL` | (同一ホスト) | クライアントと別ホストで動かすときの `wss://` URL（`/config.js` で配信） |
+| `NET_OVERRIDES` | (なし) | クライアントの同期・描画定数を JSON で上書き（例 `{"INTERP_DELAY_MS":150,"MAX_RENDERED_REMOTES":24}`） |
 
 接続先 URL はクライアントに埋め込まれていません。`/config.js`（環境変数から生成）→ `<meta name="uspeak-server">` →
 `?server=` → ページと同じホスト、の順で決まります。https ページでは自動的に `wss://` になります。

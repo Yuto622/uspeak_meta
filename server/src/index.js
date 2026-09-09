@@ -73,7 +73,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   app.get('/config.js', (req, res) => {
     res.set('Cache-Control', 'no-store');
     res.type('application/javascript');
-    res.send(`window.USPEAK_CONFIG=${JSON.stringify({ serverUrl: config.publicServerUrl || '', defaultClass: config.publicDefaultClass || '', maxClients: config.maxClients })};\n`);
+    res.send(`window.USPEAK_CONFIG=${JSON.stringify({ serverUrl: config.publicServerUrl || '', defaultClass: config.publicDefaultClass || '', maxClients: config.maxClients, net: config.netOverrides })};\n`);
   });
 
   if (config.serveClient) {

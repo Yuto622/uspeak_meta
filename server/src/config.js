@@ -37,6 +37,9 @@ export const config = Object.freeze({
   },
   publicServerUrl: (env.PUBLIC_SERVER_URL ?? '').trim(),
   publicDefaultClass: (env.PUBLIC_DEFAULT_CLASS ?? '').trim(),
+  // Optional JSON object merged into the client's NET tuning constants, e.g.
+  // NET_OVERRIDES='{"INTERP_DELAY_MS":150,"MAX_RENDERED_REMOTES":24}'
+  netOverrides: (() => { try { const v = JSON.parse(env.NET_OVERRIDES || '{}'); return v && typeof v === 'object' ? v : {}; } catch { return {}; } })(),
 });
 
 export function validateConfig(log = console) {
