@@ -939,3 +939,98 @@ test('a vehicle is bought at its own gate, and the course is driven in order', a
   await again.room.leave();
   await sleep(100);
 });
+
+test('a room of your own: bought at the shop, built inside, and still there tomorrow', async () => {
+  const { TOWN_ISLAND, BLOCKS, ROOMS } = await import('../src/game/town.js');
+  const a = await join('Nagi');
+  const shop = TOWN_ISLAND.spotById.get('shop');
+  const agent = TOWN_ISLAND.spotById.get('agent');
+  const door = TOWN_ISLAND.spotById.get('door');
+  const stand = async (x, z, space = TOWN_ISLAND.id) => {
+    a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return Math.abs(p.x - x) < 0.01 && p.space === space;
+    });
+  };
+
+  // Ten kinds in the shop, and the free one is already a child's.
+  a.room.send('block:list', {});
+  const shopList = await nextMessage(a.room, 'block:shop');
+  assert.equal(shopList.blocks.length, BLOCKS.size);
+  assert.deepEqual(shopList.blocks.filter((b) => b.owned).map((b) => b.id), ['wood']);
+  assert.ok(shopList.blocks.every((b) => b.word && b.ja), 'every block carries its English');
+
+  // Blocks are bought at the block shop, not from wherever you happen to stand.
+  await stand(shop.wx + 20, shop.wz);
+  a.room.send('block:buy', { id: 'stone' });
+  let err = await nextMessage(a.room, 'block:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.spot.id, shop.id);
+  await stand(shop.wx, shop.wz);
+  a.room.send('block:buy', { id: 'water' });      // 250, and the purse holds the day's 100
+  assert.equal((await nextMessage(a.room, 'block:error')).reason, 'not enough coins');
+  a.room.send('block:buy', { id: 'stone' });
+  const got = await nextMessage(a.room, 'block:bought');
+  assert.equal(got.word, BLOCKS.get('stone').word);
+  assert.equal(got.wallet.coins, a.welcome.wallet.coins - BLOCKS.get('stone').price);
+  a.room.send('block:buy', { id: 'stone' });
+  assert.equal((await nextMessage(a.room, 'block:error')).reason, 'already yours');
+
+  // The room is entered at its door, and nowhere else.
+  a.room.send('room:enter', {});
+  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'too far');
+  await stand(door.wx, door.wz);
+  a.room.send('room:enter', {});
+  const room = await nextMessage(a.room, 'room:state');
+  assert.equal(room.tier, 1);
+  assert.equal(room.grid, ROOMS[0].grid);
+  assert.deepEqual(room.blocks, [], 'a first room is empty');
+  assert.deepEqual(room.owned.sort(), ['stone', 'wood']);
+
+  // Building only happens inside. Standing at the door is not being in the room.
+  a.room.send('room:place', { x: 0, y: 0, z: 0, b: 'wood' });
+  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'not inside');
+  await stand(door.wx, door.wz, 'in:room');
+  a.room.send('room:place', { x: 0, y: 0, z: 0, b: 'wood' });
+  const placed = await nextMessage(a.room, 'room:placed');
+  assert.deepEqual([placed.x, placed.y, placed.z, placed.b], [0, 0, 0, 'wood']);
+  assert.equal(placed.used, 1);
+  assert.equal(placed.cap, ROOMS[0].cap);
+  // Nothing floats, nothing overlaps, and nothing is built out of a kind never bought.
+  a.room.send('room:place', { x: 0, y: 2, z: 0, b: 'wood' });
+  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'nothing underneath');
+  a.room.send('room:place', { x: 0, y: 0, z: 0, b: 'stone' });
+  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'something is there');
+  a.room.send('room:place', { x: 99, y: 0, z: 0, b: 'wood' });
+  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'outside the room');
+  a.room.send('room:place', { x: 1, y: 0, z: 0, b: 'water' });
+  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'not bought');
+  a.room.send('room:place', { x: 0, y: 1, z: 0, b: 'stone' });
+  assert.equal((await nextMessage(a.room, 'room:placed')).used, 2);
+  a.room.send('room:remove', { x: 0, y: 0, z: 0 });
+  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'something is on top');
+  a.room.send('room:remove', { x: 0, y: 1, z: 0 });
+  assert.equal((await nextMessage(a.room, 'room:removed')).used, 1);
+
+  // Moving house: the agent's counter, a level and a price.
+  a.room.send('room:move', {});
+  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'too far');
+  await stand(agent.wx, agent.wz);
+  a.room.send('room:move', {});
+  err = await nextMessage(a.room, 'room:error');
+  assert.equal(err.reason, 'level too low');
+  assert.equal(err.need, ROOMS[1].level);
+
+  // What was built comes back with the child.
+  await a.room.leave();
+  await sleep(100);
+  const again = await join('Nagi');
+  again.room.send('move', { s: 'in:room', x: 0, z: 0, r: 0, a: 'idle', t: 1 });
+  await waitFor(() => again.room.state.players.get(again.room.sessionId).space === 'in:room');
+  again.room.send('room:place', { x: 1, y: 0, z: 1, b: 'stone' });
+  const still = await nextMessage(again.room, 'room:placed');
+  assert.equal(still.used, 2, 'the block from before is still standing');
+  await again.room.leave();
+  await sleep(100);
+});

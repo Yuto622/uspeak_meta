@@ -17,6 +17,7 @@ import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
 import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
+import { TOWN_ISLAND, BLOCKS, ROOMS, roomOfTier, nextRoom, blockPayload, sanitizeBlocks, sanitizeRoom, roomPayload, place as placeBlock, remove as removeBlock, TownError } from '../game/town.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding, startLap, crossGate } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
 import { createTutor } from '../ai/tutor.js';
@@ -107,6 +108,12 @@ export class ClassRoom extends Room {
     this.onMessage('pet:act', (client, msg) => this.onPetAct(client, msg));
     this.onMessage('rank', (client) => this.onRank(client));
     this.onMessage('ghost:hit', (client, msg) => this.onGhostHit(client, msg));
+    this.onMessage('block:list', (client) => client.send('block:shop', this.shopPayload(client.sessionId)));
+    this.onMessage('block:buy', (client, msg) => this.onBlockBuy(client, msg));
+    this.onMessage('room:enter', (client) => this.onRoomEnter(client));
+    this.onMessage('room:place', (client, msg) => this.onRoomPlace(client, msg));
+    this.onMessage('room:remove', (client, msg) => this.onRoomRemove(client, msg));
+    this.onMessage('room:move', (client) => this.onRoomMove(client));
     this.onMessage('ride:list', (client) => client.send('ride:garage', this.garagePayload(client.sessionId)));
     this.onMessage('ride:buy', (client, msg) => this.onRideBuy(client, msg));
     this.onMessage('ride:equip', (client, msg) => this.onRideEquip(client, msg));
@@ -426,6 +433,7 @@ export class ClassRoom extends Room {
 
   privFromRecord(record) {
     const garage = sanitizeGarage(parseJson(record.garage_json, []));
+    const bricks = sanitizeBlocks(parseJson(record.blocks_json, []));
     return {
       name: record.name,
       wallet: sanitizeWallet({
@@ -454,6 +462,8 @@ export class ClassRoom extends Room {
       caps: sanitizeCaps({ day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins }),
       garage,
       riding: sanitizeRiding(record.riding, garage),
+      bricks,
+      room: sanitizeRoom(parseJson(record.room_json, null), bricks),
       lap: null,
       move: sanitizeMove(record.move),
       pet: sanitizePet(parseJson(record.pet_json, null)),
@@ -486,6 +496,7 @@ export class ClassRoom extends Room {
       week_key: priv.week.key, week_xp: priv.week.xp,
       cap_day: priv.caps.day, battle_coins: priv.caps.battle, ghost_coins: priv.caps.ghost, course_coins: priv.caps.course,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
+      blocks_json: JSON.stringify(priv.bricks), room_json: JSON.stringify(priv.room),
       updated_at: iso, last_seen: priv.lastSeen,
     });
   }
@@ -921,6 +932,123 @@ export class ClassRoom extends Room {
       classCode: this.classCode,
       season: seasonFor(),
     });
+  }
+
+  // ---- まちづくり島 -------------------------------------------------------------
+
+  // Roblox's HousingService kept only the door in the town and built the room when a
+  // child walked in. That is what makes this affordable: nothing about a room costs
+  // anything until someone is inside it, so the school's size does not matter, only how
+  // many children are standing in their rooms right now.
+  atTownSpot(sessionId, kind) {
+    const player = this.state.players.get(sessionId);
+    const spot = TOWN_ISLAND.spotById.get(kind);
+    if (!player || !spot) return false;
+    if (player.space !== TOWN_ISLAND.id) return false;
+    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= TOWN_ISLAND.radius + SPOT_SLACK;
+  }
+
+  townSpotPayload(kind) {
+    const s = TOWN_ISLAND.spotById.get(kind);
+    return s ? { id: s.id, kind: s.kind, name: s.name, ja: s.ja } : null;
+  }
+
+  shopPayload(sessionId) {
+    const priv = this.priv.get(sessionId);
+    if (!priv) return { blocks: [] };
+    return {
+      blocks: [...BLOCKS.values()].map((b) => blockPayload(b, priv.bricks.includes(b.id))),
+      coins: priv.wallet.coins,
+    };
+  }
+
+  onBlockBuy(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const fail = (reason, extra = {}) => client.send('block:error', { reason, ...extra });
+    const block = BLOCKS.get(String(msg?.id || ''));
+    if (!block) return fail('no such block');
+    // Blocks are bought at the block shop, like everything else is bought where it is.
+    if (!this.atTownSpot(client.sessionId, 'shop')) return fail('too far', { spot: this.townSpotPayload('shop') });
+    if (priv.bricks.includes(block.id)) return fail('already yours');
+    if (priv.wallet.coins < block.price) return fail('not enough coins', { need: block.price, coins: priv.wallet.coins });
+    if (block.price > 0) {
+      const entry = applyOp(priv.wallet, { type: 'spend', amount: block.price, id: `block:${block.id}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    }
+    priv.bricks.push(block.id);
+    this.persist(client.sessionId);
+    client.send('block:bought', {
+      id: block.id, word: block.word, ja: block.ja,
+      ...this.shopPayload(client.sessionId), ...this.walletPayload(client.sessionId),
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${block.id} block`);
+  }
+
+  onRoomEnter(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    if (!this.atTownSpot(client.sessionId, 'door')) {
+      client.send('room:error', { reason: 'too far', spot: this.townSpotPayload('door') });
+      return;
+    }
+    client.send('room:state', roomPayload(priv.room, priv.bricks));
+  }
+
+  // A block goes in when the child is inside their own room. Rooms are not shared, so
+  // there is nobody else's wall to build through.
+  inRoom(sessionId) {
+    const player = this.state.players.get(sessionId);
+    return !!player && player.space === 'in:room';
+  }
+
+  onRoomPlace(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    if (!this.inRoom(client.sessionId)) { client.send('room:error', { reason: 'not inside' }); return; }
+    let placed;
+    try { placed = placeBlock(priv.room, priv.bricks, msg); } catch (err) {
+      if (err instanceof TownError) { client.send('room:error', { reason: err.message }); return; }
+      throw err;
+    }
+    this.persist(client.sessionId);
+    const room = roomOfTier(priv.room.tier);
+    client.send('room:placed', { ...placed, used: priv.room.blocks.length, cap: room.cap });
+  }
+
+  onRoomRemove(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    if (!this.inRoom(client.sessionId)) { client.send('room:error', { reason: 'not inside' }); return; }
+    let gone;
+    try { gone = removeBlock(priv.room, msg); } catch (err) {
+      if (err instanceof TownError) { client.send('room:error', { reason: err.message }); return; }
+      throw err;
+    }
+    this.persist(client.sessionId);
+    const room = roomOfTier(priv.room.tier);
+    client.send('room:removed', { ...gone, used: priv.room.blocks.length, cap: room.cap });
+  }
+
+  // Roblox called this 引っ越し: a bigger room for a level and a price. What is built
+  // stays built - a larger room is the same room with more space around it.
+  onRoomMove(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const fail = (reason, extra = {}) => client.send('room:error', { reason, ...extra });
+    if (!this.atTownSpot(client.sessionId, 'agent')) return fail('too far', { spot: this.townSpotPayload('agent') });
+    const next = nextRoom(priv.room.tier);
+    if (!next) return fail('biggest already');
+    if (priv.progress.level < next.level) return fail('level too low', { need: next.level, level: priv.progress.level });
+    if (priv.wallet.coins < next.price) return fail('not enough coins', { need: next.price, coins: priv.wallet.coins });
+    const entry = applyOp(priv.wallet, { type: 'spend', amount: next.price, id: `room:${next.id}` });
+    this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    priv.room.tier = next.tier;
+    this.persist(client.sessionId);
+    client.send('room:moved', {
+      room: roomPayload(priv.room, priv.bricks), ...this.walletPayload(client.sessionId),
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" moved into the ${next.id}`);
   }
 
   // ---- のりもの島 ---------------------------------------------------------------

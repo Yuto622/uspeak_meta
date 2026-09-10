@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "note": "まちづくり島. The island is shared data like every other; a room is not. Only the door stands in the town - the room itself is built from the child's own saved blocks when they walk in, which is how Roblox's HousingService did it.",
+  "island": {
+    "id": "town",
+    "name": "まちづくり島",
+    "en": "TOWN ISLAND",
+    "x": -210,
+    "z": -40,
+    "radius": 5.0,
+    "grass": 10466440,
+    "grassTop": 12372884,
+    "spawn": {
+      "x": 0,
+      "z": 21
+    },
+    "courtyard": {
+      "x": 0,
+      "z": 4
+    },
+    "spots": [
+      {
+        "id": "shop",
+        "kind": "shop",
+        "name": "ブロック屋",
+        "en": "Block Shop",
+        "character": "Upee",
+        "ja": "ブロック屋",
+        "x": -13,
+        "z": 3,
+        "color": 14469540,
+        "tone": "🧱",
+        "path": {
+          "x": 0,
+          "z": 4
+        }
+      },
+      {
+        "id": "agent",
+        "kind": "agent",
+        "name": "ふどうさん",
+        "en": "Estate Agent",
+        "character": "Upee",
+        "ja": "ふどうさん",
+        "x": 13,
+        "z": 3,
+        "color": 13228260,
+        "tone": "🏠",
+        "path": {
+          "x": 0,
+          "z": 4
+        }
+      },
+      {
+        "id": "door",
+        "kind": "door",
+        "name": "マイルーム入口",
+        "en": "Your Room",
+        "character": "Upee",
+        "ja": "マイルーム",
+        "x": 0,
+        "z": -9,
+        "color": 14996411,
+        "tone": "🚪",
+        "path": {
+          "x": 0,
+          "z": 4
+        }
+      }
+    ]
+  },
+  "blocks": [
+    {
+      "id": "wood",
+      "word": "wood",
+      "ja": "き",
+      "price": 0,
+      "color": 11568725
+    },
+    {
+      "id": "stone",
+      "word": "stone",
+      "ja": "いし",
+      "price": 30,
+      "color": 10132114
+    },
+    {
+      "id": "brick",
+      "word": "brick",
+      "ja": "レンガ",
+      "price": 60,
+      "color": 11821386
+    },
+    {
+      "id": "glass",
+      "word": "glass",
+      "ja": "ガラス",
+      "price": 90,
+      "color": 11065576
+    },
+    {
+      "id": "grass",
+      "word": "grass",
+      "ja": "くさ",
+      "price": 40,
+      "color": 8104786
+    },
+    {
+      "id": "sand",
+      "word": "sand",
+      "ja": "すな",
+      "price": 40,
+      "color": 14733210
+    },
+    {
+      "id": "snow",
+      "word": "snow",
+      "ja": "ゆき",
+      "price": 120,
+      "color": 15660280
+    },
+    {
+      "id": "lamp",
+      "word": "lamp",
+      "ja": "ランプ",
+      "price": 200,
+      "color": 16767370
+    },
+    {
+      "id": "flower",
+      "word": "flower",
+      "ja": "はな",
+      "price": 150,
+      "color": 14971018
+    },
+    {
+      "id": "water",
+      "word": "water",
+      "ja": "みず",
+      "price": 250,
+      "color": 5218256
+    }
+  ],
+  "rooms": [
+    {
+      "tier": 1,
+      "id": "small",
+      "name": "ワンルーム",
+      "en": "Studio",
+      "grid": 8,
+      "height": 4,
+      "level": 1,
+      "price": 0,
+      "cap": 120
+    },
+    {
+      "tier": 2,
+      "id": "medium",
+      "name": "ひろい部屋",
+      "en": "Wide Room",
+      "grid": 12,
+      "height": 5,
+      "level": 4,
+      "price": 800,
+      "cap": 280
+    },
+    {
+      "tier": 3,
+      "id": "large",
+      "name": "おおきな家",
+      "en": "Big House",
+      "grid": 16,
+      "height": 6,
+      "level": 8,
+      "price": 2500,
+      "cap": 520
+    }
+  ]
+}
