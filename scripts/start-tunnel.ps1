@@ -68,7 +68,10 @@ $env:STORE_BACKEND = 'file'
 $secretFile = Join-Path $logDir 'report-secret.txt'
 if (-not (Test-Path $secretFile)) {
   $bytes = New-Object byte[] 24
-  [System.Security.Cryptography.RandomNumberGenerator]::Fill($bytes)
+  # ::Fill() is .NET Core only, and Windows PowerShell 5.1 runs on .NET Framework.
+  # ::Create() exists on both.
+  $rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+  try { $rng.GetBytes($bytes) } finally { $rng.Dispose() }
   $secret = [Convert]::ToBase64String($bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_')
   Set-Content -Path $secretFile -Value $secret -NoNewline
 }
