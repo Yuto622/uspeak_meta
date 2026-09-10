@@ -53,6 +53,16 @@ try {
   }));
 
   const base = await calibrate(a);
+  // On foot, the start line is where a child chooses: it must not simply refuse them.
+  await walkTo(a, 'the start line first', ...world(start), base, { arrive: 2.2 });
+  await a.click('#interact');
+  await a.waitForSelector('#ride-dialog[open] .ride-lead', { timeout: 10000 });
+  check('the start line explains what is missing, on foot',
+    (await a.textContent('#ride-body .ride-lead')).includes('のりもの'), (await a.textContent('#ride-body .ride-lead')).slice(0, 40));
+  check('and it is the garage, not a dead end', (await a.$$eval('#ride-body .ride-card', (n) => n.length)) === 4);
+  await a.click('#ride-done').catch(() => {});
+  await sleep(300);
+
   await walkTo(a, `gate ${gate.id}`, ...world(gate), base);
   check('the gate offers its vehicle', (await nearLabel(a)).includes('キックボード'), await nearLabel(a));
 

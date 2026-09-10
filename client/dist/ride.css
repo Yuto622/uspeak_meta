@@ -140,3 +140,6 @@ body.in-room .near { display: none; }
   #room-acts { bottom: 8px; width: 92px; gap: 5px; }
   #room-acts button { padding: 8px 6px; font-size: 13px; }
 }
+
+/* The line at the top of the garage when it is opened at the start line. */
+.ride-lead { margin: 0 0 12px; padding: 11px 14px; border-radius: 12px; background: #fdf3d6; font-size: 13px; line-height: 1.7; }

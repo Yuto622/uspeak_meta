@@ -99,7 +99,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     send: (type, payload) => room?.send(type, payload),
     toast, speak, learn, isOnline: () => state.mode === 'online',
     onRiding: (id, speed) => { state.riding = id; state.speed = id ? speed : 1; },
-    onCourse: (gateId) => rpg.ride.setNext(gateId),
+    onCourse: (gateId) => {
+      rpg.ride.setNext(gateId);
+      // Driving past a building is not visiting it: the doors stay shut for the lap.
+      rpg.holdDoors(!!gateId);
+    },
   });
   // The night belongs to the world, not to the network, but its ghosts pay coins — so
   // it is created here, where the room is, and asks the server for every one of them.
