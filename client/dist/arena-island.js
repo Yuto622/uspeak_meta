@@ -21,7 +21,7 @@ export function createArenaIsland({ scene }) {
   const island = createIsland({
     scene,
     seed: 51413,
-    build({ island: data, B, sprite, house, path, resident, scatter }) {
+    build({ island: data, B, sprite, house, path, resident, door, scatter }) {
       const yard = data.courtyard;
       // The ring: a raised stone floor with rope posts, so the middle of the island is
       // the arena rather than the gap between four buildings.
@@ -38,8 +38,10 @@ export function createArenaIsland({ scene }) {
       for (const def of data.spots) {
         if (def.kind === 'pvp' || def.kind === 'dojo') {
           house(def.x, def.z - 5.6, 11, 8, Number(def.color), def.kind === 'dojo' ? 0x4a7a6a : 0x6a4a7a, `${def.tone} ${def.name}`);
+          door(def, 5.6, 8);
         } else {
           house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
+          door(def);
         }
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xe0d6b0);

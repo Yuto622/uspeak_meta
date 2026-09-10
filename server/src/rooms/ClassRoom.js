@@ -575,12 +575,20 @@ export class ClassRoom extends Room {
   // never leaves the server, so unlike the lesson and fish keys there is nothing in the
   // browser to read: the child gets a question and four choices, and the answer arrives
   // only after they have committed to one.
-  atHut(sessionId, hutId) {
+  // Standing at a place on an island now means one of two things: standing on its
+  // doorstep, or being inside it. A child indoors declares `in:<island>:<spot>`, which
+  // names the very building this is asking about — so it is still checked, not trusted:
+  // the space has to name this spot, on this island.
+  atPlace(sessionId, island, spot) {
     const player = this.state.players.get(sessionId);
-    const hut = SCHOOL.spotById.get(hutId);
-    if (!player || !hut) return false;
-    if (player.space !== SCHOOL.id) return false;
-    return Math.hypot(player.x - hut.wx, player.z - hut.wz) <= SCHOOL.radius + SPOT_SLACK;
+    if (!player || !spot) return false;
+    if (player.space === `in:${island.id}:${spot.id}`) return true;
+    if (player.space !== island.id) return false;
+    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= island.radius + SPOT_SLACK;
+  }
+
+  atHut(sessionId, hutId) {
+    return this.atPlace(sessionId, SCHOOL, SCHOOL.spotById.get(hutId));
   }
 
   onQuizStart(client, msg) {
@@ -731,11 +739,7 @@ export class ClassRoom extends Room {
   // strong moves ask a question first and fizzle on a wrong answer. Everything - the
   // question, the answer, the damage, the opponent's turn - is decided here.
   atStand(sessionId, standId) {
-    const player = this.state.players.get(sessionId);
-    const stand = ARENA.spotById.get(standId);
-    if (!player || !stand) return false;
-    if (player.space !== ARENA.id) return false;
-    return Math.hypot(player.x - stand.wx, player.z - stand.wz) <= ARENA.radius + SPOT_SLACK;
+    return this.atPlace(sessionId, ARENA, ARENA.spotById.get(standId));
   }
 
   // Roblox capped what a day of battling could pay, so the arena stays a game rather
@@ -865,11 +869,7 @@ export class ClassRoom extends Room {
   // pet left for a day is hungry whether or not anyone was online - that is the whole
   // point, and it is why the decay is arithmetic on a timestamp rather than a tick.
   atPetSpot(sessionId, kind) {
-    const player = this.state.players.get(sessionId);
-    const spot = PET_ISLAND.spotById.get(kind);
-    if (!player || !spot) return false;
-    if (player.space !== PET_ISLAND.id) return false;
-    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= PET_ISLAND.radius + SPOT_SLACK;
+    return this.atPlace(sessionId, PET_ISLAND, PET_ISLAND.spotById.get(kind));
   }
 
   petSpotPayload(kind) {
@@ -979,11 +979,7 @@ export class ClassRoom extends Room {
   // anything until someone is inside it, so the school's size does not matter, only how
   // many children are standing in their rooms right now.
   atTownSpot(sessionId, kind) {
-    const player = this.state.players.get(sessionId);
-    const spot = TOWN_ISLAND.spotById.get(kind);
-    if (!player || !spot) return false;
-    if (player.space !== TOWN_ISLAND.id) return false;
-    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= TOWN_ISLAND.radius + SPOT_SLACK;
+    return this.atPlace(sessionId, TOWN_ISLAND, TOWN_ISLAND.spotById.get(kind));
   }
 
   townSpotPayload(kind) {
@@ -1095,11 +1091,7 @@ export class ClassRoom extends Room {
   // walked rather than scrolled, and the level and the coins are checked here — the page
   // shows a gold sign, it does not decide what it means.
   atRideSpot(sessionId, spotId) {
-    const player = this.state.players.get(sessionId);
-    const spot = RIDE_ISLAND.spotById.get(spotId);
-    if (!player || !spot) return false;
-    if (player.space !== RIDE_ISLAND.id) return false;
-    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= RIDE_ISLAND.radius + SPOT_SLACK;
+    return this.atPlace(sessionId, RIDE_ISLAND, RIDE_ISLAND.spotById.get(spotId));
   }
 
   rideSpotPayload(spotId) {
@@ -1302,11 +1294,7 @@ export class ClassRoom extends Room {
   // also hands out the coins. A child cannot finish an errand from the menu, and the
   // walk they make is the same walk their classmates watch them make.
   atSpot(sessionId, spotId) {
-    const player = this.state.players.get(sessionId);
-    const spot = MISSIONS.island.spotById.get(spotId);
-    if (!player || !spot) return false;
-    if (player.space !== MISSIONS.island.id) return false;
-    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= MISSIONS.island.radius + SPOT_SLACK;
+    return this.atPlace(sessionId, MISSIONS.island, MISSIONS.island.spotById.get(spotId));
   }
 
   spotPayload(spotId) {

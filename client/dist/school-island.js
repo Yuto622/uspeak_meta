@@ -21,7 +21,7 @@ export function createSchoolIsland({ scene }) {
   const island = createIsland({
     scene,
     seed: 30414159,
-    build({ island: data, B, sprite, house, path, resident, scatter }) {
+    build({ island: data, B, sprite, house, path, resident, door, scatter }) {
       // A courtyard with the school bell, so the middle of the island is a place and not
       // just the gap between three huts.
       const yard = data.courtyard;
@@ -37,6 +37,7 @@ export function createSchoolIsland({ scene }) {
           // The gym is a hall, not a hut: wider, taller, with a pair of speaker stacks
           // either side of the door so it reads as the place you go to listen.
           house(def.x, def.z - 5.6, 11, 8, Number(def.color), 0x4c6f86, `${def.tone} ${def.name}`);
+          door(def, 5.6, 8);
           for (const sx of [-4.2, 4.2]) {
             B(def.x + sx, 1.5, def.z - 1.4, 1.5, 3, 1.2, 0x3f5566);
             B(def.x + sx, 2.6, def.z - 1.9, 1.1, 0.9, 0.3, 0xd9e6ee);
@@ -45,6 +46,7 @@ export function createSchoolIsland({ scene }) {
           // Each hut is coloured and starred by its difficulty, so a child reads the
           // island rather than a label.
           house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
+          door(def);
         }
         // Each building says in the data where its path starts, and therefore the line
         // a child walks to it. The huts open on to the courtyard, the gym on to the

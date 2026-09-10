@@ -13,7 +13,7 @@ export function createErrandIsland({ scene }) {
   const island = createIsland({
     scene,
     seed: 20250910,
-    build({ island: data, B, sprite, house, path, resident, scatter }) {
+    build({ island: data, B, sprite, house, path, resident, door, scatter }) {
       const plaza = data.spots.find((s) => s.kind === 'plaza');
       // The plaza: a stone circle, the errand board, and the person who hands them out.
       if (plaza) {
@@ -26,6 +26,7 @@ export function createErrandIsland({ scene }) {
       for (const def of data.spots) {
         if (def.kind === 'shop') {
           house(def.x, def.z - 4.6, 7.4, 6, Number(def.color), 0xb8703f, def.name);
+          door(def, 4.6, 6);
           path(plaza ? plaza.x : 0, plaza ? plaza.z : 0, def.x, def.z);
         }
         resident(def);

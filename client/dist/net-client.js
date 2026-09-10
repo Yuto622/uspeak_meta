@@ -19,7 +19,7 @@ import { createRideUI } from './ride.js';
 import { createRoom } from './room-world.js';
 import { createTownUI } from './town.js';
 
-export function setupNet({ scene, camera, player, rpg, fishing, avatars, park, toast, speak, learn }) {
+export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, toast, speak, learn }) {
   const Colyseus = globalThis.Colyseus;
   const $ = (s) => document.querySelector(s);
   const state = {
@@ -84,7 +84,7 @@ export function setupNet({ scene, camera, player, rpg, fishing, avatars, park, t
   // park's: the island, the weather and everyone else stay outside. (`room` is already
   // the Colyseus room in this file, so the child's own room is `myRoom`.)
   const myRoom = createRoom({
-    player, camera, toast, speak, learn,
+    player, camera, view, toast, speak, learn,
     send: (type, payload) => room?.send(type, payload),
     onLeave: () => { town.hideHud(); rpg.activate('town', true); },
   });
@@ -133,6 +133,10 @@ export function setupNet({ scene, camera, player, rpg, fishing, avatars, park, t
   function round(v, d) { const p = 10 ** d; return Math.round(v * p) / p; }
   function currentSpace() {
     if (myRoom.active) return 'in:room';
+    // Inside an island building. The name says which building on which island, and the
+    // server checks it against the very place it is being asked about.
+    const building = rpg.insideBuilding;
+    if (building) return `in:${building.island}:${building.spot.id}`;
     const interior = rpg.adventure?.magic?.interior;
     if (interior?.active) return `in:${interior.building?.id || 'room'}`;
     return rpg.state.current || 'willow';

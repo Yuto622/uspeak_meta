@@ -101,6 +101,24 @@ console.log('PASS: 36 chests in 12 areas, 3 gated permanent keys, all tiers, 12 
  assert.equal(rpg.errand.target,'bakery');
  assert.equal(rpg.mapSmall(ctx),true,'the island draws its own minimap');
  rpg.errand.update(1,player);
+ // The shops are buildings a child walks into; the plaza is a square, and a square has
+ // no door to promise.
+ {
+  const doors=rpg.errand.doors;
+  const shops=island.spots.filter(sp=>sp.kind==='shop');
+  assert.equal(doors.length,shops.length,'errand: a door for every shop and nothing else');
+  for(const d of doors){
+   const spot=shops.find(sp=>sp.id===d.id);
+   assert.ok(spot,'errand: a door belongs to no shop');
+   player.position.set(island.x+spot.x,0,island.z+spot.z);
+   assert.equal(rpg.errand.doorNear(player)?.id,d.id,'errand: arriving at '+d.id+' does not put a child in its doorway');
+  }
+  const plaza=island.spots.find(sp=>sp.kind!=='shop');
+  if(plaza){
+   player.position.set(island.x+plaza.x,0,island.z+plaza.z);
+   assert.equal(rpg.errand.doorNear(player),null,'errand: the plaza is not a building');
+  }
+ }
  // Leaving hides it again and hands collision back to the place we went to.
  rpg.activate('willow');
  assert.equal(rpg.errand.visible,false);
@@ -144,6 +162,22 @@ for(const [hub,mod,near] of [['school','school','schoolNearby'],['arena','arena'
    if(other.id===spot.id)continue;
    assert.ok(Math.hypot(spot.x-other.x,spot.z-other.z)>10,hub+': '+spot.id+' and '+other.id+' overlap');}
  }
+ // Every building a child can see has a way in, and the way in is where they arrive:
+ // walking to the place puts them in its doorway, which is what takes them inside.
+ const doors=rpg[mod].doors;
+ assert.equal(doors.length,island.spots.length,hub+': not every building has a door');
+ for(const d of doors){
+  const spot=island.spots.find(sp=>sp.id===d.id);
+  assert.ok(spot,hub+': a door belongs to no place');
+  assert.ok(Math.abs(d.x-spot.x)<0.01&&Math.abs(d.z-spot.z)<=1.4,hub+': the door of '+d.id+' is not where a child arrives');
+  player.position.set(island.x+spot.x,0,island.z+spot.z);
+  assert.equal(rpg[mod].doorNear(player)?.id,d.id,hub+': arriving at '+d.id+' does not put a child in its doorway');
+  // And standing in one doorway is never standing in another's.
+  const others=doors.filter(o=>o.id!==d.id&&Math.abs(o.x-d.x)<1.4&&Math.abs(o.z-d.z)<1.2);
+  assert.equal(others.length,0,hub+': the doorways of '+d.id+' and '+others.map(o=>o.id).join(',')+' overlap');
+ }
+ player.position.set(island.x+island.spawn.x,0,island.z+island.spawn.z);
+ assert.equal(rpg[mod].doorNear(player),null,hub+': the landing is not a doorway');
  assert.equal(rpg.mapSmall(ctx),true,hub+': the island draws its own minimap');
  rpg.activate('willow');
  assert.equal(rpg[mod].visible,false);

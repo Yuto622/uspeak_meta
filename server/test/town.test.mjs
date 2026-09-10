@@ -37,17 +37,21 @@ test('rooms grow, and there is always somewhere to move to next', () => {
   assert.equal(roomOfTier(99).tier, 1, 'a nonsense tier is the room you start in');
 });
 
-test('a block rests on the floor or on another block', () => {
+test('a block goes against a surface, and nothing appears in mid-air', () => {
   const owned = sanitizeBlocks([]);
   const state = fresh();
+  // The floor is a surface, so the first block always goes down.
   assert.deepEqual(place(state, owned, { x: 0, y: 0, z: 0, b: 'wood' }), { x: 0, y: 0, z: 0, b: 'wood' });
-  assert.throws(() => place(state, owned, { x: 0, y: 2, z: 0, b: 'wood' }), /nothing underneath/);
+  assert.throws(() => place(state, owned, { x: 0, y: 2, z: 0, b: 'wood' }), /nothing to build on/);
+  assert.throws(() => place(state, owned, { x: 3, y: 3, z: 3, b: 'wood' }), /nothing to build on/);
+  // On top of one is a surface...
   place(state, owned, { x: 0, y: 1, z: 0, b: 'wood' });
-  assert.equal(state.blocks.length, 2);
-  // And a stack cannot be pulled out from underneath.
-  assert.throws(() => remove(state, { x: 0, y: 0, z: 0 }), /something is on top/);
-  assert.deepEqual(remove(state, { x: 0, y: 1, z: 0 }), { x: 0, y: 1, z: 0, b: 'wood' });
+  // ...and so is its side, which is how an arch or a roof gets built.
+  place(state, owned, { x: 1, y: 1, z: 0, b: 'wood' });
+  assert.equal(state.blocks.length, 3);
+  // Anything can be dug out, including from underneath: blocks do not fall here either.
   assert.deepEqual(remove(state, { x: 0, y: 0, z: 0 }), { x: 0, y: 0, z: 0, b: 'wood' });
+  assert.equal(state.blocks.length, 2);
   assert.throws(() => remove(state, { x: 0, y: 0, z: 0 }), /nothing there/);
 });
 

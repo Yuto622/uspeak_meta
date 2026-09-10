@@ -7,9 +7,9 @@
 import * as THREE from './three.module.js';
 
 const CELL = 1;                 // one block, one metre
-const CURSOR_REACH = 1.4;       // how far in front of the avatar the cursor sits
+const REACH = 6;                // how far the crosshair carries, in blocks
 
-export function createRoom({ player, camera, send, toast, speak, learn, onLeave }) {
+export function createRoom({ player, camera, view, send, toast, speak, learn, onLeave }) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x1b2a33);
   scene.add(new THREE.HemisphereLight(0xeaf4ff, 0x5b6a55, 1.9));
@@ -40,6 +40,8 @@ export function createRoom({ player, camera, send, toast, speak, learn, onLeave 
   };
   let parent = null;
   let cooldown = 0;
+  let wasFirstPerson = false;
+  let floor = null;
 
   const key = (x, y, z) => `${x},${y},${z}`;
 
@@ -62,7 +64,7 @@ export function createRoom({ player, camera, send, toast, speak, learn, onLeave 
   function buildShell(room) {
     shell.clear();
     const half = room.grid / 2;
-    const floor = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.4, room.grid), mat(0x8b7f68));
+    floor = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.4, room.grid), mat(0x8b7f68));
     floor.position.y = -0.2;
     floor.receiveShadow = true;
     shell.add(floor);
@@ -110,10 +112,18 @@ export function createRoom({ player, camera, send, toast, speak, learn, onLeave 
     scene.add(player);
     const half = payload.grid / 2;
     player.position.set(0, 0, half - 1.4);
-    player.rotation.y = Math.PI;
+    player.rotation.y = 0;                 // facing into the room, not back out of it
     state.active = true;
     cooldown = 1;
     document.body.classList.add('in-room');
+    // Building is done down a crosshair, so the view goes to the child's own eyes, and
+    // whatever they were using outside is put back when they leave.
+    wasFirstPerson = !!view?.firstPerson;
+    if (view) view.firstPerson = true;
+    document.body.classList.add('first-person');
+    // Look into the room and a little down, so the very first thing under the crosshair
+    // is a piece of floor a block can go on.
+    view?.look?.(0, -0.42);
     const where = document.querySelector('.location');
     if (where) where.innerHTML = `<span>✦</span> ${payload.en || 'YOUR ROOM'} <small>${payload.name} · 屋内</small>`;
     const mapTitle = document.querySelector('.map-panel>div b');
@@ -126,6 +136,8 @@ export function createRoom({ player, camera, send, toast, speak, learn, onLeave 
     state.active = false;
     (parent || null)?.add(player);
     document.body.classList.remove('in-room');
+    if (view) view.firstPerson = wasFirstPerson;
+    document.body.classList.toggle('first-person', wasFirstPerson);
     cursor.visible = false;
     onLeave(silent);
     return true;
@@ -133,35 +145,57 @@ export function createRoom({ player, camera, send, toast, speak, learn, onLeave 
 
   // ---- building --------------------------------------------------------------------
 
-  const stackAt = (x, z) => {
-    let y = 0;
-    while (state.cells.has(key(x, y, z))) y += 1;
-    return y;
-  };
+  // What the crosshair is pointing at. This is the Minecraft rule a child already knows:
+  // aim at a face, and the block goes on that face — or the block itself is dug out.
+  const raycaster = new THREE.Raycaster();
+  raycaster.far = REACH;
+  const centre = new THREE.Vector2(0, 0);
 
   function aimed() {
     if (!state.active || !state.room) return null;
+    raycaster.setFromCamera(centre, camera);
+    const hits = raycaster.intersectObjects([...built.children, floor].filter(Boolean), false);
+    const hit = hits[0];
+    if (!hit) return null;
     const half = state.room.grid / 2;
-    const fx = player.position.x + Math.sin(player.rotation.y) * CURSOR_REACH;
-    const fz = player.position.z + Math.cos(player.rotation.y) * CURSOR_REACH;
-    const x = Math.round(fx);
-    const z = Math.round(fz);
-    if (Math.abs(x) >= half || Math.abs(z) >= half) return null;
-    return { x, z, y: stackAt(x, z) };
+    // The face that was hit, as a whole-block step away from what was hit.
+    const normal = hit.face ? hit.face.normal.clone().transformDirection(hit.object.matrixWorld).round() : new THREE.Vector3(0, 1, 0);
+    const inside = hit.object === floor
+      ? { x: Math.round(hit.point.x), y: -1, z: Math.round(hit.point.z) }
+      : { x: Math.round(hit.object.position.x), y: Math.round(hit.object.position.y - 0.5), z: Math.round(hit.object.position.z) };
+    const onto = { x: inside.x + normal.x, y: inside.y + normal.y, z: inside.z + normal.z };
+    const within = (c) => Math.abs(c.x) < half && Math.abs(c.z) < half && c.y >= 0 && c.y < state.room.height;
+    return {
+      dig: hit.object === floor ? null : inside,
+      place: within(onto) ? onto : null,
+      point: hit.point,
+    };
+  }
+
+  // The two cells a child is standing in. Building into yourself is how you end up
+  // inside a block looking at the inside of it, so it is refused here — the server
+  // cannot know, because where a child is standing is something the page declares.
+  // A child is two blocks tall and the camera sits in the upper one. A block placed in
+  // their own column, or close enough to their eyes to fill the screen, is a block
+  // placed inside them — which is how you end up looking at the inside of one.
+  function standingIn(cell) {
+    if (Math.round(player.position.x) === cell.x && Math.round(player.position.z) === cell.z && cell.y <= 2) return true;
+    const eye = camera.position;
+    return Math.hypot(cell.x - eye.x, cell.y + 0.5 - eye.y, cell.z - eye.z) < 1.2;
   }
 
   function placeHere() {
     const at = aimed();
-    if (!at) { toast('部屋の中に むけて おいてね。'); return; }
     if (!state.hand) { toast('ブロック屋で ブロックを かってね。'); return; }
-    if (at.y >= state.room.height) { toast('てんじょうに とどきました。'); return; }
-    send('room:place', { x: at.x, y: at.y, z: at.z, b: state.hand });
+    if (!at || !at.place) { toast('おける ところを ねらってね。'); return; }
+    if (standingIn(at.place)) { toast('じぶんの いる ところには おけません。'); return; }
+    send('room:place', { x: at.place.x, y: at.place.y, z: at.place.z, b: state.hand });
   }
 
   function removeHere() {
     const at = aimed();
-    if (!at || at.y === 0) { toast('とれる ブロックが ありません。'); return; }
-    send('room:remove', { x: at.x, y: at.y - 1, z: at.z });
+    if (!at || !at.dig) { toast('ほれる ブロックを ねらってね。'); return; }
+    send('room:remove', { x: at.dig.x, y: at.dig.y, z: at.dig.z });
   }
 
   // ---- what the server says ---------------------------------------------------------
@@ -201,8 +235,9 @@ export function createRoom({ player, camera, send, toast, speak, learn, onLeave 
     // The doorway is the one gap in the walls; walking into it leaves.
     if (Math.abs(x) > half - 0.4 || z < -half + 0.4) return true;
     if (z > half + 0.6) return true;
-    // A block on the floor is something to walk round, as a wall of them should be.
-    return state.cells.has(key(Math.round(x), 0, Math.round(z)));
+    // A block is something to walk round: both the one on the floor and the one at
+    // chest height above it, or a child walks through their own wall.
+    return state.cells.has(key(Math.round(x), 0, Math.round(z))) || state.cells.has(key(Math.round(x), 1, Math.round(z)));
   }
 
   function update(t, dt) {
@@ -210,10 +245,11 @@ export function createRoom({ player, camera, send, toast, speak, learn, onLeave 
     if (!state.active) { cursor.visible = false; return; }
     const at = aimed();
     state.cursor = at;
-    cursor.visible = !!at;
-    if (at) {
-      cursor.position.set(at.x, at.y + CELL / 2, at.z);
-      cursor.material.color.setHex(at.y >= state.room.height ? 0xff8a7a : 0xffe08a);
+    const cell = at?.place || at?.dig || null;
+    cursor.visible = !!cell;
+    if (cell) {
+      cursor.position.set(cell.x, cell.y + CELL / 2, cell.z);
+      cursor.material.color.setHex(at.place ? 0xffe08a : 0xff8a7a);
     }
     // Walking out of the doorway is how a child leaves, the same as every other door.
     const half = state.room.grid / 2;

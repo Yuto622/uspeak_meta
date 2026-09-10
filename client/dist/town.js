@@ -28,16 +28,21 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room }) {
   hud.id = 'room-hud';
   hud.hidden = true;
   hud.innerHTML = `<div class="room-hud-top"><b id="room-hud-name"></b><small id="room-hud-count"></small></div>
-    <div id="room-palette" class="room-palette"></div>
-    <div class="room-hud-acts">
-      <button type="button" id="room-place">おく</button>
-      <button type="button" id="room-remove">とる</button>
-      <button type="button" id="room-exit">そとへ</button>
-    </div>`;
+    <div id="room-palette" class="room-palette"></div>`;
+  // The two things you do with a block, where a thumb already is. Minecraft puts them
+  // on the right of the screen and so do we, because that is the game these children
+  // have already learned.
+  const acts = document.createElement('div');
+  acts.id = 'room-acts';
+  acts.hidden = true;
+  acts.innerHTML = `<button type="button" id="room-place">おく<small>E</small></button>
+    <button type="button" id="room-remove">ほる<small>Q</small></button>
+    <button type="button" id="room-exit">そとへ</button>`;
+  document.querySelector('main').append(acts);
   document.querySelector('main').append(hud);
-  $('#room-place', hud).onclick = () => room.placeHere();
-  $('#room-remove', hud).onclick = () => room.removeHere();
-  $('#room-exit', hud).onclick = () => room.leave();
+  $('#room-place', acts).onclick = () => room.placeHere();
+  $('#room-remove', acts).onclick = () => room.removeHere();
+  $('#room-exit', acts).onclick = () => room.leave();
 
   function label(spot) {
     if (spot.kind === 'shop') return '🧱 ブロックを かう';
@@ -109,12 +114,14 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room }) {
     return owned.map((id) => {
       const b = state.shop?.blocks.find((x) => x.id === id) || room.state.palette.get(id);
       const color = b ? hex(b.color) : '#999';
+      const slot = owned.indexOf(id) + 1;
       return `<button type="button" data-hand="${id}" class="${room.hand === id ? 'on' : ''}" title="${esc(b?.word || id)}">
-        <span style="background:${color}"></span><small>${esc(b?.word || id)}</small></button>`;
+        <i>${slot <= 9 ? slot : ''}</i><span style="background:${color}"></span><small>${esc(b?.word || id)}</small></button>`;
     }).join('');
   }
 
   function refreshHud() {
+    acts.hidden = !room.active;
     if (!room.active) { hud.hidden = true; return; }
     hud.hidden = false;
     $('#room-hud-name', hud).textContent = room.state.room?.name || '';
@@ -159,7 +166,9 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room }) {
     // Blocks arriving and leaving both change the count in the HUD.
     onPlaced(m) { room.onPlaced(m); refreshHud(); },
     onRemoved(m) { room.onRemoved(m); refreshHud(); },
-    hideHud() { hud.hidden = true; },
+    hideHud() { hud.hidden = true; acts.hidden = true; },
+    // Number keys pick a block, exactly as they do in the game this borrows from.
+    pickSlot(n) { const owned = room.state.owned || []; const id = owned[n - 1]; if (id) { room.setHand(id); refreshHud(); } },
     // The shop list doubles as the palette's colours, so ask for it once on arrival.
     // Asked for on joining, before the mode has settled to online: the send is a no-op
     // while there is no room, and the answer is what colours the palette.

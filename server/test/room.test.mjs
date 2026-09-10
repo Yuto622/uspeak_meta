@@ -997,9 +997,10 @@ test('a room of your own: bought at the shop, built inside, and still there tomo
   assert.deepEqual([placed.x, placed.y, placed.z, placed.b], [0, 0, 0, 'wood']);
   assert.equal(placed.used, 1);
   assert.equal(placed.cap, ROOMS[0].cap);
-  // Nothing floats, nothing overlaps, and nothing is built out of a kind never bought.
+  // Nothing appears in mid-air, nothing overlaps, and nothing is built out of a kind
+  // that was never bought.
   a.room.send('room:place', { x: 0, y: 2, z: 0, b: 'wood' });
-  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'nothing underneath');
+  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'nothing to build on');
   a.room.send('room:place', { x: 0, y: 0, z: 0, b: 'stone' });
   assert.equal((await nextMessage(a.room, 'room:error')).reason, 'something is there');
   a.room.send('room:place', { x: 99, y: 0, z: 0, b: 'wood' });
@@ -1008,9 +1009,13 @@ test('a room of your own: bought at the shop, built inside, and still there tomo
   assert.equal((await nextMessage(a.room, 'room:error')).reason, 'not bought');
   a.room.send('room:place', { x: 0, y: 1, z: 0, b: 'stone' });
   assert.equal((await nextMessage(a.room, 'room:placed')).used, 2);
+  // A side face is a surface too, which is how a wall grows outwards.
+  a.room.send('room:place', { x: 1, y: 1, z: 0, b: 'stone' });
+  assert.equal((await nextMessage(a.room, 'room:placed')).used, 3);
+  // And anything can be dug out again, including from under what is on top of it.
   a.room.send('room:remove', { x: 0, y: 0, z: 0 });
-  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'something is on top');
-  a.room.send('room:remove', { x: 0, y: 1, z: 0 });
+  assert.equal((await nextMessage(a.room, 'room:removed')).used, 2);
+  a.room.send('room:remove', { x: 1, y: 1, z: 0 });
   assert.equal((await nextMessage(a.room, 'room:removed')).used, 1);
 
   // Moving house: the agent's counter, a level and a price.
@@ -1032,5 +1037,61 @@ test('a room of your own: bought at the shop, built inside, and still there tomo
   const still = await nextMessage(again.room, 'room:placed');
   assert.equal(still.used, 2, 'the block from before is still standing');
   await again.room.leave();
+  await sleep(100);
+});
+
+test('the buildings are walked into: inside one is standing at it, and only that one', async () => {
+  const a = await join('Itsuki');
+  const easy = SCHOOL.spotById.get('easy');
+  const hard = SCHOOL.spotById.get('hard');
+  const declare = async (space, x = 0, z = 0) => {
+    a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => a.room.state.players.get(a.room.sessionId).space === space);
+  };
+
+  // Inside the easy hut, standing nowhere near its coordinates on the island: being in
+  // the building is what "at the hut" means now.
+  await declare('in:school:easy', 0, 0);
+  a.room.send('quiz:start', { hut: 'easy' });
+  const q = await nextMessage(a.room, 'quiz:question');
+  assert.equal(q.difficulty, 'easy');
+  a.room.send('quiz:quit', {});
+  await nextMessage(a.room, 'quiz:closed');
+
+  // But being inside one building is not being inside another.
+  a.room.send('quiz:start', { hut: 'hard' });
+  let err = await nextMessage(a.room, 'quiz:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.hut.id, hard.id, 'and it names the one to walk to');
+
+  // Nor is a building on another island: the space has to name this island.
+  await declare('in:arena:easy', 0, 0);
+  a.room.send('quiz:start', { hut: 'easy' });
+  assert.equal((await nextMessage(a.room, 'quiz:error')).reason, 'too far');
+  // A space that merely mentions the right words is not a place either.
+  await declare('in:school', 0, 0);
+  a.room.send('quiz:start', { hut: 'easy' });
+  assert.equal((await nextMessage(a.room, 'quiz:error')).reason, 'too far');
+  await declare('school:easy', 0, 0);
+  a.room.send('quiz:start', { hut: 'easy' });
+  assert.equal((await nextMessage(a.room, 'quiz:error')).reason, 'too far');
+
+  // The doorstep still works, because a door is a place to stand as well as to go in.
+  await declare(SCHOOL.id, easy.wx, easy.wz);
+  a.room.send('quiz:start', { hut: 'easy' });
+  assert.equal((await nextMessage(a.room, 'quiz:question')).difficulty, 'easy');
+  a.room.send('quiz:quit', {});
+  await nextMessage(a.room, 'quiz:closed');
+
+  // The same rule holds on every island that has buildings.
+  const pet = PET_ISLAND.spotById.get('nest');
+  await declare('in:pet:nest', 0, 0);
+  a.room.send('pet:hatch', {});
+  assert.equal((await nextMessage(a.room, 'pet:error')).reason, 'not enough coins', 'the nest was reached, the purse was not');
+  await declare('in:pet:kitchen', 0, 0);
+  a.room.send('pet:hatch', {});
+  assert.equal((await nextMessage(a.room, 'pet:error')).spot.kind, pet.kind, 'the kitchen is not the nest');
+
+  await a.room.leave();
   await sleep(100);
 });

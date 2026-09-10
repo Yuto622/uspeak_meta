@@ -59,6 +59,9 @@ export function makeHelpers({ browser, port, viewport = { width: 420, height: 32
 
   async function walkTo(page, name, tx, tz, base, { arrive = 2.5, timeout = 45000 } = {}) {
     const t0 = Date.now();
+    // Walking to a building now takes the child inside it, and inside is a different
+    // set of coordinates. That is an arrival, not a wander, so the walk ends there.
+    const from = (await pos(page)).space;
     let held = [];
     const release = async () => { for (const k of held) await page.keyboard.up(k).catch(() => {}); held = []; };
     let best = Infinity;
@@ -66,6 +69,7 @@ export function makeHelpers({ browser, port, viewport = { width: 420, height: 32
     let detour = 0;              // steps to swing aside when a shop is in the way
     while (Date.now() - t0 < timeout) {
       const p = await pos(page);
+      if (p.space !== from) { console.log(`  walked into ${name} (${p.space})`); break; }
       const dx = tx - p.x;
       const dz = tz - p.z;
       const gap = Math.hypot(dx, dz);
@@ -90,6 +94,7 @@ export function makeHelpers({ browser, port, viewport = { width: 420, height: 32
     await release();
     await sleep(250);
     const p = await pos(page);
+    if (p.space !== from) return 0;
     const gap = Math.hypot(tx - p.x, tz - p.z);
     console.log(`  walked to ${name}: gap ${gap.toFixed(2)} (closest ${best.toFixed(2)}) in ${Date.now() - t0} ms`);
     return gap;

@@ -30,6 +30,7 @@ export function createIsland({ scene, build, seed = 20250910 }) {
   let built = false;
   let wanted = false;           // asked to be shown, possibly before the data arrived
   const spots = [];             // { def, npc, label, ja }
+  const doors = [];             // { def, x, z } - the doorway of a building you can enter
   const obstacles = [];
   let beacon = null;
   let targetId = '';
@@ -183,6 +184,28 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     beacon.userData.ring = ring;
   }
 
+  // The doorway of a building, recorded where the island draws one. A child who walks
+  // into it goes inside; islands that only put a person on the grass never call this, so
+  // there is nothing to walk into and nothing to promise.
+  //
+  // Takes the same two numbers the island gave `house()` - how far back it was drawn and
+  // how deep it is - and works out where its front wall is. The doorway is the strip
+  // just in front of that wall, which is exactly as close as the wall's own collision
+  // lets a child get, and therefore where they end up when they walk to the place.
+  function door(def, backset = 4.6, depth = 6.4) {
+    doors.push({ def, x: def.x, z: def.z - backset + depth / 2 + 0.75 });
+  }
+
+  // The doorway the player is standing in, if any.
+  function doorNear(playerObject) {
+    const lx = playerObject.position.x - root.position.x;
+    const lz = playerObject.position.z - root.position.z;
+    for (const d of doors) {
+      if (Math.abs(lx - d.x) < 1.4 && Math.abs(lz - d.z) < 1.4) return d.def;
+    }
+    return null;
+  }
+
   // A resident with a nameplate, at one of the island's spots.
   function resident(def) {
     const npc = person(Number(def.color), 0xe8c39a, def.x, def.z);
@@ -196,7 +219,7 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     if (built || !data) return;
     built = true;
     ground(data);
-    build({ island: data, B, D, sprite, person, house, path, tree, resident, ground, scatter, rand, obstacles });
+    build({ island: data, B, D, sprite, person, house, path, tree, resident, door, ground, scatter, rand, obstacles });
     makeBeacon();
     flushDeco();
     setTarget(targetId);
@@ -284,7 +307,8 @@ export function createIsland({ scene, build, seed = 20250910 }) {
       root.visible = !!on && built;
       if (!on && beacon) beacon.visible = false; else setTarget(targetId);
     },
-    setTarget, update, nearest, blocked, drawMap,
+    setTarget, update, nearest, blocked, drawMap, doorNear,
+    get doors() { return doors.map((d) => ({ id: d.def.id, x: d.x, z: d.z })); },
     origin: () => ({ x: root.position.x, z: root.position.z }),
   };
 }

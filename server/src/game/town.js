@@ -146,9 +146,11 @@ export function place(state, owned, cell) {
   if (state.blocks.length >= room.cap) throw new TownError('room is full');
   const key = cellKey(x, y, z);
   if (state.blocks.some((c) => cellKey(c.x, c.y, c.z) === key)) throw new TownError('something is there');
-  // Blocks rest on the floor or on each other: nothing floats, which is also what makes
-  // a room a child built look built.
-  if (y > 0 && !state.blocks.some((c) => c.x === x && c.z === z && c.y === y - 1)) throw new TownError('nothing underneath');
+  // Minecraft's own rule, because that is the game these children already know: a block
+  // goes against a surface. The floor is a surface, and so is any face of a block that
+  // is already there — so a wall can be built outwards, but nothing appears in mid-air.
+  const touching = state.blocks.some((c) => Math.abs(c.x - x) + Math.abs(c.y - y) + Math.abs(c.z - z) === 1);
+  if (y > 0 && !touching) throw new TownError('nothing to build on');
   const placed = { x, y, z, b };
   state.blocks.push(placed);
   return placed;
@@ -160,8 +162,8 @@ export function remove(state, cell) {
   const z = Math.floor(Number(cell?.z));
   const at = state.blocks.findIndex((c) => c.x === x && c.y === y && c.z === z);
   if (at < 0) throw new TownError('nothing there');
-  // Taking one out from under a stack would leave the rest floating.
-  if (state.blocks.some((c) => c.x === x && c.z === z && c.y === y + 1)) throw new TownError('something is on top');
+  // Anything can be dug out, including from under a stack. Blocks do not fall, exactly
+  // as they do not in the game this is modelled on.
   const [gone] = state.blocks.splice(at, 1);
   return gone;
 }

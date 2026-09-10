@@ -21,7 +21,7 @@ export function createPetIsland({ scene }) {
   const island = createIsland({
     scene,
     seed: 90210,
-    build({ island: data, B, sprite, house, path, resident, scatter }) {
+    build({ island: data, B, sprite, house, path, resident, door, scatter }) {
       const yard = data.courtyard;
       // A grassy ring with a little fence, so the middle reads as a place pets run about.
       B(yard.x, 0.12, yard.z, 16, 0.16, 12, 0xbcd39a);
@@ -34,6 +34,7 @@ export function createPetIsland({ scene }) {
 
       for (const def of data.spots) {
         house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x9a7a5a, `${def.tone} ${def.name}`);
+        door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xdfd3ab);
         resident(def);

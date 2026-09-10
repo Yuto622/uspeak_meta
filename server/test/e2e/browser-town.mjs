@@ -80,12 +80,12 @@ try {
     (await a.$$eval('#room-palette [data-hand]', (n) => n.map((x) => x.dataset.hand))).join(',') === 'wood,stone',
     (await a.$$eval('#room-palette [data-hand]', (n) => n.map((x) => x.dataset.hand))).join(','));
 
-  // Build a little tower where the avatar stands, one block on top of another.
+  // Build with the crosshair: whatever it is pointing at gets a block against it.
   await a.click('#room-place');
   await a.waitForFunction(() => uspeak.net.myRoom.state.used === 1, null, { timeout: 10000, polling: 150 });
   await a.click('#room-place');
   await a.waitForFunction(() => uspeak.net.myRoom.state.used === 2, null, { timeout: 10000, polling: 150 });
-  check('two blocks are stacked', true);
+  check('two blocks went down where the crosshair pointed', true);
   await a.click('[data-hand="stone"]');
   await a.click('#room-place');
   await a.waitForFunction(() => uspeak.net.myRoom.state.used === 3, null, { timeout: 10000, polling: 150 });

@@ -21,7 +21,7 @@ export function createTownIsland({ scene }) {
   const island = createIsland({
     scene,
     seed: 20260910,
-    build({ island: data, B, D, house, path, resident, scatter }) {
+    build({ island: data, B, D, house, path, resident, door, scatter }) {
       const yard = data.courtyard;
       // A little square of half-built houses, so the island reads as a town being made.
       B(yard.x, 0.12, yard.z, 16, 0.16, 11, 0xcfc9ad);
@@ -35,6 +35,7 @@ export function createTownIsland({ scene }) {
 
       for (const def of data.spots) {
         house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), def.kind === 'door' ? 0x6a7a8a : 0x8a6a4a, `${def.tone} ${def.name}`);
+        door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xe2dab6);
         resident(def);
