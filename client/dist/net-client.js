@@ -15,6 +15,7 @@ import { createDojoUI } from './dojo.js';
 import { createPetUI } from './pet.js';
 import { createDailyUI } from './daily.js';
 import { createNight } from './night-world.js';
+import { createRideUI } from './ride.js';
 
 export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak, learn }) {
   const Colyseus = globalThis.Colyseus;
@@ -28,6 +29,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     // How far this device's clock is from the server's, measured once on joining. The
     // sky then runs locally: it is a function of the time, so it needs no updates.
     skew: 0,
+    riding: '', speed: 1,
   };
   let client = null;
   let room = null;
@@ -75,6 +77,14 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
   const daily = createDailyUI({
     send: (type, payload) => room?.send(type, payload),
     isOnline: () => state.mode === 'online',
+  });
+  // のりもの島. The speed a vehicle gives is applied by the world; what it is worth and
+  // whether it is yours are the server's to say.
+  const ride = createRideUI({
+    send: (type, payload) => room?.send(type, payload),
+    toast, speak, learn, isOnline: () => state.mode === 'online',
+    onRiding: (id, speed) => { state.riding = id; state.speed = id ? speed : 1; },
+    onCourse: (gateId) => rpg.ride.setNext(gateId),
   });
   // The night belongs to the world, not to the network, but its ghosts pay coins — so
   // it is created here, where the room is, and asks the server for every one of them.
@@ -124,7 +134,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
-    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); }
+    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; ride.quit(); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
   }
   function saveSession() {
@@ -227,6 +237,13 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('pet:hatched', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onHatched(m); });
     r.onMessage('pet:acted', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onActed(m); });
     r.onMessage('pet:error', (m) => petUI.onError(m));
+    r.onMessage('ride:garage', (m) => ride.onGarage(m));
+    r.onMessage('ride:bought', (m) => { if (m.wallet) applyWallet(m.wallet); ride.onBought(m); });
+    r.onMessage('ride:error', (m) => ride.onError(m));
+    r.onMessage('course:started', (m) => ride.onStarted(m));
+    r.onMessage('course:gate', (m) => ride.onGate(m));
+    r.onMessage('course:finished', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress, m.levels); ride.onFinished(m); });
+    r.onMessage('course:error', (m) => ride.onError(m));
     r.onMessage('world:phase', (m) => night.setPhase(m));
     r.onMessage('night:ghosts', (m) => { night.setGhosts(m.ghosts); if (m.caught) night.pop(m.caught); });
     r.onMessage('ghost:caught', (m) => { if (m.wallet) applyWallet(m.wallet); night.onCaught(m); });
@@ -558,6 +575,13 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     arenaLabel: (spot) => (spot.kind === 'dojo' ? dojo.label(spot) : battle.label(spot)),
     petInteract: () => { const near = rpg.petNearby(); if (near) petUI.enter(near.spot); },
     petLabel: (spot) => petUI.label(spot),
+    ride,
+    rideInteract: () => { const near = rpg.rideNearby(); if (near) ride.enter(near.spot); },
+    rideLabel: (spot) => ride.label(spot),
+    // The world tells us when the avatar drives into a checkpoint ring.
+    rideCross: (gateId) => ride.cross(gateId),
+    // How fast this child moves: 1 on foot, more on a vehicle they own.
+    speed: () => (state.mode === 'online' ? state.speed : 1),
     night,
     // The world's own time. Offline this is simply the device's clock, so the sky still
     // turns for a child playing alone.

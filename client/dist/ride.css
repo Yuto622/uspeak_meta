@@ -1,0 +1,60 @@
+/* のりもの島 — the gate list and the course HUD. */
+#ride-dialog {
+  border: 0; border-radius: 22px; padding: 0; width: min(560px, calc(100vw - 28px));
+  max-height: min(88vh, 780px); max-height: min(88dvh, 780px); overflow: hidden;
+  background: #fffaf0; color: #263d33; box-shadow: 0 30px 80px rgba(10, 36, 27, .45);
+}
+/* Only when open, or this beats the browser's `dialog:not([open]) { display: none }`
+   and sits invisible over the middle of the world, eating taps. */
+#ride-dialog[open] { display: flex; flex-direction: column; }
+#ride-dialog::backdrop { background: rgba(12, 32, 28, .55); backdrop-filter: blur(4px); }
+#ride-body { padding: 16px 22px 22px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+.ride-flash { margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; background: #cdebd2; color: #1f5c33; font-weight: 700; font-size: 14px; }
+.ride-list { display: grid; gap: 8px; }
+.ride-card {
+  display: grid; grid-template-columns: 34px 1fr auto; grid-template-areas: 'tier name need' 'tier act act';
+  gap: 4px 10px; align-items: center; padding: 11px 13px; border-radius: 14px;
+  background: #f4f2e6; border-left: 5px solid var(--ride, #999);
+}
+.ride-card.ready { background: #fdf3d6; }
+.ride-card.owned { background: #e8f1e2; }
+/* The gate you are standing at is the one that can sell you something. */
+.ride-card.here { outline: 2px solid #173f38; }
+.ride-tier { grid-area: tier; font-size: 11px; color: #c9a227; line-height: 1.1; writing-mode: vertical-rl; justify-self: center; }
+.ride-name { grid-area: name; }
+.ride-name strong { display: block; font-size: 15px; }
+.ride-name small { display: block; font-size: 11px; color: #5d6d62; }
+.ride-need { grid-area: need; text-align: right; }
+.ride-need span { font-weight: 700; font-size: 14px; }
+.ride-need small { display: block; font-size: 10px; color: #a0522d; }
+.ride-need b { font-size: 12px; color: #3d6b4a; }
+.ride-act { grid-area: act; display: flex; justify-content: flex-end; gap: 6px; }
+.ride-act button { padding: 9px 14px; border-radius: 11px; background: #e5e9dc; font-weight: 700; font-size: 13px; }
+.ride-act button.primary { background: #173f38; color: #f4f1e3; }
+.ride-act button:disabled { opacity: .5; }
+.ride-elsewhere { font-size: 11px; color: #7b8a7f; }
+
+/* The HUD is one word, as big as it can be without covering the road. */
+#ride-hud {
+  position: fixed; left: 50%; top: 14px; transform: translateX(-50%); z-index: 40;
+  display: grid; justify-items: center; gap: 1px; padding: 9px 26px; border-radius: 16px;
+  background: rgba(23, 63, 56, .88); color: #f6f2e2; text-align: center;
+  backdrop-filter: blur(6px); box-shadow: 0 12px 30px rgba(10, 36, 27, .35); pointer-events: none;
+}
+#ride-hud-stage { font-size: 10px; letter-spacing: 2px; opacity: .7; }
+#ride-hud-word { font-size: 30px; line-height: 1.05; font-weight: 800; }
+#ride-hud-ja { font-size: 12px; opacity: .85; }
+#ride-hud-clock { font-size: 13px; font-weight: 700; color: #ffd98a; }
+
+@media (max-height: 440px) {
+  #ride-hud { top: 6px; padding: 5px 18px; grid-template-columns: auto auto auto; align-items: baseline; gap: 8px; }
+  #ride-hud-stage { display: none; }
+  #ride-hud-word { font-size: 20px; }
+}
+@media (max-width: 520px) {
+  .ride-card { grid-template-columns: 26px 1fr; grid-template-areas: 'tier name' 'tier need' 'act act'; }
+  .ride-need { text-align: left; }
+  .ride-act { justify-content: stretch; }
+  .ride-act button { flex: 1; }
+}

@@ -111,7 +111,7 @@ console.log('PASS: 36 chests in 12 areas, 3 gated permanent keys, all tiers, 12 
 }
 
 // --- 学習の島: every place must be standable, reachable, and served by a clear path ----
-for(const [hub,mod,near] of [['school','school','schoolNearby'],['arena','arena','arenaNearby'],['pet','pet','petNearby']]){
+for(const [hub,mod,near] of [['school','school','schoolNearby'],['arena','arena','arenaNearby'],['pet','pet','petNearby'],['ride','ride','rideNearby']]){
  const data=await rpg[mod].ready;
  const island=data.island;
  assert.ok(island&&island.spots.length>=3,hub+' loaded its island data');
@@ -149,5 +149,29 @@ for(const [hub,mod,near] of [['school','school','schoolNearby'],['arena','arena'
  assert.equal(rpg[mod].visible,false);
  assert.equal(rpg[near](),null);
  console.log('PASS: '+island.name+' — '+island.spots.length+' places standable, reachable on foot, each with a clear paved path, none overlapping.');
+ // のりもの島 has one more thing to check: the road. A checkpoint a child cannot drive
+ // to, or a stretch of road through a shop, would only be found by driving it.
+ if(hub==='ride'){
+  const course=data.course;
+  assert.ok(course&&course.gates.length>=3,'ride: the course loaded');
+  rpg.activate('ride');
+  for(let g=0;g<course.gates.length;g++){
+   const gate=course.gates[g],next=course.gates[(g+1)%course.gates.length];
+   player.position.set(island.x+gate.x,0,island.z+gate.z);
+   assert.ok(!rpg.blocked(player.position.x,player.position.z),'ride: checkpoint '+gate.id+' cannot be stood in');
+   assert.equal(rpg.rideGate()?.id,gate.id,'ride: checkpoint '+gate.id+' reports itself');
+   assert.ok(seen.has(key(Math.round(gate.x),Math.round(gate.z))),'ride: checkpoint '+gate.id+' is reachable on foot');
+   const steps=Math.ceil(Math.hypot(next.x-gate.x,next.z-gate.z)*3);
+   for(let i=0;i<=steps;i++){const t=i/steps;
+    const x=island.x+gate.x+(next.x-gate.x)*t,z=island.z+gate.z+(next.z-gate.z)*t;
+    assert.ok(!rpg.blocked(x,z),'ride: the road from '+gate.id+' to '+next.id+' runs through a building');}
+   // Standing in one checkpoint must never count as standing in the next.
+   assert.ok(Math.hypot(gate.x-next.x,gate.z-next.z)>course.reach*2,'ride: '+gate.id+' and '+next.id+' overlap');
+  }
+  player.position.set(island.x,0,island.z+21);
+  assert.equal(rpg.rideGate(),null,'ride: the landing is not a checkpoint');
+  rpg.activate('willow');
+  console.log('PASS: のりもの島のコース — '+course.gates.length+' checkpoints drivable, the road clear of buildings, none overlapping.');
+ }
 }
 
