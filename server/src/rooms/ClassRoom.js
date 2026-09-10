@@ -12,6 +12,7 @@ import { MISSIONS } from '../game/missions.js';
 import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS } from '../game/progression.js';
 import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SESSION } from '../game/wordquiz.js';
 import { MODES as GYM_MODES, createSet, questionPayload as gymPayload, answerSet } from '../game/gym.js';
+import { ARENA, createBattle, statePayload, quizPayload, chooseWaza, answerQuiz, BattleError, DAILY_CAP } from '../game/battle.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
@@ -91,6 +92,10 @@ export class ClassRoom extends Room {
     this.onMessage('gym:start', (client, msg) => this.onGymStart(client, msg));
     this.onMessage('gym:answer', (client, msg) => this.onGymAnswer(client, msg));
     this.onMessage('gym:quit', (client) => this.onGymQuit(client));
+    this.onMessage('battle:start', (client, msg) => this.onBattleStart(client, msg));
+    this.onMessage('battle:waza', (client, msg) => this.onBattleWaza(client, msg));
+    this.onMessage('battle:answer', (client, msg) => this.onBattleAnswer(client, msg));
+    this.onMessage('battle:quit', (client) => this.onBattleQuit(client));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -413,6 +418,9 @@ export class ClassRoom extends Room {
       lastQuizAt: 0,
       gym: null,
       lastGymAt: 0,
+      battle: null,
+      battleDay: '',
+      battleCoins: 0,
       missionTurnsToday: 0,
       missionDay: '',
       lastMissionAt: 0,
@@ -622,6 +630,109 @@ export class ClassRoom extends Room {
     client.send('gym:closed', { reason: 'quit' });
   }
 
+  // ---- えいごアリーナ ---------------------------------------------------------------
+
+  // Damage is bought with English. The plain attack always lands for a little; the three
+  // strong moves ask a question first and fizzle on a wrong answer. Everything - the
+  // question, the answer, the damage, the opponent's turn - is decided here.
+  atStand(sessionId, standId) {
+    const player = this.state.players.get(sessionId);
+    const stand = ARENA.spotById.get(standId);
+    if (!player || !stand) return false;
+    if (player.space !== ARENA.id) return false;
+    return Math.hypot(player.x - stand.wx, player.z - stand.wz) <= ARENA.radius + SPOT_SLACK;
+  }
+
+  // Roblox capped what a day of battling could pay, so the arena stays a game rather
+  // than a coin tap. The cap is per child per day and survives a rejoin through the same
+  // record everything else does.
+  battleRoom(priv) {
+    const day = new Date().toISOString().slice(0, 10);
+    if (priv.battleDay !== day) { priv.battleDay = day; priv.battleCoins = 0; }
+    return Math.max(0, DAILY_CAP - priv.battleCoins);
+  }
+
+  onBattleStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const stand = ARENA.spotById.get(typeof msg?.stand === 'string' ? msg.stand : '');
+    if (!stand || stand.kind !== 'stand') { client.send('battle:error', { reason: 'unknown stand' }); return; }
+    if (!this.atStand(client.sessionId, stand.id)) {
+      client.send('battle:error', { reason: 'too far', stand: { id: stand.id, name: stand.name, ja: stand.ja } });
+      return;
+    }
+    priv.battle = createBattle({ difficulty: stand.difficulty, level: priv.progress.level });
+    priv.battle.stand = stand.id;
+    client.send('battle:state', { ...statePayload(priv.battle), stand: stand.id, name: stand.name, room: this.battleRoom(priv) });
+    log.info(`[room ${this.roomId}] "${priv.name}" entered the ${stand.difficulty} arena`);
+  }
+
+  onBattleWaza(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const battle = priv?.battle;
+    if (!priv || !battle) return;
+    if (!this.atStand(client.sessionId, battle.stand)) {
+      const stand = ARENA.spotById.get(battle.stand);
+      client.send('battle:error', { reason: 'too far', stand: stand ? { id: stand.id, name: stand.name, ja: stand.ja } : null });
+      return;
+    }
+    let out;
+    try { out = chooseWaza(battle, msg?.waza); } catch (err) {
+      if (err instanceof BattleError) { client.send('battle:error', { reason: err.message }); return; }
+      throw err;
+    }
+    if (out.asked) { client.send('battle:quiz', quizPayload(battle)); return; }
+    this.sendBattleTurn(client, priv, battle, out);
+  }
+
+  onBattleAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const battle = priv?.battle;
+    if (!priv || !battle) return;
+    let out;
+    try { out = answerQuiz(battle, msg?.choice, { timedOut: !!msg?.timedOut }); } catch (err) {
+      if (err instanceof BattleError) { client.send('battle:error', { reason: err.message }); return; }
+      throw err;
+    }
+    priv.stats.attempts += 1;
+    if (out.quiz.correct) priv.stats.correct += 1;
+    this.store.appendLearning([
+      new Date().toISOString(), this.classCode, priv.name, `battle:${battle.difficulty}`, 'battle',
+      String(out.quiz.picked), out.quiz.correct ? 1 : 0, 0, client.sessionId,
+    ]);
+    this.sendBattleTurn(client, priv, battle, out);
+  }
+
+  sendBattleTurn(client, priv, battle, out) {
+    const payload = { ...out, ...statePayload(battle) };
+    if (out.over) {
+      // Paid out of what is left of today's allowance, so the last battle of the day can
+      // pay part of a prize rather than nothing at all.
+      const room = this.battleRoom(priv);
+      const paid = Math.min(out.reward, room);
+      if (paid > 0) {
+        const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `battle:${battle.difficulty}` });
+        this.store.appendCoin(this.coinRow(client.sessionId, entry));
+        priv.battleCoins += paid;
+      }
+      payload.paid = paid;
+      payload.capped = paid < out.reward;
+      payload.room = this.battleRoom(priv);
+      payload.wallet = this.walletPayload(client.sessionId).wallet;
+      priv.battle = null;
+      log.info(`[room ${this.roomId}] "${priv.name}" ${out.won ? 'won' : 'lost'} a ${battle.difficulty} battle for ${paid} coins`);
+      this.persist(client.sessionId);
+    }
+    client.send('battle:turn', payload);
+  }
+
+  onBattleQuit(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv?.battle) return;
+    priv.battle = null;
+    client.send('battle:closed', { reason: 'quit' });
+  }
+
   // ---- errand quest -------------------------------------------------------------
 
   // An errand is walked, not clicked. Three legs, each refused unless the child's
@@ -827,6 +938,7 @@ export class ClassRoom extends Room {
         : null,
       quiz: priv.quiz ? { ...questionPayload(priv.quiz), hut: priv.quiz.hut } : null,
       gym: priv.gym ? gymPayload(priv.gym) : null,
+      battle: priv.battle ? { ...statePayload(priv.battle), stand: priv.battle.stand, quiz: quizPayload(priv.battle) } : null,
       chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),
     };

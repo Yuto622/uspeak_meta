@@ -62,31 +62,46 @@ try {
   }));
 
   const base = await calibrate(a);
+  // The hut section is four minutes of walking and answering; skip it while iterating on
+  // the gym with SKIP_QUIZ=1.
+  if (!process.env.SKIP_QUIZ) {
   await walkTo(a, easy.id, ...world(easy), base);
   check('the hut offers its quiz', (await nearLabel(a)).includes(easy.name), await nearLabel(a));
 
   const coins0 = await coins(a);
   await a.click('#interact');
   await a.waitForSelector('#quiz-dialog[open]', { timeout: 10000 });
-  await a.waitForSelector('[data-choice="0"]', { timeout: 5000 });
-  check('a question and four choices appear', (await a.$$eval('[data-choice]', (n) => n.length)) === 4);
+  await a.waitForSelector('#quiz-body [data-choice="0"]', { timeout: 5000 });
+  check('a question and four choices appear', (await a.$$eval('#quiz-body [data-choice]', (n) => n.length)) === 4);
   // And the rendered page carries no hint of which one it is.
   check('the page does not mark the right choice before answering', await a.evaluate(() =>
-    ![...document.querySelectorAll('[data-choice]')].some((b) => b.className.trim() || b.disabled)));
+    ![...document.querySelectorAll('#quiz-body [data-choice]')].some((b) => b.className.trim() || b.disabled)));
   check('the score line counts the set', (await a.textContent('#quiz-score')).includes('/ 10'), await a.textContent('#quiz-score'));
 
   // Answer all ten by always picking A. Some land; the server decides which.
   let answered = 0;
   for (let i = 0; i < 10; i += 1) {
-    await a.waitForSelector('[data-choice="0"]:not([disabled])', { timeout: 15000 });
-    await a.click('[data-choice="0"]');
-    await a.waitForSelector('.quiz-feedback, .quiz-done', { timeout: 15000 });
+    // Wait for the state, not the clock, and scope every selector to this dialog: the
+    // gym reuses the same class names and data attributes, so an unscoped selector also
+    // matches the other dialog's hidden leftovers and waits for them forever.
+    await a.waitForFunction((n) => {
+      const score = document.querySelector('#quiz-score')?.textContent || '';
+      const first = document.querySelector('#quiz-body [data-choice="0"]');
+      return score.startsWith(`${n} /`) && first && !first.disabled;
+    }, i + 1, { timeout: 25000, polling: 150 }).catch(async (err) => {
+      console.log('  quiz stalled at question', i + 1, JSON.stringify(await a.evaluate(() => ({
+        score: document.querySelector('#quiz-score')?.textContent,
+        body: document.querySelector('#quiz-body')?.textContent.replace(/\s+/g, ' ').slice(0, 120),
+      }))));
+      throw err;
+    });
+    await a.click('#quiz-body [data-choice="0"]');
+    await a.waitForSelector('#quiz-body .quiz-feedback, #quiz-body .quiz-done', { timeout: 15000 });
     answered += 1;
-    await sleep(1600);
   }
   check('all ten were answered', answered === 10);
-  await a.waitForSelector('.quiz-done', { timeout: 15000 });
-  const summary = await a.textContent('.quiz-done');
+  await a.waitForSelector('#quiz-body .quiz-done', { timeout: 20000 });
+  const summary = await a.textContent('#quiz-body .quiz-done');
   check('the set ends with a score', /\/ 10 せいかい/.test(summary), summary.replace(/\s+/g, ' ').slice(0, 80));
 
   const earned = (await coins(a)) - coins0;
@@ -95,9 +110,11 @@ try {
   const header = await a.evaluate(() => document.querySelector('#xp').textContent);
   check('XP matches the score too', Number(header.replace(/,/g, '')) === score * 10, `xp=${header} score=${score}`);
 
-  // ---- ことばのジム: walk on to the gym and do a speaking set with the text fallback.
   await a.click('#quiz-close').catch(() => {});
   await sleep(300);
+  }
+
+  // ---- ことばのジム: walk on to the gym and do a speaking set with the text fallback.
   const gymSpot = school.spots.find((sp) => sp.id === 'gym');
   // Along the paths the island paves: back to where the gym's path starts, then to it.
   // Cutting straight across from a hut catches the corner of another one, exactly as it
@@ -107,24 +124,36 @@ try {
   check('the gym offers itself', (await nearLabel(a)).includes(gymSpot.name), await nearLabel(a));
   await a.click('#interact');
   await a.waitForSelector('#gym-dialog[open]', { timeout: 10000 });
-  check('both drills are offered', (await a.$$eval('[data-mode]', (n) => n.map((x) => x.dataset.mode))).join(',') === 'listen,speak');
+  check('both drills are offered', (await a.$$eval('#gym-body [data-mode]', (n) => n.map((x) => x.dataset.mode))).join(',') === 'listen,speak');
 
   const gymCoins = await coins(a);
   await a.click('[data-mode="speak"]');
   await a.waitForSelector('#gym-text', { timeout: 10000 });
   let said = 0;
   for (let i = 0; i < 5; i += 1) {
-    await a.waitForSelector('#gym-text:not([disabled])', { timeout: 15000 });
-    const word = await a.textContent('.gym-speak strong');
-    await a.fill('#gym-text', word.trim());
+    // Wait for the state, not the clock: the next question renders 1.6s after the last
+    // verdict, and sleeping that long raced it.
+    await a.waitForFunction((n) => {
+      const score = document.querySelector('#gym-score')?.textContent || '';
+      const input = document.querySelector('#gym-text');
+      return score.startsWith(`${n} /`) && input && !input.disabled;
+    }, i + 1, { timeout: 25000, polling: 150 }).catch(async (err) => {
+      console.log('  gym stalled at question', i + 1, JSON.stringify(await a.evaluate(() => ({
+        score: document.querySelector('#gym-score')?.textContent,
+        disabled: document.querySelector('#gym-text')?.disabled ?? null,
+        body: document.querySelector('#gym-body')?.textContent.replace(/\s+/g, ' ').slice(0, 120),
+      }))));
+      throw err;
+    });
+    const word = (await a.textContent('#gym-body .gym-speak strong')).trim();
+    await a.fill('#gym-text', word);
     await a.click('#gym-send');
-    await a.waitForSelector('.quiz-feedback, .quiz-done', { timeout: 15000 });
+    await a.waitForSelector('#gym-body .quiz-feedback, #gym-body .quiz-done', { timeout: 15000 });
     said += 1;
-    await sleep(1800);
   }
   check('all five were spoken', said === 5);
-  await a.waitForSelector('.gym-stars', { timeout: 15000 });
-  const stars = await a.textContent('.gym-stars');
+  await a.waitForSelector('#gym-body .gym-stars', { timeout: 15000 });
+  const stars = await a.textContent('#gym-body .gym-stars');
   check('a clean set is three stars', stars.trim() === '★★★', stars.trim());
   check('the gym pays 5 coins a word', (await coins(a)) - gymCoins === 25, `earned=${(await coins(a)) - gymCoins}`);
   await a.screenshot({ path: path.join(SHOTS, 'e2e-gym-done.png') });

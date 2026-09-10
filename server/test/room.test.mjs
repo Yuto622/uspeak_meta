@@ -18,6 +18,7 @@ const { WILLOW_LESSONS } = await import('../../client/dist/lesson-data.js');
 const { MISSIONS } = await import('../src/game/missions.js');
 const { REWARDS, xpToNext } = await import('../src/game/progression.js');
 const { SCHOOL } = await import('../src/game/wordquiz.js');
+const { ARENA, WAZA, REWARD, DAILY_CAP } = await import('../src/game/battle.js');
 
 let server; let url;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -452,6 +453,68 @@ test('the gym judges the speaking, so a client cannot pay itself', async () => {
   await standAt(gym);
   a.room.send('gym:answer', { text: 'nope' });
   assert.equal((await nextMessage(a.room, 'gym:result')).index, 2, 'the set carried on where it was');
+
+  await a.room.leave();
+  await sleep(100);
+});
+
+test('the arena decides the damage, and caps what a day can pay', async () => {
+  const a = await join('Riku');
+  const easy = ARENA.spotById.get('easy');
+  const hard = ARENA.spotById.get('hard');
+  const standAt = async (spot) => {
+    a.room.send('move', { s: ARENA.id, x: spot.wx, z: spot.wz, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return p.space === ARENA.id && Math.abs(p.x - spot.wx) < 0.01;
+    });
+  };
+
+  // Not from another island, and not from the wrong stand.
+  a.room.send('battle:start', { stand: 'easy' });
+  assert.equal((await nextMessage(a.room, 'battle:error')).reason, 'too far');
+  await standAt(hard);
+  a.room.send('battle:start', { stand: 'easy' });
+  let err = await nextMessage(a.room, 'battle:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.stand.id, 'easy');
+  a.room.send('battle:start', { stand: 'pvp' });
+  assert.equal((await nextMessage(a.room, 'battle:error')).reason, 'unknown stand');
+
+  await standAt(easy);
+  a.room.send('battle:start', { stand: 'easy' });
+  const start = await nextMessage(a.room, 'battle:state');
+  assert.equal(start.difficulty, 'easy');
+  assert.equal(start.foe.hp, start.foe.max);
+  assert.equal(start.waza.length, 4);
+  assert.equal(start.room, DAILY_CAP, 'a fresh day has the whole allowance');
+
+  // A strong move asks a question, and the answer is not in it.
+  a.room.send('battle:waza', { waza: 'super' });
+  const quiz = await nextMessage(a.room, 'battle:quiz');
+  assert.equal('answer' in quiz, false);
+  assert.equal(quiz.choices.length, 3);
+  assert.equal(quiz.waza, 'super');
+
+  // Answering resolves the turn; the damage is the server's number, not ours.
+  a.room.send('battle:answer', { choice: 0, correct: true, damage: 9999 });
+  let turn = await nextMessage(a.room, 'battle:turn');
+  assert.ok(turn.quiz.answer >= 0 && turn.quiz.answer <= 2, 'the answer comes back after committing');
+  const dealt = turn.foe.max - turn.foe.hp;
+  assert.ok(dealt === 0 || dealt === WAZA.super.damage, `a client cannot invent damage: ${dealt}`);
+
+  // Fight it out with the safe move until someone falls.
+  let guard = 0;
+  while (!turn.over && guard < 60) {
+    a.room.send('battle:waza', { waza: 'poyon' });
+    turn = await nextMessage(a.room, 'battle:turn');
+    guard += 1;
+  }
+  assert.equal(turn.over, true, 'the battle ended');
+  assert.equal(turn.paid, turn.won ? REWARD.win : REWARD.lose);
+  assert.equal(turn.capped, false);
+  assert.equal(turn.room, DAILY_CAP - turn.paid, 'the allowance went down by what was paid');
+  assert.equal(turn.wallet.coins, a.welcome.wallet.coins + turn.paid);
 
   await a.room.leave();
   await sleep(100);

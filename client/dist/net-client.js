@@ -10,6 +10,7 @@ import { createLobby } from './lobby.js';
 import { createMissionUI } from './mission.js';
 import { createQuizUI } from './quiz.js';
 import { createGymUI } from './gym.js';
+import { createBattleUI } from './battle.js';
 
 export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak }) {
   const Colyseus = globalThis.Colyseus;
@@ -47,6 +48,10 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     speak, toast, isOnline: () => state.mode === 'online',
   });
   const gym = createGymUI({
+    send: (type, payload) => room?.send(type, payload),
+    speak, toast, isOnline: () => state.mode === 'online',
+  });
+  const battle = createBattleUI({
     send: (type, payload) => room?.send(type, payload),
     speak, toast, isOnline: () => state.mode === 'online',
   });
@@ -151,6 +156,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
       mission.restore(m.errand);
       quiz.restore(m.quiz);
       gym.restore(m.gym);
+      battle.restore(m.battle);
       if (!viaToken) {
         restoreProgress(m.progressJson);
         if (m.position && m.restored) teleportTo(m.position, 'restore');
@@ -178,6 +184,11 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('gym:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); gym.onResult(m); });
     r.onMessage('gym:closed', (m) => gym.onClosed(m));
     r.onMessage('gym:error', (m) => gym.onError(m));
+    r.onMessage('battle:state', (m) => battle.onState(m));
+    r.onMessage('battle:quiz', (m) => battle.onQuiz(m));
+    r.onMessage('battle:turn', (m) => { if (m.wallet) applyWallet(m.wallet); battle.onTurn(m); });
+    r.onMessage('battle:closed', (m) => battle.onClosed(m));
+    r.onMessage('battle:error', (m) => battle.onError(m));
     r.onMessage('levelup', (m) => toast(`${m.name} が レベル ${m.level} になりました！`));
     r.onMessage('mission:opened', (m) => mission.onOpened(m));
     r.onMessage('mission:arrived', (m) => mission.onArrived(m));
@@ -494,6 +505,8 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
       if (near.spot.kind === 'gym') gym.enter(near.spot); else quiz.enter(near.spot);
     },
     schoolLabel: (spot) => (spot.kind === 'gym' ? gym.label(spot) : quiz.label(spot)),
+    arenaInteract: () => { const near = rpg.arenaNearby(); if (near) battle.enter(near.spot); },
+    arenaLabel: (spot) => battle.label(spot),
     leave: () => goOffline(true),
   };
 }

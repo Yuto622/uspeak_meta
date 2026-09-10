@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "note": "えいごアリーナ島. Same contract as the other islands: the client builds from these coordinates and the server checks positions against them. The question bank is NOT here - it lives on the server (battle-bank.json) so the answers never reach a browser.",
+  "island": {
+    "id": "arena",
+    "name": "えいごアリーナ島",
+    "en": "WORD ARENA",
+    "x": -140,
+    "z": -110,
+    "radius": 5.0,
+    "grass": 9214598,
+    "grassTop": 10135695,
+    "spawn": {
+      "x": 0,
+      "z": 21
+    },
+    "courtyard": {
+      "x": 0,
+      "z": 10
+    },
+    "spots": [
+      {
+        "id": "pvp",
+        "kind": "pvp",
+        "name": "たいせん台",
+        "en": "Challenge Stand",
+        "character": "Upee",
+        "ja": "たいせん台",
+        "x": -20,
+        "z": 16,
+        "color": 13214676,
+        "tone": "⚔",
+        "path": {
+          "x": 0,
+          "z": 21
+        }
+      },
+      {
+        "id": "easy",
+        "kind": "stand",
+        "difficulty": "easy",
+        "name": "らくらく台",
+        "en": "Easy Stand",
+        "character": "Upee",
+        "ja": "らくらく台",
+        "x": -16,
+        "z": -4,
+        "color": 10276730,
+        "tone": "★",
+        "path": {
+          "x": 0,
+          "z": 10
+        }
+      },
+      {
+        "id": "normal",
+        "kind": "stand",
+        "difficulty": "normal",
+        "name": "ふつう台",
+        "en": "Normal Stand",
+        "character": "Upee",
+        "ja": "ふつう台",
+        "x": 0,
+        "z": -14,
+        "color": 15254634,
+        "tone": "★★",
+        "path": {
+          "x": 0,
+          "z": 10
+        }
+      },
+      {
+        "id": "hard",
+        "kind": "stand",
+        "difficulty": "hard",
+        "name": "つよい台",
+        "en": "Hard Stand",
+        "character": "Upee",
+        "ja": "つよい台",
+        "x": 16,
+        "z": -4,
+        "color": 14258063,
+        "tone": "★★★",
+        "path": {
+          "x": 0,
+          "z": 10
+        }
+      }
+    ]
+  }
+}

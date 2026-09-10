@@ -110,17 +110,16 @@ console.log('PASS: 36 chests in 12 areas, 3 gated permanent keys, all tiers, 12 
  console.log('PASS: おつかい島 loads from missions.json, all '+island.spots.length+' spots are standable, walkable from the plaza and mutually exclusive; arrival, minimap, beacon and departure.');
 }
 
-// --- ことばの学校島: three huts and the gym must all be walkable to -------------------
-{
- const data=await rpg.school.ready;
+// --- 学習の島: every place must be standable, reachable, and served by a clear path ----
+for(const [hub,mod,near] of [['school','school','schoolNearby'],['arena','arena','arenaNearby']]){
+ const data=await rpg[mod].ready;
  const island=data.island;
- assert.ok(island&&island.spots.length>=4,'the school island loaded from school.json');
- rpg.activate('school');
- assert.equal(rpg.state.current,'school');
- assert.equal(rpg.school.visible,true);
- assert.ok(!rpg.blocked(player.position.x,player.position.z),'the landing is walkable');
- // A building standing across a path is invisible in a screenshot and fatal on foot, so
- // flood fill from where a child lands and check every place they have to reach.
+ assert.ok(island&&island.spots.length>=4,hub+' loaded its island data');
+ rpg.activate(hub);
+ assert.equal(rpg.state.current,hub);
+ assert.equal(rpg[mod].visible,true);
+ assert.ok(!rpg.blocked(player.position.x,player.position.z),hub+': the landing is walkable');
+ // Flood fill from where a child lands: every place has to be gettable to on foot.
  const key=(x,z)=>x+','+z;
  const start=[Math.round(player.position.x-island.x),Math.round(player.position.z-island.z)];
  const seen=new Set([key(...start)]),queue=[start];
@@ -130,23 +129,25 @@ console.log('PASS: 36 chests in 12 areas, 3 gated permanent keys, all tiers, 12 
    seen.add(key(nx,nz));queue.push([nx,nz]);}}
  for(const spot of island.spots){
   player.position.set(island.x+spot.x,0,island.z+spot.z);
-  assert.ok(!rpg.blocked(player.position.x,player.position.z),spot.id+' is standable');
-  assert.equal(rpg.schoolNearby()?.spot.id,spot.id,spot.id+' reports itself');
-  assert.ok(seen.has(key(Math.round(spot.x),Math.round(spot.z))),spot.id+' is reachable on foot from the landing');
- }
- // The line the island paves is the line a child walks. A building standing on it is
- // invisible in a screenshot and a dead end on foot, so walk every drawn path.
- for(const spot of island.spots){
+  assert.ok(!rpg.blocked(player.position.x,player.position.z),hub+': '+spot.id+' is standable');
+  assert.equal(rpg[near]()?.spot.id,spot.id,hub+': '+spot.id+' reports itself');
+  assert.ok(seen.has(key(Math.round(spot.x),Math.round(spot.z))),hub+': '+spot.id+' is reachable on foot');
+  // The line the island paves is the line a child walks. A building standing on it is
+  // invisible in a screenshot and a dead end on foot, so walk every drawn path.
   const steps=Math.ceil(Math.hypot(spot.x-spot.path.x,spot.z-spot.path.z)*4);
   for(let i=0;i<=steps;i++){const t=i/steps;
    const x=island.x+spot.path.x+(spot.x-spot.path.x)*t,z=island.z+spot.path.z+(spot.z-spot.path.z)*t;
-   assert.ok(!rpg.blocked(x,z),'the paved path to '+spot.id+' runs through a building');}
+   assert.ok(!rpg.blocked(x,z),hub+': the paved path to '+spot.id+' runs through a building');}
+  // And two places must never be standable at once, or a child could answer the easy
+  // questions from the hard building.
+  for(const other of island.spots){
+   if(other.id===spot.id)continue;
+   assert.ok(Math.hypot(spot.x-other.x,spot.z-other.z)>10,hub+': '+spot.id+' and '+other.id+' overlap');}
  }
- assert.equal(island.spots.filter(s=>s.kind==='hut').length,3,'three huts');
- assert.equal(island.spots.filter(s=>s.kind==='gym').length,1,'one gym');
- assert.equal(rpg.mapSmall(ctx),true,'the island draws its own minimap');
+ assert.equal(rpg.mapSmall(ctx),true,hub+': the island draws its own minimap');
  rpg.activate('willow');
- assert.equal(rpg.school.visible,false);
- assert.equal(rpg.schoolNearby(),null);
- console.log('PASS: ことばの学校島 loads from school.json, all '+island.spots.length+' places are standable, reachable on foot from the landing and mutually exclusive.');
+ assert.equal(rpg[mod].visible,false);
+ assert.equal(rpg[near](),null);
+ console.log('PASS: '+island.name+' — '+island.spots.length+' places standable, reachable on foot, each with a clear paved path, none overlapping.');
 }
+
