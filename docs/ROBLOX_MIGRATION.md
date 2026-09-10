@@ -102,7 +102,8 @@ Web の魚は1匹が英単語1つなので、釣ること自体が学習にな�
 
 - `ServerScriptService.Script` の GAS URL（クラスコード → PlaceId 照会）
 - `ServerScriptService.ParentReportQRServer` の保護者レポート URL
-  `https://uspeak-reports.pages.dev/treebell-c_RPqFBihvw/qr/index.json`
+  （`https://<旧ホスト>/<推測不能な文字列>/qr/index.json` の形。**この文書には載せません** —
+  引き継ぎ資料としてそのまま外に出るため。実物は Roblox 側の当該スクリプトを見てください）
 
 後者はパスの `treebell-c_RPqFBihvw` が推測不能な文字列であることだけで守られている構造です。
 **この2つの URL は、いま私との会話履歴に平文で載っています。** 保護者の学習記録に繋がる導線なので、
