@@ -82,7 +82,11 @@ try {
   // Interpolation smoothness: sample B's view of A while A moves; consecutive frames must not jump.
   await a.keyboard.down('a');
   const samples = [];
-  for (let i = 0; i < 30; i++) { samples.push(await remoteOf(b, await sid(a))); await sleep(33); }
+  // One round-trip per sample, not two: asking for A's id inside the loop halved the
+  // sampling rate, and under a software renderer that left too few moving frames to
+  // judge interpolation by.
+  const aid = await sid(a);
+  for (let i = 0; i < 30; i++) { samples.push(await remoteOf(b, aid)); await sleep(33); }
   await a.keyboard.up('a');
   const jumps = samples.slice(1).map((s, i) => Math.hypot(s.x - samples[i].x, s.z - samples[i].z));
   check('remote motion is interpolated (max frame step < 0.6 units)', Math.max(...jumps) < 0.6 && jumps.filter((j) => j > 0).length > 10, `maxStep=${Math.max(...jumps).toFixed(3)} movingFrames=${jumps.filter((j) => j > 0).length}`);

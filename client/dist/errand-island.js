@@ -66,7 +66,10 @@ export function createErrandIsland({ scene }) {
     return m;
   };
 
-  function sprite(text, x, y, z, { width = 8, background = '#183946', color = '#f3dfaa', weight = 600, size = 36 } = {}) {
+  // depthTest defaults on: a place sign belongs to the world and should go behind the
+  // hill it is behind. Only the nameplates over people opt out, so a child can always
+  // read who is where.
+  function sprite(text, x, y, z, { width = 8, background = '#183946', color = '#f3dfaa', weight = 600, size = 36, depthTest = true } = {}) {
     const c = document.createElement('canvas');
     c.width = 768; c.height = 100;
     const ctx = c.getContext('2d');
@@ -78,10 +81,10 @@ export function createErrandIsland({ scene }) {
     ctx.fillText(text, 384, 53, 720);
     const tex = new THREE.CanvasTexture(c);
     tex.colorSpace = THREE.SRGBColorSpace;
-    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true }));
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest, transparent: true }));
     s.position.set(x, y, z);
     s.scale.set(width, width / 7.68, 1);
-    s.renderOrder = 3;
+    s.renderOrder = depthTest ? 1 : 3;
     root.add(s);
     return s;
   }
@@ -112,7 +115,7 @@ export function createErrandIsland({ scene }) {
     B(0.42, 1.42, d / 2 + 0.16, 0.12, 0.12, 0.1, 0xf1d489, g);
     for (const sx of [-w / 4 - 0.5, w / 4 + 0.5]) B(sx, 2.6, d / 2 + 0.06, 0.9, 0.9, 0.1, 0x9fd3d8, g);
     obstacles.push({ x, z, w: w / 2 + 0.4, d: d / 2 + 0.4 });
-    sprite(name, x, 6.1, z + d / 2, { width: Math.max(7, name.length * 0.58) });
+    sprite(name, x, 5.9, z + d / 2 + 0.7, { width: Math.max(6, name.length * 0.52) });
     return g;
   }
 
@@ -150,7 +153,11 @@ export function createErrandIsland({ scene }) {
     B(0, 0.2, 24, 7, 0.24, 8, 0xc0a077);
     for (let i = 0; i < 5; i += 1) B(-2.4 + i * 1.2, -0.6, 27, 0.34, 2, 0.34, 0x8a7350);
     for (const sx of [-3.2, 3.2]) B(sx, 1.4, 21.5, 0.28, 2.8, 0.28, 0x8a7350);
-    sprite(`${island.name} · ${island.en}`, 0, 4.2, 21.5, { width: 15, size: 33 });
+    // A board on a post beside the landing, not a banner standing on the spot a child
+    // lands on: the plaza begins where the dock ends, so there is no room for a gateway.
+    B(6.8, 1.7, 21.5, 0.34, 3.4, 0.34, 0x8a7350);
+    B(6.8, 3.5, 21.5, 0.9, 0.3, 0.9, 0xb8703f);
+    sprite(`${island.name} · ${island.en}`, 6.8, 4.3, 21.5, { width: 8, size: 31 });
 
     const plaza = data.spots.get('plaza');
     // The plaza: a stone circle, the errand board, and the person who hands them out.
@@ -169,8 +176,8 @@ export function createErrandIsland({ scene }) {
         path(plaza ? plaza.x : 0, plaza ? plaza.z : 0, def.x, def.z);
       }
       const npc = person(Number(def.color), 0xe8c39a, def.x, def.z);
-      const label = sprite(def.character, def.x, 3.5, def.z, { width: 4.4, size: 40 });
-      const ja = sprite(def.ja, def.x, 2.95, def.z, { width: 6.6, size: 30, background: '#1c3b2fdd', color: '#dff0d4' });
+      const label = sprite(def.character, def.x, 3.5, def.z, { width: 4.4, size: 40, depthTest: false });
+      const ja = sprite(def.ja, def.x, 2.95, def.z, { width: 6.6, size: 30, background: '#1c3b2fdd', color: '#dff0d4', depthTest: false });
       ja.visible = false;
       spots.push({ def, npc, label, ja });
     }
