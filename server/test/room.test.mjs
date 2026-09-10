@@ -795,3 +795,147 @@ test('the night is the same for everyone, and a ghost is caught by walking to it
   await Promise.all([a.room.leave(), b.room.leave()]);
   await sleep(100);
 });
+
+test('a vehicle is bought at its own gate, and the course is driven in order', async () => {
+  const { RIDE, ISLAND: RIDE_ISLAND, COURSE } = await import('../src/game/vehicles.js');
+  const a = await join('Tsubasa');
+  const kick = RIDE.vehicles.get('kick');
+  const gate = [...RIDE_ISLAND.spotById.values()].find((s) => s.vehicle === 'kick');
+  const start = RIDE_ISLAND.start;
+  const stand = async (x, z, space = RIDE_ISLAND.id) => {
+    a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return Math.abs(p.x - x) < 0.01 && Math.abs(p.z - z) < 0.01 && p.space === space;
+    });
+  };
+
+  // The showroom is the island itself: what a page can ask for is the list.
+  a.room.send('ride:list', {});
+  const garage = await nextMessage(a.room, 'ride:garage');
+  assert.equal(garage.vehicles.length, 4);
+  assert.equal(garage.riding, '', 'on foot to begin with');
+  assert.deepEqual(garage.vehicles.map((v) => v.owned), [false, false, false, false]);
+  // Day one of the login bonus is exactly a kickboard, which is the point of its price.
+  assert.equal(garage.vehicles[0].ready, true);
+  assert.equal(garage.vehicles[3].ready, false, 'the hoverboard is a long way off');
+
+  // Standing anywhere else buys nothing, however many coins are in the purse.
+  await stand(gate.wx + 20, gate.wz);
+  a.room.send('ride:buy', { id: 'kick' });
+  let err = await nextMessage(a.room, 'ride:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.spot.id, gate.id, 'the refusal names where to walk');
+  await stand(gate.wx, gate.wz, 'willow');
+  a.room.send('ride:buy', { id: 'kick' });
+  assert.equal((await nextMessage(a.room, 'ride:error')).reason, 'too far');
+
+  // At the gate with the day's login bonus in hand, the cheapest one opens: that is
+  // what its price is for.
+  await stand(gate.wx, gate.wz);
+  const purse = a.welcome.wallet.coins;
+  a.room.send('ride:buy', { id: 'kick' });
+  const bought = await nextMessage(a.room, 'ride:bought');
+  assert.equal(bought.id, 'kick');
+  assert.equal(bought.wallet.coins, purse - kick.price, 'the server took the coins');
+  assert.equal(bought.riding, 'kick', 'and you are on it');
+  assert.equal(bought.vehicles[0].owned, true);
+  // Twice is not twice as many.
+  a.room.send('ride:buy', { id: 'kick' });
+  assert.equal((await nextMessage(a.room, 'ride:error')).reason, 'already yours');
+  // The dearest one is out of reach twice over. Its gate is somewhere else on the
+  // island, so walk there first - a gate only ever sells what stands at it.
+  const hoverGate = [...RIDE_ISLAND.spotById.values()].find((sp) => sp.vehicle === 'hover');
+  a.room.send('ride:buy', { id: 'hover' });
+  assert.equal((await nextMessage(a.room, 'ride:error')).reason, 'too far');
+  await stand(hoverGate.wx, hoverGate.wz);
+  a.room.send('ride:buy', { id: 'hover' });
+  err = await nextMessage(a.room, 'ride:error');
+  assert.equal(err.reason, 'level too low');
+  assert.equal(err.need, RIDE.vehicles.get('hover').level);
+  // Nor can a page simply declare itself on a vehicle it never bought.
+  a.room.send('ride:equip', { id: 'hover' });
+  assert.equal((await nextMessage(a.room, 'ride:error')).reason, 'not yours');
+
+  // Learn enough to be allowed the next one, but not enough to afford it. The server
+  // judges the fish and pays for them; nothing here is the page's to decide.
+  let coins = bought.wallet.coins;
+  for (let i = 0; i < 7; i += 1) {
+    a.room.send('answer', { q: `fish:${FISH[i].id}`, c: FISH[i].id });
+    await nextMessage(a.room, 'answer:result');
+    a.room.send('economy', { op: 'sellAll' });
+    coins = (await nextMessage(a.room, 'wallet')).wallet.coins;
+  }
+  const bikeGate = [...RIDE_ISLAND.spotById.values()].find((sp) => sp.vehicle === 'bike');
+  await stand(bikeGate.wx, bikeGate.wz);
+  a.room.send('ride:buy', { id: 'bike' });
+  err = await nextMessage(a.room, 'ride:error');
+  assert.equal(err.reason, 'not enough coins', `had ${coins}`);
+  assert.equal(err.need, RIDE.vehicles.get('bike').price);
+
+  // ---- the course
+  await stand(start.wx + 25, start.wz);
+  a.room.send('course:start', {});
+  assert.equal((await nextMessage(a.room, 'course:error')).reason, 'too far');
+  await stand(start.wx, start.wz);
+  a.room.send('ride:equip', { id: '' });
+  await nextMessage(a.room, 'ride:garage');
+  a.room.send('course:start', {});
+  assert.equal((await nextMessage(a.room, 'course:error')).reason, 'on foot', 'the course is driven, not walked');
+
+  a.room.send('ride:equip', { id: 'kick' });
+  await nextMessage(a.room, 'ride:garage');
+  a.room.send('course:start', {});
+  const lap = await nextMessage(a.room, 'course:started');
+  assert.equal(lap.gates.length, COURSE.gates.length);
+  assert.equal(lap.next, COURSE.gates[0].id);
+  assert.ok(lap.gates.every((g) => g.word && g.ja), 'every checkpoint carries a word');
+
+  // Standing at the third checkpoint does not skip the first two.
+  const third = COURSE.gates[2];
+  await stand(third.wx, third.wz);
+  a.room.send('course:gate', { id: third.id });
+  const wrong = await nextMessage(a.room, 'course:error');
+  assert.equal(wrong.reason, 'not next');
+  assert.equal(wrong.want.id, COURSE.gates[0].id);
+  // Nor does claiming a checkpoint from the other side of the island.
+  await stand(start.wx, start.wz);
+  a.room.send('course:gate', { id: COURSE.gates[0].id });
+  assert.equal((await nextMessage(a.room, 'course:error')).reason, 'too far');
+
+  a.room.send('wallet:get', {});
+  const before = (await nextMessage(a.room, 'wallet')).wallet.coins;
+  for (let i = 0; i < COURSE.gates.length - 1; i += 1) {
+    const g = COURSE.gates[i];
+    await stand(g.wx, g.wz);
+    a.room.send('course:gate', { id: g.id });
+    const hit = await nextMessage(a.room, 'course:gate');
+    assert.equal(hit.order, i + 1);
+    assert.equal(hit.next.id, COURSE.gates[i + 1].id, 'and it says where to go next');
+  }
+  const last = COURSE.gates[COURSE.gates.length - 1];
+  await stand(last.wx, last.wz);
+  a.room.send('course:gate', { id: last.id });
+  const done = await nextMessage(a.room, 'course:finished');
+  assert.equal(done.coins, COURSE.reward.coins);
+  assert.equal(done.xp, COURSE.reward.xp);
+  assert.equal(done.wallet.coins, before + COURSE.reward.coins);
+  assert.equal(done.best, true, 'a first lap is a best lap');
+  assert.ok(done.ms > 0 && done.bestMs === done.ms);
+  assert.equal(done.words.length, COURSE.gates.length);
+  // The lap is over: crossing the line again is not another payday.
+  a.room.send('course:gate', { id: last.id });
+  assert.equal((await nextMessage(a.room, 'course:error')).reason, 'not started');
+
+  // The garage and the best lap come back with the child.
+  await a.room.leave();
+  await sleep(100);
+  const again = await join('Tsubasa');
+  again.room.send('ride:list', {});
+  const back = await nextMessage(again.room, 'ride:garage');
+  assert.deepEqual(back.vehicles.filter((v) => v.owned).map((v) => v.id), ['kick']);
+  assert.equal(back.riding, 'kick');
+  assert.equal(back.best, done.ms, 'the best lap is remembered');
+  await again.room.leave();
+  await sleep(100);
+});

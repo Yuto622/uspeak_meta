@@ -17,6 +17,7 @@ import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
 import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
+import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding, startLap, crossGate } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
@@ -106,6 +107,11 @@ export class ClassRoom extends Room {
     this.onMessage('pet:act', (client, msg) => this.onPetAct(client, msg));
     this.onMessage('rank', (client) => this.onRank(client));
     this.onMessage('ghost:hit', (client, msg) => this.onGhostHit(client, msg));
+    this.onMessage('ride:list', (client) => client.send('ride:garage', this.garagePayload(client.sessionId)));
+    this.onMessage('ride:buy', (client, msg) => this.onRideBuy(client, msg));
+    this.onMessage('ride:equip', (client, msg) => this.onRideEquip(client, msg));
+    this.onMessage('course:start', (client) => this.onCourseStart(client));
+    this.onMessage('course:gate', (client, msg) => this.onCourseGate(client, msg));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -419,6 +425,7 @@ export class ClassRoom extends Room {
   }
 
   privFromRecord(record) {
+    const garage = sanitizeGarage(parseJson(record.garage_json, []));
     return {
       name: record.name,
       wallet: sanitizeWallet({
@@ -444,9 +451,13 @@ export class ClassRoom extends Room {
       battle: null,
       // What today's caps have already paid, kept in the record so that leaving and
       // rejoining is not a way to start the day over.
-      caps: sanitizeCaps({ day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins }),
+      caps: sanitizeCaps({ day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins }),
+      garage,
+      riding: sanitizeRiding(record.riding, garage),
+      lap: null,
       move: sanitizeMove(record.move),
       pet: sanitizePet(parseJson(record.pet_json, null)),
+      lapBest: Math.max(0, Math.floor(num(record.lap_best))),
       login: sanitizeLogin({ day: record.login_day, streak: record.login_streak }),
       week: sanitizeWeek({ key: record.week_key, xp: record.week_xp }),
       missionTurnsToday: 0,
@@ -473,7 +484,8 @@ export class ClassRoom extends Room {
       pet_json: priv.pet ? JSON.stringify(priv.pet) : '',
       login_day: priv.login.day, login_streak: priv.login.streak,
       week_key: priv.week.key, week_xp: priv.week.xp,
-      cap_day: priv.caps.day, battle_coins: priv.caps.battle, ghost_coins: priv.caps.ghost,
+      cap_day: priv.caps.day, battle_coins: priv.caps.battle, ghost_coins: priv.caps.ghost, course_coins: priv.caps.course,
+      garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       updated_at: iso, last_seen: priv.lastSeen,
     });
   }
@@ -909,6 +921,135 @@ export class ClassRoom extends Room {
       classCode: this.classCode,
       season: seasonFor(),
     });
+  }
+
+  // ---- のりもの島 ---------------------------------------------------------------
+
+  // Roblox's VehicleGate. Each vehicle is bought at its own gate, so the island is
+  // walked rather than scrolled, and the level and the coins are checked here — the page
+  // shows a gold sign, it does not decide what it means.
+  atRideSpot(sessionId, spotId) {
+    const player = this.state.players.get(sessionId);
+    const spot = RIDE_ISLAND.spotById.get(spotId);
+    if (!player || !spot) return false;
+    if (player.space !== RIDE_ISLAND.id) return false;
+    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= RIDE_ISLAND.radius + SPOT_SLACK;
+  }
+
+  rideSpotPayload(spotId) {
+    const s = RIDE_ISLAND.spotById.get(spotId);
+    return s ? { id: s.id, kind: s.kind, name: s.name, ja: s.ja, vehicle: s.vehicle || '' } : null;
+  }
+
+  garagePayload(sessionId) {
+    const priv = this.priv.get(sessionId);
+    if (!priv) return { vehicles: [], riding: '' };
+    const level = priv.progress.level;
+    const coins = priv.wallet.coins;
+    return {
+      vehicles: RIDE.order.map((id) => vehiclePayload(RIDE.vehicles.get(id), {
+        owned: priv.garage.includes(id), riding: priv.riding === id, level, coins,
+      })),
+      riding: priv.riding,
+      best: priv.lapBest,
+      room: roomLeft(priv.caps, 'course', COURSE_CAP),
+    };
+  }
+
+  onRideBuy(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const fail = (reason, extra = {}) => client.send('ride:error', { reason, ...extra });
+    const vehicle = RIDE.vehicles.get(String(msg?.id || ''));
+    if (!vehicle) return fail('no such vehicle');
+    const gate = [...RIDE_ISLAND.spotById.values()].find((sp) => sp.vehicle === vehicle.id);
+    // Every vehicle is bought where it stands, at its own gate.
+    if (!this.atRideSpot(client.sessionId, gate.id)) return fail('too far', { spot: this.rideSpotPayload(gate.id) });
+    if (priv.garage.includes(vehicle.id)) return fail('already yours');
+    if (priv.progress.level < vehicle.level) return fail('level too low', { need: vehicle.level, level: priv.progress.level });
+    if (priv.wallet.coins < vehicle.price) return fail('not enough coins', { need: vehicle.price, coins: priv.wallet.coins });
+    const entry = applyOp(priv.wallet, { type: 'spend', amount: vehicle.price, id: `ride:${vehicle.id}` });
+    this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    priv.garage.push(vehicle.id);
+    priv.riding = vehicle.id;     // a child who just bought one is on it
+    this.persist(client.sessionId);
+    client.send('ride:bought', {
+      id: vehicle.id, name: vehicle.name, word: vehicle.word, ja: vehicle.ja,
+      ...this.garagePayload(client.sessionId), ...this.walletPayload(client.sessionId),
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${vehicle.id} for ${vehicle.price}`);
+  }
+
+  onRideEquip(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const id = String(msg?.id || '');
+    if (id && !priv.garage.includes(id)) { client.send('ride:error', { reason: 'not yours' }); return; }
+    priv.riding = id;
+    // Getting off mid-lap ends the lap: the course is driven, not walked.
+    if (!id && priv.lap) priv.lap = null;
+    this.persist(client.sessionId);
+    client.send('ride:garage', this.garagePayload(client.sessionId));
+  }
+
+  // The course: six checkpoints in a ring, each carrying a direction word, crossed in
+  // order on a vehicle. The order and the standing-there are both checked here.
+  onCourseStart(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const fail = (reason, extra = {}) => client.send('course:error', { reason, ...extra });
+    if (!this.atRideSpot(client.sessionId, RIDE_ISLAND.start.id)) {
+      return fail('too far', { spot: this.rideSpotPayload(RIDE_ISLAND.start.id) });
+    }
+    if (!priv.riding) return fail('on foot');
+    priv.lap = startLap();
+    client.send('course:started', {
+      gates: COURSE.gates.map((g) => ({ id: g.id, word: g.word, ja: g.ja, order: g.order, x: g.x, z: g.z })),
+      next: COURSE.gates[0].id, vehicle: priv.riding, best: priv.lapBest,
+    });
+  }
+
+  onCourseGate(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const player = this.state.players.get(client.sessionId);
+    if (!priv || !player) return;
+    const fail = (reason, extra = {}) => client.send('course:error', { reason, ...extra });
+    if (!priv.lap) return fail('not started');
+    if (!priv.riding) { priv.lap = null; return fail('on foot'); }
+    const gate = COURSE.gateById.get(String(msg?.id || ''));
+    if (!gate) return fail('no such checkpoint');
+    if (player.space !== RIDE_ISLAND.id) return fail('elsewhere');
+    if (Math.hypot(player.x - gate.wx, player.z - gate.wz) > COURSE.reach + SPOT_SLACK) return fail('too far');
+    const out = crossGate(priv.lap, gate.id);
+    if (!out.ok) return fail('not next', { want: out.want ? { id: out.want.id, word: out.want.word, ja: out.want.ja, x: out.want.x, z: out.want.z } : null });
+    if (!out.done) {
+      client.send('course:gate', {
+        id: gate.id, word: gate.word, ja: gate.ja, order: gate.order, of: COURSE.gates.length,
+        next: out.want ? { id: out.want.id, word: out.want.word, ja: out.want.ja, x: out.want.x, z: out.want.z } : null,
+        ms: out.ms,
+      });
+      return;
+    }
+    // A finished lap. The coins are capped by the day like every other way of earning.
+    const left = roomLeft(priv.caps, 'course', COURSE_CAP);
+    const paid = Math.min(COURSE.reward.coins, left);
+    const best = !priv.lapBest || out.ms < priv.lapBest;
+    priv.lapBest = best ? out.ms : priv.lapBest;
+    priv.lap = null;
+    if (paid > 0) {
+      priv.caps.course += paid;
+      const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: 'course:lap' });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    }
+    const level = this.awardXp(client.sessionId, COURSE.reward.xp, 'course:lap');
+    this.persist(client.sessionId);
+    client.send('course:finished', {
+      ms: out.ms, best, bestMs: priv.lapBest, coins: paid, xp: COURSE.reward.xp,
+      capped: paid < COURSE.reward.coins, room: roomLeft(priv.caps, 'course', COURSE_CAP),
+      words: COURSE.gates.map((g) => ({ word: g.word, ja: g.ja })),
+      ...this.walletPayload(client.sessionId), progress: this.progressPayload(client.sessionId), levels: level?.levels || 0,
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" drove a lap in ${(out.ms / 1000).toFixed(1)}s`);
   }
 
   // ---- the night ------------------------------------------------------------------

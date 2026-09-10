@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "note": "のりもの島. Same contract as the other islands: the client builds from these coordinates and the server checks positions against them. A vehicle is bought at its own gate, and the course is driven through six checkpoints in order.",
+  "island": {
+    "id": "ride",
+    "name": "のりもの島",
+    "en": "RIDE ISLAND",
+    "x": 210,
+    "z": -140,
+    "radius": 5.0,
+    "grass": 10138234,
+    "grassTop": 11979146,
+    "spawn": {
+      "x": 0,
+      "z": 21
+    },
+    "courtyard": {
+      "x": 0,
+      "z": 2
+    },
+    "spots": [
+      {
+        "id": "kick",
+        "kind": "gate",
+        "vehicle": "kick",
+        "name": "キックボード置き場",
+        "en": "Kickboard Stand",
+        "character": "Upee",
+        "ja": "キックボード",
+        "x": -14,
+        "z": -2,
+        "color": 15257768,
+        "tone": "🛴",
+        "path": {
+          "x": 0,
+          "z": 2
+        }
+      },
+      {
+        "id": "bike",
+        "kind": "gate",
+        "vehicle": "bike",
+        "name": "じてんしゃ屋",
+        "en": "Bicycle Shop",
+        "character": "Upee",
+        "ja": "じてんしゃ",
+        "x": -6,
+        "z": -11,
+        "color": 13623488,
+        "tone": "🚲",
+        "path": {
+          "x": 0,
+          "z": 2
+        }
+      },
+      {
+        "id": "kart",
+        "kind": "gate",
+        "vehicle": "kart",
+        "name": "カート工場",
+        "en": "Kart Garage",
+        "character": "Upee",
+        "ja": "カート",
+        "x": 6,
+        "z": -11,
+        "color": 15124929,
+        "tone": "🏎",
+        "path": {
+          "x": 0,
+          "z": 2
+        }
+      },
+      {
+        "id": "hover",
+        "kind": "gate",
+        "vehicle": "hover",
+        "name": "ホバー研究所",
+        "en": "Hover Lab",
+        "character": "Upee",
+        "ja": "ホバーボード",
+        "x": 14,
+        "z": -2,
+        "color": 13031144,
+        "tone": "🛹",
+        "path": {
+          "x": 0,
+          "z": 2
+        }
+      },
+      {
+        "id": "start",
+        "kind": "start",
+        "name": "スタートライン",
+        "en": "Start Line",
+        "character": "Upee",
+        "ja": "スタート",
+        "x": 0,
+        "z": 13,
+        "color": 15786941,
+        "tone": "🚦",
+        "path": {
+          "x": 0,
+          "z": 21
+        }
+      }
+    ]
+  },
+  "vehicles": [
+    {
+      "id": "kick",
+      "name": "キックボード",
+      "en": "Kickboard",
+      "word": "fast",
+      "ja": "はやい",
+      "level": 1,
+      "price": 100,
+      "speed": 1.35,
+      "color": 15770186,
+      "tier": 1
+    },
+    {
+      "id": "bike",
+      "name": "じてんしゃ",
+      "en": "Bicycle",
+      "word": "ride",
+      "ja": "のる",
+      "level": 3,
+      "price": 400,
+      "speed": 1.6,
+      "color": 5875818,
+      "tier": 2
+    },
+    {
+      "id": "kart",
+      "name": "カート",
+      "en": "Kart",
+      "word": "drive",
+      "ja": "うんてんする",
+      "level": 6,
+      "price": 1200,
+      "speed": 1.9,
+      "color": 13917258,
+      "tier": 3
+    },
+    {
+      "id": "hover",
+      "name": "ホバーボード",
+      "en": "Hoverboard",
+      "word": "fly",
+      "ja": "とぶ",
+      "level": 10,
+      "price": 3000,
+      "speed": 2.2,
+      "color": 6990292,
+      "tier": 4
+    }
+  ],
+  "course": {
+    "reach": 4.0,
+    "reward": {
+      "xp": 15,
+      "coins": 10
+    },
+    "dailyCap": 100,
+    "gates": [
+      {
+        "id": "go",
+        "word": "go",
+        "ja": "すすめ",
+        "order": 1,
+        "x": 11.5,
+        "z": 17.3
+      },
+      {
+        "id": "right",
+        "word": "right",
+        "ja": "みぎ",
+        "order": 2,
+        "x": 23.0,
+        "z": 0.0
+      },
+      {
+        "id": "straight",
+        "word": "straight",
+        "ja": "まっすぐ",
+        "order": 3,
+        "x": 11.5,
+        "z": -17.3
+      },
+      {
+        "id": "left",
+        "word": "left",
+        "ja": "ひだり",
+        "order": 4,
+        "x": -11.5,
+        "z": -17.3
+      },
+      {
+        "id": "slow",
+        "word": "slow",
+        "ja": "ゆっくり",
+        "order": 5,
+        "x": -23.0,
+        "z": 0.0
+      },
+      {
+        "id": "goal",
+        "word": "goal",
+        "ja": "ゴール",
+        "order": 6,
+        "x": -11.5,
+        "z": 17.3
+      }
+    ]
+  }
+}

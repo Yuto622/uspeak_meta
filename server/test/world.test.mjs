@@ -86,12 +86,12 @@ test('broken ghost data is refused rather than half-loaded', () => {
 test("a night's coins are capped, and the cap survives a rejoin", () => {
   const now = Date.now();
   const caps = sanitizeCaps({ day: dayIndex(now), battle: 40, ghost: 12 }, now);
-  assert.deepEqual(caps, { day: dayIndex(now), battle: 40, ghost: 12 }, 'what was spent is remembered');
+  assert.deepEqual(caps, { day: dayIndex(now), battle: 40, ghost: 12, course: 0 }, 'what was spent is remembered');
   assert.equal(roomLeft(caps, 'ghost', DAILY_CAP), DAILY_CAP - 12);
   // Yesterday's spending is not today's.
   const stale = sanitizeCaps({ day: dayIndex(now) - 1, battle: 150, ghost: 60 }, now);
-  assert.deepEqual(stale, { day: dayIndex(now), battle: 0, ghost: 0 });
-  assert.deepEqual(sanitizeCaps(null, now), { day: dayIndex(now), battle: 0, ghost: 0 });
+  assert.deepEqual(stale, { day: dayIndex(now), battle: 0, ghost: 0, course: 0 });
+  assert.deepEqual(sanitizeCaps(null, now), { day: dayIndex(now), battle: 0, ghost: 0, course: 0 });
   assert.deepEqual(sanitizeCaps({ day: dayIndex(now), ghost: -5 }, now).ghost, 0, 'negatives never buy room back');
   // The day rolls over on its own, without anything having to reset it.
   const rolling = sanitizeCaps({ day: dayIndex(now), ghost: DAILY_CAP }, now);
