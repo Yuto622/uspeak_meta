@@ -30,6 +30,11 @@ export class FileStore {
     return record ? { ...record } : null;
   }
 
+  // Every record for one class, which is what the weekly board ranks.
+  listClass(classCode) {
+    return Object.values(this.data.players).filter((r) => r && r.class === classCode).map((r) => ({ ...r }));
+  }
+
   savePlayer(record) {
     this.data.players[playerKey(record.class, record.name)] = { ...record };
     this.dirty = true;

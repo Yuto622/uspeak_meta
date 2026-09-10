@@ -57,3 +57,53 @@
 #net-call{position:fixed;z-index:32;top:120px;left:50%;transform:translateX(-50%);background:#fffaf0;color:#263d33;border-radius:16px;padding:12px 16px;box-shadow:0 14px 34px rgba(0,0,0,.3);display:flex;gap:12px;align-items:center;font-size:14px;max-width:calc(100vw - 40px)}
 #net-call button{padding:8px 12px;border-radius:10px;background:#173f38;color:#f4f1e3;font-weight:700}
 #net-call button.secondary{background:#e5e9dc;color:#263d33}
+
+/* 日課 — the login stamp card and the class's weekly ranking. */
+#daily-dialog {
+  border: 0; border-radius: 22px; padding: 0; width: min(460px, calc(100vw - 28px));
+  max-height: min(88vh, 720px); max-height: min(88dvh, 720px); overflow: hidden;
+  background: #fffaf0; color: #263d33; box-shadow: 0 30px 80px rgba(10, 36, 27, .45);
+}
+/* Only when open, or this would beat `dialog:not([open]) { display: none }` and sit
+   invisible over the middle of the world, eating taps. */
+#daily-dialog[open] { display: flex; flex-direction: column; }
+#daily-dialog::backdrop { background: rgba(12, 32, 28, .55); backdrop-filter: blur(4px); }
+#daily-body { padding: 16px 22px 22px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+.daily-hit { text-align: center; padding: 6px 0 14px; }
+.daily-hit span { font-size: 54px; line-height: 1; display: block; }
+.daily-hit h3 { margin: 8px 0 4px; font-size: 17px; }
+.daily-hit p { margin: 0; font-size: 15px; }
+.daily-hit p b { font-size: 26px; color: #a0522d; }
+.daily-hit small { display: block; margin-top: 6px; font-size: 12px; color: #5d6d62; }
+
+.daily-stamps { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 0 0 12px; padding: 0; list-style: none; }
+.daily-stamps li { border-radius: 10px; background: #f1efe1; padding: 8px 2px; text-align: center; }
+.daily-stamps li span { display: block; font-size: 10px; color: #7b8a7f; }
+.daily-stamps li b { display: block; font-size: 11px; margin-top: 3px; }
+.daily-stamps li.done { background: #cdebd2; color: #1f5c33; }
+.daily-stamps li.today { background: #173f38; color: #f4f1e3; }
+.daily-stamps li.today span { color: #cdebd2; }
+
+.daily-note { margin: 10px 0 0; font-size: 12px; color: #7b8a7f; line-height: 1.6; }
+.daily-rank-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.daily-rank-head strong { display: block; font-size: 15px; }
+.daily-rank-head small { display: block; font-size: 11px; color: #7b8a7f; }
+.daily-season { font-size: 13px; font-weight: 700; background: #eef2e4; border-radius: 999px; padding: 5px 11px; flex: none; }
+.daily-rank { list-style: none; margin: 0; padding: 0; }
+.daily-rank li { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 12px; background: #f6f4e8; margin-bottom: 5px; }
+.daily-rank li b { width: 22px; text-align: center; font-size: 13px; color: #7b8a7f; flex: none; }
+.daily-rank li span { flex: 1; font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.daily-rank li em { font-style: normal; font-weight: 700; font-size: 13px; }
+.daily-rank li:nth-child(1) b { color: #b8860b; font-size: 15px; }
+.daily-rank li.me { background: #cdebd2; }
+.daily-mine { margin: 12px 0 0; font-size: 13px; text-align: right; }
+
+.rank-button {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 1px;
+  padding: 10px 14px; border-radius: 14px; border: 0; cursor: pointer;
+  background: rgba(23, 63, 56, .82); color: #f4f1e3; text-align: right;
+  backdrop-filter: blur(6px); box-shadow: 0 10px 26px rgba(10, 36, 27, .3);
+}
+.rank-button span { font-weight: 700; font-size: 13px; }
+.rank-button small { font-size: 10px; opacity: .75; }

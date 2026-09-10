@@ -13,6 +13,7 @@ import { createGymUI } from './gym.js';
 import { createBattleUI } from './battle.js';
 import { createDojoUI } from './dojo.js';
 import { createPetUI } from './pet.js';
+import { createDailyUI } from './daily.js';
 
 export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak }) {
   const Colyseus = globalThis.Colyseus;
@@ -67,6 +68,10 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     toast, isOnline: () => state.mode === 'online',
     getPet: () => state.pet, getWallet: () => state.wallet,
   });
+  const daily = createDailyUI({
+    send: (type, payload) => room?.send(type, payload),
+    isOnline: () => state.mode === 'online',
+  });
   const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs });
   // Collect the controls into one dock so the layout is decided by flexbox, not by
   // four separately maintained offsets.
@@ -105,6 +110,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     else if (mode === 'connecting') chip.set('reconnecting', '接続中…');
     else chip.set('offline', 'オフライン');
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
+    daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
     if (mode === 'offline') state.progress = null;
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
@@ -208,6 +214,8 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('pet:hatched', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onHatched(m); });
     r.onMessage('pet:acted', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onActed(m); });
     r.onMessage('pet:error', (m) => petUI.onError(m));
+    r.onMessage('login:bonus', (m) => { if (m.wallet) applyWallet(m.wallet); daily.onBonus(m); });
+    r.onMessage('rank', (m) => daily.onRank(m));
     r.onMessage('levelup', (m) => toast(`${m.name} が レベル ${m.level} になりました！`));
     r.onMessage('mission:opened', (m) => mission.onOpened(m));
     r.onMessage('mission:arrived', (m) => mission.onArrived(m));

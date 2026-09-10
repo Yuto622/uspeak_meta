@@ -85,6 +85,14 @@ export class SheetsStore {
     return entry ? { ...entry.record } : null;
   }
 
+  // Every cached record for one class, which is what the weekly board ranks. Reads the
+  // cache rather than the sheet: the board is refreshed on a timer, not per request.
+  listClass(classCode) {
+    const out = [];
+    for (const { record } of this.cache.values()) if (record && record.class === classCode) out.push({ ...record });
+    return out;
+  }
+
   savePlayer(record) {
     const key = playerKey(record.class, record.name);
     const copy = { ...record };

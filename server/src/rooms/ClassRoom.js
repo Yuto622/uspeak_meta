@@ -15,6 +15,7 @@ import { MODES as GYM_MODES, createSet, questionPayload as gymPayload, answerSet
 import { ARENA, createBattle, statePayload, quizPayload, chooseWaza, answerQuiz, BattleError, DAILY_CAP } from '../game/battle.js';
 import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
+import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
@@ -101,6 +102,7 @@ export class ClassRoom extends Room {
     this.onMessage('fish:feed', (client, msg) => this.onFishFeed(client, msg));
     this.onMessage('pet:hatch', (client) => this.onPetHatch(client));
     this.onMessage('pet:act', (client, msg) => this.onPetAct(client, msg));
+    this.onMessage('rank', (client) => this.onRank(client));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -177,7 +179,11 @@ export class ClassRoom extends Room {
     this.state.players.set(client.sessionId, player);
     if (auth.role === 'teacher') this.state.teacherId = client.sessionId;
 
+    // The day's bonus is banked before `welcome` is built, so the page never shows a coin
+    // count it has to correct a moment later. The popup follows the welcome.
+    const bonus = this.claimDaily(client.sessionId);
     client.send('welcome', this.welcomePayload(client.sessionId, restored, position));
+    if (bonus) client.send('login:bonus', bonus);
     this.persist(client.sessionId);
     log.info(`[room ${this.roomId}] join ${auth.role} "${auth.name}" (${client.sessionId}) restored=${restored} clients=${this.clients.length}`);
   }
@@ -431,6 +437,8 @@ export class ClassRoom extends Room {
       battleCoins: 0,
       move: sanitizeMove(record.move),
       pet: sanitizePet(parseJson(record.pet_json, null)),
+      login: sanitizeLogin({ day: record.login_day, streak: record.login_streak }),
+      week: sanitizeWeek({ key: record.week_key, xp: record.week_xp }),
       missionTurnsToday: 0,
       missionDay: '',
       lastMissionAt: 0,
@@ -453,6 +461,8 @@ export class ClassRoom extends Room {
       level: priv.progress.level, xp: priv.progress.xp, total_xp: totalXp(priv.progress), chats: priv.progress.chats,
       dex_json: JSON.stringify(priv.wallet.dex || []), move: priv.move?.from || '',
       pet_json: priv.pet ? JSON.stringify(priv.pet) : '',
+      login_day: priv.login.day, login_streak: priv.login.streak,
+      week_key: priv.week.key, week_xp: priv.week.xp,
       updated_at: iso, last_seen: priv.lastSeen,
     });
   }
@@ -467,6 +477,7 @@ export class ClassRoom extends Room {
     const player = this.state.players.get(sessionId);
     if (!priv || amount <= 0) return null;
     const result = grantXp(priv.progress, amount);
+    addWeekXp(priv.week, amount);
     if (player) player.level = priv.progress.level;
     if (result.levels > 0) {
       log.info(`[room ${this.roomId}] "${priv.name}" reached level ${result.level} (${reason})`);
@@ -841,6 +852,56 @@ export class ClassRoom extends Room {
     });
   }
 
+  // ---- the calendar --------------------------------------------------------------
+
+  // Roblox paid a login bonus on a seven-day cycle, with the day turning at noon JST so
+  // a lesson never straddles the boundary. Claimed on arrival and again if a child is
+  // still playing when noon passes.
+  // Banks today's login bonus and returns the payload to announce, or null if today is
+  // already claimed. The caller sends it: on join that has to happen after `welcome`.
+  claimDaily(sessionId) {
+    const priv = this.priv.get(sessionId);
+    if (!priv) return null;
+    const claim = claimLogin(priv.login);
+    if (!claim) return null;
+    const entry = applyOp(priv.wallet, { type: 'award', amount: claim.coins, id: `login:day${claim.day}` });
+    this.store.appendCoin(this.coinRow(sessionId, entry));
+    this.persist(sessionId);
+    log.info(`[room ${this.roomId}] "${priv.name}" claimed day ${claim.day} (streak ${claim.streak}) for ${claim.coins}`);
+    return { ...claim, cycle: CYCLE, rewards: [...LOGIN_REWARDS], ...this.walletPayload(sessionId) };
+  }
+
+  // This week's XP, ranked within the class. Roblox ranked per school code; a class code
+  // is the same idea and is what this room already is.
+  onRank(client) {
+    const key = weekIndex();
+    const live = new Map();
+    for (const [id, priv] of this.priv) {
+      if (priv.week.key === key) live.set(priv.name, priv.week.xp);
+    }
+    // Everyone in the class, not only whoever is online right now.
+    let stored = [];
+    try { stored = this.store.listClass?.(this.classCode) || []; } catch (err) { log.warn(`[room ${this.roomId}] rank read failed:`, err.message); }
+    for (const record of stored) {
+      if (Number(record.week_key) !== key) continue;
+      if (live.has(record.name)) continue;
+      live.set(record.name, Math.max(0, Math.floor(Number(record.week_xp) || 0)));
+    }
+    const top = [...live.entries()]
+      .map(([name, xp]) => ({ name, xp }))
+      .sort((a, b) => b.xp - a.xp || a.name.localeCompare(b.name))
+      .slice(0, 10);
+    const me = this.priv.get(client.sessionId);
+    client.send('rank', {
+      top,
+      name: me ? me.name : '',
+      mine: me && me.week.key === key ? me.week.xp : 0,
+      daysLeft: daysLeftInWeek(),
+      classCode: this.classCode,
+      season: seasonFor(),
+    });
+  }
+
   // ---- errand quest -------------------------------------------------------------
 
   // An errand is walked, not clicked. Three legs, each refused unless the child's
@@ -1048,6 +1109,8 @@ export class ClassRoom extends Room {
       gym: priv.gym ? gymPayload(priv.gym) : null,
       move: priv.move || null,
       pet: priv.pet ? petPayload(priv.pet) : null,
+      season: seasonFor(),
+      streak: priv.login.streak,
       battle: priv.battle ? { ...statePayload(priv.battle), stand: priv.battle.stand, quiz: quizPayload(priv.battle) } : null,
       chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),

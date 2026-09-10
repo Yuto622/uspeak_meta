@@ -33,8 +33,12 @@ const nextMessage = (room, type, ms = 3000) => new Promise((resolve, reject) => 
 async function join(name, extra = {}) {
   const client = new Client(url);
   const room = await client.joinOrCreate('class', { classCode: 'test-1', name, ...extra });
+  // The day's bonus follows the welcome immediately, so the listener goes on before the
+  // welcome is awaited: a test that subscribes afterwards races it.
+  let bonus = null;
+  room.onMessage('login:bonus', (m) => { bonus = m; });
   const w = await nextMessage(room, 'welcome');
-  return { client, room, welcome: w };
+  return { client, room, welcome: w, bonus: () => bonus };
 }
 
 before(async () => { server = await startServer({ port: 0 }); const addr = server.server.address(); url = `ws://127.0.0.1:${addr.port}`; });
@@ -123,7 +127,10 @@ test('answers, coins and catches are decided by the server', async () => {
   // A correct fish answer awards the catch server-side; selling requires that inventory.
   a.room.send('economy', { op: 'sell', id: FISH[0].id, quantity: 1 });
   let w = await nextMessage(a.room, 'wallet');
-  assert.equal(w.ok, false); assert.equal(w.wallet.coins, 0);
+  // The purse starts at whatever the day's login bonus put in it, and selling a fish you
+  // never caught adds nothing to it.
+  const purse = a.welcome.wallet.coins;
+  assert.equal(w.ok, false); assert.equal(w.wallet.coins, purse);
   a.room.send('answer', { q: `fish:${FISH[0].id}`, c: FISH[0].id });
   r = await nextMessage(a.room, 'answer:result');
   assert.equal(r.wallet.inventory[FISH[0].id], 1);
@@ -133,7 +140,7 @@ test('answers, coins and catches are decided by the server', async () => {
   a.room.send('economy', { op: 'sell', id: FISH[0].id, quantity: 1 });
   w = await nextMessage(a.room, 'wallet');
   // The catch also paid the dex bonus, because it was the first of its species.
-  assert.equal(w.ok, true); assert.equal(w.wallet.coins, FISH[0].price + DEX_BONUS);
+  assert.equal(w.ok, true); assert.equal(w.wallet.coins, purse + FISH[0].price + DEX_BONUS);
   a.room.send('economy', { op: 'catch', id: FISH[0].id });
   w = await nextMessage(a.room, 'wallet');
   assert.equal(w.ok, false, 'clients cannot award themselves catches');
@@ -147,7 +154,7 @@ test('answers, coins and catches are decided by the server', async () => {
   await sleep(100);
   const again = await join('Chika');
   assert.equal(again.welcome.restored, true);
-  assert.equal(again.welcome.wallet.coins, FISH[0].price + DEX_BONUS);
+  assert.equal(again.welcome.wallet.coins, purse + FISH[0].price + DEX_BONUS);
   assert.deepEqual(again.welcome.wallet.dex, [FISH[0].id], 'the species stays discovered after selling it');
   assert.deepEqual(again.welcome.stats, { correct: 2, attempts: 3 });
   // Level and XP survive the round trip through the store, like coins do.
@@ -665,4 +672,50 @@ test('a pet is bought, fed and patted in three different places', async () => {
   assert.equal(again.welcome.pet.name, hatched.pet.name);
   assert.equal(again.welcome.pet.species, hatched.pet.species);
   await again.room.leave();
+});
+
+test('the day pays once, and the week is ranked by the server', async () => {
+  const { LOGIN_REWARDS, CYCLE, weekIndex } = await import('../src/game/daily.js');
+  const a = await join('Kaede');
+  // The bonus is already banked when the welcome is built, so the page never shows a
+  // coin count it has to correct a moment later.
+  assert.equal(a.welcome.wallet.coins, LOGIN_REWARDS[0], 'day one of the cycle is in the purse');
+  assert.equal(a.welcome.streak, 1);
+  assert.equal(a.welcome.season.id, (await import('../src/game/daily.js')).seasonFor().id);
+  const bonus = await waitFor(() => a.bonus());
+  assert.equal(bonus.day, 1);
+  assert.equal(bonus.streak, 1);
+  assert.equal(bonus.coins, LOGIN_REWARDS[0]);
+  assert.equal(bonus.cycle, CYCLE);
+  assert.deepEqual(bonus.rewards, LOGIN_REWARDS);
+  assert.equal(bonus.wallet.coins, LOGIN_REWARDS[0], 'the announcement carries the wallet it made');
+
+  // Rejoining the same day pays nothing: the claim is the server's record, not a message
+  // the page can send again.
+  await a.room.leave();
+  await sleep(100);
+  const again = await join('Kaede');
+  assert.equal(again.welcome.wallet.coins, LOGIN_REWARDS[0], 'no second bonus for reloading');
+  await sleep(300);
+  assert.equal(again.bonus(), null, 'and no announcement of one');
+
+  // Learning something puts XP on this week's board.
+  const step = WILLOW_LESSONS[0].steps[0];
+  again.room.send('answer', { q: 'lesson:0:0', c: step[3] });
+  await nextMessage(again.room, 'answer:result');
+  again.room.send('rank', {});
+  const rank = await nextMessage(again.room, 'rank');
+  assert.equal(rank.classCode, 'test-1');
+  assert.equal(rank.name, 'Kaede');
+  assert.equal(rank.mine, REWARDS.lesson.xp);
+  assert.ok(rank.daysLeft >= 1 && rank.daysLeft <= 7, `daysLeft=${rank.daysLeft}`);
+  assert.ok(rank.top.length <= 10, 'at most ten names');
+  const mine = rank.top.find((r) => r.name === 'Kaede');
+  assert.ok(mine && mine.xp === REWARDS.lesson.xp, 'my week is on the board');
+  // Sorted, best first.
+  for (let i = 1; i < rank.top.length; i += 1) assert.ok(rank.top[i - 1].xp >= rank.top[i].xp);
+  // The board is this week's, and it does not carry the answer to anything.
+  assert.ok(Number.isFinite(weekIndex()));
+  await again.room.leave();
+  await sleep(100);
 });
