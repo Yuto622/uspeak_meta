@@ -43,3 +43,28 @@
   .battle-waza { grid-template-columns: 1fr; }
   .battle-quiz p { font-size: 22px; }
 }
+
+/* おさかな道場 — the bag, and what each fish will teach. */
+#dojo-dialog {
+  border: 0; border-radius: 22px; padding: 0; width: min(560px, calc(100vw - 28px));
+  max-height: min(88vh, 760px); max-height: min(88dvh, 760px); overflow: hidden;
+  background: #fffaf0; color: #263d33; box-shadow: 0 30px 80px rgba(10, 36, 27, .45);
+}
+#dojo-dialog[open] { display: flex; flex-direction: column; }
+#dojo-dialog::backdrop { background: rgba(12, 32, 28, .55); backdrop-filter: blur(4px); }
+#dojo-body { padding: 16px 22px 22px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.dojo-learned { padding: 14px 16px; border-radius: 16px; background: #cdebd2; margin-bottom: 14px; }
+.dojo-learned strong { display: block; font-size: 18px; color: #1f5c33; }
+.dojo-learned span { display: block; font-size: 12px; color: #3d6b4c; margin-top: 3px; }
+.dojo-learned small { display: block; font-size: 11px; color: #5d6d62; margin-top: 5px; }
+.dojo-now { margin: 0 0 10px; font-size: 14px; }
+.dojo-now b { color: #a65b2e; }
+.dojo-bag { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.dojo-bag button { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 13px; border-radius: 14px; background: #f1efe1; text-align: left; }
+.dojo-bag button strong { font-size: 13px; }
+.dojo-bag button small { font-size: 11px; color: #5d6d62; }
+.dojo-bag button span { font-size: 11px; font-weight: 700; color: #8a6d1f; }
+.dojo-bag button:active { background: #d8e3c9; }
+.dojo-bag button:disabled { opacity: .55; }
+.dojo-empty { font-size: 13px; color: #5d6d62; padding: 18px; text-align: center; background: #f1efe1; border-radius: 14px; }
+@media (max-width: 600px) { .dojo-bag { grid-template-columns: 1fr; } }

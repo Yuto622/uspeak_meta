@@ -11,6 +11,7 @@ import { createMissionUI } from './mission.js';
 import { createQuizUI } from './quiz.js';
 import { createGymUI } from './gym.js';
 import { createBattleUI } from './battle.js';
+import { createDojoUI } from './dojo.js';
 
 export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak }) {
   const Colyseus = globalThis.Colyseus;
@@ -19,7 +20,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     mode: 'offline', // offline | connecting | online | reconnecting
     role: 'student', sessionId: null, name: '', classCode: '', teacherKey: '',
     attempts: 0, intentionalLeave: false, chatPaused: false, teacherId: '',
-    progress: null, lastSpace: '', lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
+    progress: null, wallet: null, move: null, lastSpace: '', lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
     pendingTeleport: null, hiddenAt: 0, resumedAt: 0, lastAvatarJson: '',
   };
   let client = null;
@@ -54,6 +55,11 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
   const battle = createBattleUI({
     send: (type, payload) => room?.send(type, payload),
     speak, toast, isOnline: () => state.mode === 'online',
+  });
+  const dojo = createDojoUI({
+    send: (type, payload) => room?.send(type, payload),
+    toast, isOnline: () => state.mode === 'online',
+    getWallet: () => state.wallet, getMove: () => state.move,
   });
   const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs });
   // Collect the controls into one dock so the layout is decided by flexbox, not by
@@ -157,6 +163,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
       quiz.restore(m.quiz);
       gym.restore(m.gym);
       battle.restore(m.battle);
+      state.move = m.move || null;
       if (!viaToken) {
         restoreProgress(m.progressJson);
         if (m.position && m.restored) teleportTo(m.position, 'restore');
@@ -189,6 +196,8 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('battle:turn', (m) => { if (m.wallet) applyWallet(m.wallet); battle.onTurn(m); });
     r.onMessage('battle:closed', (m) => battle.onClosed(m));
     r.onMessage('battle:error', (m) => battle.onError(m));
+    r.onMessage('fish:learned', (m) => { state.move = m.move; if (m.wallet) applyWallet(m.wallet); dojo.onLearned(m); });
+    r.onMessage('fish:error', (m) => dojo.onError(m));
     r.onMessage('levelup', (m) => toast(`${m.name} が レベル ${m.level} になりました！`));
     r.onMessage('mission:opened', (m) => mission.onOpened(m));
     r.onMessage('mission:arrived', (m) => mission.onArrived(m));
@@ -325,6 +334,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
   }
 
   function applyWallet(w) {
+    state.wallet = w;
     try {
       fishing.store.reconcile?.(w);
       fishing.refreshWallet?.();
@@ -505,8 +515,12 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
       if (near.spot.kind === 'gym') gym.enter(near.spot); else quiz.enter(near.spot);
     },
     schoolLabel: (spot) => (spot.kind === 'gym' ? gym.label(spot) : quiz.label(spot)),
-    arenaInteract: () => { const near = rpg.arenaNearby(); if (near) battle.enter(near.spot); },
-    arenaLabel: (spot) => battle.label(spot),
+    arenaInteract: () => {
+      const near = rpg.arenaNearby();
+      if (!near) return;
+      if (near.spot.kind === 'dojo') dojo.enter(near.spot); else battle.enter(near.spot);
+    },
+    arenaLabel: (spot) => (spot.kind === 'dojo' ? dojo.label(spot) : battle.label(spot)),
     leave: () => goOffline(true),
   };
 }

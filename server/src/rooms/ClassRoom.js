@@ -13,6 +13,7 @@ import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS } 
 import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SESSION } from '../game/wordquiz.js';
 import { MODES as GYM_MODES, createSet, questionPayload as gymPayload, answerSet } from '../game/gym.js';
 import { ARENA, createBattle, statePayload, quizPayload, chooseWaza, answerQuiz, BattleError, DAILY_CAP } from '../game/battle.js';
+import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
@@ -96,6 +97,7 @@ export class ClassRoom extends Room {
     this.onMessage('battle:waza', (client, msg) => this.onBattleWaza(client, msg));
     this.onMessage('battle:answer', (client, msg) => this.onBattleAnswer(client, msg));
     this.onMessage('battle:quit', (client) => this.onBattleQuit(client));
+    this.onMessage('fish:feed', (client, msg) => this.onFishFeed(client, msg));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -402,6 +404,7 @@ export class ClassRoom extends Room {
       wallet: sanitizeWallet({
         coins: record.coins, inventory: parseJson(record.inventory_json, {}), owned: parseJson(record.owned_json, []),
         wands: parseJson(record.wands_json, []), wand: record.wand, catches: record.catches,
+        dex: parseJson(record.dex_json, []),
       }),
       stats: { correct: Math.max(0, Math.floor(num(record.correct))), attempts: Math.max(0, Math.floor(num(record.attempts))) },
       progress: sanitizeProgress({ level: record.level, xp: record.xp, chats: record.chats }),
@@ -421,6 +424,7 @@ export class ClassRoom extends Room {
       battle: null,
       battleDay: '',
       battleCoins: 0,
+      move: sanitizeMove(record.move),
       missionTurnsToday: 0,
       missionDay: '',
       lastMissionAt: 0,
@@ -441,6 +445,7 @@ export class ClassRoom extends Room {
       wands_json: JSON.stringify(priv.wallet.wands), wand: priv.wallet.wand,
       progress_json: priv.progressJson, missions_json: JSON.stringify(priv.missionsDone || []),
       level: priv.progress.level, xp: priv.progress.xp, total_xp: totalXp(priv.progress), chats: priv.progress.chats,
+      dex_json: JSON.stringify(priv.wallet.dex || []), move: priv.move?.from || '',
       updated_at: iso, last_seen: priv.lastSeen,
     });
   }
@@ -661,7 +666,7 @@ export class ClassRoom extends Room {
       client.send('battle:error', { reason: 'too far', stand: { id: stand.id, name: stand.name, ja: stand.ja } });
       return;
     }
-    priv.battle = createBattle({ difficulty: stand.difficulty, level: priv.progress.level });
+    priv.battle = createBattle({ difficulty: stand.difficulty, level: priv.progress.level, move: priv.move });
     priv.battle.stand = stand.id;
     client.send('battle:state', { ...statePayload(priv.battle), stand: stand.id, name: stand.name, room: this.battleRoom(priv) });
     log.info(`[room ${this.roomId}] "${priv.name}" entered the ${stand.difficulty} arena`);
@@ -731,6 +736,39 @@ export class ClassRoom extends Room {
     if (!priv?.battle) return;
     priv.battle = null;
     client.send('battle:closed', { reason: 'quit' });
+  }
+
+  // ---- おさかな道場 -----------------------------------------------------------------
+
+  // A fish eaten here teaches its move, and the move becomes the fifth button in the
+  // arena. Only one at a time, as Roblox had it: learning a new one forgets the old.
+  // The fish is spent, so this is a real trade rather than a free upgrade.
+  onFishFeed(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    if (!this.atStand(client.sessionId, 'dojo')) {
+      const dojo = ARENA.spotById.get('dojo');
+      client.send('fish:error', { reason: 'too far', stand: dojo ? { id: dojo.id, name: dojo.name, ja: dojo.ja } : null });
+      return;
+    }
+    const id = typeof msg?.id === 'string' ? msg.id : '';
+    const move = moveForFish(id);
+    if (!move) { client.send('fish:error', { reason: 'unknown fish' }); return; }
+    if (!priv.wallet.inventory[id]) { client.send('fish:error', { reason: 'no fish' }); return; }
+
+    priv.wallet.inventory[id] -= 1;
+    if (priv.wallet.inventory[id] <= 0) delete priv.wallet.inventory[id];
+    const forgot = priv.move;
+    priv.move = move;
+    this.store.appendCoin(this.coinRow(client.sessionId, {
+      op: 'feed', item: id, quantity: 1, delta: 0, balance: priv.wallet.coins,
+    }));
+    this.persist(client.sessionId);
+    client.send('fish:learned', {
+      move, forgot: forgot && forgot.id !== move.id ? forgot : null,
+      ...this.walletPayload(client.sessionId),
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" learned ${move.name} from ${move.fishName}`);
   }
 
   // ---- errand quest -------------------------------------------------------------
@@ -921,7 +959,7 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(sessionId);
     if (!priv) return { wallet: null };
     const w = priv.wallet;
-    return { wallet: { coins: w.coins, inventory: { ...w.inventory }, owned: [...w.owned], wands: [...w.wands], wand: w.wand, catches: w.catches } };
+    return { wallet: { coins: w.coins, inventory: { ...w.inventory }, owned: [...w.owned], wands: [...w.wands], wand: w.wand, catches: w.catches, dex: [...w.dex] } };
   }
 
   welcomePayload(sessionId, restored, position) {
@@ -938,6 +976,7 @@ export class ClassRoom extends Room {
         : null,
       quiz: priv.quiz ? { ...questionPayload(priv.quiz), hut: priv.quiz.hut } : null,
       gym: priv.gym ? gymPayload(priv.gym) : null,
+      move: priv.move || null,
       battle: priv.battle ? { ...statePayload(priv.battle), stand: priv.battle.stand, quiz: quizPayload(priv.battle) } : null,
       chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),

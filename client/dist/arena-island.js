@@ -36,8 +36,8 @@ export function createArenaIsland({ scene }) {
       sprite(`${data.name} · ${data.en}`, yard.x, 5.5, yard.z, { width: 11, size: 30 });
 
       for (const def of data.spots) {
-        if (def.kind === 'pvp') {
-          house(def.x, def.z - 5.6, 11, 8, Number(def.color), 0x6a4a7a, `${def.tone} ${def.name}`);
+        if (def.kind === 'pvp' || def.kind === 'dojo') {
+          house(def.x, def.z - 5.6, 11, 8, Number(def.color), def.kind === 'dojo' ? 0x4a7a6a : 0x6a4a7a, `${def.tone} ${def.name}`);
         } else {
           house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
         }

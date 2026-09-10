@@ -5,9 +5,12 @@ import { WANDS, WAND_BY_ID } from '../../../client/dist/magic-data.js';
 export class EconomyError extends Error {}
 
 export const MAX_COINS = 1e9;
+// Roblox's FishDexService paid a bonus the first time a species was landed, which is what
+// turns catching into collecting. Ported unchanged.
+export const DEX_BONUS = 10;
 
 export function blankWallet() {
-  return { coins: 0, inventory: {}, owned: [], wands: [WANDS[0].id], wand: WANDS[0].id, catches: 0 };
+  return { coins: 0, inventory: {}, owned: [], wands: [WANDS[0].id], wand: WANDS[0].id, catches: 0, dex: [] };
 }
 
 export function sanitizeWallet(raw) {
@@ -21,6 +24,9 @@ export function sanitizeWallet(raw) {
   w.wands = [...new Set([WANDS[0].id, ...(Array.isArray(raw.wands) ? raw.wands : [])])].filter((id) => WAND_BY_ID[id]);
   w.wand = w.wands.includes(raw.wand) ? raw.wand : WANDS[0].id;
   w.catches = Number.isSafeInteger(raw.catches) && raw.catches >= 0 ? raw.catches : 0;
+  // Every species ever landed, which is the dex. Kept apart from `inventory`, which is
+  // only what is in the bag right now - selling a fish must not un-discover it.
+  w.dex = [...new Set(Array.isArray(raw.dex) ? raw.dex : [])].filter((id) => FISH_BY_ID[id]);
   return w;
 }
 
@@ -34,7 +40,12 @@ export function applyOp(wallet, op) {
       if (!fish) throw new EconomyError('unknown fish');
       wallet.inventory[fish.id] = Math.min(100000, (wallet.inventory[fish.id] || 0) + 1);
       wallet.catches += 1;
-      return { op: 'catch', item: fish.id, quantity: 1, delta: 0, balance: wallet.coins };
+      const discovered = !wallet.dex.includes(fish.id);
+      if (discovered) {
+        wallet.dex.push(fish.id);
+        wallet.coins = Math.min(MAX_COINS, wallet.coins + DEX_BONUS);
+      }
+      return { op: 'catch', item: fish.id, quantity: 1, delta: wallet.coins - before, balance: wallet.coins, discovered };
     }
     case 'sell': {
       const fish = FISH_BY_ID[op.id];

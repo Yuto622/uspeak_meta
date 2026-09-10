@@ -19,6 +19,8 @@ const { MISSIONS } = await import('../src/game/missions.js');
 const { REWARDS, xpToNext } = await import('../src/game/progression.js');
 const { SCHOOL } = await import('../src/game/wordquiz.js');
 const { ARENA, WAZA, REWARD, DAILY_CAP } = await import('../src/game/battle.js');
+const { DEX_BONUS } = await import('../src/game/economy.js');
+const { moveForFish } = await import('../src/game/fish-moves.js');
 
 let server; let url;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -129,7 +131,8 @@ test('answers, coins and catches are decided by the server', async () => {
   assert.equal(r.progress.total, REWARDS.lesson.xp + REWARDS.fishWord.xp);
   a.room.send('economy', { op: 'sell', id: FISH[0].id, quantity: 1 });
   w = await nextMessage(a.room, 'wallet');
-  assert.equal(w.ok, true); assert.equal(w.wallet.coins, FISH[0].price);
+  // The catch also paid the dex bonus, because it was the first of its species.
+  assert.equal(w.ok, true); assert.equal(w.wallet.coins, FISH[0].price + DEX_BONUS);
   a.room.send('economy', { op: 'catch', id: FISH[0].id });
   w = await nextMessage(a.room, 'wallet');
   assert.equal(w.ok, false, 'clients cannot award themselves catches');
@@ -143,7 +146,8 @@ test('answers, coins and catches are decided by the server', async () => {
   await sleep(100);
   const again = await join('Chika');
   assert.equal(again.welcome.restored, true);
-  assert.equal(again.welcome.wallet.coins, FISH[0].price);
+  assert.equal(again.welcome.wallet.coins, FISH[0].price + DEX_BONUS);
+  assert.deepEqual(again.welcome.wallet.dex, [FISH[0].id], 'the species stays discovered after selling it');
   assert.deepEqual(again.welcome.stats, { correct: 2, attempts: 3 });
   // Level and XP survive the round trip through the store, like coins do.
   assert.equal(again.welcome.progress.level, 1);
@@ -516,6 +520,67 @@ test('the arena decides the damage, and caps what a day can pay', async () => {
   assert.equal(turn.room, DAILY_CAP - turn.paid, 'the allowance went down by what was paid');
   assert.equal(turn.wallet.coins, a.welcome.wallet.coins + turn.paid);
 
+  await a.room.leave();
+  await sleep(100);
+});
+
+test('the dojo trades a fish for a move, and the move joins the battle', async () => {
+  const a = await join('Hana');
+  const dojo = ARENA.spotById.get('dojo');
+  const easy = ARENA.spotById.get('easy');
+  const standAt = async (spot) => {
+    a.room.send('move', { s: ARENA.id, x: spot.wx, z: spot.wz, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return p.space === ARENA.id && Math.abs(p.x - spot.wx) < 0.01;
+    });
+  };
+
+  // Land a fish the honest way, which the server judges.
+  const fish = FISH[0];
+  a.room.send('answer', { q: `fish:${fish.id}`, c: fish.id });
+  let r = await nextMessage(a.room, 'answer:result');
+  assert.equal(r.wallet.inventory[fish.id], 1);
+  assert.deepEqual(r.wallet.dex, [fish.id], 'and it goes in the dex');
+
+  // Not from a battle stand.
+  await standAt(easy);
+  a.room.send('fish:feed', { id: fish.id });
+  assert.equal((await nextMessage(a.room, 'fish:error')).reason, 'too far');
+
+  await standAt(dojo);
+  a.room.send('fish:feed', { id: 'not-a-fish' });
+  assert.equal((await nextMessage(a.room, 'fish:error')).reason, 'unknown fish');
+  a.room.send('fish:feed', { id: FISH[5].id });
+  assert.equal((await nextMessage(a.room, 'fish:error')).reason, 'no fish', 'you cannot eat what you do not have');
+
+  a.room.send('fish:feed', { id: fish.id });
+  const learned = await nextMessage(a.room, 'fish:learned');
+  assert.deepEqual(learned.move, moveForFish(fish.id));
+  assert.equal(learned.forgot, null);
+  assert.equal(learned.wallet.inventory[fish.id], undefined, 'the fish was eaten');
+  assert.deepEqual(learned.wallet.dex, [fish.id], 'but the dex keeps it');
+
+  // And the move is there in the arena, as a fifth button.
+  await standAt(easy);
+  a.room.send('battle:start', { stand: 'easy' });
+  const start = await nextMessage(a.room, 'battle:state');
+  assert.equal(start.waza.length, 5);
+  const taught = start.waza.find((w) => w.fish);
+  assert.equal(taught.id, learned.move.id);
+  assert.equal(taught.damage, learned.move.damage);
+
+  // Using it asks a question like any other strong move, and lands for its own damage.
+  a.room.send('battle:waza', { waza: taught.id });
+  const quiz = await nextMessage(a.room, 'battle:quiz');
+  assert.equal(quiz.waza, taught.id);
+  assert.equal(quiz.seconds, taught.seconds);
+  a.room.send('battle:answer', { choice: 0 });
+  const turn = await nextMessage(a.room, 'battle:turn');
+  const dealt = turn.foe.max - turn.foe.hp;
+  assert.ok(dealt === 0 || dealt === taught.damage, `${dealt} is not this move's damage`);
+
+  a.room.send('battle:quit', {});
   await a.room.leave();
   await sleep(100);
 });

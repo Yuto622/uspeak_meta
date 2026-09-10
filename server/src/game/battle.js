@@ -70,7 +70,7 @@ export function loadArena(file = ARENA_PATH) {
   for (const spot of raw.spots || []) {
     if (typeof spot.id !== 'string' || !spot.id) throw new Error('arena.json: a stand has no id');
     if (spotById.has(spot.id)) throw new Error(`arena.json: duplicate stand "${spot.id}"`);
-    if (!['stand', 'pvp'].includes(spot.kind)) throw new Error(`arena.json: ${spot.id} has unknown kind "${spot.kind}"`);
+    if (!['stand', 'pvp', 'dojo'].includes(spot.kind)) throw new Error(`arena.json: ${spot.id} has unknown kind "${spot.kind}"`);
     if (spot.kind === 'stand' && !CPU_IDS.includes(spot.difficulty)) throw new Error(`arena.json: stand ${spot.id} has unknown difficulty "${spot.difficulty}"`);
     spotById.set(spot.id, { ...spot, wx: raw.x + spot.x, wz: raw.z + spot.z });
   }
@@ -91,13 +91,14 @@ export function loadArena(file = ARENA_PATH) {
 
 export const ARENA = loadArena();
 
-export function createBattle({ difficulty, level, random = Math.random }) {
+export function createBattle({ difficulty, level, move = null, random = Math.random }) {
   const cpu = CPU[difficulty];
   if (!cpu) throw new BattleError('unknown difficulty');
   const hp = maxHp(level);
   return {
     difficulty,
     random,
+    move,                 // とくいわざ, learned from a fish at the dojo
     you: { hp, max: hp },
     foe: { hp: cpu.hp, max: cpu.hp },
     turn: 1,
@@ -117,7 +118,8 @@ export function statePayload(battle) {
     turn: battle.turn,
     over: battle.over,
     won: battle.won,
-    waza: WAZA_IDS.map((id) => ({ ...WAZA[id] })),
+    // The four everyone has, plus the one this child taught themselves with a fish.
+    waza: [...WAZA_IDS.map((id) => ({ ...WAZA[id] })), ...(battle.move ? [{ ...battle.move }] : [])],
   };
 }
 
@@ -136,17 +138,22 @@ function drawQuestion(battle) {
 }
 
 // What the child sees of a pending question: never the answer.
+export function wazaById(battle, id) {
+  return WAZA[id] || (battle.move && battle.move.id === id ? battle.move : null);
+}
+
 export function quizPayload(battle) {
   const p = battle.pending;
   if (!p) return null;
-  return { waza: p.waza, q: p.question.q, choices: [...p.question.choices], seconds: WAZA[p.waza].seconds };
+  const waza = wazaById(battle, p.waza);
+  return { waza: p.waza, q: p.question.q, choices: [...p.question.choices], seconds: waza.seconds };
 }
 
 // The child chooses a move. A plain attack resolves now; a strong one asks first.
 export function chooseWaza(battle, wazaId) {
   if (battle.over) throw new BattleError('battle is over');
   if (battle.pending) throw new BattleError('answer first');
-  const waza = WAZA[wazaId];
+  const waza = WAZA[wazaId] || (battle.move && battle.move.id === wazaId ? battle.move : null);
   if (!waza) throw new BattleError('unknown waza');
   if (!waza.quiz) return resolve(battle, waza, true);
   battle.pending = { waza: waza.id, question: drawQuestion(battle), askedAt: Date.now() };
@@ -157,7 +164,7 @@ export function chooseWaza(battle, wazaId) {
 export function answerQuiz(battle, choice, { timedOut = false } = {}) {
   const p = battle.pending;
   if (!p) throw new BattleError('nothing was asked');
-  const waza = WAZA[p.waza];
+  const waza = wazaById(battle, p.waza);
   const late = Date.now() - p.askedAt > (waza.seconds + 3) * 1000;   // 3s of slack for the wire
   const correct = !timedOut && !late && Number.isInteger(choice) && choice === p.question.answer;
   const outcome = { answer: p.question.answer, picked: Number.isInteger(choice) ? choice : -1, correct, timedOut: timedOut || late };

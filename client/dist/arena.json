@@ -85,6 +85,22 @@
           "x": 0,
           "z": 10
         }
+      },
+      {
+        "id": "dojo",
+        "kind": "dojo",
+        "name": "おさかな道場",
+        "en": "Fish Dojo",
+        "character": "Upee",
+        "ja": "おさかな道場",
+        "x": 20,
+        "z": 16,
+        "color": 8368288,
+        "tone": "🐟",
+        "path": {
+          "x": 0,
+          "z": 21
+        }
       }
     ]
   }

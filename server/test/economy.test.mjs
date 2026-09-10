@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { applyOp, blankWallet, sanitizeWallet, EconomyError } from '../src/game/economy.js';
+import { applyOp, blankWallet, sanitizeWallet, EconomyError, DEX_BONUS } from '../src/game/economy.js';
 import { FISH, ITEMS } from '../../client/dist/fishing-data.js';
 import { WANDS } from '../../client/dist/magic-data.js';
 
@@ -11,7 +11,8 @@ test('sell requires server-side inventory', () => {
   applyOp(w, { type: 'catch', id: FISH[0].id });
   const entry = applyOp(w, { type: 'sell', id: FISH[0].id, quantity: 2 });
   assert.equal(entry.delta, FISH[0].price * 2);
-  assert.equal(w.coins, FISH[0].price * 2);
+  // The first of a species also paid the dex bonus, once, when it was landed.
+  assert.equal(w.coins, FISH[0].price * 2 + DEX_BONUS);
   assert.deepEqual(w.inventory, {});
   assert.throws(() => applyOp(w, { type: 'sell', id: FISH[0].id, quantity: 1 }), EconomyError);
 });
@@ -52,4 +53,29 @@ test('sanitizeWallet drops tampered values', () => {
   assert.equal(w.wand, WANDS[0].id);
   assert.equal(w.catches, 0);
   assert.equal(sanitizeWallet({ coins: 5e9 }).coins, 0);
+});
+
+test('the dex pays once per species and survives selling the fish', () => {
+  const w = blankWallet();
+  const first = applyOp(w, { type: 'catch', id: FISH[0].id });
+  assert.equal(first.discovered, true);
+  assert.equal(first.delta, DEX_BONUS);
+  assert.deepEqual(w.dex, [FISH[0].id]);
+
+  const again = applyOp(w, { type: 'catch', id: FISH[0].id });
+  assert.equal(again.discovered, false);
+  assert.equal(again.delta, 0, 'the second of a species pays nothing');
+
+  // Selling empties the bag but not the dex: a species stays discovered.
+  applyOp(w, { type: 'sellAll' });
+  assert.deepEqual(w.inventory, {});
+  assert.deepEqual(w.dex, [FISH[0].id]);
+
+  const other = applyOp(w, { type: 'catch', id: FISH[1].id });
+  assert.equal(other.discovered, true);
+  assert.equal(w.dex.length, 2);
+
+  // A tampered dex is filtered to real species, and cannot be used to skip the bonus.
+  const restored = sanitizeWallet({ dex: [FISH[0].id, 'not-a-fish', FISH[0].id, 42] });
+  assert.deepEqual(restored.dex, [FISH[0].id]);
 });
