@@ -98,6 +98,10 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **島を足すときは `island-kit.js` の `createIsland({scene, build})` を使うこと。** 建物と住人だけ書けばよい。
 - 返ってきた island を**スプレッドしないこと**（`{...island}`）。`visible` `data` `spots` `target` は
   getter なので、スプレッドすると値が固定される。`Object.assign(island, {...})` で足す。
+- **建物を置いたら道が通るか確認すること。** 各スポットは `path: {x,z}`（道の起点）を
+  データに持ち、`school-island.js` はその線に石畳を敷く。`tests/regression.mjs` が同じ線を
+  歩いて建物に当たらないか検査する。ジムの道が「ふつうの小屋」を貫通していたのを
+  ブラウザで5分かけて見つけた経緯があるので、まず `node tests/regression.mjs` を回すこと。
 - 学習用の島は `rpg-data.js` の `ACTIVITY_HUBS` に登録すること。宝箱と U-Speak park の入口が
   勝手に生えるのを防いでいる（`treasure-data.js` / `magic-data.js` が参照）。
 - ジムは `gym.js`（画面）と `server/src/game/gym.js` + `gym-words.json`（110語・判定）。

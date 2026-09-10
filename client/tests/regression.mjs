@@ -109,3 +109,44 @@ console.log('PASS: 36 chests in 12 areas, 3 gated permanent keys, all tiers, 12 
  assert.equal(rpg.blocked(3,8),null,'Willow collision is unaffected');
  console.log('PASS: おつかい島 loads from missions.json, all '+island.spots.length+' spots are standable, walkable from the plaza and mutually exclusive; arrival, minimap, beacon and departure.');
 }
+
+// --- ことばの学校島: three huts and the gym must all be walkable to -------------------
+{
+ const data=await rpg.school.ready;
+ const island=data.island;
+ assert.ok(island&&island.spots.length>=4,'the school island loaded from school.json');
+ rpg.activate('school');
+ assert.equal(rpg.state.current,'school');
+ assert.equal(rpg.school.visible,true);
+ assert.ok(!rpg.blocked(player.position.x,player.position.z),'the landing is walkable');
+ // A building standing across a path is invisible in a screenshot and fatal on foot, so
+ // flood fill from where a child lands and check every place they have to reach.
+ const key=(x,z)=>x+','+z;
+ const start=[Math.round(player.position.x-island.x),Math.round(player.position.z-island.z)];
+ const seen=new Set([key(...start)]),queue=[start];
+ for(let i=0;i<queue.length;i++){const [x,z]=queue[i];
+  for(const [dx,dz]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,nz=z+dz;
+   if(seen.has(key(nx,nz))||rpg.blocked(island.x+nx,island.z+nz))continue;
+   seen.add(key(nx,nz));queue.push([nx,nz]);}}
+ for(const spot of island.spots){
+  player.position.set(island.x+spot.x,0,island.z+spot.z);
+  assert.ok(!rpg.blocked(player.position.x,player.position.z),spot.id+' is standable');
+  assert.equal(rpg.schoolNearby()?.spot.id,spot.id,spot.id+' reports itself');
+  assert.ok(seen.has(key(Math.round(spot.x),Math.round(spot.z))),spot.id+' is reachable on foot from the landing');
+ }
+ // The line the island paves is the line a child walks. A building standing on it is
+ // invisible in a screenshot and a dead end on foot, so walk every drawn path.
+ for(const spot of island.spots){
+  const steps=Math.ceil(Math.hypot(spot.x-spot.path.x,spot.z-spot.path.z)*4);
+  for(let i=0;i<=steps;i++){const t=i/steps;
+   const x=island.x+spot.path.x+(spot.x-spot.path.x)*t,z=island.z+spot.path.z+(spot.z-spot.path.z)*t;
+   assert.ok(!rpg.blocked(x,z),'the paved path to '+spot.id+' runs through a building');}
+ }
+ assert.equal(island.spots.filter(s=>s.kind==='hut').length,3,'three huts');
+ assert.equal(island.spots.filter(s=>s.kind==='gym').length,1,'one gym');
+ assert.equal(rpg.mapSmall(ctx),true,'the island draws its own minimap');
+ rpg.activate('willow');
+ assert.equal(rpg.school.visible,false);
+ assert.equal(rpg.schoolNearby(),null);
+ console.log('PASS: ことばの学校島 loads from school.json, all '+island.spots.length+' places are standable, reachable on foot from the landing and mutually exclusive.');
+}

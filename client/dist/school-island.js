@@ -24,12 +24,13 @@ export function createSchoolIsland({ scene }) {
     build({ island: data, B, sprite, house, path, resident, scatter }) {
       // A courtyard with the school bell, so the middle of the island is a place and not
       // just the gap between three huts.
-      B(0, 0.12, 12, 12, 0.14, 12, 0xd8cfa8);
-      B(0, 0.2, 12, 8, 0.14, 8, 0xe6ddba);
-      for (const sx of [-2.6, 2.6]) B(sx, 2.4, 12, 0.4, 4.6, 0.4, 0x7a6448);
-      B(0, 4.6, 12, 6.2, 0.5, 0.5, 0xb8703f);
-      B(0, 3.9, 12, 1.1, 1.3, 1.1, 0xd9b45c);
-      sprite(`${data.name} · ことばの小屋`, 0, 5.8, 12, { width: 10, size: 30 });
+      const yard = data.courtyard;
+      B(yard.x, 0.12, yard.z, 12, 0.14, 12, 0xd8cfa8);
+      B(yard.x, 0.2, yard.z, 8, 0.14, 8, 0xe6ddba);
+      for (const sx of [-2.6, 2.6]) B(yard.x + sx, 2.4, yard.z, 0.4, 4.6, 0.4, 0x7a6448);
+      B(yard.x, 4.6, yard.z, 6.2, 0.5, 0.5, 0xb8703f);
+      B(yard.x, 3.9, yard.z, 1.1, 1.3, 1.1, 0xd9b45c);
+      sprite(`${data.name} · ことばの小屋`, yard.x, 5.8, yard.z, { width: 10, size: 30 });
 
       for (const def of data.spots) {
         if (def.kind === 'gym') {
@@ -45,7 +46,11 @@ export function createSchoolIsland({ scene }) {
           // island rather than a label.
           house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
         }
-        path(0, 12, def.x, def.z);
+        // Each building says in the data where its path starts, and therefore the line
+        // a child walks to it. The huts open on to the courtyard, the gym on to the
+        // landing; drawing every path from the courtyard sent the gym's straight through
+        // the middle hut, which the regression test now refuses.
+        path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xe0d6b0);
         resident(def);
       }

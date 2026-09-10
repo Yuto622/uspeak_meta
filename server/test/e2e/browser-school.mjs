@@ -99,9 +99,10 @@ try {
   await a.click('#quiz-close').catch(() => {});
   await sleep(300);
   const gymSpot = school.spots.find((sp) => sp.id === 'gym');
-  // Via the courtyard, which is where the island's paths meet: walking straight from a
-  // hut clips the corner of another one, exactly as it would for a child.
-  await walkTo(a, 'courtyard', school.x, school.z + 12, base, { arrive: 4 });
+  // Along the paths the island paves: back to where the gym's path starts, then to it.
+  // Cutting straight across from a hut catches the corner of another one, exactly as it
+  // would for a child.
+  await walkTo(a, 'path start', school.x + gymSpot.path.x, school.z + gymSpot.path.z, base, { arrive: 4 });
   await walkTo(a, 'gym', ...world(gymSpot), base);
   check('the gym offers itself', (await nearLabel(a)).includes(gymSpot.name), await nearLabel(a));
   await a.click('#interact');
