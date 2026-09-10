@@ -21,7 +21,7 @@ export function createSchoolIsland({ scene }) {
   const island = createIsland({
     scene,
     seed: 30414159,
-    build({ island: data, B, sprite, house, path, resident, door, scatter }) {
+    build({ island: data, B, D, sprite, house, path, resident, door, scatter, bench, flowers, obstacles }) {
       // A courtyard with the school bell, so the middle of the island is a place and not
       // just the gap between three huts.
       const yard = data.courtyard;
@@ -31,6 +31,44 @@ export function createSchoolIsland({ scene }) {
       B(yard.x, 4.6, yard.z, 6.2, 0.5, 0.5, 0xb8703f);
       B(yard.x, 3.9, yard.z, 1.1, 1.3, 1.1, 0xd9b45c);
       sprite(`${data.name} · ことばの小屋`, yard.x, 5.8, yard.z, { width: 10, size: 30 });
+
+      // The bell tower: the thing you see from the water, and the reason the courtyard
+      // has a middle. Stone base, timber frame, a bell under a little roof.
+      // North-east of the courtyard: clear of all four paved lines, and the first thing
+      // you see coming up from the landing.
+      const tx = yard.x + 10;
+      const tz = yard.z + 4.5;
+      D(tx, 0.6, tz, 5.2, 0.8, 5.2, 0xbcb49a);
+      D(tx, 1.1, tz, 4.4, 0.3, 4.4, 0xd3cbb0);
+      for (const sx of [-1.7, 1.7]) for (const sz of [-1.7, 1.7]) D(tx + sx, 5, tz + sz, 0.5, 8, 0.5, 0x8a6f4a);
+      for (let i = 0; i < 3; i += 1) D(tx, 2.4 + i * 3, tz, 3.9, 0.35, 3.9, 0x9a7c53);
+      D(tx, 9.3, tz, 4.6, 0.5, 4.6, 0x6f5b3e);
+      for (let i = 0; i < 4; i += 1) D(tx, 9.7 + i * 0.45, tz, 4.4 - i * 0.9, 0.45, 4.4 - i * 0.9, 0x4c6f86);
+      D(tx, 11.7, tz, 0.5, 1.2, 0.5, 0xd9b45c);
+      D(tx, 8.2, tz, 1.5, 1.6, 1.5, 0xd9b45c, 0.5);          // the bell, catching the light
+      D(tx, 9.05, tz, 0.4, 0.5, 0.4, 0x6f5b3e);
+      obstacles.push({ x: tx, z: tz, w: 2.6, d: 2.6 });
+      // A clock face on the side that looks at the courtyard.
+      D(tx, 6.6, tz + 2.1, 2.2, 2.2, 0.2, 0xf3ecd8);
+      D(tx, 6.6, tz + 2.25, 0.16, 1.2, 0.12, 0x3d4a44);
+      D(tx + 0.4, 6.6, tz + 2.25, 0.9, 0.16, 0.12, 0x3d4a44);
+
+      // An open book on a plinth: what the island is about, made of blocks.
+      const bx = yard.x - 9.5;
+      const bz = yard.z + 4;
+      D(bx, 0.5, bz, 4.6, 0.6, 3.4, 0xbcb49a);
+      D(bx, 1.0, bz, 4.0, 0.4, 2.8, 0xd3cbb0);
+      for (const side of [-1, 1]) {
+        D(bx + side * 1.15, 1.7, bz, 2.2, 0.9, 2.6, 0xf5efdd);
+        D(bx + side * 1.15, 2.2, bz, 2.0, 0.12, 2.4, 0xfffaf0);
+        D(bx + side * 2.2, 1.7, bz, 0.24, 1.0, 2.7, 0x9a5f4a);
+      }
+      D(bx, 1.5, bz, 0.4, 1.3, 2.8, 0x9a5f4a);
+      for (let i = 0; i < 4; i += 1) D(bx - 0.7 + (i % 2) * 1.4, 2.3, bz - 0.8 + Math.floor(i / 2) * 1.6, 1.1, 0.06, 0.14, 0x8a9aa5);
+      bench(yard.x - 3.5, yard.z + 6, 0);
+      bench(yard.x + 3.5, yard.z + 6, 0);
+      flowers(yard.x - 6, yard.z + 5, 0xe89bb0);
+      flowers(yard.x + 6, yard.z + 5, 0xdfe4ef);
 
       for (const def of data.spots) {
         if (def.kind === 'gym') {

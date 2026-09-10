@@ -27,7 +27,7 @@ export function createRideIsland({ scene }) {
   const island = createIsland({
     scene,
     seed: 31415,
-    build({ island: data, B, D, house, path, resident, door, scatter }) {
+    build({ island: data, B, D, house, path, resident, door, scatter, obstacles, bunting }) {
       const yard = data.courtyard;
       // The road: a ring of tarmac laid as short tiles, wide enough for two children.
       if (course) {
@@ -40,8 +40,8 @@ export function createRideIsland({ scene }) {
             const u = k / steps;
             const x = from.x + (to.x - from.x) * u;
             const z = from.z + (to.z - from.z) * u;
-            D(x, 0.15, z, 3.6, 0.2, 3.6, 0x585b60);
-            if (k % 3 === 0) D(x, 0.27, z, 0.9, 0.1, 0.9, 0xe8e2c6);   // centre line
+            D(x, 0.3, z, 3.6, 0.34, 3.6, 0x585b60);
+            if (k % 3 === 0) D(x, 0.48, z, 0.9, 0.1, 0.9, 0xe8e2c6);   // centre line
           }
         }
       }
@@ -52,6 +52,38 @@ export function createRideIsland({ scene }) {
       B(yard.x, 0.26, yard.z, 11, 0.14, 7.5, 0xdedaba);
       B(yard.x, 2.6, yard.z, 0.3, 5, 0.3, 0x8a8378);
       B(yard.x + 1.4, 4.6, yard.z, 2.6, 1.5, 0.12, 0xd9534f);
+
+      // A start gantry standing across the road, not along it: the road runs east-west
+      // here, so its legs go north and south of the tarmac. Sited east of the landing so
+      // nothing stands in the lane a child walks down from the dock.
+      const gx = 6.5;
+      const gz = 17.3;                       // where the course's top straight runs
+      for (const sz of [-3.6, 3.6]) {
+        D(gx, 3.4, gz + sz, 0.7, 6.8, 0.7, 0x8a8378);
+        D(gx, 6.6, gz + sz, 1.1, 0.5, 1.1, 0x6f6a60);
+        obstacles.push({ x: gx, z: gz + sz, w: 0.6, d: 0.6 });
+      }
+      D(gx, 6.9, gz, 0.9, 1.1, 7.8, 0x2f3f4a);
+      for (let i = 0; i < 7; i += 1) {
+        for (let j = 0; j < 2; j += 1) D(gx - 0.05, 7.2 - j * 0.5, gz - 3 + i, 0.12, 0.5, 1.0, (i + j) % 2 ? 0xf3ecd8 : 0x2a2a28);
+      }
+      bunting(gx, gz - 3.6, gx, gz + 3.6, 8.2);
+      // The line itself: chequers across the tarmac.
+      for (let i = 0; i < 4; i += 1) {
+        for (let j = 0; j < 4; j += 1) D(gx - 1.4 + i * 0.95, 0.28, gz - 1.4 + j * 0.95, 0.9, 0.16, 0.9, (i + j) % 2 ? 0xf3ecd8 : 0x33332f);
+      }
+      // Tyre stacks outside the legs, and cones down both sides of the straight.
+      for (const sz of [-5.2, 5.2]) {
+        for (let i = 0; i < 3; i += 1) D(gx, 0.35 + i * 0.55, gz + sz, 1.5, 0.5, 1.5, i % 2 ? 0x2a2a28 : 0x333330);
+        D(gx, 2.05, gz + sz, 1.6, 0.2, 1.6, 0xd9534f);
+      }
+      for (let i = 0; i < 5; i += 1) {
+        for (const sz of [-2.4, 2.4]) {
+          const cx = gx - 6 + i * 2.6;
+          D(cx, 0.35, gz + sz, 0.7, 0.5, 0.7, 0xe07a3c);
+          D(cx, 0.75, gz + sz, 0.4, 0.4, 0.4, 0xf3ecd8);
+        }
+      }
 
       for (const def of data.spots) {
         house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), def.kind === 'start' ? 0x4a6a8a : 0x8a6a4a, `${def.tone} ${def.name}`);
