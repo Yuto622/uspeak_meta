@@ -16,8 +16,10 @@ import { createPetUI } from './pet.js';
 import { createDailyUI } from './daily.js';
 import { createNight } from './night-world.js';
 import { createRideUI } from './ride.js';
+import { createRoom } from './room-world.js';
+import { createTownUI } from './town.js';
 
-export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak, learn }) {
+export function setupNet({ scene, camera, player, rpg, fishing, avatars, park, toast, speak, learn }) {
   const Colyseus = globalThis.Colyseus;
   const $ = (s) => document.querySelector(s);
   const state = {
@@ -78,6 +80,19 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     send: (type, payload) => room?.send(type, payload),
     isOnline: () => state.mode === 'online',
   });
+  // まちづくり島. The room a child builds in is an interior scene of its own, like the
+  // park's: the island, the weather and everyone else stay outside. (`room` is already
+  // the Colyseus room in this file, so the child's own room is `myRoom`.)
+  const myRoom = createRoom({
+    player, camera, toast, speak, learn,
+    send: (type, payload) => room?.send(type, payload),
+    onLeave: () => { town.hideHud(); rpg.activate('town', true); },
+  });
+  rpg.attachRoom(myRoom);
+  const town = createTownUI({
+    send: (type, payload) => room?.send(type, payload),
+    toast, speak, learn, isOnline: () => state.mode === 'online', room: myRoom,
+  });
   // のりもの島. The speed a vehicle gives is applied by the world; what it is worth and
   // whether it is yours are the server's to say.
   const ride = createRideUI({
@@ -117,6 +132,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
 
   function round(v, d) { const p = 10 ** d; return Math.round(v * p) / p; }
   function currentSpace() {
+    if (myRoom.active) return 'in:room';
     const interior = rpg.adventure?.magic?.interior;
     if (interior?.active) return `in:${interior.building?.id || 'room'}`;
     return rpg.state.current || 'willow';
@@ -134,7 +150,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
-    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; ride.quit(); }
+    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; ride.quit(); if (myRoom.active) myRoom.leave(true); town.hideHud(); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
   }
   function saveSession() {
@@ -182,6 +198,8 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
 
     r.onMessage('welcome', (m) => {
       if (m.world) { state.skew = m.world.now - Date.now(); night.setPhase(m.world); }
+      // The block list is also the palette's colours, so it is worth the one message.
+      town.prime();
       welcomed = true;
       state.role = m.role;
       state.chatPaused = !!m.chatPaused;
@@ -237,6 +255,14 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('pet:hatched', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onHatched(m); });
     r.onMessage('pet:acted', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onActed(m); });
     r.onMessage('pet:error', (m) => petUI.onError(m));
+    r.onMessage('block:shop', (m) => town.onShop(m));
+    r.onMessage('block:bought', (m) => { if (m.wallet) applyWallet(m.wallet); town.onBought(m); });
+    r.onMessage('block:error', (m) => town.onError(m));
+    r.onMessage('room:state', (m) => town.onRoomState(m));
+    r.onMessage('room:placed', (m) => town.onPlaced(m));
+    r.onMessage('room:removed', (m) => town.onRemoved(m));
+    r.onMessage('room:moved', (m) => { if (m.wallet) applyWallet(m.wallet); town.onMoved(m); });
+    r.onMessage('room:error', (m) => town.onError(m));
     r.onMessage('ride:garage', (m) => ride.onGarage(m));
     r.onMessage('ride:bought', (m) => { if (m.wallet) applyWallet(m.wallet); ride.onBought(m); });
     r.onMessage('ride:error', (m) => ride.onError(m));
@@ -575,6 +601,9 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     arenaLabel: (spot) => (spot.kind === 'dojo' ? dojo.label(spot) : battle.label(spot)),
     petInteract: () => { const near = rpg.petNearby(); if (near) petUI.enter(near.spot); },
     petLabel: (spot) => petUI.label(spot),
+    town, myRoom,
+    townInteract: () => { const near = rpg.townNearby(); if (near) town.enter(near.spot); },
+    townLabel: (spot) => town.label(spot),
     ride,
     rideInteract: () => { const near = rpg.rideNearby(); if (near) ride.enter(near.spot); },
     rideLabel: (spot) => ride.label(spot),

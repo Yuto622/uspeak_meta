@@ -58,3 +58,66 @@
   .ride-act { justify-content: stretch; }
   .ride-act button { flex: 1; }
 }
+
+/* まちづくり島 — the block shop, the estate agent, and the building HUD. */
+#town-dialog {
+  border: 0; border-radius: 22px; padding: 0; width: min(560px, calc(100vw - 28px));
+  max-height: min(88vh, 780px); max-height: min(88dvh, 780px); overflow: hidden;
+  background: #fffaf0; color: #263d33; box-shadow: 0 30px 80px rgba(10, 36, 27, .45);
+}
+/* Only when open, or a closed dialog sits invisible over the world eating taps. */
+#town-dialog[open] { display: flex; flex-direction: column; }
+#town-dialog::backdrop { background: rgba(12, 32, 28, .55); backdrop-filter: blur(4px); }
+#town-body { padding: 16px 22px 22px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+.town-blocks { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; margin-top: 12px; }
+.town-block {
+  display: grid; justify-items: center; gap: 2px; padding: 10px 6px; border: 0;
+  border-radius: 14px; background: #f4f2e6; cursor: pointer; font: inherit; color: inherit;
+}
+.town-block.owned { background: #e8f1e2; }
+.town-block:disabled { cursor: default; }
+.town-swatch { width: 30px; height: 30px; border-radius: 8px; box-shadow: inset 0 -6px 0 rgba(0, 0, 0, .16); }
+.town-block strong { font-size: 14px; }
+.town-block small { font-size: 11px; color: #5d6d62; }
+.town-block b { font-size: 12px; color: #a0522d; }
+.town-block.owned b { color: #3d6b4a; }
+
+.town-move { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: #fdf3d6; margin: 12px 0; flex-wrap: wrap; }
+.town-move strong { display: block; font-size: 15px; }
+.town-move small { display: block; font-size: 11px; color: #5d6d62; }
+.town-move-need { margin-left: auto; text-align: right; }
+.town-move-need span { font-weight: 700; }
+.town-move button { padding: 10px 16px; border-radius: 12px; background: #173f38; color: #f4f1e3; font-weight: 700; font-size: 13px; }
+.town-move button:disabled { opacity: .5; }
+
+#room-hud {
+  position: fixed; left: 50%; bottom: 116px; transform: translateX(-50%); z-index: 30;
+  display: grid; gap: 7px; padding: 10px 14px; border-radius: 18px; width: min(560px, calc(100vw - 24px));
+  background: rgba(23, 63, 56, .9); color: #f6f2e2; backdrop-filter: blur(6px);
+  box-shadow: 0 14px 34px rgba(10, 36, 27, .38);
+}
+.room-hud-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; }
+.room-hud-top small { opacity: .75; font-size: 11px; }
+.room-palette { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.room-palette button {
+  display: grid; justify-items: center; gap: 2px; flex: none; padding: 5px 7px;
+  border: 2px solid transparent; border-radius: 11px; background: rgba(255, 255, 255, .1); color: inherit; font: inherit;
+}
+.room-palette button.on { border-color: #ffd98a; background: rgba(255, 217, 138, .18); }
+.room-palette button span { width: 22px; height: 22px; border-radius: 6px; display: block; }
+.room-palette button small { font-size: 9px; }
+.room-hud-acts { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; }
+.room-hud-acts button { padding: 11px 8px; border-radius: 12px; background: #f1efe1; color: #22372f; font-weight: 700; font-size: 14px; }
+.room-hud-acts button:active { background: #d8e3c9; }
+#room-exit { background: rgba(255, 255, 255, .16); color: #f6f2e2; }
+
+/* Inside a room there is nothing to fly to and no island to look at. */
+body.in-room .flight-button, body.in-room .fishing-button, body.in-room .rpg-buddy-button,
+body.in-room .quest-panel, body.in-room .scenery-controls { display: none; }
+
+@media (max-height: 440px) {
+  #room-hud { bottom: 8px; width: min(460px, calc(100vw - 16px)); padding: 6px 10px; gap: 4px; }
+  .room-palette button small { display: none; }
+  .room-hud-acts button { padding: 8px; font-size: 13px; }
+}
