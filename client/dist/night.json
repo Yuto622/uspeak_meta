@@ -1,0 +1,105 @@
+{
+  "space": "willow",
+  "reach": 3.0,
+  "respawnSec": 25,
+  "coins": 3,
+  "dailyCap": 60,
+  "ghosts": [
+    {
+      "id": "moon",
+      "word": "moon",
+      "ja": "つき",
+      "pumpkin": false,
+      "x": -8,
+      "z": 8
+    },
+    {
+      "id": "star",
+      "word": "star",
+      "ja": "ほし",
+      "pumpkin": false,
+      "x": 0,
+      "z": 12
+    },
+    {
+      "id": "night",
+      "word": "night",
+      "ja": "よる",
+      "pumpkin": false,
+      "x": 8,
+      "z": 10
+    },
+    {
+      "id": "owl",
+      "word": "owl",
+      "ja": "フクロウ",
+      "pumpkin": true,
+      "x": -16,
+      "z": 2
+    },
+    {
+      "id": "dream",
+      "word": "dream",
+      "ja": "ゆめ",
+      "pumpkin": false,
+      "x": 12,
+      "z": 4
+    },
+    {
+      "id": "cloud",
+      "word": "cloud",
+      "ja": "くも",
+      "pumpkin": false,
+      "x": -4,
+      "z": -2
+    },
+    {
+      "id": "wind",
+      "word": "wind",
+      "ja": "かぜ",
+      "pumpkin": false,
+      "x": 10,
+      "z": -12
+    },
+    {
+      "id": "light",
+      "word": "light",
+      "ja": "ひかり",
+      "pumpkin": true,
+      "x": -14,
+      "z": 14
+    },
+    {
+      "id": "dark",
+      "word": "dark",
+      "ja": "くらい",
+      "pumpkin": false,
+      "x": 18,
+      "z": 10
+    },
+    {
+      "id": "quiet",
+      "word": "quiet",
+      "ja": "しずか",
+      "pumpkin": false,
+      "x": 2,
+      "z": 18
+    },
+    {
+      "id": "sleep",
+      "word": "sleep",
+      "ja": "ねむる",
+      "pumpkin": false,
+      "x": -20,
+      "z": 8
+    },
+    {
+      "id": "shadow",
+      "word": "shadow",
+      "ja": "かげ",
+      "pumpkin": true,
+      "x": 20,
+      "z": -6
+    }
+  ]
+}

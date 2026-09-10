@@ -11,6 +11,12 @@ process.env.MAX_CLIENTS = '3';
 process.env.LOG_LEVEL = 'error';
 process.env.AI_MIN_INTERVAL_MS = '0';
 
+// The world's clock decides whether the ghosts are out, and waiting for nightfall would
+// take eleven minutes. Shifting the server's clock is the same thing that a classroom
+// demo does, and the tests then run in the same night everyone else would see.
+const { untilNight, phaseAt } = await import('../../client/dist/world-clock.js');
+process.env.WORLD_TIME_OFFSET_MS = String(untilNight() + 20000);
+
 const { startServer } = await import('../src/index.js');
 const { Client } = await import('colyseus.js');
 const { FISH } = await import('../../client/dist/fishing-data.js');
@@ -717,5 +723,75 @@ test('the day pays once, and the week is ranked by the server', async () => {
   // The board is this week's, and it does not carry the answer to anything.
   assert.ok(Number.isFinite(weekIndex()));
   await again.room.leave();
+  await sleep(100);
+});
+
+test('the night is the same for everyone, and a ghost is caught by walking to it', async () => {
+  const { NIGHT, COINS: GHOST_COINS, REACH } = await import('../src/game/night.js');
+  const a = await join('Ren');
+  const b = await join('Sae');
+  const bSeen = [];
+  b.room.onMessage('night:ghosts', (m) => bSeen.push(m));
+  // Everyone joins into the same part of the day, decided by the server's clock.
+  assert.equal(a.welcome.world.id, 'night');
+  assert.equal(a.welcome.world.night, 1, 'the middle of the night is full dark');
+  assert.equal(b.welcome.world.id, 'night');
+  assert.ok(Math.abs(a.welcome.world.now - b.welcome.world.now) < 3000, 'and at the same moment');
+  assert.equal(a.welcome.world.ghosts.length, NIGHT.ids.length, 'every ghost is out');
+  assert.equal(phaseAt(a.welcome.world.now).id, 'night', 'the browser reads the same clock');
+
+  const ghost = NIGHT.ghosts.get(NIGHT.ids[0]);
+  const stand = async (room, x, z, space = NIGHT.space) => {
+    room.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = room.room.state.players.get(room.room.sessionId);
+      return Math.abs(p.x - x) < 0.01 && p.space === space;
+    });
+  };
+
+  // Swinging from across the island hits nothing, and the refusal says where to go.
+  await stand(a, ghost.x + 12, ghost.z);
+  a.room.send('ghost:hit', { id: ghost.id });
+  let err = await nextMessage(a.room, 'ghost:error');
+  assert.equal(err.reason, 'too far');
+  assert.deepEqual([err.x, err.z], [ghost.x, ghost.z]);
+  // The same spot on another island is still the wrong place.
+  await stand(a, ghost.x, ghost.z, 'school');
+  a.room.send('ghost:hit', { id: ghost.id });
+  assert.equal((await nextMessage(a.room, 'ghost:error')).reason, 'elsewhere');
+  // And a ghost that was never in the data is not a ghost.
+  await stand(a, ghost.x, ghost.z);
+  a.room.send('ghost:hit', { id: 'nine-thousand' });
+  assert.equal((await nextMessage(a.room, 'ghost:error')).reason, 'no such ghost');
+
+  const before = a.welcome.wallet.coins;
+  a.room.send('ghost:hit', { id: ghost.id });
+  const caught = await nextMessage(a.room, 'ghost:caught');
+  assert.equal(caught.id, ghost.id);
+  assert.equal(caught.word, ghost.word, 'it leaves its English behind');
+  assert.equal(caught.coins, GHOST_COINS);
+  assert.equal(caught.wallet.coins, before + GHOST_COINS, 'the server paid, not the page');
+  assert.ok(caught.room <= NIGHT.dailyCap - GHOST_COINS, 'and counted it against the night');
+
+  // The rest of the class sees it go, without being told what it was worth.
+  const seen = await waitFor(() => bSeen.find((m) => m.caught === ghost.id), 3000);
+  assert.equal(seen.by, 'Ren');
+  assert.ok(!seen.ghosts.includes(ghost.id));
+  assert.equal(seen.coins, undefined, 'another child\'s coins are not broadcast');
+
+  // Two children cannot both catch the same one.
+  await stand(b, ghost.x, ghost.z);
+  b.room.send('ghost:hit', { id: ghost.id });
+  assert.equal((await nextMessage(b.room, 'ghost:error')).reason, 'already gone');
+  b.room.send('wallet:get', {});
+  assert.equal((await nextMessage(b.room, 'wallet')).wallet.coins, b.welcome.wallet.coins, 'and a miss pays nothing');
+
+  // Reach is the rule of the game: just inside works, just outside does not.
+  const near = NIGHT.ghosts.get(NIGHT.ids[1]);
+  await stand(b, near.x + REACH - 0.2, near.z);
+  b.room.send('ghost:hit', { id: near.id });
+  assert.equal((await nextMessage(b.room, 'ghost:caught')).id, near.id);
+
+  await Promise.all([a.room.leave(), b.room.leave()]);
   await sleep(100);
 });

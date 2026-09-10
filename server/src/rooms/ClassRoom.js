@@ -15,6 +15,8 @@ import { MODES as GYM_MODES, createSet, questionPayload as gymPayload, answerSet
 import { ARENA, createBattle, statePayload, quizPayload, chooseWaza, answerQuiz, BattleError, DAILY_CAP } from '../game/battle.js';
 import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
+import { phaseAt } from '../../../client/dist/world-clock.js';
+import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
@@ -103,6 +105,7 @@ export class ClassRoom extends Room {
     this.onMessage('pet:hatch', (client) => this.onPetHatch(client));
     this.onMessage('pet:act', (client, msg) => this.onPetAct(client, msg));
     this.onMessage('rank', (client) => this.onRank(client));
+    this.onMessage('ghost:hit', (client, msg) => this.onGhostHit(client, msg));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -112,6 +115,11 @@ export class ClassRoom extends Room {
 
     this.tutor = options.tutor || createTutor();
     this.lastPersistAll = Date.now();
+    // The sky is a function of the wall clock, so there is nothing to start or store —
+    // only the moment the phase turns has to be noticed, to put the ghosts out.
+    this.phase = phaseAt(this.worldNow()).id;
+    this.ghostsOut = new Set(this.phase === 'night' ? NIGHT.ids : []);
+    this.ghostBack = new Map();   // id -> when it drifts back, while the night lasts
     this.setSimulationInterval(() => this.tick(), 1000);
     log.info(`[room ${this.roomId}] created class=${this.classCode} max=${this.maxClients} patch=${config.patchRateMs}ms`);
   }
@@ -399,6 +407,7 @@ export class ClassRoom extends Room {
 
   tick() {
     const now = Date.now();
+    this.tickWorld(now);
     for (const [id, player] of this.state.players) {
       const priv = this.priv.get(id);
       if (player.connected && priv && now - priv.lastMoveAt > STALE_MOVE_MS && player.anim !== 'idle') player.anim = 'idle';
@@ -433,8 +442,9 @@ export class ClassRoom extends Room {
       gym: null,
       lastGymAt: 0,
       battle: null,
-      battleDay: '',
-      battleCoins: 0,
+      // What today's caps have already paid, kept in the record so that leaving and
+      // rejoining is not a way to start the day over.
+      caps: sanitizeCaps({ day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins }),
       move: sanitizeMove(record.move),
       pet: sanitizePet(parseJson(record.pet_json, null)),
       login: sanitizeLogin({ day: record.login_day, streak: record.login_streak }),
@@ -463,6 +473,7 @@ export class ClassRoom extends Room {
       pet_json: priv.pet ? JSON.stringify(priv.pet) : '',
       login_day: priv.login.day, login_streak: priv.login.streak,
       week_key: priv.week.key, week_xp: priv.week.xp,
+      cap_day: priv.caps.day, battle_coins: priv.caps.battle, ghost_coins: priv.caps.ghost,
       updated_at: iso, last_seen: priv.lastSeen,
     });
   }
@@ -670,9 +681,7 @@ export class ClassRoom extends Room {
   // than a coin tap. The cap is per child per day and survives a rejoin through the same
   // record everything else does.
   battleRoom(priv) {
-    const day = new Date().toISOString().slice(0, 10);
-    if (priv.battleDay !== day) { priv.battleDay = day; priv.battleCoins = 0; }
-    return Math.max(0, DAILY_CAP - priv.battleCoins);
+    return roomLeft(priv.caps, 'battle', DAILY_CAP);
   }
 
   onBattleStart(client, msg) {
@@ -736,7 +745,7 @@ export class ClassRoom extends Room {
       if (paid > 0) {
         const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `battle:${battle.difficulty}` });
         this.store.appendCoin(this.coinRow(client.sessionId, entry));
-        priv.battleCoins += paid;
+        priv.caps.battle += paid;
       }
       payload.paid = paid;
       payload.capped = paid < out.reward;
@@ -900,6 +909,78 @@ export class ClassRoom extends Room {
       classCode: this.classCode,
       season: seasonFor(),
     });
+  }
+
+  // ---- the night ------------------------------------------------------------------
+
+  // Roblox's NightGhostManager, with the coins moved to the server. The ghosts are the
+  // same twelve every night, in the same twelve places, because the places are shared
+  // data the browser builds from — so "the one by the fountain" means the same thing to
+  // every child in the class.
+  tickWorld(at) {
+    const now = this.worldNow(at);
+    const phase = phaseAt(now);
+    if (phase.id !== this.phase) {
+      this.phase = phase.id;
+      if (phase.id === 'night') { this.ghostsOut = new Set(NIGHT.ids); this.ghostBack.clear(); }
+      // They are gone by morning, whether or not anyone caught them.
+      if (phase.id === 'dawn') { this.ghostsOut.clear(); this.ghostBack.clear(); }
+      this.broadcast('world:phase', this.worldPayload(now));
+      return;
+    }
+    if (phase.id !== 'night' || !this.ghostBack.size) return;
+    let returned = false;
+    for (const [id, at] of this.ghostBack) {
+      if (at > now) continue;
+      this.ghostBack.delete(id);
+      this.ghostsOut.add(id);
+      returned = true;
+    }
+    if (returned) this.broadcast('night:ghosts', { ghosts: [...this.ghostsOut] });
+  }
+
+  // The world's own clock: the wall clock, plus whatever shift this server was started
+  // with (zero in a classroom).
+  worldNow(now = Date.now()) { return now + config.worldOffsetMs; }
+
+  worldPayload(at = Date.now()) {
+    const now = this.worldNow(at);
+    // `now` travels with the phase so the browser can measure its own clock against the
+    // server's once, and then run the sky itself without asking again.
+    return { ...phaseAt(now), now, ghosts: [...this.ghostsOut] };
+  }
+
+  onGhostHit(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const player = this.state.players.get(client.sessionId);
+    if (!priv || !player) return;
+    const fail = (reason, extra = {}) => client.send('ghost:error', { reason, ...extra });
+    const ghost = NIGHT.ghosts.get(String(msg?.id || ''));
+    if (!ghost) return fail('no such ghost');
+    if (this.phase !== 'night') return fail('not night');
+    // Someone else may have got there first; that is a miss, not an error worth a fuss.
+    if (!this.ghostsOut.has(ghost.id)) return fail('already gone');
+    if (player.space !== NIGHT.space) return fail('elsewhere');
+    if (Math.hypot(player.x - ghost.x, player.z - ghost.z) > GHOST_REACH + SPOT_SLACK) {
+      return fail('too far', { x: ghost.x, z: ghost.z });
+    }
+    const left = roomLeft(priv.caps, 'ghost', GHOST_CAP);
+    const paid = Math.min(GHOST_COINS, left);
+    this.ghostsOut.delete(ghost.id);
+    // A caught ghost drifts back while the night lasts, so a class of 25 is not racing
+    // for twelve of them.
+    this.ghostBack.set(ghost.id, this.worldNow() + RESPAWN_MS);
+    if (paid > 0) {
+      priv.caps.ghost += paid;
+      const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `ghost:${ghost.id}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      this.persist(client.sessionId);
+    }
+    client.send('ghost:caught', {
+      ...ghostPayload(ghost), coins: paid, capped: paid < GHOST_COINS,
+      room: roomLeft(priv.caps, 'ghost', GHOST_CAP), ...this.walletPayload(client.sessionId),
+    });
+    this.broadcast('night:ghosts', { ghosts: [...this.ghostsOut], caught: ghost.id, by: priv.name });
   }
 
   // ---- errand quest -------------------------------------------------------------
@@ -1111,6 +1192,7 @@ export class ClassRoom extends Room {
       pet: priv.pet ? petPayload(priv.pet) : null,
       season: seasonFor(),
       streak: priv.login.streak,
+      world: this.worldPayload(),
       battle: priv.battle ? { ...statePayload(priv.battle), stand: priv.battle.stand, quiz: quizPayload(priv.battle) } : null,
       chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),

@@ -24,6 +24,10 @@ export const config = Object.freeze({
   patchRateMs: Math.max(20, int('PATCH_RATE_MS', 100)),
   reconnectGraceSec: Math.max(5, int('RECONNECT_GRACE_SEC', 60)),
   answerMinIntervalMs: int('ANSWER_MIN_INTERVAL_MS', 400),
+  // Shifts the world's clock (day, dusk, night, dawn). Zero in a classroom; a test or a
+  // demo sets it to walk into the night without waiting for it. Clients are told the
+  // shifted time, so everyone still sees the same sky.
+  worldOffsetMs: int('WORLD_TIME_OFFSET_MS', 0),
   chatMinIntervalMs: int('CHAT_MIN_INTERVAL_MS', 1500),
   progressMaxBytes: int('PROGRESS_MAX_BYTES', 45000),
   storeBackend: (env.STORE_BACKEND ?? 'auto').trim().toLowerCase(),
