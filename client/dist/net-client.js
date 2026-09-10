@@ -186,6 +186,9 @@ export function setupNet({ scene, camera, player, rpg, fishing, avatars, park, t
     if (code === 4001 || /name in use/.test(text)) return 'その名前はもう使われています。別の名前にしてね。';
     if (code === 4000 || /name required/.test(text)) return 'なまえを入れてね。';
     if (code === 4002 || /class is full/.test(text)) return 'このクラスは満員です。先生に伝えてください。';
+    // 入場ゲート: the class register did not have this name. Say what to check, not what
+    // went wrong - a child cannot fix a register.
+    if (code === 4004 || /register/.test(text)) return 'この名前は このクラスの めいぼに ありません。クラスコードと なまえを たしかめて、先生に 聞いてください。';
     if (/Failed to fetch|NetworkError|Load failed|ECONN|timeout/i.test(text)) return 'サーバーにつながりません。Wi-Fi を確認してください。';
     return `接続できませんでした（${text.slice(0, 80)}）`;
   }

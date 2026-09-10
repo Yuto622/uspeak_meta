@@ -30,6 +30,37 @@ export class FileStore {
     return record ? { ...record } : null;
   }
 
+  // The class register, kept beside the store as its own file so a teacher can edit it
+  // with a text editor and nothing else has to be running. Re-read when it changes on
+  // disk, so a name added mid-lesson takes effect without a restart.
+  //
+  // Shape: {"classes": {"6-1": ["Aki", "Ben"]}} or a flat [{class, name}] list.
+  async listRoster(classCode) {
+    if (!this.filePath) return this.memoryRoster?.filter((r) => r.class === classCode) ?? null;
+    const file = path.join(path.dirname(this.filePath), 'roster.json');
+    let stat;
+    try { stat = await fs.stat(file); } catch { return null; }
+    if (!this.rosterAt || this.rosterAt !== stat.mtimeMs) {
+      try {
+        const parsed = JSON.parse(await fs.readFile(file, 'utf8'));
+        const rows = [];
+        if (Array.isArray(parsed)) {
+          for (const r of parsed) if (r?.class && r?.name) rows.push({ class: String(r.class), name: String(r.name), note: String(r.note ?? '') });
+        } else if (parsed && typeof parsed.classes === 'object') {
+          for (const [cls, names] of Object.entries(parsed.classes)) {
+            for (const name of Array.isArray(names) ? names : []) rows.push({ class: String(cls), name: String(name), note: '' });
+          }
+        }
+        this.roster = rows;
+        this.rosterAt = stat.mtimeMs;
+      } catch (err) {
+        this.log.warn('[store:file] roster.json could not be read:', err.message);
+        return this.roster ? this.roster.filter((r) => r.class === classCode) : null;
+      }
+    }
+    return this.roster.filter((r) => r.class === classCode);
+  }
+
   // Every record for one class, which is what the weekly board ranks.
   listClass(classCode) {
     return Object.values(this.data.players).filter((r) => r && r.class === classCode).map((r) => ({ ...r }));

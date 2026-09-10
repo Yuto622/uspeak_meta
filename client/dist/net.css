@@ -107,3 +107,10 @@
 }
 .rank-button span { font-weight: 700; font-size: 13px; }
 .rank-button small { font-size: 10px; opacity: .75; }
+
+/* 保護者レポートのリンク — one per child, shown to the teacher only. */
+#net-t-links { margin: 8px 0 2px; max-height: 190px; overflow-y: auto; }
+.net-t-link { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+.net-t-link b { flex: none; width: 84px; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.net-t-link input { flex: 1; min-width: 0; font-size: 11px; padding: 5px 7px; border: 1px solid #d7d2bd; border-radius: 8px; background: #fffaf0; color: #3a4a40; }
+.net-t-link button { flex: none; padding: 5px 9px; border-radius: 8px; background: #e5e9dc; font-size: 11px; font-weight: 700; }

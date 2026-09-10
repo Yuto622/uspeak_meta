@@ -14,7 +14,10 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   <div class="net-teacher-actions">
     <button type="button" id="net-t-gather" class="primary">📣 全員をここに集合</button>
     <button type="button" id="net-t-chat">⏸ チャットを一時停止</button>
+    <button type="button" id="net-t-reports">📄 保護者レポートのリンク</button>
+    <button type="button" id="net-t-register">🔄 めいぼを読み直す</button>
   </div>
+  <div id="net-t-links" hidden></div>
   <label class="net-t-field" for="net-t-mission">今日のおつかい</label>
   <select id="net-t-mission"><option value="">指定しない</option></select>
   <p class="net-fine" id="net-teacher-hint"></p>
@@ -38,6 +41,8 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   $('#net-t-chat').onclick = () => send({ cmd: 'chat', paused: !chatPaused });
   $('#net-t-mission').onchange = (e) => send({ cmd: 'mission', id: e.target.value });
   $('#net-teacher-close').onclick = () => toggle(false);
+  $('#net-t-reports').onclick = () => send({ cmd: 'reports' });
+  $('#net-t-register').onclick = () => send({ cmd: 'register' });
 
   function fillMissions() {
     const select = $('#net-t-mission');
@@ -63,6 +68,21 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     $('#net-teacher-hint').textContent = `接続中 ${rows.filter((p) => p.connected).length} 人 · 集合・移動は今いる場所（${getSpace()}）へ`;
   }
 
+  // One link per child, each signed for that child alone. They are shown rather than
+  // sent anywhere: the teacher decides who gets which.
+  function showLinks(links) {
+    const box = $('#net-t-links');
+    box.hidden = !links.length;
+    if (!links.length) { toast('レポートはまだありません。'); return; }
+    box.innerHTML = `<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(l.url)}"><button type="button" data-copy="${esc(l.url)}">コピー</button></div>`).join('')}`;
+    box.querySelectorAll('[data-copy]').forEach((b) => {
+      b.onclick = async () => {
+        try { await navigator.clipboard.writeText(b.dataset.copy); toast('リンクをコピーしました。'); }
+        catch { b.previousElementSibling.select(); toast('選択しました。長押しでコピーしてください。'); }
+      };
+    });
+  }
+
   function toggle(force) {
     open = force ?? !open;
     root.hidden = !open;
@@ -80,6 +100,8 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
       else if (m.cmd === 'mission') { missionId = m.id || ''; toast(m.id ? '今日のおつかいを設定しました。' : 'おつかいの指定を解除しました。'); }
       else if (m.cmd === 'call') toast('生徒を呼び出しました。');
       else if (m.cmd === 'move') toast('生徒をここへ移動させました。');
+      else if (m.cmd === 'register') toast('めいぼを読み直しました。');
+      else if (m.cmd === 'reports') showLinks(m.links || []);
     },
     setChatPaused(v) { chatPaused = v; if (open) renderRoster(); },
     setMission(id) { missionId = id || ''; const select = root.querySelector('#net-t-mission'); if (select) select.value = missionId; },

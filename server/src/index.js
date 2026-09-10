@@ -9,6 +9,7 @@ import { config, validateConfig } from './config.js';
 import { createStore } from './store/index.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
+import { reportFor, reportHtml, verifyReport } from './game/report.js';
 import { log } from './log.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -76,6 +77,32 @@ export async function startServer({ port = config.port, storeOverride = null } =
     res.type('application/javascript');
     res.send(`window.USPEAK_CONFIG=${JSON.stringify({ serverUrl: config.publicServerUrl || '', defaultClass: config.publicDefaultClass || '', maxClients: config.maxClients, net: config.netOverrides })};\n`);
   });
+
+  // 保護者レポート. One child, one signed link, no login and no third party. Without a
+  // REPORT_SECRET the route is not mounted at all — a guessable link would show one
+  // family another family's child.
+  if (config.reportSecret) {
+    app.get('/report/:classCode/:name', async (req, res) => {
+      const { classCode, name } = req.params;
+      res.set('Cache-Control', 'no-store');
+      // Referrers and search engines are told to keep out; the link is for one family.
+      res.set('Referrer-Policy', 'no-referrer');
+      res.set('X-Robots-Tag', 'noindex, nofollow');
+      if (!verifyReport(config.reportSecret, classCode, name, req.query.t)) {
+        res.status(404).type('text/plain; charset=utf-8').send('レポートが見つかりません。先生にリンクを確認してください。');
+        return;
+      }
+      let record = null;
+      try { record = await store.loadPlayer(classCode, name); } catch (err) { log.warn('[report] loadPlayer failed:', err.message); }
+      if (!record) {
+        res.status(404).type('text/plain; charset=utf-8').send('まだ記録がありません。一度あそんでから、もう一度ひらいてください。');
+        return;
+      }
+      const report = reportFor(record);
+      if (String(req.query.format || '').toLowerCase() === 'json') { res.json(report); return; }
+      res.type('text/html; charset=utf-8').send(reportHtml(report));
+    });
+  }
 
   if (config.serveClient) {
     app.use(express.static(clientDir, {

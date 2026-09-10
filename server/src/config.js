@@ -49,6 +49,14 @@ export const config = Object.freeze({
     minIntervalMs: int('AI_MIN_INTERVAL_MS', 1200),
     dailyTurnsPerStudent: int('AI_DAILY_TURNS_PER_STUDENT', 200),
   },
+  // 入場ゲート: 'open' lets anyone with the class code in (the default, and what a
+  // demo or a home user wants); 'roster' admits only children on the class register,
+  // with the fallbacks in game/gate.js so an outage never locks a class out.
+  accessMode: ((env.ACCESS_MODE ?? 'open').trim().toLowerCase() === 'roster' ? 'roster' : 'open'),
+  rosterTtlMs: Math.max(30000, int('ROSTER_TTL_MS', 5 * 60 * 1000)),
+  // Signs the parent-report links. Without it, reports are simply not served: a
+  // guessable link would show one family another family's child.
+  reportSecret: (env.REPORT_SECRET ?? '').trim(),
   publicServerUrl: (env.PUBLIC_SERVER_URL ?? '').trim(),
   publicDefaultClass: (env.PUBLIC_DEFAULT_CLASS ?? '').trim(),
   // Optional JSON object merged into the client's NET tuning constants, e.g.
@@ -62,5 +70,8 @@ export function validateConfig(log = console) {
   if (config.corsOrigins.includes('*') && config.isProduction) problems.push('CORS_ORIGINS=* is not allowed in production.');
   if (!config.teacherKey) log.warn('[config] TEACHER_KEY is empty: teacher role is disabled.');
   if (config.teacherKey && config.teacherKey.length < 8) problems.push('TEACHER_KEY must be at least 8 characters.');
+  if (config.accessMode === 'roster' && !config.teacherKey) problems.push('ACCESS_MODE=roster needs TEACHER_KEY, or a teacher cannot get in either.');
+  if (config.reportSecret && config.reportSecret.length < 16) problems.push('REPORT_SECRET must be at least 16 characters.');
+  if (!config.reportSecret) log.warn('[config] REPORT_SECRET is empty: parent reports are disabled.');
   return problems;
 }

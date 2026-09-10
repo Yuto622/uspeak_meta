@@ -8,10 +8,10 @@
 //  * Failures keep the queue and retry on the next flush; nothing is lost while the
 //    process is alive. The queue is capped so a long outage cannot exhaust memory.
 import {
-  PLAYER_COLUMNS, LEARNING_COLUMNS, COIN_COLUMNS, playerKey, recordToRow, rowToRecord,
+  PLAYER_COLUMNS, LEARNING_COLUMNS, COIN_COLUMNS, ROSTER_COLUMNS, playerKey, recordToRow, rowToRecord,
 } from './records.js';
 
-export const SHEETS = { players: 'players', learning: 'learning_log', coins: 'coin_log' };
+export const SHEETS = { players: 'players', learning: 'learning_log', coins: 'coin_log', roster: 'roster' };
 const MAX_PENDING_ROWS = 20000;
 const CACHE_TTL_MS = 30000;
 
@@ -40,7 +40,7 @@ export class SheetsStore {
 
   async init() {
     const titles = await this.api.getSheetTitles();
-    for (const [name, columns] of [[SHEETS.players, PLAYER_COLUMNS], [SHEETS.learning, LEARNING_COLUMNS], [SHEETS.coins, COIN_COLUMNS]]) {
+    for (const [name, columns] of [[SHEETS.players, PLAYER_COLUMNS], [SHEETS.learning, LEARNING_COLUMNS], [SHEETS.coins, COIN_COLUMNS], [SHEETS.roster, ROSTER_COLUMNS]]) {
       if (!titles.includes(name)) {
         await this.api.addSheet(name);
         await this.api.update(`${name}!A1`, [columns]);
@@ -83,6 +83,16 @@ export class SheetsStore {
     }
     const entry = this.cache.get(key);
     return entry ? { ...entry.record } : null;
+  }
+
+  // The class register, read straight from its tab. The gate caches it, so this is a
+  // few reads an hour rather than one per child arriving.
+  async listRoster(classCode) {
+    const rows = await this.api.getValues(`${SHEETS.roster}!A2:C`);
+    return rows
+      .filter((row) => row && row[0] && row[1])
+      .map((row) => ({ class: String(row[0]).trim(), name: String(row[1]).trim(), note: String(row[2] ?? '').trim() }))
+      .filter((r) => r.class === classCode);
   }
 
   // Every cached record for one class, which is what the weekly board ranks. Reads the

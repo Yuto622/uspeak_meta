@@ -20,10 +20,12 @@ import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_C
 import { TOWN_ISLAND, BLOCKS, ROOMS, roomOfTier, nextRoom, blockPayload, sanitizeBlocks, sanitizeRoom, roomPayload, place as placeBlock, remove as removeBlock, TownError } from '../game/town.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding, startLap, crossGate } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
+import { createGate } from '../game/gate.js';
+import { reportPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
-export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002 };
+export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004 };
 const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only within a lesson window
 // A little more room than the client shows the prompt in, so a position that arrived a
 // frame late never refuses a child who is visibly standing at the counter.
@@ -127,6 +129,12 @@ export class ClassRoom extends Room {
     this.onMessage('ping', (client, t) => client.send('pong', { t, server: Date.now() }));
 
     this.tutor = options.tutor || createTutor();
+    // The register is read once per class and cached; the gate below decides who is let
+    // in, and in the default 'open' mode it never even looks.
+    this.gate = options.gate || createGate({
+      store: this.store, mode: config.accessMode, ttlMs: config.rosterTtlMs,
+      snapshotPath: `${config.dataDir.replace(/\/$/, '')}/roster-snapshot.json`, log,
+    });
     this.lastPersistAll = Date.now();
     // The sky is a function of the wall clock, so there is nothing to start or store —
     // only the moment the phase turns has to be noticed, to put the ghosts out.
@@ -143,6 +151,13 @@ export class ClassRoom extends Room {
     const name = sanitizeName(options?.name);
     if (!name) throw new ServerError(ERR.NAME_REQUIRED, 'name required');
     const role = isTeacherKey(options?.teacherKey) ? 'teacher' : 'student';
+    // 入場ゲート. A refusal here is a locked door, so the gate is written never to throw
+    // and never to refuse a child it has seen before.
+    const pass = await this.gate.allow({ classCode: this.classCode, name, role });
+    if (!pass.ok) {
+      log.warn(`[room ${this.roomId}] refused "${name}" for class=${this.classCode} (${pass.reason})`);
+      throw new ServerError(ERR.NOT_ON_ROSTER, 'not on the class register');
+    }
     for (const [id, p] of this.state.players) {
       if (p.name !== name || !p.connected || id === client.sessionId) continue;
       // Live clients send a move/heartbeat at least every 500 ms. A seat that has been
@@ -411,6 +426,26 @@ export class ClassRoom extends Room {
         client.send('roster', { players: roster, chatPaused: this.state.chatPaused });
         return;
       }
+      case 'reports': {
+        // The links a teacher hands to families. Only a teacher can ask, each link is
+        // signed, and the report itself is served over HTTP rather than through here.
+        if (!config.reportSecret) { client.send('teacher:ack', { cmd, ok: false, error: 'reports are not configured' }); return; }
+        const names = new Set();
+        for (const p of this.state.players.values()) if (p.role !== 'teacher') names.add(p.name);
+        let stored = [];
+        try { stored = this.store.listClass?.(this.classCode) || []; } catch (err) { log.warn(`[room ${this.roomId}] report list failed:`, err.message); }
+        for (const record of stored) if (record?.name && record.role !== 'teacher') names.add(record.name);
+        const base = config.publicServerUrl.replace(/^ws/, 'http').replace(/\/$/, '');
+        const links = [...names].sort().map((name) => ({ name, url: base + reportPath(config.reportSecret, this.classCode, name) }));
+        client.send('teacher:ack', { cmd, ok: true, links });
+        return;
+      }
+      case 'register': {
+        // Re-read the class register now, for a child added to it mid-lesson.
+        this.gate.forget(this.classCode);
+        client.send('teacher:ack', { cmd, ok: true, mode: this.gate.mode });
+        return;
+      }
       default:
         client.send('teacher:ack', { cmd, ok: false, error: 'unknown command' });
     }
@@ -497,6 +532,9 @@ export class ClassRoom extends Room {
       cap_day: priv.caps.day, battle_coins: priv.caps.battle, ghost_coins: priv.caps.ghost, course_coins: priv.caps.course,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), room_json: JSON.stringify(priv.room),
+      // Kept so a teacher's own row is not mistaken for a child's when the family
+      // report links are drawn up.
+      role: player.role,
       updated_at: iso, last_seen: priv.lastSeen,
     });
   }
