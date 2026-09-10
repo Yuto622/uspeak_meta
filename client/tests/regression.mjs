@@ -1,3 +1,31 @@
+// Before anything else: every file the browser will load has to parse. game.js is the
+// one module a headless test cannot import (it needs a canvas), and a stray newline
+// inside a string there is a blank page rather than a failing test — which is exactly
+// what happened once. Parsing is cheap; do it for all of them.
+{
+  const { readdirSync, readFileSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const vm = await import('node:vm');
+  // Parsing a module needs a flag. Rather than making everyone remember it, run
+  // ourselves again with it: `node tests/regression.mjs` keeps working.
+  if (typeof vm.SourceTextModule !== 'function') {
+    const { spawnSync } = await import('node:child_process');
+    const self = fileURLToPath(import.meta.url);
+    const again = spawnSync(process.execPath, ['--experimental-vm-modules', '--no-warnings', self], { stdio: 'inherit' });
+    process.exit(again.status ?? 1);
+  }
+  const dir = fileURLToPath(new URL('../dist/', import.meta.url));
+  const skip = new Set(['three.module.js']);
+  const files = readdirSync(dir).filter((f) => f.endsWith('.js') && !skip.has(f));
+  for (const f of files) {
+    try { new vm.SourceTextModule(readFileSync(dir + f, 'utf8')); } catch (err) {
+      console.error(`FAIL: ${f} does not parse — ${err.message}`);
+      process.exit(1);
+    }
+  }
+  console.log(`PASS: all ${files.length} browser modules parse.`);
+}
+
 import {TREASURES,TREASURE_KEYS,keyGoals} from '../dist/treasure-data.js';
 import {createAdventureStore} from '../dist/adventure-state.js';
 import {BUILDINGS} from '../dist/buildings.js';
