@@ -144,6 +144,7 @@
   .right-rail { width: 132px; }
   .quest-panel,
   .park-panel,
+  #errand-hud,
   #rpg-region-panel { width: 176px; }
   .right-rail .scenery-controls button { font-size: 10px; padding: 7px 3px; }
 }
@@ -166,6 +167,7 @@
 @media (pointer: coarse) {
   .quest-panel,
   .park-panel,
+  #errand-hud,
   #rpg-region-panel {
     /* Ends above the movement pad at every height: the pad sits 142px up and is
        about 104px tall, and the panel starts 118px down. */
@@ -179,6 +181,7 @@
 @media (pointer: coarse) and (max-height: 560px) {
   .quest-panel,
   .park-panel,
+  #errand-hud,
   #rpg-region-panel {
     /* Ends above the movement pad, which is 16px up and about 88px tall here. */
     max-height: calc(100vh - 240px);

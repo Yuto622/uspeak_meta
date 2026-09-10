@@ -14,6 +14,9 @@ import { log } from '../log.js';
 
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002 };
 const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only within a lesson window
+// A little more room than the client shows the prompt in, so a position that arrived a
+// frame late never refuses a child who is visibly standing at the counter.
+const SPOT_SLACK = 1.5;
 const STALE_MOVE_MS = 5000;
 const GHOST_MS = 3000; // silent connected seat considered dead (heartbeat is 500 ms)
 const PERSIST_ALL_MS = 30000;
@@ -74,7 +77,9 @@ export class ClassRoom extends Room {
     this.onMessage('chat', (client, msg) => this.onChat(client, msg));
     this.onMessage('teacher', (client, msg) => this.onTeacher(client, msg));
     this.onMessage('mission:start', (client, msg) => this.onMissionStart(client, msg));
+    this.onMessage('mission:arrive', (client) => this.onMissionArrive(client));
     this.onMessage('mission:say', (client, msg) => this.onMissionSay(client, msg));
+    this.onMessage('mission:deliver', (client) => this.onMissionDeliver(client));
     this.onMessage('mission:quit', (client) => this.onMissionQuit(client));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
@@ -401,20 +406,53 @@ export class ClassRoom extends Room {
 
   // ---- errand quest -------------------------------------------------------------
 
-  // A child may only ever be in one mission at a time, and only the server decides
-  // when it is finished.
+  // An errand is walked, not clicked. Three legs, each refused unless the child's
+  // avatar is standing at the right place on the island:
+  //
+  //   plaza  --accept-->  spot  --say (English, until every goal is met)-->  plaza --deliver--> paid
+  //
+  // Positions are declared by the client, as movement always has been, so this is not
+  // an anti-cheat measure — it is the rule of the game, enforced in the one place that
+  // also hands out the coins. A child cannot finish an errand from the menu, and the
+  // walk they make is the same walk their classmates watch them make.
+  atSpot(sessionId, spotId) {
+    const player = this.state.players.get(sessionId);
+    const spot = MISSIONS.island.spotById.get(spotId);
+    if (!player || !spot) return false;
+    if (player.space !== MISSIONS.island.id) return false;
+    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= MISSIONS.island.radius + SPOT_SLACK;
+  }
+
+  spotPayload(spotId) {
+    const s = MISSIONS.island.spotById.get(spotId);
+    return s ? { id: s.id, name: s.name, ja: s.ja, character: s.character, x: s.x, z: s.z } : null;
+  }
+
+  missionPayload(mission, stage) {
+    return {
+      id: mission.id, stage, character: mission.character, place: mission.place,
+      item: mission.item, turnLimit: MISSIONS.turnLimit,
+      spot: this.spotPayload(mission.spot), from: this.spotPayload(mission.from),
+      goals: mission.goals.map((g) => ({ id: g.id, ja: g.ja })),
+    };
+  }
+
+  // Taking the errand: the child has to be standing in front of the plaza NPC.
   onMissionStart(client, msg) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
     const mission = MISSIONS.byId.get(typeof msg?.id === 'string' ? msg.id : '');
     if (!mission) { client.send('mission:error', { reason: 'unknown mission' }); return; }
-    priv.mission = { id: mission.id, turns: [], goalsMet: [], complete: false, startedAt: Date.now() };
+    if (!this.atSpot(client.sessionId, mission.from)) {
+      client.send('mission:error', { reason: 'too far', spot: this.spotPayload(mission.from) });
+      return;
+    }
+    priv.mission = { id: mission.id, stage: 'talk', turns: [], goalsMet: [], complete: false, startedAt: Date.now() };
     client.send('mission:opened', {
-      id: mission.id, character: mission.character, place: mission.place,
-      opening: mission.opening, turnLimit: MISSIONS.turnLimit,
-      goals: mission.goals.map((g) => ({ id: g.id, ja: g.ja })),
+      ...this.missionPayload(mission, 'talk'),
+      request: mission.request, requestJa: mission.requestJa,
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" started mission ${mission.id}`);
+    log.info(`[room ${this.roomId}] "${priv.name}" took errand ${mission.id}`);
   }
 
   onMissionQuit(client) {
@@ -424,12 +462,39 @@ export class ClassRoom extends Room {
     client.send('mission:closed', { reason: 'quit' });
   }
 
+  // Arriving at the shop. Sending the opening line here, rather than when the errand
+  // was taken, is what makes the walk mean something.
+  onMissionArrive(client) {
+    const priv = this.priv.get(client.sessionId);
+    const state = priv?.mission;
+    if (!priv || !state) return;
+    const mission = MISSIONS.byId.get(state.id);
+    if (!mission) { priv.mission = null; return; }
+    if (state.stage !== 'talk') { client.send('mission:error', { reason: 'wrong step' }); return; }
+    if (!this.atSpot(client.sessionId, mission.spot)) {
+      client.send('mission:error', { reason: 'too far', spot: this.spotPayload(mission.spot) });
+      return;
+    }
+    client.send('mission:arrived', {
+      ...this.missionPayload(mission, 'talk'),
+      opening: state.turns.length ? state.turns[state.turns.length - 1].reply : mission.opening,
+      goalsMet: [...state.goalsMet], turn: state.turns.length,
+    });
+  }
+
   async onMissionSay(client, msg) {
     const priv = this.priv.get(client.sessionId);
     const state = priv?.mission;
     if (!priv || !state || state.complete) return;
     const mission = MISSIONS.byId.get(state.id);
     if (!mission) { priv.mission = null; return; }
+    if (state.stage !== 'talk') { client.send('mission:error', { reason: 'wrong step' }); return; }
+    // Walking away mid-conversation ends nothing; it just stops the talking until the
+    // child walks back, which is how a real errand behaves.
+    if (!this.atSpot(client.sessionId, mission.spot)) {
+      client.send('mission:error', { reason: 'too far', spot: this.spotPayload(mission.spot) });
+      return;
+    }
 
     const utterance = typeof msg?.text === 'string' ? msg.text.replace(/\s+/g, ' ').trim().slice(0, 200) : '';
     if (!utterance) return;
@@ -467,21 +532,45 @@ export class ClassRoom extends Room {
 
     const payload = {
       reply: result.reply, hint: result.hint, goalsMet: state.goalsMet, gained,
-      turn: state.turns.length, turnLimit: MISSIONS.turnLimit, complete: result.complete,
+      turn: state.turns.length, turnLimit: MISSIONS.turnLimit,
+      complete: false, stage: state.stage,
     };
+    // Every goal met earns the errand, not the coins. The coins are at the plaza.
     if (result.complete) {
-      const entry = applyOp(priv.wallet, { type: 'award', amount: mission.reward, id: `mission:${mission.id}` });
-      this.store.appendCoin(this.coinRow(client.sessionId, entry));
-      state.complete = true;
-      if (!priv.missionsDone.includes(mission.id)) priv.missionsDone.push(mission.id);
-      payload.reward = mission.reward;
-      payload.missionsDone = [...priv.missionsDone];
-      payload.wallet = this.walletPayload(client.sessionId).wallet;
-      log.info(`[room ${this.roomId}] "${priv.name}" completed mission ${mission.id} in ${state.turns.length} turns`);
+      state.stage = 'deliver';
+      payload.stage = 'deliver';
+      payload.item = mission.item;
+      payload.from = this.spotPayload(mission.from);
+      log.info(`[room ${this.roomId}] "${priv.name}" finished talking for ${mission.id} in ${state.turns.length} turns`);
     }
     this.persist(client.sessionId);
     client.send('mission:turn', payload);
-    if (result.complete) priv.mission = null;
+  }
+
+  // Handing it over, back at the plaza. This is the only place coins are awarded.
+  onMissionDeliver(client) {
+    const priv = this.priv.get(client.sessionId);
+    const state = priv?.mission;
+    if (!priv || !state) return;
+    const mission = MISSIONS.byId.get(state.id);
+    if (!mission) { priv.mission = null; return; }
+    if (state.stage !== 'deliver') { client.send('mission:error', { reason: 'wrong step' }); return; }
+    if (!this.atSpot(client.sessionId, mission.from)) {
+      client.send('mission:error', { reason: 'too far', spot: this.spotPayload(mission.from) });
+      return;
+    }
+    const entry = applyOp(priv.wallet, { type: 'award', amount: mission.reward, id: `mission:${mission.id}` });
+    this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    state.complete = true;
+    if (!priv.missionsDone.includes(mission.id)) priv.missionsDone.push(mission.id);
+    this.persist(client.sessionId);
+    client.send('mission:delivered', {
+      id: mission.id, thanks: mission.thanks, item: mission.item, reward: mission.reward,
+      missionsDone: [...priv.missionsDone], wallet: this.walletPayload(client.sessionId).wallet,
+      turns: state.turns.length,
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" delivered ${mission.id} for ${mission.reward} coins`);
+    priv.mission = null;
   }
 
   endMission(client, priv, mission, reason) {
@@ -508,6 +597,10 @@ export class ClassRoom extends Room {
       sessionId, role: player.role, classCode: this.classCode, restored, position,
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
       missionsDone: [...priv.missionsDone],
+      // An errand in progress survives a screen lock, so the tracker comes back too.
+      errand: priv.mission && MISSIONS.byId.has(priv.mission.id)
+        ? { ...this.missionPayload(MISSIONS.byId.get(priv.mission.id), priv.mission.stage), goalsMet: [...priv.mission.goalsMet], turn: priv.mission.turns.length }
+        : null,
       chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),
     };

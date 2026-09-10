@@ -16,7 +16,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     mode: 'offline', // offline | connecting | online | reconnecting
     role: 'student', sessionId: null, name: '', classCode: '', teacherKey: '',
     attempts: 0, intentionalLeave: false, chatPaused: false, teacherId: '',
-    lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
+    lastSpace: '', lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
     pendingTeleport: null, hiddenAt: 0, resumedAt: 0, lastAvatarJson: '',
   };
   let client = null;
@@ -36,6 +36,9 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
   const mission = createMissionUI({
     send: (type, payload) => room?.send(type, payload),
     speak, toast, isOnline: () => state.mode === 'online',
+    here: () => rpg.state.current === 'errand',
+    travel: (id) => rpg.fly(id),
+    setBeacon: (spotId) => rpg.errand.setTarget(spotId),
   });
   const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs });
   // Collect the controls into one dock so the layout is decided by flexbox, not by
@@ -133,6 +136,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
       if (m.wallet) applyWallet(m.wallet);
       mission.setClassMission(m.missionId);
       mission.setDone(m.missionsDone);
+      mission.restore(m.errand);
       if (!viaToken) {
         restoreProgress(m.progressJson);
         if (m.position && m.restored) teleportTo(m.position, 'restore');
@@ -152,7 +156,9 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('roster', (m) => teacher.onRoster(m));
     r.onMessage('teacher:ack', (m) => teacher.onAck(m));
     r.onMessage('mission:opened', (m) => mission.onOpened(m));
-    r.onMessage('mission:turn', (m) => { if (m.wallet) applyWallet(m.wallet); mission.onTurn(m); });
+    r.onMessage('mission:arrived', (m) => mission.onArrived(m));
+    r.onMessage('mission:turn', (m) => mission.onTurn(m));
+    r.onMessage('mission:delivered', (m) => { if (m.wallet) applyWallet(m.wallet); mission.onDelivered(m); });
     r.onMessage('mission:closed', (m) => mission.onClosed(m));
     r.onMessage('mission:error', (m) => mission.onError(m));
     r.onMessage('progress:ack', () => {});
@@ -356,6 +362,9 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     remotes.update(t, currentSpace());
     if (!room || state.mode !== 'online') return;
     const anim = rpg.state.mode === 'flight' ? 'fly' : moving ? (running ? 'run' : 'walk') : 'idle';
+    // Arriving on (or leaving) the island changes what the errand tracker has to say.
+    const space = currentSpace();
+    if (space !== state.lastSpace) { state.lastSpace = space; mission.refreshHud(); }
     if (now - state.lastSendAt >= 1000 / NET.SEND_HZ) {
       const s = currentSpace();
       const x = round(player.position.x, 2), z = round(player.position.z, 2), r = round(player.rotation.y, 3);
@@ -431,6 +440,8 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     get remotes() { return remotes; },
     openLobby: () => lobby.open({ name: state.name }),
     openMission: () => mission.open(),
+    errandInteract: () => { const near = rpg.errandNearby(); if (near) mission.interact(near.spot); },
+    errandLabel: (spot) => mission.label(spot) || `${spot.character} と 話す`,
     leave: () => goOffline(true),
   };
 }

@@ -1,15 +1,19 @@
-// Errand quest UI: pick a mission, then talk to the character in English.
+// おつかいクエスト — the walking UI.
 //
-// Nothing here decides anything. The server judges every utterance and this module
-// renders what it is told: which goals are met, whether the mission is complete, and
-// how many coins were awarded.
+// This module never decides anything and, just as importantly, it never finishes an
+// errand. Taking one, speaking at the shop and handing it over each need the child's
+// avatar to be standing at the right place on おつかい島; the server refuses otherwise.
+// So the dialog here is a board and a conversation window, not a way to skip the walk.
+import { loadErrandData } from './errand-data.js';
+
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export function createMissionUI({ send, speak, toast, isOnline }) {
-  let data = { missions: [] };
-  let view = 'list';        // list | talk
-  let active = null;         // { id, character, place, goals, turnLimit }
+export function createMissionUI({ send, speak, toast, isOnline, travel, here, setBeacon }) {
+  let data = { missions: [], spots: new Map(), island: null };
+  let view = 'board';        // board | request | talk | result
+  let tracked = '';          // chosen on the board, not yet taken from the plaza
+  let active = null;         // { id, stage, character, place, item, spot, from, goals, turnLimit }
   let goalsMet = new Set();
   let turn = 0;
   let busy = false;
@@ -35,51 +39,122 @@ export function createMissionUI({ send, speak, toast, isOnline }) {
   button.setAttribute('aria-label', 'おつかいクエストを開く');
   document.body.append(button);
 
-  const body = () => $('#mission-body', dialog);
+  // The step tracker. It is the only thing on screen while a child is walking, and it
+  // always names one place: where to go next.
+  const hud = document.createElement('aside');
+  hud.id = 'errand-hud';
+  hud.hidden = true;
+  document.body.append(hud);
 
-  async function load() {
-    try {
-      const res = await fetch('missions.json', { cache: 'no-cache' });
-      data = await res.json();
-    } catch (err) {
-      console.warn('[mission] missions.json failed to load', err);
-      data = { missions: [] };
+  const body = () => $('#mission-body', dialog);
+  const missionById = (id) => data.missions.find((m) => m.id === id) || null;
+  const spot = (id) => data.spots.get(id) || null;
+
+  loadErrandData().then((d) => { data = d; if (dialog.open && view === 'board') renderBoard(); });
+
+  // ---- the tracker ---------------------------------------------------------------
+
+  // Where the child has to walk right now, or null when nothing is in hand.
+  function step() {
+    if (active) {
+      if (active.stage === 'talk') return { spot: active.spot, label: `${active.spot.ja} と 英語で話そう`, index: 1 };
+      if (active.stage === 'deliver') return { spot: active.from, label: `${active.from.ja} に とどけよう`, index: 2, carrying: active.item };
+      return null;
     }
+    const m = missionById(tracked);
+    if (!m) return null;
+    const from = spot(m.from);
+    return from ? { spot: from, label: `${from.ja} に おつかいを もらいに行こう`, index: 0, title: m.title } : null;
   }
 
-  // ---- list ---------------------------------------------------------------------
+  function renderHud() {
+    const s = step();
+    setBeacon(s ? s.spot.id : '');
+    if (!s) { hud.hidden = true; hud.innerHTML = ''; return; }
+    const m = missionById(active?.id || tracked);
+    const steps = ['広場でうける', 'お店で話す', '広場にとどける'];
+    hud.hidden = false;
+    hud.innerHTML = `<small>おつかい中</small>
+      <strong>${esc(m?.title || '')}</strong>
+      <ol class="errand-steps">${steps.map((t, i) => `<li class="${i < s.index ? 'done' : i === s.index ? 'now' : ''}"><span>${i < s.index ? '✓' : i + 1}</span>${esc(t)}</li>`).join('')}</ol>
+      <p class="errand-go">→ ${esc(s.label)}</p>
+      ${s.carrying ? `<p class="errand-carry">🧺 ${esc(s.carrying)}</p>` : ''}
+      ${here() ? '' : '<p class="errand-far">おつかい島にいません</p>'}
+      <button type="button" id="errand-hud-open">${here() ? 'くわしく' : 'おつかい島へ行く'}</button>`;
+    $('#errand-hud-open', hud).onclick = () => { if (here()) open(); else goToIsland(); };
+  }
 
-  function renderList() {
-    view = 'list';
+  function goToIsland() {
+    if (here()) return true;
+    if (travel('errand')) { dialog.close(); toast('おつかい島へ向かいます。'); return true; }
+    toast('いまは移動できません。少ししてからもう一度。');
+    return false;
+  }
+
+  // ---- board ---------------------------------------------------------------------
+
+  function renderBoard() {
+    view = 'board';
     const grades = [...new Set(data.missions.map((m) => m.grade))];
-    const featured = data.missions.find((m) => m.id === classMissionId);
-    body().innerHTML = `${featured ? `<section class="mission-featured">
+    const featured = missionById(classMissionId);
+    const card = (m) => {
+      const s = spot(m.spot);
+      return `<button type="button" data-mission="${esc(m.id)}" class="${m.id === classMissionId ? 'featured' : ''}${done.has(m.id) ? ' done' : ''}${m.id === tracked ? ' tracked' : ''}">
+        <strong>${done.has(m.id) ? '✓ ' : ''}${esc(m.title)}</strong>
+        <small>${esc(s?.ja || m.character)} · ${esc(m.place)}</small>
+        <span>◈ ${m.reward}</span></button>`;
+    };
+    body().innerHTML = `<p class="mission-lead">おつかいは <b>おつかい島</b> で歩いてやります。広場のミアからうけとり、お店の人と英語で話し、広場にもどってとどけるとコインがもらえます。</p>
+      ${here() ? '' : '<p class="mission-warn">いまはおつかい島の外にいます。「おつかい島へ行く」で移動してください。</p>'}
+      ${featured ? `<section class="mission-featured">
         <small>今日のおつかい</small>
         <strong>${esc(featured.title)}</strong>
-        <span>${esc(featured.character)} · ${esc(featured.place)}</span>
-        <button type="button" class="primary" data-mission="${esc(featured.id)}">はじめる →</button>
+        <span>${esc(spot(featured.spot)?.ja || featured.character)}</span>
+        <button type="button" class="primary" data-mission="${esc(featured.id)}">これにする →</button>
       </section>` : ''}
-      <p class="mission-lead">キャラクターに英語で話しかけて、お題をクリアしよう。マイクでも、文字入力でもOK。</p>
       <p class="mission-lead">スタンプ ${done.size} / ${data.missions.length}</p>
-      ${grades.map((g) => `<h3 class="mission-grade">英検${esc(g)}級</h3><div class="mission-cards">${
-        data.missions.filter((m) => m.grade === g).map((m) => `<button type="button" data-mission="${esc(m.id)}" class="${m.id === classMissionId ? 'featured' : ''}${done.has(m.id) ? ' done' : ''}">
-          <strong>${done.has(m.id) ? '✓ ' : ''}${esc(m.title)}</strong>
-          <small>${esc(m.character)} · ${esc(m.place)}</small>
-          <span>◈ ${m.reward}</span>
-        </button>`).join('')}</div>`).join('')}`;
-    body().querySelectorAll('[data-mission]').forEach((b) => { b.onclick = () => start(b.dataset.mission); });
+      <div class="mission-actions"><button type="button" class="primary" id="mission-travel">${here() ? 'おつかい島にいます' : '✈ おつかい島へ行く'}</button></div>
+      ${grades.map((g) => `<h3 class="mission-grade">英検${esc(g)}級</h3><div class="mission-cards">${data.missions.filter((m) => m.grade === g).map(card).join('')}</div>`).join('')}`;
+    const go = $('#mission-travel', dialog);
+    go.disabled = here();
+    go.onclick = goToIsland;
+    body().querySelectorAll('[data-mission]').forEach((b) => { b.onclick = () => choose(b.dataset.mission); });
   }
 
-  function start(id) {
-    if (!isOnline()) { toast('おつかいクエストはオンラインのときだけ遊べます。'); return; }
-    send('mission:start', { id });
+  // Choosing does not start anything. It points the child at the plaza.
+  function choose(id) {
+    if (!isOnline()) { toast('おつかいクエストはクラスに入っているときだけ遊べます。'); return; }
+    const m = missionById(id);
+    if (!m || active) return;
+    tracked = id;
+    renderHud();
+    dialog.close();
+    const from = spot(m.from);
+    toast(here() ? `${from?.ja || '広場'} に行って話しかけよう。` : 'おつかい島へ行って、広場のミアに話しかけよう。');
   }
 
-  // ---- conversation ---------------------------------------------------------------
+  // ---- the request, handed over at the plaza --------------------------------------
 
-  function renderTalk({ line, hint = '', reward = 0, done = false } = {}) {
+  function renderRequest(m) {
+    view = 'request';
+    body().innerHTML = `<section class="mission-talk">
+        <div class="mission-speaker">
+          <small>${esc(active.from.ja)}</small>
+          <p id="mission-line">${esc(m.request)}</p>
+          <button type="button" id="mission-listen">▷ もう一度きく</button>
+        </div>
+        <p class="mission-hint">💡 ${esc(m.requestJa)}</p>
+        <ol class="mission-goals">${active.goals.map((g) => `<li><span>○</span>${esc(g.ja)}</li>`).join('')}</ol>
+        <div class="mission-actions"><button type="button" class="primary" id="mission-accept">わかった！ ${esc(active.spot.ja)} へ</button></div>
+      </section>`;
+    $('#mission-listen', dialog).onclick = () => speak(m.request);
+    $('#mission-accept', dialog).onclick = () => { dialog.close(); renderHud(); toast(`${active.spot.ja} のところへ歩いて行こう。`); };
+  }
+
+  // ---- conversation, at the shop ---------------------------------------------------
+
+  function renderTalk({ line, hint = '' } = {}) {
     view = 'talk';
-    const mission = data.missions.find((m) => m.id === active.id) || {};
     const goals = active.goals.map((g) => `<li class="${goalsMet.has(g.id) ? 'met' : ''}"><span>${goalsMet.has(g.id) ? '✓' : '○'}</span>${esc(g.ja)}</li>`).join('');
     body().innerHTML = `<section class="mission-talk">
         <div class="mission-speaker">
@@ -89,24 +164,18 @@ export function createMissionUI({ send, speak, toast, isOnline }) {
         </div>
         <ol class="mission-goals">${goals}</ol>
         ${hint ? `<p class="mission-hint">💡 ${esc(hint)}</p>` : ''}
-        ${done ? `<div class="mission-done"><strong>クリア！</strong><span>◈ ${reward} コインを受け取りました</span>
-            <div class="mission-actions"><button type="button" class="primary" id="mission-again">ほかのおつかいへ</button></div></div>`
-          : `<div class="mission-input">
-              <label for="mission-say">英語で答えよう</label>
-              <div class="mission-row">
-                <input id="mission-say" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="I'd like ..." ${busy ? 'disabled' : ''}>
-                <button type="button" id="mission-mic" aria-label="マイクで話す" ${busy ? 'disabled' : ''}>🎤</button>
-                <button type="button" class="primary" id="mission-send" ${busy ? 'disabled' : ''}>言う</button>
-              </div>
-              <p id="mission-status" role="status">${busy ? '…' : `${turn} / ${active.turnLimit} 回`}</p>
-              <div class="mission-actions"><button type="button" id="mission-quit">やめる</button></div>
-            </div>`}
+        <div class="mission-input">
+          <label for="mission-say">英語で答えよう</label>
+          <div class="mission-row">
+            <input id="mission-say" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="I'd like ..." ${busy ? 'disabled' : ''}>
+            <button type="button" id="mission-mic" aria-label="マイクで話す" ${busy ? 'disabled' : ''}>🎤</button>
+            <button type="button" class="primary" id="mission-send" ${busy ? 'disabled' : ''}>言う</button>
+          </div>
+          <p id="mission-status" role="status">${busy ? '…' : `${turn} / ${active.turnLimit} 回`}</p>
+          <div class="mission-actions"><button type="button" id="mission-leave">はなれる</button><button type="button" id="mission-quit">やめる</button></div>
+        </div>
       </section>`;
     $('#mission-listen', dialog).onclick = () => speak(line);
-    if (done) {
-      $('#mission-again', dialog).onclick = renderList;
-      return;
-    }
     const input = $('#mission-say', dialog);
     const submit = () => {
       const text = input.value.trim();
@@ -121,7 +190,9 @@ export function createMissionUI({ send, speak, toast, isOnline }) {
     $('#mission-send', dialog).onclick = submit;
     input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); submit(); } });
     $('#mission-mic', dialog).onclick = listen;
-    $('#mission-quit', dialog).onclick = () => { send('mission:quit', {}); renderList(); };
+    // Leaving keeps the errand: walk back and press the button again to carry on.
+    $('#mission-leave', dialog).onclick = () => { dialog.close(); renderHud(); };
+    $('#mission-quit', dialog).onclick = () => { send('mission:quit', {}); active = null; tracked = ''; renderHud(); renderBoard(); };
     if (!busy) setTimeout(() => input.focus(), 60);
   }
 
@@ -153,13 +224,67 @@ export function createMissionUI({ send, speak, toast, isOnline }) {
     }
   }
 
+  // ---- what the interact button does on the island ----------------------------------
+
+  // The label under the crosshair, so a child always knows what pressing it will do.
+  function label(s) {
+    if (!s) return '';
+    if (active) {
+      if (active.stage === 'talk') return s.id === active.spot.id ? `${active.character} と 英語で話す` : `${active.spot.ja} へ行こう`;
+      if (active.stage === 'deliver') return s.id === active.from.id ? `${active.item} を とどける` : `${active.from.ja} へ もどろう`;
+    }
+    if (s.kind === 'plaza') return tracked ? 'おつかいを うけとる' : 'おつかい掲示板を見る';
+    return `${s.character} と 話す（おつかいは広場で）`;
+  }
+
+  function interact(s) {
+    if (!s) return;
+    if (!isOnline()) { toast('おつかいはクラスに入っているときだけ遊べます。'); return; }
+    if (active) {
+      if (active.stage === 'talk') {
+        if (s.id === active.spot.id) { send('mission:arrive', {}); return; }
+        toast(`${active.spot.ja} のところへ行こう。`);
+        return;
+      }
+      if (active.stage === 'deliver') {
+        if (s.id === active.from.id) { send('mission:deliver', {}); return; }
+        toast(`${active.from.ja} に とどけに もどろう。`);
+        return;
+      }
+    }
+    if (s.kind === 'plaza') {
+      if (tracked) { send('mission:start', { id: tracked }); return; }
+      open();
+      renderBoard();
+      return;
+    }
+    toast('まずは広場のミアから、おつかいを うけとろう。');
+  }
+
   // ---- server messages -------------------------------------------------------------
 
-  function onOpened(m) {
-    active = { id: m.id, character: m.character, place: m.place, goals: m.goals, turnLimit: m.turnLimit };
-    goalsMet = new Set();
-    turn = 0;
+  function adopt(m) {
+    active = {
+      id: m.id, stage: m.stage, character: m.character, place: m.place, item: m.item,
+      spot: m.spot, from: m.from, goals: m.goals, turnLimit: m.turnLimit,
+    };
+    goalsMet = new Set(m.goalsMet || []);
+    turn = m.turn || 0;
     busy = false;
+    tracked = '';
+  }
+
+  function onOpened(m) {
+    adopt(m);
+    renderHud();
+    open();
+    renderRequest(m);
+    speak(m.request);
+  }
+
+  function onArrived(m) {
+    adopt(m);
+    renderHud();
     open();
     renderTalk({ line: m.opening });
     speak(m.opening);
@@ -170,45 +295,103 @@ export function createMissionUI({ send, speak, toast, isOnline }) {
     busy = false;
     goalsMet = new Set(m.goalsMet || []);
     turn = m.turn || turn;
-    renderTalk({ line: m.reply, hint: m.hint, reward: m.reward || 0, done: !!m.complete });
+    active.stage = m.stage || active.stage;
+    if (m.item) active.item = m.item;
+    if (m.from) active.from = m.from;
     speak(m.reply);
     if (m.gained?.length) toast('お題がひとつ進んだ！');
-    if (m.complete) { toast(`おつかいクリア！ ◈ ${m.reward}`); if (m.missionsDone) done = new Set(m.missionsDone); active = null; }
+    if (active.stage === 'deliver') {
+      view = 'result';
+      body().innerHTML = `<section class="mission-talk">
+          <div class="mission-speaker"><small>${esc(active.character)} · ${esc(active.place)}</small><p>${esc(m.reply)}</p></div>
+          <ol class="mission-goals">${active.goals.map((g) => `<li class="met"><span>✓</span>${esc(g.ja)}</li>`).join('')}</ol>
+          <div class="mission-done"><strong>ぜんぶ言えた！</strong><span>🧺 ${esc(active.item)} を うけとりました</span>
+            <p>${esc(active.from.ja)} に とどけると コインが もらえます。</p>
+            <div class="mission-actions"><button type="button" class="primary" id="mission-back">広場へ もどる</button></div></div>
+        </section>`;
+      $('#mission-back', dialog).onclick = () => { dialog.close(); renderHud(); toast(`${active.from.ja} に とどけに もどろう。`); };
+      renderHud();
+      return;
+    }
+    renderTalk({ line: m.reply, hint: m.hint });
+  }
+
+  function onDelivered(m) {
+    const character = active?.from?.ja || '広場のミア';
+    const goals = active?.goals || [];
+    done = new Set(m.missionsDone || [...done]);
+    active = null;
+    tracked = '';
+    busy = false;
+    renderHud();
+    view = 'result';
+    open();
+    body().innerHTML = `<section class="mission-talk">
+        <div class="mission-speaker"><small>${esc(character)}</small><p id="mission-line">${esc(m.thanks)}</p>
+          <button type="button" id="mission-listen">▷ もう一度きく</button></div>
+        <ol class="mission-goals">${goals.map((g) => `<li class="met"><span>✓</span>${esc(g.ja)}</li>`).join('')}</ol>
+        <div class="mission-done"><strong>おつかい完了！</strong><span>◈ ${m.reward} コインと スタンプを もらいました</span>
+          <div class="mission-actions"><button type="button" class="primary" id="mission-again">つぎのおつかいへ</button></div></div>
+      </section>`;
+    $('#mission-listen', dialog).onclick = () => speak(m.thanks);
+    $('#mission-again', dialog).onclick = renderBoard;
+    speak(m.thanks);
+    toast(`おつかい完了！ ◈ ${m.reward}`);
   }
 
   function onClosed(m) {
     active = null;
     busy = false;
-    if (m?.reason === 'turn limit') toast('回数がいっぱいになりました。もう一度ちょうせんできます。');
-    if (dialog.open) renderList();
+    renderHud();
+    if (m?.reason === 'turn limit') toast('回数がいっぱいになりました。広場でもう一度うけとれます。');
+    if (dialog.open) renderBoard();
   }
 
   function onError(m) {
     busy = false;
-    const text = { 'too fast': 'すこしゆっくり話してね。', 'daily limit': '今日のおつかいはここまで。また明日ね。', 'ai unavailable': '今はつながりません。少ししてからもう一度。', 'unknown mission': 'そのおつかいは見つかりません。' }[m?.reason] || 'うまくいきませんでした。';
+    if (m?.reason === 'too far') {
+      const s = m.spot;
+      toast(s ? `${s.ja} のところまで歩いて行こう。` : 'その場所まで歩いて行こう。');
+      if (dialog.open && view !== 'board') dialog.close();
+      renderHud();
+      return;
+    }
+    const text = {
+      'too fast': 'すこしゆっくり話してね。',
+      'daily limit': '今日のおつかいはここまで。また明日ね。',
+      'ai unavailable': '今はつながりません。少ししてからもう一度。',
+      'unknown mission': 'そのおつかいは見つかりません。',
+      'wrong step': 'いまはその順番ではありません。',
+    }[m?.reason] || 'うまくいきませんでした。';
     toast(text);
     if (view === 'talk' && active) renderTalk({ line: $('#mission-line', dialog)?.textContent || '' });
   }
 
   function open() {
     if (!dialog.open) dialog.showModal();
-    if (!active) renderList();
   }
   function close() {
     try { recognition?.stop(); } catch { /* ignore */ }
     dialog.close();
   }
 
-  button.onclick = () => { open(); if (!active) renderList(); };
+  button.onclick = () => { open(); if (view === 'board' || !active) renderBoard(); };
   $('#mission-close', dialog).onclick = close;
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
-  load();
 
   return {
-    onOpened, onTurn, onClosed, onError, open,
-    setAvailable(v) { button.hidden = !v; if (!v) close(); },
-    setClassMission(id) { classMissionId = id || ''; if (dialog.open && view === 'list') renderList(); },
-    setDone(ids) { done = new Set(Array.isArray(ids) ? ids : []); if (dialog.open && view === 'list') renderList(); },
+    onOpened, onArrived, onTurn, onDelivered, onClosed, onError, interact, label,
+    open() { open(); if (!active) renderBoard(); },
+    refreshHud: renderHud,
+    // An errand that was in progress before a screen lock comes back with the session.
+    restore(errand) {
+      if (!errand) { active = null; renderHud(); return; }
+      adopt(errand);
+      renderHud();
+    },
+    setAvailable(v) { button.hidden = !v; if (!v) { close(); active = null; tracked = ''; renderHud(); } },
+    setClassMission(id) { classMissionId = id || ''; if (dialog.open && view === 'board') renderBoard(); },
+    setDone(ids) { done = new Set(Array.isArray(ids) ? ids : []); if (dialog.open && view === 'board') renderBoard(); },
     get missions() { return data.missions; },
   };
 }

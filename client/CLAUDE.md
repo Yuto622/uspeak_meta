@@ -73,3 +73,19 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - `globalThis.uspeak` は実機デバッグ用の参照（`net`, `player`, `rpg`, `fishing`）。
 - 判定データ（`*-data.js`, `lesson-data.js`, `adventure-quiz.js`, `phrases.json`）はサーバーも import する。
   これらのファイルの形を変えるときは `server/test` を実行すること。
+
+## おつかい島（2026-09 追加）
+
+`errand-data.js`（missions.json の共有ローダー）/ `errand-island.js`（島の地形・お店・住人・
+光の柱・当たり判定）/ `mission.js`（掲示板・トラッカー・会話）/ `mission.css`。
+
+- `missions.json` の `island` が唯一の座標定義元。クライアントはここから島を建て、
+  サーバーは同じ座標で「その場に立っているか」を判定する。片方だけ動かさないこと。
+- おつかいは3段階（広場で受ける → お店で英語 → 広場にとどける）。
+  コインが出るのは3段階目だけで、`mission:deliver` をサーバーが位置つきで確認してから。
+- 島は `rpg-data.js` の HUBS に `errand` として登録。`rpg.errand` が島本体、
+  `rpg.errandNearby()` が「いま立っている場所」、`rpg.onErrandIsland` が滞在判定。
+- `<dialog>` に `display` を直接書かないこと。UA の `dialog:not([open]){display:none}` に勝ってしまい、
+  閉じたダイアログが画面中央でタップを吸う（`#mission-dialog[open]` の側に書く）。
+- 島に宝箱と U-Speak park の入口は置かない（`treasure-data.js` と `magic-data.js` で除外済み）。
+- 装飾（岸の岩・道タイル・草花）は色ごとに `InstancedMesh` へまとめている。増やすときも `D()` を使うこと。

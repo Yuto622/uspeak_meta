@@ -15,6 +15,7 @@ const { startServer } = await import('../src/index.js');
 const { Client } = await import('colyseus.js');
 const { FISH } = await import('../../client/dist/fishing-data.js');
 const { WILLOW_LESSONS } = await import('../../client/dist/lesson-data.js');
+const { MISSIONS } = await import('../src/game/missions.js');
 
 let server; let url;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -179,9 +180,18 @@ test('unexpected disconnects keep the seat: token reconnect and same-name takeov
   await sleep(100);
 });
 
-test('the errand quest is judged, rewarded and stamped by the server', async () => {
+test('the errand is walked: every step is refused away from its place on the island', async () => {
   const a = await join('Mio');
   const t = await join('Sensei2', { teacherKey: 'testkey12345' });
+  const mission = MISSIONS.byId.get('bakery-two-drinks');
+  const plaza = MISSIONS.island.spotById.get(mission.from);
+  const shop = MISSIONS.island.spotById.get(mission.spot);
+  // Standing somewhere is declaring a position, exactly as walking does.
+  const standAt = async (spot, space = MISSIONS.island.id) => {
+    a.room.send('move', { s: space, x: spot.wx, z: spot.wz, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => Math.abs(a.room.state.players.get(a.room.sessionId).x - spot.wx) < 0.01
+      && a.room.state.players.get(a.room.sessionId).space === space);
+  };
 
   // The teacher picks today's errand; every client sees it in the shared state.
   t.room.send('teacher', { cmd: 'mission', id: 'bakery-two-drinks' });
@@ -194,12 +204,42 @@ test('the errand quest is judged, rewarded and stamped by the server', async () 
   a.room.send('mission:start', { id: 'no-such-mission' });
   assert.equal((await nextMessage(a.room, 'mission:error')).reason, 'unknown mission');
 
+  // Nor take one from Willow Island, or from the wrong end of おつかい島.
+  a.room.send('mission:start', { id: 'bakery-two-drinks' });
+  assert.equal((await nextMessage(a.room, 'mission:error')).reason, 'too far');
+  await standAt(shop);
+  a.room.send('mission:start', { id: 'bakery-two-drinks' });
+  let err = await nextMessage(a.room, 'mission:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.spot.id, plaza.id, 'the refusal names where to walk');
+  // The same coordinates on another island are still the wrong place.
+  await standAt(plaza, 'willow');
+  a.room.send('mission:start', { id: 'bakery-two-drinks' });
+  assert.equal((await nextMessage(a.room, 'mission:error')).reason, 'too far');
+
+  // ---- leg 1: take the errand at the plaza
+  await standAt(plaza);
   a.room.send('mission:start', { id: 'bakery-two-drinks' });
   const opened = await nextMessage(a.room, 'mission:opened');
+  assert.equal(opened.stage, 'talk');
   assert.equal(opened.character, 'Oliver');
   assert.equal(opened.goals.length, 3);
-  assert.ok(opened.opening.length > 0);
+  assert.equal(opened.spot.id, 'bakery');
+  assert.ok(opened.request.length > 0 && opened.requestJa.length > 0);
   assert.ok(opened.turnLimit >= 2);
+
+  // Talking only works at the shop, and delivering before the errand is done is refused.
+  a.room.send('mission:say', { text: "I'd like a juice please" });
+  assert.equal((await nextMessage(a.room, 'mission:error')).reason, 'too far');
+  a.room.send('mission:deliver', {});
+  assert.equal((await nextMessage(a.room, 'mission:error')).reason, 'wrong step');
+
+  // ---- leg 2: walk to the shop and speak English
+  await standAt(shop);
+  a.room.send('mission:arrive', {});
+  const arrived = await nextMessage(a.room, 'mission:arrived');
+  assert.equal(arrived.stage, 'talk');
+  assert.ok(arrived.opening.length > 0);
 
   // Without an API key the scripted partner runs, so the flow is deterministic:
   // it credits a goal when the child's words match that goal's example sentence.
@@ -207,21 +247,37 @@ test('the errand quest is judged, rewarded and stamped by the server', async () 
   a.room.send('mission:say', { text: "I'd like a juice please" });
   let m = await nextMessage(a.room, 'mission:turn');
   assert.deepEqual(m.goalsMet, ['ask']);
-  assert.equal(m.complete, false);
+  assert.equal(m.stage, 'talk');
   assert.equal(m.turn, 1);
   assert.ok(m.reply.length > 0);
 
   a.room.send('mission:say', { text: 'Two please' });
   m = await nextMessage(a.room, 'mission:turn');
   assert.deepEqual(m.goalsMet.sort(), ['ask', 'two']);
-  assert.equal(m.complete, false);
+  assert.equal(m.stage, 'talk');
 
   a.room.send('mission:say', { text: 'Thank you' });
   m = await nextMessage(a.room, 'mission:turn');
-  assert.equal(m.complete, true);
-  assert.equal(m.reward, 30);
-  assert.equal(m.wallet.coins, coinsBefore + 30);
-  assert.ok(m.missionsDone.includes('bakery-two-drinks'), 'the clear is stamped');
+  assert.equal(m.stage, 'deliver', 'saying it all earns the errand, not the coins');
+  assert.equal(m.complete, false);
+  assert.equal(m.item, mission.item);
+  // No coins yet: the errand is in hand, not delivered.
+  assert.equal(m.reward, undefined);
+  assert.equal(m.wallet, undefined);
+
+  // ---- leg 3: carry it back. Delivering from the shop is refused.
+  a.room.send('mission:deliver', {});
+  err = await nextMessage(a.room, 'mission:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.spot.id, plaza.id);
+
+  await standAt(plaza);
+  a.room.send('mission:deliver', {});
+  const delivered = await nextMessage(a.room, 'mission:delivered');
+  assert.equal(delivered.reward, 30);
+  assert.equal(delivered.wallet.coins, coinsBefore + 30);
+  assert.ok(delivered.thanks.length > 0);
+  assert.ok(delivered.missionsDone.includes('bakery-two-drinks'), 'the clear is stamped');
 
   // The reward is the server's to give: a client asking for it is refused.
   a.room.send('economy', { op: 'award', amount: 9999 });
@@ -229,8 +285,8 @@ test('the errand quest is judged, rewarded and stamped by the server', async () 
   assert.equal(w.ok, false);
   assert.equal(w.wallet.coins, coinsBefore + 30);
 
-  // An empty utterance is ignored, and talking after the clear does nothing.
-  a.room.send('mission:say', { text: '   ' });
+  // Delivering twice pays once.
+  a.room.send('mission:deliver', {});
   a.room.send('mission:say', { text: 'Hello again' });
   await sleep(200);
 
@@ -240,6 +296,32 @@ test('the errand quest is judged, rewarded and stamped by the server', async () 
   const again = await join('Mio');
   assert.equal(again.welcome.wallet.coins, coinsBefore + 30);
   assert.ok(again.welcome.missionsDone.includes('bakery-two-drinks'));
-  await Promise.all([again.room.leave(), t.room.leave()]);
-  await sleep(100);
+  assert.equal(again.welcome.errand, null);
+  await again.room.leave();
+  await t.room.leave();
 });
+
+test('an errand in progress comes back after a disconnect', async () => {
+  const a = await join('Rin');
+  const mission = MISSIONS.byId.get('square-introduce');
+  const plaza = MISSIONS.island.spotById.get(mission.from);
+  a.room.send('move', { s: MISSIONS.island.id, x: plaza.wx, z: plaza.wz, r: 0, a: 'idle', t: 1 });
+  await waitFor(() => a.room.state.players.get(a.room.sessionId).space === MISSIONS.island.id);
+  a.room.send('mission:start', { id: mission.id });
+  await nextMessage(a.room, 'mission:opened');
+
+  // Simulate the iPad locking mid-errand: the socket dies without a consented leave.
+  const token = a.room.reconnectionToken;
+  const drop = a.room.connection.transport.ws; (drop.terminate ? drop.terminate() : drop.close());
+  await sleep(150);
+  const back = await new Client(url).reconnect(token);
+  const w = await nextMessage(back, 'welcome');
+  assert.equal(w.restored, true);
+  assert.ok(w.errand, 'the tracker knows what was still in hand');
+  assert.equal(w.errand.id, mission.id);
+  assert.equal(w.errand.stage, 'talk');
+  assert.equal(w.errand.spot.id, mission.spot);
+  assert.equal(w.errand.from.id, mission.from);
+  await back.leave();
+});
+

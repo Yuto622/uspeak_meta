@@ -13,6 +13,8 @@ const make=(id='')=>({id,tagName:'DIV',innerHTML:'',textContent:'',value:'',hidd
 function el(id){if(id==='dialog[open]')return [...nodes.values()].find(x=>x.open)||null;if(!nodes.has(id))nodes.set(id,make(id));return nodes.get(id)}
 const tabs=['map','book'].map(id=>{const b=make();b.dataset.rpgTab=id;return b});
 globalThis.document={hidden:false,querySelector:el,querySelectorAll:s=>s==='dialog[open]'?[...nodes.values()].filter(x=>x.open):s==='[data-rpg-tab]'?tabs:s==='[data-ad-tab]'?all.filter(x=>x.dataset.adTab):[],createElement:tag=>{const e=make();e.tagName=tag.toUpperCase();all.push(e);return e},body:make('body')};globalThis.window={};globalThis.addEventListener=()=>{};globalThis.devicePixelRatio=1;globalThis.innerWidth=1440;globalThis.innerHeight=900;Object.defineProperty(globalThis,'navigator',{value:{},configurable:true});
+// The island reads missions.json the way the browser does; serve it from disk.
+globalThis.fetch=async(u)=>{const {readFile}=await import('node:fs/promises');const {fileURLToPath}=await import('node:url');const dir=fileURLToPath(new URL('../dist/',import.meta.url));const text=await readFile(dir+String(u),'utf8');return {ok:true,status:200,async json(){return JSON.parse(text)}}};
 const saves=new Map([['uspeak-fishing-v1',JSON.stringify({coins:12000,inventory:{'fish-1':2},caught:2})],['uspeak-avatar-v1','avatar-progress']]);globalThis.localStorage={getItem:k=>saves.get(k)||null,setItem:(k,v)=>saves.set(k,v)};
 const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(),player=new THREE.Group(),water=new THREE.Mesh(new THREE.PlaneGeometry(),new THREE.MeshStandardMaterial());scene.add(player,water);const geo=new THREE.BoxGeometry(),materials=new Map();const box=(x,y,z,w,h,d,c,parent=scene)=>{if(!materials.has(c))materials.set(c,new THREE.MeshStandardMaterial({color:c}));const m=new THREE.Mesh(geo,materials.get(c));m.position.set(x,y,z);m.scale.set(w,h,d);parent.add(m);return m};const messages=[],learned=[],park={state:{busy:false,inPark:false},arrive(v){this.state.inPark=v}},fishing={open(name){this.lastPage=name},store:createFishingStore(localStorage),refreshWallet(){},state:{busy:false},isOpen:false,setTravelContext(f,op){this.away=f}};
 const rpg=setupRpg({scene,camera,player,water,box,park,fishing,avatars:{isOpen:false,config:{id:'kai'}},atmosphere:{state:{night:0,targetNight:0}},toast:m=>messages.push(m),speak(){},learn:(...v)=>learned.push(v),getBaseXp:()=>0});
@@ -62,3 +64,48 @@ const closed=TREASURES.find(c=>!progress.state.treasureOpened.includes(c.id)),be
 for(const c of TREASURES){rpg.activate(c.region);player.position.set(c.x,0,c.z+1.9);assert.equal(treasure.nearby()?.data.id,c.id);assert.equal(rpg.blocked(c.x,c.z),true);assert.notEqual(rpg.blocked(c.x,c.z+1.9),true,'accessible approach '+c.id);treasure.update(1,.1);assert.ok(treasure.models.find(m=>m.data.id===c.id).g.parent.visible)}
 rpg.activate('willow');player.position.set(unlocked.x,0,unlocked.z+1.9);treasure.interact();const td=all.find(e=>e.id==='treasure-dialog');assert.equal(td.open,true);assert.ok(td.innerHTML.includes('入手済み'));td.close();rpg.adventure.magic.enter();assert.equal(treasure.nearby(),null);treasure.update(2,.1);assert.ok(treasure.models.every(m=>!m.g.parent.visible));rpg.leaveSanctuary();
 console.log('PASS: 36 chests in 12 areas, 3 gated permanent keys, all tiers, 12 relics, no double rewards, migration/reload, failed-save rollback, outdoor approaches, treasure dialogue, and indoor isolation.');
+
+// --- おつかい島: the errand island is walked, so its geometry has to allow the walk ---
+{
+ const {MISSIONS:_}={};
+ const data=await rpg.errand.ready;
+ const island=data.island;
+ assert.ok(island&&island.spots.length>=5,'the island loaded from missions.json');
+ rpg.activate('errand');
+ assert.equal(rpg.state.current,'errand');
+ assert.equal(rpg.onErrandIsland,true);
+ assert.equal(rpg.errand.visible,true,'the island is shown on arrival');
+ // Spawned on the dock, inside the island and not inside anything solid.
+ assert.ok(!rpg.blocked(player.position.x,player.position.z),'the arrival point is walkable');
+ assert.ok(rpg.blocked(island.x+40,island.z),'the island has an edge');
+ // Every spot can be stood in and reports itself, and all of them are reachable on
+ // foot from the point a child arrives at — walking round the shops, as they would.
+ const plaza=island.spots.find(s=>s.kind==='plaza');
+ const key=(x,z)=>x+','+z;
+ const start=[Math.round(player.position.x-island.x),Math.round(player.position.z-island.z)];
+ const seen=new Set([key(...start)]),queue=[start];
+ for(let i=0;i<queue.length;i++){const [x,z]=queue[i];
+  for(const [dx,dz]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,nz=z+dz;
+   if(seen.has(key(nx,nz))||rpg.blocked(island.x+nx,island.z+nz))continue;
+   seen.add(key(nx,nz));queue.push([nx,nz]);}}
+ for(const spot of island.spots){
+  player.position.set(island.x+spot.x,0,island.z+spot.z);
+  assert.ok(!rpg.blocked(player.position.x,player.position.z),spot.id+' is standable');
+  assert.equal(rpg.errandNearby()?.spot.id,spot.id,spot.id+' reports itself');
+  assert.ok(seen.has(key(Math.round(spot.x),Math.round(spot.z))),spot.id+' is reachable on foot from the dock');
+ }
+ // Standing between spots is standing in none of them: no leg can be skipped.
+ player.position.set(island.x+(plaza.x+island.spots[1].x)/2,0,island.z+(plaza.z+island.spots[1].z)/2);
+ assert.equal(rpg.errandNearby(),null,'the middle of the path belongs to no spot');
+ rpg.errand.setTarget('bakery');
+ assert.equal(rpg.errand.target,'bakery');
+ assert.equal(rpg.mapSmall(ctx),true,'the island draws its own minimap');
+ rpg.errand.update(1,player);
+ // Leaving hides it again and hands collision back to the place we went to.
+ rpg.activate('willow');
+ assert.equal(rpg.errand.visible,false);
+ assert.equal(rpg.onErrandIsland,false);
+ assert.equal(rpg.errandNearby(),null);
+ assert.equal(rpg.blocked(3,8),null,'Willow collision is unaffected');
+ console.log('PASS: おつかい島 loads from missions.json, all '+island.spots.length+' spots are standable, walkable from the plaza and mutually exclusive; arrival, minimap, beacon and departure.');
+}

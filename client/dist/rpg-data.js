@@ -10,7 +10,7 @@ export const REGIONS=[
 {id:'ruins',name:'星時計の遺跡',en:'ASTRAL RUINS',x:300,z:170,biome:'ruins',color:0x939894,accent:0xb2d8bd,needs:['snow'],hint:'古代の門の向こうで、眠る物語が目を覚ます。'},
 {id:'moon',name:'月影の庭',en:'MOONLIT GARDEN',x:-85,z:300,biome:'moon',color:0x9f90b9,accent:0xe2bcf2,needs:['storm','desert'],hint:'月の花が咲く、幻想的な夜の庭。'},
 {id:'sky',name:'天空の聖域',en:'CELESTIAL SANCTUARY',x:145,z:340,biome:'sky',color:0xc1cba6,accent:0xffe6ab,needs:['moon','ruins'],hint:'旅の先で待つ、光の翼を持つ仲間たち。'}];
-export const HUBS=[{id:'willow',name:'Willow Island',en:'WILLOW ISLAND',x:0,z:0,color:0x8da876,accent:0xddc891,hub:true,hint:'英会話クエスト、100種の英単語釣り、魚の買取・装備店。'},{id:'park',name:'U-Speak Roblox テーマパーク',en:'WONDER PARK',x:135,z:0,color:0x799eaf,accent:0xe7c08d,hub:true,hint:'大観覧車・コースター・メリーゴーランドと夜の花火。'}];
+export const HUBS=[{id:'willow',name:'Willow Island',en:'WILLOW ISLAND',x:0,z:0,color:0x8da876,accent:0xddc891,hub:true,hint:'英会話クエスト、100種の英単語釣り、魚の買取・装備店。'},{id:'park',name:'U-Speak Roblox テーマパーク',en:'WONDER PARK',x:135,z:0,color:0x799eaf,accent:0xe7c08d,hub:true,hint:'大観覧車・コースター・メリーゴーランドと夜の花火。'},{id:'errand',name:'おつかい島',en:'ERRAND ISLAND',x:-150,z:75,color:0xd8b98a,accent:0xf2d9a0,hub:true,hint:'英語でおつかい。広場で受けて、お店で話して、届けてクリア。'}];
 export const DESTINATIONS=[...HUBS,...REGIONS];
 export const REGION_BY_ID=Object.assign(Object.create(null),Object.fromEntries(DESTINATIONS.map(r=>[r.id,r])));
 const names=[

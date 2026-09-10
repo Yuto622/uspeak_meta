@@ -1,7 +1,131 @@
 {
   "version": 1,
-  "note": "おつかいクエストのミッション定義。ここを編集すれば内容を差し替えられます。サーバーも同じファイルを読み、達成判定に使います。id は変更しないでください（学習記録が id で紐づきます）。",
+  "note": "Errand quest data. The client renders from this file and the server judges from it, so a child never sees wording the server has not read. Every errand is walked: the request is taken at the plaza, the English happens at the spot, and the delivery goes back to the plaza. Coordinates are local to the island and the server checks them.",
   "turnLimit": 12,
+  "island": {
+    "id": "errand",
+    "name": "おつかい島",
+    "en": "ERRAND ISLAND",
+    "x": -150,
+    "z": 75,
+    "radius": 5.0,
+    "spawn": {
+      "x": 0,
+      "z": 21
+    },
+    "spots": [
+      {
+        "id": "plaza",
+        "kind": "plaza",
+        "name": "おつかい広場",
+        "en": "Errand Plaza",
+        "character": "Mia",
+        "x": 0,
+        "z": 14,
+        "color": "0xe4c88f",
+        "ja": "広場のミア"
+      },
+      {
+        "id": "bakery",
+        "kind": "shop",
+        "name": "Sunny Bakery",
+        "en": "Sunny Bakery",
+        "character": "Oliver",
+        "x": -15,
+        "z": 6,
+        "color": "0xe8b878",
+        "ja": "パン屋のオリバー"
+      },
+      {
+        "id": "square",
+        "kind": "shop",
+        "name": "Village Square",
+        "en": "Village Square",
+        "character": "Emma",
+        "x": 2,
+        "z": -4,
+        "color": "0xa8c98c",
+        "ja": "広場のエマ"
+      },
+      {
+        "id": "harbor",
+        "kind": "shop",
+        "name": "Bluewater Harbor",
+        "en": "Bluewater Harbor",
+        "character": "Luna",
+        "x": 17,
+        "z": 12,
+        "color": "0x7fbcd0",
+        "ja": "港のルナ"
+      },
+      {
+        "id": "forest",
+        "kind": "shop",
+        "name": "Whispering Forest",
+        "en": "Whispering Forest",
+        "character": "Finn",
+        "x": -19,
+        "z": -12,
+        "color": "0x6f9f72",
+        "ja": "森のフィン"
+      },
+      {
+        "id": "shop",
+        "kind": "shop",
+        "name": "Tide & Thread",
+        "en": "Tide & Thread",
+        "character": "Emma",
+        "x": 15,
+        "z": -1,
+        "color": "0xd09ab0",
+        "ja": "洋服屋のエマ"
+      },
+      {
+        "id": "inn",
+        "kind": "shop",
+        "name": "The Explorer's Inn",
+        "en": "The Explorer's Inn",
+        "character": "Luna",
+        "x": -7,
+        "z": -18,
+        "color": "0xc09a6e",
+        "ja": "宿のルナ"
+      },
+      {
+        "id": "library",
+        "kind": "shop",
+        "name": "Forest Library",
+        "en": "Forest Library",
+        "character": "Finn",
+        "x": 9,
+        "z": -17,
+        "color": "0x9a8fc0",
+        "ja": "図書館のフィン"
+      },
+      {
+        "id": "park",
+        "kind": "shop",
+        "name": "Wonder Park Gate",
+        "en": "Wonder Park Gate",
+        "character": "Oliver",
+        "x": 27,
+        "z": 2,
+        "color": "0xe0a878",
+        "ja": "公園のオリバー"
+      },
+      {
+        "id": "museum",
+        "kind": "shop",
+        "name": "Island Museum",
+        "en": "Island Museum",
+        "character": "Emma",
+        "x": -24,
+        "z": -2,
+        "color": "0xb9b39a",
+        "ja": "博物館のエマ"
+      }
+    ]
+  },
   "missions": [
     {
       "id": "bakery-two-drinks",
@@ -9,14 +133,36 @@
       "title": "カフェで飲み物を2つ注文しよう",
       "character": "Oliver",
       "place": "Sunny Bakery",
-      "situation": "You are Oliver, a warm and patient baker at Sunny Bakery on Willow Island. A child has come to your counter. You sell coffee, tea, milk, juice, bread and croissants.",
+      "spot": "bakery",
+      "from": "plaza",
+      "item": "two drinks",
+      "request": "Good morning! Could you go to Sunny Bakery and get two drinks from Oliver? Bring them back to me here.",
+      "requestJa": "サニーベーカリーのオリバーから、飲み物を2つ買ってきて。",
+      "thanks": "Two drinks — perfect. Thank you so much!",
+      "situation": "You are Oliver, a warm and patient baker at Sunny Bakery on Errand Island. A child has come to your counter. You sell coffee, tea, milk, juice, bread and croissants.",
       "opening": "Good morning! Welcome to Sunny Bakery. What would you like?",
       "goals": [
-        { "id": "ask", "ja": "飲み物をたのむ", "en": "The child asks for a drink." },
-        { "id": "two", "ja": "2つと伝える", "en": "The child makes clear they want two of something." },
-        { "id": "thanks", "ja": "お礼を言う", "en": "The child thanks Oliver." }
+        {
+          "id": "ask",
+          "ja": "飲み物をたのむ",
+          "en": "The child asks for a drink."
+        },
+        {
+          "id": "two",
+          "ja": "2つと伝える",
+          "en": "The child makes clear they want two of something."
+        },
+        {
+          "id": "thanks",
+          "ja": "お礼を言う",
+          "en": "The child thanks Oliver."
+        }
       ],
-      "hints": ["I'd like a juice, please.", "Two, please.", "Thank you!"],
+      "hints": [
+        "I'd like a juice, please.",
+        "Two, please.",
+        "Thank you!"
+      ],
       "reward": 30
     },
     {
@@ -24,15 +170,37 @@
       "grade": "5",
       "title": "はじめての自己しょうかい",
       "character": "Emma",
-      "place": "Village square",
-      "situation": "You are Emma, a cheerful islander in the village square. You have just met a child for the first time and want to know a little about them.",
+      "place": "Village Square",
+      "spot": "square",
+      "from": "plaza",
+      "item": "Emma's hello",
+      "request": "Emma is new on this island. Could you go to the Village Square and introduce yourself to her? Then come back and tell me.",
+      "requestJa": "村の広場のエマに、自己紹介をしてきて。",
+      "thanks": "You made a new friend today. Well done!",
+      "situation": "You are Emma, a cheerful islander in the village square. You have just met a child for the first time and want to know a little about them. You are on Errand Island.",
       "opening": "Hi there! I'm Emma. What's your name?",
       "goals": [
-        { "id": "name", "ja": "名前を言う", "en": "The child tells Emma their name." },
-        { "id": "age-or-from", "ja": "年れいか出身を言う", "en": "The child says their age or where they are from." },
-        { "id": "ask-back", "ja": "相手にも質問する", "en": "The child asks Emma a question back." }
+        {
+          "id": "name",
+          "ja": "名前を言う",
+          "en": "The child tells Emma their name."
+        },
+        {
+          "id": "age-or-from",
+          "ja": "年れいか出身を言う",
+          "en": "The child says their age or where they are from."
+        },
+        {
+          "id": "ask-back",
+          "ja": "相手にも質問する",
+          "en": "The child asks Emma a question back."
+        }
       ],
-      "hints": ["My name is ...", "I'm ten years old.", "How about you?"],
+      "hints": [
+        "My name is ...",
+        "I'm ten years old.",
+        "How about you?"
+      ],
       "reward": 30
     },
     {
@@ -41,14 +209,36 @@
       "title": "港へのおしえて道あんない",
       "character": "Luna",
       "place": "Bluewater Harbor",
-      "situation": "You are Luna, a kind sailor at Bluewater Harbor. A child looks lost. The harbor is straight ahead and then right at the bridge.",
+      "spot": "harbor",
+      "from": "plaza",
+      "item": "the way to the lighthouse",
+      "request": "I need to reach the lighthouse. Could you ask Luna at Bluewater Harbor the way, and bring the directions back to me?",
+      "requestJa": "港のルナに、灯台への行き方を聞いてきて。",
+      "thanks": "Now I know the way. Thank you!",
+      "situation": "You are Luna, a kind sailor at Bluewater Harbor. A child looks lost. The harbor is straight ahead and then right at the bridge. You are on Errand Island.",
       "opening": "Hello! You look lost. Can I help you?",
       "goals": [
-        { "id": "ask-way", "ja": "道をたずねる", "en": "The child asks how to get somewhere." },
-        { "id": "confirm", "ja": "聞いた道を言いかえす", "en": "The child repeats or confirms the directions." },
-        { "id": "thanks", "ja": "お礼を言う", "en": "The child thanks Luna." }
+        {
+          "id": "ask-way",
+          "ja": "道をたずねる",
+          "en": "The child asks how to get somewhere."
+        },
+        {
+          "id": "confirm",
+          "ja": "聞いた道を言いかえす",
+          "en": "The child repeats or confirms the directions."
+        },
+        {
+          "id": "thanks",
+          "ja": "お礼を言う",
+          "en": "The child thanks Luna."
+        }
       ],
-      "hints": ["Where is the harbor?", "Straight, then right?", "Thanks for your help!"],
+      "hints": [
+        "Where is the harbor?",
+        "Straight, then right?",
+        "Thanks for your help!"
+      ],
       "reward": 30
     },
     {
@@ -57,31 +247,74 @@
       "title": "すきなものを つたえよう",
       "character": "Finn",
       "place": "Whispering Forest",
-      "situation": "You are Finn, a curious explorer in Whispering Forest. You love animals and want to know what the child likes.",
+      "spot": "forest",
+      "from": "plaza",
+      "item": "Finn's favourite thing",
+      "request": "Finn is in the Whispering Forest. Could you talk with him and find out what he likes? Then tell me here.",
+      "requestJa": "森のフィンと話して、好きなものを聞いてきて。",
+      "thanks": "That's good to know. Thank you for asking him!",
+      "situation": "You are Finn, a curious explorer in Whispering Forest. You love animals and want to know what the child likes. You are on Errand Island.",
       "opening": "Look! A little fox by the tree. Do you like animals?",
       "goals": [
-        { "id": "like", "ja": "すきなものを言う", "en": "The child says something they like." },
-        { "id": "why", "ja": "りゆうを言う", "en": "The child gives any reason, even a very short one." },
-        { "id": "ask-back", "ja": "相手にも聞く", "en": "The child asks what Finn likes." }
+        {
+          "id": "like",
+          "ja": "すきなものを言う",
+          "en": "The child says something they like."
+        },
+        {
+          "id": "why",
+          "ja": "りゆうを言う",
+          "en": "The child gives any reason, even a very short one."
+        },
+        {
+          "id": "ask-back",
+          "ja": "相手にも聞く",
+          "en": "The child asks what Finn likes."
+        }
       ],
-      "hints": ["I like dogs.", "They are cute.", "What do you like?"],
+      "hints": [
+        "I like dogs.",
+        "They are cute.",
+        "What do you like?"
+      ],
       "reward": 30
     },
-
     {
       "id": "shop-buy-clothes",
       "grade": "4",
       "title": "お店で服を買おう",
       "character": "Emma",
       "place": "Tide & Thread",
-      "situation": "You are Emma, working today at Tide & Thread, the clothes and gear shop. You sell hats, coats, boots and bags. A hat costs 12 coins.",
+      "spot": "shop",
+      "from": "plaza",
+      "item": "a warm jacket",
+      "request": "It's getting cold. Could you buy a warm jacket from Emma at Tide & Thread and bring it back?",
+      "requestJa": "タイド＆スレッドのエマから、あたたかい上着を買ってきて。",
+      "thanks": "It fits perfectly. Thank you!",
+      "situation": "You are Emma, working today at Tide & Thread, the clothes and gear shop. You sell hats, coats, boots and bags. A hat costs 12 coins. You are on Errand Island.",
       "opening": "Welcome to Tide and Thread! Are you looking for something?",
       "goals": [
-        { "id": "want", "ja": "ほしい物を伝える", "en": "The child says what they are looking for." },
-        { "id": "price", "ja": "ねだんを聞く", "en": "The child asks how much it costs." },
-        { "id": "decide", "ja": "買うか決めて伝える", "en": "The child says whether they will take it." }
+        {
+          "id": "want",
+          "ja": "ほしい物を伝える",
+          "en": "The child says what they are looking for."
+        },
+        {
+          "id": "price",
+          "ja": "ねだんを聞く",
+          "en": "The child asks how much it costs."
+        },
+        {
+          "id": "decide",
+          "ja": "買うか決めて伝える",
+          "en": "The child says whether they will take it."
+        }
       ],
-      "hints": ["I'm looking for a hat.", "How much is it?", "I'll take it."],
+      "hints": [
+        "I'm looking for a hat.",
+        "How much is it?",
+        "I'll take it."
+      ],
       "reward": 40
     },
     {
@@ -90,14 +323,36 @@
       "title": "宿でとまる相談をしよう",
       "character": "Luna",
       "place": "The Explorer's Inn",
-      "situation": "You are Luna at the front desk of The Explorer's Inn. You have rooms free tonight. Breakfast is at seven.",
+      "spot": "inn",
+      "from": "plaza",
+      "item": "a room for two nights",
+      "request": "My friends arrive tomorrow. Could you book a room for two nights with Luna at the Explorer's Inn?",
+      "requestJa": "エクスプローラーズ・インのルナに、2泊の部屋を予約してきて。",
+      "thanks": "They will be so happy. Thank you!",
+      "situation": "You are Luna at the front desk of The Explorer's Inn. You have rooms free tonight. Breakfast is at seven. You are on Errand Island.",
       "opening": "Good evening! Are you staying with us tonight?",
       "goals": [
-        { "id": "stay", "ja": "とまりたいと伝える", "en": "The child says they want to stay." },
-        { "id": "nights", "ja": "何日とまるか言う", "en": "The child says how many nights." },
-        { "id": "question", "ja": "宿について質問する", "en": "The child asks a question about the inn, such as breakfast time." }
+        {
+          "id": "stay",
+          "ja": "とまりたいと伝える",
+          "en": "The child says they want to stay."
+        },
+        {
+          "id": "nights",
+          "ja": "何日とまるか言う",
+          "en": "The child says how many nights."
+        },
+        {
+          "id": "question",
+          "ja": "宿について質問する",
+          "en": "The child asks a question about the inn, such as breakfast time."
+        }
       ],
-      "hints": ["I'd like to stay tonight.", "For two nights.", "What time is breakfast?"],
+      "hints": [
+        "I'd like to stay tonight.",
+        "For two nights.",
+        "What time is breakfast?"
+      ],
       "reward": 40
     },
     {
@@ -106,14 +361,36 @@
       "title": "図書館で本をさがそう",
       "character": "Finn",
       "place": "Forest Library",
-      "situation": "You are Finn, the librarian of Forest Library. You have books about animals, the sea, space and cooking. Books can be borrowed for two weeks.",
+      "spot": "library",
+      "from": "plaza",
+      "item": "a book about the sea",
+      "request": "Could you go to the Forest Library and borrow a book about the sea from Finn?",
+      "requestJa": "森の図書館のフィンから、海の本を借りてきて。",
+      "thanks": "The sea — my favourite. Thank you!",
+      "situation": "You are Finn, the librarian of Forest Library. You have books about animals, the sea, space and cooking. Books can be borrowed for two weeks. You are on Errand Island.",
       "opening": "Welcome to the Forest Library. What kind of book are you looking for?",
       "goals": [
-        { "id": "topic", "ja": "読みたい分野を言う", "en": "The child says what kind of book they want." },
-        { "id": "ask-where", "ja": "場所をたずねる", "en": "The child asks where it is." },
-        { "id": "borrow", "ja": "借りたいと伝える", "en": "The child says they want to borrow it." }
+        {
+          "id": "topic",
+          "ja": "読みたい分野を言う",
+          "en": "The child says what kind of book they want."
+        },
+        {
+          "id": "ask-where",
+          "ja": "場所をたずねる",
+          "en": "The child asks where it is."
+        },
+        {
+          "id": "borrow",
+          "ja": "借りたいと伝える",
+          "en": "The child says they want to borrow it."
+        }
       ],
-      "hints": ["I want a book about the sea.", "Where is it?", "Can I borrow this?"],
+      "hints": [
+        "I want a book about the sea.",
+        "Where is it?",
+        "Can I borrow this?"
+      ],
       "reward": 40
     },
     {
@@ -121,32 +398,75 @@
       "grade": "4",
       "title": "友だちを さそってみよう",
       "character": "Oliver",
-      "place": "U-Speak park",
-      "situation": "You are Oliver, waiting at U-Speak park. You are free this afternoon and happy to be invited somewhere.",
+      "place": "Wonder Park Gate",
+      "spot": "park",
+      "from": "plaza",
+      "item": "Oliver's answer",
+      "request": "We're going to the park on Sunday. Could you find Oliver at the park gate and invite him? Then tell me what he said.",
+      "requestJa": "公園のゲートにいるオリバーを、日曜日にさそってきて。",
+      "thanks": "I'm glad he's coming. Thank you!",
+      "situation": "You are Oliver, waiting at the Wonder Park gate on Errand Island. You are free this afternoon and happy to be invited somewhere.",
       "opening": "Hi! Nice weather today, isn't it? What are you doing this afternoon?",
       "goals": [
-        { "id": "invite", "ja": "さそう", "en": "The child invites Oliver to do something." },
-        { "id": "when", "ja": "時間か場所を決める", "en": "The child suggests a time or a place." },
-        { "id": "confirm", "ja": "約束をたしかめる", "en": "The child confirms the plan." }
+        {
+          "id": "invite",
+          "ja": "さそう",
+          "en": "The child invites Oliver to do something."
+        },
+        {
+          "id": "when",
+          "ja": "時間か場所を決める",
+          "en": "The child suggests a time or a place."
+        },
+        {
+          "id": "confirm",
+          "ja": "約束をたしかめる",
+          "en": "The child confirms the plan."
+        }
       ],
-      "hints": ["Let's go fishing!", "How about three o'clock?", "See you there!"],
+      "hints": [
+        "Let's go fishing!",
+        "How about three o'clock?",
+        "See you there!"
+      ],
       "reward": 40
     },
-
     {
       "id": "harbor-lost-bag",
       "grade": "3",
       "title": "なくし物を せつめいしよう",
       "character": "Luna",
       "place": "Bluewater Harbor",
-      "situation": "You are Luna at the harbour lost-and-found. A child has lost something. You need to know what it looks like and where they lost it before you can help.",
+      "spot": "harbor",
+      "from": "plaza",
+      "item": "news about the lost bag",
+      "request": "Someone lost a bag at Bluewater Harbor. Could you explain it to Luna, and come back with the news?",
+      "requestJa": "港のルナに、なくしたカバンのことを伝えてきて。",
+      "thanks": "Thank you for helping them.",
+      "situation": "You are Luna at the harbour lost-and-found. A child has lost something. You need to know what it looks like and where they lost it before you can help. You are on Errand Island.",
       "opening": "Oh no, did you lose something? Tell me what happened.",
       "goals": [
-        { "id": "what", "ja": "なくした物を言う", "en": "The child says what they lost." },
-        { "id": "describe", "ja": "色や形をせつめいする", "en": "The child describes it, for example its colour or size." },
-        { "id": "where-when", "ja": "どこで・いつかを言う", "en": "The child says where or when they lost it." }
+        {
+          "id": "what",
+          "ja": "なくした物を言う",
+          "en": "The child says what they lost."
+        },
+        {
+          "id": "describe",
+          "ja": "色や形をせつめいする",
+          "en": "The child describes it, for example its colour or size."
+        },
+        {
+          "id": "where-when",
+          "ja": "どこで・いつかを言う",
+          "en": "The child says where or when they lost it."
+        }
       ],
-      "hints": ["I lost my bag.", "It's blue and small.", "I left it near the boat this morning."],
+      "hints": [
+        "I lost my bag.",
+        "It's blue and small.",
+        "I left it near the boat this morning."
+      ],
       "reward": 55
     },
     {
@@ -155,14 +475,36 @@
       "title": "おすすめを 聞いて えらぼう",
       "character": "Oliver",
       "place": "Sunny Bakery",
-      "situation": "You are Oliver at Sunny Bakery. Today you recommend the apple pie because the apples came in this morning. You enjoy explaining your food.",
+      "spot": "bakery",
+      "from": "plaza",
+      "item": "Oliver's recommendation",
+      "request": "I can't decide what to eat. Could you ask Oliver at Sunny Bakery what he recommends, and tell me?",
+      "requestJa": "サニーベーカリーのオリバーに、おすすめを聞いてきて。",
+      "thanks": "That sounds delicious. Thank you!",
+      "situation": "You are Oliver at Sunny Bakery. Today you recommend the apple pie because the apples came in this morning. You enjoy explaining your food. You are on Errand Island.",
       "opening": "You're just in time. Would you like to know today's special?",
       "goals": [
-        { "id": "ask-rec", "ja": "おすすめを聞く", "en": "The child asks what Oliver recommends." },
-        { "id": "ask-detail", "ja": "くわしく質問する", "en": "The child asks a follow-up question about it." },
-        { "id": "opinion", "ja": "自分の考えを言う", "en": "The child gives an opinion or makes a choice and says why." }
+        {
+          "id": "ask-rec",
+          "ja": "おすすめを聞く",
+          "en": "The child asks what Oliver recommends."
+        },
+        {
+          "id": "ask-detail",
+          "ja": "くわしく質問する",
+          "en": "The child asks a follow-up question about it."
+        },
+        {
+          "id": "opinion",
+          "ja": "自分の考えを言う",
+          "en": "The child gives an opinion or makes a choice and says why."
+        }
       ],
-      "hints": ["What do you recommend?", "What's in it?", "I'll try it because I like apples."],
+      "hints": [
+        "What do you recommend?",
+        "What's in it?",
+        "I'll try it because I like apples."
+      ],
       "reward": 55
     },
     {
@@ -170,32 +512,75 @@
       "grade": "3",
       "title": "週まつの できごとを 話そう",
       "character": "Emma",
-      "place": "Village square",
-      "situation": "You are Emma, meeting a friend in the square on Monday. You want to hear about their weekend and you will share yours too.",
+      "place": "Village Square",
+      "spot": "square",
+      "from": "plaza",
+      "item": "Emma's reply",
+      "request": "Emma loves stories. Could you tell her about your weekend in the square, and come back and tell me how it went?",
+      "requestJa": "村の広場のエマに、週末の話をしてきて。",
+      "thanks": "I love hearing about your weekend. Thank you!",
+      "situation": "You are Emma, meeting a friend in the square on Monday. You want to hear about their weekend and you will share yours too. You are on Errand Island.",
       "opening": "Hey! How was your weekend?",
       "goals": [
-        { "id": "past", "ja": "したことを つたえる", "en": "The child says something they did, using a past form." },
-        { "id": "detail", "ja": "くわしく話す", "en": "The child adds a detail, such as who with or where." },
-        { "id": "ask-back", "ja": "相手にも聞く", "en": "The child asks Emma about her weekend." }
+        {
+          "id": "past",
+          "ja": "したことを つたえる",
+          "en": "The child says something they did, using a past form."
+        },
+        {
+          "id": "detail",
+          "ja": "くわしく話す",
+          "en": "The child adds a detail, such as who with or where."
+        },
+        {
+          "id": "ask-back",
+          "ja": "相手にも聞く",
+          "en": "The child asks Emma about her weekend."
+        }
       ],
-      "hints": ["I went to the sea.", "I went with my family.", "How about yours?"],
+      "hints": [
+        "I went to the sea.",
+        "I went with my family.",
+        "How about yours?"
+      ],
       "reward": 55
     },
-
     {
       "id": "forest-make-plan",
       "grade": "準2",
       "title": "計画を 提案して まとめよう",
       "character": "Finn",
       "place": "Whispering Forest",
-      "situation": "You are Finn, planning a one-day trip with a friend. You have your own ideas but you are happy to be persuaded. You care about the weather and the time.",
+      "spot": "forest",
+      "from": "plaza",
+      "item": "a plan for Saturday",
+      "request": "Could you make a plan for Saturday with Finn in the forest, and bring the plan back to me?",
+      "requestJa": "森のフィンと、土曜日の計画を立ててきて。",
+      "thanks": "What a good plan. Thank you!",
+      "situation": "You are Finn, planning a one-day trip with a friend. You have your own ideas but you are happy to be persuaded. You care about the weather and the time. You are on Errand Island.",
       "opening": "So, we have a free day tomorrow. Any ideas about what we should do?",
       "goals": [
-        { "id": "propose", "ja": "案を出す", "en": "The child proposes a plan." },
-        { "id": "reason", "ja": "理由をそえる", "en": "The child gives a reason for the plan." },
-        { "id": "adjust", "ja": "相手の意見を受けて調整する", "en": "The child responds to Finn's concern and adjusts or defends the plan." }
+        {
+          "id": "propose",
+          "ja": "案を出す",
+          "en": "The child proposes a plan."
+        },
+        {
+          "id": "reason",
+          "ja": "理由をそえる",
+          "en": "The child gives a reason for the plan."
+        },
+        {
+          "id": "adjust",
+          "ja": "相手の意見を受けて調整する",
+          "en": "The child responds to Finn's concern and adjusts or defends the plan."
+        }
       ],
-      "hints": ["How about hiking?", "Because the view is beautiful.", "If it rains, we could go to the library instead."],
+      "hints": [
+        "How about hiking?",
+        "Because the view is beautiful.",
+        "If it rains, we could go to the library instead."
+      ],
       "reward": 70
     },
     {
@@ -204,31 +589,74 @@
       "title": "こまった事を 伝えて 解決しよう",
       "character": "Luna",
       "place": "The Explorer's Inn",
-      "situation": "You are Luna at the inn's front desk. A guest has a problem with their room. You are polite and want to fix it, but you need to understand the problem first.",
+      "spot": "inn",
+      "from": "plaza",
+      "item": "a solution",
+      "request": "There's a problem at the Explorer's Inn. Could you talk with Luna and find a solution? Then come back and tell me.",
+      "requestJa": "宿のルナと話して、こまりごとを解決してきて。",
+      "thanks": "You solved it. Thank you!",
+      "situation": "You are Luna at the inn's front desk. A guest has a problem with their room. You are polite and want to fix it, but you need to understand the problem first. You are on Errand Island.",
       "opening": "Good evening. Is everything all right with your room?",
       "goals": [
-        { "id": "problem", "ja": "問題を伝える", "en": "The child explains a problem." },
-        { "id": "detail", "ja": "状況をくわしく説明する", "en": "The child gives details about the problem." },
-        { "id": "request", "ja": "どうしてほしいか頼む", "en": "The child politely asks for something to be done." }
+        {
+          "id": "problem",
+          "ja": "問題を伝える",
+          "en": "The child explains a problem."
+        },
+        {
+          "id": "detail",
+          "ja": "状況をくわしく説明する",
+          "en": "The child gives details about the problem."
+        },
+        {
+          "id": "request",
+          "ja": "どうしてほしいか頼む",
+          "en": "The child politely asks for something to be done."
+        }
       ],
-      "hints": ["The window doesn't close.", "It's been open since I arrived.", "Could you change my room, please?"],
+      "hints": [
+        "The window doesn't close.",
+        "It's been open since I arrived.",
+        "Could you change my room, please?"
+      ],
       "reward": 70
     },
-
     {
       "id": "library-debate",
       "grade": "2",
       "title": "意見を のべて 話し合おう",
       "character": "Finn",
       "place": "Forest Library",
-      "situation": "You are Finn, discussing a question with a student: should children read paper books or digital books? You hold a mild opinion and enjoy hearing the other side.",
+      "spot": "library",
+      "from": "plaza",
+      "item": "your opinion",
+      "request": "Finn is thinking about a difficult question at the library. Could you share your opinion with him, and tell me what you decided?",
+      "requestJa": "図書館のフィンに、自分の意見を伝えてきて。",
+      "thanks": "That's a strong opinion. Thank you for sharing it!",
+      "situation": "You are Finn, discussing a question with a student: should children read paper books or digital books? You hold a mild opinion and enjoy hearing the other side. You are on Errand Island.",
       "opening": "Here's a question for you. Paper books or digital books, which is better for children?",
       "goals": [
-        { "id": "opinion", "ja": "自分の立場を示す", "en": "The child states a clear opinion." },
-        { "id": "support", "ja": "理由や例をあげる", "en": "The child supports the opinion with a reason or an example." },
-        { "id": "counter", "ja": "反対意見にこたえる", "en": "The child responds to Finn's counter-argument." }
+        {
+          "id": "opinion",
+          "ja": "自分の立場を示す",
+          "en": "The child states a clear opinion."
+        },
+        {
+          "id": "support",
+          "ja": "理由や例をあげる",
+          "en": "The child supports the opinion with a reason or an example."
+        },
+        {
+          "id": "counter",
+          "ja": "反対意見にこたえる",
+          "en": "The child responds to Finn's counter-argument."
+        }
       ],
-      "hints": ["I think paper books are better.", "For example, they are easier on the eyes.", "That's true, but ..."],
+      "hints": [
+        "I think paper books are better.",
+        "For example, they are easier on the eyes.",
+        "That's true, but ..."
+      ],
       "reward": 85
     },
     {
@@ -236,15 +664,37 @@
       "grade": "2",
       "title": "日本のことを 説明しよう",
       "character": "Emma",
-      "place": "U-Speak park",
-      "situation": "You are Emma, a visitor who has never been to Japan. You are curious and ask follow-up questions about anything the child tells you.",
+      "place": "Island Museum",
+      "spot": "museum",
+      "from": "plaza",
+      "item": "Emma's questions",
+      "request": "Emma wants to know about Japan. Could you explain something to her at the Island Museum, and come back and tell me?",
+      "requestJa": "島の博物館のエマに、日本のことを説明してきて。",
+      "thanks": "You explained it so well. Thank you!",
+      "situation": "You are Emma, a visitor who has never been to Japan. You are curious and ask follow-up questions about anything the child tells you. You are on Errand Island.",
       "opening": "I've never been to Japan. What's one thing I should know about it?",
       "goals": [
-        { "id": "introduce", "ja": "話題を選んで説明する", "en": "The child introduces something about Japan and explains it." },
-        { "id": "detail", "ja": "具体例をあげる", "en": "The child gives a concrete example or detail." },
-        { "id": "answer", "ja": "追加の質問に答える", "en": "The child answers Emma's follow-up question." }
+        {
+          "id": "introduce",
+          "ja": "話題を選んで説明する",
+          "en": "The child introduces something about Japan and explains it."
+        },
+        {
+          "id": "detail",
+          "ja": "具体例をあげる",
+          "en": "The child gives a concrete example or detail."
+        },
+        {
+          "id": "answer",
+          "ja": "追加の質問に答える",
+          "en": "The child answers Emma's follow-up question."
+        }
       ],
-      "hints": ["We have a festival in summer.", "For example, people wear yukata.", "It's usually in August."],
+      "hints": [
+        "We have a festival in summer.",
+        "For example, people wear yukata.",
+        "It's usually in August."
+      ],
       "reward": 85
     }
   ]

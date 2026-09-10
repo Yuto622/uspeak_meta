@@ -189,23 +189,35 @@ fly logs
 | `game.js` | 会話データを `lesson-data.js` へ分離（内容不変）、`setupNet` 呼び出し、毎フレーム `net.update`、回答フック 1 行 |
 | `fishing.js` / `adventure.js` | 回答時のフック 1 行ずつ |
 | `fishing-state.js` | 売買時のフック、サーバー値で上書きする `reconcile()` |
-| `rpg.js` | `activate(id, placePlayer, force)` の第 3 引数、`syncBuddy` 公開 |
+| `rpg.js` | `activate(id, placePlayer, force)` の第 3 引数、`syncBuddy` 公開、おつかい島の登録・当たり判定 |
+| `rpg-data.js` / `rpg-state.js` / `rpg-map.js` | おつかい島を 3 つめのハブとして追加 |
+| `treasure-data.js` / `magic-data.js` | おつかい島には宝箱と U-Speak park 入口を置かない |
 | `index.html` | 右側のボタン群を `.right-rail` でまとめ、`viewport-fit=cover` を追加 |
-| 新規 | `net-config.js` `net-hooks.js` `net-client.js` `remote-players.js` `chat.js` `teacher.js` `lobby.js` `mission.js` `net.css` `mobile.css` `mission.css` `phrases.json` `missions.json` `lesson-data.js` `vendor/colyseus.js` |
+| 新規 | `net-config.js` `net-hooks.js` `net-client.js` `remote-players.js` `chat.js` `teacher.js` `lobby.js` `mission.js` `errand-data.js` `errand-island.js` `net.css` `mobile.css` `mission.css` `phrases.json` `missions.json` `lesson-data.js` `vendor/colyseus.js` |
 
 既存の localStorage 保存キーと 1 人用の挙動は変えていません。オンライン時はコイン・所持品がサーバーの値で上書きされます。
 
-## おつかいクエスト（AI英会話ミッション）
+## おつかいクエスト（おつかい島を歩くAI英会話）
 
-キャラクターに英語で話しかけてお題をクリアする機能です。判定・報酬・学習ログはサーバーが確定します。
+**おつかい島**を歩いてやる「おつかい」です。判定・報酬・学習ログはサーバーが確定します。
 詳細と運用は `docs/AI_MISSION.md` を参照してください。
+
+```
+① おつかい広場でミアから受け取る  →  ② お店まで歩いて英語で話す  →  ③ 広場にとどけてコイン
+```
+
+3つの区間はどれも、アバターがその場所に立っていることをサーバーが確認してから進みます。
+一覧から選んでも行き先が決まるだけで、会話は始まりません。メニューだけでは完了できません。
+（座標はクライアント申告なので不正の完全な防止ではありません。詳細は `docs/AI_MISSION.md`）
 
 | 項目 | 実装 |
 |---|---|
+| 島 | `missions.json` の `island`（広場＋お店9か所）。クライアントの地形もサーバーの位置判定も同じ座標 |
 | ミッション | `client/dist/missions.json`（15本、英検5〜2級）。サーバーも同じファイルを読む |
 | AI | プロバイダをアダプタで分離。`OPENAI_API_KEY` 未設定なら台本パートナーで動作し、API料金ゼロ |
 | サーバー権威 | AIの返答も検証。存在しないお題IDは破棄、達成の取り消し不可、完了はサーバーが再計算 |
-| 報酬 | コインとスタンプ。`economy` の `award` はサーバー専用で、クライアントからは呼べない |
+| 位置の確認 | 受け取り・会話・とどけの3つとも、島の該当地点から半径5m（＋余裕1.5m）以内でなければ `too far` |
+| 報酬 | とどけて初めてコインとスタンプ。`economy` の `award` はサーバー専用で、クライアントからは呼べない |
 | 先生 | 先生コンソールで「今日のおつかい」を指定。クラス全員の画面に出る |
 | コスト管理 | 1返答のトークン上限、連打制限、1日の発話上限、1ミッションの往復上限 |
 | 安全 | 個人情報を聞かない、AIだと明かさない、級ごとの語彙制限、全発話をログに記録 |

@@ -46,7 +46,8 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     for (const m of list) {
       const option = document.createElement('option');
       option.value = m.id;
-      option.textContent = `${m.grade}級 · ${m.title}`;
+      // The place matters now: it decides how far the class has to walk.
+      option.textContent = `${m.grade}級 · ${m.title} — ${m.place}`;
       select.append(option);
     }
     select.value = missionId;

@@ -6,7 +6,9 @@ export const TREASURE_KEYS=[
 ];
 export const KEY_BY_ID=Object.fromEntries(TREASURE_KEYS.map(k=>[k.id,k]));
 const relics=['若葉の羅針盤','夢色のチケット','暁のブローチ','古樹のしずく','潮騒の真珠','夕映えの勾玉','雪結晶の王冠','雷鳴の羽根','砂時計の涙','星時計の歯車','月のオルゴール','天翼の紋章'];
-export const TREASURES=DESTINATIONS.flatMap((r,i)=>{
+// おつかい島 has no chests: it is a walking-and-talking space, and its shops already fill
+// the ground the hub chest positions assume.
+export const TREASURES=DESTINATIONS.filter(r=>r.id!=='errand').flatMap((r,i)=>{
  const positions=r.id==='willow'?[[-17,2],[-18,13],[11,5]]:r.id==='park'?[[-12,3],[12,8],[0,-17]]:[[-20,0],[20,0],[0,-18]];
  return positions.map(([x,z],j)=>{const key=j===0?null:j===1?'bronze':i%2?'celestial':'silver';return {id:r.id+'-chest-'+j,region:r.id,x:r.x+x,z:r.z+z,key,name:['旅人の宝箱','古代の宝箱',key==='celestial'?'天空の宝箱':'星銀の宝箱'][j],reward:key==='celestial'?240:key==='silver'?120:key==='bronze'?60:20,relic:j===2?relics[i]:null,hint:r.hub?['広場の西側','散策路のそば','島の奥を探索'][j]:['西の石畳','東の石畳','北へ続く道の奥'][j]};});
 });

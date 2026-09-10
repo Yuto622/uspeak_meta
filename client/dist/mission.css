@@ -3,8 +3,11 @@
   border: 0; border-radius: 22px; padding: 0; width: min(560px, calc(100vw - 28px));
   max-height: min(88vh, 760px); max-height: min(88dvh, 760px); overflow: hidden;
   background: #fffaf0; color: #263d33; box-shadow: 0 30px 80px rgba(10, 36, 27, .45);
-  display: flex; flex-direction: column;
 }
+/* Only when open: a bare `display: flex` here would beat the browser's own
+   `dialog:not([open]) { display: none }`, leaving a closed, invisible dialog sitting
+   over the middle of the screen and swallowing taps meant for the world. */
+#mission-dialog[open] { display: flex; flex-direction: column; }
 #mission-dialog::backdrop { background: rgba(12, 32, 28, .55); backdrop-filter: blur(4px); }
 .mission-head { display: flex; align-items: flex-start; gap: 12px; padding: 20px 22px 12px; border-bottom: 1px solid #e6e2cf; flex: none; }
 .mission-head .eyebrow { font-size: 10px; letter-spacing: 2px; font-weight: 700; color: #7b8a7f; }
@@ -60,4 +63,59 @@
   .mission-speaker p { font-size: 18px; }
   #mission-body { padding: 14px 16px 18px; }
   .mission-head { padding: 16px 16px 10px; }
+}
+
+.mission-warn { font-size: 12px; background: #fdeadf; border-radius: 12px; padding: 9px 12px; margin: 0 0 14px; color: #7a4326; }
+.mission-cards button.tracked { outline: 2px dashed #b8703f; }
+
+/* The step tracker. While a child is walking it is the only thing they need on
+   screen, so it takes over the slot the Willow quest list uses and follows the same
+   breakpoints. */
+.on-errand-island .quest-panel,
+.on-errand-island .world-label { display: none; }
+
+#errand-hud {
+  position: fixed; z-index: 3; top: 118px; left: 30px; width: 276px;
+  padding: 18px 20px; border-radius: 19px;
+  background: linear-gradient(135deg, #fffcf0ed, #f4f4e3de);
+  border: 1px solid #fff9; box-shadow: 0 12px 50px #193c2520; backdrop-filter: blur(18px);
+  color: #263d33; font-size: 13px; line-height: 1.45;
+  /* The world behind it stays tappable; only the button is a target. */
+  pointer-events: none;
+}
+#errand-hud button { pointer-events: auto; }
+.on-journey #errand-hud, .immersive #errand-hud { opacity: 0; pointer-events: none; }
+#errand-hud small { display: block; font-size: 10px; letter-spacing: 2px; font-weight: 700; color: #738370; }
+#errand-hud strong { display: block; font-size: 16px; margin: 6px 0 12px; line-height: 1.35; }
+#errand-hud .errand-steps { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+#errand-hud .errand-steps li { display: flex; align-items: center; gap: 9px; color: #8a968c; font-size: 12px; }
+#errand-hud .errand-steps li span { width: 19px; height: 19px; border-radius: 50%; background: #e6e2cf; display: grid; place-items: center; font-size: 11px; font-weight: 700; flex: none; }
+#errand-hud .errand-steps li.now { color: #263d33; font-weight: 700; }
+#errand-hud .errand-steps li.now span { background: #f2c14e; }
+#errand-hud .errand-steps li.done span { background: #7ec98a; color: #143726; }
+#errand-hud .errand-go { margin: 0; font-weight: 700; color: #a65b2e; }
+#errand-hud .errand-carry { margin: 8px 0 0; padding: 7px 10px; border-radius: 10px; background: #eef2e4; font-weight: 600; font-size: 12px; }
+#errand-hud .errand-far { margin: 8px 0 0; color: #a0522d; font-weight: 600; font-size: 12px; }
+#errand-hud button { margin-top: 12px; width: 100%; padding: 10px; border-radius: 11px; background: #173f38; color: #f4f1e3; font-weight: 700; font-size: 13px; }
+
+@media (max-width: 900px) {
+  #errand-hud { width: 235px; padding: 15px 16px; }
+  #errand-hud strong { font-size: 14px; }
+}
+@media (max-width: 600px) {
+  #errand-hud { top: 84px; left: 14px; width: 200px; padding: 14px; font-size: 12px; }
+  #errand-hud strong { font-size: 13px; margin-bottom: 9px; }
+  #errand-hud .errand-steps { gap: 4px; margin-bottom: 9px; }
+  #errand-hud .errand-steps li { font-size: 11px; }
+}
+
+/* Landscape phones have almost no vertical room, and the interact button sits mid
+   screen. Collapse the tracker to the one line that matters: where to walk next. */
+@media (max-height: 440px) {
+  #errand-hud { top: 74px; padding: 10px 12px; width: 186px; }
+  #errand-hud small,
+  #errand-hud strong,
+  #errand-hud .errand-steps { display: none; }
+  #errand-hud .errand-go { font-size: 12px; }
+  #errand-hud button { margin-top: 8px; padding: 7px; font-size: 12px; }
 }

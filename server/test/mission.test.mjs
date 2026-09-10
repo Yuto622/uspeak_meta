@@ -23,12 +23,54 @@ test('a malformed mission file is rejected rather than half-loaded', async () =>
   const path = await import('node:path');
   const dir = mkdtempSync(path.join(tmpdir(), 'missions-'));
   const write = (data) => { const f = path.join(dir, `${Math.random()}.json`); writeFileSync(f, JSON.stringify(data)); return f; };
-  const base = { id: 'a', grade: '5', title: 't', character: 'c', place: 'p', situation: 's', opening: 'o', goals: [{ id: 'g', ja: 'j', en: 'e' }], hints: ['h'], reward: 10 };
-  assert.throws(() => loadMissions(write({ missions: [base, { ...base }] })), /duplicate id/);
-  assert.throws(() => loadMissions(write({ missions: [{ ...base, grade: '1' }] })), /unknown grade/);
-  assert.throws(() => loadMissions(write({ missions: [{ ...base, reward: -5 }] })), /invalid reward/);
-  assert.throws(() => loadMissions(write({ missions: [{ ...base, goals: [] }] })), /no goals/);
-  assert.throws(() => loadMissions(write({ missions: [] })), /no missions/);
+  const island = {
+    id: 'errand', name: 'n', en: 'N', x: 0, z: 0, radius: 5,
+    spots: [
+      { id: 'plaza', kind: 'plaza', name: 'Plaza', character: 'Mia', ja: 'ミア', x: 0, z: 0 },
+      { id: 'p', kind: 'shop', name: 'p', character: 'c', ja: 'c', x: 20, z: 0 },
+    ],
+  };
+  const base = { id: 'a', grade: '5', title: 't', character: 'c', place: 'p', spot: 'p', from: 'plaza', item: 'i', request: 'r', requestJa: 'r', thanks: 'th', situation: 's', opening: 'o', goals: [{ id: 'g', ja: 'j', en: 'e' }], hints: ['h'], reward: 10 };
+  const file = (missions, is = island) => write({ island: is, missions });
+  // A well-formed file still loads.
+  assert.equal(loadMissions(file([base])).byId.size, 1);
+
+  assert.throws(() => loadMissions(file([base, { ...base }])), /duplicate id/);
+  assert.throws(() => loadMissions(file([{ ...base, grade: '1' }])), /unknown grade/);
+  assert.throws(() => loadMissions(file([{ ...base, reward: -5 }])), /invalid reward/);
+  assert.throws(() => loadMissions(file([{ ...base, goals: [] }])), /no goals/);
+  assert.throws(() => loadMissions(file([])), /no missions/);
+  assert.throws(() => loadMissions(write({ missions: [base] })), /no island block/);
+
+  // The walk is part of the data, so the data has to describe a real one.
+  assert.throws(() => loadMissions(file([{ ...base, spot: 'nowhere' }])), /unknown spot/);
+  assert.throws(() => loadMissions(file([{ ...base, from: 'nowhere' }])), /unknown pickup spot/);
+  assert.throws(() => loadMissions(file([{ ...base, spot: 'plaza' }])), /without walking anywhere/);
+  assert.throws(() => loadMissions(file([{ ...base, character: 'someone else' }])), /but p is c/);
+  assert.throws(() => loadMissions(file([{ ...base, place: 'somewhere else' }])), /but p is "p"/);
+  assert.throws(() => loadMissions(file([{ ...base, item: '' }])), /missing item/);
+
+  // Two spots close enough to stand in at once would let a leg be skipped.
+  const tooClose = { ...island, spots: [island.spots[0], { ...island.spots[1], x: 6 }] };
+  assert.throws(() => loadMissions(file([base], tooClose)), /overlap/);
+  assert.throws(() => loadMissions(file([base], { ...island, spots: [] })), /no spots/);
+  assert.throws(() => loadMissions(file([base], { ...island, radius: 0 })), /radius/);
+});
+
+test('the island the errands are walked on is the one the client renders', () => {
+  const { island } = loadMissions();
+  assert.ok(island.spotById.size >= 5);
+  const plaza = [...island.spotById.values()].filter((s) => s.kind === 'plaza');
+  assert.equal(plaza.length, 1, 'errands are handed out in exactly one place');
+  for (const m of byId.values()) {
+    const spot = island.spotById.get(m.spot);
+    const from = island.spotById.get(m.from);
+    // Far enough that a child cannot stand in both at once, whatever the latency.
+    assert.ok(Math.hypot(spot.x - from.x, spot.z - from.z) > island.radius * 3, `${m.id} is too short a walk`);
+    // World coordinates are what a `move` message carries.
+    assert.equal(spot.wx, island.x + spot.x);
+    assert.equal(spot.wz, island.z + spot.z);
+  }
 });
 
 test('the system prompt carries the mission, the level and the safety rules', () => {
