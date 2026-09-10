@@ -32,16 +32,29 @@ export function makeHelpers({ browser, port, viewport = { width: 420, height: 32
 
   const COMBOS = [['w'], ['w', 'a'], ['a'], ['s', 'a'], ['s'], ['s', 'd'], ['d'], ['w', 'd']];
 
-  // Walk there. Camera yaw is not exposed, so calibrate once from the avatar's own facing:
-  // pressing 'w' turns it to the world heading that key means, and the other seven combos
-  // sit at 45-degree steps from it.
+  // Walk there. Camera yaw is not exposed, so calibrate once by taking a step: 'w' moves
+  // the avatar along one world heading, and the other seven combos sit at 45-degree steps
+  // from it.
+  //
+  // The heading is measured from where the avatar actually ended up, not from what it
+  // says it is facing. A browser rendering three frames a second can swallow a short
+  // press entirely, and reading the facing then returns the direction it was already
+  // pointing — which sends the whole walk off by whatever that happened to be.
   async function calibrate(page) {
+    const before = await pos(page);
     await page.keyboard.down('w');
-    await sleep(260);
-    const { facing } = await pos(page);
+    let now = before;
+    const t0 = Date.now();
+    while (Date.now() - t0 < 6000) {
+      await sleep(120);
+      now = await pos(page);
+      if (Math.hypot(now.x - before.x, now.z - before.z) > 0.4) break;
+    }
     await page.keyboard.up('w');
-    await sleep(120);
-    return facing;
+    await sleep(150);
+    const moved = Math.hypot(now.x - before.x, now.z - before.z);
+    // Walking into a wall teaches nothing; fall back to what the avatar says it faces.
+    return moved > 0.15 ? Math.atan2(now.x - before.x, now.z - before.z) : now.facing;
   }
 
   async function walkTo(page, name, tx, tz, base, { arrive = 2.5, timeout = 45000 } = {}) {
@@ -56,10 +69,12 @@ export function makeHelpers({ browser, port, viewport = { width: 420, height: 32
       const dx = tx - p.x;
       const dz = tz - p.z;
       const gap = Math.hypot(dx, dz);
-      if (gap < best - 0.4) { best = gap; stuckSince = Date.now(); detour = 0; }
+      // Any progress at all counts. A browser rendering three frames a second walks a
+      // child slowly, and treating slow as stuck sends it round in circles.
+      if (gap < best - 0.05) { best = gap; stuckSince = Date.now(); detour = 0; }
       if (gap < arrive) break;
       // Walking into a building gets you nowhere; step round it, as a child would.
-      if (Date.now() - stuckSince > 1400) { detour = detour === 2 ? -2 : detour + 1; stuckSince = Date.now(); }
+      if (Date.now() - stuckSince > 2500) { detour = detour === 2 ? -2 : detour + 1; stuckSince = Date.now(); }
       // Heading we want, expressed the way the game expresses facing.
       const want = Math.atan2(dx, dz);
       const turn = (((want - base) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);

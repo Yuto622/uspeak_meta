@@ -14,8 +14,9 @@ import { createBattleUI } from './battle.js';
 import { createDojoUI } from './dojo.js';
 import { createPetUI } from './pet.js';
 import { createDailyUI } from './daily.js';
+import { createNight } from './night-world.js';
 
-export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak }) {
+export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak, learn }) {
   const Colyseus = globalThis.Colyseus;
   const $ = (s) => document.querySelector(s);
   const state = {
@@ -24,6 +25,9 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     attempts: 0, intentionalLeave: false, chatPaused: false, teacherId: '',
     progress: null, wallet: null, move: null, pet: null, lastSpace: '', lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
     pendingTeleport: null, hiddenAt: 0, resumedAt: 0, lastAvatarJson: '',
+    // How far this device's clock is from the server's, measured once on joining. The
+    // sky then runs locally: it is a function of the time, so it needs no updates.
+    skew: 0,
   };
   let client = null;
   let room = null;
@@ -72,6 +76,14 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     send: (type, payload) => room?.send(type, payload),
     isOnline: () => state.mode === 'online',
   });
+  // The night belongs to the world, not to the network, but its ghosts pay coins — so
+  // it is created here, where the room is, and asks the server for every one of them.
+  const night = createNight({
+    scene, player, toast, speak, learn,
+    send: (type, payload) => room?.send(type, payload),
+    isOnline: () => state.mode === 'online',
+    serverNow: () => Date.now() + state.skew,
+  });
   const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs });
   // Collect the controls into one dock so the layout is decided by flexbox, not by
   // four separately maintained offsets.
@@ -112,7 +124,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
-    if (mode === 'offline') state.progress = null;
+    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
   }
   function saveSession() {
@@ -159,6 +171,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     let welcomed = false;
 
     r.onMessage('welcome', (m) => {
+      if (m.world) { state.skew = m.world.now - Date.now(); night.setPhase(m.world); }
       welcomed = true;
       state.role = m.role;
       state.chatPaused = !!m.chatPaused;
@@ -214,6 +227,10 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('pet:hatched', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onHatched(m); });
     r.onMessage('pet:acted', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onActed(m); });
     r.onMessage('pet:error', (m) => petUI.onError(m));
+    r.onMessage('world:phase', (m) => night.setPhase(m));
+    r.onMessage('night:ghosts', (m) => { night.setGhosts(m.ghosts); if (m.caught) night.pop(m.caught); });
+    r.onMessage('ghost:caught', (m) => { if (m.wallet) applyWallet(m.wallet); night.onCaught(m); });
+    r.onMessage('ghost:error', (m) => night.onError(m));
     r.onMessage('login:bonus', (m) => { if (m.wallet) applyWallet(m.wallet); daily.onBonus(m); });
     r.onMessage('rank', (m) => daily.onRank(m));
     r.onMessage('levelup', (m) => toast(`${m.name} が レベル ${m.level} になりました！`));
@@ -541,6 +558,13 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     arenaLabel: (spot) => (spot.kind === 'dojo' ? dojo.label(spot) : battle.label(spot)),
     petInteract: () => { const near = rpg.petNearby(); if (near) petUI.enter(near.spot); },
     petLabel: (spot) => petUI.label(spot),
+    night,
+    // The world's own time. Offline this is simply the device's clock, so the sky still
+    // turns for a child playing alone.
+    serverNow: () => Date.now() + state.skew,
+    ghostNearby: () => night.nearby(currentSpace()),
+    ghostLabel: (near) => night.label(near),
+    ghostSwing: () => night.swing(currentSpace()),
     leave: () => goOffline(true),
   };
 }
