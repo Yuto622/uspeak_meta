@@ -125,7 +125,9 @@ try {
   Write-Host '======================================================='
   Write-Host '  students: name + class code'
   Write-Host '  teacher : same page, open the teacher section and enter the key'
-  Write-Host '  reports : teacher console -> 保護者レポートのリンク (one link per child)'
+  # ASCII only: Windows PowerShell 5.1 reads a BOM-less UTF-8 script as the system code
+  # page, so anything else in this banner arrives as mojibake.
+  Write-Host '  reports : teacher console -> the parent-report button (one link per child)'
   Write-Host '  stop    : press Ctrl+C in this window'
   Write-Host ''
   Write-Host 'running. tunnel warnings, if any, appear below.'

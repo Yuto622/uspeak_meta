@@ -63,4 +63,6 @@ try {
 }
 Write-Host ''
 Write-Host "done. open $url on the classroom iPads."
-Write-Host 'teachers enter the key under the lobby 先生用 section.'
+# ASCII only: Windows PowerShell 5.1 reads a BOM-less UTF-8 script as the system code
+# page, so anything else printed from here arrives as mojibake.
+Write-Host 'teachers enter the key under the teacher section of the lobby.'
