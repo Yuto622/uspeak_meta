@@ -91,6 +91,34 @@ npm ci
 このウィンドウで **Ctrl+C** を押します。サーバーが止まり、URL も使えなくなります。
 次に起動すると URL は別のものになるので、生徒に配り直す必要があります。
 
+## トンネルがどうしても張れないとき（同じ Wi-Fi で直接つなぐ）
+
+回線が cloudflared のポートを塞いでいる、または DNS が `trycloudflare.com` を返さない場合、
+**iPad が PC と同じ Wi-Fi にいるなら、トンネルは要りません。**
+
+```powershell
+.\scripts\start-lan.ps1 -TeacherKey '先生用の8文字以上のパスワード'
+```
+
+```
+=======================================================
+  open this on the iPads:  http://192.168.x.x:2567
+=======================================================
+```
+
+この住所を iPad の Safari で開きます。Windows の受信ブロックはスクリプトが解除しますが、
+管理者権限がないと解除できないので、その場合は管理者の PowerShell で一度だけ:
+
+```powershell
+New-NetFirewallRule -DisplayName 'U-Speak 2567' -Direction Inbound -Protocol TCP -LocalPort 2567 -Action Allow -Profile Private
+```
+
+macOS / Linux は `./scripts/start-lan.sh '<キー>'` です。
+
+**できないこと**: 別のネットワークにいる iPad からは開けません（教室外からのテストは
+トンネルか Fly.io を使ってください）。マイクを使う音声認識は `https` でないとブラウザが
+許可しないため、ジムでは文字入力の方を使ってください（読み上げと他の機能は動きます）。
+
 ## つながらないとき
 
 **URL は出たのに「このサイトにアクセスできません（DNS_PROBE_FINISHED_NXDOMAIN）」**
