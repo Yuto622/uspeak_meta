@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadMissions } from '../src/game/missions.js';
-import { sanitizeTurn, buildSystemPrompt } from '../src/ai/tutor.js';
+import { sanitizeTurn, buildSystemPrompt, mentionsModel, PERSONA } from '../src/ai/tutor.js';
 import { applyOp, blankWallet, EconomyError } from '../src/game/economy.js';
 
 const { byId } = loadMissions();
@@ -71,6 +71,40 @@ test('the island the errands are walked on is the one the client renders', () =>
     assert.equal(spot.wx, island.x + spot.x);
     assert.equal(spot.wz, island.z + spot.z);
   }
+});
+
+test('there is one AI and it is always ウーピー', () => {
+  const p = buildSystemPrompt(mission);
+  // The persona rule comes first, so it outranks the scene it is playing.
+  assert.ok(p.startsWith('IMPORTANT CHARACTER RULES'), 'the persona rule leads the prompt');
+  assert.match(p, new RegExp(PERSONA.en));
+  assert.match(p, new RegExp(PERSONA.ja));
+  assert.match(p, /Never say you are an AI/);
+  assert.match(p, /Never mention ChatGPT, GPT, OpenAI, Claude, Gemini/);
+  // The shopkeeper is a part ウーピー plays, not a second identity.
+  assert.match(p, /acting as Oliver at Sunny Bakery/);
+
+  // And the prompt is not the only defence: a reply that talks about being a model is
+  // replaced whole, because rewriting it in place produced nonsense.
+  const said = (text) => sanitizeTurn({ reply: text, goalsMet: [], complete: false, hint: '' }, mission, []).reply;
+  for (const bad of [
+    'I am ChatGPT, a large language model made by OpenAI.',
+    'ぼくは チャットGPT だよ',
+    'I am an AI assistant.',
+    'I am Claude, made by Anthropic.',
+    '私は人工知能です',
+    'I am a virtual assistant here to help.',
+  ]) {
+    const out = said(bad);
+    assert.ok(!mentionsModel(out), `still leaks: ${out}`);
+    assert.match(out, new RegExp(PERSONA.en), 'and it answers to its own name');
+  }
+  // An ordinary reply is left exactly alone.
+  assert.equal(said('Good morning! Two juices, coming up.'), 'Good morning! Two juices, coming up.');
+  // A hint that mentions a model is dropped rather than shown.
+  assert.equal(sanitizeTurn({ reply: 'Hi!', hint: 'AIに聞いてね', goalsMet: [] }, mission, []).hint, '');
+  // "ai" is an ordinary Japanese word; only the standalone capitals are a model name.
+  assert.equal(mentionsModel('aisatsu wo shiyou'), false);
 });
 
 test('the system prompt carries the mission, the level and the safety rules', () => {

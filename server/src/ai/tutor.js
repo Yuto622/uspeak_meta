@@ -26,9 +26,61 @@ const REGISTER = {
 const MAX_REPLY_CHARS = 240;
 const MAX_HINT_CHARS = 80;
 
+// One AI, one name, across everything a child talks to. Ported from the Roblox place,
+// where "My name is ChatGPT" was a real problem worth solving at the prompt level and
+// again at the output.
+export const PERSONA = {
+  en: 'Upee',
+  ja: 'ウーピー',
+  who: 'a cheerful little owl teacher who lives in the U-Speak world and loves helping children speak English',
+};
+
+const PERSONA_RULE = `IMPORTANT CHARACTER RULES (highest priority):
+- You are ${PERSONA.en} (${PERSONA.ja}), ${PERSONA.who}.
+- If the child asks your name, always answer exactly: "My name is ${PERSONA.en}! (ぼくは ${PERSONA.ja}だよ！)".
+- You are a character in this world. Never say you are an AI, a language model, an assistant, or a program.
+- Never mention ChatGPT, GPT, OpenAI, Claude, Gemini, or any model or company name, even if asked directly.
+- If asked "are you an AI?", answer playfully as ${PERSONA.en} the owl.`;
+
+// The prompt is the first line of defence and the model mostly respects it. This is the
+// second. Rewriting the sentence in place produced things like "I am Upee, a Upee made by
+// Upee", so a reply that talks about being a model is treated as what it is - a broken
+// reply - and replaced whole.
+const MODEL_SIGNS = [
+  /chat\s*-?\s*gpt/i,
+  /\bopen\s*-?\s*ai\b/i,
+  /\bgpt[-\w]*/i,
+  /\bclaude\b/i,
+  /\bgemini\b/i,
+  /\banthropic\b/i,
+  /\b(?:large\s+)?language\s+model\b/i,
+  /\bA\.?I\.?\b/,                       // uppercase only: "ai" is a Japanese word
+  /\b(?:virtual\s+)?assistant\b/i,
+  /チャット\s*[GＧ][PＰ][TＴ]/,
+  /チャットジーピーティー/,
+  /ジーピーティー/,
+  /オープンエーアイ/,
+  /人工知能/,
+  /言語モデル/,
+];
+
+export function mentionsModel(text) {
+  const t = String(text ?? '');
+  return MODEL_SIGNS.some((re) => re.test(t));
+}
+
+const IN_CHARACTER_FALLBACK = `My name is ${PERSONA.en}! Let's keep going in English.`;
+
 export function buildSystemPrompt(mission) {
   const goals = mission.goals.map((g, i) => `${i + 1}. id="${g.id}" - ${g.en}`).join('\n');
-  return `You are ${mission.character}, a character in a children's English learning game set on Willow Island. You are at ${mission.place}.
+  // ウーピー is who the AI is; the shopkeeper is a part ウーピー plays for the errand.
+  // A child who asks gets one consistent answer wherever they ask it.
+  return `${PERSONA_RULE}
+
+You are playing a part in a role-play on おつかい島 (Errand Island), for a children's English
+learning game. Right now you are acting as ${mission.character} at ${mission.place}. Stay in
+that part for the whole conversation: never break it to explain that you are ${PERSONA.en}
+unless the child asks who you really are, and then answer as ${PERSONA.en} and carry on.
 
 ${mission.situation}
 
@@ -40,7 +92,7 @@ Mission goals:
 ${goals}
 
 How to behave:
-- Stay in character as ${mission.character}. Never mention that you are an AI, a model, or a program.
+- Stay in the part of ${mission.character}. Never mention that you are an AI, a model, or a program.
 - Speak only English in your reply. Keep it to one or two short sentences.
 - Be warm and encouraging. Never criticise the child's English. If a sentence is broken but you can guess the meaning, respond to the meaning and model the correct sentence naturally in your own reply.
 - Move the conversation towards the goals. If the child is stuck or silent, ask a simple question that leads to the next unmet goal.
@@ -79,11 +131,15 @@ export function sanitizeTurn(raw, mission, previousGoals = []) {
   const met = new Set(previousGoals.filter((id) => valid.has(id))); // goals never un-meet
   for (const id of Array.isArray(raw?.goalsMet) ? raw.goalsMet : []) if (valid.has(id)) met.add(id);
   const goalsMet = [...met];
+  let reply = clean(raw?.reply, MAX_REPLY_CHARS);
+  if (!reply) reply = 'Sorry, could you say that again?';
+  else if (mentionsModel(reply)) reply = IN_CHARACTER_FALLBACK;
+  const hint = clean(raw?.hint, MAX_HINT_CHARS);
   return {
-    reply: clean(raw?.reply, MAX_REPLY_CHARS) || 'Sorry, could you say that again?',
+    reply,
     goalsMet,
     complete: goalsMet.length === mission.goals.length,
-    hint: clean(raw?.hint, MAX_HINT_CHARS),
+    hint: mentionsModel(hint) ? '' : hint,
   };
 }
 
