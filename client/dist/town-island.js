@@ -1,8 +1,9 @@
-// まちづくり島 — a block shop, an estate agent, and the door to your own room.
+// まちづくり島 — a block shop, a furniture shop, an estate agent, the door to your own
+// room, and the square the blocks are built on.
 //
-// Only the door stands here. What is behind it is built when a child walks in, from
-// their own saved blocks, which is how Roblox's HousingService worked and why a school
-// of six hundred costs what a class of twenty-five does.
+// Only the doorways stand here. What is behind one is built when a child walks in, from
+// their own save, which is how Roblox's HousingService worked and why a school of six
+// hundred costs what a class of twenty-five does.
 import { createIsland, NEAR_DISTANCE } from './island-kit.js';
 
 export { NEAR_DISTANCE };
@@ -35,8 +36,9 @@ export function createTownIsland({ scene }) {
 
       // A house going up, with scaffolding round it and a crane over it: the island is
       // called まちづくり, so something should be visibly under construction.
-      const bx = yard.x + 9;
-      const bz = yard.z - 8;
+      // South of the square, clear of the four lanes that run north to the buildings.
+      const bx = yard.x - 12;
+      const bz = yard.z + 9;
       for (let x = 0; x < 4; x += 1) {
         for (let z = 0; z < 4; z += 1) {
           const h = (x === 0 || z === 0 || x === 3 || z === 3) ? 3 - Math.floor((x + z) / 3) : 0;
@@ -68,6 +70,31 @@ export function createTownIsland({ scene }) {
       barrel(yard.x - 9, yard.z + 1.5);
 
       for (const def of data.spots) {
+        // The ひろば is a square, not a shop: a paved yard with a gateway across the
+        // front of it, and walking under the gateway is what takes a child to their lot.
+        if (def.kind === 'plaza') {
+          const px = def.x;
+          const pz = def.z - 4.6;
+          B(px, 0.16, pz, 11, 0.2, 9, 0xd8d0b0);
+          B(px, 0.3, pz, 8.6, 0.16, 6.8, 0xe6dfc2);
+          for (const sx of [-1, 1]) {
+            for (const sz of [-1, 1]) D(px + sx * 5.2, 0.7, pz + sz * 4.2, 0.7, 1.4, 0.7, 0xb8ad8c);
+          }
+          // The gateway, on the line a child walks in on.
+          for (const sx of [-2.2, 2.2]) D(px + sx, 2.1, pz + 4.6, 0.8, 4.2, 0.8, 0xcfc4a2);
+          D(px, 4.4, pz + 4.6, 5.6, 0.8, 1, 0xb8ad8c);
+          D(px, 5, pz + 4.6, 3, 0.5, 0.7, Number(def.color));
+          // A half-built stack in the middle, so the square reads as somewhere to build.
+          for (let i = 0; i < 6; i += 1) D(px - 1.5 + (i % 3) * 1.2, 0.9 + Math.floor(i / 3), pz - 1.4, 1, 1, 1, [0xb08655, 0x9a9a92, 0xa8d8e8][i % 3]);
+          obstacles.push({ x: px, z: pz - 1.4, w: 2.2, d: 1.2 });
+          // A square has no front wall to stop at, so the way in is the gateway itself,
+          // which stands on the spot a child walks to (the two numbers put the doorway
+          // there rather than in front of a wall that is not there).
+          door(def, 0.75, 0);
+          path(def.path.x, def.path.z, def.x, def.z);
+          resident(def);
+          continue;
+        }
         house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), def.kind === 'door' ? 0x6a7a8a : 0x8a6a4a, `${def.tone} ${def.name}`);
         door(def);
         path(def.path.x, def.path.z, def.x, def.z);

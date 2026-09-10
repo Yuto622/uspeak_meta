@@ -41,7 +41,10 @@ export function reportFor(record, { now = Date.now() } = {}) {
     errands: Array.isArray(missions) ? missions.length : 0,
     fishKinds: Array.isArray(dex) ? dex.length : 0,
     vehicles: Array.isArray(garage) ? garage.length : 0,
-    blocks: Array.isArray(room?.blocks) ? room.blocks.length : 0,
+    // Blocks are stacked on the plaza and furniture stands in the room; a save from
+    // before the two were separated kept its blocks under `blocks`.
+    blocks: Array.isArray(room?.plaza?.blocks) ? room.plaza.blocks.length : Array.isArray(room?.blocks) ? room.blocks.length : 0,
+    furniture: Array.isArray(room?.furniture) ? room.furniture.length : 0,
     house: (ROOMS.find((r) => r.tier === Number(room?.tier)) || ROOMS[0]).name,
     pet: pet && pet.name ? { name: pet.name, en: pet.en || '', level: Math.max(1, Math.floor(num(pet.xp) / 25) + 1) } : null,
     lapBest: Math.max(0, Math.floor(num(record.lap_best))),
@@ -111,7 +114,7 @@ export function reportHtml(r) {
   ${row('つかまえた魚の種類', r.fishKinds ? `${r.fishKinds} 種` : '')}
   ${row('のりもの', r.vehicles ? `${r.vehicles} 台` : '')}
   ${row('コースの自己ベスト', r.lapBest ? `${(r.lapBest / 1000).toFixed(1)} 秒` : '')}
-  ${row('つくった部屋', r.blocks ? `${r.house}・ブロック ${r.blocks} こ` : '')}
+  ${row('つくった部屋', r.blocks || r.furniture ? `${r.house}・かぐ ${r.furniture} こ・ひろばの ブロック ${r.blocks} こ` : '')}
   ${row('ペット', r.pet ? `${r.pet.name}（Lv.${r.pet.level}）` : '')}
   ${row('れんぞくログイン', r.streak ? `${r.streak} 日` : '')}
   ${row('もっているコイン', `◈ ${r.coins.toLocaleString()}`)}

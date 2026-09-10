@@ -125,3 +125,15 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **単語クイズの問題バンクは `server/src/game/word-quiz.json` にあり、クライアントには来ない。**
   他の判定データ（`*-data.js`）と扱いが違うので注意。サーバーは問題文と4択だけを送り、
   正解は回答後にしか返さない。
+
+## まちづくり島（2026-09 更新）
+
+`town-island.js` + `town.json`（島）/ `town.js`（買い物とHUD）/ `room-world.js`（マイルーム＝かぐ）/
+`plaza-world.js`（ひろば＝ブロック）。サーバーは `server/src/game/town.js`。
+
+- **置き場所が2つある。** かぐはマイルーム、ブロックはひろばの自分の区画。混ぜないこと。
+- **入口は押さない。** 戸口に入った瞬間に入る。`rpg.setDoorHandler()` を通信層が握っていて、
+  `town` の `door` / `plaza` だけを自分で処理し、それ以外は今まで通り `island-interior.js` の部屋になる。
+- かぐは footprint（w×d マス）と向き r（0〜3）を持つ。**同じ計算をサーバーもする**ので、
+  `town.json` の `w`/`d` を変えたら `server/test` を回すこと。
+- `room_json` は `{tier, furniture, plaza}`。古いセーブの `blocks` はひろばへ読み替える（消さない）。

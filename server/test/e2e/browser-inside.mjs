@@ -85,11 +85,17 @@ try {
   for (const [region, file, key] of [['arena', 'arena.json', 'arenaNearby'], ['pet', 'pets.json', 'petNearby'], ['ride', 'vehicles.json', 'rideNearby'], ['town', 'town.json', 'townNearby'], ['errand', 'missions.json', 'errandNearby']]) {
     await fly(a, region);
     const data = await a.evaluate(async (f) => (await (await fetch(f)).json()), file).then((d) => d.island);
-    const doors = await a.evaluate((r) => uspeak.rpg[r].doors, region);
+    // まちづくり島's own doorway and its square are not counters: walking into them opens
+    // the child's room and their building lot, which browser-town.mjs walks through.
+    const doors = (await a.evaluate((r) => uspeak.rpg[r].doors, region))
+      .filter((d) => !(region === 'town' && (d.id === 'door' || d.id === 'plaza')));
     const missed = [];
     for (const door of doors) {
       await a.evaluate(([x, z]) => { uspeak.player.position.set(x, 0, z); }, [data.x + door.x, data.z + door.z]);
-      const ok = await a.waitForFunction((id) => uspeak.rpg.insideBuilding?.spot?.id === id, door.id, { timeout: 8000, polling: 120 }).then(() => true).catch(() => false);
+      // Doors are held shut for a moment after stepping out of one, so a child does not
+      // bounce back in. That moment is counted in frames of game time, and a software
+      // renderer draws three a second — so waiting for it here takes real seconds.
+      const ok = await a.waitForFunction((id) => uspeak.rpg.insideBuilding?.spot?.id === id, door.id, { timeout: 30000, polling: 120 }).then(() => true).catch(() => false);
       if (!ok) { missed.push(`${door.id}:door`); continue; }
       // Step up to the counter inside; the walking has already been proved on the hut.
       await a.evaluate(() => { uspeak.player.position.set(0, 0, -1.8); });
@@ -101,7 +107,7 @@ try {
       }, null, { timeout: 8000, polling: 200 }).then(() => true).catch(() => false);
       if (!offers) missed.push(`${door.id}:counter`);
       await a.evaluate(() => { uspeak.player.position.z = 9.4; });
-      await a.waitForFunction(() => !uspeak.rpg.insideBuilding, null, { timeout: 8000, polling: 120 }).catch(() => {});
+      await a.waitForFunction(() => !uspeak.rpg.insideBuilding, null, { timeout: 30000, polling: 120 }).catch(() => {});
       await sleep(250);
     }
     check(`every building on ${region} opens and offers its counter`, missed.length === 0, missed.join(' ') || `${doors.length}/${doors.length}`);

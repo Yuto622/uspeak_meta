@@ -17,6 +17,7 @@ import { createDailyUI } from './daily.js';
 import { createNight } from './night-world.js';
 import { createRideUI } from './ride.js';
 import { createRoom } from './room-world.js';
+import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
 
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, toast, speak, learn }) {
@@ -88,10 +89,29 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     send: (type, payload) => room?.send(type, payload),
     onLeave: () => { town.hideHud(); rpg.activate('town', true); },
   });
-  rpg.attachRoom(myRoom);
+  // ひろば. Blocks are stacked on the child's own lot in the square, which is its own
+  // scene for the same reason the room is: nothing of it exists until they walk in.
+  const myPlaza = createPlaza({
+    player, camera, view, toast, speak, learn,
+    send: (type, payload) => room?.send(type, payload),
+    onLeave: () => { town.hideHud(); rpg.activate('town', true); },
+  });
+  rpg.attachRoom(myRoom, myPlaza);
+  // Walking into the doorway is what opens both of them. There is no counter inside and
+  // nothing to press: the island reports the doorway, and this asks the server for what
+  // is behind it.
+  rpg.setDoorHandler((islandId, spot) => {
+    if (islandId !== 'town' || (spot.kind !== 'door' && spot.kind !== 'plaza')) return false;
+    if (state.mode !== 'online') { toast('まちづくり島は オンラインで あそべます。'); return false; }
+    // Say where we are before asking to come in: the doorway was reached this frame, and
+    // the server would otherwise answer from the position it was last told about.
+    sendMove();
+    room?.send(spot.kind === 'door' ? 'room:enter' : 'plaza:enter', {});
+    return true;
+  });
   const town = createTownUI({
     send: (type, payload) => room?.send(type, payload),
-    toast, speak, learn, isOnline: () => state.mode === 'online', room: myRoom,
+    toast, speak, learn, isOnline: () => state.mode === 'online', room: myRoom, plaza: myPlaza,
   });
   // のりもの島. The speed a vehicle gives is applied by the world; what it is worth and
   // whether it is yours are the server's to say.
@@ -137,6 +157,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function round(v, d) { const p = 10 ** d; return Math.round(v * p) / p; }
   function currentSpace() {
     if (myRoom.active) return 'in:room';
+    if (myPlaza.active) return 'in:plaza';
     // Inside an island building. The name says which building on which island, and the
     // server checks it against the very place it is being asked about.
     const building = rpg.insideBuilding;
@@ -158,7 +179,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
-    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; ride.quit(); if (myRoom.active) myRoom.leave(true); town.hideHud(); }
+    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; ride.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); town.hideHud(); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
   }
   function saveSession() {
@@ -274,6 +295,13 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('room:removed', (m) => town.onRemoved(m));
     r.onMessage('room:moved', (m) => { if (m.wallet) applyWallet(m.wallet); town.onMoved(m); });
     r.onMessage('room:error', (m) => town.onError(m));
+    r.onMessage('prop:shop', (m) => town.onPropShop(m));
+    r.onMessage('prop:bought', (m) => { if (m.wallet) applyWallet(m.wallet); town.onPropBought(m); });
+    r.onMessage('prop:error', (m) => town.onError(m));
+    r.onMessage('plaza:state', (m) => town.onPlazaState(m));
+    r.onMessage('plaza:placed', (m) => town.onPlazaPlaced(m));
+    r.onMessage('plaza:removed', (m) => town.onPlazaRemoved(m));
+    r.onMessage('plaza:error', (m) => town.onPlazaError(m));
     r.onMessage('ride:garage', (m) => ride.onGarage(m));
     r.onMessage('ride:bought', (m) => { if (m.wallet) applyWallet(m.wallet); ride.onBought(m); });
     r.onMessage('ride:error', (m) => ride.onError(m));
@@ -508,6 +536,19 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     }
   }
 
+  // Where the child is, now. Sent twenty times a second by the frame below, and by hand
+  // just before anything that the server answers by asking where they are standing: the
+  // socket keeps the order, so the position lands first and the question is asked from
+  // the right place rather than from wherever they were a tenth of a second ago.
+  function sendMove(anim = 'idle') {
+    if (!room || state.mode !== 'online') return;
+    const s = currentSpace();
+    const x = round(player.position.x, 2), z = round(player.position.z, 2), r = round(player.rotation.y, 3);
+    room.send('move', { s, x, z, r, a: anim, t: Date.now() % 4294967296 });
+    state.lastSent = { s, x, z, r, a: anim };
+    state.lastSendAt = performance.now();
+  }
+
   // ---- per-frame ----------------------------------------------------------------
 
   function update(t, dt, { moving = false, running = false } = {}) {
@@ -526,11 +567,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       const x = round(player.position.x, 2), z = round(player.position.z, 2), r = round(player.rotation.y, 3);
       const last = state.lastSent;
       const changed = s !== last.s || x !== last.x || z !== last.z || r !== last.r || anim !== last.a;
-      if (changed || now - state.lastSendAt >= NET.HEARTBEAT_MS) {
-        room.send('move', { s, x, z, r, a: anim, t: Date.now() % 4294967296 });
-        state.lastSent = { s, x, z, r, a: anim };
-        state.lastSendAt = now;
-      }
+      if (changed || now - state.lastSendAt >= NET.HEARTBEAT_MS) sendMove(anim);
     }
     const avatarJson = JSON.stringify(avatars.config);
     if (avatarJson !== state.lastAvatarJson) { state.lastAvatarJson = avatarJson; room.send('profile', { avatar: avatars.config }); }
@@ -612,7 +649,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     arenaLabel: (spot) => (spot.kind === 'dojo' ? dojo.label(spot) : battle.label(spot)),
     petInteract: () => { const near = rpg.petNearby(); if (near) petUI.enter(near.spot); },
     petLabel: (spot) => petUI.label(spot),
-    town, myRoom,
+    town, myRoom, myPlaza,
+    // Whichever of the two a child is standing in. The page's E and Q keys work on it.
+    get builder() { return myRoom.active ? myRoom : myPlaza.active ? myPlaza : null; },
     townInteract: () => { const near = rpg.townNearby(); if (near) town.enter(near.spot); },
     townLabel: (spot) => town.label(spot),
     ride,

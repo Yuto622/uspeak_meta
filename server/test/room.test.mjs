@@ -940,12 +940,14 @@ test('a vehicle is bought at its own gate, and the course is driven in order', a
   await sleep(100);
 });
 
-test('a room of your own: bought at the shop, built inside, and still there tomorrow', async () => {
-  const { TOWN_ISLAND, BLOCKS, ROOMS } = await import('../src/game/town.js');
+test('a room of your own: furniture inside it, blocks on the plaza, and still there tomorrow', async () => {
+  const { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS } = await import('../src/game/town.js');
   const a = await join('Nagi');
   const shop = TOWN_ISLAND.spotById.get('shop');
+  const kagu = TOWN_ISLAND.spotById.get('furniture');
   const agent = TOWN_ISLAND.spotById.get('agent');
   const door = TOWN_ISLAND.spotById.get('door');
+  const plaza = TOWN_ISLAND.spotById.get('plaza');
   const stand = async (x, z, space = TOWN_ISLAND.id) => {
     a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
     await waitFor(() => {
@@ -954,7 +956,7 @@ test('a room of your own: bought at the shop, built inside, and still there tomo
     });
   };
 
-  // Ten kinds in the shop, and the free one is already a child's.
+  // Ten kinds in the block shop, and the free one is already a child's.
   a.room.send('block:list', {});
   const shopList = await nextMessage(a.room, 'block:shop');
   assert.equal(shopList.blocks.length, BLOCKS.size);
@@ -977,6 +979,20 @@ test('a room of your own: bought at the shop, built inside, and still there tomo
   a.room.send('block:buy', { id: 'stone' });
   assert.equal((await nextMessage(a.room, 'block:error')).reason, 'already yours');
 
+  // Furniture is its own shop, at its own counter, and its own free thing to start with.
+  a.room.send('prop:list', {});
+  const kaguList = await nextMessage(a.room, 'prop:shop');
+  assert.equal(kaguList.furniture.length, PROPS.size);
+  assert.deepEqual(kaguList.furniture.filter((f) => f.owned).map((f) => f.id), ['chair']);
+  a.room.send('prop:buy', { id: 'table' });
+  assert.equal((await nextMessage(a.room, 'prop:error')).reason, 'too far');
+  await stand(kagu.wx, kagu.wz);
+  a.room.send('prop:buy', { id: 'piano' });       // 800, well past a day's coins
+  assert.equal((await nextMessage(a.room, 'prop:error')).reason, 'not enough coins');
+  a.room.send('prop:buy', { id: 'rug' });
+  const bought = await nextMessage(a.room, 'prop:bought');
+  assert.equal(bought.word, PROPS.get('rug').word);
+
   // The room is entered at its door, and nowhere else.
   a.room.send('room:enter', {});
   assert.equal((await nextMessage(a.room, 'room:error')).reason, 'too far');
@@ -985,38 +1001,60 @@ test('a room of your own: bought at the shop, built inside, and still there tomo
   const room = await nextMessage(a.room, 'room:state');
   assert.equal(room.tier, 1);
   assert.equal(room.grid, ROOMS[0].grid);
-  assert.deepEqual(room.blocks, [], 'a first room is empty');
-  assert.deepEqual(room.owned.sort(), ['stone', 'wood']);
+  assert.deepEqual(room.furniture, [], 'a first room is empty');
+  assert.deepEqual(room.owned.sort(), ['chair', 'rug']);
 
-  // Building only happens inside. Standing at the door is not being in the room.
-  a.room.send('room:place', { x: 0, y: 0, z: 0, b: 'wood' });
+  // Furnishing only happens inside. Standing at the door is not being in the room.
+  a.room.send('room:place', { f: 'chair', x: 0, z: 0, r: 0 });
   assert.equal((await nextMessage(a.room, 'room:error')).reason, 'not inside');
   await stand(door.wx, door.wz, 'in:room');
-  a.room.send('room:place', { x: 0, y: 0, z: 0, b: 'wood' });
+  a.room.send('room:place', { f: 'chair', x: 0, z: 0, r: 0 });
   const placed = await nextMessage(a.room, 'room:placed');
-  assert.deepEqual([placed.x, placed.y, placed.z, placed.b], [0, 0, 0, 'wood']);
+  assert.deepEqual([placed.f, placed.x, placed.z, placed.r], ['chair', 0, 0, 0]);
   assert.equal(placed.used, 1);
-  assert.equal(placed.cap, ROOMS[0].cap);
-  // Nothing appears in mid-air, nothing overlaps, and nothing is built out of a kind
-  // that was never bought.
-  a.room.send('room:place', { x: 0, y: 2, z: 0, b: 'wood' });
-  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'nothing to build on');
-  a.room.send('room:place', { x: 0, y: 0, z: 0, b: 'stone' });
+  assert.equal(placed.cap, ROOMS[0].props);
+  // Nothing stands on anything else, goes through a wall, or was never bought.
+  a.room.send('room:place', { f: 'rug', x: 0, z: 0, r: 0 });
   assert.equal((await nextMessage(a.room, 'room:error')).reason, 'something is there');
-  a.room.send('room:place', { x: 99, y: 0, z: 0, b: 'wood' });
+  a.room.send('room:place', { f: 'chair', x: 99, z: 0, r: 0 });
   assert.equal((await nextMessage(a.room, 'room:error')).reason, 'outside the room');
-  a.room.send('room:place', { x: 1, y: 0, z: 0, b: 'water' });
+  a.room.send('room:place', { f: 'piano', x: 2, z: 0, r: 0 });
   assert.equal((await nextMessage(a.room, 'room:error')).reason, 'not bought');
-  a.room.send('room:place', { x: 0, y: 1, z: 0, b: 'stone' });
+  // A rug is two squares across, and pointing at either of them picks it up.
+  a.room.send('room:place', { f: 'rug', x: 1, z: 1, r: 0 });
   assert.equal((await nextMessage(a.room, 'room:placed')).used, 2);
-  // A side face is a surface too, which is how a wall grows outwards.
-  a.room.send('room:place', { x: 1, y: 1, z: 0, b: 'stone' });
-  assert.equal((await nextMessage(a.room, 'room:placed')).used, 3);
-  // And anything can be dug out again, including from under what is on top of it.
-  a.room.send('room:remove', { x: 0, y: 0, z: 0 });
-  assert.equal((await nextMessage(a.room, 'room:removed')).used, 2);
-  a.room.send('room:remove', { x: 1, y: 1, z: 0 });
+  a.room.send('room:remove', { x: 2, z: 2 });
   assert.equal((await nextMessage(a.room, 'room:removed')).used, 1);
+
+  // Blocks are not put down in a room at all: they are stacked on the plaza, and the
+  // plaza is walked into like everywhere else.
+  a.room.send('plaza:place', { x: 0, y: 0, z: 0, b: 'wood' });
+  assert.equal((await nextMessage(a.room, 'plaza:error')).reason, 'not inside');
+  a.room.send('plaza:enter', {});
+  err = await nextMessage(a.room, 'plaza:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.spot.id, plaza.id);
+  await stand(plaza.wx, plaza.wz);
+  a.room.send('plaza:enter', {});
+  const lot = await nextMessage(a.room, 'plaza:state');
+  assert.equal(lot.grid, PLAZA.grid);
+  assert.deepEqual(lot.blocks, [], 'a first lot is empty');
+  assert.deepEqual(lot.owned.sort(), ['stone', 'wood']);
+  await stand(plaza.wx, plaza.wz, 'in:plaza');
+  a.room.send('plaza:place', { x: 0, y: 0, z: 0, b: 'wood' });
+  const laid = await nextMessage(a.room, 'plaza:placed');
+  assert.deepEqual([laid.x, laid.y, laid.z, laid.b], [0, 0, 0, 'wood']);
+  assert.equal(laid.cap, PLAZA.cap);
+  a.room.send('plaza:place', { x: 0, y: 2, z: 0, b: 'wood' });
+  assert.equal((await nextMessage(a.room, 'plaza:error')).reason, 'nothing to build on');
+  a.room.send('plaza:place', { x: 0, y: 1, z: 0, b: 'stone' });
+  assert.equal((await nextMessage(a.room, 'plaza:placed')).used, 2);
+  // A side face is a surface too, which is how a wall grows outwards.
+  a.room.send('plaza:place', { x: 1, y: 1, z: 0, b: 'stone' });
+  assert.equal((await nextMessage(a.room, 'plaza:placed')).used, 3);
+  // And anything can be dug out again, including from under what is on top of it.
+  a.room.send('plaza:remove', { x: 0, y: 0, z: 0 });
+  assert.equal((await nextMessage(a.room, 'plaza:removed')).used, 2);
 
   // Moving house: the agent's counter, a level and a price.
   a.room.send('room:move', {});
@@ -1027,15 +1065,19 @@ test('a room of your own: bought at the shop, built inside, and still there tomo
   assert.equal(err.reason, 'level too low');
   assert.equal(err.need, ROOMS[1].level);
 
-  // What was built comes back with the child.
+  // What was built and what was put down both come back with the child.
   await a.room.leave();
   await sleep(100);
   const again = await join('Nagi');
   again.room.send('move', { s: 'in:room', x: 0, z: 0, r: 0, a: 'idle', t: 1 });
   await waitFor(() => again.room.state.players.get(again.room.sessionId).space === 'in:room');
-  again.room.send('room:place', { x: 1, y: 0, z: 1, b: 'stone' });
+  again.room.send('room:place', { f: 'rug', x: 2, z: 2, r: 0 });
   const still = await nextMessage(again.room, 'room:placed');
-  assert.equal(still.used, 2, 'the block from before is still standing');
+  assert.equal(still.used, 2, 'the chair from before is still there');
+  again.room.send('move', { s: 'in:plaza', x: 0, z: 0, r: 0, a: 'idle', t: 1 });
+  await waitFor(() => again.room.state.players.get(again.room.sessionId).space === 'in:plaza');
+  again.room.send('plaza:place', { x: 3, y: 0, z: 3, b: 'stone' });
+  assert.equal((await nextMessage(again.room, 'plaza:placed')).used, 3, 'and the lot is as it was left');
   await again.room.leave();
   await sleep(100);
 });

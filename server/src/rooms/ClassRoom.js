@@ -17,7 +17,7 @@ import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
 import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
-import { TOWN_ISLAND, BLOCKS, ROOMS, roomOfTier, nextRoom, blockPayload, sanitizeBlocks, sanitizeRoom, roomPayload, place as placeBlock, remove as removeBlock, TownError } from '../game/town.js';
+import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding, startLap, crossGate } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
 import { createGate } from '../game/gate.js';
@@ -116,6 +116,11 @@ export class ClassRoom extends Room {
     this.onMessage('room:place', (client, msg) => this.onRoomPlace(client, msg));
     this.onMessage('room:remove', (client, msg) => this.onRoomRemove(client, msg));
     this.onMessage('room:move', (client) => this.onRoomMove(client));
+    this.onMessage('prop:list', (client) => client.send('prop:shop', this.propShopPayload(client.sessionId)));
+    this.onMessage('prop:buy', (client, msg) => this.onPropBuy(client, msg));
+    this.onMessage('plaza:enter', (client) => this.onPlazaEnter(client));
+    this.onMessage('plaza:place', (client, msg) => this.onPlazaPlace(client, msg));
+    this.onMessage('plaza:remove', (client, msg) => this.onPlazaRemove(client, msg));
     this.onMessage('ride:list', (client) => client.send('ride:garage', this.garagePayload(client.sessionId)));
     this.onMessage('ride:buy', (client, msg) => this.onRideBuy(client, msg));
     this.onMessage('ride:equip', (client, msg) => this.onRideEquip(client, msg));
@@ -469,6 +474,8 @@ export class ClassRoom extends Room {
   privFromRecord(record) {
     const garage = sanitizeGarage(parseJson(record.garage_json, []));
     const bricks = sanitizeBlocks(parseJson(record.blocks_json, []));
+    const props = sanitizeProps(parseJson(record.props_json, []));
+    const town = parseJson(record.room_json, null);
     return {
       name: record.name,
       wallet: sanitizeWallet({
@@ -498,7 +505,11 @@ export class ClassRoom extends Room {
       garage,
       riding: sanitizeRiding(record.riding, garage),
       bricks,
-      room: sanitizeRoom(parseJson(record.room_json, null), bricks),
+      props,
+      room: sanitizeRoom(town, props),
+      // Blocks moved out of the room and onto the plaza; a save from before that keeps
+      // them under `blocks`, and sanitizePlaza reads either shape.
+      plaza: sanitizePlaza(town, bricks),
       lap: null,
       move: sanitizeMove(record.move),
       pet: sanitizePet(parseJson(record.pet_json, null)),
@@ -531,7 +542,8 @@ export class ClassRoom extends Room {
       week_key: priv.week.key, week_xp: priv.week.xp,
       cap_day: priv.caps.day, battle_coins: priv.caps.battle, ghost_coins: priv.caps.ghost, course_coins: priv.caps.course,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
-      blocks_json: JSON.stringify(priv.bricks), room_json: JSON.stringify(priv.room),
+      blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
+      room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza }),
       // Kept so a teacher's own row is not mistaken for a child's when the family
       // report links are drawn up.
       role: player.role,
@@ -1019,6 +1031,41 @@ export class ClassRoom extends Room {
     log.info(`[room ${this.roomId}] "${priv.name}" bought the ${block.id} block`);
   }
 
+  // かぐ屋. Furniture is bought exactly as blocks are - by kind, at the shop that sells
+  // it - and what it costs and whether it is yours are decided here.
+  propShopPayload(sessionId) {
+    const priv = this.priv.get(sessionId);
+    if (!priv) return { furniture: [] };
+    return {
+      furniture: [...PROPS.values()].map((f) => propPayload(f, priv.props.includes(f.id))),
+      coins: priv.wallet.coins,
+    };
+  }
+
+  onPropBuy(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const fail = (reason, extra = {}) => client.send('prop:error', { reason, ...extra });
+    const item = PROPS.get(String(msg?.id || ''));
+    if (!item) return fail('no such furniture');
+    if (!this.atTownSpot(client.sessionId, 'furniture')) return fail('too far', { spot: this.townSpotPayload('furniture') });
+    if (priv.props.includes(item.id)) return fail('already yours');
+    if (priv.wallet.coins < item.price) return fail('not enough coins', { need: item.price, coins: priv.wallet.coins });
+    if (item.price > 0) {
+      const entry = applyOp(priv.wallet, { type: 'spend', amount: item.price, id: `prop:${item.id}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    }
+    priv.props.push(item.id);
+    this.persist(client.sessionId);
+    client.send('prop:bought', {
+      id: item.id, word: item.word, ja: item.ja,
+      ...this.propShopPayload(client.sessionId), ...this.walletPayload(client.sessionId),
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${item.id}`);
+  }
+
+  // マイルーム. Walking into the doorway is what opens it now - there is no counter to
+  // press anything at - so this is asked for the moment a child is at the door.
   onRoomEnter(client) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
@@ -1026,11 +1073,11 @@ export class ClassRoom extends Room {
       client.send('room:error', { reason: 'too far', spot: this.townSpotPayload('door') });
       return;
     }
-    client.send('room:state', roomPayload(priv.room, priv.bricks));
+    client.send('room:state', roomPayload(priv.room, priv.props));
   }
 
-  // A block goes in when the child is inside their own room. Rooms are not shared, so
-  // there is nobody else's wall to build through.
+  // Furniture goes in when the child is inside their own room. Rooms are not shared, so
+  // there is nobody else's sofa to stand on.
   inRoom(sessionId) {
     const player = this.state.players.get(sessionId);
     return !!player && player.space === 'in:room';
@@ -1041,13 +1088,13 @@ export class ClassRoom extends Room {
     if (!priv) return;
     if (!this.inRoom(client.sessionId)) { client.send('room:error', { reason: 'not inside' }); return; }
     let placed;
-    try { placed = placeBlock(priv.room, priv.bricks, msg); } catch (err) {
+    try { placed = placeProp(priv.room, priv.props, msg); } catch (err) {
       if (err instanceof TownError) { client.send('room:error', { reason: err.message }); return; }
       throw err;
     }
     this.persist(client.sessionId);
     const room = roomOfTier(priv.room.tier);
-    client.send('room:placed', { ...placed, used: priv.room.blocks.length, cap: room.cap });
+    client.send('room:placed', { ...placed, used: priv.room.furniture.length, cap: room.props });
   }
 
   onRoomRemove(client, msg) {
@@ -1055,13 +1102,56 @@ export class ClassRoom extends Room {
     if (!priv) return;
     if (!this.inRoom(client.sessionId)) { client.send('room:error', { reason: 'not inside' }); return; }
     let gone;
-    try { gone = removeBlock(priv.room, msg); } catch (err) {
+    try { gone = removeProp(priv.room, msg); } catch (err) {
       if (err instanceof TownError) { client.send('room:error', { reason: err.message }); return; }
       throw err;
     }
     this.persist(client.sessionId);
     const room = roomOfTier(priv.room.tier);
-    client.send('room:removed', { ...gone, used: priv.room.blocks.length, cap: room.cap });
+    client.send('room:removed', { ...gone, used: priv.room.furniture.length, cap: room.props });
+  }
+
+  // ひろば. The square is where blocks are stacked, and the lot inside it is the child's
+  // own: everyone builds in the same place, nobody builds through anybody.
+  onPlazaEnter(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    if (!this.atTownSpot(client.sessionId, 'plaza')) {
+      client.send('plaza:error', { reason: 'too far', spot: this.townSpotPayload('plaza') });
+      return;
+    }
+    client.send('plaza:state', plazaPayload(priv.plaza, priv.bricks));
+  }
+
+  inPlaza(sessionId) {
+    const player = this.state.players.get(sessionId);
+    return !!player && player.space === 'in:plaza';
+  }
+
+  onPlazaPlace(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    if (!this.inPlaza(client.sessionId)) { client.send('plaza:error', { reason: 'not inside' }); return; }
+    let placed;
+    try { placed = placeBlock(priv.plaza, priv.bricks, msg); } catch (err) {
+      if (err instanceof TownError) { client.send('plaza:error', { reason: err.message }); return; }
+      throw err;
+    }
+    this.persist(client.sessionId);
+    client.send('plaza:placed', { ...placed, used: priv.plaza.blocks.length, cap: PLAZA.cap });
+  }
+
+  onPlazaRemove(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    if (!this.inPlaza(client.sessionId)) { client.send('plaza:error', { reason: 'not inside' }); return; }
+    let gone;
+    try { gone = removeBlock(priv.plaza, msg); } catch (err) {
+      if (err instanceof TownError) { client.send('plaza:error', { reason: err.message }); return; }
+      throw err;
+    }
+    this.persist(client.sessionId);
+    client.send('plaza:removed', { ...gone, used: priv.plaza.blocks.length, cap: PLAZA.cap });
   }
 
   // Roblox called this 引っ越し: a bigger room for a level and a price. What is built
@@ -1080,7 +1170,7 @@ export class ClassRoom extends Room {
     priv.room.tier = next.tier;
     this.persist(client.sessionId);
     client.send('room:moved', {
-      room: roomPayload(priv.room, priv.bricks), ...this.walletPayload(client.sessionId),
+      room: roomPayload(priv.room, priv.props), ...this.walletPayload(client.sessionId),
     });
     log.info(`[room ${this.roomId}] "${priv.name}" moved into the ${next.id}`);
   }

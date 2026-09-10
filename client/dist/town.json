@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "note": "まちづくり島. The island is shared data like every other; a room is not. Only the door stands in the town - the room itself is built from the child's own saved blocks when they walk in, which is how Roblox's HousingService did it.",
+  "note": "まちづくり島. The island is shared data like every other; a room is not. Blocks are built on the 広場 — your own lot, walked into like any other place — and furniture bought at the かぐ屋 is what goes in マイルーム. Only the doorways stand in the town; what is behind them is built from the child's own save when they walk in, which is how Roblox's HousingService did it.",
   "island": {
     "id": "town",
     "name": "まちづくり島",
     "en": "TOWN ISLAND",
     "x": -210,
     "z": -40,
-    "radius": 5.0,
+    "radius": 5,
     "grass": 10466440,
     "grassTop": 12372884,
     "spawn": {
@@ -52,6 +52,22 @@
         }
       },
       {
+        "id": "furniture",
+        "kind": "furniture",
+        "name": "かぐ屋",
+        "en": "Furniture Shop",
+        "character": "Upee",
+        "ja": "かぐ屋",
+        "x": -13,
+        "z": -9,
+        "color": 14136458,
+        "tone": "🛋",
+        "path": {
+          "x": 0,
+          "z": -4
+        }
+      },
+      {
         "id": "door",
         "kind": "door",
         "name": "マイルーム入口",
@@ -60,11 +76,27 @@
         "ja": "マイルーム",
         "x": 0,
         "z": -9,
-        "color": 14996411,
+        "color": 14993595,
         "tone": "🚪",
         "path": {
           "x": 0,
           "z": 4
+        }
+      },
+      {
+        "id": "plaza",
+        "kind": "plaza",
+        "name": "ひろば",
+        "en": "Build Plaza",
+        "character": "Upee",
+        "ja": "ひろば",
+        "x": 13,
+        "z": -9,
+        "color": 11060621,
+        "tone": "🧱",
+        "path": {
+          "x": 0,
+          "z": -4
         }
       }
     ]
@@ -151,7 +183,8 @@
       "height": 4,
       "level": 1,
       "price": 0,
-      "cap": 120
+      "cap": 120,
+      "props": 10
     },
     {
       "tier": 2,
@@ -162,7 +195,8 @@
       "height": 5,
       "level": 4,
       "price": 800,
-      "cap": 280
+      "cap": 280,
+      "props": 20
     },
     {
       "tier": 3,
@@ -173,7 +207,136 @@
       "height": 6,
       "level": 8,
       "price": 2500,
-      "cap": 520
+      "cap": 520,
+      "props": 34
+    }
+  ],
+  "plaza": {
+    "grid": 16,
+    "height": 8,
+    "cap": 420
+  },
+  "furniture": [
+    {
+      "id": "chair",
+      "word": "chair",
+      "ja": "いす",
+      "price": 0,
+      "color": 12159578,
+      "w": 1,
+      "d": 1,
+      "h": 1,
+      "shape": "chair"
+    },
+    {
+      "id": "rug",
+      "word": "rug",
+      "ja": "ラグ",
+      "price": 60,
+      "color": 13135727,
+      "w": 2,
+      "d": 2,
+      "h": 0.08,
+      "shape": "rug"
+    },
+    {
+      "id": "plant",
+      "word": "plant",
+      "ja": "かんようしょくぶつ",
+      "price": 100,
+      "color": 6265426,
+      "w": 1,
+      "d": 1,
+      "h": 1.5,
+      "shape": "plant"
+    },
+    {
+      "id": "table",
+      "word": "table",
+      "ja": "テーブル",
+      "price": 120,
+      "color": 11107406,
+      "w": 2,
+      "d": 1,
+      "h": 0.8,
+      "shape": "table"
+    },
+    {
+      "id": "shelf",
+      "word": "bookshelf",
+      "ja": "ほんだな",
+      "price": 180,
+      "color": 9266754,
+      "w": 2,
+      "d": 1,
+      "h": 2,
+      "shape": "shelf"
+    },
+    {
+      "id": "lamp",
+      "word": "lamp",
+      "ja": "ランプ",
+      "price": 150,
+      "color": 16769441,
+      "w": 1,
+      "d": 1,
+      "h": 1.9,
+      "shape": "lamp"
+    },
+    {
+      "id": "clock",
+      "word": "clock",
+      "ja": "とけい",
+      "price": 200,
+      "color": 14275262,
+      "w": 1,
+      "d": 1,
+      "h": 1.8,
+      "shape": "clock"
+    },
+    {
+      "id": "sofa",
+      "word": "sofa",
+      "ja": "ソファ",
+      "price": 300,
+      "color": 6258586,
+      "w": 3,
+      "d": 1,
+      "h": 0.9,
+      "shape": "sofa"
+    },
+    {
+      "id": "tv",
+      "word": "television",
+      "ja": "テレビ",
+      "price": 400,
+      "color": 3883336,
+      "w": 2,
+      "d": 1,
+      "h": 1.2,
+      "shape": "tv"
+    },
+    {
+      "id": "bed",
+      "word": "bed",
+      "ja": "ベッド",
+      "price": 500,
+      "color": 14471350,
+      "w": 2,
+      "d": 3,
+      "h": 0.7,
+      "shape": "bed"
+    },
+    {
+      "id": "piano",
+      "word": "piano",
+      "ja": "ピアノ",
+      "price": 800,
+      "color": 3093048,
+      "w": 2,
+      "d": 1,
+      "h": 1.2,
+      "shape": "piano"
     }
   ]
 }

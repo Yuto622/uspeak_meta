@@ -126,12 +126,16 @@
 .room-hud-acts button:active { background: #d8e3c9; }
 #room-exit { background: rgba(255, 255, 255, .16); color: #f6f2e2; }
 
-/* Inside a room there is nothing to fly to and no island to look at. */
+/* Inside a room, or on the building lot, there is nothing to fly to and no island to
+   look at. Both are places you build in, so both hide the same furniture. */
 body.in-room .flight-button, body.in-room .fishing-button, body.in-room .rpg-buddy-button,
 body.in-room .quest-panel, body.in-room .scenery-controls, body.in-room .bottom,
-body.in-room #rank-button, body.in-room .world-label { display: none; }
+body.in-room #rank-button, body.in-room .world-label,
+body.in-plaza .flight-button, body.in-plaza .fishing-button, body.in-plaza .rpg-buddy-button,
+body.in-plaza .quest-panel, body.in-plaza .scenery-controls, body.in-plaza .bottom,
+body.in-plaza #rank-button, body.in-plaza .world-label { display: none; }
 /* The crosshair is the tool: nothing else should sit under it. */
-body.in-room .near { display: none; }
+body.in-room .near, body.in-plaza .near { display: none; }
 
 @media (max-height: 440px) {
   #room-hud { bottom: 6px; padding: 5px 8px; gap: 3px; }
