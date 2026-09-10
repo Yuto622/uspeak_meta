@@ -14,6 +14,7 @@ import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SE
 import { MODES as GYM_MODES, createSet, questionPayload as gymPayload, answerSet } from '../game/gym.js';
 import { ARENA, createBattle, statePayload, quizPayload, chooseWaza, answerQuiz, BattleError, DAILY_CAP } from '../game/battle.js';
 import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
+import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
@@ -98,6 +99,8 @@ export class ClassRoom extends Room {
     this.onMessage('battle:answer', (client, msg) => this.onBattleAnswer(client, msg));
     this.onMessage('battle:quit', (client) => this.onBattleQuit(client));
     this.onMessage('fish:feed', (client, msg) => this.onFishFeed(client, msg));
+    this.onMessage('pet:hatch', (client) => this.onPetHatch(client));
+    this.onMessage('pet:act', (client, msg) => this.onPetAct(client, msg));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -286,7 +289,9 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(client.sessionId);
     if (!priv || !msg || typeof msg !== 'object') return;
     const op = { type: String(msg.op || ''), id: typeof msg.id === 'string' ? msg.id.slice(0, 40) : undefined, quantity: msg.quantity };
-    if (op.type === 'catch' || op.type === 'award') { client.send('wallet', { ok: false, op: op.type, error: 'this reward is granted by the server', ...this.walletPayload(client.sessionId) }); return; }
+    // Catches, rewards and prices are the server's to apply; a client asking for one is
+    // asking to write its own record.
+    if (['catch', 'award', 'spend'].includes(op.type)) { client.send('wallet', { ok: false, op: op.type, error: 'this reward is granted by the server', ...this.walletPayload(client.sessionId) }); return; }
     try {
       const entry = applyOp(priv.wallet, op);
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
@@ -425,6 +430,7 @@ export class ClassRoom extends Room {
       battleDay: '',
       battleCoins: 0,
       move: sanitizeMove(record.move),
+      pet: sanitizePet(parseJson(record.pet_json, null)),
       missionTurnsToday: 0,
       missionDay: '',
       lastMissionAt: 0,
@@ -446,6 +452,7 @@ export class ClassRoom extends Room {
       progress_json: priv.progressJson, missions_json: JSON.stringify(priv.missionsDone || []),
       level: priv.progress.level, xp: priv.progress.xp, total_xp: totalXp(priv.progress), chats: priv.progress.chats,
       dex_json: JSON.stringify(priv.wallet.dex || []), move: priv.move?.from || '',
+      pet_json: priv.pet ? JSON.stringify(priv.pet) : '',
       updated_at: iso, last_seen: priv.lastSeen,
     });
   }
@@ -771,6 +778,69 @@ export class ClassRoom extends Room {
     log.info(`[room ${this.roomId}] "${priv.name}" learned ${move.name} from ${move.fishName}`);
   }
 
+  // ---- ペット島 ----------------------------------------------------------------------
+
+  // One pet, cared for over real days. Hunger and mood fall with wall-clock time, so a
+  // pet left for a day is hungry whether or not anyone was online - that is the whole
+  // point, and it is why the decay is arithmetic on a timestamp rather than a tick.
+  atPetSpot(sessionId, kind) {
+    const player = this.state.players.get(sessionId);
+    const spot = PET_ISLAND.spotById.get(kind);
+    if (!player || !spot) return false;
+    if (player.space !== PET_ISLAND.id) return false;
+    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= PET_ISLAND.radius + SPOT_SLACK;
+  }
+
+  petSpotPayload(kind) {
+    const s = PET_ISLAND.spotById.get(kind);
+    return s ? { id: s.id, kind: s.kind, name: s.name, ja: s.ja } : null;
+  }
+
+  onPetHatch(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    if (!this.atPetSpot(client.sessionId, 'nest')) {
+      client.send('pet:error', { reason: 'too far', spot: this.petSpotPayload('nest') });
+      return;
+    }
+    if (priv.pet) { client.send('pet:error', { reason: 'already have one' }); return; }
+    if (priv.wallet.coins < EGG_COST) { client.send('pet:error', { reason: 'not enough coins', need: EGG_COST }); return; }
+    const entry = applyOp(priv.wallet, { type: 'spend', amount: EGG_COST, id: 'pet:egg' });
+    this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    priv.pet = hatch();
+    this.persist(client.sessionId);
+    client.send('pet:hatched', { pet: petPayload(priv.pet), ...this.walletPayload(client.sessionId) });
+    log.info(`[room ${this.roomId}] "${priv.name}" hatched a ${priv.pet.species} called ${priv.pet.name}`);
+  }
+
+  onPetAct(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const action = msg?.action === 'pat' ? 'pat' : msg?.action === 'feed' ? 'feed' : '';
+    if (!action) { client.send('pet:error', { reason: 'unknown action' }); return; }
+    // Each kind of care has its own building, so caring for a pet is a walk.
+    const kind = action === 'feed' ? 'kitchen' : 'meadow';
+    if (!this.atPetSpot(client.sessionId, kind)) {
+      client.send('pet:error', { reason: 'too far', spot: this.petSpotPayload(kind) });
+      return;
+    }
+    if (!priv.pet) { client.send('pet:error', { reason: 'no pet' }); return; }
+    let out;
+    try { out = petAct(priv.pet, action, { coins: priv.wallet.coins }); } catch (err) {
+      if (err instanceof PetError) { client.send('pet:error', { reason: err.message }); return; }
+      throw err;
+    }
+    if (out.cost > 0) {
+      const entry = applyOp(priv.wallet, { type: 'spend', amount: out.cost, id: `pet:${action}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    }
+    this.persist(client.sessionId);
+    client.send('pet:acted', {
+      action, message: out.message, xp: out.xp, cost: out.cost,
+      pet: petPayload(priv.pet), ...this.walletPayload(client.sessionId),
+    });
+  }
+
   // ---- errand quest -------------------------------------------------------------
 
   // An errand is walked, not clicked. Three legs, each refused unless the child's
@@ -977,6 +1047,7 @@ export class ClassRoom extends Room {
       quiz: priv.quiz ? { ...questionPayload(priv.quiz), hut: priv.quiz.hut } : null,
       gym: priv.gym ? gymPayload(priv.gym) : null,
       move: priv.move || null,
+      pet: priv.pet ? petPayload(priv.pet) : null,
       battle: priv.battle ? { ...statePayload(priv.battle), stand: priv.battle.stand, quiz: quizPayload(priv.battle) } : null,
       chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),

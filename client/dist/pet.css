@@ -1,0 +1,40 @@
+/* ペット島 — one pet, its meters, and the two ways to care for it. */
+#pet-dialog {
+  border: 0; border-radius: 22px; padding: 0; width: min(520px, calc(100vw - 28px));
+  max-height: min(88vh, 760px); max-height: min(88dvh, 760px); overflow: hidden;
+  background: #fffaf0; color: #263d33; box-shadow: 0 30px 80px rgba(10, 36, 27, .45);
+}
+/* Only when open: a bare display here would beat the browser's own
+   `dialog:not([open]) { display: none }` and leave it over the world. */
+#pet-dialog[open] { display: flex; flex-direction: column; }
+#pet-dialog::backdrop { background: rgba(12, 32, 28, .55); backdrop-filter: blur(4px); }
+#pet-body { padding: 16px 22px 22px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+.pet-flash { margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; background: #cdebd2; color: #1f5c33; font-weight: 700; font-size: 14px; }
+.pet-egg { text-align: center; padding: 18px 8px; }
+.pet-egg span { font-size: 64px; line-height: 1; display: block; }
+.pet-egg p { font-size: 13px; color: #5d6d62; margin: 10px 0 16px; line-height: 1.6; }
+.pet-egg button { padding: 14px 22px; border-radius: 14px; background: #173f38; color: #f4f1e3; font-weight: 700; font-size: 15px; }
+.pet-egg button:disabled { opacity: .5; }
+.pet-egg small { display: block; margin-top: 10px; font-size: 12px; color: #a0522d; }
+
+.pet-card { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: #eef2e4; margin-bottom: 14px; }
+.pet-face { font-size: 46px; line-height: 1; }
+.pet-card strong { display: block; font-size: 20px; }
+.pet-card small { display: block; font-size: 12px; color: #5d6d62; margin-top: 2px; }
+
+.pet-meter { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; }
+.pet-meter > span { width: 62px; color: #5d6d62; font-weight: 600; flex: none; }
+.pet-meter > b { width: 34px; text-align: right; font-weight: 700; }
+.pet-bar { flex: 1; height: 12px; border-radius: 7px; background: #e6e2cf; overflow: hidden; }
+.pet-bar i { display: block; height: 100%; transition: width .35s; }
+.pet-bar.hunger i { background: #e8a86a; }
+.pet-bar.happy i { background: #7ec98a; }
+
+.pet-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 6px; }
+.pet-actions button { padding: 14px 12px; border-radius: 14px; background: #f1efe1; font-weight: 700; font-size: 14px; }
+.pet-actions button:active { background: #d8e3c9; }
+.pet-actions button:disabled { opacity: .45; }
+.pet-where { margin: 10px 0 0; font-size: 12px; color: #7b8a7f; }
+
+@media (max-width: 600px) { .pet-actions { grid-template-columns: 1fr; } }

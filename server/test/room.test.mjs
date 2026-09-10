@@ -21,6 +21,7 @@ const { SCHOOL } = await import('../src/game/wordquiz.js');
 const { ARENA, WAZA, REWARD, DAILY_CAP } = await import('../src/game/battle.js');
 const { DEX_BONUS } = await import('../src/game/economy.js');
 const { moveForFish } = await import('../src/game/fish-moves.js');
+const { PET_ISLAND, EGG_COST, FEED_COST } = await import('../src/game/pets.js');
 
 let server; let url;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -583,4 +584,85 @@ test('the dojo trades a fish for a move, and the move joins the battle', async (
   a.room.send('battle:quit', {});
   await a.room.leave();
   await sleep(100);
+});
+
+test('a pet is bought, fed and patted in three different places', async () => {
+  const a = await join('Yui');
+  const nest = PET_ISLAND.spotById.get('nest');
+  const kitchen = PET_ISLAND.spotById.get('kitchen');
+  const meadow = PET_ISLAND.spotById.get('meadow');
+  const standAt = async (spot) => {
+    a.room.send('move', { s: PET_ISLAND.id, x: spot.wx, z: spot.wz, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return p.space === PET_ISLAND.id && Math.abs(p.x - spot.wx) < 0.01;
+    });
+  };
+
+  // No coins, no egg - and a client cannot simply grant itself the price either.
+  await standAt(nest);
+  a.room.send('pet:hatch', {});
+  let err = await nextMessage(a.room, 'pet:error');
+  assert.equal(err.reason, 'not enough coins');
+  assert.equal(err.need, EGG_COST);
+  a.room.send('economy', { op: 'spend', amount: -EGG_COST });
+  assert.equal((await nextMessage(a.room, 'wallet')).ok, false, 'spending is the server\'s to do');
+
+  // Earn honestly: win coins in the arena? No - just take the teacher's word for it by
+  // catching fish, which the server judges.
+  let coins = a.welcome.wallet.coins;
+  for (let i = 0; i < 12 && coins < EGG_COST + FEED_COST; i += 1) {
+    a.room.send('answer', { q: `fish:${FISH[i].id}`, c: FISH[i].id });
+    const r = await nextMessage(a.room, 'answer:result');
+    a.room.send('economy', { op: 'sellAll' });
+    const w = await nextMessage(a.room, 'wallet');
+    coins = w.wallet.coins;
+  }
+  assert.ok(coins >= EGG_COST, `only earned ${coins}`);
+
+  // The egg only hatches at the nest.
+  await standAt(kitchen);
+  a.room.send('pet:hatch', {});
+  err = await nextMessage(a.room, 'pet:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.spot.kind, 'nest');
+
+  await standAt(nest);
+  a.room.send('pet:hatch', {});
+  const hatched = await nextMessage(a.room, 'pet:hatched');
+  assert.ok(hatched.pet.name && hatched.pet.emoji);
+  assert.equal(hatched.pet.hunger, 100);
+  assert.equal(hatched.wallet.coins, coins - EGG_COST, 'the egg was paid for');
+  a.room.send('pet:hatch', {});
+  assert.equal((await nextMessage(a.room, 'pet:error')).reason, 'already have one');
+
+  // Feeding belongs to the kitchen, patting to the meadow - and neither works elsewhere.
+  a.room.send('pet:act', { action: 'feed' });
+  assert.equal((await nextMessage(a.room, 'pet:error')).spot.kind, 'kitchen');
+  a.room.send('pet:act', { action: 'pat' });
+  assert.equal((await nextMessage(a.room, 'pet:error')).spot.kind, 'meadow');
+
+  // A freshly hatched pet is too full to eat, which is a refusal, not a charge.
+  await standAt(kitchen);
+  const beforeFeed = hatched.wallet.coins;
+  a.room.send('pet:act', { action: 'feed' });
+  assert.equal((await nextMessage(a.room, 'pet:error')).reason, 'already full');
+
+  await standAt(meadow);
+  a.room.send('pet:act', { action: 'pat' });
+  const patted = await nextMessage(a.room, 'pet:acted');
+  assert.equal(patted.cost, 0, 'patting is free');
+  assert.equal(patted.wallet.coins, beforeFeed);
+  assert.ok(patted.pet.xp > 0);
+  a.room.send('pet:act', { action: 'pat' });
+  assert.equal((await nextMessage(a.room, 'pet:error')).reason, 'too soon');
+
+  // The pet comes back with the session.
+  await a.room.leave();
+  await sleep(100);
+  const again = await join('Yui');
+  assert.ok(again.welcome.pet, 'the pet was remembered');
+  assert.equal(again.welcome.pet.name, hatched.pet.name);
+  assert.equal(again.welcome.pet.species, hatched.pet.species);
+  await again.room.leave();
 });

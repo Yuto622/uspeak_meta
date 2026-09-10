@@ -88,6 +88,13 @@ export function applyOp(wallet, op) {
       wallet.wand = wand.id;
       return { op: 'buyWand', item: wand.id, quantity: 1, delta: -wand.price, balance: wallet.coins };
     }
+    // Server-only, like `award`: a price the server charges, never a client request.
+    case 'spend': {
+      if (!Number.isSafeInteger(op.amount) || op.amount <= 0) throw new EconomyError('invalid spend');
+      if (wallet.coins < op.amount) throw new EconomyError('not enough coins');
+      wallet.coins -= op.amount;
+      return { op: 'spend', item: op.id || 'spend', quantity: 1, delta: wallet.coins - before, balance: wallet.coins };
+    }
     // Server-only: never reachable from a client message (see ClassRoom.onEconomy).
     case 'award': {
       if (!Number.isSafeInteger(op.amount) || op.amount <= 0 || op.amount > 1000) throw new EconomyError('invalid award');

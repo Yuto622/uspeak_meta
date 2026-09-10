@@ -3,7 +3,7 @@
 export const PLAYER_COLUMNS = [
   'class', 'name', 'coins', 'correct', 'attempts', 'catches', 'space', 'x', 'z',
   'inventory_json', 'owned_json', 'wands_json', 'wand', 'progress_json', 'missions_json', 'updated_at', 'last_seen',
-  'level', 'xp', 'total_xp', 'chats', 'dex_json', 'move',
+  'level', 'xp', 'total_xp', 'chats', 'dex_json', 'move', 'pet_json',
 ];
 export const LEARNING_COLUMNS = ['timestamp', 'class', 'name', 'question_id', 'mode', 'choice', 'correct', 'xp', 'session_id'];
 export const COIN_COLUMNS = ['timestamp', 'class', 'name', 'op', 'item', 'quantity', 'delta', 'balance', 'session_id'];
@@ -16,7 +16,7 @@ export function blankPlayerRecord(classCode, name) {
     class: classCode, name, coins: 0, correct: 0, attempts: 0, catches: 0,
     space: '', x: 0, z: 0, inventory_json: '{}', owned_json: '[]', wands_json: '[]', wand: '',
     progress_json: '', missions_json: '[]', updated_at: '', last_seen: '',
-    level: 1, xp: 0, total_xp: 0, chats: 0, dex_json: '[]', move: '',
+    level: 1, xp: 0, total_xp: 0, chats: 0, dex_json: '[]', move: '', pet_json: '',
   };
 }
 

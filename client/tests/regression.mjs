@@ -111,10 +111,10 @@ console.log('PASS: 36 chests in 12 areas, 3 gated permanent keys, all tiers, 12 
 }
 
 // --- 学習の島: every place must be standable, reachable, and served by a clear path ----
-for(const [hub,mod,near] of [['school','school','schoolNearby'],['arena','arena','arenaNearby']]){
+for(const [hub,mod,near] of [['school','school','schoolNearby'],['arena','arena','arenaNearby'],['pet','pet','petNearby']]){
  const data=await rpg[mod].ready;
  const island=data.island;
- assert.ok(island&&island.spots.length>=4,hub+' loaded its island data');
+ assert.ok(island&&island.spots.length>=3,hub+' loaded its island data');
  rpg.activate(hub);
  assert.equal(rpg.state.current,hub);
  assert.equal(rpg[mod].visible,true);

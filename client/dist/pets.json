@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "note": "ペット島. Same contract as the other islands: the client builds from these coordinates and the server checks positions against them. Caring for a pet is a walk - the nest hatches, the kitchen feeds, the meadow is where you make a fuss.",
+  "island": {
+    "id": "pet",
+    "name": "ペット島",
+    "en": "PET ISLAND",
+    "x": -30,
+    "z": 250,
+    "radius": 5.0,
+    "grass": 9416316,
+    "grassTop": 10665349,
+    "spawn": {
+      "x": 0,
+      "z": 21
+    },
+    "courtyard": {
+      "x": 0,
+      "z": 10
+    },
+    "spots": [
+      {
+        "id": "nest",
+        "kind": "nest",
+        "name": "たまごの巣",
+        "en": "Egg Nest",
+        "character": "Upee",
+        "ja": "たまごの巣",
+        "x": 0,
+        "z": -6,
+        "color": 15258784,
+        "tone": "🥚",
+        "path": {
+          "x": 0,
+          "z": 10
+        }
+      },
+      {
+        "id": "kitchen",
+        "kind": "kitchen",
+        "name": "ごはん処",
+        "en": "Kitchen",
+        "character": "Upee",
+        "ja": "ごはん処",
+        "x": -18,
+        "z": 2,
+        "color": 14723192,
+        "tone": "🍚",
+        "path": {
+          "x": 0,
+          "z": 10
+        }
+      },
+      {
+        "id": "meadow",
+        "kind": "meadow",
+        "name": "ふれあい広場",
+        "en": "Cuddle Meadow",
+        "character": "Upee",
+        "ja": "ふれあい広場",
+        "x": 18,
+        "z": 2,
+        "color": 11063472,
+        "tone": "💚",
+        "path": {
+          "x": 0,
+          "z": 10
+        }
+      }
+    ]
+  }
+}
