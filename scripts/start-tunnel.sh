@@ -30,7 +30,14 @@ cd "$REPO/server"
 [ -f node_modules/colyseus/package.json ] || { echo "dependencies are still incomplete after npm ci" >&2; exit 1; }
 
 echo "==> starting server on port $PORT"
-TEACHER_KEY="$TEACHER_KEY" PORT="$PORT" NODE_ENV=development STORE_BACKEND=file node src/index.js &
+# Parent reports are only served when a signing secret exists. Make one on the first run
+# and keep it, so links handed to families keep working the next time this is started.
+SECRET_FILE="$REPO/.tunnel-logs/report-secret.txt"
+mkdir -p "$(dirname "$SECRET_FILE")"
+[ -s "$SECRET_FILE" ] || head -c 24 /dev/urandom | base64 | tr '+/' '-_' | tr -d '=\n' > "$SECRET_FILE"
+REPORT_SECRET="$(cat "$SECRET_FILE")"
+
+TEACHER_KEY="$TEACHER_KEY" PORT="$PORT" NODE_ENV=development STORE_BACKEND=file REPORT_SECRET="$REPORT_SECRET" node src/index.js &
 SERVER_PID=$!
 cleanup() { echo; echo "==> stopping the server"; kill "$SERVER_PID" 2>/dev/null || true; }
 trap cleanup EXIT INT TERM

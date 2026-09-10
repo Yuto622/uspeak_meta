@@ -63,6 +63,16 @@ $env:TEACHER_KEY = $TeacherKey
 $env:PORT = "$Port"
 $env:NODE_ENV = 'development'
 $env:STORE_BACKEND = 'file'
+# Parent reports are only served when a signing secret exists. Make one on the first run
+# and keep it, so links handed to families keep working the next time this is started.
+$secretFile = Join-Path $logDir 'report-secret.txt'
+if (-not (Test-Path $secretFile)) {
+  $bytes = New-Object byte[] 24
+  [System.Security.Cryptography.RandomNumberGenerator]::Fill($bytes)
+  $secret = [Convert]::ToBase64String($bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_')
+  Set-Content -Path $secretFile -Value $secret -NoNewline
+}
+$env:REPORT_SECRET = (Get-Content $secretFile -Raw).Trim()
 Write-Host "==> starting server on port $Port"
 $tunnel = $null
 $server = Start-Process -FilePath 'node' -ArgumentList 'src/index.js' -WorkingDirectory $serverDir `
@@ -112,6 +122,7 @@ try {
   Write-Host '======================================================='
   Write-Host '  students: name + class code'
   Write-Host '  teacher : same page, open the teacher section and enter the key'
+  Write-Host '  reports : teacher console -> 保護者レポートのリンク (one link per child)'
   Write-Host '  stop    : press Ctrl+C in this window'
   Write-Host ''
   Write-Host 'running. tunnel warnings, if any, appear below.'

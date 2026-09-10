@@ -74,7 +74,11 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     const box = $('#net-t-links');
     box.hidden = !links.length;
     if (!links.length) { toast('レポートはまだありません。'); return; }
-    box.innerHTML = `<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(l.url)}"><button type="button" data-copy="${esc(l.url)}">コピー</button></div>`).join('')}`;
+    // The server sends a path when it does not know its own public address (a tunnel,
+    // a laptop, a school's own box). The page is being served from that address, so it
+    // is the one thing here that always knows it.
+    const full = (u) => (/^https?:/i.test(u) ? u : location.origin + u);
+    box.innerHTML = `<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(full(l.url))}"><button type="button" data-copy="${esc(full(l.url))}">コピー</button></div>`).join('')}`;
     box.querySelectorAll('[data-copy]').forEach((b) => {
       b.onclick = async () => {
         try { await navigator.clipboard.writeText(b.dataset.copy); toast('リンクをコピーしました。'); }
