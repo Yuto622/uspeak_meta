@@ -100,6 +100,9 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   getter なので、スプレッドすると値が固定される。`Object.assign(island, {...})` で足す。
 - 学習用の島は `rpg-data.js` の `ACTIVITY_HUBS` に登録すること。宝箱と U-Speak park の入口が
   勝手に生えるのを防いでいる（`treasure-data.js` / `magic-data.js` が参照）。
+- ジムは `gym.js`（画面）と `server/src/game/gym.js` + `gym-words.json`（110語・判定）。
+  **はなすモードでクライアントが送るのは「マイクが聞き取った文字列」だけ**で、正解可否は送らない
+  （Roblox 版はクライアントが正解を申告してサーバーが無検査で払っていた）。
 - **単語クイズの問題バンクは `server/src/game/word-quiz.json` にあり、クライアントには来ない。**
   他の判定データ（`*-data.js`）と扱いが違うので注意。サーバーは問題文と4択だけを送り、
   正解は回答後にしか返さない。

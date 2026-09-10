@@ -404,3 +404,55 @@ test('the word huts are entered by walking in, and graded by the server', async 
   await a.room.leave();
   await sleep(100);
 });
+
+test('the gym judges the speaking, so a client cannot pay itself', async () => {
+  const a = await join('Nao');
+  const gym = SCHOOL.spotById.get('gym');
+  const easy = SCHOOL.spotById.get('easy');
+  const standAt = async (spot) => {
+    a.room.send('move', { s: SCHOOL.id, x: spot.wx, z: spot.wz, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => Math.abs(a.room.state.players.get(a.room.sessionId).x - spot.wx) < 0.01
+      && a.room.state.players.get(a.room.sessionId).space === SCHOOL.id);
+  };
+
+  // Standing at a hut is not standing at the gym.
+  await standAt(easy);
+  a.room.send('gym:start', { mode: 'speak' });
+  let err = await nextMessage(a.room, 'gym:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.hut.id, 'gym');
+
+  await standAt(gym);
+  a.room.send('gym:start', { mode: 'speak' });
+  const q = await nextMessage(a.room, 'gym:question');
+  assert.equal(q.mode, 'speak');
+  assert.equal(q.total, 5);
+  assert.ok(q.say && q.ja && q.emoji, 'a word to read, in both languages, with its picture');
+  assert.equal(q.choices, null);
+
+  const coins0 = a.welcome.wallet.coins;
+  // Saying a different word does not pay, however confidently the page asserts it.
+  a.room.send('gym:answer', { text: 'zzzzzz', correct: true, xp: 999 });
+  let r = await nextMessage(a.room, 'gym:result');
+  assert.equal(r.correct, false);
+  assert.equal(r.wallet.coins, coins0, 'the client claiming it was right changes nothing');
+  assert.equal(r.progress.total, 0);
+
+  // Saying the word does.
+  a.room.send('gym:answer', { text: r.next.say });
+  r = await nextMessage(a.room, 'gym:result');
+  assert.equal(r.correct, true);
+  assert.equal(r.wallet.coins, coins0 + REWARDS.gym.coins);
+  assert.equal(r.progress.total, REWARDS.gym.xp);
+
+  // Walking out stops the drill rather than ending it.
+  await standAt(easy);
+  a.room.send('gym:answer', { text: 'anything' });
+  assert.equal((await nextMessage(a.room, 'gym:error')).reason, 'too far');
+  await standAt(gym);
+  a.room.send('gym:answer', { text: 'nope' });
+  assert.equal((await nextMessage(a.room, 'gym:result')).index, 2, 'the set carried on where it was');
+
+  await a.room.leave();
+  await sleep(100);
+});

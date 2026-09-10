@@ -63,14 +63,15 @@ export function loadSchool(file = SCHOOL_PATH) {
   for (const spot of raw.spots || []) {
     if (typeof spot.id !== 'string' || !spot.id) throw new Error('school.json: a hut has no id');
     if (spotById.has(spot.id)) throw new Error(`school.json: duplicate hut "${spot.id}"`);
-    if (!DIFFICULTIES.includes(spot.difficulty)) throw new Error(`school.json: hut ${spot.id} has unknown difficulty "${spot.difficulty}"`);
+    if (spot.kind === 'hut' && !DIFFICULTIES.includes(spot.difficulty)) throw new Error(`school.json: hut ${spot.id} has unknown difficulty "${spot.difficulty}"`);
+    if (!['hut', 'gym'].includes(spot.kind)) throw new Error(`school.json: ${spot.id} has unknown kind "${spot.kind}"`);
     if (!Number.isFinite(spot.x) || !Number.isFinite(spot.z)) throw new Error(`school.json: hut ${spot.id} has no coordinates`);
     spotById.set(spot.id, { ...spot, wx: raw.x + spot.x, wz: raw.z + spot.z });
   }
   // One hut per difficulty, and far enough apart that standing in one is never standing
   // in another - otherwise a child could answer easy questions from the hard hut.
   for (const difficulty of DIFFICULTIES) {
-    const huts = [...spotById.values()].filter((h) => h.difficulty === difficulty);
+    const huts = [...spotById.values()].filter((h) => h.kind === 'hut' && h.difficulty === difficulty);
     if (huts.length !== 1) throw new Error(`school.json: expected exactly one ${difficulty} hut, found ${huts.length}`);
   }
   const huts = [...spotById.values()];

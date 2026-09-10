@@ -65,6 +65,7 @@ export function grantXp(progress, amount) {
 // farmable at that rate, so it pays 1. Raise it here if the classroom wants it louder.
 export const REWARDS = {
   missionGoal: { xp: 15, coins: 0 },   // an errand goal met by speaking English
+  gym: { xp: 15, coins: 5 },           // ことばのジム: listening and pronunciation drills
   wordQuiz: { xp: 10, coins: 10 },     // the word huts
   lesson: { xp: 10, coins: 0 },        // the island conversation quests
   fishWord: { xp: 10, coins: 0 },      // the word behind a catch; the fish itself pays

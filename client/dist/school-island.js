@@ -32,9 +32,19 @@ export function createSchoolIsland({ scene }) {
       sprite(`${data.name} · ことばの小屋`, 0, 5.8, 12, { width: 10, size: 30 });
 
       for (const def of data.spots) {
-        // Each hut is coloured and starred by its difficulty, so a child reads the
-        // island rather than a label.
-        house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
+        if (def.kind === 'gym') {
+          // The gym is a hall, not a hut: wider, taller, with a pair of speaker stacks
+          // either side of the door so it reads as the place you go to listen.
+          house(def.x, def.z - 5.6, 11, 8, Number(def.color), 0x4c6f86, `${def.tone} ${def.name}`);
+          for (const sx of [-4.2, 4.2]) {
+            B(def.x + sx, 1.5, def.z - 1.4, 1.5, 3, 1.2, 0x3f5566);
+            B(def.x + sx, 2.6, def.z - 1.9, 1.1, 0.9, 0.3, 0xd9e6ee);
+          }
+        } else {
+          // Each hut is coloured and starred by its difficulty, so a child reads the
+          // island rather than a label.
+          house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
+        }
         path(0, 12, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xe0d6b0);
         resident(def);

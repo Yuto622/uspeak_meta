@@ -95,6 +95,39 @@ try {
   const header = await a.evaluate(() => document.querySelector('#xp').textContent);
   check('XP matches the score too', Number(header.replace(/,/g, '')) === score * 10, `xp=${header} score=${score}`);
 
+  // ---- ことばのジム: walk on to the gym and do a speaking set with the text fallback.
+  await a.click('#quiz-close').catch(() => {});
+  await sleep(300);
+  const gymSpot = school.spots.find((sp) => sp.id === 'gym');
+  // Via the courtyard, which is where the island's paths meet: walking straight from a
+  // hut clips the corner of another one, exactly as it would for a child.
+  await walkTo(a, 'courtyard', school.x, school.z + 12, base, { arrive: 4 });
+  await walkTo(a, 'gym', ...world(gymSpot), base);
+  check('the gym offers itself', (await nearLabel(a)).includes(gymSpot.name), await nearLabel(a));
+  await a.click('#interact');
+  await a.waitForSelector('#gym-dialog[open]', { timeout: 10000 });
+  check('both drills are offered', (await a.$$eval('[data-mode]', (n) => n.map((x) => x.dataset.mode))).join(',') === 'listen,speak');
+
+  const gymCoins = await coins(a);
+  await a.click('[data-mode="speak"]');
+  await a.waitForSelector('#gym-text', { timeout: 10000 });
+  let said = 0;
+  for (let i = 0; i < 5; i += 1) {
+    await a.waitForSelector('#gym-text:not([disabled])', { timeout: 15000 });
+    const word = await a.textContent('.gym-speak strong');
+    await a.fill('#gym-text', word.trim());
+    await a.click('#gym-send');
+    await a.waitForSelector('.quiz-feedback, .quiz-done', { timeout: 15000 });
+    said += 1;
+    await sleep(1800);
+  }
+  check('all five were spoken', said === 5);
+  await a.waitForSelector('.gym-stars', { timeout: 15000 });
+  const stars = await a.textContent('.gym-stars');
+  check('a clean set is three stars', stars.trim() === '★★★', stars.trim());
+  check('the gym pays 5 coins a word', (await coins(a)) - gymCoins === 25, `earned=${(await coins(a)) - gymCoins}`);
+  await a.screenshot({ path: path.join(SHOTS, 'e2e-gym-done.png') });
+
   const { mkdirSync } = await import('node:fs');
   mkdirSync(SHOTS, { recursive: true });
   await a.screenshot({ path: path.join(SHOTS, 'e2e-school-done.png') });

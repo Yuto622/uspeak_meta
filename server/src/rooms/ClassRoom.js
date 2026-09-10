@@ -11,6 +11,7 @@ import { PHRASE_IDS } from '../phrases.js';
 import { MISSIONS } from '../game/missions.js';
 import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS } from '../game/progression.js';
 import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SESSION } from '../game/wordquiz.js';
+import { MODES as GYM_MODES, createSet, questionPayload as gymPayload, answerSet } from '../game/gym.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
@@ -87,6 +88,9 @@ export class ClassRoom extends Room {
     this.onMessage('quiz:start', (client, msg) => this.onQuizStart(client, msg));
     this.onMessage('quiz:answer', (client, msg) => this.onQuizAnswer(client, msg));
     this.onMessage('quiz:quit', (client) => this.onQuizQuit(client));
+    this.onMessage('gym:start', (client, msg) => this.onGymStart(client, msg));
+    this.onMessage('gym:answer', (client, msg) => this.onGymAnswer(client, msg));
+    this.onMessage('gym:quit', (client) => this.onGymQuit(client));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -407,6 +411,8 @@ export class ClassRoom extends Room {
       mission: null,
       quiz: null,
       lastQuizAt: 0,
+      gym: null,
+      lastGymAt: 0,
       missionTurnsToday: 0,
       missionDay: '',
       lastMissionAt: 0,
@@ -543,6 +549,77 @@ export class ClassRoom extends Room {
     if (!priv?.quiz) return;
     priv.quiz = null;
     client.send('quiz:closed', { reason: 'quit' });
+  }
+
+  // ---- ことばのジム ------------------------------------------------------------------
+
+  // Five questions in the gym: hear a word and pick the picture, or read a word and say
+  // it. Roblox let the client decide it was right and fire an XP event the server paid
+  // without looking - 15 XP and 5 coins to anyone who called it on a timer. Here the
+  // server holds the word and does the judging, and the speaking half is judged from
+  // what the microphone heard, not from a verdict the page sent.
+  onGymStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const mode = GYM_MODES.includes(msg?.mode) ? msg.mode : 'listen';
+    if (!this.atHut(client.sessionId, 'gym')) {
+      const gym = SCHOOL.spotById.get('gym');
+      client.send('gym:error', { reason: 'too far', hut: gym ? { id: gym.id, name: gym.name, ja: gym.ja } : null });
+      return;
+    }
+    priv.gym = createSet(mode);
+    client.send('gym:question', gymPayload(priv.gym));
+    log.info(`[room ${this.roomId}] "${priv.name}" started a ${mode} set at the gym`);
+  }
+
+  onGymAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const session = priv?.gym;
+    if (!priv || !session) return;
+    if (!this.atHut(client.sessionId, 'gym')) {
+      const gym = SCHOOL.spotById.get('gym');
+      client.send('gym:error', { reason: 'too far', hut: gym ? { id: gym.id, name: gym.name, ja: gym.ja } : null });
+      return;
+    }
+    const now = Date.now();
+    if (now - priv.lastGymAt < config.answerMinIntervalMs) { client.send('gym:error', { reason: 'too fast' }); return; }
+    priv.lastGymAt = now;
+
+    const heard = typeof msg?.text === 'string' ? msg.text.replace(/\s+/g, ' ').trim().slice(0, 120) : '';
+    const result = answerSet(session, { choice: msg?.choice, text: heard });
+    if (!result) return;
+    priv.stats.attempts += 1;
+    if (result.correct) priv.stats.correct += 1;
+
+    const payload = { ...result, mode: session.mode };
+    if (result.correct) {
+      const entry = applyOp(priv.wallet, { type: 'award', amount: REWARDS.gym.coins, id: `gym:${session.mode}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      const level = this.awardXp(client.sessionId, REWARDS.gym.xp, `gym:${session.mode}`);
+      payload.levels = level?.levels || 0;
+    }
+    this.store.appendLearning([
+      new Date(now).toISOString(), this.classCode, priv.name, `gym:${session.mode}:${result.word}`, session.mode === 'speak' ? 'speak' : 'listen',
+      (session.mode === 'speak' ? heard : String(result.answer)).slice(0, 80), result.correct ? 1 : 0,
+      result.correct ? REWARDS.gym.xp : 0, client.sessionId,
+    ]);
+
+    if (result.done) {
+      priv.gym = null;
+      log.info(`[room ${this.roomId}] "${priv.name}" finished a ${session.mode} set ${result.score}/${result.total}`);
+    }
+    payload.progress = this.progressPayload(client.sessionId);
+    payload.wallet = this.walletPayload(client.sessionId).wallet;
+    payload.next = priv.gym ? gymPayload(priv.gym) : null;
+    this.persist(client.sessionId);
+    client.send('gym:result', payload);
+  }
+
+  onGymQuit(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv?.gym) return;
+    priv.gym = null;
+    client.send('gym:closed', { reason: 'quit' });
   }
 
   // ---- errand quest -------------------------------------------------------------
@@ -749,6 +826,7 @@ export class ClassRoom extends Room {
         ? { ...this.missionPayload(MISSIONS.byId.get(priv.mission.id), priv.mission.stage), goalsMet: [...priv.mission.goalsMet], turn: priv.mission.turns.length }
         : null,
       quiz: priv.quiz ? { ...questionPayload(priv.quiz), hut: priv.quiz.hut } : null,
+      gym: priv.gym ? gymPayload(priv.gym) : null,
       chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),
     };

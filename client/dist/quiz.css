@@ -43,3 +43,50 @@
   .quiz-question p { font-size: 18px; }
   .quiz-choices button { padding: 13px 12px; font-size: 14px; }
 }
+
+/* ことばのジム shares the quiz frame; only the drills below are its own. */
+#gym-dialog {
+  border: 0; border-radius: 22px; padding: 0; width: min(560px, calc(100vw - 28px));
+  max-height: min(88vh, 760px); max-height: min(88dvh, 760px); overflow: hidden;
+  background: #fffaf0; color: #263d33; box-shadow: 0 30px 80px rgba(10, 36, 27, .45);
+}
+#gym-dialog[open] { display: flex; flex-direction: column; }
+#gym-dialog::backdrop { background: rgba(12, 32, 28, .55); backdrop-filter: blur(4px); }
+#gym-body { padding: 16px 22px 22px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+.gym-modes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.gym-modes button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 20px 14px; border-radius: 16px; background: #eef2e4; }
+.gym-modes button b { font-size: 34px; line-height: 1; }
+.gym-modes button strong { font-size: 17px; }
+.gym-modes button small { font-size: 11px; color: #5d6d62; text-align: center; line-height: 1.4; }
+.gym-modes button:active { background: #d8e3c9; }
+
+.gym-listen { text-align: center; }
+.gym-listen button { font-size: 15px; padding: 13px 20px; border-radius: 14px; background: #dfe6d2; font-weight: 700; }
+.gym-listen p { margin: 12px 0 0; font-size: 13px; font-weight: 600; color: #5d6d62; }
+.gym-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.gym-cards button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 16px 10px; border-radius: 14px; background: #f1efe1; }
+.gym-cards button small { font-size: 12px; color: #5d6d62; }
+.gym-cards button.right { background: #cdebd2; outline: 2px solid #4f9c62; }
+.gym-cards button.wrong { background: #f3dcd8; outline: 2px solid #c07b6e; }
+.gym-cards button:disabled { opacity: 1; }
+.gym-emoji { font-size: 40px; line-height: 1.1; }
+.gym-emoji.big { font-size: 64px; }
+
+.gym-speak { text-align: center; }
+.gym-speak strong { display: block; font-size: 28px; margin: 6px 0 2px; }
+.gym-speak small { display: block; font-size: 13px; color: #5d6d62; margin-bottom: 10px; }
+.gym-speak button { padding: 7px 12px; border-radius: 10px; background: #dfe6d2; font-size: 12px; font-weight: 600; }
+.gym-mic { margin-top: 14px; }
+.gym-mic > button { width: 100%; padding: 14px; border-radius: 14px; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+.gym-mic > button.primary { background: #173f38; color: #f4f1e3; }
+.gym-mic .mission-row button { padding: 0 14px; border-radius: 12px; background: #e5e9dc; font-weight: 700; }
+#gym-status { margin: 8px 0 0; font-size: 12px; color: #5d6d62; min-height: 1.2em; }
+.gym-stars { font-size: 30px; letter-spacing: 4px; color: #e0a93c; margin: 0 0 4px; }
+
+@media (max-width: 600px) {
+  .gym-cards { grid-template-columns: 1fr 1fr; }
+  .gym-emoji { font-size: 34px; }
+  .gym-emoji.big { font-size: 52px; }
+  .gym-speak strong { font-size: 24px; }
+}

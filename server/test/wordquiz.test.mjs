@@ -36,17 +36,19 @@ test('a broken bank is refused rather than half-loaded', async () => {
   assert.throws(() => loadBank(write(banks([good]))), /at least 10/);
 });
 
-test('the island is three huts a child cannot stand in at once', () => {
-  assert.equal(SCHOOL.spotById.size, 3);
-  const huts = [...SCHOOL.spotById.values()];
+test('the island is places a child cannot stand in two of at once', () => {
+  const all = [...SCHOOL.spotById.values()];
+  const huts = all.filter((h) => h.kind === 'hut');
+  assert.equal(huts.length, 3);
   assert.deepEqual(huts.map((h) => h.difficulty).sort(), [...DIFFICULTIES].sort());
-  for (let i = 0; i < huts.length; i += 1) {
-    for (let j = i + 1; j < huts.length; j += 1) {
-      assert.ok(Math.hypot(huts[i].x - huts[j].x, huts[i].z - huts[j].z) > SCHOOL.radius * 2);
+  assert.equal(all.filter((h) => h.kind === 'gym').length, 1, 'and one gym');
+  for (let i = 0; i < all.length; i += 1) {
+    for (let j = i + 1; j < all.length; j += 1) {
+      assert.ok(Math.hypot(all[i].x - all[j].x, all[i].z - all[j].z) > SCHOOL.radius * 2, `${all[i].id} and ${all[j].id} overlap`);
     }
     // World coordinates are what a `move` message carries.
-    assert.equal(huts[i].wx, SCHOOL.x + huts[i].x);
-    assert.equal(huts[i].wz, SCHOOL.z + huts[i].z);
+    assert.equal(all[i].wx, SCHOOL.x + all[i].x);
+    assert.equal(all[i].wz, SCHOOL.z + all[i].z);
   }
 });
 

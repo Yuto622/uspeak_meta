@@ -53,6 +53,18 @@
         "z": 5,
         "color": 14258063,
         "tone": "★★★"
+      },
+      {
+        "id": "gym",
+        "kind": "gym",
+        "name": "ことばのジム",
+        "en": "Word Gym",
+        "character": "Upee",
+        "ja": "ことばのジム",
+        "x": 0,
+        "z": -18,
+        "color": 8368336,
+        "tone": "🎧"
       }
     ]
   }
