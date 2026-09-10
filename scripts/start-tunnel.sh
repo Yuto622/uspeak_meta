@@ -57,9 +57,26 @@ CF_ARGS=(tunnel --url "http://localhost:${PORT}")
 [ -n "${EDGE_IP_VERSION:-}" ] && CF_ARGS+=(--edge-ip-version "$EDGE_IP_VERSION")
 cloudflared "${CF_ARGS[@]}" 2>&1 | while IFS= read -r line; do
   if [[ "$line" =~ (https://[a-z0-9-]+\.trycloudflare\.com) ]]; then
+    # cloudflared prints the address before its connection is up, so a name here is not
+    # yet a name that resolves: on a network that blocks QUIC it never will. Ask it.
+    URL="${BASH_REMATCH[1]}"
+    LIVE=0
+    for _ in $(seq 20); do
+      sleep 1.5
+      if curl -fsS --max-time 4 "$URL/healthz" >/dev/null 2>&1; then LIVE=1; break; fi
+    done
+    if [ "$LIVE" -eq 0 ]; then
+      echo
+      echo "--- the tunnel reported this address but it does not answer ---"
+      echo "  $URL"
+      echo "the server on this machine is fine; the tunnel is not. stop and try:"
+      echo "  PROTOCOL=http2 $0 <teacher-key>"
+      echo "  PROTOCOL=http2 EDGE_IP_VERSION=4 $0 <teacher-key>"
+      continue
+    fi
     echo
     echo "======================================================="
-    echo "  open this on the iPads:  ${BASH_REMATCH[1]}"
+    echo "  open this on the iPads:  $URL"
     echo "======================================================="
     echo
   fi

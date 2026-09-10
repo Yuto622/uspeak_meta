@@ -119,6 +119,29 @@ try {
     throw 'the tunnel did not report a URL'
   }
 
+  # cloudflared prints the address before its connection is established, so a URL in
+  # this window is not yet a URL that works: a network that blocks QUIC gives a name
+  # that never resolves. Ask the address itself before handing it to a class.
+  Write-Host '==> checking the address answers'
+  $live = $false
+  for ($i = 0; $i -lt 20; $i++) {
+    Start-Sleep -Milliseconds 1500
+    if ($tunnel.HasExited) { break }
+    try { Invoke-RestMethod "$url/healthz" -TimeoutSec 4 | Out-Null; $live = $true; break } catch { }
+  }
+  if (-not $live) {
+    Write-Host ''
+    Write-Host '--- the tunnel reported this address but it does not answer ---'
+    Write-Host "  $url"
+    Get-Content $tunErr -Tail 15 -ErrorAction SilentlyContinue
+    Write-Host ''
+    Write-Host 'the server on this PC is fine (it passed its health check). the tunnel is not.'
+    Write-Host 'stop with Ctrl+C and start again with one of these:'
+    Write-Host "  .\scripts\start-tunnel.ps1 -TeacherKey <key> -Protocol http2"
+    Write-Host "  .\scripts\start-tunnel.ps1 -TeacherKey <key> -Protocol http2 -EdgeIpVersion 4"
+    throw 'the tunnel address does not answer'
+  }
+
   Write-Host ''
   Write-Host '======================================================='
   Write-Host "  open this on the iPads:  $url"

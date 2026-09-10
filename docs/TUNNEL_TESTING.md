@@ -93,6 +93,13 @@ npm ci
 
 ## つながらないとき
 
+**URL は出たのに「このサイトにアクセスできません（DNS_PROBE_FINISHED_NXDOMAIN）」**
+
+cloudflared は接続が確立する前に URL を印字します。QUIC を塞ぐ回線ではそのあと接続に失敗し、
+**その名前は最後まで DNS に載りません**。起動スクリプトは URL を出す前にその URL 自身へ
+問い合わせるので、この状態なら「the tunnel reported this address but it does not answer」と
+表示して止まります。下の HTTP/2 で起動し直してください。
+
 **`Allow outbound QUIC traffic on port 7844` と出て URL が反応しない**
 
 cloudflared は既定で QUIC（UDP 7844）を使います。これを塞いでいるネットワークでは接続できません。
