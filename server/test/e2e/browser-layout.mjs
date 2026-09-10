@@ -36,7 +36,7 @@ const DEVICES = ONLY.length ? ALL.filter((d) => ONLY.includes(d.name)) : ALL;
 const RAIL_KIDS = ['.map-panel', '.scenery-controls', '#flight-button', '.fishing-button', '.rpg-buddy-button'];
 const OVERLAY = ['#net-teacher'];
 const PROBES = ['.right-rail', '#net-status', '#net-chat-button', '#net-teacher-button', '#net-teacher',
-  '.hotbar', '.mobile-pad', '#near', '.quest-panel', ...RAIL_KIDS];
+  '.hotbar', '.mobile-pad', '#near', '.quest-panel', '#errand-hud', ...RAIL_KIDS];
 
 const server = spawn('node', ['src/index.js'], {
   cwd: serverDir,
@@ -98,35 +98,58 @@ try {
     await page.click('#net-teacher-close');
     await sleep(300);
 
-    const report = await page.evaluate((probes) => {
-      const boxes = {};
-      for (const sel of probes) {
-        const el = document.querySelector(sel);
-        if (!el || el.hidden || getComputedStyle(el).display === 'none' || getComputedStyle(el).visibility === 'hidden') { boxes[sel] = null; continue; }
-        const r = el.getBoundingClientRect();
-        if (!r.width || !r.height) { boxes[sel] = null; continue; }
-        boxes[sel] = { x: Math.round(r.x), y: Math.round(r.y), right: Math.round(r.right), bottom: Math.round(r.bottom), w: Math.round(r.width), h: Math.round(r.height) };
-      }
-      return { vw: innerWidth, vh: innerHeight, scrollW: document.documentElement.scrollWidth, coarse: matchMedia('(pointer: coarse)').matches, boxes };
-    }, PROBES);
+    const probe = async (where) => {
+      const report = await page.evaluate((probes) => {
+        const boxes = {};
+        for (const sel of probes) {
+          const el = document.querySelector(sel);
+          if (!el || el.hidden || getComputedStyle(el).display === 'none' || getComputedStyle(el).visibility === 'hidden') { boxes[sel] = null; continue; }
+          const r = el.getBoundingClientRect();
+          if (!r.width || !r.height) { boxes[sel] = null; continue; }
+          boxes[sel] = { x: Math.round(r.x), y: Math.round(r.y), right: Math.round(r.right), bottom: Math.round(r.bottom), w: Math.round(r.width), h: Math.round(r.height) };
+        }
+        return { vw: innerWidth, vh: innerHeight, scrollW: document.documentElement.scrollWidth, coarse: matchMedia('(pointer: coarse)').matches, boxes };
+      }, PROBES);
 
-    const bad = [];
-    if (report.scrollW > report.vw + 1) bad.push(`horizontal scroll (${report.scrollW} > ${report.vw})`);
-    for (const [k, b] of Object.entries(report.boxes)) {
-      if (!b || RAIL_KIDS.includes(k)) continue; // rail children are clipped by the rail, not the viewport
-      if (b.right > report.vw + 1 || b.bottom > report.vh + 1 || b.x < -1 || b.y < -1) bad.push(`${k} leaves the viewport ${JSON.stringify(b)}`);
-    }
-    const keys = Object.keys(report.boxes).filter((k) => report.boxes[k] && !OVERLAY.includes(k));
-    const related = (a, b) => (a === '.right-rail' && RAIL_KIDS.includes(b)) || (b === '.right-rail' && RAIL_KIDS.includes(a)) || (RAIL_KIDS.includes(a) && RAIL_KIDS.includes(b));
-    for (let i = 0; i < keys.length; i++) for (let j = i + 1; j < keys.length; j++) {
-      if (related(keys[i], keys[j])) continue;
-      const a = report.boxes[keys[i]], b = report.boxes[keys[j]];
-      const ov = Math.max(0, Math.min(a.right, b.right) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.y, b.y));
-      if (ov > 200) bad.push(`overlap ${keys[i]} x ${keys[j]} = ${ov}px2`);
-    }
-    console.log(`\n== ${d.name} (${d.width}x${d.height}) coarse=${report.coarse} pad=${!!report.boxes['.mobile-pad']} rail=${!!report.boxes['.right-rail']}`);
-    if (!bad.length) console.log('  clean');
-    bad.forEach((b) => { console.log('  ' + b); failures++; });
+      const bad = [];
+      if (report.scrollW > report.vw + 1) bad.push(`horizontal scroll (${report.scrollW} > ${report.vw})`);
+      for (const [k, b] of Object.entries(report.boxes)) {
+        if (!b || RAIL_KIDS.includes(k)) continue; // rail children are clipped by the rail, not the viewport
+        if (b.right > report.vw + 1 || b.bottom > report.vh + 1 || b.x < -1 || b.y < -1) bad.push(`${k} leaves the viewport ${JSON.stringify(b)}`);
+      }
+      const keys = Object.keys(report.boxes).filter((k) => report.boxes[k] && !OVERLAY.includes(k));
+      const related = (a, b) => (a === '.right-rail' && RAIL_KIDS.includes(b)) || (b === '.right-rail' && RAIL_KIDS.includes(a)) || (RAIL_KIDS.includes(a) && RAIL_KIDS.includes(b));
+      for (let i = 0; i < keys.length; i++) for (let j = i + 1; j < keys.length; j++) {
+        if (related(keys[i], keys[j])) continue;
+        const a = report.boxes[keys[i]], b = report.boxes[keys[j]];
+        const ov = Math.max(0, Math.min(a.right, b.right) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.y, b.y));
+        if (ov > 200) bad.push(`overlap ${keys[i]} x ${keys[j]} = ${ov}px2`);
+      }
+      console.log(`\n== ${d.name} (${d.width}x${d.height}) ${where} coarse=${report.coarse} pad=${!!report.boxes['.mobile-pad']} rail=${!!report.boxes['.right-rail']} tracker=${!!report.boxes['#errand-hud']}`);
+      if (!bad.length) console.log('  clean');
+      bad.forEach((b) => { console.log('  ' + b); failures++; });
+    };
+    await probe('willow');
+
+    // おつかい島 with an errand in hand: the tracker takes the quest list's slot and the
+    // interact prompt sits mid-screen, which is where they used to collide.
+    await page.evaluate(() => { uspeak.rpg.fly('errand'); });
+    await sleep(400);
+    await page.evaluate(() => uspeak.rpg.finishFlight());
+    await sleep(900);
+    await page.click('#mission-button');
+    await page.waitForSelector('#mission-dialog[open]', { timeout: 15000 });
+    await page.click('[data-mission="bakery-two-drinks"]');
+    await sleep(500);
+    // Stand at the plaza so the interact prompt is showing while we measure.
+    await page.evaluate(async () => {
+      const d = await (await fetch('missions.json')).json();
+      const p = d.island.spots.find((s) => s.id === 'plaza');
+      uspeak.player.position.set(d.island.x + p.x, 0, d.island.z + p.z);
+    });
+    await sleep(700);
+    await shot('6-errand');
+    await probe('errand');
     await ctx.close();
   }
 } finally {

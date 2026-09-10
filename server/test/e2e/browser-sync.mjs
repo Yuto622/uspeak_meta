@@ -53,7 +53,9 @@ async function openPage(name, { teacherKey = '', coins = null } = {}) {
   await sleep(300);
   return page;
 }
-const status = (page) => page.evaluate(() => document.querySelector('#net-status span').textContent);
+// The chip is an icon, a count and a label in separate elements, so that narrow
+// screens can drop the words and keep the number: read the whole chip.
+const status = (page) => page.evaluate(() => document.querySelector('#net-status').textContent);
 const pos = (page) => page.evaluate(() => ({ x: uspeak.player.position.x, z: uspeak.player.position.z, space: uspeak.net.currentSpace() }));
 const remoteOf = (page, sessionId) => page.evaluate((id) => { const r = uspeak.net.remotes.get(id); return r ? { x: r.pos.x, z: r.pos.z, visible: r.group.visible, space: r.space, anim: r.anim, name: r.name } : null; }, sessionId);
 const sid = (page) => page.evaluate(() => uspeak.net.sessionId);
