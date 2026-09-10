@@ -10,6 +10,7 @@ import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
 import { MISSIONS } from '../game/missions.js';
 import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS } from '../game/progression.js';
+import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SESSION } from '../game/wordquiz.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
@@ -18,6 +19,7 @@ const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only wi
 // A little more room than the client shows the prompt in, so a position that arrived a
 // frame late never refuses a child who is visibly standing at the counter.
 const SPOT_SLACK = 1.5;
+const PERFECT_BONUS_COINS = 10;   // Roblox: COIN_PERFECT_BONUS, for a clean ten
 const STALE_MOVE_MS = 5000;
 const GHOST_MS = 3000; // silent connected seat considered dead (heartbeat is 500 ms)
 const PERSIST_ALL_MS = 30000;
@@ -82,6 +84,9 @@ export class ClassRoom extends Room {
     this.onMessage('mission:say', (client, msg) => this.onMissionSay(client, msg));
     this.onMessage('mission:deliver', (client) => this.onMissionDeliver(client));
     this.onMessage('mission:quit', (client) => this.onMissionQuit(client));
+    this.onMessage('quiz:start', (client, msg) => this.onQuizStart(client, msg));
+    this.onMessage('quiz:answer', (client, msg) => this.onQuizAnswer(client, msg));
+    this.onMessage('quiz:quit', (client) => this.onQuizQuit(client));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -400,6 +405,8 @@ export class ClassRoom extends Room {
       lastSeen: null,
       reconnect: null,
       mission: null,
+      quiz: null,
+      lastQuizAt: 0,
       missionTurnsToday: 0,
       missionDay: '',
       lastMissionAt: 0,
@@ -451,6 +458,91 @@ export class ClassRoom extends Room {
     if (!priv) return null;
     const { level, xp, chats } = priv.progress;
     return { level, xp, need: xpToNext(level), total: totalXp(priv.progress), chats };
+  }
+
+  // ---- word huts ------------------------------------------------------------------
+
+  // Ten questions inside the hut whose difficulty you chose by walking into it. The bank
+  // never leaves the server, so unlike the lesson and fish keys there is nothing in the
+  // browser to read: the child gets a question and four choices, and the answer arrives
+  // only after they have committed to one.
+  atHut(sessionId, hutId) {
+    const player = this.state.players.get(sessionId);
+    const hut = SCHOOL.spotById.get(hutId);
+    if (!player || !hut) return false;
+    if (player.space !== SCHOOL.id) return false;
+    return Math.hypot(player.x - hut.wx, player.z - hut.wz) <= SCHOOL.radius + SPOT_SLACK;
+  }
+
+  onQuizStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const hut = SCHOOL.spotById.get(typeof msg?.hut === 'string' ? msg.hut : '');
+    if (!hut) { client.send('quiz:error', { reason: 'unknown hut' }); return; }
+    if (!this.atHut(client.sessionId, hut.id)) {
+      client.send('quiz:error', { reason: 'too far', hut: { id: hut.id, name: hut.name, ja: hut.ja } });
+      return;
+    }
+    priv.quiz = createSession(hut.difficulty);
+    priv.quiz.hut = hut.id;
+    client.send('quiz:question', { ...questionPayload(priv.quiz), hut: hut.id, name: hut.name });
+    log.info(`[room ${this.roomId}] "${priv.name}" entered the ${hut.difficulty} hut`);
+  }
+
+  onQuizAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const session = priv?.quiz;
+    if (!priv || !session) return;
+    // Walking out ends nothing; it just stops the answering until they walk back in.
+    if (!this.atHut(client.sessionId, session.hut)) {
+      const hut = SCHOOL.spotById.get(session.hut);
+      client.send('quiz:error', { reason: 'too far', hut: hut ? { id: hut.id, name: hut.name, ja: hut.ja } : null });
+      return;
+    }
+    const now = Date.now();
+    if (now - priv.lastQuizAt < config.answerMinIntervalMs) { client.send('quiz:error', { reason: 'too fast' }); return; }
+    priv.lastQuizAt = now;
+
+    const result = answerSession(session, msg?.choice);
+    if (!result) return;
+    priv.stats.attempts += 1;
+    if (result.correct) priv.stats.correct += 1;
+
+    const payload = { ...result, hut: session.hut };
+    if (result.correct) {
+      const entry = applyOp(priv.wallet, { type: 'award', amount: REWARDS.wordQuiz.coins, id: `quiz:${session.difficulty}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      const level = this.awardXp(client.sessionId, REWARDS.wordQuiz.xp, `quiz:${session.difficulty}`);
+      payload.levels = level?.levels || 0;
+    }
+    this.store.appendLearning([
+      new Date(now).toISOString(), this.classCode, priv.name, `quiz:${session.difficulty}:${result.index}`, 'quiz',
+      String(session.answered[result.index]?.q || '').slice(0, 80), result.correct ? 1 : 0,
+      result.correct ? REWARDS.wordQuiz.xp : 0, client.sessionId,
+    ]);
+
+    if (result.done) {
+      // Roblox paid a bonus for a clean ten, and it is the reason children replay a hut.
+      if (result.perfect) {
+        const bonus = applyOp(priv.wallet, { type: 'award', amount: PERFECT_BONUS_COINS, id: `quiz:${session.difficulty}:perfect` });
+        this.store.appendCoin(this.coinRow(client.sessionId, bonus));
+        payload.perfectBonus = PERFECT_BONUS_COINS;
+      }
+      priv.quiz = null;
+      log.info(`[room ${this.roomId}] "${priv.name}" finished a ${session.difficulty} set ${result.score}/${result.total}`);
+    }
+    payload.progress = this.progressPayload(client.sessionId);
+    payload.wallet = this.walletPayload(client.sessionId).wallet;
+    payload.next = priv.quiz ? questionPayload(priv.quiz) : null;
+    this.persist(client.sessionId);
+    client.send('quiz:result', payload);
+  }
+
+  onQuizQuit(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv?.quiz) return;
+    priv.quiz = null;
+    client.send('quiz:closed', { reason: 'quit' });
   }
 
   // ---- errand quest -------------------------------------------------------------
@@ -656,6 +748,7 @@ export class ClassRoom extends Room {
       errand: priv.mission && MISSIONS.byId.has(priv.mission.id)
         ? { ...this.missionPayload(MISSIONS.byId.get(priv.mission.id), priv.mission.stage), goalsMet: [...priv.mission.goalsMet], turn: priv.mission.turns.length }
         : null,
+      quiz: priv.quiz ? { ...questionPayload(priv.quiz), hut: priv.quiz.hut } : null,
       chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),
     };

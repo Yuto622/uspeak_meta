@@ -89,3 +89,17 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   閉じたダイアログが画面中央でタップを吸う（`#mission-dialog[open]` の側に書く）。
 - 島に宝箱と U-Speak park の入口は置かない（`treasure-data.js` と `magic-data.js` で除外済み）。
 - 装飾（岸の岩・道タイル・草花）は色ごとに `InstancedMesh` へまとめている。増やすときも `D()` を使うこと。
+
+## ことばの学校島（2026-09 追加）
+
+`island-kit.js`（地形・桟橋・当たり判定・光の柱・ミニマップ＝全島共通）/
+`school-island.js` + `school.json`（3つの小屋）/ `quiz.js` + `quiz.css`（出題画面）。
+
+- **島を足すときは `island-kit.js` の `createIsland({scene, build})` を使うこと。** 建物と住人だけ書けばよい。
+- 返ってきた island を**スプレッドしないこと**（`{...island}`）。`visible` `data` `spots` `target` は
+  getter なので、スプレッドすると値が固定される。`Object.assign(island, {...})` で足す。
+- 学習用の島は `rpg-data.js` の `ACTIVITY_HUBS` に登録すること。宝箱と U-Speak park の入口が
+  勝手に生えるのを防いでいる（`treasure-data.js` / `magic-data.js` が参照）。
+- **単語クイズの問題バンクは `server/src/game/word-quiz.json` にあり、クライアントには来ない。**
+  他の判定データ（`*-data.js`）と扱いが違うので注意。サーバーは問題文と4択だけを送り、
+  正解は回答後にしか返さない。

@@ -17,6 +17,7 @@ const { FISH } = await import('../../client/dist/fishing-data.js');
 const { WILLOW_LESSONS } = await import('../../client/dist/lesson-data.js');
 const { MISSIONS } = await import('../src/game/missions.js');
 const { REWARDS, xpToNext } = await import('../src/game/progression.js');
+const { SCHOOL } = await import('../src/game/wordquiz.js');
 
 let server; let url;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -336,3 +337,70 @@ test('an errand in progress comes back after a disconnect', async () => {
   await back.leave();
 });
 
+test('the word huts are entered by walking in, and graded by the server', async () => {
+  const a = await join('Sora');
+  const easy = SCHOOL.spotById.get('easy');
+  const hard = SCHOOL.spotById.get('hard');
+  const standAt = async (hut, space = SCHOOL.id) => {
+    a.room.send('move', { s: space, x: hut.wx, z: hut.wz, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return p.space === space && Math.abs(p.x - hut.wx) < 0.01;
+    });
+  };
+
+  // Not from Willow, and not from the wrong hut.
+  a.room.send('quiz:start', { hut: 'easy' });
+  assert.equal((await nextMessage(a.room, 'quiz:error')).reason, 'too far');
+  await standAt(hard);
+  a.room.send('quiz:start', { hut: 'easy' });
+  let err = await nextMessage(a.room, 'quiz:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.hut.id, 'easy', 'the refusal names the hut to walk to');
+  await standAt(easy, 'willow');
+  a.room.send('quiz:start', { hut: 'easy' });
+  assert.equal((await nextMessage(a.room, 'quiz:error')).reason, 'too far');
+  a.room.send('quiz:start', { hut: 'nowhere' });
+  assert.equal((await nextMessage(a.room, 'quiz:error')).reason, 'unknown hut');
+
+  // Inside the hut, a set begins - and the answer is not in the question.
+  await standAt(easy);
+  a.room.send('quiz:start', { hut: 'easy' });
+  const q = await nextMessage(a.room, 'quiz:question');
+  assert.equal(q.difficulty, 'easy');
+  assert.equal(q.total, 10);
+  assert.equal(q.choices.length, 4);
+  assert.equal('answer' in q, false, 'the client is never told which one is right');
+
+  const coins0 = a.welcome.wallet.coins;
+  // Guessing every question the same way: some land, and the server says which.
+  let seen = null;
+  let right = 0;
+  for (let i = 0; i < 10; i += 1) {
+    a.room.send('quiz:answer', { choice: 0 });
+    seen = await nextMessage(a.room, 'quiz:result');
+    assert.equal(seen.index, i);
+    assert.ok(seen.answer >= 0 && seen.answer <= 3, 'the answer arrives after committing');
+    if (seen.correct) right += 1;
+    assert.equal(seen.score, right);
+  }
+  assert.equal(seen.done, true);
+  assert.equal(seen.next, null);
+  assert.equal(seen.wallet.coins, coins0 + right * REWARDS.wordQuiz.coins + (seen.perfectBonus || 0));
+  assert.equal(seen.progress.total, right * REWARDS.wordQuiz.xp);
+
+  // Walking out mid-set stops the answering rather than ending it.
+  a.room.send('quiz:start', { hut: 'easy' });
+  await nextMessage(a.room, 'quiz:question');
+  await standAt(hard);
+  a.room.send('quiz:answer', { choice: 0 });
+  err = await nextMessage(a.room, 'quiz:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.hut.id, 'easy', 'and it names the hut to walk back to');
+  await standAt(easy);
+  a.room.send('quiz:answer', { choice: 0 });
+  assert.equal((await nextMessage(a.room, 'quiz:result')).index, 0, 'the set carried on where it was');
+
+  await a.room.leave();
+  await sleep(100);
+});

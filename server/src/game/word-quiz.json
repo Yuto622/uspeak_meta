@@ -1,0 +1,15022 @@
+{
+"version": 1,
+"source": "U-Speak Roblox WordHouseQuiz v4.7",
+"banks": {
+"easy": [
+{
+"q": "What does 'reliable' mean?",
+"choices": [
+"can be trusted",
+"very noisy",
+"dangerous",
+"very slow"
+],
+"answer": 0
+},
+{
+"q": "Past tense of 'go'?",
+"choices": [
+"goed",
+"goes",
+"went",
+"going"
+],
+"answer": 2
+},
+{
+"q": "Choose the correct article: ___ apple",
+"choices": [
+"a",
+"an",
+"the",
+"no article"
+],
+"answer": 1
+},
+{
+"q": "Opposite of 'hot'?",
+"choices": [
+"warm",
+"cold",
+"cool",
+"heat"
+],
+"answer": 1
+},
+{
+"q": "Meaning of 'quick'?",
+"choices": [
+"fast",
+"late",
+"quiet",
+"weak"
+],
+"answer": 0
+},
+{
+"q": "Plural of 'child'?",
+"choices": [
+"childs",
+"childes",
+"children",
+"childrens"
+],
+"answer": 2
+},
+{
+"q": "Correct: He ___ soccer.",
+"choices": [
+"play",
+"plays",
+"playing",
+"played"
+],
+"answer": 1
+},
+{
+"q": "Meaning of 'borrow'?",
+"choices": [
+"give",
+"lend",
+"take and return",
+"buy"
+],
+"answer": 2
+},
+{
+"q": "Which is a fruit?",
+"choices": [
+"carrot",
+"apple",
+"onion",
+"potato"
+],
+"answer": 1
+},
+{
+"q": "Meaning of 'happy'?",
+"choices": [
+"sad",
+"angry",
+"glad",
+"tired"
+],
+"answer": 2
+},
+{
+"q": "I ____ a student.",
+"choices": [
+"am",
+"is",
+"are",
+"be"
+],
+"answer": 0
+},
+{
+"q": "____ is your name? - My name is Ken.",
+"choices": [
+"Who",
+"What",
+"How",
+"When"
+],
+"answer": 1
+},
+{
+"q": "He ____ my brother.",
+"choices": [
+"am",
+"is",
+"are",
+"be"
+],
+"answer": 1
+},
+{
+"q": "They ____ my friends.",
+"choices": [
+"is",
+"am",
+"are",
+"was"
+],
+"answer": 2
+},
+{
+"q": "This is ____ apple.",
+"choices": [
+"a",
+"an",
+"the",
+"two"
+],
+"answer": 1
+},
+{
+"q": "Nice to ____ you.",
+"choices": [
+"meet",
+"meets",
+"meeting",
+"met"
+],
+"answer": 0
+},
+{
+"q": "How ____ are you? - I'm 12 years old.",
+"choices": [
+"much",
+"many",
+"old",
+"tall"
+],
+"answer": 2
+},
+{
+"q": "Are ____ a doctor? - Yes, I am.",
+"choices": [
+"he",
+"she",
+"it",
+"you"
+],
+"answer": 3
+},
+{
+"q": "____ name is Mary. She is from USA.",
+"choices": [
+"She",
+"Her",
+"Hers",
+"He"
+],
+"answer": 1
+},
+{
+"q": "These ____ my pencils.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 1
+},
+{
+"q": "I ____ soccer every day.",
+"choices": [
+"play",
+"plays",
+"playing",
+"played"
+],
+"answer": 0
+},
+{
+"q": "My father ____ English.",
+"choices": [
+"speak",
+"speaks",
+"speaking",
+"is speak"
+],
+"answer": 1
+},
+{
+"q": "Do you ____ music? - Yes, I do.",
+"choices": [
+"like",
+"likes",
+"liking",
+"liked"
+],
+"answer": 0
+},
+{
+"q": "She ____ to school by bus.",
+"choices": [
+"go",
+"goes",
+"going",
+"gone"
+],
+"answer": 1
+},
+{
+"q": "We ____ breakfast at 7:00.",
+"choices": [
+"eat",
+"eats",
+"eating",
+"eaten"
+],
+"answer": 0
+},
+{
+"q": "Does he ____ tennis? - No, he doesn't.",
+"choices": [
+"play",
+"plays",
+"playing",
+"played"
+],
+"answer": 0
+},
+{
+"q": "I ____ have a computer.",
+"choices": [
+"don't",
+"doesn't",
+"not",
+"isn't"
+],
+"answer": 0
+},
+{
+"q": "Ken ____ a cute dog.",
+"choices": [
+"have",
+"has",
+"having",
+"had"
+],
+"answer": 1
+},
+{
+"q": "They ____ in Tokyo.",
+"choices": [
+"live",
+"lives",
+"living",
+"lived"
+],
+"answer": 0
+},
+{
+"q": "What ____ you do on Sundays?",
+"choices": [
+"do",
+"does",
+"are",
+"is"
+],
+"answer": 0
+},
+{
+"q": "____ do you live? - In Osaka.",
+"choices": [
+"What",
+"Where",
+"Who",
+"When"
+],
+"answer": 1
+},
+{
+"q": "____ is your birthday? - It's May 5th.",
+"choices": [
+"Where",
+"What",
+"When",
+"How"
+],
+"answer": 2
+},
+{
+"q": "____ is that man? - He is my teacher.",
+"choices": [
+"Who",
+"What",
+"Where",
+"Which"
+],
+"answer": 0
+},
+{
+"q": "____ many books do you have?",
+"choices": [
+"What",
+"Who",
+"How",
+"Where"
+],
+"answer": 2
+},
+{
+"q": "____ time is it? - It's ten o'clock.",
+"choices": [
+"Where",
+"What",
+"When",
+"How"
+],
+"answer": 1
+},
+{
+"q": "____ color is your car? - It's blue.",
+"choices": [
+"What",
+"Which",
+"Who",
+"How"
+],
+"answer": 0
+},
+{
+"q": "____ do you go to school? - By bike.",
+"choices": [
+"What",
+"Where",
+"When",
+"How"
+],
+"answer": 3
+},
+{
+"q": "____ is your favorite food?",
+"choices": [
+"Where",
+"What",
+"Who",
+"How"
+],
+"answer": 1
+},
+{
+"q": "____ way is the station? - That way.",
+"choices": [
+"Who",
+"Where",
+"Which",
+"What"
+],
+"answer": 2
+},
+{
+"q": "____ are you? - I'm fine, thank you.",
+"choices": [
+"Who",
+"What",
+"Where",
+"How"
+],
+"answer": 3
+},
+{
+"q": "I ____ swim well.",
+"choices": [
+"can",
+"cans",
+"am",
+"do"
+],
+"answer": 0
+},
+{
+"q": "Can you ____ the piano?",
+"choices": [
+"play",
+"playing",
+"plays",
+"played"
+],
+"answer": 0
+},
+{
+"q": "____ open the window, please.",
+"choices": [
+"No",
+"Not",
+"Don't",
+"Doesn't"
+],
+"answer": 2
+},
+{
+"q": "Please ____ down.",
+"choices": [
+"sit",
+"sits",
+"sitting",
+"sat"
+],
+"answer": 0
+},
+{
+"q": "He ____ speak Japanese.",
+"choices": [
+"can't",
+"don't",
+"isn't",
+"not"
+],
+"answer": 0
+},
+{
+"q": "Can I ____ your pen?",
+"choices": [
+"use",
+"uses",
+"using",
+"used"
+],
+"answer": 0
+},
+{
+"q": "Let's ____ soccer!",
+"choices": [
+"play",
+"plays",
+"playing",
+"played"
+],
+"answer": 0
+},
+{
+"q": "____ be late for school.",
+"choices": [
+"No",
+"Don't",
+"Not",
+"Doesn't"
+],
+"answer": 1
+},
+{
+"q": "Can you ____ me?",
+"choices": [
+"help",
+"helps",
+"helping",
+"helped"
+],
+"answer": 0
+},
+{
+"q": "____ quiet in the library.",
+"choices": [
+"Be",
+"Is",
+"Are",
+"Do"
+],
+"answer": 0
+},
+{
+"q": "I ____ to the park yesterday.",
+"choices": [
+"go",
+"went",
+"goes",
+"going"
+],
+"answer": 1
+},
+{
+"q": "She ____ a movie last night.",
+"choices": [
+"watch",
+"watches",
+"watched",
+"watching"
+],
+"answer": 2
+},
+{
+"q": "They ____ tennis last Sunday.",
+"choices": [
+"play",
+"plays",
+"playing",
+"played"
+],
+"answer": 3
+},
+{
+"q": "Did you ____ sushi? - Yes, I did.",
+"choices": [
+"eat",
+"eats",
+"ate",
+"eating"
+],
+"answer": 0
+},
+{
+"q": "I ____ my homework yesterday.",
+"choices": [
+"do",
+"does",
+"did",
+"done"
+],
+"answer": 2
+},
+{
+"q": "We ____ very happy then.",
+"choices": [
+"are",
+"was",
+"were",
+"be"
+],
+"answer": 2
+},
+{
+"q": "My mother ____ a cake yesterday.",
+"choices": [
+"make",
+"makes",
+"made",
+"making"
+],
+"answer": 2
+},
+{
+"q": "He ____ his bag last week.",
+"choices": [
+"lose",
+"loses",
+"lost",
+"losing"
+],
+"answer": 2
+},
+{
+"q": "I ____ see him yesterday.",
+"choices": [
+"don't",
+"doesn't",
+"didn't",
+"wasn't"
+],
+"answer": 2
+},
+{
+"q": "Where ____ you go last summer?",
+"choices": [
+"do",
+"does",
+"did",
+"were"
+],
+"answer": 2
+},
+{
+"q": "I ____ a letter to my friend.",
+"choices": [
+"write",
+"wrote",
+"writes",
+"writing"
+],
+"answer": 1
+},
+{
+"q": "She ____ lunch at school yesterday.",
+"choices": [
+"has",
+"have",
+"had",
+"having"
+],
+"answer": 2
+},
+{
+"q": "The weather ____ cloudy yesterday.",
+"choices": [
+"is",
+"was",
+"were",
+"be"
+],
+"answer": 1
+},
+{
+"q": "We ____ English last night.",
+"choices": [
+"study",
+"studies",
+"studied",
+"studying"
+],
+"answer": 2
+},
+{
+"q": "Did he ____ to the library? - No.",
+"choices": [
+"go",
+"went",
+"goes",
+"going"
+],
+"answer": 0
+},
+{
+"q": "I ____ up at six this morning.",
+"choices": [
+"get",
+"gets",
+"got",
+"getting"
+],
+"answer": 2
+},
+{
+"q": "They ____ to the museum.",
+"choices": [
+"go",
+"goes",
+"went",
+"going"
+],
+"answer": 2
+},
+{
+"q": "I ____ a new car last month.",
+"choices": [
+"buy",
+"buys",
+"bought",
+"buying"
+],
+"answer": 2
+},
+{
+"q": "Who ____ this cake? - My sister did.",
+"choices": [
+"make",
+"makes",
+"made",
+"making"
+],
+"answer": 2
+},
+{
+"q": "The dog ____ in the garden.",
+"choices": [
+"run",
+"runs",
+"ran",
+"running"
+],
+"answer": 2
+},
+{
+"q": "I am ____ a book now.",
+"choices": [
+"read",
+"reads",
+"reading",
+"readed"
+],
+"answer": 2
+},
+{
+"q": "What are you ____? - I'm cooking.",
+"choices": [
+"do",
+"does",
+"did",
+"doing"
+],
+"answer": 3
+},
+{
+"q": "They are ____ soccer.",
+"choices": [
+"play",
+"plays",
+"playing",
+"played"
+],
+"answer": 2
+},
+{
+"q": "She ____ sleeping now.",
+"choices": [
+"is",
+"am",
+"are",
+"be"
+],
+"answer": 0
+},
+{
+"q": "We are ____ for the bus.",
+"choices": [
+"wait",
+"waits",
+"waiting",
+"waited"
+],
+"answer": 2
+},
+{
+"q": "Is he ____ TV? - Yes, he is.",
+"choices": [
+"watch",
+"watches",
+"watching",
+"watched"
+],
+"answer": 2
+},
+{
+"q": "Listen! Birds are ____.",
+"choices": [
+"sing",
+"sings",
+"singing",
+"sang"
+],
+"answer": 2
+},
+{
+"q": "I'm ____ my homework.",
+"choices": [
+"do",
+"does",
+"doing",
+"did"
+],
+"answer": 2
+},
+{
+"q": "They ____ swimming in the pool.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 1
+},
+{
+"q": "Look! It is ____.",
+"choices": [
+"rain",
+"rains",
+"raining",
+"rained"
+],
+"answer": 2
+},
+{
+"q": "What is Ken ____?",
+"choices": [
+"eat",
+"eats",
+"eating",
+"ate"
+],
+"answer": 2
+},
+{
+"q": "I am ____ to music.",
+"choices": [
+"listen",
+"listens",
+"listening",
+"listened"
+],
+"answer": 2
+},
+{
+"q": "She is ____ a letter.",
+"choices": [
+"write",
+"writes",
+"writing",
+"wrote"
+],
+"answer": 2
+},
+{
+"q": "Are you ____ a good time?",
+"choices": [
+"have",
+"has",
+"having",
+"had"
+],
+"answer": 2
+},
+{
+"q": "They aren't ____ now.",
+"choices": [
+"study",
+"studies",
+"studying",
+"studied"
+],
+"answer": 2
+},
+{
+"q": "I ____ go to the library.",
+"choices": [
+"always",
+"never",
+"sometimes",
+"often"
+],
+"answer": 0
+},
+{
+"q": "Wash your ____ before eating.",
+"choices": [
+"hand",
+"hands",
+"foot",
+"hair"
+],
+"answer": 1
+},
+{
+"q": "This bag is ____. I like it.",
+"choices": [
+"old",
+"new",
+"bad",
+"dirty"
+],
+"answer": 1
+},
+{
+"q": "My brother is ____ than me.",
+"choices": [
+"tall",
+"taller",
+"tallest",
+"more tall"
+],
+"answer": 1
+},
+{
+"q": "Winter is ____.",
+"choices": [
+"hot",
+"warm",
+"cold",
+"sunny"
+],
+"answer": 2
+},
+{
+"q": "I like summer ____.",
+"choices": [
+"best",
+"good",
+"better",
+"well"
+],
+"answer": 0
+},
+{
+"q": "This is the ____ mountain in Japan.",
+"choices": [
+"high",
+"higher",
+"highest",
+"more high"
+],
+"answer": 2
+},
+{
+"q": "Which do you like ____, apples or oranges?",
+"choices": [
+"best",
+"better",
+"good",
+"well"
+],
+"answer": 1
+},
+{
+"q": "He can run ____.",
+"choices": [
+"fast",
+"fastly",
+"fastest",
+"faster"
+],
+"answer": 0
+},
+{
+"q": "English is ____ for me.",
+"choices": [
+"easy",
+"easily",
+"easier",
+"easiest"
+],
+"answer": 0
+},
+{
+"q": "It is ____ today. Let's go out.",
+"choices": [
+"sunny",
+"rainy",
+"snowy",
+"cloudy"
+],
+"answer": 0
+},
+{
+"q": "I have ____ books.",
+"choices": [
+"much",
+"many",
+"any",
+"a"
+],
+"answer": 1
+},
+{
+"q": "There ____ a pen on the desk.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "There ____ many stars in the sky.",
+"choices": [
+"is",
+"are",
+"was",
+"be"
+],
+"answer": 1
+},
+{
+"q": "I'm ____. I want some water.",
+"choices": [
+"hungry",
+"thirsty",
+"tired",
+"sleepy"
+],
+"answer": 1
+},
+{
+"q": "I go to school ____ 8 o'clock.",
+"choices": [
+"at",
+"on",
+"in",
+"to"
+],
+"answer": 0
+},
+{
+"q": "My birthday is ____ June.",
+"choices": [
+"at",
+"on",
+"in",
+"to"
+],
+"answer": 2
+},
+{
+"q": "We play soccer ____ Sunday.",
+"choices": [
+"at",
+"on",
+"in",
+"to"
+],
+"answer": 1
+},
+{
+"q": "The cat is ____ the table.",
+"choices": [
+"under",
+"at",
+"to",
+"for"
+],
+"answer": 0
+},
+{
+"q": "I live ____ Japan.",
+"choices": [
+"in",
+"on",
+"at",
+"to"
+],
+"answer": 0
+},
+{
+"q": "Look ____ that bird!",
+"choices": [
+"at",
+"in",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "Listen ____ me.",
+"choices": [
+"at",
+"to",
+"in",
+"on"
+],
+"answer": 1
+},
+{
+"q": "I go ____ bed at ten.",
+"choices": [
+"to",
+"for",
+"at",
+"on"
+],
+"answer": 0
+},
+{
+"q": "Wait ____ me, please.",
+"choices": [
+"to",
+"for",
+"at",
+"in"
+],
+"answer": 1
+},
+{
+"q": "He is good ____ math.",
+"choices": [
+"at",
+"in",
+"on",
+"for"
+],
+"answer": 0
+},
+{
+"q": "I get up ____ the morning.",
+"choices": [
+"at",
+"on",
+"in",
+"to"
+],
+"answer": 2
+},
+{
+"q": "I study ____ two hours.",
+"choices": [
+"for",
+"during",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "They go to school ____ bus.",
+"choices": [
+"by",
+"with",
+"in",
+"on"
+],
+"answer": 0
+},
+{
+"q": "Walk ____ the river.",
+"choices": [
+"along",
+"at",
+"to",
+"in"
+],
+"answer": 0
+},
+{
+"q": "The book is ____ the bag.",
+"choices": [
+"in",
+"on",
+"at",
+"to"
+],
+"answer": 0
+},
+{
+"q": "Put your books ____ the desk.",
+"choices": [
+"in",
+"on",
+"at",
+"to"
+],
+"answer": 1
+},
+{
+"q": "He sits ____ me.",
+"choices": [
+"next",
+"next to",
+"to",
+"near to"
+],
+"answer": 1
+},
+{
+"q": "The sun rises ____ the east.",
+"choices": [
+"at",
+"on",
+"in",
+"to"
+],
+"answer": 2
+},
+{
+"q": "I go to the library ____ my friend.",
+"choices": [
+"with",
+"by",
+"to",
+"for"
+],
+"answer": 0
+},
+{
+"q": "____ is your favorite fruit?",
+"choices": [
+"What",
+"Who",
+"How",
+"Where"
+],
+"answer": 0
+},
+{
+"q": "I want to be a ____.",
+"choices": [
+"teacher",
+"teach",
+"teaches",
+"taught"
+],
+"answer": 0
+},
+{
+"q": "He is ____ a bike.",
+"choices": [
+"riding",
+"ride",
+"rides",
+"rode"
+],
+"answer": 0
+},
+{
+"q": "Please ____ me the salt.",
+"choices": [
+"pass",
+"passes",
+"passing",
+"passed"
+],
+"answer": 0
+},
+{
+"q": "I am ____ to see you.",
+"choices": [
+"glad",
+"sorry",
+"sad",
+"angry"
+],
+"answer": 0
+},
+{
+"q": "Don't ____ your umbrella.",
+"choices": [
+"forget",
+"forgets",
+"forgetting",
+"forgot"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. I can't eat any more.",
+"choices": [
+"full",
+"hungry",
+"thirsty",
+"tired"
+],
+"answer": 0
+},
+{
+"q": "Let's ____ home.",
+"choices": [
+"go",
+"goes",
+"going",
+"went"
+],
+"answer": 0
+},
+{
+"q": "She is very ____. Everyone likes her.",
+"choices": [
+"kind",
+"kindly",
+"kinds",
+"kinder"
+],
+"answer": 0
+},
+{
+"q": "The sky is ____.",
+"choices": [
+"blue",
+"green",
+"yellow",
+"red"
+],
+"answer": 0
+},
+{
+"q": "I like ____ movies.",
+"choices": [
+"watch",
+"to watch",
+"watched",
+"watches"
+],
+"answer": 1
+},
+{
+"q": "How ____ is that desk? - 5,000 yen.",
+"choices": [
+"much",
+"many",
+"old",
+"tall"
+],
+"answer": 0
+},
+{
+"q": "I ____ my room every Saturday.",
+"choices": [
+"clean",
+"cleans",
+"cleaning",
+"cleaned"
+],
+"answer": 0
+},
+{
+"q": "He is a ____ driver.",
+"choices": [
+"good",
+"well",
+"best",
+"better"
+],
+"answer": 0
+},
+{
+"q": "What ____ is it? - It's Tuesday.",
+"choices": [
+"day",
+"time",
+"date",
+"month"
+],
+"answer": 0
+},
+{
+"q": "I have two ____.",
+"choices": [
+"childs",
+"children",
+"child",
+"childrens"
+],
+"answer": 1
+},
+{
+"q": "Open your ____, please.",
+"choices": [
+"book",
+"books",
+"pen",
+"pens"
+],
+"answer": 1
+},
+{
+"q": "I am ____ for the meeting.",
+"choices": [
+"late",
+"later",
+"early",
+"lately"
+],
+"answer": 0
+},
+{
+"q": "This is ____ house.",
+"choices": [
+"our",
+"we",
+"us",
+"ours"
+],
+"answer": 0
+},
+{
+"q": "He ____ to school every day.",
+"choices": [
+"walk",
+"walks",
+"walking",
+"walked"
+],
+"answer": 1
+},
+{
+"q": "I like apples ____ oranges.",
+"choices": [
+"and",
+"but",
+"or",
+"so"
+],
+"answer": 0
+},
+{
+"q": "I'm tired, ____ I'm happy.",
+"choices": [
+"and",
+"but",
+"or",
+"so"
+],
+"answer": 1
+},
+{
+"q": "Study hard, ____ you will pass.",
+"choices": [
+"and",
+"but",
+"or",
+"so"
+],
+"answer": 0
+},
+{
+"q": "I'm going ____ visit Kyoto.",
+"choices": [
+"to",
+"for",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "We are ____ to have a party.",
+"choices": [
+"go",
+"going",
+"gone",
+"goes"
+],
+"answer": 1
+},
+{
+"q": "What ____ you going to do?",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 1
+},
+{
+"q": "It is going to ____ rainy.",
+"choices": [
+"be",
+"is",
+"are",
+"am"
+],
+"answer": 0
+},
+{
+"q": "I ____ going to study English.",
+"choices": [
+"am",
+"is",
+"are",
+"be"
+],
+"answer": 0
+},
+{
+"q": "Will you ____ me? - Yes, I will.",
+"choices": [
+"help",
+"helps",
+"helping",
+"helped"
+],
+"answer": 0
+},
+{
+"q": "I think ____ it will rain.",
+"choices": [
+"that",
+"what",
+"which",
+"who"
+],
+"answer": 0
+},
+{
+"q": "Because I was sick, I ____ to school.",
+"choices": [
+"didn't go",
+"don't go",
+"not go",
+"wasn't go"
+],
+"answer": 0
+},
+{
+"q": "When I ____ home, I was tired.",
+"choices": [
+"get",
+"got",
+"gets",
+"getting"
+],
+"answer": 1
+},
+{
+"q": "If it is sunny, I ____ go out.",
+"choices": [
+"will",
+"am",
+"do",
+"was"
+],
+"answer": 0
+},
+{
+"q": "She is a ____ singer.",
+"choices": [
+"famous",
+"fame",
+"famously",
+"famouses"
+],
+"answer": 0
+},
+{
+"q": "This is a ____ story.",
+"choices": [
+"true",
+"truth",
+"truly",
+"trues"
+],
+"answer": 0
+},
+{
+"q": "Please give me ____ water.",
+"choices": [
+"some",
+"any",
+"a",
+"many"
+],
+"answer": 0
+},
+{
+"q": "I don't have ____ money.",
+"choices": [
+"some",
+"any",
+"a",
+"many"
+],
+"answer": 1
+},
+{
+"q": "Which is ____, this one or that one?",
+"choices": [
+"bigger",
+"big",
+"biggest",
+"more big"
+],
+"answer": 0
+},
+{
+"q": "He is the ____ in his family.",
+"choices": [
+"youngest",
+"younger",
+"young",
+"more young"
+],
+"answer": 0
+},
+{
+"q": "See you ____!",
+"choices": [
+"soon",
+"again",
+"tomorrow",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "I like ____. I like numbers.",
+"choices": [
+"Math",
+"Art",
+"Music",
+"English"
+],
+"answer": 0
+},
+{
+"q": "We study ____ in the science room.",
+"choices": [
+"Science",
+"History",
+"PE",
+"Cooking"
+],
+"answer": 0
+},
+{
+"q": "I have a ____ in my pencil case.",
+"choices": [
+"desk",
+"eraser",
+"chair",
+"window"
+],
+"answer": 1
+},
+{
+"q": "Where is your ____? - It's on the floor.",
+"choices": [
+"bag",
+"sun",
+"bird",
+"apple"
+],
+"answer": 0
+},
+{
+"q": "The ____ is very big and has many books.",
+"choices": [
+"library",
+"gym",
+"park",
+"store"
+],
+"answer": 0
+},
+{
+"q": "We play soccer in the ____.",
+"choices": [
+"gym",
+"classroom",
+"office",
+"library"
+],
+"answer": 0
+},
+{
+"q": "I draw pictures in ____ class.",
+"choices": [
+"Art",
+"Math",
+"Science",
+"Music"
+],
+"answer": 0
+},
+{
+"q": "Do you have a ____? - Yes, I have a red one.",
+"choices": [
+"pen",
+"pens",
+"pen's",
+"penning"
+],
+"answer": 0
+},
+{
+"q": "My ____ is a teacher.",
+"choices": [
+"mother",
+"dog",
+"cat",
+"book"
+],
+"answer": 0
+},
+{
+"q": "I study in the ____.",
+"choices": [
+"bedroom",
+"bathroom",
+"kitchen",
+"garden"
+],
+"answer": 0
+},
+{
+"q": "He uses a ____ to write.",
+"choices": [
+"pencil",
+"ruler",
+"glue",
+"scissors"
+],
+"answer": 0
+},
+{
+"q": "We sing songs in ____ class.",
+"choices": [
+"Music",
+"Math",
+"PE",
+"Art"
+],
+"answer": 0
+},
+{
+"q": "Is this your ____? - No, it's Ken's.",
+"choices": [
+"notebook",
+"note",
+"noting",
+"noted"
+],
+"answer": 0
+},
+{
+"q": "There are thirty ____ in my class.",
+"choices": [
+"students",
+"teachers",
+"doctors",
+"pilots"
+],
+"answer": 0
+},
+{
+"q": "I eat lunch in the ____.",
+"choices": [
+"cafeteria",
+"gym",
+"library",
+"office"
+],
+"answer": 0
+},
+{
+"q": "Put your ____ on the desk.",
+"choices": [
+"textbook",
+"floor",
+"wall",
+"ceiling"
+],
+"answer": 0
+},
+{
+"q": "We exercise in ____ class.",
+"choices": [
+"PE",
+"History",
+"Math",
+"Art"
+],
+"answer": 0
+},
+{
+"q": "The ____ is black and white.",
+"choices": [
+"board",
+"window",
+"door",
+"light"
+],
+"answer": 0
+},
+{
+"q": "I forgot my ____ at home.",
+"choices": [
+"homework",
+"home",
+"homing",
+"homed"
+],
+"answer": 0
+},
+{
+"q": "My school ____ at 8:30.",
+"choices": [
+"starts",
+"ends",
+"plays",
+"eats"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. Can I have some water?",
+"choices": [
+"thirsty",
+"hungry",
+"sleepy",
+"angry"
+],
+"answer": 0
+},
+{
+"q": "I want a ____ for dessert.",
+"choices": [
+"cake",
+"steak",
+"salad",
+"soup"
+],
+"answer": 0
+},
+{
+"q": "Do you like ____? - Yes, I love oranges.",
+"choices": [
+"fruit",
+"meat",
+"bread",
+"rice"
+],
+"answer": 0
+},
+{
+"q": "I drink ____ every morning.",
+"choices": [
+"milk",
+"bread",
+"fish",
+"rice"
+],
+"answer": 0
+},
+{
+"q": "My father ____ dinner today.",
+"choices": [
+"cooks",
+"cooking",
+"cook",
+"cooked"
+],
+"answer": 0
+},
+{
+"q": "I ____ my room on Sundays.",
+"choices": [
+"clean",
+"wash",
+"cook",
+"watch"
+],
+"answer": 0
+},
+{
+"q": "Please ____ the dishes.",
+"choices": [
+"wash",
+"eat",
+"make",
+"cook"
+],
+"answer": 0
+},
+{
+"q": "What is your favorite ____? - I like pizza.",
+"choices": [
+"food",
+"drink",
+"sport",
+"color"
+],
+"answer": 0
+},
+{
+"q": "I like ____ in my tea.",
+"choices": [
+"sugar",
+"salt",
+"pepper",
+"oil"
+],
+"answer": 0
+},
+{
+"q": "He eats an ____ every day.",
+"choices": [
+"egg",
+"rice",
+"soup",
+"meat"
+],
+"answer": 0
+},
+{
+"q": "Would you like some ____? - No, thank you.",
+"choices": [
+"coffee",
+"breads",
+"coffees",
+"bread"
+],
+"answer": 0
+},
+{
+"q": "This soup is very ____.",
+"choices": [
+"hot",
+"cold",
+"fast",
+"long"
+],
+"answer": 0
+},
+{
+"q": "I usually have ____ at 7:00.",
+"choices": [
+"breakfast",
+"dinner",
+"lunch",
+"snack"
+],
+"answer": 0
+},
+{
+"q": "She ____ a sandwich for lunch.",
+"choices": [
+"makes",
+"eats",
+"drinks",
+"goes"
+],
+"answer": 1
+},
+{
+"q": "We need some ____ for the salad.",
+"choices": [
+"tomatoes",
+"bread",
+"milk",
+"juice"
+],
+"answer": 0
+},
+{
+"q": "I don't like ____ vegetables.",
+"choices": [
+"green",
+"red",
+"blue",
+"yellow"
+],
+"answer": 0
+},
+{
+"q": "My mother ____ to the supermarket.",
+"choices": [
+"goes",
+"go",
+"going",
+"gone"
+],
+"answer": 0
+},
+{
+"q": "Can I have a ____ of water?",
+"choices": [
+"glass",
+"plate",
+"bowl",
+"fork"
+],
+"answer": 0
+},
+{
+"q": "Use a ____ to eat soup.",
+"choices": [
+"spoon",
+"knife",
+"fork",
+"chopsticks"
+],
+"answer": 0
+},
+{
+"q": "The ____ is in the kitchen.",
+"choices": [
+"fridge",
+"bed",
+"shower",
+"desk"
+],
+"answer": 0
+},
+{
+"q": "The ____ is the king of the jungle.",
+"choices": [
+"lion",
+"rabbit",
+"bird",
+"cat"
+],
+"answer": 0
+},
+{
+"q": "____ are very tall animals.",
+"choices": [
+"Giraffes",
+"Dogs",
+"Cats",
+"Mice"
+],
+"answer": 0
+},
+{
+"q": "I have a pet ____.",
+"choices": [
+"dog",
+"lion",
+"elephant",
+"whale"
+],
+"answer": 0
+},
+{
+"q": "A ____ can fly.",
+"choices": [
+"bird",
+"fish",
+"dog",
+"pig"
+],
+"answer": 1
+},
+{
+"q": "The ____ is very hot today.",
+"choices": [
+"sun",
+"moon",
+"star",
+"cloud"
+],
+"answer": 0
+},
+{
+"q": "Look! There are many ____ in the sky.",
+"choices": [
+"stars",
+"fish",
+"trees",
+"cars"
+],
+"answer": 0
+},
+{
+"q": "The ____ is blue and beautiful.",
+"choices": [
+"sea",
+"forest",
+"mountain",
+"park"
+],
+"answer": 0
+},
+{
+"q": "It is ____. I need an umbrella.",
+"choices": [
+"raining",
+"sunny",
+"cloudy",
+"windy"
+],
+"answer": 0
+},
+{
+"q": "The ____ are falling from the trees.",
+"choices": [
+"leaves",
+"birds",
+"dogs",
+"cats"
+],
+"answer": 0
+},
+{
+"q": "I like ____. It is cold and white.",
+"choices": [
+"snow",
+"rain",
+"wind",
+"sun"
+],
+"answer": 0
+},
+{
+"q": "An ____ is very big and grey.",
+"choices": [
+"elephant",
+"ant",
+"bee",
+"frog"
+],
+"answer": 0
+},
+{
+"q": "A ____ has a long tail.",
+"choices": [
+"monkey",
+"fish",
+"bird",
+"frog"
+],
+"answer": 0
+},
+{
+"q": "The ____ is high.",
+"choices": [
+"mountain",
+"river",
+"sea",
+"lake"
+],
+"answer": 0
+},
+{
+"q": "I see a ____ in the garden.",
+"choices": [
+"flower",
+"car",
+"table",
+"chair"
+],
+"answer": 0
+},
+{
+"q": "It is very ____ tonight.",
+"choices": [
+"cold",
+"hot",
+"sunny",
+"bright"
+],
+"answer": 0
+},
+{
+"q": "A ____ can swim in the water.",
+"choices": [
+"fish",
+"bird",
+"cat",
+"rabbit"
+],
+"answer": 0
+},
+{
+"q": "The ____ is shining.",
+"choices": [
+"moon",
+"cloud",
+"rain",
+"snow"
+],
+"answer": 0
+},
+{
+"q": "Be careful! The ____ is strong.",
+"choices": [
+"wind",
+"sun",
+"cloud",
+"star"
+],
+"answer": 0
+},
+{
+"q": "I like ____. I like the flowers.",
+"choices": [
+"spring",
+"winter",
+"fall",
+"summer"
+],
+"answer": 0
+},
+{
+"q": "My dog is ____. He likes to play.",
+"choices": [
+"happy",
+"sad",
+"angry",
+"tired"
+],
+"answer": 0
+},
+{
+"q": "Wash your ____ before dinner.",
+"choices": [
+"hands",
+"eyes",
+"ears",
+"hair"
+],
+"answer": 0
+},
+{
+"q": "Close your ____ and sleep.",
+"choices": [
+"eyes",
+"mouth",
+"nose",
+"ears"
+],
+"answer": 0
+},
+{
+"q": "I have a ____. I need to see a doctor.",
+"choices": [
+"cold",
+"pen",
+"bag",
+"book"
+],
+"answer": 0
+},
+{
+"q": "He is wearing a blue ____.",
+"choices": [
+"shirt",
+"hat",
+"shoes",
+"socks"
+],
+"answer": 0
+},
+{
+"q": "Put on your ____. It's cold.",
+"choices": [
+"coat",
+"T-shirt",
+"shorts",
+"cap"
+],
+"answer": 0
+},
+{
+"q": "I brush my ____ every morning.",
+"choices": [
+"teeth",
+"tooth",
+"mouth",
+"face"
+],
+"answer": 0
+},
+{
+"q": "Your ____ is very long.",
+"choices": [
+"hair",
+"eye",
+"nose",
+"ear"
+],
+"answer": 0
+},
+{
+"q": "Touch your ____.",
+"choices": [
+"nose",
+"sky",
+"sun",
+"cloud"
+],
+"answer": 0
+},
+{
+"q": "I wear ____ in summer.",
+"choices": [
+"shorts",
+"coats",
+"sweaters",
+"gloves"
+],
+"answer": 0
+},
+{
+"q": "These ____ are too small for me.",
+"choices": [
+"shoes",
+"hat",
+"shirt",
+"tie"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. I want to sleep.",
+"choices": [
+"tired",
+"hungry",
+"thirsty",
+"happy"
+],
+"answer": 0
+},
+{
+"q": "She has big ____.",
+"choices": [
+"ears",
+"ear",
+"nose",
+"mouth"
+],
+"answer": 0
+},
+{
+"q": "Drink this ____.",
+"choices": [
+"medicine",
+"food",
+"bread",
+"cake"
+],
+"answer": 0
+},
+{
+"q": "He is very ____. He can carry big bags.",
+"choices": [
+"strong",
+"weak",
+"slow",
+"small"
+],
+"answer": 0
+},
+{
+"q": "My ____ hurts.",
+"choices": [
+"leg",
+"car",
+"pen",
+"bag"
+],
+"answer": 0
+},
+{
+"q": "Take off your ____ inside the house.",
+"choices": [
+"shoes",
+"hair",
+"nose",
+"eyes"
+],
+"answer": 0
+},
+{
+"q": "I wear a ____ when it's sunny.",
+"choices": [
+"hat",
+"coat",
+"sweater",
+"socks"
+],
+"answer": 0
+},
+{
+"q": "She has a beautiful ____.",
+"choices": [
+"smile",
+"car",
+"bag",
+"pen"
+],
+"answer": 0
+},
+{
+"q": "Wash your ____.",
+"choices": [
+"face",
+"shirt",
+"socks",
+"shoes"
+],
+"answer": 0
+},
+{
+"q": "Are you ____? - Yes, I'm okay.",
+"choices": [
+"all right",
+"good",
+"happy",
+"sad"
+],
+"answer": 0
+},
+{
+"q": "____ is it today? - It's Monday.",
+"choices": [
+"What day",
+"What time",
+"What color",
+"What"
+],
+"answer": 0
+},
+{
+"q": "I ____ go to the library on Saturdays.",
+"choices": [
+"usually",
+"never",
+"once",
+"first"
+],
+"answer": 0
+},
+{
+"q": "____ me. Where is the station?",
+"choices": [
+"Excuse",
+"Sorry",
+"Pardon",
+"Hello"
+],
+"answer": 0
+},
+{
+"q": "Happy ____!",
+"choices": [
+"Birthday",
+"Morning",
+"Evening",
+"Night"
+],
+"answer": 0
+},
+{
+"q": "Have a nice ____!",
+"choices": [
+"day",
+"pen",
+"bag",
+"book"
+],
+"answer": 0
+},
+{
+"q": "See you ____.",
+"choices": [
+"tomorrow",
+"yesterday",
+"now",
+"today"
+],
+"answer": 0
+},
+{
+"q": "____ you. - You're welcome.",
+"choices": [
+"Thank",
+"Sorry",
+"Hello",
+"Hi"
+],
+"answer": 0
+},
+{
+"q": "Good ____. - Sleep well.",
+"choices": [
+"night",
+"morning",
+"afternoon",
+"evening"
+],
+"answer": 2
+},
+{
+"q": "Wait a ____, please.",
+"choices": [
+"minute",
+"hour",
+"day",
+"week"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ I'm late.",
+"choices": [
+"sorry",
+"happy",
+"glad",
+"fine"
+],
+"answer": 0
+},
+{
+"q": "Welcome ____!",
+"choices": [
+"home",
+"house",
+"room",
+"school"
+],
+"answer": 0
+},
+{
+"q": "How ____ is it from here?",
+"choices": [
+"far",
+"long",
+"much",
+"many"
+],
+"answer": 0
+},
+{
+"q": "I ____ watch TV.",
+"choices": [
+"sometimes",
+"somewhere",
+"someone",
+"something"
+],
+"answer": 0
+},
+{
+"q": "Once ____ week.",
+"choices": [
+"a",
+"the",
+"an",
+"two"
+],
+"answer": 0
+},
+{
+"q": "What ____ is the movie? - At 3:00.",
+"choices": [
+"time",
+"day",
+"color",
+"date"
+],
+"answer": 0
+},
+{
+"q": "Here you ____. - Thank you.",
+"choices": [
+"are",
+"is",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "Good ____. How are you?",
+"choices": [
+"morning",
+"night",
+"bye",
+"well"
+],
+"answer": 0
+},
+{
+"q": "Pardon ____?",
+"choices": [
+"me",
+"I",
+"my",
+"mine"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. I can't find my keys.",
+"choices": [
+"in trouble",
+"happy",
+"fine",
+"good"
+],
+"answer": 0
+},
+{
+"q": "Keep ____. You can do it!",
+"choices": [
+"trying",
+"try",
+"tries",
+"tried"
+],
+"answer": 0
+},
+{
+"q": "My father is a ____. He drives a bus.",
+"choices": [
+"doctor",
+"driver",
+"singer",
+"cook"
+],
+"answer": 1
+},
+{
+"q": "I want to be a ____. I love animals.",
+"choices": [
+"vet",
+"pilot",
+"teacher",
+"nurse"
+],
+"answer": 0
+},
+{
+"q": "She is a ____. She works at a hospital.",
+"choices": [
+"nurse",
+"player",
+"farmer",
+"police officer"
+],
+"answer": 0
+},
+{
+"q": "He is a famous ____. He sings very well.",
+"choices": [
+"singer",
+"writer",
+"painter",
+"student"
+],
+"answer": 0
+},
+{
+"q": "My brother wants to be a ____. He likes planes.",
+"choices": [
+"pilot",
+"driver",
+"dentist",
+"baker"
+],
+"answer": 0
+},
+{
+"q": "A ____ grows vegetables.",
+"choices": [
+"farmer",
+"scientist",
+"dancer",
+"clerk"
+],
+"answer": 0
+},
+{
+"q": "She works in a restaurant. She is a ____.",
+"choices": [
+"cook",
+"doctor",
+"teacher",
+"player"
+],
+"answer": 0
+},
+{
+"q": "I want to be a ____ and write books.",
+"choices": [
+"writer",
+"singer",
+"vet",
+"pilot"
+],
+"answer": 0
+},
+{
+"q": "My uncle is a ____. He catches bad people.",
+"choices": [
+"police officer",
+"firefighter",
+"cook",
+"doctor"
+],
+"answer": 0
+},
+{
+"q": "A ____ helps sick people.",
+"choices": [
+"doctor",
+"singer",
+"pilot",
+"driver"
+],
+"answer": 0
+},
+{
+"q": "She is a ____. She dances on the stage.",
+"choices": [
+"dancer",
+"cook",
+"writer",
+"nurse"
+],
+"answer": 0
+},
+{
+"q": "He is a ____. He plays soccer very well.",
+"choices": [
+"player",
+"teacher",
+"doctor",
+"clerk"
+],
+"answer": 0
+},
+{
+"q": "I want to be a ____ and study stars.",
+"choices": [
+"scientist",
+"cook",
+"nurse",
+"singer"
+],
+"answer": 0
+},
+{
+"q": "My sister is a ____ at a department store.",
+"choices": [
+"clerk",
+"farmer",
+"vet",
+"pilot"
+],
+"answer": 0
+},
+{
+"q": "A ____ makes bread.",
+"choices": [
+"baker",
+"dentist",
+"pilot",
+"vet"
+],
+"answer": 0
+},
+{
+"q": "I want to be an ____.",
+"choices": [
+"artist",
+"driver",
+"teacher",
+"nurse"
+],
+"answer": 0
+},
+{
+"q": "He works at a fire station. He is a ____.",
+"choices": [
+"firefighter",
+"doctor",
+"cook",
+"driver"
+],
+"answer": 0
+},
+{
+"q": "A ____ looks at your teeth.",
+"choices": [
+"dentist",
+"nurse",
+"cook",
+"driver"
+],
+"answer": 0
+},
+{
+"q": "What do you want to ____ in the future?",
+"choices": [
+"be",
+"do",
+"go",
+"see"
+],
+"answer": 0
+},
+{
+"q": "My dream is to be a ____.",
+"choices": [
+"musician",
+"car",
+"house",
+"pen"
+],
+"answer": 0
+},
+{
+"q": "My hobby is ____ coins.",
+"choices": [
+"collecting",
+"running",
+"eating",
+"sleeping"
+],
+"answer": 0
+},
+{
+"q": "I like ____ to music.",
+"choices": [
+"listening",
+"watching",
+"playing",
+"making"
+],
+"answer": 0
+},
+{
+"q": "She is good at ____ pictures.",
+"choices": [
+"painting",
+"speaking",
+"singing",
+"running"
+],
+"answer": 0
+},
+{
+"q": "He likes to ____ photos with his camera.",
+"choices": [
+"take",
+"do",
+"make",
+"see"
+],
+"answer": 0
+},
+{
+"q": "We enjoy ____ movies on weekends.",
+"choices": [
+"watching",
+"listening",
+"going",
+"playing"
+],
+"answer": 0
+},
+{
+"q": "I like ____ stories.",
+"choices": [
+"reading",
+"writing",
+"singing",
+"running"
+],
+"answer": 0
+},
+{
+"q": "Do you play any ____? - Yes, I play the guitar.",
+"choices": [
+"instruments",
+"sports",
+"games",
+"foods"
+],
+"answer": 0
+},
+{
+"q": "He goes ____ in the river.",
+"choices": [
+"fishing",
+"shopping",
+"skating",
+"running"
+],
+"answer": 0
+},
+{
+"q": "My sister likes ____ to foreign songs.",
+"choices": [
+"singing",
+"swimming",
+"reading",
+"cooking"
+],
+"answer": 0
+},
+{
+"q": "I ____ the piano every day.",
+"choices": [
+"practice",
+"cook",
+"eat",
+"wash"
+],
+"answer": 0
+},
+{
+"q": "Let's go ____ in the mountains.",
+"choices": [
+"hiking",
+"swimming",
+"shopping",
+"studying"
+],
+"answer": 0
+},
+{
+"q": "He is a member of the basketball ____.",
+"choices": [
+"club",
+"room",
+"class",
+"school"
+],
+"answer": 0
+},
+{
+"q": "I like to ____ on the internet.",
+"choices": [
+"surf",
+"swim",
+"run",
+"play"
+],
+"answer": 0
+},
+{
+"q": "She likes to ____ clothes.",
+"choices": [
+"make",
+"eat",
+"drink",
+"speak"
+],
+"answer": 0
+},
+{
+"q": "We often play ____ games.",
+"choices": [
+"video",
+"book",
+"food",
+"water"
+],
+"answer": 0
+},
+{
+"q": "My brother is interested in ____.",
+"choices": [
+"space",
+"eating",
+"sleeping",
+"washing"
+],
+"answer": 0
+},
+{
+"q": "I go to the ____ to swim.",
+"choices": [
+"pool",
+"library",
+"park",
+"store"
+],
+"answer": 2
+},
+{
+"q": "Do you like ____? - No, I don't like running.",
+"choices": [
+"jogging",
+"reading",
+"cooking",
+"drawing"
+],
+"answer": 0
+},
+{
+"q": "I like to ____ with my friends.",
+"choices": [
+"talk",
+"study",
+"work",
+"sleep"
+],
+"answer": 0
+},
+{
+"q": "He is very ____. He likes all sports.",
+"choices": [
+"active",
+"quiet",
+"slow",
+"sleepy"
+],
+"answer": 0
+},
+{
+"q": "I go to the ____ to buy bread.",
+"choices": [
+"bakery",
+"bank",
+"hospital",
+"park"
+],
+"answer": 0
+},
+{
+"q": "How ____ is this T-shirt?",
+"choices": [
+"much",
+"many",
+"long",
+"old"
+],
+"answer": 0
+},
+{
+"q": "I want to buy some ____ for my mother.",
+"choices": [
+"flowers",
+"water",
+"rice",
+"milk"
+],
+"answer": 0
+},
+{
+"q": "The ____ is next to the post office.",
+"choices": [
+"bank",
+"river",
+"mountain",
+"sky"
+],
+"answer": 0
+},
+{
+"q": "I need a new ____.",
+"choices": [
+"watch",
+"time",
+"day",
+"date"
+],
+"answer": 0
+},
+{
+"q": "Can I ____ this on? - Yes, the room is there.",
+"choices": [
+"try",
+"buy",
+"see",
+"make"
+],
+"answer": 0
+},
+{
+"q": "I bought a ____ for 10 dollars.",
+"choices": [
+"book",
+"books",
+"pen",
+"pens"
+],
+"answer": 0
+},
+{
+"q": "This store is ____ on Sundays.",
+"choices": [
+"closed",
+"close",
+"closing",
+"closes"
+],
+"answer": 0
+},
+{
+"q": "I want a ____ of shoes.",
+"choices": [
+"pair",
+"cup",
+"glass",
+"piece"
+],
+"answer": 0
+},
+{
+"q": "There are many ____ in this mall.",
+"choices": [
+"shops",
+"animals",
+"trees",
+"rivers"
+],
+"answer": 0
+},
+{
+"q": "I have 500 ____ in my pocket.",
+"choices": [
+"yen",
+"dollar",
+"money",
+"cash"
+],
+"answer": 0
+},
+{
+"q": "Is there a ____ near here? - Yes, at the corner.",
+"choices": [
+"bookstore",
+"forest",
+"mountain",
+"sea"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ it. Here is the money.",
+"choices": [
+"take",
+"make",
+"do",
+"go"
+],
+"answer": 0
+},
+{
+"q": "The ____ is very long. I have to wait.",
+"choices": [
+"line",
+"road",
+"river",
+"street"
+],
+"answer": 0
+},
+{
+"q": "Can I have a ____, please?",
+"choices": [
+"receipt",
+"book",
+"bag",
+"pen"
+],
+"answer": 0
+},
+{
+"q": "I go to the ____ to see a movie.",
+"choices": [
+"theater",
+"bank",
+"park",
+"gym"
+],
+"answer": 0
+},
+{
+"q": "This is too ____. Do you have a cheaper one?",
+"choices": [
+"expensive",
+"big",
+"small",
+"old"
+],
+"answer": 0
+},
+{
+"q": "The ____ is open until 8 p.m.",
+"choices": [
+"supermarket",
+"forest",
+"sea",
+"sky"
+],
+"answer": 0
+},
+{
+"q": "I bought some ____ at the pharmacy.",
+"choices": [
+"medicine",
+"bread",
+"meat",
+"fish"
+],
+"answer": 0
+},
+{
+"q": "Where can I buy a ____? - At the station.",
+"choices": [
+"ticket",
+"river",
+"mountain",
+"sky"
+],
+"answer": 0
+},
+{
+"q": "I am ____ to visit Kyoto next week.",
+"choices": [
+"going",
+"go",
+"gone",
+"goes"
+],
+"answer": 0
+},
+{
+"q": "What are you ____ to do tomorrow?",
+"choices": [
+"going",
+"go",
+"goes",
+"gone"
+],
+"answer": 0
+},
+{
+"q": "It ____ be sunny tomorrow.",
+"choices": [
+"will",
+"is",
+"am",
+"are"
+],
+"answer": 0
+},
+{
+"q": "We are going to ____ soccer this afternoon.",
+"choices": [
+"play",
+"playing",
+"plays",
+"played"
+],
+"answer": 0
+},
+{
+"q": "I ____ help you with your bags.",
+"choices": [
+"will",
+"am",
+"do",
+"is"
+],
+"answer": 0
+},
+{
+"q": "Are you going to ____ home now?",
+"choices": [
+"go",
+"going",
+"went",
+"goes"
+],
+"answer": 0
+},
+{
+"q": "She is going to ____ a cake for the party.",
+"choices": [
+"make",
+"making",
+"makes",
+"made"
+],
+"answer": 0
+},
+{
+"q": "They ____ not going to go to the park.",
+"choices": [
+"are",
+"is",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "I ____ call you later.",
+"choices": [
+"will",
+"do",
+"am",
+"going"
+],
+"answer": 0
+},
+{
+"q": "Is it going to ____ cold tonight?",
+"choices": [
+"be",
+"is",
+"was",
+"been"
+],
+"answer": 0
+},
+{
+"q": "We ____ have a test next Monday.",
+"choices": [
+"will",
+"do",
+"are",
+"is"
+],
+"answer": 0
+},
+{
+"q": "I'm going to ____ a lot of photos.",
+"choices": [
+"take",
+"taking",
+"took",
+"takes"
+],
+"answer": 0
+},
+{
+"q": "What time ____ the party start?",
+"choices": [
+"will",
+"is",
+"are",
+"going"
+],
+"answer": 0
+},
+{
+"q": "He ____ going to buy a new car.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "I will ____ my best.",
+"choices": [
+"do",
+"doing",
+"did",
+"does"
+],
+"answer": 0
+},
+{
+"q": "Are they ____ to come to the meeting?",
+"choices": [
+"going",
+"go",
+"goes",
+"gone"
+],
+"answer": 0
+},
+{
+"q": "It ____ not rain this weekend.",
+"choices": [
+"will",
+"is",
+"do",
+"does"
+],
+"answer": 0
+},
+{
+"q": "I'm going to ____ my grandparents.",
+"choices": [
+"visit",
+"visiting",
+"visited",
+"visits"
+],
+"answer": 0
+},
+{
+"q": "Will you ____ me the salt, please?",
+"choices": [
+"pass",
+"passing",
+"passed",
+"passes"
+],
+"answer": 0
+},
+{
+"q": "I hope you ____ have a good time.",
+"choices": [
+"will",
+"are",
+"do",
+"is"
+],
+"answer": 0
+},
+{
+"q": "You ____ wash your hands before meals.",
+"choices": [
+"must",
+"may",
+"can",
+"will"
+],
+"answer": 0
+},
+{
+"q": "May I ____ your name?",
+"choices": [
+"ask",
+"asking",
+"asks",
+"asked"
+],
+"answer": 0
+},
+{
+"q": "We ____ go to school on Sundays.",
+"choices": [
+"don't",
+"not",
+"aren't",
+"no"
+],
+"answer": 0
+},
+{
+"q": "He is ____ at English than me.",
+"choices": [
+"better",
+"good",
+"best",
+"well"
+],
+"answer": 0
+},
+{
+"q": "This is the ____ movie I've ever seen.",
+"choices": [
+"best",
+"better",
+"good",
+"well"
+],
+"answer": 0
+},
+{
+"q": "Please don't ____ in the classroom.",
+"choices": [
+"run",
+"running",
+"runs",
+"ran"
+],
+"answer": 0
+},
+{
+"q": "I was ____ in the kitchen when you called.",
+"choices": [
+"cooking",
+"cook",
+"cooked",
+"cooks"
+],
+"answer": 0
+},
+{
+"q": "How ____ is the bridge?",
+"choices": [
+"long",
+"much",
+"many",
+"old"
+],
+"answer": 0
+},
+{
+"q": "I have ____ brothers.",
+"choices": [
+"no",
+"not",
+"don't",
+"isn't"
+],
+"answer": 0
+},
+{
+"q": "The post office is ____ the street.",
+"choices": [
+"across",
+"at",
+"to",
+"in"
+],
+"answer": 0
+},
+{
+"q": "She is ____ for her keys.",
+"choices": [
+"looking",
+"looking for",
+"look",
+"look for"
+],
+"answer": 0
+},
+{
+"q": "The cat jumped ____ the fence.",
+"choices": [
+"over",
+"under",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "I go to the library ____ a week.",
+"choices": [
+"twice",
+"two",
+"second",
+"twice time"
+],
+"answer": 0
+},
+{
+"q": "Which one is ____, this or that?",
+"choices": [
+"yours",
+"you",
+"your",
+"you're"
+],
+"answer": 0
+},
+{
+"q": "He is as ____ as Ken.",
+"choices": [
+"tall",
+"taller",
+"tallest",
+"more tall"
+],
+"answer": 0
+},
+{
+"q": "I am ____ of the dark.",
+"choices": [
+"afraid",
+"fear",
+"scary",
+"scared"
+],
+"answer": 0
+},
+{
+"q": "Please ____ me the way to the park.",
+"choices": [
+"tell",
+"say",
+"speak",
+"talk"
+],
+"answer": 0
+},
+{
+"q": "I ____ a nice weekend.",
+"choices": [
+"had",
+"did",
+"made",
+"went"
+],
+"answer": 0
+},
+{
+"q": "Everything ____ okay.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "That ____ great!",
+"choices": [
+"sounds",
+"sound",
+"sounding",
+"sounded"
+],
+"answer": 0
+},
+{
+"q": "I'm going to travel by ____.",
+"choices": [
+"plane",
+"car",
+"bus",
+"train"
+],
+"answer": 0
+},
+{
+"q": "Don't forget your ____.",
+"choices": [
+"passport",
+"book",
+"pen",
+"toy"
+],
+"answer": 0
+},
+{
+"q": "I bought some ____ for my friends.",
+"choices": [
+"souvenirs",
+"water",
+"rice",
+"milk"
+],
+"answer": 0
+},
+{
+"q": "How can I ____ to the station?",
+"choices": [
+"get",
+"go",
+"come",
+"move"
+],
+"answer": 0
+},
+{
+"q": "The ____ leaves at 10:00.",
+"choices": [
+"bus",
+"sea",
+"mountain",
+"sky"
+],
+"answer": 0
+},
+{
+"q": "I'm staying at a ____.",
+"choices": [
+"hotel",
+"park",
+"library",
+"school"
+],
+"answer": 0
+},
+{
+"q": "Is this the ____ to London?",
+"choices": [
+"way",
+"road",
+"street",
+"path"
+],
+"answer": 0
+},
+{
+"q": "I'd like to make a ____.",
+"choices": [
+"reservation",
+"cake",
+"book",
+"pen"
+],
+"answer": 0
+},
+{
+"q": "The train is ____ now.",
+"choices": [
+"leaving",
+"coming",
+"going",
+"running"
+],
+"answer": 0
+},
+{
+"q": "Enjoy your ____!",
+"choices": [
+"trip",
+"day",
+"work",
+"study"
+],
+"answer": 0
+},
+{
+"q": "Where is the ____ stop?",
+"choices": [
+"bus",
+"car",
+"train",
+"plane"
+],
+"answer": 0
+},
+{
+"q": "I'm going on a ____.",
+"choices": [
+"vacation",
+"school",
+"work",
+"hospital"
+],
+"answer": 0
+},
+{
+"q": "The ____ is very beautiful from the window.",
+"choices": [
+"view",
+"car",
+"bag",
+"pen"
+],
+"answer": 0
+},
+{
+"q": "Wait for the ____ light.",
+"choices": [
+"green",
+"blue",
+"yellow",
+"black"
+],
+"answer": 0
+},
+{
+"q": "Take a ____ to the airport.",
+"choices": [
+"taxi",
+"bike",
+"walk",
+"run"
+],
+"answer": 0
+},
+{
+"q": "I missed the ____.",
+"choices": [
+"train",
+"road",
+"street",
+"bridge"
+],
+"answer": 0
+},
+{
+"q": "Turn ____ at the corner.",
+"choices": [
+"right",
+"straight",
+"up",
+"down"
+],
+"answer": 0
+},
+{
+"q": "Go ____ for two blocks.",
+"choices": [
+"straight",
+"right",
+"left",
+"back"
+],
+"answer": 0
+},
+{
+"q": "It takes 10 minutes ____ foot.",
+"choices": [
+"on",
+"by",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "The bridge is ____ the river.",
+"choices": [
+"over",
+"under",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ my suitcase.",
+"choices": [
+"packing",
+"making",
+"doing",
+"going"
+],
+"answer": 0
+},
+{
+"q": "Where is the ____ counter?",
+"choices": [
+"check-in",
+"food",
+"book",
+"game"
+],
+"answer": 0
+},
+{
+"q": "The ____ is very kind.",
+"choices": [
+"pilot",
+"car",
+"bus",
+"train"
+],
+"answer": 0
+},
+{
+"q": "I arrived ____ the airport.",
+"choices": [
+"at",
+"on",
+"to",
+"for"
+],
+"answer": 0
+},
+{
+"q": "Have a safe ____!",
+"choices": [
+"flight",
+"car",
+"bus",
+"train"
+],
+"answer": 0
+},
+{
+"q": "I'm so ____ to see you!",
+"choices": [
+"excited",
+"tired",
+"sleepy",
+"bored"
+],
+"answer": 0
+},
+{
+"q": "She is very ____. She always helps people.",
+"choices": [
+"kind",
+"busy",
+"funny",
+"quiet"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. Can you help me?",
+"choices": [
+"lost",
+"found",
+"made",
+"done"
+],
+"answer": 0
+},
+{
+"q": "He is a ____ boy. He makes everyone laugh.",
+"choices": [
+"funny",
+"sad",
+"angry",
+"tired"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ about the test.",
+"choices": [
+"worried",
+"happy",
+"glad",
+"good"
+],
+"answer": 0
+},
+{
+"q": "She looks ____ today.",
+"choices": [
+"surprised",
+"surprise",
+"surprising",
+"surprises"
+],
+"answer": 0
+},
+{
+"q": "I feel ____ today.",
+"choices": [
+"great",
+"badly",
+"sadly",
+"happily"
+],
+"answer": 0
+},
+{
+"q": "Don't be ____.",
+"choices": [
+"shy",
+"happily",
+"gladly",
+"goodly"
+],
+"answer": 0
+},
+{
+"q": "He is very ____. He doesn't talk much.",
+"choices": [
+"quiet",
+"noisy",
+"loud",
+"active"
+],
+"answer": 0
+},
+{
+"q": "The movie was very ____.",
+"choices": [
+"boring",
+"bored",
+"bores",
+"bore"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ to hear that.",
+"choices": [
+"sorry",
+"happy",
+"glad",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "She is always ____.",
+"choices": [
+"cheerful",
+"cheer",
+"cheering",
+"cheered"
+],
+"answer": 0
+},
+{
+"q": "The room is very ____.",
+"choices": [
+"clean",
+"cleaning",
+"cleans",
+"cleaned"
+],
+"answer": 0
+},
+{
+"q": "My teacher is very ____.",
+"choices": [
+"strict",
+"happy",
+"small",
+"fast"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ of spiders.",
+"choices": [
+"afraid",
+"scary",
+"fear",
+"glad"
+],
+"answer": 0
+},
+{
+"q": "He is ____ because he lost his watch.",
+"choices": [
+"sad",
+"happy",
+"excited",
+"great"
+],
+"answer": 0
+},
+{
+"q": "Are you ____? - No, I'm okay.",
+"choices": [
+"angry",
+"angrily",
+"angrier",
+"angriest"
+],
+"answer": 0
+},
+{
+"q": "It was a ____ day.",
+"choices": [
+"wonderful",
+"wonder",
+"wonders",
+"wondering"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ for your help.",
+"choices": [
+"thankful",
+"thanks",
+"thanking",
+"thank"
+],
+"answer": 0
+},
+{
+"q": "She is a ____ person.",
+"choices": [
+"brave",
+"coward",
+"small",
+"slow"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ to meet you.",
+"choices": [
+"pleased",
+"please",
+"pleasing",
+"pleases"
+],
+"answer": 0
+},
+{
+"q": "The baby is ____.",
+"choices": [
+"cute",
+"cutely",
+"cutes",
+"cuter"
+],
+"answer": 0
+},
+{
+"q": "He is very ____.",
+"choices": [
+"smart",
+"smartly",
+"smarts",
+"smarter"
+],
+"answer": 0
+},
+{
+"q": "Don't be so ____!",
+"choices": [
+"lazy",
+"lazily",
+"lazier",
+"laziest"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. Let's go home.",
+"choices": [
+"lonely",
+"happy",
+"excited",
+"glad"
+],
+"answer": 0
+},
+{
+"q": "We have a school ____ in October.",
+"choices": [
+"festival",
+"house",
+"room",
+"book"
+],
+"answer": 0
+},
+{
+"q": "The school ____ starts in April.",
+"choices": [
+"year",
+"day",
+"week",
+"month"
+],
+"answer": 0
+},
+{
+"q": "We had a ____ day last Friday.",
+"choices": [
+"sports",
+"math",
+"science",
+"music"
+],
+"answer": 0
+},
+{
+"q": "My favorite month is ____.",
+"choices": [
+"July",
+"Monday",
+"Summer",
+"Today"
+],
+"answer": 0
+},
+{
+"q": "____ comes after February.",
+"choices": [
+"March",
+"April",
+"May",
+"June"
+],
+"answer": 0
+},
+{
+"q": "Christmas is in ____.",
+"choices": [
+"December",
+"November",
+"October",
+"September"
+],
+"answer": 0
+},
+{
+"q": "We have summer ____ in August.",
+"choices": [
+"vacation",
+"school",
+"work",
+"test"
+],
+"answer": 0
+},
+{
+"q": "The ____ are blooming.",
+"choices": [
+"cherry blossoms",
+"snow",
+"rain",
+"wind"
+],
+"answer": 0
+},
+{
+"q": "It is ____ in autumn.",
+"choices": [
+"cool",
+"hot",
+"sunny",
+"rainy"
+],
+"answer": 0
+},
+{
+"q": "We go on a school ____ in spring.",
+"choices": [
+"trip",
+"work",
+"test",
+"homework"
+],
+"answer": 0
+},
+{
+"q": "____ is the first month of the year.",
+"choices": [
+"January",
+"June",
+"July",
+"March"
+],
+"answer": 0
+},
+{
+"q": "I like ____. The leaves are red.",
+"choices": [
+"fall",
+"spring",
+"summer",
+"winter"
+],
+"answer": 0
+},
+{
+"q": "We have a ____ concert next month.",
+"choices": [
+"music",
+"math",
+"science",
+"art"
+],
+"answer": 0
+},
+{
+"q": "The school ____ is at 9:00.",
+"choices": [
+"entrance ceremony",
+"party",
+"trip",
+"test"
+],
+"answer": 0
+},
+{
+"q": "I'm in the ____ grade.",
+"choices": [
+"sixth",
+"six",
+"sixty",
+"sixteen"
+],
+"answer": 0
+},
+{
+"q": "Halloween is on October ____.",
+"choices": [
+"31st",
+"1st",
+"10th",
+"20th"
+],
+"answer": 0
+},
+{
+"q": "The weather is ____ in winter.",
+"choices": [
+"cold",
+"hot",
+"warm",
+"sunny"
+],
+"answer": 0
+},
+{
+"q": "We study ____ about the world.",
+"choices": [
+"Geography",
+"Math",
+"PE",
+"Art"
+],
+"answer": 0
+},
+{
+"q": "My ____ is on June 15th.",
+"choices": [
+"birthday",
+"school",
+"work",
+"test"
+],
+"answer": 0
+},
+{
+"q": "We had a ____ lunch yesterday.",
+"choices": [
+"special",
+"specially",
+"specials",
+"specialing"
+],
+"answer": 0
+},
+{
+"q": "The ____ is very long.",
+"choices": [
+"summer break",
+"day",
+"hour",
+"minute"
+],
+"answer": 0
+},
+{
+"q": "See you ____ month.",
+"choices": [
+"next",
+"after",
+"then",
+"now"
+],
+"answer": 0
+},
+{
+"q": "I was born ____ 2012.",
+"choices": [
+"in",
+"at",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "School ____ at 3:30 p.m.",
+"choices": [
+"finishes",
+"starts",
+"plays",
+"eats"
+],
+"answer": 0
+},
+{
+"q": "I have ____ homework today.",
+"choices": [
+"no",
+"not",
+"aren't",
+"isn't"
+],
+"answer": 0
+},
+{
+"q": "The cat is ____ the box.",
+"choices": [
+"in",
+"on",
+"under",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "The pencil is ____ the desk.",
+"choices": [
+"on",
+"at",
+"to",
+"for"
+],
+"answer": 0
+},
+{
+"q": "The ball is ____ the chair.",
+"choices": [
+"under",
+"at",
+"to",
+"for"
+],
+"answer": 0
+},
+{
+"q": "I am standing ____ Ken and Mary.",
+"choices": [
+"between",
+"at",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "The park is ____ the station.",
+"choices": [
+"behind",
+"at",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "There is a tree ____ of the house.",
+"choices": [
+"in front",
+"at front",
+"on front",
+"to front"
+],
+"answer": 0
+},
+{
+"q": "The bank is ____ to the library.",
+"choices": [
+"next",
+"near",
+"beside",
+"by"
+],
+"answer": 0
+},
+{
+"q": "There are ____ students in the hall.",
+"choices": [
+"a lot of",
+"much",
+"any",
+"a"
+],
+"answer": 0
+},
+{
+"q": "I have ____ water in the bottle.",
+"choices": [
+"some",
+"any",
+"many",
+"a"
+],
+"answer": 0
+},
+{
+"q": "Do you have ____ pencils?",
+"choices": [
+"any",
+"some",
+"much",
+"a"
+],
+"answer": 0
+},
+{
+"q": "How ____ books do you have?",
+"choices": [
+"many",
+"much",
+"old",
+"tall"
+],
+"answer": 0
+},
+{
+"q": "I have ____ friends.",
+"choices": [
+"a few",
+"a little",
+"much",
+"any"
+],
+"answer": 0
+},
+{
+"q": "Wait for a ____ minutes.",
+"choices": [
+"few",
+"little",
+"much",
+"any"
+],
+"answer": 0
+},
+{
+"q": "There is ____ milk in the fridge.",
+"choices": [
+"a little",
+"a few",
+"many",
+"any"
+],
+"answer": 0
+},
+{
+"q": "I have ____ money.",
+"choices": [
+"enough",
+"many",
+"few",
+"any"
+],
+"answer": 0
+},
+{
+"q": "He has ____ toys.",
+"choices": [
+"so many",
+"so much",
+"any",
+"a"
+],
+"answer": 0
+},
+{
+"q": "Give me ____ please.",
+"choices": [
+"another one",
+"other",
+"others",
+"another"
+],
+"answer": 0
+},
+{
+"q": "Both of ____ are teachers.",
+"choices": [
+"them",
+"they",
+"their",
+"theirs"
+],
+"answer": 0
+},
+{
+"q": "All of us ____ happy.",
+"choices": [
+"are",
+"is",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "I want ____ more.",
+"choices": [
+"some",
+"any",
+"a",
+"many"
+],
+"answer": 0
+},
+{
+"q": "This is ____ pen.",
+"choices": [
+"mine",
+"my",
+"I",
+"me"
+],
+"answer": 0
+},
+{
+"q": "Is this ____? - Yes, it's mine.",
+"choices": [
+"yours",
+"you",
+"your",
+"you're"
+],
+"answer": 0
+},
+{
+"q": "He did it by ____.",
+"choices": [
+"himself",
+"him",
+"his",
+"he"
+],
+"answer": 0
+},
+{
+"q": "She is taller than ____.",
+"choices": [
+"me",
+"I",
+"my",
+"mine"
+],
+"answer": 0
+},
+{
+"q": "____ is she? - She is my sister.",
+"choices": [
+"Who",
+"What",
+"Where",
+"How"
+],
+"answer": 0
+},
+{
+"q": "____ do you go to the gym? - Twice a week.",
+"choices": [
+"How often",
+"How many",
+"How much",
+"How far"
+],
+"answer": 0
+},
+{
+"q": "I ____ like this song.",
+"choices": [
+"really",
+"much",
+"very",
+"too"
+],
+"answer": 0
+},
+{
+"q": "Can I ____ you? - Yes, please.",
+"choices": [
+"help",
+"helps",
+"helping",
+"helped"
+],
+"answer": 0
+},
+{
+"q": "____ a good time!",
+"choices": [
+"Have",
+"Has",
+"Having",
+"Had"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. Can I go to the bathroom?",
+"choices": [
+"sorry",
+"happy",
+"glad",
+"fine"
+],
+"answer": 0
+},
+{
+"q": "May I ____ here?",
+"choices": [
+"sit",
+"sits",
+"sitting",
+"sat"
+],
+"answer": 0
+},
+{
+"q": "____ do you spell your name?",
+"choices": [
+"How",
+"What",
+"Who",
+"Where"
+],
+"answer": 0
+},
+{
+"q": "I ____ understand.",
+"choices": [
+"don't",
+"not",
+"am not",
+"no"
+],
+"answer": 0
+},
+{
+"q": "Please speak more ____.",
+"choices": [
+"slowly",
+"slow",
+"slower",
+"slowest"
+],
+"answer": 0
+},
+{
+"q": "What ____ you say?",
+"choices": [
+"did",
+"do",
+"are",
+"were"
+],
+"answer": 0
+},
+{
+"q": "Wait for me ____ the station.",
+"choices": [
+"at",
+"on",
+"in",
+"to"
+],
+"answer": 0
+},
+{
+"q": "It's time to ____.",
+"choices": [
+"go",
+"going",
+"went",
+"goes"
+],
+"answer": 0
+},
+{
+"q": "____ up! You can do it.",
+"choices": [
+"Cheer",
+"Happy",
+"Good",
+"Well"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. I'm okay.",
+"choices": [
+"fine",
+"bad",
+"sad",
+"angry"
+],
+"answer": 0
+},
+{
+"q": "I ____ a headache.",
+"choices": [
+"have",
+"has",
+"am",
+"do"
+],
+"answer": 0
+},
+{
+"q": "Take a ____.",
+"choices": [
+"rest",
+"sleep",
+"work",
+"study"
+],
+"answer": 0
+},
+{
+"q": "Good ____!",
+"choices": [
+"luck",
+"happy",
+"well",
+"good"
+],
+"answer": 0
+},
+{
+"q": "I ____ believe it!",
+"choices": [
+"can't",
+"don't",
+"won't",
+"mustn't"
+],
+"answer": 0
+},
+{
+"q": "That's a ____ idea!",
+"choices": [
+"great",
+"greatly",
+"greatest",
+"greater"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. I'll be back soon.",
+"choices": [
+"leaving",
+"coming",
+"going",
+"gone"
+],
+"answer": 0
+},
+{
+"q": "What ____ you think?",
+"choices": [
+"do",
+"are",
+"is",
+"were"
+],
+"answer": 0
+},
+{
+"q": "It's ____ to me.",
+"choices": [
+"new",
+"news",
+"newly",
+"newer"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. I'm late.",
+"choices": [
+"sorry",
+"happy",
+"glad",
+"fine"
+],
+"answer": 0
+},
+{
+"q": "Let's ____ together.",
+"choices": [
+"play",
+"playing",
+"plays",
+"played"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. I want to drink something.",
+"choices": [
+"thirsty",
+"hungry",
+"sleepy",
+"angry"
+],
+"answer": 0
+},
+{
+"q": "How ____ is your dog? - He is 3 years old.",
+"choices": [
+"old",
+"much",
+"many",
+"long"
+],
+"answer": 0
+},
+{
+"q": "I ____ English every night.",
+"choices": [
+"study",
+"studies",
+"studying",
+"studied"
+],
+"answer": 0
+},
+{
+"q": "There ____ a cat on the roof.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "____ you like coffee? - Yes, I do.",
+"choices": [
+"Do",
+"Does",
+"Are",
+"Is"
+],
+"answer": 0
+},
+{
+"q": "She ____ a beautiful song.",
+"choices": [
+"sang",
+"sing",
+"sings",
+"singing"
+],
+"answer": 0
+},
+{
+"q": "This apple is very ____.",
+"choices": [
+"sweet",
+"sweetly",
+"sweets",
+"sweeter"
+],
+"answer": 0
+},
+{
+"q": "I ____ my sister yesterday.",
+"choices": [
+"met",
+"meet",
+"meets",
+"meeting"
+],
+"answer": 0
+},
+{
+"q": "Where ____ you last night?",
+"choices": [
+"were",
+"was",
+"are",
+"did"
+],
+"answer": 0
+},
+{
+"q": "He ____ speak Chinese.",
+"choices": [
+"can",
+"cans",
+"is",
+"do"
+],
+"answer": 0
+},
+{
+"q": "I have ____ finished my lunch.",
+"choices": [
+"just",
+"yet",
+"ever",
+"never"
+],
+"answer": 0
+},
+{
+"q": "The sky is very ____ today.",
+"choices": [
+"clear",
+"clears",
+"clearing",
+"cleared"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ to meet you again.",
+"choices": [
+"glad",
+"sad",
+"sorry",
+"angry"
+],
+"answer": 0
+},
+{
+"q": "What ____ is the sky? - It's blue.",
+"choices": [
+"color",
+"time",
+"day",
+"date"
+],
+"answer": 0
+},
+{
+"q": "I have a ____ of friends.",
+"choices": [
+"lot",
+"lots",
+"many",
+"much"
+],
+"answer": 0
+},
+{
+"q": "____ is your house? - Over there.",
+"choices": [
+"Where",
+"What",
+"Who",
+"When"
+],
+"answer": 0
+},
+{
+"q": "I like ____ the piano.",
+"choices": [
+"playing",
+"play",
+"plays",
+"played"
+],
+"answer": 0
+},
+{
+"q": "The sun ____ in the east.",
+"choices": [
+"rises",
+"sets",
+"shines",
+"rising"
+],
+"answer": 0
+},
+{
+"q": "Can you ____ me a favor?",
+"choices": [
+"do",
+"make",
+"give",
+"take"
+],
+"answer": 0
+},
+{
+"q": "I ____ to go now.",
+"choices": [
+"have",
+"has",
+"am",
+"do"
+],
+"answer": 0
+},
+{
+"q": "It's a ____ day, isn't it?",
+"choices": [
+"lovely",
+"love",
+"loves",
+"loving"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ it.",
+"choices": [
+"do",
+"does",
+"doing",
+"did"
+],
+"answer": 0
+},
+{
+"q": "You are ____!",
+"choices": [
+"welcome",
+"welcoming",
+"welcomed",
+"welcomes"
+],
+"answer": 0
+},
+{
+"q": "See you next ____!",
+"choices": [
+"time",
+"week",
+"month",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "Congratulations!",
+"choices": [
+"Thank you",
+"Sorry",
+"Hello",
+"Hi"
+],
+"answer": 0
+}
+],
+"medium": [
+{
+"q": "Choose the correct: I have lived here ___ 2020.",
+"choices": [
+"for",
+"since",
+"from",
+"by"
+],
+"answer": 1
+},
+{
+"q": "Synonym of 'important'?",
+"choices": [
+"tiny",
+"significant",
+"optional",
+"rare"
+],
+"answer": 1
+},
+{
+"q": "Correct: If it ___, we will cancel.",
+"choices": [
+"rains",
+"rain",
+"rained",
+"raining"
+],
+"answer": 0
+},
+{
+"q": "Meaning of 'reduce'?",
+"choices": [
+"increase",
+"lower",
+"repeat",
+"repair"
+],
+"answer": 1
+},
+{
+"q": "Choose the best: She is good ___ math.",
+"choices": [
+"at",
+"on",
+"in",
+"to"
+],
+"answer": 0
+},
+{
+"q": "Past participle of 'write'?",
+"choices": [
+"wrote",
+"written",
+"writing",
+"writed"
+],
+"answer": 1
+},
+{
+"q": "Which is correct?",
+"choices": [
+"more better",
+"most better",
+"better",
+"bestest"
+],
+"answer": 2
+},
+{
+"q": "Meaning of 'actually'?",
+"choices": [
+"in fact",
+"maybe",
+"soon",
+"never"
+],
+"answer": 0
+},
+{
+"q": "Choose the correct: I look forward to ___ you.",
+"choices": [
+"see",
+"saw",
+"seeing",
+"seen"
+],
+"answer": 2
+},
+{
+"q": "Opposite of 'polite'?",
+"choices": [
+"kind",
+"rude",
+"calm",
+"silent"
+],
+"answer": 1
+},
+{
+"q": "I have ____ to Kyoto twice.",
+"choices": [
+"go",
+"went",
+"gone",
+"been"
+],
+"answer": 3
+},
+{
+"q": "She has ____ English for five years.",
+"choices": [
+"study",
+"studies",
+"studied",
+"studying"
+],
+"answer": 2
+},
+{
+"q": "Have you ____ your lunch yet?",
+"choices": [
+"eat",
+"ate",
+"eaten",
+"eating"
+],
+"answer": 2
+},
+{
+"q": "He has ____ seen a famous actor.",
+"choices": [
+"ever",
+"never",
+"already",
+"yet"
+],
+"answer": 1
+},
+{
+"q": "We have lived here ____ 2010.",
+"choices": [
+"for",
+"since",
+"during",
+"at"
+],
+"answer": 1
+},
+{
+"q": "I have ____ finished my homework.",
+"choices": [
+"just",
+"yet",
+"ever",
+"never"
+],
+"answer": 0
+},
+{
+"q": "How ____ have you been in Japan?",
+"choices": [
+"long",
+"many",
+"much",
+"often"
+],
+"answer": 0
+},
+{
+"q": "They have ____ each other since they were children.",
+"choices": [
+"know",
+"knew",
+"known",
+"knowing"
+],
+"answer": 2
+},
+{
+"q": "Has she ____ finished the book?",
+"choices": [
+"yet",
+"ever",
+"already",
+"since"
+],
+"answer": 2
+},
+{
+"q": "I haven't seen him ____ a long time.",
+"choices": [
+"since",
+"for",
+"during",
+"while"
+],
+"answer": 1
+},
+{
+"q": "Have you ____ been to Hokkaido?",
+"choices": [
+"already",
+"ever",
+"yet",
+"just"
+],
+"answer": 1
+},
+{
+"q": "It has ____ raining for three hours.",
+"choices": [
+"be",
+"is",
+"been",
+"being"
+],
+"answer": 2
+},
+{
+"q": "I have ____ my umbrella on the train.",
+"choices": [
+"leave",
+"left",
+"leaving",
+"lefted"
+],
+"answer": 1
+},
+{
+"q": "We have ____ to that museum many times.",
+"choices": [
+"be",
+"was",
+"been",
+"were"
+],
+"answer": 2
+},
+{
+"q": "He hasn't cleaned his room ____.",
+"choices": [
+"already",
+"yet",
+"ever",
+"just"
+],
+"answer": 1
+},
+{
+"q": "My father has ____ to America on business.",
+"choices": [
+"go",
+"goes",
+"gone",
+"been"
+],
+"answer": 2
+},
+{
+"q": "How many times ____ you watched this movie?",
+"choices": [
+"do",
+"are",
+"have",
+"did"
+],
+"answer": 2
+},
+{
+"q": "I have ____ to him about the plan.",
+"choices": [
+"speak",
+"spoke",
+"spoken",
+"speaking"
+],
+"answer": 2
+},
+{
+"q": "She has ____ busy since this morning.",
+"choices": [
+"be",
+"been",
+"is",
+"was"
+],
+"answer": 1
+},
+{
+"q": "They have ____ to the party.",
+"choices": [
+"invite",
+"invited",
+"inviting",
+"invites"
+],
+"answer": 1
+},
+{
+"q": "This letter was ____ by Soseki.",
+"choices": [
+"write",
+"wrote",
+"written",
+"writing"
+],
+"answer": 2
+},
+{
+"q": "English is ____ in many countries.",
+"choices": [
+"speak",
+"spoke",
+"spoken",
+"speaking"
+],
+"answer": 2
+},
+{
+"q": "The cake was ____ by my sister.",
+"choices": [
+"make",
+"makes",
+"made",
+"making"
+],
+"answer": 2
+},
+{
+"q": "These photos ____ taken in Paris.",
+"choices": [
+"is",
+"are",
+"was",
+"were"
+],
+"answer": 3
+},
+{
+"q": "This temple was ____ 300 years ago.",
+"choices": [
+"build",
+"builds",
+"built",
+"building"
+],
+"answer": 2
+},
+{
+"q": "Was this movie ____ by many people?",
+"choices": [
+"watch",
+"watches",
+"watched",
+"watching"
+],
+"answer": 2
+},
+{
+"q": "The room is ____ every day.",
+"choices": [
+"clean",
+"cleans",
+"cleaned",
+"cleaning"
+],
+"answer": 2
+},
+{
+"q": "This bag ____ made of leather.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "The box ____ opened by Ken.",
+"choices": [
+"is",
+"are",
+"was",
+"were"
+],
+"answer": 2
+},
+{
+"q": "I was ____ by the news.",
+"choices": [
+"surprise",
+"surprises",
+"surprised",
+"surprising"
+],
+"answer": 2
+},
+{
+"q": "Rice is ____ in Japan.",
+"choices": [
+"grow",
+"grows",
+"grown",
+"growing"
+],
+"answer": 2
+},
+{
+"q": "This song is ____ to everyone.",
+"choices": [
+"know",
+"knows",
+"known",
+"knowing"
+],
+"answer": 2
+},
+{
+"q": "The car was ____ by my father.",
+"choices": [
+"wash",
+"washes",
+"washed",
+"washing"
+],
+"answer": 2
+},
+{
+"q": "The letter ____ not sent yesterday.",
+"choices": [
+"is",
+"was",
+"were",
+"did"
+],
+"answer": 1
+},
+{
+"q": "My bike was ____ last night.",
+"choices": [
+"steal",
+"stole",
+"stolen",
+"stealing"
+],
+"answer": 2
+},
+{
+"q": "The window was ____ by the wind.",
+"choices": [
+"break",
+"broke",
+"broken",
+"breaking"
+],
+"answer": 2
+},
+{
+"q": "These flowers ____ given to me by Ken.",
+"choices": [
+"is",
+"are",
+"was",
+"were"
+],
+"answer": 3
+},
+{
+"q": "The baby was ____ 'Hana'.",
+"choices": [
+"name",
+"names",
+"named",
+"naming"
+],
+"answer": 2
+},
+{
+"q": "Soccer is ____ all over the world.",
+"choices": [
+"play",
+"plays",
+"played",
+"playing"
+],
+"answer": 2
+},
+{
+"q": "I was ____ to the party.",
+"choices": [
+"invite",
+"invites",
+"invited",
+"inviting"
+],
+"answer": 2
+},
+{
+"q": "I want ____ a doctor in the future.",
+"choices": [
+"be",
+"to be",
+"being",
+"been"
+],
+"answer": 1
+},
+{
+"q": "I went to the library ____ study.",
+"choices": [
+"to",
+"for",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "Do you have anything ____?",
+"choices": [
+"eat",
+"to eat",
+"eating",
+"ate"
+],
+"answer": 1
+},
+{
+"q": "I am glad ____ see you again.",
+"choices": [
+"to",
+"for",
+"at",
+"of"
+],
+"answer": 0
+},
+{
+"q": "It is important ____ healthy food.",
+"choices": [
+"eat",
+"to eat",
+"eating",
+"eats"
+],
+"answer": 1
+},
+{
+"q": "I have a lot of work ____ today.",
+"choices": [
+"do",
+"to do",
+"doing",
+"did"
+],
+"answer": 1
+},
+{
+"q": "He decided ____ to London.",
+"choices": [
+"go",
+"to go",
+"going",
+"gone"
+],
+"answer": 1
+},
+{
+"q": "I'm surprised ____ the news.",
+"choices": [
+"hear",
+"to hear",
+"hearing",
+"heard"
+],
+"answer": 1
+},
+{
+"q": "She is too tired ____ walk.",
+"choices": [
+"to",
+"for",
+"that",
+"so"
+],
+"answer": 0
+},
+{
+"q": "I don't know how ____ to the station.",
+"choices": [
+"go",
+"going",
+"to go",
+"went"
+],
+"answer": 2
+},
+{
+"q": "Please tell me what ____ next.",
+"choices": [
+"do",
+"doing",
+"to do",
+"did"
+],
+"answer": 2
+},
+{
+"q": "I want you ____ my homework.",
+"choices": [
+"help",
+"to help",
+"helping",
+"helped"
+],
+"answer": 1
+},
+{
+"q": "He told me ____ the window.",
+"choices": [
+"open",
+"to open",
+"opening",
+"opened"
+],
+"answer": 1
+},
+{
+"q": "It is fun ____ pictures.",
+"choices": [
+"take",
+"to take",
+"taking",
+"took"
+],
+"answer": 1
+},
+{
+"q": "He is old enough ____ drive a car.",
+"choices": [
+"to",
+"for",
+"that",
+"so"
+],
+"answer": 0
+},
+{
+"q": "My dream is ____ a teacher.",
+"choices": [
+"be",
+"to be",
+"being",
+"been"
+],
+"answer": 1
+},
+{
+"q": "I have no time ____ TV today.",
+"choices": [
+"watch",
+"to watch",
+"watching",
+"watched"
+],
+"answer": 1
+},
+{
+"q": "She went to Paris ____ art.",
+"choices": [
+"study",
+"to study",
+"studying",
+"studied"
+],
+"answer": 1
+},
+{
+"q": "I asked him ____ the door.",
+"choices": [
+"close",
+"to close",
+"closing",
+"closed"
+],
+"answer": 1
+},
+{
+"q": "It is difficult for me ____ English.",
+"choices": [
+"speak",
+"to speak",
+"speaking",
+"speaks"
+],
+"answer": 1
+},
+{
+"q": "I hope ____ you soon.",
+"choices": [
+"see",
+"to see",
+"seeing",
+"seen"
+],
+"answer": 1
+},
+{
+"q": "He promised ____ me.",
+"choices": [
+"help",
+"to help",
+"helping",
+"helped"
+],
+"answer": 1
+},
+{
+"q": "We need ____ our environment.",
+"choices": [
+"protect",
+"to protect",
+"protecting",
+"protected"
+],
+"answer": 1
+},
+{
+"q": "I was sad ____ that news.",
+"choices": [
+"know",
+"to know",
+"knowing",
+"knew"
+],
+"answer": 1
+},
+{
+"q": "They came here ____ soccer.",
+"choices": [
+"play",
+"to play",
+"playing",
+"played"
+],
+"answer": 1
+},
+{
+"q": "I enjoy ____ music every night.",
+"choices": [
+"listen",
+"to listen",
+"listening",
+"listened"
+],
+"answer": 2
+},
+{
+"q": "She is good at ____ tennis.",
+"choices": [
+"play",
+"playing",
+"to play",
+"plays"
+],
+"answer": 1
+},
+{
+"q": "Thank you for ____ me.",
+"choices": [
+"invite",
+"inviting",
+"to invite",
+"invited"
+],
+"answer": 1
+},
+{
+"q": "He finished ____ his homework.",
+"choices": [
+"do",
+"doing",
+"to do",
+"did"
+],
+"answer": 1
+},
+{
+"q": "____ is very important.",
+"choices": [
+"Study",
+"Studying",
+"Studies",
+"Studied"
+],
+"answer": 1
+},
+{
+"q": "I am looking forward to ____ you.",
+"choices": [
+"see",
+"seeing",
+"to see",
+"saw"
+],
+"answer": 1
+},
+{
+"q": "Stop ____ noise, please.",
+"choices": [
+"make",
+"making",
+"to make",
+"makes"
+],
+"answer": 1
+},
+{
+"q": "He likes ____ pictures.",
+"choices": [
+"paint",
+"painting",
+"paints",
+"painted"
+],
+"answer": 1
+},
+{
+"q": "I'm interested in ____ Japanese culture.",
+"choices": [
+"learn",
+"learning",
+"to learn",
+"learned"
+],
+"answer": 1
+},
+{
+"q": "They practiced ____ soccer yesterday.",
+"choices": [
+"play",
+"playing",
+"to play",
+"played"
+],
+"answer": 1
+},
+{
+"q": "____ English is fun.",
+"choices": [
+"Speak",
+"Speaking",
+"To speak",
+"Speaks"
+],
+"answer": 1
+},
+{
+"q": "How about ____ for a walk?",
+"choices": [
+"go",
+"going",
+"to go",
+"goes"
+],
+"answer": 1
+},
+{
+"q": "He left the room without ____ anything.",
+"choices": [
+"say",
+"saying",
+"to say",
+"said"
+],
+"answer": 1
+},
+{
+"q": "I'm tired of ____ TV.",
+"choices": [
+"watch",
+"watching",
+"to watch",
+"watched"
+],
+"answer": 1
+},
+{
+"q": "She keep on ____ the piano.",
+"choices": [
+"play",
+"playing",
+"plays",
+"played"
+],
+"answer": 1
+},
+{
+"q": "Would you mind ____ the window?",
+"choices": [
+"open",
+"opening",
+"to open",
+"opened"
+],
+"answer": 1
+},
+{
+"q": "I remember ____ him before.",
+"choices": [
+"meet",
+"meeting",
+"to meet",
+"met"
+],
+"answer": 1
+},
+{
+"q": "He gave up ____ a doctor.",
+"choices": [
+"become",
+"becoming",
+"to become",
+"became"
+],
+"answer": 1
+},
+{
+"q": "My hobby is ____ coins.",
+"choices": [
+"collect",
+"collecting",
+"to collect",
+"collected"
+],
+"answer": 1
+},
+{
+"q": "I'm sorry for ____ late.",
+"choices": [
+"be",
+"being",
+"to be",
+"is"
+],
+"answer": 1
+},
+{
+"q": "The girl ____ is singing is my sister.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "This is the book ____ I bought yesterday.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "I know a man ____ can speak five languages.",
+"choices": [
+"who",
+"which",
+"that",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "The movie ____ I watched last night was sad.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "I have a friend ____ lives in London.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "Is this the bag ____ you like?",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 1
+},
+{
+"q": "He is the teacher ____ teaches us math.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "The dog ____ is running there is mine.",
+"choices": [
+"who",
+"which",
+"whose",
+"that"
+],
+"answer": 3
+},
+{
+"q": "She is the person ____ I wanted to meet.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 0
+},
+{
+"q": "Look at the mountain ____ is covered with snow.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 1
+},
+{
+"q": "I like stories ____ have happy endings.",
+"choices": [
+"who",
+"that",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "This is the house ____ he lives in.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "The people ____ live next door are kind.",
+"choices": [
+"who",
+"which",
+"whose",
+"that"
+],
+"answer": 0
+},
+{
+"q": "Give me something ____ is cold.",
+"choices": [
+"who",
+"that",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "The letter ____ arrived today is for you.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 1
+},
+{
+"q": "Is there anyone ____ can help me?",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "The car ____ my father used was old.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "I lost the pen ____ I liked very much.",
+"choices": [
+"who",
+"which",
+"that",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "The boy ____ is standing there is Ken.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "He showed me the photo ____ he took.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "He is as ____ as his brother.",
+"choices": [
+"tall",
+"taller",
+"tallest",
+"the tallest"
+],
+"answer": 0
+},
+{
+"q": "This movie is more ____ than that one.",
+"choices": [
+"interest",
+"interested",
+"interesting",
+"interests"
+],
+"answer": 2
+},
+{
+"q": "She is the ____ singer in Japan.",
+"choices": [
+"good",
+"better",
+"best",
+"well"
+],
+"answer": 2
+},
+{
+"q": "I can run ____ than my brother.",
+"choices": [
+"fast",
+"faster",
+"fastest",
+"fastly"
+],
+"answer": 1
+},
+{
+"q": "Which is ____, math or English?",
+"choices": [
+"easy",
+"easier",
+"easiest",
+"easily"
+],
+"answer": 1
+},
+{
+"q": "This is the ____ house in the town.",
+"choices": [
+"large",
+"larger",
+"largest",
+"more large"
+],
+"answer": 2
+},
+{
+"q": "Mt. Fuji is the ____ mountain in Japan.",
+"choices": [
+"high",
+"higher",
+"highest",
+"more high"
+],
+"answer": 2
+},
+{
+"q": "He is ____ than I.",
+"choices": [
+"old",
+"older",
+"oldest",
+"more old"
+],
+"answer": 1
+},
+{
+"q": "I like soccer ____ than baseball.",
+"choices": [
+"well",
+"better",
+"best",
+"good"
+],
+"answer": 1
+},
+{
+"q": "This book is as ____ as that one.",
+"choices": [
+"old",
+"older",
+"oldest",
+"the oldest"
+],
+"answer": 0
+},
+{
+"q": "She can cook ____ than I.",
+"choices": [
+"well",
+"better",
+"best",
+"good"
+],
+"answer": 1
+},
+{
+"q": "The story was the ____ of all.",
+"choices": [
+"more interesting",
+"most interesting",
+"interesting",
+"interester"
+],
+"answer": 1
+},
+{
+"q": "He speaks English ____ than me.",
+"choices": [
+"fluently",
+"more fluently",
+"most fluently",
+"fluent"
+],
+"answer": 1
+},
+{
+"q": "This car is ____ than that one.",
+"choices": [
+"expensive",
+"more expensive",
+"most expensive",
+"expensiver"
+],
+"answer": 1
+},
+{
+"q": "Which is the ____ city in Japan?",
+"choices": [
+"busy",
+"busier",
+"busiest",
+"more busy"
+],
+"answer": 2
+},
+{
+"q": "I'll call you when I ____ home.",
+"choices": [
+"get",
+"will get",
+"got",
+"getting"
+],
+"answer": 0
+},
+{
+"q": "If it ____ tomorrow, I will stay home.",
+"choices": [
+"rain",
+"rains",
+"rained",
+"will rain"
+],
+"answer": 1
+},
+{
+"q": "I was sleeping when he ____.",
+"choices": [
+"come",
+"comes",
+"came",
+"coming"
+],
+"answer": 2
+},
+{
+"q": "I think ____ he is a good doctor.",
+"choices": [
+"that",
+"what",
+"which",
+"if"
+],
+"answer": 0
+},
+{
+"q": "I'll wait until he ____.",
+"choices": [
+"come",
+"comes",
+"came",
+"will come"
+],
+"answer": 1
+},
+{
+"q": "He was late because it ____.",
+"choices": [
+"rain",
+"rains",
+"rained",
+"is raining"
+],
+"answer": 2
+},
+{
+"q": "I'll help you if you ____ me.",
+"choices": [
+"ask",
+"asks",
+"asked",
+"will ask"
+],
+"answer": 0
+},
+{
+"q": "When I was a child, I ____ in Osaka.",
+"choices": [
+"live",
+"lives",
+"lived",
+"living"
+],
+"answer": 2
+},
+{
+"q": "I don't know if he ____ tomorrow.",
+"choices": [
+"come",
+"comes",
+"will come",
+"came"
+],
+"answer": 2
+},
+{
+"q": "Though he was tired, he ____ studying.",
+"choices": [
+"keep",
+"keeps",
+"kept",
+"keeping"
+],
+"answer": 2
+},
+{
+"q": "I study hard so that I ____ pass the exam.",
+"choices": [
+"can",
+"must",
+"should",
+"might"
+],
+"answer": 0
+},
+{
+"q": "He was so tired ____ he couldn't walk.",
+"choices": [
+"and",
+"but",
+"that",
+"so"
+],
+"answer": 2
+},
+{
+"q": "Please wait here ____ I come back.",
+"choices": [
+"until",
+"since",
+"for",
+"during"
+],
+"answer": 0
+},
+{
+"q": "She was cooking while I ____ a book.",
+"choices": [
+"read",
+"reads",
+"was reading",
+"reading"
+],
+"answer": 2
+},
+{
+"q": "I didn't go out because it ____.",
+"choices": [
+"snow",
+"snows",
+"snowed",
+"is snowing"
+],
+"answer": 2
+},
+{
+"q": "Do you know where ____?",
+"choices": [
+"he lives",
+"does he live",
+"is he live",
+"he living"
+],
+"answer": 0
+},
+{
+"q": "Please tell me what ____.",
+"choices": [
+"is this",
+"this is",
+"was this",
+"this was"
+],
+"answer": 1
+},
+{
+"q": "I don't know who ____.",
+"choices": [
+"is he",
+"he is",
+"was he",
+"he was"
+],
+"answer": 1
+},
+{
+"q": "The news made us ____.",
+"choices": [
+"happy",
+"happily",
+"to be happy",
+"happiness"
+],
+"answer": 0
+},
+{
+"q": "He seems ____ a teacher.",
+"choices": [
+"be",
+"to be",
+"is",
+"being"
+],
+"answer": 1
+},
+{
+"q": "Could you tell me how ____ to the park?",
+"choices": [
+"get",
+"getting",
+"to get",
+"got"
+],
+"answer": 2
+},
+{
+"q": "I'm not sure if it ____ tomorrow.",
+"choices": [
+"rain",
+"rains",
+"will rain",
+"rained"
+],
+"answer": 2
+},
+{
+"q": "What ____ you to buy this?",
+"choices": [
+"make",
+"made",
+"makes",
+"making"
+],
+"answer": 1
+},
+{
+"q": "The cake smells ____.",
+"choices": [
+"good",
+"well",
+"goodly",
+"better"
+],
+"answer": 0
+},
+{
+"q": "I wonder why she ____ late.",
+"choices": [
+"is",
+"are",
+"be",
+"was"
+],
+"answer": 0
+},
+{
+"q": "She told me ____ to do next.",
+"choices": [
+"what",
+"who",
+"where",
+"when"
+],
+"answer": 0
+},
+{
+"q": "It's time ____ to bed.",
+"choices": [
+"go",
+"to go",
+"going",
+"goes"
+],
+"answer": 1
+},
+{
+"q": "He asked me ____ I liked sushi.",
+"choices": [
+"that",
+"if",
+"what",
+"which"
+],
+"answer": 1
+},
+{
+"q": "I was ____ by the beautiful sea.",
+"choices": [
+"amaze",
+"amazed",
+"amazing",
+"amazes"
+],
+"answer": 1
+},
+{
+"q": "Thank you for ____.",
+"choices": [
+"come",
+"coming",
+"to come",
+"comes"
+],
+"answer": 1
+},
+{
+"q": "I have ____ this movie three times.",
+"choices": [
+"see",
+"saw",
+"seen",
+"seeing"
+],
+"answer": 2
+},
+{
+"q": "How long ____ you lived in this city?",
+"choices": [
+"do",
+"are",
+"have",
+"did"
+],
+"answer": 2
+},
+{
+"q": "She has ____ been to a foreign country.",
+"choices": [
+"never",
+"yet",
+"already",
+"just"
+],
+"answer": 0
+},
+{
+"q": "We have ____ each other since we were children.",
+"choices": [
+"know",
+"knew",
+"known",
+"knowing"
+],
+"answer": 2
+},
+{
+"q": "Have you ____ finished your homework yet?",
+"choices": [
+"already",
+"ever",
+"never",
+"just"
+],
+"answer": 0
+},
+{
+"q": "He has ____ English for ten years.",
+"choices": [
+"study",
+"studies",
+"studied",
+"studying"
+],
+"answer": 2
+},
+{
+"q": "I have ____ seen such a beautiful flower.",
+"choices": [
+"ever",
+"never",
+"yet",
+"just"
+],
+"answer": 1
+},
+{
+"q": "They have ____ to the station to meet him.",
+"choices": [
+"go",
+"went",
+"gone",
+"going"
+],
+"answer": 2
+},
+{
+"q": "Has the train ____ arrived?",
+"choices": [
+"already",
+"yet",
+"ever",
+"since"
+],
+"answer": 0
+},
+{
+"q": "I haven't eaten anything ____ this morning.",
+"choices": [
+"for",
+"since",
+"during",
+"at"
+],
+"answer": 1
+},
+{
+"q": "My father has ____ to New York on business.",
+"choices": [
+"gone",
+"go",
+"went",
+"going"
+],
+"answer": 0
+},
+{
+"q": "Have you ever ____ a horse?",
+"choices": [
+"ride",
+"rode",
+"ridden",
+"riding"
+],
+"answer": 2
+},
+{
+"q": "I have just ____ the window.",
+"choices": [
+"open",
+"opened",
+"opening",
+"opens"
+],
+"answer": 1
+},
+{
+"q": "We have ____ been friends for a long time.",
+"choices": [
+"is",
+"are",
+"was",
+"been"
+],
+"answer": 3
+},
+{
+"q": "She has ____ her wallet.",
+"choices": [
+"lose",
+"lost",
+"losing",
+"losted"
+],
+"answer": 1
+},
+{
+"q": "How many times have you ____ that song?",
+"choices": [
+"hear",
+"heard",
+"hearing",
+"hears"
+],
+"answer": 1
+},
+{
+"q": "I haven't ____ my room yet.",
+"choices": [
+"clean",
+"cleaned",
+"cleaning",
+"cleans"
+],
+"answer": 1
+},
+{
+"q": "They have ____ in this house for twenty years.",
+"choices": [
+"live",
+"lived",
+"living",
+"lives"
+],
+"answer": 1
+},
+{
+"q": "Has he ____ his car yet?",
+"choices": [
+"wash",
+"washed",
+"washing",
+"washes"
+],
+"answer": 1
+},
+{
+"q": "I have ____ much about you.",
+"choices": [
+"hear",
+"heard",
+"hearing",
+"hears"
+],
+"answer": 1
+},
+{
+"q": "This temple was ____ in the 14th century.",
+"choices": [
+"build",
+"builds",
+"built",
+"building"
+],
+"answer": 2
+},
+{
+"q": "The room ____ cleaned every morning.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "These cars are ____ in Japan.",
+"choices": [
+"make",
+"makes",
+"made",
+"making"
+],
+"answer": 2
+},
+{
+"q": "Was the letter ____ by him?",
+"choices": [
+"write",
+"wrote",
+"written",
+"writing"
+],
+"answer": 2
+},
+{
+"q": "The dog is ____ by Ken.",
+"choices": [
+"love",
+"loved",
+"loving",
+"loves"
+],
+"answer": 1
+},
+{
+"q": "Many stars can ____ seen tonight.",
+"choices": [
+"be",
+"is",
+"are",
+"been"
+],
+"answer": 0
+},
+{
+"q": "The mountain is ____ with snow.",
+"choices": [
+"cover",
+"covers",
+"covered",
+"covering"
+],
+"answer": 2
+},
+{
+"q": "I was ____ by the beautiful music.",
+"choices": [
+"move",
+"moved",
+"moving",
+"moves"
+],
+"answer": 1
+},
+{
+"q": "Is French ____ in Canada?",
+"choices": [
+"speak",
+"spoke",
+"spoken",
+"speaking"
+],
+"answer": 2
+},
+{
+"q": "This book was ____ by a famous writer.",
+"choices": [
+"wrote",
+"written",
+"write",
+"writes"
+],
+"answer": 1
+},
+{
+"q": "The window was ____ by the cat.",
+"choices": [
+"break",
+"broke",
+"broken",
+"breaking"
+],
+"answer": 2
+},
+{
+"q": "We were ____ to the party by her.",
+"choices": [
+"invite",
+"invited",
+"inviting",
+"invites"
+],
+"answer": 1
+},
+{
+"q": "The cake was ____ into four pieces.",
+"choices": [
+"cut",
+"cuts",
+"cutting",
+"cutted"
+],
+"answer": 0
+},
+{
+"q": "English is ____ by many people.",
+"choices": [
+"study",
+"studied",
+"studying",
+"studies"
+],
+"answer": 1
+},
+{
+"q": "The work will ____ finished tomorrow.",
+"choices": [
+"be",
+"is",
+"are",
+"been"
+],
+"answer": 0
+},
+{
+"q": "I was ____ to school by my mother.",
+"choices": [
+"take",
+"took",
+"taken",
+"taking"
+],
+"answer": 2
+},
+{
+"q": "These photos ____ taken last year.",
+"choices": [
+"was",
+"were",
+"is",
+"are"
+],
+"answer": 1
+},
+{
+"q": "The story is ____ by everyone.",
+"choices": [
+"know",
+"knows",
+"known",
+"knowing"
+],
+"answer": 2
+},
+{
+"q": "Was this cake ____ by your mother?",
+"choices": [
+"make",
+"made",
+"making",
+"makes"
+],
+"answer": 1
+},
+{
+"q": "A new library will ____ built here.",
+"choices": [
+"be",
+"is",
+"are",
+"been"
+],
+"answer": 0
+},
+{
+"q": "I want ____ a famous soccer player.",
+"choices": [
+"be",
+"to be",
+"being",
+"been"
+],
+"answer": 1
+},
+{
+"q": "He enjoys ____ the guitar.",
+"choices": [
+"play",
+"playing",
+"to play",
+"plays"
+],
+"answer": 1
+},
+{
+"q": "I hope ____ you again soon.",
+"choices": [
+"see",
+"to see",
+"seeing",
+"saw"
+],
+"answer": 1
+},
+{
+"q": "She finished ____ the book yesterday.",
+"choices": [
+"read",
+"reading",
+"to read",
+"reads"
+],
+"answer": 1
+},
+{
+"q": "It is difficult ____ English.",
+"choices": [
+"speak",
+"to speak",
+"speaking",
+"speaks"
+],
+"answer": 1
+},
+{
+"q": "He went to the store ____ some milk.",
+"choices": [
+"to buy",
+"buying",
+"bought",
+"buy"
+],
+"answer": 0
+},
+{
+"q": "My hobby is ____ pictures.",
+"choices": [
+"take",
+"taking",
+"to take",
+"took"
+],
+"answer": 1
+},
+{
+"q": "I'm looking forward to ____ you.",
+"choices": [
+"meet",
+"meeting",
+"to meet",
+"met"
+],
+"answer": 1
+},
+{
+"q": "He decided ____ a doctor.",
+"choices": [
+"become",
+"to become",
+"becoming",
+"became"
+],
+"answer": 1
+},
+{
+"q": "Would you mind ____ the door?",
+"choices": [
+"open",
+"opening",
+"to open",
+"opened"
+],
+"answer": 1
+},
+{
+"q": "Don't forget ____ the letter.",
+"choices": [
+"post",
+"to post",
+"posting",
+"posted"
+],
+"answer": 1
+},
+{
+"q": "I remember ____ him at the park.",
+"choices": [
+"meet",
+"meeting",
+"to meet",
+"met"
+],
+"answer": 1
+},
+{
+"q": "It is easy for him ____ the mountain.",
+"choices": [
+"climb",
+"to climb",
+"climbing",
+"climbs"
+],
+"answer": 1
+},
+{
+"q": "I have a lot of things ____ today.",
+"choices": [
+"do",
+"to do",
+"doing",
+"did"
+],
+"answer": 1
+},
+{
+"q": "She is interested in ____ old coins.",
+"choices": [
+"collect",
+"collecting",
+"to collect",
+"collected"
+],
+"answer": 1
+},
+{
+"q": "I'm sorry ____ late.",
+"choices": [
+"be",
+"to be",
+"being",
+"is"
+],
+"answer": 1
+},
+{
+"q": "He practiced ____ the piano hard.",
+"choices": [
+"play",
+"playing",
+"to play",
+"played"
+],
+"answer": 1
+},
+{
+"q": "I tried ____ the box, but it was heavy.",
+"choices": [
+"lift",
+"to lift",
+"lifting",
+"lifted"
+],
+"answer": 1
+},
+{
+"q": "The girl ____ is talking with Ken is my sister.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "This is the movie ____ I like best.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "I know a boy ____ father is a pilot.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 2
+},
+{
+"q": "I have a friend ____ can speak Chinese.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "This is the book ____ he wrote.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "I don't know who ____ the window.",
+"choices": [
+"broke",
+"did break",
+"breaks",
+"breaking"
+],
+"answer": 0
+},
+{
+"q": "The dog ____ is running in the park is mine.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 1
+},
+{
+"q": "He is a person ____ everyone likes.",
+"choices": [
+"who",
+"which",
+"whose",
+"what"
+],
+"answer": 0
+},
+{
+"q": "Can you tell me how ____ to the museum?",
+"choices": [
+"get",
+"getting",
+"to get",
+"got"
+],
+"answer": 2
+},
+{
+"q": "Is this the city ____ you were born?",
+"choices": [
+"who",
+"which",
+"where",
+"that"
+],
+"answer": 2
+},
+{
+"q": "The cookies ____ she made were delicious.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "I don't know why ____ so angry.",
+"choices": [
+"was he",
+"is he",
+"he was",
+"he is"
+],
+"answer": 2
+},
+{
+"q": "The man ____ lives next door is a doctor.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "Show me the bag ____ you bought yesterday.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "Do you know when ____ back?",
+"choices": [
+"will he come",
+"he will come",
+"is he come",
+"he coming"
+],
+"answer": 1
+},
+{
+"q": "I have a sister ____ name is Hana.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 2
+},
+{
+"q": "This is the house ____ my uncle built.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "I wonder what ____ in the box.",
+"choices": [
+"is",
+"are",
+"it is",
+"is it"
+],
+"answer": 0
+},
+{
+"q": "I'll wait here until he ____.",
+"choices": [
+"come",
+"comes",
+"will come",
+"coming"
+],
+"answer": 1
+},
+{
+"q": "He was late ____ the heavy rain.",
+"choices": [
+"because",
+"because of",
+"since",
+"for"
+],
+"answer": 1
+},
+{
+"q": "If it ____ tomorrow, we won't go.",
+"choices": [
+"rain",
+"rains",
+"will rain",
+"rained"
+],
+"answer": 1
+},
+{
+"q": "I've lived in Tokyo ____ three years.",
+"choices": [
+"for",
+"since",
+"during",
+"while"
+],
+"answer": 0
+},
+{
+"q": "He was so sleepy ____ he couldn't study.",
+"choices": [
+"that",
+"so",
+"because",
+"and"
+],
+"answer": 0
+},
+{
+"q": "I was cooking ____ my mother came home.",
+"choices": [
+"when",
+"while",
+"if",
+"since"
+],
+"answer": 0
+},
+{
+"q": "Please wait ____ I finish my work.",
+"choices": [
+"until",
+"since",
+"during",
+"for"
+],
+"answer": 0
+},
+{
+"q": "I study hard ____ pass the exam.",
+"choices": [
+"to",
+"for",
+"at",
+"so"
+],
+"answer": 0
+},
+{
+"q": "He is better at math ____ I.",
+"choices": [
+"than",
+"then",
+"as",
+"so"
+],
+"answer": 0
+},
+{
+"q": "She was reading a book ____ I was watching TV.",
+"choices": [
+"when",
+"while",
+"though",
+"if"
+],
+"answer": 1
+},
+{
+"q": "I'll call you as soon as I ____ home.",
+"choices": [
+"get",
+"will get",
+"got",
+"getting"
+],
+"answer": 0
+},
+{
+"q": "You should stay home ____ you have a cold.",
+"choices": [
+"because",
+"if",
+"though",
+"until"
+],
+"answer": 1
+},
+{
+"q": "I don't know ____ he will come or not.",
+"choices": [
+"if",
+"whether",
+"that",
+"what"
+],
+"answer": 1
+},
+{
+"q": "He has been sick ____ last Monday.",
+"choices": [
+"since",
+"for",
+"during",
+"from"
+],
+"answer": 0
+},
+{
+"q": "Wash your hands ____ you eat dinner.",
+"choices": [
+"before",
+"after",
+"during",
+"since"
+],
+"answer": 0
+},
+{
+"q": "The cat is hiding ____ the bed.",
+"choices": [
+"under",
+"between",
+"on",
+"at"
+],
+"answer": 0
+},
+{
+"q": "He is good ____ playing soccer.",
+"choices": [
+"at",
+"in",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "She went to the library ____ bike.",
+"choices": [
+"by",
+"with",
+"on",
+"at"
+],
+"answer": 0
+},
+{
+"q": "I'll see you ____ the morning.",
+"choices": [
+"in",
+"at",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "This bag is ____ expensive than that one.",
+"choices": [
+"much",
+"more",
+"most",
+"very"
+],
+"answer": 1
+},
+{
+"q": "Health is ____ important than money.",
+"choices": [
+"more",
+"most",
+"as",
+"much"
+],
+"answer": 0
+},
+{
+"q": "He is the ____ famous player in the world.",
+"choices": [
+"more",
+"most",
+"best",
+"well"
+],
+"answer": 1
+},
+{
+"q": "This is the ____ beautiful lake I've ever seen.",
+"choices": [
+"more",
+"most",
+"very",
+"much"
+],
+"answer": 1
+},
+{
+"q": "She can sing ____ than any other student.",
+"choices": [
+"better",
+"well",
+"best",
+"good"
+],
+"answer": 0
+},
+{
+"q": "Which is ____, math or science?",
+"choices": [
+"difficult",
+"more difficult",
+"most difficult",
+"difficultly"
+],
+"answer": 1
+},
+{
+"q": "I like summer ____ of all seasons.",
+"choices": [
+"best",
+"better",
+"good",
+"well"
+],
+"answer": 0
+},
+{
+"q": "He runs ____ than anyone else in class.",
+"choices": [
+"fastest",
+"faster",
+"fast",
+"fastly"
+],
+"answer": 1
+},
+{
+"q": "This movie is not as ____ as that one.",
+"choices": [
+"interest",
+"interesting",
+"more interesting",
+"most interesting"
+],
+"answer": 1
+},
+{
+"q": "It's getting ____ and colder.",
+"choices": [
+"cold",
+"colder",
+"coldest",
+"more cold"
+],
+"answer": 1
+},
+{
+"q": "The more you study, the ____ you become.",
+"choices": [
+"smart",
+"smarter",
+"smartest",
+"more smart"
+],
+"answer": 1
+},
+{
+"q": "Tennis is as ____ as soccer in Japan.",
+"choices": [
+"popular",
+"more popular",
+"most popular",
+"popularly"
+],
+"answer": 0
+},
+{
+"q": "Which is ____, a car or a bike?",
+"choices": [
+"expensive",
+"more expensive",
+"most expensive",
+"expensiver"
+],
+"answer": 1
+},
+{
+"q": "Mt. Fuji is ____ than any other mountain in Japan.",
+"choices": [
+"high",
+"higher",
+"highest",
+"the highest"
+],
+"answer": 1
+},
+{
+"q": "I want to visit the ____ place in the world.",
+"choices": [
+"coldest",
+"colder",
+"cold",
+"more cold"
+],
+"answer": 0
+},
+{
+"q": "He is one of the ____ players in the team.",
+"choices": [
+"better",
+"best",
+"good",
+"well"
+],
+"answer": 1
+},
+{
+"q": "This test was ____ easier than I thought.",
+"choices": [
+"much",
+"more",
+"very",
+"most"
+],
+"answer": 0
+},
+{
+"q": "She is the ____ singer in our school.",
+"choices": [
+"best",
+"better",
+"good",
+"well"
+],
+"answer": 0
+},
+{
+"q": "Learning English is ____ than I expected.",
+"choices": [
+"easy",
+"easier",
+"easiest",
+"easily"
+],
+"answer": 1
+},
+{
+"q": "Which do you like ____, tea or coffee?",
+"choices": [
+"better",
+"best",
+"good",
+"well"
+],
+"answer": 0
+},
+{
+"q": "I am too tired ____ my homework.",
+"choices": [
+"do",
+"to do",
+"doing",
+"did"
+],
+"answer": 1
+},
+{
+"q": "The coffee was ____ hot for me to drink.",
+"choices": [
+"too",
+"to",
+"so",
+"very"
+],
+"answer": 0
+},
+{
+"q": "He is old ____ to drive a car.",
+"choices": [
+"too",
+"enough",
+"so",
+"very"
+],
+"answer": 1
+},
+{
+"q": "My teacher asked me ____ the door.",
+"choices": [
+"close",
+"to close",
+"closing",
+"closed"
+],
+"answer": 1
+},
+{
+"q": "I told him ____ be late.",
+"choices": [
+"not",
+"not to",
+"to not",
+"don't"
+],
+"answer": 1
+},
+{
+"q": "It is necessary for us ____ the rules.",
+"choices": [
+"follow",
+"to follow",
+"following",
+"follows"
+],
+"answer": 1
+},
+{
+"q": "I want you ____ to my party.",
+"choices": [
+"come",
+"to come",
+"coming",
+"came"
+],
+"answer": 1
+},
+{
+"q": "She went to the library ____ a book.",
+"choices": [
+"borrow",
+"to borrow",
+"borrowing",
+"borrowed"
+],
+"answer": 1
+},
+{
+"q": "Is it easy for you ____ a bike?",
+"choices": [
+"ride",
+"to ride",
+"riding",
+"rides"
+],
+"answer": 1
+},
+{
+"q": "He has a lot of books ____.",
+"choices": [
+"read",
+"to read",
+"reading",
+"reads"
+],
+"answer": 1
+},
+{
+"q": "I'm glad ____ you here.",
+"choices": [
+"meet",
+"to meet",
+"meeting",
+"met"
+],
+"answer": 1
+},
+{
+"q": "Please tell me how ____ this machine.",
+"choices": [
+"use",
+"using",
+"to use",
+"used"
+],
+"answer": 2
+},
+{
+"q": "We decided ____ to the park.",
+"choices": [
+"go",
+"to go",
+"going",
+"went"
+],
+"answer": 1
+},
+{
+"q": "They hope ____ a house next year.",
+"choices": [
+"buy",
+"to buy",
+"buying",
+"bought"
+],
+"answer": 1
+},
+{
+"q": "She is looking for a place ____.",
+"choices": [
+"live",
+"to live",
+"living",
+"lives"
+],
+"answer": 1
+},
+{
+"q": "I was surprised ____ the news.",
+"choices": [
+"hear",
+"to hear",
+"hearing",
+"heard"
+],
+"answer": 1
+},
+{
+"q": "My father told me ____ hard.",
+"choices": [
+"work",
+"to work",
+"working",
+"worked"
+],
+"answer": 1
+},
+{
+"q": "Would you like something ____?",
+"choices": [
+"drink",
+"to drink",
+"drinking",
+"drank"
+],
+"answer": 1
+},
+{
+"q": "I have some homework ____ tonight.",
+"choices": [
+"do",
+"to do",
+"doing",
+"did"
+],
+"answer": 1
+},
+{
+"q": "I'm interested ____ Japanese culture.",
+"choices": [
+"in",
+"on",
+"at",
+"for"
+],
+"answer": 0
+},
+{
+"q": "She is good ____ playing the piano.",
+"choices": [
+"at",
+"in",
+"to",
+"for"
+],
+"answer": 0
+},
+{
+"q": "He is afraid ____ dogs.",
+"choices": [
+"of",
+"at",
+"to",
+"for"
+],
+"answer": 0
+},
+{
+"q": "Thank you ____ inviting me.",
+"choices": [
+"to",
+"for",
+"at",
+"of"
+],
+"answer": 1
+},
+{
+"q": "I'm proud ____ my son.",
+"choices": [
+"of",
+"at",
+"to",
+"in"
+],
+"answer": 0
+},
+{
+"q": "He is famous ____ his beautiful pictures.",
+"choices": [
+"for",
+"at",
+"to",
+"by"
+],
+"answer": 0
+},
+{
+"q": "She is fond ____ music.",
+"choices": [
+"of",
+"at",
+"in",
+"to"
+],
+"answer": 0
+},
+{
+"q": "We are looking forward ____ the trip.",
+"choices": [
+"to",
+"for",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "Please take care ____ yourself.",
+"choices": [
+"of",
+"for",
+"at",
+"to"
+],
+"answer": 0
+},
+{
+"q": "He is ____ of money now.",
+"choices": [
+"short",
+"small",
+"little",
+"few"
+],
+"answer": 0
+},
+{
+"q": "The bus was full ____ students.",
+"choices": [
+"of",
+"with",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "Don't be ____ for school.",
+"choices": [
+"late",
+"later",
+"lately",
+"last"
+],
+"answer": 0
+},
+{
+"q": "I ____ a mistake in the test.",
+"choices": [
+"did",
+"made",
+"took",
+"had"
+],
+"answer": 1
+},
+{
+"q": "He ____ part in the race yesterday.",
+"choices": [
+"took",
+"made",
+"did",
+"gave"
+],
+"answer": 0
+},
+{
+"q": "I must say goodbye ____ them.",
+"choices": [
+"to",
+"for",
+"at",
+"with"
+],
+"answer": 0
+},
+{
+"q": "They are busy ____ their homework.",
+"choices": [
+"with",
+"at",
+"in",
+"to"
+],
+"answer": 0
+},
+{
+"q": "The cat is similar ____ mine.",
+"choices": [
+"to",
+"with",
+"at",
+"of"
+],
+"answer": 0
+},
+{
+"q": "She ____ a cold last week.",
+"choices": [
+"caught",
+"had",
+"took",
+"did"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ my best.",
+"choices": [
+"do",
+"make",
+"take",
+"have"
+],
+"answer": 0
+},
+{
+"q": "He ____ a bath before dinner.",
+"choices": [
+"took",
+"did",
+"made",
+"went"
+],
+"answer": 0
+},
+{
+"q": "We should ____ the environment.",
+"choices": [
+"protect",
+"destroy",
+"break",
+"waste"
+],
+"answer": 0
+},
+{
+"q": "It is important to ____ paper and bottles.",
+"choices": [
+"recycle",
+"throw",
+"burn",
+"lose"
+],
+"answer": 0
+},
+{
+"q": "The air is ____ in this city.",
+"choices": [
+"polluted",
+"clean",
+"clear",
+"fresh"
+],
+"answer": 0
+},
+{
+"q": "Global ____ is a big problem.",
+"choices": [
+"warming",
+"hot",
+"sunny",
+"heating"
+],
+"answer": 0
+},
+{
+"q": "Using solar ____ is good for the Earth.",
+"choices": [
+"energy",
+"power",
+"light",
+"heat"
+],
+"answer": 0
+},
+{
+"q": "He is an ____ in this field.",
+"choices": [
+"expert",
+"amateur",
+"student",
+"beginner"
+],
+"answer": 0
+},
+{
+"q": "The Internet is very ____ for studying.",
+"choices": [
+"useful",
+"useless",
+"dangerous",
+"difficult"
+],
+"answer": 0
+},
+{
+"q": "I use my ____ to take photos.",
+"choices": [
+"smartphone",
+"radio",
+"clock",
+"fridge"
+],
+"answer": 0
+},
+{
+"q": "Technology ____ our lives.",
+"choices": [
+"changes",
+"stops",
+"breaks",
+"hides"
+],
+"answer": 0
+},
+{
+"q": "I ____ a computer every day.",
+"choices": [
+"use",
+"make",
+"play",
+"see"
+],
+"answer": 0
+},
+{
+"q": "You should exercise to keep ____.",
+"choices": [
+"fit",
+"sick",
+"tired",
+"heavy"
+],
+"answer": 0
+},
+{
+"q": "Eating vegetables is good for your ____.",
+"choices": [
+"health",
+"food",
+"body",
+"work"
+],
+"answer": 0
+},
+{
+"q": "I have a ____. I should see a doctor.",
+"choices": [
+"headache",
+"book",
+"bag",
+"pen"
+],
+"answer": 0
+},
+{
+"q": "The ____ is a very important organ.",
+"choices": [
+"heart",
+"hand",
+"foot",
+"hair"
+],
+"answer": 0
+},
+{
+"q": "He had a high ____ last night.",
+"choices": [
+"fever",
+"cold",
+"water",
+"mood"
+],
+"answer": 0
+},
+{
+"q": "Regular ____ is necessary for everyone.",
+"choices": [
+"exercise",
+"food",
+"sleep",
+"study"
+],
+"answer": 0
+},
+{
+"q": "I'm ____. I need some water.",
+"choices": [
+"thirsty",
+"hungry",
+"sleepy",
+"angry"
+],
+"answer": 0
+},
+{
+"q": "The doctor gave me some ____.",
+"choices": [
+"medicine",
+"food",
+"water",
+"money"
+],
+"answer": 0
+},
+{
+"q": "I have to ____ weight.",
+"choices": [
+"lose",
+"take",
+"find",
+"make"
+],
+"answer": 0
+},
+{
+"q": "Smoking is bad for your ____.",
+"choices": [
+"lungs",
+"eyes",
+"ears",
+"hair"
+],
+"answer": 0
+},
+{
+"q": "Kyoto is ____ for its old temples.",
+"choices": [
+"famous",
+"known",
+"popular",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "Have you ever eaten ____?",
+"choices": [
+"sushi",
+"bread",
+"pizza",
+"steak"
+],
+"answer": 0
+},
+{
+"q": "We take off our shoes at the ____.",
+"choices": [
+"entrance",
+"kitchen",
+"bedroom",
+"garden"
+],
+"answer": 0
+},
+{
+"q": "____ is a traditional Japanese clothes.",
+"choices": [
+"Kimono",
+"Suit",
+"Uniform",
+"Coat"
+],
+"answer": 0
+},
+{
+"q": "Many ____ visit Japan every year.",
+"choices": [
+"tourists",
+"animals",
+"birds",
+"trees"
+],
+"answer": 0
+},
+{
+"q": "I like Japanese ____, like anime.",
+"choices": [
+"culture",
+"food",
+"sports",
+"nature"
+],
+"answer": 0
+},
+{
+"q": "____ is the capital of Japan.",
+"choices": [
+"Tokyo",
+"Osaka",
+"Kyoto",
+"Sapporo"
+],
+"answer": 0
+},
+{
+"q": "There are many ____ in Nara.",
+"choices": [
+"deer",
+"lions",
+"tigers",
+"bears"
+],
+"answer": 0
+},
+{
+"q": "I want to go to a ____ festival.",
+"choices": [
+"summer",
+"winter",
+"spring",
+"autumn"
+],
+"answer": 0
+},
+{
+"q": "Green ____ is very popular in Japan.",
+"choices": [
+"tea",
+"juice",
+"milk",
+"coffee"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ on the weekend.",
+"choices": [
+"busy",
+"free",
+"lazy",
+"happy"
+],
+"answer": 1
+},
+{
+"q": "I'll ____ home at 6 p.m.",
+"choices": [
+"get",
+"go",
+"come",
+"arrive"
+],
+"answer": 0
+},
+{
+"q": "What ____ is it today? - It's Tuesday.",
+"choices": [
+"day",
+"date",
+"time",
+"month"
+],
+"answer": 0
+},
+{
+"q": "The train was ____.",
+"choices": [
+"crowded",
+"empty",
+"quiet",
+"clean"
+],
+"answer": 0
+},
+{
+"q": "I usually ____ the bus to school.",
+"choices": [
+"take",
+"get",
+"go",
+"ride"
+],
+"answer": 0
+},
+{
+"q": "He ____ his keys this morning.",
+"choices": [
+"lost",
+"found",
+"made",
+"done"
+],
+"answer": 0
+},
+{
+"q": "It ____ me one hour to do my homework.",
+"choices": [
+"took",
+"made",
+"did",
+"had"
+],
+"answer": 0
+},
+{
+"q": "I ____ a lot of money on clothes.",
+"choices": [
+"spend",
+"give",
+"take",
+"make"
+],
+"answer": 0
+},
+{
+"q": "She is ____ for her shoes.",
+"choices": [
+"looking",
+"looking for",
+"look",
+"look for"
+],
+"answer": 0
+},
+{
+"q": "Don't ____ to lock the door.",
+"choices": [
+"forget",
+"forgot",
+"forgetting",
+"forgets"
+],
+"answer": 0
+},
+{
+"q": "It is important for us ____ the Earth.",
+"choices": [
+"protect",
+"to protect",
+"protecting",
+"protected"
+],
+"answer": 1
+},
+{
+"q": "I'm too busy ____ to the party tonight.",
+"choices": [
+"go",
+"to go",
+"going",
+"went"
+],
+"answer": 1
+},
+{
+"q": "He is old enough ____ the truth.",
+"choices": [
+"know",
+"to know",
+"knowing",
+"knows"
+],
+"answer": 1
+},
+{
+"q": "I don't know what ____ in this situation.",
+"choices": [
+"do",
+"doing",
+"to do",
+"did"
+],
+"answer": 2
+},
+{
+"q": "Stop ____ and listen to me.",
+"choices": [
+"talk",
+"talking",
+"to talk",
+"talked"
+],
+"answer": 1
+},
+{
+"q": "I remember ____ this movie when I was a child.",
+"choices": [
+"watch",
+"watching",
+"to watch",
+"watched"
+],
+"answer": 1
+},
+{
+"q": "Don't forget ____ the door when you leave.",
+"choices": [
+"lock",
+"to lock",
+"locking",
+"locked"
+],
+"answer": 1
+},
+{
+"q": "My dream is ____ around the world.",
+"choices": [
+"travel",
+"to travel",
+"traveling",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "He came here ____ Japanese culture.",
+"choices": [
+"study",
+"to study",
+"studying",
+"studied"
+],
+"answer": 1
+},
+{
+"q": "She is looking for someone ____ her.",
+"choices": [
+"help",
+"to help",
+"helping",
+"helped"
+],
+"answer": 1
+},
+{
+"q": "It is fun ____ pictures with friends.",
+"choices": [
+"take",
+"to take",
+"taking",
+"took"
+],
+"answer": 1
+},
+{
+"q": "I asked her ____ me some water.",
+"choices": [
+"bring",
+"to bring",
+"bringing",
+"brought"
+],
+"answer": 1
+},
+{
+"q": "The doctor told him ____ so much.",
+"choices": [
+"not eat",
+"not to eat",
+"don't eat",
+"to not eat"
+],
+"answer": 1
+},
+{
+"q": "Do you know how ____ this computer?",
+"choices": [
+"use",
+"using",
+"to use",
+"used"
+],
+"answer": 2
+},
+{
+"q": "I tried ____ my best, but I failed.",
+"choices": [
+"do",
+"to do",
+"doing",
+"did"
+],
+"answer": 1
+},
+{
+"q": "____ is good for our health.",
+"choices": [
+"Swim",
+"Swimming",
+"To swim",
+"B and C"
+],
+"answer": 3
+},
+{
+"q": "Thank you for ____ such a great dinner.",
+"choices": [
+"make",
+"making",
+"to make",
+"made"
+],
+"answer": 1
+},
+{
+"q": "I finished ____ the letter a few minutes ago.",
+"choices": [
+"write",
+"writing",
+"to write",
+"wrote"
+],
+"answer": 1
+},
+{
+"q": "She is good at ____ the piano.",
+"choices": [
+"play",
+"playing",
+"to play",
+"played"
+],
+"answer": 1
+},
+{
+"q": "He promised ____ me tomorrow.",
+"choices": [
+"call",
+"to call",
+"calling",
+"called"
+],
+"answer": 1
+},
+{
+"q": "It takes 30 minutes ____ the station.",
+"choices": [
+"reach",
+"to reach",
+"reaching",
+"reached"
+],
+"answer": 1
+},
+{
+"q": "I want you ____ this book.",
+"choices": [
+"read",
+"to read",
+"reading",
+"readed"
+],
+"answer": 1
+},
+{
+"q": "We decided ____ a party next Sunday.",
+"choices": [
+"have",
+"to have",
+"having",
+"had"
+],
+"answer": 1
+},
+{
+"q": "Please tell me where ____ next.",
+"choices": [
+"go",
+"going",
+"to go",
+"went"
+],
+"answer": 2
+},
+{
+"q": "The boy ____ is standing over there is Ken.",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "This is the book ____ I was looking for.",
+"choices": [
+"who",
+"which",
+"what",
+"whose"
+],
+"answer": 1
+},
+{
+"q": "Do you know the woman ____ wrote this song?",
+"choices": [
+"who",
+"which",
+"whose",
+"whom"
+],
+"answer": 0
+},
+{
+"q": "The house ____ roof is red is mine.",
+"choices": [
+"who",
+"which",
+"whose",
+"that"
+],
+"answer": 2
+},
+{
+"q": "This movie was ____ by many people last year.",
+"choices": [
+"watch",
+"watched",
+"watching",
+"watches"
+],
+"answer": 1
+},
+{
+"q": "The cat was ____ by my sister.",
+"choices": [
+"found",
+"find",
+"finding",
+"finds"
+],
+"answer": 0
+},
+{
+"q": "Rice is ____ in many Asian countries.",
+"choices": [
+"grow",
+"grows",
+"grown",
+"growing"
+],
+"answer": 2
+},
+{
+"q": "This bag ____ made in Italy.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "Was the letter ____ yesterday?",
+"choices": [
+"send",
+"sent",
+"sending",
+"sends"
+],
+"answer": 1
+},
+{
+"q": "The window ____ broken by the wind.",
+"choices": [
+"is",
+"are",
+"was",
+"were"
+],
+"answer": 2
+},
+{
+"q": "Many stars can ____ seen in the sky.",
+"choices": [
+"be",
+"is",
+"are",
+"been"
+],
+"answer": 0
+},
+{
+"q": "I was ____ by the beautiful flowers.",
+"choices": [
+"amaze",
+"amazed",
+"amazing",
+"amazes"
+],
+"answer": 1
+},
+{
+"q": "The car ____ used by my father is new.",
+"choices": [
+"is",
+"was",
+"were",
+"be"
+],
+"answer": 1
+},
+{
+"q": "She was ____ to the party by Ken.",
+"choices": [
+"invite",
+"invited",
+"inviting",
+"invites"
+],
+"answer": 1
+},
+{
+"q": "The news was ____ by everyone.",
+"choices": [
+"know",
+"known",
+"knowing",
+"knows"
+],
+"answer": 1
+},
+{
+"q": "This cake was ____ by my mother.",
+"choices": [
+"make",
+"made",
+"making",
+"makes"
+],
+"answer": 1
+},
+{
+"q": "Is English ____ in Australia?",
+"choices": [
+"speak",
+"spoke",
+"spoken",
+"speaking"
+],
+"answer": 2
+},
+{
+"q": "The house ____ built ten years ago.",
+"choices": [
+"is",
+"was",
+"were",
+"be"
+],
+"answer": 1
+},
+{
+"q": "These photos ____ taken in Hokkaido.",
+"choices": [
+"was",
+"were",
+"is",
+"are"
+],
+"answer": 1
+},
+{
+"q": "The dog is ____ by the children.",
+"choices": [
+"love",
+"loved",
+"loving",
+"loves"
+],
+"answer": 1
+},
+{
+"q": "This book ____ written by a famous doctor.",
+"choices": [
+"was",
+"is",
+"were",
+"be"
+],
+"answer": 0
+},
+{
+"q": "I was ____ to help her.",
+"choices": [
+"ask",
+"asked",
+"asking",
+"asks"
+],
+"answer": 1
+},
+{
+"q": "The movie ____ directed by him.",
+"choices": [
+"was",
+"is",
+"were",
+"be"
+],
+"answer": 0
+},
+{
+"q": "The prize was ____ to the best player.",
+"choices": [
+"give",
+"gave",
+"given",
+"giving"
+],
+"answer": 2
+},
+{
+"q": "I have ____ reading this book since morning.",
+"choices": [
+"be",
+"been",
+"is",
+"was"
+],
+"answer": 1
+},
+{
+"q": "How long has it ____ raining?",
+"choices": [
+"be",
+"is",
+"been",
+"being"
+],
+"answer": 2
+},
+{
+"q": "They have ____ each other for a long time.",
+"choices": [
+"know",
+"known",
+"knew",
+"knowing"
+],
+"answer": 1
+},
+{
+"q": "He has ____ to the station to meet her.",
+"choices": [
+"go",
+"went",
+"gone",
+"going"
+],
+"answer": 2
+},
+{
+"q": "Have you ____ been to a foreign country?",
+"choices": [
+"ever",
+"already",
+"yet",
+"just"
+],
+"answer": 0
+},
+{
+"q": "I haven't ____ my homework yet.",
+"choices": [
+"do",
+"did",
+"done",
+"doing"
+],
+"answer": 2
+},
+{
+"q": "She has ____ been sick since last week.",
+"choices": [
+"be",
+"is",
+"was",
+"been"
+],
+"answer": 3
+},
+{
+"q": "We have lived here ____ 2015.",
+"choices": [
+"since",
+"for",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "How many times have you ____ this song?",
+"choices": [
+"hear",
+"heard",
+"hearing",
+"hears"
+],
+"answer": 1
+},
+{
+"q": "I have ____ finished my lunch.",
+"choices": [
+"already",
+"yet",
+"ever",
+"just"
+],
+"answer": 0
+},
+{
+"q": "He has ____ his car for five years.",
+"choices": [
+"have",
+"has",
+"had",
+"having"
+],
+"answer": 2
+},
+{
+"q": "Have you ____ the news?",
+"choices": [
+"hear",
+"heard",
+"hearing",
+"hears"
+],
+"answer": 1
+},
+{
+"q": "I have ____ to him about the trip.",
+"choices": [
+"speak",
+"spoke",
+"spoken",
+"speaking"
+],
+"answer": 2
+},
+{
+"q": "She has ____ her keys.",
+"choices": [
+"lose",
+"lost",
+"losing",
+"losts"
+],
+"answer": 1
+},
+{
+"q": "I have ____ playing tennis for an hour.",
+"choices": [
+"be",
+"been",
+"is",
+"was"
+],
+"answer": 1
+},
+{
+"q": "How long have you ____ for me?",
+"choices": [
+"wait",
+"waiting",
+"waited",
+"been waiting"
+],
+"answer": 3
+},
+{
+"q": "I have ____ to London twice.",
+"choices": [
+"be",
+"been",
+"go",
+"gone"
+],
+"answer": 1
+},
+{
+"q": "He has ____ busy all day.",
+"choices": [
+"be",
+"is",
+"was",
+"been"
+],
+"answer": 3
+},
+{
+"q": "We have ____ English for three years.",
+"choices": [
+"study",
+"studied",
+"studying",
+"studies"
+],
+"answer": 1
+},
+{
+"q": "I haven't ____ from her lately.",
+"choices": [
+"hear",
+"heard",
+"hearing",
+"hears"
+],
+"answer": 1
+},
+{
+"q": "Have you ____ finished the work?",
+"choices": [
+"already",
+"yet",
+"ever",
+"since"
+],
+"answer": 0
+},
+{
+"q": "She has ____ to the supermarket.",
+"choices": [
+"go",
+"goes",
+"gone",
+"went"
+],
+"answer": 2
+},
+{
+"q": "I have ____ seen a penguin before.",
+"choices": [
+"ever",
+"never",
+"yet",
+"just"
+],
+"answer": 1
+},
+{
+"q": "They have ____ married for ten years.",
+"choices": [
+"be",
+"is",
+"was",
+"been"
+],
+"answer": 3
+},
+{
+"q": "Do you know what time ____?",
+"choices": [
+"is it",
+"it is",
+"was it",
+"it was"
+],
+"answer": 1
+},
+{
+"q": "Please tell me where ____.",
+"choices": [
+"does he live",
+"he lives",
+"is he live",
+"he living"
+],
+"answer": 1
+},
+{
+"q": "This bag is ____ than that one.",
+"choices": [
+"expensive",
+"more expensive",
+"most expensive",
+"expensiver"
+],
+"answer": 1
+},
+{
+"q": "Health is as ____ as money.",
+"choices": [
+"important",
+"more important",
+"most important",
+"importantly"
+],
+"answer": 0
+},
+{
+"q": "I can run ____ than him.",
+"choices": [
+"fast",
+"faster",
+"fastest",
+"fastly"
+],
+"answer": 1
+},
+{
+"q": "He is one of the ____ players in Japan.",
+"choices": [
+"famous",
+"most famous",
+"more famous",
+"famously"
+],
+"answer": 1
+},
+{
+"q": "The more you practice, the ____ you'll be.",
+"choices": [
+"good",
+"better",
+"best",
+"well"
+],
+"answer": 1
+},
+{
+"q": "If it ____ tomorrow, I'll stay home.",
+"choices": [
+"rain",
+"rains",
+"will rain",
+"rained"
+],
+"answer": 1
+},
+{
+"q": "I was sleeping when he ____ me.",
+"choices": [
+"call",
+"calls",
+"called",
+"calling"
+],
+"answer": 2
+},
+{
+"q": "He didn't go because he ____ sick.",
+"choices": [
+"is",
+"was",
+"were",
+"be"
+],
+"answer": 1
+},
+{
+"q": "Though he was tired, he ____ hard.",
+"choices": [
+"work",
+"works",
+"worked",
+"working"
+],
+"answer": 2
+},
+{
+"q": "I hope ____ it will be sunny tomorrow.",
+"choices": [
+"that",
+"what",
+"which",
+"who"
+],
+"answer": 0
+},
+{
+"q": "I'll give you some advice ____ you need it.",
+"choices": [
+"if",
+"because",
+"though",
+"when"
+],
+"answer": 0
+},
+{
+"q": "I don't know ____ he is at home.",
+"choices": [
+"that",
+"if",
+"what",
+"which"
+],
+"answer": 1
+},
+{
+"q": "He was so tired ____ he fell asleep.",
+"choices": [
+"and",
+"but",
+"that",
+"so"
+],
+"answer": 2
+},
+{
+"q": "Which do you like ____, apples or oranges?",
+"choices": [
+"better",
+"best",
+"well",
+"good"
+],
+"answer": 0
+},
+{
+"q": "This book is not as ____ as that one.",
+"choices": [
+"interest",
+"interesting",
+"interested",
+"interests"
+],
+"answer": 1
+},
+{
+"q": "It is the ____ movie I've ever seen.",
+"choices": [
+"better",
+"best",
+"good",
+"well"
+],
+"answer": 1
+},
+{
+"q": "I wonder why ____ so late.",
+"choices": [
+"is he",
+"he is",
+"was he",
+"he was"
+],
+"answer": 1
+},
+{
+"q": "I think ____ she is very kind.",
+"choices": [
+"that",
+"what",
+"which",
+"who"
+],
+"answer": 0
+},
+{
+"q": "I'm looking ____ my glasses.",
+"choices": [
+"for",
+"at",
+"after",
+"into"
+],
+"answer": 0
+},
+{
+"q": "Please take care ____ the baby.",
+"choices": [
+"of",
+"for",
+"at",
+"to"
+],
+"answer": 0
+},
+{
+"q": "She is interested ____ Japanese art.",
+"choices": [
+"in",
+"at",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "We are proud ____ our school.",
+"choices": [
+"of",
+"at",
+"in",
+"to"
+],
+"answer": 0
+},
+{
+"q": "The bus was full ____ people.",
+"choices": [
+"of",
+"with",
+"at",
+"in"
+],
+"answer": 0
+},
+{
+"q": "Please turn ____ the TV.",
+"choices": [
+"on",
+"at",
+"to",
+"in"
+],
+"answer": 0
+},
+{
+"q": "He ____ part in the race.",
+"choices": [
+"took",
+"made",
+"did",
+"had"
+],
+"answer": 0
+},
+{
+"q": "Don't give ____!",
+"choices": [
+"up",
+"out",
+"away",
+"off"
+],
+"answer": 0
+},
+{
+"q": "I ran ____ of money.",
+"choices": [
+"out",
+"off",
+"away",
+"down"
+],
+"answer": 0
+},
+{
+"q": "He ____ after his father.",
+"choices": [
+"looks",
+"takes",
+"runs",
+"goes"
+],
+"answer": 1
+},
+{
+"q": "They ____ up a new plan.",
+"choices": [
+"made",
+"did",
+"took",
+"set"
+],
+"answer": 0
+},
+{
+"q": "I ____ into an old friend.",
+"choices": [
+"ran",
+"hit",
+"met",
+"went"
+],
+"answer": 0
+},
+{
+"q": "Please fill ____ this form.",
+"choices": [
+"out",
+"up",
+"in",
+"A and C"
+],
+"answer": 3
+},
+{
+"q": "I'm ____ of hearing your excuses.",
+"choices": [
+"tired",
+"tiring",
+"tire",
+"tires"
+],
+"answer": 0
+},
+{
+"q": "He is ____ in English.",
+"choices": [
+"interested",
+"interesting",
+"interest",
+"interests"
+],
+"answer": 0
+},
+{
+"q": "The soup smells ____.",
+"choices": [
+"good",
+"well",
+"goodly",
+"better"
+],
+"answer": 0
+},
+{
+"q": "I feel ____ about the result.",
+"choices": [
+"happy",
+"happily",
+"happiness",
+"happier"
+],
+"answer": 0
+},
+{
+"q": "Wait a ____, please.",
+"choices": [
+"moment",
+"while",
+"minute",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "Kyoto is ____ for its temples.",
+"choices": [
+"famous",
+"known",
+"popular",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "Japan is ____ the east of China.",
+"choices": [
+"to",
+"in",
+"at",
+"on"
+],
+"answer": 0
+},
+{
+"q": "The earth ____ around the sun.",
+"choices": [
+"goes",
+"go",
+"going",
+"gone"
+],
+"answer": 0
+},
+{
+"q": "I have to study hard ____ pass the exam.",
+"choices": [
+"to",
+"for",
+"so",
+"at"
+],
+"answer": 0
+},
+{
+"q": "Would you like ____ cup of tea?",
+"choices": [
+"another",
+"other",
+"others",
+"the other"
+],
+"answer": 0
+},
+{
+"q": "He can speak English ____ well.",
+"choices": [
+"quite",
+"quiet",
+"quietly",
+"quit"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ you a call later.",
+"choices": [
+"give",
+"make",
+"take",
+"do"
+],
+"answer": 0
+},
+{
+"q": "It is getting ____.",
+"choices": [
+"dark",
+"darkly",
+"darker",
+"darkest"
+],
+"answer": 2
+},
+{
+"q": "I haven't ____ him for a long time.",
+"choices": [
+"seen",
+"saw",
+"see",
+"seeing"
+],
+"answer": 0
+},
+{
+"q": "She is ____ better today.",
+"choices": [
+"much",
+"more",
+"very",
+"most"
+],
+"answer": 0
+},
+{
+"q": "The problem is too ____ to solve.",
+"choices": [
+"difficult",
+"easy",
+"hardly",
+"difficulty"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ I can't help you.",
+"choices": [
+"afraid",
+"sorry",
+"sad",
+"happy"
+],
+"answer": 0
+},
+{
+"q": "May I ____ your name?",
+"choices": [
+"ask",
+"say",
+"speak",
+"talk"
+],
+"answer": 0
+},
+{
+"q": "The medicine ____ effective.",
+"choices": [
+"is",
+"are",
+"am",
+"be"
+],
+"answer": 0
+},
+{
+"q": "I'm in ____ today.",
+"choices": [
+"a hurry",
+"hurrying",
+"hurry",
+"hurried"
+],
+"answer": 0
+},
+{
+"q": "It's a ____ of time.",
+"choices": [
+"waste",
+"waist",
+"west",
+"worst"
+],
+"answer": 0
+},
+{
+"q": "He ____ me to the party.",
+"choices": [
+"invited",
+"invites",
+"inviting",
+"invite"
+],
+"answer": 0
+},
+{
+"q": "I don't ____ his name.",
+"choices": [
+"remember",
+"remind",
+"recall",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "She ____ a doctor last year.",
+"choices": [
+"became",
+"becomes",
+"becoming",
+"become"
+],
+"answer": 0
+},
+{
+"q": "We ____ to go now.",
+"choices": [
+"have",
+"has",
+"had",
+"having"
+],
+"answer": 0
+},
+{
+"q": "The store is ____ on Sundays.",
+"choices": [
+"closed",
+"close",
+"closing",
+"closes"
+],
+"answer": 0
+},
+{
+"q": "I ____ like this song.",
+"choices": [
+"really",
+"very",
+"much",
+"too"
+],
+"answer": 0
+},
+{
+"q": "It ____ like rain.",
+"choices": [
+"looks",
+"sees",
+"watches",
+"hears"
+],
+"answer": 0
+},
+{
+"q": "Can you ____ me a favor?",
+"choices": [
+"do",
+"make",
+"give",
+"take"
+],
+"answer": 0
+},
+{
+"q": "Have a nice ____!",
+"choices": [
+"weekend",
+"day",
+"trip",
+"all of them"
+],
+"answer": 3
+}
+],
+"hard": [
+{
+"q": "Choose the correct: Hardly ___ finished when the phone rang.",
+"choices": [
+"I had",
+"had I",
+"I have",
+"have I"
+],
+"answer": 1
+},
+{
+"q": "Meaning of 'mitigate'?",
+"choices": [
+"worsen",
+"lessen",
+"ignore",
+"predict"
+],
+"answer": 1
+},
+{
+"q": "Choose the correct: The proposal was rejected, ___ was disappointing.",
+"choices": [
+"that",
+"which",
+"what",
+"who"
+],
+"answer": 1
+},
+{
+"q": "Best word: He spoke with great ___.",
+"choices": [
+"eloquence",
+"loud",
+"hurry",
+"empty"
+],
+"answer": 0
+},
+{
+"q": "Choose the correct: Not only ___ late, but he also forgot the files.",
+"choices": [
+"he was",
+"was he",
+"he is",
+"is he"
+],
+"answer": 1
+},
+{
+"q": "Meaning of 'ubiquitous'?",
+"choices": [
+"everywhere",
+"nowhere",
+"fragile",
+"ancient"
+],
+"answer": 0
+},
+{
+"q": "Choose the correct: I'd rather you ___ tomorrow.",
+"choices": [
+"come",
+"came",
+"coming",
+"to come"
+],
+"answer": 1
+},
+{
+"q": "Meaning of 'constrain'?",
+"choices": [
+"limit",
+"celebrate",
+"confuse",
+"extend"
+],
+"answer": 0
+},
+{
+"q": "Choose the correct: The more you practice, the ___ you get.",
+"choices": [
+"best",
+"better",
+"good",
+"well"
+],
+"answer": 1
+},
+{
+"q": "Meaning of 'nevertheless'?",
+"choices": [
+"therefore",
+"however",
+"because",
+"instead"
+],
+"answer": 1
+},
+{
+"q": "If I ____ a bird, I would fly to you.",
+"choices": [
+"am",
+"was",
+"were",
+"had been"
+],
+"answer": 2
+},
+{
+"q": "If it ____ rained yesterday, we would have gone out.",
+"choices": [
+"didn't",
+"hadn't",
+"wasn't",
+"shouldn't"
+],
+"answer": 1
+},
+{
+"q": "I wish I ____ more time to study last week.",
+"choices": [
+"have",
+"had",
+"had had",
+"have had"
+],
+"answer": 2
+},
+{
+"q": "He talks as if he ____ everything.",
+"choices": [
+"knows",
+"know",
+"knew",
+"knowing"
+],
+"answer": 2
+},
+{
+"q": "It is time you ____ to bed.",
+"choices": [
+"go",
+"goes",
+"went",
+"going"
+],
+"answer": 2
+},
+{
+"q": "If I ____ you, I wouldn't do that.",
+"choices": [
+"am",
+"was",
+"were",
+"be"
+],
+"answer": 2
+},
+{
+"q": "Had I known the truth, I ____ told you.",
+"choices": [
+"will have",
+"would have",
+"had",
+"would"
+],
+"answer": 1
+},
+{
+"q": "I'd rather you ____ me the truth.",
+"choices": [
+"tell",
+"told",
+"telling",
+"to tell"
+],
+"answer": 1
+},
+{
+"q": "Without your help, I ____ have finished it.",
+"choices": [
+"couldn't",
+"mustn't",
+"won't",
+"can't"
+],
+"answer": 0
+},
+{
+"q": "If it ____ for the sun, nothing could live.",
+"choices": [
+"is not",
+"was not",
+"were not",
+"had not been"
+],
+"answer": 2
+},
+{
+"q": "I suggest that he ____ a doctor immediately.",
+"choices": [
+"sees",
+"see",
+"saw",
+"to see"
+],
+"answer": 1
+},
+{
+"q": "It is essential that she ____ present at the meeting.",
+"choices": [
+"is",
+"be",
+"was",
+"been"
+],
+"answer": 1
+},
+{
+"q": "If I ____ to win the lottery, I would travel the world.",
+"choices": [
+"am",
+"was",
+"were",
+"had"
+],
+"answer": 2
+},
+{
+"q": "If only I ____ her phone number.",
+"choices": [
+"know",
+"knowing",
+"knew",
+"am knowing"
+],
+"answer": 2
+},
+{
+"q": "But for his advice, I ____ have failed.",
+"choices": [
+"should",
+"would",
+"must",
+"could"
+],
+"answer": 1
+},
+{
+"q": "Should you have any questions, please ____ me.",
+"choices": [
+"ask",
+"asks",
+"asking",
+"asked"
+],
+"answer": 0
+},
+{
+"q": "If he ____ harder, he would be successful now.",
+"choices": [
+"study",
+"studies",
+"had studied",
+"has studied"
+],
+"answer": 2
+},
+{
+"q": "I wish it ____ stop raining soon.",
+"choices": [
+"will",
+"would",
+"shall",
+"can"
+],
+"answer": 1
+},
+{
+"q": "He behaved as though nothing ____ happened.",
+"choices": [
+"has",
+"was",
+"had",
+"is"
+],
+"answer": 2
+},
+{
+"q": "If it ____ not been for your support, I would have given up.",
+"choices": [
+"has",
+"had",
+"was",
+"were"
+],
+"answer": 1
+},
+{
+"q": "____ from the plane, the island looks like a heart.",
+"choices": [
+"See",
+"Seeing",
+"Seen",
+"To see"
+],
+"answer": 2
+},
+{
+"q": "____ not knowing what to do, I asked for help.",
+"choices": [
+"Because",
+"As",
+"Since",
+"Not"
+],
+"answer": 3
+},
+{
+"q": "____ the book, I went to bed.",
+"choices": [
+"Read",
+"Reading",
+"Having read",
+"To read"
+],
+"answer": 2
+},
+{
+"q": "He sat there, ____ the newspaper.",
+"choices": [
+"read",
+"reading",
+"to read",
+"reads"
+],
+"answer": 1
+},
+{
+"q": "____ from his accent, he must be from London.",
+"choices": [
+"Judge",
+"Judging",
+"Judged",
+"To judge"
+],
+"answer": 1
+},
+{
+"q": "Weather ____, we will go on a picnic.",
+"choices": [
+"permit",
+"permits",
+"permitting",
+"permitted"
+],
+"answer": 2
+},
+{
+"q": "He fell asleep with the television ____.",
+"choices": [
+"on",
+"at",
+"in",
+"to"
+],
+"answer": 0
+},
+{
+"q": "She stood there ____ by her fans.",
+"choices": [
+"surround",
+"surrounds",
+"surrounding",
+"surrounded"
+],
+"answer": 3
+},
+{
+"q": "The boy came ____ toward me.",
+"choices": [
+"run",
+"runs",
+"running",
+"ran"
+],
+"answer": 2
+},
+{
+"q": "____ of the danger, he entered the room.",
+"choices": [
+"Warned",
+"Warning",
+"To warn",
+"Warns"
+],
+"answer": 0
+},
+{
+"q": "Generally ____, Japanese people are polite.",
+"choices": [
+"speak",
+"speaking",
+"spoken",
+"to speak"
+],
+"answer": 1
+},
+{
+"q": "I saw him ____ the street.",
+"choices": [
+"cross",
+"crossed",
+"to cross",
+"crosses"
+],
+"answer": 0
+},
+{
+"q": "The movie was so ____ that I cried.",
+"choices": [
+"move",
+"moved",
+"moving",
+"movingly"
+],
+"answer": 2
+},
+{
+"q": "She had her hair ____ at the salon.",
+"choices": [
+"cut",
+"cuts",
+"cutting",
+"to cut"
+],
+"answer": 0
+},
+{
+"q": "I'm sorry to have kept you ____.",
+"choices": [
+"wait",
+"waiting",
+"waited",
+"to wait"
+],
+"answer": 1
+},
+{
+"q": "There were many people ____ in the park.",
+"choices": [
+"walk",
+"walking",
+"walked",
+"to walk"
+],
+"answer": 1
+},
+{
+"q": "The city ____ by the earthquake was rebuilt.",
+"choices": [
+"destroy",
+"destroys",
+"destroyed",
+"destroying"
+],
+"answer": 2
+},
+{
+"q": "____ his homework, he went out to play.",
+"choices": [
+"Finish",
+"Finishing",
+"Having finished",
+"Finished"
+],
+"answer": 2
+},
+{
+"q": "Frankly ____, I don't like his idea.",
+"choices": [
+"speak",
+"speaking",
+"spoken",
+"to speak"
+],
+"answer": 1
+},
+{
+"q": "He listened to me with his eyes ____.",
+"choices": [
+"close",
+"closing",
+"closed",
+"to close"
+],
+"answer": 2
+},
+{
+"q": "Never ____ I seen such a beautiful sunset.",
+"choices": [
+"have",
+"did",
+"do",
+"had"
+],
+"answer": 0
+},
+{
+"q": "Hardly ____ the station when the train left.",
+"choices": [
+"I reached",
+"had I reached",
+"reached I",
+"I had reached"
+],
+"answer": 1
+},
+{
+"q": "Not only ____ smart, but he is also kind.",
+"choices": [
+"he is",
+"is he",
+"he was",
+"was he"
+],
+"answer": 1
+},
+{
+"q": "Little ____ I dream that I would win.",
+"choices": [
+"do",
+"did",
+"done",
+"doing"
+],
+"answer": 1
+},
+{
+"q": "Under no circumstances ____ you touch this button.",
+"choices": [
+"must",
+"you must",
+"must not",
+"not must"
+],
+"answer": 0
+},
+{
+"q": "Only then ____ I realize my mistake.",
+"choices": [
+"did",
+"do",
+"was",
+"had"
+],
+"answer": 0
+},
+{
+"q": "So ____ was the weather that we stayed home.",
+"choices": [
+"bad",
+"badly",
+"worst",
+"worse"
+],
+"answer": 0
+},
+{
+"q": "Rarely ____ she go out at night.",
+"choices": [
+"does",
+"do",
+"is",
+"did"
+],
+"answer": 0
+},
+{
+"q": "It was ____ yesterday that I met him.",
+"choices": [
+"at",
+"on",
+"in",
+"only"
+],
+"answer": 3
+},
+{
+"q": "____ did I know that he was a famous actor.",
+"choices": [
+"Little",
+"Few",
+"Small",
+"Less"
+],
+"answer": 0
+},
+{
+"q": "No sooner had he left ____ it started to rain.",
+"choices": [
+"than",
+"when",
+"then",
+"before"
+],
+"answer": 0
+},
+{
+"q": "Not until I met him ____ I know the truth.",
+"choices": [
+"do",
+"did",
+"was",
+"had"
+],
+"answer": 1
+},
+{
+"q": "Scarcely had I begun ____ the phone rang.",
+"choices": [
+"than",
+"when",
+"then",
+"before"
+],
+"answer": 1
+},
+{
+"q": "Behind the house ____ a large garden.",
+"choices": [
+"is",
+"are",
+"be",
+"am"
+],
+"answer": 0
+},
+{
+"q": "Happy ____ those who are content.",
+"choices": [
+"is",
+"are",
+"be",
+"am"
+],
+"answer": 1
+},
+{
+"q": "Down ____ the rain.",
+"choices": [
+"come",
+"comes",
+"came",
+"coming"
+],
+"answer": 2
+},
+{
+"q": "Neither ____ I.",
+"choices": [
+"do",
+"did",
+"am",
+"have"
+],
+"answer": 0
+},
+{
+"q": "So ____ I.",
+"choices": [
+"do",
+"did",
+"am",
+"have"
+],
+"answer": 0
+},
+{
+"q": "I don't like it, and ____ does she.",
+"choices": [
+"neither",
+"so",
+"nor",
+"either"
+],
+"answer": 0
+},
+{
+"q": "What ____ earth are you doing?",
+"choices": [
+"on",
+"in",
+"at",
+"for"
+],
+"answer": 0
+},
+{
+"q": "This is the city ____ I was born.",
+"choices": [
+"which",
+"where",
+"when",
+"that"
+],
+"answer": 1
+},
+{
+"q": "I don't know the reason ____ he left.",
+"choices": [
+"why",
+"how",
+"which",
+"what"
+],
+"answer": 0
+},
+{
+"q": "This is ____ I solve the problem.",
+"choices": [
+"how",
+"why",
+"what",
+"where"
+],
+"answer": 0
+},
+{
+"q": "____ you choose, you will be happy.",
+"choices": [
+"Whichever",
+"Whatever",
+"Whenever",
+"Wherever"
+],
+"answer": 0
+},
+{
+"q": "____ happens, I will always love you.",
+"choices": [
+"Whichever",
+"Whatever",
+"Whenever",
+"Wherever"
+],
+"answer": 1
+},
+{
+"q": "You can come ____ you want.",
+"choices": [
+"whichever",
+"whatever",
+"whenever",
+"wherever"
+],
+"answer": 2
+},
+{
+"q": "____ hard he tried, he couldn't win.",
+"choices": [
+"However",
+"Whatever",
+"Whichever",
+"Wherever"
+],
+"answer": 0
+},
+{
+"q": "This is the book, the cover ____ is red.",
+"choices": [
+"which",
+"of which",
+"whose",
+"that"
+],
+"answer": 1
+},
+{
+"q": "He is one of the greatest men ____ have ever lived.",
+"choices": [
+"who",
+"which",
+"that",
+"whom"
+],
+"answer": 2
+},
+{
+"q": "I'll give you ____ you need.",
+"choices": [
+"whichever",
+"whatever",
+"whenever",
+"wherever"
+],
+"answer": 1
+},
+{
+"q": "Tell me the time ____ the meeting starts.",
+"choices": [
+"where",
+"when",
+"why",
+"how"
+],
+"answer": 1
+},
+{
+"q": "I went to London, ____ I met him.",
+"choices": [
+"which",
+"where",
+"when",
+"that"
+],
+"answer": 1
+},
+{
+"q": "She is the woman ____ I thought was his wife.",
+"choices": [
+"who",
+"whom",
+"whose",
+"which"
+],
+"answer": 0
+},
+{
+"q": "This is ____ I wanted.",
+"choices": [
+"that",
+"what",
+"which",
+"how"
+],
+"answer": 1
+},
+{
+"q": "He is not ____ he used to be.",
+"choices": [
+"what",
+"who",
+"which",
+"that"
+],
+"answer": 0
+},
+{
+"q": "____ comes first will get the prize.",
+"choices": [
+"Whoever",
+"Whomever",
+"Whichever",
+"Whatever"
+],
+"answer": 0
+},
+{
+"q": "I don't like the way ____ he talks.",
+"choices": [
+"how",
+"that",
+"which",
+"in that"
+],
+"answer": 1
+},
+{
+"q": "There is no one ____ knows the truth.",
+"choices": [
+"who",
+"but",
+"that",
+"which"
+],
+"answer": 1
+},
+{
+"q": "He failed, ____ was disappointing.",
+"choices": [
+"which",
+"what",
+"that",
+"it"
+],
+"answer": 0
+},
+{
+"q": "Choose ____ you like best.",
+"choices": [
+"whichever",
+"whatever",
+"whoever",
+"wherever"
+],
+"answer": 0
+},
+{
+"q": "The meeting was put ____ because of the storm.",
+"choices": [
+"off",
+"on",
+"away",
+"out"
+],
+"answer": 0
+},
+{
+"q": "I cannot ____ with his behavior anymore.",
+"choices": [
+"put up",
+"put on",
+"put out",
+"put off"
+],
+"answer": 0
+},
+{
+"q": "He ____ after his father.",
+"choices": [
+"looks",
+"takes",
+"runs",
+"calls"
+],
+"answer": 1
+},
+{
+"q": "We must ____ the environment.",
+"choices": [
+"look after",
+"look for",
+"look into",
+"look up"
+],
+"answer": 0
+},
+{
+"q": "I ____ into an old friend yesterday.",
+"choices": [
+"ran",
+"hit",
+"met",
+"went"
+],
+"answer": 0
+},
+{
+"q": "She ____ out that he was lying.",
+"choices": [
+"found",
+"looked",
+"watched",
+"saw"
+],
+"answer": 0
+},
+{
+"q": "He ____ up a new hobby.",
+"choices": [
+"took",
+"made",
+"did",
+"set"
+],
+"answer": 0
+},
+{
+"q": "Please ____ out the application form.",
+"choices": [
+"fill",
+"write",
+"put",
+"take"
+],
+"answer": 0
+},
+{
+"q": "The plane took ____ on time.",
+"choices": [
+"off",
+"up",
+"out",
+"away"
+],
+"answer": 0
+},
+{
+"q": "He ____ down the offer.",
+"choices": [
+"turned",
+"put",
+"set",
+"took"
+],
+"answer": 0
+},
+{
+"q": "I'm looking forward ____ seeing you.",
+"choices": [
+"to",
+"for",
+"at",
+"on"
+],
+"answer": 0
+},
+{
+"q": "You should ____ up for your rights.",
+"choices": [
+"stand",
+"sit",
+"get",
+"keep"
+],
+"answer": 0
+},
+{
+"q": "They ____ off for the summit.",
+"choices": [
+"set",
+"put",
+"went",
+"took"
+],
+"answer": 0
+},
+{
+"q": "I ____ out of money.",
+"choices": [
+"ran",
+"walked",
+"went",
+"took"
+],
+"answer": 0
+},
+{
+"q": "He ____ up with a great idea.",
+"choices": [
+"came",
+"went",
+"put",
+"took"
+],
+"answer": 0
+},
+{
+"q": "Don't ____ off your homework until tomorrow.",
+"choices": [
+"put",
+"take",
+"set",
+"go"
+],
+"answer": 0
+},
+{
+"q": "The fire was ____ out by the firefighters.",
+"choices": [
+"put",
+"taken",
+"set",
+"gone"
+],
+"answer": 0
+},
+{
+"q": "She ____ up a story to explain her absence.",
+"choices": [
+"made",
+"took",
+"set",
+"put"
+],
+"answer": 0
+},
+{
+"q": "He is ____ of his son.",
+"choices": [
+"proud",
+"pride",
+"proudly",
+"priding"
+],
+"answer": 0
+},
+{
+"q": "I cannot ____ out what he is saying.",
+"choices": [
+"make",
+"take",
+"set",
+"put"
+],
+"answer": 0
+},
+{
+"q": "He ____ up late last night.",
+"choices": [
+"stayed",
+"stood",
+"sat",
+"kept"
+],
+"answer": 0
+},
+{
+"q": "The company ____ out of business.",
+"choices": [
+"went",
+"came",
+"ran",
+"took"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ of hearing your excuses.",
+"choices": [
+"tired",
+"tiring",
+"tire",
+"tires"
+],
+"answer": 0
+},
+{
+"q": "He is ____ in charge of the project.",
+"choices": [
+"placed",
+"put",
+"set",
+"taken"
+],
+"answer": 1
+},
+{
+"q": "I ____ along well with my neighbors.",
+"choices": [
+"get",
+"go",
+"come",
+"take"
+],
+"answer": 0
+},
+{
+"q": "She ____ out as a volunteer.",
+"choices": [
+"acted",
+"worked",
+"served",
+"helped"
+],
+"answer": 1
+},
+{
+"q": "The building was ____ down last month.",
+"choices": [
+"torn",
+"pulled",
+"broken",
+"cut"
+],
+"answer": 0
+},
+{
+"q": "He ____ his best to win.",
+"choices": [
+"did",
+"made",
+"took",
+"set"
+],
+"answer": 0
+},
+{
+"q": "Keep ____ mind that safety is first.",
+"choices": [
+"in",
+"on",
+"at",
+"to"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ it into consideration.",
+"choices": [
+"take",
+"make",
+"put",
+"do"
+],
+"answer": 0
+},
+{
+"q": "The government tried to ____ the economic crisis.",
+"choices": [
+"mitigate",
+"aggravate",
+"prolong",
+"ignore"
+],
+"answer": 0
+},
+{
+"q": "Smartphone use is ____ in modern society.",
+"choices": [
+"ubiquitous",
+"scarce",
+"rare",
+"unusual"
+],
+"answer": 0
+},
+{
+"q": "He spoke with great ____.",
+"choices": [
+"eloquence",
+"hesitation",
+"silence",
+"clumsiness"
+],
+"answer": 0
+},
+{
+"q": "The rules ____ our actions.",
+"choices": [
+"constrain",
+"encourage",
+"expand",
+"release"
+],
+"answer": 0
+},
+{
+"q": "____, he decided to stay home.",
+"choices": [
+"Nevertheless",
+"Therefore",
+"Instead",
+"Moreover"
+],
+"answer": 0
+},
+{
+"q": "The evidence was ____.",
+"choices": [
+"ambiguous",
+"clear",
+"obvious",
+"certain"
+],
+"answer": 0
+},
+{
+"q": "The project was ____ due to lack of funds.",
+"choices": [
+"abandoned",
+"sustained",
+"continued",
+"promoted"
+],
+"answer": 0
+},
+{
+"q": "He is an ____ doctor.",
+"choices": [
+"eminent",
+"imminent",
+"emergency",
+"elementary"
+],
+"answer": 0
+},
+{
+"q": "The situation is ____.",
+"choices": [
+"precarious",
+"stable",
+"secure",
+"safe"
+],
+"answer": 0
+},
+{
+"q": "His behavior was ____.",
+"choices": [
+"unpredictable",
+"certain",
+"sure",
+"known"
+],
+"answer": 0
+},
+{
+"q": "She has a ____ for music.",
+"choices": [
+"talent",
+"talented",
+"talenting",
+"talents"
+],
+"answer": 0
+},
+{
+"q": "The city has a ____ climate.",
+"choices": [
+"moderate",
+"extreme",
+"harsh",
+"severe"
+],
+"answer": 0
+},
+{
+"q": "The results were ____.",
+"choices": [
+"satisfactory",
+"satisfying",
+"satisfied",
+"satisfaction"
+],
+"answer": 0
+},
+{
+"q": "He made a ____ contribution.",
+"choices": [
+"significant",
+"tiny",
+"small",
+"minor"
+],
+"answer": 0
+},
+{
+"q": "The news was ____.",
+"choices": [
+"authentic",
+"fake",
+"false",
+"wrong"
+],
+"answer": 0
+},
+{
+"q": "She is ____ of her success.",
+"choices": [
+"confident",
+"confidence",
+"confidently",
+"confiding"
+],
+"answer": 0
+},
+{
+"q": "The system is very ____.",
+"choices": [
+"efficient",
+"lazy",
+"slow",
+"weak"
+],
+"answer": 0
+},
+{
+"q": "He is ____ to win the race.",
+"choices": [
+"likely",
+"possibly",
+"probably",
+"maybe"
+],
+"answer": 0
+},
+{
+"q": "The plan was ____.",
+"choices": [
+"feasible",
+"impossible",
+"unlikely",
+"hopeless"
+],
+"answer": 0
+},
+{
+"q": "The area is ____ for its beauty.",
+"choices": [
+"renowned",
+"unknown",
+"hidden",
+"secret"
+],
+"answer": 0
+},
+{
+"q": "He ____ to be a teacher.",
+"choices": [
+"aspires",
+"expires",
+"inspires",
+"respires"
+],
+"answer": 0
+},
+{
+"q": "The problem is ____.",
+"choices": [
+"inevitable",
+"avoidable",
+"escapable",
+"preventable"
+],
+"answer": 0
+},
+{
+"q": "She is an ____ person.",
+"choices": [
+"optimistic",
+"pessimistic",
+"negative",
+"sad"
+],
+"answer": 0
+},
+{
+"q": "The contract is ____.",
+"choices": [
+"binding",
+"free",
+"loose",
+"open"
+],
+"answer": 0
+},
+{
+"q": "He is a ____ student.",
+"choices": [
+"diligent",
+"lazy",
+"careless",
+"idle"
+],
+"answer": 0
+},
+{
+"q": "The task requires ____.",
+"choices": [
+"precision",
+"guess",
+"error",
+"mistake"
+],
+"answer": 0
+},
+{
+"q": "The company is ____.",
+"choices": [
+"prosperous",
+"poor",
+"failing",
+"bankrupt"
+],
+"answer": 0
+},
+{
+"q": "His speech was ____.",
+"choices": [
+"inspiring",
+"boring",
+"tiring",
+"dull"
+],
+"answer": 0
+},
+{
+"q": "The medicine is ____.",
+"choices": [
+"effective",
+"useless",
+"harmful",
+"bad"
+],
+"answer": 0
+},
+{
+"q": "The view was ____.",
+"choices": [
+"breathtaking",
+"ugly",
+"bad",
+"poor"
+],
+"answer": 0
+},
+{
+"q": "She is a ____ woman.",
+"choices": [
+"sophisticated",
+"simple",
+"plain",
+"crude"
+],
+"answer": 0
+},
+{
+"q": "The effect is ____.",
+"choices": [
+"permanent",
+"temporary",
+"brief",
+"short"
+],
+"answer": 0
+},
+{
+"q": "He is very ____.",
+"choices": [
+"humble",
+"proud",
+"arrogant",
+"rude"
+],
+"answer": 0
+},
+{
+"q": "The solution is ____.",
+"choices": [
+"innovative",
+"old",
+"traditional",
+"usual"
+],
+"answer": 0
+},
+{
+"q": "He is ____ to the noise.",
+"choices": [
+"accustomed",
+"unusual",
+"strange",
+"new"
+],
+"answer": 0
+},
+{
+"q": "The result was ____.",
+"choices": [
+"inevitable",
+"surprising",
+"unexpected",
+"sudden"
+],
+"answer": 0
+},
+{
+"q": "She is a ____ person.",
+"choices": [
+"versatile",
+"limited",
+"fixed",
+"narrow"
+],
+"answer": 0
+},
+{
+"q": "The cost is ____.",
+"choices": [
+"prohibitive",
+"cheap",
+"low",
+"fair"
+],
+"answer": 0
+},
+{
+"q": "The team showed great ____.",
+"choices": [
+"resilience",
+"weakness",
+"failure",
+"defeat"
+],
+"answer": 0
+},
+{
+"q": "If he ____ more careful, the accident wouldn't have happened.",
+"choices": [
+"is",
+"was",
+"had been",
+"has been"
+],
+"answer": 2
+},
+{
+"q": "I wish I ____ my camera with me when I went to Paris.",
+"choices": [
+"have",
+"had",
+"had had",
+"have had"
+],
+"answer": 2
+},
+{
+"q": "If it ____ for your support, I would still be struggling.",
+"choices": [
+"is not",
+"was not",
+"were not",
+"had not been"
+],
+"answer": 2
+},
+{
+"q": "If I ____ a lot of money, I would have bought that house.",
+"choices": [
+"have",
+"had",
+"had had",
+"has"
+],
+"answer": 2
+},
+{
+"q": "He looks as if he ____ a ghost.",
+"choices": [
+"sees",
+"saw",
+"had seen",
+"has seen"
+],
+"answer": 2
+},
+{
+"q": "If you ____ to bed earlier last night, you wouldn't be so tired now.",
+"choices": [
+"go",
+"went",
+"had gone",
+"has gone"
+],
+"answer": 2
+},
+{
+"q": "Without the scholarship, she ____ able to attend university.",
+"choices": [
+"wasn't",
+"won't be",
+"wouldn't be",
+"wouldn't have been"
+],
+"answer": 3
+},
+{
+"q": "I would rather you ____ me the truth back then.",
+"choices": [
+"tell",
+"told",
+"had told",
+"have told"
+],
+"answer": 2
+},
+{
+"q": "It is high time the government ____ action against inflation.",
+"choices": [
+"take",
+"takes",
+"took",
+"has taken"
+],
+"answer": 2
+},
+{
+"q": "If it ____ not been for his advice, I would have failed.",
+"choices": [
+"has",
+"had",
+"was",
+"were"
+],
+"answer": 1
+},
+{
+"q": "Should the weather ____ bad, the match will be cancelled.",
+"choices": [
+"be",
+"is",
+"was",
+"been"
+],
+"answer": 0
+},
+{
+"q": "Had I ____ about the meeting, I would have attended.",
+"choices": [
+"know",
+"knew",
+"known",
+"knowing"
+],
+"answer": 2
+},
+{
+"q": "Suppose you ____ a million dollars, what would you do?",
+"choices": [
+"win",
+"won",
+"had won",
+"wins"
+],
+"answer": 1
+},
+{
+"q": "If only I ____ a little more patience yesterday.",
+"choices": [
+"have",
+"had",
+"had had",
+"have had"
+],
+"answer": 2
+},
+{
+"q": "If she ____ harder then, she would be a doctor now.",
+"choices": [
+"studied",
+"studies",
+"had studied",
+"has studied"
+],
+"answer": 2
+},
+{
+"q": "Were it not ____ your help, I couldn't finish this.",
+"choices": [
+"for",
+"at",
+"to",
+"by"
+],
+"answer": 0
+},
+{
+"q": "He talked as though he ____ an expert on the subject.",
+"choices": [
+"is",
+"was",
+"were",
+"be"
+],
+"answer": 2
+},
+{
+"q": "But for the rain, we ____ a great time at the park.",
+"choices": [
+"had",
+"have had",
+"would have had",
+"will have"
+],
+"answer": 2
+},
+{
+"q": "If I ____ you, I would have accepted the offer.",
+"choices": [
+"am",
+"was",
+"were",
+"had been"
+],
+"answer": 2
+},
+{
+"q": "I wish it ____ stop raining; I want to go out.",
+"choices": [
+"will",
+"would",
+"shall",
+"can"
+],
+"answer": 1
+},
+{
+"q": "I had my secretary ____ the document.",
+"choices": [
+"type",
+"to type",
+"typing",
+"typed"
+],
+"answer": 0
+},
+{
+"q": "She got her brother ____ her with the homework.",
+"choices": [
+"help",
+"to help",
+"helping",
+"helped"
+],
+"answer": 1
+},
+{
+"q": "The teacher let the students ____ early.",
+"choices": [
+"leave",
+"to leave",
+"leaving",
+"left"
+],
+"answer": 0
+},
+{
+"q": "He made me ____ my mistake.",
+"choices": [
+"admit",
+"to admit",
+"admitting",
+"admitted"
+],
+"answer": 0
+},
+{
+"q": "I had my watch ____ yesterday.",
+"choices": [
+"repair",
+"to repair",
+"repairing",
+"repaired"
+],
+"answer": 3
+},
+{
+"q": "She felt someone ____ her on the shoulder.",
+"choices": [
+"touch",
+"to touch",
+"touched",
+"touches"
+],
+"answer": 0
+},
+{
+"q": "We saw the house ____ down in the fire.",
+"choices": [
+"burn",
+"to burn",
+"burning",
+"burned"
+],
+"answer": 2
+},
+{
+"q": "He noticed a man ____ out of the store.",
+"choices": [
+"run",
+"to run",
+"running",
+"ran"
+],
+"answer": 2
+},
+{
+"q": "Don't let the opportunity ____ away.",
+"choices": [
+"slip",
+"to slip",
+"slipping",
+"slips"
+],
+"answer": 0
+},
+{
+"q": "I'll have him ____ you back later.",
+"choices": [
+"call",
+"to call",
+"calling",
+"called"
+],
+"answer": 0
+},
+{
+"q": "I saw her ____ the street.",
+"choices": [
+"cross",
+"crossed",
+"crossing",
+"A and C"
+],
+"answer": 3
+},
+{
+"q": "The movie made me ____.",
+"choices": [
+"cry",
+"to cry",
+"crying",
+"cried"
+],
+"answer": 0
+},
+{
+"q": "She had her hair ____ at the new salon.",
+"choices": [
+"cut",
+"cuts",
+"cutting",
+"to cut"
+],
+"answer": 0
+},
+{
+"q": "I heard someone ____ my name.",
+"choices": [
+"call",
+"to call",
+"called",
+"calling"
+],
+"answer": 3
+},
+{
+"q": "We must get the work ____ by noon.",
+"choices": [
+"do",
+"to do",
+"doing",
+"done"
+],
+"answer": 3
+},
+{
+"q": "I cannot make myself ____ in English.",
+"choices": [
+"understand",
+"to understand",
+"understanding",
+"understood"
+],
+"answer": 3
+},
+{
+"q": "The bad news made her ____.",
+"choices": [
+"depressed",
+"depress",
+"depressing",
+"depression"
+],
+"answer": 0
+},
+{
+"q": "He was seen ____ into the building.",
+"choices": [
+"enter",
+"to enter",
+"entered",
+"enters"
+],
+"answer": 1
+},
+{
+"q": "I had to wait for my car ____.",
+"choices": [
+"washing",
+"to wash",
+"to be washed",
+"washed"
+],
+"answer": 2
+},
+{
+"q": "I'll let you ____ the result tomorrow.",
+"choices": [
+"know",
+"to know",
+"knowing",
+"known"
+],
+"answer": 0
+},
+{
+"q": "The company's profits have ____ significantly this year.",
+"choices": [
+"increased",
+"declined",
+"expanded",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "She has a ____ for learning languages.",
+"choices": [
+"capacity",
+"volume",
+"space",
+"room"
+],
+"answer": 0
+},
+{
+"q": "The issue needs to be addressed ____.",
+"choices": [
+"immediately",
+"gradually",
+"rarely",
+"formerly"
+],
+"answer": 0
+},
+{
+"q": "The data ____ our initial theory.",
+"choices": [
+"contradicts",
+"supports",
+"verifies",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "The new law will go into ____ next month.",
+"choices": [
+"effect",
+"affect",
+"effort",
+"action"
+],
+"answer": 0
+},
+{
+"q": "He is ____ to win the Nobel Prize.",
+"choices": [
+"eligible",
+"likely",
+"capable",
+"liable"
+],
+"answer": 1
+},
+{
+"q": "We must find a ____ to this problem.",
+"choices": [
+"solution",
+"resolution",
+"remedy",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "The market is ____ with new products.",
+"choices": [
+"saturated",
+"empty",
+"lacking",
+"scarce"
+],
+"answer": 0
+},
+{
+"q": "The results were ____ beyond our expectations.",
+"choices": [
+"satisfactory",
+"sufficient",
+"significant",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "He is an ____ figure in the industry.",
+"choices": [
+"influential",
+"influenced",
+"influencing",
+"influence"
+],
+"answer": 0
+},
+{
+"q": "The strategy proved to be very ____.",
+"choices": [
+"effective",
+"efficient",
+"productive",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "There is a ____ between the two reports.",
+"choices": [
+"discrepancy",
+"harmony",
+"similarity",
+"union"
+],
+"answer": 0
+},
+{
+"q": "The economy is in a state of ____.",
+"choices": [
+"recession",
+"expansion",
+"growth",
+"A and B"
+],
+"answer": 3
+},
+{
+"q": "We need to ____ the risks involved.",
+"choices": [
+"evaluate",
+"ignore",
+"forget",
+"hide"
+],
+"answer": 0
+},
+{
+"q": "His performance was ____.",
+"choices": [
+"outstanding",
+"ordinary",
+"average",
+"poor"
+],
+"answer": 0
+},
+{
+"q": "The policy has ____ some criticism.",
+"choices": [
+"provoked",
+"encouraged",
+"supported",
+"avoided"
+],
+"answer": 0
+},
+{
+"q": "She is known for her ____.",
+"choices": [
+"integrity",
+"corruption",
+"dishonesty",
+"laziness"
+],
+"answer": 0
+},
+{
+"q": "The meeting was ____ due to the storm.",
+"choices": [
+"adjourned",
+"held",
+"continued",
+"started"
+],
+"answer": 0
+},
+{
+"q": "We must ____ with the new regulations.",
+"choices": [
+"comply",
+"agree",
+"defy",
+"ignore"
+],
+"answer": 0
+},
+{
+"q": "The contract is subject to ____.",
+"choices": [
+"negotiation",
+"finish",
+"end",
+"stop"
+],
+"answer": 0
+},
+{
+"q": "I can't ____ out what he's trying to say.",
+"choices": [
+"make",
+"take",
+"find",
+"look"
+],
+"answer": 0
+},
+{
+"q": "The project was ____ out by a team of experts.",
+"choices": [
+"carried",
+"made",
+"taken",
+"put"
+],
+"answer": 0
+},
+{
+"q": "He ____ up for his beliefs despite the pressure.",
+"choices": [
+"stood",
+"sat",
+"kept",
+"stayed"
+],
+"answer": 0
+},
+{
+"q": "The business ____ through due to a lack of funding.",
+"choices": [
+"fell",
+"went",
+"came",
+"ran"
+],
+"answer": 0
+},
+{
+"q": "I've ____ up with a new plan for the marketing.",
+"choices": [
+"come",
+"gone",
+"taken",
+"set"
+],
+"answer": 0
+},
+{
+"q": "She ____ back on her promise.",
+"choices": [
+"went",
+"came",
+"took",
+"ran"
+],
+"answer": 0
+},
+{
+"q": "He ____ after his grandfather in many ways.",
+"choices": [
+"takes",
+"looks",
+"runs",
+"goes"
+],
+"answer": 0
+},
+{
+"q": "The truth finally ____ out during the trial.",
+"choices": [
+"came",
+"went",
+"ran",
+"took"
+],
+"answer": 0
+},
+{
+"q": "I need to ____ up on my French before the trip.",
+"choices": [
+"brush",
+"clean",
+"wash",
+"look"
+],
+"answer": 0
+},
+{
+"q": "The strike was ____ off after the agreement.",
+"choices": [
+"called",
+"put",
+"set",
+"taken"
+],
+"answer": 0
+},
+{
+"q": "He ____ down the job offer in New York.",
+"choices": [
+"turned",
+"put",
+"took",
+"made"
+],
+"answer": 0
+},
+{
+"q": "I ____ into an old friend at the airport.",
+"choices": [
+"ran",
+"hit",
+"met",
+"went"
+],
+"answer": 0
+},
+{
+"q": "She is ____ through a difficult time right now.",
+"choices": [
+"going",
+"coming",
+"running",
+"staying"
+],
+"answer": 0
+},
+{
+"q": "We have to ____ up with the latest technology.",
+"choices": [
+"keep",
+"stay",
+"look",
+"come"
+],
+"answer": 0
+},
+{
+"q": "The engine ____ out of oil.",
+"choices": [
+"ran",
+"went",
+"came",
+"fell"
+],
+"answer": 0
+},
+{
+"q": "He ____ out as a leader in the community.",
+"choices": [
+"stands",
+"looks",
+"acts",
+"works"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ it over with my boss first.",
+"choices": [
+"talk",
+"speak",
+"say",
+"tell"
+],
+"answer": 0
+},
+{
+"q": "The company was ____ over by a larger firm.",
+"choices": [
+"taken",
+"made",
+"set",
+"put"
+],
+"answer": 0
+},
+{
+"q": "He ____ up the story to avoid trouble.",
+"choices": [
+"made",
+"took",
+"did",
+"set"
+],
+"answer": 0
+},
+{
+"q": "I can't ____ up with this noise anymore.",
+"choices": [
+"put",
+"keep",
+"stay",
+"stand"
+],
+"answer": 0
+},
+{
+"q": "____ the evidence, he was found guilty.",
+"choices": [
+"Despite",
+"Although",
+"Because",
+"Moreover"
+],
+"answer": 0
+},
+{
+"q": "He is very intelligent. ____, he is very modest.",
+"choices": [
+"Furthermore",
+"Nevertheless",
+"Therefore",
+"Consequently"
+],
+"answer": 1
+},
+{
+"q": "The weather was bad; ____, the match was postponed.",
+"choices": [
+"consequently",
+"otherwise",
+"however",
+"still"
+],
+"answer": 0
+},
+{
+"q": "____ I understand your point, I still disagree.",
+"choices": [
+"While",
+"Because",
+"Since",
+"Unless"
+],
+"answer": 0
+},
+{
+"q": "He didn't study; ____, he failed the exam.",
+"choices": [
+"accordingly",
+"otherwise",
+"nevertheless",
+"however"
+],
+"answer": 0
+},
+{
+"q": "You should leave now; ____, you'll miss the train.",
+"choices": [
+"otherwise",
+"moreover",
+"therefore",
+"instead"
+],
+"answer": 0
+},
+{
+"q": "____ he has no experience, he is a fast learner.",
+"choices": [
+"Even though",
+"Because",
+"Since",
+"In spite of"
+],
+"answer": 0
+},
+{
+"q": "He is not only a writer ____ a great speaker.",
+"choices": [
+"but also",
+"and also",
+"as well",
+"as also"
+],
+"answer": 0
+},
+{
+"q": "____ that as it may, we still need to proceed.",
+"choices": [
+"Be",
+"Is",
+"Was",
+"Been"
+],
+"answer": 0
+},
+{
+"q": "He was late, ____ the heavy traffic.",
+"choices": [
+"owing to",
+"because",
+"since",
+"as"
+],
+"answer": 0
+},
+{
+"q": "____ any unforeseen circumstances, we will finish on time.",
+"choices": [
+"Barring",
+"Regarding",
+"Following",
+"During"
+],
+"answer": 0
+},
+{
+"q": "He worked hard ____ he might pass the test.",
+"choices": [
+"so that",
+"such that",
+"in order to",
+"as if"
+],
+"answer": 0
+},
+{
+"q": "____ you decide to go, I will support you.",
+"choices": [
+"Whichever",
+"Whatever",
+"Whenever",
+"Wherever"
+],
+"answer": 1
+},
+{
+"q": "She is, ____, the best candidate for the job.",
+"choices": [
+"undoubtedly",
+"doubtfully",
+"perhaps",
+"maybe"
+],
+"answer": 0
+},
+{
+"q": "He won the race ____ his injury.",
+"choices": [
+"notwithstanding",
+"although",
+"because",
+"whereas"
+],
+"answer": 0
+},
+{
+"q": "The problem is difficult, ____ not impossible.",
+"choices": [
+"albeit",
+"because",
+"unless",
+"since"
+],
+"answer": 0
+},
+{
+"q": "____ the circumstances, we did our best.",
+"choices": [
+"Given",
+"Taking",
+"Making",
+"Doing"
+],
+"answer": 0
+},
+{
+"q": "He is rich, ____ he is not happy.",
+"choices": [
+"yet",
+"and",
+"or",
+"so"
+],
+"answer": 0
+},
+{
+"q": "In ____, the project was a failure.",
+"choices": [
+"retrospect",
+"respect",
+"response",
+"result"
+],
+"answer": 0
+},
+{
+"q": "____ I'm concerned, the matter is closed.",
+"choices": [
+"As far as",
+"As long as",
+"As well as",
+"As soon as"
+],
+"answer": 0
+},
+{
+"q": "The government is planning to ____ a new tax system.",
+"choices": [
+"implement",
+"ignore",
+"forget",
+"prevent"
+],
+"answer": 0
+},
+{
+"q": "Water is a ____ resource for all living things.",
+"choices": [
+"vital",
+"minor",
+"optional",
+"trivial"
+],
+"answer": 0
+},
+{
+"q": "We need a ____ approach to solve this complex problem.",
+"choices": [
+"comprehensive",
+"simple",
+"narrow",
+"shallow"
+],
+"answer": 0
+},
+{
+"q": "His argument was based on a ____ misunderstanding of the facts.",
+"choices": [
+"fundamental",
+"light",
+"small",
+"partial"
+],
+"answer": 0
+},
+{
+"q": "The company aims to achieve ____ growth.",
+"choices": [
+"sustainable",
+"sudden",
+"temporary",
+"brief"
+],
+"answer": 0
+},
+{
+"q": "There has been a ____ increase in the cost of living.",
+"choices": [
+"substantial",
+"tiny",
+"slight",
+"rare"
+],
+"answer": 0
+},
+{
+"q": "The results of the study are ____.",
+"choices": [
+"consistent",
+"different",
+"opposite",
+"various"
+],
+"answer": 0
+},
+{
+"q": "She has a unique ____ on the situation.",
+"choices": [
+"perspective",
+"scene",
+"sight",
+"vision"
+],
+"answer": 0
+},
+{
+"q": "The technology has ____ our daily lives.",
+"choices": [
+"transformed",
+"stayed",
+"kept",
+"stopped"
+],
+"answer": 0
+},
+{
+"q": "It is difficult to ____ the long-term effects.",
+"choices": [
+"anticipate",
+"remember",
+"know",
+"ignore"
+],
+"answer": 0
+},
+{
+"q": "The two countries have ____ a peace treaty.",
+"choices": [
+"signed",
+"broken",
+"ignored",
+"lost"
+],
+"answer": 0
+},
+{
+"q": "We must ____ the importance of education.",
+"choices": [
+"emphasize",
+"hide",
+"reduce",
+"neglect"
+],
+"answer": 0
+},
+{
+"q": "The evidence is ____; we cannot ignore it.",
+"choices": [
+"compelling",
+"weak",
+"vague",
+"unclear"
+],
+"answer": 0
+},
+{
+"q": "The new policy was ____ by most employees.",
+"choices": [
+"endorsed",
+"rejected",
+"ignored",
+"forgotten"
+],
+"answer": 0
+},
+{
+"q": "The situation is ____ and requires careful handling.",
+"choices": [
+"delicate",
+"strong",
+"rough",
+"easy"
+],
+"answer": 0
+},
+{
+"q": "He is ____ to his work.",
+"choices": [
+"dedicated",
+"lazy",
+"indifferent",
+"careless"
+],
+"answer": 0
+},
+{
+"q": "The research ____ that the theory is correct.",
+"choices": [
+"indicates",
+"hides",
+"denies",
+"ignores"
+],
+"answer": 0
+},
+{
+"q": "There is an ____ need for medical supplies.",
+"choices": [
+"urgent",
+"optional",
+"slow",
+"later"
+],
+"answer": 0
+},
+{
+"q": "The project was a ____ effort.",
+"choices": [
+"collaborative",
+"single",
+"lonely",
+"solo"
+],
+"answer": 0
+},
+{
+"q": "The decision was ____ and caused a lot of debate.",
+"choices": [
+"controversial",
+"simple",
+"easy",
+"clear"
+],
+"answer": 0
+},
+{
+"q": "This is the room ____ the meeting was held.",
+"choices": [
+"in which",
+"which",
+"at that",
+"where in"
+],
+"answer": 0
+},
+{
+"q": "He is the person ____ I spoke yesterday.",
+"choices": [
+"to whom",
+"who",
+"which",
+"whose"
+],
+"answer": 0
+},
+{
+"q": "____ not knowing the way, I got lost.",
+"choices": [
+"Not",
+"No",
+"Don't",
+"Didn't"
+],
+"answer": 0
+},
+{
+"q": "____ finished the task, he felt relieved.",
+"choices": [
+"Having",
+"Has",
+"Had",
+"Have"
+],
+"answer": 0
+},
+{
+"q": "The book, ____ by a famous scholar, is very difficult.",
+"choices": [
+"written",
+"writing",
+"to write",
+"writes"
+],
+"answer": 0
+},
+{
+"q": "I am ashamed of ____ such a mistake.",
+"choices": [
+"having made",
+"making",
+"make",
+"made"
+],
+"answer": 0
+},
+{
+"q": "He is proud of ____ a member of the team.",
+"choices": [
+"being",
+"having been",
+"be",
+"been"
+],
+"answer": 1
+},
+{
+"q": "The bridge ____ last year is already broken.",
+"choices": [
+"built",
+"building",
+"build",
+"builds"
+],
+"answer": 0
+},
+{
+"q": "____ from the moon, the earth looks blue.",
+"choices": [
+"Seen",
+"Seeing",
+"To see",
+"Saw"
+],
+"answer": 0
+},
+{
+"q": "I forgot ____ the door.",
+"choices": [
+"locking",
+"to lock",
+"locked",
+"locks"
+],
+"answer": 1
+},
+{
+"q": "I remember ____ her somewhere before.",
+"choices": [
+"meeting",
+"to meet",
+"met",
+"meets"
+],
+"answer": 0
+},
+{
+"q": "There is no ____ what will happen tomorrow.",
+"choices": [
+"knowing",
+"to know",
+"know",
+"known"
+],
+"answer": 0
+},
+{
+"q": "It is no use ____ about it.",
+"choices": [
+"crying",
+"to cry",
+"cry",
+"cried"
+],
+"answer": 0
+},
+{
+"q": "I'm used to ____ up early.",
+"choices": [
+"getting",
+"get",
+"got",
+"gets"
+],
+"answer": 0
+},
+{
+"q": "What do you say to ____ for a walk?",
+"choices": [
+"going",
+"go",
+"went",
+"goes"
+],
+"answer": 0
+},
+{
+"q": "He was seen ____ the building late at night.",
+"choices": [
+"entering",
+"to enter",
+"entered",
+"enters"
+],
+"answer": 1
+},
+{
+"q": "She had her wallet ____.",
+"choices": [
+"stolen",
+"steal",
+"stealing",
+"stole"
+],
+"answer": 0
+},
+{
+"q": "I kept him ____ for an hour.",
+"choices": [
+"waiting",
+"to wait",
+"waited",
+"wait"
+],
+"answer": 0
+},
+{
+"q": "The city ____ by the fire was beautiful.",
+"choices": [
+"destroyed",
+"destroying",
+"destroy",
+"destroys"
+],
+"answer": 0
+},
+{
+"q": "____ the weather is good, we'll go.",
+"choices": [
+"Provided",
+"Providing",
+"Provides",
+"A and B"
+],
+"answer": 3
+},
+{
+"q": "Global warming is a ____ threat to our planet.",
+"choices": [
+"grave",
+"small",
+"light",
+"tiny"
+],
+"answer": 0
+},
+{
+"q": "We must promote gender ____.",
+"choices": [
+"equality",
+"quality",
+"quantity",
+"equity"
+],
+"answer": 0
+},
+{
+"q": "Many people suffer from ____ in the world.",
+"choices": [
+"poverty",
+"wealth",
+"rich",
+"money"
+],
+"answer": 0
+},
+{
+"q": "We should ____ the amount of waste.",
+"choices": [
+"reduce",
+"increase",
+"expand",
+"keep"
+],
+"answer": 0
+},
+{
+"q": "Diversity is an ____ part of our society.",
+"choices": [
+"essential",
+"extra",
+"minor",
+"useless"
+],
+"answer": 0
+},
+{
+"q": "The population is ____ aging in many countries.",
+"choices": [
+"rapidly",
+"slowly",
+"rarely",
+"never"
+],
+"answer": 0
+},
+{
+"q": "We need to find ____ energy sources.",
+"choices": [
+"renewable",
+"limited",
+"old",
+"fossil"
+],
+"answer": 0
+},
+{
+"q": "Child ____ is a serious violation of human rights.",
+"choices": [
+"labor",
+"work",
+"play",
+"study"
+],
+"answer": 0
+},
+{
+"q": "The ____ gap is widening.",
+"choices": [
+"income",
+"money",
+"cash",
+"pay"
+],
+"answer": 0
+},
+{
+"q": "We must ____ the natural habitat of wild animals.",
+"choices": [
+"preserve",
+"destroy",
+"break",
+"waste"
+],
+"answer": 0
+},
+{
+"q": "Refugees are seeking ____ in other countries.",
+"choices": [
+"asylum",
+"work",
+"money",
+"food"
+],
+"answer": 0
+},
+{
+"q": "The government should ____ more in education.",
+"choices": [
+"invest",
+"spend",
+"take",
+"give"
+],
+"answer": 0
+},
+{
+"q": "Discrimination based on race is ____.",
+"choices": [
+"unacceptable",
+"good",
+"okay",
+"fine"
+],
+"answer": 0
+},
+{
+"q": "Water ____ is a crisis in some regions.",
+"choices": [
+"scarcity",
+"plenty",
+"much",
+"water"
+],
+"answer": 0
+},
+{
+"q": "We must take action to ____ climate change.",
+"choices": [
+"combat",
+"start",
+"help",
+"encourage"
+],
+"answer": 0
+},
+{
+"q": "Economic ____ is a goal for many nations.",
+"choices": [
+"stability",
+"chaos",
+"noise",
+"danger"
+],
+"answer": 0
+},
+{
+"q": "____ energy can reduce carbon emissions.",
+"choices": [
+"Nuclear",
+"Coal",
+"Oil",
+"Gas"
+],
+"answer": 0
+},
+{
+"q": "The healthcare system is under ____.",
+"choices": [
+"strain",
+"rest",
+"play",
+"sleep"
+],
+"answer": 0
+},
+{
+"q": "We should encourage ____ consumption.",
+"choices": [
+"responsible",
+"greedy",
+"wasteful",
+"much"
+],
+"answer": 0
+},
+{
+"q": "Education is the key to ____ poverty.",
+"choices": [
+"eradicating",
+"starting",
+"helping",
+"keeping"
+],
+"answer": 0
+},
+{
+"q": "She was ____ to manager last month.",
+"choices": [
+"promoted",
+"demoted",
+"fired",
+"hired"
+],
+"answer": 0
+},
+{
+"q": "We need to ____ the terms of the contract.",
+"choices": [
+"negotiate",
+"ignore",
+"break",
+"lose"
+],
+"answer": 0
+},
+{
+"q": "The company is looking for a ____ candidate.",
+"choices": [
+"qualified",
+"bad",
+"weak",
+"new"
+],
+"answer": 0
+},
+{
+"q": "He decided to ____ from his position.",
+"choices": [
+"resign",
+"stay",
+"keep",
+"hired"
+],
+"answer": 0
+},
+{
+"q": "We have to meet the ____ by Friday.",
+"choices": [
+"deadline",
+"line",
+"goal",
+"end"
+],
+"answer": 0
+},
+{
+"q": "The meeting will be held in the ____.",
+"choices": [
+"boardroom",
+"kitchen",
+"bedroom",
+"garden"
+],
+"answer": 0
+},
+{
+"q": "She has a successful ____ in finance.",
+"choices": [
+"career",
+"job",
+"work",
+"study"
+],
+"answer": 0
+},
+{
+"q": "We need to improve our ____.",
+"choices": [
+"productivity",
+"laziness",
+"sleep",
+"rest"
+],
+"answer": 0
+},
+{
+"q": "The marketing ____ was very effective.",
+"choices": [
+"campaign",
+"story",
+"book",
+"pen"
+],
+"answer": 0
+},
+{
+"q": "He is responsible for the ____ of the project.",
+"choices": [
+"execution",
+"starting",
+"end",
+"stop"
+],
+"answer": 0
+},
+{
+"q": "The company has many ____ abroad.",
+"choices": [
+"subsidiaries",
+"rooms",
+"houses",
+"cars"
+],
+"answer": 0
+},
+{
+"q": "We must ____ the market trends.",
+"choices": [
+"analyze",
+"ignore",
+"forget",
+"hide"
+],
+"answer": 0
+},
+{
+"q": "The merger will ____ a new giant in the industry.",
+"choices": [
+"create",
+"break",
+"stop",
+"hide"
+],
+"answer": 0
+},
+{
+"q": "She is a very ____ employee.",
+"choices": [
+"diligent",
+"lazy",
+"careless",
+"slow"
+],
+"answer": 0
+},
+{
+"q": "We need to find a ____ competitive edge.",
+"choices": [
+"sustainable",
+"weak",
+"short",
+"bad"
+],
+"answer": 0
+},
+{
+"q": "The CEO will give a ____ tomorrow.",
+"choices": [
+"presentation",
+"gift",
+"book",
+"pen"
+],
+"answer": 0
+},
+{
+"q": "Employee ____ is important for the company.",
+"choices": [
+"retention",
+"firing",
+"leaving",
+"going"
+],
+"answer": 0
+},
+{
+"q": "We should focus on customer ____.",
+"choices": [
+"satisfaction",
+"anger",
+"sadness",
+"fear"
+],
+"answer": 0
+},
+{
+"q": "The startup received ____ funding.",
+"choices": [
+"venture",
+"small",
+"no",
+"bad"
+],
+"answer": 0
+},
+{
+"q": "Innovation is ____ to our success.",
+"choices": [
+"crucial",
+"minor",
+"useless",
+"extra"
+],
+"answer": 0
+},
+{
+"q": "If I ____ a bit more careful, I wouldn't have made that mistake.",
+"choices": [
+"had been",
+"was",
+"were",
+"am"
+],
+"answer": 0
+},
+{
+"q": "Only after she left ____ I realize how much I loved her.",
+"choices": [
+"did",
+"do",
+"was",
+"had"
+],
+"answer": 0
+},
+{
+"q": "It is vital that he ____ informed of the change.",
+"choices": [
+"be",
+"is",
+"was",
+"been"
+],
+"answer": 0
+},
+{
+"q": "____ for your help, I would have failed.",
+"choices": [
+"Were it not",
+"Had it not been",
+"But",
+"B and C"
+],
+"answer": 3
+},
+{
+"q": "No sooner ____ the game started than it began to rain.",
+"choices": [
+"had",
+"did",
+"was",
+"is"
+],
+"answer": 0
+},
+{
+"q": "I wish I ____ to the party last night.",
+"choices": [
+"had gone",
+"went",
+"go",
+"have gone"
+],
+"answer": 0
+},
+{
+"q": "Hardly ____ I started my homework when the light went out.",
+"choices": [
+"had",
+"did",
+"was",
+"is"
+],
+"answer": 0
+},
+{
+"q": "So ____ was the movie that I saw it twice.",
+"choices": [
+"good",
+"well",
+"best",
+"better"
+],
+"answer": 0
+},
+{
+"q": "Should you ____ any help, please let me know.",
+"choices": [
+"need",
+"needs",
+"needed",
+"needing"
+],
+"answer": 0
+},
+{
+"q": "Were I in your shoes, I ____ do the same.",
+"choices": [
+"would",
+"will",
+"can",
+"should"
+],
+"answer": 0
+},
+{
+"q": "Not only ____ intelligent but also kind.",
+"choices": [
+"is she",
+"she is",
+"was she",
+"she was"
+],
+"answer": 0
+},
+{
+"q": "I suggest that she ____ the offer.",
+"choices": [
+"accept",
+"accepts",
+"accepted",
+"accepting"
+],
+"answer": 0
+},
+{
+"q": "Little ____ they know what was about to happen.",
+"choices": [
+"did",
+"do",
+"was",
+"had"
+],
+"answer": 0
+},
+{
+"q": "Had I known the truth, I ____ so angry.",
+"choices": [
+"wouldn't have been",
+"wasn't",
+"am not",
+"hadn't been"
+],
+"answer": 0
+},
+{
+"q": "Scarcely ____ I reached the station when the train left.",
+"choices": [
+"had",
+"did",
+"was",
+"is"
+],
+"answer": 0
+},
+{
+"q": "Long ____ the King!",
+"choices": [
+"live",
+"lives",
+"living",
+"lived"
+],
+"answer": 0
+},
+{
+"q": "Never ____ I seen such a beautiful sight.",
+"choices": [
+"have",
+"did",
+"do",
+"had"
+],
+"answer": 0
+},
+{
+"q": "Rarely ____ she speak in public.",
+"choices": [
+"does",
+"do",
+"is",
+"did"
+],
+"answer": 0
+},
+{
+"q": "If it ____ for the traffic, I would be there by now.",
+"choices": [
+"were not",
+"is not",
+"was not",
+"had not been"
+],
+"answer": 0
+},
+{
+"q": "It never rains ____ it pours.",
+"choices": [
+"but",
+"and",
+"or",
+"then"
+],
+"answer": 0
+},
+{
+"q": "I cannot look at this photo ____ thinking of my hometown.",
+"choices": [
+"without",
+"not",
+"instead of",
+"unless"
+],
+"answer": 0
+},
+{
+"q": "The truth is, he is ____ a liar than a fool.",
+"choices": [
+"more",
+"less",
+"rather",
+"much"
+],
+"answer": 0
+},
+{
+"q": "____ is the case with him, he was late again.",
+"choices": [
+"As",
+"Which",
+"That",
+"What"
+],
+"answer": 0
+},
+{
+"q": "He is as brave a soldier ____ ever lived.",
+"choices": [
+"as",
+"than",
+"that",
+"who"
+],
+"answer": 0
+},
+{
+"q": "I found it difficult to make myself ____.",
+"choices": [
+"understand",
+"to understand",
+"understanding",
+"understood"
+],
+"answer": 3
+},
+{
+"q": "The weather being fine, we ____ to go for a walk.",
+"choices": [
+"decided",
+"decide",
+"deciding",
+"decision"
+],
+"answer": 0
+},
+{
+"q": "____, I would have gone there with you.",
+"choices": [
+"Had I been free",
+"If I was free",
+"I being free",
+"I had been free"
+],
+"answer": 0
+},
+{
+"q": "Much ____ I like him, I cannot trust him.",
+"choices": [
+"as",
+"if",
+"though",
+"since"
+],
+"answer": 0
+},
+{
+"q": "Young ____ he is, he is very wise.",
+"choices": [
+"as",
+"if",
+"though",
+"since"
+],
+"answer": 0
+},
+{
+"q": "The higher we go, ____ colder it becomes.",
+"choices": [
+"the",
+"a",
+"more",
+"much"
+],
+"answer": 0
+},
+{
+"q": "You are no ____ a genius than I am.",
+"choices": [
+"more",
+"less",
+"much",
+"rather"
+],
+"answer": 0
+},
+{
+"q": "A whale is ____ more a fish than a horse is.",
+"choices": [
+"no",
+"not",
+"never",
+"less"
+],
+"answer": 0
+},
+{
+"q": "He is anything ____ a hero.",
+"choices": [
+"but",
+"from",
+"with",
+"at"
+],
+"answer": 0
+},
+{
+"q": "It's not ____ much what he says as how he says it.",
+"choices": [
+"so",
+"as",
+"too",
+"very"
+],
+"answer": 0
+},
+{
+"q": "I ____ no sooner reached the station than the train left.",
+"choices": [
+"had",
+"did",
+"was",
+"is"
+],
+"answer": 0
+},
+{
+"q": "Hardly ____ I started when it began to snow.",
+"choices": [
+"had",
+"did",
+"was",
+"is"
+],
+"answer": 0
+},
+{
+"q": "Seldom ____ such a beautiful sight.",
+"choices": [
+"have I seen",
+"I have seen",
+"seen I have",
+"I saw"
+],
+"answer": 0
+},
+{
+"q": "Only ____ way can we solve the problem.",
+"choices": [
+"in this",
+"this",
+"by this",
+"that"
+],
+"answer": 0
+},
+{
+"q": "So ____ was his anger that he couldn't speak.",
+"choices": [
+"great",
+"greatly",
+"greatness",
+"greater"
+],
+"answer": 0
+},
+{
+"q": "Not for a moment ____ she was lying.",
+"choices": [
+"did I think",
+"I thought",
+"thought I",
+"I did think"
+],
+"answer": 0
+},
+{
+"q": "What ____ earth are you talking about?",
+"choices": [
+"on",
+"in",
+"at",
+"under"
+],
+"answer": 0
+},
+{
+"q": "The mountain is, ____, the most beautiful in Japan.",
+"choices": [
+"so to speak",
+"as it were",
+"if you will",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "He is ____ his father in many ways.",
+"choices": [
+"the image of",
+"like",
+"as",
+"similar"
+],
+"answer": 0
+},
+{
+"q": "The government should ____ a more flexible policy.",
+"choices": [
+"adopt",
+"adapt",
+"adept",
+"admit"
+],
+"answer": 0
+},
+{
+"q": "The invention had a profound ____ on society.",
+"choices": [
+"impact",
+"affect",
+"result",
+"cause"
+],
+"answer": 0
+},
+{
+"q": "We must find a ____ way to produce energy.",
+"choices": [
+"sustainable",
+"brief",
+"sudden",
+"weak"
+],
+"answer": 0
+},
+{
+"q": "The data is ____ to our research.",
+"choices": [
+"relevant",
+"relative",
+"related",
+"relatable"
+],
+"answer": 0
+},
+{
+"q": "She made an ____ decision.",
+"choices": [
+"arbitrary",
+"obvious",
+"easy",
+"clear"
+],
+"answer": 0
+},
+{
+"q": "The situation is ____ and ever-changing.",
+"choices": [
+"dynamic",
+"static",
+"stable",
+"fixed"
+],
+"answer": 0
+},
+{
+"q": "We need to ____ the risks before proceeding.",
+"choices": [
+"assess",
+"ignore",
+"forget",
+"hide"
+],
+"answer": 0
+},
+{
+"q": "His argument was very ____.",
+"choices": [
+"persuasive",
+"weak",
+"vague",
+"unclear"
+],
+"answer": 0
+},
+{
+"q": "The two theories are ____.",
+"choices": [
+"compatible",
+"different",
+"opposite",
+"various"
+],
+"answer": 0
+},
+{
+"q": "The city is ____ for its historical buildings.",
+"choices": [
+"renowned",
+"unknown",
+"hidden",
+"secret"
+],
+"answer": 0
+},
+{
+"q": "The virus has a high ____ rate.",
+"choices": [
+"transmission",
+"transport",
+"transfer",
+"transit"
+],
+"answer": 0
+},
+{
+"q": "We must ____ our natural resources.",
+"choices": [
+"conserve",
+"waste",
+"destroy",
+"break"
+],
+"answer": 0
+},
+{
+"q": "He has an ____ memory.",
+"choices": [
+"incredible",
+"easy",
+"small",
+"weak"
+],
+"answer": 0
+},
+{
+"q": "The project was ____ by the lack of funds.",
+"choices": [
+"jeopardized",
+"helped",
+"started",
+"promoted"
+],
+"answer": 0
+},
+{
+"q": "The evidence is ____.",
+"choices": [
+"indisputable",
+"doubtful",
+"vague",
+"unclear"
+],
+"answer": 0
+},
+{
+"q": "She is a ____ supporter of the cause.",
+"choices": [
+"staunch",
+"weak",
+"lazy",
+"casual"
+],
+"answer": 0
+},
+{
+"q": "The technology is becoming ____.",
+"choices": [
+"obsolete",
+"new",
+"modern",
+"fresh"
+],
+"answer": 0
+},
+{
+"q": "He has a ____ for detail.",
+"choices": [
+"meticulous",
+"meticulously",
+"meticulousness",
+"meticulosity"
+],
+"answer": 0
+},
+{
+"q": "The atmosphere was ____ with tension.",
+"choices": [
+"laden",
+"empty",
+"free",
+"clear"
+],
+"answer": 0
+},
+{
+"q": "The discovery ____ our understanding of the universe.",
+"choices": [
+"revolutionized",
+"kept",
+"stayed",
+"stopped"
+],
+"answer": 0
+},
+{
+"q": "We must ____ the gap between rich and poor.",
+"choices": [
+"bridge",
+"break",
+"make",
+"take"
+],
+"answer": 0
+},
+{
+"q": "The policy has had an ____ effect.",
+"choices": [
+"adverse",
+"good",
+"great",
+"fine"
+],
+"answer": 0
+},
+{
+"q": "He is an ____ in the field of medicine.",
+"choices": [
+"authority",
+"author",
+"autograph",
+"autumn"
+],
+"answer": 0
+},
+{
+"q": "The meeting was ____ because of the emergency.",
+"choices": [
+"interrupted",
+"held",
+"continued",
+"started"
+],
+"answer": 0
+},
+{
+"q": "The proposal was met with ____.",
+"choices": [
+"skepticism",
+"belief",
+"trust",
+"faith"
+],
+"answer": 0
+},
+{
+"q": "The news was ____ quickly.",
+"choices": [
+"disseminated",
+"hidden",
+"forgotten",
+"lost"
+],
+"answer": 0
+},
+{
+"q": "She has a ____ talent for music.",
+"choices": [
+"prodigious",
+"small",
+"tiny",
+"little"
+],
+"answer": 0
+},
+{
+"q": "He is very ____ in his opinions.",
+"choices": [
+"dogmatic",
+"flexible",
+"open",
+"easy"
+],
+"answer": 0
+},
+{
+"q": "The results are ____ to the previous study.",
+"choices": [
+"comparable",
+"different",
+"opposite",
+"various"
+],
+"answer": 0
+},
+{
+"q": "We must ____ the complexity of the issue.",
+"choices": [
+"acknowledge",
+"ignore",
+"forget",
+"hide"
+],
+"answer": 0
+},
+{
+"q": "The project is still in its ____ stages.",
+"choices": [
+"infant",
+"old",
+"last",
+"final"
+],
+"answer": 0
+},
+{
+"q": "He made a ____ error.",
+"choices": [
+"fatal",
+"small",
+"tiny",
+"minor"
+],
+"answer": 0
+},
+{
+"q": "The area is ____ with wildlife.",
+"choices": [
+"abundant",
+"empty",
+"lacking",
+"scarce"
+],
+"answer": 0
+},
+{
+"q": "He ____ up for the mistake he made.",
+"choices": [
+"made",
+"took",
+"did",
+"set"
+],
+"answer": 0
+},
+{
+"q": "I cannot ____ out what he is thinking.",
+"choices": [
+"figure",
+"take",
+"find",
+"look"
+],
+"answer": 0
+},
+{
+"q": "The custom has been ____ down through generations.",
+"choices": [
+"handed",
+"taken",
+"given",
+"made"
+],
+"answer": 0
+},
+{
+"q": "He ____ down to the younger students.",
+"choices": [
+"looks",
+"takes",
+"runs",
+"calls"
+],
+"answer": 0
+},
+{
+"q": "I have to ____ up with him sooner or later.",
+"choices": [
+"catch",
+"keep",
+"stay",
+"get"
+],
+"answer": 0
+},
+{
+"q": "The fire ____ out in the middle of the night.",
+"choices": [
+"broke",
+"took",
+"made",
+"went"
+],
+"answer": 0
+},
+{
+"q": "She ____ off her engagement.",
+"choices": [
+"broke",
+"took",
+"made",
+"went"
+],
+"answer": 0
+},
+{
+"q": "He ____ in for a lot of criticism.",
+"choices": [
+"came",
+"went",
+"took",
+"ran"
+],
+"answer": 0
+},
+{
+"q": "I can't ____ through all this work by myself.",
+"choices": [
+"get",
+"take",
+"make",
+"do"
+],
+"answer": 0
+},
+{
+"q": "The plan ____ through due to a misunderstanding.",
+"choices": [
+"fell",
+"went",
+"came",
+"ran"
+],
+"answer": 0
+},
+{
+"q": "He ____ upon a brilliant idea.",
+"choices": [
+"hit",
+"made",
+"took",
+"set"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ it over with my family.",
+"choices": [
+"talk",
+"speak",
+"say",
+"tell"
+],
+"answer": 0
+},
+{
+"q": "She ____ up a new hobby last year.",
+"choices": [
+"took",
+"made",
+"did",
+"set"
+],
+"answer": 0
+},
+{
+"q": "The bomb ____ off at noon.",
+"choices": [
+"went",
+"came",
+"ran",
+"took"
+],
+"answer": 0
+},
+{
+"q": "He ____ out as a great actor.",
+"choices": [
+"turned",
+"made",
+"did",
+"set"
+],
+"answer": 0
+},
+{
+"q": "I can't ____ up with his selfishness.",
+"choices": [
+"put",
+"keep",
+"stay",
+"stand"
+],
+"answer": 0
+},
+{
+"q": "The company ____ out a new model.",
+"choices": [
+"brought",
+"took",
+"made",
+"sent"
+],
+"answer": 0
+},
+{
+"q": "He ____ after his mother in appearance.",
+"choices": [
+"takes",
+"looks",
+"runs",
+"goes"
+],
+"answer": 0
+},
+{
+"q": "The plane ____ off smoothly.",
+"choices": [
+"took",
+"went",
+"made",
+"sent"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ up for you if you need help.",
+"choices": [
+"stand",
+"sit",
+"get",
+"keep"
+],
+"answer": 0
+},
+{
+"q": "She ____ out that she was wrong.",
+"choices": [
+"found",
+"looked",
+"watched",
+"saw"
+],
+"answer": 0
+},
+{
+"q": "He ____ over the business from his father.",
+"choices": [
+"took",
+"made",
+"set",
+"put"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ out of patience.",
+"choices": [
+"running",
+"going",
+"coming",
+"taking"
+],
+"answer": 0
+},
+{
+"q": "The meeting was ____ off.",
+"choices": [
+"called",
+"put",
+"set",
+"taken"
+],
+"answer": 0
+},
+{
+"q": "He ____ up his mind to quit.",
+"choices": [
+"made",
+"took",
+"did",
+"set"
+],
+"answer": 0
+},
+{
+"q": "I can't ____ her out at all.",
+"choices": [
+"make",
+"take",
+"find",
+"look"
+],
+"answer": 0
+},
+{
+"q": "He ____ into a fortune.",
+"choices": [
+"came",
+"went",
+"ran",
+"took"
+],
+"answer": 0
+},
+{
+"q": "The milk has ____ off.",
+"choices": [
+"gone",
+"come",
+"ran",
+"taken"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ into the matter.",
+"choices": [
+"look",
+"see",
+"watch",
+"find"
+],
+"answer": 0
+},
+{
+"q": "She ____ up with a cold.",
+"choices": [
+"came down",
+"fell down",
+"went down",
+"ran down"
+],
+"answer": 0
+},
+{
+"q": "He ____ on his father's advice.",
+"choices": [
+"acted",
+"worked",
+"served",
+"helped"
+],
+"answer": 0
+},
+{
+"q": "The project is ____ out by experts.",
+"choices": [
+"carried",
+"made",
+"taken",
+"put"
+],
+"answer": 0
+},
+{
+"q": "He ____ across as a very kind man.",
+"choices": [
+"comes",
+"goes",
+"runs",
+"takes"
+],
+"answer": 0
+},
+{
+"q": "The music ____ back memories.",
+"choices": [
+"brings",
+"takes",
+"makes",
+"sends"
+],
+"answer": 0
+},
+{
+"q": "I ____ out that he was lying.",
+"choices": [
+"found",
+"looked",
+"saw",
+"knew"
+],
+"answer": 0
+},
+{
+"q": "He is ____ for his age.",
+"choices": [
+"mature",
+"ripe",
+"old",
+"adult"
+],
+"answer": 0
+},
+{
+"q": "I'm ____ of your behavior.",
+"choices": [
+"ashamed",
+"shame",
+"shameful",
+"shameless"
+],
+"answer": 0
+},
+{
+"q": "He is ____ to the noise now.",
+"choices": [
+"accustomed",
+"used",
+"familiar",
+"A and B"
+],
+"answer": 3
+},
+{
+"q": "The results are ____ to change.",
+"choices": [
+"subject",
+"liable",
+"prone",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "He is ____ on winning.",
+"choices": [
+"intent",
+"intending",
+"intention",
+"intently"
+],
+"answer": 0
+},
+{
+"q": "She is ____ of her beauty.",
+"choices": [
+"conscious",
+"conscience",
+"conscientious",
+"consciously"
+],
+"answer": 0
+},
+{
+"q": "He is ____ for the task.",
+"choices": [
+"eligible",
+"qualified",
+"capable",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "The house is ____ repair.",
+"choices": [
+"beyond",
+"over",
+"under",
+"without"
+],
+"answer": 0
+},
+{
+"q": "He did it ____ his own accord.",
+"choices": [
+"of",
+"on",
+"by",
+"with"
+],
+"answer": 0
+},
+{
+"q": "She is ____ a loss for words.",
+"choices": [
+"at",
+"in",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "He is ____ debt to his friend.",
+"choices": [
+"in",
+"at",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "They are ____ good terms with each other.",
+"choices": [
+"on",
+"at",
+"in",
+"to"
+],
+"answer": 0
+},
+{
+"q": "He is ____ charge of the department.",
+"choices": [
+"in",
+"at",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "The project is ____ schedule.",
+"choices": [
+"behind",
+"after",
+"late",
+"slow"
+],
+"answer": 0
+},
+{
+"q": "He is ____ to making mistakes.",
+"choices": [
+"prone",
+"subject",
+"liable",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "The news came as a surprise ____ me.",
+"choices": [
+"to",
+"for",
+"at",
+"with"
+],
+"answer": 0
+},
+{
+"q": "He is ____ a hurry.",
+"choices": [
+"in",
+"at",
+"on",
+"to"
+],
+"answer": 0
+},
+{
+"q": "She is ____ for her wisdom.",
+"choices": [
+"renowned",
+"noted",
+"famous",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "He is ____ to the rules.",
+"choices": [
+"obedient",
+"obey",
+"obeying",
+"obeyed"
+],
+"answer": 0
+},
+{
+"q": "The price is ____ to the quality.",
+"choices": [
+"proportional",
+"portion",
+"portioning",
+"portions"
+],
+"answer": 0
+},
+{
+"q": "She is ____ to win.",
+"choices": [
+"bound",
+"must",
+"surely",
+"likely"
+],
+"answer": 0
+},
+{
+"q": "He is ____ in his field.",
+"choices": [
+"outstanding",
+"ordinary",
+"average",
+"poor"
+],
+"answer": 0
+},
+{
+"q": "The area is ____ in natural beauty.",
+"choices": [
+"rich",
+"wealth",
+"much",
+"plenty"
+],
+"answer": 0
+},
+{
+"q": "He is ____ with the result.",
+"choices": [
+"content",
+"happy",
+"satisfied",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "The law is ____ to everyone.",
+"choices": [
+"applicable",
+"apply",
+"applying",
+"applied"
+],
+"answer": 0
+},
+{
+"q": "She is ____ to her family.",
+"choices": [
+"devoted",
+"lazy",
+"indifferent",
+"careless"
+],
+"answer": 0
+},
+{
+"q": "The system is ____ to errors.",
+"choices": [
+"susceptible",
+"open",
+"prone",
+"all of them"
+],
+"answer": 3
+},
+{
+"q": "He is ____ for the post.",
+"choices": [
+"adequate",
+"enough",
+"much",
+"plenty"
+],
+"answer": 0
+},
+{
+"q": "The view is ____.",
+"choices": [
+"spectacular",
+"bad",
+"poor",
+"ugly"
+],
+"answer": 0
+},
+{
+"q": "To ____ the long story short, he won.",
+"choices": [
+"cut",
+"make",
+"tell",
+"give"
+],
+"answer": 0
+},
+{
+"q": "I'll ____ it a day.",
+"choices": [
+"call",
+"make",
+"take",
+"do"
+],
+"answer": 0
+},
+{
+"q": "It's a piece of ____.",
+"choices": [
+"cake",
+"bread",
+"meat",
+"fish"
+],
+"answer": 0
+},
+{
+"q": "He is ____ the moon.",
+"choices": [
+"over",
+"under",
+"at",
+"in"
+],
+"answer": 2
+},
+{
+"q": "Don't pull my ____.",
+"choices": [
+"leg",
+"arm",
+"hair",
+"ear"
+],
+"answer": 0
+},
+{
+"q": "It cost an arm and a ____.",
+"choices": [
+"leg",
+"foot",
+"hand",
+"head"
+],
+"answer": 0
+},
+{
+"q": "She is the ____ of her father's eye.",
+"choices": [
+"apple",
+"orange",
+"grape",
+"banana"
+],
+"answer": 0
+},
+{
+"q": "Once in a ____ moon.",
+"choices": [
+"blue",
+"red",
+"yellow",
+"green"
+],
+"answer": 0
+},
+{
+"q": "Hit the ____ on the head.",
+"choices": [
+"nail",
+"hammer",
+"wood",
+"stone"
+],
+"answer": 0
+},
+{
+"q": "Let the cat out of the ____.",
+"choices": [
+"bag",
+"box",
+"house",
+"room"
+],
+"answer": 0
+},
+{
+"q": "Under the ____.",
+"choices": [
+"weather",
+"sun",
+"moon",
+"star"
+],
+"answer": 0
+},
+{
+"q": "Break a ____!",
+"choices": [
+"leg",
+"hand",
+"foot",
+"arm"
+],
+"answer": 0
+},
+{
+"q": "By the ____.",
+"choices": [
+"way",
+"road",
+"street",
+"path"
+],
+"answer": 0
+},
+{
+"q": "As a ____ of fact.",
+"choices": [
+"matter",
+"thing",
+"word",
+"event"
+],
+"answer": 0
+},
+{
+"q": "On the other ____.",
+"choices": [
+"hand",
+"foot",
+"side",
+"way"
+],
+"answer": 0
+},
+{
+"q": "In the long ____.",
+"choices": [
+"run",
+"walk",
+"race",
+"trip"
+],
+"answer": 0
+},
+{
+"q": "Make ____ your mind.",
+"choices": [
+"up",
+"off",
+"away",
+"out"
+],
+"answer": 0
+},
+{
+"q": "Keep in ____.",
+"choices": [
+"touch",
+"reach",
+"sight",
+"mind"
+],
+"answer": 0
+},
+{
+"q": "So ____ so good.",
+"choices": [
+"far",
+"long",
+"soon",
+"much"
+],
+"answer": 0
+},
+{
+"q": "Take it ____.",
+"choices": [
+"easy",
+"slow",
+"fast",
+"hard"
+],
+"answer": 0
+},
+{
+"q": "The more, the ____.",
+"choices": [
+"merrier",
+"better",
+"more",
+"much"
+],
+"answer": 0
+},
+{
+"q": "Time ____.",
+"choices": [
+"flies",
+"goes",
+"runs",
+"walks"
+],
+"answer": 0
+},
+{
+"q": "Practice makes ____.",
+"choices": [
+"perfect",
+"good",
+"better",
+"well"
+],
+"answer": 2
+},
+{
+"q": "Better late than ____.",
+"choices": [
+"never",
+"late",
+"early",
+"now"
+],
+"answer": 0
+},
+{
+"q": "All's well that ____ well.",
+"choices": [
+"ends",
+"starts",
+"goes",
+"runs"
+],
+"answer": 0
+}
+]
+}
+}

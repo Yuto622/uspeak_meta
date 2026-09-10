@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "note": "ことばの学校島. The client builds the island from these coordinates and the server checks a child's position against the same ones, so a hut a child can see is a hut the server agrees they are standing in. The questions are NOT here: they live on the server (server/src/game/word-quiz.json) so the answers never reach a browser.",
+  "island": {
+    "id": "school",
+    "name": "ことばの学校島",
+    "en": "WORD SCHOOL",
+    "x": 170,
+    "z": 130,
+    "radius": 5.0,
+    "grass": 9347947,
+    "grassTop": 10269806,
+    "spawn": {
+      "x": 0,
+      "z": 21
+    },
+    "spots": [
+      {
+        "id": "easy",
+        "kind": "hut",
+        "difficulty": "easy",
+        "name": "やさしい小屋",
+        "en": "Easy Hut",
+        "character": "Upee",
+        "ja": "やさしい小屋",
+        "x": -15,
+        "z": 5,
+        "color": 10276730,
+        "tone": "★"
+      },
+      {
+        "id": "medium",
+        "kind": "hut",
+        "difficulty": "medium",
+        "name": "ふつうの小屋",
+        "en": "Medium Hut",
+        "character": "Upee",
+        "ja": "ふつうの小屋",
+        "x": 0,
+        "z": -3,
+        "color": 15254634,
+        "tone": "★★"
+      },
+      {
+        "id": "hard",
+        "kind": "hut",
+        "difficulty": "hard",
+        "name": "むずかしい小屋",
+        "en": "Hard Hut",
+        "character": "Upee",
+        "ja": "むずかしい小屋",
+        "x": 15,
+        "z": 5,
+        "color": 14258063,
+        "tone": "★★★"
+      }
+    ]
+  }
+}

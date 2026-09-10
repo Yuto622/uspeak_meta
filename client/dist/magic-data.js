@@ -1,4 +1,4 @@
-import {CREATURES,REGION_BY_ID} from './rpg-data.js';
+import {CREATURES,REGION_BY_ID,isActivityHub} from './rpg-data.js';
 
 export const STARTERS=[CREATURES[0],CREATURES[1],CREATURES[4]];
 export const WANDS=[
@@ -29,6 +29,4 @@ export function captureChance(c,wandId,failures=0){
  const bonus=(WAND_BY_ID[wandId]||WANDS[0]).bonus;
  return failures>=4?100:Math.min(98,base+bonus+Math.max(0,failures)*10);
 }
-// おつかい島 has its own places to walk to and no companion sanctuary, so it gets no
-// U-Speak park building — otherwise one would appear between the plaza and the shops.
-export function parkPosition(id){const r=REGION_BY_ID[id];if(!r||id==='park'||id==='errand')return null;return {x:r.x+(id==='willow'?0:-11),z:r.z+(id==='willow'?-5:8.5)};}
+export function parkPosition(id){const r=REGION_BY_ID[id];if(!r||id==='park'||isActivityHub(id))return null;return {x:r.x+(id==='willow'?0:-11),z:r.z+(id==='willow'?-5:8.5)};}

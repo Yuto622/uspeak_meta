@@ -1,0 +1,45 @@
+/* ことばの小屋 — the quiz screen. Big targets, one question at a time. */
+#quiz-dialog {
+  border: 0; border-radius: 22px; padding: 0; width: min(560px, calc(100vw - 28px));
+  max-height: min(88vh, 760px); max-height: min(88dvh, 760px); overflow: hidden;
+  background: #fffaf0; color: #263d33; box-shadow: 0 30px 80px rgba(10, 36, 27, .45);
+}
+/* Only when open: a bare `display` here would beat the browser's own
+   `dialog:not([open]) { display: none }` and leave a closed dialog over the world. */
+#quiz-dialog[open] { display: flex; flex-direction: column; }
+#quiz-dialog::backdrop { background: rgba(12, 32, 28, .55); backdrop-filter: blur(4px); }
+.quiz-head { display: flex; align-items: center; gap: 12px; padding: 18px 22px 12px; border-bottom: 1px solid #e6e2cf; flex: none; }
+.quiz-head .eyebrow { font-size: 10px; letter-spacing: 2px; font-weight: 700; color: #7b8a7f; }
+.quiz-head h2 { margin: 2px 0 0; font-size: 20px; }
+#quiz-score { margin-left: auto; font-size: 13px; font-weight: 700; color: #5d6d62; white-space: nowrap; }
+.quiz-head button { width: 32px; height: 32px; border-radius: 50%; background: #e8e7d4; font-size: 19px; flex: none; }
+#quiz-body { padding: 16px 22px 22px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+.quiz-hut { margin: 0 0 10px; font-size: 12px; font-weight: 700; color: #7b8a7f; }
+.quiz-question { padding: 18px; border-radius: 16px; background: #eef2e4; margin-bottom: 14px; }
+.quiz-question p { margin: 0 0 10px; font-size: 21px; line-height: 1.45; font-weight: 600; }
+.quiz-question button { padding: 7px 12px; border-radius: 10px; background: #dfe6d2; font-size: 12px; font-weight: 600; }
+.quiz-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.quiz-choices button { display: flex; align-items: center; gap: 10px; padding: 15px 14px; border-radius: 14px; background: #f1efe1; text-align: left; font-size: 15px; line-height: 1.35; }
+.quiz-choices button b { width: 26px; height: 26px; border-radius: 50%; background: #dfe6d2; display: grid; place-items: center; font-size: 13px; flex: none; }
+.quiz-choices button:active { background: #d8e3c9; }
+.quiz-choices button.right { background: #cdebd2; outline: 2px solid #4f9c62; }
+.quiz-choices button.right b { background: #7ec98a; color: #143726; }
+.quiz-choices button.wrong { background: #f3dcd8; outline: 2px solid #c07b6e; }
+.quiz-choices button:disabled { opacity: 1; }
+.quiz-feedback { margin: 14px 0 0; padding: 11px 14px; border-radius: 12px; font-size: 14px; font-weight: 700; }
+.quiz-feedback.ok { background: #cdebd2; color: #1f5c33; }
+.quiz-feedback.ng { background: #fdf3d6; color: #7a5a20; }
+.quiz-done { text-align: center; padding: 18px 6px; }
+.quiz-done strong { display: block; font-size: 26px; margin-bottom: 8px; }
+.quiz-done p { font-size: 14px; color: #5d6d62; margin: 6px 0 0; }
+.quiz-perfect { margin: 8px 0 0; padding: 9px 12px; border-radius: 12px; background: #fdf0c9; color: #7a5a20; font-weight: 700; }
+.quiz-actions { display: flex; gap: 8px; margin-top: 14px; justify-content: center; }
+.quiz-actions button { padding: 11px 16px; border-radius: 12px; background: #e5e9dc; font-weight: 600; font-size: 13px; }
+.quiz-actions button.primary { background: #173f38; color: #f4f1e3; }
+
+@media (max-width: 600px) {
+  .quiz-choices { grid-template-columns: 1fr; }
+  .quiz-question p { font-size: 18px; }
+  .quiz-choices button { padding: 13px 12px; font-size: 14px; }
+}

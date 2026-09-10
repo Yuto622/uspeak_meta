@@ -8,6 +8,7 @@ import { createChat } from './chat.js';
 import { createTeacherPanel } from './teacher.js';
 import { createLobby } from './lobby.js';
 import { createMissionUI } from './mission.js';
+import { createQuizUI } from './quiz.js';
 
 export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, speak }) {
   const Colyseus = globalThis.Colyseus;
@@ -39,6 +40,10 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     here: () => rpg.state.current === 'errand',
     travel: (id) => rpg.fly(id),
     setBeacon: (spotId) => rpg.errand.setTarget(spotId),
+  });
+  const quiz = createQuizUI({
+    send: (type, payload) => room?.send(type, payload),
+    speak, toast, isOnline: () => state.mode === 'online',
   });
   const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs });
   // Collect the controls into one dock so the layout is decided by flexbox, not by
@@ -139,6 +144,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
       mission.setClassMission(m.missionId);
       mission.setDone(m.missionsDone);
       mission.restore(m.errand);
+      quiz.restore(m.quiz);
       if (!viaToken) {
         restoreProgress(m.progressJson);
         if (m.position && m.restored) teleportTo(m.position, 'restore');
@@ -158,6 +164,10 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('roster', (m) => teacher.onRoster(m));
     r.onMessage('teacher:ack', (m) => teacher.onAck(m));
     r.onMessage('xp', (m) => applyProgress(m, m.levels));
+    r.onMessage('quiz:question', (m) => quiz.onQuestion(m));
+    r.onMessage('quiz:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); quiz.onResult(m); });
+    r.onMessage('quiz:closed', (m) => quiz.onClosed(m));
+    r.onMessage('quiz:error', (m) => quiz.onError(m));
     r.onMessage('levelup', (m) => toast(`${m.name} が レベル ${m.level} になりました！`));
     r.onMessage('mission:opened', (m) => mission.onOpened(m));
     r.onMessage('mission:arrived', (m) => mission.onArrived(m));
@@ -468,6 +478,8 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     openMission: () => mission.open(),
     errandInteract: () => { const near = rpg.errandNearby(); if (near) mission.interact(near.spot); },
     errandLabel: (spot) => mission.label(spot) || `${spot.character} と 話す`,
+    schoolInteract: () => { const near = rpg.schoolNearby(); if (near) quiz.enter(near.spot); },
+    schoolLabel: (spot) => quiz.label(spot),
     leave: () => goOffline(true),
   };
 }
