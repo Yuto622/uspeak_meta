@@ -54,6 +54,7 @@ const pos = (page) => page.evaluate(() => ({ x: uspeak.player.position.x, z: usp
 const hud = (page) => page.evaluate(() => { const h = document.querySelector('#errand-hud'); return h && !h.hidden ? h.textContent.replace(/\s+/g, ' ').trim() : ''; });
 const nearLabel = (page) => page.evaluate(() => { const n = document.querySelector('#near'); return n && n.style.display !== 'none' ? document.querySelector('#interact span').textContent : ''; });
 const coins = (page) => page.evaluate(() => uspeak.fishing.store.state.coins);
+const header = (page) => page.evaluate(() => ({ level: document.querySelector('#level').textContent, xp: document.querySelector('#xp').textContent }));
 
 // The eight key combinations in 45-degree steps from whatever heading 'w' produces.
 // Facing is atan2(dx, dz) and 'w' means dz--, so 'd' (dx++) is a quarter turn *down*
@@ -206,6 +207,10 @@ try {
   check('the reward arrives on delivery', (await coins(a)) === coins0 + mission.reward, `coins=${await coins(a)} expected=${coins0 + mission.reward}`);
   check('the stamp is recorded', (await a.textContent('#mission-body')).includes('おつかい完了'));
   check('the tracker clears', (await hud(a)) === '');
+
+  // Three goals met by speaking, at 15 XP each, is 45: past the 30 that level 1 costs.
+  const h = await header(a);
+  check('the header shows the level the server granted', h.level === '2' && h.xp === '45', JSON.stringify(h));
 
   const { mkdirSync } = await import('node:fs');
   mkdirSync(SHOTS, { recursive: true });

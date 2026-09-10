@@ -16,6 +16,7 @@ const { Client } = await import('colyseus.js');
 const { FISH } = await import('../../client/dist/fishing-data.js');
 const { WILLOW_LESSONS } = await import('../../client/dist/lesson-data.js');
 const { MISSIONS } = await import('../src/game/missions.js');
+const { REWARDS, xpToNext } = await import('../src/game/progression.js');
 
 let server; let url;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -103,7 +104,11 @@ test('answers, coins and catches are decided by the server', async () => {
   const step = WILLOW_LESSONS[0].steps[0];
   a.room.send('answer', { q: 'lesson:0:0', c: step[3] });
   let r = await nextMessage(a.room, 'answer:result');
-  assert.equal(r.correct, true); assert.equal(r.xp, 5); assert.deepEqual(r.stats, { correct: 1, attempts: 1 });
+  assert.equal(r.correct, true);
+  assert.equal(r.xp, REWARDS.lesson.xp, 'the rate card decides what a right answer is worth');
+  assert.deepEqual(r.stats, { correct: 1, attempts: 1 });
+  // XP is banked, not just reported: level 1 costs 30, so 10 leaves us short of level 2.
+  assert.deepEqual(r.progress, { level: 1, xp: 10, need: 30, total: 10, chats: 0 });
   a.room.send('answer', { q: 'lesson:0:0', c: (step[3] + 1) % 3 });
   r = await nextMessage(a.room, 'answer:result');
   assert.equal(r.correct, false); assert.deepEqual(r.stats, { correct: 1, attempts: 2 });
@@ -117,6 +122,9 @@ test('answers, coins and catches are decided by the server', async () => {
   a.room.send('answer', { q: `fish:${FISH[0].id}`, c: FISH[0].id });
   r = await nextMessage(a.room, 'answer:result');
   assert.equal(r.wallet.inventory[FISH[0].id], 1);
+  // 10 + 10 = 20, still inside level 1.
+  assert.equal(r.progress.level, 1);
+  assert.equal(r.progress.total, REWARDS.lesson.xp + REWARDS.fishWord.xp);
   a.room.send('economy', { op: 'sell', id: FISH[0].id, quantity: 1 });
   w = await nextMessage(a.room, 'wallet');
   assert.equal(w.ok, true); assert.equal(w.wallet.coins, FISH[0].price);
@@ -135,6 +143,9 @@ test('answers, coins and catches are decided by the server', async () => {
   assert.equal(again.welcome.restored, true);
   assert.equal(again.welcome.wallet.coins, FISH[0].price);
   assert.deepEqual(again.welcome.stats, { correct: 2, attempts: 3 });
+  // Level and XP survive the round trip through the store, like coins do.
+  assert.equal(again.welcome.progress.level, 1);
+  assert.equal(again.welcome.progress.total, REWARDS.lesson.xp + REWARDS.fishWord.xp);
   assert.equal(JSON.parse(again.welcome.progressJson).kind, 'uspeak-adventure');
   assert.equal(again.welcome.position.space, 'willow');
   await again.room.leave();

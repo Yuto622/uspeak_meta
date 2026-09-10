@@ -16,7 +16,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     mode: 'offline', // offline | connecting | online | reconnecting
     role: 'student', sessionId: null, name: '', classCode: '', teacherKey: '',
     attempts: 0, intentionalLeave: false, chatPaused: false, teacherId: '',
-    lastSpace: '', lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
+    progress: null, lastSpace: '', lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
     pendingTeleport: null, hiddenAt: 0, resumedAt: 0, lastAvatarJson: '',
   };
   let client = null;
@@ -79,6 +79,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     else chip.set('offline', 'オフライン');
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
+    if (mode === 'offline') state.progress = null;
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
   }
   function saveSession() {
@@ -134,6 +135,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
       chat.setPaused();
       teacher.setChatPaused(state.chatPaused);
       if (m.wallet) applyWallet(m.wallet);
+      applyProgress(m.progress);
       mission.setClassMission(m.missionId);
       mission.setDone(m.missionsDone);
       mission.restore(m.errand);
@@ -147,7 +149,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
       state.lastSent.s = ''; // force a fresh position sample
     });
     r.onMessage('wallet', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.ok === false && m.error) toast(walletError(m.error)); });
-    r.onMessage('answer:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.ok === false && m.error !== 'too fast') console.warn('[net] answer rejected', m); });
+    r.onMessage('answer:result', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress, m.levels); if (m.ok === false && m.error !== 'too fast') console.warn('[net] answer rejected', m); });
     r.onMessage('teleport', (m) => { teleportTo(m, m.reason); toast(m.reason === 'gather' ? `${m.by} 先生のところに集合！` : `${m.by} 先生が移動させました。`); });
     r.onMessage('call', (m) => showCall(m));
     r.onMessage('notice', (m) => toast(m.text));
@@ -155,10 +157,12 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     r.onMessage('chat:blocked', (m) => toast(m.reason === 'paused' ? 'チャットは先生によって一時停止中です。' : 'ゆっくり話そう。'));
     r.onMessage('roster', (m) => teacher.onRoster(m));
     r.onMessage('teacher:ack', (m) => teacher.onAck(m));
+    r.onMessage('xp', (m) => applyProgress(m, m.levels));
+    r.onMessage('levelup', (m) => toast(`${m.name} が レベル ${m.level} になりました！`));
     r.onMessage('mission:opened', (m) => mission.onOpened(m));
     r.onMessage('mission:arrived', (m) => mission.onArrived(m));
-    r.onMessage('mission:turn', (m) => mission.onTurn(m));
-    r.onMessage('mission:delivered', (m) => { if (m.wallet) applyWallet(m.wallet); mission.onDelivered(m); });
+    r.onMessage('mission:turn', (m) => { applyProgress(m.progress, m.levels); mission.onTurn(m); });
+    r.onMessage('mission:delivered', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress); mission.onDelivered(m); });
     r.onMessage('mission:closed', (m) => mission.onClosed(m));
     r.onMessage('mission:error', (m) => mission.onError(m));
     r.onMessage('progress:ack', () => {});
@@ -268,6 +272,27 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
 
   // ---- server-authoritative wallet & progress ---------------------------------------
 
+  // Level and XP are the server's, for the same reason coins are: they end up on a
+  // parent's report. Offline the local reckoning still runs; online this wins.
+  function applyProgress(p, levels = 0) {
+    if (!p || typeof p !== 'object') return;
+    state.progress = p;
+    writeProgress();
+    if (levels > 0) toast(`レベル ${p.level} になった！`);
+  }
+
+  function writeProgress() {
+    const p = state.progress;
+    if (!p || state.mode === 'offline') return;
+    const level = document.querySelector('#level');
+    const xp = document.querySelector('#xp');
+    // Rewritten every frame because the offline reckoning in game.js and rpg.js also
+    // owns these two elements and repaints them on its own schedule.
+    if (level && level.textContent !== String(p.level)) level.textContent = String(p.level);
+    const total = p.total.toLocaleString();
+    if (xp && xp.textContent !== total) xp.textContent = total;
+  }
+
   function applyWallet(w) {
     try {
       fishing.store.reconcile?.(w);
@@ -360,6 +385,7 @@ export function setupNet({ scene, player, rpg, fishing, avatars, park, toast, sp
     if (state.pendingTeleport) applyPendingTeleport();
     if (ownBubble && now > ownBubbleUntil) { player.remove(ownBubble); ownBubble = null; }
     remotes.update(t, currentSpace());
+    writeProgress();
     if (!room || state.mode !== 'online') return;
     const anim = rpg.state.mode === 'flight' ? 'fly' : moving ? (running ? 'run' : 'walk') : 'idle';
     // Arriving on (or leaving) the island changes what the errand tracker has to say.

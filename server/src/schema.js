@@ -10,6 +10,7 @@ export class Player extends Schema {
     this.name = '';
     this.avatar = '{"id":"kai"}';
     this.role = 'student';
+    this.level = 1;
     this.space = 'willow';
     this.x = 3;
     this.z = 8;
@@ -23,6 +24,7 @@ defineTypes(Player, {
   name: 'string',
   avatar: 'string',
   role: 'string',
+  level: 'uint16',
   space: 'string',
   x: 'float32',
   z: 'float32',

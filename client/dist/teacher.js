@@ -18,7 +18,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   <label class="net-t-field" for="net-t-mission">今日のおつかい</label>
   <select id="net-t-mission"><option value="">指定しない</option></select>
   <p class="net-fine" id="net-teacher-hint"></p>
-  <table class="net-roster"><thead><tr><th>名前</th><th>場所</th><th>◈</th><th>正解</th><th></th></tr></thead><tbody id="net-roster"></tbody></table>`;
+  <table class="net-roster"><thead><tr><th>名前</th><th>場所</th><th>Lv</th><th>◈</th><th>正解</th><th></th></tr></thead><tbody id="net-roster"></tbody></table>`;
   document.body.append(root);
   const button = document.createElement('button');
   button.type = 'button';
@@ -56,7 +56,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
 
   function renderRoster() {
     const rows = roster.filter((p) => p.role !== 'teacher').sort((a, b) => a.name.localeCompare(b.name, 'ja'));
-    $('#net-roster').innerHTML = rows.map((p) => `<tr class="${p.connected ? '' : 'net-offline'}"><td>${esc(p.name)}${p.connected ? '' : ' <small>(切断中)</small>'}</td><td><small>${esc(p.space)}</small></td><td>${p.coins}</td><td>${p.correct}/${p.attempts}</td><td><button type="button" data-call="${p.id}" title="呼び出す">📢</button><button type="button" data-move="${p.id}" title="ここへ移動">⤵</button></td></tr>`).join('') || '<tr><td colspan="5">生徒はまだいません</td></tr>';
+    $('#net-roster').innerHTML = rows.map((p) => `<tr class="${p.connected ? '' : 'net-offline'}"><td>${esc(p.name)}${p.connected ? '' : ' <small>(切断中)</small>'}</td><td><small>${esc(p.space)}</small></td><td title="${p.xp ?? 0} XP">${p.level ?? 1}</td><td>${p.coins}</td><td>${p.correct}/${p.attempts}</td><td><button type="button" data-call="${p.id}" title="呼び出す">📢</button><button type="button" data-move="${p.id}" title="ここへ移動">⤵</button></td></tr>`).join('') || '<tr><td colspan="6">生徒はまだいません</td></tr>';
     root.querySelectorAll('[data-call]').forEach((b) => { b.onclick = () => send({ cmd: 'call', target: b.dataset.call }); });
     root.querySelectorAll('[data-move]').forEach((b) => { b.onclick = () => { const p = point(); if (p) send({ cmd: 'move', target: b.dataset.move, ...p }); }; });
     $('#net-t-chat').textContent = chatPaused ? '▶ チャットを再開' : '⏸ チャットを一時停止';

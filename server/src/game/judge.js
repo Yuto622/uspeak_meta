@@ -43,10 +43,3 @@ export function judge(questionId, choice) {
   throw new JudgeError('unknown question kind');
 }
 
-// XP awarded for a server-judged answer. Kept deliberately simple and documented:
-// the client keeps its own richer spaced-repetition XP for game feel; the server's
-// numbers are what parents' reports are built from.
-export function xpFor(result) {
-  if (!result.correct) return 0;
-  return result.kind === 'lesson' ? 5 : 2;
-}

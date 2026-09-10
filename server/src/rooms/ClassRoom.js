@@ -4,11 +4,12 @@ import { timingSafeEqual } from 'node:crypto';
 import { Room, ServerError, matchMaker } from '../colyseus.js';
 import { RoomState, Player, ANIMS } from '../schema.js';
 import { config } from '../config.js';
-import { judge, xpFor, JudgeError } from '../game/judge.js';
+import { judge, JudgeError } from '../game/judge.js';
 import { applyOp, sanitizeWallet, EconomyError } from '../game/economy.js';
 import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
 import { MISSIONS } from '../game/missions.js';
+import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS } from '../game/progression.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
@@ -153,6 +154,7 @@ export class ClassRoom extends Room {
     player.role = auth.role;
     player.connected = true;
     if (position) { player.space = position.space; player.x = position.x; player.z = position.z; }
+    player.level = priv.progress.level;
     this.state.players.set(client.sessionId, player);
     if (auth.role === 'teacher') this.state.teacherId = client.sessionId;
 
@@ -236,8 +238,17 @@ export class ClassRoom extends Room {
     priv.lastAnswerAt = now;
     priv.stats.attempts += 1;
     if (result.correct) priv.stats.correct += 1;
-    const xp = xpFor(result);
+    // Roblox's rate card: the word huts pay both XP and coins, the island lessons and
+    // the word behind a catch pay XP (the fish itself is the catch's reward).
+    const rate = result.correct ? (REWARDS[result.kind === 'lesson' ? 'lesson' : result.kind === 'word' ? 'wordQuiz' : 'fishWord'] || { xp: 0, coins: 0 }) : { xp: 0, coins: 0 };
+    const xp = rate.xp;
+    const level = this.awardXp(client.sessionId, xp, result.questionId);
     let walletChanged = false;
+    if (rate.coins > 0) {
+      const entry = applyOp(priv.wallet, { type: 'award', amount: rate.coins, id: result.questionId });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      walletChanged = true;
+    }
     if (result.fishId && result.correct) {
       const entry = applyOp(priv.wallet, { type: 'catch', id: result.fishId });
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
@@ -250,6 +261,7 @@ export class ClassRoom extends Room {
     this.persist(client.sessionId);
     client.send('answer:result', {
       q: result.questionId, ok: true, correct: result.correct, xp, stats: { ...priv.stats },
+      progress: this.progressPayload(client.sessionId), levels: level?.levels || 0,
       ...(walletChanged ? this.walletPayload(client.sessionId) : {}),
     });
   }
@@ -291,7 +303,12 @@ export class ClassRoom extends Room {
     const now = Date.now();
     if (now - priv.lastChatAt < config.chatMinIntervalMs) { client.send('chat:blocked', { reason: 'rate' }); return; }
     priv.lastChatAt = now;
+    priv.progress.chats += 1;
+    const level = this.awardXp(client.sessionId, REWARDS.phrase.xp, `phrase:${id}`);
     this.broadcast('chat', { from: client.sessionId, name: player.name, id, t: now });
+    // Named 'xp', not 'progress': the client already sends 'progress' upward for the
+    // adventure save blob, and two meanings on one name is how bugs get planted.
+    client.send('xp', { ...this.progressPayload(client.sessionId), levels: level?.levels || 0 });
   }
 
   onTeacher(client, msg) {
@@ -340,7 +357,8 @@ export class ClassRoom extends Room {
         const roster = [];
         for (const [id, p] of this.state.players) {
           const priv = this.priv.get(id);
-          roster.push({ id, name: p.name, role: p.role, connected: p.connected, space: p.space, coins: priv?.wallet.coins ?? 0, correct: priv?.stats.correct ?? 0, attempts: priv?.stats.attempts ?? 0 });
+          roster.push({ id, name: p.name, role: p.role, connected: p.connected, space: p.space, coins: priv?.wallet.coins ?? 0, correct: priv?.stats.correct ?? 0, attempts: priv?.stats.attempts ?? 0,
+            level: priv?.progress.level ?? 1, xp: priv ? totalXp(priv.progress) : 0 });
         }
         client.send('roster', { players: roster, chatPaused: this.state.chatPaused });
         return;
@@ -372,6 +390,7 @@ export class ClassRoom extends Room {
         wands: parseJson(record.wands_json, []), wand: record.wand, catches: record.catches,
       }),
       stats: { correct: Math.max(0, Math.floor(num(record.correct))), attempts: Math.max(0, Math.floor(num(record.attempts))) },
+      progress: sanitizeProgress({ level: record.level, xp: record.xp, chats: record.chats }),
       progressJson: typeof record.progress_json === 'string' ? record.progress_json : '',
       missionsDone: (parseJson(record.missions_json, []) || []).filter((id) => MISSIONS.byId.has(id)).slice(0, 200),
       progressAt: 0,
@@ -400,8 +419,38 @@ export class ClassRoom extends Room {
       inventory_json: JSON.stringify(priv.wallet.inventory), owned_json: JSON.stringify(priv.wallet.owned),
       wands_json: JSON.stringify(priv.wallet.wands), wand: priv.wallet.wand,
       progress_json: priv.progressJson, missions_json: JSON.stringify(priv.missionsDone || []),
+      level: priv.progress.level, xp: priv.progress.xp, total_xp: totalXp(priv.progress), chats: priv.progress.chats,
       updated_at: iso, last_seen: priv.lastSeen,
     });
+  }
+
+  // ---- progression ---------------------------------------------------------------
+
+  // The only way XP is ever awarded. Everything that pays - a quiz, an errand goal, a
+  // phrase - comes through here, so there is one place to read when a number on a
+  // parent's report is questioned, and one place to change the rates.
+  awardXp(sessionId, amount, reason) {
+    const priv = this.priv.get(sessionId);
+    const player = this.state.players.get(sessionId);
+    if (!priv || amount <= 0) return null;
+    const result = grantXp(priv.progress, amount);
+    if (player) player.level = priv.progress.level;
+    if (result.levels > 0) {
+      log.info(`[room ${this.roomId}] "${priv.name}" reached level ${result.level} (${reason})`);
+      this.broadcast('levelup', { name: priv.name, level: result.level }, { except: this.clientOf(sessionId) });
+    }
+    return result;
+  }
+
+  clientOf(sessionId) {
+    return this.clients.find((c) => c.sessionId === sessionId) || null;
+  }
+
+  progressPayload(sessionId) {
+    const priv = this.priv.get(sessionId);
+    if (!priv) return null;
+    const { level, xp, chats } = priv.progress;
+    return { level, xp, need: xpToNext(level), total: totalXp(priv.progress), chats };
   }
 
   // ---- errand quest -------------------------------------------------------------
@@ -525,15 +574,19 @@ export class ClassRoom extends Room {
 
     this.store.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, `mission:${mission.id}`, 'mission',
-      utterance.slice(0, 80), gained.length ? 1 : 0, gained.length * 3, client.sessionId,
+      utterance.slice(0, 80), gained.length ? 1 : 0, gained.length * REWARDS.missionGoal.xp, client.sessionId,
     ]);
     priv.stats.attempts += 1;
     if (gained.length) priv.stats.correct += 1;
 
+    // Speaking English is the thing this whole product exists for, so a goal met by
+    // saying it is the best-paid act in the game. Roblox tuned it the same way.
+    const level = this.awardXp(client.sessionId, gained.length * REWARDS.missionGoal.xp, `mission:${mission.id}`);
     const payload = {
       reply: result.reply, hint: result.hint, goalsMet: state.goalsMet, gained,
       turn: state.turns.length, turnLimit: MISSIONS.turnLimit,
       complete: false, stage: state.stage,
+      progress: this.progressPayload(client.sessionId), levels: level?.levels || 0,
     };
     // Every goal met earns the errand, not the coins. The coins are at the plaza.
     if (result.complete) {
@@ -566,6 +619,7 @@ export class ClassRoom extends Room {
     this.persist(client.sessionId);
     client.send('mission:delivered', {
       id: mission.id, thanks: mission.thanks, item: mission.item, reward: mission.reward,
+      progress: this.progressPayload(client.sessionId),
       missionsDone: [...priv.missionsDone], wallet: this.walletPayload(client.sessionId).wallet,
       turns: state.turns.length,
     });
@@ -596,6 +650,7 @@ export class ClassRoom extends Room {
     return {
       sessionId, role: player.role, classCode: this.classCode, restored, position,
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
+      progress: this.progressPayload(sessionId),
       missionsDone: [...priv.missionsDone],
       // An errand in progress survives a screen lock, so the tracker comes back too.
       errand: priv.mission && MISSIONS.byId.has(priv.mission.id)

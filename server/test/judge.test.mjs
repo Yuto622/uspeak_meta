@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { judge, xpFor, JudgeError } from '../src/game/judge.js';
+import { judge, JudgeError } from '../src/game/judge.js';
+import { REWARDS } from '../src/game/progression.js';
 import { FISH } from '../../client/dist/fishing-data.js';
 import { LESSONS } from '../../client/dist/adventure-data.js';
 import { WILLOW_LESSONS } from '../../client/dist/lesson-data.js';
@@ -38,8 +39,9 @@ test('client cannot claim correctness; only the choice is trusted', () => {
   const wrong = (step[3] + 1) % step[2].length;
   const r = judge('lesson:0:0', wrong);
   assert.equal(r.correct, false);
-  assert.equal(xpFor(r), 0);
-  assert.equal(xpFor(judge('lesson:0:0', step[3])), 5);
+  // Judging says whether it was right; the rate card says what that is worth.
+  assert.equal(REWARDS.lesson.xp, 10);
+  assert.equal(REWARDS.wordQuiz.coins, 10);
   assert.throws(() => judge('bogus:1', 1), JudgeError);
   assert.throws(() => judge({ toString: () => 'lesson:0:0' }, 0), JudgeError);
 });

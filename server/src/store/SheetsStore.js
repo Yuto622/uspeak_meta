@@ -46,7 +46,16 @@ export class SheetsStore {
         await this.api.update(`${name}!A1`, [columns]);
       } else {
         const header = (await this.api.getValues(`${name}!1:1`))[0] || [];
-        if (!header.length) await this.api.update(`${name}!A1`, [columns]);
+        if (!header.length) {
+          await this.api.update(`${name}!A1`, [columns]);
+        } else if (header.length < columns.length && columns.slice(0, header.length).every((c, i) => c === header[i])) {
+          // Columns are only ever appended, so a short header means this sheet predates
+          // some fields. Extend it rather than leaving the new values unlabelled.
+          await this.api.update(`${name}!A1`, [columns]);
+          this.log.info?.(`[sheets] ${name}: header extended to ${columns.length} columns`);
+        } else if (header.length !== columns.length || !columns.every((c, i) => c === header[i])) {
+          this.log.warn?.(`[sheets] ${name}: header does not match the expected columns; leaving it alone. expected=${columns.join(',')} found=${header.join(',')}`);
+        }
       }
     }
     await this.refreshCache();
