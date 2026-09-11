@@ -1236,6 +1236,7 @@ test('英検の島: the hall you stand in is the skill you get, and the server d
 });
 
 test('おはなし: the room you walked into is the call, and the server only introduces', async () => {
+  const { TALK } = await import('../src/game/talk.js');
   const a = await join('Hina');
   const b = await join('Ren');
   const t = await join('Sensei3', { teacherKey: 'testkey12345' });
@@ -1245,16 +1246,35 @@ test('おはなし: the room you walked into is the call, and the server only in
   };
   const hall = 'in:eiken5:speaking';
 
-  // Nobody talks until a teacher opens it, however far into a building they walk.
+  // おはなし島 is open from the start: the island is one room and a child who lands on it
+  // is already in the call. Nobody has opened anything.
+  assert.equal(a.room.state.voice, 'rooms', 'the class starts with the island open and nothing else');
+  await stand(a, TALK.id);
+  a.room.send('voice:join', {});
+  const island = await nextMessage(a.room, 'voice:room');
+  assert.equal(island.room, TALK.id, 'the island itself is the room');
+  await stand(b, TALK.id);
+  b.room.send('voice:join', {});
+  assert.deepEqual((await nextMessage(b.room, 'voice:room')).peers.map((p) => p.name), ['Hina'],
+    'and everyone already standing on it is in the call');
+  // Walking into a booth takes a child out of the island's call and into the booth's.
+  const leftIsland = nextMessage(b.room, 'voice:peer');
+  await stand(a, `in:${TALK.id}:chat`);
+  assert.equal((await leftIsland).joined, false);
+  a.room.send('voice:join', {});
+  assert.deepEqual((await nextMessage(a.room, 'voice:room')), { room: `in:${TALK.id}:chat`, peers: [], me: a.room.sessionId });
+
+  // Everywhere else is shut until a teacher opens it, however far into a building a child
+  // walks.
   await stand(a, hall);
   a.room.send('voice:join', {});
   assert.equal((await nextMessage(a.room, 'voice:error')).reason, 'closed');
 
-  t.room.send('teacher', { cmd: 'voice', on: true });
-  assert.equal((await nextMessage(t.room, 'teacher:ack')).on, true);
-  await waitFor(() => a.room.state.voice === true);
+  t.room.send('teacher', { cmd: 'voice', mode: 'all' });
+  assert.equal((await nextMessage(t.room, 'teacher:ack')).mode, 'all');
+  await waitFor(() => a.room.state.voice === 'all');
 
-  // A call is a room, not the island: standing outside is not being in one.
+  // A call is a room, not the island: standing outside one is not being in one.
   await stand(a, 'eiken5');
   a.room.send('voice:join', {});
   assert.equal((await nextMessage(a.room, 'voice:error')).reason, 'not in a room');
@@ -1278,7 +1298,7 @@ test('おはなし: the room you walked into is the call, and the server only in
 
   // The introduction is passed along untouched, and only to the other person in the room.
   const relayed = nextMessage(b.room, 'rtc:signal');
-  a.room.send('rtc:signal', { to: second.peers[0].id === b.room.sessionId ? a.room.sessionId : b.room.sessionId, kind: 'offer', data: 'v=0 sdp' });
+  a.room.send('rtc:signal', { to: b.room.sessionId, kind: 'offer', data: 'v=0 sdp' });
   const got = await relayed;
   assert.equal(got.from, a.room.sessionId);
   assert.equal(got.kind, 'offer');
@@ -1298,10 +1318,13 @@ test('おはなし: the room you walked into is the call, and the server only in
   assert.equal(gone.id, b.room.sessionId);
   assert.equal(gone.joined, false);
 
-  // And the teacher closing it empties every room at once.
-  t.room.send('teacher', { cmd: 'voice', on: false });
+  // And a teacher can close all of it, おはなし島 included.
+  t.room.send('teacher', { cmd: 'voice', mode: 'off' });
   assert.equal((await nextMessage(a.room, 'voice:closed')).reason, 'closed');
-  await waitFor(() => a.room.state.voice === false);
+  await waitFor(() => a.room.state.voice === 'off');
+  await stand(a, TALK.id);
+  a.room.send('voice:join', {});
+  assert.equal((await nextMessage(a.room, 'voice:error')).reason, 'closed', 'even the island');
 
   await a.room.leave();
   await b.room.leave();

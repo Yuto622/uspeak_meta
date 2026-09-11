@@ -14,16 +14,20 @@
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-// A room a child can talk in is one they walked into: in:<island>:<building>. Their own
-// マイルーム and their building lot are theirs alone, and an island is not a call.
-export const isCallRoom = (space) => /^in:[^:]+:[^:]+$/.test(String(space || ''));
+// おはなし島 is the one island that is itself a room: standing on its grass is being in
+// the call with everyone else on it. Everywhere else, a room is one you walked into —
+// in:<island>:<building> — because a child's own マイルーム and their building lot are
+// theirs alone, and an island is not a call.
+export const TALK_ISLAND = 'talk';
+export const isTalkSpace = (space) => space === TALK_ISLAND || String(space || '').startsWith(`in:${TALK_ISLAND}:`);
+export const isCallRoom = (space) => space === TALK_ISLAND || /^in:[^:]+:[^:]+$/.test(String(space || ''));
 
 const ICE = [{ urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'] }];
 const CAMERA = { width: { ideal: 320 }, height: { ideal: 240 }, frameRate: { ideal: 15, max: 20 } };
 
 export function createVoice({ send, toast, roomLabel = () => '' }) {
   const state = {
-    open: false,        // the teacher has opened 通話 for the class
+    mode: 'rooms',      // 'rooms' おはなし島だけ / 'all' どこでも / 'off' 止まっている
     busyCamera: false,  // one camera switch at a time, or two taps race each other
     space: '',          // where the child is standing
     room: '',           // the call they are in, if any
@@ -107,9 +111,12 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     }
   }
 
+  // Where this child may talk, right now: the island always, everywhere else only if a
+  // teacher has opened it.
+  const openHere = () => (state.mode === 'off' ? false : state.mode === 'all' ? isCallRoom(state.space) : isTalkSpace(state.space));
+
   function render() {
-    const inRoom = isCallRoom(state.space);
-    panel.hidden = !(state.open && inRoom);
+    panel.hidden = !openHere();
     if (panel.hidden) return;
     $('#voice-room', panel).textContent = `🎧 ${roomLabel(state.space) || 'この部屋'}`;
     const people = [...state.peers.values()];
@@ -127,7 +134,10 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     $('#voice-cam', panel).textContent = state.camera ? '📷 カメラ オン' : '📷 カメラ オフ';
     $('#voice-cam', panel).classList.toggle('on', state.camera);
     renderTiles();
-    $('#voice-note', panel).textContent = state.error || (state.joined ? '部屋を 出ると おわります。' : '同じ 部屋の 人と 話せます。');
+    $('#voice-note', panel).textContent = state.error
+      || (state.joined
+        ? (state.space === TALK_ISLAND ? '島を はなれると おわります。' : '部屋を 出ると おわります。')
+        : (state.space === TALK_ISLAND ? 'この島に いる みんなと 話せます。' : '同じ 部屋の 人と 話せます。'));
   }
 
   // ---- the microphone --------------------------------------------------------------------
@@ -341,17 +351,18 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   return {
     state,
     // The class's switch, and where the child is standing: both come from the network layer.
-    setOpen(on) {
-      if (state.open === !!on) return;
-      state.open = !!on;
-      if (!state.open && state.joined) leave(true);
+    setMode(mode) {
+      const next = ['rooms', 'all', 'off'].includes(mode) ? mode : 'rooms';
+      if (state.mode === next) return;
+      state.mode = next;
+      if (state.joined && !openHere()) leave(true);
       render();
     },
     setSpace(space) {
       if (state.space === space) return;
       const was = state.space;
       state.space = space;
-      // Walking out of the room is hanging up.
+      // Walking out of the room — or off the island — is hanging up.
       if (state.joined && was !== space) leave(true);
       render();
     },

@@ -1,5 +1,6 @@
-// Browser end-to-end check for おはなし: two children walk into the same building and can
-// hear each other, and the server never carries a byte of it.
+// Browser end-to-end check for おはなし: two children on おはなし島 are in a call by
+// standing on it, two children who walk into the same building elsewhere can hear each
+// other once a teacher opens it, and the server never carries a byte of either.
 //
 // What is being checked is the whole rule: nothing is open until a teacher opens it, the
 // room a child is standing in is the call they are in, two browsers in that room really
@@ -78,6 +79,12 @@ async function enterHall(page, isle) {
   await page.waitForFunction(() => uspeak.net.currentSpace() === 'in:eiken5:speaking', null, { timeout: 20000, polling: 150 });
 }
 
+// おはなし島 is the island that is a call: flying to it is all it takes.
+async function landOnTalkIsland(page) {
+  await page.evaluate(() => { uspeak.rpg.fly('talk'); uspeak.rpg.finishFlight(); });
+  await page.waitForFunction(() => uspeak.net.currentSpace() === 'talk', null, { timeout: 40000, polling: 150 });
+}
+
 async function leaveHall(page) {
   await page.evaluate(() => { uspeak.player.position.z = 9.4; });
   await page.waitForFunction(() => !uspeak.rpg.insideBuilding, null, { timeout: 40000, polling: 150 });
@@ -93,8 +100,30 @@ try {
   const t = await openPage('Sensei', { teacherKey: TEACHER_KEY });
 
   const isle = await a.evaluate(async () => (await (await fetch('eiken.json')).json())).then((d) => d.islands.find((i) => i.id === 'eiken5'));
+  const talk = await a.evaluate(async () => (await (await fetch('talk.json')).json())).then((d) => d.island);
 
-  // Nothing is open, so standing in a room together offers nothing.
+  // ---- おはなし島: nobody opens anything, because the island is already a call.
+  await landOnTalkIsland(a);
+  await landOnTalkIsland(b);
+  await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 20000, polling: 200 });
+  check('landing on おはなし島 opens the call, with no teacher and no switch', true,
+    await a.evaluate(() => document.querySelector('#voice-room').textContent));
+  await a.click('#voice-join');
+  await b.click('#voice-join');
+  await a.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].some((p) => p.pc.connectionState === 'connected'), null, { timeout: 60000, polling: 300 });
+  check('and everyone standing on the island is in it', (await peers(a))[0]?.name === 'Ren', JSON.stringify(await peers(a)));
+  await a.screenshot({ path: path.join(SHOTS, 'e2e-voice-island.png') });
+
+  // A booth on the island is a room of its own: walking in leaves the island's call.
+  const booth = talk.spots[0];
+  await a.evaluate(([x, z]) => { uspeak.rpg.inside.leave(true); uspeak.player.position.set(x, 0, z); }, [talk.x + booth.x, talk.z + booth.z]);
+  await a.waitForFunction((id) => uspeak.rpg.insideBuilding?.spot?.id === id, booth.id, { timeout: 40000, polling: 150 });
+  await b.waitForFunction(() => uspeak.net.voice.state.peers.size === 0, null, { timeout: 30000, polling: 200 });
+  check('stepping into a booth leaves the island behind', true, booth.name);
+  await a.evaluate(() => { uspeak.player.position.z = 9.4; });
+  await a.waitForFunction(() => !uspeak.rpg.insideBuilding, null, { timeout: 40000, polling: 150 });
+
+  // ---- everywhere else: nothing is open until a teacher opens it.
   await enterHall(a, isle);
   await enterHall(b, isle);
   await sleep(800);

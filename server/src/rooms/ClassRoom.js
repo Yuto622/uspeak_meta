@@ -18,6 +18,7 @@ import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, Pe
 import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
 import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError } from '../game/eiken.js';
+import { TALK, isTalkSpace } from '../game/talk.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding, startLap, crossGate } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
@@ -35,6 +36,7 @@ const PERFECT_BONUS_COINS = 10;
 // 通話. A mesh call is every browser connected to every other one, so a room holds a
 // handful rather than a class; the rest of the class is in the other rooms.
 const VOICE_MAX = 6;
+const VOICE_MODES = ['rooms', 'all', 'off'];   // おはなし島だけ / どこでも / ぜんぶ止める
 const SIGNAL_MAX_BYTES = 8192;     // an SDP offer is ~4KB; a candidate is a line
 const SIGNAL_BURST = 120;          // per five seconds, per child   // Roblox: COIN_PERFECT_BONUS, for a clean ten
 const STALE_MOVE_MS = 5000;
@@ -427,13 +429,23 @@ export class ClassRoom extends Room {
         return;
       }
       case 'voice': {
-        this.state.voice = !!msg.on;
-        if (!this.state.voice) {
-          for (const id of [...this.voice.keys()]) this.dropVoice(id, 'closed');
+        // 'rooms' is the default the class starts in, so a teacher never has to do anything
+        // for おはなし島 to work; the command is for opening the rest of the world, or for
+        // closing everything at once.
+        const mode = VOICE_MODES.includes(msg.mode) ? msg.mode : (msg.on === true ? 'all' : msg.on === false ? 'off' : 'rooms');
+        this.state.voice = mode;
+        // Anyone now standing somewhere that is no longer open is taken out of their call.
+        for (const [id] of [...this.voice]) {
+          const player = this.state.players.get(id);
+          if (!player || !this.voiceOpenFor(player.space)) this.dropVoice(id, 'closed');
         }
-        this.broadcast('notice', { text: this.state.voice ? '先生が おはなしを ひらきました。部屋に入ると 話せます。' : 'おはなしは 先生が とじました。' }, { except: client });
-        client.send('teacher:ack', { cmd, ok: true, on: this.state.voice });
-        log.info(`[room ${this.roomId}] voice ${this.state.voice ? 'opened' : 'closed'} by "${me.name}"`);
+        this.broadcast('notice', { text: {
+          all: '先生が おはなしを ひらきました。どの 部屋でも 話せます。',
+          rooms: 'おはなしは おはなし島だけに なりました。',
+          off: 'おはなしは 先生が とじました。',
+        }[mode] }, { except: client });
+        client.send('teacher:ack', { cmd, ok: true, mode, on: mode === 'all' });
+        log.info(`[room ${this.roomId}] voice mode "${mode}" by "${me.name}"`);
         return;
       }
       case 'chat': {
@@ -1031,12 +1043,29 @@ export class ClassRoom extends Room {
   // having opened it, and no more than a roomful.
   static get VOICE_MAX() { return VOICE_MAX; }
 
-  // Only a room you walk into is a call: "in:<island>:<building>". A child's own マイルーム
-  // and their building lot are theirs alone, and the open islands are not a call at all.
+  // Where talking is open. The default is おはなし島 and nowhere else: that island is one
+  // room, so landing on it is already being in the call. A teacher can open every building
+  // on every island ('all'), or close all of it including the island ('off').
+  voiceOpenFor(space) {
+    if (this.state.voice === 'off') return false;
+    if (this.state.voice === 'all') return true;
+    return isTalkSpace(space);
+  }
+
+  // The room a child is in. おはなし島 itself counts as one — that is the whole point of it
+  // — and everywhere else it is a building walked into: "in:<island>:<building>". A child's
+  // own マイルーム and their building lot are theirs alone, and an island is not a call.
   voiceRoomOf(sessionId) {
     const player = this.state.players.get(sessionId);
     const space = player?.space || '';
+    if (space === TALK.id) return space;
     return /^in:[^:]+:[^:]+$/.test(space) ? space : '';
+  }
+
+  // A mesh is every browser connected to every other one, so a room holds a handful. The
+  // island's own plaza holds a few more, because it is where a class gathers.
+  voiceCapOf(room) {
+    return room === TALK.id ? TALK.plaza.max : VOICE_MAX;
   }
 
   voicePeers(room, except = '') {
@@ -1053,14 +1082,14 @@ export class ClassRoom extends Room {
     const id = client.sessionId;
     const player = this.state.players.get(id);
     if (!player) return;
-    if (!this.state.voice) { client.send('voice:error', { reason: 'closed' }); return; }
     const room = this.voiceRoomOf(id);
     if (!room) { client.send('voice:error', { reason: 'not in a room' }); return; }
+    if (!this.voiceOpenFor(player.space)) { client.send('voice:error', { reason: 'closed' }); return; }
     const peers = this.voicePeers(room, id);
-    // A mesh is every browser talking to every other one, so a roomful is a small number.
+    const cap = this.voiceCapOf(room);
     // A teacher is always let in: the one grown-up in the room is not an optional guest.
-    if (peers.length >= VOICE_MAX && player.role !== 'teacher') {
-      client.send('voice:error', { reason: 'room is full', max: VOICE_MAX });
+    if (peers.length >= cap && player.role !== 'teacher') {
+      client.send('voice:error', { reason: 'room is full', max: cap });
       return;
     }
     if (this.voice.get(id)?.room === room) { client.send('voice:room', { room, peers, me: id }); return; }

@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "note": "おはなし島。島そのものが1つの通話になる（広場に立っている人みんなが同じ通話）。ブースは少人数用の部屋で、建物に入ると広場から抜けてその部屋の通話になる。座標はクライアントとサーバーの共有データ。",
+  "island": {
+    "id": "talk",
+    "name": "おはなし島",
+    "en": "TALK ISLAND",
+    "x": 80,
+    "z": 200,
+    "radius": 5,
+    "grass": 9420678,
+    "grassTop": 10932634,
+    "plaza": {
+      "name": "ひろば",
+      "en": "TALK PLAZA",
+      "max": 8
+    },
+    "spawn": {
+      "x": 0,
+      "z": 21
+    },
+    "courtyard": {
+      "x": 0,
+      "z": 6
+    },
+    "spots": [
+      {
+        "id": "chat",
+        "kind": "booth",
+        "name": "おしゃべりブース",
+        "en": "CHAT BOOTH",
+        "character": "Upee",
+        "ja": "おしゃべりブース",
+        "tone": "💬",
+        "x": -15,
+        "z": 2,
+        "color": 7324368,
+        "path": {
+          "x": -6,
+          "z": 6
+        }
+      },
+      {
+        "id": "quiet",
+        "kind": "booth",
+        "name": "しずかなブース",
+        "en": "QUIET BOOTH",
+        "character": "Upee",
+        "ja": "しずかなブース",
+        "tone": "🤫",
+        "x": 15,
+        "z": 2,
+        "color": 10145914,
+        "path": {
+          "x": 6,
+          "z": 6
+        }
+      },
+      {
+        "id": "stage",
+        "kind": "booth",
+        "name": "はっぴょうルーム",
+        "en": "SHOW ROOM",
+        "character": "Upee",
+        "ja": "はっぴょうルーム",
+        "tone": "🎤",
+        "x": -15,
+        "z": -15,
+        "color": 15043750,
+        "path": {
+          "x": -6,
+          "z": -2
+        }
+      },
+      {
+        "id": "teacher",
+        "kind": "booth",
+        "name": "せんせいルーム",
+        "en": "TEACHER ROOM",
+        "character": "Upee",
+        "ja": "せんせいルーム",
+        "tone": "👩‍🏫",
+        "x": 15,
+        "z": -15,
+        "color": 15902298,
+        "path": {
+          "x": 6,
+          "z": -2
+        }
+      }
+    ]
+  }
+}

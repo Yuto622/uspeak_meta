@@ -5,7 +5,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   let open = false;
   let roster = [];
   let chatPaused = false;
-  let voiceOn = false;
+  let voiceMode = 'rooms';
   let missionId = '';
   let timer = null;
   const root = document.createElement('aside');
@@ -41,10 +41,10 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   }
   $('#net-t-gather').onclick = () => { const p = point(); if (p) send({ cmd: 'gather', ...p }); };
   $('#net-t-chat').onclick = () => send({ cmd: 'chat', paused: !chatPaused });
-  // 通話. Off until a teacher opens it: a live microphone in a classroom is the teacher's
-  // call. Opening it lets children who are in the same room hear each other, and nothing
-  // else changes — the islands and the screens are as they were.
-  $('#net-t-voice').onclick = () => send({ cmd: 'voice', on: !voiceOn });
+  // 通話. おはなし島 is always open — that island is one room and children go there to
+  // talk. This button is for the rest of the world: press once to open every building on
+  // every island, again to close all of it (the island included), again to go back.
+  $('#net-t-voice').onclick = () => send({ cmd: 'voice', mode: { rooms: 'all', all: 'off', off: 'rooms' }[voiceMode] || 'all' });
   $('#net-t-mission').onchange = (e) => send({ cmd: 'mission', id: e.target.value });
   $('#net-teacher-close').onclick = () => toggle(false);
   $('#net-t-reports').onclick = () => send({ cmd: 'reports' });
@@ -71,7 +71,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     root.querySelectorAll('[data-call]').forEach((b) => { b.onclick = () => send({ cmd: 'call', target: b.dataset.call }); });
     root.querySelectorAll('[data-move]').forEach((b) => { b.onclick = () => { const p = point(); if (p) send({ cmd: 'move', target: b.dataset.move, ...p }); }; });
     $('#net-t-chat').textContent = chatPaused ? '▶ チャットを再開' : '⏸ チャットを一時停止';
-    $('#net-t-voice').textContent = voiceOn ? '🔇 おはなしをとじる' : '🎙 おはなしをひらく';
+    $('#net-t-voice').textContent = { rooms: '🎙 おはなし：おはなし島だけ', all: '🎙 おはなし：どの部屋でも', off: '🔇 おはなし：とじている' }[voiceMode];
     $('#net-teacher-hint').textContent = `接続中 ${rows.filter((p) => p.connected).length} 人 · 集合・移動は今いる場所（${getSpace()}）へ`;
   }
 
@@ -107,7 +107,11 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     onAck(m) {
       if (m.ok === false) toast(`先生コマンド失敗: ${m.error || m.cmd}`);
       else if (m.cmd === 'gather') toast(`${m.count} 人に集合を指示しました。`);
-      else if (m.cmd === 'voice') { voiceOn = !!m.on; toast(voiceOn ? '部屋の中で話せるようにしました。' : 'おはなしをとじました。'); if (open) renderRoster(); }
+      else if (m.cmd === 'voice') {
+        voiceMode = m.mode || 'rooms';
+        toast({ all: 'どの部屋でも話せるようにしました。', rooms: 'おはなしはおはなし島だけになりました。', off: 'おはなしをとじました。' }[voiceMode]);
+        if (open) renderRoster();
+      }
       else if (m.cmd === 'chat') { chatPaused = !!m.paused; toast(chatPaused ? 'チャットを一時停止しました。' : 'チャットを再開しました。'); if (open) renderRoster(); }
       else if (m.cmd === 'mission') { missionId = m.id || ''; toast(m.id ? '今日のおつかいを設定しました。' : 'おつかいの指定を解除しました。'); }
       else if (m.cmd === 'call') toast('生徒を呼び出しました。');
@@ -116,7 +120,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
       else if (m.cmd === 'reports') showLinks(m.links || []);
     },
     setChatPaused(v) { chatPaused = v; if (open) renderRoster(); },
-    setVoice(v) { voiceOn = !!v; if (open) renderRoster(); },
+    setVoice(v) { voiceMode = ['rooms', 'all', 'off'].includes(v) ? v : 'rooms'; if (open) renderRoster(); },
     setMission(id) { missionId = id || ''; const select = root.querySelector('#net-t-mission'); if (select) select.value = missionId; },
   };
 }

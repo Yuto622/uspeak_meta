@@ -39,9 +39,10 @@ export class RoomState extends Schema {
     super();
     this.classCode = '';
     this.chatPaused = false;
-    // 通話. Off until a teacher turns it on: a live microphone in a classroom is the
-    // teacher's call, not a child's.
-    this.voice = false;
+    // 通話. Three settings, not two: 'rooms' (the default — おはなし島 and nowhere else),
+    // 'all' (a teacher has opened every building on every island) and 'off' (a teacher has
+    // closed all of it, おはなし島 included).
+    this.voice = 'rooms';
     this.teacherId = '';
     this.missionId = '';
     this.players = new MapSchema();
@@ -50,7 +51,7 @@ export class RoomState extends Schema {
 defineTypes(RoomState, {
   classCode: 'string',
   chatPaused: 'boolean',
-  voice: 'boolean',
+  voice: 'string',
   teacherId: 'string',
   missionId: 'string',
   players: { map: Player },
