@@ -301,6 +301,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('voice:peer', (m) => voice.onPeer(m));
     r.onMessage('voice:closed', (m) => voice.onClosed(m));
     r.onMessage('voice:error', (m) => voice.onError(m));
+    r.onMessage('voice:msg', (m) => voice.onMsg(m));
     r.onMessage('rtc:signal', (m) => voice.onSignal(m));
     r.onMessage('battle:state', (m) => battle.onState(m));
     r.onMessage('battle:quiz', (m) => battle.onQuiz(m));

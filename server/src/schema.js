@@ -39,10 +39,12 @@ export class RoomState extends Schema {
     super();
     this.classCode = '';
     this.chatPaused = false;
-    // 通話. Three settings, not two: 'rooms' (the default — おはなし島 and nowhere else),
-    // 'all' (a teacher has opened every building on every island) and 'off' (a teacher has
-    // closed all of it, おはなし島 included).
-    this.voice = 'rooms';
+    // 通話. Three settings, not two: 'all' (the default — every building on every island,
+    // plus おはなし島 itself), 'rooms' (おはなし島 and nowhere else) and 'off' (a teacher
+    // has closed all of it, おはなし島 included). A class starts open: a child who walks
+    // into a building is in the call with whoever else is inside, and nobody had to switch
+    // anything on for that to be true.
+    this.voice = 'all';
     this.teacherId = '';
     this.missionId = '';
     this.players = new MapSchema();

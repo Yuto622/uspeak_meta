@@ -67,7 +67,17 @@ const FAKE_MIC = () => {
     paint();
     return canvas.captureStream(10);
   };
+  // A "screen" to share: a different colour, so a tile showing it can be told apart from
+  // a tile showing a face.
+  const screen = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 320; canvas.height = 200;
+    const paint = () => { const c = canvas.getContext('2d'); c.fillStyle = '#3b2f6b'; c.fillRect(0, 0, 320, 200); requestAnimationFrame(paint); };
+    paint();
+    return canvas.captureStream(5);
+  };
   navigator.mediaDevices.getUserMedia = async (want) => (want?.video ? camera() : make());
+  navigator.mediaDevices.getDisplayMedia = async () => screen();
 };
 const results = [];
 const check = (name, ok, detail = '') => { results.push({ name, ok, detail }); console.log(`${ok ? 'PASS' : 'FAIL'} ${name} ${detail}`); };
@@ -152,18 +162,22 @@ try {
   await a.evaluate(() => { uspeak.player.position.z = 9.4; });
   await a.waitForFunction(() => !uspeak.rpg.insideBuilding, null, { timeout: 150000, polling: 150 });
 
-  // ---- everywhere else: nothing is open until a teacher opens it.
+  // ---- everywhere else: a room on any island is a call as well, and nobody opened it.
   await enterHall(a, isle);
   await enterHall(b, isle);
-  await sleep(800);
-  check('a room is silent until a teacher opens it', await a.evaluate(() => document.querySelector('#voice-panel').hidden));
-
-  await t.evaluate(() => uspeak.net.room.send('teacher', { cmd: 'voice', on: true }));
-  await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 60000, polling: 200 });
-  check('opening it shows the room panel to the children in a room', true);
+  await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 90000, polling: 200 });
+  check('a room on another island is a call too, with no teacher and no switch', true);
   check('and the panel says who could be in the call',
     (await a.evaluate(() => document.querySelector('#voice-room').textContent)).includes('ステージ'),
     await a.evaluate(() => document.querySelector('#voice-room').textContent));
+
+  // A teacher who needs the class quiet narrows it to おはなし島, and opens it again.
+  await t.evaluate(() => uspeak.net.room.send('teacher', { cmd: 'voice', mode: 'rooms' }));
+  await a.waitForFunction(() => document.querySelector('#voice-panel').hidden, null, { timeout: 60000, polling: 200 });
+  check('a teacher can narrow it back to おはなし島 alone', true);
+  await t.evaluate(() => uspeak.net.room.send('teacher', { cmd: 'voice', mode: 'all' }));
+  await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 60000, polling: 200 });
+  check('and open it again', true);
 
   // Standing outside is not being in a call, however open it is.
   await t.evaluate(() => { uspeak.rpg.fly('eiken5'); uspeak.rpg.finishFlight(); });
@@ -195,6 +209,42 @@ try {
     (await b.evaluate(() => document.querySelector('#voice-tiles [data-tile] small')?.textContent)) === 'Hina',
     await b.evaluate(() => document.querySelector('#voice-tiles [data-tile] small')?.textContent));
   await b.screenshot({ path: path.join(SHOTS, 'e2e-voice-camera.png') });
+
+  // 画面共有. A second video track, told apart from a face by the stream it arrives on.
+  await a.click('#voice-share');
+  await a.waitForFunction(() => uspeak.net.voice.state.screen, null, { timeout: 90000, polling: 200 });
+  check('the child sharing sees their own screen', await a.evaluate(() => !!document.querySelector('#voice-tiles [data-tile="me:screen"] video')?.srcObject));
+  await b.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].some((p) => p.screen.getVideoTracks().length), null, { timeout: 180000, polling: 300 });
+  check('the screen crosses to the other child as a screen, not as a face',
+    (await b.evaluate(() => [...uspeak.net.voice.state.peers.values()][0]?.stream.getVideoTracks().length)) === 1,
+    JSON.stringify(await b.evaluate(() => [...uspeak.net.voice.state.peers.values()].map((p) => ({ face: p.stream.getVideoTracks().length, screen: p.screen.getVideoTracks().length })))));
+  await b.waitForFunction(() => document.querySelectorAll('#voice-tiles .voice-tile.screen').length === 1, null, { timeout: 120000, polling: 300 });
+  check('and it is shown wide, with whose screen it is',
+    (await b.evaluate(() => document.querySelector('#voice-tiles .voice-tile.screen small')?.textContent)) === 'Hinaの がめん',
+    await b.evaluate(() => document.querySelector('#voice-tiles .voice-tile.screen small')?.textContent));
+  await b.screenshot({ path: path.join(SHOTS, 'e2e-voice-screen.png') });
+  await a.click('#voice-share');
+  await b.waitForFunction(() => document.querySelectorAll('#voice-tiles .voice-tile.screen').length === 0, null, { timeout: 120000, polling: 300 });
+  check('stopping the share takes it off the other screen too', true);
+
+  // メッセージ. Preset phrases only, and they reach the room without any browser having
+  // connected to any other one — which is the point of having them.
+  await a.click('#voice-say-open');
+  await a.waitForFunction(() => document.querySelectorAll('#voice-phrases [data-say]').length > 0, null, { timeout: 60000, polling: 200 });
+  check('the phrase list is English a child can read', 
+    (await a.evaluate(() => document.querySelector('#voice-phrases [data-say="can-you-hear"] span')?.textContent)) === 'Can you hear me?');
+  await a.click('#voice-phrases [data-say="can-you-hear"]');
+  await b.waitForFunction(() => document.querySelectorAll('#voice-log li').length === 1, null, { timeout: 90000, polling: 200 });
+  check('a message written in the room reaches the room',
+    (await b.evaluate(() => document.querySelector('#voice-log li span')?.textContent)) === 'Can you hear me?',
+    await b.evaluate(() => document.querySelector('#voice-log li')?.textContent));
+  check('and it says who wrote it',
+    (await b.evaluate(() => document.querySelector('#voice-log li b')?.textContent)) === 'Hina');
+  check('the writer sees their own line as theirs',
+    (await a.evaluate(() => document.querySelector('#voice-log li')?.className)) === 'mine');
+  // A child standing in another room is not in this conversation.
+  check('and nobody outside the room sees it',
+    (await t.evaluate(() => document.querySelectorAll('#voice-log li').length)) === 0);
 
   // がめんの 大きさ. The faces are the point of the camera, so the panel they live in has
   // to be resizable — one button, stepping 小 → 中 → 大 → 特大 and back round. Measured on

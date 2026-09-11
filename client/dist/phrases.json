@@ -53,6 +53,20 @@
         { "id": "i-did-it", "en": "I did it!", "ja": "できた！" },
         { "id": "good-luck", "en": "Good luck!", "ja": "がんばって！" }
       ]
+    },
+    {
+      "id": "talk",
+      "label": "おはなし",
+      "phrases": [
+        { "id": "can-you-hear", "en": "Can you hear me?", "ja": "きこえる？" },
+        { "id": "i-can-hear", "en": "Yes, I can hear you!", "ja": "きこえるよ！" },
+        { "id": "cant-hear", "en": "Sorry, I can't hear you.", "ja": "ごめん、きこえない。" },
+        { "id": "say-again", "en": "Say that again, please.", "ja": "もう一回言って。" },
+        { "id": "look-screen", "en": "Look at my screen!", "ja": "わたしの画面を見て！" },
+        { "id": "my-turn", "en": "My turn, please.", "ja": "つぎはわたしの番。" },
+        { "id": "your-turn", "en": "Your turn!", "ja": "きみの番だよ！" },
+        { "id": "just-a-moment", "en": "Just a moment, please.", "ja": "ちょっと待ってね。" }
+      ]
     }
   ]
 }

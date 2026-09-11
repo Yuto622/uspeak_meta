@@ -25,10 +25,14 @@ export const isCallRoom = (space) => space === TALK_ISLAND || /^in:[^:]+:[^:]+$/
 const ICE = [{ urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'] }];
 const CAMERA = { width: { ideal: 320 }, height: { ideal: 240 }, frameRate: { ideal: 15, max: 20 } };
 const RETRY_MS = 12000;  // how long a connection may stay unconnected before it is tried again
+// A shared screen is read, not watched: small and slow keeps a classroom of iPads on one
+// Wi-Fi, and a worksheet does not move.
+const SCREEN = { frameRate: { ideal: 6, max: 12 }, width: { max: 1280 }, height: { max: 800 } };
+const LOG_MAX = 12;      // how many written messages the panel keeps
 
 export function createVoice({ send, toast, roomLabel = () => '' }) {
   const state = {
-    mode: 'rooms',      // 'rooms' おはなし島だけ / 'all' どこでも / 'off' 止まっている
+    mode: 'all',        // 'all' どの島の どの部屋でも（既定）/ 'rooms' おはなし島だけ / 'off' 止まっている
     busyCamera: false,  // one camera switch at a time, or two taps race each other
     space: '',          // where the child is standing
     room: '',           // the call they are in, if any
@@ -36,13 +40,20 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     joined: false,
     muted: false,
     camera: false,
+    screen: false,      // 画面共有: this child is showing their screen to the room
+    busyScreen: false,
+    log: [],            // the last few written messages in this room
+    saying: false,      // the phrase list is open
     peers: new Map(),   // sessionId -> { id, name, role, pc, stream, polite, making, ignoring, level, el }
     size: 'm',          // how big the panel (and so the faces) are drawn
     error: '',
   };
   let local = null;         // MediaStream: the microphone, and the camera if it is on
+  let shared = null;        // MediaStream: the shared screen, kept apart from the face
   let meter = null;         // { ctx, nodes: Map(id -> analyser) }
   let levelTimer = 0;
+  let phrases = null;       // phrases.json, fetched the first time a child writes
+  let phrasesById = new Map();
 
   // ---- the panel ------------------------------------------------------------------------
 
@@ -57,7 +68,13 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       <button type="button" id="voice-join" class="primary">🎙 おはなしに はいる</button>
       <button type="button" id="voice-mute" hidden>マイク</button>
       <button type="button" id="voice-cam" hidden>カメラ</button>
+      <button type="button" id="voice-share" hidden>がめん</button>
     </div>
+    <ol id="voice-log" class="voice-log" aria-live="polite" hidden></ol>
+    <div class="voice-say">
+      <button type="button" id="voice-say-open">💬 メッセージ</button>
+    </div>
+    <div id="voice-phrases" class="voice-phrases" hidden></div>
     <p id="voice-note" class="voice-note"></p>`;
   document.body.append(panel);
   const audio = document.createElement('div');
@@ -68,6 +85,8 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   $('#voice-join', panel).onclick = () => join();
   $('#voice-mute', panel).onclick = () => setMuted(!state.muted);
   $('#voice-cam', panel).onclick = () => setCamera(!state.camera);
+  $('#voice-share', panel).onclick = () => setScreen(!state.screen);
+  $('#voice-say-open', panel).onclick = () => openSay(!state.saying);
 
   // ---- how big the faces are -------------------------------------------------------------
   //
@@ -104,12 +123,14 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
 
   // A face, with the name on it. One per camera that is on — the child's own included,
   // mirrored, because a picture of yourself that moves the wrong way is unsettling.
-  function tileFor(key, name, stream, mine = false) {
+  function tileFor(key, name, stream, mine = false, wide = false) {
     const tiles = $('#voice-tiles', panel);
     let box = tiles.querySelector(`[data-tile="${CSS.escape(key)}"]`);
     if (!box) {
       box = document.createElement('div');
-      box.className = `voice-tile ${mine ? 'mine' : ''}`;
+      // A shared screen is not a face: it is wide, it is not mirrored, and it takes the
+      // whole width of the panel, because the point of it is that it can be read.
+      box.className = `voice-tile ${wide ? 'screen' : mine ? 'mine' : ''}`;
       box.dataset.tile = key;
       const video = document.createElement('video');
       video.autoplay = true;
@@ -117,8 +138,9 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       video.muted = true;             // the sound comes through the audio element, once
       const label = document.createElement('small');
       box.append(video, label);
-      // The child's own face goes first; everyone else follows in the order they arrived.
-      if (mine) tiles.prepend(box); else tiles.append(box);
+      // A shared screen goes to the top — it is what everyone is looking at. Then the
+      // child's own face, then everyone else in the order they arrived.
+      if (wide || mine) tiles.prepend(box); else tiles.append(box);
     }
     box.querySelector('small').textContent = name;
     const video = box.querySelector('video');
@@ -136,19 +158,25 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
 
   // Cameras come and go while a call is running, so the grid is rebuilt from what is
   // actually arriving rather than from what was asked for.
+  const showing = (stream) => !!stream?.getVideoTracks().some((t) => t.readyState === 'live' && !t.muted);
+
   function renderTiles() {
     if (!state.joined) { $('#voice-tiles', panel).innerHTML = ''; $('#voice-tiles', panel).hidden = true; return; }
+    if (state.screen && showing(shared)) tileFor('me:screen', 'じぶんの がめん', shared, false, true);
+    else dropTile('me:screen');
     if (state.camera && local?.getVideoTracks().length) tileFor('me', 'じぶん', local, true);
     else dropTile('me');
     for (const peer of state.peers.values()) {
-      const live = peer.stream.getVideoTracks().some((t) => t.readyState === 'live' && !t.muted);
-      if (live) tileFor(peer.id, peer.name || '…', peer.stream);
+      if (showing(peer.screen)) tileFor(`${peer.id}:screen`, `${peer.name || '…'}の がめん`, peer.screen, false, true);
+      else dropTile(`${peer.id}:screen`);
+      if (showing(peer.stream)) tileFor(peer.id, peer.name || '…', peer.stream);
       else dropTile(peer.id);
     }
   }
 
-  // Where this child may talk, right now: the island always, everywhere else only if a
-  // teacher has opened it.
+  // Where this child may talk, right now: any room on any island, unless a teacher has
+  // narrowed it to おはなし島 ('rooms') or closed it ('off'). おはなし島 itself is always a
+  // room — standing on it is being in the call — for as long as talking is open at all.
   const openHere = () => (state.mode === 'off' ? false : state.mode === 'all' ? isCallRoom(state.space) : isTalkSpace(state.space));
 
   function render() {
@@ -165,15 +193,40 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     $('#voice-join', panel).hidden = state.joined;
     $('#voice-mute', panel).hidden = !state.joined;
     $('#voice-cam', panel).hidden = !state.joined;
+    // No button for something this browser cannot do: iPads have no 画面共有 at all, and a
+    // button that always fails is worse than no button.
+    $('#voice-share', panel).hidden = !state.joined || !canShare();
     $('#voice-mute', panel).textContent = state.muted ? '🔇 ミュート中' : '🎙 オン';
     $('#voice-mute', panel).classList.toggle('off', state.muted);
     $('#voice-cam', panel).textContent = state.camera ? '📷 カメラ オン' : '📷 カメラ オフ';
     $('#voice-cam', panel).classList.toggle('on', state.camera);
+    $('#voice-share', panel).textContent = state.screen ? '🖥 がめん 見せている' : '🖥 がめんを 見せる';
+    $('#voice-share', panel).classList.toggle('on', state.screen);
     renderTiles();
+    renderSay();
     $('#voice-note', panel).textContent = state.error
       || (state.joined
         ? (state.space === TALK_ISLAND ? '島を はなれると おわります。' : '部屋を 出ると おわります。')
-        : (state.space === TALK_ISLAND ? 'この島に いる みんなと 話せます。' : '同じ 部屋の 人と 話せます。'));
+        : (state.space === TALK_ISLAND ? 'この島に いる みんなと 話せます。' : 'この 部屋に いる 人と 話せます。'));
+  }
+
+  // The written half of the room: what has been said, and the list to say something from.
+  function renderSay() {
+    const log = $('#voice-log', panel);
+    log.hidden = !state.log.length;
+    log.innerHTML = state.log.map((m) => {
+      const said = phrasesById.get(m.id);
+      return `<li class="${m.mine ? 'mine' : ''}"><b>${esc(m.mine ? 'じぶん' : m.name || '…')}</b>`
+        + `<span>${esc(said?.en || '')}</span><small>${esc(said?.ja || '')}</small></li>`;
+    }).join('');
+    log.scrollTop = log.scrollHeight;
+    $('#voice-say-open', panel).textContent = state.saying ? '× とじる' : '💬 メッセージ';
+    const list = $('#voice-phrases', panel);
+    list.hidden = !state.saying;
+    if (!state.saying) return;
+    list.innerHTML = sayCategories().map((c) => `<b>${esc(c.label)}</b>`
+      + (c.phrases || []).map((ph) => `<button type="button" data-say="${esc(ph.id)}"><span>${esc(ph.en)}</span><small>${esc(ph.ja)}</small></button>`).join('')).join('');
+    list.querySelectorAll('[data-say]').forEach((b) => { b.onclick = () => say(b.dataset.say); });
   }
 
   // ---- the microphone --------------------------------------------------------------------
@@ -251,6 +304,104 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     }
   }
 
+  // ---- 画面共有 ---------------------------------------------------------------------------
+  //
+  // A second video track, kept in a MediaStream of its own so the other side can tell a
+  // screen from a face — the receiving browser sees the same stream id, and a small
+  // 'screen' note over the signalling channel says which id that is. The picture is small
+  // and slow on purpose: a worksheet or a drawing has to be readable, not smooth, and a
+  // classroom of iPads shares one Wi-Fi.
+  const canShare = () => typeof navigator.mediaDevices?.getDisplayMedia === 'function';
+
+  async function setScreen(on) {
+    if (!state.joined || state.busyScreen) return;
+    state.busyScreen = true;
+    try {
+      if (on) {
+        if (!canShare()) { state.error = 'この端末では がめんを 見せられません。'; return; }
+        shared = await navigator.mediaDevices.getDisplayMedia({ video: SCREEN, audio: false });
+        state.screen = true;
+        state.error = '';
+        for (const track of shared.getVideoTracks()) {
+          // The browser's own "stop sharing" bar is the other way out of this, and it has
+          // to end the share here too.
+          track.onended = () => { if (state.screen) setScreen(false); };
+          for (const peer of state.peers.values()) peer.pc?.addTrack(track, shared);
+        }
+        for (const peer of state.peers.values()) tellScreen(peer);
+      } else {
+        for (const track of shared?.getVideoTracks() || []) {
+          for (const peer of state.peers.values()) {
+            const sender = peer.pc?.getSenders().find((sn) => sn.track === track);
+            if (sender) peer.pc.removeTrack(sender);
+          }
+          track.stop();
+        }
+        shared = null;
+        state.screen = false;
+        for (const peer of state.peers.values()) tellScreen(peer);
+      }
+    } catch (err) {
+      // Cancelling the browser's own picker lands here, and is not an error worth saying.
+      console.warn('[voice] screen', err?.name || err);
+      if (err?.name !== 'NotAllowedError' && err?.name !== 'AbortError') state.error = `がめんを 見せられませんでした（${err?.name || 'エラー'}）。`;
+      state.screen = false;
+      shared = null;
+    } finally {
+      state.busyScreen = false;
+      render();
+    }
+  }
+
+  // Which of the streams arriving from this browser is the screen. Sent whenever it starts
+  // or stops, and to anyone who joins while it is already running.
+  const tellScreen = (peer) => signal(peer, 'screen', { id: state.screen ? shared?.id || '' : '', on: !!state.screen });
+
+  // ---- メッセージ ---------------------------------------------------------------------------
+  //
+  // Written words in the room, for when a microphone is not the way: a child on a muted
+  // iPad, a network that will not carry a voice, a name nobody caught. Only the preset
+  // phrases travel — an id from phrases.json — so nothing a child typed can reach another
+  // child, which is the same rule the class chat has always had.
+  async function loadPhrases() {
+    if (phrases) return phrases;
+    try {
+      phrases = await (await fetch('phrases.json', { cache: 'no-cache' })).json();
+    } catch (err) {
+      console.warn('[voice] phrases.json', err);
+      phrases = { categories: [] };
+    }
+    phrasesById = new Map();
+    for (const c of phrases.categories || []) for (const ph of c.phrases || []) phrasesById.set(ph.id, ph);
+    return phrases;
+  }
+
+  // おはなし first: they are the phrases this panel is for. The rest follow in file order.
+  const sayCategories = () => [...(phrases?.categories || [])].sort((a, b) => (a.id === 'talk' ? -1 : b.id === 'talk' ? 1 : 0));
+
+  async function openSay(open) {
+    state.saying = open;
+    if (open) await loadPhrases();
+    render();
+  }
+
+  function say(id) {
+    if (!phrasesById.has(id)) return;
+    send('voice:msg', { id });
+    state.saying = false;
+    render();
+  }
+
+  // A message from the room — the child's own included, echoed back by the server so that
+  // everyone sees the same list in the same order.
+  function onMsg(m) {
+    const said = phrasesById.get(m?.id);
+    if (!said) { loadPhrases().then(() => { if (phrasesById.has(m?.id)) onMsg(m); }); return; }
+    state.log.push({ id: m.id, name: m.name || '', mine: m.from === state.me, at: Date.now() });
+    if (state.log.length > LOG_MAX) state.log.splice(0, state.log.length - LOG_MAX);
+    render();
+  }
+
   // ---- one connection per person in the room ---------------------------------------------
 
   // The standard "perfect negotiation" dance: both sides may offer at once, and the polite
@@ -260,9 +411,21 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     let peer = state.peers.get(info.id);
     if (peer) { peer.name = info.name ?? peer.name; peer.role = info.role ?? peer.role; return peer; }
     const pc = new RTCPeerConnection({ iceServers: ICE });
-    peer = { ...info, pc, level: 0, polite: state.me < info.id, making: false, ignoring: false, stream: new MediaStream() };
+    peer = {
+      ...info, pc, level: 0, polite: state.me < info.id, making: false, ignoring: false,
+      stream: new MediaStream(),   // their microphone and their face
+      screen: new MediaStream(),   // their shared screen, if they are showing one
+      screenId: '',                // which arriving stream that is (they tell us)
+      from: new Map(),             // track id -> the stream id it arrived on
+    };
     state.peers.set(info.id, peer);
     for (const track of local?.getTracks() || []) pc.addTrack(track, local);
+    // Someone joining a room where a screen is already up gets it too, and is told which
+    // of the two streams it is.
+    if (state.screen && shared) {
+      for (const track of shared.getVideoTracks()) pc.addTrack(track, shared);
+      queueMicrotask(() => tellScreen(peer));
+    }
     pc.onicecandidate = (e) => { if (e.candidate) signal(peer, 'ice', e.candidate.toJSON()); };
     pc.onnegotiationneeded = async () => {
       try {
@@ -272,12 +435,20 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       } catch { /* the connection is going away */ } finally { peer.making = false; }
     };
     pc.ontrack = (e) => {
-      peer.stream.addTrack(e.track);
+      // Which stream it came in on decides whether it is a face or a screen. The note
+      // saying which is which can arrive either side of the track, so the id is kept and
+      // the tracks are sorted again whenever it changes.
+      peer.from.set(e.track.id, e.streams[0]?.id || '');
+      sortTracks(peer);
       attach(peer);
       if (e.track.kind === 'audio') watchLevel(peer.id, peer.stream);
       // A camera switched off at the other end arrives here as a track going quiet, and
       // the tile has to go with it.
-      const forget = () => { try { peer.stream.removeTrack(e.track); } catch { /* gone */ } render(); };
+      const forget = () => {
+        peer.from.delete(e.track.id);
+        for (const stream of [peer.stream, peer.screen]) { try { stream.removeTrack(e.track); } catch { /* gone */ } }
+        render();
+      };
       e.track.onended = forget;
       e.track.onmute = () => render();
       e.track.onunmute = () => render();
@@ -305,6 +476,20 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     return peer;
   }
 
+  // Put every track this peer has sent into the right one of their two streams: the screen
+  // if it came in on the stream they named as their screen, their face and voice otherwise.
+  function sortTracks(peer) {
+    for (const receiver of peer.pc.getReceivers()) {
+      const track = receiver.track;
+      if (!track) continue;
+      const isScreen = peer.screenId && peer.from.get(track.id) === peer.screenId;
+      const want = isScreen ? peer.screen : peer.stream;
+      const other = isScreen ? peer.stream : peer.screen;
+      try { other.removeTrack(track); } catch { /* was not in it */ }
+      if (!want.getTracks().includes(track)) { try { want.addTrack(track); } catch { /* gone */ } }
+    }
+  }
+
   const signal = (peer, kind, data) => send('rtc:signal', { to: peer.id, kind, data: JSON.stringify(data) });
 
   async function onSignal(m) {
@@ -325,6 +510,11 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
         }
       } else if (m.kind === 'ice') {
         try { await pc.addIceCandidate(payload); } catch { if (!peer.ignoring) throw new Error('ice'); }
+      } else if (m.kind === 'screen') {
+        // "the stream with this id is my screen" — or, with no id, "I have stopped".
+        peer.screenId = payload?.on ? String(payload.id || '') : '';
+        sortTracks(peer);
+        render();
       }
     } catch { /* a failed negotiation closes itself through onconnectionstatechange */ }
   }
@@ -356,10 +546,13 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   function leave(quiet = false) {
     for (const id of [...state.peers.keys()]) closePeer(id);
     for (const track of local?.getTracks() || []) track.stop();
+    for (const track of shared?.getTracks() || []) track.stop();
     local = null;
+    shared = null;
     meter?.nodes.clear();
     state.joined = false;
     state.camera = false;
+    state.screen = false;
     state.room = '';
     state.level = 0;
     $('#voice-tiles', panel).innerHTML = '';
@@ -405,7 +598,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     state,
     // The class's switch, and where the child is standing: both come from the network layer.
     setMode(mode) {
-      const next = ['rooms', 'all', 'off'].includes(mode) ? mode : 'rooms';
+      const next = ['rooms', 'all', 'off'].includes(mode) ? mode : 'all';
       if (state.mode === next) return;
       state.mode = next;
       if (state.joined && !openHere()) leave(true);
@@ -415,7 +608,9 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       if (state.space === space) return;
       const was = state.space;
       state.space = space;
-      // Walking out of the room — or off the island — is hanging up.
+      // Walking out of the room — or off the island — is hanging up. What was written in
+      // that room stays in it: a new room starts with an empty page.
+      if (was !== space) { state.log = []; state.saying = false; }
       if (state.joined && was !== space) leave(true);
       render();
     },
@@ -432,6 +627,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       render();
     },
     onSignal,
+    onMsg,
     onClosed() { if (state.joined) leave(true); },
     onError(m) {
       const said = {
@@ -446,6 +642,8 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     },
     leave,
     setSize,
+    setScreen,
+    say,
     get joined() { return state.joined; },
     get panel() { return panel; },
   };

@@ -22,8 +22,12 @@
 #voice-panel[data-size="l"] .voice-tile small { font-size: 12px; }
 #voice-panel[data-size="xl"] .voice-tile small { font-size: 14px; padding: 3px 8px; }
 .voice-head { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
-.voice-head b { font-size: 13px; letter-spacing: .02em; flex: 1 1 auto; min-width: 0; }
-.voice-head small { opacity: .7; font-size: 11px; }
+/* One line each: a room name that wraps onto two lines pushes the size button about. */
+.voice-head b {
+  font-size: 13px; letter-spacing: .02em; flex: 1 1 auto; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.voice-head small { opacity: .7; font-size: 11px; white-space: nowrap; flex: 0 0 auto; }
 /* The size button. Small, out of the way, but a whole finger wide — it is tapped on an iPad. */
 .voice-size {
   flex: 0 0 auto; padding: 3px 8px; border-radius: 9px; background: #ffffff1f; color: #f3efe1;
@@ -57,10 +61,42 @@
 }
 /* A picture of yourself that moves the wrong way is unsettling, so it is mirrored. */
 .voice-tile.mine video { transform: scaleX(-1); }
+/* A shared screen is read, not looked at: full width, wide, and the right way round. */
+.voice-tile.screen { grid-column: 1 / -1; }
+.voice-tile.screen video { aspect-ratio: 16 / 10; max-height: 46vh; object-fit: contain; background: #07100f; }
+.voice-tile.screen small { background: linear-gradient(transparent, #05201ecc); }
 .voice-tile small {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 2px 6px;
   background: linear-gradient(transparent, #05201e cc); color: #f3efe1; font-size: 10px;
 }
+/* メッセージ. The written half of the room: what has been said, and the list to say from.
+   Only preset phrases, so every line is English a child can read aloud. */
+.voice-log {
+  list-style: none; margin: 0; padding: 0; max-height: 22vh; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 4px; font-size: 12px;
+}
+.voice-log li { background: #ffffff14; border-radius: 9px; padding: 4px 7px; }
+.voice-log li.mine { background: #74c39a26; }
+.voice-log b { display: block; font-size: 10px; opacity: .7; }
+.voice-log span { display: block; }
+.voice-log small { opacity: .7; font-size: 10px; }
+.voice-say { display: flex; }
+.voice-say button {
+  flex: 1 1 auto; padding: 7px 10px; border-radius: 11px; font-size: 12px; font-weight: 700;
+  background: #ffffff1f; color: #f3efe1;
+}
+.voice-say button:active { transform: translateY(1px); }
+.voice-phrases {
+  max-height: 34vh; overflow-y: auto; display: flex; flex-direction: column; gap: 4px;
+  background: #0e2422aa; border-radius: 12px; padding: 6px;
+}
+.voice-phrases b { font-size: 10px; opacity: .65; padding: 2px 2px 0; }
+.voice-phrases button {
+  text-align: left; padding: 6px 8px; border-radius: 9px; background: #ffffff14; color: #f3efe1;
+}
+.voice-phrases button span { display: block; font-size: 12px; font-weight: 700; }
+.voice-phrases button small { opacity: .7; font-size: 10px; }
+.voice-phrases button:active { background: #ffffff2b; }
 #voice-audio { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 /* Indoors the panel would sit under the building HUD, so it moves up out of its way. */

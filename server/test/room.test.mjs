@@ -1246,9 +1246,9 @@ test('おはなし: the room you walked into is the call, and the server only in
   };
   const hall = 'in:eiken5:speaking';
 
-  // おはなし島 is open from the start: the island is one room and a child who lands on it
-  // is already in the call. Nobody has opened anything.
-  assert.equal(a.room.state.voice, 'rooms', 'the class starts with the island open and nothing else');
+  // Talking is open from the start, everywhere: おはなし島 because the island is one room,
+  // and every building on every island because a room is a call. Nobody opened anything.
+  assert.equal(a.room.state.voice, 'all', 'the class starts with every room open');
   await stand(a, TALK.id);
   a.room.send('voice:join', {});
   const island = await nextMessage(a.room, 'voice:room');
@@ -1264,9 +1264,17 @@ test('おはなし: the room you walked into is the call, and the server only in
   a.room.send('voice:join', {});
   assert.deepEqual((await nextMessage(a.room, 'voice:room')), { room: `in:${TALK.id}:chat`, peers: [], me: a.room.sessionId });
 
-  // Everywhere else is shut until a teacher opens it, however far into a building a child
-  // walks.
+  // A hall on another island is a call as well, with nobody having opened anything.
   await stand(a, hall);
+  a.room.send('voice:join', {});
+  assert.equal((await nextMessage(a.room, 'voice:room')).room, hall, 'any room on any island is a call');
+
+  // A teacher who needs quiet narrows it to the island, and the hall shuts behind them.
+  const shutOut = nextMessage(a.room, 'voice:closed');
+  t.room.send('teacher', { cmd: 'voice', mode: 'rooms' });
+  assert.equal((await nextMessage(t.room, 'teacher:ack')).mode, 'rooms');
+  await waitFor(() => a.room.state.voice === 'rooms');
+  assert.equal((await shutOut).reason, 'closed', 'and anyone in one is taken out');
   a.room.send('voice:join', {});
   assert.equal((await nextMessage(a.room, 'voice:error')).reason, 'closed');
 
@@ -1310,6 +1318,25 @@ test('おはなし: the room you walked into is the call, and the server only in
   await nextMessage(t.room, 'voice:room');
   t.room.send('rtc:signal', { to: a.room.sessionId, kind: 'offer', data: 'x' });
   assert.equal((await nextMessage(t.room, 'voice:error')).reason, 'no such peer');
+
+  // メッセージ: preset phrases only, and only to the room the child is standing in.
+  const heard = nextMessage(b.room, 'voice:msg');
+  a.room.send('voice:msg', { id: 'can-you-hear' });
+  const written = await heard;
+  assert.equal(written.id, 'can-you-hear');
+  assert.equal(written.name, 'Hina');
+  assert.equal(written.room, hall, 'a message belongs to the room it was written in');
+  // Anything that is not one of the phrases is not a message.
+  const echo = nextMessage(b.room, 'voice:msg');
+  a.room.send('voice:msg', { id: 'you are a bad dog' });
+  a.room.send('voice:msg', { id: 'i-can-hear' });
+  assert.equal((await echo).id, 'i-can-hear', 'free text never reaches another child');
+  // A child in another room does not hear the room next door.
+  const wrongRoom = await Promise.race([
+    nextMessage(t.room, 'voice:msg').then(() => 'heard'),
+    sleep(250).then(() => 'silence'),
+  ]);
+  assert.equal(wrongRoom, 'silence', 'a message does not cross rooms');
 
   // Walking out is hanging up: no button, no message from the page.
   const left = nextMessage(a.room, 'voice:peer');

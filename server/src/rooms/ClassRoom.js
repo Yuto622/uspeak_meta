@@ -36,7 +36,7 @@ const PERFECT_BONUS_COINS = 10;
 // 通話. A mesh call is every browser connected to every other one, so a room holds a
 // handful rather than a class; the rest of the class is in the other rooms.
 const VOICE_MAX = 6;
-const VOICE_MODES = ['rooms', 'all', 'off'];   // おはなし島だけ / どこでも / ぜんぶ止める
+const VOICE_MODES = ['all', 'rooms', 'off'];   // どこでも（既定）/ おはなし島だけ / ぜんぶ止める
 const SIGNAL_MAX_BYTES = 8192;     // an SDP offer is ~4KB; a candidate is a line
 const SIGNAL_BURST = 120;          // per five seconds, per child   // Roblox: COIN_PERFECT_BONUS, for a clean ten
 const STALE_MOVE_MS = 5000;
@@ -144,6 +144,7 @@ export class ClassRoom extends Room {
     this.onMessage('wallet:get', (client) => client.send('wallet', { ok: true, op: 'get', ...this.walletPayload(client.sessionId) }));
     this.onMessage('voice:join', (client) => this.onVoiceJoin(client));
     this.onMessage('voice:leave', (client) => this.onVoiceLeave(client, 'left'));
+    this.onMessage('voice:msg', (client, msg) => this.onVoiceMsg(client, msg));
     this.onMessage('rtc:signal', (client, msg) => this.onRtcSignal(client, msg));
     this.onMessage('ping', (client, t) => client.send('pong', { t, server: Date.now() }));
 
@@ -429,10 +430,10 @@ export class ClassRoom extends Room {
         return;
       }
       case 'voice': {
-        // 'rooms' is the default the class starts in, so a teacher never has to do anything
-        // for おはなし島 to work; the command is for opening the rest of the world, or for
-        // closing everything at once.
-        const mode = VOICE_MODES.includes(msg.mode) ? msg.mode : (msg.on === true ? 'all' : msg.on === false ? 'off' : 'rooms');
+        // 'all' is the default the class starts in, so a teacher never has to do anything
+        // for a call to work anywhere; the command is for narrowing it to おはなし島 when a
+        // lesson needs quiet, or closing everything at once.
+        const mode = VOICE_MODES.includes(msg.mode) ? msg.mode : (msg.on === true ? 'all' : msg.on === false ? 'off' : 'all');
         this.state.voice = mode;
         // Anyone now standing somewhere that is no longer open is taken out of their call.
         for (const [id] of [...this.voice]) {
@@ -440,7 +441,7 @@ export class ClassRoom extends Room {
           if (!player || !this.voiceOpenFor(player.space)) this.dropVoice(id, 'closed');
         }
         this.broadcast('notice', { text: {
-          all: '先生が おはなしを ひらきました。どの 部屋でも 話せます。',
+          all: 'おはなしを ひらきました。どの島の どの部屋でも 話せます。',
           rooms: 'おはなしは おはなし島だけに なりました。',
           off: 'おはなしは 先生が とじました。',
         }[mode] }, { except: client });
@@ -1043,9 +1044,10 @@ export class ClassRoom extends Room {
   // having opened it, and no more than a roomful.
   static get VOICE_MAX() { return VOICE_MAX; }
 
-  // Where talking is open. The default is おはなし島 and nowhere else: that island is one
-  // room, so landing on it is already being in the call. A teacher can open every building
-  // on every island ('all'), or close all of it including the island ('off').
+  // Where talking is open. The default is everywhere ('all'): a child who walks into a
+  // building on any island is in the call with whoever else is inside, and おはなし島 is
+  // a call by standing on it. A teacher can narrow it to that island alone ('rooms') when
+  // a lesson needs quiet, or close all of it ('off').
   voiceOpenFor(space) {
     if (this.state.voice === 'off') return false;
     if (this.state.voice === 'all') return true;
@@ -1120,6 +1122,37 @@ export class ClassRoom extends Room {
         ?.send('voice:peer', { id: sessionId, joined: false, reason });
     }
     this.clients.find((c) => c.sessionId === sessionId)?.send('voice:closed', { reason });
+  }
+
+  // Writing to the room. Some things are easier typed than said — a child on a muted iPad,
+  // a name nobody caught, a network that will not carry a voice — so the call has a written
+  // channel too. It carries the same preset phrases as the class chat and nothing else: an
+  // id from phrases.json, never a word a child wrote. It reaches the room they are standing
+  // in, whether or not they turned a microphone on, and a teacher pausing チャット pauses
+  // this with it.
+  onVoiceMsg(client, msg) {
+    const id = client.sessionId;
+    const player = this.state.players.get(id);
+    const priv = this.priv.get(id);
+    if (!player || !priv) return;
+    const phrase = typeof msg?.id === 'string' ? msg.id : '';
+    if (!PHRASE_IDS.has(phrase)) return;
+    const room = this.voiceRoomOf(id);
+    if (!room) { client.send('voice:error', { reason: 'not in a room' }); return; }
+    if (!this.voiceOpenFor(player.space)) { client.send('voice:error', { reason: 'closed' }); return; }
+    if (this.state.chatPaused && player.role !== 'teacher') { client.send('chat:blocked', { reason: 'paused' }); return; }
+    const now = Date.now();
+    // The same clock as the class chat, deliberately: two ways to say a phrase must not be
+    // two ways to earn for it.
+    if (now - priv.lastChatAt < config.chatMinIntervalMs) { client.send('chat:blocked', { reason: 'rate' }); return; }
+    priv.lastChatAt = now;
+    priv.progress.chats += 1;
+    const level = this.awardXp(id, REWARDS.phrase.xp, `phrase:${phrase}`);
+    const said = { from: id, name: player.name, id: phrase, room, t: now };
+    for (const client2 of this.clients) {
+      if (this.voiceRoomOf(client2.sessionId) === room) client2.send('voice:msg', said);
+    }
+    client.send('xp', { ...this.progressPayload(id), levels: level?.levels || 0 });
   }
 
   // The introduction itself: an offer, an answer, or a network address. The server reads
