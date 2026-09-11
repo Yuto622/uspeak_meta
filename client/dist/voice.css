@@ -23,11 +23,22 @@
   background: #ffffff1f; color: #f3efe1;
 }
 .voice-acts button.primary { background: #2f8f6b; }
-.voice-acts button.off { background: #8f4a4a; }
+.voice-acts button.off { background: #8f4a4a; }        /* ミュート中 */
+.voice-acts button.on { background: #2f6b7f; }         /* カメラが出ている */
 .voice-acts button:active { transform: translateY(1px); }
 .voice-note { margin: 0; font-size: 11px; opacity: .72; line-height: 1.5; }
-.voice-tile {
-  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; background: #0e2422;
+/* The faces. Two to a row, small: this sits beside a game, not instead of it. */
+.voice-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.voice-tiles:has(> :only-child) { grid-template-columns: 1fr; }
+.voice-tile { position: relative; border-radius: 12px; overflow: hidden; background: #0e2422; }
+.voice-tile video {
+  display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #0e2422;
+}
+/* A picture of yourself that moves the wrong way is unsettling, so it is mirrored. */
+.voice-tile.mine video { transform: scaleX(-1); }
+.voice-tile small {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 2px 6px;
+  background: linear-gradient(transparent, #05201e cc); color: #f3efe1; font-size: 10px;
 }
 #voice-audio { position: absolute; width: 0; height: 0; overflow: hidden; }
 
@@ -35,5 +46,7 @@
 body.in-room #voice-panel, body.in-plaza #voice-panel { bottom: 190px; }
 @media (max-width: 560px) {
   #voice-panel { left: 10px; bottom: 112px; width: min(200px, 52vw); padding: 8px 10px 6px; }
-  .voice-tile { display: none; }        /* a phone has no room for faces beside the game */
+  /* A phone still shows faces, just smaller: video is the point of turning a camera on. */
+  .voice-tiles { gap: 4px; }
+  .voice-tile small { font-size: 9px; }
 }

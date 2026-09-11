@@ -129,9 +129,29 @@ try {
   check('the room shows both of them', (await a.evaluate(() => document.querySelectorAll('#voice-people span').length)) === 2);
   await a.screenshot({ path: path.join(SHOTS, 'e2e-voice-room.png') });
 
+  // カメラ. Off to begin with, switched on in the middle of a call, and the other side
+  // gets a picture without anybody renegotiating anything by hand.
+  check('a camera is off until it is turned on', (await a.evaluate(() => document.querySelector('#voice-tiles').hidden)));
+  await a.click('#voice-cam');
+  await a.waitForFunction(() => uspeak.net.voice.state.camera, null, { timeout: 20000, polling: 200 });
+  check('the child who turned it on sees themselves', await a.evaluate(() => !!document.querySelector('#voice-tiles [data-tile="me"] video')?.srcObject));
+  await b.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].some((p) => p.stream.getVideoTracks().length), null, { timeout: 60000, polling: 300 });
+  check('the picture crosses to the other child', true, JSON.stringify((await peers(b))[0].tracks));
+  await b.waitForFunction(() => document.querySelectorAll('#voice-tiles [data-tile]').length >= 1, null, { timeout: 30000, polling: 300 });
+  check('and their screen shows a face with a name on it',
+    (await b.evaluate(() => document.querySelector('#voice-tiles [data-tile] small')?.textContent)) === 'Hina',
+    await b.evaluate(() => document.querySelector('#voice-tiles [data-tile] small')?.textContent));
+  await b.screenshot({ path: path.join(SHOTS, 'e2e-voice-camera.png') });
+
+  await a.click('#voice-cam');
+  await a.waitForFunction(() => !uspeak.net.voice.state.camera, null, { timeout: 20000, polling: 200 });
+  await b.waitForFunction(() => document.querySelectorAll('#voice-tiles [data-tile]').length === 0, null, { timeout: 40000, polling: 300 });
+  check('turning the camera off takes the picture away again, on both screens',
+    await a.evaluate(() => document.querySelector('#voice-tiles').hidden));
+
   // Muting is the child's own microphone, not a message to anybody.
   await a.click('#voice-mute');
-  check('a child can mute themselves', await a.evaluate(() => uspeak.net.voice.state.muted && !document.querySelector('#voice-me')?.srcObject?.getAudioTracks?.().some((t) => t.enabled)));
+  check('a child can mute themselves', await a.evaluate(() => uspeak.net.voice.state.muted));
   await a.click('#voice-mute');
 
   // Walking out is hanging up: no button is pressed on either side.

@@ -24,6 +24,7 @@ const CAMERA = { width: { ideal: 320 }, height: { ideal: 240 }, frameRate: { ide
 export function createVoice({ send, toast, roomLabel = () => '' }) {
   const state = {
     open: false,        // the teacher has opened 通話 for the class
+    busyCamera: false,  // one camera switch at a time, or two taps race each other
     space: '',          // where the child is standing
     room: '',           // the call they are in, if any
     me: '',
@@ -43,8 +44,8 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   panel.id = 'voice-panel';
   panel.hidden = true;
   panel.innerHTML = `<div class="voice-head"><b id="voice-room"></b><small id="voice-count"></small></div>
+    <div id="voice-tiles" class="voice-tiles" hidden></div>
     <div id="voice-people" class="voice-people"></div>
-    <video id="voice-me" class="voice-tile" muted playsinline autoplay hidden></video>
     <div class="voice-acts">
       <button type="button" id="voice-join" class="primary">🎙 おはなしに はいる</button>
       <button type="button" id="voice-mute" hidden>マイク</button>
@@ -60,6 +61,51 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   $('#voice-join', panel).onclick = () => join();
   $('#voice-mute', panel).onclick = () => setMuted(!state.muted);
   $('#voice-cam', panel).onclick = () => setCamera(!state.camera);
+
+  // A face, with the name on it. One per camera that is on — the child's own included,
+  // mirrored, because a picture of yourself that moves the wrong way is unsettling.
+  function tileFor(key, name, stream, mine = false) {
+    const tiles = $('#voice-tiles', panel);
+    let box = tiles.querySelector(`[data-tile="${CSS.escape(key)}"]`);
+    if (!box) {
+      box = document.createElement('div');
+      box.className = `voice-tile ${mine ? 'mine' : ''}`;
+      box.dataset.tile = key;
+      const video = document.createElement('video');
+      video.autoplay = true;
+      video.playsInline = true;
+      video.muted = true;             // the sound comes through the audio element, once
+      const label = document.createElement('small');
+      box.append(video, label);
+      // The child's own face goes first; everyone else follows in the order they arrived.
+      if (mine) tiles.prepend(box); else tiles.append(box);
+    }
+    box.querySelector('small').textContent = name;
+    const video = box.querySelector('video');
+    if (video.srcObject !== stream) video.srcObject = stream;
+    video.play?.().catch(() => { /* the join tap was the gesture iOS wanted */ });
+    tiles.hidden = false;
+    return box;
+  }
+
+  function dropTile(key) {
+    const tiles = $('#voice-tiles', panel);
+    tiles.querySelector(`[data-tile="${CSS.escape(key)}"]`)?.remove();
+    tiles.hidden = !tiles.children.length;
+  }
+
+  // Cameras come and go while a call is running, so the grid is rebuilt from what is
+  // actually arriving rather than from what was asked for.
+  function renderTiles() {
+    if (!state.joined) { $('#voice-tiles', panel).innerHTML = ''; $('#voice-tiles', panel).hidden = true; return; }
+    if (state.camera && local?.getVideoTracks().length) tileFor('me', 'じぶん', local, true);
+    else dropTile('me');
+    for (const peer of state.peers.values()) {
+      const live = peer.stream.getVideoTracks().some((t) => t.readyState === 'live' && !t.muted);
+      if (live) tileFor(peer.id, peer.name || '…', peer.stream);
+      else dropTile(peer.id);
+    }
+  }
 
   function render() {
     const inRoom = isCallRoom(state.space);
@@ -78,8 +124,9 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     $('#voice-cam', panel).hidden = !state.joined;
     $('#voice-mute', panel).textContent = state.muted ? '🔇 ミュート中' : '🎙 オン';
     $('#voice-mute', panel).classList.toggle('off', state.muted);
-    $('#voice-cam', panel).textContent = state.camera ? '📷 オン' : '📷 オフ';
-    $('#voice-me', panel).hidden = !state.camera;
+    $('#voice-cam', panel).textContent = state.camera ? '📷 カメラ オン' : '📷 カメラ オフ';
+    $('#voice-cam', panel).classList.toggle('on', state.camera);
+    renderTiles();
     $('#voice-note', panel).textContent = state.error || (state.joined ? '部屋を 出ると おわります。' : '同じ 部屋の 人と 話せます。');
   }
 
@@ -121,31 +168,41 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     render();
   }
 
+  // The camera is the child's own switch, and it moves while the call is running: adding
+  // or removing the track makes each connection renegotiate itself (the polite/impolite
+  // rule below settles who offers), and the other side's grid follows what arrives.
   async function setCamera(on) {
-    if (!state.joined) return;
-    if (on) {
-      try {
+    if (!state.joined || state.busyCamera) return;
+    state.busyCamera = true;
+    try {
+      if (on) {
         const cam = await navigator.mediaDevices.getUserMedia({ video: CAMERA, audio: false });
         for (const track of cam.getVideoTracks()) {
+          track.onended = () => { if (state.camera) setCamera(false); };
           local.addTrack(track);
-          // Every connection gets the new track, and each one renegotiates itself.
           for (const peer of state.peers.values()) peer.pc?.addTrack(track, local);
         }
-        $('#voice-me', panel).srcObject = local;
         state.camera = true;
-      } catch { state.error = 'カメラを ひらけませんでした。'; }
-    } else {
-      for (const track of local?.getVideoTracks() || []) {
-        track.stop();
-        local.removeTrack(track);
-        for (const peer of state.peers.values()) {
-          const sender = peer.pc?.getSenders().find((s) => s.track === track);
-          if (sender) peer.pc.removeTrack(sender);
+        state.error = '';
+      } else {
+        for (const track of local?.getVideoTracks() || []) {
+          for (const peer of state.peers.values()) {
+            const sender = peer.pc?.getSenders().find((sn) => sn.track === track);
+            if (sender) peer.pc.removeTrack(sender);
+          }
+          track.stop();
+          local.removeTrack(track);
         }
+        state.camera = false;
       }
+    } catch (err) {
+      console.warn('[voice] camera', err?.name || err);
+      state.error = err?.name === 'NotAllowedError' ? 'カメラが きょかされていません。' : `カメラを ひらけませんでした（${err?.name || 'エラー'}）。`;
       state.camera = false;
+    } finally {
+      state.busyCamera = false;
+      render();
     }
-    render();
   }
 
   // ---- one connection per person in the room ---------------------------------------------
@@ -172,6 +229,12 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       peer.stream.addTrack(e.track);
       attach(peer);
       if (e.track.kind === 'audio') watchLevel(peer.id, peer.stream);
+      // A camera switched off at the other end arrives here as a track going quiet, and
+      // the tile has to go with it.
+      const forget = () => { try { peer.stream.removeTrack(e.track); } catch { /* gone */ } render(); };
+      e.track.onended = forget;
+      e.track.onmute = () => render();
+      e.track.onunmute = () => render();
       render();
     };
     pc.onconnectionstatechange = () => {
@@ -214,14 +277,6 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     }
     peer.el.srcObject = peer.stream;
     peer.el.play?.().catch(() => { /* iOS wants a gesture; the join tap was one */ });
-    if (peer.stream.getVideoTracks().length && !peer.video) {
-      peer.video = document.createElement('video');
-      peer.video.className = 'voice-tile';
-      peer.video.autoplay = true;
-      peer.video.playsInline = true;
-      peer.video.srcObject = peer.stream;
-      panel.insertBefore(peer.video, $('#voice-me', panel));
-    }
   }
 
   function closePeer(id) {
@@ -229,7 +284,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     if (!peer) return;
     try { peer.pc.close(); } catch { /* already closed */ }
     peer.el?.remove();
-    peer.video?.remove();
+    dropTile(id);
     meter?.nodes.delete(id);
     state.peers.delete(id);
     render();
@@ -244,7 +299,8 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     state.camera = false;
     state.room = '';
     state.level = 0;
-    $('#voice-me', panel).srcObject = null;
+    $('#voice-tiles', panel).innerHTML = '';
+    $('#voice-tiles', panel).hidden = true;
     if (!quiet) send('voice:leave', {});
     render();
   }
