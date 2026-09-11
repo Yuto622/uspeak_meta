@@ -96,6 +96,7 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 | `GOOGLE_SHEET_ID` ほか | | `docs/GOOGLE_SHEETS_SETUP.md` 参照 |
 | `PUBLIC_SERVER_URL` | (同一ホスト) | クライアントと別ホストで動かすときの `wss://` URL（`/config.js` で配信） |
 | `NET_OVERRIDES` | (なし) | クライアントの同期・描画定数を JSON で上書き（例 `{"INTERP_DELAY_MS":150,"MAX_RENDERED_REMOTES":24}`） |
+| `LIVEKIT_URL` / `LIVEKIT_API_KEY` / `LIVEKIT_API_SECRET` | (空=大広間なし) | おはなし島を **100人**の通話にする SFU。未設定なら 6 人メッシュに落ちる（下記） |
 
 接続先 URL はクライアントに埋め込まれていません。`/config.js`（環境変数から生成）→ `<meta name="uspeak-server">` →
 `?server=` → ページと同じホスト、の順で決まります。https ページでは自動的に `wss://` になります。
@@ -170,6 +171,38 @@ fly logs
 クライアントを別の静的ホスティングに置く場合は、その配信元を `CORS_ORIGINS` に追加し、
 `PUBLIC_SERVER_URL=wss://uspeak-multiplayer.fly.dev` を設定します（クライアント側は `/config.js` を読めない
 ので、`client/dist/config.js` に `window.USPEAK_CONFIG={serverUrl:"wss://..."}` を置くか `<meta name="uspeak-server">` を使います）。
+
+## おはなし（通話）と大広間（100人）
+
+部屋に入ればその部屋の全員と話せます。**部屋の大きさで仕組みが変わります。**
+
+| | どこ | 人数 | 仕組み | サーバー費用 |
+|---|---|---|---|---|
+| 小部屋 | どの島の建物の中でも | 6人 | ブラウザー同士の直結（WebRTC メッシュ） | なし |
+| 大広間 | おはなし島のひろば | **100人** | SFU（LiveKit）が声を1本ずつ受けて配る | LiveKit が要る |
+
+**大広間には LiveKit が要ります。**3つの環境変数を入れるだけで、クライアントの変更は不要です。
+未設定でもサーバーは普通に動き、おはなし島は 6 人メッシュに落ちて、画面にもそう出ます。
+
+```bash
+# 1) LiveKit Cloud（無料枠あり・東京リージョンを選べる）: https://cloud.livekit.io
+#    プロジェクトを作って URL / API Key / API Secret をコピーする
+fly secrets set LIVEKIT_URL=wss://<your>.livekit.cloud LIVEKIT_API_KEY=... LIVEKIT_API_SECRET=...
+
+# 2) 自前で建てる（バイナリ1つ。Docker は不要。1.10 以降が必要）
+curl -sSL https://get.livekit.io | bash
+livekit-server --keys "mykey: <32文字以上の秘密>" --node-ip <サーバーの公開IP>
+#    UDP 50000-60000 を開ける。学校が UDP を塞いでいる場合は --rtc.port-tcp 7881 で TCP にも出せる
+```
+
+鍵はサーバーから出ません。ブラウザーに渡るのは **その子・その部屋・2時間・何を出してよいか**を
+書いて署名したトークンだけで、`server/src/game/stage.js` が発行します。
+
+- **声は全員、カメラは先生と「ステージ」の子だけ。** 100台のカメラは授業ではなく通信障害なので、
+  先生コンソールの名簿の 🎙 ボタンで子どもをステージに上げると、その子だけカメラと画面共有が開きます。
+- **メッセージ（定型文）は人数に関係なく使えます。** マイクを入れていなくても読み書きできます。
+- 動作確認：`LIVEKIT_BIN=./livekit-server node server/test/e2e/browser-stage.mjs`
+  （本物の LiveKit を起動して実ブラウザー3枚で通す。バイナリが無ければ SKIP）。
 
 ## 講師の使い方
 
@@ -252,5 +285,6 @@ cd server && npm run test:layout
 
 - 問題文・選択肢の生成はクライアント側。データファイルを読める人が「常に正解を選ぶ」ことは防げない（正誤・コインの改ざんは防止）。
 - ルームはサーバープロセスのメモリ上にあるため、Fly のマシンは 1 台構成（`fly.toml` の `[deploy]`）。
-- 音声チャット（WebRTC）と AI 対話は本リポジトリのスコープ外。
+- 通話は2種類。建物の中は 6 人（ブラウザー同士の直結）、おはなし島のひろばは 100 人（SFU）。
+  屋外はおはなし島以外 通話にならない。
 - Colyseus は 0.15 系に固定（サーバー・クライアント SDK とも）。0.16 以降はコールバック API が変わるため、更新時は `net-client.js` の `onAdd/onChange/listen` を見直す。

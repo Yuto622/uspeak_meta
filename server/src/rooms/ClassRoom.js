@@ -19,6 +19,7 @@ import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
 import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError } from '../game/eiken.js';
 import { TALK, isTalkSpace } from '../game/talk.js';
+import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding, startLap, crossGate } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
@@ -89,6 +90,7 @@ export class ClassRoom extends Room {
     this.setMetadata({ classCode: this.classCode });
     this.setState(new RoomState());
     this.state.classCode = this.classCode;
+    this.state.stageOpen = stageReady();
     this.setPatchRate(config.patchRateMs);
     this.priv = new Map(); // sessionId -> private server-side record
 
@@ -157,6 +159,7 @@ export class ClassRoom extends Room {
     });
     // Who has a microphone open, and where they were standing when they opened it.
     this.voice = new Map();          // sessionId -> { room, at }
+    this.stage = new Set();          // sessionIds a teacher has put on the stage (big rooms)
     this.lastPersistAll = Date.now();
     // The sky is a function of the wall clock, so there is nothing to start or store —
     // only the moment the phase turns has to be noticed, to put the ghosts out.
@@ -447,6 +450,29 @@ export class ClassRoom extends Room {
         }[mode] }, { except: client });
         client.send('teacher:ack', { cmd, ok: true, mode, on: mode === 'all' });
         log.info(`[room ${this.roomId}] voice mode "${mode}" by "${me.name}"`);
+        return;
+      }
+      // ステージ. In a big room only the teacher is seen; this is how a child gets to show
+      // the class their face, their screen and their English. The child's browser is given
+      // a new ticket saying so — a page cannot put itself on the stage, because the ticket
+      // is signed here.
+      case 'stage': {
+        const target = typeof msg?.target === 'string' ? msg.target : '';
+        const student = this.state.players.get(target);
+        if (!student) { client.send('teacher:ack', { cmd, ok: false, error: 'no such student' }); return; }
+        const room = this.voiceRoomOf(target);
+        if (!room || this.voiceKindOf(room) !== 'sfu') {
+          client.send('teacher:ack', { cmd, ok: false, error: 'not in a big room' });
+          return;
+        }
+        const on = msg.on !== false;
+        if (on) this.stage.add(target); else this.stage.delete(target);
+        this.sendStageToken(target, on ? 'stage' : 'unstage');
+        this.clients.find((c) => c.sessionId === target)?.send('notice', {
+          text: on ? 'ステージに 上がりました。カメラと がめんが つかえます。' : 'ステージから おりました。',
+        });
+        client.send('teacher:ack', { cmd, ok: true, target, on });
+        log.info(`[room ${this.roomId}] "${student.name}" ${on ? 'on' : 'off'} the stage in ${room}`);
         return;
       }
       case 'chat': {
@@ -1064,10 +1090,54 @@ export class ClassRoom extends Room {
     return /^in:[^:]+:[^:]+$/.test(space) ? space : '';
   }
 
-  // A mesh is every browser connected to every other one, so a room holds a handful. The
-  // island's own plaza holds a few more, because it is where a class gathers.
+  // How many the room is meant to hold, from the island's own data. おはなし島's plaza is
+  // where a whole school gathers; every other room is a handful of children in a building.
+  voiceRoomMax(room) {
+    return room === TALK.id ? Math.min(TALK.plaza.max, STAGE_MAX) : VOICE_MAX;
+  }
+
+  // Which of the two kinds of call this room is. A mesh is every browser connected to
+  // every other one — fine for six, impossible for a hundred — so a room meant for more
+  // than a handful runs through the SFU instead. With no SFU configured there is no
+  // second kind: the big room falls back to a six-child mesh, and the panel says so.
+  voiceKindOf(room) {
+    return this.voiceRoomMax(room) > VOICE_MAX && stageReady() ? 'sfu' : 'mesh';
+  }
+
+  // What the room actually holds right now, which is the smaller of what it was built for
+  // and what this server can carry.
   voiceCapOf(room) {
-    return room === TALK.id ? TALK.plaza.max : VOICE_MAX;
+    return this.voiceKindOf(room) === 'sfu' ? this.voiceRoomMax(room) : Math.min(this.voiceRoomMax(room), VOICE_MAX);
+  }
+
+  // Who may be seen, not just heard. A hundred cameras at once is not a lesson, so in a
+  // big room the picture belongs to the teacher and to whoever the teacher has put on the
+  // stage; in a small room everyone has always had a camera and keeps it.
+  voiceCanPublish(sessionId, room) {
+    const player = this.state.players.get(sessionId);
+    if (this.voiceKindOf(room) !== 'sfu') return { camera: true, screen: true };
+    const staged = player?.role === 'teacher' || this.stage.has(sessionId);
+    return { camera: staged, screen: staged };
+  }
+
+  // The ticket into a big room: minted here, for this child, for this room, saying what
+  // they may publish. Sent on joining and again whenever a teacher changes that.
+  sendStageToken(sessionId, reason = 'join') {
+    const client = this.clients.find((c) => c.sessionId === sessionId);
+    const player = this.state.players.get(sessionId);
+    const room = this.voiceRoomOf(sessionId);
+    if (!client || !player || !room || this.voiceKindOf(room) !== 'sfu') return false;
+    const can = this.voiceCanPublish(sessionId, room);
+    const token = mintToken({
+      room: stageRoomName(this.state.classCode, room),
+      identity: sessionId,
+      name: player.name,
+      camera: can.camera,
+      screen: can.screen,
+    });
+    if (!token) return false;
+    client.send('voice:token', { room, url: stageUrl(), token, can, max: this.voiceCapOf(room), reason });
+    return true;
   }
 
   voicePeers(room, except = '') {
@@ -1094,17 +1164,23 @@ export class ClassRoom extends Room {
       client.send('voice:error', { reason: 'room is full', max: cap });
       return;
     }
-    if (this.voice.get(id)?.room === room) { client.send('voice:room', { room, peers, me: id }); return; }
+    const kind = this.voiceKindOf(room);
+    if (this.voice.get(id)?.room === room) { client.send('voice:room', { room, kind, peers, me: id, max: cap }); return; }
     this.dropVoice(id, 'moved');
     this.voice.set(id, { room, at: Date.now(), signals: 0, since: Date.now() });
     // The newcomer is told who is already here and calls them; everyone here is told
     // someone arrived and waits to be called. One offer per pair, decided by arrival.
-    client.send('voice:room', { room, peers, me: id });
-    for (const peer of peers) {
-      this.clients.find((c) => c.sessionId === peer.id)
-        ?.send('voice:peer', { id, name: player.name, role: player.role, joined: true });
+    // In a big room there is nobody to call: the SFU is the one connection each browser
+    // makes, and who is in the room comes from it rather than from here.
+    client.send('voice:room', { room, kind, peers: kind === 'sfu' ? [] : peers, me: id, max: cap });
+    if (kind === 'sfu') this.sendStageToken(id, 'join');
+    else {
+      for (const peer of peers) {
+        this.clients.find((c) => c.sessionId === peer.id)
+          ?.send('voice:peer', { id, name: player.name, role: player.role, joined: true });
+      }
     }
-    log.info(`[room ${this.roomId}] "${player.name}" opened a microphone in ${room} (${peers.length + 1} in the room)`);
+    log.info(`[room ${this.roomId}] "${player.name}" opened a microphone in ${room} (${kind}, ${peers.length + 1} of ${cap})`);
   }
 
   onVoiceLeave(client, reason = 'left') {
@@ -1117,9 +1193,15 @@ export class ClassRoom extends Room {
     const seat = this.voice.get(sessionId);
     if (!seat) return;
     this.voice.delete(sessionId);
-    for (const peer of this.voicePeers(seat.room)) {
-      this.clients.find((c) => c.sessionId === peer.id)
-        ?.send('voice:peer', { id: sessionId, joined: false, reason });
+    this.stage.delete(sessionId);
+    // In a mesh the others have to be told, so their browsers can close the connection
+    // rather than wait on a voice that is never coming. In a hall the SFU tells them, and
+    // a hundred children leaving would otherwise be ten thousand messages.
+    if (this.voiceKindOf(seat.room) !== 'sfu') {
+      for (const peer of this.voicePeers(seat.room)) {
+        this.clients.find((c) => c.sessionId === peer.id)
+          ?.send('voice:peer', { id: sessionId, joined: false, reason });
+      }
     }
     this.clients.find((c) => c.sessionId === sessionId)?.send('voice:closed', { reason });
   }

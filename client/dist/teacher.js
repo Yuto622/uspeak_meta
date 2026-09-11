@@ -6,6 +6,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   let roster = [];
   let chatPaused = false;
   let voiceMode = 'all';
+  const staged = new Set();   // children the teacher has put on the stage (大広間だけ)
   let missionId = '';
   let timer = null;
   const root = document.createElement('aside');
@@ -67,9 +68,14 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
 
   function renderRoster() {
     const rows = roster.filter((p) => p.role !== 'teacher').sort((a, b) => a.name.localeCompare(b.name, 'ja'));
-    $('#net-roster').innerHTML = rows.map((p) => `<tr class="${p.connected ? '' : 'net-offline'}"><td>${esc(p.name)}${p.connected ? '' : ' <small>(切断中)</small>'}</td><td><small>${esc(p.space)}</small></td><td title="${p.xp ?? 0} XP">${p.level ?? 1}</td><td>${p.coins}</td><td>${p.correct}/${p.attempts}</td><td><button type="button" data-call="${p.id}" title="呼び出す">📢</button><button type="button" data-move="${p.id}" title="ここへ移動">⤵</button></td></tr>`).join('') || '<tr><td colspan="6">生徒はまだいません</td></tr>';
+    $('#net-roster').innerHTML = rows.map((p) => `<tr class="${p.connected ? '' : 'net-offline'}"><td>${esc(p.name)}${p.connected ? '' : ' <small>(切断中)</small>'}</td><td><small>${esc(p.space)}</small></td><td title="${p.xp ?? 0} XP">${p.level ?? 1}</td><td>${p.coins}</td><td>${p.correct}/${p.attempts}</td><td><button type="button" data-call="${p.id}" title="呼び出す">📢</button><button type="button" data-move="${p.id}" title="ここへ移動">⤵</button><button type="button" data-stage="${p.id}" class="${staged.has(p.id) ? 'on' : ''}" title="ステージに上げる（大広間でカメラと画面を使えるようにする）">${staged.has(p.id) ? '🎤' : '🎙'}</button></td></tr>`).join('') || '<tr><td colspan="6">生徒はまだいません</td></tr>';
     root.querySelectorAll('[data-call]').forEach((b) => { b.onclick = () => send({ cmd: 'call', target: b.dataset.call }); });
     root.querySelectorAll('[data-move]').forEach((b) => { b.onclick = () => { const p = point(); if (p) send({ cmd: 'move', target: b.dataset.move, ...p }); }; });
+    // ステージ: in 大広間（おはなし島）only the teacher is seen, so this is how a child gets
+    // to show the hall their face and their screen. Small rooms never need it.
+    root.querySelectorAll('[data-stage]').forEach((b) => {
+      b.onclick = () => { const id = b.dataset.stage; send({ cmd: 'stage', target: id, on: !staged.has(id) }); };
+    });
     $('#net-t-chat').textContent = chatPaused ? '▶ チャットを再開' : '⏸ チャットを一時停止';
     $('#net-t-voice').textContent = { all: '🎙 おはなし：どの島でも', rooms: '🎙 おはなし：おはなし島だけ', off: '🔇 おはなし：とじている' }[voiceMode];
     $('#net-teacher-hint').textContent = `接続中 ${rows.filter((p) => p.connected).length} 人 · 集合・移動は今いる場所（${getSpace()}）へ`;
@@ -105,11 +111,19 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     setAvailable(v) { button.hidden = !v; if (!v) toggle(false); },
     onRoster(m) { roster = m.players || []; chatPaused = !!m.chatPaused; if (open) renderRoster(); },
     onAck(m) {
-      if (m.ok === false) toast(`先生コマンド失敗: ${m.error || m.cmd}`);
+      if (m.ok === false) {
+        const said = { 'not in a big room': 'ステージは おはなし島（大広間）だけです。', 'no such student': 'その生徒が見つかりません。' }[m.error];
+        toast(said || `先生コマンド失敗: ${m.error || m.cmd}`);
+      }
       else if (m.cmd === 'gather') toast(`${m.count} 人に集合を指示しました。`);
       else if (m.cmd === 'voice') {
         voiceMode = m.mode || 'rooms';
         toast({ all: 'どの島のどの部屋でも話せるようにしました。', rooms: 'おはなしはおはなし島だけになりました。', off: 'おはなしをとじました。' }[voiceMode]);
+        if (open) renderRoster();
+      }
+      else if (m.cmd === 'stage') {
+        if (m.on) staged.add(m.target); else staged.delete(m.target);
+        toast(m.on ? 'ステージに上げました。カメラと画面が使えます。' : 'ステージから下ろしました。');
         if (open) renderRoster();
       }
       else if (m.cmd === 'chat') { chatPaused = !!m.paused; toast(chatPaused ? 'チャットを一時停止しました。' : 'チャットを再開しました。'); if (open) renderRoster(); }

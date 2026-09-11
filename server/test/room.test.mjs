@@ -1262,7 +1262,8 @@ test('おはなし: the room you walked into is the call, and the server only in
   await stand(a, `in:${TALK.id}:chat`);
   assert.equal((await leftIsland).joined, false);
   a.room.send('voice:join', {});
-  assert.deepEqual((await nextMessage(a.room, 'voice:room')), { room: `in:${TALK.id}:chat`, peers: [], me: a.room.sessionId });
+  assert.deepEqual((await nextMessage(a.room, 'voice:room')),
+    { room: `in:${TALK.id}:chat`, kind: 'mesh', peers: [], me: a.room.sessionId, max: 6 });
 
   // A hall on another island is a call as well, with nobody having opened anything.
   await stand(a, hall);

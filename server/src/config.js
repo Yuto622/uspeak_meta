@@ -49,6 +49,17 @@ export const config = Object.freeze({
     minIntervalMs: int('AI_MIN_INTERVAL_MS', 1200),
     dailyTurnsPerStudent: int('AI_DAILY_TURNS_PER_STUDENT', 200),
   },
+  // 大広間（SFU）. A mesh is six children; a school assembly is a hundred, and a hundred
+  // browsers cannot each hold ninety-nine connections. A LiveKit server forwards the
+  // streams instead. The key and the secret never leave this server: the browser is handed
+  // a token minted here, for one room, for one child, for two hours. Without these three
+  // set, big rooms simply fall back to a six-child mesh and the panel says so.
+  livekit: {
+    url: (env.LIVEKIT_URL ?? '').trim(),
+    apiKey: (env.LIVEKIT_API_KEY ?? '').trim(),
+    apiSecret: (env.LIVEKIT_API_SECRET ?? '').trim(),
+    tokenTtlSec: Math.max(300, int('LIVEKIT_TOKEN_TTL_SEC', 7200)),
+  },
   // 入場ゲート: 'open' lets anyone with the class code in (the default, and what a
   // demo or a home user wants); 'roster' admits only children on the class register,
   // with the fallbacks in game/gate.js so an outage never locks a class out.

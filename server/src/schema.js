@@ -45,6 +45,9 @@ export class RoomState extends Schema {
     // into a building is in the call with whoever else is inside, and nobody had to switch
     // anything on for that to be true.
     this.voice = 'all';
+    // Whether this server has an SFU behind it, and so whether おはなし島's plaza is a
+    // hall for a hundred or a room for six. The page needs to know before anybody taps.
+    this.stageOpen = false;
     this.teacherId = '';
     this.missionId = '';
     this.players = new MapSchema();
@@ -54,6 +57,7 @@ defineTypes(RoomState, {
   classCode: 'string',
   chatPaused: 'boolean',
   voice: 'string',
+  stageOpen: 'boolean',
   teacherId: 'string',
   missionId: 'string',
   players: { map: Player },

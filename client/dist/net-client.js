@@ -302,6 +302,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('voice:closed', (m) => voice.onClosed(m));
     r.onMessage('voice:error', (m) => voice.onError(m));
     r.onMessage('voice:msg', (m) => voice.onMsg(m));
+    r.onMessage('voice:token', (m) => voice.onToken(m));
     r.onMessage('rtc:signal', (m) => voice.onSignal(m));
     r.onMessage('battle:state', (m) => battle.onState(m));
     r.onMessage('battle:quiz', (m) => battle.onQuiz(m));
@@ -370,6 +371,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.state.players.onRemove((p, id) => { remotes.remove(id); seen.delete(id); chip.count(r.state.players.size); });
     r.state.listen('chatPaused', (v) => { state.chatPaused = !!v; chat.setPaused(); teacher.setChatPaused(!!v); });
     r.state.listen('voice', (v) => { voice.setMode(v); teacher.setVoice(v); });
+    r.state.listen('stageOpen', (v) => voice.setStage(v));
     r.state.listen('teacherId', (v) => { state.teacherId = v || ''; });
     r.state.listen('missionId', (v) => { mission.setClassMission(v); teacher.setMission(v); });
 

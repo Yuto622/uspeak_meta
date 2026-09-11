@@ -36,6 +36,7 @@
 .net-roster th{text-align:left;color:#5d6d62;font-weight:600;padding:4px 4px}
 .net-roster td{padding:5px 4px;border-top:1px solid #e1dfcf;vertical-align:middle}
 .net-roster td button{width:30px;height:28px;border-radius:8px;background:#e5e9dc;margin-right:4px}
+.net-roster td button.on{background:#2f6b7f;color:#f3efe1}
 .net-roster tr.net-offline{opacity:.5}
 .net-fine{font-size:11px;color:#5d6d62;margin:4px 0}
 .net-t-field{display:block;font-size:11px;font-weight:700;color:#5d6d62;margin:8px 0 4px}

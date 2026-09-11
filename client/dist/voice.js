@@ -29,6 +29,7 @@ const RETRY_MS = 12000;  // how long a connection may stay unconnected before it
 // Wi-Fi, and a worksheet does not move.
 const SCREEN = { frameRate: { ideal: 6, max: 12 }, width: { max: 1280 }, height: { max: 800 } };
 const LOG_MAX = 12;      // how many written messages the panel keeps
+const NAMES_MAX = 11;    // names shown in a big room before the rest become a number
 
 export function createVoice({ send, toast, roomLabel = () => '' }) {
   const state = {
@@ -42,6 +43,11 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     camera: false,
     screen: false,      // 画面共有: this child is showing their screen to the room
     busyScreen: false,
+    kind: 'mesh',       // 'mesh' = browser to browser (six) / 'sfu' = 大広間 (a hundred)
+    max: 6,             // what this room holds, as the server counts it
+    can: { camera: true, screen: true },   // what this child may publish here
+    stageOpen: false,   // this server has an SFU behind it, so a hall can hold a hundred
+    heads: 0,           // how many are in a big room (the SFU counts, not us)
     log: [],            // the last few written messages in this room
     saying: false,      // the phrase list is open
     peers: new Map(),   // sessionId -> { id, name, role, pc, stream, polite, making, ignoring, level, el }
@@ -54,6 +60,8 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   let levelTimer = 0;
   let phrases = null;       // phrases.json, fetched the first time a child writes
   let phrasesById = new Map();
+  let stage = null;         // the 大広間 client, built the first time one is walked into
+  let ticket = null;        // the last ticket the server minted for this child
 
   // ---- the panel ------------------------------------------------------------------------
 
@@ -184,10 +192,18 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     if (panel.hidden) return;
     $('#voice-room', panel).textContent = `🎧 ${roomLabel(state.space) || 'この部屋'}`;
     const people = [...state.peers.values()];
-    $('#voice-count', panel).textContent = state.joined ? `${people.length + 1}人` : '';
+    const heads = state.kind === 'sfu' ? Math.max(state.heads, people.length + 1) : people.length + 1;
+    $('#voice-count', panel).textContent = state.joined ? `${heads}人` : '';
+    // A hundred names is not a list a child reads. Whoever is talking comes first, the
+    // rest fill the space that is left, and the remainder is a number.
+    const shown = state.kind === 'sfu'
+      ? [...people].sort((a, b) => (b.level > 0.06 ? 1 : 0) - (a.level > 0.06 ? 1 : 0)).slice(0, NAMES_MAX)
+      : people;
+    const rest = people.length - shown.length;
     $('#voice-people', panel).innerHTML = state.joined
       ? [`<span class="voice-me ${state.muted ? 'off' : ''} ${state.level > 0.06 ? 'on' : ''}">じぶん</span>`]
-        .concat(people.map((p) => `<span class="${p.level > 0.06 ? 'on' : ''}" data-peer="${esc(p.id)}">${esc(p.name || '…')}${p.role === 'teacher' ? ' 先生' : ''}</span>`))
+        .concat(shown.map((p) => `<span class="${p.level > 0.06 ? 'on' : ''}" data-peer="${esc(p.id)}">${esc(p.name || '…')}${p.role === 'teacher' ? ' 先生' : ''}</span>`))
+        .concat(rest > 0 ? [`<span class="voice-rest">ほか ${rest}人</span>`] : [])
         .join('')
       : '';
     $('#voice-join', panel).hidden = state.joined;
@@ -204,10 +220,26 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     $('#voice-share', panel).classList.toggle('on', state.screen);
     renderTiles();
     renderSay();
-    $('#voice-note', panel).textContent = state.error
-      || (state.joined
-        ? (state.space === TALK_ISLAND ? '島を はなれると おわります。' : '部屋を 出ると おわります。')
-        : (state.space === TALK_ISLAND ? 'この島に いる みんなと 話せます。' : 'この 部屋に いる 人と 話せます。'));
+    $('#voice-note', panel).textContent = state.error || note();
+  }
+
+  // What the panel says under the buttons: where this is, how many it holds, and — when a
+  // hall has to make do with a mesh because no SFU is configured — that it is only six.
+  function note() {
+    const hall = state.space === TALK_ISLAND;
+    if (state.joined) {
+      if (state.kind === 'sfu') {
+        return state.can.camera
+          ? `島を はなれると おわります（${state.max}人まで）。`
+          : `島を はなれると おわります。カメラは 先生が ステージに 上げたら。`;
+      }
+      return hall ? '島を はなれると おわります。' : '部屋を 出ると おわります。';
+    }
+    // The number comes from the server once a child is in; before that all that is known
+    // is whether this server has a hall behind it at all.
+    if (hall && state.stageOpen) return 'この島に いる みんなと 話せます。';
+    if (hall) return 'この島に いる 人と 話せます（いまは 6人まで）。';
+    return 'この 部屋に いる 人と 話せます。';
   }
 
   // The written half of the room: what has been said, and the list to say something from.
@@ -264,6 +296,9 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   function setMuted(on) {
     state.muted = !!on;
     for (const track of local?.getAudioTracks() || []) track.enabled = !state.muted;
+    // In a big room the voice goes up to the SFU, so silence has to be declared there too
+    // — and being muted is something the room can then see.
+    if (state.kind === 'sfu') stage?.setMic(!state.muted);
     render();
   }
 
@@ -275,19 +310,26 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     state.busyCamera = true;
     try {
       if (on) {
+        // In a big room the picture belongs to the teacher and to whoever the teacher has
+        // put on the stage: a hundred cameras at once is not a lesson.
+        if (!state.can.camera) { state.error = '先生が ステージに 上げると カメラが つかえます。'; return; }
         const cam = await navigator.mediaDevices.getUserMedia({ video: CAMERA, audio: false });
         for (const track of cam.getVideoTracks()) {
           track.onended = () => { if (state.camera) setCamera(false); };
           local.addTrack(track);
-          for (const peer of state.peers.values()) peer.pc?.addTrack(track, local);
+          if (state.kind === 'sfu') await stage?.publish(track, 'camera');
+          else for (const peer of state.peers.values()) peer.pc?.addTrack(track, local);
         }
         state.camera = true;
         state.error = '';
       } else {
         for (const track of local?.getVideoTracks() || []) {
-          for (const peer of state.peers.values()) {
-            const sender = peer.pc?.getSenders().find((sn) => sn.track === track);
-            if (sender) peer.pc.removeTrack(sender);
+          if (state.kind === 'sfu') await stage?.unpublish(track, 'camera');
+          else {
+            for (const peer of state.peers.values()) {
+              const sender = peer.pc?.getSenders().find((sn) => sn.track === track);
+              if (sender) peer.pc.removeTrack(sender);
+            }
           }
           track.stop();
           local.removeTrack(track);
@@ -319,6 +361,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     try {
       if (on) {
         if (!canShare()) { state.error = 'この端末では がめんを 見せられません。'; return; }
+        if (!state.can.screen) { state.error = '先生が ステージに 上げると がめんを 見せられます。'; return; }
         shared = await navigator.mediaDevices.getDisplayMedia({ video: SCREEN, audio: false });
         state.screen = true;
         state.error = '';
@@ -326,20 +369,24 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
           // The browser's own "stop sharing" bar is the other way out of this, and it has
           // to end the share here too.
           track.onended = () => { if (state.screen) setScreen(false); };
-          for (const peer of state.peers.values()) peer.pc?.addTrack(track, shared);
+          if (state.kind === 'sfu') await stage?.publish(track, 'screen');
+          else for (const peer of state.peers.values()) peer.pc?.addTrack(track, shared);
         }
-        for (const peer of state.peers.values()) tellScreen(peer);
+        if (state.kind === 'mesh') for (const peer of state.peers.values()) tellScreen(peer);
       } else {
         for (const track of shared?.getVideoTracks() || []) {
-          for (const peer of state.peers.values()) {
-            const sender = peer.pc?.getSenders().find((sn) => sn.track === track);
-            if (sender) peer.pc.removeTrack(sender);
+          if (state.kind === 'sfu') await stage?.unpublish(track, 'screen');
+          else {
+            for (const peer of state.peers.values()) {
+              const sender = peer.pc?.getSenders().find((sn) => sn.track === track);
+              if (sender) peer.pc.removeTrack(sender);
+            }
           }
           track.stop();
         }
         shared = null;
         state.screen = false;
-        for (const peer of state.peers.values()) tellScreen(peer);
+        if (state.kind === 'mesh') for (const peer of state.peers.values()) tellScreen(peer);
       }
     } catch (err) {
       // Cancelling the browser's own picker lands here, and is not an error worth saying.
@@ -399,6 +446,63 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     if (!said) { loadPhrases().then(() => { if (phrasesById.has(m?.id)) onMsg(m); }); return; }
     state.log.push({ id: m.id, name: m.name || '', mine: m.from === state.me, at: Date.now() });
     if (state.log.length > LOG_MAX) state.log.splice(0, state.log.length - LOG_MAX);
+    render();
+  }
+
+  // ---- 大広間 ------------------------------------------------------------------------------
+  //
+  // Six children in a building connect to each other. A hundred on おはなし島 cannot: each
+  // browser would hold ninety-nine connections. A room that size runs through an SFU
+  // instead, and the server says which kind of room a child has walked into. The code for
+  // it — and the 600KB SDK behind it — is fetched the first time that happens.
+  async function stageFor() {
+    if (stage) return stage;
+    const { createStage } = await import('./stage.js');
+    stage = createStage({
+      onChange: () => { syncStage(); render(); },
+      onError: (err) => console.warn('[voice] 大広間', err?.name || err),
+      onLeft: () => { if (state.joined && state.kind === 'sfu') { state.error = 'おはなしが きれました。'; render(); } },
+    });
+    return stage;
+  }
+
+  // The panel draws one list of people whichever kind of room this is, so the big room's
+  // participants are copied into the same map the mesh fills in.
+  function syncStage() {
+    if (state.kind !== 'sfu' || !stage) return;
+    const seen = new Set();
+    for (const p of stage.people) {
+      if (p.mine) { state.level = p.speaking ? 1 : 0; continue; }
+      seen.add(p.id);
+      const was = state.peers.get(p.id) || {};
+      state.peers.set(p.id, { ...was, id: p.id, name: p.name, stream: p.stream, screen: p.screen, level: p.speaking ? 1 : 0 });
+    }
+    for (const id of [...state.peers.keys()]) if (!seen.has(id)) state.peers.delete(id);
+    state.heads = stage.state.count;
+  }
+
+  // The ticket: minted by the server for this child, this room and this long, saying what
+  // they may publish. It arrives on joining, and again when a teacher puts a child on the
+  // stage or takes them off it.
+  async function onToken(m) {
+    if (!state.joined || state.kind !== 'sfu') return;
+    ticket = m;
+    state.can = { camera: !!m?.can?.camera, screen: !!m?.can?.screen };
+    const mic = local?.getAudioTracks?.()[0] || null;
+    try {
+      const st = await stageFor();
+      const again = st.live;
+      await (again ? st.retoken({ url: m.url, token: m.token, can: state.can, mic }) : st.connect({ url: m.url, token: m.token, can: state.can, mic }));
+      // A camera that was on before a re-ticket is republished; one this child may no
+      // longer publish is put away.
+      if (state.camera && !state.can.camera) await setCamera(false);
+      if (state.screen && !state.can.screen) await setScreen(false);
+      state.error = '';
+    } catch (err) {
+      console.warn('[voice] 大広間 connect', err?.name || err);
+      state.error = 'おはなしに つなげませんでした。';
+    }
+    syncStage();
     render();
   }
 
@@ -544,6 +648,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   }
 
   function leave(quiet = false) {
+    if (state.kind === 'sfu') { stage?.leave(); state.peers.clear(); state.heads = 0; ticket = null; }
     for (const id of [...state.peers.keys()]) closePeer(id);
     for (const track of local?.getTracks() || []) track.stop();
     for (const track of shared?.getTracks() || []) track.stop();
@@ -604,6 +709,12 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       if (state.joined && !openHere()) leave(true);
       render();
     },
+    setStage(on) {
+      const next = !!on;
+      if (state.stageOpen === next) return;
+      state.stageOpen = next;
+      render();
+    },
     setSpace(space) {
       if (state.space === space) return;
       const was = state.space;
@@ -618,11 +729,19 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     onRoom(m) {
       state.room = m.room;
       state.me = m.me;
-      for (const info of m.peers || []) peerFor(info);
+      state.kind = m.kind === 'sfu' ? 'sfu' : 'mesh';
+      state.max = Number(m.max) || 6;
+      // A small room has never asked permission for a camera, and walking out of the hall
+      // into one has to give it back.
+      if (state.kind === 'mesh') state.can = { camera: true, screen: true };
+      // A mesh introduces everyone to everyone. A big room has nobody to introduce: the
+      // SFU is the only connection each browser makes, and the ticket follows this message.
+      if (state.kind === 'mesh') for (const info of m.peers || []) peerFor(info);
       render();
     },
+    onToken,
     onPeer(m) {
-      if (!state.joined) return;
+      if (!state.joined || state.kind !== 'mesh') return;
       if (m.joined) peerFor(m); else closePeer(m.id);
       render();
     },
