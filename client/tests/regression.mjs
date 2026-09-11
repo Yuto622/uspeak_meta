@@ -156,6 +156,30 @@ console.log('PASS: 36 chests in 12 areas, 3 gated permanent keys, all tiers, 12 
  console.log('PASS: おつかい島 loads from missions.json, all '+island.spots.length+' spots are standable, walkable from the plaza and mutually exclusive; arrival, minimap, beacon and departure.');
 }
 
+// --- ワールドマップ: no island may be drawn under another one ------------------------
+{
+ const {worldMapLayout}=await import('../dist/rpg-map.js');
+ const {DESTINATIONS}=await import('../dist/rpg-data.js');
+ for(const [w,h] of [[340,380],[640,590],[900,620],[1500,1100]]){
+  const nodes=worldMapLayout(w,h);
+  assert.equal(nodes.length,DESTINATIONS.length,'the map lost an island at '+w+'x'+h);
+  for(let a=0;a<nodes.length;a++){
+   for(let b=a+1;b<nodes.length;b++){
+    const A=nodes[a],B=nodes[b];
+    const ox=(A.hw+B.hw)-Math.abs(B.x-A.x);
+    const oy=Math.min(A.y+A.bottom,B.y+B.bottom)-Math.max(A.y-A.top,B.y-B.top);
+    assert.ok(ox<=0.5||oy<=0.5,`map ${w}x${h}: ${A.id} and ${B.id} overlap by ${Math.min(ox,oy).toFixed(1)}px`);
+   }
+  }
+  // And nothing may be pushed off the chart while it is getting out of the way.
+  for(const n of nodes){
+   assert.ok(n.x-n.hw>=0&&n.x+n.hw<=w,`map ${w}x${h}: ${n.id} hangs off the side`);
+   assert.ok(n.y-n.top>=0&&n.y+n.bottom<=h,`map ${w}x${h}: ${n.id} hangs off the top or bottom`);
+  }
+ }
+ console.log('PASS: ワールドマップ — '+DESTINATIONS.length+'島が4つの画面サイズで重ならず、はみ出さない。');
+}
+
 // --- 学習の島: every place must be standable, reachable, and served by a clear path ----
 // 英検の島は3つとも同じ間取りなので、同じ検査を3回通す（ready が返すのは島そのもの）。
 for(const [hub,mod,near,unwrap] of [['school','school','schoolNearby'],['arena','arena','arenaNearby'],['pet','pet','petNearby'],['ride','ride','rideNearby'],['town','town','townNearby'],['eiken5','eiken5','eikenNearby',d=>d],['eiken4','eiken4','eikenNearby',d=>d],['eiken3','eiken3','eikenNearby',d=>d]]){
