@@ -1,0 +1,990 @@
+{
+  "version": 1,
+  "note": "英検の島の問題バンク。このファイルはサーバーだけが読む（client/dist には置かない）。答えはブラウザーへ行かない：サーバーが選択肢だけを送り、正解は答えたあとにしか返さない。word-quiz.json と同じ扱い。",
+  "grades": {
+    "g5": {
+      "reading": [
+        {
+          "text": "This is my dog. His name is Momo. He is three years old. He likes to run in the park.",
+          "q": "How old is Momo?",
+          "choices": [
+            "Three.",
+            "Five.",
+            "Ten.",
+            "One."
+          ],
+          "hint": "years old = さい"
+        },
+        {
+          "text": "I get up at six thirty. I eat breakfast with my mother. Then I go to school by bus.",
+          "q": "How does the boy go to school?",
+          "choices": [
+            "By bus.",
+            "By train.",
+            "By bike.",
+            "He walks."
+          ],
+          "hint": "by bus = バスで"
+        },
+        {
+          "text": "My sister likes music. She plays the piano every day. I like sports. I play soccer on Sundays.",
+          "q": "What does the sister do every day?",
+          "choices": [
+            "She plays the piano.",
+            "She plays soccer.",
+            "She sings songs.",
+            "She runs in the park."
+          ],
+          "hint": "every day = まいにち"
+        },
+        {
+          "text": "We have a big cat. Her name is Yuki. She is white. She sleeps on my bed.",
+          "q": "What color is Yuki?",
+          "choices": [
+            "White.",
+            "Black.",
+            "Brown.",
+            "Gray."
+          ],
+          "hint": "color = いろ"
+        },
+        {
+          "text": "Today is Saturday. I go to the zoo with my family. I like the elephants. They are very big.",
+          "q": "Where does the girl go today?",
+          "choices": [
+            "To the zoo.",
+            "To school.",
+            "To the sea.",
+            "To the library."
+          ],
+          "hint": "zoo = どうぶつえん"
+        },
+        {
+          "text": "My father is a cook. He makes pizza. His pizza is delicious. I eat it every Friday.",
+          "q": "What does the father make?",
+          "choices": [
+            "Pizza.",
+            "Cake.",
+            "Curry.",
+            "Bread."
+          ],
+          "hint": "cook = りょうりにん"
+        },
+        {
+          "text": "I have two pencils and one eraser in my pencil case. My pencil case is blue.",
+          "q": "How many pencils does she have?",
+          "choices": [
+            "Two.",
+            "One.",
+            "Three.",
+            "Four."
+          ],
+          "hint": "eraser = けしゴム"
+        },
+        {
+          "text": "Ken likes winter. He plays in the snow with his friends. He can ski very well.",
+          "q": "What can Ken do very well?",
+          "choices": [
+            "He can ski.",
+            "He can swim.",
+            "He can cook.",
+            "He can sing."
+          ],
+          "hint": "snow = ゆき"
+        },
+        {
+          "text": "Our school has a big library. I read books there after lunch. I like books about animals.",
+          "q": "When does he read books?",
+          "choices": [
+            "After lunch.",
+            "Before breakfast.",
+            "At night.",
+            "On Sunday morning."
+          ],
+          "hint": "library = としょかん"
+        },
+        {
+          "text": "My birthday is May fifth. I want a new bike. My mother makes a cake for me.",
+          "q": "What does he want for his birthday?",
+          "choices": [
+            "A new bike.",
+            "A new cat.",
+            "A new ball.",
+            "A new cap."
+          ],
+          "hint": "want = ほしい"
+        }
+      ],
+      "listening": [
+        {
+          "say": "I have two cats.",
+          "q": "ウーピーは なにを 2ひき かって いる？",
+          "choices": [
+            "ねこ",
+            "いぬ",
+            "うさぎ",
+            "とり"
+          ]
+        },
+        {
+          "say": "I go to school at eight.",
+          "q": "ウーピーは なにを する？",
+          "choices": [
+            "8時に 学校へ 行く",
+            "9時に 学校へ 行く",
+            "8時に 家へ 帰る",
+            "8時に ねる"
+          ]
+        },
+        {
+          "say": "She is my mother.",
+          "q": "あの人は だれ？",
+          "choices": [
+            "お母さん",
+            "いもうと",
+            "先生",
+            "お姉さん"
+          ]
+        },
+        {
+          "say": "I like apples very much.",
+          "q": "ウーピーは どう 思って いる？",
+          "choices": [
+            "りんごが 大すき",
+            "りんごが きらい",
+            "みかんが 大すき",
+            "りんごを 売りたい"
+          ]
+        },
+        {
+          "say": "It is rainy today.",
+          "q": "今日の 天気は？",
+          "choices": [
+            "雨",
+            "晴れ",
+            "雪",
+            "くもり"
+          ]
+        },
+        {
+          "say": "My bag is under the desk.",
+          "q": "かばんは どこ？",
+          "choices": [
+            "つくえの 下",
+            "つくえの 上",
+            "いすの 上",
+            "ベッドの 下"
+          ]
+        },
+        {
+          "say": "Let's play soccer after school.",
+          "q": "ウーピーは なにを しようと 言って いる？",
+          "choices": [
+            "放課後に サッカー",
+            "放課後に 勉強",
+            "朝に サッカー",
+            "家で テレビ"
+          ]
+        },
+        {
+          "say": "I can swim well.",
+          "q": "ウーピーは なにが できる？",
+          "choices": [
+            "じょうずに およぐ",
+            "はやく 走る",
+            "ピアノを ひく",
+            "絵を かく"
+          ]
+        },
+        {
+          "say": "How much is this pen?",
+          "q": "なにを きいて いる？",
+          "choices": [
+            "ペンの ねだん",
+            "ペンの もちぬし",
+            "ペンの ばしょ",
+            "ペンの 数"
+          ]
+        },
+        {
+          "say": "My birthday is in July.",
+          "q": "たんじょう日は いつ？",
+          "choices": [
+            "7月",
+            "6月",
+            "1月",
+            "明日"
+          ]
+        },
+        {
+          "say": "Please open the window.",
+          "q": "なにを たのんで いる？",
+          "choices": [
+            "まどを 開ける",
+            "まどを しめる",
+            "ドアを 開ける",
+            "電気を つける"
+          ]
+        },
+        {
+          "say": "I usually eat rice for breakfast.",
+          "q": "朝ごはんは たいてい なに？",
+          "choices": [
+            "ごはん",
+            "パン",
+            "たまご",
+            "くだもの"
+          ]
+        }
+      ],
+      "writing": [
+        {
+          "ja": "わたしは 犬が すきです。",
+          "en": "I like dogs."
+        },
+        {
+          "ja": "これは わたしの かばんです。",
+          "en": "This is my bag."
+        },
+        {
+          "ja": "かれは 毎日 サッカーを します。",
+          "en": "He plays soccer every day."
+        },
+        {
+          "ja": "わたしは 8時に 学校へ 行きます。",
+          "en": "I go to school at eight."
+        },
+        {
+          "ja": "あなたは 音楽が すきですか。",
+          "en": "Do you like music?"
+        },
+        {
+          "ja": "わたしの 母は 先生です。",
+          "en": "My mother is a teacher."
+        },
+        {
+          "ja": "ねこが つくえの 下に います。",
+          "en": "The cat is under the desk."
+        },
+        {
+          "ja": "いっしょに こうえんへ 行きましょう。",
+          "en": "Let's go to the park."
+        },
+        {
+          "ja": "わたしは ピアノを ひけます。",
+          "en": "I can play the piano."
+        },
+        {
+          "ja": "今日は とても 暑いです。",
+          "en": "It is very hot today."
+        },
+        {
+          "ja": "わたしには 兄が 二人 います。",
+          "en": "I have two brothers."
+        },
+        {
+          "ja": "この えんぴつは いくらですか。",
+          "en": "How much is this pencil?"
+        }
+      ],
+      "speaking": [
+        {
+          "ja": "はじめまして。",
+          "en": "Nice to meet you."
+        },
+        {
+          "ja": "今日は 元気ですか。",
+          "en": "How are you today?"
+        },
+        {
+          "ja": "音楽が 大すきです。",
+          "en": "I like music very much."
+        },
+        {
+          "ja": "これは わたしの 妹です。",
+          "en": "This is my little sister."
+        },
+        {
+          "ja": "自転車で 学校へ 行きます。",
+          "en": "I go to school by bike."
+        },
+        {
+          "ja": "ありがとう ございます。",
+          "en": "Thank you very much."
+        },
+        {
+          "ja": "お水を もらえますか。",
+          "en": "Can I have some water?"
+        },
+        {
+          "ja": "わたしは 11さいです。",
+          "en": "I am eleven years old."
+        },
+        {
+          "ja": "また あした。",
+          "en": "See you tomorrow."
+        },
+        {
+          "ja": "今 何時ですか。",
+          "en": "What time is it now?"
+        }
+      ]
+    },
+    "g4": {
+      "reading": [
+        {
+          "text": "Last Sunday, Emi went to the beach with her family. They swam in the sea and ate lunch there. Emi took many pictures of the sea.",
+          "q": "What did Emi do at the beach?",
+          "choices": [
+            "She took pictures.",
+            "She read a book.",
+            "She played the piano.",
+            "She studied English."
+          ],
+          "hint": "took pictures = しゃしんを とった"
+        },
+        {
+          "text": "Tom is going to visit his grandmother next week. She lives in Osaka. He will stay there for three days.",
+          "q": "How long will Tom stay in Osaka?",
+          "choices": [
+            "For three days.",
+            "For a week.",
+            "For one day.",
+            "For a month."
+          ],
+          "hint": "stay = たいざいする"
+        },
+        {
+          "text": "My brother is taller than me. He is on the basketball team. He practices every evening.",
+          "q": "What is true about the brother?",
+          "choices": [
+            "He is taller than the writer.",
+            "He is shorter than the writer.",
+            "He plays tennis.",
+            "He practices in the morning."
+          ],
+          "hint": "practice = れんしゅうする"
+        },
+        {
+          "text": "Yesterday it was rainy, so we did not play outside. We watched a movie at home. It was very funny.",
+          "q": "Why did they stay home?",
+          "choices": [
+            "Because it was rainy.",
+            "Because they were sick.",
+            "Because it was cold.",
+            "Because they were busy."
+          ],
+          "hint": "outside = そとで"
+        },
+        {
+          "text": "Lisa studies Japanese every day. She started studying it two years ago. Now she can write hiragana and katakana.",
+          "q": "When did Lisa start studying Japanese?",
+          "choices": [
+            "Two years ago.",
+            "Last month.",
+            "Yesterday.",
+            "Five years ago."
+          ],
+          "hint": "ago = 〜まえに"
+        },
+        {
+          "text": "Our school festival will be held on October 10th. Each class will make a shop. Our class is going to sell cookies.",
+          "q": "What will the writer's class sell?",
+          "choices": [
+            "Cookies.",
+            "Juice.",
+            "Books.",
+            "Flowers."
+          ],
+          "hint": "sell = 売る"
+        },
+        {
+          "text": "Ken was late for school this morning. He missed the bus and ran all the way. His teacher was not angry.",
+          "q": "Why was Ken late?",
+          "choices": [
+            "He missed the bus.",
+            "He got up early.",
+            "He was sick.",
+            "He walked with a friend."
+          ],
+          "hint": "miss the bus = バスに のりおくれる"
+        },
+        {
+          "text": "I want to be a doctor in the future. I like science the best of all my subjects. I study it very hard.",
+          "q": "What is the writer's favorite subject?",
+          "choices": [
+            "Science.",
+            "Music.",
+            "English.",
+            "Math."
+          ],
+          "hint": "subject = きょうか"
+        },
+        {
+          "text": "We usually eat dinner at seven, but last night we ate at eight because my father came home late.",
+          "q": "What time did they eat dinner last night?",
+          "choices": [
+            "At eight.",
+            "At seven.",
+            "At six.",
+            "At nine."
+          ],
+          "hint": "usually = たいてい"
+        },
+        {
+          "text": "There are many restaurants near the station. The new Italian one is the most popular. We waited for thirty minutes yesterday.",
+          "q": "Why did they wait for thirty minutes?",
+          "choices": [
+            "The restaurant was very popular.",
+            "The train was late.",
+            "The shop was closed.",
+            "They arrived too early."
+          ],
+          "hint": "popular = 人気の ある"
+        }
+      ],
+      "listening": [
+        {
+          "say": "I went to the library yesterday.",
+          "q": "きのう どこへ 行った？",
+          "choices": [
+            "図書館",
+            "えき",
+            "公園",
+            "びょういん"
+          ]
+        },
+        {
+          "say": "It will be sunny tomorrow.",
+          "q": "明日の 天気は？",
+          "choices": [
+            "晴れ",
+            "雨",
+            "雪",
+            "くもり"
+          ]
+        },
+        {
+          "say": "This bag is more expensive than that one.",
+          "q": "どちらが 高い？",
+          "choices": [
+            "この かばん",
+            "あの かばん",
+            "同じ ねだん",
+            "話して いない"
+          ]
+        },
+        {
+          "say": "I'm going to meet my friend at three.",
+          "q": "友だちと 何時に 会う？",
+          "choices": [
+            "3時",
+            "2時",
+            "4時",
+            "5時"
+          ]
+        },
+        {
+          "say": "She was very tired, so she went to bed early.",
+          "q": "彼女が 早く ねた りゆうは？",
+          "choices": [
+            "つかれて いたから",
+            "おなかが すいたから",
+            "宿題が あったから",
+            "雨だったから"
+          ]
+        },
+        {
+          "say": "Could you tell me the way to the post office?",
+          "q": "なにを たずねて いる？",
+          "choices": [
+            "ゆうびん局への 行き方",
+            "今の 時間",
+            "切手の ねだん",
+            "電話ばんごう"
+          ]
+        },
+        {
+          "say": "My father usually washes his car on Saturdays.",
+          "q": "父は 土曜日に なにを する？",
+          "choices": [
+            "車を あらう",
+            "そうじを する",
+            "買いものに 行く",
+            "走る"
+          ]
+        },
+        {
+          "say": "I finished my homework before dinner.",
+          "q": "宿題は いつ 終わった？",
+          "choices": [
+            "夕食の 前",
+            "夕食の 後",
+            "朝",
+            "学校で"
+          ]
+        },
+        {
+          "say": "Which do you like better, summer or winter?",
+          "q": "なにを きいて いる？",
+          "choices": [
+            "夏と冬 どちらが すきか",
+            "いつ 生まれたか",
+            "どこへ 行くか",
+            "なにを 食べるか"
+          ]
+        },
+        {
+          "say": "We are going to have a party next Friday.",
+          "q": "パーティーは いつ？",
+          "choices": [
+            "来週の 金曜日",
+            "今日",
+            "明日",
+            "来月"
+          ]
+        },
+        {
+          "say": "He can run faster than any other boy in his class.",
+          "q": "かれは どんな 人？",
+          "choices": [
+            "クラスで いちばん 足が 速い",
+            "足が おそい",
+            "歌が 上手",
+            "泳ぎが 得意"
+          ]
+        },
+        {
+          "say": "I bought two tickets for the concert.",
+          "q": "なにを 買った？",
+          "choices": [
+            "チケット 2まい",
+            "チケット 1まい",
+            "CD 2まい",
+            "ポスター"
+          ]
+        }
+      ],
+      "writing": [
+        {
+          "ja": "わたしは きのう 公園へ 行きました。",
+          "en": "I went to the park yesterday."
+        },
+        {
+          "ja": "かれは 明日 テニスを する つもりです。",
+          "en": "He is going to play tennis tomorrow."
+        },
+        {
+          "ja": "この本は あの本より おもしろいです。",
+          "en": "This book is more interesting than that one."
+        },
+        {
+          "ja": "わたしは 音楽を 聞くのが すきです。",
+          "en": "I like listening to music."
+        },
+        {
+          "ja": "きのうは 雨だったので 家に いました。",
+          "en": "I stayed home because it was rainy."
+        },
+        {
+          "ja": "駅までは どうやって 行けますか。",
+          "en": "How can I get to the station?"
+        },
+        {
+          "ja": "彼女は 3年前に ピアノを 始めました。",
+          "en": "She started playing the piano three years ago."
+        },
+        {
+          "ja": "わたしの 兄は わたしより 背が 高いです。",
+          "en": "My brother is taller than me."
+        },
+        {
+          "ja": "今夜は なにを する 予定ですか。",
+          "en": "What are you going to do tonight?"
+        },
+        {
+          "ja": "その 映画は とても おもしろかったです。",
+          "en": "The movie was very interesting."
+        },
+        {
+          "ja": "コーヒーを 一ぱい いかがですか。",
+          "en": "Would you like a cup of coffee?"
+        },
+        {
+          "ja": "わたしたちは 来月 京都を おとずれます。",
+          "en": "We will visit Kyoto next month."
+        }
+      ],
+      "speaking": [
+        {
+          "ja": "母と 買いものに 行きました。",
+          "en": "I went shopping with my mother."
+        },
+        {
+          "ja": "今週末は なにを する 予定ですか。",
+          "en": "What are you going to do this weekend?"
+        },
+        {
+          "ja": "とても 楽しかったです。",
+          "en": "It was a lot of fun."
+        },
+        {
+          "ja": "もう一度 言って もらえますか。",
+          "en": "Could you say that again, please?"
+        },
+        {
+          "ja": "冬より 夏の ほうが すきです。",
+          "en": "I like summer better than winter."
+        },
+        {
+          "ja": "すきな 教科は 英語です。",
+          "en": "My favorite subject is English."
+        },
+        {
+          "ja": "いつか オーストラリアに 行きたいです。",
+          "en": "I want to visit Australia someday."
+        },
+        {
+          "ja": "ここから どのくらい かかりますか。",
+          "en": "How long does it take from here?"
+        },
+        {
+          "ja": "かばんを 持つのを 手つだいます。",
+          "en": "Let me help you with your bag."
+        },
+        {
+          "ja": "旅行を 楽しみに して います。",
+          "en": "I am looking forward to the trip."
+        }
+      ]
+    },
+    "g3": {
+      "reading": [
+        {
+          "text": "Hi Mika, Thank you for your e-mail. I have been in Canada for three months. I am staying with a host family in Vancouver, and my host mother teaches me how to cook Canadian food. I will send you some pictures next week. Your friend, Ann",
+          "q": "How long has Ann been in Canada?",
+          "choices": [
+            "For three months.",
+            "For three weeks.",
+            "For a year.",
+            "Since last week."
+          ],
+          "hint": "host family = ホームステイ先の 家族"
+        },
+        {
+          "text": "Notice: The school library will be closed from August 1st to August 5th because new bookshelves will be put in. Books borrowed before August 1st must be returned by July 31st.",
+          "q": "Why will the library be closed?",
+          "choices": [
+            "New bookshelves will be put in.",
+            "The books were lost.",
+            "The teachers are on holiday.",
+            "The walls will be painted."
+          ],
+          "hint": "bookshelf = ほんだな"
+        },
+        {
+          "text": "Yuta joined a volunteer group last year. The group cleans the beach every month. At first, he was surprised that there was so much plastic on the sand. Now he tells his classmates about the problem.",
+          "q": "What does Yuta do now?",
+          "choices": [
+            "He tells his classmates about the problem.",
+            "He sells plastic bottles.",
+            "He swims every month.",
+            "He writes to the newspaper."
+          ],
+          "hint": "at first = はじめは"
+        },
+        {
+          "text": "The bicycle that my grandfather gave me is very old, but it still runs well. He bought it when he was a student. I use it to go to my piano lessons.",
+          "q": "Who bought the bicycle?",
+          "choices": [
+            "The writer's grandfather.",
+            "The writer.",
+            "The writer's father.",
+            "The piano teacher."
+          ],
+          "hint": "still = まだ・いまでも"
+        },
+        {
+          "text": "This museum was built in 1925 and is visited by many tourists every year. Visitors can see old maps of the city. The cafe on the second floor is famous for its apple pie.",
+          "q": "What is the cafe famous for?",
+          "choices": [
+            "Its apple pie.",
+            "Its old maps.",
+            "Its coffee beans.",
+            "Its garden."
+          ],
+          "hint": "be famous for = 〜で 有名"
+        },
+        {
+          "text": "Dear Mr. Brown, I am writing to ask about the English camp in August. I would like to know how many students can join and how much it costs. I have studied English for six years, and I want to use it more. Sincerely, Kenta",
+          "q": "Why is Kenta writing?",
+          "choices": [
+            "To ask about the English camp.",
+            "To say thank you.",
+            "To cancel his trip.",
+            "To invite Mr. Brown."
+          ],
+          "hint": "cost = ひようが かかる"
+        },
+        {
+          "text": "Sarah has been playing the violin since she was five. She practices for two hours every day. Last month, she won first prize in a contest held in her city.",
+          "q": "What happened last month?",
+          "choices": [
+            "She won first prize in a contest.",
+            "She started the violin.",
+            "She moved to a new city.",
+            "She bought a new violin."
+          ],
+          "hint": "win first prize = 1い に なる"
+        },
+        {
+          "text": "Our town started a new bus service last April. The buses are free for people over 70, so more elderly people can go shopping by themselves. The town is thinking about adding more stops.",
+          "q": "Who can ride the buses for free?",
+          "choices": [
+            "People over 70.",
+            "Students.",
+            "Everyone in the town.",
+            "The drivers' families."
+          ],
+          "hint": "elderly = 高れいの"
+        },
+        {
+          "text": "I have never eaten such a delicious cake before. My aunt, who is a pastry chef in France, made it for my birthday. She taught me how to make it, so I will try it this weekend.",
+          "q": "Who made the cake?",
+          "choices": [
+            "The writer's aunt.",
+            "The writer.",
+            "A shop in France.",
+            "The writer's mother."
+          ],
+          "hint": "pastry chef = パティシエ"
+        },
+        {
+          "text": "Many students in our school come by bicycle. Because the number of bicycles has grown, the school decided to build a new bicycle parking area. It will be finished by the end of this month.",
+          "q": "What will be finished this month?",
+          "choices": [
+            "A new bicycle parking area.",
+            "A new gym.",
+            "A new library.",
+            "A new school bus."
+          ],
+          "hint": "decide to = 〜する ことに きめる"
+        }
+      ],
+      "listening": [
+        {
+          "say": "I have already finished my report.",
+          "q": "レポートは どう なった？",
+          "choices": [
+            "もう 終わった",
+            "まだ 終わって いない",
+            "明日 出す",
+            "なくした"
+          ]
+        },
+        {
+          "say": "This temple was built about four hundred years ago.",
+          "q": "この お寺は？",
+          "choices": [
+            "約400年前に 建てられた",
+            "今年 建てられた",
+            "4年前に 建てられた",
+            "まだ 建てて いる"
+          ]
+        },
+        {
+          "say": "The girl who is standing by the door is my cousin.",
+          "q": "いとこは どの人？",
+          "choices": [
+            "ドアの そばに 立って いる 女の子",
+            "すわって いる 男の子",
+            "ピアノを ひいて いる 人",
+            "先生"
+          ]
+        },
+        {
+          "say": "If it rains tomorrow, we will watch a movie instead.",
+          "q": "明日 雨なら どう する？",
+          "choices": [
+            "映画を 見る",
+            "出かけない",
+            "スポーツを する",
+            "べんきょうを する"
+          ]
+        },
+        {
+          "say": "He asked me to carry the box to the office.",
+          "q": "たのまれた ことは？",
+          "choices": [
+            "箱を 事務室へ 運ぶこと",
+            "電話を かけること",
+            "手紙を 書くこと",
+            "そうじを すること"
+          ]
+        },
+        {
+          "say": "I have been studying English for six years.",
+          "q": "英語を 勉強して どのくらい？",
+          "choices": [
+            "6年間",
+            "6か月",
+            "6週間",
+            "始めた ばかり"
+          ]
+        },
+        {
+          "say": "The concert was cancelled because of the typhoon.",
+          "q": "コンサートは どう なった？",
+          "choices": [
+            "台風で 中止に なった",
+            "時間が 変わった",
+            "大せいこう だった",
+            "場所が 変わった"
+          ]
+        },
+        {
+          "say": "Could you tell me where the nearest station is?",
+          "q": "なにを たずねて いる？",
+          "choices": [
+            "いちばん 近い 駅の 場所",
+            "電車の 時間",
+            "切符の ねだん",
+            "行き先"
+          ]
+        },
+        {
+          "say": "She is interested in studying abroad next year.",
+          "q": "彼女が きょうみを もって いる ことは？",
+          "choices": [
+            "来年 留学すること",
+            "海外旅行",
+            "新しい 部活",
+            "引っこし"
+          ]
+        },
+        {
+          "say": "This book is written in easy English, so you can read it.",
+          "q": "この本は どんな 本？",
+          "choices": [
+            "やさしい英語で 書かれて いる",
+            "とても むずかしい",
+            "日本語で 書かれて いる",
+            "絵ばかりの 本"
+          ]
+        },
+        {
+          "say": "I was invited to my friend's birthday party.",
+          "q": "この人は どう した？",
+          "choices": [
+            "たんじょう日会に さそわれた",
+            "パーティーを 開いた",
+            "行けなかった",
+            "友だちを さそった"
+          ]
+        },
+        {
+          "say": "Would you mind opening the window?",
+          "q": "なにを たのんで いる？",
+          "choices": [
+            "まどを 開ける こと",
+            "まどを しめる こと",
+            "ドアを しめる こと",
+            "エアコンを つける こと"
+          ]
+        }
+      ],
+      "writing": [
+        {
+          "ja": "わたしは 3年間 英語を 勉強して います。",
+          "en": "I have studied English for three years."
+        },
+        {
+          "ja": "この 手紙は 母に よって 書かれました。",
+          "en": "This letter was written by my mother."
+        },
+        {
+          "ja": "むこうで 走って いる 男の子は 弟です。",
+          "en": "The boy who is running over there is my brother."
+        },
+        {
+          "ja": "わたしは 医者に なりたいです。",
+          "en": "I want to be a doctor."
+        },
+        {
+          "ja": "その 映画を 見た ことが ありますか。",
+          "en": "Have you ever seen that movie?"
+        },
+        {
+          "ja": "雨が やんだら 出かけましょう。",
+          "en": "Let's go out when the rain stops."
+        },
+        {
+          "ja": "英語を 話すことは たいせつです。",
+          "en": "It is important to speak English."
+        },
+        {
+          "ja": "かれは わたしに 写真を 見せて くれました。",
+          "en": "He showed me the pictures."
+        },
+        {
+          "ja": "この お寺は 多くの 人に おとずれられて います。",
+          "en": "This temple is visited by many people."
+        },
+        {
+          "ja": "なにか 飲む ものが ほしいです。",
+          "en": "I want something to drink."
+        },
+        {
+          "ja": "わたしは 彼女が どこに 住んで いるか 知りません。",
+          "en": "I don't know where she lives."
+        },
+        {
+          "ja": "母は わたしに 部屋を そうじするように 言いました。",
+          "en": "My mother told me to clean my room."
+        }
+      ],
+      "speaking": [
+        {
+          "ja": "京都に 2回 行った ことが あります。",
+          "en": "I have been to Kyoto twice."
+        },
+        {
+          "ja": "そこへの 行き方を 教えて もらえますか。",
+          "en": "Could you tell me how to get there?"
+        },
+        {
+          "ja": "本を 読むことは 大切だと 思います。",
+          "en": "I think reading books is important."
+        },
+        {
+          "ja": "日本の 食べものを 食べて みたいです。",
+          "en": "I would like to try Japanese food."
+        },
+        {
+          "ja": "質問しても いいですか。",
+          "en": "May I ask you a question?"
+        },
+        {
+          "ja": "理科の 勉強に きょうみが あります。",
+          "en": "I am interested in studying science."
+        },
+        {
+          "ja": "朝から ずっと 雨が ふって います。",
+          "en": "It has been raining since morning."
+        },
+        {
+          "ja": "その ニュースを 聞いて おどろきました。",
+          "en": "I was surprised to hear the news."
+        },
+        {
+          "ja": "わたしの 町に ついて 話させて ください。",
+          "en": "Let me tell you about my hometown."
+        },
+        {
+          "ja": "また すぐに 会えると いいですね。",
+          "en": "I hope to see you again soon."
+        }
+      ]
+    }
+  }
+}

@@ -71,4 +71,21 @@ export const REWARDS = {
   fishWord: { xp: 10, coins: 0 },      // the word behind a catch; the fish itself pays
   charDex: { xp: 5, coins: 5 },        // first time meeting a character
   phrase: { xp: 1, coins: 0 },         // a tapped preset phrase
+  // 英検の島. Four skills, four rates: producing English is worth more than choosing it,
+  // which is Roblox's tuning and the classroom's own. A grade above pays more for the
+  // same five questions, because the English in them is harder (see GRADE_RATE).
+  eiken: {
+    reading: { xp: 12, coins: 6 },
+    listening: { xp: 12, coins: 6 },
+    writing: { xp: 15, coins: 8 },
+    speaking: { xp: 18, coins: 6 },
+  },
+};
+
+// What a grade multiplies that by. 5級 is where a child starts, so it is the unit.
+export const GRADE_RATE = { g5: 1, g4: 1.25, g3: 1.5 };
+export const eikenReward = (skill, grade) => {
+  const base = REWARDS.eiken[skill] || REWARDS.eiken.reading;
+  const rate = GRADE_RATE[grade] || 1;
+  return { xp: Math.round(base.xp * rate), coins: Math.round(base.coins * rate) };
 };

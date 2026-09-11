@@ -1137,3 +1137,100 @@ test('the buildings are walked into: inside one is standing at it, and only that
   await a.room.leave();
   await sleep(100);
 });
+
+test('英検の島: the hall you stand in is the skill you get, and the server does the marking', async () => {
+  const { EIKEN, islandOfGrade, QUESTIONS_PER_SET, EIKEN_CAP, wordsOf } = await import('../src/game/eiken.js');
+  const { eikenReward } = await import('../src/game/progression.js');
+  const a = await join('Riko');
+  const island = islandOfGrade('g5');
+  const hall = (skill) => [...island.spotById.values()].find((s) => s.skill === skill);
+  const stand = async (x, z, space = island.id) => {
+    a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return Math.abs(p.x - x) < 0.01 && p.space === space;
+    });
+  };
+
+  // Three islands, four halls each, and a hall that is not on the island it claims.
+  assert.equal(EIKEN.list.length, 3);
+  a.room.send('eiken:start', { island: 'eiken5', hall: 'nowhere' });
+  assert.equal((await nextMessage(a.room, 'eiken:error')).reason, 'unknown hall');
+
+  // Standing on the island is not standing in the hall.
+  const reading = hall('reading');
+  a.room.send('eiken:start', { island: island.id, hall: reading.id });
+  let err = await nextMessage(a.room, 'eiken:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.spot.id, reading.id);
+
+  // 読む: a passage, a question, four options — and never which one is right.
+  await stand(reading.wx, reading.wz);
+  a.room.send('eiken:start', { island: island.id, hall: reading.id });
+  const q = await nextMessage(a.room, 'eiken:question');
+  assert.equal(q.skill, 'reading');
+  assert.equal(q.total, QUESTIONS_PER_SET);
+  assert.ok(q.text && q.q && q.choices.length === 4);
+  assert.equal(q.answer, undefined, 'the answer never goes to the page');
+  assert.equal(q.badge, '5級');
+
+  // A wrong answer pays nothing and comes back with the right one.
+  const before = a.welcome.wallet.coins;
+  a.room.send('eiken:answer', { choice: 99 });
+  const wrong = await nextMessage(a.room, 'eiken:result');
+  assert.equal(wrong.correct, false);
+  assert.ok(Number.isInteger(wrong.answer), 'which option it was comes back once the child has committed');
+  assert.equal(wrong.wallet.coins, before, 'and nothing is paid for it');
+  assert.ok(wrong.next, 'but the set moves on');
+
+  // Walking out stops the answering; it does not end the set.
+  await stand(island.x, island.z + 21);
+  a.room.send('eiken:answer', { choice: 0 });
+  assert.equal((await nextMessage(a.room, 'eiken:error')).reason, 'too far');
+
+  // 書く: the words arrive shuffled, and the order is the whole question.
+  const writing = hall('writing');
+  await stand(writing.wx, writing.wz);
+  a.room.send('eiken:start', { island: island.id, hall: writing.id });
+  const puzzle = await nextMessage(a.room, 'eiken:question');
+  assert.equal(puzzle.skill, 'writing');
+  assert.ok(Array.isArray(puzzle.tiles) && puzzle.tiles.length >= 3);
+  assert.equal(puzzle.en, undefined, 'the sentence itself is not sent, only its words');
+  a.room.send('eiken:answer', { words: [...puzzle.tiles].reverse() });
+  const jumbled = await nextMessage(a.room, 'eiken:result');
+  assert.equal(jumbled.correct, false);
+  assert.ok(typeof jumbled.answer === 'string');
+  // The next question is a different sentence, so yesterday's answer does not open it.
+  a.room.send('eiken:answer', { words: wordsOf(jumbled.answer) });
+  assert.equal((await nextMessage(a.room, 'eiken:result')).correct, false);
+
+  // 話す: the page sends what the microphone heard, never a verdict — and this is the
+  // one hall where the test knows the answer too, so it is where the paying is checked.
+  const speaking = hall('speaking');
+  const rate = eikenReward('speaking', 'g5');
+  await stand(speaking.wx, speaking.wz);
+  a.room.send('eiken:start', { island: island.id, hall: speaking.id });
+  const say = await nextMessage(a.room, 'eiken:question');
+  assert.equal(say.skill, 'speaking');
+  assert.ok(say.en && say.ja);
+  a.room.send('eiken:answer', { heard: say.en, correct: true });
+  const spoken = await nextMessage(a.room, 'eiken:result');
+  assert.equal(spoken.correct, true);
+  assert.equal(spoken.coins, rate.coins, 'the 5級 speaking rate, decided here');
+  assert.equal(spoken.xp, rate.xp);
+  assert.equal(spoken.room, EIKEN_CAP - rate.coins, "and it comes out of the day's ceiling");
+  assert.equal(spoken.wallet.coins, before + rate.coins);
+  // A page that declares itself right is not believed: the microphone's words are all
+  // the server reads. (The answering interval is turned off in this file, so how fast a
+  // child may answer is the gym's test, not this one's.)
+  a.room.send('eiken:answer', { heard: 'banana banana banana', correct: true });
+  const heard = await nextMessage(a.room, 'eiken:result');
+  assert.equal(heard.correct, false);
+  assert.equal(heard.coins, undefined, 'and nothing is paid for saying so');
+
+  // Quitting clears the set.
+  a.room.send('eiken:quit', {});
+  assert.equal((await nextMessage(a.room, 'eiken:closed')).reason, 'quit');
+  await a.room.leave();
+  await sleep(100);
+});

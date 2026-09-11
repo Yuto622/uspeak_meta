@@ -51,7 +51,7 @@ export const ghostPayload = (ghost) => ({ id: ghost.id, word: ghost.word, ja: gh
 
 // A child's own night: which day it is counting from, and what has been paid.
 export function blankCaps(now = Date.now()) {
-  return { day: dayIndex(now), battle: 0, ghost: 0, course: 0 };
+  return { day: dayIndex(now), battle: 0, ghost: 0, course: 0, eiken: 0 };
 }
 
 export function sanitizeCaps(raw, now = Date.now()) {
@@ -60,7 +60,7 @@ export function sanitizeCaps(raw, now = Date.now()) {
   const day = Number(raw.day);
   // Yesterday's spending is not today's, so a stale row simply starts the day fresh.
   if (!Number.isFinite(day) || Math.floor(day) !== caps.day) return caps;
-  for (const key of ['battle', 'ghost', 'course']) {
+  for (const key of ['battle', 'ghost', 'course', 'eiken']) {
     const n = Number(raw[key]);
     if (Number.isFinite(n) && n > 0) caps[key] = Math.min(1e7, Math.floor(n));
   }
@@ -70,6 +70,6 @@ export function sanitizeCaps(raw, now = Date.now()) {
 // What is left of a cap today, rolling the day over on its own.
 export function roomLeft(caps, key, cap, now = Date.now()) {
   const today = dayIndex(now);
-  if (caps.day !== today) { caps.day = today; caps.battle = 0; caps.ghost = 0; caps.course = 0; }
+  if (caps.day !== today) { caps.day = today; caps.battle = 0; caps.ghost = 0; caps.course = 0; caps.eiken = 0; }
   return Math.max(0, cap - (caps[key] || 0));
 }

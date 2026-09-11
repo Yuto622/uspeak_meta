@@ -1,0 +1,69 @@
+/* 英検の島 — the four screens. Built on the quiz dialog's shapes so a child who has
+   answered in a word hut already knows how this one works; what is new here is the
+   passage, the ear, the tiles and the microphone. */
+#eiken-dialog { width: min(680px, 94vw); }
+#eiken-dialog .eyebrow { letter-spacing: .18em; }
+.eiken-lead { margin: 0 0 10px; color: #5d6f66; font-size: 13px; }
+.eiken-passage {
+  background: #f6f2e4; border: 1px solid #e0d8bf; border-radius: 14px; padding: 14px 16px 10px;
+  margin-bottom: 10px;
+}
+.eiken-passage p { margin: 0 0 8px; font-size: 17px; line-height: 1.7; color: #23372f; }
+.eiken-passage button, .eiken-ear button, .eiken-say button {
+  background: #23372f; color: #f3efe1; border-radius: 999px; padding: 7px 14px; font-size: 13px;
+}
+.eiken-hint { margin: 0 0 10px; font-size: 13px; color: #5d6f66; }
+.eiken-hint summary { cursor: pointer; padding: 4px 0; }
+.eiken-q { margin: 4px 0 12px; font-size: 18px; font-weight: 700; color: #1c3b2f; line-height: 1.5; }
+.eiken-choices button span { font-size: 15px; }
+
+/* 聞く: the sentence stays hidden until it has been answered, or there is nothing to
+   listen for. */
+.eiken-ear { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.eiken-ear button { font-size: 15px; padding: 12px 20px; }
+.eiken-said { margin: 0; font-size: 15px; color: #3d5a4a; font-style: italic; }
+.eiken-said.hidden { color: #b9c4bd; letter-spacing: .3em; }
+
+/* 書く: the line being built, and the words it is built from. */
+.eiken-line {
+  display: flex; align-items: baseline; gap: 2px; min-height: 54px; padding: 12px 14px;
+  border: 2px dashed #cbd3c2; border-radius: 14px; background: #fbf9f0; margin-bottom: 12px;
+  font-size: 19px; color: #1c3b2f; line-height: 1.5; flex-wrap: wrap;
+}
+.eiken-line.ok { border-color: #6aa84f; border-style: solid; background: #eef6e6; }
+.eiken-line.ng { border-color: #d98a7a; border-style: solid; background: #fbeeea; }
+.eiken-line b { font-weight: 700; }
+.eiken-blank { color: #adbaae; font-size: 14px; }
+.eiken-tiles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.eiken-tiles button {
+  background: #fff; border: 1px solid #d7d0b8; border-radius: 10px; padding: 10px 14px;
+  font-size: 16px; color: #23372f; box-shadow: 0 2px 0 #ddd6bd;
+}
+.eiken-tiles button:active { transform: translateY(1px); box-shadow: none; }
+.eiken-tiles button:disabled { opacity: .3; box-shadow: none; }
+.eiken-line-acts { display: flex; gap: 8px; margin-bottom: 10px; }
+.eiken-line-acts button { flex: 1; padding: 12px; border-radius: 12px; background: #efece0; color: #23372f; font-weight: 700; }
+.eiken-line-acts button.primary { background: #2f6b4f; color: #f6f3e6; }
+.eiken-line-acts button:disabled { opacity: .45; }
+
+/* 話す: the sentence, the microphone, and a way through when the microphone will not. */
+.eiken-say {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: #f6f2e4; border-radius: 14px; padding: 14px 16px; margin-bottom: 12px;
+}
+.eiken-say strong { font-size: 20px; color: #1c3b2f; }
+.eiken-mic { text-align: center; margin-bottom: 10px; }
+.eiken-mic button { padding: 16px 26px; font-size: 17px; border-radius: 999px; background: #2f6b4f; color: #f6f3e6; font-weight: 700; }
+.eiken-mic button:disabled { opacity: .5; }
+#eiken-status { margin: 8px 0 0; font-size: 13px; color: #5d6f66; min-height: 18px; }
+.eiken-typed { display: flex; gap: 8px; margin-top: 8px; }
+.eiken-typed input { flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid #d7d0b8; font-size: 15px; }
+.eiken-typed button { padding: 10px 16px; border-radius: 10px; background: #23372f; color: #f3efe1; }
+.eiken-perfect { color: #b8860b; font-weight: 700; }
+
+@media (max-width: 560px) {
+  .eiken-passage p { font-size: 15px; }
+  .eiken-q { font-size: 16px; }
+  .eiken-say { flex-direction: column; align-items: flex-start; }
+  .eiken-line { font-size: 17px; }
+}

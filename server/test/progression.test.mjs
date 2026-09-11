@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { xpToNext, totalXp, blankProgress, sanitizeProgress, grantXp, REWARDS, MAX_LEVEL } from '../src/game/progression.js';
+import { xpToNext, totalXp, blankProgress, sanitizeProgress, grantXp, REWARDS, MAX_LEVEL, eikenReward } from '../src/game/progression.js';
 
 test('the level curve is the one children already played on Roblox', () => {
   // need(level) = 20 + level * 10, straight from XPCore.
@@ -67,7 +67,21 @@ test('the rate card pays speaking the most', () => {
   assert.ok(REWARDS.wordQuiz.xp > REWARDS.phrase.xp, 'a quiz beats a tapped phrase');
   assert.equal(REWARDS.wordQuiz.coins, 10);
   for (const [name, r] of Object.entries(REWARDS)) {
-    assert.ok(Number.isInteger(r.xp) && r.xp >= 0, `${name} xp`);
-    assert.ok(Number.isInteger(r.coins) && r.coins >= 0, `${name} coins`);
+    // 英検 pays by skill rather than by one number, so its entry is a card of its own.
+    const rates = Number.isFinite(r.xp) ? [[name, r]] : Object.entries(r).map(([k, v]) => [`${name}.${k}`, v]);
+    for (const [where, rate] of rates) {
+      assert.ok(Number.isInteger(rate.xp) && rate.xp >= 0, `${where} xp`);
+      assert.ok(Number.isInteger(rate.coins) && rate.coins >= 0, `${where} coins`);
+    }
+  }
+  // Producing English is worth more than choosing it, and a harder grade more again.
+  assert.ok(REWARDS.eiken.speaking.xp > REWARDS.eiken.reading.xp, 'speaking beats reading');
+  assert.ok(eikenReward('reading', 'g3').xp > eikenReward('reading', 'g5').xp, '3級 beats 5級');
+  assert.equal(eikenReward('reading', 'g5').xp, REWARDS.eiken.reading.xp, '5級 is the unit');
+  for (const grade of ['g5', 'g4', 'g3']) {
+    for (const skill of ['reading', 'listening', 'writing', 'speaking']) {
+      const rate = eikenReward(skill, grade);
+      assert.ok(Number.isInteger(rate.xp) && Number.isInteger(rate.coins), `${grade}.${skill} pays whole numbers`);
+    }
   }
 });

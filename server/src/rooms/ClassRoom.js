@@ -9,7 +9,7 @@ import { applyOp, sanitizeWallet, EconomyError } from '../game/economy.js';
 import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
 import { MISSIONS } from '../game/missions.js';
-import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS } from '../game/progression.js';
+import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS, eikenReward } from '../game/progression.js';
 import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SESSION } from '../game/wordquiz.js';
 import { MODES as GYM_MODES, createSet, questionPayload as gymPayload, answerSet } from '../game/gym.js';
 import { ARENA, createBattle, statePayload, quizPayload, chooseWaza, answerQuiz, BattleError, DAILY_CAP } from '../game/battle.js';
@@ -17,6 +17,7 @@ import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
 import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
+import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError } from '../game/eiken.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding, startLap, crossGate } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
@@ -101,6 +102,9 @@ export class ClassRoom extends Room {
     this.onMessage('gym:start', (client, msg) => this.onGymStart(client, msg));
     this.onMessage('gym:answer', (client, msg) => this.onGymAnswer(client, msg));
     this.onMessage('gym:quit', (client) => this.onGymQuit(client));
+    this.onMessage('eiken:start', (client, msg) => this.onEikenStart(client, msg));
+    this.onMessage('eiken:answer', (client, msg) => this.onEikenAnswer(client, msg));
+    this.onMessage('eiken:quit', (client) => this.onEikenQuit(client));
     this.onMessage('battle:start', (client, msg) => this.onBattleStart(client, msg));
     this.onMessage('battle:waza', (client, msg) => this.onBattleWaza(client, msg));
     this.onMessage('battle:answer', (client, msg) => this.onBattleAnswer(client, msg));
@@ -498,10 +502,12 @@ export class ClassRoom extends Room {
       lastQuizAt: 0,
       gym: null,
       lastGymAt: 0,
+      eiken: null,
+      lastEikenAt: 0,
       battle: null,
       // What today's caps have already paid, kept in the record so that leaving and
       // rejoining is not a way to start the day over.
-      caps: sanitizeCaps({ day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins }),
+      caps: sanitizeCaps({ day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins, eiken: record.eiken_coins }),
       garage,
       riding: sanitizeRiding(record.riding, garage),
       bricks,
@@ -541,6 +547,7 @@ export class ClassRoom extends Room {
       login_day: priv.login.day, login_streak: priv.login.streak,
       week_key: priv.week.key, week_xp: priv.week.xp,
       cap_day: priv.caps.day, battle_coins: priv.caps.battle, ghost_coins: priv.caps.ghost, course_coins: priv.caps.course,
+      eiken_coins: priv.caps.eiken,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
       room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza }),
@@ -982,6 +989,119 @@ export class ClassRoom extends Room {
       classCode: this.classCode,
       season: seasonFor(),
     });
+  }
+
+  // ---- 英検の島（5級・4級・3級）------------------------------------------------------
+
+  // Four halls on each island, one per skill, and the hall a child is standing in is the
+  // skill they get. The set of five is held here, so what the page knows is one question
+  // at a time and never its answer. Everything a child could get wrong on the wire — a
+  // hall on another island, a set they walked out of, an answer sent twice — is a named
+  // refusal rather than a payment.
+  atEikenHall(sessionId, islandId, hallId) {
+    const island = EIKEN_ISLANDS.get(islandId);
+    if (!island) return false;
+    return this.atPlace(sessionId, island, island.spotById.get(hallId));
+  }
+
+  eikenSpotPayload(islandId, hallId) {
+    const hall = EIKEN_ISLANDS.get(islandId)?.spotById.get(hallId);
+    return hall ? { id: hall.id, island: islandId, name: hall.name, ja: hall.ja, skill: hall.skill } : null;
+  }
+
+  onEikenStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const island = EIKEN_ISLANDS.get(typeof msg?.island === 'string' ? msg.island : '');
+    const hall = island?.spotById.get(typeof msg?.hall === 'string' ? msg.hall : '');
+    if (!island || !hall) { client.send('eiken:error', { reason: 'unknown hall' }); return; }
+    if (!this.atEikenHall(client.sessionId, island.id, hall.id)) {
+      client.send('eiken:error', { reason: 'too far', spot: this.eikenSpotPayload(island.id, hall.id) });
+      return;
+    }
+    let session;
+    try { session = createEikenSet(island.grade, hall.skill); } catch (err) {
+      if (err instanceof EikenError) { client.send('eiken:error', { reason: err.message }); return; }
+      throw err;
+    }
+    session.island = island.id;
+    session.hall = hall.id;
+    priv.eiken = session;
+    client.send('eiken:question', {
+      ...eikenPayload(session), island: island.id, hall: hall.id, badge: island.badge, name: hall.name,
+      room: roomLeft(priv.caps, 'eiken', EIKEN_CAP),
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" started a ${island.grade} ${hall.skill} set`);
+  }
+
+  onEikenAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const session = priv?.eiken;
+    if (!priv || !session) return;
+    // Walking out ends nothing; it just stops the answering until they walk back in.
+    if (!this.atEikenHall(client.sessionId, session.island, session.hall)) {
+      client.send('eiken:error', { reason: 'too far', spot: this.eikenSpotPayload(session.island, session.hall) });
+      return;
+    }
+    const now = Date.now();
+    if (now - priv.lastEikenAt < config.answerMinIntervalMs) { client.send('eiken:error', { reason: 'too fast' }); return; }
+    priv.lastEikenAt = now;
+
+    const result = answerEikenSet(session, msg);
+    if (!result) return;
+    priv.stats.attempts += 1;
+    if (result.correct) priv.stats.correct += 1;
+
+    const payload = { ...result, island: session.island, hall: session.hall, skill: session.skill, grade: session.grade };
+    const rate = eikenReward(session.skill, session.grade);
+    if (result.correct) {
+      // The coins stop at the day's ceiling; the XP does not, because XP is the record of
+      // what a child did and a report that flattens a good afternoon is a worse report.
+      const left = roomLeft(priv.caps, 'eiken', EIKEN_CAP);
+      const paid = Math.min(rate.coins, left);
+      if (paid > 0) {
+        const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `eiken:${session.grade}:${session.skill}` });
+        priv.caps.eiken += paid;
+        this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      }
+      payload.coins = paid;
+      payload.capped = paid < rate.coins;
+      const level = this.awardXp(client.sessionId, rate.xp, `eiken:${session.grade}:${session.skill}`);
+      payload.xp = rate.xp;
+      payload.levels = level?.levels || 0;
+    }
+    this.store.appendLearning([
+      new Date(now).toISOString(), this.classCode, priv.name, `eiken:${session.grade}:${session.skill}:${result.index}`, session.skill,
+      String(result.picked ?? '').slice(0, 80), result.correct ? 1 : 0, result.correct ? rate.xp : 0, client.sessionId,
+    ]);
+
+    if (result.done) {
+      if (result.perfect) {
+        const left = roomLeft(priv.caps, 'eiken', EIKEN_CAP);
+        const bonus = Math.min(PERFECT_BONUS_COINS, left);
+        if (bonus > 0) {
+          const entry = applyOp(priv.wallet, { type: 'award', amount: bonus, id: `eiken:${session.grade}:${session.skill}:perfect` });
+          priv.caps.eiken += bonus;
+          this.store.appendCoin(this.coinRow(client.sessionId, entry));
+        }
+        payload.perfectBonus = bonus;
+      }
+      priv.eiken = null;
+      log.info(`[room ${this.roomId}] "${priv.name}" finished a ${session.grade} ${session.skill} set ${result.score}/${result.total}`);
+    }
+    payload.progress = this.progressPayload(client.sessionId);
+    payload.wallet = this.walletPayload(client.sessionId).wallet;
+    payload.room = roomLeft(priv.caps, 'eiken', EIKEN_CAP);
+    payload.next = priv.eiken ? eikenPayload(priv.eiken) : null;
+    this.persist(client.sessionId);
+    client.send('eiken:result', payload);
+  }
+
+  onEikenQuit(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv?.eiken) return;
+    priv.eiken = null;
+    client.send('eiken:closed', { reason: 'quit' });
   }
 
   // ---- まちづくり島 -------------------------------------------------------------

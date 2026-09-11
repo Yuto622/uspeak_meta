@@ -10,6 +10,7 @@ import { createLobby } from './lobby.js';
 import { createMissionUI } from './mission.js';
 import { createQuizUI } from './quiz.js';
 import { createGymUI } from './gym.js';
+import { createEikenUI } from './eiken.js';
 import { createBattleUI } from './battle.js';
 import { createDojoUI } from './dojo.js';
 import { createPetUI } from './pet.js';
@@ -62,6 +63,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const gym = createGymUI({
     send: (type, payload) => room?.send(type, payload),
     speak, toast, isOnline: () => state.mode === 'online',
+  });
+  // 英検の島. Four halls on each of three islands, and the hall a child walked into is
+  // the skill they are practising — the page never picks it, and never marks it either.
+  const eiken = createEikenUI({
+    send: (type, payload) => room?.send(type, payload),
+    speak, toast, learn, isOnline: () => state.mode === 'online',
   });
   const battle = createBattleUI({
     send: (type, payload) => room?.send(type, payload),
@@ -277,6 +284,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('gym:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); gym.onResult(m); });
     r.onMessage('gym:closed', (m) => gym.onClosed(m));
     r.onMessage('gym:error', (m) => gym.onError(m));
+    r.onMessage('eiken:question', (m) => eiken.onQuestion(m));
+    r.onMessage('eiken:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); eiken.onResult(m); });
+    r.onMessage('eiken:closed', (m) => eiken.onClosed(m));
+    r.onMessage('eiken:error', (m) => eiken.onError(m));
     r.onMessage('battle:state', (m) => battle.onState(m));
     r.onMessage('battle:quiz', (m) => battle.onQuiz(m));
     r.onMessage('battle:turn', (m) => { if (m.wallet) applyWallet(m.wallet); battle.onTurn(m); });
@@ -641,6 +652,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (near.spot.kind === 'gym') gym.enter(near.spot); else quiz.enter(near.spot);
     },
     schoolLabel: (spot) => (spot.kind === 'gym' ? gym.label(spot) : quiz.label(spot)),
+    eikenInteract: () => {
+      const near = rpg.eikenNearby();
+      if (near) eiken.enter(near.spot, near.island);
+    },
+    eikenLabel: (spot) => eiken.label(spot),
     arenaInteract: () => {
       const near = rpg.arenaNearby();
       if (!near) return;

@@ -48,7 +48,7 @@ cd client && node tests/regression.mjs    # 10 件（3Dワールドの不変条�
 ```bash
 cd server
 PLAYWRIGHT_MODULE_DIR=/path/to/node_modules CHROMIUM_PATH=/path/to/chrome \
-  node test/e2e/browser-school.mjs      # 他に -arena -errand -night -ride -town -inside -daily -sync -layout -scale
+  node test/e2e/browser-school.mjs      # 他に -arena -eiken -errand -night -ride -town -inside -daily -sync -layout -scale
 ```
 
 ---
@@ -86,11 +86,13 @@ client/dist/           ブラウザ（ビルド不要。素の ES modules + thre
   room-world.js        マイルーム（かぐを置く部屋）
   plaza-world.js       ひろば（マインクラフト式のブロック建築）
   *-island.js          各島の見た目（errand/school/arena/pet/ride/town）
+  eiken-island.js      英検の島3つ（同じ間取り・3つの世界）／ eiken.js は4技能の画面
   *.json               島のデータ（座標・文言）＝サーバーと共有
 server/src/
   index.js             HTTP + Colyseus。/healthz /config.js /report/:class/:name
   rooms/ClassRoom.js   1クラス=1部屋。すべての判定がここに集まる（約1400行）
-  game/*.js            判定の中身（quiz, gym, battle, pets, vehicles, town, night, daily…）
+  game/*.js            判定の中身（quiz, gym, battle, pets, vehicles, town, eiken, night, daily…）
+  game/eiken-bank.json 英検の問題と答え。**クライアントには来ない**（word-quiz.json と同じ）
   store/               永続化（Google スプレッドシート / ローカルJSON）
   ai/tutor.js          AI英会話（ウーピー）。キーはサーバーから出ません
 ```
@@ -115,6 +117,7 @@ Google シートのヘッダは短ければ自動で伸ばし、食い違えば�
 | ペット島 | たまご→孵化→ごはん→なでる。時間で減衰（オフライン時間も数える） |
 | のりもの島 | 4台（レベル＋コインで解放）＋ 方向の英単語アーチ6つのコース |
 | まちづくり島 | ブロック屋・かぐ屋・ふどうさん・マイルーム（かぐ）・ひろば（ブロック建築） |
+| 英検の島 ×3 | 5級・4級・3級。島ごとに 読む・聞く・書く・話す の4館（1セット5問） |
 | 日課 | ログインボーナス（日本時間12時切替・7日100→400🪙）・週間ランキング・シーズン |
 | 世界の演出 | 昼300/夕120/夜240/朝45秒の共有時計・夜のおばけ12体・環境音 |
 | 運用 | 入場ゲート（名簿・3段フォールバック）・保護者レポート（署名付きURL） |
