@@ -24,6 +24,7 @@ export const isCallRoom = (space) => space === TALK_ISLAND || /^in:[^:]+:[^:]+$/
 
 const ICE = [{ urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'] }];
 const CAMERA = { width: { ideal: 320 }, height: { ideal: 240 }, frameRate: { ideal: 15, max: 20 } };
+const RETRY_MS = 12000;  // how long a connection may stay unconnected before it is tried again
 
 export function createVoice({ send, toast, roomLabel = () => '' }) {
   const state = {
@@ -36,6 +37,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     muted: false,
     camera: false,
     peers: new Map(),   // sessionId -> { id, name, role, pc, stream, polite, making, ignoring, level, el }
+    size: 'm',          // how big the panel (and so the faces) are drawn
     error: '',
   };
   let local = null;         // MediaStream: the microphone, and the camera if it is on
@@ -47,7 +49,8 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   const panel = document.createElement('aside');
   panel.id = 'voice-panel';
   panel.hidden = true;
-  panel.innerHTML = `<div class="voice-head"><b id="voice-room"></b><small id="voice-count"></small></div>
+  panel.innerHTML = `<div class="voice-head"><b id="voice-room"></b><small id="voice-count"></small>
+      <button type="button" id="voice-size" class="voice-size" title="がめんの 大きさ">⤢ 中</button></div>
     <div id="voice-tiles" class="voice-tiles" hidden></div>
     <div id="voice-people" class="voice-people"></div>
     <div class="voice-acts">
@@ -65,6 +68,39 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   $('#voice-join', panel).onclick = () => join();
   $('#voice-mute', panel).onclick = () => setMuted(!state.muted);
   $('#voice-cam', panel).onclick = () => setCamera(!state.camera);
+
+  // ---- how big the faces are -------------------------------------------------------------
+  //
+  // An iPad held by one child wants the faces big; the same panel on a shared screen next
+  // to the game wants them out of the way. Rather than a slider a seven-year-old has to
+  // aim at, the button simply steps 小 → 中 → 大 → 特大 → 小, and the choice is remembered
+  // so it is not re-chosen at every lesson. The widths are min(px, vw), so 特大 on a phone
+  // is still a phone-sized panel.
+  const SIZES = [
+    { id: 's', label: '小' },
+    { id: 'm', label: '中' },
+    { id: 'l', label: '大' },
+    { id: 'xl', label: '特大' },
+  ];
+  const SIZE_KEY = 'uspeak-voice-size-v1';
+  const readSize = () => { try { return localStorage.getItem(SIZE_KEY) || ''; } catch { return ''; } };
+
+  function setSize(id) {
+    const size = SIZES.find((s) => s.id === id) || SIZES[1];
+    state.size = size.id;
+    panel.dataset.size = size.id;
+    const btn = $('#voice-size', panel);
+    btn.textContent = `⤢ ${size.label}`;
+    btn.setAttribute('aria-label', `がめんの 大きさ ${size.label}`);
+    // Private browsing throws on write; the size then simply lasts the lesson.
+    try { localStorage.setItem(SIZE_KEY, size.id); } catch { /* not worth a word to the child */ }
+  }
+
+  $('#voice-size', panel).onclick = () => {
+    const at = SIZES.findIndex((s) => s.id === state.size);
+    setSize(SIZES[(at + 1) % SIZES.length].id);
+  };
+  setSize(readSize() || 'm');
 
   // A face, with the name on it. One per camera that is on — the child's own included,
   // mirrored, because a picture of yourself that moves the wrong way is unsettling.
@@ -248,8 +284,24 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       render();
     };
     pc.onconnectionstatechange = () => {
+      if (['connected', 'completed'].includes(pc.connectionState)) { clearInterval(peer.watchdog); peer.watchdog = 0; }
       if (['failed', 'closed'].includes(pc.connectionState)) closePeer(peer.id);
     };
+    // A connection that never gets through would otherwise sit there silently for the whole
+    // lesson: the child sees the name and hears nothing. School networks drop UDP often
+    // enough that this is the normal failure, so the side that offers tries the connection
+    // again a couple of times (ICE restart) before leaving it alone.
+    peer.tries = 0;
+    peer.since = Date.now();
+    peer.watchdog = setInterval(() => {
+      if (['connected', 'completed', 'closed'].includes(pc.connectionState)) { clearInterval(peer.watchdog); peer.watchdog = 0; return; }
+      // Only the side that offers restarts, and only once the connection has had a fair
+      // while to come up on its own — a slow school Wi-Fi is not a failure yet.
+      if (peer.polite || peer.tries >= 2 || Date.now() - peer.since < RETRY_MS) return;
+      peer.tries += 1;
+      peer.since = Date.now();
+      try { pc.restartIce(); } catch { /* too late: the connection is going away */ }
+    }, 3000);
     return peer;
   }
 
@@ -292,6 +344,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   function closePeer(id) {
     const peer = state.peers.get(id);
     if (!peer) return;
+    clearInterval(peer.watchdog);
     try { peer.pc.close(); } catch { /* already closed */ }
     peer.el?.remove();
     dropTile(id);
@@ -392,6 +445,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       render();
     },
     leave,
+    setSize,
     get joined() { return state.joined; },
     get panel() { return panel; },
   };

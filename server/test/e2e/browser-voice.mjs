@@ -36,7 +36,12 @@ await sleep(1500);
 
 const browser = await chromium.launch({
   ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
+  // WebRtcHideLocalIpsWithMdns off: Chromium normally hides a machine's own address behind
+  // an mDNS name, and a container with no mDNS responder then gathers no candidates at all
+  // and the call never connects. Real browsers on a school network resolve those names; the
+  // flag is about this container, not about how the call works.
   args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--no-sandbox',
+    '--disable-features=WebRtcHideLocalIpsWithMdns', '--allow-loopback-in-peer-connection',
     '--use-fake-device-for-media-capture', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required'],
 });
 const { openPage } = makeHelpers({ browser, port: PORT, viewport: { width: 520, height: 420 } });
@@ -75,24 +80,50 @@ async function enterHall(page, isle) {
   const hall = isle.spots.find((s) => s.skill === 'speaking');
   await page.evaluate(() => { if (uspeak.rpg.state.current !== 'eiken5') { uspeak.rpg.fly('eiken5'); uspeak.rpg.finishFlight(); } });
   await page.evaluate(([x, z]) => { uspeak.rpg.inside.leave(true); uspeak.player.position.set(x, 0, z); }, [isle.x + hall.x, isle.z + hall.z]);
-  await page.waitForFunction(() => uspeak.rpg.insideBuilding?.spot?.id === 'speaking', null, { timeout: 40000, polling: 150 });
-  await page.waitForFunction(() => uspeak.net.currentSpace() === 'in:eiken5:speaking', null, { timeout: 20000, polling: 150 });
+  await page.waitForFunction(() => uspeak.rpg.insideBuilding?.spot?.id === 'speaking', null, { timeout: 150000, polling: 150 });
+  await page.waitForFunction(() => uspeak.net.currentSpace() === 'in:eiken5:speaking', null, { timeout: 60000, polling: 150 });
 }
 
 // おはなし島 is the island that is a call: flying to it is all it takes.
 async function landOnTalkIsland(page) {
   await page.evaluate(() => { uspeak.rpg.fly('talk'); uspeak.rpg.finishFlight(); });
-  await page.waitForFunction(() => uspeak.net.currentSpace() === 'talk', null, { timeout: 40000, polling: 150 });
+  await page.waitForFunction(() => uspeak.net.currentSpace() === 'talk', null, { timeout: 150000, polling: 150 });
 }
 
 async function leaveHall(page) {
   await page.evaluate(() => { uspeak.player.position.z = 9.4; });
-  await page.waitForFunction(() => !uspeak.rpg.insideBuilding, null, { timeout: 40000, polling: 150 });
+  await page.waitForFunction(() => !uspeak.rpg.insideBuilding, null, { timeout: 150000, polling: 150 });
 }
 
 const peers = (page) => page.evaluate(() => [...uspeak.net.voice.state.peers.values()].map((p) => ({
   name: p.name, connection: p.pc.connectionState, ice: p.pc.iceConnectionState, tracks: p.stream.getTracks().map((t) => t.kind),
 })));
+
+// Both children tap, and the two browsers connect. The tap is the real thing being tested;
+// the retry around it is not. This container's ICE gathering sometimes produces no
+// candidates at all (no mDNS responder, no reachable STUN, a shaped virtual network), and
+// a connection that never gathered one never connects. Hanging up and tapping again builds
+// a fresh RTCPeerConnection, which is exactly what a child would do — and what a school
+// network with a TURN server would not need.
+async function bothJoin(p1, p2, tries = 4) {
+  const connected = (page) => page.evaluate(() => [...uspeak.net.voice.state.peers.values()].length > 0
+    && [...uspeak.net.voice.state.peers.values()].every((p) => p.pc.connectionState === 'connected'));
+  for (let go = 1; go <= tries; go++) {
+    if (!(await p1.evaluate(() => uspeak.net.voice.state.joined))) await p1.click('#voice-join');
+    if (!(await p2.evaluate(() => uspeak.net.voice.state.joined))) await p2.click('#voice-join');
+    const until = Date.now() + 60000;
+    while (Date.now() < until) {
+      if (await connected(p1) && await connected(p2)) return true;
+      await sleep(500);
+    }
+    console.log(`  (attempt ${go}: not connected yet — ${JSON.stringify(await peers(p1))})`);
+    if (go < tries) {
+      for (const page of [p1, p2]) await page.evaluate(() => uspeak.net.voice.leave());
+      await sleep(1500);
+    }
+  }
+  return false;
+}
 
 try {
   const a = await openPage('Hina', { initScript: FAKE_MIC });
@@ -105,23 +136,21 @@ try {
   // ---- おはなし島: nobody opens anything, because the island is already a call.
   await landOnTalkIsland(a);
   await landOnTalkIsland(b);
-  await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 20000, polling: 200 });
+  await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 90000, polling: 200 });
   check('landing on おはなし島 opens the call, with no teacher and no switch', true,
     await a.evaluate(() => document.querySelector('#voice-room').textContent));
-  await a.click('#voice-join');
-  await b.click('#voice-join');
-  await a.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].some((p) => p.pc.connectionState === 'connected'), null, { timeout: 60000, polling: 300 });
-  check('and everyone standing on the island is in it', (await peers(a))[0]?.name === 'Ren', JSON.stringify(await peers(a)));
+  check('and everyone standing on the island is in it',
+    (await bothJoin(a, b)) && (await peers(a))[0]?.name === 'Ren', JSON.stringify(await peers(a)));
   await a.screenshot({ path: path.join(SHOTS, 'e2e-voice-island.png') });
 
   // A booth on the island is a room of its own: walking in leaves the island's call.
   const booth = talk.spots[0];
   await a.evaluate(([x, z]) => { uspeak.rpg.inside.leave(true); uspeak.player.position.set(x, 0, z); }, [talk.x + booth.x, talk.z + booth.z]);
-  await a.waitForFunction((id) => uspeak.rpg.insideBuilding?.spot?.id === id, booth.id, { timeout: 40000, polling: 150 });
-  await b.waitForFunction(() => uspeak.net.voice.state.peers.size === 0, null, { timeout: 30000, polling: 200 });
+  await a.waitForFunction((id) => uspeak.rpg.insideBuilding?.spot?.id === id, booth.id, { timeout: 150000, polling: 150 });
+  await b.waitForFunction(() => uspeak.net.voice.state.peers.size === 0, null, { timeout: 90000, polling: 200 });
   check('stepping into a booth leaves the island behind', true, booth.name);
   await a.evaluate(() => { uspeak.player.position.z = 9.4; });
-  await a.waitForFunction(() => !uspeak.rpg.insideBuilding, null, { timeout: 40000, polling: 150 });
+  await a.waitForFunction(() => !uspeak.rpg.insideBuilding, null, { timeout: 150000, polling: 150 });
 
   // ---- everywhere else: nothing is open until a teacher opens it.
   await enterHall(a, isle);
@@ -130,7 +159,7 @@ try {
   check('a room is silent until a teacher opens it', await a.evaluate(() => document.querySelector('#voice-panel').hidden));
 
   await t.evaluate(() => uspeak.net.room.send('teacher', { cmd: 'voice', on: true }));
-  await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 15000, polling: 200 });
+  await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 60000, polling: 200 });
   check('opening it shows the room panel to the children in a room', true);
   check('and the panel says who could be in the call',
     (await a.evaluate(() => document.querySelector('#voice-room').textContent)).includes('ステージ'),
@@ -138,22 +167,17 @@ try {
 
   // Standing outside is not being in a call, however open it is.
   await t.evaluate(() => { uspeak.rpg.fly('eiken5'); uspeak.rpg.finishFlight(); });
-  await t.waitForFunction(() => uspeak.net.currentSpace() === 'eiken5', null, { timeout: 20000, polling: 200 });
+  await t.waitForFunction(() => uspeak.net.currentSpace() === 'eiken5', null, { timeout: 90000, polling: 200 });
   await sleep(900);
   check('the island itself is not a call', await t.evaluate(() => document.querySelector('#voice-panel').hidden));
 
   // Both children tap to allow the microphone. Everything after this is browser to browser.
-  await a.click('#voice-join');
-  await b.click('#voice-join');
-  await a.waitForFunction(() => uspeak.net.voice.state.peers.size === 1, null, { timeout: 20000, polling: 200 });
-  await b.waitForFunction(() => uspeak.net.voice.state.peers.size === 1, null, { timeout: 20000, polling: 200 });
-  check('each child is introduced to the other', true, `${(await peers(a))[0]?.name} / ${(await peers(b))[0]?.name}`);
+  const paired = await bothJoin(a, b);
+  check('each child is introduced to the other', (await a.evaluate(() => uspeak.net.voice.state.peers.size)) === 1,
+    `${(await peers(a))[0]?.name} / ${(await peers(b))[0]?.name}`);
+  check('the two browsers connected to each other', paired, JSON.stringify(await peers(a)));
 
-  await a.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].every((p) => p.pc.connectionState === 'connected'), null, { timeout: 40000, polling: 300 });
-  await b.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].every((p) => p.pc.connectionState === 'connected'), null, { timeout: 40000, polling: 300 });
-  check('the two browsers connected to each other', true, JSON.stringify(await peers(a)));
-
-  await a.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].some((p) => p.stream.getAudioTracks().length), null, { timeout: 30000, polling: 300 });
+  await a.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].some((p) => p.stream.getAudioTracks().length), null, { timeout: 120000, polling: 300 });
   check('and the voice itself arrives', (await peers(a))[0].tracks.includes('audio'), JSON.stringify((await peers(a))[0].tracks));
   check('the room shows both of them', (await a.evaluate(() => document.querySelectorAll('#voice-people span').length)) === 2);
   await a.screenshot({ path: path.join(SHOTS, 'e2e-voice-room.png') });
@@ -162,19 +186,44 @@ try {
   // gets a picture without anybody renegotiating anything by hand.
   check('a camera is off until it is turned on', (await a.evaluate(() => document.querySelector('#voice-tiles').hidden)));
   await a.click('#voice-cam');
-  await a.waitForFunction(() => uspeak.net.voice.state.camera, null, { timeout: 20000, polling: 200 });
+  await a.waitForFunction(() => uspeak.net.voice.state.camera, null, { timeout: 90000, polling: 200 });
   check('the child who turned it on sees themselves', await a.evaluate(() => !!document.querySelector('#voice-tiles [data-tile="me"] video')?.srcObject));
-  await b.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].some((p) => p.stream.getVideoTracks().length), null, { timeout: 60000, polling: 300 });
+  await b.waitForFunction(() => [...uspeak.net.voice.state.peers.values()].some((p) => p.stream.getVideoTracks().length), null, { timeout: 180000, polling: 300 });
   check('the picture crosses to the other child', true, JSON.stringify((await peers(b))[0].tracks));
-  await b.waitForFunction(() => document.querySelectorAll('#voice-tiles [data-tile]').length >= 1, null, { timeout: 30000, polling: 300 });
+  await b.waitForFunction(() => document.querySelectorAll('#voice-tiles [data-tile]').length >= 1, null, { timeout: 120000, polling: 300 });
   check('and their screen shows a face with a name on it',
     (await b.evaluate(() => document.querySelector('#voice-tiles [data-tile] small')?.textContent)) === 'Hina',
     await b.evaluate(() => document.querySelector('#voice-tiles [data-tile] small')?.textContent));
   await b.screenshot({ path: path.join(SHOTS, 'e2e-voice-camera.png') });
 
+  // がめんの 大きさ. The faces are the point of the camera, so the panel they live in has
+  // to be resizable — one button, stepping 小 → 中 → 大 → 特大 and back round. Measured on
+  // the child's own face, which is on the screen whatever the network is doing.
+  const panelWidth = (page) => page.evaluate(() => document.querySelector('#voice-panel').getBoundingClientRect().width);
+  const faceWidth = (page) => page.evaluate(() => document.querySelector('#voice-tiles [data-tile="me"] video')?.getBoundingClientRect().width || 0);
+  const startedAt = await panelWidth(a);
+  check('the panel opens at 中', (await a.evaluate(() => document.querySelector('#voice-panel').dataset.size)) === 'm');
+  const faceAtM = await faceWidth(a);
+  await a.click('#voice-size');
+  await a.waitForFunction(() => document.querySelector('#voice-panel').dataset.size === 'l', null, { timeout: 60000, polling: 150 });
+  const bigger = await panelWidth(a);
+  check('tapping it once makes the panel bigger', bigger > startedAt, `${startedAt} → ${bigger}`);
+  check('and the face grows with it', (await faceWidth(a)) > faceAtM, `${faceAtM} → ${await faceWidth(a)}`);
+  await a.click('#voice-size');
+  await a.waitForFunction(() => document.querySelector('#voice-panel').dataset.size === 'xl', null, { timeout: 60000, polling: 150 });
+  check('特大 is bigger again', (await faceWidth(a)) > bigger, `${bigger} → ${await panelWidth(a)}`);
+  await a.screenshot({ path: path.join(SHOTS, 'e2e-voice-size-xl.png') });
+  await a.click('#voice-size');
+  await a.waitForFunction(() => document.querySelector('#voice-panel').dataset.size === 's', null, { timeout: 60000, polling: 150 });
+  check('tapping past 特大 comes back round to 小', (await panelWidth(a)) < startedAt);
+  check('and the choice is remembered for the next lesson',
+    (await a.evaluate(() => localStorage.getItem('uspeak-voice-size-v1'))) === 's');
+  await a.click('#voice-size');
+  await a.waitForFunction(() => document.querySelector('#voice-panel').dataset.size === 'm', null, { timeout: 60000, polling: 150 });
+
   await a.click('#voice-cam');
-  await a.waitForFunction(() => !uspeak.net.voice.state.camera, null, { timeout: 20000, polling: 200 });
-  await b.waitForFunction(() => document.querySelectorAll('#voice-tiles [data-tile]').length === 0, null, { timeout: 40000, polling: 300 });
+  await a.waitForFunction(() => !uspeak.net.voice.state.camera, null, { timeout: 90000, polling: 200 });
+  await b.waitForFunction(() => document.querySelectorAll('#voice-tiles [data-tile]').length === 0, null, { timeout: 120000, polling: 300 });
   check('turning the camera off takes the picture away again, on both screens',
     await a.evaluate(() => document.querySelector('#voice-tiles').hidden));
 
@@ -185,7 +234,7 @@ try {
 
   // Walking out is hanging up: no button is pressed on either side.
   await leaveHall(a);
-  await b.waitForFunction(() => uspeak.net.voice.state.peers.size === 0, null, { timeout: 20000, polling: 200 });
+  await b.waitForFunction(() => uspeak.net.voice.state.peers.size === 0, null, { timeout: 90000, polling: 200 });
   check('walking out of the room hangs up, for both of them',
     (await a.evaluate(() => uspeak.net.voice.state.joined)) === false);
 
@@ -193,9 +242,9 @@ try {
   await enterHall(a, isle);
   await sleep(600);
   await a.click('#voice-join');
-  await a.waitForFunction(() => uspeak.net.voice.state.joined, null, { timeout: 20000, polling: 200 });
+  await a.waitForFunction(() => uspeak.net.voice.state.joined, null, { timeout: 90000, polling: 200 });
   await t.evaluate(() => uspeak.net.room.send('teacher', { cmd: 'voice', on: false }));
-  await a.waitForFunction(() => !uspeak.net.voice.state.joined && document.querySelector('#voice-panel').hidden, null, { timeout: 20000, polling: 200 });
+  await a.waitForFunction(() => !uspeak.net.voice.state.joined && document.querySelector('#voice-panel').hidden, null, { timeout: 90000, polling: 200 });
   check('the teacher can close every call in the class at once', true);
 } catch (err) {
   console.log('E2E ERROR', err);

@@ -13,10 +13,13 @@ export function makeHelpers({ browser, port, viewport = { width: 420, height: 32
     await page.route('**/fonts.googleapis.com/**', (r) => r.abort());
     page.on('pageerror', (e) => console.log(`[${name}] pageerror`, e.message));
     page.on('console', (m) => { if (m.type() === 'error') console.log(`[${name}] console.error`, m.text()); });
-    await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'commit', timeout: 90000 });
-    await page.waitForSelector('#avatar-dialog[open]', { timeout: 90000 });
+    // Generous: a headless container with no GPU renders these islands at a few frames a
+    // second, and a third browser on the same four cores takes minutes to reach the avatar
+    // screen. The test waits on the page, never on the clock.
+    await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'commit', timeout: 240000 });
+    await page.waitForSelector('#avatar-dialog[open]', { timeout: 240000 });
     await page.click('#avatar-confirm');
-    await page.waitForSelector('#net-lobby[open]', { timeout: 5000 });
+    await page.waitForSelector('#net-lobby[open]', { timeout: 60000 });
     await page.fill('#net-name', name);
     await page.fill('#net-class', klass);
     // A teacher joins through the same lobby, with the key in the 先生用 section — which

@@ -1,14 +1,35 @@
 /* おはなし — the panel that appears in a room where people can talk, and nowhere else. */
 #voice-panel {
   position: fixed; left: 16px; bottom: 128px; z-index: 42;
-  width: min(230px, 46vw); padding: 10px 12px 8px;
+  width: var(--voice-w, min(230px, 46vw)); padding: 10px 12px 8px;
+  /* The panel grows upwards from the bottom of the screen, so at 特大 on a low iPad screen
+     its own head would climb off the top. It never grows past the screen: the faces are
+     what gives way, not the buttons. */
+  max-height: min(80vh, calc(100vh - 140px)); box-sizing: border-box;
   background: rgba(20, 44, 42, .88); color: #f3efe1; border-radius: 16px;
   backdrop-filter: blur(6px); box-shadow: 0 10px 30px #0b1f1e55;
   font-size: 13px; display: flex; flex-direction: column; gap: 8px;
 }
-.voice-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-.voice-head b { font-size: 13px; letter-spacing: .02em; }
+/* 小 → 中 → 大 → 特大. Every width is min(px, vw), so 特大 on a phone is still a phone. */
+#voice-panel[data-size="s"] { --voice-w: min(168px, 40vw); padding: 8px 10px 6px; }
+#voice-panel[data-size="m"] { --voice-w: min(230px, 46vw); }
+#voice-panel[data-size="l"] { --voice-w: min(320px, 64vw); font-size: 14px; }
+#voice-panel[data-size="xl"] { --voice-w: min(440px, 86vw); font-size: 15px; padding: 12px 14px 10px; }
+#voice-panel[data-size="s"] .voice-head b { font-size: 12px; }
+#voice-panel[data-size="l"] .voice-head b { font-size: 15px; }
+#voice-panel[data-size="xl"] .voice-head b { font-size: 17px; }
+#voice-panel[data-size="s"] .voice-tile small { font-size: 9px; }
+#voice-panel[data-size="l"] .voice-tile small { font-size: 12px; }
+#voice-panel[data-size="xl"] .voice-tile small { font-size: 14px; padding: 3px 8px; }
+.voice-head { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.voice-head b { font-size: 13px; letter-spacing: .02em; flex: 1 1 auto; min-width: 0; }
 .voice-head small { opacity: .7; font-size: 11px; }
+/* The size button. Small, out of the way, but a whole finger wide — it is tapped on an iPad. */
+.voice-size {
+  flex: 0 0 auto; padding: 3px 8px; border-radius: 9px; background: #ffffff1f; color: #f3efe1;
+  font-size: 11px; font-weight: 700; line-height: 1.6; min-width: 44px;
+}
+.voice-size:active { transform: translateY(1px); }
 .voice-people { display: flex; flex-wrap: wrap; gap: 5px; }
 .voice-people span {
   padding: 3px 9px; border-radius: 999px; background: #ffffff1a; font-size: 12px;
@@ -28,11 +49,11 @@
 .voice-acts button:active { transform: translateY(1px); }
 .voice-note { margin: 0; font-size: 11px; opacity: .72; line-height: 1.5; }
 /* The faces. Two to a row, small: this sits beside a game, not instead of it. */
-.voice-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.voice-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; min-height: 0; overflow-y: auto; }
 .voice-tiles:has(> :only-child) { grid-template-columns: 1fr; }
 .voice-tile { position: relative; border-radius: 12px; overflow: hidden; background: #0e2422; }
 .voice-tile video {
-  display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #0e2422;
+  display: block; width: 100%; aspect-ratio: 4 / 3; max-height: 38vh; object-fit: cover; background: #0e2422;
 }
 /* A picture of yourself that moves the wrong way is unsettling, so it is mirrored. */
 .voice-tile.mine video { transform: scaleX(-1); }
@@ -45,7 +66,12 @@
 /* Indoors the panel would sit under the building HUD, so it moves up out of its way. */
 body.in-room #voice-panel, body.in-plaza #voice-panel { bottom: 190px; }
 @media (max-width: 560px) {
-  #voice-panel { left: 10px; bottom: 112px; width: min(200px, 52vw); padding: 8px 10px 6px; }
+  /* The chosen size still decides the width (all four are capped in vw); the phone only
+     moves the panel in from the edge and tightens the padding. */
+  #voice-panel { left: 10px; bottom: 112px; padding: 8px 10px 6px; }
+  #voice-panel[data-size="m"] { --voice-w: min(200px, 52vw); }
+  #voice-panel[data-size="l"] { --voice-w: min(260px, 68vw); }
+  #voice-panel[data-size="xl"] { --voice-w: min(320px, 88vw); padding: 10px 12px 8px; }
   /* A phone still shows faces, just smaller: video is the point of turning a camera on. */
   .voice-tiles { gap: 4px; }
   .voice-tile small { font-size: 9px; }
