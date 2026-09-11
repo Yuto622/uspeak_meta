@@ -11,6 +11,7 @@ import { createMissionUI } from './mission.js';
 import { createQuizUI } from './quiz.js';
 import { createGymUI } from './gym.js';
 import { createEikenUI } from './eiken.js';
+import { createVoice, isCallRoom } from './voice.js';
 import { createBattleUI } from './battle.js';
 import { createDojoUI } from './dojo.js';
 import { createPetUI } from './pet.js';
@@ -69,6 +70,13 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const eiken = createEikenUI({
     send: (type, payload) => room?.send(type, payload),
     speak, toast, learn, isOnline: () => state.mode === 'online',
+  });
+  // おはなし. The room a child walks into is the call they are in: the voices go browser
+  // to browser and this layer only carries the introductions.
+  const voice = createVoice({
+    send: (type, payload) => room?.send(type, payload),
+    toast,
+    roomLabel: () => rpg.insideBuilding?.spot?.name || '',
   });
   const battle = createBattleUI({
     send: (type, payload) => room?.send(type, payload),
@@ -186,7 +194,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
-    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; ride.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); town.hideHud(); }
+    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; ride.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); town.hideHud(); voice.setOpen(false); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
   }
   function saveSession() {
@@ -247,6 +255,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       saveSession();
       chat.setPaused();
       teacher.setChatPaused(state.chatPaused);
+      teacher.setVoice(!!r.state?.voice);
       if (m.wallet) applyWallet(m.wallet);
       applyProgress(m.progress);
       mission.setClassMission(m.missionId);
@@ -288,6 +297,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('eiken:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); eiken.onResult(m); });
     r.onMessage('eiken:closed', (m) => eiken.onClosed(m));
     r.onMessage('eiken:error', (m) => eiken.onError(m));
+    r.onMessage('voice:room', (m) => voice.onRoom(m));
+    r.onMessage('voice:peer', (m) => voice.onPeer(m));
+    r.onMessage('voice:closed', (m) => voice.onClosed(m));
+    r.onMessage('voice:error', (m) => voice.onError(m));
+    r.onMessage('rtc:signal', (m) => voice.onSignal(m));
     r.onMessage('battle:state', (m) => battle.onState(m));
     r.onMessage('battle:quiz', (m) => battle.onQuiz(m));
     r.onMessage('battle:turn', (m) => { if (m.wallet) applyWallet(m.wallet); battle.onTurn(m); });
@@ -354,6 +368,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     });
     r.state.players.onRemove((p, id) => { remotes.remove(id); seen.delete(id); chip.count(r.state.players.size); });
     r.state.listen('chatPaused', (v) => { state.chatPaused = !!v; chat.setPaused(); teacher.setChatPaused(!!v); });
+    r.state.listen('voice', (v) => { voice.setOpen(!!v); teacher.setVoice(!!v); });
     r.state.listen('teacherId', (v) => { state.teacherId = v || ''; });
     r.state.listen('missionId', (v) => { mission.setClassMission(v); teacher.setMission(v); });
 
@@ -573,6 +588,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // Arriving on (or leaving) the island changes what the errand tracker has to say.
     const space = currentSpace();
     if (space !== state.lastSpace) { state.lastSpace = space; mission.refreshHud(); }
+    voice.setOpen(!!room.state?.voice);
+    voice.setSpace(space);
     if (now - state.lastSendAt >= 1000 / NET.SEND_HZ) {
       const s = currentSpace();
       const x = round(player.position.x, 2), z = round(player.position.z, 2), r = round(player.rotation.y, 3);
@@ -665,7 +682,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     arenaLabel: (spot) => (spot.kind === 'dojo' ? dojo.label(spot) : battle.label(spot)),
     petInteract: () => { const near = rpg.petNearby(); if (near) petUI.enter(near.spot); },
     petLabel: (spot) => petUI.label(spot),
-    town, myRoom, myPlaza,
+    town, myRoom, myPlaza, voice,
     // Whichever of the two a child is standing in. The page's E and Q keys work on it.
     get builder() { return myRoom.active ? myRoom : myPlaza.active ? myPlaza : null; },
     townInteract: () => { const near = rpg.townNearby(); if (near) town.enter(near.spot); },

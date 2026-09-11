@@ -31,7 +31,12 @@ const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only wi
 // A little more room than the client shows the prompt in, so a position that arrived a
 // frame late never refuses a child who is visibly standing at the counter.
 const SPOT_SLACK = 1.5;
-const PERFECT_BONUS_COINS = 10;   // Roblox: COIN_PERFECT_BONUS, for a clean ten
+const PERFECT_BONUS_COINS = 10;
+// 通話. A mesh call is every browser connected to every other one, so a room holds a
+// handful rather than a class; the rest of the class is in the other rooms.
+const VOICE_MAX = 6;
+const SIGNAL_MAX_BYTES = 8192;     // an SDP offer is ~4KB; a candidate is a line
+const SIGNAL_BURST = 120;          // per five seconds, per child   // Roblox: COIN_PERFECT_BONUS, for a clean ten
 const STALE_MOVE_MS = 5000;
 const GHOST_MS = 3000; // silent connected seat considered dead (heartbeat is 500 ms)
 const PERSIST_ALL_MS = 30000;
@@ -135,6 +140,9 @@ export class ClassRoom extends Room {
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
     });
     this.onMessage('wallet:get', (client) => client.send('wallet', { ok: true, op: 'get', ...this.walletPayload(client.sessionId) }));
+    this.onMessage('voice:join', (client) => this.onVoiceJoin(client));
+    this.onMessage('voice:leave', (client) => this.onVoiceLeave(client, 'left'));
+    this.onMessage('rtc:signal', (client, msg) => this.onRtcSignal(client, msg));
     this.onMessage('ping', (client, t) => client.send('pong', { t, server: Date.now() }));
 
     this.tutor = options.tutor || createTutor();
@@ -144,6 +152,8 @@ export class ClassRoom extends Room {
       store: this.store, mode: config.accessMode, ttlMs: config.rosterTtlMs,
       snapshotPath: `${config.dataDir.replace(/\/$/, '')}/roster-snapshot.json`, log,
     });
+    // Who has a microphone open, and where they were standing when they opened it.
+    this.voice = new Map();          // sessionId -> { room, at }
     this.lastPersistAll = Date.now();
     // The sky is a function of the wall clock, so there is nothing to start or store —
     // only the moment the phase turns has to be noticed, to put the ghosts out.
@@ -239,6 +249,7 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(id);
     if (!player || !priv) return;
     player.connected = false;
+    this.dropVoice(id, 'gone');
     if (this.state.teacherId === id) this.state.teacherId = '';
     this.persist(id);
     if (consented) { this.remove(id); return; }
@@ -283,7 +294,12 @@ export class ClassRoom extends Room {
     const player = this.state.players.get(client.sessionId);
     const priv = this.priv.get(client.sessionId);
     if (!player || !priv || !msg || typeof msg !== 'object') return;
-    if (typeof msg.s === 'string' && msg.s.length <= 48) player.space = msg.s;
+    if (typeof msg.s === 'string' && msg.s.length <= 48) {
+      // Walking out of the room is hanging up. Nobody presses anything to leave a call
+      // here, the same way nobody presses anything to leave a building.
+      if (player.space !== msg.s && this.voice.has(client.sessionId)) this.dropVoice(client.sessionId, 'moved');
+      player.space = msg.s;
+    }
     player.x = clamp(num(msg.x, player.x), -WORLD_LIMIT, WORLD_LIMIT);
     player.z = clamp(num(msg.z, player.z), -WORLD_LIMIT, WORLD_LIMIT);
     player.yaw = num(msg.r, player.yaw);
@@ -408,6 +424,16 @@ export class ClassRoom extends Room {
         if (!target) { client.send('teacher:ack', { cmd, ok: false, error: 'student not connected' }); return; }
         target.send('call', { by: me.name, space: me.space, x: me.x, z: me.z });
         client.send('teacher:ack', { cmd, ok: true, target: msg.target });
+        return;
+      }
+      case 'voice': {
+        this.state.voice = !!msg.on;
+        if (!this.state.voice) {
+          for (const id of [...this.voice.keys()]) this.dropVoice(id, 'closed');
+        }
+        this.broadcast('notice', { text: this.state.voice ? '先生が おはなしを ひらきました。部屋に入ると 話せます。' : 'おはなしは 先生が とじました。' }, { except: client });
+        client.send('teacher:ack', { cmd, ok: true, on: this.state.voice });
+        log.info(`[room ${this.roomId}] voice ${this.state.voice ? 'opened' : 'closed'} by "${me.name}"`);
         return;
       }
       case 'chat': {
@@ -989,6 +1015,104 @@ export class ClassRoom extends Room {
       classCode: this.classCode,
       season: seasonFor(),
     });
+  }
+
+  // ---- おはなし（部屋の中の通話）-------------------------------------------------------
+
+  // The room a child walked into is the call they are in. There is no room list and no
+  // invitation: everyone standing inside the same building hears everyone else, and
+  // walking out is hanging up — which is the same rule as every other thing on these
+  // islands, and the only one a seven-year-old needs.
+  //
+  // The media itself never comes here. Browsers talk to each other directly (WebRTC) and
+  // this server only passes the introductions along, so a classroom's voices do not cost
+  // the server bandwidth and are not recorded anywhere. What this server does decide is
+  // who is allowed to be introduced to whom: the same class, the same room, a teacher
+  // having opened it, and no more than a roomful.
+  static get VOICE_MAX() { return VOICE_MAX; }
+
+  // Only a room you walk into is a call: "in:<island>:<building>". A child's own マイルーム
+  // and their building lot are theirs alone, and the open islands are not a call at all.
+  voiceRoomOf(sessionId) {
+    const player = this.state.players.get(sessionId);
+    const space = player?.space || '';
+    return /^in:[^:]+:[^:]+$/.test(space) ? space : '';
+  }
+
+  voicePeers(room, except = '') {
+    const peers = [];
+    for (const [id, seat] of this.voice) {
+      if (seat.room !== room || id === except) continue;
+      const player = this.state.players.get(id);
+      if (player?.connected) peers.push({ id, name: player.name, role: player.role });
+    }
+    return peers;
+  }
+
+  onVoiceJoin(client) {
+    const id = client.sessionId;
+    const player = this.state.players.get(id);
+    if (!player) return;
+    if (!this.state.voice) { client.send('voice:error', { reason: 'closed' }); return; }
+    const room = this.voiceRoomOf(id);
+    if (!room) { client.send('voice:error', { reason: 'not in a room' }); return; }
+    const peers = this.voicePeers(room, id);
+    // A mesh is every browser talking to every other one, so a roomful is a small number.
+    // A teacher is always let in: the one grown-up in the room is not an optional guest.
+    if (peers.length >= VOICE_MAX && player.role !== 'teacher') {
+      client.send('voice:error', { reason: 'room is full', max: VOICE_MAX });
+      return;
+    }
+    if (this.voice.get(id)?.room === room) { client.send('voice:room', { room, peers, me: id }); return; }
+    this.dropVoice(id, 'moved');
+    this.voice.set(id, { room, at: Date.now(), signals: 0, since: Date.now() });
+    // The newcomer is told who is already here and calls them; everyone here is told
+    // someone arrived and waits to be called. One offer per pair, decided by arrival.
+    client.send('voice:room', { room, peers, me: id });
+    for (const peer of peers) {
+      this.clients.find((c) => c.sessionId === peer.id)
+        ?.send('voice:peer', { id, name: player.name, role: player.role, joined: true });
+    }
+    log.info(`[room ${this.roomId}] "${player.name}" opened a microphone in ${room} (${peers.length + 1} in the room)`);
+  }
+
+  onVoiceLeave(client, reason = 'left') {
+    this.dropVoice(client.sessionId, reason);
+  }
+
+  // Taking one child out of a call: the ones still in it are told, so their browsers can
+  // close the connection rather than waiting on a voice that is never coming back.
+  dropVoice(sessionId, reason = 'left') {
+    const seat = this.voice.get(sessionId);
+    if (!seat) return;
+    this.voice.delete(sessionId);
+    for (const peer of this.voicePeers(seat.room)) {
+      this.clients.find((c) => c.sessionId === peer.id)
+        ?.send('voice:peer', { id: sessionId, joined: false, reason });
+    }
+    this.clients.find((c) => c.sessionId === sessionId)?.send('voice:closed', { reason });
+  }
+
+  // The introduction itself: an offer, an answer, or a network address. The server reads
+  // none of it — it checks who it is from and who it is for, and passes it on.
+  onRtcSignal(client, msg) {
+    const from = client.sessionId;
+    const seat = this.voice.get(from);
+    if (!seat) { client.send('voice:error', { reason: 'not in a call' }); return; }
+    const to = typeof msg?.to === 'string' ? msg.to : '';
+    const other = this.voice.get(to);
+    // Never across rooms, never across classes (a class is a room here), never to a
+    // child who is not in a call.
+    if (!other || other.room !== seat.room || to === from) { client.send('voice:error', { reason: 'no such peer' }); return; }
+    const data = typeof msg?.data === 'string' ? msg.data : JSON.stringify(msg?.data ?? null);
+    if (data.length > SIGNAL_MAX_BYTES) { client.send('voice:error', { reason: 'too big' }); return; }
+    // Offers and answers are a handful; ICE candidates are chatty but finite. A flood is
+    // something else, and it stops here.
+    const now = Date.now();
+    if (now - seat.since > 5000) { seat.since = now; seat.signals = 0; }
+    seat.signals += 1;
+    if (seat.signals > SIGNAL_BURST) { client.send('voice:error', { reason: 'too fast' }); return; }
+    this.clients.find((c) => c.sessionId === to)?.send('rtc:signal', { from, kind: String(msg?.kind || '').slice(0, 16), data });
   }
 
   // ---- 英検の島（5級・4級・3級）------------------------------------------------------

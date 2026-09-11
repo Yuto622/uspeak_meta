@@ -1234,3 +1234,77 @@ test('英検の島: the hall you stand in is the skill you get, and the server d
   await a.room.leave();
   await sleep(100);
 });
+
+test('おはなし: the room you walked into is the call, and the server only introduces', async () => {
+  const a = await join('Hina');
+  const b = await join('Ren');
+  const t = await join('Sensei3', { teacherKey: 'testkey12345' });
+  const stand = async (who, space) => {
+    who.room.send('move', { s: space, x: 0, z: 0, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => who.room.state.players.get(who.room.sessionId).space === space);
+  };
+  const hall = 'in:eiken5:speaking';
+
+  // Nobody talks until a teacher opens it, however far into a building they walk.
+  await stand(a, hall);
+  a.room.send('voice:join', {});
+  assert.equal((await nextMessage(a.room, 'voice:error')).reason, 'closed');
+
+  t.room.send('teacher', { cmd: 'voice', on: true });
+  assert.equal((await nextMessage(t.room, 'teacher:ack')).on, true);
+  await waitFor(() => a.room.state.voice === true);
+
+  // A call is a room, not the island: standing outside is not being in one.
+  await stand(a, 'eiken5');
+  a.room.send('voice:join', {});
+  assert.equal((await nextMessage(a.room, 'voice:error')).reason, 'not in a room');
+  // Nor is a child's own room, which is theirs alone.
+  await stand(a, 'in:room');
+  a.room.send('voice:join', {});
+  assert.equal((await nextMessage(a.room, 'voice:error')).reason, 'not in a room');
+
+  // The first one in is alone; the second is told who is already there.
+  await stand(a, hall);
+  a.room.send('voice:join', {});
+  const alone = await nextMessage(a.room, 'voice:room');
+  assert.equal(alone.room, hall);
+  assert.deepEqual(alone.peers, []);
+  await stand(b, hall);
+  const arriving = nextMessage(a.room, 'voice:peer');
+  b.room.send('voice:join', {});
+  const second = await nextMessage(b.room, 'voice:room');
+  assert.deepEqual(second.peers.map((p) => p.name), ['Hina'], 'the newcomer is told who to call');
+  assert.equal((await arriving).joined, true, 'and the room is told someone arrived');
+
+  // The introduction is passed along untouched, and only to the other person in the room.
+  const relayed = nextMessage(b.room, 'rtc:signal');
+  a.room.send('rtc:signal', { to: second.peers[0].id === b.room.sessionId ? a.room.sessionId : b.room.sessionId, kind: 'offer', data: 'v=0 sdp' });
+  const got = await relayed;
+  assert.equal(got.from, a.room.sessionId);
+  assert.equal(got.kind, 'offer');
+  assert.equal(got.data, 'v=0 sdp');
+
+  // A child in another room is not a peer, however politely they ask.
+  await stand(t, 'in:eiken5:reading');
+  t.room.send('voice:join', {});
+  await nextMessage(t.room, 'voice:room');
+  t.room.send('rtc:signal', { to: a.room.sessionId, kind: 'offer', data: 'x' });
+  assert.equal((await nextMessage(t.room, 'voice:error')).reason, 'no such peer');
+
+  // Walking out is hanging up: no button, no message from the page.
+  const left = nextMessage(a.room, 'voice:peer');
+  await stand(b, 'eiken5');
+  const gone = await left;
+  assert.equal(gone.id, b.room.sessionId);
+  assert.equal(gone.joined, false);
+
+  // And the teacher closing it empties every room at once.
+  t.room.send('teacher', { cmd: 'voice', on: false });
+  assert.equal((await nextMessage(a.room, 'voice:closed')).reason, 'closed');
+  await waitFor(() => a.room.state.voice === false);
+
+  await a.room.leave();
+  await b.room.leave();
+  await t.room.leave();
+  await sleep(100);
+});

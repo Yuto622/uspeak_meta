@@ -48,7 +48,7 @@ cd client && node tests/regression.mjs    # 10 件（3Dワールドの不変条�
 ```bash
 cd server
 PLAYWRIGHT_MODULE_DIR=/path/to/node_modules CHROMIUM_PATH=/path/to/chrome \
-  node test/e2e/browser-school.mjs      # 他に -arena -eiken -errand -night -ride -town -inside -daily -sync -layout -scale
+  node test/e2e/browser-school.mjs      # 他に -arena -eiken -voice -errand -night -ride -town -inside -daily -sync -layout -scale
 ```
 
 ---
@@ -83,6 +83,7 @@ client/dist/           ブラウザ（ビルド不要。素の ES modules + thre
   rpg.js               島とワールドマップ。島の表示切替・当たり判定・屋内の分岐
   island-kit.js        島の共通部品（地形・家・道・住人・入口・ミニマップ）
   island-interior.js   島の建物の中（1部屋を作り替えて使い回す）
+  voice.js             おはなし（部屋＝通話。P2Pの接続とパネル）
   room-world.js        マイルーム（かぐを置く部屋）
   plaza-world.js       ひろば（マインクラフト式のブロック建築）
   *-island.js          各島の見た目（errand/school/arena/pet/ride/town）
@@ -122,6 +123,7 @@ Google シートのヘッダは短ければ自動で伸ばし、食い違えば�
 | 世界の演出 | 昼300/夕120/夜240/朝45秒の共有時計・夜のおばけ12体・環境音 |
 | 運用 | 入場ゲート（名簿・3段フォールバック）・保護者レポート（署名付きURL） |
 | 建物 | 島の全25棟が**入れる部屋**。中のカウンターで操作 |
+| おはなし | 同じ部屋に入っている人どうしの通話（WebRTC・先生が開く・サーバーは仲介だけ） |
 
 ---
 

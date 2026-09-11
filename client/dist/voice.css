@@ -1,0 +1,39 @@
+/* おはなし — the panel that appears in a room where people can talk, and nowhere else. */
+#voice-panel {
+  position: fixed; left: 16px; bottom: 128px; z-index: 42;
+  width: min(230px, 46vw); padding: 10px 12px 8px;
+  background: rgba(20, 44, 42, .88); color: #f3efe1; border-radius: 16px;
+  backdrop-filter: blur(6px); box-shadow: 0 10px 30px #0b1f1e55;
+  font-size: 13px; display: flex; flex-direction: column; gap: 8px;
+}
+.voice-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.voice-head b { font-size: 13px; letter-spacing: .02em; }
+.voice-head small { opacity: .7; font-size: 11px; }
+.voice-people { display: flex; flex-wrap: wrap; gap: 5px; }
+.voice-people span {
+  padding: 3px 9px; border-radius: 999px; background: #ffffff1a; font-size: 12px;
+  border: 1px solid transparent; transition: border-color .12s, background .12s;
+}
+/* Lit while they are actually making a sound: a child should see that the room heard them. */
+.voice-people span.on { background: #74c39a33; border-color: #8fe0b4; }
+.voice-people span.off { opacity: .5; text-decoration: line-through; }
+.voice-acts { display: flex; gap: 6px; flex-wrap: wrap; }
+.voice-acts button {
+  flex: 1 1 auto; padding: 9px 10px; border-radius: 11px; font-size: 13px; font-weight: 700;
+  background: #ffffff1f; color: #f3efe1;
+}
+.voice-acts button.primary { background: #2f8f6b; }
+.voice-acts button.off { background: #8f4a4a; }
+.voice-acts button:active { transform: translateY(1px); }
+.voice-note { margin: 0; font-size: 11px; opacity: .72; line-height: 1.5; }
+.voice-tile {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; background: #0e2422;
+}
+#voice-audio { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* Indoors the panel would sit under the building HUD, so it moves up out of its way. */
+body.in-room #voice-panel, body.in-plaza #voice-panel { bottom: 190px; }
+@media (max-width: 560px) {
+  #voice-panel { left: 10px; bottom: 112px; width: min(200px, 52vw); padding: 8px 10px 6px; }
+  .voice-tile { display: none; }        /* a phone has no room for faces beside the game */
+}

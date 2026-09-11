@@ -4,9 +4,12 @@
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export function makeHelpers({ browser, port, viewport = { width: 420, height: 320 } }) {
-  async function openPage(name, { klass = 'e2e' } = {}) {
+  async function openPage(name, { klass = 'e2e', teacherKey = '', initScript = null } = {}) {
     const ctx = await browser.newContext({ viewport });
     const page = await ctx.newPage();
+    // Runs before the page's own scripts: how a test stands something in for a device the
+    // headless browser does not have.
+    if (initScript) await page.addInitScript(initScript);
     await page.route('**/fonts.googleapis.com/**', (r) => r.abort());
     page.on('pageerror', (e) => console.log(`[${name}] pageerror`, e.message));
     page.on('console', (m) => { if (m.type() === 'error') console.log(`[${name}] console.error`, m.text()); });
@@ -16,6 +19,12 @@ export function makeHelpers({ browser, port, viewport = { width: 420, height: 32
     await page.waitForSelector('#net-lobby[open]', { timeout: 5000 });
     await page.fill('#net-name', name);
     await page.fill('#net-class', klass);
+    // A teacher joins through the same lobby, with the key in the 先生用 section — which
+    // is folded shut, so it is opened first, exactly as a teacher would.
+    if (teacherKey) {
+      await page.evaluate(() => { document.querySelector('#net-teacher-details').open = true; });
+      await page.fill('#net-key', teacherKey);
+    }
     await page.click('#net-join');
     await page.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 30000, polling: 250 });
     await page.evaluate(async () => {
