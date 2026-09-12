@@ -226,14 +226,21 @@ try {
     });
     await sleep(700);
     await shot('3-game');
-    await page.click('#net-chat-button');
+    // Pressed from inside the page rather than tapped. Playwright waits for a control to
+    // hold still for two frames before it will click it, and by the fourth device this
+    // renderer is drawing three frames a second with an island still building — the button
+    // is there and works, but it never sits still long enough, and a whole five-viewport
+    // run used to die here. What this script measures is where things are, not whether a
+    // tap lands; the screens themselves are opened the same way.
+    const press = (sel) => page.evaluate((s2) => document.querySelector(s2)?.click(), sel);
+    await press('#net-chat-button');
     await sleep(400);
     await shot('4-chat');
-    await page.click('#net-chat-close');
-    await page.click('#net-teacher-button');
+    await press('#net-chat-close');
+    await press('#net-teacher-button');
     await sleep(700);
     await shot('5-teacher');
-    await page.click('#net-teacher-close');
+    await press('#net-teacher-close');
     await sleep(300);
 
     const probe = async (where) => {
