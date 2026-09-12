@@ -1235,6 +1235,84 @@ test('英検の島: the hall you stand in is the skill you get, and the server d
   await sleep(100);
 });
 
+test('英会話島: the house you stand in is the scene, and the aims are the server\'s to give', async () => {
+  const { CONV } = await import('../src/game/conv.js');
+  const a = await join('Sora');
+  const house = CONV.spotById.get('cafe');
+  const wx = CONV.island.x + house.x;
+  const wz = CONV.island.z + house.z;
+  const stand = async (x, z, space = CONV.id) => {
+    a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return Math.abs(p.x - x) < 0.01 && p.space === space;
+    });
+  };
+
+  // A scene that does not exist, and one that does but is a walk away.
+  a.room.send('conv:start', { topic: 'nowhere' });
+  assert.equal((await nextMessage(a.room, 'conv:error')).reason, 'unknown topic');
+  a.room.send('conv:start', { topic: 'hello' });
+  const far = await nextMessage(a.room, 'conv:error');
+  assert.equal(far.reason, 'too far');
+  assert.equal(far.spot.id, 'cafe');
+
+  // Standing in the café, ウーピー opens and the aims arrive in Japanese, with no answers.
+  await stand(wx, wz);
+  a.room.send('conv:start', { topic: 'hello' });
+  const opened = await nextMessage(a.room, 'conv:opened');
+  assert.equal(opened.topic, 'hello');
+  assert.equal(opened.opening, 'Hello! Nice to meet you. What is your name?');
+  assert.deepEqual(opened.aims.map((x) => x.id), ['name', 'how', 'like']);
+  assert.ok(opened.aims.every((x) => x.ja && !x.en), 'a child is told what to try, not how to say it');
+  assert.equal(opened.turn, 0);
+
+  // Talking. The test server has no API key, so the scripted partner answers — which is
+  // the point: the whole path works without one.
+  a.room.send('conv:say', { text: 'My name is Sora.' });
+  const first = await nextMessage(a.room, 'conv:reply', 8000);
+  assert.ok(first.reply.length > 0, 'ウーピー says something back');
+  assert.equal(first.turn, 1);
+  assert.ok(first.aimsMet.includes('name'), 'saying your name meets the first aim');
+  assert.equal(first.xp, 12, 'and an aim met is XP, on the spot');
+  assert.equal(first.done, false);
+
+  // An aim once met stays met, and the coins come only when the whole scene is done.
+  a.room.send('conv:say', { text: "I'm fine, thank you." });
+  const second = await nextMessage(a.room, 'conv:reply', 8000);
+  assert.ok(second.aimsMet.includes('name') && second.aimsMet.includes('how'));
+  assert.equal(second.coins, undefined, 'no coins until the scene is finished');
+  a.room.send('conv:say', { text: 'I like soccer very much.' });
+  const third = await nextMessage(a.room, 'conv:reply', 8000);
+  assert.equal(third.done, true, 'all three aims met finishes the scene');
+  assert.equal(third.coins, 40);
+  assert.equal(third.bonusXp, 30);
+  assert.ok(third.wallet.coins >= 40, 'and the coins are in the wallet the server keeps');
+
+  // Walking out of the house stops the talking; walking back in picks it up again.
+  await stand(0, 21);
+  a.room.send('conv:say', { text: 'Hello again!' });
+  assert.equal((await nextMessage(a.room, 'conv:error')).reason, 'too far');
+  await stand(wx, wz);
+  a.room.send('conv:start', { topic: 'hello' });
+  const back = await nextMessage(a.room, 'conv:opened');
+  assert.equal(back.resumed, true);
+  assert.equal(back.turn, 3, 'the conversation is where it was left');
+  assert.deepEqual(back.aimsMet.sort(), ['how', 'like', 'name']);
+
+  // Choosing another scene starts a new one, from nothing.
+  a.room.send('conv:start', { topic: 'order' });
+  const fresh = await nextMessage(a.room, 'conv:opened');
+  assert.equal(fresh.turn, 0);
+  assert.deepEqual(fresh.aimsMet, []);
+
+  a.room.send('conv:end', {});
+  assert.equal((await nextMessage(a.room, 'conv:closed')).reason, 'quit');
+
+  await a.room.leave();
+  await sleep(100);
+});
+
 test('おはなし: the room you walked into is the call, and the server only introduces', async () => {
   const { TALK } = await import('../src/game/talk.js');
   const a = await join('Hina');

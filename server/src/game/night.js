@@ -51,7 +51,7 @@ export const ghostPayload = (ghost) => ({ id: ghost.id, word: ghost.word, ja: gh
 
 // A child's own night: which day it is counting from, and what has been paid.
 export function blankCaps(now = Date.now()) {
-  return { day: dayIndex(now), battle: 0, ghost: 0, course: 0, eiken: 0 };
+  return { day: dayIndex(now), battle: 0, ghost: 0, course: 0, eiken: 0, conv: 0 };
 }
 
 export function sanitizeCaps(raw, now = Date.now()) {
@@ -60,7 +60,7 @@ export function sanitizeCaps(raw, now = Date.now()) {
   const day = Number(raw.day);
   // Yesterday's spending is not today's, so a stale row simply starts the day fresh.
   if (!Number.isFinite(day) || Math.floor(day) !== caps.day) return caps;
-  for (const key of ['battle', 'ghost', 'course', 'eiken']) {
+  for (const key of ['battle', 'ghost', 'course', 'eiken', 'conv']) {
     const n = Number(raw[key]);
     if (Number.isFinite(n) && n > 0) caps[key] = Math.min(1e7, Math.floor(n));
   }

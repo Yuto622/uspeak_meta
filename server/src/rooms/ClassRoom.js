@@ -19,6 +19,7 @@ import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
 import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError } from '../game/eiken.js';
 import { TALK, isTalkSpace } from '../game/talk.js';
+import { CONV, asMission as convMission, topicPayload as convPayload, convSpots } from '../game/conv.js';
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding, startLap, crossGate } from '../game/vehicles.js';
@@ -144,6 +145,10 @@ export class ClassRoom extends Room {
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
     });
     this.onMessage('wallet:get', (client) => client.send('wallet', { ok: true, op: 'get', ...this.walletPayload(client.sessionId) }));
+    this.onMessage('conv:list', (client) => client.send('conv:spots', { island: CONV.id, spots: convSpots() }));
+    this.onMessage('conv:start', (client, msg) => this.onConvStart(client, msg));
+    this.onMessage('conv:say', (client, msg) => this.onConvSay(client, msg));
+    this.onMessage('conv:end', (client) => this.onConvEnd(client, 'quit'));
     this.onMessage('voice:join', (client) => this.onVoiceJoin(client));
     this.onMessage('voice:leave', (client) => this.onVoiceLeave(client, 'left'));
     this.onMessage('voice:msg', (client, msg) => this.onVoiceMsg(client, msg));
@@ -569,10 +574,16 @@ export class ClassRoom extends Room {
       lastGymAt: 0,
       eiken: null,
       lastEikenAt: 0,
+      // 英会話島: the scene being talked through, and the two limits that keep a day of
+      // talking from becoming a bill.
+      conv: null,
+      lastConvAt: 0,
+      convDay: '',
+      convTurnsToday: 0,
       battle: null,
       // What today's caps have already paid, kept in the record so that leaving and
       // rejoining is not a way to start the day over.
-      caps: sanitizeCaps({ day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins, eiken: record.eiken_coins }),
+      caps: sanitizeCaps({ day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins, eiken: record.eiken_coins, conv: record.conv_coins }),
       garage,
       riding: sanitizeRiding(record.riding, garage),
       bricks,
@@ -613,6 +624,7 @@ export class ClassRoom extends Room {
       week_key: priv.week.key, week_xp: priv.week.xp,
       cap_day: priv.caps.day, battle_coins: priv.caps.battle, ghost_coins: priv.caps.ghost, course_coins: priv.caps.course,
       eiken_coins: priv.caps.eiken,
+      conv_coins: priv.caps.conv,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
       room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza }),
@@ -1257,6 +1269,143 @@ export class ClassRoom extends Room {
     seat.signals += 1;
     if (seat.signals > SIGNAL_BURST) { client.send('voice:error', { reason: 'too fast' }); return; }
     this.clients.find((c) => c.sessionId === to)?.send('rtc:signal', { from, kind: String(msg?.kind || '').slice(0, 16), data });
+  }
+
+  // ---- 英会話島 -------------------------------------------------------------------------
+  //
+  // Four houses, and the house a child walks into is the scene they talk in. There is no
+  // errand to finish and no right answer to pick: they simply talk to ウーピー, and what is
+  // recorded is which of the scene's two or three aims they managed to say. The page never
+  // reports success — it sends what the microphone heard, and the AI's judgement, taken
+  // here, is what reaches a parent's report.
+  //
+  // Cost and noise are held down by the same three limits the errand uses: one turn at a
+  // time, a pause between turns, and a daily ceiling of turns per child.
+  atConvHouse(sessionId, houseId) {
+    const house = CONV.spotById.get(houseId);
+    return !!house && this.atPlace(sessionId, CONV.island, house);
+  }
+
+  convSpotPayload(houseId) {
+    const house = CONV.spotById.get(houseId);
+    return house ? { id: house.id, island: CONV.id, name: house.name, ja: house.ja } : null;
+  }
+
+  onConvStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const topic = CONV.topicById.get(typeof msg?.topic === 'string' ? msg.topic : '');
+    if (!topic) { client.send('conv:error', { reason: 'unknown topic' }); return; }
+    if (!this.atConvHouse(client.sessionId, topic.spot)) {
+      client.send('conv:error', { reason: 'too far', spot: this.convSpotPayload(topic.spot) });
+      return;
+    }
+    // Walking back into the same conversation picks it up where it was left; choosing a
+    // different scene starts a new one.
+    const had = priv.conv;
+    if (!had || had.topic !== topic.id) {
+      priv.conv = { topic: topic.id, spot: topic.spot, turns: [], goalsMet: [], done: false, at: Date.now() };
+    }
+    const state = priv.conv;
+    client.send('conv:opened', {
+      ...convPayload(topic),
+      opening: state.turns.length ? state.turns[state.turns.length - 1].reply : topic.opening,
+      aimsMet: [...state.goalsMet],
+      turn: state.turns.length,
+      done: state.done,
+      resumed: !!had && had.topic === topic.id && state.turns.length > 0,
+    });
+  }
+
+  onConvEnd(client, reason = 'quit') {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv?.conv) return;
+    priv.conv = null;
+    client.send('conv:closed', { reason });
+  }
+
+  async onConvSay(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const state = priv?.conv;
+    if (!priv || !state) return;
+    const topic = CONV.topicById.get(state.topic);
+    if (!topic) { priv.conv = null; return; }
+    // Walking out of the house does not end the conversation, it only stops the talking
+    // until the child walks back in — the same rule the errand's shop has.
+    if (!this.atConvHouse(client.sessionId, state.spot)) {
+      client.send('conv:error', { reason: 'too far', spot: this.convSpotPayload(state.spot) });
+      return;
+    }
+    const utterance = typeof msg?.text === 'string' ? msg.text.replace(/\s+/g, ' ').trim().slice(0, 200) : '';
+    if (!utterance) return;
+
+    const now = Date.now();
+    if (now - priv.lastConvAt < config.ai.minIntervalMs) { client.send('conv:error', { reason: 'too fast' }); return; }
+    if (state.turns.length >= CONV.turnLimit) { client.send('conv:error', { reason: 'turn limit' }); return; }
+    const day = new Date(now).toISOString().slice(0, 10);
+    if (priv.convDay !== day) { priv.convDay = day; priv.convTurnsToday = 0; }
+    // One budget for every AI conversation a child has in a day, wherever they have it.
+    if (priv.convTurnsToday + (priv.missionTurnsToday || 0) >= config.ai.dailyTurnsPerStudent) {
+      client.send('conv:error', { reason: 'daily limit' });
+      return;
+    }
+    priv.lastConvAt = now;
+    priv.convTurnsToday += 1;
+
+    let result;
+    try {
+      result = await this.tutor.turn({ mission: convMission(topic), history: state.turns, utterance, previousGoals: state.goalsMet });
+    } catch (err) {
+      log.warn(`[room ${this.roomId}] conv tutor failed:`, err.message);
+      client.send('conv:error', { reason: 'ai unavailable' });
+      return;
+    }
+    // The child may have walked out, or started another scene, while the model was thinking.
+    if (this.priv.get(client.sessionId) !== priv || priv.conv !== state) return;
+
+    const gained = result.goalsMet.filter((id) => !state.goalsMet.includes(id));
+    state.goalsMet = result.goalsMet;
+    state.turns.push({ child: utterance, reply: result.reply });
+
+    const xp = gained.length * CONV.reward.aimXp;
+    this.store.appendLearning([
+      new Date(now).toISOString(), this.classCode, priv.name, `conv:${topic.id}`, 'conv',
+      utterance.slice(0, 80), gained.length ? 1 : 0, xp, client.sessionId,
+    ]);
+    priv.stats.attempts += 1;
+    if (gained.length) priv.stats.correct += 1;
+    const level = this.awardXp(client.sessionId, xp, `conv:${topic.id}`);
+
+    const payload = {
+      reply: result.reply, hint: result.hint, aimsMet: state.goalsMet, gained,
+      turn: state.turns.length, turnLimit: CONV.turnLimit, xp,
+      levels: level?.levels || 0, done: false,
+    };
+
+    // Finishing a scene pays once, the first time, and stops at the day's ceiling. Talking
+    // is the point of the island, so the XP for each aim is paid whether or not the coins
+    // have run out.
+    if (result.complete && !state.done) {
+      state.done = true;
+      const left = roomLeft(priv.caps, 'conv', CONV.dailyCoinCap);
+      const paid = Math.min(CONV.reward.topicCoins, left);
+      if (paid > 0) {
+        const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `conv:${topic.id}` });
+        priv.caps.conv += paid;
+        this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      }
+      const bonus = this.awardXp(client.sessionId, CONV.reward.topicXp, `conv:${topic.id}:done`);
+      payload.done = true;
+      payload.coins = paid;
+      payload.capped = paid < CONV.reward.topicCoins;
+      payload.bonusXp = CONV.reward.topicXp;
+      payload.levels = (level?.levels || 0) + (bonus?.levels || 0);
+      log.info(`[room ${this.roomId}] "${priv.name}" finished ${topic.id} in ${state.turns.length} turns`);
+    }
+    payload.wallet = this.walletPayload(client.sessionId).wallet;
+    payload.progress = this.progressPayload(client.sessionId);
+    client.send('conv:reply', payload);
+    this.persist(client.sessionId);
   }
 
   // ---- 英検の島（5級・4級・3級）------------------------------------------------------

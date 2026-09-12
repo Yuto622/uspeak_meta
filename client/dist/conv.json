@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "note": "英会話島。4つの家＝4つの場面で、ウーピーと英語で話す。島の座標はクライアントとサーバーの共有データ：クライアントはここから島を建て、サーバーは同じ座標で「その家の中にいるか」を判定する。会話そのものはサーバーの AI（server/src/ai/tutor.js）が返し、できたこと（aims）の判定もサーバーがする。キャラクターの動画は client/dist/assets/character/（idle.mp4 / talking.mp4）。",
+  "turnLimit": 14,
+  "reward": { "aimXp": 12, "topicCoins": 40, "topicXp": 30 },
+  "dailyCoinCap": 200,
+  "island": {
+    "id": "conv",
+    "name": "英会話島",
+    "en": "CONVERSATION ISLE",
+    "x": -260,
+    "z": 170,
+    "radius": 5,
+    "grass": 10470010,
+    "grassTop": 11852926,
+    "spawn": { "x": 0, "z": 21 },
+    "courtyard": { "x": 0, "z": 10 },
+    "spots": [
+      {
+        "id": "cafe",
+        "name": "であいのカフェ",
+        "en": "HELLO CAFÉ",
+        "ja": "はじめまして の れんしゅう",
+        "tone": "☕",
+        "grade": "5",
+        "x": -15,
+        "z": 4,
+        "path": { "x": 0, "z": 10 },
+        "color": 15902298,
+        "topics": [
+          {
+            "id": "hello",
+            "title": "はじめまして",
+            "en": "Nice to meet you",
+            "place": "であいのカフェ",
+            "situation": "You are behind the counter of a small sunny café on 英会話島, meeting a child for the first time. You are curious about them and easy to talk to.",
+            "opening": "Hello! Nice to meet you. What is your name?",
+            "goals": [
+              { "id": "name", "ja": "名前を つたえる", "en": "The child says their name." },
+              { "id": "how", "ja": "元気か 答える", "en": "The child answers how they are." },
+              { "id": "like", "ja": "すきな ものを 言う", "en": "The child says something they like." }
+            ],
+            "hints": ["My name is Yuto.", "I'm fine, thank you.", "I like soccer."]
+          },
+          {
+            "id": "order",
+            "title": "カフェで たのむ",
+            "en": "Ordering a drink",
+            "place": "であいのカフェ",
+            "situation": "You are the café's owl barista on 英会話島. You have juice, milk, tea and cake. A child has come to the counter.",
+            "opening": "Welcome! What would you like to drink?",
+            "goals": [
+              { "id": "order", "ja": "のみものを たのむ", "en": "The child orders a drink." },
+              { "id": "size", "ja": "いくつ・どれくらい 言う", "en": "The child says how many, or what size." },
+              { "id": "thanks", "ja": "お礼を 言う", "en": "The child says thank you." }
+            ],
+            "hints": ["I would like juice, please.", "One, please.", "Thank you!"]
+          }
+        ]
+      },
+      {
+        "id": "market",
+        "name": "おかいものストリート",
+        "en": "MARKET STREET",
+        "ja": "かいもの の れんしゅう",
+        "tone": "🛍",
+        "grade": "5",
+        "x": 15,
+        "z": 4,
+        "path": { "x": 0, "z": 10 },
+        "color": 7324368,
+        "topics": [
+          {
+            "id": "shopping",
+            "title": "おみせで かう",
+            "en": "At the shop",
+            "place": "おかいものストリート",
+            "situation": "You are an owl shopkeeper on 英会話島 selling caps, T-shirts, notebooks and pencils. Everything costs between one and ten coins.",
+            "opening": "Hello! Can I help you?",
+            "goals": [
+              { "id": "want", "ja": "ほしい ものを 言う", "en": "The child says what they want." },
+              { "id": "price", "ja": "ねだんを たずねる", "en": "The child asks how much it costs." },
+              { "id": "buy", "ja": "かうと つたえる", "en": "The child says they will take it." }
+            ],
+            "hints": ["I want a cap.", "How much is it?", "I'll take it."]
+          },
+          {
+            "id": "lost",
+            "title": "みちを きく",
+            "en": "Asking the way",
+            "place": "おかいものストリート",
+            "situation": "You are an owl standing on a street corner of 英会話島. There is a park to the left, a station straight ahead and a library next to the café.",
+            "opening": "Hi! You look lost. Where do you want to go?",
+            "goals": [
+              { "id": "where", "ja": "行きたい 場所を 言う", "en": "The child says where they want to go." },
+              { "id": "ask", "ja": "道を たずねる", "en": "The child asks how to get there." },
+              { "id": "repeat", "ja": "わかったと 返す", "en": "The child shows they understood, or asks again." }
+            ],
+            "hints": ["I want to go to the park.", "How can I get there?", "I see. Thank you!"]
+          }
+        ]
+      },
+      {
+        "id": "school",
+        "name": "がっこうテラス",
+        "en": "SCHOOL TERRACE",
+        "ja": "がっこう の 話",
+        "tone": "🎒",
+        "grade": "4",
+        "x": -15,
+        "z": -13,
+        "path": { "x": 0, "z": -4 },
+        "color": 10145914,
+        "topics": [
+          {
+            "id": "school-day",
+            "title": "学校の一日",
+            "en": "My school day",
+            "place": "がっこうテラス",
+            "situation": "You are an owl teacher sitting on a school terrace on 英会話島, chatting with a child about school. You ask about subjects, lunch and clubs.",
+            "opening": "Hi! How was school today?",
+            "goals": [
+              { "id": "subject", "ja": "すきな 教科を 言う", "en": "The child names a subject they like." },
+              { "id": "why", "ja": "りゆうを 言う", "en": "The child gives a reason, using because or a short sentence." },
+              { "id": "ask", "ja": "ウーピーに 質問する", "en": "The child asks a question back." }
+            ],
+            "hints": ["I like science.", "Because it is fun.", "What about you?"]
+          },
+          {
+            "id": "weekend",
+            "title": "しゅうまつの こと",
+            "en": "Last weekend",
+            "place": "がっこうテラス",
+            "situation": "You are an owl friend on 英会話島 asking a child about their weekend. Past tense is the point: went, played, ate, watched.",
+            "opening": "Hello! What did you do last weekend?",
+            "goals": [
+              { "id": "did", "ja": "したことを 過去形で 言う", "en": "The child says what they did, in the past tense." },
+              { "id": "who", "ja": "だれと・どこで を 言う", "en": "The child says who they were with, or where." },
+              { "id": "feel", "ja": "どうだったか 言う", "en": "The child says how it was." }
+            ],
+            "hints": ["I played soccer.", "I went with my brother.", "It was fun."]
+          }
+        ]
+      },
+      {
+        "id": "dream",
+        "name": "ゆめのとうだい",
+        "en": "DREAM LIGHTHOUSE",
+        "ja": "しょうらい の 話",
+        "tone": "🌠",
+        "grade": "3",
+        "x": 15,
+        "z": -13,
+        "path": { "x": 0, "z": -4 },
+        "color": 15043750,
+        "topics": [
+          {
+            "id": "dream",
+            "title": "しょうらいの ゆめ",
+            "en": "My dream",
+            "place": "ゆめのとうだい",
+            "situation": "You are an owl keeper at the top of a lighthouse on 英会話島, talking with a child about the future. You are warm and take their dream seriously.",
+            "opening": "Good evening! What do you want to be in the future?",
+            "goals": [
+              { "id": "want", "ja": "なりたい ものを 言う", "en": "The child says what they want to be or do." },
+              { "id": "why", "ja": "りゆうを 説明する", "en": "The child explains why, in a sentence or two." },
+              { "id": "plan", "ja": "そのために する ことを 言う", "en": "The child says something they will do to get there." }
+            ],
+            "hints": ["I want to be a doctor.", "Because I want to help people.", "I will study science hard."]
+          },
+          {
+            "id": "travel",
+            "title": "行ってみたい 国",
+            "en": "A country I want to visit",
+            "place": "ゆめのとうだい",
+            "situation": "You are an owl keeper who has flown over many countries, talking with a child about travel on 英会話島.",
+            "opening": "Hello! If you could go anywhere, where would you go?",
+            "goals": [
+              { "id": "where", "ja": "行きたい 国を 言う", "en": "The child names a country or place they want to visit." },
+              { "id": "what", "ja": "そこで したい ことを 言う", "en": "The child says what they want to do there." },
+              { "id": "when", "ja": "いつ・だれと を 言う", "en": "The child says when they would go, or who with." }
+            ],
+            "hints": ["I want to visit Australia.", "I want to see koalas.", "I will go with my family."]
+          }
+        ]
+      }
+    ]
+  }
+}

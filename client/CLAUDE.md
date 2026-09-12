@@ -18,6 +18,7 @@
 | RPG演出・UI | adventure-effects.js / adventure.css |
 | 杖・伝説・回復 | magic.js / magic-data.js / magic-world.js / magic.css |
 | 建物入口・屋内 | buildings.js / park-interior.js / building-room.js |
+| AI英会話（英会話島） | conv.js / conv.css / conv-island.js / conv.json / assets/character/*.mp4 |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
 
 ## 保存互換性
@@ -152,6 +153,39 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 建物の前は歩いて入る場所なので、**装飾は建物の横（`def.z - 4.6`）に置く**。
   正面に置くと道をふさぎ、`tests/regression.mjs` が落ちる。
 - コインは日次上限（`EIKEN_CAP`＝150）。XPは上限なし（学習記録なので削らない）。
+
+## 英会話島（AI英会話・キャラクター動画／2026-09 追加）
+
+`conv-island.js` + `conv.json`（島と4つの家・8つの場面）/ `conv.js` + `conv.css`（会話画面）/
+`assets/character/idle.mp4` `talking.mp4`（ウーピーの動画）。
+サーバーは `server/src/game/conv.js` と、**おつかい島と共有の** `server/src/ai/tutor.js`。
+
+- **家＝場面。** 入った家がそのまま話す場面になる（メニューで選ぶのは家の中の2つだけ）。
+  であいのカフェ（5級）/ おかいものストリート（5級）/ がっこうテラス（4級）/ ゆめのとうだい（3級）。
+- **できたこと（aims）はサーバーが判定する。** 各場面に2〜3個、「名前を つたえる」「ねだんを たずねる」など。
+  ページは**マイクが聞き取った文字列（または入力した文）だけ**を送り、達成の申告はしない。
+  aim ごとに XP、場面を全部達成すると **+40🪙**（日次上限 `dailyCoinCap`＝200）。
+- **AI は共通**。`asMission(topic)` で場面をおつかいと同じ mission の形にしてから `tutor.turn()` に渡す。
+  ペルソナ（ウーピー）・安全ルール・JSON スキーマ・**APIキー無しの台本モード**が丸ごと共有される。
+  `mission.scene` だけ新設（プロンプトの「どの島の話か」）。
+- **APIキーが無くても動く**（`OPENAI_API_KEY` 未設定＝台本モード）。台本モードの aim 判定は
+  「長い語2つ、または見本文の半分以上の語が一致」。1語だけでは達成にしない（"please" だけで
+  「2つと伝える」が達成になっていたのを直した経緯がある）。
+- **キャラクター動画は2本だけ**（idle / talking、各10秒・1280x720・H.264）。
+  リップシンクはしない：**読み上げ（speechSynthesis）が鳴っている間だけ talking を出す**。
+  `#conv-stage` の `data-mouth` が唯一の信号で、`onend` が来ない環境（Safari のバックグラウンド等）に
+  そなえて時間の保険もかけてある。2本は最初と最後のフレームが同じなので、0.14秒のクロスフェードで
+  切れ目が見えない。**動画は家に入って初めて読み込む**（島に来ない子は3MBを落とさない）。
+- **デコードできない環境では絵のフクロウに落ちる**（`data-video="off"`）。会話は動画に依存しない。
+  このコンテナの Chromium は H.264 を持たないので、e2e はこのフォールバックで通している。
+  **実際の再生確認は実機（iPad/Safari）でやること。**
+- 制限は3つ：一度に1ターン・`AI_MIN_INTERVAL_MS`・`AI_DAILY_TURNS_PER_STUDENT`（おつかいと合算）。
+  1つの場面は `turnLimit`（14往復）で打ち切る。
+- 島は `rpg-data.js` の HUBS と `ACTIVITY_HUBS` に `conv` として登録。`rpg.convNearby()` が
+  「いまいる家」、`net.convInteract()` が画面を開く。
+- **広場の真ん中に物を置かないこと。** 前列2軒への道が広場を斜めに横切るので、置くと
+  `tests/regression.mjs` の「paved path runs through a building」で落ちる（実際に落として直した）。
+  ステージ（マイクのある東屋）は家の裏（z=-11.5）に置いてある。
 
 ## おはなし（部屋の中の通話／2026-09 追加）
 

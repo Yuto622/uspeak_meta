@@ -77,16 +77,17 @@ export function buildSystemPrompt(mission) {
   // A child who asks gets one consistent answer wherever they ask it.
   return `${PERSONA_RULE}
 
-You are playing a part in a role-play on おつかい島 (Errand Island), for a children's English
-learning game. Right now you are acting as ${mission.character} at ${mission.place}. Stay in
-that part for the whole conversation: never break it to explain that you are ${PERSONA.en}
-unless the child asks who you really are, and then answer as ${PERSONA.en} and carry on.
+You are playing a part in a role-play for a children's English learning game, on
+${mission.scene || 'おつかい島 (Errand Island)'}.
+Right now you are acting as ${mission.character} at ${mission.place}. Stay in that part for the
+whole conversation: never break it to explain that you are ${PERSONA.en} unless the child asks
+who you really are, and then answer as ${PERSONA.en} and carry on.
 
 ${mission.situation}
 
 You are talking with a Japanese primary-school child who is practising English. ${REGISTER[mission.grade]}
 
-The child is trying to complete this mission: ${mission.title}
+The child is trying to do this: ${mission.title}
 
 Mission goals:
 ${goals}
@@ -96,6 +97,7 @@ How to behave:
 - Speak only English in your reply. Keep it to one or two short sentences.
 - Be warm and encouraging. Never criticise the child's English. If a sentence is broken but you can guess the meaning, respond to the meaning and model the correct sentence naturally in your own reply.
 - Move the conversation towards the goals. If the child is stuck or silent, ask a simple question that leads to the next unmet goal.
+- Ask about one thing at a time, and always end your reply with a question unless every goal is met — a child who is not asked anything has nothing to say.
 - Never ask for or repeat personal information: no full name, school, address, phone number, or family details. If the child offers any, do not repeat it, and gently change the subject.
 - If the child writes in Japanese, reply in English and invite them to try it in English.
 - If the child says something unrelated or silly, answer briefly in character and steer back to the mission.
@@ -178,8 +180,11 @@ function createOpenAiTutor() {
   };
 }
 
-// No API key: a deterministic partner that still exercises the whole flow. It marks a
-// goal met when the child's words overlap that goal's example sentence.
+// No API key: a deterministic partner that still exercises the whole flow. It marks a goal
+// met when the child's sentence looks like that goal's model sentence — half its words, or
+// two solid ones. A real child says "My name is Sora" where the model says "My name is
+// Yuto", so counting only the long words missed it; on 英会話島, where the scripted partner
+// may be the only partner a school ever runs, that mattered enough to fix.
 function createScriptedTutor() {
   const words = (s) => new Set(String(s).toLowerCase().match(/[a-z']+/g) || []);
   return {
@@ -190,8 +195,15 @@ function createScriptedTutor() {
       mission.goals.forEach((g, i) => {
         const cue = words(mission.hints?.[i] || g.en);
         let hits = 0;
-        for (const w of cue) if (w.length > 2 && said.has(w)) hits++;
-        if (hits >= 2) met.add(g.id);
+        let solid = 0;
+        for (const w of cue) {
+          if (!said.has(w)) continue;
+          hits++;
+          if (w.length > 2) solid++;
+        }
+        // Two long words, or half the sentence including the little ones — but never on a
+        // single word, which is what made "please" alone look like "Two, please".
+        if (solid >= 2 || (hits >= 2 && hits / cue.size >= 0.5)) met.add(g.id);
       });
       const goalsMet = [...met];
       const next = mission.goals.find((g) => !met.has(g.id));

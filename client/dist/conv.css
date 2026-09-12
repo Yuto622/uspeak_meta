@@ -1,0 +1,106 @@
+/* 英会話島 — the screen where ウーピー is, and a child talks back. */
+#conv-dialog {
+  border: none; padding: 0; width: min(940px, 94vw); max-height: 94vh; border-radius: 22px;
+  background: #12302c; color: #f3efe1; box-shadow: 0 30px 80px #04110f88;
+  /* The head and the buttons stay put; the middle is what scrolls. On a classroom iPad in
+     landscape there is not much height, and a child should never have to scroll to find
+     the microphone. */
+  display: flex; flex-direction: column; overflow: hidden;
+}
+#conv-dialog::backdrop { background: #04110fcc; backdrop-filter: blur(3px); }
+.conv-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 18px; background: linear-gradient(#1b423c, #143530); border-radius: 22px 22px 0 0;
+}
+.conv-head small { display: block; font-size: 11px; letter-spacing: .12em; opacity: .7; text-transform: uppercase; }
+.conv-head h2 { margin: 2px 0 0; font-size: 20px; }
+.conv-head-right { display: flex; align-items: center; gap: 10px; }
+.conv-head-right span { font-size: 12px; opacity: .7; }
+#conv-close { width: 34px; height: 34px; border-radius: 10px; background: #ffffff1f; color: #f3efe1; font-size: 18px; }
+
+.conv-head { flex: 0 0 auto; }
+.conv-body { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; padding: 14px 18px 0; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+.conv-foot { flex: 0 0 auto; }
+
+/* The character. Two clips in the same box, crossfaded on one signal. */
+.conv-stage {
+  position: relative; border-radius: 16px; overflow: hidden; background: #0b201d;
+  aspect-ratio: 16 / 9; max-height: 46vh; display: flex; align-items: flex-end;
+}
+.conv-stage video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: opacity .14s ease-out;
+}
+#conv-idle { opacity: 1; }
+#conv-talk { opacity: 0; }
+.conv-stage[data-mouth="talking"] #conv-idle { opacity: 0; }
+.conv-stage[data-mouth="talking"] #conv-talk { opacity: 1; }
+/* No codec, no file, no network: the owl is drawn instead, and moves on the same signal. */
+.conv-owl { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 40%, #24564d, #0b201d); }
+.conv-stage[data-video="off"] .conv-owl { display: flex; }
+.conv-stage[data-video="off"] video { display: none; }
+.conv-owl-face { font-size: clamp(64px, 12vw, 132px); line-height: 1; filter: drop-shadow(0 8px 18px #04110f88); }
+.conv-owl-beak {
+  position: absolute; width: 22px; height: 6px; background: #f0a44a; border-radius: 0 0 12px 12px;
+  transform: translateY(14px) scaleY(1); transition: transform .1s;
+}
+.conv-stage[data-video="off"][data-mouth="talking"] .conv-owl-beak { animation: conv-beak .28s infinite alternate; }
+@keyframes conv-beak { from { transform: translateY(14px) scaleY(1); } to { transform: translateY(16px) scaleY(2.6); } }
+/* What ウーピー just said, over the picture: a child reads along with the voice. */
+.conv-line {
+  position: relative; margin: 0; width: 100%; padding: 10px 14px; font-size: clamp(15px, 2.2vw, 19px);
+  font-weight: 600; line-height: 1.45; background: linear-gradient(transparent, #04110fe6 32%); text-shadow: 0 2px 6px #04110f;
+}
+
+.conv-side { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.conv-picker { display: flex; flex-direction: column; gap: 8px; }
+.conv-pick-lead { margin: 0; font-size: 12px; opacity: .75; }
+.conv-picker button {
+  text-align: left; padding: 12px 14px; border-radius: 13px; background: #ffffff14; color: #f3efe1;
+}
+.conv-picker button strong { display: block; font-size: 15px; }
+.conv-picker button small { opacity: .7; font-size: 12px; }
+.conv-picker button:active { background: #ffffff26; }
+.conv-fine { margin: 2px 0 0; font-size: 11px; opacity: .6; line-height: 1.5; }
+
+/* できたこと: the two or three things this scene is about. */
+.conv-aims { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.conv-aims li {
+  display: flex; gap: 8px; align-items: baseline; font-size: 13px; padding: 6px 10px;
+  border-radius: 10px; background: #ffffff10; transition: background .2s;
+}
+.conv-aims li span { opacity: .5; }
+.conv-aims li.met { background: #74c39a2e; }
+.conv-aims li.met span { opacity: 1; color: #8fe0b4; }
+
+.conv-log {
+  list-style: none; margin: 0; padding: 0; flex: 1 1 auto; min-height: 90px; max-height: 30vh;
+  overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-size: 13px; line-height: 1.5;
+}
+.conv-log li { padding: 7px 10px; border-radius: 11px; background: #ffffff10; }
+.conv-log li.conv-me { background: #74c39a26; }
+.conv-log b { display: block; font-size: 10px; opacity: .6; }
+.conv-hint { margin: 0; font-size: 12px; line-height: 1.5; background: #f5b94422; border-radius: 10px; padding: 8px 10px; }
+
+.conv-foot { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 18px 16px; }
+.conv-foot button { padding: 11px 14px; border-radius: 12px; font-size: 14px; font-weight: 700; background: #ffffff1f; color: #f3efe1; }
+.conv-foot button.primary { background: #2f8f6b; flex: 0 0 auto; }
+.conv-foot button:disabled { opacity: .45; }
+.conv-foot button:active { transform: translateY(1px); }
+.conv-type { display: flex; gap: 6px; flex: 1 1 260px; }
+.conv-type input {
+  flex: 1 1 auto; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 1px solid #ffffff26;
+  background: #0b201d; color: #f3efe1; font-size: 14px;
+}
+.conv-acts { display: flex; gap: 6px; }
+.conv-status { flex: 1 1 100%; margin: 0; font-size: 12px; opacity: .8; min-height: 1.2em; }
+
+@media (max-width: 720px) {
+  .conv-body { grid-template-columns: 1fr; gap: 10px; padding: 10px 12px 0; }
+  .conv-head { padding: 10px 12px; }
+  .conv-head h2 { font-size: 17px; }
+  .conv-log { max-height: 18vh; }
+  .conv-stage { max-height: 30vh; }
+  .conv-foot { padding: 10px 12px 14px; }
+  .conv-foot button { padding: 10px 12px; font-size: 13px; }
+}

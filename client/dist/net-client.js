@@ -11,6 +11,7 @@ import { createMissionUI } from './mission.js';
 import { createQuizUI } from './quiz.js';
 import { createGymUI } from './gym.js';
 import { createEikenUI } from './eiken.js';
+import { createConvUI } from './conv.js';
 import { createVoice, TALK_ISLAND } from './voice.js';
 import { createBattleUI } from './battle.js';
 import { createDojoUI } from './dojo.js';
@@ -77,6 +78,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     send: (type, payload) => room?.send(type, payload),
     toast,
     roomLabel: (space) => (space === TALK_ISLAND ? 'おはなし島の ひろば' : rpg.insideBuilding?.spot?.name || ''),
+  });
+  // 英会話島: ウーピー on a screen, and a child talking back. What the page sends is what
+  // the microphone heard; the aims, the coins and the XP all come back from the server.
+  const conv = createConvUI({
+    send: (type, payload) => room?.send(type, payload),
+    toast, isOnline: () => state.mode === 'online',
   });
   const battle = createBattleUI({
     send: (type, payload) => room?.send(type, payload),
@@ -297,6 +304,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('eiken:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); eiken.onResult(m); });
     r.onMessage('eiken:closed', (m) => eiken.onClosed(m));
     r.onMessage('eiken:error', (m) => eiken.onError(m));
+    r.onMessage('conv:opened', (m) => conv.onOpened(m));
+    r.onMessage('conv:reply', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress); conv.onReply(m); });
+    r.onMessage('conv:closed', (m) => conv.onClosed(m));
+    r.onMessage('conv:error', (m) => conv.onError(m));
     r.onMessage('voice:room', (m) => voice.onRoom(m));
     r.onMessage('voice:peer', (m) => voice.onPeer(m));
     r.onMessage('voice:closed', (m) => voice.onClosed(m));
@@ -672,6 +683,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (near.spot.kind === 'gym') gym.enter(near.spot); else quiz.enter(near.spot);
     },
     schoolLabel: (spot) => (spot.kind === 'gym' ? gym.label(spot) : quiz.label(spot)),
+    convInteract: () => {
+      const near = rpg.convNearby();
+      if (near) conv.enter(near.spot.id);
+    },
+    convLabel: (spot) => conv.label(spot),
     eikenInteract: () => {
       const near = rpg.eikenNearby();
       if (near) eiken.enter(near.spot, near.island);
@@ -685,7 +701,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     arenaLabel: (spot) => (spot.kind === 'dojo' ? dojo.label(spot) : battle.label(spot)),
     petInteract: () => { const near = rpg.petNearby(); if (near) petUI.enter(near.spot); },
     petLabel: (spot) => petUI.label(spot),
-    town, myRoom, myPlaza, voice,
+    town, myRoom, myPlaza, voice, conv,
     // Whichever of the two a child is standing in. The page's E and Q keys work on it.
     get builder() { return myRoom.active ? myRoom : myPlaza.active ? myPlaza : null; },
     townInteract: () => { const near = rpg.townNearby(); if (near) town.enter(near.spot); },
