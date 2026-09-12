@@ -5,6 +5,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   let open = false;
   let roster = [];
   let chatPaused = false;
+  let freeChat = true;
   let voiceMode = 'all';
   const staged = new Set();   // children the teacher has put on the stage (大広間だけ)
   let missionId = '';
@@ -16,6 +17,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   <div class="net-teacher-actions">
     <button type="button" id="net-t-gather" class="primary">📣 全員をここに集合</button>
     <button type="button" id="net-t-chat">⏸ チャットを一時停止</button>
+    <button type="button" id="net-t-free">✏ じゆうにゅうりょく：オン</button>
     <button type="button" id="net-t-voice">🎙 おはなし：どの島でも</button>
     <button type="button" id="net-t-reports">📄 保護者レポートのリンク</button>
     <button type="button" id="net-t-register">🔄 めいぼを読み直す</button>
@@ -42,6 +44,9 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   }
   $('#net-t-gather').onclick = () => { const p = point(); if (p) send({ cmd: 'gather', ...p }); };
   $('#net-t-chat').onclick = () => send({ cmd: 'chat', paused: !chatPaused });
+  // じゆうにゅうりょく. Off leaves the chat running with the preset phrases only, which
+  // is what a lesson wants when the writing is meant to be English and not chatter.
+  $('#net-t-free').onclick = () => send({ cmd: 'free', on: !freeChat });
   // 通話. おはなし島 is always open — that island is one room and children go there to
   // talk. This button is for the rest of the world: press once to open every building on
   // every island, again to close all of it (the island included), again to go back.
@@ -77,6 +82,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
       b.onclick = () => { const id = b.dataset.stage; send({ cmd: 'stage', target: id, on: !staged.has(id) }); };
     });
     $('#net-t-chat').textContent = chatPaused ? '▶ チャットを再開' : '⏸ チャットを一時停止';
+    $('#net-t-free').textContent = freeChat ? '✏ じゆうにゅうりょく：オン' : '✏ じゆうにゅうりょく：オフ';
     $('#net-t-voice').textContent = { all: '🎙 おはなし：どの島でも', rooms: '🎙 おはなし：おはなし島だけ', off: '🔇 おはなし：とじている' }[voiceMode];
     $('#net-teacher-hint').textContent = `接続中 ${rows.filter((p) => p.connected).length} 人 · 集合・移動は今いる場所（${getSpace()}）へ`;
   }
@@ -109,7 +115,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
 
   return {
     setAvailable(v) { button.hidden = !v; if (!v) toggle(false); },
-    onRoster(m) { roster = m.players || []; chatPaused = !!m.chatPaused; if (open) renderRoster(); },
+    onRoster(m) { roster = m.players || []; chatPaused = !!m.chatPaused; freeChat = m.freeChat !== false; if (open) renderRoster(); },
     onAck(m) {
       if (m.ok === false) {
         const said = { 'not in a big room': 'ステージは おはなし島（大広間）だけです。', 'no such student': 'その生徒が見つかりません。' }[m.error];
@@ -127,6 +133,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
         if (open) renderRoster();
       }
       else if (m.cmd === 'chat') { chatPaused = !!m.paused; toast(chatPaused ? 'チャットを一時停止しました。' : 'チャットを再開しました。'); if (open) renderRoster(); }
+      else if (m.cmd === 'free') { freeChat = !!m.free; toast(freeChat ? 'じゆうにゅうりょくを オンにしました。' : 'じゆうにゅうりょくを オフにしました（フレーズだけ）。'); if (open) renderRoster(); }
       else if (m.cmd === 'mission') { missionId = m.id || ''; toast(m.id ? '今日のおつかいを設定しました。' : 'おつかいの指定を解除しました。'); }
       else if (m.cmd === 'call') toast('生徒を呼び出しました。');
       else if (m.cmd === 'move') toast('生徒をここへ移動させました。');
@@ -134,6 +141,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
       else if (m.cmd === 'reports') showLinks(m.links || []);
     },
     setChatPaused(v) { chatPaused = v; if (open) renderRoster(); },
+    setFree(v) { freeChat = v !== false; if (open) renderRoster(); },
     setVoice(v) { voiceMode = ['rooms', 'all', 'off'].includes(v) ? v : 'all'; if (open) renderRoster(); },
     setMission(id) { missionId = id || ''; const select = root.querySelector('#net-t-mission'); if (select) select.value = missionId; },
   };

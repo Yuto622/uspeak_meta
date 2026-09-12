@@ -96,6 +96,19 @@ try {
   await a.click('[data-phrase="hello"]');
   const delivered = await b.waitForFunction(() => (document.querySelector('#net-chat-log')?.textContent || '').includes('Hello!'), null, { timeout: 10000, polling: 200 }).then(() => true).catch(() => false);
   check('chat phrase delivered', delivered);
+  // じゆうにゅうりょく: A types their own words, on an island, with nobody in a call.
+  await a.fill('#net-chat-text', 'I am on the beach!');
+  await a.click('#net-chat-send');
+  const typed = await b.waitForFunction(() => (document.querySelector('#net-chat-log')?.textContent || '').includes('I am on the beach!'), null, { timeout: 10000, polling: 200 }).then(() => true).catch(() => false);
+  check('a typed message reaches the class without anybody joining a call', typed);
+  // And the words that must not travel do not.
+  await a.fill('#net-chat-text', 'call me on 090-1234-5678');
+  await a.click('#net-chat-send');
+  await sleep(700);
+  check('a telephone number does not reach another child',
+    !(await b.evaluate(() => document.querySelector('#net-chat-log')?.textContent || '')).includes('090'),
+    await a.evaluate(() => document.querySelector('#toast')?.textContent || ''));
+
   // Teacher pauses chat.
   await teacher.click('#net-teacher-button');
   await teacher.waitForSelector('#net-t-chat');

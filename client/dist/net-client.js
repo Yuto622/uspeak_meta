@@ -30,7 +30,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const state = {
     mode: 'offline', // offline | connecting | online | reconnecting
     role: 'student', sessionId: null, name: '', classCode: '', teacherKey: '',
-    attempts: 0, intentionalLeave: false, chatPaused: false, teacherId: '',
+    attempts: 0, intentionalLeave: false, chatPaused: false, freeChat: true, teacherId: '',
     progress: null, wallet: null, move: null, pet: null, lastSpace: '', lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
     pendingTeleport: null, hiddenAt: 0, resumedAt: 0, lastAvatarJson: '',
     // How far this device's clock is from the server's, measured once on joining. The
@@ -45,7 +45,16 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const prefs = storage.get(localStorage, STORAGE_KEYS.prefs) || {};
   const remotes = createRemotePlayers({ worldScene: scene, getInteriorScene: () => rpg.interiorScene, getLocalPosition: () => player.position });
   const chip = createStatusChip();
-  const chat = createChat({ onSend: (id) => room?.send('chat', { id }), speak, toast, isPaused: () => state.chatPaused && state.role !== 'teacher' });
+  const chat = createChat({
+    onSend: (id) => room?.send('chat', { id }),
+    // Free text: the page sends the words and nothing else. Whether they may be sent —
+    // the length, the words, the teacher's switch — is decided on the server, and this
+    // never pretends to know the answer in advance.
+    onSay: (text) => room?.send('chat', { text }),
+    speak, toast,
+    isPaused: () => state.chatPaused && state.role !== 'teacher',
+    isFree: () => state.freeChat !== false || state.role === 'teacher',
+  });
   const teacher = createTeacherPanel({
     send: (msg) => room?.send('teacher', msg), toast,
     getPoint: () => ({ x: round(player.position.x, 2), z: round(player.position.z, 2) }),
@@ -299,7 +308,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('call', (m) => showCall(m));
     r.onMessage('notice', (m) => toast(m.text));
     r.onMessage('chat', (m) => onChat(m));
-    r.onMessage('chat:blocked', (m) => toast(m.reason === 'paused' ? 'チャットは先生によって一時停止中です。' : 'ゆっくり話そう。'));
+    r.onMessage('chat:blocked', (m) => chat.blocked(m.reason, m.max));
     r.onMessage('roster', (m) => teacher.onRoster(m));
     r.onMessage('teacher:ack', (m) => teacher.onAck(m));
     r.onMessage('xp', (m) => applyProgress(m, m.levels));
@@ -399,6 +408,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     });
     r.state.players.onRemove((p, id) => { remotes.remove(id); seen.delete(id); chip.count(r.state.players.size); });
     r.state.listen('chatPaused', (v) => { state.chatPaused = !!v; chat.setPaused(); teacher.setChatPaused(!!v); });
+    r.state.listen('freeChat', (v) => { state.freeChat = v !== false; chat.setFree(); voice.setFree(state.freeChat); teacher.setFree(state.freeChat); });
     r.state.listen('voice', (v) => { voice.setMode(v); teacher.setVoice(v); });
     r.state.listen('stageOpen', (v) => voice.setStage(v));
     r.state.listen('teacherId', (v) => { state.teacherId = v || ''; });
@@ -581,16 +591,19 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
 
   function onChat(m) {
     const mine = m.from === state.sessionId;
-    const p = chat.receive({ name: m.name, id: m.id, mine });
-    if (!p) return;
+    chat.receive({ name: m.name, id: m.id, text: m.text, mine });
+    // Over the head as well as in the panel — a written word belongs to the child who
+    // wrote it, whether they tapped a phrase or typed their own.
+    const bubble = typeof m.text === 'string' && m.text ? m.text : chat.phrase(m.id)?.en;
+    if (!bubble) return;
     if (mine) {
       if (ownBubble) player.remove(ownBubble);
-      ownBubble = remotes.textSprite(p.en, { bg: '#fffaf0', color: '#263d33', size: 28, width: 640, scale: 0.62 });
+      ownBubble = remotes.textSprite(bubble, { bg: '#fffaf0', color: '#263d33', size: 28, width: 640, scale: 0.62 });
       ownBubble.position.set(0, 3.95, 0);
       player.add(ownBubble);
       ownBubbleUntil = performance.now() + NET.CHAT_BUBBLE_MS;
     } else {
-      remotes.showBubble(m.from, p.en);
+      remotes.showBubble(m.from, bubble);
     }
   }
 

@@ -39,6 +39,11 @@ export class RoomState extends Schema {
     super();
     this.classCode = '';
     this.chatPaused = false;
+    // じゆうにゅうりょく. Children may type their own words as well as tap a preset
+    // phrase. It starts on — a chat a child cannot answer in their own words is not a
+    // chat — and a teacher can turn it off for the class in one tap when a lesson needs
+    // the phrases and nothing else.
+    this.freeChat = true;
     // 通話. Three settings, not two: 'all' (the default — every building on every island,
     // plus おはなし島 itself), 'rooms' (おはなし島 and nowhere else) and 'off' (a teacher
     // has closed all of it, おはなし島 included). A class starts open: a child who walks
@@ -56,6 +61,7 @@ export class RoomState extends Schema {
 defineTypes(RoomState, {
   classCode: 'string',
   chatPaused: 'boolean',
+  freeChat: 'boolean',
   voice: 'string',
   stageOpen: 'boolean',
   teacherId: 'string',

@@ -50,6 +50,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     heads: 0,           // how many are in a big room (the SFU counts, not us)
     log: [],            // the last few written messages in this room
     saying: false,      // the phrase list is open
+    free: true,         // whether the class may type its own words (the teacher's switch)
     peers: new Map(),   // sessionId -> { id, name, role, pc, stream, polite, making, ignoring, level, el }
     size: 'm',          // how big the panel (and so the faces) are drawn
     error: '',
@@ -80,8 +81,12 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     </div>
     <ol id="voice-log" class="voice-log" aria-live="polite" hidden></ol>
     <div class="voice-say">
-      <button type="button" id="voice-say-open">💬 メッセージ</button>
+      <button type="button" id="voice-say-open">💬 フレーズ</button>
     </div>
+    <form id="voice-write" class="voice-write" autocomplete="off">
+      <input id="voice-text" type="text" maxlength="120" placeholder="この へやの みんなに かく" aria-label="この部屋にメッセージを書く">
+      <button type="submit">おくる</button>
+    </form>
     <div id="voice-phrases" class="voice-phrases" hidden></div>
     <p id="voice-note" class="voice-note"></p>`;
   document.body.append(panel);
@@ -95,6 +100,13 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   $('#voice-cam', panel).onclick = () => setCamera(!state.camera);
   $('#voice-share', panel).onclick = () => setScreen(!state.screen);
   $('#voice-say-open', panel).onclick = () => openSay(!state.saying);
+  $('#voice-write', panel).addEventListener('submit', (e) => { e.preventDefault(); write(); });
+  // WASD belongs to the world, except inside this box.
+  for (const type of ['keydown', 'keyup', 'keypress']) {
+    $('#voice-text', panel).addEventListener(type, (e) => e.stopPropagation());
+  }
+  // An on-screen keyboard covers the bottom of the page, which is where this box is.
+  $('#voice-text', panel).addEventListener('focus', () => setTimeout(() => $('#voice-text', panel).scrollIntoView({ block: 'nearest' }), 250));
 
   // ---- how big the faces are -------------------------------------------------------------
   //
@@ -247,12 +259,13 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     const log = $('#voice-log', panel);
     log.hidden = !state.log.length;
     log.innerHTML = state.log.map((m) => {
-      const said = phrasesById.get(m.id);
+      const said = m.text ? null : phrasesById.get(m.id);
       return `<li class="${m.mine ? 'mine' : ''}"><b>${esc(m.mine ? 'じぶん' : m.name || '…')}</b>`
-        + `<span>${esc(said?.en || '')}</span><small>${esc(said?.ja || '')}</small></li>`;
+        + `<span>${esc(m.text || said?.en || '')}</span><small>${esc(said?.ja || '')}</small></li>`;
     }).join('');
     log.scrollTop = log.scrollHeight;
-    $('#voice-say-open', panel).textContent = state.saying ? '× とじる' : '💬 メッセージ';
+    $('#voice-say-open', panel).textContent = state.saying ? '× とじる' : '💬 フレーズ';
+    $('#voice-write', panel).hidden = !state.free;
     const list = $('#voice-phrases', panel);
     list.hidden = !state.saying;
     if (!state.saying) return;
@@ -439,12 +452,23 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     render();
   }
 
+  // The child's own words, to the room. What may be written is the server's to say — the
+  // same rules as the class chat, checked in the same place.
+  function write() {
+    const box = $('#voice-text', panel);
+    const text = box.value.trim();
+    if (!text) return;
+    send('voice:msg', { text });
+    box.value = '';
+  }
+
   // A message from the room — the child's own included, echoed back by the server so that
   // everyone sees the same list in the same order.
   function onMsg(m) {
-    const said = phrasesById.get(m?.id);
-    if (!said) { loadPhrases().then(() => { if (phrasesById.has(m?.id)) onMsg(m); }); return; }
-    state.log.push({ id: m.id, name: m.name || '', mine: m.from === state.me, at: Date.now() });
+    const typed = typeof m?.text === 'string' && m.text;
+    const said = typed ? null : phrasesById.get(m?.id);
+    if (!typed && !said) { loadPhrases().then(() => { if (phrasesById.has(m?.id)) onMsg(m); }); return; }
+    state.log.push({ id: m.id, text: typed ? m.text : '', name: m.name || '', mine: m.from === state.me, at: Date.now() });
     if (state.log.length > LOG_MAX) state.log.splice(0, state.log.length - LOG_MAX);
     render();
   }
@@ -713,6 +737,14 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       const next = !!on;
       if (state.stageOpen === next) return;
       state.stageOpen = next;
+      render();
+    },
+    // Free typing, as the class has it set. Off means the box goes away here too: one
+    // switch, both places to write.
+    setFree(on) {
+      const next = on !== false;
+      if (state.free === next) return;
+      state.free = next;
       render();
     },
     setSpace(space) {

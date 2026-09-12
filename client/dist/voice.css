@@ -112,3 +112,16 @@ body.in-room #voice-panel, body.in-plaza #voice-panel { bottom: 190px; }
   .voice-tiles { gap: 4px; }
   .voice-tile small { font-size: 9px; }
 }
+
+/* じゆうにゅうりょく: writing to the room. Same shape as the class chat's box, because
+   it is the same act — and 40px tall, because a thumb is aiming at it. */
+.voice-write { display: flex; gap: 6px; margin-top: 6px; }
+.voice-write[hidden] { display: none; }
+#voice-text {
+  flex: 1; min-width: 0; height: 38px; box-sizing: border-box; padding: 0 11px;
+  border: 1px solid #ffffff26; border-radius: 11px; background: #ffffff14;
+  color: #f3efe1; font: inherit; font-size: 13px;
+}
+#voice-text::placeholder { color: #f3efe185; }
+#voice-text:focus { outline: 2px solid #74c39a; outline-offset: 1px; }
+.voice-write button { height: 38px; padding: 0 13px; border-radius: 11px; background: #2f8f6b; color: #f3efe1; font-weight: 700; font-size: 13px; }

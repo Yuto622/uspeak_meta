@@ -97,6 +97,31 @@ test('students see each other move and the teacher role is server-decided', asyn
   a.room.send('chat', { id: 'not-a-phrase' });
   a.room.send('chat', { id: 'lets-go' });
   assert.equal((await chat2).id, 'lets-go');
+  // じゆうにゅうりょく: a child's own words reach the class, and earn nothing — a chat
+  // that pays would be typed for the pay rather than for the child at the other end.
+  await sleep(120);                 // let the phrase above finish arriving at Ben
+  const typed = nextMessage(b.room, 'chat');
+  a.room.send('chat', { text: '  Hello Ben! I am at the race.  ' });
+  const heard = await typed;
+  assert.equal(heard.text, 'Hello Ben! I am at the race.', 'trimmed, and sent as written');
+  assert.equal(heard.name, 'Aki');
+  assert.equal(heard.id, undefined, 'a typed line is not a phrase id');
+  // Unkind words and telephone numbers do not arrive; the child is told which.
+  a.room.send('chat', { text: 'You are stupid' });
+  assert.equal((await nextMessage(a.room, 'chat:blocked')).reason, 'word');
+  a.room.send('chat', { text: 'call me on 090-1234-5678' });
+  assert.equal((await nextMessage(a.room, 'chat:blocked')).reason, 'contact');
+  // And a teacher can put the class back on the preset phrases in one command.
+  t.room.send('teacher', { cmd: 'free', on: false });
+  await waitFor(() => a.room.state.freeChat === false);
+  a.room.send('chat', { text: 'hello again' });
+  assert.equal((await nextMessage(a.room, 'chat:blocked')).reason, 'free off');
+  const stillPhrases = nextMessage(b.room, 'chat');
+  a.room.send('chat', { id: 'hello' });
+  assert.equal((await stillPhrases).id, 'hello', 'the phrases keep working');
+  t.room.send('teacher', { cmd: 'free', on: true });
+  await waitFor(() => a.room.state.freeChat === true);
+
   // Call + move target.
   const call = nextMessage(b.room, 'call');
   t.room.send('teacher', { cmd: 'call', target: b.room.sessionId });
@@ -1408,18 +1433,28 @@ test('おはなし: the room you walked into is the call, and the server only in
   t.room.send('rtc:signal', { to: a.room.sessionId, kind: 'offer', data: 'x' });
   assert.equal((await nextMessage(t.room, 'voice:error')).reason, 'no such peer');
 
-  // メッセージ: preset phrases only, and only to the room the child is standing in.
+  // メッセージ: a preset phrase or the child's own words, and only to the room they are
+  // standing in.
   const heard = nextMessage(b.room, 'voice:msg');
   a.room.send('voice:msg', { id: 'can-you-hear' });
   const written = await heard;
   assert.equal(written.id, 'can-you-hear');
   assert.equal(written.name, 'Hina');
   assert.equal(written.room, hall, 'a message belongs to the room it was written in');
-  // Anything that is not one of the phrases is not a message.
+  // An id that is not one of the phrases is not a message at all.
   const echo = nextMessage(b.room, 'voice:msg');
   a.room.send('voice:msg', { id: 'you are a bad dog' });
   a.room.send('voice:msg', { id: 'i-can-hear' });
-  assert.equal((await echo).id, 'i-can-hear', 'free text never reaches another child');
+  assert.equal((await echo).id, 'i-can-hear');
+  // Typed words reach the room, and go through the same check as the class chat.
+  await sleep(120);
+  const wrote = nextMessage(b.room, 'voice:msg');
+  a.room.send('voice:msg', { text: 'I am here! Can you see me?' });
+  const own = await wrote;
+  assert.equal(own.text, 'I am here! Can you see me?');
+  assert.equal(own.room, hall);
+  a.room.send('voice:msg', { text: 'meet me at www.example.com' });
+  assert.equal((await nextMessage(a.room, 'chat:blocked')).reason, 'contact');
   // A child in another room does not hear the room next door.
   const wrongRoom = await Promise.race([
     nextMessage(t.room, 'voice:msg').then(() => 'heard'),

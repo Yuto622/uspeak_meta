@@ -26,9 +26,17 @@
 #net-chat-phrases button strong{font-size:13px}
 #net-chat-phrases button small{font-size:11px;color:#5d6d62}
 #net-chat-phrases button:active{background:#d8e3c9}
-#net-chat-log{list-style:none;margin:10px 0 0;padding:8px 0 0;border-top:1px solid #e1dfcf;font-size:12px;display:flex;flex-direction:column;gap:4px}
+#net-chat-log{list-style:none;margin:10px 0 0;padding:8px 0 0;border-top:1px solid #e1dfcf;font-size:12px;display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto}
 #net-chat-log b{color:#173f38}
 #net-chat-log small{color:#5d6d62}
+/* じゆうにゅうりょく. A 44px row: a thumb on an iPad has to hit the box and the button
+   without hitting the world behind them. */
+#net-chat-say{display:flex;gap:6px;margin-top:8px}
+#net-chat-say[hidden]{display:none}
+#net-chat-text{flex:1;min-width:0;height:40px;box-sizing:border-box;padding:0 12px;border:1px solid #d5d3c0;border-radius:12px;background:#fff;color:#263d33;font:inherit;font-size:14px}
+#net-chat-text:focus{outline:2px solid #2f6b7f;outline-offset:1px}
+#net-chat-send{height:40px;padding:0 14px;border-radius:12px;background:#173f38;color:#f4f1e3;font-weight:700;font-size:13px}
+#net-chat-fine{margin:6px 0 0;font-size:11px;color:#5d6d62}
 .net-teacher-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .net-teacher-actions button{padding:8px 12px;border-radius:12px;background:#e5e9dc;font-weight:600}
 .net-teacher-actions button.primary{background:#173f38;color:#f4f1e3}

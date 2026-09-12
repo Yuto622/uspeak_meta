@@ -8,6 +8,7 @@ import { judge, JudgeError } from '../game/judge.js';
 import { applyOp, sanitizeWallet, EconomyError } from '../game/economy.js';
 import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
+import { cleanSay, MAX_CHARS } from '../game/say.js';
 import { MISSIONS } from '../game/missions.js';
 import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS, eikenReward } from '../game/progression.js';
 import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SESSION } from '../game/wordquiz.js';
@@ -399,22 +400,61 @@ export class ClassRoom extends Room {
     client.send('progress:ack', { ok: true });
   }
 
+  // A message to the class: either a preset phrase (an id from phrases.json) or the
+  // child's own words. Both go through the same pause, the same clock and the same log;
+  // only the phrase earns XP, because a child who is paid for typing types anything.
   onChat(client, msg) {
     const player = this.state.players.get(client.sessionId);
     const priv = this.priv.get(client.sessionId);
     if (!player || !priv) return;
+    const typed = typeof msg?.text === 'string';
     const id = typeof msg?.id === 'string' ? msg.id : '';
-    if (!PHRASE_IDS.has(id)) return;
+    if (!typed && !PHRASE_IDS.has(id)) return;
     if (this.state.chatPaused && player.role !== 'teacher') { client.send('chat:blocked', { reason: 'paused' }); return; }
     const now = Date.now();
     if (now - priv.lastChatAt < config.chatMinIntervalMs) { client.send('chat:blocked', { reason: 'rate' }); return; }
     priv.lastChatAt = now;
+    if (typed) {
+      const text = this.acceptSay(client, msg.text, 'chat');
+      if (!text) return;
+      this.broadcast('chat', { from: client.sessionId, name: player.name, text, t: now });
+      return;
+    }
     priv.progress.chats += 1;
     const level = this.awardXp(client.sessionId, REWARDS.phrase.xp, `phrase:${id}`);
     this.broadcast('chat', { from: client.sessionId, name: player.name, id, t: now });
     // Named 'xp', not 'progress': the client already sends 'progress' upward for the
     // adventure save blob, and two meanings on one name is how bugs get planted.
     client.send('xp', { ...this.progressPayload(client.sessionId), levels: level?.levels || 0 });
+  }
+
+  // The one place a typed message is judged, for the class chat and the room's written
+  // channel alike: the teacher's switch, the length, the words, and the log line. Returns
+  // the text to pass on, or nothing — having already told the child why.
+  acceptSay(client, raw, where) {
+    const player = this.state.players.get(client.sessionId);
+    const priv = this.priv.get(client.sessionId);
+    if (!player || !priv) return '';
+    if (!this.state.freeChat && player.role !== 'teacher') {
+      client.send('chat:blocked', { reason: 'free off' });
+      return '';
+    }
+    const out = cleanSay(raw, { last: priv.lastSayText });
+    const row = (what, text, ok) => this.store.appendLearning([
+      new Date().toISOString(), this.classCode, priv.name, what, 'chat',
+      String(text).slice(0, 80), ok, 0, client.sessionId,
+    ]);
+    if (!out.ok) {
+      client.send('chat:blocked', { reason: out.reason, max: MAX_CHARS });
+      // A refused message is kept as well as refused. A teacher told "somebody typed
+      // something unkind" should be able to see what and when, rather than having to
+      // take one child's word against another's.
+      if (out.reason === 'word' || out.reason === 'contact') row(`chat:blocked:${out.reason}`, raw, 0);
+      return '';
+    }
+    priv.lastSayText = out.text;
+    row(`chat:${where}`, out.text, 1);
+    return out.text;
   }
 
   onTeacher(client, msg) {
@@ -487,6 +527,14 @@ export class ClassRoom extends Room {
         log.info(`[room ${this.roomId}] "${student.name}" ${on ? 'on' : 'off'} the stage in ${room}`);
         return;
       }
+      case 'free': {
+        // Free typing off: the chat falls back to the preset phrases, which is where it
+        // started. Nothing else changes — the panel, the log and the phrases stay.
+        this.state.freeChat = !!msg.on;
+        this.broadcast('notice', { text: this.state.freeChat ? 'じゆうに かけるように なりました。' : 'いまは えらんだ フレーズだけ 送れます。' }, { except: client });
+        client.send('teacher:ack', { cmd, ok: true, free: this.state.freeChat });
+        break;
+      }
       case 'chat': {
         this.state.chatPaused = !!msg.paused;
         this.broadcast('notice', { text: this.state.chatPaused ? 'チャットは先生によって一時停止中です。' : 'チャットが再開しました。' }, { except: client });
@@ -509,7 +557,7 @@ export class ClassRoom extends Room {
           roster.push({ id, name: p.name, role: p.role, connected: p.connected, space: p.space, coins: priv?.wallet.coins ?? 0, correct: priv?.stats.correct ?? 0, attempts: priv?.stats.attempts ?? 0,
             level: priv?.progress.level ?? 1, xp: priv ? totalXp(priv.progress) : 0 });
         }
-        client.send('roster', { players: roster, chatPaused: this.state.chatPaused });
+        client.send('roster', { players: roster, chatPaused: this.state.chatPaused, freeChat: this.state.freeChat });
         return;
       }
       case 'reports': {
@@ -572,6 +620,7 @@ export class ClassRoom extends Room {
       progressAt: 0,
       lastAnswerAt: 0,
       lastChatAt: 0,
+      lastSayText: '',      // the last thing they typed, so the same line twice is one line
       lastMoveAt: 0,
       lastSeen: null,
       reconnect: null,
@@ -1237,8 +1286,9 @@ export class ClassRoom extends Room {
     const player = this.state.players.get(id);
     const priv = this.priv.get(id);
     if (!player || !priv) return;
+    const typed = typeof msg?.text === 'string';
     const phrase = typeof msg?.id === 'string' ? msg.id : '';
-    if (!PHRASE_IDS.has(phrase)) return;
+    if (!typed && !PHRASE_IDS.has(phrase)) return;
     const room = this.voiceRoomOf(id);
     if (!room) { client.send('voice:error', { reason: 'not in a room' }); return; }
     if (!this.voiceOpenFor(player.space)) { client.send('voice:error', { reason: 'closed' }); return; }
@@ -1248,12 +1298,20 @@ export class ClassRoom extends Room {
     // two ways to earn for it.
     if (now - priv.lastChatAt < config.chatMinIntervalMs) { client.send('chat:blocked', { reason: 'rate' }); return; }
     priv.lastChatAt = now;
+    const toRoom = (said) => {
+      for (const client2 of this.clients) {
+        if (this.voiceRoomOf(client2.sessionId) === room) client2.send('voice:msg', said);
+      }
+    };
+    if (typed) {
+      const text = this.acceptSay(client, msg.text, 'room');
+      if (!text) return;
+      toRoom({ from: id, name: player.name, text, room, t: now });
+      return;
+    }
     priv.progress.chats += 1;
     const level = this.awardXp(id, REWARDS.phrase.xp, `phrase:${phrase}`);
-    const said = { from: id, name: player.name, id: phrase, room, t: now };
-    for (const client2 of this.clients) {
-      if (this.voiceRoomOf(client2.sessionId) === room) client2.send('voice:msg', said);
-    }
+    toRoom({ from: id, name: player.name, id: phrase, room, t: now });
     client.send('xp', { ...this.progressPayload(id), levels: level?.levels || 0 });
   }
 
@@ -2273,7 +2331,7 @@ export class ClassRoom extends Room {
       streak: priv.login.streak,
       world: this.worldPayload(),
       battle: priv.battle ? { ...statePayload(priv.battle), stand: priv.battle.stand, quiz: quizPayload(priv.battle) } : null,
-      chatPaused: this.state.chatPaused, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
+      chatPaused: this.state.chatPaused, freeChat: this.state.freeChat, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),
     };
   }

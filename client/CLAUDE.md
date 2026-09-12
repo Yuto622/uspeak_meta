@@ -19,6 +19,7 @@
 | 杖・伝説・回復 | magic.js / magic-data.js / magic-world.js / magic.css |
 | 建物入口・屋内 | buildings.js / park-interior.js / building-room.js |
 | AI英会話（英会話島） | conv.js / conv.css / conv-island.js / conv.json / assets/character/*.mp4 |
+| メッセージ（定型文・自由入力） | chat.js / net.css / voice.js（部屋の中） |
 | のりもの島・カートレース | ride.js / ride-island.js / vehicles.json / kart.js / race.js / race.css |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
 
@@ -225,6 +226,33 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - e2e は `server/test/e2e/browser-race.mjs`（実ブラウザ2画面）。**カートは運転ではなく
   ワープで走らせている**：このコンテナは3fps しか出ず、ハンドルを切れないため。
   走りそのものは `tests/regression.mjs` が同じ `kart.js` で見ている。
+
+## メッセージ（定型文＋じゆうにゅうりょく／2026-09 更新）
+
+`chat.js` + `net.css`（クラス全体・💬 ボタン）/ `voice.js` の `#voice-write`（部屋の中）。
+サーバーは `ClassRoom.onChat` / `onVoiceMsg` / `acceptSay` と **`server/src/game/say.js`**
+＋ `server/src/game/ng-words.json`。
+
+- **どの島でも、通話に入らなくても書ける。** 💬 は `net-dock` にあり、オンラインなら
+  常に出ている（`chat.setAvailable(mode === 'online')`）。部屋（`in:*`）に入っている時は
+  通話パネルの中にも入力欄が出て、そちらは**その部屋の人にだけ**届く。
+- **2種類ある。** 定型文（`phrases.json` の id）と、自分で書いた文。
+  **XPが出るのは定型文だけ。** 書いた文でXPを出すと「XPのために書く」子が出る。
+- **判定はサーバーだけ**（`say.js`）。長さ（120文字）・同じ文の連投・同じ文字の連打・
+  電話番号やURL・**言われたら傷つくことば**を見て、通らなかった理由を `chat:blocked` で返す。
+  ページは「送っていいか」を自分で判断しない（`maxlength` は親切のためだけ）。
+- **ことばの一覧は `ng-words.json`**。学校ごとに足していい。日本語は部分一致なので、
+  「ばかり」のような**巻き添えになる語は `safe` に入れて先に消してから**照合する。
+  英語は単語境界つき（`assist` が引っかからない）。全角・大文字は NFKC で揃える。
+- **単語リストは「柵」であって「見張り」ではない。** 本当に効くのは他の3つ：
+  先生が**じゆうにゅうりょくをオフ**にできる（`RoomState.freeChat`・先生コンソールの ✏ ボタン）、
+  先生が**チャットを一時停止**できる、そして**書いた文も止められた文も学習ログに残る**
+  （`mode: 'chat'`、`question_id` は `chat:chat` / `chat:room` / `chat:blocked:<理由>`）。
+  この3つを外すと、この機能は子ども向けではなくなる。
+- **入力欄のキーは世界に流さない**（`stopPropagation`）。流すと "we walk" と書いた子が
+  歩き出す。フォーカス時に `scrollIntoView` するのは、iPad のキーボードが下半分を隠すから。
+- 吹き出し（`remotes.showBubble`）は定型文と同じように出る。**部屋のメッセージは部屋を出ると消える**
+  （`voice.setSpace()` がログを捨てる）。クラスのチャットは24件まで残る。
 
 ## おはなし（部屋の中の通話／2026-09 追加）
 
