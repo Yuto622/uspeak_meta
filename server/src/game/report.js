@@ -71,7 +71,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 
 // One page, no scripts, no fonts, no third parties: it opens on any phone in a corridor
 // with one bar of signal, and it carries nothing that could track the family.
-export function reportHtml(r) {
+export function reportHtml(r, { token = '' } = {}) {
   const row = (label, value, note = '') => value === null || value === undefined || value === '' ? ''
     : `<tr><th>${esc(label)}</th><td><b>${esc(value)}</b>${note ? ` <small>${esc(note)}</small>` : ''}</td></tr>`;
   const seen = r.lastSeen ? new Date(r.lastSeen).toLocaleDateString('ja-JP') : '';
@@ -98,6 +98,19 @@ export function reportHtml(r) {
  tr:last-child th, tr:last-child td { border-bottom: 0; }
  small { color: #7b8a7f; }
  footer { margin-top: 22px; font-size: 12px; color: #7b8a7f; }
+ /* 紙にするボタン。冷蔵庫に貼る用の一枚は、画面とは別に組んである（LaTeX）。 */
+ .save { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 4px; }
+ .save a { flex: 1 1 200px; display: block; text-align: center; text-decoration: none;
+   padding: 14px 16px; border-radius: 14px; font-weight: 700; }
+ .save a.pdf { background: #173f38; color: #f4f1e3; }
+ .save a.tex { background: #fffaf0; color: #22372f; border: 1px solid #e0dcc6; font-weight: 600; }
+ .save + p { margin: 8px 2px 0; font-size: 12px; color: #7b8a7f; }
+ /* 印刷するときは、ボタンそのものは要らない。 */
+ @media print {
+   body { background: #fff; }
+   header { background: #173f38 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+   .save, .save + p { display: none; }
+ }
 </style></head><body>
 <header><div><small>U-SPEAK LAB</small><h1>${esc(r.name)} さんの学習レポート</h1>
 <p>クラス ${esc(r.classCode)}${seen ? ` · さいごに あそんだ日 ${esc(seen)}` : ''}</p></div></header>
@@ -119,7 +132,45 @@ export function reportHtml(r) {
   ${row('れんぞくログイン', r.streak ? `${r.streak} 日` : '')}
   ${row('もっているコイン', `◈ ${r.coins.toLocaleString()}`)}
  </table>
+ <div class="save">
+  <a class="pdf" href="?t=${esc(token)}&amp;format=pdf">📄 デザインされた PDF をひらく</a>
+  <a class="tex" href="?t=${esc(token)}&amp;format=tex" download>LaTeX のファイル (.tex)</a>
+ </div>
+ <p>PDF は A4・2ページ（表紙と、ぜんぶの記録）。印刷して持ち帰れます。</p>
  <footer>この数字はすべて、お子さんが実際に答えた記録からサーバーが計算したものです。<br>
  ${esc(new Date(r.madeAt).toLocaleString('ja-JP'))} 時点。</footer>
+</main></body></html>`;
+}
+
+// A server without a TeX engine still has to answer the button. This says what happened,
+// hands over the .tex, and gives the one command that fixes it — rather than a 500.
+export function reportNoLatexHtml(r, { token = '', backUrl = '', failed = false } = {}) {
+  const back = esc(String(backUrl || '').replace(/([?&])format=pdf&?/, '$1').replace(/[?&]$/, ''));
+  return `<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>PDF を作れませんでした · U-Speak</title>
+<style>
+ body { margin: 0; background: #f4f1e3; color: #22372f; font: 16px/1.8 system-ui, sans-serif; }
+ main { max-width: 620px; margin: 0 auto; padding: 28px 18px 60px; }
+ h1 { font-size: 21px; margin: 0 0 6px; }
+ a.button { display: block; text-align: center; text-decoration: none; padding: 14px 16px;
+   border-radius: 14px; background: #173f38; color: #f4f1e3; font-weight: 700; margin: 14px 0; }
+ a.plain { color: #2f6b7f; }
+ pre { background: #fffaf0; border-radius: 12px; padding: 12px 14px; overflow-x: auto; font-size: 13px; }
+ p.fine { font-size: 13px; color: #5d6d62; }
+</style></head><body><main>
+<h1>${failed ? 'PDF を作るのに失敗しました' : 'このサーバーには LaTeX が入っていません'}</h1>
+<p class="fine">${failed
+    ? 'レポートの中身に問題はありません。組版だけが うまくいきませんでした。'
+    : 'PDF は LaTeX（XeLaTeX）で組んでいます。サーバーに入っていないと、ここで作れません。'}</p>
+<a class="button" href="?t=${esc(token)}&amp;format=tex" download>LaTeX のファイル (.tex) をダウンロード</a>
+<p class="fine">このファイルだけで組めます（画像も外部ファイルもありません）。手もとで:</p>
+<pre>xelatex ${esc(r.name)}.tex</pre>
+<p class="fine">サーバーに入れる場合（Ubuntu / Debian）:</p>
+<pre>apt-get install -y --no-install-recommends \\
+  texlive-xetex texlive-lang-japanese texlive-lang-chinese fonts-noto-cjk</pre>
+<p class="fine">いますぐ紙にするなら、レポートの画面から ブラウザーの「印刷」→「PDF に保存」でも きれいに出ます。</p>
+<p><a class="plain" href="${back}">← レポートに もどる</a></p>
 </main></body></html>`;
 }

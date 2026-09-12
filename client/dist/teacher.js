@@ -97,7 +97,11 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     // a laptop, a school's own box). The page is being served from that address, so it
     // is the one thing here that always knows it.
     const full = (u) => (/^https?:/i.test(u) ? u : location.origin + u);
-    box.innerHTML = `<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(full(l.url))}"><button type="button" data-copy="${esc(full(l.url))}">コピー</button></div>`).join('')}`;
+    // 📄 opens that child's designed PDF straight away — the same link with format=pdf,
+    // which is what the report page's own button does. A teacher printing a set for
+    // parents' evening should not have to open twelve pages first.
+    const pdf = (u) => full(u) + (u.includes('?') ? '&' : '?') + 'format=pdf';
+    box.innerHTML = `<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(full(l.url))}"><button type="button" data-copy="${esc(full(l.url))}">コピー</button><a class="net-t-pdf" href="${esc(pdf(l.url))}" target="_blank" rel="noopener" title="デザインされた PDF をひらく">📄</a></div>`).join('')}`;
     box.querySelectorAll('[data-copy]').forEach((b) => {
       b.onclick = async () => {
         try { await navigator.clipboard.writeText(b.dataset.copy); toast('リンクをコピーしました。'); }

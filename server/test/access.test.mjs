@@ -93,6 +93,32 @@ test('the teacher gets one signed link per child, and it opens a page', async ()
   assert.equal(json.name, 'Aki');
   assert.equal(json.classCode, '6-1');
 
+  // 紙のほう. The LaTeX source is always there: it needs nothing installed, it carries the
+  // same numbers, and a child's name lands in it escaped rather than as LaTeX.
+  const texRes = await fetch(`${http + path}&format=tex`);
+  assert.equal(texRes.status, 200);
+  assert.match(texRes.headers.get('content-type') || '', /x-tex/);
+  assert.match(texRes.headers.get('content-disposition') || '', /attachment/);
+  const source = await texRes.text();
+  assert.ok(source.includes('\\documentclass'), 'a whole document, not a fragment');
+  assert.ok(source.includes('\\begin{document}') && source.includes('\\end{document}'));
+  assert.ok(source.includes('Aki'), 'the child is in it');
+  assert.ok(!source.includes('\\write18') && !source.includes('shell-escape'), 'nothing that runs a command');
+
+  // The PDF button answers either way: a PDF where there is an engine, and a page that
+  // explains itself where there is not — never a 500 at a parent who tapped it.
+  const pdfRes = await fetch(`${http + path}&format=pdf`);
+  assert.ok([200, 501].includes(pdfRes.status), `unexpected ${pdfRes.status}`);
+  if (pdfRes.status === 200) {
+    assert.match(pdfRes.headers.get('content-type') || '', /application\/pdf/);
+    const head = Buffer.from(await pdfRes.arrayBuffer()).subarray(0, 5).toString('latin1');
+    assert.equal(head, '%PDF-', 'a real PDF');
+  } else {
+    const why = await pdfRes.text();
+    assert.match(why, /LaTeX/);
+    assert.match(why, /format=tex/, 'and it still hands over the source');
+  }
+
   // Editing the link into another child's is a 404, not another child's report.
   const swapped = `/report/6-1/Ben?t=${new URL(http + path).searchParams.get('t')}`;
   assert.equal((await fetch(http + swapped)).status, 404);

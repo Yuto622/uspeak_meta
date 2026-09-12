@@ -9,7 +9,9 @@ import { config, validateConfig } from './config.js';
 import { createStore } from './store/index.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
-import { reportFor, reportHtml, verifyReport } from './game/report.js';
+import { reportFor, reportHtml, reportNoLatexHtml, verifyReport } from './game/report.js';
+import { reportTex } from './game/report-tex.js';
+import { texToPdf, latexAvailable, LatexError } from './game/latex.js';
 import { log } from './log.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -99,8 +101,40 @@ export async function startServer({ port = config.port, storeOverride = null } =
         return;
       }
       const report = reportFor(record);
-      if (String(req.query.format || '').toLowerCase() === 'json') { res.json(report); return; }
-      res.type('text/html; charset=utf-8').send(reportHtml(report));
+      const token = String(req.query.t || '');
+      const format = String(req.query.format || '').toLowerCase();
+      if (format === 'json') { res.json(report); return; }
+      const file = `uspeak-${classCode}-${name}`.replace(/[^\w.-]+/g, '_');
+      // The LaTeX source. Always available, needs nothing installed, and a teacher who
+      // wants to change a word can: it is one readable file.
+      if (format === 'tex') {
+        res.type('application/x-tex; charset=utf-8');
+        res.set('Content-Disposition', `attachment; filename="${file}.tex"; filename*=UTF-8''${encodeURIComponent(`${name}.tex`)}`);
+        res.send(reportTex(report));
+        return;
+      }
+      // The PDF, if this server has a TeX engine. If it has not, say so on a page that
+      // hands over the .tex and the one command that installs it, rather than 500ing at
+      // a parent who tapped a button.
+      if (format === 'pdf') {
+        if (!await latexAvailable()) {
+          res.status(501).type('text/html; charset=utf-8')
+            .send(reportNoLatexHtml(report, { token, backUrl: req.originalUrl }));
+          return;
+        }
+        try {
+          const pdf = await texToPdf(reportTex(report), { name: file });
+          res.type('application/pdf');
+          res.set('Content-Disposition', `inline; filename="${file}.pdf"; filename*=UTF-8''${encodeURIComponent(`${name}.pdf`)}`);
+          res.send(pdf);
+        } catch (err) {
+          log.warn('[report] pdf failed:', err instanceof LatexError ? err.message : err);
+          res.status(500).type('text/html; charset=utf-8')
+            .send(reportNoLatexHtml(report, { token, backUrl: req.originalUrl, failed: true }));
+        }
+        return;
+      }
+      res.type('text/html; charset=utf-8').send(reportHtml(report, { token }));
     });
   }
 

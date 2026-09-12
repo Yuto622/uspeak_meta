@@ -10,6 +10,23 @@ WORKDIR /app
 COPY server/package.json server/package-lock.json ./server/
 RUN cd server && npm ci --omit=dev --no-audit --no-fund
 
+# 保護者レポートの PDF。LaTeX(XeLaTeX) と日本語フォントで、1枚の紙のために 500MB ほど
+# 積むことになるので、既定では入れません。入れると、レポート画面の「デザインされた PDF」
+# ボタンがサーバー側で組み上がります（入れなくても .tex は落とせますし、ブラウザーの
+# 印刷でも紙にできます）:
+#   fly deploy --build-arg WITH_LATEX=1
+#
+# ここに書いてあるのは Alpine のパッケージ名で、**この構成では未検証です**（開発コンテナで
+# 確認したのは Debian/Ubuntu の
+#   apt-get install -y --no-install-recommends texlive-xetex texlive-lang-japanese \
+#     texlive-lang-chinese fonts-noto-cjk
+# のほう）。ビルドが通らないときは、Alpine をやめて node:22-bookworm-slim にして
+# 上の apt-get を使うのが確実です。
+ARG WITH_LATEX=0
+RUN if [ "$WITH_LATEX" = "1" ]; then \
+      apk add --no-cache texlive-xetex texmf-dist-langjapanese texmf-dist-langchinese font-noto-cjk; \
+    fi
+
 # Client (static, no build step) and server sources.
 COPY client ./client
 COPY server ./server

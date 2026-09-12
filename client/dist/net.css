@@ -123,3 +123,4 @@
 .net-t-link b { flex: none; width: 84px; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .net-t-link input { flex: 1; min-width: 0; font-size: 11px; padding: 5px 7px; border: 1px solid #d7d2bd; border-radius: 8px; background: #fffaf0; color: #3a4a40; }
 .net-t-link button { flex: none; padding: 5px 9px; border-radius: 8px; background: #e5e9dc; font-size: 11px; font-weight: 700; }
+.net-t-pdf { flex: none; padding: 5px 8px; border-radius: 8px; background: #173f38; color: #f4f1e3; font-size: 12px; text-decoration: none; line-height: 1.4; }
