@@ -57,6 +57,11 @@ const BANK = JSON.parse(readFileSync(path.resolve(serverDir, 'src/game/interview
 
 try {
   const a = await openPage('Yui');
+  // Which files the examiner is actually made of. The clips are the same two as 英会話島
+  // — one ウーピー, one pair of clips — and this watches the wire rather than the code,
+  // so a screen wired to the wrong path (or to nothing) is caught here.
+  const clips = new Set();
+  a.on('request', (r) => { if (/assets\/character\/.*\.mp4/.test(r.url())) clips.add(r.url().split('/').pop()); });
   const data = await a.evaluate(async () => (await (await fetch('eiken.json')).json()));
   const isle = data.islands.find((i) => i.id === 'eiken5');
   const room = isle.spots.find((s) => s.id === 'interview');
@@ -98,6 +103,8 @@ try {
     const el = document.querySelector('#iv-stage');
     new MutationObserver(() => window.__mouth.push(el.dataset.mouth)).observe(el, { attributes: true, attributeFilter: ['data-mouth'] });
   });
+  check('the examiner is ウーピー: the same two clips as 英会話島',
+    clips.has('idle.mp4') && clips.has('talking.mp4'), [...clips].join(' + ') || 'no clip was fetched');
   check('this container cannot decode H.264, so the drawn owl stands in',
     (await a.evaluate(() => document.querySelector('#iv-stage').dataset.video)) === 'off',
     'a real iPad plays the clips; that part needs a device');
