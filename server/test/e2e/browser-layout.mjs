@@ -33,7 +33,7 @@ const ALL = [
 const DEVICES = ONLY.length ? ALL.filter((d) => ONLY.includes(d.name)) : ALL;
 // The rail is a scrolling container: its children may extend past it, and it always
 // overlaps them. The teacher console is a deliberate overlay drawn on top.
-const RAIL_KIDS = ['.map-panel', '.scenery-controls', '#flight-button', '.fishing-button', '.rpg-buddy-button'];
+const RAIL_KIDS = ['.map-panel', '.scenery-controls', '#flight-button', '.fishing-button', '.rpg-buddy-button', '#voice-button'];
 const OVERLAY = ['#net-teacher'];
 const PROBES = ['.right-rail', '#net-status', '#net-chat-button', '#net-teacher-button', '#net-teacher',
   '.hotbar', '.mobile-pad', '#near', '.quest-panel', '#errand-hud', ...RAIL_KIDS];
@@ -226,14 +226,37 @@ try {
           if (!r.width || !r.height) { boxes[sel] = null; continue; }
           boxes[sel] = { x: Math.round(r.x), y: Math.round(r.y), right: Math.round(r.right), bottom: Math.round(r.bottom), w: Math.round(r.width), h: Math.round(r.height) };
         }
-        return { vw: innerWidth, vh: innerHeight, scrollW: document.documentElement.scrollWidth, coarse: matchMedia('(pointer: coarse)').matches, boxes };
+        const sel = (el) => (el ? getComputedStyle(el).webkitUserSelect || getComputedStyle(el).userSelect : '');
+        return {
+          vw: innerWidth, vh: innerHeight, scrollW: document.documentElement.scrollWidth,
+          coarse: matchMedia('(pointer: coarse)').matches, boxes,
+          select: { body: sel(document.body), pad: sel(document.querySelector('[data-key]')), input: sel(document.querySelector('#net-chat-text')) },
+        };
       }, PROBES);
 
       const bad = [];
       if (report.scrollW > report.vw + 1) bad.push(`horizontal scroll (${report.scrollW} > ${report.vw})`);
+      // Holding a direction must not offer to look the arrow up in a dictionary.
+      if (report.select.body !== 'none') bad.push(`text is selectable on a touch screen (body: ${report.select.body})`);
+      if (report.select.pad !== 'none') bad.push(`the movement pad is selectable (${report.select.pad})`);
+      if (report.select.input && report.select.input === 'none') bad.push('a box to type in is not selectable');
       for (const [k, b] of Object.entries(report.boxes)) {
         if (!b || RAIL_KIDS.includes(k)) continue; // rail children are clipped by the rail, not the viewport
         if (b.right > report.vw + 1 || b.bottom > report.vh + 1 || b.x < -1 || b.y < -1) bad.push(`${k} leaves the viewport ${JSON.stringify(b)}`);
+      }
+      // The rail scrolls, so a child that no longer fits is not off the screen — it is just
+      // gone until somebody thinks to flick the column, which a seven-year-old will not.
+      // Every button on the rail has to be on it without scrolling; when a new one stops
+      // fitting, something older gives up its place (mobile.css drops the minimap, then the
+      // camera angles). Measured here because the overlap check only notices it by accident,
+      // when the overflow happens to run under the dock.
+      const railBox = report.boxes['.right-rail'];
+      if (railBox) for (const k of RAIL_KIDS) {
+        const b = report.boxes[k];
+        if (!b || b.bottom <= railBox.bottom + 1) continue;
+        // What is on the rail and how tall it is, because that is the whole of the fix.
+        const load = RAIL_KIDS.filter((n) => report.boxes[n]).map((n) => `${n} ${report.boxes[n].h}`).join(', ');
+        bad.push(`${k} has scrolled off the rail (${b.bottom} > ${railBox.bottom}; rail ${railBox.h} holds ${load})`);
       }
       const keys = Object.keys(report.boxes).filter((k) => report.boxes[k] && !OVERLAY.includes(k));
       const related = (a, b) => (a === '.right-rail' && RAIL_KIDS.includes(b)) || (b === '.right-rail' && RAIL_KIDS.includes(a)) || (RAIL_KIDS.includes(a) && RAIL_KIDS.includes(b));

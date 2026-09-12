@@ -125,3 +125,22 @@ body.in-room #voice-panel, body.in-plaza #voice-panel { bottom: 190px; }
 #voice-text::placeholder { color: #f3efe185; }
 #voice-text:focus { outline: 2px solid #74c39a; outline-offset: 1px; }
 .voice-write button { height: 38px; padding: 0 13px; border-radius: 11px; background: #2f8f6b; color: #f3efe1; font-weight: 700; font-size: 13px; }
+
+/* --- the button on the rail ------------------------------------------------------------
+   Sits with 英単語釣り and 冒険ノート and is built like them: a fixed slot on a desktop
+   rail, and a plain row in the scrolling column mobile.css turns that rail into on a touch
+   screen. Styled by class, not by id, for exactly that reason — an id would outrank
+   mobile.css's `.right-rail > *` and the button would stay pinned at 591px, which on a
+   phone held sideways is off the bottom of the screen.
+
+   `display` goes on :not([hidden]) because an author rule beats the browser's own
+   `[hidden] { display: none }` whatever the order. */
+.voice-button {
+  position: fixed; top: 591px; right: 30px; width: 202px; z-index: 2;
+  align-items: center; justify-content: space-between; gap: 8px;
+  padding: 13px 12px; border: 1px solid #cfe3d966; border-radius: 12px;
+  background: #2f6b7f; color: #eaf6ff; font-size: 14px; box-shadow: 0 8px 24px #1b3d3040;
+}
+.voice-button:not([hidden]) { display: flex; }
+.voice-button small { font-size: 11px; opacity: .8; white-space: nowrap; }
+.voice-button.on { background: #2f8f6b; }

@@ -31,7 +31,7 @@ const SCREEN = { frameRate: { ideal: 6, max: 12 }, width: { max: 1280 }, height:
 const LOG_MAX = 12;      // how many written messages the panel keeps
 const NAMES_MAX = 11;    // names shown in a big room before the rest become a number
 
-export function createVoice({ send, toast, roomLabel = () => '' }) {
+export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = null }) {
   const state = {
     mode: 'all',        // 'all' どの島の どの部屋でも（既定）/ 'rooms' おはなし島だけ / 'off' 止まっている
     busyCamera: false,  // one camera switch at a time, or two taps race each other
@@ -49,6 +49,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     stageOpen: false,   // this server has an SFU behind it, so a hall can hold a hundred
     heads: 0,           // how many are in a big room (the SFU counts, not us)
     log: [],            // the last few written messages in this room
+    available: false,   // online at all: the rail button hides itself offline
     saying: false,      // the phrase list is open
     free: true,         // whether the class may type its own words (the teacher's switch)
     peers: new Map(),   // sessionId -> { id, name, role, pc, stream, polite, making, ignoring, level, el }
@@ -90,6 +91,23 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     <div id="voice-phrases" class="voice-phrases" hidden></div>
     <p id="voice-note" class="voice-note"></p>`;
   document.body.append(panel);
+
+  // ---- the button on the rail --------------------------------------------------------
+  //
+  // The panel appears by itself in a room, which is right — a call is a place, not a menu.
+  // But a child who wants to see their friends has to know where to go, and on the rail is
+  // where this game puts "the thing you can do from here". So: one button, always in the
+  // same spot, that does the obvious thing wherever it is pressed — join with the camera
+  // on, turn the camera off again, or take you to おはなし島 when there is nobody to call
+  // where you are standing.
+  const railButton = document.createElement('button');
+  railButton.type = 'button';
+  railButton.id = 'voice-button';
+  railButton.className = 'voice-button';
+  railButton.hidden = true;
+  railButton.innerHTML = '<span id="voice-button-label">📹 ビデオ通話</span><small id="voice-button-note"></small>';
+  (document.querySelector('.right-rail') || document.body).append(railButton);
+
   const audio = document.createElement('div');
   audio.id = 'voice-audio';
   audio.hidden = true;
@@ -100,6 +118,26 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   $('#voice-cam', panel).onclick = () => setCamera(!state.camera);
   $('#voice-share', panel).onclick = () => setScreen(!state.screen);
   $('#voice-say-open', panel).onclick = () => openSay(!state.saying);
+  // One button, three obvious things.
+  railButton.onclick = async () => {
+    if (state.joined) { setCamera(!state.camera); return; }
+    if (openHere()) {
+      await join();
+      // A video call, since that is what the button says: the camera goes on with the
+      // microphone. In a hall where only the teacher and the stage may show a picture,
+      // join() succeeds and this quietly does not — the panel says why.
+      if (state.joined) await setCamera(true);
+      return;
+    }
+    // A teacher can stop every call in the class. Flying somewhere to find that out again
+    // is not an answer, so say it here instead.
+    if (state.mode === 'off') { toast('いまは 先生が おはなしを とめています。'); return; }
+    // Nobody to call from a beach. おはなし島 is where a class meets, so go there — but
+    // only claim the journey if it actually began (a flight already in the air, an open
+    // dialog, or a lesson in progress all refuse it).
+    if (onGoToHall?.()) toast('おはなし島に とびます。');
+    else toast('いまは とべません。もういちど ためしてね。');
+  };
   $('#voice-write', panel).addEventListener('submit', (e) => { e.preventDefault(); write(); });
   // WASD belongs to the world, except inside this box.
   for (const type of ['keydown', 'keyup', 'keypress']) {
@@ -200,6 +238,7 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
   const openHere = () => (state.mode === 'off' ? false : state.mode === 'all' ? isCallRoom(state.space) : isTalkSpace(state.space));
 
   function render() {
+    renderRailButton();
     panel.hidden = !openHere();
     if (panel.hidden) return;
     $('#voice-room', panel).textContent = `🎧 ${roomLabel(state.space) || 'この部屋'}`;
@@ -233,6 +272,29 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
     renderTiles();
     renderSay();
     $('#voice-note', panel).textContent = state.error || note();
+  }
+
+  // The rail button, in the three states it can be in. The label says what it is; the
+  // small line under it says what pressing it will do, because a child should never have
+  // to find out by pressing.
+  function renderRailButton() {
+    railButton.hidden = !state.available;
+    if (railButton.hidden) return;
+    const here = openHere();
+    const people = state.kind === 'sfu' ? Math.max(state.heads, state.peers.size + 1) : state.peers.size + 1;
+    const label = $('#voice-button-label', railButton);
+    const note2 = $('#voice-button-note', railButton);
+    if (state.joined) {
+      label.textContent = state.camera ? '📹 カメラ オン' : '🎙 つうわ中';
+      note2.textContent = `${people}人・${state.camera ? 'けす' : 'カメラを つける'}`;
+    } else if (here) {
+      label.textContent = '📹 ビデオ通話';
+      note2.textContent = 'ここで はなす';
+    } else {
+      label.textContent = '📹 ビデオ通話';
+      note2.textContent = 'おはなし島へ';
+    }
+    railButton.classList.toggle('on', state.joined);
   }
 
   // What the panel says under the buttons: where this is, how many it holds, and — when a
@@ -731,6 +793,14 @@ export function createVoice({ send, toast, roomLabel = () => '' }) {
       if (state.mode === next) return;
       state.mode = next;
       if (state.joined && !openHere()) leave(true);
+      render();
+    },
+    // Online or not. The rail button is the only part of the call that is visible when a
+    // child is not in a room, so it is the only part that has to know.
+    setAvailable(v) {
+      const next = !!v;
+      if (state.available === next) return;
+      state.available = next;
       render();
     },
     setStage(on) {

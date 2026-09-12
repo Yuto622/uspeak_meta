@@ -143,6 +143,31 @@ try {
   const isle = await a.evaluate(async () => (await (await fetch('eiken.json')).json())).then((d) => d.islands.find((i) => i.id === 'eiken5'));
   const talk = await a.evaluate(async () => (await (await fetch('talk.json')).json())).then((d) => d.island);
 
+  // ---- the button on the rail: the one part of the call a child can see from anywhere.
+  const rail = (page) => page.evaluate(() => {
+    const el = document.querySelector('#voice-button');
+    return el && !el.hidden ? el.textContent.replace(/\s+/g, ' ').trim() : null;
+  });
+  check('the rail has a call button as soon as a child is online', !!(await rail(a)), await rail(a));
+  check('and out on the grass it offers to take them where the class meets',
+    (await rail(a)).includes('おはなし島'), await rail(a));
+  // Pressed rather than tapped: this window (520x420) is shorter than any real device and
+  // the rail has scrolled the button out of it, which a real thumb would simply scroll
+  // back. Whether it is reachable is browser-layout.mjs's job; this is about what it does.
+  await a.evaluate(() => document.querySelector('#voice-button').click());
+  // The journey itself is the game's own flight. This renderer caps dt at 40ms and draws
+  // three frames a second, so a fourteen-second flight takes two minutes here: the test
+  // checks that the flight started and then lands the plane, exactly as the ✈ button's
+  // own "skip" does.
+  await a.waitForFunction(() => uspeak.rpg.state.mode === 'flight', null, { timeout: 30000, polling: 150 });
+  check('pressing it sets off for おはなし島', true, await a.evaluate(() => uspeak.rpg.state.target));
+  await a.evaluate(() => uspeak.rpg.finishFlight());
+  await a.waitForFunction(() => uspeak.net.currentSpace() === 'talk', null, { timeout: 60000, polling: 200 });
+  check('and it lands there', (await a.evaluate(() => uspeak.net.currentSpace())) === 'talk');
+  await a.waitForFunction(() => (document.querySelector('#voice-button')?.textContent || '').includes('ここで'), null, { timeout: 30000, polling: 200 })
+    .catch(() => {});
+  check('and on the island it offers the call itself', (await rail(a)).includes('ここで'), await rail(a));
+
   // ---- おはなし島: nobody opens anything, because the island is already a call.
   await landOnTalkIsland(a);
   await landOnTalkIsland(b);
@@ -240,6 +265,9 @@ try {
     await b.evaluate(() => document.querySelector('#voice-log li')?.textContent));
   check('and it says who wrote it',
     (await b.evaluate(() => document.querySelector('#voice-log li b')?.textContent)) === 'Hina');
+  // The writer's own line arrives on the server's echo, which is not the same moment as
+  // the other child's: wait for it rather than assume the two land together.
+  await a.waitForFunction(() => document.querySelectorAll('#voice-log li').length === 1, null, { timeout: 60000, polling: 200 }).catch(() => {});
   check('the writer sees their own line as theirs',
     (await a.evaluate(() => document.querySelector('#voice-log li')?.className)) === 'mine');
   // A child standing in another room is not in this conversation.
@@ -280,6 +308,9 @@ try {
   // Muting is the child's own microphone, not a message to anybody.
   await a.click('#voice-mute');
   check('a child can mute themselves', await a.evaluate(() => uspeak.net.voice.state.muted));
+  // The rail button follows the call: in it, it is the camera switch.
+  check('once in a call the rail button counts the room and switches the camera',
+    /人/.test(await rail(a)), await rail(a));
   await a.click('#voice-mute');
 
   // Walking out is hanging up: no button is pressed on either side.

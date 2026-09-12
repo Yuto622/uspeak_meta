@@ -104,6 +104,16 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     send: atSend,
     toast,
     roomLabel: (space) => (space === TALK_ISLAND ? 'おはなし島の ひろば' : rpg.insideBuilding?.spot?.name || ''),
+    // Pressing the rail's call button where no call is possible takes the child to the
+    // island where one always is. Flying is the game's own way of going somewhere, so it
+    // is the game's own flight, not a teleport — and, like every other flight in this
+    // game, it has to leave the building first. Returns whether it set off, so the button
+    // does not announce a journey the game refused.
+    onGoToHall: () => {
+      if (rpg.state.current === TALK_ISLAND) return true;
+      rpg.inside?.leave?.(true);
+      return rpg.fly(TALK_ISLAND);
+    },
   });
   // 英会話島: ウーピー on a screen, and a child talking back. What the page sends is what
   // the microphone heard; the aims, the coins and the XP all come back from the server.
@@ -235,6 +245,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     else if (mode === 'connecting') chip.set('reconnecting', '接続中…');
     else chip.set('offline', 'オフライン');
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
+    voice.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
     if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); town.hideHud(); voice.setMode('off'); }
