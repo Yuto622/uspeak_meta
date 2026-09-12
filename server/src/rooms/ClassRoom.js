@@ -18,7 +18,11 @@ import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
 import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
-import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError } from '../game/eiken.js';
+import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, INTERVIEW_ROOM, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError } from '../game/eiken.js';
+import {
+  startInterview, interviewStep, interviewPayload, interviewResult, scriptedLine,
+  INTERVIEW_XP, InterviewError,
+} from '../game/interview.js';
 import { TALK, isTalkSpace } from '../game/talk.js';
 import { CONV, asMission as convMission, topicPayload as convPayload, convSpots } from '../game/conv.js';
 import {
@@ -120,6 +124,9 @@ export class ClassRoom extends Room {
     this.onMessage('eiken:start', (client, msg) => this.onEikenStart(client, msg));
     this.onMessage('eiken:answer', (client, msg) => this.onEikenAnswer(client, msg));
     this.onMessage('eiken:quit', (client) => this.onEikenQuit(client));
+    this.onMessage('interview:start', (client, msg) => this.onInterviewStart(client, msg));
+    this.onMessage('interview:say', (client, msg) => this.onInterviewSay(client, msg));
+    this.onMessage('interview:quit', (client) => this.onInterviewQuit(client));
     this.onMessage('battle:start', (client, msg) => this.onBattleStart(client, msg));
     this.onMessage('battle:waza', (client, msg) => this.onBattleWaza(client, msg));
     this.onMessage('battle:answer', (client, msg) => this.onBattleAnswer(client, msg));
@@ -631,6 +638,9 @@ export class ClassRoom extends Room {
       lastGymAt: 0,
       eiken: null,
       lastEikenAt: 0,
+      interview: null,        // 面接の間: one sitting at a time, and only while standing in it
+      lastInterviewAt: 0,
+      lastInterviewCard: '',  // so the next sitting is a different card
       // 英会話島: the scene being talked through, and the two limits that keep a day of
       // talking from becoming a bill.
       conv: null,
@@ -1585,6 +1595,149 @@ export class ClassRoom extends Room {
     if (!priv?.eiken) return;
     priv.eiken = null;
     client.send('eiken:closed', { reason: 'quit' });
+  }
+
+  // ---- 面接の間（英検の二次試験の練習） ------------------------------------------------
+  //
+  // The fifth building on each 英検 island. The four halls ask a child to choose or to
+  // build; this one sits them down opposite ウーピー and asks them to speak — the passage
+  // read aloud, then questions about it, about a picture, and about themselves.
+  //
+  // Everything that decides anything is in game/interview.js: which question comes next,
+  // whether what the microphone heard is an answer, and what the sitting is worth. What
+  // reaches the page is the question it is on and nothing else, and the model answer only
+  // ever arrives after the child has answered. ウーピー's manner between questions is a
+  // script; the AI, when there is one, writes the comment at the end and marks nothing.
+
+  atInterviewRoom(sessionId, islandId) {
+    const island = EIKEN_ISLANDS.get(islandId);
+    if (!island) return false;
+    return this.atPlace(sessionId, island, island.spotById.get(INTERVIEW_ROOM));
+  }
+
+  onInterviewStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const island = EIKEN_ISLANDS.get(typeof msg?.island === 'string' ? msg.island : '');
+    if (!island) { client.send('interview:error', { reason: 'unknown island' }); return; }
+    if (!this.atInterviewRoom(client.sessionId, island.id)) {
+      client.send('interview:error', { reason: 'too far', spot: this.eikenSpotPayload(island.id, INTERVIEW_ROOM) });
+      return;
+    }
+    let session;
+    try {
+      session = startInterview(island.grade, { avoid: priv.lastInterviewCard });
+    } catch (err) {
+      if (err instanceof InterviewError) { client.send('interview:error', { reason: err.message }); return; }
+      throw err;
+    }
+    session.island = island.id;
+    priv.interview = session;
+    priv.lastInterviewCard = session.cardId;
+    client.send('interview:card', {
+      ...interviewPayload(session),
+      island: island.id,
+      badge: island.badge,
+      room: roomLeft(priv.caps, 'eiken', EIKEN_CAP),
+      opening: 'Hello! May I have your card, please? ... Thank you. Please read the passage aloud.',
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" sat down for a ${island.grade} interview (${session.cardId})`);
+  }
+
+  async onInterviewSay(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const session = priv?.interview;
+    if (!priv || !session) return;
+    // Walking out is walking out of an exam: the sitting waits where it is, and nothing
+    // more is marked until the child is back in the room.
+    if (!this.atInterviewRoom(client.sessionId, session.island)) {
+      client.send('interview:error', { reason: 'too far', spot: this.eikenSpotPayload(session.island, INTERVIEW_ROOM) });
+      return;
+    }
+    const heard = typeof msg?.heard === 'string' ? msg.heard.replace(/\s+/g, ' ').trim().slice(0, 400) : '';
+    if (!heard) { client.send('interview:error', { reason: 'nothing heard' }); return; }
+    const now = Date.now();
+    if (now - priv.lastInterviewAt < config.answerMinIntervalMs) { client.send('interview:error', { reason: 'too fast' }); return; }
+    priv.lastInterviewAt = now;
+
+    const out = interviewStep(session, heard, { now });
+    if (!out.ok) {
+      priv.interview = null;
+      client.send('interview:closed', { reason: out.reason });
+      return;
+    }
+    const level = out.xp ? this.awardXp(client.sessionId, out.xp, `interview:${session.grade}`) : null;
+    priv.stats.attempts += 1;
+    if (out.correct) priv.stats.correct += 1;
+    this.store.appendLearning([
+      new Date(now).toISOString(), this.classCode, priv.name, `interview:${session.grade}:${session.cardId}:${out.kind}`,
+      'interview', heard.slice(0, 80), out.correct ? 1 : 0, out.xp || 0, client.sessionId,
+    ]);
+    client.send('interview:turn', {
+      kind: out.kind,
+      correct: out.correct,
+      close: !!out.close,
+      model: out.model || '',
+      hint: out.hint || '',
+      // ウーピー's line between questions. Written here, not by a model: an examiner says
+      // the same few things, and a child should hear them every time.
+      line: scriptedLine(out.kind === 'read' ? 'read' : out.done ? 'end' : 'answer', out.correct),
+      next: out.next,
+      done: out.done,
+      xp: out.xp || 0,
+      // Nested, not spread: the child's own XP total is also called `xp`, and one of them
+      // would quietly overwrite the other.
+      progress: this.progressPayload(client.sessionId),
+      levels: level?.levels || 0,
+    });
+    if (!out.done) return;
+
+    // The end of the sitting: the marks, the coins (once, for finishing), and a comment.
+    const result = interviewResult(session);
+    priv.interview = null;
+    const left = roomLeft(priv.caps, 'eiken', EIKEN_CAP);
+    const paid = Math.min(result.coins, left);
+    if (paid > 0) {
+      priv.caps.eiken += paid;
+      const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `interview:${session.grade}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    }
+    const done = this.awardXp(client.sessionId, INTERVIEW_XP.finish, `interview:${session.grade}:finish`);
+    this.persist(client.sessionId);
+    // What to practise, named as a part of the exam rather than as the question itself:
+    // "the picture question" is something a child can go and practise, and a sentence of
+    // English quoted back at them in the middle of a Japanese one is not.
+    const PART = {
+      read: { en: 'reading the passage aloud', ja: 'パッセージの 音読' },
+      passage: { en: 'the question about the passage', ja: 'パッセージの しつもん' },
+      picture: { en: 'the question about the picture', ja: '絵の しつもん' },
+      self: { en: 'the question about themselves', ja: '自分のことを 話す しつもん' },
+    };
+    const missed = session.marks.filter((m) => !m.correct).map((m) => PART[m.kind] || PART.passage);
+    let comment = null;
+    try {
+      comment = await this.tutor.comment({ grade: session.grade, right: result.right, total: result.total, missed });
+    } catch (err) {
+      log.warn(`[room ${this.roomId}] interview comment failed:`, err.message);
+    }
+    client.send('interview:done', {
+      ...result,
+      coins: paid,
+      capped: paid < result.coins,
+      comment: comment || null,
+      room: roomLeft(priv.caps, 'eiken', EIKEN_CAP),
+      ...this.walletPayload(client.sessionId),
+      progress: this.progressPayload(client.sessionId),
+      levels: done?.levels || 0,
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" finished a ${session.grade} interview ${result.right}/${result.total} for ${paid}`);
+  }
+
+  onInterviewQuit(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv?.interview) return;
+    priv.interview = null;
+    client.send('interview:closed', { reason: 'quit' });
   }
 
   // ---- まちづくり島 -------------------------------------------------------------

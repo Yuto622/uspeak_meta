@@ -1,363 +1,423 @@
 {
-  "version": 1,
-  "note": "英検の島（5級・4級・3級）。島の座標はクライアントとサーバーの共有データで、クライアントはここから島を建て、サーバーは同じ座標で「その建物の中にいるか」を判定する。問題と答えはここには無い：server/src/game/eiken-bank.json にあり、ブラウザーには来ない。",
-  "skills": [
-    {
-      "id": "reading",
-      "name": "読む",
-      "en": "READING",
-      "tone": "📖",
-      "ja": "英語の 文を 読んで 答える"
-    },
-    {
-      "id": "listening",
-      "name": "聞く",
-      "en": "LISTENING",
-      "tone": "🎧",
-      "ja": "ウーピーの 英語を 聞いて 答える"
-    },
-    {
-      "id": "writing",
-      "name": "書く",
-      "en": "WRITING",
-      "tone": "✏️",
-      "ja": "日本語を 見て 英語の 文を 組み立てる"
-    },
-    {
-      "id": "speaking",
-      "name": "話す",
-      "en": "SPEAKING",
-      "tone": "🎤",
-      "ja": "英語で 声に 出して 言う"
+ "version": 1,
+ "note": "英検の島（5級・4級・3級）。島の座標はクライアントとサーバーの共有データで、クライアントはここから島を建て、サーバーは同じ座標で「その建物の中にいるか」を判定する。問題と答えはここには無い：server/src/game/eiken-bank.json にあり、ブラウザーには来ない。 5つめの建物「めんせつの間」は4技能ではなく面接練習で、問題（音読の文と質問）は server/src/game/interview-bank.json にある。",
+ "skills": [
+  {
+   "id": "reading",
+   "name": "読む",
+   "en": "READING",
+   "tone": "📖",
+   "ja": "英語の 文を 読んで 答える"
+  },
+  {
+   "id": "listening",
+   "name": "聞く",
+   "en": "LISTENING",
+   "tone": "🎧",
+   "ja": "ウーピーの 英語を 聞いて 答える"
+  },
+  {
+   "id": "writing",
+   "name": "書く",
+   "en": "WRITING",
+   "tone": "✏️",
+   "ja": "日本語を 見て 英語の 文を 組み立てる"
+  },
+  {
+   "id": "speaking",
+   "name": "話す",
+   "en": "SPEAKING",
+   "tone": "🎤",
+   "ja": "英語で 声に 出して 言う"
+  }
+ ],
+ "islands": [
+  {
+   "id": "eiken5",
+   "grade": "g5",
+   "badge": "5級",
+   "name": "英検5級の島",
+   "en": "EIKEN 5 · STARTER ISLE",
+   "x": -90,
+   "z": -290,
+   "radius": 5,
+   "grass": 10406250,
+   "grassTop": 11852926,
+   "theme": {
+    "key": "starter",
+    "sky": 12576501,
+    "accent": 16765286,
+    "wall": 16774364,
+    "roof": 15696724,
+    "beam": 11565130,
+    "stone": 14998720,
+    "water": 7259872,
+    "tree": 7323471,
+    "blossom": 16767458,
+    "lamp": 16771496,
+    "halls": {
+     "reading": 15902298,
+     "listening": 7324368,
+     "writing": 10145914,
+     "speaking": 15043750,
+     "interview": 14722758
     }
-  ],
-  "islands": [
+   },
+   "spawn": {
+    "x": 0,
+    "z": 21
+   },
+   "courtyard": {
+    "x": 0,
+    "z": 10
+   },
+   "spots": [
     {
-      "id": "eiken5",
-      "grade": "g5",
-      "badge": "5級",
-      "name": "英検5級の島",
-      "en": "EIKEN 5 · STARTER ISLE",
-      "x": -90,
-      "z": -290,
-      "radius": 5,
-      "grass": 10406250,
-      "grassTop": 11852926,
-      "theme": {
-        "key": "starter",
-        "sky": 12576501,
-        "accent": 16765286,
-        "wall": 16774364,
-        "roof": 15696724,
-        "beam": 11565130,
-        "stone": 14998720,
-        "water": 7259872,
-        "tree": 7323471,
-        "blossom": 16767458,
-        "lamp": 16771496,
-        "halls": {
-          "reading": 15902298,
-          "listening": 7324368,
-          "writing": 10145914,
-          "speaking": 15043750
-        }
-      },
-      "spawn": {
-        "x": 0,
-        "z": 21
-      },
-      "courtyard": {
-        "x": 0,
-        "z": 10
-      },
-      "spots": [
-        {
-          "id": "reading",
-          "skill": "reading",
-          "name": "よむ図書館",
-          "en": "READING LIBRARY",
-          "ja": "よむ図書館",
-          "tone": "📖",
-          "x": -15,
-          "z": 4,
-          "path": {
-            "x": 0,
-            "z": 10
-          },
-          "kind": "reading",
-          "character": "Upee",
-          "color": 15902298
-        },
-        {
-          "id": "listening",
-          "skill": "listening",
-          "name": "きく音楽堂",
-          "en": "LISTENING HALL",
-          "ja": "きく音楽堂",
-          "tone": "🎧",
-          "x": 15,
-          "z": 4,
-          "path": {
-            "x": 0,
-            "z": 10
-          },
-          "kind": "listening",
-          "character": "Upee",
-          "color": 7324368
-        },
-        {
-          "id": "writing",
-          "skill": "writing",
-          "name": "かく工房",
-          "en": "WRITING STUDIO",
-          "ja": "かく工房",
-          "tone": "✏️",
-          "x": -15,
-          "z": -13,
-          "path": {
-            "x": 0,
-            "z": -4
-          },
-          "kind": "writing",
-          "character": "Upee",
-          "color": 10145914
-        },
-        {
-          "id": "speaking",
-          "skill": "speaking",
-          "name": "はなすステージ",
-          "en": "SPEAKING STAGE",
-          "ja": "はなすステージ",
-          "tone": "🎤",
-          "x": 15,
-          "z": -13,
-          "path": {
-            "x": 0,
-            "z": -4
-          },
-          "kind": "speaking",
-          "character": "Upee",
-          "color": 15043750
-        }
-      ]
-    },
-    {
-      "id": "eiken4",
-      "grade": "g4",
-      "badge": "4級",
-      "name": "英検4級の島",
-      "en": "EIKEN 4 · LEARNER ISLE",
+     "id": "reading",
+     "skill": "reading",
+     "name": "よむ図書館",
+     "en": "READING LIBRARY",
+     "ja": "よむ図書館",
+     "tone": "📖",
+     "x": -15,
+     "z": 4,
+     "path": {
       "x": 0,
-      "z": -330,
-      "radius": 5,
-      "grass": 9414744,
-      "grassTop": 11058538,
-      "theme": {
-        "key": "learner",
-        "sky": 15784112,
-        "accent": 14257722,
-        "wall": 15786692,
-        "roof": 11027759,
-        "beam": 8016434,
-        "stone": 13351829,
-        "water": 6265512,
-        "tree": 14255935,
-        "blossom": 15250010,
-        "lamp": 16765578,
-        "halls": {
-          "reading": 12872252,
-          "listening": 6261402,
-          "writing": 9411162,
-          "speaking": 11820922
-        }
-      },
-      "spawn": {
-        "x": 0,
-        "z": 21
-      },
-      "courtyard": {
-        "x": 0,
-        "z": 10
-      },
-      "spots": [
-        {
-          "id": "reading",
-          "skill": "reading",
-          "name": "よむ図書館",
-          "en": "READING LIBRARY",
-          "ja": "よむ図書館",
-          "tone": "📖",
-          "x": -15,
-          "z": 4,
-          "path": {
-            "x": 0,
-            "z": 10
-          },
-          "kind": "reading",
-          "character": "Upee",
-          "color": 12872252
-        },
-        {
-          "id": "listening",
-          "skill": "listening",
-          "name": "きく音楽堂",
-          "en": "LISTENING HALL",
-          "ja": "きく音楽堂",
-          "tone": "🎧",
-          "x": 15,
-          "z": 4,
-          "path": {
-            "x": 0,
-            "z": 10
-          },
-          "kind": "listening",
-          "character": "Upee",
-          "color": 6261402
-        },
-        {
-          "id": "writing",
-          "skill": "writing",
-          "name": "かく工房",
-          "en": "WRITING STUDIO",
-          "ja": "かく工房",
-          "tone": "✏️",
-          "x": -15,
-          "z": -13,
-          "path": {
-            "x": 0,
-            "z": -4
-          },
-          "kind": "writing",
-          "character": "Upee",
-          "color": 9411162
-        },
-        {
-          "id": "speaking",
-          "skill": "speaking",
-          "name": "はなすステージ",
-          "en": "SPEAKING STAGE",
-          "ja": "はなすステージ",
-          "tone": "🎤",
-          "x": 15,
-          "z": -13,
-          "path": {
-            "x": 0,
-            "z": -4
-          },
-          "kind": "speaking",
-          "character": "Upee",
-          "color": 11820922
-        }
-      ]
+      "z": 10
+     },
+     "kind": "reading",
+     "character": "Upee",
+     "color": 15902298
     },
     {
-      "id": "eiken3",
-      "grade": "g3",
-      "badge": "3級",
-      "name": "英検3級の島",
-      "en": "EIKEN 3 · VOYAGER ISLE",
-      "x": 250,
-      "z": -280,
-      "radius": 5,
-      "grass": 7309936,
-      "grassTop": 8692100,
-      "theme": {
-        "key": "voyager",
-        "sky": 3099242,
-        "accent": 9099519,
-        "wall": 14673644,
-        "roof": 4151930,
-        "beam": 5925498,
-        "stone": 12108492,
-        "water": 3107466,
-        "tree": 4160095,
-        "blossom": 12572911,
-        "lamp": 11067647,
-        "halls": {
-          "reading": 6257306,
-          "listening": 5212810,
-          "writing": 7301786,
-          "speaking": 10116986
-        }
-      },
-      "spawn": {
-        "x": 0,
-        "z": 21
-      },
-      "courtyard": {
-        "x": 0,
-        "z": 10
-      },
-      "spots": [
-        {
-          "id": "reading",
-          "skill": "reading",
-          "name": "よむ図書館",
-          "en": "READING LIBRARY",
-          "ja": "よむ図書館",
-          "tone": "📖",
-          "x": -15,
-          "z": 4,
-          "path": {
-            "x": 0,
-            "z": 10
-          },
-          "kind": "reading",
-          "character": "Upee",
-          "color": 6257306
-        },
-        {
-          "id": "listening",
-          "skill": "listening",
-          "name": "きく音楽堂",
-          "en": "LISTENING HALL",
-          "ja": "きく音楽堂",
-          "tone": "🎧",
-          "x": 15,
-          "z": 4,
-          "path": {
-            "x": 0,
-            "z": 10
-          },
-          "kind": "listening",
-          "character": "Upee",
-          "color": 5212810
-        },
-        {
-          "id": "writing",
-          "skill": "writing",
-          "name": "かく工房",
-          "en": "WRITING STUDIO",
-          "ja": "かく工房",
-          "tone": "✏️",
-          "x": -15,
-          "z": -13,
-          "path": {
-            "x": 0,
-            "z": -4
-          },
-          "kind": "writing",
-          "character": "Upee",
-          "color": 7301786
-        },
-        {
-          "id": "speaking",
-          "skill": "speaking",
-          "name": "はなすステージ",
-          "en": "SPEAKING STAGE",
-          "ja": "はなすステージ",
-          "tone": "🎤",
-          "x": 15,
-          "z": -13,
-          "path": {
-            "x": 0,
-            "z": -4
-          },
-          "kind": "speaking",
-          "character": "Upee",
-          "color": 10116986
-        }
-      ]
+     "id": "listening",
+     "skill": "listening",
+     "name": "きく音楽堂",
+     "en": "LISTENING HALL",
+     "ja": "きく音楽堂",
+     "tone": "🎧",
+     "x": 15,
+     "z": 4,
+     "path": {
+      "x": 0,
+      "z": 10
+     },
+     "kind": "listening",
+     "character": "Upee",
+     "color": 7324368
+    },
+    {
+     "id": "writing",
+     "skill": "writing",
+     "name": "かく工房",
+     "en": "WRITING STUDIO",
+     "ja": "かく工房",
+     "tone": "✏️",
+     "x": -15,
+     "z": -13,
+     "path": {
+      "x": 0,
+      "z": -4
+     },
+     "kind": "writing",
+     "character": "Upee",
+     "color": 10145914
+    },
+    {
+     "id": "speaking",
+     "skill": "speaking",
+     "name": "はなすステージ",
+     "en": "SPEAKING STAGE",
+     "ja": "はなすステージ",
+     "tone": "🎤",
+     "x": 15,
+     "z": -13,
+     "path": {
+      "x": 0,
+      "z": -4
+     },
+     "kind": "speaking",
+     "character": "Upee",
+     "color": 15043750
+    },
+    {
+     "id": "interview",
+     "kind": "interview",
+     "name": "めんせつの間",
+     "en": "INTERVIEW ROOM",
+     "ja": "めんせつの間",
+     "tone": "🎙",
+     "x": 0,
+     "z": -17,
+     "path": {
+      "x": 0,
+      "z": -14
+     },
+     "character": "Upee",
+     "color": 14722758
     }
-  ]
+   ]
+  },
+  {
+   "id": "eiken4",
+   "grade": "g4",
+   "badge": "4級",
+   "name": "英検4級の島",
+   "en": "EIKEN 4 · LEARNER ISLE",
+   "x": 0,
+   "z": -330,
+   "radius": 5,
+   "grass": 9414744,
+   "grassTop": 11058538,
+   "theme": {
+    "key": "learner",
+    "sky": 15784112,
+    "accent": 14257722,
+    "wall": 15786692,
+    "roof": 11027759,
+    "beam": 8016434,
+    "stone": 13351829,
+    "water": 6265512,
+    "tree": 14255935,
+    "blossom": 15250010,
+    "lamp": 16765578,
+    "halls": {
+     "reading": 12872252,
+     "listening": 6261402,
+     "writing": 9411162,
+     "speaking": 11820922,
+     "interview": 13208170
+    }
+   },
+   "spawn": {
+    "x": 0,
+    "z": 21
+   },
+   "courtyard": {
+    "x": 0,
+    "z": 10
+   },
+   "spots": [
+    {
+     "id": "reading",
+     "skill": "reading",
+     "name": "よむ図書館",
+     "en": "READING LIBRARY",
+     "ja": "よむ図書館",
+     "tone": "📖",
+     "x": -15,
+     "z": 4,
+     "path": {
+      "x": 0,
+      "z": 10
+     },
+     "kind": "reading",
+     "character": "Upee",
+     "color": 12872252
+    },
+    {
+     "id": "listening",
+     "skill": "listening",
+     "name": "きく音楽堂",
+     "en": "LISTENING HALL",
+     "ja": "きく音楽堂",
+     "tone": "🎧",
+     "x": 15,
+     "z": 4,
+     "path": {
+      "x": 0,
+      "z": 10
+     },
+     "kind": "listening",
+     "character": "Upee",
+     "color": 6261402
+    },
+    {
+     "id": "writing",
+     "skill": "writing",
+     "name": "かく工房",
+     "en": "WRITING STUDIO",
+     "ja": "かく工房",
+     "tone": "✏️",
+     "x": -15,
+     "z": -13,
+     "path": {
+      "x": 0,
+      "z": -4
+     },
+     "kind": "writing",
+     "character": "Upee",
+     "color": 9411162
+    },
+    {
+     "id": "speaking",
+     "skill": "speaking",
+     "name": "はなすステージ",
+     "en": "SPEAKING STAGE",
+     "ja": "はなすステージ",
+     "tone": "🎤",
+     "x": 15,
+     "z": -13,
+     "path": {
+      "x": 0,
+      "z": -4
+     },
+     "kind": "speaking",
+     "character": "Upee",
+     "color": 11820922
+    },
+    {
+     "id": "interview",
+     "kind": "interview",
+     "name": "めんせつの間",
+     "en": "INTERVIEW ROOM",
+     "ja": "めんせつの間",
+     "tone": "🎙",
+     "x": 0,
+     "z": -17,
+     "path": {
+      "x": 0,
+      "z": -14
+     },
+     "character": "Upee",
+     "color": 13208170
+    }
+   ]
+  },
+  {
+   "id": "eiken3",
+   "grade": "g3",
+   "badge": "3級",
+   "name": "英検3級の島",
+   "en": "EIKEN 3 · VOYAGER ISLE",
+   "x": 250,
+   "z": -280,
+   "radius": 5,
+   "grass": 7309936,
+   "grassTop": 8692100,
+   "theme": {
+    "key": "voyager",
+    "sky": 3099242,
+    "accent": 9099519,
+    "wall": 14673644,
+    "roof": 4151930,
+    "beam": 5925498,
+    "stone": 12108492,
+    "water": 3107466,
+    "tree": 4160095,
+    "blossom": 12572911,
+    "lamp": 11067647,
+    "halls": {
+     "reading": 6257306,
+     "listening": 5212810,
+     "writing": 7301786,
+     "speaking": 10116986,
+     "interview": 9346016
+    }
+   },
+   "spawn": {
+    "x": 0,
+    "z": 21
+   },
+   "courtyard": {
+    "x": 0,
+    "z": 10
+   },
+   "spots": [
+    {
+     "id": "reading",
+     "skill": "reading",
+     "name": "よむ図書館",
+     "en": "READING LIBRARY",
+     "ja": "よむ図書館",
+     "tone": "📖",
+     "x": -15,
+     "z": 4,
+     "path": {
+      "x": 0,
+      "z": 10
+     },
+     "kind": "reading",
+     "character": "Upee",
+     "color": 6257306
+    },
+    {
+     "id": "listening",
+     "skill": "listening",
+     "name": "きく音楽堂",
+     "en": "LISTENING HALL",
+     "ja": "きく音楽堂",
+     "tone": "🎧",
+     "x": 15,
+     "z": 4,
+     "path": {
+      "x": 0,
+      "z": 10
+     },
+     "kind": "listening",
+     "character": "Upee",
+     "color": 5212810
+    },
+    {
+     "id": "writing",
+     "skill": "writing",
+     "name": "かく工房",
+     "en": "WRITING STUDIO",
+     "ja": "かく工房",
+     "tone": "✏️",
+     "x": -15,
+     "z": -13,
+     "path": {
+      "x": 0,
+      "z": -4
+     },
+     "kind": "writing",
+     "character": "Upee",
+     "color": 7301786
+    },
+    {
+     "id": "speaking",
+     "skill": "speaking",
+     "name": "はなすステージ",
+     "en": "SPEAKING STAGE",
+     "ja": "はなすステージ",
+     "tone": "🎤",
+     "x": 15,
+     "z": -13,
+     "path": {
+      "x": 0,
+      "z": -4
+     },
+     "kind": "speaking",
+     "character": "Upee",
+     "color": 10116986
+    },
+    {
+     "id": "interview",
+     "kind": "interview",
+     "name": "めんせつの間",
+     "en": "INTERVIEW ROOM",
+     "ja": "めんせつの間",
+     "tone": "🎙",
+     "x": 0,
+     "z": -17,
+     "path": {
+      "x": 0,
+      "z": -14
+     },
+     "character": "Upee",
+     "color": 9346016
+    }
+   ]
+  }
+ ],
+ "rooms": [
+  {
+   "id": "interview",
+   "name": "面接",
+   "en": "INTERVIEW",
+   "tone": "🎙",
+   "ja": "ウーピーと 英検の 面接の れんしゅうを する"
+  }
+ ]
 }

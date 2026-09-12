@@ -11,6 +11,7 @@ import { createMissionUI } from './mission.js';
 import { createQuizUI } from './quiz.js';
 import { createGymUI } from './gym.js';
 import { createEikenUI } from './eiken.js';
+import { createInterviewUI } from './interview.js';
 import { createConvUI } from './conv.js';
 import { createVoice, TALK_ISLAND } from './voice.js';
 import { createBattleUI } from './battle.js';
@@ -81,6 +82,15 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const eiken = createEikenUI({
     send: (type, payload) => room?.send(type, payload),
     speak, toast, learn, isOnline: () => state.mode === 'online',
+  });
+  // めんせつの間. The fifth building on the same islands, and the only one that talks
+  // back: the 英検 interview, with ウーピー asking and the server marking.
+  const interview = createInterviewUI({
+    // Sitting down and every answer are both answered from where the child is standing,
+    // so say where that is first — a child who has just walked through the door would
+    // otherwise be told they are not in the room.
+    send: (type, payload) => { if (room && state.mode === 'online') sendMove(); room?.send(type, payload); },
+    toast, isOnline: () => state.mode === 'online',
   });
   // おはなし. The room a child walks into is the call they are in: the voices go browser
   // to browser and this layer only carries the introductions.
@@ -324,6 +334,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('eiken:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); eiken.onResult(m); });
     r.onMessage('eiken:closed', (m) => eiken.onClosed(m));
     r.onMessage('eiken:error', (m) => eiken.onError(m));
+    r.onMessage('interview:card', (m) => interview.onCard(m));
+    r.onMessage('interview:turn', (m) => { applyProgress(m.progress); interview.onTurn(m); });
+    r.onMessage('interview:done', (m) => { applyWallet(m.wallet); applyProgress(m.progress); interview.onDone(m); });
+    r.onMessage('interview:closed', (m) => interview.onClosed(m));
+    r.onMessage('interview:error', (m) => interview.onError(m));
     r.onMessage('conv:opened', (m) => conv.onOpened(m));
     r.onMessage('conv:reply', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress); conv.onReply(m); });
     r.onMessage('conv:closed', (m) => conv.onClosed(m));
@@ -721,9 +736,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     convLabel: (spot) => conv.label(spot),
     eikenInteract: () => {
       const near = rpg.eikenNearby();
-      if (near) eiken.enter(near.spot, near.island);
+      // Four of the five buildings are a skill; the fifth is the interview room, and
+      // which one a child walked into is which screen opens. There is no menu.
+      if (near?.spot?.kind === 'interview') interview.enter(near.island);
+      else if (near) eiken.enter(near.spot, near.island);
     },
-    eikenLabel: (spot) => eiken.label(spot),
+    eikenLabel: (spot) => (spot?.kind === 'interview' ? interview.label() : eiken.label(spot)),
     arenaInteract: () => {
       const near = rpg.arenaNearby();
       if (!near) return;

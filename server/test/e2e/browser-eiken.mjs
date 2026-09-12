@@ -46,8 +46,10 @@ try {
   await sleep(800);
   const at = await pos(a);
   check('arrived on 英検5級の島', at.space === 'eiken5', `at (${at.x.toFixed(1)},${at.z.toFixed(1)})`);
-  check('three 英検 islands exist, four halls each',
-    data.islands.length === 3 && data.islands.every((i) => i.spots.length === 4),
+  check('three 英検 islands exist, four halls and an interview room each',
+    data.islands.length === 3
+      && data.islands.every((i) => i.spots.filter((s) => s.skill).length === 4)
+      && data.islands.every((i) => i.spots.some((s) => s.kind === 'interview')),
     data.islands.map((i) => `${i.badge}:${i.spots.length}`).join(' '));
 
   // ---- 読む, walked to rather than teleported to

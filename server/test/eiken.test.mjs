@@ -5,7 +5,7 @@ import { writeFileSync, mkdtempSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
-  EIKEN, ISLANDS, GRADES, SKILLS, QUESTIONS_PER_SET, BANK, BANK_PATH, ISLANDS_PATH,
+  EIKEN, ISLANDS, GRADES, SKILLS, INTERVIEW_ROOM, QUESTIONS_PER_SET, BANK, BANK_PATH, ISLANDS_PATH,
   loadBank, loadIslands, islandOfGrade, createSession, questionPayload, answerSession,
   judgeSpoken, judgeWritten, wordsOf, markOf,
 } from '../src/game/eiken.js';
@@ -17,11 +17,18 @@ const rawIslands = () => JSON.parse(readFileSync(ISLANDS_PATH, 'utf8'));
 // A fixed "random" so a set is the same set twice: the first of everything.
 const first = () => 0;
 
-test('three grades, four halls each, one hall per skill', () => {
+test('three grades, four halls and an interview room each', () => {
   assert.deepEqual(EIKEN.list.map((i) => i.grade), GRADES);
   for (const island of EIKEN.list) {
-    assert.equal(island.spotById.size, SKILLS.length);
-    assert.deepEqual([...island.spotById.values()].map((s) => s.skill).sort(), [...SKILLS].sort());
+    assert.equal(island.spotById.size, SKILLS.length + 1);
+    const halls = [...island.spotById.values()].filter((s) => s.skill);
+    assert.deepEqual(halls.map((s) => s.skill).sort(), [...SKILLS].sort());
+    // And the fifth: not a skill, on every island, in the same place on all three.
+    const room = island.spotById.get(INTERVIEW_ROOM);
+    assert.ok(room, `${island.id} has no interview room`);
+    assert.equal(room.skill, undefined, 'the interview room is not a skill hall');
+    assert.equal(room.x, EIKEN.list[0].spotById.get(INTERVIEW_ROOM).x, 'the same place on every island');
+    assert.equal(room.z, EIKEN.list[0].spotById.get(INTERVIEW_ROOM).z);
     for (const spot of island.spotById.values()) {
       // The island is a place before it is a menu: every hall carries where it stands,
       // what it is called, and where its path starts.

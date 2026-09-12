@@ -122,7 +122,7 @@ export function createEikenIsland({ scene, id }) {
       bunting(yard.x - 7.6, yard.z - 5.4, yard.x + 7.6, yard.z - 5.4, 4.6);
 
       // ---- the four halls -------------------------------------------------------------
-      for (const def of data.spots) {
+      for (const def of data.spots.filter((sp) => sp.skill)) {
         const colour = Number(def.color);
         const wide = def.skill === 'speaking' || def.skill === 'listening';
         house(def.x, def.z - 4.6, wide ? 10 : 8.6, 6.4, colour, t.roof, `${def.tone} ${def.name}`);
@@ -134,8 +134,15 @@ export function createEikenIsland({ scene, id }) {
         resident(def);
       }
 
-      // The back plaza, between the four halls: the island's own quiet corner.
+      // The back plaza, between the four halls: the island's own quiet corner. It is also
+      // the forecourt of the room behind it.
       backPlaza(kit, t, data);
+
+      // ---- the interview room ---------------------------------------------------------
+      // At the head of the island, facing back down the avenue: the last building, the
+      // one you walk to when the four halls are not enough any more.
+      const room = data.spots.find((sp) => sp.kind === 'interview');
+      if (room) interviewRoom(kit, t, room);
 
       // ---- what this island is, and nowhere else ---------------------------------------
       if (t.key === 'starter') buildStarter(kit, t, data);
@@ -211,6 +218,61 @@ function backPlaza({ D, B, obstacles, shade, rand }, t, data) {
     }
     obstacles.push({ x: 0, z, w: 1.1, d: 1.1 });
   }
+}
+
+// ---- the interview room -----------------------------------------------------------------
+
+// 面接の間. The fifth building, and the only one that is not a skill: the room where a
+// child sits down opposite ウーピー and is asked questions out loud, the way the real
+// second stage of 英検 goes.
+//
+// It stands at the head of the island, behind the back plaza, facing down the avenue —
+// small, lit, and a little formal. It is deliberately not one of the four halls: no
+// quarter in the courtyard points at it, and you reach it by walking past everything
+// else, because that is what it is for.
+function interviewRoom(kit, t, def) {
+  const { D, B, house, door, path, resident, obstacles, lamp, bench, flowers, shade, sprite } = kit;
+  const colour = Number(def.color);
+  const BACKSET = 4.0;
+  const DEPTH = 5.0;
+
+  // A short, shallow building: a waiting bench outside, one door, one room.
+  house(def.x, def.z - BACKSET, 9, DEPTH, colour, t.roof, `${def.tone} ${def.name}`);
+  door(def, BACKSET, DEPTH);
+
+  // The approach. The declared path is the last few paces from the plaza, and two legs
+  // come round its sides, so whichever way a child walks past the plaza they end up on
+  // paving that leads to this door.
+  path(def.path.x, def.path.z, def.x, def.z);
+  path(def.x - 7.2, def.z + 0.6, def.x, def.z);
+  path(def.x + 7.2, def.z + 0.6, def.x, def.z);
+  B(def.x, 0.18, def.z, 7.4, 0.16, 4.2, shade(t.stone, 0.05));
+  B(def.x, 0.28, def.z, 6.2, 0.14, 3.2, t.stone);
+
+  // Two lamps at the door and a bench to wait on: the shape of every waiting room.
+  for (const sx of [-3.4, 3.4]) {
+    lamp(def.x + sx, def.z + 0.4);
+    flowers(def.x + sx * 1.55, def.z + 0.2, t.blossom);
+  }
+  bench(def.x - 5.4, def.z + 0.6, 0);
+
+  // Over the door: a lamp that is on when the room is, and the word in English, because
+  // the sign a child is walking towards should be the English one.
+  D(def.x, 5.1, def.z - BACKSET + DEPTH / 2 + 0.9, 1.5, 0.6, 0.5, shade(colour, -0.25));
+  D(def.x, 5.1, def.z - BACKSET + DEPTH / 2 + 1.1, 1.1, 0.4, 0.2, 0xfff2c8, 1.3);
+  sprite('INTERVIEW', def.x, 6.7, def.z - BACKSET + DEPTH / 2 + 0.8, { width: 6.4, size: 30 });
+
+  // Inside is a different scene, so what stands here is the outside of a small formal
+  // place: a pair of posts carrying a rope, the way a queue is marked at a real venue.
+  for (const sx of [-4.6, 4.6]) {
+    D(def.x + sx, 0.85, def.z + 2.6, 0.34, 1.7, 0.34, shade(t.beam, 0.1));
+    D(def.x + sx, 1.7, def.z + 2.6, 0.55, 0.25, 0.55, t.accent, 0.6);
+    obstacles.push({ x: def.x + sx, z: def.z + 2.6, w: 0.3, d: 0.3 });
+  }
+  for (let i = 0; i < 6; i += 1) {
+    D(def.x - 3.7 + i * 1.48, 1.45 - Math.sin((i + 0.5) / 6 * Math.PI) * 0.22, def.z + 2.6, 1.5, 0.14, 0.14, shade(colour, 0.2));
+  }
+  resident(def);
 }
 
 // ---- the halls -------------------------------------------------------------------------

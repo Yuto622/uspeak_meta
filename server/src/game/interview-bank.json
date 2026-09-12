@@ -1,0 +1,268 @@
+{
+  "version": 1,
+  "note": "英検の面接（二次試験・スピーキングテスト）の練習。級ごとに、本番と同じ順番の『カード』を並べてある。音読の文と質問は子どもに送るが、keys（採点に使うことば）と model（お手本の答え）は答えたあとにしか出さない。ブラウザーには置かないこと（client/dist に置かない）。",
+  "shape": {
+    "read": "パッセージの音読。聞き取った文字列と本文を比べる。",
+    "passage": "パッセージについての質問。keys のグループすべてに1つずつ当たれば正解。",
+    "picture": "イラストについての質問。絵は scene（日本語の説明と絵文字）で伝える。",
+    "self": "受験者自身のことについての質問。決まった正解はないので、keys はゆるく、長さと形だけを見る。"
+  },
+  "grades": {
+    "g5": {
+      "title": "5級 スピーキングテスト",
+      "howto": "パッセージを 声に出して 読んで、そのあと 3つの しつもんに 英語で 答えます。",
+      "cards": [
+        {
+          "id": "g5-park",
+          "title": "My Park",
+          "passage": "I like my park. There are many trees in the park. I play soccer with my friends there every Sunday.",
+          "ja": "ぼくは 公園が すきです。公園には 木が たくさん あります。毎週日曜日に 友だちと サッカーを します。",
+          "steps": [
+            {
+              "kind": "passage",
+              "q": "What does the boy do in the park every Sunday?",
+              "ja": "男の子は 毎週日曜日に 公園で 何を しますか。",
+              "model": "He plays soccer with his friends.",
+              "keys": [["soccer", "football"], ["play", "plays", "playing"]],
+              "hint": "He plays ... と はじめると 言いやすいよ。"
+            },
+            {
+              "kind": "self",
+              "q": "Do you like sports?",
+              "ja": "スポーツは すきですか。",
+              "model": "Yes, I do. I like swimming.",
+              "keys": [["yes", "no"]],
+              "hint": "Yes, I do. / No, I don't. の あとに ひとこと たすと もっといいよ。"
+            },
+            {
+              "kind": "self",
+              "q": "What color do you like?",
+              "ja": "何色が すきですか。",
+              "model": "I like blue.",
+              "keys": [["i like", "i love", "my favorite", "my favourite"]],
+              "hint": "I like ... で こたえてみよう。"
+            }
+          ]
+        },
+        {
+          "id": "g5-breakfast",
+          "title": "My Morning",
+          "passage": "I get up at seven every morning. I eat bread and eggs for breakfast. Then I go to school with my sister.",
+          "ja": "わたしは 毎朝 7時に おきます。朝ごはんに パンと たまごを 食べます。それから 妹と 学校へ 行きます。",
+          "steps": [
+            {
+              "kind": "passage",
+              "q": "What does the girl eat for breakfast?",
+              "ja": "女の子は 朝ごはんに 何を 食べますか。",
+              "model": "She eats bread and eggs.",
+              "keys": [["bread"], ["egg", "eggs"]],
+              "hint": "She eats ... で はじめよう。"
+            },
+            {
+              "kind": "self",
+              "q": "What time do you get up?",
+              "ja": "何時に おきますか。",
+              "model": "I get up at six thirty.",
+              "keys": [["at", "o'clock", "thirty", "seven", "six", "eight", "five", "nine"]],
+              "hint": "I get up at ... と 時こくを 言おう。"
+            },
+            {
+              "kind": "self",
+              "q": "Do you like your school?",
+              "ja": "学校は すきですか。",
+              "model": "Yes, I do. My friends are there.",
+              "keys": [["yes", "no"]],
+              "hint": "Yes, I do. / No, I don't. から はじめよう。"
+            }
+          ]
+        }
+      ]
+    },
+    "g4": {
+      "title": "4級 スピーキングテスト",
+      "howto": "パッセージを 音読して、パッセージと イラストと あなた自身に ついての しつもんに 答えます。",
+      "cards": [
+        {
+          "id": "g4-library",
+          "title": "The City Library",
+          "passage": "The city library is very popular. People can read many kinds of books there. Some students go there to study after school.",
+          "ja": "その市の図書館は とても 人気です。人々は そこで いろいろな 本を 読むことが できます。放課後に 勉強しに 行く 学生も います。",
+          "steps": [
+            {
+              "kind": "passage",
+              "q": "Why do some students go to the library after school?",
+              "ja": "放課後に 図書館へ 行く 学生が いるのは なぜですか。",
+              "model": "To study.",
+              "keys": [["study", "studying", "to study"]],
+              "hint": "To ... で みじかく こたえられるよ。"
+            },
+            {
+              "kind": "picture",
+              "scene": "図書館の絵。女の子が 本を 読んでいます。男の子は 時計を 見ています。",
+              "emoji": "📚👧📖👦🕐",
+              "q": "Please look at the picture. What is the girl doing?",
+              "ja": "絵を 見てください。女の子は 何を していますか。",
+              "model": "She is reading a book.",
+              "keys": [["read", "reading"], ["book", "books"]],
+              "hint": "She is ...ing で こたえよう。"
+            },
+            {
+              "kind": "self",
+              "q": "How often do you read books?",
+              "ja": "どのくらい 本を 読みますか。",
+              "model": "I read books every weekend.",
+              "keys": [["every", "day", "week", "month", "sometimes", "often", "never", "twice", "once"]],
+              "hint": "every day / every weekend / sometimes などが つかえるよ。"
+            }
+          ]
+        },
+        {
+          "id": "g4-festival",
+          "title": "The Summer Festival",
+          "passage": "Our town has a summer festival every August. Many people wear yukata and dance in the street. My family always goes together.",
+          "ja": "わたしたちの町では 毎年8月に 夏祭りが あります。多くの人が ゆかたを 着て 通りで おどります。わたしの家族は いつも いっしょに 行きます。",
+          "steps": [
+            {
+              "kind": "passage",
+              "q": "When does the town have a summer festival?",
+              "ja": "町の 夏祭りは いつ ありますか。",
+              "model": "Every August.",
+              "keys": [["august"]],
+              "hint": "In August. / Every August. のように 言おう。"
+            },
+            {
+              "kind": "picture",
+              "scene": "お祭りの絵。男の子が やきそばを 食べています。女の子は 風船を 持っています。",
+              "emoji": "🎆👦🍜👧🎈",
+              "q": "Please look at the picture. What is the boy eating?",
+              "ja": "絵を 見てください。男の子は 何を 食べていますか。",
+              "model": "He is eating noodles.",
+              "keys": [["eat", "eating"], ["noodle", "noodles", "yakisoba", "food"]],
+              "hint": "He is eating ... で こたえよう。"
+            },
+            {
+              "kind": "self",
+              "q": "What do you usually do in summer?",
+              "ja": "夏には ふつう 何を しますか。",
+              "model": "I usually go to the sea with my family.",
+              "keys": [["i", "we"], ["go", "play", "swim", "visit", "eat", "watch", "study", "read"]],
+              "hint": "I usually ... と 言ってみよう。"
+            }
+          ]
+        }
+      ]
+    },
+    "g3": {
+      "title": "3級 二次試験（面接）",
+      "howto": "パッセージを 音読して、パッセージ・イラスト・あなた自身に ついての しつもんに 答えます。本番と 同じ 順番です。",
+      "cards": [
+        {
+          "id": "g3-recycling",
+          "title": "Recycling",
+          "passage": "Recycling is important for the earth. Many people take old paper and cans to shops near their houses. By doing so, they can help the environment.",
+          "ja": "リサイクルは 地球に とって 大切です。多くの人が 古い紙や かんを 家の近くの お店に 持って行きます。そうすることで 環境を 助けることが できます。",
+          "steps": [
+            {
+              "kind": "passage",
+              "q": "How can people help the environment?",
+              "ja": "人々は どうやって 環境を 助けることが できますか。",
+              "model": "By taking old paper and cans to shops near their houses.",
+              "keys": [["by", "take", "taking", "bring", "bringing"], ["paper", "cans", "can"]],
+              "hint": "By ...ing で はじめると 3級らしい 答えに なるよ。"
+            },
+            {
+              "kind": "picture",
+              "scene": "公園の絵。男の人が ベンチで 新聞を 読んでいます。女の子は 犬と 走っています。",
+              "emoji": "🌳👨📰👧🐕",
+              "q": "Please look at the picture. What is the man doing?",
+              "ja": "絵を 見てください。男の人は 何を していますか。",
+              "model": "He is reading a newspaper on the bench.",
+              "keys": [["read", "reading"], ["newspaper", "paper"]],
+              "hint": "He is reading ... と 言おう。"
+            },
+            {
+              "kind": "picture",
+              "scene": "同じ公園の絵。女の子は 犬と いっしょに 走っています。",
+              "emoji": "👧🐕🏃",
+              "q": "What is the girl doing?",
+              "ja": "女の子は 何を していますか。",
+              "model": "She is running with her dog.",
+              "keys": [["run", "running"], ["dog"]],
+              "hint": "She is running with ... と つづけよう。"
+            },
+            {
+              "kind": "self",
+              "q": "What do you do to help the environment?",
+              "ja": "環境を 助けるために 何を していますか。",
+              "model": "I always turn off the lights in my room.",
+              "keys": [["i"], ["recycle", "turn", "use", "save", "clean", "walk", "bring", "take", "don't", "do not"]],
+              "hint": "I always ... / I usually ... と 言ってみよう。"
+            },
+            {
+              "kind": "self",
+              "q": "Please tell me more about it.",
+              "ja": "そのことを もっと 話してください。",
+              "model": "I turn off the lights when I leave my room. It saves electricity.",
+              "keys": [["because", "and", "so", "when", "it", "i"]],
+              "hint": "because や and で 文を もう1つ たそう。",
+              "minWords": 6
+            }
+          ]
+        },
+        {
+          "id": "g3-online",
+          "title": "Studying at Home",
+          "passage": "These days, many students study at home with computers. They can watch lessons on the internet at night. This is useful for busy students.",
+          "ja": "近ごろ、多くの生徒が 家で コンピューターを 使って 勉強します。夜に インターネットで 授業を 見ることが できます。これは いそがしい生徒に 役立ちます。",
+          "steps": [
+            {
+              "kind": "passage",
+              "q": "What can students watch on the internet at night?",
+              "ja": "生徒は 夜に インターネットで 何を 見ることが できますか。",
+              "model": "They can watch lessons.",
+              "keys": [["lesson", "lessons", "class", "classes"]],
+              "hint": "They can watch ... と こたえよう。"
+            },
+            {
+              "kind": "picture",
+              "scene": "部屋の絵。女の子が つくえで コンピューターを 使っています。ねこが いすで ねています。",
+              "emoji": "🏠👧💻🐈",
+              "q": "Please look at the picture. What is the girl using?",
+              "ja": "絵を 見てください。女の子は 何を 使っていますか。",
+              "model": "She is using a computer.",
+              "keys": [["use", "using"], ["computer", "pc", "laptop"]],
+              "hint": "She is using ... で こたえよう。"
+            },
+            {
+              "kind": "picture",
+              "scene": "同じ部屋の絵。ねこは いすの上で ねています。",
+              "emoji": "🐈💤🪑",
+              "q": "Where is the cat sleeping?",
+              "ja": "ねこは どこで ねていますか。",
+              "model": "It is sleeping on the chair.",
+              "keys": [["on"], ["chair"]],
+              "hint": "On the ... と 場所を 言おう。"
+            },
+            {
+              "kind": "self",
+              "q": "Do you like studying at home?",
+              "ja": "家で 勉強するのは すきですか。",
+              "model": "Yes, I do. It is quiet in my room.",
+              "keys": [["yes", "no"]],
+              "hint": "Yes, I do. / No, I don't. から はじめよう。"
+            },
+            {
+              "kind": "self",
+              "q": "Please tell me why.",
+              "ja": "その りゆうを 話してください。",
+              "model": "Because my room is quiet and I can study well.",
+              "keys": [["because", "so", "i", "it"]],
+              "hint": "Because ... で りゆうを 言おう。",
+              "minWords": 5
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

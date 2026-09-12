@@ -19,6 +19,8 @@
 | 杖・伝説・回復 | magic.js / magic-data.js / magic-world.js / magic.css |
 | 建物入口・屋内 | buildings.js / park-interior.js / building-room.js |
 | AI英会話（英会話島） | conv.js / conv.css / conv-island.js / conv.json / assets/character/*.mp4 |
+| ウーピー（動画と声） | character.js（会話島と英検の面接で共有） |
+| 英検の面接（めんせつの間） | interview.js / interview.css（島は eiken-island.js / eiken.json） |
 | メッセージ（定型文・自由入力） | chat.js / net.css / voice.js（部屋の中） |
 | のりもの島・カートレース | ride.js / ride-island.js / vehicles.json / kart.js / race.js / race.css |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
@@ -253,6 +255,35 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   歩き出す。フォーカス時に `scrollIntoView` するのは、iPad のキーボードが下半分を隠すから。
 - 吹き出し（`remotes.showBubble`）は定型文と同じように出る。**部屋のメッセージは部屋を出ると消える**
   （`voice.setSpace()` がログを捨てる）。クラスのチャットは24件まで残る。
+
+## めんせつの間（英検の面接練習／2026-09 追加）
+
+`eiken.json` の5つめのスポット（`kind: "interview"`・3島とも同じ場所）/ `eiken-island.js` の
+`interviewRoom()` / `interview.js` + `interview.css`（画面）/ `character.js`（ウーピーの動画と声・
+英会話島と共有）。サーバーは `server/src/game/interview.js` と **`interview-bank.json`**。
+
+- **5つめの建物は技能ではない。** 4つの館は 読む・聞く・書く・話す。めんせつの間は
+  二次試験そのもので、島のいちばん奥（`z=-17`）に立っている。中庭の4分割はそのまま4技能。
+  サーバー側は `INTERVIEW_ROOM` で区別し、`loadIslands()` は**3島すべてに在ることを検査する**。
+- **順番が本番と同じ。** 音読 → パッセージの質問 → イラストの質問 → 自分のことの質問。
+  5級は3問、3級は5問（最後は「もっと話して」の追い質問つき）。
+- **答えは答えたあとにしか来ない。** ページに送るのは「いまの質問1つ」だけ。
+  お手本（`model`）と採点用のことば（`keys`）は `interview-bank.json` にあり、
+  **`client/dist` には置かない**。音読は `judgeSpoken`（話す館と同じ判定）。
+- **採点は keys のグループ全部にヒットしたら○**。「soccer か football」かつ「play か plays」。
+  自分のことの質問は正解が無いので、**形（Yes/No で始まる・○語以上）だけ**を見る。
+- **AIは1回だけ呼ぶ。** 質問と質問のあいだの「Good!」は台本（examiner は本番でも同じことしか
+  言わない）。最後の講評だけ `tutor.comment()` が書く（キーが無ければ台本の講評）。
+  これで**面接1回のAI予算は1ターン**で済み、おつかい・英会話島の予算を食わない。
+- **コインは完走したときだけ**（30🪙×級レート、英検の島の日次上限 `EIKEN_CAP` を共有）。
+  XPは各パートごと。途中でやめた子にはXPだけ出る。
+- **位置で守る**。`interview:start` も `interview:say` も、その島の めんせつの間 に
+  立っていないと通らない（部屋を出ると採点が止まり、戻れば続きから）。
+  ページ側は送信の前に必ず位置を送る（`net-client.js` の `createInterviewUI({send})`）。
+- **画面は「会話」ではなく「試験」の形にしてある**：上に進み具合のバー、真ん中に1問だけ、
+  下にマイク。まちがえても最後まで進む（本番と同じ）。
+- e2e は `server/test/e2e/browser-interview.mjs`（歩いて入り、音読して、間違えて、
+  最後まで受けて、結果カードとコインを確認する）。動画はこのコンテナでは絵のフクロウに落ちる。
 
 ## おはなし（部屋の中の通話／2026-09 追加）
 

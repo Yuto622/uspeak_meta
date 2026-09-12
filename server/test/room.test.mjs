@@ -1270,6 +1270,109 @@ test('英検の島: the hall you stand in is the skill you get, and the server d
   await sleep(100);
 });
 
+test('面接の間: the interview is sat in the room, in order, and marked on the server', async () => {
+  const { islandOfGrade, INTERVIEW_ROOM, EIKEN_CAP } = await import('../src/game/eiken.js');
+  const { INTERVIEW, INTERVIEW_COINS } = await import('../src/game/interview.js');
+  const a = await join('Nagisa');
+  const island = islandOfGrade('g5');
+  const room = island.spotById.get(INTERVIEW_ROOM);
+  const stand = async (x, z, space = island.id) => {
+    a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return Math.abs(p.x - x) < 0.01 && p.space === space;
+    });
+  };
+
+  // Standing on the island is not sitting in the room.
+  await stand(island.x, island.z);
+  a.room.send('interview:start', { island: island.id });
+  let err = await nextMessage(a.room, 'interview:error');
+  assert.equal(err.reason, 'too far');
+  assert.equal(err.spot.id, INTERVIEW_ROOM);
+
+  // In the room: the card, the passage to read, and no question yet.
+  await stand(island.x + room.x, island.z + room.z);
+  a.room.send('interview:start', { island: island.id });
+  const card = await nextMessage(a.room, 'interview:card');
+  assert.equal(card.stage, 'read');
+  assert.equal(card.question, null, 'the first thing is the passage, not a question');
+  assert.ok(card.card.passage.length > 20);
+  assert.ok(card.of >= 3);
+  // Nothing in the card is an answer to anything.
+  const source = INTERVIEW.g5.cards.find((c) => c.id === card.card.id);
+  const shown = JSON.stringify(card);
+  for (const step of source.steps) {
+    assert.ok(!shown.includes(step.model), 'a model answer reached the page');
+    assert.ok(!shown.includes(step.q), 'a question reached the page before it was asked');
+  }
+
+  // Reading the passage aloud brings the first question, and ウーピー says something.
+  a.room.send('interview:say', { heard: source.passage });
+  const read = await nextMessage(a.room, 'interview:turn');
+  assert.equal(read.kind, 'read');
+  assert.equal(read.correct, true);
+  assert.ok(read.line.length > 3, 'the examiner speaks between the parts');
+  assert.equal(read.next.question.q, source.steps[0].q);
+  assert.equal(read.done, false);
+  assert.ok(read.xp > 0);
+
+  // A wrong answer is marked wrong and the model answer arrives only now.
+  a.room.send('interview:say', { heard: 'banana banana' });
+  const wrong = await nextMessage(a.room, 'interview:turn');
+  assert.equal(wrong.correct, false);
+  assert.equal(wrong.model, source.steps[0].model, 'the answer comes after the answer');
+  assert.equal(wrong.xp, 0);
+
+  // Walking out mid-interview stops the marking, and the sitting waits.
+  await stand(island.x, island.z);
+  a.room.send('interview:say', { heard: source.steps[1].model });
+  assert.equal((await nextMessage(a.room, 'interview:error')).reason, 'too far');
+  await stand(island.x + room.x, island.z + room.z);
+
+  const before = a.welcome.wallet?.coins ?? 0;
+  // The card at the end follows the last answer immediately, so it is listened for
+  // before that answer is sent rather than after it has already arrived.
+  const finished = nextMessage(a.room, 'interview:done');
+  let last = null;
+  for (let i = 1; i < source.steps.length; i += 1) {
+    // And one question at a time: each reply has to be waited for before the next
+    // answer goes up.
+    const turn = nextMessage(a.room, 'interview:turn');
+    a.room.send('interview:say', { heard: source.steps[i].model });
+    last = await turn;
+  }
+  assert.equal(last.done, true);
+
+  // The card at the end: the marks, the coins for sitting the whole thing, and a comment.
+  const result = await finished;
+  assert.equal(result.total, source.steps.length + 1, 'the reading is one of the marks');
+  assert.equal(result.right, result.total - 1, 'one wrong answer, the rest right');
+  assert.equal(result.perfect, false);
+  assert.equal(result.coins, INTERVIEW_COINS, '5級 pays the base rate for finishing');
+  assert.ok(result.wallet.coins >= before + INTERVIEW_COINS - 1);
+  assert.ok(result.room <= EIKEN_CAP - INTERVIEW_COINS, "and it comes out of the island's day");
+  assert.ok(result.comment?.en, 'ウーピー says something at the end');
+  assert.ok(result.comment?.ja);
+
+  // And it is over: another word is not another mark.
+  a.room.send('interview:say', { heard: 'hello?' });
+  const after = await Promise.race([
+    nextMessage(a.room, 'interview:turn', 400).then(() => 'marked').catch(() => 'silence'),
+    sleep(500).then(() => 'silence'),
+  ]);
+  assert.equal(after, 'silence', 'a finished interview marks nothing');
+
+  // A second sitting is a different card.
+  a.room.send('interview:start', { island: island.id });
+  const second = await nextMessage(a.room, 'interview:card');
+  assert.notEqual(second.card.id, card.card.id);
+  a.room.send('interview:quit', {});
+  assert.equal((await nextMessage(a.room, 'interview:closed')).reason, 'quit');
+  await a.room.leave();
+  await sleep(100);
+});
+
 test('英会話島: the house you stand in is the scene, and the aims are the server\'s to give', async () => {
   const { CONV } = await import('../src/game/conv.js');
   const a = await join('Sora');

@@ -15,13 +15,10 @@
 // were met, and what that was worth.
 import { loadConvData } from './conv-island.js';
 
+import { createCharacter, characterStageHtml } from './character.js';
+
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-// How long the mouth keeps moving when there is no speech synthesis to follow: about the
-// pace of a read-aloud sentence, so the character is not still while a child reads.
-const READ_MS_PER_CHAR = 62;
-const MIN_TALK_MS = 900;
 
 export function createConvUI({ send, toast, isOnline }) {
   const state = {
@@ -42,7 +39,6 @@ export function createConvUI({ send, toast, isOnline }) {
   let data = null;
   loadConvData().then((d) => { data = d; });
   let recognition = null;
-  let talkTimer = 0;
 
   const dialog = document.createElement('dialog');
   dialog.id = 'conv-dialog';
@@ -52,10 +48,7 @@ export function createConvUI({ send, toast, isOnline }) {
     </header>
     <div class="conv-body">
       <section class="conv-stage" id="conv-stage" data-mouth="idle" data-video="on">
-        <video id="conv-idle" muted playsinline loop preload="auto" aria-hidden="true"></video>
-        <video id="conv-talk" muted playsinline loop preload="auto" aria-hidden="true"></video>
-        <div class="conv-owl" aria-hidden="true"><span class="conv-owl-face">🦉</span><i class="conv-owl-beak"></i></div>
-        <p class="conv-line" id="conv-line"></p>
+        ${characterStageHtml('conv')}
       </section>
       <section class="conv-side">
         <div id="conv-picker" class="conv-picker" hidden></div>
@@ -76,66 +69,12 @@ export function createConvUI({ send, toast, isOnline }) {
   const talk = $('#conv-talk', dialog);
   const stage = $('#conv-stage', dialog);
 
-  // The clips are only fetched when a child first walks into a house: an island nobody
-  // visits costs nobody three megabytes.
-  let loaded = false;
-  function loadVideo() {
-    if (loaded) return;
-    loaded = true;
-    idle.src = 'assets/character/idle.mp4';
-    talk.src = 'assets/character/talking.mp4';
-    // A browser without the codec (or without the files) says so here, and the drawn owl
-    // takes over. Nothing else changes.
-    for (const v of [idle, talk]) v.addEventListener('error', () => { stage.dataset.video = 'off'; }, { once: true });
-    idle.play?.().catch(() => { /* a tap will start it */ });
-  }
-
-  // The one signal the character runs on: is ウーピー speaking right now.
-  function mouth(open) {
-    stage.dataset.mouth = open ? 'talking' : 'idle';
-    if (open) {
-      try { talk.currentTime = 0; } catch { /* not loaded yet */ }
-      talk.play?.().catch(() => {});
-    } else {
-      talk.pause?.();
-      idle.play?.().catch(() => {});
-    }
-  }
-
-  // ウーピー's line, spoken aloud if the browser can, and the mouth moving for as long as
-  // it takes either way.
-  function say(text) {
-    clearTimeout(talkTimer);
-    state.last = text;
-    $('#conv-line', dialog).textContent = text;
-    mouth(true);
-    const stop = () => { clearTimeout(talkTimer); mouth(false); };
-    const synth = globalThis.speechSynthesis;
-    if (!synth || typeof SpeechSynthesisUtterance !== 'function') {
-      talkTimer = setTimeout(stop, Math.max(MIN_TALK_MS, text.length * READ_MS_PER_CHAR));
-      return;
-    }
-    try {
-      synth.cancel();
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'en-US';
-      utter.rate = 0.92;
-      utter.onend = stop;
-      utter.onerror = stop;
-      synth.speak(utter);
-      // Some browsers never fire onend (Safari, when the tab loses focus). The clock is
-      // the backstop, so the mouth never keeps moving after the room has gone quiet.
-      talkTimer = setTimeout(stop, Math.max(MIN_TALK_MS, text.length * READ_MS_PER_CHAR) + 2500);
-    } catch {
-      talkTimer = setTimeout(stop, Math.max(MIN_TALK_MS, text.length * READ_MS_PER_CHAR));
-    }
-  }
-
-  function hush() {
-    clearTimeout(talkTimer);
-    try { globalThis.speechSynthesis?.cancel(); } catch { /* nothing to stop */ }
-    mouth(false);
-  }
+  // ウーピー himself — the two clips, the voice and the mouth — is character.js, shared
+  // with the めんせつの間 on the 英検 islands. What is left here is the conversation.
+  const upee = createCharacter({ stage, idle, talk, line: $('#conv-line', dialog) });
+  const loadVideo = () => upee.load();
+  const say = (text) => { state.last = text; upee.say(text); };
+  const hush = () => upee.hush();
 
   // ---- the screen --------------------------------------------------------------------
 

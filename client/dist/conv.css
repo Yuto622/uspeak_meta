@@ -34,10 +34,12 @@
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   transition: opacity .14s ease-out;
 }
-#conv-idle { opacity: 1; }
-#conv-talk { opacity: 0; }
-.conv-stage[data-mouth="talking"] #conv-idle { opacity: 0; }
-.conv-stage[data-mouth="talking"] #conv-talk { opacity: 1; }
+/* By class, not by id: the めんせつの間 puts the same two clips on its own stage, and the
+   crossfade between them should be written once. */
+.char-idle { opacity: 1; }
+.char-talk { opacity: 0; }
+.conv-stage[data-mouth="talking"] .char-idle { opacity: 0; }
+.conv-stage[data-mouth="talking"] .char-talk { opacity: 1; }
 /* No codec, no file, no network: the owl is drawn instead, and moves on the same signal. */
 .conv-owl { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 40%, #24564d, #0b201d); }
 .conv-stage[data-video="off"] .conv-owl { display: flex; }

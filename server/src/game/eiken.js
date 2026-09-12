@@ -24,6 +24,9 @@ export const ISLANDS_PATH = path.resolve(here, '../../../client/dist/eiken.json'
 
 export const GRADES = ['g5', 'g4', 'g3'];
 export const SKILLS = ['reading', 'listening', 'writing', 'speaking'];
+// The fifth building on each island: 面接の間. Not a skill, and not in the courtyard's
+// four quarters — the room a child walks past everything else to reach.
+export const INTERVIEW_ROOM = 'interview';
 export const QUESTIONS_PER_SET = 5;
 export const CHOICES = 4;
 // What the four halls together may pay in a day. A child who wants more coins has a
@@ -125,10 +128,22 @@ export function loadIslands(file = ISLANDS_PATH) {
     }
     const spotById = new Map();
     for (const spot of island.spots || []) {
-      if (!SKILLS.includes(spot.skill)) throw new Error(`eiken.json: ${island.id}/${spot.id} has unknown skill "${spot.skill}"`);
+      // Four of the five buildings are a skill each. The fifth is the interview room,
+      // which is not a skill and has its own bank; everything else about a place — where
+      // it is, that it is only one place, that you have to be standing in it — is the
+      // same for both, so it goes through the same door here.
+      if (spot.kind === INTERVIEW_ROOM) {
+        if (spot.skill) throw new Error(`eiken.json: ${island.id}/${spot.id} is the interview room and a skill hall at once`);
+      } else if (!SKILLS.includes(spot.skill)) {
+        throw new Error(`eiken.json: ${island.id}/${spot.id} has unknown skill "${spot.skill}"`);
+      }
       if (spotById.has(spot.id)) throw new Error(`eiken.json: ${island.id} has two halls called "${spot.id}"`);
       if (!Number.isFinite(spot.x) || !Number.isFinite(spot.z)) throw new Error(`eiken.json: ${island.id}/${spot.id} has no coordinates`);
       spotById.set(spot.id, { ...spot, wx: island.x + spot.x, wz: island.z + spot.z });
+    }
+    // Every island has the interview room, or one grade would quietly have no interview.
+    if (![...spotById.values()].some((s) => s.kind === INTERVIEW_ROOM)) {
+      throw new Error(`eiken.json: ${island.id} has no ${INTERVIEW_ROOM} room`);
     }
     // Four halls, one per skill, and far enough apart that standing in one is never
     // standing in another — or a child could answer a reading question from the stage.

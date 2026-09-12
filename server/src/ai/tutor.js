@@ -145,6 +145,35 @@ export function sanitizeTurn(raw, mission, previousGoals = []) {
   };
 }
 
+// 面接の間's one call. The interview itself is marked on the server, word by word, and
+// nothing the model says can change a mark: this is only ウーピー's manner at the end —
+// what went well and what to practise, in one English sentence and one Japanese one.
+const COMMENT_SCHEMA = {
+  name: 'interview_comment',
+  strict: true,
+  schema: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['en', 'ja'],
+    properties: {
+      en: { type: 'string', description: 'One warm sentence to the child, in English an elementary school child can read.' },
+      ja: { type: 'string', description: 'One sentence in Japanese saying what to practise next. ひらがな多め。' },
+    },
+  },
+};
+
+// The prompt for it, built from the marks rather than from the child's words: the model
+// is told what happened, not asked to judge it.
+export function buildCommentPrompt({ grade, right, total, missed }) {
+  return [
+    `You are ${PERSONA.en} (${PERSONA.ja}), ${PERSONA.who}. You have just finished a mock Eiken grade ${grade.replace('g', '')} speaking interview with a Japanese elementary school child.`,
+    `They answered ${right} of ${total} parts correctly.`,
+    missed.length ? `They struggled with: ${missed.map((m) => m.en || m).join('; ')}.` : 'They answered everything well.',
+    'Write one short encouraging sentence to the child in simple English, and one sentence in Japanese (ひらがな多め、小学生むけ) saying what to practise next.',
+    'Never mention that you are an AI or a language model. Never give a score out of ten.',
+  ].join(' ');
+}
+
 function createOpenAiTutor() {
   let clientPromise = null;
   const getClient = async () => {
@@ -177,6 +206,38 @@ function createOpenAiTutor() {
       const usage = res.usage || {};
       return { ...sanitizeTurn(parsed, mission, previousGoals), usage: { in: usage.prompt_tokens || 0, out: usage.completion_tokens || 0 } };
     },
+    async comment(about) {
+      const client = await getClient();
+      const res = await client.chat.completions.create({
+        model: config.ai.model,
+        max_completion_tokens: 200,
+        messages: [{ role: 'system', content: buildCommentPrompt(about) }],
+        response_format: { type: 'json_schema', json_schema: COMMENT_SCHEMA },
+      });
+      let parsed = null;
+      try { parsed = JSON.parse(res.choices?.[0]?.message?.content ?? ''); } catch { /* falls back below */ }
+      const en = clean(parsed?.en, MAX_REPLY_CHARS);
+      const ja = clean(parsed?.ja, MAX_HINT_CHARS);
+      if (!en || mentionsModel(en) || mentionsModel(ja)) return scriptedComment(about);
+      return { en, ja: ja || scriptedComment(about).ja };
+    },
+  };
+}
+
+// The same comment without a key. It is not as warm, but it is never wrong about what
+// happened, because it is written from the marks.
+export function scriptedComment({ right, total, missed }) {
+  const share = total ? right / total : 0;
+  if (share === 1) return { en: 'Wonderful! You answered everything. Well done!', ja: 'ぜんぶ こたえられました。つぎの きゅうにも ちょうせんしてみよう！' };
+  if (share >= 0.6) {
+    return {
+      en: 'Good work! A little more practice and you will be ready.',
+      ja: missed.length ? `${missed[0].ja || missed[0]}を もういちど れんしゅうしてみよう。` : 'もういちど 音読から やってみよう。',
+    };
+  }
+  return {
+    en: 'Thank you for trying! Let\'s practise together again.',
+    ja: 'まずは パッセージの 音読から。声に出して 3かい 読んでみよう。',
   };
 }
 
@@ -215,6 +276,7 @@ function createScriptedTutor() {
         usage: { in: 0, out: 0 },
       };
     },
+    async comment(about) { return scriptedComment(about); },
   };
 }
 

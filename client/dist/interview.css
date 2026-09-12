@@ -1,0 +1,84 @@
+/* めんせつの間 — the 英検 interview. It borrows ウーピー's stage from conv.css and
+   otherwise looks like what it is: one card, one question, and a row of marks. */
+#iv-dialog {
+  border: none; padding: 0; width: min(920px, 94vw); max-height: 94vh; border-radius: 22px;
+  background: #14262e; color: #eef2f1; box-shadow: 0 30px 80px #04110f88; overflow: hidden;
+}
+/* Only when open: `display` on a closed <dialog> beats the browser's own
+   `dialog:not([open]) { display: none }` and leaves the panel over the island. */
+#iv-dialog[open] { display: flex; flex-direction: column; }
+#iv-dialog::backdrop { background: #04110fcc; backdrop-filter: blur(3px); }
+
+.iv-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 18px; background: linear-gradient(#1c3946, #162c36);
+}
+.iv-head small { display: block; font-size: 11px; letter-spacing: .12em; opacity: .7; }
+.iv-head h2 { margin: 2px 0 0; font-size: 20px; }
+.iv-head-right { display: flex; align-items: center; gap: 10px; }
+#iv-step { font-size: 12px; opacity: .8; letter-spacing: .08em; }
+#iv-close { width: 34px; height: 34px; border-radius: 50%; background: #ffffff1a; color: inherit; font-size: 20px; }
+
+.iv-body { display: grid; grid-template-columns: minmax(0, 44%) minmax(0, 1fr); gap: 0; min-height: 0; overflow: hidden; }
+.iv-body > * { min-width: 0; }
+/* The stage is shared with 英会話島, which sizes it 16:9. Here it is a column beside the
+   card instead, so it fills its column and its height rather than setting its own — an
+   aspect ratio would make it wider than the column and lie across the question. */
+.iv-stage {
+  position: relative; background: #0d1b22; border-radius: 0;
+  aspect-ratio: auto; width: 100%; height: 100%; min-height: 240px; max-height: none;
+}
+.iv-side { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 16px; overflow-y: auto; }
+
+/* The row of marks: one square per part of the interview, filled in as it goes. A child
+   can see how much is left, which is the one thing a real interview never tells you. */
+.iv-marks { display: flex; gap: 6px; }
+.iv-marks i {
+  flex: 1; height: 6px; border-radius: 999px; background: #ffffff1f;
+}
+.iv-marks i.now { background: #ffd166; }
+.iv-marks i.ok { background: #74c39a; }
+.iv-marks i.no { background: #e8927c; }
+
+.iv-card { background: #ffffff0f; border-radius: 16px; padding: 14px 16px; }
+.iv-part { margin: 0 0 8px; font-size: 12px; letter-spacing: .08em; opacity: .75; }
+.iv-part small { display: block; font-size: 12px; letter-spacing: 0; opacity: .8; margin-top: 2px; }
+/* The passage is read out loud from the screen, so it is set like a page of a book. */
+.iv-passage { margin: 0; font-size: clamp(17px, 2.6vw, 22px); line-height: 1.75; }
+.iv-q { margin: 0; font-size: clamp(17px, 2.6vw, 21px); font-weight: 700; line-height: 1.6; }
+.iv-ja { margin: 8px 0 0; font-size: 13px; opacity: .72; line-height: 1.7; }
+.iv-scene { margin: 0 0 10px; font-size: 13px; opacity: .85; background: #ffffff12; border-radius: 12px; padding: 8px 10px; }
+.iv-scene span { display: block; font-size: 26px; letter-spacing: .1em; margin-bottom: 4px; }
+.iv-hint { margin: 10px 0 0; font-size: 13px; color: #ffd166; }
+.iv-status { margin: 0; font-size: 13px; min-height: 1.4em; opacity: .85; }
+
+.iv-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.iv-acts button { flex: 1 1 auto; min-height: 44px; padding: 10px 14px; border-radius: 13px; background: #ffffff1a; color: inherit; font-weight: 700; font-size: 14px; }
+.iv-acts button.primary { background: #2f8f6b; flex: 2 1 180px; }
+.iv-acts button:disabled { opacity: .45; }
+.iv-write { display: flex; gap: 6px; }
+#iv-text { flex: 1; min-width: 0; height: 42px; box-sizing: border-box; padding: 0 12px; border: 1px solid #ffffff26; border-radius: 12px; background: #ffffff10; color: inherit; font: inherit; font-size: 14px; }
+#iv-text::placeholder { color: #eef2f180; }
+#iv-send { height: 42px; padding: 0 14px; border-radius: 12px; background: #ffffff1a; color: inherit; font-weight: 700; }
+.iv-fine { margin: 0; font-size: 11px; opacity: .6; }
+
+/* The card at the end. */
+.iv-result { padding: 16px 18px 20px; border-top: 1px solid #ffffff1a; background: #10202788; }
+.iv-result h3 { margin: 0 0 10px; font-size: 22px; }
+.iv-result-marks { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.iv-result-marks li { display: flex; gap: 8px; align-items: baseline; background: #ffffff12; border-radius: 10px; padding: 6px 10px; font-size: 13px; }
+.iv-result-marks li.ok { background: #74c39a2e; }
+.iv-result-marks li.no { background: #e8927c26; }
+.iv-result-marks b { opacity: .7; }
+.iv-comment { margin: 0; font-size: 15px; }
+.iv-comment-ja { margin: 4px 0 0; font-size: 13px; opacity: .8; }
+.iv-prize { margin: 10px 0 0; font-size: 14px; color: #ffd166; }
+.iv-result-acts { display: flex; gap: 8px; margin-top: 12px; }
+.iv-result-acts button { min-height: 44px; padding: 10px 16px; border-radius: 13px; background: #ffffff1a; color: inherit; font-weight: 700; }
+.iv-result-acts button.primary { background: #2f8f6b; }
+
+@media (max-width: 780px) {
+  .iv-body { grid-template-columns: 1fr; }
+  /* Stacked: the character goes back to a picture above the card, not a column beside it. */
+  .iv-stage { aspect-ratio: 16 / 9; height: auto; min-height: 0; max-height: 30vh; }
+}
