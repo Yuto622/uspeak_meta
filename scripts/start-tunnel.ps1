@@ -22,6 +22,15 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
+# Windows PowerShell 5.1 runs on .NET Framework, which still offers TLS 1.0 first, and
+# Cloudflare stopped accepting that years ago. Without this line the address check below
+# fails on a tunnel that is working perfectly. The local health check is plain http, so
+# only the public one breaks, which is exactly the confusing half. Tls13 is not in the
+# enum on .NET Framework, so add whichever names exist.
+foreach ($name in 'Tls12', 'Tls13') {
+  try { [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::$name } catch { }
+}
+
 if ($TeacherKey.Length -lt 8) { throw 'teacher key must be at least 8 characters' }
 if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
   throw 'Node.js not found. Install it (winget install --id OpenJS.NodeJS.LTS) and reopen PowerShell.'
@@ -122,24 +131,30 @@ try {
   # cloudflared prints the address before its connection is established, so a URL in
   # this window is not yet a URL that works: a network that blocks QUIC gives a name
   # that never resolves. Ask the address itself before handing it to a class.
+  # A brand-new *.trycloudflare.com name can take the better part of a minute to resolve
+  # from the machine that just asked for it, so this waits a while before saying anything.
   Write-Host '==> checking the address answers'
   $live = $false
-  for ($i = 0; $i -lt 20; $i++) {
+  $why = ''
+  for ($i = 0; $i -lt 40; $i++) {
     Start-Sleep -Milliseconds 1500
     if ($tunnel.HasExited) { break }
-    try { Invoke-RestMethod "$url/healthz" -TimeoutSec 4 | Out-Null; $live = $true; break } catch { }
+    try { Invoke-RestMethod "$url/healthz" -TimeoutSec 4 | Out-Null; $live = $true; break }
+    catch { $why = $_.Exception.Message }
   }
+  # If it still does not answer, say so and carry on. The tunnel is registered and the
+  # address usually works from a phone on another network even when this PC cannot see it
+  # yet. Killing a working tunnel because our own check failed is the worse mistake.
   if (-not $live) {
     Write-Host ''
-    Write-Host '--- the tunnel reported this address but it does not answer ---'
+    Write-Host '--- warning: this PC could not reach the address itself ---'
     Write-Host "  $url"
-    Get-Content $tunErr -Tail 15 -ErrorAction SilentlyContinue
-    Write-Host ''
-    Write-Host 'the server on this PC is fine (it passed its health check). the tunnel is not.'
-    Write-Host 'stop with Ctrl+C and start again with one of these:'
-    Write-Host "  .\scripts\start-tunnel.ps1 -TeacherKey <key> -Protocol http2"
-    Write-Host "  .\scripts\start-tunnel.ps1 -TeacherKey <key> -Protocol http2 -EdgeIpVersion 4"
-    throw 'the tunnel address does not answer'
+    if ($why) { Write-Host "  ($why)" }
+    Write-Host '  the server here is healthy and the tunnel is registered, so try the'
+    Write-Host '  address on an iPad anyway: a new name can take a minute to resolve.'
+    Write-Host '  if nothing loads there either, stop with Ctrl+C and start again with:'
+    Write-Host "    .\scripts\start-tunnel.ps1 -TeacherKey <key> -Protocol http2"
+    Write-Host "    .\scripts\start-tunnel.ps1 -TeacherKey <key> -Protocol http2 -EdgeIpVersion 4"
   }
 
   Write-Host ''

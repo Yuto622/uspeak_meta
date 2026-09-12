@@ -12,6 +12,12 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
+# Windows PowerShell 5.1 offers TLS 1.0 first and Fly.io, like everyone else, refuses it:
+# without this the health check below fails on an app that deployed fine.
+foreach ($name in 'Tls12', 'Tls13') {
+  try { [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::$name } catch { }
+}
+
 if ($TeacherKey.Length -lt 8) { throw 'teacher key must be at least 8 characters' }
 if ($AppName -notmatch '^[a-z0-9][a-z0-9-]*$') { throw 'app name must be lowercase letters, digits and dashes' }
 if (-not (Get-Command fly -ErrorAction SilentlyContinue)) {

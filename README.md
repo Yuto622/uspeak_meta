@@ -121,6 +121,14 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 表示された `https://....trycloudflare.com` を iPad で開きます。Ctrl+C で停止し、URL は無効になります。
 テスト専用で、URL は起動のたびに変わります。
 
+### トンネルが「address does not answer」で止まるとき
+
+cloudflared のログに `Registered tunnel connection` が出ているのに このメッセージが出た場合、
+**トンネルは動いていて、確認したこちら側が失敗している**ことがほとんどです（Windows
+PowerShell 5.1 が TLS 1.0 で話しかけていた／新しいホスト名がまだ引けていない）。
+どちらも直したので、いまは**警告を出して そのまま動きつづけます**。表示された URL を
+iPad で開いてみてください。それでも開かないときだけ、`-Protocol http2` を付け直します。
+
 ## Fly.io へのデプロイ（東京 nrt）
 
 付属のスクリプトが、アプリ作成・`fly.toml` のアプリ名と `CORS_ORIGINS` の同期・シークレット設定・デプロイ・疎通確認までを行います。
