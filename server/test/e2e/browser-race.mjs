@@ -124,6 +124,15 @@ try {
     .catch(async () => { throw new Error(`no grid: ${JSON.stringify(await errors(a))}`); });
   const grid = await raceState(a);
   check('the start line puts both of them on the grid', grid.phase === 'grid', JSON.stringify(grid.standings));
+  // A race is its own screen: from the grid, the island is gone. Measured by what is
+  // actually drawn — an element hidden with `display: none` has no client rects.
+  const shown = (page, sel) => page.evaluate((s2) => !!document.querySelector(s2)?.getClientRects().length, sel);
+  check('the race takes the whole screen: the island\'s own chrome is gone',
+    !(await shown(a, '.right-rail')) && !(await shown(a, '.bottom')) && !(await shown(a, '.quest-panel'))
+    && !(await shown(a, '.net-dock')) && (await shown(a, '#race-screen')),
+    await a.evaluate(() => document.body.dataset.race));
+  check('and the island stops labelling itself over the road',
+    (await a.evaluate(() => uspeak.net.remotes.tagsOn)) === false);
   check('and the field includes the rivals, so the grid is a field',
     grid.standings.length >= 4, `${grid.standings.length} on the grid`);
   await a.screenshot({ path: path.join(SHOTS, 'e2e-race-grid.png') });
@@ -207,6 +216,14 @@ try {
   check('the result board shows where everyone came',
     (await a.evaluate(() => document.querySelectorAll('.race-result-board li').length)) >= 4);
   await a.screenshot({ path: path.join(SHOTS, 'e2e-race-result.png') });
+
+  // Closing the board gives the island back — the one way out of the race screen.
+  await a.click('#race-result-close');
+  check('closing the result hands the island back',
+    (await shown(a, '.right-rail')) && (await shown(a, '.bottom')) && !(await shown(a, '#race-screen')),
+    await a.evaluate(() => document.body.dataset.race || '(none)'));
+  check('and the names come back over everyone\'s heads',
+    (await a.evaluate(() => uspeak.net.remotes.tagsOn)) === true);
 
   // The other child was in the same race, and is still in it.
   const other = await raceState(b);

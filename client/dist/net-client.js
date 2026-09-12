@@ -184,6 +184,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     send: atSend,
     toast, isOnline: () => state.mode === 'online',
     scene, player, rpg,
+    // While the race owns the screen the island stops talking: its own signs and the names
+    // over the other children's heads come down, because at eight metres they are a wall
+    // of text across the road. Who is where is in the corner of the race screen instead.
+    onScreen: (on) => { rpg.ride?.setLabels?.(!on); remotes.setTags(!on); },
   });
   const ride = createRideUI({
     send: atSend,

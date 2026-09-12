@@ -98,6 +98,9 @@ export function createIsland({ scene, build, seed = 20250910 }) {
   // depthTest defaults on: a place sign belongs to the world and should go behind the
   // hill it is behind. Only the nameplates over people opt out, so a child can always
   // read who is where.
+  const labels = [];   // every sign this island puts up, so a race can take them down
+  let labelsOn = true; // and whether they are up at all: an island builds itself lazily,
+                       // so a sign made after the race started has to be born hidden
   function sprite(text, x, y, z, { width = 8, background = '#183946', color = '#f3dfaa', weight = 600, size = 36, depthTest = true } = {}) {
     const c = document.createElement('canvas');
     c.width = 768; c.height = 100;
@@ -115,6 +118,8 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     s.scale.set(width, width / 7.68, 1);
     s.renderOrder = depthTest ? 1 : 3;
     root.add(s);
+    labels.push(s);
+    s.visible = labelsOn;
     return s;
   }
 
@@ -483,7 +488,7 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     targetId = spotId || '';
     if (!beacon) return;
     const spot = data?.spots.find((sp) => sp.id === targetId);
-    beacon.visible = !!spot;
+    beacon.visible = labelsOn && !!spot;
     if (spot) beacon.position.set(spot.x, 0, spot.z);
   }
 
@@ -493,8 +498,10 @@ export function createIsland({ scene, build, seed = 20250910 }) {
       const dist = Math.hypot(player.position.x - root.position.x - sp.def.x, player.position.z - root.position.z - sp.def.z);
       sp.npc.position.y = Math.sin(t * 1.4 + sp.def.x) * 0.05;
       if (dist < 14) sp.npc.rotation.y = Math.atan2(player.position.x - root.position.x - sp.def.x, player.position.z - root.position.z - sp.def.z);
-      sp.label.visible = dist < LABEL_DISTANCE;
-      sp.ja.visible = dist < NEAR_DISTANCE + 2;
+      // Nameplates fade in as a child walks up to a building — unless the signs are down
+      // altogether, which is what a race does (see setLabels).
+      sp.label.visible = labelsOn && dist < LABEL_DISTANCE;
+      sp.ja.visible = labelsOn && dist < NEAR_DISTANCE + 2;
       sp.label.position.y = 3.5 + Math.sin(t * 1.6 + sp.def.z) * 0.06;
     }
     if (beacon?.visible) {
@@ -560,6 +567,17 @@ export function createIsland({ scene, build, seed = 20250910 }) {
       if (on) construct();
       root.visible = !!on && built;
       if (!on && beacon) beacon.visible = false; else setTarget(targetId);
+    },
+    // The island's own signs — its name over the jetty, the label on every building. They
+    // are how a child finds their way around on foot, and they are in the way of a race:
+    // the chase camera is eight metres from the ground, where a sign written to be read
+    // from thirty fills half the screen.
+    setLabels(on) {
+      labelsOn = !!on;
+      for (const s2 of labels) s2.visible = labelsOn;
+      // The pillar of light that points at the building a child is being sent to belongs
+      // to walking around; a race has its own thing to drive at.
+      if (beacon) beacon.visible = labelsOn && !!data?.spots.find((sp) => sp.id === targetId);
     },
     setTarget, update, nearest, blocked, drawMap, doorNear, setNight,
     get doors() { return doors.map((d) => ({ id: d.def.id, x: d.x, z: d.z })); },

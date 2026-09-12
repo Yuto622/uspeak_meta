@@ -64,6 +64,9 @@ const SCREENS = [
   { id: 'interview', sel: '#iv-dialog', go: `await uspeak.__layout.at('eiken5', 'interview'); uspeak.net.eikenInteract()` },
   { id: 'conv', sel: '#conv-dialog', go: `await uspeak.__layout.at('conv', 'cafe'); uspeak.net.convInteract()` },
   { id: 'voice', sel: '#voice-panel', go: `await uspeak.__layout.at('talk', null)` },
+  // The race is the one screen that takes the whole window: it is measured like the rest,
+  // and on a touch screen it must also put the throttle and the steering under the thumbs.
+  { id: 'race', sel: '#race-screen', go: `await uspeak.__layout.race()` },
 ];
 
 // The helpers the list above uses, installed in the page once it is online.
@@ -99,7 +102,24 @@ const LAYOUT_HELPERS = `uspeak.__layout = {
       await new Promise((r) => setTimeout(r, 600));
     }
   },
+  // のりもの島のレース: the screen the room puts up when the lights come on. The payload is
+  // the one race:grid carries, built out of vehicles.json — the same file the island and
+  // the server read — so what is measured here is the real screen rather than a mock-up.
+  async race() {
+    await this.island('ride');
+    const v = await (await fetch('vehicles.json')).json();
+    const c = v.course;
+    uspeak.net.race.onGrid({
+      gates: c.gates, road: c.road, reach: c.reach, boosts: c.boosts, items: c.items,
+      island: { x: v.island.x, z: v.island.z }, laps: c.laps, opensIn: 12000,
+      you: { place: 1, grid: c.grid?.[0] || { x: 0, z: 0 } },
+      standings: [{ id: 'me', kind: 'child', name: 'Yuto', place: 1, progress: 0 },
+        ...(c.rivals || []).map((r, i) => ({ id: r.id, kind: 'rival', name: r.name, place: i + 2, progress: i * 0.7 }))],
+    });
+    await new Promise((r) => setTimeout(r, 500));
+  },
   close() {
+    try { uspeak.net.race.quit(); } catch { /* not racing */ }
     for (const el of document.querySelectorAll('dialog[open]')) el.close();
     // Closing the panel is not ending the session: a battle or a set of five is still
     // open on the server, and the next screen on the list would be refused. Say goodbye

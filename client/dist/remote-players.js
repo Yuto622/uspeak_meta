@@ -27,6 +27,11 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
   const remotes = new Map(); // sessionId -> remote
   const isInterior = (space) => typeof space === 'string' && space.startsWith('in:');
 
+  // Names over heads. True everywhere a child walks; false in a race, where the camera is
+  // close to the ground and a name written to be read across a field covers the road — the
+  // running order in the corner of the race screen says who is where instead.
+  let tagsOn = true;
+
   function makeRemote(id, info) {
     let config = { id: 'kai' };
     try { config = { ...config, ...JSON.parse(info.avatar || '{}') }; } catch { /* keep default */ }
@@ -36,6 +41,7 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
     group.add(model);
     const label = textSprite(info.role === 'teacher' ? `★ ${info.name}` : info.name, { bg: info.role === 'teacher' ? '#8a4b2c' : '#345344', scale: 0.55 });
     label.position.set(0, 3.15, 0);
+    label.visible = tagsOn;
     group.add(label);
     return {
       id, group, model, label, bubble: null, bubbleUntil: 0, avatarJson: info.avatar,
@@ -92,6 +98,7 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
     if (!r) return;
     if (r.bubble) r.group.remove(r.bubble);
     r.bubble = textSprite(text, { bg: '#fffaf0', color: '#263d33', size: 28, width: 640, scale: 0.62 });
+    r.bubble.visible = tagsOn;
     r.bubble.position.set(0, 3.95, 0);
     r.group.add(r.bubble);
     r.bubbleUntil = performance.now() + NET.CHAT_BUBBLE_MS;
@@ -186,5 +193,19 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
     model.traverse((m) => { if (m.isMesh) { m.castShadow = NET.REMOTE_SHADOWS; m.receiveShadow = NET.REMOTE_SHADOWS; } });
   }
 
-  return { upsert, pushSample, remove, clear, showBubble, update, stats, get count() { return remotes.size; }, get(id) { return remotes.get(id); }, textSprite };
+  function setTags(on) {
+    tagsOn = !!on;
+    for (const [, r] of remotes) {
+      if (r.label) r.label.visible = tagsOn;
+      if (r.bubble) r.bubble.visible = tagsOn;
+    }
+  }
+
+  return {
+    upsert, pushSample, remove, clear, showBubble, update, stats, setTags,
+    get tagsOn() { return tagsOn; },
+    get count() { return remotes.size; },
+    get(id) { return remotes.get(id); },
+    textSprite,
+  };
 }

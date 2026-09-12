@@ -1,25 +1,89 @@
-/* のりもの島のレース — the HUD of a kart race: place, lap, and the word to drive to. */
-#race-hud {
-  position: fixed; inset: auto 0 0 0; z-index: 44; pointer-events: none;
-  display: grid; grid-template-columns: auto auto 1fr auto; align-items: end; gap: 12px;
-  padding: 0 18px 96px; font-family: inherit; color: #fff;
+/* のりもの島のレース — the race is its own screen.
+ *
+ * From the lights to the flag the island is gone: no rail, no dock, no hotbar, no walking
+ * pad, no quest list. What is left is the shape a kart game has always had — place and lap
+ * in one corner, the course map and the running order in another, the thumbs at the bottom
+ * — plus the one thing that makes this race this game's: the English word on the next
+ * checkpoint, across the top, where a child cannot help reading it.
+ */
+
+/* --- 1. The island steps aside ------------------------------------------------------
+   One attribute on <body> takes everything else off the screen, so there is one place to
+   look when something is still showing that should not be. `!important` because several
+   of these are positioned by id elsewhere and would otherwise win. */
+body[data-race] > header,
+body[data-race] .quest-panel,
+body[data-race] .right-rail,
+body[data-race] .bottom,
+body[data-race] .mobile-pad,
+body[data-race] .world-label,
+body[data-race] .crosshair,
+body[data-race] .vignette,
+body[data-race] #near,
+body[data-race] #rpg-region-panel,
+body[data-race] #park-panel,
+body[data-race] #travel-hud,
+body[data-race] .net-dock,
+body[data-race] #voice-button,
+body[data-race] #errand-hud { display: none !important; }
+
+/* --- 2. The screen itself ------------------------------------------------------------ */
+#race-screen {
+  position: fixed; inset: 0; z-index: 44; pointer-events: none;
+  color: #fff; font-family: inherit;
   text-shadow: 0 3px 10px #06110fcc;
+  /* The corners of a racing game, and nothing in the middle: the middle is the road. */
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  padding: calc(12px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right))
+           calc(12px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
+  gap: 10px;
 }
-.race-place { display: flex; align-items: baseline; gap: 2px; }
-.race-place b { font-size: clamp(38px, 7vw, 62px); font-weight: 800; letter-spacing: -.02em; line-height: .9; }
-.race-place small { font-size: 16px; opacity: .75; }
-.race-lap { display: flex; flex-direction: column; align-items: flex-start; }
+#race-screen[hidden] { display: none; }
+.race-hud { display: contents; }
+.race-corner { display: flex; gap: 10px; }
+.race-tl { grid-area: 1 / 1; flex-direction: column; align-items: flex-start; }
+.race-tc { grid-area: 1 / 2; justify-content: center; align-items: flex-start; }
+.race-tr { grid-area: 1 / 3; flex-direction: column; align-items: flex-end; }
+.race-bl { grid-area: 3 / 1; align-items: flex-end; }
+.race-bc { grid-area: 3 / 2; flex-direction: column; align-items: center; justify-content: flex-end; }
+.race-br { grid-area: 3 / 3; align-items: flex-end; }
+
+/* Place and lap, top left, the size of a scoreboard. */
+.race-place { display: flex; align-items: baseline; gap: 3px; }
+.race-place b { font-size: clamp(40px, 7vw, 74px); font-weight: 800; letter-spacing: -.03em; line-height: .85; }
+.race-place small { font-size: 15px; opacity: .75; }
+.race-lap { display: flex; align-items: baseline; gap: 7px; }
 .race-lap span { font-size: 11px; letter-spacing: .18em; opacity: .8; }
-.race-lap b { font-size: clamp(20px, 3.4vw, 30px); font-weight: 800; line-height: 1; }
-/* The next checkpoint, which is an English word: the thing this race is actually for. */
-.race-next { justify-self: center; text-align: center; background: #0d2a26bb; border-radius: 14px; padding: 6px 16px; backdrop-filter: blur(4px); }
-.race-next span { display: block; font-size: clamp(17px, 3vw, 26px); font-weight: 800; }
-.race-next small { display: block; font-size: 12px; opacity: .8; }
-.race-board { list-style: none; margin: 0; padding: 8px 10px; background: #0d2a26aa; border-radius: 14px; font-size: 12px; min-width: 132px; backdrop-filter: blur(4px); }
+.race-lap b { font-size: clamp(19px, 3.2vw, 30px); font-weight: 800; line-height: 1; }
+
+/* The next checkpoint. This is the English, and it is the reason the race exists. */
+.race-next {
+  text-align: center; background: #0d2a26bb; border-radius: 15px; padding: 6px 18px;
+  backdrop-filter: blur(4px); max-width: min(60vw, 420px);
+}
+.race-next span { display: block; font-size: clamp(18px, 3vw, 30px); font-weight: 800; line-height: 1.15; }
+.race-next small { display: block; font-size: 11px; opacity: .8; }
+
+/* The item slot, the course map and the running order, stacked down the right. */
+.race-slot {
+  width: 62px; height: 62px; border-radius: 16px; display: grid; place-items: center;
+  background: #0d2a26bb; border: 2px solid #ffffff33; font-size: 30px; backdrop-filter: blur(4px);
+}
+.race-slot[data-state="ask"] { border-color: #ffd166; animation: race-pulse .4s infinite alternate; }
+.race-map { width: 132px; height: 132px; border-radius: 16px; background: #0d2a2699; backdrop-filter: blur(4px); }
+.race-board { list-style: none; margin: 0; padding: 7px 10px; background: #0d2a26aa; border-radius: 14px; font-size: 12px; min-width: 132px; backdrop-filter: blur(4px); }
 .race-board li { display: flex; gap: 8px; padding: 1px 0; opacity: .82; }
 .race-board li b { width: 18px; text-align: right; opacity: .7; }
 .race-board li.me { opacity: 1; font-weight: 700; color: #ffe08a; }
-.race-boost { position: fixed; left: 50%; bottom: 170px; transform: translateX(-50%); font-size: 20px; font-weight: 800; color: #ffe08a; animation: race-pulse .35s infinite alternate; }
+
+/* The speedometer, and — on a laptop — what the keys do. */
+.race-speed { display: flex; align-items: baseline; gap: 5px; opacity: .92; }
+.race-speed b { font-size: clamp(22px, 3.6vw, 34px); font-weight: 800; line-height: 1; }
+.race-speed small { font-size: 11px; opacity: .7; }
+.race-keys-hint { margin: 4px 0 0; font-size: 11px; opacity: .6; }
+.race-boost { grid-area: 2 / 2; align-self: end; justify-self: center; font-size: 22px; font-weight: 800; color: #ffe08a; animation: race-pulse .35s infinite alternate; }
 @keyframes race-pulse { from { opacity: .55; } to { opacity: 1; } }
 /* Sparks: the drift charge, as a rim of light round the screen. */
 #race-hud[data-drift="1"]::after, #race-hud[data-drift="2"]::after {
@@ -27,8 +91,46 @@
   box-shadow: inset 0 0 90px #4fc3f7aa; animation: race-pulse .5s infinite alternate;
 }
 #race-hud[data-drift="2"]::after { box-shadow: inset 0 0 110px #ff9e3daa; }
+#race-hud[data-boost="1"] .race-speed b { color: #ffe08a; }
 
-/* The countdown, the lap banner, GO! — one place, one shape, different words. */
+/* --- 3. The thumbs -------------------------------------------------------------------
+   A kart is driven with the accelerator held down, which a tapping pad cannot do, so the
+   race brings its own controls: steering under the left thumb, the throttle under the
+   right, the way a tablet held sideways is actually held. They hold the same keys the
+   keyboard does — kart.js never learns there are two ways to drive. */
+.race-steer, .race-br { display: flex; gap: 12px; align-items: flex-end; }
+.race-key {
+  pointer-events: auto; -webkit-user-select: none; user-select: none;
+  -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; touch-action: none;
+  border: 2px solid #ffffff2e; background: #0d2a26c4; color: #f3efe1;
+  width: 74px; height: 74px; border-radius: 50%; font-size: 24px; font-weight: 800;
+  backdrop-filter: blur(4px); box-shadow: 0 10px 26px #04110f66;
+}
+.race-key.on { background: #2f8f6b; transform: translateY(2px); }
+.race-gas { width: 92px; height: 92px; font-size: 30px; background: #2f6b7fcc; }
+.race-brake { width: 58px; height: 58px; font-size: 19px; }
+.race-drift { width: 74px; height: 74px; font-size: 13px; letter-spacing: .04em; background: #6b4f9ecc; }
+/* On a laptop there are keys for all of this, and buttons would be in the way. */
+@media (hover: hover) and (pointer: fine) {
+  .race-steer, .race-br { display: none; }
+}
+@media (pointer: coarse) {
+  .race-keys-hint { display: none; }
+}
+
+/* --- 4. The lights, the banners, the box ---------------------------------------------- */
+.race-lights {
+  position: fixed; left: 50%; top: 13%; transform: translateX(-50%); z-index: 46;
+  display: flex; gap: 12px; padding: 12px 16px; border-radius: 18px;
+  background: #06110fb0; backdrop-filter: blur(4px); pointer-events: none;
+}
+.race-lights i { width: 26px; height: 26px; border-radius: 50%; background: #ffffff1f; box-shadow: inset 0 2px 5px #04110f80; }
+.race-lights[data-lit="1"] i:nth-child(-n+1),
+.race-lights[data-lit="2"] i:nth-child(-n+2),
+.race-lights[data-lit="3"] i:nth-child(-n+3),
+.race-lights[data-lit="4"] i:nth-child(-n+4),
+.race-lights[data-lit="5"] i { background: #ff6b57; box-shadow: 0 0 16px #ff6b57cc; }
+
 #race-flash {
   position: fixed; left: 50%; top: 34%; transform: translate(-50%, -50%); z-index: 46;
   font-size: clamp(34px, 8vw, 78px); font-weight: 800; color: #fff; letter-spacing: .02em;
@@ -43,12 +145,13 @@
 /* 📦 The item box: one Japanese word, three English answers, three seconds. It has to be
    readable at a glance and tappable without looking, because the kart is still moving. */
 #race-box {
-  position: fixed; left: 50%; bottom: 118px; transform: translateX(-50%); z-index: 47;
+  position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 47;
   background: #12302cf2; color: #f3efe1; border-radius: 18px; padding: 12px 14px;
   box-shadow: 0 18px 50px #04110f99; display: flex; flex-direction: column; gap: 10px;
-  width: min(560px, 94vw); animation: race-in .16s ease-out;
+  width: min(560px, 94vw); animation: race-in .16s ease-out; pointer-events: auto;
 }
-@keyframes race-in { from { transform: translate(-50%, 12px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+#race-box[hidden] { display: none; }
+@keyframes race-in { from { transform: translate(-50%, calc(-50% + 12px)); opacity: 0; } to { transform: translate(-50%, -50%); opacity: 1; } }
 .race-box-word { display: flex; align-items: center; justify-content: center; gap: 10px; }
 .race-box-word span { font-size: 30px; }
 .race-box-word b { font-size: clamp(18px, 3.4vw, 26px); }
@@ -59,7 +162,7 @@
 }
 .race-box-choices button:active { background: #2f8f6b; transform: translateY(1px); }
 
-/* The board at the end. */
+/* --- 5. The board at the end ---------------------------------------------------------- */
 #race-result { border: none; padding: 0; width: min(560px, 94vw); border-radius: 20px; background: #12302c; color: #f3efe1; }
 #race-result::backdrop { background: #04110fcc; }
 #race-result-body { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 10px; }
@@ -72,11 +175,28 @@
 .race-result-board li b { width: 22px; opacity: .7; }
 .race-result-board li small { margin-left: auto; opacity: .6; font-size: 11px; }
 .race-fine { margin: 0; font-size: 12px; opacity: .7; }
+/* While the result is up the driving HUD has nothing to say. */
+body[data-race="done"] .race-hud, body[data-race="done"] .race-lights { display: none; }
 
+/* --- 6. Small screens ----------------------------------------------------------------- */
 @media (max-width: 560px) {
-  #race-hud { padding: 0 10px 92px; gap: 8px; grid-template-columns: auto 1fr auto; }
-  .race-next { grid-column: 1 / -1; order: 3; }
+  #race-screen { gap: 6px; }
+  .race-map { width: 96px; height: 96px; }
   .race-board { min-width: 104px; font-size: 11px; }
-  #race-box { bottom: 104px; padding: 10px; }
-  .race-box-choices button { padding: 12px 6px; }
+  .race-slot { width: 48px; height: 48px; font-size: 24px; }
+  .race-key { width: 62px; height: 62px; font-size: 20px; }
+  .race-gas { width: 76px; height: 76px; font-size: 25px; }
+  .race-brake { width: 50px; height: 50px; font-size: 17px; }
+  .race-drift { width: 62px; height: 62px; font-size: 11px; }
+  .race-steer, .race-br { gap: 8px; }
+}
+/* Held sideways there is no height to spare: the board goes, the map shrinks, and the
+   controls stay exactly where the thumbs already are. */
+@media (max-height: 560px) {
+  .race-board { display: none; }
+  .race-map { width: 92px; height: 92px; }
+  .race-place b { font-size: clamp(30px, 5vw, 44px); }
+  .race-lights { top: 8%; }
+  .race-lights i { width: 18px; height: 18px; }
+  #race-flash { top: 30%; }
 }
