@@ -52,7 +52,7 @@ cd server && npm test           # 判定・経済・Sheetsストア・ルーム�
 cd client && node tests/regression.mjs   # 既存 1 人用ゲームの回帰テスト
 cd server && npm run test:e2e   # 実ブラウザ3画面（先生+生徒2）の同期・再接続テスト。要 Playwright（npm i -D playwright && npx playwright install chromium）
 cd server && npm run test:scale # 実ブラウザ1画面 + ボット99接続（100人在室）の描画予算・復帰テスト
-cd server && npm run test:layout # スマホ・iPad 5サイズでの画面崩れ検査（はみ出し・要素の重なりを自動判定）
+cd server && npm run test:layout # スマホ・iPad 5サイズ × 全16画面（はみ出し・重なり・押せる大きさ・文字の小ささ）
 cd server && node test/e2e/browser-race.mjs # のりもの島のレース（実ブラウザ2画面・グリッド→3周→表彰）
 cd server && node test/e2e/browser-interview.mjs # 英検の面接（音読→質問→結果カード）
 ```

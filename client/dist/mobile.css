@@ -82,6 +82,18 @@
   #net-chat-phrases { grid-template-columns: 1fr; }
 }
 
+/* The chat is a panel with a box to write in, so the box has to stay on screen: the
+   phrases and the log scroll inside it and the writing row is pinned to the bottom.
+   Written as :not([hidden]) — `display` on the bare id would beat the hidden attribute
+   and leave the panel on screen with nothing in it. */
+@media (pointer: coarse) {
+  #net-chat:not([hidden]) { display: flex; flex-direction: column; overflow: hidden; }
+  #net-chat-tabs { flex: none; }
+  #net-chat-phrases { flex: 1 1 auto; min-height: 90px; overflow-y: auto; overscroll-behavior: contain; }
+  #net-chat-log { flex: none; max-height: 26vh; }
+  #net-chat-say, #net-chat-fine { flex: none; }
+}
+
 /* --- 4. The right-hand rail ------------------------------------------------
    On desktop the minimap, the camera toggles and the three action buttons are
    five separately positioned fixed elements, each with its own top offset that
@@ -213,4 +225,71 @@
     max-height: calc(100dvh - 24px);
     overscroll-behavior: contain;
   }
+}
+
+
+/* --- 8. A floor under the type ---------------------------------------------
+   Every label in this game that is set smaller than 11px, listed once and put
+   back up to 11px on a touch screen. Nine and ten pixel labels are fine on a
+   laptop at 60cm; they are not fine on an iPad held at arm's length by a child
+   who is still learning to read, and several of them (7px and 8px) were not
+   really readable by anyone.
+
+   This is a floor, not a redesign: it only raises, it only applies where the
+   pointer is coarse, and it is written with the same selectors as the rules it
+   overrides so it wins on source order rather than on specificity. If a new
+   rule sets type below 11px, tests/regression.mjs fails and it belongs here. */
+@media (pointer: coarse) {
+  .conv-log b, .mission-head .eyebrow, .mission-featured small, #errand-hud small,
+  .daily-stamps li span, .rank-button small, .quiz-head .eyebrow, .ride-need small,
+  #room-acts button small, .room-palette button small, .room-palette button i, .edition, .eyebrow,
+  .quest small, .daily, .daily small, .map-panel>div, .map-panel p, .world-label span,
+  .control-hint small, .hotbar button, .hotbar button small, .save-status, .save-status small,
+  .intro, .quest .num, .quest-panel .eyebrow, .park-panel>p, .park-panel small,
+  .park-panel .eyebrow, .avatar-choice span, .avatar-choice small, .avatar-settings .eyebrow,
+  #avatar-button, .fish-header small, .fish-eyebrow, .fishing-zones small, .fishing-zones span,
+  .fish-inventory-row small, .fish-catalog button small, .fish-catalog b, .shop-card>small,
+  #fish-preview-panel .fish-eyebrow, #fish-preview-panel p, .shop-card p,
+  #rpg-region-panel .eyebrow, #rpg-region-panel>small, .in-rpg-region .location,
+  .in-rpg-region .location small, .rpg-header>div>span, #rpg-preview-panel .rpg-eyebrow,
+  .rpg-eyebrow, .rpg-map-key, .rpg-destinations button>small, .rpg-cards small, .rpg-cards strong,
+  .rpg-cards span, .rpg-question>span, .rpg-unlock small, .rpg-header-stats>span,
+  #rpg-preview-panel>.rpg-eyebrow, #rpg-preview-panel p, .rpg-buddy-button small,
+  #voice-panel[data-size="s"] .voice-tile small, .voice-tile small, .voice-log b,
+  .voice-log small, .voice-phrases b, .voice-phrases button small {
+    font-size: 11px;
+  }
+  /* The 仲間 / XP counters in the RPG header are set with !important in style.css's own
+     narrow-screen block, so the floor has to answer in kind. */
+  .rpg-header-stats > span, .rpg-header-stats > span b { font-size: 11px !important; }
+}
+
+/* --- 9. A floor under the tap targets --------------------------------------
+   Anything a child taps is at least 34px tall on a touch screen. Apple asks for
+   44 and the big controls have it; these are the small ones — a chat category,
+   the size switch on the call panel, a tab in a dialog header — which were 17
+   to 27px, small enough to miss with a thumb and small enough to hit twice by
+   accident. Only the height is raised; the labels stay the size they were. */
+@media (pointer: coarse) {
+  #net-chat-tabs button,
+  .voice-size,
+  .fish-tabs button,
+  .rpg-tabs button,
+  .conv-side button,
+  .iv-acts button,
+  .quiz-actions button,
+  .mission-actions button,
+  .ride-act button,
+  .net-teacher-actions button,
+  .net-t-link button,
+  .net-t-link a,
+  #net-chat-send,
+  #iv-send,
+  .voice-acts button,
+  .voice-say button {
+    min-height: 34px;
+  }
+  /* And the two that are a row of text rather than a button shape. */
+  #rpg-region-book,
+  .rank-button { min-height: 34px; display: block; }
 }

@@ -53,6 +53,41 @@
   console.log(`PASS: none of the ${sheets.length} stylesheets lays out a closed dialog.`);
 }
 
+// And no label may be set smaller than 11px on a touch screen without being caught by the
+// floor in mobile.css. Nine and ten pixel type is fine on a laptop and unreadable on an
+// iPad held by a seven-year-old; the floor only works if new rules are added to it, so
+// this fails when one is not.
+{
+  const { readdirSync, readFileSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const dir = fileURLToPath(new URL('../dist/', import.meta.url));
+  const strip = (css) => css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const floor = strip(readFileSync(dir + 'mobile.css', 'utf8'));
+  const covered = new Set();
+  for (const [, selectors, body] of floor.matchAll(/([^{}@]+)\{([^{}]*)\}/g)) {
+    if (!/font-size:\s*1[1-9]px/.test(body)) continue;
+    for (const sel of selectors.split(',')) covered.add(sel.split(/\s+/).join(' ').trim());
+  }
+  const missing = [];
+  for (const f of readdirSync(dir).filter((n) => n.endsWith('.css') && n !== 'mobile.css')) {
+    const css = strip(readFileSync(dir + f, 'utf8'));
+    for (const [, selectors, body] of css.matchAll(/([^{}@]+)\{([^{}]*)\}/g)) {
+      const size = /font-size:\s*(\d+(?:\.\d+)?)px/.exec(body);
+      if (!size || Number(size[1]) >= 11) continue;
+      for (const sel of selectors.split(',')) {
+        const one = sel.split(/\s+/).join(' ').trim();
+        if (one && !covered.has(one)) missing.push(`${f}: ${one} (${size[1]}px)`);
+      }
+    }
+  }
+  if (missing.length) {
+    console.error('FAIL: type under 11px with no floor in mobile.css — add these selectors to its'
+      + ' "floor under the type" block:\n  ' + [...new Set(missing)].join('\n  '));
+    process.exit(1);
+  }
+  console.log(`PASS: every label under 11px is lifted to 11px on touch screens (${covered.size} selectors).`);
+}
+
 import {TREASURES,TREASURE_KEYS,keyGoals} from '../dist/treasure-data.js';
 import {createAdventureStore} from '../dist/adventure-state.js';
 import {BUILDINGS} from '../dist/buildings.js';

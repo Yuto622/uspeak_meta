@@ -57,6 +57,25 @@ claimTreasure / claimTreasureKeyが同じadventure保存領域へ取得状態と
 報酬は星のかけらと手帳の秘宝。釣りコインとは別通貨です。
 UI側でもnearby()で現地にいることを再確認します。
 
+## スマホ・iPad（レスポンシブ）
+
+`mobile.css` が最後に読み込まれ、タッチ端末（`pointer: coarse`）だけを上書きする。
+デスクトップは触っていない。検査は `server/test/e2e/browser-layout.mjs`
+（`npm run test:layout`）で、**5サイズ×16画面**を実際に開いて測る。
+
+- **測っているのは4つ**：画面からはみ出していないか／横スクロールが出ていないか／
+  ボタンが指で押せる大きさ（28px以上、`min-height: 34px` を敷いてある）か／
+  文字が11px未満になっていないか。**目で見て「だいたい大丈夫」ではなく数字で落とす。**
+- **文字の下限は11px**（`mobile.css` の「8. A floor under the type」）。
+  7〜10pxの指定を全部拾って、タッチ端末でだけ11pxに持ち上げている。
+  **新しく11px未満を書くと `tests/regression.mjs` が落ちる**ので、その時はこの一覧に足すこと。
+- **押せる大きさの下限は34px**（同「9. A floor under the tap targets」）。
+  ラベルの大きさは変えず、高さだけ上げている。
+- **チャットは入力欄を下に固定**（フレーズが中でスクロールする）。`#net-chat:not([hidden])`
+  と書いてあるのは、`display` を id だけに書くと `hidden` 属性に勝ってしまうから。
+- 画面を1つ足したら **`browser-layout.mjs` の `SCREENS` に足す**こと。開き方（`go`）と
+  測る要素（`sel`）を書くだけで、5サイズぶん検査される。
+
 ## 検証と留意点
 
 node tests/regression.mjs はNode.js 24で確認済み。DOM/rendererを模擬し、実際のThree.jsモデルを使用。
