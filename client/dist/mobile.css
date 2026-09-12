@@ -88,7 +88,7 @@
    and leave the panel on screen with nothing in it. */
 @media (pointer: coarse) {
   #net-chat:not([hidden]) { display: flex; flex-direction: column; overflow: hidden; }
-  #net-chat-tabs { flex: none; }
+  #net-chat .net-chat-head, #net-chat-tabs { flex: none; }
   #net-chat-phrases { flex: 1 1 auto; min-height: 90px; overflow-y: auto; overscroll-behavior: contain; }
   #net-chat-log { flex: none; max-height: 26vh; }
   #net-chat-say, #net-chat-fine { flex: none; }
@@ -209,11 +209,17 @@
     right: calc(160px + env(safe-area-inset-right));
     max-width: calc(100vw - 480px);
   }
+  /* Held sideways there is height for almost nothing above the dock, and plenty of width
+     beside it: the chat and the console become a tall panel down the right instead of a
+     letterbox above the buttons. */
   #net-chat,
   #net-teacher {
-    bottom: calc(150px + env(safe-area-inset-bottom));
-    max-height: calc(100vh - 230px);
-    max-height: calc(100dvh - 230px);
+    left: auto;
+    right: calc(12px + env(safe-area-inset-right));
+    width: min(420px, 52vw);
+    top: calc(74px + env(safe-area-inset-top));
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    max-height: none;
   }
 }
 

@@ -46,6 +46,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const prefs = storage.get(localStorage, STORAGE_KEYS.prefs) || {};
   const remotes = createRemotePlayers({ worldScene: scene, getInteriorScene: () => rpg.interiorScene, getLocalPosition: () => player.position });
   const chip = createStatusChip();
+  // Every island screen asks the server something it answers from where the child is
+  // standing — start a set, buy a vehicle, hand in an errand. A child taps the moment they
+  // arrive, and the position only goes up twenty times a second, so the room would answer
+  // from where they were a frame ago and refuse them. Say where they are first: the socket
+  // keeps the order, so the move lands before the question.
+  const atSend = (type, payload) => { if (room && state.mode === 'online') sendMove(); room?.send(type, payload); };
   const chat = createChat({
     onSend: (id) => room?.send('chat', { id }),
     // Free text: the page sends the words and nothing else. Whether they may be sent —
@@ -63,24 +69,24 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     getMissions: () => mission.missions,
   });
   const mission = createMissionUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     speak, toast, isOnline: () => state.mode === 'online',
     here: () => rpg.state.current === 'errand',
     travel: (id) => rpg.fly(id),
     setBeacon: (spotId) => rpg.errand.setTarget(spotId),
   });
   const quiz = createQuizUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     speak, toast, isOnline: () => state.mode === 'online',
   });
   const gym = createGymUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     speak, toast, isOnline: () => state.mode === 'online',
   });
   // 英検の島. Four halls on each of three islands, and the hall a child walked into is
   // the skill they are practising — the page never picks it, and never marks it either.
   const eiken = createEikenUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     speak, toast, learn, isOnline: () => state.mode === 'online',
   });
   // めんせつの間. The fifth building on the same islands, and the only one that talks
@@ -89,38 +95,38 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // Sitting down and every answer are both answered from where the child is standing,
     // so say where that is first — a child who has just walked through the door would
     // otherwise be told they are not in the room.
-    send: (type, payload) => { if (room && state.mode === 'online') sendMove(); room?.send(type, payload); },
+    send: atSend,
     toast, isOnline: () => state.mode === 'online',
   });
   // おはなし. The room a child walks into is the call they are in: the voices go browser
   // to browser and this layer only carries the introductions.
   const voice = createVoice({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     toast,
     roomLabel: (space) => (space === TALK_ISLAND ? 'おはなし島の ひろば' : rpg.insideBuilding?.spot?.name || ''),
   });
   // 英会話島: ウーピー on a screen, and a child talking back. What the page sends is what
   // the microphone heard; the aims, the coins and the XP all come back from the server.
   const conv = createConvUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     toast, isOnline: () => state.mode === 'online',
   });
   const battle = createBattleUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     speak, toast, isOnline: () => state.mode === 'online',
   });
   const dojo = createDojoUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     toast, isOnline: () => state.mode === 'online',
     getWallet: () => state.wallet, getMove: () => state.move,
   });
   const petUI = createPetUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     toast, isOnline: () => state.mode === 'online',
     getPet: () => state.pet, getWallet: () => state.wallet,
   });
   const daily = createDailyUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     isOnline: () => state.mode === 'online',
   });
   // まちづくり島. The room a child builds in is an interior scene of its own, like the
@@ -128,14 +134,14 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // the Colyseus room in this file, so the child's own room is `myRoom`.)
   const myRoom = createRoom({
     player, camera, view, toast, speak, learn,
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     onLeave: () => { town.hideHud(); rpg.activate('town', true); },
   });
   // ひろば. Blocks are stacked on the child's own lot in the square, which is its own
   // scene for the same reason the room is: nothing of it exists until they walk in.
   const myPlaza = createPlaza({
     player, camera, view, toast, speak, learn,
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     onLeave: () => { town.hideHud(); rpg.activate('town', true); },
   });
   rpg.attachRoom(myRoom, myPlaza);
@@ -152,7 +158,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     return true;
   });
   const town = createTownUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     toast, speak, learn, isOnline: () => state.mode === 'online', room: myRoom, plaza: myPlaza,
   });
   // のりもの島. The speed a vehicle gives is applied by the world; what it is worth and
@@ -165,12 +171,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // is before asking, or the server answers from the position it was last told about —
     // at boost speed on a slow tablet that is several kart lengths back, and the child
     // loses the lap without ever being told why.
-    send: (type, payload) => { if (room && state.mode === 'online') sendMove(); room?.send(type, payload); },
+    send: atSend,
     toast, isOnline: () => state.mode === 'online',
     scene, player, rpg,
   });
   const ride = createRideUI({
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     toast, speak, learn, isOnline: () => state.mode === 'online',
     onRiding: (id, speed) => { state.riding = id; state.speed = id ? speed : 1; },
     // The start line hands over to the race, and the race hands the best lap back.
@@ -181,7 +187,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // it is created here, where the room is, and asks the server for every one of them.
   const night = createNight({
     scene, player, toast, speak, learn,
-    send: (type, payload) => room?.send(type, payload),
+    send: atSend,
     isOnline: () => state.mode === 'online',
     serverNow: () => Date.now() + state.skew,
   });

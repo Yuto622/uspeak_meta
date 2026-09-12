@@ -273,14 +273,21 @@ try {
     await page.evaluate(LAYOUT_HELPERS);
     for (const screen of SCREENS) {
       try {
-        await page.evaluate(() => uspeak.__layout.close());
-        await sleep(200);
-        // eslint-disable-next-line no-new-func
-        await page.evaluate(`(async () => { ${screen.go} })()`);
-        await page.waitForFunction((sel) => {
-          const el = document.querySelector(sel);
-          return !!el && !el.hidden && el.getClientRects().length > 0;
-        }, screen.sel, { timeout: 20000, polling: 200 });
+        // Opening a screen means flying to an island, walking into a building and asking
+        // the server for something — at three frames a second, with five browsers' worth
+        // of work behind it. One retry, so a slow open is not reported as a broken screen.
+        let opened = false;
+        for (let attempt = 0; attempt < 2 && !opened; attempt += 1) {
+          await page.evaluate(() => uspeak.__layout.close());
+          await sleep(300);
+          // eslint-disable-next-line no-new-func
+          await page.evaluate(`(async () => { ${screen.go} })()`);
+          opened = await page.waitForFunction((sel) => {
+            const el = document.querySelector(sel);
+            return !!el && !el.hidden && el.getClientRects().length > 0;
+          }, screen.sel, { timeout: 20000, polling: 200 }).then(() => true).catch(() => false);
+        }
+        if (!opened) throw new Error('the screen never opened');
         await sleep(500);
         const out = await page.evaluate(new Function(`return ${AUDIT}`)(), screen.sel);
         if (!out.open) { console.log(`  ${screen.id}: did not open`); failures++; continue; }

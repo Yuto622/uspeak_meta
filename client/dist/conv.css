@@ -11,7 +11,12 @@
    in the corner of every island swallowing taps. */
 #conv-dialog[open] { display: flex; flex-direction: column; }
 #conv-dialog::backdrop { background: #04110fcc; backdrop-filter: blur(3px); }
+/* `position: static` on purpose: style.css pins every <header> element on the page to the
+   top of the window (that is the game's own top bar), and this one is a <header> inside a
+   dialog. Without this it floats over the screen instead of sitting in the panel — which
+   is invisible on a laptop and eats the title on a phone held sideways. */
 .conv-head {
+  position: static;
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding: 14px 18px; background: linear-gradient(#1b423c, #143530); border-radius: 22px 22px 0 0;
 }

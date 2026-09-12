@@ -124,8 +124,14 @@ export function createChat({ onSend, onSay, speak, toast, isPaused, isFree }) {
   for (const type of ['keydown', 'keyup', 'keypress']) {
     $('#net-chat-text').addEventListener(type, (e) => e.stopPropagation());
   }
-  // An on-screen keyboard covers the bottom of the page, which is where this box is.
-  $('#net-chat-text').addEventListener('focus', () => setTimeout(() => $('#net-chat-text').scrollIntoView({ block: 'nearest' }), 250));
+  // An on-screen keyboard covers the bottom of the page, which is where this box is. The
+  // log is what should move, not the panel: scrollIntoView() scrolls every ancestor, and
+  // the panel scrolling takes its own header off the screen.
+  $('#net-chat-text').addEventListener('focus', () => setTimeout(() => {
+    const list = $('#net-chat-log');
+    if (list) list.scrollTop = list.scrollHeight;
+    root.scrollTop = 0;
+  }, 250));
   load();
   return {
     receive, toggle, phrase: (id) => byId.get(id) || null,

@@ -160,6 +160,14 @@ export function createInterviewUI({ send, toast, isOnline }) {
   for (const type of ['keydown', 'keyup', 'keypress']) {
     $('#iv-text', dialog).addEventListener(type, (e) => e.stopPropagation());
   }
+  // An on-screen keyboard covers the bottom of the page. Bring the box into view by
+  // scrolling the column it lives in — scrollIntoView() scrolls every ancestor, and on a
+  // phone held sideways that pushed the whole dialog up and cut off its own header.
+  $('#iv-text', dialog).addEventListener('focus', () => setTimeout(() => {
+    const side = $('.iv-side', dialog);
+    if (side) side.scrollTop = side.scrollHeight;
+    dialog.scrollTop = 0;
+  }, 250));
   $('#iv-again', dialog).onclick = () => {
     const line = state.stage === 'read' ? state.card?.passage : state.question?.q;
     if (line) upee.say(line);
