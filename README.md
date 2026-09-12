@@ -291,6 +291,11 @@ apt-get install -y --no-install-recommends \
 fly deploy --build-arg WITH_LATEX=1
 ```
 
+**フォントは あるものを使います。** Noto Sans CJK JP → Noto Sans JP → Yu Gothic → Meiryo →
+Hiragino Sans → IPAexGothic → IPAGothic の順に探すので、Windows でも macOS でも
+そのまま `xelatex` で組めます（どれも無ければ、何を入れればよいかを言って止まります）。
+特定のフォントで組ませたいときは `REPORT_FONT=游ゴシック` のように指定してください。
+
 `.tex` は画像も外部ファイルも使っていない1枚ものなので、**文面や色を学校で書き換えて**
 そのまま組み直せます。急ぐときは、レポート画面をブラウザーの「印刷 → PDF に保存」でも
 きれいに出ます（印刷用のスタイルを入れてあります）。

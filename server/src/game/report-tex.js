@@ -59,7 +59,7 @@ export function reportBars(r) {
 
 // The document. One file, no images, no shell-escape, no network: everything on the page
 // is drawn by TikZ from the numbers above.
-export function reportTex(r, { font = 'Noto Sans CJK JP' } = {}) {
+export function reportTex(r, { font = process.env.REPORT_FONT || '' } = {}) {
   const bars = reportBars(r);
   const seen = r.lastSeen ? jaDate(r.lastSeen) : '';
   const made = jaDate(r.madeAt) || '';
@@ -107,8 +107,20 @@ export function reportTex(r, { font = 'Noto Sans CJK JP' } = {}) {
 \\usepackage{tikz}
 \\usepackage[margin=0pt]{geometry}
 \\usetikzlibrary{calc,fadings,decorations.pathmorphing}
-\\setCJKmainfont{${font}}
-\\setmainfont{${font}}
+% 日本語のフォント。ここが この一枚で いちばん 環境に よるところなので、
+% あるものを 上から順に 使います（Linux → Windows → macOS）。
+% どれも無ければ 組版を止めて、理由を その場で 言います。
+${font ? `\\setCJKmainfont{${tex(font)}}
+\\setmainfont{${tex(font)}}` : `\\newcommand{\\uspeakfont}[1]{\\setCJKmainfont{#1}\\setmainfont{#1}}
+\\IfFontExistsTF{Noto Sans CJK JP}{\\uspeakfont{Noto Sans CJK JP}}{%
+\\IfFontExistsTF{Noto Sans JP}{\\uspeakfont{Noto Sans JP}}{%
+\\IfFontExistsTF{Yu Gothic}{\\uspeakfont{Yu Gothic}}{%
+\\IfFontExistsTF{Meiryo}{\\uspeakfont{Meiryo}}{%
+\\IfFontExistsTF{Hiragino Sans}{\\uspeakfont{Hiragino Sans}}{%
+\\IfFontExistsTF{IPAexGothic}{\\uspeakfont{IPAexGothic}}{%
+\\IfFontExistsTF{IPAGothic}{\\uspeakfont{IPAGothic}}{%
+  \\GenericError{}{U-Speak: no Japanese font found}{}{Install one of: Noto Sans CJK JP / Yu Gothic / Meiryo / Hiragino Sans / IPAexGothic, or pass one with REPORT_FONT.}%
+}}}}}}}`}
 \\pagestyle{empty}
 \\setlength{\\parindent}{0pt}
 
