@@ -8,7 +8,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
   RIDE, ISLAND, COURSE, COURSE_CAP, loadVehicles, vehiclePayload, sanitizeGarage,
-  sanitizeRiding, speedOf, startLap, crossGate, nextGate, DATA_PATH,
+  sanitizeRiding, speedOf, DATA_PATH,
 } from '../src/game/vehicles.js';
 
 const raw = JSON.parse(readFileSync(DATA_PATH, 'utf8'));
@@ -51,26 +51,27 @@ test('a garage only holds vehicles that exist, and you ride only what you own', 
   assert.equal(speedOf('nothing'), 1, 'on foot');
 });
 
-test('the course is driven in order, and out of order simply waits', () => {
-  const lap = startLap(1000);
-  assert.equal(nextGate(lap).order, 1);
+test('the circuit is a circuit: a closed ring of checkpoints, with the line on the grid', () => {
   const gates = COURSE.gates;
-  // Crossing the third checkpoint first is not the next one; the lap does not advance.
-  const skipped = crossGate(lap, gates[2].id, 1100);
-  assert.equal(skipped.ok, false);
-  assert.equal(skipped.want.id, gates[0].id);
-  assert.equal(lap.next, 0);
-  let out;
-  for (let i = 0; i < gates.length; i += 1) {
-    out = crossGate(lap, gates[i].id, 1000 + (i + 1) * 1000);
-    assert.equal(out.ok, true, gates[i].id);
-    assert.equal(out.done, i === gates.length - 1);
-  }
-  assert.equal(out.ms, gates.length * 1000, 'the lap is timed from its start');
-  assert.equal(nextGate(lap), null);
-  // Six checkpoints, six direction words, all different.
+  assert.ok(gates.length >= 5, 'a circuit, not a triangle');
+  assert.equal(gates[gates.length - 1].id, 'finish', 'the last checkpoint is the line');
+  gates.forEach((g, i) => assert.equal(g.order, i + 1, `${g.id} is out of order`));
+  // Every checkpoint carries its own English word, and no two are the same.
   assert.equal(new Set(gates.map((g) => g.word)).size, gates.length);
-  assert.equal(COURSE.reward.coins * 10, COURSE_CAP, 'ten laps is a full day');
+  // Consecutive checkpoints are a drive apart, and the ring closes.
+  for (let i = 0; i < gates.length; i += 1) {
+    const next = gates[(i + 1) % gates.length];
+    const gap = Math.hypot(gates[i].x - next.x, gates[i].z - next.z);
+    assert.ok(gap > COURSE.reach * 2, `${gates[i].id} → ${next.id} is not a drive`);
+    assert.ok(gap < 40, `${gates[i].id} → ${next.id} is longer than the island`);
+  }
+  // Three laps, a lap time nobody can beat, and a day's racing that is not a coin machine.
+  assert.equal(COURSE.laps, 3);
+  assert.ok(COURSE.minLapMs >= 5000);
+  assert.ok(COURSE.dailyCap <= COURSE.reward.place[0].coins * 5, 'a handful of wins is a day');
+  // Rivals exist for the child who is alone, and none of them is faster than possible.
+  assert.ok(COURSE.rivals.length >= 2);
+  for (const r of COURSE.rivals) assert.ok(r.lapMs > COURSE.minLapMs, `${r.id} laps impossibly fast`);
 });
 
 test('the island is a place before it is a menu', () => {
@@ -86,9 +87,14 @@ test('the island is a place before it is a menu', () => {
   // Every vehicle can be bought somewhere, and the start line exists.
   for (const id of RIDE.order) assert.ok(spots.some((s) => s.vehicle === id), `${id} has no gate`);
   assert.equal(ISLAND.start.kind, 'start');
-  // A checkpoint must not sit inside a gate's shop, or the lap counts a corner nobody drove.
+  // A checkpoint must not sit inside a shop, or the lap counts a corner nobody drove.
+  // The finish is the exception, and has to be: on a circuit the start line is the line.
   for (const g of COURSE.gates) {
     for (const s of spots) {
+      if (g.id === 'finish' && s.kind === 'start') {
+        assert.ok(Math.hypot(g.x - s.x, g.z - s.z) < 0.01, 'the finish line is the start line');
+        continue;
+      }
       assert.ok(Math.hypot(g.x - s.x, g.z - s.z) > 3, `${g.id} is on top of ${s.id}`);
     }
   }

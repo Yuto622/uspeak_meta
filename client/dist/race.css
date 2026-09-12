@@ -1,0 +1,82 @@
+/* のりもの島のレース — the HUD of a kart race: place, lap, and the word to drive to. */
+#race-hud {
+  position: fixed; inset: auto 0 0 0; z-index: 44; pointer-events: none;
+  display: grid; grid-template-columns: auto auto 1fr auto; align-items: end; gap: 12px;
+  padding: 0 18px 96px; font-family: inherit; color: #fff;
+  text-shadow: 0 3px 10px #06110fcc;
+}
+.race-place { display: flex; align-items: baseline; gap: 2px; }
+.race-place b { font-size: clamp(38px, 7vw, 62px); font-weight: 800; letter-spacing: -.02em; line-height: .9; }
+.race-place small { font-size: 16px; opacity: .75; }
+.race-lap { display: flex; flex-direction: column; align-items: flex-start; }
+.race-lap span { font-size: 11px; letter-spacing: .18em; opacity: .8; }
+.race-lap b { font-size: clamp(20px, 3.4vw, 30px); font-weight: 800; line-height: 1; }
+/* The next checkpoint, which is an English word: the thing this race is actually for. */
+.race-next { justify-self: center; text-align: center; background: #0d2a26bb; border-radius: 14px; padding: 6px 16px; backdrop-filter: blur(4px); }
+.race-next span { display: block; font-size: clamp(17px, 3vw, 26px); font-weight: 800; }
+.race-next small { display: block; font-size: 12px; opacity: .8; }
+.race-board { list-style: none; margin: 0; padding: 8px 10px; background: #0d2a26aa; border-radius: 14px; font-size: 12px; min-width: 132px; backdrop-filter: blur(4px); }
+.race-board li { display: flex; gap: 8px; padding: 1px 0; opacity: .82; }
+.race-board li b { width: 18px; text-align: right; opacity: .7; }
+.race-board li.me { opacity: 1; font-weight: 700; color: #ffe08a; }
+.race-boost { position: fixed; left: 50%; bottom: 170px; transform: translateX(-50%); font-size: 20px; font-weight: 800; color: #ffe08a; animation: race-pulse .35s infinite alternate; }
+@keyframes race-pulse { from { opacity: .55; } to { opacity: 1; } }
+/* Sparks: the drift charge, as a rim of light round the screen. */
+#race-hud[data-drift="1"]::after, #race-hud[data-drift="2"]::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none;
+  box-shadow: inset 0 0 90px #4fc3f7aa; animation: race-pulse .5s infinite alternate;
+}
+#race-hud[data-drift="2"]::after { box-shadow: inset 0 0 110px #ff9e3daa; }
+
+/* The countdown, the lap banner, GO! — one place, one shape, different words. */
+#race-flash {
+  position: fixed; left: 50%; top: 34%; transform: translate(-50%, -50%); z-index: 46;
+  font-size: clamp(34px, 8vw, 78px); font-weight: 800; color: #fff; letter-spacing: .02em;
+  text-shadow: 0 6px 24px #06110f; pointer-events: none; text-align: center;
+}
+#race-flash.race-count { color: #ffd166; }
+#race-flash.race-go { color: #8fe0b4; }
+#race-flash.race-boost-flash { color: #ffe08a; font-size: clamp(26px, 5vw, 46px); }
+#race-flash.race-lap-flash { font-size: clamp(22px, 4vw, 38px); }
+#race-flash.race-miss { color: #ffb4a2; font-size: clamp(20px, 3.4vw, 32px); }
+
+/* 📦 The item box: one Japanese word, three English answers, three seconds. It has to be
+   readable at a glance and tappable without looking, because the kart is still moving. */
+#race-box {
+  position: fixed; left: 50%; bottom: 118px; transform: translateX(-50%); z-index: 47;
+  background: #12302cf2; color: #f3efe1; border-radius: 18px; padding: 12px 14px;
+  box-shadow: 0 18px 50px #04110f99; display: flex; flex-direction: column; gap: 10px;
+  width: min(560px, 94vw); animation: race-in .16s ease-out;
+}
+@keyframes race-in { from { transform: translate(-50%, 12px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+.race-box-word { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.race-box-word span { font-size: 30px; }
+.race-box-word b { font-size: clamp(18px, 3.4vw, 26px); }
+.race-box-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.race-box-choices button {
+  padding: 14px 8px; border-radius: 13px; background: #ffffff1f; color: #f3efe1;
+  font-size: clamp(14px, 2.4vw, 18px); font-weight: 700;
+}
+.race-box-choices button:active { background: #2f8f6b; transform: translateY(1px); }
+
+/* The board at the end. */
+#race-result { border: none; padding: 0; width: min(560px, 94vw); border-radius: 20px; background: #12302c; color: #f3efe1; }
+#race-result::backdrop { background: #04110fcc; }
+#race-result-body { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 10px; }
+.race-result-line { margin: 0; display: flex; align-items: baseline; gap: 12px; }
+.race-result-line b { font-size: 30px; font-weight: 800; }
+.race-result-prize { margin: 0; font-size: 14px; opacity: .9; }
+.race-result-board { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.race-result-board li { display: flex; gap: 10px; align-items: baseline; background: #ffffff12; border-radius: 10px; padding: 6px 10px; font-size: 14px; }
+.race-result-board li.me { background: #74c39a2e; font-weight: 700; }
+.race-result-board li b { width: 22px; opacity: .7; }
+.race-result-board li small { margin-left: auto; opacity: .6; font-size: 11px; }
+.race-fine { margin: 0; font-size: 12px; opacity: .7; }
+
+@media (max-width: 560px) {
+  #race-hud { padding: 0 10px 92px; gap: 8px; grid-template-columns: auto 1fr auto; }
+  .race-next { grid-column: 1 / -1; order: 3; }
+  .race-board { min-width: 104px; font-size: 11px; }
+  #race-box { bottom: 104px; padding: 10px; }
+  .race-box-choices button { padding: 12px 6px; }
+}

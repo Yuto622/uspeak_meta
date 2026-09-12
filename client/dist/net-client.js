@@ -19,6 +19,7 @@ import { createPetUI } from './pet.js';
 import { createDailyUI } from './daily.js';
 import { createNight } from './night-world.js';
 import { createRideUI } from './ride.js';
+import { createRaceUI } from './race.js';
 import { createRoom } from './room-world.js';
 import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
@@ -137,15 +138,25 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   });
   // のりもの島. The speed a vehicle gives is applied by the world; what it is worth and
   // whether it is yours are the server's to say.
+  // のりもの島のレース. The kart, the HUD and the rivals live here; the order and the
+  // prizes come back from the room.
+  const race = createRaceUI({
+    // Everything a race asks is answered from where the kart is: the checkpoint claimed
+    // this frame, the box driven over this frame, the place on the grid. Say where that
+    // is before asking, or the server answers from the position it was last told about —
+    // at boost speed on a slow tablet that is several kart lengths back, and the child
+    // loses the lap without ever being told why.
+    send: (type, payload) => { if (room && state.mode === 'online') sendMove(); room?.send(type, payload); },
+    toast, isOnline: () => state.mode === 'online',
+    scene, player, rpg,
+  });
   const ride = createRideUI({
     send: (type, payload) => room?.send(type, payload),
     toast, speak, learn, isOnline: () => state.mode === 'online',
     onRiding: (id, speed) => { state.riding = id; state.speed = id ? speed : 1; },
-    onCourse: (gateId) => {
-      rpg.ride.setNext(gateId);
-      // Driving past a building is not visiting it: the doors stay shut for the lap.
-      rpg.holdDoors(!!gateId);
-    },
+    // The start line hands over to the race, and the race hands the best lap back.
+    onRace: (what) => (what === 'quit' ? race.quit() : race.join()),
+    racing: () => race.state.phase !== 'off',
   });
   // The night belongs to the world, not to the network, but its ghosts pay coins — so
   // it is created here, where the room is, and asks the server for every one of them.
@@ -201,7 +212,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
-    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; ride.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); town.hideHud(); voice.setMode('off'); }
+    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); town.hideHud(); voice.setMode('off'); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
   }
   function saveSession() {
@@ -308,6 +319,17 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('conv:reply', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress); conv.onReply(m); });
     r.onMessage('conv:closed', (m) => conv.onClosed(m));
     r.onMessage('conv:error', (m) => conv.onError(m));
+    r.onMessage('race:grid', (m) => { race.onGrid(m); rpg.ride.setNext(m.gates?.[0]?.id || ''); });
+    r.onMessage('race:field', (m) => race.onField({ ...m, you: state.sessionId }));
+    r.onMessage('race:lights', (m) => race.onLights(m));
+    r.onMessage('race:go', (m) => race.onGo(m));
+    r.onMessage('race:gate', (m) => { race.onGate(m); rpg.ride.setNext(m.next || ''); });
+    r.onMessage('race:box', (m) => race.onBox(m));
+    r.onMessage('race:boost', (m) => { applyProgress(m.progress); race.onBoost(m); });
+    r.onMessage('race:finished', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress); ride.setBest(m.bestMs || m.best || 0); rpg.ride.setNext(''); race.onFinished(m); });
+    r.onMessage('race:over', (m) => race.onOver(m));
+    r.onMessage('race:closed', (m) => { race.onClosed(m); rpg.ride.setNext(''); });
+    r.onMessage('race:error', (m) => race.onError(m));
     r.onMessage('voice:room', (m) => voice.onRoom(m));
     r.onMessage('voice:peer', (m) => voice.onPeer(m));
     r.onMessage('voice:closed', (m) => voice.onClosed(m));
@@ -343,10 +365,6 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('ride:garage', (m) => ride.onGarage(m));
     r.onMessage('ride:bought', (m) => { if (m.wallet) applyWallet(m.wallet); ride.onBought(m); });
     r.onMessage('ride:error', (m) => ride.onError(m));
-    r.onMessage('course:started', (m) => ride.onStarted(m));
-    r.onMessage('course:gate', (m) => ride.onGate(m));
-    r.onMessage('course:finished', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress, m.levels); ride.onFinished(m); });
-    r.onMessage('course:error', (m) => ride.onError(m));
     r.onMessage('world:phase', (m) => night.setPhase(m));
     r.onMessage('night:ghosts', (m) => { night.setGhosts(m.ghosts); if (m.caught) night.pop(m.caught); });
     r.onMessage('ghost:caught', (m) => { if (m.wallet) applyWallet(m.wallet); night.onCaught(m); });
@@ -701,7 +719,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     arenaLabel: (spot) => (spot.kind === 'dojo' ? dojo.label(spot) : battle.label(spot)),
     petInteract: () => { const near = rpg.petNearby(); if (near) petUI.enter(near.spot); },
     petLabel: (spot) => petUI.label(spot),
-    town, myRoom, myPlaza, voice, conv,
+    town, myRoom, myPlaza, voice, conv, race,
     // Whichever of the two a child is standing in. The page's E and Q keys work on it.
     get builder() { return myRoom.active ? myRoom : myPlaza.active ? myPlaza : null; },
     townInteract: () => { const near = rpg.townNearby(); if (near) town.enter(near.spot); },
@@ -710,7 +728,6 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     rideInteract: () => { const near = rpg.rideNearby(); if (near) ride.enter(near.spot); },
     rideLabel: (spot) => ride.label(spot),
     // The world tells us when the avatar drives into a checkpoint ring.
-    rideCross: (gateId) => ride.cross(gateId),
     // How fast this child moves: 1 on foot, more on a vehicle they own.
     speed: () => (state.mode === 'online' ? state.speed : 1),
     night,

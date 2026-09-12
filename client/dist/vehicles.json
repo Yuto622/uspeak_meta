@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "note": "のりもの島. Same contract as the other islands: the client builds from these coordinates and the server checks positions against them. A vehicle is bought at its own gate, and the course is driven through six checkpoints in order.",
+  "note": "のりもの島。のりものは買って乗る。コースは本物のレース：スタート/フィニッシュの直線、6つのチェックポイント、3周、アイテムボックス（英語に答えるとダッシュ）、ブーストパッド、ドリフト。順位・周回・報酬はすべてサーバーが決める。座標はクライアントとサーバーの共有データ。",
   "island": {
     "id": "ride",
     "name": "のりもの島",
@@ -12,7 +12,7 @@
     "grassTop": 11979146,
     "spawn": {
       "x": 0,
-      "z": 21
+      "z": 23
     },
     "courtyard": {
       "x": 0,
@@ -90,17 +90,17 @@
       {
         "id": "start",
         "kind": "start",
-        "name": "スタートライン",
+        "name": "スタート・ゴール",
         "en": "Start Line",
         "character": "Upee",
         "ja": "スタート",
         "x": 0,
-        "z": 13,
+        "z": 17.3,
         "color": 15786941,
         "tone": "🚦",
         "path": {
           "x": 0,
-          "z": 21
+          "z": 23
         }
       }
     ]
@@ -156,12 +156,31 @@
     }
   ],
   "course": {
-    "reach": 4.0,
+    "reach": 4.5,
     "reward": {
-      "xp": 15,
-      "coins": 10
+      "place": [
+        {
+          "coins": 60,
+          "xp": 40
+        },
+        {
+          "coins": 40,
+          "xp": 30
+        },
+        {
+          "coins": 25,
+          "xp": 22
+        }
+      ],
+      "rest": {
+        "coins": 15,
+        "xp": 15
+      },
+      "item": {
+        "xp": 4
+      }
     },
-    "dailyCap": 100,
+    "dailyCap": 220,
     "gates": [
       {
         "id": "go",
@@ -205,11 +224,126 @@
       },
       {
         "id": "goal",
-        "word": "goal",
-        "ja": "ゴール",
+        "word": "last corner",
+        "ja": "さいごの コーナー",
         "order": 6,
         "x": -11.5,
         "z": 17.3
+      },
+      {
+        "id": "finish",
+        "word": "finish",
+        "ja": "ゴール！",
+        "order": 7,
+        "x": 0.0,
+        "z": 17.3
+      }
+    ],
+    "laps": 3,
+    "minLapMs": 9000,
+    "road": {
+      "width": 9.0
+    },
+    "grid": [
+      {
+        "x": -3.0,
+        "z": 19.6
+      },
+      {
+        "x": 3.0,
+        "z": 19.6
+      },
+      {
+        "x": -3.0,
+        "z": 15.0
+      },
+      {
+        "x": 3.0,
+        "z": 15.0
+      },
+      {
+        "x": -6.0,
+        "z": 19.6
+      },
+      {
+        "x": 6.0,
+        "z": 19.6
+      },
+      {
+        "x": -6.0,
+        "z": 15.0
+      },
+      {
+        "x": 6.0,
+        "z": 15.0
+      }
+    ],
+    "boosts": [
+      {
+        "x": 17.5,
+        "z": 9.0
+      },
+      {
+        "x": 17.5,
+        "z": -9.0
+      },
+      {
+        "x": 0.0,
+        "z": -17.3
+      },
+      {
+        "x": -17.5,
+        "z": -9.0
+      },
+      {
+        "x": -17.5,
+        "z": 9.0
+      }
+    ],
+    "items": [
+      {
+        "x": 7.0,
+        "z": 17.3
+      },
+      {
+        "x": 21.0,
+        "z": 4.0
+      },
+      {
+        "x": 7.0,
+        "z": -17.3
+      },
+      {
+        "x": -7.0,
+        "z": -17.3
+      },
+      {
+        "x": -21.0,
+        "z": 4.0
+      },
+      {
+        "x": -7.0,
+        "z": 17.3
+      }
+    ],
+    "rivals": [
+      {
+        "id": "rival-luigi",
+        "name": "ミドリ",
+        "colour": 5875818,
+        "lapMs": 26000
+      },
+      {
+        "id": "rival-peach",
+        "name": "モモ",
+        "colour": 15770186,
+        "lapMs": 29000
+      },
+      {
+        "id": "rival-bowser",
+        "name": "クッパ風",
+        "colour": 13031144,
+        "lapMs": 32000
       }
     ]
   }

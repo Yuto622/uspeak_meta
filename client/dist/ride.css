@@ -35,23 +35,6 @@
 .ride-act button:disabled { opacity: .5; }
 .ride-elsewhere { font-size: 11px; color: #7b8a7f; }
 
-/* The HUD is one word, as big as it can be without covering the road. */
-#ride-hud {
-  position: fixed; left: 50%; top: 14px; transform: translateX(-50%); z-index: 40;
-  display: grid; justify-items: center; gap: 1px; padding: 9px 26px; border-radius: 16px;
-  background: rgba(23, 63, 56, .88); color: #f6f2e2; text-align: center;
-  backdrop-filter: blur(6px); box-shadow: 0 12px 30px rgba(10, 36, 27, .35); pointer-events: none;
-}
-#ride-hud-stage { font-size: 10px; letter-spacing: 2px; opacity: .7; }
-#ride-hud-word { font-size: 30px; line-height: 1.05; font-weight: 800; }
-#ride-hud-ja { font-size: 12px; opacity: .85; }
-#ride-hud-clock { font-size: 13px; font-weight: 700; color: #ffd98a; }
-
-@media (max-height: 440px) {
-  #ride-hud { top: 6px; padding: 5px 18px; grid-template-columns: auto auto auto; align-items: baseline; gap: 8px; }
-  #ride-hud-stage { display: none; }
-  #ride-hud-word { font-size: 20px; }
-}
 @media (max-width: 520px) {
   .ride-card { grid-template-columns: 26px 1fr; grid-template-areas: 'tier name' 'tier need' 'act act'; }
   .ride-need { text-align: left; }

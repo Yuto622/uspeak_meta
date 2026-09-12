@@ -26,6 +26,33 @@
   console.log(`PASS: all ${files.length} browser modules parse.`);
 }
 
+// And no stylesheet may give a closed <dialog> a `display`. The browser's own
+// `dialog:not([open]) { display: none }` is a plain rule, and an id selector beats it: a
+// closed panel then sits over the island, invisible against the sky and swallowing every
+// tap that lands on it. It has been shipped that way twice — おつかい島 and 英会話島 —
+// and both times it was found by a child, not by a test.
+{
+  const { readdirSync, readFileSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const dir = fileURLToPath(new URL('../dist/', import.meta.url));
+  const sheets = readdirSync(dir).filter((f) => f.endsWith('.css'));
+  const bad = [];
+  for (const f of sheets) {
+    const css = readFileSync(dir + f, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const [, selectors, body] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      if (!/(^|[;\s])display\s*:/.test(body)) continue;
+      for (const sel of selectors.split(',')) {
+        if (/(^|[\s>+~])(dialog|#[\w-]*dialog)$/.test(sel.trim())) bad.push(`${f}: ${sel.trim()}`);
+      }
+    }
+  }
+  if (bad.length) {
+    console.error('FAIL: a closed <dialog> would still be laid out — put the display on [open]:\n  ' + bad.join('\n  '));
+    process.exit(1);
+  }
+  console.log(`PASS: none of the ${sheets.length} stylesheets lays out a closed dialog.`);
+}
+
 import {TREASURES,TREASURE_KEYS,keyGoals} from '../dist/treasure-data.js';
 import {createAdventureStore} from '../dist/adventure-state.js';
 import {BUILDINGS} from '../dist/buildings.js';
@@ -218,9 +245,12 @@ for(const [hub,mod,near,unwrap] of [['school','school','schoolNearby'],['arena',
  // Every building a child can see has a way in, and the way in is where they arrive:
  // walking to the place puts them in its doorway, which is what takes them inside.
  const doors=rpg[mod].doors;
- assert.equal(doors.length,island.spots.length,hub+': not every building has a door');
+ // のりもの島 の スタートラインだけは建物ではない：レースはグリッドに乗って始めるもので、
+ // 小屋に入って始めるものではない（ドアが線の上にあると走行中に中へ吸い込まれる）。
+ const withDoors=island.spots.filter(sp=>!(hub==='ride'&&sp.kind==='start'));
+ assert.equal(doors.length,withDoors.length,hub+': not every building has a door');
  for(const d of doors){
-  const spot=island.spots.find(sp=>sp.id===d.id);
+  const spot=withDoors.find(sp=>sp.id===d.id);
   assert.ok(spot,hub+': a door belongs to no place');
   assert.ok(Math.abs(d.x-spot.x)<0.01&&Math.abs(d.z-spot.z)<=1.4,hub+': the door of '+d.id+' is not where a child arrives');
   player.position.set(island.x+spot.x,0,island.z+spot.z);
@@ -255,10 +285,86 @@ for(const [hub,mod,near,unwrap] of [['school','school','schoolNearby'],['arena',
    // Standing in one checkpoint must never count as standing in the next.
    assert.ok(Math.hypot(gate.x-next.x,gate.z-next.z)>course.reach*2,'ride: '+gate.id+' and '+next.id+' overlap');
   }
-  player.position.set(island.x,0,island.z+21);
+  // The dock is behind the grid, not on the line: a child who has just landed is not
+  // standing in the finish, or their first step would count as a lap.
+  player.position.set(island.x+island.spawn.x,0,island.z+island.spawn.z);
   assert.equal(rpg.rideGate(),null,'ride: the landing is not a checkpoint');
+  // And the grid is on the road, behind the line, where a kart can actually start.
+  for(const place of course.grid){
+   assert.ok(!rpg.blocked(island.x+place.x,0+island.z+place.z),'ride: a grid place is inside something');
+  }
+  for(const box of [...course.items,...course.boosts]){
+   assert.ok(!rpg.blocked(island.x+box.x,island.z+box.z),'ride: an item box or boost pad is inside something');
+  }
   rpg.activate('willow');
   console.log('PASS: のりもの島のコース — '+course.gates.length+' checkpoints drivable, the road clear of buildings, none overlapping.');
  }
 }
 
+
+// --- カート: how a kart drives, which is the whole difference between this island and ----
+// every other one. Pure physics, so it is checked here rather than in a browser.
+{
+ const {createKart,driveKart,boostKart,onRoad,placeOnGrid,KART}=await import('../dist/kart.js');
+ const course=(await rpg.ride.ready).course;
+ const kart=createKart();
+ const pos={position:{x:0,y:0,z:0},rotation:{y:0}};
+ const free=()=>false;
+ const keys=new Set();
+ const step=(n,dt=1/60,speed=1,extra={})=>{for(let i=0;i<n;i++)driveKart(kart,{dt,keys,player:pos,blocked:free,course,speed,now:i*dt*1000,...extra})};
+
+ // The throttle: a kart builds speed rather than having it, and stops accelerating at
+ // its top speed.
+ keys.add('w');step(120);
+ assert.ok(kart.speed>6,'the throttle builds speed ('+kart.speed.toFixed(1)+')');
+ const flat=kart.speed;step(240);
+ assert.ok(kart.speed<=KART.top+0.01&&kart.speed>=flat,'and stops at the top speed');
+ // Off the road it is slower: the grass is what keeps a child on the racing line.
+ kart.onRoad=false;step(120);
+ assert.ok(kart.speed<KART.top*0.6,'the grass is slow ('+kart.speed.toFixed(1)+')');
+ kart.onRoad=true;
+
+ // Steering only turns a kart that is moving, and a drift turns it harder.
+ keys.add('a');const before=pos.rotation.y;step(30);
+ assert.ok(Math.abs(pos.rotation.y-before)>0.2,'the kart steers');
+ const straight=Math.abs(pos.rotation.y-before);
+ keys.add(' ');step(30);
+ assert.ok(kart.driftWay!==0,'holding the drift key drifts');
+ assert.ok(Math.abs(kart.slip)>0.05,'and the body slides out of line');
+ // Held long enough, the drift charges; released, it pays a boost.
+ step(90);
+ assert.ok(kart.sparks>=1,'a held drift charges ('+kart.sparks+')');
+ const chargedAt=90*(1000/60);
+ keys.delete(' ');driveKart(kart,{dt:1/60,keys,player:pos,blocked:free,course,speed:1,now:chargedAt});
+ assert.ok(kart.boostUntil>chargedAt,'and releasing it is a boost');
+ assert.equal(kart.sparks,0,'the charge is spent');
+ void straight;
+
+ // A wall stops a kart rather than teleporting it through.
+ const solid=(x)=>x>2;
+ keys.clear();keys.add('w');
+ const kart2=createKart();const pos2={position:{x:0,y:0,z:0},rotation:{y:0}};
+ kart2.heading=Math.PI/2;
+ for(let i=0;i<200;i++)driveKart(kart2,{dt:1/60,keys,player:pos2,blocked:solid,course,speed:1,now:i*16});
+ assert.ok(pos2.position.x<=2.01,'a kart does not drive through a building');
+
+ // The road: on it along the ring, off it in the middle of the island and out at sea.
+ const gates=course.gates;
+ assert.equal(onRoad(course,gates[0].x,gates[0].z),true,'a checkpoint is on the road');
+ const mid={x:(gates[0].x+gates[3].x)/2,z:(gates[0].z+gates[3].z)/2};
+ assert.equal(onRoad(course,mid.x,mid.z),false,'the middle of the island is not the road');
+ assert.equal(onRoad(course,90,90),false,'and neither is the sea');
+ for(const box of [...course.items,...course.boosts,...course.grid]){
+  assert.equal(onRoad(course,box.x,box.z),true,'everything a kart drives over is on the road');
+ }
+
+ // The grid: every kart starts stopped, on its own square, pointing down the road.
+ const kart3=createKart();const pos3={position:{x:0,y:0,z:0,set(x,y,z){this.x=x;this.y=y;this.z=z}},rotation:{y:0}};
+ placeOnGrid(kart3,pos3,{x:0,z:0},course.grid[0]);
+ assert.equal(kart3.speed,0,'a kart on the grid is stopped');
+ assert.ok(Math.abs(pos3.position.x-course.grid[0].x)<0.01);
+ assert.ok(Math.abs(pos3.rotation.y-Math.PI/2)<0.01,'and faces the first corner');
+ boostKart(kart3,'item',1000);
+ assert.ok(kart3.boostUntil>1000&&kart3.speed>0,'an answered item box is a dash');
+ console.log('PASS: カート — throttle, top speed, grass, steering, drift charge and release, collision, and the racing line.');
+}

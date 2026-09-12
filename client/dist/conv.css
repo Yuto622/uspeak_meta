@@ -2,11 +2,14 @@
 #conv-dialog {
   border: none; padding: 0; width: min(940px, 94vw); max-height: 94vh; border-radius: 22px;
   background: #12302c; color: #f3efe1; box-shadow: 0 30px 80px #04110f88;
-  /* The head and the buttons stay put; the middle is what scrolls. On a classroom iPad in
-     landscape there is not much height, and a child should never have to scroll to find
-     the microphone. */
-  display: flex; flex-direction: column; overflow: hidden;
+  overflow: hidden;
 }
+/* The head and the buttons stay put; the middle is what scrolls. On a classroom iPad in
+   landscape there is not much height, and a child should never have to scroll to find the
+   microphone. This goes on [open] and never on the bare id: `display` on a closed <dialog>
+   beats the browser's own `dialog:not([open]) { display: none }`, and the panel then sits
+   in the corner of every island swallowing taps. */
+#conv-dialog[open] { display: flex; flex-direction: column; }
 #conv-dialog::backdrop { background: #04110fcc; backdrop-filter: blur(3px); }
 .conv-head {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;

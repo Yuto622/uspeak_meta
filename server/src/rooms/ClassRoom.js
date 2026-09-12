@@ -11,7 +11,7 @@ import { PHRASE_IDS } from '../phrases.js';
 import { MISSIONS } from '../game/missions.js';
 import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS, eikenReward } from '../game/progression.js';
 import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SESSION } from '../game/wordquiz.js';
-import { MODES as GYM_MODES, createSet, questionPayload as gymPayload, answerSet } from '../game/gym.js';
+import { MODES as GYM_MODES, WORDS, createSet, questionPayload as gymPayload, answerSet } from '../game/gym.js';
 import { ARENA, createBattle, statePayload, quizPayload, chooseWaza, answerQuiz, BattleError, DAILY_CAP } from '../game/battle.js';
 import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
@@ -20,9 +20,13 @@ import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_C
 import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError } from '../game/eiken.js';
 import { TALK, isTalkSpace } from '../game/talk.js';
 import { CONV, asMission as convMission, topicPayload as convPayload, convSpots } from '../game/conv.js';
+import {
+  createRace, joinRace, leaveRace, maybeStart, beginIfDue, crossCheckpoint, standings,
+  raceOver, prizeFor, itemXp, coursePayload, LAPS, GRID_MS, MAX_RACERS,
+} from '../game/race.js';
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
-import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding, startLap, crossGate } from '../game/vehicles.js';
+import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
 import { createGate } from '../game/gate.js';
 import { reportPath } from '../game/report.js';
@@ -138,8 +142,10 @@ export class ClassRoom extends Room {
     this.onMessage('ride:list', (client) => client.send('ride:garage', this.garagePayload(client.sessionId)));
     this.onMessage('ride:buy', (client, msg) => this.onRideBuy(client, msg));
     this.onMessage('ride:equip', (client, msg) => this.onRideEquip(client, msg));
-    this.onMessage('course:start', (client) => this.onCourseStart(client));
-    this.onMessage('course:gate', (client, msg) => this.onCourseGate(client, msg));
+    this.onMessage('race:join', (client) => this.onRaceJoin(client));
+    this.onMessage('race:leave', (client) => this.onRaceLeave(client, 'left'));
+    this.onMessage('race:gate', (client, msg) => this.onRaceGate(client, msg));
+    this.onMessage('race:item', (client, msg) => this.onRaceItem(client, msg));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -164,6 +170,7 @@ export class ClassRoom extends Room {
     });
     // Who has a microphone open, and where they were standing when they opened it.
     this.voice = new Map();          // sessionId -> { room, at }
+    this.race = null;                // のりもの島: one race per class, or none
     this.stage = new Set();          // sessionIds a teacher has put on the stage (big rooms)
     this.lastPersistAll = Date.now();
     // The sky is a function of the wall clock, so there is nothing to start or store —
@@ -535,6 +542,7 @@ export class ClassRoom extends Room {
   tick() {
     const now = Date.now();
     this.tickWorld(now);
+    this.tickRace(now);
     for (const [id, player] of this.state.players) {
       const priv = this.priv.get(id);
       if (player.connected && priv && now - priv.lastMoveAt > STALE_MOVE_MS && player.anim !== 'idle') player.anim = 'idle';
@@ -1777,64 +1785,213 @@ export class ClassRoom extends Room {
     client.send('ride:garage', this.garagePayload(client.sessionId));
   }
 
-  // The course: six checkpoints in a ring, each carrying a direction word, crossed in
-  // order on a vehicle. The order and the standing-there are both checked here.
-  onCourseStart(client) {
+  // ---- レース ---------------------------------------------------------------------------
+  //
+  // A circuit, three laps, and whoever else on the island got on the grid. One race per
+  // class at a time: children who walk up while it is on the grid join it, and children
+  // who walk up after the lights are told to wait for the next one. Rivals fill the field
+  // for a child racing alone.
+  //
+  // The room's job here is the same as everywhere else: it checks that the child is
+  // actually standing at the checkpoint they claim, and game/race.js decides the rest.
+  raceBroadcast(type, payload) {
+    for (const id of this.race?.racers.keys() || []) {
+      this.clients.find((c) => c.sessionId === id)?.send(type, payload);
+    }
+  }
+
+  raceRow(now = Date.now()) {
+    return { phase: this.race.phase, laps: LAPS, standings: standings(this.race, now), in: this.race.racers.size };
+  }
+
+  onRaceJoin(client) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
-    const fail = (reason, extra = {}) => client.send('course:error', { reason, ...extra });
+    const fail = (reason, extra = {}) => client.send('race:error', { reason, ...extra });
     if (!this.atRideSpot(client.sessionId, RIDE_ISLAND.start.id)) {
       return fail('too far', { spot: this.rideSpotPayload(RIDE_ISLAND.start.id) });
     }
     if (!priv.riding) return fail('on foot');
-    priv.lap = startLap();
-    client.send('course:started', {
-      gates: COURSE.gates.map((g) => ({ id: g.id, word: g.word, ja: g.ja, order: g.order, x: g.x, z: g.z })),
-      next: COURSE.gates[0].id, vehicle: priv.riding, best: priv.lapBest,
+    const now = Date.now();
+    // A finished race is yesterday's: the next child to walk up opens a new grid.
+    if (!this.race || this.race.phase === 'done') this.race = createRace({ classCode: this.classCode, now });
+    const out = joinRace(this.race, {
+      id: client.sessionId, name: priv.name, vehicle: priv.riding, speed: RIDE.vehicles.get(priv.riding)?.speed || 1,
+    }, now);
+    if (!out.ok) return fail(out.reason === 'grid is full' ? 'grid full' : 'race running');
+    const place = (COURSE.grid || [])[this.race.racers.size - 1] || COURSE.grid[0];
+    client.send('race:grid', {
+      ...coursePayload(),
+      you: { grid: place, vehicle: priv.riding, place: this.race.racers.size },
+      opensIn: Math.max(0, GRID_MS - (now - this.race.openedAt)),
+      max: MAX_RACERS,
+      ...this.raceRow(now),
     });
+    this.raceBroadcast('race:field', this.raceRow(now));
+    log.info(`[room ${this.roomId}] "${priv.name}" is on the grid (${this.race.racers.size} racing)`);
   }
 
-  onCourseGate(client, msg) {
+  onRaceLeave(client, reason = 'left') {
+    if (!this.race?.racers.has(client.sessionId)) return;
+    leaveRace(this.race, client.sessionId);
+    client.send('race:closed', { reason });
+    this.raceBroadcast('race:field', this.raceRow());
+  }
+
+  onRaceGate(client, msg) {
     const priv = this.priv.get(client.sessionId);
     const player = this.state.players.get(client.sessionId);
-    if (!priv || !player) return;
-    const fail = (reason, extra = {}) => client.send('course:error', { reason, ...extra });
-    if (!priv.lap) return fail('not started');
-    if (!priv.riding) { priv.lap = null; return fail('on foot'); }
+    if (!priv || !player || !this.race) return;
+    const fail = (reason, extra = {}) => client.send('race:error', { reason, ...extra });
+    if (!this.race.racers.has(client.sessionId)) return fail('not racing');
+    if (!priv.riding) { this.onRaceLeave(client, 'on foot'); return fail('on foot'); }
     const gate = COURSE.gateById.get(String(msg?.id || ''));
     if (!gate) return fail('no such checkpoint');
     if (player.space !== RIDE_ISLAND.id) return fail('elsewhere');
+    // The one thing a page cannot be trusted about: where the kart is.
     if (Math.hypot(player.x - gate.wx, player.z - gate.wz) > COURSE.reach + SPOT_SLACK) return fail('too far');
-    const out = crossGate(priv.lap, gate.id);
-    if (!out.ok) return fail('not next', { want: out.want ? { id: out.want.id, word: out.want.word, ja: out.want.ja, x: out.want.x, z: out.want.z } : null });
-    if (!out.done) {
-      client.send('course:gate', {
-        id: gate.id, word: gate.word, ja: gate.ja, order: gate.order, of: COURSE.gates.length,
-        next: out.want ? { id: out.want.id, word: out.want.word, ja: out.want.ja, x: out.want.x, z: out.want.z } : null,
-        ms: out.ms,
-      });
+
+    const out = crossCheckpoint(this.race, client.sessionId, gate.id, Date.now());
+    if (!out.ok) return fail(out.reason, { want: out.want || '' });
+    client.send('race:gate', {
+      id: gate.id, word: gate.word, ja: gate.ja, order: gate.order, of: COURSE.gates.length,
+      next: out.next, lap: out.lap, completed: out.completed || 0, laps: LAPS,
+      lapDone: !!out.lapDone, lapMs: out.lapMs || 0, done: !!out.done,
+    });
+    if (out.done) this.finishRacer(client, out.place);
+    this.raceBroadcast('race:field', this.raceRow());
+  }
+
+  // An item box, and the English that opens it. The box is only worth something to a child
+  // who answers, which is the same bargain the arena makes: the speed comes from the words.
+  onRaceItem(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const player = this.state.players.get(client.sessionId);
+    if (!priv || !player || !this.race?.racers.has(client.sessionId)) return;
+    const racer = this.race.racers.get(client.sessionId);
+    const fail = (reason) => client.send('race:error', { reason });
+    if (this.race.phase !== 'running' || racer.finishedAt) return fail('not started');
+
+    // Picking one up: the box has to be one of the boxes, and the kart has to be at it.
+    if (msg?.at !== undefined) {
+      const box = (COURSE.items || [])[Number(msg.at)];
+      if (!box) return fail('no such box');
+      const wx = RIDE_ISLAND.x + box.x;
+      const wz = RIDE_ISLAND.z + box.z;
+      if (Math.hypot(player.x - wx, player.z - wz) > COURSE.reach + SPOT_SLACK) return fail('too far');
+      const now = Date.now();
+      if (now - (priv.lastItemAt || 0) < 1200) return fail('too fast');
+      priv.lastItemAt = now;
+      const word = WORDS[Math.floor(Math.random() * WORDS.length)];
+      const wrong = WORDS.filter((w) => w.en !== word.en && w.group !== word.group);
+      const choices = [word.en, wrong[Math.floor(Math.random() * wrong.length)].en, wrong[Math.floor(Math.random() * wrong.length)].en]
+        .filter((v, i, all) => all.indexOf(v) === i);
+      while (choices.length < 3) {
+        const extra = WORDS[Math.floor(Math.random() * WORDS.length)].en;
+        if (!choices.includes(extra)) choices.push(extra);
+      }
+      // Shuffled here, answered here: the page is told three words and no more.
+      for (let i = choices.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [choices[i], choices[j]] = [choices[j], choices[i]];
+      }
+      racer.item = { answer: word.en, at: now, box: Number(msg.at) };
+      client.send('race:box', { ja: word.ja, emoji: word.emoji || '', choices, ms: 6000 });
       return;
     }
-    // A finished lap. The coins are capped by the day like every other way of earning.
+
+    // Answering it.
+    const item = racer.item;
+    if (!item) return fail('no box');
+    racer.item = null;
+    const picked = typeof msg?.pick === 'string' ? msg.pick : '';
+    const right = picked === item.answer;
+    if (right) {
+      racer.boosts += 1;
+      racer.items += 1;
+      this.awardXp(client.sessionId, itemXp(), 'race:item');
+    }
+    this.store.appendLearning([
+      new Date().toISOString(), this.classCode, priv.name, `race:item:${item.answer}`, 'race',
+      picked.slice(0, 40), right ? 1 : 0, right ? itemXp() : 0, client.sessionId,
+    ]);
+    priv.stats.attempts += 1;
+    if (right) priv.stats.correct += 1;
+    client.send('race:boost', { ok: right, answer: item.answer, xp: right ? itemXp() : 0, progress: this.progressPayload(client.sessionId) });
+  }
+
+  finishRacer(client, place) {
+    const priv = this.priv.get(client.sessionId);
+    const racer = this.race.racers.get(client.sessionId);
+    if (!priv || !racer) return;
+    const prize = prizeFor(place, true);
     const left = roomLeft(priv.caps, 'course', COURSE_CAP);
-    const paid = Math.min(COURSE.reward.coins, left);
-    const best = !priv.lapBest || out.ms < priv.lapBest;
-    priv.lapBest = best ? out.ms : priv.lapBest;
-    priv.lap = null;
+    const paid = Math.min(prize.coins, left);
     if (paid > 0) {
       priv.caps.course += paid;
-      const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: 'course:lap' });
+      const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `race:${place}` });
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
     }
-    const level = this.awardXp(client.sessionId, COURSE.reward.xp, 'course:lap');
+    const best = racer.best;
+    if (!priv.lapBest || (best && best < priv.lapBest)) priv.lapBest = best;
+    const level = this.awardXp(client.sessionId, prize.xp, `race:${place}`);
     this.persist(client.sessionId);
-    client.send('course:finished', {
-      ms: out.ms, best, bestMs: priv.lapBest, coins: paid, xp: COURSE.reward.xp,
-      capped: paid < COURSE.reward.coins, room: roomLeft(priv.caps, 'course', COURSE_CAP),
-      words: COURSE.gates.map((g) => ({ word: g.word, ja: g.ja })),
-      ...this.walletPayload(client.sessionId), progress: this.progressPayload(client.sessionId), levels: level?.levels || 0,
+    client.send('race:finished', {
+      place, laps: racer.laps, best, bestMs: priv.lapBest, boosts: racer.boosts, items: racer.items,
+      coins: paid, xp: prize.xp, capped: paid < prize.coins, room: roomLeft(priv.caps, 'course', COURSE_CAP),
+      standings: standings(this.race), ...this.walletPayload(client.sessionId),
+      progress: this.progressPayload(client.sessionId), levels: level?.levels || 0,
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" drove a lap in ${(out.ms / 1000).toFixed(1)}s`);
+    log.info(`[room ${this.roomId}] "${priv.name}" finished ${place}${['st', 'nd', 'rd'][place - 1] || 'th'} (best lap ${(best / 1000).toFixed(1)}s)`);
+  }
+
+  // Called once a second from the room's own tick: the lights, the running order, and the
+  // end of a race nobody finished.
+  tickRace(now = Date.now()) {
+    const race = this.race;
+    if (!race || race.phase === 'done') return;
+    // Anyone who walked off the island, or off their vehicle, is out of the race.
+    for (const id of [...race.racers.keys()]) {
+      const player = this.state.players.get(id);
+      const priv = this.priv.get(id);
+      if (!player?.connected || !priv?.riding || player.space !== RIDE_ISLAND.id) {
+        leaveRace(race, id);
+        this.clients.find((c) => c.sessionId === id)?.send('race:closed', { reason: 'left the island' });
+      }
+    }
+    if (!race.racers.size) { race.phase = 'done'; return; }
+    if (maybeStart(race, now)) this.raceBroadcast('race:lights', { startsAt: race.startsAt, in: race.startsAt - now, ...this.raceRow(now) });
+    if (beginIfDue(race, now)) this.raceBroadcast('race:go', { startedAt: race.startedAt, ...this.raceRow(now) });
+    if (race.phase === 'running') {
+      this.raceBroadcast('race:field', this.raceRow(now));
+      if (raceOver(race, now)) {
+        race.phase = 'done';
+        race.endedAt = now;
+        // Whoever ran out of time still drove: they are paid for having been in the race.
+        for (const racer of race.racers.values()) {
+          if (racer.finishedAt) continue;
+          const client = this.clients.find((c) => c.sessionId === racer.id);
+          const prize = prizeFor(0, false);
+          const priv = this.priv.get(racer.id);
+          if (client && priv) {
+            const left = roomLeft(priv.caps, 'course', COURSE_CAP);
+            const paid = Math.min(prize.coins, left);
+            if (paid > 0) {
+              priv.caps.course += paid;
+              const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: 'race:dnf' });
+              this.store.appendCoin(this.coinRow(racer.id, entry));
+            }
+            this.awardXp(racer.id, prize.xp, 'race:dnf');
+            client.send('race:finished', {
+              place: 0, laps: racer.laps, best: racer.best, coins: paid, xp: prize.xp,
+              standings: standings(race, now), ...this.walletPayload(racer.id),
+              progress: this.progressPayload(racer.id), levels: 0,
+            });
+          }
+        }
+        this.raceBroadcast('race:over', { standings: standings(race, now) });
+      }
+    }
   }
 
   // ---- the night ------------------------------------------------------------------

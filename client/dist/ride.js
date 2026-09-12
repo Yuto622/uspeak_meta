@@ -1,14 +1,14 @@
-// のりもの島 — the gate dialog and the course HUD.
+// のりもの島 — the garage: which vehicle, and what it costs.
 //
-// Nothing here decides anything: whether a gate opens, whether a checkpoint counts and
-// what a lap pays all come back from the server. This screen shows the price, the level
-// and the gold sign, and the HUD shows which word to drive to next.
+// Nothing here decides anything: whether a gate opens and what a vehicle costs come back
+// from the server. This screen shows the price, the level and the gold sign. The race
+// itself is race.js — the start line hands over to it.
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const secs = (ms) => `${(ms / 1000).toFixed(1)}秒`;
 
-export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, onCourse }) {
-  const state = { garage: null, spot: null, lap: null, next: null, best: 0 };
+export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, onRace, racing }) {
+  const state = { garage: null, spot: null, best: 0 };
 
   const dialog = document.createElement('dialog');
   dialog.id = 'ride-dialog';
@@ -23,20 +23,12 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
   $('#ride-close', dialog).onclick = close;
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
 
-  // The course HUD: one word at a time, big, plus the clock.
-  const hud = document.createElement('div');
-  hud.id = 'ride-hud';
-  hud.hidden = true;
-  hud.innerHTML = '<span id="ride-hud-stage">NEXT</span><strong id="ride-hud-word"></strong><small id="ride-hud-ja"></small><b id="ride-hud-clock">0.0秒</b>';
-  document.body.append(hud);
-  let clockTimer = 0;
-
   function label(spot) {
     // The start line is only a start line once a child is on something. On foot it is
     // where they choose, so it says so rather than promising a race it will refuse.
     if (spot.kind === 'start') {
-      if (state.lap) return '🚦 コースを やめる';
-      return state.garage?.riding ? '🚦 コースを はしる' : '🚦 のりものを えらぶ';
+      if (racing()) return '🚦 レースを やめる';
+      return state.garage?.riding ? '🚦 レースに でる' : '🚦 のりものを えらぶ';
     }
     const v = state.garage?.vehicles.find((x) => x.id === spot.vehicle);
     if (!v) return `${spot.tone || '🛞'} ${spot.name}`;
@@ -49,16 +41,14 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
     state.spot = spot;
     // Riding already: the start line starts the lap. On foot: it opens the garage, so
     // the answer to "choose a vehicle first" is in the place that said it.
-    if (spot.kind === 'start' && (state.lap || state.garage?.riding)) { toggleCourse(); return; }
+    if (spot.kind === 'start' && (racing() || state.garage?.riding)) { toggleRace(); return; }
     render('よみこみ中…');
     if (!dialog.open) dialog.showModal();
     send('ride:list', {});
   }
 
-  function toggleCourse() {
-    if (state.lap) { stopLap('やめました'); return; }
-    send('course:start', {});
-  }
+  // On the line: joining the grid, or leaving a race already joined.
+  function toggleRace() { onRace(racing() ? 'quit' : 'join'); }
 
   function render(note = '') {
     const g = state.garage;
@@ -71,7 +61,7 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
     const nextUp = g.vehicles.find((v) => !v.owned && v.ready) || g.vehicles.find((v) => !v.owned);
     body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
       ${atStart ? `<p class="ride-lead">${owned.length
-        ? 'のりたい のりものを えらんで、「コースを はしる」。'
+        ? 'のりたい のりものを えらんで、「レースに でる」。'
         : `コースは のりもので はしります。${nextUp ? `まずは <b>${esc(nextUp.name)}</b>（◈ ${nextUp.price}${nextUp.needLevel ? ` · Lv.${nextUp.level} から` : ''}）。この島の その ゲートまで あるいて、そこで かいます。` : ''}`}</p>` : ''}
       <div class="ride-list">${g.vehicles.map((v) => `
         <article class="ride-card ${v.owned ? 'owned' : v.ready ? 'ready' : ''} ${v.id === here ? 'here' : ''}" style="--ride:#${Number(v.color).toString(16).padStart(6, '0')}">
@@ -86,10 +76,10 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
               : '<small class="ride-elsewhere">この のりものは べつの ゲート</small>'}</div>
         </article>`).join('')}</div>
       <p class="daily-note">${g.riding ? `いま のっているのは <b>${esc(g.vehicles.find((v) => v.id === g.riding)?.name || '')}</b>。` : 'いまは あるいています。'}
-        ${g.best ? `いちばん はやい ラップ：<b>${secs(g.best)}</b>。` : 'スタートラインで コースに ちょうせん できます。'}</p>
+        ${g.best ? `いちばん はやい ラップ：<b>${secs(g.best)}</b>。` : 'スタートラインから 3しゅうの レースに でられます。'}</p>
       <div class="quiz-actions">
         ${g.riding ? '<button type="button" id="ride-walk">おりる</button>' : ''}
-        ${atStart && g.riding ? '<button type="button" class="primary" id="ride-go">🚦 コースを はしる</button>' : ''}
+        ${atStart && g.riding ? '<button type="button" class="primary" id="ride-go">🚦 レースに でる</button>' : ''}
         <button type="button" ${atStart && g.riding ? '' : 'class="primary"'} id="ride-done">とじる</button>
       </div>`;
     for (const b of body().querySelectorAll('[data-buy]')) b.onclick = () => { b.disabled = true; send('ride:buy', { id: b.dataset.buy }); };
@@ -97,7 +87,7 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
     const walk = $('#ride-walk', dialog);
     if (walk) walk.onclick = () => send('ride:equip', { id: '' });
     const go = $('#ride-go', dialog);
-    if (go) go.onclick = () => { close(); toggleCourse(); };
+    if (go) go.onclick = () => { close(); toggleRace(); };
     $('#ride-done', dialog).onclick = close;
   }
 
@@ -127,75 +117,16 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
       'level too low': `レベル ${m.need} から かえます。`,
       'not enough coins': `あと ◈ ${Math.max(0, (m.need || 0) - (m.coins || 0))} たりません。`,
       'not yours': 'まだ もっていません。',
-      'on foot': 'コースは のりもので はしります。まず のりものを えらぼう。',
-      'not started': 'スタートラインから はじめよう。',
-      'not next': m.want ? `つぎは ${m.want.word}（${m.want.ja}）だよ。` : 'じゅんばんに とおろう。',
+      'on foot': 'レースは のりもので はしります。まず のりものを えらぼう。',
     }[m.reason];
     if (said) toast(said);
     if (dialog.open) render();
   }
 
-  // ---- the course ------------------------------------------------------------------
-
-  function showHud() {
-    hud.hidden = !state.lap;
-    if (!state.lap) return;
-    $('#ride-hud-word', hud).textContent = state.next?.word || '';
-    $('#ride-hud-ja', hud).textContent = state.next?.ja || '';
-  }
-
-  function onStarted(m) {
-    close();
-    state.lap = { at: Date.now(), of: m.gates.length, done: 0 };
-    state.next = m.gates[0];
-    onCourse(state.next?.id || '');
-    showHud();
-    speak(state.next.word);
-    toast(`スタート！ つぎは ${state.next.word}（${state.next.ja}）。`);
-    clearInterval(clockTimer);
-    clockTimer = setInterval(() => {
-      if (!state.lap) return;
-      $('#ride-hud-clock', hud).textContent = secs(Date.now() - state.lap.at);
-    }, 100);
-  }
-
-  function onGate(m) {
-    if (!state.lap) return;
-    state.lap.done = m.order;
-    state.next = m.next;
-    onCourse(m.next?.id || '');
-    showHud();
-    learn(m.word, m.ja);
-    if (m.next) { speak(m.next.word); toast(`${m.word}（${m.ja}）· つぎは ${m.next.word}`); }
-  }
-
-  function stopLap(reason) {
-    state.lap = null;
-    state.next = null;
-    clearInterval(clockTimer);
-    onCourse('');
-    showHud();
-    if (reason) toast(reason);
-  }
-
-  function onFinished(m) {
-    stopLap('');
-    for (const w of m.words || []) learn(w.word, w.ja);
-    state.best = m.bestMs;
-    if (state.garage) state.garage.best = m.bestMs;
-    toast(`ゴール！ ${secs(m.ms)}${m.best ? '（さいそく記録！）' : ''} ✧ ${m.xp} XP ${m.coins ? `◈ ${m.coins}` : ''}`);
-    speak('goal');
-  }
-
   return {
-    state, enter, label, onGarage, onBought, onError, onStarted, onGate, onFinished,
-    // The world calls this when the avatar drives into a checkpoint ring. The server
-    // still decides whether it counted.
-    cross(id) {
-      if (!state.lap || !state.next || state.next.id !== id) return;
-      send('course:gate', { id });
-    },
-    quit() { if (state.lap) stopLap(''); },
+    state, enter, label, onGarage, onBought, onError,
+    // A best lap comes back from a finished race, and belongs on the garage screen.
+    setBest(msValue) { state.best = msValue; if (state.garage) state.garage.best = msValue; },
     get riding() { return state.garage?.riding || ''; },
   };
 }

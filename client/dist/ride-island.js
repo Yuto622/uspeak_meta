@@ -1,9 +1,13 @@
-// のりもの島 — four gates round the shore, and a course between them.
+// のりもの島 — four gates round the shore, and a racing circuit between them.
 //
-// Each vehicle stands at its own gate, so choosing one is a walk. The road is drawn as a
-// real ring of tarmac through six checkpoint arches, each carrying an English direction
-// word big enough to read while moving. Terrain, dock, collision and beacon come from
-// the shared island kit.
+// Each vehicle stands at its own gate, so choosing one is a walk. Round them runs a real
+// circuit: tarmac with kerbs, a start/finish line under a lit gantry, a grid painted on
+// the road, boost pads, item boxes, and an arch over every checkpoint carrying an English
+// direction word big enough to read at speed. Terrain, dock, collision and beacon come
+// from the shared island kit.
+//
+// The road's shape is the checkpoint ring from vehicles.json — the same list the server
+// counts laps with and kart.js decides grass by, so what is drawn is what is driven.
 import * as THREE from './three.module.js';
 import { createIsland, NEAR_DISTANCE } from './island-kit.js';
 
@@ -22,6 +26,7 @@ export function loadRideData() {
 export function createRideIsland({ scene }) {
   let course = null;
   const arches = new Map();     // checkpoint id -> { group, ring, plate }
+  const boxes = [];             // the item boxes, which spin
   let nextId = '';
 
   const island = createIsland({
@@ -29,23 +34,45 @@ export function createRideIsland({ scene }) {
     seed: 31415,
     build({ island: data, B, D, house, path, resident, door, scatter, obstacles, bunting }) {
       const yard = data.courtyard;
-      // The road: a ring of tarmac laid as short tiles, wide enough for two children.
+      // ---- the road ------------------------------------------------------------------
+      // Tarmac laid in short tiles along the checkpoint ring, with a kerb down both edges
+      // so the racing line is visible from a kart rather than only from above.
       if (course) {
         const gates = course.gates;
+        const half = (course.road?.width || 9) / 2;
         for (let i = 0; i < gates.length; i += 1) {
           const from = gates[i];
           const to = gates[(i + 1) % gates.length];
-          const steps = Math.ceil(Math.hypot(to.x - from.x, to.z - from.z) / 1.6);
+          const len = Math.hypot(to.x - from.x, to.z - from.z);
+          const nx = (to.z - from.z) / (len || 1);
+          const nz = -(to.x - from.x) / (len || 1);
+          const steps = Math.max(1, Math.ceil(len / 1.5));
           for (let k = 0; k < steps; k += 1) {
             const u = k / steps;
             const x = from.x + (to.x - from.x) * u;
             const z = from.z + (to.z - from.z) * u;
-            D(x, 0.3, z, 3.6, 0.34, 3.6, 0x585b60);
-            if (k % 3 === 0) D(x, 0.48, z, 0.9, 0.1, 0.9, 0xe8e2c6);   // centre line
+            D(x, 0.3, z, half * 2, 0.34, half * 2, k % 2 ? 0x585b60 : 0x54575c);
+            if (k % 3 === 0) D(x, 0.48, z, 0.9, 0.1, 0.9, 0xe8e2c6);          // centre line
+            // Red and white kerbs, which is what tells a child where the road ends.
+            for (const side of [-1, 1]) {
+              D(x + nx * side * half, 0.36, z + nz * side * half, 1.5, 0.3, 1.5, k % 2 ? 0xd9534f : 0xf3ecd8);
+            }
           }
         }
+        // Boost pads: chevrons pointing the way round, and they are on the road because
+        // the data says so — vehicles.json refuses one that is not.
+        for (const pad of course.boosts || []) {
+          D(pad.x, 0.5, pad.z, 4.6, 0.14, 4.6, 0x2f6b7f);
+          for (let i = 0; i < 3; i += 1) D(pad.x, 0.6, pad.z - 1.4 + i * 1.4, 3.4 - i * 0.4, 0.12, 0.7, 0x8fe0ff);
+        }
+        // The grid, painted: one box per starting place, numbered down the straight.
+        (course.grid || []).forEach((place, i) => {
+          D(place.x, 0.5, place.z, 2.8, 0.12, 4.2, i % 2 ? 0xf3ecd8 : 0xe8e2c6);
+          D(place.x, 0.56, place.z + 1.6, 2.2, 0.1, 0.4, 0x33332f);
+        });
       }
 
+      // ---- the pit ---------------------------------------------------------------------
       // The middle of the island is the pit: a flat apron with a flag, so the ring reads
       // as a course rather than as the gap between four shops.
       B(yard.x, 0.12, yard.z, 14, 0.16, 10, 0xcfc7a8);
@@ -53,40 +80,56 @@ export function createRideIsland({ scene }) {
       B(yard.x, 2.6, yard.z, 0.3, 5, 0.3, 0x8a8378);
       B(yard.x + 1.4, 4.6, yard.z, 2.6, 1.5, 0.12, 0xd9534f);
 
-      // A start gantry standing across the road, not along it: the road runs east-west
-      // here, so its legs go north and south of the tarmac. Sited east of the landing so
-      // nothing stands in the lane a child walks down from the dock.
-      const gx = 6.5;
-      const gz = 17.3;                       // where the course's top straight runs
-      for (const sz of [-3.6, 3.6]) {
-        D(gx, 3.4, gz + sz, 0.7, 6.8, 0.7, 0x8a8378);
-        D(gx, 6.6, gz + sz, 1.1, 0.5, 1.1, 0x6f6a60);
-        obstacles.push({ x: gx, z: gz + sz, w: 0.6, d: 0.6 });
+      // ---- the start and finish -----------------------------------------------------
+      // A gantry across the line, its legs outside the kerbs, and the chequers under it.
+      // The line is where the grid is and where the dock path comes down, so nothing here
+      // may stand on the tarmac itself.
+      const gz = 17.3;
+      // The legs stand clear of the kerbs and are deliberately not solid: the walk down
+      // from the dock comes through here, and a post a child cannot see themselves
+      // bumping into is a post that has them stuck at the top of the island.
+      for (const sz of [-6.2, 6.2]) {
+        D(0, 3.6, gz + sz, 0.8, 7.2, 0.8, 0x8a8378);
+        D(0, 7.1, gz + sz, 1.2, 0.6, 1.2, 0x6f6a60);
       }
-      D(gx, 6.9, gz, 0.9, 1.1, 7.8, 0x2f3f4a);
-      for (let i = 0; i < 7; i += 1) {
-        for (let j = 0; j < 2; j += 1) D(gx - 0.05, 7.2 - j * 0.5, gz - 3 + i, 0.12, 0.5, 1.0, (i + j) % 2 ? 0xf3ecd8 : 0x2a2a28);
-      }
-      bunting(gx, gz - 3.6, gx, gz + 3.6, 8.2);
-      // The line itself: chequers across the tarmac.
+      D(0, 7.4, gz, 1.1, 1.2, 12.8, 0x2f3f4a);
+      // Five lights along it, the way a grid is started.
+      for (let i = 0; i < 5; i += 1) D(0.1, 7.4, gz - 4 + i * 2, 0.4, 0.9, 0.9, 0xd9534f, 0.9);
+      bunting(0, gz - 6.2, 0, gz + 6.2, 8.6);
       for (let i = 0; i < 4; i += 1) {
-        for (let j = 0; j < 4; j += 1) D(gx - 1.4 + i * 0.95, 0.28, gz - 1.4 + j * 0.95, 0.9, 0.16, 0.9, (i + j) % 2 ? 0xf3ecd8 : 0x33332f);
+        for (let j = 0; j < 10; j += 1) D(-1.4 + i * 0.95, 0.52, gz - 4.5 + j * 0.95, 0.9, 0.16, 0.9, (i + j) % 2 ? 0xf3ecd8 : 0x33332f);
       }
-      // Tyre stacks outside the legs, and cones down both sides of the straight.
-      for (const sz of [-5.2, 5.2]) {
-        for (let i = 0; i < 3; i += 1) D(gx, 0.35 + i * 0.55, gz + sz, 1.5, 0.5, 1.5, i % 2 ? 0x2a2a28 : 0x333330);
-        D(gx, 2.05, gz + sz, 1.6, 0.2, 1.6, 0xd9534f);
+      // Tyre stacks and a marshal's post outside the kerbs, well clear of the racing line.
+      for (const sz of [-7.6, 7.6]) {
+        for (let i = 0; i < 3; i += 1) D(0, 0.35 + i * 0.55, gz + sz, 1.5, 0.5, 1.5, i % 2 ? 0x2a2a28 : 0x333330);
+        D(0, 2.05, gz + sz, 1.6, 0.2, 1.6, 0xd9534f);
       }
-      for (let i = 0; i < 5; i += 1) {
-        for (const sz of [-2.4, 2.4]) {
-          const cx = gx - 6 + i * 2.6;
-          D(cx, 0.35, gz + sz, 0.7, 0.5, 0.7, 0xe07a3c);
-          D(cx, 0.75, gz + sz, 0.4, 0.4, 0.4, 0xf3ecd8);
+      // A grandstand along the top straight, on both sides of the dock path, with a crowd.
+      for (const sx of [-15, 15]) {
+        for (let row = 0; row < 3; row += 1) {
+          D(sx, 0.6 + row * 0.7, 23.4 + row * 1.1, 11, 0.7, 1.1, row % 2 ? 0xd7cfae : 0xc7bf9e);
+          for (let i = 0; i < 5; i += 1) {
+            D(sx - 4 + i * 2, 1.35 + row * 0.7, 23.4 + row * 1.1, 0.8, 0.9, 0.7, [0xef6f6c, 0x6fb7d9, 0xf7d774, 0x8ac96f, 0xc9a3d4][(i + row) % 5]);
+          }
         }
+        obstacles.push({ x: sx, z: 24.6, w: 5.5, d: 2.4 });
       }
 
       for (const def of data.spots) {
-        house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), def.kind === 'start' ? 0x4a6a8a : 0x8a6a4a, `${def.tone} ${def.name}`);
+        // The start line is a line, not a building: a child drives onto the grid rather
+        // than walking into a shop, and nothing may stand on the tarmac. Its marshal
+        // stands beside the road instead.
+        if (def.kind === 'start') {
+          D(-7.5, 1.4, 22.6, 3.4, 2.8, 2.6, 0x4a6a8a);
+          D(-7.5, 3, 22.6, 4, 0.5, 3.2, 0x2f3f4a);
+          D(-7.5, 2.1, 21.3, 2.4, 1.2, 0.2, 0x8fe0ff, 0.5);
+          obstacles.push({ x: -7.5, z: 22.6, w: 1.9, d: 1.5 });
+          // The marshal stands on the line itself — which is also what makes the start
+          // line a place a child can walk up to and press E at.
+          resident(def);
+          continue;
+        }
+        house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
         door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xe2dab6);
@@ -100,7 +143,24 @@ export function createRideIsland({ scene }) {
   // to the land: one gate per checkpoint, each with its word on the crossbar.
   function buildArches(scene3, origin, data) {
     if (!course || arches.size) return;
+    // 📦 The item boxes, spinning on the road. They are the island's own English: driving
+    // through one asks for a word, and the boost is what answering it buys.
+    for (const spot of course.items || []) {
+      const cube = new THREE.Mesh(
+        new THREE.BoxGeometry(1.7, 1.7, 1.7),
+        new THREE.MeshStandardMaterial({ color: 0xffe08a, emissive: 0xffb347, emissiveIntensity: 0.5, transparent: true, opacity: 0.85 }),
+      );
+      cube.position.set(origin.x + spot.x, 1.5, origin.z + spot.z);
+      const mark = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.9, 0.2), new THREE.MeshBasicMaterial({ color: 0x2f3f4a }));
+      mark.position.set(0, 0, 0.9);
+      cube.add(mark);
+      cube.visible = false;
+      scene3.add(cube);
+      boxes.push(cube);
+    }
     for (const gate of course.gates) {
+      // The line already has its gantry; a second arch on top of it would be one too many.
+      if (gate.id === 'finish') continue;
       const group = new THREE.Group();
       group.position.set(origin.x + gate.x, 0, origin.z + gate.z);
       const post = new THREE.BoxGeometry(0.5, 5, 0.5);
@@ -164,9 +224,14 @@ export function createRideIsland({ scene }) {
     show(on) {
       baseShow(on);
       for (const a of arches.values()) a.group.visible = !!on;
+      for (const b of boxes) b.visible = !!on;
     },
     update(t, player) {
       baseUpdate(t, player);
+      for (let i = 0; i < boxes.length; i += 1) {
+        boxes[i].rotation.y = t * 1.4 + i;
+        boxes[i].position.y = 1.5 + Math.sin(t * 2 + i) * 0.18;
+      }
       for (const [id, a] of arches) {
         const lit = id === nextId;
         a.ring.material.emissiveIntensity = lit ? 0.8 + Math.sin(t * 3) * 0.3 : 0;

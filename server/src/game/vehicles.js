@@ -6,9 +6,10 @@
 // how a Roblox child learned what to aim for, and it is a better teacher than a menu.
 //
 // What does not carry over is the physics. Roblox handed the driver network ownership of
-// a real vehicle body; here a vehicle is a speed and a shape, and the course is six
-// checkpoints in a ring, each carrying an English direction word. Driving it is reading
-// them in order.
+// a real vehicle body; here a vehicle is a speed and a shape, and the course is a circuit
+// of seven checkpoints, each carrying an English direction word. Driving it is reading
+// them in order — three laps of it, against the class and against three rivals, with the
+// order and the prizes decided in game/race.js.
 import { readFileSync } from 'node:fs';
 
 export class VehicleError extends Error {}
@@ -82,6 +83,31 @@ export function loadVehicles(file = DATA_PATH) {
     gates.push({ ...g, wx: island.x + g.x, wz: island.z + g.z });
   }
   if (gates.length < 3) throw new Error('vehicles.json: a course needs at least three checkpoints');
+  if (!(course.laps >= 1)) throw new Error('vehicles.json: a race needs laps');
+  if (!(course.minLapMs > 0)) throw new Error('vehicles.json: a lap needs a time nobody can beat');
+  if (!(course.road?.width > 0)) throw new Error('vehicles.json: the road needs a width');
+  if (!Array.isArray(course.grid) || course.grid.length < 2) throw new Error('vehicles.json: the grid needs places to start from');
+  // Everything a kart drives over has to be on the road, or a child would have to leave
+  // the circuit to collect it — and off the road is the slow grass.
+  const half = course.road.width / 2;
+  const onRoad = (p) => gates.some((g, i) => {
+    const h = gates[(i + 1) % gates.length];
+    const vx = h.x - g.x; const vz = h.z - g.z;
+    const len2 = vx * vx + vz * vz || 1;
+    const t = Math.max(0, Math.min(1, ((p.x - g.x) * vx + (p.z - g.z) * vz) / len2));
+    return Math.hypot(p.x - (g.x + vx * t), p.z - (g.z + vz * t)) <= half;
+  });
+  for (const [what, list] of [['boost pad', course.boosts || []], ['item box', course.items || []], ['grid place', course.grid]]) {
+    for (const p of list) {
+      if (!Number.isFinite(p.x) || !Number.isFinite(p.z)) throw new Error(`vehicles.json: a ${what} has no place`);
+      if (!onRoad(p)) throw new Error(`vehicles.json: a ${what} at (${p.x},${p.z}) is off the road`);
+    }
+  }
+  const rivals = course.rivals || [];
+  for (const r of rivals) {
+    if (!r.id || !r.name) throw new Error('vehicles.json: a rival with no name');
+    if (!(r.lapMs > course.minLapMs)) throw new Error(`vehicles.json: rival ${r.id} laps faster than the circuit allows`);
+  }
 
   return {
     island: { ...island, spotById, start },
@@ -124,20 +150,6 @@ export const sanitizeRiding = (id, owned) => (typeof id === 'string' && owned.in
 export const speedOf = (id) => RIDE.vehicles.get(id)?.speed || 1;
 
 // ---- the course ------------------------------------------------------------------
-
-export function startLap(now = Date.now()) {
-  return { at: now, next: 0, gates: [] };
-}
-
-export const nextGate = (lap) => (lap ? COURSE.gates[lap.next] || null : COURSE.gates[0]);
-
-// Crossing a checkpoint. Out of order is not a mistake worth a scolding — it just is not
-// the next one, and the lap carries on waiting for the right one.
-export function crossGate(lap, id, now = Date.now()) {
-  const want = COURSE.gates[lap.next];
-  if (!want || want.id !== id) return { ok: false, reason: 'not next', want };
-  lap.gates.push({ id, at: now });
-  lap.next += 1;
-  const done = lap.next >= COURSE.gates.length;
-  return { ok: true, done, want: COURSE.gates[lap.next] || null, ms: now - lap.at };
-}
+//
+// The lap itself lives in game/race.js: on a circuit a lap is part of a race, not a thing
+// on its own. What stays here is the island, the vehicles and the shape of the track.

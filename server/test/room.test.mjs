@@ -796,8 +796,9 @@ test('the night is the same for everyone, and a ghost is caught by walking to it
   await sleep(100);
 });
 
-test('a vehicle is bought at its own gate, and the course is driven in order', async () => {
+test('a vehicle is bought at its own gate, and the race is run in order', async () => {
   const { RIDE, ISLAND: RIDE_ISLAND, COURSE } = await import('../src/game/vehicles.js');
+  const { LAPS } = await import('../src/game/race.js');
   const a = await join('Tsubasa');
   const kick = RIDE.vehicles.get('kick');
   const gate = [...RIDE_ISLAND.spotById.values()].find((s) => s.vehicle === 'kick');
@@ -873,69 +874,78 @@ test('a vehicle is bought at its own gate, and the course is driven in order', a
   assert.equal(err.reason, 'not enough coins', `had ${coins}`);
   assert.equal(err.need, RIDE.vehicles.get('bike').price);
 
-  // ---- the course
+  // ---- the race
+  // The grid is at the start line, on a vehicle, and nowhere else.
   await stand(start.wx + 25, start.wz);
-  a.room.send('course:start', {});
-  assert.equal((await nextMessage(a.room, 'course:error')).reason, 'too far');
+  a.room.send('race:join', {});
+  assert.equal((await nextMessage(a.room, 'race:error')).reason, 'too far');
   await stand(start.wx, start.wz);
   a.room.send('ride:equip', { id: '' });
   await nextMessage(a.room, 'ride:garage');
-  a.room.send('course:start', {});
-  assert.equal((await nextMessage(a.room, 'course:error')).reason, 'on foot', 'the course is driven, not walked');
+  a.room.send('race:join', {});
+  assert.equal((await nextMessage(a.room, 'race:error')).reason, 'on foot', 'a race is driven, not walked');
 
   a.room.send('ride:equip', { id: 'kick' });
   await nextMessage(a.room, 'ride:garage');
-  a.room.send('course:start', {});
-  const lap = await nextMessage(a.room, 'course:started');
-  assert.equal(lap.gates.length, COURSE.gates.length);
-  assert.equal(lap.next, COURSE.gates[0].id);
-  assert.ok(lap.gates.every((g) => g.word && g.ja), 'every checkpoint carries a word');
+  a.room.send('race:join', {});
+  const grid = await nextMessage(a.room, 'race:grid');
+  assert.equal(grid.gates.length, COURSE.gates.length);
+  assert.equal(grid.laps, LAPS);
+  assert.ok(grid.you.grid && Number.isFinite(grid.you.grid.x), 'a place on the grid to start from');
+  assert.ok(grid.items.length >= 3 && grid.boosts.length >= 3, 'boxes and boost pads, on the road');
+  assert.ok(grid.standings.some((r) => r.kind === 'rival'), 'and rivals to race, for a child on their own');
 
-  // Standing at the third checkpoint does not skip the first two.
+  // The lights: the room starts the race on its own tick, without the page asking.
+  const lights = await nextMessage(a.room, 'race:lights', 20000);
+  assert.ok(lights.startsAt > Date.now(), 'a countdown, not a standing start');
+  const go = await nextMessage(a.room, 'race:go', 12000);
+  assert.ok(go.startedAt > 0);
+
+  // Checkpoints, in order, at the checkpoint. Neither rule bends.
   const third = COURSE.gates[2];
   await stand(third.wx, third.wz);
-  a.room.send('course:gate', { id: third.id });
-  const wrong = await nextMessage(a.room, 'course:error');
+  a.room.send('race:gate', { id: third.id });
+  const wrong = await nextMessage(a.room, 'race:error');
   assert.equal(wrong.reason, 'not next');
-  assert.equal(wrong.want.id, COURSE.gates[0].id);
-  // Nor does claiming a checkpoint from the other side of the island.
+  assert.equal(wrong.want, COURSE.gates[0].id);
   await stand(start.wx, start.wz);
-  a.room.send('course:gate', { id: COURSE.gates[0].id });
-  assert.equal((await nextMessage(a.room, 'course:error')).reason, 'too far');
+  a.room.send('race:gate', { id: COURSE.gates[0].id });
+  assert.equal((await nextMessage(a.room, 'race:error')).reason, 'too far');
 
-  a.room.send('wallet:get', {});
-  const before = (await nextMessage(a.room, 'wallet')).wallet.coins;
-  for (let i = 0; i < COURSE.gates.length - 1; i += 1) {
-    const g = COURSE.gates[i];
-    await stand(g.wx, g.wz);
-    a.room.send('course:gate', { id: g.id });
-    const hit = await nextMessage(a.room, 'course:gate');
-    assert.equal(hit.order, i + 1);
-    assert.equal(hit.next.id, COURSE.gates[i + 1].id, 'and it says where to go next');
-  }
-  const last = COURSE.gates[COURSE.gates.length - 1];
-  await stand(last.wx, last.wz);
-  a.room.send('course:gate', { id: last.id });
-  const done = await nextMessage(a.room, 'course:finished');
-  assert.equal(done.coins, COURSE.reward.coins);
-  assert.equal(done.xp, COURSE.reward.xp);
-  assert.equal(done.wallet.coins, before + COURSE.reward.coins);
-  assert.equal(done.best, true, 'a first lap is a best lap');
-  assert.ok(done.ms > 0 && done.bestMs === done.ms);
-  assert.equal(done.words.length, COURSE.gates.length);
-  // The lap is over: crossing the line again is not another payday.
-  a.room.send('course:gate', { id: last.id });
-  assert.equal((await nextMessage(a.room, 'course:error')).reason, 'not started');
+  // A lap driven in no time at all is not a lap: the finish waits until it was possible.
+  const driveLap = async (expectLap) => {
+    for (let i = 0; i < COURSE.gates.length; i += 1) {
+      const g = COURSE.gates[i];
+      await stand(g.wx, g.wz);
+      a.room.send('race:gate', { id: g.id });
+      if (i < COURSE.gates.length - 1) {
+        const hit = await nextMessage(a.room, 'race:gate');
+        assert.equal(hit.order, i + 1);
+        assert.equal(hit.next, COURSE.gates[i + 1].id, 'and it says where to go next');
+      } else {
+        const line = await Promise.race([
+          nextMessage(a.room, 'race:gate', 4000).then((m) => ({ ok: true, m })),
+          nextMessage(a.room, 'race:error', 4000).then((m) => ({ ok: false, m })),
+        ]);
+        if (!line.ok) return line.m.reason;
+        assert.equal(line.m.lap, expectLap);
+        return line.m;
+      }
+    }
+    return null;
+  };
+  assert.equal(await driveLap(1), 'too fast', 'nobody drives this circuit in half a second');
 
-  // The garage and the best lap come back with the child.
   await a.room.leave();
   await sleep(100);
-  const again = await join('Tsubasa');
+  const back2 = await join('Tsubasa');
+  await sleep(50);
+  // The garage comes back with the child.
+  const again = back2;
   again.room.send('ride:list', {});
   const back = await nextMessage(again.room, 'ride:garage');
   assert.deepEqual(back.vehicles.filter((v) => v.owned).map((v) => v.id), ['kick']);
   assert.equal(back.riding, 'kick');
-  assert.equal(back.best, done.ms, 'the best lap is remembered');
   await again.room.leave();
   await sleep(100);
 });
