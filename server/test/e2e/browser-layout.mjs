@@ -204,6 +204,7 @@ try {
       return r.abort();
     });
     page.on('pageerror', (e) => console.log(`[${d.name}] pageerror`, e.message));
+    const press = (sel) => page.evaluate((s2) => document.querySelector(s2)?.click(), sel);
     const shot = (n) => page.screenshot({ timeout: 90000, path: path.join(OUT, `layout-${d.name}-${n}.png`) });
 
     await page.goto(`http://127.0.0.1:${PORT}/`, { waitUntil: 'commit', timeout: 120000 });
@@ -232,7 +233,6 @@ try {
     // is there and works, but it never sits still long enough, and a whole five-viewport
     // run used to die here. What this script measures is where things are, not whether a
     // tap lands; the screens themselves are opened the same way.
-    const press = (sel) => page.evaluate((s2) => document.querySelector(s2)?.click(), sel);
     await press('#net-chat-button');
     await sleep(400);
     await shot('4-chat');
@@ -305,9 +305,9 @@ try {
     await sleep(400);
     await page.evaluate(() => uspeak.rpg.finishFlight());
     await sleep(900);
-    await page.click('#mission-button');
+    await press('#mission-button');
     await page.waitForSelector('#mission-dialog[open]', { timeout: 15000 });
-    await page.click('[data-mission="bakery-two-drinks"]');
+    await press('[data-mission="bakery-two-drinks"]');
     await sleep(500);
     // Stand at the plaza so the interact prompt is showing while we measure.
     await page.evaluate(async () => {
