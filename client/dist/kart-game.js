@@ -88,7 +88,13 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
   const KEEP_MS = 1500;
   const wall = () => performance.now();
 
-  const me = { kart: createKart(), model: null, sparks: null, flame: null, name: 'あなた', id: 'me', cp: 0, lap: 0, finished: 0 };
+  const me = {
+    kart: createKart(), model: null, sparks: null, flame: null, name: 'あなた', id: 'me',
+    cp: 0, lap: 0, finished: 0,
+    log: [],          // crossings waiting for the room, with where the kart was
+    claimed: 0,       // the last checkpoint the room has actually taken
+    sentAt: 0,
+  };
   const rivals = [];
   const held = new Set();
 
@@ -254,12 +260,13 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     gridKart(me.kart, slots[mine]);
     me.kart.power = state.power || 1;
     me.kart.s = t.project(me.kart.x, me.kart.z).s;
-    me.cp = 0; me.lap = 0; me.finished = 0;
+    me.cp = 0; me.lap = 0; me.finished = 0; me.lastS = me.kart.s;
+    me.log.length = 0; me.claimed = 0; me.sentAt = 0;
     const order = state.online ? [6, 7, 8, 9, 10] : [0, 1, 3, 4, 5];
     rivals.forEach((r, i) => {
       gridKart(r.kart, slots[Math.min(order[i], slots.length - 1)]);
       r.kart.s = t.project(r.kart.x, r.kart.z).s;
-      r.cp = 0; r.lap = 0; r.finished = 0; r.progress = 0; r.buf.length = 0;
+      r.cp = 0; r.lap = 0; r.finished = 0; r.progress = 0; r.buf.length = 0; r.lastS = r.kart.s;
     });
     placeModels();
   }
@@ -270,19 +277,30 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
   // A racer passes a checkpoint when their distance round the lap goes past it. Counting
   // them in order is what makes a lap a lap: the corner-cutter who drives across the infield
   // never passes the ones they skipped, so their lap never completes.
+  // A crossing is an ARC, not a proximity. What is asked is "did the gate fall between
+  // where this kart was last frame and where it is now", which means the claim that goes
+  // with it is at most one frame's driving past the gate — a few metres, well inside the
+  // room's twenty-six. Asking instead "is the kart somewhere in the quarter-lap after the
+  // gate" fires from anywhere, including from the far side of a teleport or a rescue, and
+  // then the claim is a hundred metres out and the room refuses it for ever. That was a
+  // thousand refusals in one browser run: the page could not stop asking and the room
+  // could not say yes.
+  const MAX_ARC = 40;      // further than a kart can drive in a frame: that was a jump
   function checkpoints(o, kart) {
     const n = cpCount();
+    const L = state.track.length;
+    const from = Number.isFinite(o.lastS) ? o.lastS : kart.s;
+    const arc = ((kart.s - from) + L) % L;
+    o.lastS = kart.s;
+    if (arc <= 0 || arc > MAX_ARC) return '';
     const next = state.track.checkpoints[o.cp % n];
-    const gap = ((kart.s - next.s) + state.track.length) % state.track.length;
-    if (gap < state.track.length * 0.25) {
-      o.cp += 1;
-      if (o.cp % n === 0) {
-        o.lap += 1;
-        return 'lap';
-      }
-      return 'cp';
+    if (((next.s - from) + L) % L > arc) return '';
+    o.cp += 1;
+    if (o.cp % n === 0) {
+      o.lap += 1;
+      return 'lap';
     }
-    return '';
+    return 'cp';
   }
 
   function step(dt) {
@@ -411,6 +429,8 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     kart.course = kart.heading;
     kart.speed = 0; kart.slip = 0; kart.drift = 0; kart.driftWay = 0; kart.sparks = 0;
     kart.air = false; kart.vy = 0; kart.boostUntil = 0; kart.hint = -1;
+    kart.s = state.track.project(kart.x, kart.z).s;
+    o.lastS = kart.s;        // put back on the road is a jump, not a lap
     if (o === me) banner('コースに もどします', 1200, 'gp-miss');
   }
 
@@ -432,25 +452,32 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     }
   }
 
-  // A checkpoint, claimed. The room may refuse it — the lap floor is real, and a page that
-  // crossed two gates in a heartbeat is either cheating or was rescued — and a refusal that
-  // is simply dropped costs the child the whole race: the page's count runs one ahead of
-  // the room's for ever and every later claim comes back 'not next'. So a claim is held
-  // until the room takes it, and re-sent a few times a second with the position the kart
-  // was ACTUALLY at when it crossed. That position does not change on a retry: it is where
-  // the kart was, and it is what the room checks.
-  const RETRY_MS = 350;
-  const GIVE_UP = 16;
+  // Checkpoints, claimed. The room can refuse one — the lap floor is real, and a claim
+  // arriving too soon after the last is exactly the cheat the floor exists to stop — and a
+  // refusal that is simply dropped costs the child the whole race: the page's count runs
+  // ahead of the room's for ever and every later claim comes back 'not next'.
+  //
+  // So crossings are kept in a queue, each with THE POSITION THE KART WAS ACTUALLY AT when
+  // it crossed, and the oldest unacknowledged one is re-sent a few times a second until
+  // the room takes it. The stored position is the point: retrying with wherever the kart
+  // has got to by now is how a refusal becomes 'too far' and then 'too far' for ever,
+  // because the kart is driving away from the gate it is still trying to claim. This was
+  // a hundred and seventeen refusals in one browser run before it was written this way.
+  const RETRY_MS = 320;
+  const LOG_MAX = 60;
   function claim() {
-    me.pending = { cp: me.cp, s: Math.round(me.kart.s), sentAt: 0, tries: 0 };
+    me.log.push({ cp: me.cp, s: Math.round(me.kart.s) });
+    if (me.log.length > LOG_MAX) me.log.shift();
   }
 
   function pushClaim() {
-    const p = me.pending;
-    if (!p || state.now - p.sentAt < RETRY_MS) return;
-    if (p.tries >= GIVE_UP) { me.pending = null; return; }
-    p.sentAt = state.now;
-    p.tries += 1;
+    if (!me.log.length || state.now - me.sentAt < RETRY_MS) return;
+    // Only ever the next one the room is waiting for. Anything older has been taken;
+    // anything newer is not next and would be refused on principle.
+    while (me.log.length && me.log[0].cp <= me.claimed) me.log.shift();
+    const p = me.log[0];
+    if (!p) return;
+    me.sentAt = state.now;
     send?.('gp:cp', { cp: p.cp, s: p.s, lap: me.lap });
   }
 
@@ -834,7 +861,8 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     // The room accepted a checkpoint. Its lap number is the one that counts: a page that
     // lost a claim to the wire would otherwise show a lap it has not been given.
     onCp(m) {
-      if (me.pending && me.pending.cp === m.cp) me.pending = null;
+      me.claimed = Math.max(me.claimed, m.cp || 0);
+      me.sentAt = 0;                                   // the next one can go straight away
       if (m.lap) { state.lap = Math.min(m.lap + 1, state.laps); me.lap = m.lap; }
       if (m.finished && state.phase !== 'done') { me.finished = me.finished || state.now; finish(); }
     },
@@ -846,13 +874,23 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
       // `want` means the room's count and this page's have come apart, and the page's is
       // the one that is wrong: wind it back to what the room is waiting for, so the child
       // simply has to drive past that gate again.
+      // 'too fast' means the same claim, a moment later; pushClaim() is already doing it.
       if (m?.reason === 'too fast') return;
+      // Anything carrying a `want` says which checkpoint the room is still waiting for.
+      // The queue is wound to it — never the page's own count, which is what the child is
+      // driving by and is not wrong, only ahead.
       if (Number.isFinite(m?.want)) {
-        const n = cpCount();
-        me.cp = Math.max(0, m.want - 1);
-        me.lap = Math.floor(me.cp / n);
-        state.lap = Math.min(me.lap + 1, state.laps);
-        me.pending = null;
+        me.claimed = Math.max(0, m.want - 1);
+        // 'too far' means the claim itself was no good, not that it arrived early: the
+        // queued position will never be accepted, so throw the queue away and put the
+        // detector back on the gate the room wants. The child drives past it again — the
+        // same bargain the island's circuit makes.
+        if (m.reason === 'too far') {
+          me.log.length = 0;
+          me.cp = me.claimed;
+          me.lap = Math.floor(me.cp / cpCount());
+          state.lap = Math.min(me.lap + 1, state.laps);
+        }
         return;
       }
       if (['too far', 'already', 'no box', 'no position', 'not racing', 'not started'].includes(m?.reason)) return;
