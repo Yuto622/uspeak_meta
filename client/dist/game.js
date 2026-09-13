@@ -5,6 +5,7 @@ import {createAmbience} from './ambience.js';
 import {createThemePark} from './themepark.js';
 import {setupAvatars} from './avatars.js';
 import {setupFishing} from './fishing.js';
+import {createCoinHud} from './coin-hud.js';
 import {BUILDINGS} from './buildings.js';
 import {setupRpg} from './rpg.js';
 import {WILLOW_LESSONS} from './lesson-data.js';
@@ -60,7 +61,12 @@ function worldClock(world){if(!world)return;atmosphere.state.targetNight=world.n
 timeButton.onclick=()=>{const wait=untilNight(net.serverNow());toast(wait?`夜は みんな いっしょに やってきます。あと ${mmss(wait/1000)} で 夜。`:'いまは 夜。おばけに 近づいて 杖を ふろう。')};
 const park=createThemePark({scene,camera,player,box,rand,toast,speak,openDialog,dialog,atmosphere,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()}});
 const avatars=setupAvatars({player,toast,renderer});
-const fishing=setupFishing({scene,camera,player,box,colliders,rand,toast,speak,avatars,park,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()}});
+// コインの見える化. The badge is the island's, not any one screen's: it sits in the header
+// wherever a child is, and every coin the game pays goes through the fishing store's
+// commit — including the room's own reconcile — so this one hook catches all of them.
+const coinHud=createCoinHud();
+const fishing=setupFishing({scene,camera,player,box,colliders,rand,toast,speak,avatars,park,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()},onCoins:n=>coinHud.set(n)});
+coinHud.set(fishing.store.state.coins);
 const rpg=setupRpg({scene,camera,player,water,box,park,fishing,avatars,atmosphere,toast,speak,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()},buildingService,getBaseXp:()=>done.length*100,isMuted:()=>muted});
 // What the network layer is allowed to do to the view: know whether we are in first
 // person, switch it, and point the camera. Building looks down a crosshair, so the room

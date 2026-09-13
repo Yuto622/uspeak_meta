@@ -1,0 +1,103 @@
+/* コインの見える化 — the balance, and the coins that arrive in it.
+ *
+ * The coin is drawn in CSS rather than loaded as an image: it has to be crisp at 18px in
+ * the badge and at 30px falling down an iPad, it is on screen from the first frame, and a
+ * class of thirty opening the page at once should not each fetch a picture of a coin.
+ */
+
+/* --- the badge ------------------------------------------------------------------------ */
+/* The selector is written twice on purpose. The badge lives in `header .stats`, and
+   style.css has `.stats button { width:32px; height:32px; background:#e5e9dc }` — one
+   class plus one element, which beats a bare `.coin-hud`. Written only the plain way, the
+   badge is squeezed into a 32px square and the number inside it disappears; it looked like
+   the count was not rendering at all. `.stats .coin-hud` is two classes and wins. This is
+   the same trap `#voice-button` fell into with mobile.css's `.right-rail > *`. */
+.coin-hud,
+.stats .coin-hud {
+  display: inline-flex; align-items: center; gap: 7px;
+  width: auto; height: auto; min-height: 34px; padding: 4px 13px 4px 6px;
+  border: 1px solid #f0c86022; border-radius: 999px;
+  background: linear-gradient(180deg, #2a2a1d, #22221a);
+  color: #ffe9a8; font-weight: 800; font-variant-numeric: tabular-nums;
+  box-shadow: inset 0 1px 0 #ffffff12, 0 2px 10px #00000038;
+  transition: transform .12s ease;
+}
+.coin-hud[hidden] { display: none; }
+.coin-hud b { font-size: 15px; letter-spacing: .01em; }
+.coin-hud:active { transform: translateY(1px); }
+
+/* The coin face itself: a struck disc, not a flat circle. The inner ring and the mark are
+   what make it read as money at 18 pixels. */
+.coin-face {
+  width: 22px; height: 22px; flex: none; border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 30%, #fff6d0 0 12%, #ffdc7a 26%, #f0b53c 58%, #c9832a 82%, #a9691f 100%);
+  box-shadow: inset 0 -1px 2px #8a530f66, inset 0 1px 1px #fff3c9aa, 0 1px 3px #00000040;
+  position: relative;
+}
+.coin-face::after {
+  content: '◈';
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 900; color: #96550f;
+  text-shadow: 0 1px 0 #ffe9a5aa;
+}
+
+/* Earning and spending look different on purpose: one lifts and glows, the other dips. */
+@keyframes coin-hud-up {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.16); box-shadow: inset 0 1px 0 #ffffff12, 0 0 0 4px #ffd97e33, 0 2px 14px #ffc65066; }
+  100% { transform: scale(1); }
+}
+@keyframes coin-hud-down {
+  0% { transform: translateY(0); }
+  40% { transform: translateY(3px); filter: saturate(.6); }
+  100% { transform: translateY(0); }
+}
+.coin-hud-up { animation: coin-hud-up .7s ease; }
+.coin-hud-down { animation: coin-hud-down .4s ease; }
+
+/* --- the shower ------------------------------------------------------------------------ */
+/* A layer over everything that catches nothing: no pointer events, no tab stops, no part
+   of the page's flow. Coins land along its bottom edge and are swept up from there. */
+.coin-rain {
+  position: fixed; inset: 0; z-index: 90; pointer-events: none; overflow: hidden;
+}
+.coin-drop {
+  position: absolute;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  width: 30px; height: 30px; border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, #fff8db 0 12%, #ffe08a 26%, #f2b93f 58%, #cb852a 84%, #a4661d 100%);
+  box-shadow: inset 0 -2px 3px #8a530f55, inset 0 2px 2px #fff5ccaa, 0 3px 8px #00000040;
+  will-change: transform, opacity;
+}
+.coin-drop::after {
+  content: '◈';
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-size: 15px; font-weight: 900; color: #96550f;
+  text-shadow: 0 1px 0 #ffeaa8aa;
+}
+
+/* The race and the grand prix take the whole window, and the island's furniture — this
+   included — goes with it. */
+body[data-race] .coin-hud, body[data-gp] .coin-hud,
+body[data-race] .coin-rain, body[data-gp] .coin-rain { display: none !important; }
+
+/* Small screens: the badge shrinks but never below the 34px a finger needs, and the
+   falling coins shrink with it so fourteen of them still fit across a phone. */
+@media (max-width: 560px) {
+  .coin-hud, .stats .coin-hud { padding: 4px 10px 4px 5px; gap: 5px; }
+  .coin-hud b { font-size: 13px; }
+  /* The mark on the coin stays at 11px — the type floor in mobile.css is about text a
+     child has to read, and shrinking a decorative glyph under it to dodge that rule would
+     be dodging the rule. An 11px ◈ in a 19px disc is the right proportion anyway. */
+  .coin-face { width: 19px; height: 19px; }
+  .coin-drop { width: 23px; height: 23px; }
+  .coin-drop::after { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coin-hud-up, .coin-hud-down { animation: none; }
+}

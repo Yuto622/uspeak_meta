@@ -4,9 +4,9 @@ import {hooks} from './net-hooks.js';
 import {createFishingStore} from './fishing-state.js';
 import {fishModel,equipmentModel} from './fishing-models.js';
 import {buildAvatar} from './avatars.js';
-export function setupFishing({scene,camera,player,box,colliders,rand,toast,speak,avatars,park,learn}){
+export function setupFishing({scene,camera,player,box,colliders,rand,toast,speak,avatars,park,learn,onCoins=()=>{}}){
  const $=s=>document.querySelector(s),modal=$('#fishing-dialog'),content=$('#fishing-content'),hud=$('#fishing-hud');let storage;try{storage=localStorage}catch{storage={getItem:()=>null,setItem(){throw new Error()}}}
- const store=createFishingStore(storage,()=>toast('進捗を端末に保存できません。このタブ内では遊べます。'));
+ const store=createFishingStore(storage,()=>toast('進捗を端末に保存できません。このタブ内では遊べます。'),n=>onCoins(n.coins));
  let rpgAway=()=>false,returnMap=()=>park.booking();const isAway=()=>park.state.inPark||rpgAway();
  const state={busy:false,mode:'idle',zone:'pond',grade:'all',elapsed:0,fish:null,wrongs:0,answered:false};let page='spots',bookZone='all',shopKind='outfit',preview=null,previewRenderer=null,previewFailed=false,previewCanvas=null,lastModel=null,equippedOutfit=null,equippedWeapon=null,gearStamp='',selectedShopItem='vest';
  const previewScene=new THREE.Scene(),previewCamera=new THREE.PerspectiveCamera(35,1,.1,30);previewScene.background=new THREE.Color(0x163d48);previewScene.add(new THREE.HemisphereLight(0xcdeffd,0x365862,3));const pl=new THREE.DirectionalLight(0xffe0aa,4);pl.position.set(-3,5,6);previewScene.add(pl);previewCamera.position.set(2,1.2,5);previewCamera.lookAt(0,0,0);
