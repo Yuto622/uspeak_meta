@@ -21,11 +21,12 @@ import { createDailyUI } from './daily.js';
 import { createNight } from './night-world.js';
 import { createRideUI } from './ride.js';
 import { createRaceUI } from './race.js';
+import { createKartGame } from './kart-game.js';
 import { createRoom } from './room-world.js';
 import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
 
-export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, toast, speak, learn }) {
+export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn }) {
   const Colyseus = globalThis.Colyseus;
   const $ = (s) => document.querySelector(s);
   const state = {
@@ -189,6 +190,16 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // of text across the road. Who is where is in the corner of the race screen instead.
     onScreen: (on) => { rpg.ride?.setLabels?.(!on); remotes.setTags(!on); },
   });
+  // U-SPEAK GRAND PRIX. Its own game: pressing start hands the renderer over and the island
+  // stops until the flag. The room still decides what a race was worth.
+  const gp = createKartGame({
+    renderer,
+    send: (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); },
+    toast,
+    isOnline: () => state.mode === 'online',
+    onExit: () => { rpg.holdDoors?.(false); },
+  });
+
   const ride = createRideUI({
     send: atSend,
     toast, speak, learn, isOnline: () => state.mode === 'online',
@@ -740,6 +751,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get sessionId() { return state.sessionId; },
     get room() { return room; },
     get remotes() { return remotes; },
+    get gp() { return gp; },
     openLobby: () => lobby.open({ name: state.name }),
     openMission: () => mission.open(),
     errandInteract: () => { const near = rpg.errandNearby(); if (near) mission.interact(near.spot); },

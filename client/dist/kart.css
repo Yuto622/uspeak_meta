@@ -1,0 +1,188 @@
+/* U-SPEAK GRAND PRIX — the kart game's own screen.
+ *
+ * Nothing here shares a rule with the island. When #gp is up it is the whole window: its
+ * own canvas, its own HUD, its own controls. `body[data-gp]` takes the island away, and
+ * the one thing that must survive is the exit — a child has to be able to get out.
+ */
+
+body[data-gp] > header,
+body[data-gp] .quest-panel,
+body[data-gp] .right-rail,
+body[data-gp] .bottom,
+body[data-gp] .mobile-pad,
+body[data-gp] .world-label,
+body[data-gp] .crosshair,
+body[data-gp] .vignette,
+body[data-gp] #near,
+body[data-gp] #rpg-region-panel,
+body[data-gp] #park-panel,
+body[data-gp] #travel-hud,
+body[data-gp] .net-dock,
+body[data-gp] #voice-button,
+body[data-gp] #errand-hud { display: none !important; }
+body[data-gp] { overflow: hidden; }
+
+/* The circuit is drawn into the island's own canvas — the same renderer, a different
+   scene — so this layer is only the HUD, and everything on it that is not a control lets
+   the race through. */
+#gp {
+  position: fixed; inset: 0; z-index: 60; pointer-events: none;
+  color: #fff; font-family: inherit; text-shadow: 0 3px 10px #04101acc;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+}
+#gp[hidden] { display: none; }
+
+/* --- the HUD ------------------------------------------------------------------------ */
+.gp-hud {
+  position: absolute; inset: 0; pointer-events: none;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  padding: calc(14px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right))
+           calc(14px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
+  gap: 10px;
+}
+.gp-tl { grid-area: 1 / 1; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.gp-tc { grid-area: 1 / 2; display: flex; justify-content: center; align-items: flex-start; }
+.gp-tr { grid-area: 1 / 3; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.gp-bl { grid-area: 3 / 1; display: flex; gap: 12px; align-items: flex-end; }
+.gp-bc { grid-area: 3 / 2; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+.gp-br { grid-area: 3 / 3; display: flex; gap: 12px; align-items: flex-end; }
+
+.gp-place { display: flex; align-items: baseline; gap: 2px; line-height: .82; }
+.gp-place b { font-size: clamp(48px, 9vw, 92px); font-weight: 800; letter-spacing: -.04em; }
+.gp-place small { font-size: 17px; opacity: .7; }
+.gp-lap { display: flex; align-items: baseline; gap: 7px; }
+.gp-lap span { font-size: 11px; letter-spacing: .2em; opacity: .75; }
+.gp-lap b { font-size: clamp(20px, 3.4vw, 32px); font-weight: 800; }
+
+.gp-times { text-align: right; font-variant-numeric: tabular-nums; }
+.gp-times span { font-size: clamp(16px, 2.6vw, 24px); font-weight: 700; }
+.gp-times small { display: block; font-size: 11px; opacity: .7; }
+.gp-map { width: 150px; height: 150px; border-radius: 18px; background: #06131099; backdrop-filter: blur(4px); }
+.gp-order { list-style: none; margin: 0; padding: 8px 11px; background: #061310aa; border-radius: 14px; font-size: 12px; min-width: 140px; backdrop-filter: blur(4px); }
+.gp-order li { display: flex; gap: 9px; padding: 1px 0; opacity: .8; }
+.gp-order li b { width: 16px; text-align: right; opacity: .65; }
+.gp-order li.me { opacity: 1; font-weight: 700; color: #ffe08a; }
+
+.gp-speed { display: flex; align-items: baseline; gap: 5px; font-variant-numeric: tabular-nums; }
+.gp-speed b { font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1; }
+.gp-speed small { font-size: 11px; opacity: .7; }
+.gp-keys { margin: 4px 0 0; font-size: 11px; opacity: .55; }
+.gp-hud[data-boost="1"] .gp-speed b { color: #ffe08a; }
+/* The drift charge, as a rim of light: blue, orange, purple — the colours the genre has
+   used for twenty years, so a child who has played one already knows what they mean. */
+.gp-hud[data-drift="1"]::after,
+.gp-hud[data-drift="2"]::after,
+.gp-hud[data-drift="3"]::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 0 90px #63c7ffaa; animation: gp-pulse .5s infinite alternate;
+}
+.gp-hud[data-drift="2"]::after { box-shadow: inset 0 0 110px #ffa03caa; }
+.gp-hud[data-drift="3"]::after { box-shadow: inset 0 0 130px #c06fd0cc; }
+@keyframes gp-pulse { from { opacity: .5; } to { opacity: 1; } }
+
+/* --- the thumbs ---------------------------------------------------------------------- */
+.gp-key {
+  pointer-events: auto; -webkit-tap-highlight-color: transparent; touch-action: none;
+  border: 2px solid #ffffff33; background: #06231fc4; color: #f3efe1;
+  width: 78px; height: 78px; border-radius: 50%; font-size: 25px; font-weight: 800;
+  backdrop-filter: blur(4px); box-shadow: 0 10px 26px #04101a80;
+}
+.gp-key.on { background: #2f8f6b; transform: translateY(2px); }
+.gp-gas { width: 98px; height: 98px; font-size: 32px; background: #2f6b7fcc; }
+.gp-brake { width: 60px; height: 60px; font-size: 20px; }
+.gp-drift { width: 78px; height: 78px; font-size: 13px; background: #6b4f9ecc; }
+@media (hover: hover) and (pointer: fine) { .gp-bl, .gp-br { display: none; } }
+@media (pointer: coarse) { .gp-keys { display: none; } }
+
+/* --- the lights, the banners ---------------------------------------------------------- */
+.gp-lights {
+  position: absolute; left: 50%; top: 12%; transform: translateX(-50%); z-index: 3;
+  display: flex; gap: 13px; padding: 13px 17px; border-radius: 20px; background: #04101ab0;
+  backdrop-filter: blur(4px); pointer-events: none;
+}
+.gp-lights[hidden] { display: none; }
+.gp-lights i { width: 28px; height: 28px; border-radius: 50%; background: #ffffff1c; box-shadow: inset 0 2px 6px #04101a99; }
+.gp-lights[data-lit="1"] i:nth-child(-n+1),
+.gp-lights[data-lit="2"] i:nth-child(-n+2),
+.gp-lights[data-lit="3"] i:nth-child(-n+3),
+.gp-lights[data-lit="4"] i:nth-child(-n+4),
+.gp-lights[data-lit="5"] i { background: #ff6b57; box-shadow: 0 0 18px #ff6b57cc; }
+
+.gp-flash {
+  position: absolute; left: 50%; top: 33%; transform: translate(-50%, -50%); z-index: 4;
+  font-size: clamp(34px, 8vw, 84px); font-weight: 800; text-align: center;
+  text-shadow: 0 6px 26px #04101a; pointer-events: none;
+}
+.gp-flash[hidden] { display: none; }
+.gp-flash.gp-go { color: #8fe0b4; }
+.gp-flash.gp-title { font-size: clamp(22px, 4vw, 44px); color: #ffd166; letter-spacing: .04em; }
+.gp-flash.gp-finish { color: #ffd166; }
+.gp-flash.gp-miss { color: #ffb4a2; font-size: clamp(20px, 3.4vw, 34px); }
+
+/* --- 📦 the English --------------------------------------------------------------------- */
+.gp-quiz {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5;
+  width: min(560px, 92vw); padding: 13px 15px; border-radius: 20px;
+  background: #08231ff2; box-shadow: 0 20px 60px #04101a99; pointer-events: auto;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.gp-quiz[hidden] { display: none; }
+.gp-quiz-word { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.gp-quiz-word span { font-size: 32px; }
+.gp-quiz-word b { font-size: clamp(19px, 3.4vw, 28px); }
+.gp-quiz-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.gp-quiz-choices button {
+  padding: 15px 8px; border-radius: 14px; background: #ffffff1f; color: #f3efe1;
+  font-size: clamp(14px, 2.4vw, 19px); font-weight: 700;
+}
+.gp-quiz-choices button:active { background: #2f8f6b; transform: translateY(1px); }
+
+/* --- the result --------------------------------------------------------------------------- */
+.gp-result { pointer-events: auto; position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; background: #04101ac4; }
+.gp-result[hidden] { display: none; }
+.gp-result-card {
+  width: min(520px, 92vw); max-height: 88vh; overflow: auto; padding: 20px;
+  border-radius: 22px; background: #0d2a26; box-shadow: 0 24px 70px #04101aaa;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.gp-eyebrow { font-size: 11px; letter-spacing: .22em; opacity: .65; }
+.gp-result-card h2 { margin: 0; font-size: clamp(30px, 6vw, 46px); }
+.gp-result-line { margin: 0; display: flex; align-items: baseline; gap: 10px; font-size: 14px; }
+.gp-result-line b { margin-left: auto; font-size: 17px; }
+.gp-result-line small { opacity: .65; font-size: 11px; }
+.gp-result-order { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.gp-result-order li { display: flex; gap: 10px; align-items: baseline; padding: 7px 11px; border-radius: 11px; background: #ffffff12; font-size: 14px; }
+.gp-result-order li.me { background: #74c39a33; font-weight: 700; }
+.gp-result-order li b { width: 20px; opacity: .6; }
+.gp-exit { padding: 14px; border-radius: 14px; background: #2f8f6b; color: #f3efe1; font-size: 15px; font-weight: 700; }
+
+/* Out. Not in the middle at the top, where the starting lights are. */
+.gp-quit {
+  pointer-events: auto; position: absolute; z-index: 7;
+  top: calc(10px + env(safe-area-inset-top)); right: calc(14px + env(safe-area-inset-right));
+  width: 34px; height: 34px; border-radius: 50%;
+  background: #04101a99; color: #f3efe1; font-size: 15px; border: 1px solid #ffffff26;
+}
+/* …and the panel under it moves down to make room. */
+.gp-tr { padding-top: 40px; }
+
+/* --- small screens ------------------------------------------------------------------------- */
+@media (max-width: 560px) {
+  .gp-map { width: 104px; height: 104px; }
+  .gp-order { min-width: 112px; font-size: 11px; }
+  .gp-key { width: 64px; height: 64px; font-size: 21px; }
+  .gp-gas { width: 80px; height: 80px; font-size: 26px; }
+  .gp-brake { width: 52px; height: 52px; font-size: 17px; }
+  .gp-drift { width: 64px; height: 64px; font-size: 11px; }
+  .gp-bl, .gp-br { gap: 8px; }
+}
+@media (max-height: 560px) {
+  .gp-order { display: none; }
+  .gp-map { width: 100px; height: 100px; }
+  .gp-place b { font-size: clamp(34px, 6vw, 52px); }
+  .gp-lights { top: 7%; }
+  .gp-lights i { width: 19px; height: 19px; }
+  .gp-flash { top: 29%; }
+}
