@@ -54,3 +54,11 @@ primary_region = "nrt"
 [deploy]
   # A single machine keeps every class in one process (rooms are in-memory).
   strategy = "immediate"
+
+[mounts]
+  # Persists server/data/store.json (coins, XP, learning logs) across deploys and restarts.
+  # Without this the store lives on the machine's own ephemeral disk and a `fly deploy`
+  # wipes every child's progress. Create it once before the first deploy that uses this:
+  #   fly volumes create uspeak_data --region nrt --size 1
+  source = "uspeak_data"
+  destination = "/app/server/data"
