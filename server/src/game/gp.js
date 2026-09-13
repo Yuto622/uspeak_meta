@@ -58,6 +58,9 @@ export const MAX_RACERS = 12;
 // the room patches everything else at, and one packet of slack is what the page's 100 ms
 // interpolation is built on — see net-config.js. Slower than this and ミドリ teleports.
 export const GP_TICK_MS = 100;
+// How often a rival looks at the road, however often the room gets round to calling in.
+// Thirty times a second is a driver; once a tick is a passenger.
+const AI_STEP = 1 / 30;
 export const RACE_MAX_MS = 7 * 60 * 1000;
 export const DAILY_CAP = 240;         // coins a child can win from racing in a day
 // The prize, by where they finished. Everybody who finishes is paid something: a child who
@@ -151,21 +154,36 @@ export function tickGP(race, now = Date.now()) {
   if (race.phase !== 'running') return;
 
   // The rivals: the child's own physics, the child's own racing line, on the room's clock.
+  //
+  // Sub-stepped, and not only for the physics. A driver who looks at the road once and
+  // then holds that steering for the whole of dt is driving blind, and how blind depends
+  // on how often the room happens to tick — which is not a thing a race is allowed to
+  // depend on. It cost a whole e2e run to find: the room's tick turned out to be once a
+  // second (Colyseus only advances room.clock inside the simulation interval), the rivals
+  // steered once a second at twenty-five metres a second, and five karts that lap in a
+  // hundred seconds spent two and a half minutes not finishing their first lap.
   const leader = Math.max(0, ...[...race.racers.values()].map((r) => r.cp));
-  for (const r of race.rivals) {
-    if (r.finished) continue;
-    maybeSlip(r.driver, now);
-    const gap = (leader - r.cp) * (race.track.length / cpCount(race));
-    const hands = driveAI(r.driver, r.kart, { track: race.track, now, rubber: rubberFor(gap) });
-    advance(r.kart, { seconds: dt, input: hands, track: race.track, now, cap: 2 });
-    // Checkpoints, the same way a child's are counted.
-    const next = race.track.checkpoints[r.cp % cpCount(race)];
-    const along = ((r.kart.s - next.s) + race.track.length) % race.track.length;
-    if (along < race.track.length * 0.25) {
-      r.cp += 1;
-      if (r.cp % cpCount(race) === 0) {
-        r.lap += 1;
-        if (r.lap >= race.laps) { r.finished = now; race.finished.push(r.id); }
+  let left = dt;
+  let t = now - dt * 1000;
+  while (left > 1e-6) {
+    const slice = Math.min(AI_STEP, left);
+    t += slice * 1000;
+    left -= slice;
+    for (const r of race.rivals) {
+      if (r.finished) continue;
+      maybeSlip(r.driver, t);
+      const gap = (leader - r.cp) * (race.track.length / cpCount(race));
+      const hands = driveAI(r.driver, r.kart, { track: race.track, now: t, rubber: rubberFor(gap) });
+      advance(r.kart, { seconds: slice, input: hands, track: race.track, now: t, cap: AI_STEP });
+      // Checkpoints, the same way a child's are counted.
+      const next = race.track.checkpoints[r.cp % cpCount(race)];
+      const along = ((r.kart.s - next.s) + race.track.length) % race.track.length;
+      if (along < race.track.length * 0.25) {
+        r.cp += 1;
+        if (r.cp % cpCount(race) === 0) {
+          r.lap += 1;
+          if (r.lap >= race.laps) { r.finished = t; race.finished.push(r.id); }
+        }
       }
     }
   }
@@ -200,7 +218,7 @@ export function claimCp(race, id, { cp, s }, now = Date.now()) {
   if (r.lastCpAt) {
     const seconds = (now - r.lastCpAt) / 1000;
     const gap = race.track.length / n;
-    if (seconds < gap / MAX_SPEED) return { ok: false, reason: 'too fast' };
+    if (seconds < gap / MAX_SPEED) return { ok: false, reason: 'too fast', want: r.cp + 1 };
   }
   r.lastCpAt = now;
   r.cp += 1;

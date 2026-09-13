@@ -204,9 +204,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     send: atSend,
     toast, speak, learn, isOnline: () => state.mode === 'online',
     onRiding: (id, speed) => { state.riding = id; state.speed = id ? speed : 1; },
-    // The start line hands over to the race, and the race hands the best lap back.
-    onRace: (what) => (what === 'quit' ? race.quit() : race.join()),
-    racing: () => race.state.phase !== 'off',
+    // The start line hands over to the U-SPEAK GRAND PRIX — its own circuit, its own
+    // scene, its own five rivals — and the flag hands the best lap back. The island's own
+    // lap (race.js / server game/race.js) is still there and still tested, but nothing
+    // opens it any more: a child on のりもの島 rides the island, and races the grand prix.
+    onRace: (what) => (what === 'quit' ? gp.quit() : gp.start({ name: state.name || 'あなた' })),
+    racing: () => gp.running || race.state.phase !== 'off',
   });
   // The night belongs to the world, not to the network, but its ghosts pay coins — so
   // it is created here, where the room is, and asks the server for every one of them.
@@ -386,6 +389,19 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('race:over', (m) => race.onOver(m));
     r.onMessage('race:closed', (m) => { race.onClosed(m); rpg.ride.setNext(''); });
     r.onMessage('race:error', (m) => race.onError(m));
+    // U-SPEAK GRAND PRIX. The room drives the rivals and judges every lap; this page draws
+    // them and asks for nothing. See kart-game.js and server/src/game/gp.js.
+    r.onMessage('gp:grid', (m) => gp.onGrid(m));
+    r.onMessage('gp:lights', (m) => gp.onLights(m));
+    r.onMessage('gp:go', (m) => gp.onGo(m));
+    r.onMessage('gp:field', (m) => gp.onField(m));
+    r.onMessage('gp:cp', (m) => gp.onCp(m));
+    r.onMessage('gp:box', (m) => gp.onItem(m));
+    r.onMessage('gp:boost', (m) => { applyProgress(m.progress); gp.onBoost(m); });
+    r.onMessage('gp:finished', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress); ride.setBest(m.bestMs || m.best || 0); gp.onResult(m); });
+    r.onMessage('gp:over', (m) => gp.onOver(m));
+    r.onMessage('gp:closed', (m) => gp.onClosed(m));
+    r.onMessage('gp:error', (m) => gp.onError(m));
     r.onMessage('voice:room', (m) => voice.onRoom(m));
     r.onMessage('voice:peer', (m) => voice.onPeer(m));
     r.onMessage('voice:closed', (m) => voice.onClosed(m));

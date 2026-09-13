@@ -61,6 +61,10 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     box: null,           // the English question on screen
     field: [],           // everyone, child and rivals, in running order
     result: null,
+    // Online, none of the above is the page's to decide. The room drives the rivals and
+    // works out the order; this screen draws what it is told and asks for nothing.
+    online: false,
+    joined: false,       // waiting for gp:grid
   };
 
   let scene = null;
@@ -70,6 +74,20 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
   let raf = 0;
   let lastFrame = 0;
   let acc = 0;
+  // Online the rivals arrive as ten samples a second from the room, and are drawn a tenth
+  // of a second in the past so there is always a sample to interpolate towards. This is the
+  // same bargain the island's remote children are drawn on — NET.INTERP_DELAY_MS in
+  // net-config.js — written out here because the kart game does not import the net layer.
+  //
+  // The clock for it is the WALL clock, not state.now. state.now is the physics clock, and
+  // on a tablet that cannot keep up it deliberately runs slow (see frame()); driving the
+  // interpolation off it makes the rivals fall further into the past every frame until
+  // they are minutes behind the race the room is running. Measured at about a quarter of
+  // real speed on the test container, which is exactly what a struggling iPad looks like.
+  const INTERP_MS = 100;
+  const KEEP_MS = 1500;
+  const wall = () => performance.now();
+
   const me = { kart: createKart(), model: null, sparks: null, flame: null, name: 'あなた', id: 'me', cp: 0, lap: 0, finished: 0 };
   const rivals = [];
   const held = new Set();
@@ -211,6 +229,7 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
         lap: 0,
         finished: 0,
         progress: 0,
+        buf: [],          // the room's samples, when the room is driving
       });
     });
   }
@@ -225,18 +244,22 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     state.lastLap = 0;
     state.result = null;
     $('#gp-result', screen).hidden = true;
-    // The child takes a slot in the middle of the grid; the rivals fill in around them, so
-    // there is somebody to pass and somebody passing.
+    // Offline the child takes a slot in the middle of the grid and the rivals fill in
+    // around them, so there is somebody to pass and somebody passing. Online the grid is
+    // the room's: the class lines up at the front in the order they walked up, the rivals
+    // behind them, and every page has to agree — two children on the same slot is two
+    // children in the same square metre of tarmac when the lights go out.
     const slots = t.grid;
-    gridKart(me.kart, slots[2]);
+    const mine = state.online ? Math.min(state.grid - 1, slots.length - 1) : 2;
+    gridKart(me.kart, slots[mine]);
     me.kart.power = state.power || 1;
     me.kart.s = t.project(me.kart.x, me.kart.z).s;
     me.cp = 0; me.lap = 0; me.finished = 0;
-    const order = [0, 1, 3, 4, 5];
+    const order = state.online ? [6, 7, 8, 9, 10] : [0, 1, 3, 4, 5];
     rivals.forEach((r, i) => {
-      gridKart(r.kart, slots[order[i] % slots.length]);
+      gridKart(r.kart, slots[Math.min(order[i], slots.length - 1)]);
       r.kart.s = t.project(r.kart.x, r.kart.z).s;
-      r.cp = 0; r.lap = 0; r.finished = 0; r.progress = 0;
+      r.cp = 0; r.lap = 0; r.finished = 0; r.progress = 0; r.buf.length = 0;
     });
     placeModels();
   }
@@ -265,7 +288,7 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
   function step(dt) {
     const t = state.track;
     const racing = state.phase === 'race';
-    const locked = !racing || !!state.box;
+    const locked = !racing || !!state.box || !!me.finished;
     const ev = advance(me.kart, {
       seconds: dt,
       input: locked ? { throttle: false, brake: false, steer: 0, drift: false } : input(),
@@ -280,7 +303,8 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
       rescue(me, me.kart, dt);
       const got = checkpoints(me, me.kart);
       if (got === 'lap') lapDone();
-      else if (got === 'cp') send?.('gp:cp', { cp: me.cp, s: Math.round(me.kart.s), lap: me.lap });
+      else if (got === 'cp') claim();
+      pushClaim();
       padsAndBoxes();
     }
 
@@ -290,7 +314,9 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     // worth trying and barging through the field is not.
     if (racing) bumps();
 
-    // The rivals: the same physics, their own hands, and a nudge from how the race is going.
+    // The rivals. Offline the page drives them; online it does not touch them — see
+    // followRivals(), which puts them where the room says they are.
+    if (state.online) { followRivals(); return; }
     for (const r of rivals) {
       if (!racing) continue;
       maybeSlip(r.driver, state.now);
@@ -332,6 +358,40 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     }
   }
 
+  // The room's rivals, drawn a tenth of a second in the past. Nothing here decides
+  // anything: no physics, no racing line, no lap counting. A page that ran its own ミドリ
+  // alongside the room's would have two of her, and the one the child was racing would be
+  // the wrong one — the class has to be racing the same kart.
+  function followRivals() {
+    const at = wall() - INTERP_MS;
+    for (const r of rivals) {
+      const buf = r.buf;
+      while (buf.length > 2 && buf[1].t <= at) buf.shift();
+      while (buf.length && buf[0].t < at - KEEP_MS) buf.shift();
+      if (!buf.length) continue;
+      const a = buf[0];
+      const b = buf[1] || a;
+      const span = b.t - a.t;
+      // Past the last sample, hold still rather than run off down the road: a frozen kart
+      // that jumps is easier to read than one that drives into the scenery and back.
+      const k = span > 0 ? Math.max(0, Math.min(1, (at - a.t) / span)) : 0;
+      r.kart.x = a.x + (b.x - a.x) * k;
+      r.kart.y = a.y + (b.y - a.y) * k;
+      r.kart.z = a.z + (b.z - a.z) * k;
+      // Headings wrap, so go the short way round or a kart spins on its axis at the line.
+      let turn = ((b.h - a.h + Math.PI) % (Math.PI * 2)) - Math.PI;
+      if (turn < -Math.PI) turn += Math.PI * 2;
+      r.kart.heading = a.h + turn * k;
+      r.kart.slip = a.slip + (b.slip - a.slip) * k;
+      r.kart.boostUntil = b.boost ? state.now + 200 : 0;   // …but the flame is drawn on the game's clock
+      // hint is a FRAME INDEX, not a distance. Handing project() an `s` in metres makes
+      // it index the frame table with a float and read undefined, once a frame, for ever.
+      const hit = state.track.project(r.kart.x, r.kart.z, r.kart.hint);
+      r.kart.s = hit.s;
+      r.kart.hint = hit.index;
+    }
+  }
+
   // Fished out. A kart that has left the circuit altogether — over the sand, past the
   // grass, out over the water — is put back on the road at the last checkpoint it passed,
   // facing the right way, having lost the time. Every kart game has somebody who does
@@ -366,9 +426,32 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
       if (Math.hypot(me.kart.x - b.def.x, me.kart.z - b.def.z) < 2.6) {
         b.takenUntil = state.now + 6000;
         b.mesh.visible = false;
-        send?.('gp:item', {});
+        // The room cannot see the kart, so the claim carries where on the circuit it was.
+        send?.('gp:item', { box: b.def.id, s: Math.round(me.kart.s) });
       }
     }
+  }
+
+  // A checkpoint, claimed. The room may refuse it — the lap floor is real, and a page that
+  // crossed two gates in a heartbeat is either cheating or was rescued — and a refusal that
+  // is simply dropped costs the child the whole race: the page's count runs one ahead of
+  // the room's for ever and every later claim comes back 'not next'. So a claim is held
+  // until the room takes it, and re-sent a few times a second with the position the kart
+  // was ACTUALLY at when it crossed. That position does not change on a retry: it is where
+  // the kart was, and it is what the room checks.
+  const RETRY_MS = 350;
+  const GIVE_UP = 16;
+  function claim() {
+    me.pending = { cp: me.cp, s: Math.round(me.kart.s), sentAt: 0, tries: 0 };
+  }
+
+  function pushClaim() {
+    const p = me.pending;
+    if (!p || state.now - p.sentAt < RETRY_MS) return;
+    if (p.tries >= GIVE_UP) { me.pending = null; return; }
+    p.sentAt = state.now;
+    p.tries += 1;
+    send?.('gp:cp', { cp: p.cp, s: p.s, lap: me.lap });
   }
 
   function lapDone() {
@@ -376,10 +459,16 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     state.lapStart = state.now;
     state.lastLap = ms;
     if (!state.best || ms < state.best) state.best = ms;
-    send?.('gp:cp', { cp: me.cp, s: Math.round(me.kart.s), lap: me.lap });
+    claim();
+    pushClaim();
     if (me.lap >= state.laps) {
       me.finished = state.now;
-      finish();
+      // Offline the flag is the flag. Online it is a claim like any other, and the result
+      // card waits for the room to take it — a page that closed the race the moment it
+      // thought it had won would stop retrying the very claim the win depends on. The
+      // child still gets the chequered flag and their hands come off the wheel.
+      if (state.online) banner('チェッカー フラッグ！', 2200, 'gp-finish');
+      else finish();
     } else {
       state.lap = me.lap + 1;
       banner(`LAP ${state.lap}/${state.laps}`, 1200);
@@ -411,8 +500,15 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     return all;
   }
 
+  // Who is where. Offline the page works it out; online the room has already worked it
+  // out, from checkpoints it accepted, and this screen is not entitled to a second opinion.
+  function running() {
+    if (state.online && state.roomField) return state.roomField;
+    return order();
+  }
+
   function paintHud() {
-    const list = order();
+    const list = running();
     state.field = list;
     const mine = list.findIndex((r) => r.mine) + 1;
     state.place = mine;
@@ -532,21 +628,27 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
   function frame(ts) {
     if (!state.open) return;
     raf = requestAnimationFrame(frame);
-    const dt = Math.min(0.25, (ts - lastFrame) / 1000 || 0);
+    const dt = Math.min(0.5, (ts - lastFrame) / 1000 || 0);
     lastFrame = ts;
     acc += dt;
     // Fixed steps, so the race is the same race on a slow tablet — and a slow tablet is
-    // given a floor rather than a spiral: at worst it simulates a quarter second a frame.
+    // given a floor rather than a spiral: at worst it simulates half a second a frame.
+    // Half rather than a quarter because the rivals run on the room's clock: a page that
+    // can only simulate a quarter of a second a frame is a page whose child is driving at
+    // a quarter speed against rivals at full speed, which is not a race, it is a wall.
     let guard = 0;
-    while (acc >= STEP && guard < 40) {
+    while (acc >= STEP && guard < 60) {
       step(STEP);
       state.now += STEP * 1000;
       acc -= STEP;
       guard += 1;
     }
-    if (guard >= 40) acc = 0;
+    if (guard >= 60) acc = 0;
 
-    if (state.phase === 'lights' && state.now >= state.startsAt) go();
+    // Offline the lights are this page's to run out. Online the room says when, and a
+    // page that started itself would be a lap ahead of the class on its own screen and
+    // refused by the room on every checkpoint until it caught up.
+    if (state.phase === 'lights' && !state.online && state.now >= state.startsAt) go();
     placeModels();
     look(dt);
     for (const b of boxes.boxes) {
@@ -560,16 +662,22 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
   }
 
   // ---- opening and closing -----------------------------------------------------------------
-  async function open({ name = 'あなた', power = 1, laps = 0 } = {}) {
+  async function open({ name = 'あなた', power = 1, laps = 0, online = false, grid: slot = 3, countdown = 0 } = {}) {
     if (state.open) return;
     await build();
     state.name = name;
     state.power = power;
+    state.online = !!online;
+    state.grid = slot;
+    state.roomField = null;
     if (laps) state.track.laps = laps;
     state.open = true;
     state.phase = 'grid';
     state.now = 0;
-    state.startsAt = 4200;
+    // Offline the lights are the page's, on the same clock the karts move on. Online they
+    // are the room's: everybody on the grid sees them go out at the same moment, and until
+    // gp:go arrives this screen holds the field on the line however long that takes.
+    state.startsAt = state.online ? Math.max(1200, countdown) : 4200;
     acc = 0;
     lastFrame = performance.now();
     screen.hidden = false;
@@ -589,6 +697,9 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     lightsTimer();
   }
 
+  // Online, the lights and the flag come from the room.
+  function joinRoom() { send?.('gp:join', {}); state.joined = true; }
+
   function lightsTimer() {
     clearInterval(lightsTimer.t);
     lightsTimer.t = setInterval(() => {
@@ -607,17 +718,17 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     setTimeout(() => { lights.hidden = true; }, 600);
     banner('GO!', 1100, 'gp-go');
     clearInterval(lightsTimer.t);
-    send?.('gp:go', {});
   }
 
   function finish() {
     state.phase = 'done';
-    const list = order();
+    const list = running();
     const place = list.findIndex((r) => r.mine) + 1;
     banner(`${th(place)}！`, 2000, 'gp-finish');
-    send?.('gp:finish', { place, best: Math.round(state.best), laps: me.lap });
-    // The card is filled in twice: straight away with what the page knows, and again when
-    // the room says what it was worth. The coins on it are always the room's.
+    // Nothing is sent: the room already knows, because the last checkpoint of the last lap
+    // is the flag and it was claimed like every other one. The card is filled in twice —
+    // straight away with what the page can see, and again when the room says what the race
+    // was worth. The place and the coins on it are always the room's.
     showResult({ place, best: state.best, list, coins: null, xp: null });
   }
 
@@ -635,6 +746,8 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     if (!state.open) return;
     state.open = false;
     state.phase = 'off';
+    state.joined = false;
+    state.roomField = null;
     cancelAnimationFrame(raf);
     clearInterval(lightsTimer.t);
     window.removeEventListener('resize', resize);
@@ -657,6 +770,95 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     quit,
     setAutoDrive(fn) { state.autoDrive = fn; },
     get me() { return me; },
+    // For globalThis.uspeak — the real-device debug handle, and the browser tests. Where
+    // the rivals are is the one thing worth being able to read from outside.
+    get rivals() { return rivals; },
+
+    // ---- the way in ------------------------------------------------------------------
+    // Online, pressing start asks the room for a place on the grid and nothing happens on
+    // screen until it answers: the class shares one race, and a page that opened its own
+    // would be racing rivals nobody else can see. Offline it just starts.
+    start(opts = {}) {
+      if (state.open || state.joined) return;
+      if (isOnline?.()) { state.opts = opts; joinRoom(); return; }
+      open(opts);
+    },
+
+    // ---- what the room says ------------------------------------------------------------
+    // A place on the grid: which circuit, how many laps, which slot. The page builds the
+    // race out of this rather than out of what it happens to have loaded.
+    onGrid(m) {
+      state.joined = false;
+      state.meId = m.you?.id || '';
+      // The promise is returned so a caller that needs the screen built — the layout
+      // audit — can wait for it. The message router does not.
+      return open({
+        ...(state.opts || {}),
+        online: true,
+        laps: m.laps || 0,
+        grid: m.grid || 1,
+        countdown: m.opensIn || 0,
+      });
+    },
+    // The lights, on the room's clock: everybody on the grid counts down together.
+    onLights(m) {
+      if (!state.open) return;
+      state.phase = 'lights';
+      state.startsAt = state.now + Math.max(0, m.in || 0);
+      lights.hidden = false;
+      lightsTimer();
+    },
+    onGo() { if (state.open && state.phase !== 'race') go(); },
+    // Ten a second: where the rivals are, and the running order the room worked out. The
+    // samples are stamped on arrival rather than trusted to carry a clock this page shares.
+    onField(m) {
+      if (!state.open || !state.online) return;
+      // gp:go can be lost; this cannot, because it arrives ten times a second. A page that
+      // missed the flag joins the race late rather than sitting on the grid for ever.
+      if (m.phase === 'running' && state.phase !== 'race' && state.phase !== 'done') go();
+      for (const row of m.standings || []) {
+        if (row.kind !== 'rival') continue;
+        const r = rivals.find((x) => x.id === row.id);
+        if (!r) continue;
+        r.cp = row.progress || 0;
+        r.lap = row.lap || 0;
+        r.finished = row.finished || 0;
+        r.buf.push({ t: wall(), x: row.x, y: row.y || 0, z: row.z, h: row.h || 0, slip: row.slip || 0, boost: row.boost || 0 });
+        if (r.buf.length > 24) r.buf.shift();
+      }
+      state.roomField = (m.standings || []).map((row) => ({
+        id: row.id, name: row.name, mine: row.id === state.meId,
+        p: row.progress || 0, fin: row.finished || 0, s: 0,
+      }));
+    },
+    // The room accepted a checkpoint. Its lap number is the one that counts: a page that
+    // lost a claim to the wire would otherwise show a lap it has not been given.
+    onCp(m) {
+      if (me.pending && me.pending.cp === m.cp) me.pending = null;
+      if (m.lap) { state.lap = Math.min(m.lap + 1, state.laps); me.lap = m.lap; }
+      if (m.finished && state.phase !== 'done') { me.finished = me.finished || state.now; finish(); }
+    },
+    onOver() { if (state.open && state.phase !== 'done') finish(); },
+    onError(m) {
+      // A refusal about a checkpoint is not something to tell a child — they are still
+      // driving towards the one they missed — but it is something to act on. 'too fast'
+      // means wait and ask again, which pushClaim() is already doing. Anything carrying a
+      // `want` means the room's count and this page's have come apart, and the page's is
+      // the one that is wrong: wind it back to what the room is waiting for, so the child
+      // simply has to drive past that gate again.
+      if (m?.reason === 'too fast') return;
+      if (Number.isFinite(m?.want)) {
+        const n = cpCount();
+        me.cp = Math.max(0, m.want - 1);
+        me.lap = Math.floor(me.cp / n);
+        state.lap = Math.min(me.lap + 1, state.laps);
+        me.pending = null;
+        return;
+      }
+      if (['too far', 'already', 'no box', 'no position', 'not racing', 'not started'].includes(m?.reason)) return;
+      state.joined = false;
+      if (!state.open) toast?.(m?.reason === 'grid full' ? 'グリッドが いっぱいです。' : 'いま レースに はいれません。');
+    },
     // The room's word on what the race was worth, and on who really won.
     onResult(m) {
       if (!state.result) state.result = m;

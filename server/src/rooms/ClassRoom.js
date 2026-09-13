@@ -305,6 +305,9 @@ export class ClassRoom extends Room {
   }
 
   onDispose() {
+    // A plain timer outlives the room unless it is cleared, and a leaked one keeps the
+    // process alive after the last class has gone home.
+    this.gpClockOff();
     if (!this.priv) return undefined; // creation was refused before state existed
     for (const id of this.priv.keys()) this.persist(id);
     log.info(`[room ${this.roomId}] disposed class=${this.classCode}`);
@@ -2239,13 +2242,19 @@ export class ClassRoom extends Room {
 
   // The 10 Hz clock, started when a grid opens and stopped when the race is over. A room
   // with no grand prix in it does no work for one.
+  //
+  // A plain timer, not this.clock. Colyseus only advances room.clock inside the simulation
+  // interval, and this room's is once a second — so clock.setInterval(…, 100) fires once a
+  // second, which is not 10 Hz and is not a race. gp.js sub-steps its drivers so a late or
+  // sparse tick still drives the same race; this is only about how often the class is told
+  // where the rivals are.
   gpClockOn() {
     if (this.gpTimer) return;
-    this.gpTimer = this.clock.setInterval(() => this.tickGrandPrix(), GP_TICK_MS);
+    this.gpTimer = setInterval(() => this.tickGrandPrix(), GP_TICK_MS);
   }
 
   gpClockOff() {
-    this.gpTimer?.clear();
+    if (this.gpTimer) clearInterval(this.gpTimer);
     this.gpTimer = null;
   }
 
@@ -2267,7 +2276,7 @@ export class ClassRoom extends Room {
     this.gpClockOn();
     client.send('gp:grid', {
       ...gpPayload(this.gp, out.racer),
-      you: { name: priv.name, grid: out.racer.grid },
+      you: { id: client.sessionId, name: priv.name, grid: out.racer.grid },
       max: GP_MAX,
       ...this.gpRow(now),
     });

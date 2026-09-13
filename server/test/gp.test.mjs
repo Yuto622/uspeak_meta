@@ -82,6 +82,30 @@ test('the rivals get round three laps in a plausible time', () => {
   assert.ok(spread > 30, `only ${spread.toFixed(0)}s between the quickest rival and the slowest`);
 });
 
+test('the rivals drive the same race however often the room gets round to them', () => {
+  // The room's tick is not a fixed thing: Colyseus advances room.clock inside the
+  // simulation interval, a busy classroom server runs late, and a garbage collection eats
+  // whatever it eats. None of that is allowed to change the race. Driving a rival with one
+  // steering decision per tick makes the tick rate part of the physics, which this catches:
+  // before tickGP sub-stepped its drivers, a race ticked once a second had ミドリ two and a
+  // half minutes into a lap she drives in thirty-four seconds.
+  const raceAt = (stepMs) => {
+    let now = 2_500_000;
+    const race = createGP({ classCode: 'a', now });
+    joinGP(race, { id: 'kid', name: 'ユウト' }, now);
+    now = run(race, (GRID_MS + LIGHTS_MS) / 1000 + 1, now, stepMs / 1000);
+    const started = now;
+    run(race, 200, now, stepMs / 1000);
+    const lead = race.rivals.find((r) => r.id === 'ai-midori');
+    return lead.finished ? (lead.finished - started) / 1000 : Infinity;
+  };
+  const brisk = raceAt(50);
+  const slow = raceAt(1000);
+  assert.ok(Number.isFinite(brisk) && Number.isFinite(slow), `${brisk} / ${slow}`);
+  // Not identical — the rivals' mistakes are random — but the same race.
+  assert.ok(Math.abs(brisk - slow) / brisk < 0.08, `${brisk.toFixed(1)}s at 20Hz, ${slow.toFixed(1)}s at 1Hz`);
+});
+
 test('checkpoints only count in order, and only once', () => {
   let now = 3_000_000;
   const race = createGP({ classCode: 'a', now });

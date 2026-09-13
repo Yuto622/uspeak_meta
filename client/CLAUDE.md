@@ -23,6 +23,7 @@
 | 英検の面接（めんせつの間） | interview.js / interview.css（島は eiken-island.js / eiken.json） |
 | メッセージ（定型文・自由入力） | chat.js / net.css / voice.js（部屋の中） |
 | のりもの島・カートレース | ride.js / ride-island.js / vehicles.json / kart.js / race.js / race.css |
+| グランプリ（べつのゲーム） | kart-game.js / kart.css / tracks.json / kart-track-data.js / kart-track.js / kart-drive.js / kart-ai.js / kart-models.js |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
 
 ## 保存互換性
@@ -317,6 +318,56 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **信号は5灯**。1秒ごとに2つずつ点いて、`race:go` で消える。
 - レース画面も `browser-layout.mjs` の `SCREENS` に入っている（`uspeak.__layout.race()` が
   `vehicles.json` から本物の `race:grid` を組み立てて開く）。5サイズで測っている。
+
+## U-SPEAK GRAND PRIX（べつのゲーム／2026-09 追加）
+
+**のりもの島のレースとは別のゲーム。** 島を1周するのが `race.js`、**自分のサーキットを
+走る本気のカートゲーム**が `kart-game.js`。スタートラインの「レースに でる」を押すと
+**後者が開く**。
+
+`tracks.json`（コース定義）/ `kart-track-data.js`（中心線の数学・共有）/ `kart-drive.js`
+（走り・共有）/ `kart-ai.js`（ライバルの運転・共有）/ `kart-track.js`（3Dのコース）/
+`kart-models.js`（カート）/ `kart-game.js` + `kart.css`（ゲーム本体）。
+サーバーは `server/src/game/gp.js`。
+
+- **`tracks.json` が唯一のコース定義元**で、**クライアントとサーバーが同じファイルを読む**。
+  22個の制御点から中心線を作り（Catmull-Rom）、そこから**距離で引ける表**（位置・進行方向・
+  法線・幅・バンク・曲率・勾配）を作る。チェックポイント・グリッド・箱・パッド・ジャンプ台は
+  全部 **(t, 横のずれ)** で書いてあるので、コースの形を変えれば全部ついてくる。
+  1周860m・3周。`server/test/track.test.mjs` が寸法を測っている。
+- **走りは `kart-drive.js` にしかない**（`kart.js` は島のレース用で別物）。向いている方向と
+  進んでいる方向を別々に持ち、ドリフトで3段階チャージ→ミニターボ。**1/120秒の固定ステップ**を
+  呼び出し側が刻む（`advance`）ので、3fpsのiPadでも60fpsのPCでも同じ走り。
+  `server/test/kart-drive.test.mjs` が9項目。
+- **ライバルはサーバーが走らせる**。`kart-ai.js` の運転をサーバーの `gp.js` が回し、
+  10Hz で位置を配る（`gp:field`）。ページは**100ms 過去を描くだけ**（`followRivals()`）で、
+  自分ではAIを回さない。**クラス全員が同じミドリと走る**ためで、ここを崩すと
+  「わたしのミドリ」と「となりの子のミドリ」が別の場所にいる。オフラインのときだけ
+  ページが自分でAIを回す（`state.online` の分岐）。
+- **順位・ラップ・賞金はサーバー**（`server/src/game/gp.js`）。ページが送るのは
+  「チェックポイントnを通った、その時コースのここにいた」だけ。部屋は**順番どおりか・
+  一度きりか・その場所か（26m）・その時間で走れる距離か（boostTop×1.3）**を見る。
+  **賞金はのりもの島と同じ日次上限**（`COURSE_CAP`＝220）から出るので、2つを行き来しても
+  二重取りにならない。
+- **ライバルの強さは「壁」にしないこと。** 全開で3周99秒のコースで、ミドリは約103秒、
+  最後尾のクモは約151秒。**前が速すぎると誰も勝てず、後ろが速すぎると全員最下位になる**
+  （実際に両方やった）。`server/test/gp.test.mjs` が「限界の周回なら勝てる」ことと
+  「1位と最下位が30秒以上離れている」ことを検査している。**skill を 0.9 以下にすると
+  ドリフトしなくなる**（`kart-ai.js`）ので、ホシとクモは曲がり方が目に見えて違う。
+- **📦はサーバーが出題**（`gym-words.json`）。箱は**1周に1回だけ**。位置（`s`）を
+  claim につけて送る。正解でダッシュ＋XP。
+- **画面は `body[data-gp]` が唯一のスイッチ**。島のバー・ドック・移動パッド・クエスト一覧が
+  全部消える。`#gp` は **`pointer-events: none` の HUD 層**で、絵そのものは**島と同じ
+  WebGLRenderer** に別のシーンを描いている（**2つ目のGLコンテキストはiPadで数百MB**かかり、
+  Safari には本数制限もある）。
+- 検査は `server/test/gp.test.mjs`（11項目）/ `server/test/room.test.mjs` の
+  「the grand prix」（部屋の拒否を全部）/ `server/test/e2e/browser-gp.mjs`
+  （実ブラウザ2枚。**両方のミドリが同じ場所にいること**を測るのがこのe2eの主目的）。
+  レイアウト検査（`browser-layout.mjs`）にも `gp` 画面として入れてある。
+- **e2eではライバルのAIで自動運転させている**（`setAutoDrive`）。このコンテナは3fpsで
+  ハンドルを切れないが、物理が固定ステップなので**本当にコースを走る**（ワープではない）。
+- **島のレース（`race.js` / `server/src/game/race.js`）はまだ生きているが、スタートラインからは
+  開かない。** テストとレイアウト検査で動かし続けている。消すなら別の変更として。
 
 ## メッセージ（定型文＋じゆうにゅうりょく／2026-09 更新）
 

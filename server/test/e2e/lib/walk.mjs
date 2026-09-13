@@ -11,7 +11,14 @@ export function makeHelpers({ browser, port, viewport = { width: 420, height: 32
     // headless browser does not have.
     if (initScript) await page.addInitScript(initScript);
     await page.route('**/fonts.googleapis.com/**', (r) => r.abort());
-    page.on('pageerror', (e) => console.log(`[${name}] pageerror`, e.message));
+    // The stack matters: a frame loop that throws does it sixty times a second, and a
+    // hundred identical one-line messages say nothing about where.
+    const seen = new Set();
+    page.on('pageerror', (e) => {
+      if (seen.has(e.message)) return;
+      seen.add(e.message);
+      console.log(`[${name}] pageerror`, e.message, '\n', (e.stack || '').split('\n').slice(0, 6).join('\n'));
+    });
     page.on('console', (m) => { if (m.type() === 'error') console.log(`[${name}] console.error`, m.text()); });
     // Generous: a headless container with no GPU renders these islands at a few frames a
     // second, and a third browser on the same four cores takes minutes to reach the avatar

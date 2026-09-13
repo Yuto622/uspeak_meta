@@ -67,6 +67,8 @@ const SCREENS = [
   // The race is the one screen that takes the whole window: it is measured like the rest,
   // and on a touch screen it must also put the throttle and the steering under the thumbs.
   { id: 'race', sel: '#race-screen', go: `await uspeak.__layout.race()` },
+  // …and the grand prix, which takes the whole window too and has its own thumbs.
+  { id: 'gp', sel: '#gp', go: `await uspeak.__layout.gp()` },
 ];
 
 // The helpers the list above uses, installed in the page once it is online.
@@ -118,14 +120,31 @@ const LAYOUT_HELPERS = `uspeak.__layout = {
     });
     await new Promise((r) => setTimeout(r, 500));
   },
+  // U-SPEAK GRAND PRIX: its own screen, opened with the payload the room's gp:grid
+  // carries. The circuit itself comes from tracks.json, the same file the room judges on,
+  // so this measures the real screen with the real HUD on it.
+  async gp() {
+    await this.island('ride');
+    await uspeak.net.gp.onGrid({ track: 'sunset', laps: 3, grid: 3, checkpoints: 16, opensIn: 12000,
+      you: { id: 'me', name: 'Yuto', grid: 3 } });
+    // A field to draw and a running order to fill the corner panel: the HUD is only worth
+    // measuring with something in it.
+    uspeak.net.gp.onField({ phase: 'lights', standings: [
+      { id: 'me', kind: 'child', name: 'Yuto', place: 1, progress: 0 },
+      { id: 'ai-midori', kind: 'rival', name: 'ミドリ', place: 2, progress: 0, x: 0, y: 0, z: 0, h: 0 },
+      { id: 'ai-sora', kind: 'rival', name: 'ソラ', place: 3, progress: 0, x: 0, y: 0, z: 0, h: 0 },
+    ] });
+    await new Promise((r) => setTimeout(r, 600));
+  },
   close() {
     try { uspeak.net.race.quit(); } catch { /* not racing */ }
+    try { uspeak.net.gp.quit(); } catch { /* not racing */ }
     for (const el of document.querySelectorAll('dialog[open]')) el.close();
     // Closing the panel is not ending the session: a battle or a set of five is still
     // open on the server, and the next screen on the list would be refused. Say goodbye
     // to all of them — the room ignores the ones that were not running.
     for (const bye of ['battle:quit', 'quiz:quit', 'gym:quit', 'eiken:quit', 'interview:quit',
-      'mission:quit', 'conv:end', 'race:leave', 'voice:leave']) {
+      'mission:quit', 'conv:end', 'race:leave', 'gp:leave', 'voice:leave']) {
       try { uspeak.net.room?.send(bye, {}); } catch { /* not connected */ }
     }
     // Leaving the building too: the next screen is somewhere else, and a child standing
