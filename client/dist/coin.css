@@ -26,6 +26,18 @@
 .coin-hud b { font-size: 15px; letter-spacing: .01em; }
 .coin-hud:active { transform: translateY(1px); }
 
+/* The level and XP, which are now the way into マイページ. Written with the same
+   two-class trick as the badge, for the same reason: `.stats button` would otherwise
+   shrink it to a 32px square. It has to keep looking like the text it has always been —
+   this is a new door on an old handle, not a new button. */
+.stats .record-button {
+  display: inline-flex; align-items: center; gap: 16px;
+  width: auto; height: auto; min-height: 34px; padding: 0;
+  background: transparent; border-radius: 10px; font-size: 13px; color: inherit;
+}
+.stats .record-button:hover { background: #e9ecdd; }
+.stats .record-button .level { border-right: 1px solid #b8c2b4; padding-right: 16px; }
+
 /* The coin face itself: a struck disc, not a flat circle. The inner ring and the mark are
    what make it read as money at 18 pixels. */
 .coin-face {
@@ -63,20 +75,25 @@
 .coin-rain {
   position: fixed; inset: 0; z-index: 90; pointer-events: none; overflow: hidden;
 }
-.coin-drop {
+/* Two kinds of loose coin. `.coin-fly` is one being earned — it lives near the badge for
+   under a second. `.coin-pour` is one of the many that fall the whole height of the screen
+   when a child asks to see what they have. Neither ever comes to rest: nothing is left
+   lying at the bottom of the screen after the animation. */
+.coin-fly, .coin-pour {
   position: absolute;
-  bottom: calc(18px + env(safe-area-inset-bottom));
-  width: 30px; height: 30px; border-radius: 50%;
+  width: calc(28px * var(--coin-size, 1)); height: calc(28px * var(--coin-size, 1));
+  border-radius: 50%;
   background:
     radial-gradient(circle at 34% 28%, #fff8db 0 12%, #ffe08a 26%, #f2b93f 58%, #cb852a 84%, #a4661d 100%);
   box-shadow: inset 0 -2px 3px #8a530f55, inset 0 2px 2px #fff5ccaa, 0 3px 8px #00000040;
   will-change: transform, opacity;
 }
-.coin-drop::after {
+.coin-pour { top: 0; }
+.coin-fly::after, .coin-pour::after {
   content: '◈';
   position: absolute; inset: 0;
   display: grid; place-items: center;
-  font-size: 15px; font-weight: 900; color: #96550f;
+  font-size: calc(14px * var(--coin-size, 1)); font-weight: 900; color: #96550f;
   text-shadow: 0 1px 0 #ffeaa8aa;
 }
 
@@ -94,8 +111,8 @@ body[data-race] .coin-rain, body[data-gp] .coin-rain { display: none !important;
      child has to read, and shrinking a decorative glyph under it to dodge that rule would
      be dodging the rule. An 11px ◈ in a 19px disc is the right proportion anyway. */
   .coin-face { width: 19px; height: 19px; }
-  .coin-drop { width: 23px; height: 23px; }
-  .coin-drop::after { font-size: 12px; }
+  .coin-fly, .coin-pour { width: calc(22px * var(--coin-size, 1)); height: calc(22px * var(--coin-size, 1)); }
+  .coin-fly::after, .coin-pour::after { font-size: calc(11px * var(--coin-size, 1)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
