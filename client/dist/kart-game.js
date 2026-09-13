@@ -26,11 +26,22 @@ const th = (n) => ['', '1st', '2nd', '3rd'][n] || `${n}th`;
 // The rivals of the U-Speak Grand Prix. Ours, not anybody else's: four characters from
 // this game's own world, with their own machines and their own way of driving.
 export const RIVALS = [
-  { id: 'ai-midori', name: 'ミドリ', skill: 1.06, power: 1.04, style: -0.6, colour: 0x7bc86c },
-  { id: 'ai-momo', name: 'モモ', skill: 0.98, power: 1.0, style: 0.5, colour: 0xef6f8a },
-  { id: 'ai-sora', name: 'ソラ', skill: 1.0, power: 0.98, style: 0, colour: 0x4fa8e0 },
-  { id: 'ai-kumo', name: 'クモ', skill: 0.88, power: 0.94, style: 0.8, colour: 0xb08ae0 },
-  { id: 'ai-hoshi', name: 'ホシ', skill: 0.92, power: 1.02, style: -0.3, colour: 0xffd166 },
+  // A field, not a wall. Three laps of this circuit take about 99 seconds flat out with no
+  // boosts, so the front of the grid has to be a little slower than that or no child could
+  // ever win however well they drove — ミドリ was lapping in 31 and then in 33, and both
+  // times she was a wall. She now takes about 103. Just as important is the back: クモ
+  // takes about 151, which is a pace a child still learning to hold a line can beat, so
+  // finishing sixth of six is something you have to drive badly to do rather than the
+  // ordinary result of being seven years old. In between the field is spread wide on
+  // purpose — a child should be able to see, every race, which rival they are racing.
+  //
+  // Below 0.9 skill a driver stops drifting (kart-ai.js), so ホシ and クモ are visibly
+  // driving a different way round the corners, not just a slower version of the same way.
+  { id: 'ai-midori', name: 'ミドリ', skill: 1.0, power: 0.96, style: -0.6, colour: 0x7bc86c },
+  { id: 'ai-sora', name: 'ソラ', skill: 0.95, power: 0.9, style: 0, colour: 0x4fa8e0 },
+  { id: 'ai-momo', name: 'モモ', skill: 0.91, power: 0.85, style: 0.5, colour: 0xef6f8a },
+  { id: 'ai-hoshi', name: 'ホシ', skill: 0.82, power: 0.77, style: -0.3, colour: 0xffd166 },
+  { id: 'ai-kumo', name: 'クモ', skill: 0.72, power: 0.66, style: 0.8, colour: 0xb08ae0 },
 ];
 
 export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
