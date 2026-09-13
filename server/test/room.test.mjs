@@ -1585,3 +1585,101 @@ test('おはなし: the room you walked into is the call, and the server only in
   await t.room.leave();
   await sleep(100);
 });
+
+// グランプリ — the kart game, from the room's side.
+//
+// A different thing from the island circuit above it: its own circuit, its own scene, its
+// own five rivals, entered from the same start line. The room cannot see a kart in it, so
+// everything it accepts from a page in there carries a position on the circuit — and this
+// test is mostly about the claims it refuses.
+test('the grand prix: the room drives the rivals and judges every claim', async () => {
+  const { TRACK, MAX_RACERS: GP_MAX } = await import('../src/game/gp.js');
+  const { ISLAND: RIDE_ISLAND } = await import('../src/game/vehicles.js');
+  const a = await join('Rin');
+  const start = RIDE_ISLAND.start;
+  const stand = async (x, z, space = RIDE_ISLAND.id) => {
+    a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return Math.abs(p.x - x) < 0.01 && p.space === space;
+    });
+  };
+
+  // The way in is the start line, on a kart. The grand prix is its own world, but the door
+  // to it is a place on の りもの島 a child has to walk to.
+  await stand(start.wx + 30, start.wz);
+  a.room.send('gp:join', {});
+  assert.equal((await nextMessage(a.room, 'gp:error')).reason, 'too far');
+  await stand(start.wx, start.wz);
+  a.room.send('gp:join', {});
+  assert.equal((await nextMessage(a.room, 'gp:error')).reason, 'on foot');
+  // The day's login bonus buys the kickboard, at the kickboard's own gate.
+  const kickGate = [...RIDE_ISLAND.spotById.values()].find((sp) => sp.vehicle === 'kick');
+  await stand(kickGate.wx, kickGate.wz);
+  a.room.send('ride:buy', { id: 'kick' });
+  assert.equal((await nextMessage(a.room, 'ride:bought')).riding, 'kick');
+  await stand(start.wx, start.wz);
+
+  a.room.send('gp:join', {});
+  const grid = await nextMessage(a.room, 'gp:grid');
+  assert.equal(grid.track, TRACK.id);
+  assert.equal(grid.laps, TRACK.laps);
+  assert.equal(grid.checkpoints, TRACK.checkpoints.length);
+  assert.equal(grid.max, GP_MAX);
+  assert.ok(grid.standings.filter((r) => r.kind === 'rival').length >= 5, 'five rivals for a child on their own');
+
+  // The lights go out on the room's clock. A page cannot start its own race early.
+  const lights = await nextMessage(a.room, 'gp:lights', 20000);
+  assert.ok(lights.startsAt > Date.now());
+  const go = await nextMessage(a.room, 'gp:go', 12000);
+  assert.ok(go.startedAt > 0);
+
+  // The rivals are the room's, and they are actually driving: two frames apart, ミドリ is
+  // somewhere else, on the road, at a kart's speed.
+  const f1 = await nextMessage(a.room, 'gp:field', 4000);
+  await sleep(600);
+  const f2 = await nextMessage(a.room, 'gp:field', 4000);
+  const at = (f, id) => f.standings.find((r) => r.id === id);
+  const moved = Math.hypot(at(f2, 'ai-midori').x - at(f1, 'ai-midori').x, at(f2, 'ai-midori').z - at(f1, 'ai-midori').z);
+  assert.ok(moved > 2 && moved < 40, `ミドリ moved ${moved.toFixed(1)}m between two samples`);
+  const hit = TRACK.project(at(f2, 'ai-midori').x, at(f2, 'ai-midori').z);
+  assert.ok(Math.abs(hit.offset) < TRACK.at(hit.s).w, 'and she is on the circuit, not in the sea');
+
+  // Checkpoints: only the next one, only from where it is, only at a possible speed.
+  const cps = TRACK.checkpoints;
+  a.room.send('gp:cp', { cp: 4, s: cps[3].s });
+  const skip = await nextMessage(a.room, 'gp:error');
+  assert.equal(skip.reason, 'not next');
+  assert.equal(skip.want, 1);
+  a.room.send('gp:cp', { cp: 1, s: (cps[0].s + TRACK.length / 2) % TRACK.length });
+  assert.equal((await nextMessage(a.room, 'gp:error')).reason, 'too far');
+  a.room.send('gp:cp', { cp: 1, s: cps[0].s });
+  assert.equal((await nextMessage(a.room, 'gp:cp')).cp, 1);
+  a.room.send('gp:cp', { cp: 2, s: cps[1].s });
+  assert.equal((await nextMessage(a.room, 'gp:error')).reason, 'too fast', 'nobody covers 54m in a heartbeat');
+
+  // 📦 the boxes. A box is a question, the question's answer never leaves the room until
+  // it has been answered, and a box a kart was nowhere near is not a box it drove through.
+  const box = TRACK.items[0];
+  a.room.send('gp:item', { box: box.id, s: (box.s + TRACK.length / 2) % TRACK.length });
+  assert.equal((await nextMessage(a.room, 'gp:error')).reason, 'too far');
+  a.room.send('gp:item', { box: box.id, s: box.s });
+  const q = await nextMessage(a.room, 'gp:box');
+  assert.equal(q.choices.length, 3);
+  assert.ok(q.ja, 'a Japanese word to translate');
+  assert.ok(!('answer' in q), 'and no answer in the message');
+  // The same box again on the same lap is the same box, not another question.
+  a.room.send('gp:item', { box: box.id, s: box.s });
+  assert.ok(['too fast', 'already'].includes((await nextMessage(a.room, 'gp:error')).reason));
+  a.room.send('gp:item', { pick: 'definitely-not-a-word' });
+  const graded = await nextMessage(a.room, 'gp:boost');
+  assert.equal(graded.ok, false);
+  assert.ok(q.choices.includes(graded.answer), 'wrong, and now it tells you which one it was');
+  assert.equal(graded.xp, 0);
+
+  // Out. The room stops driving rivals for a race nobody is in.
+  a.room.send('gp:leave', {});
+  assert.equal((await nextMessage(a.room, 'gp:closed')).reason, 'left');
+  await a.room.leave();
+  await sleep(100);
+});

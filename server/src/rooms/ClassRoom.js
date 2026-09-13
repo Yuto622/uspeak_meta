@@ -29,6 +29,11 @@ import {
   createRace, joinRace, leaveRace, maybeStart, beginIfDue, crossCheckpoint, standings,
   raceOver, prizeFor, itemXp, coursePayload, LAPS, GRID_MS, MAX_RACERS,
 } from '../game/race.js';
+import {
+  createGP, joinGP, leaveGP, tickGP, claimCp, claimItem, raceOverGP, gpPayload,
+  standings as gpStandings, placeOf as gpPlaceOf, prizeFor as gpPrizeFor,
+  MAX_RACERS as GP_MAX, XP_ITEM, GP_TICK_MS,
+} from '../game/gp.js';
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding } from '../game/vehicles.js';
@@ -154,6 +159,10 @@ export class ClassRoom extends Room {
     this.onMessage('race:leave', (client) => this.onRaceLeave(client, 'left'));
     this.onMessage('race:gate', (client, msg) => this.onRaceGate(client, msg));
     this.onMessage('race:item', (client, msg) => this.onRaceItem(client, msg));
+    this.onMessage('gp:join', (client) => this.onGpJoin(client));
+    this.onMessage('gp:leave', (client) => this.onGpLeave(client, 'left'));
+    this.onMessage('gp:cp', (client, msg) => this.onGpCp(client, msg));
+    this.onMessage('gp:item', (client, msg) => this.onGpItem(client, msg));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -179,6 +188,8 @@ export class ClassRoom extends Room {
     // Who has a microphone open, and where they were standing when they opened it.
     this.voice = new Map();          // sessionId -> { room, at }
     this.race = null;                // のりもの島: one race per class, or none
+    this.gp = null;                  // the grand prix: one per class, on its own circuit
+    this.gpTimer = null;             // …and its own 10 Hz clock, only while one is running
     this.stage = new Set();          // sessionIds a teacher has put on the stage (big rooms)
     this.lastPersistAll = Date.now();
     // The sky is a function of the wall clock, so there is nothing to start or store —
@@ -2202,6 +2213,201 @@ export class ClassRoom extends Room {
         }
         this.raceBroadcast('race:over', { standings: standings(race, now) });
       }
+    }
+  }
+
+  // ---- the grand prix ------------------------------------------------------------
+  //
+  // A different thing from the island circuit above. のりもの島's race is a lap of the
+  // island a child drives in the island's own world; the grand prix is a game of its own —
+  // its own circuit, its own scene, its own five rivals — that the start line opens.
+  //
+  // What that costs the room is a faster clock. The rivals are driven here, with the
+  // child's own physics, so the class is racing one ミドリ rather than twelve local copies
+  // of her who all disagree; and the page has to be told where she is often enough to draw
+  // her smoothly. So a grand prix runs its own 10 Hz interval — the same rate the room
+  // patches positions at — and that interval exists only while a race does.
+  gpBroadcast(type, payload) {
+    for (const id of this.gp?.racers.keys() || []) {
+      this.clients.find((c) => c.sessionId === id)?.send(type, payload);
+    }
+  }
+
+  gpRow(now = Date.now()) {
+    return { phase: this.gp.phase, laps: this.gp.laps, standings: gpStandings(this.gp), in: this.gp.racers.size, now };
+  }
+
+  // The 10 Hz clock, started when a grid opens and stopped when the race is over. A room
+  // with no grand prix in it does no work for one.
+  gpClockOn() {
+    if (this.gpTimer) return;
+    this.gpTimer = this.clock.setInterval(() => this.tickGrandPrix(), GP_TICK_MS);
+  }
+
+  gpClockOff() {
+    this.gpTimer?.clear();
+    this.gpTimer = null;
+  }
+
+  onGpJoin(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const fail = (reason, extra = {}) => client.send('gp:error', { reason, ...extra });
+    // The way in is the start line on のりもの島, on a kart. Everything after that happens
+    // in the grand prix's own world, where the room cannot see the child — which is why
+    // every claim it accepts from there carries a position on the circuit.
+    if (!this.atRideSpot(client.sessionId, RIDE_ISLAND.start.id)) {
+      return fail('too far', { spot: this.rideSpotPayload(RIDE_ISLAND.start.id) });
+    }
+    if (!priv.riding) return fail('on foot');
+    const now = Date.now();
+    if (!this.gp || raceOverGP(this.gp, now)) this.gp = createGP({ classCode: this.classCode, now });
+    const out = joinGP(this.gp, { id: client.sessionId, name: priv.name }, now);
+    if (!out.ok) return fail(out.reason === 'grid full' ? 'grid full' : 'race running');
+    this.gpClockOn();
+    client.send('gp:grid', {
+      ...gpPayload(this.gp, out.racer),
+      you: { name: priv.name, grid: out.racer.grid },
+      max: GP_MAX,
+      ...this.gpRow(now),
+    });
+    this.gpBroadcast('gp:field', this.gpRow(now));
+    log.info(`[room ${this.roomId}] "${priv.name}" is on the grand prix grid (${this.gp.racers.size} racing)`);
+  }
+
+  onGpLeave(client, reason = 'left') {
+    if (!this.gp?.racers.has(client.sessionId)) return;
+    leaveGP(this.gp, client.sessionId);
+    client.send('gp:closed', { reason });
+    if (this.gp.racers.size) this.gpBroadcast('gp:field', this.gpRow());
+    else { this.gp.phase = 'done'; this.gpClockOff(); }
+  }
+
+  // "I passed checkpoint n, and here is where I was." gp.js decides whether both are true.
+  onGpCp(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv || !this.gp) return;
+    const fail = (reason, extra = {}) => client.send('gp:error', { reason, ...extra });
+    if (!this.gp.racers.has(client.sessionId)) return fail('not racing');
+    const out = claimCp(this.gp, client.sessionId, { cp: Number(msg?.cp), s: Number(msg?.s) }, Date.now());
+    if (!out.ok) return fail(out.reason, out.want ? { want: out.want } : {});
+    client.send('gp:cp', {
+      cp: Number(msg.cp), of: this.gp.track.checkpoints.length, next: out.next || 0,
+      lap: out.lap || 0, laps: this.gp.laps, lapMs: out.lapMs || 0, finished: !!out.finished,
+    });
+    if (out.finished) this.finishGrandPrix(client, out.place);
+    this.gpBroadcast('gp:field', this.gpRow());
+  }
+
+  // 📦 the item boxes. The same bargain as the arena and the island circuit: the speed
+  // comes from the English, and the answer is never sent to the page before it is given.
+  onGpItem(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv || !this.gp?.racers.has(client.sessionId)) return;
+    const racer = this.gp.racers.get(client.sessionId);
+    const fail = (reason) => client.send('gp:error', { reason });
+
+    if (msg?.box !== undefined) {
+      const out = claimItem(this.gp, client.sessionId, { box: msg.box, s: Number(msg?.s) }, Date.now());
+      if (!out.ok) return fail(out.reason);
+      const word = WORDS[Math.floor(Math.random() * WORDS.length)];
+      const wrong = WORDS.filter((w) => w.en !== word.en && w.group !== word.group);
+      const choices = [word.en];
+      while (choices.length < 3) {
+        const extra = wrong[Math.floor(Math.random() * wrong.length)]?.en || WORDS[Math.floor(Math.random() * WORDS.length)].en;
+        if (!choices.includes(extra)) choices.push(extra);
+      }
+      for (let i = choices.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [choices[i], choices[j]] = [choices[j], choices[i]];
+      }
+      racer.quiz = { answer: word.en, box: out.box };
+      client.send('gp:box', { box: out.box, ja: word.ja, emoji: word.emoji || '', choices, ms: 6000 });
+      return;
+    }
+
+    const quiz = racer.quiz;
+    if (!quiz) return fail('no box');
+    racer.quiz = null;
+    const picked = typeof msg?.pick === 'string' ? msg.pick : '';
+    const right = picked === quiz.answer;
+    if (right) {
+      racer.items += 1;
+      this.awardXp(client.sessionId, XP_ITEM, 'gp:item');
+    }
+    this.store.appendLearning([
+      new Date().toISOString(), this.classCode, priv.name, `gp:item:${quiz.answer}`, 'race',
+      picked.slice(0, 40), right ? 1 : 0, right ? XP_ITEM : 0, client.sessionId,
+    ]);
+    priv.stats.attempts += 1;
+    if (right) priv.stats.correct += 1;
+    client.send('gp:boost', {
+      ok: right, answer: quiz.answer, xp: right ? XP_ITEM : 0,
+      progress: this.progressPayload(client.sessionId),
+    });
+  }
+
+  // The flag. The prize comes from the place the room worked out, out of the same daily
+  // purse as the island circuit — a child cannot earn twice by alternating between them.
+  finishGrandPrix(client, place) {
+    const priv = this.priv.get(client.sessionId);
+    const racer = this.gp?.racers.get(client.sessionId);
+    if (!priv || !racer) return;
+    const spent = priv.caps.course || 0;
+    const prize = gpPrizeFor({ place, laps: racer.lap, items: racer.items, spentToday: spent, cap: COURSE_CAP });
+    if (prize.coins > 0) {
+      priv.caps.course = spent + prize.coins;
+      const entry = applyOp(priv.wallet, { type: 'award', amount: prize.coins, id: `gp:${place}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    }
+    if (racer.best && (!priv.lapBest || racer.best < priv.lapBest)) priv.lapBest = racer.best;
+    const level = this.awardXp(client.sessionId, prize.xp, `gp:${place}`);
+    this.persist(client.sessionId);
+    client.send('gp:finished', {
+      place, laps: racer.lap, best: racer.best, bestMs: priv.lapBest, items: racer.items,
+      coins: prize.coins, xp: prize.xp, capped: prize.capped,
+      room: roomLeft(priv.caps, 'course', COURSE_CAP),
+      standings: gpStandings(this.gp), ...this.walletPayload(client.sessionId),
+      progress: this.progressPayload(client.sessionId), levels: level?.levels || 0,
+    });
+    log.info(`[room ${this.roomId}] "${priv.name}" finished the grand prix ${place}${['st', 'nd', 'rd'][place - 1] || 'th'}`);
+  }
+
+  // 10 Hz: the rivals drive, the lights go out, and the race ends.
+  tickGrandPrix() {
+    const race = this.gp;
+    if (!race) { this.gpClockOff(); return; }
+    const now = Date.now();
+    // A child who closed the tab, or was disconnected, is off the grid. Unlike the island
+    // circuit there is nothing to check about where they are standing: the grand prix is
+    // its own world, and a child in it is somewhere the room's coordinates do not reach.
+    for (const id of [...race.racers.keys()]) {
+      if (!this.state.players.get(id)?.connected) {
+        leaveGP(race, id);
+        this.clients.find((c) => c.sessionId === id)?.send('gp:closed', { reason: 'disconnected' });
+      }
+    }
+    if (!race.racers.size) { race.phase = 'done'; this.gpClockOff(); return; }
+    const was = race.phase;
+    tickGP(race, now);
+    if (was !== race.phase && race.phase === 'lights') {
+      this.gpBroadcast('gp:lights', { startsAt: race.startsAt, in: race.startsAt - now, ...this.gpRow(now) });
+    }
+    if (was !== race.phase && race.phase === 'running') {
+      this.gpBroadcast('gp:go', { startedAt: race.startedAt, ...this.gpRow(now) });
+    }
+    if (race.phase === 'running') this.gpBroadcast('gp:field', this.gpRow(now));
+    if (race.phase === 'done' || raceOverGP(race, now)) {
+      race.phase = 'done';
+      // Whoever ran out of time still drove three quarters of a circuit and answered the
+      // boxes on the way round: they are paid for the race they were in.
+      for (const racer of race.racers.values()) {
+        if (racer.finished) continue;
+        const client = this.clients.find((c) => c.sessionId === racer.id);
+        if (client) this.finishGrandPrix(client, gpPlaceOf(race, racer.id));
+      }
+      this.gpBroadcast('gp:over', { standings: gpStandings(race) });
+      this.gpClockOff();
     }
   }
 

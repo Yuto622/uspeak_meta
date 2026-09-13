@@ -54,6 +54,10 @@ export const RIVALS = [
 export const GRID_MS = 9000;          // how long the grid waits for the class to gather
 export const LIGHTS_MS = 4200;        // and how long the lights take after that
 export const MAX_RACERS = 12;
+// The room drives the rivals and tells the pages where they are. Ten a second is the rate
+// the room patches everything else at, and one packet of slack is what the page's 100 ms
+// interpolation is built on — see net-config.js. Slower than this and ミドリ teleports.
+export const GP_TICK_MS = 100;
 export const RACE_MAX_MS = 7 * 60 * 1000;
 export const DAILY_CAP = 240;         // coins a child can win from racing in a day
 // The prize, by where they finished. Everybody who finishes is paid something: a child who
@@ -64,6 +68,8 @@ export const XP_LAP = 6;
 export const XP_ITEM = 4;
 
 const CP_REACH = 26;                  // metres a claim may be from its checkpoint
+export const ITEM_REACH = 22;         // …and from an item box
+export const ITEM_COOLDOWN_MS = 1200; // no kart drives through two boxes faster than this
 // The quickest a kart can cover ground, with every boost in the game running at once, plus
 // a margin. Anything faster than this between two checkpoints did not happen.
 const MAX_SPEED = KART.boostTop * 1.3;
@@ -104,7 +110,8 @@ export function joinGP(race, { id, name, power = 1 }, now = Date.now()) {
     race.racers.set(id, {
       id, name, kind: 'child', power,
       grid: race.racers.size + 1,
-      cp: 0, lap: 0, finished: 0, items: 0, best: 0, lastCpAt: 0,
+      cp: 0, lap: 0, finished: 0, items: 0, best: 0, lastCpAt: 0, lastItemAt: 0,
+      boxes: new Set(),   // "lap:box" — a box is worth one question per lap, not one per frame
       s: race.track.project(slot.x, slot.z).s,
       joinedAt: now,
     });
@@ -247,10 +254,34 @@ export function placeOf(race, id) {
   return row ? row.place : 0;
 }
 
+// A child says they drove through an item box. The room cannot see the kart, so what it
+// checks is the same three things it checks for a checkpoint: that the box exists, that the
+// position sent with the claim is actually at it, and that the clock allows it. On top of
+// that a box pays once per lap — a page that reports the same box sixty times a second gets
+// one question, and a lap has fourteen boxes on it, not fourteen thousand.
+export function claimItem(race, id, { box, s }, now = Date.now()) {
+  const r = race.racers.get(id);
+  if (!r) return { ok: false, reason: 'not racing' };
+  if (race.phase !== 'running') return { ok: false, reason: 'not started' };
+  if (r.finished) return { ok: false, reason: 'finished' };
+  const it = race.track.items.find((x) => x.id === String(box));
+  if (!it) return { ok: false, reason: 'no such box' };
+  const where = Number.isFinite(s) ? ((s % race.track.length) + race.track.length) % race.track.length : null;
+  if (where === null) return { ok: false, reason: 'no position' };
+  const off = Math.min(Math.abs(where - it.s), race.track.length - Math.abs(where - it.s));
+  if (off > ITEM_REACH) return { ok: false, reason: 'too far', off: Math.round(off) };
+  if (now - r.lastItemAt < ITEM_COOLDOWN_MS) return { ok: false, reason: 'too fast' };
+  const key = `${r.lap}:${it.id}`;
+  if (r.boxes.has(key)) return { ok: false, reason: 'already' };
+  r.boxes.add(key);
+  r.lastItemAt = now;
+  return { ok: true, box: it.id };
+}
+
 // What a finish is worth. Inside the day's cap, which is the room's to enforce.
-export function prizeFor({ place, laps, items, spentToday = 0 }) {
+export function prizeFor({ place, laps, items, spentToday = 0, cap = DAILY_CAP }) {
   const coins = PRIZE[Math.min(place, PRIZE.length - 1)] || 0;
-  const room = Math.max(0, DAILY_CAP - spentToday);
+  const room = Math.max(0, cap - spentToday);
   const paid = Math.min(coins, room);
   const xp = (XP_PLACE[Math.min(place, XP_PLACE.length - 1)] || 0) + laps * XP_LAP + items * XP_ITEM;
   return { coins: paid, xp, capped: paid < coins };
