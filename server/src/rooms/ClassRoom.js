@@ -39,6 +39,7 @@ import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPa
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, dayIndex, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
 import { SKILLS, blankSkills, sanitizeSkills, addAnswer, radarOf, weakestOf, FULL as SKILL_FULL } from '../game/skills.js';
+import { WARDROBE, shopPayload, priceOf, wear as wearItem, sanitizeOwned as sanitizeWardrobe, sanitizeWorn, WardrobeError } from '../game/wardrobe.js';
 import { createGate } from '../game/gate.js';
 import { reportPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
@@ -82,6 +83,11 @@ export function sanitizeAvatar(raw) {
   const a = raw && typeof raw === 'object' ? raw : {};
   const out = { id: AVATAR_IDS.includes(a.id) ? a.id : 'kai' };
   for (const k of ['skin', 'shirt']) if (Number.isInteger(a[k]) && a[k] >= 0 && a[k] <= 0xffffff) out[k] = a[k];
+  // きせかえ. Only real items, one per slot — this string is what every other browser in
+  // the class builds this child's body from, so a page cannot dress itself in something
+  // that does not exist by sending it here.
+  const wear = sanitizeWorn(WARDROBE, a.wear);
+  if (wear.length) out.wear = wear;
   return JSON.stringify(out);
 }
 
@@ -167,9 +173,16 @@ export class ClassRoom extends Room {
     this.onMessage('gp:cp', (client, msg) => this.onGpCp(client, msg));
     this.onMessage('gp:item', (client, msg) => this.onGpItem(client, msg));
     this.onMessage('dash:get', (client) => this.onDashboard(client));
+    this.onMessage('wear:list', (client) => this.onWearList(client));
+    this.onMessage('wear:buy', (client, msg) => this.onWearBuy(client, msg));
+    this.onMessage('wear:put', (client, msg) => this.onWearPut(client, msg));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
-      if (player) player.avatar = sanitizeAvatar(msg?.avatar);
+      const priv = this.priv.get(client.sessionId);
+      if (!player) return;
+      // Choosing a different face does not undress you, and a page cannot dress itself by
+      // putting `wear` in a profile message: the outfit is whatever the room has recorded.
+      player.avatar = sanitizeAvatar({ ...(msg?.avatar && typeof msg.avatar === 'object' ? msg.avatar : {}), wear: priv?.worn || [] });
     });
     this.onMessage('wallet:get', (client) => client.send('wallet', { ok: true, op: 'get', ...this.walletPayload(client.sessionId) }));
     this.onMessage('conv:list', (client) => client.send('conv:spots', { island: CONV.id, spots: convSpots() }));
@@ -267,7 +280,9 @@ export class ClassRoom extends Room {
 
     const player = new Player();
     player.name = auth.name;
-    player.avatar = auth.avatar;
+    // The outfit is the record's, not the joining page's: a child who bought a crown last
+    // week is wearing it when they come back, on everyone's screen.
+    player.avatar = sanitizeAvatar({ ...parseJson(auth.avatar, {}), wear: priv.worn });
     player.role = auth.role;
     player.connected = true;
     if (position) { player.space = position.space; player.x = position.x; player.z = position.z; }
@@ -704,6 +719,9 @@ export class ClassRoom extends Room {
       missionTurnsToday: 0,
       missionDay: '',
       lastMissionAt: 0,
+      // きせかえ: what they have bought, and what they have on.
+      wardrobe: sanitizeWardrobe(parseJson(record.wardrobe_json, [])),
+      worn: sanitizeWorn(WARDROBE, parseJson(record.worn_json, [])),
       // 5技能: what has been practised, counted on the way past appendLearning().
       skills: sanitizeSkills(parseJson(record.skills_json, null)),
       // 総学習時間 and 総学習日数. `activeAt` is the last thing they actually did, so a
@@ -739,6 +757,7 @@ export class ClassRoom extends Room {
       eiken_coins: priv.caps.eiken,
       conv_coins: priv.caps.conv,
       voice_minutes: Math.floor(priv.caps.voice),
+      wardrobe_json: JSON.stringify(priv.wardrobe), worn_json: JSON.stringify(priv.worn),
       skills_json: JSON.stringify(priv.skills),
       study_ms: Math.floor(priv.study.ms), study_days: priv.study.days, study_day: priv.study.day,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
@@ -816,6 +835,75 @@ export class ClassRoom extends Room {
       accuracy: answers ? Math.round((priv.stats.correct / answers) * 100) : null,
       attempts: answers,
     });
+  }
+
+  // ---- きせかえ --------------------------------------------------------------------
+  //
+  // A shop, so the shop rules apply: the page asks and the room decides. What a page may
+  // do on its own is put a hat on its own screen; what it may not do is own one, and the
+  // avatar everyone else sees is built from `player.avatar`, which is written here.
+  wornPayload(sessionId) {
+    const priv = this.priv.get(sessionId);
+    return { owned: [...priv.wardrobe], worn: [...priv.worn] };
+  }
+
+  // The outfit goes into the avatar string, because that is what every other child's
+  // browser already reads to draw this one. A hat nobody else can see is a hat bought for
+  // an empty room.
+  pushOutfit(sessionId) {
+    const player = this.state.players.get(sessionId);
+    const priv = this.priv.get(sessionId);
+    if (!player || !priv) return;
+    player.avatar = sanitizeAvatar({ ...parseJson(player.avatar, {}), wear: priv.worn });
+  }
+
+  onWearList(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    client.send('wear:shop', {
+      ...shopPayload({ owned: priv.wardrobe, worn: priv.worn, coins: priv.wallet.coins, level: priv.progress.level }),
+      ...this.wornPayload(client.sessionId),
+    });
+  }
+
+  onWearBuy(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    try {
+      const item = priceOf({
+        id: msg?.id, owned: priv.wardrobe, coins: priv.wallet.coins, level: priv.progress.level,
+      });
+      const entry = applyOp(priv.wallet, { type: 'spend', amount: item.price, id: `wear:${item.id}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      priv.wardrobe.push(item.id);
+      // Bought is worn: a child who just paid for a hat wants to see it on, not to be
+      // asked a second question.
+      priv.worn = wearItem({ owned: priv.wardrobe, worn: priv.worn, id: item.id });
+      this.pushOutfit(client.sessionId);
+      this.persist(client.sessionId);
+      client.send('wear:bought', {
+        id: item.id, ...this.walletPayload(client.sessionId), ...this.wornPayload(client.sessionId),
+      });
+      this.onWearList(client);
+      log.info(`[room ${this.roomId}] "${priv.name}" bought ${item.id} for ${item.price}`);
+    } catch (err) {
+      if (!(err instanceof WardrobeError)) throw err;
+      client.send('wear:error', { reason: err.message });
+    }
+  }
+
+  onWearPut(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    try {
+      priv.worn = wearItem({ owned: priv.wardrobe, worn: priv.worn, id: msg?.id, off: !!msg?.off });
+      this.pushOutfit(client.sessionId);
+      this.persist(client.sessionId);
+      client.send('wear:on', this.wornPayload(client.sessionId));
+    } catch (err) {
+      if (!(err instanceof WardrobeError)) throw err;
+      client.send('wear:error', { reason: err.message });
+    }
   }
 
   // ---- 学習の記録 ------------------------------------------------------------------

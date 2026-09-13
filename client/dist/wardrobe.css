@@ -1,0 +1,91 @@
+/* きせかえの店.
+ *
+ * `display` on `#wear-dialog[open]`, never on the bare id — on the id it beats the
+ * browser's own `dialog:not([open]){display:none}` and the closed dialog sits in the
+ * middle of the island eating taps. Two islands have been fixed for that already.
+ */
+/* The way in, beside the avatar button it belongs with. Sized through `.stats` for the
+   same reason the coin badge is: `.stats button` is one class plus one element and beats
+   a bare class selector. */
+.stats .wear-button { width: 34px; height: 34px; border-radius: 10px; background: #e5e9dc; font-size: 17px; }
+
+#wear-dialog { width: min(680px, 94vw); padding: 22px; overflow: auto; }
+#wear-dialog[open] { display: block; }
+
+.wear-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding-right: 34px; }
+.wear-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #93a08c; }
+#wear-dialog h2 { margin: 3px 0 0; font-size: 22px; }
+.wear-coins {
+  display: inline-flex; align-items: center; gap: 7px; flex: none;
+  padding: 6px 13px 6px 7px; border-radius: 999px;
+  background: linear-gradient(180deg, #2a2a1d, #22221a); color: #ffe9a8;
+  font-weight: 800; font-variant-numeric: tabular-nums;
+}
+
+.wear-body { display: grid; grid-template-columns: 216px 1fr; gap: 16px; margin-top: 16px; }
+
+/* --- the child, wearing it ------------------------------------------------------------- */
+.wear-stage { display: flex; flex-direction: column; gap: 8px; }
+#wear-canvas { width: 100%; height: 250px; border-radius: 16px; background: #1d3f43; display: block; }
+#wear-fallback { font-size: 12px; color: #7c8a76; }
+.wear-caption { margin: 0; display: flex; flex-direction: column; gap: 7px; font-size: 13px; color: #4f6050; text-align: center; }
+.wear-caption b { font-size: 14px; }
+.wear-caption > span { color: #8b9784; }
+.wear-locked { font-size: 12px; color: #a07a3c; }
+.wear-do {
+  min-height: 40px; padding: 9px 14px; border-radius: 12px;
+  background: #315a40; color: #fffbe9; font-size: 14px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+}
+.wear-do.buy { background: #a4752a; }
+.wear-do:disabled { background: #c9cdbd; color: #6d7a68; }
+.wear-do .coin-face { width: 17px; height: 17px; }
+.wear-do .coin-face::after { font-size: 11px; }
+
+/* --- the slot rail ----------------------------------------------------------------------- */
+.wear-slots { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.wear-slots button {
+  min-height: 38px; padding: 5px 12px; border-radius: 11px;
+  background: #eef1e3; color: #5e6d58; font-size: 12px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.wear-slots button span { font-size: 16px; }
+.wear-slots button.on { background: #315a40; color: #fffbe9; }
+
+/* --- the cards ---------------------------------------------------------------------------- */
+.wear-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 9px; }
+.wear-card {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  min-height: 116px; padding: 11px 8px 9px; border-radius: 14px;
+  background: #f4f6ea; border: 1px solid #e2e7d5; text-align: center;
+}
+.wear-card b { font-size: 12px; color: #33482f; line-height: 1.3; }
+.wear-card small { font-size: 11px; color: #8b9784; }
+.wear-card em { font-size: 11px; font-style: normal; color: #a07a3c; }
+.wear-card.worn { border-color: #4d8a5d; background: #e7f1e4; box-shadow: inset 0 0 0 1px #4d8a5d55; }
+.wear-card.locked { opacity: .72; }
+.wear-swatch {
+  width: 38px; height: 38px; border-radius: 11px; background: var(--c, #ccc);
+  box-shadow: inset 0 -3px 6px #00000026, inset 0 2px 3px #ffffff40;
+}
+.wear-price {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 800; color: #7a5a2c;
+}
+.wear-price .coin-face { width: 15px; height: 15px; }
+.wear-price .coin-face::after { font-size: 11px; }
+.wear-price.owned { color: #4d8a5d; }
+.wear-empty { grid-column: 1 / -1; font-size: 13px; color: #7c8a76; }
+
+/* Narrow and short screens: the stage goes above the grid rather than beside it, and
+   shrinks, because 390px of height is the working assumption for a tablet in landscape. */
+@media (max-width: 620px) {
+  .wear-body { grid-template-columns: 1fr; }
+  #wear-canvas { height: 190px; }
+  .wear-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+}
+@media (max-height: 560px) {
+  #wear-dialog { padding: 16px; }
+  #wear-canvas { height: 168px; }
+  .wear-body { grid-template-columns: 190px 1fr; gap: 12px; }
+}

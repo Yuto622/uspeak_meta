@@ -70,6 +70,7 @@ const coinHud=createCoinHud();
 // マイページ opens from the level, not from the coins: a modal dialog would cover the
 // pour the coin tap exists to show.
 document.querySelector('#record-button').onclick=()=>net?.dash?.open();
+document.querySelector('#wear-button').onclick=()=>net?.wardrobe?.open();
 const fishing=setupFishing({scene,camera,player,box,colliders,rand,toast,speak,avatars,park,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()},onCoins:n=>coinHud.set(n)});
 coinHud.set(fishing.store.state.coins);
 const rpg=setupRpg({scene,camera,player,water,box,park,fishing,avatars,atmosphere,toast,speak,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()},buildingService,getBaseXp:()=>done.length*100,isMuted:()=>muted});

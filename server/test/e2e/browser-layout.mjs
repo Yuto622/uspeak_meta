@@ -72,6 +72,9 @@ const SCREENS = [
   // マイページ: the chart is drawn to a canvas whose size comes from the dialog, so it is
   // worth measuring at every width rather than trusting one.
   { id: 'dash', sel: '#dash-dialog', go: `uspeak.net.dash.open(); await new Promise(r => setTimeout(r, 700))` },
+  // きせかえ: a preview canvas beside a grid of cards. The two-column body has to become
+  // one column on a phone, and the cards have to stay pressable at every width.
+  { id: 'wear', sel: '#wear-dialog', go: `uspeak.net.wardrobe.open(); await new Promise(r => setTimeout(r, 900))` },
 ];
 
 // The helpers the list above uses, installed in the page once it is online.
@@ -143,6 +146,7 @@ const LAYOUT_HELPERS = `uspeak.__layout = {
     try { uspeak.net.race.quit(); } catch { /* not racing */ }
     try { uspeak.net.gp.quit(); } catch { /* not racing */ }
     try { uspeak.net.dash.dialog.close(); } catch { /* not open */ }
+    try { uspeak.net.wardrobe.dialog.close(); } catch { /* not open */ }
     for (const el of document.querySelectorAll('dialog[open]')) el.close();
     // Closing the panel is not ending the session: a battle or a set of five is still
     // open on the server, and the next screen on the list would be refused. Say goodbye

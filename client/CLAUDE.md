@@ -25,6 +25,7 @@
 | のりもの島・カートレース | ride.js / ride-island.js / vehicles.json / kart.js / race.js / race.css |
 | グランプリ（べつのゲーム） | kart-game.js / kart.css / tracks.json / kart-track-data.js / kart-track.js / kart-drive.js / kart-ai.js / kart-models.js |
 | コインの見える化・マイページ | coin-hud.js / coin.css / dashboard.js / dashboard.css（サーバーは server/src/game/skills.js） |
+| きせかえ（アバターの店） | wardrobe.js / wardrobe.css / wardrobe.json / wardrobe-data.js / wardrobe-models.js（サーバーは server/src/game/wardrobe.js） |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
 
 ## 保存互換性
@@ -433,6 +434,49 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - チャートは canvas に直接描く（5軸の多角形に90KBのライブラリは要らない）。
 - 検査は `server/test/skills.test.mjs`（5項目・振り分けと採点）と
   `browser-layout.mjs` の `dash` 画面（5サイズ）。
+
+## きせかえ（アバターの店／2026-09 追加）
+
+`wardrobe.json`（16 アイテム・4 スロット）/ `wardrobe-data.js`（読み込みと検証・**サーバーと共有**）/
+`wardrobe-models.js`（1 アイテム 1 モデル）/ `wardrobe.js` + `wardrobe.css`（お店の画面）/
+`avatars.js` の `dressAvatar()` と アンカー。サーバーは `server/src/game/wardrobe.js`。
+
+- **`wardrobe.json` が唯一の定義元**で、**ページとサーバーが同じファイルを読む**（`wardrobe-data.js` の
+  `tableFrom()`）。値段もレベルもスロットも 1 か所にしかないので、お店の値札と部屋の請求が食い違いようがない。
+  色は**16進の文字列**で書く（7桁の10進数が並んだ JSON は誰も校正できない）。
+  形が壊れていれば `tableFrom()` が**起動時に落ちる**。半分だけ読み込まない。
+- **買うのも着るのも部屋が決める**（`wear:list` / `wear:buy` / `wear:put`）。ページが送るのは
+  「これがほしい」「これを着る」だけ。**財布・持ち物・レベルはすべてサーバー側**で、
+  `applyOp(priv.wallet, {type:'spend'})` を通るのでコインの出入りは他の買い物と同じ 1 か所。
+- **`profile` メッセージの `wear` は無視する**（`ClassRoom.onMessage('profile')` が `priv.worn` で上書き）。
+  ページは自分の画面に王冠を描いてよいが、王冠を**持つ**ことはできない。
+- **着ているものは `player.avatar` に入れる**（`pushOutfit()`）。他の子のブラウザーは元から
+  この文字列からアバターを組み立てているので、**クラス全員に見える**のはそのため。
+  帽子が自分にしか見えないなら、それは誰もいない部屋のために買った帽子。
+- **1 スロット 1 個**。帽子の上に帽子は載らない（`wear()` が同じスロットの物を外す）。
+  **脱ぐのは持っていなくても許す**：古いセーブに今は持っていない物が残っていることがあり、
+  それを頭から下ろせないと詰む。
+- **アンカーは `buildAvatar()` が作る**（`head` / `face` / `chest` / `back` / `hand`）。
+  アバターは骨のない箱の積み重ねなので、ボーン名ではなく**空の Group を置く場所**で持つ。
+  `dressAvatar(model, items, build)` は**冪等**：もう一度呼ぶと、着ていない物を外してから着せる。
+- **アバターを作り直したら着せ直す**（`setupAvatars().setOutfit()`）。顔や色を変えると
+  `apply()` が体を建て直すので、書いておかないと服が黙って消える。
+- **アイテムの見た目も箱**（`wardrobe-models.js`）。glTF の帽子は別のゲームから来たように見えるし、
+  30 人が同時に開いて 16 個のモデルを落とすのは授業ではない。
+  **知らない `kind` は `null` を返す**ので、データがコードより先に進んでも「着ていない」に落ちるだけ。
+- **押して試着、もう一度押して購入**。子どもが眺めているだけでコインを使うことはない。
+  買えない理由は 2 種類あり、**言い分けること**（「あと 60 コイン」＝貯めればよい／
+  「レベル 6 から」＝遊べばよい）。鍵のかかったアイテムも**値段ごと見せる**（欲しがるのがお店の役目）。
+- **お店のボタン（👕）は `.stats .wear-button` と書く。** `style.css` の
+  `.stats button{width:32px;height:32px}` はクラス1＋要素1で、素の `.wear-button` より強い。
+  コインバッジが同じ穴で 32px 角に潰れている。
+- **プレビューのループは開いている間だけ回す**（`spinning` / `spinUp()`）。閉じると `draw()` が
+  止まるので、フラグを持たないと**2 回目に開いたときアバターが固まる**。
+  裏では島が描画されているので、2 本目のフレームループを回しっぱなしにしない。
+- 検査は `server/test/wardrobe.test.mjs`（9項目・値段とレベルとスロットの規則）/
+  `server/test/room.test.mjs` の「きせかえ」（実ソケット・部屋の拒否と、他の子から見えること）/
+  `server/test/e2e/browser-wear.mjs`（実ブラウザ2画面・**本当に頭に載ること**と
+  **となりの子に見えること**）/ `browser-layout.mjs` の `wear` 画面（5サイズ）。
 
 ## メッセージ（定型文＋じゆうにゅうりょく／2026-09 更新）
 

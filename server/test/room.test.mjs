@@ -1683,3 +1683,103 @@ test('the grand prix: the room drives the rivals and judges every claim', async 
   await a.room.leave();
   await sleep(100);
 });
+
+test('きせかえ: the room owns the wallet, the wardrobe and what everyone else sees', async () => {
+  const { WARDROBE } = await import('../src/game/wardrobe.js');
+  const a = await join('Wear');
+  const b = await join('Watcher');
+  const red = WARDROBE.byId.get('cap-red');
+  const navy = WARDROBE.byId.get('cap-navy');
+  const glasses = WARDROBE.byId.get('glasses');
+
+  // The list is the whole shop, locks and all: a child is meant to see the crown they
+  // cannot buy yet, and to be told which kind of "no" it is.
+  a.room.send('wear:list', {});
+  const shop = await nextMessage(a.room, 'wear:shop');
+  assert.equal(shop.items.length, WARDROBE.items.length);
+  assert.deepEqual(shop.owned, []);
+  assert.deepEqual(shop.worn, []);
+  assert.equal(shop.items.find((i) => i.id === 'crown').locked, true, 'level 1 does not wear a crown');
+  const purse = shop.coins;
+  assert.ok(purse >= red.price + navy.price, `the day's login bonus should cover two caps, got ${purse}`);
+
+  // Nothing is worn that was not bought, nothing that does not exist is sold, and a level
+  // is not for sale however full the purse is.
+  a.room.send('wear:put', { id: 'cap-red' });
+  assert.equal((await nextMessage(a.room, 'wear:error')).reason, 'not yours');
+  a.room.send('wear:buy', { id: 'sombrero' });
+  assert.equal((await nextMessage(a.room, 'wear:error')).reason, 'no such item');
+  a.room.send('wear:buy', { id: 'crown' });
+  assert.equal((await nextMessage(a.room, 'wear:error')).reason, 'level too low');
+
+  // Bought is charged, and bought is worn — a child who just paid for a hat should not be
+  // asked a second question.
+  a.room.send('wear:buy', { id: 'cap-red' });
+  const bought = await nextMessage(a.room, 'wear:bought');
+  assert.equal(bought.id, 'cap-red');
+  assert.equal(bought.wallet.coins, purse - red.price, 'the price came out of the purse');
+  assert.deepEqual(bought.worn, ['cap-red']);
+  a.room.send('wear:buy', { id: 'cap-red' });
+  assert.equal((await nextMessage(a.room, 'wear:error')).reason, 'already owned');
+
+  // …and every other child's browser can see it, because the outfit rides in the avatar
+  // string their remote players are already built from.
+  const seen = await waitFor(() => {
+    const p = b.room.state.players.get(a.room.sessionId);
+    if (!p) return null;
+    let av = null; try { av = JSON.parse(p.avatar); } catch { return null; }
+    return (av.wear || []).length ? av : null;
+  });
+  assert.deepEqual(seen.wear, ['cap-red']);
+
+  // A page may draw whatever it likes on its own screen; what it may not do is tell the
+  // room it is wearing a crown.
+  a.room.send('profile', { avatar: { id: 'mia', wear: ['crown', 'medal'] } });
+  await sleep(200);
+  const forged = JSON.parse(b.room.state.players.get(a.room.sessionId).avatar);
+  assert.deepEqual(forged.wear, ['cap-red'], "the outfit is the room's, not the page's");
+
+  // A second hat replaces the first rather than stacking, and only the second is on.
+  a.room.send('wear:buy', { id: 'cap-navy' });
+  const two = await nextMessage(a.room, 'wear:bought');
+  assert.deepEqual(two.owned.sort(), ['cap-navy', 'cap-red']);
+  assert.deepEqual(two.worn, ['cap-navy']);
+  assert.equal(two.wallet.coins, purse - red.price - navy.price);
+
+  // Two caps is the purse spent, and the purse is the room's arithmetic.
+  assert.ok(two.wallet.coins < glasses.price, 'the rest of this test needs an empty purse');
+  a.room.send('wear:buy', { id: 'glasses' });
+  assert.equal((await nextMessage(a.room, 'wear:error')).reason, 'not enough coins');
+
+  // Wearing what is already owned is free, and taking it off shows through the same way.
+  a.room.send('wear:put', { id: 'cap-red' });
+  assert.deepEqual((await nextMessage(a.room, 'wear:on')).worn, ['cap-red']);
+  a.room.send('wear:put', { id: 'cap-red', off: true });
+  assert.deepEqual((await nextMessage(a.room, 'wear:on')).worn, []);
+  await waitFor(() => (JSON.parse(b.room.state.players.get(a.room.sessionId).avatar).wear || []).length === 0);
+
+  // And the hat is still in the wardrobe tomorrow — owned, worn and paid for all survive
+  // the round trip through the store.
+  a.room.send('wear:put', { id: 'cap-navy' });
+  await nextMessage(a.room, 'wear:on');
+  const left = two.wallet.coins;
+  await a.room.leave();
+  await sleep(150);
+  const again = await join('Wear');
+  again.room.send('wear:list', {});
+  const back = await nextMessage(again.room, 'wear:shop');
+  assert.equal(back.coins, left, 'the coins spent on hats stayed spent');
+  assert.deepEqual(back.owned.sort(), ['cap-navy', 'cap-red']);
+  assert.deepEqual(back.worn, ['cap-navy']);
+  // The class sees the outfit on the way back in, not only after the first purchase.
+  const rejoined = await waitFor(() => {
+    const p = b.room.state.players.get(again.room.sessionId);
+    if (!p?.avatar) return null;
+    try { return JSON.parse(p.avatar); } catch { return null; }
+  });
+  assert.deepEqual(rejoined.wear, ['cap-navy']);
+
+  await again.room.leave();
+  await b.room.leave();
+  await sleep(100);
+});

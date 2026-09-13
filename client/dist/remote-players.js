@@ -2,7 +2,8 @@
 // snap on teleports, name labels and chat bubbles. Positions are never trusted for
 // gameplay; they are only rendered.
 import * as THREE from './three.module.js';
-import { buildAvatar } from './avatars.js';
+import { buildAvatar, dressAvatar } from './avatars.js';
+import { itemModel } from './wardrobe-models.js';
 import { NET } from './net-config.js';
 
 function textSprite(text, { bg = '#345344', color = '#fff4d7', size = 30, width = 512, scale = 1 } = {}) {
@@ -31,6 +32,23 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
   // close to the ground and a name written to be read across a field covers the road — the
   // running order in the corner of the race screen says who is where instead.
   let tagsOn = true;
+  // きせかえ. The item table arrives once, lazily: until it does, everyone is simply
+  // undressed rather than the island failing to draw. `avatarJson` already changes
+  // whenever an outfit does, so the existing rebuild path picks new clothes up for free.
+  let wardrobe = null;
+  const dressed = new Set();
+  function dress(r) {
+    if (!wardrobe || !r?.model) return;
+    let wear = [];
+    try { wear = JSON.parse(r.avatarJson || '{}').wear || []; } catch { /* undressed */ }
+    dressAvatar(r.model, wear.map((id) => wardrobe.byId.get(id)).filter(Boolean), itemModel);
+    setShadows(r.model);
+  }
+  // Anything already on screen when the table lands gets dressed then.
+  import('./wardrobe-data.js')
+    .then((m) => m.loadWardrobe())
+    .then((table) => { wardrobe = table; for (const r of remotes.values()) dress(r); })
+    .catch(() => { /* no clothes today; the class still works */ });
 
   function makeRemote(id, info) {
     let config = { id: 'kai' };
@@ -63,7 +81,9 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
       setShadows(r.model);
       r.group.add(r.model);
       r.avatarJson = info.avatar;
+      dressed.delete(id);
     }
+    if (!dressed.has(id) && wardrobe) { dress(r); dressed.add(id); }
     r.space = info.space; r.anim = info.anim; r.connected = info.connected !== false; r.role = info.role;
     return r;
   }

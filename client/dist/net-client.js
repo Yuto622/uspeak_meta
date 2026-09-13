@@ -23,6 +23,9 @@ import { createRideUI } from './ride.js';
 import { createRaceUI } from './race.js';
 import { createKartGame } from './kart-game.js';
 import { createDashboard } from './dashboard.js';
+import { createWardrobe } from './wardrobe.js';
+import { dressAvatar } from './avatars.js';
+import { itemModel } from './wardrobe-models.js';
 import { createRoom } from './room-world.js';
 import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
@@ -207,6 +210,19 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     isOnline: () => state.mode === 'online',
     toast,
   });
+
+  // きせかえ. The room owns what is owned and worn; this draws it and asks.
+  const wardrobe = createWardrobe({
+    send: (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); },
+    isOnline: () => state.mode === 'online',
+    toast,
+    avatars,
+  });
+  // Put the child's own clothes on their own body, and keep them on when they change face.
+  const dressMe = (worn, table) => {
+    avatars.setOutfit((worn || []).map((id) => table?.byId.get(id)).filter(Boolean),
+      (model, items) => dressAvatar(model, items, itemModel));
+  };
 
   const ride = createRideUI({
     send: atSend,
@@ -411,6 +427,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('gp:closed', (m) => gp.onClosed(m));
     r.onMessage('gp:error', (m) => gp.onError(m));
     r.onMessage('dash:state', (m) => dash.onState(m));
+    r.onMessage('wear:shop', (m) => { wardrobe.onShop(m); dressMe(m.worn, wardrobe.table); });
+    r.onMessage('wear:bought', (m) => { if (m.wallet) applyWallet(m.wallet); wardrobe.onBought(m); dressMe(m.worn, wardrobe.table); });
+    r.onMessage('wear:on', (m) => { wardrobe.onWorn(m); dressMe(m.worn, wardrobe.table); });
+    r.onMessage('wear:error', (m) => wardrobe.onError(m));
     r.onMessage('voice:room', (m) => voice.onRoom(m));
     r.onMessage('voice:peer', (m) => voice.onPeer(m));
     r.onMessage('voice:closed', (m) => voice.onClosed(m));
@@ -778,6 +798,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get remotes() { return remotes; },
     get gp() { return gp; },
     get dash() { return dash; },
+    get wardrobe() { return wardrobe; },
     openLobby: () => lobby.open({ name: state.name }),
     openMission: () => mission.open(),
     errandInteract: () => { const near = rpg.errandNearby(); if (near) mission.interact(near.spot); },

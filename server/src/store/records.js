@@ -9,6 +9,7 @@ export const PLAYER_COLUMNS = [
   'garage_json', 'riding', 'lap_best', 'course_coins',
   'blocks_json', 'room_json', 'role', 'props_json', 'eiken_coins', 'conv_coins',
   'voice_minutes', 'skills_json', 'study_ms', 'study_days', 'study_day',
+  'wardrobe_json', 'worn_json',
 ];
 export const LEARNING_COLUMNS = ['timestamp', 'class', 'name', 'question_id', 'mode', 'choice', 'correct', 'xp', 'session_id'];
 // The class register. A teacher keeps this: one row per child who is allowed in.
@@ -29,6 +30,7 @@ export function blankPlayerRecord(classCode, name) {
     garage_json: '[]', riding: '', lap_best: 0, course_coins: 0,
     blocks_json: '[]', room_json: '', role: 'student', props_json: '[]', eiken_coins: 0, conv_coins: 0,
     voice_minutes: 0, skills_json: '', study_ms: 0, study_days: 0, study_day: 0,
+    wardrobe_json: '[]', worn_json: '[]',
   };
 }
 
