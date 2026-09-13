@@ -849,16 +849,23 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     },
     onSignal,
     onMsg,
-    onClosed() { if (state.joined) leave(true); },
+    // A normal onClosed (left the room, moved, disconnected) says nothing — those are
+    // expected. 'daily limit' is different: the child is mid-call and the room just hung
+    // up on them without being asked, so the one case worth a word is this one.
+    onClosed(m) {
+      if (m?.reason === 'daily limit') toast('きょうの つうわの じかんが おわりました。またあした！');
+      if (state.joined) leave(true);
+    },
     onError(m) {
       const said = {
         closed: 'おはなしは まだ ひらいていません。',
         'not in a room': '部屋の 中で 話せます。',
         'room is full': 'この 部屋は いっぱいです。',
         'too fast': 'つうしんが こみあっています。',
+        'daily limit': 'きょうの つうわの じかんを つかいきりました。またあした！',
       }[m?.reason];
       if (said) { state.error = said; toast(said); }
-      if (['closed', 'not in a room', 'room is full'].includes(m?.reason) && state.joined) leave(true);
+      if (['closed', 'not in a room', 'room is full', 'daily limit'].includes(m?.reason) && state.joined) leave(true);
       render();
     },
     leave,

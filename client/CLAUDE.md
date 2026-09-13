@@ -487,6 +487,13 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **つながらないまま放っておかない**。offer する側が 12 秒たってもつながって
   いなければ最大2回 `restartIce()` する（`RETRY_MS`）。学校のネットワークではこれが普通の
   失敗の形で、黙って無音のままにすると先生には原因が分からない。
+- **通話にも1日の上限がある**（`VOICE_DAILY_MINUTES_PER_STUDENT`・既定120分／2026-09追加）。
+  AI英会話には元から `AI_DAILY_TURNS_PER_STUDENT` があったが、通話は無かった。開いたままの
+  マイクは閉じ忘れたタブでも毎秒コストが積み上がり、大広間なら LiveKit の分課金になる。
+  **上限に達したら、部屋の側から通話を切る**（`ClassRoom.tickVoice()`・1秒ごと）。子どもが
+  自分から出るのを待つと、上限を超えた分だけ課金され続ける。先生はこの上限の対象外
+  （`priv.caps.voice`・`night.js` の `blankCaps`/`sanitizeCaps`/`roomLeft` を共有）。
+  検査は `server/test/voice-cap.test.mjs`（実ソケット、上限を数秒に縮めて実際に切れることを見る）。
 - **画面共有**（`getDisplayMedia`）は顔とは別の MediaStream で送り、`rtc:signal` の
   `kind:'screen'` で「どの stream id が画面か」を相手に伝える。受け側は `ontrack` の
   `e.streams[0].id` と突き合わせて `peer.stream`（顔）と `peer.screen`（画面）に振り分ける

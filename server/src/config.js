@@ -6,6 +6,10 @@ const int = (key, fallback) => {
   const v = Number.parseInt(env[key] ?? '', 10);
   return Number.isFinite(v) ? v : fallback;
 };
+const float = (key, fallback) => {
+  const v = Number.parseFloat(env[key] ?? '');
+  return Number.isFinite(v) ? v : fallback;
+};
 const bool = (key, fallback) => {
   const v = (env[key] ?? '').trim().toLowerCase();
   if (!v) return fallback;
@@ -59,6 +63,18 @@ export const config = Object.freeze({
     apiKey: (env.LIVEKIT_API_KEY ?? '').trim(),
     apiSecret: (env.LIVEKIT_API_SECRET ?? '').trim(),
     tokenTtlSec: Math.max(300, int('LIVEKIT_TOKEN_TTL_SEC', 7200)),
+  },
+  // A microphone left open costs something every second it is open — a mesh call costs a
+  // classmate's battery and bandwidth, a big room costs LiveKit minutes — and unlike the
+  // AI conversation (capped at AI_DAILY_TURNS_PER_STUDENT), nothing bounded how long a
+  // forgotten tab could sit in a call. This is that bound, in minutes per student per day.
+  // A teacher is exempt: the one adult supervising the lesson is not the exposure this
+  // guards against.
+  voice: {
+    // A float, not an int: production wants whole minutes, but a test wants to prove the
+    // cap actually cuts a call off without a real 120-minute wait, and a few seconds
+    // (e.g. 0.05) only expresses as a fraction.
+    dailyMinutesPerStudent: Math.max(0.05, float('VOICE_DAILY_MINUTES_PER_STUDENT', 120)),
   },
   // 入場ゲート: 'open' lets anyone with the class code in (the default, and what a
   // demo or a home user wants); 'roster' admits only children on the class register,

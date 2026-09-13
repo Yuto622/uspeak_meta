@@ -612,6 +612,7 @@ export class ClassRoom extends Room {
     const now = Date.now();
     this.tickWorld(now);
     this.tickRace(now);
+    this.tickVoice(now);
     for (const [id, player] of this.state.players) {
       const priv = this.priv.get(id);
       if (player.connected && priv && now - priv.lastMoveAt > STALE_MOVE_MS && player.anim !== 'idle') player.anim = 'idle';
@@ -664,7 +665,10 @@ export class ClassRoom extends Room {
       battle: null,
       // What today's caps have already paid, kept in the record so that leaving and
       // rejoining is not a way to start the day over.
-      caps: sanitizeCaps({ day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins, eiken: record.eiken_coins, conv: record.conv_coins }),
+      caps: sanitizeCaps({
+        day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins,
+        eiken: record.eiken_coins, conv: record.conv_coins, voice: record.voice_minutes,
+      }),
       garage,
       riding: sanitizeRiding(record.riding, garage),
       bricks,
@@ -706,6 +710,7 @@ export class ClassRoom extends Room {
       cap_day: priv.caps.day, battle_coins: priv.caps.battle, ghost_coins: priv.caps.ghost, course_coins: priv.caps.course,
       eiken_coins: priv.caps.eiken,
       conv_coins: priv.caps.conv,
+      voice_minutes: Math.floor(priv.caps.voice),
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
       room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza }),
@@ -1250,6 +1255,15 @@ export class ClassRoom extends Room {
     const room = this.voiceRoomOf(id);
     if (!room) { client.send('voice:error', { reason: 'not in a room' }); return; }
     if (!this.voiceOpenFor(player.space)) { client.send('voice:error', { reason: 'closed' }); return; }
+    // A microphone open all day is the same exposure a runaway AI conversation would be,
+    // and it had no guard at all: a tab left in a call room, forgotten overnight, would
+    // simply run — and on the big room, run up a real LiveKit bill. A teacher is exempt,
+    // the same as the room-full check above exempts them.
+    const priv = this.priv.get(id);
+    if (priv && player.role !== 'teacher' && this.voiceMinutesLeft(priv) <= 0) {
+      client.send('voice:error', { reason: 'daily limit' });
+      return;
+    }
     const peers = this.voicePeers(room, id);
     const cap = this.voiceCapOf(room);
     // A teacher is always let in: the one grown-up in the room is not an optional guest.
@@ -1285,6 +1299,7 @@ export class ClassRoom extends Room {
   dropVoice(sessionId, reason = 'left') {
     const seat = this.voice.get(sessionId);
     if (!seat) return;
+    this.settleVoice(sessionId);
     this.voice.delete(sessionId);
     this.stage.delete(sessionId);
     // In a mesh the others have to be told, so their browsers can close the connection
@@ -1297,6 +1312,41 @@ export class ClassRoom extends Room {
       }
     }
     this.clients.find((c) => c.sessionId === sessionId)?.send('voice:closed', { reason });
+  }
+
+  // Minutes of open microphone this student has left today.
+  voiceMinutesLeft(priv) {
+    return roomLeft(priv.caps, 'voice', config.voice.dailyMinutesPerStudent);
+  }
+
+  // Banks whatever time has passed since this seat's clock was last reset, and resets it.
+  // Safe to call more than once on the same seat — a mid-call checkpoint from tickVoice
+  // and the eventual dropVoice both call this, and nothing is double-counted because the
+  // clock always moves forward to "now" rather than back to when the call began.
+  settleVoice(sessionId) {
+    const seat = this.voice.get(sessionId);
+    if (!seat) return;
+    const now = Date.now();
+    const minutes = (now - seat.since) / 60000;
+    seat.since = now;
+    const player = this.state.players.get(sessionId);
+    const priv = this.priv.get(sessionId);
+    if (!priv || player?.role === 'teacher' || minutes <= 0) return;
+    this.voiceMinutesLeft(priv); // rolls the day over first, if it has turned since the join
+    priv.caps.voice += minutes;
+  }
+
+  // Once a second: bank the time every open microphone has run so far, and close any that
+  // have used up today's minutes. Banking mid-call, not only when a child happens to
+  // leave, is the point — a call already past the cap must not simply keep running until
+  // someone hangs up.
+  tickVoice(now) {
+    for (const id of [...this.voice.keys()]) {
+      if (this.state.players.get(id)?.role === 'teacher') continue;
+      this.settleVoice(id);
+      const priv = this.priv.get(id);
+      if (priv && this.voiceMinutesLeft(priv) <= 0) this.dropVoice(id, 'daily limit');
+    }
   }
 
   // Writing to the room. Some things are easier typed than said — a child on a muted iPad,
