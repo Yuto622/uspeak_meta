@@ -1,0 +1,350 @@
+{
+  "version": 1,
+  "note": "The circuits. One file, read by the page that builds the track, by the drivers that race on it, and by the server that judges the laps — so a corner cannot mean one thing to a child and another to the room. Everything except the centreline is placed ALONG THE LAP (t, from 0 at the start line to 1 back at it) with a sideways offset in metres, so nothing can end up off the road when the shape is tuned.",
+  "tracks": [
+    {
+      "id": "sunset",
+      "name": "サンセット・サーキット",
+      "en": "SUNSET CIRCUIT",
+      "hint": "海ぞいの まわりやすい コース。さいごの ジャンプで 差がつく。",
+      "laps": 3,
+      "width": 15,
+      "sky": [
+        "#ffb877",
+        "#4a6fa5"
+      ],
+      "ground": "#6f9a5a",
+      "sand": "#e0cfa0",
+      "note": "The centreline, as control points of a closed smooth curve. y is height in metres: the east side climbs to a crest and the back straight comes down off it. w overrides the track width at that point — wide on the straights, narrower through the esses, and wide again at the hairpin so a child who misses the apex still has road.",
+      "points": [
+        {
+          "x": -68.4,
+          "y": 0.0,
+          "z": -121.0,
+          "w": 18
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -123.8,
+          "w": 18
+        },
+        {
+          "x": 57.6,
+          "y": 0.0,
+          "z": -121.0,
+          "w": 17
+        },
+        {
+          "x": 100.8,
+          "y": 1.1,
+          "z": -108.0
+        },
+        {
+          "x": 130.3,
+          "y": 2.9,
+          "z": -80.6
+        },
+        {
+          "x": 141.1,
+          "y": 5.0,
+          "z": -47.5
+        },
+        {
+          "x": 133.9,
+          "y": 7.2,
+          "z": -15.8,
+          "w": 13
+        },
+        {
+          "x": 147.6,
+          "y": 9.0,
+          "z": 13.0,
+          "w": 13
+        },
+        {
+          "x": 137.5,
+          "y": 9.4,
+          "z": 44.6
+        },
+        {
+          "x": 113.0,
+          "y": 8.3,
+          "z": 72.0
+        },
+        {
+          "x": 77.8,
+          "y": 6.5,
+          "z": 92.2
+        },
+        {
+          "x": 36.0,
+          "y": 4.3,
+          "z": 105.1
+        },
+        {
+          "x": -8.6,
+          "y": 2.5,
+          "z": 109.4
+        },
+        {
+          "x": -51.8,
+          "y": 1.1,
+          "z": 105.1
+        },
+        {
+          "x": -89.3,
+          "y": 0.4,
+          "z": 89.3
+        },
+        {
+          "x": -115.2,
+          "y": 0.0,
+          "z": 63.4,
+          "w": 17
+        },
+        {
+          "x": -126.7,
+          "y": 0.0,
+          "z": 31.7,
+          "w": 19
+        },
+        {
+          "x": -122.4,
+          "y": 0.0,
+          "z": 1.4,
+          "w": 19
+        },
+        {
+          "x": -105.1,
+          "y": 0.0,
+          "z": -21.6
+        },
+        {
+          "x": -100.8,
+          "y": 0.0,
+          "z": -50.4,
+          "w": 13
+        },
+        {
+          "x": -113.8,
+          "y": 0.0,
+          "z": -77.8,
+          "w": 13
+        },
+        {
+          "x": -108.0,
+          "y": 0.0,
+          "z": -105.1
+        }
+      ],
+      "note2": "Everything below is placed at t along the lap (0..1) with o metres to the side of the centreline: + is to the driver's right.",
+      "start": {
+        "t": 0.0
+      },
+      "grid": [
+        {
+          "t": 0.968,
+          "o": -4.5
+        },
+        {
+          "t": 0.968,
+          "o": 4.5
+        },
+        {
+          "t": 0.952,
+          "o": -4.5
+        },
+        {
+          "t": 0.952,
+          "o": 4.5
+        },
+        {
+          "t": 0.936,
+          "o": -4.5
+        },
+        {
+          "t": 0.936,
+          "o": 4.5
+        },
+        {
+          "t": 0.92,
+          "o": -4.5
+        },
+        {
+          "t": 0.92,
+          "o": 4.5
+        },
+        {
+          "t": 0.904,
+          "o": -4.5
+        },
+        {
+          "t": 0.904,
+          "o": 4.5
+        },
+        {
+          "t": 0.888,
+          "o": -4.5
+        },
+        {
+          "t": 0.888,
+          "o": 4.5
+        }
+      ],
+      "checkpoints": 16,
+      "note3": "Item boxes come in rows a child drives through, the way they always have. A row is one t with several offsets.",
+      "items": [
+        {
+          "t": 0.08,
+          "o": [
+            -6,
+            -2,
+            2,
+            6
+          ]
+        },
+        {
+          "t": 0.33,
+          "o": [
+            -4,
+            0,
+            4
+          ]
+        },
+        {
+          "t": 0.58,
+          "o": [
+            -6,
+            -2,
+            2,
+            6
+          ]
+        },
+        {
+          "t": 0.79,
+          "o": [
+            -4,
+            0,
+            4
+          ]
+        }
+      ],
+      "boosts": [
+        {
+          "t": 0.215,
+          "o": 3.5
+        },
+        {
+          "t": 0.46,
+          "o": -4
+        },
+        {
+          "t": 0.66,
+          "o": 0
+        },
+        {
+          "t": 0.895,
+          "o": 4
+        }
+      ],
+      "note4": "The jump: a ramp at t, and the landing far enough along that a kart at speed clears the gap. `lift` is how hard it throws the kart up.",
+      "jumps": [
+        {
+          "t": 0.7,
+          "length": 26,
+          "lift": 7.5
+        }
+      ],
+      "note5": "Where the track is lined with walls a kart bounces off, and where it runs out onto grass instead. A kart that leaves the road is slow, not stopped — being stopped by a wall you cannot see is the thing children hate.",
+      "walls": [
+        {
+          "from": 0.12,
+          "to": 0.36
+        },
+        {
+          "from": 0.58,
+          "to": 0.74
+        }
+      ],
+      "note6": "Scenery, placed the same way: t along the lap, o to the side. Nothing here is collidable.",
+      "decor": [
+        {
+          "kind": "stand",
+          "t": 0.0,
+          "o": -26
+        },
+        {
+          "kind": "stand",
+          "t": 0.03,
+          "o": -26
+        },
+        {
+          "kind": "stand",
+          "t": 0.97,
+          "o": -26
+        },
+        {
+          "kind": "palm",
+          "t": 0.13,
+          "o": 22
+        },
+        {
+          "kind": "palm",
+          "t": 0.17,
+          "o": -20
+        },
+        {
+          "kind": "palm",
+          "t": 0.24,
+          "o": 24
+        },
+        {
+          "kind": "sign",
+          "t": 0.3,
+          "o": -18
+        },
+        {
+          "kind": "palm",
+          "t": 0.42,
+          "o": 21
+        },
+        {
+          "kind": "balloon",
+          "t": 0.5,
+          "o": -19
+        },
+        {
+          "kind": "palm",
+          "t": 0.55,
+          "o": -22
+        },
+        {
+          "kind": "sign",
+          "t": 0.62,
+          "o": 19
+        },
+        {
+          "kind": "palm",
+          "t": 0.72,
+          "o": -23
+        },
+        {
+          "kind": "balloon",
+          "t": 0.78,
+          "o": 20
+        },
+        {
+          "kind": "palm",
+          "t": 0.85,
+          "o": -21
+        },
+        {
+          "kind": "sign",
+          "t": 0.91,
+          "o": 18
+        }
+      ]
+    }
+  ]
+}
