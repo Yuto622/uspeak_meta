@@ -64,7 +64,9 @@ const avatars=setupAvatars({player,toast,renderer});
 // コインの見える化. The badge is the island's, not any one screen's: it sits in the header
 // wherever a child is, and every coin the game pays goes through the fishing store's
 // commit — including the room's own reconcile — so this one hook catches all of them.
-const coinHud=createCoinHud();
+// Tapping the balance opens マイページ. The badge is built before the network layer
+// exists, so the handler is looked up at tap time rather than captured now.
+const coinHud=createCoinHud({onOpen:()=>net?.dash?.open()});
 const fishing=setupFishing({scene,camera,player,box,colliders,rand,toast,speak,avatars,park,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()},onCoins:n=>coinHud.set(n)});
 coinHud.set(fishing.store.state.coins);
 const rpg=setupRpg({scene,camera,player,water,box,park,fishing,avatars,atmosphere,toast,speak,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()},buildingService,getBaseXp:()=>done.length*100,isMuted:()=>muted});

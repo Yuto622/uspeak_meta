@@ -37,7 +37,8 @@ import {
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding } from '../game/vehicles.js';
-import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
+import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, dayIndex, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
+import { SKILLS, blankSkills, sanitizeSkills, addAnswer, radarOf, weakestOf, FULL as SKILL_FULL } from '../game/skills.js';
 import { createGate } from '../game/gate.js';
 import { reportPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
@@ -52,6 +53,8 @@ const PERFECT_BONUS_COINS = 10;
 // 通話. A mesh call is every browser connected to every other one, so a room holds a
 // handful rather than a class; the rest of the class is in the other rooms.
 const VOICE_MAX = 6;
+// How long after a child's last move or answer their time still counts as study.
+const STUDY_IDLE_MS = 2 * 60 * 1000;
 const VOICE_MODES = ['all', 'rooms', 'off'];   // どこでも（既定）/ おはなし島だけ / ぜんぶ止める
 const SIGNAL_MAX_BYTES = 8192;     // an SDP offer is ~4KB; a candidate is a line
 const SIGNAL_BURST = 120;          // per five seconds, per child   // Roblox: COIN_PERFECT_BONUS, for a clean ten
@@ -163,6 +166,7 @@ export class ClassRoom extends Room {
     this.onMessage('gp:leave', (client) => this.onGpLeave(client, 'left'));
     this.onMessage('gp:cp', (client, msg) => this.onGpCp(client, msg));
     this.onMessage('gp:item', (client, msg) => this.onGpItem(client, msg));
+    this.onMessage('dash:get', (client) => this.onDashboard(client));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       if (player) player.avatar = sanitizeAvatar(msg?.avatar);
@@ -380,7 +384,7 @@ export class ClassRoom extends Room {
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
       walletChanged = true;
     }
-    this.store.appendLearning([
+    this.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, result.questionId, result.mode,
       String(msg.c).slice(0, 80), result.correct ? 1 : 0, xp, client.sessionId,
     ]);
@@ -461,7 +465,7 @@ export class ClassRoom extends Room {
       return '';
     }
     const out = cleanSay(raw, { last: priv.lastSayText });
-    const row = (what, text, ok) => this.store.appendLearning([
+    const row = (what, text, ok) => this.appendLearning([
       new Date().toISOString(), this.classCode, priv.name, what, 'chat',
       String(text).slice(0, 80), ok, 0, client.sessionId,
     ]);
@@ -613,6 +617,7 @@ export class ClassRoom extends Room {
     this.tickWorld(now);
     this.tickRace(now);
     this.tickVoice(now);
+    this.tickStudy(now);
     for (const [id, player] of this.state.players) {
       const priv = this.priv.get(id);
       if (player.connected && priv && now - priv.lastMoveAt > STALE_MOVE_MS && player.anim !== 'idle') player.anim = 'idle';
@@ -620,6 +625,19 @@ export class ClassRoom extends Room {
     if (now - this.lastPersistAll >= PERSIST_ALL_MS) {
       this.lastPersistAll = now;
       for (const id of this.priv.keys()) this.persist(id);
+    }
+  }
+
+  // 総学習時間, a second at a time. Only for a child who is connected AND has done
+  // something recently: the number on their page has to be time spent learning, not time
+  // spent with the tab open, or it is worth nothing to the parent reading it.
+  tickStudy(now) {
+    for (const [id, player] of this.state.players) {
+      if (!player.connected) continue;
+      const priv = this.priv.get(id);
+      if (!priv) continue;
+      const last = Math.max(priv.study.activeAt, priv.lastMoveAt);
+      if (last && now - last < STUDY_IDLE_MS) priv.study.ms += 1000;
     }
   }
 
@@ -686,6 +704,16 @@ export class ClassRoom extends Room {
       missionTurnsToday: 0,
       missionDay: '',
       lastMissionAt: 0,
+      // 5技能: what has been practised, counted on the way past appendLearning().
+      skills: sanitizeSkills(parseJson(record.skills_json, null)),
+      // 総学習時間 and 総学習日数. `activeAt` is the last thing they actually did, so a
+      // tab left open on the bus does not become an hour of study.
+      study: {
+        ms: Math.max(0, Math.floor(num(record.study_ms))),
+        days: Math.max(0, Math.floor(num(record.study_days))),
+        day: Math.max(0, Math.floor(num(record.study_day))),
+        activeAt: 0,
+      },
     };
   }
 
@@ -711,6 +739,8 @@ export class ClassRoom extends Room {
       eiken_coins: priv.caps.eiken,
       conv_coins: priv.caps.conv,
       voice_minutes: Math.floor(priv.caps.voice),
+      skills_json: JSON.stringify(priv.skills),
+      study_ms: Math.floor(priv.study.ms), study_days: priv.study.days, study_day: priv.study.day,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
       room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza }),
@@ -749,6 +779,77 @@ export class ClassRoom extends Room {
     if (!priv) return null;
     const { level, xp, chats } = priv.progress;
     return { level, xp, need: xpToNext(level), total: totalXp(priv.progress), chats };
+  }
+
+  // マイページ. Everything a child's own page shows, worked out here: the room is the only
+  // thing that knows what was actually answered, so the page is told the shape rather than
+  // being trusted to compute it from anything it holds.
+  //
+  // The three counters are the ones the reference uses, and each carries "how much further
+  // to the next one" — a number on its own is a fact, a number with a distance to the next
+  // one is a reason to keep going, which for a seven-year-old is the whole difference.
+  onDashboard(client) {
+    const priv = this.priv.get(client.sessionId);
+    const player = this.state.players.get(client.sessionId);
+    if (!priv || !player) return;
+    const minutes = Math.floor(priv.study.ms / 60000);
+    const answers = priv.stats.attempts;
+    const weak = weakestOf(priv.skills);
+    client.send('dash:state', {
+      name: priv.name,
+      coins: priv.wallet.coins,
+      progress: this.progressPayload(client.sessionId),
+      streak: priv.login.streak,
+      // 5技能. `full` is how many answers fill an axis, so the page can explain the shape
+      // rather than just drawing it.
+      skills: radarOf(priv.skills),
+      full: SKILL_FULL,
+      weakest: weak ? { id: weak.id, ja: weak.ja, en: weak.en, attempts: weak.attempts } : null,
+      // `per` is how much of a thing earns the next ✧, and `toNext` how much of it is
+      // left. Same unit as the value in all three, so "あと4分" and "あと7問" mean what
+      // they say without the child converting anything.
+      cards: [
+        { id: 'time', ja: '総学習時間', en: 'Study time', value: minutes, unit: '分', per: 5, toNext: 5 - (minutes % 5) },
+        { id: 'answers', ja: '総正解数', en: 'Answers right', value: priv.stats.correct, unit: '問', per: 25, toNext: 25 - (priv.stats.correct % 25) },
+        { id: 'days', ja: '総学習日数', en: 'Days studied', value: priv.study.days, unit: '日', per: 30, toNext: 30 - (priv.study.days % 30) },
+      ],
+      accuracy: answers ? Math.round((priv.stats.correct / answers) * 100) : null,
+      attempts: answers,
+    });
+  }
+
+  // ---- 学習の記録 ------------------------------------------------------------------
+  //
+  // Every answer in the game passes through here on its way to the store. The row itself
+  // is unchanged — it is the same nine columns a teacher has always been able to read —
+  // but on the way past it is also counted towards one of the five skills, and towards
+  // the two things a child cannot see from a coin balance: how long they have been at it
+  // and how many days they have come back.
+  //
+  // Doing it here rather than at the eleven places that write a row means one map from
+  // activity to skill, and a twelfth activity added later is counted whether or not
+  // whoever adds it remembers this file exists.
+  appendLearning(row) {
+    try {
+      const sessionId = row[8];
+      const priv = this.priv.get(sessionId);
+      if (priv) {
+        addAnswer(priv.skills, row[4], Number(row[6]) === 1);
+        this.markStudied(priv);
+      }
+    } catch (err) {
+      // A miscounted skill must never cost a child the record of the answer itself.
+      log.warn('[skills] could not count an answer:', err.message);
+    }
+    return this.store.appendLearning(row);
+  }
+
+  // A day is "studied" the first time something is answered in it, not by logging in and
+  // walking around: 総学習日数 on a child's page has to mean days they did some English.
+  markStudied(priv, now = Date.now()) {
+    const today = dayIndex(now);
+    if (priv.study.day !== today) { priv.study.day = today; priv.study.days += 1; }
+    priv.study.activeAt = now;
   }
 
   // ---- word huts ------------------------------------------------------------------
@@ -814,7 +915,7 @@ export class ClassRoom extends Room {
       const level = this.awardXp(client.sessionId, REWARDS.wordQuiz.xp, `quiz:${session.difficulty}`);
       payload.levels = level?.levels || 0;
     }
-    this.store.appendLearning([
+    this.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, `quiz:${session.difficulty}:${result.index}`, 'quiz',
       String(session.answered[result.index]?.q || '').slice(0, 80), result.correct ? 1 : 0,
       result.correct ? REWARDS.wordQuiz.xp : 0, client.sessionId,
@@ -891,7 +992,7 @@ export class ClassRoom extends Room {
       const level = this.awardXp(client.sessionId, REWARDS.gym.xp, `gym:${session.mode}`);
       payload.levels = level?.levels || 0;
     }
-    this.store.appendLearning([
+    this.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, `gym:${session.mode}:${result.word}`, session.mode === 'speak' ? 'speak' : 'listen',
       (session.mode === 'speak' ? heard : String(result.answer)).slice(0, 80), result.correct ? 1 : 0,
       result.correct ? REWARDS.gym.xp : 0, client.sessionId,
@@ -975,7 +1076,7 @@ export class ClassRoom extends Room {
     }
     priv.stats.attempts += 1;
     if (out.quiz.correct) priv.stats.correct += 1;
-    this.store.appendLearning([
+    this.appendLearning([
       new Date().toISOString(), this.classCode, priv.name, `battle:${battle.difficulty}`, 'battle',
       String(out.quiz.picked), out.quiz.correct ? 1 : 0, 0, client.sessionId,
     ]);
@@ -1508,7 +1609,7 @@ export class ClassRoom extends Room {
     state.turns.push({ child: utterance, reply: result.reply });
 
     const xp = gained.length * CONV.reward.aimXp;
-    this.store.appendLearning([
+    this.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, `conv:${topic.id}`, 'conv',
       utterance.slice(0, 80), gained.length ? 1 : 0, xp, client.sessionId,
     ]);
@@ -1627,7 +1728,7 @@ export class ClassRoom extends Room {
       payload.xp = rate.xp;
       payload.levels = level?.levels || 0;
     }
-    this.store.appendLearning([
+    this.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, `eiken:${session.grade}:${session.skill}:${result.index}`, session.skill,
       String(result.picked ?? '').slice(0, 80), result.correct ? 1 : 0, result.correct ? rate.xp : 0, client.sessionId,
     ]);
@@ -1733,7 +1834,7 @@ export class ClassRoom extends Room {
     const level = out.xp ? this.awardXp(client.sessionId, out.xp, `interview:${session.grade}`) : null;
     priv.stats.attempts += 1;
     if (out.correct) priv.stats.correct += 1;
-    this.store.appendLearning([
+    this.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, `interview:${session.grade}:${session.cardId}:${out.kind}`,
       'interview', heard.slice(0, 80), out.correct ? 1 : 0, out.xp || 0, client.sessionId,
     ]);
@@ -2186,7 +2287,7 @@ export class ClassRoom extends Room {
       racer.items += 1;
       this.awardXp(client.sessionId, itemXp(), 'race:item');
     }
-    this.store.appendLearning([
+    this.appendLearning([
       new Date().toISOString(), this.classCode, priv.name, `race:item:${item.answer}`, 'race',
       picked.slice(0, 40), right ? 1 : 0, right ? itemXp() : 0, client.sessionId,
     ]);
@@ -2394,7 +2495,7 @@ export class ClassRoom extends Room {
       racer.items += 1;
       this.awardXp(client.sessionId, XP_ITEM, 'gp:item');
     }
-    this.store.appendLearning([
+    this.appendLearning([
       new Date().toISOString(), this.classCode, priv.name, `gp:item:${quiz.answer}`, 'race',
       picked.slice(0, 40), right ? 1 : 0, right ? XP_ITEM : 0, client.sessionId,
     ]);
@@ -2657,7 +2758,7 @@ export class ClassRoom extends Room {
     state.goalsMet = result.goalsMet;
     state.turns.push({ child: utterance, reply: result.reply });
 
-    this.store.appendLearning([
+    this.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, `mission:${mission.id}`, 'mission',
       utterance.slice(0, 80), gained.length ? 1 : 0, gained.length * REWARDS.missionGoal.xp, client.sessionId,
     ]);

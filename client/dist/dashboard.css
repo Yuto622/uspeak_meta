@@ -1,0 +1,78 @@
+/* マイページ — the record of what a child has done.
+ *
+ * `display` goes on `#dash-dialog[open]`, never on the bare id: written on the id it beats
+ * the browser's own `dialog:not([open]){display:none}` and the closed dialog sits in the
+ * middle of the island swallowing taps. Two islands have been fixed for exactly that, and
+ * tests/regression.mjs now reads every stylesheet looking for it.
+ */
+#dash-dialog { width: min(560px, 94vw); padding: 24px; overflow: auto; }
+#dash-dialog[open] { display: block; }
+
+/* The close button is positioned in the dialog's top right corner by style.css, so the
+   head leaves it room — otherwise the coin balance sits underneath it and the × is a
+   tap on the coins. */
+.dash-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding-right: 34px; }
+.dash-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #93a08c; }
+#dash-dialog h2 { margin: 4px 0 0; font-size: 22px; }
+.dash-coins {
+  display: inline-flex; align-items: center; gap: 7px; flex: none;
+  padding: 6px 13px 6px 7px; border-radius: 999px;
+  background: linear-gradient(180deg, #2a2a1d, #22221a); color: #ffe9a8;
+  font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.dash-coins b { font-size: 15px; }
+.dash-note { font-size: 13px; color: #7c8a76; }
+
+/* --- level ---------------------------------------------------------------------------- */
+.dash-level { margin: 18px 0 4px; }
+.dash-level-row { display: flex; align-items: baseline; justify-content: space-between; font-size: 12px; color: #66755f; }
+.dash-level-row b { font-size: 17px; color: #2d4a37; }
+.dash-level-row small { font-size: 11px; }
+.dash-bar { height: 7px; margin-top: 7px; border-radius: 6px; background: #dfe4d2; overflow: hidden; }
+.dash-bar i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #74b083, #4d8a5d); transition: width .6s ease; }
+
+/* --- the three counters ----------------------------------------------------------------- */
+.dash-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 16px 0 4px; }
+.dash-card {
+  padding: 11px 12px; border-radius: 14px; background: #f2f4e8; border: 1px solid #e2e7d5;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.dash-card small { font-size: 11px; color: #7d8a76; }
+.dash-card b { font-size: 21px; color: #2f4a38; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.dash-card b span { font-size: 11px; font-weight: 600; margin-left: 2px; color: #6d7c67; }
+/* The nudge under each number: a total is a fact, a distance is a reason to keep going. */
+.dash-card em { font-size: 11px; font-style: normal; color: #a07a3c; }
+
+/* --- the five skills ---------------------------------------------------------------------- */
+.dash-radar { margin-top: 18px; padding-top: 16px; border-top: 1px solid #e3e7d6; }
+.dash-radar-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.dash-radar h3 { margin: 0; font-size: 15px; color: #2f4a38; }
+.dash-radar-head small { font-size: 11px; color: #7d8a76; }
+#dash-chart { width: 100%; height: 250px; display: block; }
+
+.dash-legend { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 6px; }
+.dash-legend li { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #5d6b58; }
+.dash-legend li > span { width: 46px; flex: none; }
+.dash-legend li i { flex: 1; height: 6px; border-radius: 5px; background: #e4e8d8; overflow: hidden; }
+.dash-legend li i b { display: block; height: 100%; border-radius: 5px; background: #dd6a55; }
+.dash-legend li small { width: 54px; text-align: right; font-size: 11px; color: #8b9784; font-variant-numeric: tabular-nums; }
+
+.dash-next { margin: 14px 0 0; padding: 11px 13px; border-radius: 12px; background: #fdf2e4; font-size: 13px; color: #7a5a2c; }
+.dash-next b { color: #a4661d; }
+.dash-next small { display: block; font-size: 11px; margin-top: 3px; opacity: .8; }
+
+/* Landscape phones and iPads: the chart and the list sit side by side rather than making
+   the dialog taller than the window. 390px of height is the working assumption here. */
+@media (max-height: 560px) {
+  #dash-dialog { padding: 18px; }
+  .dash-radar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: center; }
+  .dash-radar-head { grid-column: 1 / -1; }
+  #dash-chart { height: 190px; }
+  .dash-next { grid-column: 1 / -1; margin-top: 0; }
+}
+@media (max-width: 560px) {
+  .dash-cards { gap: 6px; }
+  .dash-card { padding: 9px 9px; }
+  .dash-card b { font-size: 18px; }
+  .dash-legend li > span { width: 40px; }
+}

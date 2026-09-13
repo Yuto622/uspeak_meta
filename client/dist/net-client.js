@@ -22,6 +22,7 @@ import { createNight } from './night-world.js';
 import { createRideUI } from './ride.js';
 import { createRaceUI } from './race.js';
 import { createKartGame } from './kart-game.js';
+import { createDashboard } from './dashboard.js';
 import { createRoom } from './room-world.js';
 import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
@@ -198,6 +199,13 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     toast,
     isOnline: () => state.mode === 'online',
     onExit: () => { rpg.holdDoors?.(false); },
+  });
+
+  // マイページ. The room works out the shape; this only draws it.
+  const dash = createDashboard({
+    send: (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); },
+    isOnline: () => state.mode === 'online',
+    toast,
   });
 
   const ride = createRideUI({
@@ -402,6 +410,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('gp:over', (m) => gp.onOver(m));
     r.onMessage('gp:closed', (m) => gp.onClosed(m));
     r.onMessage('gp:error', (m) => gp.onError(m));
+    r.onMessage('dash:state', (m) => dash.onState(m));
     r.onMessage('voice:room', (m) => voice.onRoom(m));
     r.onMessage('voice:peer', (m) => voice.onPeer(m));
     r.onMessage('voice:closed', (m) => voice.onClosed(m));
@@ -768,6 +777,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get room() { return room; },
     get remotes() { return remotes; },
     get gp() { return gp; },
+    get dash() { return dash; },
     openLobby: () => lobby.open({ name: state.name }),
     openMission: () => mission.open(),
     errandInteract: () => { const near = rpg.errandNearby(); if (near) mission.interact(near.spot); },

@@ -276,6 +276,7 @@
    overrides so it wins on source order rather than on specificity. If a new
    rule sets type below 11px, tests/regression.mjs fails and it belongs here. */
 @media (pointer: coarse) {
+  .dash-eyebrow,
   .conv-log b, .mission-head .eyebrow, .mission-featured small, #errand-hud small,
   .daily-stamps li span, .rank-button small, .quiz-head .eyebrow, .ride-need small,
   #room-acts button small, .room-palette button small, .room-palette button i, .edition, .eyebrow,
@@ -328,6 +329,12 @@
   /* And the two that are a row of text rather than a button shape. */
   #rpg-region-book,
   .rank-button { min-height: 34px; display: block; }
+  /* The × in the corner of a dialog. It is sized by its own glyph — 27x33 — which is the
+     smallest target in the game and the one every child reaches for to get out of a
+     screen. Absolutely positioned, so widening the hit area moves nothing: the × stays
+     where it was and only becomes possible to hit. Found by the layout audit on マイページ,
+     and it was true of every dialog using the shared class. */
+  .close { min-width: 34px; min-height: 34px; display: grid; place-items: center; }
 }
 
 /* --- 10. No text selection on the controls ---------------------------------
