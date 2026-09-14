@@ -86,6 +86,24 @@
   {\footnotesize\color{uspeakGreen}#2}
   \end{center}}
 
+% 幅を決めて撮る版。同じページに2枚のせる島（のりもの島・まちづくり島）用。
+\newcommand{\shotw}[3]{%
+  \begin{center}
+  \fboxsep=0pt \fboxrule=0.6pt \textcolor{uspeakRule}{\fbox{\includegraphics[width=#1\textwidth]{#2}}}\\[3pt]
+  {\footnotesize\color{uspeakGreen}#3}
+  \end{center}}
+
+% 島のページに、その島から入る「別のゲーム」を1枚。写真の横に、それが何かを書く。
+\newcommand{\shotaside}[3]{%
+  \vspace{2pt}\par\noindent
+  \begin{minipage}[t]{0.40\textwidth}
+  \fboxsep=0pt \fboxrule=0.6pt \textcolor{uspeakRule}{\fbox{\includegraphics[width=\linewidth]{#1}}}\\[2pt]
+  {\footnotesize\color{uspeakGreen}#2}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.56\textwidth}
+  \small #3
+  \end{minipage}\par}
+
 \newcommand{\shotpage}[2]{%
   \begin{minipage}[t]{0.44\textwidth}
   \fboxsep=0pt \fboxrule=0.6pt \textcolor{uspeakRule}{\fbox{\includegraphics[width=\linewidth]{#1}}}\\[2pt]
@@ -378,7 +396,7 @@ CPU は\textbf{らくらく・ふつう・つよい}の3段階。問題は\textb
 \clearpage
 
 \islandhead{のりもの島}{RIDE ISLAND}{乗り物を買って、3周のレースに出る。}
-\shot{island-ride.jpg}{のりもの島。4つのゲートと、スタート・ゴールのライン。}
+\shotw{0.68}{island-ride.jpg}{のりもの島。4つのゲートと、スタート・ゴールのライン。}
 
 \textbf{乗り物は4台}。キックボード（\coin{}100・Lv1）、じてんしゃ（\coin{}400・Lv3）、
 カート（\coin{}1{,}200・Lv6）、ホバーボード（\coin{}3{,}000・Lv10）。
@@ -388,13 +406,21 @@ CPU は\textbf{らくらく・ふつう・つよい}の3段階。問題は\textb
 \textbf{スタート・ゴール}に立つと、島のコースを\textbf{3周}するレースが始まります。
 順位・ラップ・ベストタイムはサーバーが判定します。クラスの誰かと一緒に走れます。
 
-同じラインから、同梱の別ゲーム \textbf{AURORA KART} にも入れます（後述）。
-
 \begin{diffbox}
 \rb{乗り物は Roblox の物理エンジン（VehicleSeat）で動いていました。}
 {物理は再現していませんが、\textbf{見た目・値段・解放レベル・英単語}は
 そのまま移しました。そのうえで\textbf{順位のあるレース}を足しています。}
 \end{diffbox}
+
+\subsection{この島から入る、別のゲーム}
+
+\shotaside{game-racers.jpg}{AURORA KART · Zenith Edition。全画面で始まる。}
+{\textbf{スタート・ゴールに立つと出るパネルの、いちばん上の扉}から入ります。
+島のレースとは別に作られた\textbf{まったく別のカートレース}で、コース4本・
+グランプリ・タイムアタック・えいごモード、マシンも4台から選べます。
+
+「← U-Speak」を押せば、立っていた場所に戻ります。
+\textbf{コインも学習の記録も動きません}（正誤を判定しているのがそのゲーム自身のため）。}
 
 
 \facts{キックボード置き場・じてんしゃ屋・カート工場・ホバー研究所・スタート・ゴール}{乗り物1台につき英単語1つ（kickboard / bicycle / kart / hoverboard）}{持っている乗り物、ベストラップ、レースの順位}
@@ -402,18 +428,16 @@ CPU は\textbf{らくらく・ふつう・つよい}の3段階。問題は\textb
 \clearpage
 
 \islandhead{まちづくり島}{TOWN ISLAND}{ブロックを買って、部屋と ひろばに 建てる。}
-\shot{island-town.jpg}{まちづくり島。ブロック屋、ふどうさん、かぐ屋、マイルーム入口、ブロックのとびら、ひろば。}
+\shotw{0.68}{island-town.jpg}{まちづくり島。ブロック屋、ふどうさん、かぐ屋、マイルーム入口、ブロックのとびら、ひろば。}
 
 建てる場所は2つに分けてあります。\textbf{マイルーム}は自分だけの部屋（かぐ11種）、
 \textbf{ひろば}はクラス全員で1つの世界を作る場所（ブロック10種）。
 
 \textbf{ブロック屋}でブロックを買います。き（無料）から はじまって、
-いし\coin{}60、れんが\coin{}90、ガラス\coin{}120、ランプ\coin{}200、みず\coin{}250 まで。
+いし\coin{}30、レンガ\coin{}60、ガラス\coin{}90、ゆき\coin{}120、はな\coin{}150、
+ランプ\coin{}200、みず\coin{}250 まで。
 \textbf{どのブロックも、名前が英単語です}（wood / stone / brick / glass / lamp / water …）。
 買った持ち物はサーバーが持っています。
-
-\textbf{ブロックの とびら}という建物からは、同梱の別ゲーム \textbf{BLOCKWILD} に入れます。
-そして\textbf{そこで使えるのは、ブロック屋で買ったブロックだけ}です（後述）。
 
 \begin{diffbox}
 \rb{建築は1つの世界で、同期と保存がいちばん重い機能でした。}
@@ -421,6 +445,18 @@ CPU は\textbf{らくらく・ふつう・つよい}の3段階。問題は\textb
 部屋は一人ずつのインスタンス、ひろばはクラス共有。
 どちらもサーバーが持ち主と中身を持っています。}
 \end{diffbox}
+
+\subsection{この島から入る、別のゲーム}
+
+\shotaside{game-blockwild.jpg}{BLOCKWILD。「ブロックの とびら」に歩いて入ると始まる。}
+{島に建っている\textbf{「ブロックの とびら」という建物}に歩いて入ります。
+ブロックを積んで世界を作る、\textbf{まったく別のゲーム}です。
+
+\textbf{ここが ブロック屋と つながっています。} クリエイティブで手に持てるのは、
+\textbf{ブロック屋で U-Speak コインを払って買ったブロックだけ}。英語をやって
+コインを稼ぐと、建てられるものが増えます。
+
+「← U-Speak」で島に戻ります。\textbf{コインも学習の記録も動きません}。}
 
 
 \facts{ブロック屋・ふどうさん・かぐ屋・マイルーム入口・ブロックのとびら・ひろば}{ブロックとかぐの名前がすべて英単語（wood / stone / lamp / sofa …）}{買ったブロックとかぐ、建てたもの（部屋とひろば）}
