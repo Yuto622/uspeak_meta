@@ -7,7 +7,7 @@ const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const secs = (ms) => `${(ms / 1000).toFixed(1)}秒`;
 
-export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, onRace, racing }) {
+export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, onRace, racing, onArcade }) {
   const state = { garage: null, spot: null, best: 0 };
 
   const dialog = document.createElement('dialog');
@@ -60,6 +60,11 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
     // names a building rather than being advice.
     const nextUp = g.vehicles.find((v) => !v.owned && v.ready) || g.vehicles.find((v) => !v.owned);
     body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
+      ${onArcade ? `<button type="button" class="ride-arcade" id="ride-arcade">
+        <span class="ride-arcade-badge">🕹</span>
+        <span class="ride-arcade-name"><strong>AURORA KART</strong>
+          <small>べつの ゲーム。4つの コース・グランプリ・タイムアタック・えいごモード。</small></span>
+        <b>›</b></button>` : ''}
       ${atStart ? `<p class="ride-lead">${owned.length
         ? 'のりたい のりものを えらんで、「レースに でる」。'
         : `コースは のりもので はしります。${nextUp ? `まずは <b>${esc(nextUp.name)}</b>（◈ ${nextUp.price}${nextUp.needLevel ? ` · Lv.${nextUp.level} から` : ''}）。この島の その ゲートまで あるいて、そこで かいます。` : ''}`}</p>` : ''}
@@ -86,6 +91,8 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
     for (const b of body().querySelectorAll('[data-equip]')) b.onclick = () => send('ride:equip', { id: b.dataset.equip });
     const walk = $('#ride-walk', dialog);
     if (walk) walk.onclick = () => send('ride:equip', { id: '' });
+    const arcade = $('#ride-arcade', dialog);
+    if (arcade) arcade.onclick = () => { close(); onArcade(); };
     const go = $('#ride-go', dialog);
     if (go) go.onclick = () => { close(); toggleRace(); };
     $('#ride-done', dialog).onclick = close;

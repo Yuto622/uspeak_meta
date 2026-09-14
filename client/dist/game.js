@@ -97,7 +97,9 @@ function blocked(x,z){const rpgBlocked=rpg.blocked(x,z);if(rpgBlocked!==null)ret
 const ctx=$('#map').getContext('2d');function minimap(){if(rpg.mapSmall(ctx)||park.drawMap(ctx))return;ctx.clearRect(0,0,180,140);ctx.fillStyle='#a9ccd0';ctx.beginPath();ctx.roundRect(0,6,180,125,10);ctx.fill();ctx.fillStyle='#d5cc9f';ctx.fillRect(15,19,147,104);ctx.fillStyle='#a8b67a';ctx.fillRect(19,22,139,93);ctx.fillStyle='#d9d0a6';ctx.fillRect(82,29,10,82);ctx.fillRect(40,64,89,8);ctx.fillRect(90,89,58,8);ctx.fillStyle='#7f975f';for(let i=0;i<10;i++)ctx.fillRect(24+i*13,28+(i%3)*6,8,13);ctx.fillStyle='#b28761';ctx.fillRect(47,47,19,15);ctx.fillStyle='#638b84';ctx.fillRect(115,42,17,15);lessons.forEach((q,i)=>{ctx.fillStyle=done.includes(i)?'#5c8055':'#f7e3a1';ctx.beginPath();ctx.arc(90+q.x*2.6,70+q.z*2.1,3,0,7);ctx.fill()});fishing.drawMarkers(ctx);ctx.fillStyle='#fffaf0';ctx.strokeStyle='#345942';ctx.lineWidth=2;ctx.beginPath();ctx.arc(90+player.position.x*2.6,70+player.position.z*2.1,4,0,7);ctx.fill();ctx.stroke()}
 const clock=new THREE.Clock(),target=new THREE.Vector3(),desired=new THREE.Vector3();camera.position.set(30,30,40);let frame=0;function tick(){requestAnimationFrame(tick);const dt=Math.min(clock.getDelta(),.04),t=clock.elapsedTime;// グランプリ中は島を止める：レースが同じレンダラーに自分のシーンを描いている。
 // 島の1フレームぶんの計算と描画がまるごと余るので、iPad はそのぶんをカートに使える。
-if(net.gp?.running){clock.getDelta();return}let dx=0,dz=0;const menus=document.querySelector('dialog[open]')||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy;
+// AURORA KART も同じ：フレームが島の上に不透明に載っているので、後ろで島を描くのは
+// 電池を捨てているのと同じ。
+if(net.gp?.running||net.racers?.isOpen){clock.getDelta();return}let dx=0,dz=0;const menus=document.querySelector('dialog[open]')||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy;
 // のりもの島のレース中は歩かない：W はアクセル、A/D はハンドル、スペースはドリフト。
 // 操作の中身は kart.js、当たり判定と速度はいつもと同じものを渡している。
 if(net.race?.driving){net.race.drive(dt,menus?new Set():keys,blocked,net.speed());net.race.update(dt);player.position.y=0}

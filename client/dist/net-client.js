@@ -24,6 +24,7 @@ import { createRaceUI } from './race.js';
 import { createKartGame } from './kart-game.js';
 import { createDashboard } from './dashboard.js';
 import { createWardrobe } from './wardrobe.js';
+import { createRacers } from './racers.js';
 import { dressAvatar } from './avatars.js';
 import { itemModel } from './wardrobe-models.js';
 import { createRoom } from './room-world.js';
@@ -224,8 +225,18 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       (model, items) => dressAvatar(model, items, itemModel));
   };
 
+  // AURORA KART. A separate game in a frame of its own — see racers.js. It takes the
+  // whole window, so the island's name tags and the classmates' labels go with the rest
+  // of the furniture, the same way they do for a race.
+  const racers = createRacers({
+    toast,
+    onOpen: () => { remotes.setTags(false); rpg.holdDoors(true); },
+    onClose: () => { remotes.setTags(true); rpg.holdDoors(false); },
+  });
+
   const ride = createRideUI({
     send: atSend,
+    onArcade: () => racers.open(),
     toast, speak, learn, isOnline: () => state.mode === 'online',
     onRiding: (id, speed) => { state.riding = id; state.speed = id ? speed : 1; },
     // The start line hands over to the U-SPEAK GRAND PRIX — its own circuit, its own
@@ -799,6 +810,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get gp() { return gp; },
     get dash() { return dash; },
     get wardrobe() { return wardrobe; },
+    get racers() { return racers; },
     openLobby: () => lobby.open({ name: state.name }),
     openMission: () => mission.open(),
     errandInteract: () => { const near = rpg.errandNearby(); if (near) mission.interact(near.spot); },

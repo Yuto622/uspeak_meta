@@ -26,6 +26,16 @@
   console.log(`PASS: all ${files.length} browser modules parse.`);
 }
 
+// AURORA KART は「別のゲームをそのまま置いてある」もの。上の検査はここを見ない（見るべき
+// でもない：あちらにはあちらの流儀がある）ので、代わりに「1バイトも変わっていないこと」を
+// 見る。半分だけ差し替えたビルドが黙って通るのを防ぐのが目的。
+{
+  const { scanRacers } = await import('./racers-manifest.mjs');
+  const { onDisk, problems } = scanRacers();
+  if (problems.length) { console.error(`FAIL: racers/ — ${problems.join('; ')}`); process.exit(1); }
+  console.log(`PASS: AURORA KART — ${onDisk.length} files vendored whole, byte-identical to SOURCE.json.`);
+}
+
 // And no stylesheet may give a closed <dialog> a `display`. The browser's own
 // `dialog:not([open]) { display: none }` is a plain rule, and an id selector beats it: a
 // closed panel then sits over the island, invisible against the sky and swallowing every

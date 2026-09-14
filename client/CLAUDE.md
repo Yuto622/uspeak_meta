@@ -26,6 +26,7 @@
 | グランプリ（べつのゲーム） | kart-game.js / kart.css / tracks.json / kart-track-data.js / kart-track.js / kart-drive.js / kart-ai.js / kart-models.js |
 | コインの見える化・マイページ | coin-hud.js / coin.css / dashboard.js / dashboard.css（サーバーは server/src/game/skills.js） |
 | きせかえ（アバターの店・きせかえ島） | wardrobe.js / wardrobe.css / wardrobe.json / wardrobe-data.js / wardrobe-models.js / wardrobe-island.js（サーバーは server/src/game/wardrobe.js） |
+| AURORA KART（外部の別ゲーム） | racers.js / racers.css / racers/（丸ごと同梱・無改変） |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
 
 ## 保存互換性
@@ -513,6 +514,57 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   「the paved path runs through a building」がここを検査する。
 - `rpg-data.js` の HUBS と **ACTIVITY_HUBS の両方**に `wear` を登録すること
   （宝箱と U-Speak park の入口が勝手に生えるのを防いでいる）。
+
+## AURORA KART（同梱した外部のゲーム／2026-09 追加）
+
+**この世界のコードではない。** 別に作られた 3D カートゲーム（U-Speak Racers /
+AURORA KART · Zenith Edition）を**1バイトも直さずに** `client/dist/racers/` に置き、
+のりもの島のガレージから **iframe で開いている**。入口は `racers.js`、席は `racers.css`。
+
+- **なぜ iframe か。** 気持ちの問題ではなく、3つとも実際に壊れるから：
+  1. **three.js のバージョンが違う**（あちらは r170、こちらは r160）。1つのページに
+     2つ載せるとモジュール登録とグローバルを取り合い、負けるのは子どもが立っている島。
+  2. あちらの CSS は `header{}` `main{}` `button{}` と**素の要素セレクタ**を使う
+     （画面を丸ごと持っているページの当然の書き方）。`style.css` の隣に置くと
+     こちらのゲームが塗り替わる。
+  3. あちらは矢印キー・Space・Shift・Esc を使う。こちらもだいたい使う。
+- **`racers/` の中身は編集しないこと。** 直したくなったらそれは vendor ではなく fork。
+  必要な2つの手当て（オンラインのタブを外す／ヘッダーに帰り道を足す）は、**同一オリジンの
+  iframe に外から手を入れる**（`racers.js` の `settle()`）ことでやっていて、ファイルは
+  無傷のまま。だから `racers/SOURCE.json` の SHA-256 が意味を持つ。
+  - 差し替えるときは新しいビルドをフォルダごと置いて
+    `node client/tests/racers-manifest.mjs --write`。
+  - `tests/regression.mjs` が毎回ハッシュを照合する（半分だけ差し替えたビルドを止める）。
+- **オンラインのタブは外してある。** あちらの `net.js` は `ws://location.host` の
+  **ルートに**つなぎに行く。そこは Colyseus の口なので、押した子には読めないエラーしか
+  返らない。かわりに「みんなで走るのは のりもの島の『レースに でる』から」と書いてある
+  （＝U-SPEAK GRAND PRIX。クラスで走るしくみは既にある）。
+  - あちらのルームサーバー（`server/server.mjs`・依存ゼロの生 RFC6455）を動かすことは
+    できるが、**同じポートで2つの WebSocket サーバーは同居しない**
+    （`WebSocketTransport({server})` が upgrade を全部取る）。やるなら別ポートか
+    パス分岐で、それは別の変更として。
+- **コインも学習記録も、こちらには入らない。** あちらの英単語モードは**答えをクライアントが
+  持っている**（`racers/vocab.js` がブラウザに来る）。そこから出た正解数でコインを払うのは、
+  この世界がずっと避けてきた穴そのもの。あちらの成績は `localStorage` の `aurora-*` に
+  別で貯まる。**保護者に見せる数字と混ぜないこと。**
+- **開いている間、島は描かない**（`game.js` の `net.racers?.isOpen` で
+  グランプリと同じ止め方）。不透明なフレームの後ろで島を描くのは電池を捨てているのと同じ。
+- **閉じるときはフレームを消す**（隠すのではなく）。WebGL コンテキストと WebAudio と
+  60Hz のループを抱えたまま隠れているタブは、隠れているだけで iPad を減らす。
+  次に開くと読み込み直しになるが、それは「出ていったゲーム」に子どもが期待する動き。
+- **入口はガレージのいちばん上**（`ride.js` の `.ride-arcade`）。のりものカードと
+  見た目を変えてあるのは、行き先が違うから：下は「のりものを買う」、これは
+  「島から出て別のゲームへ行く」。同じ形にすると、押した子は出たことに気づかない。
+- **`body[data-racers]` が唯一のスイッチ**（`race.css` の `body[data-race]` と同じ役割）。
+  画面に残ってはいけない物が残っていたら、まず `racers.css` のこの一覧を見る。
+- レイアウト検査（`browser-layout.mjs`）には**入れていない**。あちらの中身に
+  11px の下限や 34px の下限を当てるのは筋が違う（こちらの規則ではない）。かわりに
+  `browser-racers.mjs` が**こちらの席**だけを測っている（横向きスマホで画面ちょうどか、
+  横スクロールが出ないか）。
+- 検査は `client/tests/racers-manifest.mjs`（同梱物が無改変か）と
+  `server/test/e2e/browser-racers.mjs`（実ブラウザ。**中のゲームが本当に起動するか**＝
+  three.js があってキャンバスに描いているか、島が消えて戻るか、**後ろの島が止まるか**、
+  帰り道がゲーム自身のヘッダーにあるか、2度目も開くか）。
 
 ## メッセージ（定型文＋じゆうにゅうりょく／2026-09 更新）
 

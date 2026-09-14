@@ -1,0 +1,37 @@
+{
+  "_": "AURORA KART / U-Speak Racers, vendored whole and unedited. It is a SEPARATE GAME: its own three.js (r170 — the world outside runs r160, which is why the two cannot share a page), its own CSS, its own save keys (aurora-*). It runs in an iframe and nothing in it is imported by the game around it. To upgrade, replace this folder with a new build and re-run `node client/tests/racers-manifest.mjs --write`; the regression suite compares these hashes so a half-applied upgrade cannot pass unnoticed.",
+  "name": "AURORA KART — Zenith Edition",
+  "entry": "index.html",
+  "vendored": "2026-09-14",
+  "three": "r170 (bundled; see THREE-LICENSE.txt)",
+  "files": {
+    "THREE-LICENSE.txt": {
+      "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+      "bytes": 1081
+    },
+    "game.js": {
+      "sha256": "2092dc3ea70da6206cebd781bc6c6295fbf0e749565a1ea838c2f8faa9339de6",
+      "bytes": 139990
+    },
+    "index.html": {
+      "sha256": "039f9ba2cc6ef5dc558aef2df54daaab3bdb1c687bed6d860d381311d7dd8d12",
+      "bytes": 13835
+    },
+    "net.js": {
+      "sha256": "fcbc995b79a6b0ca5a59b3ca532e2a118f3377df216efb1aed4e09f3166311e7",
+      "bytes": 3465
+    },
+    "style.css": {
+      "sha256": "05b0b35e5276a9b66b6763c301085aea5017487b2c62a01f1ed9d86576052089",
+      "bytes": 34459
+    },
+    "three.module.js": {
+      "sha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+      "bytes": 1314681
+    },
+    "vocab.js": {
+      "sha256": "42d4baede3341f5ed578bf459fcd1ec90a5ea9e8b5fb30e90b40cecc2af20056",
+      "bytes": 11283
+    }
+  }
+}
