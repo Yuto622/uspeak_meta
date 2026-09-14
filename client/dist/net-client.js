@@ -829,6 +829,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     },
     arenaLabel: (spot) => (spot.kind === 'dojo' ? dojo.label(spot) : battle.label(spot)),
     petInteract: () => { const near = rpg.petNearby(); if (near) petUI.enter(near.spot); },
+    // きせかえ島: the shop you walked into is the kind of thing you are shopping for, so
+    // the panel opens on that slot rather than on whatever it showed last time.
+    wearInteract: () => { const near = rpg.wearNearby(); if (near) wardrobe.open({ slot: near.spot.slot || near.spot.kind }); },
+    wearLabel: (spot) => `${spot?.name || 'お店'}で きせかえる`,
     petLabel: (spot) => petUI.label(spot),
     town, myRoom, myPlaza, voice, conv, race,
     // Whichever of the two a child is standing in. The page's E and Q keys work on it.

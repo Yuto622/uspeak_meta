@@ -11,13 +11,20 @@ import {
   WARDROBE, shopPayload, priceOf, wear, sanitizeOwned, sanitizeWorn, WardrobeError,
 } from '../src/game/wardrobe.js';
 import { tableFrom } from '../../client/dist/wardrobe-data.js';
+import { readFileSync } from 'node:fs';
 
 const rich = { owned: [], coins: 100000, level: 99 };
 
 test('the table the page draws and the table the room charges from are one file', () => {
-  assert.ok(WARDROBE.items.length >= 12, 'a shop with four slots needs stock in each');
+  assert.ok(WARDROBE.items.length >= 32, 'a shop with four slots needs a rail in each');
   for (const slot of WARDROBE.slots) {
-    assert.ok(WARDROBE.items.some((i) => i.slot === slot.id), `${slot.id} has nothing in it`);
+    const stock = WARDROBE.items.filter((i) => i.slot === slot.id);
+    // Eight is roughly a screen of cards. A slot with two things in it is a slot a child
+    // opens once, and it is the slot rail that makes them look, so every tab must repay it.
+    assert.ok(stock.length >= 8, `${slot.id} has only ${stock.length} things in it`);
+    // …and something to buy on the first day, in every slot: a rail where the cheapest
+    // thing is 300 coins is a rail a beginner cannot shop from at all.
+    assert.ok(stock.some((i) => i.level === 1 && i.price <= 100), `${slot.id} has nothing a level 1 child can buy`);
   }
   // Every item is drawable, priced and reachable. A slot the page has no anchor for, or a
   // level no child reaches, is an item that exists only in the JSON.
@@ -127,4 +134,40 @@ test('the cheapest thing in the shop is a morning of fishing, and the dearest is
   for (const it of WARDROBE.items) {
     if (it.price >= 300) assert.ok(it.level >= 5, `${it.id} costs ${it.price} but unlocks at ${it.level}`);
   }
+});
+
+test('every item in the file is something the page knows how to draw', async () => {
+  // The shop shows a picture of the thing, so an item whose `kind` has no model is a card
+  // with a blank in it. `itemModel` returns null rather than throwing — which is right, it
+  // keeps a data file that runs ahead of the code from breaking the island — but that
+  // makes a typo in `kind` completely silent. This is where it stops being silent.
+  const { itemModel, KNOWN_KINDS } = await import('../../client/dist/wardrobe-models.js');
+  const blank = WARDROBE.items.filter((i) => !itemModel(i));
+  assert.deepEqual(blank.map((i) => `${i.id}:${i.kind}`), [], 'these items have no model');
+  // And the other way: a shape nobody wears is dead code carrying a comment that lies.
+  const unworn = KNOWN_KINDS.filter((k) => !WARDROBE.items.some((i) => i.kind === k));
+  assert.deepEqual(unworn, [], 'these shapes are drawn by nothing');
+});
+
+test('きせかえ島 is laid out so a child can walk to all four shops', () => {
+  // The island's coordinates live in this same file, and the page builds the island from
+  // them. The walking itself is checked in the browser by client/tests/regression.mjs;
+  // what is checked here is that the data cannot say something impossible.
+  const raw = JSON.parse(readFileSync(new URL('../../client/dist/wardrobe.json', import.meta.url), 'utf8'));
+  const isle = raw.island;
+  assert.ok(isle, 'wardrobe.json carries きせかえ島');
+  assert.equal(isle.spots.length, WARDROBE.slots.length, 'one shop per slot, no more and no less');
+  for (const spot of isle.spots) {
+    assert.ok(WARDROBE.slots.some((s) => s.id === spot.slot), `${spot.id} sells "${spot.slot}", which is not a slot`);
+    // island-kit works to ±30 by ±25 around the island's centre, and a building sits
+    // 4.6 behind its spot and is 6.4 deep.
+    assert.ok(Math.abs(spot.x) <= 26, `${spot.id} is off the side of the island`);
+    assert.ok(spot.z - 4.6 - 3.2 >= -25 && spot.z <= 22, `${spot.id} is off the end of the island`);
+    for (const other of isle.spots) {
+      if (other.id === spot.id) continue;
+      assert.ok(Math.hypot(spot.x - other.x, spot.z - other.z) > 10, `${spot.id} and ${other.id} overlap`);
+    }
+  }
+  // Every shop sells a different slot, or two doors lead to the same rail.
+  assert.equal(new Set(isle.spots.map((s) => s.slot)).size, isle.spots.length);
 });

@@ -89,6 +89,36 @@ try {
   check('every card shows what it costs and what colour it is',
     shop.priced === shop.cards && shop.swatched === shop.cards, `${shop.priced}/${shop.cards} priced, ${shop.swatched} coloured`);
   check('the child\'s purse is on the shop, not only in the header', shop.coins > 0, `${shop.coins} coins`);
+
+  // ---- the picture on each card ----------------------------------------------------
+  //
+  // Every card shows the real model, baked once through the one renderer the stage owns.
+  // A blank 132px transparent PNG is a few hundred bytes; anything with a model in it is
+  // several kilobytes, so the size of the data URL is a fair test of "there is something
+  // in the picture" without reading pixels back out of the page.
+  await page.waitForFunction(
+    () => [...document.querySelectorAll('#wear-grid img[data-shot]')].filter((i) => !i.hidden && i.src.startsWith('data:image/png')).length >= 3,
+    null, { timeout: 60000, polling: 300 },
+  ).catch(() => {});
+  const pics = await page.evaluate(() => {
+    const all = [...document.querySelectorAll('#wear-grid img[data-shot]')];
+    const drawn = all.filter((i) => !i.hidden && i.src.startsWith('data:image/png'));
+    return {
+      cards: all.length,
+      drawn: drawn.length,
+      // The smallest picture in the set: if one item bakes to an empty frame this catches
+      // it, where an average would hide it.
+      thinnest: drawn.length ? Math.min(...drawn.map((i) => i.src.length)) : 0,
+      tinted: document.querySelectorAll('#wear-grid .wear-swatch.shot').length,
+      distinct: new Set(drawn.map((i) => i.src)).size,
+    };
+  });
+  check('every card in the slot shows a rendered model, not a colour swatch',
+    pics.drawn === pics.cards && pics.cards >= 8, `${pics.drawn}/${pics.cards} drawn`);
+  check('and each picture actually has something in it',
+    pics.thinnest > 2000, `smallest picture ${pics.thinnest} bytes`);
+  check('…a different something for each item', pics.distinct === pics.drawn, `${pics.distinct} distinct of ${pics.drawn}`);
+  check('the flat colour steps aside once the picture lands', pics.tinted === pics.cards);
   check('the preview stage has a size to draw into', !!shop.stage && shop.stage.w > 80 && shop.stage.h > 80, JSON.stringify(shop.stage));
   check('and the dialog does not push the page sideways', shop.wide);
   await page.screenshot({ path: path.join(SHOTS, 'wear-shop.png') });
@@ -131,11 +161,14 @@ try {
     const model = uspeak.player.children.find((c) => c.userData?.anchors);
     return [...(model?.userData?.worn?.keys() || [])].includes(id);
   }, cheapest.id, { timeout: 60000, polling: 200 });
-  // The badge counts down rather than jumping, so give it the half-second it takes to
-  // land — reading it the instant the hat appears catches it mid-tick.
-  await page.waitForFunction((want) => uspeak.coins.coins === want, before - cheapest.price,
-    { timeout: 20000, polling: 200 }).catch(() => {});
-  await sleep(900);
+  // The badge counts DOWN to a new balance rather than jumping to it, and that count is
+  // driven by the frame clock — which in this container ticks about once a second. So
+  // wait for the number to land rather than for a stopwatch: read too early and you catch
+  // it at 79 on its way from 100 to 60, which is the animation working, not a bug.
+  await page.waitForFunction((want) => {
+    const shown = Number((document.querySelector('#coin-hud')?.textContent || '').replace(/[^\d]/g, ''));
+    return uspeak.coins.coins === want && shown === want;
+  }, before - cheapest.price, { timeout: 30000, polling: 250 }).catch(() => {});
   const after = await purseNow();
   check('buying charges the room\'s price', after === before - cheapest.price, `${before} − ${cheapest.price} = ${after}`);
   check('and what was bought is being worn, on the real body', (await worn()).on.includes(cheapest.id));
@@ -223,6 +256,44 @@ try {
   check('the shop closes and leaves nothing behind',
     await page.evaluate(() => !document.querySelector('#wear-dialog')?.open
       && !document.querySelector('#wear-dialog').getClientRects().length));
+
+  // ---- きせかえ島 ---------------------------------------------------------------------
+  //
+  // The other way in, and the nicer one: four shops round a courtyard, and the shop a
+  // child walks into is the kind of thing they are shopping for. The header button opens
+  // the whole shop; walking into the hat shop should open it on hats.
+  const isle = await page.evaluate(async () => {
+    for (const d of document.querySelectorAll('dialog[open]')) d.close();
+    uspeak.rpg.fly('wear');
+    uspeak.rpg.finishFlight();
+    await new Promise((r) => setTimeout(r, 900));
+    const data = await uspeak.rpg.wear.ready;
+    return { here: uspeak.rpg.state.current, shops: (data.island?.spots || []).map((s) => ({ id: s.id, slot: s.slot, x: s.x, z: s.z })), x: data.island.x, z: data.island.z };
+  });
+  check('きせかえ島 is a place a child can fly to', isle.here === 'wear', isle.here);
+  check('and it has one shop for each kind of thing', isle.shops.length === 4, isle.shops.map((s) => s.slot).join(','));
+  await page.screenshot({ path: path.join(SHOTS, 'wear-island.png') });
+
+  // Walk into the back shop — deliberately not the slot the panel was last left on, so
+  // "it opened on せなか" cannot be a coincidence.
+  const shopFor = isle.shops.find((s) => s.slot === 'back');
+  await page.evaluate(async ({ isle: i, spot }) => {
+    uspeak.player.position.set(i.x + spot.x, 0, i.z + spot.z);
+    for (let n = 0; n < 40 && !uspeak.rpg.wearNearby(); n += 1) await new Promise((r) => setTimeout(r, 150));
+  }, { isle, spot: shopFor });
+  const standing = await page.evaluate(() => uspeak.rpg.wearNearby()?.spot?.id || null);
+  check('walking to a shop puts a child at its door', standing === shopFor.id, `${standing}`);
+
+  await page.evaluate(() => uspeak.net.wearInteract());
+  await page.waitForFunction(() => document.querySelector('#wear-dialog')?.open, null, { timeout: 60000 });
+  await page.waitForFunction(() => document.querySelectorAll('#wear-grid [data-item]').length > 0, null, { timeout: 60000, polling: 200 });
+  const opened = await page.evaluate(() => ({
+    slot: document.querySelector('#wear-slots button.on')?.dataset.slot || '',
+    first: document.querySelector('#wear-grid [data-item]')?.dataset.item || '',
+  }));
+  check('and the shop opens on the thing that shop sells', opened.slot === 'back', JSON.stringify(opened));
+  await page.screenshot({ path: path.join(SHOTS, 'wear-island-shop.png') });
+  await page.evaluate(() => document.querySelector('#wear-close').click());
 } catch (err) {
   console.log('E2E ERROR', err);
   results.push({ name: 'script', ok: false, detail: String(err) });

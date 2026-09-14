@@ -98,6 +98,109 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
   }
   function spinUp() { if (renderer && dialog.open && !spinning) { spinning = true; draw(); } }
 
+  // ---- the picture on each card --------------------------------------------------------
+  //
+  // Every card shows the real model, not a colour. Forty cards cannot each have a canvas —
+  // that is forty WebGL contexts, which Safari will not give you and an iPad cannot afford
+  // — so the ONE renderer the stage already owns draws each item once into an offscreen
+  // target, the pixels are read back into an ordinary image, and the card shows that. Baked
+  // once per item per session; after that a card costs nothing.
+  const THUMB = 132;
+  const shots = new Map();            // item id -> data URL
+  let target = null;
+  let pixels = null;
+  let flat = null;                    // the 2D canvas the pixels are painted into
+  const shotScene = new THREE.Scene();
+  shotScene.add(new THREE.HemisphereLight(0xffffff, 0x6b7d88, 2.5));
+  const shotKey = new THREE.DirectionalLight(0xfff3dc, 2.7);
+  shotKey.position.set(-2.4, 3.2, 4);
+  shotScene.add(shotKey);
+  const shotCam = new THREE.PerspectiveCamera(30, 1, 0.05, 24);
+
+  function bake(item) {
+    if (shots.has(item.id)) return shots.get(item.id);
+    ensureStage();
+    if (!renderer) return null;
+    const model = itemModel(item);
+    if (!model) { shots.set(item.id, null); return null; }
+    if (!target) {
+      target = new THREE.WebGLRenderTarget(THUMB, THUMB);
+      pixels = new Uint8Array(THUMB * THUMB * 4);
+      flat = document.createElement('canvas');
+      flat.width = THUMB;
+      flat.height = THUMB;
+    }
+    // Turned a little before it is framed, so flat things — a cape, a badge, a pair of
+    // glasses — show an edge instead of reading as a coloured rectangle.
+    model.rotation.set(0.1, -0.52, 0);
+    model.updateMatrixWorld(true);
+    shotScene.add(model);
+    // Frame whatever it is. A wizard hat is a metre tall and a badge is two centimetres;
+    // one fixed camera would show the badge as a dot and crop the hat.
+    const bounds = new THREE.Box3().setFromObject(model);
+    const size = bounds.getSize(new THREE.Vector3());
+    const mid = bounds.getCenter(new THREE.Vector3());
+    const reach = Math.max(size.x, size.y, size.z, 0.2);
+    const away = reach * 2.5;
+    shotCam.position.set(mid.x + away * 0.5, mid.y + away * 0.42, mid.z + away * 0.88);
+    shotCam.lookAt(mid);
+    shotCam.updateProjectionMatrix();
+
+    // The stage is mid-render behind this dialog; put back everything we touch.
+    const wasTarget = renderer.getRenderTarget();
+    const wasClear = renderer.getClearColor(new THREE.Color());
+    const wasAlpha = renderer.getClearAlpha();
+    let url = null;
+    try {
+      renderer.setRenderTarget(target);
+      renderer.setClearColor(0x000000, 0);
+      renderer.clear();
+      renderer.render(shotScene, shotCam);
+      renderer.readRenderTargetPixels(target, 0, 0, THUMB, THUMB, pixels);
+      // GL reads bottom-up and a canvas is top-down, so the rows go back in reverse.
+      const ctx = flat.getContext('2d');
+      const image = ctx.createImageData(THUMB, THUMB);
+      const row = THUMB * 4;
+      for (let y = 0; y < THUMB; y += 1) {
+        image.data.set(pixels.subarray((THUMB - 1 - y) * row, (THUMB - y) * row), y * row);
+      }
+      ctx.clearRect(0, 0, THUMB, THUMB);
+      ctx.putImageData(image, 0, 0);
+      url = flat.toDataURL('image/png');
+    } catch {
+      url = null;                     // no picture today; the colour swatch stands in
+    }
+    renderer.setClearColor(wasClear, wasAlpha);
+    renderer.setRenderTarget(wasTarget);
+    shotScene.remove(model);
+    shots.set(item.id, url);
+    return url;
+  }
+
+  // Bake the slot the child is looking at, a few at a time, so opening the shop does not
+  // stall on a tablet drawing forty models before it shows anything.
+  let baking = 0;
+  function bakeVisible() {
+    const run = ++baking;
+    const todo = [...dialog.querySelectorAll('[data-shot]')].filter((el) => !shots.has(el.dataset.shot));
+    const step = () => {
+      if (run !== baking || !dialog.open) return;
+      for (let i = 0; i < 3 && todo.length; i += 1) {
+        const el = todo.shift();
+        const item = table?.byId.get(el.dataset.shot);
+        const url = item ? bake(item) : null;
+        if (url && el.isConnected) { el.src = url; el.hidden = false; el.parentElement?.classList.add('shot'); }
+      }
+      if (todo.length) requestAnimationFrame(step);
+    };
+    // Anything already baked goes on immediately; only the new ones wait for a frame.
+    for (const el of dialog.querySelectorAll('[data-shot]')) {
+      const url = shots.get(el.dataset.shot);
+      if (url) { el.src = url; el.hidden = false; el.parentElement?.classList.add('shot'); }
+    }
+    if (todo.length) requestAnimationFrame(step);
+  }
+
   // What the body is wearing right now on screen: everything worn, plus whatever is being
   // tried on (which replaces the worn thing in that slot).
   function previewList() {
@@ -142,7 +245,7 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
         : i.afford ? '' : `あと ${(i.price - shop.coins).toLocaleString()} コイン`;
       return `
         <button type="button" class="wear-card ${i.worn ? 'worn' : ''} ${i.locked ? 'locked' : ''}" data-item="${esc(i.id)}">
-          <i class="wear-swatch" style="--c:#${esc(i.colour)}"></i>
+          <i class="wear-swatch" style="--c:#${esc(i.colour)}"><img data-shot="${esc(i.id)}" alt="" hidden></i>
           <b>${esc(i.ja)}</b>
           <small>${esc(i.en)}</small>
           <span class="wear-price ${i.owned ? 'owned' : ''}">${i.owned ? '✓' : `<i class="coin-face"></i>${i.price}`}</span>
@@ -152,6 +255,7 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
 
     dialog.querySelectorAll('[data-item]').forEach((b) => { b.onclick = () => pick(b.dataset.item); });
     caption();
+    bakeVisible();
   }
 
   function caption() {
@@ -186,11 +290,14 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
   }
 
   return {
-    async open() {
+    // `slot` opens the shop already showing one kind of thing: きせかえ島 has a shop per
+    // slot, and a child who walked into the hat shop should be looking at hats.
+    async open({ slot: want = '' } = {}) {
       if (!isOnline()) { toast('きせかえは オンラインで つかえます。'); return; }
       if (!table) {
         try { table = await loadWardrobe(); } catch { toast('きせかえを よみこめませんでした。'); return; }
       }
+      if (want && table.slots.some((s) => s.id === want)) { slot = want; trying = null; }
       if (!dialog.open) dialog.showModal();
       if (!shop) $('#wear-grid', dialog).innerHTML = '<p class="wear-empty">よみこみ中…</p>';
       send('wear:list', {});

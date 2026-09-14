@@ -25,7 +25,7 @@
 | のりもの島・カートレース | ride.js / ride-island.js / vehicles.json / kart.js / race.js / race.css |
 | グランプリ（べつのゲーム） | kart-game.js / kart.css / tracks.json / kart-track-data.js / kart-track.js / kart-drive.js / kart-ai.js / kart-models.js |
 | コインの見える化・マイページ | coin-hud.js / coin.css / dashboard.js / dashboard.css（サーバーは server/src/game/skills.js） |
-| きせかえ（アバターの店） | wardrobe.js / wardrobe.css / wardrobe.json / wardrobe-data.js / wardrobe-models.js（サーバーは server/src/game/wardrobe.js） |
+| きせかえ（アバターの店・きせかえ島） | wardrobe.js / wardrobe.css / wardrobe.json / wardrobe-data.js / wardrobe-models.js / wardrobe-island.js（サーバーは server/src/game/wardrobe.js） |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
 
 ## 保存互換性
@@ -473,10 +473,46 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **プレビューのループは開いている間だけ回す**（`spinning` / `spinUp()`）。閉じると `draw()` が
   止まるので、フラグを持たないと**2 回目に開いたときアバターが固まる**。
   裏では島が描画されているので、2 本目のフレームループを回しっぱなしにしない。
-- 検査は `server/test/wardrobe.test.mjs`（9項目・値段とレベルとスロットの規則）/
-  `server/test/room.test.mjs` の「きせかえ」（実ソケット・部屋の拒否と、他の子から見えること）/
-  `server/test/e2e/browser-wear.mjs`（実ブラウザ2画面・**本当に頭に載ること**と
-  **となりの子に見えること**）/ `browser-layout.mjs` の `wear` 画面（5サイズ）。
+- **在庫は4スロット × 10点前後**（全41点）。1スロットに2点しか無いと、子どもはタブを
+  1回開いて終わる。**どのスロットにも「レベル1・100コイン以下」を必ず1つ置く**こと
+  （初日に何も買えない棚は棚ではない）。`wardrobe.test.mjs` がこの2つを検査している。
+- **カードの絵は本物の3Dモデル**（`bake()`）。40枚のカードに canvas を40枚は置けない
+  （＝WebGLコンテキスト40個。Safari は本数を制限するし、iPad のメモリが持たない）ので、
+  **ステージが持っている1つのレンダラー**で各アイテムを `WebGLRenderTarget` に1回だけ描き、
+  読み戻して `<img>` の data URL にして貼る。焼くのは1アイテム1回だけで、以降はタダ。
+  - **カメラはモデルの bounding box から決める。** まほうつかいの帽子は1m、バッジは2cm。
+    同じカメラで撮るとバッジが点になる。
+  - **レンダラーの状態は必ず戻す**（`setRenderTarget` / `setClearColor` / `getClearAlpha`）。
+    裏でステージが描画中で、戻さないとダイアログのプレビューが真っ黒になる。
+  - **GL は下から読む**ので、行を逆順に `putImageData` する。
+  - 焼くのは**いま開いているスロットだけ**を数枚ずつ（`bakeVisible`）。開いた瞬間に41個の
+    モデルを描くと、タブレットでは何も出ないまま数秒固まる。焼けるまではアイテムの色が出る。
+- 検査は `server/test/wardrobe.test.mjs`（11項目・値段とレベルとスロットの規則、
+  **全アイテムに描ける形があること**、島の座標）/ `server/test/room.test.mjs` の「きせかえ」
+  （実ソケット・部屋の拒否と、他の子から見えること）/ `server/test/e2e/browser-wear.mjs`
+  （実ブラウザ2画面・**本当に頭に載ること**・**となりの子に見えること**・**カードに絵が出ること**・
+  **島の店が自分のスロットで開くこと**）/ `client/tests/regression.mjs` の島の検査 /
+  `browser-layout.mjs` の `wear` 画面（5サイズ）。
+
+### きせかえ島（2026-09 追加）
+
+`wardrobe-island.js` と `wardrobe.json` の `island`。**4つの店＝4つのスロット**で、
+入った店がそのまま「いま買えるもの」になる（ぼうしや / めがねや / かばんや / アクセサリーや）。
+
+- **座標は `wardrobe.json` の `island` が唯一の定義元。** アイテムの色は16進の文字列だが、
+  **島の色は10進**（`island-kit.js` が数値として読むため）。同じファイルで書き分けている理由は
+  そこにしかないので、足すときは間違えないこと。
+- **ヘッダーの 👕 は残す。** 島は「もう1つの入口」であって置き換えではない。
+  どこにいても着替えられることと、買い物に行けることは別の楽しさ。
+- **店に入ると `open({slot})` でそのスロットを開く**（`net.wearInteract()`）。
+  子どもに「ぼうしやに入ったのにタブを押す」をさせない。
+- 建物の**正面の壁は `def.z - 1.4`**（`house()` の作り）。ショーウィンドウや日よけは
+  それより**大きい z** に置く。小さい z は店の中で、外からは見えない。
+- 島の広場の**南半分は4本の道が通る**ので何も置かない。鏡（島の目印）と洋服ラックは
+  広場の**北側**（`yard.z + 6`）に置いてある。`tests/regression.mjs` の
+  「the paved path runs through a building」がここを検査する。
+- `rpg-data.js` の HUBS と **ACTIVITY_HUBS の両方**に `wear` を登録すること
+  （宝箱と U-Speak park の入口が勝手に生えるのを防いでいる）。
 
 ## メッセージ（定型文＋じゆうにゅうりょく／2026-09 更新）
 
