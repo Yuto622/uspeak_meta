@@ -256,7 +256,7 @@ try {
   await page.evaluate(() => uspeak.net.room?.send('ride:buy', { id: 'kick' }));
   await sleep(1500);
   await at('ride', 'start');
-  await daylight(90);
+  if (want('screen-race')) await daylight(90);
   await page.evaluate(() => uspeak.net.gp.start({ name: 'みほん' }));
   await page.waitForFunction(() => uspeak.net.gp.state.phase === 'race', null, { timeout: 120000, polling: 400 })
     .catch(() => console.log('  (race never started — shooting whatever is on screen)'));
@@ -266,7 +266,7 @@ try {
 
   // おはなし島の通話パネル。部屋に入ると出る。島が外に写るので、ここも昼に。
   await at('talk', 'chat');
-  await daylight(40);
+  if (want('screen-talk')) await daylight(40);
   await page.waitForFunction(() => !document.querySelector('#voice-panel')?.hidden, null, { timeout: 40000, polling: 300 }).catch(() => {});
   await sleep(1500); await shot('screen-talk', 'おはなし島・通話のパネル');
 
@@ -299,19 +299,27 @@ try {
   // ready は「あちらのゲームが、撮ってよい状態になったか」を iframe の中で見る式。
   // BLOCKWILD はここが要る：世界を組み立てる間ずっと読み込み画面なので、秒数で待つと
   // 進捗バーの写真になる（実際に一度なった）。
-  const guest = async (open, name, wait = 4000, ready = null) => {
+  // `play` は「入口の画面ではなく、遊んでいるところを撮る」ためのひと押し。
+  // 同梱ゲームのタイトル画面は、教室の先生が知りたいこと（何をして遊ぶのか）を
+  // ほとんど写さない。iframe は同一オリジンなので、あちらのボタンを外から押せる。
+  const guest = async (open, name, wait = 4000, ready = null, play = null) => {
     if (!want(`game-${name}`)) return;
     await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
     await page.evaluate(open);
     await page.waitForFunction(() => document.querySelector('.arcade-frame')?.contentDocument?.readyState === 'complete',
       null, { timeout: 120000, polling: 500 }).catch(() => {});
-    if (ready) {
-      await page.waitForFunction((src) => {
-        const doc = document.querySelector('.arcade-frame')?.contentDocument;
-        // eslint-disable-next-line no-new-func
-        return doc ? !!new Function('doc', `return (${src})(doc)`)(doc) : false;
-      }, ready.toString(), { timeout: 240000, polling: 1000 }).catch(() => console.log(`  (${name} never signalled ready)`));
-    }
+    const inFrame = (fn, arg) => page.evaluate(([src, a]) => {
+      const doc = document.querySelector('.arcade-frame')?.contentDocument;
+      // eslint-disable-next-line no-new-func
+      return doc ? new Function('doc', 'arg', `return (${src})(doc, arg)`)(doc, a) : null;
+    }, [fn.toString(), arg]);
+    const waitIn = (fn, ms = 240000) => page.waitForFunction((src) => {
+      const doc = document.querySelector('.arcade-frame')?.contentDocument;
+      // eslint-disable-next-line no-new-func
+      return doc ? !!new Function('doc', `return (${src})(doc)`)(doc) : false;
+    }, fn.toString(), { timeout: ms, polling: 1000 });
+    if (ready) await waitIn(ready).catch(() => console.log(`  (${name} never signalled ready)`));
+    if (play) await play({ inFrame, waitIn });
     await sleep(wait);
     await shot(`game-${name}`, name);
     await page.evaluate(() => {
@@ -319,11 +327,38 @@ try {
     });
     await sleep(700);
   };
-  await guest(() => uspeak.net.racers.open(), 'racers');
-  await guest(() => uspeak.net.blockwild.open(), 'blockwild', 6000,
-    (doc) => doc.querySelector('#loading')?.classList.contains('hidden'));
-  await guest(() => uspeak.net.arcades.puyo.open(), 'puyo');
-  await guest(() => uspeak.net.arcades.suika.open(), 'suika');
+  // AURORA KART: メニューではなく、走っているところ。カウントダウンが消えてから撮る。
+  await guest(() => uspeak.net.racers.open(), 'racers', 6000,
+    (doc) => !!doc.querySelector('#start'),
+    async ({ inFrame, waitIn }) => {
+      await inFrame((doc) => doc.querySelector('#start')?.click());
+      await waitIn((doc) => {
+        const cd = doc.querySelector('#countdown');
+        return !!doc.querySelector('#hud') && (!cd || !cd.textContent.trim() || cd.hidden);
+      }, 180000).catch(() => console.log('  (AURORA KART never got going)'));
+      await sleep(9000);
+    });
+
+  // BLOCKWILD: タイトルではなく、ブロックの世界の中。
+  await guest(() => uspeak.net.blockwild.open(), 'blockwild', 9000,
+    (doc) => doc.querySelector('#loading')?.classList.contains('hidden'),
+    async ({ inFrame, waitIn }) => {
+      await inFrame((doc) => doc.querySelector('#play')?.click());
+      await waitIn((doc) => doc.querySelector('#menu')?.classList.contains('hidden'), 180000)
+        .catch(() => console.log('  (BLOCKWILD never entered the world)'));
+    });
+  // ふたつのパズルも、選ぶ画面ではなく落ちているところ。
+  // ぷよは落ちてくるのを少し待つ。押した直後だと、まっさらな盤の写真になる。
+  await guest(() => uspeak.net.arcades.puyo.open(), 'puyo', 30000,
+    (doc) => !!doc.querySelector('[data-mode="uspeak"]'),
+    async ({ inFrame }) => { await inFrame((doc) => doc.querySelector('[data-mode="uspeak"]')?.click()); });
+  await guest(() => uspeak.net.arcades.suika.open(), 'suika', 7000,
+    (doc) => !!doc.querySelector('#startBtn'),
+    async ({ inFrame, waitIn }) => {
+      await inFrame((doc) => doc.querySelector('#startBtn')?.click());
+      await waitIn((doc) => doc.querySelector('#titleOverlay')?.hidden
+        || doc.querySelector('#titleOverlay')?.classList.contains('hidden'), 60000).catch(() => {});
+    });
 
   console.log(`\n${done.length} figures written to docs/figures/`);
 } catch (err) {
