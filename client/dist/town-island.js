@@ -70,6 +70,30 @@ export function createTownIsland({ scene }) {
       barrel(yard.x - 9, yard.z + 1.5);
 
       for (const def of data.spots) {
+        // ブロックの とびら: the way into BLOCKWILD, which is a whole other game. It is
+        // built as a gate rather than a shop because nothing is sold here — a child walks
+        // through it and leaves this island entirely — and it stands on its own at the
+        // top of the island so it reads as somewhere else rather than another counter.
+        if (def.kind === 'blockwild') {
+          house(def.x, def.z - 4.6, 9, 6.4, Number(def.color), 0x3f5f3c, `${def.tone} ${def.name}`);
+          door(def);
+          path(def.path.x, def.path.z, def.x, def.z);
+          B(def.x, 0.18, def.z, 6, 0.16, 6, 0xc8d2b4);
+          // A pile of the game's own blocks either side of the door, growing like the
+          // first thing anyone builds in it.
+          const tone = [0x6f9a55, 0x8a6a45, 0x9a9a92, 0x6f8fb0];
+          for (const side of [-1, 1]) {
+            for (let i = 0; i < 6; i += 1) {
+              D(def.x + side * (2.8 + (i % 2) * 1.1), 0.7 + Math.floor(i / 2), def.z - 1.2 + (i % 2) * 1.1,
+                1, 1, 1, tone[(i + (side > 0 ? 1 : 0)) % 4]);
+            }
+          }
+          // …and a floating block over the doorway, because that is what the game looks
+          // like from the outside.
+          D(def.x, 5.9, def.z + 0.4, 1.3, 1.3, 1.3, 0x6f9a55, 0.5);
+          resident(def);
+          continue;
+        }
         // The ひろば is a square, not a shop: a paved yard with a gateway across the
         // front of it, and walking under the gateway is what takes a child to their lot.
         if (def.kind === 'plaza') {

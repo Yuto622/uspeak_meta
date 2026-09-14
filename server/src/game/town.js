@@ -20,6 +20,12 @@ export const DATA_PATH = new URL('../../../client/dist/town.json', import.meta.u
 const HALF_X = 30;
 const HALF_Z = 25;
 const SPOT_KINDS = ['shop', 'agent', 'furniture', 'door', 'plaza'];
+// Buildings that are the page's business entirely: nothing is bought at them and no
+// position is judged, because walking in opens a guest game in a frame. They still have
+// to be on the island and not on top of another building — that is geometry, and the
+// island is drawn from this file — so the checks below apply to them; they are simply
+// not part of the map the room keeps. Anything NOT in either list is a typo.
+const PAGE_KINDS = ['blockwild'];
 
 export function loadTown(file = DATA_PATH) {
   const raw = JSON.parse(readFileSync(file, 'utf8'));
@@ -29,16 +35,21 @@ export function loadTown(file = DATA_PATH) {
     if (!Number.isFinite(island[key])) throw new Error(`town.json: island is missing a numeric ${key}`);
   }
   const spotById = new Map();
+  const placed = [];
   for (const spot of island.spots || []) {
-    if (!SPOT_KINDS.includes(spot.kind)) throw new Error(`town.json: ${spot.id} has unknown kind "${spot.kind}"`);
-    if (spotById.has(spot.kind)) throw new Error(`town.json: two ${spot.kind} buildings`);
+    const mine = SPOT_KINDS.includes(spot.kind);
+    if (!mine && !PAGE_KINDS.includes(spot.kind)) throw new Error(`town.json: ${spot.id} has unknown kind "${spot.kind}"`);
+    if (mine && spotById.has(spot.kind)) throw new Error(`town.json: two ${spot.kind} buildings`);
     if (Math.abs(spot.x) > HALF_X || Math.abs(spot.z) > HALF_Z) throw new Error(`town.json: ${spot.id} is off the island`);
-    for (const other of spotById.values()) {
+    // Every building, the page's included: two doorways a child can stand in at once is
+    // two buildings they can be in at once.
+    for (const other of placed) {
       if (Math.hypot(spot.x - other.x, spot.z - other.z) <= island.radius * 2) {
         throw new Error(`town.json: ${spot.id} and ${other.id} can be stood at together`);
       }
     }
-    spotById.set(spot.kind, { ...spot, wx: island.x + spot.x, wz: island.z + spot.z });
+    placed.push(spot);
+    if (mine) spotById.set(spot.kind, { ...spot, wx: island.x + spot.x, wz: island.z + spot.z });
   }
   for (const kind of SPOT_KINDS) {
     if (!spotById.has(kind)) throw new Error(`town.json: the island has no ${kind}`);

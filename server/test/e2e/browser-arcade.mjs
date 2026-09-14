@@ -56,7 +56,9 @@ const GAMES = [
     files: ['index.html', 'game.js', 'style.css', 'vocab.js', 'net.js', 'three.module.js'],
     // Its own header row, beside 操作ガイド and 音声.
     homeIn: '.top-actions',
-    async route(page) {
+    // The start line has no room for a sixth building — the course rings the island — so
+    // the way in is a card at the top of the panel it opens.
+    async approach(page) {
       await page.evaluate(async () => {
         for (const d of document.querySelectorAll('dialog[open]')) d.close();
         uspeak.rpg.fly('ride'); uspeak.rpg.finishFlight();
@@ -69,8 +71,12 @@ const GAMES = [
       });
       await page.evaluate(() => uspeak.net.rideInteract());
       await page.waitForSelector('#ride-dialog[open] #ride-arcade', { timeout: 40000 });
-      return '#ride-arcade';
+      return page.evaluate(() => {
+        const b = document.querySelector('#ride-arcade');
+        return { how: 'パネルのカード', text: b.textContent.replace(/\s+/g, ' ').trim().slice(0, 30), h: Math.round(b.getBoundingClientRect().height) };
+      });
     },
+    enter: (page) => page.evaluate(() => document.querySelector('#ride-arcade').click()),
     booted: (d) => ({
       canvas: d.querySelector('#game')?.width || 0,
       modes: [...d.querySelectorAll('[data-mode]')].map((b) => b.dataset.mode),
@@ -87,21 +93,42 @@ const GAMES = [
     files: ['index.html', 'game.js', 'style.css', 'three.module.js', 'src/world.js', 'src/net.js'],
     // Its own menu row, beside 保存 and 設定.
     homeIn: '.menulinks',
-    async route(page) {
+    // まちづくり島 had room for a building, so BLOCKWILD got one: ブロックの とびら, walked
+    // into like every other door in this world. This first lived as a card inside the
+    // block shop's panel and was, fairly, called hard to reach.
+    async approach(page) {
       await page.evaluate(async () => {
         for (const d of document.querySelectorAll('dialog[open]')) d.close();
         uspeak.rpg.fly('town'); uspeak.rpg.finishFlight();
         await new Promise((r) => setTimeout(r, 900));
         const isle = (await uspeak.rpg.town.ready).island;
-        const spot = isle.spots.find((s) => s.kind === 'shop');
+        const spot = isle.spots.find((s) => s.kind === 'blockwild');
         uspeak.rpg.inside?.leave?.(true);
-        uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z + 1.6);
+        // Just short of the doorway, so the label can be read before it opens.
+        uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z + 1.8);
         for (let i = 0; i < 40 && !uspeak.rpg.townNearby(); i += 1) await new Promise((r) => setTimeout(r, 150));
       });
-      await page.evaluate(() => uspeak.net.townInteract());
-      await page.waitForSelector('#town-dialog[open] #town-arcade', { timeout: 40000 });
-      return '#town-arcade';
+      // The label is written by the world's frame loop, which here runs at about two
+      // frames a second — read it the instant the child arrives and you get whatever the
+      // last island wrote. Wait for it to catch up rather than sampling once.
+      await page.waitForFunction(
+        () => document.querySelector('#near')?.style.display !== 'none'
+          && /BLOCKWILD/.test(document.querySelector('#interact span')?.textContent || ''),
+        null, { timeout: 30000, polling: 250 },
+      ).catch(() => {});
+      return page.evaluate(() => ({
+        how: '島の建物',
+        text: document.querySelector('#near')?.style.display !== 'none'
+          ? document.querySelector('#interact span').textContent : '(#near is hidden)',
+        h: Math.round(document.querySelector('#interact').getBoundingClientRect().height),
+      }));
     },
+    // Walked into, not pressed: the doorway is the button, as it is everywhere else here.
+    enter: (page) => page.evaluate(async () => {
+      const isle = (await uspeak.rpg.town.ready).island;
+      const spot = isle.spots.find((s) => s.kind === 'blockwild');
+      uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z);
+    }),
     booted: (d) => ({
       canvas: d.querySelector('#game')?.width || 0,
       modes: [...d.querySelectorAll('.choice[data-mode]')].map((b) => b.dataset.mode),
@@ -130,16 +157,13 @@ try {
 
   for (const game of GAMES) {
     // ---- the way in ----------------------------------------------------------------
-    const door = await game.route(page).then(async (sel) => page.evaluate((s) => {
-      const b = document.querySelector(s);
-      const r = b.getBoundingClientRect();
-      return { sel: s, text: b.textContent.replace(/\s+/g, ' ').trim().slice(0, 30), h: Math.round(r.height) };
-    }, sel));
-    check(`${game.label}: 島のパネルに入口がある`, door.text.includes(game.label) && door.h >= 34, JSON.stringify(door));
+    const door = await game.approach(page);
+    check(`${game.label}: 島に入口があって、名前が読める（${door.how}）`,
+      door.text.includes(game.label) && door.h >= 34, JSON.stringify(door));
     await page.screenshot({ path: path.join(SHOTS, `arcade-${game.id}-door.png`) });
 
     // ---- it opens, the island gets out of the way and stops -------------------------
-    await page.evaluate((s) => document.querySelector(s).click(), door.sel);
+    await game.enter(page);
     await page.waitForFunction(() => document.querySelector('.arcade-frame'), null, { timeout: 40000, polling: 200 });
     const covered = await page.evaluate(() => {
       const f = document.querySelector('.arcade-frame').getBoundingClientRect();

@@ -166,7 +166,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // nothing to press: the island reports the doorway, and this asks the server for what
   // is behind it.
   rpg.setDoorHandler((islandId, spot) => {
-    if (islandId !== 'town' || (spot.kind !== 'door' && spot.kind !== 'plaza')) return false;
+    if (islandId !== 'town') return false;
+    // ブロックの とびら is not a room to go into, it is a game to leave for — and unlike
+    // everything else on this island it needs nothing from the server, so it opens
+    // whether or not the class is connected.
+    if (spot.kind === 'blockwild') { blockwild.open(); return true; }
+    if (spot.kind !== 'door' && spot.kind !== 'plaza') return false;
     if (state.mode !== 'online') { toast('まちづくり島は オンラインで あそべます。'); return false; }
     // Say where we are before asking to come in: the doorway was reached this frame, and
     // the server would otherwise answer from the position it was last told about.
@@ -175,7 +180,6 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     return true;
   });
   const town = createTownUI({
-    onArcade: () => blockwild.open(),
     send: atSend,
     toast, speak, learn, isOnline: () => state.mode === 'online', room: myRoom, plaza: myPlaza,
   });

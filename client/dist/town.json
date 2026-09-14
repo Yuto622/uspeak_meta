@@ -84,6 +84,23 @@
         }
       },
       {
+        "_": "ブロックの とびら. Not the room's business at all — nothing is bought here and no position is judged; walking in opens BLOCKWILD, which is a separate game in a frame (see client/dist/blockwild.js). It is written here because this file is where まちづくり島's buildings live, and a building that is not in it is a building the island cannot draw.",
+        "id": "wild",
+        "kind": "blockwild",
+        "name": "ブロックの とびら",
+        "en": "Blockwild Gate",
+        "character": "Upee",
+        "ja": "ブロックの とびら",
+        "x": 13,
+        "z": 14,
+        "color": 5208650,
+        "tone": "\u26cf",
+        "path": {
+          "x": 0,
+          "z": 21
+        }
+      },
+      {
         "id": "plaza",
         "kind": "plaza",
         "name": "ひろば",
