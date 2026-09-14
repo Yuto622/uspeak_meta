@@ -1,0 +1,45 @@
+{
+  "_": "ミニゲーム島. Two houses, one per game, and that is the whole island: walk into the one whose name is over the door. Nothing here is the room's business — no coins, no positions judged — so there is no server module that reads this file; the page builds the island from it and the door opens a guest game in a frame (see client/dist/arcade.js). Coordinates are relative to the island's own x/z, exactly like every other island's JSON. Colours are decimals because island-kit.js reads them as numbers.",
+  "island": {
+    "id": "mini",
+    "name": "ミニゲーム島",
+    "en": "MINIGAME ISLE",
+    "x": 120,
+    "z": -250,
+    "radius": 5,
+    "grass": 9416346,
+    "grassTop": 10929325,
+    "spawn": { "x": 0, "z": 21 },
+    "courtyard": { "x": 0, "z": 9 },
+    "spots": [
+      {
+        "id": "puyo",
+        "kind": "puyo",
+        "game": "puyo",
+        "name": "PUYO U-SPEAK",
+        "en": "Puyo U-Speak",
+        "character": "Upee",
+        "ja": "ぷよを つなげて えいごを つくる",
+        "x": -12,
+        "z": 1,
+        "color": 8018600,
+        "tone": "🟣",
+        "path": { "x": 0, "z": 9 }
+      },
+      {
+        "id": "suika",
+        "kind": "suika",
+        "game": "suika",
+        "name": "えいご スイカゲーム",
+        "en": "Suika Eigo",
+        "character": "Upee",
+        "ja": "おなじ くだものを あわせて そだてる",
+        "x": 12,
+        "z": 1,
+        "color": 13127743,
+        "tone": "🍉",
+        "path": { "x": 0, "z": 9 }
+      }
+    ]
+  }
+}

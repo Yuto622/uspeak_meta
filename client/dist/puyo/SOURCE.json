@@ -1,0 +1,104 @@
+{
+  "entry": "index.html",
+  "vendored": "2026-09-14",
+  "files": {
+    "index.html": {
+      "sha256": "b380a9262dda941a27766ce7d04207fe69425ddc2b82d6d90eb468819cba6fc5",
+      "bytes": 9655
+    },
+    "src/core/ai.js": {
+      "sha256": "4363c02da30464d2a292086fb547d34eeeea1339e61da44e32b4cc95e5b61f8f",
+      "bytes": 5886
+    },
+    "src/core/board.js": {
+      "sha256": "93be3e7725ec97b62a4386072e84b50445c76a25e94764acc829c4817c7d50e8",
+      "bytes": 7754
+    },
+    "src/core/constants.js": {
+      "sha256": "97d8df219dacaacdabf70f818833218773b5853dc959814e44a6dfc11d524621",
+      "bytes": 3189
+    },
+    "src/core/game.js": {
+      "sha256": "e5985c911929fb4af900ab6bd645cece74cae4201af8b93653abc610907b0c46",
+      "bytes": 13722
+    },
+    "src/core/piece.js": {
+      "sha256": "9c7dfbec05c66bf15e754dee4d63e876269463e21a00fa470e1ffae11939a610",
+      "bytes": 5770
+    },
+    "src/core/queue.js": {
+      "sha256": "efed100db2f79b0ea1ea15e3bf647d3e1e00fac4c8f3d1041558dc577b41daed",
+      "bytes": 1313
+    },
+    "src/core/rng.js": {
+      "sha256": "98cb854829e883df86bb380c474c4fc34076cdb7de2175e9d1fcfa2ab5f93991",
+      "bytes": 1125
+    },
+    "src/core/rules/colorRule.js": {
+      "sha256": "eeeaf02149c2c766bfaf12c1b7ed388cc26ed96fb105ff8c52a40d20600538c2",
+      "bytes": 3515
+    },
+    "src/core/rules/wordRule.js": {
+      "sha256": "d4b099d2c345bcbc31a24c617abea0d230a115e51b037921a6fe295094c5a388",
+      "bytes": 8668
+    },
+    "src/core/score.js": {
+      "sha256": "88292533715e28596189eabbe9be6a770b4925065de2f6862467081d67ef35ce",
+      "bytes": 2940
+    },
+    "src/core/simulate.js": {
+      "sha256": "41a5dfa008ffe76d6dd21b8013d1cf0402083469468e2c4d6201b97efdda51d4",
+      "bytes": 2987
+    },
+    "src/core/wordlist.js": {
+      "sha256": "12befbf411da72fd623b0f3791f1cf1d0447301e6f6023ce030d90facdd53bae",
+      "bytes": 2564
+    },
+    "src/data/dictionary.js": {
+      "sha256": "1cdb00ce2523557fa720556fa6d230b74bdf0d464568000f2e65c7c3828b6ff7",
+      "bytes": 298338
+    },
+    "src/data/letters.js": {
+      "sha256": "9aa90b4f7ea137294782b7d524ecd88346c1c9f56cc75f45fa7022d7bedbb6f2",
+      "bytes": 3228
+    },
+    "src/data/translations.js": {
+      "sha256": "7d49c658ebe7bf39e00728c6599103bcb3f5ffa3b9ac48d81e6c54640a34c1b6",
+      "bytes": 846498
+    },
+    "src/main.js": {
+      "sha256": "5e99ae6992b5f1b0a1f842881ae1a99c5aac80874dff3e1abcaa412b4870b9f3",
+      "bytes": 16310
+    },
+    "src/storage.js": {
+      "sha256": "9652b31ed8a5ea2fac963a2300322e3670ee80372939921524fcad8c0b7c2380",
+      "bytes": 3334
+    },
+    "src/ui/audio.js": {
+      "sha256": "4890ca79f441349375666349dd395ff4e4c12868ec9b0c760da566e02d377701",
+      "bytes": 7409
+    },
+    "src/ui/hud.js": {
+      "sha256": "096d9e072cbac747fdec988d99eea3aacf28b5e7fed786533daae791304ea9e8",
+      "bytes": 7286
+    },
+    "src/ui/input.js": {
+      "sha256": "391b55d56b5c7d3794e526833e91daa30dbdaeaf774d4d9173d1cac2c6dd4108",
+      "bytes": 5196
+    },
+    "src/ui/renderer.js": {
+      "sha256": "7f48ef9975aa10de1968ace2f288f5d0d4bd80382374b6bf1690e88a6390a990",
+      "bytes": 12484
+    },
+    "src/ui/theme.js": {
+      "sha256": "789ea5d4c050a24f093cb15e6358c0c2d33aaeaf75d1b0fadaf64ea504eb5dda",
+      "bytes": 1161
+    },
+    "styles/main.css": {
+      "sha256": "d38a6b833d8577c2b63bbba429130ef6fb6daefd34be18ee0eebb50d6f21b62e",
+      "bytes": 14096
+    }
+  },
+  "_": "PUYO U-SPEAK, vendored unedited. A SEPARATE GAME with its own CSS and its own save key (puyo-uspeak/v1). It runs in an iframe and nothing in it is imported by the game around it. Taken from the upload: index.html, styles/ and src/ — everything the page loads. Left out on purpose: tests/, package-lock.json, .gitignore, README.md, and dist/puyo-uspeak.html (a 1.3MB single-file build of the same code, which would be a second copy of the game to keep in step). To upgrade, replace those three paths and re-run `node client/tests/guests-manifest.mjs --write puyo`.",
+  "name": "PUYO U-SPEAK"
+}

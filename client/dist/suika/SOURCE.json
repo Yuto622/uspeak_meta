@@ -1,0 +1,44 @@
+{
+  "entry": "index.html",
+  "vendored": "2026-09-14",
+  "files": {
+    "index.html": {
+      "sha256": "06be0506a054f06ce3d8027c085e4cd2113b015d68e5a50ac42bcddb650aea30",
+      "bytes": 9206
+    },
+    "js/audio.js": {
+      "sha256": "e48c89ad68384e31fff9fc9ea76bfe0492309abf5028900cb805e1660647841c",
+      "bytes": 5570
+    },
+    "js/effects.js": {
+      "sha256": "828c1a4c2e78263dcac4703ad55f9cb6e3ad8f157f09e1c0a70fd348a142185a",
+      "bytes": 6353
+    },
+    "js/fruits.js": {
+      "sha256": "f717992196d0dec64600440b3903b5ff46226671ebeed80f6ed2ff670dc3e056",
+      "bytes": 3717
+    },
+    "js/game.js": {
+      "sha256": "8d7fb07cb4ff4b26a4e6229fac682ebb8fb483e83fe33ac97afb546c64a16053",
+      "bytes": 26615
+    },
+    "js/physics.js": {
+      "sha256": "ab6dc8f133f50351833f8579b570b3c81f530062cc736ea0e5e397411b8b95a7",
+      "bytes": 11056
+    },
+    "js/quiz.js": {
+      "sha256": "254a63aa11d744d77dd0bad88be6fec15b39720b713d26d847c6ef91be521ebf",
+      "bytes": 8207
+    },
+    "js/words.js": {
+      "sha256": "c57ce9b107c0972e9e192d00fbb84dc48a05db955ebbb1c18bcbd235616eeffb",
+      "bytes": 18717
+    },
+    "styles.css": {
+      "sha256": "cd556f9f346d48cf4b141f615c4202723755a131665beb751e8679696a5bf03f",
+      "bytes": 16553
+    }
+  },
+  "_": "えいご スイカゲーム, vendored unedited. A SEPARATE GAME with its own CSS and its own save keys (suikaEigo.v2.*). It runs in an iframe and nothing in it is imported by the game around it. Taken from the upload: index.html, styles.css and js/ — everything the page loads. Left out on purpose: tools/build-single.py and README.md. To upgrade, replace those three paths and re-run `node client/tests/guests-manifest.mjs --write suika`.",
+  "name": "えいご スイカゲーム"
+}

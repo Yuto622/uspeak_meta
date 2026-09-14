@@ -254,10 +254,10 @@ console.log('PASS: 36 chests in 12 areas, 3 gated permanent keys, all tiers, 12 
 
 // --- 学習の島: every place must be standable, reachable, and served by a clear path ----
 // 英検の島は3つとも同じ間取りなので、同じ検査を3回通す（ready が返すのは島そのもの）。
-for(const [hub,mod,near,unwrap] of [['school','school','schoolNearby'],['arena','arena','arenaNearby'],['pet','pet','petNearby'],['ride','ride','rideNearby'],['town','town','townNearby'],['eiken5','eiken5','eikenNearby',d=>d],['eiken4','eiken4','eikenNearby',d=>d],['eiken3','eiken3','eikenNearby',d=>d],['talk','talk','talkNearby'],['conv','conv','convNearby',d=>d],['wear','wear','wearNearby']]){
+for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],['arena','arena','arenaNearby'],['pet','pet','petNearby'],['ride','ride','rideNearby'],['town','town','townNearby'],['eiken5','eiken5','eikenNearby',d=>d],['eiken4','eiken4','eikenNearby',d=>d],['eiken3','eiken3','eikenNearby',d=>d],['talk','talk','talkNearby'],['conv','conv','convNearby',d=>d],['wear','wear','wearNearby'],['mini','mini','miniNearby',null,2]]){
  const data=await rpg[mod].ready;
  const island=unwrap?unwrap(data):data.island;
- assert.ok(island&&island.spots.length>=3,hub+' loaded its island data');
+ assert.ok(island&&island.spots.length>=least,hub+' loaded its island data');
  rpg.activate(hub);
  assert.equal(rpg.state.current,hub);
  assert.equal(rpg[mod].visible,true);

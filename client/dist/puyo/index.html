@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PUYO U-SPEAK</title>
+<meta name="description" content="A faithful Puyo Puyo remake, plus U-SPEAK mode where the puyos are letters and chains are English words.">
+<meta name="theme-color" content="#0f1424">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127928;</text></svg>">
+<link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<div id="app" hidden>
+  <header class="topbar">
+    <h1 class="topbar__title">PUYO <span>U-SPEAK</span></h1>
+    <div class="topbar__mode" id="mode-badge">CLASSIC</div>
+    <div class="topbar__coins" title="U-Speak Coins earned in total">
+      <span class="coin" aria-hidden="true"></span>
+      <span id="coin-total">0</span>
+    </div>
+    <button class="topbar__quit" id="mute-button" type="button" aria-pressed="false">&#9834; ON</button>
+    <button class="topbar__quit" id="quit-button" type="button">MENU</button>
+  </header>
+
+  <main class="stage" id="stage">
+    <section class="player" id="player-1">
+      <div class="panel panel--stats">
+        <div class="stat stat--score">
+          <span class="stat__label">SCORE</span>
+          <span class="stat__value" data-field="score">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">BEST CHAIN</span>
+          <span class="stat__value" data-field="maxChain">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">LEVEL</span>
+          <span class="stat__value" data-field="level">1</span>
+        </div>
+        <div class="stat stat--coins" data-only="uspeak">
+          <span class="stat__label">U-SPEAK COINS</span>
+          <span class="stat__value" data-field="coins">0</span>
+        </div>
+        <div class="garbage" data-field="garbage" hidden>
+          <span class="garbage__label">INCOMING</span>
+          <span class="garbage__rocks" data-field="garbageRocks"></span>
+        </div>
+      </div>
+
+      <div class="field">
+        <canvas class="field__canvas" data-field="canvas" width="288" height="600"></canvas>
+        <div class="field__overlay">
+          <div class="popup popup--chain" data-field="chainPopup" hidden></div>
+          <div class="popup popup--word" data-field="wordPopup" hidden></div>
+          <div class="popup popup--allclear" data-field="allClearPopup" hidden>ALL CLEAR!</div>
+        </div>
+      </div>
+
+      <div class="panel panel--side">
+        <div class="next">
+          <span class="panel__label">NEXT</span>
+          <div class="next__list" data-field="next"></div>
+        </div>
+        <div class="wordlog" data-only="uspeak">
+          <span class="panel__label">WORDS</span>
+          <ol class="wordlog__list" data-field="wordLog"></ol>
+        </div>
+        <div class="legend" data-only="uspeak">
+          <span class="panel__label">HOW TO SPELL</span>
+          <p>Read <b>&rarr; across</b> and <b>&darr; down</b>.<br>
+             A word pops with its Japanese meaning.</p>
+          <p class="legend__tip"><b>Tip:</b> build backwards. Lay the last
+             letter first, so a short word cannot pop before you finish the
+             long one.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="player player--cpu" id="player-2" hidden>
+      <div class="panel panel--stats">
+        <div class="stat stat--score">
+          <span class="stat__label">COM</span>
+          <span class="stat__value" data-field="score">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">BEST CHAIN</span>
+          <span class="stat__value" data-field="maxChain">0</span>
+        </div>
+        <div class="garbage" data-field="garbage" hidden>
+          <span class="garbage__label">INCOMING</span>
+          <span class="garbage__rocks" data-field="garbageRocks"></span>
+        </div>
+      </div>
+      <div class="field">
+        <canvas class="field__canvas" data-field="canvas" width="288" height="600"></canvas>
+        <div class="field__overlay">
+          <div class="popup popup--chain" data-field="chainPopup" hidden></div>
+          <div class="popup popup--word" data-field="wordPopup" hidden></div>
+          <div class="popup popup--allclear" data-field="allClearPopup" hidden>ALL CLEAR!</div>
+        </div>
+      </div>
+      <div class="panel panel--side">
+        <div class="next">
+          <span class="panel__label">NEXT</span>
+          <div class="next__list" data-field="next"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="touch" id="touch-controls">
+    <button class="touch__btn" data-action="left" aria-label="Move left">&#9664;</button>
+    <button class="touch__btn" data-action="softDrop" aria-label="Soft drop">&#9660;</button>
+    <button class="touch__btn" data-action="right" aria-label="Move right">&#9654;</button>
+    <button class="touch__btn" data-action="rotateCcw" aria-label="Rotate left">&#8630;</button>
+    <button class="touch__btn touch__btn--drop" data-action="hardDrop" aria-label="Hard drop">DROP</button>
+    <button class="touch__btn" data-action="rotateCw" aria-label="Rotate right">&#8631;</button>
+  </div>
+</div>
+
+<div class="overlay" id="title-screen">
+  <div class="overlay__card overlay__card--wide">
+    <h1 class="logo">PUYO <span>U-SPEAK</span></h1>
+    <p class="logo__sub">Classic Puyo Puyo &mdash; and the same game played in English.</p>
+
+    <div class="modes">
+      <button class="mode" data-mode="uspeak" type="button">
+        <span class="mode__tag">U-SPEAK</span>
+        <h2>Word Mode</h2>
+        <p>Every puyo is a letter. Spell a word across or down and it pops. The
+           longer the word, the bigger the payout in <b>U-Speak Coins</b>.</p>
+      </button>
+      <button class="mode" data-mode="classic" type="button">
+        <span class="mode__tag">ENDLESS</span>
+        <h2>Classic</h2>
+        <p>The original rules: four of a colour pop, chains multiply, the
+           field speeds up until it buries you.</p>
+      </button>
+      <button class="mode" data-mode="versus" type="button">
+        <span class="mode__tag">VS COM</span>
+        <h2>Versus</h2>
+        <p>Classic rules against the CPU. Chains rain nuisance puyos on your
+           opponent, and offsetting works both ways.</p>
+      </button>
+    </div>
+
+    <div class="options">
+      <label class="option">
+        <span>Start level</span>
+        <input type="range" id="opt-level" min="1" max="12" value="1">
+        <output id="opt-level-out">1</output>
+      </label>
+      <label class="option">
+        <span>Shortest word</span>
+        <select id="opt-min-word">
+          <option value="3" selected>3 letters (learner)</option>
+          <option value="4">4 letters (tough)</option>
+          <option value="5">5 letters (expert)</option>
+        </select>
+      </label>
+      <label class="option">
+        <span>CPU strength</span>
+        <select id="opt-ai">
+          <option value="easy">Easy</option>
+          <option value="normal" selected>Normal</option>
+          <option value="hard">Hard</option>
+        </select>
+      </label>
+      <label class="option option--check">
+        <input type="checkbox" id="opt-ghost" checked>
+        <span>Show landing guide</span>
+      </label>
+      <label class="option option--check">
+        <input type="checkbox" id="opt-sound" checked>
+        <span>Sound</span>
+      </label>
+    </div>
+
+    <div class="bank">
+      <div class="bank__coins">
+        <span class="coin" aria-hidden="true"></span>
+        <b id="bank-total">0</b> U-Speak Coins banked
+      </div>
+      <button class="link" id="open-wordbook" type="button">Word book (<span id="bank-words">0</span>)</button>
+      <div class="bank__best" id="bank-best"></div>
+    </div>
+
+    <p class="controls-hint">
+      <b>&larr; &rarr;</b> move &nbsp;&middot;&nbsp; <b>&darr;</b> soft drop &nbsp;&middot;&nbsp;
+      <b>Z / X</b> rotate &nbsp;&middot;&nbsp; <b>Space</b> hard drop &nbsp;&middot;&nbsp;
+      <b>P</b> pause
+    </p>
+  </div>
+</div>
+
+<div class="overlay" id="pause-screen" hidden>
+  <div class="overlay__card">
+    <h2>PAUSED</h2>
+    <div class="overlay__buttons">
+      <button class="button" id="resume-button" type="button">Resume</button>
+      <button class="button button--ghost" id="pause-quit" type="button">Back to menu</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="gameover-screen" hidden>
+  <div class="overlay__card">
+    <h2 id="result-title">GAME OVER</h2>
+    <div class="results" id="results"></div>
+    <div class="results__words" id="result-words"></div>
+    <div class="overlay__buttons">
+      <button class="button" id="retry-button" type="button">Play again</button>
+      <button class="button button--ghost" id="menu-button" type="button">Menu</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="wordbook-screen" hidden>
+  <div class="overlay__card overlay__card--wide">
+    <h2>WORD BOOK</h2>
+    <p class="muted">Every word you have ever spelled. Longest first.</p>
+    <div class="wordbook" id="wordbook-list"></div>
+    <div class="overlay__buttons">
+      <button class="button" id="wordbook-close" type="button">Close</button>
+      <button class="button button--ghost" id="wordbook-reset" type="button">Clear all data</button>
+    </div>
+  </div>
+</div>
+
+<noscript>
+  <p style="color:#fff;padding:2rem;font:16px system-ui">PUYO U-SPEAK needs JavaScript.</p>
+</noscript>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

@@ -33,6 +33,7 @@ export function createArcade({ id, home, name, hint, settle, toast, onOpen, onCl
 
   let frame = null;
   let open = false;
+  let watching = 0;
 
   function close() {
     if (!open) return;
@@ -41,6 +42,7 @@ export function createArcade({ id, home, name, hint, settle, toast, onOpen, onCl
     // graph and a frame loop, and a hidden tab full of those is a hidden tab that still
     // costs an iPad its battery. Coming back reloads, which is what a child expects of a
     // game they walked out of anyway.
+    clearInterval(watching);
     frame?.remove();
     frame = null;
     shell.hidden = true;
@@ -65,6 +67,20 @@ export function createArcade({ id, home, name, hint, settle, toast, onOpen, onCl
         let borrowed = false;
         try { borrowed = !!settle?.(frame.contentDocument, { close }); } catch { borrowed = false; }
         escape.hidden = borrowed;
+        // …but a borrowed button is only a way out while it is on screen, and these games
+        // hide their own controls as they please: PUYO's toolbar is not up on its menu,
+        // and a child sitting on that menu with no way back to the island is stuck in a
+        // game they did not mean to stay in. So watch it, and put the plain exit up
+        // whenever the borrowed one is not there. Half a second is quick enough that
+        // nobody notices, and cheap enough that it does not matter.
+        if (borrowed) {
+          const seen = () => {
+            try { return !!frame?.contentDocument?.querySelector('.arcade-home')?.getClientRects().length; }
+            catch { return false; }
+          };
+          watching = setInterval(() => { if (open) escape.hidden = seen(); }, 500);
+          escape.hidden = seen();
+        }
         // Without this the first W press walks the child on the island behind.
         try { frame.contentWindow?.focus(); } catch { /* the keys will find it on a tap */ }
       });
@@ -79,13 +95,17 @@ export function createArcade({ id, home, name, hint, settle, toast, onOpen, onCl
   };
 }
 
-// A way home, in the guest's own header, styled like everything else in it. Both games
-// happen to keep their menu buttons in one row, so both can be given the same button.
+// A way home, in the guest's own controls, dressed as one of them.
+//
+// Every one of these games keeps its buttons in a row somewhere; each launcher says which
+// row. The class is copied off whatever button is already in that row rather than written
+// here, so the way home looks native in a stylesheet this file has never read — and keeps
+// looking native when the guest is replaced by a newer build.
 export function homeButton(doc, host, close) {
   if (!host) return false;
   const back = doc.createElement('button');
   back.type = 'button';
-  back.className = 'arcade-home';
+  back.className = `${host.querySelector('button')?.className || ''} arcade-home`.trim();
   back.textContent = '← U-Speak';
   back.onclick = () => close();
   host.prepend(back);

@@ -26,6 +26,8 @@ import { createDashboard } from './dashboard.js';
 import { createWardrobe } from './wardrobe.js';
 import { createRacers } from './racers.js';
 import { createBlockwild } from './blockwild.js';
+import { createPuyo } from './puyo.js';
+import { createSuika } from './suika.js';
 import { dressAvatar } from './avatars.js';
 import { itemModel } from './wardrobe-models.js';
 import { createRoom } from './room-world.js';
@@ -166,6 +168,13 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // nothing to press: the island reports the doorway, and this asks the server for what
   // is behind it.
   rpg.setDoorHandler((islandId, spot) => {
+    // ミニゲーム島 is nothing but doors to other games: the house a child walks into is
+    // the game, and none of it needs the server, so it opens offline too.
+    if (islandId === 'mini') {
+      const game = arcades[spot.game || spot.kind];
+      if (game) { game.open(); return true; }
+      return false;
+    }
     if (islandId !== 'town') return false;
     // ブロックの とびら is not a room to go into, it is a game to leave for — and unlike
     // everything else on this island it needs nothing from the server, so it opens
@@ -241,6 +250,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   };
   const racers = createRacers(guest);          // AURORA KART, from のりもの島
   const blockwild = createBlockwild(guest);    // BLOCKWILD, from まちづくり島
+  // ミニゲーム島: one house each, and the house is the menu.
+  const arcades = { puyo: createPuyo(guest), suika: createSuika(guest) };
 
   const ride = createRideUI({
     send: atSend,
@@ -820,8 +831,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get wardrobe() { return wardrobe; },
     get racers() { return racers; },
     get blockwild() { return blockwild; },
+    get arcades() { return arcades; },
     // One question for the frame loop: is a whole-window guest game up?
-    arcadeOpen: () => racers.isOpen || blockwild.isOpen,
+    arcadeOpen: () => racers.isOpen || blockwild.isOpen || Object.values(arcades).some((g) => g.isOpen),
+    miniLabel: (spot) => `${spot?.tone || '🎮'} ${spot?.name || 'ゲーム'} で あそぶ`,
     openLobby: () => lobby.open({ name: state.name }),
     openMission: () => mission.open(),
     errandInteract: () => { const near = rpg.errandNearby(); if (near) mission.interact(near.spot); },

@@ -18,6 +18,8 @@ import { fileURLToPath } from 'node:url';
 export const GUESTS = [
   { dir: 'racers', needs: ['index.html', 'game.js', 'style.css', 'vocab.js', 'net.js', 'three.module.js'] },
   { dir: 'blockwild', needs: ['index.html', 'game.js', 'style.css', 'three.module.js', 'src/world.js', 'src/net.js'] },
+  { dir: 'puyo', needs: ['index.html', 'styles/main.css', 'src/main.js', 'src/core/game.js', 'src/data/dictionary.js'] },
+  { dir: 'suika', needs: ['index.html', 'styles.css', 'js/game.js', 'js/physics.js', 'js/words.js'] },
 ];
 
 const root = fileURLToPath(new URL('../dist/', import.meta.url));

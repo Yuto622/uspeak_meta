@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="スイカゲームで あそびながら えいごの たんごを おぼえよう！ 小学校ていがくねん むけの がくしゅうゲーム。">
+<title>えいご スイカゲーム 🍉 - あそんで おぼえる えいごたんご</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍉</text></svg>">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ================= ヘッダー ================= -->
+  <header class="topbar">
+    <h1 class="logo"><span class="logo-emoji">🍉</span> えいご スイカゲーム</h1>
+    <div class="topbar-btns">
+      <button id="genreBtn" class="tbtn genre-btn" type="button">🎲 ジャンル：<b id="genreLabel">くだもの</b></button>
+      <button id="soundBtn" class="tbtn" type="button">🔊 おと オン</button>
+      <button id="bookBtn" class="tbtn" type="button">📖 ずかん</button>
+      <button id="helpBtn" class="tbtn" type="button">❓ あそびかた</button>
+    </div>
+  </header>
+
+  <!-- ================= メイン ================= -->
+  <main class="stage">
+
+    <!-- ひだり: スコア・つぎ・ミッション -->
+    <section class="panel panel-left">
+      <div class="card score-card">
+        <div class="score-row big">
+          <span class="label">スコア</span>
+          <span id="score" class="value">0</span>
+        </div>
+        <div class="score-row">
+          <span class="label">さいこう</span>
+          <span id="best" class="value small">0</span>
+        </div>
+        <div class="score-row">
+          <span class="label">⭐ スター</span>
+          <span id="stars" class="value small">0</span>
+        </div>
+      </div>
+
+      <div class="card next-card">
+        <h2 class="card-title">つぎの ことば</h2>
+        <div class="next-body">
+          <span id="nextEmoji" class="next-emoji">🍒</span>
+          <span class="next-text">
+            <b id="nextEn">cherry</b>
+            <i id="nextJa">さくらんぼ</i>
+          </span>
+        </div>
+      </div>
+
+      <div class="card mission-card" id="missionCard">
+        <h2 class="card-title">
+          <span>🎯 ミッション</span>
+          <button id="missionSay" class="mini-say" type="button" title="よみあげる">🔊</button>
+        </h2>
+        <div class="mission-body">
+          <span id="missionEmoji" class="mission-emoji">🍇</span>
+          <span class="mission-text">
+            <b id="missionEn">Make a grape!</b>
+            <i id="missionJa">ぶどう を つくろう！</i>
+          </span>
+        </div>
+        <div class="mission-done-badge">できた！ ⭐</div>
+      </div>
+
+      <div class="card eng-card">
+        <h2 class="card-title">えいご レベル</h2>
+        <div class="eng-row">
+          <b id="engLevel">レベル 1</b>
+          <span class="eng-bar"><i id="engFill"></i></span>
+        </div>
+        <p class="card-note eng-note">ミッション たっせい と あたらしい ことばで ⭐ が たまるよ</p>
+      </div>
+    </section>
+
+    <!-- まんなか: ゲームばん -->
+    <section class="board-area">
+      <div class="board-frame">
+        <canvas id="board" width="420" height="640" aria-label="スイカゲームの ゲームばん"></canvas>
+
+        <!-- タイトル -->
+        <div id="titleOverlay" class="overlay show">
+          <div class="ov-box">
+            <div class="ov-emoji">🍉🐘🚌🦋</div>
+            <h2 class="ov-title">えいご スイカゲーム</h2>
+            <p class="ov-lead">おなじ ものを くっつけると<br>つぎの ものに しんか！<br><b>えいごの ことば</b>も いっしょに おぼえよう。</p>
+            <button id="genreTitleBtn" class="big-btn genre" type="button">🎲 ジャンル：<b id="genreTitleName">くだもの</b><span class="sub">ぜんぶで 20 しゅるい・タップで えらぶ</span></button>
+            <button id="startBtn" class="big-btn start" type="button">▶ スタート</button>
+            <p class="ov-hint">タップ / クリック で おとす<br>← → キーで うごかして スペースで おとす</p>
+          </div>
+        </div>
+
+        <!-- ゲームオーバー -->
+        <div id="overOverlay" class="overlay">
+          <div class="ov-box">
+            <div class="ov-emoji">🎉</div>
+            <h2 class="ov-title">おしまい！</h2>
+            <div class="over-stats">
+              <div><span>スコア</span><b id="overScore">0</b></div>
+              <div><span>さいこう</span><b id="overBest">0</b></div>
+              <div><span>おぼえた ことば</span><b id="overWordCount">0</b></div>
+            </div>
+            <p class="over-lead">きょう おぼえた えいご（タップで はつおん）</p>
+            <div id="overWords" class="over-words"></div>
+            <button id="retryBtn" class="big-btn start" type="button">🔁 もういちど あそぶ</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- いま おぼえた ことば -->
+      <div id="wordBar" class="word-bar empty">
+        <span id="wordEmoji" class="wb-emoji">📖</span>
+        <span class="wb-text">
+          <b id="wordEn"></b>
+          <i id="wordJa">おなじ ものを くっつけよう！</i>
+        </span>
+        <button id="wordSay" class="wb-btn" type="button" title="はつおんを きく">🔊<span class="lbl"> きく</span></button>
+        <button id="wordSpell" class="wb-btn" type="button" title="つづりを きく">🔤<span class="lbl"> つづり</span></button>
+      </div>
+    </section>
+
+    <!-- みぎ: しんかの じゅんばん -->
+    <section class="panel panel-right">
+      <div class="card chain-card">
+        <h2 class="card-title">しんかの じゅんばん</h2>
+        <p class="card-note"><em class="genre-chip" id="chainGenre">くだもの</em>タップ すると えいごが きこえるよ</p>
+        <div id="chain" class="chain"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">つくって あそんで おぼえる えいごたんご 🍉</footer>
+</div>
+
+<!-- ================= ジャンル えらび ================= -->
+<div id="genreOverlay" class="overlay full">
+  <div class="ov-box genre-box">
+    <h2 class="ov-title">🎲 ジャンルを えらぼう</h2>
+    <p class="ov-lead">ぜんぶで <b>20 しゅるい</b>。えらぶと あたらしい ゲームが はじまるよ。<br>ずかんと さいこうてんは ジャンルごとに のこります。</p>
+    <div id="genreGrid" class="genre-grid"></div>
+    <button id="genreClose" class="big-btn start" type="button">とじる</button>
+  </div>
+</div>
+
+<!-- ================= ずかん ================= -->
+<div id="bookOverlay" class="overlay full">
+  <div class="ov-box book-box">
+    <h2 class="ov-title">📖 <span id="bookGenre">くだもの</span>の ずかん</h2>
+    <p class="ov-lead">あつめた ことば：<b id="bookCount">0 / 11</b><br>カードを タップ すると はつおんが きけるよ</p>
+    <div id="bookGrid" class="book-grid"></div>
+    <button id="bookClose" class="big-btn start" type="button">とじる</button>
+  </div>
+</div>
+
+<!-- ================= あそびかた ================= -->
+<div id="helpOverlay" class="overlay full">
+  <div class="ov-box help-box">
+    <h2 class="ov-title">❓ あそびかた</h2>
+    <ol class="help-list">
+      <li><b>ジャンルを えらぶ</b><br>くだもの・どうぶつ・のりもの・うちゅう… <b>20 しゅるい</b>から えらべるよ。「🎲 ジャンル」を おしてね。</li>
+      <li><b>ものを おとす</b><br>ゲームばんを タップ（クリック）すると、その ばしょに おちるよ。</li>
+      <li><b>おなじ ものを くっつける</b><br>おなじ ものが ふれると、ひとつ 大きい ものに しんか！ そのとき <b>えいごの ことば</b>が でて、こえで よんでくれるよ。</li>
+      <li><b>さいごの ひとつを めざそう</b><br>いちばん ちいさい ものから はじめて、11 だんかいで さいごの ものに なるよ。</li>
+      <li><b>ミッション</b><br>「Make an apple!」の ミッションを クリア すると ⭐ が もらえるよ。</li>
+      <li><b>きを つけて！</b><br>てんせんの ラインより 上に 2びょう いると おしまい。</li>
+    </ol>
+    <p class="help-note">※ はつおんは パソコンや スマホの おんせい きのうを つかって います。おとが でない ときは 「🔊 おと オン」 を おして ためしてね。</p>
+    <button id="helpClose" class="big-btn start" type="button">とじる</button>
+  </div>
+</div>
+
+<script src="js/physics.js"></script>
+<script src="js/words.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

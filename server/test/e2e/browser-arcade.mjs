@@ -138,7 +138,71 @@ const GAMES = [
     gone: '#netJoin',
     says: /まちづくり島/,
   },
+  // The two on ミニゲーム島. Neither has any multiplayer at all — they talk to nothing —
+  // so there is nothing to take away and `gone` is left unset.
+  {
+    id: 'puyo',
+    label: 'PUYO U-SPEAK',
+    title: /PUYO/i,
+    files: ['index.html', 'styles/main.css', 'src/main.js', 'src/core/game.js', 'src/data/dictionary.js'],
+    homeIn: '.topbar',
+    approach: (page) => atMiniHouse(page, 'puyo', 'PUYO U-SPEAK'),
+    enter: (page) => intoMiniHouse(page, 'puyo'),
+    booted: (d) => ({
+      canvas: d.querySelector('canvas')?.width || 0,
+      modes: [...d.querySelectorAll('[data-mode]')].map((b) => b.dataset.mode),
+      pieces: d.querySelectorAll('button').length,
+    }),
+    ok: (b) => b.pieces > 0,
+  },
+  {
+    id: 'suika',
+    label: 'スイカ',
+    title: /スイカ/,
+    files: ['index.html', 'styles.css', 'js/game.js', 'js/physics.js', 'js/words.js'],
+    homeIn: '.topbar-btns',
+    approach: (page) => atMiniHouse(page, 'suika', 'スイカ'),
+    enter: (page) => intoMiniHouse(page, 'suika'),
+    booted: (d) => ({
+      canvas: d.querySelector('canvas')?.width || 0,
+      modes: [],
+      pieces: d.querySelector('#startBtn') ? 1 : 0,
+    }),
+    ok: (b) => b.pieces === 1,
+  },
 ];
+
+// ミニゲーム島 is nothing but two doors: fly there, stand just short of one, and read the
+// name off the world rather than off a panel. The label is written by the frame loop,
+// which here runs at about two frames a second, so it is waited for rather than sampled.
+async function atMiniHouse(page, id, expect) {
+  await page.evaluate(async (spotId) => {
+    for (const d of document.querySelectorAll('dialog[open]')) d.close();
+    uspeak.rpg.fly('mini'); uspeak.rpg.finishFlight();
+    await new Promise((r) => setTimeout(r, 900));
+    const isle = (await uspeak.rpg.mini.ready).island;
+    const spot = isle.spots.find((s) => s.id === spotId);
+    uspeak.rpg.inside?.leave?.(true);
+    uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z + 1.8);
+    for (let i = 0; i < 40 && !uspeak.rpg.miniNearby(); i += 1) await new Promise((r) => setTimeout(r, 150));
+  }, id);
+  await page.waitForFunction((want) => document.querySelector('#near')?.style.display !== 'none'
+    && (document.querySelector('#interact span')?.textContent || '').includes(want),
+  expect, { timeout: 30000, polling: 250 }).catch(() => {});
+  return page.evaluate(() => ({
+    how: '島の家',
+    text: document.querySelector('#near')?.style.display !== 'none'
+      ? document.querySelector('#interact span').textContent : '(#near is hidden)',
+    h: Math.round(document.querySelector('#interact').getBoundingClientRect().height),
+  }));
+}
+
+// Walked into, not pressed: the doorway is the button, as it is everywhere else here.
+const intoMiniHouse = (page, id) => page.evaluate(async (spotId) => {
+  const isle = (await uspeak.rpg.mini.ready).island;
+  const spot = isle.spots.find((s) => s.id === spotId);
+  uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z);
+}, id);
 
 try {
   // Every guest is served as ordinary static files under the client. If any one of them
@@ -194,12 +258,14 @@ try {
 
     // The mode that cannot work here: both games open a WebSocket on this origin, and
     // Colyseus takes every upgrade on this port. Gone, and replaced by where to go.
-    const neutral = await page.evaluate((g) => {
-      const d = document.querySelector('.arcade-frame')?.contentDocument;
-      return { still: !!d?.querySelector(g.gone), text: d?.body?.textContent || '' };
-    }, { gone: game.gone });
-    check(`${game.label}: つながらないオンラインは外してある`, !neutral.still);
-    check(`${game.label}: …かわりに「みんなでやるのはこっち」と書いてある`, game.says.test(neutral.text));
+    if (game.gone) {
+      const neutral = await page.evaluate((g) => {
+        const d = document.querySelector('.arcade-frame')?.contentDocument;
+        return { still: !!d?.querySelector(g.gone), text: d?.body?.textContent || '' };
+      }, { gone: game.gone });
+      check(`${game.label}: つながらないオンラインは外してある`, !neutral.still);
+      check(`${game.label}: …かわりに「みんなでやるのはこっち」と書いてある`, game.says.test(neutral.text));
+    }
     await sleep(2500);
     await page.screenshot({ path: path.join(SHOTS, `arcade-${game.id}-game.png`) });
 
@@ -215,10 +281,26 @@ try {
       return el ? { text: el.textContent, inPlace: !!el.closest(host) } : null;
     }, game.homeIn);
     check(`${game.label}: もどるボタンはゲーム自身のメニューの中にある`, !!home?.inPlace, JSON.stringify(home));
-    check(`${game.label}: …なので画面のすみの非常口は出していない`,
-      await page.evaluate(() => !!document.querySelector('.arcade-exit')?.hidden));
+    // The plain exit in the corner is only for when the borrowed one is not on screen —
+    // PUYO hides its toolbar on its own menu, and a child there must still be able to
+    // leave. So: exactly one way out is visible, never none and never two.
+    const ways = await page.evaluate(() => {
+      const inside = document.querySelector('.arcade-frame')?.contentDocument?.querySelector('.arcade-home');
+      return {
+        borrowed: !!inside?.getClientRects().length,
+        // Four launchers means four shells in the body. A bare `.arcade-exit` finds the
+        // first one, which belongs to whichever game was built first — ask the shell that
+        // is actually up.
+        corner: !document.querySelector('.arcade:not([hidden]) .arcade-exit')?.hidden,
+      };
+    });
+    check(`${game.label}: 出口はいつでも1つだけ見えている`, ways.borrowed !== ways.corner, JSON.stringify(ways));
 
-    await page.evaluate(() => document.querySelector('.arcade-frame').contentDocument.querySelector('.arcade-home').click());
+    await page.evaluate(() => {
+      const inside = document.querySelector('.arcade-frame')?.contentDocument?.querySelector('.arcade-home');
+      if (inside?.getClientRects().length) inside.click();
+      else document.querySelector('.arcade:not([hidden]) .arcade-exit').click();
+    });
     await page.waitForFunction(() => !document.querySelector('.arcade-frame'), null, { timeout: 30000, polling: 200 });
     const back = await page.evaluate(() => ({
       flag: document.body.dataset.arcade || '',
@@ -316,6 +398,25 @@ try {
   check('…そして開いているのは1つだけ',
     (await page.evaluate(() => document.querySelectorAll('.arcade-frame').length)) === 1);
   await page.evaluate(() => uspeak.net.racers.close());
+
+  // Four guests share one seat. Opening a second while a first is up would leave two
+  // frames stacked, each holding a WebGL context — so each is opened in turn and the seat
+  // is counted after each.
+  const seats = await page.evaluate(async () => {
+    const all = () => [uspeak.net.racers, uspeak.net.blockwild, ...Object.values(uspeak.net.arcades)];
+    const seen = [];
+    for (const open of [() => uspeak.net.arcades.puyo.open(), () => uspeak.net.arcades.suika.open(),
+      () => uspeak.net.blockwild.open(), () => uspeak.net.racers.open()]) {
+      open();
+      await new Promise((r) => setTimeout(r, 500));
+      seen.push(`${document.body.dataset.arcade}:${document.querySelectorAll('.arcade-frame').length}`);
+      for (const g of all()) g.close();
+      await new Promise((r) => setTimeout(r, 250));
+    }
+    return { seen, left: document.querySelectorAll('.arcade-frame').length, flag: document.body.dataset.arcade || '' };
+  });
+  check('4本とも、ひとつずつ席につく', seats.seen.every((x) => x.endsWith(':1')), seats.seen.join(' '));
+  check('…出たあとは席が空いている', seats.left === 0 && seats.flag === '', JSON.stringify(seats));
 } catch (err) {
   console.log('E2E ERROR', err);
   results.push({ name: 'script', ok: false, detail: String(err) });
