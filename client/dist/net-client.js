@@ -25,7 +25,7 @@ import { createKartGame } from './kart-game.js';
 import { createDashboard } from './dashboard.js';
 import { createWardrobe } from './wardrobe.js';
 import { createRacers } from './racers.js';
-import { createBlockwild } from './blockwild.js';
+import { createBlockwild, cacheBlocks } from './blockwild.js';
 import { createPuyo } from './puyo.js';
 import { createSuika } from './suika.js';
 import { dressAvatar } from './avatars.js';
@@ -249,7 +249,17 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     toast,
   };
   const racers = createRacers(guest);          // AURORA KART, from のりもの島
-  const blockwild = createBlockwild(guest);    // BLOCKWILD, from まちづくり島
+  // ブロック屋で買った物は BLOCKWILD の持ち物でもある。持ち主はサーバー（`block:shop`）で、
+  // ここにあるのはその写し — 部屋が言ってきたら更新し、オフラインのために書き留めておく。
+  let ownedBlocks = [];
+  // `block:shop` と `block:bought` は同じ棚の中身を運んでくる。買った直後に更新しないと、
+  // 買ってすぐ BLOCKWILD を開いた子には まだ そのブロックが無い。
+  const rememberBlocks = (m) => {
+    if (!Array.isArray(m?.blocks)) return;
+    ownedBlocks = m.blocks.filter((b) => b.owned).map((b) => b.id);
+    cacheBlocks(ownedBlocks);
+  };
+  const blockwild = createBlockwild({ ...guest, ownedBlocks: () => ownedBlocks });
   // ミニゲーム島: one house each, and the house is the menu.
   const arcades = { puyo: createPuyo(guest), suika: createSuika(guest) };
 
@@ -478,8 +488,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('pet:hatched', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onHatched(m); });
     r.onMessage('pet:acted', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onActed(m); });
     r.onMessage('pet:error', (m) => petUI.onError(m));
-    r.onMessage('block:shop', (m) => town.onShop(m));
-    r.onMessage('block:bought', (m) => { if (m.wallet) applyWallet(m.wallet); town.onBought(m); });
+    r.onMessage('block:shop', (m) => { town.onShop(m); rememberBlocks(m); });
+    r.onMessage('block:bought', (m) => { if (m.wallet) applyWallet(m.wallet); town.onBought(m); rememberBlocks(m); });
     r.onMessage('block:error', (m) => town.onError(m));
     r.onMessage('room:state', (m) => town.onRoomState(m));
     r.onMessage('room:placed', (m) => town.onPlaced(m));

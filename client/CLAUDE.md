@@ -28,7 +28,7 @@
 | きせかえ（アバターの店・きせかえ島） | wardrobe.js / wardrobe.css / wardrobe.json / wardrobe-data.js / wardrobe-models.js / wardrobe-island.js（サーバーは server/src/game/wardrobe.js） |
 | 同梱した外部ゲーム（共通の席） | arcade.js / arcade.css |
 | AURORA KART（のりもの島から） | racers.js / racers/（丸ごと同梱・無改変） |
-| BLOCKWILD（まちづくり島から） | blockwild.js / blockwild/（丸ごと同梱・無改変） |
+| BLOCKWILD（まちづくり島から） | blockwild.js / blockwild-blocks.js / blockwild/（丸ごと同梱・無改変） |
 | PUYO U-SPEAK / えいごスイカゲーム（ミニゲーム島から） | puyo.js / suika.js / puyo/ / suika/ / mini-island.js / minigames.json |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
 
@@ -614,6 +614,45 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   `server/test/e2e/browser-arcade.mjs`（実ブラウザ・**4本まとめて**。中のゲームが本当に
   起動するか＝キャンバスとメニューが出ているか、島が消えて戻るか、**後ろの島が止まるか**、
   出口が常に1つ見えているか、2度目も開くか、**4本とも席はひとつ**か）。
+
+### ブロック屋 → BLOCKWILD（2026-09 追加）
+
+**U-Speak コインで買ったブロックだけが、BLOCKWILD のクリエイティブに出る。**
+英語をやって貯めたコインが、向こうの世界の材料になる — というのがこの接続の全部。
+
+- **対応表は `blockwild-blocks.js` の1か所**（ブロック屋の id → BLOCKWILD の数字 id）。
+  ブロック屋に品を足したら、ここにも足すこと。**足し忘れても何も壊れない**（向こうに
+  出てこないだけ）ので、`server/test/blockwild.test.mjs` が
+  「店の品が全部表にあるか」「番号が BLOCKWILD の `ID` と一致するか」を検査している。
+- **持ち主はサーバー**（`block:shop` / `block:bought` の `owned`）。ページが持っているのは
+  その写しで、`localStorage` にも書いておく（オフライン用）。**写しを書き換えれば一人用の
+  砂場でブロックは増える** — それでよい。コインは減らず、学習の記録も動かない。
+- **同梱のゲームは1バイトも触っていない。** 使っているのは、あちらが自分で公開している
+  開発用フック `window.BLOCKWILD` と、あちらが描いた DOM だけ（`blockwild.js` の `gate()`）。
+  - 全ブロック一覧（`#creativeGrid`）は**持ち物画面を描くたびに作り直される**ので、
+    MutationObserver で作り直しに反応して消す（ポーリングしない）。
+  - クリエイティブは最初から9個を手に持たせるので、`BLOCKWILD.bag` から取り除く。
+- **サバイバルは触っていない。** あちらは「掘って手に入れる」ゲームで、掘ったものまで
+  取り上げると成立しない。ブロック屋が面倒を見るのはクリエイティブ＝買って建てる世界。
+  ここを変えるなら**あちらのコードを直す＝fork する**ことになる（別の判断）。
+- 検査は `server/test/blockwild.test.mjs`（6項目・表そのもの）と
+  `browser-arcade.mjs` の「ブロック屋 → BLOCKWILD」（実ブラウザ。買っていない子の
+  パレットが1つ → 店で いし を買う → 部屋がコインを取る → **向こうのパレットに いし が出る**）。
+
+### ブロック屋の 3D プレビュー（`town-block-icon.js`）
+
+棚のカードは**色の四角ではなく、そのブロックを等角投影で描いた立方体**。
+
+- **WebGL は使っていない。** ブロックは立方体なので、等角投影の絵と three.js で描いた絵は
+  48px では見分けがつかない。一方でレンダラーを1つ増やすのは iPad では本当に高い
+  （このページには既に world / アバター / 魚 / 図鑑 / きせかえ のレンダラーがある）。
+  **きせかえの店が本物の 3D を焼いているのは、帽子やマントは形が全部ちがうから。**
+  立方体は立方体で、そこが違う。
+- BLOCKWILD 側のドット絵を借りることもできるが、あちらの `textures.js` は three.js を
+  import しているので、**この世界に2本目の three.js を持ち込む**ことになる。しない。
+- 面の明るさは上・右・左で変え、ブロックごとに手触りを足す（ガラスと水は半透明、
+  ランプは光る、レンガは目地、木は板目、石と砂はざらつき）。**同じ色の四角が10個**
+  並ぶのを避けるのがこの絵の仕事。
 
 ### ミニゲーム島（2026-09 追加）
 

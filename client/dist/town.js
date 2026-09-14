@@ -3,6 +3,8 @@
 // Two places to put something down, and the HUD serves whichever one a child is in:
 // furniture in マイルーム, blocks on the ひろば. Prices, ownership, capacity and every
 // piece placed are the server's. This module shows them and sends what a child asks for.
+import { blockIcon } from './town-block-icon.js';
+
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const hex = (c) => `#${Number(c).toString(16).padStart(6, '0')}`;
@@ -74,10 +76,11 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     if (state.spot?.kind === 'furniture') { renderProps(note); return; }
     if (!state.shop) { body().innerHTML = `<p class="daily-note">${esc(note)}</p>`; return; }
     body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
-      <p class="daily-note">かった ブロックは、ひろばで いつでも つかえます。</p>
+      <p class="daily-note">かった ブロックは、<b>ひろば</b>と <b>BLOCKWILD</b>（ブロックの とびら）で つかえます。
+        BLOCKWILD の クリエイティブに 出てくるのは、ここで かった ブロックだけ。</p>
       <div class="town-blocks">${state.shop.blocks.map((b) => `
         <button type="button" class="town-block ${b.owned ? 'owned' : ''}" data-block="${b.id}" ${b.owned ? 'disabled' : ''}>
-          <span class="town-swatch" style="background:${hex(b.color)}"></span>
+          <span class="town-swatch"><img src="${blockIcon(b.id, Number(b.color))}" alt="" draggable="false"></span>
           <strong>${esc(b.word)}</strong><small>${esc(b.ja)}</small>
           <b>${b.owned ? 'もっている' : b.price === 0 ? 'むりょう' : `◈ ${b.price}`}</b>
         </button>`).join('')}</div>

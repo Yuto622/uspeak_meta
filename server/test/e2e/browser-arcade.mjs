@@ -313,6 +313,76 @@ try {
     check(`${game.label}: …そして島がまた描きはじめる`, d2 > c, `${c} → ${d2}`);
   }
 
+  // ---- ブロック屋 → BLOCKWILD ---------------------------------------------------------
+  //
+  // The point of the whole integration: U-Speak coins, earned by learning English, are the
+  // supply of blocks in the other world. A child who has bought nothing has the one free
+  // block; buy stone in the shop and stone is there the next time they walk in. This is the
+  // loop end to end — the room takes the coins, and a different game shows the result.
+  const palette = async () => {
+    await page.evaluate(() => uspeak.net.blockwild.open());
+    await page.waitForFunction(() => document.querySelector('.arcade-frame')?.contentWindow?.BLOCKWILD,
+      null, { timeout: 120000, polling: 400 });
+    const n = await page.evaluate(async () => {
+      const w = document.querySelector('.arcade-frame').contentWindow;
+      w.BLOCKWILD.openScreen('inventory');            // the palette is drawn with the bag
+      await new Promise((r) => setTimeout(r, 600));
+      const cells = [...w.document.querySelectorAll('#creativeGrid [data-cont="creative"]')];
+      return { count: cells.length, ids: cells.map((c) => Number(c.dataset.i)).sort((a, b) => a - b),
+        head: w.document.querySelector('#creativeBox .rowhead span')?.textContent || '' };
+    });
+    await page.evaluate(() => uspeak.net.blockwild.close());
+    await sleep(500);
+    return n;
+  };
+
+  // Earn first. The day's login bonus is 100 coins and the start-line section below
+  // spends all of it on a kickboard, so the shop needs its own money — caught and sold
+  // through the room, which judges both.
+  await page.evaluate(async () => {
+    for (let i = 1; i <= 4; i += 1) {
+      uspeak.net.room.send('answer', { q: `fish:fish-${i}`, c: `fish-${i}` });
+      await new Promise((r) => setTimeout(r, 500));
+    }
+    uspeak.net.room.send('economy', { op: 'sellAll' });
+    await new Promise((r) => setTimeout(r, 1200));
+  });
+
+  const before = await palette();
+  check('買っていない子のパレットは、むりょうの「き」ひとつだけ',
+    before.count === 1 && before.ids[0] === 7, JSON.stringify(before));
+  check('…そしてパレットの見出しが持っている数を言う', /もっているブロック（1）/.test(before.head), before.head);
+
+  // Buy stone at the shop, through the panel, so the room takes the coins for real.
+  await page.evaluate(async () => {
+    for (const d of document.querySelectorAll('dialog[open]')) d.close();
+    uspeak.rpg.fly('town'); uspeak.rpg.finishFlight();
+    await new Promise((r) => setTimeout(r, 900));
+    const isle = (await uspeak.rpg.town.ready).island;
+    const spot = isle.spots.find((s) => s.kind === 'shop');
+    uspeak.rpg.inside?.leave?.(true);
+    uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z + 1.6);
+    for (let i = 0; i < 40 && !uspeak.rpg.townNearby(); i += 1) await new Promise((r) => setTimeout(r, 150));
+    uspeak.net.townInteract();
+  });
+  await page.waitForSelector('#town-dialog[open] [data-block="stone"]', { timeout: 40000 });
+  const purse = await page.evaluate(() => uspeak.fishing.store.state.coins);
+  await page.evaluate(() => document.querySelector('[data-block="stone"]').click());
+  await page.waitForFunction(() => !!document.querySelector('[data-block="stone"]')?.disabled
+    || /もっている/.test(document.querySelector('[data-block="stone"]')?.textContent || ''),
+  null, { timeout: 30000, polling: 250 }).catch(() => {});
+  await sleep(1200);
+  const spent = await page.evaluate(() => uspeak.fishing.store.state.coins);
+  check('ブロック屋が いしを売り、部屋がコインを取る', spent === purse - 30, `${purse} → ${spent}`);
+  await page.evaluate(() => document.querySelector('#town-done')?.click());
+  await sleep(400);
+
+  const after = await palette();
+  check('買った いしが BLOCKWILD のパレットに出る',
+    after.count === 2 && after.ids.includes(3), JSON.stringify(after));
+  check('…それでも、買っていない物は出てこない',
+    after.ids.every((id) => [7, 3].includes(id)), after.ids.join(','));
+
   // ---- the case the first version of this got wrong ----------------------------------
   //
   // On the start line, a child already sitting on a vehicle used to skip the panel and go

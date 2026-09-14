@@ -60,7 +60,10 @@
 }
 .town-block.owned { background: #e8f1e2; }
 .town-block:disabled { cursor: default; }
-.town-swatch { width: 30px; height: 30px; border-radius: 8px; box-shadow: inset 0 -6px 0 rgba(0, 0, 0, .16); }
+/* ブロック屋の立体プレビュー。色の四角ではなく、買うブロックそのものを等角投影で描いた
+   絵（`town-block-icon.js`）。四角だと「みず」と「ガラス」が同じ水色の四角になる。 */
+.town-swatch { width: 46px; height: 46px; display: grid; place-items: center; flex: none; }
+.town-swatch img { width: 100%; height: 100%; object-fit: contain; image-rendering: auto; }
 .town-block strong { font-size: 14px; }
 .town-block small { font-size: 11px; color: #5d6d62; }
 .town-block b { font-size: 12px; color: #a0522d; }
