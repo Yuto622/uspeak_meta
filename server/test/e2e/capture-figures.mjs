@@ -104,8 +104,9 @@ try {
     await new Promise((r) => setTimeout(r, 1100));
     const data = await (uspeak.rpg[isle]?.ready || Promise.resolve(null));
     const island2 = data?.island || data;
+    // はじまりの島のように「建物の一覧」を持たない島もある。その場合は飛ぶだけ。
     const place = (island2?.spots || []).find((s) => s.id === want || s.kind === want) || (island2?.spots || [])[0];
-    uspeak.player.position.set(island2.x + place.x, 0, island2.z + place.z + 1.6);
+    if (island2 && place) uspeak.player.position.set(island2.x + place.x, 0, island2.z + place.z + 1.6);
     await new Promise((r) => setTimeout(r, 900));
   }, { isle: island, want: spot });
 
@@ -115,10 +116,33 @@ try {
   await page.waitForSelector('#quiz-dialog[open]', { timeout: 40000 }).catch(() => {});
   await sleep(900); await shot('screen-quiz', 'ことばの学校・10問クイズ');
 
+  await at('school', 'gym');
+  await page.evaluate(() => uspeak.net.schoolInteract());
+  await page.waitForSelector('#gym-dialog[open]', { timeout: 40000 }).catch(() => {});
+  await sleep(1200); await shot('screen-gym', 'ことばのジム（聞く・話す）');
+
   await at('arena', 'easy');
   await page.evaluate(() => uspeak.net.arenaInteract());
   await page.waitForSelector('#battle-dialog[open]', { timeout: 40000 }).catch(() => {});
   await sleep(900); await shot('screen-battle', 'えいごアリーナ・バトル');
+
+  await at('pet', 'nest');
+  await page.evaluate(() => uspeak.net.petInteract());
+  await page.waitForSelector('#pet-dialog[open]', { timeout: 40000 }).catch(() => {});
+  await sleep(900); await shot('screen-pet', 'ペット島・たまごの巣');
+
+  // 釣りはどこからでも開く。はじまりの島で開けば、後ろに島が写る。
+  await at('willow', 'x');
+  await page.evaluate(() => uspeak.fishing.open('spots'));
+  await page.waitForSelector('#fishing-dialog[open]', { timeout: 40000 }).catch(() => {});
+  await sleep(2000); await shot('screen-fishing', '英単語釣り（魚1匹＝英単語1つ）');
+  await page.evaluate(() => document.querySelector('#fishing-close')?.click());
+  await sleep(400);
+
+  await at('errand', 'plaza');
+  await page.evaluate(() => uspeak.net.errandInteract());
+  await page.waitForSelector('#mission-dialog[open]', { timeout: 40000 }).catch(() => {});
+  await sleep(1200); await shot('screen-errand', 'おつかい島・用事をうけとる');
 
   await at('eiken5', 'reading');
   await page.evaluate(() => uspeak.net.eikenInteract());
@@ -130,20 +154,121 @@ try {
   await page.waitForSelector('#iv-dialog[open]', { timeout: 40000 }).catch(() => {});
   await sleep(1200); await shot('screen-interview', '英検の面接');
 
+  await at('eiken3', 'writing');
+  await page.evaluate(() => uspeak.net.eikenInteract());
+  await page.waitForSelector('#eiken-dialog[open]', { timeout: 40000 }).catch(() => {});
+  await sleep(900); await shot('screen-eikenwrite', '英検3級・かく');
+
+  // 会話は2枚。場面を選ぶところと、実際に話しているところ。
   await at('conv', 'cafe');
   await page.evaluate(() => uspeak.net.convInteract());
   await page.waitForSelector('#conv-dialog[open]', { timeout: 40000 }).catch(() => {});
-  await sleep(1200); await shot('screen-conv', 'AI英会話');
+  await sleep(1200); await shot('screen-conv', 'AI英会話・場面をえらぶ');
+
+  // ひとこと話してみて、返事が返ってきた画面。ここが資料のいちばん見たいところ。
+  await page.evaluate(() => document.querySelector('#conv-picker [data-topic]')?.click());
+  await page.waitForFunction(() => !document.querySelector('#conv-foot')?.hidden, null, { timeout: 40000, polling: 300 }).catch(() => {});
+  await sleep(1500);
+  await page.fill('#conv-text', 'Hello! My name is Kai. Nice to meet you.').catch(() => {});
+  await page.click('#conv-send').catch(() => {});
+  await page.waitForFunction(() => document.querySelectorAll('#conv-log li').length >= 2, null, { timeout: 60000, polling: 400 }).catch(() => {});
+  await sleep(2500); await shot('screen-convtalk', 'ウーピーと 話しているところ');
+  await page.evaluate(() => document.querySelector('#conv-close')?.click());
+  await sleep(500);
 
   await at('town', 'shop');
   await page.evaluate(() => uspeak.net.townInteract());
   await page.waitForSelector('#town-dialog[open] [data-block]', { timeout: 40000 }).catch(() => {});
   await sleep(900); await shot('screen-blockshop', 'ブロック屋');
 
+  await at('town', 'furniture');
+  await page.evaluate(() => uspeak.net.townInteract());
+  await page.waitForSelector('#town-dialog[open] [data-prop]', { timeout: 40000 }).catch(() => {});
+  await sleep(900); await shot('screen-furniture', 'かぐ屋');
+
+  // ここから「実際に遊んでいる画面」。パネルではなく、世界の中。
+  //
+  // 部屋とひろばは**歩いて入る**のが本来だが、この端末は1〜3fps で歩かせると分単位に
+  // なるので、戸口そのものに置いて同じ判定に任せる（近づいたら入る、は毎フレーム動く）。
+  // 戸口は建物の正面（spot.z - 0.65）にあるので、そこへ置く。前に建物の1.6手前に
+  // 置いていたときは、判定の外に立って「はいる」の札を見ているだけの写真になった。
+  const intoDoor = async (spot, active) => {
+    await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+    await page.evaluate(async (want) => {
+      uspeak.rpg.inside?.leave?.(true);
+      uspeak.rpg.fly('town'); uspeak.rpg.finishFlight();
+      await new Promise((r) => setTimeout(r, 1100));
+      const d = await uspeak.rpg.town.ready;
+      const isle = d.island || d;
+      const place = isle.spots.find((s) => s.kind === want);
+      uspeak.player.position.set(isle.x + place.x, 0, isle.z + place.z - 0.65);
+    }, spot);
+    await page.waitForFunction((k) => uspeak.net[k].active, active, { timeout: 30000, polling: 300 })
+      .catch(async () => { await page.click('#interact').catch(() => {}); });
+    await page.waitForFunction((k) => uspeak.net[k].active, active, { timeout: 20000, polling: 300 })
+      .catch(() => console.log(`  (never got into ${spot})`));
+    await sleep(1500);
+  };
+  // 中に入ったら、置いたものが見えるように少し見下ろす（既定はほぼ水平で、床しか写らない）。
+  const lookDown = () => page.evaluate(() => uspeak.view.look(0, -0.35));
+
+  await intoDoor('door', 'myRoom');
+  await lookDown();
+  for (let i = 0; i < 3; i += 1) {
+    await page.click('#room-place').catch(() => {});
+    await sleep(700);
+    await page.evaluate(() => { uspeak.player.position.x -= 1.8; });
+    await sleep(500);
+  }
+  await page.evaluate(() => { uspeak.player.position.x += 4.5; });
+  await lookDown();
+  await sleep(1200); await shot('screen-myroom', 'マイルーム。十字でねらって かぐを おく。');
+  await page.click('#room-exit').catch(() => {});
+  await sleep(900);
+
+  await intoDoor('plaza', 'myPlaza');
+  await lookDown();
+  for (let i = 0; i < 4; i += 1) {
+    await page.click('#room-place').catch(() => {});
+    await sleep(600);
+    await page.evaluate(() => { uspeak.player.position.z -= 1.4; });
+    await sleep(500);
+  }
+  await page.evaluate(() => { uspeak.player.position.z += 5; });
+  await lookDown();
+  // 下がってから少し待つ。最後の1個を自分の足元に置こうとした注意書きが出たままだと、
+  // 資料に載るのが「置けませんでした」の写真になる。
+  await sleep(5000); await shot('screen-plaza', 'ひろば。クラス全員で ひとつの 世界を つくる。');
+  await page.click('#room-exit').catch(() => {});
+  await sleep(900);
+
   await at('ride', 'kick');
   await page.evaluate(() => uspeak.net.rideInteract());
   await page.waitForSelector('#ride-dialog[open]', { timeout: 40000 }).catch(() => {});
   await sleep(900); await shot('screen-garage', 'のりもの島のガレージ');
+
+  // レースの本番。コースを走っている画面で、順位・ラップ・タイムが出ているところ。
+  //
+  // **レースは のりものを持っていないと始まらない**（徒歩では走れない、という島の規則が
+  // そのままサーバーにある）。だからまずキックボードを買う。買わずに start を押した
+  // ときは、夜の島がただ写っただけの写真になった。
+  await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+  await page.evaluate(() => uspeak.net.room?.send('ride:buy', { id: 'kick' }));
+  await sleep(1500);
+  await at('ride', 'start');
+  await daylight(90);
+  await page.evaluate(() => uspeak.net.gp.start({ name: 'みほん' }));
+  await page.waitForFunction(() => uspeak.net.gp.state.phase === 'race', null, { timeout: 120000, polling: 400 })
+    .catch(() => console.log('  (race never started — shooting whatever is on screen)'));
+  await sleep(4000); await shot('screen-race', 'レース。3周・順位・ラップ。');
+  await page.evaluate(() => uspeak.net.gp.quit());
+  await sleep(1500);
+
+  // おはなし島の通話パネル。部屋に入ると出る。島が外に写るので、ここも昼に。
+  await at('talk', 'chat');
+  await daylight(40);
+  await page.waitForFunction(() => !document.querySelector('#voice-panel')?.hidden, null, { timeout: 40000, polling: 300 }).catch(() => {});
+  await sleep(1500); await shot('screen-talk', 'おはなし島・通話のパネル');
 
   // どこからでも開く画面
   await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
@@ -154,7 +279,11 @@ try {
   await sleep(500);
   await page.evaluate(() => uspeak.net.wardrobe.open());
   await page.waitForFunction(() => document.querySelectorAll('#wear-grid [data-item]').length > 0, null, { timeout: 40000 }).catch(() => {});
-  await sleep(2500); await shot('screen-wardrobe', 'きせかえ');
+  await sleep(2500); await shot('screen-wardrobe', 'きせかえ・ぼうし');
+  // もう1枚、別のスロット。品数と 3D のカードが並ぶところを見せる。
+  await page.evaluate(() => uspeak.net.wardrobe.open({ slot: 'back' }));
+  await page.waitForFunction(() => document.querySelectorAll('#wear-grid [data-item]').length > 0, null, { timeout: 40000 }).catch(() => {});
+  await sleep(3000); await shot('screen-wearback', 'きせかえ・せなか');
   await page.evaluate(() => uspeak.net.wardrobe.dialog.close());
 
   await page.evaluate(() => uspeak.net.dash.open());

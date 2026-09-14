@@ -422,15 +422,16 @@ Hiragino Sans → IPAexGothic → IPAGothic の順に探すので、Windows で�
 
 ## 教室さま向けの説明資料（島とゲームのぜんぶ・PDF）
 
-`docs/uspeak-guide.tex` → **`docs/uspeak-guide.pdf`**（A4・25ページ・画像31点）。
+`docs/uspeak-guide.tex` → **`docs/uspeak-guide.pdf`**（A4・25ページ・画像43点）。
 **いま U-Speak Roblox を使っている教室さま**に「何がどう違うのか」を説明するための資料です。
-表紙・Roblox版との対照表・14の島を1島1ページ・学習の10画面・同梱ゲーム4本・
+表紙・Roblox版との対照表・14の島を1島1ページ（島の写真＋**その島の実際の画面**）・
+のりもの島とまちづくり島はもう1ページずつ（レース本番・建てているところ・同梱ゲーム）・
 記録と保護者レポート・教室での運用・数字の一覧。
 
 ```sh
-# 図を撮り直す（ブラウザを実際に動かして29枚。島は「昼になるまで待って」から撮ります）
+# 図を撮り直す（ブラウザを実際に動かして41枚。島は「昼になるまで待って」から撮ります）
 cd server && node test/e2e/capture-figures.mjs
-node test/e2e/capture-figures.mjs blockwild island-town   # 1枚だけ撮り直す
+node test/e2e/capture-figures.mjs blockwild island-town   # 名前を含むものだけ撮り直す
 node test/e2e/capture-report.mjs                          # 保護者レポートの見本2枚
 
 # 組む（2回。TikZ の表紙が1回目では白いまま出ます）
@@ -438,6 +439,12 @@ cd docs && xelatex uspeak-guide.tex && xelatex uspeak-guide.tex
 ```
 
 - 図は `docs/figures/*.jpg`。**すべて実際に動いているワールドから撮ったもの**で、手描きはありません。
+- **画面は「遊んでいるところ」まで撮ります。** ウーピーと1往復してから撮った会話、
+  実際に走っているレース（順位・ラップつき）、かぐを置いた部屋、ブロックを積んだひろば。
+  そのために撮影用の手順がいくつか要ります：**レースはのりものを買ってからでないと始まらない**、
+  **部屋とひろばは戸口（`spot.z - 0.65`）に立たないと入らない**、
+  **中に入ったら見下ろさないと床しか写らない**。どれも一度失敗して分かったことなので、
+  `capture-figures.mjs` にその理由ごと書いてあります。
 - 島の写真は**必ず昼**に撮ります（空は世界の時計だけで決まるので、夜に走らせると14枚とも真っ暗になります）。
   `capture-figures.mjs` の `daylight()` が次の昼まで待ってから撮りはじめます。
 - 保護者レポートの見本は**架空の子ども1人**を `reportFor()` → `reportTex()` → `xelatex` に通したもの。
