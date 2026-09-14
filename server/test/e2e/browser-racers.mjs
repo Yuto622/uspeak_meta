@@ -80,6 +80,66 @@ try {
   check('ガレージに AURORA KART の入口がある', /AURORA KART/.test(door.text) && door.h >= 34, JSON.stringify(door));
   await page.screenshot({ path: path.join(SHOTS, 'racers-door.png') });
 
+  // ---- and still reachable once a child is sitting on a kart -----------------------
+  //
+  // This is the case the first version got wrong. On the start line the panel used to be
+  // skipped entirely for anyone already riding — straight into a countdown — so the only
+  // door to the other game was shut at the one place on the island that is about racing.
+  // Buy a kickboard, get on it, stand on the line, and both races must be offered.
+  await page.evaluate(() => document.querySelector('#ride-close')?.click());
+  const rode = await page.evaluate(async () => {
+    const data = await uspeak.rpg.ride.ready;
+    const isle = data.island;
+    // Stand in FRONT of the door, not in it. The doorway is a 1.4-wide box at
+    // `spot.z - 0.65`; land inside it and the child is taken into the building, and from
+    // there `player.position` is interior coordinates — moving it does not walk them back
+    // out, so the next stop is never reached. 1.6 clear of the door is still well within
+    // the 5m at which a place reports itself.
+    const at = async (id) => {
+      const spot = isle.spots.find((s) => s.id === id);
+      uspeak.rpg.inside?.leave?.(true);
+      uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z + 1.6);
+      for (let i = 0; i < 40 && uspeak.rpg.rideNearby()?.spot?.id !== id; i += 1) await new Promise((r) => setTimeout(r, 150));
+      return uspeak.rpg.rideNearby()?.spot?.id === id;
+    };
+    if (!(await at('kick'))) return { error: 'could not reach the kickboard gate' };
+    return { at: 'kick', coins: uspeak.fishing.store.state.coins };
+  });
+  check('キックボード置き場まで行ける', rode.at === 'kick', JSON.stringify(rode));
+
+  // Bought through the panel, not by sending `ride:buy` by hand: the room refuses a
+  // purchase from a child it thinks is somewhere else, and it is `net-client`'s own send
+  // that tells it where they are first.
+  await page.evaluate(() => uspeak.net.rideInteract());
+  await page.waitForSelector('#ride-dialog[open] [data-buy]', { timeout: 30000 });
+  await page.evaluate(() => document.querySelector('#ride-body [data-buy]').click());
+  const bought = await page.waitForFunction(() => uspeak.net.ride.riding || null,
+    null, { timeout: 30000, polling: 200 }).then((h) => h.jsonValue()).catch(() => '');
+  check('キックボードを買って乗れる', bought === 'kick', String(bought));
+  await page.evaluate(() => document.querySelector('#ride-done')?.click());
+  await sleep(400);
+
+  const onLine = await page.evaluate(async () => {
+    const isle = (await uspeak.rpg.ride.ready).island;
+    const spot = isle.spots.find((s) => s.id === 'start');
+    uspeak.rpg.inside?.leave?.(true);
+    uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z + 1.6);
+    for (let i = 0; i < 40 && uspeak.rpg.rideNearby()?.spot?.id !== 'start'; i += 1) await new Promise((r) => setTimeout(r, 150));
+    return { where: uspeak.rpg.rideNearby()?.spot?.id || '', riding: uspeak.net.ride.riding };
+  });
+  check('乗ったままスタートラインに立てる', onLine.where === 'start' && !!onLine.riding, JSON.stringify(onLine));
+  await page.evaluate(() => uspeak.net.rideInteract());
+  await page.waitForFunction(() => document.querySelector('#ride-dialog')?.open, null, { timeout: 30000, polling: 200 });
+  const both = await page.evaluate(() => ({
+    classRace: document.querySelector('#ride-start')?.textContent.replace(/\s+/g, ' ').trim().slice(0, 24) || '',
+    arcade: !!document.querySelector('#ride-arcade'),
+    // …and it must NOT have quietly started the class race instead of asking.
+    racing: !!document.body.dataset.race,
+  }));
+  check('乗っていても、スタートラインで両方から選べる',
+    /クラスの レースに でる/.test(both.classRace) && both.arcade && !both.racing, JSON.stringify(both));
+  await page.screenshot({ path: path.join(SHOTS, 'racers-startline.png') });
+
   // ---- it opens, and the island gets out of the way --------------------------------
   const framesBefore = await page.evaluate(() => uspeak.renderer.info.render.frame);
   await page.evaluate(() => document.querySelector('#ride-arcade').click());

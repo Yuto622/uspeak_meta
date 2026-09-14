@@ -150,3 +150,12 @@ body.in-room .near, body.in-plaza .near { display: none; }
 .ride-arcade-name strong { font-size: 15px; letter-spacing: 1px; }
 .ride-arcade-name small { font-size: 11px; color: #a9c3da; line-height: 1.35; }
 .ride-arcade > b { margin-left: auto; font-size: 18px; color: #8fb2ce; }
+
+/* スタートラインでは選択肢が2つになる。クラスのレースが本命なので、そちらを島の色で。 */
+.ride-arcade.go {
+  background: linear-gradient(120deg, #234a33, #2f6b45 62%, #3c8455);
+  border-color: #46895c;
+}
+.ride-arcade.go .ride-arcade-badge { background: #17301f; box-shadow: inset 0 0 0 1px #4e8f65; }
+.ride-arcade.go .ride-arcade-name small { color: #bde0c6; }
+.ride-arcade.go > b { color: #9dcfae; }

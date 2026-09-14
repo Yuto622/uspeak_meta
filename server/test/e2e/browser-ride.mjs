@@ -82,27 +82,31 @@ try {
   // A vehicle is a speed: the same walk has to be quicker on it.
   check('a vehicle is faster than feet', await a.evaluate(() => uspeak.net.speed()) > 1, `speed ${await a.evaluate(() => uspeak.net.speed())}`);
 
-  // ---- drive the course
+  // ---- what the start line offers now ------------------------------------------------
+  //
+  // This used to drive the island's own lap (`#ride-hud`, `server/src/game/race.js`). That
+  // system is still alive and still tested — by browser-race.mjs, which opens it directly
+  // — but the start line has not opened it since the GRAND PRIX took the line over, so
+  // the checks here were failing against a screen that no longer appears. What the line
+  // does today is ask which of the two races you mean.
   await walkTo(a, 'the start line', ...world(start), base);
-  check('the start line offers the course', (await nearLabel(a)).includes('コース'), await nearLabel(a));
+  check('the start line is the place to race', (await nearLabel(a)).includes('レース'), await nearLabel(a));
   await a.click('#interact');
-  await a.waitForSelector('#ride-hud:not([hidden])', { timeout: 10000 });
-  check('the course started with a word to drive to', (await a.textContent('#ride-hud-word')) === data.course.gates[0].word, await a.textContent('#ride-hud-word'));
+  await a.waitForSelector('#ride-dialog[open] #ride-start', { timeout: 15000 });
+  const offers = await a.evaluate(() => ({
+    classRace: document.querySelector('#ride-start')?.textContent.replace(/\s+/g, ' ').trim().slice(0, 20) || '',
+    arcade: document.querySelector('#ride-arcade')?.textContent.replace(/\s+/g, ' ').trim().slice(0, 20) || '',
+  }));
+  check('乗っている子には2つのレースが出る',
+    /クラスの レース/.test(offers.classRace) && /AURORA KART/.test(offers.arcade), JSON.stringify(offers));
+  await a.screenshot({ path: path.join(SHOTS, 'e2e-ride-startline.png') });
 
-  let drove = 0;
-  for (const g of data.course.gates) {
-    await walkTo(a, `checkpoint ${g.word}`, ...world(g), base, { arrive: 2.2, timeout: 90000 });
-    // The world reports the crossing; the server decides whether it counted.
-    const ok = await a.waitForFunction((id) => uspeak.net.ride.state.next?.id !== id || !uspeak.net.ride.state.lap, g.id, { timeout: 12000, polling: 150 }).then(() => true).catch(() => false);
-    if (!ok) break;
-    drove += 1;
-  }
-  check('all six checkpoints were driven in order', drove === data.course.gates.length, `${drove}/${data.course.gates.length}`);
-  check('the lap finished and the HUD went away', await a.evaluate(() => document.querySelector('#ride-hud').hidden));
-  const toastText = await a.evaluate(() => document.querySelector('#toast').textContent);
-  check('the server timed the lap and paid for it', /ゴール/.test(toastText), toastText);
-  check('the lap coins arrived', (await coins(a)) === before - 100 + data.course.reward.coins, `coins=${await coins(a)}`);
-  await a.screenshot({ path: path.join(SHOTS, 'e2e-ride-lap.png') });
+  // And the class one is the grand prix — the same race browser-gp.mjs runs in full.
+  await a.click('#ride-start');
+  const opened = await a.waitForFunction(() => !!document.body.dataset.gp || !!uspeak.net.gp?.running,
+    null, { timeout: 60000, polling: 300 }).then(() => true).catch(() => false);
+  check('「クラスの レースに でる」でグランプリが開く', opened);
+  await a.evaluate(() => { try { uspeak.net.gp.quit(); } catch { /* not open */ } });
 } catch (err) {
   console.log('E2E ERROR', err);
   results.push({ name: 'script', ok: false, detail: String(err) });

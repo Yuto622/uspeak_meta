@@ -39,9 +39,15 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
   function enter(spot) {
     if (!isOnline()) { toast('のりもの島は オンラインで あそべます。'); return; }
     state.spot = spot;
-    // Riding already: the start line starts the lap. On foot: it opens the garage, so
-    // the answer to "choose a vehicle first" is in the place that said it.
-    if (spot.kind === 'start' && (racing() || state.garage?.riding)) { toggleRace(); return; }
+    // Mid-race, the line is the way out and nothing else — a dialog between a child and
+    // "stop racing" is a dialog they will press the wrong button on at 200km/h.
+    //
+    // Not racing, the line is a question, and since AURORA KART arrived there are two
+    // answers to it. It used to throw a child who was sitting on a kart straight into a
+    // countdown, which was one tap quicker and also meant that walking onto the line by
+    // accident started a race — and that the other game, whose only door was inside this
+    // panel, could not be reached from the one place on the island that is about racing.
+    if (spot.kind === 'start' && racing()) { toggleRace(); return; }
     render('よみこみ中…');
     if (!dialog.open) dialog.showModal();
     send('ride:list', {});
@@ -60,12 +66,17 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
     // names a building rather than being advice.
     const nextUp = g.vehicles.find((v) => !v.owned && v.ready) || g.vehicles.find((v) => !v.owned);
     body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
+      ${atStart && g.riding ? `<button type="button" class="ride-arcade go" id="ride-start">
+        <span class="ride-arcade-badge">🚦</span>
+        <span class="ride-arcade-name"><strong>クラスの レースに でる</strong>
+          <small>この島の コースを 3しゅう。みんなと 順位を あらそう。</small></span>
+        <b>›</b></button>` : ''}
       ${onArcade ? `<button type="button" class="ride-arcade" id="ride-arcade">
         <span class="ride-arcade-badge">🕹</span>
         <span class="ride-arcade-name"><strong>AURORA KART</strong>
           <small>べつの ゲーム。4つの コース・グランプリ・タイムアタック・えいごモード。</small></span>
         <b>›</b></button>` : ''}
-      ${atStart ? `<p class="ride-lead">${owned.length
+      ${atStart && !g.riding ? `<p class="ride-lead">${owned.length
         ? 'のりたい のりものを えらんで、「レースに でる」。'
         : `コースは のりもので はしります。${nextUp ? `まずは <b>${esc(nextUp.name)}</b>（◈ ${nextUp.price}${nextUp.needLevel ? ` · Lv.${nextUp.level} から` : ''}）。この島の その ゲートまで あるいて、そこで かいます。` : ''}`}</p>` : ''}
       <div class="ride-list">${g.vehicles.map((v) => `
@@ -93,6 +104,8 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
     if (walk) walk.onclick = () => send('ride:equip', { id: '' });
     const arcade = $('#ride-arcade', dialog);
     if (arcade) arcade.onclick = () => { close(); onArcade(); };
+    const line = $('#ride-start', dialog);
+    if (line) line.onclick = () => { close(); toggleRace(); };
     const go = $('#ride-go', dialog);
     if (go) go.onclick = () => { close(); toggleRace(); };
     $('#ride-done', dialog).onclick = close;
