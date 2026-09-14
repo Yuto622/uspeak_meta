@@ -420,6 +420,31 @@ Hiragino Sans → IPAexGothic → IPAGothic の順に探すので、Windows で�
 そのまま組み直せます。急ぐときは、レポート画面をブラウザーの「印刷 → PDF に保存」でも
 きれいに出ます（印刷用のスタイルを入れてあります）。
 
+## 教室さま向けの説明資料（島とゲームのぜんぶ・PDF）
+
+`docs/uspeak-guide.tex` → **`docs/uspeak-guide.pdf`**（A4・25ページ・画像31点）。
+**いま U-Speak Roblox を使っている教室さま**に「何がどう違うのか」を説明するための資料です。
+表紙・Roblox版との対照表・14の島を1島1ページ・学習の10画面・同梱ゲーム4本・
+記録と保護者レポート・教室での運用・数字の一覧。
+
+```sh
+# 図を撮り直す（ブラウザを実際に動かして29枚。島は「昼になるまで待って」から撮ります）
+cd server && node test/e2e/capture-figures.mjs
+node test/e2e/capture-figures.mjs blockwild island-town   # 1枚だけ撮り直す
+node test/e2e/capture-report.mjs                          # 保護者レポートの見本2枚
+
+# 組む（2回。TikZ の表紙が1回目では白いまま出ます）
+cd docs && xelatex uspeak-guide.tex && xelatex uspeak-guide.tex
+```
+
+- 図は `docs/figures/*.jpg`。**すべて実際に動いているワールドから撮ったもの**で、手描きはありません。
+- 島の写真は**必ず昼**に撮ります（空は世界の時計だけで決まるので、夜に走らせると14枚とも真っ暗になります）。
+  `capture-figures.mjs` の `daylight()` が次の昼まで待ってから撮りはじめます。
+- 保護者レポートの見本は**架空の子ども1人**を `reportFor()` → `reportTex()` → `xelatex` に通したもの。
+  本番とまったく同じ道なので、見本と本物が食い違うことはありません。
+- 文中の数字（問題数・値段・品数）は、すべて `client/dist/*.json` と
+  `server/src/game/*-bank.json` の実データから拾っています。**足したら資料も直すこと。**
+
 ## 講師の使い方
 
 1. ロビーで名前を入れ、「先生用」を開いて講師キーを入力して参加。

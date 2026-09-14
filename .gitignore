@@ -9,3 +9,8 @@ loadtest-results/
 client/dist/config.js
 
 .tunnel-logs/
+
+# LaTeX の中間ファイル（docs/*.tex を組むと出る）
+*.aux
+*.out
+*.toc
