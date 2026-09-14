@@ -26,14 +26,14 @@
   console.log(`PASS: all ${files.length} browser modules parse.`);
 }
 
-// AURORA KART は「別のゲームをそのまま置いてある」もの。上の検査はここを見ない（見るべき
-// でもない：あちらにはあちらの流儀がある）ので、代わりに「1バイトも変わっていないこと」を
-// 見る。半分だけ差し替えたビルドが黙って通るのを防ぐのが目的。
+// AURORA KART と BLOCKWILD は「別のゲームをそのまま置いてある」もの。上の検査はここを
+// 見ない（見るべきでもない：あちらにはあちらの流儀がある）ので、代わりに「1バイトも
+// 変わっていないこと」を見る。半分だけ差し替えたビルドが黙って通るのを防ぐのが目的。
 {
-  const { scanRacers } = await import('./racers-manifest.mjs');
-  const { onDisk, problems } = scanRacers();
-  if (problems.length) { console.error(`FAIL: racers/ — ${problems.join('; ')}`); process.exit(1); }
-  console.log(`PASS: AURORA KART — ${onDisk.length} files vendored whole, byte-identical to SOURCE.json.`);
+  const { scanGuests } = await import('./guests-manifest.mjs');
+  const { seen, problems } = scanGuests();
+  if (problems.length) { console.error(`FAIL: ${problems.join('; ')}`); process.exit(1); }
+  console.log(`PASS: ${seen.map((g) => `${g.name} — ${g.files} files`).join(' / ')}, vendored whole and byte-identical.`);
 }
 
 // And no stylesheet may give a closed <dialog> a `display`. The browser's own

@@ -25,6 +25,7 @@ import { createKartGame } from './kart-game.js';
 import { createDashboard } from './dashboard.js';
 import { createWardrobe } from './wardrobe.js';
 import { createRacers } from './racers.js';
+import { createBlockwild } from './blockwild.js';
 import { dressAvatar } from './avatars.js';
 import { itemModel } from './wardrobe-models.js';
 import { createRoom } from './room-world.js';
@@ -174,6 +175,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     return true;
   });
   const town = createTownUI({
+    onArcade: () => blockwild.open(),
     send: atSend,
     toast, speak, learn, isOnline: () => state.mode === 'online', room: myRoom, plaza: myPlaza,
   });
@@ -225,14 +227,16 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       (model, items) => dressAvatar(model, items, itemModel));
   };
 
-  // AURORA KART. A separate game in a frame of its own — see racers.js. It takes the
-  // whole window, so the island's name tags and the classmates' labels go with the rest
-  // of the furniture, the same way they do for a race.
-  const racers = createRacers({
-    toast,
+  // The guest games: whole other games in frames of their own — see arcade.js. Each takes
+  // the whole window, so the island's name tags and the classmates' labels go with the
+  // rest of the furniture, the same way they do for a race.
+  const guest = {
     onOpen: () => { remotes.setTags(false); rpg.holdDoors(true); },
     onClose: () => { remotes.setTags(true); rpg.holdDoors(false); },
-  });
+    toast,
+  };
+  const racers = createRacers(guest);          // AURORA KART, from のりもの島
+  const blockwild = createBlockwild(guest);    // BLOCKWILD, from まちづくり島
 
   const ride = createRideUI({
     send: atSend,
@@ -811,6 +815,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get dash() { return dash; },
     get wardrobe() { return wardrobe; },
     get racers() { return racers; },
+    get blockwild() { return blockwild; },
+    // One question for the frame loop: is a whole-window guest game up?
+    arcadeOpen: () => racers.isOpen || blockwild.isOpen,
     openLobby: () => lobby.open({ name: state.name }),
     openMission: () => mission.open(),
     errandInteract: () => { const near = rpg.errandNearby(); if (near) mission.interact(near.spot); },

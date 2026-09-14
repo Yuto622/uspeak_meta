@@ -66,14 +66,14 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
     // names a building rather than being advice.
     const nextUp = g.vehicles.find((v) => !v.owned && v.ready) || g.vehicles.find((v) => !v.owned);
     body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
-      ${atStart && g.riding ? `<button type="button" class="ride-arcade go" id="ride-start">
-        <span class="ride-arcade-badge">🚦</span>
-        <span class="ride-arcade-name"><strong>クラスの レースに でる</strong>
+      ${atStart && g.riding ? `<button type="button" class="arcade-door go" id="ride-start">
+        <span class="arcade-door-badge">🚦</span>
+        <span class="arcade-door-name"><strong>クラスの レースに でる</strong>
           <small>この島の コースを 3しゅう。みんなと 順位を あらそう。</small></span>
         <b>›</b></button>` : ''}
-      ${onArcade ? `<button type="button" class="ride-arcade" id="ride-arcade">
-        <span class="ride-arcade-badge">🕹</span>
-        <span class="ride-arcade-name"><strong>AURORA KART</strong>
+      ${onArcade ? `<button type="button" class="arcade-door" id="ride-arcade">
+        <span class="arcade-door-badge">🕹</span>
+        <span class="arcade-door-name"><strong>AURORA KART</strong>
           <small>べつの ゲーム。4つの コース・グランプリ・タイムアタック・えいごモード。</small></span>
         <b>›</b></button>` : ''}
       ${atStart && !g.riding ? `<p class="ride-lead">${owned.length

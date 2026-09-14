@@ -7,7 +7,7 @@ const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const hex = (c) => `#${Number(c).toString(16).padStart(6, '0')}`;
 
-export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza }) {
+export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza, onArcade }) {
   const state = { shop: null, props: null, spot: null, roomInfo: null };
 
   const dialog = document.createElement('dialog');
@@ -73,6 +73,11 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     if (state.spot?.kind === 'furniture') { renderProps(note); return; }
     if (!state.shop) { body().innerHTML = `<p class="daily-note">${esc(note)}</p>`; return; }
     body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
+      ${onArcade ? `<button type="button" class="arcade-door" id="town-arcade">
+        <span class="arcade-door-badge">⛏</span>
+        <span class="arcade-door-name"><strong>BLOCKWILD</strong>
+          <small>べつの ゲーム。島ひとつぶんの ブロックの 世界を、ほって・つんで・あかりを ともす。</small></span>
+        <b>›</b></button>` : ''}
       <p class="daily-note">かった ブロックは、ひろばで いつでも つかえます。</p>
       <div class="town-blocks">${state.shop.blocks.map((b) => `
         <button type="button" class="town-block ${b.owned ? 'owned' : ''}" data-block="${b.id}" ${b.owned ? 'disabled' : ''}>
@@ -81,6 +86,8 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
           <b>${b.owned ? 'もっている' : b.price === 0 ? 'むりょう' : `◈ ${b.price}`}</b>
         </button>`).join('')}</div>
       <div class="quiz-actions"><button type="button" class="primary" id="town-done">とじる</button></div>`;
+    const arcade = $('#town-arcade', dialog);
+    if (arcade) arcade.onclick = () => { close(); onArcade(); };
     for (const b of body().querySelectorAll('[data-block]')) {
       b.onclick = () => { b.disabled = true; send('block:buy', { id: b.dataset.block }); };
     }

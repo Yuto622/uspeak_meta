@@ -1,0 +1,68 @@
+/* 同梱した外部ゲームの入れもの。
+ *
+ * 中身は別のゲームなので、ここにあるのは「席」だけ。`body[data-arcade]` が島の家具を
+ * 全部どける — レース画面（race.css の `body[data-race]`）と同じやり方で、同じ理由。
+ * 8m 先を走るカートの上に、30m 先から読むための看板は要らない。
+ */
+.arcade {
+  position: fixed; inset: 0; z-index: 60;
+  background: #0b1017;
+}
+.arcade[hidden] { display: none; }
+.arcade-frame { width: 100%; height: 100%; border: 0; display: block; }
+
+/* The way out when the guest's own header could not be borrowed. Normally hidden: the
+   button that is actually used lives inside the frame, with the game's other controls. */
+.arcade-exit {
+  position: absolute; left: 12px; top: 12px; z-index: 2;
+  min-height: 40px; min-width: 44px; padding: 8px 16px; border-radius: 12px;
+  background: #14202c; color: #eaf2f8; border: 1px solid #2b3d4e;
+  font-size: 14px; font-weight: 700;
+}
+.arcade-exit[hidden] { display: none; }
+
+/* The island steps aside, exactly as it does for the race and the grand prix. Anything
+   new that has to disappear when a whole-window game is up belongs in this list. */
+body[data-arcade] header,
+body[data-arcade] .quest-panel,
+body[data-arcade] .right-rail,
+body[data-arcade] .bottom,
+body[data-arcade] .mobile-pad,
+body[data-arcade] .world-label,
+body[data-arcade] .crosshair,
+body[data-arcade] .vignette,
+body[data-arcade] #near,
+body[data-arcade] #rpg-region-panel,
+body[data-arcade] #park-panel,
+body[data-arcade] #net-dock,
+body[data-arcade] #net-status,
+body[data-arcade] #voice-button,
+body[data-arcade] #coin-hud { display: none !important; }
+
+/* この島の入口カード（ガレージの AURORA KART、ブロック屋の BLOCKWILD）。
+ * まわりのカードと見た目を変えてあるのは、行き先が違うから：まわりは「ここで買う」、
+ * これは「島から出て別のゲームへ行く」。同じ形にすると、押した子は出たことに気づかない。 */
+.arcade-door {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  min-height: 62px; margin-bottom: 12px; padding: 11px 14px; border-radius: 14px;
+  background: linear-gradient(120deg, #16233a, #22344f 62%, #2c4a63);
+  color: #eaf3fb; border: 1px solid #33506e; text-align: left;
+}
+.arcade-door-badge {
+  flex: none; width: 38px; height: 38px; border-radius: 11px;
+  display: grid; place-items: center; font-size: 20px;
+  background: #0e1826; box-shadow: inset 0 0 0 1px #3a5c7d;
+}
+.arcade-door-name { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.arcade-door-name strong { font-size: 15px; letter-spacing: 1px; }
+.arcade-door-name small { font-size: 11px; color: #a9c3da; line-height: 1.35; }
+.arcade-door > b { margin-left: auto; font-size: 18px; color: #8fb2ce; }
+
+/* スタートラインでは選択肢が2つになる。クラスのレースが本命なので、そちらを島の色で。 */
+.arcade-door.go {
+  background: linear-gradient(120deg, #234a33, #2f6b45 62%, #3c8455);
+  border-color: #46895c;
+}
+.arcade-door.go .arcade-door-badge { background: #17301f; box-shadow: inset 0 0 0 1px #4e8f65; }
+.arcade-door.go .arcade-door-name small { color: #bde0c6; }
+.arcade-door.go > b { color: #9dcfae; }

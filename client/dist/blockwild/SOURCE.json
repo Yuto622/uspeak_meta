@@ -1,0 +1,85 @@
+{
+  "_": "BLOCKWILD, vendored whole and unedited. A SEPARATE GAME: its own three.js (r170 — the world outside runs r160, which is why the two cannot share a page), its own CSS, its own save keys (blockwild-*). It runs in an iframe and nothing in it is imported by the game around it. To upgrade, replace this folder with a new build and re-run `node client/tests/guests-manifest.mjs --write blockwild`; the regression suite compares these hashes so a half-applied upgrade cannot pass unnoticed.",
+  "name": "BLOCKWILD — ブロックの世界",
+  "entry": "index.html",
+  "vendored": "2026-09-14",
+  "three": "r170 (bundled; see THREE-LICENSE.txt)",
+  "files": {
+    "THREE-LICENSE.txt": {
+      "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+      "bytes": 1081
+    },
+    "favicon.svg": {
+      "sha256": "2b36f9c7035ffa3d6c1e5416f48a3f232b4c76af506ba1398eb646a90398831d",
+      "bytes": 262
+    },
+    "game.js": {
+      "sha256": "56e1f4203078a424a317af91efe00089737940420c9a46465bc33bb82b9d34c3",
+      "bytes": 130329
+    },
+    "index.html": {
+      "sha256": "767d76cdfa9cf79f66579ad38f1c24df1f5887a83c6ea69e8cc466104ab574e7",
+      "bytes": 8995
+    },
+    "src/audio.js": {
+      "sha256": "f5f4500772a66be4cfa19ead67314f91f6cf40fad6ed8235a47dfc5393e7a029",
+      "bytes": 7982
+    },
+    "src/blocks.js": {
+      "sha256": "4fd6e3338484ea10790a44b673a3fc3b4812444b87227ef1b16fdc433e4e2d0d",
+      "bytes": 16763
+    },
+    "src/code.js": {
+      "sha256": "bd2a896dedd7599f0735c1a962ff6e220e2a7220aee8a9957c22c65a6a58c72c",
+      "bytes": 3733
+    },
+    "src/drops.js": {
+      "sha256": "c63964af14602ac89f4f23e1a9e24031487264cabb7843f1ebefda4321eb371e",
+      "bytes": 3649
+    },
+    "src/entities.js": {
+      "sha256": "9b21b0eacaf312d4e74c6f0310d6ba5548685d3d50adc982c654fb2699bc5725",
+      "bytes": 21576
+    },
+    "src/inventory.js": {
+      "sha256": "75bf48b4de65fcfa574189314aa2c70f6773da6c99b1809aeebad6faed0dd947",
+      "bytes": 9881
+    },
+    "src/mesher.js": {
+      "sha256": "fbf6018840881098abd4a0653b35fa8cc160d987ab60c6958824cfbe251e37d1",
+      "bytes": 9633
+    },
+    "src/net.js": {
+      "sha256": "0c67a2491654978b1ab3d5e19001677ed016898f17b36581eb397a9ca49f591a",
+      "bytes": 4106
+    },
+    "src/save.js": {
+      "sha256": "5c410f391042071aa06d2c37cfa9f5604dbbcfa9a7cebcb4b302a3a52c3caec0",
+      "bytes": 2762
+    },
+    "src/shaders.js": {
+      "sha256": "b29ab29ec991915e7d281c0a70ed9cc018376a9708260a37a0126a4e96bb57b3",
+      "bytes": 7410
+    },
+    "src/textures.js": {
+      "sha256": "2728db8ae4facd86a1036c16d30b9d296249d4811263583261cfa683d307333d",
+      "bytes": 28192
+    },
+    "src/world.js": {
+      "sha256": "d7b60156acc9a3eaf41e141d9fd5317a028f56f798fb922e8ce5e121cdb8b999",
+      "bytes": 7579
+    },
+    "src/worldgen.js": {
+      "sha256": "cc230118664264fbf3c2f21812372e2c9e596cf509f92bd9b40183a3aaf89d7a",
+      "bytes": 18374
+    },
+    "style.css": {
+      "sha256": "b8336c26e0d6e87a95c6aa36f950338a32d69d6631a12934e0f8564c0250116a",
+      "bytes": 21769
+    },
+    "three.module.js": {
+      "sha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+      "bytes": 1314681
+    }
+  }
+}

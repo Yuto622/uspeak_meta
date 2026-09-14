@@ -131,31 +131,3 @@ body.in-room .near, body.in-plaza .near { display: none; }
 /* The line at the top of the garage when it is opened at the start line. */
 .ride-lead { margin: 0 0 12px; padding: 11px 14px; border-radius: 12px; background: #fdf3d6; font-size: 13px; line-height: 1.7; }
 
-/* AURORA KART への入口。ガレージのいちばん上に置いてある。
- *
- * ここだけ見た目が違うのは、行き先が違うから：下のカードは「のりものを買う」で、これは
- * 「べつのゲームに行く」。同じ形にすると、押した子は島から出たことに気づかない。 */
-.ride-arcade {
-  display: flex; align-items: center; gap: 12px; width: 100%;
-  min-height: 62px; margin-bottom: 12px; padding: 11px 14px; border-radius: 14px;
-  background: linear-gradient(120deg, #16233a, #22344f 62%, #2c4a63);
-  color: #eaf3fb; border: 1px solid #33506e; text-align: left;
-}
-.ride-arcade-badge {
-  flex: none; width: 38px; height: 38px; border-radius: 11px;
-  display: grid; place-items: center; font-size: 20px;
-  background: #0e1826; box-shadow: inset 0 0 0 1px #3a5c7d;
-}
-.ride-arcade-name { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.ride-arcade-name strong { font-size: 15px; letter-spacing: 1px; }
-.ride-arcade-name small { font-size: 11px; color: #a9c3da; line-height: 1.35; }
-.ride-arcade > b { margin-left: auto; font-size: 18px; color: #8fb2ce; }
-
-/* スタートラインでは選択肢が2つになる。クラスのレースが本命なので、そちらを島の色で。 */
-.ride-arcade.go {
-  background: linear-gradient(120deg, #234a33, #2f6b45 62%, #3c8455);
-  border-color: #46895c;
-}
-.ride-arcade.go .ride-arcade-badge { background: #17301f; box-shadow: inset 0 0 0 1px #4e8f65; }
-.ride-arcade.go .ride-arcade-name small { color: #bde0c6; }
-.ride-arcade.go > b { color: #9dcfae; }

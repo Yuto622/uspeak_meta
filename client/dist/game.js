@@ -99,7 +99,7 @@ const clock=new THREE.Clock(),target=new THREE.Vector3(),desired=new THREE.Vecto
 // 島の1フレームぶんの計算と描画がまるごと余るので、iPad はそのぶんをカートに使える。
 // AURORA KART も同じ：フレームが島の上に不透明に載っているので、後ろで島を描くのは
 // 電池を捨てているのと同じ。
-if(net.gp?.running||net.racers?.isOpen){clock.getDelta();return}let dx=0,dz=0;const menus=document.querySelector('dialog[open]')||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy;
+if(net.gp?.running||net.arcadeOpen()){clock.getDelta();return}let dx=0,dz=0;const menus=document.querySelector('dialog[open]')||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy;
 // のりもの島のレース中は歩かない：W はアクセル、A/D はハンドル、スペースはドリフト。
 // 操作の中身は kart.js、当たり判定と速度はいつもと同じものを渡している。
 if(net.race?.driving){net.race.drive(dt,menus?new Set():keys,blocked,net.speed());net.race.update(dt);player.position.y=0}
