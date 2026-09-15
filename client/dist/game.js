@@ -4,6 +4,7 @@ import {untilNight} from './world-clock.js';
 import {createAmbience} from './ambience.js';
 import {createStick} from './stick.js';
 import {createGuide} from './guide.js';
+import {label as bilingual} from './bilingual.js';
 import {createThemePark} from './themepark.js';
 import {setupAvatars} from './avatars.js';
 import {setupFishing} from './fishing.js';
@@ -63,7 +64,7 @@ const guide=createGuide({toast});
 // 音の許可は1回目のタッチで下りるとは限らない（iPad は下りる順番が端末で違う）。
 // arm() は鳴っていれば即座に戻るので、毎回呼んでも安い。
 for(const ev of ['pointerdown','keydown'])addEventListener(ev,()=>ambience.arm());
-function worldClock(world){if(!world)return;atmosphere.state.targetNight=world.night;ambience.setNight(world.night);if(clockTick++%12)return;timeButton.textContent=`${world.mark} ${world.ja} ${mmss(world.endsIn)}`;timeButton.setAttribute('aria-pressed',String(world.id==='night'))}
+function worldClock(world){if(!world)return;atmosphere.state.targetNight=world.night;ambience.setNight(world.night);if(clockTick++%12)return;bilingual(timeButton,`${world.mark} ${world.en} ${mmss(world.endsIn)}`,world.ja);timeButton.setAttribute('aria-pressed',String(world.id==='night'))}
 timeButton.onclick=()=>{const wait=untilNight(net.serverNow());toast(wait?`夜は みんな いっしょに やってきます。あと ${mmss(wait/1000)} で 夜。`:'いまは 夜。おばけに 近づいて 杖を ふろう。')};
 const park=createThemePark({scene,camera,player,box,rand,toast,speak,openDialog,dialog,atmosphere,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()}});
 const avatars=setupAvatars({player,toast,renderer});

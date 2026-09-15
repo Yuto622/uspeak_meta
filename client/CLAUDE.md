@@ -8,6 +8,7 @@
 | 対象 | dist/配下のファイル |
 |---|---|
 | HTML・初期化・メインループ | index.html / game.js / style.css |
+| 英語と日本語の併記 | bilingual.js（label()）/ style.css の .en .ja |
 | あそびかたガイド（「?」） | guide.js / guide.css / guide.json / assets/guide/ |
 | 光・昼夜・カメラ・描画 | atmosphere.js |
 | 環境音・昼と夜のBGM | ambience.js / assets/bgm/（day.mp3 / night.mp3 / SOURCE.json） |
@@ -93,6 +94,26 @@
   **島に入る前の画面**なので、`capture-figures.mjs` が専用のページを開いて撮っている。
 - `guide.open('ride')` のように章のidを渡すと、その章から開く。
 - レイアウト検査（`browser-layout.mjs`）の `SCREENS` に `guide` として入れてある。
+
+## 画面の文字は「英語＋ひらがな」（2026-09 追加）
+
+**理由が2つある。**
+
+1. **レッスンは外国人の先生が進める。** 先生がボタンの意味をその場で分かる必要がある。
+2. **読むのは小学1年生。** 日本語は**ひらがな**にして、英語の下に小さく添える。
+   そうすると、子どもは毎回「Map ＝ しまの ちず」を目にすることになる。
+
+- **書くのは `bilingual.js` の `label(el, en, ja)` を通すこと。**
+  `textContent = '…'` で書き換えると**2行のうち片方が消える**（実際 atmosphere.js が
+  そうしていた）。出る形は `<b class="en">英語</b><i class="ja">ひらがな</i>`。
+- 見た目は `style.css` の `.en` / `.ja`。**日本語は11px**（`mobile.css` の型下限に
+  ひっかからないように。ここを10pxにすると `tests/regression.mjs` が落ちる）。
+- **島の名前は `rpg-data.js` の HUBS が定義元**で、`en`（Eiken 5 Island）・
+  `name`（英検5級の島）・`yomi`（えいけん5きゅうのしま）の3つを持つ。
+  **id（`willow` など）は絶対に変えない** — セーブとサーバーの判定がこの文字列で書かれている。
+- ガイド（`guide.json`）も章とページに `en` を持つ。題が英語、その下に日本語。
+- **3Dの名札（sprite）は HTML ではない**ので、ここの仕組みは効かない。島の看板を
+  英語にしたいときは `island-kit.js` の `sprite()` に渡す文字列を変えること。
 
 ## 保存互換性
 

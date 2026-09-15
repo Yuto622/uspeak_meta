@@ -105,7 +105,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
   railButton.id = 'voice-button';
   railButton.className = 'voice-button';
   railButton.hidden = true;
-  railButton.innerHTML = '<span id="voice-button-label">📹 ビデオ通話</span><small id="voice-button-note"></small>';
+  railButton.innerHTML = '<span id="voice-button-label" class="en">📹 Video call</span><small id="voice-button-note" class="ja"></small>';
   (document.querySelector('.right-rail') || document.body).append(railButton);
 
   const audio = document.createElement('div');
@@ -284,14 +284,15 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     const people = state.kind === 'sfu' ? Math.max(state.heads, state.peers.size + 1) : state.peers.size + 1;
     const label = $('#voice-button-label', railButton);
     const note2 = $('#voice-button-note', railButton);
+    // 英語が主、ひらがなが読みの助け（`bilingual.js` と同じ並び）。
     if (state.joined) {
-      label.textContent = state.camera ? '📹 カメラ オン' : '🎙 つうわ中';
-      note2.textContent = `${people}人・${state.camera ? 'けす' : 'カメラを つける'}`;
+      label.textContent = state.camera ? '📹 Camera on' : '🎙 In a call';
+      note2.textContent = `${state.camera ? 'カメラ オン' : 'つうわ中'}・${people}人`;
     } else if (here) {
-      label.textContent = '📹 ビデオ通話';
+      label.textContent = '📹 Video call';
       note2.textContent = 'ここで はなす';
     } else {
-      label.textContent = '📹 ビデオ通話';
+      label.textContent = '📹 Video call';
       note2.textContent = 'おはなし島へ';
     }
     railButton.classList.toggle('on', state.joined);

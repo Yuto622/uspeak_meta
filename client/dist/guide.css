@@ -154,3 +154,8 @@
   #guide-foot { padding: 8px 14px; }
   #guide-foot button { min-height: 36px; padding: 8px 14px; font-size: 12px; }
 }
+
+/* 英語が題、日本語がその下。先生は英語で機能を追え、子どもは日本語で読める。 */
+.guide-words h3 .ja { display: block; font-style: normal; font-size: 14px; opacity: .78; margin-top: 5px; font-weight: 500; }
+#guide-tabs button span { display: block; text-align: left; }
+#guide-tabs button span .ja { display: block; font-style: normal; font-size: 11px; opacity: .72; }

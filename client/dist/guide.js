@@ -37,7 +37,7 @@ export function createGuide({ toast }) {
   function renderTabs() {
     tabs.innerHTML = state.data.chapters.map((c, i) => `
       <button type="button" data-chapter="${i}" aria-pressed="${i === state.chapter}">
-        <b>${c.mark}</b><span>${c.name}</span>
+        <b>${c.mark}</b><span>${c.en || c.name}<i class="ja">${c.name}</i></span>
       </button>`).join('');
     for (const b of tabs.querySelectorAll('[data-chapter]')) {
       b.onclick = () => { state.chapter = Number(b.dataset.chapter); state.step = 0; render(); };
@@ -53,8 +53,8 @@ export function createGuide({ toast }) {
         <img src="${SHOT(s.shot)}" alt="${s.title}" decoding="async">
       </figure>
       <div class="guide-words">
-        <div class="guide-chapter">${c.mark} ${c.name}</div>
-        <h3>${s.title}</h3>
+        <div class="guide-chapter">${c.mark} ${c.en || c.name} · ${c.name}</div>
+        <h3>${s.en ? `${s.en}<i class="ja">${s.title}</i>` : s.title}</h3>
         ${s.body.map((line) => `<p>${line}</p>`).join('')}
         ${s.tip ? `<p class="guide-tip"><b>ヒント</b>${s.tip}</p>` : ''}
       </div>`;

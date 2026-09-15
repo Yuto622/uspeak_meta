@@ -32,3 +32,7 @@
 @media(max-height:740px) and (min-width:721px){.ad-field-hud{top:385px;max-height:calc(100dvh - 480px)}#rpg-region-panel{max-height:260px}.ad-field-hud h3{font-size:15px}.ad-weather-controls{display:none}}
 @media(prefers-reduced-motion:reduce){#rpg-dialog *,#ad-field-hud *{transition:none!important;animation:none!important}}
 @media(max-width:720px) and (max-height:700px){#rpg-region-panel{max-height:190px}.ad-field-hud{max-height:85px;padding:8px 12px}.ad-field-hud>.rpg-eyebrow,.ad-field-hud>h3,.ad-field-hud>.ad-hud-goals,.ad-field-hud>#ad-sneak{display:none}.ad-field-hud .ad-action-row{margin:3px 0}}
+
+/* 島の名前の「よみ」。小学1年生が ひとりで 読めるように、漢字の下に ひらがなを出す。 */
+.rpg-yomi{font-size:11px;color:#8a9a86;margin:2px 0 10px;letter-spacing:.5px}
+.rpg-destinations .ja{display:block;font-style:normal;font-size:11px;opacity:.75;margin-top:1px}

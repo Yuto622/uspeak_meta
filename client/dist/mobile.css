@@ -127,15 +127,23 @@
   /* Stack each button's label and its counter so a narrow rail never breaks a
      word in half. */
   .right-rail > button {
-    padding: 10px 8px;
+    padding: 7px 8px;
     font-size: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2px;
+    gap: 1px;
     line-height: 1.3;
   }
+  /* **英語とひらがなの2行ぶんは、バーの高さを食う。** 4つのボタンが 178px（横向きの
+     携帯）や 306px（縦の携帯）に収まらないと、いちばん下の 📹 がはみ出す。
+     行間と余白をきつくして、2行のままで収める（どちらの言語も捨てない）。 */
+  .right-rail > button .en,
+  .right-rail .scenery-controls button .en { font-size: 11px; line-height: 1.15; }
+  .right-rail > button .ja,
+  .right-rail .scenery-controls button .ja { font-size: 11px; line-height: 1.15; margin-top: 0; }
+  .right-rail .scenery-controls button { padding: 5px 4px; }
 }
 
 /* Below roughly an iPhone's height the rail would have to scroll to reach the
@@ -216,6 +224,13 @@
      can do from anywhere, and a rail that scrolls hides whichever comes last. */
   .right-rail { gap: 4px; }
   .right-rail > button { font-size: 11px; padding: 6px; flex-direction: row; gap: 6px; }
+  /* **横向きの携帯では、バーは英語だけにする。** ここのバーは 178px しかなく、
+     4つのボタンが 英語＋ひらがなの2行を持つと 268px になって、いちばん下の 📹 が
+     はみ出す（実測 268 > 252）。クラスを探している子が 📹 を見つけられないほうが悪い。
+     **消すのは日本語のほう**：先生は英語で追え、子どもには ✈ 🎣 ✦ 📹 の絵が残る。
+     ひらがなは「?」のガイドと、縦に持ち替えたときに出る。 */
+  .right-rail > button .ja,
+  .right-rail .scenery-controls button .ja { display: none; }
 }
 
 /* --- 4b. The guest-game dock ------------------------------------------------

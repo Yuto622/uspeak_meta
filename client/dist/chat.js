@@ -18,7 +18,7 @@ export function createChat({ onSend, onSay, speak, toast, isPaused, isFree }) {
   const root = document.createElement('div');
   root.id = 'net-chat';
   root.hidden = true;
-  root.innerHTML = `<div class="net-chat-head"><strong>💬 English Chat</strong><span id="net-chat-paused" hidden>先生が一時停止中</span><button type="button" id="net-chat-close" aria-label="閉じる">×</button></div>
+  root.innerHTML = `<div class="net-chat-head"><strong>💬 English Chat<i class="ja">メッセージ</i></strong><span id="net-chat-paused" hidden>先生が 止めています</span><button type="button" id="net-chat-close" aria-label="閉じる">×</button></div>
   <nav id="net-chat-tabs" aria-label="フレーズの種類"></nav><div id="net-chat-phrases"></div><ol id="net-chat-log" aria-live="polite"></ol>
   <form id="net-chat-say" autocomplete="off"><input id="net-chat-text" type="text" maxlength="${MAX}" placeholder="じゆうに かいてみよう" aria-label="メッセージを書く"><button type="submit" id="net-chat-send">おくる</button></form>
   <p id="net-chat-fine" class="net-fine">クラスの みんなに とどきます。先生も 見ています。</p>`;
