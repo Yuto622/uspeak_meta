@@ -2,31 +2,25 @@
    Loaded after every other stylesheet so these rules win on equal specificity.
    Desktop (fine pointer, tall viewport) is left exactly as it was. */
 
-/* --- 1. On-screen movement pad on every touch device -----------------------
+/* --- 1. On-screen movement stick on every touch device ---------------------
    The original rule only showed the pad below 600px wide, so iPads and phones
    in landscape had no way to walk without a keyboard. Bind it to the pointer
-   type instead of the width. */
+   type instead of the width.
+
+   **中身は十字キーではなく、まるいスティック**（`stick.js`）。↑←↓→ の4つでは
+   斜めに歩けず（2つ同時押しは子どもの指では無理）、速さも押すか押さないかの2段階
+   しかなかった。島の道は斜めに走っているので、これは「歩きにくい」としてそのまま出る。 */
 @media (pointer: coarse) {
   .control-hint { display: none; }
   .mobile-pad {
     display: block;
     position: fixed;
     z-index: 4;
-    text-align: center;
-    left: calc(16px + env(safe-area-inset-left));
-    bottom: calc(142px + env(safe-area-inset-bottom));
+    left: calc(14px + env(safe-area-inset-left));
+    bottom: calc(104px + env(safe-area-inset-bottom));
   }
-  .mobile-pad div { display: flex; }
-  .mobile-pad button {
-    width: 46px;
-    height: 46px;
-    margin: 3px;
-    font-size: 17px;
-    border: 1px solid #fff8;
-    background: #fcfbe4d0;
-    border-radius: 12px;
-    touch-action: none;
-  }
+  .stick { width: 132px; height: 132px; }
+  .stick i { width: 52px; height: 52px; }
 }
 
 /* --- 2. Notch and home indicator ------------------------------------------ */
@@ -205,13 +199,13 @@
 
 /* --- 4b. The guest-game dock ------------------------------------------------
    のりもの島とまちづくり島で左下に出る、別ゲームへの入口（guest-dock.js）。
-   十字キーと同じ左下にいるので、その上に積む。**十字キーは幅ではなく pointer で出る**
+   スティックと同じ左下にいるので、その上に積む。**スティックは幅ではなく pointer で出る**
    ので、幅で積むと iPad と横向きの携帯で重なる（最初そう書いて検査に落ちた）。
-   パッドは 142px 上・高さ約 104px なので、その上。 */
+   スティックは 104px 上・132px 角なので、その上。 */
 @media (pointer: coarse) {
   .guest-dock {
     left: calc(16px + env(safe-area-inset-left));
-    bottom: calc(256px + env(safe-area-inset-bottom));
+    bottom: calc(248px + env(safe-area-inset-bottom));
     width: 186px;
     gap: 6px;
   }
@@ -219,9 +213,29 @@
   .guest-launch-badge { width: 28px; height: 28px; font-size: 15px; border-radius: 8px; }
   .guest-launch-name strong { font-size: 12px; letter-spacing: .5px; }
 }
-/* 低い画面（横向きの携帯）ではパッドが 16px 上・高さ約 88px に下がるので、入口も下げる。 */
+/* --- 4c. 狭い縦画面では「◯◯と話す」を右に寄せる --------------------------------
+   **携帯を縦に持つと、下は取り合いになる。** 実測（390x844）はこう：
+
+     右のレール  x244..376  y84..594     ← 上から下まで、右側
+     スティック  x14..146   y608..740
+     ホットバー  x59..331   y756..825    ← ほぼ全幅
+     空いている帯            y594..756   ← ここしか無い
+
+   「◯◯と話す」は真ん中にいて、左端（390px 幅で x127）がスティックの右端（x146）と
+   ぶつかっていた。**十字キーの頃から重なっていた**（あちらは 156px 幅でもっと重なる）。
+   真ん中のままで上げるとレールに刺さるので、**空いている帯の右側へ寄せる**。
+   左下がスティック、右下が「話す」。**指の役割が左右で分かれる**ので、こちらのほうが素直。 */
+@media (pointer: coarse) and (max-width: 600px) {
+  .near {
+    left: auto;
+    right: calc(14px + env(safe-area-inset-right));
+    transform: none;
+  }
+}
+
+/* 低い画面（横向きの携帯）ではスティックが 14px 上・104px 角に下がるので、入口も下げる。 */
 @media (pointer: coarse) and (max-height: 560px) {
-  .guest-dock { bottom: calc(118px + env(safe-area-inset-bottom)); width: 168px; }
+  .guest-dock { bottom: calc(126px + env(safe-area-inset-bottom)); width: 168px; }
   .guest-launch { min-height: 42px; padding: 6px 9px; }
   .guest-launch-name small { display: none; }
 }
@@ -253,8 +267,10 @@
     max-height: calc(100dvh - 240px);
     width: 210px;
   }
-  .mobile-pad { bottom: calc(16px + env(safe-area-inset-bottom)); }
-  .mobile-pad button { width: 40px; height: 40px; margin: 2px; }
+  /* 横向きは高さが 390px しかない。スティックも小さくして、下に寄せる。 */
+  .mobile-pad { bottom: calc(14px + env(safe-area-inset-bottom)); }
+  .stick { width: 104px; height: 104px; }
+  .stick i { width: 42px; height: 42px; }
   /* The centred hotbar owns the bottom strip, so everything else stacks above it. */
   .near { bottom: calc(150px + env(safe-area-inset-bottom)); }
   .net-dock {
@@ -386,9 +402,10 @@
     user-select: text;
     -webkit-touch-callout: default;
   }
-  /* The movement pad is the one a thumb rests on for whole seconds at a time. */
+  /* The movement stick is the one a thumb rests on for whole seconds at a time. */
   .mobile-pad,
-  .mobile-pad button,
+  .stick,
+  .stick i,
   [data-key] {
     -webkit-user-select: none;
     user-select: none;

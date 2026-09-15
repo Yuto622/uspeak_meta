@@ -75,7 +75,7 @@ body[data-arcade] #coin-hud { display: none !important; }
  * 中に同じ色のカードを見つけたときに「これと同じやつだ」と分かる。
  *
  * 縦位置は下から積み上げる：25px に WASD の説明、その上。スマホでは WASD が消えて
- * 十字キー（.mobile-pad, bottom:122px・高さ約78px）が出るので、その上まで上げる。 */
+ * まるいスティック（.mobile-pad, bottom:104px・132px 角）が出るので、その上まで上げる。 */
 .guest-dock {
   position: fixed; left: 30px; bottom: 100px; z-index: 3;
   display: flex; flex-direction: column; gap: 8px; width: 232px;

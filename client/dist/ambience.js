@@ -1,14 +1,16 @@
-// 環境音 — wind, birds and crickets, made by the browser rather than fetched.
+// 島の音 — 風と、昼と夜の BGM。
 //
 // Roblox had SoundScatter and MusicManager with its own asset library. None of those
-// files are ours to take, so the island makes its own noise: a little filtered wind, a
-// few bird calls by day, crickets at night. It is quiet on purpose — this plays in a
-// classroom of twenty-five iPads, and it must never compete with a child speaking.
+// files are ours to take, so the wind is made by the browser itself; the two pieces of
+// music were handed to us (assets/bgm/SOURCE.json). It is quiet on purpose — this plays
+// in a classroom of twenty-five iPads, and it must never compete with a child speaking.
+//
+// **鳥と虫の鳴き声はもう作っていない。** 以前はブラウザーが自分でオシレーターを鳴らして
+// いたが（昼は鳥、夜は虫）、どちらも結局は電子音で、後ろで「ピピピ」と鳴り続けるのが
+// 耳につくと言われた。曲が入ったいまは、時間帯を伝える仕事は BGM のほうが上手にやる。
 //
 // Nothing starts until a child touches the screen. iPad Safari refuses to make a sound
 // before that, and asking earlier would only produce a warning in the console.
-
-const DAY_BIRDS = [1046.5, 1318.5, 1568, 1760];   // a pentatonic-ish set: no sour notes
 
 // 昼と夜の BGM。渡された音源をそのまま置いてある（assets/bgm/SOURCE.json）。
 //
@@ -27,11 +29,11 @@ const BGM_LEVEL = 0.34;   // 環境音と同じ考え方：子どもの声に勝
 // 気にならなくても、曲と重なると曲の下ごしらえを全部塗りつぶす（うるさいと言われた）。
 // 10分の1にしてある。ここは「聞こえる音」ではなく「静かすぎないための音」でよい。
 const WIND_LEVEL = 0.05;
-const WIND_NIGHT_DROP = 0.48;   // 夜は半分近くまで落ちる（虫の声と入れ替わる）
+const WIND_NIGHT_DROP = 0.48;   // 夜は半分近くまで落ちる
 
 export function createAmbience({ isMuted }) {
   const state = { night: 0, on: false, started: false, busy: false };
-  let ctx = null; let master = null; let windGain = null; let nightGain = null; let timer = 0;
+  let ctx = null; let master = null; let windGain = null;
   let music = null; let hush = 0;
 
   function noiseBuffer() {
@@ -68,13 +70,8 @@ export function createAmbience({ isMuted }) {
     wind.connect(windFilter).connect(windGain).connect(master);
     wind.start();
 
-    // The night's own layer: crickets, kept as a slow pulse rather than a drone.
-    nightGain = ctx.createGain();
-    nightGain.gain.value = 0;
-    nightGain.connect(master);
     startMusic();
     apply();
-    schedule();
   }
 
   // 曲は最初のタッチのあとで読みに行く。1曲3分・約2.8MB あるので、音を切っている
@@ -101,56 +98,13 @@ export function createAmbience({ isMuted }) {
     }
   }
 
-  // One bird call by day, one cricket phrase by night, then wait a while.
-  function voice() {
-    if (!ctx || !state.on) return;
-    const now = ctx.currentTime;
-    const night = state.night;
-    const g = ctx.createGain();
-    const osc = ctx.createOscillator();
-    if (night < 0.4) {
-      osc.type = 'sine';
-      const note = DAY_BIRDS[Math.floor(Math.random() * DAY_BIRDS.length)];
-      osc.frequency.setValueAtTime(note, now);
-      osc.frequency.exponentialRampToValueAtTime(note * 1.32, now + 0.09);
-      osc.frequency.exponentialRampToValueAtTime(note * 0.94, now + 0.2);
-      g.gain.setValueAtTime(0.0001, now);
-      g.gain.exponentialRampToValueAtTime(0.05 * (1 - night), now + 0.03);
-      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.26);
-      osc.connect(g).connect(master);
-      osc.start(now); osc.stop(now + 0.3);
-    } else {
-      osc.type = 'triangle';
-      osc.frequency.value = 2400 + Math.random() * 240;
-      // Three short chirps, the way a cricket actually goes.
-      g.gain.setValueAtTime(0.0001, now);
-      for (let i = 0; i < 3; i += 1) {
-        const at = now + i * 0.12;
-        g.gain.exponentialRampToValueAtTime(0.02 * night, at + 0.01);
-        g.gain.exponentialRampToValueAtTime(0.0001, at + 0.07);
-      }
-      osc.connect(g).connect(nightGain);
-      osc.start(now); osc.stop(now + 0.45);
-    }
-  }
-
-  function schedule() {
-    clearTimeout(timer);
-    const night = state.night;
-    // Birds are sparse; crickets are frequent enough to feel like a chorus.
-    const wait = night < 0.4 ? 1800 + Math.random() * 4200 : 700 + Math.random() * 1200;
-    timer = setTimeout(() => { voice(); schedule(); }, wait);
-  }
-
   function apply() {
     if (!ctx) return;
     // 全画面の別ゲームやレースが上がっている間は黙る。あちらには あちらの音がある。
     const wanted = state.on && !state.busy ? 0.5 : 0;
     master.gain.setTargetAtTime(wanted, ctx.currentTime, 0.4);
-    // The wind drops at night and the crickets come up, so the change of hour is
-    // something a child hears as well as sees.
+    // 夜は風も引く。時間帯が変わったことは、見えるだけでなく聞こえてほしい。
     windGain.gain.setTargetAtTime(WIND_LEVEL * (1 - state.night * WIND_NIGHT_DROP), ctx.currentTime, 1.5);
-    nightGain.gain.setTargetAtTime(state.night, ctx.currentTime, 1.5);
     if (!music) return;
     // 等電力の混ぜかた。足して1にすると、ちょうど半分のところで音が痩せて聞こえる。
     // 時定数が長いのはわざと：夕方のあいだをかけて、昼の曲が夜の曲に入れ替わる。

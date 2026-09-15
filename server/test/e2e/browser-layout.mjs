@@ -286,15 +286,15 @@ try {
         return {
           vw: innerWidth, vh: innerHeight, scrollW: document.documentElement.scrollWidth,
           coarse: matchMedia('(pointer: coarse)').matches, boxes,
-          select: { body: sel(document.body), pad: sel(document.querySelector('[data-key]')), input: sel(document.querySelector('#net-chat-text')) },
+          select: { body: sel(document.body), pad: sel(document.querySelector('.stick')), input: sel(document.querySelector('#net-chat-text')) },
         };
       }, PROBES);
 
       const bad = [];
       if (report.scrollW > report.vw + 1) bad.push(`horizontal scroll (${report.scrollW} > ${report.vw})`);
-      // Holding a direction must not offer to look the arrow up in a dictionary.
+      // 指を置いたままのスティックが「この語を調べる」を出してはいけない。
       if (report.select.body !== 'none') bad.push(`text is selectable on a touch screen (body: ${report.select.body})`);
-      if (report.select.pad !== 'none') bad.push(`the movement pad is selectable (${report.select.pad})`);
+      if (report.select.pad !== 'none') bad.push(`the movement stick is selectable (${report.select.pad})`);
       if (report.select.input && report.select.input === 'none') bad.push('a box to type in is not selectable');
       for (const [k, b] of Object.entries(report.boxes)) {
         if (!b || RAIL_KIDS.includes(k)) continue; // rail children are clipped by the rail, not the viewport
