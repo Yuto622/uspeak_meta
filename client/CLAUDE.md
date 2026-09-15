@@ -44,6 +44,10 @@ BGM だけ `assets/bgm/day.mp3` `night.mp3` を置いてある（渡された音
 - **`<audio>` の `volume` を使わないこと。** **iPad Safari は無視する**（読めるが効かない）。
   全部 `createMediaElementSource → GainNode → master` に通してある。**つなげなかった曲は
   鳴らさない**（そこで諦めずに `play()` すると、♫ もつまみも効かない BGM が全開で出る）。
+- **風は曲の10分の1**（`WIND_LEVEL = 0.05`）。曲が入る前は 0.5 だった。単体では気に
+  ならなくても、**曲と重なると後ろの「ゴー」が曲を塗りつぶす**（うるさいと言われて落とした）。
+  ここは「聞こえる音」ではなく「静かすぎないための音」。`browser-bgm.mjs` が
+  「風は曲より一桁小さい」を検査しているので、上げ直すとそこで落ちる。
 - **読みに行くのは最初のタッチのあと**（`arm()`）。1曲2.8MB を、音を切っている教室に
   黙って落とさせない。`game.js` は `pointerdown` / `keydown` のたびに `arm()` を呼ぶ
   （1回目で音の許可が下りるとは限らない端末があるため）。鳴っていれば即座に戻る。
@@ -54,7 +58,7 @@ BGM だけ `assets/bgm/day.mp3` `night.mp3` を置いてある（渡された音
 - **差し替えは同じ名前で上書きし、`assets/bgm/SOURCE.json` のバイト数と sha256 も直す。**
   `tests/regression.mjs` が突き合わせ、**`ambience.js` がその名前を指しているかも見る**
   （曲名を変えて島を無音にしたまま出るのを防ぐ）。同梱ゲームと同じ扱い。
-- 検査は `server/test/e2e/browser-bgm.mjs`（実ブラウザ・12項目）。**測るのは GainNode の値**。
+- 検査は `server/test/e2e/browser-bgm.mjs`（実ブラウザ・13項目）。**測るのは GainNode の値**。
   時刻は `game.js` の `worldClock(net.night.update(…))` に差し込んで動かす
   （`ambience.setNight()` を外から呼んでも、次のフレームで本物の時計に戻される）。
 

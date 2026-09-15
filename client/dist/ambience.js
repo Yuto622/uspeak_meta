@@ -23,6 +23,12 @@ const DAY_BIRDS = [1046.5, 1318.5, 1568, 1760];   // a pentatonic-ish set: no so
 const BGM = { day: 'assets/bgm/day.mp3', night: 'assets/bgm/night.mp3' };
 const BGM_LEVEL = 0.34;   // 環境音と同じ考え方：子どもの声に勝ってはいけない
 
+// 風の強さ。**曲が入るまでは 0.5 だった。** 後ろで「ゴー」と鳴り続ける音は、単体だと
+// 気にならなくても、曲と重なると曲の下ごしらえを全部塗りつぶす（うるさいと言われた）。
+// 10分の1にしてある。ここは「聞こえる音」ではなく「静かすぎないための音」でよい。
+const WIND_LEVEL = 0.05;
+const WIND_NIGHT_DROP = 0.48;   // 夜は半分近くまで落ちる（虫の声と入れ替わる）
+
 export function createAmbience({ isMuted }) {
   const state = { night: 0, on: false, started: false, busy: false };
   let ctx = null; let master = null; let windGain = null; let nightGain = null; let timer = 0;
@@ -58,7 +64,7 @@ export function createAmbience({ isMuted }) {
     windFilter.type = 'lowpass';
     windFilter.frequency.value = 420;
     windGain = ctx.createGain();
-    windGain.gain.value = 0.5;
+    windGain.gain.value = WIND_LEVEL;
     wind.connect(windFilter).connect(windGain).connect(master);
     wind.start();
 
@@ -143,7 +149,7 @@ export function createAmbience({ isMuted }) {
     master.gain.setTargetAtTime(wanted, ctx.currentTime, 0.4);
     // The wind drops at night and the crickets come up, so the change of hour is
     // something a child hears as well as sees.
-    windGain.gain.setTargetAtTime(0.5 - state.night * 0.24, ctx.currentTime, 1.5);
+    windGain.gain.setTargetAtTime(WIND_LEVEL * (1 - state.night * WIND_NIGHT_DROP), ctx.currentTime, 1.5);
     nightGain.gain.setTargetAtTime(state.night, ctx.currentTime, 1.5);
     if (!music) return;
     // 等電力の混ぜかた。足して1にすると、ちょうど半分のところで音が痩せて聞こえる。
@@ -162,7 +168,7 @@ export function createAmbience({ isMuted }) {
     state,
     // 検査用の取っ手（`browser-bgm.mjs`）。AudioContext のノードは state には出てこないが、
     // **音量がどこで決まっているかを外から測れないと、iPad でだけ効かない直しが通ってしまう。**
-    get __debug() { return ctx ? { ctx, master, music } : null; },
+    get __debug() { return ctx ? { ctx, master, music, windGain } : null; },
     // Called every frame from the world's clock; only acts when the hour really moved.
     setNight(night) {
       if (Math.abs(night - state.night) < 0.02) return;

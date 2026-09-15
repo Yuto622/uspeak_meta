@@ -48,6 +48,7 @@ const levels = (page) => page.evaluate(() => {
     day: st.music.day.node.gain.value,
     night: st.music.night.node.gain.value,
     master: st.master.gain.value,
+    wind: st.windGain.gain.value,
     dayPlaying: !st.music.day.el.paused,
     nightPlaying: !st.music.night.el.paused,
   };
@@ -105,6 +106,10 @@ try {
   check('昼は昼の曲だけが鳴る', day.day > 0.30 && day.night < 0.03,
     `day=${day.day.toFixed(3)} night=${day.night.toFixed(3)}`);
   check('島の音そのものは出ている', day.master > 0.3, `master=${day.master.toFixed(3)}`);
+  // **風は曲より一桁小さいこと。** 後ろで「ゴー」と鳴り続ける音は、単体だと気にならなくても
+  // 曲と重なると曲を塗りつぶす（実際にうるさいと言われて 0.5 → 0.05 に落とした）。
+  check('風は曲より一桁小さい', day.wind > 0 && day.wind < day.day / 5,
+    `wind=${day.wind.toFixed(3)} bgm=${day.day.toFixed(3)}`);
 
   // 夕方：どちらも鳴っていて、合わせても痩せない（等電力なので二乗和が一定）。
   await holdNight(page, 0.5);

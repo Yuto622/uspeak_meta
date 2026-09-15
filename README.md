@@ -57,7 +57,7 @@ cd server && node test/e2e/browser-race.mjs # のりもの島のレース（実�
 cd server && node test/e2e/browser-interview.mjs # 英検の面接（音読→質問→結果カード）
 cd server && node test/e2e/browser-wear.mjs # きせかえの店（実ブラウザ2画面・試着→購入→となりの子に見える）
 cd server && node test/e2e/browser-arcade.mjs # 同梱ゲーム2本（島から開く→中のゲームが起動→島に戻る）
-cd server && node test/e2e/browser-bgm.mjs # 昼と夜の BGM（配信→昼の曲→夕方は2曲→夜の曲→別ゲーム中は黙る→♫）
+cd server && node test/e2e/browser-bgm.mjs # 昼と夜の BGM（配信→昼の曲→風の大きさ→夕方は2曲→夜の曲→別ゲーム中は黙る→♫）
 ```
 
 ### 負荷テスト（25 接続・10 分）
@@ -525,12 +525,15 @@ node test/e2e/capture-clips.mjs racers                  # 1本だけ録り直す
   `game.js` のフレームループが島を止めるのと同じ1か所）。あちらにはあちらの音があるので、
   重ねると教室ではただうるさいだけです。曲は**止めます**（gain 0 のまま流し続けると、
   音は出ないのに iPad は mp3 を解き続けて電池が減ります）。
+- **風の音は曲の10分の1**（`WIND_LEVEL = 0.05`）。曲が入る前は 0.5 で、単体なら気に
+  なりませんでしたが、曲と重なると後ろの「ゴー」が曲を塗りつぶします。ここは
+  「聞こえる音」ではなく**「静かすぎないための音」**でよい、という置きかたです。
 - **♫ ボタンは全部に効きます**（master の GainNode に集めてあるため）。
 - **差し替えるときは同じ名前で上書きし、`assets/bgm/SOURCE.json` のバイト数と sha256 も
   書き直すこと。** `client/tests/regression.mjs` が毎回突き合わせ、
   **`ambience.js` がその名前を指しているかも見ます**（曲名を変えて島を無音にしたまま
   出るのを防ぐため）。同梱ゲームと同じ扱いです。
-- 検査は `server/test/e2e/browser-bgm.mjs`（実ブラウザ・12項目）。**測っているのは
+- 検査は `server/test/e2e/browser-bgm.mjs`（実ブラウザ・13項目）。**測っているのは
   GainNode の値**で、`volume` に書き換えた直しはここで落ちます。時刻は世界時計の出口
   （`game.js` の `worldClock(net.night.update(…))`）に差し込んで動かします（11分待てないため）。
 
