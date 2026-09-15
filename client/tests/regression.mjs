@@ -115,6 +115,11 @@
     const pool = SPECIES.filter((sp) => sp.zone === zone || sp.zone === 'any');
     if (pool.length < 8) bad.push(`${zone} のしゅるいが ${pool.length} しかない`);
   }
+  // **表に載っているのに写真が無い、は許さない。** いま出番のないしゅるいも、
+  // 釣り場の割りあてを変えた瞬間に出てくる。
+  for (const sp of SPECIES) {
+    if (!existsSync(`${dist}assets/fish/${sp.id}.jpg`)) bad.push(`${sp.id}（${sp.ja}）の写真が無い`);
+  }
   if (bad.length) { console.error('FAIL: ' + bad.slice(0, 8).join('\n  ')); process.exit(1); }
   console.log(`PASS: さかな ${FISH.length}匹 — ${SPECIES.length}しゅるいの写真がそろい、名前はぜんぶ ちがう。`);
 }
