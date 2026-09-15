@@ -464,13 +464,18 @@ cd docs && xelatex uspeak-guide.tex && xelatex uspeak-guide.tex
 `docs/tour-cuts.json`（台本）から、`docs/make-tour.py` が3つ作ります。
 
 ```sh
-python3 docs/make-tour.py          # 全部（動画の書き出しに3分ほど）
+python3 docs/make-tour.py          # 全部（動画の書き出しに4分ほど）
 python3 docs/make-tour.py player   # docs/tour.html だけ。台本を直したときはこれで十分
+
+# 実際に遊んでいるところの録画（3本・入れ直すときだけ。1本あたり数分かかります）
+cd server && node test/e2e/capture-clips.mjs            # racers / blockwild / conv
+node test/e2e/capture-clips.mjs racers                  # 1本だけ録り直す
 ```
 
 | できるもの | 中身 |
 |---|---|
 | **`docs/tour.html`** | ナレーション付きのプレーヤー。**これが本体です** |
+| `docs/clips/clip-*.webm` | **実際に遊んでいるところの録画**3本（カート・ブロックの世界・AI英会話） |
 | `docs/uspeak-tour-10min.webm` | 10分12秒・33カット。**音声なし**・字幕は焼き込み |
 | `docs/uspeak-tour-5min.webm` | 5分12秒・24カット。同上 |
 | `docs/tour-script.md` | 収録用の台本（秒数と使う図つき） |
@@ -493,6 +498,15 @@ python3 docs/make-tour.py player   # docs/tour.html だけ。台本を直した�
 - **長さは台本に書きません。** 文字数から出しています（1分およそ336字）。
   文を足せば自動で伸びるので、秒数と文章がずれることはありません。
 - 図はすべて `docs/figures/`。PDF の資料（`docs/uspeak-guide.pdf`）と同じものです。
+- **3カットだけは静止画ではなく録画です**（`clip` を書いたカット）。カートが走るところ、
+  ブロックの世界を歩くところ、ウーピーと1往復するところ。`capture-clips.mjs` が
+  実際にブラウザでプレーして録ります。**動画が再生できないブラウザでは `fig` の静止画**が
+  そのまま出るので、どちらでも成立します。
+- **録画はこの開発環境の速さのままです。** ソフトウェアGLで三次元を動かすので1秒に数コマ
+  しか描けません。**教室の iPad はこれよりずっと滑らかに動きます。**
+- **録画のウーピーは絵のフクロウです。** 本物は mp4 の動画ですが、録画に使った Chromium に
+  H.264 が入っていないので `character.js` が絵に切り替えます（そういう作りです）。
+  教室の端末では動画のウーピーが出ます。口が動くのはどちらも同じです。
 - **`in5: false` を付けたカットは5分版から落ちます。** `short` を書けば、5分版はそちらを読みます。
 
 ## 講師の使い方

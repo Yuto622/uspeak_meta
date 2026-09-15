@@ -29,6 +29,7 @@ from pathlib import Path
 
 DOCS = Path(__file__).resolve().parent
 FIGS = DOCS / "figures"
+CLIPS = DOCS / "clips"
 FFMPEG = "/opt/pw-browsers/ffmpeg-1011/ffmpeg-linux"
 FONT_REG = "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"
 FONT_BOLD = "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc"
@@ -60,10 +61,16 @@ def plan(cuts, short=False):
             continue
         text = (c.get("short") or c["ja"]) if short else c["ja"]
         sec = max(FLOOR5 if short else FLOOR, len(text) / PACE + TAIL)
-        out.append({
+        row = {
             "chapter": c["chapter"], "fig": c["fig"], "title": c["title"],
             "text": text, "sec": round(sec, 1), "at": round(t, 1),
-        })
+        }
+        # 実際に動いているところ。静止画（fig）はそのまま残す — 動画が再生できない
+        # ブラウザではそれが出るし、動画から切り出すより写真のほうが常に読みやすい。
+        if c.get("clip"):
+            row["clip"] = c["clip"]
+            row["from"] = c.get("from", 0)
+        out.append(row)
         t += sec
     return out, t
 
@@ -144,6 +151,31 @@ def chunks(draw, text, font, width, maxlines=2):
     return parts
 
 
+def clip_frames(clip, start, sec, fps, height, scratch):
+    """クリップを PNG のならびにする。足りなければ頭から繰り返す。
+
+    **高さに合わせる（切らない）。** 写真は縦に流して全体を見せられるが、動画は中身が
+    動いているのでこちらで動かせない。横幅に合わせて切ると、順位・ラップ・速度という
+    見せたいものがちょうど画面の外に出る（一度そうなった）。左右に余白が出るほうがまし。
+    録画は 1024x576 なので、高さ 490 に収めても横は 871 — ほとんど縮んでいない。
+
+    このビルドの ffmpeg は mjpeg を書けないので、取り出せるのは PNG だけ。1枚1MB弱に
+    なるので、カットごとに出して、使ったらすぐ消す。
+    """
+    shutil.rmtree(scratch, ignore_errors=True)
+    scratch.mkdir(parents=True, exist_ok=True)
+    need = math.ceil(sec * fps)
+    subprocess.run(
+        [FFMPEG, "-y", "-ss", str(start), "-i", f"file:{CLIPS / f'clip-{clip}.webm'}",
+         "-r", str(fps), "-frames:v", str(need), "-vf", f"scale=-2:{height}",
+         "-c:v", "png", "-f", "image2", f"file:{scratch}/%05d.png"],
+        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    shots = sorted(scratch.glob("*.png"))
+    if not shots:
+        raise SystemExit(f"clip-{clip}.webm gave no frames at {start}s")
+    return [shots[i % len(shots)] for i in range(need)]
+
+
 def build_video(title, cuts, short, out_name, fps=10, size=(1280, 720)):
     from PIL import Image, ImageDraw, ImageFont
     rows, total = plan(cuts, short)
@@ -167,8 +199,10 @@ def build_video(title, cuts, short, out_name, fps=10, size=(1280, 720)):
     # 帯は毎フレーム同じなので一度だけ作る
     band = Image.new("RGBA", (W, BAND), (*DEEP, 232))
     ruler = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+    scratch = DOCS / ".tour-frames"
     done = 0
     for i, r in enumerate(rows):
+        shots = clip_frames(r["clip"], r["from"], r["sec"], fps, H - BAND, scratch) if r.get("clip") else None
         src = Image.open(FIGS / f"{r['fig']}.jpg").convert("RGB")
         # 写真は帯の上ぜんぶ。
         #
@@ -194,10 +228,15 @@ def build_video(title, cuts, short, out_name, fps=10, size=(1280, 720)):
             lines = next(ln for a, b, ln in spans if a <= f < b)
             k = f / max(1, frames - 1)
             ease = 0.5 - 0.5 * math.cos(math.pi * k)       # 端で止まって見えるように
-            span = 0.10 + 0.80 * (ease if i % 2 == 0 else 1 - ease)
-            y = max(0, min(drop, int(drop * span)))
             frame = Image.new("RGB", (W, H), DEEP)
-            frame.paste(big.crop((0, y, W, y + stage_h)), (0, 0))
+            if shots:
+                # 動いているものは、こちらで動かさない。切らずに真ん中へ置く。
+                live = Image.open(shots[min(f, len(shots) - 1)]).convert("RGB")
+                frame.paste(live, ((W - live.width) // 2, 0))
+            else:
+                span = 0.10 + 0.80 * (ease if i % 2 == 0 else 1 - ease)
+                y = max(0, min(drop, int(drop * span)))
+                frame.paste(big.crop((0, y, W, y + stage_h)), (0, 0))
             frame.paste(band, (0, H - BAND), band)
             d = ImageDraw.Draw(frame)
             d.line([(0, H - BAND), (W, H - BAND)], fill=GOLD, width=3)
@@ -213,6 +252,7 @@ def build_video(title, cuts, short, out_name, fps=10, size=(1280, 720)):
             frame.save(proc.stdin, "JPEG", quality=92, subsampling=0)
             done += 1
         print(f"    {r['title']}  ({done} frames)", end="\r")
+    shutil.rmtree(scratch, ignore_errors=True)
     proc.stdin.close()
     err = proc.stderr.read().decode("utf-8", "replace")
     if proc.wait() != 0:
@@ -245,6 +285,16 @@ PLAYER = r"""<!doctype html>
             transition:opacity .6s ease;animation:drift 1s linear both}
   .shot img.on{opacity:1}
   @keyframes drift{from{object-position:50% 10%}to{object-position:50% 90%}}
+  /* 実際に動いているところ。写真の上にかぶせ、再生できないブラウザでは写真のまま。 */
+  .shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+              opacity:0;transition:opacity .5s ease;background:#0c2a24}
+  .shot video.on{opacity:1}
+  .live{position:absolute;right:14px;top:12px;z-index:2;display:none;align-items:center;gap:7px;
+        padding:5px 11px;border-radius:999px;background:#0c2a24cc;color:var(--cream);
+        font-size:11px;letter-spacing:2px}
+  .live.on{display:flex}
+  .live i{width:8px;height:8px;border-radius:50%;background:#ff7a6b;animation:blink 1.4s infinite}
+  @keyframes blink{50%{opacity:.25}}
   .caption{position:absolute;left:0;right:0;bottom:0;height:32%;padding:14px 30px 20px;
            background:var(--deep);border-top:3px solid var(--gold);display:flex;flex-direction:column}
   .caption .chap{font-size:12px;letter-spacing:3px;color:var(--mint);margin-bottom:4px}
@@ -272,7 +322,9 @@ PLAYER = r"""<!doctype html>
 <header><h1>__TITLE__</h1><small>U-SPEAK LAB</small></header>
 
 <div class="stage" id="stage">
-  <div class="shot"><img id="a" alt=""><img id="b" alt=""></div>
+  <div class="shot"><img id="a" alt=""><img id="b" alt="">
+    <video id="clip" muted playsinline loop preload="auto"></video>
+    <span class="live" id="live"><i></i>じっさいの プレー</span></div>
   <div class="caption">
     <div class="chap" id="chap"></div>
     <h2 id="title"></h2>
@@ -311,6 +363,17 @@ function paint() {
   $('chap').textContent = c.chapter;
   $('title').textContent = c.title;
   $('sub').textContent = c.text;
+  // 動くカットは動画をかぶせる。再生できないブラウザ（WebM 非対応の古い Safari など）
+  // では video が黙って失敗するので、下の写真がそのまま見えるだけになる。
+  const clip = $('clip');
+  if (c.clip) {
+    if (clip.dataset.of !== c.clip) { clip.dataset.of = c.clip; clip.src = `clips/clip-${c.clip}.webm`; }
+    try { clip.currentTime = c.from || 0; } catch { /* まだ読めていない */ }
+    clip.play?.().then(() => { clip.classList.add('on'); $('live').classList.add('on'); })
+      .catch(() => { clip.classList.remove('on'); $('live').classList.remove('on'); });
+  } else {
+    clip.classList.remove('on'); $('live').classList.remove('on'); clip.pause?.();
+  }
   // 2枚を交互に使ってクロスフェード。1枚だと切り替わりが瞬きになる。
   const show = flip ? $('a') : $('b'), hide = flip ? $('b') : $('a');
   flip = !flip;
