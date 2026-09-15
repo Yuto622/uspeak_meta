@@ -1,0 +1,156 @@
+/* 「?」の あそびかたガイド。
+ *
+ * **写真が主役。** 文は3行しかないので、場所の取り合いになったら文のほうを細くする。
+ * 横向き（この教材が実際に持たれる向き）では写真が左・文が右の2段組、
+ * 縦の携帯では写真が上・文が下に積む。
+ *
+ * `#guide-dialog[open]` に display を書いてあるのは、閉じたダイアログが画面に
+ * 居座ってタップを吸うのを防ぐため（`client/tests/regression.mjs` が検査する）。 */
+#guide-dialog {
+  width: min(1040px, 96vw);
+  max-width: none;
+  max-height: 92dvh;
+  padding: 0;
+  border-radius: 22px;
+  background: #fbf8ea;
+  color: #29443a;
+  overflow: hidden;
+}
+#guide-dialog[open] { display: flex; flex-direction: column; }
+#guide-dialog::backdrop { background: #153b35c4; backdrop-filter: blur(8px); }
+
+/* 頭。`position: static` を書くのは、style.css の header{position:fixed} が
+   ページの全 <header> に効くから（書かないと題名が画面の左上に飛ぶ）。 */
+.guide-head {
+  position: static !important;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px 14px;
+  background: #f2efdf;
+  border-bottom: 1px solid #ddddc8;
+}
+.guide-head h2 { font-size: 22px; margin: 4px 0 0; letter-spacing: -.5px; }
+.guide-head small { font-size: 10px; letter-spacing: 2px; color: #78908a; }
+.guide-head > button { margin-left: auto; background: transparent; font-size: 26px; color: #7a866d; width: 34px; }
+
+/* 章のタブ。押せる大きさを確保するため、狭い画面では横スクロールにする
+   （縦に折り返すと、写真の場所がページごとに変わって落ち着かない）。 */
+#guide-tabs {
+  flex: none;
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
+  background: #f2efdf;
+  border-bottom: 1px solid #ddddc8;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#guide-tabs::-webkit-scrollbar { display: none; }
+#guide-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  min-height: 38px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #e6e9d9;
+  font-size: 12px;
+  color: #5d7161;
+  white-space: nowrap;
+}
+#guide-tabs button b { font-size: 15px; font-weight: 400; }
+#guide-tabs button[aria-pressed="true"] { background: #2f5b46; color: #fdf6e2; }
+
+/* 本文。写真と文の2段組。 */
+#guide-stage {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: 58% 42%;
+  align-items: start;
+  gap: 0;
+}
+.guide-shot {
+  margin: 0;
+  padding: 20px 10px 20px 20px;
+  position: sticky;
+  top: 0;
+}
+.guide-shot img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid #dcdcc6;
+  background: #e8ecd9;
+  box-shadow: 0 10px 34px #1b3b2a1f;
+}
+.guide-words { padding: 22px 24px 24px 14px; }
+.guide-chapter { font-size: 10px; letter-spacing: 1.6px; color: #8a9a86; }
+.guide-words h3 { font-size: 19px; line-height: 1.5; margin: 8px 0 14px; letter-spacing: -.3px; }
+.guide-words p { font-size: 14px; line-height: 2; margin: 0 0 10px; color: #55705f; }
+.guide-tip {
+  background: #eef0dd;
+  border-left: 3px solid #b6c48c;
+  border-radius: 0 10px 10px 0;
+  padding: 11px 13px !important;
+  font-size: 13px !important;
+  line-height: 1.9 !important;
+}
+.guide-tip b { display: block; font-size: 11px; color: #7c8b5f; margin-bottom: 4px; }
+
+/* 足。まえ / 点 / つぎへ。 */
+#guide-foot {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #f2efdf;
+  border-top: 1px solid #ddddc8;
+}
+#guide-foot button { min-height: 40px; padding: 10px 18px; border-radius: 11px; background: #e3e7d4; font-size: 13px; }
+#guide-foot button:disabled { opacity: .4; }
+#guide-foot .primary { background: #2f5b46; color: #fdf6e2; margin-left: auto; }
+.guide-dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; flex: 1; }
+.guide-dots button {
+  width: 10px;
+  height: 10px;
+  min-height: 10px;
+  padding: 0;
+  border-radius: 50%;
+  background: #cdd5c0;
+}
+.guide-dots button[aria-pressed="true"] { background: #2f5b46; }
+
+/* 縦の携帯。写真を上に積み、文を下に。 */
+@media (max-width: 720px) {
+  #guide-stage { grid-template-columns: 1fr; }
+  .guide-shot { position: static; padding: 14px 14px 0; }
+  .guide-words { padding: 14px 16px 18px; }
+  .guide-words h3 { font-size: 17px; }
+  .guide-head { padding: 14px 16px 10px; }
+  .guide-head h2 { font-size: 18px; }
+}
+
+/* 横向き（高さ390pxの世界）。写真は左のまま、上下の帯を薄くする。
+   ここで縦積みにすると、写真も文も1行ずつしか見えなくなる。 */
+@media (max-height: 560px) {
+  #guide-dialog { max-height: 96dvh; }
+  .guide-head { padding: 10px 16px 8px; }
+  .guide-head h2 { font-size: 16px; margin: 0; }
+  .guide-head small { display: none; }
+  #guide-tabs { padding: 7px 12px; }
+  #guide-tabs button { min-height: 34px; padding: 6px 11px; font-size: 11px; }
+  .guide-shot { padding: 12px 8px 12px 14px; }
+  .guide-words { padding: 12px 16px 14px 10px; }
+  .guide-words h3 { font-size: 16px; margin: 6px 0 9px; }
+  .guide-words p { font-size: 12px; line-height: 1.85; margin-bottom: 7px; }
+  #guide-foot { padding: 8px 14px; }
+  #guide-foot button { min-height: 36px; padding: 8px 14px; font-size: 12px; }
+}

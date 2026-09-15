@@ -49,6 +49,8 @@ const PROBES = ['.right-rail', '#net-status', '#net-chat-button', '#net-teacher-
 const SCREENS = [
   { id: 'chat', sel: '#net-chat', go: `document.querySelector('#net-chat-button').click()` },
   { id: 'teacher', sel: '#net-teacher', go: `document.querySelector('#net-teacher-button').click()` },
+  // 「?」のあそびかたガイド。**はじめての子が最初に開く画面**なので、5サイズで測る。
+  { id: 'guide', sel: '#guide-dialog', go: `document.querySelector('#help').click()` },
   { id: 'map', sel: '#rpg-dialog', go: `uspeak.rpg.openMap()` },
   { id: 'book', sel: '#rpg-dialog', go: `uspeak.rpg.openBook()` },
   { id: 'fishing', sel: '#fishing-dialog', go: `document.querySelector('#fishing-button').click()` },

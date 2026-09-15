@@ -59,6 +59,7 @@ cd server && node test/e2e/browser-wear.mjs # きせかえの店（実ブラウ�
 cd server && node test/e2e/browser-arcade.mjs # 同梱ゲーム2本（島から開く→中のゲームが起動→島に戻る）
 cd server && node test/e2e/browser-bgm.mjs # 昼と夜の BGM（配信→昼の曲→風の大きさ→夕方は2曲→夜の曲→別ゲーム中は黙る→♫）
 cd server && node test/e2e/browser-stick.mjs # 左下のスティック（指で倒して歩く・倒した量で速さが変わる・離すと止まる）
+python3 docs/make-guide-images.py # 「?」ガイドの写真を docs/figures から作り直す（撮り直しは capture-figures.mjs）
 ```
 
 ### 負荷テスト（25 接続・10 分）
@@ -578,6 +579,16 @@ Windows … Ctrl + Shift + R      iPad Safari … 「履歴と Web サイトデ�
 curl.exe -I https://uspeak-multiplayer.fly.dev/guest-dock.js     # 200 なら入っています
 ```
 
+## はじまりの島の名前は U-Speak Island です
+
+画面に出る名前を Willow Island から **U-Speak Island** に変えました（2026-09）。
+
+- 変えたのは**表示だけ**です。島のid（`willow`）と `WILLOW_LESSONS` という名前は
+  そのままにしてあります。**セーブ（いまどの島にいるか）とサーバーの判定が、この文字列で
+  書かれている**ためで、ここを変えると子どもの続きが消えます。
+- `fishing-data.js` の「ウィローの弓」は残してあります。あれは島ではなく**柳（willow）の木**で
+  作った弓の名前です。
+
 ## 講師の使い方
 
 1. ロビーで名前を入れ、「先生用」を開いて講師キーを入力して参加。
@@ -633,6 +644,20 @@ curl.exe -I https://uspeak-multiplayer.fly.dev/guest-dock.js     # 200 なら入
 # ローカル。キーなしでも動きます（台本モード）
 OPENAI_API_KEY=sk-... OPENAI_MODEL=gpt-4o-mini npm start
 ```
+
+## 「?」を押すと、全部の島の あそびかたが 出ます
+
+右上の `?` は、**15の島と 全部のきのうを、写真つきで1ページずつ**説明する画面です。
+はじめて iPad を渡された子が、ひとりで 読めるように しています。
+
+- 6章46ページ。はじめて／U-Speak島／15の島／べつのゲーム／きろく／そうさ一覧。
+- **1ページに1つのこと。** 写真が1枚と、3行の文だけ。「つぎへ」を押すだけで 最後まで行けます。
+- 文言は `client/dist/guide.json` にあります。**JavaScript を読まずに直せます。**
+- 写真は 教室に配る PDF（`docs/uspeak-guide.pdf`）と同じものです。撮り直すのは
+  `server/test/e2e/capture-figures.mjs` の1か所だけで、
+  `python3 docs/make-guide-images.py` が画面用の大きさに落とします。
+- **開いているページの写真しか読み込みません**（40枚で 2.4MB あるので、25台の教室で
+  一度に落とすと 授業の最初の1分が消えます）。
 
 ## 左下の操作は「スティック」（十字キーをやめました）
 

@@ -30,7 +30,7 @@ export function createBuildingRoom({scene,box,sphere,gem,material}){
  }else if(b.kind==='library'){
   for(const x of[-7.6,7.6]){B(x,2,-2,3.5,4,.5,0x806b55);solid(x,-2,3.5,.8);for(let row=0;row<3;row++){B(x,.6+row*1.1,-1.7,3.7,.12,.8,cream);for(let j=0;j<7;j++)B(x-1.4+j*.45,1+row*1.1,-1.55,.32,.72,.4,[0x6f97a0,0xb17e78,0x98a66d][j%3])}}
  }else{
-  for(const x of[-7.5,7.5]){B(x,2.5,-3,4,3,.35,0x294959);solid(x,-3,4,.4);for(let i=0;i<4;i++){B(x,3.5-i*.6,-2.78,3.3,.12,.05,i%2?0xb6d8cf:0xe8cd95)}sign(b.kind==='airport'?'DEPARTURES':b.kind==='ticket'?'RIDE GUIDE':'ISLAND GUIDE','WILLOW · WONDER · RPG',x,4.5,-3,4.5)}
+  for(const x of[-7.5,7.5]){B(x,2.5,-3,4,3,.35,0x294959);solid(x,-3,4,.4);for(let i=0;i<4;i++){B(x,3.5-i*.6,-2.78,3.3,.12,.05,i%2?0xb6d8cf:0xe8cd95)}sign(b.kind==='airport'?'DEPARTURES':b.kind==='ticket'?'RIDE GUIDE':'ISLAND GUIDE','U-SPEAK · WONDER · RPG',x,4.5,-3,4.5)}
  }
  for(const x of[-7.5,7.5]){B(x,.55,6,3.6,.85,1.4,accent);B(x,1.18,6.55,3.6,.85,.22,accent);solid(x,6,3.6,1.6);B(x,1,8.1,.7,1.8,.7,cream);M(sphere,x,2.3,8.1,.65,.8,.65,0x80a383);solid(x,8.1,1.1,1.1)}
  for(const x of[-1.75,1.75])B(x,1.8,9.5,.25,3.6,.4,accent);B(0,3.5,9.5,3.8,.18,.5,0xe9d2a0);sign('出口 · EXIT','入ってきた入口へ',0,2.5,9.6,3.8);

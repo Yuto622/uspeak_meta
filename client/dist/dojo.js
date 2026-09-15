@@ -40,7 +40,7 @@ export function createDojoUI({ send, toast, isOnline, getWallet, getMove }) {
           <strong>${esc(fish.name)}</strong>
           <small>${esc(fish.word)} · ${['ふつう', 'すこしレア', 'レア', 'とてもレア', 'でんせつ'][fish.rarity] || ''}</small>
           <span>×${n}</span></button>`).join('')}</div>`
-        : '<p class="dojo-empty">カバンに おさかなが いません。ウィローとうで つってきてね。</p>'}
+        : '<p class="dojo-empty">カバンに おさかなが いません。U-Speak島で つってきてね。</p>'}
       <div class="quiz-actions"><button type="button" id="dojo-done">とじる</button></div>`;
 
     body().querySelectorAll('[data-fish]').forEach((b) => {

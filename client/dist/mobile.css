@@ -149,9 +149,22 @@
    is missed: the minimap first (above), then the camera angles. A 640px-tall
    phone has room for the four action buttons and nothing else, and the call
    button is one of the four — a child looking for their class must not have to
-   scroll a column to find it. The angles are decoration; ✈ 🎣 📖 📹 are not. */
+   scroll a column to find it. The angles are decoration; ✈ 🎣 📖 📹 are not.
+
+   **ただし4つ全部を捨てていたのは やりすぎだった**（教室から「時計と軽量化の
+   ボタンが 消えた」と言われた）。この4つは同じ見た目をしているが、役割が違う：
+
+     ☀ ひるま 4:12   世界の時計。**いま何時で、あと何秒で夜か**を出す唯一の場所。
+     描画：高品質      重い端末を軽くする唯一の手。**古い iPad ではこれが命綱。**
+     ⌖ 俯瞰           カメラの角度。無くても遊べる。
+     景色に集中        まわりの まどを消す。無くても遊べる。
+
+   だから捨てるのは下の2つだけにして、時計と描画は残す。2つなら1行に収まる。 */
 @media (pointer: coarse) and (max-height: 700px) {
-  .right-rail .scenery-controls { display: none; }
+  .right-rail #view-toggle,
+  .right-rail #cinema-toggle { display: none; }
+  .right-rail .scenery-controls { grid-template-columns: 1fr 1fr; gap: 5px; }
+  .right-rail .scenery-controls button { font-size: 11px; padding: 7px 3px; }
 }
 
 /* Narrow phones: keep the rail and the quest panel from touching. */
@@ -178,7 +191,10 @@
    phones, which are handled below.) */
 @media (pointer: coarse) and (min-width: 820px) and (min-height: 561px) and (max-height: 900px) {
   .right-rail { bottom: calc(190px + env(safe-area-inset-bottom)); }
-  .right-rail .scenery-controls { display: none; }
+  /* ここでも、消すのは カメラの角度だけ。時計と描画は残す（上の一覧を参照）。 */
+  .right-rail #view-toggle,
+  .right-rail #cinema-toggle { display: none; }
+  .right-rail .scenery-controls { grid-template-columns: 1fr 1fr; gap: 5px; }
 }
 
 /* Landscape phones: the angles are already gone by this height, and the rail
@@ -189,6 +205,11 @@
     bottom: calc(138px + env(safe-area-inset-bottom));
     width: 132px;
   }
+  /* **ここだけは時計も描画も捨てる。** 横向きの携帯ではバーの高さが 178px しかなく、
+     飾りを2つ残すと 46px を食って、いちばん下の 📹 がバーからはみ出す（実測 288 > 252）。
+     クラスを探している子が 📹 を見つけられないほうが、時計が無いより悪い。
+     時計は上の「?」ガイドにも書いてあり、描画は縦に持ち替えれば出る。 */
+  .right-rail .scenery-controls { display: none; }
   /* Sideways the rail is 166px tall and has four buttons to hold, so they stop
      stacking their label over their counter and put them side by side on one
      line. Losing a button instead is not an option: ✈ 🎣 📖 📹 are what a child
@@ -315,6 +336,7 @@
    overrides so it wins on source order rather than on specificity. If a new
    rule sets type below 11px, tests/regression.mjs fails and it belongs here. */
 @media (pointer: coarse) {
+  .guide-head small, .guide-chapter,
   .dash-eyebrow,
   .conv-log b, .mission-head .eyebrow, .mission-featured small, #errand-hud small,
   .daily-stamps li span, .rank-button small, .quiz-head .eyebrow, .ride-need small,

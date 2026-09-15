@@ -61,6 +61,35 @@
   console.log('PASS: day/night BGM match SOURCE.json and ambience.js asks for both.');
 }
 
+// 「?」のあそびかたガイドは、写真が無いページを出せない。
+//
+// **文だけのページは、はじめての子には いちばん役に立たない。** guide.json に章や
+// ページを足した人が写真を忘れると、白い枠だけが出る。そうならないよう、ここで
+// guide.json の shot を全部 assets/guide/ と突き合わせる。写真は
+// `python3 docs/make-guide-images.py` が docs/figures から作る。
+{
+  const { readFileSync, existsSync, statSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+  const guide = JSON.parse(readFileSync(dist + 'guide.json', 'utf8'));
+  const bad = [];
+  let steps = 0;
+  for (const chapter of guide.chapters) {
+    if (!chapter.id || !chapter.name || !chapter.steps?.length) { bad.push(`章 ${chapter.id || '?'} が空`); continue; }
+    for (const step of chapter.steps) {
+      steps += 1;
+      if (!step.title || !step.body?.length) { bad.push(`${chapter.id}: 文のないページ`); continue; }
+      // 3行より長いページは、この画面では読まれない（写真の横に入りきらない）。
+      if (step.body.length > 4) bad.push(`${chapter.id}/${step.shot}: 本文が ${step.body.length} 行`);
+      const file = `${dist}assets/guide/${step.shot}.jpg`;
+      if (!existsSync(file)) bad.push(`${chapter.id}: assets/guide/${step.shot}.jpg が無い`);
+      else if (statSync(file).size < 2000) bad.push(`${chapter.id}: ${step.shot}.jpg が空`);
+    }
+  }
+  if (bad.length) { console.error('FAIL: ' + bad.join('\n  ')); process.exit(1); }
+  console.log(`PASS: あそびかたガイド — ${guide.chapters.length}章 ${steps}ページ、写真は全部そろっている。`);
+}
+
 // And no stylesheet may give a closed <dialog> a `display`. The browser's own
 // `dialog:not([open]) { display: none }` is a plain rule, and an id selector beats it: a
 // closed panel then sits over the island, invisible against the sky and swallowing every

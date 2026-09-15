@@ -8,6 +8,7 @@
 | 対象 | dist/配下のファイル |
 |---|---|
 | HTML・初期化・メインループ | index.html / game.js / style.css |
+| あそびかたガイド（「?」） | guide.js / guide.css / guide.json / assets/guide/ |
 | 光・昼夜・カメラ・描画 | atmosphere.js |
 | 環境音・昼と夜のBGM | ambience.js / assets/bgm/（day.mp3 / night.mp3 / SOURCE.json） |
 | テーマパーク・飛行機・乗り物 | themepark.js |
@@ -66,6 +67,27 @@
   時刻は `game.js` の `worldClock(net.night.update(…))` に差し込んで動かす
   （`ambience.setNight()` を外から呼んでも、次のフレームで本物の時計に戻される）。
 
+## 「?」は あそびかたガイド（2026-09 追加）
+
+右上の `?` は、**全部の島と 全部のきのうを、写真つきで1ページずつ**見せる画面。
+前は長い文章が1つのダイアログに入っていて、はじめての子には読み切れなかった。
+
+- **中身は `guide.json` が唯一の定義元**で、`guide.js` は並べるだけ。文言を直す人が
+  JavaScript を読まなくていいように分けてある（`missions.json` / `town.json` と同じ）。
+  いまは 6章46ページ。
+- **1ページに1つのこと。** 写真1枚＋3行。`tests/regression.mjs` が「本文4行まで」を検査する
+  （長い文は写真の横に入りきらず、結局読まれない）。
+- **写真は `docs/figures` と同じもの。** 紙の資料（`docs/uspeak-guide.pdf`）と同じ図を、
+  `python3 docs/make-guide-images.py` が 960px・画質78 に落として
+  `client/dist/assets/guide/` に置く。**撮り直すのは `capture-figures.mjs` の1か所だけ。**
+  40枚で 2.4MB あるが、**guide.js は開いているページと次のページしか読まない。**
+- **`shot` を足したら写真も足すこと。** `tests/regression.mjs` が guide.json と
+  `assets/guide/` を突き合わせ、無ければ落ちる（文だけのページは、はじめての子には
+  いちばん役に立たない）。`guide-avatar` / `guide-lobby` / `guide-near` の3枚は
+  **島に入る前の画面**なので、`capture-figures.mjs` が専用のページを開いて撮っている。
+- `guide.open('ride')` のように章のidを渡すと、その章から開く。
+- レイアウト検査（`browser-layout.mjs`）の `SCREENS` に `guide` として入れてある。
+
 ## 保存互換性
 
 localStorageのキー:
@@ -116,6 +138,21 @@ UI側でもnearby()で現地にいることを再確認します。
   と書いてあるのは、`display` を id だけに書くと `hidden` 属性に勝ってしまうから。
 - 画面を1つ足したら **`browser-layout.mjs` の `SCREENS` に足す**こと。開き方（`go`）と
   測る要素（`sel`）を書くだけで、5サイズぶん検査される。
+- **右のバーの4つの飾りボタンは、役割が違う。** 見た目が同じなので一度まとめて
+  消してしまい、教室から「時計と軽量化が消えた」と言われた。捨てていいのは下2つだけ：
+
+  | ボタン | 役割 | 狭い画面で |
+  |---|---|---|
+  | `#time-toggle`（☀ ひるま 4:12） | **世界の時計**。いま何時で、あと何秒で夜かを出す唯一の場所 | **残す** |
+  | `#quality-toggle`（描画：高品質） | **重い端末を軽くする唯一の手**。古い iPad では命綱 | **残す** |
+  | `#view-toggle`（⌖ 俯瞰） | カメラの角度。無くても遊べる | 700px以下で消す |
+  | `#cinema-toggle`（景色に集中） | まわりの まどを消す。無くても遊べる | 700px以下で消す |
+
+  **横向きの携帯（`max-height: 560px`）だけは4つとも消す。** そこではバーの高さが
+  178px しかなく、飾りを2つ残すと 46px を食って **いちばん下の 📹 がはみ出す**
+  （実測 288 > 252）。クラスを探している子が 📹 を見つけられないほうが、時計が
+  無いより悪い。`browser-layout.mjs` の `has scrolled off the rail` がここを見ている。
+
 - **右のバーは「スクロールできる」＝「見えなくていい」ではない。** バーに入るボタンは
   スクロールせずに全部見えていること（`browser-layout.mjs` の
   `has scrolled off the rail`）。入りきらなくなったら**古い飾りから捨てる**：

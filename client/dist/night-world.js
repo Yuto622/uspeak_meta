@@ -1,4 +1,4 @@
-// 夜のおばけ — the ghosts of Willow Island, and the sky they come out under.
+// 夜のおばけ — the ghosts of U-Speak Island, and the sky they come out under.
 //
 // Nothing here decides anything. The sky is read from the shared clock (`world-clock.js`),
 // the list of ghosts that are out comes from the server, and swinging the wand is a

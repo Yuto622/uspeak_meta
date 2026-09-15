@@ -76,12 +76,52 @@ const shot = async (name, note) => {
   if (!want(name)) return;
   // JPEG で撮る。PNG だと29枚で 14MB になり、PDF が 13MB を超えて配れなくなる。
   // 画質92の 4:4:4 なら、UI の細い文字も紙で読める。
-  await page.screenshot({ path: path.join(OUT, `${name}.jpg`), type: 'jpeg', quality: 92 });
+  // **1秒に数コマしか描かない端末なので、既定の30秒では撮り切れないことがある。**
+  await page.screenshot({ path: path.join(OUT, `${name}.jpg`), type: 'jpeg', quality: 92, timeout: 180000 });
   done.push(name);
   console.log(`  ${name}.jpg  ${note || ''}`);
 };
 
 try {
+  // 「?」のガイドの 1〜4ページ目だけは、**まだ島に入っていない画面**が要る。
+  // openPage はアバターもロビーも抜けてしまうので、ここだけ自分でページを開く。
+  if (want('guide-')) {
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    const first = await ctx.newPage();
+    await first.route('**/fonts.googleapis.com/**', (r) => r.abort());
+    await first.goto(`http://127.0.0.1:${PORT}/`, { waitUntil: 'commit', timeout: 240000 });
+    await first.waitForSelector('#avatar-dialog[open]', { timeout: 240000 });
+    await sleep(2500);
+    await first.screenshot({ path: path.join(OUT, 'guide-avatar.jpg'), type: 'jpeg', quality: 92, timeout: 180000 });
+    done.push('guide-avatar'); console.log('  guide-avatar.jpg  すがたをえらぶ');
+    await first.click('#avatar-confirm');
+    await first.waitForSelector('#net-lobby[open]', { timeout: 60000 });
+    await first.fill('#net-name', 'ゆうと');
+    await first.fill('#net-class', 'つばめ2くみ');
+    await sleep(800);
+    await first.screenshot({ path: path.join(OUT, 'guide-lobby.jpg'), type: 'jpeg', quality: 92, timeout: 180000 });
+    done.push('guide-lobby'); console.log('  guide-lobby.jpg  なまえとクラス');
+    await ctx.close();
+    // 「◯◯と話す」の札が出ているところ。島の人の前に立って、札が出るまで待つ。
+    await daylight();
+    await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+    await page.evaluate(async () => {
+      uspeak.rpg.inside?.leave?.(true);
+      uspeak.rpg.fly('willow'); uspeak.rpg.finishFlight();
+      await new Promise((r) => setTimeout(r, 1200));
+      const { WILLOW_LESSONS } = await import('./lesson-data.js');
+      const q = WILLOW_LESSONS[0];
+      uspeak.player.position.set(q.x, 0, q.z + 2.6);
+      uspeak.view.look(0, -0.12);
+    });
+    await page.waitForFunction(() => {
+      const n = document.querySelector('#near');
+      return n && n.style.display !== 'none';
+    }, null, { timeout: 60000, polling: 300 }).catch(() => console.log('  (no prompt showed)'));
+    await sleep(900);
+    await shot('guide-near', '「◯◯と話す」が出ているところ');
+  }
+
   // 前の島で出ていた「E ○○する」の札。下で、書き換わったことを確かめるのに使う。
   let lastPrompt = '';
   for (const [id, label] of ISLANDS) {
