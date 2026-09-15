@@ -25,6 +25,13 @@
 const BGM = { day: 'assets/bgm/day.mp3', night: 'assets/bgm/night.mp3' };
 const BGM_LEVEL = 0.34;   // 環境音と同じ考え方：子どもの声に勝ってはいけない
 
+// **2曲を同時には落とさない。** 1曲2.85MB で、2つで 5.7MB。実測すると、教室に入る
+// ところで流れるバイトの**ほとんどがこれ**だった（ページ全体が 2.6MB なのに対して 5.7MB）。
+//
+// いま鳴るほうだけを落とし、**もう片方は空が変わりはじめてから**取りに行く（`setNight`）。
+// 夕方は120秒あるので、学校の回線でも十分に間に合う。昼のあいだ（300秒）は夜の曲を
+// 持たないので、授業のはじめに流れるのは半分で済む。
+
 // 風の強さ。**曲が入るまでは 0.5 だった。** 後ろで「ゴー」と鳴り続ける音は、単体だと
 // 気にならなくても、曲と重なると曲の下ごしらえを全部塗りつぶす（うるさいと言われた）。
 // 10分の1にしてある。ここは「聞こえる音」ではなく「静かすぎないための音」でよい。
@@ -76,26 +83,30 @@ export function createAmbience({ isMuted }) {
 
   // 曲は最初のタッチのあとで読みに行く。1曲3分・約2.8MB あるので、音を切っている
   // 教室に黙って5MB 落とさせない。
+  function addTrack(key) {
+    if (!ctx || !music || music[key]) return;
+    const el = new Audio(BGM[key]);
+    el.loop = true;
+    el.preload = 'auto';
+    const node = ctx.createGain();
+    node.gain.value = 0;
+    try {
+      ctx.createMediaElementSource(el).connect(node).connect(master);
+    } catch {
+      // **つなげなかったら、その曲は鳴らさない。** ここで諦めずに play() すると、
+      // master を通らない＝音量つまみもミュートも効かない BGM が全開で出る。
+      // 教室でそれをやるくらいなら、曲なしのほうがいい。
+      return;
+    }
+    el.play?.().catch(() => { /* まだ許可が下りていない。次のタッチで鳴る */ });
+    music[key] = { el, node };
+    apply();
+  }
+
   function startMusic() {
     if (music || !ctx) return;
     music = {};
-    for (const key of Object.keys(BGM)) {
-      const el = new Audio(BGM[key]);
-      el.loop = true;
-      el.preload = 'auto';
-      const node = ctx.createGain();
-      node.gain.value = 0;
-      try {
-        ctx.createMediaElementSource(el).connect(node).connect(master);
-      } catch {
-        // **つなげなかったら、その曲は鳴らさない。** ここで諦めずに play() すると、
-        // master を通らない＝音量つまみもミュートも効かない BGM が全開で出る。
-        // 教室でそれをやるくらいなら、曲なしのほうがいい。
-        continue;
-      }
-      el.play?.().catch(() => { /* まだ許可が下りていない。次のタッチで鳴る */ });
-      music[key] = { el, node };
-    }
+    addTrack(state.night < 0.5 ? 'day' : 'night');
   }
 
   function apply() {
@@ -127,6 +138,13 @@ export function createAmbience({ isMuted }) {
     setNight(night) {
       if (Math.abs(night - state.night) < 0.02) return;
       state.night = night;
+      if (music) {
+        // **いま鳴るべきほうは必ず持つ。** 最初のタッチが世界の時計より先に来ることが
+        // あり（夜に入ってきた子）、そのときは昼の曲だけ持って夜に立っている。
+        addTrack(night < 0.5 ? 'day' : 'night');
+        // 入れ替わりが始まったら両方。ここが唯一「もう片方」を取りに行くところ。
+        if (night > 0.02 && night < 0.98) { addTrack('day'); addTrack('night'); }
+      }
       apply();
     },
     setMuted(muted) {

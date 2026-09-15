@@ -96,8 +96,18 @@ try {
     const a = uspeak.ambience;
     globalThis.__bgm = a.__debug || null;
   });
-  const wired = await page.evaluate(() => !!globalThis.__bgm?.music?.day);
-  check('2曲とも AudioContext につながっている（volume ではなく GainNode）', wired);
+  // **最初は1曲しか落ちてこない。** 2曲で5.7MBあり、入室のところで一度に流すと
+  // 教室の最初の1分がそれで消える。もう片方は「空が変わりはじめてから」。
+  const oneAtFirst = await page.evaluate(() => Object.keys(globalThis.__bgm?.music || {}).length);
+  check('さいしょは 鳴るほうの1曲だけ落とす', oneAtFirst === 1, `${oneAtFirst}曲`);
+  // 夕方にすると、もう片方を取りに行く。
+  await holdNight(page, 0.5);
+  await page.waitForFunction(() => {
+    const m = globalThis.__bgm?.music;
+    return !!(m?.day && m?.night);
+  }, null, { timeout: 60000, polling: 500 }).catch(() => {});
+  const wired = await page.evaluate(() => !!(globalThis.__bgm?.music?.day && globalThis.__bgm?.music?.night));
+  check('夕方になると もう片方も AudioContext につながる（volume ではなく GainNode）', wired);
   if (!wired) throw new Error('no music graph');
 
   // 2. 昼。
