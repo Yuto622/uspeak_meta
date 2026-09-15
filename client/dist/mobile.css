@@ -451,3 +451,22 @@
     touch-action: none;
   }
 }
+
+/* --- 12. 右のバーの文字を、折り返させない ------------------------------------
+   「冒険ノート」が「冒険ノー／ト」に折れて出ていた（横向きの携帯・実機の写真で発見）。
+   バーは132pxしかないので、長い日本語はそこで折れる。**英語のほうを主にしたので、
+   日本語は横向きでは元から出さない**（上の 4. を参照）が、縦でも折れないように
+   ここで押さえる。入りきらないものは「…」にする — 折り返して2行になると、
+   ボタンの高さが変わって下の 📹 が押し出される。 */
+@media (pointer: coarse) {
+  .right-rail > button .en,
+  .right-rail > button .ja,
+  .right-rail > button > small {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+  }
+}

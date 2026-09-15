@@ -26,7 +26,7 @@ export function createDailyUI({ send, isOnline }) {
   button.id = 'rank-button';
   button.className = 'rank-button';
   button.hidden = true;
-  button.innerHTML = '<span>♛ 週間ランキング</span><small>今週の ✧ XP</small>';
+  button.innerHTML = '<b class="en">♛ Ranking</b><i class="ja">こんしゅうの XP</i>';
   button.onclick = () => openRank();
   document.querySelector('.right-rail')?.append(button);
 

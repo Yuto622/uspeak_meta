@@ -90,6 +90,35 @@
   console.log(`PASS: あそびかたガイド — ${guide.chapters.length}章 ${steps}ページ、写真は全部そろっている。`);
 }
 
+// さかなの写真。**100匹ぜんぶに写真があること**と、名前が世界でひとつであること。
+//
+// `fish-species.js` に1行足して写真を置き忘れると、図鑑に わくだけが並ぶ。
+// 名前が重なると、図鑑の2行が同じ名前になって どちらを釣ったのか分からなくなる。
+{
+  const { existsSync, statSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+  const { FISH } = await import('../dist/fishing-data.js');
+  const { SPECIES } = await import('../dist/fish-species.js');
+  const bad = [];
+  const names = new Map();
+  for (const f of FISH) {
+    if (!f.photo) { bad.push(`${f.id} に写真がない`); continue; }
+    const file = `${dist}assets/fish/${f.photo}.jpg`;
+    if (!existsSync(file)) bad.push(`${f.id}: assets/fish/${f.photo}.jpg が無い`);
+    else if (statSync(file).size < 1000) bad.push(`${f.photo}.jpg が空`);
+    if (names.has(f.name)) bad.push(`名前が重なっている: ${f.name}（${names.get(f.name)} と ${f.id}）`);
+    names.set(f.name, f.id);
+  }
+  // 釣り場ごとに、ちゃんと しゅるいが いること
+  for (const zone of ['pond', 'river', 'sea']) {
+    const pool = SPECIES.filter((sp) => sp.zone === zone || sp.zone === 'any');
+    if (pool.length < 8) bad.push(`${zone} のしゅるいが ${pool.length} しかない`);
+  }
+  if (bad.length) { console.error('FAIL: ' + bad.slice(0, 8).join('\n  ')); process.exit(1); }
+  console.log(`PASS: さかな ${FISH.length}匹 — ${SPECIES.length}しゅるいの写真がそろい、名前はぜんぶ ちがう。`);
+}
+
 // And no stylesheet may give a closed <dialog> a `display`. The browser's own
 // `dialog:not([open]) { display: none }` is a plain rule, and an id selector beats it: a
 // closed panel then sits over the island, invisible against the sky and swallowing every

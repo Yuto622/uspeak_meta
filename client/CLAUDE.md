@@ -14,7 +14,7 @@
 | 環境音・昼と夜のBGM | ambience.js / assets/bgm/（day.mp3 / night.mp3 / SOURCE.json） |
 | テーマパーク・飛行機・乗り物 | themepark.js |
 | アバター | avatars.js |
-| 釣り・魚・経済 | fishing.js / fishing-state.js / fishing-data.js / fishing-models.js |
+| 釣り・魚・経済 | fishing.js / fishing-state.js / fishing-data.js / fishing-models.js / fish-species.js / assets/fish/ |
 | RPG・地域・図鑑・地図 | rpg.js / rpg-state.js / rpg-data.js / rpg-map.js |
 | 地形・キャラモデル | rpg-world.js / rpg-models.js |
 | 物語・育成・リーグ・復習 | adventure.js / adventure-state.js / adventure-data.js / adventure-quiz.js |
@@ -126,6 +126,30 @@
 - **分かち書きする。** 「さかなを うる みせ」のように、文節で空けると小1が読める。
   詰めて書くと ひらがなだけの壁になって、かえって読めない。
 - 新しい文言を足すときも同じ。**漢字を足したくなったら、まず言いかえを探すこと。**
+
+## さかなは 写真になった（2026-09 更新）
+
+**100匹の見た目は `assets/fish/<id>.jpg` の写真**（渡された1024pxの絵を320pxに落としたもの）。
+もとは three.js で 箱を組み立てて描いていたが、本物の絵のほうが子どもには はるかに分かる。
+
+- **`fish-species.js` が唯一の定義元。** 69しゅるい（池17・川12・海47・どこでも4）。
+  `id` / `ja` / `en` / `zone` / `tier` だけを持ち、値段も判定も持たない。
+  **JSON ではなく JS**なのは、`server/src/game/` の judge・economy・fish-moves が
+  `fishing-data.js` を**同期で** import するから（途中に fetch を挟めない）。
+- **枠は100のまま、id も `fish-1`〜`fish-100` のまま。** 子どものセーブ（図鑑・持ち物）が
+  このidで書かれているので、ここを変えると続きが消える。**ことばも100語のまま。**
+- **名前は「大きさの言いかた＋しゅるい」**（メダカ／オオメダカ／ヒメメダカ）。
+  しゅるいが釣り場の枠より少ないので、同じ写真が2〜3回出る。8つの言いかた
+  （オオ・ヒメ・ニジイロ・コガネ・ギンイロ・ホシゾラ・マボロシ）で分けている。
+  **名前は世界でひとつ**（図鑑に同じ名前が2行あると、どちらを釣ったか分からない）。
+- **「もの」（ながぐつ・ボトルメール・たからばこ・きんかい・にんぎょの うろこ）は
+  `item: true`。1つの釣り場で1回しか出さない**（印がないと、しゅるいの少ない池では
+  たからばこ ばかり かかる）。`zone: 'any'` は どの釣り場でも出る。
+- 写真を足すときは `assets/fish/` に置いて `fish-species.js` に1行。
+  `tests/regression.mjs` が「100匹ぜんぶに写真があるか」「名前が重なっていないか」
+  「釣り場ごとに8しゅるい以上あるか」を検査する。
+- **水から とび出す 演出（splash）だけは、まだ `fishing-models.js` の3Dモデル。**
+  あそこは板の絵より立体のほうが気持ちいいので残してある。
 
 ## 保存互換性
 

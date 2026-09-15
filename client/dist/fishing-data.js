@@ -1,3 +1,4 @@
+import {SPECIES} from './fish-species.js';
 // Original game fish. Grade labels are study-difficulty guides, not an official exam word list.
 const vocabulary={
  '5':[['apple','りんご'],['book','本'],['water','水'],['school','学校'],['friend','友だち'],['happy','うれしい'],['morning','朝'],['family','家族'],['house','家'],['music','音楽'],['small','小さい'],['white','白い'],['swim','泳ぐ'],['play','遊ぶ'],['eat','食べる'],['read','読む'],['beautiful','美しい'],['animal','動物'],['flower','花'],['weather','天気']],
@@ -8,10 +9,49 @@ const vocabulary={
 };
 export const GRADES=['5','4','3','準2','2'];
 export const ZONES=[{id:'pond',name:'こもれび池',english:'SUNLIT POND',grades:['5','4'],hint:'身近なことばから。ゆったり練習。',position:[-10,0,10],cast:[-14,.52,10],color:0x78bba8},{id:'river',name:'せせらぎ川',english:'WHISPER RIVER',grades:['3'],hint:'会話で使うことばに挑戦。',position:[20,0,3],cast:[23.4,.52,3],color:0x78bed0},{id:'sea',name:'星海の桟橋',english:'STARLIGHT SEA',grades:['準2','2'],hint:'少し難しいことばと、希少な魚。',position:[17,0,19],cast:[17,-1.35,25],color:0x698ed0}];
-const bases=['メダカ','コイ','フナ','タナゴ','キンギョ','ドジョウ','ナマズ','マス','ウグイ','ハゼ','アユ','イワナ','ウナギ','タイ','エイ','カジキ','サメ','リュウグウ','クリスタルフィッシュ','クラウンフィッシュ'];
-const prefixes=['コモレビ','ヒダマリ','セイリュウ','シオカゼ','ホシウミ'];
+// さかなの すがたは `fish-species.js` の表から来る（写真は assets/fish/<id>.jpg）。
+// 昔は 20個の名前（メダカ・コイ…）と、級ごとの かざり（コモレビ・ヒダマリ…）を
+// 組み合わせて100個の名前を作っていた。いまは**本物の写真1枚＝1しゅるい**で、
+// 同じしゅるいが1つの釣り場に何度も出るときだけ、大きさの言いかたで分ける。
+//
+// **枠は100のまま、idも `fish-1`〜`fish-100` のまま**にしてある。子どものセーブ
+// （図鑑・持ち物）がこのidで書かれているので、ここを変えると続きが消える。
+// 同じしゅるいが 何回か 出るときの 大きさの言いかた。**8つある**のは、
+// しゅるいの少ない釣り場（川は9しゅるいで20の枠）でも「◯ごう」に落ちないため。
+const VARIETY_JA=['','オオ','ヒメ','ニジイロ','コガネ','ギンイロ','ホシゾラ','マボロシ'];
+const VARIETY_EN=['','Great ','Little ','Rainbow ','Golden ','Silver ','Starry ','Phantom '];
+// 釣り場ごとの しゅるい。レア度の近いものから順に使うので、
+// レジェンド枠に メダカ、コモン枠に シャチ、ということにならない。
+function pickSpecies(zone,rarity,used){
+ const pool=SPECIES.filter(sp=>sp.zone===zone||sp.zone==='any');
+ if(!pool.length)return null;
+ // ①使った回数が少ないもの ②レア度が近いもの ③表の順、で選ぶ
+ // **ものは1回だけ。** 重みを10倍にしてあるので、さかなを10回使うまで2回目は来ない。
+ const w=x=>(used.get(x.id)||0)*(x.item?10:1);
+ return pool.slice().sort((a,b)=>w(a)-w(b)
+   ||Math.abs(a.tier-rarity)-Math.abs(b.tier-rarity)
+   ||pool.indexOf(a)-pool.indexOf(b))[0];
+}
 export const RARITIES=[{id:'common',name:'コモン',color:'#7d9e84',weight:7},{id:'uncommon',name:'アンコモン',color:'#499daa',weight:4},{id:'rare',name:'レア',color:'#7788ce',weight:2},{id:'epic',name:'エピック',color:'#ad79bd',weight:1},{id:'legendary',name:'レジェンド',color:'#c69848',weight:.45}];
-export const FISH=GRADES.flatMap((grade,g)=>vocabulary[grade].map(([word,meaning],i)=>{const rarity=i<8?0:i<13?1:i<17?2:i<19?3:4;return {id:`fish-${g*20+i+1}`,number:g*20+i+1,name:prefixes[g]+bases[i],word,meaning,grade,zone:g<2?'pond':g===2?'river':'sea',rarity,price:Math.round((18+g*18+i*3)*[1,1.5,2.5,4,7][rarity]),size:Math.round((8+i*5+g*4)*(1+rarity*.18)),shape:i%6,palette:g,pattern:i%4}}));
+// 数えるものが2つある。**写真は id ごとに均す**（同じ絵ばかり出さない）が、
+// **大きさの言いかたは名前ごとに数える**（フグの写真が2枚あるなら「フグ」と「オオフグ」）。
+const seen=new Map(),named=new Map();
+export const FISH=GRADES.flatMap((grade,g)=>vocabulary[grade].map(([word,meaning],i)=>{
+ const rarity=i<8?0:i<13?1:i<17?2:i<19?3:4;
+ const zone=g<2?'pond':g===2?'river':'sea';
+ const sp=pickSpecies(zone,rarity,seen);
+ // **名前は世界でひとつ。** 釣り場をまたいでも同じ名前を2匹にしない
+ // （図鑑に「ながぐつ」が2行あると、どちらを釣ったのか分からない）。
+ const key=sp?sp.ja:'';
+ const n=sp?(named.get(key)||0):0;
+ if(sp){seen.set(sp.id,(seen.get(sp.id)||0)+1);named.set(key,n+1);}
+ return {id:`fish-${g*20+i+1}`,number:g*20+i+1,
+  name:sp?(n<VARIETY_JA.length?VARIETY_JA[n]+sp.ja:`${sp.ja} ${n-VARIETY_JA.length+2}ごう`):`さかな${g*20+i+1}`,
+  en:sp?(n<VARIETY_EN.length?VARIETY_EN[n]+sp.en:`${sp.en} No.${n-VARIETY_EN.length+2}`):'Fish',
+  photo:sp?sp.id:null,species:sp?sp.id:null,
+  word,meaning,grade,zone,rarity,
+  price:Math.round((18+g*18+i*3)*[1,1.5,2.5,4,7][rarity]),
+  size:Math.round((8+i*5+g*4)*(1+rarity*.18)),shape:i%6,palette:g,pattern:i%4}}));
 export const FISH_BY_ID=Object.assign(Object.create(null),Object.fromEntries(FISH.map(f=>[f.id,f])));
 export const ITEMS=[
  {id:'vest',name:'リバーガイドのベスト',kind:'outfit',price:90,color:0x7b9c78,accent:0xe0c889,style:'vest',description:'大きなポケットと革のベルト。'},

@@ -20,3 +20,12 @@
 .hotbar button .ja{font-size:11px}
 .scenery-controls button .en{font-size:11px}
 .scenery-controls button .ja{font-size:11px}
+
+/* さかなの写真。図鑑のカードと 持ち物の行に 小さく、水槽の欄に 大きく出す。
+ * **3Dで描くのをやめたのは、渡された絵のほうが子どもには分かりやすいから。**
+ * 水から とび出す 演出だけは、まだ three.js のモデルを使っている。 */
+#fish-photo{display:block;width:100%;max-width:230px;margin:0 auto;aspect-ratio:1;object-fit:contain;border-radius:14px;background:#ffffff14}
+.fish-thumb{display:block;width:44px;height:44px;border-radius:10px;object-fit:cover;background:#e7ead9;margin-bottom:6px}
+.fish-inventory-row .fish-thumb{float:left;margin:0 10px 0 0}
+.fish-catalog .undiscovered .fish-thumb{filter:grayscale(1) contrast(.5) brightness(1.25);opacity:.55}
+#fish-showcase-name .ja{display:block;font-style:normal;font-size:12px;opacity:.7;margin-top:3px}
