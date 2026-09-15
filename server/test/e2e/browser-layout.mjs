@@ -20,6 +20,8 @@ const { chromium } = require('playwright');
 const PORT = Number(process.env.LAYOUT_PORT || 2671);
 const OUT = path.resolve(serverDir, 'loadtest-results');
 mkdirSync(OUT, { recursive: true });
+import { waitForServer } from './lib/walk.mjs';
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const ONLY = process.argv.slice(2);
@@ -36,7 +38,7 @@ const DEVICES = ONLY.length ? ALL.filter((d) => ONLY.includes(d.name)) : ALL;
 const RAIL_KIDS = ['.map-panel', '.scenery-controls', '#flight-button', '.fishing-button', '.rpg-buddy-button', '#voice-button'];
 const OVERLAY = ['#net-teacher'];
 const PROBES = ['.right-rail', '#net-status', '#net-chat-button', '#net-teacher-button', '#net-teacher',
-  '.hotbar', '.mobile-pad', '#near', '.quest-panel', '#errand-hud', ...RAIL_KIDS];
+  '.hotbar', '.mobile-pad', '#near', '.quest-panel', '#errand-hud', '.guest-dock', ...RAIL_KIDS];
 
 // Every panel a child can actually open, and how to open it from the page. A screen that
 // only looks right on a laptop is a screen a classroom never sees: these are all measured
@@ -209,7 +211,7 @@ const server = spawn('node', ['src/index.js'], {
   stdio: ['ignore', 'ignore', 'pipe'],
 });
 server.stderr.on('data', (d) => process.stdout.write('[srv] ' + d));
-await sleep(1500);
+await waitForServer(PORT);
 const browser = await chromium.launch({
   ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
   args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--no-sandbox',

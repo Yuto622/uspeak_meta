@@ -3,6 +3,21 @@
 // because walking is the thing being tested.
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// 起動を秒数で待たない。コンテナが冷えているときの1回目は、Colyseus の立ち上がりだけで
+// 数秒かかることがあり、決め打ちの sleep だと「サーバーが落ちた」ように見える失敗になる
+// （実際そうなった）。開いたポートを見て進む。
+export async function waitForServer(port, { timeout = 60000 } = {}) {
+  const until = Date.now() + timeout;
+  for (;;) {
+    try {
+      const res = await fetch(`http://127.0.0.1:${port}/healthz`);
+      if (res.ok) return true;
+    } catch { /* not up yet */ }
+    if (Date.now() > until) throw new Error(`server on ${port} never answered /healthz`);
+    await sleep(250);
+  }
+}
+
 export function makeHelpers({ browser, port, viewport = { width: 420, height: 320 } }) {
   async function openPage(name, { klass = 'e2e', teacherKey = '', initScript = null } = {}) {
     const ctx = await browser.newContext({ viewport });

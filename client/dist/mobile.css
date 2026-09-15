@@ -203,6 +203,29 @@
   .right-rail > button { font-size: 11px; padding: 6px; flex-direction: row; gap: 6px; }
 }
 
+/* --- 4b. The guest-game dock ------------------------------------------------
+   のりもの島とまちづくり島で左下に出る、別ゲームへの入口（guest-dock.js）。
+   十字キーと同じ左下にいるので、その上に積む。**十字キーは幅ではなく pointer で出る**
+   ので、幅で積むと iPad と横向きの携帯で重なる（最初そう書いて検査に落ちた）。
+   パッドは 142px 上・高さ約 104px なので、その上。 */
+@media (pointer: coarse) {
+  .guest-dock {
+    left: calc(16px + env(safe-area-inset-left));
+    bottom: calc(256px + env(safe-area-inset-bottom));
+    width: 186px;
+    gap: 6px;
+  }
+  .guest-launch { min-height: 48px; padding: 8px 10px; gap: 8px; border-radius: 12px; }
+  .guest-launch-badge { width: 28px; height: 28px; font-size: 15px; border-radius: 8px; }
+  .guest-launch-name strong { font-size: 12px; letter-spacing: .5px; }
+}
+/* 低い画面（横向きの携帯）ではパッドが 16px 上・高さ約 88px に下がるので、入口も下げる。 */
+@media (pointer: coarse) and (max-height: 560px) {
+  .guest-dock { bottom: calc(118px + env(safe-area-inset-bottom)); width: 168px; }
+  .guest-launch { min-height: 42px; padding: 6px 9px; }
+  .guest-launch-name small { display: none; }
+}
+
 /* --- 5. The left panel -----------------------------------------------------
    The quest list grows with its content and would otherwise run under the
    movement pad. Cap it and let it scroll. */
@@ -293,7 +316,8 @@
   .rpg-cards span, .rpg-question>span, .rpg-unlock small, .rpg-header-stats>span,
   #rpg-preview-panel>.rpg-eyebrow, #rpg-preview-panel p, .rpg-buddy-button small,
   #voice-panel[data-size="s"] .voice-tile small, .voice-tile small, .voice-log b,
-  .voice-log small, .voice-phrases b, .voice-phrases button small {
+  .voice-log small, .voice-phrases b, .voice-phrases button small,
+  .guest-launch-name small {
     font-size: 11px;
   }
   /* The 仲間 / XP counters in the RPG header are set with !important in style.css's own

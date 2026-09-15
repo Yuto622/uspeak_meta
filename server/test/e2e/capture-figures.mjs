@@ -9,7 +9,7 @@ import { createRequire } from 'node:module';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { makeHelpers } from './lib/walk.mjs';
+import { makeHelpers, waitForServer } from './lib/walk.mjs';
 import { phaseAt, PHASES } from '../../../client/dist/world-clock.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -26,7 +26,7 @@ const server = spawn('node', ['src/index.js'], {
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-await sleep(1600);
+await waitForServer(PORT);
 
 const browser = await chromium.launch({
   ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
@@ -82,6 +82,8 @@ const shot = async (name, note) => {
 };
 
 try {
+  // 前の島で出ていた「E ○○する」の札。下で、書き換わったことを確かめるのに使う。
+  let lastPrompt = '';
   for (const [id, label] of ISLANDS) {
     if (!want(`island-${id}`)) continue;
     await daylight();
@@ -93,6 +95,15 @@ try {
       await new Promise((r) => setTimeout(r, 1400));
     }, id);
     await sleep(2200);                       // this renderer takes its time
+    // 「E ○○する」の札は、近くに何も無いときは**表示だけ消えて文字は残る**。
+    // 1〜3fps だと前の島の札を持ったまま次の島を撮ってしまうので（まちづくり島の写真に
+    // 「のりものを えらぶ」が写った）、消えるか、書き換わるまで待つ。
+    await page.waitForFunction((was) => {
+      const near = document.querySelector('#near');
+      const now = document.querySelector('#interact span')?.textContent || '';
+      return getComputedStyle(near).display === 'none' || now !== was;
+    }, lastPrompt, { timeout: 8000, polling: 300 }).catch(() => {});
+    lastPrompt = await page.evaluate(() => document.querySelector('#interact span')?.textContent || '');
     await shot(`island-${id}`, label);
   }
 

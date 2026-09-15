@@ -19,7 +19,7 @@ import { createRequire } from 'node:module';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { makeHelpers } from './lib/walk.mjs';
+import { makeHelpers, waitForServer } from './lib/walk.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const serverDir = path.resolve(here, '../..');
@@ -36,7 +36,7 @@ const server = spawn('node', ['src/index.js'], {
 });
 server.stderr.on('data', (d) => process.stdout.write('[server:err] ' + d));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-await sleep(1600);
+await waitForServer(PORT);
 
 const browser = await chromium.launch({
   ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
@@ -382,6 +382,70 @@ try {
     after.count === 2 && after.ids.includes(3), JSON.stringify(after));
   check('…それでも、買っていない物は出てこない',
     after.ids.every((id) => [7, 3].includes(id)), after.ids.join(','));
+
+  // ---- 左下の入口。島に降りた時点で押せること --------------------------------------
+  //
+  // 島の中の扉（ガレージのカード／ブロックの とびら）はそのまま残っているが、どちらも
+  // 「そこまで歩いて初めて見える」。初めて来た子に別のゲームがあることを知らせるのは
+  // 左下のボタンの仕事なので、**降りた時点で出ている**ことをここで見る。
+  const dockAt = async (island) => {
+    await page.evaluate(async (isle) => {
+      for (const d of document.querySelectorAll('dialog[open]')) d.close();
+      uspeak.rpg.inside?.leave?.(true);
+      uspeak.rpg.fly(isle); uspeak.rpg.finishFlight();
+    }, island);
+    // 表示はフレームループが決めるので、島の名前が届くまで待つ（ここは毎秒2コマ）。
+    await page.waitForFunction((isle) => uspeak.net.guestDock.island === isle,
+      island, { timeout: 30000, polling: 200 }).catch(() => {});
+    return page.evaluate(() => {
+      const dock = document.querySelector('.guest-dock');
+      const r = dock?.getBoundingClientRect();
+      return {
+        shown: !!dock && !dock.hidden,
+        names: [...document.querySelectorAll('.guest-launch')].map((b) => b.dataset.guest),
+        label: document.querySelector('.guest-launch strong')?.textContent || '',
+        // 左下にあること。ぶつかっていないかは browser-layout.mjs が全サイズで見る。
+        corner: !!r && r.left < innerWidth * 0.4 && r.bottom > innerHeight * 0.5 && r.bottom <= innerHeight,
+      };
+    });
+  };
+  const rideDock = await dockAt('ride');
+  check('のりもの島に降りた時点で、左下に AURORA KART が出る',
+    rideDock.shown && rideDock.names.join() === 'racers' && /AURORA/.test(rideDock.label) && rideDock.corner,
+    JSON.stringify(rideDock));
+  const townDock = await dockAt('town');
+  check('まちづくり島では BLOCKWILD が出る',
+    townDock.shown && townDock.names.join() === 'blockwild' && /BLOCKWILD/.test(townDock.label) && townDock.corner,
+    JSON.stringify(townDock));
+  const schoolDock = await dockAt('school');
+  check('別ゲームのない島では出ない', !schoolDock.shown && schoolDock.names.length === 0, JSON.stringify(schoolDock));
+
+  // 店の中では引っ込む。カウンターの前に立っている子に「島から出るボタン」は要らない。
+  await dockAt('town');
+  await page.evaluate(async () => {
+    const isle = (await uspeak.rpg.town.ready).island;
+    const spot = isle.spots.find((s) => s.kind === 'shop');
+    uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z - 0.65);
+  });
+  const inside = await page.waitForFunction(() => (uspeak.net.guestDock.island === '' ? {
+    space: uspeak.net.currentSpace(), shown: !document.querySelector('.guest-dock').hidden,
+  } : null), null, { timeout: 30000, polling: 250 }).then((h) => h.jsonValue()).catch(() => null);
+  check('建物の中に入ると引っ込む', !!inside && !inside.shown && inside.space.startsWith('in:'), JSON.stringify(inside));
+
+  // そして押すと開く。開いている間は島の家具と一緒に消え、出れば戻る。
+  await dockAt('town');
+  await page.click('.guest-launch[data-guest="blockwild"]');
+  const opened = await page.waitForFunction(() => (document.body.dataset.arcade === 'blockwild' ? {
+    dock: getComputedStyle(document.querySelector('.guest-dock')).display,
+    frames: document.querySelectorAll('.arcade-frame').length,
+  } : null), null, { timeout: 60000, polling: 250 }).then((h) => h.jsonValue()).catch(() => null);
+  check('左下のボタンから BLOCKWILD が開く', !!opened && opened.frames === 1, JSON.stringify(opened));
+  check('…開いている間は左下も消えている', opened?.dock === 'none', JSON.stringify(opened));
+  await page.evaluate(() => uspeak.net.blockwild.close());
+  const back = await page.waitForFunction(() => (!document.body.dataset.arcade
+    ? getComputedStyle(document.querySelector('.guest-dock')).display !== 'none' : null),
+  null, { timeout: 30000, polling: 250 }).then(() => true).catch(() => false);
+  check('…閉じると戻ってくる', back);
 
   // ---- the case the first version of this got wrong ----------------------------------
   //

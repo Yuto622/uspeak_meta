@@ -97,7 +97,11 @@ export function createBlockwild({ toast, onOpen, onClose, ownedBlocks }) {
       doc.querySelector('#netJoin')?.remove();
       const status = doc.querySelector('#netStatus');
       if (status) status.textContent = 'ここでは ひとりの 世界です。みんなで つくるのは、まちづくり島の 「ひろば」 から。';
-      gate(doc, ownedBlocks?.() || readCache());
+      // **空の配列も配列なので、長さで見る。** `|| readCache()` だけだと、部屋から
+      // まだ棚が届いていないとき（＝オフライン、あるいは入った直後）に空の配列が
+      // そのまま通り、前回買った物が消えて見えた。
+      const owned = ownedBlocks?.() || [];
+      gate(doc, owned.length ? owned : readCache());
       // Its own menu row, where a child already looks for 保存 and 設定.
       return homeButton(doc, doc.querySelector('.menulinks'), close);
     },

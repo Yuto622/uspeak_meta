@@ -25,6 +25,7 @@ import { createKartGame } from './kart-game.js';
 import { createDashboard } from './dashboard.js';
 import { createWardrobe } from './wardrobe.js';
 import { createRacers } from './racers.js';
+import { createGuestDock } from './guest-dock.js';
 import { createBlockwild, cacheBlocks } from './blockwild.js';
 import { createPuyo } from './puyo.js';
 import { createSuika } from './suika.js';
@@ -262,6 +263,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const blockwild = createBlockwild({ ...guest, ownedBlocks: () => ownedBlocks });
   // ミニゲーム島: one house each, and the house is the menu.
   const arcades = { puyo: createPuyo(guest), suika: createSuika(guest) };
+  // のりもの島とまちづくり島では、島の中の扉に加えて左下にも入口を出す。理由は
+  // guest-dock.js に書いてある（扉が「そこまで歩かないと見えない」ため）。
+  const guestDock = createGuestDock({
+    open: (id) => (id === 'racers' ? racers.open() : blockwild.open()),
+  });
 
   const ride = createRideUI({
     send: atSend,
@@ -758,12 +764,15 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     const now = performance.now();
     if (state.pendingTeleport) applyPendingTeleport();
     if (ownBubble && now > ownBubbleUntil) { player.remove(ownBubble); ownBubble = null; }
-    remotes.update(t, currentSpace());
+    const space = currentSpace();
+    remotes.update(t, space);
+    // 同梱ゲームはこのページの中だけで完結するので、入口はオフラインでも出す
+    // （オンラインだけの判定より前に置いてあるのはそのため）。
+    guestDock.show(space);
     writeProgress();
     if (!room || state.mode !== 'online') return;
     const anim = rpg.state.mode === 'flight' ? 'fly' : moving ? (running ? 'run' : 'walk') : 'idle';
     // Arriving on (or leaving) the island changes what the errand tracker has to say.
-    const space = currentSpace();
     if (space !== state.lastSpace) { state.lastSpace = space; mission.refreshHud(); }
     voice.setMode(room.state?.voice);
     voice.setSpace(space);
@@ -841,6 +850,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get wardrobe() { return wardrobe; },
     get racers() { return racers; },
     get blockwild() { return blockwild; },
+    guestDock,
     get arcades() { return arcades; },
     // One question for the frame loop: is a whole-window guest game up?
     arcadeOpen: () => racers.isOpen || blockwild.isOpen || Object.values(arcades).some((g) => g.isOpen),
