@@ -459,6 +459,42 @@ cd docs && xelatex uspeak-guide.tex && xelatex uspeak-guide.tex
 - 文中の数字（問題数・値段・品数）は、すべて `client/dist/*.json` と
   `server/src/game/*-bank.json` の実データから拾っています。**足したら資料も直すこと。**
 
+## 紹介動画（１０分版・５分版）
+
+`docs/tour-cuts.json`（台本）から、`docs/make-tour.py` が3つ作ります。
+
+```sh
+python3 docs/make-tour.py          # 全部（動画の書き出しに3分ほど）
+python3 docs/make-tour.py player   # docs/tour.html だけ。台本を直したときはこれで十分
+```
+
+| できるもの | 中身 |
+|---|---|
+| **`docs/tour.html`** | ナレーション付きのプレーヤー。**これが本体です** |
+| `docs/uspeak-tour-10min.webm` | 10分12秒・33カット。**音声なし**・字幕は焼き込み |
+| `docs/uspeak-tour-5min.webm` | 5分12秒・24カット。同上 |
+| `docs/tour-script.md` | 収録用の台本（秒数と使う図つき） |
+
+**ナレーションは `tour.html` を開いたブラウザが読み上げます。**
+日本語の音声が入っている Windows・mac・iPad なら、開いて「さいせい」を押すだけで
+字幕と一緒に喋ります。10分版と5分版はボタンで切り替わり、下の章立てから飛べます。
+
+```sh
+# 商談で使う MP4 が要るときは、tour.html を全画面で再生して画面録画するのがいちばん早い
+#   Windows … Win+Alt+R（MP4 で保存されます）
+#   mac     … ⌘+Shift+5
+```
+
+- **なぜ .webm に音声が無いのか。** この開発環境には音声合成も音声コーデックもありません
+  （同梱の ffmpeg は Playwright 付属の**映像だけ**のビルド）。声の出しかたは2つ用意しました
+  — ブラウザに読ませる（`tour.html`）か、`tour-script.md` を人が読んで録るか。
+- **.webm は PowerPoint に貼れません。** 貼るなら上の画面録画で MP4 にしてください。
+  ブラウザ（Edge / Chrome / Safari 14 以降）ならそのまま再生できます。
+- **長さは台本に書きません。** 文字数から出しています（1分およそ336字）。
+  文を足せば自動で伸びるので、秒数と文章がずれることはありません。
+- 図はすべて `docs/figures/`。PDF の資料（`docs/uspeak-guide.pdf`）と同じものです。
+- **`in5: false` を付けたカットは5分版から落ちます。** `short` を書けば、5分版はそちらを読みます。
+
 ## 講師の使い方
 
 1. ロビーで名前を入れ、「先生用」を開いて講師キーを入力して参加。

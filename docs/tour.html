@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>U-Speak ウェブ版 ・ サービス紹介</title>
+<style>
+  :root{--deep:#0c2a24;--green:#173f38;--cream:#f4f1e3;--gold:#e8c368;--mint:#74c39a;--rule:#2c4a43}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--deep);color:var(--cream);
+       font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:18px 18px 40px}
+  header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+  header h1{font-size:19px;margin:0;letter-spacing:1px}
+  header small{color:var(--mint);font-size:12px;letter-spacing:2px}
+  /* 動画（uspeak-tour-*.webm）と同じ組み：上が写真、下が字幕の帯。写真の上に字を重ねると、
+     画面写真そのものに文字が多いので、どちらも読めなくなる。 */
+  .stage{position:relative;aspect-ratio:16/9;background:var(--deep);border-radius:14px;overflow:hidden;
+         box-shadow:0 20px 60px #0008}
+  .shot{position:absolute;left:0;right:0;top:0;height:calc(100% - 32%);overflow:hidden;background:#000}
+  /* 動画と同じで、横には振らず縦に流す。写真は 1280x800、枠は横長なので、
+     拡大して横に振ると下のバーが永久に切れる。 */
+  .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+            transition:opacity .6s ease;animation:drift 1s linear both}
+  .shot img.on{opacity:1}
+  @keyframes drift{from{object-position:50% 10%}to{object-position:50% 90%}}
+  .caption{position:absolute;left:0;right:0;bottom:0;height:32%;padding:14px 30px 20px;
+           background:var(--deep);border-top:3px solid var(--gold);display:flex;flex-direction:column}
+  .caption .chap{font-size:12px;letter-spacing:3px;color:var(--mint);margin-bottom:4px}
+  .caption h2{margin:0 0 8px;font-size:clamp(16px,2.2vw,27px);letter-spacing:1px}
+  .caption p{margin:0;font-size:clamp(11px,1.45vw,17px);line-height:1.7;color:#d8e4dc;overflow:hidden}
+  .bar{position:absolute;left:0;bottom:0;height:4px;background:var(--gold);width:0;transition:width .25s linear}
+  .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+  button{font:inherit;color:inherit;background:#1d4239;border:1px solid var(--rule);
+         border-radius:11px;padding:10px 16px;cursor:pointer}
+  button:hover{border-color:var(--mint)}
+  button.on{background:var(--gold);color:#22372f;border-color:var(--gold);font-weight:700}
+  button.play{background:var(--mint);color:#12302a;border-color:var(--mint);font-weight:700;min-width:104px}
+  .time{margin-left:auto;font-variant-numeric:tabular-nums;color:#9fb8ac;font-size:13px}
+  .note{color:#8fa79b;font-size:12px;line-height:1.8;margin:10px 0 18px}
+  .note b{color:var(--cream)}
+  ol.chapters{list-style:none;margin:0;padding:0;display:grid;
+              grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+  ol.chapters li button{width:100%;text-align:left;display:flex;gap:10px;align-items:baseline;
+                        background:#12332c;padding:9px 12px}
+  ol.chapters li button.now{background:#1f4a3c;border-color:var(--mint)}
+  ol.chapters em{font-style:normal;color:#89a496;font-size:11px;font-variant-numeric:tabular-nums;flex:none}
+  ol.chapters span{font-size:13px}
+  @media(max-width:560px){.caption{padding:14px 16px 18px}.caption p{min-height:4.6em}}
+</style></head><body><div class="wrap">
+<header><h1>U-Speak ウェブ版 ・ サービス紹介</h1><small>U-SPEAK LAB</small></header>
+
+<div class="stage" id="stage">
+  <div class="shot"><img id="a" alt=""><img id="b" alt=""></div>
+  <div class="caption">
+    <div class="chap" id="chap"></div>
+    <h2 id="title"></h2>
+    <p id="sub"></p>
+  </div>
+  <div class="bar" id="bar"></div>
+</div>
+
+<div class="controls">
+  <button class="play" id="play">▶ さいせい</button>
+  <button id="prev">◀ まえ</button>
+  <button id="next">つぎ ▶</button>
+  <button id="len10" class="on">10分版（10:12）</button>
+  <button id="len5">5分版（5:12）</button>
+  <button id="voice" class="on">🔊 ナレーション</button>
+  <span class="time" id="time">0:00</span>
+</div>
+
+<p class="note">
+  ナレーションは<b>このブラウザが読み上げます</b>（日本語の音声が入っている Windows・mac・iPad ならそのまま喋ります）。
+  声が出ないときは「🔊 ナレーション」を押して切り替えるか、字幕だけでご覧ください。
+  <b>画面録画すれば、そのまま動画ファイルになります</b>（Windows は <b>Win+Alt+R</b>、mac は <b>⌘+Shift+5</b>）。
+</p>
+
+<ol class="chapters" id="chapters"></ol>
+</div>
+<script>
+const DATA = {"full": [{"chapter": "はじめに", "fig": "island-willow", "title": "U-Speak ウェブ版", "text": "U-Speak ウェブ版へようこそ。子どもたちが英語を使って歩きまわる、３Ｄの世界です。いま U-Speak Roblox をお使いの教室さまに向けて、何ができて、Roblox 版と何が違うのかを、実際の画面でご覧いただきます。", "sec": 21.6, "at": 0.0}, {"chapter": "はじめに", "fig": "screen-map", "title": "インストールも アカウントも いりません", "text": "いちばん大きな違いは、はじめかたです。ブラウザで教室のＵＲＬを開き、名前とクラスコードを入れるだけ。アプリのインストールも、アカウントの管理もありません。教室の iPad で、そのまま授業が始められます。", "sec": 19.4, "at": 21.6}, {"chapter": "はじめに", "fig": "screen-map", "title": "１４の島", "text": "世界には１４の島があります。行き先を選んで飛ぶだけで、島に順番はありません。今日やりたい島へ、まっすぐ行けます。先生は、クラス全員を一度に同じ島へ動かすこともできます。", "sec": 16.2, "at": 41.0}, {"chapter": "学習の島", "fig": "island-school", "title": "ことばの学校島", "text": "ことばの学校島です。やさしい小屋、ふつうの小屋、むずかしい小屋。小屋に入ることが、そのまま難易度を選ぶことになります。", "sec": 11.7, "at": 57.2}, {"chapter": "学習の島", "fig": "screen-quiz", "title": "単語クイズ ・ １,５０１問", "text": "中に入ると、四択の単語クイズが十問。全部で千五百一問あります。まちがえた問題は、あとでもう一度出てきます。大事なのは、この問題文がブラウザに渡っていないことです。子どもの画面に届くのは、いま出ている一問だけ。答え合わせもサーバーが行います。ページの中を覗いて答えを先に読むことはできません。", "sec": 27.1, "at": 68.9}, {"chapter": "学習の島", "fig": "screen-gym", "title": "ことばのジム ・ 聞いて、声に出す", "text": "同じ島のことばのジムでは、聞こえた英語を選び、自分でも声に出して言います。発音は端末のマイクで拾いますが、合っているかどうかを決めるのはサーバーです。", "sec": 14.6, "at": 96.0}, {"chapter": "学習の島", "fig": "island-arena", "title": "えいごアリーナ島", "text": "えいごアリーナ島。ここでは、攻撃を英語で買います。", "sec": 7.0, "at": 110.6}, {"chapter": "学習の島", "fig": "screen-battle", "title": "正解が、そのまま攻撃になる", "text": "出題に正解すると、その分だけ相手の体力が削れます。問題は二百四十九問。相手の強さは、入った台で決まります。勝ち負けも、もらえるコインも、決めるのはサーバーです。", "sec": 15.5, "at": 117.6}, {"chapter": "英検の島", "fig": "island-eiken5", "title": "英検５級の島", "text": "Roblox 版にはなかった島です。英検の島。五級、四級、三級の三つがあり、建物がそのまま技能になっています。よむ図書館、きく音楽堂、かく工房、はなすステージ。そして、めんせつの間。", "sec": 17.4, "at": 133.1}, {"chapter": "英検の島", "fig": "screen-eiken", "title": "４技能を、級ごとに", "text": "一つの級につき四十四問。読む十問、聞く十二問、書く十二問、話す十問です。記録は級ごと、技能ごとに分かれて残るので、五級の聞くは九割、書くは六割、という細かさで見られます。", "sec": 16.4, "at": 150.5}, {"chapter": "英検の島", "fig": "screen-interview", "title": "めんせつの間 ・ 二次試験の練習", "text": "めんせつの間は、二次試験のかたちをそのままなぞります。カードの絵を見て、パッセージを音読し、質問に答え、最後に自分のことを聞かれる。面接官はキャラクターで、待ち時間も本番と同じように進みます。", "sec": 18.3, "at": 166.9}, {"chapter": "AI英会話", "fig": "island-conv", "title": "英会話島", "text": "英会話島では、場所がそのまま場面になります。であいのカフェ、おかいものストリート、がっこうテラス、ゆめのとうだい。入った建物で、話す話題が決まります。", "sec": 14.6, "at": 185.2}, {"chapter": "AI英会話", "fig": "screen-convtalk", "title": "ウーピーと話す", "text": "相手はキャラクターのウーピー。声で話しても、打ち込んでもかまいません。返事は英語、ヒントは日本語で出ます。右側に出ている目標が、話しながら一つずつ埋まっていきます。話した回数と時間は記録に残りますが、話した文そのものは保護者レポートには載せません。", "sec": 23.3, "at": 199.8}, {"chapter": "AI英会話", "fig": "island-errand", "title": "おつかい島 ・ 歩いて回るAI英会話", "text": "おつかい島では、同じAI英会話を歩いて回ります。広場で用事を受け取り、その店まで自分で歩いて行って、英語で用事をすませる。店は十か所、おつかいは十五件です。", "sec": 15.1, "at": 223.2}, {"chapter": "AI英会話", "fig": "island-talk", "title": "おはなし島 ・ 人どうしが話す", "text": "おはなし島は、AIではなく人どうしが話す島です。部屋に入ることが、そのまま通話に入ること。カメラとマイクはそれぞれ切れますし、文字でも書けるので、声を出しにくい子も参加できます。最大百人まで。朝の会や発表会にもお使いいただけます。", "sec": 21.7, "at": 238.3}, {"chapter": "遊びの島", "fig": "screen-fishing", "title": "はじまりの島 ・ 英単語釣り", "text": "はじまりの島には、釣りがあります。魚は百種類。一匹が英単語一つになっていて、釣り場も英検の級で分かれています。釣ること自体が、そのまま単語の練習です。", "sec": 14.6, "at": 260.1}, {"chapter": "遊びの島", "fig": "island-ride", "title": "のりもの島", "text": "のりもの島。乗り物は四台あり、買えるのはその乗り物のゲートまで歩いて行ったときだけです。買うと、その乗り物の英単語を一つ覚えます。", "sec": 12.8, "at": 274.6}, {"chapter": "遊びの島", "fig": "screen-race", "title": "レース ・ ３周", "text": "スタートラインに立つと、島のコースを三周するレースが始まります。順位もラップもベストタイムも、判定はサーバーです。クラスの誰かと一緒に走れます。", "sec": 14.1, "at": 287.5}, {"chapter": "遊びの島", "fig": "island-town", "title": "まちづくり島", "text": "まちづくり島は、ブロックを買って建てる島です。建てる場所は二つ。自分だけのマイルームと、クラス全員で一つの世界を作るひろば。", "sec": 12.3, "at": 301.5}, {"chapter": "遊びの島", "fig": "screen-plaza", "title": "ひろば ・ クラス全員で一つの世界", "text": "入口に歩いて入るだけで、中に入れます。画面中央の十字でねらって、置く、かたづける、向きを変える。ひろばに積んだブロックは他の子の画面にもその場で現れ、次の授業にも残っています。", "sec": 16.9, "at": 313.8}, {"chapter": "遊びの島", "fig": "screen-blockshop", "title": "ブロック屋 ・ どれも英単語", "text": "ブロックはブロック屋で買います。き、いし、レンガ、ガラス、ランプ、みず。どれも名前が英単語です。買う前に、立体のかたちと質感でどんなブロックかが見えます。", "sec": 14.9, "at": 330.7}, {"chapter": "遊びの島", "fig": "island-wear", "title": "きせかえ島", "text": "きせかえ島。ぼうしや、めがねや、かばんや、アクセサリーや。入った店が、そのまま買えるものになります。", "sec": 10.1, "at": 345.6}, {"chapter": "遊びの島", "fig": "screen-wearback", "title": "４１点 ・ ３Dで見てから買う", "text": "品物は全部で四十一点。カードの中の品物は三次元で回っていて、買う前に実際どう見えるかがわかります。着たものは、クラス全員の画面に届きます。", "sec": 13.5, "at": 355.8}, {"chapter": "同梱ゲーム", "fig": "game-racers", "title": "AURORA KART", "text": "ここからは、まったく別に作られたゲームです。のりもの島に降りると、画面の左下にボタンが出ます。押すと AURORA KART が全画面で始まります。コース四本、グランプリ、タイムアタック、そして英語モード。", "sec": 19.6, "at": 369.3}, {"chapter": "同梱ゲーム", "fig": "game-blockwild", "title": "BLOCKWILD ・ ブロック屋とつながっている", "text": "まちづくり島からは BLOCKWILD。ブロックを積んで世界を作るゲームです。ここが面白いところで、この世界で手に持てるのは、まちづくり島のブロック屋で U-Speak コインを払って買ったブロックだけ。写真の下のバーに、き しか入っていないのは、この子がまだ何も買っていないからです。英語をやってコインを稼ぐと、建てられるものが増えます。", "sec": 31.6, "at": 388.9}, {"chapter": "同梱ゲーム", "fig": "game-suika", "title": "ミニゲーム島", "text": "ミニゲーム島には家が二軒。ぷよと、スイカゲーム。どちらも英単語を使ったパズルです。なお、この四本の同梱ゲームでは、コインも学習の記録も動きません。正誤を判定しているのがそのゲーム自身だからです。遊びの時間として置いてあります。", "sec": 21.4, "at": 420.4}, {"chapter": "記録", "fig": "screen-dashboard", "title": "マイページ ・ ５技能", "text": "ここからは記録の話です。子ども自身が見るのがマイページ。読む、聞く、書く、話す、語彙の五技能を、やった量と正解率から出しています。", "sec": 12.8, "at": 441.8}, {"chapter": "記録", "fig": "report-page1", "title": "保護者レポート ・ A4 ２ページ", "text": "保護者さまへは、先生コンソールのボタン一つで、このＡ４二ページのＰＤＦが出ます。名前、レベル、正解率、やったことの棒グラフ。教室で刷って、そのままお渡しいただけます。", "sec": 16.0, "at": 454.6}, {"chapter": "記録", "fig": "report-page2", "title": "数字は だれが決めているか", "text": "二ページ目には、全部の記録と、つぎのもくひょう。そして、この数字がどこから来たのかの説明が入ります。書いた文や話した内容は載せません。載せるのは学習の記録だけです。", "sec": 15.8, "at": 470.7}, {"chapter": "記録", "fig": "screen-quiz", "title": "正誤も、コインも、サーバーが決める", "text": "大切な点を一つ。子どもの端末が決めているのは、どこに立っているか、どちらを向いているか、それだけです。正誤、経験値、コイン、購入、持ち物、学習の記録、レベル、順位、先生かどうか。これらは全部サーバーが決めています。保護者さまにお見せする数字は、すべてこちら側から出ています。ブラウザをいじってコインを増やす、正解率を上げる、といったことはできません。", "sec": 32.5, "at": 486.5}, {"chapter": "教室での運用", "fig": "screen-teacher", "title": "先生コンソール", "text": "先生コンソールは、講師キーを入れた方にだけ出ます。判定はサーバー側だけで行うので、ブラウザをいじって先生になることはできません。クラス全員をここへ集める、名簿からその子のところへ飛ぶ、チャットを止める、保護者レポートのリンクを配る。授業中に必要なことが、この一枚に集まっています。", "sec": 26.2, "at": 518.9}, {"chapter": "教室での運用", "fig": "island-park", "title": "安全と、人数", "text": "安全についても申し上げておきます。世界の中にお金の入口はありません。Robux にあたるものは作っていません。チャットは定型フレーズが基本で、自由入力もＮＧワード表を通り、先生がいつでも止められます。ＡＩ英会話とビデオ通話には一日の上限があります。鍵はブラウザに入っていません。通信は暗号化されています。人数は、一クラス二十五人で遅延五十ミリ秒、一つの世界に百人でも切断ゼロを実測しています。", "sec": 36.2, "at": 545.1}, {"chapter": "教室での運用", "fig": "island-willow", "title": "１か月の無料体験", "text": "一か月の無料体験をご用意しています。教室専用のクラスコードをお作りして、そのまま授業でお使いいただけます。記録もレポートも、体験中から本番と同じものが出ます。まずは先生方だけで一度触っていただくのが早いかと存じます。オンラインで画面をお見せしながらのご説明も、教室にお伺いしての設定も承ります。ご覧いただき、ありがとうございました。", "sec": 30.8, "at": 581.3}], "five": [{"chapter": "はじめに", "fig": "island-willow", "title": "U-Speak ウェブ版", "text": "U-Speak ウェブ版へようこそ。子どもたちが英語を使って歩きまわる、３Ｄの世界です。実際の画面で、何ができるのかをご覧いただきます。", "sec": 13.3, "at": 0.0}, {"chapter": "はじめに", "fig": "screen-map", "title": "インストールも アカウントも いりません", "text": "ブラウザでＵＲＬを開き、名前とクラスコードを入れるだけ。インストールもアカウントもいりません。教室の iPad で、そのまま授業が始められます。", "sec": 14.1, "at": 13.3}, {"chapter": "はじめに", "fig": "screen-map", "title": "１４の島", "text": "世界には１４の島があります。行き先を選んで飛ぶだけ。先生は、クラス全員を一度に同じ島へ動かせます。", "sec": 9.9, "at": 27.4}, {"chapter": "学習の島", "fig": "island-school", "title": "ことばの学校島", "text": "ことばの学校島です。やさしい小屋、ふつうの小屋、むずかしい小屋。小屋に入ることが、そのまま難易度を選ぶことになります。", "sec": 11.7, "at": 37.3}, {"chapter": "学習の島", "fig": "screen-quiz", "title": "単語クイズ ・ １,５０１問", "text": "四択の単語クイズが十問。全部で千五百一問あります。問題文はブラウザに渡していません。答え合わせもサーバーが行うので、答えを先に見ることはできません。", "sec": 14.4, "at": 49.1}, {"chapter": "学習の島", "fig": "screen-battle", "title": "正解が、そのまま攻撃になる", "text": "えいごアリーナ島では、出題に正解した分だけ相手の体力が削れます。問題は二百四十九問。勝ち負けも、もらえるコインも、決めるのはサーバーです。", "sec": 13.5, "at": 63.5}, {"chapter": "英検の島", "fig": "island-eiken5", "title": "英検５級の島", "text": "Roblox 版にはなかった島です。英検の島。五級、四級、三級の三つがあり、建物がそのまま技能になっています。よむ、きく、かく、はなす。そして、めんせつの間。", "sec": 15.3, "at": 77.0}, {"chapter": "英検の島", "fig": "screen-interview", "title": "めんせつの間 ・ 二次試験の練習", "text": "めんせつの間は、二次試験のかたちをそのままなぞります。カードを見て、音読して、質問に答える。面接官はキャラクターです。", "sec": 11.7, "at": 92.3}, {"chapter": "AI英会話", "fig": "island-conv", "title": "英会話島", "text": "英会話島では、場所がそのまま場面になります。カフェ、おかいもの、がっこう、そして将来の夢。入った建物で話題が決まります。", "sec": 11.9, "at": 104.1}, {"chapter": "AI英会話", "fig": "screen-convtalk", "title": "ウーピーと話す", "text": "相手はキャラクターのウーピー。声でも、打ち込んでもかまいません。返事は英語、ヒントは日本語。右の目標が話しながら埋まっていきます。話した文そのものは保護者レポートには載せません。", "sec": 17.1, "at": 116.0}, {"chapter": "AI英会話", "fig": "island-talk", "title": "おはなし島 ・ 人どうしが話す", "text": "おはなし島では、人どうしが顔を見て話せます。部屋に入ることが、そのまま通話に入ること。最大百人まで、朝の会や発表会にも使えます。", "sec": 12.6, "at": 133.1}, {"chapter": "遊びの島", "fig": "screen-fishing", "title": "はじまりの島 ・ 英単語釣り", "text": "はじまりの島の釣りは、魚百種類。一匹が英単語一つで、釣り場も英検の級で分かれています。", "sec": 8.9, "at": 145.7}, {"chapter": "遊びの島", "fig": "screen-race", "title": "レース ・ ３周", "text": "のりもの島では、島のコースを三周するレース。順位もラップも判定はサーバーで、クラスの誰かと一緒に走れます。", "sec": 10.7, "at": 154.6}, {"chapter": "遊びの島", "fig": "screen-blockshop", "title": "ブロック屋 ・ どれも英単語", "text": "ブロックはブロック屋で買います。き、いし、レンガ、ガラス、ランプ、みず。どれも名前が英単語です。", "sec": 9.8, "at": 165.2}, {"chapter": "遊びの島", "fig": "screen-wearback", "title": "４１点 ・ ３Dで見てから買う", "text": "きせかえは全部で四十一点。カードの中で立体が回っていて、買う前にどう見えるかがわかります。着たものはクラス全員から見えます。", "sec": 12.3, "at": 175.0}, {"chapter": "同梱ゲーム", "fig": "game-racers", "title": "AURORA KART", "text": "まったく別に作られたゲームも同梱しています。のりもの島の左下のボタンから、AURORA KART。コース四本、グランプリ、英語モード。", "sec": 13.2, "at": 187.3}, {"chapter": "同梱ゲーム", "fig": "game-blockwild", "title": "BLOCKWILD ・ ブロック屋とつながっている", "text": "まちづくり島からは BLOCKWILD。ここで手に持てるのは、ブロック屋でコインを払って買ったブロックだけです。英語をやってコインを稼ぐと、建てられるものが増えます。", "sec": 16.0, "at": 200.4}, {"chapter": "同梱ゲーム", "fig": "game-suika", "title": "ミニゲーム島", "text": "ミニゲーム島には、ぷよとスイカゲーム。ただし、同梱の四本ではコインも学習記録も動きません。遊びの時間として置いてあります。", "sec": 12.1, "at": 216.5}, {"chapter": "記録", "fig": "screen-dashboard", "title": "マイページ ・ ５技能", "text": "子ども自身が見るのがマイページ。読む、聞く、書く、話す、語彙の五技能を、やった量と正解率から出しています。", "sec": 10.7, "at": 228.6}, {"chapter": "記録", "fig": "report-page1", "title": "保護者レポート ・ A4 ２ページ", "text": "保護者さまへは、ボタン一つでこのＡ４二ページのＰＤＦが出ます。教室で刷って、そのままお渡しいただけます。", "sec": 10.5, "at": 239.2}, {"chapter": "記録", "fig": "screen-quiz", "title": "正誤も、コインも、サーバーが決める", "text": "正誤、コイン、学習の記録、レベル、順位。これらは全部サーバーが決めています。ブラウザをいじってコインを増やす、正解率を上げる、といったことはできません。", "sec": 14.8, "at": 249.7}, {"chapter": "教室での運用", "fig": "screen-teacher", "title": "先生コンソール", "text": "先生コンソールは、講師キーを入れた方にだけ出ます。全員をここへ集める、その子のところへ飛ぶ、チャットを止める、レポートを配る。", "sec": 12.4, "at": 264.5}, {"chapter": "教室での運用", "fig": "island-park", "title": "安全と、人数", "text": "世界の中にお金の入口はありません。チャットは定型文が基本で、先生がいつでも止められます。ＡＩ英会話と通話には一日の上限。人数は一クラス二十五人、一つの世界に百人まで実測しています。", "sec": 17.3, "at": 276.9}, {"chapter": "教室での運用", "fig": "island-willow", "title": "１か月の無料体験", "text": "一か月の無料体験をご用意しています。教室専用のクラスコードをお作りして、そのまま授業でお使いいただけます。まずは先生方だけで一度触ってみてください。ご覧いただき、ありがとうございました。", "sec": 17.8, "at": 294.2}]};
+let cuts = DATA.full, i = 0, playing = false, t0 = 0, elapsed = 0, timer = 0, speak = true, flip = false;
+const $ = (id) => document.getElementById(id);
+const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+const total = () => cuts.reduce((n, c) => n + c.sec, 0);
+
+function paint() {
+  const c = cuts[i];
+  $('chap').textContent = c.chapter;
+  $('title').textContent = c.title;
+  $('sub').textContent = c.text;
+  // 2枚を交互に使ってクロスフェード。1枚だと切り替わりが瞬きになる。
+  const show = flip ? $('a') : $('b'), hide = flip ? $('b') : $('a');
+  flip = !flip;
+  show.src = `figures/${c.fig}.jpg`;
+  show.style.animationDuration = c.sec + 's';
+  show.classList.add('on'); hide.classList.remove('on');
+  [...$('chapters').children].forEach((li, n) => li.firstChild.classList.toggle('now', n === i));
+  $('time').textContent = `${mmss(cuts.slice(0, i).reduce((n, x) => n + x.sec, 0))} / ${mmss(total())}`;
+}
+
+function say(text) {
+  if (!speak || !window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  const jp = speechSynthesis.getVoices().find((v) => v.lang && v.lang.replace('_', '-').startsWith('ja'));
+  if (jp) u.voice = jp;
+  u.rate = 1.0; u.pitch = 1.0;
+  speechSynthesis.speak(u);
+}
+
+function go(n, keepPlaying = true) {
+  i = (n + cuts.length) % cuts.length;
+  elapsed = 0; t0 = performance.now();
+  paint();
+  if (playing && keepPlaying) say(cuts[i].text); else speechSynthesis?.cancel();
+}
+
+function tick() {
+  if (!playing) return;
+  const c = cuts[i];
+  elapsed = (performance.now() - t0) / 1000;
+  $('bar').style.width = `${Math.min(100, (elapsed / c.sec) * 100)}%`;
+  if (elapsed >= c.sec) {
+    if (i === cuts.length - 1) { stop(); return; }
+    go(i + 1);
+  }
+}
+
+function start() { playing = true; $('play').textContent = '❚❚ ていし'; t0 = performance.now() - elapsed * 1000; say(cuts[i].text); }
+function stop() { playing = false; $('play').textContent = '▶ さいせい'; speechSynthesis?.cancel(); }
+
+$('play').onclick = () => (playing ? stop() : start());
+$('prev').onclick = () => go(i - 1);
+$('next').onclick = () => go(i + 1);
+$('voice').onclick = () => {
+  speak = !speak;
+  $('voice').classList.toggle('on', speak);
+  $('voice').textContent = speak ? '🔊 ナレーション' : '🔇 字幕だけ';
+  if (!speak) speechSynthesis?.cancel(); else if (playing) say(cuts[i].text);
+};
+function setLength(which) {
+  const was = playing; stop();
+  cuts = which === 'five' ? DATA.five : DATA.full;
+  $('len10').classList.toggle('on', which !== 'five');
+  $('len5').classList.toggle('on', which === 'five');
+  buildChapters(); go(0, false);
+  if (was) start();
+}
+$('len10').onclick = () => setLength('full');
+$('len5').onclick = () => setLength('five');
+
+function buildChapters() {
+  $('chapters').replaceChildren(...cuts.map((c, n) => {
+    const at = cuts.slice(0, n).reduce((s, x) => s + x.sec, 0);
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.innerHTML = `<em>${mmss(at)}</em><span>${c.title}</span>`;
+    b.onclick = () => go(n);
+    li.append(b);
+    return li;
+  }));
+}
+
+speechSynthesis?.getVoices();
+speechSynthesis && (speechSynthesis.onvoiceschanged = () => {});
+buildChapters(); go(0, false);
+setInterval(tick, 100);
+</script></body></html>
