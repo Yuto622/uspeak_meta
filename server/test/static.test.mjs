@@ -49,8 +49,11 @@ test('自分たちのファイルは毎回聞きに来る、同梱ゲームは�
 
     // 丸ごと差し替えるまで1バイトも変わらないもの。1本で何百ファイルあるので、
     // 開くたびに全部へ問い合わせると目に見えて遅くなる。
+    // BGM もここ。1曲2.8MB あり、名前は day.mp3 / night.mp3 のまま変わらないので、
+    // 毎回 304 を聞きに行かせる理由がない（差し替えるときは中身ごと入れ替える）。
     for (const f of ['/racers/game.js', '/blockwild/game.js', '/puyo/index.html',
-      '/suika/index.html', '/vendor/colyseus.js']) {
+      '/suika/index.html', '/vendor/colyseus.js',
+      '/assets/bgm/day.mp3', '/assets/bgm/night.mp3']) {
       assert.match(await head(f), /max-age=\d{4,}/, `${f} should be held by the browser`);
     }
 

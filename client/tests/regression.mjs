@@ -36,6 +36,31 @@
   console.log(`PASS: ${seen.map((g) => `${g.name} — ${g.files} files`).join(' / ')}, vendored whole and byte-identical.`);
 }
 
+// 昼と夜の BGM も「渡された音源をそのまま置いてある」もの。同梱ゲームと同じ扱いで、
+// SOURCE.json のハッシュと突き合わせる。**ambience.js が指している名前も一緒に見る**：
+// 曲名を変えて置き直した人が、島を無音にしたことに気づかないまま出るのを防ぐ。
+{
+  const { readFileSync, statSync } = await import('node:fs');
+  const { createHash } = await import('node:crypto');
+  const { fileURLToPath } = await import('node:url');
+  const dir = fileURLToPath(new URL('../dist/assets/bgm/', import.meta.url));
+  const manifest = JSON.parse(readFileSync(dir + 'SOURCE.json', 'utf8'));
+  const code = readFileSync(fileURLToPath(new URL('../dist/ambience.js', import.meta.url)), 'utf8');
+  const bad = [];
+  for (const key of ['day', 'night']) {
+    const want = manifest[key];
+    if (!want) { bad.push(`SOURCE.json has no ${key}`); continue; }
+    if (!code.includes(`assets/bgm/${key}.mp3`)) bad.push(`ambience.js never asks for ${key}.mp3`);
+    let bytes;
+    try { bytes = readFileSync(dir + `${key}.mp3`); } catch { bad.push(`${key}.mp3 is missing`); continue; }
+    if (statSync(dir + `${key}.mp3`).size !== want.bytes) bad.push(`${key}.mp3 is ${bytes.length} bytes, SOURCE.json says ${want.bytes}`);
+    const got = createHash('sha256').update(bytes).digest('hex');
+    if (got !== want.sha256) bad.push(`${key}.mp3 sha256 ${got.slice(0, 12)}… ≠ ${want.sha256.slice(0, 12)}…`);
+  }
+  if (bad.length) { console.error(`FAIL: ${bad.join('; ')}`); process.exit(1); }
+  console.log('PASS: day/night BGM match SOURCE.json and ambience.js asks for both.');
+}
+
 // And no stylesheet may give a closed <dialog> a `display`. The browser's own
 // `dialog:not([open]) { display: none }` is a plain rule, and an id selector beats it: a
 // closed panel then sits over the island, invisible against the sky and swallowing every

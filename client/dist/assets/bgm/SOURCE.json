@@ -1,0 +1,15 @@
+{
+  "_": "昼と夜の BGM。U-Speak Lab から渡された音源をそのまま置いている（作ったのはこちらではない）。差し替えるときは同じ名前で上書きし、ここのハッシュも書き直すこと。",
+  "day": {
+    "bytes": 2841263,
+    "sha256": "23d1031ab5acecf4a23c53148f649a7b5b29bc406c6169d36f29c47c39522228",
+    "from": "Lively Hawaiian Cafe BGM.mp3",
+    "plays": "ひるま（world clock の night = 0 のとき）"
+  },
+  "night": {
+    "bytes": 2856239,
+    "sha256": "8f357fe7b5e32b21a61eb233c17c663a7772ce7b7da84a7897945716580c5589",
+    "from": "Romantic Hawaiian Night Lullaby.mp3",
+    "plays": "よる（night = 1 のとき）。夕方と朝は2曲が混ざる"
+  }
+}

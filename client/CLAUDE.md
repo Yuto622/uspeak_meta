@@ -9,6 +9,7 @@
 |---|---|
 | HTML・初期化・メインループ | index.html / game.js / style.css |
 | 光・昼夜・カメラ・描画 | atmosphere.js |
+| 環境音・昼と夜のBGM | ambience.js / assets/bgm/（day.mp3 / night.mp3 / SOURCE.json） |
 | テーマパーク・飛行機・乗り物 | themepark.js |
 | アバター | avatars.js |
 | 釣り・魚・経済 | fishing.js / fishing-state.js / fishing-data.js / fishing-models.js |
@@ -31,6 +32,31 @@
 | BLOCKWILD（まちづくり島から） | blockwild.js / blockwild-blocks.js / blockwild/（丸ごと同梱・無改変） |
 | PUYO U-SPEAK / えいごスイカゲーム（ミニゲーム島から） | puyo.js / suika.js / puyo/ / suika/ / mini-island.js / minigames.json |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
+
+## 島の音（環境音と、昼と夜のBGM／2026-09 更新）
+
+`ambience.js` に全部ある。風・鳥・虫は**ブラウザーが自分で作る**（音のファイルは無い）。
+BGM だけ `assets/bgm/day.mp3` `night.mp3` を置いてある（渡された音源・無改変）。
+
+- **2曲は同時に流して音量だけで混ぜる。** 時間帯で鳴らし分けると、夕方のその一瞬で曲が
+  変わってそこだけ場面転換になる。世界の時計はなめらかに動くので、音もそう動かす。
+  混ぜかたは**等電力**（cos / sin）。足して1にすると、ちょうど半分で音が痩せる。
+- **`<audio>` の `volume` を使わないこと。** **iPad Safari は無視する**（読めるが効かない）。
+  全部 `createMediaElementSource → GainNode → master` に通してある。**つなげなかった曲は
+  鳴らさない**（そこで諦めずに `play()` すると、♫ もつまみも効かない BGM が全開で出る）。
+- **読みに行くのは最初のタッチのあと**（`arm()`）。1曲2.8MB を、音を切っている教室に
+  黙って落とさせない。`game.js` は `pointerdown` / `keydown` のたびに `arm()` を呼ぶ
+  （1回目で音の許可が下りるとは限らない端末があるため）。鳴っていれば即座に戻る。
+- **全画面のもの（同梱ゲーム・グランプリ）が上がっている間は黙る**（`setBusy()`）。
+  呼んでいるのは `game.js` のフレームループ、**島の描画を止めているのと同じ1行**。
+  片方だけ足すと、絵は止まっているのに音だけ鳴り続ける。曲は**止める**（gain 0 のまま
+  流しても音は出ないが、iPad は mp3 を解き続けて電池が減る）。
+- **差し替えは同じ名前で上書きし、`assets/bgm/SOURCE.json` のバイト数と sha256 も直す。**
+  `tests/regression.mjs` が突き合わせ、**`ambience.js` がその名前を指しているかも見る**
+  （曲名を変えて島を無音にしたまま出るのを防ぐ）。同梱ゲームと同じ扱い。
+- 検査は `server/test/e2e/browser-bgm.mjs`（実ブラウザ・12項目）。**測るのは GainNode の値**。
+  時刻は `game.js` の `worldClock(net.night.update(…))` に差し込んで動かす
+  （`ambience.setNight()` を外から呼んでも、次のフレームで本物の時計に戻される）。
 
 ## 保存互換性
 

@@ -57,6 +57,7 @@ cd server && node test/e2e/browser-race.mjs # のりもの島のレース（実�
 cd server && node test/e2e/browser-interview.mjs # 英検の面接（音読→質問→結果カード）
 cd server && node test/e2e/browser-wear.mjs # きせかえの店（実ブラウザ2画面・試着→購入→となりの子に見える）
 cd server && node test/e2e/browser-arcade.mjs # 同梱ゲーム2本（島から開く→中のゲームが起動→島に戻る）
+cd server && node test/e2e/browser-bgm.mjs # 昼と夜の BGM（配信→昼の曲→夕方は2曲→夜の曲→別ゲーム中は黙る→♫）
 ```
 
 ### 負荷テスト（25 接続・10 分）
@@ -501,6 +502,37 @@ node test/e2e/capture-clips.mjs racers                  # 1本だけ録り直す
   教室の端末では動画のウーピーが出ます。口が動くのはどちらも同じです。
 - 図は `docs/figures/`。PDF の資料（`docs/uspeak-guide.pdf`）と同じものです。
 - **`in5: false` を付けたカットは5分版から落ちます。** `short` を書けば、5分版はそちらを読みます。
+
+## 島の音（環境音と、昼と夜の BGM）
+
+`client/dist/ambience.js` が全部です。鳴るものは2種類あります。
+
+| | 中身 | どこから |
+|---|---|---|
+| 環境音 | 風・昼の鳥・夜の虫 | **ブラウザーが自分で作ります**（音のファイルはありません） |
+| BGM | 昼の曲・夜の曲 | `client/dist/assets/bgm/day.mp3` / `night.mp3`（渡された音源をそのまま） |
+
+- **2曲は同時に流し、音量だけで混ぜます。** 時間帯で鳴らし分けると夕方のその一瞬で曲が
+  変わり、そこだけ場面転換のように聞こえます。世界の時計は昼から夜へなめらかに動くので、
+  音もそう動かします（夕方は2曲が重なり、夜になりきったときに昼の曲は消えています）。
+  混ぜかたは**等電力**（cos / sin）です。足して1にすると、ちょうど半分のところで音が痩せます。
+- **音量は `<audio>` の `volume` ではなく Web Audio の GainNode で扱います。**
+  **iPad Safari は `audio.volume` を無視します**（読めるが効かない）。あそこで混ぜると、
+  教室で使う端末でだけ効かない、というたちの悪い出かたをします。
+- **曲を読みに行くのは最初のタッチのあと。** 1曲2.8MB あるので、音を切っている教室に
+  黙って5MB 落とさせません。`arm()`（`game.js` が `pointerdown` / `keydown` で呼ぶ）が入口です。
+- **全画面の別ゲーム・グランプリが上がっている間は黙ります**（`ambience.setBusy()`・
+  `game.js` のフレームループが島を止めるのと同じ1か所）。あちらにはあちらの音があるので、
+  重ねると教室ではただうるさいだけです。曲は**止めます**（gain 0 のまま流し続けると、
+  音は出ないのに iPad は mp3 を解き続けて電池が減ります）。
+- **♫ ボタンは全部に効きます**（master の GainNode に集めてあるため）。
+- **差し替えるときは同じ名前で上書きし、`assets/bgm/SOURCE.json` のバイト数と sha256 も
+  書き直すこと。** `client/tests/regression.mjs` が毎回突き合わせ、
+  **`ambience.js` がその名前を指しているかも見ます**（曲名を変えて島を無音にしたまま
+  出るのを防ぐため）。同梱ゲームと同じ扱いです。
+- 検査は `server/test/e2e/browser-bgm.mjs`（実ブラウザ・12項目）。**測っているのは
+  GainNode の値**で、`volume` に書き換えた直しはここで落ちます。時刻は世界時計の出口
+  （`game.js` の `worldClock(net.night.update(…))`）に差し込んで動かします（11分待てないため）。
 
 ## 出したのに古いものが出るとき（ブラウザのキャッシュ）
 
