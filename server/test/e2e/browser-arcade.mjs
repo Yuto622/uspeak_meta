@@ -551,6 +551,59 @@ try {
   });
   check('4本とも、ひとつずつ席につく', seats.seen.every((x) => x.endsWith(':1')), seats.seen.join(' '));
   check('…出たあとは席が空いている', seats.left === 0 && seats.flag === '', JSON.stringify(seats));
+
+  // ---- 戻ってきた子は、まだ戸口に立っている ------------------------------------------
+  //
+  // **これは教室から上がった不具合そのもの。** 戸口を歩いて入ると開く作りなので、
+  // 帰ってきたときに立っているのは必ずその戸口。以前は「出た直後の1.4秒だけ待つ」で
+  // 止めていたが、その時計は**別ゲームが開いている間ごと止まっている**（フレームループが
+  // 丸ごと早く帰るため）。だから戻った1.4秒後に、指一本ふれていないのに同じゲームが開いた。
+  //
+  // いまは時間ではなく場所で止める：開けた戸口を覚えて、**そこから歩いて離れるまで**
+  // 二度目は開けない。だから測るのは2つ——立ったままなら開かないこと、
+  // **そして一度離れれば、ちゃんとまた開くこと**（開かなくなったら、それはただの故障）。
+  for (const [island, kind, name] of [['mini', 'puyo', 'ミニゲーム島の PUYO'], ['town', 'blockwild', 'まちづくり島の ブロックのとびら']]) {
+    // 戸口は「家の前の壁のすぐ手前」。island-kit の door() が置くのと同じ場所に立つ。
+    const stand = (off) => page.evaluate(async ([isl, k, o]) => {
+      const data = await uspeak.rpg[isl].ready;
+      const isle = data.island || data;
+      const spot = isle.spots.find((sp) => (sp.kind || sp.game) === k) || isle.spots[0];
+      uspeak.player.position.set(isle.x + spot.x, 0, isle.z + spot.z - 0.65 + o);
+    }, [island, kind, off]);
+    const opened = async (ms) => {
+      for (let i = 0; i < ms / 300; i += 1) {
+        if (await page.evaluate(() => uspeak.net.arcadeOpen())) return true;
+        await sleep(300);
+      }
+      return false;
+    };
+    const shut = async () => {
+      await page.evaluate(() => { for (const g of [uspeak.net.racers, uspeak.net.blockwild, ...Object.values(uspeak.net.arcades)]) if (g.isOpen) g.close(); });
+      await sleep(600);
+    };
+    await page.evaluate(async (isl) => {
+      for (const d of document.querySelectorAll('dialog[open]')) d.close();
+      uspeak.rpg.inside?.leave?.(true);
+      uspeak.rpg.fly(isl); uspeak.rpg.finishFlight();
+      await new Promise((r) => setTimeout(r, 1500));
+    }, island);
+    await stand(0);
+    check(`${name} は戸口を歩いて入ると開く`, await opened(90000));
+    await shut();
+    // **待つ時間は長めに。** このコンテナは1秒に数コマしか描かないので、昔の1.4秒の
+    // 猶予が切れるまで実時間で15秒近くかかる。短く待つと、直っていなくても通ってしまう。
+    const at = await page.evaluate(() => ({ x: uspeak.player.position.x, z: uspeak.player.position.z }));
+    const bounced = await opened(60000);
+    const now = await page.evaluate(() => ({ x: uspeak.player.position.x, z: uspeak.player.position.z }));
+    check(`…もどってきて立っているだけでは、開き直さない（${name}）`, !bounced,
+      `moved=${Math.hypot(now.x - at.x, now.z - at.z).toFixed(2)}m`);
+    await shut();
+    await stand(6);            // 一度、戸口から離れる
+    await sleep(2500);
+    await stand(0);            // もう一度、歩いて入る
+    check(`…でも一度離れて入り直せば、また開く（${name}）`, await opened(30000));
+    await shut();
+  }
 } catch (err) {
   console.log('E2E ERROR', err);
   results.push({ name: 'script', ok: false, detail: String(err) });
