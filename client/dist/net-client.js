@@ -329,8 +329,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     state.mode = mode;
     const count = room?.state?.players?.size || 0;
     if (mode === 'online') chip.set('online', 'オンライン');
-    else if (mode === 'reconnecting') chip.set('reconnecting', '再接続中…');
-    else if (mode === 'connecting') chip.set('reconnecting', '接続中…');
+    else if (mode === 'reconnecting') chip.set('reconnecting', 'つなぎ なおしています…');
+    else if (mode === 'connecting') chip.set('reconnecting', 'つないでいます…');
     else chip.set('offline', 'オフライン');
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     voice.setAvailable(mode === 'online' || mode === 'reconnecting');
@@ -348,7 +348,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // ---- connection lifecycle ---------------------------------------------------------
 
   async function connect({ name, classCode, teacherKey }, { silent = false } = {}) {
-    if (!Colyseus) { lobby.error('通信ライブラリが読み込めませんでした。'); return; }
+    if (!Colyseus) { lobby.error('つうしんの ぶひんが よみこめませんでした。'); return; }
     state.name = name; state.classCode = classCode || 'default'; state.teacherKey = teacherKey || '';
     state.intentionalLeave = false;
     state.attempts = 0;
@@ -370,8 +370,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     const code = err?.code;
     const text = String(err?.message || err || '');
     if (code === 4001 || /name in use/.test(text)) return 'その名前はもう使われています。別の名前にしてね。';
-    if (code === 4000 || /name required/.test(text)) return 'なまえを入れてね。';
-    if (code === 4002 || /class is full/.test(text)) return 'このクラスは満員です。先生に伝えてください。';
+    if (code === 4000 || /name required/.test(text)) return 'なまえを いれてね。';
+    if (code === 4002 || /class is full/.test(text)) return 'この クラスは いっぱいです。先生に つたえてね。';
     // 入場ゲート: the class register did not have this name. Say what to check, not what
     // went wrong - a child cannot fix a register.
     if (code === 4004 || /register/.test(text)) return 'この名前は このクラスの めいぼに ありません。クラスコードと なまえを たしかめて、先生に 聞いてください。';
@@ -413,13 +413,13 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
         if (m.position && m.restored) teleportTo(m.position, 'restore');
         toast(m.role === 'teacher' ? `先生としてクラス「${m.classCode}」に参加しました。` : `クラス「${m.classCode}」に参加しました！`);
       } else {
-        toast('再接続しました。');
+        toast('また つながりました。');
       }
       state.lastSent.s = ''; // force a fresh position sample
     });
     r.onMessage('wallet', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.ok === false && m.error) toast(walletError(m.error)); });
     r.onMessage('answer:result', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress, m.levels); if (m.ok === false && m.error !== 'too fast') console.warn('[net] answer rejected', m); });
-    r.onMessage('teleport', (m) => { teleportTo(m, m.reason); toast(m.reason === 'gather' ? `${m.by} 先生のところに集合！` : `${m.by} 先生が移動させました。`); });
+    r.onMessage('teleport', (m) => { teleportTo(m, m.reason); toast(m.reason === 'gather' ? `${m.by} 先生の ところに あつまれ！` : `${m.by} 先生が うごかしました。`); });
     r.onMessage('call', (m) => showCall(m));
     r.onMessage('notice', (m) => toast(m.text));
     r.onMessage('chat', (m) => onChat(m));
@@ -631,7 +631,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   addEventListener('pageshow', (e) => { if (e.persisted) resume(); });
   addEventListener('pagehide', () => { syncProgress(true); });
   addEventListener('online', () => resume());
-  addEventListener('offline', () => { if (state.mode === 'online') chip.set('reconnecting', 'オフライン検出…'); });
+  addEventListener('offline', () => { if (state.mode === 'online') chip.set('reconnecting', 'つながりが きれました…'); });
 
   // ---- server-authoritative wallet & progress ---------------------------------------
 
@@ -664,7 +664,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     } catch (err) { console.warn('[net] wallet reconcile failed', err); }
   }
   function walletError(e) {
-    return { 'not enough coins': 'コインが足りません（サーバー確認）。', 'already owned': 'すでに持っています。', 'nothing to sell': '売れる魚がありません（サーバー確認）。' }[e] || `サーバーが処理できませんでした: ${e}`;
+    return { 'not enough coins': 'コインが たりません。', 'already owned': 'もう もっています。', 'nothing to sell': 'うれる さかなが ありません。' }[e] || `サーバーが処理できませんでした: ${e}`;
   }
   function restoreProgress(json) {
     if (!json) return;
@@ -675,7 +675,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       rpg.adventure.progress.restore(data);
       rpg.activate('willow', true, true);
       rpg.syncBuddy?.(true);
-      toast('前回の冒険の記録をサーバーから復元しました。');
+      toast('まえの つづきを よみこみました。');
     } catch (err) { console.warn('[net] progress restore failed', err); }
   }
   function syncProgress(force = false) {
@@ -798,7 +798,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     el.innerHTML = '<i></i><b class="net-count" hidden></b><span class="net-label">オフライン</span>';
     el.onclick = () => {
       if (state.mode === 'online' || state.mode === 'reconnecting') {
-        if (confirm('クラスから退出してオフラインで遊びますか？')) goOffline(true);
+        if (confirm('クラスから でて、ひとりで あそびますか？')) goOffline(true);
       } else lobby.open({ name: state.name });
     };
     document.body.append(el);
