@@ -1,4 +1,5 @@
 // ウーピー、画面の中の。Two clips and a voice, shared by every screen the character
+import { forSpeech, isJapanese } from './speech.js';
 // appears on (英会話島 の conv.js と、英検の島の めんせつの間 の interview.js).
 //
 // The screens own their own markup and their own CSS — a conversation and an interview
@@ -57,9 +58,13 @@ export function createCharacter({ stage, idle, talk, line, lang = 'en-US', rate 
     }
     try {
       synth.cancel();
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = lang;
-      utter.rate = rate;
+      // **日本語の行は日本語の声で読む。** ウーピーは英語で話すが、説明や訳が
+      // 混ざることがあり、英語の声で かなを読むと一文字ずつになる（speech.js を参照）。
+      // 記号（？ ！ 「」）も、日本語のときだけ落とす — 英語では抑揚を作るので残す。
+      const japanese = isJapanese(text);
+      const utter = new SpeechSynthesisUtterance(forSpeech(text, japanese));
+      utter.lang = japanese ? 'ja-JP' : lang;
+      utter.rate = japanese ? 1 : rate;
       utter.onend = stop;
       utter.onerror = stop;
       synth.speak(utter);

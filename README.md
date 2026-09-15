@@ -59,6 +59,7 @@ cd server && node test/e2e/browser-wear.mjs # きせかえの店（実ブラウ�
 cd server && node test/e2e/browser-arcade.mjs # 同梱ゲーム2本（島から開く→中のゲームが起動→島に戻る）
 cd server && node test/e2e/browser-bgm.mjs # 昼と夜の BGM（配信→昼の曲→風の大きさ→夕方は2曲→夜の曲→別ゲーム中は黙る→♫）
 cd server && node test/e2e/browser-stick.mjs # 左下のスティック（指で倒して歩く・倒した量で速さが変わる・離すと止まる）
+cd server && node test/e2e/browser-speech.mjs # 読み上げ（日本語は日本語の声・記号を読まない・英語はゆっくり）
 python3 docs/make-guide-images.py # 「?」ガイドの写真を docs/figures から作り直す（撮り直しは capture-figures.mjs）
 cd server && node test/e2e/measure-weight.mjs # 実際に遊んで、1人あたり何MB流れるかを測る
 ```
@@ -683,6 +684,26 @@ curl.exe -I https://uspeak-multiplayer.fly.dev/guest-dock.js     # 200 なら入
 # ローカル。キーなしでも動きます（台本モード）
 OPENAI_API_KEY=sk-... OPENAI_MODEL=gpt-4o-mini npm start
 ```
+
+## 日本語の読み上げを 日本語の声にしました
+
+**「？」を「クエスチョン」と読んでいたのと、日本語がロボットっぽかったのは、同じ原因です。**
+読み上げが、どんな文でも英語の声（`en-US`）で読んでいました。英語の声に日本語を渡すと、
+かなを一文字ずつ英語読みします。
+
+| | 前 | いま |
+|---|---|---|
+| 日本語の文 | 英語の声 | **日本語の声**（iPad は Kyoko、Chrome は Google 日本語） |
+| 日本語の速さ | 0.84（遅くて間延び） | **1.0** |
+| 「？ ！ 「」 （）」 | 声に出ていた | **声に渡す前に落とす** |
+| 日本語の「、。」 | — | **残す**（そこで息を継ぐので自然） |
+| 英語の「? ,」 | — | **残す**（抑揚を作るので、消すと棒読みに） |
+| 英語の速さ | 0.84 | 0.84（聞き取って まねるための音なので、そのまま） |
+
+- 「みかん は orange です」のように混ざった文は、日本語あつかいで読みます。
+- 検査は `client/tests/regression.mjs` と `server/test/e2e/browser-speech.mjs`（9項目）。
+  **ただし、このコンテナには音声エンジンが入っていません**（渡した中身は確かめていますが、
+  実際の声は聞けていません）。**iPad で一度聞いてみてください。**
 
 ## さかなは 写真になりました
 

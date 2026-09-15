@@ -124,6 +124,34 @@
   console.log(`PASS: さかな ${FISH.length}匹 — ${SPECIES.length}しゅるいの写真がそろい、名前はぜんぶ ちがう。`);
 }
 
+// 読み上げに渡す文。**記号は声に出る。**
+//
+// 「すきな 色は？」を英語の声で読ませると "question mark"、日本語の声でも端末に
+// よっては「クエスチョン」と言う。教室から上がったのはこれ。日本語からは落とし、
+// **英語からは落とさない**（`?` と `,` が抑揚を作るので、消すと棒読みになる）。
+{
+  const { forSpeech, isJapanese } = await import('../dist/speech.js');
+  const cases = [
+    ['すきな 色は？', 'すきな 色は', true],
+    ['「みかん」を えらんでね！', 'みかん を えらんでね', true],
+    ['これは ペンですか？（10点）', 'これは ペンですか 10点', true],
+    ['つぎの もんだい → がんばろう！', 'つぎの もんだい がんばろう', true],
+    ['What is your name?', 'What is your name?', false],
+    ["I'm fine, thank you!", "I'm fine, thank you!", false],
+    ['Hello, Emma. How are you?', 'Hello, Emma. How are you?', false],
+  ];
+  const bad = [];
+  for (const [input, want, ja] of cases) {
+    if (isJapanese(input) !== ja) bad.push(`${input} の言語を ${ja ? '英語' : '日本語'} と読んだ`);
+    const got = forSpeech(input);
+    if (got !== want) bad.push(`${JSON.stringify(input)} → ${JSON.stringify(got)}（ほしいのは ${JSON.stringify(want)}）`);
+  }
+  // 日本語の読点は残すこと。あそこで息を継ぐので、むしろ自然になる。
+  if (!forSpeech('あさ、ごはんを たべます。').includes('、')) bad.push('日本語の読点まで落としている');
+  if (bad.length) { console.error('FAIL: ' + bad.join('\n  ')); process.exit(1); }
+  console.log(`PASS: 読み上げの文 — 日本語からは記号を落とし、英語の ? と , は残す（${cases.length}件）。`);
+}
+
 // And no stylesheet may give a closed <dialog> a `display`. The browser's own
 // `dialog:not([open]) { display: none }` is a plain rule, and an id selector beats it: a
 // closed panel then sits over the island, invisible against the sky and swallowing every

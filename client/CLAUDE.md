@@ -12,6 +12,7 @@
 | あそびかたガイド（「?」） | guide.js / guide.css / guide.json / assets/guide/ |
 | 光・昼夜・カメラ・描画 | atmosphere.js |
 | 環境音・昼と夜のBGM | ambience.js / assets/bgm/（day.mp3 / night.mp3 / SOURCE.json） |
+| 読み上げ（日本語・英語） | speech.js（forSpeech / createSpeech） |
 | テーマパーク・飛行機・乗り物 | themepark.js |
 | アバター | avatars.js |
 | 釣り・魚・経済 | fishing.js / fishing-state.js / fishing-data.js / fishing-models.js / fish-species.js / assets/fish/ |
@@ -153,6 +154,31 @@
   「釣り場ごとに8しゅるい以上あるか」を検査する。
 - **水から とび出す 演出（splash）だけは、まだ `fishing-models.js` の3Dモデル。**
   あそこは板の絵より立体のほうが気持ちいいので残してある。
+
+## 読み上げは 日本語と英語で分ける（2026-09 追加）
+
+**前は どんな文でも `lang = 'en-US'` で読んでいた。** 英語の学習ゲームなので英語だけ読む
+つもりだったが、実際は日本語も読んでいる（ことばの学校のもんだい文、英検の日本語、訳）。
+英語の声に日本語を渡すと**かなを一文字ずつ英語読みする**ので、教室から「ロボットみたい」
+「『？』まで読み上げる」と言われた。
+
+- **入口は `speech.js` の1か所。** `game.js` が `createSpeech()` で作り、そこから
+  fishing / quiz / eiken / net-client へ渡っている。`character.js`（ウーピー）も
+  同じ `forSpeech()` を通す。**ここを通さずに `SpeechSynthesisUtterance` を作らないこと。**
+- **言語は文字で決める。** ひらがな・カタカナ・漢字が1文字でもあれば `ja-JP`。
+  「みかん は orange です」のような混ざった文は日本語あつかい（そのほうが自然に読む）。
+- **記号は声に出る。** 日本語からは `？ ！ 「」 （） … → ✦` などを落とす。
+  **英語からは落とさない** — `?` と `,` が抑揚を作るので、消すと棒読みになる。
+  **日本語の読点（、。）は残す**（あそこで息を継ぐので、むしろ自然）。
+- **速さを変える。** 英語 0.84（聞き取って まねるための音なので遅く）、日本語 1.0
+  （ただの説明なので、遅いと間延びして機械っぽい）。
+- **声は名前ではなく lang で拾う**（端末で名前が違う）。知っている良い声
+  （iPad の Kyoko、Chrome の Google 日本語）があれば優先。`getVoices()` は
+  1回目に空で返ることがあるので、取れたときだけ覚えて毎回聞き直す。
+- 検査は `tests/regression.mjs`（文の作りかた・7件）と
+  `server/test/e2e/browser-speech.mjs`（実ブラウザ9項目・lang と 声と 速さ）。
+  **このコンテナには音声エンジンが無い**ので、e2e は `speechSynthesis` を置き替えて
+  「何が渡ったか」を見ている。**実際に聞くのは iPad でやること。**
 
 ## 保存互換性
 

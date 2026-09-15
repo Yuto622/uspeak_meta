@@ -5,6 +5,7 @@ import {createAmbience} from './ambience.js';
 import {createStick} from './stick.js';
 import {createGuide} from './guide.js';
 import {label as bilingual} from './bilingual.js';
+import {createSpeech} from './speech.js';
 import {createThemePark} from './themepark.js';
 import {setupAvatars} from './avatars.js';
 import {setupFishing} from './fishing.js';
@@ -19,7 +20,10 @@ const lessons=WILLOW_LESSONS;
 let saved;try{saved=JSON.parse(localStorage.getItem('uspeak-willow-v1'))}catch{}let done=Array.isArray(saved?.done)?saved.done.filter(n=>Number.isInteger(n)&&n>=0&&n<4):[];done=[...new Set(done)];let words=Array.isArray(saved?.words)?saved.words.filter(w=>Array.isArray(w)&&w.length===2&&w.every(s=>typeof s==='string')):[];let selected=lessons.findIndex((_,i)=>!done.includes(i));if(selected<0)selected=0;let muted=false,activeLesson=0,step=0,nearest=-1;const dialog=$('#dialog');
 function persist(){try{localStorage.setItem('uspeak-willow-v1',JSON.stringify({done,words}))}catch{toast('この ブラウザでは すすみぐあいを のこせません')}}
 function toast(s){$('#toast').textContent=s;$('#toast').style.opacity=1;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('#toast').style.opacity=0,3500)}
-function speak(s){if(muted)return;if(!('speechSynthesis'in window)){toast('この ブラウザでは おとが ならせません');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(s);u.lang='en-US';u.rate=.84;speechSynthesis.speak(u)}
+// 読み上げは speech.js が1か所で持つ。**日本語と英語で声と速さを変え、日本語からは
+// 声に出てしまう記号（？ ！ 「」 …）を落とす。** 前はどんな文も英語の声で読んでいて、
+// 日本語がロボットのように聞こえ、「？」まで読み上げていた。
+const speak=createSpeech({isMuted:()=>muted,onUnavailable:()=>toast('この ブラウザでは おとが ならせません')});
 function renderQuests(){$('#quests').innerHTML=lessons.map((q,i)=>`<button class="quest ${selected===i?'selected':''}" data-quest="${i}"><span class="num">${done.includes(i)?'✓':q.icon}</span><span><strong>${q.title}</strong><small>${q.name} · ${done.includes(i)?'COMPLETE':i===selected?'いま やってる · +100 XP':'+100 XP'}</small></span><span class="arrow">›</span></button>`).join('');document.querySelectorAll('[data-quest]').forEach(b=>b.onclick=()=>{selected=+b.dataset.quest;const q=lessons[selected];player.position.set(q.x+2,0,q.z+3);renderQuests();toast(`${q.name} の近くに移動しました。E または「話す」で会話。`)});$('#count').textContent=`${done.length} / 4`;$('#progress').style.width=done.length*25+'%';$('#xp').textContent=done.length*100+rpg.store.state.xp;$('#level').textContent=1+Math.floor((done.length*100+rpg.store.state.xp)/100)}
 function openDialog(html){$('#dialog-content').innerHTML=html;if(!dialog.open)dialog.showModal();keys.clear()}
 $('.close').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
@@ -85,7 +89,7 @@ const rpg=setupRpg({scene,camera,player,water,box,park,fishing,avatars,atmospher
 // person, switch it, and point the camera. Building looks down a crosshair, so the room
 // needs to be able to aim it.
 const view={get firstPerson(){return atmosphere.state.firstPerson},set firstPerson(v){atmosphere.state.firstPerson=v},look(y,p){yaw=y;pitch=p}};
-const net=setupNet({scene,camera,view,player,rpg,fishing,avatars,park,toast,speak,renderer,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()}});globalThis.uspeak={net,player,rpg,fishing,avatars,park,hooks,blocked,atmosphere,ambience,renderer,scene,camera,view,coins:coinHud};// debug/QA handle (read-only use)
+const net=setupNet({scene,camera,view,player,rpg,fishing,avatars,park,toast,speak,renderer,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()}});globalThis.uspeak={net,player,rpg,fishing,avatars,park,hooks,blocked,atmosphere,ambience,speak,renderer,scene,camera,view,coins:coinHud};// debug/QA handle (read-only use)
 // Door lights and plaques use the same registry as interaction and return positions.
 for(const b of BUILDINGS.filter(b=>b.kind!=='park')){const d=b.z-b.dir*.5;box(b.x,1.35,d,1.35,2.7,.09,0x456b72);for(const x of[-.76,.76])box(b.x+x,1.45,d,.12,2.9,.13,0xe7cca0);box(b.x,2.88,d,1.65,.13,.17,0xf5d894);box(b.x,.12,b.z,1.7,.06,.8,0xb8d8ba);label('入口 · '+b.name,b.x,3.45,b.z,'#fff4d7',.65)}
 function buildingService(name){if(name==='bakery')return conversation(1);if(name==='greeting')return conversation(0);if(name==='reading')return conversation(3);
