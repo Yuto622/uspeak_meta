@@ -502,6 +502,31 @@ node test/e2e/capture-clips.mjs racers                  # 1本だけ録り直す
 - 図は `docs/figures/`。PDF の資料（`docs/uspeak-guide.pdf`）と同じものです。
 - **`in5: false` を付けたカットは5分版から落ちます。** `short` を書けば、5分版はそちらを読みます。
 
+## 出したのに古いものが出るとき（ブラウザのキャッシュ）
+
+**このゲームのファイル名にはバージョンが入っていません**（`game.js` は毎回 `game.js`）。
+そのため配信の持たせかたを間違えると、デプロイ直後の一定時間、教室の iPad には
+古い `net-client.js` が出たままになります（実際に起きました）。
+
+いまはこう分けてあります（`server/src/index.js`・`server/test/static.test.mjs` が検査）。
+
+| ファイル | Cache-Control | 意味 |
+|---|---|---|
+| 自分たちの `.js` `.css` `.html` `.json` | `no-cache` | **毎回サーバーに聞く。** 変わっていなければ ETag で 304（中身は流れません） |
+| 同梱ゲーム（`racers/` `blockwild/` `puyo/` `suika/` `assets/` `vendor/`） | `max-age=86400` | 丸ごと差し替えるまで変わらない。1本で何百ファイルあるので持たせます |
+
+それでも古いものが出るときは、**強制再読み込み**を試してください。
+
+```
+Windows … Ctrl + Shift + R      iPad Safari … 「履歴と Web サイトデータを消去」
+```
+
+**デプロイが本当に入ったかは、ファイルを直接見るのが早いです。**
+
+```powershell
+curl.exe -I https://uspeak-multiplayer.fly.dev/guest-dock.js     # 200 なら入っています
+```
+
 ## 講師の使い方
 
 1. ロビーで名前を入れ、「先生用」を開いて講師キーを入力して参加。

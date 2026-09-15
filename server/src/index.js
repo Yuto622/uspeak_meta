@@ -139,11 +139,23 @@ export async function startServer({ port = config.port, storeOverride = null } =
   }
 
   if (config.serveClient) {
+    // このゲームのファイル名にはバージョンが入っていない（`game.js` は毎回 `game.js`）。
+    // なので1時間の max-age をそのまま当てると、**新しい版を出した直後の1時間、教室の
+    // iPad には古いものが出る**。実際それで「直したはずのものが出ない」が起きた。
+    //
+    // 自分たちの js と css は `no-cache`＝**毎回サーバーに聞く**。変わっていなければ
+    // ETag で 304 が返るので、中身は流れない（要求1つ分だけ）。
+    //
+    // 同梱ゲーム（racers / blockwild / puyo / suika）と character の動画は別扱い。
+    // あちらは丸ごと差し替えるまで1バイトも変わらないうえ、1本で何百ファイル・数MB
+    // あるので、開くたびに全部へ問い合わせると目に見えて遅くなる。長めに持たせる。
+    const VENDORED = /[\\/](racers|blockwild|puyo|suika|assets|vendor)[\\/]/;
     app.use(express.static(clientDir, {
       maxAge: '1h',
       etag: true,
       setHeaders(res, filePath) {
-        if (filePath.endsWith('index.html') || filePath.endsWith('.json')) res.setHeader('Cache-Control', 'no-cache');
+        if (VENDORED.test(filePath)) { res.setHeader('Cache-Control', 'public, max-age=86400'); return; }
+        if (/\.(js|mjs|css|html|json)$/i.test(filePath)) res.setHeader('Cache-Control', 'no-cache');
       },
     }));
   }
