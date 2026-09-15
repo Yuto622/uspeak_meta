@@ -459,54 +459,47 @@ cd docs && xelatex uspeak-guide.tex && xelatex uspeak-guide.tex
 - 文中の数字（問題数・値段・品数）は、すべて `client/dist/*.json` と
   `server/src/game/*-bank.json` の実データから拾っています。**足したら資料も直すこと。**
 
-## 紹介動画（１０分版・５分版）
+## 紹介動画（１０分版・５分版・mp4）
 
-`docs/tour-cuts.json`（台本）から、`docs/make-tour.py` が3つ作ります。
+`docs/tour-cuts.json`（台本）から、`docs/make-tour.py` が作ります。
 
 ```sh
-python3 docs/make-tour.py          # 全部（動画の書き出しに4分ほど）
-python3 docs/make-tour.py player   # docs/tour.html だけ。台本を直したときはこれで十分
+pip install imageio-ffmpeg pyopenjtalk        # 初回だけ（mp4 を書く ffmpeg と、日本語の読み上げ）
+python3 docs/make-tour.py                     # 全部（3分ほど）
+python3 docs/make-tour.py player              # docs/tour.html だけ
 
-# 実際に遊んでいるところの録画（3本・入れ直すときだけ。1本あたり数分かかります）
+# 実際に遊んでいるところの録画（3本・入れ直すときだけ。1本あたり数分）
 cd server && node test/e2e/capture-clips.mjs            # racers / blockwild / conv
 node test/e2e/capture-clips.mjs racers                  # 1本だけ録り直す
 ```
 
 | できるもの | 中身 |
 |---|---|
-| **`docs/tour.html`** | ナレーション付きのプレーヤー。**これが本体です** |
-| `docs/clips/clip-*.webm` | **実際に遊んでいるところの録画**3本（カート・ブロックの世界・AI英会話） |
-| `docs/uspeak-tour-10min.webm` | 10分12秒・33カット。**音声なし**・字幕は焼き込み |
-| `docs/uspeak-tour-5min.webm` | 5分12秒・24カット。同上 |
-| `docs/tour-script.md` | 収録用の台本（秒数と使う図つき） |
+| **`docs/uspeak-tour-10min.mp4`** | 9分34秒・33カット。**ナレーション入り・字幕焼き込み**（H.264 + AAC） |
+| **`docs/uspeak-tour-5min.mp4`** | 4分56秒・24カット。同上 |
+| `docs/tour.html` | 章立てから飛べるプレーヤー（上の mp4 を再生します） |
+| `docs/tour-script.md` | 台本（読み上げの実測秒数つき） |
+| `docs/clips/clip-*.webm` | 素材：**実際に遊んでいるところの録画**3本（カート・ブロックの世界・AI英会話） |
 
-**ナレーションは `tour.html` を開いたブラウザが読み上げます。**
-日本語の音声が入っている Windows・mac・iPad なら、開いて「さいせい」を押すだけで
-字幕と一緒に喋ります。10分版と5分版はボタンで切り替わり、下の章立てから飛べます。
+**mp4 なので、そのまま送れます。** PowerPoint に貼っても、メールに添付しても、
+ブラウザで開いても再生できます。変換は要りません。
 
-```sh
-# 商談で使う MP4 が要るときは、tour.html を全画面で再生して画面録画するのがいちばん早い
-#   Windows … Win+Alt+R（MP4 で保存されます）
-#   mac     … ⌘+Shift+5
-```
-
-- **なぜ .webm に音声が無いのか。** この開発環境には音声合成も音声コーデックもありません
-  （同梱の ffmpeg は Playwright 付属の**映像だけ**のビルド）。声の出しかたは2つ用意しました
-  — ブラウザに読ませる（`tour.html`）か、`tour-script.md` を人が読んで録るか。
-- **.webm は PowerPoint に貼れません。** 貼るなら上の画面録画で MP4 にしてください。
-  ブラウザ（Edge / Chrome / Safari 14 以降）ならそのまま再生できます。
-- **長さは台本に書きません。** 文字数から出しています（1分およそ336字）。
-  文を足せば自動で伸びるので、秒数と文章がずれることはありません。
-- 図はすべて `docs/figures/`。PDF の資料（`docs/uspeak-guide.pdf`）と同じものです。
-- **3カットだけは静止画ではなく録画です**（`clip` を書いたカット）。カートが走るところ、
-  ブロックの世界を歩くところ、ウーピーと1往復するところ。`capture-clips.mjs` が
-  実際にブラウザでプレーして録ります。**動画が再生できないブラウザでは `fig` の静止画**が
-  そのまま出るので、どちらでも成立します。
+- **声は端末の中で作っています。** 日本語の読み上げは pyopenjtalk（Open JTalk）。
+  **外へは何も送っていません。** 合成音なので、人の声に替えたいときは `tour-script.md` を
+  読んで録り、`docs/.tour-voice/` の wav を同じ名前で置き換えれば組み直せます。
+- **尺は台本に書きません。読み上げた実測から決めています。** 1カット＝読み終わる時間＋間。
+  文字数から見積もると「1,501問」のような数字混じりで必ずずれます。
+  **音と絵は同じコマ数から出しているので、最後までずれません。**
+- **3カットは静止画ではなく録画です**（`clip` を書いたカット）。
+  カートが走るところ、ブロックの世界を歩くところ、ウーピーと1往復するところ。
+  `capture-clips.mjs` が実際にブラウザでプレーして録ります。
 - **録画はこの開発環境の速さのままです。** ソフトウェアGLで三次元を動かすので1秒に数コマ
   しか描けません。**教室の iPad はこれよりずっと滑らかに動きます。**
+  実機で録り直したものを `docs/clips/` に同じ名前で置けば、そのまま差し替わります。
 - **録画のウーピーは絵のフクロウです。** 本物は mp4 の動画ですが、録画に使った Chromium に
   H.264 が入っていないので `character.js` が絵に切り替えます（そういう作りです）。
   教室の端末では動画のウーピーが出ます。口が動くのはどちらも同じです。
+- 図は `docs/figures/`。PDF の資料（`docs/uspeak-guide.pdf`）と同じものです。
 - **`in5: false` を付けたカットは5分版から落ちます。** `short` を書けば、5分版はそちらを読みます。
 
 ## 講師の使い方

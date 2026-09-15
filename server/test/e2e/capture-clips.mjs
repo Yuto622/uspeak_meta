@@ -93,7 +93,9 @@ const CLIPS = {
     await sleep(4000);
     await page.mouse.click(SIZE.width / 2, SIZE.height / 2);   // ポインタを渡す
     await page.keyboard.down('KeyW');
-    for (let i = 0; i < 18; i += 1) {
+    // **世界が出るまでに30秒近くかかる**（生成中はずっと読み込み画面）。歩くところが
+    // 短いと、紹介動画のカットのほうが長くて繰り返しになるので、長めに歩く。
+    for (let i = 0; i < 36; i += 1) {
       // 見回しはマウスの移動で。歩きながら少しずつ首を振る。
       await page.mouse.move(SIZE.width / 2 + Math.sin(i / 2.4) * 240, SIZE.height / 2 + Math.sin(i / 5) * 40);
       await sleep(1000);

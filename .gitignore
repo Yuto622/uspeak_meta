@@ -15,3 +15,6 @@ client/dist/config.js
 *.out
 *.toc
 __pycache__/
+
+# 読み上げた wav のキャッシュ（docs/make-tour.py が作り直せる）
+docs/.tour-voice/

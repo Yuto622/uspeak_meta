@@ -1,44 +1,59 @@
 #!/usr/bin/env python3
 """紹介動画を作る。台本は docs/tour-cuts.json ひとつだけ。
 
-    python3 docs/make-tour.py            # 全部
+    python3 docs/make-tour.py            # 全部（10分ほど）
     python3 docs/make-tour.py player     # docs/tour.html だけ（速い）
 
 出るもの:
-  docs/tour.html                 ナレーション付きのプレーヤー（10分版 / 5分版）
-  docs/uspeak-tour-10min.webm    動画ファイル（音声なし・字幕は焼き込み）
-  docs/uspeak-tour-5min.webm
-  docs/tour-script.md            収録用の台本（秒数つき）
+  docs/uspeak-tour-10min.mp4     ナレーション入り・字幕焼き込み（H.264 + AAC）
+  docs/uspeak-tour-5min.mp4      同・簡潔版
+  docs/tour.html                 章立てから飛べるプレーヤー（上の mp4 を再生する）
+  docs/tour-script.md            台本（読み上げの実測秒数つき）
 
-**音声について。** この環境には音声合成も音声コーデックも無い（同梱の ffmpeg は
-Playwright 付属の映像だけのビルド）。そこで声は2通りで届ける：
+**声は端末の中で作る。** 日本語の読み上げは pyopenjtalk（Open JTalk）。**外に何も
+送らない** — この環境からは読み上げサービスへ出られないし、出せたとしても台本を
+外部へ渡す理由がない。声は合成なので、人の声に差し替えたいときは tour-script.md を
+読んで録り、docs/.tour-voice/ の wav を同じ名前で置き換えれば、そのまま組み直せる。
 
-  * tour.html は**見る人のブラウザに読ませる**（Web Speech API）。Windows でも mac でも
-    日本語の声が入っていればそのまま喋る。これが「ナレーション付きの動画」の実体。
-  * .webm は音声なし・字幕焼き込み。ナレーションを人が録るなら tour-script.md を読む。
+**尺は台本に書かない。読み上げた実測から決める。** 1カットの長さ＝その文を読み終える
+のにかかった時間＋間（TAIL）。音と絵が必ず合うし、文を足せば自動で伸びる。
 
-長さは秒数を手で持たず、文字数から出す（二重管理は必ずずれる）。
+ffmpeg は imageio-ffmpeg（H.264 と AAC が入っている完全版）。同梱の Playwright 版は
+映像だけのビルドで mp4 を書けない。
 """
+import hashlib
 import json
 import math
-import os
 import shutil
 import subprocess
 import sys
+import wave
 from pathlib import Path
 
 DOCS = Path(__file__).resolve().parent
 FIGS = DOCS / "figures"
 CLIPS = DOCS / "clips"
-FFMPEG = "/opt/pw-browsers/ffmpeg-1011/ffmpeg-linux"
+VOICE = DOCS / ".tour-voice"          # 読み上げた wav の置き場（.gitignore 済み）
+
+
+def ffmpeg_bin():
+    """H.264 と AAC が書ける ffmpeg。"""
+    try:
+        import imageio_ffmpeg
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except ImportError:
+        raise SystemExit("pip install imageio-ffmpeg （mp4 を書くのに要ります）")
+
+
+FFMPEG = ffmpeg_bin()
 FONT_REG = "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"
 FONT_BOLD = "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc"
 
-# 読む速さ。1秒5.6文字＝1分およそ336文字で、落ち着いたアナウンスの速さ。
-PACE = 5.6
-TAIL = 1.2      # 読み終わってから次のカットへ移るまでの間
-FLOOR = 7.0     # どんなに短い文でも、絵がこれだけは映る
-FLOOR5 = 6.0
+# 読み上げの速さ。1.0 で1秒5.2文字ほど。1.1 は「落ち着いて、でも間延びしない」あたり。
+SPEED = 1.1
+TAIL = 1.3      # 読み終わってから次のカットへ移るまでの間
+FLOOR = 6.0     # どんなに短い文でも、絵がこれだけは映る
+FPS = 10
 
 INK = (26, 42, 36)
 CREAM = (244, 241, 227)
@@ -53,17 +68,50 @@ def load():
     return data["title"], data["cuts"]
 
 
+SR = 48000          # pyopenjtalk が返す標本化周波数
+
+
+def narrate(text):
+    """その一文を読み上げた wav を返す（中身が同じなら作り直さない）。
+
+    Open JTalk の合成は1文あたり0.3秒ほどだが、33カット×2版を毎回やると待たされるし、
+    絵だけ直したいときにも音が作り直される。文をそのまま鍵にして残しておく。
+    """
+    VOICE.mkdir(exist_ok=True)
+    key = hashlib.sha1(f"{SPEED}\n{text}".encode("utf-8")).hexdigest()[:16]
+    path = VOICE / f"{key}.wav"
+    if not path.exists():
+        import numpy as np
+        import pyopenjtalk
+        x, sr = pyopenjtalk.tts(text, speed=SPEED)
+        assert sr == SR, sr
+        with wave.open(str(path), "wb") as w:
+            w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
+            w.writeframes(np.clip(x, -32768, 32767).astype("<i2").tobytes())
+    with wave.open(str(path)) as w:
+        return path, w.getnframes() / w.getframerate()
+
+
 def plan(cuts, short=False):
-    """カットの一覧に、読む文と長さを足して返す。"""
+    """カットの一覧に、読む文・読み上げた声・長さを足して返す。
+
+    **長さは読み上げの実測から決める。** 文字数から見積もると、数字や英語の混じった文で
+    必ずずれる（「1,501問」は4文字ぶんの時間では読めない）。読ませてから測れば合う。
+    """
     out, t = [], 0.0
     for c in cuts:
         if short and not c.get("in5", True):
             continue
         text = (c.get("short") or c["ja"]) if short else c["ja"]
-        sec = max(FLOOR5 if short else FLOOR, len(text) / PACE + TAIL)
+        wav, spoken = narrate(text)
+        # 絵の長さは fps の整数倍に丸める。音もあとで同じ長さに詰めるので、33カット
+        # 積み上げても音と絵がずれない。
+        frames = max(round(FLOOR * FPS), math.ceil((spoken + TAIL) * FPS))
+        sec = frames / FPS
         row = {
             "chapter": c["chapter"], "fig": c["fig"], "title": c["title"],
-            "text": text, "sec": round(sec, 1), "at": round(t, 1),
+            "text": text, "sec": round(sec, 2), "at": round(t, 2),
+            "wav": str(wav), "spoken": round(spoken, 2), "frames": frames,
         }
         # 実際に動いているところ。静止画（fig）はそのまま残す — 動画が再生できない
         # ブラウザではそれが出るし、動画から切り出すより写真のほうが常に読みやすい。
@@ -176,7 +224,23 @@ def clip_frames(clip, start, sec, fps, height, scratch):
     return [shots[i % len(shots)] for i in range(need)]
 
 
-def build_video(title, cuts, short, out_name, fps=10, size=(1280, 720)):
+def build_audio(rows, out_wav):
+    """カットの声をつないで、1本の wav にする。
+
+    各カットは絵と**同じ長さ**に詰める（読み終わったぶんは無音）。コマ数から出した
+    長さに合わせるので、最後まで音と絵がずれない。
+    """
+    with wave.open(str(out_wav), "wb") as out:
+        out.setnchannels(1); out.setsampwidth(2); out.setframerate(SR)
+        for r in rows:
+            want = int(round(r["frames"] / FPS * SR))
+            with wave.open(r["wav"]) as w:
+                pcm = w.readframes(w.getnframes())
+            pcm = pcm[: want * 2] + b"\x00\x00" * max(0, want - len(pcm) // 2)
+            out.writeframes(pcm)
+
+
+def build_video(title, cuts, short, out_name, fps=FPS, size=(1280, 720)):
     from PIL import Image, ImageDraw, ImageFont
     rows, total = plan(cuts, short)
     W, H = size
@@ -186,14 +250,18 @@ def build_video(title, cuts, short, out_name, fps=10, size=(1280, 720)):
     f_sub = ImageFont.truetype(FONT_REG, 27, index=0)
     f_foot = ImageFont.truetype(FONT_REG, 18, index=0)
 
+    # 声を先に1本にまとめてから、絵と一緒に包む。
+    track = DOCS / ".tour-track.wav"
+    build_audio(rows, track)
     proc = subprocess.Popen(
-        # **JPEG で流し込む。** 同梱の ffmpeg は `--disable-everything` のビルドで、
-        # 読めるのは mjpeg だけ（png は書けるが読めない）。PNG を流すと即 broken pipe。
-        # 入力は `-` ではなく `pipe:0`。このビルドはプロトコルも pipe と file しか無く、
-        # `-` の解決に失敗して "Protocol not found" で即死する。
+        # 絵は JPEG で流し込む（PNG より速く、画質は字幕が読める程度に十分）。
+        # `-` ではなく `pipe:0`：ビルドによっては `-` の解決に失敗する。
         [FFMPEG, "-y", "-f", "image2pipe", "-vcodec", "mjpeg", "-framerate", str(fps), "-i", "pipe:0",
-         "-c:v", "libvpx", "-b:v", "1800k", "-crf", "31", "-deadline", "good",
-         "-cpu-used", "2", "-an", str(DOCS / out_name)],
+         "-i", str(track),
+         "-c:v", "libx264", "-preset", "medium", "-crf", "23", "-pix_fmt", "yuv420p",
+         "-profile:v", "high", "-level", "4.0", "-movflags", "+faststart",
+         "-c:a", "aac", "-b:a", "128k", "-ar", "44100", "-ac", "2",
+         "-shortest", str(DOCS / out_name)],
         stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
     # 帯は毎フレーム同じなので一度だけ作る
@@ -215,7 +283,7 @@ def build_video(title, cuts, short, out_name, fps=10, size=(1280, 720)):
         scale = W / src.width
         big = src.resize((W, math.ceil(src.height * scale)), Image.LANCZOS)
         drop = big.height - stage_h
-        frames = max(1, round(r["sec"] * fps))
+        frames = r["frames"]
         # 字幕は文字数の割合で切り替える。読み上げと同じ配分なので、声と字幕がずれない。
         parts = chunks(ruler, r["text"], f_sub, W - 112)
         spans, at = [], 0
@@ -255,7 +323,9 @@ def build_video(title, cuts, short, out_name, fps=10, size=(1280, 720)):
     shutil.rmtree(scratch, ignore_errors=True)
     proc.stdin.close()
     err = proc.stderr.read().decode("utf-8", "replace")
-    if proc.wait() != 0:
+    code = proc.wait()
+    track.unlink(missing_ok=True)
+    if code != 0:
         raise SystemExit("ffmpeg failed:\n" + err[-2000:])
     mb = (DOCS / out_name).stat().st_size / 1e6
     print(f"  docs/{out_name}  {int(total) // 60}分{int(total) % 60}秒 ・ {done} frames ・ {mb:.1f} MB")
@@ -274,184 +344,84 @@ PLAYER = r"""<!doctype html>
   header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
   header h1{font-size:19px;margin:0;letter-spacing:1px}
   header small{color:var(--mint);font-size:12px;letter-spacing:2px}
-  /* 動画（uspeak-tour-*.webm）と同じ組み：上が写真、下が字幕の帯。写真の上に字を重ねると、
-     画面写真そのものに文字が多いので、どちらも読めなくなる。 */
-  .stage{position:relative;aspect-ratio:16/9;background:var(--deep);border-radius:14px;overflow:hidden;
-         box-shadow:0 20px 60px #0008}
-  .shot{position:absolute;left:0;right:0;top:0;height:calc(100% - 32%);overflow:hidden;background:#000}
-  /* 動画と同じで、横には振らず縦に流す。写真は 1280x800、枠は横長なので、
-     拡大して横に振ると下のバーが永久に切れる。 */
-  .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
-            transition:opacity .6s ease;animation:drift 1s linear both}
-  .shot img.on{opacity:1}
-  @keyframes drift{from{object-position:50% 10%}to{object-position:50% 90%}}
-  /* 実際に動いているところ。写真の上にかぶせ、再生できないブラウザでは写真のまま。 */
-  .shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
-              opacity:0;transition:opacity .5s ease;background:#0c2a24}
-  .shot video.on{opacity:1}
-  .live{position:absolute;right:14px;top:12px;z-index:2;display:none;align-items:center;gap:7px;
-        padding:5px 11px;border-radius:999px;background:#0c2a24cc;color:var(--cream);
-        font-size:11px;letter-spacing:2px}
-  .live.on{display:flex}
-  .live i{width:8px;height:8px;border-radius:50%;background:#ff7a6b;animation:blink 1.4s infinite}
-  @keyframes blink{50%{opacity:.25}}
-  .caption{position:absolute;left:0;right:0;bottom:0;height:32%;padding:14px 30px 20px;
-           background:var(--deep);border-top:3px solid var(--gold);display:flex;flex-direction:column}
-  .caption .chap{font-size:12px;letter-spacing:3px;color:var(--mint);margin-bottom:4px}
-  .caption h2{margin:0 0 8px;font-size:clamp(16px,2.2vw,27px);letter-spacing:1px}
-  .caption p{margin:0;font-size:clamp(11px,1.45vw,17px);line-height:1.7;color:#d8e4dc;overflow:hidden}
-  .bar{position:absolute;left:0;bottom:0;height:4px;background:var(--gold);width:0;transition:width .25s linear}
+  video{width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;display:block;
+        box-shadow:0 20px 60px #0008}
   .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
   button{font:inherit;color:inherit;background:#1d4239;border:1px solid var(--rule);
          border-radius:11px;padding:10px 16px;cursor:pointer}
   button:hover{border-color:var(--mint)}
   button.on{background:var(--gold);color:#22372f;border-color:var(--gold);font-weight:700}
-  button.play{background:var(--mint);color:#12302a;border-color:var(--mint);font-weight:700;min-width:104px}
-  .time{margin-left:auto;font-variant-numeric:tabular-nums;color:#9fb8ac;font-size:13px}
+  a.dl{margin-left:auto;color:var(--mint);font-size:13px}
   .note{color:#8fa79b;font-size:12px;line-height:1.8;margin:10px 0 18px}
   .note b{color:var(--cream)}
+  h2.now{font-size:15px;margin:16px 0 8px;color:var(--gold);letter-spacing:1px}
   ol.chapters{list-style:none;margin:0;padding:0;display:grid;
               grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
   ol.chapters li button{width:100%;text-align:left;display:flex;gap:10px;align-items:baseline;
                         background:#12332c;padding:9px 12px}
-  ol.chapters li button.now{background:#1f4a3c;border-color:var(--mint)}
+  ol.chapters li button.now{background:#1f4a3c;border-color:var(--mint);color:var(--cream)}
   ol.chapters em{font-style:normal;color:#89a496;font-size:11px;font-variant-numeric:tabular-nums;flex:none}
   ol.chapters span{font-size:13px}
-  @media(max-width:560px){.caption{padding:14px 16px 18px}.caption p{min-height:4.6em}}
 </style></head><body><div class="wrap">
 <header><h1>__TITLE__</h1><small>U-SPEAK LAB</small></header>
 
-<div class="stage" id="stage">
-  <div class="shot"><img id="a" alt=""><img id="b" alt="">
-    <video id="clip" muted playsinline loop preload="auto"></video>
-    <span class="live" id="live"><i></i>じっさいの プレー</span></div>
-  <div class="caption">
-    <div class="chap" id="chap"></div>
-    <h2 id="title"></h2>
-    <p id="sub"></p>
-  </div>
-  <div class="bar" id="bar"></div>
-</div>
+<video id="v" controls playsinline preload="metadata" src="uspeak-tour-10min.mp4"></video>
 
 <div class="controls">
-  <button class="play" id="play">▶ さいせい</button>
-  <button id="prev">◀ まえ</button>
-  <button id="next">つぎ ▶</button>
   <button id="len10" class="on">10分版（__LEN_FULL__）</button>
   <button id="len5">5分版（__LEN_FIVE__）</button>
-  <button id="voice" class="on">🔊 ナレーション</button>
-  <span class="time" id="time">0:00</span>
+  <a class="dl" id="dl" href="uspeak-tour-10min.mp4" download>⤓ この動画をダウンロード</a>
 </div>
 
 <p class="note">
-  ナレーションは<b>このブラウザが読み上げます</b>（日本語の音声が入っている Windows・mac・iPad ならそのまま喋ります）。
-  声が出ないときは「🔊 ナレーション」を押して切り替えるか、字幕だけでご覧ください。
-  <b>画面録画すれば、そのまま動画ファイルになります</b>（Windows は <b>Win+Alt+R</b>、mac は <b>⌘+Shift+5</b>）。
+  ナレーションと字幕は<b>動画に入っています</b>。そのまま再生してください。
+  下の章立てを押すと、その場面へ飛びます。
+  <b>mp4 なので、PowerPoint に貼っても、メールで送っても、そのまま再生できます。</b>
 </p>
 
+<h2 class="now" id="now"></h2>
 <ol class="chapters" id="chapters"></ol>
 </div>
 <script>
 const DATA = __DATA__;
-let cuts = DATA.full, i = 0, playing = false, t0 = 0, elapsed = 0, timer = 0, speak = true, flip = false;
+let cuts = DATA.full;
 const $ = (id) => document.getElementById(id);
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
-const total = () => cuts.reduce((n, c) => n + c.sec, 0);
-
-function paint() {
-  const c = cuts[i];
-  $('chap').textContent = c.chapter;
-  $('title').textContent = c.title;
-  $('sub').textContent = c.text;
-  // 動くカットは動画をかぶせる。再生できないブラウザ（WebM 非対応の古い Safari など）
-  // では video が黙って失敗するので、下の写真がそのまま見えるだけになる。
-  const clip = $('clip');
-  if (c.clip) {
-    if (clip.dataset.of !== c.clip) { clip.dataset.of = c.clip; clip.src = `clips/clip-${c.clip}.webm`; }
-    try { clip.currentTime = c.from || 0; } catch { /* まだ読めていない */ }
-    clip.play?.().then(() => { clip.classList.add('on'); $('live').classList.add('on'); })
-      .catch(() => { clip.classList.remove('on'); $('live').classList.remove('on'); });
-  } else {
-    clip.classList.remove('on'); $('live').classList.remove('on'); clip.pause?.();
-  }
-  // 2枚を交互に使ってクロスフェード。1枚だと切り替わりが瞬きになる。
-  const show = flip ? $('a') : $('b'), hide = flip ? $('b') : $('a');
-  flip = !flip;
-  show.src = `figures/${c.fig}.jpg`;
-  show.style.animationDuration = c.sec + 's';
-  show.classList.add('on'); hide.classList.remove('on');
-  [...$('chapters').children].forEach((li, n) => li.firstChild.classList.toggle('now', n === i));
-  $('time').textContent = `${mmss(cuts.slice(0, i).reduce((n, x) => n + x.sec, 0))} / ${mmss(total())}`;
-}
-
-function say(text) {
-  if (!speak || !window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'ja-JP';
-  const jp = speechSynthesis.getVoices().find((v) => v.lang && v.lang.replace('_', '-').startsWith('ja'));
-  if (jp) u.voice = jp;
-  u.rate = 1.0; u.pitch = 1.0;
-  speechSynthesis.speak(u);
-}
-
-function go(n, keepPlaying = true) {
-  i = (n + cuts.length) % cuts.length;
-  elapsed = 0; t0 = performance.now();
-  paint();
-  if (playing && keepPlaying) say(cuts[i].text); else speechSynthesis?.cancel();
-}
-
-function tick() {
-  if (!playing) return;
-  const c = cuts[i];
-  elapsed = (performance.now() - t0) / 1000;
-  $('bar').style.width = `${Math.min(100, (elapsed / c.sec) * 100)}%`;
-  if (elapsed >= c.sec) {
-    if (i === cuts.length - 1) { stop(); return; }
-    go(i + 1);
-  }
-}
-
-function start() { playing = true; $('play').textContent = '❚❚ ていし'; t0 = performance.now() - elapsed * 1000; say(cuts[i].text); }
-function stop() { playing = false; $('play').textContent = '▶ さいせい'; speechSynthesis?.cancel(); }
-
-$('play').onclick = () => (playing ? stop() : start());
-$('prev').onclick = () => go(i - 1);
-$('next').onclick = () => go(i + 1);
-$('voice').onclick = () => {
-  speak = !speak;
-  $('voice').classList.toggle('on', speak);
-  $('voice').textContent = speak ? '🔊 ナレーション' : '🔇 字幕だけ';
-  if (!speak) speechSynthesis?.cancel(); else if (playing) say(cuts[i].text);
-};
-function setLength(which) {
-  const was = playing; stop();
-  cuts = which === 'five' ? DATA.five : DATA.full;
-  $('len10').classList.toggle('on', which !== 'five');
-  $('len5').classList.toggle('on', which === 'five');
-  buildChapters(); go(0, false);
-  if (was) start();
-}
-$('len10').onclick = () => setLength('full');
-$('len5').onclick = () => setLength('five');
 
 function buildChapters() {
   $('chapters').replaceChildren(...cuts.map((c, n) => {
-    const at = cuts.slice(0, n).reduce((s, x) => s + x.sec, 0);
     const li = document.createElement('li');
     const b = document.createElement('button');
-    b.innerHTML = `<em>${mmss(at)}</em><span>${c.title}</span>`;
-    b.onclick = () => go(n);
+    b.innerHTML = `<em>${mmss(c.at)}</em><span>${c.title}</span>`;
+    b.onclick = () => { $('v').currentTime = c.at + 0.05; follow(); $('v').play?.(); };
     li.append(b);
     return li;
   }));
 }
 
-speechSynthesis?.getVoices();
-speechSynthesis && (speechSynthesis.onvoiceschanged = () => {});
-buildChapters(); go(0, false);
-setInterval(tick, 100);
+// いま流れている場面を光らせる。動画の中の字幕と、下の一覧が同じところを指す。
+function follow() {
+  const t = $('v').currentTime;
+  let i = 0;
+  while (i + 1 < cuts.length && cuts[i + 1].at <= t) i += 1;
+  $('now').textContent = `${cuts[i].chapter} ・ ${cuts[i].title}`;
+  [...$('chapters').children].forEach((li, n) => li.firstChild.classList.toggle('now', n === i));
+}
+
+function setLength(which) {
+  const five = which === 'five';
+  cuts = five ? DATA.five : DATA.full;
+  const src = five ? 'uspeak-tour-5min.mp4' : 'uspeak-tour-10min.mp4';
+  $('v').src = src; $('dl').href = src;
+  $('len10').classList.toggle('on', !five);
+  $('len5').classList.toggle('on', five);
+  buildChapters(); follow();
+}
+$('len10').onclick = () => setLength('full');
+$('len5').onclick = () => setLength('five');
+$('v').addEventListener('timeupdate', follow);
+
+buildChapters(); follow();
 </script></body></html>
 """
 
@@ -464,11 +434,8 @@ def main():
     build_script(title, cuts)
     if what == "player":
         return
-    if not os.path.exists(FFMPEG):
-        print(f"  (no ffmpeg at {FFMPEG} — 動画は作れません)")
-        return
-    build_video(title, cuts, False, "uspeak-tour-10min.webm")
-    build_video(title, cuts, True, "uspeak-tour-5min.webm")
+    build_video(title, cuts, False, "uspeak-tour-10min.mp4")
+    build_video(title, cuts, True, "uspeak-tour-5min.mp4")
 
 
 if __name__ == "__main__":
