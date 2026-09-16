@@ -70,6 +70,13 @@ export async function startServer({ port = config.port, storeOverride = null } =
       cpuPercent: cpuPercent(),
       memory: { rssMb: Math.round((mem.rss / 1048576) * 10) / 10, heapUsedMb: Math.round((mem.heapUsed / 1048576) * 10) / 10 },
       store: { backend: store.name, pending: store.pendingCount ?? 0, ...(store.stats || {}) },
+      // **鍵が効いているかを、ここで1目で見られるようにしてある。** `OPENAI_API_KEY` を
+      // 入れたのに AI が動かないとき、いままでは `fly logs` の `[tutor] provider=` を
+      // 探すしかなかった。**出しているのは「鍵が入っているか」だけ**で、鍵そのものも
+      // その一部も出さない（ブラウザーには昔から何も渡していない）。
+      // `scripted` は 台本の相手。AI は止まっていて、授業はそのまま進む。
+      ai: { provider: config.ai.apiKey ? 'openai' : 'scripted', model: config.ai.apiKey ? config.ai.model : '', dailyTurnsPerStudent: config.ai.dailyTurnsPerStudent },
+      voice: { dailyMinutesPerStudent: config.voice.dailyMinutesPerStudent, bigRoom: !!(config.livekit.url && config.livekit.apiKey && config.livekit.apiSecret) },
     });
   });
 

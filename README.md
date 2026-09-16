@@ -406,7 +406,47 @@ fly logs
   できたかどうかの判定は**すべてサーバー**（`server/src/ai/tutor.js`）。
 - **できたこと（2〜3個）** が1つ埋まるごとに XP、全部そろうと **+40🪙**（1日の上限200）。
 - **`OPENAI_API_KEY` が無くても動きます**（台本モードのウーピーが相手をします）。
-  本物の会話にするならサーバーに `OPENAI_API_KEY` を入れてください。
+  本物の会話にする手順は次の節。
+
+### AI英会話を オンにする
+
+**スイッチは `OPENAI_API_KEY` ひとつだけ**です。入っていれば本物の AI、入っていなければ
+台本のウーピー。コードは同じで、`server/src/ai/tutor.js` が起動時にどちらか選びます。
+
+```powershell
+fly secrets set --app uspeak-multiplayer OPENAI_API_KEY='sk-...'
+```
+
+`fly secrets set` は**そのままマシンを入れ替えます**（`fly deploy` は要りません）。
+1〜2分で戻ってきます。
+
+**効いたかどうかは `/healthz` で分かります**（`fly logs` を読まなくてよいように出しています）：
+
+```powershell
+curl.exe -s https://uspeak-multiplayer.fly.dev/healthz
+```
+
+- `"ai":{"provider":"openai","model":"gpt-4o-mini",...}` … **オン**
+- `"ai":{"provider":"scripted","model":"",...}` … まだ台本モード
+
+出るのは**「鍵が入っているか」だけ**で、鍵そのものもその一部も出しません
+（ブラウザーには昔から何も渡していません）。
+
+**使う量の上限も同時に決められます**（1人1日のやりとり回数。おつかい島と合算）：
+
+```powershell
+fly secrets set --app uspeak-multiplayer AI_DAILY_TURNS_PER_STUDENT=40
+```
+
+既定は 200 で、これは**多すぎます**。生徒1人が1日200往復すると
+`gpt-4o-mini` でもそれなりの額になり、月200円の価格では合いません。
+**40 なら1レッスンぶんとして十分**で、上限に達した子には台本のウーピーが出ます
+（授業は止まりません）。ほかに `OPENAI_MODEL`（既定 `gpt-4o-mini`）、
+`AI_MAX_TOKENS`（300）、`AI_MIN_INTERVAL_MS`（1200）も同じやり方で変えられます。
+
+**鍵は絶対にリポジトリに入れないこと。** `fly secrets` はサーバーの中だけに置かれ、
+`fly.toml` にも git にも残りません。**画面に一度でも貼ってしまった鍵は捨てて、
+新しいものを作ってください**（OpenAI のダッシュボードで revoke → 新規発行）。
 - キャラクターは `client/dist/assets/character/idle.mp4` と `talking.mp4` の2本だけ。
   読み上げが鳴っている間だけ talking に切り替わります。差し替えるときは
   **同じ構図・同じ照明・最初と最後のフレームを揃える**（クロスフェードが見えなくなります）。
