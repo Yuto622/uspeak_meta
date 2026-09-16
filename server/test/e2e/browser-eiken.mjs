@@ -61,11 +61,14 @@ try {
     (await a.evaluate(() => uspeak.net.currentSpace())) === 'in:eiken5:reading',
     await a.evaluate(() => uspeak.net.currentSpace()));
 
+  // **画面は英語が既定**（`i18n.js`）。ここで英語を見ているのは、子どもが最初に
+  // 開いたときに実際に出る文字だから。日本語が出たら、それは訳が引けていない
+  // ＝ `lang.json` が届いていないということ。
   // The counter inside is where the practice starts, exactly like every other island.
   await a.evaluate(() => { uspeak.player.position.set(0, 0, -1.8); });
   await a.waitForFunction(() => !!uspeak.rpg.eikenNearby()?.spot, null, { timeout: 30000, polling: 150 });
   check('the counter offers the skill this hall teaches',
-    (await a.evaluate(() => uspeak.net.eikenLabel(uspeak.rpg.eikenNearby().spot))).includes('読む'),
+    (await a.evaluate(() => uspeak.net.eikenLabel(uspeak.rpg.eikenNearby().spot))).includes('Reading'),
     await a.evaluate(() => uspeak.net.eikenLabel(uspeak.rpg.eikenNearby().spot)));
 
   const before = await coins(a);
@@ -90,7 +93,7 @@ try {
       return !!feedback || (document.querySelector('#eiken-body .eiken-q')?.textContent || '') !== was;
     }, asked, { timeout: 20000, polling: 200 });
     const line = await screen(a);
-    if (line.includes('せいかい')) paid = true;
+    if (line.includes('Correct!')) paid = true;
     await sleep(2800);           // the screen moves itself on to the next question
   }
   check('the server graded it and paid for the right one', paid && (await coins(a)) > before,
@@ -110,7 +113,7 @@ try {
     const body = await screen(a);
     const head = await a.evaluate(() => document.querySelector('#eiken-eyebrow').textContent);
     if (skill === 'listening') {
-      check('聞く gives an ear and four meanings', head.includes('LISTENING') && body.includes('きく'), head);
+      check('聞く gives an ear and four meanings', head.includes('LISTENING') && body.includes('Listen again'), head);
       check('and the sentence is not written down until it has been answered', !(await a.evaluate(() => !!document.querySelector('.eiken-said')?.textContent?.match(/[a-z]{3}/i))));
     }
     if (skill === 'writing') {
@@ -125,11 +128,11 @@ try {
       }
       await a.click('#eiken-done');
       await a.waitForSelector('#eiken-body .quiz-feedback', { timeout: 20000 });
-      check('and the server marks the order, not the page', (await screen(a)).includes('こたえは'));
+      check('and the server marks the order, not the page', (await screen(a)).includes('The answer is'));
       await a.screenshot({ path: path.join(SHOTS, 'e2e-eiken-writing.png') });
     }
     if (skill === 'speaking') {
-      check('話す gives a sentence to say, with a microphone', head.includes('SPEAKING') && body.includes('言ってみる'), head);
+      check('話す gives a sentence to say, with a microphone', head.includes('SPEAKING') && body.includes('Try saying it'), head);
       // No microphone in a headless browser: the typed fallback is the same message.
       const said = await a.evaluate(() => document.querySelector('.eiken-say strong').textContent);
       await a.evaluate((text) => {
@@ -139,7 +142,7 @@ try {
       }, said);
       await a.waitForSelector('#eiken-body .quiz-feedback', { timeout: 20000 });
       check('saying the sentence is judged by the server, from the words only',
-        (await screen(a)).includes('せいかい'), (await screen(a)).slice(0, 60));
+        (await screen(a)).includes('Correct!'), (await screen(a)).slice(0, 60));
       await a.screenshot({ path: path.join(SHOTS, 'e2e-eiken-speaking.png') });
     }
   }

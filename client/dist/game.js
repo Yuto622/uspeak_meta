@@ -4,6 +4,7 @@ import {untilNight} from './world-clock.js';
 import {createAmbience} from './ambience.js';
 import {createStick} from './stick.js';
 import {createGuide} from './guide.js';
+import {loadDictionary, setLang, getLang, onLangChange, t} from './i18n.js';
 import {label as bilingual} from './bilingual.js';
 import {createSpeech} from './speech.js';
 import {createThemePark} from './themepark.js';
@@ -63,6 +64,15 @@ const ambience=createAmbience({isMuted:()=>muted});
 // 「?」は**全部の島と全部のきのうを、写真つきで1ページずつ**見せる画面になった。
 // 前は長い文章が1つのダイアログに入っていて、はじめての子には読み切れなかった。
 const guide=createGuide({toast});
+// 画面の言語。**ふだんは英語**で、ヘッダーの「あ」を押すと日本語（ひらがな）になる。
+// レッスンは外国人の先生が進めるので、画面が英語のほうが先生はそのまま読める。
+// **辞書は待たない**（`loadDictionary` は非同期）。読めていない間は日本語がそのまま
+// 出るだけで、画面は壊れない。2行で書いてあるボタンは辞書を使わないので最初から正しい。
+loadDictionary();
+$('#lang-toggle').onclick=()=>{setLang(getLang()==='ja'?'en':'ja')};
+// 切り替えたら、**開いている画面だけ**描き直す。`data-t` と `.en`/`.ja` は i18n.js と CSS が
+// 自分でやるので、ここで直すのは JavaScript が毎回書いている文字（時計・クエスト）だけ。
+onLangChange(()=>{clockTick=0;renderQuests()});
 // Browsers only allow sound after a child has touched the screen, so the first touch or
 // key is what starts the island breathing.
 // 音の許可は1回目のタッチで下りるとは限らない（iPad は下りる順番が端末で違う）。

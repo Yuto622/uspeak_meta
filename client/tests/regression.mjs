@@ -152,6 +152,49 @@
   console.log(`PASS: 読み上げの文 — 日本語からは記号を落とし、英語の ? と , は残す（${cases.length}件）。`);
 }
 
+// 画面の言語。**英語が主で、「あ」ボタンで日本語（ひらがな）になる。**
+//
+// 鍵はいまの日本語の文そのものなので（`i18n.js` の頭を読むこと）、**訳が抜けても
+// 画面は壊れない** — 日本語がそのまま出るだけ。だからこそ、抜けたことに誰も
+// 気づかないまま出てしまう。ここで抜けを数えて、気づけるようにしておく。
+{
+  const { readFileSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+  const html = readFileSync(`${dist}index.html`, 'utf8');
+  const words = JSON.parse(readFileSync(`${dist}lang.json`, 'utf8')).words;
+  const JA = /[\u3040-\u309f\u30a0-\u30ff\u3400-\u9fff]/;
+  const bad = [];
+
+  // 1. HTML に付けた印は、全部 辞書に載っていること。
+  const marks = [...html.matchAll(/data-t(?:-label|-ph|-content)?="([^"]*)"/g)].map((m) => m[1]);
+  for (const key of new Set(marks)) if (!(key in words)) bad.push(`index.html の「${key}」が lang.json に無い`);
+
+  // 2. `.en` / `.ja` の2行には印を付けないこと。**あちらは CSS が切り替える**ので、
+  //    印が付いていると 英語のときに *日本語の行* へ英語が書き込まれる（見えないが無意味）。
+  if (/class="(?:en|ja)"[^>]*\sdata-t/.test(html)) bad.push('`.en`/`.ja` の行に data-t が付いている（CSS が切り替えるので要らない）');
+
+  // 3. 訳が日本語のままなら、それは訳し忘れ（鍵をコピーして値を直し忘れた形）。
+  for (const [key, val] of Object.entries(words)) {
+    if (key === val) continue;                      // わざと同じにしてあるもの（「日本語」など）
+    if (JA.test(val)) bad.push(`「${key}」の訳が まだ日本語（${val}）`);
+  }
+
+  // 4. **学習の中身は辞書に入れない。** 英検のもんだい文・釣りの4択の意味・会話の訳は、
+  //    日本語であることが問題そのもの。訳してしまうと問題が成立しない。
+  const banks = ['../../server/src/game/eiken-bank.json', '../../server/src/game/gym-words.json'];
+  for (const rel of banks) {
+    let raw = '';
+    try { raw = readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8'); } catch { continue; }
+    for (const key of Object.keys(words)) {
+      if (key.length >= 6 && raw.includes(`"${key}"`)) bad.push(`「${key}」は もんだいの文。辞書に入れないこと`);
+    }
+  }
+
+  if (bad.length) { console.error('FAIL: ' + bad.slice(0, 8).join('\n  ')); process.exit(1); }
+  console.log(`PASS: 画面の言語 — 印 ${new Set(marks).size}件が ぜんぶ辞書にあり、辞書 ${Object.keys(words).length}件に訳し忘れも もんだい文も無い。`);
+}
+
 // And no stylesheet may give a closed <dialog> a `display`. The browser's own
 // `dialog:not([open]) { display: none }` is a plain rule, and an id selector beats it: a
 // closed panel then sits over the island, invisible against the sky and swallowing every
