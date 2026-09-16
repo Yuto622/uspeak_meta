@@ -127,6 +127,14 @@
 - **`.en` / `.ja` の行に `data-t` を付けないこと。** あちらは CSS が切り替えるので、
   印が付いていると 英語のときに*日本語の行*へ英語が書き込まれる（見えないが無意味）。
   これも `tests/regression.mjs` が見ている。
+- **`t` という名前が使えないファイルがある。** `game.js` の `tick()` には
+  `const t = clock.elapsedTime` があり、`{ t }` で import すると**フレームループの中の訳が
+  そこに当たって画面が白いまま止まる**（実際にそうなった）。ぶつかるファイルでは
+  `import { t as tr }` と書く（いまは `game.js` と `avatars.js`）。
+  `tests/regression.mjs` が「時間の t を持っているのに `{ t }` で import している」を落とす。
+- **JavaScript で建てる画面は、建てたあとに `applyDom(その要素)` を1回呼ぶ。**
+  `data-t` を書いても、`applyDom()` が走ったときに document に居なければ訳されない
+  （`lobby.js` がそう）。
 - **切り替えたときに描き直すのは、JavaScript が毎回書いている文字だけ。**
   `onLangChange()` を使う。`data-t` と `.en`/`.ja` は i18n.js と CSS が自分でやる。
   **まる／ばつを出している途中には触らない**（描き直すと 正解の色も 次へ進むタイマーも
@@ -147,9 +155,11 @@
 - ガイド（`guide.json`）も章とページに `en` を持つ。
 - **3Dの名札（sprite）は HTML ではない**ので、ここの仕組みは効かない。島の看板を
   英語にしたいときは `island-kit.js` の `sprite()` に渡す文字列を変えること。
+- **通したところ**：`index.html` / `bilingual.js` の2行ぜんぶ / `eiken.js`（英検の4技能）/
+  `lobby.js`（クラスに入る枠）/ `avatars.js`（キャラえらび）/ `game.js`（はじまりの島）。
 - **まだ日本語のまま**のところ：`#area`（地図の下の場所名・書いている所が5か所ある）と、
-  `rpg.js` / `adventure.js` / `fishing.js` の中の文。**順に `t()` を通していく**。
-  訳が無い間は日本語で出るだけなので、途中で止めても画面は壊れない。
+  `rpg.js` / `adventure.js` / `fishing.js` / `net-client.js` / `voice.js` / `mission.js` の中の文。
+  **順に `t()` を通していく**。訳が無い間は日本語で出るだけなので、途中で止めても画面は壊れない。
 
 ### 検査
 

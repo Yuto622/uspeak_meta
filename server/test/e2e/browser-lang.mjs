@@ -57,8 +57,18 @@ try {
   await page.route('**/*', (r) => (r.request().url().includes('127.0.0.1') ? r.continue() : r.abort()));
   await page.goto(`http://127.0.0.1:${PORT}/`, { waitUntil: 'commit', timeout: 240000 });
   await page.waitForSelector('#avatar-dialog[open]', { timeout: 240000 });
+
+  // **最初に読む文字は この2枚**（キャラえらび → クラスに入る）。島より先にここを見る。
+  check('キャラえらびが英語で出ている',
+    (await page.textContent('#avatar-confirm')).includes('Start the adventure'),
+    await page.textContent('#avatar-confirm'));
   await page.click('#avatar-confirm');
   await page.waitForSelector('#net-lobby[open]', { timeout: 60000 });
+  check('クラスに入る枠が英語で出ている',
+    (await page.textContent('#net-lobby-title')) === 'Join your class',
+    await page.textContent('#net-lobby-title'));
+  check('…入力らんの みほんも英語', (await page.getAttribute('#net-class', 'placeholder')) === 'The code your teacher gave you',
+    await page.getAttribute('#net-class', 'placeholder'));
   await page.click('#net-offline');
   await sleep(1500);
   await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });

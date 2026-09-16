@@ -166,9 +166,38 @@
   const JA = /[\u3040-\u309f\u30a0-\u30ff\u3400-\u9fff]/;
   const bad = [];
 
-  // 1. HTML に付けた印は、全部 辞書に載っていること。
-  const marks = [...html.matchAll(/data-t(?:-label|-ph|-content)?="([^"]*)"/g)].map((m) => m[1]);
-  for (const key of new Set(marks)) if (!(key in words)) bad.push(`index.html の「${key}」が lang.json に無い`);
+  // 1. 付けた印と `t('…')` の鍵は、全部 辞書に載っていること。
+  //    **印は HTML だけにあるとは限らない**：画面を JavaScript で建てているところ
+  //    （lobby.js・eiken.js など）にも同じ形で書いてある。
+  const { readdirSync } = await import('node:fs');
+  const sources = [['index.html', html]];
+  for (const f of readdirSync(dist)) {
+    if (!f.endsWith('.js') || f === 'i18n.js') continue;
+    sources.push([f, readFileSync(dist + f, 'utf8')]);
+  }
+  const marks = [];
+  for (const [name, src] of sources) {
+    for (const m of src.matchAll(/data-t(?:-label|-ph|-content)?="([^"]*)"/g)) marks.push([name, m[1]]);
+    // `t('…')` の第1引数。`split(`・`at(` などに当たらないよう、直前が語の途中でないことを見る。
+    // **`tr('…')` も見る**：`game.js` と `avatars.js` は時間の `t` とぶつかるので
+    // `t as tr` で import している（それぞれの import の上にそう書いてある）。
+    for (const m of src.matchAll(/(?<![A-Za-z0-9_$.])(?:t|tr)\('((?:[^'\\]|\\.)*)'/g)) marks.push([name, m[1].replace(/\\'/g, "'")]);
+  }
+  for (const [name, key] of marks) {
+    if (!JA.test(key)) continue;                     // 記号や英語だけの鍵は訳さなくてよい
+    if (!(key in words)) bad.push(`${name} の「${key}」が lang.json に無い`);
+  }
+
+  // 1b. **`t` という名前を、時間の `t` の上に import しないこと。**
+  //     `game.js` の `tick()` には `const t = clock.elapsedTime` があり、`{ t }` で
+  //     import すると フレームループの中の訳が そこに当たって **画面が白いまま止まる**
+  //     （実際にそうなった）。ぶつかるファイルは `t as tr` で import する。
+  for (const [name, src] of sources) {
+    if (!/import\s*\{[^}]*\bt\s*[,}]/.test(src)) continue;          // `t as tr` は当たらない
+    if (/(?:^|[^A-Za-z0-9_$.])(?:const|let|var)\s+t\s*=|[(,]\s*t\s*[,)]/.test(src)) {
+      bad.push(`${name} は 時間の t を持っているのに { t } で import している（t as tr にすること）`);
+    }
+  }
 
   // 2. `.en` / `.ja` の2行には印を付けないこと。**あちらは CSS が切り替える**ので、
   //    印が付いていると 英語のときに *日本語の行* へ英語が書き込まれる（見えないが無意味）。
@@ -192,7 +221,7 @@
   }
 
   if (bad.length) { console.error('FAIL: ' + bad.slice(0, 8).join('\n  ')); process.exit(1); }
-  console.log(`PASS: 画面の言語 — 印 ${new Set(marks).size}件が ぜんぶ辞書にあり、辞書 ${Object.keys(words).length}件に訳し忘れも もんだい文も無い。`);
+  console.log(`PASS: 画面の言語 — ${sources.length}ファイルの印 ${new Set(marks.map((m) => m[1])).size}件が ぜんぶ辞書にあり、辞書 ${Object.keys(words).length}件に訳し忘れも もんだい文も無い。`);
 }
 
 // And no stylesheet may give a closed <dialog> a `display`. The browser's own

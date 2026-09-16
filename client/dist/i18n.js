@@ -15,6 +15,11 @@
 // 日本語であることが問題そのもの。訳してしまうと問題が成立しない。ここを通すのは
 // **画面の文字（ボタン・見出し・説明・お知らせ）だけ**。
 
+// **ブラウザーの外でも読み込まれる。** `tests/regression.mjs` は DOM を模擬してから
+// モジュールを import するし、サーバーも判定データを通して間接的に読むことがある。
+// `document` が無いときは「何もしないで日本語を返す」に落ちる（訳が要るのは画面だけ）。
+const dom = () => (typeof document === 'undefined' ? null : document);
+
 const KEY = 'uspeak-lang-v1';
 const DEFAULT = 'en';            // **既定は英語。** 日本語は ボタンで選ぶもの。
 const EVENT = 'uspeak:lang';
@@ -23,7 +28,7 @@ let lang = DEFAULT;
 let dict = null;                 // { '日本語の文': 'English' }
 
 try {
-  const saved = localStorage.getItem(KEY);
+  const saved = globalThis.localStorage?.getItem(KEY);
   if (saved === 'en' || saved === 'ja') lang = saved;
 } catch { /* プライベートウィンドウなど。既定のまま */ }
 
@@ -40,7 +45,8 @@ export function t(ja, vars) {
 
 // 静的な HTML のための入口。`data-t` を持つ要素の文字を入れ替える。
 // **元の日本語は data-t に残しておく**ので、何度切り替えても戻せる。
-export function applyDom(root = document) {
+export function applyDom(root = dom()) {
+  if (!root) return;
   for (const el of root.querySelectorAll('[data-t]')) el.textContent = t(el.dataset.t);
   for (const el of root.querySelectorAll('[data-t-label]')) el.setAttribute('aria-label', t(el.dataset.tLabel));
   for (const el of root.querySelectorAll('[data-t-ph]')) el.setAttribute('placeholder', t(el.dataset.tPh));
@@ -52,34 +58,38 @@ export function applyDom(root = document) {
 // どちらを見せるかは `<html data-lang>` 1か所で決まる（style.css の「12.」を参照）。
 // こうすると、開いている画面を描き直さなくても 切り替えがその場で効く。
 function mark() {
-  document.documentElement.lang = lang === 'ja' ? 'ja' : 'en';
-  document.documentElement.dataset.lang = lang;
+  const d = dom();
+  if (!d?.documentElement) return;
+  d.documentElement.lang = lang === 'ja' ? 'ja' : 'en';
+  d.documentElement.dataset.lang = lang;
 }
 
-export function onLangChange(fn) { document.addEventListener(EVENT, fn); }
+function announce() { dom()?.dispatchEvent?.(new CustomEvent(EVENT, { detail: { lang } })); }
+
+export function onLangChange(fn) { dom()?.addEventListener?.(EVENT, fn); }
 
 export function setLang(next) {
   const want = next === 'ja' ? 'ja' : 'en';
   if (want === lang) return;
   lang = want;
-  try { localStorage.setItem(KEY, lang); } catch { /* 覚えられなくても今回は効く */ }
+  try { globalThis.localStorage?.setItem(KEY, lang); } catch { /* 覚えられなくても今回は効く */ }
   mark();
   applyDom();
   // 開いている画面に「描き直して」と伝える。各画面は自分が開いているときだけ描き直す。
-  document.dispatchEvent(new CustomEvent(EVENT, { detail: { lang } }));
+  announce();
 }
 
 // 辞書は起動時に1回だけ読む。**読めなくても日本語で動く**ので、待たずに始めてよい。
 export async function loadDictionary(src = 'lang.json') {
   try {
-    const raw = await (await fetch(src)).json();
+    const raw = await (await globalThis.fetch(src)).json();
     dict = raw.words || raw;
   } catch {
     dict = {};
   }
   mark();
   applyDom();
-  document.dispatchEvent(new CustomEvent(EVENT, { detail: { lang } }));
+  announce();
   return dict;
 }
 
