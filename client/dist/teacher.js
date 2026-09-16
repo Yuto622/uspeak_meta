@@ -7,6 +7,11 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   let chatPaused = false;
   let freeChat = true;
   let voiceMode = 'all';
+  // 英検の はんていの きびしさ。**押すたびに きびしい → ふつう → やさしい と まわる**
+  // （おはなしのボタンと同じ形）。決めるのは先生だけで、採点するのはサーバー。
+  let eikenLevel = 'normal';
+  const EIKEN_SAID = { strict: '📝 英検：きびしい', normal: '📝 英検：ふつう', easy: '📝 英検：やさしい' };
+  const EIKEN_NEXT = { strict: 'normal', normal: 'easy', easy: 'strict' };
   const staged = new Set();   // children the teacher has put on the stage (大広間だけ)
   let missionId = '';
   let timer = null;
@@ -19,6 +24,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     <button type="button" id="net-t-chat">⏸ チャットを一時停止</button>
     <button type="button" id="net-t-free">✏ じゆうにゅうりょく：オン</button>
     <button type="button" id="net-t-voice">🎙 おはなし：どの島でも</button>
+    <button type="button" id="net-t-eiken">📝 英検：ふつう</button>
     <button type="button" id="net-t-reports">📄 保護者レポートのリンク</button>
     <button type="button" id="net-t-register">🔄 めいぼを読み直す</button>
   </div>
@@ -51,6 +57,11 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   // talk. This button is for the rest of the world: press once to open every building on
   // every island, again to close all of it (the island included), again to go back.
   $('#net-t-voice').onclick = () => send({ cmd: 'voice', mode: { all: 'rooms', rooms: 'off', off: 'all' }[voiceMode] || 'all' });
+  // 英検の はんてい。**やさしいは「would like to」を「want」と言っても通す**、
+  // ならべかえは となりどうしの入れかえを1か所 見のがす、4たくは2たくになる。
+  // きびしいは 1語も ちがえられず、ことばのヒントも出ない。くわしくは
+  // `server/src/game/eiken.js` の表。ここは押すだけで、決めるのはサーバー。
+  $('#net-t-eiken').onclick = () => send({ cmd: 'eiken', level: EIKEN_NEXT[eikenLevel] || 'normal' });
   $('#net-t-mission').onchange = (e) => send({ cmd: 'mission', id: e.target.value });
   $('#net-teacher-close').onclick = () => toggle(false);
   $('#net-t-reports').onclick = () => send({ cmd: 'reports' });
@@ -84,6 +95,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     $('#net-t-chat').textContent = chatPaused ? '▶ チャットを再開' : '⏸ チャットを一時停止';
     $('#net-t-free').textContent = freeChat ? '✏ じゆうにゅうりょく：オン' : '✏ じゆうにゅうりょく：オフ';
     $('#net-t-voice').textContent = { all: '🎙 おはなし：どの島でも', rooms: '🎙 おはなし：おはなし島だけ', off: '🔇 おはなし：とじている' }[voiceMode];
+    $('#net-t-eiken').textContent = EIKEN_SAID[eikenLevel] || EIKEN_SAID.normal;
     $('#net-teacher-hint').textContent = `接続中 ${rows.filter((p) => p.connected).length} 人 · 集合・移動は今いる場所（${getSpace()}）へ`;
   }
 
@@ -119,10 +131,10 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
 
   return {
     setAvailable(v) { button.hidden = !v; if (!v) toggle(false); },
-    onRoster(m) { roster = m.players || []; chatPaused = !!m.chatPaused; freeChat = m.freeChat !== false; if (open) renderRoster(); },
+    onRoster(m) { roster = m.players || []; chatPaused = !!m.chatPaused; freeChat = m.freeChat !== false; if (m.eikenLevel) eikenLevel = m.eikenLevel; if (open) renderRoster(); },
     onAck(m) {
       if (m.ok === false) {
-        const said = { 'not in a big room': 'ステージは おはなし島（大広間）だけです。', 'no such student': 'その生徒が見つかりません。' }[m.error];
+        const said = { 'not in a big room': 'ステージは おはなし島（大広間）だけです。', 'no such student': 'その生徒が見つかりません。', 'unknown level': 'その きびしさは ありません。' }[m.error];
         toast(said || `先生コマンド失敗: ${m.error || m.cmd}`);
       }
       else if (m.cmd === 'gather') toast(`${m.count} 人に集合を指示しました。`);
@@ -138,6 +150,15 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
       }
       else if (m.cmd === 'chat') { chatPaused = !!m.paused; toast(chatPaused ? 'チャットを一時停止しました。' : 'チャットを再開しました。'); if (open) renderRoster(); }
       else if (m.cmd === 'free') { freeChat = !!m.free; toast(freeChat ? 'じゆうにゅうりょくを オンにしました。' : 'じゆうにゅうりょくを オフにしました（フレーズだけ）。'); if (open) renderRoster(); }
+      else if (m.cmd === 'eiken') {
+        eikenLevel = m.level || 'normal';
+        toast({
+          strict: '英検の はんていを「きびしい」にしました（1語も ちがえられません）。',
+          normal: '英検の はんていを「ふつう」にしました。',
+          easy: '英検の はんていを「やさしい」にしました（would like to を want でも○）。',
+        }[eikenLevel]);
+        if (open) renderRoster();
+      }
       else if (m.cmd === 'mission') { missionId = m.id || ''; toast(m.id ? '今日のおつかいを設定しました。' : 'おつかいの指定を解除しました。'); }
       else if (m.cmd === 'call') toast('生徒を呼び出しました。');
       else if (m.cmd === 'move') toast('生徒をここへ移動させました。');
@@ -147,6 +168,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     setChatPaused(v) { chatPaused = v; if (open) renderRoster(); },
     setFree(v) { freeChat = v !== false; if (open) renderRoster(); },
     setVoice(v) { voiceMode = ['rooms', 'all', 'off'].includes(v) ? v : 'all'; if (open) renderRoster(); },
+    setEikenLevel(v) { eikenLevel = ['strict', 'normal', 'easy'].includes(v) ? v : 'normal'; if (open) renderRoster(); },
     setMission(id) { missionId = id || ''; const select = root.querySelector('#net-t-mission'); if (select) select.value = missionId; },
   };
 }

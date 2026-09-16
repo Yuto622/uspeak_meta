@@ -200,6 +200,17 @@
     }
   }
 
+  // 1b2. **呼んでいる名前を import していること。** `eiken.js` は `t` で import して
+  //      いるのに `tr('…')` と書いた場所が1つあり、**英検の画面が丸ごと開かなくなった**
+  //      （実ブラウザの e2e が3分かけて見つけた）。ここなら一瞬で分かる。
+  for (const [name, src] of sources) {
+    if (!name.endsWith('.js')) continue;
+    const hasT = /import\s*\{[^}]*\bt\s*[,}]/.test(src);
+    const hasTr = /import\s*\{[^}]*\bt\s+as\s+tr\s*[,}]/.test(src);
+    if (/(?<![A-Za-z0-9_$.])tr\(/.test(src) && !hasTr) bad.push(`${name} は tr() を呼んでいるのに { t as tr } を import していない`);
+    if (/(?<![A-Za-z0-9_$.])t\('/.test(src) && !hasT && !name.endsWith('i18n.js')) bad.push(`${name} は t('…') を呼んでいるのに { t } を import していない`);
+  }
+
   // 1c. **同じ鍵を2回書かないこと。** JSON は黙って後ろ勝ちにするので、直したつもりの
   //     訳が別の行に残っていても誰も気づかない（実際に1件やった）。
   {

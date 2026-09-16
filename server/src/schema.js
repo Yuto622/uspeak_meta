@@ -53,6 +53,11 @@ export class RoomState extends Schema {
     // Whether this server has an SFU behind it, and so whether おはなし島's plaza is a
     // hall for a hundred or a room for six. The page needs to know before anybody taps.
     this.stageOpen = false;
+    // 英検の はんていの きびしさ。'strict' / 'normal' / 'easy' の3つで、**先生だけが
+    // 決められる**。同じ答えが 子どもによって ○ になったり × になったりすると、
+    // コインも 学習の記録も 比べられなくなるので、クラスで1つ。
+    // やさしいほうでは「would like to」を「want」と 言っても 通す（教室からの要望）。
+    this.eikenLevel = 'normal';
     this.teacherId = '';
     this.missionId = '';
     this.players = new MapSchema();
@@ -64,6 +69,7 @@ defineTypes(RoomState, {
   freeChat: 'boolean',
   voice: 'string',
   stageOpen: 'boolean',
+  eikenLevel: 'string',
   teacherId: 'string',
   missionId: 'string',
   players: { map: Player },

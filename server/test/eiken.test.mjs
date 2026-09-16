@@ -7,7 +7,7 @@ import { tmpdir } from 'node:os';
 import {
   EIKEN, ISLANDS, GRADES, SKILLS, INTERVIEW_ROOM, QUESTIONS_PER_SET, BANK, BANK_PATH, ISLANDS_PATH,
   loadBank, loadIslands, islandOfGrade, createSession, questionPayload, answerSession,
-  judgeSpoken, judgeWritten, wordsOf, markOf,
+  judgeSpoken, judgeWritten, wordsOf, markOf, LEVELS, DEFAULT_LEVEL, levelOf, loosen,
 } from '../src/game/eiken.js';
 
 const dir = mkdtempSync(join(tmpdir(), 'eiken-'));
@@ -213,4 +213,95 @@ test('the halls of every island are known to the island registry', () => {
       assert.ok(createSession(grade, hall.skill).questions.length === QUESTIONS_PER_SET);
     }
   }
+});
+
+
+// ---- はんていの きびしさ（3段階・先生だけが決める） ------------------------------------
+//
+// 教室から上がった具体例そのものを、いちばん上に置いてある：
+// **`I would like a hamburger.` を `I want a hamburger.` と言った子**。
+// これが「やさしい」で通り、「ふつう」で通らないのが、この機能のすべて。
+
+test('やさしいは 言いかえを 通す（would like to = want）', () => {
+  const want = 'I would like a hamburger.';
+  assert.equal(judgeSpoken(want, 'I want a hamburger', 'easy').correct, true);
+  assert.equal(judgeSpoken(want, 'I want a hamburger', 'normal').correct, false);
+  assert.equal(judgeSpoken(want, 'I want a hamburger', 'strict').correct, false);
+  // そのまま言った子は、どの きびしさでも 通る。
+  for (const level of LEVELS) assert.equal(judgeSpoken(want, want, level).correct, true, level);
+});
+
+test('やさしいでも「言えていない」は 通さない', () => {
+  const want = 'I would like a hamburger.';
+  assert.equal(judgeSpoken(want, '', 'easy').correct, false);
+  assert.equal(judgeSpoken(want, 'hello', 'easy').correct, false);
+  // 意味の ちがう文は 通さない（`not` は 言いかえの表に入れていない）。
+  assert.equal(judgeSpoken('I like apples.', 'I do not like apples', 'easy').correct, false);
+});
+
+test('ほかの 言いかえも 通る', () => {
+  const same = [
+    ['May I have some water?', 'Can I have some water'],
+    ['Could you help me?', 'Can you help me'],
+    ["I am from Japan.", "I'm from Japan"],
+    ['I am going to play soccer.', 'I am gonna play soccer'],
+    ['I would like to go to the park.', 'I want to go to the park'],
+  ];
+  for (const [want, said] of same) {
+    assert.equal(judgeSpoken(want, said, 'easy').correct, true, `${want} ← ${said}`);
+  }
+});
+
+test('きびしいは 1語も ちがえられない', () => {
+  const want = 'This is my pencil case.';
+  // ふつうは 5語に1語まで見のがす。
+  assert.equal(judgeSpoken(want, 'This is my pencil', 'normal').correct, true);
+  assert.equal(judgeSpoken(want, 'This is my pencil', 'strict').correct, false);
+  assert.equal(judgeSpoken(want, want, 'strict').correct, true);
+});
+
+test('ならべかえは やさしいだけ 1語の 入れかわりを 見のがす', () => {
+  const want = 'He plays soccer every day.';
+  const swapped = ['He', 'plays', 'soccer', 'day', 'every'];   // うしろ2語が 逆
+  assert.equal(judgeWritten(want, wordsOf(want)).correct, true);
+  assert.equal(judgeWritten(want, swapped, 'easy').correct, true);
+  assert.equal(judgeWritten(want, swapped, 'normal').correct, false);
+  assert.equal(judgeWritten(want, swapped, 'strict').correct, false);
+  // ばらばらは どの きびしさでも 通さない。
+  assert.equal(judgeWritten(want, ['day', 'soccer', 'He', 'every', 'plays'], 'easy').correct, false);
+  assert.equal(judgeWritten(want, [], 'easy').correct, false);
+});
+
+test('やさしいの 4たくは 2たくになり、きびしいは ヒントを 出さない', () => {
+  const island = islandOfGrade(GRADES[0]);
+  const easy = createSession(island.grade, 'reading', first, 'easy');
+  const normal = createSession(island.grade, 'reading', first, 'normal');
+  const strict = createSession(island.grade, 'reading', first, 'strict');
+  assert.equal(questionPayload(easy).choices.length, 2);
+  assert.equal(questionPayload(normal).choices.length, 4);
+  assert.equal(questionPayload(strict).choices.length, 4);
+  // **正解は 残っていること**（消したのは まちがいのほうだけ）。
+  const q = easy.questions[0];
+  assert.equal(q.choices[q.answer], BANK[island.grade].reading[0].choices[BANK[island.grade].reading[0].answer]);
+  // ヒントは きびしいでは 空。
+  assert.equal(questionPayload(strict).hint, '');
+});
+
+test('きびしさは セットに 焼きつけて、ページには 送るが 読み返さない', () => {
+  const island = islandOfGrade(GRADES[0]);
+  const session = createSession(island.grade, 'speaking', first, 'easy');
+  assert.equal(session.level, 'easy');
+  assert.equal(questionPayload(session).level, 'easy');
+  // ページが べつの きびしさを 送ってきても、採点は セットのものを使う。
+  const q = session.questions[0];
+  const loose = answerSession(session, { heard: q.en, level: 'strict' });
+  assert.equal(loose.correct, true);
+  assert.equal(loose.level, 'easy');
+});
+
+test('知らない きびしさは ふつうに 落ちる', () => {
+  for (const bad of ['', null, 'EASY', 'veryeasy', 42]) assert.equal(levelOf(bad), DEFAULT_LEVEL);
+  for (const good of LEVELS) assert.equal(levelOf(good), good);
+  // loosen() は 長いほうから 先に 見る（would like to の to が 残らない）。
+  assert.equal(loosen('i would like to go'), 'i wanna go');
 });

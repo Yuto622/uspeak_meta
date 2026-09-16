@@ -401,6 +401,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       chat.setPaused();
       teacher.setChatPaused(state.chatPaused);
       teacher.setVoice(r.state?.voice);
+      teacher.setEikenLevel(r.state?.eikenLevel);
+      eiken.setLevel(r.state?.eikenLevel);
       if (m.wallet) applyWallet(m.wallet);
       applyProgress(m.progress);
       mission.setClassMission(m.missionId);
@@ -551,6 +553,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.state.listen('chatPaused', (v) => { state.chatPaused = !!v; chat.setPaused(); teacher.setChatPaused(!!v); });
     r.state.listen('freeChat', (v) => { state.freeChat = v !== false; chat.setFree(); voice.setFree(state.freeChat); teacher.setFree(state.freeChat); });
     r.state.listen('voice', (v) => { voice.setMode(v); teacher.setVoice(v); });
+    // 英検の はんていの きびしさ。先生が変えると、その場で 全員の画面の札が変わる。
+    r.state.listen('eikenLevel', (v) => { teacher.setEikenLevel(v); eiken.setLevel(v); });
     r.state.listen('stageOpen', (v) => voice.setStage(v));
     r.state.listen('teacherId', (v) => { state.teacherId = v || ''; });
     r.state.listen('missionId', (v) => { mission.setClassMission(v); teacher.setMission(v); });

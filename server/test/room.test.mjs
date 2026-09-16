@@ -1270,6 +1270,75 @@ test('英検の島: the hall you stand in is the skill you get, and the server d
   await sleep(100);
 });
 
+test('英検の はんていの きびしさ: 先生だけが 決められて、決めるのは サーバー', async () => {
+  const { islandOfGrade } = await import('../src/game/eiken.js');
+  const a = await join('Sae');
+  const t = await join('SenseiE', { teacherKey: 'testkey12345' });
+  const island = islandOfGrade('g5');
+  const speaking = [...island.spotById.values()].find((s) => s.skill === 'speaking');
+  const stand = async () => {
+    a.room.send('move', { s: island.id, x: speaking.wx, z: speaking.wz, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => {
+      const p = a.room.state.players.get(a.room.sessionId);
+      return Math.abs(p.x - speaking.wx) < 0.01 && p.space === island.id;
+    });
+  };
+  await stand();
+
+  // **子どもは 変えられない。** 講師キーを持っていない子の 'teacher' は はじかれる
+  // ので、きびしさは クラスのままで、コインも 記録も 比べられる。
+  const was = a.room.state.eikenLevel;
+  a.room.send('teacher', { cmd: 'eiken', level: 'easy' });
+  await sleep(200);
+  assert.equal(a.room.state.eikenLevel, was, 'a child cannot change the marking');
+
+  // 先生が「やさしい」にすると、**部屋の状態が変わり、全員の画面に降りる**。
+  t.room.send('teacher', { cmd: 'eiken', level: 'easy' });
+  const ack = await nextMessage(t.room, 'teacher:ack');
+  assert.equal(ack.ok, true);
+  assert.equal(ack.level, 'easy');
+  await waitFor(() => a.room.state.eikenLevel === 'easy');
+
+  // そして 判定が ほんとうに ゆるくなる。**どの文が出るかは その場で決まる**ので、
+  // 出た文そのものから「きびしいなら × / やさしいなら ○」になる答えを作って送る
+  // （お手本から 最後の1語を 落とす）。**4語より短い文では 差がつかない**ので、
+  // 差がつく文が 来るまで 正解で 進める。
+  const { judgeSpoken } = await import('../src/game/eiken.js');
+  a.room.send('eiken:start', { island: island.id, hall: speaking.id });
+  let q = await nextMessage(a.room, 'eiken:question');
+  assert.equal(q.level, 'easy', 'the page is told which marking is on');
+  let proved = false;
+  for (let i = 0; i < q.total && !proved; i += 1) {
+    const short = q.en.split(/\s+/).slice(0, -1).join(' ');
+    const easyOk = judgeSpoken(q.en, short, 'easy').correct;
+    const strictOk = judgeSpoken(q.en, short, 'strict').correct;
+    // level は ページから 送っても 読まれない（採点は セットが持っている ほうを使う）。
+    a.room.send('eiken:answer', { heard: easyOk && !strictOk ? short : q.en, level: 'strict' });
+    const result = await nextMessage(a.room, 'eiken:result');
+    assert.equal(result.level, 'easy', 'the set keeps the marking it was made with');
+    if (easyOk && !strictOk) {
+      assert.equal(result.correct, true, 'the room marked it with the easy judge');
+      proved = true;
+      break;
+    }
+    assert.equal(result.correct, true);
+    if (result.done) break;
+    q = result.next;
+    await sleep(420);            // サーバーの「はやすぎ」よけ（answerMinIntervalMs）
+  }
+  assert.ok(proved, 'a set of five held at least one sentence where the levels disagree');
+
+  // 知らない きびしさは はじく（先生が 押しても）。
+  t.room.send('teacher', { cmd: 'eiken', level: 'veryeasy' });
+  const bad = await nextMessage(t.room, 'teacher:ack');
+  assert.equal(bad.ok, false);
+  assert.equal(bad.error, 'unknown level');
+  assert.equal(t.room.state.eikenLevel, 'easy');
+
+  await a.room.leave(); await t.room.leave();
+  await sleep(100);
+});
+
 test('面接の間: the interview is sat in the room, in order, and marked on the server', async () => {
   const { islandOfGrade, INTERVIEW_ROOM, EIKEN_CAP } = await import('../src/game/eiken.js');
   const { INTERVIEW, INTERVIEW_COINS } = await import('../src/game/interview.js');

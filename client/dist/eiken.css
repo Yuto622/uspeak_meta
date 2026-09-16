@@ -67,3 +67,17 @@
   .eiken-say { flex-direction: column; align-items: flex-start; }
   .eiken-line { font-size: 17px; }
 }
+
+/* はんていの きびしさの札（`#eiken-level`）。**採点しているのはサーバー**で、これは
+ * 「いま どの きびしさで 見られているか」を子どもと先生に見せるだけ。
+ * 「なんで これが ×？」に その場で 答えられるのは、この札があるときだけ。
+ * 色は3つ分ける：やさしいは みどり、ふつうは すな色、きびしいは あか。 */
+.eiken-level { font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+  background: #e5e9d7; color: #4c6152; border: 1px solid #cfd8c2; }
+.eiken-level[data-level="easy"] { background: #dff0dd; color: #3c6b45; border-color: #bcd9bd; }
+.eiken-level[data-level="strict"] { background: #f4dcd6; color: #8c4430; border-color: #e0bdb2; }
+/* 横向きの携帯では 頭の行が 3つでは 入りきらない。**消すのは 問題番号ではなく こちら**
+ * （何問目かは 進みぐあいそのもので、きびしさは 授業のあいだ 変わらない）。 */
+@media (max-height: 560px) {
+  .eiken-level { display: none; }
+}

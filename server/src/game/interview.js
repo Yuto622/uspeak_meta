@@ -16,7 +16,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { GRADES, judgeSpoken } from './eiken.js';
+import { GRADES, judgeSpoken, DEFAULT_LEVEL, levelOf } from './eiken.js';
 import { GRADE_RATE } from './progression.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -107,15 +107,17 @@ export function markAnswer(step, heard) {
 }
 
 // 音読 is marked like the 話す hall marks a sentence: the same judge, so a child who has
-// practised there knows what this room expects.
-export function markReading(passage, heard) {
-  const verdict = judgeSpoken(passage, heard);
+// practised there knows what this room expects. **きびしさも同じもの**を使う（先生が
+// クラスに1つ決めた `RoomState.eikenLevel`）。館で通る言いかたが面接で落ちると、
+// 子どもは何を練習すればいいのか分からなくなる。
+export function markReading(passage, heard, level = DEFAULT_LEVEL) {
+  const verdict = judgeSpoken(passage, heard, level);
   return { ...verdict, words: wordCount(heard) };
 }
 
 // ---- a sitting ---------------------------------------------------------------------------
 
-export function startInterview(grade, { random = Math.random, now = Date.now(), avoid = '' } = {}) {
+export function startInterview(grade, { random = Math.random, now = Date.now(), avoid = '', level = DEFAULT_LEVEL } = {}) {
   const bank = INTERVIEW[grade];
   if (!bank) throw new InterviewError('unknown grade');
   // Not the same card twice in a row, so a second go is a second interview.
@@ -123,6 +125,7 @@ export function startInterview(grade, { random = Math.random, now = Date.now(), 
   const card = (pool.length ? pool : bank.cards)[Math.floor(random() * (pool.length || bank.cards.length))];
   return {
     grade,
+    level: levelOf(level),  // その面接のあいだ ずっと同じもので採点する
     cardId: card.id,
     card,
     stage: 'read',          // read -> ask -> done
@@ -160,7 +163,7 @@ export function interviewStep(session, heard, { now = Date.now() } = {}) {
   }
   const said = String(heard ?? '').slice(0, 400);
   if (session.stage === 'read') {
-    const mark = markReading(session.card.passage, said);
+    const mark = markReading(session.card.passage, said, session.level);
     session.marks.push({ kind: 'read', correct: mark.correct, close: mark.close });
     session.said.push({ kind: 'read', said });
     session.stage = 'ask';

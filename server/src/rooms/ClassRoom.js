@@ -18,7 +18,7 @@ import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
 import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
-import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, INTERVIEW_ROOM, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError } from '../game/eiken.js';
+import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, INTERVIEW_ROOM, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError, LEVELS as EIKEN_LEVELS, levelOf as eikenLevelOf } from '../game/eiken.js';
 import {
   startInterview, interviewStep, interviewPayload, interviewResult, scriptedLine,
   INTERVIEW_XP, InterviewError,
@@ -567,6 +567,19 @@ export class ClassRoom extends Room {
         log.info(`[room ${this.roomId}] "${student.name}" ${on ? 'on' : 'off'} the stage in ${room}`);
         return;
       }
+      case 'eiken': {
+        // 英検の はんていの きびしさ。**先生だけ**が変えられる（このコマンドは
+        // すでに講師キーで守られている枠の中にある）。クラスで1つなのは、同じ答えが
+        // 子どもによって ○ になったり × になったりすると比べられなくなるから。
+        const want = eikenLevelOf(msg.level);
+        if (!EIKEN_LEVELS.includes(msg.level)) { client.send('teacher:ack', { cmd, ok: false, error: 'unknown level' }); return; }
+        this.state.eikenLevel = want;
+        const said = { strict: 'きびしい', normal: 'ふつう', easy: 'やさしい' }[want];
+        this.broadcast('notice', { text: `英検の はんていは「${said}」に なりました。` }, { except: client });
+        client.send('teacher:ack', { cmd, ok: true, level: want });
+        log.info(`[room ${this.roomId}] eiken judging set to ${want}`);
+        return;
+      }
       case 'free': {
         // Free typing off: the chat falls back to the preset phrases, which is where it
         // started. Nothing else changes — the panel, the log and the phrases stay.
@@ -597,7 +610,7 @@ export class ClassRoom extends Room {
           roster.push({ id, name: p.name, role: p.role, connected: p.connected, space: p.space, coins: priv?.wallet.coins ?? 0, correct: priv?.stats.correct ?? 0, attempts: priv?.stats.attempts ?? 0,
             level: priv?.progress.level ?? 1, xp: priv ? totalXp(priv.progress) : 0 });
         }
-        client.send('roster', { players: roster, chatPaused: this.state.chatPaused, freeChat: this.state.freeChat });
+        client.send('roster', { players: roster, chatPaused: this.state.chatPaused, freeChat: this.state.freeChat, eikenLevel: this.state.eikenLevel });
         return;
       }
       case 'reports': {
@@ -1766,7 +1779,10 @@ export class ClassRoom extends Room {
       return;
     }
     let session;
-    try { session = createEikenSet(island.grade, hall.skill); } catch (err) {
+    // **きびしさはクラスのもの**（`RoomState.eikenLevel`・先生だけが変えられる）。
+    // セットを作るときに1回だけ読んで、そのセットの最後まで同じもので採点する。
+    // 途中で先生が変えても、いま解いている問題の採点が動かないようにするため。
+    try { session = createEikenSet(island.grade, hall.skill, Math.random, this.state.eikenLevel); } catch (err) {
       if (err instanceof EikenError) { client.send('eiken:error', { reason: err.message }); return; }
       throw err;
     }
@@ -1817,7 +1833,9 @@ export class ClassRoom extends Room {
       payload.levels = level?.levels || 0;
     }
     this.appendLearning([
-      new Date(now).toISOString(), this.classCode, priv.name, `eiken:${session.grade}:${session.skill}:${result.index}`, session.skill,
+      // **どのきびしさで ○ になったのかも残す。** 保護者が読む数字なので、
+      // 「やさしい判定で満点」と「きびしい判定で満点」が同じに見えてはいけない。
+      new Date(now).toISOString(), this.classCode, priv.name, `eiken:${session.grade}:${session.skill}:${session.level}:${result.index}`, session.skill,
       String(result.picked ?? '').slice(0, 80), result.correct ? 1 : 0, result.correct ? rate.xp : 0, client.sessionId,
     ]);
 
@@ -1879,7 +1897,8 @@ export class ClassRoom extends Room {
     }
     let session;
     try {
-      session = startInterview(island.grade, { avoid: priv.lastInterviewCard });
+      // 面接も 館と同じ きびしさで採点する（先生がクラスに1つ決めたもの）。
+      session = startInterview(island.grade, { avoid: priv.lastInterviewCard, level: this.state.eikenLevel });
     } catch (err) {
       if (err instanceof InterviewError) { client.send('interview:error', { reason: err.message }); return; }
       throw err;
@@ -2938,7 +2957,7 @@ export class ClassRoom extends Room {
       streak: priv.login.streak,
       world: this.worldPayload(),
       battle: priv.battle ? { ...statePayload(priv.battle), stand: priv.battle.stand, quiz: quizPayload(priv.battle) } : null,
-      chatPaused: this.state.chatPaused, freeChat: this.state.freeChat, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
+      chatPaused: this.state.chatPaused, freeChat: this.state.freeChat, eikenLevel: this.state.eikenLevel, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),
     };
   }

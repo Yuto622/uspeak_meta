@@ -190,7 +190,8 @@ const shuffled = (list, random) => {
 
 // Five questions, drawn without repeats. The choosing skills shuffle their options too,
 // which is also what keeps the answer index meaningless to anyone watching the wire.
-export function createSession(grade, skill, random = Math.random) {
+export function createSession(grade, skill, random = Math.random, level = DEFAULT_LEVEL) {
+  const how = levelOf(level);
   const bank = BANK[grade]?.[skill];
   if (!bank) throw new EikenError('unknown hall');
   const pool = [...bank.keys()];
@@ -199,11 +200,21 @@ export function createSession(grade, skill, random = Math.random) {
     const [index] = pool.splice(Math.floor(random() * pool.length), 1);
     const source = bank[index];
     if (skill === 'reading' || skill === 'listening') {
-      const order = shuffled([0, 1, 2, 3], random);
+      // **4たくには ゆるい採点が入る余地が無い**（正解は1つしかない）。だから
+      // きびしさは**選べる数**で効かせる：やさしいでは まちがいを2つ 取り除いて
+      // **2たく**にする。取り除くのはサーバー側なので、消えた選択肢は
+      // ブラウザーに届かない＝どれが正解かの手がかりにもならない。
+      let order = shuffled([0, 1, 2, 3], random);
+      if (how === 'easy') {
+        const wrong = order.filter((o) => o !== source.answer);
+        order = shuffled([source.answer, wrong[0]], random);
+      }
       questions.push({
         ...source,
         choices: order.map((o) => source.choices[o]),
         answer: order.indexOf(source.answer),
+        // きびしいでは ことばの ヒントを 出さない（読むの館だけが持っている）。
+        hint: how === 'strict' ? '' : (source.hint || ''),
       });
     } else if (skill === 'writing') {
       const words = wordsOf(source.en);
@@ -217,7 +228,7 @@ export function createSession(grade, skill, random = Math.random) {
       questions.push({ ...source });
     }
   }
-  return { grade, skill, questions, at: 0, correct: 0, answered: [], startedAt: Date.now() };
+  return { grade, skill, level: how, questions, at: 0, correct: 0, answered: [], startedAt: Date.now() };
 }
 
 // What a client is allowed to see. Never the answer: not the right option, not the order
@@ -225,11 +236,80 @@ export function createSession(grade, skill, random = Math.random) {
 export function questionPayload(session) {
   const q = session.questions[session.at];
   if (!q) return null;
-  const head = { grade: session.grade, skill: session.skill, index: session.at, total: session.questions.length, correct: session.correct };
+  // きびしさも ページに 送る。**画面に出すためだけ**で、判定はサーバーがする
+  // （子どもが送り返してきた値は どこでも読んでいない）。
+  const head = { grade: session.grade, skill: session.skill, level: session.level || DEFAULT_LEVEL, index: session.at, total: session.questions.length, correct: session.correct };
   if (session.skill === 'reading') return { ...head, text: q.text, q: q.q, choices: [...q.choices], hint: q.hint || '' };
   if (session.skill === 'listening') return { ...head, say: q.say, q: q.q, choices: [...q.choices] };
   if (session.skill === 'writing') return { ...head, ja: q.ja, tiles: [...q.tiles], mark: q.mark };
   return { ...head, ja: q.ja, en: q.en };
+}
+
+// ---- はんていの きびしさ ----------------------------------------------------------------
+//
+// **3段階、決めるのは先生だけ**（`RoomState.eikenLevel`）。同じ答えが子どもによって ○ に
+// なったり × になったりすると、コインも学習の記録も比べられなくなる。クラスで1つ。
+//
+// 教室から上がった具体例は「`I would like a hamburger.` を `I want a hamburger.` と
+// 言った子を通したい」。編集距離では2語ちがうので、`normal` では落ちる。**`easy` は
+// 言いかえの表を通してから比べる**ので、どちらも同じ形になって通る。
+//
+// | | 話す・面接 | 書く（ならべかえ） | 読む・聞く（4たく） |
+// |---|---|---|---|
+// | きびしい | 1語も ちがえられない | お手本と 完全に 同じ順 | 4たく・ことばの ヒントなし |
+// | ふつう | 5語に1語まで | お手本と 完全に 同じ順 | 4たく・ヒントあり |
+// | やさしい | 言いかえを 通して 3語に1語まで | 1語なら 入れかわっていてよい | **2たく**・ヒントあり |
+//
+// **やさしいでも「言えていない」は通さない。** 空の答え・別の文は落ちる。
+// 通すのは *同じことを別の言いかたで言った* 場合だけ。
+//
+// **打ち消しは 言いかえでは ない。** `I like apples.` と `I do not like apples.` は
+// ちがいが1語しかないので、幅だけで見ると やさしいでは通ってしまう（実際に通った）。
+// どちらか片方にだけ 打ち消しがあれば、幅を見る前に 落とす。
+export const LEVELS = ['strict', 'normal', 'easy'];
+export const DEFAULT_LEVEL = 'normal';
+export const levelOf = (v) => (LEVELS.includes(v) ? v : DEFAULT_LEVEL);
+
+// 同じ意味の言いかたを、いちばん短い形にそろえる。**長いほうから先に**並べること
+// （`would like to` を `would like` より先に見ないと、`to` が残る）。
+const SAME_MEANING = [
+  [/\bwould like to\b/g, 'want to'],
+  [/\bwould like\b/g, 'want'],
+  [/\bi'd like to\b/g, 'want to'],
+  [/\bi'd like\b/g, 'want'],
+  [/\bmay i\b/g, 'can i'],
+  [/\bcould you\b/g, 'can you'],
+  [/\bwould you\b/g, 'can you'],
+  [/\bhow about\b/g, 'what about'],
+  [/\bgoing to\b/g, 'gonna'],
+  [/\bwant to\b/g, 'wanna'],
+  [/\bhave got to\b/g, 'have to'],
+  [/\bit is\b/g, "it's"],
+  [/\bi am\b/g, "i'm"],
+  [/\byou are\b/g, "you're"],
+  [/\bthey are\b/g, "they're"],
+  [/\bwe are\b/g, "we're"],
+  [/\bdo not\b/g, "don't"],
+  [/\bdoes not\b/g, "doesn't"],
+  [/\bcan not\b/g, "can't"],
+  [/\bcannot\b/g, "can't"],
+  [/\bis not\b/g, "isn't"],
+  [/\bare not\b/g, "aren't"],
+];
+// 意味を変えない小さなことば。**冠詞と ていねいの please だけ**にしてある。
+// `not` や `very` まで落とすと、逆の意味の文まで通ってしまう。
+const SMALL_WORDS = /\b(?:a|an|the|please)\b/g;
+
+// 打ち消しが入っているか。**言いかえの表を通したあとの形**で見る（`do not` は
+// そこで `don't` になっているので、`n't` のほうを見れば足りる）。
+const NOT = /\b(?:not|no|never|none|nothing)\b|n't\b/;
+export const negated = (words) => NOT.test(Array.isArray(words) ? words.join(' ') : String(words ?? ''));
+
+// `easy` のときだけ、両方の文を同じ形にそろえてから比べる。
+export function loosen(text) {
+  let s = ` ${text} `;
+  for (const [from, to] of SAME_MEANING) s = s.replace(from, to);
+  return s.replace(SMALL_WORDS, ' ').replace(/\s+/g, ' ').trim();
 }
 
 // ---- judging -------------------------------------------------------------------------
@@ -262,21 +342,47 @@ export function distance(a, b) {
 // the length — one word in every five may go astray, which means a four-word sentence has
 // to be said whole, because there is nothing in it to lose. One word further out is
 // "おしい": encouragement, not a pass.
-export function judgeSpoken(target, heard) {
-  const want = normalise(target).split(' ').filter(Boolean);
-  const said = normalise(heard).split(' ').filter(Boolean);
+// **きびしさは ゆるさの幅と、比べる前に言いかえをそろえるかどうかで効く**（上の表）。
+// `easy` で 3語に1語なのは、言いかえをそろえたあとに残る違い＝本当に言えていない語を
+// 数えているから。そろえる前の幅を広げると、別の文でも通ってしまう。
+export function judgeSpoken(target, heard, level = DEFAULT_LEVEL) {
+  const how = levelOf(level);
+  const clean = (x) => (how === 'easy' ? loosen(normalise(x)) : normalise(x));
+  const want = clean(target).split(' ').filter(Boolean);
+  const said = clean(heard).split(' ').filter(Boolean);
   if (!said.length) return { correct: false, close: false, gap: -1 };
   const gap = distance(want, said);
-  const allow = Math.floor(want.length / 5);
+  const allow = how === 'strict' ? 0 : how === 'easy' ? Math.floor(want.length / 4) : Math.floor(want.length / 5);
+  if (negated(want) !== negated(said)) return { correct: false, close: false, gap };
   return { correct: gap <= allow, close: gap > allow && gap <= allow + 1, gap };
 }
 
 // 書く is not judged so kindly: the child is building the sentence out of the very words
 // it is made of, so the only question is whether they are in the right order.
-export function judgeWritten(target, built) {
+// **となりどうしの2語が 入れかわっているだけか。** 編集距離では入れかえは2つ分に
+// 数えられてしまい、「1語ちがい」と区別がつかない。ならべかえで子どもが実際にやるのは
+// 入れかえなので、そこだけを名指しで見る。
+export function oneSwapApart(a, b) {
+  if (a.length !== b.length) return false;
+  const off = [];
+  for (let i = 0; i < a.length; i += 1) if (a[i] !== b[i]) off.push(i);
+  if (off.length !== 2) return false;
+  const [i, j] = off;
+  return j === i + 1 && a[i] === b[j] && a[j] === b[i];
+}
+
+// **`easy` だけ、となりどうしの 入れかえを 1か所 見のがす。** 言いかえの表は使わない：
+// 使う語は お手本の語そのもの（タイル）なので、言いかえる余地がそもそも無い。
+// **ばらばらの順は どの きびしさでも 通さない** — それは並べられていないということ。
+export function judgeWritten(target, built, level = DEFAULT_LEVEL) {
+  const how = levelOf(level);
   const want = normalise(target);
   const said = normalise(Array.isArray(built) ? built.join(' ') : built);
-  return { correct: !!said && said === want, close: false, gap: distance(want.split(' '), said.split(' ')) };
+  const gap = distance(want.split(' '), said.split(' '));
+  if (!said) return { correct: false, close: false, gap };
+  if (said === want) return { correct: true, close: false, gap: 0 };
+  const swapped = oneSwapApart(want.split(' '), said.split(' '));
+  return { correct: how === 'easy' && swapped, close: !(how === 'easy' && swapped) && swapped, gap };
 }
 
 // Grades one answer and advances. Returns null if the set is already finished.
@@ -298,12 +404,13 @@ export function answerSession(session, given) {
       : Array.isArray(given?.order)
         ? given.order.map((i) => q.tiles[Number(i)] ?? '')
         : String(given?.text ?? '').split(/\s+/);
-    const verdict = judgeWritten(q.en, built);
+    const verdict = judgeWritten(q.en, built, session.level);
     correct = verdict.correct;
+    close = verdict.close;
     picked = built.join(' ');
     answer = q.en;
   } else {
-    const verdict = judgeSpoken(q.en, given?.heard);
+    const verdict = judgeSpoken(q.en, given?.heard, session.level);
     correct = verdict.correct;
     close = verdict.close;
     picked = String(given?.heard ?? '').slice(0, 200);
@@ -318,6 +425,7 @@ export function answerSession(session, given) {
     close,
     picked,
     answer,                    // revealed only after the child has committed
+    level: session.level || DEFAULT_LEVEL,
     index: session.at - 1,
     total: session.questions.length,
     score: session.correct,

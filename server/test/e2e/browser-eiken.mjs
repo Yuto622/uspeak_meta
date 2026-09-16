@@ -20,7 +20,7 @@ const SHOTS = path.resolve(serverDir, 'loadtest-results');
 mkdirSync(SHOTS, { recursive: true });
 
 const PORT = 2627;
-const server = spawn('node', ['src/index.js'], { cwd: serverDir, env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', ANSWER_MIN_INTERVAL_MS: '0' }, stdio: ['ignore', 'pipe', 'pipe'] });
+const server = spawn('node', ['src/index.js'], { cwd: serverDir, env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', ANSWER_MIN_INTERVAL_MS: '0', TEACHER_KEY: 'testkey12345' }, stdio: ['ignore', 'pipe', 'pipe'] });
 server.stdout.on('data', (d) => process.stdout.write('[server] ' + d));
 server.stderr.on('data', (d) => process.stdout.write('[server:err] ' + d));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -146,6 +146,44 @@ try {
       await a.screenshot({ path: path.join(SHOTS, 'e2e-eiken-speaking.png') });
     }
   }
+
+  // ---- はんていの きびしさ（先生の ボタン）
+  //
+  // **決めるのは先生だけ、採点するのはサーバー。** ここで見るのは、先生が押した札が
+  // 子どもの画面まで降りてきて、**つぎのセットの採点が本当に ゆるくなる**こと。
+  // 判定そのものの中身は `test/eiken.test.mjs` が見ている。
+  const teacher = await openPage('Sensei', { teacherKey: 'testkey12345' });
+  await teacher.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+  // 先生コンソールを開いて、英検の札が「ふつう」から始まっていること。
+  await teacher.evaluate(() => document.querySelector('#net-teacher-button')?.click());
+  await teacher.waitForFunction(() => !document.querySelector('#net-teacher')?.hidden, null, { timeout: 20000, polling: 200 });
+  const levelText = () => teacher.evaluate(() => document.querySelector('#net-t-eiken')?.textContent || '');
+  check('先生コンソールに 英検の きびしさが ある', (await levelText()).includes('ふつう'), await levelText());
+
+  // 押すと「やさしい」へ。**子どもの部屋の状態にも降りる**。
+  await teacher.evaluate(() => document.querySelector('#net-t-eiken').click());
+  await teacher.waitForFunction(() => (document.querySelector('#net-t-eiken')?.textContent || '').includes('やさしい'), null, { timeout: 20000, polling: 200 });
+  await a.waitForFunction(() => uspeak.net.room?.state?.eikenLevel === 'easy', null, { timeout: 20000, polling: 200 });
+  check('押すと クラス全員に 降りる', true);
+
+  // つぎのセットは やさしいで 採点される。話す館で、お手本から 最後の1語を 落として送る。
+  await a.evaluate(() => uspeak.net.eikenInteract());
+  await a.waitForSelector('#eiken-dialog[open] .eiken-say', { timeout: 20000 });
+  check('画面に「はんてい：やさしい」と 出る（既定の英語では Marking: Easy）',
+    /Easy|やさしい/.test(await a.evaluate(() => document.querySelector('#eiken-level')?.textContent || '')),
+    await a.evaluate(() => document.querySelector('#eiken-level')?.textContent || ''));
+  const model = await a.evaluate(() => document.querySelector('.eiken-say strong').textContent);
+  const short = model.split(/\s+/).slice(0, -1).join(' ');
+  await a.evaluate((text) => {
+    document.querySelector('#eiken-typed').value = text;
+    document.querySelector('#eiken-send').click();
+  }, short);
+  await a.waitForSelector('#eiken-body .quiz-feedback', { timeout: 20000 });
+  // **4語より短い文では 差がつかない**ので、そこは測らない（判定の中身は unit test で見ている）。
+  const loose = (await screen(a)).includes('Correct!');
+  check('やさしいなら 1語 足りなくても 通る', model.split(/\s+/).length < 4 || loose, `${JSON.stringify(short)} → ${loose ? 'ok' : 'ng'}`);
+  await a.evaluate(() => document.querySelector('#eiken-quit')?.click());
+  await teacher.close();
 
   // Leaving is a doorway, like everywhere else.
   await a.evaluate(() => { document.querySelector('#eiken-quit')?.click(); });

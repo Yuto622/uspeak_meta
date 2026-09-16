@@ -360,6 +360,11 @@
     "おぼえた 単語を 思い出して、もう一度 やって みよう。": "Think back on the words you learned, and try once more.",
     "{who} に もう一度": "Try {who} again",
 
+    "はんてい：{how}": "Marking: {how}",
+    "きびしい": "Strict",
+    "ふつう": "Normal",
+    "やさしい": "Easy",
+
     "日本語": "日本語",
     "英語と日本語を きりかえる": "Switch between English and Japanese"
   }

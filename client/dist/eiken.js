@@ -29,13 +29,17 @@ export function createEikenUI({ send, speak, toast, isOnline, learn }) {
   let recognition = null;
   let badge = '';
   let hallName = '';
+  // はんていの きびしさ。**出すだけ**で、採点はサーバーがする（ここを書き替えても
+  // 点は動かない）。決めるのは先生で、部屋の `eikenLevel` がそのまま降りてくる。
+  let level = 'normal';
+  const LEVEL_SAID = { strict: 'きびしい', normal: 'ふつう', easy: 'やさしい' };
 
   const dialog = document.createElement('dialog');
   dialog.id = 'eiken-dialog';
   dialog.setAttribute('aria-labelledby', 'eiken-title');
   dialog.innerHTML = `<div class="quiz-head">
       <div><span class="eyebrow" id="eiken-eyebrow">EIKEN</span><h2 id="eiken-title" data-t="英検の島">英検の島</h2></div>
-      <span id="eiken-score"></span>
+      <span id="eiken-score"></span><span id="eiken-level" class="eiken-level"></span>
       <button type="button" id="eiken-close" aria-label="閉じる" data-t-label="閉じる">×</button>
     </div><div id="eiken-body"></div>`;
   document.body.append(dialog);
@@ -58,6 +62,13 @@ export function createEikenUI({ send, speak, toast, isOnline, learn }) {
     // そのまま t() に渡せば英語の館名になる。載っていなければ日本語のまま出る。
     $('#eiken-title', dialog).textContent = hallName ? t(hallName) : `${s.tone} ${t(s.ja)}`;
     $('#eiken-score', dialog).textContent = `${question.index + 1} / ${question.total}　◯ ${question.correct}`;
+    // どの きびしさで 採点されているかを、子どもにも先生にも見えるところに出す。
+    // 「なんで これが ×？」に その場で 答えられるのは、この札があるときだけ。
+    const mark = $('#eiken-level', dialog);
+    if (mark) {
+      mark.dataset.level = level;
+      mark.textContent = t('はんてい：{how}', { how: t(LEVEL_SAID[level] || LEVEL_SAID.normal) });
+    }
     return s;
   }
 
@@ -249,6 +260,7 @@ export function createEikenUI({ send, speak, toast, isOnline, learn }) {
       locked = false;
       built = [];
       if (m.badge) badge = m.badge;
+      if (m.level) level = m.level;
       if (m.name) hallName = m.name;
       stopListening();
       open();
@@ -292,6 +304,10 @@ export function createEikenUI({ send, speak, toast, isOnline, learn }) {
         question = null;
       }, m.correct ? 1500 : 2600);
     },
+    // 先生が きびしさを 変えたら、開いている画面の札も その場で 変わる。
+    // **いま解いているセットの採点は動かない**（サーバーはセットを作ったときの
+    // きびしさを持っている）ので、札は「つぎのセットから」の予告にもなっている。
+    setLevel(v) { level = ['strict', 'normal', 'easy'].includes(v) ? v : 'normal'; if (dialog.open && question) render(); },
     onClosed() { close(); },
     onError(m) {
       locked = false;
