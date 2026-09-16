@@ -100,6 +100,30 @@ try {
     check(`日本語で出ている — ${sel}`, !!text && text.includes(ja), JSON.stringify(text));
   }
 
+  // 島の外の画面も見る。**ここは `t()` で訳している**（`.en`/`.ja` の2行ではない）ので、
+  // 辞書が引けているかを測っているのはこの2つ。日本語のまま出たら訳し忘れ。
+  // **相棒を選んでいない子には冒険ノートが開く**ので、ちずが出ない（lib/walk.mjs と同じ手当て）。
+  await page.evaluate(async () => {
+    const { STARTERS } = await import('./magic-data.js');
+    if (!uspeak.rpg.adventure.progress.state.starter) uspeak.rpg.adventure.progress.chooseStarter(STARTERS[0].id);
+    uspeak.rpg.close();
+    for (const d of document.querySelectorAll('dialog[open]')) d.close();
+  });
+  await sleep(600);
+  await page.evaluate(() => uspeak.rpg.openMap());
+  await page.waitForSelector('#rpg-dialog[open] .rpg-map-details', { timeout: 60000 });
+  check('しまの ちずも日本語', (await page.textContent('#rpg-dialog .rpg-route-state')).includes('なかま'),
+    (await page.textContent('#rpg-dialog .rpg-route-state')).slice(0, 40));
+  await tap();                                        // 英語にもどす
+  await page.waitForFunction(() => document.documentElement.dataset.lang === 'en', null, { timeout: 30000, polling: 200 });
+  await page.evaluate(() => uspeak.rpg.openMap());
+  await page.waitForSelector('#rpg-dialog[open] .rpg-map-details', { timeout: 60000 });
+  check('しまの ちずは英語が既定', /Buddies|Open any time/.test(await page.textContent('#rpg-dialog .rpg-route-state')),
+    (await page.textContent('#rpg-dialog .rpg-route-state')).slice(0, 40));
+  await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+  await tap();                                        // 日本語にもどして、続きの検査へ
+  await page.waitForFunction(() => document.documentElement.dataset.lang === 'ja', null, { timeout: 30000, polling: 200 });
+
   // **どこも空にならないこと。** 押したあとに文字の消えたボタンが1つでもあれば落とす。
   const blank = await page.evaluate(() => {
     const out = [];

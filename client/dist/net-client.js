@@ -7,6 +7,9 @@ import { createRemotePlayers } from './remote-players.js';
 import { createChat } from './chat.js';
 import { createTeacherPanel } from './teacher.js';
 import { createLobby } from './lobby.js';
+// 画面の言語。**`t` という名前は このファイルでは使えない**（`const t = state.pendingTeleport`
+// と `update(t, dt, …)` がある）ので `tr` として import する。
+import { t as tr, onLangChange } from './i18n.js';
 import { createMissionUI } from './mission.js';
 import { createQuizUI } from './quiz.js';
 import { createGymUI } from './gym.js';
@@ -113,7 +116,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const voice = createVoice({
     send: atSend,
     toast,
-    roomLabel: (space) => (space === TALK_ISLAND ? 'おはなし島の ひろば' : rpg.insideBuilding?.spot?.name || ''),
+    roomLabel: (space) => (space === TALK_ISLAND ? tr('おはなし島の ひろば') : rpg.insideBuilding?.spot?.name || ''),
     // Pressing the rail's call button where no call is possible takes the child to the
     // island where one always is. Flying is the game's own way of going somewhere, so it
     // is the game's own flight, not a teleport — and, like every other flight in this
@@ -182,7 +185,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // whether or not the class is connected.
     if (spot.kind === 'blockwild') { blockwild.open(); return true; }
     if (spot.kind !== 'door' && spot.kind !== 'plaza') return false;
-    if (state.mode !== 'online') { toast('まちづくり島は オンラインで あそべます。'); return false; }
+    if (state.mode !== 'online') { toast(tr('まちづくり島は オンラインで あそべます。')); return false; }
     // Say where we are before asking to come in: the doorway was reached this frame, and
     // the server would otherwise answer from the position it was last told about.
     sendMove();
@@ -278,7 +281,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // scene, its own five rivals — and the flag hands the best lap back. The island's own
     // lap (race.js / server game/race.js) is still there and still tested, but nothing
     // opens it any more: a child on のりもの島 rides the island, and races the grand prix.
-    onRace: (what) => (what === 'quit' ? gp.quit() : gp.start({ name: state.name || 'あなた' })),
+    onRace: (what) => (what === 'quit' ? gp.quit() : gp.start({ name: state.name || tr('あなた') })),
     racing: () => gp.running || race.state.phase !== 'off',
   });
   // The night belongs to the world, not to the network, but its ghosts pay coins — so
@@ -305,7 +308,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
 
   if (!Colyseus) {
     console.warn('[net] vendor/colyseus.js is missing; multiplayer disabled');
-    chip.set('offline', 'オフライン');
+    chip.set('offline', tr('オフライン'));
   }
 
   // ---- helpers -----------------------------------------------------------------
@@ -328,10 +331,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function setMode(mode) {
     state.mode = mode;
     const count = room?.state?.players?.size || 0;
-    if (mode === 'online') chip.set('online', 'オンライン');
-    else if (mode === 'reconnecting') chip.set('reconnecting', 'つなぎ なおしています…');
-    else if (mode === 'connecting') chip.set('reconnecting', 'つないでいます…');
-    else chip.set('offline', 'オフライン');
+    if (mode === 'online') chip.set('online', tr('オンライン'));
+    else if (mode === 'reconnecting') chip.set('reconnecting', tr('つなぎ なおしています…'));
+    else if (mode === 'connecting') chip.set('reconnecting', tr('つないでいます…'));
+    else chip.set('offline', tr('オフライン'));
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     voice.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
@@ -348,7 +351,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // ---- connection lifecycle ---------------------------------------------------------
 
   async function connect({ name, classCode, teacherKey }, { silent = false } = {}) {
-    if (!Colyseus) { lobby.error('つうしんの ぶひんが よみこめませんでした。'); return; }
+    if (!Colyseus) { lobby.error(tr('つうしんの ぶひんが よみこめませんでした。')); return; }
     state.name = name; state.classCode = classCode || 'default'; state.teacherKey = teacherKey || '';
     state.intentionalLeave = false;
     state.attempts = 0;
@@ -369,14 +372,14 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function friendlyError(err) {
     const code = err?.code;
     const text = String(err?.message || err || '');
-    if (code === 4001 || /name in use/.test(text)) return 'その名前はもう使われています。別の名前にしてね。';
-    if (code === 4000 || /name required/.test(text)) return 'なまえを いれてね。';
-    if (code === 4002 || /class is full/.test(text)) return 'この クラスは いっぱいです。先生に つたえてね。';
+    if (code === 4001 || /name in use/.test(text)) return tr('その名前は もう つかわれています。べつの 名前に してね。');
+    if (code === 4000 || /name required/.test(text)) return tr('なまえを いれてね。');
+    if (code === 4002 || /class is full/.test(text)) return tr('この クラスは いっぱいです。先生に つたえてね。');
     // 入場ゲート: the class register did not have this name. Say what to check, not what
     // went wrong - a child cannot fix a register.
-    if (code === 4004 || /register/.test(text)) return 'この名前は このクラスの めいぼに ありません。クラスコードと なまえを たしかめて、先生に 聞いてください。';
-    if (/Failed to fetch|NetworkError|Load failed|ECONN|timeout/i.test(text)) return 'サーバーにつながりません。Wi-Fi を確認してください。';
-    return `接続できませんでした（${text.slice(0, 80)}）`;
+    if (code === 4004 || /register/.test(text)) return tr('この 名前は この クラスの めいぼに ありません。クラスコードと なまえを たしかめて、先生に 聞いて ください。');
+    if (/Failed to fetch|NetworkError|Load failed|ECONN|timeout/i.test(text)) return tr('サーバーに つながりません。Wi-Fi を たしかめて ください。');
+    return tr('つなげませんでした（{why}）', { why: text.slice(0, 80) });
   }
 
   function bind(r, viaToken) {
@@ -411,15 +414,15 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (!viaToken) {
         restoreProgress(m.progressJson);
         if (m.position && m.restored) teleportTo(m.position, 'restore');
-        toast(m.role === 'teacher' ? `先生としてクラス「${m.classCode}」に参加しました。` : `クラス「${m.classCode}」に参加しました！`);
+        toast(tr(m.role === 'teacher' ? '先生として クラス「{code}」に 入りました。' : 'クラス「{code}」に 入りました！', { code: m.classCode }));
       } else {
-        toast('また つながりました。');
+        toast(tr('また つながりました。'));
       }
       state.lastSent.s = ''; // force a fresh position sample
     });
     r.onMessage('wallet', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.ok === false && m.error) toast(walletError(m.error)); });
     r.onMessage('answer:result', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress, m.levels); if (m.ok === false && m.error !== 'too fast') console.warn('[net] answer rejected', m); });
-    r.onMessage('teleport', (m) => { teleportTo(m, m.reason); toast(m.reason === 'gather' ? `${m.by} 先生の ところに あつまれ！` : `${m.by} 先生が うごかしました。`); });
+    r.onMessage('teleport', (m) => { teleportTo(m, m.reason); toast(tr(m.reason === 'gather' ? '{who} 先生の ところに あつまれ！' : '{who} 先生が うごかしました。', { who: m.by })); });
     r.onMessage('call', (m) => showCall(m));
     r.onMessage('notice', (m) => toast(m.text));
     r.onMessage('chat', (m) => onChat(m));
@@ -518,7 +521,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('ghost:error', (m) => night.onError(m));
     r.onMessage('login:bonus', (m) => { if (m.wallet) applyWallet(m.wallet); daily.onBonus(m); });
     r.onMessage('rank', (m) => daily.onRank(m));
-    r.onMessage('levelup', (m) => toast(`${m.name} が レベル ${m.level} になりました！`));
+    r.onMessage('levelup', (m) => toast(tr('{who} が レベル {n} に なりました！', { who: m.name, n: m.level })));
     r.onMessage('mission:opened', (m) => mission.onOpened(m));
     r.onMessage('mission:arrived', (m) => mission.onArrived(m));
     r.onMessage('mission:turn', (m) => { applyProgress(m.progress, m.levels); mission.onTurn(m); });
@@ -588,7 +591,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       state.attempts += 1;
       if (state.attempts >= NET.RECONNECT_MAX_ATTEMPTS) {
         setMode('offline');
-        lobby.open({ error: '再接続できませんでした。もう一度参加してください。' });
+        lobby.open({ error: tr('つなぎ なおせませんでした。もう一度 入って ください。') });
         return;
       }
       const delay = NET.RECONNECT_DELAYS_MS[Math.min(state.attempts, NET.RECONNECT_DELAYS_MS.length - 1)];
@@ -621,7 +624,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r?.leave(true);
     remotes.clear();
     setMode('offline');
-    if (fromLobby) toast('オフラインで遊びます。右上のボタンからいつでも参加できます。');
+    if (fromLobby) toast(tr('ひとりで あそびます。右上の ボタンから いつでも クラスに 入れます。'));
   }
 
   document.addEventListener('visibilitychange', () => {
@@ -631,7 +634,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   addEventListener('pageshow', (e) => { if (e.persisted) resume(); });
   addEventListener('pagehide', () => { syncProgress(true); });
   addEventListener('online', () => resume());
-  addEventListener('offline', () => { if (state.mode === 'online') chip.set('reconnecting', 'つながりが きれました…'); });
+  // 言語を切り替えたら、つながりの札を書き直す（そこだけ前の言語で残るのが目につく）。
+  onLangChange(() => { chip.refresh(); setMode(state.mode); });
+
+  addEventListener('offline', () => { if (state.mode === 'online') chip.set('reconnecting', tr('つながりが きれました…')); });
 
   // ---- server-authoritative wallet & progress ---------------------------------------
 
@@ -641,7 +647,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     if (!p || typeof p !== 'object') return;
     state.progress = p;
     writeProgress();
-    if (levels > 0) toast(`レベル ${p.level} になった！`);
+    if (levels > 0) toast(tr('レベル {n} に なった！', { n: p.level }));
   }
 
   function writeProgress() {
@@ -664,7 +670,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     } catch (err) { console.warn('[net] wallet reconcile failed', err); }
   }
   function walletError(e) {
-    return { 'not enough coins': 'コインが たりません。', 'already owned': 'もう もっています。', 'nothing to sell': 'うれる さかなが ありません。' }[e] || `サーバーが処理できませんでした: ${e}`;
+    const known = { 'not enough coins': 'コインが たりません。', 'already owned': 'もう もっています。', 'nothing to sell': 'うれる さかなが ありません。' }[e];
+    return known ? tr(known) : tr('サーバーが うけつけませんでした: {why}', { why: e });
   }
   function restoreProgress(json) {
     if (!json) return;
@@ -675,7 +682,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       rpg.adventure.progress.restore(data);
       rpg.activate('willow', true, true);
       rpg.syncBuddy?.(true);
-      toast('まえの つづきを よみこみました。');
+      toast(tr('まえの つづきを よみこみました。'));
     } catch (err) { console.warn('[net] progress restore failed', err); }
   }
   function syncProgress(force = false) {
@@ -719,7 +726,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function showCall(m) {
     let el = $('#net-call');
     if (!el) { el = document.createElement('div'); el.id = 'net-call'; document.body.append(el); }
-    el.innerHTML = `<span>📢 ${escapeHtml(m.by)} 先生が呼んでいます</span><button type="button" id="net-call-go">先生のところへ行く</button><button type="button" class="secondary" id="net-call-later">あとで</button>`;
+    el.innerHTML = `<span>📢 ${escapeHtml(tr('{who} 先生が 呼んでいます', { who: m.by }))}</span><button type="button" id="net-call-go">${escapeHtml(tr('先生の ところへ 行く'))}</button><button type="button" class="secondary" id="net-call-later">${escapeHtml(tr('あとで'))}</button>`;
     $('#net-call-go').onclick = () => { teleportTo(m, 'call'); el.remove(); };
     $('#net-call-later').onclick = () => el.remove();
     speak?.('Please come here!');
@@ -795,10 +802,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     el.id = 'net-status';
     el.type = 'button';
     el.className = 'offline';
-    el.innerHTML = '<i></i><b class="net-count" hidden></b><span class="net-label">オフライン</span>';
+    el.innerHTML = `<i></i><b class="net-count" hidden></b><span class="net-label">${escapeHtml(tr('オフライン'))}</span>`;
     el.onclick = () => {
       if (state.mode === 'online' || state.mode === 'reconnecting') {
-        if (confirm('クラスから でて、ひとりで あそびますか？')) goOffline(true);
+        if (confirm(tr('クラスから でて、ひとりで あそびますか？'))) goOffline(true);
       } else lobby.open({ name: state.name });
     };
     document.body.append(el);
@@ -813,8 +820,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     };
     return {
       set(cls, text) { write(cls, text, cls === 'online' ? (room?.state?.players?.size ?? 1) : null); },
-      count(n) { if (state.mode === 'online') write('online', 'オンライン', n); },
-      refresh() { if (state.mode === 'online' && room) write('online', 'オンライン', room.state.players.size); },
+      count(n) { if (state.mode === 'online') write('online', tr('オンライン'), n); },
+      refresh() { if (state.mode === 'online' && room) write('online', tr('オンライン'), room.state.players.size); },
     };
   }
 
@@ -854,11 +861,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get arcades() { return arcades; },
     // One question for the frame loop: is a whole-window guest game up?
     arcadeOpen: () => racers.isOpen || blockwild.isOpen || Object.values(arcades).some((g) => g.isOpen),
-    miniLabel: (spot) => `${spot?.tone || '🎮'} ${spot?.name || 'ゲーム'} で あそぶ`,
+    miniLabel: (spot) => `${spot?.tone || '🎮'} ${tr('{what} で あそぶ', { what: spot?.name || tr('ゲーム') })}`,
     openLobby: () => lobby.open({ name: state.name }),
     openMission: () => mission.open(),
     errandInteract: () => { const near = rpg.errandNearby(); if (near) mission.interact(near.spot); },
-    errandLabel: (spot) => mission.label(spot) || `${spot.character} と 話す`,
+    errandLabel: (spot) => mission.label(spot) || tr('{who} と 話す', { who: spot.character }),
     schoolInteract: () => {
       const near = rpg.schoolNearby();
       if (!near) return;
@@ -888,7 +895,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // きせかえ島: the shop you walked into is the kind of thing you are shopping for, so
     // the panel opens on that slot rather than on whatever it showed last time.
     wearInteract: () => { const near = rpg.wearNearby(); if (near) wardrobe.open({ slot: near.spot.slot || near.spot.kind }); },
-    wearLabel: (spot) => `${spot?.name || 'お店'}で きせかえる`,
+    wearLabel: (spot) => tr('{shop}で きせかえる', { shop: spot?.name || tr('お店') }),
     petLabel: (spot) => petUI.label(spot),
     town, myRoom, myPlaza, voice, conv, race,
     // Whichever of the two a child is standing in. The page's E and Q keys work on it.

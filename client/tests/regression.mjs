@@ -162,7 +162,8 @@
   const { fileURLToPath } = await import('node:url');
   const dist = fileURLToPath(new URL('../dist/', import.meta.url));
   const html = readFileSync(`${dist}index.html`, 'utf8');
-  const words = JSON.parse(readFileSync(`${dist}lang.json`, 'utf8')).words;
+  const rawDict = readFileSync(`${dist}lang.json`, 'utf8');
+  const words = JSON.parse(rawDict).words;
   const JA = /[\u3040-\u309f\u30a0-\u30ff\u3400-\u9fff]/;
   const bad = [];
 
@@ -196,6 +197,16 @@
     if (!/import\s*\{[^}]*\bt\s*[,}]/.test(src)) continue;          // `t as tr` は当たらない
     if (/(?:^|[^A-Za-z0-9_$.])(?:const|let|var)\s+t\s*=|[(,]\s*t\s*[,)]/.test(src)) {
       bad.push(`${name} は 時間の t を持っているのに { t } で import している（t as tr にすること）`);
+    }
+  }
+
+  // 1c. **同じ鍵を2回書かないこと。** JSON は黙って後ろ勝ちにするので、直したつもりの
+  //     訳が別の行に残っていても誰も気づかない（実際に1件やった）。
+  {
+    const seen = new Set();
+    for (const m of rawDict.matchAll(/^\s{4}"((?:[^"\\]|\\.)*)":/gm)) {
+      if (seen.has(m[1])) bad.push(`lang.json に「${m[1]}」が2回ある`);
+      seen.add(m[1]);
     }
   }
 

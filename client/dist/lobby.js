@@ -42,7 +42,7 @@ export function createLobby({ onJoin, onOffline, defaultClass, prefs }) {
   $('#net-lobby-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = $('#net-name').value.trim();
-    if (!name) { error(t('なまえを入れてね。')); return; }
+    if (!name) { error(t('なまえを いれてね。')); return; }
     error('');
     onJoin({ name, classCode: $('#net-class').value.trim(), teacherKey: $('#net-key').value });
   });
