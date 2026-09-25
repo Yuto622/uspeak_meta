@@ -10,6 +10,13 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { totalXp, xpToNext } from './progression.js';
 import { ROOMS } from './town.js';
+import { recentMonths } from './months.js';
+
+// 月ごとの記録は保存の中では文字列。壊れていたら空に落とす（months.js の sanitize と
+// 同じ約束で、読めない月のせいでレポート全体が出ないほうが保護者にとっては悪い）。
+function sanitizeForReport(raw) {
+  try { return typeof raw === 'string' ? JSON.parse(raw) : (raw || {}); } catch { return {}; }
+}
 
 // Everything a parent sees is derived from the same record the game plays from, so a
 // report can never disagree with the game.
@@ -49,6 +56,10 @@ export function reportFor(record, { now = Date.now() } = {}) {
     pet: pet && pet.name ? { name: pet.name, en: pet.en || '', level: Math.max(1, Math.floor(num(pet.xp) / 25) + 1) } : null,
     lapBest: Math.max(0, Math.floor(num(record.lap_best))),
     streak: Math.max(0, Math.floor(num(record.login_streak))),
+    // **今月のまとめと、その前の月。** 累計（上の行）だけでは、3年つづけた子と
+    // 3年前に3か月だけやった子が同じ数字に見える。保護者が毎月受け取って意味が
+    // あるのはこちらで、累計からは引き算できない。
+    months: recentMonths(sanitizeForReport(record.months_json), 6, { now }),
     lastSeen: record.last_seen || record.updated_at || '',
     madeAt: new Date(now).toISOString(),
   };
@@ -71,6 +82,34 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 
 // One page, no scripts, no fonts, no third parties: it opens on any phone in a corridor
 // with one bar of signal, and it carries nothing that could track the family.
+// 今月の箱と、その前の月の並び。**まだ何もしていない子には出さない**（0が並んだ
+// 枠は、保護者に「今月は何もしていません」と言うのと同じで、言うなら文で言うべき）。
+function monthBlock(r) {
+  const months = Array.isArray(r.months) ? r.months : [];
+  const now = months.find((m) => m.current);
+  const past = months.filter((m) => !m.current).slice(0, 5);
+  if (!now && !past.length) return '';
+  const cell = (label, value) => `<li><span>${esc(label)}</span><b>${esc(value)}</b></li>`;
+  const head = now
+    ? `<div class="month"><h2>${esc(now.label)}のまとめ</h2>
+       <p>この1か月にやったこと</p><ul>
+       ${cell('きた日', `${now.days} 日`)}
+       ${cell('といた問題', `${now.answers} 問`)}
+       ${now.accuracy === null ? '' : cell('正解率', `${now.accuracy}%`)}
+       ${cell('学習した時間', `${now.minutes} 分`)}
+       </ul></div>`
+    : '<div class="month"><h2>今月はまだこれからです</h2><p>先月までの記録はこちら。</p></div>';
+  if (!past.length) return head;
+  // **ぜんぶ 0 の列は出さない。** 学習時間を数えはじめる前の月はどうやっても 0 分で、
+  // 並べると「先月は1分もやっていない」と読めてしまう。無い数字は出さないほうが正しい。
+  const showMinutes = past.some((m) => m.minutes > 0);
+  const rows = past.map((m) => `<tr><td>${esc(m.label)}</td><td>${m.days} 日</td><td>${m.answers} 問</td>`
+    + `<td>${m.accuracy === null ? '—' : `${m.accuracy}%`}</td>`
+    + (showMinutes ? `<td>${m.minutes} 分</td>` : '') + '</tr>').join('');
+  return `${head}<table class="past"><thead><tr><th>それまでの月</th><th>きた日</th><th>問題</th><th>正解率</th>`
+    + (showMinutes ? '<th>時間</th>' : '') + `</tr></thead><tbody>${rows}</tbody></table>`;
+}
+
 export function reportHtml(r, { token = '' } = {}) {
   const row = (label, value, note = '') => value === null || value === undefined || value === '' ? ''
     : `<tr><th>${esc(label)}</th><td><b>${esc(value)}</b>${note ? ` <small>${esc(note)}</small>` : ''}</td></tr>`;
@@ -97,6 +136,26 @@ export function reportHtml(r, { token = '' } = {}) {
  th { color: #5d6d62; font-size: 14px; width: 45%; }
  tr:last-child th, tr:last-child td { border-bottom: 0; }
  small { color: #7b8a7f; }
+ /* 今月のまとめ。**累計より先に、いちばん上に置く。** 保護者が知りたいのは
+    「今月どうだったか」で、累計は3年つづけた子と3か月でやめた子を同じに見せる。 */
+ .month { background: #173f38; color: #f4f1e3; border-radius: 16px; padding: 16px 18px; margin: 18px 0 8px; }
+ .month h2 { margin: 0 0 2px; font-size: 15px; letter-spacing: 1px; font-weight: 700; }
+ .month p { margin: 0 0 12px; font-size: 12px; opacity: .78; }
+ .month ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+   gap: 10px; margin: 0; padding: 0; }
+ .month li span { display: block; font-size: 11px; opacity: .72; }
+ .month li b { font-size: 22px; }
+ /* 先月までの並び。数字が3つあれば線は要らない（6行しか出ない）。 */
+ .past { width: 100%; border-collapse: collapse; margin: 14px 0 0; font-size: 14px; background: #fffaf0;
+   border-radius: 16px; overflow: hidden; }
+ /* **見出しを縦に折らない。** スマホ幅では「問題」が「問／題」に割れて読めなくなる
+    （390px で実測）。折り返しを止め、狭いところでは余白と字を詰めて収める。 */
+ .past th, .past td { padding: 9px 14px; border-bottom: 1px solid #ece7d4; text-align: right;
+   font-weight: 400; white-space: nowrap; }
+ @media (max-width: 430px) { .past { font-size: 13px; } .past th, .past td { padding: 8px 8px; } }
+ .past th:first-child, .past td:first-child { text-align: left; }
+ .past thead th { font-size: 12px; color: #5d6d62; }
+ .past tr:last-child td { border-bottom: 0; }
  footer { margin-top: 22px; font-size: 12px; color: #7b8a7f; }
  /* 紙にするボタン。冷蔵庫に貼る用の一枚は、画面とは別に組んである（LaTeX）。 */
  .save { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 4px; }
@@ -115,6 +174,8 @@ export function reportHtml(r, { token = '' } = {}) {
 <header><div><small>U-SPEAK LAB</small><h1>${esc(r.name)} さんの学習レポート</h1>
 <p>クラス ${esc(r.classCode)}${seen ? ` · さいごに あそんだ日 ${esc(seen)}` : ''}</p></div></header>
 <main>
+${monthBlock(r)}
+ <h3 style="margin:26px 0 0;font-size:14px;color:#5d6d62;letter-spacing:1px;">はじめてからの ぜんぶ</h3>
  <div class="cards">
   <div class="card"><span>レベル</span><b>${r.level}</b></div>
   <div class="card"><span>ためた XP</span><b>${r.totalXp.toLocaleString()}</b></div>

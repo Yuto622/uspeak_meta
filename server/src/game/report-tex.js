@@ -71,7 +71,18 @@ export function reportTex(r, { font = process.env.REPORT_FONT || '' } = {}) {
       : { label: '英語の正解率', big: `${r.accuracy}\\%`, sub: `${r.correct} / ${r.attempts} 問`, deg: arc(r.accuracy / 100), colour: 'uspeakSky' },
   ];
 
+  // 今月のぶん。**累計の行より先に置く。** 保護者がいちばん知りたいのは「今月どうだったか」で、
+  // 累計は3年つづけた子と3か月でやめた子を同じ数字に見せる。まだ何もしていない月は
+  // 行ごと出さない（0が並ぶより、無いほうがいい）。
+  const thisMonth = (Array.isArray(r.months) ? r.months : []).find((m) => m.current) || null;
+  const monthRows = thisMonth ? [
+    [`${thisMonth.label} きた日`, thisMonth.days ? `${thisMonth.days} 日` : ''],
+    [`${thisMonth.label} といた問題`, thisMonth.answers ? `${thisMonth.correct} / ${thisMonth.answers} 問` : ''],
+    [`${thisMonth.label} 学習した時間`, thisMonth.minutes ? `${thisMonth.minutes} 分` : ''],
+  ] : [];
+
   const rows = [
+    ...monthRows,
     ['英語の問題', r.attempts ? `${r.correct} / ${r.attempts} 問` : ''],
     ['英語で話した回数', r.phrases ? `${r.phrases} 回` : ''],
     ['おつかい', r.errands ? `${r.errands} 件 たっせい` : ''],

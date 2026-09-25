@@ -18,6 +18,9 @@ import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
 import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
 import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
+// 月ごとの学習記録。**答えた瞬間にその月の箱へ1つ足す**（学習ログは追記専用で
+// 読み返せないので、月末に数え直すことができない）。詳しくは game/months.js の頭。
+import { sanitizeMonths, bump as bumpMonth } from '../game/months.js';
 import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, INTERVIEW_ROOM, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError, LEVELS as EIKEN_LEVELS, levelOf as eikenLevelOf } from '../game/eiken.js';
 import {
   startInterview, interviewStep, interviewPayload, interviewResult, scriptedLine,
@@ -665,7 +668,10 @@ export class ClassRoom extends Room {
       const priv = this.priv.get(id);
       if (!priv) continue;
       const last = Math.max(priv.study.activeAt, priv.lastMoveAt);
-      if (last && now - last < STUDY_IDLE_MS) priv.study.ms += 1000;
+      if (last && now - last < STUDY_IDLE_MS) {
+        priv.study.ms += 1000;
+        bumpMonth(priv.months, { seconds: 1 }, { now });
+      }
     }
   }
 
@@ -737,6 +743,9 @@ export class ClassRoom extends Room {
       worn: sanitizeWorn(WARDROBE, parseJson(record.worn_json, [])),
       // 5技能: what has been practised, counted on the way past appendLearning().
       skills: sanitizeSkills(parseJson(record.skills_json, null)),
+      // 月ごとのまとめ。保護者レポートの「今月」はここから出る。累計とは別に持つ
+      // のは、累計からは今月ぶんを引き算できないから（去年の分が混ざる）。
+      months: sanitizeMonths(record.months_json),
       // 総学習時間 and 総学習日数. `activeAt` is the last thing they actually did, so a
       // tab left open on the bus does not become an hour of study.
       study: {
@@ -772,6 +781,7 @@ export class ClassRoom extends Room {
       voice_minutes: Math.floor(priv.caps.voice),
       wardrobe_json: JSON.stringify(priv.wardrobe), worn_json: JSON.stringify(priv.worn),
       skills_json: JSON.stringify(priv.skills),
+      months_json: JSON.stringify(priv.months),
       study_ms: Math.floor(priv.study.ms), study_days: priv.study.days, study_day: priv.study.day,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
@@ -937,6 +947,9 @@ export class ClassRoom extends Room {
       if (priv) {
         addAnswer(priv.skills, row[4], Number(row[6]) === 1);
         this.markStudied(priv);
+        // **11か所ある学習ログの書き込みは全部ここを通る**ので、月の箱もここで足す。
+        // 12個目の活動を足した人が months.js を知らなくても数えられる。
+        bumpMonth(priv.months, { answers: 1, correct: Number(row[6]) === 1 ? 1 : 0, xp: Number(row[7]) || 0 }, { day: true });
       }
     } catch (err) {
       // A miscounted skill must never cost a child the record of the answer itself.
@@ -2925,8 +2938,11 @@ export class ClassRoom extends Room {
     client.send('mission:closed', { reason, goals: mission.goals.map((g) => g.id) });
   }
 
+  // コインの出入りが全部通る1か所。**もらった分だけ**を月の箱に足す（使った分は
+  // 引かない — 保護者が見たいのは「今月いくら稼いだか」で、財布の残高は累計の側にある）。
   coinRow(sessionId, entry) {
     const priv = this.priv.get(sessionId);
+    if (priv && entry.delta > 0) bumpMonth(priv.months, { coins: entry.delta });
     return [new Date().toISOString(), this.classCode, priv?.name || '', entry.op, entry.item, entry.quantity, entry.delta, entry.balance, sessionId];
   }
 
