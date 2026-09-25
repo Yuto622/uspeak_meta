@@ -8,12 +8,15 @@
 \usepackage{fontspec}
 \usepackage{xeCJK}
 \usepackage{tikz}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
 \usepackage{tcolorbox}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
+\usepackage{needspace}
 \usepackage[margin=18mm,top=21mm,bottom=18mm]{geometry}
 \tcbuselibrary{skins,raster}
 \usetikzlibrary{positioning}
@@ -83,6 +86,20 @@
   \end{minipage}\end{center}}
 
 \newcommand{\hl}[1]{\textbf{\color{uspeakGreen}#1}}
+
+% 画面の写真。**枠を付ける**：レポートも島も背景がクリーム色なので、
+% 枠が無いと紙とつながって「どこまでが画面か」が分からない。
+\newcommand{\shot}[3][\linewidth]{%
+  \begin{center}
+  \setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}%
+  {\color{uspeakRule}\fbox{\includegraphics[width=#1]{#2}}}\\[2pt]
+  {\footnotesize\color{uspeakSoft}#3}
+  \end{center}}
+% 文の横に置く写真（枠と説明だけ、center なし）。
+\newcommand{\shotin}[3][\linewidth]{%
+  \setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}%
+  {\color{uspeakRule}\fbox{\includegraphics[width=#1]{#2}}}\\[2pt]
+  {\footnotesize\color{uspeakSoft}#3}}
 
 \begin{document}
 
@@ -156,40 +173,58 @@ Excel でそのまま開き、面談資料にも、月謝の説明にも、
 \end{point}
 
 % ---- ① 保護者レポート -------------------------------------------------------------
-\section{① 毎月の保護者レポート}
-
-保護者さまがスマートフォンで開くと、いちばん上に今月のまとめが出ます。
+\vspace{8pt}
 
 \begin{center}
-\begin{tcolorbox}[enhanced,width=0.86\textwidth,colback=uspeakDeep,colframe=uspeakDeep,
-  arc=4pt,left=14pt,right=14pt,top=10pt,bottom=10pt]
-{\color{uspeakCream}\bfseries\large 2026年9月のまとめ}\\[1pt]
-{\color{uspeakGold}\footnotesize この1か月にやったこと}\\[7pt]
-{\color{uspeakCream}
-\newcommand{\mcell}[2]{\begin{minipage}[t]{0.22\textwidth}
-  {\footnotesize\color{uspeakGold}#1}\\[2pt]{\LARGE\bfseries #2}\end{minipage}}
-\mcell{きた日}{8 日}\hfill\mcell{といた問題}{62 問}\hfill
-\mcell{正解率}{78\%}\hfill\mcell{学習した時間}{41 分}}
-\end{tcolorbox}
+\begin{tabular}{@{}p{0.30\textwidth}p{0.30\textwidth}p{0.34\textwidth}@{}}
+\toprule
+\multicolumn{3}{@{}l}{\hl{この資料の中身}}\\
+\midrule
+2. ① 毎月の保護者レポート & 5. ④ 年度がかわっても続く & 8. 画面の言語の切り替え\\
+3. ② 生徒のマイページ & 6. 先生コンソール・英検の判定 & 9. はじめかた（3ステップ）\\
+4. ③ 記録は教室のもの（CSV） & 7. 数字は書き換えられません & \\
+\bottomrule
+\end{tabular}
 \end{center}
 
-\vspace{-2pt}
+\vspace{2pt}
+{\footnotesize\color{uspeakSoft}
+※ この資料の画面写真は、\textbf{架空の生徒「さくら」さん}の記録で撮ったものです。
+画面を作っているのは本番とまったく同じもので、数字だけが架空です。}
 
-その下に\hl{それまでの月}が最大5か月ぶん、表で並びます（月・きた日・問題・正解率・時間）。
-さらに下は、これまでどおりの\hl{累計}（レベル・総XP・正解数・コイン・5技能のバランス）です。
 
+
+\section{① 毎月の保護者レポート}
+
+保護者さまがスマートフォンで開くと、いちばん上に\hl{今月のまとめ}が出ます。
+その下に\hl{それまでの月}が最大5か月ぶん並び、さらに下は これまでどおりの
+\hl{累計}（レベル・総XP・正解数・コイン・5技能のバランス）です。
+
+\begin{minipage}[t]{0.39\textwidth}
+\vspace{0pt}
+\shotin[\linewidth]{infra-report.jpg}{実際の画面（数字は見本のお子さん）}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.58\textwidth}
+\vspace{0pt}
 \subsection{数字の意味を、ひとことで}
-
-\begin{center}
-\begin{tabular}{@{}p{0.2\textwidth}p{0.74\textwidth}@{}}
+\begin{tabular}{@{}p{0.27\linewidth}p{0.69\linewidth}@{}}
 \toprule
 \hl{きた日} & その月に\textbf{1問でも答えた日}の数。ログインしただけでは増えません。\\
-\hl{といた問題} & 英検・クイズ・釣り・バトル・おつかい・AI英会話をすべて合わせた回答数。\\
+\hl{といた問題} & 英検・クイズ・釣り・バトル・おつかい・AI英会話を すべて合わせた回答数。\\
 \hl{正解率} & 上のうち正解だった割合。まだ1問も答えていない月は\textbf{出しません}。\\
 \hl{学習した時間} & \textbf{実際に何かしていた時間}。直近2分のあいだに動いたか答えた子だけ、1秒ずつ数えます。タブを開いたままの時間は入りません。\\
 \bottomrule
 \end{tabular}
-\end{center}
+
+\vspace{6pt}
+\begin{point}{面談で そのまま使えます}
+「9月は8日来て、62問、正解率77\%」。
+この3つがあれば、\hl{続けている効果}を数字で話せます。
+先月・先々月が下に並ぶので、\hl{伸びているのか、落ちているのか}もその場で分かります。
+\end{point}
+\end{minipage}
+
+\vspace{8pt}
 
 \subsection{お渡しのしかた}
 
@@ -209,50 +244,78 @@ Excel でそのまま開き、面談資料にも、月謝の説明にも、
 \end{center}
 
 % ---- ② マイページ ----------------------------------------------------------------
+\Needspace{118mm}
 \section{② 生徒のマイページ}
 
-画面の上にあるコインのバッジをタップすると開きます。
+画面の上にある\hl{コインのバッジ}をタップすると開きます。
 レベルバー、今月のまとめ、3つの実績カード、5技能のレーダーチャートが1画面に並びます。
 
-\begin{center}
-\begin{tabular}{@{}p{0.26\textwidth}p{0.68\textwidth}@{}}
+\begin{minipage}[t]{0.55\textwidth}
+\vspace{0pt}
+\begin{tabular}{@{}p{0.29\linewidth}p{0.67\linewidth}@{}}
 \toprule
 \hl{今月のまとめ} & 保護者レポートと同じ4つ（きた日・もんだい・せいかい・じかん）。\\
-\hl{先月とのくらべ} & 「\textbf{先月より 2日 おおい}」「先月と おなじ ペース」のように1行で出ます。\\
-\hl{5技能のチャート} & きく・はなす・よむ・かく・りかい。\textbf{やっていない技能は0}になり、その下に「つぎは◯◯を やってみよう」が出ます。\\
+\hl{先月とのくらべ} & 「\textbf{先月は 9日 きたよ}」のように1行で出ます。\\
+\hl{5技能のチャート} & きく・はなす・よむ・かく・りかい。\textbf{やっていない技能は0}になります。\\
+\hl{つぎの一手} & いちばん練習が少ない技能を名指しで出します（右の例では「かく」）。\\
 \hl{ことば} & 小学1年生が読めるひらがなで書いています。\\
 \bottomrule
 \end{tabular}
-\end{center}
 
+\vspace{6pt}
 \begin{point}{保護者さまと子どもが、同じ数字を見ています}
 面談で「今月8日来ています」と言ったとき、お子さんの画面にも同じ8日が出ています。
 数字が2つあると、どちらが本当かという話になってしまいます。
 \hl{出どころは1つ}にしてあります。
 \end{point}
 
+\vspace{4pt}
+チャートは\hl{正解率だけでも、量だけでも}伸びません
+（2問正解で満点にも、当てずっぽうで得にもならないようにしてあります）。
+だから\hl{形がへこんでいる技能が、本当にやっていない技能}です。
+\end{minipage}\hfill
+\begin{minipage}[t]{0.41\textwidth}
+\vspace{0pt}
+\shotin[\linewidth]{infra-dash.jpg}{子どもが開く画面（数字は見本のお子さん）}
+\end{minipage}
+
+\vspace{8pt}
+
 % ---- ③ CSV ---------------------------------------------------------------------
+\Needspace{118mm}
 \section{③ 記録は教室のもの（CSV で持ち出せる）}
 
-先生コンソールの \hl{「保護者レポートのリンク」} のいちばん上に
-\hl{「CSV でダウンロード」} があります。押すとクラス全員ぶんが1枚の表になります。
+先生コンソールの \hl{「保護者レポートのリンク」} を押すと、いちばん上に
+\hl{「CSV でダウンロード」}、その下に一人ひとりのリンクが並びます。
 
-\begin{center}
-\begin{tabular}{@{}p{0.16\textwidth}p{0.78\textwidth}@{}}
+\begin{minipage}[t]{0.56\textwidth}
+\vspace{0pt}
+\begin{tabular}{@{}p{0.2\linewidth}p{0.76\linewidth}@{}}
 \toprule
 \hl{列（14）} & なまえ／レベル／累計XP／正解／挑戦／正答率／コイン／学習時間(分)／学習日数／さいごにあそんだ日／今月きた日／今月の問題／今月の正解／今月の時間(分)\\
 \hl{並び} & なまえ順。先生の行と、引っ越し済みの古い行は出ません。\\
 \hl{文字化け} & Excel がそのまま開く形式（BOM 付き）で出しています。\\
 \bottomrule
 \end{tabular}
-\end{center}
 
+\vspace{6pt}
 \begin{point}{「持ち出せる」ことを、見えるところに置いています}
 教室さまの記録は教室さまのものです。
 解約や乗り換えのときに\hl{データを人質にしない}という約束を、
 機能として置いておくためのボタンです。
 探さないと見つからない場所には置いていません。
 \end{point}
+
+\vspace{4pt}
+一人ひとりのリンクは\hl{全部ちがいます}。
+名前のところを書き換えても、よその子のページは開きません。
+\end{minipage}\hfill
+\begin{minipage}[t]{0.40\textwidth}
+\vspace{0pt}
+\shotin[\linewidth]{infra-links.jpg}{CSV は一覧のいちばん上。名前とリンクは見本}
+\end{minipage}
+
+\vspace{8pt}
 
 % ---- ④ 年度またぎ ---------------------------------------------------------------
 \section{④ 年度がかわっても記録が続く}
@@ -284,24 +347,32 @@ Excel でそのまま開き、面談資料にも、月謝の説明にも、
 \end{center}
 
 % ---- 先生コンソール --------------------------------------------------------------
+\Needspace{118mm}
 \section{先生コンソールでできること}
 
 画面右下の\hl{先生アイコン}から開きます。先生の合言葉を入れた端末だけに出ます。
 
-\begin{center}
-\begin{tabular}{@{}p{0.34\textwidth}p{0.60\textwidth}@{}}
+\begin{minipage}[t]{0.545\textwidth}
+\vspace{0pt}
+\begin{tabular}{@{}p{0.40\linewidth}p{0.56\linewidth}@{}}
 \toprule
 \hl{全員をここに集合} & クラス全員を先生のいる島へ呼びます。授業のはじめに。\\
 \hl{チャットを一時停止} & 文字のやりとりを止めます。説明を聞かせたいときに。\\
 \hl{じゆうにゅうりょく} & 自由に文を書ける／定型文だけ、の切り替え。\\
 \hl{おはなし} & どの島でも／おはなし島だけ／全部止める、の3段階。\\
-\hl{英検：きびしい／ふつう／やさしい} & 正解・不正解の判定の\textbf{きびしさを3段階}で。下の表で説明します。\\
-\hl{「保護者レポートのリンク」} & 一人ひとりのリンクと、クラス全員ぶんの CSV。\\
-\hl{めいぼを読み直す} & 授業中に名簿へ足したお子さんを、その場で反映します。\\
+\hl{英検：3段階} & 判定の\textbf{きびしさ}を きびしい／ふつう／やさしい で。下の表で説明します。\\
+\hl{レポートのリンク} & 一人ひとりのリンクと、クラス全員ぶんの CSV。\\
+\hl{めいぼを読み直す} & 授業中に名簿へ足したお子さんを、その場で反映。\\
 \hl{名簿の行から} & 呼び出す／ここへ移動／大広間でカメラを許可。\\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{0pt}
+\shotin[\linewidth]{infra-teacher.jpg}{先生の端末にだけ出ます。下は名簿（いま何をしているか）}
+\end{minipage}
+
+\vspace{8pt}
 
 \subsection{英検の判定を3段階に（教室さまのご要望から）}
 
@@ -355,14 +426,33 @@ Excel でそのまま開き、面談資料にも、月謝の説明にも、
 \end{itemize}
 
 % ---- あわせて -------------------------------------------------------------------
+\Needspace{118mm}
 \section{あわせて：画面の言語を切り替えられます}
 
 画面の文字は\hl{ふだん英語}で、ヘッダーの \hl{「あ」} を押すと
 \hl{小学1年生が読めるひらがな}になります。選んだ言語は端末ごとに残ります。
 
+% 画面まるごとではなく、**看板のところだけを切り出して大きく**。まるごとだと
+% 紙の上で看板の字が1ミリ以下になり、この図がいちばん見せたい
+% 「切り替わっている」ことが見えない。同じ島の、同じ場所です。
+\begin{minipage}[t]{0.485\textwidth}
+\vspace{0pt}
+\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}%
+{\color{uspeakRule}\fbox{\includegraphics[width=\linewidth,trim=1080 660 600 380,clip]{infra-island-en.jpg}}}\\[2pt]
+{\footnotesize\color{uspeakSoft}ふだんの画面（英語）}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}
+\vspace{0pt}
+\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}%
+{\color{uspeakRule}\fbox{\includegraphics[width=\linewidth,trim=1080 660 600 380,clip]{infra-island-ja.jpg}}}\\[2pt]
+{\footnotesize\color{uspeakSoft}「あ」を押したところ（同じ島の同じ場所）}
+\end{minipage}
+
+\vspace{6pt}
+
 \begin{itemize}[leftmargin=1.2em,itemsep=1pt]
   \item 外国人の先生がそのまま画面を読めます。子どもは自分で日本語に戻せます。
-  \item \hl{島の名前・お店の看板・地図}も英語になります。
+  \item \hl{島の名前・お店の看板・地図}まで切り替わります（上の2枚は同じ島です）。
   \item ミニゲーム（えいご スイカゲーム）の中も英語で、ゲームの中にも切り替えボタンがあります。
   \item \hl{学習の中身は訳しません}。英検の日本語の問題文や、釣りの4択の意味は、
         日本語であること自体が問題なので、訳すと問題が成立しなくなるためです。

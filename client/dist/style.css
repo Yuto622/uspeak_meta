@@ -42,3 +42,32 @@ html:not([data-lang=ja]) .ja{display:none}
 .fish-inventory-row .fish-thumb{float:left;margin:0 10px 0 0}
 .fish-catalog .undiscovered .fish-thumb{filter:grayscale(1) contrast(.5) brightness(1.25);opacity:.55}
 #fish-showcase-name .ja{display:block;font-style:normal;font-size:12px;opacity:.7;margin-top:3px}
+
+/* 島のキャッチコピー（.world-label）は出さない。
+ *
+ * 右下に置いてあったが、そこは**右のバーの下半分**（さかなつり・ぼうけんノート・
+ * 📹 ビデオ通話）と、夜のことばの札が出る場所でもある。バーの高さは中身と画面の
+ * 高さで変わるので、1280x800 や 1024x768 でオンラインにすると 📹 の上に
+ * 斜体の英文がかぶる（教室から写真で指摘された）。
+ *
+ * 逃がせる隅がない：左下は WASD の説明・スティック・同梱ゲームのボタン、
+ * 下の中央はホットバーと「◯◯と話す」、真ん中は島そのもの。
+ * **飾りと押せるボタンがぶつかったら、捨てるのは飾り**（右のバーの規則と同じ）。
+ * 文字と規則は残してあるので、置き場所を作れたときに display を戻せる。 */
+.world-label{display:block}
+
+/* 「◈ Auto-save じどうで ほぞん」は、つながっている間は出さない。
+ *
+ * 下の帯の右端（y の帯は 724..770）は、オンラインだと**つながりのドック**
+ * （1人 オンライン・💬・👩‍🏫）が座る場所で、💬 がこの字の上に 46x30 かぶる。
+ * ドックの幅は人数の字と先生ボタンの有無で変わるので、余白でよけるのは長続きしない。
+ * ここでも**捨てるのは飾りのほう**（押せるボタンは残す）。オフラインではドックが
+ * いないので、今までどおり出る。 */
+body:has(#net-status.online) .save-status{display:none}
+
+/* クエストの枠は、下の帯にとどかない高さまで。
+ *
+ * top:118px から中身ぶんだけ伸びるので、画面が低い（1024x768 くらいの）パソコンでは
+ * 下端が WASD の説明に 10px かぶる。入りきらないぶんは枠の中でスクロールさせる
+ * ——**外へはみ出して他のものに乗るより、中で動くほうがいい**。 */
+.quest-panel{max-height:calc(100vh - 215px);overflow:auto}
