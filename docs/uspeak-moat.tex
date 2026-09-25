@@ -1,0 +1,236 @@
+% U-Speak Lab ／ 事業メモ：継続を伸ばすのは「インフラ化」か
+%
+% 2026-09-25 の検討メモ。社内用（教室さまへの配布物ではありません）。
+%
+%   組む:  cd docs && xelatex uspeak-moat.tex
+%
+% 日本語を組むので XeLaTeX を使います。色とフォントの探し方は uspeak-guide.tex と同じ。
+\documentclass[a4paper,10.5pt]{article}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[margin=20mm,top=22mm,bottom=20mm]{geometry}
+\tcbuselibrary{skins}
+
+% フォント。あるものを上から順に（Linux → Windows → macOS）。
+\newcommand{\uspeakfont}[1]{\setCJKmainfont{#1}\setmainfont{#1}}
+\IfFontExistsTF{Noto Sans CJK JP}{\uspeakfont{Noto Sans CJK JP}}{%
+\IfFontExistsTF{Noto Sans JP}{\uspeakfont{Noto Sans JP}}{%
+\IfFontExistsTF{Yu Gothic}{\uspeakfont{Yu Gothic}}{%
+\IfFontExistsTF{Meiryo}{\uspeakfont{Meiryo}}{%
+\IfFontExistsTF{Hiragino Sans}{\uspeakfont{Hiragino Sans}}{%
+\IfFontExistsTF{IPAexGothic}{\uspeakfont{IPAexGothic}}{%
+\IfFontExistsTF{IPAGothic}{\uspeakfont{IPAGothic}}{%
+  \GenericError{}{U-Speak: no Japanese font found}{}{Install Noto Sans CJK JP.}%
+}}}}}}}
+
+% 島の色。ゲームの中・保護者レポート・説明書と同じもの。
+\definecolor{uspeakDeep}{HTML}{0C2A24}
+\definecolor{uspeakGreen}{HTML}{173F38}
+\definecolor{uspeakCream}{HTML}{F4F1E3}
+\definecolor{uspeakGold}{HTML}{E8C368}
+\definecolor{uspeakMint}{HTML}{74C39A}
+\definecolor{uspeakCoral}{HTML}{E8927C}
+\definecolor{uspeakInk}{HTML}{22372F}
+\definecolor{uspeakPaper}{HTML}{FBF8EC}
+\definecolor{uspeakRule}{HTML}{CFC9B4}
+\definecolor{uspeakSoft}{HTML}{6B7F74}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\renewcommand{\arraystretch}{1.3}
+\color{uspeakInk}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrule}{\color{uspeakRule}\hrule height 0.4pt}
+\fancyhead[L]{\footnotesize\color{uspeakGreen}事業メモ：継続を伸ばすのは「インフラ化」か}
+\fancyhead[R]{\footnotesize\color{uspeakGreen}U-Speak Lab（社内）}
+\fancyfoot[C]{\footnotesize\color{uspeakGreen}\thepage}
+
+\titleformat{\section}{\Large\bfseries\color{uspeakGreen}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{uspeakGreen}}{}{0em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titlespacing*{\subsection}{0pt}{9pt}{3pt}
+
+% 結論の箱。
+\newtcolorbox{verdict}[1]{enhanced,colback=uspeakCream,colframe=uspeakGreen,
+  boxrule=0.9pt,arc=3pt,left=10pt,right=10pt,top=8pt,bottom=8pt,
+  fonttitle=\bfseries\color{uspeakCream},title={#1},
+  coltitle=uspeakCream,colbacktitle=uspeakGreen}
+
+% 注意の箱。
+\newtcolorbox{caution}{enhanced,colback=white,colframe=uspeakCoral,
+  boxrule=0.9pt,arc=3pt,left=10pt,right=10pt,top=8pt,bottom=8pt}
+
+% 言い切りの一文。
+\newcommand{\claim}[1]{%
+  \begin{center}\begin{minipage}{0.92\textwidth}
+  \color{uspeakGreen}\large\bfseries #1
+  \end{minipage}\end{center}}
+
+\begin{document}
+
+% ---- 表紙まわり -------------------------------------------------------------------
+\begin{center}
+\begin{tikzpicture}
+  \fill[uspeakGreen,rounded corners=6pt] (0,0) rectangle (16.6,2.5);
+  \node[anchor=west,text=uspeakCream,font=\Large\bfseries] at (0.7,1.55)
+    {継続月数を伸ばすのは「インフラ化」か};
+  \node[anchor=west,text=uspeakGold,font=\small] at (0.7,0.78)
+    {コンテンツ／インフラの整理と、通話まわりの技術判断};
+  \node[anchor=east,text=uspeakCream,font=\footnotesize] at (15.9,1.55) {U-Speak Lab};
+  \node[anchor=east,text=uspeakGold,font=\footnotesize] at (15.9,0.95) {2026-09-25};
+\end{tikzpicture}
+\end{center}
+
+\vspace{2pt}
+{\small\color{uspeakSoft}社内の検討メモです。教室さまへの配布は想定していません。}
+
+% ---- 1 -----------------------------------------------------------------------------
+\section{結論}
+
+\begin{verdict}{三行で}
+\begin{enumerate}[leftmargin=16pt,itemsep=3pt,topsep=2pt]
+  \item 「コンテンツは飽きられる、インフラは残る」— \textbf{前提は正しい}。
+  \item ただし\textbf{通話をインフラに選ぶのは筋が悪い}。コモディティで、使うほど赤字に近づく。
+  \item 持つべきインフラは\textbf{すでに手元にある}。学習記録・先生コンソール・英検の進捗の3つ。
+\end{enumerate}
+\end{verdict}
+
+% ---- 2 -----------------------------------------------------------------------------
+\section{なぜ通話ではないのか}
+
+\begin{tcolorbox}[enhanced,colback=uspeakPaper,colframe=uspeakRule,boxrule=0.6pt,arc=3pt]
+\begin{tabular}{@{}p{0.27\textwidth}p{0.66\textwidth}@{}}
+\textbf{コモディティ} & Zoom・Meet・Teams が無料で配っているものを自前で持っても差別化にならない \\
+\textbf{費用が逆向き} & 使うほど限界費用が伸びる。月200〜400円の定額と向きが逆
+  （だから \texttt{VOICE\_DAILY\_MINUTES\_PER\_STUDENT} に上限を置いた） \\
+\textbf{責任だけ負う} & 差別化しないのに、切れたら苦情は全部こちらに来る \\
+\end{tabular}
+\end{tcolorbox}
+
+\claim{通話は「持つインフラ」ではなく「借りる部品」。}
+
+% ---- 3 -----------------------------------------------------------------------------
+\section{言語化：コンテンツ的／インフラ的}
+
+\begin{center}
+\begin{tabular}{@{}p{0.45\textwidth}p{0.45\textwidth}@{}}
+\toprule
+\textbf{\color{uspeakCoral}コンテンツ的} & \textbf{\color{uspeakGreen}インフラ的} \\
+\midrule
+\textbf{System of Engagement} \newline 面白いから開く
+  & \textbf{System of Record} \newline 記録がここにしかない \\
+フロー型・消耗資産。遊ぶと減る
+  & ストック型。使うほど貯まる \\
+解約は生徒ひとりの気分で決まる
+  & 解約は教室の運用を組み直す決断になる \\
+指標は DAU・滞在時間
+  & 指標は\textbf{「授業の何％がここを通ったか」} \\
+JTBD：面白い教材がほしい
+  & JTBD：\textbf{授業を回したい・保護者に説明したい・英検に受からせたい} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{使える語彙}
+
+\begin{itemize}[leftmargin=16pt,itemsep=2pt,topsep=2pt]
+  \item \textbf{スイッチングコスト}（データ・運用・習熟・契約の4種）
+  \item \textbf{データグラビティ}（記録が溜まるほど動かせなくなる）
+  \item \textbf{NRR}（既存顧客だけで売上が伸びるか）
+  \item \textbf{マルチステークホルダー}（生徒・講師・保護者の3者が揃わないと解約できない）
+\end{itemize}
+
+\vspace{2pt}
+\claim{教材としての U-Speak は飽きられる。教室の学習記録と保護者への説明責任を預かる置き場所としての U-Speak は、飽きとは別の理由で使われ続ける。}
+
+% ---- 4 -----------------------------------------------------------------------------
+\section{すでに持っているインフラ}
+
+作り直しは要りません。以下はすべて実装済みです。
+
+\begin{center}
+\begin{tabular}{@{}p{0.03\textwidth}p{0.30\textwidth}p{0.59\textwidth}@{}}
+\toprule
+& \textbf{何} & \textbf{なぜ効くか} \\
+\midrule
+1 & 学習記録と保護者レポート
+  & サーバー側で確定し改ざんできない。3年分たまれば、これ自体が移行コスト \\
+2 & 先生コンソール
+  & クラスコード・名簿・英検の判定の厳しさ・チャット制御。授業がここを通る \\
+3 & 英検の進捗
+  & 外部の試験日に紐づく＝季節性のある再来訪理由 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{伸ばす順番}
+
+\begin{enumerate}[leftmargin=16pt,itemsep=3pt,topsep=2pt]
+  \item \textbf{保護者への月次配信。}解約を決めるのは保護者。毎月1通、勝手に価値の証拠が届く状態が
+        いちばん強い継続装置になる。
+  \item \textbf{年度をまたぐ継続。}進級しても記録が切れないこと。
+  \item \textbf{エクスポートできること。}逆説的だが、出せるほうが導入されやすく、実際には誰も出ていかない。
+\end{enumerate}
+
+% ---- 5 -----------------------------------------------------------------------------
+\section{Google Meet API について}
+
+\begin{caution}
+\textbf{今の使い方の代替にはなりません。}Meet の API は2つありますが、どちらも用途が違います。
+\begin{itemize}[leftmargin=16pt,itemsep=2pt,topsep=3pt]
+  \item \textbf{Meet REST API} — 会議の作成・記録・参加者の取得。
+        \textbf{映像を自分のページに埋め込む機能はありません。}
+  \item \textbf{Meet Add-ons SDK} — 逆向き。\textbf{自分のアプリを Meet の中に置く}もの。
+\end{itemize}
+\end{caution}
+
+U-Speak の通話は「建物に歩いて入った子どうしが自動でつながる」設計です。Meet にすると
+\textbf{別タブの会議}になり、島の中という前提が丸ごと消えます。それは安定化ではなく別物への置き換えです。
+
+さらに事業面でも噛み合いません。通話を Meet に出すと、\textbf{その通話を自社のインフラだと言えなくなります}。
+
+\subsection{安定させたいなら、効くのはこの2つ}
+
+現状 \texttt{client/dist/voice.js} の ICE は\textbf{Google の公開 STUN だけで、TURN がありません}。
+学校が UDP を塞いでいると P2P が張れない ― これが不安定さの正体である可能性が高いところです。
+
+\begin{center}
+\begin{tabular}{@{}p{0.26\textwidth}p{0.42\textwidth}p{0.26\textwidth}@{}}
+\toprule
+\textbf{手} & \textbf{効くこと} & \textbf{費用} \\
+\midrule
+TURN を足す \newline {\footnotesize（coturn を Fly に／Cloudflare 等）}
+  & UDP 遮断の学校で TCP/443 に逃げられる
+  & 中継した分の帯域のみ \\
+LiveKit を小部屋にも使う
+  & SFU が TCP/TLS 443 に落ちる。6人制限も外れる
+  & 参加者×分、または自前ホストの帯域 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+LiveKit は\textbf{すでに実装済み}で、いまは100人の大広間だけに使う設定です
+（\texttt{voiceKindOf} が7人以上のときだけ SFU を選ぶ）。全部屋に広げるのは
+\textbf{条件1行の変更とホスティングの用意}であって、作り直しではありません。
+
+\begin{verdict}{次に決めること}
+まず知りたいのは「本当に切れているのか、切れているとしてどの学校か」。
+\textbf{現場で実際に繋がらなかった事例}が1件あれば、TURN で足りるか LiveKit が要るか切り分けられます。
+まだ推測の段階なら、\textbf{TURN のほうが安く早い}ので先にそちらを試す順序を勧めます。
+\end{verdict}
+
+\vfill
+{\footnotesize\color{uspeakSoft}
+合同会社 U-Speak Lab ／ 社内検討メモ ／ 2026-09-25 作成。
+技術的な現状は本番 \texttt{uspeak-multiplayer} の当日時点のコードに基づく。}
+
+\end{document}
