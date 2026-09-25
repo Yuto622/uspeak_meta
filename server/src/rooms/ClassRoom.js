@@ -44,7 +44,7 @@ import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeft
 import { SKILLS, blankSkills, sanitizeSkills, addAnswer, radarOf, weakestOf, FULL as SKILL_FULL } from '../game/skills.js';
 import { WARDROBE, shopPayload, priceOf, wear as wearItem, sanitizeOwned as sanitizeWardrobe, sanitizeWorn, WardrobeError } from '../game/wardrobe.js';
 import { createGate } from '../game/gate.js';
-import { reportPath } from '../game/report.js';
+import { reportPath, exportPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
@@ -126,7 +126,14 @@ export class ClassRoom extends Room {
     this.onMessage('economy', (client, msg) => this.onEconomy(client, msg));
     this.onMessage('progress', (client, msg) => this.onProgress(client, msg));
     this.onMessage('chat', (client, msg) => this.onChat(client, msg));
-    this.onMessage('teacher', (client, msg) => this.onTeacher(client, msg));
+    this.onMessage('teacher', (client, msg) => {
+      // **投げっぱなしにしない。** `carryover` は保存を読み書きするので失敗しうる。
+      // 捕まえないと unhandled rejection になり、授業中のクラス全員が切れる。
+      this.onTeacher(client, msg).catch((err) => {
+        log.warn(`[room ${this.roomId}] teacher command failed:`, err?.message || err);
+        try { client.send('teacher:ack', { cmd: msg?.cmd || '', ok: false, error: 'server error' }); } catch { /* 切れている */ }
+      });
+    });
     this.onMessage('mission:start', (client, msg) => this.onMissionStart(client, msg));
     this.onMessage('mission:arrive', (client) => this.onMissionArrive(client));
     this.onMessage('mission:say', (client, msg) => this.onMissionSay(client, msg));
@@ -500,7 +507,8 @@ export class ClassRoom extends Room {
     return out.text;
   }
 
-  onTeacher(client, msg) {
+  // `carryover` だけが保存を読みに行くので async。ほかのコマンドはその場で終わる。
+  async onTeacher(client, msg) {
     const me = this.state.players.get(client.sessionId);
     if (!me || me.role !== 'teacher' || !msg || typeof msg !== 'object') return;
     const cmd = msg.cmd;
@@ -627,7 +635,45 @@ export class ClassRoom extends Room {
         for (const record of stored) if (record?.name && record.role !== 'teacher') names.add(record.name);
         const base = config.publicServerUrl.replace(/^ws/, 'http').replace(/\/$/, '');
         const links = [...names].sort().map((name) => ({ name, url: base + reportPath(config.reportSecret, this.classCode, name) }));
-        client.send('teacher:ack', { cmd, ok: true, links });
+        // クラスぜんぶを1枚の CSV に落とすリンクも一緒に返す。**教室が自分の記録を
+        // いつでも持ち出せる**ことを、探さずに見えるところに置いておく。
+        client.send('teacher:ack', { cmd, ok: true, links, csv: base + exportPath(config.reportSecret, this.classCode) });
+        return;
+      }
+      case 'carryover': {
+        // **年度またぎ。** 記録は `クラス|なまえ` で引いているので、4月にクラス名が
+        // 変わると、その子は0から始まってしまう。3年つづけた子の3年分が消えるのは、
+        // このサービスがいちばん失ってはいけないもの。
+        //
+        // 先生は**新しいクラスに入った状態で**、前のクラス名を指定して引き継ぐ。
+        // - **上書きはしない。** 新しいクラスで既に遊んでいる子は、混ぜかたが一意に
+        //   決まらないので飛ばす（どちらが正しいかを機械が決めてはいけない）。
+        // - **前の記録は消さない。** 取り消せるようにしておく。
+        // - **前のレポートのリンクは生かす。** 保護者に配ったURLは変えられないので、
+        //   前の記録に「引っ越し先」を書いて、そちらを見せる（index.js の /report）。
+        const from = typeof msg.from === 'string' ? msg.from.trim() : '';
+        const names = Array.isArray(msg.names) ? msg.names.map((n) => String(n ?? '').trim()).filter(Boolean).slice(0, 200) : [];
+        if (!from || from === this.classCode) { client.send('teacher:ack', { cmd, ok: false, error: 'from must be another class' }); return; }
+        if (!names.length) { client.send('teacher:ack', { cmd, ok: false, error: 'no names' }); return; }
+        const moved = []; const skipped = [];
+        for (const name of names) {
+          let old = null; let here = null;
+          try {
+            old = await this.store.loadPlayer(from, name);
+            here = await this.store.loadPlayer(this.classCode, name);
+          } catch (err) { skipped.push({ name, why: 'could not read' }); continue; }
+          if (!old) { skipped.push({ name, why: 'not in the old class' }); continue; }
+          if (here) { skipped.push({ name, why: 'already played in this class' }); continue; }
+          // いま部屋にいる子は、置いたそばから上書きされてしまう。降りてから。
+          if ([...this.priv.values()].some((p) => p.name === name)) { skipped.push({ name, why: 'is online right now' }); continue; }
+          try {
+            await this.store.savePlayer({ ...old, class: this.classCode, name, moved_from: from, updated_at: new Date().toISOString() });
+            await this.store.savePlayer({ ...old, moved_to: this.classCode, updated_at: new Date().toISOString() });
+            moved.push(name);
+          } catch (err) { skipped.push({ name, why: 'could not write' }); }
+        }
+        client.send('teacher:ack', { cmd, ok: true, from, to: this.classCode, moved, skipped });
+        log.info(`[room ${this.roomId}] carried over ${moved.length} from ${from} (skipped ${skipped.length})`);
         return;
       }
       case 'register': {

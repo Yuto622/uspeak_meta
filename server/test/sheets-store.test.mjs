@@ -107,3 +107,39 @@ test('existing rows are loaded into the cache at init', async () => {
   await store.flush();
   assert.equal(api.sheets.get(SHEETS.players)[1][2], 43);
 });
+
+// **保存しているのに列に無いフィールドは、Sheets 版で黙って消える。**
+// `recordToRow` は列の名前で引くので、`savePlayer({ ... })` に書いただけでは足りない。
+// 実際に `months_json` をこれで落としかけた（ファイル保存では動くので気づかない）。
+test('ClassRoom が保存する項目は、ぜんぶ PLAYER_COLUMNS にある', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const src = readFileSync(fileURLToPath(new URL('../src/rooms/ClassRoom.js', import.meta.url)), 'utf8');
+  // `this.store.savePlayer({` から、対応する `});` までを切り出す。
+  const MARK = 'class: this.classCode, name: priv.name,';
+  const mark = src.indexOf(MARK);
+  assert.ok(mark > 0, 'persist() の savePlayer が見つからない（中身が変わった？）');
+  const open = src.lastIndexOf('this.store.savePlayer({', mark);
+  assert.ok(open > 0, 'savePlayer の呼び出しが見つからない（名前が変わった？）');
+  // **括弧を数えて終わりを見つける。** 「`\n    });` まで」のような目印にすると、
+  // 関係のないところの字下げが変わっただけで別の場所まで飲み込む（実際にそうなった）。
+  const start = src.indexOf('{', open);
+  let depth = 0; let end = start;
+  for (let i = start; i < src.length; i += 1) {
+    if (src[i] === '{') depth += 1;
+    else if (src[i] === '}') { depth -= 1; if (depth === 0) { end = i; break; } }
+  }
+  assert.ok(end > start, 'savePlayer に渡すオブジェクトの終わりが見つからない');
+  const body = src.slice(start, end);
+  // いちばん外側の `key:` だけを拾う（入れ子のオブジェクトの中身は列ではない）。
+  const keys = [];
+  let level = 0;
+  for (const line of body.split('\n')) {
+    const m = level === 1 ? line.match(/^\s*([a-z_]+):/) : null;
+    if (m) keys.push(m[1]);
+    for (const ch of line) { if (ch === '{') level += 1; else if (ch === '}') level -= 1; }
+  }
+  assert.ok(keys.length > 20, `拾えた項目が少なすぎる（${keys.length}）。切り出しが壊れている`);
+  const missing = [...new Set(keys)].filter((k) => !PLAYER_COLUMNS.includes(k));
+  assert.deepEqual(missing, [], `PLAYER_COLUMNS に足りない: ${missing.join(', ')}`);
+});

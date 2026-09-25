@@ -101,10 +101,10 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
 
   // One link per child, each signed for that child alone. They are shown rather than
   // sent anywhere: the teacher decides who gets which.
-  function showLinks(links) {
+  function showLinks(links, csv = '') {
     const box = $('#net-t-links');
-    box.hidden = !links.length;
-    if (!links.length) { toast('レポートはまだありません。'); return; }
+    box.hidden = !links.length && !csv;
+    if (!links.length && !csv) { toast('レポートはまだありません。'); return; }
     // The server sends a path when it does not know its own public address (a tunnel,
     // a laptop, a school's own box). The page is being served from that address, so it
     // is the one thing here that always knows it.
@@ -113,7 +113,10 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     // which is what the report page's own button does. A teacher printing a set for
     // parents' evening should not have to open twelve pages first.
     const pdf = (u) => full(u) + (u.includes('?') ? '&' : '?') + 'format=pdf';
-    box.innerHTML = `<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(full(l.url))}"><button type="button" data-copy="${esc(full(l.url))}">コピー</button><a class="net-t-pdf" href="${esc(pdf(l.url))}" target="_blank" rel="noopener" title="デザインされた PDF をひらく">📄</a></div>`).join('')}`;
+    // クラスぜんぶの CSV。**教室の記録は教室のもの**なので、探さなくても目に入る
+    // ところに置く（いつでも持ち出せることが分かっているほうが、安心して使える）。
+    const sheet = csv ? `<div class="net-t-link"><b>クラス ぜんぶ</b><a class="net-t-csv" href="${esc(full(csv))}" download>⬇ CSV でダウンロード</a></div>` : '';
+    box.innerHTML = `${sheet}<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(full(l.url))}"><button type="button" data-copy="${esc(full(l.url))}">コピー</button><a class="net-t-pdf" href="${esc(pdf(l.url))}" target="_blank" rel="noopener" title="デザインされた PDF をひらく">📄</a></div>`).join('')}`;
     box.querySelectorAll('[data-copy]').forEach((b) => {
       b.onclick = async () => {
         try { await navigator.clipboard.writeText(b.dataset.copy); toast('リンクをコピーしました。'); }
@@ -159,11 +162,23 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
         }[eikenLevel]);
         if (open) renderRoster();
       }
+      else if (m.cmd === 'carryover') {
+        const moved = (m.moved || []).length;
+        const skipped = m.skipped || [];
+        toast(moved
+          ? `${moved} 人の記録を ${m.from} から 引き継ぎました。${skipped.length ? `（${skipped.length} 人は そのまま）` : ''}`
+          : '引き継げる記録が ありませんでした。');
+        if (skipped.length) {
+          const why = { 'not in the old class': '前のクラスに いません', 'already played in this class': 'もう このクラスで あそんでいます',
+            'is online right now': 'いま つないでいます（降りてから）', 'could not read': '読めませんでした', 'could not write': '書けませんでした' };
+          console.info('[carryover] 引き継がなかった子:', skipped.map((x) => `${x.name}（${why[x.why] || x.why}）`).join(' / '));
+        }
+      }
       else if (m.cmd === 'mission') { missionId = m.id || ''; toast(m.id ? '今日のおつかいを設定しました。' : 'おつかいの指定を解除しました。'); }
       else if (m.cmd === 'call') toast('生徒を呼び出しました。');
       else if (m.cmd === 'move') toast('生徒をここへ移動させました。');
       else if (m.cmd === 'register') toast('めいぼを読み直しました。');
-      else if (m.cmd === 'reports') showLinks(m.links || []);
+      else if (m.cmd === 'reports') showLinks(m.links || [], m.csv || '');
     },
     setChatPaused(v) { chatPaused = v; if (open) renderRoster(); },
     setFree(v) { freeChat = v !== false; if (open) renderRoster(); },

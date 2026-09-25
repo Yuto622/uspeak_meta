@@ -75,6 +75,53 @@ export function verifyReport(secret, classCode, name, token) {
   return want.length === got.length && timingSafeEqual(want, got);
 }
 
+// クラスぜんぶを1枚の CSV にする口。**子ども1人ぶんの署名とは別の文字を混ぜる**ので、
+// 1人ぶんのリンクをクラス全員ぶんに読み替えることはできない。
+export function signExport(secret, classCode) {
+  return createHmac('sha256', secret).update(`export|${classCode}`).digest('base64url').slice(0, 24);
+}
+
+export function verifyExport(secret, classCode, token) {
+  const want = Buffer.from(signExport(secret, classCode));
+  const got = Buffer.from(String(token || ''));
+  return want.length === got.length && timingSafeEqual(want, got);
+}
+
+export const exportPath = (secret, classCode) =>
+  `/export/${encodeURIComponent(classCode)}.csv?t=${signExport(secret, classCode)}`;
+
+// 教室が自分の記録を持ち出すための CSV。**出せるほうが導入されやすく、実際には誰も
+// 出ていかない。** 「うちの記録なのに取り出せない」と思わせないことのほうが大事。
+//
+// Excel の日本語版は UTF-8 の CSV を Shift_JIS だと思って開く（名前が化ける）ので、
+// **先頭に BOM を付ける**。付けるだけで Excel・Numbers・Google スプレッドシートの
+// どれでも読める。
+export function classCsv(records, { now = Date.now() } = {}) {
+  const head = ['なまえ', 'レベル', '累計XP', '正解', '挑戦', '正答率', 'コイン',
+    '学習時間(分)', '学習日数', 'さいごにあそんだ日',
+    '今月きた日', '今月の問題', '今月の正解', '今月の時間(分)'];
+  const cell = (v) => {
+    const t = String(v ?? '');
+    return /["\r\n,]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t;
+  };
+  const rows = records
+    // **引っ越した記録は出さない**（`moved_to` のある行は新しいクラスに同じ子がいる）。
+    .filter((r) => r && r.name && r.role !== 'teacher' && !r.moved_to)
+    .map((record) => ({ record, r: reportFor(record, { now }) }))
+    .sort((a, b) => (a.r.name < b.r.name ? -1 : 1))
+    .map(({ record, r }) => {
+      const m = (r.months || []).find((x) => x.current) || null;
+      const minutes = Math.round((Number(record.study_ms) || 0) / 60000);
+      return [r.name, r.level, r.totalXp, r.correct, r.attempts,
+        r.accuracy === null ? '' : `${r.accuracy}%`, r.coins,
+        minutes, Math.max(0, Math.floor(Number(record.study_days) || 0)),
+        r.lastSeen ? new Date(r.lastSeen).toISOString().slice(0, 10) : '',
+        m ? m.days : 0, m ? m.answers : 0, m ? m.correct : 0, m ? m.minutes : 0];
+    });
+  // BOM + CRLF。Excel はこの2つが揃っていると素直に開く。
+  return '\ufeff' + [head, ...rows].map((r) => r.map(cell).join(',')).join('\r\n') + '\r\n';
+}
+
 export const reportPath = (secret, classCode, name) =>
   `/report/${encodeURIComponent(classCode)}/${encodeURIComponent(name)}?t=${signReport(secret, classCode, name)}`;
 

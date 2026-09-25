@@ -9,7 +9,7 @@ import { config, validateConfig } from './config.js';
 import { createStore } from './store/index.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
-import { reportFor, reportHtml, reportNoLatexHtml, verifyReport } from './game/report.js';
+import { reportFor, reportHtml, reportNoLatexHtml, verifyReport, verifyExport, classCsv } from './game/report.js';
 import { reportTex } from './game/report-tex.js';
 import { texToPdf, latexAvailable, LatexError } from './game/latex.js';
 import { log } from './log.js';
@@ -91,6 +91,26 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // REPORT_SECRET the route is not mounted at all — a guessable link would show one
   // family another family's child.
   if (config.reportSecret) {
+    // クラスぜんぶを1枚の CSV に。**教室が自分の記録を持ち出せること**が、この口の
+    // 目的そのもの。出せるほうが導入されやすく、実際には誰も出ていかない。
+    // 署名は1人ぶんのリンクとは別（`export|<クラス>`）なので、子どものリンクを
+    // クラス全員ぶんに読み替えることはできない。
+    app.get('/export/:classCode.csv', async (req, res) => {
+      const classCode = req.params.classCode;
+      res.set('Cache-Control', 'no-store');
+      res.set('Referrer-Policy', 'no-referrer');
+      res.set('X-Robots-Tag', 'noindex, nofollow');
+      if (!verifyExport(config.reportSecret, classCode, req.query.t)) {
+        res.status(404).type('text/plain; charset=utf-8').send('見つかりません。先生コンソールからリンクを取り直してください。');
+        return;
+      }
+      let records = [];
+      try { records = store.listClass?.(classCode) || []; } catch (err) { log.warn('[export] listClass failed:', err.message); }
+      const file = `uspeak-${classCode}-${new Date().toISOString().slice(0, 10)}.csv`.replace(/[^\w.-]+/g, '_');
+      res.type('text/csv; charset=utf-8').set('Content-Disposition', `attachment; filename="${file}"`);
+      res.send(classCsv(records));
+    });
+
     app.get('/report/:classCode/:name', async (req, res) => {
       const { classCode, name } = req.params;
       res.set('Cache-Control', 'no-store');
@@ -103,6 +123,16 @@ export async function startServer({ port = config.port, storeOverride = null } =
       }
       let record = null;
       try { record = await store.loadPlayer(classCode, name); } catch (err) { log.warn('[report] loadPlayer failed:', err.message); }
+      // **年度またぎ。** 4月にクラスが変わると記録は新しいクラスの下へ移るが、
+      // 保護者に配ったリンクは去年のまま（署名がクラス名を含むので発行し直せない）。
+      // 引っ越し先が書いてあれば、そちらを読んで見せる。**去年配った紙が、来年も動く。**
+      // 追いかけるのは1回だけ（表が壊れて輪になっても止まる）。
+      if (record?.moved_to) {
+        try {
+          const next = await store.loadPlayer(record.moved_to, name);
+          if (next && !next.moved_to) record = next;
+        } catch (err) { log.warn('[report] could not follow moved_to:', err.message); }
+      }
       if (!record) {
         res.status(404).type('text/plain; charset=utf-8').send('まだ記録がありません。一度あそんでから、もう一度ひらいてください。');
         return;

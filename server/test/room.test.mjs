@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 
 process.env.STORE_BACKEND = 'memory';
 process.env.TEACHER_KEY = 'testkey12345';
+process.env.REPORT_SECRET = 'test-report-secret-0123456789';
 process.env.RECONNECT_GRACE_SEC = '5';
 process.env.ANSWER_MIN_INTERVAL_MS = '0';
 process.env.CHAT_MIN_INTERVAL_MS = '0';
@@ -1336,6 +1337,61 @@ test('英検の はんていの きびしさ: 先生だけが 決められて、
   assert.equal(t.room.state.eikenLevel, 'easy');
 
   await a.room.leave(); await t.room.leave();
+  await sleep(100);
+});
+
+test('年度またぎ: 先生だけが引き継げて、上書きはしない', async () => {
+  // 去年のクラスで遊んだ子を作る。
+  const last = await join('Nao', { classCode: 'y2026' });
+  last.room.send('answer', { q: 'lesson:0:0', c: 0 });
+  await sleep(300);
+  await last.room.leave();
+  await sleep(200);
+
+  // **両方のクラスで遊んでいる子。** 混ぜかたが一意に決まらないので、上書きしてはいけない。
+  const both = await join('Ken', { classCode: 'y2026' });
+  both.room.send('answer', { q: 'lesson:0:0', c: 0 });
+  await sleep(300);
+  await both.room.leave();
+  await sleep(200);
+  const bothNew = await join('Ken', { classCode: 'y2027' });
+  bothNew.room.send('answer', { q: 'lesson:0:1', c: 0 });
+  await sleep(300);
+  await bothNew.room.leave();
+  await sleep(200);
+
+  // 新しいクラスに、先生と、別の子。
+  const t = await join('SenseiY', { classCode: 'y2027', teacherKey: 'testkey12345' });
+  const busy = await join('Yui', { classCode: 'y2027' });
+  await sleep(200);
+
+  // **子どもは引き継げない。** 講師キーの無い 'teacher' は入口で捨てられる。
+  busy.room.send('teacher', { cmd: 'carryover', from: 'y2026', names: ['Nao'] });
+  await sleep(300);
+
+  // 先生が引き継ぐ。**いない子と、もう新しいクラスで遊んだ子は飛ばす。**
+  t.room.send('teacher', { cmd: 'carryover', from: 'y2026', names: ['Nao', 'Ken', 'Dareka'] });
+  const ack = await nextMessage(t.room, 'teacher:ack');
+  assert.equal(ack.ok, true);
+  assert.deepEqual(ack.moved, ['Nao']);
+  const why = Object.fromEntries(ack.skipped.map((x) => [x.name, x.why]));
+  assert.equal(why.Ken, 'already played in this class', '**上書きしない** — どちらが正しいかを機械が決めてはいけない');
+  assert.equal(why.Dareka, 'not in the old class');
+
+  // 自分のクラスからは引き継げない（無限に自分を複製できてしまう）。
+  t.room.send('teacher', { cmd: 'carryover', from: 'y2027', names: ['Nao'] });
+  assert.equal((await nextMessage(t.room, 'teacher:ack')).error, 'from must be another class');
+
+  // 引き継いだ子が新しいクラスで遊ぶと、**去年の続きから**。
+  const back = await join('Nao', { classCode: 'y2027' });
+  assert.ok(back.welcome.progress.xp > 0 || back.welcome.wallet.coins > 100, '記録が引き継がれている');
+
+  // クラスぜんぶの CSV のリンクも返ってくる。
+  t.room.send('teacher', { cmd: 'reports' });
+  const reports = await nextMessage(t.room, 'teacher:ack');
+  assert.ok(String(reports.csv || '').includes('/export/y2027.csv'), reports.csv);
+
+  await back.room.leave(); await busy.room.leave(); await t.room.leave();
   await sleep(100);
 });
 
