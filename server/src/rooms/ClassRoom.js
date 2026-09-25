@@ -20,7 +20,7 @@ import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
 // 月ごとの学習記録。**答えた瞬間にその月の箱へ1つ足す**（学習ログは追記専用で
 // 読み返せないので、月末に数え直すことができない）。詳しくは game/months.js の頭。
-import { sanitizeMonths, bump as bumpMonth } from '../game/months.js';
+import { sanitizeMonths, bump as bumpMonth, recentMonths } from '../game/months.js';
 import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, INTERVIEW_ROOM, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError, LEVELS as EIKEN_LEVELS, levelOf as eikenLevelOf } from '../game/eiken.js';
 import {
   startInterview, interviewStep, interviewPayload, interviewResult, scriptedLine,
@@ -903,6 +903,11 @@ export class ClassRoom extends Room {
       ],
       accuracy: answers ? Math.round((priv.stats.correct / answers) * 100) : null,
       attempts: answers,
+      // 今月のまとめ。**保護者レポートとまったく同じ数字**（同じ `recentMonths()` から
+      // 出している）ので、家で見た数字と自分の画面が食い違うことがない。
+      // 子どもにとっての意味は累計とは別で、累計は増えるいっぽうだが、今月は
+      // **毎月0から始まる**。今日やれば今日増えるのが見えるのは、こちらのほう。
+      months: recentMonths(priv.months, 4),
     });
   }
 

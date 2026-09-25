@@ -106,6 +106,29 @@ export function createDashboard({ send, isOnline, toast }) {
         <b>${(c.value || 0).toLocaleString()}<span>${esc(c.unit)}</span></b>
         <em>✧ +1 まで あと ${c.toNext}${esc(c.unit)}</em>
       </div>`).join('');
+    // 今月のまとめ。**累計は増えるいっぽうだが、今月は毎月0から始まる。**
+    // 「今日やれば今日増える」が見えるのはこちらで、7歳にはそれがぜんぶ。
+    // 数字はサーバーが数えたもの（保護者レポートとまったく同じ `months`）。
+    const months = Array.isArray(m.months) ? m.months : [];
+    const now = months.find((x) => x.current);
+    const before = months.find((x) => !x.current);
+    // 先月とくらべる。**減っていても出す**（増えた月だけ褒めると、その月しか見なくなる）。
+    const vs = now && before && before.days
+      ? (now.days > before.days ? `先月より <b>${now.days - before.days}日</b> おおい`
+        : now.days === before.days ? '先月と おなじ ペース'
+          : `先月は ${before.days}日 きたよ`)
+      : '';
+    const month = now ? `
+      <section class="dash-month">
+        <div class="dash-month-head"><h3>${esc(now.label)}</h3>${vs ? `<small>${vs}</small>` : ''}</div>
+        <ul>
+          <li><span>きた日</span><b>${now.days}<em>日</em></b></li>
+          <li><span>もんだい</span><b>${now.answers}<em>問</em></b></li>
+          ${now.accuracy === null ? '' : `<li><span>せいかい</span><b>${now.accuracy}<em>%</em></b></li>`}
+          <li><span>じかん</span><b>${now.minutes}<em>分</em></b></li>
+        </ul>
+      </section>` : '';
+
     // What to go and do next. A chart a child cannot act on is a chart they look at once.
     const weak = m.weakest && m.weakest.attempts < (m.full || 60)
       ? `<p class="dash-next">つぎは <b>${esc(m.weakest.ja)}</b> を やってみよう。<small>${esc(m.weakest.en)} の れんしゅうが いちばん すくないよ。</small></p>`
@@ -115,6 +138,7 @@ export function createDashboard({ send, isOnline, toast }) {
         <div class="dash-level-row"><span>レベル <b>${p.level}</b></span><small>つぎのレベルまで ${Math.max(0, (p.need || 0) - (p.xp || 0))} XP</small></div>
         <div class="dash-bar"><i style="width:${pct}%"></i></div>
       </div>
+      ${month}
       <div class="dash-cards">${cards}</div>
       <section class="dash-radar">
         <div class="dash-radar-head">

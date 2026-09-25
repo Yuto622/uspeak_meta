@@ -31,6 +31,21 @@
 .dash-bar { height: 7px; margin-top: 7px; border-radius: 6px; background: #dfe4d2; overflow: hidden; }
 .dash-bar i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #74b083, #4d8a5d); transition: width .6s ease; }
 
+/* --- 今月のまとめ --------------------------------------------------------------------------
+ * 累計（下の3つ）より**先に、濃い色で**置く。累計は増えるいっぽうで、毎日見ても
+ * ほとんど動かない。今月は毎月0から始まるので、今日やった分がその日に見える。
+ * 数字は保護者レポートとまったく同じもの（家の紙と自分の画面が食い違わない）。 */
+.dash-month { margin: 16px 0 4px; padding: 14px 16px; border-radius: 16px; background: #22402f; color: #f2f4e8; }
+.dash-month-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.dash-month h3 { margin: 0; font-size: 15px; letter-spacing: .5px; }
+.dash-month-head small { font-size: 11px; color: #b9cdb4; }
+.dash-month-head small b { color: #ffd98a; font-weight: 700; }
+.dash-month ul { list-style: none; margin: 10px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(74px, 1fr)); gap: 9px; }
+.dash-month li span { display: block; font-size: 11px; color: #a9c3a6; line-height: 1.4; }
+.dash-month li b { font-size: 21px; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.dash-month li b em { font-size: 11px; font-style: normal; font-weight: 600; margin-left: 1px; color: #b9cdb4; }
+
 /* --- the three counters ----------------------------------------------------------------- */
 .dash-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 16px 0 4px; }
 .dash-card {
