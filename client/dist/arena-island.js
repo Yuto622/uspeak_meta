@@ -33,7 +33,7 @@ export function createArenaIsland({ scene }) {
       }
       for (const sx of [-2.8, 2.8]) B(yard.x + sx, 3.2, yard.z, 0.4, 6, 0.4, 0x7a6448);
       B(yard.x, 6.4, yard.z, 6.8, 0.5, 0.5, 0x9a6ba0);
-      sprite(`${data.name} · ${data.en}`, yard.x, 5.5, yard.z, { width: 11, size: 30 });
+      sprite({ en: data.en, ja: data.name }, yard.x, 5.5, yard.z, { width: 11, size: 30 });
 
       // Tiered seating down both sides of the ring, so a fight has somewhere to be
       // watched from, with banners on poles above it.
@@ -67,10 +67,10 @@ export function createArenaIsland({ scene }) {
 
       for (const def of data.spots) {
         if (def.kind === 'pvp' || def.kind === 'dojo') {
-          house(def.x, def.z - 5.6, 11, 8, Number(def.color), def.kind === 'dojo' ? 0x4a7a6a : 0x6a4a7a, `${def.tone} ${def.name}`);
+          house(def.x, def.z - 5.6, 11, 8, Number(def.color), def.kind === 'dojo' ? 0x4a7a6a : 0x6a4a7a, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
           door(def, 5.6, 8);
         } else {
-          house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
+          house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
           door(def);
         }
         path(def.path.x, def.path.z, def.x, def.z);

@@ -66,7 +66,13 @@ function mark() {
 
 function announce() { dom()?.dispatchEvent?.(new CustomEvent(EVENT, { detail: { lang } })); }
 
-export function onLangChange(fn) { dom()?.addEventListener?.(EVENT, fn); }
+// 「あ」が押されたときに呼ばれる。**やめかたを返す**（同じ聞き役を何度も足すところが
+// あるため — 同梱ゲームは開くたびに `settle()` が走り、前の iframe はもう死んでいる）。
+export function onLangChange(fn) {
+  const d = dom();
+  d?.addEventListener?.(EVENT, fn);
+  return () => d?.removeEventListener?.(EVENT, fn);
+}
 
 export function setLang(next) {
   const want = next === 'ja' ? 'ja' : 'en';

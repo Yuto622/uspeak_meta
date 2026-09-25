@@ -34,7 +34,7 @@ export function createWardrobeIsland({ scene }) {
       B(yard.x, 0.2, yard.z, 10, 0.14, 9, 0xefe6cd);
       B(yard.x, 0.3, yard.z, 5.4, 0.16, 5.4, 0xd9c9e2);
       B(yard.x, 0.4, yard.z, 4.2, 0.14, 4.2, 0xe7dcee);
-      sprite(`${data.name} · きて みよう`, yard.x, 4.6, yard.z, { width: 10, size: 30 });
+      sprite({ en: `${data.en} · try it on`, ja: `${data.name} · きて みよう` }, yard.x, 4.6, yard.z, { width: 10, size: 30 });
       // Bunting over the square, because a shopping street reads as one from the water.
       bunting(yard.x - 7, yard.z - 5, yard.x + 7, yard.z - 5, 3.6);
       bunting(yard.x - 7, yard.z + 6, yard.x + 7, yard.z + 6, 3.6);
@@ -88,7 +88,7 @@ export function createWardrobeIsland({ scene }) {
       // The four shops. Each one is painted its own colour and wears its own sign, so a
       // child reads the island instead of a menu.
       for (const def of data.spots) {
-        house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
+        house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
         door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xe6dcc0);

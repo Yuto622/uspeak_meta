@@ -90,7 +90,7 @@ export function createEikenIsland({ scene, id }) {
       D(2.6, 10.1, gz, 1.6, 1.6, 0.8, t.accent, 0.6);          // 級, as a seal beside it
       D(0, 8.6, gz, 12, 0.4, 0.5, t.beam);
       D(0, 14.4, gz, 4.4, 0.5, 1.2, t.roof);
-      sprite(`${data.badge} ${data.name}`, 0, 16.4, gz, { width: 13, size: 34 });
+      sprite({ en: `${data.badge} ${data.en}`, ja: `${data.badge} ${data.name}` }, 0, 16.4, gz, { width: 13, size: 34 });
 
       // ---- the courtyard --------------------------------------------------------------
       // Four quarters, one per skill, in the colours of the four halls: the island tells
@@ -125,7 +125,7 @@ export function createEikenIsland({ scene, id }) {
       for (const def of data.spots.filter((sp) => sp.skill)) {
         const colour = Number(def.color);
         const wide = def.skill === 'speaking' || def.skill === 'listening';
-        house(def.x, def.z - 4.6, wide ? 10 : 8.6, 6.4, colour, t.roof, `${def.tone} ${def.name}`);
+        house(def.x, def.z - 4.6, wide ? 10 : 8.6, 6.4, colour, t.roof, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
         door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6.6, 0.16, 6.6, shade(t.stone, 0.05));
@@ -237,7 +237,7 @@ function interviewRoom(kit, t, def) {
   const DEPTH = 5.0;
 
   // A short, shallow building: a waiting bench outside, one door, one room.
-  house(def.x, def.z - BACKSET, 9, DEPTH, colour, t.roof, `${def.tone} ${def.name}`);
+  house(def.x, def.z - BACKSET, 9, DEPTH, colour, t.roof, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
   door(def, BACKSET, DEPTH);
 
   // The approach. The declared path is the last few paces from the plaza, and two legs

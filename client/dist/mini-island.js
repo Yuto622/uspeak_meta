@@ -34,7 +34,7 @@ export function createMiniIsland({ scene }) {
       B(yard.x, 0.3, yard.z, 5.2, 0.16, 5.2, 0xd9cfe6);
       bunting(yard.x - 8, yard.z - 4.5, yard.x + 8, yard.z - 4.5, 3.6);
       bunting(yard.x - 8, yard.z + 5.5, yard.x + 8, yard.z + 5.5, 3.6);
-      sprite(`${data.name} · ${data.en}`, yard.x, 4.6, yard.z, { width: 11, size: 30 });
+      sprite({ en: data.en, ja: data.name }, yard.x, 4.6, yard.z, { width: 11, size: 30 });
 
       // The landmark: a cabinet the size of a shed, with a lit screen facing the landing.
       // An island of games should look like one from the water.
@@ -63,7 +63,7 @@ export function createMiniIsland({ scene }) {
       // The two houses. Each is painted its game's colour and wears its game's name, and
       // the name over the door is the only menu on this island.
       for (const def of data.spots) {
-        house(def.x, def.z - 4.6, 9, 6.4, Number(def.color), 0x6f5b3e, `${def.tone} ${def.name}`);
+        house(def.x, def.z - 4.6, 9, 6.4, Number(def.color), 0x6f5b3e, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
         door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xe6dcc0);

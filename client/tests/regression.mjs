@@ -242,6 +242,23 @@
     }
   }
 
+  // 5. **島の看板は canvas に焼いた絵**で、CSS も辞書も効かない。日本語を そのまま
+  //    渡すと、「あ」を押しても その札だけ日本語のまま残る（**島の名前を英語にしたのに
+  //    広場の看板だけ日本語だった**のを実際にやった）。`{en, ja}` の組で渡すこと。
+  {
+    const JA_TEXT = /[ぁ-んァ-ヶ一-龠]/;
+    for (const [name, src] of sources) {
+      if (!/-island\.js$|island-kit\.js$/.test(name)) continue;
+      for (const m of src.matchAll(/\b(?:sprite|house)\(([^\n]*)$/gm)) {
+        const arg = m[1];
+        if (!JA_TEXT.test(arg)) continue;
+        if (/\ben:\s/.test(arg)) continue;         // {en, ja} で渡してある
+        if (/^\s*\/\//.test(arg)) continue;
+        bad.push(`${name} の看板に日本語を そのまま渡している（{en, ja} で渡すこと）: ${arg.trim().slice(0, 60)}`);
+      }
+    }
+  }
+
   if (bad.length) { console.error('FAIL: ' + bad.slice(0, 8).join('\n  ')); process.exit(1); }
   console.log(`PASS: 画面の言語 — ${sources.length}ファイルの印 ${new Set(marks.map((m) => m[1])).size}件が ぜんぶ辞書にあり、辞書 ${Object.keys(words).length}件に訳し忘れも もんだい文も無い。`);
 }

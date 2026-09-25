@@ -115,7 +115,7 @@ export function createConvIsland({ scene }) {
       D(0, 7.5, gz, 14.2, 1.2, 1.4, T.stone);
       D(0, 8.3, gz, 14.8, 0.5, 1.8, shade(T.stone, -0.14));
       bubble(kit, 0, 11.6, gz, 0xfff6e2);
-      sprite(`${data.name} · ${data.en}`, 0, 15.4, gz, { width: 15, size: 34 });
+      sprite({ en: data.en, ja: data.name }, 0, 15.4, gz, { width: 15, size: 34 });
 
       // ---- the square --------------------------------------------------------------------
       // Flat, and deliberately empty in the middle: the two lanes to the front houses run
@@ -139,7 +139,7 @@ export function createConvIsland({ scene }) {
       // ---- the four houses ----------------------------------------------------------------
       for (const def of spots) {
         const colour = Number(def.color);
-        house(def.x, def.z - 4.6, 9.2, 6.4, colour, T.roof, `${def.tone} ${def.name}`);
+        house(def.x, def.z - 4.6, 9.2, 6.4, colour, T.roof, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
         door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6.8, 0.16, 6.8, shade(T.stone, 0.04));
@@ -152,8 +152,8 @@ export function createConvIsland({ scene }) {
         talkSeat(kit, def.x + Math.sign(def.x) * 4.8, def.z + 0.6, colour);
         dressHouse(kit, def);
         resident(def);
-        // What this house is for, on a board by the door, in Japanese.
-        sprite(def.ja, def.x, 2.2, def.z + 3.4, { width: 7.5, size: 30, background: '#2e5d63' });
+        // What this house is for, on a board by the door.
+        sprite({ en: def.enSub || def.ja, ja: def.ja }, def.x, 2.2, def.z + 3.4, { width: 7.5, size: 30, background: '#2e5d63' });
       }
 
       // ---- the bandstand -----------------------------------------------------------------

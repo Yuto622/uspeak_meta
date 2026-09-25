@@ -366,6 +366,10 @@
     "やさしい": "Easy",
 
     "日本語": "日本語",
-    "英語と日本語を きりかえる": "Switch between English and Japanese"
+    "英語と日本語を きりかえる": "Switch between English and Japanese",
+
+    "{n}人": "{n}",
+    "未解放": "Locked",
+    "地域を選択して航空路を確認": "Tap an island to see the way there"
   }
 }

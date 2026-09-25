@@ -5,6 +5,9 @@
 // same "am I standing at a place" question. Only the buildings and what happens at them
 // differ, so that is all each island module writes.
 import * as THREE from './three.module.js';
+// 島の看板は canvas に焼いた絵で、HTML の仕組み（`data-t` / `.en`・`.ja`）が効かない。
+// 言語を見て焼き直すために、ここだけ i18n を直接見ている。
+import { isJa, onLangChange } from './i18n.js';
 
 export const HALF_X = 30;
 export const HALF_Z = 25;
@@ -101,22 +104,41 @@ export function createIsland({ scene, build, seed = 20250910 }) {
   const labels = [];   // every sign this island puts up, so a race can take them down
   let labelsOn = true; // and whether they are up at all: an island builds itself lazily,
                        // so a sign made after the race started has to be born hidden
+  // 言語が変わったら、この島の看板を焼き直す。島は一度しか建たないので、聞き役もひとつ。
+  onLangChange(() => { for (const s2 of labels) s2.userData.repaint?.(); });
+  // 看板。**HTML ではなく canvas に焼いた絵**なので、`data-t` も `.en`/`.ja` も効かない。
+  // かわりに **`{en, ja}` の組を受け取って、言語が変わったら焼き直す**（テクスチャの
+  // 描き直しだけなので、島を建て直す必要はない）。文字列ひとつでも今までどおり動く。
+  //
+  // **幅は長いほうの言語で決める。** 言語を変えるたびに看板の大きさが変わると、
+  // 隣の建物と重なったり離れたりして、島がそのたびに違う島に見える。
   function sprite(text, x, y, z, { width = 8, background = '#183946', color = '#f3dfaa', weight = 600, size = 36, depthTest = true } = {}) {
+    const pair = text && typeof text === 'object' ? { en: String(text.en || ''), ja: String(text.ja || '') } : null;
+    const pick = () => (pair ? (isJa() ? pair.ja : pair.en) || pair.ja || pair.en : String(text ?? ''));
     const c = document.createElement('canvas');
     c.width = 768; c.height = 100;
     const ctx = c.getContext('2d');
-    if (background) { ctx.fillStyle = background; ctx.beginPath(); ctx.roundRect(4, 4, 760, 92, 18); ctx.fill(); }
-    ctx.fillStyle = color;
-    ctx.font = `${weight} ${size}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(text, 384, 53, 720);
+    const paint = () => {
+      ctx.clearRect(0, 0, 768, 100);
+      if (background) { ctx.fillStyle = background; ctx.beginPath(); ctx.roundRect(4, 4, 760, 92, 18); ctx.fill(); }
+      ctx.fillStyle = color;
+      ctx.font = `${weight} ${size}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const now = pick();
+      ctx.fillText(now, 384, 53, 720);
+      s.userData.signText = now;   // 焼いた文字。検査と、島の名前を疑ったときのため
+    };
     const tex = new THREE.CanvasTexture(c);
     tex.colorSpace = THREE.SRGBColorSpace;
     const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest, transparent: true }));
+    paint();
+    tex.needsUpdate = true;
     s.position.set(x, y, z);
     s.scale.set(width, width / 7.68, 1);
     s.renderOrder = depthTest ? 1 : 3;
+    // 言語が変わったときに 焼き直すための道具を、看板自身に持たせておく。
+    if (pair) s.userData.repaint = () => { paint(); tex.needsUpdate = true; };
     root.add(s);
     labels.push(s);
     s.visible = labelsOn;
@@ -197,7 +219,8 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     obstacles.push({ x, z, w: hx + 0.4, d: hz + 0.4 });
     // The name hangs from a bracket by the door, at reading height.
     D(x - hx - 0.1, 3.5, front - 0.4, 0.22, 0.22, 1.4, beam);
-    sprite(name, x, 5.9, front + 0.7, { width: Math.max(6, name.length * 0.52) });
+    const longest = typeof name === 'object' ? Math.max(String(name.en || '').length, String(name.ja || '').length) : String(name).length;
+    sprite(name, x, 5.9, front + 0.7, { width: Math.max(6, longest * 0.52) });
     return null;
   }
 
@@ -391,7 +414,7 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     // The island's name on a post beside the landing, not on the spot a child lands on.
     D(6.8, 1.7, 21.5, 0.34, 3.4, 0.34, 0x8a7350);
     D(6.8, 3.5, 21.5, 0.9, 0.3, 0.9, 0xb8703f);
-    sprite(`${island.name} · ${island.en}`, 6.8, 4.3, 21.5, { width: 8, size: 31 });
+    sprite({ en: island.en, ja: island.name }, 6.8, 4.3, 21.5, { width: 8, size: 31 });
   }
 
   // Greenery, kept off the paths and away from every place a child has to stand. Trees
@@ -468,7 +491,8 @@ export function createIsland({ scene, build, seed = 20250910 }) {
   function resident(def) {
     const npc = person(Number(def.color), 0xe8c39a, def.x, def.z);
     const label = sprite(def.character, def.x, 3.5, def.z, { width: 4.4, size: 40, depthTest: false });
-    const ja = sprite(def.ja, def.x, 2.95, def.z, { width: 6.6, size: 30, background: '#1c3b2fdd', color: '#dff0d4', depthTest: false });
+    // 住人の下の一言。英語が無いデータもある（その時は日本語のまま出る）。
+    const ja = sprite({ en: def.en || def.ja, ja: def.ja }, def.x, 2.95, def.z, { width: 6.6, size: 30, background: '#1c3b2fdd', color: '#dff0d4', depthTest: false });
     ja.visible = false;
     spots.push({ def, npc, label, ja });
   }
@@ -551,7 +575,8 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     ctx.fill();
     ctx.fillStyle = '#12333a';
     ctx.font = '10px sans-serif';
-    ctx.fillText(data.name, 16, 24);
+    // ミニマップは毎フレーム描き直すので、焼き直しの仕掛けは要らない。
+    ctx.fillText(isJa() ? data.name : (data.en || data.name), 16, 24);
     return true;
   }
 
@@ -572,6 +597,9 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     // are how a child finds their way around on foot, and they are in the way of a race:
     // the chase camera is eight metres from the ground, where a sign written to be read
     // from thirty fills half the screen.
+    repaintLabels() { for (const s2 of labels) s2.userData.repaint?.(); },
+    // いま看板に焼かれている文字。言語を疑ったときに 外から読める1か所。
+    get signs() { return labels.map((s2) => s2.userData.signText || ''); },
     setLabels(on) {
       labelsOn = !!on;
       for (const s2 of labels) s2.visible = labelsOn;

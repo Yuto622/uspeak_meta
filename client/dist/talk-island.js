@@ -54,7 +54,7 @@ export function createTalkIsland({ scene }) {
       for (let i = 0; i < 4; i += 1) D(yard.x, 4.8 + i * 0.42, yard.z, 3 - i * 0.7, 0.42, 3 - i * 0.7, i % 2 ? warm : shade(warm, -0.12));
       D(yard.x, 6.7, yard.z, 0.4, 1.1, 0.4, warm, 0.8);
       obstacles.push({ x: yard.x, z: yard.z, w: 1.9, d: 1.9 });
-      sprite('おはなし島 · みんなで 話そう', yard.x, 8.4, yard.z, { width: 12, size: 30 });
+      sprite({ en: 'TALK ISLAND · let\'s talk together', ja: 'おはなし島 · みんなで 話そう' }, yard.x, 8.4, yard.z, { width: 12, size: 30 });
 
       // Benches facing the lantern, because that is what a ring of people is.
       for (let i = 0; i < 8; i += 1) {
@@ -72,7 +72,7 @@ export function createTalkIsland({ scene }) {
       // ---- the four booths -------------------------------------------------------------
       for (const def of data.spots) {
         const colour = Number(def.color);
-        house(def.x, def.z - 4.6, 7.6, 6, colour, 0xc2703f, `${def.tone} ${def.name}`);
+        house(def.x, def.z - 4.6, 7.6, 6, colour, 0xc2703f, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
         door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, shade(stone, -0.04));

@@ -30,7 +30,7 @@ export function createSchoolIsland({ scene }) {
       for (const sx of [-2.6, 2.6]) B(yard.x + sx, 2.4, yard.z, 0.4, 4.6, 0.4, 0x7a6448);
       B(yard.x, 4.6, yard.z, 6.2, 0.5, 0.5, 0xb8703f);
       B(yard.x, 3.9, yard.z, 1.1, 1.3, 1.1, 0xd9b45c);
-      sprite(`${data.name} · ことばの小屋`, yard.x, 5.8, yard.z, { width: 10, size: 30 });
+      sprite({ en: `${data.en} · word huts`, ja: `${data.name} · ことばの小屋` }, yard.x, 5.8, yard.z, { width: 10, size: 30 });
 
       // The bell tower: the thing you see from the water, and the reason the courtyard
       // has a middle. Stone base, timber frame, a bell under a little roof.
@@ -74,7 +74,7 @@ export function createSchoolIsland({ scene }) {
         if (def.kind === 'gym') {
           // The gym is a hall, not a hut: wider, taller, with a pair of speaker stacks
           // either side of the door so it reads as the place you go to listen.
-          house(def.x, def.z - 5.6, 11, 8, Number(def.color), 0x4c6f86, `${def.tone} ${def.name}`);
+          house(def.x, def.z - 5.6, 11, 8, Number(def.color), 0x4c6f86, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
           door(def, 5.6, 8);
           for (const sx of [-4.2, 4.2]) {
             B(def.x + sx, 1.5, def.z - 1.4, 1.5, 3, 1.2, 0x3f5566);
@@ -83,7 +83,7 @@ export function createSchoolIsland({ scene }) {
         } else {
           // Each hut is coloured and starred by its difficulty, so a child reads the
           // island rather than a label.
-          house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, `${def.tone} ${def.name}`);
+          house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x8a6a4a, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
           door(def);
         }
         // Each building says in the data where its path starts, and therefore the line

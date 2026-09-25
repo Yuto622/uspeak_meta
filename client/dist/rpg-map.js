@@ -7,6 +7,9 @@
 // and the flight lines still run between the right pairs — but nothing is hidden under
 // anything else, at any canvas size, however many islands the archipelago grows.
 import {DESTINATIONS,REGIONS,REGION_BY_ID} from './rpg-data.js';
+// この地図も canvas。開くたびに描き直すので、焼き直しの仕掛けは要らない。
+// **島の名前は辞書ではなく rpg-data.js の `en`**（島の名前は訳ではなく別の名前）。
+import {t as tr,isJa} from './i18n.js';
 
 // The world, as sea chart coordinates.
 const project=(r,w,h)=>({x:(r.x+400)/860*w,y:(r.z+470)/920*h});
@@ -127,11 +130,11 @@ export function drawWorldMap(canvas,{store,current,selected}){
   ctx.fillStyle=r.id===current?'#28565c':isOpen?'#f6e7bc':'#bac9c1';
   ctx.fillText(r.id===current?'●':r.hub?'✈':isOpen?(store.cleared(r.id)?'✓':String(REGIONS.indexOf(r)+1).padStart(2,'0')):'?',p.x,p.y);
   ctx.font=`600 ${w<450?10:12}px sans-serif`;ctx.lineWidth=4;ctx.strokeStyle='#204451';
-  const title=r.id==='park'?'テーマパーク':r.name;
+  const title=isJa()?r.name:(r.en||r.name);
   ctx.strokeText(title,p.x,p.y+ry+14);ctx.fillStyle=isOpen?'#fff0cf':'#adc3bd';ctx.fillText(title,p.x,p.y+ry+14);
-  if(!r.hub){ctx.font='9px sans-serif';ctx.fillStyle=isOpen?'#e9e1bf':'#a1bcb7';ctx.fillText(isOpen?`${store.count(r.id)} / 10`:'未解放',p.x,p.y+ry+28)}
+  if(!r.hub){ctx.font='9px sans-serif';ctx.fillStyle=isOpen?'#e9e1bf':'#a1bcb7';ctx.fillText(isOpen?`${store.count(r.id)} / 10`:tr('未解放'),p.x,p.y+ry+28)}
  }
  ctx.textAlign='left';ctx.textBaseline='alphabetic';ctx.fillStyle='#d5dfcbab';ctx.font='10px sans-serif';
- ctx.fillText('地域を選択して航空路を確認',18,h-17);
+ ctx.fillText(tr('地域を選択して航空路を確認'),18,h-17);
  return {hits,width:w,height:h};
 }

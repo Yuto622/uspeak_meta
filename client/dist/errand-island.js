@@ -21,7 +21,7 @@ export function createErrandIsland({ scene }) {
         for (const sx of [-3.4, 3.4]) B(plaza.x + sx, 1.6, plaza.z - 1.6, 0.3, 3, 0.3, 0x7a6448);
         B(plaza.x, 2.6, plaza.z - 1.6, 7.4, 2.6, 0.24, 0xf0e3bd);
         B(plaza.x, 4.1, plaza.z - 1.6, 8, 0.4, 0.6, 0xb8703f);
-        sprite('ERRAND BOARD · おつかい掲示板', plaza.x, 5.4, plaza.z - 1.6, { width: 11, size: 30 });
+        sprite({ en: 'ERRAND BOARD', ja: 'おつかい掲示板' }, plaza.x, 5.4, plaza.z - 1.6, { width: 11, size: 30 });
 
         // A market: four stalls with striped awnings, bunting overhead, a well in the
         // middle and the day's goods stacked around it. This is the square a child is
@@ -65,7 +65,7 @@ export function createErrandIsland({ scene }) {
       }
       for (const def of data.spots) {
         if (def.kind === 'shop') {
-          house(def.x, def.z - 4.6, 7.4, 6, Number(def.color), 0xb8703f, def.name);
+          house(def.x, def.z - 4.6, 7.4, 6, Number(def.color), 0xb8703f, { en: def.en || def.name, ja: def.name });
           door(def, 4.6, 6);
           path(plaza ? plaza.x : 0, plaza ? plaza.z : 0, def.x, def.z);
         }

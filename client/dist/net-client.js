@@ -819,7 +819,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       el.className = cls;
       el.querySelector('.net-label').textContent = label;
       const b = el.querySelector('.net-count');
-      b.textContent = n == null ? '' : `${n}人`;
+      // 数の単位も言語で変わる（英語で「1人」とだけ出ていた）。
+      b.textContent = n == null ? '' : tr('{n}人', { n });
       b.hidden = n == null;
     };
     return {

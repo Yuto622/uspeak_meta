@@ -30,7 +30,7 @@ export function createPetIsland({ scene }) {
         B(yard.x - 8 + i * 2, 0.9, yard.z + 6, 0.22, 1.5, 0.22, 0xd4c49b);
         B(yard.x - 8 + i * 2, 0.9, yard.z - 6, 0.22, 1.5, 0.22, 0xd4c49b);
       }
-      sprite(`${data.name} · ${data.en}`, yard.x, 4.4, yard.z, { width: 9, size: 30 });
+      sprite({ en: data.en, ja: data.name }, yard.x, 4.4, yard.z, { width: 9, size: 30 });
 
       // A great stone egg in a fountain, which is what the island is for; kennels along
       // one side and a paddock rail round the grass, so it reads as a place for animals.
@@ -66,7 +66,7 @@ export function createPetIsland({ scene }) {
       flowers(yard.x + 3.5, yard.z + 12.5, 0xf0d98a);
 
       for (const def of data.spots) {
-        house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x9a7a5a, `${def.tone} ${def.name}`);
+        house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), 0x9a7a5a, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
         door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xdfd3ab);

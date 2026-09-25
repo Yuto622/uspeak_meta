@@ -75,7 +75,7 @@ export function createTownIsland({ scene }) {
         // through it and leaves this island entirely — and it stands on its own at the
         // top of the island so it reads as somewhere else rather than another counter.
         if (def.kind === 'blockwild') {
-          house(def.x, def.z - 4.6, 9, 6.4, Number(def.color), 0x3f5f3c, `${def.tone} ${def.name}`);
+          house(def.x, def.z - 4.6, 9, 6.4, Number(def.color), 0x3f5f3c, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
           door(def);
           path(def.path.x, def.path.z, def.x, def.z);
           B(def.x, 0.18, def.z, 6, 0.16, 6, 0xc8d2b4);
@@ -119,7 +119,7 @@ export function createTownIsland({ scene }) {
           resident(def);
           continue;
         }
-        house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), def.kind === 'door' ? 0x6a7a8a : 0x8a6a4a, `${def.tone} ${def.name}`);
+        house(def.x, def.z - 4.6, 8, 6.4, Number(def.color), def.kind === 'door' ? 0x6a7a8a : 0x8a6a4a, { en: `${def.tone} ${def.en || def.name}`, ja: `${def.tone} ${def.name}` });
         door(def);
         path(def.path.x, def.path.z, def.x, def.z);
         B(def.x, 0.18, def.z, 6, 0.16, 6, 0xe2dab6);
