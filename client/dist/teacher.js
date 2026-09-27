@@ -4,6 +4,7 @@ import { NET } from './net-config.js';
 export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBuilding, getMissions }) {
   let open = false;
   let roster = [];
+  let notices = [];      // サーバーが選んだ「きょうの気づき」（`server/src/game/retention.js`）
   let chatPaused = false;
   let freeChat = true;
   let voiceMode = 'all';
@@ -28,6 +29,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     <button type="button" id="net-t-reports">📄 保護者レポートのリンク</button>
     <button type="button" id="net-t-register">🔄 めいぼを読み直す</button>
   </div>
+  <div id="net-t-notices"></div>
   <div id="net-t-links" hidden></div>
   <label class="net-t-field" for="net-t-mission">今日のおつかい</label>
   <select id="net-t-mission"><option value="">指定しない</option></select>
@@ -82,6 +84,27 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   }
   button.onclick = () => toggle();
 
+  // 気づき。**サーバーが決めて、ページは並べるだけ**（コインや正誤と同じ理由：
+  // 誰に声をかけるかの根拠が端末ごとに違っては困る）。
+  //
+  // **順位ではない。** 出ているのは全部「その子の先月とくらべて」で、
+  // 教室の中で子どもを並べてはいない。
+  const NOTICE_SAID = {
+    call: { icon: '●', label: '声をかけましょう' },
+    watch: { icon: '○', label: '気にしておく' },
+    cheer: { icon: '✦', label: 'いいこと' },
+  };
+  function renderNotices() {
+    const box = $('#net-t-notices');
+    if (!notices.length) { box.innerHTML = ''; return; }
+    const line = (n) => {
+      const said = NOTICE_SAID[n.level] || NOTICE_SAID.watch;
+      return `<li class="net-t-notice net-t-${esc(n.level)}"><b>${said.icon} ${esc(n.name)}</b><span>${esc(n.why)}</span></li>`;
+    };
+    box.innerHTML = `<div class="net-t-noticehead">きょうの 気づき<small>先月の その子と くらべています</small></div>
+      <ul class="net-t-notices">${notices.map(line).join('')}</ul>`;
+  }
+
   function renderRoster() {
     const rows = roster.filter((p) => p.role !== 'teacher').sort((a, b) => a.name.localeCompare(b.name, 'ja'));
     $('#net-roster').innerHTML = rows.map((p) => `<tr class="${p.connected ? '' : 'net-offline'}"><td>${esc(p.name)}${p.connected ? '' : ' <small>(切断中)</small>'}</td><td><small>${esc(p.space)}</small></td><td title="${p.xp ?? 0} XP">${p.level ?? 1}</td><td>${p.coins}</td><td>${p.correct}/${p.attempts}</td><td><button type="button" data-call="${p.id}" title="呼び出す">📢</button><button type="button" data-move="${p.id}" title="ここへ移動">⤵</button><button type="button" data-stage="${p.id}" class="${staged.has(p.id) ? 'on' : ''}" title="ステージに上げる（大広間でカメラと画面を使えるようにする）">${staged.has(p.id) ? '🎤' : '🎙'}</button></td></tr>`).join('') || '<tr><td colspan="6">生徒はまだいません</td></tr>';
@@ -97,6 +120,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     $('#net-t-voice').textContent = { all: '🎙 おはなし：どの島でも', rooms: '🎙 おはなし：おはなし島だけ', off: '🔇 おはなし：とじている' }[voiceMode];
     $('#net-t-eiken').textContent = EIKEN_SAID[eikenLevel] || EIKEN_SAID.normal;
     $('#net-teacher-hint').textContent = `接続中 ${rows.filter((p) => p.connected).length} 人 · 集合・移動は今いる場所（${getSpace()}）へ`;
+    renderNotices();
   }
 
   // One link per child, each signed for that child alone. They are shown rather than
@@ -134,7 +158,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
 
   return {
     setAvailable(v) { button.hidden = !v; if (!v) toggle(false); },
-    onRoster(m) { roster = m.players || []; chatPaused = !!m.chatPaused; freeChat = m.freeChat !== false; if (m.eikenLevel) eikenLevel = m.eikenLevel; if (open) renderRoster(); },
+    onRoster(m) { roster = m.players || []; notices = Array.isArray(m.notices) ? m.notices : []; chatPaused = !!m.chatPaused; freeChat = m.freeChat !== false; if (m.eikenLevel) eikenLevel = m.eikenLevel; if (open) renderRoster(); },
     onAck(m) {
       if (m.ok === false) {
         const said = { 'not in a big room': 'ステージは おはなし島（大広間）だけです。', 'no such student': 'その生徒が見つかりません。', 'unknown level': 'その きびしさは ありません。' }[m.error];

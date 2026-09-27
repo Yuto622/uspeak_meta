@@ -44,12 +44,15 @@ const month = (mk, days, answers, correct, minutes) => ({
 });
 const now = Date.now();
 const back = (n) => monthKey(now - n * 30 * 24 * 3600 * 1000);
+const yearAgo = (k) => `${Number(k.slice(0, 4)) - 1}${k.slice(4)}`;
 const months = {
   [back(0)]: month(back(0), 8, 62, 48, 41),
   [back(1)]: month(back(1), 9, 74, 55, 47),
   [back(2)]: month(back(2), 7, 58, 40, 33),
   [back(3)]: month(back(3), 10, 88, 59, 52),
   [back(4)]: month(back(4), 6, 46, 28, 25),
+  // **去年の同じ月。** 13か月ぶん持っている意味がここにしか出ないので、見本にも入れる。
+  [yearAgo(back(0))]: month(yearAgo(back(0)), 5, 38, 21, 22),
 };
 const record = {
   class: KLASS, name: NAME, role: 'student',
@@ -67,20 +70,29 @@ const record = {
   months_json: JSON.stringify(months),
   inventory_json: '{}', owned_json: '[]', wands_json: '[]', missions_json: '[]',
   last_seen: new Date(now).toISOString(), updated_at: new Date(now).toISOString(),
+  first_seen: new Date(now - 400 * 24 * 3600 * 1000).toISOString(),
 };
 // クラスに一人だけだと名簿も CSV もさみしいので、同級生を数人。
-const classmate = (name, level, correct, attempts, coins) => ({
+// 同級生。**先生コンソールの「きょうの気づき」が3種類そろう**ように作る
+// （声をかける子・気にしておく子・伸びている子）。ここを平らにすると、
+// 資料の写真に空の枠が写る。
+const classmate = (name, level, correct, attempts, coins, { away = 0, thisMonth = 5, lastMonth = 6, fresh = 0 } = {}) => ({
   ...record, name, level, correct, attempts, coins,
-  months_json: JSON.stringify({ [back(0)]: month(back(0), 5, 38, 25, 22) }),
+  last_seen: new Date(now - away * 24 * 3600 * 1000).toISOString(),
+  first_seen: new Date(now - (fresh || 400) * 24 * 3600 * 1000).toISOString(),
+  months_json: JSON.stringify({
+    [back(1)]: month(back(1), lastMonth, lastMonth * 8, Math.round(lastMonth * 5), lastMonth * 5),
+    [back(0)]: month(back(0), thisMonth, thisMonth * 8, Math.round(thisMonth * 5), thisMonth * 5),
+  }),
 });
 
 const dir = await mkdtemp(path.join(tmpdir(), 'uspeak-infra-'));
 await writeFile(path.join(dir, 'store.json'), JSON.stringify({
   players: {
     [`${KLASS}|${NAME}`]: record,
-    [`${KLASS}|はると`]: classmate('はると', 5, 208, 266, 730),
-    [`${KLASS}|ゆい`]: classmate('ゆい', 8, 402, 470, 1580),
-    [`${KLASS}|そうた`]: classmate('そうた', 4, 133, 190, 410),
+    [`${KLASS}|はると`]: classmate('はると', 5, 208, 266, 730, { away: 25, thisMonth: 1, lastMonth: 8 }),
+    [`${KLASS}|ゆい`]: classmate('ゆい', 8, 402, 470, 1580, { away: 1, thisMonth: 9, lastMonth: 4 }),
+    [`${KLASS}|そうた`]: classmate('そうた', 4, 133, 190, 410, { away: 3, thisMonth: 2, lastMonth: 9 }),
   },
   learning: [], coins: [],
 }), 'utf8');

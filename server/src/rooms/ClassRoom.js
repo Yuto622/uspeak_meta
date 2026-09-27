@@ -21,6 +21,7 @@ import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_C
 // 月ごとの学習記録。**答えた瞬間にその月の箱へ1つ足す**（学習ログは追記専用で
 // 読み返せないので、月末に数え直すことができない）。詳しくは game/months.js の頭。
 import { sanitizeMonths, bump as bumpMonth, recentMonths } from '../game/months.js';
+import { noticesFor, monthsInARow, lastYear } from '../game/retention.js';
 import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, INTERVIEW_ROOM, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError, LEVELS as EIKEN_LEVELS, levelOf as eikenLevelOf } from '../game/eiken.js';
 import {
   startInterview, interviewStep, interviewPayload, interviewResult, scriptedLine,
@@ -621,7 +622,14 @@ export class ClassRoom extends Room {
           roster.push({ id, name: p.name, role: p.role, connected: p.connected, space: p.space, coins: priv?.wallet.coins ?? 0, correct: priv?.stats.correct ?? 0, attempts: priv?.stats.attempts ?? 0,
             level: priv?.progress.level ?? 1, xp: priv ? totalXp(priv.progress) : 0 });
         }
-        client.send('roster', { players: roster, chatPaused: this.state.chatPaused, freeChat: this.state.freeChat, eikenLevel: this.state.eikenLevel });
+        // **気づき。** 名簿は「いま繋がっている子」しか映さないので、辞めかけている子は
+        // そもそも出てこない。クラスの記録ぜんぶから、本人の過去と比べて
+        // 「声をかけたほうがいい子」「伸びている子」を出す（`game/retention.js`）。
+        // 塾向けの Comiru で継続に効いているのがこの「退塾予備軍の早期発見」だった。
+        client.send('roster', {
+          players: roster, chatPaused: this.state.chatPaused, freeChat: this.state.freeChat,
+          eikenLevel: this.state.eikenLevel, notices: this.noticeRows(),
+        });
         return;
       }
       case 'reports': {
@@ -688,6 +696,45 @@ export class ClassRoom extends Room {
   }
 
   // ---- helpers ------------------------------------------------------------------
+
+  // 先生に出す「気づき」。クラスの記録ぜんぶを、**その子の過去のペース**と比べる。
+  //
+  // **いま部屋にいる子は、保存より部屋のほうが新しい。** 保存は折々にしか走らないので、
+  // 目の前で遊んでいる子に「3週間来ていません」と出しかねない。繋がっている子は
+  // 部屋の側（`priv`）で上書きしてから数える。
+  //
+  // **他人とは比べない。** ここで出るのは全部その子自身の過去との差で、
+  // 教室の中の順位は作らない（順位は、下にいる子の保護者に見せられない）。
+  noticeRows() {
+    const now = Date.now();
+    const iso = new Date(now).toISOString();
+    const live = new Map();
+    for (const [id, player] of this.state.players) {
+      const priv = this.priv.get(id);
+      if (priv && player.role !== 'teacher') live.set(priv.name, priv);
+    }
+    let stored = [];
+    try { stored = this.store.listClass?.(this.classCode) || []; } catch (err) {
+      log.warn(`[room ${this.roomId}] notice list failed:`, err.message);
+    }
+    const rows = [];
+    const seen = new Set();
+    for (const record of stored) {
+      if (!record?.name) continue;
+      seen.add(record.name);
+      const priv = live.get(record.name);
+      rows.push(priv
+        ? { ...record, last_seen: iso, first_seen: priv.firstSeen, months: priv.months }
+        : record);
+    }
+    // 初日の子は、まだ保存に現れていないことがある。
+    for (const [name, priv] of live) {
+      if (seen.has(name)) continue;
+      rows.push({ name, role: 'student', last_seen: iso, first_seen: priv.firstSeen, months: priv.months });
+    }
+    return noticesFor(rows, { now, sanitize: sanitizeMonths });
+  }
+
 
   tick() {
     const now = Date.now();
@@ -792,6 +839,10 @@ export class ClassRoom extends Room {
       // 月ごとのまとめ。保護者レポートの「今月」はここから出る。累計とは別に持つ
       // のは、累計からは今月ぶんを引き算できないから（去年の分が混ざる）。
       months: sanitizeMonths(record.months_json),
+      // はじめてこのクラスで遊んだ日。沈黙期（最初の3か月）の子を名指しで拾うのに要る。
+      // **古い記録には入っていない**ので、その場合はいま入れる——「この日より前から
+      // 居る」は分かっても、何月何日かは分からないため、これが言える中でいちばん近い。
+      firstSeen: typeof record.first_seen === 'string' && record.first_seen ? record.first_seen : new Date().toISOString(),
       // 総学習時間 and 総学習日数. `activeAt` is the last thing they actually did, so a
       // tab left open on the bus does not become an hour of study.
       study: {
@@ -835,7 +886,7 @@ export class ClassRoom extends Room {
       // Kept so a teacher's own row is not mistaken for a child's when the family
       // report links are drawn up.
       role: player.role,
-      updated_at: iso, last_seen: priv.lastSeen,
+      updated_at: iso, last_seen: priv.lastSeen, first_seen: priv.firstSeen,
     });
   }
 
@@ -908,6 +959,12 @@ export class ClassRoom extends Room {
       // 子どもにとっての意味は累計とは別で、累計は増えるいっぽうだが、今月は
       // **毎月0から始まる**。今日やれば今日増えるのが見えるのは、こちらのほう。
       months: recentMonths(priv.months, 4),
+      // 何か月つづけているか。**日の連続ではなく「答えた月」の連続**で、
+      // 途切れても煽らない（`docs/uspeak-retention.md`）。子どもに見せたいのは
+      // 「自分はこれを続けている人だ」で、「切れるぞ」ではない。
+      inARow: monthsInARow(priv.months),
+      // 去年の同じ月。1年たった子にしか出ない。
+      lastYear: lastYear(priv.months),
     });
   }
 

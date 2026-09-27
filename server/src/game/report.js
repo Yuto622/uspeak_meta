@@ -11,6 +11,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import { totalXp, xpToNext } from './progression.js';
 import { ROOMS } from './town.js';
 import { recentMonths } from './months.js';
+import { lastYear, monthsInARow } from './retention.js';
 
 // 月ごとの記録は保存の中では文字列。壊れていたら空に落とす（months.js の sanitize と
 // 同じ約束で、読めない月のせいでレポート全体が出ないほうが保護者にとっては悪い）。
@@ -32,6 +33,8 @@ export function reportFor(record, { now = Date.now() } = {}) {
   const room = parse(record.room_json, null);
   const pet = parse(record.pet_json, null);
   const missions = parse(record.missions_json, []);
+  // 月ごとの記録は下で3回読むので、1回だけ読んでおく。
+  const months = sanitizeForReport(record.months_json);
   return {
     name: record.name,
     classCode: record.class,
@@ -59,7 +62,14 @@ export function reportFor(record, { now = Date.now() } = {}) {
     // **今月のまとめと、その前の月。** 累計（上の行）だけでは、3年つづけた子と
     // 3年前に3か月だけやった子が同じ数字に見える。保護者が毎月受け取って意味が
     // あるのはこちらで、累計からは引き算できない。
-    months: recentMonths(sanitizeForReport(record.months_json), 6, { now }),
+    months: recentMonths(months, 6, { now }),
+    // **13か月ぶん持っているのは、これを出すため。** 4月に「去年の4月」と並べられる。
+    // 1年たっていない子には出さない（無い数字は出さない）。
+    lastYear: lastYear(months, { now }),
+    // 何か月つづけているか。**日の連続ではなく、答えた月の連続**。
+    // 週1〜2回の教室の子に毎日の連続を求めるのは設計のまちがいだし、
+    // 「連続が切れる」で煽ると、続けること自体が目的になる（`docs/uspeak-retention.md`）。
+    inARow: monthsInARow(months, { now }),
     lastSeen: record.last_seen || record.updated_at || '',
     madeAt: new Date(now).toISOString(),
   };
@@ -153,8 +163,43 @@ function monthBlock(r) {
   const rows = past.map((m) => `<tr><td>${esc(m.label)}</td><td>${m.days} 日</td><td>${m.answers} 問</td>`
     + `<td>${m.accuracy === null ? '—' : `${m.accuracy}%`}</td>`
     + (showMinutes ? `<td>${m.minutes} 分</td>` : '') + '</tr>').join('');
-  return `${head}<table class="past"><thead><tr><th>それまでの月</th><th>きた日</th><th>問題</th><th>正解率</th>`
+  return `${head}${lastYearLine(r)}<table class="past"><thead><tr><th>それまでの月</th><th>きた日</th><th>問題</th><th>正解率</th>`
     + (showMinutes ? '<th>時間</th>' : '') + `</tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+// **去年の同じ月とくらべる。** 月ごとの記録を13か月ぶん持っているのは、
+// 4月に「去年の4月」を出せるようにするため。1年たった子にしか出ない行で、
+// **1年つづけた教室にしか出せない画面**でもある。
+//
+// 数字だけ並べても読めないので、**1文にして**から出す。「7問ふえました」のような
+// 差だけだと、減っていたときに責める文になるので、増えた／同じくらい／
+// 「去年もがんばっていました」の3通りに言い分ける。
+function lastYearLine(r) {
+  const y = r.lastYear;
+  const now = (Array.isArray(r.months) ? r.months : []).find((m) => m.current);
+  if (!y || !now) return '';
+  const dd = now.days - y.days;
+  const words = [];
+  if (dd >= 2) words.push(`きた日が ${dd}日 ふえました`);
+  else if (dd <= -2) words.push('きた日は 去年のほうが 多い月でした');
+  else words.push('きた日は 去年と 同じくらいです');
+  if (y.accuracy !== null && now.accuracy !== null) {
+    const da = now.accuracy - y.accuracy;
+    if (da >= 5) words.push(`正解率は ${da}ポイント 上がりました`);
+    else if (da <= -5) words.push('正解率は 去年のほうが 高い月でした');
+    else words.push('正解率は 去年と 同じくらいです');
+  }
+  return `<p class="ago"><b>${esc(y.label)}とくらべて</b> ${esc(words.join('。'))}。
+    <small>（${esc(y.label)}：${y.days}日・${y.answers}問${y.accuracy === null ? '' : `・正解率${y.accuracy}%`}）</small></p>`;
+}
+
+// **何か月つづけているか。** 日の連続ではなく「答えた月」の連続。
+// 途切れを煽らない（`docs/uspeak-retention.md` の3）ので、切れたときは何も出さない。
+function inARowLine(r) {
+  const n = Math.max(0, Math.floor(Number(r.inARow) || 0));
+  if (n < 2) return '';
+  const label = n >= 14 ? '1年以上' : `${n}か月`;
+  return `<p class="inarow">✦ <b>${esc(label)}つづけています。</b></p>`;
 }
 
 export function reportHtml(r, { token = '' } = {}) {
@@ -192,6 +237,15 @@ export function reportHtml(r, { token = '' } = {}) {
    gap: 10px; margin: 0; padding: 0; }
  .month li span { display: block; font-size: 11px; opacity: .72; }
  .month li b { font-size: 22px; }
+ /* 去年の同じ月とのくらべ。**今月の箱のすぐ下**に置く——同じ話の続きなので、
+    累計の向こうまで離すと、別の話に見える。 */
+ .ago { margin: 10px 0 0; padding: 11px 14px; background: #fffaf0; border-radius: 12px;
+   font-size: 13px; line-height: 1.7; border: 1px solid #ece7d4; }
+ .ago b { color: #173f38; }
+ .ago small { display: block; font-size: 11px; margin-top: 2px; }
+ /* 「◯か月つづけています」。**煽らない**ので、細く、静かに置く。 */
+ .inarow { margin: 10px 0 0; font-size: 13px; color: #4a6b52; }
+ .inarow b { color: #173f38; }
  /* 先月までの並び。数字が3つあれば線は要らない（6行しか出ない）。 */
  .past { width: 100%; border-collapse: collapse; margin: 14px 0 0; font-size: 14px; background: #fffaf0;
    border-radius: 16px; overflow: hidden; }
@@ -222,6 +276,7 @@ export function reportHtml(r, { token = '' } = {}) {
 <p>クラス ${esc(r.classCode)}${seen ? ` · さいごに あそんだ日 ${esc(seen)}` : ''}</p></div></header>
 <main>
 ${monthBlock(r)}
+${inARowLine(r)}
  <h3 style="margin:26px 0 0;font-size:14px;color:#5d6d62;letter-spacing:1px;">はじめてからの ぜんぶ</h3>
  <div class="cards">
   <div class="card"><span>レベル</span><b>${r.level}</b></div>

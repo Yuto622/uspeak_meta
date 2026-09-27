@@ -134,6 +134,14 @@ test('students see each other move and the teacher role is server-decided', asyn
   t.room.send('teacher', { cmd: 'roster' });
   const roster = await nextMessage(t.room, 'roster');
   assert.equal(roster.players.length, 3);
+  // **きょうの気づき**も名簿と一緒に降りてくる（先生が探さなくていいように）。
+  // 入ったばかりの子は「はじめて◯か月め（沈黙期）」で出る——今日が初日なので全員。
+  // 先生の行は出さない（`role: 'teacher'` は数えない）。
+  assert.ok(Array.isArray(roster.notices), 'the roster carries the notices');
+  assert.deepEqual([...roster.notices.map((n) => n.name)].sort(), ['Aki', 'Ben'],
+    'only the children, and the teacher is not one of them');
+  assert.ok(roster.notices.every((n) => n.level === 'watch' && /沈黙期/.test(n.why)),
+    JSON.stringify(roster.notices));
   // Room is full at MAX_CLIENTS=3.
   await assert.rejects(() => new Client(url).joinOrCreate('class', { classCode: 'test-1', name: 'Dan' }), /class is full/);
   await Promise.all([a.room.leave(), b.room.leave(), t.room.leave()]);

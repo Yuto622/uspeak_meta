@@ -16,6 +16,10 @@ export const PLAYER_COLUMNS = [
   // 年度またぎ。`moved_to` は引っ越し先のクラス（去年のレポートのリンクを生かすため）、
   // `moved_from` は引き継いだ元（先生が「どこから来たか」を追えるように）。
   'moved_to', 'moved_from',
+  // はじめてこのクラスで遊んだ日。**沈黙期（最初の3か月）の子を名指しで拾う**ために
+  // 要る（`game/retention.js`）。月ごとの記録は13か月で落ちるので、そこからでは
+  // 「1年以上まえから居る」ことしか分からない。
+  'first_seen',
 ];
 export const LEARNING_COLUMNS = ['timestamp', 'class', 'name', 'question_id', 'mode', 'choice', 'correct', 'xp', 'session_id'];
 // The class register. A teacher keeps this: one row per child who is allowed in.
@@ -36,7 +40,7 @@ export function blankPlayerRecord(classCode, name) {
     garage_json: '[]', riding: '', lap_best: 0, course_coins: 0,
     blocks_json: '[]', room_json: '', role: 'student', props_json: '[]', eiken_coins: 0, conv_coins: 0,
     voice_minutes: 0, skills_json: '', study_ms: 0, study_days: 0, study_day: 0,
-    wardrobe_json: '[]', worn_json: '[]', months_json: '{}', moved_to: '', moved_from: '',
+    wardrobe_json: '[]', worn_json: '[]', months_json: '{}', moved_to: '', moved_from: '', first_seen: '',
   };
 }
 

@@ -124,3 +124,23 @@
 .net-t-link input { flex: 1; min-width: 0; font-size: 11px; padding: 5px 7px; border: 1px solid #d7d2bd; border-radius: 8px; background: #fffaf0; color: #3a4a40; }
 .net-t-link button { flex: none; padding: 5px 9px; border-radius: 8px; background: #e5e9dc; font-size: 11px; font-weight: 700; }
 .net-t-pdf { flex: none; padding: 5px 8px; border-radius: 8px; background: #173f38; color: #f4f1e3; font-size: 12px; text-decoration: none; line-height: 1.4; }
+
+/* きょうの気づき（先生コンソール）。**順位ではない。**
+ * 出ているのは全部「その子の先月とくらべて」で、教室の中で子どもを並べてはいない
+ * （順位は、下にいる子の保護者に見せられない）。調べた根拠は docs/uspeak-retention.md。
+ * ボタンのすぐ下＝**開いた瞬間に目に入る**ところに置く。探させると読まれない。 */
+.net-t-noticehead{display:flex;align-items:baseline;gap:8px;margin:10px 0 6px;font-size:13px;font-weight:700;color:#173f38}
+.net-t-noticehead small{font-weight:400;font-size:11px;color:#6b7f74}
+.net-t-notices{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.net-t-notice{display:flex;gap:8px;align-items:baseline;padding:7px 10px;border-radius:9px;
+  background:#f4f1e3;font-size:12px;line-height:1.5}
+.net-t-notice b{white-space:nowrap;font-weight:700}
+.net-t-notice span{color:#4c5b52}
+/* 声をかける子は赤み、伸びている子は緑み。**色だけに意味を持たせない**ので、
+ * 印（● ○ ✦）と言葉（「声をかけましょう」）も一緒に出す。 */
+.net-t-call{background:#fbe9e4;box-shadow:inset 3px 0 #d4714f}
+.net-t-call b{color:#a8472a}
+.net-t-watch{background:#f6f2e2;box-shadow:inset 3px 0 #c9a227}
+.net-t-watch b{color:#7a6410}
+.net-t-cheer{background:#e9f3e6;box-shadow:inset 3px 0 #5b9a5f}
+.net-t-cheer b{color:#2f6b3a}

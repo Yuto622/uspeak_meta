@@ -91,3 +91,12 @@
   .dash-card b { font-size: 18px; }
   .dash-legend li > span { width: 40px; }
 }
+
+/* 「◯かげつ つづいてるよ」。**静かに置く。**
+ * 毎日の連続を数えて「切れるぞ」と煽るのはしない（調べた結果は
+ * docs/uspeak-retention.md）。ここで数えているのは「答えた月」の連続で、
+ * 見せたいのは損失回避ではなく「自分はこれを続けている人だ」のほう。 */
+.dash-row{font-size:12px;font-weight:700;color:#f0d9a0;background:#ffffff1f;
+  border-radius:999px;padding:4px 10px;white-space:nowrap}
+/* 去年の同じ月。13か月ぶん貯めている意味は、ここにしか出ない。 */
+.dash-ago{margin:12px 0 0;font-size:12px;line-height:1.7;color:#cfe0d2}

@@ -118,15 +118,26 @@ export function createDashboard({ send, isOnline, toast }) {
         : now.days === before.days ? '先月と おなじ ペース'
           : `先月は ${before.days}日 きたよ`)
       : '';
+    // **つづけた月数。** 日の連続ではなく「答えた月」の連続で、切れても何も言わない。
+    // 毎日の連続を煽ると「連続を切らさないこと」が目的になり、学ぶことより大事に
+    // なってしまう（調べた結果は `docs/uspeak-retention.md`）。出すのは
+    // 「自分はこれを続けている人だ」のほう。2か月から出す（1か月は「連続」ではない）。
+    const rows = Math.max(0, Math.floor(Number(m.inARow) || 0));
+    const inARow = rows >= 2 ? `<b class="dash-row">${rows >= 14 ? '1年いじょう' : `${rows}かげつ`} つづいてるよ</b>` : '';
+    // 去年の同じ月。1年たった子にしか出ない行。
+    const ago = m.lastYear && now
+      ? `<p class="dash-ago">きょねんの ${esc(String(m.lastYear.label).replace(/^\d+年/, ''))}は
+         ${m.lastYear.days}日 ${m.lastYear.answers}問 だったよ。</p>`
+      : '';
     const month = now ? `
       <section class="dash-month">
-        <div class="dash-month-head"><h3>${esc(now.label)}</h3>${vs ? `<small>${vs}</small>` : ''}</div>
+        <div class="dash-month-head"><h3>${esc(now.label)}</h3>${vs ? `<small>${vs}</small>` : ''}${inARow}</div>
         <ul>
           <li><span>きた日</span><b>${now.days}<em>日</em></b></li>
           <li><span>もんだい</span><b>${now.answers}<em>問</em></b></li>
           ${now.accuracy === null ? '' : `<li><span>せいかい</span><b>${now.accuracy}<em>%</em></b></li>`}
           <li><span>じかん</span><b>${now.minutes}<em>分</em></b></li>
-        </ul>
+        </ul>${ago}
       </section>` : '';
 
     // What to go and do next. A chart a child cannot act on is a chart they look at once.

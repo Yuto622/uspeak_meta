@@ -81,8 +81,20 @@ export function reportTex(r, { font = process.env.REPORT_FONT || '' } = {}) {
     [`${thisMonth.label} 学習した時間`, thisMonth.minutes ? `${thisMonth.minutes} 分` : ''],
   ] : [];
 
+  // 去年の同じ月と、つづけた月数。**紙にも同じものを出す**（画面の数字と紙の数字が
+  // 違うと、どちらが本当かという話になる）。どちらも無い子には行ごと出さない。
+  const ago = r.lastYear
+    ? [[`${r.lastYear.label}は`, `${r.lastYear.days} 日・${r.lastYear.answers} 問`
+      + (r.lastYear.accuracy === null ? '' : `・正解率 ${r.lastYear.accuracy}%`)]]
+    : [];
+  const inARow = Number(r.inARow) >= 2
+    ? [['つづけている月', Number(r.inARow) >= 14 ? '1年以上' : `${Math.floor(r.inARow)} か月`]]
+    : [];
+
   const rows = [
     ...monthRows,
+    ...ago,
+    ...inARow,
     ['英語の問題', r.attempts ? `${r.correct} / ${r.attempts} 問` : ''],
     ['英語で話した回数', r.phrases ? `${r.phrases} 回` : ''],
     ['おつかい', r.errands ? `${r.errands} 件 たっせい` : ''],
