@@ -640,3 +640,17 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  assert.ok(kart3.boostUntil>1000&&kart3.speed>0,'an answered item box is a dash');
  console.log('PASS: カート — throttle, top speed, grass, steering, drift charge and release, collision, and the racing line.');
 }
+
+{
+ // **右下のキャッチコピー（.world-label）は出さないまま。** 1280x800 で 📹 の上にかぶると
+ // 教室から写真で指摘されて外したのに、`display:block` のまま入ってしまい本番に出た
+ // （コメントは「出さない」なのに値が逆だった）。実ブラウザの `npm run test:desk` は数分
+ // かかるので、ここで一瞬で止める。置き場所を作れたら、そのときにこの検査ごと外す。
+ const { readFileSync } = await import('node:fs');
+ const { fileURLToPath } = await import('node:url');
+ const css = readFileSync(fileURLToPath(new URL('../dist/style.css', import.meta.url)), 'utf8');
+ const rules = [...css.matchAll(/(?:^|[}\s])\.world-label\s*\{([^}]*)\}/g)].map((m) => m[1]);
+ const last = rules.map((r) => /display\s*:\s*([a-z-]+)/.exec(r)?.[1]).filter(Boolean).at(-1);
+ assert.equal(last, 'none', `.world-label の最後の display は none のはず（いまは ${last}）`);
+ console.log('PASS: 右下のキャッチコピーは出さないまま（📹 にかぶらない）。');
+}

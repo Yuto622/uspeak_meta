@@ -38,7 +38,17 @@ const KEY = /^\d{4}-(0[1-9]|1[0-2])$/;
 
 // 1か月ぶんの箱。**数えるものは足し算だけで決まるものに限る**：
 // レベルや所持コインのような「いまいくつか」は累計の側（reportFor）が持っている。
-const blank = () => ({ answers: 0, correct: 0, xp: 0, coins: 0, seconds: 0, days: [] });
+//
+// `home` は `days` のうち **先生が部屋にいない時間に答えた日**。子ども英語教室の退会理由
+// の1位は「塾が始まるから」で、不満ではなく時間の奪い合い（`docs/uspeak-moat-2.md`）。
+// 教室の日のほかに自分で開いた日が数えられれば、面談で「塾の日でも、おうちで5分
+// やれています」と言える。**端末の申告ではなく、サーバーが部屋に先生がいたかで決める**。
+//
+// `eg` は英検の級ごとの正解数（`g5`・`g4`・`g3`）。やさしい判定の○は入れない。
+// 「中学1年生くらいの英語の問題に 24問 正解」と、学校の英語につなげて言うため。
+export const EIKEN_GRADES = ['g5', 'g4', 'g3'];
+const blankEg = () => ({ g5: 0, g4: 0, g3: 0 });
+const blank = () => ({ answers: 0, correct: 0, xp: 0, coins: 0, seconds: 0, days: [], home: [], eg: blankEg() });
 
 // 保存から読む。**壊れていたら捨てて空から**（古い保存・手で触った保存・別バージョン）。
 // 読めなかった月のせいでレポート全体が出ないほうが、保護者にとっては悪い。
@@ -49,12 +59,17 @@ export function sanitizeMonths(raw) {
   const out = {};
   for (const [key, value] of Object.entries(src)) {
     if (!KEY.test(key) || !value || typeof value !== 'object') continue;
-    const days = Array.isArray(value.days)
-      ? [...new Set(value.days.filter((d) => typeof d === 'string' && d.startsWith(key)))].sort().slice(-31)
-      : [];
+    const dayList = (list) => (Array.isArray(list)
+      ? [...new Set(list.filter((d) => typeof d === 'string' && d.startsWith(key)))].sort().slice(-31)
+      : []);
+    const days = dayList(value.days);
+    // おうちの日は、きた日の中にしか無い（無い日に「おうちでやった」は数え違い）。
+    const home = dayList(value.home).filter((d) => days.includes(d));
+    const eg = blankEg();
+    for (const g of EIKEN_GRADES) eg[g] = int(value.eg?.[g]);
     out[key] = {
       answers: int(value.answers), correct: int(value.correct), xp: int(value.xp),
-      coins: int(value.coins), seconds: int(value.seconds), days,
+      coins: int(value.coins), seconds: int(value.seconds), days, home, eg,
     };
   }
   // 正解が回答数を超える保存は信じない（数え違いか、手で触ったか）。
@@ -72,17 +87,24 @@ export function trimMonths(months, keep = KEEP_MONTHS) {
 
 // その月の箱に足す。**呼ぶ側は「いま何月か」を知らなくてよい** — 時刻だけ渡す。
 // `day` を true にすると「その日きた」を記録する（同じ日に何回呼んでも1日）。
-export function bump(months, patch, { now = Date.now(), day = false } = {}) {
+// `home` を true にすると、その日を「おうちの日」にも数える（`day` のときだけ意味がある）。
+// `patch.eg` に級（`g5` など）を渡すと、その級の正解を1つ足す。
+export function bump(months, patch, { now = Date.now(), day = false, home = false } = {}) {
   const key = monthKey(now);
   const m = months[key] || (months[key] = blank());
+  // 古い形（home・eg が無い）で読まれた箱にも足せるように。
+  if (!Array.isArray(m.home)) m.home = [];
+  if (!m.eg || typeof m.eg !== 'object') m.eg = blankEg();
   m.answers += int(patch.answers);
   m.correct += int(patch.correct);
   m.xp += int(patch.xp);
   m.coins += int(patch.coins);
   m.seconds += int(patch.seconds);
+  if (EIKEN_GRADES.includes(patch.eg)) m.eg[patch.eg] = int(m.eg[patch.eg]) + 1;
   if (day) {
     const today = dayKey(now);
     if (!m.days.includes(today)) m.days.push(today);
+    if (home && !m.home.includes(today)) m.home.push(today);
   }
   trimMonths(months);
   return m;
@@ -108,5 +130,8 @@ export function recentMonths(months, count = 6, { now = Date.now() } = {}) {
       coins: m.coins,
       minutes: Math.round(m.seconds / 60),
       days: m.days.length,
+      // そのうち、先生がいない時間に自分で答えた日。
+      home: Array.isArray(m.home) ? m.home.length : 0,
+      eg: { ...blankEg(), ...(m.eg || {}) },
     }));
 }

@@ -144,3 +144,27 @@
 .net-t-watch b{color:#7a6410}
 .net-t-cheer{background:#e9f3e6;box-shadow:inset 3px 0 #5b9a5f}
 .net-t-cheer b{color:#2f6b3a}
+/* 気づきの「声をかけた」。押したら2週間は「✓ 声かけ済み」に変わる。 */
+.net-t-notice{flex-wrap:wrap}
+.net-t-notice span{flex:1 1 160px}
+.net-t-name{all:unset;cursor:pointer;font-weight:700;border-bottom:1px dotted currentColor}
+.net-t-name:focus-visible{outline:2px solid #173f38;outline-offset:2px}
+.net-t-callbtn{margin-left:auto;padding:3px 10px;font-size:12px;border-radius:999px}
+.net-t-called{margin-left:auto;font-size:11px;color:#2f6b3f;white-space:nowrap}
+/* 英検の準会場。 */
+.net-t-examhead{margin:0 0 4px;font-size:13px;font-weight:600;color:#22372f}
+.net-t-examlist{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-size:12px;color:#4c5b52}
+.net-t-examlist small{display:block;font-size:11px;color:#6b7f74}
+/* 1人ぶんの画面（メモと英検の目安）。 */
+#net-t-child{margin:10px 0;padding:10px 12px;border-radius:12px;background:#fffaf0;border:1px solid #e5e0cc}
+#net-t-child .net-t-noticehead{justify-content:space-between;margin-top:0}
+#net-t-child textarea{width:100%;box-sizing:border-box;margin:4px 0;font:inherit;font-size:13px;padding:8px;border-radius:8px;border:1px solid #d7d2bd}
+.net-t-sub{margin:10px 0 4px;font-size:12px;font-weight:700;color:#5d6d62}
+.net-t-share{display:flex;gap:6px;align-items:center;font-size:12px;margin:2px 0 6px}
+.net-t-notes{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.net-t-note{display:grid;grid-template-columns:1fr auto;gap:0 8px;padding:6px 8px;border-radius:8px;background:#f4f1e3;font-size:12px}
+.net-t-note small{grid-column:1;color:#6b7f74;font-size:11px}
+.net-t-note span{grid-column:1;white-space:pre-wrap;color:#22372f}
+.net-t-note button{grid-column:2;grid-row:1 / span 2;align-self:center;padding:2px 8px}
+.net-t-note.is-call{background:#eef3ea}
+.net-t-childlinks{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 0;font-size:12px}

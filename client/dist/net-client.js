@@ -26,6 +26,7 @@ import { createRideUI } from './ride.js';
 import { createRaceUI } from './race.js';
 import { createKartGame } from './kart-game.js';
 import { createDashboard } from './dashboard.js';
+import { createQuick5 } from './quick5.js';
 import { createWardrobe } from './wardrobe.js';
 import { createRacers } from './racers.js';
 import { createGuestDock } from './guest-dock.js';
@@ -224,11 +225,17 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     onExit: () => { rpg.holdDoors?.(false); },
   });
 
+  // きょうの 5ふん. Five questions from anywhere, marked by the room like the 英検 halls.
+  const quick = createQuick5({
+    send: (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); },
+    speak, toast, isOnline: () => state.mode === 'online',
+  });
   // マイページ. The room works out the shape; this only draws it.
   const dash = createDashboard({
     send: (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); },
     isOnline: () => state.mode === 'online',
     toast,
+    onQuick: () => quick.open(),
   });
 
   // きせかえ. The room owns what is owned and worn; this draws it and asks.
@@ -478,6 +485,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('gp:closed', (m) => gp.onClosed(m));
     r.onMessage('gp:error', (m) => gp.onError(m));
     r.onMessage('dash:state', (m) => dash.onState(m));
+    r.onMessage('quick:question', (m) => quick.onQuestion(m));
+    r.onMessage('quick:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); quick.onResult(m); });
+    r.onMessage('quick:error', (m) => quick.onError(m));
+    r.onMessage('quick:closed', (m) => quick.onClosed(m));
     r.onMessage('wear:shop', (m) => { wardrobe.onShop(m); dressMe(m.worn, wardrobe.table); });
     r.onMessage('wear:bought', (m) => { if (m.wallet) applyWallet(m.wallet); wardrobe.onBought(m); dressMe(m.worn, wardrobe.table); });
     r.onMessage('wear:on', (m) => { wardrobe.onWorn(m); dressMe(m.worn, wardrobe.table); });
@@ -859,6 +870,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get remotes() { return remotes; },
     get gp() { return gp; },
     get dash() { return dash; },
+    get quick() { return quick; },
     get wardrobe() { return wardrobe; },
     get racers() { return racers; },
     get blockwild() { return blockwild; },

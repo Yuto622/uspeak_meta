@@ -20,6 +20,12 @@ export const PLAYER_COLUMNS = [
   // 要る（`game/retention.js`）。月ごとの記録は13か月で落ちるので、そこからでは
   // 「1年以上まえから居る」ことしか分からない。
   'first_seen',
+  // 英検の島の直近の正誤（級×技能で20問ずつ、'1'/'0' の文字列）。「練習で目安に届いたか」と
+  // 英検の準会場の見込み（`game/eiken-ready.js`）。
+  'eiken_json',
+  // 先生のメモと声かけ（`game/notes.js`）。**教室がいちばん手放しにくい記録**なので、
+  // CSV には全部出す。
+  'notes_json',
 ];
 export const LEARNING_COLUMNS = ['timestamp', 'class', 'name', 'question_id', 'mode', 'choice', 'correct', 'xp', 'session_id'];
 // The class register. A teacher keeps this: one row per child who is allowed in.
@@ -41,6 +47,7 @@ export function blankPlayerRecord(classCode, name) {
     blocks_json: '[]', room_json: '', role: 'student', props_json: '[]', eiken_coins: 0, conv_coins: 0,
     voice_minutes: 0, skills_json: '', study_ms: 0, study_days: 0, study_day: 0,
     wardrobe_json: '[]', worn_json: '[]', months_json: '{}', moved_to: '', moved_from: '', first_seen: '',
+    eiken_json: '', notes_json: '[]',
   };
 }
 

@@ -54,7 +54,7 @@ html:not([data-lang=ja]) .ja{display:none}
  * 下の中央はホットバーと「◯◯と話す」、真ん中は島そのもの。
  * **飾りと押せるボタンがぶつかったら、捨てるのは飾り**（右のバーの規則と同じ）。
  * 文字と規則は残してあるので、置き場所を作れたときに display を戻せる。 */
-.world-label{display:block}
+.world-label{display:none}
 
 /* 「◈ Auto-save じどうで ほぞん」は、つながっている間は出さない。
  *

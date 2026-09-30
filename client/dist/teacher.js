@@ -5,6 +5,9 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   let open = false;
   let roster = [];
   let notices = [];      // サーバーが選んだ「きょうの気づき」（`server/src/game/retention.js`）
+  let exam = null;       // 英検の準会場の見込み（`server/src/game/eiken-ready.js`）
+  let child = null;      // いま開いている子（メモ・英検の目安）: { name, notes, exam }
+  const reportUrls = new Map();   // なまえ → 保護者レポートのリンク（「保護者レポートのリンク」を押したあと）
   let chatPaused = false;
   let freeChat = true;
   let voiceMode = 'all';
@@ -30,6 +33,8 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     <button type="button" id="net-t-register">🔄 めいぼを読み直す</button>
   </div>
   <div id="net-t-notices"></div>
+  <div id="net-t-exam"></div>
+  <div id="net-t-child" hidden></div>
   <div id="net-t-links" hidden></div>
   <label class="net-t-field" for="net-t-mission">今日のおつかい</label>
   <select id="net-t-mission"><option value="">指定しない</option></select>
@@ -94,20 +99,95 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     watch: { icon: '○', label: '気にしておく' },
     cheer: { icon: '✦', label: 'いいこと' },
   };
+  // **声をかけたら、その場で1押し。** 押した記録は「教室のようす」で、2週間のうちに
+  // その子が戻ってきたかと一緒に数えられる。いいこと（✦）には声かけボタンを出さない。
+  const md = (iso) => { const d = new Date(iso); return `${d.getMonth() + 1}/${d.getDate()}`; };
   function renderNotices() {
     const box = $('#net-t-notices');
     if (!notices.length) { box.innerHTML = ''; return; }
     const line = (n) => {
       const said = NOTICE_SAID[n.level] || NOTICE_SAID.watch;
-      return `<li class="net-t-notice net-t-${esc(n.level)}"><b>${said.icon} ${esc(n.name)}</b><span>${esc(n.why)}</span></li>`;
+      const act = n.level === 'cheer' ? ''
+        : n.called ? `<small class="net-t-called">✓ ${esc(md(n.called))} 声かけ済み</small>`
+          : `<button type="button" class="net-t-callbtn" data-called="${esc(n.name)}" data-why="${esc(n.why)}">声をかけた</button>`;
+      return `<li class="net-t-notice net-t-${esc(n.level)}"><b><button type="button" class="net-t-name" data-child="${esc(n.name)}">${said.icon} ${esc(n.name)}</button></b><span>${esc(n.why)}</span>${act}</li>`;
     };
     box.innerHTML = `<div class="net-t-noticehead">きょうの 気づき<small>先月の その子と くらべています</small></div>
       <ul class="net-t-notices">${notices.map(line).join('')}</ul>`;
+    box.querySelectorAll('[data-called]').forEach((b) => {
+      b.onclick = () => { b.disabled = true; send({ cmd: 'called', name: b.dataset.called, why: b.dataset.why }); };
+    });
+    wireChildLinks(box);
+  }
+
+  // 英検の準会場。**10人以上で開ける**（2〜5級の志願者の合計）。
+  function renderExam() {
+    const box = $('#net-t-exam');
+    if (!exam || (!exam.readyTotal && !exam.closeTotal)) { box.innerHTML = ''; return; }
+    const G = ['g3', 'g4', 'g5'].filter((g) => exam.byGrade?.[g]).map((g) => {
+      const x = exam.byGrade[g];
+      return `<li><b>${esc(x.label)}</b> 目安に届いた ${x.ready.length}人${x.close.length ? ` · あと一歩 ${x.close.length}人` : ''}</li>`;
+    }).join('');
+    const head = exam.open ? `▲ 準会場を開ける人数です（${exam.readyTotal}人）`
+      : exam.likely ? `● あと一歩の子を合わせて ${exam.outlook}人 — 準会場（${exam.min}人）に届く見込み`
+        : `英検の準会場まで あと ${exam.short}人（いま ${exam.readyTotal}人）`;
+    box.innerHTML = `<div class="net-t-noticehead">英検の 準会場<small>練習の正解率から。合格の予想ではありません</small></div>
+      <p class="net-t-examhead">${esc(head)}</p><ul class="net-t-examlist">${G}</ul>`;
+  }
+
+  // 1人ぶんの画面：先生のメモ（保護者に見せる／見せない）と、英検の目安。
+  const EXAM_SAID = { ready: '目安に届いた', close: 'あと一歩', practice: '練習中' };
+  function renderChild() {
+    const box = $('#net-t-child');
+    if (!child) { box.hidden = true; box.innerHTML = ''; return; }
+    box.hidden = false;
+    const grades = (child.exam?.grades || []).filter((g) => g.status !== 'none').reverse()
+      .map((g) => `<li><b>${esc(g.label)}</b> ${esc(EXAM_SAID[g.status] || '')}${g.status === 'close' && g.missing.length ? `（${esc(g.missing.join('・'))}）` : ''}
+        <small>${g.skills.map((x) => `${esc(x.label)} ${x.n ? `${x.acc}%/${x.n}問` : '—'}`).join(' · ')}</small></li>`).join('')
+      || '<li><small>まだ英検の島の練習がありません</small></li>';
+    const notes = [...(child.notes || [])].reverse().map((n) => `<li class="net-t-note ${n.kind === 'call' ? 'is-call' : ''}">
+        <small>${esc(new Date(n.at).toLocaleDateString('ja-JP'))}${n.kind === 'call' ? ' · 声かけ' : n.share ? ' · 保護者に見せる' : ' · 先生だけ'}</small>
+        <span>${esc(n.text || '声をかけました')}</span>
+        <button type="button" data-unnote="${esc(n.id)}" aria-label="けす" title="けす">×</button></li>`).join('')
+      || '<li><small>まだメモはありません</small></li>';
+    const url = reportUrls.get(child.name);
+    const full = (u) => (/^https?:/i.test(u) ? u : location.origin + u);
+    const links = url ? `<p class="net-t-childlinks">
+        <a href="${esc(full(url))}&amp;view=meet" target="_blank" rel="noopener">🗣 面談メモを ひらく</a>
+        <a href="${esc(full(url))}&amp;format=cert" target="_blank" rel="noopener">📜 学習の記録証</a></p>`
+      : '<p class="net-fine">「📄 保護者レポートのリンク」を押すと、面談メモと記録証のリンクもここに出ます。</p>';
+    box.innerHTML = `<div class="net-t-noticehead">${esc(child.name)}<button type="button" id="net-t-child-close" aria-label="とじる">×</button></div>
+      <p class="net-t-sub">英検の目安</p><ul class="net-t-examlist">${grades}</ul>
+      ${links}
+      <p class="net-t-sub">先生のメモ</p>
+      <textarea id="net-t-note-text" rows="3" maxlength="400" placeholder="面談の前に読み返すメモ（400字まで）"></textarea>
+      <label class="net-t-share"><input type="checkbox" id="net-t-note-share"> 保護者のレポートに「先生から」としてのせる</label>
+      <button type="button" id="net-t-note-save" class="primary">メモを のこす</button>
+      <ul class="net-t-notes">${notes}</ul>`;
+    $('#net-t-child-close').onclick = () => { child = null; renderChild(); };
+    $('#net-t-note-save').onclick = () => {
+      const text = $('#net-t-note-text').value.trim();
+      if (!text) { toast('メモが空です。'); return; }
+      send({ cmd: 'note', name: child.name, text, share: $('#net-t-note-share').checked });
+    };
+    box.querySelectorAll('[data-unnote]').forEach((b) => {
+      b.onclick = () => { if (confirm('このメモを けしますか？')) send({ cmd: 'unnote', name: child.name, id: b.dataset.unnote }); };
+    });
+  }
+
+  function openChild(name) {
+    child = { name, notes: [], exam: null };
+    renderChild();
+    send({ cmd: 'notes', name });
+    $('#net-t-child').scrollIntoView?.({ block: 'nearest' });
+  }
+  function wireChildLinks(scope) {
+    scope.querySelectorAll('[data-child]').forEach((b) => { b.onclick = () => openChild(b.dataset.child); });
   }
 
   function renderRoster() {
     const rows = roster.filter((p) => p.role !== 'teacher').sort((a, b) => a.name.localeCompare(b.name, 'ja'));
-    $('#net-roster').innerHTML = rows.map((p) => `<tr class="${p.connected ? '' : 'net-offline'}"><td>${esc(p.name)}${p.connected ? '' : ' <small>(切断中)</small>'}</td><td><small>${esc(p.space)}</small></td><td title="${p.xp ?? 0} XP">${p.level ?? 1}</td><td>${p.coins}</td><td>${p.correct}/${p.attempts}</td><td><button type="button" data-call="${p.id}" title="呼び出す">📢</button><button type="button" data-move="${p.id}" title="ここへ移動">⤵</button><button type="button" data-stage="${p.id}" class="${staged.has(p.id) ? 'on' : ''}" title="ステージに上げる（大広間でカメラと画面を使えるようにする）">${staged.has(p.id) ? '🎤' : '🎙'}</button></td></tr>`).join('') || '<tr><td colspan="6">生徒はまだいません</td></tr>';
+    $('#net-roster').innerHTML = rows.map((p) => `<tr class="${p.connected ? '' : 'net-offline'}"><td><button type="button" class="net-t-name" data-child="${esc(p.name)}" title="メモと英検の目安">${esc(p.name)}</button>${p.connected ? '' : ' <small>(切断中)</small>'}</td><td><small>${esc(p.space)}</small></td><td title="${p.xp ?? 0} XP">${p.level ?? 1}</td><td>${p.coins}</td><td>${p.correct}/${p.attempts}</td><td><button type="button" data-call="${p.id}" title="呼び出す">📢</button><button type="button" data-move="${p.id}" title="ここへ移動">⤵</button><button type="button" data-stage="${p.id}" class="${staged.has(p.id) ? 'on' : ''}" title="ステージに上げる（大広間でカメラと画面を使えるようにする）">${staged.has(p.id) ? '🎤' : '🎙'}</button></td></tr>`).join('') || '<tr><td colspan="6">生徒はまだいません</td></tr>';
     root.querySelectorAll('[data-call]').forEach((b) => { b.onclick = () => send({ cmd: 'call', target: b.dataset.call }); });
     root.querySelectorAll('[data-move]').forEach((b) => { b.onclick = () => { const p = point(); if (p) send({ cmd: 'move', target: b.dataset.move, ...p }); }; });
     // ステージ: in 大広間（おはなし島）only the teacher is seen, so this is how a child gets
@@ -121,11 +201,15 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     $('#net-t-eiken').textContent = EIKEN_SAID[eikenLevel] || EIKEN_SAID.normal;
     $('#net-teacher-hint').textContent = `接続中 ${rows.filter((p) => p.connected).length} 人 · 集合・移動は今いる場所（${getSpace()}）へ`;
     renderNotices();
+    renderExam();
+    wireChildLinks($('#net-roster'));
   }
 
   // One link per child, each signed for that child alone. They are shown rather than
   // sent anywhere: the teacher decides who gets which.
-  function showLinks(links, csv = '') {
+  function showLinks(links, csv = '', classUrl = '') {
+    for (const l of links) reportUrls.set(l.name, l.url);
+    if (child) renderChild();
     const box = $('#net-t-links');
     box.hidden = !links.length && !csv;
     if (!links.length && !csv) { toast('レポートはまだありません。'); return; }
@@ -140,7 +224,10 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     // クラスぜんぶの CSV。**教室の記録は教室のもの**なので、探さなくても目に入る
     // ところに置く（いつでも持ち出せることが分かっているほうが、安心して使える）。
     const sheet = csv ? `<div class="net-t-link"><b>クラス ぜんぶ</b><a class="net-t-csv" href="${esc(full(csv))}" download>⬇ CSV でダウンロード</a></div>` : '';
-    box.innerHTML = `${sheet}<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(full(l.url))}"><button type="button" data-copy="${esc(full(l.url))}">コピー</button><a class="net-t-pdf" href="${esc(pdf(l.url))}" target="_blank" rel="noopener" title="デザインされた PDF をひらく">📄</a></div>`).join('')}`;
+    // 教室のようす（オーナー向け）。継続率・声かけの結果・英検の準会場。**子どもの名前が
+    // 載る**ので、教室の方だけに。
+    const owner = classUrl ? `<div class="net-t-link"><b>教室のようす</b><a class="net-t-csv" href="${esc(full(classUrl))}" target="_blank" rel="noopener">🏫 継続率と 英検の準会場</a></div>` : '';
+    box.innerHTML = `${owner}${sheet}<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(full(l.url))}"><button type="button" data-copy="${esc(full(l.url))}">コピー</button><a class="net-t-pdf" href="${esc(pdf(l.url))}" target="_blank" rel="noopener" title="デザインされた PDF をひらく">📄</a><a class="net-t-pdf" href="${esc(full(l.url))}&amp;view=meet" target="_blank" rel="noopener" title="面談メモ（話すことが上に出ます）">🗣</a></div>`).join('')}`;
     box.querySelectorAll('[data-copy]').forEach((b) => {
       b.onclick = async () => {
         try { await navigator.clipboard.writeText(b.dataset.copy); toast('リンクをコピーしました。'); }
@@ -158,10 +245,11 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
 
   return {
     setAvailable(v) { button.hidden = !v; if (!v) toggle(false); },
-    onRoster(m) { roster = m.players || []; notices = Array.isArray(m.notices) ? m.notices : []; chatPaused = !!m.chatPaused; freeChat = m.freeChat !== false; if (m.eikenLevel) eikenLevel = m.eikenLevel; if (open) renderRoster(); },
+    onRoster(m) { roster = m.players || []; notices = Array.isArray(m.notices) ? m.notices : []; exam = m.exam || null; chatPaused = !!m.chatPaused; freeChat = m.freeChat !== false; if (m.eikenLevel) eikenLevel = m.eikenLevel; if (open) renderRoster(); },
     onAck(m) {
       if (m.ok === false) {
-        const said = { 'not in a big room': 'ステージは おはなし島（大広間）だけです。', 'no such student': 'その生徒が見つかりません。', 'unknown level': 'その きびしさは ありません。' }[m.error];
+        const said = { 'not in a big room': 'ステージは おはなし島（大広間）だけです。', 'no such student': 'その生徒が見つかりません。', 'unknown level': 'その きびしさは ありません。',
+          'not found': 'その子の記録が見つかりません。', 'empty note': 'メモが空です。', 'could not write': '保存できませんでした。もう一度おしてください。' }[m.error];
         toast(said || `先生コマンド失敗: ${m.error || m.cmd}`);
       }
       else if (m.cmd === 'gather') toast(`${m.count} 人に集合を指示しました。`);
@@ -202,7 +290,19 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
       else if (m.cmd === 'call') toast('生徒を呼び出しました。');
       else if (m.cmd === 'move') toast('生徒をここへ移動させました。');
       else if (m.cmd === 'register') toast('めいぼを読み直しました。');
-      else if (m.cmd === 'reports') showLinks(m.links || [], m.csv || '');
+      else if (m.cmd === 'reports') showLinks(m.links || [], m.csv || '', m.classUrl || '');
+      else if (m.cmd === 'notes') { if (child && child.name === m.name) { child = { name: m.name, notes: m.notes || [], exam: m.exam || null }; renderChild(); } }
+      else if (m.cmd === 'note' || m.cmd === 'unnote') {
+        toast(m.cmd === 'note' ? (m.entry?.share ? 'メモを のこしました（保護者のレポートにも出ます）。' : 'メモを のこしました（先生だけ）。') : 'メモを けしました。');
+        if (child && child.name === m.name) { child.notes = m.notes || child.notes; renderChild(); }
+      }
+      else if (m.cmd === 'called') {
+        toast(`${m.name} さんに「声をかけた」を のこしました。2週間 様子を見ます。`);
+        const n = notices.find((x) => x.name === m.name);
+        if (n) n.called = m.entry?.at || new Date().toISOString();
+        if (child && child.name === m.name) { child.notes = m.notes || child.notes; renderChild(); }
+        if (open) renderNotices();
+      }
     },
     setChatPaused(v) { chatPaused = v; if (open) renderRoster(); },
     setFree(v) { freeChat = v !== false; if (open) renderRoster(); },

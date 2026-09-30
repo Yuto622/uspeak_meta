@@ -9,7 +9,9 @@ import { config, validateConfig } from './config.js';
 import { createStore } from './store/index.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
-import { reportFor, reportHtml, reportNoLatexHtml, verifyReport, verifyExport, classCsv } from './game/report.js';
+import { reportFor, reportHtml, reportNoLatexHtml, verifyReport, verifyExport, verifyClass, classCsv, certHtml } from './game/report.js';
+import { classView, classHtml } from './game/classview.js';
+import { sanitizeMonths } from './game/months.js';
 import { reportTex } from './game/report-tex.js';
 import { texToPdf, latexAvailable, LatexError } from './game/latex.js';
 import { log } from './log.js';
@@ -111,6 +113,25 @@ export async function startServer({ port = config.port, storeOverride = null } =
       res.send(classCsv(records));
     });
 
+    // 教室のようす（オーナー向け）。利用継続率・はじめたばかりの子・声かけの結果・英検の準会場。
+    // **子どもの名前が載る**ので、CSV と同じく署名つき。ただし署名の文字は CSV とも
+    // 1人ぶんとも別（`class|<クラス>`）で、どちらのリンクもここには読み替えられない。
+    app.get('/class/:classCode', async (req, res) => {
+      const classCode = req.params.classCode;
+      res.set('Cache-Control', 'no-store');
+      res.set('Referrer-Policy', 'no-referrer');
+      res.set('X-Robots-Tag', 'noindex, nofollow');
+      if (!verifyClass(config.reportSecret, classCode, req.query.t)) {
+        res.status(404).type('text/plain; charset=utf-8').send('見つかりません。先生コンソールからリンクを取り直してください。');
+        return;
+      }
+      let records = [];
+      try { records = store.listClass?.(classCode) || []; } catch (err) { log.warn('[class] listClass failed:', err.message); }
+      const view = classView(records, { classCode, sanitizeMonths });
+      if (String(req.query.format || '').toLowerCase() === 'json') { res.json(view); return; }
+      res.type('text/html; charset=utf-8').send(classHtml(view));
+    });
+
     app.get('/report/:classCode/:name', async (req, res) => {
       const { classCode, name } = req.params;
       res.set('Cache-Control', 'no-store');
@@ -171,7 +192,12 @@ export async function startServer({ port = config.port, storeOverride = null } =
         }
         return;
       }
-      res.type('text/html; charset=utf-8').send(reportHtml(report, { token }));
+      // 学習の記録証（印刷用の1枚）。
+      if (format === 'cert') { res.type('text/html; charset=utf-8').send(certHtml(report)); return; }
+      // `view=meet` は面談用：いちばん上に「きょう お話しすること」を出す。
+      // **中身は保護者のレポートと同じ**（先生だけのメモは入らない）ので、同じ署名で開ける。
+      const view = String(req.query.view || '') === 'meet' ? 'meet' : '';
+      res.type('text/html; charset=utf-8').send(reportHtml(report, { token, view }));
     });
   }
 

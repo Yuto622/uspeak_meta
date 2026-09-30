@@ -48,7 +48,18 @@ test('CSV：名前に , や " が入っていても列がずれない', () => {
   assert.ok(line.startsWith('"Aki, ""the brave"""'), line);
   // 引用の中のカンマを数えないで列を数える。
   const cells = line.match(/("([^"]|"")*"|[^,]*)(,|$)/g).filter((x) => x !== '');
-  assert.equal(cells.length, 14, '列は14のまま');
+  // 14列のあとに5列足した（はじめた日・おうちの日・英検の目安・次にめざす級・先生のメモ）。
+  // 最後のメモが空なので、正規表現の数え方では18個になる（前の14列の位置は変わらない）。
+  assert.equal(csv.split('\r\n')[0].split(',').length, 19, '見出しは19列');
+  assert.equal(cells.length, 18, '列は前の14列の位置のまま、後ろに足しただけ');
+});
+
+test('CSV：= や + で始まる名前・メモは式にならない（CSV インジェクション）', () => {
+  const rec = { ...child('=HYPERLINK("http://x")'), notes_json: JSON.stringify([{ kind: 'note', at: new Date(now).toISOString(), text: '+1 よくできた' }]) };
+  const csv = classCsv([rec], { now });
+  const line = csv.trim().split('\r\n')[1];
+  assert.ok(line.startsWith(`"'=HYPERLINK`), line);
+  assert.ok(!/,=|,\+/.test(line), '式として始まるセルが無い');
 });
 
 test('クラスぜんぶの署名は、子ども1人ぶんの署名とは別物', () => {

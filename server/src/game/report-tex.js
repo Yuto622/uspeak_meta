@@ -30,10 +30,13 @@ const TEX_ESCAPES = {
 };
 export const tex = (s) => String(s ?? '').replace(/[\\{}$&#^_%~]/g, (c) => TEX_ESCAPES[c]);
 
+// **日本時間で。** サーバーは UTC で動くので、getMonth/getDate のままだと
+// 朝9時までに作った紙は前の日の日付になる。
 const jaDate = (iso) => {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '';
-  return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+  const t = Date.parse(iso);
+  if (!Number.isFinite(t)) return '';
+  const d = new Date(t + 9 * 3600 * 1000);
+  return `${d.getUTCFullYear()}年${d.getUTCMonth() + 1}月${d.getUTCDate()}日`;
 };
 
 // A ring is drawn as an arc, so a proportion has to be a number of degrees. Nothing is
@@ -91,10 +94,24 @@ export function reportTex(r, { font = process.env.REPORT_FONT || '' } = {}) {
     ? [['つづけている月', Number(r.inARow) >= 14 ? '1年以上' : `${Math.floor(r.inARow)} か月`]]
     : [];
 
+  // おうちの日・英検の目安・先生から。**画面と同じものを紙にも**（上の約束）。
+  // 紙の行は1行なので、先生のメモは頭の34文字だけ（全文は画面のレポートに）。
+  const home = thisMonth?.home ? [[`${thisMonth.label} おうちの日`, `${thisMonth.home} 日（教室の時間のほか）`]] : [];
+  const best = r.exam?.best ? r.exam.grades.find((g) => g.grade === r.exam.best) : null;
+  const aim = r.exam?.aim ? r.exam.grades.find((g) => g.grade === r.exam.aim && g.status !== 'none') : null;
+  const exam = [
+    ...(best ? [['英検の目安', `${best.label}（${best.school}）に 練習で到達`]] : []),
+    ...(aim ? [['つぎに めざす級', `${aim.label}${aim.missing.length ? `（${aim.missing.join('・')}）` : ''}`]] : []),
+  ];
+  const note = r.notes?.[0]?.text ? [['先生から', r.notes[0].text.replace(/\s+/g, ' ').slice(0, 34) + (r.notes[0].text.length > 34 ? '…' : '')]] : [];
+
   const rows = [
     ...monthRows,
+    ...home,
     ...ago,
     ...inARow,
+    ...exam,
+    ...note,
     ['英語の問題', r.attempts ? `${r.correct} / ${r.attempts} 問` : ''],
     ['英語で話した回数', r.phrases ? `${r.phrases} 回` : ''],
     ['おつかい', r.errands ? `${r.errands} 件 たっせい` : ''],

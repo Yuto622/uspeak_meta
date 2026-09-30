@@ -18,7 +18,8 @@
     "test:signs": "node test/e2e/browser-signs.mjs",
     "test:desk": "node test/e2e/browser-desk.mjs",
     "vendor": "node scripts/vendor-client-sdk.mjs",
-    "loadtest": "node loadtest/run.mjs"
+    "loadtest": "node loadtest/run.mjs",
+    "test:infra2": "node test/e2e/browser-infra2.mjs"
   },
   "dependencies": {
     "@googleapis/sheets": "^14.0.0",

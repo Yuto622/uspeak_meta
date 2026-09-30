@@ -76,7 +76,7 @@ function drawRadar(canvas, skills) {
   });
 }
 
-export function createDashboard({ send, isOnline, toast }) {
+export function createDashboard({ send, isOnline, toast, onQuick = null }) {
   const dialog = document.createElement('dialog');
   dialog.id = 'dash-dialog';
   dialog.innerHTML = `
@@ -144,7 +144,19 @@ export function createDashboard({ send, isOnline, toast }) {
     const weak = m.weakest && m.weakest.attempts < (m.full || 60)
       ? `<p class="dash-next">つぎは <b>${esc(m.weakest.ja)}</b> を やってみよう。<small>${esc(m.weakest.en)} の れんしゅうが いちばん すくないよ。</small></p>`
       : '';
+    // **きょうの 5ふん。** 島まで歩かなくても答えられる5問。級はサーバーが選ぶ
+    // （その子が次にめざす級）。英検の目安に届いた級があれば、それも一言そえる。
+    const G = { g5: '5級', g4: '4級', g3: '3級' };
+    const exam = m.exam || null;
+    const aim = exam?.aim || 'g5';
+    const best = exam?.best ? `<small class="dash-best">✦ 英検${G[exam.best]}は れんしゅうで めやすに とどいたよ</small>` : '';
+    const quick = onQuick ? `
+      <section class="dash-quick">
+        <div><b>きょうの 5ふん</b><small>英検${G[aim]}の もんだい 5もん（よむ 3・きく 2）。どこからでも できるよ。</small>${best}</div>
+        <button type="button" class="primary" id="dash-quick">はじめる</button>
+      </section>` : '';
     $('#dash-body', dialog).innerHTML = `
+      ${quick}
       <div class="dash-level">
         <div class="dash-level-row"><span>レベル <b>${p.level}</b></span><small>つぎのレベルまで ${Math.max(0, (p.need || 0) - (p.xp || 0))} XP</small></div>
         <div class="dash-bar"><i style="width:${pct}%"></i></div>
@@ -162,6 +174,8 @@ export function createDashboard({ send, isOnline, toast }) {
         ${weak}
       </section>`;
     drawRadar($('#dash-chart', dialog), m.skills || []);
+    const go = $('#dash-quick', dialog);
+    if (go) go.onclick = () => { dialog.close(); onQuick(); };
   }
 
   // The canvas has no size until the dialog is open, so it is drawn after opening and

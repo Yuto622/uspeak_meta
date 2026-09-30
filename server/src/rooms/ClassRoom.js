@@ -22,6 +22,10 @@ import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_C
 // 読み返せないので、月末に数え直すことができない）。詳しくは game/months.js の頭。
 import { sanitizeMonths, bump as bumpMonth, recentMonths } from '../game/months.js';
 import { noticesFor, monthsInARow, lastYear } from '../game/retention.js';
+// 英検の目安と準会場（`eiken-ready.js`）、先生のメモと声かけ（`notes.js`）、今日の5分（`quick5.js`）。
+import { sanitizeReady, recordEiken, readinessOf, classExamPlan, GRADES as READY_GRADES } from '../game/eiken-ready.js';
+import { sanitizeNotes, addNote, removeNote, lastCall, cleanText as cleanNote, FOLLOW_DAYS } from '../game/notes.js';
+import { createQuick, quickPayload, answerQuick, QuickError } from '../game/quick5.js';
 import { EIKEN, ISLANDS as EIKEN_ISLANDS, EIKEN_CAP, INTERVIEW_ROOM, createSession as createEikenSet, questionPayload as eikenPayload, answerSession as answerEikenSet, EikenError, LEVELS as EIKEN_LEVELS, levelOf as eikenLevelOf } from '../game/eiken.js';
 import {
   startInterview, interviewStep, interviewPayload, interviewResult, scriptedLine,
@@ -45,7 +49,7 @@ import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeft
 import { SKILLS, blankSkills, sanitizeSkills, addAnswer, radarOf, weakestOf, FULL as SKILL_FULL } from '../game/skills.js';
 import { WARDROBE, shopPayload, priceOf, wear as wearItem, sanitizeOwned as sanitizeWardrobe, sanitizeWorn, WardrobeError } from '../game/wardrobe.js';
 import { createGate } from '../game/gate.js';
-import { reportPath, exportPath } from '../game/report.js';
+import { reportPath, exportPath, classPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
 
@@ -184,6 +188,9 @@ export class ClassRoom extends Room {
     this.onMessage('gp:cp', (client, msg) => this.onGpCp(client, msg));
     this.onMessage('gp:item', (client, msg) => this.onGpItem(client, msg));
     this.onMessage('dash:get', (client) => this.onDashboard(client));
+    this.onMessage('quick:start', (client, msg) => this.onQuickStart(client, msg));
+    this.onMessage('quick:answer', (client, msg) => this.onQuickAnswer(client, msg));
+    this.onMessage('quick:quit', (client) => { const priv = this.priv.get(client.sessionId); if (priv) priv.quick = null; client.send('quick:closed', { reason: 'quit' }); });
     this.onMessage('wear:list', (client) => this.onWearList(client));
     this.onMessage('wear:buy', (client, msg) => this.onWearBuy(client, msg));
     this.onMessage('wear:put', (client, msg) => this.onWearPut(client, msg));
@@ -626,9 +633,17 @@ export class ClassRoom extends Room {
         // そもそも出てこない。クラスの記録ぜんぶから、本人の過去と比べて
         // 「声をかけたほうがいい子」「伸びている子」を出す（`game/retention.js`）。
         // 塾向けの Comiru で継続に効いているのがこの「退塾予備軍の早期発見」だった。
+        // 英検の準会場の見込みも、ここで一緒に返す（名簿と同じ間隔で新しくなる）。
+        const rows = this.classRows();
+        const plan = classExamPlan(rows);
         client.send('roster', {
           players: roster, chatPaused: this.state.chatPaused, freeChat: this.state.freeChat,
-          eikenLevel: this.state.eikenLevel, notices: this.noticeRows(),
+          eikenLevel: this.state.eikenLevel, notices: this.noticeRows(rows),
+          exam: {
+            readyTotal: plan.readyTotal, closeTotal: plan.closeTotal, outlook: plan.outlook,
+            open: plan.open, likely: plan.likely, short: plan.short, min: plan.min,
+            byGrade: Object.fromEntries(READY_GRADES.map((g) => [g, { label: plan.byGrade[g].label, ready: plan.byGrade[g].ready, close: plan.byGrade[g].close }])),
+          },
         });
         return;
       }
@@ -645,7 +660,45 @@ export class ClassRoom extends Room {
         const links = [...names].sort().map((name) => ({ name, url: base + reportPath(config.reportSecret, this.classCode, name) }));
         // クラスぜんぶを1枚の CSV に落とすリンクも一緒に返す。**教室が自分の記録を
         // いつでも持ち出せる**ことを、探さずに見えるところに置いておく。
-        client.send('teacher:ack', { cmd, ok: true, links, csv: base + exportPath(config.reportSecret, this.classCode) });
+        client.send('teacher:ack', {
+          cmd, ok: true, links, csv: base + exportPath(config.reportSecret, this.classCode),
+          // 教室のようす（オーナー向け）。継続率・声かけの結果・英検の準会場。
+          classUrl: base + classPath(config.reportSecret, this.classCode),
+        });
+        return;
+      }
+      case 'note':
+      case 'called':
+      case 'unnote': {
+        // **先生のメモ・声かけ。** 書けるのは先生だけ（この枠がすでに講師キーで守られている）。
+        // いま部屋にいない子にも書ける：保存を直接書きかえる。いる子は部屋の側に書く
+        // （保存に書くと、次の persist で部屋の古い側に上書きされるため）。
+        const name = sanitizeName(msg.name);
+        if (!name) { client.send('teacher:ack', { cmd, ok: false, error: 'no name' }); return; }
+        const result = await this.editNotes(name, (notes) => {
+          if (cmd === 'unnote') return removeNote(notes, String(msg.id || '')) ? { removed: String(msg.id) } : null;
+          const entry = addNote(notes, {
+            kind: cmd === 'called' ? 'call' : 'note',
+            text: cmd === 'called' ? cleanNote(msg.why || '声をかけました') : msg.text,
+            share: cmd === 'note' && msg.share === true,
+            by: me.name,
+          });
+          return entry ? { entry } : null;
+        });
+        if (!result) { client.send('teacher:ack', { cmd, ok: false, error: cmd === 'note' ? 'empty note' : 'not found' }); return; }
+        if (result.error) { client.send('teacher:ack', { cmd, ok: false, error: result.error }); return; }
+        client.send('teacher:ack', { cmd, ok: true, name, ...result.value, notes: result.notes });
+        return;
+      }
+      case 'notes': {
+        // 1人ぶんのメモ（保護者に見せないものも含めて全部）と、英検の目安。
+        const name = sanitizeName(msg.name);
+        const record = name ? await this.recordOf(name) : null;
+        if (!record) { client.send('teacher:ack', { cmd, ok: false, error: 'not found' }); return; }
+        client.send('teacher:ack', {
+          cmd, ok: true, name,
+          notes: record.notes, exam: readinessOf(record.ready),
+        });
         return;
       }
       case 'carryover': {
@@ -705,8 +758,9 @@ export class ClassRoom extends Room {
   //
   // **他人とは比べない。** ここで出るのは全部その子自身の過去との差で、
   // 教室の中の順位は作らない（順位は、下にいる子の保護者に見せられない）。
-  noticeRows() {
-    const now = Date.now();
+  // クラスの記録ぜんぶ。**いま部屋にいる子は部屋の側（`priv`）で上書き**する。
+  // 気づき・準会場・声かけ済みの印は、全部これを読む。
+  classRows(now = Date.now()) {
     const iso = new Date(now).toISOString();
     const live = new Map();
     for (const [id, player] of this.state.players) {
@@ -715,24 +769,84 @@ export class ClassRoom extends Room {
     }
     let stored = [];
     try { stored = this.store.listClass?.(this.classCode) || []; } catch (err) {
-      log.warn(`[room ${this.roomId}] notice list failed:`, err.message);
+      log.warn(`[room ${this.roomId}] class list failed:`, err.message);
     }
+    const fromPriv = (priv) => ({ last_seen: iso, first_seen: priv.firstSeen, months: priv.months, ready: priv.ready, notes: priv.notes });
     const rows = [];
     const seen = new Set();
     for (const record of stored) {
       if (!record?.name) continue;
       seen.add(record.name);
       const priv = live.get(record.name);
-      rows.push(priv
-        ? { ...record, last_seen: iso, first_seen: priv.firstSeen, months: priv.months }
-        : record);
+      rows.push(priv ? { ...record, ...fromPriv(priv) } : record);
     }
     // 初日の子は、まだ保存に現れていないことがある。
     for (const [name, priv] of live) {
       if (seen.has(name)) continue;
-      rows.push({ name, role: 'student', last_seen: iso, first_seen: priv.firstSeen, months: priv.months });
+      rows.push({ name, role: 'student', ...fromPriv(priv) });
     }
-    return noticesFor(rows, { now, sanitize: sanitizeMonths });
+    return rows;
+  }
+
+  noticeRows(rows = this.classRows()) {
+    const now = Date.now();
+    const notices = noticesFor(rows, { now, sanitize: sanitizeMonths });
+    // **声かけ済みの印。** 2週間以内に「声をかけた」を押した子には、その日を添える
+    // （同じ子に毎日声をかけるボタンを押させない）。
+    const byName = new Map(rows.map((r) => [r.name, r]));
+    return notices.map((n) => {
+      const r = byName.get(n.name);
+      const call = lastCall(Array.isArray(r?.notes) ? r.notes : sanitizeNotes(r?.notes_json));
+      const fresh = call && (now - Date.parse(call.at)) / 86400000 < FOLLOW_DAYS;
+      return fresh ? { ...n, called: call.at } : n;
+    });
+  }
+
+  // 1人ぶんの記録を、メモと英検の目安を読める形で。部屋にいればそちら、いなければ保存。
+  livePriv(name) {
+    for (const [id, player] of this.state.players) {
+      const priv = this.priv.get(id);
+      if (priv && priv.name === name && player.role !== 'teacher') return { id, priv };
+    }
+    return null;
+  }
+
+  async recordOf(name) {
+    const live = this.livePriv(name);
+    if (live) return { name, notes: live.priv.notes, ready: live.priv.ready, online: true, id: live.id };
+    let record = null;
+    try { record = await this.store.loadPlayer(this.classCode, name); } catch (err) { log.warn(`[room ${this.roomId}] load for notes failed:`, err.message); }
+    // **読んでいるあいだに、その子が部屋に入ってきたかもしれない。** そのときは保存ではなく
+    // 部屋の側に書く（保存に書くと、その子の次の persist で古いメモに上書きされる）。
+    const joined = this.livePriv(name);
+    if (joined) return { name, notes: joined.priv.notes, ready: joined.priv.ready, online: true, id: joined.id };
+    if (!record || record.role === 'teacher' || record.moved_to) return null;
+    return { name, notes: sanitizeNotes(record.notes_json), ready: sanitizeReady(record.eiken_json), online: false, record };
+  }
+
+  // メモを書きかえる。`fn(notes)` が null を返したら何も書かない。
+  async editNotes(name, fn) {
+    const found = await this.recordOf(name);
+    if (!found) return { error: 'not found' };
+    const value = fn(found.notes);
+    if (!value) return null;
+    if (found.online) {
+      this.persist(found.id);
+    } else {
+      try {
+        await this.store.savePlayer({ ...found.record, notes_json: JSON.stringify(found.notes), updated_at: new Date().toISOString() });
+      } catch (err) {
+        log.warn(`[room ${this.roomId}] could not save notes:`, err.message);
+        return { error: 'could not write' };
+      }
+    }
+    return { value, notes: found.notes };
+  }
+
+  // 部屋に先生がいるか。**おうちの日**（先生のいない時間に自分で答えた日）を決めるのに使う。
+  teacherPresent() {
+    for (const p of this.state.players.values()) if (p.role === 'teacher' && p.connected) return true;
+    return false;
   }
 
 
@@ -843,6 +957,13 @@ export class ClassRoom extends Room {
       // **古い記録には入っていない**ので、その場合はいま入れる——「この日より前から
       // 居る」は分かっても、何月何日かは分からないため、これが言える中でいちばん近い。
       firstSeen: typeof record.first_seen === 'string' && record.first_seen ? record.first_seen : new Date().toISOString(),
+      // 英検の島の直近の正誤（級×技能で20問ずつ）。「練習で目安に届いたか」を出す。
+      ready: sanitizeReady(record.eiken_json),
+      // 先生のメモと声かけ。子どもの画面には一度も出ない（保護者にも、先生が選んだものだけ）。
+      notes: sanitizeNotes(record.notes_json),
+      // 今日の5分（どこからでも答えられる5問）。
+      quick: null,
+      lastQuickAt: 0,
       // 総学習時間 and 総学習日数. `activeAt` is the last thing they actually did, so a
       // tab left open on the bus does not become an hour of study.
       study: {
@@ -879,6 +1000,8 @@ export class ClassRoom extends Room {
       wardrobe_json: JSON.stringify(priv.wardrobe), worn_json: JSON.stringify(priv.worn),
       skills_json: JSON.stringify(priv.skills),
       months_json: JSON.stringify(priv.months),
+      eiken_json: JSON.stringify(priv.ready),
+      notes_json: JSON.stringify(priv.notes),
       study_ms: Math.floor(priv.study.ms), study_days: priv.study.days, study_day: priv.study.day,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
@@ -965,7 +1088,70 @@ export class ClassRoom extends Room {
       inARow: monthsInARow(priv.months),
       // 去年の同じ月。1年たった子にしか出ない。
       lastYear: lastYear(priv.months),
+      // 英検の目安と、今日の5分の級（次にめざす級から出す）。
+      exam: readinessOf(priv.ready),
     });
+  }
+
+  // ---- 今日の5分 ----------------------------------------------------------------------
+  //
+  // 島まで歩かなくても答えられる5問（英検の読む3・聞く2）。**位置で縛らない**のが
+  // 他の島との違いで、そのぶんコインは英検の島と同じ1日の上限（EIKEN_CAP）に入れる
+  // （どこからでも稼げる口を別に作らない）。採点・記録・英検の目安への反映は島と同じ。
+  onQuickStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const want = typeof msg?.grade === 'string' && READY_GRADES.includes(msg.grade) ? msg.grade : null;
+    const grade = want || readinessOf(priv.ready).aim || 'g5';
+    try {
+      priv.quick = createQuick(grade, Math.random, this.state.eikenLevel);
+    } catch (err) {
+      if (!(err instanceof QuickError)) throw err;
+      client.send('quick:error', { reason: err.message });
+      return;
+    }
+    client.send('quick:question', quickPayload(priv.quick));
+  }
+
+  onQuickAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const session = priv?.quick;
+    if (!priv || !session) return;
+    const now = Date.now();
+    if (now - priv.lastQuickAt < config.answerMinIntervalMs) { client.send('quick:error', { reason: 'too fast' }); return; }
+    priv.lastQuickAt = now;
+    const result = answerQuick(session, msg);
+    if (!result) return;
+    priv.stats.attempts += 1;
+    if (result.correct) priv.stats.correct += 1;
+    const payload = { ...result };
+    if (result.correct) {
+      const rate = eikenReward(result.skill, session.grade);
+      const paid = Math.min(rate.coins, roomLeft(priv.caps, 'eiken', EIKEN_CAP));
+      if (paid > 0) {
+        const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `quick:${session.grade}:${result.skill}` });
+        priv.caps.eiken += paid;
+        this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      }
+      payload.coins = paid;
+      payload.capped = paid < rate.coins;
+      const level = this.awardXp(client.sessionId, rate.xp, `quick:${session.grade}:${result.skill}`);
+      payload.xp = rate.xp;
+      payload.levels = level?.levels || 0;
+    }
+    if (recordEiken(priv.ready, session.grade, result.skill, result.correct, session.level) && result.correct) {
+      bumpMonth(priv.months, { eg: session.grade });
+    }
+    this.appendLearning([
+      new Date(now).toISOString(), this.classCode, priv.name, `quick:${session.grade}:${result.skill}:${session.level}:${result.index}`, result.skill,
+      String(result.picked ?? '').slice(0, 80), result.correct ? 1 : 0, result.correct ? (payload.xp || 0) : 0, client.sessionId,
+    ]);
+    if (result.done) priv.quick = null;
+    payload.progress = this.progressPayload(client.sessionId);
+    payload.wallet = this.walletPayload(client.sessionId).wallet;
+    payload.next = priv.quick ? quickPayload(priv.quick) : null;
+    this.persist(client.sessionId);
+    client.send('quick:result', payload);
   }
 
   // ---- きせかえ --------------------------------------------------------------------
@@ -1057,7 +1243,9 @@ export class ClassRoom extends Room {
         this.markStudied(priv);
         // **11か所ある学習ログの書き込みは全部ここを通る**ので、月の箱もここで足す。
         // 12個目の活動を足した人が months.js を知らなくても数えられる。
-        bumpMonth(priv.months, { answers: 1, correct: Number(row[6]) === 1 ? 1 : 0, xp: Number(row[7]) || 0 }, { day: true });
+        // **おうちの日**：先生が部屋にいない時間に答えたら、その日を「おうち」にも数える。
+        // 端末の申告ではなく、部屋に先生がいたかをサーバーが見て決める。
+        bumpMonth(priv.months, { answers: 1, correct: Number(row[6]) === 1 ? 1 : 0, xp: Number(row[7]) || 0 }, { day: true, home: !this.teacherPresent() });
       }
     } catch (err) {
       // A miscounted skill must never cost a child the record of the answer itself.
@@ -1952,6 +2140,11 @@ export class ClassRoom extends Room {
       const level = this.awardXp(client.sessionId, rate.xp, `eiken:${session.grade}:${session.skill}`);
       payload.xp = rate.xp;
       payload.levels = level?.levels || 0;
+    }
+    // 英検の目安。やさしい判定の答えは数えない（`eiken-ready.js`）。
+    // 正解なら、その級の月の正解にも足す（「中学1年生くらいの問題に◯問」のため）。
+    if (recordEiken(priv.ready, session.grade, session.skill, result.correct, session.level) && result.correct) {
+      bumpMonth(priv.months, { eg: session.grade });
     }
     this.appendLearning([
       // **どのきびしさで ○ になったのかも残す。** 保護者が読む数字なので、
