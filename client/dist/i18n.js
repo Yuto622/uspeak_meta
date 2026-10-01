@@ -118,18 +118,6 @@ export function translate(text) {
 function whole(core, depth) {
   if (typeof dict[core] === 'string' && !core.includes('{')) return dict[core];
   if (depth > 2) return null;
-  // HTML の中で折り返してある文（改行と字下げ入り）は、空白を1つにして引く。
-  if (/\s{2,}|\n/.test(core)) {
-    const flat = core.replace(/\s+/g, ' ');
-    const got = whole(flat, depth + 1);
-    if (got !== null) return got;
-  }
-  // 「☕ であいのカフェ」「🐟 おさかな道場」— 頭の絵文字・記号は残して、あとを訳す。
-  const head = core.match(/^([^\p{L}\p{N}\s]+\s*)(\S[\s\S]*)$/u);
-  if (head && JA.test(head[2])) {
-    const got = whole(head[2], depth + 1);
-    if (got !== null) return head[1] + got;
-  }
   for (const p of patterns) {
     const m = p.re.exec(core);
     if (!m) continue;
@@ -147,6 +135,19 @@ function whole(core, depth) {
       en = en.split(`{${name}}`).join(word);
     });
     if (ok) return en;
+  }
+  // ここから下は辞書にも型にも無かったときだけ（型のほうが文として正しい）。
+  // HTML の中で折り返してある文（改行と字下げ入り）は、空白を1つにして引く。
+  if (/\s{2,}|\n/.test(core)) {
+    const flat = core.replace(/\s+/g, ' ');
+    const got = whole(flat, depth + 1);
+    if (got !== null) return got;
+  }
+  // 「☕ であいのカフェ」「🐟 おさかな道場」— 頭の絵文字・記号は残して、あとを訳す。
+  const head = core.match(/^([^\p{L}\p{N}\s]+\s*)(\S[\s\S]*)$/u);
+  if (head && JA.test(head[2])) {
+    const got = whole(head[2], depth + 1);
+    if (got !== null) return head[1] + got;
   }
   // 「リオ「風で散らばった…」」— 話す人の名前と、話したこと。両方訳せたら英語の形にする。
   const said = core.match(/^([^\s「」]{1,12})「([^「」]+)」$/);
