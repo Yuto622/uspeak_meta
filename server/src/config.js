@@ -81,6 +81,15 @@ export const config = Object.freeze({
   // with the fallbacks in game/gate.js so an outage never locks a class out.
   accessMode: ((env.ACCESS_MODE ?? 'open').trim().toLowerCase() === 'roster' ? 'roster' : 'open'),
   rosterTtlMs: Math.max(30000, int('ROSTER_TTL_MS', 5 * 60 * 1000)),
+  // 名簿スプレッドシート. The register as a Google Sheet of its own (store/roster-sheet.js),
+  // whatever the store backend: the teacher edits names in a browser, the game's data
+  // stays on the volume. Read with the same service account as the Sheets store, and
+  // only ever read. Without ROSTER_SHEET_ID, GOOGLE_SHEET_ID is used when the store is
+  // not already Sheets (where the register is that spreadsheet's `roster` tab anyway).
+  roster: {
+    sheetId: (env.ROSTER_SHEET_ID ?? '').trim(),
+    tab: (env.ROSTER_SHEET_TAB ?? '').trim(),
+  },
   // Signs the parent-report links. Without it, reports are simply not served: a
   // guessable link would show one family another family's child.
   reportSecret: (env.REPORT_SECRET ?? '').trim(),
@@ -98,6 +107,9 @@ export function validateConfig(log = console) {
   if (!config.teacherKey) log.warn('[config] TEACHER_KEY is empty: teacher role is disabled.');
   if (config.teacherKey && config.teacherKey.length < 8) problems.push('TEACHER_KEY must be at least 8 characters.');
   if (config.accessMode === 'roster' && !config.teacherKey) problems.push('ACCESS_MODE=roster needs TEACHER_KEY, or a teacher cannot get in either.');
+  const hasGoogleCreds = !!(config.google.jsonBase64 || (config.google.email && config.google.privateKey));
+  if (config.roster.sheetId && !hasGoogleCreds) problems.push('ROSTER_SHEET_ID is set but no service account is: set GOOGLE_SERVICE_ACCOUNT_JSON (or GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_PRIVATE_KEY).');
+  if (config.accessMode === 'roster' && !config.roster.sheetId && !config.google.sheetId) log.warn('[config] ACCESS_MODE=roster without ROSTER_SHEET_ID: the register is data/roster.json only.');
   if (config.reportSecret && config.reportSecret.length < 16) problems.push('REPORT_SECRET must be at least 16 characters.');
   if (!config.reportSecret) log.warn('[config] REPORT_SECRET is empty: parent reports are disabled.');
   return problems;

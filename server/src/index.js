@@ -49,7 +49,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
     for (const p of problems) log.error('[config]', p);
     throw new Error('invalid configuration');
   }
-  const { store, close: closeStore } = storeOverride ? { store: storeOverride, close: async () => {} } : await createStore(log);
+  const { store, roster, close: closeStore } = storeOverride ? { store: storeOverride, roster: storeOverride, close: async () => {} } : await createStore(log);
   const cpuPercent = createCpuSampler();
   const startedAt = Date.now();
 
@@ -72,6 +72,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
       cpuPercent: cpuPercent(),
       memory: { rssMb: Math.round((mem.rss / 1048576) * 10) / 10, heapUsedMb: Math.round((mem.heapUsed / 1048576) * 10) / 10 },
       store: { backend: store.name, pending: store.pendingCount ?? 0, ...(store.stats || {}) },
+      // 入場ゲート: the mode and where the register comes from, never a name on it.
+      gate: { mode: config.accessMode, register: roster?.name || store.name },
       // **鍵が効いているかを、ここで1目で見られるようにしてある。** `OPENAI_API_KEY` を
       // 入れたのに AI が動かないとき、いままでは `fly logs` の `[tutor] provider=` を
       // 探すしかなかった。**出しているのは「鍵が入っているか」だけ**で、鍵そのものも
@@ -233,7 +235,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   });
   const gameServer = new Server({ transport, gracefullyShutdown: false });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, tutor }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, tutor }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   log.info(`[server] listening on :${port} env=${config.nodeEnv} maxClients=${config.maxClients} cors=${config.corsOrigins.join(',') || '(dev: any)'} serveClient=${config.serveClient}`);

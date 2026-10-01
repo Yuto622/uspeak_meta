@@ -10,6 +10,7 @@
 import {
   PLAYER_COLUMNS, LEARNING_COLUMNS, COIN_COLUMNS, ROSTER_COLUMNS, playerKey, recordToRow, rowToRecord,
 } from './records.js';
+import { parseRosterRows, rowsForClass } from './roster-sheet.js';
 
 export const SHEETS = { players: 'players', learning: 'learning_log', coins: 'coin_log', roster: 'roster' };
 const MAX_PENDING_ROWS = 20000;
@@ -88,11 +89,7 @@ export class SheetsStore {
   // The class register, read straight from its tab. The gate caches it, so this is a
   // few reads an hour rather than one per child arriving.
   async listRoster(classCode) {
-    const rows = await this.api.getValues(`${SHEETS.roster}!A2:C`);
-    return rows
-      .filter((row) => row && row[0] && row[1])
-      .map((row) => ({ class: String(row[0]).trim(), name: String(row[1]).trim(), note: String(row[2] ?? '').trim() }))
-      .filter((r) => r.class === classCode);
+    return rowsForClass(parseRosterRows(await this.api.getValues(`${SHEETS.roster}!A1:C`)), classCode);
   }
 
   // Every cached record for one class, which is what the weekly board ranks. Reads the

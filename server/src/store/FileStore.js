@@ -34,7 +34,8 @@ export class FileStore {
   // with a text editor and nothing else has to be running. Re-read when it changes on
   // disk, so a name added mid-lesson takes effect without a restart.
   //
-  // Shape: {"classes": {"6-1": ["Aki", "Ben"]}} or a flat [{class, name}] list.
+  // Shape: {"classes": {"6-1": ["Aki", "Ben"]}} or a flat [{class, name}] list. A class of
+  // "*" is every class.
   async listRoster(classCode) {
     if (!this.filePath) return this.memoryRoster?.filter((r) => r.class === classCode) ?? null;
     const file = path.join(path.dirname(this.filePath), 'roster.json');
@@ -58,7 +59,7 @@ export class FileStore {
         return this.roster ? this.roster.filter((r) => r.class === classCode) : null;
       }
     }
-    return this.roster.filter((r) => r.class === classCode);
+    return this.roster.filter((r) => r.class === classCode || r.class === '*').map((r) => ({ ...r, class: classCode }));
   }
 
   // Every record for one class, which is what the weekly board ranks.

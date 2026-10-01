@@ -19,6 +19,8 @@ primary_region = "nrt"
   OPENAI_MODEL = "gpt-4o-mini"
   AI_MAX_TOKENS = "300"
   SERVE_CLIENT = "true"
+  # 名簿: ACCESS_MODE=roster + ROSTER_SHEET_ID + GOOGLE_SERVICE_ACCOUNT_JSON go in
+  # `fly secrets set` (docs/ROSTER_SHEET.md); the key is a secret, never put it here.
   # Must match the public URL of this app (used for CORS and WebSocket origin checks).
   CORS_ORIGINS = "https://uspeak-multiplayer.fly.dev"
 

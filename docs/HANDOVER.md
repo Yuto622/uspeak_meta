@@ -134,7 +134,7 @@ Google シートのヘッダは短ければ自動で伸ばし、食い違えば�
 1. **アリーナのPvP**（Roblox にはあった。マッチング・両者接続・中断処理の設計が要ります）
 2. **実機テスト**（iPad/スマホ・25台同時・スリープ復帰3秒以内）
 3. **Fly.io デプロイ**（`scripts/deploy-fly.ps1`。東京 nrt・`wss://`・スリープ無効）
-4. **Google スプレッドシート接続**（`.env` に service account。`roster` タブが名簿）
+4. **Google スプレッドシート接続**（`.env` に service account。名簿は `ROSTER_SHEET_ID` のシート — `docs/ROSTER_SHEET.md`。学習記録は `GOOGLE_SHEET_ID`）
 5. **A7 読み上げ / A8 宿題 / A9 フレーズ図鑑 / F2 きせかえ**（未着手）
 6. **D3 共有建築エリア**（Roblox では別プレイス。同期コストが桁違いなので見送り中）
 

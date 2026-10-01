@@ -12,6 +12,12 @@
 //      Sheets outage in the middle of a lesson changes nothing for the children.
 //   3. A record of this child in this class, written by an earlier lesson. Somebody
 //      admitted them once; a spreadsheet being down is not a reason to turn them away.
+//      This tier is for when there is no register to check at all. When the register is
+//      in hand, it decides: a child with an old record whose name has been taken off the
+//      list is off the list.
+//
+// The register may come from somewhere other than the store (`roster`: a Google Sheet of
+// its own, store/roster-sheet.js); the store is still where tier 3 looks for a record.
 //
 // A teacher holding the key is authorised by that key and never consults the register.
 // And with no register at all (ACCESS_MODE=open, which is the default) the gate is a
@@ -24,7 +30,7 @@ export const ROSTER = 'roster';
 
 const fold = (s) => String(s ?? '').normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
 
-export function createGate({ store, mode = OPEN, ttlMs = 5 * 60 * 1000, snapshotPath = '', log = console, now = Date.now }) {
+export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 * 1000, snapshotPath = '', log = console, now = Date.now }) {
   // classCode -> { names:Set, at, source }
   const cache = new Map();
   let snapshotLoaded = false;
@@ -61,9 +67,9 @@ export function createGate({ store, mode = OPEN, ttlMs = 5 * 60 * 1000, snapshot
     await loadSnapshot();
     const entry = cache.get(classCode);
     if (entry && entry.at && now() - entry.at < ttlMs) return entry;
-    if (!store?.listRoster) return entry || null;
+    if (!roster?.listRoster) return entry || null;
     try {
-      const rows = await store.listRoster(classCode);
+      const rows = await roster.listRoster(classCode);
       if (rows === null || rows === undefined) return entry || null;   // no register kept at all
       const fresh = { names: new Set(rows.map((r) => fold(r.name))), at: now(), source: 'register' };
       cache.set(classCode, fresh);
@@ -84,7 +90,10 @@ export function createGate({ store, mode = OPEN, ttlMs = 5 * 60 * 1000, snapshot
       if (role === 'teacher') return { ok: true, reason: 'teacher key' };
       const entry = await register(classCode);
       if (entry && entry.names.has(fold(name))) return { ok: true, reason: entry.source };
-      // Tier 3: this child has been in this class before, so somebody admitted them once.
+      // A register in hand that does not carry this name is the answer, old record or not.
+      if (entry) return { ok: false, reason: 'not on the register' };
+      // Tier 3: no register at all could be read. This child has been in this class
+      // before, so somebody admitted them once.
       const src = storeOverride || store;
       if (src?.loadPlayer) {
         try {
@@ -94,9 +103,8 @@ export function createGate({ store, mode = OPEN, ttlMs = 5 * 60 * 1000, snapshot
           log.warn?.('[gate] record check failed:', err.message);
         }
       }
-      // A register exists and this name is not on it, or there is no register and no
-      // record: either way this is not somebody we can vouch for.
-      return { ok: false, reason: entry ? 'not on the register' : 'no register' };
+      // No register and no record: this is not somebody we can vouch for.
+      return { ok: false, reason: 'no register' };
     },
   };
 }

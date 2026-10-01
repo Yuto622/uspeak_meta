@@ -217,7 +217,7 @@ export class ClassRoom extends Room {
     // The register is read once per class and cached; the gate below decides who is let
     // in, and in the default 'open' mode it never even looks.
     this.gate = options.gate || createGate({
-      store: this.store, mode: config.accessMode, ttlMs: config.rosterTtlMs,
+      store: this.store, roster: options.roster || this.store, mode: config.accessMode, ttlMs: config.rosterTtlMs,
       snapshotPath: `${config.dataDir.replace(/\/$/, '')}/roster-snapshot.json`, log,
     });
     // Who has a microphone open, and where they were standing when they opened it.

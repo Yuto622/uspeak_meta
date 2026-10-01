@@ -104,6 +104,8 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 | `STORE_BACKEND` | auto | `auto` / `sheets` / `file` / `memory` |
 | `STORE_FLUSH_MS` | 5000 | Sheets への書き込み間隔 |
 | `GOOGLE_SHEET_ID` ほか | | `docs/GOOGLE_SHEETS_SETUP.md` 参照 |
+| `ACCESS_MODE` | open | `roster` にすると **名簿に名前がある子しか入れない**（下記） |
+| `ROSTER_SHEET_ID` / `ROSTER_SHEET_TAB` | (空) | 名簿にする Google スプレッドシート。`docs/ROSTER_SHEET.md` 参照 |
 | `PUBLIC_SERVER_URL` | (同一ホスト) | クライアントと別ホストで動かすときの `wss://` URL（`/config.js` で配信） |
 | `NET_OVERRIDES` | (なし) | クライアントの同期・描画定数を JSON で上書き（例 `{"INTERP_DELAY_MS":150,"MAX_RENDERED_REMOTES":24}`） |
 | `LIVEKIT_URL` / `LIVEKIT_API_KEY` / `LIVEKIT_API_SECRET` | (空=大広間なし) | おはなし島を **100人**の通話にする SFU。未設定なら 6 人メッシュに落ちる（下記） |
@@ -212,6 +214,30 @@ fly logs
 クライアントを別の静的ホスティングに置く場合は、その配信元を `CORS_ORIGINS` に追加し、
 `PUBLIC_SERVER_URL=wss://uspeak-multiplayer.fly.dev` を設定します（クライアント側は `/config.js` を読めない
 ので、`client/dist/config.js` に `window.USPEAK_CONFIG={serverUrl:"wss://..."}` を置くか `<meta name="uspeak-server">` を使います）。
+
+## 名簿スプレッドシート（シートに書いてある名前の人しか入れない）
+
+Google スプレッドシートを名簿にして、そこに書いてある **アカウント名の子だけ** が
+ログインできるようにできます。先生はシートに名前を足す・消すだけ。判定はぜんぶサーバー側
+（`ClassRoom.onAuth`）で、名簿はブラウザーに渡りません。手順は `docs/ROSTER_SHEET.md`。
+
+```sh
+fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
+  ROSTER_SHEET_ID='<スプレッドシートID>' \
+  GOOGLE_SERVICE_ACCOUNT_JSON="$(base64 -w0 service-account.json)"
+```
+
+- シートは `class | name | note` の3列（見出しは `クラス | 名前 | メモ` でも可）。`class` が空か `*` の行は
+  どのクラスでも入れる名前。`name` 1列だけのシートでもよい。
+- サービスアカウントのメールアドレスにシートを **閲覧者** で共有する（サーバーは読むだけ）。
+  学習記録をすでに Google シートに置いているなら同じサービスアカウントで足りる。
+- 名簿にない名前は、前に遊んだことがあっても入れない。`TEACHER_KEY` を持つ先生は名簿を見ずに入れる。
+- シートが一時的に読めないときは **最後に読めた名簿** で判定する（授業中に Google が落ちても締め出さない）。
+- 効いたかは `/healthz` の `"gate":{"mode":"roster","register":"google-sheet"}` で分かる。
+  手元で `cd server && node scripts/check-roster.mjs 6-1` と打つと、サーバーと同じ目でシートを読んで
+  入れる名前を並べる。
+- 授業中に足した名前は 5 分で反映。すぐ入れたいときは先生コンソールの「🔄 めいぼを読み直す」。
+- **鍵の JSON をチャットやメールに貼らないこと。** `fly secrets set` に直接入れる。
 
 ## 英検の島の「めんせつの間」（二次試験の練習）
 
