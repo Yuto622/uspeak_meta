@@ -8,6 +8,7 @@
 // Furniture here, blocks on the plaza (plaza-world.js). A room is somewhere to live in,
 // not a quarry, so what goes in it is bought at the かぐ屋 and stands on the floor.
 import * as THREE from './three.module.js';
+import { say, live } from './canvas-say.js';
 
 const CELL = 1;                 // one floor square, one metre
 const REACH = 8;                // how far the crosshair carries, in squares
@@ -418,7 +419,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     ctx.fill();
     ctx.fillStyle = '#ffe08a';
     ctx.font = '10px sans-serif';
-    ctx.fillText(`${state.room.name} ${state.used} / ${state.cap}`, 10, 16);
+    ctx.fillText(`${say(state.room.name)} ${state.used} / ${state.cap}`, 10, 16);
     return true;
   }
 

@@ -8,6 +8,7 @@
 // A room is furniture (room-world.js); the plaza is blocks. That split is the whole
 // difference between the two, and everything else here is the same crosshair.
 import * as THREE from './three.module.js';
+import { say, live } from './canvas-say.js';
 
 const CELL = 1;                 // one block, one metre
 const REACH = 6;                // how far the crosshair carries, in blocks
@@ -315,7 +316,7 @@ export function createPlaza({ player, camera, view, send, toast, speak, learn, o
     ctx.fill();
     ctx.fillStyle = '#ffe08a';
     ctx.font = '10px sans-serif';
-    ctx.fillText(`${state.room.name} ${state.used} / ${state.cap}`, 10, 16);
+    ctx.fillText(`${say(state.room.name)} ${state.used} / ${state.cap}`, 10, 16);
     return true;
   }
 

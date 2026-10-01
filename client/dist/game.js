@@ -8,6 +8,7 @@ import {createGuide} from './guide.js';
 // があって、フレームループから呼ぶ訳が そこに当たる（実際に画面が白いまま止まった）。
 // **時間の `t` とぶつかるファイルでは、`t as tr` として import すること。**
 import {loadDictionary, setLang, getLang, onLangChange, t as tr, applyDom} from './i18n.js';
+import {startDomTranslation} from './i18n-dom.js';
 import {label as bilingual} from './bilingual.js';
 import {createSpeech} from './speech.js';
 import {createThemePark} from './themepark.js';
@@ -19,6 +20,7 @@ import {setupRpg} from './rpg.js';
 import {WILLOW_LESSONS} from './lesson-data.js';
 import {hooks} from './net-hooks.js';
 import {setupNet} from './net-client.js';
+import {say,live} from './canvas-say.js';
 const $=s=>document.querySelector(s);const canvas=$('#world');
 const lessons=WILLOW_LESSONS;
 let saved;try{saved=JSON.parse(localStorage.getItem('uspeak-willow-v1'))}catch{}let done=Array.isArray(saved?.done)?saved.done.filter(n=>Number.isInteger(n)&&n>=0&&n<4):[];done=[...new Set(done)];let words=Array.isArray(saved?.words)?saved.words.filter(w=>Array.isArray(w)&&w.length===2&&w.every(s=>typeof s==='string')):[];let selected=lessons.findIndex((_,i)=>!done.includes(i));if(selected<0)selected=0;let muted=false,activeLesson=0,step=0,nearest=-1;const dialog=$('#dialog');
@@ -45,7 +47,7 @@ box(0,.23,5,5,.13,34,0xd8c896);box(-2,.23,-1,34,.13,4.5,0xd8c896);box(10,.23,10,
 const waterGeo=new THREE.PlaneGeometry(400,400,100,100),waterMat=new THREE.MeshStandardMaterial({color:0x64b9c0,metalness:.32,roughness:.24,transparent:true,opacity:.88});const water=new THREE.Mesh(waterGeo,waterMat);water.rotation.x=-Math.PI/2;water.position.y=-1.55;scene.add(water);const foam=[];for(let i=0;i<70;i++){const z=23+rand()*35,x=(rand()-.5)*130;let m=box(x,-1.48,z,1+rand()*3,.018,.06,0xc1e3d7);m.castShadow=false;foam.push(m)}
 function tree(x,z,size=1,type=0){let g=new THREE.Group();g.position.set(x,.1,z);g.scale.setScalar(size);scene.add(g);box(0,1.65,0,.62,3.3,.62,0x796447,g);if(type){for(let i=0;i<4;i++)box(0,2.5+i*.8,0,3.8-i*.75,.95,3.8-i*.75,[0x4f7850,0x5c8854,0x719453,0x7d9f5b][i],g)}else{box(0,3.8,0,3.5,2.3,3.2,0x779945,g);box(-.8,3.1,.5,2.8,1.5,2.6,0x8aaa52,g);box(.65,4.8,-.25,2.3,.9,2.4,0x91ad59,g);box(1.6,3.5,.1,1.3,1.3,2.1,0x6c8b3e,g)}colliders.push({x,z,r:.8})}
 for(let i=0;i<48;i++){let x=(rand()-.5)*46,z=-8-rand()*12;if(Math.hypot(x+17,z-2)<2||Math.hypot(x+18,z-13)<2||Math.hypot(x-11,z-5)<2||BUILDINGS.some(b=>b.region==='willow'&&Math.abs(x-b.x)<2.1&&Math.abs(z-b.z)<2.3)||Math.abs(x-5)<3&&z<-10||Math.abs(x)<5&&z>-10)continue;tree(x,z,.7+rand()*.6,i%3===0)}for(const [x,z,s]of[[-22,12,1.3],[-17,15,1],[-10,17,1],[18,-1,1.2],[23,8,.9],[21,16,1.2],[-22,-1,1.2]])tree(x,z,s);
-function label(text,x,y,z,color='#fff4d7',scale=1){const c=document.createElement('canvas');c.width=512;c.height=100;const ctx=c.getContext('2d');ctx.fillStyle='#345344';ctx.beginPath();ctx.roundRect(6,8,500,84,17);ctx.fill();ctx.font='600 31px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.fillText(text,256,52);const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,depthTest:true}));s.position.set(x,y,z);s.scale.set(5*scale,.98*scale,1);scene.add(s);return s}
+function label(text,x,y,z,color='#fff4d7',scale=1){const c=document.createElement('canvas');c.width=512;c.height=100;const ctx=c.getContext('2d');const paint=()=>{ctx.clearRect(0,0,512,100);ctx.fillStyle='#345344';ctx.beginPath();ctx.roundRect(6,8,500,84,17);ctx.fill();ctx.font='600 31px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.fillText(say(text),256,52,490)};paint();const tex=new THREE.CanvasTexture(c);live(()=>{paint();tex.needsUpdate=true});tex.colorSpace=THREE.SRGBColorSpace;let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,depthTest:true}));s.position.set(x,y,z);s.scale.set(5*scale,.98*scale,1);scene.add(s);return s}
 function house(x,z,w,d,color,roof,sign){const g=new THREE.Group();g.position.set(x,0,z);scene.add(g);box(0,.45,0,w+.5,.65,d+.5,0xaea389,g);box(0,2.5,0,w,4,d,color,g);for(let i=0;i<5;i++)box(0,4.4+i*.4,0,w+1.2-i*1.25,.5,d+1.3,roof,g);for(const xx of[-w/2+.22,w/2-.22])box(xx,2.6,d/2+.02,.22,4,.16,0x776649,g);box(0,1.75,d/2+.07,1.2,2.6,.2,0x6f7052,g);box(.35,1.8,d/2+.2,.09,.09,.08,0xd9be6f,g);for(const xx of[-w*.31,w*.31]){box(xx,2.5,d/2+.08,1.35,1.55,.13,0xf1d496,g);box(xx,2.5,d/2+.18,1.45,.1,.14,0x776b4c,g);box(xx,2.5,d/2+.18,.1,1.65,.14,0x776b4c,g);box(xx,1.55,d/2+.35,1.65,.23,.7,0x7d734f,g);for(let j=0;j<4;j++)box(xx-.5+j*.34,1.85,d/2+.35,.23,.3,.25,j%2?0xe4b182:0x8a9a4b,g)}box(w*.28,5.8,-.9,.85,2,.8,0xbab298,g);if(sign)label(sign,x,3.7,z+d/2+.35,'#fff4d7',.7);colliders.push({x,z,w:w/2+.45,d:d/2+.45});return g}
 house(-12,-5,7,6,0xede0b3,0xb86e46,'SUNNY BAKERY');for(let i=0;i<7;i++)box(-15.4+i*1.13,3,-1.1,1.15,.18,2.1,i%2?0xf3e4b2:0x8b9d65);box(-15.4,1.5,-.2,.13,3,.13,0x81704f);box(-8.6,1.5,-.2,.13,3,.13,0x81704f);house(13,-7,6.5,6,0xd9dfc4,0x5c8583,'THE EXPLORER’S INN');house(-22,-11,5,5,0xdccdac,0x8e795f,'FOREST LIBRARY');house(20,-16,5,5,0xddccb0,0xb77e56,'TRAVELER’S HOME');
 // Courtyard fountain and stepped stonework.
@@ -71,7 +73,9 @@ const guide=createGuide({toast});
 // レッスンは外国人の先生が進めるので、画面が英語のほうが先生はそのまま読める。
 // **辞書は待たない**（`loadDictionary` は非同期）。読めていない間は日本語がそのまま
 // 出るだけで、画面は壊れない。2行で書いてあるボタンは辞書を使わないので最初から正しい。
-loadDictionary();
+// 画面ぜんぶ。`t()` を書き忘れた所も、画面に出た文字を辞書で引いて英語にする
+// （`i18n-dom.js`）。辞書が読めてから始める。
+loadDictionary().then(()=>startDomTranslation());
 $('#lang-toggle').onclick=()=>{setLang(getLang()==='ja'?'en':'ja')};
 // 切り替えたら、**開いている画面だけ**描き直す。`data-t` と `.en`/`.ja` は i18n.js と CSS が
 // 自分でやるので、ここで直すのは JavaScript が毎回書いている文字（時計・クエスト）だけ。

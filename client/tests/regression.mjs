@@ -654,3 +654,65 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  assert.equal(last, 'none', `.world-label の最後の display は none のはず（いまは ${last}）`);
  console.log('PASS: 右下のキャッチコピーは出さないまま（📹 にかぶらない）。');
 }
+
+{
+ // **画面ぜんぶを訳す層は、学習の中身を訳さない。** 英検・クイズ・ジム・つり・会話の
+ // 日本語は問題そのもので、英語にすると答えが画面に出る（`dist/i18n-dom.js` の頭）。
+ // 辞書で訳せてしまう学習の語は、**画面の言葉としても使う語だけ**で、名指しで数える。
+ // ここに無い語が新しくぶつかったら止める：辞書から外すか、学習の場所を
+ // `LEARNING` に足すか、ここに理由つきで足すか、どれかを人が決める。
+ const { readFileSync } = await import('node:fs');
+ const { fileURLToPath } = await import('node:url');
+ const { learningStrings } = await import('./learning-strings.mjs');
+ const i18n = await import('../dist/i18n.js');
+ const words = JSON.parse(readFileSync(fileURLToPath(new URL('../dist/lang.json', import.meta.url)), 'utf8')).words;
+ i18n.useDictionary(words); i18n.setLang('en');
+ // 画面の言葉としても出る語（天気・家具・ブロック・服の種類・のりもの・楽器・通話の「先生」「カメラ」など）。
+ // 学習の場所（LEARNING）の中では訳されない。
+ const BOTH = new Set(['先生', '雨', '晴れ', '雪', 'ペンギン', 'とけい', 'ぼうし', 'カメラ', 'テレビ', 'ベッド', 'き', 'はな', 'ゆき',
+   'じてんしゃ', 'ギター', 'ピアノ', '読む', '天気', 'よる', 'ゴール！', 'はじめまして！']);
+ const hits = (await learningStrings()).filter((s) => i18n.translate(s) !== null && !BOTH.has(s));
+ assert.deepEqual(hits, [], `学習の中身が辞書で訳されてしまう: ${hits.join(' / ')}`);
+ // 学習の場所の一覧は、実際の画面の部品を指している（名前の打ちまちがいで守りが外れない）。
+ const { LEARNING } = await import('../dist/i18n-dom.js');
+ const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+ const { readdirSync } = await import('node:fs');
+ const src = readdirSync(dist).filter((f) => f.endsWith('.js') || f.endsWith('.html')).map((f) => readFileSync(dist + f, 'utf8')).join('\n');
+ for (const sel of LEARNING) {
+   for (const part of sel.split(/\s+/).filter((x) => /^[.#]/.test(x))) {
+     const name = part.slice(1);
+     const found = part.startsWith('#') ? src.includes(`id="${name}"`) : new RegExp(`class="[^"]*(?<![\\w-])${name}(?![\\w-])`).test(src);
+     assert.ok(found, `LEARNING の ${sel}（${part}）が画面のどこにも無い（名前が変わった？）`);
+   }
+ }
+ console.log(`PASS: 画面ぜんぶの訳は、学習の中身を訳さない（辞書 ${Object.keys(words).length} 語・学習の場所 ${LEARNING.length}）。`);
+}
+
+{
+ // **画面で組み立てた文の訳しかた**（`dist/i18n.js` の translate / whole）。
+ // 1つずつは辞書にあるのに、画面で つないだせいで日本語が残る形を、名指しで見る。
+ const i18n = await import('../dist/i18n.js');
+ i18n.useDictionary({
+   'まだ': 'Locked', 'おさかな道場': 'Fish Dojo', 'フグ': 'Pufferfish', 'オオ{0}': 'Great {0}', '{0}問': '{0} questions',
+   'いまは あるいています。': "You're walking now.", 'スタートラインから 3しゅうの レースに でられます。': 'Join a 3-lap race from the start line.',
+   'リオ': 'Rio', 'いっしょに いこう？': 'Shall we go together?', '{0} に到着しました！': 'You arrived at {0}!', '英検5級の島': 'Eiken Grade 5 Island',
+   '{0}さんが きました': '{0} is here',
+ });
+ i18n.setLang('en');
+ const tr = i18n.translate;
+ assert.equal(tr('No.001 · まだ'), 'No.001 · Locked', '「 · 」で つないだ文は 1つずつ訳す');
+ assert.equal(tr('まだ · '), 'Locked · ', '後ろが別の要素で終わる「 · 」');
+ assert.equal(tr('🐟 おさかな道場'), '🐟 Fish Dojo', '頭の絵文字は残して、あとを訳す');
+ assert.equal(tr('オオフグ'), 'Great Pufferfish', '「オオ」＋さかなの名前');
+ assert.equal(tr('オオカミ'), null, '短い型は、穴の日本語が訳せないと使わない（「Great カミ」にしない）');
+ assert.equal(tr('25問'), '25 questions');
+ assert.equal(tr('質問'), null, '「{0}問」は「質問」に当たらない');
+ assert.equal(tr('いまは あるいています。\n        スタートラインから 3しゅうの レースに でられます。'),
+   "You're walking now. Join a 3-lap race from the start line.", 'HTML で折り返した2文');
+ assert.equal(tr('リオ「いっしょに いこう？」'), 'Rio: “Shall we go together?”', '話す人「話したこと」');
+ assert.equal(tr('英検5級の島 に到着しました！'), 'You arrived at Eiken Grade 5 Island!', '型の穴の日本語も訳す');
+ assert.equal(tr('ゆうとさんが きました'), 'ゆうと is here', '長い型の穴は名前のことがあるので、そのまま通す');
+ assert.equal(tr('Grade 5・4'), null, '「・」だけでは日本語あつかいしない');
+ i18n.setLang('ja');
+ console.log('PASS: 画面で組み立てた文（ · ・絵文字・2文・話す人・型の穴）を訳す（12件）。');
+}

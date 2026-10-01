@@ -8,6 +8,7 @@
 // Nothing here is worked out in the page. The room sends the shape (`dash:state`) because
 // the room is the only thing that knows what was really answered — the same rule as coins,
 // for the same reason: it ends up in front of a parent.
+import { isJa, onLangChange } from './i18n.js';
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -72,8 +73,23 @@ function drawRadar(canvas, skills) {
     const [x, y] = at(i, 1.19);
     ctx.textAlign = Math.abs(x - cx) < 6 ? 'center' : (x > cx ? 'left' : 'right');
     ctx.textBaseline = y < cy - 6 ? 'bottom' : (y > cy + 6 ? 'top' : 'middle');
-    ctx.fillText(s.ja, x, y);
+    ctx.fillText(isJa() ? s.ja : (s.en || s.ja), x, y);
   });
+}
+
+// **サーバーが2つの言語で送ってくるもの**（カードの名前・5技能・月）は、両方を書いて
+// `<html data-lang>` で見せ分ける（style.css の「12.」）。辞書を引かないので、
+// 開いたまま言語を切り替えても その場で入れ替わる。
+const UNIT_EN = { 分: ' min', 問: ' answers', 日: ' days' };
+function bi(ja, en) {
+  if (!en || en === ja) return esc(ja);
+  return `<span class="ja">${esc(ja)}</span><span class="en">${esc(en)}</span>`;
+}
+// 「2026年10月」→「October 2026」。形がちがえば訳さない（そのまま出す）。
+function monthEn(label) {
+  const m = /^(\d{4})年(\d{1,2})月$/.exec(String(label || ''));
+  if (!m) return '';
+  return new Date(Date.UTC(+m[1], +m[2] - 1, 15)).toLocaleString('en', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
 export function createDashboard({ send, isOnline, toast, onQuick = null }) {
@@ -102,9 +118,9 @@ export function createDashboard({ send, isOnline, toast, onQuick = null }) {
     const pct = Math.max(0, Math.min(100, Math.round((p.xp / (p.need || 1)) * 100)));
     const cards = (m.cards || []).map((c) => `
       <div class="dash-card">
-        <small>${esc(c.ja)}</small>
-        <b>${(c.value || 0).toLocaleString()}<span>${esc(c.unit)}</span></b>
-        <em>✧ +1 まで あと ${c.toNext}${esc(c.unit)}</em>
+        <small>${bi(c.ja, c.en)}</small>
+        <b>${(c.value || 0).toLocaleString()}<span>${bi(c.unit, UNIT_EN[c.unit])}</span></b>
+        <em>${bi(`✧ +1 まで あと ${c.toNext}${c.unit}`, `${c.toNext}${UNIT_EN[c.unit] || ''} to the next ✧`)}</em>
       </div>`).join('');
     // 今月のまとめ。**累計は増えるいっぽうだが、今月は毎月0から始まる。**
     // 「今日やれば今日増える」が見えるのはこちらで、7歳にはそれがぜんぶ。
@@ -131,7 +147,7 @@ export function createDashboard({ send, isOnline, toast, onQuick = null }) {
       : '';
     const month = now ? `
       <section class="dash-month">
-        <div class="dash-month-head"><h3>${esc(now.label)}</h3>${vs ? `<small>${vs}</small>` : ''}${inARow}</div>
+        <div class="dash-month-head"><h3>${bi(now.label, monthEn(now.label))}</h3>${vs ? `<small>${vs}</small>` : ''}${inARow}</div>
         <ul>
           <li><span>きた日</span><b>${now.days}<em>日</em></b></li>
           <li><span>もんだい</span><b>${now.answers}<em>問</em></b></li>
@@ -142,7 +158,7 @@ export function createDashboard({ send, isOnline, toast, onQuick = null }) {
 
     // What to go and do next. A chart a child cannot act on is a chart they look at once.
     const weak = m.weakest && m.weakest.attempts < (m.full || 60)
-      ? `<p class="dash-next">つぎは <b>${esc(m.weakest.ja)}</b> を やってみよう。<small>${esc(m.weakest.en)} の れんしゅうが いちばん すくないよ。</small></p>`
+      ? `<p class="dash-next">つぎは <b>${bi(m.weakest.ja, m.weakest.en)}</b> を やってみよう。<small>${esc(m.weakest.en)} の れんしゅうが いちばん すくないよ。</small></p>`
       : '';
     // **きょうの 5ふん。** 島まで歩かなくても答えられる5問。級はサーバーが選ぶ
     // （その子が次にめざす級）。英検の目安に届いた級があれば、それも一言そえる。
@@ -170,7 +186,7 @@ export function createDashboard({ send, isOnline, toast, onQuick = null }) {
         </div>
         <canvas id="dash-chart" aria-label="5技能のグラフ"></canvas>
         <ul class="dash-legend">${(m.skills || []).map((s) => `
-          <li><span>${esc(s.ja)}</span><i><b style="width:${s.score}%"></b></i><small>${s.correct}/${s.attempts}</small></li>`).join('')}</ul>
+          <li><span>${bi(s.ja, s.en)}</span><i><b style="width:${s.score}%"></b></i><small>${s.correct}/${s.attempts}</small></li>`).join('')}</ul>
         ${weak}
       </section>`;
     drawRadar($('#dash-chart', dialog), m.skills || []);
@@ -181,6 +197,8 @@ export function createDashboard({ send, isOnline, toast, onQuick = null }) {
   // The canvas has no size until the dialog is open, so it is drawn after opening and
   // again whenever the window changes shape.
   window.addEventListener('resize', () => { if (dialog.open && last) drawRadar($('#dash-chart', dialog), last.skills || []); });
+  // グラフの字は canvas なので、言語を切り替えたら描き直す。
+  onLangChange(() => { if (dialog.open && last) drawRadar($('#dash-chart', dialog), last.skills || []); });
 
   return {
     open() {

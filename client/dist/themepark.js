@@ -1,4 +1,5 @@
 import * as THREE from './three.module.js';
+import {say,live} from './canvas-say.js';
 export function createThemePark({scene,camera,player,box,rand,toast,speak,openDialog,dialog,atmosphere,learn}){
  const $=s=>document.querySelector(s),X=135,state={busy:false,inPark:false,mode:'walk',elapsed:0,ride:null,returning:false};
  const root=new THREE.Group();root.position.x=X;scene.add(root);const obstacles=[],bulbs=[],cabins=[],horses=[],jets=[];
@@ -7,7 +8,7 @@ export function createThemePark({scene,camera,player,box,rand,toast,speak,openDi
  function mesh(geo,m,x,y,z,parent=root){const o=new THREE.Mesh(geo,m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
  const gold=mat(0xd9b872),cream=mat(0xf3e6ce),teal=mat(0x338e95),navy=mat(0x21446b),rose=mat(0xd18691),glow=mat(0xffdea0,2.3),aqua=mat(0x70ddd7,1.5);
  function beam(a,b,r,m,parent=root){const d=new THREE.Vector3().subVectors(b,a);const o=mesh(new THREE.CylinderGeometry(r,r,d.length(),6),m,0,0,0,parent);o.position.copy(a).add(b).multiplyScalar(.5);o.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());return o}
- function sign(text,x,y,z,width=9,bg='#163e59',fg='#fff2d1'){const c=document.createElement('canvas');c.width=1024;c.height=160;const ctx=c.getContext('2d');ctx.fillStyle=bg;ctx.beginPath();ctx.roundRect(5,5,1014,150,22);ctx.fill();ctx.strokeStyle='#c7ab71';ctx.lineWidth=3;ctx.stroke();ctx.font='600 48px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=fg;ctx.fillText(text,512,82,970);const texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:texture}));s.position.set(x,y,z);s.scale.set(width,width/6.4,1);root.add(s);return s}
+ function sign(text,x,y,z,width=9,bg='#163e59',fg='#fff2d1'){const c=document.createElement('canvas');c.width=1024;c.height=160;const ctx=c.getContext('2d');const paint=()=>{ctx.clearRect(0,0,1024,160);ctx.fillStyle=bg;ctx.beginPath();ctx.roundRect(5,5,1014,150,22);ctx.fill();ctx.strokeStyle='#c7ab71';ctx.lineWidth=3;ctx.stroke();ctx.font='600 48px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=fg;ctx.fillText(say(text),512,82,970)};paint();const texture=new THREE.CanvasTexture(c);live(()=>{paint();texture.needsUpdate=true});texture.colorSpace=THREE.SRGBColorSpace;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:texture}));s.position.set(x,y,z);s.scale.set(width,width/6.4,1);root.add(s);return s}
  // Terraced island with a runway, ornamental avenues, gardens and glowing promenades.
  B(0,-3,0, 70,6,66,0x9b9984);B(0,-.8,0,72,1.8,68,0xd4c49d);B(0,.15,0,68,.35,62,0x779b78);
  B(0,.36,0,12,.15,58,0xe6d6b9);B(0,.38,3,52,.13,8,0xe6d6b9);B(0,.40,7,23,.13,20,0xe6d6b9);

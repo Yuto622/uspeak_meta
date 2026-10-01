@@ -10,6 +10,7 @@
 // One scene, rebuilt on entry: a child is only ever inside one building at a time, and a
 // classroom iPad should not carry twenty rooms it is not looking at.
 import * as THREE from './three.module.js';
+import { say, live } from './canvas-say.js';
 
 const COUNTER_Z = -3.2;         // the counter, across the room from the door
 const DOOR_Z = 8.4;             // walking past this on the way out leaves
@@ -51,17 +52,23 @@ export function createIslandInteriors({ player, camera, toast }) {
     const c = document.createElement('canvas');
     c.width = 768; c.height = 200;
     const ctx = c.getContext('2d');
-    ctx.fillStyle = '#183946';
-    ctx.beginPath(); ctx.roundRect(4, 4, 760, 192, 22); ctx.fill();
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#f3dfaa';
-    ctx.font = '700 62px sans-serif';
-    ctx.fillText(text, 384, 88, 700);
-    ctx.fillStyle = '#bcd7d0';
-    ctx.font = '600 38px sans-serif';
-    ctx.fillText(sub, 384, 150, 700);
+    // 言語を切り替えたら描き直す（`canvas-say.js`）。
+    const paint = () => {
+      ctx.clearRect(0, 0, 768, 200);
+      ctx.fillStyle = '#183946';
+      ctx.beginPath(); ctx.roundRect(4, 4, 760, 192, 22); ctx.fill();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#f3dfaa';
+      ctx.font = '700 62px sans-serif';
+      ctx.fillText(say(text), 384, 88, 700);
+      ctx.fillStyle = '#bcd7d0';
+      ctx.font = '600 38px sans-serif';
+      ctx.fillText(say(sub), 384, 150, 700);
+    };
+    paint();
     const tex = new THREE.CanvasTexture(c);
     tex.colorSpace = THREE.SRGBColorSpace;
+    live(() => { paint(); tex.needsUpdate = true; });
     const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true }));
     s.position.set(x, y, z);
     s.scale.set(6.4, 6.4 * 200 / 768, 1);
@@ -263,7 +270,7 @@ export function createIslandInteriors({ player, camera, toast }) {
     ctx.fill();
     ctx.fillStyle = '#ffe08a';
     ctx.font = '10px sans-serif';
-    ctx.fillText(state.spot?.name || '', 10, 12);
+    ctx.fillText(say(state.spot?.name || ''), 10, 12);
     return true;
   }
 

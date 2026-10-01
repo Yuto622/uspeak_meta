@@ -82,7 +82,7 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
       <div class="ride-list">${g.vehicles.map((v) => `
         <article class="ride-card ${v.owned ? 'owned' : v.ready ? 'ready' : ''} ${v.id === here ? 'here' : ''}" style="--ride:#${Number(v.color).toString(16).padStart(6, '0')}">
           <div class="ride-tier">${'★'.repeat(v.tier)}</div>
-          <div class="ride-name"><strong>${esc(v.name)}</strong><small>${esc(v.en)} · ${esc(v.word)}（${esc(v.ja)}）</small></div>
+          <div class="ride-name"><strong>${esc(v.name)}</strong><small>${esc(v.en)} · <span translate="no">${esc(v.word)}（${esc(v.ja)}）</span></small></div>
           <div class="ride-need">${v.owned ? '<b>もっている</b>'
             : `<span>◈ ${v.price}</span><small>Lv.${v.level} から</small>${v.needCoins ? `<small>あと ◈ ${v.needCoins}</small>` : ''}${v.needLevel ? `<small>あと Lv.${v.needLevel}</small>` : ''}`}</div>
           <div class="ride-act">${v.owned

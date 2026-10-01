@@ -1,12 +1,13 @@
 import * as THREE from './three.module.js';
 import {TREASURES,TREASURE_KEYS,KEY_BY_ID,keyGoals} from './treasure-data.js';
 import {REGION_BY_ID} from './rpg-data.js';
+import {say,live} from './canvas-say.js';
 export function setupTreasure(ctx){
  const {scene,player,state,progress,toast}=ctx,models=[],groups=new Map(),geo=new THREE.BoxGeometry(),materials=new Map();let selected=null,pulse=0,lastStamp='';
  const mat=(color,glow=0)=>{const id=color+':'+glow;if(!materials.has(id))materials.set(id,new THREE.MeshStandardMaterial({color,roughness:.35,metalness:.6,emissive:color,emissiveIntensity:glow}));return materials.get(id)};
  const B=(g,x,y,z,w,h,d,c,e=0)=>{const m=new THREE.Mesh(geo,mat(c,e));m.position.set(x,y,z);m.scale.set(w,h,d);m.castShadow=m.receiveShadow=true;g.add(m);return m};
  function group(region){if(!groups.has(region)){const g=new THREE.Group();scene.add(g);groups.set(region,g)}return groups.get(region)}
- function label(text,g){const canvas=document.createElement('canvas');canvas.width=512;canvas.height=100;const c=canvas.getContext('2d');c.fillStyle='#18293d';c.fillRect(0,0,512,100);c.fillStyle='#ffe5a5';c.font='600 28px sans-serif';c.textAlign='center';c.fillText(text,256,63,490);const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:texture}));sprite.position.y=2.9;sprite.scale.set(3.8,.75,1);g.add(sprite);return sprite}
+ function label(text,g){const canvas=document.createElement('canvas');canvas.width=512;canvas.height=100;const c=canvas.getContext('2d');const paint=()=>{c.fillStyle='#18293d';c.fillRect(0,0,512,100);c.fillStyle='#ffe5a5';c.font='600 28px sans-serif';c.textAlign='center';c.fillText(say(text),256,63,490)};paint();const texture=new THREE.CanvasTexture(canvas);live(()=>{paint();texture.needsUpdate=true});texture.colorSpace=THREE.SRGBColorSpace;const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:texture}));sprite.position.y=2.9;sprite.scale.set(3.8,.75,1);g.add(sprite);return sprite}
  for(const c of TREASURES){const g=new THREE.Group();g.position.set(c.x,.25,c.z);group(c.region).add(g);const color=c.key?KEY_BY_ID[c.key].color:0xe1b764,wood=c.key==='celestial'?0x594276:c.key==='silver'?0x345577:0x75462f;
  B(g,0,.35,0,1.6,.7,1,wood);B(g,0,.72,0,1.55,.07,.95,0x171e2b);for(const x of[-.62,.62])B(g,x,.39,0,.12,.8,1.05,color);B(g,0,.14,0,1.7,.12,1.08,color);
  const lid=new THREE.Group();lid.position.set(0,.78,-.48);g.add(lid);B(lid,0,.16,.48,1.65,.32,1.06,wood);for(const x of[-.62,.62])B(lid,x,.17,.48,.13,.36,1.09,color);B(lid,0,.11,1.03,.28,.32,.08,color);if(c.key)B(g,0,.68,.56,.23,.32,.09,color);

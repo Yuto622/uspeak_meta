@@ -5,6 +5,7 @@ import {WANDS,parkPosition} from './magic-data.js';
 import {BUILDINGS,nearestBuilding,SERVICE_NAMES} from './buildings.js';
 import {createBuildingRoom} from './building-room.js';
 import {wandModel} from './magic-world.js';
+import {say,live} from './canvas-say.js';
 
 // An independent scene keeps outdoor islands, weather and encounters out of the room.
 export function createParkInterior(ctx){
@@ -31,7 +32,7 @@ export function createParkInterior(ctx){
  function mesh(geo,x,y,z,w,h,d,c,e=0,group=root){const m=new THREE.Mesh(geo,material(c,e));m.position.set(x,y,z);m.scale.set(w,h,d);m.receiveShadow=true;m.castShadow=true;group.add(m);return m}
  const B=(x,y,z,w,h,d,c,e=0)=>mesh(box,x,y,z,w,h,d,c,e);
  function solid(x,z,w,d){obstacles.push({x,z,w:w/2,d:d/2})}
- function sign(text,sub,x,y,z,w=5){const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=230;const c=canvas.getContext('2d');c.fillStyle='#193f4a';c.fillRect(0,0,1024,230);c.strokeStyle='#d6c596';c.lineWidth=6;c.strokeRect(3,3,1018,224);c.fillStyle='#f5e6bb';c.textAlign='center';c.font='600 66px sans-serif';c.fillText(text,512,102,950);c.fillStyle='#b9e7d4';c.font='36px sans-serif';c.fillText(sub,512,170,950);const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,depthTest:true}));s.position.set(x,y,z);s.scale.set(w,w*230/1024,1);root.add(s);return s}
+ function sign(text,sub,x,y,z,w=5){const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=230;const c=canvas.getContext('2d');const paint=()=>{c.fillStyle='#193f4a';c.fillRect(0,0,1024,230);c.strokeStyle='#d6c596';c.lineWidth=6;c.strokeRect(3,3,1018,224);c.fillStyle='#f5e6bb';c.textAlign='center';c.font='600 66px sans-serif';c.fillText(say(text),512,102,950);c.fillStyle='#b9e7d4';c.font='36px sans-serif';c.fillText(say(sub),512,170,950)};paint();const texture=new THREE.CanvasTexture(canvas);live(()=>{paint();texture.needsUpdate=true});texture.colorSpace=THREE.SRGBColorSpace;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,depthTest:true}));s.position.set(x,y,z);s.scale.set(w,w*230/1024,1);root.add(s);return s}
  function person(x,z,color,hair){const g=new THREE.Group();g.position.set(x,0,z);root.add(g);mesh(box,0,1.28,0,.78,.87,.48,color,0,g);mesh(sphere,0,1.94,0,.36,.37,.33,0xe4bc98,0,g);mesh(sphere,0,2.14,-.06,.39,.23,.32,hair,0,g);for(const side of[-1,1]){mesh(box,side*.22,.42,0,.3,.85,.4,0x344853,0,g);mesh(box,side*.52,1.15,0,.23,.7,.27,color,0,g);mesh(sphere,side*.13,1.98,.3,.027,.033,.023,0x293a46,0,g);}return g;}
  function build(){if(built)return;built=true;
   scene.add(new THREE.HemisphereLight(0xe5fff2,0x596575,2.2));const key=new THREE.DirectionalLight(0xffeed4,3.1);key.position.set(-5,13,9);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-16,right:16,top:16,bottom:-16,near:.5,far:45});key.shadow.bias=-.0004;key.shadow.normalBias=.03;scene.add(key);const rim=new THREE.PointLight(0x85dfdd,32,28,2);rim.position.set(0,5,-5);scene.add(rim);

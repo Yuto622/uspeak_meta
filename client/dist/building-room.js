@@ -1,12 +1,13 @@
 import * as THREE from './three.module.js';
 import {SERVICE_NAMES} from './buildings.js';
+import {say,live} from './canvas-say.js';
 // All furniture uses shared primitives. Each room owns only its sign textures.
 export function createBuildingRoom({scene,box,sphere,gem,material}){
  const root=new THREE.Group();scene.add(root);root.visible=false;let obstacles=[];
  const M=(geo,x,y,z,w,h,d,c)=>{const m=new THREE.Mesh(geo,material(c));m.position.set(x,y,z);m.scale.set(w,h,d);m.castShadow=m.receiveShadow=true;root.add(m);return m};
  const B=(x,y,z,w,h,d,c)=>M(box,x,y,z,w,h,d,c);
  const solid=(x,z,w,d)=>obstacles.push({x,z,w:w/2,d:d/2});
- function sign(title,sub,x,y,z,w=6){const c=document.createElement('canvas');c.width=1024;c.height=240;const t=c.getContext('2d');t.fillStyle='#193b4b';t.fillRect(0,0,1024,240);t.fillStyle='#f9e7ba';t.textAlign='center';t.font='600 62px sans-serif';t.fillText(title,512,100,950);t.fillStyle='#bde3da';t.font='34px sans-serif';t.fillText(sub,512,180,950);const texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:texture}));s.position.set(x,y,z);s.scale.set(w,w*240/1024,1);root.add(s);}
+ function sign(title,sub,x,y,z,w=6){const c=document.createElement('canvas');c.width=1024;c.height=240;const t=c.getContext('2d');const paint=()=>{t.fillStyle='#193b4b';t.fillRect(0,0,1024,240);t.fillStyle='#f9e7ba';t.textAlign='center';t.font='600 62px sans-serif';t.fillText(say(title),512,100,950);t.fillStyle='#bde3da';t.font='34px sans-serif';t.fillText(say(sub),512,180,950)};paint();const texture=new THREE.CanvasTexture(c);live(()=>{paint();texture.needsUpdate=true});texture.colorSpace=THREE.SRGBColorSpace;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:texture}));s.position.set(x,y,z);s.scale.set(w,w*240/1024,1);root.add(s);}
  function load(b){root.traverse(o=>{if(o.isSprite){o.material.map.dispose();o.material.dispose()}});root.clear();obstacles=[];root.visible=true;
  const colors={bakery:[0xd29a76,0xe9cfa5],inn:[0x6e95a2,0xe0d6bd],library:[0x74977d,0xdac6a1],home:[0xba9583,0xe8d5b9],fish:[0x439ca9,0xcce1d8],gear:[0x8883ae,0xe0d1bb],airport:[0x557f9e,0xd5e1dd],castle:[0x6a759e,0xe4d5b0],ticket:[0xc08a97,0xe9dcc0],tower:[0x66968b,0xe3d3b5],shrine:[0x768599,0xd2d8ce]};const [accent,cream]=colors[b.kind]||colors.home;
  B(0,-.2,0,23,.4,21,0x455766);for(let x=-10;x<=10;x+=2)for(let z=-9;z<=9;z+=2)B(x,.035,z,1.97,.12,1.97,(x+z)%4===1?cream:0xece6d3);

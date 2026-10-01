@@ -60,6 +60,7 @@ cd server && node test/e2e/browser-arcade.mjs # 同梱ゲーム2本（島から�
 cd server && node test/e2e/browser-bgm.mjs # 昼と夜の BGM（配信→昼の曲→風の大きさ→夕方は2曲→夜の曲→別ゲーム中は黙る→♫）
 cd server && node test/e2e/browser-stick.mjs # 左下のスティック（指で倒して歩く・倒した量で速さが変わる・離すと止まる）
 cd server && node test/e2e/browser-speech.mjs # 読み上げ（日本語は日本語の声・記号を読まない・英語はゆっくり）
+cd server && npm run test:english # 英語モードで全画面（RPG・つり・ガイドの全ページ・22画面）を開き、見えている日本語が0か
 python3 docs/make-guide-images.py # 「?」ガイドの写真を docs/figures から作り直す（撮り直しは capture-figures.mjs）
 cd server && node test/e2e/measure-weight.mjs # 実際に遊んで、1人あたり何MB流れるかを測る
 ```
@@ -1079,6 +1080,20 @@ OPENAI_API_KEY=sk-... OPENAI_MODEL=gpt-4o-mini npm start
   英語は `Top-down`、日本語は「うえから 見る」にしています。
 - 「?」のガイドも、題が英語・その下に日本語です（先生が機能を追えるように）。
 - 書くところは `client/dist/bilingual.js` の `label(el, en, ja)` 1か所です。
+
+### 英語にしたら、画面に映るものは ぜんぶ英語（2026-10）
+
+教室から「英語に切り替えたとき、クエスト・RPGのタブ・リーグの画面に日本語が残っている」と
+言われたので、**画面に出た文字をその場で英語に置き替える層**（`client/dist/i18n-dom.js`）を
+足しました。辞書（`lang.json`）は 約2,750語になっています。3Dの看板も言語を切り替えると
+描き直します。
+
+- **学習の中身は訳しません。** 英検の問題・4択の意味・クイズ・ジム・つり・会話の訳・
+  レースのゲートのことばは、日本語であることが問題そのものです（訳すと答えが画面に出ます）。
+  `i18n-dom.js` の `LEARNING` と `translate="no"` の中には触りません。
+- **検査は実ブラウザ**（`npm run test:english`）。英語モードで全画面・全タブ・ガイドの
+  全ページを開いて、見えている日本語を数えます。1つでも残れば落ちます。
+- 日本語に戻すと、もとの日本語がそのまま戻ります（「あ」を何度押しても同じ）。
 
 ### 日本語は ひらがな寄りです
 
