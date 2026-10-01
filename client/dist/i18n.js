@@ -130,7 +130,9 @@ function whole(core, depth) {
         const g = got.trim();
         const tr = whole(g, depth + 1);
         if (tr !== null) word = got.replace(g, tr);
-        else if (p.weight < 4) ok = false;   // 短い型だけ（子どもの名前は長い型の穴に入る）
+        // 短い型は使わない（子どもの名前は長い型の穴に入る）。「 · 」をまたいだ穴も使わない
+        // （「ダメージ {0}」が「ダメージ 18 · もんだい」を丸のみしないよう、区切りごとに訳させる）。
+        else if (p.weight < 4 || g.includes('·')) ok = false;
       }
       en = en.split(`{${name}}`).join(word);
     });

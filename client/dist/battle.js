@@ -42,7 +42,7 @@ export function createBattleUI({ send, speak, toast, isOnline }) {
       <p class="battle-hint">つよい わざは 英語のもんだいに 答えると 出せます。</p>
       <div class="battle-waza">${s.waza.map((w) => `<button type="button" data-waza="${esc(w.id)}" ${busy ? 'disabled' : ''}>
         <strong>${esc(w.name)}</strong>
-        <small>${w.heal ? `かいふく ${w.heal}` : `ダメージ ${w.damage}`}${w.quiz ? ' · もんだい' : ''}</small></button>`).join('')}</div>
+        <small>${w.heal ? `かいふく ${w.heal}` : `ダメージ ${w.damage}`}${w.quiz ? ' · えいごの もんだい' : ''}</small></button>`).join('')}</div>
       <div class="quiz-actions"><button type="button" id="battle-quit">やめる</button></div>`;
     body().querySelectorAll('[data-waza]').forEach((b) => {
       b.onclick = () => {

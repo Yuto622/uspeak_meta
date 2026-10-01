@@ -696,12 +696,13 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
    'まだ': 'Locked', 'おさかな道場': 'Fish Dojo', 'フグ': 'Pufferfish', 'オオ{0}': 'Great {0}', '{0}問': '{0} questions',
    'いまは あるいています。': "You're walking now.", 'スタートラインから 3しゅうの レースに でられます。': 'Join a 3-lap race from the start line.',
    'リオ': 'Rio', 'いっしょに いこう？': 'Shall we go together?', '{0} に到着しました！': 'You arrived at {0}!', '英検5級の島': 'Eiken Grade 5 Island',
-   '{0}さんが きました': '{0} is here', '◈ {0} で たまごを かう': 'Buy an egg for ◈ {0}', '{0} たまごを かう': 'Buy an egg at {0}',
+   '{0}さんが きました': '{0} is here', 'ダメージ {0}': 'Damage {0}', 'もんだい': 'Quiz', '◈ {0} で たまごを かう': 'Buy an egg for ◈ {0}', '{0} たまごを かう': 'Buy an egg at {0}',
  });
  i18n.setLang('en');
  const tr = i18n.translate;
  assert.equal(tr('No.001 · まだ'), 'No.001 · Locked', '「 · 」で つないだ文は 1つずつ訳す');
  assert.equal(tr('まだ · '), 'Locked · ', '後ろが別の要素で終わる「 · 」');
+ assert.equal(tr('ダメージ 18 · もんだい'), 'Damage 18 · Quiz', '型の穴が「 · 」をまたいだら、区切りごとに訳す');
  assert.equal(tr('🐟 おさかな道場'), '🐟 Fish Dojo', '頭の絵文字は残して、あとを訳す');
  assert.equal(tr('◈ 300 で たまごを かう'), 'Buy an egg for ◈ 300', '型があれば、絵文字を外すより型が先');
  assert.equal(tr('オオフグ'), 'Great Pufferfish', '「オオ」＋さかなの名前');
@@ -715,5 +716,5 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  assert.equal(tr('ゆうとさんが きました'), 'ゆうと is here', '長い型の穴は名前のことがあるので、そのまま通す');
  assert.equal(tr('Grade 5・4'), null, '「・」だけでは日本語あつかいしない');
  i18n.setLang('ja');
- console.log('PASS: 画面で組み立てた文（ · ・絵文字・2文・話す人・型の穴）を訳す（13件）。');
+ console.log('PASS: 画面で組み立てた文（ · ・絵文字・2文・話す人・型の穴）を訳す（14件）。');
 }
