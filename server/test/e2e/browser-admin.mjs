@@ -1,0 +1,41 @@
+// 管理ページ in a real browser: log in, paste a register from a spreadsheet, save, turn
+// the gate on, and leave two figures in docs/figures. Run from server/: node test/e2e/browser-admin.mjs
+import { spawn } from 'node:child_process';
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const here = path.dirname(fileURLToPath(import.meta.url));
+const fig = (n) => path.join(here, '../../../docs/figures', n);
+import { chromium } from 'playwright';
+const PORT = 2599; const url = `http://localhost:${PORT}`;
+const env = { ...process.env, PORT: String(PORT), DATA_DIR: mkdtempSync(path.join(tmpdir(), 'adm-')), STORE_BACKEND: 'file', ADMIN_KEY: 'owner-password-123', TEACHER_KEY: 'testkey12345', LOG_LEVEL: 'error' };
+delete env.ACCESS_MODE;
+setTimeout(() => { console.log('FAIL: timed out'); server.kill(); process.exit(2); }, 90000).unref();
+const server = spawn(process.execPath, ['src/index.js'], { cwd: path.resolve(here, '../..'), env, stdio: ['ignore', 'inherit', 'inherit'] });
+for (let i = 0; i < 50; i++) { try { if ((await fetch(url + '/healthz')).ok) break; } catch {} await new Promise((r) => setTimeout(r, 200)); }
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1100, height: 760 } });
+page.on('pageerror', (e) => console.log('[pageerror]', e.message));
+page.on('console', (m) => { if (m.type() === 'error') console.log('[console]', m.text()); });
+await page.goto(url + '/admin');
+await page.screenshot({ path: fig('admin-login.png') });
+await page.fill('input[name=password]', 'owner-password-123');
+await page.click('button[type=submit]');
+await page.waitForSelector('#rows', { state: 'attached', timeout: 15000 });
+console.log('step: logged in, url', page.url());
+await page.click('#paste');
+await page.fill('#paste-text', 'クラス\tなまえ\tメモ\n6-1\tAki\t\n6-1\tBen\t4月から\n6-2\tChika\t\n\tSora\tどのクラスでも');
+await page.click('#paste-ok');
+await page.waitForFunction(() => document.querySelectorAll('#rows tr').length === 4, null, { timeout: 15000 });
+await page.click('#save');
+await page.waitForFunction(() => /保存しました/.test(document.querySelector('#saved-at').textContent), null, { timeout: 15000 });
+page.once('dialog', (d) => d.accept());
+await page.click('#enforce');
+await page.waitForFunction(() => document.querySelector('#mode-pill').classList.contains('on'), null, { timeout: 15000 });
+await new Promise((r) => setTimeout(r, 400));
+await page.screenshot({ path: fig('admin-roster.png') });
+const h = await (await fetch(url + '/healthz')).json();
+console.log('gate', JSON.stringify(h.gate));
+if (h.gate.mode !== 'roster') { console.log('FAIL: the switch did not turn the gate on'); process.exitCode = 1; } else console.log('PASS admin page');
+await browser.close(); server.kill();

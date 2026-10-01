@@ -30,7 +30,12 @@ export const ROSTER = 'roster';
 
 const fold = (s) => String(s ?? '').normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
 
-export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 * 1000, snapshotPath = '', log = console, now = Date.now }) {
+// `mode` is a string or a function returning one (the admin page can turn the gate on
+// and off at run time). `version` is read on every check: when the register source bumps
+// it (a save from the admin page), the cached register is dropped at once rather than
+// at the end of its ttl.
+export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 * 1000, snapshotPath = '', log = console, now = Date.now, version = () => roster?.rosterVersion ?? 0 }) {
+  const modeNow = () => (typeof mode === 'function' ? mode() : mode);
   // classCode -> { names:Set, at, source }
   const cache = new Map();
   let snapshotLoaded = false;
@@ -66,12 +71,12 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
   async function register(classCode) {
     await loadSnapshot();
     const entry = cache.get(classCode);
-    if (entry && entry.at && now() - entry.at < ttlMs) return entry;
+    if (entry && entry.at && now() - entry.at < ttlMs && entry.version === version()) return entry;
     if (!roster?.listRoster) return entry || null;
     try {
       const rows = await roster.listRoster(classCode);
       if (rows === null || rows === undefined) return entry || null;   // no register kept at all
-      const fresh = { names: new Set(rows.map((r) => fold(r.name))), at: now(), source: 'register' };
+      const fresh = { names: new Set(rows.map((r) => fold(r.name))), at: now(), source: 'register', version: version() };
       cache.set(classCode, fresh);
       await saveSnapshot();
       return fresh;
@@ -82,11 +87,11 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
   }
 
   return {
-    get mode() { return mode; },
+    get mode() { return modeNow(); },
     // Used by tests and by a teacher's "reload the register" command.
     forget(classCode) { if (classCode) cache.delete(classCode); else cache.clear(); },
     async allow({ classCode, name, role, store: storeOverride }) {
-      if (mode !== ROSTER) return { ok: true, reason: 'open' };
+      if (modeNow() !== ROSTER) return { ok: true, reason: 'open' };
       if (role === 'teacher') return { ok: true, reason: 'teacher key' };
       const entry = await register(classCode);
       if (entry && entry.names.has(fold(name))) return { ok: true, reason: entry.source };

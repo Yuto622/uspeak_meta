@@ -12,6 +12,8 @@ export class FileStore {
     this.data = { players: {}, learning: [], coins: [] };
     this.dirty = false;
     this.name = filePath ? `file:${filePath}` : 'memory';
+    // Bumped by saveRoster so a gate holding a cached register knows to read again.
+    this.rosterVersion = 0;
   }
 
   async init() {
@@ -34,32 +36,49 @@ export class FileStore {
   // with a text editor and nothing else has to be running. Re-read when it changes on
   // disk, so a name added mid-lesson takes effect without a restart.
   //
-  // Shape: {"classes": {"6-1": ["Aki", "Ben"]}} or a flat [{class, name}] list. A class of
-  // "*" is every class.
-  async listRoster(classCode) {
-    if (!this.filePath) return this.memoryRoster?.filter((r) => r.class === classCode) ?? null;
-    const file = path.join(path.dirname(this.filePath), 'roster.json');
+  // Shape: {"rows": [{class, name, note}]} (what the admin page writes), a flat
+  // [{class, name}] list, or {"classes": {"6-1": ["Aki", "Ben"]}}. A class of "*" (or
+  // an empty one) is every class.
+  get rosterFile() { return this.filePath ? path.join(path.dirname(this.filePath), 'roster.json') : null; }
+
+  // Every row, or null when no register is kept here at all.
+  async listAllRoster() {
+    if (!this.filePath) return this.memoryRoster ? this.memoryRoster.map((r) => ({ ...r })) : null;
+    const file = this.rosterFile;
     let stat;
     try { stat = await fs.stat(file); } catch { return null; }
     if (!this.rosterAt || this.rosterAt !== stat.mtimeMs) {
       try {
         const parsed = JSON.parse(await fs.readFile(file, 'utf8'));
-        const rows = [];
-        if (Array.isArray(parsed)) {
-          for (const r of parsed) if (r?.class && r?.name) rows.push({ class: String(r.class), name: String(r.name), note: String(r.note ?? '') });
-        } else if (parsed && typeof parsed.classes === 'object') {
-          for (const [cls, names] of Object.entries(parsed.classes)) {
-            for (const name of Array.isArray(names) ? names : []) rows.push({ class: String(cls), name: String(name), note: '' });
-          }
-        }
-        this.roster = rows;
+        this.roster = rosterRowsFromJson(parsed);
         this.rosterAt = stat.mtimeMs;
       } catch (err) {
         this.log.warn('[store:file] roster.json could not be read:', err.message);
-        return this.roster ? this.roster.filter((r) => r.class === classCode) : null;
+        return this.roster ? this.roster.map((r) => ({ ...r })) : null;
       }
     }
-    return this.roster.filter((r) => r.class === classCode || r.class === '*').map((r) => ({ ...r, class: classCode }));
+    return this.roster.map((r) => ({ ...r }));
+  }
+
+  async listRoster(classCode) {
+    const rows = await this.listAllRoster();
+    if (rows === null) return null;
+    return rows.filter((r) => r.class === classCode || r.class === '*').map((r) => ({ ...r, class: classCode }));
+  }
+
+  // Replace the register (the admin page's save). Written whole and atomically, as its
+  // own file, so a teacher can still open it in an editor.
+  async saveRoster(rows) {
+    const clean = rows.filter((r) => r && r.name).map((r) => ({ class: r.class && r.class !== '*' ? String(r.class) : '*', name: String(r.name), note: String(r.note ?? '') }));
+    this.rosterVersion += 1;
+    if (!this.filePath) { this.memoryRoster = clean; return; }
+    const file = this.rosterFile;
+    await fs.mkdir(path.dirname(file), { recursive: true });
+    const tmp = `${file}.tmp`;
+    await fs.writeFile(tmp, JSON.stringify({ updatedAt: new Date().toISOString(), rows: clean }, null, 2));
+    await fs.rename(tmp, file);
+    this.roster = clean;
+    this.rosterAt = (await fs.stat(file)).mtimeMs;
   }
 
   // Every record for one class, which is what the weekly board ranks.
@@ -94,4 +113,17 @@ export class FileStore {
   }
 
   async close() { await this.flush(); }
+}
+
+function rosterRowsFromJson(parsed) {
+  const rows = [];
+  const push = (cls, name, note) => { if (name) rows.push({ class: cls && cls !== '*' ? String(cls) : '*', name: String(name), note: String(note ?? '') }); };
+  if (Array.isArray(parsed)) {
+    for (const r of parsed) push(r?.class, r?.name, r?.note);
+  } else if (parsed && Array.isArray(parsed.rows)) {
+    for (const r of parsed.rows) push(r?.class, r?.name, r?.note);
+  } else if (parsed && typeof parsed.classes === 'object') {
+    for (const [cls, names] of Object.entries(parsed.classes)) for (const name of Array.isArray(names) ? names : []) push(cls, name, '');
+  }
+  return rows;
 }

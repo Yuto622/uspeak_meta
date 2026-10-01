@@ -104,8 +104,9 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 | `STORE_BACKEND` | auto | `auto` / `sheets` / `file` / `memory` |
 | `STORE_FLUSH_MS` | 5000 | Sheets への書き込み間隔 |
 | `GOOGLE_SHEET_ID` ほか | | `docs/GOOGLE_SHEETS_SETUP.md` 参照 |
-| `ACCESS_MODE` | open | `roster` にすると **名簿に名前がある子しか入れない**（下記） |
-| `ROSTER_SHEET_ID` / `ROSTER_SHEET_TAB` | (空) | 名簿にする Google スプレッドシート。`docs/ROSTER_SHEET.md` 参照 |
+| `ADMIN_KEY` | (空=管理ページなし) | `/admin` の管理パスワード（12文字以上・`TEACHER_KEY` と別）。名簿の編集と制限の ON/OFF。`docs/ADMIN_ROSTER.md` |
+| `ACCESS_MODE` | (未設定=管理ページのスイッチ) | `roster` で固定すると **名簿に名前がある子しか入れない**。未設定なら `/admin` のスイッチが決める |
+| `ROSTER_SHEET_ID` / `ROSTER_SHEET_TAB` | (空) | 名簿を Google スプレッドシートから読む場合。`docs/ROSTER_SHEET.md` 参照 |
 | `PUBLIC_SERVER_URL` | (同一ホスト) | クライアントと別ホストで動かすときの `wss://` URL（`/config.js` で配信） |
 | `NET_OVERRIDES` | (なし) | クライアントの同期・描画定数を JSON で上書き（例 `{"INTERP_DELAY_MS":150,"MAX_RENDERED_REMOTES":24}`） |
 | `LIVEKIT_URL` / `LIVEKIT_API_KEY` / `LIVEKIT_API_SECRET` | (空=大広間なし) | おはなし島を **100人**の通話にする SFU。未設定なら 6 人メッシュに落ちる（下記） |
@@ -215,7 +216,26 @@ fly logs
 `PUBLIC_SERVER_URL=wss://uspeak-multiplayer.fly.dev` を設定します（クライアント側は `/config.js` を読めない
 ので、`client/dist/config.js` に `window.USPEAK_CONFIG={serverUrl:"wss://..."}` を置くか `<meta name="uspeak-server">` を使います）。
 
-## 名簿スプレッドシート（シートに書いてある名前の人しか入れない）
+## 名簿（登録した名前の子しか入れない）— 管理ページ `/admin`
+
+**管理パスワードで `/admin` に入り、名簿を表に打つ・スプレッドシートから貼る・CSV を読みこむ**。
+「名簿で制限する」を ON にすると、名簿にある名前の子しかログインできません。
+判定はぜんぶサーバー側（`ClassRoom.onAuth`）で、名簿はブラウザーに渡りません。手順は `docs/ADMIN_ROSTER.md`。
+
+```sh
+fly secrets set --app uspeak-multiplayer ADMIN_KEY='<12文字以上の管理パスワード>'
+# → https://uspeak-multiplayer.fly.dev/admin
+```
+
+- 名簿は `クラス | なまえ | メモ` の表。クラスが空欄の行はどのクラスでも入れる名前。
+- CSV は 1 行目が見出し `class,name,note`（`クラス,名前,メモ` でも可）。Google スプレッドシート・Excel の「CSV でダウンロード」がそのまま読める（Shift_JIS も可）。「⬇ CSV で保存」で取り出せる。
+- **保存するとその場で効く**（授業中に足した子もすぐ入れる）。名簿にない名前は、前に遊んだことがあっても入れない。`TEACHER_KEY` を持つ先生は名簿を見ずに入れる。
+- 名簿は `data/roster.json`、スイッチは `data/roster-settings.json`（Fly のボリューム）。環境変数 `ACCESS_MODE` を設定するとそちらが優先される。
+- 効いたかは `/healthz` の `"gate":{"mode":"roster",...,"admin":true}` で分かる。
+- ログインは 12 時間・HttpOnly Cookie、入力ミス 8 回で一時ロック、書きこみはページ自身のスクリプトからだけ。
+
+### Google スプレッドシートを名簿にする場合
+
 
 Google スプレッドシートを名簿にして、そこに書いてある **アカウント名の子だけ** が
 ログインできるようにできます。先生はシートに名前を足す・消すだけ。判定はぜんぶサーバー側

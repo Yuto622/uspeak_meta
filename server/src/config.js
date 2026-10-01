@@ -80,6 +80,13 @@ export const config = Object.freeze({
   // demo or a home user wants); 'roster' admits only children on the class register,
   // with the fallbacks in game/gate.js so an outage never locks a class out.
   accessMode: ((env.ACCESS_MODE ?? 'open').trim().toLowerCase() === 'roster' ? 'roster' : 'open'),
+  // Whether ACCESS_MODE was set at all. Set, it is the law; unset, the admin page's
+  // switch (game/access.js) decides, and the default is still open.
+  accessModeSet: !!(env.ACCESS_MODE ?? '').trim(),
+  // 管理ページ (/admin): the owner's password for the register editor. Without it the
+  // page is not served at all. Not the teacher key: teachers get a lobby, the owner gets
+  // the list of who may enter.
+  adminKey: (env.ADMIN_KEY ?? '').trim(),
   rosterTtlMs: Math.max(30000, int('ROSTER_TTL_MS', 5 * 60 * 1000)),
   // 名簿スプレッドシート. The register as a Google Sheet of its own (store/roster-sheet.js),
   // whatever the store backend: the teacher edits names in a browser, the game's data
@@ -107,6 +114,9 @@ export function validateConfig(log = console) {
   if (!config.teacherKey) log.warn('[config] TEACHER_KEY is empty: teacher role is disabled.');
   if (config.teacherKey && config.teacherKey.length < 8) problems.push('TEACHER_KEY must be at least 8 characters.');
   if (config.accessMode === 'roster' && !config.teacherKey) problems.push('ACCESS_MODE=roster needs TEACHER_KEY, or a teacher cannot get in either.');
+  if (config.adminKey && config.adminKey.length < 12) problems.push('ADMIN_KEY must be at least 12 characters.');
+  if (config.adminKey && config.isProduction && config.adminKey === config.teacherKey) problems.push('ADMIN_KEY must not be the same as TEACHER_KEY.');
+  if (!config.adminKey) log.warn('[config] ADMIN_KEY is empty: the /admin register page is not served.');
   const hasGoogleCreds = !!(config.google.jsonBase64 || (config.google.email && config.google.privateKey));
   if (config.roster.sheetId && !hasGoogleCreds) problems.push('ROSTER_SHEET_ID is set but no service account is: set GOOGLE_SERVICE_ACCOUNT_JSON (or GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_PRIVATE_KEY).');
   if (config.accessMode === 'roster' && !config.roster.sheetId && !config.google.sheetId) log.warn('[config] ACCESS_MODE=roster without ROSTER_SHEET_ID: the register is data/roster.json only.');

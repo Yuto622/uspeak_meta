@@ -89,7 +89,21 @@ export class SheetsStore {
   // The class register, read straight from its tab. The gate caches it, so this is a
   // few reads an hour rather than one per child arriving.
   async listRoster(classCode) {
-    return rowsForClass(parseRosterRows(await this.api.getValues(`${SHEETS.roster}!A1:C`)), classCode);
+    return rowsForClass(await this.listAllRoster(), classCode);
+  }
+
+  async listAllRoster() {
+    return parseRosterRows(await this.api.getValues(`${SHEETS.roster}!A1:C`));
+  }
+
+  // Replace the roster tab (the admin page's save): header, the rows, and blanks over
+  // whatever longer list was there before.
+  async saveRoster(rows) {
+    const before = (await this.api.getValues(`${SHEETS.roster}!A1:C`)).length;
+    const values = [ROSTER_COLUMNS, ...rows.filter((r) => r && r.name).map((r) => [r.class && r.class !== '*' ? String(r.class) : '', String(r.name), String(r.note ?? '')])];
+    while (values.length < before) values.push(['', '', '']);
+    await this.api.update(`${SHEETS.roster}!A1`, values);
+    this.rosterVersion = (this.rosterVersion || 0) + 1;
   }
 
   // Every cached record for one class, which is what the weekly board ranks. Reads the

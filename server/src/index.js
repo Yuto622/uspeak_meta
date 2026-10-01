@@ -7,6 +7,8 @@ import compression from 'compression';
 import { Server, matchMaker, WebSocketTransport } from './colyseus.js';
 import { config, validateConfig } from './config.js';
 import { createStore } from './store/index.js';
+import { createAccess } from './game/access.js';
+import { mountAdmin } from './admin/roster-admin.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
 import { reportFor, reportHtml, reportNoLatexHtml, verifyReport, verifyExport, verifyClass, classCsv, certHtml } from './game/report.js';
@@ -50,6 +52,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
     throw new Error('invalid configuration');
   }
   const { store, roster, close: closeStore } = storeOverride ? { store: storeOverride, roster: storeOverride, close: async () => {} } : await createStore(log);
+  // 入場の切り替えと名簿: shared by the rooms' gates and the admin page.
+  const access = createAccess({ store, roster, dataDir: config.dataDir, envMode: config.accessMode, envModeSet: config.accessModeSet, log });
+  await access.init();
   const cpuPercent = createCpuSampler();
   const startedAt = Date.now();
 
@@ -73,7 +78,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
       memory: { rssMb: Math.round((mem.rss / 1048576) * 10) / 10, heapUsedMb: Math.round((mem.heapUsed / 1048576) * 10) / 10 },
       store: { backend: store.name, pending: store.pendingCount ?? 0, ...(store.stats || {}) },
       // 入場ゲート: the mode and where the register comes from, never a name on it.
-      gate: { mode: config.accessMode, register: roster?.name || store.name },
+      gate: { mode: access.mode(), register: access.source, admin: !!config.adminKey },
       // **鍵が効いているかを、ここで1目で見られるようにしてある。** `OPENAI_API_KEY` を
       // 入れたのに AI が動かないとき、いままでは `fly logs` の `[tutor] provider=` を
       // 探すしかなかった。**出しているのは「鍵が入っているか」だけ**で、鍵そのものも
@@ -203,6 +208,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
     });
   }
 
+  // 管理ページ. Mounted only with ADMIN_KEY (admin/roster-admin.js).
+  mountAdmin(app, { access, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log });
+
   if (config.serveClient) {
     // このゲームのファイル名にはバージョンが入っていない（`game.js` は毎回 `game.js`）。
     // なので1時間の max-age をそのまま当てると、**新しい版を出した直後の1時間、教室の
@@ -235,7 +243,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   });
   const gameServer = new Server({ transport, gracefullyShutdown: false });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, tutor }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   log.info(`[server] listening on :${port} env=${config.nodeEnv} maxClients=${config.maxClients} cors=${config.corsOrigins.join(',') || '(dev: any)'} serveClient=${config.serveClient}`);
