@@ -378,6 +378,36 @@
           "en": "Minigame Island — PUYO U-SPEAK"
         },
         {
+          "shot": "island-farm",
+          "title": "ぼくじょう島",
+          "body": [
+            "たねを かって、はたけに うえて、みずを やる。",
+            "たてものに 入ると、しごとが できます。しごとは ぜんぶ 英語です。",
+            "そだった やさいは しゅっか小屋で コインに。"
+          ],
+          "en": "Farm Island"
+        },
+        {
+          "shot": "screen-farm-shop",
+          "title": "ぼくじょう島 — たねや",
+          "body": [
+            "カードを じゅんばんに おして、えいごの 文を つくります。",
+            "「I'd like three turnip seeds, please.」で たねが かえます。",
+            "まちがえても、コインは へりません。"
+          ],
+          "en": "Farm Island — Seed Shop"
+        },
+        {
+          "shot": "screen-farm-field",
+          "title": "ぼくじょう島 — はたけ",
+          "body": [
+            "マスを おして たねを うえる。えいごの ことばを えらびます。",
+            "「みずを やる」は 1日 1かい。穴うめの 文に こたえます。",
+            "そらが ひとまわり すると、つぎの 日。"
+          ],
+          "en": "Farm Island — The Field"
+        },
+        {
           "shot": "island-park",
           "title": "U-Speak Roblox テーマパーク",
           "body": [
