@@ -15,7 +15,7 @@
 .farm-head h2 { margin: 2px 0 0; font-size: 19px; }
 .farm-meta { display: flex; align-items: center; gap: 12px; font-size: 13px; }
 .farm-coins { background: #ffffff22; padding: 4px 10px; border-radius: 10px; font-weight: 700; }
-#farm-close { width: 34px; height: 34px; border-radius: 10px; background: #ffffff2a; color: #f7f3e6; font-size: 18px; border: 0; }
+#farm-close { flex: none; width: 34px; min-width: 34px; height: 34px; border-radius: 10px; background: #ffffff2a; color: #f7f3e6; font-size: 18px; border: 0; }
 .farm-body { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; padding: 14px 18px 18px; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
 .farm-main h3 { margin: 10px 0 6px; font-size: 14px; color: #4a6a3a; }
 .farm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
