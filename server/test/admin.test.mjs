@@ -49,9 +49,9 @@ test('CSV, TSV and a paste all become the same rows', () => {
   // Excel on Windows: Shift_JIS.
   const sjis = Buffer.from([0x83, 0x4e, 0x83, 0x89, 0x83, 0x58, 0x2c, 0x96, 0xbc, 0x91, 0x4f, 0x0a, 0x36, 0x2d, 0x31, 0x2c, 0x82, 0xa0, 0x82, 0xab, 0x0a]);
   assert.deepEqual(rosterFromText(decodeUpload(sjis)), [{ class: '6-1', name: 'あき', note: '' }]);
-  // And the download reads back as what was saved.
+  // And the download (names only) reads back as every-class rows.
   const csv = rosterToCsv([{ class: '6-1', name: 'A, "B"', note: '' }, { class: '*', name: 'Sora', note: 'x' }]);
-  assert.deepEqual(rosterFromText(csv), [{ class: '6-1', name: 'A, "B"', note: '' }, { class: '*', name: 'Sora', note: 'x' }]);
+  assert.deepEqual(rosterFromText(csv), [{ class: '*', name: 'A, "B"', note: '' }, { class: '*', name: 'Sora', note: '' }]);
 });
 
 test('the page is behind the password, and the API behind the cookie', async () => {
@@ -92,17 +92,18 @@ test('a CSV is parsed on the server, saved from the page, and the door closes at
   assert.equal(parsed.rows.length, 4);
   const saved = await (await api('/roster', { method: 'PUT', body: { rows: parsed.rows } })).json();
   assert.equal(saved.ok, true);
-  assert.equal(saved.count, 3, 'the same name twice in a class is one row');
+  assert.equal(saved.count, 3, 'the same name twice is one row');
   const onDisk = JSON.parse(readFileSync(pathJoin(dir, 'roster.json'), 'utf8'));
   assert.deepEqual(onDisk.rows.map((r) => r.name), ['Aki', 'Chika', 'Sora']);
+  assert.ok(onDisk.rows.every((r) => r.class === '*'), 'a name on the list may enter any class');
   // Still open: the switch has not been turned on.
   const open = await join('Stranger'); await nextMessage(open, 'welcome'); await open.leave(); await sleep(100);
   const on = await (await api('/enforce', { method: 'PUT', body: { enforce: true } })).json();
   assert.equal(on.mode, 'roster');
   const aki = await join('aki'); assert.equal((await nextMessage(aki, 'welcome')).classCode, '6-1'); await aki.leave();
   const sora = await join('Sora', '6-2'); await nextMessage(sora, 'welcome'); await sora.leave();
+  const chika = await join('Chika', '6-1'); await nextMessage(chika, 'welcome'); await chika.leave();
   await assert.rejects(() => join('Stranger'), /register|4004/i);
-  await assert.rejects(() => join('Chika', '6-1'), /register|4004/i, 'right name, wrong class');
   const t = await join('Sensei', '6-1', { teacherKey: 'testkey12345' });
   assert.equal((await nextMessage(t, 'welcome')).role, 'teacher');
   await t.leave(); await sleep(100);
@@ -113,7 +114,7 @@ test('a CSV is parsed on the server, saved from the page, and the door closes at
 
 test('a save while the gate is on takes effect immediately, and the download is the register', async () => {
   const cur = await (await api('/roster')).json();
-  const rows = cur.rows.concat([{ class: '6-1', name: 'Ben', note: 'added mid-lesson' }]);
+  const rows = cur.rows.concat([{ name: 'Ben' }]);
   await api('/roster', { method: 'PUT', body: { rows } });
   const ben = await join('Ben'); await nextMessage(ben, 'welcome'); await ben.leave();
   // Taking a name off closes the door for it, old record or not.
@@ -123,8 +124,8 @@ test('a save while the gate is on takes effect immediately, and the download is 
   const bytes = Buffer.from(await (await api('/roster.csv')).arrayBuffer());
   assert.deepEqual([...bytes.subarray(0, 3)], [0xef, 0xbb, 0xbf], 'a BOM for Excel');
   const csv = bytes.toString('utf8').slice(1);
-  assert.ok(csv.startsWith('class,name,note'));
-  assert.match(csv, /6-1,Ben,added mid-lesson/);
+  assert.ok(csv.startsWith('name\r\n'));
+  assert.match(csv, /^Ben$/m);
   assert.ok(!/Aki/.test(csv));
   // Off again: anyone, and the setting survives in its file.
   await api('/enforce', { method: 'PUT', body: { enforce: false } });

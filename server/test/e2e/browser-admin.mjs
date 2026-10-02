@@ -25,7 +25,7 @@ await page.click('button[type=submit]');
 await page.waitForSelector('#rows', { state: 'attached', timeout: 15000 });
 console.log('step: logged in, url', page.url());
 await page.click('#paste');
-await page.fill('#paste-text', 'クラス\tなまえ\tメモ\n6-1\tAki\t\n6-1\tBen\t4月から\n6-2\tChika\t\n\tSora\tどのクラスでも');
+await page.fill('#paste-text', 'アカウント名\nAki\nBen\nChika\nSora');
 await page.click('#paste-ok');
 await page.waitForFunction(() => document.querySelectorAll('#rows tr').length === 4, null, { timeout: 15000 });
 await page.click('#save');

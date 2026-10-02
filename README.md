@@ -216,10 +216,11 @@ fly logs
 `PUBLIC_SERVER_URL=wss://uspeak-multiplayer.fly.dev` を設定します（クライアント側は `/config.js` を読めない
 ので、`client/dist/config.js` に `window.USPEAK_CONFIG={serverUrl:"wss://..."}` を置くか `<meta name="uspeak-server">` を使います）。
 
-## 名簿（登録した名前の子しか入れない）— 管理ページ `/admin`
+## 名簿（登録したアカウント名の子しか入れない）— 管理ページ `/admin`
 
-**管理パスワードで `/admin` に入り、名簿を表に打つ・スプレッドシートから貼る・CSV を読みこむ**。
-「名簿で制限する」を ON にすると、名簿にある名前の子しかログインできません。
+**管理パスワードで `/admin` に入り、アカウント名を表に打つ・1行に1つ貼る・CSV を読みこむ**。
+「名簿で制限する」を ON にすると、名簿にあるアカウント名の子しかログインできません。
+必要なのはアカウント名だけ（クラスは問いません）。
 判定はぜんぶサーバー側（`ClassRoom.onAuth`）で、名簿はブラウザーに渡りません。手順は `docs/ADMIN_ROSTER.md`。
 
 ```sh
@@ -227,8 +228,7 @@ fly secrets set --app uspeak-multiplayer ADMIN_KEY='<12文字以上の管理パ�
 # → https://uspeak-multiplayer.fly.dev/admin
 ```
 
-- 名簿は `クラス | なまえ | メモ` の表。クラスが空欄の行はどのクラスでも入れる名前。
-- CSV は 1 行目が見出し `class,name,note`（`クラス,名前,メモ` でも可）。Google スプレッドシート・Excel の「CSV でダウンロード」がそのまま読める（Shift_JIS も可）。「⬇ CSV で保存」で取り出せる。
+- 名簿はアカウント名の1列。CSV は 1 行に 1 つ（1行目が `name` / `アカウント名` なら見出し）。Google スプレッドシート・Excel の「CSV でダウンロード」がそのまま読める（Shift_JIS も可）。「⬇ CSV で保存」で取り出せる。
 - **保存するとその場で効く**（授業中に足した子もすぐ入れる）。名簿にない名前は、前に遊んだことがあっても入れない。`TEACHER_KEY` を持つ先生は名簿を見ずに入れる。
 - 名簿は `data/roster.json`、スイッチは `data/roster-settings.json`（Fly のボリューム）。環境変数 `ACCESS_MODE` を設定するとそちらが優先される。
 - 効いたかは `/healthz` の `"gate":{"mode":"roster",...,"admin":true}` で分かる。

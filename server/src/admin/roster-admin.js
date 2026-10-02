@@ -1,8 +1,9 @@
 // 管理ページ (/admin) — the owner's register editor.
 //
-// One password (ADMIN_KEY), one page: the list of who may enter, as a table the owner
-// types into, pastes into from a spreadsheet, or loads from a CSV; a switch that turns
-// the gate on and off; a CSV download. Everything is judged and stored on the server
+// One password (ADMIN_KEY), one page: the list of account names that may enter — only
+// names, no classes — as a table the owner types into, pastes into, or loads from a CSV;
+// a switch that turns the gate on and off; a CSV download. A name on the list may enter
+// any class (stored as class '*'). Everything is judged and stored on the server
 // (game/access.js → the store); the page is only a view of it.
 //
 // Without ADMIN_KEY this module is never mounted, like the parent reports without
@@ -104,7 +105,7 @@ export function mountAdmin(app, { access, adminKey, teacherKeySet = false, isPro
 
   const state = async () => ({
     ok: true,
-    rows: await access.rows(),
+    rows: (await access.rows()).map((r) => ({ name: r.name })),
     enforce: access.enforce,
     mode: access.mode(),
     envModeSet: access.envModeSet,
@@ -130,10 +131,10 @@ export function mountAdmin(app, { access, adminKey, teacherKeySet = false, isPro
     if (!access.editable) { res.status(409).json({ ok: false, error: 'not-editable' }); return; }
     const rows = req.body?.rows;
     if (!Array.isArray(rows) || rows.length > MAX_ROWS) { res.status(400).json({ ok: false, error: 'rows' }); return; }
-    const clipped = rows.map((r) => ({ class: clip(r?.class), name: clip(r?.name), note: clip(r?.note) }));
+    const clipped = rows.map((r) => ({ class: '*', name: clip(typeof r === 'string' ? r : r?.name), note: '' }));
     try {
       const saved = await access.replace(clipped);
-      res.json({ ok: true, count: saved.length, rows: saved });
+      res.json({ ok: true, count: saved.length, rows: saved.map((r) => ({ name: r.name })) });
     } catch (err) { log.warn('[admin] roster save failed:', err.message); res.status(500).json({ ok: false, error: err.message }); }
   });
 
@@ -150,7 +151,7 @@ export function mountAdmin(app, { access, adminKey, teacherKeySet = false, isPro
   api.post('/parse', express.raw({ type: () => true, limit: '2mb' }), (req, res) => {
     try {
       const text = Buffer.isBuffer(req.body) ? decodeUpload(req.body) : String(req.body ?? '');
-      const rows = rosterFromText(text).slice(0, MAX_ROWS);
+      const rows = rosterFromText(text).slice(0, MAX_ROWS).map((r) => ({ name: r.name }));
       res.json({ ok: true, rows });
     } catch (err) { res.status(400).json({ ok: false, error: err.message }); }
   });
@@ -177,7 +178,7 @@ function loginHtml({ bad = false, locked = false } = {}) {
 </style></head><body>
 <form method="post" action="/admin/login" autocomplete="off">
   <h1>U-Speak 管理</h1>
-  <p>名簿（ログインできる名前）の管理ページです。</p>
+  <p>名簿（ログインできるアカウント名）の管理ページです。</p>
   <input type="password" name="password" placeholder="管理パスワード" autofocus required>
   ${msg ? `<div class="bad">${esc(msg)}</div>` : ''}
   <button type="submit">入る</button>

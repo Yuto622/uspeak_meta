@@ -63,7 +63,7 @@
 </head>
 <body>
 <header>
-  <h1>U-Speak 管理 — 名簿（ログインできる名前）</h1>
+  <h1>U-Speak 管理 — 名簿（ログインできるアカウント名）</h1>
   <form method="post" action="/admin/logout"><button type="submit">ログアウト</button></form>
 </header>
 <main>
@@ -72,7 +72,7 @@
       <label class="switch"><input type="checkbox" id="enforce"><b>名簿で制限する</b></label>
       <span class="pill" id="mode-pill">…</span>
     </div>
-    <p class="muted" id="mode-help">ON にすると、下の名簿にある名前の子しかログインできません。OFF の間は、クラスコードを知っていれば誰でも入れます。<br>
+    <p class="muted" id="mode-help">ON にすると、下の名簿にあるアカウント名の子しかログインできません（クラスは問いません）。OFF の間は、クラスコードを知っていれば誰でも入れます。<br>
       <code>TEACHER_KEY</code> を持つ先生は名簿に関係なく入れます。制限は <strong>サーバー側</strong> で判定し、名簿がブラウザーに渡ることはありません。</p>
     <div id="env-notice" class="notice" hidden>この切り替えはいま環境変数 <code>ACCESS_MODE</code> で固定されています。変えるには <code>fly secrets unset ACCESS_MODE</code> を実行してください（そのあとはこのスイッチが効きます）。</div>
     <div id="teacher-notice" class="notice warn" hidden><code>TEACHER_KEY</code> が設定されていません。制限を ON にすると先生も入れなくなります。</div>
@@ -82,7 +82,7 @@
     <div id="sheet-notice" class="notice" hidden>名簿は Google スプレッドシート（<code>ROSTER_SHEET_ID</code>）から読んでいます。名前の追加・削除はそのシートで行ってください。ここでは見るだけです。</div>
     <div class="tools">
       <button type="button" id="add">＋ 行をふやす</button>
-      <button type="button" id="paste">📋 貼りつけ（シートからコピー）</button>
+      <button type="button" id="paste">📋 貼りつけ（1行に1つ）</button>
       <label class="btn">📂 CSV を読みこむ<input type="file" id="file" accept=".csv,.tsv,.txt,text/csv,text/plain"></label>
       <select id="import-mode" title="読みこみ方">
         <option value="replace">読みこみ：置きかえる</option>
@@ -90,11 +90,11 @@
       </select>
       <a id="download" class="btn" href="/admin/api/roster.csv" style="font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);text-decoration:none;font-weight:600">⬇ CSV で保存</a>
       <span class="spacer"></span>
-      <input type="search" id="filter" placeholder="クラスや名前でしぼる">
+      <input type="search" id="filter" placeholder="名前でしぼる">
       <button type="button" id="save" class="primary" disabled>保存する</button>
     </div>
     <table>
-      <thead><tr><th>#</th><th>クラス（空欄＝どのクラスでも）</th><th>なまえ（ログインで入力する名前）</th><th>メモ</th><th></th></tr></thead>
+      <thead><tr><th>#</th><th>アカウント名（ロビーで入力する名前）</th><th></th></tr></thead>
       <tbody id="rows"></tbody>
     </table>
     <div class="foot">
@@ -102,14 +102,14 @@
       <span id="dirty" class="dirty" hidden>● 保存していない変更があります</span>
       <span id="saved-at"></span>
       <span class="spacer"></span>
-      <span>名前は 大文字小文字・空白・全角半角を区別しません。</span>
+      <span>大文字小文字・空白・全角半角は区別しません。</span>
     </div>
   </section>
 
   <section class="card">
     <p class="muted" style="margin:0">
-      <strong>CSV の形</strong>：1行目が見出し <code>class,name,note</code>（<code>クラス,名前,メモ</code> でも可）、2行目から名前。Google スプレッドシートや Excel の「CSV でダウンロード」がそのまま読めます。<br>
-      <strong>貼りつけ</strong>：スプレッドシートのセルを選んでコピーし、「貼りつけ」に貼ると表に入ります。<br>
+      <strong>CSV の形</strong>：1行に1つのアカウント名。1行目が <code>name</code> や <code>アカウント名</code> なら見出しとして飛ばします。<code>class,name</code> の形でも <code>name</code> 列だけ読みます。Google スプレッドシートや Excel の「CSV でダウンロード」がそのまま読めます。<br>
+      <strong>貼りつけ</strong>：スプレッドシートの名前の列を選んでコピーし、「貼りつけ」に貼ると表に入ります。<br>
       <strong>保存</strong>を押すまでサーバーには書かれません。保存するとその場で効きます（授業中でも）。
     </p>
   </section>
@@ -117,10 +117,10 @@
 
 <dialog id="paste-dialog">
   <h2>貼りつけ</h2>
-  <div class="muted">スプレッドシートの <code>クラス | なまえ | メモ</code> の列をコピーして、ここに貼ってください。名前だけの列でも大丈夫です。</div>
-  <textarea id="paste-text" placeholder="6-1	Aki
-6-1	Ben
-6-2	Chika"></textarea>
+  <div class="muted">1行に1つ、アカウント名を貼ってください（スプレッドシートの列をコピーしたものでも大丈夫です）。</div>
+  <textarea id="paste-text" placeholder="Aki
+Ben
+Chika"></textarea>
   <div class="row">
     <select id="paste-mode"><option value="append">追加する</option><option value="replace">置きかえる</option></select>
     <button type="button" id="paste-cancel">やめる</button>
@@ -146,9 +146,7 @@
     const tb = $('#rows');
     tb.innerHTML = rows.map((r, i) => `<tr data-i="${i}">
       <td class="n">${i + 1}</td>
-      <td><input data-k="class" value="${esc(r.class === '*' ? '' : r.class)}" placeholder="（どのクラスでも）" ${state.editable ? '' : 'readonly'}></td>
-      <td><input data-k="name" value="${esc(r.name)}" placeholder="なまえ" ${state.editable ? '' : 'readonly'}></td>
-      <td><input data-k="note" value="${esc(r.note || '')}" placeholder="" ${state.editable ? '' : 'readonly'}></td>
+      <td><input data-k="name" value="${esc(r.name)}" placeholder="アカウント名" ${state.editable ? '' : 'readonly'}></td>
       <td class="x">${state.editable ? '<button type="button" title="この行を消す">×</button>' : ''}</td>
     </tr>`).join('');
     $('#count').textContent = `${rows.filter((r) => r.name && r.name.trim()).length} 人`;
@@ -158,7 +156,7 @@
     const q = $('#filter').value.trim().toLowerCase();
     for (const tr of $('#rows').children) {
       const r = rows[Number(tr.dataset.i)];
-      tr.classList.toggle('hide', !!q && !`${r.class} ${r.name} ${r.note || ''}`.toLowerCase().includes(q));
+      tr.classList.toggle('hide', !!q && !String(r.name).toLowerCase().includes(q));
     }
   }
   function renderMode() {
@@ -177,7 +175,7 @@
     const r = await fetch('/admin/api/roster', { headers: H });
     if (r.status === 401) { location.href = '/admin'; return; }
     state = await r.json();
-    rows = state.rows.map((x) => ({ ...x }));
+    rows = state.rows.map((x) => ({ name: x.name }));
     renderMode(); render(); setDirty(false);
   }
 
@@ -198,10 +196,10 @@
     const tr = e.target.closest('tr'); if (!tr) return;
     e.preventDefault();
     const i = Number(tr.dataset.i);
-    if (i === rows.length - 1) { rows.push({ class: rows[i].class, name: '', note: '' }); render(); setDirty(true); }
+    if (i === rows.length - 1) { rows.push({ name: '' }); render(); setDirty(true); }
     $('#rows').children[i + 1]?.querySelector('[data-k=name]')?.focus();
   });
-  $('#add').addEventListener('click', () => { rows.push({ class: rows.length ? rows[rows.length - 1].class : '', name: '', note: '' }); render(); setDirty(true); $('#rows').lastElementChild?.querySelector('[data-k=name]')?.focus(); });
+  $('#add').addEventListener('click', () => { rows.push({ name: '' }); render(); setDirty(true); $('#rows').lastElementChild?.querySelector('[data-k=name]')?.focus(); });
   $('#filter').addEventListener('input', applyFilter);
 
   async function parseText(textOrBlob) {
@@ -211,9 +209,10 @@
     return j.rows;
   }
   function take(newRows, mode) {
-    if (mode === 'replace') rows = newRows; else rows = rows.concat(newRows);
+    const names = newRows.map((r) => ({ name: r.name }));
+    if (mode === 'replace') rows = names; else rows = rows.concat(names);
     render(); setDirty(true);
-    toast(`${newRows.length} 行を表に入れました（まだ保存していません）`);
+    toast(`${names.length} 人を表に入れました（まだ保存していません）`);
   }
   $('#file').addEventListener('change', async (e) => {
     const f = e.target.files[0]; if (!f) return;
