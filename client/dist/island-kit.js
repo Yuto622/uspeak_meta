@@ -502,7 +502,7 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     built = true;
     ground(data);
     build({ island: data, B, D, sprite, person, house, path, tree, resident, door, ground, scatter, rand, obstacles,
-      shade, lamp, bush, flowers, rock, barrel, crate, bench, fence, bunting });
+      shade, lamp, bush, flowers, rock, barrel, crate, bench, fence, bunting, root });
     makeBeacon();
     flushDeco();
     setTarget(targetId);

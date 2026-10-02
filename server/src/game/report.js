@@ -15,6 +15,7 @@ import { lastYear, monthsInARow, monthsSinceStart } from './retention.js';
 import { sanitizeReady, readinessOf, SCHOOL, LABEL as GRADE_LABEL, GRADES } from './eiken-ready.js';
 import { sanitizeNotes, sharedNotes } from './notes.js';
 import { sanitizeSkills, weakestOf } from './skills.js';
+import { farmSummary } from './farm.js';
 
 // 月ごとの記録は保存の中では文字列。壊れていたら空に落とす（months.js の sanitize と
 // 同じ約束で、読めない月のせいでレポート全体が出ないほうが保護者にとっては悪い）。
@@ -60,6 +61,8 @@ export function reportFor(record, { now = Date.now() } = {}) {
     errands: Array.isArray(missions) ? missions.length : 0,
     fishKinds: Array.isArray(dex) ? dex.length : 0,
     vehicles: Array.isArray(garage) ? garage.length : 0,
+    // ぼくじょう島: what was shipped and the English it took.
+    farm: farmSummary(parse(record.farm_json, null)),
     // Blocks are stacked on the plaza and furniture stands in the room; a save from
     // before the two were separated kept its blocks under `blocks`.
     blocks: Array.isArray(room?.plaza?.blocks) ? room.plaza.blocks.length : Array.isArray(room?.blocks) ? room.blocks.length : 0,
@@ -418,6 +421,7 @@ ${notesBlock(r)}
   ${row('おつかい', r.errands ? `${r.errands} 件 たっせい` : '')}
   ${row('つかまえた魚の種類', r.fishKinds ? `${r.fishKinds} 種` : '')}
   ${row('のりもの', r.vehicles ? `${r.vehicles} 台` : '')}
+  ${row('ぼくじょう', r.farm?.shipped ? `${r.farm.shipped} こ しゅっか・ことば ${r.farm.words} こ` : '')}
   ${row('コースの自己ベスト', r.lapBest ? `${(r.lapBest / 1000).toFixed(1)} 秒` : '')}
   ${row('つくった部屋', r.blocks || r.furniture ? `${r.house}・かぐ ${r.furniture} こ・ひろばの ブロック ${r.blocks} こ` : '')}
   ${row('ペット', r.pet ? `${r.pet.name}（Lv.${r.pet.level}）` : '')}

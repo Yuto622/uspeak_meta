@@ -1,0 +1,77 @@
+{
+  "_": "ぼくじょう島. Read by the page AND by the server: the page draws what this file says, the room grows and charges what this file says. Coordinates are relative to the island's x/z like every other island's JSON. The ENGLISH (questions, answers, dialogue) is NOT here; it lives in server/src/game/farm-bank.json and never reaches a browser. Only names, prices and growth live here.",
+  "island": {
+    "id": "farm",
+    "name": "ぼくじょう島",
+    "en": "FARM ISLAND",
+    "x": -330,
+    "z": 70,
+    "radius": 5,
+    "grass": 9279086,
+    "grassTop": 10470489,
+    "spawn": { "x": 0, "z": 21 },
+    "courtyard": { "x": 0, "z": 9 },
+    "plots": { "x": -15.5, "z": 13, "cols": 3, "rows": 3, "gap": 1.9 },
+    "pen": { "x": 10.5, "z": 15.5, "w": 4, "d": 5 },
+    "spots": [
+      { "id": "seeds",   "kind": "shop",    "name": "たねや",        "en": "Seed Shop",      "character": "Hana",   "ja": "たねと どうぶつを かう",   "x": -18, "z": 2,   "color": 14982776, "tone": "🌱", "path": { "x": 0, "z": 9 } },
+      { "id": "house",   "kind": "field",   "name": "ビニールハウス", "en": "Greenhouse",     "character": "Gramps", "ja": "はたけを せわする",       "x": -8,  "z": -9,  "color": 10212735, "tone": "🌿", "path": { "x": 0, "z": 9 } },
+      { "id": "barn",    "kind": "barn",    "name": "どうぶつ小屋",   "en": "The Barn",       "character": "Taro",   "ja": "どうぶつの せわ",        "x": 8,   "z": -9,  "color": 12223594, "tone": "🐄", "path": { "x": 0, "z": 9 } },
+      { "id": "ship",    "kind": "ship",    "name": "しゅっか小屋",   "en": "Shipping House", "character": "Zack",   "ja": "しゅっかして コインに",   "x": 18,  "z": 2,   "color": 9868950,  "tone": "📦", "path": { "x": 0, "z": 9 } },
+      { "id": "kitchen", "kind": "kitchen", "name": "だいどころ",     "en": "Farm Kitchen",   "character": "Mia",    "ja": "りょうりを つくる",       "x": 0,   "z": -16, "color": 15118207, "tone": "🍳", "path": { "x": 0, "z": 9 } }
+    ]
+  },
+  "plotCount": 9,
+  "dailyCoinCap": 150,
+  "xp": { "word": 3, "fill": 3, "order": 5, "spell": 5, "reply": 4 },
+  "crops": [
+    { "id": "turnip",     "en": "turnip",       "ja": "カブ",        "emoji": "🥬", "season": "spring", "days": 2, "regrow": 0, "seed": 6,  "sell": 8,  "hearts": 0 },
+    { "id": "potato",     "en": "potato",       "ja": "じゃがいも",   "emoji": "🥔", "season": "spring", "days": 3, "regrow": 0, "seed": 8,  "sell": 12, "hearts": 0 },
+    { "id": "cucumber",   "en": "cucumber",     "ja": "きゅうり",     "emoji": "🥒", "season": "spring", "days": 4, "regrow": 2, "seed": 12, "sell": 10, "hearts": 2 },
+    { "id": "strawberry", "en": "strawberry",   "ja": "いちご",      "emoji": "🍓", "season": "spring", "days": 3, "regrow": 1, "seed": 14, "sell": 9,  "hearts": 4 },
+    { "id": "tomato",     "en": "tomato",       "ja": "トマト",      "emoji": "🍅", "season": "summer", "days": 4, "regrow": 2, "seed": 12, "sell": 11, "hearts": 0 },
+    { "id": "corn",       "en": "corn",         "ja": "とうもろこし", "emoji": "🌽", "season": "summer", "days": 5, "regrow": 0, "seed": 16, "sell": 24, "hearts": 0 },
+    { "id": "watermelon", "en": "watermelon",   "ja": "すいか",      "emoji": "🍉", "season": "summer", "days": 5, "regrow": 0, "seed": 20, "sell": 30, "hearts": 2 },
+    { "id": "pepper",     "en": "pepper",       "ja": "ピーマン",     "emoji": "🫑", "season": "summer", "days": 4, "regrow": 2, "seed": 12, "sell": 10, "hearts": 4 },
+    { "id": "pumpkin",    "en": "pumpkin",      "ja": "かぼちゃ",     "emoji": "🎃", "season": "autumn", "days": 5, "regrow": 0, "seed": 18, "sell": 28, "hearts": 0 },
+    { "id": "carrot",     "en": "carrot",       "ja": "にんじん",     "emoji": "🥕", "season": "autumn", "days": 3, "regrow": 0, "seed": 8,  "sell": 12, "hearts": 0 },
+    { "id": "sweet-potato", "en": "sweet potato", "ja": "さつまいも", "emoji": "🍠", "season": "autumn", "days": 4, "regrow": 0, "seed": 12, "sell": 18, "hearts": 2 },
+    { "id": "eggplant",   "en": "eggplant",     "ja": "なす",        "emoji": "🍆", "season": "autumn", "days": 4, "regrow": 2, "seed": 12, "sell": 10, "hearts": 4 },
+    { "id": "cabbage",    "en": "cabbage",      "ja": "キャベツ",     "emoji": "🥬", "season": "winter", "days": 4, "regrow": 0, "seed": 10, "sell": 16, "hearts": 0 },
+    { "id": "onion",      "en": "onion",        "ja": "たまねぎ",     "emoji": "🧅", "season": "winter", "days": 3, "regrow": 0, "seed": 8,  "sell": 12, "hearts": 0 },
+    { "id": "spinach",    "en": "spinach",      "ja": "ほうれんそう", "emoji": "🥬", "season": "winter", "days": 2, "regrow": 0, "seed": 6,  "sell": 8,  "hearts": 2 },
+    { "id": "radish",     "en": "radish",       "ja": "だいこん",     "emoji": "🥬", "season": "winter", "days": 2, "regrow": 0, "seed": 6,  "sell": 9,  "hearts": 4 }
+  ],
+  "animals": [
+    { "id": "chicken", "en": "chicken", "ja": "ニワトリ", "emoji": "🐔", "price": 80,  "product": "egg",  "feed": "corn", "sound": "cluck", "hearts": 0 },
+    { "id": "sheep",   "en": "sheep",   "ja": "ヒツジ",   "emoji": "🐑", "price": 150, "product": "wool", "feed": "hay",  "sound": "baa",   "hearts": 2 },
+    { "id": "cow",     "en": "cow",     "ja": "ウシ",     "emoji": "🐄", "price": 220, "product": "milk", "feed": "hay",  "sound": "moo",   "hearts": 4 }
+  ],
+  "animalLimit": 4,
+  "products": [
+    { "id": "egg",  "en": "egg",  "ja": "たまご", "emoji": "🥚", "sell": 12 },
+    { "id": "milk", "en": "milk", "ja": "ぎゅうにゅう", "emoji": "🥛", "sell": 25 },
+    { "id": "wool", "en": "wool", "ja": "ようもう", "emoji": "🧶", "sell": 40 }
+  ],
+  "tools": [
+    { "id": "can2", "en": "silver watering can", "ja": "ぎんの ジョウロ", "emoji": "🚿", "price": 120, "can": 2, "hearts": 0 },
+    { "id": "can3", "en": "gold watering can",   "ja": "きんの ジョウロ", "emoji": "✨", "price": 300, "can": 3, "hearts": 3 }
+  ],
+  "recipes": [
+    { "id": "omelet",         "en": "omelet",         "ja": "オムレツ",       "emoji": "🍳", "needs": { "egg": 2 },                       "hearts": 0 },
+    { "id": "potato-salad",   "en": "potato salad",   "ja": "ポテトサラダ",   "emoji": "🥗", "needs": { "potato": 1, "cucumber": 1 },     "hearts": 0 },
+    { "id": "tomato-soup",    "en": "tomato soup",    "ja": "トマトスープ",   "emoji": "🍲", "needs": { "tomato": 2 },                    "hearts": 0 },
+    { "id": "strawberry-jam", "en": "strawberry jam", "ja": "いちごジャム",   "emoji": "🍯", "needs": { "strawberry": 2 },                "hearts": 2 },
+    { "id": "corn-soup",      "en": "corn soup",      "ja": "コーンスープ",   "emoji": "🥣", "needs": { "corn": 1, "milk": 1 },           "hearts": 2 },
+    { "id": "pumpkin-pie",    "en": "pumpkin pie",    "ja": "かぼちゃパイ",   "emoji": "🥧", "needs": { "pumpkin": 1, "egg": 1 },         "hearts": 4 },
+    { "id": "pancakes",       "en": "pancakes",       "ja": "パンケーキ",     "emoji": "🥞", "needs": { "egg": 1, "milk": 1 },            "hearts": 4 },
+    { "id": "wool-scarf",     "en": "wool scarf",     "ja": "ようもうの マフラー", "emoji": "🧣", "needs": { "wool": 2 },                 "hearts": 6 }
+  ],
+  "likes": {
+    "seeds":   ["strawberry", "strawberry-jam", "pancakes"],
+    "house":   ["turnip", "potato", "sweet-potato", "cabbage"],
+    "barn":    ["corn", "egg", "milk", "omelet"],
+    "ship":    ["watermelon", "pumpkin", "corn", "pumpkin-pie"],
+    "kitchen": ["tomato", "tomato-soup", "potato-salad", "corn-soup"]
+  }
+}

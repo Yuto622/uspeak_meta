@@ -26,6 +26,9 @@ export const PLAYER_COLUMNS = [
   // 先生のメモと声かけ（`game/notes.js`）。**教室がいちばん手放しにくい記録**なので、
   // CSV には全部出す。
   'notes_json',
+  // ぼくじょう島（`game/farm.js`）：畑・動物・持ち物・ハート・つかった ことば。
+  // `farm_coins` は きょう しゅっかで もらった コイン（1日の上限）。
+  'farm_json', 'farm_coins',
 ];
 export const LEARNING_COLUMNS = ['timestamp', 'class', 'name', 'question_id', 'mode', 'choice', 'correct', 'xp', 'session_id'];
 // The class register. A teacher keeps this: one row per child who is allowed in.
@@ -47,7 +50,7 @@ export function blankPlayerRecord(classCode, name) {
     blocks_json: '[]', room_json: '', role: 'student', props_json: '[]', eiken_coins: 0, conv_coins: 0,
     voice_minutes: 0, skills_json: '', study_ms: 0, study_days: 0, study_day: 0,
     wardrobe_json: '[]', worn_json: '[]', months_json: '{}', moved_to: '', moved_from: '', first_seen: '',
-    eiken_json: '', notes_json: '[]',
+    eiken_json: '', notes_json: '[]', farm_json: '', farm_coins: 0,
   };
 }
 
@@ -63,7 +66,7 @@ export function rowToRecord(row, columns) {
   columns.forEach((c, i) => { record[c] = row[i] ?? ''; });
   if (record.level === '' || Number(record.level) < 1) record.level = 1;   // rows written before levels existed
   for (const key of ['coins', 'correct', 'attempts', 'catches', 'x', 'z', 'level', 'xp', 'total_xp', 'chats',
-    'login_day', 'login_streak', 'week_key', 'week_xp', 'cap_day', 'battle_coins', 'ghost_coins', 'lap_best', 'course_coins', 'eiken_coins', 'conv_coins', 'voice_minutes', 'study_ms', 'study_days', 'study_day']) {
+    'login_day', 'login_streak', 'week_key', 'week_xp', 'cap_day', 'battle_coins', 'ghost_coins', 'lap_best', 'course_coins', 'eiken_coins', 'conv_coins', 'voice_minutes', 'study_ms', 'study_days', 'study_day', 'farm_coins']) {
     const n = Number(record[key]);
     record[key] = Number.isFinite(n) ? n : 0;
   }

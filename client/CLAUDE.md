@@ -826,6 +826,24 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **先生コンソールはもともとスクロールする**（`max-height:min(60vh,520px)`）ので、
   気づきが増えても名簿が画面から消えることはない。
 
+## ぼくじょう島（牧場物語 × 英語／2026-10 追加）
+
+`farm-island.js` + `farm.json`（島・作物・動物・レシピ・値段）/ `farm.js` + `farm.css`（画面）。
+サーバーは `server/src/game/farm.js` と **`farm-bank.json`（英語。クライアントには来ない）**。
+
+- **体力の代わりに英語を払う**のが設計の一行。`farm:act` で「これをしたい」→ `farm:ask` で問題
+  （答えなし）→ `farm:answer` → サーバーが判定して効果を適用。**ページは何も決めない。**
+- **1 日＝世界時計の 1 周**（`world-clock.js` の `CYCLE_SEC`）。季節＝本物の季節（`daily.js seasonFor`）。
+- **屋外の畑と柵は `island.setFarm(state)` で描き直す**（`net-client.js` が `farm:state` / `farm:result` のたびに呼ぶ）。
+  到着時に描けるよう `welcome` で `farm:peek` を送っている（位置ゲートなし・読むだけ）。
+- **5 つの建物の道は広場の真ん中から扇状に出る**ので、広場の中心に物を置かないこと。井戸は広場の東の端、
+  畑と柵は南側（道の外）。`tests/regression.mjs` の「paved path runs through a building」で落ちて直した。
+- **学習の中身は `.farm-q` / `.farm-en` / `.farm-ja` / `.farm-dex`**（`i18n-dom.js` の `LEARNING`）で、
+  `translate="no"` も付けてある。作物・動物の英語名は訳さない（それが単語そのもの）。
+- 住人の名前（Hana / Gramps / Taro / Zack / Mia）は `farm.json` の `character` が定義元。
+- 検査は上の README の「ぼくじょう島」に書いた 4 つ。e2e は戸口の掛け金（`doorLatch`）の都合で
+  **建物から建物へ移るときは一度広場へ出る**（実機の子どもと同じ動き）。
+
 ## きせかえ（アバターの店／2026-09 追加）
 
 `wardrobe.json`（16 アイテム・4 スロット）/ `wardrobe-data.js`（読み込みと検証・**サーバーと共有**）/

@@ -53,7 +53,7 @@ export const ghostPayload = (ghost) => ({ id: ghost.id, word: ghost.word, ja: gh
 // `voice` is minutes of an open microphone today, not coins — the same shape still works,
 // since a cap is just "how much of this is left today" whatever the unit.
 export function blankCaps(now = Date.now()) {
-  return { day: dayIndex(now), battle: 0, ghost: 0, course: 0, eiken: 0, conv: 0, voice: 0 };
+  return { day: dayIndex(now), battle: 0, ghost: 0, course: 0, eiken: 0, conv: 0, voice: 0, farm: 0 };
 }
 
 export function sanitizeCaps(raw, now = Date.now()) {
@@ -62,7 +62,7 @@ export function sanitizeCaps(raw, now = Date.now()) {
   const day = Number(raw.day);
   // Yesterday's spending is not today's, so a stale row simply starts the day fresh.
   if (!Number.isFinite(day) || Math.floor(day) !== caps.day) return caps;
-  for (const key of ['battle', 'ghost', 'course', 'eiken', 'conv', 'voice']) {
+  for (const key of ['battle', 'ghost', 'course', 'eiken', 'conv', 'voice', 'farm']) {
     const n = Number(raw[key]);
     if (Number.isFinite(n) && n > 0) caps[key] = Math.min(1e7, Math.floor(n));
   }
@@ -79,7 +79,7 @@ export function roomLeft(caps, key, cap, now = Date.now()) {
   const today = dayIndex(now);
   if (caps.day !== today) {
     caps.day = today;
-    caps.battle = 0; caps.ghost = 0; caps.course = 0; caps.eiken = 0; caps.conv = 0; caps.voice = 0;
+    caps.battle = 0; caps.ghost = 0; caps.course = 0; caps.eiken = 0; caps.conv = 0; caps.voice = 0; caps.farm = 0;
   }
   return Math.max(0, cap - (caps[key] || 0));
 }

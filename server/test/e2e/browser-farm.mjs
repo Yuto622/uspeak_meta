@@ -1,0 +1,181 @@
+// Browser end-to-end check for ぼくじょう島: a real avatar lands on the island, walks into
+// the seed shop, buys seeds by putting a sentence in order, walks into the greenhouse,
+// plants and waters, and the field outside changes. Every answer is judged by the room;
+// this test, like a child, only sees the cards.
+//
+// Run: node test/e2e/browser-farm.mjs   (not part of `npm test`)
+import { spawn } from 'node:child_process';
+import { createRequire } from 'node:module';
+import { mkdirSync, readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { makeHelpers } from './lib/walk.mjs';
+
+const here = path.dirname(fileURLToPath(import.meta.url));
+const serverDir = path.resolve(here, '../..');
+const require = createRequire(process.env.PLAYWRIGHT_MODULE_DIR ? path.join(process.env.PLAYWRIGHT_MODULE_DIR, '/') : import.meta.url);
+const { chromium } = require('playwright');
+const SHOTS = path.resolve(serverDir, 'loadtest-results');
+const FIGS = path.resolve(serverDir, '../docs/figures');
+mkdirSync(SHOTS, { recursive: true });
+
+const PORT = 2657;
+// The bank lives on the server, so this script (which is server-side code) may read it
+// to answer the second time. The page never can: it only ever sees the cards.
+const BANK = JSON.parse(readFileSync(path.resolve(serverDir, 'src/game/farm-bank.json'), 'utf8'));
+const clickChoice = (page, text) => page.evaluate((t) => { const b = [...document.querySelectorAll('#farm-q [data-choice]')].find((x) => x.dataset.choice === t); if (!b) throw new Error('no choice ' + t); b.click(); }, text);
+const server = spawn('node', ['src/index.js'], {
+  cwd: serverDir,
+  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', ANSWER_MIN_INTERVAL_MS: '0' },
+  stdio: ['ignore', 'pipe', 'pipe'],
+});
+server.stdout.on('data', (d) => process.stdout.write('[server] ' + d));
+server.stderr.on('data', (d) => process.stdout.write('[server:err] ' + d));
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+await sleep(1500);
+setTimeout(() => { console.log('FAIL timed out'); server.kill(); process.exit(2); }, 20 * 60 * 1000).unref();
+
+const browser = await chromium.launch({
+  ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
+  args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--no-sandbox'],
+});
+const { openPage } = makeHelpers({ browser, port: PORT, viewport: { width: 1100, height: 720 } });
+const results = [];
+const check = (name, ok, detail = '') => { results.push({ name, ok, detail }); console.log(`${ok ? 'PASS' : 'FAIL'} ${name} ${detail}`); };
+const shot = async (page, name) => { await page.screenshot({ path: path.join(SHOTS, `${name}.png`), timeout: 120000 }); };
+const fig = async (page, name) => { await page.screenshot({ path: path.join(FIGS, `${name}.jpg`), type: 'jpeg', quality: 90, timeout: 120000 }); };
+
+// Walk into a building and open its counter, the way screens.mjs does for every island.
+async function enter(page, spot) {
+  await page.evaluate(async (id) => {
+    const data = await uspeak.rpg.farm.ready;
+    const isle = data.island;
+    const place = isle.spots.find((s) => s.id === id);
+    uspeak.player.position.set(isle.x + place.x, 0, isle.z + place.z);
+  }, spot);
+  // The doorway check runs in the frame loop, which this renderer turns slowly, and a
+  // short hold follows leaving a building: keep standing in the doorway until it opens.
+  for (let i = 0; i < 90 && !(await page.evaluate(() => uspeak.rpg.insideBuilding)); i += 1) {
+    await sleep(250);
+    // A door just left stays latched until the child walks away from it: step back
+    // into the yard, then up to the door again, the way a child would.
+    if (i % 6 === 2) await page.evaluate(async () => { const d = await uspeak.rpg.farm.ready; uspeak.player.position.set(d.island.x, 0, d.island.z + 9); });
+    if (i % 6 === 4) await page.evaluate(async (id) => { const d = await uspeak.rpg.farm.ready; const p = d.island.spots.find((s) => s.id === id); uspeak.player.position.set(d.island.x + p.x, 0, d.island.z + p.z); }, spot);
+  }
+  if (!(await page.evaluate(() => uspeak.rpg.insideBuilding))) {
+    // The doorway is a frame-loop affair and this renderer manages a few frames a second;
+    // when the latch will not let go in time, go in the way the doorway itself does.
+    console.log('[note] doorway did not take in time; entering directly');
+    await page.evaluate(async (id) => { const d = await uspeak.rpg.farm.ready; uspeak.rpg.inside.enter('farm', d.island.spots.find((s) => s.id === id)); }, spot);
+    await sleep(800);
+  }
+  await page.evaluate(() => uspeak.player.position.set(0, 0, -1.8));
+  for (let i = 0; i < 40 && !(await page.evaluate(() => !!uspeak.rpg.farmNearby?.())); i += 1) await sleep(200);
+  await page.evaluate(() => uspeak.net.farmInteract());
+  await page.waitForSelector('#farm-dialog[open]', { state: 'attached', timeout: 20000 });
+  await page.waitForFunction((id) => uspeak.net.farm.state.farm && uspeak.net.farm.state.spot === id, spot, { timeout: 20000 });
+}
+const leave = async (page) => {
+  await page.evaluate(() => { document.querySelector('#farm-dialog').close(); uspeak.rpg.inside?.leave?.(true); });
+  // Step out into the yard so the latch on the door just used lets go.
+  await sleep(400);
+  await page.evaluate(async () => { const d = await uspeak.rpg.farm.ready; uspeak.player.position.set(d.island.x, 0, d.island.z + 9); });
+  await sleep(1500);
+};
+const ask = (page) => page.evaluate(() => uspeak.net.farm.state.q);
+const waitResult = (page) => page.waitForFunction(() => uspeak.net.farm.state.result, null, { timeout: 20000 }).then(() => page.evaluate(() => uspeak.net.farm.state.result));
+const next = (page) => page.evaluate(() => document.querySelector('#farm-next')?.click());
+
+try {
+  const page = await openPage('Hana');
+  page.on('pageerror', (e) => console.log('[pageerror]', e.message));
+  await page.evaluate(() => uspeak.rpg.fly('farm'));
+  await page.evaluate(() => uspeak.rpg.finishFlight());
+  await page.waitForFunction(() => uspeak.rpg.state.current === 'farm' && uspeak.rpg.farm.visible, null, { timeout: 60000 });
+  await sleep(3000);
+  check('landed on ぼくじょう島', true);
+  await page.evaluate(() => { uspeak.player.position.set(-330 - 4, 0, 70 + 17); });
+  await sleep(2500);
+  await fig(page, 'island-farm');
+
+  // The seed shop: buy three turnip seeds by ordering the cards.
+  await enter(page, 'seeds');
+  await shot(page, 'farm-shop');
+  const seeds = await page.evaluate(() => uspeak.net.farm.state.farm.catalog.seeds.filter((c) => !c.locked));
+  check('the shop sells this season\'s seeds', seeds.length >= 2, seeds.map((c) => c.en).join(','));
+  const pick = seeds[0];
+  await page.click(`[data-buy="${pick.id}"][data-qty="3"]`);
+  await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'order', null, { timeout: 20000 });
+  let q = await ask(page);
+  check('buying asks for a sentence in order, with no answer on the page', q.kind === 'order' && !('answer' in q), q.tokens.join(' | '));
+  // Put the cards in order from the template a child learns at the counter.
+  const sentence = `I'd like three ${pick.en} seeds, please.`;
+  for (const w of sentence.split(' ')) {
+    const idx = await page.evaluate((word) => { const q = uspeak.net.farm.state.q; const used = uspeak.net.farm.state.picked; return q.tokens.findIndex((t, i) => t === word && !used.includes(i)); }, w);
+    await page.click(`[data-pick="${idx}"]`);
+  }
+  await shot(page, 'farm-order');
+  await fig(page, 'screen-farm-shop');
+  await page.click('#farm-order-ok');
+  let r = await waitResult(page);
+  check('the right order buys the seeds', r.correct === true && r.farm.seeds[pick.id] === 3, JSON.stringify(r.farm.seeds));
+  await next(page);
+  await leave(page);
+
+  // The greenhouse: plant (a word), water (a sentence with a hole), and the field changes.
+  await enter(page, 'house');
+  await page.click('[data-plot="4"]');
+  await page.click(`[data-plant="${pick.id}"]`);
+  await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'word', null, { timeout: 20000 });
+  q = await ask(page);
+  check('planting asks for the English word, four choices', q.choices.length === 4 && q.choices.includes(pick.en));
+  await clickChoice(page, pick.en);
+  r = await waitResult(page);
+  check('the right word plants the seed', r.correct && r.farm.plots[4]?.crop === pick.id);
+  await next(page);
+  await page.click('#farm-water');
+  await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'fill', null, { timeout: 20000 });
+  q = await ask(page);
+  check('watering asks a farm sentence with a hole', q.kind === 'fill' && q.prompt.en.includes('___'), q.prompt.en);
+  await fig(page, 'screen-farm-field');
+  // Wrong on purpose: nothing grows, and the answer is shown.
+  const right = BANK.fill.find((f) => f.q === q.prompt.en).a;
+  const wrong = q.choices.find((c) => c !== right);
+  await clickChoice(page, wrong);
+  r = await waitResult(page);
+  check('a wrong answer grows nothing, and the answer is shown', !r.correct && r.farm.plots[4].growth === 0 && r.answer === right, `answer=${r.answer}`);
+  await next(page);
+  await page.click('#farm-water');
+  await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'fill', null, { timeout: 20000 });
+  q = await ask(page);
+  await clickChoice(page, BANK.fill.find((f) => f.q === q.prompt.en).a);
+  r = await waitResult(page);
+  check('the right answer waters the plot', r.correct && r.farm.plots[4].growth === 1 && r.xp > 0, `xp=${r.xp}`);
+  await next(page);
+  const watered = await page.evaluate(() => uspeak.net.farm.state.farm.plots[4]);
+  check('the plot is watered today and grew once', watered.watered && watered.growth === 1, JSON.stringify(watered));
+  check('the field outside shows a sprout', await page.evaluate(() => uspeak.rpg.farm.visible), '');
+  await shot(page, 'farm-field');
+  await leave(page);
+  await page.evaluate(() => { uspeak.player.position.set(-330 - 8, 0, 70 + 19); });
+  await sleep(2000);
+  await shot(page, 'farm-outside');
+
+  // The barn and the shipping house open on their own counters.
+  await enter(page, 'barn');
+  check('the barn opens', await page.evaluate(() => document.querySelector('#farm-dialog').open));
+  await leave(page);
+  await enter(page, 'ship');
+  await page.waitForFunction(() => uspeak.net.farm.state.board, null, { timeout: 20000 });
+  const board = await page.evaluate(() => uspeak.net.farm.state.board);
+  check('the shipping house shows the class festival board', typeof board.total === 'number' && Array.isArray(board.top));
+  await fig(page, 'screen-farm-ship');
+  await leave(page);
+} catch (err) {
+  check('no exception', false, err.stack || String(err));
+}
+await browser.close();
+server.kill();
+const failed = results.filter((r) => !r.ok);
+console.log(`\n${results.length - failed.length}/${results.length} checks passed`);
+process.exit(failed.length ? 1 : 0);

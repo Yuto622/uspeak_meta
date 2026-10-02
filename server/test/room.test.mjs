@@ -1916,3 +1916,94 @@ test('きせかえ: the room owns the wallet, the wardrobe and what everyone els
   await b.room.leave();
   await sleep(100);
 });
+
+test('ぼくじょう島: every job is a question, the answer is judged here, and the farm grows only on a right one', async () => {
+  const { FARM, farmDay } = await import('../src/game/farm.js');
+  const a = await join('Noa');
+  const at = (id) => { const sp = FARM.spotById.get(id); return [FARM.island.x + sp.x, FARM.island.z + sp.z]; };
+  const stand = async (x, z, space = FARM.id) => {
+    a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => { const p = a.room.state.players.get(a.room.sessionId); return Math.abs(p.x - x) < 0.01 && p.space === space; });
+  };
+  // Give Mio some coins the honest way: the room's own award path, as a test fixture.
+  const priv = [...a.room.state.players.keys()];
+  assert.ok(priv.length);
+  // A peek works from anywhere (it draws the field on arrival); opening a building does not.
+  a.room.send('farm:peek', {});
+  const peek = await nextMessage(a.room, 'farm:state');
+  assert.equal(peek.farm.plots.length, FARM.plotCount);
+  assert.equal(peek.farm.pending, null);
+  a.room.send('farm:open', { spot: 'house' });
+  const far = await nextMessage(a.room, 'farm:error');
+  assert.equal(far.reason, 'too far');
+  // In the shop: buying is a sentence to put in order; the answer is not in the ask.
+  await stand(...at('seeds'));
+  a.room.send('farm:open', { spot: 'seeds' });
+  const opened = await nextMessage(a.room, 'farm:state');
+  assert.equal(opened.spot, 'seeds');
+  assert.ok(opened.farm.catalog.seeds.length >= 4);
+  // Buying ten bags of the cheapest open seed: a sentence to put in order. The test
+  // knows the template (farm-bank.json) the way a child knows the shop's phrase; the
+  // wire carries only the shuffled cards.
+  const { BANK } = await import('../src/game/farm.js');
+  const seed = opened.farm.catalog.seeds.filter((c) => !c.locked).sort((x, y) => x.seed - y.seed)[0];
+  const before = opened.wallet.coins;
+  assert.ok(before >= seed.seed * 10, 'the login bonus covers ten bags');
+  a.room.send('farm:act', { act: 'buy', spot: 'seeds', params: { item: seed.id, qty: 10 } });
+  const buyAsk = await nextMessage(a.room, 'farm:ask');
+  assert.equal(buyAsk.kind, 'order');
+  assert.ok(!('answer' in buyAsk) && !('effect' in buyAsk));
+  const sentence = BANK.templates.buy.en.replace('{n}', 'ten').replace('{item}', `${seed.en} seeds`);
+  assert.deepEqual([...buyAsk.tokens].sort(), sentence.split(' ').sort(), 'the cards are the sentence, shuffled');
+  a.room.send('farm:answer', { qid: buyAsk.id, answer: sentence.split(' ') });
+  const bought = await nextMessage(a.room, 'farm:result');
+  assert.equal(bought.correct, true);
+  assert.equal(bought.farm.seeds[seed.id], 10);
+  assert.equal(bought.wallet.coins, before - seed.seed * 10, 'the room charged the price in farm.json');
+  assert.ok(bought.farm.dex.includes(seed.en));
+  // Now Mio cannot afford ten more: the room says so before asking anything.
+  a.room.send('farm:act', { act: 'buy', spot: 'seeds', params: { item: seed.id, qty: 10 } });
+  const broke = await nextMessage(a.room, 'farm:error');
+  assert.equal(broke.reason, 'not enough coins');
+  // Talking costs nothing and pays a heart. Wrong reply: no heart, the answer shown.
+  a.room.send('farm:act', { act: 'talk', spot: 'seeds', params: {} });
+  const ask = await nextMessage(a.room, 'farm:ask');
+  assert.equal(ask.kind, 'reply');
+  assert.ok(ask.choices.length === 4 && !('answer' in ask) && !('effect' in ask));
+  a.room.send('farm:answer', { qid: ask.id, answer: '???' });
+  const wrong = await nextMessage(a.room, 'farm:result');
+  assert.equal(wrong.correct, false);
+  assert.ok(ask.choices.includes(wrong.answer), 'the answer is one of the choices, and is revealed after');
+  assert.equal(wrong.farm.hearts.seeds, undefined);
+  assert.equal(wrong.xp, 0);
+  // A stale question id is refused; the right answer to a fresh one is a heart and XP.
+  a.room.send('farm:answer', { qid: ask.id, answer: wrong.answer });
+  assert.equal((await nextMessage(a.room, 'farm:error')).reason, 'no question');
+  a.room.send('farm:act', { act: 'talk', spot: 'seeds', params: {} });
+  const ask2 = await nextMessage(a.room, 'farm:ask');
+  // The page cannot know the answer; this test runs beside the bank and may look the
+  // line up — exactly what a page can never do.
+  const line = BANK.reply.find((x) => ask2.prompt.en.includes(x.says));
+  assert.ok(line && ask2.choices.includes(line.a), 'the villager\'s line is from the bank and its reply is among the choices');
+  a.room.send('farm:answer', { qid: ask2.id, answer: line.a });
+  const right = await nextMessage(a.room, 'farm:result');
+  assert.equal(right.correct, true);
+  assert.equal(right.farm.hearts.seeds, 1);
+  assert.ok(right.xp > 0);
+  assert.equal(right.farm.talked.seeds, true);
+  a.room.send('farm:act', { act: 'talk', spot: 'seeds', params: {} });
+  assert.equal((await nextMessage(a.room, 'farm:error')).reason, 'already talked');
+  // The field's jobs are refused from the shop, even with the right id.
+  a.room.send('farm:act', { act: 'water', spot: 'house', params: {} });
+  const notHere = await nextMessage(a.room, 'farm:error');
+  assert.equal(notHere.reason, 'too far');
+  assert.equal(notHere.spot, 'house');
+  // The farm survives a save: the record carries it, and farm_coins is a column.
+  await stand(...at('house'));
+  a.room.send('farm:open', { spot: 'house' });
+  const house = await nextMessage(a.room, 'farm:state');
+  assert.equal(house.farm.hearts.seeds, 1);
+  assert.equal(house.farm.day, farmDay());
+  await a.room.leave();
+  await sleep(150);
+});

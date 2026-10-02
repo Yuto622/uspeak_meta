@@ -1,0 +1,91 @@
+/* ぼくじょう島 — the farm screen. `display` goes on `#farm-dialog[open]`, never on the bare
+   id: on the id it beats the browser's own `dialog:not([open]) { display: none }` and the
+   closed dialog sits in the middle of the island eating taps. */
+#farm-dialog {
+  border: none; padding: 0; width: min(980px, 95vw); max-height: 94vh; border-radius: 22px;
+  background: #f6f1e4; color: #2b3a2c; box-shadow: 0 30px 80px #04110f88; overflow: hidden;
+}
+#farm-dialog[open] { display: flex; flex-direction: column; }
+#farm-dialog::backdrop { background: #10241ccc; backdrop-filter: blur(3px); }
+.farm-head {
+  position: static; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 18px; background: linear-gradient(#5f8a4a, #4a7338); color: #f7f3e6; border-radius: 22px 22px 0 0;
+}
+.farm-head small { display: block; font-size: 11px; letter-spacing: .12em; opacity: .85; }
+.farm-head h2 { margin: 2px 0 0; font-size: 19px; }
+.farm-meta { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+.farm-coins { background: #ffffff22; padding: 4px 10px; border-radius: 10px; font-weight: 700; }
+#farm-close { width: 34px; height: 34px; border-radius: 10px; background: #ffffff2a; color: #f7f3e6; font-size: 18px; border: 0; }
+.farm-body { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; padding: 14px 18px 18px; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+.farm-main h3 { margin: 10px 0 6px; font-size: 14px; color: #4a6a3a; }
+.farm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.farm-card { background: #fff; border: 1px solid #dfd6c2; border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.farm-card.locked { opacity: .62; }
+.farm-card.owned { border-color: #8bbf6a; }
+.farm-card small { color: #5c6b57; }
+.farm-card .has { color: #2f8f5b; } .farm-card .lacks { color: #b4322a; }
+.farm-en { font-size: 15px; color: #1f3a22; } .farm-ja { font-size: 11px; color: #6b7a66; font-style: normal; }
+.farm-price { font-weight: 700; color: #a9721e; }
+.farm-lock { color: #9a6a2a; }
+.farm-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.farm-row button, .farm-fieldbar button, .farm-villager button, .farm-seedpick button { min-height: 34px; padding: 6px 10px; border-radius: 10px; border: 1px solid #cfc5ad; background: #fbf8ef; color: #2b3a2c; font-weight: 700; cursor: pointer; }
+.farm-row button[disabled], .farm-fieldbar button[disabled], .farm-villager button[disabled] { opacity: .45; cursor: not-allowed; }
+.farm-row button.primary, .farm-fieldbar button.primary, .farm-q button.primary { background: #4a7338; color: #fff; border-color: #4a7338; }
+.farm-name { width: 86px; min-height: 34px; padding: 4px 8px; border: 1px solid #cfc5ad; border-radius: 10px; font-size: 13px; }
+.farm-fieldbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.farm-fieldbar small { display: block; font-weight: 400; font-size: 11px; opacity: .85; }
+.farm-can { font-size: 12px; color: #5c6b57; }
+.farm-plots { display: grid; gap: 8px; max-width: 420px; }
+.farm-plot { position: relative; aspect-ratio: 1; border-radius: 14px; border: 2px solid #b89a6a; background: #a8865c; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; font-weight: 700; }
+.farm-plot span { font-size: 28px; line-height: 1; }
+.farm-plot small { font-size: 11px; }
+.farm-plot em { position: absolute; top: 4px; right: 6px; font-style: normal; font-size: 12px; }
+.farm-plot.empty { background: #c9b48c; color: #6b5a40; border-style: dashed; }
+.farm-plot.empty.picking { outline: 3px solid #e27a2d; }
+.farm-plot.wet { background: #7a6448; }
+.farm-plot.s3 { background: #6a9a4a; border-color: #4a7338; }
+.farm-plot.s4 { background: #8a7a5a; }
+.farm-seedpick { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; background: #fff; border-radius: 12px; padding: 8px; }
+.farm-seedpick b { width: 100%; font-size: 13px; }
+.farm-seedpick button { display: flex; flex-direction: column; align-items: flex-start; }
+.farm-note { font-size: 12px; color: #5c6b57; margin: 10px 0 0; line-height: 1.6; }
+.farm-side { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.farm-villager, .farm-bag { background: #fff; border: 1px solid #dfd6c2; border-radius: 12px; padding: 10px; font-size: 12px; }
+.farm-who { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.farm-who b { font-size: 15px; }
+.farm-hearts { color: #d64a5a; font-size: 12px; letter-spacing: 1px; }
+#farm-gift-pick { min-height: 34px; border-radius: 10px; border: 1px solid #cfc5ad; max-width: 150px; font-size: 12px; }
+.farm-bag h4 { margin: 0 0 4px; font-size: 12px; color: #4a6a3a; }
+.farm-bag p { margin: 0 0 8px; line-height: 1.8; }
+.farm-bag p span { background: #f1ebdb; padding: 1px 6px; border-radius: 8px; margin-right: 2px; white-space: nowrap; }
+.farm-dex { color: #6b7a66; }
+.farm-board ol { margin: 6px 0; padding-left: 20px; }
+.farm-board li { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+.farm-board p { margin: 4px 0; }
+/* The question: learning content, never translated. */
+.farm-q { background: #1b3a2f; color: #f3efe1; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.farm-prompt { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; }
+.farm-prompt small { display: block; font-weight: 400; font-size: 12px; opacity: .8; margin-top: 4px; }
+.farm-choices { display: grid; gap: 6px; }
+.farm-choices button, .farm-tokens button, .farm-sentence button { min-height: 36px; padding: 6px 10px; border-radius: 10px; border: 1px solid #ffffff33; background: #ffffff14; color: #f3efe1; font-size: 14px; text-align: left; cursor: pointer; }
+.farm-choices button:hover, .farm-tokens button:hover { background: #ffffff28; }
+.farm-sentence { min-height: 44px; display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; border-radius: 10px; background: #ffffff0f; border: 1px dashed #ffffff44; }
+.farm-sentence.steps { flex-direction: column; }
+.farm-sentence button { background: #e27a2d; border-color: #e27a2d; color: #fff; }
+.farm-ghost { font-size: 12px; opacity: .7; }
+.farm-tokens { display: flex; flex-wrap: wrap; gap: 4px; }
+.farm-hint { margin: 0; font-family: ui-monospace, Menlo, monospace; letter-spacing: 2px; font-size: 16px; }
+#farm-spell { flex: 1; min-height: 36px; border-radius: 10px; border: 1px solid #ffffff44; background: #fff; color: #1b3a2f; font-size: 16px; padding: 4px 10px; min-width: 0; }
+.farm-q .farm-row button { background: #ffffff22; color: #f3efe1; border-color: #ffffff33; }
+.farm-verdict { font-size: 34px; font-weight: 900; text-align: center; }
+.farm-verdict.ok { color: #9be39b; } .farm-verdict.ng { color: #f6a8a0; }
+.farm-answer { margin: 0; text-align: center; font-size: 16px; }
+.farm-effect { margin: 0; font-size: 13px; text-align: center; }
+@media (max-width: 760px) {
+  .farm-body { grid-template-columns: 1fr; }
+  .farm-side { order: -1; }
+}
+@media (max-height: 560px) {
+  .farm-head { padding: 8px 14px; } .farm-head h2 { font-size: 16px; }
+  .farm-body { padding: 8px 12px 12px; }
+}

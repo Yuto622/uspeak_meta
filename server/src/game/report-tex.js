@@ -117,6 +117,7 @@ export function reportTex(r, { font = process.env.REPORT_FONT || '' } = {}) {
     ['おつかい', r.errands ? `${r.errands} 件 たっせい` : ''],
     ['つかまえた魚の種類', r.fishKinds ? `${r.fishKinds} 種` : ''],
     ['のりもの', r.vehicles ? `${r.vehicles} 台` : ''],
+    ['ぼくじょう', r.farm?.shipped ? `${r.farm.shipped} こ しゅっか・ことば ${r.farm.words} こ` : ''],
     ['コースの自己ベスト', r.lapBest ? `${(r.lapBest / 1000).toFixed(1)} 秒` : ''],
     ['おうち', r.house || ''],
     ['つくった かぐ・ブロック', r.furniture || r.blocks ? `かぐ ${r.furniture} こ・ブロック ${r.blocks} こ` : ''],

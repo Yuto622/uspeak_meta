@@ -28,6 +28,7 @@ import { createKartGame } from './kart-game.js';
 import { createDashboard } from './dashboard.js';
 import { createQuick5 } from './quick5.js';
 import { createWardrobe } from './wardrobe.js';
+import { createFarmUI } from './farm.js';
 import { createRacers } from './racers.js';
 import { createGuestDock } from './guest-dock.js';
 import { createBlockwild, cacheBlocks } from './blockwild.js';
@@ -134,6 +135,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const conv = createConvUI({
     send: atSend,
     toast, isOnline: () => state.mode === 'online',
+  });
+  // ぼくじょう島: every farm job costs an English act, judged by the room. The island's
+  // own field and pen are redrawn from whatever the room says the farm looks like.
+  const farm = createFarmUI({
+    send: atSend, toast, isOnline: () => state.mode === 'online',
+    onFarm: (f) => rpg.farm?.setFarm?.(f),
   });
   const battle = createBattleUI({
     send: atSend,
@@ -399,6 +406,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (m.world) { state.skew = m.world.now - Date.now(); night.setPhase(m.world); }
       // The block list is also the palette's colours, so it is worth the one message.
       town.prime();
+      r.send('farm:peek', {});
       welcomed = true;
       state.role = m.role;
       state.chatPaused = !!m.chatPaused;
@@ -493,6 +501,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('wear:bought', (m) => { if (m.wallet) applyWallet(m.wallet); wardrobe.onBought(m); dressMe(m.worn, wardrobe.table); });
     r.onMessage('wear:on', (m) => { wardrobe.onWorn(m); dressMe(m.worn, wardrobe.table); });
     r.onMessage('wear:error', (m) => wardrobe.onError(m));
+    r.onMessage('farm:state', (m) => { if (m.wallet) applyWallet(m.wallet); farm.onState(m); });
+    r.onMessage('farm:ask', (m) => farm.onAsk(m));
+    r.onMessage('farm:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress, m.levels); farm.onResult(m); });
+    r.onMessage('farm:error', (m) => farm.onError(m));
+    r.onMessage('farm:board', (m) => farm.onBoard(m));
     r.onMessage('voice:room', (m) => voice.onRoom(m));
     r.onMessage('voice:peer', (m) => voice.onPeer(m));
     r.onMessage('voice:closed', (m) => voice.onClosed(m));
@@ -913,6 +926,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // the panel opens on that slot rather than on whatever it showed last time.
     wearInteract: () => { const near = rpg.wearNearby(); if (near) wardrobe.open({ slot: near.spot.slot || near.spot.kind }); },
     wearLabel: (spot) => tr('{shop}で きせかえる', { shop: spot?.name || tr('お店') }),
+    farmInteract: () => { const near = rpg.farmNearby(); if (near) farm.open(near.spot.id); },
+    farmLabel: (spot) => farm.label(spot),
+    farm,
     petLabel: (spot) => petUI.label(spot),
     town, myRoom, myPlaza, voice, conv, race,
     // Whichever of the two a child is standing in. The page's E and Q keys work on it.

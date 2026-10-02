@@ -49,6 +49,7 @@ import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeft
 import { SKILLS, blankSkills, sanitizeSkills, addAnswer, radarOf, weakestOf, FULL as SKILL_FULL } from '../game/skills.js';
 import { WARDROBE, shopPayload, priceOf, wear as wearItem, sanitizeOwned as sanitizeWardrobe, sanitizeWorn, WardrobeError } from '../game/wardrobe.js';
 import { createGate } from '../game/gate.js';
+import { FARM, sanitizeFarm, settle as settleFarm, statePayload as farmPayload, prepare as prepareFarm, judge as judgeFarm, askPayload as farmAsk, spotForAct, FarmError } from '../game/farm.js';
 import { reportPath, exportPath, classPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
@@ -192,6 +193,12 @@ export class ClassRoom extends Room {
     this.onMessage('quick:answer', (client, msg) => this.onQuickAnswer(client, msg));
     this.onMessage('quick:quit', (client) => { const priv = this.priv.get(client.sessionId); if (priv) priv.quick = null; client.send('quick:closed', { reason: 'quit' }); });
     this.onMessage('wear:list', (client) => this.onWearList(client));
+    // ぼくじょう島. One question at a time, every answer judged here (game/farm.js).
+    this.onMessage('farm:peek', (client) => this.onFarmPeek(client));
+    this.onMessage('farm:open', (client, msg) => this.onFarmOpen(client, msg));
+    this.onMessage('farm:act', (client, msg) => this.onFarmAct(client, msg));
+    this.onMessage('farm:answer', (client, msg) => this.onFarmAnswer(client, msg));
+    this.onMessage('farm:board', (client) => this.onFarmBoard(client));
     this.onMessage('wear:buy', (client, msg) => this.onWearBuy(client, msg));
     this.onMessage('wear:put', (client, msg) => this.onWearPut(client, msg));
     this.onMessage('profile', (client, msg) => {
@@ -929,8 +936,10 @@ export class ClassRoom extends Room {
       // rejoining is not a way to start the day over.
       caps: sanitizeCaps({
         day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins,
-        eiken: record.eiken_coins, conv: record.conv_coins, voice: record.voice_minutes,
+        eiken: record.eiken_coins, conv: record.conv_coins, voice: record.voice_minutes, farm: record.farm_coins,
       }),
+      // ぼくじょう島: the farm itself. Grows only when watered, so nothing to tick.
+      farm: sanitizeFarm(parseJson(record.farm_json, null)),
       garage,
       riding: sanitizeRiding(record.riding, garage),
       bricks,
@@ -1005,6 +1014,7 @@ export class ClassRoom extends Room {
       months_json: JSON.stringify(priv.months),
       eiken_json: JSON.stringify(priv.ready),
       notes_json: JSON.stringify(priv.notes),
+      farm_json: JSON.stringify({ ...priv.farm, q: null }), farm_coins: priv.caps.farm,
       study_ms: Math.floor(priv.study.ms), study_days: priv.study.days, study_day: priv.study.day,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
@@ -1224,6 +1234,147 @@ export class ClassRoom extends Room {
       if (!(err instanceof WardrobeError)) throw err;
       client.send('wear:error', { reason: err.message });
     }
+  }
+
+
+  // ---- ぼくじょう島 ------------------------------------------------------------------
+  //
+  // 牧場物語's stamina, paid in English. The page asks to do something (`farm:act`), the
+  // room answers with a question (`farm:ask`) and keeps the answer; the page sends what
+  // the child chose, typed or arranged (`farm:answer`); the room judges, and only then
+  // does the seed go in, the plot get watered, the box get shipped. Every action is
+  // checked against the building the child is standing in, like every other island.
+  atFarmSpot(sessionId, spotId) {
+    const spot = FARM.spotById.get(spotId);
+    return !!spot && this.atPlace(sessionId, FARM.island, spot);
+  }
+
+  farmState(sessionId) {
+    const priv = this.priv.get(sessionId);
+    settleFarm(priv.farm, Date.now());
+    return { farm: farmPayload(priv.farm, Date.now()), ...this.walletPayload(sessionId) };
+  }
+
+  onFarmPeek(client) {
+    if (!this.priv.get(client.sessionId)) return;
+    client.send('farm:state', { spot: '', ...this.farmState(client.sessionId) });
+  }
+
+  onFarmOpen(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const spot = typeof msg?.spot === 'string' ? msg.spot : '';
+    if (!FARM.spotById.has(spot)) { client.send('farm:error', { reason: 'no such spot' }); return; }
+    if (!this.atFarmSpot(client.sessionId, spot)) { client.send('farm:error', { reason: 'too far', spot }); return; }
+    client.send('farm:state', { spot, ...this.farmState(client.sessionId) });
+  }
+
+  onFarmAct(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const act = typeof msg?.act === 'string' ? msg.act : '';
+    const spot = typeof msg?.spot === 'string' ? msg.spot : '';
+    const where = spotForAct(act, spot);
+    if (!where || !FARM.spotById.has(where)) { client.send('farm:error', { reason: 'unknown action' }); return; }
+    if (!this.atFarmSpot(client.sessionId, where)) { client.send('farm:error', { reason: 'too far', spot: where }); return; }
+    try {
+      const q = prepareFarm(priv.farm, act, msg?.params || {}, { now: Date.now(), coins: priv.wallet.coins, spot: where });
+      priv.farm.q = q;
+      client.send('farm:ask', farmAsk(q));
+    } catch (err) {
+      if (!(err instanceof FarmError)) throw err;
+      client.send('farm:error', { reason: err.message, act });
+    }
+  }
+
+  onFarmAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const q = priv.farm.q;
+    if (!q || q.id !== msg?.qid) { client.send('farm:error', { reason: 'no question' }); return; }
+    const where = spotForAct(q.act, q.spot || '');
+    if (!this.atFarmSpot(client.sessionId, where)) { client.send('farm:error', { reason: 'too far', spot: where }); return; }
+    const now = Date.now();
+    if (now - (priv.lastFarmAt || 0) < config.answerMinIntervalMs) { client.send('farm:error', { reason: 'too fast' }); return; }
+    priv.lastFarmAt = now;
+    priv.farm.q = null;
+    const correct = judgeFarm(q, msg?.answer);
+    const mode = `farm-${q.kind}`;
+    const xp = correct ? (FARM.xp[q.kind] || 3) : 0;
+    this.appendLearning([
+      new Date(now).toISOString(), this.classCode, priv.name, `farm:${q.act}:${q.id}`, mode,
+      String(Array.isArray(msg?.answer) ? msg.answer.join(' ') : msg?.answer ?? '').slice(0, 80), correct ? 1 : 0, xp, client.sessionId,
+    ]);
+    priv.stats.attempts += 1;
+    const payload = { qid: q.id, act: q.act, kind: q.kind, correct, answer: q.answer, xp };
+    if (correct) {
+      priv.stats.correct += 1;
+      // The cost is checked again now: coins may have gone elsewhere since the question.
+      if (q.cost && priv.wallet.coins < q.cost) {
+        client.send('farm:error', { reason: 'not enough coins', act: q.act });
+        return;
+      }
+      let effect;
+      try {
+        effect = q.effect(priv.farm);
+      } catch (err) {
+        if (!(err instanceof FarmError)) throw err;
+        client.send('farm:error', { reason: err.message, act: q.act });
+        return;
+      }
+      if (effect.spend) {
+        const entry = applyOp(priv.wallet, { type: 'spend', amount: effect.spend, id: effect.id });
+        this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      }
+      if (effect.award) {
+        // Shipping is the only way the farm pays, and it stops at the day's ceiling —
+        // the English still counts (XP above) when the coins have run out.
+        const left = roomLeft(priv.caps, 'farm', FARM.dailyCoinCap);
+        const paid = Math.min(effect.award, left);
+        if (paid > 0) {
+          const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: effect.id });
+          priv.caps.farm += paid;
+          priv.farm.earned += paid;
+          priv.farm.week.coins += paid;
+          this.store.appendCoin(this.coinRow(client.sessionId, entry));
+        }
+        payload.coins = paid;
+        payload.capped = paid < effect.award;
+      }
+      payload.effect = { en: effect.en, ja: effect.ja };
+      const level = this.awardXp(client.sessionId, xp, `farm:${q.act}`);
+      payload.levels = level?.levels || 0;
+    }
+    Object.assign(payload, this.farmState(client.sessionId), { progress: this.progressPayload(client.sessionId) });
+    client.send('farm:result', payload);
+    this.persist(client.sessionId);
+  }
+
+  // The class harvest festival: everyone's shipping this week, side by side. Read from
+  // the records so children who are not online count too.
+  onFarmBoard(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const wk = weekIndex();
+    const rows = new Map();
+    let records = [];
+    try { records = this.store.listClass?.(this.classCode) || []; } catch (err) { log.warn(`[room ${this.roomId}] listClass failed:`, err.message); }
+    for (const r of records) {
+      if (r.role === 'teacher') continue;
+      const f = sanitizeFarm(parseJson(r.farm_json, null));
+      rows.set(r.name, { name: r.name, coins: f.week.key === wk ? f.week.coins : 0, shipped: f.shipped });
+    }
+    for (const [id, p] of this.priv) {
+      const player = this.state.players.get(id);
+      if (!player || player.role === 'teacher') continue;
+      rows.set(p.name, { name: p.name, coins: p.farm.week.key === wk ? p.farm.week.coins : 0, shipped: p.farm.shipped });
+    }
+    const all = [...rows.values()];
+    client.send('farm:board', {
+      week: wk, total: all.reduce((s, r) => s + r.coins, 0), farmers: all.filter((r) => r.shipped > 0).length,
+      top: all.sort((a, b) => b.coins - a.coins).slice(0, 5),
+      me: { name: priv.name, coins: priv.farm.week.key === wk ? priv.farm.week.coins : 0 },
+    });
   }
 
   // ---- 学習の記録 ------------------------------------------------------------------
