@@ -98,27 +98,39 @@ try {
   await sleep(2500);
   await fig(page, 'island-farm');
 
-  // The seed shop: buy three turnip seeds by ordering the cards.
+  // The seed shop: buy two bags of the cheapest seed by ordering the cards. Two, not
+  // three: the first day's purse is 100 coins and the chicken below costs 80.
   await enter(page, 'seeds');
   await shot(page, 'farm-shop');
   const seeds = await page.evaluate(() => uspeak.net.farm.state.farm.catalog.seeds.filter((c) => !c.locked));
   check('the shop sells this season\'s seeds', seeds.length >= 2, seeds.map((c) => c.en).join(','));
-  const pick = seeds[0];
-  await page.click(`[data-buy="${pick.id}"][data-qty="3"]`);
+  const pick = seeds.slice().sort((a, b) => a.seed - b.seed)[0];
+  await page.click(`[data-buy="${pick.id}"][data-qty="2"]`);
   await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'order', null, { timeout: 20000 });
   let q = await ask(page);
-  check('buying asks for a sentence in order, with no answer on the page', q.kind === 'order' && !('answer' in q), q.tokens.join(' | '));
-  // Put the cards in order from the template a child learns at the counter.
-  const sentence = `I'd like three ${pick.en} seeds, please.`;
+  check('buying asks for three cards in order, with no answer on the page', q.kind === 'order' && q.tokens.length === 3 && !('answer' in q), q.tokens.join(' | '));
+  await shot(page, 'farm-order');
+  await fig(page, 'screen-farm-shop');
+  // Put the cards in order: "Two carrots, please." — the last card placed answers.
+  const plural = (w) => (/(sh|ch|s|x|z|o)$/.test(w) ? `${w}es` : /[^aeiou]y$/.test(w) ? `${w.slice(0, -1)}ies` : `${w}s`);
+  const sentence = `Two ${plural(pick.en)}, please.`;
   for (const w of sentence.split(' ')) {
     const idx = await page.evaluate((word) => { const q = uspeak.net.farm.state.q; const used = uspeak.net.farm.state.picked; return q.tokens.findIndex((t, i) => t === word && !used.includes(i)); }, w);
     await page.click(`[data-pick="${idx}"]`);
   }
-  await shot(page, 'farm-order');
-  await fig(page, 'screen-farm-shop');
-  await page.click('#farm-order-ok');
   let r = await waitResult(page);
-  check('the right order buys the seeds', r.correct === true && r.farm.seeds[pick.id] === 3, JSON.stringify(r.farm.seeds));
+  check('the right order buys the seeds', r.correct === true && r.farm.seeds[pick.id] === 2, JSON.stringify(r.farm.seeds));
+  await fig(page, 'screen-farm-answer');
+  await next(page);
+  // A chicken, for the barn.
+  await page.click('[data-buy="chicken"]');
+  await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'order', null, { timeout: 20000 });
+  for (const w of ['A', 'chicken,', 'please.']) {
+    const idx = await page.evaluate((word) => { const q = uspeak.net.farm.state.q; const used = uspeak.net.farm.state.picked; return q.tokens.findIndex((t, i) => t === word && !used.includes(i)); }, w);
+    await page.click(`[data-pick="${idx}"]`);
+  }
+  r = await waitResult(page);
+  check('"A chicken, please." buys a chicken', r.correct && r.farm.animals.length === 1, JSON.stringify(r.farm.animals));
   await next(page);
   await leave(page);
 
@@ -128,7 +140,7 @@ try {
   await page.click(`[data-plant="${pick.id}"]`);
   await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'word', null, { timeout: 20000 });
   q = await ask(page);
-  check('planting asks for the English word, four choices', q.choices.length === 4 && q.choices.includes(pick.en));
+  check('planting asks for the English word, four choices, with a picture', q.choices.length === 4 && q.choices.includes(pick.en) && !!q.pic);
   await clickChoice(page, pick.en);
   r = await waitResult(page);
   check('the right word plants the seed', r.correct && r.farm.plots[4]?.crop === pick.id);
@@ -136,10 +148,10 @@ try {
   await page.click('#farm-water');
   await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'fill', null, { timeout: 20000 });
   q = await ask(page);
-  check('watering asks a farm sentence with a hole', q.kind === 'fill' && q.prompt.en.includes('___'), q.prompt.en);
+  check('watering asks a 英検5級 sentence with a hole and a picture', q.kind === 'fill' && q.prompt.en.includes('___') && !!q.pic, q.prompt.en);
   await fig(page, 'screen-farm-field');
   // Wrong on purpose: nothing grows, and the answer is shown.
-  const right = BANK.fill.find((f) => f.q === q.prompt.en).a;
+  const right = BANK.water.find((f) => q.prompt.en === `${f.pic} ${f.q}`).a;
   const wrong = q.choices.find((c) => c !== right);
   await clickChoice(page, wrong);
   r = await waitResult(page);
@@ -148,7 +160,7 @@ try {
   await page.click('#farm-water');
   await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'fill', null, { timeout: 20000 });
   q = await ask(page);
-  await clickChoice(page, BANK.fill.find((f) => f.q === q.prompt.en).a);
+  await clickChoice(page, BANK.water.find((f) => q.prompt.en === `${f.pic} ${f.q}`).a);
   r = await waitResult(page);
   check('the right answer waters the plot', r.correct && r.farm.plots[4].growth === 1 && r.xp > 0, `xp=${r.xp}`);
   await next(page);
@@ -161,15 +173,28 @@ try {
   await sleep(2000);
   await shot(page, 'farm-outside');
 
-  // The barn and the shipping house open on their own counters.
+  // The barn: feed by the animal's sound.
   await enter(page, 'barn');
-  check('the barn opens', await page.evaluate(() => document.querySelector('#farm-dialog').open));
+  await fig(page, 'screen-farm-barn');
+  await page.click('[data-animal="0"][data-do="feed"]');
+  await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'word', null, { timeout: 20000 });
+  q = await ask(page);
+  check('feeding asks what the chicken says', q.choices.includes('Cluck'), q.choices.join(','));
+  await clickChoice(page, 'Cluck');
+  r = await waitResult(page);
+  check('"Cluck" feeds the chicken', r.correct && r.farm.animals[0].fed === true);
+  await next(page);
   await leave(page);
   await enter(page, 'ship');
   await page.waitForFunction(() => uspeak.net.farm.state.board, null, { timeout: 20000 });
   const board = await page.evaluate(() => uspeak.net.farm.state.board);
   check('the shipping house shows the class festival board', typeof board.total === 'number' && Array.isArray(board.top));
   await fig(page, 'screen-farm-ship');
+  await leave(page);
+  await enter(page, 'kitchen');
+  await fig(page, 'screen-farm-kitchen');
+  check('the kitchen lists recipes', await page.evaluate(() => document.querySelectorAll('#farm-main [data-cook]').length >= 4));
+  check('the next-step banner is on every screen', await page.evaluate(() => !!document.querySelector('#farm-next-step span')?.textContent));
   await leave(page);
 } catch (err) {
   check('no exception', false, err.stack || String(err));

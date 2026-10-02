@@ -28,7 +28,7 @@ import { createKartGame } from './kart-game.js';
 import { createDashboard } from './dashboard.js';
 import { createQuick5 } from './quick5.js';
 import { createWardrobe } from './wardrobe.js';
-import { createFarmUI } from './farm.js';
+import { createFarmUI, nextStep as nextFarmStep } from './farm.js';
 import { createRacers } from './racers.js';
 import { createGuestDock } from './guest-dock.js';
 import { createBlockwild, cacheBlocks } from './blockwild.js';
@@ -138,9 +138,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   });
   // ぼくじょう島: every farm job costs an English act, judged by the room. The island's
   // own field and pen are redrawn from whatever the room says the farm looks like.
+  // The beam of light over the island points at the building to visit next (nextStep),
+  // so a child who has never farmed is never wondering where to go.
   const farm = createFarmUI({
-    send: atSend, toast, isOnline: () => state.mode === 'online',
-    onFarm: (f) => rpg.farm?.setFarm?.(f),
+    send: atSend, toast, speak, isOnline: () => state.mode === 'online',
+    onFarm: (f) => { rpg.farm?.setFarm?.(f); rpg.farm?.setTarget?.(nextFarmStep(f)?.spot || ''); },
   });
   const battle = createBattleUI({
     send: atSend,

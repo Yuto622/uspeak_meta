@@ -1942,27 +1942,27 @@ test('ぼくじょう島: every job is a question, the answer is judged here, an
   const opened = await nextMessage(a.room, 'farm:state');
   assert.equal(opened.spot, 'seeds');
   assert.ok(opened.farm.catalog.seeds.length >= 4);
-  // Buying ten bags of the cheapest open seed: a sentence to put in order. The test
+  // Buying five bags of the cheapest open seed: a sentence to put in order. The test
   // knows the template (farm-bank.json) the way a child knows the shop's phrase; the
   // wire carries only the shuffled cards.
   const { BANK } = await import('../src/game/farm.js');
   const seed = opened.farm.catalog.seeds.filter((c) => !c.locked).sort((x, y) => x.seed - y.seed)[0];
   const before = opened.wallet.coins;
-  assert.ok(before >= seed.seed * 10, 'the login bonus covers ten bags');
-  a.room.send('farm:act', { act: 'buy', spot: 'seeds', params: { item: seed.id, qty: 10 } });
+  assert.ok(before >= seed.seed * 5, 'the login bonus covers five bags');
+  a.room.send('farm:act', { act: 'buy', spot: 'seeds', params: { item: seed.id, qty: 5 } });
   const buyAsk = await nextMessage(a.room, 'farm:ask');
   assert.equal(buyAsk.kind, 'order');
   assert.ok(!('answer' in buyAsk) && !('effect' in buyAsk));
-  const sentence = BANK.templates.buy.en.replace('{n}', 'ten').replace('{item}', `${seed.en} seeds`);
+  const sentence = `Five ${seed.en}s, please.`;
   assert.deepEqual([...buyAsk.tokens].sort(), sentence.split(' ').sort(), 'the cards are the sentence, shuffled');
   a.room.send('farm:answer', { qid: buyAsk.id, answer: sentence.split(' ') });
   const bought = await nextMessage(a.room, 'farm:result');
   assert.equal(bought.correct, true);
-  assert.equal(bought.farm.seeds[seed.id], 10);
-  assert.equal(bought.wallet.coins, before - seed.seed * 10, 'the room charged the price in farm.json');
+  assert.equal(bought.farm.seeds[seed.id], 5);
+  assert.equal(bought.wallet.coins, before - seed.seed * 5, 'the room charged the price in farm.json');
   assert.ok(bought.farm.dex.includes(seed.en));
-  // Now Mio cannot afford ten more: the room says so before asking anything.
-  a.room.send('farm:act', { act: 'buy', spot: 'seeds', params: { item: seed.id, qty: 10 } });
+  // Now the purse cannot cover the cow: the room says so before asking anything.
+  a.room.send('farm:act', { act: 'buy', spot: 'seeds', params: { item: 'chicken' } });
   const broke = await nextMessage(a.room, 'farm:error');
   assert.equal(broke.reason, 'not enough coins');
   // Talking costs nothing and pays a heart. Wrong reply: no heart, the answer shown.
@@ -1983,7 +1983,7 @@ test('ぼくじょう島: every job is a question, the answer is judged here, an
   const ask2 = await nextMessage(a.room, 'farm:ask');
   // The page cannot know the answer; this test runs beside the bank and may look the
   // line up — exactly what a page can never do.
-  const line = BANK.reply.find((x) => ask2.prompt.en.includes(x.says));
+  const line = BANK.talk.find((x) => ask2.prompt.en.includes(`"${x.says}"`));
   assert.ok(line && ask2.choices.includes(line.a), 'the villager\'s line is from the bank and its reply is among the choices');
   a.room.send('farm:answer', { qid: ask2.id, answer: line.a });
   const right = await nextMessage(a.room, 'farm:result');

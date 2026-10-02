@@ -423,27 +423,41 @@ fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
 作業をするたびに英語を一つ出す。正解すれば作業が進み、まちがえれば進まない（種もコインも減らない）。
 リサーチは `docs/uspeak-farm-research.md`、設計は `docs/uspeak-farm-island.md`。
 
-| 建物 | やること | 英語 |
+| 建物 | やること | 英語（**英検5級・小1でも読める**） |
 |---|---|---|
-| 🌱 たねや（Hana） | 季節の種・ニワトリ/ヒツジ/ウシ・ジョウロを買う | 注文の文を**並べる**（I'd like three turnip seeds, please.） |
-| 🌿 ビニールハウス（Gramps） | 9 マスの畑：植える・水やり・収穫・片づけ | 植える＝**英単語を選ぶ**／水やり＝**穴うめ**／収穫＝文を並べる |
-| 🐄 どうぶつ小屋（Taro） | エサ・ブラシ・卵/牛乳/羊毛をとる | 命令文を並べる／動物への一言を選ぶ／What does a cow give us? |
-| 📦 しゅっか小屋（Zack） | 出荷してコインに、クラスの収穫祭の掲示板 | 出荷伝票に品名を**つづる**（タイピング） |
-| 🍳 だいどころ（Mia） | レシピで料理（売値 2 倍、贈り物に） | 手順を First / Then / Next / Finally で並べる |
+| 🌱 たねや（Hana） | 季節の種・ニワトリ/ヒツジ/ウシ・ジョウロを買う | **3 枚のカードを並べる**（Two carrots, please. / A chicken, please.） |
+| 🌿 ビニールハウス（Gramps） | 9 マスの畑：植える・水やり・収穫・片づけ | 植える＝**絵を見て英単語を選ぶ**／水やり＝**絵つきの穴うめ**（This is an ___. → apple）／収穫＝How many? |
+| 🐄 どうぶつ小屋（Taro） | エサ・ブラシ・卵/牛乳/羊毛をとる | エサ＝**鳴き声**（Cluck / Baa / Moo）／ブラシ＝動物の名前／とる＝egg / milk / wool |
+| 📦 しゅっか小屋（Zack） | 出荷してコインに、クラスの収穫祭の掲示板 | 品名を**つづる**：短い語は**文字タイルを並べる**、長い語は 3 つのつづりから選ぶ |
+| 🍳 だいどころ（Mia） | レシピで料理（売値 2 倍、贈り物に） | **なにが入っている？**（材料の英単語を選ぶ） |
 
+- **問題は全部 1 問 1 画面・絵つき・日本語つき。** 問題バンク `server/src/game/farm-bank.json` は英検5級の語だけ
+  （色・数・食べ物・動物・家族・あいさつ）。答えは 1 語か 3〜4 語の決まり文句で、長い文は作っていない。
+  以前の「I'd like three turnip seeds, please.」「First / Then / Finally」は小1には読めなかったので捨てた。
+- **「つぎ」の帯が画面のいちばん上にある**（`client/dist/farm.js` の `nextStep()`）。「たねやで たねを かう」→
+  「ハウスで うえる」→「みずを やる」→「どうぶつ小屋で えさ」→「しゅっか小屋で うる」の順に、いま何を
+  すればいいかを 1 行で出し、**屋外ではその建物に光の柱が立つ**（`island.setTarget`）。各画面の下には
+  ①②③ の 3 コマの手順。問題は 🔊 で読み上げ、正解・不正解も声で返す。
+- **E キーでも開く。** `game.js` の E キーの連鎖に `farmNearby` が入っていなかった（クリックの連鎖にだけ
+  あった）ので、建物の中で E を押しても何も起きなかった。直した。
 - **1 日＝世界時計の 1 周（約 12 分）。** 水やりは 1 日 1 回。カブ（2 回）は授業 1 回で収穫できる。
   **季節＝本物の季節**で、店に並ぶ種が変わり、季節が変わると畑の作物は枯れる（片づけるのも英語）。
-- **どの建物でも住人と話せる**（1 日 1 回・受け答えを選ぶ）。贈り物（Here is a strawberry for you, Hana.）も。
-  ハートが店の品ぞろえ・動物・レシピを解放する。好物は `farm.json` の `likes`。
+  検査で日を縮めたいときは `FARM_DAY_SEC`。
+- **どの建物でも住人と話せる**（1 日 1 回・受け答えを選ぶ：Hello! → Hello! / How are you? → I'm fine, thank you.）。
+  贈り物は「This is for you.」を並べる。ハートが店の品ぞろえ・動物・レシピを解放する。好物は `farm.json` の `likes`。
 - **コインが増えるのは出荷だけ**（1 日 `dailyCoinCap`＝150 まで）。XP は正解ごと。学習ログの mode は
-  `farm-word / farm-fill / farm-order / farm-spell / farm-reply` で、5 技能に振り分けられる。
+  `farm-word / farm-fill / farm-order / farm-spell / farm-letters / farm-reply` で、5 技能に振り分けられる。
 - **答えはブラウザーに来ない。** 問題文・選択肢・並べるカードだけ（`farm:ask`）。判定は `farm:answer` でサーバー。
   問題バンクは `server/src/game/farm-bank.json`（`client/dist` には置かない）。作物・値段・成長日数は
-  `client/dist/farm.json` をページとサーバーが同じく読む。
+  `client/dist/farm.json` をページとサーバーが同じく読む。買い物の請求は効果の `spend` が名指しする
+  （これが抜けると店がタダになる — `farm.test.mjs` が見ている）。
 - **屋外に自分の畑と動物が見える。** 芽→葉→実の 3 段階、動物は買った分だけ柵の中に。サーバーの状態からだけ描く。
 - 保存は `farm_json` 1 列（`farm_coins` は 1 日の上限）。
-- 検査：`server/test/farm.test.mjs`（9 項目・成長と判定）/ `room.test.mjs` の「ぼくじょう島」（実ソケット・位置ゲート・
-  コインの請求）/ `server/test/e2e/browser-farm.mjs`（実ブラウザ・買って植えて水をやる）/ `client/tests/regression.mjs` の島の検査。
+- **あそびかたガイド（?）に 7 ページ**（島・たねや・こたえあわせ・はたけ・どうぶつ小屋・しゅっか小屋・だいどころ）。
+  写真は `browser-farm.mjs` が撮る `docs/figures/screen-farm-*.jpg` から。
+- 検査：`server/test/farm.test.mjs`（11 項目・成長と判定と請求）/ `room.test.mjs` の「ぼくじょう島」（実ソケット・位置ゲート・
+  コインの請求）/ `server/test/e2e/browser-farm.mjs`（実ブラウザ 17 項目・買って植えて水をやり、エサをやる）/
+  `client/tests/regression.mjs` の島の検査 / `browser-english.mjs` と `browser-layout.mjs` の `farm` 画面。
 
 ## きせかえ島（アバターの店）
 

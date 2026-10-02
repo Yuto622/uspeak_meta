@@ -41,7 +41,7 @@ const BY_MODE = {
   writing: 'write',         // 英検ライティング: 単語をならべる
   chat: 'write',            // じゆうにゅうりょく
   // ぼくじょう島: ことばを選ぶ・穴うめは よむ、ならべる・つづるは かく、受け答えは はなす
-  'farm-word': 'read', 'farm-fill': 'read', 'farm-order': 'write', 'farm-spell': 'write', 'farm-reply': 'speak',
+  'farm-word': 'read', 'farm-fill': 'read', 'farm-order': 'write', 'farm-spell': 'write', 'farm-letters': 'write', 'farm-reply': 'speak',
 };
 
 export function skillOf(mode) {

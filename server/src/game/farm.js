@@ -83,20 +83,23 @@ function loadFarm() {
 
 function loadBank() {
   const bank = JSON.parse(readFileSync(BANK_PATH, 'utf8'));
-  need(Array.isArray(bank.fill) && bank.fill.length >= 10, 'bank fill');
-  need(Array.isArray(bank.reply) && bank.reply.length >= 10, 'bank reply');
-  for (const f of bank.fill) need(f.q && f.q.includes('___') && f.a && f.d?.length === 3, `fill "${f.q}"`);
-  for (const r of bank.reply) need(r.says && r.a && r.d?.length === 3, `reply "${r.says}"`);
-  for (const b of bank.brush) need(b.animal && b.a && b.d?.length === 3, 'brush');
+  need(Array.isArray(bank.water) && bank.water.length >= 10, 'bank water');
+  need(Array.isArray(bank.talk) && bank.talk.length >= 10, 'bank talk');
+  for (const f of bank.water) need(f.pic && f.q && f.q.includes('___') && f.a && f.d?.length === 3 && !f.d.includes(f.a), `water "${f.q}"`);
+  for (const r of bank.talk) need(r.says && r.a && r.d?.length === 3 && !r.d.includes(r.a), `talk "${r.says}"`);
+  for (const id of ['chicken', 'sheep', 'cow']) need(bank.sounds?.[id] && bank.soundsAll.includes(bank.sounds[id]), `sound for ${id}`);
   return bank;
 }
 
 export const FARM = loadFarm();
 export const BANK = loadBank();
-for (const r of FARM.recipes.values()) need(Array.isArray(BANK.cook[r.id]) && BANK.cook[r.id].length >= 3, `cook steps for ${r.id}`);
+for (const spot of FARM.spotById.keys()) need(BANK.talk.some((x) => x.spot === spot || x.spot === 'any'), `talk lines for ${spot}`);
 
 // ---- time ----------------------------------------------------------------------------
-export const DAY_MS = CYCLE_SEC * 1000;
+// One farm day is one turn of the world clock. FARM_DAY_SEC shortens it for a demo or a
+// test (a turnip in a minute instead of a lesson); a classroom leaves it unset.
+const DAY_SEC = Math.max(5, Number(process.env.FARM_DAY_SEC) || CYCLE_SEC);
+export const DAY_MS = DAY_SEC * 1000;
 export const farmDay = (now = Date.now()) => Math.floor(now / DAY_MS);
 export const seasonId = (now = Date.now()) => seasonFor(now).id;
 
@@ -224,12 +227,46 @@ const fill = (tpl, vars) => tpl.replace(/\{(\w+)\}/g, (m, k) => (vars[k] ?? m));
 const qid = () => randomBytes(6).toString('hex');
 const tokensOf = (sentence) => sentence.split(' ');
 
-function orderQ(act, en, ja, extra = {}) {
-  return { id: qid(), act, kind: 'order', prompt: { en: '', ja }, tokens: shuffle(tokensOf(en)), answer: en, ...extra };
+// Every question carries a picture (`pic`), a short English line and a Japanese one, so a
+// seven-year-old who cannot read the English yet still knows what is being asked.
+function orderQ(act, en, ja, pic, extra = {}) {
+  let tokens = shuffle(tokensOf(en));
+  // Three cards that come out already in order are not a question.
+  for (let i = 0; i < 5 && tokens.join(' ') === en && tokens.length > 1; i += 1) tokens = shuffle(tokens);
+  return { id: qid(), act, kind: 'order', pic, prompt: { en: '', ja }, tokens, answer: en, ...extra };
 }
-function choiceQ(act, kind, prompt, answer, distractors, extra = {}) {
-  return { id: qid(), act, kind, prompt, choices: shuffle([answer, ...distractors]), answer, ...extra };
+function choiceQ(act, kind, pic, prompt, answer, distractors, extra = {}) {
+  return { id: qid(), act, kind, pic, prompt, choices: shuffle([answer, ...distractors]), answer, ...extra };
 }
+// Short words are spelt with letter tiles; long ones are picked from three spellings,
+// because ten tiles is a puzzle and not a word to a first-grader.
+function misspell(word) {
+  const w = word.toLowerCase();
+  const out = new Set();
+  const tries = [
+    () => w.slice(0, 1) + w.slice(2, 3) + w.slice(1, 2) + w.slice(3),            // swap 2nd and 3rd
+    () => w.replace(/([aeiou])/, (m, v) => ({ a: 'e', e: 'i', i: 'e', o: 'u', u: 'o' }[v])), // one vowel
+    () => w.replace(/(.)\1/, '$1') !== w ? w.replace(/(.)\1/, '$1') : `${w.slice(0, -1)}${w.slice(-1)}${w.slice(-1)}`, // drop or double
+    () => w.slice(0, -2) + w.slice(-1) + w.slice(-2, -1),                          // swap the last two
+  ];
+  for (const t of tries) { const m = t(); if (m !== w && /^[a-z ]+$/.test(m)) out.add(m); if (out.size >= 2) break; }
+  return [...out];
+}
+function spellQ(act, item, pic, extra = {}) {
+  const word = item.en;
+  const prompt = { en: `${pic} Spell it!`, ja: `${item.ja} を えいごで かこう。` };
+  if (word.length <= 6 && !word.includes(' ')) {
+    let tiles = shuffle(word.split(''));
+    for (let i = 0; i < 5 && tiles.join('') === word; i += 1) tiles = shuffle(tiles);
+    return { id: qid(), act, kind: 'letters', pic, prompt, tokens: tiles, answer: word, ...extra };
+  }
+  const wrong = misspell(word);
+  while (wrong.length < 2) wrong.push(`${word}${'s'.repeat(wrong.length + 1)}`);
+  return choiceQ(act, 'spell', pic, { en: `${pic} Which is right?`, ja: `${item.ja}：ただしい つづりは どれ？` }, word, wrong.slice(0, 2), extra);
+}
+const others = (list, not, n = 3) => shuffle(list.filter((x) => x !== not)).slice(0, n);
+const cropWords = () => [...FARM.crops.values()].map((c) => c.en);
+const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
 function sentenceFor(key, vars) {
   const t = BANK.templates[key];
   return { en: fill(t.en, vars), ja: fill(t.ja, vars) };
@@ -246,7 +283,8 @@ export function askPayload(q) {
 const norm = (s) => String(s ?? '').toLowerCase().replace(/[’']/g, "'").replace(/\s+/g, ' ').trim();
 export function judge(q, answer) {
   if (!q) return false;
-  const given = Array.isArray(answer) ? answer.join(' ') : answer;
+  // Letter tiles are a word, not a sentence: put together without spaces.
+  const given = Array.isArray(answer) ? answer.join(q.kind === 'letters' ? '' : ' ') : answer;
   return norm(given) === norm(q.answer);
 }
 
@@ -269,34 +307,34 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
   const p = params || {};
   switch (act) {
     case 'buy': {
+      // "Three carrots, please." — three cards, the number and the thing.
       const crop = FARM.crops.get(str(p.item));
       const animal = FARM.animals.get(str(p.item));
-      const qty = Math.max(1, Math.min(10, Math.floor(num(p.qty, 1))));
+      const qty = Math.max(1, Math.min(5, Math.floor(num(p.qty, 1))));
       if (crop) {
         if (crop.season !== season) throw new FarmError('out of season');
         if (!unlocked(farm, 'seeds', crop.hearts)) throw new FarmError('locked');
         if (coins < crop.seed * qty) throw new FarmError('not enough coins');
-        const item = { id: crop.id, en: `${crop.en} seed`, ja: `${crop.ja}の たね` };
         const s = qty === 1
-          ? sentenceFor('buyOne', { a: article(item.en), item: item.en, item_ja: item.ja })
-          : sentenceFor('buy', { n: numberWord(qty), n_ja: `${qty}つ`, item: plural(item.en), item_ja: item.ja });
-        return orderQ('buy', s.en, s.ja, {
+          ? sentenceFor('buyOne', { A: cap(article(crop.en)), item: crop.en, item_ja: crop.ja })
+          : sentenceFor('buyMany', { N: cap(numberWord(qty)), items: plural(crop.en), item_ja: crop.ja, n_ja: BANK.numbersJa[qty] });
+        return orderQ('buy', s.en, s.ja, `${crop.emoji}`.repeat(qty), {
           cost: crop.seed * qty,
-          effect: (f) => { f.seeds[crop.id] = (f.seeds[crop.id] || 0) + qty; noteWord(f, crop.en); return { spend: crop.seed * qty, id: `farm:seed:${crop.id}`, en: `You bought ${qty} ${countNoun(item, qty)}.`, ja: `${crop.ja}の たねを ${qty}つ かった。` }; },
+          effect: (f) => { f.seeds[crop.id] = (f.seeds[crop.id] || 0) + qty; noteWord(f, crop.en); return { spend: crop.seed * qty, id: `farm:seed:${crop.id}`, en: `You got ${qty} ${countNoun({ ...crop, en: `${crop.en} seed` }, qty)}!`, ja: `${crop.ja}の たねを ${qty}つ かった！` }; },
         });
       }
       if (animal) {
         if (!unlocked(farm, 'barn', animal.hearts)) throw new FarmError('locked');
         if (farm.animals.length >= FARM.animalLimit) throw new FarmError('barn full');
         if (coins < animal.price) throw new FarmError('not enough coins');
-        const s = sentenceFor('buyOne', { a: article(animal.en), item: animal.en, item_ja: animal.ja });
-        return orderQ('buy', s.en, s.ja, {
+        const s = sentenceFor('buyOne', { A: cap(article(animal.en)), item: animal.en, item_ja: animal.ja });
+        return orderQ('buy', s.en, s.ja, animal.emoji, {
           cost: animal.price,
           effect: (f) => {
-            const name = str(p.name).replace(/[^\p{L}\p{N} ]/gu, '').trim().slice(0, 12) || animal.en;
-            f.animals.push({ kind: animal.kind || animal.id, name, hearts: 0, fed: -1, brushed: -1, got: -1 });
+            const name = str(p.name).replace(/[^\p{L}\p{N} ]/gu, '').trim().slice(0, 12) || cap(animal.en);
+            f.animals.push({ kind: animal.id, name, hearts: 0, fed: -1, brushed: -1, got: -1 });
             noteWord(f, animal.en);
-            return { spend: animal.price, id: `farm:animal:${animal.id}`, en: `${name} the ${animal.en} joined your farm!`, ja: `${animal.ja}の ${name}が きた！` };
+            return { spend: animal.price, id: `farm:animal:${animal.id}`, en: `${name} the ${animal.en} is here!`, ja: `${animal.ja}の ${name}が きた！` };
           },
         });
       }
@@ -308,10 +346,13 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
       if (farm.can >= tool.can) throw new FarmError('already owned');
       if (!unlocked(farm, 'seeds', tool.hearts)) throw new FarmError('locked');
       if (coins < tool.price) throw new FarmError('not enough coins');
-      const s = sentenceFor('tool', { item: tool.en, item_ja: tool.ja });
-      return orderQ('tool', s.en, s.ja, { cost: tool.price, effect: (f) => { f.can = tool.can; noteWord(f, 'watering can'); return { spend: tool.price, id: `farm:tool:${tool.id}`, en: `You got the ${tool.en}! ${tool.can} plots per answer.`, ja: `${tool.ja}を てにいれた！ 1もんで ${tool.can}マス。` }; } });
+      return choiceQ('tool', 'word', '🚿', { en: '🚿 What is this?', ja: 'これは えいごで なに？（みずを やる どうぐ）' }, 'watering can', ['frying pan', 'umbrella', 'bucket'], {
+        cost: tool.price,
+        effect: (f) => { f.can = tool.can; noteWord(f, 'watering can'); return { spend: tool.price, id: `farm:tool:${tool.id}`, en: `New watering can! ${tool.can} plots each time.`, ja: `あたらしい ジョウロ！ 1かいで ${tool.can}マス。` }; },
+      });
     }
     case 'plant': {
+      // A picture and four words: which one is it?
       const i = Math.floor(num(p.plot, -1));
       const crop = FARM.crops.get(str(p.crop));
       if (i < 0 || i >= farm.plots.length) throw new FarmError('no such plot');
@@ -319,41 +360,41 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
       if (!crop) throw new FarmError('no such crop');
       if (!(farm.seeds[crop.id] > 0)) throw new FarmError('no seeds');
       if (crop.season !== season) throw new FarmError('out of season');
-      const others = shuffle([...FARM.crops.values()].filter((c) => c.id !== crop.id)).slice(0, 3).map((c) => c.en);
-      return choiceQ('plant', 'word', { en: `${crop.emoji} What is this in English?`, ja: `${crop.emoji} ${crop.ja} は えいごで？` }, crop.en, others, {
-        effect: (f) => { f.seeds[crop.id] -= 1; if (!f.seeds[crop.id]) delete f.seeds[crop.id]; f.plots[i] = { crop: crop.id, growth: 0, last: -1, planted: day }; noteWord(f, crop.en); return { en: `You planted ${article(crop.en)} ${crop.en} seed.`, ja: `${crop.ja}の たねを まいた。` }; },
+      return choiceQ('plant', 'word', crop.emoji, { en: `${crop.emoji} What is this?`, ja: `${crop.emoji} これは えいごで なに？` }, crop.en, others(cropWords(), crop.en), {
+        effect: (f) => { f.seeds[crop.id] -= 1; if (!f.seeds[crop.id]) delete f.seeds[crop.id]; f.plots[i] = { crop: crop.id, growth: 0, last: -1, planted: day }; noteWord(f, crop.en); return { en: `You planted the ${crop.en}! 🌱`, ja: `${crop.ja}を うえた！ 🌱` }; },
       });
     }
     case 'water': {
       const dry = farm.plots.map((pl, i) => ({ pl, i })).filter(({ pl }) => pl && !pl.wilted && pl.last !== day && pl.growth < FARM.crops.get(pl.crop).days);
       if (!dry.length) throw new FarmError('nothing to water');
       const targets = dry.slice(0, farm.can);
-      const f0 = pick(BANK.fill);
-      return choiceQ('water', 'fill', { en: f0.q, ja: f0.ja }, f0.a, f0.d, {
+      const w = pick(BANK.water);
+      return choiceQ('water', 'fill', w.pic, { en: `${w.pic} ${w.q}`, ja: w.ja }, w.a, w.d, {
         plots: targets.map((t) => t.i),
         effect: (f) => {
           let n = 0;
           for (const { i } of targets) { const pl = f.plots[i]; if (pl && pl.last !== day) { pl.last = day; pl.growth += 1; n += 1; } }
-          noteWord(f, f0.a);
-          return { en: n === 1 ? 'You watered a plot.' : `You watered ${numberWord(n)} plots.`, ja: `${n}マスに みずを やった。` };
+          noteWord(f, w.a);
+          return { en: `💧 Water! ${n === 1 ? 'One plot' : `${cap(numberWord(n))} plots`} grew.`, ja: `💧 ${n}マスに みずを やった。そだった！` };
         },
       });
     }
     case 'harvest': {
+      // Count what came up: "How many?" and a number word. A harvest is one to three.
       const i = Math.floor(num(p.plot, -1));
       const pl = farm.plots[i];
       if (!pl) throw new FarmError('no such plot');
       const crop = FARM.crops.get(pl.crop);
       if (pl.wilted || pl.growth < crop.days) throw new FarmError('not ready');
-      const qty = 1;
-      const s = sentenceFor('harvestOne', { a: article(crop.en), item: crop.en, item_ja: crop.ja });
-      return orderQ('harvest', s.en, s.ja, {
+      const qty = 1 + Math.floor(Math.random() * 3);
+      const nums = ['one', 'two', 'three', 'four', 'five'];
+      return choiceQ('harvest', 'word', crop.emoji.repeat(qty), { en: `${crop.emoji.repeat(qty)} How many?`, ja: `${crop.ja}は いくつ？ かぞえよう。` }, numberWord(qty), others(nums, numberWord(qty)), {
         effect: (f) => {
           f.items[crop.id] = (f.items[crop.id] || 0) + qty;
           if (crop.regrow > 0) f.plots[i] = { crop: crop.id, growth: crop.days - crop.regrow, last: day, planted: pl.planted };
           else f.plots[i] = null;
-          noteWord(f, crop.en);
-          return { en: `You picked ${article(crop.en)} ${crop.en}!${crop.regrow ? ' It will grow again.' : ''}`, ja: `${crop.ja}を とった！${crop.regrow ? ' また なるよ。' : ''}` };
+          noteWord(f, numberWord(qty));
+          return { en: `${cap(numberWord(qty))} ${countNoun(crop, qty)}! ${crop.emoji.repeat(qty)}${crop.regrow ? ' It will grow again.' : ''}`, ja: `${crop.ja}が ${qty}こ とれた！${crop.regrow ? ' また なるよ。' : ''}` };
         },
       });
     }
@@ -361,8 +402,10 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
       const i = Math.floor(num(p.plot, -1));
       const pl = farm.plots[i];
       if (!pl || !pl.wilted) throw new FarmError('nothing to clear');
-      const s = sentenceFor('clear', {});
-      return orderQ('clear', s.en, s.ja, { effect: (f) => { f.plots[i] = null; return { en: 'The plot is clean again.', ja: 'はたけが きれいに なった。' }; } });
+      const pic = BANK.seasonPic[season];
+      return choiceQ('clear', 'word', pic, { en: `${pic} What season is it now?`, ja: `${pic} いまの きせつは？` }, BANK.seasons[season], others(Object.values(BANK.seasons), BANK.seasons[season]), {
+        effect: (f) => { f.plots[i] = null; return { en: 'The plot is clean. Plant again!', ja: 'はたけが きれいに なった。また うえよう！' }; },
+      });
     }
     case 'feed': case 'brush': case 'collect': {
       const i = Math.floor(num(p.animal, -1));
@@ -370,74 +413,79 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
       if (!a) throw new FarmError('no such animal');
       const kind = FARM.animals.get(a.kind);
       if (act === 'feed') {
+        // "What does a cow say?" — Moo.
         if (a.fed === day) throw new FarmError('already fed');
-        const feed = BANK.feeds[kind.feed];
-        const s = sentenceFor('feed', { animal: kind.en, animal_ja: kind.ja, feed: feed.en, feed_ja: feed.ja });
-        return orderQ('feed', s.en, s.ja, { effect: (f) => { const an = f.animals[i]; an.fed = day; if (an.brushed === day) an.hearts = Math.min(10, an.hearts + 1); noteWord(f, feed.en); return { en: `${an.name} is eating happily.`, ja: `${an.name}は おいしそうに たべている。` }; } });
+        const sound = BANK.sounds[a.kind];
+        // The other two barn animals are always on the card (that is the comparison a
+        // child is learning), plus one stray sound from outside the farm.
+        const barn = Object.values(BANK.sounds).filter((x) => x !== sound);
+        const wrong = [...barn, ...others(BANK.soundsAll.filter((x) => !barn.includes(x)), sound, 1)];
+        return choiceQ('feed', 'word', kind.emoji, { en: `${kind.emoji} What does a ${kind.en} say?`, ja: `${kind.ja}は なんて なく？` }, sound, wrong, {
+          effect: (f) => { const an = f.animals[i]; an.fed = day; if (an.brushed === day) an.hearts = Math.min(10, an.hearts + 1); noteWord(f, sound.toLowerCase()); return { en: `${an.name}: "${sound}!" Yum! 🌾`, ja: `${an.name}「${sound}！」 おいしそうに たべた。` }; },
+        });
       }
       if (act === 'brush') {
+        // Which animal is it?
         if (a.brushed === day) throw new FarmError('already brushed');
-        const b = pick(BANK.brush.filter((x) => x.animal === a.kind));
-        return choiceQ('brush', 'reply', { en: `Say something kind to ${a.name} the ${kind.en}.`, ja: `${kind.ja}の ${a.name}に やさしい ことばを かけよう。` }, b.a, b.d, {
-          effect: (f) => { const an = f.animals[i]; an.brushed = day; if (an.fed === day) an.hearts = Math.min(10, an.hearts + 1); return { en: `${an.name} says "${kind.sound}!" ${an.fed === day ? '❤' : ''}`, ja: `${an.name}は「${kind.sound}！」と いった。` }; },
+        const words = ['chicken', 'sheep', 'cow', 'dog', 'cat', 'pig', 'horse', 'rabbit'];
+        return choiceQ('brush', 'word', kind.emoji, { en: `${kind.emoji} What animal is this?`, ja: `${kind.emoji} これは なんの どうぶつ？` }, kind.en, others(words, kind.en), {
+          effect: (f) => { const an = f.animals[i]; an.brushed = day; if (an.fed === day) an.hearts = Math.min(10, an.hearts + 1); noteWord(f, kind.en); return { en: `${an.name} is happy! ${an.fed === day ? '❤' : ''}`, ja: `${an.name}は うれしそう！${an.fed === day ? ' ❤' : ''}` }; },
         });
       }
       if (a.got === day) throw new FarmError('already collected');
       if (a.fed !== day) throw new FarmError('hungry');
       const product = FARM.products.get(kind.product);
-      const c = BANK.collect[a.kind];
-      const others = shuffle([...[...FARM.products.values()].filter((x) => x.id !== product.id).map((x) => x.en), ...BANK.collectDistractors]).slice(0, 3);
-      return choiceQ('collect', 'word', { en: c.says, ja: c.ja }, product.en, others, {
-        effect: (f) => { const an = f.animals[i]; an.got = day; f.items[product.id] = (f.items[product.id] || 0) + 1; noteWord(f, product.en); return { en: `You got ${MASS.has(product.id) ? 'some' : article(product.en)} ${product.en} from ${an.name}.`, ja: `${an.name}から ${product.ja}を もらった。` }; },
+      const pool = ['egg', 'milk', 'wool', 'bread', 'juice', 'rice', 'cake', 'water'];
+      return choiceQ('collect', 'word', `${kind.emoji}➜${product.emoji}`, { en: `${kind.emoji} ➜ ${product.emoji} What is this?`, ja: `${kind.ja}から もらえる もの。えいごで なに？` }, product.en, others(pool, product.en), {
+        effect: (f) => { const an = f.animals[i]; an.got = day; f.items[product.id] = (f.items[product.id] || 0) + 1; noteWord(f, product.en); return { en: `You got ${MASS.has(product.id) ? 'some' : article(product.en)} ${product.en}! ${product.emoji}`, ja: `${product.ja}を もらった！ ${product.emoji}` }; },
       });
     }
     case 'ship': {
       const item = FARM.items.get(str(p.item));
       if (!item) throw new FarmError('no such item');
       const have = farm.items[item.id] || 0;
-      const qty = Math.max(1, Math.min(have, Math.floor(num(p.qty, 1))));
       if (!have) throw new FarmError('nothing to ship');
+      const qty = Math.max(1, Math.min(have, Math.floor(num(p.qty, have))));
       const value = valueOf(farm, item, qty);
-      return {
-        id: qid(), act: 'ship', kind: 'spell',
-        prompt: { en: `Write the item on the slip: ${item.emoji} (${item.en.length} letters)`, ja: `でんぴょうに かこう： ${item.emoji} ${item.ja}（${item.en.length}もじ）` },
-        hint: `${item.en[0]}${'_ '.repeat(item.en.length - 1).trim()}`, answer: item.en, qty, value,
-        effect: (f) => { f.items[item.id] -= qty; if (!f.items[item.id]) delete f.items[item.id]; f.shipped += qty; noteWord(f, item.en); return { award: value, id: `farm:ship:${item.id}`, en: `Shipped ${numberWord(qty)} ${countNoun(item, qty)}!`, ja: `${item.ja}を ${qty}つ しゅっかした！` }; },
-      };
+      return spellQ('ship', item, item.emoji, {
+        qty, value,
+        effect: (f) => { f.items[item.id] -= qty; if (!f.items[item.id]) delete f.items[item.id]; f.shipped += qty; noteWord(f, item.en); return { award: value, id: `farm:ship:${item.id}`, en: `📦 Shipped! ${item.emoji} ×${qty}`, ja: `📦 ${item.ja}を ${qty}こ しゅっか した！` }; },
+      });
     }
     case 'cook': {
+      // What goes in it? One of the ingredients, among things that do not.
       const r = FARM.recipes.get(str(p.recipe));
       if (!r) throw new FarmError('no such recipe');
       if (!unlocked(farm, 'kitchen', r.hearts)) throw new FarmError('locked');
       for (const [id, n] of Object.entries(r.needs)) if ((farm.items[id] || 0) < n) throw new FarmError('missing ingredients');
-      const steps = BANK.cook[r.id];
-      return {
-        id: qid(), act: 'cook', kind: 'order', prompt: { en: `Put the steps of "${r.en}" in order.`, ja: `${r.ja}の つくりかたを じゅんばんに ならべよう。` },
-        tokens: shuffle(steps), answer: steps.join(' '), steps: true,
-        effect: (f) => { for (const [id, n] of Object.entries(r.needs)) { f.items[id] -= n; if (!f.items[id]) delete f.items[id]; } f.items[r.id] = (f.items[r.id] || 0) + 1; noteWord(f, r.en); return { en: `You made ${article(r.en)} ${r.en}! ${r.emoji}`, ja: `${r.ja}が できた！ ${r.emoji}` }; },
-      };
+      const ing = FARM.items.get(pick(Object.keys(r.needs)));
+      const pool = [...FARM.items.values()].filter((it) => it.kind !== 'dish' && !(it.id in r.needs)).map((it) => it.en);
+      return choiceQ('cook', 'word', r.emoji, { en: `${r.emoji} ${cap(r.en)}: what do we need?`, ja: `${r.ja}には なにが いる？` }, ing.en, others(pool, ing.en), {
+        effect: (f) => { for (const [id, n] of Object.entries(r.needs)) { f.items[id] -= n; if (!f.items[id]) delete f.items[id]; } f.items[r.id] = (f.items[r.id] || 0) + 1; noteWord(f, ing.en); return { en: `Yummy! You made ${article(r.en)} ${r.en}! ${r.emoji}`, ja: `${r.ja}が できた！ ${r.emoji}` }; },
+      });
     }
     case 'talk': {
       if (!FARM.spotById.has(spot)) throw new FarmError('no such spot');
       if (farm.talked[spot] === day) throw new FarmError('already talked');
-      const line = pick(BANK.reply.filter((x) => x.spot === spot || x.spot === 'any'));
+      const line = pick(BANK.talk.filter((x) => x.spot === spot || x.spot === 'any'));
       const who = FARM.spotById.get(spot).character;
-      return choiceQ('talk', 'reply', { en: `${who}: "${line.says}"`, ja: `${who}「${line.ja}」` }, line.a, line.d, {
+      return choiceQ('talk', 'reply', '💬', { en: `${who}: "${line.says}"`, ja: `${who}「${line.ja}」` }, line.a, line.d, {
         spot,
         effect: (f) => { f.talked[spot] = day; f.hearts[spot] = Math.min(10, (f.hearts[spot] || 0) + 1); return { en: `${who} smiles. ❤ ${f.hearts[spot]}`, ja: `${who}が にっこり。❤ ${f.hearts[spot]}` }; },
       });
     }
     case 'gift': {
+      // "This is for you." — four cards, the same every time, and the gift is the picture.
       if (!FARM.spotById.has(spot)) throw new FarmError('no such spot');
       if (farm.gifted[spot] === day) throw new FarmError('already gifted');
       const item = FARM.items.get(str(p.item));
       if (!item || !(farm.items[item.id] > 0)) throw new FarmError('nothing to give');
       const who = FARM.spotById.get(spot).character;
       const loved = (FARM.likes[spot] || []).includes(item.id);
-      const s = MASS.has(item.id) ? sentenceFor('giftPlural', { item: item.en, item_ja: item.ja, name: who }) : sentenceFor('gift', { a: article(item.en), item: item.en, item_ja: item.ja, name: who });
-      return orderQ('gift', s.en, s.ja, {
+      const s = sentenceFor('gift', {});
+      return orderQ('gift', s.en, `${who}に ${item.ja}を あげよう。${s.ja}`, `🎁${item.emoji}`, {
         spot,
-        effect: (f) => { f.items[item.id] -= 1; if (!f.items[item.id]) delete f.items[item.id]; f.gifted[spot] = day; f.hearts[spot] = Math.min(10, (f.hearts[spot] || 0) + (loved ? 2 : 1)); noteWord(f, item.en); return { en: loved ? `${who}: "I love ${plural(item.en)}! Thank you!" ❤❤` : `${who}: "Thank you." ❤`, ja: loved ? `${who}「${item.ja}、だいすき！ ありがとう！」❤❤` : `${who}「ありがとう。」❤` }; },
+        effect: (f) => { f.items[item.id] -= 1; if (!f.items[item.id]) delete f.items[item.id]; f.gifted[spot] = day; f.hearts[spot] = Math.min(10, (f.hearts[spot] || 0) + (loved ? 2 : 1)); return { en: loved ? `${who}: "I love it! Thank you!" ❤❤` : `${who}: "Thank you!" ❤`, ja: loved ? `${who}「だいすき！ ありがとう！」❤❤` : `${who}「ありがとう！」❤` }; },
       });
     }
     default:

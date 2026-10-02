@@ -23,7 +23,7 @@
   },
   "plotCount": 9,
   "dailyCoinCap": 150,
-  "xp": { "word": 3, "fill": 3, "order": 5, "spell": 5, "reply": 4 },
+  "xp": { "word": 3, "fill": 3, "order": 4, "spell": 4, "letters": 4, "reply": 4 },
   "crops": [
     { "id": "turnip",     "en": "turnip",       "ja": "カブ",        "emoji": "🥬", "season": "spring", "days": 2, "regrow": 0, "seed": 6,  "sell": 8,  "hearts": 0 },
     { "id": "potato",     "en": "potato",       "ja": "じゃがいも",   "emoji": "🥔", "season": "spring", "days": 3, "regrow": 0, "seed": 8,  "sell": 12, "hearts": 0 },
