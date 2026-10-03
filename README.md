@@ -466,6 +466,27 @@ fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
   コインの請求）/ `server/test/e2e/browser-farm.mjs`（実ブラウザ 17 項目・買って植えて水をやり、エサをやる）/
   `client/tests/regression.mjs` の島の検査 / `browser-english.mjs` と `browser-layout.mjs` の `farm` 画面。
 
+## 土地島（じぶんだけの しま／2026-10 追加）
+
+**コインで自分だけの島を買い、コインで豪華にしていく。** 6 段階、テーマが毎段ちがう：
+すなはま（100）→ くさはら（600）→ もり（1,500）→ はな（4,000）→ ゆき（10,000）→ そらの おしろ（25,000）。
+段階と値段の根拠（どうぶつの森・Stardew・Adopt Me・Bloxburg・Islands の比較）は `docs/uspeak-land-research.md`。
+
+| 建物 | やること |
+|---|---|
+| 🏝 しまの ふどうさん（Pelly） | 6 枚のカード。いまの島・つぎの島（値段つき）・その先。**2 タップで買う**（確認あり）。順番に、戻らない |
+| ⛵ じぶんの しまへ（Captain Gull） | 戸口に入ると **自分の島**（別シーン）。歩いて見てまわり、さんばしを下ると戻る |
+| 🗺 みんなの しま（Momo） | クラスの子の島を **名前順**で並べる（段の順には並べない） |
+
+- **コインだけ**（レベル条件なし・ユーザーの指示）。**英語の判定にもコインの稼ぎにも影響しない**（ごほうび）。
+- 値段と段は `client/dist/land.json` 1 か所をページとサーバーが読む。請求は `server/src/game/land.js` → `ClassRoom.onLandBuy`
+  （`applyOp spend`、他の買い物と同じ 1 本道）。保存は `land_json`（`{tier}`）。
+- 自分の島は `client/dist/land-world.js`：マイルームと同じ独立シーン。6 つの見た目は全部 箱・円すい・球（モデル 0 個）。
+  さんばしの看板に子どもの名前。ふうしゃ・けむり・星は動く。
+- 検査：`server/test/land.test.mjs`（5 項目・段階と値段の規則・壊れた JSON を起動時に拒む）/ `room.test.mjs` の「土地島」
+  （実ソケット・位置ゲート・請求・順番・再接続後も残る）/ `server/test/e2e/browser-land.mjs`（実ブラウザ・買って島に立って戻る）/
+  `client/tests/regression.mjs` の島の検査 / `browser-layout.mjs` の `land` 画面。
+
 ## きせかえ島（アバターの店）
 
 ワールドマップから **きせかえ島** に飛ぶと、広場のまわりに4つのお店があります。

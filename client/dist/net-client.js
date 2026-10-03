@@ -29,6 +29,8 @@ import { createDashboard } from './dashboard.js';
 import { createQuick5 } from './quick5.js';
 import { createWardrobe } from './wardrobe.js';
 import { createFarmUI, nextStep as nextFarmStep } from './farm.js';
+import { createLand } from './land-world.js';
+import { createLandUI } from './land.js';
 import { createRacers } from './racers.js';
 import { createGuestDock } from './guest-dock.js';
 import { createBlockwild, cacheBlocks } from './blockwild.js';
@@ -178,6 +180,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     onLeave: () => { town.hideHud(); rpg.activate('town', true); },
   });
   rpg.attachRoom(myRoom, myPlaza);
+  // 土地島. The island a child owns is a scene of its own, like the room: built from what
+  // the room says they bought, walked around, left from the jetty.
+  const myLand = createLand({ player, camera, view, toast, onLeave: () => rpg.activate('land', true) });
+  rpg.attachLand(myLand);
+  const land = createLandUI({ send: atSend, toast, isOnline: () => state.mode === 'online', world: myLand });
   // Walking into the doorway is what opens both of them. There is no counter inside and
   // nothing to press: the island reports the doorway, and this asks the server for what
   // is behind it.
@@ -188,6 +195,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       const game = arcades[spot.game || spot.kind];
       if (game) { game.open(); return true; }
       return false;
+    }
+    // 土地島: the office, the ferry and the board are all walked into; the room answers.
+    if (islandId === 'land') {
+      if (state.mode !== 'online') { toast(tr('土地島は オンラインで あそべます。')); return false; }
+      sendMove();
+      return land.enter(spot);
     }
     if (islandId !== 'town') return false;
     // ブロックの とびら is not a room to go into, it is a game to leave for — and unlike
@@ -333,6 +346,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function currentSpace() {
     if (myRoom.active) return 'in:room';
     if (myPlaza.active) return 'in:plaza';
+    if (myLand.active) return 'in:land';
     // Inside an island building. The name says which building on which island, and the
     // server checks it against the very place it is being asked about.
     const building = rpg.insideBuilding;
@@ -355,7 +369,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     voice.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
-    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); town.hideHud(); voice.setMode('off'); }
+    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); if (myLand.active) myLand.leave(true); town.hideHud(); voice.setMode('off'); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
   }
   function saveSession() {
@@ -532,6 +546,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('room:placed', (m) => town.onPlaced(m));
     r.onMessage('room:removed', (m) => town.onRemoved(m));
     r.onMessage('room:moved', (m) => { if (m.wallet) applyWallet(m.wallet); town.onMoved(m); });
+    r.onMessage('land:state', (m) => land.onState(m));
+    r.onMessage('land:bought', (m) => { if (m.wallet) applyWallet(m.wallet); land.onBought(m); });
+    r.onMessage('land:island', (m) => land.onIsland(m));
+    r.onMessage('land:board', (m) => land.onBoard(m));
+    r.onMessage('land:error', (m) => land.onError(m));
     r.onMessage('room:error', (m) => town.onError(m));
     r.onMessage('prop:shop', (m) => town.onPropShop(m));
     r.onMessage('prop:bought', (m) => { if (m.wallet) applyWallet(m.wallet); town.onPropBought(m); });
@@ -940,6 +959,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get builder() { return myRoom.active ? myRoom : myPlaza.active ? myPlaza : null; },
     townInteract: () => { const near = rpg.townNearby(); if (near) town.enter(near.spot); },
     townLabel: (spot) => town.label(spot),
+    landInteract: () => { const near = rpg.landNearby(); if (near) { sendMove(); land.enter(near.spot); } },
+    landLabel: (spot) => land.label(spot),
+    land, myLand,
     ride,
     rideInteract: () => { const near = rpg.rideNearby(); if (near) ride.enter(near.spot); },
     rideLabel: (spot) => ride.label(spot),

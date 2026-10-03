@@ -865,6 +865,23 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 検査は上の README の「ぼくじょう島」に書いた 4 つ。e2e は戸口の掛け金（`doorLatch`）の都合で
   **建物から建物へ移るときは一度広場へ出る**（実機の子どもと同じ動き）。
 
+## 土地島（じぶんだけの しま／2026-10 追加）
+
+`land-island.js` + `land.json`（島と 6 段階）/ `land.js` + `land.css`（ふどうさん・みんなの しま）/
+`land-world.js`（自分の島＝独立シーン）。サーバーは `server/src/game/land.js`。調べものは `docs/uspeak-land-research.md`。
+
+- **`land.json` が唯一の定義元**（島・6 段・値段・広さ・テーマ）。ページとサーバーが同じく読む。
+- **3 つの建物は全部 戸口で開く**（`net-client.js` の `setDoorHandler` が `islandId === 'land'` を `land.enter(spot)` に渡す）。
+  office → `land:open` でカード、board → `land:board`、ferry → `land:enter` → `land:island` → `myLand.enter()`。
+- **自分の島は マイルームと同じ作り**：`rpg.attachLand(myLand)` で `builtIn()` に入り、`interiorScene` / `interiorCamera` /
+  `mapSmall` / `blocked` がそのまま効く。`currentSpace()` は `in:land`（通話にはならない）。出るのは **さんばしを下る**
+  （`update()` が `z > half + 2` を見る）。
+- **テーマは `land-world.js` の `BUILD[theme]`** に 1 つずつ。動くもの（ふうしゃ・けむり・星・たき火）は `state.spin/smoke/stars`。
+  当たり判定は `block()` で登録した箱だけ（木・家・池・像）。看板は `canvas-say` の `live()` で言語切替に追従。
+- **買うのは 2 タップ**（`data-ask` → `data-buy`）。値段の表示は `land.json`、請求はサーバー。
+- **みんなの しま は名前順**。段で並べ替えないこと（順位表にしない。`docs/uspeak-retention.md`）。
+- 島を足す／段を変えるときは `land.test.mjs`（比率 2〜6 倍・順番・テーマが全部ちがう）を通すこと。
+
 ## きせかえ（アバターの店／2026-09 追加）
 
 `wardrobe.json`（16 アイテム・4 スロット）/ `wardrobe-data.js`（読み込みと検証・**サーバーと共有**）/

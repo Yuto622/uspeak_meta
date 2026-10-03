@@ -40,6 +40,7 @@ export const SCREENS = [
   // one column on a phone, and the cards have to stay pressable at every width.
   { id: 'wear', sel: '#wear-dialog', go: `uspeak.net.wardrobe.open(); await new Promise(r => setTimeout(r, 900))` },
   { id: 'farm', sel: '#farm-dialog', go: `await uspeak.__layout.at('farm', 'house'); uspeak.net.farmInteract(); await new Promise(r => setTimeout(r, 1200))` },
+  { id: 'land', sel: '#land-dialog', go: `await uspeak.__layout.at('land', 'office'); uspeak.net.landInteract(); await new Promise(r => setTimeout(r, 1200))` },
 ];
 
 // The helpers the list above uses, installed in the page once it is online.
@@ -69,7 +70,7 @@ export const LAYOUT_HELPERS = `uspeak.__layout = {
         await new Promise((r) => setTimeout(r, 150));
         if (uspeak.rpg.schoolNearby?.() || uspeak.rpg.arenaNearby?.() || uspeak.rpg.petNearby?.()
           || uspeak.rpg.townNearby?.() || uspeak.rpg.eikenNearby?.() || uspeak.rpg.convNearby?.()
-          || uspeak.rpg.rideNearby?.() || uspeak.rpg.farmNearby?.()) break;
+          || uspeak.rpg.rideNearby?.() || uspeak.rpg.farmNearby?.() || uspeak.rpg.landNearby?.()) break;
       }
     } else {
       await new Promise((r) => setTimeout(r, 600));

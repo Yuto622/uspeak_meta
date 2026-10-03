@@ -1,0 +1,28 @@
+{
+  "_": "土地島. Read by the page AND by the server (server/src/game/land.js), so a price is a price and a tier is a tier: the page draws what this file says and the room charges what this file says. The island block is the hub (three buildings round a yard, coordinates relative to its own x/z like every other island's JSON; colours are decimals because island-kit.js reads them as numbers). `tiers` are the six islands a child can own, bought in order with coins only (no level): the research behind the numbers is docs/uspeak-land-research.md. `grid` is the private island's size in metres; `theme` names a look in land-world.js; `props` names what stands on it. Nothing in a tier changes how any English is judged or paid.",
+  "island": {
+    "id": "land",
+    "name": "土地島",
+    "en": "LAND ISLAND",
+    "x": 330,
+    "z": 100,
+    "radius": 5,
+    "grass": 10402406,
+    "grassTop": 11453322,
+    "spawn": { "x": 0, "z": 21 },
+    "courtyard": { "x": 0, "z": 9 },
+    "spots": [
+      { "id": "office", "kind": "office", "name": "しまの ふどうさん", "en": "Island Estate", "character": "Pelly", "ja": "しまを かう・ひっこす", "x": -13, "z": 0, "color": 15916466, "tone": "🏝", "path": { "x": 0, "z": 9 } },
+      { "id": "ferry",  "kind": "ferry",  "name": "じぶんの しまへ",   "en": "My Island Ferry", "character": "Captain Gull", "ja": "じぶんの しまに いく", "x": 13, "z": 0, "color": 7906460, "tone": "⛵", "path": { "x": 0, "z": 9 } },
+      { "id": "board",  "kind": "board",  "name": "みんなの しま",     "en": "Everyone's Islands", "character": "Momo", "ja": "クラスの しまを 見る", "x": 0, "z": -12, "color": 13285836, "tone": "🗺", "path": { "x": 0, "z": 9 } }
+    ]
+  },
+  "tiers": [
+    { "tier": 1, "id": "sand",   "name": "すなはまの しま", "en": "Sandy Islet",  "price": 100,   "grid": 14, "theme": "sand",   "emoji": "🏖", "ja": "すなと ヤシの木。テントと たき火。", "blurb": "Sand, two palms, a tent and a campfire." },
+    { "tier": 2, "id": "grass",  "name": "くさはらの しま", "en": "Grassy Isle",  "price": 600,   "grid": 16, "theme": "grass",  "emoji": "🏡", "ja": "くさはらに 木の 小屋。さくと 花だん。", "blurb": "A wooden cabin on the grass, a fence and a flower bed." },
+    { "tier": 3, "id": "forest", "name": "もりの しま",     "en": "Forest Isle",  "price": 1500,  "grid": 18, "theme": "forest", "emoji": "🌲", "ja": "もりの 中の まるたの いえ。いけと さんばし。", "blurb": "A log house in the woods, a pond with a jetty, lanterns." },
+    { "tier": 4, "id": "flower", "name": "はなの しま",     "en": "Flower Isle",  "price": 4000,  "grid": 20, "theme": "flower", "emoji": "🌸", "ja": "はなばたけと あかい やねの いえ。ふうしゃが まわる。", "blurb": "Flower fields, a red-roofed cottage, a turning windmill and a fountain." },
+    { "tier": 5, "id": "snow",   "name": "ゆきの しま",     "en": "Snow Isle",    "price": 10000, "grid": 22, "theme": "snow",   "emoji": "⛄", "ja": "ゆきの ロッジ。ゆきだるまと ひかる モミの木。", "blurb": "A snow lodge with a smoking chimney, a snowman and lit pines." },
+    { "tier": 6, "id": "sky",    "name": "そらの しま",     "en": "Sky Castle",   "price": 25000, "grid": 24, "theme": "sky",    "emoji": "🏰", "ja": "くもの うえの おしろ。にじの はしと きんの もん。", "blurb": "A castle above the clouds, a rainbow bridge and a golden gate." }
+  ]
+}

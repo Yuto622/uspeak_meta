@@ -1917,6 +1917,66 @@ test('きせかえ: the room owns the wallet, the wardrobe and what everyone els
   await sleep(100);
 });
 
+test('土地島: islands are bought in order at the office, for the price in land.json, and visited from the ferry', async () => {
+  const { LAND } = await import('../src/game/land.js');
+  const a = await join('Tochi');
+  const at = (id) => { const sp = LAND.spotById.get(id); return [LAND.island.x + sp.x, LAND.island.z + sp.z]; };
+  const stand = async (c, x, z) => {
+    c.room.send('move', { s: LAND.id, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => { const p = c.room.state.players.get(c.room.sessionId); return p && Math.abs(p.x - x) < 0.01 && p.space === LAND.id; });
+  };
+  // Nothing from afar: the office, the ferry and the board are all places to stand.
+  a.room.send('land:open', {});
+  assert.equal((await nextMessage(a.room, 'land:error')).reason, 'too far');
+  a.room.send('land:enter', {});
+  assert.equal((await nextMessage(a.room, 'land:error')).reason, 'too far');
+  // No island yet: the ferry has nowhere to go.
+  await stand(a, ...at('ferry'));
+  a.room.send('land:enter', {});
+  assert.equal((await nextMessage(a.room, 'land:error')).reason, 'no island');
+  // The office: the first island costs the first login bonus; the page sees the ladder.
+  await stand(a, ...at('office'));
+  a.room.send('land:open', {});
+  const opened = await nextMessage(a.room, 'land:state');
+  assert.equal(opened.tier, 0);
+  assert.equal(opened.next.id, 'sand');
+  assert.equal(opened.tiers.length, 6);
+  const before = opened.wallet.coins;
+  assert.ok(before >= opened.next.price, `day one covers the sandy islet (coins=${before})`);
+  a.room.send('land:buy', {});
+  const bought = await nextMessage(a.room, 'land:bought');
+  assert.equal(bought.tier, 1);
+  assert.equal(bought.island.id, 'sand');
+  assert.equal(bought.wallet.coins, before - opened.next.price, 'the room charged the price in land.json');
+  // The second costs more than a first day has: refused, and nothing changes.
+  a.room.send('land:buy', {});
+  const broke = await nextMessage(a.room, 'land:error');
+  assert.equal(broke.reason, 'not enough coins');
+  // The ferry now goes somewhere, and what it hands the page is the island to build.
+  await stand(a, ...at('ferry'));
+  a.room.send('land:enter', {});
+  const isle = await nextMessage(a.room, 'land:island');
+  assert.equal(isle.theme, 'sand');
+  assert.equal(isle.owner, 'Tochi');
+  assert.ok(isle.grid >= 8);
+  // The board lists by name, never by tier, and counts the owners.
+  await stand(a, ...at('board'));
+  a.room.send('land:board', {});
+  const board = await nextMessage(a.room, 'land:board');
+  assert.ok(board.rows.some((r) => r.name === 'Tochi' && r.tier === 1));
+  assert.equal(board.me.tier, 1);
+  assert.ok(board.owners >= 1);
+  const names = board.rows.map((r) => r.name);
+  assert.deepEqual(names, [...names].sort((x, y) => x.localeCompare(y, 'ja')), 'name order');
+  // The tier survives a reconnect: it is in the record, not in the socket.
+  await a.room.leave();
+  const back = await join('Tochi');
+  await stand(back, ...at('office'));
+  back.room.send('land:open', {});
+  assert.equal((await nextMessage(back.room, 'land:state')).tier, 1, 'the island is still theirs');
+  await back.room.leave();
+});
+
 test('ぼくじょう島: every job is a question, the answer is judged here, and the farm grows only on a right one', async () => {
   const { FARM, farmDay } = await import('../src/game/farm.js');
   const a = await join('Noa');
