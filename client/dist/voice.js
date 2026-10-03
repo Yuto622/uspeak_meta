@@ -11,6 +11,16 @@
 //
 // Two things gate a microphone: the teacher opening 通話 for the class, and the child
 // tapping to allow it. Both, every time.
+//
+// 2026-10: the classroom said the call was noisy, small, and stuck in its corner. So:
+//   * the microphone is cleaned before it is sent (browser AEC/NS/AGC, then a high-pass,
+//     a soft gate that closes between words, and a gentle compressor — `cleanMic()`),
+//     and the island's music ducks while a call is open (hooks 'call' → ambience);
+//   * the panel has a full-screen layout (⛶) with a Meet-style grid, a tile a child can
+//     tap to pin, a talking outline, and a leave button; and in its corner form it can be
+//     dragged by its head and resized by its grip, the box remembered;
+//   * the room may hand the page TURN relays (`ice` on voice:room) for school networks.
+import { hooks } from './net-hooks.js';
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -23,7 +33,20 @@ export const isTalkSpace = (space) => space === TALK_ISLAND || String(space || '
 export const isCallRoom = (space) => space === TALK_ISLAND || /^in:[^:]+:[^:]+$/.test(String(space || ''));
 
 const ICE = [{ urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'] }];
-const CAMERA = { width: { ideal: 320 }, height: { ideal: 240 }, frameRate: { ideal: 15, max: 20 } };
+// Big enough to read a face on a full screen; the bitrate (tuneSenders) is what keeps a
+// classroom Wi-Fi alive, not the frame size.
+const CAMERA = { width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 24, max: 30 } };
+// Everything the browser itself can do against noise, asked for up front. Unknown keys
+// (voiceIsolation on an older browser) are ignored, not refused. One channel: a stereo
+// microphone doubles the bytes and halves nothing.
+const MIC = { echoCancellation: true, noiseSuppression: true, autoGainControl: true, voiceIsolation: true, channelCount: 1, sampleRate: 48000 };
+// The gate between words. RMS of the band-passed signal: open above OPEN at once, close
+// after QUIET ms below CLOSE. Closed is not silent (FLOOR) — a hard cut sounds broken, a
+// soft one just sounds like a quiet room.
+const GATE = { OPEN: 0.015, CLOSE: 0.007, QUIET: 450, FLOOR: 0.08, ATTACK: 0.012, RELEASE: 0.22, TICK: 40 };
+// What a video sender may spend, by how many are in the room: the mesh sends one copy
+// per peer, so six faces at 900 kbps would be five megabits up from one iPad.
+const VIDEO_KBPS = (peers) => (peers <= 2 ? 900 : peers <= 4 ? 500 : 300);
 const RETRY_MS = 12000;  // how long a connection may stay unconnected before it is tried again
 // A shared screen is read, not watched: small and slow keeps a classroom of iPads on one
 // Wi-Fi, and a worksheet does not move.
@@ -54,9 +77,15 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     free: true,         // whether the class may type its own words (the teacher's switch)
     peers: new Map(),   // sessionId -> { id, name, role, pc, stream, polite, making, ignoring, level, el }
     size: 'm',          // how big the panel (and so the faces) are drawn
+    full: false,        // the whole screen, Meet-style
+    pinned: '',         // the tile a child tapped to make big ('' = the grid)
+    clean: true,        // the microphone goes through cleanMic() before it is sent
+    ice: null,          // relays the room handed us (TURN), or null for the public STUN
     error: '',
   };
-  let local = null;         // MediaStream: the microphone, and the camera if it is on
+  let local = null;         // MediaStream: the microphone (as sent), and the camera if it is on
+  let rawMic = null;        // MediaStream: the microphone as the browser gave it
+  let gate = null;          // the cleaning chain over rawMic, when state.clean
   let shared = null;        // MediaStream: the shared screen, kept apart from the face
   let meter = null;         // { ctx, nodes: Map(id -> analyser) }
   let levelTimer = 0;
@@ -70,26 +99,35 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
   const panel = document.createElement('aside');
   panel.id = 'voice-panel';
   panel.hidden = true;
+  // The order here is the full-screen order (faces, then the side column, then the bar
+  // of buttons at the bottom); in the corner the CSS `order`s the same pieces the way
+  // they always were.
   panel.innerHTML = `<div class="voice-head"><b id="voice-room"></b><small id="voice-count"></small>
-      <button type="button" id="voice-size" class="voice-size" title="がめんの 大きさ">⤢ 中</button></div>
+      <button type="button" id="voice-size" class="voice-size" title="がめんの 大きさ">⤢ 中</button>
+      <button type="button" id="voice-full" class="voice-size" title="ぜんがめん" hidden>⛶ ぜんがめん</button></div>
     <div id="voice-tiles" class="voice-tiles" hidden></div>
-    <div id="voice-people" class="voice-people"></div>
+    <div class="voice-side">
+      <div id="voice-people" class="voice-people"></div>
+      <ol id="voice-log" class="voice-log" aria-live="polite" hidden></ol>
+      <div class="voice-say">
+        <button type="button" id="voice-say-open">💬 フレーズ</button>
+      </div>
+      <form id="voice-write" class="voice-write" autocomplete="off">
+        <input id="voice-text" type="text" maxlength="120" placeholder="この へやの みんなに かく" aria-label="この部屋にメッセージを書く">
+        <button type="submit">おくる</button>
+      </form>
+      <div id="voice-phrases" class="voice-phrases" hidden></div>
+      <p id="voice-note" class="voice-note"></p>
+    </div>
     <div class="voice-acts">
       <button type="button" id="voice-join" class="primary">🎙 おはなしに はいる</button>
       <button type="button" id="voice-mute" hidden>マイク</button>
       <button type="button" id="voice-cam" hidden>カメラ</button>
       <button type="button" id="voice-share" hidden>がめん</button>
+      <button type="button" id="voice-clean" hidden>ノイズカット</button>
+      <button type="button" id="voice-leave" class="leave" hidden>🚪 おわる</button>
     </div>
-    <ol id="voice-log" class="voice-log" aria-live="polite" hidden></ol>
-    <div class="voice-say">
-      <button type="button" id="voice-say-open">💬 フレーズ</button>
-    </div>
-    <form id="voice-write" class="voice-write" autocomplete="off">
-      <input id="voice-text" type="text" maxlength="120" placeholder="この へやの みんなに かく" aria-label="この部屋にメッセージを書く">
-      <button type="submit">おくる</button>
-    </form>
-    <div id="voice-phrases" class="voice-phrases" hidden></div>
-    <p id="voice-note" class="voice-note"></p>`;
+    <i class="voice-grip" aria-hidden="true"></i>`;
   document.body.append(panel);
 
   // ---- the button on the rail --------------------------------------------------------
@@ -117,6 +155,9 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
   $('#voice-mute', panel).onclick = () => setMuted(!state.muted);
   $('#voice-cam', panel).onclick = () => setCamera(!state.camera);
   $('#voice-share', panel).onclick = () => setScreen(!state.screen);
+  $('#voice-clean', panel).onclick = () => setClean(!state.clean);
+  $('#voice-leave', panel).onclick = () => leave();
+  $('#voice-full', panel).onclick = () => setFull(!state.full);
   $('#voice-say-open', panel).onclick = () => openSay(!state.saying);
   // One button, three obvious things.
   railButton.onclick = async () => {
@@ -176,8 +217,82 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
   $('#voice-size', panel).onclick = () => {
     const at = SIZES.findIndex((s) => s.id === state.size);
     setSize(SIZES[(at + 1) % SIZES.length].id);
+    // A preset is a fresh start: the dragged-out width goes, the position stays.
+    panel.style.width = ''; panel.style.maxHeight = '';
+    saveBox();
   };
   setSize(readSize() || 'm');
+
+  // ---- the whole screen ------------------------------------------------------------------
+  //
+  // ⛶ turns the corner panel into the screen: a grid of faces that fills it, the written
+  // side on the right, the buttons along the bottom — the shape every video call a child
+  // has seen has. Where the browser allows it the panel also goes properly full screen
+  // (no address bar); iPad Safari does not, and there the layout alone is the answer.
+  // While it is up the island does not take the WASD keys (game.js looks at body[data-call])
+  // — a child who taps a key mid-call must not walk out of the room and hang up on it.
+  function setFull(on) {
+    const next = !!on && state.joined;
+    if (state.full === next) return;
+    state.full = next;
+    panel.dataset.full = next ? '1' : '';
+    document.body.dataset.call = next ? 'full' : '';
+    if (next) { panel.requestFullscreen?.().catch?.(() => { /* a layout is enough */ }); }
+    else if (document.fullscreenElement === panel) { document.exitFullscreen?.().catch?.(() => {}); }
+    render();
+  }
+  document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && state.full) setFull(false); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && state.full) setFull(false); });
+
+  // ---- drag it, stretch it -----------------------------------------------------------------
+  //
+  // The head is a handle and the corner is a grip, the way every window a grown-up has
+  // used works; the box a child made is kept for next time. Buttons in the head are still
+  // buttons. In full screen there is nothing to drag.
+  const BOX_KEY = 'uspeak-voice-box-v1';
+  const readBox = () => { try { return JSON.parse(localStorage.getItem(BOX_KEY) || 'null'); } catch { return null; } };
+  const saveBox = () => {
+    const box = { x: panel.style.left ? parseFloat(panel.style.left) : null, y: panel.style.top ? parseFloat(panel.style.top) : null,
+      w: panel.style.width ? parseFloat(panel.style.width) : null, h: panel.style.maxHeight ? parseFloat(panel.style.maxHeight) : null };
+    try { localStorage.setItem(BOX_KEY, JSON.stringify(box)); } catch { /* the box lasts the lesson */ }
+  };
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+  function applyBox(box) {
+    if (!box) return;
+    if (box.w) panel.style.width = `${clamp(box.w, 160, innerWidth - 20)}px`;
+    if (box.h) panel.style.maxHeight = `${clamp(box.h, 150, innerHeight - 20)}px`;
+    if (box.x != null && box.y != null) {
+      panel.style.left = `${clamp(box.x, 0, innerWidth - 120)}px`;
+      panel.style.top = `${clamp(box.y, 0, innerHeight - 80)}px`;
+      panel.style.bottom = 'auto';
+    }
+  }
+  function grab(handle, onMove) {
+    handle.addEventListener('pointerdown', (e) => {
+      if (state.full || e.target.closest('button, input, a')) return;
+      e.preventDefault();
+      const start = { x: e.clientX, y: e.clientY, rect: panel.getBoundingClientRect() };
+      const move = (ev) => onMove(ev.clientX - start.x, ev.clientY - start.y, start.rect);
+      const up = () => { removeEventListener('pointermove', move); removeEventListener('pointerup', up); removeEventListener('pointercancel', up); saveBox(); };
+      addEventListener('pointermove', move); addEventListener('pointerup', up); addEventListener('pointercancel', up);
+    });
+  }
+  grab($('.voice-head', panel), (dx, dy, rect) => {
+    panel.style.left = `${clamp(rect.left + dx, 0, innerWidth - rect.width)}px`;
+    panel.style.top = `${clamp(rect.top + dy, 0, innerHeight - 60)}px`;
+    panel.style.bottom = 'auto';
+  });
+  grab($('.voice-grip', panel), (dx, dy, rect) => {
+    panel.style.width = `${clamp(rect.width + dx, 160, innerWidth - rect.left - 8)}px`;
+    panel.style.maxHeight = `${clamp(rect.height + dy, 150, innerHeight - rect.top - 8)}px`;
+  });
+  applyBox(readBox());
+  addEventListener('resize', () => applyBox(readBox()));
+
+  // The noise gate is on unless a child (or a teacher) turned it off: a singing lesson, say,
+  // where the quiet tail of a note is the point.
+  const CLEAN_KEY = 'uspeak-voice-clean-v1';
+  try { state.clean = localStorage.getItem(CLEAN_KEY) !== 'off'; } catch { /* on */ }
 
   // A face, with the name on it. One per camera that is on — the child's own included,
   // mirrored, because a picture of yourself that moves the wrong way is unsettling.
@@ -199,6 +314,8 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
       // A shared screen goes to the top — it is what everyone is looking at. Then the
       // child's own face, then everyone else in the order they arrived.
       if (wide || mine) tiles.prepend(box); else tiles.append(box);
+      // Tap a face to make it the big one; tap it again for the grid.
+      box.onclick = () => { state.pinned = state.pinned === key ? '' : key; render(); };
     }
     box.querySelector('small').textContent = name;
     const video = box.querySelector('video');
@@ -219,17 +336,27 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
   const showing = (stream) => !!stream?.getVideoTracks().some((t) => t.readyState === 'live' && !t.muted);
 
   function renderTiles() {
-    if (!state.joined) { $('#voice-tiles', panel).innerHTML = ''; $('#voice-tiles', panel).hidden = true; return; }
+    const tiles = $('#voice-tiles', panel);
+    if (!state.joined) { tiles.innerHTML = ''; tiles.hidden = true; tiles.dataset.pin = ''; return; }
     if (state.screen && showing(shared)) tileFor('me:screen', 'じぶんの がめん', shared, false, true);
     else dropTile('me:screen');
-    if (state.camera && local?.getVideoTracks().length) tileFor('me', 'じぶん', local, true);
+    if (state.camera && local?.getVideoTracks().length) tileFor('me', 'じぶん', local, true).classList.toggle('talking', !state.muted && state.level > 0.06);
     else dropTile('me');
     for (const peer of state.peers.values()) {
       if (showing(peer.screen)) tileFor(`${peer.id}:screen`, `${peer.name || '…'}の がめん`, peer.screen, false, true);
       else dropTile(`${peer.id}:screen`);
-      if (showing(peer.stream)) tileFor(peer.id, peer.name || '…', peer.stream);
+      if (showing(peer.stream)) tileFor(peer.id, peer.name || '…', peer.stream).classList.toggle('talking', peer.level > 0.06);
       else dropTile(peer.id);
     }
+    // The pin holds only while that face is still there.
+    const pinned = state.pinned && tiles.querySelector(`[data-tile="${CSS.escape(state.pinned)}"]`);
+    if (state.pinned && !pinned) state.pinned = '';
+    for (const box of tiles.children) box.classList.toggle('pinned', box === pinned);
+    tiles.dataset.pin = pinned ? '1' : '';
+    // How many across, on the full screen: one face fills it, four are a 2×2, nine a 3×3.
+    const n = tiles.children.length;
+    tiles.style.setProperty('--cols', String(n <= 1 ? 1 : n <= 4 ? 2 : n <= 9 ? 3 : 4));
+    tiles.hidden = !n;
   }
 
   // Where this child may talk, right now: any room on any island, unless a teacher has
@@ -240,7 +367,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
   function render() {
     renderRailButton();
     panel.hidden = !openHere();
-    if (panel.hidden) return;
+    if (panel.hidden) { if (state.full) setFull(false); return; }
     $('#voice-room', panel).textContent = `🎧 ${roomLabel(state.space) || 'この部屋'}`;
     const people = [...state.peers.values()];
     const heads = state.kind === 'sfu' ? Math.max(state.heads, people.length + 1) : people.length + 1;
@@ -269,6 +396,12 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     $('#voice-cam', panel).classList.toggle('on', state.camera);
     $('#voice-share', panel).textContent = state.screen ? '🖥 がめん 見せている' : '🖥 がめんを 見せる';
     $('#voice-share', panel).classList.toggle('on', state.screen);
+    $('#voice-clean', panel).hidden = !state.joined;
+    $('#voice-clean', panel).textContent = state.clean ? '🧹 ノイズカット オン' : '🧹 ノイズカット オフ';
+    $('#voice-clean', panel).classList.toggle('on', state.clean);
+    $('#voice-leave', panel).hidden = !state.joined;
+    $('#voice-full', panel).hidden = !state.joined;
+    $('#voice-full', panel).textContent = state.full ? '⤡ もどす' : '⛶ ぜんがめん';
     renderTiles();
     renderSay();
     $('#voice-note', panel).textContent = state.error || note();
@@ -351,7 +484,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     }
     if (!navigator.mediaDevices?.getUserMedia) { state.error = 'この端末では マイクが つかえません。'; render(); return; }
     try {
-      local = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true }, video: false });
+      rawMic = await navigator.mediaDevices.getUserMedia({ audio: MIC, video: false });
     } catch (err) {
       // Worth a line in the console: "the microphone did not open" is the same sentence
       // for a refused permission, a device in use by another app, and a browser that does
@@ -361,17 +494,106 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
       render();
       return;
     }
+    for (const track of rawMic.getAudioTracks()) { try { track.contentHint = 'speech'; } catch { /* older browser */ } }
+    gate = cleanMic(rawMic);
+    local = new MediaStream([micTrack()]);
     state.error = '';
     state.joined = true;
     state.muted = false;
     watchLevel('me', local);
     send('voice:join', {});
+    hooks.emit('call', { joined: true });
+    render();
+  }
+
+  // ---- the microphone, cleaned ---------------------------------------------------------
+  //
+  // What the browser hands over has had its own echo cancelling and noise suppression,
+  // which handle a fan and a hum. What they do not handle is a classroom: six iPads in one
+  // room, chairs, the child next door, the island's own music out of the speaker. So the
+  // signal goes through a short chain before it is sent — a high-pass to drop the rumble,
+  // a low-pass over the hiss, a soft gate that closes between words (the rest of the room
+  // is only heard while this child speaks), and a gentle compressor so a quiet child and a
+  // loud one arrive at the same level. Everything is in the browser's own audio graph: no
+  // library, ~10 ms. It reuses the level meter's AudioContext, so there is still one.
+  // A browser without the pieces (or a child who turned ノイズカット off) sends the raw mic.
+  function cleanMic(raw) {
+    try {
+      const ctx = meterCtx();
+      if (!ctx) return null;
+      const src = ctx.createMediaStreamSource(raw);
+      const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 110; hp.Q.value = 0.7;
+      const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 7600; lp.Q.value = 0.7;
+      const comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -20; comp.knee.value = 14; comp.ratio.value = 3; comp.attack.value = 0.004; comp.release.value = 0.2;
+      const gain = ctx.createGain(); gain.gain.value = GATE.FLOOR;
+      const tap = ctx.createAnalyser(); tap.fftSize = 512;
+      const dest = ctx.createMediaStreamDestination();
+      src.connect(hp); hp.connect(lp); lp.connect(comp); comp.connect(gain); gain.connect(dest);
+      lp.connect(tap);
+      const data = new Float32Array(tap.fftSize);
+      let open = false; let quietSince = 0;
+      const timer = setInterval(() => {
+        // A hidden tab's timers run once a second: do not let the gate chop words there.
+        if (document.hidden) { if (!open) { open = true; gain.gain.setTargetAtTime(1, ctx.currentTime, GATE.ATTACK); } return; }
+        tap.getFloatTimeDomainData(data);
+        let sum = 0; for (let i = 0; i < data.length; i += 1) sum += data[i] * data[i];
+        const rms = Math.sqrt(sum / data.length);
+        const now = performance.now();
+        if (rms > GATE.OPEN) { quietSince = 0; if (!open) { open = true; gain.gain.setTargetAtTime(1, ctx.currentTime, GATE.ATTACK); } }
+        else if (rms < GATE.CLOSE && open) {
+          if (!quietSince) quietSince = now;
+          else if (now - quietSince > GATE.QUIET) { open = false; gain.gain.setTargetAtTime(GATE.FLOOR, ctx.currentTime, GATE.RELEASE); }
+        } else quietSince = 0;
+      }, GATE.TICK);
+      return {
+        stream: dest.stream,
+        get open() { return open; },
+        stop() { clearInterval(timer); for (const node of [src, hp, lp, comp, gain, tap]) { try { node.disconnect(); } catch { /* gone */ } } for (const t of dest.stream.getTracks()) t.stop(); },
+      };
+    } catch (err) {
+      console.warn('[voice] cleanMic', err?.name || err);
+      return null;
+    }
+  }
+
+  // The audio track that goes out: the cleaned one when there is one and it is wanted.
+  const micTrack = () => ((state.clean && gate) ? gate.stream.getAudioTracks()[0] : rawMic?.getAudioTracks()[0]) || null;
+
+  // Switching the cleaning on or off mid-call swaps the track in every connection rather
+  // than rejoining: the other side hears a different microphone and nothing else changes.
+  async function setClean(on) {
+    state.clean = !!on;
+    try { localStorage.setItem(CLEAN_KEY, state.clean ? 'on' : 'off'); } catch { /* lasts the lesson */ }
+    if (state.joined && rawMic) {
+      const was = local?.getAudioTracks()[0];
+      const next = micTrack();
+      if (next && was !== next) {
+        next.enabled = !state.muted;
+        local.removeTrack(was); local.addTrack(next);
+        state.swapError = '';
+        try {
+          if (state.kind === 'sfu') await stage?.replaceMic(next);
+          else for (const peer of state.peers.values()) {
+            const sender = peer.pc?.getSenders().find((sn) => sn.track === was || sn.track?.kind === 'audio');
+            if (sender) await sender.replaceTrack(next);
+          }
+        } catch (err) {
+          // Worth keeping: "the swap did not take" is otherwise invisible from outside.
+          state.swapError = `${err?.name || 'Error'}: ${err?.message || err}`;
+          console.warn('[voice] replaceTrack', state.swapError);
+        }
+        meter?.nodes.delete('me');
+        watchLevel('me', local);
+      }
+    }
+    toast(state.clean ? 'ノイズカットを つけました。' : 'ノイズカットを けしました。');
     render();
   }
 
   function setMuted(on) {
     state.muted = !!on;
-    for (const track of local?.getAudioTracks() || []) track.enabled = !state.muted;
+    for (const track of [...(local?.getAudioTracks() || []), ...(rawMic?.getAudioTracks() || [])]) track.enabled = !state.muted;
     // In a big room the voice goes up to the SFU, so silence has to be declared there too
     // — and being muted is something the room can then see.
     if (state.kind === 'sfu') stage?.setMic(!state.muted);
@@ -398,6 +620,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
         }
         state.camera = true;
         state.error = '';
+        tuneSenders();
       } else {
         for (const track of local?.getVideoTracks() || []) {
           if (state.kind === 'sfu') await stage?.unpublish(track, 'camera');
@@ -601,7 +824,8 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
   function peerFor(info) {
     let peer = state.peers.get(info.id);
     if (peer) { peer.name = info.name ?? peer.name; peer.role = info.role ?? peer.role; return peer; }
-    const pc = new RTCPeerConnection({ iceServers: ICE });
+    // The public STUN always, plus whatever relays the room handed us (a school's TURN).
+    const pc = new RTCPeerConnection({ iceServers: state.ice ? [...ICE, ...state.ice] : ICE });
     peer = {
       ...info, pc, level: 0, polite: state.me < info.id, making: false, ignoring: false,
       stream: new MediaStream(),   // their microphone and their face
@@ -646,7 +870,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
       render();
     };
     pc.onconnectionstatechange = () => {
-      if (['connected', 'completed'].includes(pc.connectionState)) { clearInterval(peer.watchdog); peer.watchdog = 0; }
+      if (['connected', 'completed'].includes(pc.connectionState)) { clearInterval(peer.watchdog); peer.watchdog = 0; tuneSenders(); }
       if (['failed', 'closed'].includes(pc.connectionState)) closePeer(peer.id);
     };
     // A connection that never gets through would otherwise sit there silently for the whole
@@ -665,6 +889,33 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
       try { pc.restartIce(); } catch { /* too late: the connection is going away */ }
     }, 3000);
     return peer;
+  }
+
+  // What each connection may spend. The voice first: audio is marked high priority so a
+  // congested link drops picture before words. The picture by head-count: a mesh sends
+  // one copy per peer, so the more there are the less each copy gets. setParameters is
+  // best-effort — a browser that refuses a field keeps its defaults.
+  function tuneSenders() {
+    if (state.kind !== 'mesh') return;
+    const kbps = VIDEO_KBPS(state.peers.size);
+    for (const peer of state.peers.values()) {
+      for (const sender of peer.pc?.getSenders() || []) {
+        const track = sender.track;
+        if (!track) continue;
+        try {
+          const params = sender.getParameters();
+          if (!params.encodings?.length) params.encodings = [{}];
+          if (track.kind === 'audio') { params.encodings[0].priority = 'high'; params.encodings[0].networkPriority = 'high'; }
+          else {
+            const screen = shared && shared.getVideoTracks().includes(track);
+            params.encodings[0].maxBitrate = (screen ? 700 : kbps) * 1000;
+            params.encodings[0].maxFramerate = screen ? 12 : 24;
+            params.degradationPreference = screen ? 'maintain-resolution' : 'maintain-framerate';
+          }
+          sender.setParameters(params).catch(() => { /* defaults, then */ });
+        } catch { /* defaults, then */ }
+      }
+    }
   }
 
   // Put every track this peer has sent into the right one of their two streams: the screen
@@ -731,16 +982,24 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     dropTile(id);
     meter?.nodes.delete(id);
     state.peers.delete(id);
+    tuneSenders();
     render();
   }
 
   function leave(quiet = false) {
+    const was = state.joined;
+    if (state.full) setFull(false);
     if (state.kind === 'sfu') { stage?.leave(); state.peers.clear(); state.heads = 0; ticket = null; }
     for (const id of [...state.peers.keys()]) closePeer(id);
     for (const track of local?.getTracks() || []) track.stop();
+    for (const track of rawMic?.getTracks() || []) track.stop();
     for (const track of shared?.getTracks() || []) track.stop();
+    gate?.stop();
+    gate = null;
+    rawMic = null;
     local = null;
     shared = null;
+    state.pinned = '';
     meter?.nodes.clear();
     state.joined = false;
     state.camera = false;
@@ -750,6 +1009,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     $('#voice-tiles', panel).innerHTML = '';
     $('#voice-tiles', panel).hidden = true;
     if (!quiet) send('voice:leave', {});
+    if (was) hooks.emit('call', { joined: false });
     render();
   }
 
@@ -757,11 +1017,19 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
 
   // A dot beside a name, so a child can see that the room heard them. Cheap: one analyser
   // per stream, read five times a second.
+  // One AudioContext for the whole panel: the level dots and the microphone cleaning
+  // share it. Made on the join tap, which is the gesture iOS wants before it will run.
+  function meterCtx() {
+    const Ctx = globalThis.AudioContext || globalThis.webkitAudioContext;
+    if (!Ctx) return null;
+    if (!meter) meter = { ctx: new Ctx(), nodes: new Map() };
+    if (meter.ctx.state === 'suspended') meter.ctx.resume().catch(() => {});
+    return meter.ctx;
+  }
+
   function watchLevel(id, stream) {
     try {
-      const Ctx = globalThis.AudioContext || globalThis.webkitAudioContext;
-      if (!Ctx) return;
-      if (!meter) meter = { ctx: new Ctx(), nodes: new Map() };
+      if (!meterCtx()) return;
       const source = meter.ctx.createMediaStreamSource(stream);
       const analyser = meter.ctx.createAnalyser();
       analyser.fftSize = 256;
@@ -832,6 +1100,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     onRoom(m) {
       state.room = m.room;
       state.me = m.me;
+      state.ice = Array.isArray(m.ice) && m.ice.length ? m.ice : null;
       state.kind = m.kind === 'sfu' ? 'sfu' : 'mesh';
       state.max = Number(m.max) || 6;
       // A small room has never asked permission for a camera, and walking out of the hall
@@ -871,8 +1140,13 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     },
     leave,
     setSize,
+    setFull,
+    setClean,
+    pin(key) { state.pinned = key || ''; render(); },
     setScreen,
     say,
+    get gate() { return gate; },
+    get sent() { return local?.getAudioTracks()[0] || null; },
     get joined() { return state.joined; },
     get panel() { return panel; },
   };

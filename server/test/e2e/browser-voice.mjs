@@ -193,7 +193,7 @@ try {
   await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 90000, polling: 200 });
   check('a room on another island is a call too, with no teacher and no switch', true);
   check('and the panel says who could be in the call',
-    (await a.evaluate(() => document.querySelector('#voice-room').textContent)).includes('ステージ'),
+    /ステージ|Stage/.test(await a.evaluate(() => document.querySelector('#voice-room').textContent)),
     await a.evaluate(() => document.querySelector('#voice-room').textContent));
 
   // A teacher who needs the class quiet narrows it to おはなし島, and opens it again.
@@ -245,7 +245,7 @@ try {
     JSON.stringify(await b.evaluate(() => [...uspeak.net.voice.state.peers.values()].map((p) => ({ face: p.stream.getVideoTracks().length, screen: p.screen.getVideoTracks().length })))));
   await b.waitForFunction(() => document.querySelectorAll('#voice-tiles .voice-tile.screen').length === 1, null, { timeout: 120000, polling: 300 });
   check('and it is shown wide, with whose screen it is',
-    (await b.evaluate(() => document.querySelector('#voice-tiles .voice-tile.screen small')?.textContent)) === 'Hinaの がめん',
+    ['Hinaの がめん', "Hina's screen"].includes(await b.evaluate(() => document.querySelector('#voice-tiles .voice-tile.screen small')?.textContent)),
     await b.evaluate(() => document.querySelector('#voice-tiles .voice-tile.screen small')?.textContent));
   await b.screenshot({ path: path.join(SHOTS, 'e2e-voice-screen.png') });
   await a.click('#voice-share');
@@ -298,6 +298,68 @@ try {
     (await a.evaluate(() => localStorage.getItem('uspeak-voice-size-v1'))) === 's');
   await a.click('#voice-size');
   await a.waitForFunction(() => document.querySelector('#voice-panel').dataset.size === 'm', null, { timeout: 60000, polling: 150 });
+
+  // 2026-10: the call the classroom asked for. The microphone is cleaned before it goes
+  // out (the sent track is the audio graph's, not the raw device's), the island's music
+  // ducks while a call is open, the panel goes full screen with a grid and a leave button,
+  // a face can be pinned, and the corner panel can be dragged and stretched.
+  check('the microphone sent is the cleaned one, not the raw device track', await a.evaluate(() => {
+    const v = uspeak.net.voice; const sent = [...v.state.peers.values()][0]?.pc.getSenders().find((s) => s.track?.kind === 'audio')?.track;
+    return !!v.gate && !!sent && sent === v.gate.stream.getAudioTracks()[0];
+  }));
+  check('the island\'s music ducks while the call is open', await a.evaluate(() => uspeak.ambience.state.ducked === true));
+  await a.click('#voice-clean');
+  await a.waitForFunction(() => {
+    const v = uspeak.net.voice; const sent = [...v.state.peers.values()][0]?.pc.getSenders().find((s) => s.track?.kind === 'audio')?.track;
+    return !v.state.clean && !!sent && sent !== v.gate.stream.getAudioTracks()[0];
+  }, null, { timeout: 30000, polling: 150 }).catch(() => {});
+  const swapped = await a.evaluate(() => {
+    const v = uspeak.net.voice; const sent = [...v.state.peers.values()][0]?.pc.getSenders().find((s) => s.track?.kind === 'audio')?.track;
+    // (The stand-in microphone above is itself an audio-graph track, so the label cannot
+    // tell the two apart here: identity does — the sent track is no longer the gate's.)
+    return { ok: v.state.joined && !!sent && sent !== v.gate.stream.getAudioTracks()[0] && sent === v.sent,
+      clean: v.state.clean, sent: sent?.label, local: v.sent?.label, state: sent?.readyState, err: v.state.swapError, peers: v.state.peers.size };
+  });
+  check('ノイズカット off swaps the raw microphone in without rejoining', swapped.ok, JSON.stringify(swapped));
+  await a.click('#voice-clean');
+  await a.waitForFunction(() => uspeak.net.voice.state.clean, null, { timeout: 30000, polling: 150 });
+  check('and the choice is remembered', (await a.evaluate(() => localStorage.getItem('uspeak-voice-clean-v1'))) === 'on');
+  // ⛶
+  await a.click('#voice-full');
+  await a.waitForFunction(() => document.querySelector('#voice-panel').dataset.full === '1', null, { timeout: 30000, polling: 150 });
+  const box = await a.evaluate(() => { const r = document.querySelector('#voice-panel').getBoundingClientRect(); return [r.width, r.height, innerWidth, innerHeight]; });
+  check('⛶ makes the panel the whole screen', box[0] >= box[2] - 2 && box[1] >= box[3] - 2, box.join('x'));
+  check('and the island stops taking the walking keys', (await a.evaluate(() => document.body.dataset.call)) === 'full');
+  check('the faces fill a grid sized to the head-count', (await a.evaluate(() => document.querySelector('#voice-tiles').style.getPropertyValue('--cols'))) === '1');
+  check('with a leave button, since nobody can walk out of a full screen', await a.evaluate(() => !document.querySelector('#voice-leave').hidden));
+  await a.screenshot({ path: path.join(SHOTS, 'e2e-voice-full.png') });
+  await a.click('#voice-tiles [data-tile="me"]');
+  await a.waitForFunction(() => uspeak.net.voice.state.pinned === 'me', null, { timeout: 30000, polling: 150 });
+  check('tapping a face pins it', (await a.evaluate(() => document.querySelector('#voice-tiles').dataset.pin)) === '1');
+  await a.click('#voice-tiles [data-tile="me"]');
+  await a.waitForFunction(() => uspeak.net.voice.state.pinned === '', null, { timeout: 30000, polling: 150 });
+  await a.keyboard.press('Escape');
+  await a.waitForFunction(() => document.querySelector('#voice-panel').dataset.full === '', null, { timeout: 30000, polling: 150 });
+  check('Esc brings the corner panel back', (await a.evaluate(() => document.body.dataset.call)) === '');
+  // The grip, and the head.
+  const grip = await a.evaluate(() => { const r = document.querySelector('.voice-grip').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
+  const before = await panelWidth(a);
+  await a.mouse.move(grip[0], grip[1]); await a.mouse.down(); await a.mouse.move(grip[0] + 80, grip[1] + 20, { steps: 4 }); await a.mouse.up();
+  await sleep(300);
+  check('dragging the grip stretches the panel', (await panelWidth(a)) > before + 40, `${before} → ${await panelWidth(a)}`);
+  const head = await a.evaluate(() => { const r = document.querySelector('.voice-head b').getBoundingClientRect(); const p = document.querySelector('#voice-panel').getBoundingClientRect(); return [r.x + 4, r.y + r.height / 2, p.left]; });
+  await a.mouse.move(head[0], head[1]); await a.mouse.down(); await a.mouse.move(head[0] + 60, head[1] - 40, { steps: 4 }); await a.mouse.up();
+  await sleep(300);
+  check('dragging the head moves it', (await a.evaluate(() => document.querySelector('#voice-panel').getBoundingClientRect().left)) > head[2] + 30);
+  check('and the box is remembered', !!(await a.evaluate(() => JSON.parse(localStorage.getItem('uspeak-voice-box-v1') || 'null')?.w)));
+  await a.click('#voice-leave');
+  await a.waitForFunction(() => !uspeak.net.voice.state.joined, null, { timeout: 30000, polling: 150 });
+  check('🚪 ends the call and the music comes back', await a.evaluate(() => !uspeak.net.voice.state.joined && uspeak.ambience.state.ducked === false));
+  // Back in, camera on, so the rest of the script finds the call it expects.
+  check('and the two can meet again', await bothJoin(a, b), JSON.stringify(await peers(a)));
+  await a.click('#voice-cam');
+  await a.waitForFunction(() => uspeak.net.voice.state.camera, null, { timeout: 90000, polling: 200 });
+  await b.waitForFunction(() => document.querySelectorAll('#voice-tiles [data-tile]').length >= 1, null, { timeout: 120000, polling: 300 });
 
   await a.click('#voice-cam');
   await a.waitForFunction(() => !uspeak.net.voice.state.camera, null, { timeout: 90000, polling: 200 });

@@ -16,6 +16,23 @@ const bool = (key, fallback) => {
   return ['1', 'true', 'yes', 'on'].includes(v);
 };
 const list = (key) => (env[key] ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+// ICE_SERVERS is JSON or nothing. A typo here must not take the server down at boot, so
+// a value that does not parse to a list of {urls} entries is logged and ignored.
+function iceServersFrom(raw) {
+  const text = String(raw ?? '').trim();
+  if (!text) return [];
+  try {
+    const list = JSON.parse(text);
+    if (!Array.isArray(list)) throw new Error('not a list');
+    return list.filter((e) => e && typeof e === 'object' && e.urls).map((e) => ({
+      urls: e.urls, ...(e.username ? { username: String(e.username) } : {}), ...(e.credential ? { credential: String(e.credential) } : {}),
+    }));
+  } catch (err) {
+    console.warn(`[config] ICE_SERVERS ignored: ${err.message}`);
+    return [];
+  }
+}
+
 
 export const config = Object.freeze({
   nodeEnv: env.NODE_ENV ?? 'development',
@@ -75,6 +92,18 @@ export const config = Object.freeze({
     // cap actually cuts a call off without a real 120-minute wait, and a few seconds
     // (e.g. 0.05) only expresses as a fraction.
     dailyMinutesPerStudent: Math.max(0.05, float('VOICE_DAILY_MINUTES_PER_STUDENT', 120)),
+    // STUN/TURN for the browser-to-browser rooms, as the JSON an RTCPeerConnection takes:
+    //   ICE_SERVERS='[{"urls":"turn:turn.example.com:443?transport=tcp","username":"u","credential":"p"}]'
+    // A school network that blocks UDP cannot connect two iPads directly without a TURN
+    // relay; with none set the browsers use Google's public STUN and hope. These reach
+    // the browser (that is what TURN credentials are for), so use a dedicated, rotatable
+    // TURN user rather than anything shared with another service.
+    iceServers: iceServersFrom(env.ICE_SERVERS),
+    // With LiveKit configured, VOICE_SFU_ALL=1 sends every room through it — not only the
+    // hundred-child hall. An SFU keeps a call usable through packet loss (one uplink per
+    // child, simulcast, TCP/TLS fallback) where a six-way mesh on a classroom Wi-Fi does
+    // not. Off by default: it costs LiveKit minutes a mesh does not.
+    sfuAll: bool('VOICE_SFU_ALL', false),
   },
   // 入場ゲート: 'open' lets anyone with the class code in (the default, and what a
   // demo or a home user wants); 'roster' admits only children on the class register,

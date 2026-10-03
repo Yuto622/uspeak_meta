@@ -36,10 +36,12 @@ const BGM_LEVEL = 0.34;   // 環境音と同じ考え方：子どもの声に勝
 // 気にならなくても、曲と重なると曲の下ごしらえを全部塗りつぶす（うるさいと言われた）。
 // 10分の1にしてある。ここは「聞こえる音」ではなく「静かすぎないための音」でよい。
 const WIND_LEVEL = 0.05;
+// 通話中の曲の大きさ（ふだんの何倍か）。聞こえなくはしない：島にいることは分かるように。
+const DUCK = 0.18;
 const WIND_NIGHT_DROP = 0.48;   // 夜は半分近くまで落ちる
 
 export function createAmbience({ isMuted }) {
-  const state = { night: 0, on: false, started: false, busy: false };
+  const state = { night: 0, on: false, started: false, busy: false, ducked: false };
   let ctx = null; let master = null; let windGain = null;
   let music = null; let hush = 0;
 
@@ -112,7 +114,9 @@ export function createAmbience({ isMuted }) {
   function apply() {
     if (!ctx) return;
     // 全画面の別ゲームやレースが上がっている間は黙る。あちらには あちらの音がある。
-    const wanted = state.on && !state.busy ? 0.5 : 0;
+    // 通話中は曲を下げる。スピーカーから出た曲はマイクが拾い、相手には「雑音」になる。
+    // ブラウザーのエコー消しは自分の出した音を完全には消せない（とくに iPad）。
+    const wanted = state.on && !state.busy ? (state.ducked ? 0.5 * DUCK : 0.5) : 0;
     master.gain.setTargetAtTime(wanted, ctx.currentTime, 0.4);
     // 夜は風も引く。時間帯が変わったことは、見えるだけでなく聞こえてほしい。
     windGain.gain.setTargetAtTime(WIND_LEVEL * (1 - state.night * WIND_NIGHT_DROP), ctx.currentTime, 1.5);
@@ -158,6 +162,12 @@ export function createAmbience({ isMuted }) {
     setBusy(busy) {
       if (state.busy === !!busy) return;
       state.busy = !!busy;
+      apply();
+    },
+    // 通話に入っているあいだ、曲を小さくする（`voice.js` が hooks の 'call' で知らせる）。
+    setDucked(on) {
+      if (state.ducked === !!on) return;
+      state.ducked = !!on;
       apply();
     },
     // The first touch or key is the browser's permission to make any sound at all.

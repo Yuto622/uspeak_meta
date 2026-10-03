@@ -313,6 +313,14 @@
   **このコンテナには音声エンジンが無い**ので、e2e は `speechSynthesis` を置き替えて
   「何が渡ったか」を見ている。**実際に聞くのは iPad でやること。**
 
+## 夜の明かり（2026-10 追加）
+
+教室から「夜が暗すぎる」と言われたので、`atmosphere.js` に **自分のアバターについてくる暖かい点光源**
+（`lamp`・`PointLight`）を置いた。`game.js` が `atmosphere.state.follow = player` を入れ、`update()` が毎フレーム
+位置を合わせる。**強さは `n * LAMP`（夜だけ）** なので昼の絵は変わらない。一人称のときは少し弱める。
+夜の底（半球光 .58→.85、太陽 .7→1.0、露出 1.03→1.08）も上げた。**夜の雰囲気を消さないこと** — おばけと
+提灯の見せ場なので、さらに明るくしたくなったら、まずこの光源の `distance`/`LAMP` から。
+
 ## 保存互換性
 
 localStorageのキー:
@@ -1238,6 +1246,22 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **カメラは通話中に入切できる**。トラックを足す／外すと各接続が自分で再交渉する
   （perfect negotiation。どちらが offer するかは id の大小で決まる）。相手が切ると
   こちらには track の mute として届くので、その時点でタイルを消している。
+- **マイクは送る前に掃除する**（`cleanMic()`・2026-10）。getUserMedia にはブラウザーの AEC/NS/AGC/音声分離を
+  全部要求し、そのうえで ハイパス→ローパス→**言葉の合間に閉じるゲート**→コンプレッサー を AudioContext で通す。
+  **AudioContext はレベルメーターと共用の1つ**（`meterCtx()`・join のタップで作る＝iOS の gesture）。
+  送るトラックは `micTrack()` が決める（掃除後 or 生）。🧹 で切り替えると `replaceTrack` で**その場で入れ替える**
+  （メッシュは sender、大広間は `stage.replaceMic()`）。**隠れたタブではゲートを開けっぱなしにする**
+  （タイマーが1秒に1回になり、言葉が切れる）。
+- **通話中は BGM を下げる**。`voice.js` が hooks の `'call'` を出し、`game.js` が `ambience.setDucked()` に
+  つなぐ。スピーカーの曲をマイクが拾って「雑音」になっていた。`browser-bgm.mjs` が測る 0.5 は通話していないとき。
+- **⛶ ぜんがめん**は `panel.dataset.full` と `body.dataset.call='full'` の2つ。後者を `game.js` の `menus` が
+  見て WASD を止める（全画面中に歩いて部屋を出ると通話が切れる）。CSS は `#voice-panel[data-full="1"]` で、
+  **つかんで伸ばした inline の width を `!important` で上書き**している。markup は全画面の順（顔→横→ボタン）で、
+  隅では `.voice-side{display:contents}` と `order` で元の並びに戻す。
+- **つかんで動かす・伸ばす**は `grab()`（ヘッダー＝移動、`.voice-grip`＝大きさ）。箱は `uspeak-voice-box-v1`。
+  プリセット（小中大特大）を押すと幅と高さの指定は消える（位置は残す）。
+- **TURN は部屋からもらう**（`voice:room` の `ice`）。ページに埋め込まない。公開 STUN は常に足す。
+- **送る量は人数で決める**（`tuneSenders()`・`VIDEO_KBPS`）。接続できたときと人数が変わったときに掛け直す。
 - **画面の大きさは子どもが変えられる**。`.voice-head` のボタンが 小→中→大→特大 と順に変わり、
   `#voice-panel` の `data-size` を書き替えるだけ（幅は CSS の `--voice-w`）。選んだ大きさは
   `localStorage` の `uspeak-voice-size-v1` に残る。幅はすべて `min(px, vw)` なので、

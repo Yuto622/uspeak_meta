@@ -1864,7 +1864,13 @@ export class ClassRoom extends Room {
   // than a handful runs through the SFU instead. With no SFU configured there is no
   // second kind: the big room falls back to a six-child mesh, and the panel says so.
   voiceKindOf(room) {
-    return this.voiceRoomMax(room) > VOICE_MAX && stageReady() ? 'sfu' : 'mesh';
+    if (!stageReady()) return 'mesh';
+    return this.voiceRoomMax(room) > VOICE_MAX || config.voice.sfuAll ? 'sfu' : 'mesh';
+  }
+
+  // The hall: the one room built for more than a handful, where cameras are rationed.
+  voiceIsHall(room) {
+    return this.voiceRoomMax(room) > VOICE_MAX;
   }
 
   // What the room actually holds right now, which is the smaller of what it was built for
@@ -1878,7 +1884,9 @@ export class ClassRoom extends Room {
   // stage; in a small room everyone has always had a camera and keeps it.
   voiceCanPublish(sessionId, room) {
     const player = this.state.players.get(sessionId);
-    if (this.voiceKindOf(room) !== 'sfu') return { camera: true, screen: true };
+    // A six-child room routed through the SFU (VOICE_SFU_ALL) is still a six-child room:
+    // everyone keeps their camera. Only the hall rations them.
+    if (this.voiceKindOf(room) !== 'sfu' || !this.voiceIsHall(room)) return { camera: true, screen: true };
     const staged = player?.role === 'teacher' || this.stage.has(sessionId);
     return { camera: staged, screen: staged };
   }
@@ -1937,14 +1945,18 @@ export class ClassRoom extends Room {
       return;
     }
     const kind = this.voiceKindOf(room);
-    if (this.voice.get(id)?.room === room) { client.send('voice:room', { room, kind, peers, me: id, max: cap }); return; }
+    // Which relays the browsers may use to reach each other (a TURN server, when the
+    // school has one): the page gets them here, with the room, never from a file it
+    // could fetch on its own.
+    const ice = config.voice.iceServers.length ? { ice: config.voice.iceServers } : {};
+    if (this.voice.get(id)?.room === room) { client.send('voice:room', { room, kind, peers, me: id, max: cap, ...ice }); return; }
     this.dropVoice(id, 'moved');
     this.voice.set(id, { room, at: Date.now(), signals: 0, since: Date.now() });
     // The newcomer is told who is already here and calls them; everyone here is told
     // someone arrived and waits to be called. One offer per pair, decided by arrival.
     // In a big room there is nobody to call: the SFU is the one connection each browser
     // makes, and who is in the room comes from it rather than from here.
-    client.send('voice:room', { room, kind, peers: kind === 'sfu' ? [] : peers, me: id, max: cap });
+    client.send('voice:room', { room, kind, peers: kind === 'sfu' ? [] : peers, me: id, max: cap, ...ice });
     if (kind === 'sfu') this.sendStageToken(id, 'join');
     else {
       for (const peer of peers) {

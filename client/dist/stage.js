@@ -129,6 +129,15 @@ export function createStage({ onChange, onError, onLeft }) {
     bump();
   }
 
+  // The cleaned microphone swapped for the raw one (or back) without leaving the room:
+  // the SDK replaces the track under the same publication.
+  async function replaceMic(track) {
+    const pub = [...(room?.localParticipant?.audioTrackPublications?.values?.() || [])][0];
+    if (!pub?.track || !track) return false;
+    try { await pub.track.replaceTrack(track); } catch (err) { onError?.(err); return false; }
+    return true;
+  }
+
   // A camera or a screen this child may not publish is not attempted: the server said so
   // in the ticket, and the SFU would refuse it anyway.
   async function publish(track, source) {
@@ -164,6 +173,7 @@ export function createStage({ onChange, onError, onLeft }) {
     retoken,
     leave,
     setMic,
+    replaceMic,
     publish,
     unpublish,
     get live() { return state.live; },

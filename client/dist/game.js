@@ -65,7 +65,7 @@ const atmosphere=createAtmosphere({scene,camera,renderer,sun,water,box,colliders
 // says where in the day the world is and how long the next part is away.
 const timeButton=$('#time-toggle');let clockTick=0;
 const mmss=sec=>`${Math.floor(sec/60)}:${String(Math.floor(sec%60)).padStart(2,'0')}`;
-const ambience=createAmbience({isMuted:()=>muted});
+const ambience=createAmbience({isMuted:()=>muted});atmosphere.state.follow=player;hooks.on('call',({joined})=>ambience.setDucked(joined));
 // 「?」は**全部の島と全部のきのうを、写真つきで1ページずつ**見せる画面になった。
 // 前は長い文章が1つのダイアログに入っていて、はじめての子には読み切れなかった。
 const guide=createGuide({toast});
@@ -131,7 +131,7 @@ const clock=new THREE.Clock(),target=new THREE.Vector3(),desired=new THREE.Vecto
 // 島の音（風・鳥・虫・BGM）もここでしまう。あちらにはあちらの音があるので、
 // 重ねると教室では ただうるさいだけになる。
 const fullscreen=!!(net.gp?.running||net.arcadeOpen());ambience.setBusy(fullscreen);if(fullscreen)stick.release();
-if(fullscreen){clock.getDelta();return}let dx=0,dz=0,push=1;const menus=document.querySelector('dialog[open]')||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy;
+if(fullscreen){clock.getDelta();return}let dx=0,dz=0,push=1;const menus=document.querySelector('dialog[open]')||document.body.dataset.call==='full'||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy;
 // のりもの島のレース中は歩かない：W はアクセル、A/D はハンドル、スペースはドリフト。
 // 操作の中身は kart.js、当たり判定と速度はいつもと同じものを渡している。
 if(net.race?.driving){net.race.drive(dt,menus?new Set():keys,blocked,net.speed());net.race.update(dt);player.position.y=0}
