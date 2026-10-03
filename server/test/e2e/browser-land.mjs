@@ -2,7 +2,7 @@
 // estate office, sees all twelve islands as real 3D pictures and one turning on the stage,
 // buys the first with the first day's coins, walks into the ferry house and stands on an
 // island of their own — then walks back down the jetty and is on 土地島 again. The board
-// lists the class by name. Every price and tier is the room's.
+// lists the class by name, and sails to a classmate's island. Every price and tier is the room's.
 //
 // Run: node test/e2e/browser-land.mjs   (not part of `npm test`)
 import { spawn } from 'node:child_process';
@@ -112,10 +112,23 @@ try {
   await fig(page, 'screen-land-bought');
   await page.evaluate(() => uspeak.net.land.close());
 
-  // The ferry: onto the island of their own.
+  // The ferry: a boat that really sails, from the hub's jetty to the island's own.
   await walkTo(page, 'ferry');
   await page.waitForFunction(() => uspeak.net.myLand.active, null, { timeout: 30000 });
-  check('the ferry puts the child on their own island', await page.evaluate(() => uspeak.net.currentSpace() === 'in:land' && uspeak.net.myLand.state.island?.theme === 'sand'));
+  check('the ferry puts the child on a boat bound for their own island', await page.evaluate(() => uspeak.net.currentSpace() === 'in:land' && uspeak.net.myLand.riding && uspeak.net.myLand.state.ride.dir === 'in' && uspeak.net.myLand.state.island?.theme === 'sand'));
+  check('with a skip on screen', await page.evaluate(() => { const r = document.querySelector('#land-ride'); return !!r && !r.hidden && !!r.querySelector('#land-ride-skip') && document.body.classList.contains('on-ferry'); }));
+  // (This renderer draws a frame every second or two, so the boat is watched for
+  // progress rather than timed: the ride advances by the frame's dt, as on a tablet.)
+  const z0 = await page.evaluate(() => uspeak.net.myLand.boat.position.z);
+  await page.waitForFunction((z) => uspeak.net.myLand.boat.position.z < z - 0.5, z0, { timeout: 60000 }).catch(() => {});
+  const z1 = await page.evaluate(() => ({ boat: uspeak.net.myLand.boat.position.z, player: uspeak.player.position.z, half: uspeak.net.myLand.state.island.grid / 2 }));
+  check('the boat moves across the water with the child aboard', z1.boat < z0 - 0.5 && Math.abs(z1.player - z1.boat) < 1 && z1.boat > z1.half, JSON.stringify({ z0, ...z1 }));
+  check('nothing is walked while aboard', await page.evaluate(() => uspeak.rpg.blocked(uspeak.player.position.x, uspeak.player.position.z) === true));
+  await shot(page, 'land-ferry');
+  await page.click('#land-ride-skip');
+  await page.waitForFunction(() => !uspeak.net.myLand.riding, null, { timeout: 10000 });
+  const landed = await page.evaluate(() => ({ z: uspeak.player.position.z, half: uspeak.net.myLand.state.island.grid / 2, ride: document.querySelector('#land-ride').hidden, boat: uspeak.net.myLand.boat.visible }));
+  check('skip steps the child straight onto the jetty, the boat moored beside it', landed.z > landed.half && landed.z < landed.half + 3 && landed.ride && landed.boat, JSON.stringify(landed));
   check('with their name on the sign', (await page.evaluate(() => uspeak.net.myLand.state.island.owner)) === 'Sora');
   check('and the island draws its own minimap', await page.evaluate(() => { const c = document.createElement('canvas'); c.width = 180; c.height = 140; return uspeak.rpg.mapSmall(c.getContext('2d')); }));
   await sleep(2500);
@@ -124,12 +137,16 @@ try {
   await fig(page, 'island-mine');
   await shot(page, 'land-mine');
   check('the water and the tent are not walked through', await page.evaluate(() => uspeak.rpg.blocked(0, -2) === true && uspeak.rpg.blocked(0, 40) === true && uspeak.rpg.blocked(2, 2) === false));
-  // Down the jetty: back on 土地島.
+  // Down the jetty: aboard again, and the boat sails back to 土地島 (skipped here).
   await page.evaluate(() => { uspeak.player.position.set(0, 0, uspeak.net.myLand.state.island.grid / 2 + 2.6); });
+  await page.waitForFunction(() => uspeak.net.myLand.riding && uspeak.net.myLand.state.ride.dir === 'out', null, { timeout: 30000 });
+  check('walking down the jetty is boarding the boat home', true);
+  await sleep(800);
+  await page.evaluate(() => uspeak.net.myLand.skip());
   await page.waitForFunction(() => !uspeak.net.myLand.active && uspeak.rpg.state.current === 'land', null, { timeout: 30000 });
-  check('walking down the jetty is leaving, back onto 土地島', true);
+  check('and the boat (or the skip) lands the child back on 土地島', await page.evaluate(() => document.querySelector('#land-ride').hidden && !document.body.classList.contains('on-ferry')));
 
-  // The board: by name, with the new owner on it, and their island's picture.
+  // The board: by name, with the new owner on it, their island's picture, and a boat to it.
   await sleep(1500);
   await walkTo(page, 'board');
   await page.waitForFunction(() => uspeak.net.land.state.board, null, { timeout: 30000 });
@@ -138,7 +155,16 @@ try {
   await sleep(800);
   check('the board shows each island by its 3D picture', (await page.evaluate(() => document.querySelectorAll('#land-body .land-board .land-shot.shot img:not([hidden])').length)) >= 1);
   await fig(page, 'screen-land-board');
-  await page.evaluate(() => uspeak.net.land.close());
+  await page.click('#land-body [data-visit="Sora"]');
+  await page.waitForFunction(() => uspeak.net.myLand.active && uspeak.net.myLand.riding, null, { timeout: 30000 });
+  check('⛵ いく on the board sails to that island', await page.evaluate(() => !document.querySelector('#land-dialog').open && uspeak.net.myLand.state.island.owner === 'Sora'));
+  await page.evaluate(() => uspeak.net.myLand.skip());
+  await page.waitForFunction(() => !uspeak.net.myLand.riding, null, { timeout: 10000 });
+  await page.evaluate(() => { uspeak.player.position.set(0, 0, uspeak.net.myLand.state.island.grid / 2 + 2.6); });
+  await page.waitForFunction(() => uspeak.net.myLand.riding, null, { timeout: 30000 });
+  await page.evaluate(() => uspeak.net.myLand.skip());
+  await page.waitForFunction(() => !uspeak.net.myLand.active && uspeak.rpg.state.current === 'land', null, { timeout: 30000 });
+  check('and the jetty brings them home from there too', true);
 } catch (err) {
   check('no exception', false, err.stack || String(err));
 } finally {

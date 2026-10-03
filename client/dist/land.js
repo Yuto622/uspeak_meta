@@ -289,9 +289,9 @@ export function createLandUI({ send, toast, isOnline, world }) {
     return `<p class="land-lead">${tr('クラスの {n}人が しまを もっています。', { n: b.owners })}</p>
       <ul class="land-board">${b.rows.map((r) => {
         const l = looks.get(r.look) || null;
-        return `<li class="${r.name === b.me.name ? 'me' : ''}"><span class="land-shot small">${l ? `<img data-shot="${esc(l.id)}" alt="" hidden>` : ''}<span class="land-emoji" translate="no">${l ? esc(l.emoji) : '🌊'}</span></span><b>${esc(r.name)}</b><span>${l ? `${esc(name(l))}<br><i>${tr('だい{n}だん', { n: l.tier })}</i>` : tr('まだ')}</span></li>`;
+        return `<li class="${r.name === b.me.name ? 'me' : ''}"><span class="land-shot small">${l ? `<img data-shot="${esc(l.id)}" alt="" hidden>` : ''}<span class="land-emoji" translate="no">${l ? esc(l.emoji) : '🌊'}</span></span><b>${esc(r.name)}</b><span>${l ? `${esc(name(l))}<br><i>${tr('だい{n}だん', { n: l.tier })}</i>` : tr('まだ')}</span>${l ? `<button type="button" class="land-go" data-visit="${esc(r.name)}" ${state.busy ? 'disabled' : ''}>⛵ ${tr('いく')}</button>` : ''}</li>`;
       }).join('')}</ul>
-      <p class="land-note">${tr('なまえの じゅん。しまは じまんの ために あるので、ならべかえは しない。')}</p>`;
+      <p class="land-note">${tr('なまえの じゅん。しまは じまんの ために あるので、ならべかえは しない。')} ${tr('⛵ いく で、その 子の しまへ ふねで いける。')}</p>`;
   }
 
   dialog.addEventListener('click', (e) => {
@@ -301,6 +301,7 @@ export function createLandUI({ send, toast, isOnline, world }) {
     if (b.dataset.ask) { state.confirm = true; renderPick(); return; }
     if (b.dataset.cancel) { state.confirm = false; renderPick(); return; }
     if (b.dataset.buy) { state.busy = true; renderPick(); send(b.dataset.kind === 'restyle' ? 'land:restyle' : 'land:buy', { look: b.dataset.buy }); }
+    if (b.dataset.visit) { state.busy = true; render(); send('land:visit', { name: b.dataset.visit }); }
   });
   onLangChange(() => { if (dialog.open) render(); });
 
@@ -335,12 +336,13 @@ export function createLandUI({ send, toast, isOnline, world }) {
       : tr('{emoji} {name}を かった！ ⛵ の いえから いこう。', { emoji: isle.emoji || '', name: name(isle) }));
   }
   function onBoard(m) { state.board = m; render(); }
-  function onIsland(m) { close(); world.enter(m); }
+  function onIsland(m) { state.busy = false; close(); world.enter(m); }
   function onError(m) {
     state.busy = false;
     const said = {
       'too far': tr('その たてものの いりぐちで やろう。'), 'not enough coins': tr('コインが たりない。'), 'biggest already': tr('もう いちばん おおきな しま！'),
-      'no island': tr('まだ しまを もっていない。ふどうさんで かおう。'), 'same look': tr('もう その しま だよ。'), 'no such look': tr('その しまは いま えらべない。'),
+      'no island': m?.name ? tr('{who} は まだ しまを もっていない。', { who: m.name }) : tr('まだ しまを もっていない。ふどうさんで かおう。'),
+      'same look': tr('もう その しま だよ。'), 'no such look': tr('その しまは いま えらべない。'), 'no such child': tr('その 子は クラスに いない。'),
     }[m?.reason];
     if (said) toast(said);
     state.confirm = false;

@@ -178,6 +178,7 @@ export class ClassRoom extends Room {
     this.onMessage('land:restyle', (client, msg) => this.onLandRestyle(client, msg));
     this.onMessage('land:enter', (client) => this.onLandEnter(client));
     this.onMessage('land:board', (client) => this.onLandBoard(client));
+    this.onMessage('land:visit', (client, msg) => this.onLandVisit(client, msg));
     this.onMessage('prop:list', (client) => client.send('prop:shop', this.propShopPayload(client.sessionId)));
     this.onMessage('prop:buy', (client, msg) => this.onPropBuy(client, msg));
     this.onMessage('plaza:enter', (client) => this.onPlazaEnter(client));
@@ -2763,6 +2764,31 @@ export class ClassRoom extends Room {
     const isle = landIslandPayload(priv.land, priv.name);
     if (!isle) { client.send('land:error', { reason: 'no island' }); return; }
     client.send('land:island', isle);
+  }
+
+  // A classmate's island, to sail to from the board. What is handed over is only what
+  // the board already shows (step, look, name): nothing private, nothing to change.
+  onLandVisit(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    if (!this.atLandSpot(client.sessionId, 'board')) { client.send('land:error', { reason: 'too far', spot: this.landSpotPayload('board') }); return; }
+    const name = typeof msg?.name === 'string' ? msg.name.trim() : '';
+    let land = null; let found = false;
+    for (const [id, p] of this.priv) {
+      const player = this.state.players.get(id);
+      if (!player || player.role === 'teacher' || p.name !== name) continue;
+      land = p.land; found = true; break;
+    }
+    if (!found) {
+      let records = [];
+      try { records = this.store.listClass?.(this.classCode) || []; } catch (err) { log.warn(`[room ${this.roomId}] listClass failed:`, err.message); }
+      const r = records.find((x) => x.name === name && x.role !== 'teacher');
+      if (r) { land = sanitizeLand(parseJson(r.land_json, null)); found = true; }
+    }
+    if (!found) { client.send('land:error', { reason: 'no such child' }); return; }
+    const isle = landIslandPayload(land, name);
+    if (!isle) { client.send('land:error', { reason: 'no island', name }); return; }
+    client.send('land:island', { ...isle, visiting: name !== priv.name });
   }
 
   // Everyone's islands, by name — not by tier. A class board that sorts children by

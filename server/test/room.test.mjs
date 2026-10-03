@@ -1983,6 +1983,22 @@ test('土地島: islands are bought in order at the office, for the price in lan
   assert.ok(board.owners >= 1);
   const names = board.rows.map((r) => r.name);
   assert.deepEqual(names, [...names].sort((x, y) => x.localeCompare(y, 'ja')), 'name order');
+  // From the board, the boat goes to a classmate's island: the same payload the ferry
+  // gives, with the owner's name, and nothing for a name that is not in the class.
+  a.room.send('land:visit', { name: 'Tochi' });
+  const mine = await nextMessage(a.room, 'land:island');
+  assert.equal(mine.owner, 'Tochi'); assert.equal(mine.theme, 'sand'); assert.equal(mine.visiting, false);
+  a.room.send('land:visit', { name: 'Nobody Here' });
+  assert.equal((await nextMessage(a.room, 'land:error')).reason, 'no such child');
+  const b = await join('Umi');
+  await stand(b, ...at('board'));
+  b.room.send('land:visit', { name: 'Tochi' });
+  const theirs = await nextMessage(b.room, 'land:island');
+  assert.equal(theirs.owner, 'Tochi'); assert.equal(theirs.visiting, true); assert.equal(theirs.grid, mine.grid);
+  b.room.send('land:visit', { name: 'Umi' });
+  const none = await nextMessage(b.room, 'land:error');
+  assert.equal(none.reason, 'no island'); assert.equal(none.name, 'Umi');
+  await b.room.leave();
   // The tier survives a reconnect: it is in the record, not in the socket.
   await a.room.leave();
   const back = await join('Tochi');

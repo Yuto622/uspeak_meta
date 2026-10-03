@@ -77,8 +77,20 @@
 .land-board li > span:last-child { font-size: 12px; color: #5a4a2a; text-align: right; line-height: 1.35; }
 .land-board li i { font-style: normal; color: #9a8a6a; font-size: 11px; }
 .land-board li.me { border-color: #4a7338; background: #eef6e8; }
+.land-board li .land-go { padding: 7px 10px; border-radius: 10px; font-size: 13px; font-weight: 700; border: 1px solid #4a7338; background: #4a7338; color: #fff; white-space: nowrap; }
+.land-board li .land-go:disabled { opacity: .55; }
 /* While standing on your own island the quest panel steps aside; the rail stays. */
 body.on-own-island .quest-panel { display: none; }
+/* The boat ride: one line saying where to, and the skip. The walk controls step aside. */
+#land-ride {
+  position: fixed; left: 50%; bottom: max(96px, calc(env(safe-area-inset-bottom, 0px) + 96px)); transform: translateX(-50%); z-index: 60;
+  display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 18px; border-radius: 999px;
+  background: #10241ccc; color: #fff; font-weight: 700; font-size: 15px; backdrop-filter: blur(4px); box-shadow: 0 10px 30px #0b1f1e66; white-space: nowrap;
+}
+#land-ride[hidden] { display: none; }
+#land-ride button { padding: 8px 14px; border-radius: 999px; border: 0; background: #ffd766; color: #1b3a2f; font-weight: 800; font-size: 14px; }
+#land-ride button i { font-style: normal; }
+body.on-ferry .mobile-pad, body.on-ferry #near, body.on-ferry .control-hint { display: none !important; }
 @media (max-width: 760px) {
   .land-stage { grid-template-columns: 1fr; }
   .land-view { min-height: 0; }

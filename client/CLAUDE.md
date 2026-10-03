@@ -889,7 +889,12 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **カードの立場は `standing(look)`**：`mine` / `restyle`（同じ段のもう片方、`step.restyle` の値段）/ `next`（`next.price`）/
   `passed` / `later`。買うのは 2 タップ（`data-ask` → `data-buy`、`data-kind` が buy か restyle か）。
   値段の表示は `land.json`、請求はサーバー（`land:buy {look}` / `land:restyle {look}`）。
+- **行き帰りは船**（`createLand` の `startRide(dir)` / `endRide()` / `skip()`）。`enter(payload)` は島を建てて船に乗せるだけで、
+  着くのは `endRide('in')`（`cooldown` 1.5 秒）。乗っている間は `blocked()` が全部 true、`update()` が毎フレーム
+  player を甲板に置き、`updateCamera()` が船を追う。桟橋の先（`z > half + 2`）に出たら `startRide('out')` → `leave()`。
+  **`enter(payload, {ride:false})` で船なし**（検査や急ぐときに）。遠くの土地島（`hub`）は `half + 58` に置き、船は その桟橋（`half + 44`）から出る。
 - **みんなの しま は名前順**。段で並べ替えないこと（順位表にしない。`docs/uspeak-retention.md`）。
+  「⛵ いく」→ `land:visit {name}` → 同じ `land:island`（`visiting: true`）→ 同じ船。見るだけ。
 - 見た目を足す／段を変えるときは `land.test.mjs`（比率 2〜6 倍・順番・12 の世界が全部ちがう・もようがえ）を通し、
   `land-world.js` の `THEMES` と `BUILD` に同じ名前で足し、`land.css` の `[data-theme=…]` の色も足すこと。
 

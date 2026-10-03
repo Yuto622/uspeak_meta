@@ -15,6 +15,7 @@
 // identical, so the card in the office and the island under a child's feet agree.
 import * as THREE from './three.module.js';
 import { say, live } from './canvas-say.js';
+import { t as tr, isJa } from './i18n.js';
 
 export const THEMES = {
   sand:    { ground: 0xf0dca0, edge: 0xd9bf7e, cliff: 0xb89a62, sky: 0x9fd3ea, water: 0x3b9ab8, foam: 0xd8f0f4, fog: 0xbfe3f0, sun: 0xfff0d0 },
@@ -511,6 +512,16 @@ export function buildIslandModel(island, opts = {}) {
 }
 
 // ---- the private scene ------------------------------------------------------------------
+//
+// Getting there is a boat ride. The ferry house on 土地島 does not teleport: the child is
+// put on a boat out by the hub's jetty, the boat sails in across the water to the island's
+// own jetty, and only then do they step off (⏭ skips to the stepping off). Leaving is the
+// same ride the other way. The ride is presentation only — the room decided whose island
+// this is before the boat moved — so nothing here is gated and nothing can be cheated.
+const RIDE_IN = 9;      // seconds, hub to island
+const RIDE_OUT = 5.5;   // seconds, island to hub
+const BERTH_X = 2.7;    // the boat moors beside the jetty, not across it
+
 export function createLand({ player, camera, view, toast, onLeave }) {
   const scene = new THREE.Scene();
   const hemi = new THREE.HemisphereLight(0xeaf4ff, 0x6a7a55, 1.7);
@@ -522,11 +533,49 @@ export function createLand({ player, camera, view, toast, onLeave }) {
   Object.assign(sun.shadow.camera, { left: -20, right: 20, top: 20, bottom: -20, near: 1, far: 80 });
   scene.add(sun);
 
-  const state = { active: false, island: null, obstacles: [] };
+  const state = { active: false, island: null, obstacles: [], ride: null };
   let model = null;
   let parent = null;
   let cooldown = 0;
   let wasFirstPerson = false;
+  let camSnap = false;              // the first frame of a ride puts the camera there at once
+
+  // ---- the boat, and the hub it comes from --------------------------------------------
+  const boat = new THREE.Group();
+  const bm = (g, color, glow = 0, opacity = 1) => { const m = new THREE.Mesh(g, mat(color, glow, opacity)); m.castShadow = opacity === 1; boat.add(m); return m; };
+  const hull = bm(BOX, 0x4e7fa8); hull.scale.set(2.2, 0.8, 5.0); hull.position.y = 0.3;
+  const bow = bm(geo('cone6', () => new THREE.ConeGeometry(1, 1, 6)), 0x4e7fa8); bow.scale.set(1.1, 1.6, 0.8); bow.rotation.x = -Math.PI / 2; bow.position.set(0, 0.3, -3.3);
+  const deck = bm(BOX, 0xd9b45c); deck.scale.set(2.0, 0.12, 4.6); deck.position.y = 0.72;
+  const rail = bm(BOX, 0xf3ecd8); rail.scale.set(2.3, 0.08, 5.2); rail.position.y = 0.78;
+  const cabin = bm(BOX, 0xf3ecd8); cabin.scale.set(1.5, 1.1, 1.4); cabin.position.set(0, 1.3, 1.1);
+  const roof = bm(BOX, 0xe0566a); roof.scale.set(1.8, 0.14, 1.7); roof.position.set(0, 1.9, 1.1);
+  for (const sx of [-1, 1]) { const w = bm(BOX, 0x9fd6e8, 0.4); w.scale.set(0.06, 0.5, 0.8); w.position.set(sx * 0.76, 1.35, 1.1); }
+  const frontWin = bm(BOX, 0x9fd6e8, 0.4); frontWin.scale.set(1.0, 0.5, 0.06); frontWin.position.set(0, 1.35, 0.38);
+  const funnel = bm(geo('cyl10:1', () => new THREE.CylinderGeometry(1, 1, 1, 10)), 0x3b3b40); funnel.scale.set(0.2, 0.7, 0.2); funnel.position.set(0.4, 2.2, 1.4);
+  const mast = bm(BOX, 0x6d543a); mast.scale.set(0.1, 2.4, 0.1); mast.position.set(0, 1.9, -1.2);
+  const flag = bm(BOX, 0xe0566a); flag.scale.set(0.7, 0.4, 0.05); flag.position.set(0.4, 2.9, -1.2);
+  for (const sx of [-1, 1]) { const ring = bm(geo('cyl10:1', () => new THREE.CylinderGeometry(1, 1, 1, 10)), 0xf3ecd8); ring.scale.set(0.35, 0.1, 0.35); ring.rotation.z = Math.PI / 2; ring.position.set(sx * 1.14, 0.55, 0.2); }
+  const lamp = bm(geo('ball', () => new THREE.SphereGeometry(1, 14, 11)), 0xffe08a, 1.4); lamp.scale.set(0.12, 0.12, 0.12); lamp.position.set(0, 3.2, -1.2);
+  const wake = []; for (let i = 0; i < 4; i += 1) { const w = bm(BOX, 0xffffff, 0.1, 0.5); w.scale.set(1.6 + i * 0.6, 0.04, 0.5); w.position.set(0, -0.02, 2.8 + i * 0.9); wake.push(w); }
+  const puffs = []; for (let i = 0; i < 3; i += 1) { const pf = bm(geo('ball', () => new THREE.SphereGeometry(1, 14, 11)), 0xf3efe6, 0, 0.4); pf.scale.set(0.25, 0.25, 0.25); pf.position.set(0.4, 2.6, 1.4); puffs.push(pf); }
+  boat.visible = false;
+  scene.add(boat);
+  // 土地島 itself, small and far, where the boat comes from and goes back to.
+  const hub = new THREE.Group();
+  const hm = (color, x, y, z, w, h, d) => { const m = new THREE.Mesh(BOX, mat(color)); m.position.set(x, y, z); m.scale.set(w, h, d); hub.add(m); return m; };
+  hm(0x9ebd66, 0, -0.4, 0, 34, 0.8, 18); hm(0x8a9a52, 0, -1.3, 0, 32, 1.2, 16); hm(0xe8dcb8, 0, 0.08, 4, 16, 0.14, 8);
+  for (const [x, c] of [[-10, 0xf2d8b2], [0, 0xcac3cc], [10, 0x78a7bc]]) { hm(c, x, 1.4, -2, 7, 2.8, 5.5); hm(0x7a5a3e, x, 3.1, -2, 7.8, 0.5, 6.2); hm(0x7a5a3e, x, 3.7, -2, 5, 0.8, 4); }
+  for (const x of [-15, 14, -4, 6]) { hm(0x8a6a45, x, 1.2, 6, 0.4, 2.4, 0.4); hm(0x4e9a3f, x, 2.9, 6, 2.2, 1.6, 2.2); }
+  hm(0xb49a6a, BERTH_X - 2.4, -0.1, -10.5, 2.2, 0.2, 5);
+  for (const z of [-9, -12.5]) hm(0x8a6a45, BERTH_X - 1.4, 0.4, z, 0.2, 1.2, 0.2);
+  scene.add(hub);
+
+  const ui = document.createElement('div');
+  ui.id = 'land-ride';
+  ui.hidden = true;
+  ui.innerHTML = `<span id="land-ride-text"></span><button type="button" id="land-ride-skip">⏭ <i>スキップ</i></button>`;
+  document.body.append(ui);
+  ui.querySelector('#land-ride-skip').addEventListener('click', () => skip());
 
   function build(island) {
     if (model) { scene.remove(model.group); model.dispose(); }
@@ -536,14 +585,64 @@ export function createLand({ player, camera, view, toast, onLeave }) {
     const theme = model.theme;
     const half = island.grid / 2;
     scene.background = new THREE.Color(theme.sky);
-    scene.fog = new THREE.Fog(theme.fog, half * 2.5, theme.space ? half * 12 : half * 7);
+    scene.fog = new THREE.Fog(theme.fog, half * 2.5, theme.space ? half * 12 : Math.max(half * 7, half + 75));
     sun.color.set(theme.sun);
     sun.intensity = theme.space ? 2.0 : island.theme === 'volcano' ? 1.2 : 1.6;
     hemi.intensity = theme.space ? 0.9 : 1.7;
     hemi.groundColor.set(theme.ground);
+    hub.position.set(0, theme.water ? 0 : -3, half + 58);
+    hub.visible = !theme.space;
   }
 
-  function enter(payload) {
+  // Where the boat is at a point of the ride: a straight run between the hub's jetty and
+  // this island's berth, eased so it slows into the berth and pulls away from it gently.
+  const ease = (u) => (u < 0.5 ? 2 * u * u : 1 - (-2 * u + 2) ** 2 / 2);
+  function rideZ(ride) {
+    const half = state.island.grid / 2;
+    const far = half + 44; const near = half + 2.2;
+    const u = ease(Math.min(1, ride.t / ride.dur));
+    return ride.dir === 'in' ? far + (near - far) * u : near + (far - near) * u;
+  }
+  function startRide(dir) {
+    state.ride = { dir, t: 0, dur: dir === 'in' ? RIDE_IN : RIDE_OUT };
+    boat.visible = true;
+    boat.position.set(BERTH_X, 0, rideZ(state.ride));
+    boat.rotation.set(0, dir === 'in' ? 0 : Math.PI, 0);
+    player.position.set(BERTH_X, 0.78, boat.position.z + 0.2);
+    player.rotation.y = dir === 'in' ? Math.PI : 0;
+    document.body.classList.add('on-ferry');
+    ui.hidden = false;
+    const isle = state.island;
+    ui.querySelector('#land-ride-text').textContent = dir === 'in'
+      ? tr('⛵ {name}へ…', { name: isle.visiting ? tr('{name}の しま', { name: isle.owner }) : (isJa() ? isle.name : isle.en) })
+      : tr('⛵ 土地島へ もどる…');
+    camSnap = true;
+  }
+  function endRide() {
+    const ride = state.ride;
+    if (!ride) return;
+    state.ride = null;
+    ui.hidden = true;
+    document.body.classList.remove('on-ferry');
+    const half = state.island.grid / 2;
+    if (ride.dir === 'in') {
+      // Moored beside the jetty; the child steps onto it.
+      boat.position.set(BERTH_X, 0, half + 2.2);
+      player.position.set(0, 0, half + 1.4);
+      player.rotation.y = Math.PI;
+      cooldown = 1.5;
+      const isle = state.island;
+      toast(isle.visiting
+        ? tr('{emoji} {name}の しまに ついた！ さんばしに もどると かえれるよ。', { emoji: isle.emoji || '', name: isle.owner })
+        : tr('{emoji} {name}に ついた！ さんばしに もどると かえれるよ。', { emoji: isle.emoji || '', name: isJa() ? isle.name : isle.en }));
+    } else {
+      boat.visible = false;
+      leave();
+    }
+  }
+  function skip() { if (state.ride) { state.ride.t = state.ride.dur; endRide(); } }
+
+  function enter(payload, { ride = true } = {}) {
     state.island = payload;
     build(payload);
     parent = player.parent;
@@ -560,13 +659,18 @@ export function createLand({ player, camera, view, toast, onLeave }) {
     if (where) where.innerHTML = `<span>✦</span><b class="en">${payload.en}</b><i class="ja">${payload.name}</i>`;
     const mapTitle = document.querySelector('.map-panel>div b');
     if (mapTitle) mapTitle.textContent = `${payload.owner || ''}'s ${payload.en}`;
-    toast(say(`${payload.emoji} ${payload.name}に ついた！ さんばしに もどると かえれるよ。`));
+    if (ride) startRide('in');
+    else toast(tr('{emoji} {name}に ついた！ さんばしに もどると かえれるよ。', { emoji: payload.emoji || '', name: isJa() ? payload.name : payload.en }));
     return true;
   }
 
   function leave(silent = false) {
     if (!state.active) return false;
     state.active = false;
+    state.ride = null;
+    ui.hidden = true;
+    boat.visible = false;
+    document.body.classList.remove('on-ferry');
     (parent || null)?.add(player);
     document.body.classList.remove('on-own-island');
     if (view) view.firstPerson = wasFirstPerson;
@@ -577,6 +681,7 @@ export function createLand({ player, camera, view, toast, onLeave }) {
 
   function blocked(x, z) {
     if (!state.active || !state.island) return null;
+    if (state.ride) return true;                      // on the boat, the boat does the moving
     const half = state.island.grid / 2;
     // The jetty is the way out; the water is not walked on.
     if (z > half) return !(Math.abs(x) < 1.0 && z < half + 3.2);
@@ -588,15 +693,41 @@ export function createLand({ player, camera, view, toast, onLeave }) {
     cooldown = Math.max(0, cooldown - dt);
     if (!state.active) return;
     model?.animate(t);
-    // Walking back out along the jetty is leaving.
+    // The boat, under way or moored: it bobs either way, and leaves a wake only moving.
+    if (boat.visible) {
+      boat.position.y = Math.sin(t * 1.6) * 0.07;
+      boat.rotation.z = Math.sin(t * 1.3) * 0.035;
+      boat.rotation.x = Math.sin(t * 1.1 + 1) * 0.02;
+      flag.rotation.y = Math.sin(t * 5) * 0.4;
+      const moving = !!state.ride;
+      wake.forEach((w, i) => { w.visible = moving; w.material.opacity = 0.45 - i * 0.1 + Math.sin(t * 6 + i) * 0.08; });
+      puffs.forEach((pf, i) => { pf.visible = moving; const k = (t * 0.8 + i * 0.45) % 1.3; pf.position.set(0.4 + Math.sin(t + i) * 0.2, 2.6 + k * 1.6, 1.4 + k * 1.2); const sc = 0.2 + k * 0.3; pf.scale.set(sc, sc, sc); pf.material.opacity = Math.max(0, 0.4 - k * 0.3); });
+    }
+    if (state.ride) {
+      state.ride.t += dt;
+      boat.position.z = rideZ(state.ride);
+      player.position.set(BERTH_X, boat.position.y + 0.78, boat.position.z + 0.2);
+      player.rotation.y = state.ride.dir === 'in' ? Math.PI : 0;
+      if (state.ride.t >= state.ride.dur) endRide();
+      return;
+    }
+    // Walking back out along the jetty is boarding: the boat takes the child home.
     const half = state.island.grid / 2;
-    if (!cooldown && !document.querySelector('dialog[open]') && player.position.z > half + 2.0) leave();
+    if (!cooldown && !document.querySelector('dialog[open]') && player.position.z > half + 2.0) startRide('out');
   }
 
   function updateCamera({ yaw, pitch, zoom, dt, firstPerson }) {
     if (!state.active) return false;
     camera.aspect = globalThis.innerWidth / globalThis.innerHeight || camera.aspect;
     camera.updateProjectionMatrix();
+    if (state.ride) {
+      // Off the quarter, a little high: the boat in the frame and the island ahead of it.
+      const b = boat.position; const dir = state.ride.dir === 'in' ? -1 : 1;
+      const desired = new THREE.Vector3(b.x + 8, 7.5, b.z - dir * 8);
+      if (camSnap) { camera.position.copy(desired); camSnap = false; } else camera.position.lerp(desired, 1 - Math.exp(-dt * 3));
+      camera.lookAt(b.x, 1.0, b.z + dir * 7);
+      return true;
+    }
     if (firstPerson) {
       camera.position.set(player.position.x, 2.05 + player.position.y, player.position.z);
       camera.lookAt(player.position.x - Math.sin(yaw) * Math.cos(pitch) * 10, camera.position.y + Math.sin(pitch) * 10, player.position.z - Math.cos(yaw) * Math.cos(pitch) * 10);
@@ -626,15 +757,17 @@ export function createLand({ player, camera, view, toast, onLeave }) {
     ctx.fillRect(90 - 1.1 * scale, 70 + half * scale, 2.2 * scale, 3 * scale);
     ctx.fillStyle = '#3c5a4a';
     for (const o of state.obstacles) ctx.fillRect(90 + (o.x - o.w) * scale, 70 + (o.z - o.d) * scale, o.w * 2 * scale, o.d * 2 * scale);
+    if (boat.visible) { ctx.fillStyle = '#f3ecd8'; ctx.fillRect(90 + (boat.position.x - 1) * scale, 70 + Math.min(half + 4, boat.position.z - 2.5) * scale, 2 * scale, 5 * scale); }
     ctx.fillStyle = '#fff';
-    ctx.beginPath(); ctx.arc(90 + player.position.x * scale, 70 + player.position.z * scale, 3.2, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(90 + player.position.x * scale, 70 + Math.min(half + 6, player.position.z) * scale, 3.2, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = '#ffe08a'; ctx.font = '10px sans-serif';
     ctx.fillText(`${state.island.emoji || ''} ${say(state.island.name)}`, 10, 16);
     return true;
   }
 
   return {
-    scene, state, enter, leave, blocked, update, updateCamera, minimap,
+    scene, state, enter, leave, blocked, update, updateCamera, minimap, skip, boat,
     get active() { return state.active; },
+    get riding() { return !!state.ride; },
   };
 }
