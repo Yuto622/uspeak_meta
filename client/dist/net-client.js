@@ -929,6 +929,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     wearInteract: () => { const near = rpg.wearNearby(); if (near) wardrobe.open({ slot: near.spot.slot || near.spot.kind }); },
     wearLabel: (spot) => tr('{shop}で きせかえる', { shop: spot?.name || tr('お店') }),
     farmInteract: () => { const near = rpg.farmNearby(); if (near) farm.open(near.spot.id); },
+    // Standing on a plot or in the pen: the small card for that one place.
+    farmFieldInteract: () => { const at = rpg.farmFieldNearby(); if (at) farm.openAt(at); },
+    farmFieldLabel: (at) => farm.labelAt(at),
     farmLabel: (spot) => farm.label(spot),
     farm,
     petLabel: (spot) => petUI.label(spot),

@@ -134,22 +134,42 @@ try {
   await next(page);
   await leave(page);
 
-  // The greenhouse: plant (a word), water (a sentence with a hole), and the field changes.
-  await enter(page, 'house');
-  await page.click('[data-plot="4"]');
-  await page.click(`[data-plant="${pick.id}"]`);
+  // The field itself (2026-10): walk onto a plot, press E, and the small card opens with the
+  // one thing that plot wants. Planting is a word; watering a sentence with a hole; a right
+  // answer changes the plot under the child's feet.
+  const standOnPlot = async (i) => {
+    await page.evaluate(() => { document.querySelector('#farm-dialog')?.close?.(); });
+    await page.evaluate(async (idx) => {
+      const d = await uspeak.rpg.farm.ready; const pl = d.island.plots;
+      uspeak.player.position.set(d.island.x + pl.x + (idx % pl.cols) * pl.gap, 0, d.island.z + pl.z + Math.floor(idx / pl.cols) * pl.gap);
+    }, i);
+    for (let k = 0; k < 40 && !(await page.evaluate(() => uspeak.rpg.farmFieldNearby()?.kind === 'plot')); k += 1) await sleep(200);
+  };
+  await standOnPlot(4);
+  check('standing on a plot says what it wants', (await page.evaluate(() => uspeak.rpg.farmFieldNearby())).index === 4,
+    await page.evaluate(() => JSON.stringify(uspeak.rpg.farmFieldNearby())));
+  check('and the next-step light stands on the field, not over a door', (await page.evaluate(() => uspeak.rpg.farm.target)) === 'field',
+    await page.evaluate(() => uspeak.rpg.farm.target));
+  await page.evaluate(() => uspeak.net.farmFieldInteract());
+  await page.waitForSelector('#farm-dialog[open]', { state: 'attached', timeout: 20000 });
+  await page.waitForFunction(() => uspeak.net.farm.state.spot === 'field' && document.querySelector('#farm-dialog').classList.contains('mini'), null, { timeout: 20000 });
+  check('E on an empty plot opens the small card with the seeds to choose from', await page.evaluate(() => document.querySelectorAll('#farm-main [data-plant]').length >= 1));
+  await page.click(`#farm-main [data-plant="${pick.id}"]`);
   await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'word', null, { timeout: 20000 });
   q = await ask(page);
   check('planting asks for the English word, four choices, with a picture', q.choices.length === 4 && q.choices.includes(pick.en) && !!q.pic);
+  await fig(page, 'screen-farm-field');
   await clickChoice(page, pick.en);
   r = await waitResult(page);
-  check('the right word plants the seed', r.correct && r.farm.plots[4]?.crop === pick.id);
+  check('the right word plants the seed, on the plot the child is standing on', r.correct && r.farm.plots[4]?.crop === pick.id);
   await next(page);
-  await page.click('#farm-water');
+  check('OK closes the small card so the field is in view', await page.evaluate(() => !document.querySelector('#farm-dialog').open));
+  check('the plot under the child now shows a sprout', await page.evaluate(() => uspeak.rpg.farm.visible && uspeak.net.farm.state.farm.plots[4]?.growth === 0));
+  // E again on the same plot: it is dry, so the water question comes at once (no second tap).
+  await page.evaluate(() => uspeak.net.farmFieldInteract());
   await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'fill', null, { timeout: 20000 });
   q = await ask(page);
-  check('watering asks a 英検5級 sentence with a hole and a picture', q.kind === 'fill' && q.prompt.en.includes('___') && !!q.pic, q.prompt.en);
-  await fig(page, 'screen-farm-field');
+  check('E on a dry plot asks the watering question at once: a 英検5級 sentence with a hole and a picture', q.kind === 'fill' && q.prompt.en.includes('___') && !!q.pic, q.prompt.en);
   // Wrong on purpose: nothing grows, and the answer is shown.
   const right = BANK.water.find((f) => q.prompt.en === `${f.pic} ${f.q}`).a;
   const wrong = q.choices.find((c) => c !== right);
@@ -157,7 +177,7 @@ try {
   r = await waitResult(page);
   check('a wrong answer grows nothing, and the answer is shown', !r.correct && r.farm.plots[4].growth === 0 && r.answer === right, `answer=${r.answer}`);
   await next(page);
-  await page.click('#farm-water');
+  await page.evaluate(() => uspeak.net.farmFieldInteract());
   await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'fill', null, { timeout: 20000 });
   q = await ask(page);
   await clickChoice(page, BANK.water.find((f) => q.prompt.en === `${f.pic} ${f.q}`).a);
@@ -166,15 +186,27 @@ try {
   await next(page);
   const watered = await page.evaluate(() => uspeak.net.farm.state.farm.plots[4]);
   check('the plot is watered today and grew once', watered.watered && watered.growth === 1, JSON.stringify(watered));
-  check('the field outside shows a sprout', await page.evaluate(() => uspeak.rpg.farm.visible), '');
+  check('a watered plot says so from the ground', (await page.evaluate(() => uspeak.net.farmFieldLabel(uspeak.rpg.farmFieldNearby()))).length > 0,
+    await page.evaluate(() => uspeak.net.farmFieldLabel(uspeak.rpg.farmFieldNearby())));
+  await sleep(1500);
   await shot(page, 'farm-field');
-  await leave(page);
   await page.evaluate(() => { uspeak.player.position.set(-330 - 8, 0, 70 + 19); });
   await sleep(2000);
   await shot(page, 'farm-outside');
+  // From the greenhouse the same plot can still be seen and watered — the overview is kept.
+  await page.evaluate(async () => { const d = await uspeak.rpg.farm.ready; uspeak.player.position.set(d.island.x, 0, d.island.z + 9); });
+  await sleep(600);
+  await enter(page, 'house');
+  check('the greenhouse still shows the whole field as an overview', await page.evaluate(() => document.querySelectorAll('#farm-main [data-plot]').length === 9 && !document.querySelector('#farm-dialog').classList.contains('mini')));
+  await leave(page);
 
-  // The barn: feed by the animal's sound.
-  await enter(page, 'barn');
+  // The pen: walk in among the animals and press E; feed by the animal's sound.
+  await page.evaluate(async () => { const d = await uspeak.rpg.farm.ready; const pen = d.island.pen; uspeak.player.position.set(d.island.x + pen.x - 0.6, 0, d.island.z + pen.z); });
+  for (let k = 0; k < 40 && !(await page.evaluate(() => uspeak.rpg.farmFieldNearby()?.kind === 'pen')); k += 1) await sleep(200);
+  check('standing in the pen is a place of its own', (await page.evaluate(() => uspeak.rpg.farmFieldNearby()?.kind)) === 'pen');
+  await page.evaluate(() => uspeak.net.farmFieldInteract());
+  await page.waitForSelector('#farm-dialog[open]', { state: 'attached', timeout: 20000 });
+  await page.waitForFunction(() => uspeak.net.farm.state.spot === 'pen' && uspeak.net.farm.state.farm, null, { timeout: 20000 });
   await fig(page, 'screen-farm-barn');
   await page.click('[data-animal="0"][data-do="feed"]');
   await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'word', null, { timeout: 20000 });
@@ -182,9 +214,10 @@ try {
   check('feeding asks what the chicken says', q.choices.includes('Cluck'), q.choices.join(','));
   await clickChoice(page, 'Cluck');
   r = await waitResult(page);
-  check('"Cluck" feeds the chicken', r.correct && r.farm.animals[0].fed === true);
+  check('"Cluck" feeds the chicken, from the pen', r.correct && r.farm.animals[0].fed === true);
   await next(page);
-  await leave(page);
+  await page.evaluate(async () => { const d = await uspeak.rpg.farm.ready; uspeak.player.position.set(d.island.x, 0, d.island.z + 9); });
+  await sleep(1500);
   await enter(page, 'ship');
   await page.waitForFunction(() => uspeak.net.farm.state.board, null, { timeout: 20000 });
   const board = await page.evaluate(() => uspeak.net.farm.state.board);

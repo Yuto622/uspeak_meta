@@ -1965,6 +1965,23 @@ test('ぼくじょう島: every job is a question, the answer is judged here, an
   a.room.send('farm:act', { act: 'buy', spot: 'seeds', params: { item: 'chicken' } });
   const broke = await nextMessage(a.room, 'farm:error');
   assert.equal(broke.reason, 'not enough coins');
+  // 2026-10: field work is done standing on the field. From the shop it is "too far";
+  // from a plot the question comes, and the greenhouse still works as before.
+  const field = FARM.placeById.get('field');
+  a.room.send('farm:act', { act: 'plant', spot: 'field', params: { plot: 0, crop: seed.id } });
+  assert.equal((await nextMessage(a.room, 'farm:error')).reason, 'too far', 'the field is a place to stand, not a menu');
+  await stand(field.wx, field.wz);
+  a.room.send('farm:open', { spot: 'field' });
+  assert.equal((await nextMessage(a.room, 'farm:state')).spot, 'field');
+  a.room.send('farm:act', { act: 'plant', spot: 'field', params: { plot: 0, crop: seed.id } });
+  const plantAsk = await nextMessage(a.room, 'farm:ask');
+  assert.equal(plantAsk.kind, 'word');
+  a.room.send('farm:answer', { qid: plantAsk.id, answer: seed.en });
+  const planted = await nextMessage(a.room, 'farm:result');
+  assert.equal(planted.correct, true);
+  assert.equal(planted.farm.plots[0]?.crop, seed.id, 'planted from the field itself');
+  assert.equal(planted.farm.seeds[seed.id], 4);
+  await stand(...at('seeds'));
   // Talking costs nothing and pays a heart. Wrong reply: no heart, the answer shown.
   a.room.send('farm:act', { act: 'talk', spot: 'seeds', params: {} });
   const ask = await nextMessage(a.room, 'farm:ask');

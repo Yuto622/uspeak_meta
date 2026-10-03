@@ -206,9 +206,19 @@ test('villagers: one talk a day for a heart, "This is for you." for a gift', () 
 });
 
 test('every action belongs to a building, and a saved farm comes back whole but never bigger than the rules', () => {
-  assert.equal(spotForAct('water'), 'house');
+  // Field work is checked at the field when the page says it is standing there, and at the
+  // greenhouse otherwise; the two open places sit where the page draws them.
+  assert.equal(spotForAct('water'), 'field');
+  assert.equal(spotForAct('water', 'house'), 'house');
+  assert.equal(spotForAct('plant', 'barn'), 'field');
+  assert.equal(spotForAct('feed', 'pen'), 'pen');
   assert.equal(spotForAct('talk', 'barn'), 'barn');
   assert.equal(spotForAct('fly', 'barn'), null);
+  const field = FARM.placeById.get('field'); const pen = FARM.placeById.get('pen');
+  assert.ok(field && pen && FARM.placeById.size === FARM.spotById.size + 2);
+  assert.equal(field.x, FARM.plots.x + ((FARM.plots.cols - 1) * FARM.plots.gap) / 2);
+  assert.equal(pen.wz, FARM.island.z + FARM.pen.z);
+  assert.throws(() => prepare(blankFarm(), 'talk', {}, { ...rich, spot: 'field' }), /no such spot/, 'nobody lives on the field');
   const farm = blankFarm();
   farm.seeds.turnip = 2; farm.can = 2; farm.hearts.barn = 3;
   farm.animals.push({ kind: 'cow', name: 'Momo', hearts: 3, fed: 1, brushed: 1, got: 0 });

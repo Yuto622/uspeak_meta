@@ -853,6 +853,12 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   エサ＝鳴き声、出荷＝文字タイル（6 文字以下）か 3 つのつづり、料理＝材料。**長い文を作らないこと** — 小1は読めない。
   `farm.js` の `nextStep(f)` が「つぎに する こと」を 1 つ返し、帯（`#farm-next-step`）と屋外の光の柱（`island.setTarget`）の
   両方がそれを使う。各画面の ①②③ は `HOWTO`。問題と正解は `speak` で読み上げる。
+- **畑と柵は「場所」**（2026-10）。`farm-island.js` の `nearField(player)` が「どのマスの上か／柵の中か」を返し、
+  `rpg.farmFieldNearby()` → `net.farmFieldInteract()` → `farm.openAt()` で**小さいカード**（`#farm-dialog.mini`）が開く。
+  開いた瞬間に そのマスの用事（みずやり・しゅうかく・かたづけ）を `act()` する（`state.auto`）。あいているマスだけ
+  たねを選ばせる。OK でカードは閉じる（畑を見せるため）。畑と柵の**当たり判定は柵の線だけ**（四角で塞ぐと入れない）。
+  光の柱は `island-kit` の `setTarget(id, at)` で建物以外にも立つ（`places.field` / `places.pen`）。
+  マスが変わると `pops` で はねる（`paint()` が前回の段階と比べる）。
 - **E キーの連鎖（`game.js` の keydown）とクリックの連鎖は別々に書いてある。** 島を足したら両方に `xxxNearby()` を足すこと。
   ぼくじょう島はクリック側にしか無く、E で開かなかった。
 - 買い物の効果は `{ spend, id }` を返すこと（`onFarmAnswer` がそれで請求する）。返し忘れると店がタダになる。

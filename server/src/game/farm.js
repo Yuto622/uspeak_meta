@@ -48,6 +48,20 @@ function loadFarm() {
     }
   }
   for (const kind of ['shop', 'field', 'barn', 'ship', 'kitchen']) need(island.spots.some((s) => s.kind === kind), `a ${kind} spot`);
+  // Two places that are not buildings: the field and the pen, out in the open. A child
+  // stands on a plot to plant or water it, and beside an animal to feed it (2026-10:
+  // the classroom said a 2D grid in a greenhouse was no farm). They are position-checked
+  // like a building, from the centre of the fenced square the page draws from the same
+  // numbers.
+  const plots = island.plots; const pen = island.pen;
+  need(plots && Number.isFinite(plots.x) && Number.isFinite(plots.z) && plots.cols >= 1 && plots.rows >= 1 && plots.gap > 0, 'plots block');
+  need(pen && Number.isFinite(pen.x) && Number.isFinite(pen.z), 'pen block');
+  const fieldAt = { x: plots.x + ((plots.cols - 1) * plots.gap) / 2, z: plots.z + ((plots.rows - 1) * plots.gap) / 2 };
+  const placeById = new Map(spotById);
+  for (const [id, at] of [['field', fieldAt], ['pen', { x: pen.x, z: pen.z }]]) {
+    need(!placeById.has(id), `a spot is already called ${id}`);
+    placeById.set(id, { id, x: at.x, z: at.z, wx: island.x + at.x, wz: island.z + at.z, open: true });
+  }
   const byId = (list, what) => {
     const m = new Map();
     for (const it of list) { need(it.id && it.en && it.ja, `${what} ${it.id}`); need(!m.has(it.id), `duplicate ${what} ${it.id}`); m.set(it.id, it); }
@@ -73,7 +87,7 @@ function loadFarm() {
   const likes = raw.likes || {};
   for (const [spot, list] of Object.entries(likes)) { need(spotById.has(spot), `likes for ${spot}`); for (const id of list) need(items.has(id), `${spot} likes ${id}`); }
   return {
-    id: island.id, island, spotById, crops, animals, products, tools, recipes, items, likes,
+    id: island.id, island, spotById, placeById, plots, pen, crops, animals, products, tools, recipes, items, likes,
     plotCount: Math.max(1, Math.min(16, num(raw.plotCount, 9))),
     animalLimit: Math.max(1, num(raw.animalLimit, 4)),
     dailyCoinCap: Math.max(0, num(raw.dailyCoinCap, 150)),
@@ -294,11 +308,20 @@ export function judge(q, answer) {
 // the effect to run when the answer is right. The room holds the question on the farm
 // (`farm.q`) until it is answered, so an answer cannot be sent for a question that was
 // never asked, and a second action replaces the first.
+// Field work is done standing on the field (or, still, from the greenhouse's overview);
+// animals are tended at the pen (or in the barn). The first place listed is where a
+// request that names nowhere in particular is checked.
 const SPOT_OF_ACT = {
-  buy: 'seeds', tool: 'seeds', plant: 'house', water: 'house', harvest: 'house', clear: 'house',
-  feed: 'barn', brush: 'barn', collect: 'barn', ship: 'ship', cook: 'kitchen', talk: null, gift: null,
+  buy: 'seeds', tool: 'seeds', plant: ['field', 'house'], water: ['field', 'house'], harvest: ['field', 'house'], clear: ['field', 'house'],
+  feed: ['pen', 'barn'], brush: ['pen', 'barn'], collect: ['pen', 'barn'], ship: 'ship', cook: 'kitchen', talk: null, gift: null,
 };
-export const spotForAct = (act, spot) => (SPOT_OF_ACT[act] === undefined ? null : SPOT_OF_ACT[act] ?? spot);
+export const spotForAct = (act, spot) => {
+  const where = SPOT_OF_ACT[act];
+  if (where === undefined) return null;
+  if (where === null) return spot;
+  if (Array.isArray(where)) return where.includes(spot) ? spot : where[0];
+  return where;
+};
 
 export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, spot = '' } = {}) {
   settle(farm, now);

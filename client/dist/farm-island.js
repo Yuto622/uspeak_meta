@@ -34,6 +34,10 @@ export function createFarmIsland({ scene }) {
   let plotMeshes = [];      // one group per plot: soil, sprout, leaves, fruit
   let penGroup = null;      // the animals
   let lastFarm = null;
+  let rootRef = null;       // the island's group: plots are placed in its coordinates
+  let places = null;        // { field: {x,z,...}, pen: {x,z,...} } in island coordinates
+  let stages = [];          // the stage each plot was last drawn at, to notice growth
+  const pops = [];          // little scale bounces on a plot that just changed
   const geo = new THREE.BoxGeometry();
   const mats = new Map();
   const mat = (c) => { if (!mats.has(c)) mats.set(c, new THREE.MeshStandardMaterial({ color: c, roughness: 0.85 })); return mats.get(c); };
@@ -72,6 +76,14 @@ export function createFarmIsland({ scene }) {
       fence(fx - fw / 2 - 0.6, fz - fd / 2 - 0.6, Math.ceil((fw + 1.2) / 2), 'x');
       fence(fx - fw / 2 - 0.6, fz + fd / 2 + 0.6, Math.ceil((fw + 1.2) / 2), 'x');
       fence(fx - fw / 2 - 0.6, fz - fd / 2 - 0.6, Math.ceil((fd + 1.2) / 2), 'z');
+      // The field is walked into (the east side is open): the fences are what block, not
+      // the square — a child stands on a plot and presses E (2026-10). The server checks
+      // the same place from farm.json (`FARM.placeById`).
+      obstacles.push({ x: fx, z: fz - fd / 2 - 0.6, w: fw / 2 + 0.6, d: 0.12 });
+      obstacles.push({ x: fx, z: fz + fd / 2 + 0.6, w: fw / 2 + 0.6, d: 0.12 });
+      obstacles.push({ x: fx - fw / 2 - 0.6, z: fz, w: 0.12, d: fd / 2 + 0.6 });
+      rootRef = root;
+      places = { field: { x: fx, z: fz, w: fw / 2 + 0.6, d: fd / 2 + 0.6 } };
       // Scarecrow at the far corner, so the field has a landmark of its own.
       const sx = fx - fw / 2 - 1.4; const sz = fz - fd / 2 - 1.4;
       D(sx, 1.4, sz, 0.16, 2.8, 0.16, 0x8a6a45);
@@ -79,7 +91,7 @@ export function createFarmIsland({ scene }) {
       D(sx, 2.0, sz, 0.9, 0.9, 0.5, 0x6b8fbf);
       D(sx, 2.75, sz, 0.55, 0.55, 0.5, 0xe8c39a);
       D(sx, 3.12, sz, 0.9, 0.18, 0.9, 0xd9b45c);
-      obstacles.push({ x: fx, z: fz, w: fw / 2 + 0.3, d: fd / 2 + 0.3 });
+      obstacles.push({ x: sx, z: sz, w: 0.3, d: 0.3 });
       sprite({ en: 'MY FIELD', ja: 'わたしの はたけ' }, fx, 3.2, fz + fd / 2 + 1.4, { width: 5, size: 30 });
       plotMeshes = [];
       for (let r = 0; r < pl.rows; r += 1) {
@@ -108,7 +120,12 @@ export function createFarmIsland({ scene }) {
       D(pen.x + pen.w / 2 - 1.2, 0.5, pen.z, 0.7, 0.5, 2.0, 0x8a6a45);
       D(pen.x + pen.w / 2 - 1.2, 0.72, pen.z, 0.5, 0.1, 1.8, 0xd9b45c);
       sprite({ en: 'THE PEN', ja: 'どうぶつの さく' }, pen.x, 3.0, pen.z + pen.d / 2 + 1.2, { width: 4.4, size: 30 });
-      obstacles.push({ x: pen.x, z: pen.z, w: pen.w / 2 + 0.3, d: pen.d / 2 + 0.3 });
+      // Open on the west side, like the field: walk in among the animals.
+      obstacles.push({ x: pen.x, z: pen.z - pen.d / 2, w: pen.w / 2, d: 0.12 });
+      obstacles.push({ x: pen.x, z: pen.z + pen.d / 2, w: pen.w / 2, d: 0.12 });
+      obstacles.push({ x: pen.x + pen.w / 2, z: pen.z, w: 0.12, d: pen.d / 2 });
+      obstacles.push({ x: pen.x + pen.w / 2 - 1.2, z: pen.z, w: 0.4, d: 1.0 });
+      places.pen = { x: pen.x, z: pen.z, w: pen.w / 2 + 0.6, d: pen.d / 2 + 0.6 };
       penGroup = new THREE.Group();
       penGroup.position.set(pen.x, 0, pen.z);
       root.add(penGroup);
@@ -175,6 +192,11 @@ export function createFarmIsland({ scene }) {
       const m = plotMeshes[i];
       if (!m) return;
       const stage = !p ? 0 : p.wilted ? 4 : p.ready ? 3 : p.growth >= Math.ceil(p.days / 2) ? 2 : 1;
+      // Something happened on this plot: a bounce, so the child who just answered sees the
+      // field answer back. (Only after the first drawing — arriving is not an event.)
+      const wasWet = m.wet.visible;
+      if (stages.length && (stage !== stages[i] || (!!p && p.watered && !p.wilted && !wasWet))) pops.push({ g: m.g, at: performance.now() });
+      stages[i] = stage;
       m.wet.visible = !!p && p.watered && !p.wilted;
       m.sprout.visible = stage === 1;
       m.leaves.visible = stage === 2 || stage === 3;
@@ -206,13 +228,45 @@ export function createFarmIsland({ scene }) {
     }
   }
 
+  // Where the child is standing, if it is on the farm itself: on one of the nine plots
+  // (which one), or in among the animals. Measured in the island's own coordinates.
+  function nearField(player) {
+    if (!places || !rootRef || !island.visible || !island.data) return null;
+    const lx = player.position.x - rootRef.position.x;
+    const lz = player.position.z - rootRef.position.z;
+    const pl = island.data.plots;
+    let best = null;
+    for (let r = 0; r < pl.rows; r += 1) {
+      for (let c = 0; c < pl.cols; c += 1) {
+        const d = Math.hypot(lx - (pl.x + c * pl.gap), lz - (pl.z + r * pl.gap));
+        if (d < 1.2 && (!best || d < best.d)) best = { kind: 'plot', index: r * pl.cols + c, d };
+      }
+    }
+    if (best) return best;
+    const pen = places.pen;
+    if (pen && Math.abs(lx - pen.x) < pen.w && Math.abs(lz - pen.z) < pen.d) return { kind: 'pen', index: -1, d: 0 };
+    return null;
+  }
+
   const baseUpdate = island.update;
+  const baseSetTarget = island.setTarget;
   return Object.assign(island, {
     ready: loadFarmData().then((d) => { island.receive(d.island); return d; }),
     setFarm: paint,
+    nearField,
+    // The beacon can stand on the field or at the pen, not only over a door.
+    setTarget(id) { baseSetTarget(id, places?.[id] ? { x: places[id].x, z: places[id].z } : null); },
     update(t, player) {
       baseUpdate(t, player);
       if (penGroup?.visible) for (const g of penGroup.children) { g.position.y = Math.abs(Math.sin(t * 2 + g.userData.seed)) * 0.08; g.rotation.y = Math.sin(t * 0.4 + g.userData.seed) * 0.6; }
+      if (pops.length) {
+        const now = performance.now();
+        for (let i = pops.length - 1; i >= 0; i -= 1) {
+          const k = (now - pops[i].at) / 520;
+          if (k >= 1) { pops[i].g.scale.setScalar(1); pops.splice(i, 1); continue; }
+          pops[i].g.scale.setScalar(1 + Math.sin(Math.PI * k) * 0.3);
+        }
+      }
     },
   });
 }

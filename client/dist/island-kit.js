@@ -505,13 +505,18 @@ export function createIsland({ scene, build, seed = 20250910 }) {
       shade, lamp, bush, flowers, rock, barrel, crate, bench, fence, bunting, root });
     makeBeacon();
     flushDeco();
-    setTarget(targetId);
+    setTarget(targetId, targetAt);
   }
 
-  function setTarget(spotId) {
+  // `at` lets an island point the beacon at a place that is not a building (ぼくじょう島's
+  // field and pen): the id is remembered for the minimap, the coordinates for the light.
+  let targetAt = null;
+  const targetSpot = () => data?.spots.find((sp) => sp.id === targetId) || (targetId && targetAt ? targetAt : null);
+  function setTarget(spotId, at = null) {
     targetId = spotId || '';
+    targetAt = at;
     if (!beacon) return;
-    const spot = data?.spots.find((sp) => sp.id === targetId);
+    const spot = targetSpot();
     beacon.visible = labelsOn && !!spot;
     if (spot) beacon.position.set(spot.x, 0, spot.z);
   }
@@ -605,7 +610,7 @@ export function createIsland({ scene, build, seed = 20250910 }) {
       for (const s2 of labels) s2.visible = labelsOn;
       // The pillar of light that points at the building a child is being sent to belongs
       // to walking around; a race has its own thing to drive at.
-      if (beacon) beacon.visible = labelsOn && !!data?.spots.find((sp) => sp.id === targetId);
+      if (beacon) beacon.visible = labelsOn && !!targetSpot();
     },
     setTarget, update, nearest, blocked, drawMap, doorNear, setNight,
     get doors() { return doors.map((d) => ({ id: d.def.id, x: d.x, z: d.z })); },

@@ -1244,8 +1244,9 @@ export class ClassRoom extends Room {
   // the child chose, typed or arranged (`farm:answer`); the room judges, and only then
   // does the seed go in, the plot get watered, the box get shipped. Every action is
   // checked against the building the child is standing in, like every other island.
+  // A building, or one of the two open places (the field, the pen): both are "stand here".
   atFarmSpot(sessionId, spotId) {
-    const spot = FARM.spotById.get(spotId);
+    const spot = FARM.placeById.get(spotId);
     return !!spot && this.atPlace(sessionId, FARM.island, spot);
   }
 
@@ -1264,7 +1265,7 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
     const spot = typeof msg?.spot === 'string' ? msg.spot : '';
-    if (!FARM.spotById.has(spot)) { client.send('farm:error', { reason: 'no such spot' }); return; }
+    if (!FARM.placeById.has(spot)) { client.send('farm:error', { reason: 'no such spot' }); return; }
     if (!this.atFarmSpot(client.sessionId, spot)) { client.send('farm:error', { reason: 'too far', spot }); return; }
     client.send('farm:state', { spot, ...this.farmState(client.sessionId) });
   }
@@ -1275,7 +1276,7 @@ export class ClassRoom extends Room {
     const act = typeof msg?.act === 'string' ? msg.act : '';
     const spot = typeof msg?.spot === 'string' ? msg.spot : '';
     const where = spotForAct(act, spot);
-    if (!where || !FARM.spotById.has(where)) { client.send('farm:error', { reason: 'unknown action' }); return; }
+    if (!where || !FARM.placeById.has(where)) { client.send('farm:error', { reason: 'unknown action' }); return; }
     if (!this.atFarmSpot(client.sessionId, where)) { client.send('farm:error', { reason: 'too far', spot: where }); return; }
     try {
       const q = prepareFarm(priv.farm, act, msg?.params || {}, { now: Date.now(), coins: priv.wallet.coins, spot: where });

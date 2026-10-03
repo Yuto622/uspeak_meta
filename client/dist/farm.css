@@ -125,3 +125,28 @@
 .farm-answer .farm-say { background: #ffffff26; }
 #farm-next { min-height: 44px; font-size: 17px; }
 @media (max-width: 760px) { .farm-howto { margin: 6px 12px 0; } .farm-next { margin: 8px 12px 0; } }
+
+/* --- the small card: standing on a plot, or in the pen (2026-10) -------------------------
+   Opened from the field itself. Short, so the field stays in view behind it: one plot (or
+   the animals) on the left, the question on the right, and OK closes it. */
+#farm-dialog.mini[open] { width: min(720px, 96vw); max-height: min(70vh, 560px); }
+#farm-dialog.mini .farm-howto li { font-size: 12px; }
+#farm-dialog.mini .farm-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+#farm-dialog.mini #farm-bag { display: none; }
+.farm-plotcard {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;
+  background: #fff8ea; border: 2px solid #e2d2b0; border-radius: 16px; padding: 14px 12px;
+}
+.farm-plotcard .farm-big { font-size: 56px; line-height: 1; }
+.farm-plotcard .farm-en { font-size: 20px; }
+.farm-plotcard p { margin: 4px 0 0; font-size: 14px; color: #4a3a22; }
+.farm-plotcard .farm-grow { width: 70%; }
+.farm-plotcard .farm-row button { font-size: 16px; padding: 10px 18px; }
+.farm-plotcard.wet { background: #eef6ff; border-color: #bcd4ea; }
+.farm-plotcard.empty { background: #f3ead6; }
+.farm-seedpick.open { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
+.farm-seedpick.open > b { width: 100%; }
+@media (max-width: 700px) {
+  #farm-dialog.mini .farm-body { grid-template-columns: 1fr; }
+  .farm-plotcard .farm-big { font-size: 42px; }
+}
