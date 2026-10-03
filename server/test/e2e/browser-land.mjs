@@ -1,7 +1,8 @@
 // Browser end-to-end check for 土地島: a real avatar lands on the island, walks into the
-// estate office, buys the first island with the first day's coins, walks into the ferry
-// house and stands on an island of their own — then walks back down the jetty and is on
-// 土地島 again. The board lists the class by name. Every price and tier is the room's.
+// estate office, sees all twelve islands as real 3D pictures and one turning on the stage,
+// buys the first with the first day's coins, walks into the ferry house and stands on an
+// island of their own — then walks back down the jetty and is on 土地島 again. The board
+// lists the class by name. Every price and tier is the room's.
 //
 // Run: node test/e2e/browser-land.mjs   (not part of `npm test`)
 import { spawn } from 'node:child_process';
@@ -63,23 +64,51 @@ try {
   await sleep(2500);
   await fig(page, 'island-land');
 
-  // The office: six cards, the first one buyable with the first day's coins.
+  // The office: twelve cards in a grid, the first step buyable with the first day's coins.
   await walkTo(page, 'office');
   await page.waitForSelector('#land-dialog[open]', { state: 'attached', timeout: 30000 });
   await page.waitForFunction(() => uspeak.net.land.state.land && uspeak.net.land.state.mode === 'office', null, { timeout: 20000 });
   const L = await page.evaluate(() => uspeak.net.land.state.land);
-  check('walking into the office opens the six islands', L.tiers.length === 6 && L.tier === 0 && L.next.id === 'sand');
-  check('the first island costs no more than a first day', L.next.price <= (await page.evaluate(() => uspeak.net.land.state.coins)), `price=${L.next.price}`);
+  check('walking into the office opens the six steps, two looks each', L.tiers.length === 6 && L.tiers.every((t) => t.looks.length === 2) && L.tier === 0 && L.next.id === 'step1');
+  check('the first step costs no more than a first day', L.next.price <= (await page.evaluate(() => uspeak.net.land.state.coins)), `price=${L.next.price}`);
+  check('twelve cards on the grid', (await page.evaluate(() => document.querySelectorAll('#land-body .land-card').length)) === 12);
+  // Every card gets a real 3D picture, baked by the dialog's own renderer, a few a frame.
+  await page.waitForFunction(() => uspeak.net.land.shots.size >= 12, null, { timeout: 120000 });
+  const baked = await page.evaluate(() => ({
+    urls: [...uspeak.net.land.shots.values()].filter((u) => typeof u === 'string' && u.startsWith('data:image/')).length,
+    shown: document.querySelectorAll('#land-body .land-shot.shot img:not([hidden])').length,
+    distinct: new Set([...uspeak.net.land.shots.values()]).size,
+  }));
+  check('every card shows a 3D picture of its island, each one different', baked.urls === 12 && baked.shown === 12 && baked.distinct === 12, JSON.stringify(baked));
+  const stage = await page.evaluate(() => { const c = document.querySelector('#land-canvas'); return { w: c.width, h: c.height, hidden: c.hidden, pick: uspeak.net.land.state.pick }; });
+  check('the stage turns the next island in 3D', stage.w > 100 && stage.h > 100 && !stage.hidden && stage.pick === 'sand', JSON.stringify(stage));
+  // Tapping a card puts that island on the stage.
+  await page.click('#land-body .land-card[data-look="rock"]');
+  await sleep(300);
+  check('tapping a card puts that island on the stage', (await page.evaluate(() => ({ pick: uspeak.net.land.state.pick, sel: document.querySelector('#land-body .land-card.selected')?.dataset.look }))).sel === 'rock');
+  await sleep(1500);
   await fig(page, 'screen-land-office');
+  await page.click('#land-body .land-card[data-look="sand"]');
+  await sleep(300);
   check('buying takes two taps: the first only asks', await page.evaluate(() => !!document.querySelector('#land-body [data-ask]') && !document.querySelector('#land-body [data-buy]')));
   await page.click('#land-body [data-ask]');
   await page.waitForSelector('#land-body [data-buy]', { timeout: 10000 });
   const coinsBefore = await page.evaluate(() => uspeak.net.land.state.coins);
   await page.click('#land-body [data-buy]');
   await page.waitForFunction(() => uspeak.net.land.state.land?.tier === 1, null, { timeout: 20000 });
-  const after = await page.evaluate(() => ({ coins: uspeak.net.land.state.coins, mine: document.querySelectorAll('#land-body .land-card.mine').length, next: uspeak.net.land.state.land.next?.id }));
-  check('the sandy islet is bought and the room charged its price', after.coins === coinsBefore - L.next.price && after.mine === 1 && after.next === 'grass', JSON.stringify(after));
-  check('the second island is out of reach today, and the button says by how much', await page.evaluate(() => { const b = document.querySelector('#land-body [data-ask]'); return !!b && b.disabled; }));
+  const after = await page.evaluate(() => ({
+    coins: uspeak.net.land.state.coins, look: uspeak.net.land.state.land.look, mine: document.querySelectorAll('#land-body .land-card.mine').length,
+    restyle: document.querySelectorAll('#land-body .land-card.restyle').length, next: uspeak.net.land.state.land.next?.id,
+  }));
+  check('the sandy islet is bought and the room charged its price', after.coins === coinsBefore - L.next.price && after.look === 'sand' && after.mine === 1 && after.next === 'step2', JSON.stringify(after));
+  check('the other look of the same step is offered as a restyle', after.restyle === 1 && (await page.evaluate(() => document.querySelector('#land-body .land-card.restyle .land-price').textContent)).includes(String(L.next.restyle)));
+  await page.click('#land-body .land-card[data-look="rock"]');
+  await sleep(300);
+  check('the restyle is out of reach today, and the button says by how much', await page.evaluate(() => { const b = document.querySelector('#land-body [data-ask]'); return !!b && b.disabled; }));
+  await page.click('#land-body .land-card[data-look="grass"]');
+  await sleep(300);
+  check('the second step is out of reach today too', await page.evaluate(() => { const b = document.querySelector('#land-body [data-ask]'); return !!b && b.disabled; }));
+  await sleep(1200);
   await fig(page, 'screen-land-bought');
   await page.evaluate(() => uspeak.net.land.close());
 
@@ -100,12 +129,14 @@ try {
   await page.waitForFunction(() => !uspeak.net.myLand.active && uspeak.rpg.state.current === 'land', null, { timeout: 30000 });
   check('walking down the jetty is leaving, back onto 土地島', true);
 
-  // The board: by name, with the new owner on it.
+  // The board: by name, with the new owner on it, and their island's picture.
   await sleep(1500);
   await walkTo(page, 'board');
   await page.waitForFunction(() => uspeak.net.land.state.board, null, { timeout: 30000 });
   const board = await page.evaluate(() => uspeak.net.land.state.board);
-  check('the board lists the class by name and counts the owners', board.rows.some((r) => r.name === 'Sora' && r.tier === 1) && board.owners >= 1, JSON.stringify(board.rows));
+  check('the board lists the class by name and counts the owners', board.rows.some((r) => r.name === 'Sora' && r.tier === 1 && r.look === 'sand') && board.owners >= 1, JSON.stringify(board.rows));
+  await sleep(800);
+  check('the board shows each island by its 3D picture', (await page.evaluate(() => document.querySelectorAll('#land-body .land-board .land-shot.shot img:not([hidden])').length)) >= 1);
   await fig(page, 'screen-land-board');
   await page.evaluate(() => uspeak.net.land.close());
 } catch (err) {

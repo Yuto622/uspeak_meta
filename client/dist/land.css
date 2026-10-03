@@ -1,6 +1,6 @@
-/* 土地島 — the estate office and the board. The dialog borrows the quiz head. */
+/* 土地島 — the estate office (a turntable and a grid of 3D cards) and the board. */
 #land-dialog {
-  width: min(880px, 96vw); max-height: min(88vh, 720px); padding: 0; border: 0; border-radius: 22px;
+  width: min(1000px, 96vw); max-height: min(90vh, 760px); padding: 0; border: 0; border-radius: 22px;
   background: #fbf7ec; color: #1b3a2f; box-shadow: 0 24px 70px #0b1f1e66; overflow: hidden;
 }
 #land-dialog[open] { display: flex; flex-direction: column; }
@@ -8,43 +8,84 @@
 #land-dialog .quiz-head { gap: 12px; }
 #land-dialog .quiz-head h2 { margin: 0; font-size: 20px; }
 .land-coins { margin-left: auto; font-weight: 800; color: #8a6a2a; font-size: 15px; white-space: nowrap; }
-#land-body { padding: 12px 18px 18px; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
+#land-body { padding: 12px 18px 18px; overflow-y: auto; flex: 1 1 auto; min-height: 0; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 .land-lead { margin: 4px 0 10px; font-size: 15px; }
 .land-note { margin: 10px 0 0; font-size: 12px; color: #6a5a3a; line-height: 1.6; }
-.land-tiers { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
-.land-card {
-  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px;
-  background: #fff; border: 2px solid #e2d8c0; border-radius: 16px; padding: 12px 10px 12px; position: relative;
-}
-.land-card b { font-size: 15px; }
-.land-card small { font-size: 12px; color: #5a4a2a; line-height: 1.45; min-height: 2.9em; }
-.land-emoji { font-size: 40px; line-height: 1; }
+
+/* The stage: the island a child tapped, turning; beside it what it is and the button. */
+.land-stage { display: grid; grid-template-columns: minmax(0, 3fr) minmax(220px, 2fr); gap: 12px; margin-bottom: 12px; }
+.land-view { position: relative; border-radius: 18px; overflow: hidden; background: linear-gradient(#9fd3ea, #d9ecf4); min-height: 240px; box-shadow: inset 0 0 0 2px #e2d8c0; }
+.land-view canvas { display: block; width: 100%; height: 260px; touch-action: none; cursor: grab; }
+.land-view canvas:active { cursor: grabbing; }
+.land-view-emoji { position: absolute; inset: 0; display: grid; place-items: center; font-size: 96px; }
+.land-view-hint { position: absolute; left: 10px; bottom: 8px; font-size: 11px; font-weight: 700; color: #fff; background: #1b3a2f99; padding: 3px 9px; border-radius: 999px; pointer-events: none; }
+.land-view-hint i { font-style: normal; }
+.land-pick { display: flex; flex-direction: column; gap: 6px; background: #fff; border: 2px solid #e2d8c0; border-radius: 18px; padding: 14px 16px; }
+.land-pick b { font-size: 18px; }
+.land-pick b .land-emoji { font-size: 22px; }
+.land-pick small { font-size: 13px; color: #5a4a2a; line-height: 1.5; }
+.land-pick .land-hint { color: #8a6a2a; }
+.land-pick .land-price { font-size: 20px; margin-top: auto; }
+.land-step { font-size: 11px; font-weight: 800; letter-spacing: .5px; color: #7b8a7f; }
+.land-state { font-weight: 800; color: #4a7338; font-size: 15px; }
 .land-price { font-weight: 800; color: #8a6a2a; font-size: 14px; }
-.land-card.owned { background: #eef6e8; border-color: #bcd4a8; }
-.land-card.mine { border-color: #4a7338; box-shadow: 0 0 0 3px #4a733833; }
+.land-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.land-pick button, .land-row button { padding: 10px 14px; border-radius: 12px; font-size: 15px; font-weight: 700; border: 1px solid #c9b98a; background: #fff; color: #1b3a2f; }
+.land-pick button.primary, .land-row button.primary { background: #4a7338; color: #fff; border-color: #4a7338; }
+.land-pick button:disabled { opacity: .55; }
+
+/* The grid: twelve cards, each with the island's own 3D picture once it is baked. */
+.land-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.land-card {
+  display: flex; flex-direction: column; align-items: stretch; text-align: center; gap: 4px; font: inherit; color: inherit; cursor: pointer;
+  background: #fff; border: 2px solid #e2d8c0; border-radius: 16px; padding: 6px 6px 10px; position: relative; transition: transform .12s ease, box-shadow .12s ease;
+}
+.land-card:hover { transform: translateY(-2px); box-shadow: 0 8px 18px #1b3a2f22; }
+.land-card b { font-size: 14px; }
+.land-shot { position: relative; display: block; aspect-ratio: 22 / 15; border-radius: 12px; overflow: hidden; background: linear-gradient(#bfe3f0, #e8f2d8); }
+.land-shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.land-shot .land-emoji { position: absolute; inset: 0; display: grid; place-items: center; font-size: 44px; line-height: 1; }
+.land-shot.shot .land-emoji { display: none; }
+.land-shot .land-step { position: absolute; left: 6px; top: 5px; background: #1b3a2fb0; color: #fff; padding: 2px 7px; border-radius: 999px; }
+.land-shot.small { width: 56px; height: 40px; flex: none; aspect-ratio: auto; border-radius: 8px; }
+.land-shot.small .land-emoji { font-size: 24px; }
+.land-card.mine { border-color: #4a7338; background: #eef6e8; }
+.land-card.passed { opacity: .8; }
+.land-card.restyle { border-color: #bcd4a8; }
 .land-card.next { border-color: #e8a63a; background: #fff8e8; }
-.land-card.next .land-price { color: #c8781a; font-size: 16px; }
+.land-card.next .land-price { color: #c8781a; font-size: 15px; }
+.land-card.later .land-shot { filter: saturate(.6); }
+.land-card.selected { box-shadow: 0 0 0 3px #4a7338; }
 .land-lock { font-size: 11px; color: #9a8a6a; }
-.land-card button { padding: 9px 12px; border-radius: 12px; font-size: 14px; font-weight: 700; border: 1px solid #c9b98a; background: #fff; color: #1b3a2f; }
-.land-card button.primary { background: #4a7338; color: #fff; border-color: #4a7338; }
-.land-card button:disabled { opacity: .55; }
-.land-row { display: flex; gap: 6px; }
-/* The six looks, as a tint behind each card's picture. */
-.land-card[data-theme="sand"] .land-emoji { background: #f6e6b4; border-radius: 50%; padding: 6px; }
-.land-card[data-theme="grass"] .land-emoji { background: #d6e8bd; border-radius: 50%; padding: 6px; }
-.land-card[data-theme="forest"] .land-emoji { background: #bcd4a8; border-radius: 50%; padding: 6px; }
-.land-card[data-theme="flower"] .land-emoji { background: #f8d6e2; border-radius: 50%; padding: 6px; }
-.land-card[data-theme="snow"] .land-emoji { background: #e6eef8; border-radius: 50%; padding: 6px; }
-.land-card[data-theme="sky"] .land-emoji { background: #d9e2ff; border-radius: 50%; padding: 6px; }
-.land-board { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+/* The twelve worlds, as a tint behind each card's picture until the real one is baked. */
+.land-card[data-theme="sand"] .land-shot, .land-shot[data-theme="sand"] { background: linear-gradient(#9fd3ea, #f0dca0); }
+.land-card[data-theme="rock"] .land-shot { background: linear-gradient(#a6c3d3, #8f8b80); }
+.land-card[data-theme="grass"] .land-shot { background: linear-gradient(#9fd3ea, #8fb36a); }
+.land-card[data-theme="lake"] .land-shot { background: linear-gradient(#a8d8ee, #93b86e); }
+.land-card[data-theme="forest"] .land-shot { background: linear-gradient(#8fc3dc, #5f8a4a); }
+.land-card[data-theme="desert"] .land-shot { background: linear-gradient(#f6dcae, #e9c37c); }
+.land-card[data-theme="flower"] .land-shot { background: linear-gradient(#aee0f2, #a6cf74); }
+.land-card[data-theme="autumn"] .land-shot { background: linear-gradient(#f3c99a, #a89a5c); }
+.land-card[data-theme="snow"] .land-shot { background: linear-gradient(#c7dcea, #f2f4f8); }
+.land-card[data-theme="volcano"] .land-shot { background: linear-gradient(#6a5570, #4c4642); }
+.land-card[data-theme="sky"] .land-shot { background: linear-gradient(#4a6fb0, #e8eef7); }
+.land-card[data-theme="space"] .land-shot { background: linear-gradient(#05070f, #bfbfc6); }
+
+.land-board { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
 .land-board li { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #e2d8c0; border-radius: 12px; padding: 8px 10px; }
-.land-board li .land-emoji { font-size: 26px; }
 .land-board li b { flex: 1 1 auto; font-size: 14px; }
-.land-board li span:last-child { font-size: 12px; color: #5a4a2a; }
+.land-board li > span:last-child { font-size: 12px; color: #5a4a2a; text-align: right; line-height: 1.35; }
+.land-board li i { font-style: normal; color: #9a8a6a; font-size: 11px; }
 .land-board li.me { border-color: #4a7338; background: #eef6e8; }
 /* While standing on your own island the quest panel steps aside; the rail stays. */
 body.on-own-island .quest-panel { display: none; }
-@media (max-width: 700px) {
-  .land-tiers { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-  .land-card small { min-height: 0; }
+@media (max-width: 760px) {
+  .land-stage { grid-template-columns: 1fr; }
+  .land-view { min-height: 0; }
+  .land-view canvas { height: 200px; }
+  .land-grid { grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); }
+  .land-card b { font-size: 12px; }
+}
+@media (max-height: 520px) {
+  .land-view canvas { height: 170px; }
 }

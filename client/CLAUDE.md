@@ -867,20 +867,31 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 
 ## 土地島（じぶんだけの しま／2026-10 追加）
 
-`land-island.js` + `land.json`（島と 6 段階）/ `land.js` + `land.css`（ふどうさん・みんなの しま）/
-`land-world.js`（自分の島＝独立シーン）。サーバーは `server/src/game/land.js`。調べものは `docs/uspeak-land-research.md`。
+`land-island.js` + `land.json`（島と 6 段 × 2 種類）/ `land.js` + `land.css`（ふどうさん・みんなの しま）/
+`land-world.js`（`buildIslandModel` と 自分の島＝独立シーン）。サーバーは `server/src/game/land.js`。
+調べものは `docs/uspeak-land-research.md`。
 
-- **`land.json` が唯一の定義元**（島・6 段・値段・広さ・テーマ）。ページとサーバーが同じく読む。
+- **`land.json` が唯一の定義元**（島・6 段・値段・広さ・各段の `looks`・もようがえの割合 `restyle`）。ページとサーバーが同じく読む。
 - **3 つの建物は全部 戸口で開く**（`net-client.js` の `setDoorHandler` が `islandId === 'land'` を `land.enter(spot)` に渡す）。
   office → `land:open` でカード、board → `land:board`、ferry → `land:enter` → `land:island` → `myLand.enter()`。
-- **自分の島は マイルームと同じ作り**：`rpg.attachLand(myLand)` で `builtIn()` に入り、`interiorScene` / `interiorCamera` /
-  `mapSmall` / `blocked` がそのまま効く。`currentSpace()` は `in:land`（通話にはならない）。出るのは **さんばしを下る**
-  （`update()` が `z > half + 2` を見る）。
-- **テーマは `land-world.js` の `BUILD[theme]`** に 1 つずつ。動くもの（ふうしゃ・けむり・星・たき火）は `state.spin/smoke/stars`。
-  当たり判定は `block()` で登録した箱だけ（木・家・池・像）。看板は `canvas-say` の `live()` で言語切替に追従。
-- **買うのは 2 タップ**（`data-ask` → `data-buy`）。値段の表示は `land.json`、請求はサーバー。
+- **島の形は `buildIslandModel(island, {owner, sign, liveSign, sea})` 1 つ**。`{group, obstacles, animate(t), theme, dispose()}` を返す。
+  12 の世界は `BUILD[theme]` に 1 つずつ。地面・崖・波打ちぎわの岩と泡・さんばし・看板は共通の `ground()`。
+  動くものは `anim(fn)` に登録し、`animate(t)` が全部回す。当たり判定は `block()` で登録した箱だけ。
+  乱数は **種つき**（`seeded(theme:grid)`）なので、カードの絵と歩く島が同じ形になる。`Math.random` を使わないこと。
+- **自分の島は マイルームと同じ作り**：`createLand` が `buildIslandModel(..., {sea:'wide', liveSign:true})` を自分のシーンに置く。
+  `rpg.attachLand(myLand)` で `builtIn()` に入り、`interiorScene` / `interiorCamera` / `mapSmall` / `blocked` がそのまま効く。
+  `currentSpace()` は `in:land`（通話にはならない）。出るのは **さんばしを下る**（`update()` が `z > half + 2` を見る）。
+- **ふどうさんの 3D は `land.js` の自前 `WebGLRenderer` 1 つ**（`#land-canvas`）。台の上の島は `requestAnimationFrame` で回す
+  （dialog が開いている間だけ。`spinning` で 1 本に）。12 枚のカードの絵は同じ renderer で `WebGLRenderTarget` に 1 回焼いて
+  data URL にする（`bake()` → `shots`。きせかえの店と同じ作り。カードごとにキャンバスを持たないこと：Safari が 12 個の
+  WebGL を許さない）。WebGL が無いときは絵文字が立つ（`failed`）。モデルは `models` に見た目ごとに 1 つだけ建てて、
+  台とカードで使い回す（同じ Group を 2 つのシーンに同時に入れないこと：`bake()` が `wasShown` で戻している）。
+- **カードの立場は `standing(look)`**：`mine` / `restyle`（同じ段のもう片方、`step.restyle` の値段）/ `next`（`next.price`）/
+  `passed` / `later`。買うのは 2 タップ（`data-ask` → `data-buy`、`data-kind` が buy か restyle か）。
+  値段の表示は `land.json`、請求はサーバー（`land:buy {look}` / `land:restyle {look}`）。
 - **みんなの しま は名前順**。段で並べ替えないこと（順位表にしない。`docs/uspeak-retention.md`）。
-- 島を足す／段を変えるときは `land.test.mjs`（比率 2〜6 倍・順番・テーマが全部ちがう）を通すこと。
+- 見た目を足す／段を変えるときは `land.test.mjs`（比率 2〜6 倍・順番・12 の世界が全部ちがう・もようがえ）を通し、
+  `land-world.js` の `THEMES` と `BUILD` に同じ名前で足し、`land.css` の `[data-theme=…]` の色も足すこと。
 
 ## きせかえ（アバターの店／2026-09 追加）
 

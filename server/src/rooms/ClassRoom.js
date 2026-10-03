@@ -44,7 +44,7 @@ import {
 } from '../game/gp.js';
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
-import { LAND, LAND_ISLAND, tierOf as landTierOf, sanitizeLand, landPayload, priceOfNext as landPriceOfNext, LandError } from '../game/land.js';
+import { LAND, LAND_ISLAND, sanitizeLand, landPayload, islandPayload as landIslandPayload, priceOfNext as landPriceOfNext, priceOfRestyle as landPriceOfRestyle, LandError } from '../game/land.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, dayIndex, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
 import { SKILLS, blankSkills, sanitizeSkills, addAnswer, radarOf, weakestOf, FULL as SKILL_FULL } from '../game/skills.js';
@@ -174,7 +174,8 @@ export class ClassRoom extends Room {
     this.onMessage('room:remove', (client, msg) => this.onRoomRemove(client, msg));
     this.onMessage('room:move', (client) => this.onRoomMove(client));
     this.onMessage('land:open', (client) => this.onLandOpen(client));
-    this.onMessage('land:buy', (client) => this.onLandBuy(client));
+    this.onMessage('land:buy', (client, msg) => this.onLandBuy(client, msg));
+    this.onMessage('land:restyle', (client, msg) => this.onLandRestyle(client, msg));
     this.onMessage('land:enter', (client) => this.onLandEnter(client));
     this.onMessage('land:board', (client) => this.onLandBoard(client));
     this.onMessage('prop:list', (client) => client.send('prop:shop', this.propShopPayload(client.sessionId)));
@@ -2713,24 +2714,45 @@ export class ClassRoom extends Room {
     client.send('land:state', { ...landPayload(priv.land), ...this.walletPayload(client.sessionId) });
   }
 
-  // The next island, in order, for its price. The page asked with a button that showed
-  // exactly this price, read from the same file; the charge still happens only here.
-  onLandBuy(client) {
+  // The next step, in order, in the look the child picked, for the step's price. The page
+  // asked with a button that showed exactly this price, read from the same file; the
+  // charge still happens only here.
+  onLandBuy(client, msg) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
     const fail = (reason, extra = {}) => client.send('land:error', { reason, ...extra });
     if (!this.atLandSpot(client.sessionId, 'office')) return fail('too far', { spot: this.landSpotPayload('office') });
-    let next;
-    try { next = landPriceOfNext(priv.land, priv.wallet.coins); } catch (err) {
+    let deal;
+    try { deal = landPriceOfNext(priv.land, priv.wallet.coins, typeof msg?.look === 'string' ? msg.look : ''); } catch (err) {
       if (!(err instanceof LandError)) throw err;
       return fail(err.message, { coins: priv.wallet.coins });
     }
-    const entry = applyOp(priv.wallet, { type: 'spend', amount: next.price, id: `land:${next.id}` });
+    const entry = applyOp(priv.wallet, { type: 'spend', amount: deal.price, id: `land:${deal.look.id}` });
     this.store.appendCoin(this.coinRow(client.sessionId, entry));
-    priv.land.tier = next.tier;
+    priv.land.tier = deal.tier.tier;
+    priv.land.look = deal.look.id;
     this.persist(client.sessionId);
     client.send('land:bought', { ...landPayload(priv.land), ...this.walletPayload(client.sessionId) });
-    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${next.id} island (tier ${next.tier})`);
+    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${deal.look.id} island (step ${deal.tier.tier})`);
+  }
+
+  // Another look of the step already owned (もようがえ), for a fraction of its price.
+  onLandRestyle(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const fail = (reason, extra = {}) => client.send('land:error', { reason, ...extra });
+    if (!this.atLandSpot(client.sessionId, 'office')) return fail('too far', { spot: this.landSpotPayload('office') });
+    let deal;
+    try { deal = landPriceOfRestyle(priv.land, priv.wallet.coins, typeof msg?.look === 'string' ? msg.look : ''); } catch (err) {
+      if (!(err instanceof LandError)) throw err;
+      return fail(err.message, { coins: priv.wallet.coins });
+    }
+    const entry = applyOp(priv.wallet, { type: 'spend', amount: deal.price, id: `land:restyle:${deal.look.id}` });
+    this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    priv.land.look = deal.look.id;
+    this.persist(client.sessionId);
+    client.send('land:bought', { ...landPayload(priv.land), restyled: true, ...this.walletPayload(client.sessionId) });
+    log.info(`[room ${this.roomId}] "${priv.name}" restyled their island to ${deal.look.id}`);
   }
 
   // Walking onto the ferry is walking onto the island: the page builds it from this.
@@ -2738,9 +2760,9 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
     if (!this.atLandSpot(client.sessionId, 'ferry')) { client.send('land:error', { reason: 'too far', spot: this.landSpotPayload('ferry') }); return; }
-    if (!priv.land.tier) { client.send('land:error', { reason: 'no island' }); return; }
-    const t = landTierOf(priv.land.tier);
-    client.send('land:island', { tier: t.tier, id: t.id, name: t.name, en: t.en, grid: t.grid, theme: t.theme, emoji: t.emoji, owner: priv.name });
+    const isle = landIslandPayload(priv.land, priv.name);
+    if (!isle) { client.send('land:error', { reason: 'no island' }); return; }
+    client.send('land:island', isle);
   }
 
   // Everyone's islands, by name — not by tier. A class board that sorts children by
@@ -2754,15 +2776,16 @@ export class ClassRoom extends Room {
     try { records = this.store.listClass?.(this.classCode) || []; } catch (err) { log.warn(`[room ${this.roomId}] listClass failed:`, err.message); }
     for (const r of records) {
       if (r.role === 'teacher') continue;
-      rows.set(r.name, { name: r.name, tier: sanitizeLand(parseJson(r.land_json, null)).tier });
+      const l = sanitizeLand(parseJson(r.land_json, null));
+      rows.set(r.name, { name: r.name, tier: l.tier, look: l.look });
     }
     for (const [id, p] of this.priv) {
       const player = this.state.players.get(id);
       if (!player || player.role === 'teacher') continue;
-      rows.set(p.name, { name: p.name, tier: p.land.tier });
+      rows.set(p.name, { name: p.name, tier: p.land.tier, look: p.land.look });
     }
     const all = [...rows.values()].sort((a, b) => a.name.localeCompare(b.name, 'ja'));
-    client.send('land:board', { rows: all, owners: all.filter((r) => r.tier > 0).length, me: { name: priv.name, tier: priv.land.tier } });
+    client.send('land:board', { rows: all, owners: all.filter((r) => r.tier > 0).length, me: { name: priv.name, tier: priv.land.tier, look: priv.land.look } });
   }
 
   // ---- のりもの島 ---------------------------------------------------------------

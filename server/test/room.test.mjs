@@ -1939,19 +1939,34 @@ test('土地島: islands are bought in order at the office, for the price in lan
   a.room.send('land:open', {});
   const opened = await nextMessage(a.room, 'land:state');
   assert.equal(opened.tier, 0);
-  assert.equal(opened.next.id, 'sand');
+  assert.equal(opened.next.id, 'step1');
+  assert.deepEqual(opened.next.looks.map((l) => l.id), ['sand', 'rock'], 'two looks at the first step');
   assert.equal(opened.tiers.length, 6);
+  assert.equal(opened.tiers.flatMap((t) => t.looks).length, 12);
   const before = opened.wallet.coins;
-  assert.ok(before >= opened.next.price, `day one covers the sandy islet (coins=${before})`);
-  a.room.send('land:buy', {});
+  assert.ok(before >= opened.next.price, `day one covers the first step (coins=${before})`);
+  // A look of a later step is not for sale yet, whatever the coins.
+  a.room.send('land:buy', { look: 'grass' });
+  assert.equal((await nextMessage(a.room, 'land:error')).reason, 'no such look');
+  a.room.send('land:buy', { look: 'sand' });
   const bought = await nextMessage(a.room, 'land:bought');
   assert.equal(bought.tier, 1);
+  assert.equal(bought.look, 'sand');
   assert.equal(bought.island.id, 'sand');
   assert.equal(bought.wallet.coins, before - opened.next.price, 'the room charged the price in land.json');
   // The second costs more than a first day has: refused, and nothing changes.
-  a.room.send('land:buy', {});
+  a.room.send('land:buy', { look: 'lake' });
   const broke = await nextMessage(a.room, 'land:error');
   assert.equal(broke.reason, 'not enough coins');
+  // A change of look: the same look is nothing, another step is a purchase, and the
+  // other look of this step costs its restyle price — which a spent first day lacks.
+  a.room.send('land:restyle', { look: 'sand' });
+  assert.equal((await nextMessage(a.room, 'land:error')).reason, 'same look');
+  a.room.send('land:restyle', { look: 'grass' });
+  assert.equal((await nextMessage(a.room, 'land:error')).reason, 'no such look');
+  a.room.send('land:restyle', { look: 'rock' });
+  assert.equal((await nextMessage(a.room, 'land:error')).reason, 'not enough coins');
+  assert.equal(LAND.lookById.get('rock').tier, 1);
   // The ferry now goes somewhere, and what it hands the page is the island to build.
   await stand(a, ...at('ferry'));
   a.room.send('land:enter', {});
@@ -1963,7 +1978,7 @@ test('土地島: islands are bought in order at the office, for the price in lan
   await stand(a, ...at('board'));
   a.room.send('land:board', {});
   const board = await nextMessage(a.room, 'land:board');
-  assert.ok(board.rows.some((r) => r.name === 'Tochi' && r.tier === 1));
+  assert.ok(board.rows.some((r) => r.name === 'Tochi' && r.tier === 1 && r.look === 'sand'));
   assert.equal(board.me.tier, 1);
   assert.ok(board.owners >= 1);
   const names = board.rows.map((r) => r.name);
