@@ -494,9 +494,11 @@ fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
   遠くに小さく見える土地島の桟橋から島の berth まで ease で走り、その間 `blocked()` は全部 true（船が動かす）、
   カメラは船の斜め後ろ。着いたら桟橋に降りて船は横に係留。桟橋を下りると `startRide('out')` → `leave()`。
   `#land-ride` の ⏭ か `myLand.skip()` で即着く。乗っているかどうかは `myLand.riding`。
+- 「?」の案内（`guide.json` の 15の島 の章）に 土地島 が 8 ページ：島・ふどうさん・12 の せかい・かった あと と もようがえ・
+  ふねで いく・じぶんの しま・みんなの しま・ともだちの しまへ。写真は `browser-land.mjs` が撮り、`docs/make-guide-images.py` で焼く。
 - 検査：`server/test/land.test.mjs`（8 項目・段と見た目の規則・もようがえ・壊れた JSON を起動時に拒む）/
   `room.test.mjs` の「土地島」（実ソケット・位置ゲート・請求・順番・もようがえの 3 つの断り・`land:visit`・再接続後も残る）/
-  `server/test/e2e/browser-land.mjs`（実ブラウザ 25 項目・12 枚の 3D の絵が全部ちがう・台が回る・買う・船が動く・スキップ・島に立って船で戻る・みんなの しまから船で行く）/
+  `server/test/e2e/browser-land.mjs`（実ブラウザ 28 項目・12 枚の 3D の絵が全部ちがう・台が回る・買う・船が動く・スキップ・島に立って船で戻る・クラスの子の島へ船で行く。案内の写真 8 枚もここで撮る）/
   `client/tests/regression.mjs` の島の検査 / `browser-layout.mjs` の `land` 画面。
 
 ## きせかえ島（アバターの店）

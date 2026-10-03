@@ -53,6 +53,29 @@ async function walkTo(page, spot) {
 }
 
 try {
+  // A classmate first, on her own (two of these pages starve each other of frames): Rin buys
+  // the rocky islet, so the board later has two islands and a boat to each.
+  const rin = await openPage('Rin');
+  rin.on('pageerror', (e) => console.log('[pageerror:Rin]', e.message));
+  await rin.evaluate(() => uspeak.rpg.fly('land'));
+  await rin.evaluate(() => uspeak.rpg.finishFlight());
+  await rin.waitForFunction(() => uspeak.rpg.state.current === 'land' && uspeak.rpg.land.visible, null, { timeout: 60000 });
+  await sleep(2000);
+  await walkTo(rin, 'office');
+  await rin.waitForFunction(() => uspeak.net.land.state.land && uspeak.net.land.state.mode === 'office', null, { timeout: 20000 });
+  await rin.waitForSelector('#land-body .land-card[data-look="rock"]', { timeout: 20000 });
+  await rin.click('#land-body .land-card[data-look="rock"]');
+  await sleep(300);
+  await rin.click('#land-body [data-ask]');
+  await rin.waitForSelector('#land-body [data-buy]', { timeout: 10000 });
+  await rin.click('#land-body [data-buy]');
+  await rin.waitForFunction(() => uspeak.net.land.state.land?.look === 'rock', null, { timeout: 20000 });
+  await rin.evaluate(() => uspeak.net.land.close());
+  check('a classmate bought the other look of the first step', true);
+  // She goes offline: the board and the boat find her island in the class record, not in the room.
+  await rin.context().close();
+
+
   const page = await openPage('Sora');
   page.on('pageerror', (e) => console.log('[pageerror]', e.message));
   await page.evaluate(() => uspeak.rpg.fly('land'));
@@ -87,6 +110,12 @@ try {
   await sleep(300);
   check('tapping a card puts that island on the stage', (await page.evaluate(() => ({ pick: uspeak.net.land.state.pick, sel: document.querySelector('#land-body .land-card.selected')?.dataset.look }))).sel === 'rock');
   await sleep(1500);
+  // The whole grid, scrolled to the far steps, for the guide's "twelve worlds" page.
+  await page.evaluate(() => { document.querySelector('#land-body').scrollTop = 1e6; });
+  await sleep(600);
+  await fig(page, 'screen-land-worlds');
+  await page.evaluate(() => { document.querySelector('#land-body').scrollTop = 0; });
+  await sleep(400);
   await fig(page, 'screen-land-office');
   await page.click('#land-body .land-card[data-look="sand"]');
   await sleep(300);
@@ -124,6 +153,7 @@ try {
   const z1 = await page.evaluate(() => ({ boat: uspeak.net.myLand.boat.position.z, player: uspeak.player.position.z, half: uspeak.net.myLand.state.island.grid / 2 }));
   check('the boat moves across the water with the child aboard', z1.boat < z0 - 0.5 && Math.abs(z1.player - z1.boat) < 1 && z1.boat > z1.half, JSON.stringify({ z0, ...z1 }));
   check('nothing is walked while aboard', await page.evaluate(() => uspeak.rpg.blocked(uspeak.player.position.x, uspeak.player.position.z) === true));
+  await fig(page, 'screen-land-ferry');
   await shot(page, 'land-ferry');
   await page.click('#land-ride-skip');
   await page.waitForFunction(() => !uspeak.net.myLand.riding, null, { timeout: 10000 });
@@ -146,20 +176,26 @@ try {
   await page.waitForFunction(() => !uspeak.net.myLand.active && uspeak.rpg.state.current === 'land', null, { timeout: 30000 });
   check('and the boat (or the skip) lands the child back on 土地島', await page.evaluate(() => document.querySelector('#land-ride').hidden && !document.body.classList.contains('on-ferry')));
 
-  // The board: by name, with the new owner on it, their island's picture, and a boat to it.
+  // The board: by name, with both owners on it, their islands' pictures, and a boat to each.
   await sleep(1500);
   await walkTo(page, 'board');
   await page.waitForFunction(() => uspeak.net.land.state.board, null, { timeout: 30000 });
   const board = await page.evaluate(() => uspeak.net.land.state.board);
-  check('the board lists the class by name and counts the owners', board.rows.some((r) => r.name === 'Sora' && r.tier === 1 && r.look === 'sand') && board.owners >= 1, JSON.stringify(board.rows));
+  check('the board lists the class by name and counts the owners', board.rows.some((r) => r.name === 'Sora' && r.tier === 1 && r.look === 'sand') && board.rows.some((r) => r.name === 'Rin' && r.look === 'rock') && board.owners >= 2, JSON.stringify(board.rows));
   await sleep(800);
   check('the board shows each island by its 3D picture', (await page.evaluate(() => document.querySelectorAll('#land-body .land-board .land-shot.shot img:not([hidden])').length)) >= 1);
   await fig(page, 'screen-land-board');
-  await page.click('#land-body [data-visit="Sora"]');
+  await page.click('#land-body [data-visit="Rin"]');
   await page.waitForFunction(() => uspeak.net.myLand.active && uspeak.net.myLand.riding, null, { timeout: 30000 });
-  check('⛵ いく on the board sails to that island', await page.evaluate(() => !document.querySelector('#land-dialog').open && uspeak.net.myLand.state.island.owner === 'Sora'));
+  const visit = await page.evaluate(() => ({ open: document.querySelector('#land-dialog').open, owner: uspeak.net.myLand.state.island.owner, theme: uspeak.net.myLand.state.island.theme, visiting: uspeak.net.myLand.state.island.visiting }));
+  check("⛵ いく on the board sails to the classmate's island, in their look", !visit.open && visit.owner === 'Rin' && visit.theme === 'rock' && visit.visiting === true, JSON.stringify(visit));
   await page.evaluate(() => uspeak.net.myLand.skip());
   await page.waitForFunction(() => !uspeak.net.myLand.riding, null, { timeout: 10000 });
+  await sleep(1500);
+  await page.evaluate(() => { uspeak.player.position.set(1.5, 0, 3); });
+  await sleep(7000);                         // this renderer refreshes the HUD a few times a minute; let it catch up before the picture
+  await fig(page, 'island-visit');
+  check('nothing on a classmate\'s island can be walked through either', await page.evaluate(() => uspeak.rpg.blocked(0, 40) === true));
   await page.evaluate(() => { uspeak.player.position.set(0, 0, uspeak.net.myLand.state.island.grid / 2 + 2.6); });
   await page.waitForFunction(() => uspeak.net.myLand.riding, null, { timeout: 30000 });
   await page.evaluate(() => uspeak.net.myLand.skip());
