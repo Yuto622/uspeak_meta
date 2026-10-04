@@ -287,12 +287,20 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   let ownedBlocks = [];
   // `block:shop` と `block:bought` は同じ棚の中身を運んでくる。買った直後に更新しないと、
   // 買ってすぐ BLOCKWILD を開いた子には まだ そのブロックが無い。
+  // The shelf the in-game shop draws from: the block shop's blocks (price, colour, owned)
+  // and the gear (blockwild-gear.json, priced by the room). `bw:shop` brings both.
+  const shelf = { blocks: [], gear: [] };
   const rememberBlocks = (m) => {
     if (!Array.isArray(m?.blocks)) return;
+    shelf.blocks = m.blocks;
     ownedBlocks = m.blocks.filter((b) => b.owned).map((b) => b.id);
     cacheBlocks(ownedBlocks);
   };
-  const blockwild = createBlockwild({ ...guest, ownedBlocks: () => ownedBlocks, session: () => ({ online: state.mode === 'online', classCode: state.classCode, name: state.name }) });
+  const blockwild = createBlockwild({
+    ...guest, ownedBlocks: () => ownedBlocks, shelf: () => shelf,
+    send: (type, msg) => { try { room?.send(type, msg); } catch (err) { console.warn('[net] bw send failed', err); } },
+    session: () => ({ online: state.mode === 'online', classCode: state.classCode, name: state.name, coins: state.wallet?.coins ?? 0 }),
+  });
   // ミニゲーム島: one house each, and the house is the menu.
   const arcades = { puyo: createPuyo(guest), suika: createSuika(guest) };
   // のりもの島とまちづくり島では、島の中の扉に加えて左下にも入口を出す。理由は
@@ -540,7 +548,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('pet:acted', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onActed(m); });
     r.onMessage('pet:error', (m) => petUI.onError(m));
     r.onMessage('block:shop', (m) => { town.onShop(m); rememberBlocks(m); });
-    r.onMessage('block:bought', (m) => { if (m.wallet) applyWallet(m.wallet); town.onBought(m); rememberBlocks(m); });
+    r.onMessage('block:bought', (m) => { if (m.wallet) applyWallet(m.wallet); town.onBought(m); rememberBlocks(m); blockwild.refresh(); });
+    // BLOCKWILD の中の店：棚、買えた、買えなかった。
+    r.onMessage('bw:shop', (m) => { if (Array.isArray(m.gear)) shelf.gear = m.gear; rememberBlocks(m); blockwild.onShop(m); });
+    r.onMessage('bw:bought', (m) => { if (m.wallet) applyWallet(m.wallet); blockwild.onBought(m); });
+    r.onMessage('bw:error', (m) => blockwild.onError(m));
     r.onMessage('block:error', (m) => town.onError(m));
     r.onMessage('room:state', (m) => town.onRoomState(m));
     r.onMessage('room:placed', (m) => town.onPlaced(m));
@@ -901,6 +913,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get mode() { return state.mode; },
     get sessionId() { return state.sessionId; },
     get room() { return room; },
+    get wallet() { return state.wallet; },
     get remotes() { return remotes; },
     get gp() { return gp; },
     get dash() { return dash; },

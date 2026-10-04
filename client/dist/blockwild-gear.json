@@ -1,0 +1,21 @@
+{
+  "_": "BLOCKWILD の中の U-Speak コインの店。ページ（blockwild.js）とサーバー（server/src/game/blockwild-shop.js）が同じく読む。`item` は BLOCKWILD の持ち物 id（client/dist/blockwild/src/blocks.js の IT / ID）、`n` は 1 回に渡す数。値段は U-Speak コイン。ブロックは town.json のブロック屋の棚で、ここには無い。",
+  "gear": [
+    { "id": "torch",       "item": 37,  "n": 16, "emoji": "🔥", "ja": "たいまつ ×16",      "en": "Torches ×16",        "price": 20,  "kind": "light"  },
+    { "id": "bread",       "item": 152, "n": 8,  "emoji": "🍞", "ja": "パン ×8",           "en": "Bread ×8",           "price": 25,  "kind": "food"   },
+    { "id": "meat",        "item": 105, "n": 6,  "emoji": "🍖", "ja": "やけた にく ×6",     "en": "Cooked meat ×6",     "price": 35,  "kind": "food"   },
+    { "id": "stone-sword", "item": 140, "n": 1,  "emoji": "🗡️", "ja": "いしの けん",        "en": "Stone sword",        "price": 40,  "kind": "weapon" },
+    { "id": "iron-sword",  "item": 141, "n": 1,  "emoji": "⚔️", "ja": "てつの けん",        "en": "Iron sword",         "price": 120, "kind": "weapon" },
+    { "id": "bow",         "item": 160, "n": 1,  "emoji": "🏹", "ja": "ゆみ",              "en": "Bow",                "price": 90,  "kind": "weapon" },
+    { "id": "arrows",      "item": 161, "n": 16, "emoji": "➶",  "ja": "や ×16",            "en": "Arrows ×16",         "price": 30,  "kind": "weapon" },
+    { "id": "iron-pick",   "item": 112, "n": 1,  "emoji": "⛏️", "ja": "てつの ツルハシ",    "en": "Iron pickaxe",       "price": 100, "kind": "tool"   },
+    { "id": "diamond-pick","item": 113, "n": 1,  "emoji": "💎", "ja": "ダイヤの ツルハシ",  "en": "Diamond pickaxe",    "price": 300, "kind": "tool"   },
+    { "id": "iron-axe",    "item": 122, "n": 1,  "emoji": "🪓", "ja": "てつの おの",        "en": "Iron axe",           "price": 80,  "kind": "tool"   },
+    { "id": "iron-shovel", "item": 132, "n": 1,  "emoji": "🥄", "ja": "てつの シャベル",    "en": "Iron shovel",        "price": 60,  "kind": "tool"   },
+    { "id": "leather-set", "items": [163, 164, 165, 166], "n": 1, "emoji": "🧥", "ja": "かわの よろい（4つ）", "en": "Leather armor (4)", "price": 150, "kind": "armor" },
+    { "id": "iron-set",    "items": [167, 168, 169, 170], "n": 1, "emoji": "🛡️", "ja": "てつの よろい（4つ）", "en": "Iron armor (4)",    "price": 400, "kind": "armor" },
+    { "id": "diamond-set", "items": [171, 172, 173, 174], "n": 1, "emoji": "💠", "ja": "ダイヤの よろい（4つ）", "en": "Diamond armor (4)", "price": 900, "kind": "armor" },
+    { "id": "iron-ingots", "item": 103, "n": 8,  "emoji": "🔩", "ja": "てつ ×8",           "en": "Iron ingots ×8",     "price": 80,  "kind": "material" },
+    { "id": "diamonds",    "item": 104, "n": 4,  "emoji": "💎", "ja": "ダイヤモンド ×4",    "en": "Diamonds ×4",        "price": 200, "kind": "material" }
+  ]
+}

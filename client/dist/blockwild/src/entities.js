@@ -38,61 +38,94 @@ export const MOB = {
   villager: { name: '村人', hp: 20, body: '#7a5a3e', legs: '#5a4430', speed: .9, villager: true },
 };
 
+// 生き物の体。正面は +X。
+//
+// 2026-10（U-Speak での手直し）：顔のパーツは「頭の子」なのに世界の座標で置かれていて、
+// 目や鼻や角が頭から離れて宙に浮いていた（ウシの目が体の 1 ブロック先、ゾンビの目が頭の
+// 2 ブロック上）。頭は回る（Mobs.update が parts.head.rotation を動かす）ので、顔は頭の
+// 中心から測って置く。ついでに体つきも：ブタの鼻、ウシの白い模様と角と乳、ヒツジの黒い
+// 顔と毛の房、ニワトリのトサカと羽。
 export function buildMob(type) {
   const g = new THREE.Group(), d = MOB[type];
   const parts = { legs: [], arms: [], head: null };
+  // 顔のパーツ：頭（hx, hy, hz に置いた箱）の中心からの相対座標で置く。
+  const onHead = (w, h, dd, color, x, y, z) => box(w, h, dd, color, x, y, z, parts.head);
   if (type === 'chicken') {
-    box(.5, .45, .34, d.body, 0, .55, 0, g);
-    parts.head = box(.26, .26, .24, d.body, .28, .82, 0, g);
-    box(.1, .08, .08, '#e0a83c', .44, .8, 0, parts.head);
-    box(.06, .2, .28, '#ffffff', -.2, .6, .18, g);
-    box(.06, .2, .28, '#ffffff', -.2, .6, -.18, g);
-    for (const z of [-.11, .11]) parts.legs.push(limb(.08, .32, .08, d.legs, 0, .4, z, g));
-    box(.22, .16, .04, '#c8443c', .28, .95, 0, g);
+    box(.56, .46, .40, d.body, 0, .58, 0, g);                              // 体
+    box(.30, .22, .34, '#e9e6dc', -.34, .70, 0, g);                         // 尾
+    for (const z of [-.24, .24]) box(.36, .26, .07, '#e4e0d4', -.02, .60, z, g); // 羽
+    parts.head = box(.28, .32, .26, d.body, .30, .92, 0, g);
+    onHead(.16, .09, .09, '#e0a83c', .20, -.02, 0);                        // くちばし
+    onHead(.10, .12, .06, '#c8443c', .14, -.14, 0);                        // 肉だれ
+    onHead(.18, .12, .06, '#c8443c', 0, .20, 0);                           // トサカ
+    for (const z of [-.14, .14]) onHead(.05, .05, .03, '#1b1b1b', .10, .06, z);
+    for (const z of [-.12, .12]) { const l = limb(.07, .30, .07, d.legs, .02, .36, z, g); box(.16, .03, .14, d.legs, .04, -.30, 0, l); parts.legs.push(l); }
   } else if (type === 'villager') {
-    box(.54, .9, .34, d.body, 0, 1.2, 0, g);                       // ローブ
+    box(.54, .9, .34, d.body, 0, 1.2, 0, g);                                // ローブ
     box(.6, .3, .38, '#5f4630', 0, .75, 0, g);
     parts.head = box(.5, .56, .5, '#d9a877', 0, 1.9, 0, g);
-    box(.12, .2, .14, '#c98f6a', 0, 1.82, .3, parts.head);         // 大きな鼻
-    box(.1, .1, .04, '#3a6a3a', .13, 1.96, .25, parts.head);
-    box(.1, .1, .04, '#3a6a3a', -.13, 1.96, .25, parts.head);
-    box(.52, .12, .52, '#5a4430', 0, 2.2, 0, parts.head);
-    const armsG = new THREE.Group(); armsG.position.set(0, 1.35, .12); g.add(armsG);
-    box(.56, .2, .2, d.body, 0, 0, 0, armsG);                      // 組んだ腕
-    for (const x of [-.13, .13]) parts.legs.push(limb(.22, .74, .24, d.legs, x, .78, 0, g));
+    onHead(.12, .22, .14, '#c98f6a', .28, -.08, 0);                        // 大きな鼻
+    for (const z of [-.13, .13]) onHead(.04, .10, .10, '#3a6a3a', .26, .06, z);
+    onHead(.52, .12, .52, '#5a4430', 0, .30, 0);                           // 帽子
+    onHead(.10, .30, .50, '#5a4430', -.22, 0, 0);                          // 髪
+    const armsG = new THREE.Group(); armsG.position.set(.12, 1.35, 0); g.add(armsG);
+    box(.2, .2, .56, d.body, 0, 0, 0, armsG);                               // 組んだ腕
+    for (const z of [-.13, .13]) parts.legs.push(limb(.24, .74, .22, d.legs, 0, .78, z, g));
   } else if (type === 'skeleton') {
-    box(.42, .8, .26, d.body, 0, 1.2, 0, g);
+    box(.26, .8, .42, d.body, 0, 1.2, 0, g);
+    for (let i = 0; i < 3; i++) box(.30, .08, .46, '#c9c7bf', 0, 1.0 + i * .2, 0, g);   // あばら
     parts.head = box(.5, .5, .5, '#e4e2da', 0, 1.85, 0, g);
-    box(.1, .1, .04, '#1c1c1c', .13, 1.9, .25, parts.head);
-    box(.1, .1, .04, '#1c1c1c', -.13, 1.9, .25, parts.head);
-    for (const x of [-.32, .32]) { const a = limb(.14, .7, .14, d.body, x, 1.55, .08, g); a.rotation.x = -1.5; parts.arms.push(a); }
-    for (const x of [-.12, .12]) parts.legs.push(limb(.14, .74, .14, d.legs, x, .76, 0, g));
-    box(.06, .8, .06, '#8a6435', .42, 1.5, .18, g);
+    for (const z of [-.13, .13]) onHead(.04, .12, .12, '#1c1c1c', .25, .04, z);
+    onHead(.04, .06, .18, '#1c1c1c', .25, -.14, 0);                        // 口
+    for (const z of [-.30, .30]) { const a = limb(.14, .7, .14, d.body, .04, 1.55, z, g); a.rotation.x = 0; a.rotation.z = -1.5; parts.arms.push(a); }
+    for (const z of [-.12, .12]) parts.legs.push(limb(.14, .74, .14, d.legs, 0, .76, z, g));
+    box(.06, .9, .06, '#8a6435', .42, 1.5, -.20, g);                        // 弓
   } else if (type === 'creeper') {
-    box(.52, .9, .34, d.body, 0, 1.05, 0, g);
+    box(.34, .9, .52, d.body, 0, 1.05, 0, g);
     parts.head = box(.5, .5, .5, '#63ab58', 0, 1.72, 0, g);
-    box(.13, .13, .04, '#0f1a10', .12, 1.78, .25, parts.head);
-    box(.13, .13, .04, '#0f1a10', -.12, 1.78, .25, parts.head);
-    box(.13, .2, .04, '#0f1a10', 0, 1.64, .25, parts.head);
-    box(.26, .1, .04, '#0f1a10', 0, 1.56, .25, parts.head);
+    for (const z of [-.12, .12]) onHead(.04, .13, .13, '#0f1a10', .25, .08, z);
+    onHead(.04, .18, .12, '#0f1a10', .25, -.10, 0);
+    for (const z of [-.12, .12]) onHead(.04, .10, .06, '#0f1a10', .25, -.18, z);
     for (const x of [-.16, .16]) for (const z of [-.18, .18]) parts.legs.push(limb(.2, .58, .2, d.legs, x, .6, z, g));
   } else if (type === 'zombie') {
-    box(.62, .86, .34, d.body, 0, 1.18, 0, g);
-    parts.head = box(.52, .5, .5, '#6f9b6b', 0, 1.86, 0, g);
-    box(.1, .1, .04, '#20301f', .14, 1.9, .26, parts.head);
-    box(.1, .1, .04, '#20301f', -.14, 1.9, .26, parts.head);
-    for (const x of [-.42, .42]) { const a = limb(.22, .74, .24, '#5f8a60', x, 1.55, .1, g); a.rotation.x = -1.4; parts.arms.push(a); }
-    for (const x of [-.16, .16]) parts.legs.push(limb(.24, .76, .24, d.legs, x, .78, 0, g));
-  } else {
-    const w = type === 'cow' ? 1.28 : 1.1, hgt = type === 'cow' ? .82 : .72;
-    box(w, hgt, .68, d.body, 0, .86, 0, g);
-    parts.head = box(.52, .52, .5, d.body, w * .58, 1.02, 0, g);
-    box(.08, .09, .09, '#25211d', w * .58 + .22, 1.1, .17, parts.head);
-    box(.08, .09, .09, '#25211d', w * .58 + .22, 1.1, -.17, parts.head);
-    if (type === 'cow') { box(.12, .12, .12, '#e8e2d2', w * .58 + .1, 1.24, .2, parts.head); box(.12, .12, .12, '#e8e2d2', w * .58 + .1, 1.24, -.2, parts.head); box(.3, .2, .3, '#e9dfd0', w * .58 + .2, .92, 0, parts.head); }
-    if (type === 'pig') box(.18, .16, .24, '#d98c86', w * .58 + .22, .98, 0, parts.head);
-    if (type === 'sheep') { box(1.2, .8, .76, '#f6f3ea', 0, .9, 0, g); box(.44, .44, .42, '#d8cdb8', w * .58, 1.02, 0, g); }
-    for (const a of [-.38, .38]) for (const b of [-.22, .22]) parts.legs.push(limb(.2, .5, .2, d.legs, a, .54, b, g));
+    box(.34, .86, .62, '#3f8a9a', 0, 1.18, 0, g);                            // シャツ
+    box(.36, .40, .64, d.legs, 0, .92, 0, g);                                // ズボンの腰
+    parts.head = box(.5, .5, .5, '#6f9b6b', 0, 1.86, 0, g);
+    for (const z of [-.14, .14]) onHead(.04, .10, .10, '#20301f', .26, .06, z);
+    onHead(.04, .06, .22, '#20301f', .26, -.12, 0);
+    for (const z of [-.42, .42]) { const a = limb(.22, .74, .22, '#5f8a60', .04, 1.55, z, g); a.rotation.z = -1.45; parts.arms.push(a); }
+    for (const z of [-.16, .16]) parts.legs.push(limb(.24, .76, .22, d.legs, 0, .78, z, g));
+  } else if (type === 'sheep') {
+    box(1.16, .84, .80, '#f6f3ea', 0, .92, 0, g);                            // 毛
+    for (const [x, y, z] of [[.30, 1.30, .18], [-.28, 1.28, -.20], [.05, 1.26, -.30], [-.45, 1.10, .30]]) box(.30, .20, .30, '#ffffff', x, y, z, g);
+    parts.head = box(.40, .42, .40, '#3b3b40', .64, 1.08, 0, g);
+    onHead(.34, .22, .44, '#f6f3ea', -.06, .22, 0);                          // 頭の毛
+    for (const z of [-.14, .14]) onHead(.05, .07, .07, '#ffffff', .20, .04, z);
+    for (const z of [-.26, .26]) onHead(.10, .08, .16, '#3b3b40', 0, .02, z); // 耳
+    box(.16, .20, .16, '#ffffff', -.60, 1.0, 0, g);                          // 尾
+    for (const a of [-.36, .36]) for (const b of [-.24, .24]) parts.legs.push(limb(.18, .48, .18, d.legs, a, .52, b, g));
+  } else if (type === 'cow') {
+    box(1.30, .84, .72, d.body, 0, .90, 0, g);
+    for (const [x, y, z, w, h, dd] of [[.30, 1.08, .37, .50, .34, .02], [-.40, .84, -.37, .44, .40, .02], [-.10, 1.33, .05, .50, .02, .40], [.45, .70, -.37, .30, .26, .02]]) box(w, h, dd, '#f3efe6', x, y, z, g);
+    box(.46, .24, .40, '#f0b9b0', .10, .46, 0, g);                            // 乳
+    for (const [x, z] of [[-.02, .10], [.22, .10], [-.02, -.10], [.22, -.10]]) box(.07, .12, .07, '#f0b9b0', x, .34, z, g);
+    parts.head = box(.52, .52, .50, d.body, .78, 1.08, 0, g);
+    onHead(.10, .30, .20, '#f3efe6', .22, .06, 0);                           // 白い鼻すじ
+    onHead(.12, .22, .40, '#e8b4a0', .24, -.14, 0);                          // 鼻
+    for (const z of [-.10, .10]) onHead(.04, .05, .05, '#4a2a1a', .30, -.14, z);
+    for (const z of [-.17, .17]) onHead(.05, .08, .08, '#1b1b1b', .25, .10, z);
+    for (const z of [-.32, .32]) { onHead(.10, .10, .16, d.body, 0, .08, z); onHead(.08, .18, .08, '#e9dfd0', .02, .30, z * .75); }  // 耳と角
+    box(.08, .60, .08, d.body, -.66, .96, 0, g); box(.10, .10, .10, '#2b2420', -.66, .64, 0, g);   // 尾
+    for (const a of [-.42, .42]) for (const b of [-.24, .24]) parts.legs.push(limb(.22, .52, .22, d.legs, a, .56, b, g));
+  } else {                                                                   // pig
+    box(1.10, .70, .64, d.body, 0, .80, 0, g);
+    parts.head = box(.52, .50, .50, d.body, .66, .92, 0, g);
+    onHead(.10, .20, .26, '#d98c86', .28, -.08, 0);                          // 鼻
+    for (const z of [-.07, .07]) onHead(.03, .07, .05, '#8a4a44', .33, -.08, z);
+    for (const z of [-.16, .16]) onHead(.05, .07, .07, '#1b1b1b', .25, .10, z);
+    for (const z of [-.22, .22]) onHead(.12, .14, .08, '#d98c86', -.06, .26, z); // 耳
+    box(.10, .10, .10, '#d98c86', -.58, .96, .06, g); box(.10, .10, .10, '#d98c86', -.62, 1.02, -.04, g);   // くるんとした尾
+    for (const a of [-.36, .36]) for (const b of [-.20, .20]) parts.legs.push(limb(.20, .44, .20, d.legs, a, .48, b, g));
   }
   g.traverse(o => { if (o.isMesh) o.castShadow = false; });
   return { g, parts };

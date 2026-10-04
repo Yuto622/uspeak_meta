@@ -1168,6 +1168,18 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   `browser-arcade.mjs` の「ブロック屋 → BLOCKWILD」（実ブラウザ。買っていない子の
   パレットが1つ → 店で いし を買う → 部屋がコインを取る → **向こうのパレットに いし が出る**）。
 
+### BLOCKWILD の中の店と、1 ファイルだけの fork（2026-10）
+
+- **U-Speak コインのバッジと店は `blockwild.js` の `shopUI()` が iframe の document に差し込む**（CSS も `<style>` で）。
+  ゲームの `index.html` / `game.js` は触っていない。開くのは `#uspeakShop`、中身は `#uspeakShopBox`。
+  棚は net-client の `shelf`（`block:shop` / `bw:shop` が届くたび更新）、残高は `session().coins` を 1 秒ごとに読む。
+  買う → `send('bw:buy')` → 部屋が払う → `bw:bought` → `onBought()` が `win.BLOCKWILD.give(id, n)`。
+  **ページは値段も在庫も決めない**（押せないボタンは親切のためだけ）。
+- **`gate()` の許可集合は毎回計算する**（`allowOf()`）。店で買った直後に `refresh()` でパレットに出すため。
+- **`blockwild/src/entities.js` だけは fork**（動物の顔が宙に浮いていた。`SOURCE.json` の `forked`）。
+  それ以外は無改変のまま。**顔のパーツは `onHead()` で頭の中心から測って置くこと**（頭は `Mobs.update` が回す）。
+  ビルドを差し替えたら entities.js の修正を当て直してから `guests-manifest.mjs --write blockwild`。
+
 ### ブロック屋の 3D プレビュー（`town-block-icon.js`）
 
 棚のカードは**色の四角ではなく、そのブロックを等角投影で描いた立方体**。

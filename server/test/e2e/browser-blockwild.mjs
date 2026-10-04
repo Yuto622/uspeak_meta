@@ -89,6 +89,25 @@ try {
   check('the local-world buttons step aside while in the shared world', sa.newHidden);
   check('the game shows one child in', /1人/.test(sa.tag) && !sa.tagHidden, sa.tag);
 
+  // U-Speak coins inside the game: the badge in the game's own header says what the island
+  // wallet says; the shop opens from beside it; a purchase is paid by the room and the
+  // thing lands in the game's bag.
+  const walletCoins = await a.evaluate(() => uspeak.net.wallet?.coins ?? null);
+  const badge = await a.evaluate(() => document.querySelector('.arcade-frame')?.contentDocument?.querySelector('#uspeakCoins')?.textContent || '');
+  check('the U-Speak coin badge is in the game header and matches the wallet', walletCoins !== null && badge.replace(/[^0-9]/g, '') === String(walletCoins), `badge="${badge}" wallet=${walletCoins}`);
+  await a.evaluate(() => document.querySelector('.arcade-frame').contentDocument.querySelector('#uspeakShop').click());
+  await a.waitForFunction(() => { const d = document.querySelector('.arcade-frame')?.contentDocument; return d && !d.querySelector('#uspeakShopBox').hidden && d.querySelectorAll('#uspeakShopBox button[data-kind="gear"]').length >= 8; }, null, { timeout: 20000 });
+  const shopInfo = await a.evaluate(() => { const d = document.querySelector('.arcade-frame').contentDocument; return { gear: d.querySelectorAll('button[data-kind="gear"]').length, blocks: d.querySelectorAll('#uspeakShopBox .usp-card .sw').length, torch: !!d.querySelector('button[data-kind="gear"][data-id="torch"]:not([disabled])') }; });
+  check('the shop lists the block shelf and the gear, torches affordable on day one', shopInfo.blocks >= 10 && shopInfo.gear >= 8 && shopInfo.torch, JSON.stringify(shopInfo));
+  await a.screenshot({ path: path.join(FIGS, 'screen-blockwild-shop.jpg'), type: 'jpeg', quality: 90, timeout: 120000 });
+  const invBefore = await a.evaluate(() => document.querySelector('.arcade-frame').contentWindow.BLOCKWILD.state.inv[37] || 0);
+  await a.evaluate(() => document.querySelector('.arcade-frame').contentDocument.querySelector('button[data-kind="gear"][data-id="torch"]').click());
+  await a.waitForFunction((b) => (document.querySelector('.arcade-frame')?.contentWindow?.BLOCKWILD?.state.inv[37] || 0) >= b + 16, invBefore, { timeout: 20000 }).catch(() => {});
+  const invAfter = await a.evaluate(() => document.querySelector('.arcade-frame').contentWindow.BLOCKWILD.state.inv[37] || 0);
+  const walletAfter = await a.evaluate(() => uspeak.net.wallet?.coins ?? null);
+  check('buying torches puts sixteen in the bag and the island wallet pays 20', invAfter >= invBefore + 16 && walletAfter === walletCoins - 20, `inv ${invBefore} → ${invAfter}, coins ${walletCoins} → ${walletAfter}`);
+  await a.evaluate(() => document.querySelector('.arcade-frame').contentDocument.querySelector('#uspeakShopBox .usp-close').click());
+
   // A second child of the same class: both see two, and the first hears the join.
   const b = await openPage('Rin');
   b.on('pageerror', (e) => console.log('[pageerror:Rin]', e.message));

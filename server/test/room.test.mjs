@@ -1127,6 +1127,38 @@ test('a room of your own: furniture inside it, blocks on the plaza, and still th
   await sleep(100);
 });
 
+test('the shop inside BLOCKWILD: the block shelf and the gear, priced in U-Speak coins, paid by the room from wherever the child is', async () => {
+  const { BLOCKS } = await import('../src/game/town.js');
+  const a = await join('Taiga');
+  a.room.send('bw:shop', {});
+  const bw = await nextMessage(a.room, 'bw:shop');
+  assert.ok(bw.gear.length >= 8 && bw.gear.every((g) => g.id && g.price >= 0 && g.items.length && g.ja && g.en), 'gear on the shelf');
+  assert.equal(bw.blocks.length, BLOCKS.size, 'and the block shelf beside it');
+  assert.equal(bw.coins, a.welcome.wallet.coins);
+  a.room.send('bw:buy', { kind: 'gear', id: 'nope' });
+  assert.equal((await nextMessage(a.room, 'bw:error')).reason, 'no such item');
+  a.room.send('bw:buy', { kind: 'gear', id: 'diamond-set' });        // 900: nobody has that on day one
+  assert.equal((await nextMessage(a.room, 'bw:error')).reason, 'not enough coins');
+  const torch = bw.gear.find((g) => g.id === 'torch');
+  a.room.send('bw:buy', { kind: 'gear', id: 'torch' });
+  const lit = await nextMessage(a.room, 'bw:bought');
+  assert.equal(lit.kind, 'gear'); assert.equal(lit.category, torch.kind); assert.deepEqual(lit.items, torch.items); assert.equal(lit.n, torch.n);
+  assert.equal(lit.wallet.coins, a.welcome.wallet.coins - torch.price, 'the torches cost what the shelf said');
+  // A block bought from inside the game lands on the same shelf — no doorway to stand in,
+  // but the same price and the same 'already yours'.
+  a.room.send('bw:buy', { kind: 'block', id: 'stone' });
+  const stone = await nextMessage(a.room, 'bw:bought');
+  assert.equal(stone.kind, 'block'); assert.equal(stone.id, 'stone');
+  assert.equal(stone.wallet.coins, a.welcome.wallet.coins - torch.price - BLOCKS.get('stone').price);
+  a.room.send('block:list', {});
+  assert.ok((await nextMessage(a.room, 'block:shop')).blocks.find((b) => b.id === 'stone').owned, 'stone is now owned');
+  a.room.send('bw:buy', { kind: 'block', id: 'stone' });
+  assert.equal((await nextMessage(a.room, 'bw:error')).reason, 'already yours');
+  a.room.send('bw:buy', { kind: 'block', id: 'water' });
+  assert.equal((await nextMessage(a.room, 'bw:error')).reason, 'not enough coins');
+  await a.room.leave();
+});
+
 test('the buildings are walked into: inside one is standing at it, and only that one', async () => {
   const a = await join('Itsuki');
   const easy = SCHOOL.spotById.get('easy');

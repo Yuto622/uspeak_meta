@@ -44,6 +44,7 @@ import {
 } from '../game/gp.js';
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
+import { GEAR, gearPayload } from '../game/blockwild-shop.js';
 import { LAND, LAND_ISLAND, sanitizeLand, landPayload, islandPayload as landIslandPayload, priceOfNext as landPriceOfNext, priceOfRestyle as landPriceOfRestyle, LandError } from '../game/land.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, dayIndex, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
@@ -169,6 +170,9 @@ export class ClassRoom extends Room {
     this.onMessage('ghost:hit', (client, msg) => this.onGhostHit(client, msg));
     this.onMessage('block:list', (client) => client.send('block:shop', this.shopPayload(client.sessionId)));
     this.onMessage('block:buy', (client, msg) => this.onBlockBuy(client, msg));
+    // BLOCKWILD の中の店（U-Speak コイン）：ブロックは同じ棚から、武器などは blockwild-gear.json から。
+    this.onMessage('bw:shop', (client) => client.send('bw:shop', { gear: [...GEAR.values()].map(gearPayload), ...this.shopPayload(client.sessionId) }));
+    this.onMessage('bw:buy', (client, msg) => this.onBwBuy(client, msg));
     this.onMessage('room:enter', (client) => this.onRoomEnter(client));
     this.onMessage('room:place', (client, msg) => this.onRoomPlace(client, msg));
     this.onMessage('room:remove', (client, msg) => this.onRoomRemove(client, msg));
@@ -2534,14 +2538,41 @@ export class ClassRoom extends Room {
     };
   }
 
-  onBlockBuy(client, msg) {
+  onBlockBuy(client, msg) { this.buyBlock(client, msg, { channel: 'block', gate: true }); }
+
+  // The shop inside BLOCKWILD: the same shelf of blocks, and the gear — swords, tools,
+  // armour, food, torches — priced in U-Speak coins. No doorway to stand in (the child is
+  // inside a game they opened from an island), so the only check is the one that matters:
+  // the price is paid here, from the wallet this room keeps, before anything is handed over.
+  onBwBuy(client, msg) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
-    const fail = (reason, extra = {}) => client.send('block:error', { reason, ...extra });
+    const kind = msg?.kind === 'block' ? 'block' : 'gear';
+    if (kind === 'block') { this.buyBlock(client, msg, { channel: 'bw', gate: false }); return; }
+    const fail = (reason, extra = {}) => client.send('bw:error', { reason, ...extra });
+    const item = GEAR.get(String(msg?.id || ''));
+    if (!item) return fail('no such item');
+    if (priv.wallet.coins < item.price) return fail('not enough coins', { need: item.price, coins: priv.wallet.coins });
+    if (item.price > 0) {
+      const entry = applyOp(priv.wallet, { type: 'spend', amount: item.price, id: `bw:${item.id}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    }
+    priv.bwBought = (priv.bwBought || 0) + 1;
+    this.persist(client.sessionId);
+    // `kind` on the wire says what was bought (gear or block); the gear's own kind (weapon, food…) travels as `category`.
+    client.send('bw:bought', { ...gearPayload(item), category: item.kind, kind: 'gear', ...this.walletPayload(client.sessionId) });
+    log.info(`[room ${this.roomId}] "${priv.name}" bought ${item.id} in BLOCKWILD for ${item.price}`);
+  }
+
+  buyBlock(client, msg, { channel, gate }) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const fail = (reason, extra = {}) => client.send(`${channel}:error`, { reason, ...extra });
     const block = BLOCKS.get(String(msg?.id || ''));
     if (!block) return fail('no such block');
-    // Blocks are bought at the block shop, like everything else is bought where it is.
-    if (!this.atTownSpot(client.sessionId, 'shop')) return fail('too far', { spot: this.townSpotPayload('shop') });
+    // Blocks are bought at the block shop, like everything else is bought where it is —
+    // or from the shop inside BLOCKWILD, which has no doorway.
+    if (gate && !this.atTownSpot(client.sessionId, 'shop')) return fail('too far', { spot: this.townSpotPayload('shop') });
     if (priv.bricks.includes(block.id)) return fail('already yours');
     if (priv.wallet.coins < block.price) return fail('not enough coins', { need: block.price, coins: priv.wallet.coins });
     if (block.price > 0) {
@@ -2550,11 +2581,14 @@ export class ClassRoom extends Room {
     }
     priv.bricks.push(block.id);
     this.persist(client.sessionId);
+    // Both doors answer on `block:bought` (the shelf the page keeps is the same one); the
+    // in-game shop also hears `bw:bought` so it can say so where the child is looking.
     client.send('block:bought', {
       id: block.id, word: block.word, ja: block.ja,
       ...this.shopPayload(client.sessionId), ...this.walletPayload(client.sessionId),
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${block.id} block`);
+    if (channel === 'bw') client.send('bw:bought', { kind: 'block', id: block.id, word: block.word, ja: block.ja, price: block.price, ...this.walletPayload(client.sessionId) });
+    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${block.id} block${channel === 'bw' ? ' (in BLOCKWILD)' : ''}`);
   }
 
   // かぐ屋. Furniture is bought exactly as blocks are - by kind, at the shop that sells

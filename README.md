@@ -514,6 +514,25 @@ fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
   コインの請求）/ `server/test/e2e/browser-farm.mjs`（実ブラウザ 42 項目・買って植えて水をやり、おまつりに参加し、エサと みずをやり、雨の日の帯と 3D の さく）/
   `client/tests/regression.mjs` の島の検査 / `browser-english.mjs` と `browser-layout.mjs` の `farm` 画面。
 
+## BLOCKWILD の中の U-Speak コイン（2026-10 追加）
+
+**ゲームの右上に U-Speak コインが出て、その場で使える。** `client/dist/blockwild.js` が同一オリジンの iframe に
+バッジ（`#uspeakCoins`）と「🛒 U-Speak コインで かう」（`#uspeakShop`）を差し込む。店の中身は 2 つ：
+ブロック屋と同じ棚（`town.json` の BLOCKS、買えばクリエイティブに出る）と、**武器・道具・よろい・食べ物・たいまつ**
+（`client/dist/blockwild-gear.json`、16 品）。
+
+- **払うのは部屋**。`bw:shop` で棚、`bw:buy {kind:'gear'|'block', id}` で購入（`ClassRoom.onBwBuy`）。コインは `applyOp` の
+  `spend`、記録は coin ログ。ブロックは `buyBlock()` を `gate:false` で通し `block:bought` も飛ぶ（棚の写しが同じに更新される）。
+  **位置ゲートは無い**（ゲームの中に戸口は無い）。守るのはコインで、それはここで払う。
+- **渡すのはページ**：`bw:bought` を受けた `blockwild.js` が `BLOCKWILD.give(item, n)` を呼ぶ。持ち物は BLOCKWILD 自身の
+  セーブ（`blockwild-*`）に入り、サーバーは数えない（学習の数字と混ぜない）。
+- **動物の見た目（fork）**：同梱の `src/entities.js` で顔のパーツが頭の子なのに世界座標で置かれ、目・鼻・角が頭から離れて
+  浮いていた（ウシの目が体の 1 ブロック先、ゾンビの目が頭の 2 ブロック上）。**このファイルだけ fork** して顔を頭の中心から
+  測って置き直し、ブタ・ウシ・ヒツジ・ニワトリを描き直した。`SOURCE.json` の `forked` に記録、ハッシュは
+  `node client/tests/guests-manifest.mjs --write blockwild` で更新。差し替えるときは entities.js を当て直すこと。
+- 検査：`room.test.mjs`（`bw:shop` / `bw:buy` の拒否と支払い）、`browser-blockwild.mjs`（バッジ＝財布、店が開く、たいまつを
+  買うと袋に 16 本・財布が 20 減る）、`blockwild.test.mjs`（棚の表）。ガイドに「U-Speak コインの みせ」のページ。
+
 ## 土地島（じぶんだけの しま／2026-10 追加）
 
 **コインで自分だけの島を買い、コインで豪華にしていく。** 6 段 × 2 種類 = **12 の島**。段ごとに値段は同じで、どちらの世界にするかを選ぶ：
