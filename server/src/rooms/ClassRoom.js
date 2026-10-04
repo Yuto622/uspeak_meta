@@ -1448,7 +1448,8 @@ export class ClassRoom extends Room {
     if (!player || !spot) return false;
     if (player.space === `in:${island.id}:${spot.id}`) return true;
     if (player.space !== island.id) return false;
-    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= island.radius + SPOT_SLACK;
+    // An open place (the farm's pen, its field) can say how far it reaches; a door uses the island's.
+    return Math.hypot(player.x - spot.wx, player.z - spot.wz) <= (spot.reach ?? island.radius) + SPOT_SLACK;
   }
 
   atHut(sessionId, hutId) {

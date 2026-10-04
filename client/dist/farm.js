@@ -59,11 +59,11 @@ const PLACES = {
 const HOWTO = {
   shop: [['🔢', 'かずを えらぶ', 'Pick how many'], ['🃏', 'カードを じゅんばんに おす', 'Tap the cards in order'], ['🛒', 'かえた！', 'Bought!']],
   field: [['🟫', 'あいている マスを おす → たねを えらぶ', 'Tap an empty plot → pick a seed'], ['💧', '「みずを やる」を おす', 'Tap "Water"'], ['🧺', 'できたら マスを おして とる', 'Tap a ripe plot to pick it']],
-  barn: [['🌾', 'エサ：なきごえを えらぶ', 'Feed: pick its sound'], ['💧', 'みず：あなに ことばを 入れる', 'Water: fill in the word'], ['🧹', 'ブラシ：どうぶつの なまえ', 'Brush: name the animal'], ['🥚', 'とる：もらえる ものの なまえ', 'Collect: name what it gives']],
+  barn: [['🛒', 'ここで どうぶつを かう', 'Buy an animal here'], ['🌾💧', 'まいにち エサと みず', 'Feed and water every day'], ['🥚', 'そのあと とる', 'Then collect']],
   ship: [['📦', 'うる ものを えらぶ', 'Pick what to ship'], ['🔤', 'もじを ならべて つづる', 'Spell it with the letters'], ['🪙', 'コインに なる！', 'Coins!']],
   kitchen: [['🍳', 'りょうりを えらぶ', 'Pick a dish'], ['🥚', 'なにが いるか えらぶ', 'Pick what goes in'], ['🎁', 'うる・あげる', 'Ship it or give it']],
   plot: [['🚶', 'マスの 上に たつ', 'Stand on a plot'], ['🅴', 'E か タップ', 'Press E or tap'], ['✅', 'こたえると そだつ！', 'Answer and it grows!']],
-  pen: [['🚶', 'さくの 中に 入る', 'Walk into the pen'], ['🅴', 'E か タップ', 'Press E or tap'], ['🥚', 'エサ・みず・ブラシ・とる', 'Feed, water, brush, collect']],
+  pen: [['🚶', 'さくの 中に 入る', 'Walk into the pen'], ['🅴', 'E か タップ', 'Press E or tap'], ['▶', 'おおきい ボタンを おす', 'Tap the big button']],
 };
 
 export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
@@ -92,8 +92,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       <div class="farm-meta"><span id="farm-season"></span><span class="farm-coins">◈ <b id="farm-coins">0</b></span><button type="button" id="farm-close" aria-label="とじる">×</button></div>
     </header>
     <div class="farm-next" id="farm-next-step"></div>
-    <div class="farm-weather" id="farm-weather" hidden></div>
-    <div class="farm-calendar" id="farm-calendar" hidden></div>
+    <div class="farm-sky" id="farm-sky" hidden><span class="farm-calendar" id="farm-calendar" hidden></span><span class="farm-weather" id="farm-weather" hidden></span></div>
     <ol class="farm-howto" id="farm-howto"></ol>
     <div class="farm-body">
       <section class="farm-main" id="farm-main"></section>
@@ -139,6 +138,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
     renderNext(f, def);
     renderWeather(f);
     renderCalendar(f);
+    $('#farm-sky', dialog).hidden = $('#farm-weather', dialog).hidden && $('#farm-calendar', dialog).hidden;
     $('#farm-howto', dialog).innerHTML = (HOWTO[def?.kind] || []).map(([icon, ja, en], i) => `<li><b>${i + 1}</b><span>${icon}</span>${esc(isJa() ? ja : en)}</li>`).join('');
     const main = $('#farm-main', dialog);
     if (!f || !data) { main.innerHTML = `<p class="farm-note">${tr('よみこんで います…')}</p>`; return; }
@@ -190,8 +190,8 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
     box.className = `farm-weather ${rain ? 'rain' : 'sun'}`;
     const soon = f.rainIn ? (f.rainIn === 1 ? tr('あしたは あめ。') : tr('つぎの あめは {n}日後。', { n: f.rainIn })) : '';
     box.innerHTML = rain
-      ? `<b>🌧 ${tr('きょうは あめ')}</b><span>${tr('はたけも どうぶつも みずやりは いらない。あめが やってくれる！')}</span>`
-      : `<b>☀ ${tr('きょうは はれ')}</b><span>${tr('はたけと どうぶつに みずを やろう。{n}日 やらないと かれてしまう。', { n: f.dryDays || 3 })} ${soon}</span>`;
+      ? `<b>🌧 ${tr('あめ')}</b><span>${tr('みずやりは いらない。あめが やってくれる')}</span>`
+      : `<b>☀ ${tr('はれ')}</b><span>${tr('みずを やろう（{n}日 やらないと かれる）', { n: f.dryDays || 3 })} ${soon}</span>`;
   }
 
   // The calendar: the season and its day, when it turns, and the festival — today's at
@@ -259,22 +259,46 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       <p class="farm-note">${tr('1日に 1かい みずを やると そだつ。1日は そらが ひとまわり する あいだ。')} ${tr('あめの 日は あめが みずを やってくれる。{n}日 みずが ないと かれてしまう。', { n: f.dryDays || 3 })}</p>`;
   }
 
+  // The barn and the pen: the paddock in 3D on top (always — an empty one says so), then
+  // one card per animal with today's care as three steps and ONE big button that does
+  // the next one, and the animals for sale, in 3D, right here (Taro sells them too).
   function renderBarn(f) {
-    if (!f.animals.length) return `<p class="farm-note big">🐔 ${tr('まだ どうぶつが いない。たねやで ニワトリを かおう。')}</p>`;
     const rain = f.weather === 'rain';
-    return `<div class="farm-stage" id="farm-stage"><small>${tr('ゆびで まわせる')}</small></div>
-      <div class="farm-grid">${f.animals.map((a) => {
+    const limit = data.animalLimit || 4;
+    const paddock = `<div class="farm-stage ${f.animals.length ? '' : 'empty'}" id="farm-stage"><small>${f.animals.length ? tr('ゆびで まわせる') : tr('まだ だれも いない')}</small></div>`;
+    const cards = f.animals.map((a) => {
       const it = item(a.kind); const prod = item(a.product);
-      const canGet = a.fed && a.wet && !a.got;
-      return `<div class="farm-card animal"><span class="farm-look"><img class="farm-shot" data-shot="${esc(stage.key(a.kind, a.hearts))}" alt="" hidden><span class="farm-big" translate="no">${esc(it.emoji)}</span></span><b class="farm-en" translate="no">${esc(a.name)}</b><span class="farm-hearts">${'❤'.repeat(Math.min(10, a.hearts))}${'♡'.repeat(Math.max(0, 5 - a.hearts))}</span>
-        <div class="farm-row farm-acts">
-          <button type="button" data-animal="${a.i}" data-do="feed" ${a.fed ? 'disabled' : ''}>🌾 ${a.fed ? tr('たべた') : tr('エサ')}</button>
-          <button type="button" data-animal="${a.i}" data-do="trough" ${a.wet ? 'disabled' : ''}>💧 ${a.wet ? (rain ? tr('あめで のんだ') : tr('のんだ')) : tr('みずを あげる')}</button>
-          <button type="button" data-animal="${a.i}" data-do="brush" ${a.brushed ? 'disabled' : ''}>🧹 ${a.brushed ? tr('ブラシ ずみ') : tr('ブラシ')}</button>
-          <button type="button" data-animal="${a.i}" data-do="collect" ${canGet ? '' : 'disabled'}><span translate="no">${esc(prod?.emoji || '')}</span> ${a.got ? tr('もらった') : !a.fed ? tr('エサが さき') : !a.wet ? tr('みずが さき') : tr('とる')}</button>
-        </div></div>`;
-    }).join('')}</div>
-      <p class="farm-note">${tr('エサと みずを あげると、たまごや ぎゅうにゅうが もらえる。あめの 日は みずは いらない。エサと ブラシを おなじ日に すると ハートが ふえる。ハートが ふえると、たまごや ぎゅうにゅうが たかく うれる。')}</p>`;
+      const steps = [
+        { do: 'feed', icon: '🌾', ja: 'エサ', en: 'Feed', done: a.fed, can: !a.fed, doneJa: 'たべた', doneEn: 'Fed' },
+        { do: 'trough', icon: '💧', ja: 'みず', en: 'Water', done: a.wet, can: !a.wet, doneJa: rain ? 'あめで のんだ' : 'のんだ', doneEn: rain ? 'Rain did it' : 'Had a drink' },
+        { do: 'collect', icon: prod?.emoji || '🎁', ja: 'とる', en: 'Collect', done: a.got, can: a.fed && a.wet && !a.got, doneJa: 'もらった', doneEn: 'Collected', waitJa: !a.fed ? 'エサが さき' : 'みずが さき', waitEn: !a.fed ? 'Feed first' : 'Water first' },
+      ];
+      const next = steps.find((st) => st.can);
+      const chips = steps.map((st) => {
+        const state = st.done ? 'done' : st === next ? 'now' : st.can ? 'can' : 'wait';
+        const label = st.done ? (isJa() ? st.doneJa : st.doneEn) : st.can ? (isJa() ? st.ja : st.en) : (isJa() ? st.waitJa || st.ja : st.waitEn || st.en);
+        return `<button type="button" class="farm-step ${state}" data-animal="${a.i}" data-do="${st.do}" ${st.can ? '' : 'disabled'}><i>${st.done ? '✓' : state === 'now' ? '▶' : state === 'wait' ? '⏳' : ''}</i><span translate="no">${esc(st.icon)}</span>${label}</button>`;
+      }).join('<em class="farm-arrow">›</em>');
+      const big = next
+        ? `<button type="button" class="primary farm-bigdo" data-animal="${a.i}" data-do="${next.do}"><span translate="no">${esc(next.icon)}</span> ${next.do === 'feed' ? tr('エサを あげる') : next.do === 'trough' ? tr('みずを あげる') : tr('{p}を もらう', { p: isJa() ? prod?.ja || '' : prod?.en || '' })}</button>`
+        : `<div class="farm-alldone">✅ ${tr('きょうの せわは おわり！')}</div>`;
+      return `<div class="farm-card animal ${next ? '' : 'done'}">
+        <div class="farm-animal-head"><span class="farm-look"><img class="farm-shot" data-shot="${esc(stage.key(a.kind, a.hearts))}" alt="" hidden><span class="farm-big" translate="no">${esc(it.emoji)}</span></span>
+          <div><b class="farm-en" translate="no">${esc(a.name)}</b><small translate="no">${esc(isJa() ? it.ja : it.en)}</small><span class="farm-hearts">${'❤'.repeat(Math.min(10, a.hearts))}${'♡'.repeat(Math.max(0, 5 - a.hearts))}</span></div></div>
+        <div class="farm-steps">${chips}</div>
+        ${big}
+        <div class="farm-row farm-acts"><button type="button" data-animal="${a.i}" data-do="brush" ${a.brushed ? 'disabled' : ''}>🧹 ${a.brushed ? tr('ブラシ ずみ') : tr('ブラシ（ハートが ふえる）')}</button></div>
+      </div>`;
+    }).join('');
+    const taro = spotDef('barn')?.character || 'Taro';
+    const shop = f.animals.length < limit ? `<h3>${f.animals.length ? tr('もっと かう') : tr('どうぶつを かおう')} <small>${tr('{n}ひきまで', { n: limit })}</small></h3><div class="farm-grid farm-buy">${f.catalog.animals.map((a) => `
+      <div class="farm-card ${a.locked ? 'locked' : ''}"><span class="farm-look"><img class="farm-shot" data-shot="${esc(a.id)}:0" alt="" hidden><span class="farm-big" translate="no">${esc(a.emoji)}</span></span>${word(a)}<span class="farm-price">◈ ${a.price}</span><small>${tr('まいにち {p} を くれる', { p: '' })}<span translate="no">${esc(item(a.product)?.emoji || '')} ${esc(isJa() ? item(a.product)?.ja || '' : item(a.product)?.en || a.product)}</span></small>${lockNote(a, taro)}
+        <div class="farm-row"><input type="text" maxlength="12" placeholder="${tr('なまえ')}" data-name="${a.id}" class="farm-name"><button type="button" class="primary" data-buy="${a.id}" data-qty="1" ${a.locked || a.full || state.coins < a.price ? 'disabled' : ''}>${a.full ? tr('小屋が いっぱい') : state.coins < a.price && !a.locked ? tr('コインが たりない') : `🛒 ${tr('かう')}`}</button></div>
+      </div>`).join('')}</div>` : '';
+    const note = f.animals.length
+      ? `<p class="farm-note">${tr('エサと みずを あげると、たまごや ぎゅうにゅうが もらえる。あめの 日は みずは いらない。エサと ブラシを おなじ日に すると ハートが ふえる。ハートが ふえると、たまごや ぎゅうにゅうが たかく うれる。')}</p>`
+      : `<p class="farm-note big">🐔 ${tr('どうぶつは そとの さくに すむよ。かうと、さくの 中に 3Dで あらわれる。')}</p>`;
+    return `${paddock}${cards ? `<div class="farm-grid farm-animals">${cards}</div>` : ''}${shop}${note}`;
   }
 
   function renderShip(f) {

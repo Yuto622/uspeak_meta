@@ -59,9 +59,11 @@ function loadFarm() {
   need(pen && Number.isFinite(pen.x) && Number.isFinite(pen.z), 'pen block');
   const fieldAt = { x: plots.x + ((plots.cols - 1) * plots.gap) / 2, z: plots.z + ((plots.rows - 1) * plots.gap) / 2 };
   const placeById = new Map(spotById);
-  for (const [id, at] of [['field', fieldAt], ['pen', { x: pen.x, z: pen.z }]]) {
+  const fieldReach = Math.hypot(((plots.cols - 1) * plots.gap) / 2 + 1.2, ((plots.rows - 1) * plots.gap) / 2 + 1.2);
+  const penReach = Math.hypot((num(pen.w, 4) + 1) / 2, (num(pen.d, 5) + 1) / 2);
+  for (const [id, at, reach] of [['field', fieldAt, fieldReach], ['pen', { x: pen.x, z: pen.z }, penReach]]) {
     need(!placeById.has(id), `a spot is already called ${id}`);
-    placeById.set(id, { id, x: at.x, z: at.z, wx: island.x + at.x, wz: island.z + at.z, open: true });
+    placeById.set(id, { id, x: at.x, z: at.z, wx: island.x + at.x, wz: island.z + at.z, open: true, reach: Math.max(5, reach) });
   }
   const byId = (list, what) => {
     const m = new Map();
@@ -461,7 +463,7 @@ export function judge(q, answer) {
 // animals are tended at the pen (or in the barn). The first place listed is where a
 // request that names nowhere in particular is checked.
 const SPOT_OF_ACT = {
-  buy: 'seeds', tool: 'seeds', plant: ['field', 'house'], water: ['field', 'house'], harvest: ['field', 'house'], clear: ['field', 'house'],
+  buy: ['seeds', 'barn'], tool: 'seeds', plant: ['field', 'house'], water: ['field', 'house'], harvest: ['field', 'house'], clear: ['field', 'house'],
   feed: ['pen', 'barn'], brush: ['pen', 'barn'], trough: ['pen', 'barn'], collect: ['pen', 'barn'], ship: 'ship', cook: 'kitchen', talk: null, gift: null, event: null,
 };
 export const spotForAct = (act, spot) => {
@@ -484,6 +486,7 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
       const animal = FARM.animals.get(str(p.item));
       const qty = Math.max(1, Math.min(5, Math.floor(num(p.qty, 1))));
       if (crop) {
+        if (spot === 'barn') throw new FarmError('wrong house');   // seeds are Hana's; Taro sells the animals too
         if (crop.season !== season) throw new FarmError('out of season');
         if (!unlocked(farm, 'seeds', crop.hearts)) throw new FarmError('locked');
         if (coins < crop.seed * qty) throw new FarmError('not enough coins');

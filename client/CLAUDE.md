@@ -869,6 +869,10 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   `nextStep()` は自然に水やりを飛ばす。家畜のカードは **エサ・みず（`data-do="trough"`）・ブラシ・とる** の 4 つで、
   「とる」は `fed && wet` まで無効（文言は「エサが さき」→「みずが さき」）。エラーは `thirsty` / `already watered` / `rain did it`。
   島の雨は `farm-island.js` の `setWeather()`（`paint()` が毎回呼ぶ。雨粒は `THREE.Points` 1 つ）。
+- **さくの画面（2026-10）。** `renderBarn()` は 畑の `renderPlot` と同じ考え：**次に する 1 つ**を大きいボタンにする。
+  動物カードの 3 ステップは `button.farm-step[data-do]`（e2e が `[data-animal][data-do=...]` で押すので data 属性は残すこと）。
+  牧草地（`#farm-stage`）は動物がいなくても出す（`.empty`）。動物の購入カードはさくにも出る（サーバーが barn で `buy` を許す）。
+  島の家畜のふきだしは `farm-island.js` の `bubble(emoji)`（CanvasTexture の Sprite）で、`paint()` が fed / wet / got から決める。
 - **家畜の 3D は 1 か所。** `farm-animals.js` の `buildAnimal()` / `animateAnimal()` を、柵（`farm-island.js`）と画面
   （`farm-preview.js` の `createAnimalStage()`）が共有する。画面は描画器 1 つ：カードの写真は `img[data-shot="kind:hearts"]` を
   `fill(root)` が offscreen target から焼いて差し込み（ハートは 0 / 3 / 6 の 3 段で丸める）、`#farm-stage` の牧草地だけが生の canvas

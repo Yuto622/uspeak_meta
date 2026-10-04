@@ -156,7 +156,8 @@
    days a plant survives. Animal cards carry a picture baked from the island's own model;
    the emoji shrinks into the corner once it arrives (and stays big without WebGL). The
    paddock is the one live canvas: the child's animals on a turning patch of grass. */
-.farm-weather { flex: none; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 8px 18px 0; padding: 8px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
+.farm-sky { flex: none; display: flex; align-items: stretch; gap: 8px; flex-wrap: wrap; margin: 8px 18px 0; }
+.farm-weather { flex: 1 1 240px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 6px 12px; border-radius: 14px; font-size: 12px; line-height: 1.4; }
 .farm-weather b { white-space: nowrap; font-size: 14px; }
 .farm-weather.sun { background: #fff9e0; border: 2px solid #f3d27a; color: #5a4a12; }
 .farm-weather.rain { background: #e4eef8; border: 2px solid #9ebbe0; color: #1f3a5a; }
@@ -172,14 +173,14 @@
 #farm-dialog.mini .farm-stage { height: 150px; }
 /* The pen's small card is taller than a plot's: the paddock sits above the animal cards. */
 #farm-dialog.mini.pen[open] { max-height: min(88vh, 700px); }
-@media (max-width: 760px) { .farm-weather { margin: 6px 12px 0; } .farm-stage { height: 160px; } }
+@media (max-width: 760px) { .farm-stage { height: 160px; } }
 @media (max-height: 560px) { .farm-stage { height: 120px; } }
 
 /* --- the calendar, the festival and the villager's heart (2026-10) ------------------------
    The season strip sits under the weather: which season, its day, when it turns, and the
    festival (today's, or the next). The villager card names the friendship, shows the
    birthday and what they like and dislike, and on a festival day grows a join button. */
-.farm-calendar { flex: none; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 8px 18px 0; padding: 8px 14px; border-radius: 14px; font-size: 13px; border: 2px solid #d9d0b8; background: #fbf7ec; color: #3c4a38; }
+.farm-calendar { flex: 2 1 320px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 6px 12px; border-radius: 14px; font-size: 12px; border: 2px solid #d9d0b8; background: #fbf7ec; color: #3c4a38; }
 .farm-calendar b { font-size: 14px; white-space: nowrap; }
 .farm-calendar > span { flex: 1; min-width: 160px; }
 .farm-calendar em { font-style: normal; font-weight: 700; padding: 3px 10px; border-radius: 10px; background: #fff; border: 1px solid #e2d6b8; white-space: nowrap; }
@@ -201,4 +202,35 @@
 .farm-fest b { font-size: 14px; }
 #farm-event { min-height: 38px; font-size: 14px; border-radius: 10px; border: 0; background: #e0434f; color: #fff; font-weight: 700; }
 #farm-event[disabled] { opacity: .5; }
-@media (max-width: 760px) { .farm-calendar { margin: 6px 12px 0; } }
+@media (max-width: 760px) { .farm-sky { margin: 6px 12px 0; } }
+
+/* --- the barn, made obvious (2026-10): the paddock first, three steps and one big button --- */
+.farm-stage.empty { background: radial-gradient(ellipse at 50% 85%, #cfe8b0 0%, #e4f1d6 55%, #eef7ff 100%); }
+.farm-stage.empty small { font-size: 13px; left: 50%; right: auto; bottom: 10px; transform: translateX(-50%); }
+.farm-animals { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.farm-card.animal { gap: 8px; padding: 10px 12px; border-width: 2px; }
+.farm-card.animal.done { border-color: #8bbf6a; background: #f6fbf1; }
+.farm-animal-head { display: flex; gap: 10px; align-items: center; }
+.farm-animal-head .farm-look { width: 92px; flex: none; }
+.farm-animal-head .farm-shot { max-width: 92px; }
+.farm-animal-head > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.farm-animal-head .farm-en { font-size: 18px; }
+.farm-animal-head small { color: #6b7a66; }
+.farm-steps { display: flex; align-items: center; gap: 2px; flex-wrap: nowrap; }
+.farm-steps .farm-arrow { color: #b8b0a0; font-style: normal; font-size: 16px; padding: 0 1px; }
+.farm-step { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 5px 2px !important; min-height: 54px !important; border-radius: 10px !important; font-size: 11px !important; line-height: 1.2; text-align: center; border: 2px solid #e2d6b8 !important; background: #fbf8ef !important; color: #5c6b57 !important; }
+.farm-step i { font-style: normal; font-size: 11px; height: 12px; }
+.farm-step span { font-size: 18px; line-height: 1; }
+.farm-step.done { background: #e6f6dc !important; border-color: #8bbf6a !important; color: #24461b !important; opacity: 1 !important; }
+.farm-step.now { background: #fff3d6 !important; border-color: #e27a2d !important; color: #7a3a10 !important; box-shadow: 0 0 0 3px #f0c06055; }
+.farm-step.wait { opacity: .55 !important; }
+.farm-bigdo { width: 100%; min-height: 48px !important; font-size: 17px !important; border-radius: 12px !important; animation: farm-pulse 1.3s ease-in-out infinite; }
+.farm-bigdo span { font-size: 20px; vertical-align: middle; }
+.farm-alldone { text-align: center; font-weight: 700; color: #24461b; background: #e6f6dc; border-radius: 12px; padding: 10px; font-size: 14px; }
+.farm-buy .farm-card { border-style: dashed; }
+.farm-buy .farm-row .primary { flex: 1; }
+#farm-dialog.mini .farm-animals { grid-template-columns: 1fr; }
+#farm-dialog.mini.pen[open] { max-height: min(92vh, 760px); }
+
+/* No villager at the pen or on a plot: no empty card either. */
+.farm-villager:empty { display: none; }

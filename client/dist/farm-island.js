@@ -116,23 +116,46 @@ export function createFarmIsland({ scene }) {
         }
       }
 
-      // The pen: east of the yard, fenced on three sides with a trough and a water bowl.
+      // The livestock yard (2026-10, made a real place): east of the yard, a fenced
+      // paddock a child walks into, with a coop in the far corner, a hay trough and a
+      // water trough along the east fence, a hay bale and a muddy wallow. The animals
+      // live here in 3D; what each one wants today floats over its head (paint()).
       const pen = data.pen;
-      B(pen.x, 0.1, pen.z, pen.w + 1, 0.12, pen.d + 1, 0xc9b98a);
-      fence(pen.x - pen.w / 2, pen.z - pen.d / 2, Math.ceil(pen.w / 2), 'x');
-      fence(pen.x - pen.w / 2, pen.z + pen.d / 2, Math.ceil(pen.w / 2), 'x');
-      fence(pen.x + pen.w / 2, pen.z - pen.d / 2, Math.ceil(pen.d / 2), 'z');
-      D(pen.x + pen.w / 2 - 1.2, 0.5, pen.z, 0.7, 0.5, 2.0, 0x8a6a45);
-      D(pen.x + pen.w / 2 - 1.2, 0.72, pen.z, 0.5, 0.1, 1.8, 0xd9b45c);
-      sprite({ en: 'THE PEN', ja: 'どうぶつの さく' }, pen.x, 3.0, pen.z + pen.d / 2 + 1.2, { width: 4.4, size: 30 });
+      const px = pen.x; const pz = pen.z; const hw = pen.w / 2; const hd = pen.d / 2;
+      B(px, 0.1, pz, pen.w + 1, 0.12, pen.d + 1, 0xc9b98a);
+      B(px - 1, 0.17, pz + 1, pen.w - 3, 0.08, pen.d - 3, 0x9fbd62);
+      D(px + 1.5, 0.19, pz + 1.8, 2.0, 0.06, 1.4, 0x8a6a45, 0.1);
+      fence(px - hw, pz - hd, Math.ceil(hw), 'x');
+      fence(px - hw, pz + hd, Math.ceil(hw), 'x');
+      fence(px + hw, pz - hd, Math.ceil(hd), 'z');
+      // The coop: a little red house in the north-east corner, with a ramp.
+      const cx = px + hw - 1.6; const cz = pz - hd + 1.5;
+      D(cx, 0.9, cz, 2.2, 1.6, 1.8, 0xb8503a);
+      D(cx, 1.85, cz, 2.6, 0.3, 2.2, 0x6b4a3a);
+      D(cx, 0.75, cz + 0.95, 0.6, 0.8, 0.1, 0x2b2b30);
+      D(cx - 0.2, 0.3, cz + 1.6, 0.7, 0.08, 1.2, 0xc9a24a);
+      obstacles.push({ x: cx, z: cz, w: 1.2, d: 1.0 });
+      // Hay trough and water trough along the east fence.
+      const tx = px + hw - 1.0;
+      D(tx, 0.45, pz + 0.4, 0.8, 0.5, 2.2, 0x8a6a45);
+      D(tx, 0.72, pz + 0.4, 0.6, 0.12, 2.0, 0xd9b45c);
+      D(tx, 0.45, pz + 3.0, 0.8, 0.5, 1.6, 0x7a7f86);
+      D(tx, 0.70, pz + 3.0, 0.6, 0.08, 1.4, 0x5aa3d8, 0.3);
+      obstacles.push({ x: tx, z: pz + 1.6, w: 0.45, d: 2.6 });
+      // A hay bale by the south fence and a water pump at the gate.
+      D(px - 1.5, 0.55, pz + hd - 0.9, 1.4, 0.9, 1.0, 0xd9b45c);
+      D(px - 1.5, 1.0, pz + hd - 0.9, 1.2, 0.2, 0.8, 0xc9a24a);
+      obstacles.push({ x: px - 1.5, z: pz + hd - 0.9, w: 0.7, d: 0.5 });
+      D(px - hw + 0.3, 0.8, pz - hd + 0.3, 0.25, 1.6, 0.25, 0x5a6a7a);
+      D(px - hw + 0.55, 1.45, pz - hd + 0.3, 0.7, 0.14, 0.14, 0x5a6a7a);
+      sprite({ en: 'THE PEN · your animals', ja: 'どうぶつの さく · きみの どうぶつ' }, px, 3.2, pz + hd + 1.2, { width: 6, size: 30 });
       // Open on the west side, like the field: walk in among the animals.
-      obstacles.push({ x: pen.x, z: pen.z - pen.d / 2, w: pen.w / 2, d: 0.12 });
-      obstacles.push({ x: pen.x, z: pen.z + pen.d / 2, w: pen.w / 2, d: 0.12 });
-      obstacles.push({ x: pen.x + pen.w / 2, z: pen.z, w: 0.12, d: pen.d / 2 });
-      obstacles.push({ x: pen.x + pen.w / 2 - 1.2, z: pen.z, w: 0.4, d: 1.0 });
-      places.pen = { x: pen.x, z: pen.z, w: pen.w / 2 + 0.6, d: pen.d / 2 + 0.6 };
+      obstacles.push({ x: px, z: pz - hd, w: hw, d: 0.12 });
+      obstacles.push({ x: px, z: pz + hd, w: hw, d: 0.12 });
+      obstacles.push({ x: px + hw, z: pz, w: 0.12, d: hd });
+      places.pen = { x: px, z: pz, w: hw + 0.6, d: hd + 0.6, hw, hd };
       penGroup = new THREE.Group();
-      penGroup.position.set(pen.x, 0, pen.z);
+      penGroup.position.set(px, 0, pz);
       root.add(penGroup);
 
       bench(yard.x - 4.5, yard.z + 5.5, 0);
@@ -273,11 +296,17 @@ export function createFarmIsland({ scene }) {
     });
     if (penGroup) {
       while (penGroup.children.length) penGroup.remove(penGroup.children[0]);
+      const hw = places?.pen?.hw || 2; const hd = places?.pen?.hd || 2.5;
+      const homes = [[-hw * 0.45, -hd * 0.3], [hw * 0.2, hd * 0.35], [-hw * 0.3, hd * 0.45], [hw * 0.25, -hd * 0.45]];
       farm.animals.forEach((a, i) => {
         const g = buildAnimal(a.kind, { hearts: a.hearts, seed: i * 1.7 });
-        const ax = -1.6 + (i % 2) * 2.4; const az = -1.4 + Math.floor(i / 2) * 2.4;
+        const [ax, az] = homes[i % homes.length];
         g.position.set(ax, 0, az);
         g.userData.home = { x: ax, z: az };
+        // What it wants today, over its head: feed first, then water, then what it gives.
+        // Nothing when the day's care is done — a quiet animal is a cared-for one.
+        const want = !a.fed ? '🌾' : !a.wet ? '💧' : !a.got ? (PRODUCT_EMOJI[a.product] || '🎁') : '';
+        if (want) { const b = bubble(want); b.position.y = (g.userData.size || 1) + 0.9; g.add(b); g.userData.bubble = b; }
         penGroup.add(g);
       });
     }
@@ -285,6 +314,25 @@ export function createFarmIsland({ scene }) {
     setWeather(farm.weather || 'sun');
     setSeason(farm.calendar?.season || farm.season || 'spring');
     setEvent(farm.event || null);
+  }
+
+  // A little sign over an animal's head: one emoji on a round card.
+  const PRODUCT_EMOJI = { egg: '🥚', milk: '🥛', wool: '🧶' };
+  const bubbleTex = new Map();
+  function bubble(emoji) {
+    if (!bubbleTex.has(emoji)) {
+      const c = document.createElement('canvas'); c.width = 128; c.height = 128;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#fffaf0'; ctx.beginPath(); ctx.arc(64, 60, 50, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(48, 100); ctx.lineTo(64, 124); ctx.lineTo(80, 100); ctx.fill();
+      ctx.strokeStyle = '#d9b45c'; ctx.lineWidth = 6; ctx.beginPath(); ctx.arc(64, 60, 50, 0, Math.PI * 2); ctx.stroke();
+      ctx.font = '60px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#333'; ctx.fillText(emoji, 64, 64);
+      const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+      bubbleTex.set(emoji, tex);
+    }
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: bubbleTex.get(emoji), transparent: true, depthWrite: false }));
+    sp.scale.set(0.9, 0.9, 1);
+    return sp;
   }
 
   // Rain: a few hundred drops over the island, falling and wrapping, only on a rainy day.
@@ -336,7 +384,8 @@ export function createFarmIsland({ scene }) {
       if (penGroup?.visible) for (const g of penGroup.children) {
         // Each animal wanders a little round its spot and turns to where it is going.
         const s0 = g.userData.seed; const h = g.userData.home;
-        const nx = h.x + Math.sin(t * 0.25 + s0) * 0.7; const nz = h.z + Math.cos(t * 0.17 + s0 * 1.3) * 0.6;
+        const nx = h.x + Math.sin(t * 0.25 + s0) * 1.1; const nz = h.z + Math.cos(t * 0.17 + s0 * 1.3) * 0.9;
+        if (g.userData.bubble) g.userData.bubble.position.y = (g.userData.size || 1) + 0.9 + Math.sin(t * 2.5 + s0) * 0.08;
         const dx = nx - g.position.x; const dz = nz - g.position.z; const moving = Math.min(1, Math.hypot(dx, dz) * 40);
         g.position.x = nx; g.position.z = nz;
         if (moving > 0.05) g.rotation.y = Math.atan2(dx, dz);

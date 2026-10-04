@@ -96,6 +96,30 @@ try {
   await inject(page, real);
   await sleep(3000);
   await fig(page, 'island-farm-festival');
+  // The livestock yard with three animals and what each wants, from the gate.
+  await inject(page, { ...real, animals: [
+    { i: 0, kind: 'chicken', name: 'Coco', hearts: 2, fed: false, brushed: false, wet: false, got: false, product: 'egg' },
+    { i: 1, kind: 'sheep', name: 'Momo', hearts: 4, fed: true, brushed: false, wet: false, got: false, product: 'wool' },
+    { i: 2, kind: 'cow', name: 'Hana', hearts: 7, fed: true, brushed: true, wet: true, got: false, product: 'milk' },
+  ] });
+  await page.evaluate(async () => { const d = await uspeak.rpg.farm.ready; const pen = d.island.pen; uspeak.player.position.set(d.island.x + pen.x - pen.w / 2 - 2.5, 0, d.island.z + pen.z + 1); });
+  await sleep(3500);
+  await fig(page, 'island-farm-pen');
+  // And the pen's own card, standing among them.
+  await page.evaluate(async () => { const d = await uspeak.rpg.farm.ready; const pen = d.island.pen; uspeak.player.position.set(d.island.x + pen.x - 1, 0, d.island.z + pen.z); });
+  for (let i = 0; i < 40 && !(await page.evaluate(() => uspeak.rpg.farmFieldNearby()?.kind === 'pen')); i += 1) await sleep(200);
+  await page.evaluate(() => uspeak.net.farmFieldInteract());
+  await page.waitForSelector('#farm-dialog[open]', { state: 'attached', timeout: 20000 });
+  await page.waitForFunction(() => uspeak.net.farm.state.spot === 'pen' && uspeak.net.farm.state.farm, null, { timeout: 20000 });
+  await inject(page, { ...real, animals: [
+    { i: 0, kind: 'chicken', name: 'Coco', hearts: 2, fed: false, brushed: false, wet: false, got: false, product: 'egg' },
+    { i: 1, kind: 'sheep', name: 'Momo', hearts: 4, fed: true, brushed: false, wet: false, got: false, product: 'wool' },
+  ] });
+  await page.waitForFunction(() => { const img = document.querySelector('#farm-main img[data-shot]'); return img && !img.hidden; }, null, { timeout: 20000 }).catch(() => {});
+  await sleep(1200);
+  await fig(page, 'screen-farm-pen');
+  await page.evaluate(() => { document.querySelector('#farm-dialog').close(); });
+  await inject(page, real);
 
   // The villager's card: Hana on her birthday, a few hearts in, with what she likes.
   await enter(page, 'seeds');

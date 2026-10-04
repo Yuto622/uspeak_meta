@@ -12,7 +12,7 @@
     "spawn": { "x": 0, "z": 21 },
     "courtyard": { "x": 0, "z": 9 },
     "plots": { "x": -15.5, "z": 13, "cols": 3, "rows": 3, "gap": 1.9 },
-    "pen": { "x": 10.5, "z": 15.5, "w": 4, "d": 5 },
+    "pen": { "x": 11.5, "z": 16.5, "w": 8, "d": 7 },
     "spots": [
       { "id": "seeds",   "kind": "shop",    "name": "たねや",        "en": "Seed Shop",      "character": "Hana",   "ja": "たねと どうぶつを かう",   "x": -18, "z": 2,   "color": 14982776, "tone": "🌱", "birthday": { "season": "spring", "day": 2 }, "path": { "x": 0, "z": 9 } },
       { "id": "house",   "kind": "field",   "name": "ビニールハウス", "en": "Greenhouse",     "character": "Gramps", "ja": "はたけを せわする",       "x": -8,  "z": -9,  "color": 10212735, "tone": "🌿", "birthday": { "season": "autumn", "day": 1 }, "path": { "x": 0, "z": 9 } },
