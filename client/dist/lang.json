@@ -2432,7 +2432,6 @@
     "ゆき": "Snow",
     "ランプ": "Lamp",
     "はな": "Flower",
-    "みず": "Water",
     "いす": "Chair",
     "ラグ": "Rug",
     "かんようしょくぶつ": "Houseplant",
@@ -2980,6 +2979,24 @@
     "つぎの しまを かうと、ちがう せかいに なります（もり・はな・ゆき・そら）。": "Buy the next island and it becomes a different world (forest, flowers, snow, sky).",
     "クラスの みんなが どの しまを もっているか、なまえの じゅんで 見られます。": "See which island each classmate has, in name order.",
     "じゅんいでは ありません。じまんの ために ならべて あります。": "It is not a ranking. It is there for showing off.",
-    "土地島 — しまの ふどうさん": "Land Island — Island Estate"
+    "土地島 — しまの ふどうさん": "Land Island — Island Estate",
+    "きょうは あめ": "Rain today",
+    "きょうは はれ": "Sunny today",
+    "はたけも どうぶつも みずやりは いらない。あめが やってくれる！": "No watering today, for plants or animals. The rain does it!",
+    "はたけと どうぶつに みずを やろう。{n}日 やらないと かれてしまう。": "Water the plots and the animals. {n} dry days and a plant dies.",
+    "あしたは あめ。": "Rain tomorrow.",
+    "つぎの あめは {n}日後。": "Next rain in {n} days.",
+    "あめで のんだ": "Rain did it",
+    "のんだ": "Had a drink",
+    "みずが さき": "Water first",
+    "エサと みずを あげると、たまごや ぎゅうにゅうが もらえる。あめの 日は みずは いらない。エサと ブラシを おなじ日に すると ハートが ふえる。ハートが ふえると、たまごや ぎゅうにゅうが たかく うれる。": "Fed and watered animals give eggs and milk. On a rainy day they need no water. Feed and brush on the same day and hearts grow; more hearts, and eggs and milk sell for more.",
+    "あめの 日は あめが みずを やってくれる。{n}日 みずが ないと かれてしまう。": "On a rainy day the rain waters them. {n} days without water and a plant dies.",
+    "あめが みずを やってくれた。あしたまで まとう。": "The rain watered it. Wait until tomorrow.",
+    "さきに みずを あげよう。": "Give it water first.",
+    "きょうは もう みずを あげた。": "Already watered today.",
+    "あめが ふった。きょうは みずは いらない。": "It rained. No water needed today.",
+    "あめで そだて中（あした）": "Rain-watered (tomorrow)",
+    "みずを あげる": "Give water",
+    "みず": "Water"
   }
 }

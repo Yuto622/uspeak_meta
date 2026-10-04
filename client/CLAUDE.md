@@ -859,6 +859,15 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   たねを選ばせる。OK でカードは閉じる（畑を見せるため）。畑と柵の**当たり判定は柵の線だけ**（四角で塞ぐと入れない）。
   光の柱は `island-kit` の `setTarget(id, at)` で建物以外にも立つ（`places.field` / `places.pen`）。
   マスが変わると `pops` で はねる（`paint()` が前回の段階と比べる）。
+- **天気と水おけ（2026-10）。** `farm:state` の `weather`（`'sun' | 'rain'`）/ `rainIn` / `dryDays` はサーバーが決める
+  （`rainyDay(day)` はハッシュ。ページで天気を作らないこと）。雨の日はサーバーが先に `watered` / `wet` を立てて送ってくるので、
+  `nextStep()` は自然に水やりを飛ばす。家畜のカードは **エサ・みず（`data-do="trough"`）・ブラシ・とる** の 4 つで、
+  「とる」は `fed && wet` まで無効（文言は「エサが さき」→「みずが さき」）。エラーは `thirsty` / `already watered` / `rain did it`。
+  島の雨は `farm-island.js` の `setWeather()`（`paint()` が毎回呼ぶ。雨粒は `THREE.Points` 1 つ）。
+- **家畜の 3D は 1 か所。** `farm-animals.js` の `buildAnimal()` / `animateAnimal()` を、柵（`farm-island.js`）と画面
+  （`farm-preview.js` の `createAnimalStage()`）が共有する。画面は描画器 1 つ：カードの写真は `img[data-shot="kind:hearts"]` を
+  `fill(root)` が offscreen target から焼いて差し込み（ハートは 0 / 3 / 6 の 3 段で丸める）、`#farm-stage` の牧草地だけが生の canvas
+  （`show(el, animals)`、dialog の `close` で `stop()`）。カードに canvas を 1 つずつ置かないこと（iPad の WebGL コンテキスト数）。
 - **E キーの連鎖（`game.js` の keydown）とクリックの連鎖は別々に書いてある。** 島を足したら両方に `xxxNearby()` を足すこと。
   ぼくじょう島はクリック側にしか無く、E で開かなかった。
 - 買い物の効果は `{ spend, id }` を返すこと（`onFarmAnswer` がそれで請求する）。返し忘れると店がタダになる。

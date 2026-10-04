@@ -117,13 +117,36 @@ export const DAY_MS = DAY_SEC * 1000;
 export const farmDay = (now = Date.now()) => Math.floor(now / DAY_MS);
 export const seasonId = (now = Date.now()) => seasonFor(now).id;
 
+// ---- weather -------------------------------------------------------------------------
+// Some farm days it rains. The day decides, not the child, so a whole class sees the same
+// sky (the island draws it): a hash of the day index, about three days in ten. On a rainy
+// day the rain does the watering — every plot and every trough — and the plants grow as
+// if a child had done it. FARM_RAIN_PCT tunes how often (a demo can make it 0 or 100).
+const RAIN_PCT = Math.max(0, Math.min(100, Number(process.env.FARM_RAIN_PCT ?? 30)));
+export const DRY_DAYS = 3;        // a plot left this many days without water or rain wilts
+export function rainyDay(day) {
+  let h = (Math.floor(day) + 7919) >>> 0;
+  h = Math.imul(h ^ (h >>> 16), 0x45d9f3b) >>> 0;
+  h = Math.imul(h ^ (h >>> 16), 0x45d9f3b) >>> 0;
+  h = (h ^ (h >>> 16)) >>> 0;
+  return (h % 100) < RAIN_PCT;
+}
+export const isRainy = (now = Date.now()) => rainyDay(farmDay(now));
+export const weatherOf = (now = Date.now()) => (isRainy(now) ? 'rain' : 'sun');
+// The next rainy day on the calendar, so the page can say "rain in two days".
+export function daysToRain(now = Date.now(), limit = 14) {
+  const d0 = farmDay(now);
+  for (let k = 1; k <= limit; k += 1) if (rainyDay(d0 + k)) return k;
+  return null;
+}
+
 // ---- the farm ------------------------------------------------------------------------
 export function blankFarm() {
   return {
     plots: Array.from({ length: FARM.plotCount }, () => null),   // null or { crop, growth, last, planted }
     seeds: {},        // crop id -> count
     items: {},        // crop / product / dish id -> count
-    animals: [],      // { kind, name, hearts, fed, brushed, got }  (days)
+    animals: [],      // { kind, name, hearts, fed, brushed, wet, got }  (days)
     can: 1,           // plots watered per right answer
     hearts: {},       // spot id -> hearts with that villager
     talked: {},       // spot id -> farm day last talked
@@ -133,6 +156,7 @@ export function blankFarm() {
     earned: 0,        // coins from shipping, ever
     week: { key: 0, coins: 0 },
     q: null,          // the question on the table, if any
+    settled: -1,      // the last farm day the weather was applied up to
   };
 }
 
@@ -161,7 +185,7 @@ export function sanitizeFarm(raw) {
     farm.animals = raw.animals.filter((a) => a && FARM.animals.has(a.kind)).slice(0, FARM.animalLimit).map((a) => ({
       kind: a.kind, name: str(a.name).slice(0, 16) || FARM.animals.get(a.kind).en,
       hearts: Math.max(0, Math.min(10, Math.floor(num(a.hearts)))),
-      fed: Math.floor(num(a.fed)), brushed: Math.floor(num(a.brushed)), got: Math.floor(num(a.got)),
+      fed: Math.floor(num(a.fed)), brushed: Math.floor(num(a.brushed)), wet: Math.floor(num(a.wet)), got: Math.floor(num(a.got)),
     }));
   }
   farm.can = Math.max(1, Math.min(3, Math.floor(num(raw.can, 1))));
@@ -175,17 +199,41 @@ export function sanitizeFarm(raw) {
   farm.shipped = Math.max(0, Math.floor(num(raw.shipped)));
   farm.earned = Math.max(0, Math.floor(num(raw.earned)));
   farm.week = { key: Math.floor(num(raw.week?.key)), coins: Math.max(0, Math.floor(num(raw.week?.coins))) };
+  farm.settled = Math.floor(num(raw.settled, -1));
   return farm;
 }
 
 // Time passing. Crops out of season wilt (the shop will not have sold them, so this
-// only happens to a plot planted before the calendar turned); the week's shipping
-// total starts over on Monday. Nothing else ticks: a plot only grows when watered.
+// only happens to a plot planted before the calendar turned); the week's shipping total
+// starts over on Monday. And the weather: every day since the farm was last looked at is
+// replayed in order — a rainy day waters every plot (and it grows) and fills every trough;
+// a plot that has then gone DRY_DAYS without water or rain wilts. A child who was away for
+// a week comes back to what a week did, rain and all, not to a farm frozen on the day they left.
 export function settle(farm, now = Date.now()) {
   const season = seasonId(now);
   for (const p of farm.plots) if (p && FARM.crops.get(p.crop).season !== season) p.wilted = true;
   const wk = weekIndex(now);
   if (farm.week.key !== wk) farm.week = { key: wk, coins: 0 };
+  const today = farmDay(now);
+  // A farm never settled before (new, or saved before the weather existed) starts today:
+  // nothing is known of its past days, so nothing wilts for them.
+  const first = farm.settled < 0;
+  const from = first ? today : Math.max(farm.settled + 1, today - 60);
+  for (let d = from; d <= today; d += 1) {
+    if (rainyDay(d)) {
+      for (const p of farm.plots) {
+        if (!p || p.wilted) continue;
+        if (p.last !== d && p.growth < FARM.crops.get(p.crop).days) { p.last = d; p.growth += 1; }
+      }
+      for (const a of farm.animals) a.wet = d;
+    } else if (!first) {
+      for (const p of farm.plots) {
+        if (!p || p.wilted || p.growth >= FARM.crops.get(p.crop).days) continue;
+        if (d - Math.max(p.last, p.planted) >= DRY_DAYS) p.wilted = true;
+      }
+    }
+  }
+  farm.settled = today;
   return farm;
 }
 
@@ -205,16 +253,17 @@ export function catalog(farm, now = Date.now()) {
 
 // What the page sees. The whole farm, plus the time it is judged by, minus the answer.
 export function statePayload(farm, now = Date.now()) {
+  settle(farm, now);
   const day = farmDay(now);
   return {
-    day, season: seasonId(now), week: farm.week,
+    day, season: seasonId(now), week: farm.week, weather: weatherOf(now), rainIn: daysToRain(now), dryDays: DRY_DAYS,
     plots: farm.plots.map((p) => (p ? {
       crop: p.crop, growth: p.growth, days: FARM.crops.get(p.crop).days,
       ready: !p.wilted && p.growth >= FARM.crops.get(p.crop).days,
       watered: p.last === day, wilted: !!p.wilted,
     } : null)),
     seeds: { ...farm.seeds }, items: { ...farm.items },
-    animals: farm.animals.map((a, i) => ({ i, kind: a.kind, name: a.name, hearts: a.hearts, fed: a.fed === day, brushed: a.brushed === day, got: a.got === day, product: FARM.animals.get(a.kind).product })),
+    animals: farm.animals.map((a, i) => ({ i, kind: a.kind, name: a.name, hearts: a.hearts, fed: a.fed === day, brushed: a.brushed === day, wet: a.wet === day, got: a.got === day, product: FARM.animals.get(a.kind).product })),
     can: farm.can, hearts: { ...farm.hearts }, talked: Object.fromEntries(Object.entries(farm.talked).map(([k, v]) => [k, v === day])),
     gifted: Object.fromEntries(Object.entries(farm.gifted).map(([k, v]) => [k, v === day])),
     dex: [...farm.dex], shipped: farm.shipped, earned: farm.earned,
@@ -313,7 +362,7 @@ export function judge(q, answer) {
 // request that names nowhere in particular is checked.
 const SPOT_OF_ACT = {
   buy: 'seeds', tool: 'seeds', plant: ['field', 'house'], water: ['field', 'house'], harvest: ['field', 'house'], clear: ['field', 'house'],
-  feed: ['pen', 'barn'], brush: ['pen', 'barn'], collect: ['pen', 'barn'], ship: 'ship', cook: 'kitchen', talk: null, gift: null,
+  feed: ['pen', 'barn'], brush: ['pen', 'barn'], trough: ['pen', 'barn'], collect: ['pen', 'barn'], ship: 'ship', cook: 'kitchen', talk: null, gift: null,
 };
 export const spotForAct = (act, spot) => {
   const where = SPOT_OF_ACT[act];
@@ -430,7 +479,7 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
         effect: (f) => { f.plots[i] = null; return { en: 'The plot is clean. Plant again!', ja: 'はたけが きれいに なった。また うえよう！' }; },
       });
     }
-    case 'feed': case 'brush': case 'collect': {
+    case 'feed': case 'brush': case 'trough': case 'collect': {
       const i = Math.floor(num(p.animal, -1));
       const a = farm.animals[i];
       if (!a) throw new FarmError('no such animal');
@@ -455,8 +504,17 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
           effect: (f) => { const an = f.animals[i]; an.brushed = day; if (an.fed === day) an.hearts = Math.min(10, an.hearts + 1); noteWord(f, kind.en); return { en: `${an.name} is happy! ${an.fed === day ? '❤' : ''}`, ja: `${an.name}は うれしそう！${an.fed === day ? ' ❤' : ''}` }; },
         });
       }
+      if (act === 'trough') {
+        // Water for the animals: the same fill-in-the-blank the field asks. Rain did it already.
+        if (a.wet === day) throw new FarmError(rainyDay(day) ? 'rain did it' : 'already watered');
+        const w = pick(BANK.water);
+        return choiceQ('trough', 'fill', w.pic, { en: `${w.pic} ${w.q}`, ja: w.ja }, w.a, w.d, {
+          effect: (f) => { const an = f.animals[i]; an.wet = day; noteWord(f, w.a); return { en: `💧 ${an.name} had a drink!`, ja: `💧 ${an.name}は みずを のんだ！` }; },
+        });
+      }
       if (a.got === day) throw new FarmError('already collected');
       if (a.fed !== day) throw new FarmError('hungry');
+      if (a.wet !== day) throw new FarmError('thirsty');
       const product = FARM.products.get(kind.product);
       const pool = ['egg', 'milk', 'wool', 'bread', 'juice', 'rice', 'cake', 'water'];
       return choiceQ('collect', 'word', `${kind.emoji}➜${product.emoji}`, { en: `${kind.emoji} ➜ ${product.emoji} What is this?`, ja: `${kind.ja}から もらえる もの。えいごで なに？` }, product.en, others(pool, product.en), {

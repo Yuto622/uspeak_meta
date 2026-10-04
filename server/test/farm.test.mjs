@@ -5,11 +5,16 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   FARM, BANK, blankFarm, sanitizeFarm, settle, prepare, judge, askPayload, statePayload, farmDay, DAY_MS, seasonId, valueOf, spotForAct, FarmError,
+  rainyDay, isRainy, weatherOf, daysToRain, DRY_DAYS,
 } from '../src/game/farm.js';
 
 // A moment in each real season, so a test does not depend on today.
 const AT = { spring: Date.UTC(2026, 3, 10, 3), summer: Date.UTC(2026, 6, 10, 3), autumn: Date.UTC(2026, 9, 10, 3), winter: Date.UTC(2026, 0, 10, 3) };
-const spring = AT.spring;
+// The weather is the day's. The fixtures below want a dry day, so `spring` is the first
+// dry farm day from April 10; the rain tests pick their own rainy and dry days.
+const dryFrom = (t) => { let d = farmDay(t); while (rainyDay(d)) d += 1; return d * DAY_MS + DAY_MS / 2; };
+const rainFrom = (t) => { let d = farmDay(t); while (!rainyDay(d)) d += 1; return d * DAY_MS + DAY_MS / 2; };
+const spring = dryFrom(AT.spring);
 const rich = { now: spring, coins: 1000, spot: 'seeds' };
 
 test('the island is sound: five buildings, far enough apart, with a shop, a field, a barn, a box and a kitchen', () => {
@@ -39,7 +44,7 @@ test('the English is 英検5級: short answers, a picture on every question, Jap
   farm.plots[1] = { crop: 'turnip', growth: 0, last: -1, planted: 0 };
   const asks = [
     ['buy', { item: 'turnip', qty: 3 }, 'seeds'], ['buy', { item: 'cow' }, 'seeds'], ['tool', { item: 'can2' }, 'seeds'],
-    ['plant', { plot: 0, crop: 'turnip' }, 'house'], ['water', {}, 'house'], ['feed', { animal: 0 }, 'barn'], ['brush', { animal: 0 }, 'barn'],
+    ['plant', { plot: 0, crop: 'turnip' }, 'house'], ['water', {}, 'house'], ['feed', { animal: 0 }, 'barn'], ['brush', { animal: 0 }, 'barn'], ['trough', { animal: 0 }, 'barn'],
     ['ship', { item: 'egg' }, 'ship'], ['ship', { item: 'cucumber' }, 'ship'], ['cook', { recipe: 'pancakes' }, 'kitchen'], ['talk', {}, 'kitchen'], ['gift', { item: 'egg' }, 'seeds'],
   ];
   for (const [act, params, spot] of asks) {
@@ -97,7 +102,7 @@ test('plant by picture, water by a word in a sentence, harvest by counting', () 
   assert.ok(w1.prompt.en.includes('___') && w1.choices.includes(w1.answer) && w1.choices.length === 4);
   w1.effect(farm);
   assert.throws(() => prepare(farm, 'water', {}, { ...rich, now }), /nothing to water/, 'once a day');
-  now += DAY_MS;
+  now = dryFrom(now + DAY_MS);
   prepare(farm, 'water', {}, { ...rich, now }).effect(farm);
   assert.equal(statePayload(farm, now).plots[4].ready, true);
   const h = prepare(farm, 'harvest', { plot: 4 }, { ...rich, now });
@@ -124,7 +129,7 @@ test('a silver can waters two plots per answer; a regrowing crop comes back; a w
   const w = prepare(farm, 'water', {}, { ...rich, now });
   assert.deepEqual(w.plots, [0, 1]);
   w.effect(farm);
-  for (let d = 1; d < 4; d += 1) { now += DAY_MS; prepare(farm, 'water', {}, { ...rich, now }).effect(farm); }
+  for (let d = 1; d < 4; d += 1) { now = dryFrom(now + DAY_MS); prepare(farm, 'water', {}, { ...rich, now }).effect(farm); }
   prepare(farm, 'harvest', { plot: 0 }, { ...rich, now }).effect(farm);
   assert.equal(farm.plots[0].crop, 'cucumber', 'cucumbers regrow');
   settle(farm, AT.summer);
@@ -149,6 +154,11 @@ test('animals: feed by its sound, brush by its name, collect by what it gives', 
   assert.equal(brush.answer, 'chicken');
   brush.effect(farm);
   assert.equal(farm.animals[0].hearts, 1, 'fed and brushed on the same day is a heart');
+  assert.throws(() => prepare(farm, 'collect', { animal: 0 }, rich), /thirsty/, 'fed but not watered: no egg yet');
+  const drink = prepare(farm, 'trough', { animal: 0 }, rich);
+  assert.ok(drink.prompt.en.includes('___'), 'the trough asks the same fill-in as the field');
+  drink.effect(farm);
+  assert.throws(() => prepare(farm, 'trough', { animal: 0 }, rich), /already watered/);
   const col = prepare(farm, 'collect', { animal: 0 }, rich);
   assert.equal(col.answer, 'egg');
   col.effect(farm);
@@ -231,4 +241,56 @@ test('every action belongs to a building, and a saved farm comes back whole but 
   assert.equal(junk.can, 3);
   assert.deepEqual(junk.hearts, { barn: 10 });
   assert.equal(junk.animals.length, 0);
+});
+
+test('rain: the day decides, the same for everyone, about three days in ten', () => {
+  let wet = 0; for (let d = 0; d < 1000; d += 1) if (rainyDay(d)) wet += 1;
+  assert.ok(wet > 200 && wet < 400, `${wet} rainy days in 1000`);
+  assert.equal(rainyDay(42), rainyDay(42));
+  const t = rainFrom(AT.summer);
+  assert.equal(weatherOf(t), 'rain'); assert.equal(isRainy(t), true);
+  assert.equal(weatherOf(dryFrom(AT.summer)), 'sun');
+  const k = daysToRain(dryFrom(AT.summer)); assert.ok(k === null || (k >= 1 && rainyDay(farmDay(dryFrom(AT.summer)) + k)));
+});
+
+test('a rainy day waters every plot (and it grows) and every trough; nothing to water that day', () => {
+  const farm = blankFarm();
+  const sunny = dryFrom(AT.summer);
+  farm.plots[0] = { crop: 'tomato', growth: 0, last: -1, planted: farmDay(sunny) };
+  farm.animals.push({ kind: 'cow', name: 'Momo', hearts: 0, fed: -1, brushed: -1, wet: -1, got: -1 });
+  settle(farm, sunny);
+  assert.equal(farm.plots[0].growth, 0, 'a dry day waters nothing by itself');
+  const rainy = rainFrom(sunny + DAY_MS);
+  const st = statePayload(farm, rainy);
+  assert.equal(st.weather, 'rain');
+  assert.equal(st.plots[0].watered, true); assert.equal(st.plots[0].growth, 1, 'the rain watered it and it grew');
+  assert.equal(st.animals[0].wet, true, 'the rain filled the trough');
+  assert.throws(() => prepare(farm, 'water', {}, { ...rich, now: rainy, spot: 'field' }), /nothing to water/);
+  assert.throws(() => prepare(farm, 'trough', { animal: 0 }, { ...rich, now: rainy, spot: 'pen' }), /rain did it/);
+  // Feeding is still a chore in the rain; then the cow gives milk without a watering.
+  prepare(farm, 'feed', { animal: 0 }, { ...rich, now: rainy, spot: 'pen' }).effect(farm);
+  const col = prepare(farm, 'collect', { animal: 0 }, { ...rich, now: rainy, spot: 'pen' });
+  assert.equal(col.answer, 'milk');
+});
+
+test('a plot left dry wilts after DRY_DAYS days; a rainy day in between saves it; days away are replayed', () => {
+  assert.equal(DRY_DAYS, 3);
+  // Three dry days in a row, found on the calendar.
+  let d0 = farmDay(AT.autumn); while (!(!rainyDay(d0) && !rainyDay(d0 + 1) && !rainyDay(d0 + 2) && !rainyDay(d0 + 3))) d0 += 1;
+  const at = (d) => d * DAY_MS + DAY_MS / 2;
+  const farm = blankFarm();
+  farm.plots[0] = { crop: 'pumpkin', growth: 0, last: -1, planted: d0 };
+  farm.settled = d0;
+  settle(farm, at(d0 + 2)); assert.equal(!!farm.plots[0].wilted, false, 'two dry days: still alive');
+  settle(farm, at(d0 + 3)); assert.equal(farm.plots[0].wilted, true, 'three dry days: wilted');
+  // The same plot, but it rains on the second day: it drinks, grows, and lives.
+  let r0 = farmDay(AT.autumn); while (!(!rainyDay(r0) && rainyDay(r0 + 1))) r0 += 1;
+  const farm2 = blankFarm();
+  farm2.plots[0] = { crop: 'pumpkin', growth: 0, last: -1, planted: r0 };
+  farm2.settled = r0;
+  settle(farm2, at(r0 + 3));
+  assert.equal(!!farm2.plots[0].wilted, false); assert.ok(farm2.plots[0].growth >= 1); assert.equal(farm2.settled, r0 + 3);
+  // A saved farm remembers how far the weather was applied.
+  const back = sanitizeFarm(JSON.parse(JSON.stringify(farm2)));
+  assert.equal(back.settled, r0 + 3); assert.equal(back.animals.length, 0);
 });

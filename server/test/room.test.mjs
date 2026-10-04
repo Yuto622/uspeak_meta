@@ -3,6 +3,7 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 
 process.env.STORE_BACKEND = 'memory';
+process.env.FARM_RAIN_PCT = '0';          // the farm tests here assume a sunny day; rain has its own tests
 process.env.TEACHER_KEY = 'testkey12345';
 process.env.REPORT_SECRET = 'test-report-secret-0123456789';
 process.env.RECONNECT_GRACE_SEC = '5';

@@ -448,7 +448,7 @@ fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
 |---|---|---|
 | 🌱 たねや（Hana） | 季節の種・ニワトリ/ヒツジ/ウシ・ジョウロを買う | **3 枚のカードを並べる**（Two carrots, please. / A chicken, please.） |
 | 🌿 ビニールハウス（Gramps） | 9 マスの畑：植える・水やり・収穫・片づけ | 植える＝**絵を見て英単語を選ぶ**／水やり＝**絵つきの穴うめ**（This is an ___. → apple）／収穫＝How many? |
-| 🐄 どうぶつ小屋（Taro） | エサ・ブラシ・卵/牛乳/羊毛をとる | エサ＝**鳴き声**（Cluck / Baa / Moo）／ブラシ＝動物の名前／とる＝egg / milk / wool |
+| 🐄 どうぶつ小屋（Taro） | エサ・**みず**・ブラシ・卵/牛乳/羊毛をとる | エサ＝**鳴き声**（Cluck / Baa / Moo）／みず＝絵つきの穴うめ／ブラシ＝動物の名前／とる＝egg / milk / wool |
 | 📦 しゅっか小屋（Zack） | 出荷してコインに、クラスの収穫祭の掲示板 | 品名を**つづる**：短い語は**文字タイルを並べる**、長い語は 3 つのつづりから選ぶ |
 | 🍳 だいどころ（Mia） | レシピで料理（売値 2 倍、贈り物に） | **なにが入っている？**（材料の英単語を選ぶ） |
 
@@ -477,12 +477,23 @@ fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
   問題バンクは `server/src/game/farm-bank.json`（`client/dist` には置かない）。作物・値段・成長日数は
   `client/dist/farm.json` をページとサーバーが同じく読む。買い物の請求は効果の `spend` が名指しする
   （これが抜けると店がタダになる — `farm.test.mjs` が見ている）。
+- **雨が降る。みずやりは義務（2026-10）。** 牧場日ごとに決定的に晴れか雨かが決まる（`farm.js` の `rainyDay(day)`、
+  ハッシュなので**クラス全員が同じ日に雨**。割合は `FARM_RAIN_PCT`、既定 30%）。**雨の日は 畑のマス全部に水がやられて育ち、
+  家畜の水おけも全部いっぱいになる** — 子どもは何もしなくていい。晴れの日に水をやらないマスは **`DRY_DAYS`＝3 日で枯れる**
+  （`settle()` が最後に見た日から今日まで 1 日ずつ再生して、雨の日は水やり・乾いた日は枯れ判定をする。初回だけは枯らさない）。
+  家畜は **エサと みずの両方**がその日に済むまで卵・牛乳・羊毛をくれない（`thirsty`）。みずは `trough` の act（絵つき穴うめ）。
+  雨の日に水おけを押すと `rain did it`。`farm:state` に `weather` / `rainIn`（次の雨まで何日）/ `dryDays` が乗り、
+  画面の天気の帯（`#farm-weather`）と「つぎ」の帯が雨の日は水やりを飛ばす。島には雨粒（`setWeather`）が降る。
+  検査サーバーは `FARM_RAIN_PCT=0` で晴れに固定（`room.test.mjs` / `browser-farm.mjs`）。
+- **家畜は 3D。** `farm-animals.js` の `buildAnimal(kind, {hearts, seed})` が ニワトリ・ヒツジ・ウシを箱と球で作り、
+  柵の中（うろうろ歩く）と、たねやのカード・さくのカードの写真（`farm-preview.js` が 1 つの描画器で焼く）と、
+  さくの上の**回る牧草地**（指で回せる）が同じモデル。WebGL が無ければ絵文字のまま。
 - **屋外に自分の畑と動物が見える。** 芽→葉→実の 3 段階、動物は買った分だけ柵の中に。サーバーの状態からだけ描く。
 - 保存は `farm_json` 1 列（`farm_coins` は 1 日の上限）。
-- **あそびかたガイド（?）に 7 ページ**（島・たねや・こたえあわせ・はたけ・どうぶつ小屋・しゅっか小屋・だいどころ）。
+- **あそびかたガイド（?）に 8 ページ**（島・たねや・こたえあわせ・はたけ・どうぶつの さく・あめの 日・しゅっか小屋・だいどころ）。
   写真は `browser-farm.mjs` が撮る `docs/figures/screen-farm-*.jpg` から。
-- 検査：`server/test/farm.test.mjs`（11 項目・成長と判定と請求）/ `room.test.mjs` の「ぼくじょう島」（実ソケット・位置ゲート・
-  コインの請求）/ `server/test/e2e/browser-farm.mjs`（実ブラウザ 17 項目・買って植えて水をやり、エサをやる）/
+- 検査：`server/test/farm.test.mjs`（14 項目・成長と判定と請求・雨の分布・雨の日の水やり・乾いて枯れる）/ `room.test.mjs` の「ぼくじょう島」（実ソケット・位置ゲート・
+  コインの請求）/ `server/test/e2e/browser-farm.mjs`（実ブラウザ 33 項目・買って植えて水をやり、エサと みずをやり、雨の日の帯と 3D の さく）/
   `client/tests/regression.mjs` の島の検査 / `browser-english.mjs` と `browser-layout.mjs` の `farm` 画面。
 
 ## 土地島（じぶんだけの しま／2026-10 追加）

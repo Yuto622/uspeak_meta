@@ -8,6 +8,7 @@
 //
 // Terrain, dock, collision, labels, minimap and beacon all come from the shared island
 // kit, as they do for every other walkable island. Only the buildings are written here.
+import { buildAnimal, animateAnimal } from './farm-animals.js';
 import * as THREE from './three.module.js';
 import { createIsland, NEAR_DISTANCE } from './island-kit.js';
 
@@ -207,25 +208,31 @@ export function createFarmIsland({ scene }) {
     if (penGroup) {
       while (penGroup.children.length) penGroup.remove(penGroup.children[0]);
       farm.animals.forEach((a, i) => {
-        const g = new THREE.Group();
+        const g = buildAnimal(a.kind, { hearts: a.hearts, seed: i * 1.7 });
         const ax = -1.6 + (i % 2) * 2.4; const az = -1.4 + Math.floor(i / 2) * 2.4;
         g.position.set(ax, 0, az);
-        g.userData.seed = i;
-        if (a.kind === 'chicken') {
-          box(g, 0, 0.45, 0, 0.6, 0.5, 0.7, 0xf3efe6); box(g, 0, 0.85, 0.3, 0.32, 0.32, 0.32, 0xf3efe6);
-          box(g, 0, 0.82, 0.5, 0.14, 0.1, 0.18, 0xf0a030); box(g, 0, 1.05, 0.3, 0.12, 0.16, 0.2, 0xe0434f);
-        } else if (a.kind === 'sheep') {
-          box(g, 0, 0.75, 0, 1.3, 0.9, 1.6, 0xf1ece0); box(g, 0, 1.0, 0.95, 0.5, 0.5, 0.5, 0x3b3b40);
-          for (const [lx, lz] of [[-0.4, -0.5], [0.4, -0.5], [-0.4, 0.5], [0.4, 0.5]]) box(g, lx, 0.2, lz, 0.2, 0.4, 0.2, 0x3b3b40);
-        } else {
-          box(g, 0, 0.95, 0, 1.3, 1.0, 2.0, 0xf3efe6); box(g, 0.3, 1.0, 0.4, 0.5, 0.6, 0.7, 0x3b3b40);
-          box(g, 0, 1.25, 1.2, 0.7, 0.6, 0.6, 0xf3efe6); box(g, 0, 1.05, 1.5, 0.5, 0.3, 0.2, 0xe8b4a0);
-          for (const [lx, lz] of [[-0.45, -0.7], [0.45, -0.7], [-0.45, 0.7], [0.45, 0.7]]) box(g, lx, 0.25, lz, 0.26, 0.5, 0.26, 0xf3efe6);
-        }
-        if (a.hearts >= 3) box(g, 0, 1.75, 0.3, 0.26, 0.26, 0.1, 0xe0434f);
+        g.userData.home = { x: ax, z: az };
         penGroup.add(g);
       });
     }
+    // The sky: rain falls on the whole island on a rainy farm day (the room says which).
+    setWeather(farm.weather || 'sun');
+  }
+
+  // Rain: a few hundred drops over the island, falling and wrapping, only on a rainy day.
+  let rain = null;
+  function setWeather(w) {
+    if (!rootRef) return;
+    if (w !== 'rain') { if (rain) rain.visible = false; return; }
+    if (!rain) {
+      const n = 700; const pos = new Float32Array(n * 3);
+      for (let i = 0; i < n; i += 1) { pos[i * 3] = (Math.random() - 0.5) * 70; pos[i * 3 + 1] = Math.random() * 18; pos[i * 3 + 2] = (Math.random() - 0.5) * 70; }
+      const geoR = new THREE.BufferGeometry(); geoR.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      rain = new THREE.Points(geoR, new THREE.PointsMaterial({ color: 0xcfe6f2, size: 0.18, transparent: true, opacity: 0.75, depthWrite: false }));
+      rain.position.y = 0; rootRef.add(rain);
+      for (let i = 0; i < 6; i += 1) { const c = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 8), new THREE.MeshStandardMaterial({ color: 0x9aa4ad, roughness: 1, transparent: true, opacity: 0.85 })); c.scale.set(5 + (i % 3) * 2, 1.6, 3.5 + (i % 2) * 1.5); c.position.set(-20 + i * 8, 15 + (i % 2) * 1.5, -8 + (i % 3) * 7); rain.add(c); }
+    }
+    rain.visible = true;
   }
 
   // Where the child is standing, if it is on the farm itself: on one of the nine plots
@@ -258,7 +265,16 @@ export function createFarmIsland({ scene }) {
     setTarget(id) { baseSetTarget(id, places?.[id] ? { x: places[id].x, z: places[id].z } : null); },
     update(t, player) {
       baseUpdate(t, player);
-      if (penGroup?.visible) for (const g of penGroup.children) { g.position.y = Math.abs(Math.sin(t * 2 + g.userData.seed)) * 0.08; g.rotation.y = Math.sin(t * 0.4 + g.userData.seed) * 0.6; }
+      if (penGroup?.visible) for (const g of penGroup.children) {
+        // Each animal wanders a little round its spot and turns to where it is going.
+        const s0 = g.userData.seed; const h = g.userData.home;
+        const nx = h.x + Math.sin(t * 0.25 + s0) * 0.7; const nz = h.z + Math.cos(t * 0.17 + s0 * 1.3) * 0.6;
+        const dx = nx - g.position.x; const dz = nz - g.position.z; const moving = Math.min(1, Math.hypot(dx, dz) * 40);
+        g.position.x = nx; g.position.z = nz;
+        if (moving > 0.05) g.rotation.y = Math.atan2(dx, dz);
+        animateAnimal(g, t, moving);
+      }
+      if (rain?.visible) { const a = rain.geometry.attributes.position; for (let i = 0; i < a.count; i += 1) { let y = a.getY(i) - 0.55; if (y < -1) y += 18; a.setY(i, y); } a.needsUpdate = true; }
       if (pops.length) {
         const now = performance.now();
         for (let i = pops.length - 1; i >= 0; i -= 1) {

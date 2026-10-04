@@ -12,6 +12,7 @@
 // whether a plot is ready — all of that arrives in `farm:state`.
 import { t as tr, onLangChange, isJa } from './i18n.js';
 import { loadFarmData } from './farm-island.js';
+import { createAnimalStage } from './farm-preview.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -31,9 +32,12 @@ export function nextStep(f) {
   if (Object.keys(f.seeds || {}).length && plots.some((p) => !p)) return step('field', 'はたけの あいている マスに たって たねを うえよう 🌱', 'Stand on an empty plot and plant a seed 🌱');
   const animals = f.animals || [];
   if (animals.some((a) => !a.fed)) return step('pen', 'さくの 中に 入って どうぶつに エサを あげよう 🐄', 'Walk into the pen and feed your animals 🐄');
-  if (animals.some((a) => a.fed && !a.got)) return step('pen', 'さくの 中で たまごや ぎゅうにゅうを もらおう 🥚', 'In the pen, collect eggs and milk 🥚');
+  // Rain fills every trough (the room marks them `wet`), so this step only shows on a dry day.
+  if (animals.some((a) => !a.wet)) return step('pen', 'さくの 中で どうぶつに みずを あげよう 💧', 'In the pen, give your animals water 💧');
+  if (animals.some((a) => a.fed && a.wet && !a.got)) return step('pen', 'さくの 中で たまごや ぎゅうにゅうを もらおう 🥚', 'In the pen, collect eggs and milk 🥚');
   if (Object.keys(f.items || {}).length) return step('ship', 'しゅっか小屋で うって コインに しよう 📦', 'Ship your things for coins 📦');
   if (!plots.some((p) => p)) return step('seeds', 'たねやで たねを かおう 🌱', 'Buy seeds at the Seed Shop 🌱');
+  if (f.weather === 'rain') return step('', 'きょうは あめ。みずやりは おやすみ！ そらが ひとまわり すると あしたに なるよ。', 'Rain today, so no watering! Tomorrow comes when the sky turns.');
   return step('', 'きょうの しごとは おわり！ そらが ひとまわり すると あしたに なるよ。', "All done today! Tomorrow comes when the sky turns.");
 }
 
@@ -48,11 +52,11 @@ const PLACES = {
 const HOWTO = {
   shop: [['🔢', 'かずを えらぶ', 'Pick how many'], ['🃏', 'カードを じゅんばんに おす', 'Tap the cards in order'], ['🛒', 'かえた！', 'Bought!']],
   field: [['🟫', 'あいている マスを おす → たねを えらぶ', 'Tap an empty plot → pick a seed'], ['💧', '「みずを やる」を おす', 'Tap "Water"'], ['🧺', 'できたら マスを おして とる', 'Tap a ripe plot to pick it']],
-  barn: [['🌾', 'エサ：なきごえを えらぶ', 'Feed: pick its sound'], ['🧹', 'ブラシ：どうぶつの なまえ', 'Brush: name the animal'], ['🥚', 'とる：もらえる ものの なまえ', 'Collect: name what it gives']],
+  barn: [['🌾', 'エサ：なきごえを えらぶ', 'Feed: pick its sound'], ['💧', 'みず：あなに ことばを 入れる', 'Water: fill in the word'], ['🧹', 'ブラシ：どうぶつの なまえ', 'Brush: name the animal'], ['🥚', 'とる：もらえる ものの なまえ', 'Collect: name what it gives']],
   ship: [['📦', 'うる ものを えらぶ', 'Pick what to ship'], ['🔤', 'もじを ならべて つづる', 'Spell it with the letters'], ['🪙', 'コインに なる！', 'Coins!']],
   kitchen: [['🍳', 'りょうりを えらぶ', 'Pick a dish'], ['🥚', 'なにが いるか えらぶ', 'Pick what goes in'], ['🎁', 'うる・あげる', 'Ship it or give it']],
   plot: [['🚶', 'マスの 上に たつ', 'Stand on a plot'], ['🅴', 'E か タップ', 'Press E or tap'], ['✅', 'こたえると そだつ！', 'Answer and it grows!']],
-  pen: [['🚶', 'さくの 中に 入る', 'Walk into the pen'], ['🅴', 'E か タップ', 'Press E or tap'], ['🥚', 'エサ・ブラシ・とる', 'Feed, brush, collect']],
+  pen: [['🚶', 'さくの 中に 入る', 'Walk into the pen'], ['🅴', 'E か タップ', 'Press E or tap'], ['🥚', 'エサ・みず・ブラシ・とる', 'Feed, water, brush, collect']],
 };
 
 export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
@@ -71,6 +75,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
   };
   const spotDef = (id) => data?.island?.spots.find((s) => s.id === id) || PLACES[id] || null;
   const mini = () => !!PLACES[state.spot];
+  const stage = createAnimalStage();   // the 3D animals on the cards and in the paddock
   const say = (text) => { if (text && speak) speak(String(text).replace(/[^\x20-\x7E’]/g, ' ').replace(/___/g, 'blank').trim()); };
 
   const dialog = document.createElement('dialog');
@@ -80,6 +85,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       <div class="farm-meta"><span id="farm-season"></span><span class="farm-coins">◈ <b id="farm-coins">0</b></span><button type="button" id="farm-close" aria-label="とじる">×</button></div>
     </header>
     <div class="farm-next" id="farm-next-step"></div>
+    <div class="farm-weather" id="farm-weather" hidden></div>
     <ol class="farm-howto" id="farm-howto"></ol>
     <div class="farm-body">
       <section class="farm-main" id="farm-main"></section>
@@ -92,6 +98,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
   document.body.append(dialog);
   $('#farm-close', dialog).onclick = () => dialog.close();
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); dialog.close(); });
+  dialog.addEventListener('close', () => stage.stop());
 
   // ---- talking to the room ----------------------------------------------------------
   // A new request replaces whatever question was on the table (the room does the same).
@@ -114,13 +121,15 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
     if (!dialog.open) return;
     const def = spotDef(state.spot);
     dialog.classList.toggle('mini', mini());
+    dialog.classList.toggle('pen', def?.kind === 'pen' || def?.kind === 'barn');
     $('#farm-place', dialog).textContent = def ? `${def.tone} ${isJa() ? def.name : def.en}` : tr('ぼくじょう島');
     $('#farm-title', dialog).textContent = def ? (isJa() ? def.ja : TITLE_EN[def.kind] || def.en) : tr('ぼくじょう');
     $('#farm-coins', dialog).textContent = state.coins;
     const f = state.farm;
     const s = f ? SEASON[f.season] : null;
-    $('#farm-season', dialog).innerHTML = s ? `<span translate="no">${s.emoji} ${esc(isJa() ? s.ja : s.en)}</span>` : '';
+    $('#farm-season', dialog).innerHTML = s ? `<span translate="no">${s.emoji} ${esc(isJa() ? s.ja : s.en)}${f.weather ? ` · ${f.weather === 'rain' ? '🌧' : '☀'}` : ''}</span>` : '';
     renderNext(f, def);
+    renderWeather(f);
     $('#farm-howto', dialog).innerHTML = (HOWTO[def?.kind] || []).map(([icon, ja, en], i) => `<li><b>${i + 1}</b><span>${icon}</span>${esc(isJa() ? ja : en)}</li>`).join('');
     const main = $('#farm-main', dialog);
     if (!f || !data) { main.innerHTML = `<p class="farm-note">${tr('よみこんで います…')}</p>`; return; }
@@ -134,6 +143,10 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       case 'pen': main.innerHTML = renderBarn(f); break;
       default: main.innerHTML = '';
     }
+    // The 3D animals: pictures on the cards, and the live paddock in the pen and the barn.
+    const paddock = $('#farm-stage', main);
+    if (paddock) stage.show(paddock, f.animals); else stage.stop();
+    stage.fill(main);
     // Opened by standing on a plot: the plot says what to do, so do it. Only an empty plot
     // needs a choice (which seed), and that is the card.
     if (def?.kind === 'plot' && state.auto) {
@@ -158,6 +171,20 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
     box.innerHTML = `<b>${esc(isJa() ? 'つぎに やること' : 'Next')}</b><span>${esc(isJa() ? step.ja : step.en)}</span>${here ? `<em>${esc(isJa() ? 'ここで できる！' : 'Do it here!')}</em>` : there ? `<em>${esc(isJa() ? `${there.tone} ${there.name}へ（ひかりの はしら）` : `${there.tone} ${there.en} (follow the light)`)}</em>` : ''}`;
   }
 
+  // The sky today: rain does the watering (plots and troughs alike); a dry day asks for it,
+  // and says how many dry days a plant survives and when the next rain comes.
+  function renderWeather(f) {
+    const box = $('#farm-weather', dialog);
+    if (!f || !f.weather) { box.hidden = true; box.innerHTML = ''; return; }
+    box.hidden = false;
+    const rain = f.weather === 'rain';
+    box.className = `farm-weather ${rain ? 'rain' : 'sun'}`;
+    const soon = f.rainIn ? (f.rainIn === 1 ? tr('あしたは あめ。') : tr('つぎの あめは {n}日後。', { n: f.rainIn })) : '';
+    box.innerHTML = rain
+      ? `<b>🌧 ${tr('きょうは あめ')}</b><span>${tr('はたけも どうぶつも みずやりは いらない。あめが やってくれる！')}</span>`
+      : `<b>☀ ${tr('きょうは はれ')}</b><span>${tr('はたけと どうぶつに みずを やろう。{n}日 やらないと かれてしまう。', { n: f.dryDays || 3 })} ${soon}</span>`;
+  }
+
   const word = (it) => `<b class="farm-en" translate="no">${esc(it.emoji || '')} ${esc(it.en)}</b><i class="farm-ja" translate="no">${esc(it.ja)}</i>`;
   const lockNote = (it, who) => (it.locked ? `<small class="farm-lock">🔒 ${tr('{who}の ハート {n} から', { who, n: it.hearts })}</small>` : '');
 
@@ -171,7 +198,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
         <div class="farm-row farm-qty">${[1, 2, 3].map((n) => `<button type="button" data-buy="${cr.id}" data-qty="${n}" ${cr.locked || state.coins < cr.seed * n ? 'disabled' : ''}>🛒 ${n}</button>`).join('')}</div>
       </div>`).join('')}</div>
       <h3>${tr('どうぶつ')}</h3><div class="farm-grid">${c.animals.map((a) => `
-      <div class="farm-card ${a.locked ? 'locked' : ''}"><span class="farm-big" translate="no">${esc(a.emoji)}</span>${word(a)}<span class="farm-price">◈ ${a.price}</span><small>${tr('まいにち {p} を くれる', { p: '' })}<span translate="no">${esc(item(a.product)?.emoji || '')} ${esc(item(a.product)?.en || a.product)}</span></small>${lockNote(a, taro)}
+      <div class="farm-card ${a.locked ? 'locked' : ''}"><span class="farm-look"><img class="farm-shot" data-shot="${esc(a.id)}:0" alt="" hidden><span class="farm-big" translate="no">${esc(a.emoji)}</span></span>${word(a)}<span class="farm-price">◈ ${a.price}</span><small>${tr('まいにち {p} を くれる', { p: '' })}<span translate="no">${esc(item(a.product)?.emoji || '')} ${esc(item(a.product)?.en || a.product)}</span></small>${lockNote(a, taro)}
         <div class="farm-row"><input type="text" maxlength="12" placeholder="${tr('なまえ')}" data-name="${a.id}" class="farm-name"><button type="button" data-buy="${a.id}" data-qty="1" ${a.locked || a.full || state.coins < a.price ? 'disabled' : ''}>${a.full ? tr('小屋が いっぱい') : `🛒 ${tr('かう')}`}</button></div>
       </div>`).join('')}</div>
       <h3>${tr('ジョウロ')}</h3><div class="farm-grid">${c.tools.map((tl) => `
@@ -199,21 +226,25 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       </div>
       <div class="farm-plots" style="grid-template-columns:repeat(${cols},1fr)">${grid}</div>
       ${state.pickingSeedFor >= 0 ? `<div class="farm-seedpick"><b>${tr('どの たねを うえる？')}</b>${seeds.length ? seeds.map(([id, n]) => { const it = item(id); return `<button type="button" data-plant="${id}"><span class="farm-big" translate="no">${esc(it.emoji)}</span>${word(it)}<span>×${n}</span></button>`; }).join('') : `<p>${tr('たねが ない。たねやで かおう。')}</p>`}<button type="button" data-plant="">${tr('やめる')}</button></div>` : ''}
-      <p class="farm-note">${tr('1日に 1かい みずを やると そだつ。1日は そらが ひとまわり する あいだ。')}</p>`;
+      <p class="farm-note">${tr('1日に 1かい みずを やると そだつ。1日は そらが ひとまわり する あいだ。')} ${tr('あめの 日は あめが みずを やってくれる。{n}日 みずが ないと かれてしまう。', { n: f.dryDays || 3 })}</p>`;
   }
 
   function renderBarn(f) {
     if (!f.animals.length) return `<p class="farm-note big">🐔 ${tr('まだ どうぶつが いない。たねやで ニワトリを かおう。')}</p>`;
-    return `<div class="farm-grid">${f.animals.map((a) => {
+    const rain = f.weather === 'rain';
+    return `<div class="farm-stage" id="farm-stage"><small>${tr('ゆびで まわせる')}</small></div>
+      <div class="farm-grid">${f.animals.map((a) => {
       const it = item(a.kind); const prod = item(a.product);
-      return `<div class="farm-card animal"><span class="farm-big" translate="no">${esc(it.emoji)}</span><b class="farm-en" translate="no">${esc(a.name)}</b><span class="farm-hearts">${'❤'.repeat(Math.min(10, a.hearts))}${'♡'.repeat(Math.max(0, 5 - a.hearts))}</span>
+      const canGet = a.fed && a.wet && !a.got;
+      return `<div class="farm-card animal"><span class="farm-look"><img class="farm-shot" data-shot="${esc(stage.key(a.kind, a.hearts))}" alt="" hidden><span class="farm-big" translate="no">${esc(it.emoji)}</span></span><b class="farm-en" translate="no">${esc(a.name)}</b><span class="farm-hearts">${'❤'.repeat(Math.min(10, a.hearts))}${'♡'.repeat(Math.max(0, 5 - a.hearts))}</span>
         <div class="farm-row farm-acts">
           <button type="button" data-animal="${a.i}" data-do="feed" ${a.fed ? 'disabled' : ''}>🌾 ${a.fed ? tr('たべた') : tr('エサ')}</button>
+          <button type="button" data-animal="${a.i}" data-do="trough" ${a.wet ? 'disabled' : ''}>💧 ${a.wet ? (rain ? tr('あめで のんだ') : tr('のんだ')) : tr('みずを あげる')}</button>
           <button type="button" data-animal="${a.i}" data-do="brush" ${a.brushed ? 'disabled' : ''}>🧹 ${a.brushed ? tr('ブラシ ずみ') : tr('ブラシ')}</button>
-          <button type="button" data-animal="${a.i}" data-do="collect" ${a.got || !a.fed ? 'disabled' : ''}><span translate="no">${esc(prod?.emoji || '')}</span> ${a.got ? tr('もらった') : !a.fed ? tr('エサが さき') : tr('とる')}</button>
+          <button type="button" data-animal="${a.i}" data-do="collect" ${canGet ? '' : 'disabled'}><span translate="no">${esc(prod?.emoji || '')}</span> ${a.got ? tr('もらった') : !a.fed ? tr('エサが さき') : !a.wet ? tr('みずが さき') : tr('とる')}</button>
         </div></div>`;
     }).join('')}</div>
-      <p class="farm-note">${tr('エサと ブラシを おなじ日に すると ハートが ふえる。ハートが ふえると、たまごや ぎゅうにゅうが たかく うれる。')}</p>`;
+      <p class="farm-note">${tr('エサと みずを あげると、たまごや ぎゅうにゅうが もらえる。あめの 日は みずは いらない。エサと ブラシを おなじ日に すると ハートが ふえる。ハートが ふえると、たまごや ぎゅうにゅうが たかく うれる。')}</p>`;
   }
 
   function renderShip(f) {
@@ -252,7 +283,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
     const it = item(p.crop);
     const stage = p.wilted ? 4 : p.ready ? 3 : p.growth >= Math.ceil(p.days / 2) ? 2 : 1;
     const face = stage === 3 ? it?.emoji : STAGE[stage];
-    const says = p.wilted ? tr('かれて しまった。かたづけよう。') : p.ready ? tr('とれる！') : p.watered ? tr('きょうは みずを やった。あしたまで まとう。') : tr('みずが ほしい！');
+    const says = p.wilted ? tr('かれて しまった。かたづけよう。') : p.ready ? tr('とれる！') : p.watered ? (f.weather === 'rain' ? tr('あめが みずを やってくれた。あしたまで まとう。') : tr('きょうは みずを やった。あしたまで まとう。')) : tr('みずが ほしい！');
     const bar = p.wilted || p.ready ? '' : `<i class="farm-grow"><i style="width:${Math.round((p.growth / p.days) * 100)}%"></i></i>`;
     const btn = p.wilted ? `<button type="button" class="primary" data-plot="${i}">🥀 ${tr('かたづける')}</button>`
       : p.ready ? `<button type="button" class="primary" data-plot="${i}">🧺 ${tr('とる')}</button>`
@@ -325,7 +356,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       if (p.wilted) { act('clear', { plot: i }); return; }
       if (p.ready) { act('harvest', { plot: i }); return; }
       if (!p.watered) { act('water'); return; }
-      toast(tr('きょうは みずを やった。あしたまで まとう。'));
+      toast(state.farm?.weather === 'rain' ? tr('あめが みずを やってくれた。あしたまで まとう。') : tr('きょうは みずを やった。あしたまで まとう。'));
       return;
     }
     if (d.plant !== undefined) { const i = mini() ? state.plot : state.pickingSeedFor; state.pickingSeedFor = -1; if (d.plant) act('plant', { plot: i, crop: d.plant }); else render(); return; }
@@ -379,6 +410,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       'too far': tr('その ばしょに たってから やろう。'), 'not enough coins': tr('コインが たりない。'), locked: tr('まだ ハートが たりない。はなして ふやそう。'),
       'out of season': tr('いまの きせつでは そだたない。'), 'nothing to water': tr('みずを やる はたけが ない。'), 'already fed': tr('きょうは もう たべた。'),
       'already brushed': tr('きょうは もう ブラシを した。'), 'already collected': tr('きょうは もう もらった。'), hungry: tr('さきに エサを あげよう。'),
+      thirsty: tr('さきに みずを あげよう。'), 'already watered': tr('きょうは もう みずを あげた。'), 'rain did it': tr('あめが ふった。きょうは みずは いらない。'),
       'already talked': tr('きょうは もう はなした。'), 'already gifted': tr('きょうは もう あげた。'), 'barn full': tr('小屋が いっぱい。'), 'no seeds': tr('その たねが ない。'),
       'missing ingredients': tr('ざいりょうが たりない。'), 'too fast': tr('ちょっと まってね。'), 'no question': tr('もんだいが きえた。もういちど。'),
     };
@@ -422,7 +454,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       if (p.wilted) return tr('かたづける');
       if (p.ready) return tr('しゅうかく！');
       if (!p.watered && p.growth < p.days) return tr('みずを やる');
-      return tr('そだて中（あした）');
+      return state.farm?.weather === 'rain' ? tr('あめで そだて中（あした）') : tr('そだて中（あした）');
     },
     onState, onAsk, onResult, onError, onBoard,
   };

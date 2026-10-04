@@ -150,3 +150,27 @@
   #farm-dialog.mini .farm-body { grid-template-columns: 1fr; }
   .farm-plotcard .farm-big { font-size: 42px; }
 }
+
+/* --- rain, troughs and the 3D animals (2026-10) ------------------------------------------
+   The weather strip sits under "つぎ": rain means no watering today, sun says how many dry
+   days a plant survives. Animal cards carry a picture baked from the island's own model;
+   the emoji shrinks into the corner once it arrives (and stays big without WebGL). The
+   paddock is the one live canvas: the child's animals on a turning patch of grass. */
+.farm-weather { flex: none; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 8px 18px 0; padding: 8px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
+.farm-weather b { white-space: nowrap; font-size: 14px; }
+.farm-weather.sun { background: #fff9e0; border: 2px solid #f3d27a; color: #5a4a12; }
+.farm-weather.rain { background: #e4eef8; border: 2px solid #9ebbe0; color: #1f3a5a; }
+.farm-weather.rain b { animation: farm-rain 1.6s ease-in-out infinite; }
+@keyframes farm-rain { 50% { transform: translateY(2px); } }
+.farm-look { position: relative; display: block; min-height: 40px; }
+.farm-shot { display: block; width: 100%; max-width: 150px; aspect-ratio: 6 / 5; object-fit: contain; border-radius: 10px; background: linear-gradient(#dff1ff, #eef7e6); }
+.farm-card.shot .farm-look .farm-big { position: absolute; right: 2px; bottom: 2px; font-size: 18px; }
+.farm-stage { position: relative; height: 190px; margin: 0 0 10px; border-radius: 16px; overflow: hidden; background: radial-gradient(ellipse at 50% 85%, #b9e0ff 0%, #dff1ff 55%, #eef7ff 100%); border: 1px solid #cfdfe8; touch-action: none; }
+.farm-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.farm-stage small { position: absolute; right: 10px; bottom: 8px; font-size: 11px; color: #3c5a70; background: #ffffffaa; padding: 2px 8px; border-radius: 8px; pointer-events: none; }
+.farm-stage.no-gl { display: none; }
+#farm-dialog.mini .farm-stage { height: 150px; }
+/* The pen's small card is taller than a plot's: the paddock sits above the animal cards. */
+#farm-dialog.mini.pen[open] { max-height: min(88vh, 700px); }
+@media (max-width: 760px) { .farm-weather { margin: 6px 12px 0; } .farm-stage { height: 160px; } }
+@media (max-height: 560px) { .farm-stage { height: 120px; } }

@@ -26,7 +26,7 @@ const BANK = JSON.parse(readFileSync(path.resolve(serverDir, 'src/game/farm-bank
 const clickChoice = (page, text) => page.evaluate((t) => { const b = [...document.querySelectorAll('#farm-q [data-choice]')].find((x) => x.dataset.choice === t); if (!b) throw new Error('no choice ' + t); b.click(); }, text);
 const server = spawn('node', ['src/index.js'], {
   cwd: serverDir,
-  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', ANSWER_MIN_INTERVAL_MS: '0' },
+  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', FARM_RAIN_PCT: '0', ANSWER_MIN_INTERVAL_MS: '0' },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 server.stdout.on('data', (d) => process.stdout.write('[server] ' + d));
@@ -216,6 +216,35 @@ try {
   r = await waitResult(page);
   check('"Cluck" feeds the chicken, from the pen', r.correct && r.farm.animals[0].fed === true);
   await next(page);
+  await page.waitForSelector('#farm-dialog[open]', { state: 'attached', timeout: 20000 }).catch(() => {});
+  if (!(await page.evaluate(() => document.querySelector('#farm-dialog').open))) { await page.evaluate(() => uspeak.net.farmFieldInteract()); await page.waitForSelector('#farm-dialog[open]', { state: 'attached', timeout: 20000 }); }
+  // Rain or shine: the test server is pinned to dry days (FARM_RAIN_PCT=0), so the strip says sun,
+  // the animals are thirsty, and nothing is collected until the trough is filled.
+  check('the weather strip says it is a sunny day and how many dry days a plant survives', await page.evaluate(() => { const w = document.querySelector('#farm-weather'); return !w.hidden && w.classList.contains('sun') && /3/.test(w.textContent); }),
+    await page.evaluate(() => document.querySelector('#farm-weather')?.textContent));
+  check('a fed but thirsty chicken gives no egg yet: collect waits for water', await page.evaluate(() => { const b = document.querySelector('[data-animal="0"][data-do="collect"]'); return b.disabled && /みずが さき|Water first/.test(b.textContent); }),
+    await page.evaluate(() => document.querySelector('[data-animal="0"][data-do="collect"]')?.textContent));
+  check('the pen shows the animals in 3D: a live paddock and a baked picture on the card', await page.evaluate(() => !!document.querySelector('#farm-stage canvas')) && await page.waitForFunction(() => { const img = document.querySelector('#farm-main img[data-shot]'); return img && !img.hidden && img.src.startsWith('data:image/'); }, null, { timeout: 20000 }).then(() => true, () => false));
+  await fig(page, 'screen-farm-barn');
+  await page.click('[data-animal="0"][data-do="trough"]');
+  await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'fill', null, { timeout: 20000 });
+  q = await ask(page);
+  check('the trough asks a fill-in-the-blank sentence with a picture', q.kind === 'fill' && q.prompt.en.includes('___') && !!q.pic && q.choices.length === 4, q.prompt.en);
+  await clickChoice(page, BANK.water.find((f) => q.prompt.en === `${f.pic} ${f.q}`).a);
+  r = await waitResult(page);
+  check('the right word fills the trough: the chicken is watered today', r.correct && r.farm.animals[0].wet === true, JSON.stringify(r.farm.animals[0]));
+  await next(page);
+  if (!(await page.evaluate(() => document.querySelector('#farm-dialog').open))) { await page.evaluate(() => uspeak.net.farmFieldInteract()); await page.waitForSelector('#farm-dialog[open]', { state: 'attached', timeout: 20000 }); }
+  await page.waitForFunction(() => uspeak.net.farm.state.farm?.animals?.[0]?.wet === true, null, { timeout: 20000 });
+  check('fed and watered, the chicken can now be collected from', await page.evaluate(() => !document.querySelector('[data-animal="0"][data-do="collect"]').disabled));
+  // A rainy day, as the room would send it: the strip turns blue, the trough says the rain
+  // did it, and the sky over the island rains (the room's own rain days are deterministic).
+  await page.evaluate(() => { const f = uspeak.net.farm.state.farm; uspeak.net.farm.onState({ farm: { ...f, weather: 'rain', rainIn: null, plots: f.plots.map((p) => (p ? { ...p, watered: true } : p)), animals: f.animals.map((a) => ({ ...a, wet: true })) } }); });
+  check('on a rainy day the strip says no watering is needed', await page.evaluate(() => { const w = document.querySelector('#farm-weather'); return w.classList.contains('rain') && /いらない|No watering/.test(w.textContent); }));
+  check('and the trough button says the rain did it', await page.evaluate(() => { const b = document.querySelector('[data-animal="0"][data-do="trough"]'); return b.disabled && /あめで のんだ|Rain did it/.test(b.textContent); }));
+  check('the next step skips watering on a rainy day', await page.evaluate(() => !/みずを|water/i.test(document.querySelector('#farm-next-step span').textContent)), await page.evaluate(() => document.querySelector('#farm-next-step span').textContent));
+  await fig(page, 'screen-farm-rain');
+  await page.evaluate(() => uspeak.net.farm.dialog.close());
   await page.evaluate(async () => { const d = await uspeak.rpg.farm.ready; uspeak.player.position.set(d.island.x, 0, d.island.z + 9); });
   await sleep(1500);
   await enter(page, 'ship');
