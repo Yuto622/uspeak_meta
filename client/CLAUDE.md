@@ -874,10 +874,17 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **`land.json` が唯一の定義元**（島・6 段・値段・広さ・各段の `looks`・もようがえの割合 `restyle`）。ページとサーバーが同じく読む。
 - **3 つの建物は全部 戸口で開く**（`net-client.js` の `setDoorHandler` が `islandId === 'land'` を `land.enter(spot)` に渡す）。
   office → `land:open` でカード、board → `land:board`、ferry → `land:enter` → `land:island` → `myLand.enter()`。
-- **島の形は `buildIslandModel(island, {owner, sign, liveSign, sea})` 1 つ**。`{group, obstacles, animate(t), theme, dispose()}` を返す。
-  12 の世界は `BUILD[theme]` に 1 つずつ。地面・崖・波打ちぎわの岩と泡・さんばし・看板は共通の `ground()`。
-  動くものは `anim(fn)` に登録し、`animate(t)` が全部回す。当たり判定は `block()` で登録した箱だけ。
-  乱数は **種つき**（`seeded(theme:grid)`）なので、カードの絵と歩く島が同じ形になる。`Math.random` を使わないこと。
+- **島の形は `buildIslandModel(island, {owner, sign, liveSign, sea})` 1 つ**。`{group, obstacles, H, floorY, animate(t), theme, dispose()}` を返す。
+  中身は 3 つ：`land-kit.js` の `makeKit()`（形・地形・共通の小物）、`land-themes-a.js` / `-b.js` の `BUILD[theme](K, half)`
+  （12 の世界）、`land-world.js`（海・崖・さんばし・看板を足して組み立て、`terrain()` → `flush()`）。
+  - **`B/cone/ball/cyl` は mesh を返さない**。インスタンスの記録（position/rotation/scale）を返し、`flush()` で
+    形×色ごとに 1 つの InstancedMesh にまとめる。返り値の `.rotation.y =` などは flush 時に反映されるので今までどおり書ける。
+    **毎フレーム動かす物・光る物・透ける物は `M.B()` など実 mesh**（glow か opacity<1 なら自動で実 mesh）。
+  - **地面は高さ**：`H(x,z)`（ノイズの丘 + `hill()` + `pad()` の平地、ふちは浜へ下る）。`B()` などは y に自動で `H` を足す（`lift`）。
+    海・崖・さんばしは `K.lift(() => …)` の中で絶対座標。子どもの足は `floorY()`（`rpg.floorY()` 経由で `game.js` が足す）。
+    建物は必ず `pad()`（`house()`/`tower()`/`pond()` は中でやる）。置き場所は `spot(w,d,{rMin,rMax,slopeMax})` で探す。
+  - 動くものは `anim(fn)` に登録し、`animate(t)` が全部回す。当たり判定は `block()` で登録した箱だけ。
+    乱数は **種つき**（`seeded(theme:grid)`）なので、カードの絵と歩く島が同じ形になる。`Math.random` を使わないこと。
 - **自分の島は マイルームと同じ作り**：`createLand` が `buildIslandModel(..., {sea:'wide', liveSign:true})` を自分のシーンに置く。
   `rpg.attachLand(myLand)` で `builtIn()` に入り、`interiorScene` / `interiorCamera` / `mapSmall` / `blocked` がそのまま効く。
   `currentSpace()` は `in:land`（通話にはならない）。出るのは **さんばしを下る**（`update()` が `z > half + 2` を見る）。

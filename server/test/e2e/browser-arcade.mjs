@@ -508,7 +508,7 @@ try {
     racing: !!document.body.dataset.race,
   }));
   check('乗っていても、スタートラインで両方から選べる',
-    /クラスの レースに でる/.test(both.classRace) && both.arcade && !both.racing, JSON.stringify(both));
+    /クラスの レースに でる|Join the class race/.test(both.classRace) && both.arcade && !both.racing, JSON.stringify(both));
   await page.screenshot({ path: path.join(SHOTS, 'arcade-startline.png') });
   await page.evaluate(() => document.querySelector('#ride-close')?.click());
 

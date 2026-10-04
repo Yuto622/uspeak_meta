@@ -19,27 +19,27 @@
     ]
   },
   "tiers": [
-    { "tier": 1, "id": "step1", "name": "はじめの しま", "en": "First islands", "price": 100, "grid": 14, "looks": [
+    { "tier": 1, "id": "step1", "name": "はじめの しま", "en": "First islands", "price": 100, "grid": 28, "looks": [
       { "id": "sand", "theme": "sand", "name": "すなはまの しま", "en": "Sandy Islet", "emoji": "🏖", "ja": "すなと ヤシの木。テントと たき火。", "blurb": "Sand, two palms, a tent and a campfire." },
       { "id": "rock", "theme": "rock", "name": "いわの しま", "en": "Rocky Islet", "emoji": "🗼", "ja": "いわと とうだい。しおだまりに カニ。", "blurb": "Rocks, a lighthouse, tide pools with crabs." }
     ] },
-    { "tier": 2, "id": "step2", "name": "ふたつめの しま", "en": "Second islands", "price": 600, "grid": 16, "looks": [
+    { "tier": 2, "id": "step2", "name": "ふたつめの しま", "en": "Second islands", "price": 600, "grid": 34, "looks": [
       { "id": "grass", "theme": "grass", "name": "くさはらの しま", "en": "Grassy Isle", "emoji": "🏡", "ja": "くさはらに 木の 小屋。さくと 花だん。", "blurb": "A wooden cabin on the grass, a fence and a flower bed." },
       { "id": "lake", "theme": "lake", "name": "みずうみの しま", "en": "Lake Isle", "emoji": "🛶", "ja": "まんなかに みずうみ。ボートと つりざお。", "blurb": "A lake in the middle, a rowboat and a fishing rod." }
     ] },
-    { "tier": 3, "id": "step3", "name": "みっつめの しま", "en": "Third islands", "price": 1500, "grid": 18, "looks": [
+    { "tier": 3, "id": "step3", "name": "みっつめの しま", "en": "Third islands", "price": 1500, "grid": 40, "looks": [
       { "id": "forest", "theme": "forest", "name": "もりの しま", "en": "Forest Isle", "emoji": "🌲", "ja": "もりの 中の まるたの いえ。いけと さんばし。", "blurb": "A log house in the woods, a pond with a jetty, lanterns." },
       { "id": "desert", "theme": "desert", "name": "さばくの しま", "en": "Desert Isle", "emoji": "🏜", "ja": "すなやまと オアシス。ピラミッドと ラクダ。", "blurb": "Dunes and an oasis, a little pyramid and a camel." }
     ] },
-    { "tier": 4, "id": "step4", "name": "よっつめの しま", "en": "Fourth islands", "price": 4000, "grid": 20, "looks": [
+    { "tier": 4, "id": "step4", "name": "よっつめの しま", "en": "Fourth islands", "price": 4000, "grid": 46, "looks": [
       { "id": "flower", "theme": "flower", "name": "はなの しま", "en": "Flower Isle", "emoji": "🌸", "ja": "はなばたけと あかい やねの いえ。ふうしゃが まわる。", "blurb": "Flower fields, a red-roofed cottage, a turning windmill and a fountain." },
       { "id": "autumn", "theme": "autumn", "name": "もみじの しま", "en": "Maple Isle", "emoji": "🍁", "ja": "あかい もみじと とりい。いしどうろうの みち。", "blurb": "Red maples, a torii gate, a stone-lantern path and a koi pond." }
     ] },
-    { "tier": 5, "id": "step5", "name": "いつつめの しま", "en": "Fifth islands", "price": 10000, "grid": 22, "looks": [
+    { "tier": 5, "id": "step5", "name": "いつつめの しま", "en": "Fifth islands", "price": 10000, "grid": 52, "looks": [
       { "id": "snow", "theme": "snow", "name": "ゆきの しま", "en": "Snow Isle", "emoji": "⛄", "ja": "ゆきの ロッジ。ゆきだるまと ひかる モミの木。", "blurb": "A snow lodge with a smoking chimney, a snowman and lit pines." },
       { "id": "volcano", "theme": "volcano", "name": "かざんの しま", "en": "Volcano Isle", "emoji": "🌋", "ja": "ひかる かざん。おんせんと くろい いし の いえ。", "blurb": "A glowing volcano, a hot spring and a black-stone house." }
     ] },
-    { "tier": 6, "id": "step6", "name": "さいごの しま", "en": "Final islands", "price": 25000, "grid": 24, "looks": [
+    { "tier": 6, "id": "step6", "name": "さいごの しま", "en": "Final islands", "price": 25000, "grid": 60, "looks": [
       { "id": "sky", "theme": "sky", "name": "そらの おしろ", "en": "Sky Castle", "emoji": "🏰", "ja": "くもの うえの おしろ。にじの はしと きんの もん。", "blurb": "A castle above the clouds, a rainbow bridge and a golden gate." },
       { "id": "space", "theme": "space", "name": "うちゅうの しま", "en": "Space Isle", "emoji": "🚀", "ja": "つきの いわと ドームの いえ。ロケットと ちきゅう。", "blurb": "Moon rock and a dome house, a rocket, and the Earth in the sky." }
     ] }

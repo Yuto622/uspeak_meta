@@ -162,11 +162,16 @@ try {
   check('with their name on the sign', (await page.evaluate(() => uspeak.net.myLand.state.island.owner)) === 'Sora');
   check('and the island draws its own minimap', await page.evaluate(() => { const c = document.createElement('canvas'); c.width = 180; c.height = 140; return uspeak.rpg.mapSmall(c.getContext('2d')); }));
   await sleep(2500);
-  await page.evaluate(() => { uspeak.player.position.set(2, 0, 2); });
+  await page.evaluate(() => { const half = uspeak.net.myLand.state.island.grid / 2; uspeak.player.position.set(1, 0, half - 6); });
   await sleep(2000);
   await fig(page, 'island-mine');
   await shot(page, 'land-mine');
-  check('the water and the tent are not walked through', await page.evaluate(() => uspeak.rpg.blocked(0, -2) === true && uspeak.rpg.blocked(0, 40) === true && uspeak.rpg.blocked(2, 2) === false));
+  check('the water and the buildings are not walked through, the ground is, and it has hills', await page.evaluate(() => {
+    const o = uspeak.net.myLand.state.obstacles[0]; const half = uspeak.net.myLand.state.island.grid / 2;
+    const free = [[0, half - 3], [1, half - 5], [-1, half - 7]].find(([x, z]) => !uspeak.rpg.blocked(x, z));
+    const heights = []; for (let x = -half + 2; x < half - 2; x += 2) for (let z = -half + 2; z < half - 2; z += 2) heights.push(uspeak.net.myLand.floorY(x, z));
+    return uspeak.rpg.blocked(o.x, o.z) === true && uspeak.rpg.blocked(0, half + 40) === true && !!free && (Math.max(...heights) - Math.min(...heights)) > 1.5;
+  }));
   // Down the jetty: aboard again, and the boat sails back to 土地島 (skipped here).
   await page.evaluate(() => { uspeak.player.position.set(0, 0, uspeak.net.myLand.state.island.grid / 2 + 2.6); });
   await page.waitForFunction(() => uspeak.net.myLand.riding && uspeak.net.myLand.state.ride.dir === 'out', null, { timeout: 30000 });
@@ -192,7 +197,7 @@ try {
   await page.evaluate(() => uspeak.net.myLand.skip());
   await page.waitForFunction(() => !uspeak.net.myLand.riding, null, { timeout: 10000 });
   await sleep(1500);
-  await page.evaluate(() => { uspeak.player.position.set(1.5, 0, 3); });
+  await page.evaluate(() => { const half = uspeak.net.myLand.state.island.grid / 2; uspeak.player.position.set(1.5, 0, half - 7); });
   await sleep(7000);                         // this renderer refreshes the HUD a few times a minute; let it catch up before the picture
   await fig(page, 'island-visit');
   check('nothing on a classmate\'s island can be walked through either', await page.evaluate(() => uspeak.rpg.blocked(0, 40) === true));

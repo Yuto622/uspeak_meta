@@ -503,12 +503,16 @@ fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
 - 値段と段と見た目は `client/dist/land.json` 1 か所をページとサーバーが読む。請求は `server/src/game/land.js`
   （`priceOfNext` / `priceOfRestyle`）→ `ClassRoom.onLandBuy` / `onLandRestyle`（`applyOp spend`、他の買い物と同じ 1 本道）。
   保存は `land_json`（`{tier, look}`。古い `{tier}` は段の 1 つめの見た目になる）。
-- 自分の島は `client/dist/land-world.js`：`buildIslandModel(island, opts)` が **12 の世界を 1 つの Group に建てる**
-  （地面・崖・波打ちぎわの岩と泡・さんばし・看板 + その世界のもの。全部 箱・円すい・球・円柱、モデル 0 個、
-  乱数は種つきなので カードと実物が同じ形）。マイルームと同じ独立シーン（`createLand`）がそれを歩き、
+- 自分の島は `client/dist/land-world.js`（組み立てと船）＋ `land-kit.js`（形・インスタンス化・地形・共通の小物）＋
+  `land-themes-a.js` / `land-themes-b.js`（12 の世界）：`buildIslandModel(island, opts)` が **12 の世界を 1 つの Group に建てる**。
+  **地面は高さのある地形**（丘・崖・波打ちぎわへ下る浜。建物の下は平らに均す）で、子どもの足もその上を歩く
+  （`floorY`。`game.js` の主ループが `rpg.floorY()` を足す）。広さは 28 → 34 → 40 → 46 → 52 → 60 マス。
+  静止している物は全部 **InstancedMesh** にまとめる（島 1 つで描画 40〜60 回。木 100 本が 3 回）ので iPad でも軽い。
+  全部 箱・円すい・球・円柱、モデル 0 個、乱数は種つきなので カードと実物が同じ形。
+  マイルームと同じ独立シーン（`createLand`）がそれを歩き、
   ふどうさん（`land.js`）は **同じ Group を自前の WebGLRenderer で描く**：台の上では回し、カードは
   `WebGLRenderTarget` に 1 回焼いて画像にする（きせかえの店と同じ作り。12 枚のキャンバスは iPad に無理）。
-  動くもの：風車・けむり・星・たき火・灯台の光・ボート・カモ・コイ・ホタル・雪・ロケットの炎・地球・バギー・鳥。
+  動くもの：風車・水車・けむり・星・たき火・灯台の光・ボート・イルカ・カモ・コイ・ホタル・チョウ・雪・落ち葉・溶岩・ロケットの炎・地球・すい星・バギー・鳥・犬のしっぽ。
 - 船は `land-world.js` の `createLand` が持つ 1 隻（船体・客室・マスト・旗・航跡・煙）。`land:island` が来たら `startRide('in')`：
   遠くに小さく見える土地島の桟橋から島の berth まで ease で走り、その間 `blocked()` は全部 true（船が動かす）、
   カメラは船の斜め後ろ。着いたら桟橋に降りて船は横に係留。桟橋を下りると `startRide('out')` → `leave()`。
