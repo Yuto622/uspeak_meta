@@ -1030,15 +1030,19 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
     `node client/tests/guests-manifest.mjs --write <racers|blockwild>`。
   - `tests/regression.mjs` が毎回ハッシュを照合する（半分だけ差し替えたビルドを止める）。
     **サブフォルダも見る**（BLOCKWILD は半分が `src/` にある）。
-- **どちらもオンラインは外してある。** つなぎ先がこのサーバーだから：
-  - AURORA KART は `ws://location.host` の**ルート**へ。
-  - BLOCKWILD は同じホストの **`/ws`** へ。
-  - どちらも Colyseus の口。`WebSocketTransport({server})` は `path` を持たないので
-    **このポートの upgrade を全部取る**。押した子には読めないエラーしか返らない。
-    かわりに「みんなで走るのは のりもの島の『レースに でる』から」
-    「みんなで つくるのは まちづくり島の『ひろば』から」と書いてある（どちらも既にある）。
-  - あちらのルームサーバーを動かすことはできるが、**同じポートで2つの WebSocket サーバーは
-    同居しない**。やるなら別ポートで、それは別の変更として。
+- **BLOCKWILD のオンラインは、このサーバーが相手になる（2026-10）。** あちらの `src/net.js` が話す
+  プロトコル（join / pos / block / time / pvp ＋ 差分のバイナリ 1 本）を `server/src/blockwild/server.js`
+  がそのまま受ける。Colyseus の `WebSocketTransport({server})` は `path` を持たず **このポートの upgrade を
+  全部取る**ので、その listener をいったん外して後ろに置き、`/bw/<class>/ws` と `/ws` だけこちらで受けている
+  （`createBlockwildServer` の「the door」）。**同じポートに 2 つ目の ws サーバーを素で足さないこと**（二重に
+  handleUpgrade して落ちる）。
+  - 入口は `blockwild.js` の `settle()`：`session()`（net-client から `online / classCode / name`）が
+    オンラインなら `#netName` `#netCode` を埋めて `#netJoin` を押す。**入力は消さずに隠す**（あちらが id で読む）。
+    `新しい世界 / 再開 / 読み込み` は共有の世界にいる間は隠す（ローカルの世界で上書きしてしまう）。
+  - 世界はクラスごと（`DATA_DIR/blockwild/<class>.json`）。20 人まで（`BW_MAX_PLAYERS`）。生き物はなし。
+  - スポーンは `spawn-worker.mjs` が同梱の `worldgen.js` を Node で回して出す（同じ seed なら同じ地形）。
+- **AURORA KART のオンラインは外したまま。** あちらは `ws://location.host` の**ルート**へつなぎに行く
+  （Colyseus の口）。「みんなで走るのは のりもの島の『レースに でる』から」と書いてある。
 - **コインも学習記録も、こちらには入らない。** AURORA KART の英単語モードは**答えを
   クライアントが持っている**（`racers/vocab.js` がブラウザに来る）。そこから出た正解数で
   コインを払うのは、この世界がずっと避けてきた穴そのもの。あちらの成績は `localStorage` の

@@ -5,6 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
 import { Server, matchMaker, WebSocketTransport } from './colyseus.js';
+import { createBlockwildServer } from './blockwild/server.js';
 import { config, validateConfig } from './config.js';
 import { createStore } from './store/index.js';
 import { createAccess } from './game/access.js';
@@ -242,6 +243,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
     verifyClient: (info, next) => next(originAllowed(info.origin)),
   });
   const gameServer = new Server({ transport, gracefullyShutdown: false });
+  // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
+  const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
   gameServer.define('class', ClassRoom, { store, roster, access, tutor }).filterBy(['classCode']);
 
@@ -253,10 +256,11 @@ export async function startServer({ port = config.port, storeOverride = null } =
     if (closing) return;
     closing = true;
     log.info(`[server] ${signal} received, shutting down`);
+    try { blockwild.close(); } catch (err) { log.warn('[server] blockwild shutdown error:', err.message); }
     try { await gameServer.gracefullyShutdown(false); } catch (err) { log.warn('[server] shutdown error:', err.message); }
     await closeStore();
   };
-  return { app, server, gameServer, store, shutdown, port };
+  return { app, server, gameServer, store, shutdown, port, blockwild };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

@@ -573,6 +573,17 @@
           "en": "BLOCKWILD (Town Island)"
         },
         {
+          "shot": "screen-blockwild-together",
+          "title": "BLOCKWILD — クラスの みんなと",
+          "body": [
+            "クラスに 入ってから ひらくと、クラスの「みんなの 世界」に じどうで 入ります。",
+            "おなじ ちけい。だれかが おいた・ほった ブロックは、すぐ みんなに 見えます。",
+            "ともだちの すがたと なまえが 見える。いちどに 20人まで。",
+            "つくった ものは のこります。あとから 入った 子にも、そのまま。"
+          ],
+          "en": "BLOCKWILD — With the Class"
+        },
+        {
           "shot": "game-suika",
           "title": "えいご スイカゲーム（ミニゲーム島）",
           "body": [

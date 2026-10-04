@@ -135,8 +135,10 @@ const GAMES = [
       pieces: d.querySelector('#play') ? 1 : 0,            // the way into the world
     }),
     ok: (b) => b.pieces === 1 && b.modes.includes('creative') && b.modes.includes('survival'),
-    gone: '#netJoin',
-    says: /まちづくり島/,
+    // Its multiplayer is answered by this server now (server/src/blockwild/server.js): a
+    // child in a class is put into the class's world without typing. browser-blockwild.mjs
+    // is the two-children test; here only that the hand-off happened.
+    together: true,
   },
   // The two on ミニゲーム島. Neither has any multiplayer at all — they talk to nothing —
   // so there is nothing to take away and `gone` is left unset.
@@ -265,6 +267,14 @@ try {
       }, { gone: game.gone });
       check(`${game.label}: つながらないオンラインは外してある`, !neutral.still);
       check(`${game.label}: …かわりに「みんなでやるのはこっち」と書いてある`, game.says.test(neutral.text));
+    }
+    if (game.together) {
+      const joined = await page.waitForFunction(() => document.querySelector('.arcade-frame')?.contentWindow?.BLOCKWILD?.state?.online === true, null, { timeout: 120000, polling: 500 }).then(() => true).catch(() => false);
+      const panel = await page.evaluate(() => {
+        const d = document.querySelector('.arcade-frame')?.contentDocument;
+        return { status: d?.querySelector('#netStatus')?.textContent || '', row: d?.querySelector('#netPanel .netrow')?.style.display, name: d?.querySelector('#netName')?.value || '' };
+      });
+      check(`${game.label}: クラスの みんなの 世界に 自動で 入る`, joined && panel.row === 'none' && !!panel.name, JSON.stringify(panel));
     }
     await sleep(2500);
     await page.screenshot({ path: path.join(SHOTS, `arcade-${game.id}-game.png`) });

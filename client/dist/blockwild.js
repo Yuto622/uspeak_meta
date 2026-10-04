@@ -74,7 +74,7 @@ function gate(doc, ownedShopIds) {
   }
 }
 
-export function createBlockwild({ toast, onOpen, onClose, ownedBlocks }) {
+export function createBlockwild({ toast, onOpen, onClose, ownedBlocks, session }) {
   return createArcade({
     id: 'blockwild',
     home: './blockwild/index.html',
@@ -84,19 +84,34 @@ export function createBlockwild({ toast, onOpen, onClose, ownedBlocks }) {
     onOpen,
     onClose,
     settle(doc, { close }) {
-      // Its multiplayer opens a WebSocket at `/ws` on this origin. Colyseus's transport is
-      // built with `{ server }` and no `path`, so it takes EVERY upgrade on this port —
-      // including that one — and answers in a protocol BLOCKWILD does not speak. A child
-      // pressing "このコードの世界に入る" would watch it fail with no way to act on it, so
-      // the whole panel goes and says instead where building together does work.
-      // Take away the controls, NOT the panel. The game keeps a 20-second timer that
-      // reads `#hostCode` and `#menu` by id, so replacing the panel's contents wholesale
-      // left it throwing on null every 20 seconds — which it survived, but an exception
-      // loop in someone else's game is exactly the kind of noise that hides a real one.
-      doc.querySelector('#netPanel .netrow')?.remove();
-      doc.querySelector('#netJoin')?.remove();
+      // Its multiplayer opens a WebSocket at `/ws` on this origin, and this server now
+      // answers it (server/src/blockwild/server.js): one shared world per class, twenty
+      // children at once. So a child who is in a class is put straight into their class's
+      // world — name filled in, address filled in, the join pressed for them — because the
+      // vendored panel's "type the host's code" is a thing for a living room, not a
+      // classroom. The inputs stay in the document (the game reads them by id, and keeps a
+      // 20-second timer that reads `#hostCode` and `#menu`); they are only hidden.
+      // Offline, or outside a class, it is the single-player sandbox it always was, and the
+      // panel says where building together works.
+      const me = session?.() || null;
       const status = doc.querySelector('#netStatus');
-      if (status) status.textContent = 'ここでは ひとりの 世界です。みんなで つくるのは、まちづくり島の 「ひろば」 から。';
+      if (me?.online && me.classCode) {
+        const url = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/bw/${encodeURIComponent(me.classCode)}/ws`;
+        const nameEl = doc.querySelector('#netName'); if (nameEl) nameEl.value = String(me.name || '').slice(0, 16);
+        const codeEl = doc.querySelector('#netCode'); if (codeEl) codeEl.value = url;
+        const row = doc.querySelector('#netPanel .netrow'); if (row) row.style.display = 'none';
+        // While in the shared world, the buttons that would replace it with a local one
+        // step aside (新しい世界 / 再開 / 読み込み). 保存 and 書き出し still work: a copy is harmless.
+        for (const id of ['new', 'load', 'import']) { const b = doc.getElementById(id); if (b) b.style.display = 'none'; }
+        const join = doc.querySelector('#netJoin');
+        if (join) join.textContent = 'みんなの 世界に 入る';
+        if (status) status.textContent = `クラス「${me.classCode}」の みんなの 世界に つなぎます…（いちどに 20人まで）`;
+        setTimeout(() => { if (join && doc.defaultView && !doc.defaultView.BLOCKWILD?.state?.online) join.click(); }, 400);
+      } else {
+        doc.querySelector('#netPanel .netrow')?.remove();
+        doc.querySelector('#netJoin')?.remove();
+        if (status) status.textContent = 'ここでは ひとりの 世界です。みんなで つくるには、クラスに 入ってから ひらいてね。';
+      }
       // **空の配列も配列なので、長さで見る。** `|| readCache()` だけだと、部屋から
       // まだ棚が届いていないとき（＝オフライン、あるいは入った直後）に空の配列が
       // そのまま通り、前回買った物が消えて見えた。

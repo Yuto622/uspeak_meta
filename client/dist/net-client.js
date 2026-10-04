@@ -292,7 +292,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     ownedBlocks = m.blocks.filter((b) => b.owned).map((b) => b.id);
     cacheBlocks(ownedBlocks);
   };
-  const blockwild = createBlockwild({ ...guest, ownedBlocks: () => ownedBlocks });
+  const blockwild = createBlockwild({ ...guest, ownedBlocks: () => ownedBlocks, session: () => ({ online: state.mode === 'online', classCode: state.classCode, name: state.name }) });
   // ミニゲーム島: one house each, and the house is the menu.
   const arcades = { puyo: createPuyo(guest), suika: createSuika(guest) };
   // のりもの島とまちづくり島では、島の中の扉に加えて左下にも入口を出す。理由は
