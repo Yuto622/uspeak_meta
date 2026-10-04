@@ -6,14 +6,24 @@ import assert from 'node:assert/strict';
 import {
   FARM, BANK, blankFarm, sanitizeFarm, settle, prepare, judge, askPayload, statePayload, farmDay, DAY_MS, seasonId, valueOf, spotForAct, FarmError,
   rainyDay, isRainy, weatherOf, daysToRain, DRY_DAYS,
+  SEASONS, SEASON_DAYS, calendarOf, daysUntil, eventAt, nextEvent, isBirthday, friendship, FORGET_DAYS,
 } from '../src/game/farm.js';
 
-// A moment in each real season, so a test does not depend on today.
-const AT = { spring: Date.UTC(2026, 3, 10, 3), summer: Date.UTC(2026, 6, 10, 3), autumn: Date.UTC(2026, 9, 10, 3), winter: Date.UTC(2026, 0, 10, 3) };
-// The weather is the day's. The fixtures below want a dry day, so `spring` is the first
-// dry farm day from April 10; the rain tests pick their own rainy and dry days.
-const dryFrom = (t) => { let d = farmDay(t); while (rainyDay(d)) d += 1; return d * DAY_MS + DAY_MS / 2; };
-const rainFrom = (t) => { let d = farmDay(t); while (!rainyDay(d)) d += 1; return d * DAY_MS + DAY_MS / 2; };
+// The farm has its own calendar (SEASON_DAYS farm days a season), so a fixture is the
+// first day of a season — one whose first five days are dry, so the chores below never
+// meet rain, and never a festival (those start on day 3). The rain tests pick a season
+// that opens dry and rains on its second day.
+const at = (d) => d * DAY_MS + DAY_MS / 2;
+function seasonStart(season, ok = (d0) => [0, 1, 2, 3, 4].every((k) => !rainyDay(d0 + k))) {
+  for (let si = 400000; si < 500000; si += 1) {
+    const d0 = si * SEASON_DAYS;
+    if (calendarOf(at(d0)).season === season && ok(d0)) return at(d0);
+  }
+  throw new Error(`no ${season} fixture`);
+}
+const AT = Object.fromEntries(SEASONS.map((sn) => [sn, seasonStart(sn)]));
+const dryFrom = (t) => { let d = farmDay(t); while (rainyDay(d)) d += 1; return at(d); };
+const rainFrom = (t) => { let d = farmDay(t); while (!rainyDay(d)) d += 1; return at(d); };
 const spring = dryFrom(AT.spring);
 const rich = { now: spring, coins: 1000, spot: 'seeds' };
 
@@ -23,6 +33,27 @@ test('the island is sound: five buildings, far enough apart, with a shop, a fiel
   for (const a of FARM.island.spots) for (const b of FARM.island.spots) if (a !== b) assert.ok(Math.hypot(a.x - b.x, a.z - b.z) > 10, `${a.id}/${b.id}`);
   for (const season of Object.keys(AT)) assert.ok([...FARM.crops.values()].some((c) => c.season === season && c.hearts === 0), season);
   assert.equal(seasonId(AT.spring), 'spring'); assert.equal(seasonId(AT.winter), 'winter');
+});
+
+test("the farm's own calendar: SEASON_DAYS days a season, spring to winter and round again, with a year count", () => {
+  const c0 = calendarOf(AT.spring);
+  assert.equal(c0.season, 'spring'); assert.equal(c0.seasonDay, 1); assert.equal(c0.left, SEASON_DAYS); assert.equal(c0.seasonDays, SEASON_DAYS);
+  const seen = [];
+  for (let k = 0; k < 4 * SEASON_DAYS; k += 1) { const c = calendarOf(AT.spring + k * DAY_MS); if (!seen.includes(c.season)) seen.push(c.season); assert.equal(c.seasonDay, (k % SEASON_DAYS) + 1); }
+  assert.deepEqual(seen, ['spring', 'summer', 'autumn', 'winter']);
+  assert.equal(calendarOf(AT.spring + 4 * SEASON_DAYS * DAY_MS).year, c0.year + 1, 'a year is four seasons');
+  assert.equal(calendarOf(AT.spring + 4 * SEASON_DAYS * DAY_MS).season, 'spring');
+  assert.equal(daysUntil('spring', 1, AT.spring), 0);
+  assert.equal(daysUntil('summer', 1, AT.spring), SEASON_DAYS);
+  assert.equal(daysUntil('winter', 2, AT.spring), 3 * SEASON_DAYS + 1);
+  assert.equal(daysUntil('spring', 1, AT.spring + DAY_MS), 4 * SEASON_DAYS - 1, 'yesterday comes round next year');
+  // The shop follows the calendar, and a plot from last season wilts when it turns.
+  const farm = blankFarm();
+  assert.ok(statePayload(farm, AT.winter).catalog.seeds.every((c) => c.season === 'winter'));
+  farm.plots[0] = { crop: 'tomato', growth: 0, last: farmDay(AT.summer), planted: farmDay(AT.summer) };
+  settle(farm, AT.summer); assert.equal(!!farm.plots[0].wilted, false);
+  settle(farm, AT.summer + SEASON_DAYS * DAY_MS); assert.equal(farm.plots[0].wilted, true, 'autumn came');
+  assert.equal(statePayload(farm, AT.summer + SEASON_DAYS * DAY_MS).calendar.season, 'autumn');
 });
 
 test('the English is 英検5級: short answers, a picture on every question, Japanese beside it', () => {
@@ -255,7 +286,7 @@ test('rain: the day decides, the same for everyone, about three days in ten', ()
 
 test('a rainy day waters every plot (and it grows) and every trough; nothing to water that day', () => {
   const farm = blankFarm();
-  const sunny = dryFrom(AT.summer);
+  const sunny = seasonStart('summer', (d0) => !rainyDay(d0) && rainyDay(d0 + 1));
   farm.plots[0] = { crop: 'tomato', growth: 0, last: -1, planted: farmDay(sunny) };
   farm.animals.push({ kind: 'cow', name: 'Momo', hearts: 0, fed: -1, brushed: -1, wet: -1, got: -1 });
   settle(farm, sunny);
@@ -276,15 +307,14 @@ test('a rainy day waters every plot (and it grows) and every trough; nothing to 
 test('a plot left dry wilts after DRY_DAYS days; a rainy day in between saves it; days away are replayed', () => {
   assert.equal(DRY_DAYS, 3);
   // Three dry days in a row, found on the calendar.
-  let d0 = farmDay(AT.autumn); while (!(!rainyDay(d0) && !rainyDay(d0 + 1) && !rainyDay(d0 + 2) && !rainyDay(d0 + 3))) d0 += 1;
-  const at = (d) => d * DAY_MS + DAY_MS / 2;
+  const d0 = farmDay(AT.autumn);          // four dry days from the first of autumn
   const farm = blankFarm();
   farm.plots[0] = { crop: 'pumpkin', growth: 0, last: -1, planted: d0 };
   farm.settled = d0;
   settle(farm, at(d0 + 2)); assert.equal(!!farm.plots[0].wilted, false, 'two dry days: still alive');
   settle(farm, at(d0 + 3)); assert.equal(farm.plots[0].wilted, true, 'three dry days: wilted');
   // The same plot, but it rains on the second day: it drinks, grows, and lives.
-  let r0 = farmDay(AT.autumn); while (!(!rainyDay(r0) && rainyDay(r0 + 1))) r0 += 1;
+  const r0 = farmDay(seasonStart('autumn', (d) => !rainyDay(d) && rainyDay(d + 1)));
   const farm2 = blankFarm();
   farm2.plots[0] = { crop: 'pumpkin', growth: 0, last: -1, planted: r0 };
   farm2.settled = r0;
@@ -293,4 +323,87 @@ test('a plot left dry wilts after DRY_DAYS days; a rainy day in between saves it
   // A saved farm remembers how far the weather was applied.
   const back = sanitizeFarm(JSON.parse(JSON.stringify(farm2)));
   assert.equal(back.settled, r0 + 3); assert.equal(back.animals.length, 0);
+});
+
+// ---- festivals, birthdays, friendship ------------------------------------------------
+const quiet = (season, dayOf) => seasonStart(season, (d0) => Array.from({ length: SEASON_DAYS }, (_, k) => !rainyDay(d0 + k)).every(Boolean)) + (dayOf - 1) * DAY_MS;
+
+test('one festival a season, at the host\'s house: a question once a year, hearts all round, a prize, and the season\'s crops ship for more', () => {
+  const ev = FARM.events.get('harvest');
+  const day = quiet('autumn', ev.from);
+  assert.equal(eventAt(day)?.id, 'harvest'); assert.equal(eventAt(quiet('autumn', ev.to + 1)), null, 'the day after, it is over');
+  assert.equal(eventAt(quiet('autumn', ev.from)).daysLeft, ev.to - ev.from + 1);
+  const farm = blankFarm();
+  const st = statePayload(farm, day);
+  assert.equal(st.event.host, ev.host); assert.equal(st.event.joined, false); assert.equal(st.villagers[ev.host].festival.id, 'harvest');
+  assert.ok(st.nextEvent && st.nextEvent.id !== 'harvest' && st.nextEvent.inDays > 0 && st.nextEvent.inDays <= 4 * SEASON_DAYS);
+  assert.throws(() => prepare(farm, 'event', {}, { now: day, coins: 0, spot: 'ship' }), /wrong house/);
+  assert.throws(() => prepare(farm, 'event', {}, { now: quiet('autumn', 1), coins: 0, spot: ev.host }), /no festival/);
+  const q = prepare(farm, 'event', {}, { now: day, coins: 0, spot: ev.host });
+  assert.equal(q.kind, 'reply'); assert.equal(q.pic, ev.emoji);
+  assert.ok(BANK.festival.harvest.some((l) => q.prompt.en.endsWith(`"${l.says}"`) && q.answer === l.a));
+  assert.ok(!('answer' in askPayload(q)));
+  const got = q.effect(farm);
+  assert.equal(got.prize, ev.bonus);
+  assert.equal(farm.hearts[ev.host], 2); for (const sp of FARM.spotById.keys()) if (sp !== ev.host) assert.equal(farm.hearts[sp], 1);
+  assert.equal(statePayload(farm, day).event.joined, true);
+  assert.throws(() => prepare(farm, 'event', {}, { now: day, coins: 0, spot: ev.host }), /already joined/);
+  // Next year's festival is new again.
+  assert.doesNotThrow(() => prepare(farm, 'event', {}, { now: day + 4 * SEASON_DAYS * DAY_MS, coins: 0, spot: ev.host }));
+  // Pumpkins ship for half as much again during the festival, and are a loved gift to the host.
+  const pumpkin = FARM.items.get('pumpkin');
+  assert.equal(valueOf(farm, pumpkin, 2, day), Math.round(pumpkin.sell * 1.5) * 2);
+  assert.equal(valueOf(farm, pumpkin, 2, quiet('autumn', 1)), pumpkin.sell * 2);
+  farm.items.pumpkin = 2;
+  const g = prepare(farm, 'gift', { item: 'pumpkin' }, { now: day, coins: 0, spot: ev.host });
+  const h0 = farm.hearts[ev.host];
+  g.effect(farm);
+  assert.equal(farm.hearts[ev.host], h0 + 3, 'what the festival wants is worth three hearts');
+  assert.equal(farmSummaryHearts(farm), Object.values(farm.hearts).reduce((a, b) => a + b, 0));
+});
+const farmSummaryHearts = (f) => Object.values(f.hearts).reduce((a, b) => a + b, 0);
+
+test('a villager\'s birthday: they say so, the right reply is two hearts, and a present counts double', () => {
+  const b = FARM.spotById.get('seeds').birthday;
+  const day = quiet(b.season, b.day);
+  assert.equal(isBirthday('seeds', day), true); assert.equal(isBirthday('seeds', day + DAY_MS), false);
+  const st = statePayload(blankFarm(), day);
+  assert.equal(st.villagers.seeds.birthday.today, true); assert.equal(st.villagers.barn.birthday.today, false);
+  assert.ok(st.villagers.barn.birthday.inDays > 0);
+  const farm = blankFarm();
+  const t = prepare(farm, 'talk', {}, { now: day, coins: 0, spot: 'seeds' });
+  assert.equal(t.answer, BANK.birthday.a); assert.equal(t.pic, '🎂');
+  t.effect(farm); assert.equal(farm.hearts.seeds, 2);
+  farm.items.strawberry = 1;                       // Hana loves strawberries: 2, doubled on her birthday
+  prepare(farm, 'gift', { item: 'strawberry' }, { now: day, coins: 0, spot: 'seeds' }).effect(farm);
+  assert.equal(farm.hearts.seeds, 6);
+  // Any other day it is a plain hello, worth one.
+  const farm2 = blankFarm();
+  prepare(farm2, 'talk', {}, { now: day + DAY_MS, coins: 0, spot: 'seeds' }).effect(farm2);
+  assert.equal(farm2.hearts.seeds, 1);
+});
+
+test('hearts go down too: a disliked gift, and a long silence; levels name the friendship', () => {
+  const farm = blankFarm();
+  farm.hearts.seeds = 3; farm.items.onion = 2;
+  const g = prepare(farm, 'gift', { item: 'onion' }, { ...rich, spot: 'seeds' });
+  const said = g.effect(farm);
+  assert.equal(farm.hearts.seeds, 2); assert.match(said.en, /💔/);
+  const farm2 = blankFarm(); farm2.hearts.seeds = 0; farm2.items.onion = 1;
+  prepare(farm2, 'gift', { item: 'onion' }, { ...rich, spot: 'seeds' }).effect(farm2);
+  assert.equal(farm2.hearts.seeds, 0, 'never below zero');
+  // Silence: FORGET_DAYS after the last word, one heart fades, once; a hello mends it.
+  const d0 = farmDay(spring);
+  const farm3 = blankFarm(); farm3.hearts = { kitchen: 5, barn: 1 }; farm3.talked = { kitchen: d0, barn: d0 }; farm3.settled = d0;
+  settle(farm3, at(d0 + FORGET_DAYS - 1)); assert.deepEqual(farm3.hearts, { kitchen: 5, barn: 1 });
+  settle(farm3, at(d0 + FORGET_DAYS)); assert.deepEqual(farm3.hearts, { kitchen: 4, barn: 0 });
+  settle(farm3, at(d0 + FORGET_DAYS + 1)); assert.deepEqual(farm3.hearts, { kitchen: 4, barn: 0 }, 'only once per silence');
+  settle(farm3, at(d0 + 2 * FORGET_DAYS)); assert.equal(farm3.hearts.kitchen, 3, 'and again after another silence');
+  const back = sanitizeFarm(JSON.parse(JSON.stringify(farm3)));
+  assert.equal(back.missed.kitchen, d0 + 2 * FORGET_DAYS);
+  assert.deepEqual([0, 3, 6, 10].map(friendship), ['new', 'friend', 'close', 'best']);
+  const st = statePayload(farm3, at(d0 + 2 * FORGET_DAYS));
+  assert.equal(st.villagers.kitchen.level, 'friend'); assert.deepEqual(st.villagers.kitchen.dislikes, FARM.dislikes.kitchen);
+  const kept = sanitizeFarm({ events: { harvest: 12, nope: 3 }, hearts: { seeds: 4 } });
+  assert.deepEqual(kept.events, { harvest: 12 });
 });

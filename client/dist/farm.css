@@ -174,3 +174,31 @@
 #farm-dialog.mini.pen[open] { max-height: min(88vh, 700px); }
 @media (max-width: 760px) { .farm-weather { margin: 6px 12px 0; } .farm-stage { height: 160px; } }
 @media (max-height: 560px) { .farm-stage { height: 120px; } }
+
+/* --- the calendar, the festival and the villager's heart (2026-10) ------------------------
+   The season strip sits under the weather: which season, its day, when it turns, and the
+   festival (today's, or the next). The villager card names the friendship, shows the
+   birthday and what they like and dislike, and on a festival day grows a join button. */
+.farm-calendar { flex: none; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 8px 18px 0; padding: 8px 14px; border-radius: 14px; font-size: 13px; border: 2px solid #d9d0b8; background: #fbf7ec; color: #3c4a38; }
+.farm-calendar b { font-size: 14px; white-space: nowrap; }
+.farm-calendar > span { flex: 1; min-width: 160px; }
+.farm-calendar em { font-style: normal; font-weight: 700; padding: 3px 10px; border-radius: 10px; background: #fff; border: 1px solid #e2d6b8; white-space: nowrap; }
+.farm-calendar em.on { background: #e0434f; color: #fff; border-color: #e0434f; animation: farm-pulse 1.1s ease-in-out infinite; }
+.farm-calendar.spring { background: #fff0f4; border-color: #f4b6c8; }
+.farm-calendar.summer { background: #fffbe0; border-color: #f5d04a; }
+.farm-calendar.autumn { background: #fff1e0; border-color: #f0a030; }
+.farm-calendar.winter { background: #eef5fb; border-color: #bcd4ea; }
+.farm-late { display: block; color: #b4322a; }
+.farm-level { margin: 0 0 4px; font-size: 12px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.farm-level b { padding: 2px 8px; border-radius: 8px; background: #eee8d8; color: #4a5a44; }
+.farm-level b.lv-friend { background: #e6f6dc; color: #24461b; } .farm-level b.lv-close { background: #ffe6d6; color: #7a3a10; } .farm-level b.lv-best { background: #ffd6de; color: #8a1a2a; }
+.farm-bday { font-size: 11px; color: #6b7a66; } .farm-bday.on { color: #c2185b; font-weight: 700; }
+.farm-likes { margin: 0 0 6px; font-size: 12px; display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.farm-likes > span:not(.like):not(.dislike) { color: #6b7a66; margin-left: 4px; }
+.farm-likes .like, .farm-likes .dislike { font-size: 16px; padding: 0 2px; border-radius: 6px; }
+.farm-likes .like { background: #ffe3e8; } .farm-likes .dislike { background: #e8e8e8; filter: grayscale(.4); }
+.farm-fest { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 8px; padding: 8px 10px; border-radius: 12px; background: #fff3d6; border: 2px solid #f0c060; font-size: 12px; }
+.farm-fest b { font-size: 14px; }
+#farm-event { min-height: 38px; font-size: 14px; border-radius: 10px; border: 0; background: #e0434f; color: #fff; font-weight: 700; }
+#farm-event[disabled] { opacity: .5; }
+@media (max-width: 760px) { .farm-calendar { margin: 6px 12px 0; } }

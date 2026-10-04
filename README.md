@@ -477,6 +477,16 @@ fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
   問題バンクは `server/src/game/farm-bank.json`（`client/dist` には置かない）。作物・値段・成長日数は
   `client/dist/farm.json` をページとサーバーが同じく読む。買い物の請求は効果の `spend` が名指しする
   （これが抜けると店がタダになる — `farm.test.mjs` が見ている）。
+- **4 季は牧場の暦（2026-10）。** 本物の季節だと子どもは 1 学期に 1 季節しか見ないので、**1 季節 = 7 牧場日**（`FARM_SEASON_DAYS`、
+  約 80 分）で 春→夏→秋→冬 と回る（`calendarOf()`：`season` / `seasonDay` / `left` / `year`）。店の種・畑の枯れは この暦に従い、
+  画面の季節の帯が「はる 3日め / 7日・あと 4日で なつ」と出す。種のカードは その季節に間に合わないと「⏳ まにあわないかも」。
+- **季節ごとの おまつり。** `farm.json` の `events`（おはなみ 🌸 Hana／なつまつり 🍉 Zack／しゅうかくさい 🎃 Gramps／ゆきまつり ⛄ Mia、
+  各季節の 3〜5 日め）。その日は島に提灯と屋台が出て、ホストの家で `event` の act（おまつりの受け答え・`farm-bank.json` の `festival`）。
+  正解で **ホスト ❤+2・ほかの住人 ❤+1・ごほうび 40 コイン**（`prize`：出荷の日上限の外）。年に 1 回（`farm.events[id] = year`）。
+  おまつりの期間は `wants` の品が **出荷 1.5 倍**、ホストへの贈り物なら **❤+3**。検査は `FARM_FESTIVAL_DAYS=all` で毎日おまつり。
+- **住人との親密度は上下する。** 話す ❤+1、贈り物 ❤+1（すき ❤+2・きらい 💔−1、`farm.json` の `likes` / `dislikes`、カードに表示）、
+  **誕生日**（各住人に `birthday`）は話すと「Happy birthday!」で ❤+2、プレゼントは 2 倍。**30 牧場日 話さないと ❤−1**（`FORGET_DAYS`、
+  `settle()` が 1 回だけ引く）。ハートの段階は しりあい(0–2)・ともだち(3–5)・なかよし(6–9)・しんゆう(10)（`friendship()`）。
 - **雨が降る。みずやりは義務（2026-10）。** 牧場日ごとに決定的に晴れか雨かが決まる（`farm.js` の `rainyDay(day)`、
   ハッシュなので**クラス全員が同じ日に雨**。割合は `FARM_RAIN_PCT`、既定 30%）。**雨の日は 畑のマス全部に水がやられて育ち、
   家畜の水おけも全部いっぱいになる** — 子どもは何もしなくていい。晴れの日に水をやらないマスは **`DRY_DAYS`＝3 日で枯れる**
@@ -490,10 +500,10 @@ fly secrets set --app uspeak-multiplayer ACCESS_MODE=roster \
   さくの上の**回る牧草地**（指で回せる）が同じモデル。WebGL が無ければ絵文字のまま。
 - **屋外に自分の畑と動物が見える。** 芽→葉→実の 3 段階、動物は買った分だけ柵の中に。サーバーの状態からだけ描く。
 - 保存は `farm_json` 1 列（`farm_coins` は 1 日の上限）。
-- **あそびかたガイド（?）に 8 ページ**（島・たねや・こたえあわせ・はたけ・どうぶつの さく・あめの 日・しゅっか小屋・だいどころ）。
+- **あそびかたガイド（?）に 9 ページ**（島・たねや・こたえあわせ・はたけ・どうぶつの さく・あめの 日・きせつと おまつり・しゅっか小屋・だいどころ）。
   写真は `browser-farm.mjs` が撮る `docs/figures/screen-farm-*.jpg` から。
-- 検査：`server/test/farm.test.mjs`（14 項目・成長と判定と請求・雨の分布・雨の日の水やり・乾いて枯れる）/ `room.test.mjs` の「ぼくじょう島」（実ソケット・位置ゲート・
-  コインの請求）/ `server/test/e2e/browser-farm.mjs`（実ブラウザ 33 項目・買って植えて水をやり、エサと みずをやり、雨の日の帯と 3D の さく）/
+- 検査：`server/test/farm.test.mjs`（18 項目・成長と判定と請求・暦・おまつり・誕生日・ハートの上下・雨）/ `room.test.mjs` の「ぼくじょう島」（実ソケット・位置ゲート・
+  コインの請求）/ `server/test/e2e/browser-farm.mjs`（実ブラウザ 42 項目・買って植えて水をやり、おまつりに参加し、エサと みずをやり、雨の日の帯と 3D の さく）/
   `client/tests/regression.mjs` の島の検査 / `browser-english.mjs` と `browser-layout.mjs` の `farm` 画面。
 
 ## 土地島（じぶんだけの しま／2026-10 追加）

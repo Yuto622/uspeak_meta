@@ -69,5 +69,28 @@
   "sounds": { "chicken": "Cluck", "sheep": "Baa", "cow": "Moo" },
   "soundsAll": ["Cluck", "Baa", "Moo", "Woof", "Meow", "Oink"],
   "seasons": { "spring": "spring", "summer": "summer", "autumn": "autumn", "winter": "winter" },
-  "seasonPic": { "spring": "🌸", "summer": "🌻", "autumn": "🍁", "winter": "⛄" }
+  "seasonPic": { "spring": "🌸", "summer": "🌻", "autumn": "🍁", "winter": "⛄" },
+  "festival": {
+    "hanami": [
+      { "says": "Happy spring! Do you like flowers?", "ja": "はるだね！ おはな すき？", "a": "Yes, I do.", "d": ["I'm ten.", "It's a dog.", "Good night."] },
+      { "says": "What color are the flowers? 🌸", "ja": "おはなは なにいろ？", "a": "Pink.", "d": ["Blue.", "Black.", "Green."] },
+      { "says": "Let's see the flowers!", "ja": "おはなを 見に いこう！", "a": "Yes, let's!", "d": ["I'm sorry.", "It's mine.", "No, it isn't."] }
+    ],
+    "suika": [
+      { "says": "Happy summer! Do you like watermelon?", "ja": "なつだね！ すいか すき？", "a": "Yes, I do.", "d": ["I'm fine.", "It's big.", "Good morning."] },
+      { "says": "It's hot today!", "ja": "きょうは あついね！", "a": "Yes, it is.", "d": ["I'm eight.", "It's a cat.", "See you."] },
+      { "says": "Let's eat watermelon! 🍉", "ja": "すいかを たべよう！", "a": "Yes, let's!", "d": ["I'm sorry.", "No, I'm not.", "It's red."] }
+    ],
+    "harvest": [
+      { "says": "Happy Harvest Festival!", "ja": "しゅうかくさい おめでとう！", "a": "Happy Harvest Festival!", "d": ["Good night!", "I'm sorry.", "See you."] },
+      { "says": "How many pumpkins? 🎃🎃🎃", "ja": "かぼちゃは いくつ？", "a": "Three.", "d": ["One.", "Five.", "Ten."] },
+      { "says": "Do you like pumpkin pie?", "ja": "パンプキンパイ すき？", "a": "Yes, I do.", "d": ["I'm nine.", "It's small.", "Goodbye."] }
+    ],
+    "yuki": [
+      { "says": "Let's make a snowman! ⛄", "ja": "ゆきだるまを つくろう！", "a": "Yes, let's!", "d": ["I'm sorry.", "It's hot.", "No, thank you."] },
+      { "says": "Are you cold?", "ja": "さむい？", "a": "Yes, I am.", "d": ["Yes, it is.", "I'm ten.", "It's blue."] },
+      { "says": "What color is snow?", "ja": "ゆきは なにいろ？", "a": "White.", "d": ["Red.", "Yellow.", "Brown."] }
+    ]
+  },
+  "birthday": { "says": "Today is my birthday!", "ja": "きょうは わたしの たんじょうび！", "a": "Happy birthday!", "d": ["Good morning!", "Thank you!", "Goodbye!"] }
 }

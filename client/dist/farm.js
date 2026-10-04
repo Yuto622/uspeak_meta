@@ -18,6 +18,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const SEASON = { spring: { ja: 'はる', en: 'Spring', emoji: '🌸' }, summer: { ja: 'なつ', en: 'Summer', emoji: '🌻' }, autumn: { ja: 'あき', en: 'Autumn', emoji: '🍁' }, winter: { ja: 'ふゆ', en: 'Winter', emoji: '⛄' } };
 const STAGE = ['', '🌱', '🌿', '', '🥀'];
+const LEVEL = { new: { ja: 'しりあい', en: 'New friend' }, friend: { ja: 'ともだち', en: 'Friend' }, close: { ja: 'なかよし', en: 'Good friend' }, best: { ja: 'しんゆう', en: 'Best friend' } };
 
 // What to do next, worked out from the farm the room sent. The first thing that is
 // possible and useful wins, in the order a farmer would do them in the morning.
@@ -28,6 +29,10 @@ export function nextStep(f) {
   // 2026-10: the field and the pen are walked onto — the light stands there, not over a door.
   if (plots.some((p) => p && p.ready)) return step('field', 'とれる やさいが あるよ！ はたけで マスの 上に たって E 🧺', 'Something is ready! Stand on the plot and press E 🧺');
   if (plots.some((p) => p && p.wilted)) return step('field', 'かれた マスの 上に たって かたづけよう 🥀', 'Stand on the dead plot and clear it 🥀');
+  // A festival day, or a villager's birthday, comes before the chores: it will not wait.
+  if (f.event && !f.event.joined) return step(f.event.host, `${f.event.emoji} ${f.event.ja}！ ${f.event.hostName}の ところへ いこう`, `${f.event.emoji} ${f.event.en}! Go and see ${f.event.hostName}`);
+  const bday = Object.entries(f.villagers || {}).find(([, v]) => v.birthday?.today && !v.talked);
+  if (bday) return step(bday[0], `🎂 きょうは ${bday[1].character}の たんじょうび！ はなしに いこう`, `🎂 It's ${bday[1].character}'s birthday! Go and say hello`);
   if (plots.some((p) => p && !p.wilted && !p.watered && p.growth < p.days)) return step('field', 'はたけの マスの 上に たって みずを やろう 💧', 'Stand on the plot and water it 💧');
   if (Object.keys(f.seeds || {}).length && plots.some((p) => !p)) return step('field', 'はたけの あいている マスに たって たねを うえよう 🌱', 'Stand on an empty plot and plant a seed 🌱');
   const animals = f.animals || [];
@@ -38,6 +43,8 @@ export function nextStep(f) {
   if (Object.keys(f.items || {}).length) return step('ship', 'しゅっか小屋で うって コインに しよう 📦', 'Ship your things for coins 📦');
   if (!plots.some((p) => p)) return step('seeds', 'たねやで たねを かおう 🌱', 'Buy seeds at the Seed Shop 🌱');
   if (f.weather === 'rain') return step('', 'きょうは あめ。みずやりは おやすみ！ そらが ひとまわり すると あしたに なるよ。', 'Rain today, so no watering! Tomorrow comes when the sky turns.');
+  const talk = Object.entries(f.villagers || {}).find(([, v]) => !v.talked);
+  if (talk) return step(talk[0], `${talk[1].character}に はなしかけよう。ハートが ふえるよ 💬`, `Say hello to ${talk[1].character} for a heart 💬`);
   return step('', 'きょうの しごとは おわり！ そらが ひとまわり すると あしたに なるよ。', "All done today! Tomorrow comes when the sky turns.");
 }
 
@@ -86,6 +93,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
     </header>
     <div class="farm-next" id="farm-next-step"></div>
     <div class="farm-weather" id="farm-weather" hidden></div>
+    <div class="farm-calendar" id="farm-calendar" hidden></div>
     <ol class="farm-howto" id="farm-howto"></ol>
     <div class="farm-body">
       <section class="farm-main" id="farm-main"></section>
@@ -127,9 +135,10 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
     $('#farm-coins', dialog).textContent = state.coins;
     const f = state.farm;
     const s = f ? SEASON[f.season] : null;
-    $('#farm-season', dialog).innerHTML = s ? `<span translate="no">${s.emoji} ${esc(isJa() ? s.ja : s.en)}${f.weather ? ` · ${f.weather === 'rain' ? '🌧' : '☀'}` : ''}</span>` : '';
+    $('#farm-season', dialog).innerHTML = s ? `<span translate="no">${s.emoji} ${esc(isJa() ? s.ja : s.en)}${f.calendar ? ` ${f.calendar.seasonDay}/${f.calendar.seasonDays}` : ''}${f.weather ? ` · ${f.weather === 'rain' ? '🌧' : '☀'}` : ''}</span>` : '';
     renderNext(f, def);
     renderWeather(f);
+    renderCalendar(f);
     $('#farm-howto', dialog).innerHTML = (HOWTO[def?.kind] || []).map(([icon, ja, en], i) => `<li><b>${i + 1}</b><span>${icon}</span>${esc(isJa() ? ja : en)}</li>`).join('');
     const main = $('#farm-main', dialog);
     if (!f || !data) { main.innerHTML = `<p class="farm-note">${tr('よみこんで います…')}</p>`; return; }
@@ -185,6 +194,27 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       : `<b>☀ ${tr('きょうは はれ')}</b><span>${tr('はたけと どうぶつに みずを やろう。{n}日 やらないと かれてしまう。', { n: f.dryDays || 3 })} ${soon}</span>`;
   }
 
+  // The calendar: the season and its day, when it turns, and the festival — today's at
+  // whose house, or the next one and in how many days.
+  function renderCalendar(f) {
+    const box = $('#farm-calendar', dialog);
+    const c = f?.calendar;
+    if (!c) { box.hidden = true; box.innerHTML = ''; return; }
+    box.hidden = false;
+    const s = SEASON[c.season]; const nextS = SEASON[['spring', 'summer', 'autumn', 'winter'][(['spring', 'summer', 'autumn', 'winter'].indexOf(c.season) + 1) % 4]];
+    const seasonTxt = `<b translate="no">${s.emoji} ${esc(isJa() ? s.ja : s.en)}</b><span>${tr('{n}日め / {d}日', { n: c.seasonDay, d: c.seasonDays })} · ${c.left === 1 ? tr('あしたから {s}', { s: isJa() ? nextS.ja : nextS.en }) : c.left === 2 ? tr('あさってから {s}', { s: isJa() ? nextS.ja : nextS.en }) : tr('あと {n}日で {s}', { n: c.left - 1, s: isJa() ? nextS.ja : nextS.en })}</span>`;
+    let fest = '';
+    if (f.event) {
+      const e = f.event;
+      fest = `<em class="on" translate="no">${e.emoji} ${esc(isJa() ? e.ja : e.en)}</em><span>${e.joined ? tr('さんか ずみ！ {w}の いえで {items} が たかく うれる', { w: e.hostName, items: e.wants.map((id) => item(id)?.emoji || '').join('') }) : tr('{w}の いえで やってるよ（あと {n}日）', { w: e.hostName, n: e.daysLeft })}</span>`;
+    } else if (f.nextEvent) {
+      const e = f.nextEvent;
+      fest = `<em translate="no">${e.emoji} ${esc(isJa() ? e.ja : e.en)}</em><span>${tr('あと {n}日', { n: e.inDays })}</span>`;
+    }
+    box.className = `farm-calendar ${c.season} ${f.event ? 'fest' : ''}`;
+    box.innerHTML = `${seasonTxt}${fest}`;
+  }
+
   const word = (it) => `<b class="farm-en" translate="no">${esc(it.emoji || '')} ${esc(it.en)}</b><i class="farm-ja" translate="no">${esc(it.ja)}</i>`;
   const lockNote = (it, who) => (it.locked ? `<small class="farm-lock">🔒 ${tr('{who}の ハート {n} から', { who, n: it.hearts })}</small>` : '');
 
@@ -194,7 +224,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
     const taro = spotDef('barn')?.character || 'Taro';
     return `<h3>${tr('たね（この きせつ）')} <small>${tr('なんこ かう？ ボタンを おしてね')}</small></h3><div class="farm-grid">${c.seeds.map((cr) => `
       <div class="farm-card ${cr.locked ? 'locked' : ''}"><span class="farm-big" translate="no">${esc(cr.emoji)}</span>${word(cr)}<span class="farm-price">◈ ${cr.seed} <small>${tr('/ 1ふくろ')}</small></span>
-        <small>${tr('{d}かいの みずやりで できる', { d: cr.days })}${cr.regrow ? ` · ${tr('また なる')}` : ''}</small>${lockNote(cr, hana)}
+        <small>${tr('{d}かいの みずやりで できる', { d: cr.days })}${cr.regrow ? ` · ${tr('また なる')}` : ''}</small>${f.calendar && cr.days > f.calendar.left ? `<small class="farm-late">⏳ ${tr('この きせつには まにあわないかも')}</small>` : ''}${lockNote(cr, hana)}
         <div class="farm-row farm-qty">${[1, 2, 3].map((n) => `<button type="button" data-buy="${cr.id}" data-qty="${n}" ${cr.locked || state.coins < cr.seed * n ? 'disabled' : ''}>🛒 ${n}</button>`).join('')}</div>
       </div>`).join('')}</div>
       <h3>${tr('どうぶつ')}</h3><div class="farm-grid">${c.animals.map((a) => `
@@ -294,14 +324,26 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
   function renderVillager(f, def) {
     const box = $('#farm-villager', dialog);
     if (!def || !def.character) { box.innerHTML = ''; return; }
-    const hearts = f.hearts[def.id] || 0;
-    const talked = !!f.talked[def.id];
-    const gifted = !!f.gifted[def.id];
+    const v = f.villagers?.[def.id] || {};
+    const hearts = v.hearts ?? f.hearts[def.id] ?? 0;
+    const talked = v.talked ?? !!f.talked[def.id];
+    const gifted = v.gifted ?? !!f.gifted[def.id];
     const items = Object.entries(f.items);
+    const lv = LEVEL[v.level] || LEVEL.new;
+    const likes = (v.likes || []).map((id) => item(id)).filter(Boolean);
+    const dislikes = (v.dislikes || []).map((id) => item(id)).filter(Boolean);
+    const fest = v.festival ? f.event : null;
+    const wants = fest ? new Set(fest.wants) : new Set();
+    const bd = v.birthday;
+    const bdTxt = bd ? (bd.today ? `<span class="farm-bday on">🎂 ${tr('きょうは たんじょうび！')}</span>` : `<span class="farm-bday" translate="no">🎂 ${esc(isJa() ? SEASON[bd.season].ja : SEASON[bd.season].en)} ${bd.day}${isJa() ? '日' : ''}</span>`) : '';
+    const tag = (it, cls) => `<span class="${cls}" translate="no">${esc(it.emoji)}</span>`;
     box.innerHTML = `<div class="farm-who"><b translate="no">🧑‍🌾 ${esc(def.character)}</b><span class="farm-hearts">${'❤'.repeat(Math.min(10, hearts))}${'♡'.repeat(Math.max(0, 3 - hearts))} ${hearts}</span></div>
-      <p class="farm-tip">${tr('まいにち はなすと ハートが ふえて、かえる ものが ふえるよ。')}</p>
-      <div class="farm-row"><button type="button" id="farm-talk" ${talked ? 'disabled' : ''}>💬 ${talked ? tr('きょうは はなした') : tr('はなす')}</button>
-      <select id="farm-gift-pick" ${gifted || !items.length ? 'disabled' : ''}>${items.map(([id, n]) => { const it = item(id); return `<option value="${id}">${esc(it.emoji)} ${esc(it.en)} ×${n}</option>`; }).join('') || `<option value="">${tr('あげる ものが ない')}</option>`}</select>
+      <p class="farm-level"><b class="lv-${esc(v.level || 'new')}">${esc(isJa() ? lv.ja : lv.en)}</b> ${bdTxt}</p>
+      <p class="farm-likes"><span>${tr('すき')}</span>${likes.map((it) => tag(it, 'like')).join('')} <span>${tr('きらい')}</span>${dislikes.map((it) => tag(it, 'dislike')).join('')}</p>
+      ${fest ? `<div class="farm-fest"><b translate="no">${esc(fest.emoji)} ${esc(isJa() ? fest.ja : fest.en)}</b><span>${v.festival.joined ? tr('きょうは さんか した！ また らいねん') : tr('{w}の おまつりに さんか しよう（+{n} ◈、みんなの ハートも ふえる）', { w: def.character, n: fest.bonus })}</span><button type="button" id="farm-event" class="primary" ${v.festival.joined ? 'disabled' : ''}>🎉 ${v.festival.joined ? tr('さんか ずみ') : tr('さんか する')}</button></div>` : ''}
+      <p class="farm-tip">${tr('まいにち はなすと ハートが ふえて、かえる ものが ふえるよ。すきな ものは ❤❤、きらいな ものは 💔。しばらく はなさないと ハートが へる。')}</p>
+      <div class="farm-row"><button type="button" id="farm-talk" ${talked ? 'disabled' : ''}>${bd?.today && !talked ? '🎂' : '💬'} ${talked ? tr('きょうは はなした') : tr('はなす')}</button>
+      <select id="farm-gift-pick" ${gifted || !items.length ? 'disabled' : ''}>${items.map(([id, n]) => { const it = item(id); const mark = wants.has(id) ? '🎉' : likes.includes(it) ? '❤' : dislikes.includes(it) ? '💔' : ''; return `<option value="${id}">${esc(it.emoji)} ${esc(it.en)} ×${n} ${mark}</option>`; }).join('') || `<option value="">${tr('あげる ものが ない')}</option>`}</select>
       <button type="button" id="farm-gift" ${gifted || !items.length ? 'disabled' : ''}>🎁 ${gifted ? tr('あげた') : tr('あげる')}</button></div>`;
   }
 
@@ -365,6 +407,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
     if (d.ship !== undefined) { const n = state.farm.items[d.ship] || 1; act('ship', { item: d.ship, qty: Math.min(n, state.shipQty[d.ship] || n) }); return; }
     if (d.cook !== undefined) { act('cook', { recipe: d.cook }); return; }
     if (b.id === 'farm-talk') { act('talk'); return; }
+    if (b.id === 'farm-event') { act('event'); return; }
     if (b.id === 'farm-gift') { const it = $('#farm-gift-pick', dialog)?.value; if (it) act('gift', { item: it }); return; }
     // the question
     if (d.choice !== undefined) { answer(d.choice); return; }
@@ -410,6 +453,7 @@ export function createFarmUI({ send, toast, isOnline, onFarm, speak }) {
       'too far': tr('その ばしょに たってから やろう。'), 'not enough coins': tr('コインが たりない。'), locked: tr('まだ ハートが たりない。はなして ふやそう。'),
       'out of season': tr('いまの きせつでは そだたない。'), 'nothing to water': tr('みずを やる はたけが ない。'), 'already fed': tr('きょうは もう たべた。'),
       'already brushed': tr('きょうは もう ブラシを した。'), 'already collected': tr('きょうは もう もらった。'), hungry: tr('さきに エサを あげよう。'),
+      'no festival': tr('きょうは おまつりの 日じゃない。'), 'wrong house': tr('おまつりは べつの いえで やってるよ。'), 'already joined': tr('この おまつりには もう さんか した。'),
       thirsty: tr('さきに みずを あげよう。'), 'already watered': tr('きょうは もう みずを あげた。'), 'rain did it': tr('あめが ふった。きょうは みずは いらない。'),
       'already talked': tr('きょうは もう はなした。'), 'already gifted': tr('きょうは もう あげた。'), 'barn full': tr('小屋が いっぱい。'), 'no seeds': tr('その たねが ない。'),
       'missing ingredients': tr('ざいりょうが たりない。'), 'too fast': tr('ちょっと まってね。'), 'no question': tr('もんだいが きえた。もういちど。'),

@@ -1351,6 +1351,13 @@ export class ClassRoom extends Room {
         payload.coins = paid;
         payload.capped = paid < effect.award;
       }
+      if (effect.prize) {
+        // A festival's prize: once a season, outside the shipping day's ceiling.
+        const entry = applyOp(priv.wallet, { type: 'award', amount: effect.prize, id: effect.id });
+        priv.farm.earned += effect.prize;
+        this.store.appendCoin(this.coinRow(client.sessionId, entry));
+        payload.coins = (payload.coins || 0) + effect.prize;
+      }
       payload.effect = { en: effect.en, ja: effect.ja };
       const level = this.awardXp(client.sessionId, xp, `farm:${q.act}`);
       payload.levels = level?.levels || 0;

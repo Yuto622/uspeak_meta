@@ -19,7 +19,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomBytes } from 'node:crypto';
 import { CYCLE_SEC } from '../../../client/dist/world-clock.js';
-import { seasonFor, weekIndex } from './daily.js';
+import { weekIndex } from './daily.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FARM_PATH = path.resolve(here, '../../../client/dist/farm.json');
@@ -28,6 +28,7 @@ const BANK_PATH = path.resolve(here, 'farm-bank.json');
 export class FarmError extends Error {}
 
 const need = (ok, msg) => { if (!ok) throw new Error(`farm.json: ${msg}`); };
+export const SEASONS = ['spring', 'summer', 'autumn', 'winter'];
 const str = (v) => (typeof v === 'string' ? v : '');
 const num = (v, fb = 0) => (Number.isFinite(Number(v)) ? Number(v) : fb);
 
@@ -86,8 +87,21 @@ function loadFarm() {
   }
   const likes = raw.likes || {};
   for (const [spot, list] of Object.entries(likes)) { need(spotById.has(spot), `likes for ${spot}`); for (const id of list) need(items.has(id), `${spot} likes ${id}`); }
+  const dislikes = raw.dislikes || {};
+  for (const [spot, list] of Object.entries(dislikes)) { need(spotById.has(spot), `dislikes for ${spot}`); for (const id of list) need(items.has(id) && !(likes[spot] || []).includes(id), `${spot} dislikes ${id}`); }
+  // Every villager has a birthday on the farm's calendar (season, day of the season);
+  // the festivals are the four days a season the island dresses up (one per season).
+  for (const sp of island.spots) need(sp.birthday && SEASONS.includes(sp.birthday.season) && sp.birthday.day >= 1, `birthday of ${sp.id}`);
+  const events = new Map();
+  for (const ev of raw.events || []) {
+    need(ev.id && ev.ja && ev.en && ev.emoji && SEASONS.includes(ev.season) && ev.from >= 1 && ev.to >= ev.from && spotById.has(ev.host) && Array.isArray(ev.wants) && ev.wants.length && ev.bonus >= 0, `event ${ev.id}`);
+    for (const id of ev.wants) need(items.has(id), `event ${ev.id} wants ${id}`);
+    need(!events.has(ev.id) && ![...events.values()].some((o) => o.season === ev.season), `one festival per season (${ev.id})`);
+    events.set(ev.id, ev);
+  }
+  need(events.size === 4, 'four festivals');
   return {
-    id: island.id, island, spotById, placeById, plots, pen, crops, animals, products, tools, recipes, items, likes,
+    id: island.id, island, spotById, placeById, plots, pen, crops, animals, products, tools, recipes, items, likes, dislikes, events,
     plotCount: Math.max(1, Math.min(16, num(raw.plotCount, 9))),
     animalLimit: Math.max(1, num(raw.animalLimit, 4)),
     dailyCoinCap: Math.max(0, num(raw.dailyCoinCap, 150)),
@@ -102,12 +116,16 @@ function loadBank() {
   for (const f of bank.water) need(f.pic && f.q && f.q.includes('___') && f.a && f.d?.length === 3 && !f.d.includes(f.a), `water "${f.q}"`);
   for (const r of bank.talk) need(r.says && r.a && r.d?.length === 3 && !r.d.includes(r.a), `talk "${r.says}"`);
   for (const id of ['chicken', 'sheep', 'cow']) need(bank.sounds?.[id] && bank.soundsAll.includes(bank.sounds[id]), `sound for ${id}`);
+  const reply = (r, what) => need(r && r.says && r.a && r.d?.length === 3 && !r.d.includes(r.a), what);
+  for (const [id, lines] of Object.entries(bank.festival || {})) { need(Array.isArray(lines) && lines.length >= 2, `festival ${id}`); for (const r of lines) reply(r, `festival ${id} "${r?.says}"`); }
+  reply(bank.birthday, 'birthday line');
   return bank;
 }
 
 export const FARM = loadFarm();
 export const BANK = loadBank();
 for (const spot of FARM.spotById.keys()) need(BANK.talk.some((x) => x.spot === spot || x.spot === 'any'), `talk lines for ${spot}`);
+for (const id of FARM.events.keys()) need(BANK.festival?.[id], `festival lines for ${id}`);
 
 // ---- time ----------------------------------------------------------------------------
 // One farm day is one turn of the world clock. FARM_DAY_SEC shortens it for a demo or a
@@ -115,7 +133,61 @@ for (const spot of FARM.spotById.keys()) need(BANK.talk.some((x) => x.spot === s
 const DAY_SEC = Math.max(5, Number(process.env.FARM_DAY_SEC) || CYCLE_SEC);
 export const DAY_MS = DAY_SEC * 1000;
 export const farmDay = (now = Date.now()) => Math.floor(now / DAY_MS);
-export const seasonId = (now = Date.now()) => seasonFor(now).id;
+
+// ---- the calendar ------------------------------------------------------------------
+// Four seasons that turn as the farm's own days pass — not the real calendar, which
+// would show a child one season a term. A season is SEASON_DAYS farm days (seven: about
+// 80 minutes of world time, so a class that comes once a week sees a new season every
+// other lesson and a whole year in two months). Spring, summer, autumn, winter, round
+// again; the season's day counts from 1. FARM_SEASON_DAYS shortens it for a demo.
+// (With the default of seven, day 2540542 — 4 Oct 2026 — falls in autumn, like the real sky.)
+export const SEASON_DAYS = Math.max(2, Math.floor(Number(process.env.FARM_SEASON_DAYS)) || 7);
+export function calendarOf(now = Date.now()) {
+  const day = farmDay(now);
+  const si = Math.floor(day / SEASON_DAYS);
+  const seasonDay = day - si * SEASON_DAYS + 1;
+  return { day, season: SEASONS[((si % 4) + 4) % 4], seasonDay, seasonDays: SEASON_DAYS, left: SEASON_DAYS - seasonDay + 1, year: Math.floor(si / 4) };
+}
+export const seasonId = (now = Date.now()) => calendarOf(now).season;
+// Days until (season, day) next comes round: 0 when it is today.
+export function daysUntil(season, dayOfSeason, now = Date.now()) {
+  const c = calendarOf(now);
+  const si = SEASONS.indexOf(season);
+  const want = Math.min(SEASON_DAYS, Math.max(1, dayOfSeason));
+  let d = ((si - SEASONS.indexOf(c.season) + 4) % 4) * SEASON_DAYS + (want - c.seasonDay);
+  if (d < 0) d += 4 * SEASON_DAYS;
+  return d;
+}
+
+// ---- festivals and birthdays -------------------------------------------------------
+// One festival a season, on the days farm.json says, at the host's house: the island
+// dresses up, the host asks a festival question, the season's crops ship for more, and a
+// gift the festival wants is loved three times over. FARM_FESTIVAL_DAYS=all makes every
+// day a festival day (a demo or a test); a classroom leaves it unset.
+const FESTIVAL_ALL = process.env.FARM_FESTIVAL_DAYS === 'all';
+const eventOn = (ev, c) => ev.season === c.season && (FESTIVAL_ALL || (c.seasonDay >= ev.from && c.seasonDay <= ev.to));
+export function eventAt(now = Date.now()) {
+  const c = calendarOf(now);
+  for (const ev of FARM.events.values()) if (eventOn(ev, c)) return { ...ev, daysLeft: FESTIVAL_ALL ? c.left : ev.to - c.seasonDay + 1 };
+  return null;
+}
+// The next festival that is not today's: when, and whose.
+export function nextEvent(now = Date.now()) {
+  const c = calendarOf(now);
+  let best = null;
+  for (const ev of FARM.events.values()) {
+    if (eventOn(ev, c)) continue;
+    let d = daysUntil(ev.season, ev.from, now);
+    if (d === 0) d = 4 * SEASON_DAYS;
+    if (!best || d < best.inDays) best = { id: ev.id, emoji: ev.emoji, ja: ev.ja, en: ev.en, host: ev.host, inDays: d };
+  }
+  return best;
+}
+export const birthdayOf = (spot) => FARM.spotById.get(spot)?.birthday || null;
+export const isBirthday = (spot, now = Date.now()) => { const b = birthdayOf(spot); return !!b && daysUntil(b.season, b.day, now) === 0; };
+// How close a child and a villager are, in words a card can show.
+export const FORGET_DAYS = 30;     // this many farm days without a word, and a heart fades
+export const friendship = (hearts) => (hearts >= 10 ? 'best' : hearts >= 6 ? 'close' : hearts >= 3 ? 'friend' : 'new');
 
 // ---- weather -------------------------------------------------------------------------
 // Some farm days it rains. The day decides, not the child, so a whole class sees the same
@@ -151,6 +223,8 @@ export function blankFarm() {
     hearts: {},       // spot id -> hearts with that villager
     talked: {},       // spot id -> farm day last talked
     gifted: {},       // spot id -> farm day last gifted
+    missed: {},       // spot id -> farm day a heart last faded for silence
+    events: {},       // event id -> the farm year the child joined it
     dex: [],          // words used right, in the order they were first used
     shipped: 0,       // shipments, ever
     earned: 0,        // coins from shipping, ever
@@ -189,11 +263,12 @@ export function sanitizeFarm(raw) {
     }));
   }
   farm.can = Math.max(1, Math.min(3, Math.floor(num(raw.can, 1))));
-  for (const key of ['hearts', 'talked', 'gifted']) {
+  for (const key of ['hearts', 'talked', 'gifted', 'missed']) {
     const src = raw[key];
     if (!src || typeof src !== 'object') continue;
     for (const [spot, v] of Object.entries(src)) if (FARM.spotById.has(spot)) farm[key][spot] = Math.max(0, Math.floor(num(v)));
   }
+  if (raw.events && typeof raw.events === 'object') for (const [id, y] of Object.entries(raw.events)) if (FARM.events.has(id)) farm.events[id] = Math.max(0, Math.floor(num(y)));
   for (const spot of Object.keys(farm.hearts)) farm.hearts[spot] = Math.min(10, farm.hearts[spot]);
   farm.dex = [...new Set((Array.isArray(raw.dex) ? raw.dex : []).map(str).filter(Boolean))].slice(0, 300);
   farm.shipped = Math.max(0, Math.floor(num(raw.shipped)));
@@ -233,6 +308,15 @@ export function settle(farm, now = Date.now()) {
       }
     }
   }
+  // Friendship is kept, not banked: a villager not spoken to (or given anything) for
+  // FORGET_DAYS loses one heart, once per such silence — a reason to say hello first.
+  if (!first) {
+    for (const [spot, h] of Object.entries(farm.hearts)) {
+      if (!(h > 0)) continue;
+      const last = Math.max(farm.talked[spot] ?? -1, farm.gifted[spot] ?? -1, farm.missed[spot] ?? -1);
+      if (last >= 0 && today - last >= FORGET_DAYS) { farm.hearts[spot] = h - 1; farm.missed[spot] = today; }
+    }
+  }
   farm.settled = today;
   return farm;
 }
@@ -255,8 +339,24 @@ export function catalog(farm, now = Date.now()) {
 export function statePayload(farm, now = Date.now()) {
   settle(farm, now);
   const day = farmDay(now);
+  const cal = calendarOf(now);
+  const ev = eventAt(now);
+  const villagers = {};
+  for (const sp of FARM.island.spots) {
+    const b = sp.birthday;
+    const inDays = daysUntil(b.season, b.day, now);
+    const h = farm.hearts[sp.id] || 0;
+    villagers[sp.id] = {
+      character: sp.character, hearts: h, level: friendship(h), talked: farm.talked[sp.id] === day, gifted: farm.gifted[sp.id] === day,
+      likes: FARM.likes[sp.id] || [], dislikes: FARM.dislikes[sp.id] || [],
+      birthday: { season: b.season, day: b.day, today: inDays === 0, inDays },
+      festival: ev && ev.host === sp.id ? { id: ev.id, joined: farm.events[ev.id] === cal.year } : null,
+    };
+  }
   return {
-    day, season: seasonId(now), week: farm.week, weather: weatherOf(now), rainIn: daysToRain(now), dryDays: DRY_DAYS,
+    day, season: cal.season, calendar: cal, week: farm.week, weather: weatherOf(now), rainIn: daysToRain(now), dryDays: DRY_DAYS,
+    event: ev ? { id: ev.id, emoji: ev.emoji, ja: ev.ja, en: ev.en, host: ev.host, hostName: FARM.spotById.get(ev.host).character, wants: ev.wants, bonus: ev.bonus, daysLeft: ev.daysLeft, joined: farm.events[ev.id] === cal.year } : null,
+    nextEvent: nextEvent(now), villagers, festivals: Object.keys(farm.events).length,
     plots: farm.plots.map((p) => (p ? {
       crop: p.crop, growth: p.growth, days: FARM.crops.get(p.crop).days,
       ready: !p.wilted && p.growth >= FARM.crops.get(p.crop).days,
@@ -362,7 +462,7 @@ export function judge(q, answer) {
 // request that names nowhere in particular is checked.
 const SPOT_OF_ACT = {
   buy: 'seeds', tool: 'seeds', plant: ['field', 'house'], water: ['field', 'house'], harvest: ['field', 'house'], clear: ['field', 'house'],
-  feed: ['pen', 'barn'], brush: ['pen', 'barn'], trough: ['pen', 'barn'], collect: ['pen', 'barn'], ship: 'ship', cook: 'kitchen', talk: null, gift: null,
+  feed: ['pen', 'barn'], brush: ['pen', 'barn'], trough: ['pen', 'barn'], collect: ['pen', 'barn'], ship: 'ship', cook: 'kitchen', talk: null, gift: null, event: null,
 };
 export const spotForAct = (act, spot) => {
   const where = SPOT_OF_ACT[act];
@@ -527,7 +627,7 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
       const have = farm.items[item.id] || 0;
       if (!have) throw new FarmError('nothing to ship');
       const qty = Math.max(1, Math.min(have, Math.floor(num(p.qty, have))));
-      const value = valueOf(farm, item, qty);
+      const value = valueOf(farm, item, qty, now);
       return spellQ('ship', item, item.emoji, {
         qty, value,
         effect: (f) => { f.items[item.id] -= qty; if (!f.items[item.id]) delete f.items[item.id]; f.shipped += qty; noteWord(f, item.en); return { award: value, id: `farm:ship:${item.id}`, en: `📦 Shipped! ${item.emoji} ×${qty}`, ja: `📦 ${item.ja}を ${qty}こ しゅっか した！` }; },
@@ -548,11 +648,34 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
     case 'talk': {
       if (!FARM.spotById.has(spot)) throw new FarmError('no such spot');
       if (farm.talked[spot] === day) throw new FarmError('already talked');
-      const line = pick(BANK.talk.filter((x) => x.spot === spot || x.spot === 'any'));
+      // On their birthday the villager says so, and the right reply is worth two hearts.
+      const bday = isBirthday(spot, now);
+      const line = bday ? BANK.birthday : pick(BANK.talk.filter((x) => x.spot === spot || x.spot === 'any'));
       const who = FARM.spotById.get(spot).character;
-      return choiceQ('talk', 'reply', '💬', { en: `${who}: "${line.says}"`, ja: `${who}「${line.ja}」` }, line.a, line.d, {
+      const gain = bday ? 2 : 1;
+      return choiceQ('talk', 'reply', bday ? '🎂' : '💬', { en: `${who}: "${line.says}"`, ja: `${who}「${line.ja}」` }, line.a, line.d, {
         spot,
-        effect: (f) => { f.talked[spot] = day; f.hearts[spot] = Math.min(10, (f.hearts[spot] || 0) + 1); return { en: `${who} smiles. ❤ ${f.hearts[spot]}`, ja: `${who}が にっこり。❤ ${f.hearts[spot]}` }; },
+        effect: (f) => { f.talked[spot] = day; f.hearts[spot] = Math.min(10, (f.hearts[spot] || 0) + gain); return { en: `${who} smiles. ${'❤'.repeat(gain)} ${f.hearts[spot]}`, ja: `${who}が にっこり。${'❤'.repeat(gain)} ${f.hearts[spot]}` }; },
+      });
+    }
+    case 'event': {
+      // The festival: the host's question, once a year each. Two hearts with the host, one
+      // with everyone else who came, and the festival's prize in coins (outside the day's cap).
+      const ev = eventAt(now);
+      if (!ev) throw new FarmError('no festival');
+      if (ev.host !== spot) throw new FarmError('wrong house');
+      const year = calendarOf(now).year;
+      if (farm.events[ev.id] === year) throw new FarmError('already joined');
+      const line = pick(BANK.festival[ev.id]);
+      const who = FARM.spotById.get(spot).character;
+      return choiceQ('event', 'reply', ev.emoji, { en: `${who}: "${line.says}"`, ja: `${who}「${line.ja}」` }, line.a, line.d, {
+        spot,
+        effect: (f) => {
+          f.events[ev.id] = year;
+          for (const sp of FARM.spotById.keys()) f.hearts[sp] = Math.min(10, (f.hearts[sp] || 0) + (sp === spot ? 2 : 1));
+          noteWord(f, line.a);
+          return { prize: ev.bonus, id: `farm:festival:${ev.id}`, en: `${ev.emoji} ${ev.en}! Everyone is happy. ❤❤ +${ev.bonus} ◈`, ja: `${ev.emoji} ${ev.ja}！ みんな よろこんだ。❤❤ +${ev.bonus} ◈` };
+        },
       });
     }
     case 'gift': {
@@ -562,11 +685,25 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
       const item = FARM.items.get(str(p.item));
       if (!item || !(farm.items[item.id] > 0)) throw new FarmError('nothing to give');
       const who = FARM.spotById.get(spot).character;
+      // What a gift is worth in hearts: a loved thing two, a plain one one, a disliked one
+      // takes one away (the card says what each villager likes); what the festival wants,
+      // given to its host on the day, three; and on a birthday everything good counts double.
       const loved = (FARM.likes[spot] || []).includes(item.id);
+      const hated = (FARM.dislikes[spot] || []).includes(item.id);
+      const ev = eventAt(now);
+      const festive = !!ev && ev.host === spot && ev.wants.includes(item.id);
+      const bday = isBirthday(spot, now);
+      let gain = hated ? -1 : festive ? 3 : loved ? 2 : 1;
+      if (bday && gain > 0) gain *= 2;
+      const hearts = (n) => (n > 0 ? '❤'.repeat(n) : '💔');
+      const said = hated ? { en: `${who}: "Oh... thank you." 💔`, ja: `${who}「うーん… ありがとう。」💔` }
+        : festive ? { en: `${who}: "Perfect for the ${ev.en}!" ${hearts(gain)}`, ja: `${who}「${ev.ja}に ぴったり！」${hearts(gain)}` }
+          : bday ? { en: `${who}: "A birthday present? Thank you!" ${hearts(gain)}`, ja: `${who}「たんじょうびの プレゼント？ ありがとう！」${hearts(gain)}` }
+            : loved ? { en: `${who}: "I love it! Thank you!" ❤❤`, ja: `${who}「だいすき！ ありがとう！」❤❤` } : { en: `${who}: "Thank you!" ❤`, ja: `${who}「ありがとう！」❤` };
       const s = sentenceFor('gift', {});
       return orderQ('gift', s.en, `${who}に ${item.ja}を あげよう。${s.ja}`, `🎁${item.emoji}`, {
         spot,
-        effect: (f) => { f.items[item.id] -= 1; if (!f.items[item.id]) delete f.items[item.id]; f.gifted[spot] = day; f.hearts[spot] = Math.min(10, (f.hearts[spot] || 0) + (loved ? 2 : 1)); return { en: loved ? `${who}: "I love it! Thank you!" ❤❤` : `${who}: "Thank you!" ❤`, ja: loved ? `${who}「だいすき！ ありがとう！」❤❤` : `${who}「ありがとう！」❤` }; },
+        effect: (f) => { f.items[item.id] -= 1; if (!f.items[item.id]) delete f.items[item.id]; f.gifted[spot] = day; f.hearts[spot] = Math.max(0, Math.min(10, (f.hearts[spot] || 0) + gain)); return said; },
       });
     }
     default:
@@ -576,12 +713,15 @@ export function prepare(farm, act, params = {}, { now = Date.now(), coins = 0, s
 
 // What a shipment pays: the item's price, times the quantity, lifted by hearts in the
 // barn for what the animals gave — 牧場物語's egg that goes 50 → 80 → 150 with care.
-export function valueOf(farm, item, qty) {
+// On festival days what the festival wants ships for half as much again.
+export function valueOf(farm, item, qty, now = Date.now()) {
   let unit = item.sell;
   if (item.kind === 'product') {
     const best = Math.max(0, ...farm.animals.filter((a) => FARM.animals.get(a.kind).product === item.id).map((a) => a.hearts));
     unit = Math.round(unit * (1 + Math.min(10, best) * 0.15));
   }
+  const ev = eventAt(now);
+  if (ev && ev.wants.includes(item.id)) unit = Math.round(unit * 1.5);
   return unit * qty;
 }
 
@@ -596,5 +736,5 @@ function noteWord(farm, word) {
 // Everything the room needs to say about a child's farm on a report, from the record.
 export function farmSummary(raw) {
   const farm = sanitizeFarm(raw);
-  return { shipped: farm.shipped, earned: farm.earned, words: farm.dex.length, animals: farm.animals.length, hearts: Object.values(farm.hearts).reduce((a, b) => a + b, 0) };
+  return { shipped: farm.shipped, earned: farm.earned, words: farm.dex.length, animals: farm.animals.length, hearts: Object.values(farm.hearts).reduce((a, b) => a + b, 0), festivals: Object.keys(farm.events).length };
 }

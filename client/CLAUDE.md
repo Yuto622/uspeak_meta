@@ -859,6 +859,11 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   たねを選ばせる。OK でカードは閉じる（畑を見せるため）。畑と柵の**当たり判定は柵の線だけ**（四角で塞ぐと入れない）。
   光の柱は `island-kit` の `setTarget(id, at)` で建物以外にも立つ（`places.field` / `places.pen`）。
   マスが変わると `pops` で はねる（`paint()` が前回の段階と比べる）。
+- **暦・おまつり・親密度（2026-10）。** 季節は **サーバーの暦**（`calendarOf()`、`farm:state` の `calendar`）で、ページは `season` を
+  自分で計算しない。`farm-island.js` の `dress()` が 4 季の小物（さくら・ひまわり・紅葉とかぼちゃ・雪と雪だるま、各 1 Group＋舞う Points）
+  と おまつりの提灯・屋台を一度だけ作り、`paint()` が `setSeason()` / `setEvent()` で見せる。画面は `#farm-calendar` の帯、
+  住人カード（`farm-level` / `farm-likes` / `farm-fest` / `#farm-event` → act `event`）。おまつり・誕生日は `nextStep()` の先頭近くに来る
+  （待ってくれないので）。`villagers[spot]` に hearts / level / likes / dislikes / birthday / festival が入っている。
 - **天気と水おけ（2026-10）。** `farm:state` の `weather`（`'sun' | 'rain'`）/ `rainIn` / `dryDays` はサーバーが決める
   （`rainyDay(day)` はハッシュ。ページで天気を作らないこと）。雨の日はサーバーが先に `watered` / `wet` を立てて送ってくるので、
   `nextStep()` は自然に水やりを飛ばす。家畜のカードは **エサ・みず（`data-do="trough"`）・ブラシ・とる** の 4 つで、

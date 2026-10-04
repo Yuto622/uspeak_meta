@@ -14,11 +14,11 @@
     "plots": { "x": -15.5, "z": 13, "cols": 3, "rows": 3, "gap": 1.9 },
     "pen": { "x": 10.5, "z": 15.5, "w": 4, "d": 5 },
     "spots": [
-      { "id": "seeds",   "kind": "shop",    "name": "たねや",        "en": "Seed Shop",      "character": "Hana",   "ja": "たねと どうぶつを かう",   "x": -18, "z": 2,   "color": 14982776, "tone": "🌱", "path": { "x": 0, "z": 9 } },
-      { "id": "house",   "kind": "field",   "name": "ビニールハウス", "en": "Greenhouse",     "character": "Gramps", "ja": "はたけを せわする",       "x": -8,  "z": -9,  "color": 10212735, "tone": "🌿", "path": { "x": 0, "z": 9 } },
-      { "id": "barn",    "kind": "barn",    "name": "どうぶつ小屋",   "en": "The Barn",       "character": "Taro",   "ja": "どうぶつの せわ",        "x": 8,   "z": -9,  "color": 12223594, "tone": "🐄", "path": { "x": 0, "z": 9 } },
-      { "id": "ship",    "kind": "ship",    "name": "しゅっか小屋",   "en": "Shipping House", "character": "Zack",   "ja": "しゅっかして コインに",   "x": 18,  "z": 2,   "color": 9868950,  "tone": "📦", "path": { "x": 0, "z": 9 } },
-      { "id": "kitchen", "kind": "kitchen", "name": "だいどころ",     "en": "Farm Kitchen",   "character": "Mia",    "ja": "りょうりを つくる",       "x": 0,   "z": -16, "color": 15118207, "tone": "🍳", "path": { "x": 0, "z": 9 } }
+      { "id": "seeds",   "kind": "shop",    "name": "たねや",        "en": "Seed Shop",      "character": "Hana",   "ja": "たねと どうぶつを かう",   "x": -18, "z": 2,   "color": 14982776, "tone": "🌱", "birthday": { "season": "spring", "day": 2 }, "path": { "x": 0, "z": 9 } },
+      { "id": "house",   "kind": "field",   "name": "ビニールハウス", "en": "Greenhouse",     "character": "Gramps", "ja": "はたけを せわする",       "x": -8,  "z": -9,  "color": 10212735, "tone": "🌿", "birthday": { "season": "autumn", "day": 1 }, "path": { "x": 0, "z": 9 } },
+      { "id": "barn",    "kind": "barn",    "name": "どうぶつ小屋",   "en": "The Barn",       "character": "Taro",   "ja": "どうぶつの せわ",        "x": 8,   "z": -9,  "color": 12223594, "tone": "🐄", "birthday": { "season": "summer", "day": 7 }, "path": { "x": 0, "z": 9 } },
+      { "id": "ship",    "kind": "ship",    "name": "しゅっか小屋",   "en": "Shipping House", "character": "Zack",   "ja": "しゅっかして コインに",   "x": 18,  "z": 2,   "color": 9868950,  "tone": "📦", "birthday": { "season": "autumn", "day": 7 }, "path": { "x": 0, "z": 9 } },
+      { "id": "kitchen", "kind": "kitchen", "name": "だいどころ",     "en": "Farm Kitchen",   "character": "Mia",    "ja": "りょうりを つくる",       "x": 0,   "z": -16, "color": 15118207, "tone": "🍳", "birthday": { "season": "winter", "day": 2 }, "path": { "x": 0, "z": 9 } }
     ]
   },
   "plotCount": 9,
@@ -73,5 +73,19 @@
     "barn":    ["corn", "egg", "milk", "omelet"],
     "ship":    ["watermelon", "pumpkin", "corn", "pumpkin-pie"],
     "kitchen": ["tomato", "tomato-soup", "potato-salad", "corn-soup"]
-  }
+  },
+  "dislikes": {
+    "seeds":   ["onion", "radish"],
+    "house":   ["pepper", "eggplant"],
+    "barn":    ["spinach", "wool-scarf"],
+    "ship":    ["cucumber", "onion"],
+    "kitchen": ["radish", "wool"]
+  },
+  "_seasons": "4 つの季節は本物の暦ではなく牧場の暦：1 季節 = seasonDays 牧場日（サーバーの FARM_SEASON_DAYS、既定 7）。春→夏→秋→冬→春。イベントは季節の from〜to 日目に、host の住人の家で開かれる。wants は そのあいだ 出荷が 1.5 倍、host への贈り物が ❤+3 になる品。bonus は参加のごほうびコイン。",
+  "events": [
+    { "id": "hanami",  "season": "spring", "from": 3, "to": 5, "emoji": "🌸", "ja": "おはなみ",       "en": "Flower Viewing",   "host": "seeds",   "wants": ["strawberry", "turnip", "strawberry-jam"], "bonus": 40 },
+    { "id": "suika",   "season": "summer", "from": 3, "to": 5, "emoji": "🍉", "ja": "なつまつり",     "en": "Summer Festival",  "host": "ship",    "wants": ["watermelon", "corn", "corn-soup"],         "bonus": 40 },
+    { "id": "harvest", "season": "autumn", "from": 3, "to": 5, "emoji": "🎃", "ja": "しゅうかくさい", "en": "Harvest Festival", "host": "house",   "wants": ["pumpkin", "sweet-potato", "pumpkin-pie"], "bonus": 40 },
+    { "id": "yuki",    "season": "winter", "from": 3, "to": 5, "emoji": "⛄", "ja": "ゆきまつり",     "en": "Snow Festival",    "host": "kitchen", "wants": ["cabbage", "onion", "tomato-soup"],         "bonus": 40 }
+  ]
 }

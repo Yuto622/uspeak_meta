@@ -38,6 +38,10 @@ export function createFarmIsland({ scene }) {
   let rootRef = null;       // the island's group: plots are placed in its coordinates
   let places = null;        // { field: {x,z,...}, pen: {x,z,...} } in island coordinates
   let stages = [];          // the stage each plot was last drawn at, to notice growth
+  const seasonal = {};      // season id -> the props that dress the island for it
+  let festive = null;       // the lanterns and the stall that come out on a festival day
+  let festSign = null;      // the festival's name over the host's door
+  let shownSeason = '';
   const pops = [];          // little scale bounces on a plot that just changed
   const geo = new THREE.BoxGeometry();
   const mats = new Map();
@@ -181,9 +185,71 @@ export function createFarmIsland({ scene }) {
         resident(def);
       }
       scatter(data, 90);
+      dress(root, data);
       if (lastFarm) paint(lastFarm);
     },
   });
+
+  // ---- the four seasons, and a festival ------------------------------------------------
+  // The farm has its own calendar (the room sends `calendar.season`), so the island must
+  // change with it or a child would never know: blossom trees and petals in spring,
+  // sunflowers and fireflies in summer, orange trees, pumpkins and falling leaves in
+  // autumn, snow, snowmen and white ground in winter. Each season is a group built once
+  // and shown when its turn comes; the drifting things are one Points each.
+  function drift(parent, n, colour, size, spread, height) {
+    const pos = new Float32Array(n * 3);
+    for (let i = 0; i < n; i += 1) { pos[i * 3] = (Math.random() - 0.5) * spread; pos[i * 3 + 1] = Math.random() * height; pos[i * 3 + 2] = (Math.random() - 0.5) * spread; }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const pts = new THREE.Points(g, new THREE.PointsMaterial({ color: colour, size, transparent: true, opacity: 0.9, depthWrite: false }));
+    pts.userData.height = height; parent.add(pts); return pts;
+  }
+  function dress(root, data) {
+    const yard = data.courtyard;
+    const ring = [[-27, -5], [27, -5], [-22, 21], [22, 21], [-6, 27], [8, 27], [-27, 10], [27, 10]];
+    for (const sn of ['spring', 'summer', 'autumn', 'winter']) { const g = new THREE.Group(); g.visible = false; root.add(g); seasonal[sn] = g; }
+    // Spring: cherry trees round the edge, petals in the air, pink flowerbeds.
+    for (const [x, z] of ring) { const g = seasonal.spring; box(g, x, 1.3, z, 0.5, 2.6, 0.5, 0x7a6448); box(g, x, 3.2, z, 3.4, 1.6, 3.4, 0xf4b6c8); box(g, x + 0.6, 4.1, z - 0.4, 2.2, 1.1, 2.2, 0xf9cdd9); box(g, x - 0.8, 3.9, z + 0.5, 1.6, 0.9, 1.6, 0xf1a7bd); }
+    for (let i = 0; i < 6; i += 1) box(seasonal.spring, yard.x - 10 + i * 4, 0.5, yard.z + 14, 0.9, 0.5, 0.9, [0xf6a5b8, 0xfbe08a, 0xf4f0ff][i % 3]);
+    seasonal.spring.userData.drift = drift(seasonal.spring, 260, 0xf7bfd0, 0.3, 64, 14);
+    // Summer: sunflower rows, a parasol by the well, fireflies low over the grass.
+    for (const [x, z] of ring) { const g = seasonal.summer; box(g, x, 1.3, z, 0.5, 2.6, 0.5, 0x7a6448); box(g, x, 3.2, z, 3.4, 1.6, 3.4, 0x4f9a4a); box(g, x + 0.6, 4.1, z - 0.4, 2.2, 1.1, 2.2, 0x62b05a); }
+    for (let i = 0; i < 7; i += 1) { const g = seasonal.summer; const x = yard.x - 12 + i * 4; const z = yard.z + 14; box(g, x, 1.0, z, 0.14, 2.0, 0.14, 0x5f8a3a); box(g, x, 2.1, z, 0.9, 0.9, 0.3, 0xf5c531); box(g, x, 2.1, z + 0.1, 0.4, 0.4, 0.2, 0x5a3b1e); }
+    box(seasonal.summer, yard.x + 6, 2.4, yard.z - 9.5, 0.12, 2.6, 0.12, 0x8a6a45); box(seasonal.summer, yard.x + 6, 3.8, yard.z - 9.5, 3.2, 0.3, 3.2, 0xe86a5a);
+    seasonal.summer.userData.drift = drift(seasonal.summer, 80, 0xfff3a0, 0.28, 56, 3);
+    // Autumn: orange and red crowns, pumpkins by the field, leaves coming down.
+    for (const [x, z] of ring) { const g = seasonal.autumn; box(g, x, 1.3, z, 0.5, 2.6, 0.5, 0x7a6448); box(g, x, 3.2, z, 3.4, 1.6, 3.4, 0xe07a2a); box(g, x + 0.6, 4.1, z - 0.4, 2.2, 1.1, 2.2, 0xf0a030); box(g, x - 0.8, 3.9, z + 0.5, 1.6, 0.9, 1.6, 0xc8502a); }
+    for (let i = 0; i < 5; i += 1) { const g = seasonal.autumn; const x = yard.x - 10 + i * 5; const z = yard.z + 14; box(g, x, 0.5, z, 1.1, 0.8, 1.1, 0xe8871f); box(g, x, 1.0, z, 0.2, 0.3, 0.2, 0x5a7a3a); }
+    seasonal.autumn.userData.drift = drift(seasonal.autumn, 220, 0xe8a040, 0.34, 64, 12);
+    // Winter: bare trees with snow on the branches, white ground, two snowmen, snow falling.
+    for (const [x, z] of ring) { const g = seasonal.winter; box(g, x, 1.5, z, 0.5, 3.0, 0.5, 0x6a5a48); box(g, x, 3.2, z, 2.6, 0.4, 0.5, 0x6a5a48); box(g, x, 3.5, z, 2.8, 0.3, 0.8, 0xf4f7fb); box(g, x + 0.4, 4.0, z, 0.5, 1.2, 0.5, 0x6a5a48); box(g, x, 0.08, z, 4.5, 0.12, 4.5, 0xf4f7fb); }
+    const w = seasonal.winter;
+    box(w, yard.x, 0.05, yard.z + 15, 40, 0.1, 10, 0xf4f7fb); box(w, yard.x - 24, 0.05, yard.z + 2, 10, 0.1, 22, 0xf4f7fb); box(w, yard.x + 24, 0.05, yard.z + 2, 10, 0.1, 22, 0xf4f7fb);
+    for (const [x, z] of [[yard.x - 9, yard.z + 13], [yard.x + 9, yard.z + 13]]) { box(w, x, 0.7, z, 1.4, 1.4, 1.4, 0xffffff); box(w, x, 1.8, z, 1.0, 1.0, 1.0, 0xffffff); box(w, x, 2.6, z, 0.7, 0.7, 0.7, 0xffffff); box(w, x, 2.6, z + 0.4, 0.12, 0.12, 0.3, 0xf0a030); box(w, x, 3.05, z, 0.8, 0.2, 0.8, 0x2b2b30); box(w, x, 3.3, z, 0.55, 0.4, 0.55, 0x2b2b30); }
+    w.userData.drift = drift(w, 420, 0xffffff, 0.26, 70, 16);
+    // The festival: lanterns on strings round the yard, a stall, a banner over the host's door.
+    festive = new THREE.Group(); festive.visible = false; root.add(festive);
+    for (let i = 0; i < 12; i += 1) { const a = (i / 12) * Math.PI * 2; const x = yard.x + Math.cos(a) * 9; const z = yard.z + Math.sin(a) * 7.5; box(festive, x, 3.9, z, 0.5, 0.7, 0.5, i % 2 ? 0xe0434f : 0xf5c531); box(festive, x, 4.4, z, 0.08, 0.4, 0.08, 0x3b3b40); }
+    box(festive, yard.x - 2, 1.1, yard.z + 6.5, 3.0, 0.9, 1.4, 0xb4703f); box(festive, yard.x - 2, 2.6, yard.z + 6.5, 3.4, 0.2, 1.8, 0xe0434f); for (const sx of [-1, 1]) box(festive, yard.x - 2 + sx * 1.5, 1.7, yard.z + 6.5, 0.12, 2.0, 0.12, 0x8a6a45);
+    for (let i = 0; i < 3; i += 1) box(festive, yard.x - 2.8 + i * 0.8, 1.75, yard.z + 6.3, 0.5, 0.4, 0.5, [0xe8871f, 0xf4b6c8, 0x62b05a][i]);
+    festive.userData.data = data;
+  }
+  // Which season's props show, and the festival's dressing on its days.
+  function setSeason(season) {
+    if (!rootRef || !seasonal[season]) return;
+    if (shownSeason === season) return;
+    shownSeason = season;
+    for (const [sn, g] of Object.entries(seasonal)) g.visible = sn === season;
+  }
+  function setEvent(ev) {
+    if (!festive) return;
+    festive.visible = !!ev;
+    if (festSign) { festSign.parent?.remove(festSign); festSign = null; }
+    if (!ev) return;
+    const host = festive.userData.data.spots.find((sp) => sp.id === ev.host);
+    if (!host) return;
+    festSign = new THREE.Group(); festSign.position.set(host.x, 5.4, host.z - 1.6); festive.add(festSign);
+    for (let i = -2; i <= 2; i += 1) box(festSign, i * 0.9, 0, 0, 0.7, 0.9, 0.1, i % 2 ? 0xf5c531 : 0xe0434f);
+  }
 
   // Draw the child's farm: each plot at its stage, each animal in the pen.
   function paint(farm) {
@@ -217,6 +283,8 @@ export function createFarmIsland({ scene }) {
     }
     // The sky: rain falls on the whole island on a rainy farm day (the room says which).
     setWeather(farm.weather || 'sun');
+    setSeason(farm.calendar?.season || farm.season || 'spring');
+    setEvent(farm.event || null);
   }
 
   // Rain: a few hundred drops over the island, falling and wrapping, only on a rainy day.
@@ -275,6 +343,19 @@ export function createFarmIsland({ scene }) {
         animateAnimal(g, t, moving);
       }
       if (rain?.visible) { const a = rain.geometry.attributes.position; for (let i = 0; i < a.count; i += 1) { let y = a.getY(i) - 0.55; if (y < -1) y += 18; a.setY(i, y); } a.needsUpdate = true; }
+      const sg = seasonal[shownSeason];
+      if (sg?.visible && sg.userData.drift) {
+        // Petals, leaves and snow fall and drift; fireflies only wander.
+        const d = sg.userData.drift; const a = d.geometry.attributes.position; const h = d.userData.height;
+        const fall = shownSeason === 'summer' ? 0 : shownSeason === 'winter' ? 0.05 : 0.035;
+        for (let i = 0; i < a.count; i += 1) {
+          let y = a.getY(i) - fall; if (y < 0) y += h;
+          a.setY(i, shownSeason === 'summer' ? 0.6 + Math.sin(t * 1.3 + i) * 0.5 + 0.5 : y);
+          a.setX(i, a.getX(i) + Math.sin(t * 0.8 + i * 0.37) * 0.02);
+        }
+        a.needsUpdate = true;
+      }
+      if (festive?.visible) festive.rotation.y = Math.sin(t * 0.6) * 0.006;
       if (pops.length) {
         const now = performance.now();
         for (let i = pops.length - 1; i >= 0; i -= 1) {

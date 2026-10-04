@@ -26,7 +26,7 @@ const BANK = JSON.parse(readFileSync(path.resolve(serverDir, 'src/game/farm-bank
 const clickChoice = (page, text) => page.evaluate((t) => { const b = [...document.querySelectorAll('#farm-q [data-choice]')].find((x) => x.dataset.choice === t); if (!b) throw new Error('no choice ' + t); b.click(); }, text);
 const server = spawn('node', ['src/index.js'], {
   cwd: serverDir,
-  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', FARM_RAIN_PCT: '0', ANSWER_MIN_INTERVAL_MS: '0' },
+  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', FARM_RAIN_PCT: '0', FARM_FESTIVAL_DAYS: 'all', ANSWER_MIN_INTERVAL_MS: '0' },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 server.stdout.on('data', (d) => process.stdout.write('[server] ' + d));
@@ -132,6 +132,31 @@ try {
   r = await waitResult(page);
   check('"A chicken, please." buys a chicken', r.correct && r.farm.animals.length === 1, JSON.stringify(r.farm.animals));
   await next(page);
+  // The farm's own calendar and the season's festival (the test server makes every day a
+  // festival day). The strip says the season and its day; the host's house has a join
+  // button; the host's question is a reply, and joining pays the prize and hearts all round.
+  const cal = await page.evaluate(() => uspeak.net.farm.state.farm.calendar);
+  check('the calendar strip says the season and its day', await page.evaluate((c) => { const el = document.querySelector('#farm-calendar'); return !el.hidden && el.classList.contains(c.season) && el.textContent.includes(String(c.seasonDay)) && el.textContent.includes(String(c.seasonDays)); }, cal),
+    await page.evaluate(() => document.querySelector('#farm-calendar')?.textContent));
+  check('the villager card names the friendship and what they like and dislike', await page.evaluate(() => document.querySelectorAll('#farm-villager .farm-level b').length === 1 && document.querySelectorAll('#farm-villager .farm-likes .like').length >= 1 && document.querySelectorAll('#farm-villager .farm-likes .dislike').length >= 1));
+  const ev = await page.evaluate(() => uspeak.net.farm.state.farm.event);
+  check('a festival is on, with a host and a prize', !!ev && !!ev.host && ev.bonus > 0 && ev.joined === false, JSON.stringify(ev));
+  check('the next step points at the festival', await page.evaluate(() => uspeak.rpg.farm.target) === ev.host, await page.evaluate(() => uspeak.rpg.farm.target));
+  await leave(page);
+  await enter(page, ev.host);
+  await page.waitForSelector('#farm-event', { timeout: 20000 });
+  await fig(page, 'screen-farm-festival');
+  await page.click('#farm-event');
+  await page.waitForFunction(() => uspeak.net.farm.state.q?.kind === 'reply', null, { timeout: 20000 });
+  q = await ask(page);
+  const festLine = BANK.festival[ev.id].find((l) => q.prompt.en.endsWith(`"${l.says}"`));
+  check('the host asks a festival question with a reply to choose', !!festLine && q.choices.length === 4 && q.pic === ev.emoji, q.prompt.en);
+  await clickChoice(page, festLine.a);
+  r = await waitResult(page);
+  check('the right reply joins the festival: the prize is paid and every villager gives a heart', r.correct && r.coins >= ev.bonus && r.farm.event.joined === true && Object.values(r.farm.villagers).every((v) => v.hearts >= 1) && r.farm.villagers[ev.host].hearts >= 2,
+    `coins=${r.coins} hearts=${JSON.stringify(Object.fromEntries(Object.entries(r.farm.villagers).map(([k, v]) => [k, v.hearts])))}`);
+  await next(page);
+  check('joining twice is refused', await page.evaluate(() => !!document.querySelector('#farm-event')?.disabled));
   await leave(page);
 
   // The field itself (2026-10): walk onto a plot, press E, and the small card opens with the
