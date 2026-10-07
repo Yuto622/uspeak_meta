@@ -168,3 +168,11 @@
 .net-t-note button{grid-column:2;grid-row:1 / span 2;align-self:center;padding:2px 8px}
 .net-t-note.is-call{background:#eef3ea}
 .net-t-childlinks{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 0;font-size:12px}
+
+/* Roblox の学習データ（ぼうけんノートの下）。`welcome` でリンクが来たときだけ出る。 */
+.roblox-button{position:fixed;top:600px;right:30px;width:202px;padding:12px 12px;display:flex;flex-direction:column;gap:2px;border:1px solid #e0cfa866;border-radius:12px;background:#1b3a2f;color:#f7e4bc;font-size:13px;text-decoration:none;box-shadow:0 8px 25px #27325040;box-sizing:border-box}
+.roblox-button small{font-size:11px;color:#dccdad}
+.roblox-button:hover{background:#245043}
+.on-journey .roblox-button,.immersive .roblox-button{opacity:0;pointer-events:none}
+@media(max-width:900px){.roblox-button{width:157px;font-size:12px}}
+@media(max-width:600px){.roblox-button{top:600px;right:14px;width:116px;padding:10px 6px;font-size:11px}}

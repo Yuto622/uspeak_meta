@@ -3647,6 +3647,10 @@ export class ClassRoom extends Room {
       battle: priv.battle ? { ...statePayload(priv.battle), stand: priv.battle.stand, quiz: quizPayload(priv.battle) } : null,
       chatPaused: this.state.chatPaused, freeChat: this.state.freeChat, eikenLevel: this.state.eikenLevel, teacherId: this.state.teacherId, missionId: this.state.missionId, maxClients: this.maxClients,
       patchRateMs: config.patchRateMs, serverTime: Date.now(),
+      // Roblox の学習のページ（自分のぶんだけ、署名つき）。鍵と REPORT_SECRET があるときだけ。
+      robloxReport: this.roblox?.enabled && config.reportSecret && player.role !== 'teacher'
+        ? config.publicServerUrl.replace(/^ws/, 'http').replace(/\/$/, '') + this.roblox.reportPath(this.roblox.usernameFor(this.classCode, priv.name))
+        : '',
     };
   }
 }

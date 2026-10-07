@@ -367,6 +367,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     return { classCode: state.classCode, name: state.name, teacherKey: state.teacherKey || undefined, avatar: avatars.config };
   }
   function setMode(mode) {
+    if (mode !== 'online') { const rb = document.getElementById('roblox-button'); if (rb) rb.hidden = true; }
     state.mode = mode;
     const count = room?.state?.players?.size || 0;
     if (mode === 'online') chip.set('online', tr('オンライン'));
@@ -443,6 +444,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       teacher.setEikenLevel(r.state?.eikenLevel);
       eiken.setLevel(r.state?.eikenLevel);
       if (m.wallet) applyWallet(m.wallet);
+      // Roblox の学習データ（自分のぶん）。リンクが来たときだけボタンが出る。
+      const rb = document.getElementById('roblox-button');
+      if (rb) { if (m.robloxReport) { rb.href = /^https?:/i.test(m.robloxReport) ? m.robloxReport : location.origin + m.robloxReport; rb.hidden = false; } else rb.hidden = true; }
       applyProgress(m.progress);
       mission.setClassMission(m.missionId);
       mission.setDone(m.missionsDone);
