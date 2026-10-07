@@ -725,6 +725,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
 
   function applyWallet(w) {
     state.wallet = w;
+    // Roblox と同じ財布の子には、1度だけ言っておく：ここで ふえたぶんは Roblox に入ると届く。
+    if (w?.roblox && !state.robloxNoted) {
+      state.robloxNoted = true;
+      toast(tr('コインは Roblox と おなじです。ここで ふえたぶんは、Roblox に 入ると 反映されます。'));
+      document.getElementById('coin-hud')?.setAttribute('title', tr('Roblox に 入ると 反映されます'));
+    }
     try {
       fishing.store.reconcile?.(w);
       fishing.refreshWallet?.();

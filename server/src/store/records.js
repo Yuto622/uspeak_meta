@@ -74,3 +74,16 @@ export function rowToRecord(row, columns) {
   }
   return record;
 }
+
+// ---- Roblox 連携（docs/ROBLOX_SYNC.md）-------------------------------------------
+// Roblox 版が送ってくる学習の記録。**消さない**（指標は毎回ここから計算する）。
+// `data_json` は Roblox が付けた中身そのまま（型は検査しない：新しい type が来ても落とさず貯める）。
+export const ROBLOX_EVENT_COLUMNS = ['id', 'ts', 'type', 'world', 'place_id', 'username', 'user_id', 'class_code', 'data_json', 'received_at'];
+// Web で動いたコイン（±）。Roblox が取りに来て `delivered_at` を書くまで「未配達」。
+export const WALLET_ENTRY_COLUMNS = ['id', 'username', 'amount', 'reason', 'created_at', 'delivered_at'];
+// Roblox 側の残高の最新値（username につき1行、新しいほうが勝つ）。
+export const WALLET_SNAPSHOT_COLUMNS = ['username', 'balance', 'at'];
+// 画面に出す指標の定義。**行を足すだけで保護者ページと先生ページに出る**。
+export const METRIC_COLUMNS = ['key', 'label_ja', 'label_en', 'kind', 'event_type', 'expr_json', 'enabled', 'order', 'unit'];
+// Roblox のアカウント名 ⇔ Web の子（クラス・名前）。空なら「同じ名前」とみなす。
+export const ROBLOX_LINK_COLUMNS = ['username', 'class', 'name', 'note'];

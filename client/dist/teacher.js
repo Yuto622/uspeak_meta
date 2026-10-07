@@ -227,7 +227,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     // 教室のようす（オーナー向け）。継続率・声かけの結果・英検の準会場。**子どもの名前が
     // 載る**ので、教室の方だけに。
     const owner = classUrl ? `<div class="net-t-link"><b>教室のようす</b><a class="net-t-csv" href="${esc(full(classUrl))}" target="_blank" rel="noopener">🏫 継続率と 英検の準会場</a></div>` : '';
-    box.innerHTML = `${owner}${sheet}<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(full(l.url))}"><button type="button" data-copy="${esc(full(l.url))}">コピー</button><a class="net-t-pdf" href="${esc(pdf(l.url))}" target="_blank" rel="noopener" title="デザインされた PDF をひらく">📄</a><a class="net-t-pdf" href="${esc(full(l.url))}&amp;view=meet" target="_blank" rel="noopener" title="面談メモ（話すことが上に出ます）">🗣</a></div>`).join('')}`;
+    box.innerHTML = `${owner}${sheet}<p class="net-fine">一人ひとり ちがうリンクです。保護者の方にだけ わたしてください。</p>${links.map((l) => `<div class="net-t-link"><b>${esc(l.name)}</b><input readonly value="${esc(full(l.url))}"><button type="button" data-copy="${esc(full(l.url))}">コピー</button><a class="net-t-pdf" href="${esc(pdf(l.url))}" target="_blank" rel="noopener" title="デザインされた PDF をひらく">📄</a><a class="net-t-pdf" href="${esc(full(l.url))}&amp;view=meet" target="_blank" rel="noopener" title="面談メモ（話すことが上に出ます）">🗣</a>${l.roblox ? `<a class="net-t-pdf" href="${esc(full(l.roblox))}" target="_blank" rel="noopener" title="Roblox の学習レポート">🎮</a>` : ''}</div>`).join('')}`;
     box.querySelectorAll('[data-copy]').forEach((b) => {
       b.onclick = async () => {
         try { await navigator.clipboard.writeText(b.dataset.copy); toast('リンクをコピーしました。'); }

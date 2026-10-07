@@ -2077,7 +2077,10 @@ test('ぼくじょう島: every job is a question, the answer is judged here, an
   const buyAsk = await nextMessage(a.room, 'farm:ask');
   assert.equal(buyAsk.kind, 'order');
   assert.ok(!('answer' in buyAsk) && !('effect' in buyAsk));
-  const sentence = `Five ${seed.en}s, please.`;
+  // The plural the shop uses (farm.js): "tomatoes", "cherries", "turnips". The cheapest
+  // seed changes with the season, so the test cannot hard-code an "s".
+  const pluralOf = (w) => (/(sh|ch|s|x|z|o)$/i.test(w) && !/photo$/i.test(w) ? `${w}es` : /[^aeiou]y$/i.test(w) ? `${w.slice(0, -1)}ies` : `${w}s`);
+  const sentence = `Five ${pluralOf(seed.en)}, please.`;
   assert.deepEqual([...buyAsk.tokens].sort(), sentence.split(' ').sort(), 'the cards are the sentence, shuffled');
   a.room.send('farm:answer', { qid: buyAsk.id, answer: sentence.split(' ') });
   const bought = await nextMessage(a.room, 'farm:result');

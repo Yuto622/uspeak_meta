@@ -5,7 +5,7 @@
 
 - `client/` … 既存の 1 人用 Three.js ゲーム（`client/dist` が手書きソース）＋ マルチプレイ層 `net-*.js`
 - `server/` … Colyseus 0.15 サーバー（Node 20+、プレーン JS ESM）。静的クライアントも同じプロセスで配信
-- `docs/` … フェーズ0レビュー、Google Sheets 設定、実機テストのチェックリスト
+- `docs/` … フェーズ0レビュー、Google Sheets 設定、実機テストのチェックリスト、Roblox 連携（`ROBLOX_SYNC.md`）
 - `Dockerfile` / `fly.toml` … Fly.io 東京リージョン（nrt）用
 
 オフライン 1 人用モードはそのまま残っています（ロビーで「ひとりで遊ぶ」）。
@@ -112,6 +112,8 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 | `LIVEKIT_URL` / `LIVEKIT_API_KEY` / `LIVEKIT_API_SECRET` | (空=大広間なし) | おはなし島を **100人**の通話にする SFU。未設定なら 6 人メッシュに落ちる（下記） |
 | `VOICE_SFU_ALL` | `0` | `1` で **小部屋も LiveKit を通す**（LiveKit が設定されているとき）。学校の Wi-Fi で安定させたいとき |
 | `ICE_SERVERS` | (空=公開 STUN) | 小部屋（メッシュ）用の TURN。`[{"urls":"turn:host:443?transport=tcp","username":"u","credential":"p"}]` の JSON |
+| `USPEAK_ROBLOX_KEY` | (空=Roblox 連携なし) | Roblox 版が学習の記録とコインを送ってくる `/api/roblox/*` の合言葉（32 文字以上・ほかの鍵と別）。Roblox 側の Secret `USPEAK_WEB_KEY` と同じ値。`docs/ROBLOX_SYNC.md` |
+| `ROBLOX_RATE_PER_MIN` | 120 | その鍵で 1 分に受ける回数の上限 |
 
 接続先 URL はクライアントに埋め込まれていません。`/config.js`（環境変数から生成）→ `<meta name="uspeak-server">` →
 `?server=` → ページと同じホスト、の順で決まります。https ページでは自動的に `wss://` になります。
@@ -942,6 +944,50 @@ Google Meet に寄せました。**仕組み（メッシュ＋LiveKit）は変�
 保護者に、署名の取り違えは404）。実ブラウザは `npm run test:infra2`（33項目：390px と 1024px で
 横にはみ出さない、きょうの5ふんが読む3・聞く2で終わる、「声をかけた」が「声かけ済み」に変わる、
 メモが残る、教室のようすが声かけを数える）。`FIGURES=1` を付けると `docs/figures/infra2-*.jpg` を撮ります。
+
+## Roblox 連携（学習の記録とコインの同期／2026-10 追加）
+
+Roblox 版 U-Speak で起きた学習を Web に貯め、保護者と教室に見せる。コインは **両方の世界で
+同じ数字**。詳しくは `docs/ROBLOX_SYNC.md`（口の仕様・Luau の最小スクリプト・指標の式）。
+
+**鍵と URL（Roblox 側に渡すもの）**
+
+```bash
+fly secrets set USPEAK_ROBLOX_KEY="$(openssl rand -base64 36 | tr -d '/+=' | cut -c1-40)"
+```
+
+同じ値を Roblox Creator Hub → Secrets に **`USPEAK_WEB_KEY`** として登録し、スクリプトは
+`https://uspeak-multiplayer.fly.dev/api/roblox` にヘッダー `X-USpeak-Key` を付けて送る。
+鍵はチャットやメールに貼らない（`fly secrets set` で入れて、`fly ssh console` で読む）。
+`/healthz` の `roblox.enabled` で入っているかが分かる。
+
+**3 つの口**（すべて `POST` JSON、鍵なしは `401`、1 分 120 回まで）
+
+| 口 | 何をする |
+|---|---|
+| `/api/roblox/events` | 学習の記録を貯める。`id` で冪等（同じ id は `duplicates`）。`type` と `data` は検査しない（知らない type もそのまま貯まる）。300 件・`data` 32 KB まで |
+| `/api/roblox/wallet/pending` | Roblox の残高を預け、まだ届けていない Web のコインの増減を受け取る（50 人まで。負の残高は `400`） |
+| `/api/roblox/wallet/ack` | 届いた行に印を付け、適用後の残高を預ける。印が付くまで同じ行が何度でも返る |
+
+**残高の約束**：Web の残高 ＝ Roblox の残高の最新値 ＋ まだ Roblox に届いていない Web の増減。
+Web でコインが動く所は `ClassRoom.js` の `coinRow` ひとつなので、釣り・クイズ・店・ぼくじょう・
+BLOCKWILD・土地島のどれで動いても同じ行に入る。Roblox に一度も入っていない子は今まで通り。
+
+**画面**
+
+- 保護者：`/report/<username>?t=<署名>`（累計 → 今週／先週 ▲▼ → あてずっぽう率 → 級ごとの
+  正答率 → 間違えやすい単語 → ワールド別の時間。スマホ・印刷）。リンクは先生コンソール
+  「📄 保護者レポートのリンク」の 🎮、または `/admin` の「Roblox 連携」。
+- 教室：「教室のようす」`/class/<クラス>` に「Roblox の学習」の表（並べ替え・行を押すと詳細・
+  CSV）。● は あてずっぽう率 30% 以上か 7 日来ていない子、「未登録」は名簿にも紐づけにもない名前。
+- オーナー：`/admin` → 「Roblox 連携」で **指標の定義** と **Roblox の名前 ⇔ Web の子の紐づけ**。
+  指標は `metric_definitions` に行を足すだけで両方の画面に出る（「retry 回数」のボタンで試せる）。
+
+**試す**：`cd server && node --test test/roblox.test.mjs`、`USPEAK_ROBLOX_KEY=… ./scripts/roblox-smoke.sh`。
+
+**プライバシーポリシーに足す文**：「Roblox 上の学習記録（アカウント名・回答・利用時間）を
+本サービスに保存し、保護者・教室に表示する」。貯めるのはアカウント名と学習の記録だけで、
+本名・メール・生年月日は受け取らない。
 
 ## 保護者レポートを紙で渡す（LaTeX PDF）
 

@@ -48,7 +48,8 @@ test('init creates missing sheets with headers', async () => {
   const api = fakeApi();
   const store = new SheetsStore(api, { log: { warn() {} } });
   await store.init();
-  assert.deepEqual([...api.sheets.keys()], [SHEETS.players, SHEETS.learning, SHEETS.coins, SHEETS.roster]);
+  assert.deepEqual([...api.sheets.keys()], [SHEETS.players, SHEETS.learning, SHEETS.coins, SHEETS.roster,
+    SHEETS.events, SHEETS.entries, SHEETS.snapshots, SHEETS.metrics, SHEETS.links]);
   assert.deepEqual(api.sheets.get(SHEETS.players)[0], PLAYER_COLUMNS);
   // The register is a tab a teacher fills in by hand, so it is created with its header.
   assert.deepEqual(api.sheets.get(SHEETS.roster)[0], ROSTER_COLUMNS);

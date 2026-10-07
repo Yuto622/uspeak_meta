@@ -669,7 +669,7 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  i18n.useDictionary(words); i18n.setLang('en');
  // 画面の言葉としても出る語（天気・家具・ブロック・服の種類・のりもの・楽器・通話の「先生」「カメラ」など）。
  // 学習の場所（LEARNING）の中では訳されない。
- const BOTH = new Set(['先生', '雨', '晴れ', '雪', 'ペンギン', 'とけい', 'ぼうし', 'カメラ', 'テレビ', 'ベッド', 'き', 'はな', 'ゆき',
+ const BOTH = new Set(['先生', '雨', 'あめ', '晴れ', '雪', 'ペンギン', 'とけい', 'ぼうし', 'カメラ', 'テレビ', 'ベッド', 'き', 'はな', 'ゆき',
    'じてんしゃ', 'ギター', 'ピアノ', '読む', '天気', 'よる', 'ゴール！', 'はじめまして！']);
  const hits = (await learningStrings()).filter((s) => i18n.translate(s) !== null && !BOTH.has(s));
  assert.deepEqual(hits, [], `学習の中身が辞書で訳されてしまう: ${hits.join(' / ')}`);

@@ -17,6 +17,8 @@ import { classView, classHtml } from './game/classview.js';
 import { sanitizeMonths } from './game/months.js';
 import { reportTex } from './game/report-tex.js';
 import { texToPdf, latexAvailable, LatexError } from './game/latex.js';
+import { createRoblox, verifyRobloxReport } from './roblox/sync.js';
+import { parentHtml as robloxParentHtml, classSection as robloxClassSection, classCsv as robloxClassCsv } from './roblox/pages.js';
 import { log } from './log.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -58,6 +60,10 @@ export async function startServer({ port = config.port, storeOverride = null } =
   await access.init();
   const cpuPercent = createCpuSampler();
   const startedAt = Date.now();
+  // Roblox 連携（roblox/sync.js）: 学習の記録を受け、コインを両側で同じにする。鍵がなければ口は開かない。
+  const roblox = createRoblox({ store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, log });
+  await roblox.ensureSeeds();
+  await roblox.refreshLinks();
 
   const app = express();
   app.disable('x-powered-by');
@@ -80,6 +86,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
       store: { backend: store.name, pending: store.pendingCount ?? 0, ...(store.stats || {}) },
       // 入場ゲート: the mode and where the register comes from, never a name on it.
       gate: { mode: access.mode(), register: access.source, admin: !!config.adminKey },
+      // Roblox 連携: 鍵が入っているか（鍵そのものは出さない）。
+      roblox: { enabled: roblox.enabled },
       // **鍵が効いているかを、ここで1目で見られるようにしてある。** `OPENAI_API_KEY` を
       // 入れたのに AI が動かないとき、いままでは `fly logs` の `[tutor] provider=` を
       // 探すしかなかった。**出しているのは「鍵が入っているか」だけ**で、鍵そのものも
@@ -136,8 +144,45 @@ export async function startServer({ port = config.port, storeOverride = null } =
       let records = [];
       try { records = store.listClass?.(classCode) || []; } catch (err) { log.warn('[class] listClass failed:', err.message); }
       const view = classView(records, { classCode, sanitizeMonths });
-      if (String(req.query.format || '').toLowerCase() === 'json') { res.json(view); return; }
-      res.type('text/html; charset=utf-8').send(classHtml(view));
+      // Roblox の学習の表。鍵が無くても、記録が貯まっていれば出す（記録は消さないので）。
+      let robloxRows = [];
+      try { robloxRows = await roblox.classRows(classCode, { records }); } catch (err) { log.warn('[class] roblox rows failed:', err.message); }
+      if (String(req.query.format || '').toLowerCase() === 'json') { res.json({ ...view, roblox: robloxRows.map(({ reportToken, ...r }) => r) }); return; }
+      res.type('text/html; charset=utf-8').send(classHtml(view, { extra: robloxClassSection(robloxRows, { classCode, token: String(req.query.t || '') }) }));
+    });
+
+    // 先生ページの Roblox の表を CSV に。署名は教室ページと同じ。
+    app.get('/class/:classCode/roblox.csv', async (req, res) => {
+      const classCode = req.params.classCode;
+      res.set('Cache-Control', 'no-store');
+      res.set('Referrer-Policy', 'no-referrer');
+      res.set('X-Robots-Tag', 'noindex, nofollow');
+      if (!verifyClass(config.reportSecret, classCode, req.query.t)) {
+        res.status(404).type('text/plain; charset=utf-8').send('見つかりません。先生コンソールからリンクを取り直してください。');
+        return;
+      }
+      let records = [];
+      try { records = store.listClass?.(classCode) || []; } catch (err) { log.warn('[class] listClass failed:', err.message); }
+      const rows = await roblox.classRows(classCode, { records });
+      const file = `uspeak-roblox-${classCode}-${new Date().toISOString().slice(0, 10)}.csv`.replace(/[^\w.-]+/g, '_');
+      res.type('text/csv; charset=utf-8').set('Content-Disposition', `attachment; filename="${file}"`);
+      res.send(robloxClassCsv(rows));
+    });
+
+    // Roblox の保護者ページ。1人ぶんの署名つきリンク（`roblox|<username>`）。
+    // `/report/<クラス>/<名前>` とは段の数が違うので、ぶつからない。
+    app.get('/report/:username', async (req, res) => {
+      const { username } = req.params;
+      res.set('Cache-Control', 'no-store');
+      res.set('Referrer-Policy', 'no-referrer');
+      res.set('X-Robots-Tag', 'noindex, nofollow');
+      if (!verifyRobloxReport(config.reportSecret, username, req.query.t)) {
+        res.status(404).type('text/plain; charset=utf-8').send('レポートが見つかりません。先生にリンクを確認してください。');
+        return;
+      }
+      const summary = await roblox.summaryFor(username);
+      if (String(req.query.format || '').toLowerCase() === 'json') { res.json(summary); return; }
+      res.type('text/html; charset=utf-8').send(robloxParentHtml(summary));
     });
 
     app.get('/report/:classCode/:name', async (req, res) => {
@@ -210,7 +255,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
   }
 
   // 管理ページ. Mounted only with ADMIN_KEY (admin/roster-admin.js).
-  mountAdmin(app, { access, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log });
+  // Roblox 版からの口（鍵がなければ開かない）。
+  roblox.mount(app);
 
   if (config.serveClient) {
     // このゲームのファイル名にはバージョンが入っていない（`game.js` は毎回 `game.js`）。
@@ -246,7 +293,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   log.info(`[server] listening on :${port} env=${config.nodeEnv} maxClients=${config.maxClients} cors=${config.corsOrigins.join(',') || '(dev: any)'} serveClient=${config.serveClient}`);
@@ -260,7 +307,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
     try { await gameServer.gracefullyShutdown(false); } catch (err) { log.warn('[server] shutdown error:', err.message); }
     await closeStore();
   };
-  return { app, server, gameServer, store, shutdown, port, blockwild };
+  return { app, server, gameServer, store, shutdown, port, blockwild, roblox };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

@@ -113,6 +113,39 @@
       <strong>保存</strong>を押すまでサーバーには書かれません。保存するとその場で効きます（授業中でも）。
     </p>
   </section>
+  <section class="card" id="roblox-card" hidden>
+    <h2 style="font-size:16px;margin:0 0 4px">Roblox 連携 <span class="pill" id="rb-pill">…</span></h2>
+    <p class="muted">Roblox 版 U-Speak から届く学習の記録とコインの同期（<code>USPEAK_ROBLOX_KEY</code>・README「Roblox 連携」）。鍵が入っていなくても、ここの表は編集できます。</p>
+
+    <h3 style="font-size:14px;margin:16px 0 6px">Roblox のアカウント名 と Web の子の紐づけ</h3>
+    <p class="muted" style="margin:0 0 8px">同じ名前なら紐づけは要りません。Roblox の名前と Web のロビーで入力する名前が違う子だけ書きます。保護者ページのリンクは1人ぶんずつ違います。</p>
+    <div class="tools">
+      <button type="button" id="rb-link-add">＋ 行をふやす</button>
+      <select id="rb-link-pick" title="Roblox から記録が来ている名前"><option value="">記録が来ている名前から選ぶ…</option></select>
+      <span class="spacer"></span>
+      <button type="button" id="rb-link-save" class="primary" disabled>紐づけを保存する</button>
+    </div>
+    <table>
+      <thead><tr><th>Roblox のアカウント名</th><th>クラス（空＝どのクラスでも）</th><th>Web の名前</th><th>保護者ページ</th><th></th></tr></thead>
+      <tbody id="rb-links"></tbody>
+    </table>
+    <details style="margin-top:10px"><summary class="muted" style="cursor:pointer">記録が来ている名前（Roblox）</summary><ul id="rb-usernames" class="muted" style="margin:6px 0 0;padding-left:18px"></ul></details>
+
+    <h3 style="font-size:14px;margin:22px 0 6px">指標（metric_definitions）</h3>
+    <p class="muted" style="margin:0 0 8px">ここに行を足すと、保護者ページと先生ページにその指標が出ます。<code>kind</code> は count / sum / ratio / group / custom。<code>expr</code> は JSON（例 <code>{"where":{"retry":true}}</code>）。見本：<button type="button" id="rb-metric-sample" style="font-size:12px;padding:3px 8px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer">「retry 回数」を足す</button></p>
+    <div class="tools">
+      <button type="button" id="rb-metric-add">＋ 行をふやす</button>
+      <span class="spacer"></span>
+      <button type="button" id="rb-metric-save" class="primary" disabled>指標を保存する</button>
+    </div>
+    <div style="overflow:auto">
+    <table style="min-width:900px">
+      <thead><tr><th>key</th><th>日本語</th><th>English</th><th>kind</th><th>event_type</th><th>expr（JSON）</th><th>unit</th><th>順</th><th>有効</th><th></th></tr></thead>
+      <tbody id="rb-metrics"></tbody>
+    </table>
+    </div>
+    <div class="foot"><span id="rb-dirty" class="dirty" hidden>● 保存していない変更があります</span><span id="rb-saved"></span></div>
+  </section>
 </main>
 
 <dialog id="paste-dialog">
@@ -253,8 +286,89 @@ Chika"></textarea>
     } catch (err) { e.target.checked = !on; toast(`切り替えられませんでした：${err.message}`, true); }
   });
 
-  window.addEventListener('beforeunload', (e) => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+  window.addEventListener('beforeunload', (e) => { if (dirty || rb.dirty) { e.preventDefault(); e.returnValue = ''; } });
   load().catch((err) => toast(`読みこめませんでした：${err.message}`, true));
+
+  // ---- Roblox 連携 ----------------------------------------------------------------
+  const rb = { links: [], metrics: [], usernames: [], reports: {}, dirty: false, enabled: false };
+  const rbDirty = (v) => { rb.dirty = v; $('#rb-dirty').hidden = !v; $('#rb-link-save').disabled = !v; $('#rb-metric-save').disabled = !v; };
+  const KINDS = ['count', 'sum', 'ratio', 'group', 'custom'];
+  const UNITS = ['count', 'percent', 'seconds', 'days', 'coins', 'words', 'list', 'table'];
+  const opts = (list, v) => list.map((k) => `<option value="${k}" ${k === v ? 'selected' : ''}>${k}</option>`).join('');
+  function renderLinks() {
+    $('#rb-links').innerHTML = rb.links.map((r, i) => `<tr data-i="${i}">
+      <td><input data-k="username" value="${esc(r.username)}" placeholder="Roblox の名前"></td>
+      <td><input data-k="class" value="${esc(r.class === '*' ? '' : r.class)}" placeholder="（空＝どのクラスでも）"></td>
+      <td><input data-k="name" value="${esc(r.name)}" placeholder="ロビーで入力する名前"></td>
+      <td style="padding:0 10px;white-space:nowrap">${rb.reports[r.username] ? `<a href="${esc(rb.reports[r.username])}" target="_blank" rel="noopener" style="font-size:13px">ひらく</a> <button type="button" data-copy="${esc(location.origin + rb.reports[r.username])}" style="font-size:12px;padding:3px 8px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer">コピー</button>` : '<span class="muted">保存すると出ます</span>'}</td>
+      <td class="x"><button type="button" title="この行を消す">×</button></td></tr>`).join('') || '<tr><td colspan="5" class="muted" style="padding:10px">紐づけはありません（同じ名前の子はそのまま使えます）</td></tr>';
+    $('#rb-usernames').innerHTML = rb.usernames.map((u) => `<li><code>${esc(u.username)}</code> · ${u.events} 件 · 最後 ${new Date(u.lastSeen).toLocaleDateString('ja-JP')}${u.class_code ? ` · クラス ${esc(u.class_code)}` : ''}${rb.reports[u.username] ? ` · <a href="${esc(rb.reports[u.username])}" target="_blank" rel="noopener">保護者ページ</a>` : ''}</li>`).join('') || '<li>まだ記録は来ていません</li>';
+    $('#rb-link-pick').innerHTML = '<option value="">記録が来ている名前から選ぶ…</option>' + rb.usernames.map((u) => `<option value="${esc(u.username)}">${esc(u.username)}</option>`).join('');
+  }
+  function renderMetrics() {
+    $('#rb-metrics').innerHTML = rb.metrics.map((m, i) => `<tr data-i="${i}">
+      <td><input data-k="key" value="${esc(m.key)}" placeholder="snake_case" style="font-family:ui-monospace,Menlo,monospace;font-size:13px"></td>
+      <td><input data-k="label_ja" value="${esc(m.label_ja)}"></td>
+      <td><input data-k="label_en" value="${esc(m.label_en)}"></td>
+      <td><select data-k="kind" style="border:0;background:transparent;font-size:14px;padding:8px 4px">${opts(KINDS, m.kind)}</select></td>
+      <td><input data-k="event_type" value="${esc(m.event_type)}" placeholder="quiz / session"></td>
+      <td><input data-k="expr_json" value="${esc(m.expr_json)}" style="font-family:ui-monospace,Menlo,monospace;font-size:12px;min-width:220px;${m.bad ? 'outline:2px solid var(--bad)' : ''}"></td>
+      <td><select data-k="unit" style="border:0;background:transparent;font-size:14px;padding:8px 4px">${opts(UNITS, m.unit || 'count')}</select></td>
+      <td><input data-k="order" value="${esc(m.order)}" style="width:56px" inputmode="numeric"></td>
+      <td style="text-align:center"><input type="checkbox" data-k="enabled" ${m.enabled !== '0' ? 'checked' : ''}></td>
+      <td class="x"><button type="button" title="この行を消す">×</button></td></tr>`).join('');
+  }
+  async function loadRoblox() {
+    const r = await fetch('/admin/api/roblox', { headers: H });
+    if (r.status === 404) return;   // 連携のモジュールが無い古い版
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || r.status);
+    rb.enabled = j.enabled; rb.links = j.links; rb.metrics = j.metrics; rb.usernames = j.usernames; rb.reports = j.reports || {};
+    $('#roblox-card').hidden = false;
+    $('#rb-pill').textContent = rb.enabled ? '鍵あり：Roblox から受け付けています' : '鍵なし：USPEAK_ROBLOX_KEY が未設定';
+    $('#rb-pill').className = `pill ${rb.enabled ? 'on' : 'off'}`;
+    renderLinks(); renderMetrics(); rbDirty(false);
+  }
+  const onEdit = (list, render) => (e) => {
+    const tr = e.target.closest('tr'); if (!tr || tr.dataset.i === undefined) return;
+    const row = list[Number(tr.dataset.i)]; if (!row) return;
+    const k = e.target.dataset.k; if (!k) return;
+    row[k] = e.target.type === 'checkbox' ? (e.target.checked ? '1' : '0') : e.target.value;
+    rbDirty(true);
+  };
+  const onRemove = (list, render) => (e) => {
+    if (e.target.tagName !== 'BUTTON') return;
+    if (e.target.dataset.copy) { navigator.clipboard?.writeText(e.target.dataset.copy).then(() => toast('リンクをコピーしました')).catch(() => toast('コピーできませんでした', true)); return; }
+    const tr = e.target.closest('tr'); if (!tr || tr.dataset.i === undefined) return;
+    list.splice(Number(tr.dataset.i), 1); render(); rbDirty(true);
+  };
+  $('#rb-links').addEventListener('input', onEdit(rb.links, renderLinks));
+  $('#rb-links').addEventListener('click', onRemove(rb.links, renderLinks));
+  $('#rb-metrics').addEventListener('input', onEdit(rb.metrics, renderMetrics));
+  $('#rb-metrics').addEventListener('change', onEdit(rb.metrics, renderMetrics));
+  $('#rb-metrics').addEventListener('click', onRemove(rb.metrics, renderMetrics));
+  $('#rb-link-add').addEventListener('click', () => { rb.links.push({ username: '', class: '', name: '', note: '' }); renderLinks(); rbDirty(true); $('#rb-links').lastElementChild?.querySelector('input')?.focus(); });
+  $('#rb-link-pick').addEventListener('change', (e) => { if (!e.target.value) return; rb.links.push({ username: e.target.value, class: '', name: '', note: '' }); renderLinks(); rbDirty(true); e.target.value = ''; });
+  $('#rb-metric-add').addEventListener('click', () => { rb.metrics.push({ key: '', label_ja: '', label_en: '', kind: 'count', event_type: 'quiz', expr_json: '{}', unit: 'count', order: String((rb.metrics.length + 1) * 10), enabled: '1' }); renderMetrics(); rbDirty(true); });
+  $('#rb-metric-sample').addEventListener('click', () => {
+    if (rb.metrics.some((m) => m.key === 'retries')) { toast('retries は もうあります'); return; }
+    rb.metrics.push({ key: 'retries', label_ja: 'retry 回数', label_en: 'Retries', kind: 'count', event_type: 'quiz', expr_json: '{"where":{"retry":true}}', unit: 'count', order: '15', enabled: '1' });
+    renderMetrics(); rbDirty(true); toast('「retry 回数」を表に入れました（まだ保存していません）');
+  });
+  async function saveRoblox(path, rows, after) {
+    try {
+      const r = await fetch(`/admin/api/roblox/${path}`, { method: 'PUT', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify({ rows }) });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error || r.status);
+      after(j.rows);
+      $('#rb-saved').textContent = `保存しました ${new Date().toLocaleTimeString('ja-JP')}`;
+      toast(`保存しました：${j.count} 行。いますぐ効いています。`);
+      await loadRoblox();
+    } catch (err) { toast(`保存できませんでした：${err.message}`, true); rbDirty(true); }
+  }
+  $('#rb-link-save').addEventListener('click', () => saveRoblox('links', rb.links, (rows) => { rb.links = rows; }));
+  $('#rb-metric-save').addEventListener('click', () => saveRoblox('metrics', rb.metrics, (rows) => { rb.metrics = rows; }));
+  loadRoblox().catch((err) => toast(`Roblox 連携を読みこめませんでした：${err.message}`, true));
 })();
 </script>
 </body>

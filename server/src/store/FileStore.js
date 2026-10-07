@@ -9,8 +9,9 @@ export class FileStore {
   constructor(filePath, { log = console } = {}) {
     this.filePath = filePath;
     this.log = log;
-    this.data = { players: {}, learning: [], coins: [] };
+    this.data = { players: {}, learning: [], coins: [], ...blankRoblox() };
     this.dirty = false;
+    this.eventIds = new Set();
     this.name = filePath ? `file:${filePath}` : 'memory';
     // Bumped by saveRoster so a gate holding a cached register knows to read again.
     this.rosterVersion = 0;
@@ -21,10 +22,11 @@ export class FileStore {
     try {
       const text = await fs.readFile(this.filePath, 'utf8');
       const parsed = JSON.parse(text);
-      if (parsed && typeof parsed === 'object') this.data = { players: {}, learning: [], coins: [], ...parsed };
+      if (parsed && typeof parsed === 'object') this.data = { players: {}, learning: [], coins: [], ...blankRoblox(), ...parsed };
     } catch (err) {
       if (err.code !== 'ENOENT') this.log.warn('[store:file] could not read store file, starting empty:', err.message);
     }
+    for (const e of this.data.roblox_events) this.eventIds.add(e.id);
   }
 
   async loadPlayer(classCode, name) {
@@ -113,6 +115,82 @@ export class FileStore {
   }
 
   async close() { await this.flush(); }
+
+  // ---- Roblox 連携（records.js の列、docs/ROBLOX_SYNC.md）-----------------------------
+  // 学習の記録。`id` で冪等：同じ id が2度来ても1度だけ貯める。**消さない**。
+  appendRobloxEvents(rows) {
+    let accepted = 0; let duplicates = 0;
+    for (const row of rows) {
+      if (!row?.id || this.eventIds.has(row.id)) { duplicates += 1; continue; }
+      this.eventIds.add(row.id);
+      this.data.roblox_events.push({ ...row });
+      accepted += 1;
+    }
+    if (accepted) this.dirty = true;
+    return { accepted, duplicates };
+  }
+
+  async listRobloxEvents({ username = '', classCode = '', since = 0, until = 0 } = {}) {
+    return this.data.roblox_events.filter((e) => eventMatches(e, { username, classCode, since, until })).map((e) => ({ ...e }));
+  }
+
+  // Web で動いたコイン（未配達のものを Roblox が取りに来る）。
+  addWalletEntry(entry) {
+    this.data.wallet_entries.push({ ...entry, delivered_at: entry.delivered_at || '' });
+    if (this.data.wallet_entries.length > MAX_LOG_ROWS) this.data.wallet_entries.splice(0, this.data.wallet_entries.length - MAX_LOG_ROWS);
+    this.dirty = true;
+  }
+
+  async listWalletEntries({ username = '', undelivered = false } = {}) {
+    return this.data.wallet_entries.filter((e) => (!username || e.username === username) && (!undelivered || !e.delivered_at)).map((e) => ({ ...e }));
+  }
+
+  async ackWalletEntries(ids, deliveredAt) {
+    const want = new Set(ids);
+    let n = 0;
+    for (const e of this.data.wallet_entries) if (want.has(e.id) && !e.delivered_at) { e.delivered_at = deliveredAt; n += 1; }
+    if (n) this.dirty = true;
+    return n;
+  }
+
+  saveWalletSnapshot(snapshot) {
+    this.data.wallet_snapshots[snapshot.username] = { ...snapshot };
+    this.dirty = true;
+  }
+
+  async getWalletSnapshot(username) {
+    const s = this.data.wallet_snapshots[username];
+    return s ? { ...s } : null;
+  }
+
+  async listMetrics() { return this.data.metric_definitions.map((m) => ({ ...m })); }
+
+  async saveMetrics(rows) {
+    this.data.metric_definitions = rows.map((m) => ({ ...m }));
+    this.dirty = true;
+  }
+
+  async listRobloxLinks() { return this.data.roblox_links.map((r) => ({ ...r })); }
+
+  async saveRobloxLinks(rows) {
+    this.data.roblox_links = rows.map((r) => ({ ...r }));
+    this.dirty = true;
+  }
+}
+
+function blankRoblox() {
+  return { roblox_events: [], wallet_entries: [], wallet_snapshots: {}, metric_definitions: [], roblox_links: [] };
+}
+
+export function eventMatches(e, { username = '', classCode = '', since = 0, until = 0 }) {
+  if (username && e.username !== username) return false;
+  if (classCode && e.class_code !== classCode) return false;
+  if (since || until) {
+    const t = Number(e.ts) || 0;
+    if (since && t < since) return false;
+    if (until && t >= until) return false;
+  }
+  return true;
 }
 
 function rosterRowsFromJson(parsed) {

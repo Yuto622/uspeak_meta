@@ -148,7 +148,7 @@ const STATUS = {
   below: { icon: '▼', word: '業界平均より下' },
 };
 
-export function classHtml(v) {
+export function classHtml(v, { extra = '' } = {}) {
   const c = v.continuation;
   const latest = c.latest;
   const status = latest ? STATUS[benchWord(latest.rate)] : null;
@@ -260,6 +260,7 @@ export function classHtml(v) {
 <table><thead><tr><th>級</th><th>練習で目安に届いた</th><th>あと一歩</th></tr></thead><tbody>${examRows}</tbody></table>
 <p class="fine">島の練習問題（ふつう・きびしい判定）の直近20問で、5級・4級は「よむ・きく」、3級は「よむ・きく・かく」が7割以上なら「目安に届いた」。合格の予想ではなく、勧めるかどうかを決める材料です。1人は届いたいちばん上の級にだけ数えています。準会場は2〜5級の志願者が合わせて10人以上で開けます（日本英語検定協会）。</p></section>
 
+${extra}
 <footer>この画面の数字は、すべて子どもが実際に答えた記録からサーバーが計算したものです。業界平均（月次継続率 ${BENCH.low}〜${BENCH.high}%）は子ども英語教室の一般的な目安です。<br>このリンクは教室の方だけにお使いください。子どもの名前が載っています。</footer>
 </main></body></html>`;
 }

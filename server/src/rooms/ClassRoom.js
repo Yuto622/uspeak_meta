@@ -116,6 +116,9 @@ const parseJson = (text, fallback) => { try { return JSON.parse(text); } catch {
 export class ClassRoom extends Room {
   async onCreate(options) {
     this.store = options.store;
+    // Roblox 連携（roblox/sync.js）。残高を両側で同じにするため、部屋を登録しておく。
+    this.roblox = options.roblox || null;
+    if (this.roblox?.enabled) this.roblox.rooms.add(this);
     this.classCode = sanitizeClassCode(options.classCode);
     this.maxClients = config.maxClients;
     // 1 room = 1 class: when the class room is full, joinOrCreate must fail instead of
@@ -311,6 +314,14 @@ export class ClassRoom extends Room {
       try { record = await this.store.loadPlayer(this.classCode, auth.name); } catch (err) { log.warn(`[room ${this.roomId}] loadPlayer failed:`, err.message); }
       priv = this.privFromRecord(record || blankPlayerRecord(this.classCode, auth.name));
       restored = !!record;
+      // Roblox に1度でも入った子は、**残高 = Roblox の最新値 ＋ まだ届いていない Web の増減**。
+      // まだの子は、これまで通り Web の残高のまま。
+      if (this.roblox?.enabled) {
+        try {
+          const bal = await this.roblox.balanceOf(this.roblox.usernameFor(this.classCode, auth.name));
+          if (bal) { priv.wallet.coins = bal.balance; priv.robloxSynced = true; }
+        } catch (err) { log.warn(`[room ${this.roomId}] roblox balance failed:`, err.message); }
+      }
       const lastSeen = Date.parse(record?.last_seen || '') || 0;
       if (record && record.space && now - lastSeen < POSITION_RESTORE_MS) position = { space: record.space, x: record.x, z: record.z };
     }
@@ -366,6 +377,7 @@ export class ClassRoom extends Room {
     // A plain timer outlives the room unless it is cleared, and a leaked one keeps the
     // process alive after the last class has gone home.
     this.gpClockOff();
+    this.roblox?.rooms.delete(this);
     if (!this.priv) return undefined; // creation was refused before state existed
     for (const id of this.priv.keys()) this.persist(id);
     log.info(`[room ${this.roomId}] disposed class=${this.classCode}`);
@@ -678,7 +690,11 @@ export class ClassRoom extends Room {
         try { stored = this.store.listClass?.(this.classCode) || []; } catch (err) { log.warn(`[room ${this.roomId}] report list failed:`, err.message); }
         for (const record of stored) if (record?.name && record.role !== 'teacher') names.add(record.name);
         const base = config.publicServerUrl.replace(/^ws/, 'http').replace(/\/$/, '');
-        const links = [...names].sort().map((name) => ({ name, url: base + reportPath(config.reportSecret, this.classCode, name) }));
+        const links = [...names].sort().map((name) => ({
+          name, url: base + reportPath(config.reportSecret, this.classCode, name),
+          // Roblox の学習のページ（鍵が入っているときだけ）。
+          ...(this.roblox?.enabled ? { roblox: base + this.roblox.reportPath(this.roblox.usernameFor(this.classCode, name)) } : {}),
+        }));
         // クラスぜんぶを1枚の CSV に落とすリンクも一緒に返す。**教室が自分の記録を
         // いつでも持ち出せる**ことを、探さずに見えるところに置いておく。
         client.send('teacher:ack', {
@@ -3583,6 +3599,9 @@ export class ClassRoom extends Room {
   coinRow(sessionId, entry) {
     const priv = this.priv.get(sessionId);
     if (priv && entry.delta > 0) bumpMonth(priv.months, { coins: entry.delta });
+    // **コインが動く所はここ1つ**（applyOp → appendCoin）。Roblox 連携が入っていれば、
+    // 同じ増減を Roblox に届ける行（wallet_entries）にも書く。
+    if (priv && entry.delta && this.roblox?.enabled) this.roblox.walletAdd(this.roblox.usernameFor(this.classCode, priv.name), entry.delta, `${entry.op}:${entry.item ?? ''}`);
     return [new Date().toISOString(), this.classCode, priv?.name || '', entry.op, entry.item, entry.quantity, entry.delta, entry.balance, sessionId];
   }
 
@@ -3590,7 +3609,20 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(sessionId);
     if (!priv) return { wallet: null };
     const w = priv.wallet;
-    return { wallet: { coins: w.coins, inventory: { ...w.inventory }, owned: [...w.owned], wands: [...w.wands], wand: w.wand, catches: w.catches, dex: [...w.dex] } };
+    return { wallet: { coins: w.coins, inventory: { ...w.inventory }, owned: [...w.owned], wands: [...w.wands], wand: w.wand, catches: w.catches, dex: [...w.dex], roblox: !!priv.robloxSynced } };
+  }
+
+  // Roblox が残高を教えてきた（roblox/sync.js の pushBalance）。その子がこの部屋にいれば
+  // 手元の残高を差し替えて、画面にも送る。
+  robloxBalance(username, coins) {
+    for (const [id, priv] of this.priv) {
+      if (this.roblox.usernameFor(this.classCode, priv.name) !== username) continue;
+      priv.wallet.coins = Math.max(0, Math.round(coins));
+      priv.robloxSynced = true;
+      const client = this.clients.find((c) => c.sessionId === id);
+      if (client) client.send('wallet', { ok: true, op: 'roblox', ...this.walletPayload(id) });
+      this.persist(id);
+    }
   }
 
   welcomePayload(sessionId, restored, position) {

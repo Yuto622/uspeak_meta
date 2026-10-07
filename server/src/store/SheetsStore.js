@@ -9,10 +9,17 @@
 //    process is alive. The queue is capped so a long outage cannot exhaust memory.
 import {
   PLAYER_COLUMNS, LEARNING_COLUMNS, COIN_COLUMNS, ROSTER_COLUMNS, playerKey, recordToRow, rowToRecord,
+  ROBLOX_EVENT_COLUMNS, WALLET_ENTRY_COLUMNS, WALLET_SNAPSHOT_COLUMNS, METRIC_COLUMNS, ROBLOX_LINK_COLUMNS,
 } from './records.js';
 import { parseRosterRows, rowsForClass } from './roster-sheet.js';
+import { SheetTable, SheetList } from './sheet-table.js';
+import { eventMatches } from './FileStore.js';
 
-export const SHEETS = { players: 'players', learning: 'learning_log', coins: 'coin_log', roster: 'roster' };
+export const SHEETS = {
+  players: 'players', learning: 'learning_log', coins: 'coin_log', roster: 'roster',
+  // Roblox 連携（docs/ROBLOX_SYNC.md）
+  events: 'roblox_events', entries: 'wallet_entries', snapshots: 'wallet_snapshots', metrics: 'metric_definitions', links: 'roblox_links',
+};
 const MAX_PENDING_ROWS = 20000;
 const CACHE_TTL_MS = 30000;
 
@@ -37,6 +44,13 @@ export class SheetsStore {
     this.pendingCoins = [];
     this.flushing = null;
     this.stats = { flushes: 0, failures: 0, rowsWritten: 0 };
+    // Roblox 連携のタブ。学習の記録は追記だけ、コインの行は配達済みの印を書き戻す、
+    // 残高は名前につき1行。定義と紐づけは管理ページが丸ごと保存する小さな表。
+    this.events = new SheetTable(api, { name: SHEETS.events, columns: ROBLOX_EVENT_COLUMNS, keyOf: (r) => r.id, numeric: ['ts'], log });
+    this.entries = new SheetTable(api, { name: SHEETS.entries, columns: WALLET_ENTRY_COLUMNS, keyOf: (r) => r.id, numeric: ['amount'], log });
+    this.snapshots = new SheetTable(api, { name: SHEETS.snapshots, columns: WALLET_SNAPSHOT_COLUMNS, keyOf: (r) => r.username, numeric: ['balance'], log });
+    this.metrics = new SheetList(api, { name: SHEETS.metrics, columns: METRIC_COLUMNS, log, now });
+    this.links = new SheetList(api, { name: SHEETS.links, columns: ROBLOX_LINK_COLUMNS, log, now });
   }
 
   async init() {
@@ -60,6 +74,7 @@ export class SheetsStore {
       }
     }
     await this.refreshCache();
+    for (const t of [this.events, this.entries, this.snapshots, this.metrics, this.links]) await t.init();
   }
 
   async refreshCache() {
@@ -133,7 +148,49 @@ export class SheetsStore {
     }
   }
 
-  get pendingCount() { return this.pendingPlayers.size + this.pendingLearning.length + this.pendingCoins.length; }
+  get pendingCount() {
+    return this.pendingPlayers.size + this.pendingLearning.length + this.pendingCoins.length
+      + this.events.pendingCount + this.entries.pendingCount + this.snapshots.pendingCount;
+  }
+
+  // ---- Roblox 連携（FileStore と同じ口）---------------------------------------------
+  appendRobloxEvents(rows) {
+    let accepted = 0; let duplicates = 0;
+    for (const row of rows) {
+      if (!row?.id || this.events.has(row.id)) { duplicates += 1; continue; }
+      this.events.put(row);
+      accepted += 1;
+    }
+    return { accepted, duplicates };
+  }
+
+  async listRobloxEvents(filter = {}) {
+    return this.events.all().filter((e) => eventMatches(e, filter));
+  }
+
+  addWalletEntry(entry) { this.entries.put({ ...entry, delivered_at: entry.delivered_at || '' }); }
+
+  async listWalletEntries({ username = '', undelivered = false } = {}) {
+    return this.entries.all().filter((e) => (!username || e.username === username) && (!undelivered || !e.delivered_at));
+  }
+
+  async ackWalletEntries(ids, deliveredAt) {
+    let n = 0;
+    for (const id of ids) {
+      const e = this.entries.get(id);
+      if (!e || e.delivered_at) continue;
+      this.entries.put({ ...e, delivered_at: deliveredAt });
+      n += 1;
+    }
+    return n;
+  }
+
+  saveWalletSnapshot(snapshot) { this.snapshots.put(snapshot); }
+  async getWalletSnapshot(username) { return this.snapshots.get(username); }
+  async listMetrics() { return this.metrics.list(); }
+  async saveMetrics(rows) { return this.metrics.save(rows); }
+  async listRobloxLinks() { return this.links.list(); }
+  async saveRobloxLinks(rows) { return this.links.save(rows); }
 
   async flush() {
     if (this.flushing) return this.flushing;
@@ -183,6 +240,13 @@ export class SheetsStore {
         this.log.warn(`[store:sheets] ${sheet} flush failed, will retry:`, err.message);
         list.unshift(...rows);
       }
+    }
+    // 3. Roblox 連携のタブ。
+    for (const t of [this.events, this.entries, this.snapshots]) {
+      const before = t.stats.failures;
+      await t.flush();
+      this.stats.rowsWritten += 0; // counted on the table itself
+      if (t.stats.failures > before) this.stats.failures++;
     }
   }
 

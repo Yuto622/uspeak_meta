@@ -19,6 +19,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import { decodeUpload, rosterFromText, rosterToCsv } from '../store/roster-text.js';
+import { validateMetric, metricToRow, parseMetric } from '../game/roblox-metrics.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PAGE = readFileSync(path.join(here, 'roster-admin.html'), 'utf8');
@@ -37,7 +38,7 @@ const safeEqual = (a, b) => {
 const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(';').map((c) => c.trim().split('=')).filter((p) => p[0]).map(([k, ...v]) => [k, decodeURIComponent(v.join('='))]));
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export function mountAdmin(app, { access, adminKey, teacherKeySet = false, isProduction = false, log = console, now = Date.now }) {
+export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet = false, isProduction = false, log = console, now = Date.now }) {
   if (!adminKey) return;
   const router = express.Router();
   const fails = new Map(); // ip -> { count, at }
@@ -155,6 +156,61 @@ export function mountAdmin(app, { access, adminKey, teacherKeySet = false, isPro
       res.json({ ok: true, rows });
     } catch (err) { res.status(400).json({ ok: false, error: err.message }); }
   });
+
+  // ---- Roblox 連携（roblox/sync.js）：指標の定義と、Roblox の名前 ⇔ Web の子の紐づけ ----
+  // どちらも「表を丸ごと保存」。名簿と同じ流儀で、ブラウザーには見るぶんだけ渡す。
+  if (roblox) {
+    const MAX_METRICS = 200;
+    api.get('/roblox', async (req, res) => {
+      try {
+        await roblox.refreshLinks();
+        const [metrics, events] = await Promise.all([roblox.metricDefs(), roblox.store?.listRobloxEvents?.() ?? []]);
+        const seen = new Map();
+        for (const e of events) {
+          const u = e.username; if (!u) continue;
+          const cur = seen.get(u) || { username: u, class_code: '', lastSeen: 0, events: 0 };
+          cur.events += 1; if (Number(e.ts) > cur.lastSeen) { cur.lastSeen = Number(e.ts); cur.class_code = e.class_code || cur.class_code; }
+          seen.set(u, cur);
+        }
+        res.json({
+          ok: true, enabled: roblox.enabled, metrics: metrics.map(metricToRow).map((m) => ({ ...m, ...(() => { try { JSON.parse(m.expr_json || '{}'); return {}; } catch { return { bad: 'expr' }; } })() })),
+          links: roblox.links(), usernames: [...seen.values()].sort((a, b) => b.lastSeen - a.lastSeen),
+          reports: Object.fromEntries([...seen.keys(), ...roblox.links().map((l) => l.username)].map((u) => [u, roblox.reportPath(u)])),
+        });
+      } catch (err) { log.warn('[admin] roblox read failed:', err.message); res.status(500).json({ ok: false, error: err.message }); }
+    });
+
+    api.put('/roblox/metrics', express.json({ limit: '1mb' }), async (req, res) => {
+      const rows = req.body?.rows;
+      if (!Array.isArray(rows) || rows.length > MAX_METRICS) { res.status(400).json({ ok: false, error: 'rows' }); return; }
+      const clean = []; const keys = new Set();
+      for (const r of rows) {
+        const row = metricToRow({ ...r, expr: typeof r?.expr_json === 'string' ? r.expr_json : (r?.expr ?? {}) });
+        row.expr_json = String(r?.expr_json ?? row.expr_json).trim() || '{}';
+        const why = validateMetric(row);
+        if (why) { res.status(400).json({ ok: false, error: `${row.key || '(key なし)'}: ${why}` }); return; }
+        if (keys.has(row.key)) { res.status(400).json({ ok: false, error: `${row.key}: key が2回あります` }); return; }
+        keys.add(row.key);
+        clean.push({ ...row, label_ja: clip(row.label_ja), label_en: clip(row.label_en), event_type: clip(row.event_type), unit: parseMetric(row).unit });
+      }
+      try {
+        await roblox.store.saveMetrics(clean);
+        res.json({ ok: true, count: clean.length, rows: clean });
+      } catch (err) { log.warn('[admin] metrics save failed:', err.message); res.status(500).json({ ok: false, error: err.message }); }
+    });
+
+    api.put('/roblox/links', express.json({ limit: '1mb' }), async (req, res) => {
+      const rows = req.body?.rows;
+      if (!Array.isArray(rows) || rows.length > MAX_ROWS) { res.status(400).json({ ok: false, error: 'rows' }); return; }
+      const clean = rows.map((r) => ({ username: clip(r?.username), class: clip(r?.class) || '*', name: clip(r?.name), note: clip(r?.note) }))
+        .filter((r) => r.username && r.name);
+      try {
+        await roblox.store.saveRobloxLinks(clean);
+        await roblox.refreshLinks();
+        res.json({ ok: true, count: clean.length, rows: clean });
+      } catch (err) { log.warn('[admin] links save failed:', err.message); res.status(500).json({ ok: false, error: err.message }); }
+    });
+  }
 
   router.use('/api', api);
   app.use('/admin', router);

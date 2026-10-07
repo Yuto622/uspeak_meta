@@ -129,6 +129,14 @@ export const config = Object.freeze({
   // Signs the parent-report links. Without it, reports are simply not served: a
   // guessable link would show one family another family's child.
   reportSecret: (env.REPORT_SECRET ?? '').trim(),
+  // Roblox 連携（docs/ROBLOX_SYNC.md）. Roblox 版が学習の記録とコインの増減を送ってくる
+  // `/api/roblox/*` の合言葉（ヘッダー `X-USpeak-Key`）。空なら口は開かない。32 文字以上。
+  // Roblox 側の Secret `USPEAK_WEB_KEY` と同じ文字列を入れる。
+  roblox: {
+    key: (env.USPEAK_ROBLOX_KEY ?? '').trim(),
+    // 1つの鍵あたりの上限（1分に何回まで）。
+    ratePerMin: Math.max(10, int('ROBLOX_RATE_PER_MIN', 120)),
+  },
   publicServerUrl: (env.PUBLIC_SERVER_URL ?? '').trim(),
   publicDefaultClass: (env.PUBLIC_DEFAULT_CLASS ?? '').trim(),
   // Optional JSON object merged into the client's NET tuning constants, e.g.
@@ -151,5 +159,8 @@ export function validateConfig(log = console) {
   if (config.accessMode === 'roster' && !config.roster.sheetId && !config.google.sheetId) log.warn('[config] ACCESS_MODE=roster without ROSTER_SHEET_ID: the register is data/roster.json only.');
   if (config.reportSecret && config.reportSecret.length < 16) problems.push('REPORT_SECRET must be at least 16 characters.');
   if (!config.reportSecret) log.warn('[config] REPORT_SECRET is empty: parent reports are disabled.');
+  if (config.roblox.key && config.roblox.key.length < 32) problems.push('USPEAK_ROBLOX_KEY must be at least 32 characters.');
+  if (config.roblox.key && config.isProduction && [config.teacherKey, config.adminKey, config.reportSecret].includes(config.roblox.key)) problems.push('USPEAK_ROBLOX_KEY must not be the same as another key.');
+  if (!config.roblox.key) log.warn('[config] USPEAK_ROBLOX_KEY is empty: the Roblox sync endpoints are not served.');
   return problems;
 }
