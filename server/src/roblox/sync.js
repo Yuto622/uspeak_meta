@@ -14,6 +14,7 @@
 import { createHmac, timingSafeEqual, randomBytes } from 'node:crypto';
 import express from 'express';
 import { SEED_METRICS, summarize, parseMetric } from '../game/roblox-metrics.js';
+import { sameUser } from '../store/FileStore.js';
 
 const MAX_EVENTS = 300;
 const MAX_DATA_BYTES = 32 * 1024;
@@ -72,7 +73,7 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
     return row ? row.username : name;
   };
   const childFor = (username) => {
-    const row = linksFresh().find((r) => r.username === username);
+    const row = linksFresh().find((r) => sameUser(r.username, username));
     return row ? { class: row.class || '*', name: row.name } : null;
   };
 
@@ -123,7 +124,11 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
     for (const r of links) if (r.class === classCode || r.class === '*' || !r.class) names.set(r.username, r.name);
     for (const r of records) if (r?.name && r.role !== 'teacher') { const u = usernameFor(classCode, r.name); if (!names.has(u)) names.set(u, r.name); }
     const known = new Set([...names.values()].filter(Boolean));
-    for (const e of await store.listRobloxEvents({ classCode })) if (e.username && !names.has(e.username)) names.set(e.username, known.has(e.username) ? e.username : '');
+    const lower = () => new Map([...names.keys()].map((u) => [u.toLowerCase(), u]));
+    for (const e of await store.listRobloxEvents({ classCode })) {
+      if (!e.username || lower().has(e.username.toLowerCase())) continue;
+      names.set(e.username, known.has(e.username) ? e.username : '');
+    }
     const rows = [];
     for (const [username, name] of names) {
       const s = await summaryFor(username, { at });

@@ -13,7 +13,7 @@ import {
 } from './records.js';
 import { parseRosterRows, rowsForClass } from './roster-sheet.js';
 import { SheetTable, SheetList } from './sheet-table.js';
-import { eventMatches } from './FileStore.js';
+import { eventMatches, sameUser } from './FileStore.js';
 
 export const SHEETS = {
   players: 'players', learning: 'learning_log', coins: 'coin_log', roster: 'roster',
@@ -48,7 +48,7 @@ export class SheetsStore {
     // 残高は名前につき1行。定義と紐づけは管理ページが丸ごと保存する小さな表。
     this.events = new SheetTable(api, { name: SHEETS.events, columns: ROBLOX_EVENT_COLUMNS, keyOf: (r) => r.id, numeric: ['ts'], log });
     this.entries = new SheetTable(api, { name: SHEETS.entries, columns: WALLET_ENTRY_COLUMNS, keyOf: (r) => r.id, numeric: ['amount'], log });
-    this.snapshots = new SheetTable(api, { name: SHEETS.snapshots, columns: WALLET_SNAPSHOT_COLUMNS, keyOf: (r) => r.username, numeric: ['balance'], log });
+    this.snapshots = new SheetTable(api, { name: SHEETS.snapshots, columns: WALLET_SNAPSHOT_COLUMNS, keyOf: (r) => String(r.username).toLowerCase(), numeric: ['balance'], log });
     this.metrics = new SheetList(api, { name: SHEETS.metrics, columns: METRIC_COLUMNS, log, now });
     this.links = new SheetList(api, { name: SHEETS.links, columns: ROBLOX_LINK_COLUMNS, log, now });
   }
@@ -171,7 +171,7 @@ export class SheetsStore {
   addWalletEntry(entry) { this.entries.put({ ...entry, delivered_at: entry.delivered_at || '' }); }
 
   async listWalletEntries({ username = '', undelivered = false } = {}) {
-    return this.entries.all().filter((e) => (!username || e.username === username) && (!undelivered || !e.delivered_at));
+    return this.entries.all().filter((e) => (!username || sameUser(e.username, username)) && (!undelivered || !e.delivered_at));
   }
 
   async ackWalletEntries(ids, deliveredAt) {
@@ -186,7 +186,7 @@ export class SheetsStore {
   }
 
   saveWalletSnapshot(snapshot) { this.snapshots.put(snapshot); }
-  async getWalletSnapshot(username) { return this.snapshots.get(username); }
+  async getWalletSnapshot(username) { return this.snapshots.get(String(username).toLowerCase()); }
   async listMetrics() { return this.metrics.list(); }
   async saveMetrics(rows) { return this.metrics.save(rows); }
   async listRobloxLinks() { return this.links.list(); }

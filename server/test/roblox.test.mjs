@@ -110,6 +110,16 @@ test('定義を1行足すだけで、新しい指標が出る（retry 回数）'
   assert.ok(Object.keys(CUSTOM).length >= 7);
 });
 
+test('アカウント名は大文字小文字を区別しない（Roblox と同じ）', async () => {
+  const r = await post('/api/roblox/events', { events: [ev('case-1', 'quiz', 'RBX_Case', { word: 'x', correct: true })] });
+  assert.equal(r.status, 200);
+  const token = signRobloxReport(process.env.REPORT_SECRET, 'rbx_case');
+  const json = await (await fetch(`${http}/report/rbx_case?t=${token}&format=json`)).json();
+  assert.equal(json.counts.all, 1, 'rbx_case のページに RBX_Case の記録が出る');
+  await post('/api/roblox/wallet/pending', { users: [{ username: 'RBX_CASE', balance: 77 }] });
+  assert.equal((await server.store.getWalletSnapshot('rbx_case')).balance, 77);
+});
+
 test('時刻は 秒でも ミリ秒でも ISO でも', () => {
   assert.equal(toMillis(1760000000), 1760000000000);
   assert.equal(toMillis(1760000000000), 1760000000000);

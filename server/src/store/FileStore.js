@@ -142,7 +142,7 @@ export class FileStore {
   }
 
   async listWalletEntries({ username = '', undelivered = false } = {}) {
-    return this.data.wallet_entries.filter((e) => (!username || e.username === username) && (!undelivered || !e.delivered_at)).map((e) => ({ ...e }));
+    return this.data.wallet_entries.filter((e) => (!username || sameUser(e.username, username)) && (!undelivered || !e.delivered_at)).map((e) => ({ ...e }));
   }
 
   async ackWalletEntries(ids, deliveredAt) {
@@ -154,12 +154,12 @@ export class FileStore {
   }
 
   saveWalletSnapshot(snapshot) {
-    this.data.wallet_snapshots[snapshot.username] = { ...snapshot };
+    this.data.wallet_snapshots[String(snapshot.username).toLowerCase()] = { ...snapshot };
     this.dirty = true;
   }
 
   async getWalletSnapshot(username) {
-    const s = this.data.wallet_snapshots[username];
+    const s = this.data.wallet_snapshots[String(username).toLowerCase()];
     return s ? { ...s } : null;
   }
 
@@ -182,8 +182,12 @@ function blankRoblox() {
   return { roblox_events: [], wallet_entries: [], wallet_snapshots: {}, metric_definitions: [], roblox_links: [] };
 }
 
+// Roblox のアカウント名は大文字小文字を区別しない（Roblox 自体がそう）。Web で "hana" と
+// 打った子と Roblox の "Hana" は同じ子。
+export const sameUser = (a, b) => String(a ?? '').toLowerCase() === String(b ?? '').toLowerCase();
+
 export function eventMatches(e, { username = '', classCode = '', since = 0, until = 0 }) {
-  if (username && e.username !== username) return false;
+  if (username && !sameUser(e.username, username)) return false;
   if (classCode && e.class_code !== classCode) return false;
   if (since || until) {
     const t = Number(e.ts) || 0;

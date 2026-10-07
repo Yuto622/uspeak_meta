@@ -3616,7 +3616,7 @@ export class ClassRoom extends Room {
   // 手元の残高を差し替えて、画面にも送る。
   robloxBalance(username, coins) {
     for (const [id, priv] of this.priv) {
-      if (this.roblox.usernameFor(this.classCode, priv.name) !== username) continue;
+      if (this.roblox.usernameFor(this.classCode, priv.name).toLowerCase() !== String(username).toLowerCase()) continue;
       priv.wallet.coins = Math.max(0, Math.round(coins));
       priv.robloxSynced = true;
       const client = this.clients.find((c) => c.sessionId === id);
