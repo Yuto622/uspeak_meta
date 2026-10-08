@@ -53,7 +53,12 @@ Roblox 側の設定：
 - `type` と `data` は **検査しない**（知らない type もそのまま貯まる）。`data` は 32 KB まで。
 - `world` は **Roblox の中のどこで起きたか**（`fishing` / `hut` / `main` / `quiz` …）。event に無ければ batch の値。
   保護者ページの「場所ごとの問題数と正答率」「ワールド別の時間」「最近の記録」の「どこで」になる。
-  画面の名前は `roblox-metrics.js` の `WORLD_LABELS`（fishing→さかなつり、hut→小屋 …）。知らない名前はそのまま出る。
+  画面の名前は `roblox-metrics.js` の `WORLD_LABELS`（Stats v4.2）：hut=小屋のクイズ / fishing=さかなつり / battle=バトル /
+  gym=ことばのジム / main=メインワールド / racing=レース / rpg=RPG / building=けんちく / themepark=テーマパーク /
+  farm=ぼくじょう / island=しま / quizlab=クイズラボ / other=そのほか。知らない名前はそのまま出る。
+- `quiz` の `data.level` は SuperEasy / Easy / Medium / Hard / Fishing / Battle / Gym / Racing（英検の 5 / 4 / 3 / pre2 / 2 も可）。
+  「レベルごとの正答率」の表はこれで、「場所ごと」の表は `world` で集計する。
+- `session` の `data` は `seconds` / `coinsEarned` / `balance` / `level`（`balance` と `level` はいまは使わない）。
 - `classCode` を付けると先生ページのクラスに出る。
 - 返事：`{ "ok": true, "accepted": 3, "duplicates": 0 }`。
 
@@ -61,7 +66,7 @@ Roblox 側の設定：
 
 | type | data | 使う指標 |
 |---|---|---|
-| `quiz` | `level`（"5" / "4" / "3" / "pre2" / "2"）、`word`、`correct`、`fast`（読み上げが終わる前に答えた）、`retry`（やり直し）、`ms` | 問題数・正答率・あてずっぽう率・級ごと・覚えた単語・苦手な単語・最長の連続正解 |
+| `quiz` | `level`（SuperEasy / Easy / Medium / Hard / Fishing / Battle / Gym / Racing）、`word`、`correct`、`fast`（読み上げが終わる前に答えた）、`retry`（やり直し）、`ms` | 問題数・正答率・あてずっぽう率・級ごと・覚えた単語・苦手な単語・最長の連続正解 |
 | `fast-type` | （なし） | あてずっぽう率の分子・分母 |
 | `session` | `seconds`、`coinsEarned`、（event の）`world` | 学習時間・ワールド別の時間・かせいだコイン |
 | （何でも） | | 来た日・連続日数（どの type でもその日に来たことになる） |

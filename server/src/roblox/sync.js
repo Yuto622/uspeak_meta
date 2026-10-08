@@ -13,7 +13,7 @@
 // これまで通り Web の残高だけで動く（`balanceOf` が null を返す）。
 import { createHmac, timingSafeEqual, randomBytes } from 'node:crypto';
 import express from 'express';
-import { SEED_METRICS, summarize, parseMetric } from '../game/roblox-metrics.js';
+import { SEED_METRICS, SEED_PREVIOUS, summarize, parseMetric } from '../game/roblox-metrics.js';
 import { sameUser } from '../store/FileStore.js';
 
 const MAX_EVENTS = 300;
@@ -89,9 +89,19 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
       const rows = (await store.listMetrics?.()) || [];
       const have = new Set(rows.map((r) => r.key));
       const missing = SEED_METRICS.filter((m) => !have.has(m.key));
-      if (missing.length && store.saveMetrics) {
-        await store.saveMetrics([...rows, ...missing]);
-        log.info(`[roblox] metric_definitions seeded (+${missing.length}: ${missing.map((m) => m.key).join(', ')})`);
+      // 前の版の seed のまま（触っていない）行は、新しい seed に。
+      const same = (a, b) => ['label_ja', 'label_en', 'kind', 'event_type', 'expr_json', 'unit'].every((k) => String(a[k] ?? '') === String(b[k] ?? ''));
+      let refreshed = 0;
+      const updated = rows.map((r) => {
+        const old = SEED_PREVIOUS.find((p) => p.key === r.key && same(p, r));
+        const fresh = old && SEED_METRICS.find((m) => m.key === r.key);
+        if (!fresh) return r;
+        refreshed += 1;
+        return { ...fresh, enabled: r.enabled, order: r.order };
+      });
+      if ((missing.length || refreshed) && store.saveMetrics) {
+        await store.saveMetrics([...updated, ...missing]);
+        log.info(`[roblox] metric_definitions seeded (+${missing.length}: ${missing.map((m) => m.key).join(', ')}; refreshed ${refreshed})`);
       }
     } catch (err) { log.warn('[roblox] could not seed metric_definitions:', err.message); }
   }

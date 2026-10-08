@@ -87,6 +87,14 @@ test('指標の式：問題数・正答率・あてずっぽう率・覚えた�
   assert.equal(v('coins_earned').all, 35);
   assert.equal(v('balance').all, 123);
   assert.deepEqual(v('by_level').all.map((r) => [r.label, r.value]), [['5級', 57.1]]);
+  // Stats v4.2 の level と world の名前。
+  const s2 = summarize(SEED_METRICS, [
+    { id: 'l1', ts: now - h, type: 'quiz', username: 'a', world: 'hut', data: { level: 'SuperEasy', word: 'a', correct: true } },
+    { id: 'l2', ts: now - h, type: 'quiz', username: 'a', world: 'gym', data: { level: 'Hard', word: 'b', correct: false } },
+  ], { now });
+  const lv = s2.metrics.find((m) => m.key === 'by_level').values.all;
+  assert.deepEqual(lv.map((r) => r.label), ['とても かんたん', 'むずかしい']);
+  assert.deepEqual(s2.metrics.find((m) => m.key === 'by_activity').values.all.map((r) => r.label).sort(), ['ことばのジム', '小屋のクイズ']);
   assert.deepEqual(v('by_world').all.map((r) => [r.key, r.value]), [['main', 900], ['quiz', 300]]);
   assert.equal(s.counts.all, 12);
 });
@@ -305,7 +313,7 @@ test('/report/:username は署名つき。実データで累計・今週/先週�
   const page = await fetch(`${http}/report/rbx_hana?t=${token}`);
   assert.equal(page.status, 200);
   const html = await page.text();
-  for (const needle of ['累計', '今週と先週', 'あてずっぽう率', '問題の読み上げが終わる前に答えて間違えた割合', '級ごとの正答率', '間違えやすい単語', 'ワールド別の時間', 'river', '5級', '4級', 'main', 'noindex']) {
+  for (const needle of ['累計', '今週と先週', 'あてずっぽう率', '問題の読み上げが終わる前に答えて間違えた割合', 'レベルごとの正答率', '間違えやすい単語', 'ワールド別の時間', 'river', '5級', '4級', 'main', 'noindex']) {
     assert.ok(html.includes(needle), `page has ${needle}`);
   }
   const weak = /<ul class="words">[\s\S]*?<\/ul>/.exec(html)?.[0] || '';

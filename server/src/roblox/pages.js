@@ -7,7 +7,7 @@
 // どちらも **指標の定義（metric_definitions）をなぞって描く**：行を足せば、ここを触らずに出る。
 // 数の指標は「累計」の札と「今週／先週」の表に、表の指標（級ごと・ワールド別）は表に、
 // 単語の一覧は一覧に。
-import { PERIOD_LABEL, formatValue } from '../game/roblox-metrics.js';
+import { PERIOD_LABEL, formatValue, levelLabel } from '../game/roblox-metrics.js';
 
 const JST = { timeZone: 'Asia/Tokyo' };
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -40,7 +40,7 @@ function tableMetric(m, period) {
   if (!Array.isArray(rows) || !rows.length) return `<p class="fine">${esc(PERIOD_LABEL[period])}は まだ記録がありません。</p>`;
   const isRatio = m.kind === 'group' && m.expr.agg === 'ratio';
   const unit = isRatio ? 'percent' : m.expr.agg === 'sum' ? (m.unit === 'table' ? 'seconds' : m.unit) : 'count';
-  return `<table class="nums"><thead><tr><th>${esc(m.key === 'by_world' || m.key === 'by_activity' ? '場所' : m.key === 'by_level' ? '級' : '')}</th><th>${esc(PERIOD_LABEL[period])}</th>${isRatio ? '<th>問題数</th>' : ''}</tr></thead><tbody>${
+  return `<table class="nums"><thead><tr><th>${esc(m.key === 'by_world' || m.key === 'by_activity' ? '場所' : m.key === 'by_level' ? 'レベル' : '')}</th><th>${esc(PERIOD_LABEL[period])}</th>${isRatio ? '<th>問題数</th>' : ''}</tr></thead><tbody>${
     rows.map((r) => `<tr><td>${esc(r.label)}</td><td><b>${esc(formatValue(r.value, unit))}</b></td>${isRatio ? `<td>${r.correct} / ${r.count}</td>` : ''}</tr>`).join('')
   }</tbody></table>`;
 }
@@ -48,7 +48,7 @@ function tableMetric(m, period) {
 function listMetric(m) {
   const rows = m.values.all ?? m.values.week;
   if (!Array.isArray(rows) || !rows.length) return '<p class="fine">いまのところ、苦手な単語はありません。2回以上出て 半分以上まちがえた単語が ここに出ます。</p>';
-  return `<ul class="words">${rows.map((r) => `<li><b translate="no">${esc(r.word)}</b><span>${r.misses}回まちがえ · ${r.seen}回中${r.seen - r.misses}回 正解${r.level ? ` · ${esc(r.level)}級` : ''}</span></li>`).join('')}</ul>`;
+  return `<ul class="words">${rows.map((r) => `<li><b translate="no">${esc(r.word)}</b><span>${r.misses}回まちがえ · ${r.seen}回中${r.seen - r.misses}回 正解${r.level ? ` · ${esc(levelLabel(r.level))}` : ''}</span></li>`).join('')}</ul>`;
 }
 
 const STYLE = `
@@ -97,7 +97,7 @@ function recentSection(recent) {
   if (!Array.isArray(recent) || !recent.length) return '';
   const rows = recent.map((r) => {
     const what = r.type === 'quiz'
-      ? `<b translate="no">${esc(r.word || '')}</b>${r.level ? ` <small>${esc(r.level)}級</small>` : ''}${r.retry ? ' <small>やり直し</small>' : ''}`
+      ? `<b translate="no">${esc(r.word || '')}</b>${r.level ? ` <small>${esc(levelLabel(r.level))}</small>` : ''}${r.retry ? ' <small>やり直し</small>' : ''}`
       : r.type === 'session' ? `${Math.round(num(r.seconds) / 60)}分` : esc(TYPE_JA[r.type] || r.type);
     const mark = r.correct === null ? '' : r.correct ? '<span class="ok">○</span>' : `<span class="ng">×${r.fast ? ' はやい' : ''}</span>`;
     return `<tr><td>${esc(timeJa(r.ts))}</td><td>${esc(r.place)}</td><td>${esc(TYPE_JA[r.type] || r.type)}</td><td>${what}</td><td>${mark}</td></tr>`;

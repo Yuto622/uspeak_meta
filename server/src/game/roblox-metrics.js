@@ -31,9 +31,21 @@ const inRange = (e, { since, until }) => (!since || e.ts >= since) && (!until ||
 // Roblox のどこで起きた記録か（event の `world`）。Roblox 側が送る名前 → 画面の名前。
 // 知らない名前はそのまま出す（新しい場所を足しても壊れない）。管理ページの `labels` で上書きできる。
 export const WORLD_LABELS = {
-  main: 'メインワールド', lobby: 'ロビー', fishing: 'さかなつり', fish: 'さかなつり', hut: '小屋', cabin: '小屋',
-  quiz: 'クイズ', school: 'がっこう', shop: 'お店', arena: 'アリーナ', farm: 'ぼくじょう', town: 'まち', park: 'テーマパーク',
+  // Roblox 版（Stats v4.2）が送る world の値。
+  hut: '小屋のクイズ', fishing: 'さかなつり', battle: 'バトル', gym: 'ことばのジム', main: 'メインワールド',
+  racing: 'レース', rpg: 'RPG', building: 'けんちく', themepark: 'テーマパーク', farm: 'ぼくじょう', island: 'しま',
+  quizlab: 'クイズラボ', other: 'そのほか',
+  // 古い名前・別名。
+  lobby: 'ロビー', fish: 'さかなつり', cabin: '小屋のクイズ', quiz: 'クイズ', school: 'がっこう', shop: 'お店', arena: 'バトル', town: 'まち', park: 'テーマパーク',
 };
+// quiz の data.level（Stats v4.2）。英検の級（5 / 4 / 3 / pre2 / 2）も受ける。
+export const LEVEL_LABELS = {
+  supereasy: 'とても かんたん', easy: 'かんたん', medium: 'ふつう', hard: 'むずかしい',
+  fishing: 'さかなつり', battle: 'バトル', gym: 'ことばのジム', racing: 'レース',
+  5: '5級', 4: '4級', 3: '3級', pre2: '準2級', 2: '2級',
+};
+export const LEVEL_ORDER = ['supereasy', 'easy', 'medium', 'hard', 'fishing', 'battle', 'gym', 'racing', '5', '4', '3', 'pre2', '2'];
+export const levelLabel = (l, labels = null) => labels?.[l] ?? LEVEL_LABELS[String(l || '').toLowerCase()] ?? (l || '（レベルなし）');
 export const worldLabel = (w, labels = null) => labels?.[w] ?? WORLD_LABELS[String(w || '').toLowerCase()] ?? (w || '（場所なし）');
 
 // ---- 記録の形 ---------------------------------------------------------------------------
@@ -174,7 +186,7 @@ export function evaluate(def, events, ctx = {}) {
       }
       const order = Array.isArray(expr.order) ? expr.order.map(String) : null;
       const rows = [...groups.entries()].map(([key, list]) => {
-        const label = by === 'world' ? worldLabel(key, expr.labels) : (expr.labels?.[key] ?? key);
+        const label = by === 'world' ? worldLabel(key, expr.labels) : by === 'level' ? levelLabel(key, expr.labels) : (expr.labels?.[key] ?? key);
         if (expr.agg === 'sum') return { key, label, value: sum(list, { where: expr.where || null }, String(expr.field || '')), count: list.length };
         if (expr.agg === 'ratio') {
           const n = count(list, { where: expr.num?.where || expr.where || null });
@@ -183,8 +195,10 @@ export function evaluate(def, events, ctx = {}) {
         }
         return { key, label, value: count(list, { where: expr.where || null }), count: list.length };
       });
+      const builtInOrder = by === 'level' ? LEVEL_ORDER : null;
       rows.sort((a, b) => {
         if (order) return (order.indexOf(a.key) + 1 || 999) - (order.indexOf(b.key) + 1 || 999);
+        if (builtInOrder) { const ia = builtInOrder.indexOf(a.key.toLowerCase()) + 1 || 999; const ib = builtInOrder.indexOf(b.key.toLowerCase()) + 1 || 999; if (ia !== ib) return ia - ib; }
         return b.count - a.count || a.key.localeCompare(b.key, 'ja');
       });
       return rows;
@@ -243,10 +257,14 @@ export const SEED_METRICS = [
   { key: 'coins_earned', label_ja: 'かせいだコイン', label_en: 'Coins earned', kind: 'sum', event_type: 'session', expr: { field: 'coinsEarned' }, order: 90, unit: 'coins' },
   { key: 'balance', label_ja: 'いまのコイン', label_en: 'Balance', kind: 'custom', event_type: '', expr: { fn: 'balance', periods: ['all'] }, order: 95, unit: 'coins' },
   { key: 'weak_words', label_ja: '間違えやすい単語', label_en: 'Words to review', kind: 'custom', event_type: '', expr: { fn: 'weak_words', limit: 5, periods: ['all'] }, order: 100, unit: 'list' },
-  { key: 'by_level', label_ja: '級ごとの正答率', label_en: 'Accuracy by level', kind: 'group', event_type: 'quiz', expr: { by: 'level', agg: 'ratio', num: { where: { retry: false, correct: true } }, den: { where: { retry: false } }, order: ['5', '4', '3', 'pre2', '2'], labels: { 5: '5級', 4: '4級', 3: '3級', pre2: '準2級', 2: '2級' } }, order: 110, unit: 'table' },
+  { key: 'by_level', label_ja: 'レベルごとの正答率', label_en: 'Accuracy by level', kind: 'group', event_type: 'quiz', expr: { by: 'level', agg: 'ratio', num: { where: { retry: false, correct: true } }, den: { where: { retry: false } } }, order: 110, unit: 'table' },
   { key: 'by_activity', label_ja: '場所ごとの問題数と正答率', label_en: 'Questions by place', kind: 'group', event_type: 'quiz', expr: { by: 'world', agg: 'ratio', num: { where: { retry: false, correct: true } }, den: { where: { retry: false } } }, order: 115, unit: 'table' },
   { key: 'by_world', label_ja: 'ワールド別の時間', label_en: 'Time by world', kind: 'group', event_type: 'session', expr: { by: 'world', agg: 'sum', field: 'seconds' }, order: 120, unit: 'table' },
 ].map(metricToRow);
+// 前の版の seed の行。保存されている行がこれと同じなら（管理ページで触っていないなら）、新しい seed に差し替える。
+export const SEED_PREVIOUS = [
+  metricToRow({ key: 'by_level', label_ja: '級ごとの正答率', label_en: 'Accuracy by level', kind: 'group', event_type: 'quiz', expr: { by: 'level', agg: 'ratio', num: { where: { retry: false, correct: true } }, den: { where: { retry: false } }, order: ['5', '4', '3', 'pre2', '2'], labels: { 5: '5級', 4: '4級', 3: '3級', pre2: '準2級', 2: '2級' } }, order: 110, unit: 'table' }),
+];
 
 // ---- まとめて --------------------------------------------------------------------------
 // 1人ぶん：有効な指標を、今週・先週・累計で。`periods` を持つ指標はその期間だけ。
