@@ -51,7 +51,10 @@ Roblox 側の設定：
   `userId .. os.time() .. 連番` のような形にする。最大 **300 件 / 回**。
 - `ts` は秒でもミリ秒でも ISO 文字列でも。無ければ受け取った時刻。
 - `type` と `data` は **検査しない**（知らない type もそのまま貯まる）。`data` は 32 KB まで。
-- `world` は event に無ければ batch の値。`classCode` を付けると先生ページのクラスに出る。
+- `world` は **Roblox の中のどこで起きたか**（`fishing` / `hut` / `main` / `quiz` …）。event に無ければ batch の値。
+  保護者ページの「場所ごとの問題数と正答率」「ワールド別の時間」「最近の記録」の「どこで」になる。
+  画面の名前は `roblox-metrics.js` の `WORLD_LABELS`（fishing→さかなつり、hut→小屋 …）。知らない名前はそのまま出る。
+- `classCode` を付けると先生ページのクラスに出る。
 - 返事：`{ "ok": true, "accepted": 3, "duplicates": 0 }`。
 
 指標が使う `type` と `data`（最低限これを送れば、下の画面が全部出る）：
@@ -204,8 +207,8 @@ end
 `custom` の関数：`guess_rate` / `active_days` / `streak_days` / `words_mastered` / `weak_words` / `best_streak` / `balance`
 （`server/src/game/roblox-metrics.js`）。
 
-最初から入っている 13 行：問題数・正答率・あてずっぽう率・学習時間・来た日・連続日数・覚えた単語・
-最長の連続正解・かせいだコイン・いまのコイン・間違えやすい単語・級ごとの正答率・ワールド別の時間。
+最初から入っている 14 行（版が上がって増えた行は、起動時に無い key だけ足される。いらない指標は `enabled` を `0` に）：問題数・正答率・あてずっぽう率・学習時間・来た日・連続日数・覚えた単語・
+最長の連続正解・かせいだコイン・いまのコイン・間違えやすい単語・級ごとの正答率・場所ごとの問題数と正答率・ワールド別の時間。
 
 計算の約束：
 

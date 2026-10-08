@@ -40,7 +40,7 @@ function tableMetric(m, period) {
   if (!Array.isArray(rows) || !rows.length) return `<p class="fine">${esc(PERIOD_LABEL[period])}は まだ記録がありません。</p>`;
   const isRatio = m.kind === 'group' && m.expr.agg === 'ratio';
   const unit = isRatio ? 'percent' : m.expr.agg === 'sum' ? (m.unit === 'table' ? 'seconds' : m.unit) : 'count';
-  return `<table class="nums"><thead><tr><th>${esc(m.key === 'by_world' ? 'ワールド' : m.key === 'by_level' ? '級' : '')}</th><th>${esc(PERIOD_LABEL[period])}</th>${isRatio ? '<th>問題数</th>' : ''}</tr></thead><tbody>${
+  return `<table class="nums"><thead><tr><th>${esc(m.key === 'by_world' || m.key === 'by_activity' ? '場所' : m.key === 'by_level' ? '級' : '')}</th><th>${esc(PERIOD_LABEL[period])}</th>${isRatio ? '<th>問題数</th>' : ''}</tr></thead><tbody>${
     rows.map((r) => `<tr><td>${esc(r.label)}</td><td><b>${esc(formatValue(r.value, unit))}</b></td>${isRatio ? `<td>${r.correct} / ${r.count}</td>` : ''}</tr>`).join('')
   }</tbody></table>`;
 }
@@ -82,11 +82,30 @@ const STYLE = `
  .words li b { font-size:17px; min-width:7em; }
  .words li span { color:var(--soft); font-size:13px; }
  .fine { font-size:12px; color:var(--soft); margin:6px 0 0; }
+ .recent td { font-size:13px; padding:6px 8px; white-space:nowrap; } .recent td:nth-child(4) { white-space:normal; }
+ .recent .ok { color:var(--good); font-weight:700; } .recent .ng { color:var(--bad); font-weight:700; }
  .tag { display:inline-block; font-size:11px; padding:1px 8px; border-radius:10px; background:#f3e0cf; color:#7a4a1c; vertical-align:middle; margin-left:6px; }
  footer { font-size:12px; color:var(--soft); margin-top:18px; }
  @media (max-width:480px) { .cards b { font-size:19px; } th, td { padding:7px 6px; } }
  @media print { body { background:#fff; } section { break-inside:avoid; border-color:#ccc; } header { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
 `;
+
+// 最近の記録：どこで（さかなつり・小屋…）何をしたか。保護者が「きのう何してたの」に答えられる。
+const TYPE_JA = { quiz: 'クイズ', session: 'あそんだ時間', 'fast-type': 'はやおし', join: '入室', leave: '退室' };
+const timeJa = (ts) => new Date(ts).toLocaleString('ja-JP', { ...JST, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+function recentSection(recent) {
+  if (!Array.isArray(recent) || !recent.length) return '';
+  const rows = recent.map((r) => {
+    const what = r.type === 'quiz'
+      ? `<b translate="no">${esc(r.word || '')}</b>${r.level ? ` <small>${esc(r.level)}級</small>` : ''}${r.retry ? ' <small>やり直し</small>' : ''}`
+      : r.type === 'session' ? `${Math.round(num(r.seconds) / 60)}分` : esc(TYPE_JA[r.type] || r.type);
+    const mark = r.correct === null ? '' : r.correct ? '<span class="ok">○</span>' : `<span class="ng">×${r.fast ? ' はやい' : ''}</span>`;
+    return `<tr><td>${esc(timeJa(r.ts))}</td><td>${esc(r.place)}</td><td>${esc(TYPE_JA[r.type] || r.type)}</td><td>${what}</td><td>${mark}</td></tr>`;
+  }).join('');
+  return `<section><h2>最近の記録<small>新しい順に ${recent.length} 件</small></h2>
+<table class="recent"><thead><tr><th>いつ</th><th>どこで</th><th>なに</th><th></th><th></th></tr></thead><tbody>${rows}</tbody></table>
+<p class="fine">「どこで」は Roblox の中の場所（さかなつり・小屋 など）です。</p></section>`;
+}
 
 // ---- 保護者ページ -----------------------------------------------------------------------
 export function parentHtml(s, { madeAt = Date.now() } = {}) {
@@ -114,6 +133,7 @@ ${s.counts.all ? '' : '<section><p>まだ Roblox での記録がありません�
 ${guess ? `<section><h2>あてずっぽう率</h2><div class="guess"><b class="${g !== null && g !== undefined && g < FLAG_GUESS_PCT ? 'low' : ''}">${esc(formatValue(g, 'percent'))}</b><span>今週（先週 ${esc(formatValue(guess.values.last, 'percent'))} · 累計 ${esc(formatValue(guess.values.all, 'percent'))}）</span></div>
 <p class="fine">${GUESS_NOTE}</p></section>` : ''}
 ${tables}${lists}
+${recentSection(s.recent)}
 <footer>このページは1人ぶんのリンクです。ほかの人に送らないでください。Roblox 上の学習記録（アカウント名・回答・利用時間）を U-Speak Web に保存し、保護者と教室に表示しています。</footer>
 </main></body></html>`;
 }

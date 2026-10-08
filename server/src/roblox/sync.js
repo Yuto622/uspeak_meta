@@ -82,10 +82,17 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
     const rows = (await store.listMetrics?.()) || [];
     return rows.length ? rows : SEED_METRICS;
   }
+  // 最初から入っている指標。**版が上がって seed が増えたら、無い key だけ足す**（消したい
+  // 指標は「有効」を外す。行を消しても次の起動で戻る）。
   async function ensureSeeds() {
     try {
       const rows = (await store.listMetrics?.()) || [];
-      if (!rows.length && store.saveMetrics) { await store.saveMetrics(SEED_METRICS); log.info(`[roblox] metric_definitions seeded (${SEED_METRICS.length})`); }
+      const have = new Set(rows.map((r) => r.key));
+      const missing = SEED_METRICS.filter((m) => !have.has(m.key));
+      if (missing.length && store.saveMetrics) {
+        await store.saveMetrics([...rows, ...missing]);
+        log.info(`[roblox] metric_definitions seeded (+${missing.length}: ${missing.map((m) => m.key).join(', ')})`);
+      }
     } catch (err) { log.warn('[roblox] could not seed metric_definitions:', err.message); }
   }
 

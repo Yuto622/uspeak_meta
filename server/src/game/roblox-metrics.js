@@ -28,6 +28,14 @@ export const PERIOD_LABEL = { week: '今週', last: '先週', all: '累計' };
 
 const inRange = (e, { since, until }) => (!since || e.ts >= since) && (!until || e.ts < until);
 
+// Roblox のどこで起きた記録か（event の `world`）。Roblox 側が送る名前 → 画面の名前。
+// 知らない名前はそのまま出す（新しい場所を足しても壊れない）。管理ページの `labels` で上書きできる。
+export const WORLD_LABELS = {
+  main: 'メインワールド', lobby: 'ロビー', fishing: 'さかなつり', fish: 'さかなつり', hut: '小屋', cabin: '小屋',
+  quiz: 'クイズ', school: 'がっこう', shop: 'お店', arena: 'アリーナ', farm: 'ぼくじょう', town: 'まち', park: 'テーマパーク',
+};
+export const worldLabel = (w, labels = null) => labels?.[w] ?? WORLD_LABELS[String(w || '').toLowerCase()] ?? (w || '（場所なし）');
+
 // ---- 記録の形 ---------------------------------------------------------------------------
 // 保存の行（data_json が文字列）を、計算しやすい形に。`data` は Roblox が付けたまま。
 export function parseEvent(row) {
@@ -166,7 +174,7 @@ export function evaluate(def, events, ctx = {}) {
       }
       const order = Array.isArray(expr.order) ? expr.order.map(String) : null;
       const rows = [...groups.entries()].map(([key, list]) => {
-        const label = expr.labels?.[key] ?? key;
+        const label = by === 'world' ? worldLabel(key, expr.labels) : (expr.labels?.[key] ?? key);
         if (expr.agg === 'sum') return { key, label, value: sum(list, { where: expr.where || null }, String(expr.field || '')), count: list.length };
         if (expr.agg === 'ratio') {
           const n = count(list, { where: expr.num?.where || expr.where || null });
@@ -236,6 +244,7 @@ export const SEED_METRICS = [
   { key: 'balance', label_ja: 'いまのコイン', label_en: 'Balance', kind: 'custom', event_type: '', expr: { fn: 'balance', periods: ['all'] }, order: 95, unit: 'coins' },
   { key: 'weak_words', label_ja: '間違えやすい単語', label_en: 'Words to review', kind: 'custom', event_type: '', expr: { fn: 'weak_words', limit: 5, periods: ['all'] }, order: 100, unit: 'list' },
   { key: 'by_level', label_ja: '級ごとの正答率', label_en: 'Accuracy by level', kind: 'group', event_type: 'quiz', expr: { by: 'level', agg: 'ratio', num: { where: { retry: false, correct: true } }, den: { where: { retry: false } }, order: ['5', '4', '3', 'pre2', '2'], labels: { 5: '5級', 4: '4級', 3: '3級', pre2: '準2級', 2: '2級' } }, order: 110, unit: 'table' },
+  { key: 'by_activity', label_ja: '場所ごとの問題数と正答率', label_en: 'Questions by place', kind: 'group', event_type: 'quiz', expr: { by: 'world', agg: 'ratio', num: { where: { retry: false, correct: true } }, den: { where: { retry: false } } }, order: 115, unit: 'table' },
   { key: 'by_world', label_ja: 'ワールド別の時間', label_en: 'Time by world', kind: 'group', event_type: 'session', expr: { by: 'world', agg: 'sum', field: 'seconds' }, order: 120, unit: 'table' },
 ].map(metricToRow);
 
@@ -255,6 +264,12 @@ export function summarize(defs, rows, { now = Date.now(), wallet = null } = {}) 
   const last = events.at(-1);
   return {
     metrics: out,
+    // 最近の記録（新しい順）。どこで（world）・何を（type・word）・どうだったか。
+    recent: events.slice(-30).reverse().map((e) => ({
+      ts: e.ts, type: e.type, world: e.world, place: worldLabel(e.world),
+      word: e.data.word ?? '', level: e.data.level ?? '', correct: e.type === 'quiz' ? truthy(e.data.correct) : null,
+      retry: truthy(e.data.retry), fast: truthy(e.data.fast), seconds: e.type === 'session' ? num(e.data.seconds) : null,
+    })),
     counts: Object.fromEntries(PERIODS.map((p) => [p, byPeriod[p].length])),
     lastSeen: last ? last.ts : 0,
     firstSeen: events[0] ? events[0].ts : 0,

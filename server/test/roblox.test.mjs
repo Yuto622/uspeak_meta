@@ -291,7 +291,7 @@ test('1分の上限を超えると 429', async () => {
 // ---- 画面 ---------------------------------------------------------------------------
 test('/report/:username は署名つき。実データで累計・今週/先週・あてずっぽう率・級・単語・ワールドが出る', async () => {
   const now = Date.now();
-  const mk = (i, data, type = 'quiz', extra = {}) => ({ id: `rep-${i}`, ts: now - 3600000 - i * 1000, type, username: 'rbx_hana', classCode: '6-1', data, ...extra });
+  const mk = (i, data, type = 'quiz', extra = {}) => ({ id: `rep-${i}`, ts: now - 3600000 - i * 1000, type, username: 'rbx_hana', classCode: '6-1', world: 'fishing', data, ...extra });
   const events = [
     mk(1, { level: '5', word: 'apple', correct: true }), mk(2, { level: '5', word: 'apple', correct: true }), mk(3, { level: '5', word: 'apple', correct: true }),
     mk(4, { level: '4', word: 'river', correct: false, fast: true }), mk(5, { level: '4', word: 'river', correct: false }),
@@ -308,11 +308,16 @@ test('/report/:username は署名つき。実データで累計・今週/先週�
   for (const needle of ['累計', '今週と先週', 'あてずっぽう率', '問題の読み上げが終わる前に答えて間違えた割合', '級ごとの正答率', '間違えやすい単語', 'ワールド別の時間', 'river', '5級', '4級', 'main', 'noindex']) {
     assert.ok(html.includes(needle), `page has ${needle}`);
   }
-  assert.ok(!/>apple</.test(html), '覚えた単語は苦手には出ない');
+  const weak = /<ul class="words">[\s\S]*?<\/ul>/.exec(html)?.[0] || '';
+  assert.ok(weak.includes('river') && !weak.includes('apple'), '覚えた単語は苦手には出ない');
+  assert.ok(html.includes('場所ごとの問題数と正答率') && html.includes('最近の記録'), 'どこでやったかが出る');
   const json = await (await fetch(`${http}/report/rbx_hana?t=${token}&format=json`)).json();
   assert.equal(json.metrics.find((m) => m.key === 'questions').values.all, 6, 'idem-1 の1問 ＋ 5問');
   assert.equal(json.metrics.find((m) => m.key === 'guess_rate').values.all, Math.round((1 / 6) * 1000) / 10);
   assert.equal(json.metrics.find((m) => m.key === 'words_mastered').values.all, 1);
+  const act = json.metrics.find((m) => m.key === 'by_activity').values.all;
+  assert.ok(act.some((r) => r.label === 'さかなつり' && r.count === 5), 'つり場の 5 問が「さかなつり」として出る');
+  assert.ok(json.recent.some((r) => r.place === 'さかなつり' && r.word === 'river'), '最近の記録に 場所つきで出る');
 });
 
 test('/class/:classCode に Roblox の表が出て、CSV も同じ署名で取れる。未登録の印と気になる印', async () => {
