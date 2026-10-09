@@ -923,7 +923,21 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 見た目を足す／段を変えるときは `land.test.mjs`（比率 2〜6 倍・順番・12 の世界が全部ちがう・もようがえ）を通し、
   `land-world.js` の `THEMES` と `BUILD` に同じ名前で足し、`land.css` の `[data-theme=…]` の色も足すこと。
 
-## メインの島（2D のホーム／2026-10 追加）
+## メインの島（3D の島 ＋ 2D の しまの ちず／2026-10 追加・更新）
+
+**島そのものは 3D**（`main-world.js`、ほかの島と同じ island-kit）。HUBS の `main`（ACTIVITY_HUBS にも）。
+配置は `main_island.json` の `island`（Roblox の pois を、場所どうし 10 以上はなして並べなおしたもの）。
+ふつうの島より大きいので `createIsland` に `size` / `power`（4＝角の丸い四角）/ `land`（入り江を抜く）/ `dock` を渡す
+（どれも省けば いままでの島。`arrival` が着く場所で、`rpg.activate` が使う）。
+
+- 入れるのは P1 の 11 か所（英単語ハウス 3・看板・かいとりや・つり場・ゲート 5）。**戸口を歩いて入ると** `setDoorHandler` →
+  `main-island.js` の `walkIn(spot)`。ゲートは そのまま飛ぶ。P2 / P3 は 建物だけで 札に 🔜。
+- **はじめてクラスに入ったときだけ** その場でメインの島に立たせる（`goHome({first:true})`、飛ばない）。
+  右のバーの 🏠 は 島の外なら ひこうきで帰る、島の上なら 下の 2D の地図を開く。
+- **e2e は `uspeak.net.main.homed` を待って `skipHome()`**（入ったときの場所＝U-Speak島に戻す）。
+- 島にいた時間（`main:enter` / `main:leave`）は 3D の島に立っている間（1 秒ごとに見る）。
+
+### しまの ちず（2D）
 
 `main-island.js` + `main-island.css` + `main_island.json`（Roblox のメインワールドの配置）/ `wordhouse.js` + `wordhouse.css`（英単語ハウス）。
 サーバーは `server/src/game/wordhouse.js` と `ClassRoom` の `wh:*` / `main:*`、つり場は `fw:*` の `spot: "main"`。
@@ -931,7 +945,6 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **3D の上に全面でかぶせる `<div id="main-island">`**（`<header>` は使わない：style.css の `header{position:fixed}`）。
   開いている間は `body[data-main]`。**3D は描かない**（`game.js` のフレームループが `net.main.isOpen` で早く帰る）が、
   BGM は止めない（同梱ゲームと違い、ここは島の中の画面）。
-- **クラスに入って最初の welcome で 1 回だけ開く**（`net-client.js`、つなぎなおしでは開かない）。右のバーの「🏠 Main Island」で戻る。
 - **座標は main_island.json の x, z をそのまま**（`fx/fz` で frame を 0〜100%）。場所は大きい物だけ床（`.mi-foot`）を描き、
   全部に丸いマーカー（`.mi-poi`）。ラベルの向きは `SIDE`（近い物どうしがぶつからないように）。地図は横 1100px 以上で、はみ出す分は指でスクロール。
 - **子ども向けの文は `COPY`**（main_island.json の `action` は作る人のメモ）。ゲートの行き先は `GATE_TO`、

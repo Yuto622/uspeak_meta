@@ -498,5 +498,469 @@
    "ja": "📣 先生の Gather（Web では クラス全員を 同じ場所に）",
    "phase": 2
   }
- ]
+ ],
+ "island": {
+  "id": "main",
+  "name": "メインの島",
+  "en": "MAIN ISLAND",
+  "x": -45,
+  "z": -140,
+  "radius": 5,
+  "grass": 9417564,
+  "grassTop": 10469482,
+  "size": {
+   "x": 54,
+   "z": 43
+  },
+  "power": 4,
+  "dock": {
+   "x": 31,
+   "z": 37
+  },
+  "spawn": {
+   "x": 31,
+   "z": 37
+  },
+  "start": {
+   "x": 31,
+   "z": 30
+  },
+  "bay": {
+   "minX": -16,
+   "maxX": 22,
+   "minZ": 25
+  },
+  "pier": {
+   "x": 4,
+   "minZ": 24,
+   "maxZ": 35,
+   "w": 3.4
+  },
+  "roads": [
+   {
+    "x0": -46,
+    "x1": 48,
+    "z": 16,
+    "w": 5
+   },
+   {
+    "x": -6,
+    "z0": -36,
+    "z1": 16,
+    "w": 4
+   }
+  ],
+  "hills": [
+   {
+    "x": -46,
+    "z": -32,
+    "r": 7
+   }
+  ],
+  "spots": [
+   {
+    "id": "hut_easy",
+    "kind": "word_house",
+    "house": "hut_easy",
+    "x": 22,
+    "z": -4,
+    "path": {
+     "x": 22,
+     "z": 16
+    },
+    "color": 5221995,
+    "character": "Ms. Easy",
+    "en": "Word House: SUPER EASY / EASY",
+    "ja": "英単語ハウス（イージー）",
+    "short": "EASY",
+    "shortJa": "イージー"
+   },
+   {
+    "id": "hut_medium",
+    "kind": "word_house",
+    "house": "hut_medium",
+    "x": 33,
+    "z": -4,
+    "path": {
+     "x": 33,
+     "z": 16
+    },
+    "color": 14715436,
+    "character": "Mr. Medium",
+    "en": "Word House: MEDIUM",
+    "ja": "英単語ハウス（ミディアム）",
+    "short": "MEDIUM",
+    "shortJa": "ミディアム"
+   },
+   {
+    "id": "hut_hard",
+    "kind": "word_house",
+    "house": "hut_hard",
+    "x": 44,
+    "z": -4,
+    "path": {
+     "x": 44,
+     "z": 16
+    },
+    "color": 4157368,
+    "character": "Dr. Hard",
+    "en": "Word House: HARD",
+    "ja": "英単語ハウス（ハード）",
+    "short": "HARD",
+    "shortJa": "ハード"
+   },
+   {
+    "id": "level_sign",
+    "kind": "level_sign",
+    "x": 14,
+    "z": 8,
+    "path": {
+     "x": 14,
+     "z": 16
+    },
+    "color": 1784367,
+    "character": "Level Sign",
+    "en": "SUPER EASY ⇔ EASY",
+    "ja": "レベルを かえる"
+   },
+   {
+    "id": "fish_buy",
+    "kind": "fish_buy",
+    "x": 0,
+    "z": 6,
+    "path": {
+     "x": 0,
+     "z": 16
+    },
+    "color": 3120783,
+    "character": "Fishmonger",
+    "en": "Sell your fish",
+    "ja": "さかなを うる"
+   },
+   {
+    "id": "fishing_pier",
+    "kind": "fishing",
+    "x": 4,
+    "z": 31,
+    "path": {
+     "x": 4,
+     "z": 16
+    },
+    "color": 2067110,
+    "character": "Captain",
+    "en": "Fish in English",
+    "ja": "英語で釣りをする"
+   },
+   {
+    "id": "gate_fishing",
+    "kind": "gate",
+    "to": "fishworld",
+    "x": 16,
+    "z": 21,
+    "path": {
+     "x": 16,
+     "z": 16
+    },
+    "color": 5808348,
+    "character": "Fishing World",
+    "en": "Gate to the Fishing World",
+    "ja": "つり島への ゲート"
+   },
+   {
+    "id": "gate_park",
+    "kind": "gate",
+    "to": "park",
+    "x": -12,
+    "z": -30,
+    "path": {
+     "x": -6,
+     "z": -30
+    },
+    "color": 14842413,
+    "character": "Theme Park",
+    "en": "Gate to the Theme Park",
+    "ja": "テーマパークへの ゲート"
+   },
+   {
+    "id": "gate_race",
+    "kind": "gate",
+    "to": "ride",
+    "x": -12,
+    "z": -19,
+    "path": {
+     "x": -6,
+     "z": -19
+    },
+    "color": 14242639,
+    "character": "Racing",
+    "en": "Gate to the races",
+    "ja": "レースへの ゲート"
+   },
+   {
+    "id": "gate_build",
+    "kind": "gate",
+    "to": "town",
+    "x": -12,
+    "z": -8,
+    "path": {
+     "x": -6,
+     "z": -8
+    },
+    "color": 9083466,
+    "character": "Building Garden",
+    "en": "Gate to the Building Garden",
+    "ja": "まちづくりへの ゲート"
+   },
+   {
+    "id": "gate_rpg",
+    "kind": "gate",
+    "to": "meadow",
+    "x": -12,
+    "z": 3,
+    "path": {
+     "x": -6,
+     "z": 3
+    },
+    "color": 8019144,
+    "character": "RPG Quest",
+    "en": "Gate to the RPG quest",
+    "ja": "ぼうけんへの ゲート"
+   }
+  ],
+  "deco": [
+   {
+    "id": "season",
+    "type": "house",
+    "x": 24,
+    "z": -24,
+    "w": 8,
+    "d": 6.4,
+    "color": 13934625,
+    "roof": 9067051,
+    "icon": "🍁",
+    "en": "Season Quiz",
+    "ja": "きせつの クイズ"
+   },
+   {
+    "id": "shop_food1",
+    "type": "kiosk",
+    "x": 26,
+    "z": -38,
+    "color": 14722342,
+    "icon": "🚚",
+    "en": "Food Truck",
+    "ja": "フードトラック"
+   },
+   {
+    "id": "shop_food2",
+    "type": "kiosk",
+    "x": -3,
+    "z": 22,
+    "color": 15244208,
+    "icon": "🍰",
+    "en": "Sweets",
+    "ja": "スイーツ"
+   },
+   {
+    "id": "shop_food3",
+    "type": "kiosk",
+    "x": 10,
+    "z": 22,
+    "color": 8176864,
+    "icon": "🧃",
+    "en": "Drinks",
+    "ja": "のみもの"
+   },
+   {
+    "id": "shop_food0",
+    "type": "kiosk",
+    "x": -10,
+    "z": 22,
+    "color": 14242639,
+    "icon": "🍎",
+    "en": "Fruit Stand",
+    "ja": "くだものや"
+   },
+   {
+    "id": "clothes",
+    "type": "house",
+    "x": -30,
+    "z": 4,
+    "w": 8,
+    "d": 6.4,
+    "color": 14247565,
+    "roof": 8009040,
+    "icon": "👕",
+    "en": "Clothes Shop",
+    "ja": "ふくや"
+   },
+   {
+    "id": "blocks",
+    "type": "house",
+    "x": -30,
+    "z": -14,
+    "w": 8,
+    "d": 6.4,
+    "color": 10135658,
+    "roof": 5925434,
+    "icon": "🧱",
+    "en": "Block Shop",
+    "ja": "ブロックや"
+   },
+   {
+    "id": "build_area",
+    "type": "plot",
+    "x": 9,
+    "z": -21,
+    "w": 14,
+    "d": 12,
+    "color": 13220234,
+    "icon": "🏗",
+    "en": "Build Area",
+    "ja": "たてる ばしょ"
+   },
+   {
+    "id": "mansion",
+    "type": "house",
+    "x": 45,
+    "z": 24,
+    "w": 9,
+    "d": 7,
+    "color": 8363976,
+    "roof": 3428474,
+    "icon": "🏠",
+    "en": "House Shop",
+    "ja": "いえの おみせ"
+   },
+   {
+    "id": "arena1",
+    "type": "arena",
+    "x": -26,
+    "z": -32,
+    "w": 12,
+    "d": 9,
+    "color": 11560522,
+    "icon": "⚔",
+    "en": "Battle Arena",
+    "ja": "バトルアリーナ"
+   },
+   {
+    "id": "arena2",
+    "type": "arena",
+    "x": 40,
+    "z": -28,
+    "w": 11,
+    "d": 8,
+    "color": 11560522,
+    "icon": "⚔",
+    "en": "Battle Arena 2",
+    "ja": "バトルアリーナ 2"
+   },
+   {
+    "id": "photo",
+    "type": "kiosk",
+    "x": -22,
+    "z": 22,
+    "color": 8161942,
+    "icon": "📷",
+    "en": "Photo Booth",
+    "ja": "しゃしんの ブース"
+   },
+   {
+    "id": "npc_talk",
+    "type": "kiosk",
+    "x": -34,
+    "z": 22,
+    "color": 5221995,
+    "icon": "💬",
+    "en": "Talk NPCs",
+    "ja": "はなせる ひとたち"
+   },
+   {
+    "id": "GinjiDenki",
+    "type": "house",
+    "x": -44,
+    "z": 4,
+    "w": 8,
+    "d": 6.4,
+    "color": 13222832,
+    "roof": 6972504,
+    "icon": "📺",
+    "en": "Electronics",
+    "ja": "でんきや",
+    "scenery": true
+   },
+   {
+    "id": "SoraMobile",
+    "type": "house",
+    "x": -44,
+    "z": -14,
+    "w": 8,
+    "d": 6.4,
+    "color": 12177632,
+    "roof": 4876928,
+    "icon": "📱",
+    "en": "Phones",
+    "ja": "けいたいや",
+    "scenery": true
+   },
+   {
+    "id": "JijiBooks",
+    "type": "house",
+    "x": -44,
+    "z": 30,
+    "w": 7,
+    "d": 6,
+    "color": 14207136,
+    "roof": 8018490,
+    "icon": "📚",
+    "en": "Books",
+    "ja": "ほんや",
+    "scenery": true
+   },
+   {
+    "id": "HibanaPizza",
+    "type": "house",
+    "x": -33,
+    "z": 34,
+    "w": 8,
+    "d": 6,
+    "color": 15249520,
+    "roof": 10502186,
+    "icon": "🍕",
+    "en": "Pizza",
+    "ja": "ピザ",
+    "scenery": true
+   },
+   {
+    "id": "MogumoBurger",
+    "type": "house",
+    "x": -23,
+    "z": 34,
+    "w": 7,
+    "d": 6,
+    "color": 15255696,
+    "roof": 9062954,
+    "icon": "🍔",
+    "en": "Burgers",
+    "ja": "バーガー",
+    "scenery": true
+   },
+   {
+    "id": "NyauruToybox",
+    "type": "house",
+    "x": 6,
+    "z": -38,
+    "w": 12,
+    "d": 6.4,
+    "color": 15779914,
+    "roof": 12603450,
+    "icon": "🧸",
+    "en": "Toys",
+    "ja": "おもちゃや",
+    "scenery": true
+   }
+  ],
+  "note": "3D の島の配置。Roblox の配置（pois）を Web の島の大きさに並べなおしたもの（場所どうし 10 以上はなす）。"
+ }
 }

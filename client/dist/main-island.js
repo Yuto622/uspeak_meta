@@ -1,7 +1,7 @@
 // メインの島 — Roblox の メインワールドを、上から見た 2D の地図にした「ホーム」。
 //
 // 配置は main_island.json（Roblox から書き出した x, z をそのまま使う：Roblox で遊んだ子が
-// 「同じ町だ」と分かるのが目的）。3D は作らない。建物をタップ → 下からカード → Roblox と同じ言葉の
+// 「同じ町だ」と分かるのが目的）。島そのものは 3D（main-world.js）で、これは その上に開く「しまの ちず」。建物をタップ → 下からカード → Roblox と同じ言葉の
 // ボタン（「はいる」「英語で釣りをする」「レベルを かえる」）。小さい子とスマホには「リストで見る」。
 //
 // 動くもの（P1）：英単語ハウス 3 軒（wordhouse.js）・レベル切り替え看板・つり場（fishworld.js の
@@ -64,7 +64,7 @@ const tagJa = (p) => (p.id === 'hut_easy' ? LEVEL_LABEL[easyLevel()][1] : p.kind
 let dataPromise = null;
 const loadData = () => (dataPromise ||= fetch('main_island.json', { cache: 'no-cache' }).then((r) => r.json()));
 
-export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordhouse, daily, dash, guide, getCoins, getLevel, getStreak }) {
+export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordhouse, daily, dash, guide, getCoins, getLevel, getStreak, player = null }) {
   const root = document.createElement('div');
   root.id = 'main-island';
   root.hidden = true;
@@ -74,7 +74,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
   const state = { data: null, view: 'map', open: false, picked: '', zoom: 1 };
   try { state.view = localStorage.getItem(VIEW_KEY) || (matchMedia('(max-width: 640px)').matches ? 'list' : 'map'); } catch { /* private mode */ }
   const firstTime = () => { try { return !localStorage.getItem(GUIDE_KEY); } catch { return false; } };
-  const doneGuide = () => { try { localStorage.setItem(GUIDE_KEY, '1'); } catch { /* private mode */ } root.classList.remove('guiding'); };
+  const doneGuide = () => { try { localStorage.setItem(GUIDE_KEY, '1'); } catch { /* private mode */ } root.classList.remove('guiding'); rpg.main?.setTarget(''); };
 
   // ---- 座標：Roblox の x, z を frame で 0〜1 に ----
   const fx = (x) => (x - state.data.frame.minX) / (state.data.frame.maxX - state.data.frame.minX) * 100;
@@ -303,7 +303,6 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     root.hidden = false;
     document.body.dataset.main = '1';
     render();
-    if (isOnline()) send('main:enter', {});
   }
   function close() {
     if (!state.open) return;
@@ -311,7 +310,6 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     closeSheet();
     root.hidden = true;
     delete document.body.dataset.main;
-    if (isOnline()) send('main:leave', {});
   }
   function refresh() {
     const c = $('#mi-coins', root); if (c) c.textContent = (getCoins() ?? 0).toLocaleString();
@@ -320,5 +318,64 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
   root.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (state.picked) closeSheet(); } });
   onLangChange(() => { if (state.open) { const picked = state.picked; render(); if (picked) pick(picked); } });
 
-  return { open, close, refresh, pick, get isOpen() { return state.open; }, state };
+  // ---- 3D のメインの島（main-world.js）----------------------------------------------------
+  // 戸口に入ったとき（net-client の setDoorHandler）と、E / 「ここで …」ボタンのとき。2D の地図と同じことをする。
+  function walkIn(spot) {
+    if (!spot) return false;
+    if (['hut_easy', 'fishing_pier'].includes(spot.id)) doneGuide();
+    if (spot.kind === 'gate') { goWorld(spot.to); return true; }
+    if (spot.kind === 'word_house') { wordhouse.open(spot.house || spot.id); return true; }
+    if (spot.kind === 'level_sign') {
+      const next = toggleEasyLevel();
+      toast(tr('レベルを {lv} に かえたよ', { lv: LEVEL_LABEL[next][0] }));
+      return true;
+    }
+    if (!isOnline()) { toast(tr('オンラインで あそべます。')); return true; }
+    if (spot.kind === 'fishing') fishworld.enter({ id: 'main', zone: 1 }, { flat: true });
+    if (spot.kind === 'fish_buy') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, tab: 'bag' });
+    return true;
+  }
+  const LABEL = {
+    word_house: (sp) => `📖 ${tr('はいる')}（${LEVEL_LABEL[sp.id === 'hut_easy' ? easyLevel() : HOUSE_INFO[sp.id]?.levels?.[0] || 'Easy']?.[0] || ''}）`,
+    level_sign: () => tr('🔁 レベルを かえる'),
+    fishing: () => tr('🎣 英語で釣りをする'),
+    fish_buy: () => tr('🐟 さかなを うる'),
+    gate: (sp) => `🌀 ${isJa() ? String(sp.ja || '').replace(/への ゲート$/, '') : sp.character} →`,
+  };
+  const label = (spot) => (LABEL[spot?.kind] || (() => tr('はいる')))(spot);
+
+  // ホーム＝メインの島。はじめて クラスに入ったときは その場で島に立たせる（飛ばない）。
+  // あとで 🏠 を押したときは ひこうきで行く。島にいるときの 🏠 は 2D の地図（リストでも見られる）。
+  const homeState = { homed: false, from: null };
+  function goHome({ first = false } = {}) {
+    if (rpg.state.current === 'main') { if (!first) open(); return; }
+    if (first) {
+      if (player) homeState.from = { id: rpg.state.current, x: player.position.x, y: player.position.y, z: player.position.z };
+      rpg.activate('main', true, true);
+      homeState.homed = true;
+      // はじめての子には 光の柱で 英単語ハウス（イージー）を さす（入ったら きえる）。
+      let seen = false; try { seen = localStorage.getItem(GUIDE_KEY) === '1'; } catch { /* private */ }
+      if (!seen) rpg.main?.setTarget('hut_easy');
+      return;
+    }
+    if (rpg.fly('main') === false) rpg.activate('main', true, true);
+  }
+  // 島にいた時間（session / main）は 3D の島に立っている間。入った・出たを部屋に言うだけで、数えるのは部屋。
+  let onIsland = false;
+  setInterval(() => {
+    const now = rpg.state.current === 'main' && rpg.state.mode !== 'flight' && isOnline();
+    if (now !== onIsland) { onIsland = now; send(now ? 'main:enter' : 'main:leave', {}); }
+  }, 1000);
+
+  // 検査用：はじめのホームを取り消して、入ったときの場所に戻す（e2e は U-Speak島の上で歩く）。
+  function skipHome() {
+    close();
+    const f = homeState.from;
+    if (!f) return;
+    homeState.from = null;
+    rpg.activate(f.id, false, true);
+    if (player) player.position.set(f.x, f.y, f.z);
+  }
+
+  return { open, close, refresh, pick, walkIn, label, goHome, skipHome, get homed() { return homeState.homed; }, get isOpen() { return state.open; }, state };
 }

@@ -3133,6 +3133,10 @@
     "その いえは ありません。": "That house does not exist.",
     "レベルを {lv} に かえたよ": "Level changed to {lv}",
     "オンラインで あそべます。": "You can play this when you are online.",
-    "きょうの ぶんは もう もらったよ。": "You already got today's bonus."
+    "きょうの ぶんは もう もらったよ。": "You already got today's bonus.",
+    "はいる": "Enter",
+    "🔁 レベルを かえる": "🔁 Change level",
+    "🎣 英語で釣りをする": "🎣 Fish in English",
+    "🐟 さかなを うる": "🐟 Sell fish"
   }
 }

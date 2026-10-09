@@ -168,8 +168,8 @@ try {
     await page.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'),
       null, { timeout: 120000, polling: 250 });
     // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。
-    await page.waitForFunction(() => globalThis.uspeak?.net?.main?.isOpen, null, { timeout: 8000, polling: 100 }).catch(() => {});
-    await page.evaluate(() => globalThis.uspeak?.net?.main?.close());
+    await page.waitForFunction(() => globalThis.uspeak?.net?.main?.homed, null, { timeout: 8000, polling: 100 }).catch(() => {});
+    await page.evaluate(() => globalThis.uspeak?.net?.main?.skipHome());
     // **相棒を選んでいない子は飛べない。** rpg.fly() の最初の行がそれで、選んでいないと
     // 冒険ノートを開いて false を返す（島が willow のままになる）。lib/walk.mjs の
     // openPage がやっているのと同じことを、ここでもやる。

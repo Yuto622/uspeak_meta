@@ -39,8 +39,8 @@ async function openPage(ctx, name) {
   await page.click('#net-join');
   await page.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 30000, polling: 250 });
   // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。
-  await page.waitForFunction(() => globalThis.uspeak?.net?.main?.isOpen, null, { timeout: 8000, polling: 100 }).catch(() => {});
-  await page.evaluate(() => globalThis.uspeak?.net?.main?.close());
+  await page.waitForFunction(() => globalThis.uspeak?.net?.main?.homed, null, { timeout: 8000, polling: 100 }).catch(() => {});
+  await page.evaluate(() => globalThis.uspeak?.net?.main?.skipHome());
   return page;
 }
 const coins = (page) => page.evaluate(() => uspeak.fishing.store.state.coins);
@@ -93,8 +93,8 @@ try {
   await a.reload({ waitUntil: 'commit' });
   await a.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 40000, polling: 250 });
   // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。
-  await a.waitForFunction(() => globalThis.uspeak?.net?.main?.isOpen, null, { timeout: 8000, polling: 100 }).catch(() => {});
-  await a.evaluate(() => globalThis.uspeak?.net?.main?.close());
+  await a.waitForFunction(() => globalThis.uspeak?.net?.main?.homed, null, { timeout: 8000, polling: 100 }).catch(() => {});
+  await a.evaluate(() => globalThis.uspeak?.net?.main?.skipHome());
   await sleep(1200);
   check('reloading pays nothing again', !(await a.evaluate(() => document.querySelector('#daily-dialog')?.open)));
   check('and the purse is unchanged', (await coins(a)) === banked, `purse=${await coins(a)} was=${banked}`);

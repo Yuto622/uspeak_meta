@@ -197,6 +197,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   rpg.setDoorHandler((islandId, spot) => {
     // ミニゲーム島 is nothing but doors to other games: the house a child walks into is
     // the game, and none of it needs the server, so it opens offline too.
+    // メインの島：英単語ハウス・看板・つり場・かいとりや・ゲート。何をするかは main-island.js の walkIn。
+    if (islandId === 'main') { sendMove(); return main.walkIn(spot); }
     if (islandId === 'mini') {
       const game = arcades[spot.game || spot.kind];
       if (game) { game.open(); return true; }
@@ -282,6 +284,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     getCoins: () => state.wallet?.coins ?? fishing.store.state.coins,
     getLevel: () => state.progress?.level ?? Number(document.querySelector('#level')?.textContent || 1),
     getStreak: () => state.streak || 0,
+    player,
   });
   {
     const b = document.createElement('button');
@@ -289,7 +292,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     b.id = 'main-island-button';
     b.className = 'rank-button main-island-button';
     b.innerHTML = '<b class="en">🏠 Main Island</b><i class="ja">メインの しま</i>';
-    b.onclick = () => main.open();
+    // 島の外では ホームへ ひこうきで、島の上では 2D の地図（リストでも見られる）。
+    b.onclick = () => main.goHome();
     document.querySelector('.right-rail')?.prepend(b);
   }
   // Put the child's own clothes on their own body, and keep them on when they change face.
@@ -460,7 +464,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       welcomed = true;
       state.streak = m.streak || 0;
       // ホームはメインの島。はじめて入ったときだけ開く（つなぎなおしでは開かない）。
-      if (!state.mainShown) { state.mainShown = true; main.open(); }
+      if (!state.mainShown) { state.mainShown = true; main.goHome({ first: true }); }
       state.role = m.role;
       state.chatPaused = !!m.chatPaused;
       state.teacherId = m.teacherId || '';
@@ -1024,6 +1028,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     landInteract: () => { const near = rpg.landNearby(); if (near) { sendMove(); land.enter(near.spot); } },
     fishworldInteract: () => { const near = rpg.fishworldNearby(); if (near) { sendMove(); fishworld.enter(near.spot); } },
     fishworldLabel: () => tr('🎣 ここで つる'),
+    mainInteract: () => { const near = rpg.mainNearby(); if (near) { sendMove(); main.walkIn(near.spot); } },
+    mainLabel: (spot) => main.label(spot),
     fishworld,
     wordhouse,
     main,

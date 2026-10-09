@@ -45,8 +45,8 @@ async function openPage(name, { teacherKey = '', coins = null } = {}) {
   await page.click('#net-join');
   await page.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 30000, polling: 250 });
   // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。
-  await page.waitForFunction(() => globalThis.uspeak?.net?.main?.isOpen, null, { timeout: 8000, polling: 100 }).catch(() => {});
-  await page.evaluate(() => globalThis.uspeak?.net?.main?.close());
+  await page.waitForFunction(() => globalThis.uspeak?.net?.main?.homed, null, { timeout: 8000, polling: 100 }).catch(() => {});
+  await page.evaluate(() => globalThis.uspeak?.net?.main?.skipHome());
   await page.evaluate(async () => {
     const { STARTERS } = await import('./magic-data.js');
     if (!uspeak.rpg.adventure.progress.state.starter) uspeak.rpg.adventure.progress.chooseStarter(STARTERS[0].id);
@@ -146,8 +146,8 @@ try {
   await a.evaluate(() => uspeak.net.room.leave(false));
   await a.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 10000, polling: 250 });
   // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。
-  await a.waitForFunction(() => globalThis.uspeak?.net?.main?.isOpen, null, { timeout: 8000, polling: 100 }).catch(() => {});
-  await a.evaluate(() => globalThis.uspeak?.net?.main?.close());
+  await a.waitForFunction(() => globalThis.uspeak?.net?.main?.homed, null, { timeout: 8000, polling: 100 }).catch(() => {});
+  await a.evaluate(() => globalThis.uspeak?.net?.main?.skipHome());
   const recon = Date.now() - t1;
   check('reconnect after socket drop < 3000 ms', recon < 3000, `${recon} ms`);
   check('B still sees A after reconnect', !!(await remoteOf(b, await sid(a))));
@@ -158,8 +158,8 @@ try {
   await a.reload({ waitUntil: 'commit', timeout: 120000 });
   await a.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 120000, polling: 250 });
   // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。
-  await a.waitForFunction(() => globalThis.uspeak?.net?.main?.isOpen, null, { timeout: 8000, polling: 100 }).catch(() => {});
-  await a.evaluate(() => globalThis.uspeak?.net?.main?.close());
+  await a.waitForFunction(() => globalThis.uspeak?.net?.main?.homed, null, { timeout: 8000, polling: 100 }).catch(() => {});
+  await a.evaluate(() => globalThis.uspeak?.net?.main?.skipHome());
   check('auto-rejoin after reload (no lobby)', !(await a.$eval('#net-lobby', (d) => d.open)), `${Date.now() - t2} ms`);
   await sleep(500);
   check('player count back to 3 after takeover', (await status(b)).includes('3人'), await status(b));

@@ -35,7 +35,13 @@ export function shade(hex, amount) {
 
 // One island's worth of building tools. `build` is called once, with these, when the
 // island's data has arrived.
-export function createIsland({ scene, build, seed = 20250910 }) {
+// 大きい島（メインの島）は `size`（半分の幅と奥行き）・`power`（2＝だ円、4＝角の丸い四角）・
+// `land(x, z)`（false のところは陸を作らない＝入り江）・`dock`（船着き場の いちばん陸よりの点）・`hills` を渡す。
+// 渡さなければ いままでの 60×50 の だ円の島。
+export function createIsland({ scene, build, seed = 20250910, size = null, power = 2, land = null, dock = null, hills = null }) {
+  const HX = size?.x ?? HALF_X;
+  const HZ = size?.z ?? HALF_Z;
+  const DOCK = { x: dock?.x ?? 0, z: dock?.z ?? 21 };
   const root = new THREE.Group();
   root.visible = false;
   scene.add(root);
@@ -348,18 +354,19 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     const grassTop = island.grassTop ?? 0x9cb266;
     const sand = 0xe0cfa4;
     const soil = 0x8a7a5c;
-    const RX = 31;
-    const RZ = 26;
+    const RX = HX + 1;
+    const RZ = HZ + 1;
+    const edge = (x, z) => Math.abs(x / RX) ** power + Math.abs(z / RZ) ** power;
 
     // Where the ground rises. Kept away from the middle and from the landing, so no
     // building or path ever has to climb.
-    const hills = [
+    const rises = hills || [
       { x: -21, z: -14, r: 9 }, { x: 22, z: -12, r: 8 },
       { x: -24, z: 11, r: 7 }, { x: 19, z: 15, r: 6.5 },
     ];
     const lift = (x, z) => {
       let h = 0;
-      for (const hill of hills) {
+      for (const hill of rises) {
         const d = Math.hypot(x - hill.x, z - hill.z) / hill.r;
         if (d < 1) h = Math.max(h, Math.cos(d * Math.PI / 2) * 2.2);
       }
@@ -371,9 +378,10 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     // shows its ground: the cliff at the shore is then soil, not a slab of lawn.
     for (let x = -RX; x <= RX; x += 2) {
       for (let z = -RZ; z <= RZ; z += 2) {
-        const e = (x / RX) ** 2 + (z / RZ) ** 2;
+        const e = edge(x, z);
         if (e > 1.04) continue;
-        const beach = e > 0.94;
+        if (land && !land(x, z)) continue;
+        const beach = e > 0.94 || (land && [[2, 0], [-2, 0], [0, 2], [0, -2]].some(([dx, dz]) => !land(x + dx, z + dz)));
         const y = beach ? 0 : lift(x, z);
         const top = beach ? sand : (x * 7 + z * 3) % 5 === 0 ? grassTop : grass;
         // The top face lands on y = 0.2, which is the ground everything else on the
@@ -384,9 +392,12 @@ export function createIsland({ scene, build, seed = 20250910 }) {
       }
     }
     // Where the sand meets the water: wet sand, then foam, then rocks standing in it.
-    for (let a = 0; a < Math.PI * 2; a += 0.05) {
-      const cx = Math.cos(a);
-      const cz = Math.sin(a);
+    for (let a = 0; a < Math.PI * 2; a += 0.05 * (power > 2 ? 0.5 : 1)) {
+      const c = Math.cos(a);
+      const sn = Math.sin(a);
+      const cx = Math.sign(c) * Math.abs(c) ** (2 / power);
+      const cz = Math.sign(sn) * Math.abs(sn) ** (2 / power);
+      if (land && !land(cx * RX * 0.97, cz * RZ * 0.97)) continue;
       G(cx * (RX + 1.1), -0.55, cz * (RZ + 1.1), 2.4, 0.8, 2.4, shade(sand, -0.06));
       G(cx * (RX + 2.4), -1.1, cz * (RZ + 2.4), 1.8 + rand(), 0.5, 1.8 + rand(), 0xd8e7dd);
       if (rand() > 0.85) {
@@ -395,26 +406,30 @@ export function createIsland({ scene, build, seed = 20250910 }) {
       }
     }
 
+    // 船着き場は DOCK を起点に描く（いつもの島は x=0, z=21）。
+    const ox = DOCK.x;
+    const oz = DOCK.z - 21;
+    const Dk = (x, y, z, ...rest) => D(ox + x, y, oz + z, ...rest);
     // The landing: planks with gaps, mooring posts with a rope, a lantern and a rowing
     // boat tied alongside — the first thing anyone sees of the island.
-    for (let i = 0; i < 7; i += 1) D(0, 0.2, 21 + i * 1.1, 7, 0.22, 0.95, i % 2 ? 0xc0a077 : 0xb79768);
-    for (let i = 0; i < 6; i += 1) D(-2.6 + i * 1.05, -0.6, 27, 0.34, 2, 0.34, 0x8a7350);
+    for (let i = 0; i < 7; i += 1) Dk(0, 0.2, 21 + i * 1.1, 7, 0.22, 0.95, i % 2 ? 0xc0a077 : 0xb79768);
+    for (let i = 0; i < 6; i += 1) Dk(-2.6 + i * 1.05, -0.6, 27, 0.34, 2, 0.34, 0x8a7350);
     for (const sx of [-3.3, 3.3]) {
-      D(sx, 1.2, 21.5, 0.34, 2.6, 0.34, 0x8a7350);
-      D(sx, 2.5, 21.5, 0.5, 0.3, 0.5, 0x6d543a);
+      Dk(sx, 1.2, 21.5, 0.34, 2.6, 0.34, 0x8a7350);
+      Dk(sx, 2.5, 21.5, 0.5, 0.3, 0.5, 0x6d543a);
     }
-    D(0, 2.35, 21.5, 6.6, 0.12, 0.12, 0xb9a075);          // the rope between the posts
-    lamp(3.3, 24.5);
+    Dk(0, 2.35, 21.5, 6.6, 0.12, 0.12, 0xb9a075);          // the rope between the posts
+    lamp(ox + 3.3, oz + 24.5);
     // A boat: hull, seat, and two oars leaning on the gunwale.
-    D(5.2, -0.35, 25.5, 2.0, 0.7, 4.4, 0x8a6a45);
-    D(5.2, 0.05, 25.5, 1.5, 0.3, 3.8, 0x6d543a);
-    D(5.2, 0.35, 25.5, 1.7, 0.16, 0.7, 0xa58c62);
-    D(6.0, 0.7, 25.2, 0.14, 0.14, 2.6, 0xa58c62);
+    Dk(5.2, -0.35, 25.5, 2.0, 0.7, 4.4, 0x8a6a45);
+    Dk(5.2, 0.05, 25.5, 1.5, 0.3, 3.8, 0x6d543a);
+    Dk(5.2, 0.35, 25.5, 1.7, 0.16, 0.7, 0xa58c62);
+    Dk(6.0, 0.7, 25.2, 0.14, 0.14, 2.6, 0xa58c62);
 
     // The island's name on a post beside the landing, not on the spot a child lands on.
-    D(6.8, 1.7, 21.5, 0.34, 3.4, 0.34, 0x8a7350);
-    D(6.8, 3.5, 21.5, 0.9, 0.3, 0.9, 0xb8703f);
-    sprite({ en: island.en, ja: island.name }, 6.8, 4.3, 21.5, { width: 8, size: 31 });
+    Dk(6.8, 1.7, 21.5, 0.34, 3.4, 0.34, 0x8a7350);
+    Dk(6.8, 3.5, 21.5, 0.9, 0.3, 0.9, 0xb8703f);
+    sprite({ en: island.en, ja: island.name }, ox + 6.8, 4.3, oz + 21.5, { width: 8, size: 31 });
   }
 
   // Greenery, kept off the paths and away from every place a child has to stand. Trees
@@ -554,7 +569,7 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     if (!built) return false;   // nothing to collide with until the island exists
     const lx = x - root.position.x;
     const lz = z - root.position.z;
-    if (Math.abs(lx) > HALF_X || Math.abs(lz) > HALF_Z) return true;
+    if (Math.abs(lx) > HX || Math.abs(lz) > HZ) return true;
     return obstacles.some((o) => Math.abs(lx - o.x) < o.w + 0.35 && Math.abs(lz - o.z) < o.d + 0.35);
   }
 
@@ -565,8 +580,8 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     ctx.fillRect(0, 0, 180, 140);
     ctx.fillStyle = data.grassTop ? '#' + Number(data.grassTop).toString(16).padStart(6, '0') : '#9cb266';
     ctx.fillRect(12, 10, 156, 120);
-    const px = (x) => 90 + (x / HALF_X) * 76;
-    const py = (z) => 70 + (z / HALF_Z) * 58;
+    const px = (x) => 90 + (x / HX) * 76;
+    const py = (z) => 70 + (z / HZ) * 58;
     for (const sp of spots) {
       const target = sp.def.id === targetId;
       ctx.fillStyle = target ? '#ffd98a' : sp.def.kind === 'plaza' ? '#f0e3bd' : '#3c5a4a';
@@ -615,5 +630,7 @@ export function createIsland({ scene, build, seed = 20250910 }) {
     setTarget, update, nearest, blocked, drawMap, doorNear, setNight,
     get doors() { return doors.map((d) => ({ id: d.def.id, x: d.x, z: d.z })); },
     origin: () => ({ x: root.position.x, z: root.position.z }),
+    // 着いたときに立つ場所（船着き場の陸がわ）。rpg.activate が使う。
+    arrival: { x: DOCK.x, z: DOCK.z },
   };
 }

@@ -13,7 +13,7 @@ const LOOK = {
   arena: ['⚔️', '#c8573e'], pet: ['🐣', '#f0b43c'], ride: ['🏁', '#4f86d9'], town: ['🏗️', '#7db65a'],
   eiken5: ['📗', '#4fae6b'], eiken4: ['📙', '#e08a2c'], eiken3: ['📘', '#3f6fb8'], talk: ['💬', '#3baacb'],
   conv: ['🗣️', '#e0668e'], wear: ['👕', '#b06fc4'], mini: ['🎮', '#7a5cc8'], farm: ['🐄', '#8dbe45'],
-  land: ['🏝️', '#2fa3b8'], fishworld: ['🎣', '#3b9fd4'],
+  land: ['🏝️', '#2fa3b8'], fishworld: ['🎣', '#3b9fd4'], main: ['🏠', '#e27a2d'],
   meadow: ['🌼', '#86b85c'], forest: ['🌲', '#3f8a5c'], reef: ['🪸', '#2fb3b0'], canyon: ['🏜️', '#c8783e'],
   snow: ['🏔️', '#5fa7d8'], storm: ['⛈️', '#5b6fb8'], desert: ['🐪', '#d6a03a'], ruins: ['🏛️', '#8a8f86'],
   moon: ['🌙', '#7a5cc8'], sky: ['🕊️', '#e0a526'],
