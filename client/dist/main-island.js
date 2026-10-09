@@ -259,7 +259,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     }
     if (!isOnline()) { toast(tr('オンラインで あそべます。')); return; }
     closeSheet();
-    if (what === 'fish') fishworld.enter({ id: 'main', zone: 1 }, { flat: true });
+    if (what === 'fish') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, auto: true });
     if (what === 'dex') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, tab: 'dex' });
     if (what === 'sell') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, tab: 'bag' });
   }
@@ -331,7 +331,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
       return true;
     }
     if (!isOnline()) { toast(tr('オンラインで あそべます。')); return true; }
-    if (spot.kind === 'fishing') fishworld.enter({ id: 'main', zone: 1 }, { flat: true });
+    if (spot.kind === 'fishing') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, auto: true });
     if (spot.kind === 'fish_buy') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, tab: 'bag' });
     return true;
   }

@@ -26,7 +26,7 @@ export function loadFishworldData() {
 // 水面。頂点を 時間で揺らす（fishing.js の池と同じ仕掛け）。
 const waterTime = { value: 0 };
 function waterMaterial(color, opacity = 0.93) {
-  const m = new THREE.MeshStandardMaterial({ color, metalness: 0.32, roughness: 0.22, transparent: true, opacity, side: THREE.DoubleSide });
+  const m = new THREE.MeshStandardMaterial({ color, metalness: 0.05, roughness: 0.6, transparent: true, opacity, side: THREE.DoubleSide }); // つるつるだと 太陽が 白く とぶ（池が まっしろに 見えた）
   m.onBeforeCompile = (s) => {
     s.uniforms.uTime = waterTime;
     s.vertexShader = `uniform float uTime;\n${s.vertexShader}`.replace('#include <begin_vertex>',

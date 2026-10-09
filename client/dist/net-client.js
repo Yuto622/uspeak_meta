@@ -46,6 +46,7 @@ import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
 
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
+  let fwAutoAt = ''; // いま 自動で つりはじめた 水辺（はなれると 空に もどる）
   let main = null; // メインの島（下で作る。財布と進み具合が届くたびに数字を書き直す）
   const Colyseus = globalThis.Colyseus;
   const $ = (s) => document.querySelector(s);
@@ -1026,7 +1027,16 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     townInteract: () => { const near = rpg.townNearby(); if (near) town.enter(near.spot); },
     townLabel: (spot) => town.label(spot),
     landInteract: () => { const near = rpg.landNearby(); if (near) { sendMove(); land.enter(near.spot); } },
-    fishworldInteract: () => { const near = rpg.fishworldNearby(); if (near) { sendMove(); fishworld.enter(near.spot); } },
+    fishworldInteract: () => { const near = rpg.fishworldNearby(); if (near) { sendMove(); fishworld.enter(near.spot, { auto: true }); } },
+    // 水辺に 立ったら すぐ つりはじめる（1 回 来るごとに 1 回。はなれれば また）。毎フレーム game.js が呼ぶ。
+    fishworldAuto: (near) => {
+      const id = near?.spot?.id || '';
+      if (!id) { fwAutoAt = ''; return; }
+      if (fwAutoAt === id || state.mode !== 'online' || fishworld.isOpen || fishworld.busy || document.querySelector('dialog[open]')) return;
+      fwAutoAt = id;
+      sendMove();
+      fishworld.enter(near.spot, { auto: true });
+    },
     fishworldLabel: () => tr('🎣 ここで つる'),
     mainInteract: () => { const near = rpg.mainNearby(); if (near) { sendMove(); main.walkIn(near.spot); } },
     mainLabel: (spot) => main.label(spot),

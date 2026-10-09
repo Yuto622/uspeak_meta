@@ -67,20 +67,22 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
   function close() {
     if (busy()) { send('fw:cancel', {}); toast(tr('さかなは にげて いきました…')); }
     clearTimeout(state.wait);
-    state.ctl?.destroy?.(); state.ctl = null; state.ask = null; state.pending = null; state.view = 'zone'; state.tab = 'zone';
+    state.ctl?.destroy?.(); state.ctl = null; state.ask = null; state.pending = null; state.view = 'zone'; state.tab = 'zone'; state.auto = false;
     stopTiming();
     isl()?.endCast?.();
     hud.hidden = true;
     hide();
   }
 
-  function enter(spot, { flat: noIsland = false, tab = 'zone' } = {}) {
+  // `auto`：水辺に来たら そのまま さおを なげる（つり場の ページは 出さない）。ずかん・うるは 左下の 📖 から。
+  function enter(spot, { flat: noIsland = false, tab = 'zone', auto = false } = {}) {
     if (!isOnline()) { toast(tr('つり島は オンラインで あそべます。')); return false; }
     if (busy()) return false;
     flat = !!noIsland;
     state.spot = spot.id;
     state.zone = spot.zone;
     state.view = 'zone'; state.tab = tab;
+    state.auto = auto && tab === 'zone';
     send('fw:open', { spot: spot.id });
     return true;
   }
@@ -176,6 +178,7 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
     }
     hide();
     isl()?.startCast?.(state.spot);
+    const near = document.querySelector('#near'); if (near) near.style.display = 'none'; // 「ここで つる」は もう いらない
     hud.hidden = false;
     hud.classList.remove('bite');
   }
@@ -324,6 +327,7 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
     if (m.spot) state.spot = m.spot;
     $('#fw-coins', dialog).textContent = (m.wallet?.coins ?? 0).toLocaleString();
     if (busy()) { head(); return; }
+    if (state.auto && state.view === 'zone') { state.auto = false; if (flat) show(); cast(); return; }
     show();
     if (state.view === 'zone') render(); else head();
   }
@@ -339,6 +343,15 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
     if (state.view === 'cast') { clearTimeout(state.wait); isl()?.endCast?.(); hud.hidden = true; state.view = 'zone'; if (m.reason !== 'too far') { show(); render(); } }
     if (m.reason === 'too far') close();
   }
+
+  // 左下の 📖：つり島に いる間だけ。どこからでも ずかん（と うる）を ひらける（位置のいらない つり場 "main" で開く）。
+  const dock = document.createElement('div');
+  dock.className = 'guest-dock fw-dexdock';
+  dock.hidden = true;
+  dock.innerHTML = `<button type="button" class="guest-launch fw-dexbtn"><span class="guest-launch-badge">📖</span><span class="guest-launch-name"><strong>${bi('Fish Dex', 'さかな ずかん')}</strong><small>${bi('Your fish · sell', 'つった さかな・うる')}</small></span><b>›</b></button>`;
+  document.body.append(dock);
+  $('.fw-dexbtn', dock).onclick = () => enter({ id: 'main', zone: state.zone || 1 }, { flat: true, tab: 'dex' });
+  setInterval(() => { dock.hidden = !(island?.visible && isOnline()) || dialog.open || busy(); }, 400);
 
   onLangChange(() => { if (dialog.open && (state.view === 'zone' || state.view === 'catch')) render(); });
 
