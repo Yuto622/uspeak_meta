@@ -1019,9 +1019,13 @@ BLOCKWILD・土地島のどれで動いても同じ行に入る。Roblox に一�
   **10 問ぜんぶ 1 回目で正解なら ボーナス ◈20**。コインは 1 日 ◈200 まで（XP と記録は上限なし）。✕ でやめられる。
 - **判定とコインは部屋**（`server/src/game/wordhouse.js`、`wh:start` / `wh:answer` / `wh:quit`）。
   問題（答えつき）はサーバーにだけある。
-- **問題はまだ仮**：Roblox の `hut_quiz.json` が届くまで、サーバーにある 3 つから作っている —
-  えらぶ＝`word-quiz.json`（Roblox WordHouseQuiz v4.7）／せんつなぎ・きいて・タイピング＝釣りの単語
-  （5・4・3 級）／あなうめ・ならべかえ＝英検の島の「かく」「はなす」の文。届いたら `loadBanks()` だけ差し替える。
+- **問題は Roblox の小屋の問題**（`server/src/game/hut-quiz.json`。SUPER EASY 100・EASY 499・MEDIUM 481・HARD 486 問）。
+  えらぶ＝小屋の 4 択そのまま／あなうめ＝小屋の問題のうち `____` が 1 つのもの（カードは同じ 4 択）／
+  ならべかえ＝英検の島の「かく」「はなす」の文（日本語の意味つき）／せんつなぎ・きいて・タイピング＝釣りの単語（5・4・3 級）。
+- **作りなおし**：Roblox の書き出し（`EXPORT_Hut_1.luau`, `EXPORT_Hut_2.luau` …、1 つの JSON を切ったもの・Shift_JIS）を
+  順番に渡す — `node server/scripts/import-hut-quiz.mjs EXPORT_Hut_1.luau EXPORT_Hut_2.luau`。
+  書き出しが自分で挙げた issues（「全部」型・選択肢 3 つ・同じ選択肢）と、4 択がそろわない・正解が選択肢に無い・
+  同じ問題文の 2 つめ は外し、外したものは `dropped` に理由つきで残る（いまは 64 問）。**client/dist には置かない**（答えつき）。
 - **記録は Roblox と同じ形**：`type="quiz", world="hut", data.level=SuperEasy|Easy|Medium|Hard, source="web"`。
   つり場は `world="fishing"`（つり島と同じ）。島にいた時間は `type="session", world="main"`
   （`seconds / coinsEarned / balance / level`。閉じたとき・切れたときに 1 行）。

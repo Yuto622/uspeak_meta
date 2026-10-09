@@ -936,6 +936,7 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   全部に丸いマーカー（`.mi-poi`）。ラベルの向きは `SIDE`（近い物どうしがぶつからないように）。地図は横 1100px 以上で、はみ出す分は指でスクロール。
 - **子ども向けの文は `COPY`**（main_island.json の `action` は作る人のメモ）。ゲートの行き先は `GATE_TO`、
   じゅんびちゅうの場所の「にている島」は `ALT`。リストのカードは world-picker と同じ `.wm-card`。
+- **英単語ハウスの問題は `server/src/game/hut-quiz.json`**（Roblox の小屋の書き出しを `server/scripts/import-hut-quiz.mjs` で取りこんだもの・サーバーだけ）。
 - **英単語ハウスの SUPER EASY ⇔ EASY は この端末に覚える**（`uspeak-wordhouse-easy-v1`）。部屋は届いた level を家ごとに確かめる。
 - **つり場は 3D が無い**：`fishworld.enter({id:'main', zone:1}, {flat:true})`。flat のときは さお・うきの演出を
   ダイアログの中の池（`.fw-wait`）でやり、釣果の前に画面を閉じない。

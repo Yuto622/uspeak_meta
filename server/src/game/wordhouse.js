@@ -7,14 +7,14 @@
 // ルールも Roblox と同じ：まちがえたら正解を見せて、同じ問題をもう一度（選択肢は並べ替え）。
 // 2 回目の正解は コイン半分・XP なし。2 回目も外したら次へ。全問 1 回で正解なら ボーナス。✕ でやめられる。
 //
-// **問題（答えつき）はサーバーにだけある。** Roblox の hut_quiz.json はまだ来ていないので、いまは仮の組み合わせ：
-//   えらぶ（mc）       … word-quiz.json（Roblox WordHouseQuiz v4.7）。SUPER EASY は 5 級の単語の「What is …?」
-//   せんつなぎ・きいて・タイピング … fishworld-quiz.json の単語（5 級 / 4 級 / 3 級）
-//   あなうめ・ならべかえ … eiken-bank.json の「かく」「はなす」の文（g5 / g4 / g3）
-// hut_quiz.json が来たら BANK を作り直す関数（loadBanks）だけを差し替える。判定と記録はそのまま。
+// **問題（答えつき）はサーバーにだけある。**
+//   えらぶ（mc）・あなうめ（fill） … hut-quiz.json（Roblox の小屋の問題・4 レベル。server/scripts/import-hut-quiz.mjs で作る）
+//   ならべかえ                   … eiken-bank.json の「かく」「はなす」の文（g5 / g4 / g3。日本語の意味つき）
+//   せんつなぎ・きいて・タイピング   … fishworld-quiz.json の単語（5 級 / 4 級 / 3 級）
+// あなうめは小屋の問題のうち「____ が 1 つだけ」のもの。空欄の前後をそのまま出し、カードは小屋の 4 択。
 import { readFileSync } from 'node:fs';
 import {
-  pickFormat, buildFor, buildMc, buildOrder, buildFill, publicFormat, checkFormat, revealFormat, diffFormat, shuffle,
+  pickFormat, buildFor, buildMc, buildOrder, publicFormat, checkFormat, revealFormat, diffFormat, shuffle,
 } from '../../../client/dist/formats-core.js';
 
 export const LEVELS = {
@@ -35,39 +35,30 @@ export const FAST_MS = 4000;
 export class WordHouseError extends Error {}
 
 const read = (name) => JSON.parse(readFileSync(new URL(`./${name}`, import.meta.url), 'utf8'));
-const alpha = (w) => String(w).replace(/[^A-Za-z'-]/g, '');
 
 export function loadBanks() {
   const words = read('fishworld-quiz.json').quiz;
-  const mc = read('word-quiz.json').banks;
+  const huts = read('hut-quiz.json').levels;
   const eiken = read('eiken-bank.json').grades;
   const banks = {};
   for (const [level, def] of Object.entries(LEVELS)) {
     const pool = (words[def.zone] || []).filter((q) => q.q && q.a && Array.isArray(q.o));
     const sentences = [...(eiken[def.grade]?.writing || []), ...(eiken[def.grade]?.speaking || [])]
       .filter((s) => s.en && s.ja && s.en.split(/\s+/).length >= 3 && s.en.split(/\s+/).length <= 9);
-    const choice = def.bank ? (mc[def.bank] || []).filter((q) => q.q && Array.isArray(q.choices) && q.choices[q.answer] !== undefined) : [];
-    if (pool.length < 8 || sentences.length < 6) throw new Error(`wordhouse: level ${level} has too few questions`);
-    banks[level] = { pool, sentences, choice };
+    const choice = (huts[level] || []).filter((q) => q.q && q.a && Array.isArray(q.o) && q.o.length === 4 && q.o.includes(q.a));
+    const blanks = choice.filter((q) => (q.q.match(/_{2,}/g) || []).length === 1);
+    if (pool.length < 8 || sentences.length < 6 || choice.length < SET_SIZE || blanks.length < 6) throw new Error(`wordhouse: level ${level} has too few questions`);
+    banks[level] = { pool, sentences, choice, blanks };
   }
   return banks;
 }
 export const BANK = loadBanks();
 
-// あなうめの穴：文のいちばん長い単語。まぎらわしい3つは、同じレベルの ほかの文の 長さの近い単語。
-function fillFor(s, sentences, rng) {
-  const list = s.en.split(/\s+/).map(alpha).filter((w) => w.length >= 3);
-  const blank = list.sort((a, b) => b.length - a.length)[0] || alpha(s.en.split(/\s+/)[0]);
-  const others = [];
-  for (const o of shuffle(sentences, rng)) {
-    if (o === s) continue;
-    for (const w of o.en.split(/\s+/).map(alpha)) {
-      if (others.length >= 3) break;
-      if (w.length >= 3 && Math.abs(w.length - blank.length) <= 3 && w.toLowerCase() !== blank.toLowerCase() && !others.some((x) => x.toLowerCase() === w.toLowerCase())) others.push(w);
-    }
-    if (others.length >= 3) break;
-  }
-  return buildFill(s.en, blank, s.ja, others, rng);
+// あなうめ：小屋の問題の ____ を穴にする。カードは小屋の 4 択（ならびは buildMc と同じく まぜる）。
+function fillFor(c, rng) {
+  const [before, after] = c.q.split(/_{2,}/);
+  const cards = shuffle([...c.o], rng);
+  return { id: `f${Math.floor(rng() * 1e9).toString(36)}`, kind: 'fill', sentence: c.q.replace(/_{2,}/, c.a), ja: '', before: before.trim(), after: after.trim(), cards, answer: c.a };
 }
 
 function itemFor(level, kind, used, rng) {
@@ -78,16 +69,17 @@ function itemFor(level, kind, used, rng) {
     used.add(key(pick));
     return pick;
   };
-  if (kind === 'fill' || kind === 'order') {
-    const s = fresh(b.sentences, (x) => `s:${x.en}`);
-    const fmt = kind === 'fill' ? fillFor(s, b.sentences, rng) : buildOrder(s.en, s.ja, rng);
-    return { kind, word: s.en, fmt };
+  if (kind === 'fill') {
+    const c = fresh(b.blanks, (x) => `c:${x.q}`);
+    return { kind, word: c.q, fmt: fillFor(c, rng) };
   }
-  if (kind === 'mc' && b.choice.length) {
+  if (kind === 'order') {
+    const s = fresh(b.sentences, (x) => `s:${x.en}`);
+    return { kind, word: s.en, fmt: buildOrder(s.en, s.ja, rng) };
+  }
+  if (kind === 'mc') {
     const c = fresh(b.choice, (x) => `c:${x.q}`);
-    const answer = c.choices[c.answer];
-    const fmt = buildMc({ q: '', a: answer, o: c.choices, prompt: c.q }, rng);
-    return { kind, word: c.q, fmt };
+    return { kind, word: c.q, fmt: buildMc({ q: '', a: c.a, o: c.o, prompt: c.q }, rng) };
   }
   const q = fresh(b.pool, (x) => `w:${x.q}`);
   const k = pickFormat([kind], q, rng);           // type に向かない単語は mc に落ちる

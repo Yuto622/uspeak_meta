@@ -2,8 +2,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
-import { makeRng } from '../../client/dist/formats-core.js';
-import { LEVELS, HOUSES, SET_SIZE, COIN, COIN_RETRY, XP, PERFECT_BONUS, startSet, askPayload, answer, WordHouseError } from '../src/game/wordhouse.js';
+import { makeRng, checkFormat } from '../../client/dist/formats-core.js';
+import { BANK, LEVELS, HOUSES, SET_SIZE, COIN, COIN_RETRY, XP, PERFECT_BONUS, startSet, askPayload, answer, WordHouseError } from '../src/game/wordhouse.js';
 
 test('each house serves its own levels, and only those', () => {
   assert.deepEqual(HOUSES.hut_easy, ['SuperEasy', 'Easy']);
@@ -63,7 +63,32 @@ test('Roblox rules: miss → same question reshuffled; 2nd-try right is half coi
 
 test('no answer bank ships to the browser', () => {
   const dist = new URL('../../client/dist/', import.meta.url);
-  for (const name of ['wordhouse-quiz.json', 'hut_quiz.json', 'word-quiz.json', 'fishworld-quiz.json']) assert.ok(!existsSync(new URL(name, dist)), `client/dist/${name}`);
+  for (const name of ['wordhouse-quiz.json', 'hut_quiz.json', 'hut-quiz.json', 'word-quiz.json', 'fishworld-quiz.json']) assert.ok(!existsSync(new URL(name, dist)), `client/dist/${name}`);
   const fw = JSON.parse(readFileSync(new URL('fishworld.json', dist), 'utf8'));
   assert.equal(fw.quiz, undefined, 'fishworld.json carries no questions');
+});
+
+test('えらぶ・あなうめ are the Roblox hut questions, and what the import dropped is never served', () => {
+  const hut = JSON.parse(readFileSync(new URL('../src/game/hut-quiz.json', import.meta.url), 'utf8'));
+  const dropped = new Set(hut.dropped.filter((d) => d.why !== 'duplicate question').map((d) => `${d.level}|${d.q}`)); // a duplicate keeps its first copy
+  assert.ok(hut.dropped.some((d) => /全部/.test(d.why)), 'the "all of them" questions are out');
+  for (const [level, def] of Object.entries(LEVELS)) {
+    assert.ok(BANK[level].choice.length >= 100, `${level} has the hut questions`);
+    for (const c of BANK[level].choice) {
+      assert.equal(new Set(c.o.map((x) => x.toLowerCase())).size, 4, `${level} "${c.q}" has four different choices`);
+      assert.ok(c.o.includes(c.a) && !/^all of/i.test(c.a), `${level} "${c.q}"`);
+    }
+    const rng = makeRng(11);
+    for (let k = 0; k < 20; k += 1) {
+      for (const it of startSet(def.house, level, { rng }).items) {
+        assert.ok(!dropped.has(`${level}|${it.word}`), `${level} served a dropped question: ${it.word}`);
+        if (it.kind === 'fill') {
+          assert.ok(BANK[level].blanks.some((c) => c.q === it.word), 'fill comes from a hut question with one blank');
+          assert.ok(!it.fmt.before.includes('__') && !it.fmt.after.includes('__'));
+          assert.equal(checkFormat(it.fmt, it.fmt.answer), true);
+        }
+        if (it.kind === 'mc') assert.ok(BANK[level].choice.some((c) => c.q === it.fmt.prompt), 'mc is a hut question');
+      }
+    }
+  }
 });

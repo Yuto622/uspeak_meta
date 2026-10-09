@@ -25,18 +25,16 @@ const join = async (name) => { const room = await new Client(url).joinOrCreate('
 before(async () => { server = await startServer({ port: 0 }); url = `ws://127.0.0.1:${server.server.address().port}`; });
 after(async () => { await server.shutdown('test'); });
 
-const letters = (s) => String(s).toLowerCase().replace(/[^a-z]/g, '');
 // The right answer, from the bank the room drew it from — the way a child knows the words.
 function solve(level, f) {
   const b = BANK[level];
-  if (f.kind === 'mc' && f.prompt) { const c = b.choice.find((x) => x.q === f.prompt); return c.choices[c.answer]; }
+  if (f.kind === 'mc' && f.prompt) return b.choice.find((x) => x.q === f.prompt).a;
   if (f.kind === 'mc') return b.pool.find((q) => q.q === f.word).a;
   if (f.kind === 'match') return f.left.map((en) => b.pool.find((q) => q.q === en).a);
   if (f.kind === 'listen') return f.word;
   if (f.kind === 'type') return b.pool.find((q) => q.a === f.ja && q.q.length === f.length).q;
-  const s = b.sentences.find((x) => x.ja === f.ja);
-  if (f.kind === 'order') return s.en;
-  if (f.kind === 'fill') return f.cards.find((c) => letters(`${f.before} ${c} ${f.after}`) === letters(s.en));
+  if (f.kind === 'fill') return b.blanks.find((x) => { const [l, r] = x.q.split(/_{2,}/); return l.trim() === f.before && r.trim() === f.after; }).a;
+  if (f.kind === 'order') return b.sentences.find((x) => x.ja === f.ja).en;
   throw new Error(`unexpected ${f.kind}`);
 }
 

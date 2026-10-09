@@ -24,6 +24,9 @@ const HOWTO = {
 // 英語だけを読み上げる（日本語や記号は読まない）。
 const englishOnly = (s) => String(s ?? '').replace(/[^A-Za-z0-9' ,.?!-]+/g, ' ').replace(/\s+/g, ' ').trim();
 
+// 問題文を読むときは 空欄（____）と 日本語のヒント「(月曜)」を落とす（英語の声のまま 読ませる）。
+const spoken = (s) => String(s || '').replace(/[（(][^)）]*[\u3040-\u30ff\u4e00-\u9fff][^)）]*[)）]/g, '').replace(/_{2,}/g, ' ').replace(/\s+/g, ' ').trim();
+
 export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswer = null } = {}) {
   const meta = FORMAT_META[fmt.kind] || FORMAT_META.mc;
   const attempt = fmt.attempt || 1;
@@ -52,7 +55,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
   const feedback = root.querySelector('.fmt-feedback');
   const checkBtn = root.querySelector('.fmt-check');
   root.querySelector('.fmt-quit').onclick = () => onQuit?.();
-  root.querySelector('.fmt-speak').onclick = () => say(fmt.prompt || fmt.word || '');
+  root.querySelector('.fmt-speak').onclick = () => say(spoken(fmt.prompt) || fmt.word || '');
 
   const submit = () => { if (locked || answer === null || answer === undefined) return; locked = true; checkBtn.disabled = true; onCheck?.(answer); };
   checkBtn.onclick = submit;
@@ -63,7 +66,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     body.innerHTML = `${fmt.prompt ? `<h3 class="fmt-q fmt-prompt">${esc(fmt.prompt)}</h3>` : `<h3 class="fmt-q">What is "<span class="fmt-word">${esc(fmt.word)}</span>"?</h3>`}
       <div class="fmt-choices">${fmt.choices.map((c) => `<button type="button" class="fmt-choice" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
     body.querySelectorAll('.fmt-choice').forEach((b) => { b.onclick = () => { if (locked) return; answer = b.dataset.v; b.classList.add('picked'); submit(); }; });
-    say(fmt.prompt || fmt.word);
+    say(spoken(fmt.prompt) || fmt.word);
   } else if (fmt.kind === 'listen') {
     checkBtn.hidden = true;
     body.innerHTML = `<button type="button" class="fmt-ear" aria-label="きく"><span class="fmt-ring"></span>🔊</button>
@@ -180,7 +183,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     } else hand.hidden = true;
     root._paintTiles = (states) => paint(states);
   } else if (fmt.kind === 'fill') {
-    body.innerHTML = `<p class="fmt-ja">${esc(fmt.ja)}</p>
+    body.innerHTML = `${fmt.ja ? `<p class="fmt-ja">${esc(fmt.ja)}</p>` : ''}
       <p class="fmt-sentence fmt-en"><span>${esc(fmt.before)}</span> <span class="fmt-blank" data-v=""></span> <span>${esc(fmt.after)}</span></p>
       <div class="fmt-choices fmt-en fmt-cards">${fmt.cards.map((c) => `<button type="button" class="fmt-choice" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
     const blank = body.querySelector('.fmt-blank');
