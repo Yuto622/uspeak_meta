@@ -13,10 +13,10 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const KEY_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
 const HOWTO = {
   mc: [['👀', 'えいごを よむ', 'Read the word'], ['👆', 'いみを えらぶ', 'Tap the meaning']],
-  match: [['👆', 'ひだりを おす', 'Tap the left card'], ['👆', 'みぎを おす（せんが つながる）', 'Tap the right card to draw a line']],
-  spell: [['👆', '2まい おして いれかえ', 'Tap two cards to swap'], ['✅', 'ならんだら Check', 'Then press Check']],
+  match: [['👆', 'えいごを おす', 'Tap a word'], ['🎨', 'おなじ いみを おす（おなじ いろに なる）', 'Tap its meaning: they turn the same colour']],
+  spell: [['👆', 'もじを じゅんばんに おす', 'Tap the letters in order'], ['↩', 'まちがえたら おして もどす', 'Tap a letter to take it back']],
   type: [['⌨', 'もじを うつ', 'Type the letters'], ['⏎', 'Enter で こたえる', 'Press Enter to answer']],
-  order: [['👆', '2まい おして いれかえ', 'Tap two cards to swap'], ['✅', 'ぶんに なったら Check', 'Then press Check']],
+  order: [['👆', 'ことばを じゅんばんに おす', 'Tap the words in order'], ['↩', 'まちがえたら おして もどす', 'Tap a word to take it back']],
   fill: [['👆', 'カードを おすと はいる', 'Tap a card to fill the blank'], ['✅', 'Check を おす', 'Then press Check']],
   listen: [['🔊', 'おとを きく', 'Listen'], ['👆', 'えいごを えらぶ', 'Tap the word']],
 };
@@ -32,7 +32,6 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
   const attempt = fmt.attempt || 1;
   let locked = false;
   let answer = null;
-  let touched = false;
   const say = (text) => { const en = englishOnly(text); if (en && speak) speak(en, { japanese: false, rate: 0.85 }); };
 
   host.innerHTML = `<section class="fmt" data-kind="${esc(fmt.kind)}">
@@ -76,111 +75,98 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     body.querySelectorAll('.fmt-choice').forEach((b) => { b.onclick = () => { if (locked) return; answer = b.dataset.v; b.classList.add('picked'); submit(); }; });
     say(fmt.word);
   } else if (fmt.kind === 'match') {
+    // えいごを おして、おなじ いみを おす → 2まいが おなじ いろに なって せんで つながる（どちらから おしてもよい）。
+    // つないだ カードを もう一度 おすと はずれる。ぜんぶ つながると Check が光る。
+    const PAIR = ['#e27a2d', '#3f8fd6', '#9b5fd0', '#2fa37a', '#d9668d', '#c9a227'];
     body.innerHTML = `<div class="fmt-match"><div class="fmt-col fmt-left">${fmt.left.map((en, i) => `<button type="button" class="fmt-card" data-side="l" data-i="${i}">${esc(en)}</button>`).join('')}</div>
       <svg class="fmt-lines" aria-hidden="true"></svg>
       <div class="fmt-col fmt-right">${fmt.right.map((ja, i) => `<button type="button" class="fmt-card" data-side="r" data-i="${i}">${esc(ja)}</button>`).join('')}</div></div>`;
     const links = new Map(); // left index -> right index
-    let picked = null;
+    const colorOf = new Map(); // left index -> pair colour (stays with the word while it is linked)
+    let picked = null; // { side, i }
     const svg = body.querySelector('.fmt-lines');
+    const card = (side, i) => body.querySelector(`[data-side=${side}][data-i="${i}"]`);
     const draw = (colors = null) => {
       const box = body.querySelector('.fmt-match').getBoundingClientRect();
       svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
       svg.innerHTML = [...links.entries()].map(([l, r]) => {
-        const a = body.querySelector(`[data-side=l][data-i="${l}"]`).getBoundingClientRect();
-        const b = body.querySelector(`[data-side=r][data-i="${r}"]`).getBoundingClientRect();
-        const stroke = colors ? colors[l] : '#e27a2d';
-        return `<line x1="${a.right - box.left}" y1="${a.top + a.height / 2 - box.top}" x2="${b.left - box.left}" y2="${b.top + b.height / 2 - box.top}" stroke="${stroke}" stroke-width="4" stroke-linecap="round"/>`;
+        const a = card('l', l).getBoundingClientRect();
+        const b = card('r', r).getBoundingClientRect();
+        const stroke = colors ? colors[l] : colorOf.get(l);
+        return `<line x1="${a.right - box.left}" y1="${a.top + a.height / 2 - box.top}" x2="${b.left - box.left}" y2="${b.top + b.height / 2 - box.top}" stroke="${stroke}" stroke-width="5" stroke-linecap="round"/>`;
       }).join('');
       answer = links.size === fmt.left.length ? fmt.left.map((_, i) => fmt.right[links.get(i)]) : null;
       checkBtn.disabled = !answer;
-      body.querySelectorAll('[data-side=l]').forEach((c) => c.classList.toggle('linked', links.has(Number(c.dataset.i))));
-      body.querySelectorAll('[data-side=r]').forEach((c) => c.classList.toggle('linked', [...links.values()].includes(Number(c.dataset.i))));
+      checkBtn.classList.toggle('ready', !!answer && !locked);
+      body.querySelectorAll('.fmt-card').forEach((c) => {
+        const i = Number(c.dataset.i);
+        const l = c.dataset.side === 'l' ? (links.has(i) ? i : null) : [...links.entries()].find(([, r]) => r === i)?.[0] ?? null;
+        c.classList.toggle('linked', l !== null);
+        c.style.setProperty('--pair', l !== null ? (colors ? colors[l] : colorOf.get(l)) : '');
+        c.classList.toggle('picked', !!picked && picked.side === c.dataset.side && picked.i === i);
+      });
+      body.querySelector('.fmt-match').dataset.waiting = picked ? (picked.side === 'l' ? 'r' : 'l') : '';
     };
+    const nextColor = () => PAIR.find((c) => ![...colorOf.values()].includes(c)) || PAIR[0];
     const connect = (l, r) => {
-      for (const [k, v] of links) if (v === r) links.delete(k);
+      for (const [k, v] of links) if (v === r) { links.delete(k); colorOf.delete(k); }
+      if (!links.has(l)) colorOf.set(l, nextColor());
       links.set(l, r);
       picked = null;
-      body.querySelectorAll('[data-side=l]').forEach((c) => c.classList.remove('picked'));
+      say(fmt.left[l]);
+      draw();
+    };
+    const unlink = (side, i) => {
+      const l = side === 'l' ? i : [...links.entries()].find(([, r]) => r === i)?.[0];
+      if (l === undefined || !links.has(l)) return false;
+      links.delete(l); colorOf.delete(l); picked = null; draw();
+      return true;
+    };
+    const tap = (side, i) => {
+      if (locked) return;
+      if (picked && picked.side !== side) { connect(side === 'r' ? picked.i : i, side === 'r' ? i : picked.i); return; }
+      if (picked && picked.side === side && picked.i === i) { picked = null; draw(); return; }
+      if (!picked && unlink(side, i)) return;
+      picked = { side, i };
+      if (side === 'l') say(fmt.left[i]);
       draw();
     };
     body.querySelectorAll('.fmt-card').forEach((c) => {
-      c.onclick = () => {
-        if (locked) return;
-        const i = Number(c.dataset.i);
-        if (c.dataset.side === 'l') { picked = i; body.querySelectorAll('[data-side=l]').forEach((x) => x.classList.toggle('picked', x === c)); }
-        else if (picked !== null) connect(picked, i);
-      };
-      // Dragging from a left card onto a right card also draws the line.
-      c.addEventListener('pointerdown', (e) => {
-        if (locked || c.dataset.side !== 'l') return;
-        picked = Number(c.dataset.i);
-        body.querySelectorAll('[data-side=l]').forEach((x) => x.classList.toggle('picked', x === c));
-        const up = (ev) => {
-          const el = document.elementFromPoint(ev.clientX, ev.clientY)?.closest?.('[data-side=r]');
-          if (el) connect(picked, Number(el.dataset.i));
-          window.removeEventListener('pointerup', up);
-        };
-        window.addEventListener('pointerup', up);
-        e.preventDefault();
-      });
+      c.onclick = () => tap(c.dataset.side, Number(c.dataset.i));
     });
     checkBtn.disabled = true;
     requestAnimationFrame(() => draw());
     window.addEventListener('resize', () => draw(), { once: false });
     root._drawLines = draw;
     root._links = links;
-    say(fmt.left[0]);
   } else if (fmt.kind === 'spell' || fmt.kind === 'order') {
+    // 下の カードを じゅんばんに おすと、上の こたえの ならびに 入る。入れた カードを おすと 下に もどる。
+    // （前は「2まい おして いれかえ」だったが、何を すればいいか 分からない子が 多かった。）
     const items = fmt.kind === 'spell' ? fmt.letters : fmt.words;
-    const label = fmt.kind === 'spell' ? ['← よみかた の じゅんに →', '← in reading order →'] : ['← ぶんの あたまから おわりへ →', '← from the start of the sentence to the end →'];
-    body.innerHTML = `<p class="fmt-ja">${esc(fmt.ja)}</p>
-      <div class="fmt-slots">${items.map((_, i) => `<span class="fmt-slot"><i>${i + 1}</i></span>`).join('')}</div>
-      <div class="fmt-tiles">${items.map((it, i) => `<button type="button" class="fmt-tile" data-i="${i}">${esc(it)}</button>`).join('')}</div>
-      <p class="fmt-arrow">${isJa() ? label[0] : label[1]}</p>
-      <div class="fmt-hand" aria-hidden="true">👆</div>`;
-    const tiles = body.querySelector('.fmt-tiles');
-    let order = items.map((_, i) => i);
-    let sel = null;
+    const n = items.length;
+    body.innerHTML = `${fmt.ja ? `<p class="fmt-ja">${esc(fmt.ja)}</p>` : ''}
+      <div class="fmt-build" aria-label="${isJa() ? 'こたえ' : 'Your answer'}"></div>
+      <div class="fmt-bank"></div>
+      <div class="fmt-tools"><button type="button" class="fmt-undo">↩ <span>${isJa() ? 'ひとつ もどす' : 'Undo'}</span></button><button type="button" class="fmt-clear">🧹 <span>${isJa() ? 'ぜんぶ もどす' : 'Clear'}</span></button></div>`;
+    const build = body.querySelector('.fmt-build');
+    const bank = body.querySelector('.fmt-bank');
+    const placed = [];
     const paint = (states = null) => {
-      tiles.innerHTML = order.map((idx, pos) => `<button type="button" class="fmt-tile ${sel === pos ? 'picked' : ''} ${states ? states[pos] : ''}" data-pos="${pos}">${esc(items[idx])}</button>`).join('');
-      answer = order.map((idx) => items[idx]);
-      checkBtn.disabled = false;
-      wire();
+      build.innerHTML = Array.from({ length: n }, (_, pos) => {
+        const idx = placed[pos];
+        if (idx === undefined) return `<span class="fmt-slot${pos === placed.length ? ' next' : ''}"><i>${pos + 1}</i></span>`;
+        return `<button type="button" class="fmt-slot filled ${states ? states[pos] || '' : ''}" data-pos="${pos}">${esc(items[idx])}</button>`;
+      }).join('');
+      bank.innerHTML = items.map((it, i) => `<button type="button" class="fmt-tile${placed.includes(i) ? ' used' : ''}" data-i="${i}" ${placed.includes(i) ? 'disabled' : ''}>${esc(it)}</button>`).join('');
+      answer = placed.length === n ? placed.map((i) => items[i]) : null;
+      checkBtn.disabled = !answer;
+      checkBtn.classList.toggle('ready', !!answer && !locked);
+      build.querySelectorAll('.fmt-slot.filled').forEach((el) => { el.onclick = () => { if (locked) return; placed.splice(Number(el.dataset.pos), 1); paint(); }; });
+      bank.querySelectorAll('.fmt-tile:not(.used)').forEach((el) => { el.onclick = () => { if (locked || placed.length >= n) return; placed.push(Number(el.dataset.i)); if (fmt.kind === 'order') say(items[Number(el.dataset.i)]); paint(); }; });
     };
-    const swap = (a, b) => { [order[a], order[b]] = [order[b], order[a]]; sel = null; paint(); };
-    const hand = body.querySelector('.fmt-hand');
-    const stopHand = () => { touched = true; hand.hidden = true; };
-    function wire() {
-      tiles.querySelectorAll('.fmt-tile').forEach((tile) => {
-        tile.onclick = () => {
-          if (locked) return;
-          stopHand();
-          const pos = Number(tile.dataset.pos);
-          if (sel === null) { sel = pos; paint(); } else if (sel === pos) { sel = null; paint(); } else swap(sel, pos);
-        };
-        // Drag a tile and drop it on another to swap them.
-        tile.addEventListener('pointerdown', (e) => {
-          if (locked) return;
-          stopHand();
-          const from = Number(tile.dataset.pos);
-          tile.classList.add('dragging');
-          const up = (ev) => {
-            tile.classList.remove('dragging');
-            const el = document.elementFromPoint(ev.clientX, ev.clientY)?.closest?.('.fmt-tile');
-            if (el && el !== tile) swap(from, Number(el.dataset.pos));
-            window.removeEventListener('pointerup', up);
-          };
-          window.addEventListener('pointerup', up);
-          e.preventDefault();
-        });
-      });
-    }
+    body.querySelector('.fmt-undo').onclick = () => { if (!locked && placed.length) { placed.pop(); paint(); } };
+    body.querySelector('.fmt-clear').onclick = () => { if (!locked) { placed.length = 0; paint(); } };
     paint();
-    // The first few seconds: a hand moves the first tile onto the second, as a demonstration.
-    if (items.length >= 2) {
-      hand.hidden = false;
-      setTimeout(() => { if (!touched) hand.hidden = true; }, 6000);
-    } else hand.hidden = true;
     root._paintTiles = (states) => paint(states);
   } else if (fmt.kind === 'fill') {
     body.innerHTML = `${fmt.ja ? `<p class="fmt-ja">${esc(fmt.ja)}</p>` : ''}
