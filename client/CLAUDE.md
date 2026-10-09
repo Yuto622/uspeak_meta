@@ -929,13 +929,23 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 **`formats-core.js`（7 形式の問題部品・DOM なし・サーバーと共有）** / `formats-ui.js`（7 形式の見た目と操作）/ `dev-formats.html`（`/dev/formats`）。
 サーバーは `server/src/game/fishworld.js`。
 
-- **3 つの小屋＝3 つのゾーン**（いけ 5 級・かわ 4 級・うみ 3 級）。戸口に入ると `fishworld.enter(spot)`（`setDoorHandler` の `fishworld`）。
-  `fw:open` → `fw:state`、「さおを なげる」→ `fw:cast` → `fw:ask`、`fw:answer` → `fw:result`、正解の後のタイミングバー → `fw:reel {grade}` → `fw:catch`。
+- **小屋はない。3 つの水辺＝3 つのゾーン**（★いけ 5 級＝池のさお置き場・★★かわ 4 級＝川岸の砂利・★★★うみ 3 級＝さんばし）。
+  水は `fishworld.json` の `island.water`（池の楕円・川の中心線・さんばし）、うきの落ちる点は各 spot の `cast`。
+  **戸口は無い**：水辺に立つと「🎣 ここで つる」が出て、E / ボタンで `fishworld.enter(spot)`（`net.fishworldInteract()`）。
+  `tests/regression.mjs` のドア検査は つり島だけ空にしてある。
+- **流れは U-Speak島の釣りと同じ**：「さおを なげる」→ **画面が閉じて島の上で さお・糸・うき**（`island.startCast`）→
+  `fw:cast` → `fw:ask` が届いても **うきが しずむまで出さない**（`WAIT_MIN`、`island.bite()` で「！」）→ 問題 →
+  正解でタイミングバー → `fw:reel {grade}` → `fw:catch` → **画面を閉じて 魚の写真が水から はねる**（`island.splash`）→ つれた！のカード。
+  投げている間は歩けない（`game.js` の `menus` に `rpg.fishworld.casting`）、カメラは肩越しに うきを見る（`island.chase`）。
+- **水は当たり判定が形**（`fishworld-island.js` の `blocked`）：池は楕円、川は中心線からの距離。箱で囲むと斜めの川岸に立てない。
+  池の上の さお置き場と 川の橋の上だけは歩ける。
 - **問題を足すときは `formats-core.js` の build / public / check を足す**（画面と判定が同じ関数）。`publicFormat` は答えを抜く：
   mc は選択肢の中に答えがあるが、match は `pairs` を出さない、spell / type は `word` を出さない。
 - **学習の中身は `.fmt-learn` / `.fw-learn`**（`i18n-dom.js` の `LEARNING`、`translate="no"` も付けてある）。英単語・意味・魚の名前は訳さない。
 - `formats-ui.js` の type は `window` の keydown を取る（`destroy()` で外す）。画面を閉じるときは必ず `ctl.destroy()`。
-- 魚の絵は絵文字（`fishworld.json` の `emoji`）。Roblox の `rbxassetid://` は Web では読めない。
+- **魚の絵は `assets/fish/<photo>.jpg`**（U-Speak島の釣りと同じ写真）。`fishworld.json` の各魚の `photo` が名前で、
+  サーバーの `fishPayload` がそのまま渡す。`server/test/fishworld.test.mjs` が「全部の魚に写真のファイルがあるか」を見る。
+  `emoji` は写真が無いときの予備。
 
 ## きせかえ（アバターの店／2026-09 追加）
 

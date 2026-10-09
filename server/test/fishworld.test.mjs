@@ -5,7 +5,7 @@ import {
   FORMATS, FORMAT_META, makeRng, pickFormat, buildMc, buildMatch, buildSpell, buildType, buildOrder, buildFill, buildListen,
   publicFormat, checkFormat, revealFormat, diffFormat, canSpell, canType,
 } from '../../client/dist/formats-core.js';
-import { FW, prepare, answer, askPayload, lottery, catchFish, sellFrom, sanitizeFw, blankFw, statePayload, dexTotal, FishworldError } from '../src/game/fishworld.js';
+import { FW, prepare, answer, askPayload, lottery, catchFish, sellFrom, sanitizeFw, blankFw, statePayload, dexTotal, fishPayload, FishworldError } from '../src/game/fishworld.js';
 
 const Q = { q: 'Water', a: 'みず', o: ['みず', 'ひ', 'つち'] };
 const POOL = FW.quiz['1'];
@@ -144,4 +144,25 @@ test('図鑑：初めての魚は +dexBonus、2匹目は 0。売ると袋から�
   assert.equal(s.counts[3].have, 1); assert.equal(s.bag.length, 0); assert.equal(s.dex.find((d) => d.en === 'Amberjack').have, true);
   const back = sanitizeFw(JSON.parse(JSON.stringify({ ...fw, bag: { Amberjack: 3, Nope: 2 }, dex: ['Amberjack', 'Nope'] })));
   assert.deepEqual(back.bag, { Amberjack: 3 }); assert.deepEqual(back.dex, ['Amberjack']);
+});
+
+test('every fish has a photo that is really in assets/fish, and the catch payload carries it', async () => {
+  const { existsSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const dir = fileURLToPath(new URL('../../client/dist/assets/fish/', import.meta.url));
+  for (const f of FW.fish) {
+    assert.ok(f.photo, `${f.en} has no photo`);
+    assert.ok(existsSync(`${dir}${f.photo}.jpg`), `${f.en}: assets/fish/${f.photo}.jpg is missing`);
+    assert.equal(fishPayload(f).photo, f.photo);
+  }
+});
+
+test('the three fishing spots stand by real water: pond, river bank, sea pier', () => {
+  const { island } = FW;
+  const w = island.water;
+  assert.ok(w?.pond && Array.isArray(w.river) && w.pier, 'water block');
+  for (const sp of island.spots) assert.ok(sp.cast && Number.isFinite(sp.cast.x) && Number.isFinite(sp.cast.z), `${sp.id} has a cast point`);
+  const pond = island.spots.find((s) => s.id === 'pond').cast;
+  assert.ok(((pond.x - w.pond.x) / w.pond.rx) ** 2 + ((pond.z - w.pond.z) / w.pond.rz) ** 2 < 1, 'the pond float lands in the pond');
+  assert.ok(island.spots.find((s) => s.id === 'sea').cast.x > w.pier.x0, 'the sea float lands off the pier');
 });

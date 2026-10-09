@@ -519,7 +519,8 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  const doors=rpg[mod].doors;
  // のりもの島 の スタートラインだけは建物ではない：レースはグリッドに乗って始めるもので、
  // 小屋に入って始めるものではない（ドアが線の上にあると走行中に中へ吸い込まれる）。
- const withDoors=island.spots.filter(sp=>!(hub==='ride'&&sp.kind==='start'));
+ // つり島 は建物ではなく水辺（池のさお置き場・川岸・さんばし）。立って 🎣 を押すので、戸口は無い。
+ const withDoors=hub==='fishworld'?[]:island.spots.filter(sp=>!(hub==='ride'&&sp.kind==='start'));
  assert.equal(doors.length,withDoors.length,hub+': not every building has a door');
  for(const d of doors){
   const spot=withDoors.find(sp=>sp.id===d.id);

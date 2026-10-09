@@ -186,8 +186,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const myLand = createLand({ player, camera, view, toast, onLeave: () => rpg.activate('land', true) });
   rpg.attachLand(myLand);
   const land = createLandUI({ send: atSend, toast, isOnline: () => state.mode === 'online', world: myLand });
-  // つり島: Roblox の釣りワールド。小屋に入ると問題、正解でタイミング、くじは部屋。
-  const fishworld = createFishworldUI({ send: atSend, toast, speak, isOnline: () => state.mode === 'online' });
+  // つり島: Roblox の釣りワールド。池・川・海の水辺に立って さおを なげる。くじは部屋。
+  const fishworld = createFishworldUI({ send: atSend, toast, speak, isOnline: () => state.mode === 'online', island: rpg.fishworld });
   // Walking into the doorway is what opens both of them. There is no counter inside and
   // nothing to press: the island reports the doorway, and this asks the server for what
   // is behind it.
@@ -205,8 +205,6 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       sendMove();
       return land.enter(spot);
     }
-    // つり島: three huts, three zones. The doorway is the zone.
-    if (islandId === 'fishworld') { sendMove(); return fishworld.enter(spot); }
     if (islandId !== 'town') return false;
     // ブロックの とびら is not a room to go into, it is a game to leave for — and unlike
     // everything else on this island it needs nothing from the server, so it opens
@@ -995,6 +993,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     townLabel: (spot) => town.label(spot),
     landInteract: () => { const near = rpg.landNearby(); if (near) { sendMove(); land.enter(near.spot); } },
     fishworldInteract: () => { const near = rpg.fishworldNearby(); if (near) { sendMove(); fishworld.enter(near.spot); } },
+    fishworldLabel: () => tr('🎣 ここで つる'),
     fishworld,
     landLabel: (spot) => land.label(spot),
     land, myLand,

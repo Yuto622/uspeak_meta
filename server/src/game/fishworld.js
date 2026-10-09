@@ -165,7 +165,7 @@ export function sellFrom(fw, en) {
   return { coins: f.sell, count: 1, item: f.en };
 }
 
-export const fishPayload = (f) => ({ en: f.en, ja: f.ja, rarity: f.rarity, stars: FW.rarity[f.rarity]?.stars || '', color: FW.rarity[f.rarity]?.color || '#78C882', label: RARITY_LABEL[f.rarity], zone: f.zone, sell: f.sell, emoji: f.emoji, kind: f.kind });
+export const fishPayload = (f) => ({ en: f.en, ja: f.ja, rarity: f.rarity, stars: FW.rarity[f.rarity]?.stars || '', color: FW.rarity[f.rarity]?.color || '#78C882', label: RARITY_LABEL[f.rarity], zone: f.zone, sell: f.sell, emoji: f.emoji, photo: f.photo || '', kind: f.kind });
 
 export function statePayload(fw) {
   const counts = {};
