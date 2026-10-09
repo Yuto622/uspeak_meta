@@ -254,7 +254,7 @@
    "w": 20,
    "d": 18,
    "action": "食べ物を買う",
-   "phase": 2
+   "phase": 1
   },
   {
    "id": "shop_food3",
@@ -267,7 +267,7 @@
    "w": 8,
    "d": 12,
    "action": "食べ物を買う",
-   "phase": 2
+   "phase": 1
   },
   {
    "id": "shop_food0",
@@ -280,7 +280,7 @@
    "w": 20,
    "d": 19,
    "action": "食べ物を買う",
-   "phase": 2
+   "phase": 1
   },
   {
    "id": "clothes",
@@ -725,6 +725,54 @@
     "character": "RPG Quest",
     "en": "Gate to the RPG quest",
     "ja": "ぼうけんへの ゲート"
+   },
+   {
+    "id": "shop_food0",
+    "kind": "food_shop",
+    "shop": "fruit",
+    "x": -20,
+    "z": 21,
+    "path": {
+     "x": -20,
+     "z": 16
+    },
+    "color": 14242639,
+    "character": "Fruit Stand",
+    "en": "Fruit Stand",
+    "ja": "くだものや",
+    "icon": "🍎"
+   },
+   {
+    "id": "shop_food2",
+    "kind": "food_shop",
+    "shop": "sweets",
+    "x": -8,
+    "z": 21,
+    "path": {
+     "x": -8,
+     "z": 16
+    },
+    "color": 15244208,
+    "character": "Sweets",
+    "en": "Sweets",
+    "ja": "スイーツ",
+    "icon": "🍰"
+   },
+   {
+    "id": "shop_food3",
+    "kind": "food_shop",
+    "shop": "drinks",
+    "x": 28,
+    "z": 21,
+    "path": {
+     "x": 28,
+     "z": 16
+    },
+    "color": 8176864,
+    "character": "Drinks",
+    "en": "Drinks",
+    "ja": "のみもの",
+    "icon": "🧃"
    }
   ],
   "deco": [
@@ -750,36 +798,6 @@
     "icon": "🚚",
     "en": "Food Truck",
     "ja": "フードトラック"
-   },
-   {
-    "id": "shop_food2",
-    "type": "kiosk",
-    "x": -3,
-    "z": 22,
-    "color": 15244208,
-    "icon": "🍰",
-    "en": "Sweets",
-    "ja": "スイーツ"
-   },
-   {
-    "id": "shop_food3",
-    "type": "kiosk",
-    "x": 10,
-    "z": 22,
-    "color": 8176864,
-    "icon": "🧃",
-    "en": "Drinks",
-    "ja": "のみもの"
-   },
-   {
-    "id": "shop_food0",
-    "type": "kiosk",
-    "x": -10,
-    "z": 22,
-    "color": 14242639,
-    "icon": "🍎",
-    "en": "Fruit Stand",
-    "ja": "くだものや"
    },
    {
     "id": "clothes",
@@ -859,8 +877,8 @@
    {
     "id": "photo",
     "type": "kiosk",
-    "x": -22,
-    "z": 22,
+    "x": -44,
+    "z": 20,
     "color": 8161942,
     "icon": "📷",
     "en": "Photo Booth",

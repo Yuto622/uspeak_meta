@@ -1,0 +1,70 @@
+/* おなか（右上の 🍗 ゲージ）と 屋台・かばんの 画面（food.js）。 */
+#hunger {
+  /* 右のバー（.right-rail）の いちばん上に入る。バーが無い画面では 右上に浮かせる。 */
+  display: flex; align-items: center; justify-content: center; gap: 6px; padding: 5px 10px; min-height: 34px;
+  border: 0; border-radius: 14px; background: #1b3a2fe6; box-shadow: 0 4px 14px #0003; cursor: pointer;
+}
+body > #hunger { position: fixed; right: 30px; top: 100px; z-index: 5; }
+#hunger[hidden] { display: none; }
+.hg-icons { display: flex; gap: 1px; }
+.hg-icons i {
+  width: 17px; height: 17px; font-style: normal; font-size: 14px; line-height: 17px; text-align: center;
+  position: relative; filter: grayscale(1) brightness(.75); opacity: .45;
+}
+.hg-icons i::before { content: '🍗'; }
+.hg-icons i.full { filter: none; opacity: 1; }
+/* はんぶん：左だけ 色。 */
+.hg-icons i.half { filter: none; opacity: 1; clip-path: inset(0 45% 0 0); }
+#hunger.low .hg-icons { animation: hg-shake 1.6s ease-in-out infinite; }
+#hunger.empty { background: #7a2a22e6; }
+#hunger.yum { animation: hg-yum .6s ease-out; }
+@keyframes hg-shake { 0%, 80%, 100% { transform: translateY(0); } 85% { transform: translateY(-2px); } 90% { transform: translateY(2px); } }
+@keyframes hg-yum { 40% { box-shadow: 0 0 0 6px #ffd24688; } }
+body[data-arcade] #hunger, body[data-race] #hunger, body[data-gp] #hunger, body[data-main] #hunger { display: none; }
+@media (prefers-reduced-motion: reduce) { #hunger.low .hg-icons, #hunger.yum { animation: none; } }
+
+#food-dialog { width: min(640px, 94vw); max-height: 90dvh; padding: 0; border: 0; border-radius: 22px; background: #fffbf5; color: #1b3a2f; overflow: auto; box-shadow: 0 24px 60px #0006; }
+#food-dialog::backdrop { background: #0b1d1666; }
+#food-dialog .en, #food-dialog .ja { font-size: inherit; }
+.fd-head { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: linear-gradient(120deg, #1b3a2f, #2c5a46); color: #fffbf5; position: sticky; top: 0; z-index: 1; }
+.fd-icon { font-size: 34px; }
+.fd-head small { display: block; font-size: 11px; letter-spacing: .14em; opacity: .8; }
+.fd-head h2 { margin: 0; font-size: 22px; }
+.fd-coins { margin-left: auto; padding: 6px 12px; border-radius: 999px; background: #0d211a; font-weight: 800; color: #ffd246; }
+.fd-x { width: 40px; height: 40px; border: 0; border-radius: 12px; background: #ffffff22; color: #fff; font-size: 18px; cursor: pointer; }
+#fd-body { padding: 16px 18px 20px; }
+.fd-meter { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-weight: 800; }
+.fd-meter i { flex: 1; height: 12px; border-radius: 99px; background: linear-gradient(90deg, #e27a2d var(--p), #e9e2d4 var(--p)); }
+.fd-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.fd-item { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 8px; border-radius: 16px; background: #fff; box-shadow: inset 0 0 0 2px #efe7d6; text-align: center; }
+.fd-emoji { font-size: 40px; line-height: 1; }
+.fd-name b { display: block; font-size: 18px; }
+.fd-name small { display: block; font-size: 12px; color: #5d6d62; }
+.fd-fill { margin: 0; font-size: 13px; } .fd-fill small { color: #5d6d62; }
+.fd-buy { width: 100%; min-height: 40px; border: 0; border-radius: 12px; background: #e27a2d; color: #fff; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 3px 0 #a9541b; }
+.fd-buy:disabled { background: #d9d2c4; box-shadow: none; color: #6d6a62; cursor: default; }
+.fd-have { position: absolute; top: 6px; right: 8px; font-size: 12px; font-weight: 800; color: #2f8f5b; }
+.fd-h3 { margin: 18px 0 8px; font-size: 15px; }
+.fd-bag { display: flex; flex-wrap: wrap; gap: 8px; }
+.fd-eat { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 86px; padding: 8px 10px; border: 0; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 2px #cfe6d6, 0 3px 0 #cfe6d6; cursor: pointer; font-weight: 700; color: #1b3a2f; }
+.fd-eat .fd-emoji { font-size: 30px; }
+.fd-eat small { font-size: 12px; color: #5d6d62; }
+.fd-eat:disabled { opacity: .5; cursor: default; }
+.fd-empty, .fd-fine { color: #5d6d62; font-size: 13px; margin: 6px 0 0; }
+
+@media (max-width: 640px) {
+  .hg-icons i { width: 14px; font-size: 12px; }
+  .fd-items { grid-template-columns: 1fr; }
+  .fd-item { flex-direction: row; text-align: left; }
+  .fd-item .fd-name { flex: 1; }
+  .fd-buy { width: auto; padding: 0 12px; }
+}
+/* 横向きの携帯（バー＝ top 74px・右 14px・幅 132px、mobile.css）：バーは 高さが足りず 📹 が はみ出すので、
+   ゲージと 🏠 は バーの 流れから 出して、すぐ左に 固定する（fixed は バーの overflow に 切られない）。 */
+@media (pointer: coarse) and (max-height: 560px) {
+  .right-rail > #hunger, .right-rail > #main-island-button {
+    position: fixed; right: calc(154px + env(safe-area-inset-right)); width: auto; margin: 0;
+  }
+  .right-rail > #hunger { top: calc(74px + env(safe-area-inset-top)); }
+  .right-rail > #main-island-button { top: calc(114px + env(safe-area-inset-top)); }
+}

@@ -26,6 +26,8 @@ const KIND = {
   housing: '#5a7fb0', battle_arena: '#b0664a', photo_booth: '#7c8a96', npc: '#4fae6b',
 };
 // ゲートの行き先（Web の島）。
+// 屋台（main_island.json の island.spots の kind "food_shop"）。2D の地図の poi の id と同じ。
+const FOOD_POI = { shop_food0: 'fruit', shop_food2: 'sweets', shop_food3: 'drinks' };
 const GATE_TO = { gate_race: 'ride', gate_rpg: 'meadow', gate_build: 'town', gate_park: 'park', gate_fishing: 'fishworld' };
 // じゅんびちゅうの場所に いちばん近い Web の島（あれば カードから行ける）。
 const ALT = { clothes: 'wear', blocks: 'town', build_area: 'town', mansion: 'land', arena1: 'arena', arena2: 'arena', npc_talk: 'conv' };
@@ -64,7 +66,7 @@ const tagJa = (p) => (p.id === 'hut_easy' ? LEVEL_LABEL[easyLevel()][1] : p.kind
 let dataPromise = null;
 const loadData = () => (dataPromise ||= fetch('main_island.json', { cache: 'no-cache' }).then((r) => r.json()));
 
-export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordhouse, daily, dash, guide, getCoins, getLevel, getStreak, player = null }) {
+export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordhouse, daily, dash, guide, getCoins, getLevel, getStreak, player = null, food = null }) {
   const root = document.createElement('div');
   root.id = 'main-island';
   root.hidden = true;
@@ -229,6 +231,13 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
       $('[data-act="go"]', el).onclick = () => goWorld(dest.id);
       return;
     }
+    // 屋台（3D の島で 買える）：地図からは その屋台の前へ つれていく。
+    if (FOOD_POI[id]) {
+      const el = sheet(`${head(p)}<p class="mi-sheet-desc">${bi('Buy food with U-Speak coins. Eat it to fill your hunger 🍗.', 'U-Speak コインで たべものを かえるよ。たべると おなか 🍗 が ふえる。')}</p>
+        <div class="mi-acts"><button type="button" class="mi-act primary" data-act="stall">${bi('🛒 Go to the stall', '🛒 やたいへ いく')}</button></div>`);
+      $('[data-act="stall"]', el).onclick = () => toStall(id);
+      return;
+    }
     if (p.phase > 1) {
       const alt = ALT[id] ? REGION_BY_ID[ALT[id]] : null;
       const el = sheet(`${head(p)}<p class="mi-sheet-desc">${bi('This place is being built. Coming soon!', 'ここは いま じゅんびちゅう。もうすこし まってね！')}</p>
@@ -262,6 +271,14 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (what === 'fish') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, auto: true });
     if (what === 'dex') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, tab: 'dex' });
     if (what === 'sell') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, tab: 'bag' });
+  }
+
+  function toStall(id) {
+    close();
+    if (rpg.state.current !== 'main') rpg.activate('main', true, true);
+    const isl = rpg.main?.data;
+    const sp = isl?.spots.find((q) => q.id === id);
+    if (sp && player) player.position.set(isl.x + sp.x, 0, isl.z + sp.z - 2.5);
   }
 
   function goWorld(id) {
@@ -333,6 +350,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (!isOnline()) { toast(tr('オンラインで あそべます。')); return true; }
     if (spot.kind === 'fishing') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, auto: true });
     if (spot.kind === 'fish_buy') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, tab: 'bag' });
+    if (spot.kind === 'food_shop') food?.openShop(spot.shop);
     return true;
   }
   const LABEL = {
@@ -340,6 +358,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     level_sign: () => tr('🔁 レベルを かえる'),
     fishing: () => tr('🎣 英語で釣りをする'),
     fish_buy: () => tr('🐟 さかなを うる'),
+    food_shop: () => tr('🛒 たべものを かう'),
     gate: (sp) => `🌀 ${isJa() ? String(sp.ja || '').replace(/への ゲート$/, '') : sp.character} →`,
   };
   const label = (spot) => (LABEL[spot?.kind] || (() => tr('はいる')))(spot);

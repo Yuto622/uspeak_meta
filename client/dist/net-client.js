@@ -33,6 +33,7 @@ import { createLand } from './land-world.js';
 import { createLandUI } from './land.js';
 import { createFishworldUI } from './fishworld.js';
 import { createWordHouseUI } from './wordhouse.js';
+import { createFoodUI } from './food.js';
 import { createMainIsland } from './main-island.js';
 import { createRacers } from './racers.js';
 import { createGuestDock } from './guest-dock.js';
@@ -278,9 +279,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   });
   // メインの島（2D の地図のホーム）と 英単語ハウス。正解もコインも部屋が決める（wh:* / main:*）。
   const plainSend = (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); };
+  // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
+  const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
-    send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash,
+    send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash, food,
     guide: guide || { open() {} },
     getCoins: () => state.wallet?.coins ?? fishing.store.state.coins,
     getLevel: () => state.progress?.level ?? Number(document.querySelector('#level')?.textContent || 1),
@@ -296,6 +299,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // 島の外では ホームへ ひこうきで、島の上では 2D の地図（リストでも見られる）。
     b.onclick = () => main.goHome();
     document.querySelector('.right-rail')?.prepend(b);
+    // おなかの ゲージは 右のバーの いちばん上（どの島でも 見える）。
+    document.querySelector('.right-rail')?.prepend(food.gauge);
   }
   // Put the child's own clothes on their own body, and keep them on when they change face.
   const dressMe = (worn, table) => {
@@ -464,6 +469,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       r.send('farm:peek', {});
       welcomed = true;
       state.streak = m.streak || 0;
+      food.apply(m.food);
       // ホームはメインの島。はじめて入ったときだけ開く（つなぎなおしでは開かない）。
       if (!state.mainShown) { state.mainShown = true; main.goHome({ first: true }); }
       state.role = m.role;
@@ -573,6 +579,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('fw:sold', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onSold(m); });
     r.onMessage('fw:error', (m) => fishworld.onError(m));
     r.onMessage('wh:ask', (m) => wordhouse.onAsk(m));
+    r.onMessage('food:state', (m) => food.apply(m));
+    r.onMessage('food:menu', (m) => food.onMenu(m));
+    r.onMessage('food:bought', (m) => food.onBought(m));
+    r.onMessage('food:ate', (m) => food.onAte(m));
+    r.onMessage('food:error', (m) => food.onError(m));
     r.onMessage('wh:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress, m.levels); wordhouse.onResult(m); });
     r.onMessage('wh:error', (m) => wordhouse.onError(m));
     r.onMessage('farm:board', (m) => farm.onBoard(m));
@@ -1042,6 +1053,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     mainLabel: (spot) => main.label(spot),
     fishworld,
     wordhouse,
+    food,
     main,
     landLabel: (spot) => land.label(spot),
     land, myLand,
@@ -1050,7 +1062,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     rideLabel: (spot) => ride.label(spot),
     // The world tells us when the avatar drives into a checkpoint ring.
     // How fast this child moves: 1 on foot, more on a vehicle they own.
-    speed: () => (state.mode === 'online' ? state.speed : 1),
+    // おなかが 0 だと おそく（どの島でも）。
+    speed: () => (state.mode === 'online' ? state.speed * food.speedFactor() : 1),
     night,
     // The world's own time. Offline this is simply the device's clock, so the sky still
     // turns for a child playing alone.

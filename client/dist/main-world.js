@@ -102,6 +102,16 @@ export function createMainWorld({ scene }) {
           D(def.x + 1.2, 1.5, def.z + 2.5, 0.08, 0.08, 2.2, 0x6d543a);
           D(def.x - 1.1, 0.55, def.z + 1.6, 0.7, 0.6, 0.7, 0x5a8fb0);
           sprite({ en: '🎣 Fishing Pier', ja: '🎣 つり場' }, def.x, 3.2, def.z + 2.4, { width: 6, size: 30 });
+        } else if (def.kind === 'food_shop') {
+          // 屋台（買える）：しましまの屋根と カウンター。戸口（def）は 道がわ、屋台は その 南。
+          const kz = def.z + 2.6;
+          D(def.x, 0.6, kz, 3.4, 1.0, 2, 0xa8835a);
+          for (const sx of [-1.5, 1.5]) D(def.x + sx, 1.6, kz + 0.8, 0.18, 2.2, 0.18, 0x6f5b3e);
+          for (let i = 0; i < 5; i += 1) D(def.x - 1.6 + i * 0.8, 2.75, kz, 0.8, 0.22, 2.6, i % 2 ? color : 0xf7f1e1);
+          D(def.x, 1.2, kz - 0.9, 0.9, 0.5, 0.5, 0xf7f1e1);
+          obstacles.push({ x: def.x, z: kz, w: 1.8, d: 1.1 });
+          sprite({ en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` }, def.x, 3.9, kz, { width: 6 });
+          keep(def.x, kz, 2.6, 2);
         } else if (def.kind === 'gate') {
           gate(def, color);
         }

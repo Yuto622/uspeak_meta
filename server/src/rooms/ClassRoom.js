@@ -57,6 +57,7 @@ import { FARM, sanitizeFarm, settle as settleFarm, statePayload as farmPayload, 
 import { reportPath, exportPath, classPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
+import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004 };
 const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only within a lesson window
@@ -200,6 +201,10 @@ export class ClassRoom extends Room {
     this.onMessage('wh:answer', (client, msg) => this.onWhAnswer(client, msg));
     this.onMessage('wh:quit', (client) => { const priv = this.priv.get(client.sessionId); if (priv) priv.wh = null; });
     this.onMessage('main:enter', (client) => this.onMainEnter(client));
+    this.onMessage('food:get', (client) => { const priv = this.priv.get(client.sessionId); if (priv) client.send('food:state', foodPayload(priv.food)); });
+    this.onMessage('food:open', (client, msg) => this.onFoodOpen(client, msg));
+    this.onMessage('food:buy', (client, msg) => this.onFoodBuy(client, msg));
+    this.onMessage('food:eat', (client, msg) => this.onFoodEat(client, msg));
     this.onMessage('main:leave', (client) => this.onMainLeave(client.sessionId));
     this.onMessage('prop:list', (client) => client.send('prop:shop', this.propShopPayload(client.sessionId)));
     this.onMessage('prop:buy', (client, msg) => this.onPropBuy(client, msg));
@@ -358,6 +363,7 @@ export class ClassRoom extends Room {
     // The day's bonus is banked before `welcome` is built, so the page never shows a coin
     // count it has to correct a moment later. The popup follows the welcome.
     const bonus = this.claimDaily(client.sessionId);
+    resumeFood(this.priv.get(client.sessionId).food); // おなかは つながっている間だけ へる
     client.send('welcome', this.welcomePayload(client.sessionId, restored, position));
     if (bonus) client.send('login:bonus', bonus);
     this.persist(client.sessionId);
@@ -371,6 +377,7 @@ export class ClassRoom extends Room {
     if (!player || !priv) return;
     player.connected = false;
     this.onMainLeave(id);
+    pauseFood(priv.food);
     this.dropVoice(id, 'gone');
     if (this.state.teacherId === id) this.state.teacherId = '';
     this.persist(id);
@@ -382,6 +389,7 @@ export class ClassRoom extends Room {
       priv.lastMoveAt = Date.now();
       player.connected = true;
       if (player.role === 'teacher') this.state.teacherId = id;
+      resumeFood(priv.food);
       newClient.send('welcome', this.welcomePayload(id, true, null));
       log.info(`[room ${this.roomId}] reconnected "${player.name}" (${id})`);
     } catch {
@@ -990,6 +998,7 @@ export class ClassRoom extends Room {
       room: sanitizeRoom(town, props),
       land: sanitizeLand(parseJson(record.land_json, null)),
       fw: sanitizeFw(parseJson(record.fishworld_json, null)),
+      food: sanitizeFood(parseJson(record.food_json, null)),
       // Blocks moved out of the room and onto the plaza; a save from before that keeps
       // them under `blocks`, and sanitizePlaza reads either shape.
       plaza: sanitizePlaza(town, bricks),
@@ -1066,6 +1075,7 @@ export class ClassRoom extends Room {
       room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza }),
       land_json: JSON.stringify(priv.land),
       fishworld_json: JSON.stringify({ dex: priv.fw.dex, bag: priv.fw.bag, caught: priv.fw.caught }),
+      food_json: JSON.stringify(foodForSave(priv.food)),
       // Kept so a teacher's own row is not mistaken for a child's when the family
       // report links are drawn up.
       role: player.role,
@@ -2959,6 +2969,54 @@ export class ClassRoom extends Room {
   }
 
   // ---- メインの島にいた時間（Roblox と同じ session の記録：world="main"）--------------------
+  // ---- おなかと 屋台（food.js）----------------------------------------------------------
+  // 屋台は メインの島に 3 つ。買うときだけ その屋台の前に 立っているかを見る。たべるのは どこでも。
+  atStall(sessionId, shop) {
+    const stall = STALLS.stalls.get(shop);
+    return !!stall && this.atPlace(sessionId, STALLS.island, stall);
+  }
+
+  onFoodOpen(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const shop = typeof msg?.shop === 'string' ? msg.shop : '';
+    if (!STALLS.stalls.has(shop)) { client.send('food:error', { reason: 'no such shop' }); return; }
+    if (!this.atStall(client.sessionId, shop)) { client.send('food:error', { reason: 'too far' }); return; }
+    client.send('food:menu', { ...menuPayload(shop), ...foodPayload(priv.food), ...this.walletPayload(client.sessionId) });
+  }
+
+  onFoodBuy(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const shop = typeof msg?.shop === 'string' ? msg.shop : '';
+    const id = typeof msg?.id === 'string' ? msg.id : '';
+    if (!this.atStall(client.sessionId, shop)) { client.send('food:error', { reason: 'too far' }); return; }
+    try {
+      const it = buyFood(priv.food, shop, id, priv.wallet.coins);
+      const entry = applyOp(priv.wallet, { type: 'spend', amount: it.price, id: `food:${it.id}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      addToBag(priv.food, it.id);
+      this.persist(client.sessionId);
+      client.send('food:bought', { id: it.id, ...foodPayload(priv.food), ...this.walletPayload(client.sessionId) });
+    } catch (err) {
+      if (!(err instanceof FoodError) && !(err instanceof EconomyError)) throw err;
+      client.send('food:error', { reason: err.message });
+    }
+  }
+
+  onFoodEat(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    try {
+      const out = eatFood(priv.food, typeof msg?.id === 'string' ? msg.id : '');
+      this.persist(client.sessionId);
+      client.send('food:ate', { id: out.item.id, gained: Math.round((out.after - out.before) * 100) / 100, ...foodPayload(priv.food) });
+    } catch (err) {
+      if (!(err instanceof FoodError)) throw err;
+      client.send('food:error', { reason: err.message });
+    }
+  }
+
   onMainEnter(client) {
     const priv = this.priv.get(client.sessionId);
     if (!priv || priv.main) return;
@@ -3864,6 +3922,7 @@ export class ClassRoom extends Room {
     return {
       sessionId, role: player.role, classCode: this.classCode, restored, position,
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
+      food: foodPayload(priv.food),
       progress: this.progressPayload(sessionId),
       missionsDone: [...priv.missionsDone],
       // An errand in progress survives a screen lock, so the tracker comes back too.

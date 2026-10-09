@@ -3137,6 +3137,15 @@
     "はいる": "Enter",
     "🔁 レベルを かえる": "🔁 Change level",
     "🎣 英語で釣りをする": "🎣 Fish in English",
-    "🐟 さかなを うる": "🐟 Sell fish"
+    "🐟 さかなを うる": "🐟 Sell fish",
+    "🛒 たべものを かう": "🛒 Buy food",
+    "かったよ！": "Bought!",
+    "やたいの まえに たってね。": "Stand in front of the stall.",
+    "コインが たりないよ。": "Not enough coins.",
+    "かばんが いっぱい（1しゅるい 9こ まで）。": "Your bag is full (9 of each).",
+    "おなか いっぱい！": "You are full!",
+    "もう ないよ。": "None left.",
+    "おなかが ぺこぺこ… あるくのが おそく なるよ。メインの島の やたいで たべものを かおう！": "You are starving… you will walk slowly. Buy food at the stalls on the Main Island!",
+    "おなかが すいてきた。🍗 を おすと たべられるよ。": "You are getting hungry. Tap 🍗 to eat."
   }
 }
