@@ -22,6 +22,9 @@ export function setupAdventure(ctx){
  const {store:rpg,state,modal,body,scene,player,atmosphere,toast,speak,learn}=ctx,$=s=>document.querySelector(s);
  const progress=createAdventureStore(ctx.storage,rpg,()=>toast('冒険ノートを保存できません。記録からバックアップできます。'));
  rpg.setRules(progress.cleared);
+ // 2026-10: 「最初のパートナーを選ぶ」画面は出さない（入ったときに選ぶのはアバターだけ）。
+ // 最初の相棒は黙って1体目にして、草原で残りに出会う。選ぶ画面の描画はそのまま残してあるが届かない。
+ if(!progress.state.starter){try{progress.chooseStarter(STARTERS[0].id)}catch(e){console.warn('[adventure] starter auto-pick failed',e)}}
  let magic=null;
  let view='journey',selected=rpg.state.buddy||CREATURES[0].id,chapter='meadow',battle=null,weather='clear',sneaking=false,recognition=null,audio=null,lastTime=0,timeBuffer=0,sessionSeconds=0,restNotice=false,firstPrompt=false,relay=null,relayStart=0,guest=null,guestModels=[],showTime=0,frame=0,hudStamp='',showRoot=null,showActors=[];
  const effects=createAdventureEffects(scene),panel=document.createElement('aside');panel.id='ad-field-hud';panel.className='ad-field-hud';panel.hidden=true;document.querySelector('main').append(panel);
