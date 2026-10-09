@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="robots" content="noindex"><title>U-Speak · 問題の形式のテスト</title>
+<link rel="stylesheet" href="fishworld.css">
+<style>
+  body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; background: #f4f1e3; color: #1b3a2f; }
+  header { background: #1b3a2f; color: #fffbf5; padding: 12px 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  header h1 { font-size: 16px; margin: 0; flex: 1; }
+  header button { font-size: 14px; padding: 8px 12px; border-radius: 10px; border: 0; background: #e27a2d; color: #fff; cursor: pointer; }
+  header button.on { background: #fffbf5; color: #1b3a2f; }
+  main { max-width: 720px; margin: 0 auto; padding: 14px 12px 40px; }
+  #log { font-size: 12px; color: #5d6d62; margin: 8px 0; min-height: 1.6em; }
+  .note { font-size: 12px; color: #5d6d62; }
+</style></head><body>
+<header><h1>問題の形式（7つ）— 見た目・操作・判定のテスト</h1>
+  <button data-kind="mc">mc</button><button data-kind="match">match</button><button data-kind="spell">spell</button><button data-kind="type">type</button>
+  <button data-kind="order">order</button><button data-kind="fill">fill</button><button data-kind="listen">listen</button>
+  <button id="again">↻ つぎの もんだい</button></header>
+<main>
+  <p class="note">このページは開発用。問題は fishworld.json から作り、判定も この画面の中で同じ関数（formats-core.js の checkFormat）で行う。本物の つり島では判定はサーバー。</p>
+  <div id="host"></div>
+  <p id="log"></p>
+</main>
+<script type="module">
+  import { buildFor, buildOrder, buildFill, publicFormat, checkFormat, revealFormat, diffFormat, makeRng } from './formats-core.js';
+  import { renderFormat } from './formats-ui.js';
+  const data = await fetch('fishworld.json').then((r) => r.json());
+  const pool = [...data.quiz['1'], ...data.quiz['2'], ...data.quiz['3']];
+  const rng = makeRng(Date.now());
+  const SENTENCES = [
+    ['I like apples.', 'わたしは りんごが すき。', 'like', ['likes', 'liked', 'liking']],
+    ['She plays tennis every day.', 'かのじょは まいにち テニスを する。', 'plays', ['play', 'played', 'playing']],
+    ['We went to the park yesterday.', 'わたしたちは きのう こうえんに いった。', 'went', ['go', 'goes', 'going']],
+    ['My father is a doctor.', 'わたしの ちちは いしゃです。', 'doctor', ['teacher', 'nurse', 'singer']],
+  ];
+  const speak = (text, o = {}) => { if (!('speechSynthesis' in window)) return; const u = new SpeechSynthesisUtterance(text); u.lang = 'en-US'; u.rate = o.rate ?? 0.85; speechSynthesis.cancel(); speechSynthesis.speak(u); };
+  let kind = 'mc'; let fmt = null; let attempt = 1; let ctl = null;
+  const log = (s) => { document.getElementById('log').textContent = s; };
+  function build() {
+    const q = pool[Math.floor(rng() * pool.length)];
+    const sen = SENTENCES[Math.floor(rng() * SENTENCES.length)];
+    if (kind === 'order') return buildOrder(sen[0], sen[1], rng);
+    if (kind === 'fill') return buildFill(sen[0], sen[2], sen[1], sen[3], rng);
+    const ok = (kind === 'spell' && /^[A-Za-z]{3,10}$/.test(q.q)) || (kind === 'type' && /^[A-Za-z]{1,12}$/.test(q.q)) || !['spell', 'type'].includes(kind);
+    return buildFor(kind, ok ? q : pool.find((x) => /^[A-Za-z]{3,10}$/.test(x.q)), pool, rng);
+  }
+  function show(next = true) {
+    if (next) { fmt = build(); attempt = 1; }
+    ctl?.destroy?.();
+    ctl = renderFormat(document.getElementById('host'), publicFormat(fmt, { attempt }), {
+      speak,
+      onQuit: () => { log('✕ やめました'); show(true); },
+      onCheck: (answer) => {
+        const correct = checkFormat(fmt, answer);
+        const show2 = ['mc', 'match', 'fill', 'listen', 'order'].includes(fmt.kind);
+        if (correct) { ctl.showResult(true); log('🎉 Correct'); setTimeout(() => show(true), 1400); return; }
+        if (attempt >= 2) { ctl.showResult(false, { escaped: true, reveal: revealFormat(fmt), diff: diffFormat(fmt, answer) }); log('✗ 2回目も不正解 → 答えを見せる'); setTimeout(() => show(true), 2600); return; }
+        attempt = 2;
+        ctl.showResult(false, { diff: diffFormat(fmt, answer), ...(show2 ? { reveal: revealFormat(fmt) } : {}) });
+        log('✗ 不正解 → もういちど（同じ問題・同じ形式）');
+        setTimeout(() => show(false), 1600);
+      },
+    });
+    document.querySelectorAll('header [data-kind]').forEach((b) => b.classList.toggle('on', b.dataset.kind === kind));
+  }
+  document.querySelectorAll('header [data-kind]').forEach((b) => { b.onclick = () => { kind = b.dataset.kind; show(true); }; });
+  document.getElementById('again').onclick = () => show(true);
+  show(true);
+</script></body></html>

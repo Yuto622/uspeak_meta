@@ -73,6 +73,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // when a whole class (or several) opens the page at the same moment on one Wi-Fi AP.
   app.use(compression({ threshold: 1024 }));
 
+  // 問題の形式（7つ）の見た目と操作を試す開発用のページ（client/dist/dev-formats.html）。
+  app.get('/dev/formats', (req, res) => res.redirect(302, '/dev-formats.html'));
+
   app.get('/healthz', (req, res) => {
     const mem = process.memoryUsage();
     res.set('Cache-Control', 'no-store');

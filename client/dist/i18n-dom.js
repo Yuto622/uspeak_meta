@@ -43,6 +43,8 @@ export const LEARNING = [
   '#net-chat-phrases small', '#net-chat-log',
   // ぼくじょう島：もんだい・ならべる カード・つづり・作物と どうぶつの 英語（.farm-q は translate=no でも書いてある）
   '.farm-q', '.farm-en', '.farm-ja', '.farm-dex',
+  // つり島・共通の問題部品（英単語・意味・文・魚の名前）
+  '.fmt-learn', '.fw-learn',
   '#race-next-ja',   // のりもの島：つぎの ゲートの ことばの いみ（英語で答えるもの）
 ];
 // 触らない場所。`.ja` は日本語モード用の行（英語モードでは見えない）、`.en` は最初から英語。

@@ -45,6 +45,7 @@ import {
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { GEAR, gearPayload } from '../game/blockwild-shop.js';
+import { FW, sanitizeFw, prepare as prepareFw, answer as answerFw, askPayload as fwAsk, lottery as fwLottery, catchFish, sellFrom, statePayload as fwState, fishPayload, GRADES as FW_GRADES, FAST_MS as FW_FAST_MS, XP_PER_CATCH as FW_XP, FishworldError } from '../game/fishworld.js';
 import { LAND, LAND_ISLAND, sanitizeLand, landPayload, islandPayload as landIslandPayload, priceOfNext as landPriceOfNext, priceOfRestyle as landPriceOfRestyle, LandError } from '../game/land.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, dayIndex, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
@@ -186,6 +187,13 @@ export class ClassRoom extends Room {
     this.onMessage('land:enter', (client) => this.onLandEnter(client));
     this.onMessage('land:board', (client) => this.onLandBoard(client));
     this.onMessage('land:visit', (client, msg) => this.onLandVisit(client, msg));
+    // つり島（Roblox の釣りワールド）：ゾーンの小屋で 問題 → タイミング → くじ → 図鑑・売る。
+    this.onMessage('fw:open', (client, msg) => this.onFwOpen(client, msg));
+    this.onMessage('fw:cast', (client, msg) => this.onFwCast(client, msg));
+    this.onMessage('fw:answer', (client, msg) => this.onFwAnswer(client, msg));
+    this.onMessage('fw:reel', (client, msg) => this.onFwReel(client, msg));
+    this.onMessage('fw:sell', (client, msg) => this.onFwSell(client, msg));
+    this.onMessage('fw:cancel', (client) => this.onFwCancel(client));
     this.onMessage('prop:list', (client) => client.send('prop:shop', this.propShopPayload(client.sessionId)));
     this.onMessage('prop:buy', (client, msg) => this.onPropBuy(client, msg));
     this.onMessage('plaza:enter', (client) => this.onPlazaEnter(client));
@@ -973,6 +981,7 @@ export class ClassRoom extends Room {
       props,
       room: sanitizeRoom(town, props),
       land: sanitizeLand(parseJson(record.land_json, null)),
+      fw: sanitizeFw(parseJson(record.fishworld_json, null)),
       // Blocks moved out of the room and onto the plaza; a save from before that keeps
       // them under `blocks`, and sanitizePlaza reads either shape.
       plaza: sanitizePlaza(town, bricks),
@@ -1048,6 +1057,7 @@ export class ClassRoom extends Room {
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
       room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza }),
       land_json: JSON.stringify(priv.land),
+      fishworld_json: JSON.stringify({ dex: priv.fw.dex, bag: priv.fw.bag, caught: priv.fw.caught }),
       // Kept so a teacher's own row is not mistaken for a child's when the family
       // report links are drawn up.
       role: player.role,
@@ -2757,6 +2767,137 @@ export class ClassRoom extends Room {
   // on the board. The page draws the same six cards from land.json; the tier, the price
   // and the coins are decided here (docs/uspeak-land-research.md for why six and why
   // these prices). An island changes nothing about how English is judged or paid.
+  // ---- つり島 -------------------------------------------------------------------------------
+  // 3つの小屋（いけ・かわ・うみ）が3つのゾーン。立っている小屋がゾーンで、メニューで選ばせない。
+  atFwSpot(sessionId, spotId) {
+    const spot = FW.spotById.get(spotId);
+    return !!spot && this.atPlace(sessionId, FW.island, spot);
+  }
+
+  fwPayload(sessionId) {
+    const priv = this.priv.get(sessionId);
+    return { ...fwState(priv.fw), ...this.walletPayload(sessionId) };
+  }
+
+  onFwOpen(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const spot = typeof msg?.spot === 'string' ? msg.spot : '';
+    if (!FW.spotById.has(spot)) { client.send('fw:error', { reason: 'no such spot' }); return; }
+    if (!this.atFwSpot(client.sessionId, spot)) { client.send('fw:error', { reason: 'too far', spot }); return; }
+    client.send('fw:state', { spot, zone: FW.spotById.get(spot).zone, ...this.fwPayload(client.sessionId) });
+  }
+
+  // さおを投げる ＝ 問題が出る。形式はゾーンごとの重みで抽選、答えはここに残る。
+  onFwCast(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const spot = typeof msg?.spot === 'string' ? msg.spot : '';
+    if (!FW.spotById.has(spot)) { client.send('fw:error', { reason: 'no such spot' }); return; }
+    if (!this.atFwSpot(client.sessionId, spot)) { client.send('fw:error', { reason: 'too far', spot }); return; }
+    const q = prepareFw(FW.spotById.get(spot).zone);
+    q.spot = spot;
+    priv.fw.q = q;
+    priv.fw.pending = null;
+    client.send('fw:ask', fwAsk(q));
+  }
+
+  onFwAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const q = priv.fw.q;
+    if (!q || q.id !== msg?.qid) { client.send('fw:error', { reason: 'no question' }); return; }
+    if (!this.atFwSpot(client.sessionId, q.spot)) { client.send('fw:error', { reason: 'too far', spot: q.spot }); return; }
+    const now = Date.now();
+    if (now - (priv.lastFwAt || 0) < config.answerMinIntervalMs) { client.send('fw:error', { reason: 'too fast' }); return; }
+    priv.lastFwAt = now;
+    const retry = q.attempt >= 2;
+    const fast = now - q.askedAt < FW_FAST_MS;
+    const result = answerFw(q, msg?.answer);
+    const given = String(Array.isArray(msg?.answer) ? msg.answer.join(' ') : (msg?.answer && typeof msg.answer === 'object' ? JSON.stringify(msg.answer) : msg?.answer ?? '')).slice(0, 80);
+    const xp = result.correct ? FW_XP : 0;
+    this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `fw:${q.zone}:${q.kind}:${q.word}`, `fw-${q.kind}`, given, result.correct ? 1 : 0, xp, client.sessionId]);
+    priv.stats.attempts += 1;
+    // Roblox と同じ形の記録。保護者ページ・先生ページでは Roblox の釣りと合算される。
+    this.robloxEvent(client.sessionId, 'quiz', 'fishing', { correct: result.correct, word: q.word, level: 'Fishing', zone: q.zone, format: q.kind, fast, retry }, now);
+    const payload = { qid: q.id, zone: q.zone, kind: q.kind, ...result, xp };
+    if (result.correct) {
+      priv.stats.correct += 1;
+      priv.fw.q = null;
+      priv.fw.pending = { zone: q.zone, spot: q.spot, word: q.word, at: now };
+      const level = this.awardXp(client.sessionId, xp, `fw:${q.kind}`);
+      payload.levels = level?.levels || 0;
+      payload.progress = this.progressPayload(client.sessionId);
+    } else if (result.escaped) {
+      priv.fw.q = null;
+    }
+    client.send('fw:result', payload);
+    this.persist(client.sessionId);
+  }
+
+  // タイミングのミニゲームの結果（PERFECT / NICE / おしい）で くじを引く。何が釣れたかはここだけが決める。
+  onFwReel(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const pending = priv.fw.pending;
+    if (!pending) { client.send('fw:error', { reason: 'nothing on the line' }); return; }
+    if (!this.atFwSpot(client.sessionId, pending.spot)) { client.send('fw:error', { reason: 'too far', spot: pending.spot }); return; }
+    priv.fw.pending = null;
+    const grade = FW_GRADES.includes(msg?.grade) ? msg.grade : 'ok';
+    const fish = fwLottery(pending.zone, grade);
+    const { first, bonus } = catchFish(priv.fw, fish);
+    const payload = { grade, fish: fishPayload(fish), first, coins: 0 };
+    if (bonus > 0) {
+      // 図鑑の初回：Roblox と同じ fishdex_first。コインが動く所は coinRow 1つなので、Roblox にも届く。
+      const entry = applyOp(priv.wallet, { type: 'award', amount: bonus, id: `fishdex_first:${fish.en}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      payload.coins = bonus;
+    }
+    this.robloxEvent(client.sessionId, 'catch', 'fishing', { fish: fish.en, rarity: fish.rarity, zone: pending.zone, grade, first }, Date.now());
+    client.send('fw:catch', { ...payload, ...this.fwPayload(client.sessionId) });
+    this.persist(client.sessionId);
+  }
+
+  onFwSell(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const spot = typeof msg?.spot === 'string' ? msg.spot : '';
+    if (!FW.spotById.has(spot) || !this.atFwSpot(client.sessionId, spot)) { client.send('fw:error', { reason: 'too far', spot }); return; }
+    try {
+      const sold = sellFrom(priv.fw, msg?.all ? '*' : String(msg?.en || ''));
+      const entry = applyOp(priv.wallet, { type: 'award', amount: sold.coins, id: `fish_sell:${sold.item}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      client.send('fw:sold', { coins: sold.coins, count: sold.count, item: sold.item, ...this.fwPayload(client.sessionId) });
+      this.persist(client.sessionId);
+    } catch (err) {
+      if (!(err instanceof FishworldError)) throw err;
+      client.send('fw:error', { reason: err.message });
+    }
+  }
+
+  // ✕ で やめる：魚は逃げる（問題も、釣れる寸前の魚も捨てる）。
+  onFwCancel(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    priv.fw.q = null;
+    priv.fw.pending = null;
+  }
+
+  // Web で起きた学習を Roblox と同じ形で roblox_events に貯める（source=web）。保護者ページ・
+  // 先生ページの指標は Roblox の記録と合算される。鍵が無くても貯める（記録は消さないので）。
+  robloxEvent(sessionId, type, world, data, now = Date.now()) {
+    const priv = this.priv.get(sessionId);
+    if (!priv || !this.store.appendRobloxEvents) return;
+    const username = this.roblox?.usernameFor ? this.roblox.usernameFor(this.classCode, priv.name) : priv.name;
+    this.fwSeq = (this.fwSeq || 0) + 1;
+    try {
+      this.store.appendRobloxEvents([{
+        id: `web-${sessionId}-${now.toString(36)}-${this.fwSeq.toString(36)}`, ts: now, type, world, place_id: 'web',
+        username, user_id: '', class_code: this.classCode, data_json: JSON.stringify({ ...data, source: 'web' }), received_at: new Date(now).toISOString(),
+      }]);
+    } catch (err) { log.warn(`[room ${this.roomId}] roblox event failed:`, err.message); }
+  }
+
   atLandSpot(sessionId, spotId) {
     return this.atPlace(sessionId, LAND_ISLAND, LAND.spotById.get(spotId));
   }

@@ -923,6 +923,20 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 見た目を足す／段を変えるときは `land.test.mjs`（比率 2〜6 倍・順番・12 の世界が全部ちがう・もようがえ）を通し、
   `land-world.js` の `THEMES` と `BUILD` に同じ名前で足し、`land.css` の `[data-theme=…]` の色も足すこと。
 
+## つり島（Roblox の釣りワールド／2026-10 追加）
+
+`fishworld-island.js` + `fishworld.json`（島・3 ゾーンの問題・魚 70 種・出やすさ）/ `fishworld.js` + `fishworld.css`（画面）/
+**`formats-core.js`（7 形式の問題部品・DOM なし・サーバーと共有）** / `formats-ui.js`（7 形式の見た目と操作）/ `dev-formats.html`（`/dev/formats`）。
+サーバーは `server/src/game/fishworld.js`。
+
+- **3 つの小屋＝3 つのゾーン**（いけ 5 級・かわ 4 級・うみ 3 級）。戸口に入ると `fishworld.enter(spot)`（`setDoorHandler` の `fishworld`）。
+  `fw:open` → `fw:state`、「さおを なげる」→ `fw:cast` → `fw:ask`、`fw:answer` → `fw:result`、正解の後のタイミングバー → `fw:reel {grade}` → `fw:catch`。
+- **問題を足すときは `formats-core.js` の build / public / check を足す**（画面と判定が同じ関数）。`publicFormat` は答えを抜く：
+  mc は選択肢の中に答えがあるが、match は `pairs` を出さない、spell / type は `word` を出さない。
+- **学習の中身は `.fmt-learn` / `.fw-learn`**（`i18n-dom.js` の `LEARNING`、`translate="no"` も付けてある）。英単語・意味・魚の名前は訳さない。
+- `formats-ui.js` の type は `window` の keydown を取る（`destroy()` で外す）。画面を閉じるときは必ず `ctl.destroy()`。
+- 魚の絵は絵文字（`fishworld.json` の `emoji`）。Roblox の `rbxassetid://` は Web では読めない。
+
 ## きせかえ（アバターの店／2026-09 追加）
 
 `wardrobe.json`（16 アイテム・4 スロット）/ `wardrobe-data.js`（読み込みと検証・**サーバーと共有**）/

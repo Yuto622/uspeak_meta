@@ -989,6 +989,43 @@ BLOCKWILD・土地島のどれで動いても同じ行に入る。Roblox に一�
 本サービスに保存し、保護者・教室に表示する」。貯めるのはアカウント名と学習の記録だけで、
 本名・メール・生年月日は受け取らない。
 
+## つり島（Roblox の釣りワールドの移植／2026-10 追加）
+
+Roblox 版の「釣り専用ワールド」の問題・出題形式・ルールをそのまま Web に。島は **つり島**
+（ワールドマップ左上）。3 つの小屋が 3 つのゾーン：**★ いけ＝英検5級（156問）・★★ かわ＝4級（98問）・
+★★★ うみ＝3級（52問）**。小屋の戸口に歩いて入ると、その水辺の問題が出る。
+
+```
+さおを なげる → 問題（ゾーンごとに形式を抽選）
+ → 正解：タイミングバー（PERFECT / NICE / おしい）→ くじ → 魚 → 図鑑・コイン
+ → 不正解：もういちど（同じ問題・同じ形式）→ 2回目も外すと 魚は逃げる
+ → ✕ で いつでも やめられる（魚は逃げる）
+```
+
+| ゾーン | 形式の重み |
+|---|---|
+| ★ いけ | mc, mc, match |
+| ★★ かわ | mc, match, spell |
+| ★★★ うみ | type, spell, mc |
+
+- **データは `client/dist/fishworld.json`**（Roblox から書き出した実データを UTF-8 にしたもの：問題・魚 70 種・
+  レア度・**20,000 回引いて測った出やすさ `catchRates`**）。Web のくじはこの確率どおり。
+  正解のあとは生き物だけ（タイヤ・ながぐつ・あきカンは引き直し、お宝はそのまま）。PERFECT は 3 回引いて
+  いちばんレア、おしい は 3 回引いて いちばんコモン。
+- **問題の部品は 7 形式を 1 つのファイルで**（`client/dist/formats-core.js`：mc / match / spell / type / order / fill / listen）。
+  `build* → publicFormat（答えを抜く）→ checkFormat（判定）`。**判定はサーバーも同じ関数**（`server/src/game/fishworld.js`）。
+  画面は `formats-ui.js`（形式ごとのヘッダー色・✕・🔊・①②の吹き出し・Check・紙吹雪）。
+  釣りで使うのは 4 形式、残り 3 形式（order / fill / listen）はクイズ小屋を移すとき用。**`/dev/formats` で 7 形式ぜんぶ試せる**。
+- spell は並んだ文字列で判定（"added" の d はどちらでも正解）。match は左右の並びで正解の線が全部平行にならないよう並べる。
+  type は最初から空の枠、2 回目だけ「💡 ヒント：さいしょの もじは」。
+- **図鑑**：初めての魚は +10 コイン（`fishdex_first`）。売値はレア度で C 10 / U 25 / R 60 / S 150 / L 400（`fish_sell`）。
+  どちらも `coinRow` を通るので Roblox と残高を共有する。
+- **記録は Roblox と同じ形**で `roblox_events` に入る（`type=quiz`, `world=fishing`, `data={correct, word, level:"Fishing",
+  zone, format, fast, retry, source:"web"}`）。保護者ページ・先生ページの集計は Roblox の釣りと合算される。
+- Roblox の魚の絵（`rbxassetid://`）は Web では使えないので、カードは絵文字＋レア度の色。
+- 検査：`server/test/fishworld.test.mjs`（部品と くじ・10 本）、`server/test/fishworld-room.test.mjs`（実ソケット・2 本）、
+  `client/tests/regression.mjs`（島の 3 か所が歩いて行けること）。
+
 ## 保護者レポートを紙で渡す（LaTeX PDF）
 
 レポート画面（先生コンソールの `📄 保護者レポートのリンク` で配る、あの一人ひとりのページ）に

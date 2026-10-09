@@ -31,6 +31,8 @@ export const PLAYER_COLUMNS = [
   'farm_json', 'farm_coins',
   // 土地島（`game/land.js`）：いま何段目の島か（`{tier}`）。
   'land_json',
+  // つり島（`game/fishworld.js`）：図鑑・つれた魚の袋・釣った数。
+  'fishworld_json',
 ];
 export const LEARNING_COLUMNS = ['timestamp', 'class', 'name', 'question_id', 'mode', 'choice', 'correct', 'xp', 'session_id'];
 // The class register. A teacher keeps this: one row per child who is allowed in.
@@ -52,7 +54,7 @@ export function blankPlayerRecord(classCode, name) {
     blocks_json: '[]', room_json: '', role: 'student', props_json: '[]', eiken_coins: 0, conv_coins: 0,
     voice_minutes: 0, skills_json: '', study_ms: 0, study_days: 0, study_day: 0,
     wardrobe_json: '[]', worn_json: '[]', months_json: '{}', moved_to: '', moved_from: '', first_seen: '',
-    eiken_json: '', notes_json: '[]', farm_json: '', farm_coins: 0, land_json: '',
+    eiken_json: '', notes_json: '[]', farm_json: '', farm_coins: 0, land_json: '', fishworld_json: '',
   };
 }
 

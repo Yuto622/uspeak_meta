@@ -636,6 +636,91 @@
           "en": "Land Island — Visiting a Friend"
         },
         {
+          "shot": "island-fishworld",
+          "title": "つり島 — いけ・かわ・うみ",
+          "body": [
+            "3つの 小屋。★いけは 英検5級、★★かわは 4級、★★★うみは 3級。",
+            "小屋の 入口に 歩くと、つりの 画面が ひらきます。",
+            "Roblox の つりワールドと 同じ 70しゅるいの さかな。"
+          ],
+          "tip": "コインは Roblox と 同じ さいふ。ここで うった分は Roblox でも ふえます。",
+          "en": "Fishing Island — Pond, River and Sea"
+        },
+        {
+          "shot": "screen-fw-zone",
+          "title": "つり島 — さおを なげる",
+          "body": [
+            "「🎣 さおを なげる」で 問題が 出ます。",
+            "正解すると さかなが かかる。まちがえても もういちど。",
+            "ずかんの うまり具合は ここに 出ます。"
+          ],
+          "en": "Fishing Island — Cast"
+        },
+        {
+          "shot": "screen-fw-mc",
+          "title": "つり島 — えらぶ",
+          "body": [
+            "英語の ことばを 見て、いみを タップ。",
+            "🔊 で 英語を 読んでくれます。",
+            "2回 まちがえると、こたえを 見せて さかなは にげます。"
+          ],
+          "en": "Fishing Island — Choose"
+        },
+        {
+          "shot": "screen-fw-match",
+          "title": "つり島 — せんつなぎ",
+          "body": [
+            "左の 英語と 右の いみを、タップで つなぐ。4本 つないだら ✅。",
+            "まちがえた 線は あかく、正しい 線は みどりに。"
+          ],
+          "en": "Fishing Island — Match"
+        },
+        {
+          "shot": "screen-fw-spell",
+          "title": "つり島 — ならべかえ",
+          "body": [
+            "ばらばらの もじを、よみかたの じゅんに ならべる。",
+            "2つ タップで いれかえ。ドラッグでも OK。"
+          ],
+          "en": "Fishing Island — Spell"
+        },
+        {
+          "shot": "screen-fw-type",
+          "title": "つり島 — タイピング",
+          "body": [
+            "いみを 見て、英語を 打つ。Enter⏎ で こたえあわせ。",
+            "2回目は「さいしょの もじ」の ヒントが 出ます。"
+          ],
+          "en": "Fishing Island — Type"
+        },
+        {
+          "shot": "screen-fw-reel",
+          "title": "つり島 — タイミングバー",
+          "body": [
+            "正解の あとは、バーが みどりの まん中で とまるように「STOP!」。",
+            "PERFECT だと レアな さかなが かかりやすい。"
+          ],
+          "en": "Fishing Island — Timing Bar"
+        },
+        {
+          "shot": "screen-fw-catch",
+          "title": "つり島 — つれた！",
+          "body": [
+            "さかなの 名前は 英語と 日本語。はじめての さかなは +10 コイン。",
+            "かごに 入って、「うる」で コインに なります。"
+          ],
+          "en": "Fishing Island — Caught!"
+        },
+        {
+          "shot": "screen-fw-dex",
+          "title": "つり島 — さかな ずかん",
+          "body": [
+            "ゾーンごとに、つった さかなが ならびます。",
+            "レアさは Common → Legendary の 5だんかい。ぜんぶ あつめよう。"
+          ],
+          "en": "Fishing Island — Fish Dex"
+        },
+        {
           "shot": "island-park",
           "title": "U-Speak Roblox テーマパーク",
           "body": [
