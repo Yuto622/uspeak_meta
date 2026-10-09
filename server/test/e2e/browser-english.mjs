@@ -71,6 +71,9 @@ try {
     document.querySelector('#net-join').click();
   });
   await page.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 60000, polling: 250 });
+  // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。
+  await page.waitForFunction(() => globalThis.uspeak?.net?.main?.isOpen, null, { timeout: 8000, polling: 100 }).catch(() => {});
+  await page.evaluate(() => globalThis.uspeak?.net?.main?.close());
   // 最初のパートナーえらび（RPG の入口）も1枚の画面として数える。
   await sleep(1200);
   record('最初のパートナー', await scan());

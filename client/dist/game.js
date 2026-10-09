@@ -106,7 +106,7 @@ const rpg=setupRpg({scene,camera,player,water,box,park,fishing,avatars,atmospher
 // person, switch it, and point the camera. Building looks down a crosshair, so the room
 // needs to be able to aim it.
 const view={get firstPerson(){return atmosphere.state.firstPerson},set firstPerson(v){atmosphere.state.firstPerson=v},look(y,p){yaw=y;pitch=p}};
-const net=setupNet({scene,camera,view,player,rpg,fishing,avatars,park,toast,speak,renderer,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()}});globalThis.uspeak={net,player,rpg,fishing,avatars,park,hooks,blocked,atmosphere,ambience,speak,renderer,scene,camera,view,coins:coinHud};// debug/QA handle (read-only use)
+const net=setupNet({scene,camera,view,player,rpg,fishing,avatars,park,toast,speak,renderer,guide,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()}});globalThis.uspeak={net,player,rpg,fishing,avatars,park,hooks,blocked,atmosphere,ambience,speak,renderer,scene,camera,view,coins:coinHud};// debug/QA handle (read-only use)
 // Door lights and plaques use the same registry as interaction and return positions.
 for(const b of BUILDINGS.filter(b=>b.kind!=='park')){const d=b.z-b.dir*.5;box(b.x,1.35,d,1.35,2.7,.09,0x456b72);for(const x of[-.76,.76])box(b.x+x,1.45,d,.12,2.9,.13,0xe7cca0);box(b.x,2.88,d,1.65,.13,.17,0xf5d894);box(b.x,.12,b.z,1.7,.06,.8,0xb8d8ba);label(tr('入口')+' · '+b.name,b.x,3.45,b.z,'#fff4d7',.65)}
 function buildingService(name){if(name==='bakery')return conversation(1);if(name==='greeting')return conversation(0);if(name==='reading')return conversation(3);
@@ -131,7 +131,7 @@ const clock=new THREE.Clock(),target=new THREE.Vector3(),desired=new THREE.Vecto
 // 島の音（風・鳥・虫・BGM）もここでしまう。あちらにはあちらの音があるので、
 // 重ねると教室では ただうるさいだけになる。
 const fullscreen=!!(net.gp?.running||net.arcadeOpen());ambience.setBusy(fullscreen);if(fullscreen)stick.release();
-if(fullscreen){clock.getDelta();return}let dx=0,dz=0,push=1;const menus=document.querySelector('dialog[open]')||document.body.dataset.call==='full'||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy||!!rpg.fishworld?.casting;
+if(fullscreen){clock.getDelta();return}if(net.main?.isOpen){clock.getDelta();stick.release();return}let dx=0,dz=0,push=1;const menus=document.querySelector('dialog[open]')||document.body.dataset.call==='full'||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy||!!rpg.fishworld?.casting;
 // のりもの島のレース中は歩かない：W はアクセル、A/D はハンドル、スペースはドリフト。
 // 操作の中身は kart.js、当たり判定と速度はいつもと同じものを渡している。
 if(net.race?.driving){net.race.drive(dt,menus?new Set():keys,blocked,net.speed());net.race.update(dt);player.position.y=0}

@@ -15,15 +15,17 @@
   <button data-kind="order">order</button><button data-kind="fill">fill</button><button data-kind="listen">listen</button>
   <button id="again">↻ つぎの もんだい</button></header>
 <main>
-  <p class="note">このページは開発用。問題は fishworld.json から作り、判定も この画面の中で同じ関数（formats-core.js の checkFormat）で行う。本物の つり島では判定はサーバー。</p>
+  <p class="note">このページは開発用。問題は このページの見本から作り、判定も この画面の中で同じ関数（formats-core.js の checkFormat）で行う。本物の つり島では判定はサーバー。</p>
   <div id="host"></div>
   <p id="log"></p>
 </main>
 <script type="module">
   import { buildFor, buildOrder, buildFill, publicFormat, checkFormat, revealFormat, diffFormat, makeRng } from './formats-core.js';
   import { renderFormat } from './formats-ui.js';
-  const data = await fetch('fishworld.json').then((r) => r.json());
-  const pool = [...data.quiz['1'], ...data.quiz['2'], ...data.quiz['3']];
+  // 開発用の見本。本物の問題（答えつき）はサーバーにだけある（server/src/game/*-quiz.json）。
+  const pool = [['Apple', 'りんご'], ['Water', 'みず'], ['School', 'がっこう'], ['Happy', 'うれしい'], ['River', 'かわ'], ['Green', 'みどり'],
+    ['Teacher', 'せんせい'], ['Morning', 'あさ'], ['Friend', 'ともだち'], ['Window', 'まど'], ['Summer', 'なつ'], ['Pencil', 'えんぴつ']]
+    .map(([q, a], i, all) => ({ q, a, o: [a, all[(i + 1) % all.length][1], all[(i + 5) % all.length][1]] }));
   const rng = makeRng(Date.now());
   const SENTENCES = [
     ['I like apples.', 'わたしは りんごが すき。', 'like', ['likes', 'liked', 'liking']],

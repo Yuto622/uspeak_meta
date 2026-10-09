@@ -1,0 +1,502 @@
+{
+ "version": 1,
+ "source": "Roblox U-Speak メインワールド（PlaceId 139338411931177）書き出し 2026-10",
+ "coords": "Roblox の X（右が＋）と Z（下が＋）。単位スタッド。Web では frame の範囲を 0〜1 に正規化して使う",
+ "frame": {
+  "minX": -60,
+  "maxX": 540,
+  "minZ": 0,
+  "maxZ": 420
+ },
+ "water": {
+  "note": "つり場の前（Z 360〜420）は水辺",
+  "minX": 160,
+  "maxX": 400,
+  "minZ": 360,
+  "maxZ": 420
+ },
+ "roads": [
+  {
+   "x": 353,
+   "z": 322,
+   "w": 90,
+   "d": 90
+  },
+  {
+   "x": 198,
+   "z": 320,
+   "w": 90,
+   "d": 90
+  },
+  {
+   "x": 288,
+   "z": 322,
+   "w": 90,
+   "d": 45
+  },
+  {
+   "x": 134,
+   "z": 322,
+   "w": 90,
+   "d": 45
+  },
+  {
+   "x": 100,
+   "z": 322,
+   "w": 90,
+   "d": 45
+  }
+ ],
+ "pois": [
+  {
+   "id": "spawn",
+   "kind": "spawn",
+   "en": "Start",
+   "ja": "スタート",
+   "icon": "⭐",
+   "x": 386,
+   "z": 335,
+   "w": 30,
+   "d": 20,
+   "action": "島のスタート地点（ここから始まる）",
+   "phase": 1
+  },
+  {
+   "id": "hut_easy",
+   "kind": "word_house",
+   "en": "Word House — SUPER EASY / EASY",
+   "ja": "英単語ハウス（SUPER EASY・5級）",
+   "icon": "📖",
+   "x": 399,
+   "z": 243,
+   "w": 40,
+   "d": 41,
+   "action": "クイズ小屋：SUPER EASY と EASY を看板で切り替え（タグ WordHouse_Easy）",
+   "phase": 1
+  },
+  {
+   "id": "hut_medium",
+   "kind": "word_house",
+   "en": "Word House — MEDIUM",
+   "ja": "英単語ハウス（MEDIUM・4級）",
+   "icon": "📖",
+   "x": 440,
+   "z": 246,
+   "w": 40,
+   "d": 41,
+   "action": "クイズ小屋：MEDIUM（タグ WordHouse_Medium）",
+   "phase": 1
+  },
+  {
+   "id": "hut_hard",
+   "kind": "word_house",
+   "en": "Word House — HARD",
+   "ja": "英単語ハウス（HARD・3級）",
+   "icon": "📖",
+   "x": 479,
+   "z": 244,
+   "w": 40,
+   "d": 41,
+   "action": "クイズ小屋：HARD（タグ WordHouse_Hard）",
+   "phase": 1
+  },
+  {
+   "id": "level_sign",
+   "kind": "level_sign",
+   "en": "Level Switch",
+   "ja": "レベル切り替え看板",
+   "icon": "🔁",
+   "x": 398,
+   "z": 256,
+   "w": 8,
+   "d": 6,
+   "action": "SUPER EASY ⇔ EASY の切り替え（プロンプト「レベルを かえる」）",
+   "phase": 1
+  },
+  {
+   "id": "fishing_pier",
+   "kind": "fishing",
+   "en": "Fishing Pier",
+   "ja": "つり場（5級）",
+   "icon": "🎣",
+   "x": 274,
+   "z": 368,
+   "w": 190,
+   "d": 22,
+   "action": "釣りクイズ（5級：3択・線つなぎ）→ ミニゲーム → 魚。プロンプト「英語で釣りをする」×12か所",
+   "phase": 1
+  },
+  {
+   "id": "gate_fishing",
+   "kind": "gate",
+   "en": "Fishing World",
+   "ja": "フィッシングワールドへ",
+   "icon": "🌊",
+   "x": 332,
+   "z": 387,
+   "w": 20,
+   "d": 6,
+   "action": "ワールド移動：釣りワールド（Pond・River・Sea）",
+   "phase": 1
+  },
+  {
+   "id": "fish_buy",
+   "kind": "fish_buy",
+   "en": "Fish Market",
+   "ja": "さかなの かいとりや",
+   "icon": "🐟",
+   "x": 278,
+   "z": 292,
+   "w": 23,
+   "d": 22,
+   "action": "釣った魚を売ってコイン",
+   "phase": 1
+  },
+  {
+   "id": "gate_race",
+   "kind": "gate",
+   "en": "Racing",
+   "ja": "レースへ",
+   "icon": "🏁",
+   "x": 235,
+   "z": 176,
+   "w": 18,
+   "d": 4,
+   "action": "ワールド移動：レース（Lv3＋🪙500 初回のみ）",
+   "phase": 1
+  },
+  {
+   "id": "gate_rpg",
+   "kind": "gate",
+   "en": "RPG Quest",
+   "ja": "RPGへ",
+   "icon": "🏰",
+   "x": 232,
+   "z": 219,
+   "w": 15,
+   "d": 7,
+   "action": "ワールド移動：RPG（Lv3＋🪙200 初回のみ）",
+   "phase": 1
+  },
+  {
+   "id": "gate_build",
+   "kind": "gate",
+   "en": "Building Garden",
+   "ja": "けんちくガーデンへ",
+   "icon": "🧱",
+   "x": 236,
+   "z": 199,
+   "w": 30,
+   "d": 4,
+   "action": "ワールド移動：建築（2か所のゲート）",
+   "phase": 1
+  },
+  {
+   "id": "gate_park",
+   "kind": "gate",
+   "en": "Theme Park",
+   "ja": "テーマパークへ",
+   "icon": "🎡",
+   "x": 236,
+   "z": 154,
+   "w": 20,
+   "d": 4,
+   "action": "ワールド移動：テーマパーク",
+   "phase": 1
+  },
+  {
+   "id": "build_area",
+   "kind": "area",
+   "en": "Build Area",
+   "ja": "けんちくエリア",
+   "icon": "🧱",
+   "x": 273,
+   "z": 205,
+   "w": 66,
+   "d": 156,
+   "action": "ブロックを置ける広場（Web版では後回し）",
+   "phase": 3
+  },
+  {
+   "id": "season",
+   "kind": "season_quiz",
+   "en": "Season Quiz",
+   "ja": "きせつの クイズ",
+   "icon": "🍁",
+   "x": 411,
+   "z": 145,
+   "w": 27,
+   "d": 54,
+   "action": "月ごとに建物が変わる季節クイズ（きんぎょ・りんご えいごクイズ）",
+   "phase": 2
+  },
+  {
+   "id": "shop_food1",
+   "kind": "food_shop",
+   "en": "Food Truck",
+   "ja": "フードトラック（🍔🍟）",
+   "icon": "🍔",
+   "x": 264,
+   "z": 108,
+   "w": 39,
+   "d": 14,
+   "action": "食べ物を買う（おなか）",
+   "phase": 2
+  },
+  {
+   "id": "shop_food2",
+   "kind": "food_shop",
+   "en": "Sweets",
+   "ja": "スイーツ（🍰🍫）",
+   "icon": "🍰",
+   "x": 227,
+   "z": 240,
+   "w": 20,
+   "d": 18,
+   "action": "食べ物を買う",
+   "phase": 2
+  },
+  {
+   "id": "shop_food3",
+   "kind": "food_shop",
+   "en": "Drinks",
+   "ja": "のみもの（🧃🥛）",
+   "icon": "🧃",
+   "x": 313,
+   "z": 242,
+   "w": 8,
+   "d": 12,
+   "action": "食べ物を買う",
+   "phase": 2
+  },
+  {
+   "id": "shop_food0",
+   "kind": "food_shop",
+   "en": "Fruit Stand",
+   "ja": "くだもの（🍎🍔）",
+   "icon": "🍎",
+   "x": 248,
+   "z": 293,
+   "w": 20,
+   "d": 19,
+   "action": "食べ物を買う",
+   "phase": 2
+  },
+  {
+   "id": "clothes",
+   "kind": "outfit_shop",
+   "en": "Clothes Shop (Mimi)",
+   "ja": "ようふくや（ミミ）",
+   "icon": "👕",
+   "x": 102,
+   "z": 252,
+   "w": 62,
+   "d": 53,
+   "action": "服120種（Tier1〜6）を買う・きせかえ。NPC Mimi と会話",
+   "phase": 2
+  },
+  {
+   "id": "blocks",
+   "kind": "block_shop",
+   "en": "Block Shop (Gordo)",
+   "ja": "ブロックや（ゴルド）",
+   "icon": "🧱",
+   "x": 132,
+   "z": 183,
+   "w": 67,
+   "d": 58,
+   "action": "建築ブロック120種を買う。NPC Gordo と会話",
+   "phase": 3
+  },
+  {
+   "id": "mansion",
+   "kind": "housing",
+   "en": "House Shop",
+   "ja": "おうちやさん",
+   "icon": "🏠",
+   "x": 456,
+   "z": 348,
+   "w": 36,
+   "d": 36,
+   "action": "家カタログ30種・6Tier・住み替え",
+   "phase": 3
+  },
+  {
+   "id": "arena1",
+   "kind": "battle_arena",
+   "en": "Battle Arena",
+   "ja": "えいごアリーナ",
+   "icon": "⚔️",
+   "x": 172,
+   "z": 60,
+   "w": 24,
+   "d": 30,
+   "action": "ペット・キャラのクイズバトル（CPU戦・対人戦）",
+   "phase": 3
+  },
+  {
+   "id": "arena2",
+   "kind": "battle_arena",
+   "en": "Battle Arena 2",
+   "ja": "えいごアリーナ2",
+   "icon": "⚔️",
+   "x": 481,
+   "z": 80,
+   "w": 24,
+   "d": 30,
+   "action": "同上",
+   "phase": 3
+  },
+  {
+   "id": "photo",
+   "kind": "photo_booth",
+   "en": "Photo Booth",
+   "ja": "フォトブース",
+   "icon": "📸",
+   "x": 166,
+   "z": 321,
+   "w": 9,
+   "d": 13,
+   "action": "写真を撮る・アルバム",
+   "phase": 3
+  },
+  {
+   "id": "npc_talk",
+   "kind": "npc",
+   "en": "Talk NPCs (13)",
+   "ja": "はなせる なかま（13人）",
+   "icon": "💬",
+   "x": 223,
+   "z": 310,
+   "w": 4,
+   "d": 4,
+   "action": "AI英会話（NPCの「はなす」→ 会話画面）。キャラ図鑑に登録",
+   "phase": 2
+  }
+ ],
+ "scenery": [
+  {
+   "name": "GinjiDenki",
+   "ja": "でんきや",
+   "x": 37,
+   "z": 256,
+   "w": 57,
+   "d": 44
+  },
+  {
+   "name": "JijiBooks",
+   "ja": "ほんや",
+   "x": 26,
+   "z": 378,
+   "w": 47,
+   "d": 39
+  },
+  {
+   "name": "MogumoBurger",
+   "ja": "バーガー",
+   "x": 144,
+   "z": 383,
+   "w": 47,
+   "d": 38
+  },
+  {
+   "name": "HibanaPizza",
+   "ja": "ピザ",
+   "x": 79,
+   "z": 379,
+   "w": 71,
+   "d": 43
+  },
+  {
+   "name": "NyauruToybox",
+   "ja": "おもちゃや",
+   "x": 310,
+   "z": 18,
+   "w": 130,
+   "d": 83
+  },
+  {
+   "name": "SoraMobile",
+   "ja": "スマホや",
+   "x": -20,
+   "z": 324,
+   "w": 75,
+   "d": 61
+  },
+  {
+   "name": "villager house",
+   "ja": "いえ",
+   "x": 386,
+   "z": 340,
+   "w": 30,
+   "d": 30
+  }
+ ],
+ "hud": [
+  {
+   "id": "stats",
+   "ja": "📊 きろく",
+   "phase": 1
+  },
+  {
+   "id": "coins_level",
+   "ja": "🪙 コイン・Lv",
+   "phase": 1
+  },
+  {
+   "id": "world_select",
+   "ja": "🌍 ワールド選択（Roblox と同じカード）",
+   "phase": 1
+  },
+  {
+   "id": "daily_login",
+   "ja": "🎁 デイリーログイン（日本時間12時リセット）",
+   "phase": 1
+  },
+  {
+   "id": "fish_dex",
+   "ja": "📖 Fish Dex／Character Dex",
+   "phase": 1
+  },
+  {
+   "id": "help",
+   "ja": "❓ ヘルプ",
+   "phase": 1
+  },
+  {
+   "id": "weekly_rank",
+   "ja": "🏆 週間ランキング",
+   "phase": 2
+  },
+  {
+   "id": "inventory",
+   "ja": "🎒 もちもの",
+   "phase": 2
+  },
+  {
+   "id": "wardrobe",
+   "ja": "👕 きせかえ",
+   "phase": 2
+  },
+  {
+   "id": "ai_chat",
+   "ja": "💬 AIチャット",
+   "phase": 2
+  },
+  {
+   "id": "hunger",
+   "ja": "🍔 おなか",
+   "phase": 2
+  },
+  {
+   "id": "pets",
+   "ja": "🐾 ペット",
+   "phase": 3
+  },
+  {
+   "id": "teacher_gather",
+   "ja": "📣 先生の Gather（Web では クラス全員を 同じ場所に）",
+   "phase": 2
+  }
+ ]
+}

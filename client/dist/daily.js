@@ -62,6 +62,29 @@ export function createDailyUI({ send, isOnline }) {
     show();
   }
 
+  // 🎁 デイリーログイン（メインの島のボタン）。もらうのは入ったとき（部屋が決める）。ここは きょうの ぶんを見せるだけ。
+  function openLogin(streak = 0) {
+    if (lastBonus) return onBonus(lastBonus);
+    const cycle = 7;
+    const rewards = [100, 150, 200, 250, 300, 350, 400];
+    const day = streak > 0 ? ((streak - 1) % cycle) + 1 : 0;
+    body().innerHTML = `<div class="daily-hit">
+        <span>🎁</span>
+        <h3>ログインボーナス</h3>
+        <p>きょうの ぶんは もう もらったよ。</p>
+        ${streak > 0 ? `<small>${streak}日 れんぞく ログイン中！</small>` : ''}
+      </div>
+      ${stamps(day, cycle, rewards)}
+      <p class="daily-note">日本時間の おひる12時に つぎの日に なります。${cycle}日 つづくと また1日目から。</p>
+      <div class="quiz-actions">
+        <button type="button" id="daily-rank">♛ ランキング</button>
+        <button type="button" class="primary" id="daily-go">とじる</button>
+      </div>`;
+    $('#daily-go', dialog).onclick = close;
+    $('#daily-rank', dialog).onclick = () => openRank();
+    show();
+  }
+
   function openRank() {
     if (!isOnline()) return;
     body().innerHTML = '<p class="daily-note">今週の記録を よみこみ中…</p>';
@@ -97,6 +120,7 @@ export function createDailyUI({ send, isOnline }) {
     onBonus,
     onRank,
     open: openRank,
+    openLogin,
     // Shown only online, and reset when a session ends so an offline page has no button
     // that cannot work.
     setOnline(online) { button.hidden = !online; if (!online) lastBonus = null; },

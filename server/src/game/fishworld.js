@@ -15,6 +15,8 @@ import {
 export class FishworldError extends Error {}
 
 export const DATA_PATH = new URL('../../../client/dist/fishworld.json', import.meta.url);
+// 問題（答えつき）はサーバーにだけ置く。島・魚・確率はページも読むので client/dist。
+export const QUIZ_PATH = new URL('./fishworld-quiz.json', import.meta.url);
 const need = (ok, msg) => { if (!ok) throw new Error(`fishworld.json: ${msg}`); };
 const num = (v, fb = 0) => (Number.isFinite(Number(v)) ? Number(v) : fb);
 
@@ -25,8 +27,9 @@ export const RARITY_LABEL = { C: { en: 'GET!', ja: 'ゲット！' }, U: { en: 'N
 export const FAST_MS = 2000;
 export const XP_PER_CATCH = 6;
 
-export function loadFishworld(file = DATA_PATH) {
+export function loadFishworld(file = DATA_PATH, quizFile = QUIZ_PATH) {
   const raw = JSON.parse(readFileSync(file, 'utf8'));
+  need(!raw.quiz, 'the question bank must not be in client/dist (move it to fishworld-quiz.json)');
   const island = raw.island;
   need(island && island.id === 'fishworld' && Array.isArray(island.spots) && island.spots.length === 3, 'island block with 3 spots');
   need(Number.isFinite(island.x) && Number.isFinite(island.z) && Number.isFinite(island.radius), 'island x/z/radius');
@@ -40,7 +43,7 @@ export function loadFishworld(file = DATA_PATH) {
     for (const other of island.spots) if (other !== sp) need(Math.hypot(sp.x - other.x, sp.z - other.z) > 10, `${sp.id} and ${other.id} overlap`);
   }
   const zones = raw.zones;
-  const quiz = raw.quiz;
+  const quiz = JSON.parse(readFileSync(quizFile, 'utf8')).quiz;
   const formats = raw.formats;
   const catchRates = raw.catchRates;
   for (const z of ['1', '2', '3']) {
@@ -64,6 +67,9 @@ export function loadFishworld(file = DATA_PATH) {
 }
 
 export const FW = loadFishworld();
+// メインの島（2D）の つり場。釣りワールドの Pond と同じ仕組み・同じ単語（ゾーン 1）。島の上の場所ではないので
+// island.spots には入れない（部屋は位置で止めない：ClassRoom.atFwSpot）。
+FW.spotById.set('main', { id: 'main', kind: 'pier', zone: 1, name: 'つり場', en: 'Fishing Pier' });
 
 // 図鑑に数える魚（ゴミは数えない）。ゾーンごとの「n / m」の m。
 export const dexTotal = (zone) => FW.fish.filter((f) => f.zone === zone && f.kind !== 'trash').length;

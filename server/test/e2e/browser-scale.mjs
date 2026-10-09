@@ -36,6 +36,9 @@ try {
   await page.fill('#net-class', 'scale');
   await page.click('#net-join');
   await page.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 60000, polling: 250 });
+  // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。
+  await page.waitForFunction(() => globalThis.uspeak?.net?.main?.isOpen, null, { timeout: 8000, polling: 100 }).catch(() => {});
+  await page.evaluate(() => globalThis.uspeak?.net?.main?.close());
   await page.evaluate(async () => { const { STARTERS } = await import('./magic-data.js'); if (!uspeak.rpg.adventure.progress.state.starter) uspeak.rpg.adventure.progress.chooseStarter(STARTERS[0].id); uspeak.rpg.close(); for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
   for (let i = 0; i < 24; i++) {
     const d = await page.evaluate(() => ({ size: uspeak.net.room?.state.players.size, mode: uspeak.net.mode, remotes: uspeak.net.remotes.count, rendered: uspeak.net.remotes.stats.rendered, sid: uspeak.net.sessionId }));
@@ -63,6 +66,9 @@ try {
   const t1 = Date.now();
   await page.evaluate(() => uspeak.net.room.leave(false));
   await page.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 15000, polling: 250 });
+  // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。
+  await page.waitForFunction(() => globalThis.uspeak?.net?.main?.isOpen, null, { timeout: 8000, polling: 100 }).catch(() => {});
+  await page.evaluate(() => globalThis.uspeak?.net?.main?.close());
   check('reconnect with 100 in room < 3000 ms', Date.now() - t1 < 3000, `${Date.now() - t1} ms`);
 } catch (err) { console.log('SCALE ERROR', err); results.push({ name: 'script', ok: false }); }
 finally { await browser.close(); bots.kill('SIGTERM'); server.kill('SIGTERM'); }

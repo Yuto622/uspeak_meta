@@ -44,6 +44,7 @@ const BY_MODE = {
   'farm-word': 'read', 'farm-fill': 'read', 'farm-order': 'write', 'farm-spell': 'write', 'farm-letters': 'write', 'farm-reply': 'speak',
   // つり島（Roblox の釣りワールド）：えらぶ・せんつなぎは よむ、つづり・タイピング・ならべかえ・あなうめは かく、きいて えらぶは きく
   'fw-mc': 'read', 'fw-match': 'read', 'fw-spell': 'write', 'fw-type': 'write', 'fw-order': 'write', 'fw-fill': 'write', 'fw-listen': 'listen',
+  'wh-mc': 'read', 'wh-match': 'read', 'wh-spell': 'write', 'wh-type': 'write', 'wh-order': 'write', 'wh-fill': 'write', 'wh-listen': 'listen',
 };
 
 export function skillOf(mode) {

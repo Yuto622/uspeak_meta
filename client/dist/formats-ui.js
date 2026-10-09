@@ -52,7 +52,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
   const feedback = root.querySelector('.fmt-feedback');
   const checkBtn = root.querySelector('.fmt-check');
   root.querySelector('.fmt-quit').onclick = () => onQuit?.();
-  root.querySelector('.fmt-speak').onclick = () => say(fmt.word || '');
+  root.querySelector('.fmt-speak').onclick = () => say(fmt.prompt || fmt.word || '');
 
   const submit = () => { if (locked || answer === null || answer === undefined) return; locked = true; checkBtn.disabled = true; onCheck?.(answer); };
   checkBtn.onclick = submit;
@@ -60,10 +60,10 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
   // ---- 形式ごとの中身 ----
   if (fmt.kind === 'mc') {
     checkBtn.hidden = true;
-    body.innerHTML = `<h3 class="fmt-q">What is "<span class="fmt-word">${esc(fmt.word)}</span>"?</h3>
+    body.innerHTML = `${fmt.prompt ? `<h3 class="fmt-q fmt-prompt">${esc(fmt.prompt)}</h3>` : `<h3 class="fmt-q">What is "<span class="fmt-word">${esc(fmt.word)}</span>"?</h3>`}
       <div class="fmt-choices">${fmt.choices.map((c) => `<button type="button" class="fmt-choice" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
     body.querySelectorAll('.fmt-choice').forEach((b) => { b.onclick = () => { if (locked) return; answer = b.dataset.v; b.classList.add('picked'); submit(); }; });
-    say(fmt.word);
+    say(fmt.prompt || fmt.word);
   } else if (fmt.kind === 'listen') {
     checkBtn.hidden = true;
     body.innerHTML = `<button type="button" class="fmt-ear" aria-label="きく"><span class="fmt-ring"></span>🔊</button>

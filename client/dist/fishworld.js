@@ -27,6 +27,9 @@ function photo(f, cls = 'fw-photo') {
 
 export function createFishworldUI({ send, toast, speak, isOnline, island }) {
   const state = { spot: '', zone: 0, view: 'zone', data: null, ask: null, ctl: null, tab: 'zone', timing: null, castAt: 0, pending: null, wait: 0 };
+  // メインの島（2D）の つり場では 3D の島が無い：うきは 画面の中で うかべる（flat）。
+  let flat = false;
+  const isl = () => (flat ? null : island);
 
   const dialog = document.createElement('dialog');
   dialog.id = 'fw-dialog';
@@ -66,17 +69,18 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
     clearTimeout(state.wait);
     state.ctl?.destroy?.(); state.ctl = null; state.ask = null; state.pending = null; state.view = 'zone'; state.tab = 'zone';
     stopTiming();
-    island?.endCast?.();
+    isl()?.endCast?.();
     hud.hidden = true;
     hide();
   }
 
-  function enter(spot) {
+  function enter(spot, { flat: noIsland = false, tab = 'zone' } = {}) {
     if (!isOnline()) { toast(tr('つり島は オンラインで あそべます。')); return false; }
     if (busy()) return false;
+    flat = !!noIsland;
     state.spot = spot.id;
     state.zone = spot.zone;
-    state.view = 'zone'; state.tab = 'zone';
+    state.view = 'zone'; state.tab = tab;
     send('fw:open', { spot: spot.id });
     return true;
   }
@@ -162,11 +166,18 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
     state.pending = null;
     state.castAt = performance.now();
     state.ctl?.destroy?.(); state.ctl = null;
+    send('fw:cast', { spot: state.spot });
+    if (flat) {
+      head();
+      body.innerHTML = `<div class="fw-wait"><div class="fw-pond"><span class="fw-line"></span><span class="fw-bob"></span><span class="fw-ring1"></span><span class="fw-ring2"></span><b class="fw-bang">！</b></div>
+        <p>${bi('Watch the float…', 'うきを みてね…')}</p><button type="button" class="fw-todex fw-wait-quit">${bi('✕ Stop', '✕ やめる')}</button></div>`;
+      $('.fw-wait-quit', body).onclick = () => close();
+      return;
+    }
     hide();
-    island?.startCast?.(state.spot);
+    isl()?.startCast?.(state.spot);
     hud.hidden = false;
     hud.classList.remove('bite');
-    send('fw:cast', { spot: state.spot });
   }
   // 問題が届いても、うきが しずむまでは出さない。しずんだら「！」、少しして問題。
   function spring() {
@@ -175,8 +186,8 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
     clearTimeout(state.wait);
     state.wait = setTimeout(() => {
       if (state.view !== 'cast' || !state.pending) return;
-      island?.bite?.();
-      hud.classList.add('bite');
+      isl()?.bite?.();
+      if (flat) { $('.fw-wait', body)?.classList.add('bite'); const p = $('.fw-wait p', body); if (p) p.innerHTML = bi('A bite!', 'かかった！'); } else hud.classList.add('bite');
       $('p', hud).innerHTML = bi('A bite!', 'かかった！');
       state.wait = setTimeout(() => {
         if (state.view !== 'cast' || !state.pending) return;
@@ -211,7 +222,7 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
       setTimeout(() => {
         if (state.view !== 'ask') return;
         toast(tr('さかなは にげて いきました…'));
-        island?.endCast?.();
+        isl()?.endCast?.();
         state.view = 'zone'; state.ctl?.destroy?.(); state.ctl = null; render();
       }, 2600);
     } else if (m.format) {
@@ -272,10 +283,10 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
   function onCatch(m) {
     stopTiming();
     state.view = 'splash';
-    hide();
-    island?.splash?.(m.fish);
+    if (!flat) hide();
+    isl()?.splash?.(m.fish);
     if (speak) speak(m.fish.en, { japanese: false, rate: 0.85 });
-    setTimeout(() => { island?.endCast?.(); showCatch(m); }, island?.splash ? 1500 : 0);
+    setTimeout(() => { isl()?.endCast?.(); showCatch(m); }, isl()?.splash ? 1500 : 0);
   }
   function showCatch(m) {
     state.view = 'catch';
@@ -325,7 +336,7 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
   function onError(m) {
     const why = { 'too far': 'つりばに たってね。', 'no question': 'さおを なげなおそう。', 'nothing on the line': 'さおを なげなおそう。', 'nothing to sell': 'うる さかなが ないよ。', 'too fast': 'ちょっと まってね。' }[m.reason] || m.reason;
     toast(tr(why));
-    if (state.view === 'cast') { clearTimeout(state.wait); island?.endCast?.(); hud.hidden = true; state.view = 'zone'; if (m.reason !== 'too far') { show(); render(); } }
+    if (state.view === 'cast') { clearTimeout(state.wait); isl()?.endCast?.(); hud.hidden = true; state.view = 'zone'; if (m.reason !== 'too far') { show(); render(); } }
     if (m.reason === 'too far') close();
   }
 

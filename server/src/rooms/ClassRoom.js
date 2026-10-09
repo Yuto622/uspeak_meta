@@ -46,6 +46,7 @@ import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../ga
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { GEAR, gearPayload } from '../game/blockwild-shop.js';
 import { FW, sanitizeFw, prepare as prepareFw, answer as answerFw, askPayload as fwAsk, lottery as fwLottery, catchFish, sellFrom, statePayload as fwState, fishPayload, GRADES as FW_GRADES, FAST_MS as FW_FAST_MS, XP_PER_CATCH as FW_XP, FishworldError } from '../game/fishworld.js';
+import { startSet as whStart, answer as whAnswer, askPayload as whAsk, HOUSES as WH_HOUSES, DAILY_COIN_CAP as WH_CAP, PERFECT_BONUS as WH_BONUS, WordHouseError } from '../game/wordhouse.js';
 import { LAND, LAND_ISLAND, sanitizeLand, landPayload, islandPayload as landIslandPayload, priceOfNext as landPriceOfNext, priceOfRestyle as landPriceOfRestyle, LandError } from '../game/land.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, dayIndex, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
@@ -194,6 +195,12 @@ export class ClassRoom extends Room {
     this.onMessage('fw:reel', (client, msg) => this.onFwReel(client, msg));
     this.onMessage('fw:sell', (client, msg) => this.onFwSell(client, msg));
     this.onMessage('fw:cancel', (client) => this.onFwCancel(client));
+    // メインの島（2D）。英単語ハウス・島にいた時間。つり場とかいとりやは fw:* の spot 'main'。
+    this.onMessage('wh:start', (client, msg) => this.onWhStart(client, msg));
+    this.onMessage('wh:answer', (client, msg) => this.onWhAnswer(client, msg));
+    this.onMessage('wh:quit', (client) => { const priv = this.priv.get(client.sessionId); if (priv) priv.wh = null; });
+    this.onMessage('main:enter', (client) => this.onMainEnter(client));
+    this.onMessage('main:leave', (client) => this.onMainLeave(client.sessionId));
     this.onMessage('prop:list', (client) => client.send('prop:shop', this.propShopPayload(client.sessionId)));
     this.onMessage('prop:buy', (client, msg) => this.onPropBuy(client, msg));
     this.onMessage('plaza:enter', (client) => this.onPlazaEnter(client));
@@ -363,6 +370,7 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(id);
     if (!player || !priv) return;
     player.connected = false;
+    this.onMainLeave(id);
     this.dropVoice(id, 'gone');
     if (this.state.teacherId === id) this.state.teacherId = '';
     this.persist(id);
@@ -2770,6 +2778,8 @@ export class ClassRoom extends Room {
   // ---- つり島 -------------------------------------------------------------------------------
   // 3つの小屋（いけ・かわ・うみ）が3つのゾーン。立っている小屋がゾーンで、メニューで選ばせない。
   atFwSpot(sessionId, spotId) {
+    // メインの島の つり場は 2D の地図の上：立つ場所は無いので、位置では止めない。
+    if (spotId === 'main') return true;
     const spot = FW.spotById.get(spotId);
     return !!spot && this.atPlace(sessionId, FW.island, spot);
   }
@@ -2881,6 +2891,88 @@ export class ClassRoom extends Room {
     if (!priv) return;
     priv.fw.q = null;
     priv.fw.pending = null;
+  }
+
+  // ---- メインの島：英単語ハウス ----------------------------------------------------------
+  // 10 問のセット。問題と答えは priv.wh にだけあり、ページには 1 問ずつ答えの無い形で送る。
+  onWhStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const house = typeof msg?.house === 'string' ? msg.house : '';
+    if (!WH_HOUSES[house]) { client.send('wh:error', { reason: 'no such house' }); return; }
+    try {
+      priv.wh = whStart(house, typeof msg?.level === 'string' ? msg.level : '');
+    } catch (err) {
+      if (err instanceof WordHouseError) { client.send('wh:error', { reason: err.message }); return; }
+      throw err;
+    }
+    client.send('wh:ask', whAsk(priv.wh));
+  }
+
+  onWhAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const set = priv.wh;
+    if (!set) { client.send('wh:error', { reason: 'no question' }); return; }
+    const now = Date.now();
+    if (now - (priv.lastWhAt || 0) < config.answerMinIntervalMs) { client.send('wh:error', { reason: 'too fast' }); return; }
+    priv.lastWhAt = now;
+    let r;
+    try { r = whAnswer(set, msg?.qid, msg?.answer, { now }); } catch (err) {
+      if (err instanceof WordHouseError) { client.send('wh:error', { reason: err.message }); return; }
+      throw err;
+    }
+    const given = String(Array.isArray(msg?.answer) ? msg.answer.join(' ') : (msg?.answer && typeof msg.answer === 'object' ? JSON.stringify(msg.answer) : msg?.answer ?? '')).slice(0, 80);
+    this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `wh:${set.level}:${r.kind}:${r.word}`.slice(0, 160), `wh-${r.kind}`, given, r.correct ? 1 : 0, r.xp || 0, client.sessionId]);
+    priv.stats.attempts += 1;
+    if (r.correct) priv.stats.correct += 1;
+    // Roblox と同じ形：world="hut"、level は SuperEasy / Easy / Medium / Hard。
+    this.robloxEvent(client.sessionId, 'quiz', 'hut', { correct: r.correct, word: r.word.slice(0, 80), level: set.level, format: r.kind, fast: r.fast, retry: r.attempt >= 2 }, now);
+    // コインは 1 日の上限の中で（XP と記録は上限なし）。全問 1 回で正解なら ボーナスも同じ上限から。
+    const pay = (amount, id) => {
+      const paid = Math.min(amount, roomLeft(priv.caps, 'wordhouse', WH_CAP));
+      if (paid <= 0) return 0;
+      const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id });
+      priv.caps.wordhouse += paid;
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      return paid;
+    };
+    const payload = { qid: r.qid, correct: r.correct, retry: !!r.retry, attempt: r.attempt, reveal: r.reveal, diff: r.diff, format: r.format };
+    payload.coins = r.coins ? pay(r.coins, `wordhouse:${set.level}`) : 0;
+    payload.capped = r.coins > 0 && payload.coins < r.coins;
+    set.coins += payload.coins;
+    if (r.xp) {
+      const level = this.awardXp(client.sessionId, r.xp, `wh:${r.kind}`);
+      payload.xp = r.xp;
+      payload.levels = level?.levels || 0;
+    }
+    payload.progress = this.progressPayload(client.sessionId);
+    if (r.done) {
+      const bonus = r.done.bonus ? pay(WH_BONUS, `wordhouse_perfect:${set.level}`) : 0;
+      payload.done = { ...r.done, bonus, coins: set.coins + bonus };
+      priv.wh = null;
+    } else if (!r.retry) {
+      payload.next = whAsk(set);
+    }
+    client.send('wh:result', { ...payload, ...this.walletPayload(client.sessionId) });
+    this.persist(client.sessionId);
+  }
+
+  // ---- メインの島にいた時間（Roblox と同じ session の記録：world="main"）--------------------
+  onMainEnter(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv || priv.main) return;
+    priv.main = { since: Date.now(), start: priv.wallet.coins };
+  }
+
+  onMainLeave(sessionId) {
+    const priv = this.priv.get(sessionId);
+    if (!priv?.main) return;
+    const seconds = Math.round(Math.min(3 * 3600 * 1000, Date.now() - priv.main.since) / 1000);
+    const coinsEarned = Math.max(0, priv.wallet.coins - priv.main.start);
+    priv.main = null;
+    if (seconds < 3) return;
+    this.robloxEvent(sessionId, 'session', 'main', { seconds, coinsEarned, balance: priv.wallet.coins, level: priv.progress.level });
   }
 
   // Web で起きた学習を Roblox と同じ形で roblox_events に貯める（source=web）。保護者ページ・

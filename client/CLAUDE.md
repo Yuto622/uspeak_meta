@@ -16,6 +16,7 @@
 | テーマパーク・飛行機・乗り物 | themepark.js |
 | アバター | avatars.js |
 | 釣り・魚・経済 | fishing.js / fishing-state.js / fishing-data.js / fishing-models.js / fish-species.js / assets/fish/ |
+| メインの島（2D のホーム）・英単語ハウス | main-island.js / main-island.css / main_island.json / wordhouse.js / wordhouse.css |
 | RPG・地域・図鑑・地図 | rpg.js / rpg-state.js / rpg-data.js / world-picker.js + world-picker.css（しまの ちず） / rpg-map.js（もとの海図・検査だけが使う） |
 | 地形・キャラモデル | rpg-world.js / rpg-models.js |
 | 物語・育成・リーグ・復習 | adventure.js / adventure-state.js / adventure-data.js / adventure-quiz.js |
@@ -922,6 +923,24 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 見た目を足す／段を変えるときは `land.test.mjs`（比率 2〜6 倍・順番・12 の世界が全部ちがう・もようがえ）を通し、
   `land-world.js` の `THEMES` と `BUILD` に同じ名前で足し、`land.css` の `[data-theme=…]` の色も足すこと。
 
+## メインの島（2D のホーム／2026-10 追加）
+
+`main-island.js` + `main-island.css` + `main_island.json`（Roblox のメインワールドの配置）/ `wordhouse.js` + `wordhouse.css`（英単語ハウス）。
+サーバーは `server/src/game/wordhouse.js` と `ClassRoom` の `wh:*` / `main:*`、つり場は `fw:*` の `spot: "main"`。
+
+- **3D の上に全面でかぶせる `<div id="main-island">`**（`<header>` は使わない：style.css の `header{position:fixed}`）。
+  開いている間は `body[data-main]`。**3D は描かない**（`game.js` のフレームループが `net.main.isOpen` で早く帰る）が、
+  BGM は止めない（同梱ゲームと違い、ここは島の中の画面）。
+- **クラスに入って最初の welcome で 1 回だけ開く**（`net-client.js`、つなぎなおしでは開かない）。右のバーの「🏠 Main Island」で戻る。
+- **座標は main_island.json の x, z をそのまま**（`fx/fz` で frame を 0〜100%）。場所は大きい物だけ床（`.mi-foot`）を描き、
+  全部に丸いマーカー（`.mi-poi`）。ラベルの向きは `SIDE`（近い物どうしがぶつからないように）。地図は横 1100px 以上で、はみ出す分は指でスクロール。
+- **子ども向けの文は `COPY`**（main_island.json の `action` は作る人のメモ）。ゲートの行き先は `GATE_TO`、
+  じゅんびちゅうの場所の「にている島」は `ALT`。リストのカードは world-picker と同じ `.wm-card`。
+- **英単語ハウスの SUPER EASY ⇔ EASY は この端末に覚える**（`uspeak-wordhouse-easy-v1`）。部屋は届いた level を家ごとに確かめる。
+- **つり場は 3D が無い**：`fishworld.enter({id:'main', zone:1}, {flat:true})`。flat のときは さお・うきの演出を
+  ダイアログの中の池（`.fw-wait`）でやり、釣果の前に画面を閉じない。
+- 検査は README の「メインの島」。
+
 ## しまの ちず（Choose a World／2026-10 更新）
 
 右の「✈ World Map」は **色つきのカードを並べた「Choose a World」**（Roblox のワールド選びと同じ形）。
@@ -939,7 +958,7 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 
 ## つり島（Roblox の釣りワールド／2026-10 追加）
 
-`fishworld-island.js` + `fishworld.json`（島・3 ゾーンの問題・魚 70 種・出やすさ）/ `fishworld.js` + `fishworld.css`（画面）/
+`fishworld-island.js` + `fishworld.json`（島・魚 70 種・出やすさ。**問題は `server/src/game/fishworld-quiz.json`＝サーバーだけ**）/ `fishworld.js` + `fishworld.css`（画面）/
 **`formats-core.js`（7 形式の問題部品・DOM なし・サーバーと共有）** / `formats-ui.js`（7 形式の見た目と操作）/ `dev-formats.html`（`/dev/formats`）。
 サーバーは `server/src/game/fishworld.js`。
 

@@ -32,6 +32,8 @@ import { createFarmUI, nextStep as nextFarmStep } from './farm.js';
 import { createLand } from './land-world.js';
 import { createLandUI } from './land.js';
 import { createFishworldUI } from './fishworld.js';
+import { createWordHouseUI } from './wordhouse.js';
+import { createMainIsland } from './main-island.js';
 import { createRacers } from './racers.js';
 import { createGuestDock } from './guest-dock.js';
 import { createBlockwild, cacheBlocks } from './blockwild.js';
@@ -43,7 +45,8 @@ import { createRoom } from './room-world.js';
 import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
 
-export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn }) {
+export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
+  let main = null; // メインの島（下で作る。財布と進み具合が届くたびに数字を書き直す）
   const Colyseus = globalThis.Colyseus;
   const $ = (s) => document.querySelector(s);
   const state = {
@@ -270,6 +273,25 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     toast,
     avatars,
   });
+  // メインの島（2D の地図のホーム）と 英単語ハウス。正解もコインも部屋が決める（wh:* / main:*）。
+  const plainSend = (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); };
+  const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
+  main = createMainIsland({
+    send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash,
+    guide: guide || { open() {} },
+    getCoins: () => state.wallet?.coins ?? fishing.store.state.coins,
+    getLevel: () => state.progress?.level ?? Number(document.querySelector('#level')?.textContent || 1),
+    getStreak: () => state.streak || 0,
+  });
+  {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.id = 'main-island-button';
+    b.className = 'rank-button main-island-button';
+    b.innerHTML = '<b class="en">🏠 Main Island</b><i class="ja">メインの しま</i>';
+    b.onclick = () => main.open();
+    document.querySelector('.right-rail')?.prepend(b);
+  }
   // Put the child's own clothes on their own body, and keep them on when they change face.
   const dressMe = (worn, table) => {
     avatars.setOutfit((worn || []).map((id) => table?.byId.get(id)).filter(Boolean),
@@ -436,6 +458,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       town.prime();
       r.send('farm:peek', {});
       welcomed = true;
+      state.streak = m.streak || 0;
+      // ホームはメインの島。はじめて入ったときだけ開く（つなぎなおしでは開かない）。
+      if (!state.mainShown) { state.mainShown = true; main.open(); }
       state.role = m.role;
       state.chatPaused = !!m.chatPaused;
       state.teacherId = m.teacherId || '';
@@ -542,6 +567,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('fw:catch', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onCatch(m); });
     r.onMessage('fw:sold', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onSold(m); });
     r.onMessage('fw:error', (m) => fishworld.onError(m));
+    r.onMessage('wh:ask', (m) => wordhouse.onAsk(m));
+    r.onMessage('wh:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress, m.levels); wordhouse.onResult(m); });
+    r.onMessage('wh:error', (m) => wordhouse.onError(m));
     r.onMessage('farm:board', (m) => farm.onBoard(m));
     r.onMessage('voice:room', (m) => voice.onRoom(m));
     r.onMessage('voice:peer', (m) => voice.onPeer(m));
@@ -721,6 +749,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     if (!p || typeof p !== 'object') return;
     state.progress = p;
     writeProgress();
+    main?.refresh();
     if (levels > 0) toast(tr('レベル {n} に なった！', { n: p.level }));
   }
 
@@ -738,6 +767,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
 
   function applyWallet(w) {
     state.wallet = w;
+    main?.refresh();
     // Roblox と同じ財布の子には、1度だけ言っておく：ここで ふえたぶんは Roblox に入ると届く。
     if (w?.roblox && !state.robloxNoted) {
       state.robloxNoted = true;
@@ -995,6 +1025,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     fishworldInteract: () => { const near = rpg.fishworldNearby(); if (near) { sendMove(); fishworld.enter(near.spot); } },
     fishworldLabel: () => tr('🎣 ここで つる'),
     fishworld,
+    wordhouse,
+    main,
     landLabel: (spot) => land.label(spot),
     land, myLand,
     ride,

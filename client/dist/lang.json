@@ -3123,6 +3123,16 @@
     "つりばに たってね。": "Stand at the fishing spot.",
     "いけの つりば": "Pond fishing spot",
     "かわの つりば": "River fishing spot",
-    "うみの さんばし": "Sea pier"
+    "うみの さんばし": "Sea pier",
+    "メニュー": "Menu",
+    "ズーム": "Zoom in",
+    "ズームアウト": "Zoom out",
+    "英単語ハウスは オンラインで あそべます。": "The Word Houses work when you are online.",
+    "きょうの 英単語ハウスの コインは ここまで。XP は もらえるよ。": "That's all the Word House coins for today. You still get XP.",
+    "もういちど はじめてね。": "Please start again.",
+    "その いえは ありません。": "That house does not exist.",
+    "レベルを {lv} に かえたよ": "Level changed to {lv}",
+    "オンラインで あそべます。": "You can play this when you are online.",
+    "きょうの ぶんは もう もらったよ。": "You already got today's bonus."
   }
 }

@@ -74,7 +74,8 @@ export function pickFormat(weights, q, rng = Math.random) {
 export function buildMc(q, rng = Math.random) {
   const others = (q.o || []).filter((x) => x !== q.a);
   const choices = shuffle([q.a, ...others].slice(0, 4), rng);
-  return { id: newId(rng), kind: 'mc', word: q.q, answer: q.a, choices };
+  // `prompt` があれば「What is …?」のかわりに その文を出す（英単語ハウスの文法の問題など）。
+  return { id: newId(rng), kind: 'mc', word: q.q, answer: q.a, choices, ...(q.prompt ? { prompt: String(q.prompt) } : {}) };
 }
 
 // 線つなぎ：その問題 ＋ 同じゾーンから3組。左右の並びで正解の線が全部平行にならないよう
@@ -155,7 +156,7 @@ export function buildFor(kind, q, pool, rng = Math.random) {
 export function publicFormat(fmt, { attempt = 1 } = {}) {
   const base = { id: fmt.id, kind: fmt.kind, attempt };
   switch (fmt.kind) {
-    case 'mc': return { ...base, word: fmt.word, choices: [...fmt.choices] };
+    case 'mc': return { ...base, word: fmt.word, choices: [...fmt.choices], ...(fmt.prompt ? { prompt: fmt.prompt } : {}) };
     case 'match': return { ...base, left: [...fmt.left], right: [...fmt.right] };
     case 'spell': return { ...base, ja: fmt.ja, letters: [...fmt.letters] };
     case 'type': return { ...base, ja: fmt.ja, length: fmt.length, ...(attempt >= 2 ? { hint: fmt.word[0] } : {}) };

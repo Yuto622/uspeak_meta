@@ -341,3 +341,19 @@ body[data-arcade] #fw-hud, body[data-race] #fw-hud { display: none; }
 html:not([data-lang=ja]) #fw-dialog .en, html[data-lang=ja] #fw-dialog .ja,
 html:not([data-lang=ja]) #fw-hud .en, html[data-lang=ja] #fw-hud .ja { display: inline; }
 .fw-hero .fw-chip { color: #fffbf5; background: #0d2a2059; }
+
+/* メインの島の つり場（3D の島が無いとき）：うきは画面の中の池に うかぶ */
+.fw-wait { text-align: center; padding: 8px 0 4px; }
+.fw-wait p { margin: 12px 0 8px; font-size: 20px; font-weight: 900; }
+.fw-pond { position: relative; height: 190px; border-radius: 26px; overflow: hidden; background: linear-gradient(180deg, #7fd0e8, #2f8fb8 70%, #1f6f95); box-shadow: inset 0 -12px 30px #0b3e5a55; }
+.fw-pond::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(170deg, #ffffff18 0 6px, transparent 6px 26px); animation: fw-wave 6s linear infinite; }
+.fw-line { position: absolute; left: 50%; top: -10px; width: 2px; height: 96px; background: #fffbf5cc; transform: rotate(14deg); transform-origin: top; }
+.fw-bob { position: absolute; left: calc(50% + 18px); top: 82px; width: 30px; height: 30px; margin-left: -15px; border-radius: 50%; background: linear-gradient(180deg, #e0566a 50%, #fffbf5 50%); box-shadow: 0 0 0 3px #ffffff55; animation: fw-float 1.4s ease-in-out infinite; }
+.fw-ring1, .fw-ring2 { position: absolute; left: calc(50% + 18px); top: 108px; width: 60px; height: 16px; margin-left: -30px; border-radius: 50%; border: 2px solid #ffffffaa; animation: fw-ripple 2s ease-out infinite; }
+.fw-ring2 { animation-delay: 1s; }
+@keyframes fw-ripple { from { transform: scale(.4); opacity: .9; } to { transform: scale(2.2); opacity: 0; } }
+.fw-bang { position: absolute; left: calc(50% + 18px); top: 22px; margin-left: -22px; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: #e0566a; color: #fff; font-size: 26px; font-weight: 900; opacity: 0; transform: scale(.4); transition: .2s; }
+.fw-wait.bite .fw-bob { animation: fw-dip .3s ease-in-out infinite; }
+.fw-wait.bite .fw-bang { opacity: 1; transform: scale(1); }
+.fw-wait.bite p { color: #c43d4f; }
+.fw-wait-quit .ja { font-style: normal; }

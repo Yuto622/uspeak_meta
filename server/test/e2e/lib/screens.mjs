@@ -12,6 +12,9 @@ export const SCREENS = [
   // 「?」のあそびかたガイド。**はじめての子が最初に開く画面**なので、5サイズで測る。
   { id: 'guide', sel: '#guide-dialog', go: `document.querySelector('#help').click()` },
   { id: 'map', sel: '#rpg-dialog', go: `uspeak.rpg.openMap()` },
+  // メインの島（2D のホーム）。地図とリストの両方、下から出るカード、英単語ハウスの はじめの画面。
+  { id: 'home', sel: '#main-island', go: `await uspeak.net.main.open(); uspeak.net.main.pick('hut_easy')` },
+  { id: 'wordhouse', sel: '#wh-dialog', go: `uspeak.net.wordhouse.open('hut_easy')` },
   { id: 'book', sel: '#rpg-dialog', go: `uspeak.rpg.openBook()` },
   { id: 'fishing', sel: '#fishing-dialog', go: `document.querySelector('#fishing-button').click()` },
   // The island screens. Each one flies there, stands in the right building and opens the
@@ -113,6 +116,7 @@ export const LAYOUT_HELPERS = `uspeak.__layout = {
     try { uspeak.net.gp.quit(); } catch { /* not racing */ }
     try { uspeak.net.dash.dialog.close(); } catch { /* not open */ }
     try { uspeak.net.wardrobe.dialog.close(); } catch { /* not open */ }
+    try { uspeak.net.main.close(); } catch { /* not open */ }
     for (const el of document.querySelectorAll('dialog[open]')) el.close();
     // Closing the panel is not ending the session: a battle or a set of five is still
     // open on the server, and the next screen on the list would be refused. Say goodbye
