@@ -111,15 +111,15 @@ try {
   });
   await sleep(600);
   await page.evaluate(() => uspeak.rpg.openMap());
-  await page.waitForSelector('#rpg-dialog[open] .rpg-map-details', { timeout: 60000 });
-  check('しまの ちずも日本語', (await page.textContent('#rpg-dialog .rpg-route-state')).includes('なかま'),
-    (await page.textContent('#rpg-dialog .rpg-route-state')).slice(0, 40));
+  await page.waitForSelector('#rpg-dialog[open] .wm-grid', { timeout: 60000 });
+  check('しまの ちずも日本語', (await page.innerText('#rpg-dialog .wm-head')).includes('せかいを えらぼう'),
+    (await page.innerText('#rpg-dialog .wm-head')).slice(0, 40));
   await tap();                                        // 英語にもどす
   await page.waitForFunction(() => document.documentElement.dataset.lang === 'en', null, { timeout: 30000, polling: 200 });
   await page.evaluate(() => uspeak.rpg.openMap());
-  await page.waitForSelector('#rpg-dialog[open] .rpg-map-details', { timeout: 60000 });
-  check('しまの ちずは英語が既定', /Buddies|Open any time/.test(await page.textContent('#rpg-dialog .rpg-route-state')),
-    (await page.textContent('#rpg-dialog .rpg-route-state')).slice(0, 40));
+  await page.waitForSelector('#rpg-dialog[open] .wm-grid', { timeout: 60000 });
+  check('しまの ちずは英語が既定', (await page.innerText('#rpg-dialog .wm-head')).includes('Choose a World'),
+    (await page.innerText('#rpg-dialog .wm-head')).slice(0, 40));
   await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
   await tap();                                        // 日本語にもどして、続きの検査へ
   await page.waitForFunction(() => document.documentElement.dataset.lang === 'ja', null, { timeout: 30000, polling: 200 });

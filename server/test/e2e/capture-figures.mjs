@@ -324,7 +324,7 @@ try {
   // どこからでも開く画面
   await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
   await page.evaluate(() => document.querySelector('#flight-button')?.click());
-  await page.waitForSelector('#rpg-dialog[open] #rpg-world-map', { timeout: 40000 }).catch(() => {});
+  await page.waitForSelector('#rpg-dialog[open] .wm-grid', { timeout: 40000 }).catch(() => {});
   await sleep(1600); await shot('screen-map', 'ワールドマップ（島へ飛ぶ）');
   await page.evaluate(() => document.querySelector('#rpg-close')?.click());
   await sleep(500);

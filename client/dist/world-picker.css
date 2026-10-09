@@ -1,0 +1,73 @@
+/* しまの ちず — Choose a World. rpg.js が #rpg-dialog の中に描く（data-page="map" のあいだ、
+   ダイアログの頭とタブは隠れ、この画面だけになる）。 */
+#rpg-dialog[data-page="map"] { width: min(1120px, 96vw); background: #faf5ec; border: 6px solid #1b3a2f; border-radius: 34px; }
+#rpg-dialog[data-page="map"] .rpg-header, #rpg-dialog[data-page="map"] .rpg-tabs, #rpg-dialog[data-page="map"] #rpg-preview-panel { display: none; }
+#rpg-dialog[data-page="map"] .rpg-layout { min-height: 0; }
+#rpg-dialog[data-page="map"] #rpg-content { padding: 0; background: transparent; }
+
+.wm { --wm-font: "Hiragino Maru Gothic ProN", "Hiragino Maru Gothic Pro", "Arial Rounded MT Bold", "M PLUS Rounded 1c", "DM Sans", "Noto Sans JP", sans-serif;
+  display: flex; flex-direction: column; max-height: calc(94dvh - 12px); font-family: var(--wm-font); color: #1b3a2f; }
+.wm .en, .wm .ja { font-size: inherit; font-weight: inherit; line-height: inherit; letter-spacing: inherit; }
+html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; }
+
+.wm-head { position: relative !important; inset: auto !important; transform: none !important; flex: none; display: flex; align-items: center; justify-content: center; padding: 26px 90px 14px; background: transparent; width: auto; }
+.wm-head h2 { margin: 0; font-size: clamp(34px, 6.4vw, 72px); font-weight: 900; letter-spacing: -.01em; line-height: 1.05; text-align: center; color: #1b3a2f; }
+.wm-close { position: absolute; right: 22px; top: 18px; width: 64px; height: 64px; border-radius: 50%; border: 5px solid #fff; background: #e27a2d; color: #fff;
+  font-size: 26px; font-weight: 900; cursor: pointer; box-shadow: 0 6px 16px #e27a2d55; transition: transform .15s; }
+.wm-close:hover { transform: rotate(90deg) scale(1.05); }
+
+.wm-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 4px 26px 28px; -webkit-overflow-scrolling: touch; }
+.wm-section { margin: 12px 6px 10px; font-size: 18px; font-weight: 900; color: #4b6157; letter-spacing: .02em; }
+.wm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.wm-card { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 2px; min-height: 196px; padding: 14px 10px 18px;
+  border: 0; border-radius: 30px; background: var(--wc); color: #fff; cursor: pointer; font-family: var(--wm-font); overflow: hidden;
+  box-shadow: 0 0 0 5px #fff, 0 10px 22px #1b3a2f22; transition: transform .14s, box-shadow .14s; }
+.wm-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 18%, #ffffff40, transparent 60%), linear-gradient(180deg, transparent 55%, #00000018); pointer-events: none; }
+.wm-card:hover { transform: translateY(-4px) scale(1.015); box-shadow: 0 0 0 5px #fff, 0 18px 30px #1b3a2f33; }
+.wm-card:active { transform: translateY(1px) scale(.985); }
+.wm-card:focus-visible { outline: 4px solid #1b3a2f; outline-offset: 6px; }
+.wm-icon { position: relative; font-size: 76px; line-height: 1; margin-bottom: 10px; filter: drop-shadow(0 6px 4px #0000002a); transition: transform .2s; }
+.wm-card:hover .wm-icon { transform: translateY(-4px) rotate(-4deg); }
+.wm-name, .wm-ja { position: relative; color: #fff; -webkit-text-stroke: 5px #1b3a2f; paint-order: stroke fill; text-shadow: 0 3px 0 #1b3a2f; line-height: 1.15; text-align: center; }
+.wm-name { font-size: 26px; font-weight: 900; letter-spacing: .01em; }
+.wm-ja { font-size: 19px; font-weight: 800; -webkit-text-stroke-width: 4px; }
+
+.wm-card.here { box-shadow: 0 0 0 5px #fff, 0 0 0 10px #ffd246, 0 14px 30px #1b3a2f33; }
+.wm-badge { position: absolute; top: 10px; font-style: normal; font-size: 13px; font-weight: 900; padding: 5px 11px; border-radius: 99px; z-index: 1; }
+.wm-badge.here { left: 10px; background: #ffd246; color: #1b3a2f; box-shadow: 0 2px 0 #c99a00; }
+.wm-badge.done { right: 10px; width: 30px; height: 30px; padding: 0; display: grid; place-items: center; background: #fff; color: #2f8f5b; font-size: 17px; }
+.wm-card.locked { filter: grayscale(.85) brightness(.92); }
+.wm-card.locked .wm-icon { opacity: .55; }
+.wm-lock { position: absolute; top: 12px; right: 14px; font-size: 26px; filter: drop-shadow(0 2px 2px #0004); z-index: 1; }
+
+.wm-book { display: block; margin: 22px auto 0; padding: 14px 26px; min-height: 52px; border: 0; border-radius: 99px; background: #1b3a2f; color: #fffbf5;
+  font-family: var(--wm-font); font-size: 17px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 0 #0d211a; }
+
+@media (max-width: 900px) { .wm-grid { gap: 12px; } .wm-card { min-height: 170px; } .wm-icon { font-size: 62px; } .wm-name { font-size: 22px; } .wm-ja { font-size: 16px; } }
+@media (max-width: 640px) {
+  #rpg-dialog[data-page="map"] { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; border-width: 0; }
+  .wm { max-height: 100dvh; }
+  .wm-head { padding: 18px 70px 8px; }
+  .wm-close { right: 12px; top: 12px; width: 50px; height: 50px; font-size: 20px; border-width: 4px; }
+  .wm-scroll { padding: 4px 14px 22px; }
+  .wm-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .wm-card { min-height: 150px; border-radius: 24px; padding: 10px 6px 14px; }
+  .wm-icon { font-size: 52px; margin-bottom: 6px; }
+  .wm-name { font-size: 19px; -webkit-text-stroke-width: 4px; }
+  .wm-ja { font-size: 14px; -webkit-text-stroke-width: 3px; }
+  .wm-badge { font-size: 11px; padding: 4px 8px; }
+}
+@media (max-height: 560px) and (min-width: 641px) { .wm-head { padding: 12px 80px 6px; } .wm-head h2 { font-size: 36px; } .wm-card { min-height: 140px; } .wm-icon { font-size: 48px; } }
+@media (prefers-reduced-motion: reduce) { .wm-card, .wm-icon, .wm-close { transition: none; } }
+
+/* adventure.css の #rpg-content h2 / h3 と #rpg-dialog の overflow に負けないように、同じ強さで書く。 */
+#rpg-dialog[data-page="map"] { overflow: hidden; }
+#rpg-content .wm-head h2 { margin: 0; font-family: var(--wm-font); font-size: clamp(34px, 6.4vw, 72px); font-weight: 900; line-height: 1.05; letter-spacing: -.01em; color: #1b3a2f; }
+#rpg-content .wm-section { font-size: 18px; line-height: 1.3; font-weight: 900; color: #4b6157; }
+.wm-ja { -webkit-text-stroke-width: 3.5px; }
+@media (max-width: 640px) {
+  #rpg-content .wm-head h2 { font-size: 34px; }
+  #rpg-content .wm-section { font-size: 16px; }
+  .wm-ja { -webkit-text-stroke-width: 3px; }
+}

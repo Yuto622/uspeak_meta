@@ -16,7 +16,7 @@
 | テーマパーク・飛行機・乗り物 | themepark.js |
 | アバター | avatars.js |
 | 釣り・魚・経済 | fishing.js / fishing-state.js / fishing-data.js / fishing-models.js / fish-species.js / assets/fish/ |
-| RPG・地域・図鑑・地図 | rpg.js / rpg-state.js / rpg-data.js / rpg-map.js |
+| RPG・地域・図鑑・地図 | rpg.js / rpg-state.js / rpg-data.js / world-picker.js + world-picker.css（しまの ちず） / rpg-map.js（もとの海図・検査だけが使う） |
 | 地形・キャラモデル | rpg-world.js / rpg-models.js |
 | 物語・育成・リーグ・復習 | adventure.js / adventure-state.js / adventure-data.js / adventure-quiz.js |
 | RPG演出・UI | adventure-effects.js / adventure.css |
@@ -232,9 +232,8 @@
   **レース中は看板を消している**（`setLabels(false)`）ので、言語を変えても
   `label.visible` を書き戻さないこと。
 - **毎フレーム描き直す canvas には、この仕掛けは要らない**：ミニマップ
-  （`island-kit.js` の `drawMap()`）と ワールドマップ（`rpg-map.js`）は
-  その場で `isJa()` を見るだけでよい。ただし**ワールドマップは開いたときにしか
-  描かない**ので、`rpg.js` が `onLangChange` で開いている画面を描き直している。
+  （`island-kit.js` の `drawMap()`）は その場で `isJa()` を見るだけでよい。
+  **ワールドマップはもう canvas ではない**（下の「しまの ちず」）。
 - **1秒に数コマしか描かない端末では、切り替えてもミニマップが数秒古いまま出る。**
   壊れているのではなく、次のフレームを待っている（スクリーンショットを撮るときは
   待つこと。実際に「直っていない」と勘違いした）。
@@ -922,6 +921,21 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   「⛵ いく」→ `land:visit {name}` → 同じ `land:island`（`visiting: true`）→ 同じ船。見るだけ。
 - 見た目を足す／段を変えるときは `land.test.mjs`（比率 2〜6 倍・順番・12 の世界が全部ちがう・もようがえ）を通し、
   `land-world.js` の `THEMES` と `BUILD` に同じ名前で足し、`land.css` の `[data-theme=…]` の色も足すこと。
+
+## しまの ちず（Choose a World／2026-10 更新）
+
+右の「✈ World Map」は **色つきのカードを並べた「Choose a World」**（Roblox のワールド選びと同じ形）。
+前は海図（`rpg-map.js` の canvas）に島を置いていたが、島が 19 になって名前が読めなくなった。
+
+- **並べるのは `world-picker.js`、決めるのは `rpg.js` の `renderMap()`**（ひらいているか・とぶ・ずかんへ）。
+  島（HUBS）が上、ぼうけんの ちいき（REGIONS）が下。押すと `fly(id)`、いまの島なら閉じる、
+  ひらいていなければ「ひらく じょうけん」をトーストで。
+- **絵と色は `world-picker.js` の `LOOK` に1行**。島を足したら ここにも足す（無ければ 🏝 と島の色）。
+  名前は rpg-data.js の `en`（「Island」を落として短く）と `yomi`（無ければ `name`）。
+- カードの日本語名は**どちらの言語でも出す**（参考の画面がそう）。島の名前は訳ではないので `translate="no"`。
+- このあいだ `#rpg-dialog` は `data-page="map"` になり、**ダイアログの頭とタブは隠れる**（`world-picker.css`）。
+  ほかの画面が中身を描きかえると `MutationObserver` が外す。ずかんへは下の「📖」から。
+- `rpg-map.js` は もう画面に出ないが、`tests/regression.mjs` が島どうしが重ならない配置を検査しているので残してある。
 
 ## つり島（Roblox の釣りワールド／2026-10 追加）
 
