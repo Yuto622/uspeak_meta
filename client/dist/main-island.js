@@ -350,6 +350,8 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (!spot) return false;
     if (['hut_easy', 'fishing_pier'].includes(spot.id)) doneGuide();
     if (spot.kind === 'gate') { goWorld(spot.to); return true; }
+    // 英会話の お店：戸口では 中に 入る（false ＝ island-interior の 部屋へ）。中の カウンターで ウーピーと 話す。
+    if (spot.kind === 'talk_shop') { if (rpg.insideBuilding) { shops.conv?.enter(spot); return true; } return false; }
     if (spot.kind === 'word_house') { wordhouse.open(spot.house || spot.id); return true; }
     if (spot.kind === 'level_sign') {
       const next = toggleEasyLevel();
@@ -375,6 +377,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     wear_shop: () => tr('👕 ふくを 見る'),
     block_shop: () => tr('🧱 ブロックを 見る'),
     land_shop: () => tr('🏠 いえを 見る'),
+    talk_shop: (sp) => (rpg.insideBuilding ? `🗣 ${tr('英語で はなす')}` : `🚪 ${tr('はいる')}`),
     gate: (sp) => `🌀 ${isJa() ? String(sp.ja || '').replace(/への ゲート$/, '') : sp.character} →`,
   };
   const label = (spot) => (LABEL[spot?.kind] || (() => tr('はいる')))(spot);

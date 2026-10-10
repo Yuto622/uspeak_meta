@@ -11,6 +11,7 @@
 // classroom iPad should not carry twenty rooms it is not looking at.
 import * as THREE from './three.module.js';
 import { say, live } from './canvas-say.js';
+import { furnish } from './shop-interiors.js';
 
 const COUNTER_Z = -3.2;         // the counter, across the room from the door
 const DOOR_Z = 8.4;             // walking past this on the way out leaves
@@ -98,6 +99,7 @@ export function createIslandInteriors({ player, camera, toast }) {
   let parent = null;
   let cooldown = 0;
   let npc = null;
+  let solid = [];               // お店の 家具の 当たり判定（shop-interiors.js）
 
   // What each kind of building has in it. The counter is always in the same place, so a
   // child learns one shape and then knows every building on every island.
@@ -166,10 +168,12 @@ export function createIslandInteriors({ player, camera, toast }) {
     // The counter, in the same place in every building.
     B(0, 0.95, COUNTER_Z, 7.4, 1.5, 1.6, accent);
     B(0, 1.78, COUNTER_Z, 7.8, 0.18, 1.9, 0xf5ead0);
-    for (const [x, y, z, w, h, d, c] of DRESSING[spot.kind] || DRESSING.plaza) B(x, y, z, w, h, d, c);
+    // メインの島の お店（spot.decor）は お店ごとの 内装（shop-interiors.js）。当たり判定も そこから。
+    solid = spot.decor ? furnish(spot.decor, { B, root }) : [];
+    if (!spot.decor) for (const [x, y, z, w, h, d, c] of DRESSING[spot.kind] || DRESSING.plaza) B(x, y, z, w, h, d, c);
     npc = person(accent, 0, COUNTER_Z - 1.5);
     npc.rotation.y = Math.PI;
-    sign(`${spot.tone || ''} ${spot.name}`.trim(), spot.character || '', 0, 4.2, -6.9);
+    sign(`${spot.tone || spot.icon || ''} ${spot.name}`.trim(), spot.character || '', 0, 4.2, -6.9);
     sign('でぐち · EXIT', '歩いて そとへ', 0, 3.5, DOOR_Z + 0.2);
     state.counterAt = { x: 0, z: COUNTER_Z + 1.4 };
   }
@@ -218,7 +222,8 @@ export function createIslandInteriors({ player, camera, toast }) {
     if (Math.abs(x) > HALF_X - 0.4 || z < -6.8) return true;
     if (z > DOOR_Z + 1.2) return true;
     // The counter is furniture, not a wall you can walk through.
-    return Math.abs(x) < 4 && Math.abs(z - COUNTER_Z) < 1.3;
+    if (Math.abs(x) < 4 && Math.abs(z - COUNTER_Z) < 1.3) return true;
+    return solid.some((o) => Math.abs(x - o.x) < o.w + 0.3 && Math.abs(z - o.z) < o.d + 0.3);
   }
 
   function update(t, dt) {

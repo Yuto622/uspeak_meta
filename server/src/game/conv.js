@@ -16,10 +16,12 @@ import path from 'node:path';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const CONV_PATH = path.resolve(here, '../../../client/dist/conv.json');
+// メインの島の お店（けいたいや・でんきや・ほんや・ピザや・バーガーや）も 同じ 英会話。spots の kind "talk_shop"。
+export const MAIN_PATH = path.resolve(here, '../../../client/dist/main_island.json');
 
 // The page draws the island from this same file, so a spot that moves here moves there.
 // Anything malformed stops the server at startup rather than at a child's first tap.
-export function loadConv(file = CONV_PATH) {
+export function loadConv(file = CONV_PATH, mainFile = MAIN_PATH) {
   const data = JSON.parse(readFileSync(file, 'utf8'));
   const island = data.island;
   if (!island?.id || !Array.isArray(island.spots) || !island.spots.length) throw new Error('conv.json: no island');
@@ -32,7 +34,12 @@ export function loadConv(file = CONV_PATH) {
   const dailyCoinCap = Number(data.dailyCoinCap) || 0;
   const spotById = new Map();
   const topicById = new Map();
-  for (const spot of island.spots) {
+  const main = mainFile ? JSON.parse(readFileSync(mainFile, 'utf8')).island : null;
+  const houses = [
+    ...island.spots.map((spot) => [spot, island]),
+    ...(main ? main.spots.filter((sp) => sp.kind === 'talk_shop').map((spot) => [spot, main]) : []),
+  ];
+  for (const [spot, home] of houses) {
     if (!spot.id || spotById.has(spot.id)) throw new Error(`conv.json: bad or duplicate house "${spot.id}"`);
     if (!Number.isFinite(spot.x) || !Number.isFinite(spot.z)) throw new Error(`conv.json: house "${spot.id}" has no place`);
     if (!Array.isArray(spot.topics) || !spot.topics.length) throw new Error(`conv.json: house "${spot.id}" has nothing to talk about`);
@@ -48,12 +55,14 @@ export function loadConv(file = CONV_PATH) {
         if (!goal.en || !goal.ja) throw new Error(`conv.json: aim "${goal.id}" needs both languages`);
         seen.add(goal.id);
       }
-      topicById.set(topic.id, { ...topic, spot: spot.id, grade: spot.grade || '5' });
+      topicById.set(topic.id, { ...topic, spot: spot.id, grade: spot.grade || '5', scene: home === island ? '英会話島 (Conversation Isle)' : 'メインの島 (Main Island)' });
     }
+    // どの島の 家か（部屋は その島の 座標で「家の中にいるか」を 見る）。
+    spot.home = { id: home.id, x: home.x, z: home.z, radius: home.radius ?? island.radius ?? 5 };
     // World coordinates, the way a `move` message carries them: the page walks in island
     // space, the server judges in world space, and this is the one place they meet.
-    spot.wx = island.x + spot.x;
-    spot.wz = island.z + spot.z;
+    spot.wx = home.x + spot.x;
+    spot.wz = home.z + spot.z;
     spotById.set(spot.id, spot);
   }
   return { island, spotById, topicById, turnLimit, reward, dailyCoinCap, id: island.id };
@@ -71,7 +80,7 @@ export function asMission(topic) {
     title: topic.title,
     character: 'ウーピー',
     place: topic.place || CONV.spotById.get(topic.spot)?.name || '英会話島',
-    scene: '英会話島 (Conversation Isle)',
+    scene: topic.scene || '英会話島 (Conversation Isle)',
     situation: topic.situation,
     opening: topic.opening,
     goals: topic.goals,

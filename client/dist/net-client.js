@@ -288,7 +288,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
     send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash, food,
-    shops: { wardrobe, town, land },
+    shops: { wardrobe, town, land, conv },
     guide: guide || { open() {} },
     getCoins: () => state.wallet?.coins ?? fishing.store.state.coins,
     getLevel: () => state.progress?.level ?? Number(document.querySelector('#level')?.textContent || 1),

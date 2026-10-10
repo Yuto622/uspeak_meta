@@ -79,7 +79,7 @@ export function createConvUI({ send, toast, isOnline }) {
   // ---- the screen --------------------------------------------------------------------
 
   function render() {
-    $('#conv-place', dialog).textContent = state.house ? `${state.house.tone} ${state.house.name}` : '英会話島';
+    $('#conv-place', dialog).textContent = state.house ? `${state.house.tone || state.house.icon || ""} ${state.house.name}`.trim() : '英会話島';
     $('#conv-title', dialog).textContent = state.topic ? state.topic.title : 'なにを はなす？';
     $('#conv-turn', dialog).textContent = state.topic ? `${state.turn} / ${state.turnLimit}` : '';
     const picking = !state.topic;
@@ -193,10 +193,11 @@ export function createConvUI({ send, toast, isOnline }) {
     state,
     // Walking into a house and pressing E. The scene list is drawn from conv.json, the
     // same file the island is built from and the server judges positions against.
+    // spotId は 英会話島の 家の id か、家そのもの（メインの島の お店は main_island.json に ある）。
     async enter(spotId) {
       if (!isOnline()) { toast('オンラインのときに ウーピーと 話せます。'); return; }
       data = data || await loadConvData();
-      const house = (data?.island?.spots || []).find((s) => s.id === spotId);
+      const house = typeof spotId === 'object' ? spotId : (data?.island?.spots || []).find((s) => s.id === spotId);
       if (!house) return;
       state.house = house;
       state.topic = null;

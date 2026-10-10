@@ -827,6 +827,421 @@
     "character": "Realtor",
     "en": "House Shop",
     "ja": "いえの おみせ"
+   },
+   {
+    "id": "phones",
+    "decor": "phones",
+    "x": -44,
+    "z": -9.7,
+    "path": {
+     "x": -44,
+     "z": -2
+    },
+    "color": 12177632,
+    "roof": 4876928,
+    "w": 8,
+    "d": 6.4,
+    "icon": "📱",
+    "name": "ソラ モバイル",
+    "en": "SORA MOBILE",
+    "ja": "けいたいや",
+    "character": "Sora",
+    "grade": "5",
+    "topics": [
+     {
+      "id": "phone-color",
+      "title": "けいたいを えらぶ",
+      "en": "Choosing a phone",
+      "place": "ソラ モバイル",
+      "situation": "You are helping at SORA MOBILE, a bright phone shop on the Main Island. Phones come in red, blue, white and black. A child walks up to the counter to look at phones.",
+      "opening": "Hello! Welcome to Sora Mobile. What color phone do you like?",
+      "goals": [
+       {
+        "id": "color",
+        "ja": "すきな いろを 言う",
+        "en": "The child says a colour they like."
+       },
+       {
+        "id": "price",
+        "ja": "ねだんを たずねる",
+        "en": "The child asks how much it is."
+       },
+       {
+        "id": "thanks",
+        "ja": "お礼を 言う",
+        "en": "The child says thank you."
+       }
+      ],
+      "hints": [
+       "I like blue.",
+       "How much is it?",
+       "Thank you!"
+      ]
+     },
+     {
+      "id": "phone-call",
+      "title": "でんわで はなす",
+      "en": "A phone call",
+      "place": "ソラ モバイル",
+      "situation": "You are on a pretend phone call with a child at SORA MOBILE, to try out a new phone. Speak like a friendly friend on the phone.",
+      "opening": "Hello? This is Upee. Who is calling, please?",
+      "goals": [
+       {
+        "id": "name",
+        "ja": "名前を つたえる",
+        "en": "The child says who they are."
+       },
+       {
+        "id": "where",
+        "ja": "いる ところを 言う",
+        "en": "The child says where they are."
+       },
+       {
+        "id": "bye",
+        "ja": "さようならを 言う",
+        "en": "The child says goodbye."
+       }
+      ],
+      "hints": [
+       "Hi, this is Yuto.",
+       "I'm at the phone shop.",
+       "Bye! See you!"
+      ]
+     }
+    ],
+    "kind": "talk_shop"
+   },
+   {
+    "id": "electronics",
+    "decor": "electronics",
+    "x": -30,
+    "z": -9.7,
+    "path": {
+     "x": -30,
+     "z": -2
+    },
+    "color": 13222832,
+    "roof": 6972504,
+    "w": 9,
+    "d": 6.4,
+    "icon": "📺",
+    "name": "ギンジ でんき",
+    "en": "GINJI DENKI",
+    "ja": "でんきや",
+    "character": "Ginji",
+    "grade": "5",
+    "topics": [
+     {
+      "id": "denki-buy",
+      "title": "でんきせいひんを かう",
+      "en": "Shopping for a machine",
+      "place": "ギンジ でんき",
+      "situation": "You are helping at GINJI DENKI, an electronics shop on the Main Island. There are washing machines, fridges, TVs and fans. A child comes in to buy something for their home.",
+      "opening": "Welcome to Ginji Denki! What are you looking for today?",
+      "goals": [
+       {
+        "id": "want",
+        "ja": "ほしい ものを 言う",
+        "en": "The child says what they want (a TV, a washing machine, a fridge...)."
+       },
+       {
+        "id": "size",
+        "ja": "大きさや いろを 言う",
+        "en": "The child says a size or a colour."
+       },
+       {
+        "id": "thanks",
+        "ja": "お礼を 言う",
+        "en": "The child says thank you."
+       }
+      ],
+      "hints": [
+       "I want a TV, please.",
+       "A big one, please.",
+       "Thank you very much!"
+      ]
+     },
+     {
+      "id": "denki-home",
+      "title": "いえの でんきせいひん",
+      "en": "Machines at home",
+      "place": "ギンジ でんき",
+      "situation": "You are chatting with a child at GINJI DENKI about the machines in their home and what they use them for.",
+      "opening": "Do you have a TV at home? What do you watch?",
+      "goals": [
+       {
+        "id": "have",
+        "ja": "もっている ものを 言う",
+        "en": "The child says a machine they have at home."
+       },
+       {
+        "id": "use",
+        "ja": "つかいかたを 言う",
+        "en": "The child says what they do with it (watch, wash, cook...)."
+       },
+       {
+        "id": "when",
+        "ja": "いつ つかうか 言う",
+        "en": "The child says when they use it."
+       }
+      ],
+      "hints": [
+       "Yes, I have a TV.",
+       "I watch cartoons.",
+       "I watch TV after dinner."
+      ]
+     }
+    ],
+    "kind": "talk_shop"
+   },
+   {
+    "id": "books",
+    "decor": "books",
+    "x": -46,
+    "z": 33.1,
+    "path": {
+     "x": -41,
+     "z": 33.1
+    },
+    "color": 14207136,
+    "roof": 8018490,
+    "w": 7,
+    "d": 6,
+    "icon": "📚",
+    "name": "ジジの ほんや",
+    "en": "JIJI BOOKS",
+    "ja": "ほんや",
+    "character": "Jiji",
+    "grade": "5",
+    "topics": [
+     {
+      "id": "book-find",
+      "title": "ほんを さがす",
+      "en": "Finding a book",
+      "place": "ジジの ほんや",
+      "situation": "You are helping old Jiji at JIJI BOOKS, a cosy bookshop on the Main Island full of picture books, comics, animal books and dictionaries. A child is looking for a book.",
+      "opening": "Hello! Welcome to Jiji Books. What kind of book do you like?",
+      "goals": [
+       {
+        "id": "kind",
+        "ja": "すきな ほんの しゅるいを 言う",
+        "en": "The child says a kind of book they like."
+       },
+       {
+        "id": "where",
+        "ja": "どこに あるか たずねる",
+        "en": "The child asks where something is."
+       },
+       {
+        "id": "thanks",
+        "ja": "お礼を 言う",
+        "en": "The child says thank you."
+       }
+      ],
+      "hints": [
+       "I like animal books.",
+       "Where is the comic corner?",
+       "Thank you!"
+      ]
+     },
+     {
+      "id": "book-story",
+      "title": "すきな おはなし",
+      "en": "Your favourite story",
+      "place": "ジジの ほんや",
+      "situation": "You are reading-corner friends with a child at JIJI BOOKS, talking about stories and characters they love.",
+      "opening": "I love stories! What is your favorite story?",
+      "goals": [
+       {
+        "id": "title",
+        "ja": "すきな おはなしを 言う",
+        "en": "The child names a story or book they like."
+       },
+       {
+        "id": "who",
+        "ja": "すきな キャラクターを 言う",
+        "en": "The child says a character they like."
+       },
+       {
+        "id": "why",
+        "ja": "どうして すきか 言う",
+        "en": "The child says why they like it."
+       }
+      ],
+      "hints": [
+       "I like Momotaro.",
+       "I like the dog.",
+       "Because it is funny."
+      ]
+     }
+    ],
+    "kind": "talk_shop"
+   },
+   {
+    "id": "pizza",
+    "decor": "pizza",
+    "x": -35,
+    "z": 33.1,
+    "path": {
+     "x": -30,
+     "z": 33.1
+    },
+    "color": 15249520,
+    "roof": 10502186,
+    "w": 8,
+    "d": 6,
+    "icon": "🍕",
+    "name": "ヒバナ ピザ",
+    "en": "HIBANA PIZZA",
+    "ja": "ピザや",
+    "character": "Hibana",
+    "grade": "5",
+    "topics": [
+     {
+      "id": "pizza-order",
+      "title": "ピザを たのむ",
+      "en": "Ordering a pizza",
+      "place": "ヒバナ ピザ",
+      "situation": "You are helping at HIBANA PIZZA, a pizza shop with a brick oven on the Main Island. Pizzas come small, medium or large, with cheese, tomato, corn, ham or mushrooms. A child comes to the counter.",
+      "opening": "Welcome to Hibana Pizza! What pizza would you like?",
+      "goals": [
+       {
+        "id": "topping",
+        "ja": "すきな ぐを 言う",
+        "en": "The child says a topping."
+       },
+       {
+        "id": "size",
+        "ja": "大きさを 言う",
+        "en": "The child says a size (small, medium, large)."
+       },
+       {
+        "id": "thanks",
+        "ja": "お礼を 言う",
+        "en": "The child says thank you."
+       }
+      ],
+      "hints": [
+       "Cheese pizza, please.",
+       "Large, please.",
+       "Thank you!"
+      ]
+     },
+     {
+      "id": "pizza-party",
+      "title": "ピザ パーティー",
+      "en": "Pizza party",
+      "place": "ヒバナ ピザ",
+      "situation": "You are planning a pizza party with a child at HIBANA PIZZA: how many people, how many pizzas, and which drinks.",
+      "opening": "Let's have a pizza party! How many friends are coming?",
+      "goals": [
+       {
+        "id": "number",
+        "ja": "人数を 言う",
+        "en": "The child says how many people."
+       },
+       {
+        "id": "food",
+        "ja": "たべたい ものを 言う",
+        "en": "The child says food they want for the party."
+       },
+       {
+        "id": "drink",
+        "ja": "のみものを 言う",
+        "en": "The child says a drink."
+       }
+      ],
+      "hints": [
+       "Five friends.",
+       "I want two pizzas.",
+       "Orange juice, please."
+      ]
+     }
+    ],
+    "kind": "talk_shop"
+   },
+   {
+    "id": "burger",
+    "decor": "burger",
+    "x": -24,
+    "z": 33.1,
+    "path": {
+     "x": -19,
+     "z": 33.1
+    },
+    "color": 15255696,
+    "roof": 9062954,
+    "w": 7,
+    "d": 6,
+    "icon": "🍔",
+    "name": "モグモ バーガー",
+    "en": "MOGUMO BURGER",
+    "ja": "バーガーや",
+    "character": "Mogumo",
+    "grade": "5",
+    "topics": [
+     {
+      "id": "burger-order",
+      "title": "バーガーを たのむ",
+      "en": "Ordering a burger",
+      "place": "モグモ バーガー",
+      "situation": "You are helping at MOGUMO BURGER, a burger shop on the Main Island. The menu has hamburgers, cheeseburgers, chicken burgers, French fries, salad, cola, orange juice and milk shakes. A child comes to the counter.",
+      "opening": "Hi! Welcome to Mogumo Burger. What would you like?",
+      "goals": [
+       {
+        "id": "burger",
+        "ja": "バーガーを たのむ",
+        "en": "The child orders a burger."
+       },
+       {
+        "id": "drink",
+        "ja": "のみものを たのむ",
+        "en": "The child orders a drink."
+       },
+       {
+        "id": "here",
+        "ja": "ここで たべるか 言う",
+        "en": "The child says \"for here\" or \"to go\"."
+       }
+      ],
+      "hints": [
+       "A cheeseburger, please.",
+       "Cola, please.",
+       "For here, please."
+      ]
+     },
+     {
+      "id": "burger-pay",
+      "title": "おかいけい",
+      "en": "Paying",
+      "place": "モグモ バーガー",
+      "situation": "You are the cashier at MOGUMO BURGER. The child has ordered and now pays. Prices are simple whole numbers of yen or coins.",
+      "opening": "That's five hundred yen, please. Here you are!",
+      "goals": [
+       {
+        "id": "pay",
+        "ja": "おかねを わたすと 言う",
+        "en": "The child says \"here you are\" or offers money."
+       },
+       {
+        "id": "price",
+        "ja": "ねだんを たずねる",
+        "en": "The child asks how much something is."
+       },
+       {
+        "id": "thanks",
+        "ja": "お礼を 言う",
+        "en": "The child says thank you."
+       }
+      ],
+      "hints": [
+       "Here you are.",
+       "How much is the shake?",
+       "Thank you!"
+      ]
+     }
+    ],
+    "kind": "talk_shop"
    }
   ],
   "deco": [
@@ -908,76 +1323,6 @@
     "icon": "💬",
     "en": "Talk NPCs",
     "ja": "はなせる ひとたち"
-   },
-   {
-    "id": "GinjiDenki",
-    "type": "house",
-    "x": -30,
-    "z": -14,
-    "w": 8,
-    "d": 6.4,
-    "color": 13222832,
-    "roof": 6972504,
-    "icon": "📺",
-    "en": "Electronics",
-    "ja": "でんきや",
-    "scenery": true
-   },
-   {
-    "id": "SoraMobile",
-    "type": "house",
-    "x": -44,
-    "z": -14,
-    "w": 8,
-    "d": 6.4,
-    "color": 12177632,
-    "roof": 4876928,
-    "icon": "📱",
-    "en": "Phones",
-    "ja": "けいたいや",
-    "scenery": true
-   },
-   {
-    "id": "JijiBooks",
-    "type": "house",
-    "x": -44,
-    "z": 30,
-    "w": 7,
-    "d": 6,
-    "color": 14207136,
-    "roof": 8018490,
-    "icon": "📚",
-    "en": "Books",
-    "ja": "ほんや",
-    "scenery": true
-   },
-   {
-    "id": "HibanaPizza",
-    "type": "house",
-    "x": -33,
-    "z": 34,
-    "w": 8,
-    "d": 6,
-    "color": 15249520,
-    "roof": 10502186,
-    "icon": "🍕",
-    "en": "Pizza",
-    "ja": "ピザ",
-    "scenery": true
-   },
-   {
-    "id": "MogumoBurger",
-    "type": "house",
-    "x": -23,
-    "z": 34,
-    "w": 7,
-    "d": 6,
-    "color": 15255696,
-    "roof": 9062954,
-    "icon": "🍔",
-    "en": "Burgers",
-    "ja": "バーガー",
-    "scenery": true
    },
    {
     "id": "NyauruToybox",

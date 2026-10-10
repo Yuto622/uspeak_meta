@@ -17,7 +17,9 @@ test('英会話島: four houses, eight scenes, and every aim in two languages', 
   assert.equal(CONV.id, 'conv');
   assert.equal(CONV.island.spots.length, 4);
   const topics = [...CONV.topicById.values()];
-  assert.equal(topics.length, 8, 'two scenes per house');
+  assert.equal(topics.filter((t) => CONV.island.spots.some((sp) => sp.id === t.spot)).length, 8, 'two scenes per house');
+  // メインの島の 5 つの お店も 2 つずつ（けいたいや・でんきや・ほんや・ピザや・バーガーや）。
+  assert.equal(topics.filter((t) => t.scene.startsWith('メインの島')).length, 10, 'the five Main Island shops talk too');
   for (const topic of topics) {
     assert.ok(topic.opening.length > 8, `${topic.id} opens with a real line`);
     assert.ok(/[?!]$/.test(topic.opening), `${topic.id} opens with something to answer`);

@@ -2167,7 +2167,7 @@ export class ClassRoom extends Room {
   // time, a pause between turns, and a daily ceiling of turns per child.
   atConvHouse(sessionId, houseId) {
     const house = CONV.spotById.get(houseId);
-    return !!house && this.atPlace(sessionId, CONV.island, house);
+    return !!house && this.atPlace(sessionId, house.home || CONV.island, house);
   }
 
   convSpotPayload(houseId) {
