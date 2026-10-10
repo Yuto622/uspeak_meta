@@ -47,6 +47,9 @@ function tableMetric(m, period) {
 
 function listMetric(m) {
   const rows = m.values.all ?? m.values.week;
+  if (m.key === 'review_next') {
+    return Array.isArray(rows) && rows.length ? `<p class="words"><b translate="no">${esc(rows[0].word)}</b> <span class="fine">（まちがえた 単語の 中で、復習の 時期が いちばん 近い もの。1・3・7 日後に 出て、3 回 正解で 卒業します）</span></p>` : '<p class="fine">いま 復習を まっている 単語は ありません。</p>';
+  }
   if (!Array.isArray(rows) || !rows.length) return '<p class="fine">いまのところ、苦手な単語はありません。2回以上出て 半分以上まちがえた単語が ここに出ます。</p>';
   return `<ul class="words">${rows.map((r) => `<li><b translate="no">${esc(r.word)}</b><span>${r.misses}回まちがえ · ${r.seen}回中${r.seen - r.misses}回 正解${r.level ? ` · ${esc(levelLabel(r.level))}` : ''}</span></li>`).join('')}</ul>`;
 }
@@ -163,16 +166,16 @@ export function classSection(rows, { classCode, token = '', now = Date.now() } =
   const cell = (row, key, period = 'week') => { const m = row.metrics.find((x) => x.key === key); return m ? formatValue(m.values[period], m.unit) : '—'; };
   const raw = (row, key, period = 'week') => { const m = row.metrics.find((x) => x.key === key); const v = m ? m.values[period] : null; return v === null || v === undefined ? -1 : num(v); };
   const streak = (row) => { const m = row.metrics.find((x) => x.key === 'streak_days'); return m ? num(m.values.all) : 0; };
-  const head = `<tr><th data-k="name">名前</th><th data-k="study" data-n>今週の学習時間</th><th data-k="q" data-n>問題数</th><th data-k="acc" data-n>正答率</th><th data-k="guess" data-n>あてずっぽう率</th><th data-k="seen" data-n>最後に来た日</th><th data-k="streak" data-n>連続日数</th>${extra.map((c) => `<th data-k="x-${esc(c.key)}" data-n>${esc(c.label)}</th>`).join('')}</tr>`;
+  const head = `<tr><th data-k="name">名前</th><th data-k="study" data-n>今週の学習時間</th><th data-k="q" data-n>問題数</th><th data-k="acc" data-n>正答率</th><th data-k="guess" data-n>あてずっぽう率</th><th data-k="seen" data-n>最後に来た日</th><th data-k="streak" data-n>連続日数</th><th data-k="review" data-n>復習待ちの単語数</th>${extra.map((c) => `<th data-k="x-${esc(c.key)}" data-n>${esc(c.label)}</th>`).join('')}</tr>`;
   const body = rows.map((row, i) => {
     const flags = flagsOf(row, now);
     const detail = row.metrics.filter(isScalar).map((m) => `<tr><td>${esc(m.label_ja)}</td><td>${esc(formatValue(m.values.week, m.unit))}</td><td>${esc(formatValue(m.values.last, m.unit))}</td><td>${esc(formatValue(m.values.all, m.unit))}</td></tr>`).join('');
     const words = row.metrics.find((m) => m.key === 'weak_words');
     const wordsHtml = words && Array.isArray(words.values.all) && words.values.all.length ? `<p class="fine">間違えやすい単語：${words.values.all.map((w) => `<b translate="no">${esc(w.word)}</b>（${w.misses}回）`).join('、')}</p>` : '';
-    return `<tr class="r ${flags.length ? 'flag' : ''}" data-i="${i}" data-name="${esc(row.name || row.username)}" data-study="${raw(row, 'study_seconds')}" data-q="${raw(row, 'questions')}" data-acc="${raw(row, 'accuracy')}" data-guess="${raw(row, 'guess_rate')}" data-seen="${row.lastSeen || 0}" data-streak="${streak(row)}"${extra.map((c) => ` data-x-${esc(c.key)}="${raw(row, c.key, c.period)}"`).join('')}>
+    return `<tr class="r ${flags.length ? 'flag' : ''}" data-i="${i}" data-name="${esc(row.name || row.username)}" data-study="${raw(row, 'study_seconds')}" data-q="${raw(row, 'questions')}" data-acc="${raw(row, 'accuracy')}" data-guess="${raw(row, 'guess_rate')}" data-seen="${row.lastSeen || 0}" data-streak="${streak(row)}" data-review="${raw(row, 'review_due', 'all')}"${extra.map((c) => ` data-x-${esc(c.key)}="${raw(row, c.key, c.period)}"`).join('')}>
 <td>${flags.length ? '<span class="mark" title="気になる印">●</span> ' : ''}<b>${esc(row.name || row.username)}</b>${row.name && row.name !== row.username ? `<br><small translate="no">${esc(row.username)}</small>` : ''}${row.registered ? '' : '<span class="tag">未登録</span>'}${flags.length ? `<br><small class="why">${esc(flags.join(' · '))}</small>` : ''}</td>
-<td>${esc(cell(row, 'study_seconds'))}</td><td>${esc(cell(row, 'questions'))}</td><td>${esc(cell(row, 'accuracy'))}</td><td>${esc(cell(row, 'guess_rate'))}</td><td>${esc(dateJa(row.lastSeen))}</td><td>${streak(row)}日</td>${extra.map((c) => `<td>${esc(cell(row, c.key, c.period))}</td>`).join('')}</tr>
-<tr class="d" hidden><td colspan="${7 + extra.length}"><table class="nums inner"><thead><tr><th>指標</th><th>今週</th><th>先週</th><th>累計</th></tr></thead><tbody>${detail}</tbody></table>${wordsHtml}${row.username ? `<p class="fine"><a href="/report/${encodeURIComponent(row.username)}?t=${esc(row.reportToken || '')}" target="_blank" rel="noopener">保護者ページをひらく</a></p>` : ''}</td></tr>`;
+<td>${esc(cell(row, 'study_seconds'))}</td><td>${esc(cell(row, 'questions'))}</td><td>${esc(cell(row, 'accuracy'))}</td><td>${esc(cell(row, 'guess_rate'))}</td><td>${esc(dateJa(row.lastSeen))}</td><td>${streak(row)}日</td><td>${esc(cell(row, 'review_due', 'all'))}</td>${extra.map((c) => `<td>${esc(cell(row, c.key, c.period))}</td>`).join('')}</tr>
+<tr class="d" hidden><td colspan="${8 + extra.length}"><table class="nums inner"><thead><tr><th>指標</th><th>今週</th><th>先週</th><th>累計</th></tr></thead><tbody>${detail}</tbody></table>${wordsHtml}${row.username ? `<p class="fine"><a href="/report/${encodeURIComponent(row.username)}?t=${esc(row.reportToken || '')}" target="_blank" rel="noopener">保護者ページをひらく</a></p>` : ''}</td></tr>`;
   }).join('');
   return `<section id="roblox"><h2>Roblox の学習<small>今週（月曜〜日曜）· 列の見出しで並べ替え · 行を押すと詳細</small></h2>
 <p class="fine">● は気になる印：あてずっぽう率 ${FLAG_GUESS_PCT}% 以上、または ${FLAG_ABSENT_DAYS} 日来ていない子。「未登録」は Roblox から記録は来ているが、名簿にも紐づけにもない名前（管理ページで紐づけられます）。</p>

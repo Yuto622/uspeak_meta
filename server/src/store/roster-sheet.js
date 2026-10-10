@@ -21,13 +21,17 @@ const fold = (s) => String(s ?? '').normalize('NFKC').trim().toLowerCase().repla
 const HEADER_CLASS = new Set(['class', 'クラス', 'くらす', 'class code', 'classcode', 'クラスコード', '組', 'クラス名']);
 const HEADER_NAME = new Set(['name', 'なまえ', '名前', 'account', 'アカウント', 'アカウント名', 'account name', 'user', 'ユーザー', 'ユーザー名', 'id']);
 export const ANY_CLASS = '*';
+// 先生の 列（2026-10）：true の 人は 講師キーなしで 先生として 入る（授業モードの ボタンが 出る）。
+const HEADER_TEACHER = new Set(['teacher', 'is teacher', 'isteacher', '先生', 'せんせい', '先生か', '講師', 'role', 'ロール']);
+const TRUE_WORDS = new Set(['true', 'yes', 'y', '1', 'はい', '○', '◯', 'o', '先生', 'せんせい', 'teacher', '講師', 'on', '✓', '✔']);
+export const isTrueCell = (v) => v === true || TRUE_WORDS.has(fold(v));
 
 // Rows straight from the sheet (arrays of cell strings) -> [{ class, name, note }].
 // `class` is ANY_CLASS for a row that applies to every class.
 export function parseRosterRows(rows) {
   if (!Array.isArray(rows) || !rows.length) return [];
   const cells = rows.map((r) => (Array.isArray(r) ? r.map((c) => String(c ?? '').trim()) : []));
-  let classCol = 0; let nameCol = 1; let noteCol = 2; let start = 0;
+  let classCol = 0; let nameCol = 1; let noteCol = 2; let teacherCol = -1; let start = 0;
   const first = cells[0].map(fold);
   const headerName = first.findIndex((c) => HEADER_NAME.has(c));
   const headerClass = first.findIndex((c) => HEADER_CLASS.has(c));
@@ -35,7 +39,8 @@ export function parseRosterRows(rows) {
     // A labelled sheet: the columns are wherever the teacher put them.
     nameCol = headerName;
     classCol = headerClass;                     // -1 when there is no class column at all
-    noteCol = first.findIndex((c, i) => i !== nameCol && i !== classCol && c);
+    teacherCol = first.findIndex((c) => HEADER_TEACHER.has(c));
+    noteCol = first.findIndex((c, i) => i !== nameCol && i !== classCol && i !== teacherCol && c);
     start = 1;
   } else if (headerClass >= 0) {
     classCol = headerClass; nameCol = first.findIndex((c, i) => i !== classCol); start = 1;
@@ -50,7 +55,8 @@ export function parseRosterRows(rows) {
     if (!name) continue;
     const cls = classCol >= 0 ? (row[classCol] ?? '') : '';
     const note = noteCol >= 0 ? (row[noteCol] ?? '') : '';
-    out.push({ class: !cls || cls === ANY_CLASS ? ANY_CLASS : cls, name, note });
+    const teacher = teacherCol >= 0 && isTrueCell(row[teacherCol] ?? '');
+    out.push({ class: !cls || cls === ANY_CLASS ? ANY_CLASS : cls, name, note, ...(teacher ? { teacher: true } : {}) });
   }
   return out;
 }
@@ -78,7 +84,7 @@ export function createSheetRoster(api, { tab = '', log = console } = {}) {
     // Every row on the sheet, parsed. Used by the probe at start-up and the check script.
     async listAll() {
       const name = await tabName();
-      return parseRosterRows(await api.getValues(`'${name.replace(/'/g, "''")}'!A1:C`));
+      return parseRosterRows(await api.getValues(`'${name.replace(/'/g, "''")}'!A1:D`));
     },
     async listRoster(classCode) {
       return rowsForClass(await this.listAll(), classCode);

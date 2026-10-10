@@ -46,6 +46,7 @@ import { itemModel } from './wardrobe-models.js';
 import { createRoom } from './room-world.js';
 import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
+import { createClassMode } from './class-mode.js';
 
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
   let fwAutoAt = ''; // いま 自動で つりはじめた 水辺（はなれると 空に もどる）
@@ -91,6 +92,19 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     getPoint: () => ({ x: round(player.position.x, 2), z: round(player.position.z, 2) }),
     getSpace: currentSpace, isInsideBuilding: () => currentSpace().startsWith('in:'),
     getMissions: () => mission.missions,
+  });
+  // 授業モード（先生だけの ボタン）と 苦手の 復習（class-mode.js）。
+  const classMode = createClassMode({
+    send: (type, msg) => room?.send(type, msg),
+    toast, speak,
+    // 今いる 場所（行き先の 一覧から のぞく）。メインの島の 英単語ハウスの 中なら その家。
+    getHere: () => {
+      const inside = rpg.insideBuilding;
+      if (inside?.island === 'main' && /^hut_/.test(inside.spot || '')) return { id: inside.spot, island: 'main' };
+      return { id: rpg.state.current, island: rpg.state.current };
+    },
+    getGatherPoint: () => (currentSpace().startsWith('in:') ? null : { space: rpg.state.current, x: round(player.position.x, 2), z: round(player.position.z, 2) }),
+    goPlace,
   });
   const mission = createMissionUI({
     send: atSend,
@@ -430,6 +444,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
     if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); if (myLand.active) myLand.leave(true); town.hideHud(); voice.setMode('off'); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
+    classMode.setOnline(mode === 'online' || mode === 'reconnecting');
   }
   function saveSession() {
     storage.set(sessionStorage, STORAGE_KEYS.session, { name: state.name, classCode: state.classCode, teacherKey: state.teacherKey, token: room?.reconnectionToken || '', sessionId: state.sessionId });
@@ -493,6 +508,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       // ホームはメインの島。はじめて入ったときだけ開く（つなぎなおしでは開かない）。
       homeNow();
       state.role = m.role;
+      classMode.setRole(m.role);
+      if (m.classPaused && m.role !== 'teacher') classMode.setPaused(true);
       state.chatPaused = !!m.chatPaused;
       state.teacherId = m.teacherId || '';
       setMode('online');
@@ -529,6 +546,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('teleport', (m) => { teleportTo(m, m.reason); toast(tr(m.reason === 'gather' ? '{who} 先生の ところに あつまれ！' : '{who} 先生が うごかしました。', { who: m.by })); });
     r.onMessage('call', (m) => showCall(m));
     r.onMessage('notice', (m) => toast(m.text));
+    for (const type of ['class:state', 'class:toast', 'class:reviewStarted', 'class:result', 'class:pause', 'class:resume', 'class:incoming', 'class:arrived', 'class:goto',
+      'review:offer', 'review:start', 'review:none', 'review:result', 'review:done', 'review:error']) {
+      r.onMessage(type, (m) => { if (m?.wallet) applyWallet(m.wallet); classMode.handle(type, m || {}); });
+    }
     r.onMessage('chat', (m) => onChat(m));
     r.onMessage('chat:blocked', (m) => chat.blocked(m.reason, m.max));
     r.onMessage('roster', (m) => teacher.onRoster(m));
@@ -848,6 +869,25 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
 
   // ---- teleport (teacher commands, restore) -----------------------------------------
 
+  // 授業モードの「みんなで いどう」：開いている 画面を 閉じ、ひこうきを 待たずに その 島へ（先生も 生徒も）。
+  // メインの島の 英単語ハウスは その 戸口の 前に 立たせる。うまく 行かなければ false（画面は 25 秒で もどる）。
+  function goPlace(m) {
+    try {
+      for (const d of document.querySelectorAll('dialog[open]')) if (d.id !== 'net-lobby') d.close();
+      if (rpg.isOpen) rpg.close();
+      if (fishing.state.busy) fishing.cancel?.();
+      if (rpg.adventure?.magic?.interior?.active) rpg.leaveSanctuary();
+      if (rpg.state.mode === 'flight') rpg.finishFlight();
+      rpg.activate(m.island || m.to, true, true);
+      if (m.to !== (m.island || m.to)) {
+        const isl = rpg.main?.data;
+        const s = isl?.spots?.find((x) => x.id === m.to);
+        if (s) player.position.set(isl.x + s.x, 0, isl.z + s.z + 4);
+      }
+      state.lastSent.s = '';
+      return rpg.state.current === (m.island || m.to);
+    } catch (err) { console.warn('[net] class move failed', err); return false; }
+  }
   function teleportTo(target, reason = 'move') {
     if (!target || typeof target.space !== 'string' || target.space.startsWith('in:')) return false;
     state.pendingTeleport = { space: target.space, x: Number(target.x) || 0, z: Number(target.z) || 0, reason };

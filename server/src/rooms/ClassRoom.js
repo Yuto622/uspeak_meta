@@ -57,6 +57,8 @@ import { FARM, sanitizeFarm, settle as settleFarm, statePayload as farmPayload, 
 import { reportPath, exportPath, classPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
+import { boxFromEvents, makeSet as makeReviewSet, publicSet as reviewPublic, answer as reviewAnswer, dueCount as reviewDue, jstDay, COIN as REVIEW_COIN, PER_QUIZ as REVIEW_PER, ReviewError } from '../game/review.js';
+import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, placeLabel } from '../game/class-mode.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004 };
@@ -134,6 +136,23 @@ export class ClassRoom extends Room {
     this.state.stageOpen = stageReady();
     this.setPatchRate(config.patchRateMs);
     this.priv = new Map(); // sessionId -> private server-side record
+    // 授業モード（game/class-mode.js）。**ストップ中の 生徒の 答え・買い物などは 部屋が 受けつけない**：
+    // 画面に 出す「Listen to your teacher!」だけで 止めると、ページを いじれば 止まらない。
+    // ここで onMessage を 1 枚 つつみ、止まっている 間は 生徒の 該当メッセージを 捨てる。
+    this.classMode = { paused: false, token: 0, resumeTimer: null, lastGather: 0, lastMove: 0, lastReq: new Map(), run: null, runSeq: 0 };
+    const rawOnMessage = this.onMessage.bind(this);
+    this.onMessage = (type, cb) => rawOnMessage(type, (client, msg) => {
+      if (this.classMode.paused && blockedWhilePaused(type) && this.state.players.get(client.sessionId)?.role !== 'teacher') return;
+      return cb(client, msg);
+    });
+    this.onMessage('class:get', (client) => this.onClassGet(client));
+    this.onMessage('class:gather', (client, msg) => this.onClassGather(client, msg));
+    this.onMessage('class:freeze', (client, msg) => this.onClassFreeze(client, msg));
+    this.onMessage('class:review', (client) => this.onClassReview(client).catch((err) => log.warn(`[room ${this.roomId}] class review failed:`, err?.message || err)));
+    this.onMessage('class:move', (client, msg) => this.onClassMove(client, msg));
+    this.onMessage('review:start', (client) => this.onReviewStart(client).catch((err) => log.warn(`[room ${this.roomId}] review start failed:`, err?.message || err)));
+    this.onMessage('review:answer', (client, msg) => this.onReviewAnswer(client, msg));
+    this.onMessage('review:quit', (client) => { const p = this.priv.get(client.sessionId); if (p) p.review = null; });
 
     this.onMessage('move', (client, msg) => this.onMove(client, msg));
     this.onMessage('answer', (client, msg) => this.onAnswer(client, msg));
@@ -286,7 +305,8 @@ export class ClassRoom extends Room {
   async onAuth(client, options) {
     const name = sanitizeName(options?.name);
     if (!name) throw new ServerError(ERR.NAME_REQUIRED, 'name required');
-    const role = isTeacherKey(options?.teacherKey) ? 'teacher' : 'student';
+    // 先生は 2 とおり：講師キーを 持っている 人と、admin の 名簿で「先生」に ✓ が ついている 人。
+    const role = isTeacherKey(options?.teacherKey) || await this.gate.isTeacher?.({ classCode: this.classCode, name }) ? 'teacher' : 'student';
     // 入場ゲート. A refusal here is a locked door, so the gate is written never to throw
     // and never to refuse a child it has seen before.
     const pass = await this.gate.allow({ classCode: this.classCode, name, role });
@@ -370,6 +390,9 @@ export class ClassRoom extends Room {
     resumeFood(this.priv.get(client.sessionId).food); // おなかは つながっている間だけ へる
     client.send('welcome', this.welcomePayload(client.sessionId, restored, position));
     if (bonus) client.send('login:bonus', bonus);
+    // 授業の とちゅうで 入ってきた 子にも、ストップ中なら ストップを かける。
+    if (this.classMode.paused && auth.role !== 'teacher') client.send('class:pause', { by: '' });
+    this.scheduleReviewOffer(client.sessionId);
     this.persist(client.sessionId);
     log.info(`[room ${this.roomId}] join ${auth.role} "${auth.name}" (${client.sessionId}) restored=${restored} clients=${this.clients.length}`);
   }
@@ -404,6 +427,8 @@ export class ClassRoom extends Room {
   onDispose() {
     // A plain timer outlives the room unless it is cleared, and a leaked one keeps the
     // process alive after the last class has gone home.
+    clearTimeout(this.classMode?.resumeTimer);
+    clearTimeout(this.classMode?.run?.timer);
     this.gpClockOff();
     this.roblox?.rooms.delete(this);
     if (!this.priv) return undefined; // creation was refused before state existed
@@ -1003,6 +1028,8 @@ export class ClassRoom extends Room {
       land: sanitizeLand(parseJson(record.land_json, null)),
       fw: sanitizeFw(parseJson(record.fishworld_json, null)),
       food: sanitizeFood(parseJson(record.food_json, null)),
+      reviewDay: typeof record.review_day === 'string' ? record.review_day : '',
+      review: null,
       // Blocks moved out of the room and onto the plaza; a save from before that keeps
       // them under `blocks`, and sanitizePlaza reads either shape.
       plaza: sanitizePlaza(town, bricks),
@@ -1080,6 +1107,7 @@ export class ClassRoom extends Room {
       land_json: JSON.stringify(priv.land),
       fishworld_json: JSON.stringify({ dex: priv.fw.dex, bag: priv.fw.bag, caught: priv.fw.caught }),
       food_json: JSON.stringify(foodForSave(priv.food)),
+      review_day: priv.reviewDay || '',
       // Kept so a teacher's own row is not mistaken for a child's when the family
       // report links are drawn up.
       role: player.role,
@@ -3950,6 +3978,225 @@ export class ClassRoom extends Room {
     }
   }
 
+  // ---- 授業モード（Class Mode）------------------------------------------------------------
+  // 先生の 操作は 1 秒に 1 回まで。Web の 先生が 動かせるのは Web で 入っている 生徒だけ。
+  classTeacher(client) {
+    const me = this.state.players.get(client.sessionId);
+    if (!me || me.role !== 'teacher') return null;
+    const now = Date.now();
+    const last = this.classMode.lastReq.get(client.sessionId) || 0;
+    if (now - last < CLASS_LIMIT.anyMs) return null;
+    this.classMode.lastReq.set(client.sessionId, now);
+    return me;
+  }
+
+  classStudents() {
+    const out = [];
+    for (const [id, p] of this.state.players) {
+      if (p.role === 'teacher' || !p.connected) continue;
+      const c = this.clients.find((x) => x.sessionId === id);
+      if (c) out.push({ id, player: p, client: c });
+    }
+    return out;
+  }
+
+  classStatePayload() {
+    return {
+      paused: this.classMode.paused,
+      students: this.classStudents().map(({ id, player }) => ({ id, name: player.name, place: placeLabel(player.space), space: player.space, paused: this.classMode.paused })),
+      destinations: DESTINATIONS,
+    };
+  }
+
+  sendClassStateToTeachers() {
+    const state = this.classStatePayload();
+    for (const [id, p] of this.state.players) if (p.role === 'teacher') this.clients.find((c) => c.sessionId === id)?.send('class:state', state);
+  }
+
+  classToast(text) {
+    for (const [id, p] of this.state.players) if (p.role === 'teacher') this.clients.find((c) => c.sessionId === id)?.send('class:toast', { text });
+  }
+
+  onClassGet(client) {
+    if (this.state.players.get(client.sessionId)?.role !== 'teacher') return;
+    client.send('class:state', this.classStatePayload());
+  }
+
+  onClassGather(client, msg) {
+    const me = this.classTeacher(client);
+    if (!me) return;
+    const now = Date.now();
+    if (now - this.classMode.lastGather < CLASS_LIMIT.gatherMs) { client.send('class:toast', { text: 'Wait a moment and try again · すこし まってから もう一度' }); return; }
+    this.classMode.lastGather = now;
+    const target = { space: typeof msg?.space === 'string' ? msg.space.slice(0, 48) : me.space, x: clamp(num(msg?.x, me.x), -WORLD_LIMIT, WORLD_LIMIT), z: clamp(num(msg?.z, me.z), -WORLD_LIMIT, WORLD_LIMIT) };
+    const list = this.classStudents();
+    for (const { client: c } of list) c.send('class:incoming', { by: me.name });
+    this.clock.setTimeout(() => {
+      list.forEach(({ client: c }, i) => {
+        // 先生の まわりに 円く ならべる（Roblox の Gather と 同じ）。
+        const a = (i / Math.max(1, list.length)) * Math.PI * 2;
+        const r = Math.max(2.5, (0.9 * list.length) / Math.PI + 1.5);
+        c.send('teleport', { space: target.space, x: target.x + Math.cos(a) * r, z: target.z + Math.sin(a) * r, reason: 'gather', by: me.name });
+        c.send('class:arrived', {});
+      });
+    }, CLASS_LIMIT.gatherDelayMs);
+    this.classToast(`Gathered ${list.length} students · ${list.length} にんを あつめました`);
+  }
+
+  setClassPaused(on, by = '') {
+    const cm = this.classMode;
+    cm.paused = !!on;
+    cm.token += 1;
+    clearTimeout(cm.resumeTimer);
+    cm.resumeTimer = null;
+    for (const { client: c } of this.classStudents()) c.send(on ? 'class:pause' : 'class:resume', { by });
+    if (on) {
+      const my = cm.token;
+      // 念のため 10 分で 自動再開（先生が 押し忘れても 授業が 止まりつづけない）。
+      cm.resumeTimer = setTimeout(() => {
+        if (cm.paused && cm.token === my) { this.setClassPaused(false); this.classToast('Resumed automatically after 10 minutes · 10 ぷん たったので さいかい しました'); }
+      }, config.classAutoResumeMs ?? CLASS_LIMIT.autoResumeMs);
+      cm.resumeTimer.unref?.();
+    }
+    this.sendClassStateToTeachers();
+    log.info(`[room ${this.roomId}] class ${on ? 'frozen' : 'resumed'}${by ? ` by "${by}"` : ''}`);
+  }
+
+  onClassFreeze(client, msg) {
+    const me = this.classTeacher(client);
+    if (!me) return;
+    this.setClassPaused(msg?.on !== false, me.name);
+  }
+
+  onClassMove(client, msg) {
+    const me = this.classTeacher(client);
+    if (!me) return;
+    const dest = DEST_BY_ID.get(typeof msg?.to === 'string' ? msg.to : '');
+    if (!dest) { client.send('class:toast', { text: 'Unknown place · その ばしょは ありません' }); return; }
+    const now = Date.now();
+    if (now - this.classMode.lastMove < CLASS_LIMIT.moveMs) { client.send('class:toast', { text: 'Wait a moment and try again · すこし まってから もう一度' }); return; }
+    this.classMode.lastMove = now;
+    if (this.classMode.paused) this.setClassPaused(false, me.name);
+    // 先生も いっしょ。5 秒の カウントダウンの あと、それぞれの 画面が 同じ 場所へ 行く。
+    const payload = { to: dest.id, island: dest.island || dest.id, en: dest.en, jp: dest.jp, icon: dest.icon, sec: CLASS_LIMIT.countdownSec, by: me.name };
+    let n = 0;
+    for (const c of this.clients) {
+      const p = this.state.players.get(c.sessionId);
+      if (!p?.connected) continue;
+      c.send('class:goto', payload);
+      if (p.role !== 'teacher') n += 1;
+    }
+    this.classToast(`Moving ${n} students to ${dest.en} · ${n} にんと ${dest.jp} へ いどうします`);
+    log.info(`[room ${this.roomId}] class move to ${dest.id} by "${me.name}"`);
+  }
+
+  // ---- 苦手単語の 復習（game/review.js）---------------------------------------------------
+  reviewUsername(priv) { return this.roblox?.usernameFor ? this.roblox.usernameFor(this.classCode, priv.name) : priv.name; }
+
+  async reviewStateOf(priv) {
+    const events = (await this.store.listRobloxEvents?.({ username: this.reviewUsername(priv) })) ?? [];
+    return boxFromEvents(events);
+  }
+
+  async startReview(sessionId, { teacher = false, classRun = 0 } = {}) {
+    const priv = this.priv.get(sessionId);
+    const c = this.clients.find((x) => x.sessionId === sessionId);
+    if (!priv || !c) return 0;
+    const set = makeReviewSet(await this.reviewStateOf(priv), Date.now(), { teacher, classRun });
+    if (!set) { priv.review = null; c.send('review:none', { mode: teacher ? 'teacher' : 'self' }); return 0; }
+    priv.review = set;
+    c.send('review:start', reviewPublic(set));
+    return set.items.length;
+  }
+
+  async onReviewStart(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv || priv.review) return;
+    await this.startReview(client.sessionId);
+  }
+
+  onReviewAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const set = priv?.review;
+    if (!set) { client.send('review:error', { reason: 'no review' }); return; }
+    const now = Date.now();
+    if (now - (priv.lastReviewAt || 0) < config.answerMinIntervalMs) { client.send('review:error', { reason: 'too fast' }); return; }
+    priv.lastReviewAt = now;
+    const i = Number(msg?.i);
+    let r;
+    try { r = reviewAnswer(set, i, msg?.choice); } catch (err) {
+      if (err instanceof ReviewError) { client.send('review:error', { reason: err.message }); return; }
+      throw err;
+    }
+    this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `review:${r.word}`.slice(0, 160), 'review', String(msg?.choice ?? '').slice(0, 40), r.ok ? 1 : 0, 0, client.sessionId]);
+    priv.stats.attempts += 1;
+    if (r.ok) {
+      priv.stats.correct += 1;
+      const entry = applyOp(priv.wallet, { type: 'award', amount: REVIEW_COIN, id: 'review_correct' });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+    }
+    // Roblox と 同じ 形の 記録（world=review・level=Review）。これが また 箱を 進める。
+    this.robloxEvent(client.sessionId, 'quiz', 'review', { correct: r.ok, word: r.word, level: 'Review', fast: false, retry: false }, now);
+    client.send('review:result', { i, ok: r.ok, word: r.word, coins: r.ok ? REVIEW_COIN : 0, ...this.walletPayload(client.sessionId) });
+    const run = set.classRun && this.classMode.run?.id === set.classRun ? this.classMode.run : null;
+    if (run) {
+      run.total += 1;
+      if (r.ok) run.correct += 1; else run.missed.set(r.word, (run.missed.get(r.word) || 0) + 1);
+    }
+    if (r.done) {
+      client.send('review:done', { correct: r.correct, total: r.total });
+      priv.review = null;
+      if (run) { run.finished += 1; if (run.finished >= run.started) this.finishClassRun(run.id); }
+    }
+  }
+
+  async onClassReview(client) {
+    const me = this.classTeacher(client);
+    if (!me) return;
+    if (this.classMode.paused) this.setClassPaused(false, me.name);
+    const cm = this.classMode;
+    if (cm.run) this.finishClassRun(cm.run.id);
+    cm.runSeq += 1;
+    const run = { id: cm.runSeq, teacher: client.sessionId, correct: 0, total: 0, missed: new Map(), started: 0, none: 0, finished: 0, timer: null };
+    cm.run = run;
+    for (const { id } of this.classStudents()) {
+      if ((await this.startReview(id, { teacher: true, classRun: run.id })) > 0) run.started += 1; else run.none += 1;
+    }
+    client.send('class:reviewStarted', { started: run.started, none: run.none });
+    if (!run.started) { cm.run = null; return; }
+    run.timer = setTimeout(() => this.finishClassRun(run.id), config.classResultMs ?? CLASS_LIMIT.resultMs);
+    run.timer.unref?.();
+  }
+
+  finishClassRun(id) {
+    const run = this.classMode.run;
+    if (!run || run.id !== id) return;
+    clearTimeout(run.timer);
+    this.classMode.run = null;
+    const weak = [...run.missed.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([w]) => w);
+    this.clients.find((c) => c.sessionId === run.teacher)?.send('class:result', { correct: run.correct, total: run.total, weak });
+  }
+
+  // 入って 20 秒後、復習の 時期の 単語が 3 つ 以上 あれば、1 日 1 回だけ 小さな カード。
+  scheduleReviewOffer(sessionId) {
+    if (this.state.players.get(sessionId)?.role === 'teacher') return;
+    this.clock.setTimeout(async () => {
+      try {
+        const p = this.priv.get(sessionId);
+        const c = this.clients.find((x) => x.sessionId === sessionId);
+        if (!p || !c || p.review || this.classMode.paused) return;
+        const now = Date.now();
+        const day = jstDay(now);
+        if (p.reviewDay === day) return;
+        const n = reviewDue(await this.reviewStateOf(p), now);
+        if (n < 3) return;
+        p.reviewDay = day;
+        c.send('review:offer', { n: Math.min(n, REVIEW_PER) });
+        this.persist(sessionId);
+      } catch (err) { log.warn(`[room ${this.roomId}] review offer failed:`, err?.message || err); }
+    }, config.reviewOfferDelayMs);
+  }
+
   welcomePayload(sessionId, restored, position) {
     const priv = this.priv.get(sessionId);
     const player = this.state.players.get(sessionId);
@@ -3957,6 +4204,7 @@ export class ClassRoom extends Room {
       sessionId, role: player.role, classCode: this.classCode, restored, position,
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
       food: foodPayload(priv.food),
+      classPaused: !!this.classMode?.paused,
       progress: this.progressPayload(sessionId),
       missionsDone: [...priv.missionsDone],
       // An errand in progress survives a screen lock, so the tracker comes back too.

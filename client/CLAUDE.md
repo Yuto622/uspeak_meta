@@ -70,6 +70,36 @@ loading.js の タイマーも 自分で 止まる。`prefers-reduced-motion` �
   `#near` を 見て つける）。マウスを 固定して いない ときは ＋ に 輪（BLOCKWILD の freelook と 同じ）。「話す」ボタンは ＋ の すぐ下。
   操作の ヒントは 9 秒で きえる。ひこうき・つり・レース・全画面の 間は 出さない。
 
+## 授業モード（Class Mode）と 苦手単語の 復習（Review）／2026-10 追加
+
+Roblox 版（USpeakTeacherLive / USpeakReviewServer）と 同じ 動き・同じ ルール。画面は `class-mode.js` + `class-mode.css`、
+部屋は `server/src/game/class-mode.js`（決まりと 行き先の 表）・`server/src/game/review.js`（復習の ルール）と `ClassRoom` の `class:*` / `review:*`。
+
+- **先生の 判定は サーバー**：講師キー、または **admin（/admin）の 名簿で「先生か」が true** の 名前（`roster` の `teacher` 列。
+  CSV なら `teacher` か `先生か` の 列に true）。`gate.isTeacher()` が 名簿を 見て、`onAuth` が role を 決める。名簿の 入場 きりかえ
+  （open / roster）とは 関係なく 効く。**名前だけで 先生に なれる**ので、先生の 名前は 子どもが 使わない ものに すること。
+- **先生だけ**に 左上の「🎓 Class Mode」（`#class-mode-button`、`body.cm-teacher` で クエスト一覧を 下げる）。パネル（`#class-mode-panel`）は
+  生徒の 一覧（`class:get` → `class:state`、開いている 間 4 秒ごと）と 4 つの ボタン。どれも 確認つき（英語＋小さく 日本語）。
+  - 📣 Gather：`class:gather {space,x,z}` → 生徒に「📣 ○○ せんせいの ところに あつまるよ！」→ 1.5 秒後 `teleport`（先生の まわりに 円く）→「✨ ついたよ！」。**5 秒に 1 回**。
+  - ⏸ Freeze ↔ ▶ Resume：`class:freeze {on}`。生徒は 全画面「✋ Listen to your teacher!」（`#class-mode-cover`・`body[data-class-pause]` で
+    `game.js` の 移動と キーを 止める）。**部屋も 答え・買い物などを 捨てる**（`blockedWhilePaused()`、onMessage を 1 枚 つつんでいる）。
+    **10 分で 自動再開**、**途中参加にも ストップ**（welcome の `classPaused` と `class:pause`）。
+  - 📚 Review weak words：`class:review` → 生徒 1 人ずつ 自分の 苦手（最大 5 問・時期前も 足す）。苦手の ない 子は「🌟 No weak words!」。
+    約 75 秒後か 全員 終わったら 先生に `class:result`（正解数と 多く まちがえた 3 語）。
+  - 🌍 Move together：行き先カード（`DESTINATIONS`、今いる 場所は のぞく）→ 全員（先生も）に 5 秒の カウントダウン → `goPlace()`（net-client）で
+    その 島へ。英単語ハウスは その 戸口の 前。**15 秒に 1 回**。失敗しても 25 秒で 表示が 閉じる。
+  - 先生の 操作は **1 秒に 1 回**まで（部屋が 捨てる）。結果は `class:toast`。Web の 先生が 動かせるのは Web の 生徒だけ。
+- **復習の 箱は 1 つ**：`review.js` が roblox_events の quiz（Roblox と Web。Web は `robloxEvent` が source=web で 書く）を 古い 順に たたんで
+  毎回 計算する（別の 表は 持たない＝同期が いらない）。まちがい→1 日後、時期後 or level=Review で 正解→3 日後→7 日後→卒業、60 語まで、英単語だけ。
+  出題は「🔊 を 聞いて 4 つから」（`#review-dialog`）。**読み上げるので 単語（`say`）は ページに 送る**（つり島の listen と 同じ）。判定・+3 コインは 部屋。
+  記録は world=review・level=Review で、それが また 箱を 進める。
+- **1 日 1 回の カード**（`#review-offer`）：入って 20 秒後（`REVIEW_OFFER_DELAY_MS`）、時期の 単語が 3 つ 以上なら。出した 日は 保存の `review_day`。
+- 保護者ページ（Roblox の レポート）に「次に覚える単語」（`review_next`）と「復習待ちの単語数」、「覚えた単語」に 卒業した 単語。
+  先生の クラス一覧（/class の Roblox の 表）に「復習待ちの単語数」の 列。`GET /api/roblox/review/:username`（X-USpeak-Key）で 時期の 単語と 選択肢。
+- 画面の 中身は 英語と 日本語を 両方 いつも 出すので、入れ物は `translate="no"`（訳の 層が 日本語を 英語に 変えて 2 重に しない）。
+- 検査：`server/test/class-mode.test.mjs`（実ソケット。先生だけ・ストップ中は 答えを 捨てる・途中参加・自動再開・1/5/15 秒・クラス結果・コイン）、
+  `server/test/review.test.mjs`（日付を 進めて 1/3/7 日と 卒業、60 語、Roblox と Web が 同じ 箱、レポートの 数字）、`server/test/admin.test.mjs`（先生か の 列）。
+
 ## 島の音（環境音と、昼と夜のBGM／2026-09 更新）
 
 `ambience.js` に全部ある。鳴るのは**風と BGM の2つだけ**。風は**ブラウザーが自分で作る**

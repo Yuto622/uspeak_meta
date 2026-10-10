@@ -45,6 +45,11 @@ export const config = Object.freeze({
   patchRateMs: Math.max(20, int('PATCH_RATE_MS', 100)),
   reconnectGraceSec: Math.max(5, int('RECONNECT_GRACE_SEC', 60)),
   answerMinIntervalMs: int('ANSWER_MIN_INTERVAL_MS', 400),
+  // 入って 何ミリ秒後に「Review time!」の カードを 出すか（検査では 短く する）。
+  reviewOfferDelayMs: int('REVIEW_OFFER_DELAY_MS', 20000),
+  // 授業モード：ストップの 自動再開と、復習の クラス結果を 出すまで（検査では 短く する）。
+  classAutoResumeMs: int('CLASS_AUTO_RESUME_MS', 10 * 60 * 1000),
+  classResultMs: int('CLASS_RESULT_MS', 75000),
   // Shifts the world's clock (day, dusk, night, dawn). Zero in a classroom; a test or a
   // demo sets it to walk into the night without waiting for it. Clients are told the
   // shifted time, so everyone still sees the same sky.

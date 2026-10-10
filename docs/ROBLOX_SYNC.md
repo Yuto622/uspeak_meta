@@ -122,6 +122,19 @@ Roblox 側の設定：
   ack が 落ちても 2 回 足さない。ゲームの コインの 持ち方が leaderstats の `Coins` で ないときは、ファイルの 頭の
   `getCoins` / `setCoins` / `coinChanged` だけ 書きかえる（コインそのものの 保存は いままでの ゲームの 仕組みのまま）。
 
+## 2c. 苦手単語の 復習（箱は 1 つ・2026-10）
+
+苦手の 状態は **roblox_events の quiz（Roblox ＋ Web）から 毎回 計算**する（`server/src/game/review.js`）。Roblox で まちがえた 単語も
+1 日後に Web の 復習に 出る。ルールは Roblox 版 USpeakReviewServer と 同じ（1・3・7 日、3 回で 卒業、60 語、英単語だけ）。
+
+```
+GET /api/roblox/review/:username      X-USpeak-Key 必須
+→ { ok, username, due: 4, items: [ { word: "river", options: ["river","dog","milk","sun"] }, ... ] }   最大 5
+```
+
+将来 Roblox 側の 復習を この API に 切り替えると、箱が Web の 1 つに そろう（今は Roblox の DataStore の 箱と 2 つ ある）。
+Roblox で 答えた 結果は いままでどおり `/events` に `type="quiz"`・`data.level="Review"` で 送れば、同じ 箱が 進む。
+
 ## 3. Roblox 側の最小スクリプト（Luau・ServerScriptService）
 
 > **ふつうは この下ではなく `roblox/USpeakWalletSync.server.luau` を 使う**（下は 仕組みを 説明する ための 最小形）。

@@ -108,15 +108,15 @@ export class SheetsStore {
   }
 
   async listAllRoster() {
-    return parseRosterRows(await this.api.getValues(`${SHEETS.roster}!A1:C`));
+    return parseRosterRows(await this.api.getValues(`${SHEETS.roster}!A1:D`));
   }
 
   // Replace the roster tab (the admin page's save): header, the rows, and blanks over
   // whatever longer list was there before.
   async saveRoster(rows) {
-    const before = (await this.api.getValues(`${SHEETS.roster}!A1:C`)).length;
-    const values = [ROSTER_COLUMNS, ...rows.filter((r) => r && r.name).map((r) => [r.class && r.class !== '*' ? String(r.class) : '', String(r.name), String(r.note ?? '')])];
-    while (values.length < before) values.push(['', '', '']);
+    const before = (await this.api.getValues(`${SHEETS.roster}!A1:D`)).length;
+    const values = [ROSTER_COLUMNS, ...rows.filter((r) => r && r.name).map((r) => [r.class && r.class !== '*' ? String(r.class) : '', String(r.name), String(r.note ?? ''), r.teacher ? 'TRUE' : 'FALSE'])];
+    while (values.length < before) values.push(['', '', '', '']);
     await this.api.update(`${SHEETS.roster}!A1`, values);
     this.rosterVersion = (this.rosterVersion || 0) + 1;
   }

@@ -94,7 +94,7 @@
       <button type="button" id="save" class="primary" disabled>保存する</button>
     </div>
     <table>
-      <thead><tr><th>#</th><th>アカウント名（ロビーで入力する名前）</th><th></th></tr></thead>
+      <thead><tr><th>#</th><th>アカウント名（ロビーで入力する名前）</th><th title="true の人は 先生として入り、授業モードのボタンが出ます">先生か</th><th></th></tr></thead>
       <tbody id="rows"></tbody>
     </table>
     <div class="foot">
@@ -109,6 +109,7 @@
   <section class="card">
     <p class="muted" style="margin:0">
       <strong>CSV の形</strong>：1行に1つのアカウント名。1行目が <code>name</code> や <code>アカウント名</code> なら見出しとして飛ばします。<code>class,name</code> の形でも <code>name</code> 列だけ読みます。Google スプレッドシートや Excel の「CSV でダウンロード」がそのまま読めます。<br>
+      <strong>先生か</strong>：<code>teacher</code>（または <code>先生か</code>）の列に <code>true</code> と書いた人は、講師キーなしで先生として入り、画面に「🎓 Class Mode（じゅぎょうモード）」のボタンが出ます。表の「先生か」でも選べます。<br>
       <strong>貼りつけ</strong>：スプレッドシートの名前の列を選んでコピーし、「貼りつけ」に貼ると表に入ります。<br>
       <strong>保存</strong>を押すまでサーバーには書かれません。保存するとその場で効きます（授業中でも）。
     </p>
@@ -180,6 +181,7 @@ Chika"></textarea>
     tb.innerHTML = rows.map((r, i) => `<tr data-i="${i}">
       <td class="n">${i + 1}</td>
       <td><input data-k="name" value="${esc(r.name)}" placeholder="アカウント名" ${state.editable ? '' : 'readonly'}></td>
+      <td style="padding:0 8px"><select data-k="teacher" aria-label="先生か" style="font-size:14px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:${r.teacher ? '#e9f4ec' : '#fff'};font-weight:${r.teacher ? 700 : 400}" ${state.editable ? '' : 'disabled'}><option value="false" ${r.teacher ? '' : 'selected'}>false</option><option value="true" ${r.teacher ? 'selected' : ''}>true（先生）</option></select></td>
       <td class="x">${state.editable ? '<button type="button" title="この行を消す">×</button>' : ''}</td>
     </tr>`).join('');
     $('#count').textContent = `${rows.filter((r) => r.name && r.name.trim()).length} 人`;
@@ -208,13 +210,14 @@ Chika"></textarea>
     const r = await fetch('/admin/api/roster', { headers: H });
     if (r.status === 401) { location.href = '/admin'; return; }
     state = await r.json();
-    rows = state.rows.map((x) => ({ name: x.name }));
+    rows = state.rows.map((x) => ({ name: x.name, teacher: !!x.teacher }));
     renderMode(); render(); setDirty(false);
   }
 
   $('#rows').addEventListener('input', (e) => {
     const tr = e.target.closest('tr'); if (!tr) return;
-    const r = rows[Number(tr.dataset.i)]; r[e.target.dataset.k] = e.target.value;
+    const r = rows[Number(tr.dataset.i)]; r[e.target.dataset.k] = e.target.dataset.k === 'teacher' ? e.target.value === 'true' : e.target.value;
+    if (e.target.dataset.k === 'teacher') { e.target.style.background = r.teacher ? '#e9f4ec' : '#fff'; e.target.style.fontWeight = r.teacher ? 700 : 400; setDirty(true); }
     if (e.target.dataset.k === 'name') $('#count').textContent = `${rows.filter((x) => x.name && x.name.trim()).length} 人`;
     setDirty(true);
   });
@@ -242,7 +245,7 @@ Chika"></textarea>
     return j.rows;
   }
   function take(newRows, mode) {
-    const names = newRows.map((r) => ({ name: r.name }));
+    const names = newRows.map((r) => ({ name: r.name, teacher: !!r.teacher }));
     if (mode === 'replace') rows = names; else rows = rows.concat(names);
     render(); setDirty(true);
     toast(`${names.length} 人を表に入れました（まだ保存していません）`);

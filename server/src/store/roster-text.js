@@ -68,7 +68,7 @@ const csvCell = (v) => {
 // Rows -> a one-column CSV of names with a `name` header, UTF-8 with a BOM so Excel
 // opens the Japanese correctly. It reads back through rosterFromText as every-class rows.
 export function rosterToCsv(rows) {
-  const lines = ['name'];
-  for (const r of rows) if (r && r.name) lines.push(csvCell(r.name));
+  const lines = ['name,teacher'];
+  for (const r of rows) if (r && r.name) lines.push(`${csvCell(r.name)},${r.teacher ? 'TRUE' : 'FALSE'}`);
   return `\uFEFF${lines.join('\r\n')}\r\n`;
 }

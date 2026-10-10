@@ -15,6 +15,7 @@ import { createHmac, timingSafeEqual, randomBytes } from 'node:crypto';
 import express from 'express';
 import { SEED_METRICS, SEED_PREVIOUS, summarize, parseMetric } from '../game/roblox-metrics.js';
 import { sameUser } from '../store/FileStore.js';
+import { boxFromEvents, pickWords, optionsFor, dueCount } from '../game/review.js';
 
 const MAX_EVENTS = 300;
 const MAX_DATA_BYTES = 32 * 1024;
@@ -271,6 +272,17 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
         pushBalance(a.username).catch(() => {});
       }
       res.json({ ok: true, acked });
+    });
+
+    // 苦手単語の 復習（Roblox と Web で 箱は 1 つ）。Roblox 側を これに 切り替えると、どちらで まちがえても 同じ 復習に 出る。
+    // その子の 復習の 時期の 単語（最大 5）と、それぞれの まちがいの 候補（4 つの うち 3 つ）を かえす。
+    api.get('/review/:username', async (req, res) => {
+      const username = str(req.params.username, MAX_NAME);
+      if (!username) { res.status(400).json({ ok: false, error: 'username is required' }); return; }
+      const state = boxFromEvents(await store.listRobloxEvents({ username }));
+      const at = now();
+      const words = pickWords(state, at);
+      res.json({ ok: true, username, due: dueCount(state, at), items: words.map((w) => ({ word: w, options: optionsFor(state, w) })) });
     });
 
     app.use('/api/roblox', api);

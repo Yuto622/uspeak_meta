@@ -7,6 +7,7 @@
 //
 // **週は日本時間の月曜〜日曜。** サーバーは UTC で動くので、月曜 0:00 JST は日曜 15:00 UTC。
 import { dayKey } from './months.js';
+import { boxFromEvents, dueCount as reviewDueCount, nextWord as reviewNextWord, graduatedWords } from './review.js';
 
 const JST_OFFSET_MS = 9 * 60 * 60 * 1000;
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -133,10 +134,16 @@ export const CUSTOM = {
       if (!byWord.has(w)) byWord.set(w, []);
       byWord.get(w).push(isCorrect(e));
     }
-    let n = 0;
-    for (const list of byWord.values()) if (list.length >= 3 && list.slice(-3).every(Boolean)) n += 1;
-    return n;
+    const done = new Set();
+    for (const [w, list] of byWord) if (list.length >= 3 && list.slice(-3).every(Boolean)) done.add(String(w).toLowerCase());
+    // 苦手の 復習（game/review.js）で 卒業した 単語も「覚えた」に 入れる。
+    for (const w of graduatedWords(boxFromEvents(events))) done.add(w);
+    return done.size;
   },
+  // 復習を まっている 単語の 数（いま 時期を 過ぎている もの）。先生の クラス一覧の 列。
+  review_due(events, { now = Date.now() } = {}) { return reviewDueCount(boxFromEvents(events), now); },
+  // 次に 覚える 単語：苦手の 箱の 中で 復習の 時期が いちばん 近い 1 つ。
+  review_next(events) { const w = reviewNextWord(boxFromEvents(events)); return w ? [{ word: w }] : []; },
   // 間違えやすい単語：2回以上出て 正答率 50% 以下。間違えた回数の多い順に5つ。
   weak_words(events, { limit = 5 } = {}) {
     const byWord = new Map();
@@ -256,6 +263,8 @@ export const SEED_METRICS = [
   { key: 'best_streak', label_ja: '最長の連続正解', label_en: 'Best streak', kind: 'custom', event_type: '', expr: { fn: 'best_streak' }, order: 80, unit: 'count' },
   { key: 'coins_earned', label_ja: 'かせいだコイン', label_en: 'Coins earned', kind: 'sum', event_type: 'session', expr: { field: 'coinsEarned' }, order: 90, unit: 'coins' },
   { key: 'balance', label_ja: 'いまのコイン', label_en: 'Balance', kind: 'custom', event_type: '', expr: { fn: 'balance', periods: ['all'] }, order: 95, unit: 'coins' },
+  { key: 'review_next', label_ja: '次に覚える単語', label_en: 'Next word to learn', kind: 'custom', event_type: '', expr: { fn: 'review_next', periods: ['all'] }, order: 98, unit: 'list' },
+  { key: 'review_due', label_ja: '復習待ちの単語数', label_en: 'Words waiting for review', kind: 'custom', event_type: '', expr: { fn: 'review_due', periods: ['all'] }, order: 99, unit: 'words' },
   { key: 'weak_words', label_ja: '間違えやすい単語', label_en: 'Words to review', kind: 'custom', event_type: '', expr: { fn: 'weak_words', limit: 5, periods: ['all'] }, order: 100, unit: 'list' },
   { key: 'by_level', label_ja: 'レベルごとの正答率', label_en: 'Accuracy by level', kind: 'group', event_type: 'quiz', expr: { by: 'level', agg: 'ratio', num: { where: { retry: false, correct: true } }, den: { where: { retry: false } } }, order: 110, unit: 'table' },
   { key: 'by_activity', label_ja: '場所ごとの問題数と正答率', label_en: 'Questions by place', kind: 'group', event_type: 'quiz', expr: { by: 'world', agg: 'ratio', num: { where: { retry: false, correct: true } }, den: { where: { retry: false } } }, order: 115, unit: 'table' },

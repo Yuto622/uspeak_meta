@@ -19,6 +19,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import { decodeUpload, rosterFromText, rosterToCsv } from '../store/roster-text.js';
+import { isTrueCell } from '../store/roster-sheet.js';
 import { validateMetric, metricToRow, parseMetric } from '../game/roblox-metrics.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -106,7 +107,7 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
 
   const state = async () => ({
     ok: true,
-    rows: (await access.rows()).map((r) => ({ name: r.name })),
+    rows: (await access.rows()).map((r) => ({ name: r.name, teacher: !!r.teacher })),
     enforce: access.enforce,
     mode: access.mode(),
     envModeSet: access.envModeSet,
@@ -132,10 +133,10 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
     if (!access.editable) { res.status(409).json({ ok: false, error: 'not-editable' }); return; }
     const rows = req.body?.rows;
     if (!Array.isArray(rows) || rows.length > MAX_ROWS) { res.status(400).json({ ok: false, error: 'rows' }); return; }
-    const clipped = rows.map((r) => ({ class: '*', name: clip(typeof r === 'string' ? r : r?.name), note: '' }));
+    const clipped = rows.map((r) => ({ class: '*', name: clip(typeof r === 'string' ? r : r?.name), note: '', teacher: typeof r === 'object' && r ? isTrueCell(r.teacher ?? '') : false }));
     try {
       const saved = await access.replace(clipped);
-      res.json({ ok: true, count: saved.length, rows: saved.map((r) => ({ name: r.name })) });
+      res.json({ ok: true, count: saved.length, rows: saved.map((r) => ({ name: r.name, teacher: !!r.teacher })) });
     } catch (err) { log.warn('[admin] roster save failed:', err.message); res.status(500).json({ ok: false, error: err.message }); }
   });
 
@@ -152,7 +153,7 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
   api.post('/parse', express.raw({ type: () => true, limit: '2mb' }), (req, res) => {
     try {
       const text = Buffer.isBuffer(req.body) ? decodeUpload(req.body) : String(req.body ?? '');
-      const rows = rosterFromText(text).slice(0, MAX_ROWS).map((r) => ({ name: r.name }));
+      const rows = rosterFromText(text).slice(0, MAX_ROWS).map((r) => ({ name: r.name, teacher: !!r.teacher }));
       res.json({ ok: true, rows });
     } catch (err) { res.status(400).json({ ok: false, error: err.message }); }
   });

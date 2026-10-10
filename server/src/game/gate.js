@@ -76,7 +76,7 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
     try {
       const rows = await roster.listRoster(classCode);
       if (rows === null || rows === undefined) return entry || null;   // no register kept at all
-      const fresh = { names: new Set(rows.map((r) => fold(r.name))), at: now(), source: 'register', version: version() };
+      const fresh = { names: new Set(rows.map((r) => fold(r.name))), teachers: new Set(rows.filter((r) => r.teacher).map((r) => fold(r.name))), at: now(), source: 'register', version: version() };
       cache.set(classCode, fresh);
       await saveSnapshot();
       return fresh;
@@ -90,6 +90,14 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
     get mode() { return modeNow(); },
     // Used by tests and by a teacher's "reload the register" command.
     forget(classCode) { if (classCode) cache.delete(classCode); else cache.clear(); },
+    // 名簿の「先生」列が true の 人か（admin ページ）。入場の きりかえ（open / roster）とは 関係なく 見る：
+    // 名簿を 使わない 教室でも、先生だけ 名簿に 書いて おけば 授業モードが 出る。読めなければ false（先生に しない）。
+    async isTeacher({ classCode, name }) {
+      try {
+        const entry = await register(classCode);
+        return !!entry?.teachers?.has(fold(name));
+      } catch { return false; }
+    },
     async allow({ classCode, name, role, store: storeOverride }) {
       if (modeNow() !== ROSTER) return { ok: true, reason: 'open' };
       if (role === 'teacher') return { ok: true, reason: 'teacher key' };

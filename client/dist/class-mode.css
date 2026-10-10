@@ -1,0 +1,119 @@
+/* 授業モード（先生の ボタン・パネル）と 生徒の 画面（ストップ・帯・カウントダウン）、苦手の 復習（class-mode.js）。
+   英語を 大きく、日本語を 小さく。色：深緑 #1B3A2F・オレンジ #E27A2D・クリーム #FFFBF5・復習の 青 #4682DC。 */
+.cm-en { display: block; font-weight: 800; line-height: 1.15; }
+.cm-ja { display: block; font-size: 12px; font-weight: 600; opacity: .8; margin-top: 2px; line-height: 1.3; }
+
+/* 先生の ボタン（左上・ロゴの 下）。先生の 画面では クエスト一覧を すこし 下げる。 */
+#class-mode-button { position: fixed; left: 30px; top: 98px; z-index: 6; display: flex; align-items: center; gap: 10px;
+  padding: 8px 16px 8px 10px; border: 0; border-radius: 16px; background: #1b3a2f; color: #fffbf5; cursor: pointer; text-align: left;
+  box-shadow: 0 6px 18px #1b3a2f55, inset 0 0 0 2px #e27a2d; }
+#class-mode-button[hidden] { display: none; }
+#class-mode-button .cm-en { font-size: 16px; }
+#class-mode-button .cm-cap { font-size: 26px; }
+#class-mode-button:hover { background: #24503f; }
+body.cm-teacher .quest-panel { top: 170px; }
+@media (max-width: 600px) {
+  #class-mode-button { left: 16px; top: 62px; padding: 6px 12px 6px 8px; }
+  #class-mode-button .cm-en { font-size: 14px; }
+  #class-mode-button .cm-cap { font-size: 22px; }
+  body.cm-teacher .quest-panel { top: 124px; }
+}
+@media (pointer: coarse) and (max-height: 560px) {
+  #class-mode-button { top: 66px; left: 16px; }
+  body.cm-teacher .quest-panel { display: none; }
+}
+body[data-race] #class-mode-button, body[data-gp] #class-mode-button, body[data-arcade] #class-mode-button, body.on-journey #class-mode-button { display: none; }
+
+/* 先生の パネル（タブレット横向きで 押しやすく）。 */
+#class-mode-panel { width: min(760px, 96vw); max-height: 92dvh; padding: 0; border: 0; border-radius: 22px; background: #fffbf5; color: #1b3a2f; overflow: auto; box-shadow: 0 24px 60px #0007; }
+#class-mode-panel::backdrop { background: #0b1d1666; }
+.cm-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: #1b3a2f; color: #fffbf5; position: sticky; top: 0; z-index: 1; }
+.cm-head .cm-cap { font-size: 32px; }
+.cm-head .cm-en { font-size: 22px; }
+.cm-head em { display: block; font-style: normal; font-size: 12px; opacity: .7; }
+.cm-x { margin-left: auto; width: 44px; height: 44px; border: 0; border-radius: 12px; background: #ffffff22; color: inherit; font-size: 22px; cursor: pointer; }
+.cm-body { padding: 16px 18px 20px; }
+.cm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.cm-act { display: flex; align-items: center; gap: 12px; min-height: 84px; padding: 12px 16px; border: 0; border-radius: 18px; background: #fff; color: #1b3a2f; text-align: left; cursor: pointer;
+  box-shadow: inset 0 0 0 2px #e9e2d4, 0 4px 0 #e9e2d4; }
+.cm-act i { font-style: normal; font-size: 34px; }
+.cm-act .cm-en { font-size: 19px; }
+.cm-act:active { transform: translateY(2px); box-shadow: inset 0 0 0 2px #e9e2d4; }
+.cm-act.on { background: #e27a2d; color: #fff; box-shadow: 0 4px 0 #a9541b; }
+.cm-act.review { box-shadow: inset 0 0 0 2px #4682dc55, 0 4px 0 #4682dc55; }
+#cm-confirm, #cm-result, #cm-dests { margin-top: 14px; padding: 14px; border-radius: 16px; background: #fff3e6; }
+#cm-result { background: #eaf1fc; }
+#cm-confirm p, #cm-result p { margin: 0 0 10px; }
+#cm-confirm .cm-en { font-size: 18px; }
+.cm-row { display: flex; gap: 10px; }
+.cm-row button { flex: 1; min-height: 52px; border: 0; border-radius: 14px; font-size: 15px; cursor: pointer; }
+.cm-yes { background: #e27a2d; color: #fff; box-shadow: 0 3px 0 #a9541b; }
+.cm-no { background: #e9e2d4; color: #1b3a2f; }
+.cm-dgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; max-height: 300px; overflow: auto; }
+.cm-dgrid button { display: flex; align-items: center; gap: 8px; min-height: 58px; padding: 8px 10px; border: 0; border-radius: 14px; background: #fff; color: #1b3a2f; text-align: left; cursor: pointer; box-shadow: inset 0 0 0 2px #efe7d6; }
+.cm-dgrid i { font-style: normal; font-size: 24px; }
+.cm-dgrid .cm-en { font-size: 14px; }
+.cm-h { margin: 18px 0 8px; font-size: 15px; display: flex; align-items: baseline; gap: 8px; }
+.cm-h .cm-ja { display: inline; }
+#cm-count { margin-left: auto; padding: 2px 10px; border-radius: 99px; background: #1b3a2f; color: #fff; }
+#cm-students { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+#cm-students li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px #efe7d6; }
+#cm-students li span { color: #5d6d62; font-size: 13px; }
+#cm-students li em { margin-left: auto; font-style: normal; font-weight: 800; color: #e27a2d; font-size: 13px; }
+#cm-students .cm-empty { justify-content: center; color: #5d6d62; }
+@media (max-width: 560px) { .cm-grid { grid-template-columns: 1fr; } .cm-act { min-height: 66px; } }
+
+/* 生徒：ストップ（全画面・何も おせない）と いどうの カウントダウン。 */
+#class-mode-cover { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: #0b1d16cc; backdrop-filter: blur(6px); color: #fffbf5; text-align: center; }
+#class-mode-cover[hidden] { display: none; }
+.cm-stop, .cm-go { display: grid; justify-items: center; gap: 8px; padding: 28px 34px; border-radius: 26px; background: #1b3a2f; box-shadow: 0 0 0 4px #e27a2d, 0 20px 60px #0008; max-width: 92vw; }
+.cm-stop > span, .cm-go > span { font-size: 72px; line-height: 1; }
+.cm-stop .cm-en, .cm-go .cm-en { font-size: clamp(26px, 6vmin, 44px); }
+.cm-stop .cm-ja, .cm-go .cm-ja { font-size: clamp(14px, 3vmin, 20px); }
+.cm-go strong { font-size: 64px; color: #e27a2d; line-height: 1; }
+.cm-stop > span { animation: cm-wave 1.6s ease-in-out infinite; }
+@keyframes cm-wave { 50% { rotate: -14deg; } }
+/* あつまる帯。 */
+#class-mode-band { position: fixed; left: 50%; top: 92px; transform: translateX(-50%); z-index: 59; display: flex; align-items: center; gap: 10px;
+  padding: 12px 22px; border-radius: 99px; background: #e27a2d; color: #fff; box-shadow: 0 8px 24px #0005; font-size: 20px; white-space: nowrap; }
+#class-mode-band[hidden] { display: none; }
+#class-mode-band .cm-en { font-size: 18px; }
+
+/* 復習（いつもの ダイアログと 同じ 大きさ・2×2 の ボタン）。 */
+#review-dialog { width: min(520px, 94vw); max-height: 92dvh; padding: 0; border: 0; border-radius: 22px; background: #fffbf5; color: #1b3a2f; overflow: auto; box-shadow: 0 24px 60px #0007; }
+#review-dialog::backdrop { background: #0b1d1666; }
+.rv-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: #4682dc; color: #fff; }
+.rv-head .cm-en { font-size: 20px; }
+.rv-prog { margin-left: auto; padding: 4px 12px; border-radius: 99px; background: #ffffff33; font-weight: 800; }
+.rv-head .cm-x { margin-left: 4px; }
+.rv-body { padding: 18px; text-align: center; }
+.rv-speak { width: 120px; height: 120px; border: 0; border-radius: 50%; background: #4682dc; color: #fff; font-size: 56px; cursor: pointer; box-shadow: 0 6px 0 #2f5fae; }
+.rv-speak:active { transform: translateY(3px); box-shadow: 0 3px 0 #2f5fae; }
+.rv-lead { margin: 14px 0; }
+.rv-lead .cm-en { font-size: 20px; }
+.rv-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rv-opts button { min-height: 64px; border: 0; border-radius: 16px; background: #fff; color: #1b3a2f; font-size: 22px; font-weight: 800; cursor: pointer; box-shadow: inset 0 0 0 2px #dfe8f7, 0 3px 0 #dfe8f7; }
+.rv-opts button.right { background: #2f9e5b; color: #fff; box-shadow: 0 3px 0 #1e7a43; }
+.rv-opts button.wrong { background: #d9483b; color: #fff; box-shadow: 0 3px 0 #a7342a; }
+.rv-msg { min-height: 48px; margin: 14px 0 0; font-size: 18px; }
+.rv-msg .cm-en, .rv-msg .cm-ja { display: inline; margin: 0 4px; }
+.rv-coin { color: #e27a2d; font-weight: 800; }
+.rv-end { display: grid; justify-items: center; gap: 8px; padding: 36px 20px; text-align: center; }
+.rv-end > span { font-size: 64px; }
+.rv-end .cm-en { font-size: 28px; }
+.rv-end strong { font-size: 40px; color: #4682dc; }
+
+/* 1 日 1 回の 小さな カード（下の まんなか）。 */
+#review-offer { position: fixed; left: 50%; bottom: 112px; transform: translateX(-50%); z-index: 20; display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px 10px 16px; border-radius: 18px; background: #fffbf5; color: #1b3a2f; box-shadow: 0 10px 30px #0004, inset 0 0 0 2px #4682dc; }
+#review-offer[hidden] { display: none; }
+#review-offer .ro-ic { font-size: 30px; }
+#review-offer .cm-en { font-size: 17px; }
+#review-offer button { min-height: 44px; padding: 4px 14px; border: 0; border-radius: 12px; cursor: pointer; }
+#review-offer .ro-go { background: #4682dc; color: #fff; }
+#review-offer .ro-later { background: #e9e2d4; color: #1b3a2f; }
+#review-offer button .cm-en { font-size: 14px; }
+#review-offer button .cm-ja { font-size: 11px; }
+@media (pointer: coarse) { #review-offer { bottom: 250px; } }
+@media (pointer: coarse) and (max-height: 560px) { #review-offer { bottom: 12px; } }
+@media (prefers-reduced-motion: reduce) { .cm-stop > span { animation: none; } }

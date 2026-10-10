@@ -77,7 +77,7 @@ export function createAccess({ store, roster = store, dataDir = '', envMode = 'o
         const key = `${fold(cls || '*')}|${fold(name)}`;
         if (seen.has(key)) continue;
         seen.add(key);
-        clean.push({ class: cls && cls !== '*' ? cls : '*', name, note: String(r?.note ?? '').trim() });
+        clean.push({ class: cls && cls !== '*' ? cls : '*', name, note: String(r?.note ?? '').trim(), ...(r?.teacher ? { teacher: true } : {}) });
       }
       await store.saveRoster(clean);
       bumps += 1;
