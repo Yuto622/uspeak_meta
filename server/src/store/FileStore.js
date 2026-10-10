@@ -137,7 +137,11 @@ export class FileStore {
   // Web で動いたコイン（未配達のものを Roblox が取りに来る）。
   addWalletEntry(entry) {
     this.data.wallet_entries.push({ ...entry, delivered_at: entry.delivered_at || '' });
-    if (this.data.wallet_entries.length > MAX_LOG_ROWS) this.data.wallet_entries.splice(0, this.data.wallet_entries.length - MAX_LOG_ROWS);
+    // 古い行から すてるが、**まだ Roblox に 届いていない 行は すてない**（すてると 2 つの 残高が ずれる）。
+    if (this.data.wallet_entries.length > MAX_LOG_ROWS) {
+      let extra = this.data.wallet_entries.length - MAX_LOG_ROWS;
+      this.data.wallet_entries = this.data.wallet_entries.filter((e) => { if (extra > 0 && e.delivered_at) { extra -= 1; return false; } return true; });
+    }
     this.dirty = true;
   }
 

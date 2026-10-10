@@ -339,8 +339,11 @@ export class ClassRoom extends Room {
       // まだの子は、これまで通り Web の残高のまま。
       if (this.roblox?.enabled) {
         try {
-          const bal = await this.roblox.balanceOf(this.roblox.usernameFor(this.classCode, auth.name));
+          const username = this.roblox.usernameFor(this.classCode, auth.name);
+          const bal = await this.roblox.balanceOf(username);
           if (bal) { priv.wallet.coins = bal.balance; priv.robloxSynced = true; }
+          // まだ Roblox が 残高を 教えてくれていない 子：Web の コインを 行に のせておく（はじめての 同期で 消えないように）。
+          else await this.roblox.carryOver(username, priv.wallet.coins);
         } catch (err) { log.warn(`[room ${this.roomId}] roblox balance failed:`, err.message); }
       }
       const lastSeen = Date.parse(record?.last_seen || '') || 0;

@@ -400,3 +400,31 @@ test('管理ページ：指標に「retry 回数」を1行足すと、保護者�
   await room.leave(true);
   await teacherRoom.leave(true);
 });
+
+test('はじめて つなぐ 子の Web の コインは 1 回だけ 行に のり（web:carry）、Roblox の はじめての 残高で 消えない', async () => {
+  const room = await join('rbx_mio');
+  const welcome = await nextMessage(room, 'welcome');
+  await sleep(150);
+  const entries = await server.store.listWalletEntries({ username: 'rbx_mio', undelivered: true });
+  const sum = entries.reduce((s, e) => s + e.amount, 0);
+  assert.equal(sum, welcome.wallet.coins, 'Web の 残高 ぜんぶが Roblox に とどける 行に なっている');
+  await room.leave(true);
+  // 入り直しても 2 回目は のらない。
+  const again = await join('rbx_mio');
+  await nextMessage(again, 'welcome');
+  await sleep(150);
+  assert.equal((await server.store.listWalletEntries({ username: 'rbx_mio', undelivered: true })).reduce((s, e) => s + e.amount, 0), sum);
+  // Roblox が はじめて 残高 50 を 教えてくる → Web は 50 ＋ Web の コイン（どちらも 消えない）。
+  await post('/api/roblox/wallet/pending', { users: [{ username: 'rbx_mio', balance: 50 }] });
+  const pushed = await nextMessage(again, 'wallet');
+  assert.equal(pushed.wallet.coins, 50 + sum);
+  await again.leave(true);
+});
+
+test('FileStore: 古い 行を すてても、まだ Roblox に 届いていない 行は すてない', async () => {
+  const fs = new FileStore(null, { log: { warn() {}, info() {} } });
+  fs.addWalletEntry({ id: 'keep', username: 'a', amount: 5, reason: 'x', created_at: '', delivered_at: '' });
+  for (let i = 0; i < 50005; i += 1) fs.addWalletEntry({ id: `d${i}`, username: 'b', amount: 1, reason: 'x', created_at: '', delivered_at: 'done' });
+  const left = await fs.listWalletEntries({ username: 'a', undelivered: true });
+  assert.deepEqual(left.map((e) => e.id), ['keep']);
+});

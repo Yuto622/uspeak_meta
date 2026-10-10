@@ -87,7 +87,7 @@ Roblox 側の設定：
 - `balance` は **Roblox の今の残高**（0 以上。負なら `400`）。50 人まで。
 - `entries` は Web で動いたコイン（±）。**ack で印を付けるまで、何度でも同じ行が返る。**
   Roblox 側は id ごとに DataStore に「適用済み」を書いてから ack する（二重適用しない）。
-- 入室時と 5 分ごとに呼ぶのが目安（SheetSync と同じタイミングでよい）。
+- `roblox/USpeakWalletSync.server.luau` は 入室時・30 秒ごと・コインが 変わった 2 秒後 に 呼ぶ（5 分ごとだと その間 ずれる）。
 
 ### `POST /api/roblox/wallet/ack` — 届いた行に印を付ける
 
@@ -109,7 +109,22 @@ Roblox 側の設定：
 - Roblox が `pending` / `ack` を呼ぶと、オンラインの子の画面の残高もその場で差し替わる。
 - Web の画面には「コインは Roblox と おなじです。ここで ふえたぶんは、Roblox に 入ると 反映されます。」と 1 度出る。
 
+## 2b. 2 つの 残高を 完全に そろえるための 約束（2026-10）
+
+- **正本は Roblox の 残高**。Web の 残高は いつも「Roblox が 最後に 教えた 残高 ＋ まだ 届いていない Web の 増減」。
+- **はじめて つなぐ 子の Web の コインは 消えない**：Roblox が まだ 1 度も 残高を 教えていない 子が クラスに 入ると、
+  Web の コインのうち 行に なっていない ぶんを 1 回だけ `web:carry` の 行に する（`sync.js` の `carryOver`）。
+  Roblox が はじめて 残高 B を 教えると、両方とも B ＋ Web の コインに なる。
+- **まだ 届いていない 行は すてない**（FileStore の 行の 上限で 古い 行を すてるときも、配達済みだけ）。
+- **紐づけの 名前は 大文字・小文字を 区別しない**（Roblox の アカウント名と 同じ）。
+- **Roblox 側は `roblox/USpeakWalletSync.server.luau` を そのまま 置く**：入る・出る・30 秒ごと・**Roblox で コインが
+  変わったら 2 秒後** に 同期するので、Roblox で 使った コインも 数秒で Web に 出る。足した 行の id は DataStore に 残し、
+  ack が 落ちても 2 回 足さない。ゲームの コインの 持ち方が leaderstats の `Coins` で ないときは、ファイルの 頭の
+  `getCoins` / `setCoins` / `coinChanged` だけ 書きかえる（コインそのものの 保存は いままでの ゲームの 仕組みのまま）。
+
 ## 3. Roblox 側の最小スクリプト（Luau・ServerScriptService）
+
+> **ふつうは この下ではなく `roblox/USpeakWalletSync.server.luau` を 使う**（下は 仕組みを 説明する ための 最小形）。
 
 ```lua
 local HttpService = game:GetService("HttpService")

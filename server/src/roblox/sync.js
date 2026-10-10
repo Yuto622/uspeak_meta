@@ -69,7 +69,8 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
   }
   const linksFresh = () => { if (now() - linksAt > LINKS_TTL_MS) refreshLinks(); return links; };
   const usernameFor = (classCode, name) => {
-    const row = linksFresh().find((r) => r.name === name && (!r.class || r.class === '*' || r.class === classCode));
+    // 名前は 大文字・小文字を 区別しない（Roblox の アカウント名も 区別しない）。
+    const row = linksFresh().find((r) => sameUser(r.name, name) && (!r.class || r.class === '*' || r.class === classCode));
     return row ? row.username : name;
   };
   const childFor = (username) => {
@@ -121,6 +122,19 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
     if (!n) return false;
     store.addWalletEntry({ id: newId(), username, amount: n, reason: str(reason, 80), created_at: new Date(now()).toISOString(), delivered_at: '' });
     return true;
+  }
+  // まだ Roblox が 1 度も 残高を 教えてくれていない 子の、Web の コインのうち 行（wallet_entries）に なっていない ぶんを
+  // 1 回だけ 行にする（つなぐ前や 合言葉が 無かった間に ためた コイン）。こうしておくと、Roblox が はじめて 残高を
+  // 教えてきたとき「Roblox の残高 ＋ 行」＝ Web の 残高が 消えずに そのまま 両方に のる。
+  async function carryOver(username, coins) {
+    if (!enabled || !username) return 0;
+    if (await store.getWalletSnapshot?.(username)) return 0;
+    const entries = await store.listWalletEntries({ username, undelivered: true });
+    const pending = entries.reduce((s, e) => s + (Number(e.amount) || 0), 0);
+    const diff = Math.round(Number(coins) || 0) - pending;
+    if (diff <= 0) return 0;
+    walletAdd(username, diff, 'web:carry');
+    return diff;
   }
   // オンラインの子に、計算し直した残高を押し込む。
   async function pushBalance(username) {
@@ -266,7 +280,7 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
   return {
     enabled, rooms, store, mount, ensureSeeds, metricDefs, refreshLinks,
     links: () => links.map((r) => ({ ...r })),
-    usernameFor, childFor, balanceOf, walletAdd, pushBalance, summaryFor, classRows,
+    usernameFor, childFor, balanceOf, walletAdd, carryOver, pushBalance, summaryFor, classRows,
     reportPath: (username) => (reportSecret ? robloxReportPath(reportSecret, username) : ''),
     parseMetric,
   };
