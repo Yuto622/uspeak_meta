@@ -3151,6 +3151,9 @@
     "🧱 ブロックを 見る": "🧱 See blocks",
     "🏠 いえを 見る": "🏠 See houses",
     "もちもの と おなか": "Bag and hunger",
-    "英語で はなす": "Talk in English"
+    "英語で はなす": "Talk in English",
+    "クリックで マウスで 見わたす · WASD で うごく · V で もどす": "Click to look with the mouse · WASD to move · V to switch back",
+    "Esc で マウスを はなす": "Esc to release the mouse",
+    "ひだりで うごく · がめんを なぞって 見る": "Move with the left stick · swipe the screen to look"
   }
 }
