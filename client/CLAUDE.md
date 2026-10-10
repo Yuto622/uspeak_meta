@@ -37,6 +37,13 @@
 | PUYO U-SPEAK / えいごスイカゲーム（ミニゲーム島から） | puyo.js / suika.js / puyo/ / suika/ / mini-island.js / minigames.json |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
 
+## 読みこみ画面（`#loading`／2026-10 更新）
+
+`index.html` の `#loading` と `loading.css`。**three.js が 来る 前に 出る ので WebGL を 使わず CSS の 3D だけ**：
+夜空と オーロラ、ボクセルの 島（`#ld-world` の 中の 箱を index.html の 小さな script が 56 こ 並べる。箱は 上・前・右の 3 面だけ。
+ゆれは rotateY 22°〜68° の 間なので 見えない 面は いらない。90° を こえて まわすなら 面を 足すこと）、まわる ロゴの 立方体、
+とびだす 題名、ながれる バー。`game.js` の 準備が おわると 今までどおり `#loading` ごと 消える。`prefers-reduced-motion` では 止まる。
+
 ## 島の音（環境音と、昼と夜のBGM／2026-09 更新）
 
 `ambience.js` に全部ある。鳴るのは**風と BGM の2つだけ**。風は**ブラウザーが自分で作る**

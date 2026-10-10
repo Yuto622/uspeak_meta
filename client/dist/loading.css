@@ -1,0 +1,94 @@
+/* はじまりの 読みこみ画面（#loading）。three.js が 来る 前に 出る ので、WebGL ではなく CSS の 3D だけで 描く。
+   ボクセルの 島が 空に うかんで ゆっくり ゆれ、その 上で ロゴの 立方体が まわる。箱は index.html の 小さな script が 並べる。 */
+#loading {
+  --u: clamp(26px, 7.4vmin, 42px);
+  position: fixed; inset: 0; z-index: 20; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  color: #eafff4; text-align: center;
+  background:
+    radial-gradient(1200px 700px at 50% 120%, #2fb89a55, transparent 60%),
+    radial-gradient(900px 600px at 50% -10%, #3b2f8a, transparent 70%),
+    linear-gradient(180deg, #0b1230 0%, #10264a 45%, #12485a 80%, #1b6b6a 100%);
+}
+/* ほし（2 まいを ずらして またたかせる）。 */
+#loading::before, #loading::after {
+  content: ''; position: absolute; inset: -50%; pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 120px 80px, #cfe9ff, transparent),
+    radial-gradient(1.5px 1.5px at 200px 160px, #fff, transparent),
+    radial-gradient(1px 1px at 60px 190px, #ffe9b8, transparent),
+    radial-gradient(1px 1px at 170px 20px, #fff, transparent);
+  background-size: 240px 220px;
+  animation: ld-twinkle 4s ease-in-out infinite alternate;
+}
+#loading::after { background-size: 330px 290px; opacity: .6; animation-delay: -2s; transform: rotate(14deg); }
+@keyframes ld-twinkle { from { opacity: .35; } to { opacity: 1; } }
+
+/* オーロラ。 */
+.ld-aurora { position: absolute; inset: 0; pointer-events: none; filter: blur(40px); opacity: .55; }
+.ld-aurora i { position: absolute; width: 70vmax; height: 22vmax; left: 15%; top: 8%; border-radius: 50%;
+  background: linear-gradient(90deg, #39f0b0, #4aa8ff 50%, #b06bff); animation: ld-aurora 9s ease-in-out infinite alternate; }
+.ld-aurora i + i { top: 20%; left: -10%; background: linear-gradient(90deg, #ff8bd1, #6be3ff); animation-duration: 12s; animation-delay: -4s; opacity: .7; }
+@keyframes ld-aurora { from { transform: translateX(-12%) rotate(-8deg) scaleY(.7); } to { transform: translateX(14%) rotate(6deg) scaleY(1.2); } }
+
+/* 3D の 舞台。 */
+.ld-stage { position: relative; width: calc(var(--u) * 9); height: calc(var(--u) * 11); perspective: calc(var(--u) * 40); margin-bottom: 6px; }
+.ld-float { position: absolute; left: 50%; top: 66%; transform-style: preserve-3d; animation: ld-bob 4.5s ease-in-out infinite; }
+.ld-world { transform-style: preserve-3d; transform: rotateX(-30deg) rotateY(45deg); animation: ld-sway 9s ease-in-out infinite alternate; }
+@keyframes ld-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(var(--u) * -.35)); } }
+@keyframes ld-sway { from { transform: rotateX(-28deg) rotateY(22deg); } to { transform: rotateX(-34deg) rotateY(68deg); } }
+
+/* 1 この 箱（上・前・右の 3 面。ゆれ幅は 0〜90° の 中なので 見えない 面は いらない）。 */
+.ld-c { position: absolute; width: var(--u); height: var(--u); margin: calc(var(--u) / -2); transform-style: preserve-3d;
+  transform: translate3d(calc(var(--x) * var(--u)), calc(var(--y) * var(--u) * -1), calc(var(--z) * var(--u))); }
+.ld-c i { position: absolute; inset: 0; backface-visibility: hidden; }
+.ld-c .t { background: var(--t); transform: rotateX(90deg) translateZ(calc(var(--u) / 2)); box-shadow: inset 0 0 0 1px #ffffff22; }
+.ld-c .f { background: var(--f); transform: translateZ(calc(var(--u) / 2)); }
+.ld-c .r { background: var(--r); transform: rotateY(90deg) translateZ(calc(var(--u) / 2)); }
+.ld-c.lamp .t, .ld-c.lamp .f, .ld-c.lamp .r { box-shadow: 0 0 calc(var(--u) * .6) #ffd76a; }
+
+/* 島の 下の 光る 海と 影。 */
+.ld-sea { position: absolute; width: calc(var(--u) * 9); height: calc(var(--u) * 9); left: calc(var(--u) * -4.5); top: calc(var(--u) * -4.5);
+  border-radius: 50%; transform: rotateX(90deg) translateZ(calc(var(--u) * -1.6));
+  background: radial-gradient(circle, #5fe3d0aa 0, #2aa8b855 40%, transparent 70%); animation: ld-pulse 3s ease-in-out infinite; }
+@keyframes ld-pulse { 0%, 100% { opacity: .55; transform: rotateX(90deg) translateZ(calc(var(--u) * -1.6)) scale(.92); } 50% { opacity: 1; transform: rotateX(90deg) translateZ(calc(var(--u) * -1.6)) scale(1.05); } }
+
+/* うかぶ ロゴの 立方体（6 面・まわる）。 */
+.ld-logo { position: absolute; left: 50%; top: 0; width: calc(var(--u) * 2); height: calc(var(--u) * 2); margin-left: calc(var(--u) * -1);
+  transform-style: preserve-3d; animation: ld-turn 7s linear infinite, ld-hover 3s ease-in-out infinite; }
+.ld-logo b { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 10px;
+  font: 800 calc(var(--u) * 1.2)/1 system-ui, sans-serif; color: #fff9e8;
+  background: linear-gradient(135deg, #3fae7c, #1b5a45); box-shadow: inset 0 0 0 2px #ffffff40, 0 0 calc(var(--u)) #39f0b066; }
+.ld-logo b:nth-child(1) { transform: translateZ(var(--u)); }
+.ld-logo b:nth-child(2) { transform: rotateY(180deg) translateZ(var(--u)); }
+.ld-logo b:nth-child(3) { transform: rotateY(90deg) translateZ(var(--u)); background: linear-gradient(135deg, #f0a24c, #c4601f); }
+.ld-logo b:nth-child(4) { transform: rotateY(-90deg) translateZ(var(--u)); background: linear-gradient(135deg, #f0a24c, #c4601f); }
+.ld-logo b:nth-child(5) { transform: rotateX(90deg) translateZ(var(--u)); background: #7fe0b5; }
+.ld-logo b:nth-child(6) { transform: rotateX(-90deg) translateZ(var(--u)); background: #123d31; }
+.ld-logo b span { color: #ffd76a; }
+@keyframes ld-hover { 0%, 100% { transform: translateY(0) rotateX(-18deg) rotateY(var(--spin, 0deg)); } 50% { transform: translateY(calc(var(--u) * -.3)) rotateX(-18deg) rotateY(var(--spin, 0deg)); } }
+@property --spin { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes ld-turn { to { --spin: 360deg; } }
+/* 立方体の 下の ひかりの 輪。 */
+.ld-ring { position: absolute; left: 50%; top: 8%; width: calc(var(--u) * 4); height: calc(var(--u) * 4); margin-left: calc(var(--u) * -2);
+  border-radius: 50%; border: 2px solid #8affd9aa; transform: rotateX(75deg); box-shadow: 0 0 20px #39f0b088, inset 0 0 20px #39f0b055;
+  animation: ld-ring 2.4s ease-out infinite; }
+.ld-ring + .ld-ring { animation-delay: -1.2s; }
+@keyframes ld-ring { from { opacity: .9; scale: .5; } to { opacity: 0; scale: 1.4; } }
+
+/* 文字：とびだす 3D の 題名。 */
+#loading h2 { margin: 0; font: 800 clamp(28px, 7.5vmin, 54px)/1.05 system-ui, -apple-system, 'Hiragino Sans', sans-serif; letter-spacing: -.5px;
+  color: #f4fff9; position: relative; z-index: 1;
+  text-shadow: 0 1px 0 #a6e8cf, 0 2px 0 #7fd3b5, 0 3px 0 #5bbd9b, 0 4px 0 #3fa483, 0 5px 0 #2a8a6c, 0 6px 0 #1d6f57,
+    0 10px 18px #0009, 0 0 40px #39f0b055; }
+#loading p { margin: 6px 0 0; font-size: 14px; letter-spacing: .08em; color: #bfeee0; position: relative; z-index: 1; }
+.ld-bar { position: relative; z-index: 1; width: min(240px, 60vw); height: 6px; margin-top: 14px; border-radius: 99px; overflow: hidden;
+  background: #ffffff1f; box-shadow: inset 0 1px 2px #0006; }
+.ld-bar i { position: absolute; inset: 0; width: 40%; border-radius: inherit;
+  background: linear-gradient(90deg, transparent, #39f0b0, #ffd76a, transparent); animation: ld-bar 1.4s ease-in-out infinite; }
+@keyframes ld-bar { from { transform: translateX(-110%); } to { transform: translateX(260%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  #loading *, #loading::before, #loading::after { animation: none !important; }
+}
