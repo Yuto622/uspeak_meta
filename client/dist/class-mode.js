@@ -9,7 +9,8 @@
 // 表示は 英語を 大きく、日本語を 小さく。日本語も 両方 いつも 出すので、入れ物は translate="no"（画面の 訳の 層に 触らせない）。
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const bi = (en, ja) => `<b class="cm-en">${esc(en)}</b><small class="cm-ja">${esc(ja)}</small>`;
+// 英語（大）の 下に 日本語（小）。1 つの 箱に 入れて、flex の 中でも 縦に ならぶように。
+const bi = (en, ja) => `<span class="cm-bi"><b class="cm-en">${esc(en)}</b><small class="cm-ja">${esc(ja)}</small></span>`;
 
 export function createClassMode({ send, toast, speak, getHere, getGatherPoint, goPlace }) {
   let role = 'student';
