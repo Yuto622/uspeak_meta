@@ -62,6 +62,8 @@ import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, pla
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004 };
+// 名簿の「先生か」を 読みなおす 間かく（admin で 保存したら すぐ。名簿が スプレッドシートの ときの ための 保険）。
+const ROLE_RECHECK_MS = 60 * 1000;
 const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only within a lesson window
 // A little more room than the client shows the prompt in, so a position that arrived a
 // frame late never refuses a child who is visibly standing at the counter.
@@ -284,6 +286,10 @@ export class ClassRoom extends Room {
       version: () => options.access?.version ?? 0,
       snapshotPath: `${config.dataDir.replace(/\/$/, '')}/roster-snapshot.json`, log,
     });
+    // 名簿の 版（admin で 保存すると あがる）。かわったら・1 分ごとに 先生か どうかを 読みなおす（tick）。
+    this.accessVersion = () => options.access?.version ?? 0;
+    this.rolesVersion = this.accessVersion();
+    this.rolesCheckedAt = Date.now();
     // Who has a microphone open, and where they were standing when they opened it.
     this.voice = new Map();          // sessionId -> { room, at }
     this.race = null;                // のりもの島: one race per class, or none
@@ -306,7 +312,8 @@ export class ClassRoom extends Room {
     const name = sanitizeName(options?.name);
     if (!name) throw new ServerError(ERR.NAME_REQUIRED, 'name required');
     // 先生は 2 とおり：講師キーを 持っている 人と、admin の 名簿で「先生」に ✓ が ついている 人。
-    const role = isTeacherKey(options?.teacherKey) || await this.gate.isTeacher?.({ classCode: this.classCode, name }) ? 'teacher' : 'student';
+    const byKey = isTeacherKey(options?.teacherKey);
+    const role = byKey || await this.gate.isTeacher?.({ classCode: this.classCode, name }) ? 'teacher' : 'student';
     // 入場ゲート. A refusal here is a locked door, so the gate is written never to throw
     // and never to refuse a child it has seen before.
     const pass = await this.gate.allow({ classCode: this.classCode, name, role });
@@ -328,7 +335,7 @@ export class ClassRoom extends Room {
       log.info(`[room ${this.roomId}] evicting silent seat "${name}" (${id}, ${silentFor}ms)`);
       ghost?.leave(4003);
     }
-    return { name, role, avatar: sanitizeAvatar(options?.avatar) };
+    return { name, role, byKey, avatar: sanitizeAvatar(options?.avatar) };
   }
 
   async onJoin(client, options, auth) {
@@ -370,6 +377,8 @@ export class ClassRoom extends Room {
       if (record && record.space && now - lastSeen < POSITION_RESTORE_MS) position = { space: record.space, x: record.x, z: record.z };
     }
     priv.lastMoveAt = now;
+    // 講師キーで 入った 先生か（名簿の 先生は あとで 名簿が かわると 生徒に もどる。recheckRoles）。
+    priv.byKey = !!auth.byKey;
     this.priv.set(client.sessionId, priv);
 
     const player = new Player();
@@ -397,6 +406,36 @@ export class ClassRoom extends Room {
     log.info(`[room ${this.roomId}] join ${auth.role} "${auth.name}" (${client.sessionId}) restored=${restored} clients=${this.clients.length}`);
   }
 
+  // 名簿の「先生か」を 読みなおす。先生は 入った ときに 1 回 決めていたので、admin で false に しても
+  // 入ったままの 人・つなぎなおした 人は 先生の まま（授業モードの ボタンが 出たまま）だった。
+  // 講師キーで 入った 人は キーが 先生の しるしなので そのまま。かわったら 本人に 'role' を おくる。
+  async recheckRole(id) {
+    const player = this.state.players.get(id);
+    const priv = this.priv.get(id);
+    if (!player || !priv || priv.byKey || !this.gate?.isTeacher) return false;
+    const want = (await this.gate.isTeacher({ classCode: this.classCode, name: player.name })) ? 'teacher' : 'student';
+    if (want === player.role || !this.state.players.has(id)) return false;
+    player.role = want;
+    const client = this.clients.find((c) => c.sessionId === id);
+    if (client?.userData) client.userData.role = want;
+    if (want === 'teacher' && player.connected && !this.state.teacherId) this.state.teacherId = id;
+    if (want !== 'teacher' && this.state.teacherId === id) {
+      let next = '';
+      for (const [pid, p] of this.state.players) if (pid !== id && p.role === 'teacher' && p.connected) { next = pid; break; }
+      this.state.teacherId = next;
+    }
+    client?.send('role', { role: want, teacherId: this.state.teacherId });
+    log.info(`[room ${this.roomId}] role of "${player.name}" is now ${want} (register)`);
+    return true;
+  }
+  async recheckRoles() {
+    if (this.rolesChecking) return;
+    this.rolesChecking = true;
+    try { for (const id of [...this.state.players.keys()]) await this.recheckRole(id); }
+    catch (err) { log.warn(`[room ${this.roomId}] role recheck failed:`, err?.message || err); }
+    finally { this.rolesChecking = false; this.rolesCheckedAt = Date.now(); }
+  }
+
   async onLeave(client, consented) {
     const id = client.sessionId;
     const player = this.state.players.get(id);
@@ -415,6 +454,8 @@ export class ClassRoom extends Room {
       priv.reconnect = null;
       priv.lastMoveAt = Date.now();
       player.connected = true;
+      // つなぎなおし（トークン）は onAuth を 通らないので、名簿の「先生か」を ここで 読みなおす。
+      await this.recheckRole(id);
       if (player.role === 'teacher') this.state.teacherId = id;
       resumeFood(priv.food);
       newClient.send('welcome', this.welcomePayload(id, true, null));
@@ -942,6 +983,8 @@ export class ClassRoom extends Room {
 
   tick() {
     const now = Date.now();
+    const v = this.accessVersion();
+    if (v !== this.rolesVersion || now - this.rolesCheckedAt > ROLE_RECHECK_MS) { this.rolesVersion = v; this.rolesCheckedAt = now; this.recheckRoles(); }
     this.tickWorld(now);
     this.tickRace(now);
     this.tickVoice(now);

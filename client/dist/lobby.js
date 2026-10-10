@@ -57,5 +57,12 @@ export function createLobby({ onJoin, onOffline, defaultClass, prefs }) {
     setTimeout(() => $('#net-name').focus(), 50);
   }
   function close() { if (dialog.open) dialog.close(); }
-  return { open, close, busy, error, get isOpen() { return dialog.open; } };
+  // ログアウトの あと：前の 人の なまえ・クラス・講師キーを のこさない。
+  function reset() {
+    $('#net-name').value = '';
+    $('#net-class').value = defaultClass || '';
+    $('#net-key').value = '';
+    $('#net-teacher-details').open = false;
+  }
+  return { open, close, busy, error, reset, get isOpen() { return dialog.open; } };
 }

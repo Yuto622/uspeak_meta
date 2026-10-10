@@ -156,6 +156,31 @@ test('the 先生か column: true makes a teacher without the key, in either gate
   await api('/enforce', { method: 'PUT', body: { enforce: false } });
 });
 
+test('先生か false: a teacher who is already in the room becomes a student at once (no rejoin needed)', async () => {
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: true }, { name: 'Ken', teacher: false }] } });
+  const t = await join('Ms Kato', '6-2');
+  assert.equal((await nextMessage(t, 'welcome')).role, 'teacher');
+  const roleP = nextMessage(t, 'role', 4000);
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: false }, { name: 'Ken', teacher: false }] } });
+  assert.equal((await roleP).role, 'student');
+  // The room agrees: a class-mode command from her is ignored now.
+  t.send('class:freeze', { on: true });
+  await sleep(400);
+  assert.equal([...t.state.players.values()].find((p) => p.name === 'Ms Kato')?.role, 'student');
+  // …and true again gives it back.
+  const backP = nextMessage(t, 'role', 4000);
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: true }] } });
+  assert.equal((await backP).role, 'teacher');
+  await t.leave(); await sleep(100);
+  // A key teacher keeps the role whatever the register says.
+  const k = await join('Ms Kato', '6-3', { teacherKey: 'testkey12345' });
+  assert.equal((await nextMessage(k, 'welcome')).role, 'teacher');
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: false }] } });
+  await sleep(1600);
+  assert.equal([...k.state.players.values()].find((p) => p.name === 'Ms Kato')?.role, 'teacher');
+  await k.leave(); await sleep(100);
+});
+
 test('eight wrong passwords lock the door for a while', async () => {
   for (let i = 0; i < 8; i += 1) await fetch(`${http}/admin/login`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: 'password=nope', redirect: 'manual' });
   const locked = await fetch(`${http}/admin/login`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: 'password=owner-password-123', redirect: 'manual' });

@@ -444,6 +444,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
     if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); if (myLand.active) myLand.leave(true); town.hideHud(); voice.setMode('off'); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
+    const out = document.getElementById('logout-button'); if (out) out.hidden = !(mode === 'online' || mode === 'reconnecting');
     classMode.setOnline(mode === 'online' || mode === 'reconnecting');
   }
   function saveSession() {
@@ -621,6 +622,13 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('fw:sold', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onSold(m); });
     r.onMessage('fw:error', (m) => fishworld.onError(m));
     r.onMessage('wh:ask', (m) => wordhouse.onAsk(m));
+    // 名簿の「先生か」が かわった（admin で true / false）。授業モードの ボタン・先生コンソールを つけなおす。
+    r.onMessage('role', (m) => {
+      state.role = m.role === 'teacher' ? 'teacher' : 'student';
+      state.teacherId = m.teacherId || '';
+      classMode.setRole(state.role);
+      setMode(state.mode);
+    });
     r.onMessage('food:state', (m) => food.apply(m));
     r.onMessage('food:menu', (m) => food.onMenu(m));
     r.onMessage('food:bought', (m) => food.onBought(m));
@@ -774,6 +782,30 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       console.info('[net] resume probe timed out; forcing reconnect');
       room?.leave(false);
     }, NET.RESUME_PROBE_TIMEOUT_MS);
+  }
+
+  // ログアウト：クラスから でて、この ブラウザが おぼえている なまえ・クラスも わすれる（つぎの 人が つかえる）。
+  function logout() {
+    if (!confirm(tr('ログアウトしますか？ なまえと クラスを わすれます。'))) return;
+    goOffline(false);
+    storage.remove(localStorage, STORAGE_KEYS.prefs);
+    state.name = ''; state.classCode = ''; state.teacherKey = ''; state.role = 'student';
+    classMode.setRole('student');
+    lobby.reset();
+    lobby.open();
+  }
+  {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.id = 'logout-button';
+    b.className = 'logout-button';
+    b.hidden = true;
+    b.textContent = '⏏';
+    b.setAttribute('aria-label', 'ログアウト');
+    b.dataset.tLabel = 'ログアウト';
+    b.title = tr('ログアウト');
+    b.onclick = logout;
+    document.querySelector('#lang-toggle')?.after(b);
   }
 
   function goOffline(fromLobby = false) {

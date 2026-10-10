@@ -71,3 +71,10 @@ body:has(#net-status.online) .save-status{display:none}
  * 下端が WASD の説明に 10px かぶる。入りきらないぶんは枠の中でスクロールさせる
  * ——**外へはみ出して他のものに乗るより、中で動くほうがいい**。 */
 .quest-panel{max-height:calc(100vh - 215px);overflow:auto}
+/* ログアウト（net-client.js）。クラスに いる 間だけ 出る。 */
+.stats .logout-button{font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;background:#f1dcd2;color:#7a2a22}
+.stats .logout-button[hidden]{display:none}
+/* スマホ：上の バーが 画面から はみ出して「?」「あ」が 見えなかった（ログアウトも 入らない）。
+   ロゴは 絵だけ、XP の 数は マイページで 見る、すきまを つめる。 */
+@media (max-width:600px){.brand>div{display:none}.stats{gap:4px}.stats .record-button>span:not(.level){display:none}.stats .record-button .level{border-right:0;padding-right:0}}
+@media (max-width:380px){.stats{padding-right:4px;gap:3px}.stats button{width:25px}.stats button.wear-button{width:28px}.stats #avatar-button{width:28px;min-width:0;overflow:hidden;text-overflow:clip}}

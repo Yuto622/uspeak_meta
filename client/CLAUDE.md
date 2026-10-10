@@ -81,6 +81,12 @@ Roblox 版（USpeakTeacherLive / USpeakReviewServer）と 同じ 動き・同じ
 - **先生の 判定は サーバー**：講師キー、または **admin（/admin）の 名簿で「先生か」が true** の 名前（`roster` の `teacher` 列。
   CSV なら `teacher` か `先生か` の 列に true）。`gate.isTeacher()` が 名簿を 見て、`onAuth` が role を 決める。名簿の 入場 きりかえ
   （open / roster）とは 関係なく 効く。**名前だけで 先生に なれる**ので、先生の 名前は 子どもが 使わない ものに すること。
+- **名簿を かえたら 入ったままの 人にも すぐ 効く**（`ClassRoom.recheckRole`）。admin で 保存すると 名簿の 版が あがり、
+  tick が 全員の「先生か」を 読みなおして かわった 人に `role` を おくる（ボタン・先生コンソールが 消える／出る）。
+  トークンでの つなぎなおし（`onAuth` を 通らない）でも 読みなおす。1 分ごとにも 読む（名簿が スプレッドシートの とき）。
+  講師キーで 入った 人（`priv.byKey`）は 名簿に かかわらず 先生の まま。前は 入った ときの 1 回だけで、false に しても 出たままだった。
+- **ログアウト**：上の バーの ⏏（`#logout-button`、クラスに いる 間だけ）。クラスから でて、この ブラウザの なまえ・クラス
+  （`uspeak-net-prefs-v1`）と つなぎなおしの 情報を 消し、からの ロビーを 出す。共用の iPad で つぎの 子が つかえる。
 - **先生だけ**に 左上の「🎓 Class Mode」（`#class-mode-button`、`body.cm-teacher` で クエスト一覧を 下げる）。パネル（`#class-mode-panel`）は
   生徒の 一覧（`class:get` → `class:state`、開いている 間 4 秒ごと）と 4 つの ボタン。どれも 確認つき（英語＋小さく 日本語）。
   - 📣 Gather：`class:gather {space,x,z}` → 生徒に「📣 ○○ せんせいの ところに あつまるよ！」→ 1.5 秒後 `teleport`（先生の まわりに 円く）→「✨ ついたよ！」。**5 秒に 1 回**。
