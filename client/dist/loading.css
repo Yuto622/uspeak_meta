@@ -14,17 +14,13 @@
     radial-gradient(circle at 50% 42%, #1a0b3d 0%, #070418 55%, #02010a 100%);
 }
 /* 走査線と ノイズの うすい 膜（画面に 「次元の まど」の 手ざわり）。 */
-#loading::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 3;
-  background: repeating-linear-gradient(0deg, #ffffff06 0 1px, transparent 1px 3px);
-  mix-blend-mode: overlay;
-}
+/* 走査線の 膜は やめた（画面ぜんたいの 重ね塗りが 重い）。 */
 
 /* ---- ワープする 星 -------------------------------------------------------------------- */
 .ld-warp { position: absolute; inset: 0; perspective: 500px; pointer-events: none; }
 .ld-warp i {
   position: absolute; left: 50%; top: 42%; width: 2px; height: 2px; border-radius: 2px;
-  background: var(--c, #fff); box-shadow: 0 0 6px var(--c, #fff);
+  background: var(--c, #fff);
   transform: translate3d(var(--x), var(--y), -1600px) scaleZ(1);
   animation: ld-warp var(--d, 2.4s) linear infinite; animation-delay: var(--w, 0s);
 }
@@ -47,7 +43,7 @@
   animation: ld-tunnel 6s linear infinite; animation-delay: calc(var(--i) * -0.6s); }
 .ld-ring::before { content: ''; position: absolute; inset: 0; border-radius: 50%;
   border: 3px solid; border-color: #00ffd5 #8a5bff #ff4fd8 transparent;
-  box-shadow: 0 0 14px #8a5bffaa, inset 0 0 14px #00ffd555; }
+}
 @keyframes ld-tunnel {
   from { transform: translateZ(calc(var(--u) * -40)) rotate(0deg); opacity: 0; }
   12% { opacity: .9; }
@@ -55,53 +51,35 @@
   to { transform: translateZ(calc(var(--u) * 4)) rotate(180deg); opacity: 0; }
 }
 
-/* ながれる ネオンの 床。 */
-.ld-floor { position: absolute; width: calc(var(--u) * 60); height: calc(var(--u) * 60); margin: calc(var(--u) * -30);
-  transform: translateY(calc(var(--u) * 3.4)) rotateX(90deg);
-  background:
-    repeating-linear-gradient(0deg, #00ffd580 0 2px, transparent 2px calc(var(--u) * 2)),
-    repeating-linear-gradient(90deg, #8a5bff80 0 2px, transparent 2px calc(var(--u) * 2));
-  -webkit-mask: radial-gradient(circle, #000 0, #000 18%, transparent 55%); mask: radial-gradient(circle, #000 0, #000 18%, transparent 55%);
-  animation: ld-floor 2s linear infinite; }
-@keyframes ld-floor { to { background-position: 0 calc(var(--u) * 2), calc(var(--u) * 2) 0; } }
-
 /* 島（ゆっくり 1 周 まわる・ふわふわ うかぶ）。 */
 .ld-float { position: absolute; transform-style: preserve-3d; transform: translateY(calc(var(--u) * 1.2)); animation: ld-bob 4.5s ease-in-out infinite; }
-.ld-world { transform-style: preserve-3d; animation: ld-spin 26s linear infinite; }
+.ld-world { transform-style: preserve-3d; animation: ld-spin 9s ease-in-out infinite alternate; }
 @keyframes ld-bob { 0%, 100% { transform: translateY(calc(var(--u) * 1.2)); } 50% { transform: translateY(calc(var(--u) * .8)); } }
-@keyframes ld-spin { from { transform: rotateX(-24deg) rotateY(0deg); } to { transform: rotateX(-24deg) rotateY(360deg); } }
+@keyframes ld-spin { from { transform: rotateX(-24deg) rotateY(18deg); } to { transform: rotateX(-30deg) rotateY(72deg); } }
 
 /* 1 この 箱（上と 4 つの 横。下は 見えない）。 */
 .ld-c { position: absolute; width: var(--u); height: var(--u); margin: calc(var(--u) / -2); transform-style: preserve-3d;
   transform: translate3d(calc(var(--x) * var(--u)), calc(var(--y) * var(--u) * -1), calc(var(--z) * var(--u))); }
 .ld-c i { position: absolute; inset: 0; backface-visibility: hidden; }
-.ld-c .t { background: var(--t); transform: rotateX(90deg) translateZ(calc(var(--u) / 2)); box-shadow: inset 0 0 0 1px #ffffff26; }
+.ld-c .t { background: var(--t); transform: rotateX(90deg) translateZ(calc(var(--u) / 2)); }
 .ld-c .f { background: var(--f); transform: translateZ(calc(var(--u) / 2)); }
 .ld-c .b { background: var(--f); transform: rotateY(180deg) translateZ(calc(var(--u) / 2)); filter: brightness(.82); }
 .ld-c .r { background: var(--r); transform: rotateY(90deg) translateZ(calc(var(--u) / 2)); }
 .ld-c .l { background: var(--r); transform: rotateY(-90deg) translateZ(calc(var(--u) / 2)); filter: brightness(.9); }
-.ld-c.glow i { box-shadow: 0 0 calc(var(--u) * .7) var(--t), inset 0 0 calc(var(--u) * .3) #fff8; }
+.ld-c.glow i { filter: brightness(1.25); }
 /* 島の 下に たれる 光の しずく（次元の 結晶）。 */
-.ld-c.crystal i { background: linear-gradient(180deg, #a8fff0cc, #8a5bff88); box-shadow: 0 0 calc(var(--u) * .5) #8affef; }
+.ld-c.crystal i { background: linear-gradient(180deg, #a8fff0cc, #8a5bff88); }
 
-/* 島の 下の 光の 渦。 */
-.ld-vortex { position: absolute; width: calc(var(--u) * 10); height: calc(var(--u) * 10); margin: calc(var(--u) * -5);
-  border-radius: 50%; transform: translateY(calc(var(--u) * 2.6)) rotateX(90deg);
-  background: conic-gradient(from 0deg, #00ffd5aa, #8a5bff33, #ff4fd8aa, #00ffd533, #00ffd5aa);
-  -webkit-mask: radial-gradient(circle, transparent 18%, #000 30%, transparent 70%); mask: radial-gradient(circle, transparent 18%, #000 30%, transparent 70%);
-  filter: blur(2px); animation: ld-vortex 5s linear infinite; }
-@keyframes ld-vortex { to { transform: translateY(calc(var(--u) * 2.6)) rotateX(90deg) rotateZ(360deg); } }
-
-/* 島を まわる 英字の 立方体（H E L L O）。 */
+/* 島を まわる 英字の 立方体（H E L L O・横の 4 面だけ・転がさない）。 */
 .ld-orbit { position: absolute; transform-style: preserve-3d; animation: ld-orbit 11s linear infinite; }
 .ld-orbit.o2 { animation-duration: 15s; animation-direction: reverse; }
 @keyframes ld-orbit { from { transform: rotateX(-14deg) rotateY(0deg); } to { transform: rotateX(-14deg) rotateY(360deg); } }
 .ld-letter { position: absolute; width: calc(var(--u) * .9); height: calc(var(--u) * .9); margin: calc(var(--u) * -.45); transform-style: preserve-3d;
   transform: rotateY(var(--a)) translateZ(calc(var(--u) * var(--r, 5))) translateY(calc(var(--u) * var(--h, 0))); }
-.ld-letter > span { position: absolute; inset: 0; transform-style: preserve-3d; animation: ld-tumble 4s linear infinite; }
+.ld-letter > span { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-35deg) rotateX(-15deg); }
 .ld-letter b { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 4px;
   font: 900 calc(var(--u) * .6)/1 system-ui, sans-serif; color: #fff;
-  background: linear-gradient(135deg, var(--c1, #ff4fd8), var(--c2, #8a5bff)); box-shadow: inset 0 0 0 1px #fff7, 0 0 12px var(--c1, #ff4fd8);
+  background: linear-gradient(135deg, var(--c1, #ff4fd8), var(--c2, #8a5bff));
   backface-visibility: hidden; }
 .ld-letter b:nth-child(1) { transform: translateZ(calc(var(--u) * .45)); }
 .ld-letter b:nth-child(2) { transform: rotateY(180deg) translateZ(calc(var(--u) * .45)); }
@@ -109,7 +87,6 @@
 .ld-letter b:nth-child(4) { transform: rotateY(-90deg) translateZ(calc(var(--u) * .45)); }
 .ld-letter b:nth-child(5) { transform: rotateX(90deg) translateZ(calc(var(--u) * .45)); }
 .ld-letter b:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(var(--u) * .45)); }
-@keyframes ld-tumble { to { transform: rotateX(360deg) rotateY(180deg); } }
 
 /* 島と ロゴを つなぐ 光の 柱（十字に 2 まい）。 */
 .ld-beam { position: absolute; width: calc(var(--u) * 1.4); height: calc(var(--u) * 5.2); margin-left: calc(var(--u) * -.7);
@@ -125,8 +102,8 @@
 .ld-logo b { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 12px;
   font: 900 calc(var(--u) * 1.35)/1 system-ui, sans-serif; color: #fff;
   background: linear-gradient(135deg, #2fe0a2ee, #145c48ee);
-  box-shadow: inset 0 0 0 2px #ffffff80, inset 0 0 calc(var(--u)) #00ffd566, 0 0 calc(var(--u) * 1.2) #00ffd588;
-  text-shadow: 0 0 12px #fff, 0 0 24px #00ffd5; }
+  box-shadow: inset 0 0 0 2px #ffffff80;
+  text-shadow: 0 0 10px #00ffd5; }
 .ld-logo b span { color: #ffd76a; text-shadow: 0 0 12px #ffd76a; }
 .ld-logo b:nth-child(1) { transform: translateZ(calc(var(--u) * 1.1)); }
 .ld-logo b:nth-child(2) { transform: rotateY(180deg) translateZ(calc(var(--u) * 1.1)); }
@@ -148,20 +125,9 @@
   letter-spacing: -.02em; color: transparent;
   background: linear-gradient(100deg, #b8fff0 0%, #ffffff 18%, #ff8be4 32%, #8a5bff 46%, #00ffd5 60%, #ffffff 74%, #ffd76a 88%, #b8fff0 100%);
   background-size: 250% 100%; -webkit-background-clip: text; background-clip: text;
-  filter: drop-shadow(0 2px 0 #4b2bb0) drop-shadow(0 3px 0 #2a1677) drop-shadow(0 0 18px #8a5bffaa) drop-shadow(0 0 32px #00ffd566);
+  filter: drop-shadow(0 3px 0 #2a1677);
   animation: ld-holo 4s linear infinite; }
-#loading h2[data-text]::before, #loading h2[data-text]::after {
-  content: attr(data-text); position: absolute; inset: 0; -webkit-background-clip: initial; background: none; pointer-events: none; }
-#loading h2[data-text]::before { color: #00ffd5; transform: translate(-2px, 0); clip-path: inset(0 0 100% 0); animation: ld-glitch 3.2s steps(1) infinite; mix-blend-mode: screen; }
-#loading h2[data-text]::after { color: #ff4fd8; transform: translate(2px, 0); clip-path: inset(100% 0 0 0); animation: ld-glitch 3.2s steps(1) infinite reverse; mix-blend-mode: screen; }
 @keyframes ld-holo { to { background-position: -250% 0; } }
-@keyframes ld-glitch {
-  0%, 86%, 100% { clip-path: inset(0 0 100% 0); }
-  88% { clip-path: inset(10% 0 62% 0); transform: translate(-4px, 0); }
-  90% { clip-path: inset(55% 0 20% 0); transform: translate(3px, 0); }
-  92% { clip-path: inset(30% 0 45% 0); transform: translate(-2px, 0); }
-  94% { clip-path: inset(70% 0 5% 0); transform: translate(4px, 0); }
-}
 #loading p { margin: 0; font-size: 14px; letter-spacing: .12em; color: #d6fff6; text-shadow: 0 0 10px #00ffd5aa; }
 /* エネルギーの バー（すじが ながれる）。 */
 .ld-bar { position: relative; width: min(280px, 64vw); height: 8px; margin-top: 6px; border-radius: 99px; overflow: hidden;
@@ -178,6 +144,8 @@
   #loading { --u: clamp(18px, 6vmin, 30px); }
   .ld-text { bottom: 18px; gap: 4px; }
 }
+/* 重い 端末（コアや メモリが 少ない）と 省電力の 指定では、文字の 輪と トンネルを 止める（loading.js が ld-lite を つける）。 */
+#loading.ld-lite .ld-orbit, #loading.ld-lite #ld-tunnel, #loading.ld-lite .ld-beam { display: none; }
 @media (prefers-reduced-motion: reduce) {
   #loading *, #loading::before, #loading::after { animation: none !important; transition: none !important; }
   .ld-world { transform: rotateX(-24deg) rotateY(40deg); }
