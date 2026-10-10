@@ -1,0 +1,104 @@
+/* 島から 島へ 飛ぶ ときの 画面（ひこうき）。body[data-warp] の 間だけ 出る「次元の ワープ」。
+   3D の 空と ひこうきは そのまま 見せ、その 上に 光の すじ・ネオンの 輪・色ずれの ふちを かぶせる。
+   強さは 飛んでいる とちゅうで いちばん 強い（rpg.js が --warp に sin(πu) を 入れる）。
+   パネル（#rpg-flight-hud と テーマパーク行きの #travel-hud）も ホログラムの ガラスに する。 */
+#warp-fx { position: fixed; inset: 0; z-index: 14; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity .8s ease; }
+body[data-warp] #warp-fx { opacity: 1; }
+body { --warp: .6; }
+
+/* 光の すじ（まんなかから 外へ 走る 放射の 線。2 まいを 逆に まわす）。 */
+.wf-streaks { position: absolute; left: 50%; top: 45%; width: 220vmax; height: 220vmax; margin: -110vmax; border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, #ffffff00 0deg 3.2deg, #9ffcff55 3.4deg, #ffffff00 3.8deg 7deg, #d9a8ff44 7.2deg, #ffffff00 7.6deg 11deg);
+  -webkit-mask: radial-gradient(circle, transparent 7%, #000 22%, #000 45%, transparent 62%);
+  mask: radial-gradient(circle, transparent 7%, #000 22%, #000 45%, transparent 62%);
+  opacity: calc(.25 + var(--warp) * .75); animation: wf-spin 9s linear infinite, wf-zoom 1.1s linear infinite; }
+.wf-streaks + .wf-streaks { animation-duration: 13s, 1.6s; animation-direction: reverse, normal; filter: hue-rotate(60deg); opacity: calc(.15 + var(--warp) * .5); }
+@keyframes wf-spin { to { rotate: 360deg; } }
+@keyframes wf-zoom { from { scale: .92; } to { scale: 1.08; } }
+
+/* 手前へ 流れて くる ネオンの 輪（トンネル）。 */
+.wf-tunnel { position: absolute; inset: 0; perspective: 600px; perspective-origin: 50% 45%; }
+.wf-tunnel > div { position: absolute; left: 50%; top: 45%; transform-style: preserve-3d; }
+.wf-tunnel i { position: absolute; width: 90vmin; height: 90vmin; margin: -45vmin; border-radius: 50%;
+  border: 2px solid; border-color: #00ffd5 #8a5bff #ff4fd8 transparent;
+  box-shadow: 0 0 18px #8a5bffaa, inset 0 0 18px #00ffd566;
+  animation: wf-ring 3.2s linear infinite; animation-delay: calc(var(--i) * -0.53s); }
+@keyframes wf-ring {
+  from { transform: translateZ(-2400px) rotate(0deg); opacity: 0; }
+  15% { opacity: calc(var(--warp) * .9); }
+  85% { opacity: calc(var(--warp) * .9); }
+  to { transform: translateZ(560px) rotate(140deg); opacity: 0; }
+}
+
+/* 飛んで くる 光の つぶ。 */
+.wf-dust { position: absolute; inset: 0; perspective: 500px; perspective-origin: 50% 45%; }
+.wf-dust b { position: absolute; left: 50%; top: 45%; width: 3px; height: 3px; border-radius: 3px; background: var(--c); box-shadow: 0 0 8px var(--c);
+  transform: translate3d(var(--x), var(--y), -1800px); animation: wf-dust var(--d) linear infinite; animation-delay: var(--w); }
+@keyframes wf-dust { 0% { transform: translate3d(var(--x), var(--y), -1800px); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate3d(var(--x), var(--y), 480px); opacity: 1; } }
+
+/* ふち：色ずれ（水色と ピンク）＋ 暗い すみ＋ 走査線。 */
+.wf-edge { position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 45%, transparent 38%, #1a0b3d88 72%, #05021acc 100%),
+    linear-gradient(90deg, #00ffd533 0, transparent 9%, transparent 91%, #ff4fd833 100%);
+  box-shadow: inset 0 0 calc(40px + var(--warp) * 80px) #8a5bff66; }
+.wf-edge::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #ffffff07 0 1px, transparent 1px 3px); }
+/* まんなかの 光（ワープの 出口）。 */
+.wf-core { position: absolute; left: 50%; top: 45%; width: 30vmin; height: 30vmin; margin: -15vmin; border-radius: 50%;
+  background: radial-gradient(circle, #ffffffcc 0, #b8fff088 18%, #8a5bff33 45%, transparent 70%);
+  opacity: calc(var(--warp) * .8); filter: blur(4px); animation: wf-pulse 1.2s ease-in-out infinite; }
+@keyframes wf-pulse { 50% { scale: 1.25; } }
+
+/* ---- パネル（ホログラムの ガラス）---------------------------------------------------- */
+body[data-warp] #rpg-flight-hud, body[data-warp] #travel-hud {
+  background: linear-gradient(160deg, #12082ecc, #0a1a3acc); backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid transparent; border-radius: 22px; color: #eafff9;
+  background-clip: padding-box; box-shadow: 0 0 0 1px #8affef55, 0 0 30px #8a5bff66, inset 0 0 40px #00ffd522; overflow: hidden; }
+body[data-warp] #rpg-flight-hud::before, body[data-warp] #travel-hud::before {
+  content: ''; position: absolute; inset: -2px; border-radius: inherit; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--wf-a, 0deg), #00ffd5, #8a5bff, #ff4fd8, #ffd76a, #00ffd5);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: wf-border 4s linear infinite; }
+@property --wf-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes wf-border { to { --wf-a: 360deg; } }
+/* ひかりが パネルを なでる。 */
+body[data-warp] #rpg-flight-hud::after, body[data-warp] #travel-hud::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 40%; left: -50%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, #ffffff22, transparent); animation: wf-sheen 3.4s ease-in-out infinite; }
+@keyframes wf-sheen { to { left: 120%; } }
+body[data-warp] #rpg-flight-stage, body[data-warp] #travel-stage {
+  font: 700 11px/1.4 ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: .35em; color: #8affef; text-shadow: 0 0 10px #00ffd5; }
+body[data-warp] #rpg-flight-hud h2, body[data-warp] #travel-hud h2 {
+  font-weight: 900; font-size: clamp(24px, 5vmin, 34px); color: transparent; margin: 12px 0 16px;
+  background: linear-gradient(100deg, #b8fff0, #fff 20%, #ff8be4 40%, #8a5bff 60%, #00ffd5 80%, #b8fff0); background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 14px #8a5bffaa);
+  animation: wf-holo 3.5s linear infinite; }
+@keyframes wf-holo { to { background-position: -250% 0; } }
+/* すすみぐあい：エネルギーの バーと 先っぽの 光。 */
+body[data-warp] #rpg-flight-hud > div, body[data-warp] .travel-track {
+  height: 8px; border-radius: 99px; background: #ffffff14; box-shadow: 0 0 0 1px #8affef44; overflow: hidden; }
+body[data-warp] #rpg-flight-hud i, body[data-warp] .travel-track i {
+  position: relative; border-radius: inherit;
+  background: repeating-linear-gradient(110deg, #00ffd5 0 10px, #8a5bff 10px 20px, #ff4fd8 20px 30px); background-size: 60px 100%;
+  box-shadow: 0 0 12px #00ffd5; animation: wf-energy .5s linear infinite; }
+@keyframes wf-energy { to { background-position: 60px 0; } }
+body[data-warp] #rpg-flight-hud button, body[data-warp] #travel-action {
+  position: relative; z-index: 1; background: #ffffff10; color: #eafff9; border: 1px solid #8affef77; border-radius: 99px;
+  box-shadow: 0 0 14px #00ffd544; font-weight: 700; }
+body[data-warp] #rpg-flight-hud button:hover, body[data-warp] #travel-action:hover { background: #00ffd522; }
+
+/* 飛んでいる 間は 島の 道具（おなか・🏠・チャット・ビデオ通話・ランキング・左下の 入口）を しまう。 */
+body[data-warp] :is(.net-dock, .top-dock, .right-rail, #hunger, #main-island-button, .guest-dock, .rank-button, .voice-button, .fw-dexdock) {
+  opacity: 0 !important; pointer-events: none !important; transition: opacity .4s; }
+/* 横向きの 携帯：パネルを 小さく 下へ。 */
+@media (max-height: 560px) {
+  body[data-warp] #rpg-flight-hud, body[data-warp] #travel-hud { bottom: 12px; padding: 12px 20px; width: min(440px, 80vw); }
+  body[data-warp] #rpg-flight-hud h2, body[data-warp] #travel-hud h2 { font-size: 22px; margin: 6px 0 10px; }
+  body[data-warp] #rpg-flight-hud button, body[data-warp] #travel-action { margin-top: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #warp-fx *, #warp-fx *::after, body[data-warp] #rpg-flight-hud::before, body[data-warp] #rpg-flight-hud::after,
+  body[data-warp] #travel-hud::before, body[data-warp] #travel-hud::after { animation: none !important; }
+  .wf-tunnel, .wf-dust { display: none; }
+}
