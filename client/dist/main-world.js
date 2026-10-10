@@ -106,6 +106,13 @@ export function createMainWorld({ scene }) {
           // 専用の島と 同じ お店（中に入ると その島の 3D の メニュー）。
           house(def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color, Number(def.roof), { en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` });
           keep(def.x, def.z - 1.1 - def.d / 2, def.w / 2 + 1.5, def.d / 2 + 2);
+        } else if (def.kind === 'blockwild') {
+          // たてる ばしょの 入口：ブロックの アーチ。くぐると BLOCKWILD（ブロックの 世界）へ。
+          for (const sx of [-1.8, 1.8]) for (let y = 0; y < 4; y += 1) D(def.x + sx, 0.5 + y, def.z - 0.9, 1, 1, 1, y % 2 ? 0x8a9a4a : 0xb5603a);
+          for (let i = -2; i <= 2; i += 1) D(def.x + i * 0.9, 4.5, def.z - 0.9, 0.9, 1, 1, i % 2 ? 0x6fa8dc : 0xf3c33a);
+          for (const sx of [-1.8, 1.8]) obstacles.push({ x: def.x + sx, z: def.z - 0.9, w: 0.5, d: 0.5 });
+          sprite({ en: `${def.icon} BLOCKWILD`, ja: `${def.icon} BLOCKWILD で たてる` }, def.x, 5.8, def.z - 0.9, { width: 6.5 });
+          keep(def.x, def.z - 0.9, 2.6, 1);
         } else if (def.kind === 'food_shop') {
           // 屋台（買える）：しましまの屋根と カウンター。戸口（def）は 道がわ、屋台は その 南。
           const kz = def.z + 2.6;

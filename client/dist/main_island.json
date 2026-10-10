@@ -215,7 +215,7 @@
    "w": 66,
    "d": 156,
    "action": "ブロックを置ける広場（Web版では後回し）",
-   "phase": 3
+   "phase": 1
   },
   {
    "id": "season",
@@ -1242,6 +1242,21 @@
      }
     ],
     "kind": "talk_shop"
+   },
+   {
+    "id": "build_gate",
+    "kind": "blockwild",
+    "x": 9,
+    "z": -13.4,
+    "path": {
+     "x": 9,
+     "z": -7
+    },
+    "color": 11886650,
+    "character": "BLOCKWILD",
+    "en": "Build in BLOCKWILD",
+    "ja": "BLOCKWILD で たてる",
+    "icon": "⛏"
    }
   ],
   "deco": [
@@ -1277,8 +1292,9 @@
     "d": 12,
     "color": 13220234,
     "icon": "🏗",
-    "en": "Build Area",
-    "ja": "たてる ばしょ"
+    "en": "Build Area · BLOCKWILD",
+    "ja": "たてる ばしょ・BLOCKWILD",
+    "scenery": true
    },
    {
     "id": "arena1",
