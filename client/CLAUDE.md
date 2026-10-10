@@ -39,10 +39,13 @@
 
 ## 読みこみ画面（`#loading`／2026-10 更新）
 
-`index.html` の `#loading` と `loading.css`。**three.js が 来る 前に 出る ので WebGL を 使わず CSS の 3D だけ**：
-夜空と オーロラ、ボクセルの 島（`#ld-world` の 中の 箱を index.html の 小さな script が 56 こ 並べる。箱は 上・前・右の 3 面だけ。
-ゆれは rotateY 22°〜68° の 間なので 見えない 面は いらない。90° を こえて まわすなら 面を 足すこと）、まわる ロゴの 立方体、
-とびだす 題名、ながれる バー。`game.js` の 準備が おわると 今までどおり `#loading` ごと 消える。`prefers-reduced-motion` では 止まる。
+`index.html` の `#loading` と `loading.css` / `loading.js`（ふつうの script・three.js より先に動く）。**WebGL を 使わず CSS の 3D だけ**の
+「次元の とびら」：ワープする 星（`.ld-warp`）、奥へ つづく ネオンの 輪（`#ld-tunnel`）、ながれる グリッドの 床、1 周 まわる ボクセルの 島
+（箱は 上＋4 つの 横の 5 面）、島を まわる 英字の 立方体（HELLO / WORLD）、光の 柱、ロゴの 立方体、ホログラムの 題名（`data-text` で 色ずれ）。
+指や マウスで 画面ぜんたいが 傾き（`--tx` / `--ty`）、さわらない 間は ゆっくり 首を ふる。`game.js` の 準備が おわると `#loading` ごと 消え、
+loading.js の タイマーも 自分で 止まる。`prefers-reduced-motion` では 止まる。
+- **3D の 入れ物には 全部 `transform-style: preserve-3d` を 書く。** 1 つでも 抜けると その中が 平らに つぶれる
+  （トンネルの 輪 10 本が 1 本に 見えていた）。
 
 ## 島の音（環境音と、昼と夜のBGM／2026-09 更新）
 

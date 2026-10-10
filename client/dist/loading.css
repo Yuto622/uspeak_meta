@@ -1,94 +1,184 @@
 /* はじまりの 読みこみ画面（#loading）。three.js が 来る 前に 出る ので、WebGL ではなく CSS の 3D だけで 描く。
-   ボクセルの 島が 空に うかんで ゆっくり ゆれ、その 上で ロゴの 立方体が まわる。箱は index.html の 小さな script が 並べる。 */
+   「次元の とびら」：ワープする 星・奥へ つづく ネオンの 輪の トンネル・ながれる グリッドの 床・
+   まわる ボクセルの 島・島を まわる 英字の 立方体・光の 柱で つながる ロゴの 立方体・ホログラムの 題名。
+   箱・星・輪・文字は loading.js が 並べる。指や マウスで 画面ぜんたいが 傾く（--tx / --ty）。 */
 #loading {
-  --u: clamp(26px, 7.4vmin, 42px);
+  --u: clamp(24px, 6.6vmin, 40px);
+  --tx: 0deg; --ty: 0deg;
   position: fixed; inset: 0; z-index: 20; overflow: hidden;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
   color: #eafff4; text-align: center;
   background:
-    radial-gradient(1200px 700px at 50% 120%, #2fb89a55, transparent 60%),
-    radial-gradient(900px 600px at 50% -10%, #3b2f8a, transparent 70%),
-    linear-gradient(180deg, #0b1230 0%, #10264a 45%, #12485a 80%, #1b6b6a 100%);
+    radial-gradient(60vmax 40vmax at 50% 42%, #5b2bd655, transparent 70%),
+    radial-gradient(80vmax 50vmax at 50% 110%, #00e0b844, transparent 60%),
+    radial-gradient(circle at 50% 42%, #1a0b3d 0%, #070418 55%, #02010a 100%);
 }
-/* ほし（2 まいを ずらして またたかせる）。 */
-#loading::before, #loading::after {
-  content: ''; position: absolute; inset: -50%; pointer-events: none;
-  background-image:
-    radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
-    radial-gradient(1px 1px at 120px 80px, #cfe9ff, transparent),
-    radial-gradient(1.5px 1.5px at 200px 160px, #fff, transparent),
-    radial-gradient(1px 1px at 60px 190px, #ffe9b8, transparent),
-    radial-gradient(1px 1px at 170px 20px, #fff, transparent);
-  background-size: 240px 220px;
-  animation: ld-twinkle 4s ease-in-out infinite alternate;
+/* 走査線と ノイズの うすい 膜（画面に 「次元の まど」の 手ざわり）。 */
+#loading::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+  background: repeating-linear-gradient(0deg, #ffffff06 0 1px, transparent 1px 3px);
+  mix-blend-mode: overlay;
 }
-#loading::after { background-size: 330px 290px; opacity: .6; animation-delay: -2s; transform: rotate(14deg); }
-@keyframes ld-twinkle { from { opacity: .35; } to { opacity: 1; } }
 
-/* オーロラ。 */
-.ld-aurora { position: absolute; inset: 0; pointer-events: none; filter: blur(40px); opacity: .55; }
-.ld-aurora i { position: absolute; width: 70vmax; height: 22vmax; left: 15%; top: 8%; border-radius: 50%;
-  background: linear-gradient(90deg, #39f0b0, #4aa8ff 50%, #b06bff); animation: ld-aurora 9s ease-in-out infinite alternate; }
-.ld-aurora i + i { top: 20%; left: -10%; background: linear-gradient(90deg, #ff8bd1, #6be3ff); animation-duration: 12s; animation-delay: -4s; opacity: .7; }
-@keyframes ld-aurora { from { transform: translateX(-12%) rotate(-8deg) scaleY(.7); } to { transform: translateX(14%) rotate(6deg) scaleY(1.2); } }
+/* ---- ワープする 星 -------------------------------------------------------------------- */
+.ld-warp { position: absolute; inset: 0; perspective: 500px; pointer-events: none; }
+.ld-warp i {
+  position: absolute; left: 50%; top: 42%; width: 2px; height: 2px; border-radius: 2px;
+  background: var(--c, #fff); box-shadow: 0 0 6px var(--c, #fff);
+  transform: translate3d(var(--x), var(--y), -1600px) scaleZ(1);
+  animation: ld-warp var(--d, 2.4s) linear infinite; animation-delay: var(--w, 0s);
+}
+@keyframes ld-warp {
+  0% { transform: translate3d(var(--x), var(--y), -1600px); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate3d(var(--x), var(--y), 420px); opacity: 1; height: 2px; width: 2px; }
+}
 
-/* 3D の 舞台。 */
-.ld-stage { position: relative; width: calc(var(--u) * 9); height: calc(var(--u) * 11); perspective: calc(var(--u) * 40); margin-bottom: 6px; }
-.ld-float { position: absolute; left: 50%; top: 66%; transform-style: preserve-3d; animation: ld-bob 4.5s ease-in-out infinite; }
-.ld-world { transform-style: preserve-3d; transform: rotateX(-30deg) rotateY(45deg); animation: ld-sway 9s ease-in-out infinite alternate; }
-@keyframes ld-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(var(--u) * -.35)); } }
-@keyframes ld-sway { from { transform: rotateX(-28deg) rotateY(22deg); } to { transform: rotateX(-34deg) rotateY(68deg); } }
+/* ---- 3D の 舞台（カメラ）------------------------------------------------------------- */
+.ld-scene { position: absolute; inset: 0; perspective: calc(var(--u) * 26); perspective-origin: 50% 42%; pointer-events: none; }
+.ld-cam { position: absolute; left: 50%; top: 42%; transform-style: preserve-3d;
+  transform: rotateX(var(--ty)) rotateY(var(--tx)); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
 
-/* 1 この 箱（上・前・右の 3 面。ゆれ幅は 0〜90° の 中なので 見えない 面は いらない）。 */
+/* 奥へ つづく 輪の トンネル。入れ物も 3D に しないと 輪が 1 まいに つぶれる。 */
+#ld-tunnel { position: absolute; transform-style: preserve-3d; }
+.ld-ring { position: absolute; width: calc(var(--u) * 14); height: calc(var(--u) * 14); margin: calc(var(--u) * -7);
+  border-radius: 50%; transform-style: preserve-3d;
+  transform: translateZ(calc(var(--i) * var(--u) * -4)) rotate(calc(var(--i) * 17deg));
+  animation: ld-tunnel 6s linear infinite; animation-delay: calc(var(--i) * -0.6s); }
+.ld-ring::before { content: ''; position: absolute; inset: 0; border-radius: 50%;
+  border: 3px solid; border-color: #00ffd5 #8a5bff #ff4fd8 transparent;
+  box-shadow: 0 0 14px #8a5bffaa, inset 0 0 14px #00ffd555; }
+@keyframes ld-tunnel {
+  from { transform: translateZ(calc(var(--u) * -40)) rotate(0deg); opacity: 0; }
+  12% { opacity: .9; }
+  88% { opacity: .9; }
+  to { transform: translateZ(calc(var(--u) * 4)) rotate(180deg); opacity: 0; }
+}
+
+/* ながれる ネオンの 床。 */
+.ld-floor { position: absolute; width: calc(var(--u) * 60); height: calc(var(--u) * 60); margin: calc(var(--u) * -30);
+  transform: translateY(calc(var(--u) * 3.4)) rotateX(90deg);
+  background:
+    repeating-linear-gradient(0deg, #00ffd580 0 2px, transparent 2px calc(var(--u) * 2)),
+    repeating-linear-gradient(90deg, #8a5bff80 0 2px, transparent 2px calc(var(--u) * 2));
+  -webkit-mask: radial-gradient(circle, #000 0, #000 18%, transparent 55%); mask: radial-gradient(circle, #000 0, #000 18%, transparent 55%);
+  animation: ld-floor 2s linear infinite; }
+@keyframes ld-floor { to { background-position: 0 calc(var(--u) * 2), calc(var(--u) * 2) 0; } }
+
+/* 島（ゆっくり 1 周 まわる・ふわふわ うかぶ）。 */
+.ld-float { position: absolute; transform-style: preserve-3d; transform: translateY(calc(var(--u) * 1.2)); animation: ld-bob 4.5s ease-in-out infinite; }
+.ld-world { transform-style: preserve-3d; animation: ld-spin 26s linear infinite; }
+@keyframes ld-bob { 0%, 100% { transform: translateY(calc(var(--u) * 1.2)); } 50% { transform: translateY(calc(var(--u) * .8)); } }
+@keyframes ld-spin { from { transform: rotateX(-24deg) rotateY(0deg); } to { transform: rotateX(-24deg) rotateY(360deg); } }
+
+/* 1 この 箱（上と 4 つの 横。下は 見えない）。 */
 .ld-c { position: absolute; width: var(--u); height: var(--u); margin: calc(var(--u) / -2); transform-style: preserve-3d;
   transform: translate3d(calc(var(--x) * var(--u)), calc(var(--y) * var(--u) * -1), calc(var(--z) * var(--u))); }
 .ld-c i { position: absolute; inset: 0; backface-visibility: hidden; }
-.ld-c .t { background: var(--t); transform: rotateX(90deg) translateZ(calc(var(--u) / 2)); box-shadow: inset 0 0 0 1px #ffffff22; }
+.ld-c .t { background: var(--t); transform: rotateX(90deg) translateZ(calc(var(--u) / 2)); box-shadow: inset 0 0 0 1px #ffffff26; }
 .ld-c .f { background: var(--f); transform: translateZ(calc(var(--u) / 2)); }
+.ld-c .b { background: var(--f); transform: rotateY(180deg) translateZ(calc(var(--u) / 2)); filter: brightness(.82); }
 .ld-c .r { background: var(--r); transform: rotateY(90deg) translateZ(calc(var(--u) / 2)); }
-.ld-c.lamp .t, .ld-c.lamp .f, .ld-c.lamp .r { box-shadow: 0 0 calc(var(--u) * .6) #ffd76a; }
+.ld-c .l { background: var(--r); transform: rotateY(-90deg) translateZ(calc(var(--u) / 2)); filter: brightness(.9); }
+.ld-c.glow i { box-shadow: 0 0 calc(var(--u) * .7) var(--t), inset 0 0 calc(var(--u) * .3) #fff8; }
+/* 島の 下に たれる 光の しずく（次元の 結晶）。 */
+.ld-c.crystal i { background: linear-gradient(180deg, #a8fff0cc, #8a5bff88); box-shadow: 0 0 calc(var(--u) * .5) #8affef; }
 
-/* 島の 下の 光る 海と 影。 */
-.ld-sea { position: absolute; width: calc(var(--u) * 9); height: calc(var(--u) * 9); left: calc(var(--u) * -4.5); top: calc(var(--u) * -4.5);
-  border-radius: 50%; transform: rotateX(90deg) translateZ(calc(var(--u) * -1.6));
-  background: radial-gradient(circle, #5fe3d0aa 0, #2aa8b855 40%, transparent 70%); animation: ld-pulse 3s ease-in-out infinite; }
-@keyframes ld-pulse { 0%, 100% { opacity: .55; transform: rotateX(90deg) translateZ(calc(var(--u) * -1.6)) scale(.92); } 50% { opacity: 1; transform: rotateX(90deg) translateZ(calc(var(--u) * -1.6)) scale(1.05); } }
+/* 島の 下の 光の 渦。 */
+.ld-vortex { position: absolute; width: calc(var(--u) * 10); height: calc(var(--u) * 10); margin: calc(var(--u) * -5);
+  border-radius: 50%; transform: translateY(calc(var(--u) * 2.6)) rotateX(90deg);
+  background: conic-gradient(from 0deg, #00ffd5aa, #8a5bff33, #ff4fd8aa, #00ffd533, #00ffd5aa);
+  -webkit-mask: radial-gradient(circle, transparent 18%, #000 30%, transparent 70%); mask: radial-gradient(circle, transparent 18%, #000 30%, transparent 70%);
+  filter: blur(2px); animation: ld-vortex 5s linear infinite; }
+@keyframes ld-vortex { to { transform: translateY(calc(var(--u) * 2.6)) rotateX(90deg) rotateZ(360deg); } }
 
-/* うかぶ ロゴの 立方体（6 面・まわる）。 */
-.ld-logo { position: absolute; left: 50%; top: 0; width: calc(var(--u) * 2); height: calc(var(--u) * 2); margin-left: calc(var(--u) * -1);
-  transform-style: preserve-3d; animation: ld-turn 7s linear infinite, ld-hover 3s ease-in-out infinite; }
-.ld-logo b { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 10px;
-  font: 800 calc(var(--u) * 1.2)/1 system-ui, sans-serif; color: #fff9e8;
-  background: linear-gradient(135deg, #3fae7c, #1b5a45); box-shadow: inset 0 0 0 2px #ffffff40, 0 0 calc(var(--u)) #39f0b066; }
-.ld-logo b:nth-child(1) { transform: translateZ(var(--u)); }
-.ld-logo b:nth-child(2) { transform: rotateY(180deg) translateZ(var(--u)); }
-.ld-logo b:nth-child(3) { transform: rotateY(90deg) translateZ(var(--u)); background: linear-gradient(135deg, #f0a24c, #c4601f); }
-.ld-logo b:nth-child(4) { transform: rotateY(-90deg) translateZ(var(--u)); background: linear-gradient(135deg, #f0a24c, #c4601f); }
-.ld-logo b:nth-child(5) { transform: rotateX(90deg) translateZ(var(--u)); background: #7fe0b5; }
-.ld-logo b:nth-child(6) { transform: rotateX(-90deg) translateZ(var(--u)); background: #123d31; }
-.ld-logo b span { color: #ffd76a; }
-@keyframes ld-hover { 0%, 100% { transform: translateY(0) rotateX(-18deg) rotateY(var(--spin, 0deg)); } 50% { transform: translateY(calc(var(--u) * -.3)) rotateX(-18deg) rotateY(var(--spin, 0deg)); } }
-@property --spin { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-@keyframes ld-turn { to { --spin: 360deg; } }
-/* 立方体の 下の ひかりの 輪。 */
-.ld-ring { position: absolute; left: 50%; top: 8%; width: calc(var(--u) * 4); height: calc(var(--u) * 4); margin-left: calc(var(--u) * -2);
-  border-radius: 50%; border: 2px solid #8affd9aa; transform: rotateX(75deg); box-shadow: 0 0 20px #39f0b088, inset 0 0 20px #39f0b055;
-  animation: ld-ring 2.4s ease-out infinite; }
-.ld-ring + .ld-ring { animation-delay: -1.2s; }
-@keyframes ld-ring { from { opacity: .9; scale: .5; } to { opacity: 0; scale: 1.4; } }
+/* 島を まわる 英字の 立方体（H E L L O）。 */
+.ld-orbit { position: absolute; transform-style: preserve-3d; animation: ld-orbit 11s linear infinite; }
+.ld-orbit.o2 { animation-duration: 15s; animation-direction: reverse; }
+@keyframes ld-orbit { from { transform: rotateX(-14deg) rotateY(0deg); } to { transform: rotateX(-14deg) rotateY(360deg); } }
+.ld-letter { position: absolute; width: calc(var(--u) * .9); height: calc(var(--u) * .9); margin: calc(var(--u) * -.45); transform-style: preserve-3d;
+  transform: rotateY(var(--a)) translateZ(calc(var(--u) * var(--r, 5))) translateY(calc(var(--u) * var(--h, 0))); }
+.ld-letter > span { position: absolute; inset: 0; transform-style: preserve-3d; animation: ld-tumble 4s linear infinite; }
+.ld-letter b { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 4px;
+  font: 900 calc(var(--u) * .6)/1 system-ui, sans-serif; color: #fff;
+  background: linear-gradient(135deg, var(--c1, #ff4fd8), var(--c2, #8a5bff)); box-shadow: inset 0 0 0 1px #fff7, 0 0 12px var(--c1, #ff4fd8);
+  backface-visibility: hidden; }
+.ld-letter b:nth-child(1) { transform: translateZ(calc(var(--u) * .45)); }
+.ld-letter b:nth-child(2) { transform: rotateY(180deg) translateZ(calc(var(--u) * .45)); }
+.ld-letter b:nth-child(3) { transform: rotateY(90deg) translateZ(calc(var(--u) * .45)); }
+.ld-letter b:nth-child(4) { transform: rotateY(-90deg) translateZ(calc(var(--u) * .45)); }
+.ld-letter b:nth-child(5) { transform: rotateX(90deg) translateZ(calc(var(--u) * .45)); }
+.ld-letter b:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(var(--u) * .45)); }
+@keyframes ld-tumble { to { transform: rotateX(360deg) rotateY(180deg); } }
 
-/* 文字：とびだす 3D の 題名。 */
-#loading h2 { margin: 0; font: 800 clamp(28px, 7.5vmin, 54px)/1.05 system-ui, -apple-system, 'Hiragino Sans', sans-serif; letter-spacing: -.5px;
-  color: #f4fff9; position: relative; z-index: 1;
-  text-shadow: 0 1px 0 #a6e8cf, 0 2px 0 #7fd3b5, 0 3px 0 #5bbd9b, 0 4px 0 #3fa483, 0 5px 0 #2a8a6c, 0 6px 0 #1d6f57,
-    0 10px 18px #0009, 0 0 40px #39f0b055; }
-#loading p { margin: 6px 0 0; font-size: 14px; letter-spacing: .08em; color: #bfeee0; position: relative; z-index: 1; }
-.ld-bar { position: relative; z-index: 1; width: min(240px, 60vw); height: 6px; margin-top: 14px; border-radius: 99px; overflow: hidden;
-  background: #ffffff1f; box-shadow: inset 0 1px 2px #0006; }
-.ld-bar i { position: absolute; inset: 0; width: 40%; border-radius: inherit;
-  background: linear-gradient(90deg, transparent, #39f0b0, #ffd76a, transparent); animation: ld-bar 1.4s ease-in-out infinite; }
-@keyframes ld-bar { from { transform: translateX(-110%); } to { transform: translateX(260%); } }
+/* 島と ロゴを つなぐ 光の 柱（十字に 2 まい）。 */
+.ld-beam { position: absolute; width: calc(var(--u) * 1.4); height: calc(var(--u) * 5.2); margin-left: calc(var(--u) * -.7);
+  top: calc(var(--u) * -5.6); transform-style: preserve-3d; animation: ld-beam 1.6s ease-in-out infinite; }
+.ld-beam i { position: absolute; inset: 0; background: linear-gradient(0deg, #00ffd500, #00ffd5aa 40%, #ffffffcc 50%, #8a5bffaa 60%, #8a5bff00);
+  -webkit-mask: linear-gradient(90deg, transparent, #000 35%, #000 65%, transparent); mask: linear-gradient(90deg, transparent, #000 35%, #000 65%, transparent); }
+.ld-beam i + i { transform: rotateY(90deg); }
+@keyframes ld-beam { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
 
+/* うかぶ ロゴの 立方体（ガラスの ような 光る 6 面）。 */
+.ld-logo { position: absolute; width: calc(var(--u) * 2.2); height: calc(var(--u) * 2.2); margin: calc(var(--u) * -1.1);
+  top: calc(var(--u) * -6.8); transform-style: preserve-3d; animation: ld-logo 8s linear infinite; }
+.ld-logo b { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 12px;
+  font: 900 calc(var(--u) * 1.35)/1 system-ui, sans-serif; color: #fff;
+  background: linear-gradient(135deg, #2fe0a2ee, #145c48ee);
+  box-shadow: inset 0 0 0 2px #ffffff80, inset 0 0 calc(var(--u)) #00ffd566, 0 0 calc(var(--u) * 1.2) #00ffd588;
+  text-shadow: 0 0 12px #fff, 0 0 24px #00ffd5; }
+.ld-logo b span { color: #ffd76a; text-shadow: 0 0 12px #ffd76a; }
+.ld-logo b:nth-child(1) { transform: translateZ(calc(var(--u) * 1.1)); }
+.ld-logo b:nth-child(2) { transform: rotateY(180deg) translateZ(calc(var(--u) * 1.1)); }
+.ld-logo b:nth-child(3) { transform: rotateY(90deg) translateZ(calc(var(--u) * 1.1)); background: linear-gradient(135deg, #ff9b4aee, #b4421cee); }
+.ld-logo b:nth-child(4) { transform: rotateY(-90deg) translateZ(calc(var(--u) * 1.1)); background: linear-gradient(135deg, #ff9b4aee, #b4421cee); }
+.ld-logo b:nth-child(5) { transform: rotateX(90deg) translateZ(calc(var(--u) * 1.1)); background: linear-gradient(135deg, #b8fff0, #4fe0c0); }
+.ld-logo b:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(var(--u) * 1.1)); background: #0b2e26; }
+@keyframes ld-logo {
+  0% { transform: translateY(0) rotateX(-20deg) rotateY(0deg); }
+  50% { transform: translateY(calc(var(--u) * -.4)) rotateX(-20deg) rotateY(180deg); }
+  100% { transform: translateY(0) rotateX(-20deg) rotateY(360deg); }
+}
+
+/* ---- 文字 ----------------------------------------------------------------------------- */
+.ld-text { position: absolute; left: 0; right: 0; bottom: max(9vh, 64px); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.ld-eyebrow { font: 700 11px/1 ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: .5em; color: #8affef; text-shadow: 0 0 10px #00ffd5; opacity: .9; }
+/* ホログラムの 題名：虹色が ながれ、ときどき 色が ずれて ゆらぐ。 */
+#loading h2 { position: relative; margin: 0; font: 900 clamp(32px, 8.5vmin, 64px)/1.02 system-ui, -apple-system, 'Hiragino Sans', sans-serif;
+  letter-spacing: -.02em; color: transparent;
+  background: linear-gradient(100deg, #b8fff0 0%, #ffffff 18%, #ff8be4 32%, #8a5bff 46%, #00ffd5 60%, #ffffff 74%, #ffd76a 88%, #b8fff0 100%);
+  background-size: 250% 100%; -webkit-background-clip: text; background-clip: text;
+  filter: drop-shadow(0 2px 0 #4b2bb0) drop-shadow(0 3px 0 #2a1677) drop-shadow(0 0 18px #8a5bffaa) drop-shadow(0 0 32px #00ffd566);
+  animation: ld-holo 4s linear infinite; }
+#loading h2[data-text]::before, #loading h2[data-text]::after {
+  content: attr(data-text); position: absolute; inset: 0; -webkit-background-clip: initial; background: none; pointer-events: none; }
+#loading h2[data-text]::before { color: #00ffd5; transform: translate(-2px, 0); clip-path: inset(0 0 100% 0); animation: ld-glitch 3.2s steps(1) infinite; mix-blend-mode: screen; }
+#loading h2[data-text]::after { color: #ff4fd8; transform: translate(2px, 0); clip-path: inset(100% 0 0 0); animation: ld-glitch 3.2s steps(1) infinite reverse; mix-blend-mode: screen; }
+@keyframes ld-holo { to { background-position: -250% 0; } }
+@keyframes ld-glitch {
+  0%, 86%, 100% { clip-path: inset(0 0 100% 0); }
+  88% { clip-path: inset(10% 0 62% 0); transform: translate(-4px, 0); }
+  90% { clip-path: inset(55% 0 20% 0); transform: translate(3px, 0); }
+  92% { clip-path: inset(30% 0 45% 0); transform: translate(-2px, 0); }
+  94% { clip-path: inset(70% 0 5% 0); transform: translate(4px, 0); }
+}
+#loading p { margin: 0; font-size: 14px; letter-spacing: .12em; color: #d6fff6; text-shadow: 0 0 10px #00ffd5aa; }
+/* エネルギーの バー（すじが ながれる）。 */
+.ld-bar { position: relative; width: min(280px, 64vw); height: 8px; margin-top: 6px; border-radius: 99px; overflow: hidden;
+  background: #ffffff12; box-shadow: 0 0 0 1px #8affef55, 0 0 18px #8a5bff55 inset; }
+.ld-bar i { position: absolute; inset: 0; background: repeating-linear-gradient(110deg, #00ffd5 0 10px, #8a5bff 10px 20px, #ff4fd8 20px 30px);
+  background-size: 60px 100%; animation: ld-energy .6s linear infinite; opacity: .9;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); mask: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); }
+@keyframes ld-energy { to { background-position: 60px 0; } }
+
+/* 3D が 出せない（WebGL が ない）ときの 文も 読めるように。 */
+#loading > h2:first-child, #loading > h2:first-child + p { position: relative; z-index: 2; }
+
+@media (max-height: 520px) {
+  #loading { --u: clamp(18px, 6vmin, 30px); }
+  .ld-text { bottom: 18px; gap: 4px; }
+}
 @media (prefers-reduced-motion: reduce) {
-  #loading *, #loading::before, #loading::after { animation: none !important; }
+  #loading *, #loading::before, #loading::after { animation: none !important; transition: none !important; }
+  .ld-world { transform: rotateX(-24deg) rotateY(40deg); }
 }
