@@ -284,7 +284,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   let bag = null;
   const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh() });
   // 持ち物（🎒）：たべもの・ふく・いえ・ブロック。中身は 部屋（bag:get）。
-  bag = createBagUI({ send: plainSend, toast, isOnline: () => state.mode === 'online', food });
+  bag = createBagUI({ send: plainSend, toast, isOnline: () => state.mode === 'online', food, renderer });
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
     send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash, food,
