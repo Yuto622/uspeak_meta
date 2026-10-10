@@ -68,11 +68,11 @@ body[data-race] #class-mode-button, body[data-gp] #class-mode-button, body[data-
 #class-mode-cover { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: #0b1d16cc; backdrop-filter: blur(6px); color: #fffbf5; text-align: center; }
 #class-mode-cover[hidden] { display: none; }
 .cm-stop, .cm-go { display: grid; justify-items: center; gap: 8px; padding: 28px 34px; border-radius: 26px; background: #1b3a2f; box-shadow: 0 0 0 4px #e27a2d, 0 20px 60px #0008; max-width: 92vw; }
-.cm-stop > span, .cm-go > span { font-size: 72px; line-height: 1; }
+.cm-stop > span:not(.cm-bi), .cm-go > span:not(.cm-bi) { font-size: 72px; line-height: 1; }
 .cm-stop .cm-en, .cm-go .cm-en { font-size: clamp(26px, 6vmin, 44px); }
 .cm-stop .cm-ja, .cm-go .cm-ja { font-size: clamp(14px, 3vmin, 20px); }
 .cm-go strong { font-size: 64px; color: #e27a2d; line-height: 1; }
-.cm-stop > span { animation: cm-wave 1.6s ease-in-out infinite; }
+.cm-stop > span:not(.cm-bi) { animation: cm-wave 1.6s ease-in-out infinite; }
 @keyframes cm-wave { 50% { rotate: -14deg; } }
 /* あつまる帯。 */
 #class-mode-band { position: fixed; left: 50%; top: 92px; transform: translateX(-50%); z-index: 59; display: flex; align-items: center; gap: 10px;
@@ -117,4 +117,4 @@ body[data-race] #class-mode-button, body[data-gp] #class-mode-button, body[data-
 #review-offer button .cm-ja { font-size: 11px; }
 @media (pointer: coarse) { #review-offer { bottom: 250px; } }
 @media (pointer: coarse) and (max-height: 560px) { #review-offer { bottom: 12px; } }
-@media (prefers-reduced-motion: reduce) { .cm-stop > span { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .cm-stop > span:not(.cm-bi) { animation: none; } }

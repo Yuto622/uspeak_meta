@@ -296,7 +296,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const plainSend = (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); };
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
-  const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh() });
+  const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh(), onGoFood: () => main?.goHome() });
   // 持ち物（🎒）：たべもの・ふく・いえ・ブロック。中身は 部屋（bag:get）。
   bag = createBagUI({ send: plainSend, toast, isOnline: () => state.mode === 'online', food, renderer });
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });

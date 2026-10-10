@@ -10,7 +10,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const bi = (en, ja) => `<b class="en">${en}</b><i class="ja">${ja}</i>`;
 const ICONS = 10;
 
-export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {}, onBagOpen = null, onChange = () => {} }) {
+export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {}, onBagOpen = null, onChange = () => {}, onGoFood = null }) {
   const state = { hunger: 20, max: 20, rateMs: 0, slow: 0.6, at: performance.now(), bag: [], shop: '', menu: null, coins: 0, warned: '' };
 
   // ---- 右上の ゲージ ----
@@ -23,6 +23,35 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
   gauge.innerHTML = `<span class="hg-bag" aria-hidden="true">🎒</span><span class="hg-icons" aria-hidden="true">${Array.from({ length: ICONS }, () => '<i></i>').join('')}</span>`;
   gauge.onclick = () => (onBagOpen ? onBagOpen() : openBag());
   document.body.append(gauge);
+
+  // ---- おなかが すいた ときの 帯（上の まんなか）。0 の 間は 消えない。少ない ときは やさしく。 ----
+  // 何が おきているか（歩くのが おそい わけ）と、どうすれば いいか（たべる・かう）を いっしょに 見せる。
+  const notice = document.createElement('div');
+  notice.id = 'hunger-notice';
+  notice.hidden = true;
+  notice.setAttribute('role', 'status');
+  notice.innerHTML = `<span class="hn-ic" aria-hidden="true">🍗</span><span class="hn-text"><b class="hn-en en" translate="no"></b><i class="hn-ja"></i></span>
+    <button type="button" class="hn-go"></button><button type="button" class="hn-x" aria-label="とじる" data-t-label="とじる">✕</button>`;
+  document.body.append(notice);
+  let noticeHiddenFor = '';
+  $('.hn-x', notice).onclick = () => { noticeHiddenFor = notice.dataset.level || ''; notice.hidden = true; };
+  $('.hn-go', notice).onclick = () => {
+    if (state.bag.length || !onGoFood) (onBagOpen ? onBagOpen() : openBag());
+    else onGoFood();
+  };
+  function paintNotice(level) {
+    const busy = document.body.dataset.arcade || document.body.dataset.race || document.body.dataset.gp || document.body.dataset.main || document.body.classList.contains('on-journey');
+    if (!level || !isOnline() || busy || noticeHiddenFor === level) { notice.hidden = true; if (!level) noticeHiddenFor = ''; return; }
+    const food = state.bag.length > 0;
+    const [en, ja] = level === 'empty'
+      ? ["You're hungry, so you walk slowly. Buy food to walk fast again!", 'おなかが すいてるよ。ごはんを かって、あるく スピードを あげよう！']
+      : ['Getting hungry. Eat something soon!', 'おなかが すいてきたよ。はやめに たべよう。'];
+    notice.dataset.level = level;
+    $('.hn-en', notice).textContent = en;
+    $('.hn-ja', notice).textContent = ja;
+    $('.hn-go', notice).innerHTML = food || !onGoFood ? bi('🎒 Eat', '🎒 たべる') : bi('🏠 Buy food', '🏠 かいに いく');
+    notice.hidden = false;
+  }
 
   // ---- 屋台と かばんの 画面 ----
   const dialog = document.createElement('dialog');
@@ -59,14 +88,12 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
     gauge.classList.toggle('low', h <= state.max * 0.3);
     gauge.classList.toggle('empty', h <= 0);
     gauge.title = `${Math.ceil(h)} / ${state.max}`;
-    // ひとこと：少なくなったとき・0 に なったとき、1 回ずつ。
-    const level = h <= 0 ? 'empty' : h <= state.max * 0.3 ? 'low' : '';
-    if (level && level !== state.warned && isOnline()) {
-      toast(tr(level === 'empty' ? 'おなかが ぺこぺこ… あるくのが おそく なるよ。メインの島の やたいで たべものを かおう！' : 'おなかが すいてきた。🍗 を おすと たべられるよ。'));
-    }
+    // 少なくなったとき・0 に なったとき：上の 帯（0 の 間は 出しっぱなし。✕ で その だんかいの 間だけ 消せる）。
+    const level = !state.rateMs ? '' : h <= 0 ? 'empty' : h <= state.max * 0.3 ? 'low' : '';
     state.warned = level;
+    paintNotice(level);
   }
-  setInterval(() => { gauge.hidden = !isOnline() || document.body.dataset.arcade || document.body.dataset.race || document.body.dataset.gp ? true : false; if (!gauge.hidden) paintGauge(); }, 1000);
+  setInterval(() => { gauge.hidden = !isOnline() || document.body.dataset.arcade || document.body.dataset.race || document.body.dataset.gp ? true : false; if (!gauge.hidden) paintGauge(); else paintNotice(''); }, 1000);
 
   const fillIcons = (n) => `${'🍗'.repeat(Math.floor(n / 2))}${n % 2 ? '½' : ''}`;
   function itemCard(it) {
@@ -140,12 +167,12 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
     if (dialog.open) paint();
   }
 
-  onLangChange(() => { if (dialog.open) paint(); });
+  onLangChange(() => { if (dialog.open) paint(); paintGauge(); });
 
   return {
     openShop, openBag, apply, onMenu, onBought, onAte, onError,
     // 歩く はやさに かける 数（0 で おそく）。
     speedFactor: () => (isOnline() && state.rateMs && now() <= 0 ? state.slow : 1),
-    get hunger() { return now(); }, state, gauge,
+    get hunger() { return now(); }, state, gauge, notice,
   };
 }

@@ -149,7 +149,7 @@ Roblox 版（USpeakTeacherLive / USpeakReviewServer）と 同じ 動き・同じ
 
 - **中身は `guide.json` が唯一の定義元**で、`guide.js` は並べるだけ。文言を直す人が
   JavaScript を読まなくていいように分けてある（`missions.json` / `town.json` と同じ）。
-  いまは 6章46ページ。
+  いまは 7章98ページ（はじめの 6ステップ → メインの島 → U-Speak島 → 15の島 → べつのゲーム → きろく・授業モード → そうさ）。
 - **1ページに1つのこと。** 写真1枚＋3行。`tests/regression.mjs` が「本文4行まで」を検査する
   （長い文は写真の横に入りきらず、結局読まれない）。
 - **写真は `docs/figures` と同じもの。** 紙の資料（`docs/uspeak-guide.pdf`）と同じ図を、
@@ -158,8 +158,12 @@ Roblox 版（USpeakTeacherLive / USpeakReviewServer）と 同じ 動き・同じ
   40枚で 2.4MB あるが、**guide.js は開いているページと次のページしか読まない。**
 - **`shot` を足したら写真も足すこと。** `tests/regression.mjs` が guide.json と
   `assets/guide/` を突き合わせ、無ければ落ちる（文だけのページは、はじめての子には
-  いちばん役に立たない）。`guide-avatar` / `guide-lobby` / `guide-near` の3枚は
-  **島に入る前の画面**なので、`capture-figures.mjs` が専用のページを開いて撮っている。
+  いちばん役に立たない）。`guide-avatar` / `guide-lobby` の2枚は **島に入る前の画面**。
+- **はじめの 流れと あとから 入った 画面**（`guide-avatar` / `guide-lobby` / `main-*` / `screen-fp` /
+  `screen-warp` / `screen-teacher` / `screen-classmode` / `screen-classfreeze` / `screen-review` / `screen-dashboard`）は
+  `server/test/e2e/capture-guide.mjs` が 撮る（日本語の 画面・先生と 生徒の 2 ページ・Roblox の まちがいを 入れて 復習を 出す）。
+  島ごとの 写真は いままでどおり `capture-figures.mjs`。どちらも `CHROMIUM_PATH=… node test/e2e/<名前>.mjs [写真の名前]`。
+  **ゲームの 流れが かわったら（はじめに 立つ 島・下の バー など）ここを 撮り直して `start` 章を 直す。**
 - `guide.open('ride')` のように章のidを渡すと、その章から開く。
 - レイアウト検査（`browser-layout.mjs`）の `SCREENS` に `guide` として入れてある。
 
@@ -1038,6 +1042,11 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 屋台は メインの島の 3 つ（くだものや・スイーツ・のみもの＝`main_island.json` の spots の `kind: "food_shop"`）。
   戸口に入ると `food.openShop(shop)` → `food:open`（**部屋が 屋台の前か 確かめる**）→ メニュー → `food:buy`（部屋が コインを取る）。
   買った物は かばんへ。**たべるのは どこでも**（ゲージを おす → かばん → `food:eat`）。値段と ふえる量は サーバーの `SHOPS`。
+- **少なく なったら 帯**（`#hunger-notice`。パソコン・iPad は 下の まんなか、スマホは 上）。0 の 間は 赤で 出しっぱなし
+  「おなかが すいてるよ。ごはんを かって、あるく スピードを あげよう！」、3 割以下は クリームで「すいてきたよ」。
+  ボタンは かばんに たべものが あれば「🎒 たべる」、なければ「🏠 かいに いく」（`onGoFood` → `main.goHome()`）。
+  ✕ で その だんかいの 間だけ 消える。レース・ゲスト・2D の地図・ワープ・旅の 間は 出さない。
+  （前は 1 回だけの トーストで、何が おきて おそいのか 分からなかった。）
 - 食べ物の 英語の名前は 学習の中身（`translate="no"`、買う・たべるときに 英語で 読み上げる）。
 - 横向きの携帯では ゲージと 🏠 を バーの 流れから 出して すぐ左に 固定（バーの 高さが 足りず 📹 が はみ出すため）。
 - 検査は `server/test/food.test.mjs`（へりかた・とまりかた・たべる・屋台の前でしか 買えない）。
