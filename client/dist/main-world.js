@@ -8,6 +8,7 @@
 // P2 / P3 の建物は 建っているだけで、札に 🔜 が付く（戸口は無い）。
 // ふつうの島より大きいので、createIsland に size / power / land / dock を渡している。
 import { createIsland, NEAR_DISTANCE } from './island-kit.js';
+import { isJa } from './i18n.js';
 
 export { NEAR_DISTANCE };
 
@@ -215,7 +216,84 @@ export function createMainWorld({ scene }) {
     },
   });
 
+  // 右上の ちいさな 地図：点ではなく 2D の 地図（main-island.js）と 同じ 見た目 ─ 草・入り江・灰色の 道・
+  // 建物の タイル・場所ごとの 色の まるに 絵・オレンジの「きみ」。島の 外では ほかの 島と 同じく 描かない。
+  const baseDraw = island.drawMap;
+  function drawMap(ctx, player) {
+    const d = island.data;
+    if (!d || !island.visible) return baseDraw(ctx, player);
+    const o = island.origin();
+    const k = 1.5;
+    const px = (x) => 90 + x * k;
+    const py = (z) => 70 + z * k;
+    ctx.clearRect(0, 0, 180, 140);
+    ctx.fillStyle = '#6fb7c9'; ctx.fillRect(0, 0, 180, 140);
+    // 陸（角の丸い四角）と すなはま。
+    const land = (rx, rz, color) => {
+      ctx.fillStyle = color; ctx.beginPath();
+      for (let a = 0; a <= Math.PI * 2 + 0.01; a += 0.05) {
+        const c = Math.cos(a); const sn = Math.sin(a);
+        const x = Math.sign(c) * Math.abs(c) ** 0.5 * rx; const z = Math.sign(sn) * Math.abs(sn) ** 0.5 * rz;
+        if (a === 0) ctx.moveTo(px(x), py(z)); else ctx.lineTo(px(x), py(z));
+      }
+      ctx.fill();
+    };
+    land(56, 45, '#e8d6a8');
+    land(54, 43, '#a9cf7c');
+    const bay = d.bay || BAY;
+    ctx.fillStyle = '#6fb7c9'; ctx.fillRect(px(bay.minX), py(bay.minZ), (bay.maxX - bay.minX) * k, 80);
+    // 道。
+    ctx.fillStyle = '#9a9a96';
+    for (const r of d.roads || []) {
+      if (r.x0 !== undefined) ctx.fillRect(px(r.x0), py(r.z - r.w / 2), (r.x1 - r.x0) * k, r.w * k);
+      else ctx.fillRect(px(r.x - r.w / 2), py(r.z0), r.w * k, (r.z1 - r.z0) * k);
+    }
+    // さんばし と 船着き場。
+    const pier = d.pier || PIER;
+    ctx.fillStyle = '#b7905f';
+    ctx.fillRect(px(pier.x - pier.w / 2), py(pier.minZ), pier.w * k, (pier.maxZ - pier.minZ) * k);
+    ctx.fillRect(px(31 - 3.5), py(37), 7 * k, 7 * k);
+    // 建物（飾り）の タイル。
+    const tile = (x, z, w, dd, fill) => { ctx.fillStyle = fill; ctx.beginPath(); ctx.roundRect(px(x - w / 2), py(z - dd / 2), w * k, dd * k, 2); ctx.fill(); };
+    for (const dec of d.deco || []) {
+      if (dec.type === 'plot') { ctx.fillStyle = '#c9e0a2'; ctx.fillRect(px(dec.x - dec.w / 2), py(dec.z - dec.d / 2), dec.w * k, dec.d * k); continue; }
+      tile(dec.x, dec.z, dec.w || 3, dec.d || 2.4, '#e9dcc0');
+    }
+    // 入れる場所：建物の タイル ＋ 色の まるに 絵。
+    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', talk_shop: '#4fae6b', blockwild: '#b5603a' };
+    const GATE = { park: '🎡', ride: '🏁', town: '🧱', meadow: '🏰', fishworld: '🌊' };
+    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣' };
+    for (const sp of d.spots) {
+      if (sp.kind === 'word_house') tile(sp.x, sp.z - 4.6, 8.4, 6.4, '#f2b98a');
+      else if (sp.w && sp.d) tile(sp.x, sp.z - 1.1 - sp.d / 2, sp.w, sp.d, '#efe2c6');
+    }
+    const target = island.target;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for (const sp of d.spots) {
+      const x = px(sp.x); const y = py(sp.z);
+      const r = sp.id === target ? 6.5 : 5.2;
+      ctx.fillStyle = sp.id === target ? '#ffd246' : '#ffffff';
+      ctx.beginPath(); ctx.arc(x, y, r + 1.4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = COLORS[sp.kind] || '#4fae6b';
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+      ctx.font = '7px sans-serif';
+      ctx.fillText(sp.kind === 'gate' ? (GATE[sp.to] || '🌀') : (ICON[sp.kind] || sp.icon || '•'), x, y + 0.5);
+    }
+    // スタートの ほし。
+    const st = d.start || { x: 31, z: 30 };
+    ctx.font = '8px sans-serif'; ctx.fillText('⭐', px(st.x), py(st.z));
+    // きみ（オレンジ）。
+    const me = { x: player.position.x - o.x, z: player.position.z - o.z };
+    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(px(me.x), py(me.z), 4.6, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#e27a2d'; ctx.beginPath(); ctx.arc(px(me.x), py(me.z), 3.2, 0, Math.PI * 2); ctx.fill();
+    // 島の 名前。
+    ctx.textAlign = 'left'; ctx.fillStyle = '#12333a'; ctx.font = 'bold 9px sans-serif';
+    ctx.fillText(isJa() ? d.name : (d.en || d.name), 6, 8);
+    return true;
+  }
+
   return Object.assign(island, {
+    drawMap,
     ready: loadMainWorld().then((d) => { island.receive(d.island); return d; }),
   });
 }
