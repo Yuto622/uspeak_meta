@@ -186,7 +186,7 @@ export class ClassRoom extends Room {
     this.onMessage('land:open', (client) => this.onLandOpen(client));
     this.onMessage('land:buy', (client, msg) => this.onLandBuy(client, msg));
     this.onMessage('land:restyle', (client, msg) => this.onLandRestyle(client, msg));
-    this.onMessage('land:enter', (client) => this.onLandEnter(client));
+    this.onMessage('land:enter', (client, msg) => this.onLandEnter(client, msg));
     this.onMessage('land:board', (client) => this.onLandBoard(client));
     this.onMessage('land:visit', (client, msg) => this.onLandVisit(client, msg));
     // つり島（Roblox の釣りワールド）：ゾーンの小屋で 問題 → タイミング → くじ → 図鑑・売る。
@@ -201,6 +201,7 @@ export class ClassRoom extends Room {
     this.onMessage('wh:answer', (client, msg) => this.onWhAnswer(client, msg));
     this.onMessage('wh:quit', (client) => { const priv = this.priv.get(client.sessionId); if (priv) priv.wh = null; });
     this.onMessage('main:enter', (client) => this.onMainEnter(client));
+    this.onMessage('bag:get', (client) => this.onBagGet(client));
     this.onMessage('food:get', (client) => { const priv = this.priv.get(client.sessionId); if (priv) client.send('food:state', foodPayload(priv.food)); });
     this.onMessage('food:open', (client, msg) => this.onFoodOpen(client, msg));
     this.onMessage('food:buy', (client, msg) => this.onFoodBuy(client, msg));
@@ -2565,7 +2566,15 @@ export class ClassRoom extends Room {
   // anything until someone is inside it, so the school's size does not matter, only how
   // many children are standing in their rooms right now.
   atTownSpot(sessionId, kind) {
+    // メインの島の ブロックや は まちづくり島の ブロック屋と 同じ お店。
+    if (kind === 'shop' && this.atMainShop(sessionId, 'block_shop')) return true;
     return this.atPlace(sessionId, TOWN_ISLAND, TOWN_ISLAND.spotById.get(kind));
+  }
+
+  // メインの島の お店（main_island.json の island.spots。kind で引く）に 立っているか。
+  atMainShop(sessionId, kind) {
+    const spot = STALLS.shops.get(kind);
+    return !!spot && this.atPlace(sessionId, STALLS.island, spot);
   }
 
   townSpotPayload(kind) {
@@ -2969,6 +2978,24 @@ export class ClassRoom extends Room {
   }
 
   // ---- メインの島にいた時間（Roblox と同じ session の記録：world="main"）--------------------
+  // ---- 持ち物（たべもの・ふく・いえ・ブロック）---------------------------------------------
+  // ぜんぶ 持ち主は 部屋。ページは この1つで 並べ、押されたら いつもの 道（food:eat / wear:put / land:enter）で 頼む。
+  onBagGet(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const owned = new Set(priv.wardrobe);
+    const worn = new Set(priv.worn);
+    client.send('bag:state', {
+      food: foodPayload(priv.food),
+      wear: {
+        slots: WARDROBE.slots,
+        items: WARDROBE.items.filter((it) => owned.has(it.id)).map((it) => ({ id: it.id, slot: it.slot, en: it.en, ja: it.ja, colour: it.colour, kind: it.kind, worn: worn.has(it.id) })),
+      },
+      land: landIslandPayload(priv.land, priv.name),
+      blocks: [...BLOCKS.values()].filter((b) => priv.bricks.includes(b.id)).map((b) => blockPayload(b, true)),
+    });
+  }
+
   // ---- おなかと 屋台（food.js）----------------------------------------------------------
   // 屋台は メインの島に 3 つ。買うときだけ その屋台の前に 立っているかを見る。たべるのは どこでも。
   atStall(sessionId, shop) {
@@ -3049,6 +3076,8 @@ export class ClassRoom extends Room {
   }
 
   atLandSpot(sessionId, spotId) {
+    // メインの島の いえの おみせ は 土地島の ふどうさんと 同じ お店。
+    if (spotId === 'office' && this.atMainShop(sessionId, 'land_shop')) return true;
     return this.atPlace(sessionId, LAND_ISLAND, LAND.spotById.get(spotId));
   }
 
@@ -3106,10 +3135,12 @@ export class ClassRoom extends Room {
   }
 
   // Walking onto the ferry is walking onto the island: the page builds it from this.
-  onLandEnter(client) {
+  onLandEnter(client, msg) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
-    if (!this.atLandSpot(client.sessionId, 'ferry')) { client.send('land:error', { reason: 'too far', spot: this.landSpotPayload('ferry') }); return; }
+    // 持ち物の「いえ」から：じぶんの しまへ 行くだけ（見るだけの場所なので どこからでも よい）。
+    const fromBag = msg?.from === 'bag';
+    if (!fromBag && !this.atLandSpot(client.sessionId, 'ferry')) { client.send('land:error', { reason: 'too far', spot: this.landSpotPayload('ferry') }); return; }
     const isle = landIslandPayload(priv.land, priv.name);
     if (!isle) { client.send('land:error', { reason: 'no island' }); return; }
     client.send('land:island', isle);

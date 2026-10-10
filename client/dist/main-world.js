@@ -102,6 +102,10 @@ export function createMainWorld({ scene }) {
           D(def.x + 1.2, 1.5, def.z + 2.5, 0.08, 0.08, 2.2, 0x6d543a);
           D(def.x - 1.1, 0.55, def.z + 1.6, 0.7, 0.6, 0.7, 0x5a8fb0);
           sprite({ en: '🎣 Fishing Pier', ja: '🎣 つり場' }, def.x, 3.2, def.z + 2.4, { width: 6, size: 30 });
+        } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop') {
+          // 専用の島と 同じ お店（中に入ると その島の 3D の メニュー）。
+          house(def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color, Number(def.roof), { en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` });
+          keep(def.x, def.z - 1.1 - def.d / 2, def.w / 2 + 1.5, def.d / 2 + 2);
         } else if (def.kind === 'food_shop') {
           // 屋台（買える）：しましまの屋根と カウンター。戸口（def）は 道がわ、屋台は その 南。
           const kz = def.z + 2.6;

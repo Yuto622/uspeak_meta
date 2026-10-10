@@ -28,6 +28,8 @@ const KIND = {
 // ゲートの行き先（Web の島）。
 // 屋台（main_island.json の island.spots の kind "food_shop"）。2D の地図の poi の id と同じ。
 const FOOD_POI = { shop_food0: 'fruit', shop_food2: 'sweets', shop_food3: 'drinks' };
+// 専用の島と 同じ お店（3D の島で 入る）。
+const SHOP_POI = { clothes: ['Clothes and hats for your avatar.', 'アバターの ふくや ぼうしを かえるよ。'], blocks: ['Blocks for the plaza and BLOCKWILD.', 'ひろば と BLOCKWILD の ブロックを かえるよ。'], mansion: ['Buy your own island house.', 'じぶんの しまの いえを かえるよ。'] };
 const GATE_TO = { gate_race: 'ride', gate_rpg: 'meadow', gate_build: 'town', gate_park: 'park', gate_fishing: 'fishworld' };
 // じゅんびちゅうの場所に いちばん近い Web の島（あれば カードから行ける）。
 const ALT = { clothes: 'wear', blocks: 'town', build_area: 'town', mansion: 'land', arena1: 'arena', arena2: 'arena', npc_talk: 'conv' };
@@ -66,7 +68,7 @@ const tagJa = (p) => (p.id === 'hut_easy' ? LEVEL_LABEL[easyLevel()][1] : p.kind
 let dataPromise = null;
 const loadData = () => (dataPromise ||= fetch('main_island.json', { cache: 'no-cache' }).then((r) => r.json()));
 
-export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordhouse, daily, dash, guide, getCoins, getLevel, getStreak, player = null, food = null }) {
+export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordhouse, daily, dash, guide, getCoins, getLevel, getStreak, player = null, food = null, shops = {} }) {
   const root = document.createElement('div');
   root.id = 'main-island';
   root.hidden = true;
@@ -232,6 +234,12 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
       return;
     }
     // 屋台（3D の島で 買える）：地図からは その屋台の前へ つれていく。
+    if (SHOP_POI[id]) {
+      const el = sheet(`${head(p)}<p class="mi-sheet-desc">${bi(SHOP_POI[id][0], SHOP_POI[id][1])}</p>
+        <div class="mi-acts"><button type="button" class="mi-act primary" data-act="stall">${bi('🚶 Go to the shop', '🚶 おみせへ いく')}</button></div>`);
+      $('[data-act="stall"]', el).onclick = () => toStall(id);
+      return;
+    }
     if (FOOD_POI[id]) {
       const el = sheet(`${head(p)}<p class="mi-sheet-desc">${bi('Buy food with U-Speak coins. Eat it to fill your hunger 🍗.', 'U-Speak コインで たべものを かえるよ。たべると おなか 🍗 が ふえる。')}</p>
         <div class="mi-acts"><button type="button" class="mi-act primary" data-act="stall">${bi('🛒 Go to the stall', '🛒 やたいへ いく')}</button></div>`);
@@ -278,7 +286,8 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (rpg.state.current !== 'main') rpg.activate('main', true, true);
     const isl = rpg.main?.data;
     const sp = isl?.spots.find((q) => q.id === id);
-    if (sp && player) player.position.set(isl.x + sp.x, 0, isl.z + sp.z - 2.5);
+    // 戸口の すこし手前に 立たせる（屋台は 南に 建つので 北がわ、お店の 建物は 北に 建つので 南がわ）。
+    if (sp && player) player.position.set(isl.x + sp.x, 0, isl.z + sp.z + (sp.kind === 'food_shop' ? -2.5 : 2.5));
   }
 
   function goWorld(id) {
@@ -351,6 +360,10 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (spot.kind === 'fishing') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, auto: true });
     if (spot.kind === 'fish_buy') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, tab: 'bag' });
     if (spot.kind === 'food_shop') food?.openShop(spot.shop);
+    // 専用の島と 同じ お店：ふくや → きせかえの 3D の店、ブロックや → まちづくり島の ブロック屋、いえの おみせ → 土地島の ふどうさん。
+    if (spot.kind === 'wear_shop') shops.wardrobe?.open({});
+    if (spot.kind === 'block_shop') shops.town?.enter({ kind: 'shop' });
+    if (spot.kind === 'land_shop') shops.land?.enter({ kind: 'office' });
     return true;
   }
   const LABEL = {
@@ -359,6 +372,9 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     fishing: () => tr('🎣 英語で釣りをする'),
     fish_buy: () => tr('🐟 さかなを うる'),
     food_shop: () => tr('🛒 たべものを かう'),
+    wear_shop: () => tr('👕 ふくを 見る'),
+    block_shop: () => tr('🧱 ブロックを 見る'),
+    land_shop: () => tr('🏠 いえを 見る'),
     gate: (sp) => `🌀 ${isJa() ? String(sp.ja || '').replace(/への ゲート$/, '') : sp.character} →`,
   };
   const label = (spot) => (LABEL[spot?.kind] || (() => tr('はいる')))(spot);

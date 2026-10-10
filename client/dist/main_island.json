@@ -293,7 +293,7 @@
    "w": 62,
    "d": 53,
    "action": "服120種（Tier1〜6）を買う・きせかえ。NPC Mimi と会話",
-   "phase": 2
+   "phase": 1
   },
   {
    "id": "blocks",
@@ -306,7 +306,7 @@
    "w": 67,
    "d": 58,
    "action": "建築ブロック120種を買う。NPC Gordo と会話",
-   "phase": 3
+   "phase": 1
   },
   {
    "id": "mansion",
@@ -319,7 +319,7 @@
    "w": 36,
    "d": 36,
    "action": "家カタログ30種・6Tier・住み替え",
-   "phase": 3
+   "phase": 1
   },
   {
    "id": "arena1",
@@ -773,6 +773,60 @@
     "en": "Drinks",
     "ja": "のみもの",
     "icon": "🧃"
+   },
+   {
+    "id": "clothes",
+    "kind": "wear_shop",
+    "x": -30,
+    "z": 10,
+    "path": {
+     "x": -30,
+     "z": 16
+    },
+    "color": 14247565,
+    "roof": 8009040,
+    "w": 8,
+    "d": 6.4,
+    "icon": "👕",
+    "character": "Mimi",
+    "en": "Clothes Shop",
+    "ja": "ふくや"
+   },
+   {
+    "id": "blocks",
+    "kind": "block_shop",
+    "x": -44,
+    "z": 10,
+    "path": {
+     "x": -44,
+     "z": 16
+    },
+    "color": 10135658,
+    "roof": 5925434,
+    "w": 8,
+    "d": 6.4,
+    "icon": "🧱",
+    "character": "Gordo",
+    "en": "Block Shop",
+    "ja": "ブロックや"
+   },
+   {
+    "id": "mansion",
+    "kind": "land_shop",
+    "x": 45,
+    "z": 30,
+    "path": {
+     "x": 36,
+     "z": 30
+    },
+    "color": 8363976,
+    "roof": 3428474,
+    "w": 9,
+    "d": 7,
+    "icon": "🏠",
+    "character": "Realtor",
+    "en": "House Shop",
+    "ja": "いえの おみせ"
    }
   ],
   "deco": [
@@ -800,32 +854,6 @@
     "ja": "フードトラック"
    },
    {
-    "id": "clothes",
-    "type": "house",
-    "x": -30,
-    "z": 4,
-    "w": 8,
-    "d": 6.4,
-    "color": 14247565,
-    "roof": 8009040,
-    "icon": "👕",
-    "en": "Clothes Shop",
-    "ja": "ふくや"
-   },
-   {
-    "id": "blocks",
-    "type": "house",
-    "x": -30,
-    "z": -14,
-    "w": 8,
-    "d": 6.4,
-    "color": 10135658,
-    "roof": 5925434,
-    "icon": "🧱",
-    "en": "Block Shop",
-    "ja": "ブロックや"
-   },
-   {
     "id": "build_area",
     "type": "plot",
     "x": 9,
@@ -836,19 +864,6 @@
     "icon": "🏗",
     "en": "Build Area",
     "ja": "たてる ばしょ"
-   },
-   {
-    "id": "mansion",
-    "type": "house",
-    "x": 45,
-    "z": 24,
-    "w": 9,
-    "d": 7,
-    "color": 8363976,
-    "roof": 3428474,
-    "icon": "🏠",
-    "en": "House Shop",
-    "ja": "いえの おみせ"
    },
    {
     "id": "arena1",
@@ -897,8 +912,8 @@
    {
     "id": "GinjiDenki",
     "type": "house",
-    "x": -44,
-    "z": 4,
+    "x": -30,
+    "z": -14,
     "w": 8,
     "d": 6.4,
     "color": 13222832,

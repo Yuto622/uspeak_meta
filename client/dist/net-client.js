@@ -34,6 +34,7 @@ import { createLandUI } from './land.js';
 import { createFishworldUI } from './fishworld.js';
 import { createWordHouseUI } from './wordhouse.js';
 import { createFoodUI } from './food.js';
+import { createBagUI } from './bag.js';
 import { createMainIsland } from './main-island.js';
 import { createRacers } from './racers.js';
 import { createGuestDock } from './guest-dock.js';
@@ -280,10 +281,14 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // メインの島（2D の地図のホーム）と 英単語ハウス。正解もコインも部屋が決める（wh:* / main:*）。
   const plainSend = (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); };
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
-  const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
+  let bag = null;
+  const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh() });
+  // 持ち物（🎒）：たべもの・ふく・いえ・ブロック。中身は 部屋（bag:get）。
+  bag = createBagUI({ send: plainSend, toast, isOnline: () => state.mode === 'online', food });
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
     send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash, food,
+    shops: { wardrobe, town, land },
     guide: guide || { open() {} },
     getCoins: () => state.wallet?.coins ?? fishing.store.state.coins,
     getLevel: () => state.progress?.level ?? Number(document.querySelector('#level')?.textContent || 1),
@@ -566,7 +571,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('quick:closed', (m) => quick.onClosed(m));
     r.onMessage('wear:shop', (m) => { wardrobe.onShop(m); dressMe(m.worn, wardrobe.table); });
     r.onMessage('wear:bought', (m) => { if (m.wallet) applyWallet(m.wallet); wardrobe.onBought(m); dressMe(m.worn, wardrobe.table); });
-    r.onMessage('wear:on', (m) => { wardrobe.onWorn(m); dressMe(m.worn, wardrobe.table); });
+    r.onMessage('wear:on', (m) => { wardrobe.onWorn(m); dressMe(m.worn, wardrobe.table); bag.onWorn(m); });
+    r.onMessage('bag:state', (m) => bag.onState(m));
     r.onMessage('wear:error', (m) => wardrobe.onError(m));
     r.onMessage('farm:state', (m) => { if (m.wallet) applyWallet(m.wallet); farm.onState(m); });
     r.onMessage('farm:ask', (m) => farm.onAsk(m));
@@ -1054,6 +1060,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     fishworld,
     wordhouse,
     food,
+    bag,
     main,
     landLabel: (spot) => land.label(spot),
     land, myLand,

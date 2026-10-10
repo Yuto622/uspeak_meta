@@ -39,13 +39,15 @@ export function loadStalls(file = new URL('../../../client/dist/main_island.json
   const island = JSON.parse(readFileSync(file, 'utf8')).island;
   if (!island) throw new Error('main_island.json: no island');
   const stalls = new Map();
+  const shops = new Map();      // ほかの お店（wear_shop / block_shop / land_shop）。部屋が 位置を 見るのに使う
   for (const sp of island.spots) {
+    if (/_shop$/.test(sp.kind) && sp.kind !== 'food_shop') shops.set(sp.kind, { ...sp, wx: island.x + sp.x, wz: island.z + sp.z });
     if (sp.kind !== 'food_shop') continue;
     if (!SHOPS[sp.shop]) throw new Error(`main_island.json: unknown food shop ${sp.shop}`);
     stalls.set(sp.shop, { ...sp, wx: island.x + sp.x, wz: island.z + sp.z });
   }
   for (const shop of Object.keys(SHOPS)) if (!stalls.has(shop)) throw new Error(`main_island.json: no stall for ${shop}`);
-  return { island: { id: island.id, x: island.x, z: island.z, radius: island.radius ?? 5 }, stalls };
+  return { island: { id: island.id, x: island.x, z: island.z, radius: island.radius ?? 5 }, stalls, shops };
 }
 export const STALLS = loadStalls();
 

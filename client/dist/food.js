@@ -10,7 +10,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const bi = (en, ja) => `<b class="en">${en}</b><i class="ja">${ja}</i>`;
 const ICONS = 10;
 
-export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {} }) {
+export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {}, onBagOpen = null, onChange = () => {} }) {
   const state = { hunger: 20, max: 20, rateMs: 0, slow: 0.6, at: performance.now(), bag: [], shop: '', menu: null, coins: 0, warned: '' };
 
   // ---- 右上の ゲージ ----
@@ -18,10 +18,10 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {} 
   gauge.type = 'button';
   gauge.id = 'hunger';
   gauge.hidden = true;
-  gauge.setAttribute('aria-label', 'おなか');
-  gauge.dataset.tLabel = 'おなか';
-  gauge.innerHTML = `<span class="hg-icons" aria-hidden="true">${Array.from({ length: ICONS }, () => '<i></i>').join('')}</span>`;
-  gauge.onclick = () => openBag();
+  gauge.setAttribute('aria-label', 'もちもの と おなか');
+  gauge.dataset.tLabel = 'もちもの と おなか';
+  gauge.innerHTML = `<span class="hg-bag" aria-hidden="true">🎒</span><span class="hg-icons" aria-hidden="true">${Array.from({ length: ICONS }, () => '<i></i>').join('')}</span>`;
+  gauge.onclick = () => (onBagOpen ? onBagOpen() : openBag());
   document.body.append(gauge);
 
   // ---- 屋台と かばんの 画面 ----
@@ -46,6 +46,7 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {} 
     if (m.wallet) { state.coins = m.wallet.coins; onCoins(m.wallet); }
     paintGauge();
     if (dialog.open) paint();
+    onChange();
   }
 
   function paintGauge() {

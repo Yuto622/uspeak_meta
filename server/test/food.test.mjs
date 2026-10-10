@@ -77,3 +77,21 @@ test('屋台: 前に立たないと 買えない、部屋が コインを取っ�
   assert.equal((await nextMessage(room, 'food:error')).reason, 'full', 'a full child cannot eat');
   await room.leave();
 });
+
+test('持ち物: bag:get は たべもの・ふく・いえ・ブロック を まとめて返す。いえへは かばんから どこでも 行ける（いえが あれば）', async () => {
+  const room = await new Client(url).joinOrCreate('class', { classCode: 'food2', name: 'Rin' });
+  await nextMessage(room, 'welcome');
+  room.send('wear:buy', { id: 'cap-red' });
+  await nextMessage(room, 'wear:bought');
+  room.send('bag:get', {});
+  const bag = await nextMessage(room, 'bag:state');
+  assert.equal(bag.food.max, MAX);
+  assert.deepEqual(bag.wear.items.map((i) => [i.id, i.worn]), [['cap-red', true]], 'bought is worn');
+  assert.equal(bag.land, null);
+  assert.ok(Array.isArray(bag.blocks));
+  room.send('land:enter', { from: 'bag' });
+  assert.equal((await nextMessage(room, 'land:error')).reason, 'no island', 'from the bag the ferry needs no standing place, only a house');
+  room.send('land:enter', {});
+  assert.equal((await nextMessage(room, 'land:error')).reason, 'too far', 'the ferry on the Land Island still needs you there');
+  await room.leave();
+});
