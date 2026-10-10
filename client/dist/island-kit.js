@@ -52,6 +52,9 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   const spots = [];             // { def, npc, label, ja }
   const doors = [];             // { def, x, z } - the doorway of a building you can enter
   const obstacles = [];
+  const mapTiles = [];          // 右上の 地図の 陸（[x, z, はまか]）。ground() が 3D と 同じ マスを 記録する
+  const mapPaths = [];          // 地図の 道（path() の 線）
+  let mapBase = null;           // 陸・道・建物までを 1 回だけ 描いた 下絵
   let beacon = null;
   let targetId = '';
   let s = seed;
@@ -233,6 +236,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   // A paved way: irregular flagstones, gravel edging, and a lamp post every few paces
   // that comes on with the evening.
   function path(ax, az, bx, bz) {
+    mapPaths.push([ax, az, bx, bz]);
     const length = Math.hypot(bx - ax, bz - az);
     const steps = Math.max(1, Math.round(length / 1.35));
     const nx = (bz - az) / (length || 1);
@@ -384,6 +388,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
         const beach = e > 0.94 || (land && [[2, 0], [-2, 0], [0, 2], [0, -2]].some(([dx, dz]) => !land(x + dx, z + dz)));
         const y = beach ? 0 : lift(x, z);
         const top = beach ? sand : (x * 7 + z * 3) % 5 === 0 ? grassTop : grass;
+        mapTiles.push([x, z, beach]);
         // The top face lands on y = 0.2, which is the ground everything else on the
         // island is built to stand on.
         G(x, -0.15 + y, z, 2.02, 0.7, 2.02, top);
@@ -573,30 +578,99 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     return obstacles.some((o) => Math.abs(lx - o.x) < o.w + 0.35 && Math.abs(lz - o.z) < o.d + 0.35);
   }
 
+  // 右上の ちいさな 地図（全島 共通）：点ではなく、2D の 地図のような 絵 ─ 海・すなはま・草・道・水辺・
+  // 建物の 床・場所ごとの 色の まるに 絵・オレンジの「きみ」。陸と 道と 建物は 動かないので 1 回だけ
+  // 下絵（mapBase）に 描き、毎フレームは 場所の まると 自分だけ 描く。
+  const hex = (n, fallback) => (n === undefined || n === null ? fallback : '#' + Number(n).toString(16).padStart(6, '0'));
+  const MAP_K = Math.min(172 / (2 * (HX + 3)), 128 / (2 * (HZ + 3)));
+  const mx = (x) => 90 + x * MAP_K;
+  const my = (z) => 72 + z * MAP_K;
+  function paintBase() {
+    const c = document.createElement('canvas');
+    c.width = 180; c.height = 140;
+    const g = c.getContext?.('2d');
+    if (!g || !g.fillRect || !g.roundRect || !g.ellipse) return null;
+    const k = MAP_K;
+    g.fillStyle = '#6fb7c9'; g.fillRect(0, 0, 180, 140);
+    // 波打ちぎわの うすい 輪。
+    g.fillStyle = '#9fd3dc';
+    for (const [x, z, beach] of mapTiles) if (beach) g.fillRect(mx(x - 1.8), my(z - 1.8), 3.6 * k, 3.6 * k);
+    const grass = hex(data.grassTop ?? data.grass, '#a9cf7c');
+    for (const [x, z, beach] of mapTiles) {
+      g.fillStyle = beach ? '#e8d6a8' : grass;
+      g.fillRect(mx(x - 1.02), my(z - 1.02), 2.04 * k + 0.5, 2.04 * k + 0.5);
+    }
+    // 水辺（つり島の 池・川・さんばし）。
+    const w = data.water;
+    if (w) {
+      g.fillStyle = '#6fb7c9'; g.strokeStyle = '#6fb7c9';
+      if (w.pond) { g.beginPath(); g.ellipse(mx(w.pond.x), my(w.pond.z), w.pond.rx * k, w.pond.rz * k, 0, 0, Math.PI * 2); g.fill(); }
+      if (w.river?.length) {
+        g.lineWidth = 4.2 * k; g.lineCap = 'round'; g.lineJoin = 'round'; g.beginPath();
+        w.river.forEach(([x, z], i) => (i ? g.lineTo(mx(x), my(z)) : g.moveTo(mx(x), my(z))));
+        g.stroke();
+      }
+      if (w.pier) { g.fillStyle = '#b7905f'; g.fillRect(mx(w.pier.x0), my(w.pier.z - 1), (w.pier.x1 - w.pier.x0) * k, 2 * k); }
+    }
+    // 道。
+    g.strokeStyle = '#d8c9a0'; g.lineWidth = Math.max(2, 2 * k); g.lineCap = 'round';
+    for (const [ax, az, bx, bz] of mapPaths) { g.beginPath(); g.moveTo(mx(ax), my(az)); g.lineTo(mx(bx), my(bz)); g.stroke(); }
+    // 船着き場。
+    g.fillStyle = '#b7905f';
+    g.fillRect(mx(DOCK.x - 3.5), my(DOCK.z), 7 * k, 7.7 * k);
+    // 建物の 床（木や 岩など 小さい 当たり判定は 描かない）。
+    for (const o of obstacles) {
+      if (o.w < 1.6 || o.d < 1.6) continue;
+      g.fillStyle = '#efe2c6';
+      g.beginPath(); g.roundRect(mx(o.x - o.w), my(o.z - o.d), 2 * o.w * k, 2 * o.d * k, 2); g.fill();
+      g.strokeStyle = '#c9b48c'; g.lineWidth = 0.8; g.stroke();
+    }
+    return c;
+  }
+  const KIND_ICON = {
+    plaza: '⛲', shop: '🛒', hut: '📖', gym: '💪', booth: '💬', hat: '🎩', face: '👓', back: '🎒', chest: '🏅',
+    puyo: '🟢', suika: '🍉', barn: '🐄', field: '🌱', kitchen: '🍳', ship: '🚢', ferry: '⛵', board: '📋', office: '🏠',
+    pond: '🎣', river: '🎣', sea: '🎣', interview: '🎤', speaking: '🗣', writing: '✏️', reading: '📖', listening: '🎧',
+    start: '🏁', gate: '🚩', door: '🚪', furniture: '🛋', agent: '🏡', blockwild: '⛏', dojo: '🥋', stand: '🏟', pvp: '⚔',
+    meadow: '🐾', nest: '🥚',
+  };
+  const KIND_COLOR = {
+    plaza: '#e0a526', shop: '#e27a2d', hut: '#e27a2d', gym: '#c8553d', booth: '#4fae6b', puyo: '#3aa35b', suika: '#d94b5b',
+    pond: '#1f8aa6', river: '#1f8aa6', sea: '#1f8aa6', interview: '#7a5cc8', start: '#1b3a2f', gate: '#7a5cc8',
+    blockwild: '#b5603a', ferry: '#5a7fb0', office: '#5a7fb0', board: '#8a9a4a',
+  };
   function drawMap(ctx, player) {
     if (!built || !root.visible) return false;
+    if (!mapBase) mapBase = paintBase();
     ctx.clearRect(0, 0, 180, 140);
-    ctx.fillStyle = '#4b8090';
-    ctx.fillRect(0, 0, 180, 140);
-    ctx.fillStyle = data.grassTop ? '#' + Number(data.grassTop).toString(16).padStart(6, '0') : '#9cb266';
-    ctx.fillRect(12, 10, 156, 120);
-    const px = (x) => 90 + (x / HX) * 76;
-    const py = (z) => 70 + (z / HZ) * 58;
+    if (mapBase && ctx.drawImage) ctx.drawImage(mapBase, 0, 0);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     for (const sp of spots) {
-      const target = sp.def.id === targetId;
-      ctx.fillStyle = target ? '#ffd98a' : sp.def.kind === 'plaza' ? '#f0e3bd' : '#3c5a4a';
-      ctx.beginPath();
-      ctx.arc(px(sp.def.x), py(sp.def.z), target ? 6 : 4, 0, Math.PI * 2);
-      ctx.fill();
+      const def = sp.def;
+      const target = def.id === targetId;
+      const x = mx(def.x); const y = my(def.z);
+      const r = target ? 6.5 : 5.2;
+      ctx.fillStyle = target ? '#ffd246' : '#ffffff';
+      ctx.beginPath(); ctx.arc(x, y, r + 1.4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = KIND_COLOR[def.kind] || (def.color !== undefined ? hex(def.color) : '#4fae6b');
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+      ctx.font = '7px sans-serif';
+      ctx.fillText(def.icon || KIND_ICON[def.kind] || (/\p{Extended_Pictographic}/u.test(def.tone || '') ? def.tone : '💬'), x, y + 0.5);
     }
-    ctx.fillStyle = '#fff';
-    ctx.beginPath();
-    ctx.arc(px(player.position.x - root.position.x), py(player.position.z - root.position.z), 3.2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#12333a';
-    ctx.font = '10px sans-serif';
-    // ミニマップは毎フレーム描き直すので、焼き直しの仕掛けは要らない。
-    ctx.fillText(isJa() ? data.name : (data.en || data.name), 16, 24);
+    // 光の 柱が 建物でない 場所（ぼくじょうの 畑など）を さしているとき。
+    if (targetAt && !data.spots.some((sp) => sp.id === targetId)) {
+      ctx.fillStyle = '#ffd246'; ctx.beginPath(); ctx.arc(mx(targetAt.x), my(targetAt.z), 4, 0, Math.PI * 2); ctx.fill();
+    }
+    // きみ（オレンジ）。
+    const me = { x: player.position.x - root.position.x, z: player.position.z - root.position.z };
+    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(mx(me.x), my(me.z), 4.6, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#e27a2d'; ctx.beginPath(); ctx.arc(mx(me.x), my(me.z), 3.2, 0, Math.PI * 2); ctx.fill();
+    // 島の 名前（ミニマップは 毎フレーム 描き直すので、焼き直しの 仕掛けは 要らない）。
+    const name = isJa() ? data.name : (data.en || data.name);
+    ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'left';
+    const tw = ctx.measureText?.(name)?.width ?? name.length * 5;
+    ctx.fillStyle = '#ffffffcc'; ctx.fillRect(3, 2, tw + 8, 13);
+    ctx.fillStyle = '#12333a'; ctx.fillText(name, 7, 9);
     return true;
   }
 

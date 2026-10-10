@@ -234,6 +234,11 @@
   `label.visible` を書き戻さないこと。
 - **毎フレーム描き直す canvas には、この仕掛けは要らない**：ミニマップ
   （`island-kit.js` の `drawMap()`）は その場で `isJa()` を見るだけでよい。
+- **ミニマップは 全島 2D の 地図の 絵**（2026-10）。`island-kit.js` の `drawMap()` が、`ground()` が 記録した マス（`mapTiles`）・
+  `path()` の 線（`mapPaths`）・建物の 当たり判定（`obstacles` の 大きい物）・船着き場・つり島の `water` を **1 回だけ 下絵（`mapBase`）に** 描き、
+  毎フレームは 場所の 色の まる＋絵（`KIND_ICON` / `KIND_COLOR`、無ければ spot の `icon` / `color`）と オレンジの 自分と 島の名前だけ 描く。
+  **spot の kind を 足したら `KIND_ICON` にも 1 行**（無いと 💬）。縮尺は 島の 大きさ（`HX`/`HZ`）から 決まる。
+  U-Speak島（`game.js` の `minimap()`）も 同じ まると 名前。メインの島だけは `main-world.js` の 自前の `drawMap`。
   **ワールドマップはもう canvas ではない**（下の「しまの ちず」）。
 - **1秒に数コマしか描かない端末では、切り替えてもミニマップが数秒古いまま出る。**
   壊れているのではなく、次のフレームを待っている（スクリーンショットを撮るときは
