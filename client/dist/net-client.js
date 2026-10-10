@@ -306,6 +306,16 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     document.querySelector('.right-rail')?.prepend(b);
     // おなかの ゲージは 右のバーの いちばん上（どの島でも 見える）。
     document.querySelector('.right-rail')?.prepend(food.gauge);
+    // パソコン（マウス）では 右のバーは 並びではなく、ボタンが 1 つずつ 場所を 持つ（style.css）。場所の ない
+    // ゲージ・🏠・ランキングが 左上に 落ちて ロゴに かさなっていたので、地図の すぐ左に 1 つの 列で 置く。
+    if (globalThis.matchMedia?.('(pointer: fine)').matches) {
+      const dock = document.createElement('div');
+      dock.className = 'top-dock';
+      dock.append(food.gauge, b);
+      const rank = document.querySelector('#rank-button');
+      if (rank) dock.append(rank);
+      document.querySelector('main')?.append(dock);
+    }
   }
   // Put the child's own clothes on their own body, and keep them on when they change face.
   const dressMe = (worn, table) => {
