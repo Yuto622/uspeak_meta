@@ -439,7 +439,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
 
   // ---- connection lifecycle ---------------------------------------------------------
 
+  // ホーム（メインの島）へは つなぎはじめた しゅんかんに 立たせる。welcome を 待つと、そのあいだ U-Speak島が
+  // 一瞬 見えてから とぶ（「つなぎ なおしています…」の あいだも）。つながらなくても メインの島は 歩ける。
+  function homeNow() { if (!state.mainShown) { state.mainShown = true; main.goHome({ first: true }); } }
+
   async function connect({ name, classCode, teacherKey }, { silent = false } = {}) {
+    homeNow();
     if (!Colyseus) { lobby.error(tr('つうしんの ぶひんが よみこめませんでした。')); return; }
     state.name = name; state.classCode = classCode || 'default'; state.teacherKey = teacherKey || '';
     state.intentionalLeave = false;
@@ -486,7 +491,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       state.streak = m.streak || 0;
       food.apply(m.food);
       // ホームはメインの島。はじめて入ったときだけ開く（つなぎなおしでは開かない）。
-      if (!state.mainShown) { state.mainShown = true; main.goHome({ first: true }); }
+      homeNow();
       state.role = m.role;
       state.chatPaused = !!m.chatPaused;
       state.teacherId = m.teacherId || '';
@@ -977,6 +982,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
         state.name = session.name; state.classCode = session.classCode || 'default'; state.teacherKey = session.teacherKey || '';
         client = new Colyseus.Client(resolveServerUrl());
         setMode('reconnecting');
+        homeNow();
         scheduleReconnect(0);
       } else {
         lobby.open();
