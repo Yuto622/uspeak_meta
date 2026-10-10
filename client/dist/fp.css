@@ -1,85 +1,32 @@
-/* 一人称（じぶんの め）の 画面。body.first-person の 間だけ #fp-hud が 出る。
-   バイザーの すみの かぎ・上の 方位計（game.js が --fp-yaw に 向きを 入れる）・まわる ホログラムの 照準
-   （ちかくに 話せる ものが あると オレンジに ひらく）・走ると 出る すじ・操作の ヒント。 */
+/* 一人称（じぶんの め）の 画面：BLOCKWILD と 同じ。まんなかに 白い ＋（照準）だけ。
+   ちかくに 入れる／話せる ものが あると 照準が すこし 大きく なる（body.fp-near）。手元の 腕は fp-hand.js が 3D で 描く。 */
 #fp-hud { position: fixed; inset: 0; z-index: 2; pointer-events: none; display: none; }
 body.first-person #fp-hud { display: block; }
 body.first-person .crosshair { display: none !important; }
 :is(.on-journey, .is-fishing, [data-race], [data-gp], [data-arcade], [data-main]) #fp-hud { display: none !important; }
 
-/* バイザー：色ずれの ふち・うすい 走査線・4 つの すみの かぎ。 */
-.fp-visor { position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 75% 70% at 50% 50%, transparent 60%, #12063355 85%, #0a0320aa 100%),
-    linear-gradient(90deg, #00ffd51a, transparent 7%, transparent 93%, #ff4fd81a);
-  animation: fp-in .5s ease-out; }
-.fp-visor::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 3px); }
-.fp-visor i { position: absolute; width: clamp(28px, 6vmin, 56px); height: clamp(28px, 6vmin, 56px); border: 2px solid #8affefcc;
-  filter: drop-shadow(0 0 6px #00ffd5); }
-.fp-visor i:nth-child(1) { left: 4vmin; top: 4vmin; border-right: 0; border-bottom: 0; border-top-left-radius: 10px; }
-.fp-visor i:nth-child(2) { right: 4vmin; top: 4vmin; border-left: 0; border-bottom: 0; border-top-right-radius: 10px; }
-.fp-visor i:nth-child(3) { left: 4vmin; bottom: 4vmin; border-right: 0; border-top: 0; border-bottom-left-radius: 10px; }
-.fp-visor i:nth-child(4) { right: 4vmin; bottom: 4vmin; border-left: 0; border-top: 0; border-bottom-right-radius: 10px; }
-@keyframes fp-in { from { opacity: 0; transform: scale(1.06); } }
+.fp-cross { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -11px; opacity: .9; transition: transform .12s, opacity .12s; }
+.fp-cross i { position: absolute; background: #fff; box-shadow: 0 0 3px #000a; border-radius: 1px; }
+.fp-cross i:first-child { left: 50%; top: 0; width: 2px; height: 100%; transform: translateX(-50%); }
+.fp-cross i:last-child { top: 50%; left: 0; height: 2px; width: 100%; transform: translateY(-50%); }
+body.fp-near .fp-cross { opacity: 1; transform: scale(1.15); }
+/* マウスが 固定されて いないとき（ドラッグで 見回す）は 輪を 出す（BLOCKWILD の freelook と 同じ）。 */
+body.first-person:not(.fp-locked) .fp-cross { box-shadow: 0 0 0 2px #d9f78f55; border-radius: 50%; }
 
-/* 方位計（上の まんなか）：N・E・S・W の 帯が 向きで すべる。 */
-.fp-compass { position: absolute; left: 50%; top: max(78px, 9vh); width: min(360px, 62vw); height: 26px; transform: translateX(-50%);
-  overflow: visible; border-radius: 99px; background: #0a0624aa; box-shadow: 0 0 0 1px #8affef55, 0 0 18px #8a5bff55;
-}
-.fp-compass .fp-clip { position: absolute; inset: 0; overflow: hidden; border-radius: inherit;
-  -webkit-mask: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); mask: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
-.fp-strip { position: absolute; top: 0; bottom: 0; left: 50%; width: 1440px;
-  /* 1 度 = 2px。帯は -180°〜540° を 並べ、向き（--fp-yaw）が まんなかに 来るよう 左へ すべらせる。 */
-  transform: translateX(calc(-2px * (var(--fp-yaw, 0) + 180)));
-  background:
-    repeating-linear-gradient(90deg, #8affef88 0 1px, transparent 1px 30px) 0 100% / 100% 7px no-repeat,
-    repeating-linear-gradient(90deg, #ffffffcc 0 2px, transparent 2px 90px) 0 100% / 100% 12px no-repeat; }
-.fp-strip span { position: absolute; top: 5px; width: 40px; margin-left: -20px; text-align: center;
-  font: 800 12px/1 ui-monospace, 'SF Mono', Menlo, monospace; color: #8affef; text-shadow: 0 0 8px #00ffd5; }
-.fp-strip span.n { color: #ff8be4; text-shadow: 0 0 8px #ff4fd8; }
-.fp-compass b { position: absolute; left: 50%; top: 100%; transform: translate(-50%, 6px); font: 800 13px/1 ui-monospace, 'SF Mono', Menlo, monospace;
-  color: #eafff9; text-shadow: 0 0 10px #00ffd5; letter-spacing: .1em; }
-.fp-compass::after { content: ''; position: absolute; left: 50%; bottom: 0; width: 2px; height: 10px; margin-left: -1px; background: #ffd76a; box-shadow: 0 0 8px #ffd76a; }
+/* 一人称の ときの「はなす」ボタンは 照準の すぐ下。 */
+body.first-person #near { bottom: auto; top: calc(50% + 34px); }
 
-/* 照準：まわる 点線の 輪＋ 内がわの 輪＋ まんなかの 点。 */
-.fp-reticle { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px; transition: transform .25s ease; }
-.fp-reticle i { position: absolute; border-radius: 50%; }
-.fp-ring { inset: 0; border: 2px dashed #8affefcc; animation: fp-spin 6s linear infinite; filter: drop-shadow(0 0 4px #00ffd5); }
-.fp-ring2 { inset: 11px; border: 2px solid #ff8be4aa; border-left-color: transparent; border-right-color: transparent; animation: fp-spin 2.4s linear infinite reverse; }
-.fp-dot { left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; background: #fff; box-shadow: 0 0 8px #00ffd5, 0 0 0 2px #0006; }
-@keyframes fp-spin { to { rotate: 360deg; } }
-/* ちかくに 話せる もの・入れる ものが あると、照準が ひらいて オレンジに なる。 */
-body.first-person.fp-near .fp-reticle { transform: scale(1.35); }
-body.first-person.fp-near .fp-ring { border-color: #ffd76a; filter: drop-shadow(0 0 6px #ff9b4a); }
-body.first-person.fp-near .fp-dot { background: #ffd76a; }
-/* 一人称の ときの「話す」ボタンは 照準の すぐ下（目で 追いやすい）。 */
-body.first-person #near { bottom: auto; top: calc(50% + 46px); }
-body.first-person #near button { background: #0a0624dd; color: #eafff9; box-shadow: 0 0 0 1px #8affef77, 0 0 18px #8a5bff66; }
-body.first-person #near kbd { background: #00c8a8; }
-
-/* 走ると 出る すじ（Shift）。 */
-.fp-speed { position: absolute; inset: -20%; opacity: 0; transition: opacity .3s;
-  background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0 4deg, #ffffff22 4.3deg, transparent 4.8deg 9deg);
-  -webkit-mask: radial-gradient(circle, transparent 28%, #000 60%); mask: radial-gradient(circle, transparent 28%, #000 60%); }
-
-body.fp-run .fp-speed { opacity: 1; }
-
-/* 操作の ヒント（下の まんなか・小さく）。 */
+/* 操作の ヒント（BLOCKWILD の hint と 同じ 形・9 秒で きえる）。 */
 .fp-hint { position: absolute; left: 50%; bottom: 112px; transform: translateX(-50%); white-space: nowrap;
-  font: 700 12px/1 system-ui, sans-serif; color: #d6fff6; padding: 8px 14px; border-radius: 99px; background: #0a0624aa;
-  box-shadow: 0 0 0 1px #8affef44; text-shadow: 0 0 8px #00ffd5aa; animation: fp-hint 9s ease forwards; }
+  font: 700 13px/1.3 system-ui, sans-serif; color: #fff; padding: 9px 16px; border-radius: 10px;
+  background: #000a; text-shadow: 0 1px 2px #000; animation: fp-hint 9s ease forwards; }
 @keyframes fp-hint { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }
 .fp-hint span { display: none; }
 @media (pointer: fine) { .fp-hint-pc { display: inline !important; } body.fp-locked .fp-hint-pc { display: none !important; } body.fp-locked .fp-hint-lock { display: inline !important; } }
 @media (pointer: coarse) { .fp-hint-touch { display: inline !important; } .fp-hint { bottom: 250px; } }
+@media (pointer: coarse) and (max-height: 560px) { .fp-hint { bottom: auto; top: 128px; font-size: 12px; } }
 
-/* 下の ホットバーの 👁 ボタン：一人称の 間は ひかる。 */
-.hotbar .fp-button.on { background: linear-gradient(135deg, #3a1f8a, #0f6f63); color: #eafff9; box-shadow: 0 0 0 1px #8affef88, 0 0 16px #8a5bff88; }
+/* 下の ホットバーの 👁 ボタン：一人称の 間は ついている 色。 */
+.hotbar .fp-button.on { background: #345940; color: #fffbe8; }
 
-/* 横向きの 携帯：方位計を 小さく 左へ（右には おなかと 🏠 が いる）、ヒントは 方位計の 下。 */
-@media (pointer: coarse) and (max-height: 560px) {
-  .fp-compass { left: 34%; width: min(240px, 34vw); top: 74px; }
-  .fp-hint { left: 34%; bottom: auto; top: 128px; font-size: 11px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  #fp-hud *, #fp-hud *::after { animation: none !important; }
-}
+@media (prefers-reduced-motion: reduce) { .fp-hint { animation: none; } }

@@ -3154,6 +3154,7 @@
     "英語で はなす": "Talk in English",
     "クリックで マウスで 見わたす · WASD で うごく · V で もどす": "Click to look with the mouse · WASD to move · V to switch back",
     "Esc で マウスを はなす": "Esc to release the mouse",
-    "ひだりで うごく · がめんを なぞって 見る": "Move with the left stick · swipe the screen to look"
+    "ひだりで うごく · がめんを なぞって 見る": "Move with the left stick · swipe the screen to look",
+    "クリックで マウスで 見わたす · WASD で うごく · スペースで ジャンプ · V で もどす": "Click to look with the mouse · WASD to move · Space to jump · V to switch back"
   }
 }
