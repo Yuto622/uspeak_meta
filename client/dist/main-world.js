@@ -84,10 +84,12 @@ export function createMainWorld({ scene }) {
           // 屋根の上に大きな本（遠くから「ことばの いえ」と分かる）。
           D(def.x, 8.2, def.z - 4.6, 2.6, 1.8, 0.4, 0xf7f1e1);
           D(def.x, 8.2, def.z - 4.4, 0.18, 1.8, 0.5, color);
+          facade('word_house', def.x, def.z - 4.6, 8.4, 6.4, color);
           keep(def.x, def.z - 4.6, 5.5, 4.5);
         } else if (def.kind === 'fish_buy') {
           house(def.x, def.z - 4.6, 8, 6.4, 0x6fb8c8, 0x2f5f78, { en: '🐟 Fish Market', ja: '🐟 さかなの かいとりや' });
           for (let i = 0; i < 4; i += 1) D(def.x - 2.4 + i * 1.6, 3.15, def.z - 1.05, 1.6, 0.3, 0.9, i % 2 ? 0x2f9e8f : 0xf7f1e1);
+          facade('fish_buy', def.x, def.z - 4.6, 8, 6.4, 0x6fb8c8);
           keep(def.x, def.z - 4.6, 5, 4.5);
         } else if (def.kind === 'level_sign') {
           // 看板：2 本の柱と、SUPER EASY ⇔ EASY の板。
@@ -106,6 +108,7 @@ export function createMainWorld({ scene }) {
         } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop' || def.kind === 'talk_shop') {
           // 専用の島と 同じ お店（中に入ると その島の 3D の メニュー）。
           house(def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color, Number(def.roof), { en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` });
+          facade(def.decor || def.kind, def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color);
           keep(def.x, def.z - 1.1 - def.d / 2, def.w / 2 + 1.5, def.d / 2 + 2);
         } else if (def.kind === 'blockwild') {
           // たてる ばしょの 入口：ブロックの アーチ。くぐると BLOCKWILD（ブロックの 世界）へ。
@@ -133,6 +136,163 @@ export function createMainWorld({ scene }) {
         if (def.kind !== 'fishing' && def.kind !== 'gate') path(def.path.x, def.path.z, def.x, def.z);
         else if (def.kind === 'gate' && def.path.x !== def.x) path(def.path.x, def.path.z, def.x, def.z);
         resident(def);
+      }
+
+      // お店の 外がわ（2026-10）。どの家も 同じ 形（island-kit の house）なので、屋根の 上の 大きな しるしと
+      // 戸口の 両わきの 小物で「なんの お店か」を 遠くから 分かるように する。D（まとめて 描く 箱）だけで 作る＝重くならない。
+      // 戸口の 前（x が ±1.4）と 道は あけておく。大きい 物だけ 当たり判定。
+      function facade(kind, x, z, w, d, color) {
+        const hx = w / 2;
+        const front = z + d / 2;
+        const fz = front + 1.1;          // 戸口の 両わきに 置く 物の 奥行き
+        const L = x - hx + 1.1;          // 左の わき
+        const R = x + hx - 1.1;          // 右の わき
+        const roofY = 7.6;
+        const solid = (px, pz, hw, hd) => obstacles.push({ x: px, z: pz, w: hw, d: hd });
+        const awning = (c1, c2) => { for (let i = 0; i < Math.round(w); i += 1) D(x - hx + 0.5 + i, 3.7, front + 0.75, 1, 0.18, 1.3, i % 2 ? c1 : c2); };
+        switch (kind) {
+          case 'phones': {
+            // 屋根に 大きな スマホ（光る 画面に アプリの 四角）と アンテナ。
+            D(x, roofY + 1.6, front - 1.2, 2.4, 4.2, 0.4, 0x1d2233);
+            D(x, roofY + 1.7, front - 0.98, 2.0, 3.4, 0.08, 0x5fb8ff, 1.2);
+            for (let r = 0; r < 3; r += 1) for (let c = 0; c < 3; c += 1) D(x - 0.6 + c * 0.6, roofY + 2.8 - r * 0.6, front - 0.92, 0.4, 0.4, 0.06, [0xff6b6b, 0xffd246, 0x6be3a0, 0xb48cff][(r * 3 + c) % 4], 0.9);
+            D(x, roofY - 0.05, front - 0.95, 0.5, 0.12, 0.06, 0x8aa0c8, 0.8);
+            D(x - hx * 0.55, roofY + 1.8, z - d * 0.2, 0.18, 4, 0.18, 0x9aa4b0);
+            D(x - hx * 0.55, roofY + 3.9, z - d * 0.2, 0.36, 0.36, 0.36, 0xff3b3b, 2);
+            // わき：けいたいの 見本の 台。
+            for (const sx of [L, R]) { D(sx, 0.6, fz, 1.2, 1.2, 0.8, 0xe8edf5); D(sx, 1.55, fz - 0.15, 0.5, 0.8, 0.08, 0x1d2233); D(sx, 1.55, fz - 0.1, 0.4, 0.64, 0.04, 0x5fb8ff, 1); solid(sx, fz, 0.6, 0.4); }
+            awning(0x5fb8ff, 0xf7fbff);
+            break;
+          }
+          case 'electronics': {
+            // 屋根に いなずまの 看板と パラボラ。
+            D(x, roofY + 1.3, front - 1.2, w * 0.7, 2.6, 0.3, 0x1b2a4a);
+            const bolt = [[0.5, 1.0], [0.2, 0.5], [-0.1, 0.5], [0.3, 0], [0, -0.5], [-0.3, -0.5], [-0.6, -1.0]];
+            for (const [bx, by] of bolt) D(x + bx, roofY + 1.3 + by, front - 1.02, 0.55, 0.55, 0.1, 0xffd23a, 1.6);
+            D(x + hx * 0.5, roofY + 0.7, z - d * 0.2, 0.2, 1.2, 0.2, 0xb0b8c4);
+            D(x + hx * 0.5, roofY + 1.6, z - d * 0.2 + 0.2, 1.6, 1.6, 0.25, 0xe8edf5);
+            D(x + hx * 0.5, roofY + 1.6, z - d * 0.2 + 0.45, 0.25, 0.25, 0.4, 0x9aa4b0);
+            // わき：テレビの かべ（光る）と せんたくき・れいぞうこ。
+            for (let i = 0; i < 2; i += 1) for (let j = 0; j < 2; j += 1) {
+              D(L - 0.45 + i * 0.95, 1.0 + j * 0.85, fz - 0.3, 0.85, 0.7, 0.16, 0x111418);
+              D(L - 0.45 + i * 0.95, 1.0 + j * 0.85, fz - 0.2, 0.72, 0.56, 0.04, [0x4fc3ff, 0xff7ab8, 0x7cf08a, 0xffd246][i * 2 + j], 1.1);
+            }
+            D(L, 0.3, fz - 0.3, 2, 0.6, 0.6, 0x2a2f38); solid(L, fz - 0.3, 1, 0.35);
+            D(R - 0.5, 0.75, fz, 0.9, 1.5, 0.9, 0xf3f5f8); D(R - 0.5, 0.85, fz + 0.46, 0.6, 0.6, 0.04, 0x8ab4d8, 0.6);
+            D(R + 0.5, 1.05, fz, 0.8, 2.1, 0.8, 0xdfe6ee); D(R + 0.5, 1.4, fz + 0.41, 0.06, 0.6, 0.04, 0x9aa4b0);
+            solid(R, fz, 1, 0.5);
+            break;
+          }
+          case 'books': {
+            // 屋根に 本の 山（いろいろな 色の 背表紙）と ひらいた 本。
+            const spines = [0xd9483b, 0x2f6fbf, 0xf2b630, 0x2f9e5b, 0x8a5bc8];
+            for (let i = 0; i < 4; i += 1) D(x - 0.2 + (i % 2) * 0.4, roofY + 0.3 + i * 0.55, front - 1.4, 3.4 - i * 0.3, 0.5, 2, spines[i]);
+            D(x - 0.75, roofY + 2.9, front - 1.4, 1.4, 0.18, 1.8, 0xfffbf0); D(x + 0.75, roofY + 2.9, front - 1.4, 1.4, 0.18, 1.8, 0xfffbf0);
+            D(x, roofY + 2.85, front - 1.4, 0.12, 0.24, 1.8, 0x8a5bc8);
+            // わき：本だなの ワゴンと 「おすすめ」の 黒板。
+            D(L, 0.55, fz, 1.6, 1.1, 0.8, 0x8a6a45);
+            for (let i = 0; i < 6; i += 1) D(L - 0.62 + i * 0.25, 1.3, fz, 0.2, 0.5 + (i % 3) * 0.08, 0.6, spines[i % 5]);
+            solid(L, fz, 0.8, 0.4);
+            D(R, 1.0, fz, 1.1, 1.4, 0.12, 0x2b3a33); D(R, 1.0, fz + 0.07, 0.9, 1.2, 0.02, 0x3c5148);
+            for (const sx of [-0.45, 0.45]) D(R + sx, 0.5, fz - 0.25, 0.08, 1, 0.08, 0x6f5b3e);
+            break;
+          }
+          case 'pizza': {
+            // 屋根に 大きな ピザ（まるく 見える 3 まいの 板）と レンガの かまどの えんとつ。
+            const pz = front - 1.3;
+            D(x, roofY + 1.6, pz, 3.2, 1.6, 0.3, 0xe8b35a); D(x, roofY + 1.6, pz, 1.6, 3.2, 0.3, 0xe8b35a); D(x, roofY + 1.6, pz, 2.6, 2.6, 0.3, 0xe8b35a);
+            D(x, roofY + 1.6, pz + 0.12, 2.6, 1.2, 0.1, 0xd9483b); D(x, roofY + 1.6, pz + 0.12, 1.2, 2.6, 0.1, 0xd9483b); D(x, roofY + 1.6, pz + 0.12, 2.1, 2.1, 0.1, 0xd9483b);
+            for (const [ox, oy] of [[-0.6, 0.5], [0.5, 0.6], [0.1, -0.2], [-0.5, -0.6], [0.7, -0.5]]) D(x + ox, roofY + 1.6 + oy, pz + 0.2, 0.36, 0.36, 0.08, 0xfff1c8);
+            D(x - hx * 0.55, roofY + 0.4, z - d * 0.25, 1.4, 2.4, 1.4, 0xa0503a); D(x - hx * 0.55, roofY + 1.7, z - d * 0.25, 1.6, 0.3, 1.6, 0x7a3b2a);
+            awning(0xd9483b, 0x2f9e5b);
+            // わき：そとの テーブルと パラソル。
+            for (const sx of [L, R]) {
+              D(sx, 0.75, fz + 0.2, 1.2, 0.12, 1.2, 0xf7f1e1); D(sx, 0.4, fz + 0.2, 0.15, 0.7, 0.15, 0x6f5b3e);
+              D(sx, 1.6, fz + 0.2, 0.1, 1.8, 0.1, 0xb0b0b0); D(sx, 2.5, fz + 0.2, 2, 0.16, 2, sx === L ? 0xd9483b : 0x2f9e5b);
+              solid(sx, fz + 0.2, 0.6, 0.6);
+            }
+            break;
+          }
+          case 'burger': {
+            // 屋根に 大きな ハンバーガー（パン・レタス・チーズ・にく・パン）。
+            const by = roofY + 0.2;
+            const bz = front - 1.4;
+            D(x, by, bz, 2.8, 0.45, 2.4, 0xe0a050);
+            D(x, by + 0.4, bz, 3.0, 0.25, 2.6, 0x6b3a22);
+            D(x, by + 0.62, bz, 3.1, 0.12, 2.7, 0xffd23a);
+            D(x, by + 0.78, bz, 3.2, 0.15, 2.8, 0x5fc04a);
+            D(x, by + 1.2, bz, 2.9, 0.7, 2.5, 0xe8a856); D(x, by + 1.65, bz, 2.2, 0.3, 1.8, 0xe8a856);
+            for (const [ox, oz] of [[-0.6, -0.3], [0.4, 0.2], [0, -0.6], [0.7, -0.4], [-0.3, 0.5]]) D(x + ox, by + 1.82, bz + oz, 0.14, 0.06, 0.24, 0xfff3d6);
+            awning(0xffc531, 0xd9483b);
+            // わき：ドライブスルーの 看板（光る）と 赤い いす。
+            D(R, 1.6, fz, 0.18, 3.2, 0.18, 0x9aa4b0); D(R, 3.1, fz, 1.6, 1.0, 0.25, 0xd9483b); D(R, 3.1, fz + 0.14, 1.3, 0.7, 0.04, 0xffd23a, 1.2);
+            for (const sx of [L - 0.45, L + 0.45]) { D(sx, 0.45, fz, 0.6, 0.12, 0.6, 0xd9483b); D(sx, 0.22, fz, 0.12, 0.45, 0.12, 0x9aa4b0); }
+            break;
+          }
+          case 'wear_shop': {
+            // 屋根に 大きな Tシャツ。わきに マネキン 2 体と ハンガーラック。
+            const ty = roofY + 1.4;
+            const tz = front - 1.3;
+            D(x, ty, tz, 1.8, 2.2, 0.3, color); D(x - 1.25, ty + 0.65, tz, 0.9, 0.8, 0.3, color); D(x + 1.25, ty + 0.65, tz, 0.9, 0.8, 0.3, color);
+            D(x, ty + 1.05, tz + 0.05, 0.6, 0.2, 0.3, 0xfff6f0);
+            D(x, ty - 0.1, tz + 0.17, 0.6, 0.6, 0.04, 0xffffff, 0.6);
+            for (const [sx, c] of [[L, 0xff7ab8], [L + 0.9, 0x5fb8ff]]) {
+              D(sx, 0.3, fz, 0.5, 0.12, 0.5, 0x8a8a8a); D(sx, 0.75, fz, 0.1, 0.9, 0.1, 0x8a8a8a);
+              D(sx, 1.45, fz, 0.6, 0.8, 0.36, c); D(sx, 2.0, fz, 0.32, 0.32, 0.32, 0xf3e6d8);
+            }
+            D(R, 1.9, fz, 1.8, 0.08, 0.08, 0x8a8a8a); for (const sx of [-0.85, 0.85]) D(R + sx, 1.0, fz, 0.08, 1.9, 0.08, 0x8a8a8a);
+            for (let i = 0; i < 4; i += 1) D(R - 0.6 + i * 0.4, 1.4, fz, 0.32, 0.9, 0.5, [0xff7ab8, 0xffd246, 0x6be3a0, 0x8a5bc8][i]);
+            solid(R, fz, 0.9, 0.3);
+            awning(0xff9ac8, 0xfff6fa);
+            break;
+          }
+          case 'block_shop': {
+            // 屋根に 色の ブロックの 階段と つるはし。わきに ブロックの つみ木。
+            const cols = [0xb5603a, 0x8a9a4a, 0x6fa8dc, 0xf3c33a, 0x9a9a96, 0x5fc04a];
+            for (let i = 0; i < 4; i += 1) for (let j = 0; j <= i; j += 1) D(x - 1.5 + i * 1, roofY + 0.2 + j * 1, front - 1.3, 0.96, 0.96, 0.96, cols[(i + j) % cols.length]);
+            D(x + 2.0, roofY + 2.4, front - 1.2, 0.2, 2.4, 0.2, 0x8a6a45); D(x + 2.0, roofY + 3.5, front - 1.2, 1.6, 0.3, 0.3, 0x9aa4b0);
+            for (const sx of [L, R]) {
+              for (let k = 0; k < 3; k += 1) D(sx + (k === 2 ? 0 : (k ? 0.5 : -0.5)), 0.5 + (k === 2 ? 1 : 0), fz, 0.95, 0.95, 0.95, cols[(k + (sx === L ? 0 : 3)) % cols.length]);
+              solid(sx, fz, 1, 0.5);
+            }
+            break;
+          }
+          case 'land_shop': {
+            // 屋根に 家の かたちの 看板。わきに 「うります」の 立てふだと ミニチュアの 家。
+            D(x, roofY + 1.0, front - 1.3, 2.6, 1.8, 0.3, 0xfff6e8);
+            for (let i = 0; i < 3; i += 1) D(x, roofY + 2.1 + i * 0.35, front - 1.3, 3.2 - i * 1.0, 0.35, 0.34, 0xd9483b);
+            D(x, roofY + 0.7, front - 1.13, 0.7, 1.0, 0.08, 0x7a5a3a);
+            D(x + 0.8, roofY + 1.25, front - 1.13, 0.5, 0.5, 0.06, 0xffe6ad, 1.1);
+            D(L, 0.9, fz, 0.14, 1.8, 0.14, 0x6f5b3e); D(L, 1.7, fz + 0.08, 1.4, 0.9, 0.1, 0xffffff); D(L, 1.7, fz + 0.14, 1.2, 0.25, 0.04, 0xd9483b);
+            D(R, 0.5, fz, 1.6, 1, 1.2, 0x8a6a45);
+            for (const [ox, c] of [[-0.45, 0x6fa8dc], [0.45, 0xf3c33a]]) { D(R + ox, 1.25, fz, 0.6, 0.5, 0.6, 0xfffbf0); D(R + ox, 1.62, fz, 0.7, 0.25, 0.7, c); }
+            solid(R, fz, 0.8, 0.6);
+            break;
+          }
+          case 'word_house': {
+            // 戸口の わきに A・B・C の つみ木（色の 立方体に 白い 文字の かわりの 印）と 旗。
+            const abc = [0xd9483b, 0x2f6fbf, 0x2f9e5b];
+            for (let i = 0; i < 3; i += 1) { D(L - 0.45 + i * 0.45 * (i === 2 ? 1 : 1), 0.4 + (i === 2 ? 0.8 : 0), fz + (i === 2 ? 0 : 0), 0.8, 0.8, 0.8, abc[i]); D(L - 0.45 + i * 0.45, 0.4 + (i === 2 ? 0.8 : 0), fz + 0.41, 0.4, 0.4, 0.02, 0xfffbf0); }
+            solid(L, fz, 0.8, 0.45);
+            D(R, 2, fz, 0.12, 4, 0.12, 0x9aa4b0); D(R + 0.6, 3.5, fz, 1.1, 0.8, 0.06, color);
+            break;
+          }
+          case 'fish_buy': {
+            // 屋根に 大きな さかな。わきに こおりの 箱と さかな。
+            const fy = roofY + 1.1;
+            const fzz = front - 1.3;
+            D(x, fy, fzz, 3.2, 1.3, 0.4, 0x4f9fd0); D(x - 0.4, fy - 0.45, fzz + 0.02, 2.4, 0.4, 0.4, 0xdff2ff);
+            D(x + 2.0, fy, fzz, 0.6, 1.8, 0.35, 0x2f78b0); D(x - 1.1, fy + 0.2, fzz + 0.22, 0.25, 0.25, 0.05, 0x111111);
+            D(x + 0.2, fy + 0.8, fzz, 0.9, 0.4, 0.3, 0x2f78b0);
+            for (const sx of [L, R]) {
+              D(sx, 0.5, fz, 1.6, 1, 1, 0x3a7fa8); D(sx, 1.03, fz, 1.4, 0.08, 0.8, 0xe8f6ff);
+              for (let i = 0; i < 3; i += 1) D(sx - 0.45 + i * 0.45, 1.12, fz, 0.35, 0.12, 0.7, [0xff9a6b, 0x9ac8e8, 0xf2c46b][i]);
+              solid(sx, fz, 0.8, 0.5);
+            }
+            break;
+          }
+          default:
+        }
       }
 
       // ゲート：光る わく。ゲートの列は 西むき（道から 西へ くぐる）、つり島のゲートは 南むき（入り江へ）。
