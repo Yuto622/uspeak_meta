@@ -18,6 +18,13 @@ body > #hunger { position: fixed; right: 30px; top: 100px; z-index: 5; }
 #hunger.low .hg-icons { animation: hg-shake 1.6s ease-in-out infinite; }
 #hunger.empty { background: #7a2a22e6; }
 #hunger.yum { animation: hg-yum .6s ease-out; }
+/* 押せる しるし：「もちもの」の 札と ›。押すと かばんが ひらく。 */
+.hg-cap { padding: 2px 8px; border-radius: 999px; background: #fffbf5; color: #1b3a2f; font-size: 12px; font-weight: 800; white-space: nowrap; line-height: 1.3; }
+.hg-go { color: #fffbf5; font-size: 20px; font-weight: 800; line-height: 1; margin-left: 2px; }
+#hunger { box-shadow: 0 4px 14px #0003, inset 0 0 0 2px #ffffff33; transition: transform .12s; }
+#hunger:hover { transform: translateY(-1px); box-shadow: 0 6px 16px #0004, inset 0 0 0 2px #ffd246; }
+#hunger:active { transform: translateY(1px); }
+#hunger.empty .hg-cap { background: #ffd246; }
 @keyframes hg-shake { 0%, 80%, 100% { transform: translateY(0); } 85% { transform: translateY(-2px); } 90% { transform: translateY(2px); } }
 @keyframes hg-yum { 40% { box-shadow: 0 0 0 6px #ffd24688; } }
 body[data-arcade] #hunger, body[data-race] #hunger, body[data-gp] #hunger, body[data-main] #hunger { display: none; }
@@ -151,3 +158,12 @@ body[data-arcade] #hunger-notice, body[data-race] #hunger-notice, body[data-gp] 
 @media (max-width: 600px) { .top-dock { right: 142px; top: 84px; width: 150px; } }
 body[data-arcade] .top-dock, body[data-race] .top-dock, body[data-gp] .top-dock, body[data-main] .top-dock { display: none; }
 .top-dock .hg-icons i { width: 14px; font-size: 13px; }
+/* 2 だん：上に「🎒 もちもの ›」、下に 🍗 の めもり（右の 列の 幅に おさまるように）。 */
+#hunger { flex-wrap: wrap; row-gap: 3px; column-gap: 5px; padding: 6px 8px; }
+#hunger .hg-icons { order: 3; flex-basis: 100%; justify-content: center; }
+#hunger .hg-go { order: 2; }
+@media (max-width: 640px) { #hunger .hg-icons i { width: 11px; font-size: 11px; } .hg-cap { font-size: 11px; padding: 1px 6px; } }
+.right-rail > #hunger { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; }
+.right-rail > #hunger .hg-icons i { width: 12px; font-size: 11px; }
+@media (max-width: 640px) { .right-rail > #hunger .hg-icons i { width: 11px; } }
+@media (pointer: coarse) and (max-height: 560px) { .right-rail > #hunger { flex-wrap: nowrap; } .right-rail > #hunger .hg-icons { order: 0; flex-basis: auto; } .right-rail > #hunger .hg-go { order: 4; } }

@@ -20,7 +20,11 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
   gauge.hidden = true;
   gauge.setAttribute('aria-label', 'もちもの と おなか');
   gauge.dataset.tLabel = 'もちもの と おなか';
-  gauge.innerHTML = `<span class="hg-bag" aria-hidden="true">🎒</span><span class="hg-icons" aria-hidden="true">${Array.from({ length: ICONS }, () => '<i></i>').join('')}</span>`;
+  // 🎒 だけでは 押せると 分からなかった：「もちもの ›」の 札を つける（言語で 書きかえる）。
+  gauge.innerHTML = `<span class="hg-bag" aria-hidden="true">🎒</span><span class="hg-cap"></span><span class="hg-icons" aria-hidden="true">${Array.from({ length: ICONS }, () => '<i></i>').join('')}</span><span class="hg-go" aria-hidden="true">›</span>`;
+  const capPaint = () => { gauge.querySelector('.hg-cap').textContent = tr('もちもの'); };
+  capPaint();
+  onLangChange(capPaint);
   gauge.onclick = () => (onBagOpen ? onBagOpen() : openBag());
   document.body.append(gauge);
 
