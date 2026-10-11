@@ -277,7 +277,11 @@ export function createEikenUI({ send, speak, toast, isOnline, learn }) {
         xp: m.xp, coins: m.coins, capped: m.capped,
       };
       render(feedback);
-      if (m.correct && question.skill !== 'listening') learn?.(String(m.answer ?? ''), question.ja || question.q || '');
+      // 4 たくの こたえは 番号で とどく（0〜3）。たんごちょうには 番号ではなく えらんだ ことばを のせる。
+      if (m.correct && question.skill !== 'listening') {
+        const en = typeof m.answer === 'number' ? question.choices?.[m.answer] : m.answer;
+        if (en && !/^\d+$/.test(String(en))) learn?.(String(en), question.ja || question.q || '');
+      }
       if (m.levels > 0) toast(t('レベル {n} に なった！', { n: m.progress.level }));
       if (!m.done) {
         setTimeout(() => {
