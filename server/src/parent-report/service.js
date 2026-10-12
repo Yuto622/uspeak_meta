@@ -341,6 +341,14 @@ export function createParentReports({
     for (const e of events || []) {
       const uid = e?.source?.userId;
       if (!uid) continue;
+      // 運営者が 自分の ユーザー ID を 知る ため（LINE Developers に メールで ログインしていると「Your user ID」が 出ない）：
+      // 友だち追加・メッセージを した 人の ID を 7 日・5 人まで 覚え、/admin/reports に だけ 出す。
+      if (e.type === 'follow' || e.type === 'message') {
+        const at = now();
+        const recent = (reports.meta.recent_contacts || []).filter((c) => c.id !== uid && at - Date.parse(c.at) < 7 * DAY);
+        recent.unshift({ id: uid, type: e.type, at: new Date(at).toISOString() });
+        reports.setMeta({ recent_contacts: recent.slice(0, 5) });
+      }
       if (e.type === 'unfollow') reports.setLinkStatus({ lineUserId: uid, status: 'active' }, 'blocked');
       if (e.type === 'follow') reports.setLinkStatus({ lineUserId: uid, status: 'blocked' }, 'active');
     }

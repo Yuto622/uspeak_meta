@@ -24,6 +24,7 @@ export function adminExtension({ service, reports, line, renderer, opsUserId = p
         ok: true, enabled: reports.meta.enabled !== false, classes, runs, failed,
         quota: await line.quota(), dryRun: line.dryRun, renderer: renderer.mode, rendererReady: await renderer.available(),
         template: templateVersion(), versions, opsSet: !!opsUserId,
+        recent: (reports.meta.recent_contacts || []).map((c) => ({ ...c, linked: reports.links({ lineUserId: c.id }).length > 0 })),
       });
     });
     api.post('/reports/global', (req, res) => { reports.setMeta({ enabled: !!req.body?.enabled }); res.json({ ok: true, enabled: reports.meta.enabled }); });
@@ -65,6 +66,7 @@ async function load() {
       ／ 組版：\${esc(S.renderer)} \${S.rendererReady ? '' : '<span class="pill red">TeX がありません</span>'} ／ 運営者への通知：\${S.opsSet ? '設定済み' : '<span class="pill red">OPS_LINE_USER_ID 未設定</span>'}</p>
     <p class="muted">テンプレートの版：<b>\${esc(S.template)}</b>（作ったレポート：\${Object.entries(S.versions).map(([v, n]) => esc(v) + ' ' + n + '件').join('・') || 'なし'}）</p>
   </div>
+  \${S.opsSet ? '' : '<div class="card"><h2>運営者の ユーザーID を さがす</h2><p class="muted">自分の LINE で 公式アカウントを 友だち追加するか、何か メッセージを 送ると、ここに ID が 出ます（7日・5人まで）。自分の ID を コピーして <code>fly secrets set -a uspeak-multiplayer OPS_LINE_USER_ID=…</code> に 入れてください。</p><table><tr><th>日時</th><th>きっかけ</th><th>ユーザーID</th></tr>' + ((S.recent || []).map((c) => '<tr><td>' + when(c.at) + '</td><td>' + (c.type === 'follow' ? '友だち追加' : 'メッセージ') + (c.linked ? ' <span class="pill gray">保護者として登録済み</span>' : '') + '</td><td><code>' + esc(c.id) + '</code></td></tr>').join('') || '<tr><td colspan=3 class="muted">まだ ありません</td></tr>') + '</table></div>'}
   <div class="card"><h2>教室</h2><table><tr><th>教室</th><th>状態</th><th>登録率</th><th>直近の配信</th><th>テスト送信（自分のLINEへ）</th></tr>
     \${S.classes.map((c) => '<tr><td>' + esc(c.name) + '<br><span class="muted">' + esc(c.classroom_id) + '</span></td><td>' + (c.enabled ? '<span class="pill">オン</span> ' + esc(c.frequency) : '<span class="pill gray">オフ</span>')
       + '</td><td>' + c.registered + ' / ' + c.total + (c.total ? '（' + Math.round(c.registered / c.total * 100) + '%）' : '') + '</td><td>' + (c.lastRun ? when(c.lastRun.finished_at) + '<br>' + C(c.lastRun.counts) : '—')
