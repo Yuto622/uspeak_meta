@@ -214,7 +214,7 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
   }
 
   // 保護者レポートなど、同じ ログインで 見る 画面を 足す（parent-report/admin.js）。
-  extend?.({ router, api, authed });
+  extend?.({ router, api, authed, access });
   router.use('/api', api);
   app.use('/admin', router);
   log.info('[admin] /admin is served (register editor)');

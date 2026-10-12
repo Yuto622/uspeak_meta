@@ -68,7 +68,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
 
   // 保護者レポート（LINE 配信・parent-report/）。記録と ファイルは ボリュームの DATA_DIR。教室が オンに するまで 何も 送らない。
   const parentReports = await setupParentReports({
-    store, roblox, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log,
+    store, roblox, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
     baseUrl: config.corsOrigins.find((o) => /^https?:\/\//.test(o)) || '',
   });
 

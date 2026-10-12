@@ -129,6 +129,13 @@ export class SheetsStore {
     return out;
   }
 
+  // 記録が ある 教室の コード（/admin/reports の 教室一覧）。
+  listClassCodes() {
+    const out = new Set();
+    for (const { record } of this.cache.values()) if (record?.class) out.add(record.class);
+    return [...out];
+  }
+
   savePlayer(record) {
     const key = playerKey(record.class, record.name);
     const copy = { ...record };

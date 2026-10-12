@@ -3,18 +3,28 @@
 //   テンプレートの 版・LINE の 今月の 送信数。LINE の ユーザー ID は 画面にも 出さない（mask）。
 import { mask } from './line.js';
 import { templateVersion } from './render-tex.js';
+import { signClass } from '../game/report.js';
 
-export function adminExtension({ service, reports, line, renderer, opsUserId = process.env.OPS_LINE_USER_ID || '' }) {
-  return ({ router, api, authed }) => {
+export function adminExtension({ service, reports, line, renderer, store = null, secret = '', opsUserId = process.env.OPS_LINE_USER_ID || '' }) {
+  // 教室の 一覧：記録が ある 教室・名簿の 教室・設定ずみの 教室。教室ごとの 署名つき リンクを 探さなくても、ここから 設定を ひらける。
+  async function classCodes(access) {
+    const codes = new Set(reports.allSettings().map((s) => s.classroom_id));
+    try { for (const c of store?.listClassCodes?.() || []) codes.add(String(c)); } catch { /* 記録が 読めなくても 一覧は 出す */ }
+    try { for (const r of (await access?.rows?.()) || []) if (r?.class && r.class !== '*') codes.add(String(r.class)); } catch { /* 名簿なし */ }
+    return [...codes].filter(Boolean).sort();
+  }
+  return ({ router, api, authed, access }) => {
     router.get('/reports', (req, res) => {
       if (!authed(req)) { res.redirect(303, '/admin'); return; }
       res.type('text/html; charset=utf-8').send(ADMIN_PAGE);
     });
 
     api.get('/reports/state', async (req, res) => {
-      const classes = reports.allSettings().map((s) => {
-        const st = service.classStatus(s.classroom_id);
-        return { classroom_id: s.classroom_id, name: s.sender_name || s.classroom_id, enabled: s.enabled, frequency: s.frequency, registered: st.registered, total: st.total, lastRun: st.lastRun };
+      const classes = (await classCodes(access)).map((code) => {
+        const s = reports.settings(code);
+        const st = service.classStatus(code);
+        const open = secret ? `/class/${encodeURIComponent(code)}/parents?t=${encodeURIComponent(signClass(secret, code))}&from=admin` : '';
+        return { classroom_id: code, name: s.sender_name || code, enabled: s.enabled, frequency: s.frequency, registered: st.registered, total: st.total, lastRun: st.lastRun, open };
       });
       const versions = {};
       for (const r of reports.reports()) versions[r.template_version] = (versions[r.template_version] || 0) + 1;
@@ -67,10 +77,11 @@ async function load() {
     <p class="muted">テンプレートの版：<b>\${esc(S.template)}</b>（作ったレポート：\${Object.entries(S.versions).map(([v, n]) => esc(v) + ' ' + n + '件').join('・') || 'なし'}）</p>
   </div>
   \${S.opsSet ? '' : '<div class="card"><h2>運営者の ユーザーID を さがす</h2><p class="muted">自分の LINE で 公式アカウントを 友だち追加するか、何か メッセージを 送ると、ここに ID が 出ます（7日・5人まで）。自分の ID を コピーして <code>fly secrets set -a uspeak-multiplayer OPS_LINE_USER_ID=…</code> に 入れてください。</p><table><tr><th>日時</th><th>きっかけ</th><th>ユーザーID</th></tr>' + ((S.recent || []).map((c) => '<tr><td>' + when(c.at) + '</td><td>' + (c.type === 'follow' ? '友だち追加' : 'メッセージ') + (c.linked ? ' <span class="pill gray">保護者として登録済み</span>' : '') + '</td><td><code>' + esc(c.id) + '</code></td></tr>').join('') || '<tr><td colspan=3 class="muted">まだ ありません</td></tr>') + '</table></div>'}
-  <div class="card"><h2>教室</h2><table><tr><th>教室</th><th>状態</th><th>登録率</th><th>直近の配信</th><th>テスト送信（自分のLINEへ）</th></tr>
+  <div class="card"><h2>教室</h2><table><tr><th>教室</th><th>状態</th><th>登録率</th><th>直近の配信</th><th>設定・QR・ひとこと</th><th>テスト送信（自分のLINEへ）</th></tr>
     \${S.classes.map((c) => '<tr><td>' + esc(c.name) + '<br><span class="muted">' + esc(c.classroom_id) + '</span></td><td>' + (c.enabled ? '<span class="pill">オン</span> ' + esc(c.frequency) : '<span class="pill gray">オフ</span>')
       + '</td><td>' + c.registered + ' / ' + c.total + (c.total ? '（' + Math.round(c.registered / c.total * 100) + '%）' : '') + '</td><td>' + (c.lastRun ? when(c.lastRun.finished_at) + '<br>' + C(c.lastRun.counts) : '—')
-      + '</td><td><button class="btn ghost" data-test="' + esc(c.classroom_id) + '">生徒をえらんで送る</button></td></tr>').join('') || '<tr><td colspan=5 class="muted">まだどの教室も設定していません（/class の「保護者レポート」から）</td></tr>'}
+      + '</td><td>' + (c.open ? '<a class="btn" style="display:inline-flex;align-items:center;text-decoration:none" href="' + esc(c.open) + '">設定をひらく</a>' : '<span class="muted">REPORT_SECRET 未設定</span>')
+      + '</td><td><button class="btn ghost" data-test="' + esc(c.classroom_id) + '">生徒をえらんで送る</button></td></tr>').join('') || '<tr><td colspan=6 class="muted">まだ 教室が ありません（生徒が 1回 遊ぶか、名簿に 教室を 入れると 出ます）</td></tr>'}
   </table></div>
   <div class="card"><h2>失敗した送信</h2><table><tr><th>日時</th><th>宛先</th><th>理由</th><th></th></tr>
     \${S.failed.map((d) => '<tr><td>' + when(d.sent_at) + '</td><td>' + esc(d.to) + '</td><td>' + esc(d.error) + '</td><td>' + (d.report_id ? '<button class="btn ghost" data-resend="' + esc(d.id) + '">再送</button>' : '') + '</td></tr>').join('') || '<tr><td colspan=4 class="muted">ありません</td></tr>'}

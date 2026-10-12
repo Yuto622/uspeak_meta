@@ -88,6 +88,11 @@ export class FileStore {
     return Object.values(this.data.players).filter((r) => r && r.class === classCode).map((r) => ({ ...r }));
   }
 
+  // 記録が ある 教室の コード（/admin/reports の 教室一覧）。
+  listClassCodes() {
+    return [...new Set(Object.values(this.data.players).map((r) => r?.class).filter(Boolean))];
+  }
+
   savePlayer(record) {
     this.data.players[playerKey(record.class, record.name)] = { ...record };
     this.dirty = true;

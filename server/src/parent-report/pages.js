@@ -61,12 +61,12 @@ const post = (url, body) => fetch(url, { method: 'POST', headers: { 'content-typ
 }
 
 // ---- 先生の「保護者レポート」タブ ----------------------------------------------------------------
-export function classTabHtml({ classCode, token }) {
+export function classTabHtml({ classCode, token, fromAdmin = false }) {
   return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex"><title>保護者レポート — ${esc(classCode)}</title>
 <style>${BASE_CSS}#preview img{max-width:320px;width:100%;border:1px solid #e9e2d6;border-radius:12px}.cmt button{margin:3px 4px 3px 0;min-height:36px;font-weight:500}.cmt h3{font-size:14px;margin:10px 0 4px}</style></head>
 <body><div class="wrap">
-<p><a href="/class/${encodeURIComponent(classCode)}?t=${encodeURIComponent(token)}">← 教室のようす</a></p>
+<p>${fromAdmin ? '<a href="/admin/reports">← 保護者レポートの管理</a>　' : ''}<a href="/class/${encodeURIComponent(classCode)}?t=${encodeURIComponent(token)}">← 教室のようす</a></p>
 <h1>保護者レポート（LINE配信）</h1>
 <div id="app"><p class="muted">読みこんでいます…</p></div>
 </div>

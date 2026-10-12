@@ -77,7 +77,7 @@ export function mountParentReports(app, { service, reports, line, verifyClass, s
   app.get('/class/:code/parents', (req, res) => {
     noindex(res);
     if (!ok(req)) { res.status(404).type('text/plain; charset=utf-8').send('見つかりません。先生コンソールからリンクを取り直してください。'); return; }
-    res.type('text/html; charset=utf-8').send(classTabHtml({ classCode: req.params.code, token: String(req.query.t || '') }));
+    res.type('text/html; charset=utf-8').send(classTabHtml({ classCode: req.params.code, token: String(req.query.t || ''), fromAdmin: req.query.from === 'admin' }));
   });
   const api = express.Router({ mergeParams: true });
   api.use(guard);
