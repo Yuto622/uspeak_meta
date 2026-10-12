@@ -19,6 +19,7 @@ import { reportTex } from './game/report-tex.js';
 import { texToPdf, latexAvailable, LatexError } from './game/latex.js';
 import { createRoblox, verifyRobloxReport } from './roblox/sync.js';
 import { parentHtml as robloxParentHtml, classSection as robloxClassSection, classCsv as robloxClassCsv } from './roblox/pages.js';
+import { setupParentReports } from './parent-report/index.js';
 import { log } from './log.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -64,6 +65,12 @@ export async function startServer({ port = config.port, storeOverride = null } =
   const roblox = createRoblox({ store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, log });
   await roblox.ensureSeeds();
   await roblox.refreshLinks();
+
+  // 保護者レポート（LINE 配信・parent-report/）。記録と ファイルは ボリュームの DATA_DIR。教室が オンに するまで 何も 送らない。
+  const parentReports = await setupParentReports({
+    store, roblox, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log,
+    baseUrl: config.corsOrigins.find((o) => /^https?:\/\//.test(o)) || '',
+  });
 
   const app = express();
   app.disable('x-powered-by');
@@ -151,7 +158,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
       let robloxRows = [];
       try { robloxRows = await roblox.classRows(classCode, { records }); } catch (err) { log.warn('[class] roblox rows failed:', err.message); }
       if (String(req.query.format || '').toLowerCase() === 'json') { res.json({ ...view, roblox: robloxRows.map(({ reportToken, ...r }) => r) }); return; }
-      res.type('text/html; charset=utf-8').send(classHtml(view, { extra: robloxClassSection(robloxRows, { classCode, token: String(req.query.t || '') }) }));
+      const parentsLink = `<section style="margin:16px 0;padding:14px 16px;border-radius:14px;background:#fff3e6;border:1px solid #f0c9a5"><b>📨 保護者レポート（LINE配信）</b> — 配信の設定・QRカードの印刷・先生のひとこと：<a href="/class/${encodeURIComponent(classCode)}/parents?t=${encodeURIComponent(String(req.query.t || ''))}">ひらく →</a></section>`;
+      res.type('text/html; charset=utf-8').send(classHtml(view, { extra: parentsLink + robloxClassSection(robloxRows, { classCode, token: String(req.query.t || '') }) }));
     });
 
     // 先生ページの Roblox の表を CSV に。署名は教室ページと同じ。
@@ -258,7 +266,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
   }
 
   // 管理ページ. Mounted only with ADMIN_KEY (admin/roster-admin.js).
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: parentReports.adminExtend });
+  // 保護者レポートの 口（Webhook・LIFF・/r/:token・教室の タブ）。
+  parentReports.mount(app, { verifyClass, secret: config.reportSecret });
   // Roblox 版からの口（鍵がなければ開かない）。
   roblox.mount(app);
 
@@ -299,6 +309,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox }).filterBy(['classCode']);
 
   await gameServer.listen(port);
+  parentReports.start();
   log.info(`[server] listening on :${port} env=${config.nodeEnv} maxClients=${config.maxClients} cors=${config.corsOrigins.join(',') || '(dev: any)'} serveClient=${config.serveClient}`);
 
   let closing = false;
@@ -308,9 +319,10 @@ export async function startServer({ port = config.port, storeOverride = null } =
     log.info(`[server] ${signal} received, shutting down`);
     try { blockwild.close(); } catch (err) { log.warn('[server] blockwild shutdown error:', err.message); }
     try { await gameServer.gracefullyShutdown(false); } catch (err) { log.warn('[server] shutdown error:', err.message); }
+    await parentReports.close();
     await closeStore();
   };
-  return { app, server, gameServer, store, shutdown, port, blockwild, roblox };
+  return { app, server, gameServer, store, shutdown, port, blockwild, roblox, parentReports };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

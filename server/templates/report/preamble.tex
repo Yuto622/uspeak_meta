@@ -1,0 +1,22 @@
+\usepackage{fontspec}
+\setmainfont{Noto Sans CJK JP}[BoldFont={Noto Sans CJK JP Bold}]
+\XeTeXlinebreaklocale "ja"
+\XeTeXlinebreakskip=0pt plus 1pt
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\definecolor{brand}{HTML}{1B3A2F}
+\definecolor{accent}{HTML}{E27A2D}
+\definecolor{cream}{HTML}{FFFBF5}
+\definecolor{good}{HTML}{3E8E5E}
+\definecolor{soft}{HTML}{E9E2D6}
+\definecolor{gray}{HTML}{6E665C}
+\definecolor{lgray}{HTML}{B9B1A6}
+\pagecolor{cream}
+\newtcolorbox{card}[1][]{enhanced,colback=white,colframe=soft,boxrule=0.6pt,arc=3mm,left=3mm,right=3mm,top=2mm,bottom=2mm,before skip=2.6mm,after skip=0mm,#1}
+\newcommand{\cardtitle}[1]{{\color{brand}\bfseries #1}}
+\newcommand{\note}[1]{{\color{gray}#1}}

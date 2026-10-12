@@ -39,7 +39,7 @@ const safeEqual = (a, b) => {
 const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(';').map((c) => c.trim().split('=')).filter((p) => p[0]).map(([k, ...v]) => [k, decodeURIComponent(v.join('='))]));
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet = false, isProduction = false, log = console, now = Date.now }) {
+export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet = false, isProduction = false, log = console, now = Date.now, extend = null }) {
   if (!adminKey) return;
   const router = express.Router();
   const fails = new Map(); // ip -> { count, at }
@@ -213,6 +213,8 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
     });
   }
 
+  // 保護者レポートなど、同じ ログインで 見る 画面を 足す（parent-report/admin.js）。
+  extend?.({ router, api, authed });
   router.use('/api', api);
   app.use('/admin', router);
   log.info('[admin] /admin is served (register editor)');

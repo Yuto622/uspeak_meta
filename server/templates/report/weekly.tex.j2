@@ -1,0 +1,49 @@
+% 保護者レポート・毎週版（LINE の 画像 1 枚：1040×1300px に 書き出す）。見本：保護者レポート_毎週版_見本.tex
+% {{ x }} は エスケープした 文字、{{{ x }}} は render-tex.js が 組んだ（中で エスケープ済みの）部品。
+\documentclass[12pt]{article}
+\usepackage[paperwidth=130mm,paperheight=162.5mm,margin=6mm,top=5mm,bottom=4mm]{geometry}
+\input{preamble.tex}
+\begin{document}
+% ===== ヘッダー =====
+\begin{tikzpicture}[remember picture,overlay]
+\fill[brand] (current page.north west) rectangle ($(current page.north east)+(0,-24mm)$);
+\fill[accent] ($(current page.north west)+(0,-24mm)$) rectangle ($(current page.north east)+(0,-25mm)$);
+{{{ badge }}}
+\end{tikzpicture}
+{\color{white}\fontsize{9}{11}\selectfont U-Speak（{{ sender }}でご利用中の学習ツール）より}\\[1.4mm]
+{\color{white}\fontsize{ {{{ titleSize }}} }{20}\selectfont\bfseries {{ nick }}さんの英語きろく}\\[1.2mm]
+{\color{white}\fontsize{11}{13}\selectfont {{ range }}}
+\vspace{3.6mm}
+
+{{{ teacherCard }}}
+
+% ===== 今週のがんばり =====
+\begin{card}
+\begin{tikzpicture}
+\node[anchor=north west,inner sep=0,font=\fontsize{10}{12}\selectfont\bfseries,text=brand] at (0,0) {英語をした日};
+{{{ dayCircles }}}
+\node[anchor=north west,inner sep=0,text=brand] at (0,-1.45) {\fontsize{24}{24}\selectfont\bfseries {{ dayCount }}\,{\fontsize{12}{12}\selectfont 日}};
+{{{ streakLine }}}
+\draw[soft,line width=0.8pt] (5.85,0.05) -- (5.85,-2.55);
+\node[anchor=north west,inner sep=0,font=\fontsize{10}{12}\selectfont\bfseries,text=brand] at (6.2,0) {英語のクイズに答えた数};
+\node[anchor=north west,inner sep=0,text=brand] at (6.2,-0.55) {\fontsize{34}{34}\selectfont\bfseries {{ answers }}\,{\fontsize{14}{14}\selectfont 問}};
+\node[anchor=north west,inner sep=0,text=gray,font=\fontsize{9.5}{11}\selectfont] at (6.2,-1.95) {先週 {{ prevAnswers }}問{{{ diffText }}}};
+\end{tikzpicture}
+\end{card}
+
+% ===== 今週おぼえた単語 =====
+\begin{card}
+\cardtitle{\fontsize{10}{12}\selectfont 今週おぼえた単語}\;{\fontsize{8.5}{10}\selectfont\note{（3回つづけて正解）}}\\[1.2mm]
+{{{ wordCards }}}
+\end{card}
+
+% ===== 次に覚える単語＋おうちで1分 =====
+\begin{card}[colback=accent!10,colframe=accent!45,boxrule=0.8pt]
+{{{ nextBlock }}}
+\end{card}
+
+\vfill
+{\fontsize{8}{10.5}\selectfont\color{gray}
+{{ footer1 }}\\
+{{ footer2 }}\par}
+\end{document}

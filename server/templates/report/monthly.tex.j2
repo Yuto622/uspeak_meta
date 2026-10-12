@@ -1,0 +1,82 @@
+% 保護者レポート・月次版（A4・PDF）。見本：保護者レポート_月次版_見本.tex
+% {{ x }} は エスケープした 文字、{{{ x }}} は render-tex.js が 組んだ（中で エスケープ済みの）部品。
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=13mm,top=10mm,bottom=10mm]{geometry}
+\input{preamble.tex}
+\begin{document}
+\begin{tikzpicture}[remember picture,overlay]
+\fill[brand] (current page.north west) rectangle ($(current page.north east)+(0,-34mm)$);
+\fill[accent] ($(current page.north west)+(0,-34mm)$) rectangle ($(current page.north east)+(0,-35.5mm)$);
+{{{ badge }}}
+\end{tikzpicture}
+{\color{white}\small U-Speak（{{ sender }}でご利用中の学習ツール）より}\\[2mm]
+{\color{white}\fontsize{ {{{ titleSize }}} }{28}\selectfont\bfseries {{ nick }}さんの英語きろく　{{ monthLabel }}}\\[2mm]
+{\color{white}\normalsize 1か月のふりかえり（{{ range }}）}
+\vspace{8mm}
+
+{{{ teacherCard }}}
+
+% ===== 始めた頃と今 ＋ 英語をした日 =====
+\begin{minipage}[t]{0.49\textwidth}
+\begin{card}[equal height group=A]
+\cardtitle{始めた頃と今}\;{\footnotesize\note{（覚えた単語の数・累計）}}\\[2mm]
+{{{ learnedBars }}}
+\end{card}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\textwidth}
+\begin{card}[equal height group=A]
+\cardtitle{今月 英語をした日}\;{\footnotesize\note{（〇＝英語をした日）}}\\[1.5mm]
+{{{ calendar }}}\\[0.6mm]
+{\small\color{brand}\bfseries {{ dayCount }}日 英語にふれました}
+\end{card}
+\end{minipage}
+
+% ===== 4つの力の練習 =====
+\begin{card}
+\cardtitle{4つの力の練習}\;{\footnotesize\note{（今月練習した数／はじめて答えたときの正解）}}\\[2mm]
+\begin{tikzpicture}
+\newcommand{\skillrow}[6]{%
+  \node[anchor=west,font=\bfseries,text=brand] at (0,#1) {#2};
+  \node[anchor=west,font=\scriptsize,text=gray] at (0,#1-0.45) {#3};
+  \node[anchor=east,font=\large\bfseries,text=brand] at (9.2,#1) {#4};
+  \node[anchor=west,font=\small,text=brand] at (9.6,#1) {#5};
+  \ifdim #6pt>0pt
+    \fill[soft] (13.9,#1-0.13) rectangle (17.4,#1+0.13);
+    \fill[good] (13.9,#1-0.13) rectangle ({13.9+3.5*#6},#1+0.13);
+  \fi}
+{{{ skillRows }}}
+\end{tikzpicture}
+\end{card}
+
+% ===== できるようになってきたこと ＋ ゲームのできごと =====
+\begin{minipage}[t]{0.555\textwidth}
+\begin{card}[equal height group=B]
+\cardtitle{できるようになってきたこと}\\[1mm]
+{{{ canDo }}}
+\end{card}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.43\textwidth}
+\begin{card}[equal height group=B]
+\cardtitle{ゲームの中のできごと}\\[1mm]
+{{{ game }}}
+\end{card}
+\end{minipage}
+
+% ===== 来月の一歩 ＋ おうちで1分 =====
+\begin{card}[colback=accent!10,colframe=accent!45,boxrule=0.8pt]
+\cardtitle{来月の一歩}\quad{\color{brand} {{ nextStep }}}\\[2mm]
+\cardtitle{おうちで1分}\;{\footnotesize\note{（どちらか1つでOK）}}\\[1mm]
+{\color{brand} ①{{ home1 }}}\\
+{\color{brand} ②{{ home2 }}}
+\end{card}
+
+% ===== 数字の見方 =====
+\begin{card}[colback=white]
+\cardtitle{\small 数字の見方}\\[0.6mm]
+{\scriptsize\color{gray}\setlength{\baselineskip}{11pt}
+{{{ legend }}}}
+\end{card}
+
+\vfill
+{\centering\scriptsize\color{gray} {{ footer }}\par}
+\end{document}

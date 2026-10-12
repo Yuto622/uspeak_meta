@@ -114,6 +114,12 @@ npm run loadtest -- --url=ws://localhost:2567 --clients=25 --duration=600
 | `ICE_SERVERS` | (空=公開 STUN) | 小部屋（メッシュ）用の TURN。`[{"urls":"turn:host:443?transport=tcp","username":"u","credential":"p"}]` の JSON |
 | `USPEAK_ROBLOX_KEY` | (空=Roblox 連携なし) | Roblox 版が学習の記録とコインを送ってくる `/api/roblox/*` の合言葉（32 文字以上・ほかの鍵と別）。Roblox 側の Secret `USPEAK_WEB_KEY` と同じ値。`docs/ROBLOX_SYNC.md` |
 | `ROBLOX_RATE_PER_MIN` | 120 | その鍵で 1 分に受ける回数の上限 |
+| `LINE_CHANNEL_ACCESS_TOKEN` / `LINE_CHANNEL_SECRET` | (空=dry-run) | 保護者レポートの LINE 配信（Messaging API）。無い間は送らずにログだけ。`docs/PARENT_REPORTS.md` |
+| `LINE_LOGIN_CHANNEL_ID` / `LIFF_ID` / `LINE_BOT_BASIC_ID` | (空) | 保護者の登録ページ（LIFF）。**Messaging API と同じプロバイダー**に作ること |
+| `REPORT_BASE_URL` | (CORS_ORIGINS の先頭) | レポートの URL（`https://…/r/<token>`）の頭 |
+| `OPS_LINE_USER_ID` | (空=ログだけ) | 失敗・データ欠落・通数 80%・毎週のまとめを受け取る運営者の LINE |
+| `RENDER_URL` / `RENDER_SECRET` | (空=この機械の xelatex) | TeX の worker（`worker/`・`http://uspeak-report-worker.flycast/render`） |
+| `LINE_DRY_RUN` / `PARENT_REPORT_SCHEDULER` | | `1`＝送らずにログだけ ／ `0`＝この機械では自動配信を回さない |
 
 接続先 URL はクライアントに埋め込まれていません。`/config.js`（環境変数から生成）→ `<meta name="uspeak-server">` →
 `?server=` → ページと同じホスト、の順で決まります。https ページでは自動的に `wss://` になります。
@@ -1118,6 +1124,38 @@ Hiragino Sans → IPAexGothic → IPAGothic の順に探すので、Windows で�
 `.tex` は画像も外部ファイルも使っていない1枚ものなので、**文面や色を学校で書き換えて**
 そのまま組み直せます。急ぐときは、レポート画面をブラウザーの「印刷 → PDF に保存」でも
 きれいに出ます（印刷用のスタイルを入れてあります）。
+
+## 保護者レポートを LINE で届ける（毎週の画像・毎月の PDF／2026-10 追加）
+
+生徒ごとのレポートを **LaTeX で PDF と画像（1040×1300）**にして、**教室名義で保護者の LINE に1人ずつ**届けます。
+教室が `/class` の「📨 保護者レポート」でオンにし、QR カードを配り、保護者が登録すると、次の配信日から自動で届きます。
+**ふだんは何もしなくても回り、失敗・データ欠落・通数 80% のときだけ運営者に LINE が来ます**（毎週1行のまとめも）。
+くわしくは **`docs/PARENT_REPORTS.md`**（数字の定義・画面・安全・通知）。
+
+**LINE 側の初期設定（最初の1回）**
+1. 既存の LINE 公式アカウントで **Messaging API を有効化** → チャネルアクセストークン・チャネルシークレット。
+   Webhook URL は `https://<app>.fly.dev/api/line/webhook`（署名を検証します）。
+2. **同じプロバイダーの下に** LINE ログインのチャネルを作り、**LIFF アプリ**を登録
+   （エンドポイント `https://<app>.fly.dev/liff/link`、友だち追加オプション **aggressive**）。
+   > ⚠ **LINE のユーザー ID はプロバイダーごとに違います。必ず同じプロバイダーにしてください。**
+   > ちがうと、登録した保護者に送っても届きません（エラーにもならず黙って失敗します）。
+3. 応答設定：**チャットはオフ**、自動応答に「このアカウントは配信専用です。ご質問は通っている教室へお願いします。」（手作業）。
+4. 秘密は `fly secrets set` で（チャットに貼らない）：`LINE_CHANNEL_ACCESS_TOKEN` `LINE_CHANNEL_SECRET` `LINE_LOGIN_CHANNEL_ID`
+   `LIFF_ID` `OPS_LINE_USER_ID` `REPORT_BASE_URL` `RENDER_URL` `RENDER_SECRET`。トークンが無い間は **dry-run**（送らずにログだけ）。
+
+**TeX の実行環境** — 本体のイメージには入れず、**別の Fly アプリ（TeX の worker）**で組みます。TeX Live＋日本語フォントで
+約 1GB あり、本体に積むと授業中のデプロイと起動が重くなるため（Fly のプロセスグループは同じイメージを使うので、別プロセスでは軽くならない）。
+worker は内部ネットワーク（Flycast）だけで、使わない間は止まります。
+```sh
+fly apps create uspeak-report-worker
+fly secrets set -a uspeak-report-worker RENDER_SECRET=<長い乱数>
+fly deploy -c worker/fly.toml                       # リポジトリのいちばん上で
+fly ips allocate-v6 --private -a uspeak-report-worker
+fly secrets set -a uspeak-multiplayer RENDER_URL=http://uspeak-report-worker.flycast/render RENDER_SECRET=<同じ値>
+```
+開発機では `apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra texlive-pictures fonts-noto-cjk poppler-utils`
+を入れれば、`RENDER_URL` なしでその機械で組みます。レポートのファイルはボリューム（`DATA_DIR/parent-reports/`）に置くので、
+生徒が多い教室ではボリュームを 3GB にしてください。
 
 ## 教室さま向けの説明資料（島とゲームのぜんぶ・PDF）
 

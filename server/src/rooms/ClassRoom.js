@@ -50,7 +50,7 @@ import { startSet as whStart, answer as whAnswer, askPayload as whAsk, HOUSES as
 import { LAND, LAND_ISLAND, sanitizeLand, landPayload, islandPayload as landIslandPayload, priceOfNext as landPriceOfNext, priceOfRestyle as landPriceOfRestyle, LandError } from '../game/land.js';
 import { RIDE, ISLAND as RIDE_ISLAND, COURSE, COURSE_CAP, vehiclePayload, sanitizeGarage, sanitizeRiding } from '../game/vehicles.js';
 import { claimLogin, sanitizeLogin, sanitizeWeek, addWeekXp, weekIndex, daysLeftInWeek, seasonFor, dayIndex, LOGIN_REWARDS, CYCLE } from '../game/daily.js';
-import { SKILLS, blankSkills, sanitizeSkills, addAnswer, radarOf, weakestOf, FULL as SKILL_FULL } from '../game/skills.js';
+import { SKILLS, blankSkills, sanitizeSkills, addAnswer, skillOf, radarOf, weakestOf, FULL as SKILL_FULL } from '../game/skills.js';
 import { WARDROBE, shopPayload, priceOf, wear as wearItem, sanitizeOwned as sanitizeWardrobe, sanitizeWorn, WardrobeError } from '../game/wardrobe.js';
 import { createGate } from '../game/gate.js';
 import { FARM, sanitizeFarm, settle as settleFarm, statePayload as farmPayload, prepare as prepareFarm, judge as judgeFarm, askPayload as farmAsk, spotForAct, FarmError } from '../game/farm.js';
@@ -1540,6 +1540,8 @@ export class ClassRoom extends Room {
         // **おうちの日**：先生が部屋にいない時間に答えたら、その日を「おうち」にも数える。
         // 端末の申告ではなく、部屋に先生がいたかをサーバーが見て決める。
         bumpMonth(priv.months, { answers: 1, correct: Number(row[6]) === 1 ? 1 : 0, xp: Number(row[7]) || 0 }, { day: true, home: !this.teacherPresent() });
+        // 保護者レポートの「話す」：声に出して 英語を 使った 回数を、Roblox と 同じ 記録（roblox_events）にも 1 行。
+        if (skillOf(row[4]) === 'speak') this.robloxEvent(sessionId, 'speak', String(row[4] || 'speak').slice(0, 40), { mode: String(row[4] || '') });
       }
     } catch (err) {
       // A miscounted skill must never cost a child the record of the answer itself.
