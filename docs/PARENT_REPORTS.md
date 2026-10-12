@@ -77,7 +77,7 @@
 ```sh
 fly apps create uspeak-report-worker
 fly secrets set -a uspeak-report-worker RENDER_SECRET=<本体と 同じ 値>
-fly deploy -c worker/fly.toml
+fly deploy . -c worker/fly.toml --dockerfile worker/Dockerfile   # . ＝ リポジトリ全体を 材料に（ないと server/ が 見えない）
 fly ips allocate-v6 --private -a uspeak-report-worker     # Flycast の アドレス
 # 本体側：RENDER_URL=http://uspeak-report-worker.flycast/render（上の secrets）
 ```

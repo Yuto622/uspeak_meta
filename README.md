@@ -1149,7 +1149,7 @@ worker は内部ネットワーク（Flycast）だけで、使わない間は止
 ```sh
 fly apps create uspeak-report-worker
 fly secrets set -a uspeak-report-worker RENDER_SECRET=<長い乱数>
-fly deploy -c worker/fly.toml                       # リポジトリのいちばん上で
+fly deploy . -c worker/fly.toml --dockerfile worker/Dockerfile   # リポジトリのいちばん上で（. ＝ 材料は リポジトリ全体）
 fly ips allocate-v6 --private -a uspeak-report-worker
 fly secrets set -a uspeak-multiplayer RENDER_URL=http://uspeak-report-worker.flycast/render RENDER_SECRET=<同じ値>
 ```

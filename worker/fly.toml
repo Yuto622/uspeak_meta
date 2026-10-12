@@ -1,7 +1,7 @@
 # 保護者レポートの TeX worker（README「TeX の 実行環境」）。本体からだけ 呼ぶ：公開の http_service は 持たない。
 #   fly apps create uspeak-report-worker
 #   fly secrets set -a uspeak-report-worker RENDER_SECRET=<本体と 同じ 値>
-#   fly deploy -c worker/fly.toml            （リポジトリの いちばん上で）
+#   fly deploy . -c worker/fly.toml --dockerfile worker/Dockerfile   （リポジトリの いちばん上で。. が ないと server/ が 見えず 失敗する）
 #   fly ips allocate-v6 --private -a uspeak-report-worker
 # 本体には RENDER_URL=http://uspeak-report-worker.flycast/render を 設定（fly secrets set -a uspeak-multiplayer）。
 # Flycast なので、使わない 間は 止まり（auto_stop）、呼ばれたら 起きる（配信は 週に 1 回）。

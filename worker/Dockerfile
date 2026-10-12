@@ -1,6 +1,7 @@
 # 保護者レポートの TeX worker。TeX Live（XeLaTeX）＋ Noto Sans CJK JP ＋ poppler（pdftoppm）。
 # 本体（../Dockerfile）とは 別の イメージ：本体を 軽く 保つため（README「TeX の 実行環境」）。
-# Build/deploy from the repo root:  fly deploy -c worker/fly.toml
+# Build/deploy from the repo root (the build context must be the whole repo):
+#   fly deploy . -c worker/fly.toml --dockerfile worker/Dockerfile
 FROM node:22-bookworm-slim
 RUN apt-get update \
  && apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra texlive-pictures fonts-noto-cjk poppler-utils \
