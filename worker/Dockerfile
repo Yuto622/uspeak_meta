@@ -4,7 +4,7 @@
 #   fly deploy . -c worker/fly.toml --dockerfile worker/Dockerfile
 FROM node:22-bookworm-slim
 RUN apt-get update \
- && apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra texlive-pictures fonts-noto-cjk poppler-utils \
+ && apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra texlive-pictures fonts-noto-cjk poppler-utils fontconfig \
  && rm -rf /var/lib/apt/lists/* \
  && fc-cache -f
 WORKDIR /app

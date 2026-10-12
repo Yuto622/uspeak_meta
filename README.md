@@ -1153,7 +1153,7 @@ fly deploy . -c worker/fly.toml --dockerfile worker/Dockerfile   # リポジト�
 fly ips allocate-v6 --private -a uspeak-report-worker
 fly secrets set -a uspeak-multiplayer RENDER_URL=http://uspeak-report-worker.flycast/render RENDER_SECRET=<同じ値>
 ```
-開発機では `apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra texlive-pictures fonts-noto-cjk poppler-utils`
+開発機では `apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra texlive-pictures fonts-noto-cjk poppler-utils fontconfig`
 を入れれば、`RENDER_URL` なしでその機械で組みます。レポートのファイルはボリューム（`DATA_DIR/parent-reports/`）に置くので、
 生徒が多い教室ではボリュームを 3GB にしてください。
 

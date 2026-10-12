@@ -82,7 +82,7 @@ fly ips allocate-v6 --private -a uspeak-report-worker     # Flycast の アド�
 # 本体側：RENDER_URL=http://uspeak-report-worker.flycast/render（上の secrets）
 ```
 `RENDER_URL` が 無ければ、本体の マシンの `xelatex` で 組む（開発・テスト）。Debian/Ubuntu なら
-`apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra texlive-pictures fonts-noto-cjk poppler-utils`。
+`apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra texlive-pictures fonts-noto-cjk poppler-utils fontconfig`。
 
 組むときの 決まり（`render.js`）：`xelatex -no-shell-escape -interaction=nonstopmode -halt-on-error`、使い捨ての 作業フォルダ、
 **1 件 30 秒まで**（`REPORT_TEX_TIMEOUT_MS`）、TikZ の 位置合わせの ため 2 回 組む、**並列 2・失敗したら 1 回だけ やりなおす**。
