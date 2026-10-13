@@ -128,8 +128,9 @@ export function createParentReports({
         const { report, data } = await buildReport(classCode, student, kind, periodNow, { force: !!testTo });
         counts.generated += 1;
         let messages;
-        if (data.zero && kind === 'weekly') {
-          if (s.skip_zero_week && !testTo) {
+        // テスト送信は 記録が 0 の 週でも 画像を 送る（見た目を たしかめる ため）。
+        if (data.zero && kind === 'weekly' && !testTo) {
+          if (s.skip_zero_week) {
             for (const l of links) reports.addDelivery({ report_id: report.id, run_id: run.id, line_user_id: l.line_user_id, status: 'skipped', error: 'zero week' });
             counts.skipped += links.length;
             continue;
