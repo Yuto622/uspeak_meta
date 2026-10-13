@@ -8,12 +8,12 @@ import { createParentReports } from './service.js';
 import { mountParentReports } from './routes.js';
 import { adminExtension } from './admin.js';
 
-export async function setupParentReports({ store, roster = store, roblox, dataDir, memory = false, baseUrl = '', log = console, line = null, renderer = null, now = Date.now, secret = '' }) {
+export async function setupParentReports({ store, roster = store, seats = null, roblox, dataDir, memory = false, baseUrl = '', log = console, line = null, renderer = null, now = Date.now, secret = '' }) {
   const reports = await new ReportStore(memory ? null : path.resolve(dataDir, 'parent-reports.json'), { log }).init();
   const lineClient = line || createLine({ log });
   const rend = renderer || createRenderer({ log });
   const service = createParentReports({
-    store, roster, reports, roblox, renderer: rend, line: lineClient, log, now,
+    store, roster, seats, reports, roblox, renderer: rend, line: lineClient, log, now,
     baseUrl: process.env.REPORT_BASE_URL || baseUrl,
     filesDir: path.resolve(dataDir, memory ? `parent-reports-mem-${process.pid}` : 'parent-reports'),
   });

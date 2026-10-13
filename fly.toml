@@ -21,6 +21,8 @@ primary_region = "nrt"
   SERVE_CLIENT = "true"
   # 名簿: ACCESS_MODE=roster + ROSTER_SHEET_ID + GOOGLE_SERVICE_ACCOUNT_JSON go in
   # `fly secrets set` (docs/ROSTER_SHEET.md); the key is a secret, never put it here.
+  # 保護者レポート：Roblox の アカウント管理シート（読むだけ・ID は 秘密ではない）。サービスアカウントに 閲覧者で 共有する。
+  ROBLOX_SEATS_SHEET_ID = "1iqqR6a-aWZDi27k5VV_J1kipVYQhd7JYw0pnKsUwp-E"
   # Must match the public URL of this app (used for CORS and WebSocket origin checks).
   CORS_ORIGINS = "https://uspeak-multiplayer.fly.dev"
 

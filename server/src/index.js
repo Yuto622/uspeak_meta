@@ -7,7 +7,8 @@ import compression from 'compression';
 import { Server, matchMaker, WebSocketTransport } from './colyseus.js';
 import { createBlockwildServer } from './blockwild/server.js';
 import { config, validateConfig } from './config.js';
-import { createStore } from './store/index.js';
+import { createStore, createSheetsApi } from './store/index.js';
+import { createRobloxSeats } from './parent-report/roblox-seats.js';
 import { createAccess } from './game/access.js';
 import { mountAdmin } from './admin/roster-admin.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
@@ -67,8 +68,16 @@ export async function startServer({ port = config.port, storeOverride = null } =
   await roblox.refreshLinks();
 
   // 保護者レポート（LINE 配信・parent-report/）。記録と ファイルは ボリュームの DATA_DIR。教室が オンに するまで 何も 送らない。
+  // Roblox の 座席シート（あれば）。共有されていなくても 起動は 止めない（ログに 出すだけ）。
+  let seats = null;
+  if (config.robloxSeats.sheetId && (config.google.jsonBase64 || (config.google.email && config.google.privateKey))) {
+    try {
+      seats = createRobloxSeats({ api: await createSheetsApi({ ...config.google, sheetId: config.robloxSeats.sheetId, readonly: true }), log });
+      seats.refresh().then(async () => log.info(`[parent-report] Roblox seat sheet: ${(await seats.classes()).length} classes, ${(await seats.seats()).length} seats`));
+    } catch (err) { log.warn('[parent-report] Roblox seat sheet disabled:', err.message); }
+  }
   const parentReports = await setupParentReports({
-    store, roster, roblox, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
+    store, roster, seats, roblox, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
     baseUrl: config.corsOrigins.find((o) => /^https?:\/\//.test(o)) || '',
   });
 

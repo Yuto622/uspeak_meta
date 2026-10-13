@@ -20,6 +20,7 @@ export async function createSheetsApi({ sheetId, email, privateKey, jsonBase64, 
   const svc = sheets({ version: 'v4', auth });
   const spreadsheetId = sheetId;
   return {
+    account: credentials.email,   // 共有する 相手（サービスアカウントの メール。秘密ではない）
     async getSheetTitles() {
       const r = await svc.spreadsheets.get({ spreadsheetId, fields: 'sheets.properties.title' });
       return (r.data.sheets || []).map((s) => s.properties.title);

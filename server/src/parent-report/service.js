@@ -7,6 +7,7 @@
 //   配信の 翌朝：1 行の まとめ（「今週：62通送信・失敗0・新規登録3・停止0」）
 //
 // 同じ 教室・同じ 回は 1 度だけ（report_runs）。push は X-Line-Retry-Key つきなので、やりなおしても 二重に 届かない。
+import { isTeacherName, namePrefix } from './roblox-seats.js';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { weeklyData, monthlyData } from './aggregate.js';
@@ -24,7 +25,7 @@ const fmt = (s, a = {}) => String(s || '').replace(/\{(\w+)\}/g, (_, k) => (a[k]
 const hhmm = (s) => { const [h, m] = String(s || '19:00').split(':').map(Number); return (h || 0) * 60 + (m || 0); };
 
 export function createParentReports({
-  store, roster = null, reports, roblox = null, renderer, line, log = console, now = Date.now,
+  store, roster = null, seats = null, reports, roblox = null, renderer, line, log = console, now = Date.now,
   baseUrl = process.env.REPORT_BASE_URL || '', liffId = process.env.LIFF_ID || '', opsUserId = process.env.OPS_LINE_USER_ID || '',
   filesDir = '',
 }) {
@@ -61,11 +62,38 @@ export function createParentReports({
       for (const l of (await store.listRobloxLinks?.()) || []) if (l?.username && l.class === classCode) add(l.username, l.name || l.username);
       for (const e of (await store.listRobloxEvents?.({ classCode })) || []) if (e?.username) add(e.username, roblox?.childFor?.(e.username)?.name || e.username);
     } catch (err) { log.warn?.('[parent-report] roblox students failed:', err.message); }
+    // Roblox の アカウント管理シート（座席）：この 教室の 席の 子 ＋ 同じ 名前の 型で 遊んでいる 子。
+    if (seats) {
+      try {
+        await seatClasses();
+        const all = (await seats.seats()).filter((x) => !isTeacherName(x.username));
+        for (const x of all) if (x.code === classCode) add(x.username, roblox?.childFor?.(x.username)?.name || x.username);
+        const byPrefix = new Map();
+        for (const x of all) { const pre = namePrefix(x.username); if (pre) byPrefix.set(pre, (byPrefix.get(pre) || new Set()).add(x.code)); }
+        const seated = new Set(all.map((x) => x.username.toLowerCase()));
+        const played = new Set(((await store.listRobloxEvents?.()) || []).map((e) => e?.username).filter(Boolean));
+        for (const u of played) {
+          if (seated.has(u.toLowerCase()) || isTeacherName(u)) continue;
+          const codes = byPrefix.get(namePrefix(u));
+          if (codes && codes.size === 1 && codes.has(classCode)) add(u, roblox?.childFor?.(u)?.name || u);
+        }
+      } catch (err) { log.warn?.('[parent-report] seat students failed:', err.message); }
+    }
     return [...seen.values()];
   }
+  // 教室マスタの 名前（レポートの 教室名の 既定）。「管理者」の 教室は 保護者レポートに 出さない。
+  const seatNames = new Map();
+  async function seatClasses() {
+    if (!seats) return [];
+    const list = (await seats.classes()).filter((c) => !/管理者/.test(c.name));
+    for (const c of list) seatNames.set(c.code, c.name);
+    return list;
+  }
+  const senderOf = (s, code) => s.sender_name || seatNames.get(code) || code;
   // /admin の 教室一覧に 出す、Roblox 側で 分かる 教室（紐づけ表・記録の classCode）。
   async function robloxClassCodes() {
     const out = new Set();
+    try { for (const c of await seatClasses()) out.add(c.code); } catch { /* シートが 読めなくても よい */ }
     try {
       for (const l of (await store.listRobloxLinks?.()) || []) if (l?.class && l.class !== '*') out.add(String(l.class));
       for (const e of (await store.listRobloxEvents?.()) || []) if (e?.class_code) out.add(String(e.class_code));
@@ -79,7 +107,7 @@ export function createParentReports({
     const s = reports.settings(classCode);
     const teacher = reports.comment(classCode, student.username, period.key);
     const rows = await eventsFor(student.username);
-    const opts = { nick: student.nick, sender: s.sender_name || classCode, teacher: teacher ? { text: teacher.text } : null };
+    const opts = { nick: student.nick, sender: senderOf(s, classCode), teacher: teacher ? { text: teacher.text } : null };
     const d = kind === 'monthly' ? monthlyData(rows, { month: period, ...opts }) : weeklyData(rows, { week: period, ...opts });
     d.teacherLabel = s.teacher_label || '先生';
     return d;
@@ -128,7 +156,7 @@ export function createParentReports({
       const t = reports.tokenFor(classCode, st.username, st.nick, { now: now() });
       return { nick: st.nick, url: `https://liff.line.me/${liffId}?t=${t.token}` };
     });
-    const out = await renderer.render(qrCardsTex({ classroom: s.sender_name || classCode, cards }), { kind: 'cards', name: `cards-${classCode}` });
+    const out = await renderer.render(qrCardsTex({ classroom: senderOf(s, classCode), cards }), { kind: 'cards', name: `cards-${classCode}` });
     return out.pdf;
   }
 
@@ -171,7 +199,7 @@ export function createParentReports({
           const alt = kind === 'monthly'
             ? `${student.nick}さん：${data.month}月は${data.dayCount}日英語をしました`
             : fmt(T.weekly.altText, { nick: student.nick, days: data.dayCount, answers: data.answers });
-          messages = childMessages({ nick: student.nick, range: data.range, sender: s.sender_name || classCode, png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt });
+          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt });
         }
         for (const l of links) {
           if (!groups.has(l.line_user_id)) groups.set(l.line_user_id, []);
@@ -207,7 +235,7 @@ export function createParentReports({
     }
     reports.finishRun(run.id, counts);
     log.info?.(`[parent-report] ${runKey}: ${JSON.stringify(counts)}`);
-    if (!testTo && (counts.failed > 0 || errors.length)) await notifyOps(`⚠ 保護者レポート：${s.sender_name || classCode}（${periodNow.key}）で 失敗 ${counts.failed}件。\n${errors.slice(0, 3).join('\n')}`);
+    if (!testTo && (counts.failed > 0 || errors.length)) await notifyOps(`⚠ 保護者レポート：${senderOf(s, classCode)}（${periodNow.key}）で 失敗 ${counts.failed}件。\n${errors.slice(0, 3).join('\n')}`);
     return { run: run.id, counts, errors };
   }
 
@@ -219,7 +247,7 @@ export function createParentReports({
     if (!report) return { ok: false, error: 'no report' };
     const s = reports.settings(report.classroom_id);
     const data = JSON.parse(report.data_json || '{}');
-    const messages = childMessages({ nick: data.nick, range: data.range, sender: s.sender_name || report.classroom_id, png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, altText: `${data.nick}さんの英語きろく` });
+    const messages = childMessages({ nick: data.nick, range: data.range, sender: senderOf(s, report.classroom_id), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, altText: `${data.nick}さんの英語きろく` });
     const res = await line.push(d.line_user_id, messages, { retryKey: retryUuid('resend', d.id) });
     reports.updateDelivery(d.id, { status: res.ok ? 'sent' : 'failed', error: res.ok ? '' : String(res.error || ''), resent_at: new Date(now()).toISOString() });
     return { ok: res.ok, error: res.error };
@@ -350,7 +378,7 @@ export function createParentReports({
     const t = reports.findToken(token, now());
     if (!t) return null;
     const s = reports.settings(t.classroom_id);
-    return { nickname: t.nickname, classroom: s.sender_name || t.classroom_id, consentVersion: CONSENT_VERSION };
+    return { nickname: t.nickname, classroom: senderOf(s, t.classroom_id), consentVersion: CONSENT_VERSION };
   }
   async function register(token, idToken) {
     const t = reports.findToken(token, now());
@@ -419,7 +447,7 @@ export function createParentReports({
 
   return {
     students, buildReport, preview, qrCards, deliverClass, resend, dueNow, tick, housekeeping, summaryLine, notifyOps,
-    stopClass, stopStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes,
+    stopClass, stopStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
     start(intervalMs = 60000) { const t = setInterval(() => tick(), intervalMs); t.unref?.(); return t; },
   };
 }

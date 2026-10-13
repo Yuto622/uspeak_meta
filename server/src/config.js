@@ -131,6 +131,10 @@ export const config = Object.freeze({
     sheetId: (env.ROSTER_SHEET_ID ?? '').trim(),
     tab: (env.ROSTER_SHEET_TAB ?? '').trim(),
   },
+  // 保護者レポート：Roblox の アカウント管理シート（教室マスタ・座席）。読むだけ。Roblox だけの 子を 自動で 教室に 入れる。
+  robloxSeats: {
+    sheetId: (env.ROBLOX_SEATS_SHEET_ID ?? '').trim(),
+  },
   // Signs the parent-report links. Without it, reports are simply not served: a
   // guessable link would show one family another family's child.
   reportSecret: (env.REPORT_SECRET ?? '').trim(),

@@ -28,7 +28,7 @@ export function adminExtension({ service, reports, line, renderer, store = null,
         const s = reports.settings(code);
         const st = await service.classStatus(code);
         const open = secret ? `/class/${encodeURIComponent(code)}/parents?t=${encodeURIComponent(signClass(secret, code))}&from=admin` : '';
-        return { classroom_id: code, name: s.sender_name || code, enabled: s.enabled, frequency: s.frequency, registered: st.registered, total: st.total, lastRun: st.lastRun, open };
+        return { classroom_id: code, name: s.sender_name || service.classNameOf(code) || code, enabled: s.enabled, frequency: s.frequency, registered: st.registered, total: st.total, lastRun: st.lastRun, open };
       }));
       const versions = {};
       for (const r of reports.reports()) versions[r.template_version] = (versions[r.template_version] || 0) + 1;
@@ -37,7 +37,7 @@ export function adminExtension({ service, reports, line, renderer, store = null,
       res.json({
         ok: true, enabled: reports.meta.enabled !== false, classes, runs, failed,
         quota: await line.quota(), dryRun: line.dryRun, renderer: renderer.mode, rendererReady: await renderer.available(),
-        template: templateVersion(), versions, opsSet: !!opsUserId,
+        template: templateVersion(), versions, opsSet: !!opsUserId, seats: await service.seatStatus(),
         recent: (reports.meta.recent_contacts || []).map((c) => ({ ...c, linked: reports.links({ lineUserId: c.id }).length > 0 })),
       });
     });
@@ -79,6 +79,7 @@ async function load() {
       <button class="btn \${S.enabled ? 'danger' : ''}" id="glob">\${S.enabled ? '全体を緊急停止' : '再開する'}</button></p>
     <p class="muted">LINE：\${S.dryRun ? '<b>dry-run（送らずにログだけ）</b>' : '本番'}　今月の送信数：\${q.used ?? '—'}\${q.limit ? ' / ' + q.limit + '（' + Math.round(q.used / q.limit * 100) + '%）' : ''}
       ／ 組版：\${esc(S.renderer)} \${S.rendererReady ? '' : '<span class="pill red">TeX がありません</span>'} ／ 運営者への通知：\${S.opsSet ? '設定済み' : '<span class="pill red">OPS_LINE_USER_ID 未設定</span>'}</p>
+    <p class="muted">Roblox の 座席シート：\${!S.seats ? '<span class="pill gray">使っていない（ROBLOX_SEATS_SHEET_ID と サービスアカウントが 要ります）</span>' : S.seats.ok ? '読めています（教室 ' + S.seats.classes + '・席 ' + S.seats.seats + '）' : '<span class="pill red">読めません</span> ' + esc(S.seats.error || '席が 0') + '（シートを ' + (S.seats.account ? '<code>' + esc(S.seats.account) + '</code>' : 'サービスアカウント') + ' に 閲覧者で 共有してください）'}</p>
     <p class="muted">テンプレートの版：<b>\${esc(S.template)}</b>（作ったレポート：\${Object.entries(S.versions).map(([v, n]) => esc(v) + ' ' + n + '件').join('・') || 'なし'}）</p>
   </div>
   \${S.opsSet ? '' : '<div class="card"><h2>運営者の ユーザーID を さがす</h2><p class="muted">自分の LINE で 公式アカウントを 友だち追加するか、何か メッセージを 送ると、ここに ID が 出ます（7日・5人まで）。自分の ID を コピーして <code>fly secrets set -a uspeak-multiplayer OPS_LINE_USER_ID=…</code> に 入れてください。</p><table><tr><th>日時</th><th>きっかけ</th><th>ユーザーID</th></tr>' + ((S.recent || []).map((c) => '<tr><td>' + when(c.at) + '</td><td>' + (c.type === 'follow' ? '友だち追加' : 'メッセージ') + (c.linked ? ' <span class="pill gray">保護者として登録済み</span>' : '') + '</td><td><code>' + esc(c.id) + '</code></td></tr>').join('') || '<tr><td colspan=3 class="muted">まだ ありません</td></tr>') + '</table></div>'}

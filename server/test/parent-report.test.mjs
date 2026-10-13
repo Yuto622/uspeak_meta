@@ -12,6 +12,7 @@ import { weeklyTex, monthlyTex, tex } from '../src/parent-report/render-tex.js';
 import { ReportStore } from '../src/parent-report/store.js';
 import { createLine, retryUuid, bundle } from '../src/parent-report/line.js';
 import { createParentReports } from '../src/parent-report/service.js';
+import { createRobloxSeats, namePrefix } from '../src/parent-report/roblox-seats.js';
 import { localTexAvailable, compileTex } from '../src/parent-report/render.js';
 
 const at = (y, m, d, h = 18, mi = 0) => jstMidnight(y, m, d) + h * HOUR + mi * 60000;
@@ -107,7 +108,7 @@ test('LaTeX: nicknames, words and comments are escaped; newlines cannot break a 
 });
 
 // ---- 送信まわりの 準備 -----------------------------------------------------------------------
-function harness({ students = [{ name: 'Taro' }, { name: 'Hana' }], events = [], links = [], roster = [], lineOpts = {}, now = at(2026, 10, 12, 19, 5) } = {}) {
+function harness({ students = [{ name: 'Taro' }, { name: 'Hana' }], events = [], links = [], roster = [], seats = null, lineOpts = {}, now = at(2026, 10, 12, 19, 5) } = {}) {
   const main = {
     listClass: () => students,
     listRobloxEvents: async ({ username = '', classCode = '', since = 0 } = {}) => events.filter((e) => (!username || e.username === username) && (!classCode || e.class_code === classCode) && (!since || e.ts >= since)),
@@ -121,7 +122,7 @@ function harness({ students = [{ name: 'Taro' }, { name: 'Hana' }], events = [],
   let renders = 0;
   const renderer = { mode: 'fake', available: async () => true, render: async (src, { kind }) => { renders += 1; return { pdf: Buffer.from('%PDF'), png: kind === 'cards' ? undefined : Buffer.from('png'), thumb: kind === 'cards' ? undefined : Buffer.from('t') }; } };
   const service = createParentReports({
-    store: main, reports, roblox: { usernameFor: (c, n) => n.toLowerCase() }, renderer, line, log: { info() {}, warn() {} }, now: () => now,
+    store: main, seats, reports, roblox: { usernameFor: (c, n) => n.toLowerCase() }, renderer, line, log: { info() {}, warn() {} }, now: () => now,
     baseUrl: 'https://example.test', liffId: 'LIFF', opsUserId: 'Uops', filesDir: mkdtempSync(path.join(tmpdir(), 'pr-')),
   });
   return { service, reports, line, verified, get renders() { return renders; } };
@@ -250,6 +251,22 @@ test('students: Roblox-only children come from the links table, classCode on eve
   const r = await h.service.deliverClass('c1', { period: weekOf(at(2026, 10, 6)) });
   assert.equal(r.counts.sent, 1, 'the Roblox-only child gets a report');
   assert.equal(JSON.parse(h.reports.reports()[0].data_json).zero, false, 'built from the Roblox events');
+});
+
+test('students: the Roblox seat sheet places children automatically, including same-pattern accounts', async () => {
+  const api = { getValues: async (range) => (range.includes('教室マスタ')
+    ? [['code', 'name', 'seats', 'active'], ['1716', 'ツリーベル', '12', 'TRUE'], ['1547', '管理者', '12', 'TRUE'], ['1717', '誠心', '7', 'TRUE']]
+    : [['code', 'userId', 'username', 'source'], ['1716', '1', 'Kagurazaka_01', 'whitelist'], ['1716', '2', 'TREEBELL_Toda01', 'whitelist'],
+      ['1547', '3', 'Kagurazaka_Teacher', 'whitelist'], ['1717', '4', 'seisin01', 'whitelist']]) };
+  const seats = createRobloxSeats({ api, log: { warn() {} } });
+  const events = [...week41('Kagurazaka_04'), ...week41('TREEBELL_Toda05'), ...week41('Kagurazaka_Teacher'), ...week41('seisin03'), ...week41('stranger99')];
+  const h = harness({ students: [], seats, events });
+  assert.deepEqual((await h.service.students('1716')).map((s) => s.username).sort(), ['Kagurazaka_01', 'Kagurazaka_04', 'TREEBELL_Toda01', 'TREEBELL_Toda05']);
+  assert.deepEqual((await h.service.students('1717')).map((s) => s.username).sort(), ['seisin01', 'seisin03']);
+  assert.deepEqual((await h.service.robloxClassCodes()).sort(), ['1716', '1717'], 'the 管理者 classroom is not offered');
+  assert.equal(h.service.classNameOf('1716'), 'ツリーベル');
+  assert.equal(namePrefix('Kagurazaka_04'), 'kagurazaka');
+  assert.equal(namePrefix('C'), '');
 });
 
 // ---- 本物の 組版 -----------------------------------------------------------------------------
