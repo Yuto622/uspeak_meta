@@ -163,13 +163,15 @@ export function createParentReports({
       for (const msgs of pushes) {
         const covered = []; let n = 0;
         while (offset < items.length && n + items[offset].messages.length <= msgs.length) { n += items[offset].messages.length; covered.push(items[offset]); offset += 1; }
-        const retryKey = retryUuid(runKey, to, String(k));
+        // テストは 毎回 ちがう キー（同じ週に 2 回 ためすと、LINE が 409＝受付済み を 返して 何も 届かないため）。
+        const retryKey = retryUuid(runKey, to, String(k), ...(testTo ? [String(now())] : []));
         k += 1;
         const res = await line.push(to, msgs, { retryKey });
         const status = res.ok ? 'sent' : res.permanent ? 'blocked' : 'failed';
         for (const it of covered) reports.addDelivery({ report_id: it.reportId, run_id: run.id, line_user_id: to, status, error: res.ok ? '' : String(res.error || '').slice(0, 200), retry_key: retryKey });
         if (res.ok) { counts.sent += covered.length; counts.messages += 1; } else if (res.permanent) {
           counts.blocked += covered.length;
+          if (testTo) errors.push(`LINE が 受けつけませんでした：${res.error}`);
           // ブロック・存在しない 相手：次から 送らない。
           if (!testTo && (res.status === 400 || res.status === 403 || res.status === 404)) reports.setLinkStatus({ lineUserId: to }, 'blocked');
         } else { counts.failed += covered.length; errors.push(`送信 ${mask(to)}: ${res.error}`); }

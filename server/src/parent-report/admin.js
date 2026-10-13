@@ -29,7 +29,7 @@ export function adminExtension({ service, reports, line, renderer, store = null,
       const versions = {};
       for (const r of reports.reports()) versions[r.template_version] = (versions[r.template_version] || 0) + 1;
       const runs = reports.runs().slice(-40).reverse().map((r) => ({ ...r, counts: JSON.parse(r.counts_json || '{}') }));
-      const failed = reports.deliveries().filter((d) => d.status === 'failed').slice(-50).reverse().map((d) => ({ id: d.id, run_id: d.run_id, to: mask(d.line_user_id), error: d.error, sent_at: d.sent_at, report_id: d.report_id }));
+      const failed = reports.deliveries().filter((d) => d.status === 'failed' || d.status === 'blocked').slice(-50).reverse().map((d) => ({ id: d.id, run_id: d.run_id, status: d.status, to: mask(d.line_user_id), error: d.error, sent_at: d.sent_at, report_id: d.report_id }));
       res.json({
         ok: true, enabled: reports.meta.enabled !== false, classes, runs, failed,
         quota: await line.quota(), dryRun: line.dryRun, renderer: renderer.mode, rendererReady: await renderer.available(),
@@ -84,7 +84,7 @@ async function load() {
       + '</td><td><button class="btn ghost" data-test="' + esc(c.classroom_id) + '">生徒をえらんで送る</button></td></tr>').join('') || '<tr><td colspan=6 class="muted">まだ 教室が ありません（生徒が 1回 遊ぶか、名簿に 教室を 入れると 出ます）</td></tr>'}
   </table></div>
   <div class="card"><h2>失敗した送信</h2><table><tr><th>日時</th><th>宛先</th><th>理由</th><th></th></tr>
-    \${S.failed.map((d) => '<tr><td>' + when(d.sent_at) + '</td><td>' + esc(d.to) + '</td><td>' + esc(d.error) + '</td><td>' + (d.report_id ? '<button class="btn ghost" data-resend="' + esc(d.id) + '">再送</button>' : '') + '</td></tr>').join('') || '<tr><td colspan=4 class="muted">ありません</td></tr>'}
+    \${S.failed.map((d) => '<tr><td>' + when(d.sent_at) + '</td><td>' + esc(d.to) + '</td><td>' + (d.status === 'blocked' ? '<span class="pill gray">LINE が 受けつけない</span> ' : '') + esc(d.error) + '</td><td>' + (d.report_id ? '<button class="btn ghost" data-resend="' + esc(d.id) + '">再送</button>' : '') + '</td></tr>').join('') || '<tr><td colspan=4 class="muted">ありません</td></tr>'}
   </table></div>
   <div class="card"><h2>実行ログ</h2><table><tr><th>開始</th><th>教室・回</th><th>結果</th></tr>
     \${S.runs.map((r) => '<tr><td>' + when(r.started_at) + (r.test ? ' <span class="pill gray">テスト</span>' : '') + '</td><td>' + esc(r.run_key) + '</td><td>' + (r.finished_at ? C(r.counts) : '（実行中）') + '</td></tr>').join('') || '<tr><td colspan=3 class="muted">まだありません</td></tr>'}
