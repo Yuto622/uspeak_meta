@@ -1,6 +1,7 @@
 // /admin/reports — 運営者（真田）の 画面。ログインは 名簿の 管理ページと 同じ（roster-admin の extend）。
 //   全体の 緊急停止・教室ごとの 状態（登録率・直近の 結果）・実行ログ・失敗の 再送・テスト送信（自分の LINE）・
 //   テンプレートの 版・LINE の 今月の 送信数。LINE の ユーザー ID は 画面にも 出さない（mask）。
+import express from 'express';
 import { mask } from './line.js';
 import { templateVersion } from './render-tex.js';
 import { signClass } from '../game/report.js';
@@ -14,6 +15,8 @@ export function adminExtension({ service, reports, line, renderer, store = null,
     return [...codes].filter(Boolean).sort();
   }
   return ({ router, api, authed, access }) => {
+    // 名簿の API は 本文を 読む 設定を ルートごとに 持つので、ここでも 付ける（ないと 本文が 空＝教室コードが 空に なる）。
+    api.use('/reports', express.json({ limit: '16kb' }));
     router.get('/reports', (req, res) => {
       if (!authed(req)) { res.redirect(303, '/admin'); return; }
       res.type('text/html; charset=utf-8').send(ADMIN_PAGE);
@@ -42,6 +45,7 @@ export function adminExtension({ service, reports, line, renderer, store = null,
     api.post('/reports/test', async (req, res) => {
       if (!opsUserId) { res.status(409).json({ ok: false, error: 'OPS_LINE_USER_ID が未設定です' }); return; }
       const classCode = String(req.body?.classCode || '');
+      if (!classCode) { res.status(400).json({ ok: false, error: '教室が えらばれていません' }); return; }
       const only = String(req.body?.username || '');
       const r = await service.deliverClass(classCode, { testTo: opsUserId, only, kind: req.body?.kind === 'monthly' ? 'monthly' : 'weekly' });
       res.json({ ok: !r.errors?.length, ...r });
@@ -98,7 +102,7 @@ async function load() {
     const m = /m$/i.test(pick.trim()); const s = st[parseInt(pick, 10) - 1];
     if (!s) return;
     const r = await post('/reports/test', { classCode: b.dataset.test, username: s.username, kind: m ? 'monthly' : 'weekly' });
-    alert(r.ok ? 'テスト送信しました（' + C(r.counts) + '）' : (r.error || (r.errors || []).join('\\n'))); load();
+    alert(r.ok && r.counts?.sent ? 'テスト送信しました（' + C(r.counts) + '）' : r.ok ? '送れる レポートが ありませんでした（' + C(r.counts) + '）' : (r.error || (r.errors || []).join('\\n'))); load();
   }; });
 }
 load();
