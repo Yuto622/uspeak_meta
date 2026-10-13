@@ -11,7 +11,7 @@ import express from 'express';
 import { createReadStream, promises as fs } from 'node:fs';
 import { CONSENT_VERSION } from './service.js';
 import { texts } from './render-tex.js';
-import { liffHtml, classTabHtml } from './pages.js';
+import { liffHtml, classTabHtml, studentPageHtml } from './pages.js';
 import { weekOf, isoWeekNumber } from './jst.js';
 
 const noindex = (res) => {
@@ -63,7 +63,23 @@ export function mountParentReports(app, { service, reports, line, verifyClass, s
   };
   app.get('/r/:token.png', (req, res) => sendFile(req, res, 'png'));
   app.get('/r/:token/thumb.png', (req, res) => sendFile(req, res, 'thumb'));
-  app.get('/r/:token', (req, res) => sendFile(req, res, 'pdf'));
+  // 同じ /r/… で、QR の 合言葉なら お子さまの ページ、レポートの 合言葉なら その PDF。
+  app.get('/r/:token/month', async (req, res) => {
+    noindex(res);
+    try {
+      const t = await service.studentMonthly(String(req.params.token || ''));
+      if (!t) { res.status(404).type('text/plain; charset=utf-8').send('見つかりません'); return; }
+      res.redirect(302, `/r/${t}`);
+    } catch { res.status(503).type('text/plain; charset=utf-8').send('いま作れませんでした。しばらくしてから もう一度 ひらいてください。'); }
+  });
+  app.get('/r/:token', async (req, res) => {
+    const token = String(req.params.token || '');
+    if (!service.isStudentToken(token)) { sendFile(req, res, 'pdf'); return; }
+    noindex(res);
+    const page = await service.studentPage(token);
+    if (!page) { res.status(404).type('text/plain; charset=utf-8').send('見つかりません'); return; }
+    res.type('text/html; charset=utf-8').send(studentPageHtml({ ...page, token }));
+  });
 
   // ---- 先生の タブ --------------------------------------------------------------------------
   if (!secret) return;
@@ -85,7 +101,7 @@ export function mountParentReports(app, { service, reports, line, verifyClass, s
   const code = (req) => req.params.code;
 
   api.get('/state', async (req, res) => {
-    const status = await service.classStatus(code(req));
+    const status = await service.classStatus(code(req), { withUrl: true });
     const next = service.nextSend(code(req));
     res.json({ ok: true, ...status, next, candidates: texts().teacherCandidates, comments: next ? reports.commentsFor(code(req), next.periodKey) : [], lineReady: !line.dryRun });
   });

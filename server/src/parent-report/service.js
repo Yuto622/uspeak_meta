@@ -154,7 +154,8 @@ export function createParentReports({
     const s = reports.settings(classCode);
     const cards = (await students(classCode)).map((st) => {
       const t = reports.tokenFor(classCode, st.username, st.nick, { now: now() });
-      return { nick: st.nick, url: `https://liff.line.me/${liffId}?t=${t.token}` };
+      // QR は 1 つ：お子さまの ページ（LINE なしで 見られる）。LINE で 受け取る ボタンは その ページに ある。
+      return { nick: st.nick, url: urlFor(t.token) };
     });
     const out = await renderer.render(qrCardsTex({ classroom: senderOf(s, classCode), cards }), { kind: 'cards', name: `cards-${classCode}` });
     return out.pdf;
@@ -373,6 +374,39 @@ export function createParentReports({
     return { file: fileFor(token, 'pdf'), type: 'application/pdf' };
   }
 
+  // ---- お子さまごとの 専用URL（LINE なし）-----------------------------------------------------
+  // QR カードと 同じ 合言葉で /r/<合言葉> を ひらくと、その 子の 最新の 週の レポート（なければ その場で 作る）と
+  // これまでの 週・1か月の まとめが 見られる。QR を 作り直すと 前の URL は 使えなくなる。生徒の 配信を 止めると 見られない。
+  const pageUrl = (classCode, st) => urlFor(reports.tokenFor(classCode, st.username, st.nick, { now: now() }).token);
+  const isStudentToken = (token) => !!reports.findToken(token, now());
+  const viewable = (r) => r && !r.revoked_at && Date.parse(r.expires_at) > now();
+  async function studentPage(token) {
+    const t = reports.findToken(token, now());
+    if (!t) return null;
+    const s = reports.settings(t.classroom_id);
+    const base0 = { nick: t.nickname, classroom: senderOf(s, t.classroom_id) };
+    if ((s.paused_students || []).includes(t.student_username)) return { ...base0, paused: true };
+    const student = { username: t.student_username, nick: t.nickname };
+    let latest = null; let error = '';
+    try { latest = (await buildReport(t.classroom_id, student, 'weekly', lastWeek(now()))).report; } catch (err) { error = err.message; log.warn?.('[parent-report] page build failed:', err.message); }
+    const rangeOf = (r) => { try { return JSON.parse(r.data_json || '{}').range || r.period_key; } catch { return r.period_key; } };
+    const past = reports.reports({ student_username: t.student_username, classroom_id: t.classroom_id, kind: 'weekly' })
+      .filter((r) => viewable(r) && r.access_token !== latest?.access_token)
+      .sort((a, b) => b.period_key.localeCompare(a.period_key))
+      .filter((r, i, a) => a.findIndex((x) => x.period_key === r.period_key) === i)
+      .slice(0, 8)
+      .map((r) => ({ range: rangeOf(r), token: r.access_token }));
+    return { ...base0, lineUrl: liffId && !line.dryRun ? `https://liff.line.me/${liffId}?t=${token}` : '', latest: latest ? { token: latest.access_token, range: rangeOf(latest), png: !!latest.png_url } : null, past, error };
+  }
+  // 1か月の まとめ（先月）。押されたときに 作る。
+  async function studentMonthly(token) {
+    const t = reports.findToken(token, now());
+    if (!t) return null;
+    const s = reports.settings(t.classroom_id);
+    if ((s.paused_students || []).includes(t.student_username)) return null;
+    return (await buildReport(t.classroom_id, { username: t.student_username, nick: t.nickname }, 'monthly', lastMonth(now()))).report.access_token;
+  }
+
   // ---- 登録（QR → LIFF）--------------------------------------------------------------------
   function linkInfo(token) {
     const t = reports.findToken(token, now());
@@ -413,7 +447,7 @@ export function createParentReports({
   }
 
   // ---- 画面用の まとめ ---------------------------------------------------------------------
-  async function classStatus(classCode) {
+  async function classStatus(classCode, { withUrl = false } = {}) {
     const list = await students(classCode);
     const s = reports.settings(classCode);
     const paused = new Set(s.paused_students || []);
@@ -422,6 +456,7 @@ export function createParentReports({
       return {
         username: st.username, nick: st.nick, paused: paused.has(st.username),
         parents: links.filter((l) => l.status === 'active').length, blocked: links.filter((l) => l.status === 'blocked').length,
+        ...(withUrl ? { url: pageUrl(classCode, st) } : {}),
       };
     });
     const registered = rows.filter((r) => r.parents > 0).length;
@@ -447,7 +482,7 @@ export function createParentReports({
 
   return {
     students, buildReport, preview, qrCards, deliverClass, resend, dueNow, tick, housekeeping, summaryLine, notifyOps,
-    stopClass, stopStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
+    stopClass, stopStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, isStudentToken, studentPage, studentMonthly, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
     start(intervalMs = 60000) { const t = setInterval(() => tick(), intervalMs); t.unref?.(); return t; },
   };
 }

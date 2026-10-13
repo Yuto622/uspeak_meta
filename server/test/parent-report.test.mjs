@@ -269,6 +269,24 @@ test('students: the Roblox seat sheet places children automatically, including s
   assert.equal(namePrefix('C'), '');
 });
 
+test('page: the QR token opens the child\'s own page (no LINE), built on demand; stopping or remaking hides it', async () => {
+  const h = harness({ events: week41('taro'), now: at(2026, 10, 13, 10) });
+  const t = h.reports.tokenFor('c1', 'taro', 'Taro');
+  assert.equal(h.service.isStudentToken(t.token), true);
+  const page = await h.service.studentPage(t.token);
+  assert.equal(page.nick, 'Taro');
+  assert.ok(page.latest?.token, 'the latest week is built when the page is opened');
+  assert.equal((await h.service.studentPage(t.token)).latest.token, page.latest.token, 'and reused after that');
+  const st = await h.service.classStatus('c1', { withUrl: true });
+  assert.equal(st.students.find((s) => s.username === 'taro').url, `https://example.test/r/${t.token}`);
+  assert.ok(await h.service.studentMonthly(t.token));
+  h.service.stopStudent('c1', 'taro');
+  assert.equal((await h.service.studentPage(t.token)).paused, true);
+  h.service.stopStudent('c1', 'taro', false);
+  h.reports.regenerateToken('c1', 'taro', 'Taro');
+  assert.equal(await h.service.studentPage(t.token), null, 'a remade QR retires the old URL');
+});
+
 // ---- 本物の 組版 -----------------------------------------------------------------------------
 test('compiles: the weekly image is exactly 1040×1300 and the thumbnail is small', { skip: !(await localTexAvailable()) && 'no xelatex here' }, async () => {
   const d = weeklyData(week41('taro'), { week: weekOf(at(2026, 10, 6)), nick: 'た_ろう&', sender: '教室' });

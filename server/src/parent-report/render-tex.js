@@ -186,7 +186,7 @@ export function qrCardsTex({ classroom, cards }) {
 {\\color{accent}\\bfseries\\small ${tex(classroom)}}\\\\[0.4mm]
 {\\color{brand}\\bfseries\\Large ${tex(c.nick)} さん}\\\\[1.5mm]
 \\begin{minipage}[t]{30mm}\\vspace{0pt}\\qrcode[height=28mm]{${c.url.replace(/[#%\\{}~^]/g, (ch) => `\\${ch}`)}}\\end{minipage}\\hfill
-\\begin{minipage}[t]{\\dimexpr\\linewidth-33mm}\\vspace{1mm}{\\footnotesize\\color{brand} 保護者の方へ：スマホのカメラで読みとると、LINEで学習レポートを受け取れます。}\\\\[1.5mm]
+\\begin{minipage}[t]{\\dimexpr\\linewidth-33mm}\\vspace{1mm}{\\footnotesize\\color{brand} 保護者の方へ：スマホのカメラで読みとると、お子さまの学習レポートがいつでも見られます。LINEで毎週受け取ることもできます。}\\\\[1.5mm]
 {\\scriptsize\\color{gray} お子さまの本名・ご連絡先はお預かりしません。教室のご判断でいつでも停止できます。}\\end{minipage}
 \\end{tcolorbox}`);
     const rows = [];

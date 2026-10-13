@@ -60,6 +60,28 @@ const post = (url, body) => fetch(url, { method: 'POST', headers: { 'content-typ
 </script></body></html>`;
 }
 
+// ---- お子さまごとの 専用ページ（/r/<QR の 合言葉>）--------------------------------------------
+export function studentPageHtml({ token, nick, classroom, paused = false, latest = null, past = [], lineUrl = '' }) {
+  const t = encodeURIComponent(token);
+  const body = paused
+    ? '<div class="card"><p>いまは 公開を 止めています。くわしくは 教室に お問い合わせください。</p></div>'
+    : `<div class="card">${latest
+      ? `<h2>${esc(latest.range)}</h2>${latest.png ? `<a href="/r/${encodeURIComponent(latest.token)}"><img src="/r/${encodeURIComponent(latest.token)}.png" alt="${esc(nick)}さんの英語きろく" style="width:100%;max-width:520px;border:1px solid #e9e2d6;border-radius:12px"></a>` : ''}
+        <p class="row"><a class="btn" href="/r/${encodeURIComponent(latest.token)}">PDFで見る</a><a class="btn ghost" href="/r/${t}/month">先月の まとめ（PDF）</a></p>`
+      : `<p class="muted">いまは レポートを 用意できませんでした。しばらくしてから もう一度 ひらいてください。</p>`}</div>
+      ${lineUrl ? `<div class="card"><h2>LINE で 毎週 受け取る</h2><p class="muted">登録すると、毎週 決まった 日に この レポートが LINE に 届きます（登録しなくても、このページで いつでも 見られます）。</p><p><a class="btn orange" href="${esc(lineUrl)}">LINE で 受け取る</a></p></div>` : ''}
+      ${past.length ? `<div class="card"><h2>これまでの 週</h2><ul>${past.map((p) => `<li><a href="/r/${encodeURIComponent(p.token)}">${esc(p.range)}</a></li>`).join('')}</ul></div>` : ''}`;
+  return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>${esc(nick)}さんの英語きろく</title>
+<style>${BASE_CSS}.wrap{max-width:560px}.row{display:flex;gap:8px;flex-wrap:wrap}</style></head>
+<body><div class="wrap">
+<p class="muted">${esc(classroom)}より</p>
+<h1>${esc(nick)}さんの英語きろく</h1>
+${body}
+<p class="muted">このページは ${esc(nick)}さんの ご家族 専用です。ほかの 方には 送らないで ください。毎週 月曜日に 新しい 週に かわります。</p>
+</div></body></html>`;
+}
+
 // ---- 先生の「保護者レポート」タブ ----------------------------------------------------------------
 export function classTabHtml({ classCode, token, fromAdmin = false }) {
   return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -110,6 +132,7 @@ function render() {
     \${S.students.map((st) => '<tr><td>' + esc(st.nick) + (st.paused ? ' <span class="pill gray">停止中</span>' : '') + '</td><td>'
       + (st.parents ? '<span class="pill">' + st.parents + '人 登録</span>' : '<span class="pill gray">未登録</span>') + (st.blocked ? ' <span class="pill red">ブロック ' + st.blocked + '</span>' : '')
       + '</td><td class="row"><button class="btn ghost" data-prev="' + esc(st.username) + '">プレビュー</button>'
+      + (st.url ? '<button class="btn ghost" data-url="' + esc(st.url) + '">専用URLをコピー</button>' : '')
       + '<button class="btn ghost" data-tok="' + esc(st.username) + '">QRを作り直す</button>'
       + '<button class="btn ghost" data-stop="' + esc(st.username) + '" data-on="' + (st.paused ? 0 : 1) + '">' + (st.paused ? '配信を再開' : 'この生徒の配信を止める') + '</button></td></tr>').join('') || '<tr><td colspan=3 class="muted">まだ生徒がいません</td></tr>'}
     </table>
@@ -140,6 +163,11 @@ function render() {
     img.src = API + '/preview.png' + q + '&u=' + encodeURIComponent(b.dataset.prev);
   }; });
   document.querySelectorAll('[data-tok]').forEach((b) => { b.onclick = async () => { if (confirm('この生徒のQRを作り直しますか？（前のQRは使えなくなります。登録済みの保護者はそのままです）')) { await post('/student/token', { username: b.dataset.tok }); alert('作り直しました。QRカードを印刷しなおしてください。'); } }; });
+  document.querySelectorAll('[data-url]').forEach((b) => { b.onclick = async () => {
+    const url = new URL(b.dataset.url, location.origin).href;
+    try { await navigator.clipboard.writeText(url); alert('コピーしました。この URL を 保護者の方に お送りください（LINE の 登録は いりません）。'); }
+    catch { prompt('この URL を コピーして、保護者の方に お送りください。', url); }
+  }; });
   document.querySelectorAll('[data-stop]').forEach((b) => { b.onclick = async () => { await post('/student/stop', { username: b.dataset.stop, stop: b.dataset.on === '1' }); load(); }; });
   const w = document.getElementById('who'); if (w) w.onchange = () => { who = w.value; render(); };
   document.querySelectorAll('[data-cmt]').forEach((b) => { b.onclick = async () => { const r = await post('/comment', { username: who, text: b.dataset.cmt }); if (!r.ok) alert(r.error); else { S.comments = r.comments; render(); } }; });
