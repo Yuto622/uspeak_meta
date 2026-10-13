@@ -123,6 +123,7 @@
     <p class="muted" style="margin:0 0 8px">同じ名前なら紐づけは要りません。Roblox の名前と Web のロビーで入力する名前が違う子だけ書きます。保護者ページのリンクは1人ぶんずつ違います。</p>
     <div class="tools">
       <button type="button" id="rb-link-add">＋ 行をふやす</button>
+      <button type="button" id="rb-link-paste">📋 まとめて貼りつけ</button>
       <select id="rb-link-pick" title="Roblox から記録が来ている名前"><option value="">記録が来ている名前から選ぶ…</option></select>
       <span class="spacer"></span>
       <button type="button" id="rb-link-save" class="primary" disabled>紐づけを保存する</button>
@@ -149,6 +150,17 @@
     <div class="foot"><span id="rb-dirty" class="dirty" hidden>● 保存していない変更があります</span><span id="rb-saved"></span></div>
   </section>
 </main>
+
+<dialog id="rb-paste-dialog">
+  <h2>紐づけを まとめて 貼りつけ</h2>
+  <div class="muted">1行に 1人：<b>Roblox のアカウント名</b>、<b>クラス</b>、<b>名前</b>（タブか カンマで 区切る。名前を 空に すると アカウント名を そのまま 使います）。スプレッドシートの 列を コピーしたものでも 大丈夫です。保護者レポートに Roblox だけの 子を のせるときにも 使います。</div>
+  <textarea id="rb-paste-text" placeholder="Kagurazaka_01	a	かぐらざか1
+TREEBELL_Toda01	a"></textarea>
+  <div class="row">
+    <button type="button" id="rb-paste-cancel">やめる</button>
+    <button type="button" id="rb-paste-ok" class="primary">表に入れる</button>
+  </div>
+</dialog>
 
 <dialog id="paste-dialog">
   <h2>貼りつけ</h2>
@@ -370,6 +382,21 @@ Chika"></textarea>
       await loadRoblox();
     } catch (err) { toast(`保存できませんでした：${err.message}`, true); rbDirty(true); }
   }
+  $('#rb-link-paste').addEventListener('click', () => { $('#rb-paste-text').value = ''; $('#rb-paste-dialog').showModal(); $('#rb-paste-text').focus(); });
+  $('#rb-paste-cancel').addEventListener('click', () => $('#rb-paste-dialog').close());
+  $('#rb-paste-ok').addEventListener('click', () => {
+    let n = 0;
+    for (const line of $('#rb-paste-text').value.split(/\r?\n/)) {
+      const [username = '', cls = '', name = ''] = line.split(/\t|,/).map((c) => c.trim());
+      if (!username || /^(username|roblox_user|アカウント)/i.test(username)) continue;
+      const row = { username, class: cls, name: name || username, note: '' };
+      const i = rb.links.findIndex((r) => r.username.toLowerCase() === username.toLowerCase() && (r.class || '') === cls);
+      if (i >= 0) rb.links[i] = row; else rb.links.push(row);
+      n += 1;
+    }
+    $('#rb-paste-dialog').close(); renderLinks(); if (n) rbDirty(true);
+    toast(`${n} 人を表に入れました（まだ保存していません）`);
+  });
   $('#rb-link-save').addEventListener('click', () => saveRoblox('links', rb.links, (rows) => { rb.links = rows; }));
   $('#rb-metric-save').addEventListener('click', () => saveRoblox('metrics', rb.metrics, (rows) => { rb.metrics = rows; }));
   loadRoblox().catch((err) => toast(`Roblox 連携を読みこめませんでした：${err.message}`, true));
