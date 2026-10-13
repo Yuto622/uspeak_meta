@@ -11,6 +11,7 @@ export function adminExtension({ service, reports, line, renderer, store = null,
   async function classCodes(access) {
     const codes = new Set(reports.allSettings().map((s) => s.classroom_id));
     try { for (const c of store?.listClassCodes?.() || []) codes.add(String(c)); } catch { /* 記録が 読めなくても 一覧は 出す */ }
+    for (const c of await service.robloxClassCodes()) codes.add(c);
     try { for (const r of (await access?.rows?.()) || []) if (r?.class && r.class !== '*') codes.add(String(r.class)); } catch { /* 名簿なし */ }
     return [...codes].filter(Boolean).sort();
   }
@@ -23,12 +24,12 @@ export function adminExtension({ service, reports, line, renderer, store = null,
     });
 
     api.get('/reports/state', async (req, res) => {
-      const classes = (await classCodes(access)).map((code) => {
+      const classes = await Promise.all((await classCodes(access)).map(async (code) => {
         const s = reports.settings(code);
-        const st = service.classStatus(code);
+        const st = await service.classStatus(code);
         const open = secret ? `/class/${encodeURIComponent(code)}/parents?t=${encodeURIComponent(signClass(secret, code))}&from=admin` : '';
         return { classroom_id: code, name: s.sender_name || code, enabled: s.enabled, frequency: s.frequency, registered: st.registered, total: st.total, lastRun: st.lastRun, open };
-      });
+      }));
       const versions = {};
       for (const r of reports.reports()) versions[r.template_version] = (versions[r.template_version] || 0) + 1;
       const runs = reports.runs().slice(-40).reverse().map((r) => ({ ...r, counts: JSON.parse(r.counts_json || '{}') }));
@@ -50,7 +51,7 @@ export function adminExtension({ service, reports, line, renderer, store = null,
       const r = await service.deliverClass(classCode, { testTo: opsUserId, only, kind: req.body?.kind === 'monthly' ? 'monthly' : 'weekly' });
       res.json({ ok: !r.errors?.length, ...r });
     });
-    api.get('/reports/students', (req, res) => res.json({ ok: true, students: service.students(String(req.query.c || '')) }));
+    api.get('/reports/students', async (req, res) => res.json({ ok: true, students: await service.students(String(req.query.c || '')) }));
   };
 }
 

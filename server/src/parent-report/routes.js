@@ -84,8 +84,8 @@ export function mountParentReports(app, { service, reports, line, verifyClass, s
   api.use(express.json({ limit: '32kb' }));
   const code = (req) => req.params.code;
 
-  api.get('/state', (req, res) => {
-    const status = service.classStatus(code(req));
+  api.get('/state', async (req, res) => {
+    const status = await service.classStatus(code(req));
     const next = service.nextSend(code(req));
     res.json({ ok: true, ...status, next, candidates: texts().teacherCandidates, comments: next ? reports.commentsFor(code(req), next.periodKey) : [], lineReady: !line.dryRun });
   });
@@ -109,8 +109,8 @@ export function mountParentReports(app, { service, reports, line, verifyClass, s
     res.json({ ok: true, settings: reports.saveSettings(code(req), patch) });
   });
   api.post('/student/stop', (req, res) => res.json({ ok: true, paused: service.stopStudent(code(req), String(req.body?.username || ''), req.body?.stop !== false) }));
-  api.post('/student/token', (req, res) => {
-    const st = service.students(code(req)).find((s) => s.username === req.body?.username);
+  api.post('/student/token', async (req, res) => {
+    const st = (await service.students(code(req))).find((s) => s.username === req.body?.username);
     if (!st) { res.status(404).json({ ok: false }); return; }
     reports.regenerateToken(code(req), st.username, st.nick);
     res.json({ ok: true });

@@ -70,6 +70,11 @@ Roblox 側の設定：
 | `fast-type` | （なし） | あてずっぽう率の分子・分母 |
 | `session` | `seconds`、`coinsEarned`、（event の）`world` | 学習時間・ワールド別の時間・かせいだコイン |
 | （何でも） | | 来た日・連続日数（どの type でもその日に来たことになる） |
+| `quiz` の `format`（あれば） | `listen`（聞いて答える）／`type`・`spell`（つづりを打つ）／`mc`・`match`・`fill`・`order`（えらぶ・ならべる） | 保護者レポートの 4 つの 力（聞く・読む・書く）。ないと「読む」に 入る |
+| `speak` | `word`（あれば）、`mode` | 保護者レポートの「話す」 |
+
+保護者レポートに Roblox だけの 子を のせるには、**`classCode` を 付けて 送る**か、/admin の Roblox 紐づけ表で
+アカウント名に 教室を 入れる（どちらも ない 子は、どの 教室の 子か 分からないので のらない）。
 
 ### `POST /api/roblox/wallet/pending` — 残高を預け、未配達の増減を受け取る
 

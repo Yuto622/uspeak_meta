@@ -107,10 +107,12 @@ test('LaTeX: nicknames, words and comments are escaped; newlines cannot break a 
 });
 
 // ---- 送信まわりの 準備 -----------------------------------------------------------------------
-function harness({ students = [{ name: 'Taro' }, { name: 'Hana' }], events = [], lineOpts = {}, now = at(2026, 10, 12, 19, 5) } = {}) {
+function harness({ students = [{ name: 'Taro' }, { name: 'Hana' }], events = [], links = [], roster = [], lineOpts = {}, now = at(2026, 10, 12, 19, 5) } = {}) {
   const main = {
     listClass: () => students,
-    listRobloxEvents: async ({ username = '', since = 0 } = {}) => events.filter((e) => (!username || e.username === username) && (!since || e.ts >= since)),
+    listRobloxEvents: async ({ username = '', classCode = '', since = 0 } = {}) => events.filter((e) => (!username || e.username === username) && (!classCode || e.class_code === classCode) && (!since || e.ts >= since)),
+    listRobloxLinks: async () => links,
+    listAllRoster: async () => roster,
   };
   const reports = new ReportStore(null, { log: { warn() {}, info() {} } });
   const verified = new Map();
@@ -232,6 +234,22 @@ test('ops: failures notify the operator; the weekly summary is one line', async 
   assert.equal(r.counts.failed, 1);
   assert.ok(h.line.sent.some((p) => p.to === 'Uops' && /失敗 1件/.test(p.messages[0].text)));
   assert.match(h.service.summaryLine(at(2026, 10, 13, 9)), /^今週：\d+通送信・失敗\d+・新規登録\d+・停止\d+$/);
+});
+
+test('students: Roblox-only children come from the links table, classCode on events and the roster', async () => {
+  const ev = week41('rbx_ken').map((e) => ({ ...e, class_code: 'c1' }));
+  const h = harness({
+    events: [...ev, { ...week41('rbx_other')[0], class_code: 'c2' }],
+    links: [{ username: 'rbx_mia', name: 'Mia', class: 'c1' }, { username: 'rbx_zed', name: 'Zed', class: 'c2' }],
+    roster: [{ class: 'c1', name: 'Sora' }, { class: 'c1', name: 'Sensei', teacher: true }, { class: '*', name: 'Anyone' }],
+  });
+  const list = await h.service.students('c1');
+  assert.deepEqual(list.map((s) => s.username).sort(), ['hana', 'rbx_ken', 'rbx_mia', 'sora', 'taro']);
+  assert.equal(list.find((s) => s.username === 'rbx_mia').nick, 'Mia');
+  h.reports.addLink({ classroomId: 'c1', username: 'rbx_ken', nickname: 'rbx_ken', lineUserId: 'Udad', consentVersion: 'v1' });
+  const r = await h.service.deliverClass('c1', { period: weekOf(at(2026, 10, 6)) });
+  assert.equal(r.counts.sent, 1, 'the Roblox-only child gets a report');
+  assert.equal(JSON.parse(h.reports.reports()[0].data_json).zero, false, 'built from the Roblox events');
 });
 
 // ---- 本物の 組版 -----------------------------------------------------------------------------

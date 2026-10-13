@@ -24,7 +24,7 @@ const fmt = (s, a = {}) => String(s || '').replace(/\{(\w+)\}/g, (_, k) => (a[k]
 const hhmm = (s) => { const [h, m] = String(s || '19:00').split(':').map(Number); return (h || 0) * 60 + (m || 0); };
 
 export function createParentReports({
-  store, reports, roblox = null, renderer, line, log = console, now = Date.now,
+  store, roster = null, reports, roblox = null, renderer, line, log = console, now = Date.now,
   baseUrl = process.env.REPORT_BASE_URL || '', liffId = process.env.LIFF_ID || '', opsUserId = process.env.OPS_LINE_USER_ID || '',
   filesDir = '',
 }) {
@@ -34,16 +34,43 @@ export function createParentReports({
   let ticking = false;
 
   // ---- 生徒 -------------------------------------------------------------------------------
-  function students(classCode) {
+  // 教室の 生徒＝Web の 記録 ＋ Roblox の 紐づけ表（この 教室の 行）＋ Roblox の 記録（classCode 付き）＋ 名簿。
+  // Roblox だけで 遊ぶ 子も のる（記録は Roblox の アカウント名で 集まるので、レポートも その 名前で 作る）。
+  let rosterCache = { at: 0, rows: [] };
+  async function rosterRows() {
+    const src = roster || store;
+    if (!src || (rosterCache.at && now() - rosterCache.at < 60 * 1000)) return rosterCache.rows;
+    try {
+      const rows = (typeof src.listAllRoster === 'function' ? await src.listAllRoster() : typeof src.listAll === 'function' ? await src.listAll() : []) || [];
+      rosterCache = { at: now(), rows };
+    } catch (err) { log.warn?.('[parent-report] roster could not be read:', err.message); rosterCache.at = now(); }
+    return rosterCache.rows;
+  }
+  async function students(classCode) {
+    const seen = new Map();   // username（小文字）→ { username, nick }
+    const add = (username, nick) => {
+      const u = String(username || '').trim();
+      if (u && !seen.has(u.toLowerCase())) seen.set(u.toLowerCase(), { username: u, nick: String(nick || u) });
+    };
+    const userOf = (name) => (roblox?.usernameFor ? roblox.usernameFor(classCode, name) : name);
     let records = [];
     try { records = store.listClass?.(classCode) || []; } catch (err) { log.warn?.('[parent-report] listClass failed:', err.message); }
-    const seen = new Map();
-    for (const r of records) {
-      if (!r?.name || r.role === 'teacher') continue;
-      const username = roblox?.usernameFor ? roblox.usernameFor(classCode, r.name) : r.name;
-      if (!seen.has(username)) seen.set(username, { username, nick: r.name });
-    }
+    for (const r of records) if (r?.name && r.role !== 'teacher') add(userOf(r.name), r.name);
+    for (const r of await rosterRows()) if (r?.name && !r.teacher && r.class === classCode) add(userOf(r.name), r.name);
+    try {
+      for (const l of (await store.listRobloxLinks?.()) || []) if (l?.username && l.class === classCode) add(l.username, l.name || l.username);
+      for (const e of (await store.listRobloxEvents?.({ classCode })) || []) if (e?.username) add(e.username, roblox?.childFor?.(e.username)?.name || e.username);
+    } catch (err) { log.warn?.('[parent-report] roblox students failed:', err.message); }
     return [...seen.values()];
+  }
+  // /admin の 教室一覧に 出す、Roblox 側で 分かる 教室（紐づけ表・記録の classCode）。
+  async function robloxClassCodes() {
+    const out = new Set();
+    try {
+      for (const l of (await store.listRobloxLinks?.()) || []) if (l?.class && l.class !== '*') out.add(String(l.class));
+      for (const e of (await store.listRobloxEvents?.()) || []) if (e?.class_code) out.add(String(e.class_code));
+    } catch { /* なくても よい */ }
+    return [...out];
   }
   const eventsFor = async (username) => (await store.listRobloxEvents?.({ username })) || [];
 
@@ -86,7 +113,7 @@ export function createParentReports({
 
   // プレビュー（/class・/admin）：保存しない。「見本」の 印つき。
   async function preview(classCode, username, kind = 'weekly') {
-    const student = students(classCode).find((s) => s.username === username) || { username, nick: username };
+    const student = (await students(classCode)).find((s) => s.username === username) || { username, nick: username };
     const period = kind === 'monthly' ? lastMonth(now()) : upcomingWeek(classCode);
     const data = await dataFor(classCode, student, kind, period);
     const source = kind === 'monthly' ? monthlyTex(data, { preview: true }) : weeklyTex(data, { preview: true });
@@ -97,7 +124,7 @@ export function createParentReports({
 
   async function qrCards(classCode) {
     const s = reports.settings(classCode);
-    const cards = students(classCode).map((st) => {
+    const cards = (await students(classCode)).map((st) => {
       const t = reports.tokenFor(classCode, st.username, st.nick, { now: now() });
       return { nick: st.nick, url: `https://liff.line.me/${liffId}?t=${t.token}` };
     });
@@ -119,7 +146,7 @@ export function createParentReports({
     const groups = new Map();     // line_user_id -> [{ messages, reportIds }]
     const errors = [];
 
-    for (const student of students(classCode)) {
+    for (const student of await students(classCode)) {
       if (only && student.username !== only) continue;
       if (!testTo && paused.has(student.username)) continue;
       const links = testTo ? [{ line_user_id: testTo }] : reports.links({ classroomId: classCode, username: student.username, status: 'active' });
@@ -358,8 +385,8 @@ export function createParentReports({
   }
 
   // ---- 画面用の まとめ ---------------------------------------------------------------------
-  function classStatus(classCode) {
-    const list = students(classCode);
+  async function classStatus(classCode) {
+    const list = await students(classCode);
     const s = reports.settings(classCode);
     const paused = new Set(s.paused_students || []);
     const rows = list.map((st) => {
@@ -392,7 +419,7 @@ export function createParentReports({
 
   return {
     students, buildReport, preview, qrCards, deliverClass, resend, dueNow, tick, housekeeping, summaryLine, notifyOps,
-    stopClass, stopStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend,
+    stopClass, stopStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes,
     start(intervalMs = 60000) { const t = setInterval(() => tick(), intervalMs); t.unref?.(); return t; },
   };
 }
