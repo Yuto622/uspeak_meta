@@ -15,7 +15,7 @@ import { promises as fs } from 'node:fs';
 import { randomBytes } from 'node:crypto';
 import path from 'node:path';
 
-export const TABLES = ['parent_links', 'link_tokens', 'report_settings', 'teacher_comments', 'reports', 'deliveries', 'report_runs'];
+export const TABLES = ['parent_links', 'link_tokens', 'report_settings', 'teacher_comments', 'reports', 'deliveries', 'report_runs', 'claps'];
 const MAX_DELIVERIES = 20000;
 const MAX_RUNS = 2000;
 
@@ -168,6 +168,17 @@ export class ReportStore {
   }
   deliveries(filter = {}) { return this.data.deliveries.filter((d) => Object.entries(filter).every(([k, v]) => d[k] === v)); }
   updateDelivery(id, patch) { const d = this.data.deliveries.find((x) => x.id === id); if (d) { Object.assign(d, patch); this.touch(); } return d; }
+
+  // ---- 👏（保護者 → ゲームの 中の 子ども）--------------------------------------------------------
+  addClap(row) {
+    const c = { id: newToken().slice(0, 12), web_shown: false, ...row };
+    this.data.claps.push(c);
+    if (this.data.claps.length > 5000) this.data.claps.splice(0, this.data.claps.length - 5000);
+    this.touch();
+    return c;
+  }
+  claps(filter = {}) { return this.data.claps.filter((c) => Object.entries(filter).every(([k, v]) => c[k] === v)); }
+  updateClap(id, patch) { const c = this.data.claps.find((x) => x.id === id); if (c) { Object.assign(c, patch); this.touch(); } return c; }
 
   addRun(row) {
     const r = { id: newId(), started_at: new Date().toISOString(), finished_at: '', counts_json: '{}', ...row };

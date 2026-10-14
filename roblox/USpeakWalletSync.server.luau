@@ -82,6 +82,31 @@ local function saveApplied(player: Player, st: State)
 end
 
 -- ---- 同期（1 人ぶん。重ならないように 1 本ずつ）--------------------------------------------
+-- 保護者の 👏（Web の 保護者ページで「見たよ」）。コインの 行の reason が "clap:" の とき、画面の 上に 5 秒 出す。
+-- サーバーから PlayerGui に 置くので、LocalScript は 要らない。
+local function showClap(player: Player, amount: number)
+	local gui = player:FindFirstChildOfClass("PlayerGui")
+	if not gui then return end
+	local sg = Instance.new("ScreenGui")
+	sg.Name = "USpeakClap"
+	sg.ResetOnSpawn = false
+	local label = Instance.new("TextLabel")
+	label.AnchorPoint = Vector2.new(0.5, 0)
+	label.Position = UDim2.new(0.5, 0, 0, 24)
+	label.Size = UDim2.new(0, 460, 0, 64)
+	label.BackgroundColor3 = Color3.fromRGB(226, 122, 45)
+	label.TextColor3 = Color3.new(1, 1, 1)
+	label.Font = Enum.Font.GothamBold
+	label.TextScaled = true
+	label.Text = "おうちの人から 👏 が とどいたよ！ +" .. tostring(amount) .. "コイン"
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 14)
+	corner.Parent = label
+	label.Parent = sg
+	sg.Parent = gui
+	task.delay(5, function() sg:Destroy() end)
+end
+
 local function sync(player: Player)
 	local st = states[player]
 	if not st then return end
@@ -97,6 +122,7 @@ local function sync(player: Player)
 				if not st.applied[e.id] then
 					st.pending = true                              -- 自分で 変えた ぶんで もう一度 同期しない
 					setCoins(player, getCoins(player) + (tonumber(e.amount) or 0))
+					if type(e.reason) == "string" and string.sub(e.reason, 1, 5) == "clap:" then showClap(player, tonumber(e.amount) or 0) end
 					st.applied[e.id] = true
 					table.insert(st.order, e.id)
 					added = true

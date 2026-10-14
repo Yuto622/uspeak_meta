@@ -11,10 +11,10 @@ import { isTeacherName, namePrefix } from './roblox-seats.js';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { weeklyData, monthlyData } from './aggregate.js';
-import { weeklyTex, monthlyTex, qrCardsTex, templateVersion, texts } from './render-tex.js';
+import { weeklyTex, monthlyTex, qrCardsTex, templateVersion, texts, goalText } from './render-tex.js';
 import { childMessages, bundle, retryUuid, mask } from './line.js';
 import { newToken } from './store.js';
-import { DAY, parts, weekOf, lastWeek, monthOf, lastMonth, isoWeekNumber, jaRange } from './jst.js';
+import { DAY, dayKey, parts, weekOf, lastWeek, monthOf, lastMonth, isoWeekNumber, jaRange } from './jst.js';
 
 export const CONSENT_VERSION = 'v1';
 export const MAX_PARENTS_PER_TOKEN = 4;
@@ -396,7 +396,10 @@ export function createParentReports({
       .filter((r, i, a) => a.findIndex((x) => x.period_key === r.period_key) === i)
       .slice(0, 8)
       .map((r) => ({ range: rangeOf(r), token: r.access_token }));
-    return { ...base0, lineUrl: liffId && !line.dryRun ? `https://liff.line.me/${liffId}?t=${token}` : '', latest: latest ? { token: latest.access_token, range: rangeOf(latest), png: !!latest.png_url } : null, past, error };
+    const clappedToday = reports.claps({ classroom_id: t.classroom_id, student_username: t.student_username, day: dayKey(now()) }).length > 0;
+    let goal = '';
+    try { goal = goalText(JSON.parse(latest?.data_json || '{}')); } catch { /* なくても よい */ }
+    return { ...base0, clappedToday, goal, lineUrl: liffId && !line.dryRun ? `https://liff.line.me/${liffId}?t=${token}` : '', latest: latest ? { token: latest.access_token, range: rangeOf(latest), png: !!latest.png_url } : null, past, error };
   }
   // 1か月の まとめ（先月）。押されたときに 作る。
   async function studentMonthly(token) {
@@ -406,6 +409,47 @@ export function createParentReports({
     if ((s.paused_students || []).includes(t.student_username)) return null;
     return (await buildReport(t.classroom_id, { username: t.student_username, nick: t.nickname }, 'monthly', lastMonth(now()))).report.access_token;
   }
+
+  // ---- 👏 見たよ（保護者 → ゲームの 中の 子ども）-----------------------------------------------
+  // 1 日 1 回（子ども 1 人に つき・家族の だれが 押しても）。コインを 少し と「おうちの人から 👏」の お知らせ。
+  // Roblox で 遊ぶ 子：コインの 行（wallet）に のせる → Roblox の 同期で 足され、バナーが 出る（Web も 同じ 残高）。
+  // Web だけの 子：つぎに Web に 入った とき（いま 入って いれば すぐ）に ClassRoom が コインと お知らせを 出す。
+  const CLAP_COINS = 10;
+  const clapRooms = new Set();
+  async function playsRoblox(username) {
+    if (!roblox?.enabled) return false;
+    try { return !!(await roblox.balanceOf?.(username)) || ((await store.listRobloxEvents?.({ username })) || []).length > 0; } catch { return false; }
+  }
+  async function clap(token) {
+    const t = reports.findToken(token, now());
+    if (!t) return { ok: false, error: 'not found' };
+    const s = reports.settings(t.classroom_id);
+    if ((s.paused_students || []).includes(t.student_username)) return { ok: false, error: 'paused' };
+    const day = dayKey(now());
+    if (reports.claps({ classroom_id: t.classroom_id, student_username: t.student_username, day }).length) return { ok: true, already: true };
+    let robloxGiven = false;
+    if (await playsRoblox(t.student_username)) {
+      robloxGiven = roblox.walletAdd(t.student_username, CLAP_COINS, 'clap:parent');
+      if (robloxGiven) roblox.pushBalance?.(t.student_username)?.catch?.(() => {});
+    }
+    const c = reports.addClap({ classroom_id: t.classroom_id, student_username: t.student_username, nick: t.nickname, day, at: new Date(now()).toISOString(), coins: CLAP_COINS, roblox_given: robloxGiven });
+    for (const room of clapRooms) if (room.classCode === t.classroom_id) { try { room.deliverClaps?.(); } catch (err) { log.warn?.('[parent-report] clap delivery failed:', err.message); } }
+    return { ok: true, id: c.id };
+  }
+  // ClassRoom から：この 子の まだ 見せていない 👏（Web で コインを 足す ものは coins>0 で 返す）。
+  const clapHub = {
+    rooms: clapRooms,
+    take(classCode, username) {
+      const u = String(username || '').toLowerCase();
+      return reports.claps({ classroom_id: classCode, web_shown: false }).filter((c) => c.student_username.toLowerCase() === u)
+        .map((c) => ({ id: c.id, coins: c.roblox_given ? 0 : c.coins }));
+    },
+    shown(id) { reports.updateClap(id, { web_shown: true, web_shown_at: new Date(now()).toISOString() }); },
+  };
+  const clapsThisWeek = (classCode, username) => {
+    const wk = weekOf(now());
+    return reports.claps({ classroom_id: classCode, student_username: username }).filter((c) => { const at = Date.parse(c.at); return at >= wk.start && at <= wk.end; }).length;
+  };
 
   // ---- 登録（QR → LIFF）--------------------------------------------------------------------
   function linkInfo(token) {
@@ -456,7 +500,7 @@ export function createParentReports({
       return {
         username: st.username, nick: st.nick, paused: paused.has(st.username),
         parents: links.filter((l) => l.status === 'active').length, blocked: links.filter((l) => l.status === 'blocked').length,
-        ...(withUrl ? { url: pageUrl(classCode, st) } : {}),
+        ...(withUrl ? { url: pageUrl(classCode, st), claps: clapsThisWeek(classCode, st.username) } : {}),
       };
     });
     const registered = rows.filter((r) => r.parents > 0).length;
@@ -482,7 +526,7 @@ export function createParentReports({
 
   return {
     students, buildReport, preview, qrCards, deliverClass, resend, dueNow, tick, housekeeping, summaryLine, notifyOps,
-    stopClass, stopStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, isStudentToken, studentPage, studentMonthly, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
+    stopClass, stopStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, isStudentToken, studentPage, studentMonthly, clap, clapHub, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
     start(intervalMs = 60000) { const t = setInterval(() => tick(), intervalMs); t.unref?.(); return t; },
   };
 }

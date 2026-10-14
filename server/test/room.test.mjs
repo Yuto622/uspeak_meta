@@ -2127,12 +2127,13 @@ test('ぼくじょう島: every job is a question, the answer is judged here, an
   const ask2 = await nextMessage(a.room, 'farm:ask');
   // The page cannot know the answer; this test runs beside the bank and may look the
   // line up — exactly what a page can never do.
-  const line = BANK.talk.find((x) => ask2.prompt.en.includes(`"${x.says}"`));
+  // 村人の たんじょう日には たんじょう日の 1 行に なる（日付で かわる）。
+  const line = [...BANK.talk, BANK.birthday].find((x) => x && ask2.prompt.en.includes(`"${x.says}"`));
   assert.ok(line && ask2.choices.includes(line.a), 'the villager\'s line is from the bank and its reply is among the choices');
   a.room.send('farm:answer', { qid: ask2.id, answer: line.a });
   const right = await nextMessage(a.room, 'farm:result');
   assert.equal(right.correct, true);
-  assert.equal(right.farm.hearts.seeds, 1);
+  assert.equal(right.farm.hearts.seeds, line === BANK.birthday ? 2 : 1, 'one heart, two on the villager\'s birthday');
   assert.ok(right.xp > 0);
   assert.equal(right.farm.talked.seeds, true);
   a.room.send('farm:act', { act: 'talk', spot: 'seeds', params: {} });

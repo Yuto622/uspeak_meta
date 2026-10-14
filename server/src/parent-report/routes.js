@@ -72,6 +72,12 @@ export function mountParentReports(app, { service, reports, line, verifyClass, s
       res.redirect(302, `/r/${t}`);
     } catch { res.status(503).type('text/plain; charset=utf-8').send('いま作れませんでした。しばらくしてから もう一度 ひらいてください。'); }
   });
+  app.post('/r/:token/clap', async (req, res) => {
+    noindex(res);
+    if (req.get('x-requested-with') !== 'uspeak-page') { res.status(403).json({ ok: false }); return; }
+    const r = await service.clap(String(req.params.token || ''));
+    res.status(r.ok ? 200 : 404).json(r);
+  });
   app.get('/r/:token', async (req, res) => {
     const token = String(req.params.token || '');
     if (!service.isStudentToken(token)) { sendFile(req, res, 'pdf'); return; }

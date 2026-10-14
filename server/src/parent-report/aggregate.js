@@ -151,8 +151,20 @@ export function weeklyData(rows, { week, nick = '', sender = '', teacher = null 
     else situation = 'few';
   }
 
+  // 来週の めあて（1 行）。「のばせる こと」を 1 つだけ（Kraft & Rogers 2015：できて いる ことより、次に のばせる ことの 知らせが 効いた）。
+  // 強い ものから：お休み → 日数 → あわてて 答えている → 次の 単語 → 新しい 形。
+  const clean = inWeek.filter(isClean).filter((e) => correctOf(e) !== null);
+  const rate = clean.length ? clean.filter((e) => correctOf(e) === true).length / clean.length : 1;
+  const fastShare = inWeek.length ? inWeek.filter((e) => e.data.fast === true).length / inWeek.length : 0;
+  let goal;
+  if (dayCount === 0) goal = { key: 'start' };
+  else if (dayCount <= 2) goal = { key: 'days', args: { n: dayCount + 1 } };
+  else if (clean.length >= MIN_SHOWN && (rate < 0.6 || fastShare > 0.3)) goal = { key: 'slow' };
+  else if (next) goal = { key: 'word', args: { en: next } };
+  else goal = { key: 'format' };
+
   return {
-    kind: 'weekly', periodKey: week.key, range: jaRange(week), nick, sender, teacher,
+    kind: 'weekly', periodKey: week.key, range: jaRange(week), nick, sender, teacher, goal,
     days, dayCount, streak, answers, prevAnswers, diff,
     learned, next: next ? { en: next, ja: meaningOf(next), fromMiss: nextFromMiss } : null,
     situation, situationArgs: { n: graduated, level: newGrade },

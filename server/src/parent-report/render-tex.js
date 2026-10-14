@@ -98,6 +98,8 @@ export function weeklyTex(d, { preview = false } = {}) {
     nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{brand}\\bfseries 次に覚える単語}\\\\[1mm]{\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.noNext)}}`;
   }
 
+  const goal = goalText(d, W);
+  if (goal) nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ${tex(W.goalTitle)}}\\\\[0.5mm]{\\fontsize{11.5}{15}\\selectfont\\color{brand}\\bfseries ${tex(goal)}}\\\\[2mm]\n${nextBlock}`;
   return fill(weekly, {
     badge: badge(preview, true),
     sender: d.sender || '教室', nick: d.nick, range: d.range, titleSize: titleSize(d.nick, 17, 14),
@@ -106,6 +108,12 @@ export function weeklyTex(d, { preview = false } = {}) {
     wordCards, nextBlock,
     footer1: W.footer1, footer2: fmt(W.footer2, { sender: d.sender || '教室' }),
   });
+}
+
+// 来週の めあて（aggregate の goal → texts.json の 文）。ページと LINE の 文でも 使う。
+export function goalText(d, W = templates().texts.weekly) {
+  if (!d?.goal || !W.goals?.[d.goal.key]) return '';
+  return fmt(W.goals[d.goal.key], d.goal.args || {});
 }
 
 // ---- 月次版 -------------------------------------------------------------------------------

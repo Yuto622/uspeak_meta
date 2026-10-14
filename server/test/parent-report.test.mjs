@@ -8,7 +8,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { weeklyData, monthlyData, masteryTimeline, masteredAt, normalize } from '../src/parent-report/aggregate.js';
 import { jstMidnight, weekOf, monthOf, lastWeek, lastMonth, dayKey, HOUR, DAY } from '../src/parent-report/jst.js';
-import { weeklyTex, monthlyTex, tex } from '../src/parent-report/render-tex.js';
+import { weeklyTex, monthlyTex, tex, goalText } from '../src/parent-report/render-tex.js';
 import { ReportStore } from '../src/parent-report/store.js';
 import { createLine, retryUuid, bundle } from '../src/parent-report/line.js';
 import { createParentReports } from '../src/parent-report/service.js';
@@ -285,6 +285,54 @@ test('page: the QR token opens the child\'s own page (no LINE), built on demand;
   h.service.stopStudent('c1', 'taro', false);
   h.reports.regenerateToken('c1', 'taro', 'Taro');
   assert.equal(await h.service.studentPage(t.token), null, 'a remade QR retires the old URL');
+});
+
+test('goal: one "next step" line, strongest first', () => {
+  const wk = weekOf(at(2026, 10, 6));
+  assert.equal(weeklyData([], { week: wk, nick: 'a' }).goal.key, 'start');
+  assert.deepEqual(weeklyData([quiz(at(2026, 10, 6), 'apple', true, {}, 'u')], { week: wk, nick: 'a' }).goal, { key: 'days', args: { n: 2 } });
+  const many = [];
+  for (let d = 6; d <= 9; d += 1) for (let k = 0; k < 8; k += 1) many.push(quiz(at(2026, 10, d, 10, k), 'dog', k % 3 === 0, {}, 'u'));
+  assert.equal(weeklyData(many, { week: wk, nick: 'a' }).goal.key, 'slow', 'low accuracy over 20+ answers asks to slow down');
+  const d = weeklyData([...week41('u'), quiz(at(2026, 10, 9), 'cat', false, {}, 'u')], { week: wk, nick: 'a' });
+  assert.equal(d.goal.key, 'word');
+  assert.match(goalText(d), /「cat」/);
+  assert.ok(weeklyTex(d).includes('来週の めあて'));
+});
+
+test('clap: once a day per child; Roblox players get it through the wallet, Web-only children when they join', async () => {
+  const h = harness({ events: week41('taro'), now: at(2026, 10, 13, 10) });
+  const t = h.reports.tokenFor('c1', 'taro', 'Taro');
+  const tHana = h.reports.tokenFor('c1', 'hana', 'Hana');
+  let delivered = 0;
+  h.service.clapHub.rooms.add({ classCode: 'c1', deliverClaps: () => { delivered += 1; } });
+  assert.equal((await h.service.clap(t.token)).ok, true);
+  assert.equal((await h.service.clap(t.token)).already, true, 'the second press today does nothing');
+  assert.equal(delivered, 1, 'an open classroom is told at once');
+  assert.deepEqual(h.service.clapHub.take('c1', 'TARO').map((c) => c.coins), [10], 'no Roblox here: the Web room adds the coins');
+  h.service.clapHub.shown(h.service.clapHub.take('c1', 'taro')[0].id);
+  assert.equal(h.service.clapHub.take('c1', 'taro').length, 0);
+  assert.equal((await h.service.clap('nope')).ok, false);
+  h.service.stopStudent('c1', 'hana');
+  assert.equal((await h.service.clap(tHana.token)).ok, false, 'a paused child cannot be clapped');
+  const st = await h.service.classStatus('c1', { withUrl: true });
+  assert.equal(st.students.find((s) => s.username === 'taro').claps, 1);
+  assert.equal((await h.service.studentPage(t.token)).clappedToday, true);
+});
+
+test('clap: a child who plays Roblox gets a wallet row the Roblox sync turns into a banner', async () => {
+  const h = harness({ events: week41('taro'), now: at(2026, 10, 13, 10) });
+  const rows = [];
+  // harness の roblox を 差しかえ（有効・記録あり）
+  const svc = createParentReports({
+    store: { listClass: () => [{ name: 'Taro' }], listRobloxEvents: async ({ username = '' } = {}) => week41('taro').filter((e) => !username || e.username === username) },
+    reports: h.reports, roblox: { enabled: true, usernameFor: (c, n) => n.toLowerCase(), balanceOf: async () => null, walletAdd: (u, n, r) => { rows.push({ u, n, r }); return true; } },
+    renderer: { render: async () => ({ pdf: Buffer.from('%PDF') }) }, line: h.line, log: { info() {}, warn() {} }, now: () => at(2026, 10, 13, 10), filesDir: mkdtempSync(path.join(tmpdir(), 'pr-')),
+  });
+  const t = h.reports.tokenFor('c1', 'taro', 'Taro');
+  assert.equal((await svc.clap(t.token)).ok, true);
+  assert.deepEqual(rows, [{ u: 'taro', n: 10, r: 'clap:parent' }]);
+  assert.deepEqual(svc.clapHub.take('c1', 'taro').map((c) => c.coins), [0], 'the Web room only shows the notice (coins arrive with the balance)');
 });
 
 // ---- 本物の 組版 -----------------------------------------------------------------------------

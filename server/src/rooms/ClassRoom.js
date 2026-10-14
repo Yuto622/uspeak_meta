@@ -125,6 +125,9 @@ export class ClassRoom extends Room {
     this.store = options.store;
     // Roblox 連携（roblox/sync.js）。残高を両側で同じにするため、部屋を登録しておく。
     this.roblox = options.roblox || null;
+    // 保護者の 👏（parent-report）。この 部屋が あるあいだ、届いたら すぐ 見せる。
+    this.claps = options.claps || null;
+    this.claps?.rooms?.add(this);
     if (this.roblox?.enabled) this.roblox.rooms.add(this);
     this.classCode = sanitizeClassCode(options.classCode);
     this.maxClients = config.maxClients;
@@ -399,6 +402,7 @@ export class ClassRoom extends Room {
     resumeFood(this.priv.get(client.sessionId).food); // おなかは つながっている間だけ へる
     client.send('welcome', this.welcomePayload(client.sessionId, restored, position));
     if (bonus) client.send('login:bonus', bonus);
+    this.deliverClaps(client.sessionId);
     // 授業の とちゅうで 入ってきた 子にも、ストップ中なら ストップを かける。
     if (this.classMode.paused && auth.role !== 'teacher') client.send('class:pause', { by: '' });
     this.scheduleReviewOffer(client.sessionId);
@@ -466,6 +470,7 @@ export class ClassRoom extends Room {
   }
 
   onDispose() {
+    this.claps?.rooms?.delete(this);
     // A plain timer outlives the room unless it is cleared, and a leaked one keeps the
     // process alive after the last class has gone home.
     clearTimeout(this.classMode?.resumeTimer);
@@ -4001,6 +4006,29 @@ export class ClassRoom extends Room {
     // 同じ増減を Roblox に届ける行（wallet_entries）にも書く。
     if (priv && entry.delta && this.roblox?.enabled) this.roblox.walletAdd(this.roblox.usernameFor(this.classCode, priv.name), entry.delta, `${entry.op}:${entry.item ?? ''}`);
     return [new Date().toISOString(), this.classCode, priv?.name || '', entry.op, entry.item, entry.quantity, entry.delta, entry.balance, sessionId];
+  }
+
+  // 保護者の 👏：まだ 見せていない ものを お知らせに。Web で 足す ぶん（Roblox に のせて いない ぶん）は コインも 足す。
+  // 足した コインは coinRow → Roblox の 行にも のる（両方 同じ 残高）。
+  deliverClaps(only = null) {
+    if (!this.claps) return;
+    for (const [id, priv] of this.priv) {
+      if (only && id !== only) continue;
+      const client = this.clients.find((c) => c.sessionId === id);
+      if (!client || this.state.players.get(id)?.role === 'teacher') continue;
+      const username = this.roblox?.usernameFor ? this.roblox.usernameFor(this.classCode, priv.name) : priv.name;
+      const list = this.claps.take(this.classCode, username);
+      if (!list.length) continue;
+      const coins = list.reduce((s, c) => s + (c.coins || 0), 0);
+      if (coins > 0) {
+        priv.wallet.coins += coins;
+        this.store.appendCoin(this.coinRow(id, { op: 'clap', item: 'parent', quantity: list.length, delta: coins, balance: priv.wallet.coins }));
+        this.persist(id);
+        client.send('wallet', { ok: true, op: 'clap', ...this.walletPayload(id) });
+      }
+      for (const c of list) this.claps.shown(c.id);
+      client.send('notice', { text: `おうちの人から 👏 が とどいたよ！${list.length > 1 ? `（${list.length}回）` : ''}${coins > 0 ? ` +${coins}コイン` : ''}` });
+    }
   }
 
   walletPayload(sessionId) {

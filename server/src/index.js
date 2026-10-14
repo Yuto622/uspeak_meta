@@ -315,7 +315,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, claps: parentReports.service.clapHub }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();
