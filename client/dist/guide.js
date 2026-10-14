@@ -42,6 +42,10 @@ export function createGuide({ toast }) {
     for (const b of tabs.querySelectorAll('[data-chapter]')) {
       b.onclick = () => { state.chapter = Number(b.dataset.chapter); state.step = 0; render(); };
     }
+    // いまの 章の タブが 右に かくれて いたら、タブの 列だけ よこに うごかして 見せる（scrollIntoView は まどごと うごかすので 使わない）。
+    const on = tabs.querySelector('[aria-pressed="true"]');
+    if (on && on.offsetLeft + on.offsetWidth > tabs.scrollLeft + tabs.clientWidth - 56) tabs.scrollLeft = on.offsetLeft - 16;
+    else if (on && on.offsetLeft < tabs.scrollLeft) tabs.scrollLeft = on.offsetLeft - 16;
   }
 
   function render() {

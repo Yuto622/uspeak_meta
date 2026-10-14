@@ -9,6 +9,9 @@ import * as THREE from './three.module.js';
 // 言語を見て焼き直すために、ここだけ i18n を直接見ている。
 import { isJa, onLangChange } from './i18n.js';
 
+// 3D の 札の 字の 大きさ。iPad（タッチ）では 1.5 倍まで（パソコンは そのまま）。
+const SIGN_BOOST = globalThis.matchMedia?.('(pointer: coarse)').matches ? 1.5 : 1;
+
 export const HALF_X = 30;
 export const HALF_Z = 25;
 export const NEAR_DISTANCE = 5;          // must match `radius` in the island's data file
@@ -131,10 +134,13 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
       ctx.clearRect(0, 0, 768, 100);
       if (background) { ctx.fillStyle = background; ctx.beginPath(); ctx.roundRect(4, 4, 760, 92, 18); ctx.fill(); }
       ctx.fillStyle = color;
-      ctx.font = `${weight} ${size}px sans-serif`;
+      const now = pick();
+      // タッチの 端末（iPad）は 字を 札いっぱいに。長い 名前だけ 入る 大きさまで 小さく する（横に つぶさない）。
+      let fs = Math.round(size * SIGN_BOOST);
+      ctx.font = `${weight} ${fs}px sans-serif`;
+      while (fs > size && ctx.measureText(now).width > 700) { fs -= 2; ctx.font = `${weight} ${fs}px sans-serif`; }
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      const now = pick();
       ctx.fillText(now, 384, 53, 720);
       s.userData.signText = now;   // 焼いた文字。検査と、島の名前を疑ったときのため
     };

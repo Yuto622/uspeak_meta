@@ -114,3 +114,9 @@
   .conv-foot { padding: 10px 12px 14px; }
   .conv-foot button { padding: 10px 12px; font-size: 13px; }
 }
+/* 暗い まどの 中の 文は まどの 字の 色に（ふつうの dialog の p の うすい 灰色を 打ち消す）。説明は 小さすぎない 大きさに。 */
+#conv-dialog p { color: inherit; }
+.conv-fine { font-size: 12px; opacity: .85; }
+.conv-pick-lead { font-size: 13px; opacity: .9; }
+/* 英語の 画面では 場面の 題と 下の 英語が 同じ ことばに なるので、下は 出さない。 */
+html[data-lang="en"] #conv-picker [data-topic] small { display: none; }

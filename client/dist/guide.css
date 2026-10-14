@@ -159,3 +159,8 @@
 .guide-words h3 .ja { display: block; font-style: normal; font-size: 14px; opacity: .78; margin-top: 5px; font-weight: 500; }
 #guide-tabs button span { display: block; text-align: left; }
 #guide-tabs button span .ja { display: block; font-style: normal; font-size: 11px; opacity: .72; }
+/* ページの 点：#guide-foot button（40px・余白つき）に 負けて 大きな 空の 四角に なっていた。id つきで 書いて 点に もどす。 */
+#guide-foot .guide-dots button { width: 14px; height: 14px; min-height: 14px; min-width: 14px; padding: 0; border-radius: 50%; background: #cdd5c0; flex: none; }
+#guide-foot .guide-dots button[aria-pressed="true"] { background: #2f5b46; width: 28px; border-radius: 99px; }
+/* 章の タブは 右に つづく：右はしを うすく して、横に うごかせると 分かるように。 */
+#guide-tabs { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent); padding-right: 56px; }

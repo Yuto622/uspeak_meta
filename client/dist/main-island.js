@@ -52,6 +52,9 @@ const SCENERY = {
   GinjiDenki: ['📺', 'Electronics'], JijiBooks: ['📚', 'Books'], MogumoBurger: ['🍔', 'Burgers'], HibanaPizza: ['🍕', 'Pizza'],
   NyauruToybox: ['🧸', 'Toys'], SoraMobile: ['📱', 'Phones'], 'villager house': ['🏠', 'House'],
 };
+// 地図の 建物のうち、3D の 島で 英会話が できる お店（main_island.json の talk_shop）。押すと その お店へ つれていく。
+// ここに ない 建物（おもちゃや・家）は かざり（押しても 何も おきないので、押せる 見た目に しない）。
+const TALK_SHOP = { GinjiDenki: 'electronics', JijiBooks: 'books', MogumoBurger: 'burger', HibanaPizza: 'pizza', SoraMobile: 'phones' };
 // ラベルの向き（Roblox の配置で近いもの同士がぶつからないように）。
 const SIDE = { hut_easy: 'above', hut_medium: 'above', hut_hard: 'above', gate_park: 'left', gate_race: 'left', gate_build: 'left', gate_rpg: 'left', shop_food2: 'left', shop_food0: 'left', fish_buy: 'right', shop_food3: 'right', spawn: 'right', npc_talk: 'below', level_sign: 'below', photo: 'below' };
 // 名前。英単語ハウスは3軒とも「英単語ハウス」なので、レベルを足して見分ける。
@@ -124,9 +127,15 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
       <div class="mi-water" style="left:${fx(w.minX)}%;top:${fz(w.minZ)}%;width:${fw(w.maxX - w.minX)}%;height:${fd(w.maxZ - w.minZ)}%"><span class="mi-water-label">${bi('Waterside', 'みずべ')}</span></div>
       ${d.roads.map((r) => `<div class="mi-road" style="${rect(r)}"></div>`).join('')}
       ${trees()}
-      ${d.scenery.map((s) => { const [ic, en] = SCENERY[s.name] || ['🏠', 'House']; const quiet = s.name === 'villager house'; return `<div class="mi-scene${quiet ? ' quiet' : ''}" style="${rect(s)}">${quiet ? '' : `<span>${ic}</span><small>${bi(en, esc(s.ja))}</small>`}</div>`; }).join('')}
+      ${d.scenery.map((s) => {
+        const [ic, en] = SCENERY[s.name] || ['🏠', 'House'];
+        const quiet = s.name === 'villager house';
+        const talk = TALK_SHOP[s.name];
+        if (talk) return `<button type="button" class="mi-scene talk" data-talk="${esc(talk)}" data-name="${esc(s.name)}" style="${rect(s)}"><span>${ic}</span><small>${bi(en, esc(s.ja))}</small><i aria-hidden="true">💬</i></button>`;
+        return `<div class="mi-scene deco${quiet ? ' quiet' : ''}" style="${rect(s)}">${quiet ? '' : `<span>${ic}</span><small>${bi(en, esc(s.ja))}</small>`}</div>`;
+      }).join('')}
       ${d.pois.map(poiTile).join('')}
-      ${spawn ? `<span class="mi-me" style="left:${fx(spawn.x - 12)}%;top:${fz(spawn.z - 4)}%" aria-hidden="true">🧒<em>${bi('You', 'きみ')}</em></span>` : ''}
+      ${spawn ? `<span class="mi-me" style="left:${fx(spawn.x - 22)}%;top:${fz(spawn.z - 2)}%" aria-hidden="true">🧒<em>${bi('You', 'きみ')}</em></span>` : ''}
     </div></div>
     <div class="mi-zoom"><button type="button" data-zoom="1" aria-label="ズーム">＋</button><button type="button" data-zoom="-1" aria-label="ズームアウト">－</button></div>`;
   }
@@ -175,6 +184,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
       <div class="mi-sheet" hidden></div>`;
     if (firstTime()) root.classList.add('guiding');
     root.querySelectorAll('[data-poi]').forEach((b) => { b.onclick = () => pick(b.dataset.poi); });
+    root.querySelectorAll('[data-talk]').forEach((b) => { b.onclick = () => pickTalk(b.dataset.talk, b.dataset.name); });
     root.querySelectorAll('[data-tool]').forEach((b) => { b.onclick = () => tool(b.dataset.tool); });
     root.querySelectorAll('[data-zoom]').forEach((b) => { b.onclick = () => zoom(Number(b.dataset.zoom)); });
     const x = $('.mi-hint-x', root); if (x) x.onclick = () => { doneGuide(); $('.mi-hint', root)?.remove(); };
@@ -262,6 +272,20 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     const level = id === 'level_sign' || id === 'hut_easy' ? `<p class="mi-level-now">${bi('Now', 'いまは')}: <b>${esc(LEVEL_LABEL[easyLevel()][0])}</b></p>` : '';
     const el = sheet(`${head(p)}${desc}${level}<div class="mi-acts">${acts.map(([k, label], i) => `<button type="button" class="mi-act${i === 0 ? ' primary' : ''}" data-act="${k}">${label}</button>`).join('')}</div>`);
     el.querySelectorAll('[data-act]').forEach((b) => { b.onclick = () => act(p, b.dataset.act); });
+  }
+
+  // 英会話の お店（地図では 建物）。3D の 島の その お店の 前へ つれていく（中の カウンターで 英語で はなす）。
+  function pickTalk(id, name) {
+    closeSheet();
+    const [ic, en] = SCENERY[name] || ['💬', 'Shop'];
+    const sp = rpg.main?.data?.spots?.find((q) => q.id === id);
+    const ja = sp?.name || '';
+    const el = sheet(`<button type="button" class="mi-sheet-x" aria-label="とじる" data-t-label="とじる">✕</button>
+      <div class="mi-sheet-head" style="--kc:#5aa7a0"><span class="mi-sheet-ic">${ic}</span>
+        <div><h3>${bi(esc(en), esc(ja))}</h3><p class="mi-sheet-sub">${bi('Talk in English', '英語で はなす おみせ')}</p></div></div>
+      <p class="mi-sheet-desc">${bi('Go inside and talk with the shopkeeper in English.', 'なかに はいって、おみせの 人と 英語で はなそう。')}</p>
+      <div class="mi-acts"><button type="button" class="mi-act primary" data-act="stall">${bi('🚶 Go to the shop', '🚶 おみせへ いく')}</button></div>`);
+    $('[data-act="stall"]', el).onclick = () => toStall(id);
   }
 
   function act(p, what) {

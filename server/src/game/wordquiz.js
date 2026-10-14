@@ -39,7 +39,11 @@ export function loadBank(file = BANK_PATH) {
       if (new Set(q.choices.map((c) => c.trim().toLowerCase())).size !== 4) throw new Error(`word-quiz.json: ${where} repeats an option`);
       if (!Number.isInteger(q.answer) || q.answer < 0 || q.answer > 3) throw new Error(`word-quiz.json: ${where} has no valid answer`);
       return { q: q.q, choices: q.choices, answer: q.answer };
-    });
+    })
+      // 「all of them（ぜんぶ）」が 答えの 問題は 出さない。ほかの 3 つも どれも 正しく 見え（See you soon / again / tomorrow）、
+      // 中には 英語として まちがった 選択肢も ある（My dream is travel…）。つり島の 取りこみ（hut-quiz.json の「全部」型）と 同じ あつかい。
+      .filter((q) => !q.choices.some((c) => /^all of (them|the above)$/i.test(c.trim())));
+    if (banks[difficulty].length < QUESTIONS_PER_SESSION) throw new Error(`word-quiz.json: ${difficulty} needs at least ${QUESTIONS_PER_SESSION} questions`);
   }
   return banks;
 }

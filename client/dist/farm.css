@@ -234,3 +234,13 @@
 
 /* No villager at the pen or on a plot: no empty card either. */
 .farm-villager:empty { display: none; }
+
+/* iPad（タッチの 900px 以上）：まどを 画面いっぱいに 近く、11〜12px の 字を 13px に（ぼくじょうは 字が いちばん 多い 画面で、
+   10〜11px の 説明が つまって 読めなかった）。うすい 灰色の 説明も 少し こく。 */
+@media (pointer: coarse) and (min-width: 900px) {
+  #farm-dialog { width: min(1120px, 96vw); max-height: calc(100dvh - 24px); }
+  .farm-head small, .farm-ja, .farm-fieldbar small, .farm-plot small, .farm-tip, .farm-stage small, .farm-bday, .farm-step, .farm-step i,
+  .farm-card, .farm-can, .farm-plot em, .farm-note, .farm-bag, .farm-hearts, .farm-prompt small, .farm-ghost, .farm-next em,
+  .farm-howto li, .farm-weather, .farm-calendar, .farm-level, .farm-likes, .farm-fest { font-size: 13px; }
+  .farm-plot small, .farm-tip, .farm-note { color: #4b5a4b; }
+}

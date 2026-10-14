@@ -205,11 +205,12 @@ export function createMainWorld({ scene }) {
             for (const [ox, oy] of [[-0.6, 0.5], [0.5, 0.6], [0.1, -0.2], [-0.5, -0.6], [0.7, -0.5]]) D(x + ox, roofY + 1.6 + oy, pz + 0.2, 0.36, 0.36, 0.08, 0xfff1c8);
             D(x - hx * 0.55, roofY + 0.4, z - d * 0.25, 1.4, 2.4, 1.4, 0xa0503a); D(x - hx * 0.55, roofY + 1.7, z - d * 0.25, 1.6, 0.3, 1.6, 0x7a3b2a);
             awning(0xd9483b, 0x2f9e5b);
-            // わき：そとの テーブルと パラソル。
-            for (const sx of [L, R]) {
-              D(sx, 0.75, fz + 0.2, 1.2, 0.12, 1.2, 0xf7f1e1); D(sx, 0.4, fz + 0.2, 0.15, 0.7, 0.15, 0x6f5b3e);
-              D(sx, 1.6, fz + 0.2, 0.1, 1.8, 0.1, 0xb0b0b0); D(sx, 2.5, fz + 0.2, 2, 0.16, 2, sx === L ? 0xd9483b : 0x2f9e5b);
-              solid(sx, fz + 0.2, 0.6, 0.6);
+            // わき：そとの テーブルと パラソル。道（spot.path）は 東から 来るので、2 つとも 西がわに 置く（東に 置くと 道を ふさぐ）。
+            for (const sx of [L, L - 1.5]) {
+              const tz = fz + 0.2;
+              D(sx, 0.75, tz, 1.2, 0.12, 1.2, 0xf7f1e1); D(sx, 0.4, tz, 0.15, 0.7, 0.15, 0x6f5b3e);
+              D(sx, 1.6, tz, 0.1, 1.8, 0.1, 0xb0b0b0); D(sx, 2.5, tz, 2, 0.16, 2, sx === L ? 0xd9483b : 0x2f9e5b);
+              solid(sx, tz, 0.6, 0.6);
             }
             break;
           }

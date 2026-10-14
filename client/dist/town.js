@@ -64,6 +64,8 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
   function enter(spot) {
     if (!isOnline()) { toast('まちづくり島は オンラインで あそべます。'); return; }
     state.spot = spot;
+    dialog.querySelector('#town-title').textContent = 'まちづくり島';
+    dialog.querySelector('.eyebrow').textContent = 'TOWN ISLAND';
     if (spot.kind === 'door') { send('room:enter', {}); return; }
     if (spot.kind === 'plaza') { send('plaza:enter', {}); return; }
     render('よみこみ中…');
@@ -75,9 +77,11 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     if (state.spot?.kind === 'agent') { renderAgent(note); return; }
     if (state.spot?.kind === 'furniture') { renderProps(note); return; }
     if (!state.shop) { body().innerHTML = `<p class="daily-note">${esc(note)}</p>`; return; }
+    // ブロックの おみせ（まちづくり島の shop・メインの島の ブロックや）は 題も お店の 名前に（前は「まちづくり島」と 出ていた）。
+    dialog.querySelector('#town-title').textContent = 'ブロック屋';
+    dialog.querySelector('.eyebrow').textContent = 'BLOCK SHOP';
     body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
-      <p class="daily-note">かった ブロックは、<b>ひろば</b>と <b>BLOCKWILD</b>（ブロックの とびら）で つかえます。
-        BLOCKWILD の クリエイティブに 出てくるのは、ここで かった ブロックだけ。</p>
+      <p class="daily-note">かった ブロックは、ひろばと BLOCKWILD（ブロックの とびら）で つかえます。BLOCKWILD の クリエイティブに 出てくるのは、ここで かった ブロックだけ。</p>
       <div class="town-blocks">${state.shop.blocks.map((b) => `
         <button type="button" class="town-block ${b.owned ? 'owned' : ''}" data-block="${b.id}" ${b.owned ? 'disabled' : ''}>
           <span class="town-swatch"><img src="${blockIcon(b.id, Number(b.color))}" alt="" draggable="false"></span>

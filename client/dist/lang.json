@@ -1495,8 +1495,8 @@
     "おつかい島へ行く": "Go to Errand Island",
     "おつかい島へ向かいます。": "Heading to Errand Island.",
     "いまは移動できません。少ししてからもう一度。": "You can't travel right now. Try again in a moment.",
-    "おつかいは": "Errands are done",
-    "で歩いてやります。広場のミアからうけとり、お店の人と英語で話し、広場にもどってとどけるとコインがもらえます。": "on foot. Get one from Mia in the plaza, talk with the shopkeeper in English, then come back to the plaza to deliver it and earn coins.",
+    "おつかいは": "You do errands on",
+    "で歩いてやります。広場のミアからうけとり、お店の人と英語で話し、広場にもどってとどけるとコインがもらえます。": "by walking around. Get one from Mia in the plaza, talk with the shopkeeper in English, then come back to the plaza to deliver it and earn coins.",
     "スタンプ {0} / {1}": "Stamps {0} / {1}",
     "いまはおつかい島の外にいます。「おつかい島へ行く」で移動してください。": "You're not on Errand Island. Use \"Go to Errand Island\" to travel there.",
     "今日のおつかい": "Today's errand",
@@ -3162,6 +3162,9 @@
     "よみあげ": "Read aloud",
     "すがた": "Avatar",
     "おと": "Sound",
-    "あそびかた": "How to play"
+    "あそびかた": "How to play",
+    "かった ブロックは、ひろばと BLOCKWILD（ブロックの とびら）で つかえます。BLOCKWILD の クリエイティブに 出てくるのは、ここで かった ブロックだけ。": "Blocks you buy here can be used in the plaza and in BLOCKWILD (the block door). Only blocks bought here appear in BLOCKWILD's creative mode.",
+    "かった ブロックは、ひろばと BLOCKWILD（ブロックの とびら）で つかえます。": "Blocks you buy here can be used in the plaza and in BLOCKWILD (the block door).",
+    "1日 れんぞく ログイン中！": "1 day in a row!"
   }
 }

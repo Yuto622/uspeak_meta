@@ -21,19 +21,21 @@
 .ride-card.owned { background: #e8f1e2; }
 /* The gate you are standing at is the one that can sell you something. */
 .ride-card.here { outline: 2px solid #173f38; }
-.ride-tier { grid-area: tier; font-size: 11px; color: #c9a227; line-height: 1.1; writing-mode: vertical-rl; justify-self: center; }
+.ride-tier { grid-area: tier; font-size: 12px; color: #c9a227; line-height: 1.1; writing-mode: vertical-rl; justify-self: center; letter-spacing: -1px; }
 .ride-name { grid-area: name; }
 .ride-name strong { display: block; font-size: 15px; }
 .ride-name small { display: block; font-size: 11px; color: #5d6d62; }
 .ride-need { grid-area: need; text-align: right; }
 .ride-need span { font-weight: 700; font-size: 14px; }
-.ride-need small { display: block; font-size: 10px; color: #a0522d; }
+.ride-need small { display: block; font-size: 12px; color: #5d6d62; line-height: 1.35; }
+/* たりない ぶんは 1 行に まとめて、うすい オレンジの 札に（前は 10px の オレンジの 字が 3 行 つまっていた）。 */
+.ride-need small.ride-short { display: inline-block; margin-top: 3px; padding: 2px 8px; border-radius: 99px; background: #f6e2d3; color: #8a3f17; font-weight: 700; }
 .ride-need b { font-size: 12px; color: #3d6b4a; }
 .ride-act { grid-area: act; display: flex; justify-content: flex-end; gap: 6px; }
 .ride-act button { padding: 9px 14px; border-radius: 11px; background: #e5e9dc; font-weight: 700; font-size: 13px; }
 .ride-act button.primary { background: #173f38; color: #f4f1e3; }
 .ride-act button:disabled { opacity: .5; }
-.ride-elsewhere { font-size: 11px; color: #7b8a7f; }
+.ride-elsewhere { font-size: 12px; color: #5d6d62; }
 
 @media (max-width: 520px) {
   .ride-card { grid-template-columns: 26px 1fr; grid-template-areas: 'tier name' 'tier need' 'act act'; }

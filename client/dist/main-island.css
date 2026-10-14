@@ -136,3 +136,19 @@ body[data-main] #toast { z-index: 60; }
 #main-island[data-view="map"] .mi-hint { top: 12px; bottom: auto; }
 /* 英単語ハウスの 👆 は札（上）にかぶらないよう 左から。 */
 #main-island.guiding .mi-poi[data-poi="hut_easy"]::after { left: -30px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+
+/* 英会話の お店（押せる 建物）と かざりの 建物を 見分ける。押せる ほうは 💬 の しるしと ふち。 */
+.mi-scene.talk { border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; box-shadow: inset 0 0 0 3px #5aa7a0, 0 5px 0 #3f7a74; }
+.mi-scene.talk > i { position: absolute; right: 4px; top: 4px; font-style: normal; font-size: 14px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px #0003; }
+.mi-scene.talk:active { transform: translateY(2px); }
+.mi-scene.deco { opacity: .72; filter: saturate(.6); pointer-events: none; }
+
+/* はじめての 案内が 出ている 間は、地図を その ぶん 下げる（上の 名前に かさならない）。 */
+#main-island[data-view="map"]:has(.mi-hint) .mi-map { margin-top: 64px; }
+
+/* iPad（タッチの 900px 以上）：下の カードは 地図を 暗く しない 小さな カードに。右下に うかべる（地図の まんなかを かくさない）。 */
+@media (pointer: coarse) and (min-width: 900px) {
+  .mi-sheet { background: transparent; pointer-events: none; justify-content: flex-end; align-items: flex-end; padding: 0 16px 16px; }
+  .mi-sheet-card { pointer-events: auto; width: min(440px, 100%); border-radius: 24px; padding-bottom: 18px; }
+  .mi-sheet-desc { font-size: 16px; }
+}

@@ -10,6 +10,12 @@
 #quiz-dialog::backdrop { background: rgba(12, 32, 28, .55); backdrop-filter: blur(4px); }
 .quiz-head { display: flex; align-items: center; gap: 12px; padding: 18px 22px 12px; border-bottom: 1px solid #e6e2cf; flex: none; }
 .quiz-head .eyebrow { font-size: 10px; letter-spacing: 2px; font-weight: 700; color: #7b8a7f; }
+/* × は どの まども 右はし（前は 点数の ない まどだけ タイトルの すぐ 横に ついていた）。 */
+.quiz-head > div:first-child, .mission-head > div:first-child { margin-right: auto; }
+/* 英語の 画面では、小さい 英語の 見出しが タイトルと 同じ ことば（WORD GYM / Word Gym）に なるので 出さない。
+   中身が かわる 見出し（英検・きょうの 5ふん＝id つき）は のこす。 */
+html[data-lang="en"] .quiz-head .eyebrow:not([id]),
+html[data-lang="en"] .mission-head .eyebrow { display: none; }
 .quiz-head h2 { margin: 2px 0 0; font-size: 20px; }
 #quiz-score { margin-left: auto; font-size: 13px; font-weight: 700; color: #5d6d62; white-space: nowrap; }
 .quiz-head button { width: 32px; height: 32px; border-radius: 50%; background: #e8e7d4; font-size: 19px; flex: none; }
@@ -90,3 +96,5 @@
   .gym-emoji.big { font-size: 52px; }
   .gym-speak strong { font-size: 24px; }
 }
+/* 問題文は こい 色で（ふつうの dialog の p は うすい 灰色 #74816d で、押せない 字に 見えていた）。 */
+.quiz-question p { color: #1f3a2f; }

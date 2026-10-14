@@ -83,3 +83,6 @@
 #wordbook-dialog .wb-title h2 .en { font-size: inherit; font-weight: 800; }
 #wordbook-dialog .wb-title h2 .ja { font-size: 16px; font-weight: 700; }
 .wb-face { padding-bottom: 30px; }
+/* 空の ときの 説明が ふつうの dialog の p の 灰色に なって 暗い 背景に とけていた。 */
+#wordbook-dialog p { color: inherit; }
+.wb-empty p { font-size: 15px; }

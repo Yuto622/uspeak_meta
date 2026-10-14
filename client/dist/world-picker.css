@@ -71,3 +71,5 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
   #rpg-content .wm-section { font-size: 16px; }
   .wm-ja { -webkit-text-stroke-width: 3px; }
 }
+/* 下に まだ 島が つづく ことを 見せる：下の はしを うすく（さいごまで うごかすと 余白で ちゃんと 見える）。 */
+.wm-scroll { -webkit-mask-image: linear-gradient(#000 calc(100% - 52px), transparent); mask-image: linear-gradient(#000 calc(100% - 52px), transparent); padding-bottom: 64px; }

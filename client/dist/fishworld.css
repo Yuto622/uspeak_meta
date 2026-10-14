@@ -364,3 +364,8 @@ html:not([data-lang=ja]) #fw-hud .en, html[data-lang=ja] #fw-hud .ja { display: 
 .fw-wait.bite .fw-bang { opacity: 1; transform: scale(1); }
 .fw-wait.bite p { color: #c43d4f; }
 .fw-wait-quit .ja { font-style: normal; }
+/* 問題が まど（つり島・英単語ハウス）の 中に あるときは、まどの ✕ が もう ある。中の ✕ は 同じ 働き（とじる）なので 出さない
+   （× が 2 つ 見えて、どちらを 押せば いいか 迷っていた）。/dev/formats の ように まどの 外では そのまま。 */
+dialog .fmt-quit { display: none; }
+/* さかなつりの 左の 魚の 名前：英語の 画面では 名前（訳）と 下の 英語名が 同じに なるので 下は 出さない。 */
+html[data-lang="en"] #fish-showcase-name .ja { display: none; }

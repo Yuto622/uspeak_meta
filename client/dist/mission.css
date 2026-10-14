@@ -119,3 +119,5 @@
   #errand-hud .errand-go { font-size: 12px; }
   #errand-hud button { margin-top: 8px; padding: 7px; font-size: 12px; }
 }
+/* 一覧は 下に つづく：下の はしを うすく して、うごかせると 分かるように（さいごまで うごかすと 余白で 見える）。 */
+#mission-body { -webkit-mask-image: linear-gradient(#000 calc(100% - 40px), transparent); mask-image: linear-gradient(#000 calc(100% - 40px), transparent); padding-bottom: 48px; }

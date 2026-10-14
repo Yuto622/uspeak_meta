@@ -84,7 +84,7 @@ export function createRideUI({ send, toast, speak, isOnline, learn, onRiding, on
           <div class="ride-tier">${'★'.repeat(v.tier)}</div>
           <div class="ride-name"><strong>${esc(v.name)}</strong><small>${esc(v.en)} · <span translate="no">${esc(v.word)}（${esc(v.ja)}）</span></small></div>
           <div class="ride-need">${v.owned ? '<b>もっている</b>'
-            : `<span>◈ ${v.price}</span><small>Lv.${v.level} から</small>${v.needCoins ? `<small>あと ◈ ${v.needCoins}</small>` : ''}${v.needLevel ? `<small>あと Lv.${v.needLevel}</small>` : ''}`}</div>
+            : `<span>◈ ${v.price}</span><small>Lv.${v.level} から</small>${v.needCoins || v.needLevel ? `<small class="ride-short">${[v.needCoins ? `あと ◈ ${v.needCoins}` : '', v.needLevel ? `あと Lv.${v.needLevel}` : ''].filter(Boolean).join(' · ')}</small>` : ''}`}</div>
           <div class="ride-act">${v.owned
             ? `<button type="button" data-equip="${v.id}" ${v.riding ? 'disabled' : ''}>${v.riding ? '✓ のっている' : 'これに のる'}</button>`
             : v.id === here

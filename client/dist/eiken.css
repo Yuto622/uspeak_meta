@@ -1,7 +1,14 @@
 /* 英検の島 — the four screens. Built on the quiz dialog's shapes so a child who has
    answered in a word hut already knows how this one works; what is new here is the
    passage, the ear, the tiles and the microphone. */
-#eiken-dialog { width: min(680px, 94vw); }
+#eiken-dialog {
+  width: min(680px, 94vw); border: 0; border-radius: 22px; padding: 0; overflow: hidden;
+  max-height: min(88vh, 760px); max-height: min(88dvh, 760px);
+  background: #fffaf0; color: #263d33; box-shadow: 0 30px 80px rgba(10, 36, 27, .45);
+}
+/* 小屋の まど（#quiz-dialog）と 同じ 形に そろえる。前は ふつうの dialog の 余白 32px が 入って、見出しが 内がわに ずれていた。 */
+#eiken-dialog[open] { display: flex; flex-direction: column; }
+#eiken-body { padding: 16px 22px 22px; overflow-y: auto; overscroll-behavior: contain; }
 #eiken-dialog .eyebrow { letter-spacing: .18em; }
 .eiken-lead { margin: 0 0 10px; color: #5d6f66; font-size: 13px; }
 .eiken-passage {

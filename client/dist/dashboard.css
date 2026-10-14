@@ -123,3 +123,8 @@
 #quick-body { padding: 16px 22px 22px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 #quick-dialog .quiz-score { margin-left: auto; font-size: 13px; font-weight: 700; color: #5d6d62; white-space: nowrap; }
 .quick-done { margin: 0 12px 0 0; align-self: center; font-weight: 700; color: #1f5c33; }
+/* カードの 数字と 単位（5 min）・下の ひとことは 1 行の 中で（style.css の .en,.ja{display:block} で 単位が 次の 行に 落ちていた）。
+   見せている 言語の ほうだけ inline に する（もう 片方を 出さない）。 */
+html[data-lang=ja] .dash-card b .ja, html:not([data-lang=ja]) .dash-card b .en,
+html[data-lang=ja] .dash-card em .ja, html:not([data-lang=ja]) .dash-card em .en { display: inline; font-size: inherit; font-weight: inherit; letter-spacing: 0; }
+.dash-card em { font-size: 12px; }

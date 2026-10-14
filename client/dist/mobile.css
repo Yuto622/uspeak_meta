@@ -465,3 +465,44 @@
     text-align: center;
   }
 }
+
+/* --- 13. iPad 横向き（タッチの 900px 以上・高さ 561px 以上）--------------------
+   1180×820 で ひととおり 遊んで 撮った 写真（server/test/e2e/ipad-tour.mjs）から 直した ところ。
+   - 右の バーが 下で あふれ、📹 と ♛ が 🗣💬 の 下に かくれていた（実測 717 > 630）。地図を 低く・
+     説明の 行を けし・🎣📖 の 数字を ラベルの 横に ならべて、ぜんぶ 見える 高さに する。
+   - 夜は 緑の ボタンが 背景に とけた。ふちを 明るく、字を 白く。
+   - クエストの 一覧が 4 つめで 切れていた（パネル 440px に 中身 568px）。まえがきと きょうの ひとことを はずす。
+   - 下の メニューと 上の バーの 札が 11px で うすかった。 */
+@media (pointer: coarse) and (min-width: 900px) and (min-height: 561px) {
+  .right-rail { gap: 6px; }
+  .right-rail .map-panel { padding: 8px 10px; }
+  .right-rail .map-panel canvas { height: 96px; }
+  .right-rail .map-panel p { display: none; }
+  .right-rail > #fishing-button,
+  .right-rail > #rpg-buddy-button { flex-direction: row; flex-wrap: wrap; column-gap: 6px; row-gap: 0; padding: 7px 8px; }
+  .right-rail > #fishing-button > span,
+  .right-rail > #rpg-buddy-button > b,
+  .right-rail > #rpg-buddy-button > i { width: auto; }
+  .right-rail > #fishing-button small,
+  .right-rail > #rpg-buddy-button small { width: auto; margin: 0; }
+  .right-rail > button,
+  .right-rail .scenery-controls button { border: 1.5px solid #fff2c8b3; box-shadow: 0 4px 14px #0005; }
+  .right-rail > button { color: #fffdf3; }
+  .right-rail > button .en,
+  .right-rail > button .ja,
+  .right-rail .scenery-controls button .en,
+  .right-rail .scenery-controls button .ja { font-size: 12px; }
+
+  .quest-panel { padding: 18px 18px 12px; max-height: calc(100vh - 118px - 252px); overflow-y: auto; scrollbar-width: none; }
+  .quest-panel h1 { font-size: 21px; margin: 8px 0 4px; }
+  .quest-panel .intro,
+  .quest-panel .daily { display: none; }
+  .quest-panel .progress { margin: 8px 0 8px; }
+  .quest { padding: 9px 8px; }
+  .quest strong { font-size: 14px; }
+  .quest small { font-size: 12px; }
+
+  .hotbar button { color: #3f4f39; font-size: 13px; font-weight: 700; }
+  .hotbar button small { opacity: .7; }
+  .stats button[data-cap]::after { font-size: 12px; opacity: 1; }
+}

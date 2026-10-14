@@ -108,3 +108,5 @@
   .iv-acts button, #iv-text, #iv-send { min-height: 38px; height: auto; }
   .iv-fine { display: none; }
 }
+/* 暗い まどの 中の 文は まどの 字の 色（ふつうの dialog の p の うすい 灰色が 本文と ふくろうの セリフに 入っていた）。 */
+#iv-dialog p { color: inherit; }

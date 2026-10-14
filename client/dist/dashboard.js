@@ -120,7 +120,7 @@ export function createDashboard({ send, isOnline, toast, onQuick = null }) {
       <div class="dash-card">
         <small>${bi(c.ja, c.en)}</small>
         <b>${(c.value || 0).toLocaleString()}<span>${bi(c.unit, UNIT_EN[c.unit])}</span></b>
-        <em>${bi(`✧ +1 まで あと ${c.toNext}${c.unit}`, `${c.toNext}${UNIT_EN[c.unit] || ''} to the next ✧`)}</em>
+        <em>${bi(`✧ +1 まで あと ${c.toNext}${c.unit}`, `${c.toNext}${UNIT_EN[c.unit] || ''} to the next\u00a0✧`)}</em>
       </div>`).join('');
     // 今月のまとめ。**累計は増えるいっぽうだが、今月は毎月0から始まる。**
     // 「今日やれば今日増える」が見えるのはこちらで、7歳にはそれがぜんぶ。
