@@ -64,3 +64,5 @@ body[data-main] .quest-panel.has-tasks, body[data-warp] .quest-panel.has-tasks, 
   .bottom { pointer-events: none; }
   .bottom > * { pointer-events: auto; }
 }
+/* 横向きの スマホの 先生は 左上が じゅぎょうモードの ボタンで いっぱい（class-mode.css と おなじく しまう）。 */
+@media (pointer: coarse) and (max-height: 560px) { body.cm-teacher .quest-panel.has-tasks { display: none !important; } }

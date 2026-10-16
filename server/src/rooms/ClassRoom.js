@@ -1265,7 +1265,8 @@ export class ClassRoom extends Room {
   taskRun(id) {
     const priv = this.priv.get(id);
     const player = this.state.players.get(id);
-    if (!priv || !player || player.role === 'teacher' || this.taskBusy) return;
+    // 先生にも 出す（子どもと 同じ 道を じぶんで ためせる）。
+    if (!priv || !player || this.taskBusy) return;
     const { rules, plan } = this.taskPlan();
     if (!plan.list.length) return;
     this.taskBusy = true;
@@ -1309,7 +1310,7 @@ export class ClassRoom extends Room {
   taskPayload(id) {
     const priv = this.priv.get(id);
     const player = this.state.players.get(id);
-    if (!this.tasks || !priv || !player || player.role === 'teacher') return null;
+    if (!this.tasks || !priv || !player) return null;
     const { rules, plan } = this.taskPlan();
     if (!plan.list.length) return null;
     return taskView(priv.tasks, plan, rules, this.taskStats(id));

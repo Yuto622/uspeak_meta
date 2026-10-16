@@ -122,9 +122,9 @@ test('部屋: はいると 3 つ 届く。つりばに 近づくと 部屋が �
   await room.leave();
 });
 
-test('部屋: 先生には タスクを 出さない', async () => {
+test('部屋: 先生にも 同じ タスクが 出る（じぶんで ためせる）', async () => {
   const room = await new Client(url).joinOrCreate('class', { classCode: 'tasks2', name: 'Sensei', teacherKey: 'testkey12345' });
   const welcome = await nextMessage(room, 'welcome');
-  assert.equal(welcome.tasks, null);
+  assert.equal(welcome.tasks.tasks[0].id, 'S001');
   await room.leave();
 });
