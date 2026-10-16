@@ -1,4 +1,4 @@
-// 画面の言語 — 英語が主、「日本語」ボタンで小学生が読める日本語に切り替わる。
+// 画面の言語 — 日本語が主（2026-10〜）。「A」ボタンで英語に切り替わる。
 //
 // **鍵はいまの日本語の文そのもの。** `t('つぎへ →')` と書くと、英語のときは
 // lang.json の "つぎへ →" を引いて "Next →" を返し、日本語のときはそのまま返す。
@@ -21,7 +21,7 @@
 const dom = () => (typeof document === 'undefined' ? null : document);
 
 const KEY = 'uspeak-lang-v1';
-const DEFAULT = 'en';            // **既定は英語。** 日本語は ボタンで選ぶもの。
+const DEFAULT = 'ja';            // **既定は日本語**（2026-10）。英語は ボタンで選ぶもの。前に えらんだ 言語は localStorage に のこる。
 const EVENT = 'uspeak:lang';
 
 let lang = DEFAULT;
