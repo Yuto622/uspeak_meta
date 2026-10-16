@@ -1,0 +1,46 @@
+/* 左の「つぎに やること」（tasks.js）。中身は 部屋が 決める。
+   置き場所は .quest-panel の いちばん 上。U-Speak島では 島の クエストの 上に のる。
+   ほかの 島では .quest-panel が 消える（mission.css の .on-errand-island）ので、
+   タスクが ある ときだけ 入れ物ごと もどして カードだけ 見せる。 */
+
+#task-card { margin: 0 0 14px; padding: 12px 13px 11px; border-radius: 15px; background: linear-gradient(160deg, #1d4d44, #163a33); color: #fff6dd; box-shadow: 0 10px 26px #10302a3d; border: 1px solid #f0d79a55; }
+#task-card[hidden] { display: none; }
+#task-card .task-head { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; width: 100%; min-height: 34px; }
+#task-card .task-eyebrow { font-size: 11px; letter-spacing: .14em; color: #f0d79a; font-weight: 800; }
+#task-card .task-chapter { grid-column: 1; font-size: 12px; color: #d9ead9; }
+#task-card .task-fold { grid-row: 1 / span 2; grid-column: 2; align-self: center; font-size: 13px; color: #f0d79a; }
+#task-card .task-bar { height: 6px; border-radius: 6px; background: #ffffff22; margin: 8px 0 10px; overflow: hidden; }
+#task-card .task-bar i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #f6c453, #ffe39a); transition: width .5s ease; }
+#task-card .task-now { background: #fffbeb; color: #163a33; border-radius: 12px; padding: 10px 11px 9px; }
+#task-card .task-now strong { display: block; font-size: 16px; line-height: 1.35; }
+#task-card .task-now small { display: block; margin-top: 3px; font-size: 12px; color: #4b6b62; }
+#task-card .task-row { display: flex; align-items: center; gap: 8px; margin-top: 7px; }
+#task-card .task-row:empty { display: none; }
+#task-card .task-meter { flex: 1; height: 7px; border-radius: 7px; background: #163a3322; overflow: hidden; }
+#task-card .task-meter i { display: block; height: 100%; background: #2f8f6f; border-radius: inherit; transition: width .4s ease; }
+#task-card .task-count { font-size: 12px; color: #2f6b58; }
+#task-card .task-coins { margin-left: auto; font-size: 12px; font-weight: 800; color: #9a6a00; background: #fdeab1; border-radius: 999px; padding: 2px 8px; }
+#task-card .task-next { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; }
+#task-card .task-next li { display: flex; gap: 6px; align-items: baseline; font-size: 12px; color: #d9ead9; padding: 0 2px; }
+#task-card .task-next li::before { content: '○'; color: #f0d79a99; font-size: 11px; }
+#task-card .task-next li span { flex: 1; }
+#task-card .task-next li b { font-weight: 600; color: #f0d79a; font-size: 11px; }
+#task-card .task-goal { margin: 8px 0 0; font-size: 11px; color: #f0d79acc; }
+#task-card .task-cheer { margin: 0 0 8px; padding: 6px 9px; border-radius: 10px; background: #f6c453; color: #3b2a00; font-weight: 800; font-size: 13px; }
+#task-card.pop { animation: task-pop .5s ease; }
+@keyframes task-pop { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
+#task-card.folded .task-bar { margin-bottom: 0; }
+#task-card.folded .task-now,
+#task-card.folded .task-next,
+#task-card.folded .task-goal { display: none; }
+
+/* ほかの 島：入れ物ごと もどして カードだけ。消して おく 画面（レース・同梱の ゲーム・部屋の 中・自分の 島・聖域・授業の 先生）は そのまま 消える。 */
+body.on-errand-island:not([data-race]):not([data-gp]):not([data-arcade]):not(.in-room):not(.in-plaza):not(.on-own-island):not(.in-sanctuary):not(.errand-busy):not([data-main]):not([data-warp]):not(.on-journey) .quest-panel.has-tasks {
+  display: block; padding: 0; background: none; border: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; overflow: visible;
+}
+body.on-errand-island .quest-panel.has-tasks > :not(#task-card) { display: none; }
+body.on-errand-island #task-card { margin: 0; }
+/* 2D の 地図・ワープ・旅の 間は 出さない */
+body[data-main] .quest-panel.has-tasks, body[data-warp] .quest-panel.has-tasks, body.on-journey .quest-panel.has-tasks { display: none; }
+
+@media (prefers-reduced-motion: reduce) { #task-card.pop { animation: none; } }

@@ -48,6 +48,7 @@ import { createRoom } from './room-world.js';
 import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
 import { createClassMode } from './class-mode.js';
+import { createTaskCard } from './tasks.js';
 
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
   let fwAutoAt = ''; // いま 自動で つりはじめた 水辺（はなれると 空に もどる）
@@ -297,6 +298,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   });
   // メインの島（2D の地図のホーム）と 英単語ハウス。正解もコインも部屋が決める（wh:* / main:*）。
   const plainSend = (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); };
+  // 左の「つぎに やること」。中身も すんだかも 部屋が 決める。
+  const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online' });
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
   const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh(), onGoFood: () => main?.goHome() });
@@ -436,6 +439,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function setMode(mode) {
     if (mode !== 'online') { const rb = document.getElementById('roblox-button'); if (rb) rb.hidden = true; }
     state.mode = mode;
+    try { taskCard.refresh(); } catch { /* before the card exists */ }
     const count = room?.state?.players?.size || 0;
     if (mode === 'online') chip.set('online', tr('オンライン'));
     else if (mode === 'reconnecting') chip.set('reconnecting', tr('つなぎ なおしています…'));
@@ -501,6 +505,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     state.attempts = 0;
     let welcomed = false;
 
+    r.onMessage('tasks:state', (m) => taskCard.set(m));
+    r.onMessage('tasks:done', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); taskCard.done(m); });
     r.onMessage('welcome', (m) => {
       if (m.world) { state.skew = m.world.now - Date.now(); night.setPhase(m.world); }
       // The block list is also the palette's colours, so it is worth the one message.
@@ -528,6 +534,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       const rb = document.getElementById('roblox-button');
       if (rb) { if (m.robloxReport) { rb.href = /^https?:/i.test(m.robloxReport) ? m.robloxReport : location.origin + m.robloxReport; rb.hidden = false; } else rb.hidden = true; }
       applyProgress(m.progress);
+      taskCard.set(m.tasks || null);
       mission.setClassMission(m.missionId);
       mission.setDone(m.missionsDone);
       mission.restore(m.errand);

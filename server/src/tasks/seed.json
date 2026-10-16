@@ -14,7 +14,8 @@
 "xp": 10,
 "learn": "",
 "why": "最初に やることを 1つに しぼる",
-"memo": ""
+"memo": "",
+"check": "near:fishing_pier"
 },
 {
 "id": "S002",
@@ -28,7 +29,8 @@
 "xp": 20,
 "learn": "英単語の いみ（4択）",
 "why": "遊ぶと 英語が 出てくる ことを 体験する",
-"memo": ""
+"memo": "",
+"check": "$fish:1"
 },
 {
 "id": "S003",
@@ -42,7 +44,8 @@
 "xp": 20,
 "learn": "英単語",
 "why": "操作に なれる",
-"memo": ""
+"memo": "",
+"check": "$fish:3"
 },
 {
 "id": "S004",
@@ -56,7 +59,8 @@
 "xp": 10,
 "learn": "",
 "why": "つる → うる → コイン の 流れを 知る",
-"memo": ""
+"memo": "",
+"check": "sell"
 },
 {
 "id": "S005",
@@ -70,7 +74,8 @@
 "xp": 20,
 "learn": "",
 "why": "数字の 目標を もつ",
-"memo": ""
+"memo": "",
+"check": "$coins:100"
 },
 {
 "id": "S006",
@@ -84,7 +89,8 @@
 "xp": 10,
 "learn": "魚の 英語名",
 "why": "集める 楽しみを 知る",
-"memo": ""
+"memo": "",
+"check": "ui:fishdex"
 },
 {
 "id": "S007",
@@ -98,7 +104,8 @@
 "xp": 30,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$dex:5"
 },
 {
 "id": "S008",
@@ -112,7 +119,8 @@
 "xp": 10,
 "learn": "出てきた 単語の ふりかえり",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:wordbook"
 },
 {
 "id": "S009",
@@ -126,7 +134,8 @@
 "xp": 10,
 "learn": "",
 "why": "行ける 場所を 知る",
-"memo": ""
+"memo": "",
+"check": "ui:homemap"
 },
 {
 "id": "S010",
@@ -140,7 +149,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:homemap_poi"
 },
 {
 "id": "S011",
@@ -154,7 +164,8 @@
 "xp": 10,
 "learn": "",
 "why": "コインの 使いみちを 見せる",
-"memo": ""
+"memo": "",
+"check": "near:clothes"
 },
 {
 "id": "S012",
@@ -168,7 +179,8 @@
 "xp": 30,
 "learn": "",
 "why": "ためた コインで 好きな ものが 買える",
-"memo": ""
+"memo": "",
+"check": "spend:wear"
 },
 {
 "id": "S013",
@@ -182,7 +194,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "wear"
 },
 {
 "id": "S014",
@@ -196,7 +209,8 @@
 "xp": 30,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "buy"
 },
 {
 "id": "S015",
@@ -210,7 +224,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:equip"
 },
 {
 "id": "S016",
@@ -224,21 +239,23 @@
 "xp": 10,
 "learn": "たべものの 英語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "spend:food"
 },
 {
 "id": "S017",
 "on": true,
 "chapter": "2 おかいもの",
-"ja": "おなかを いっぱいに しよう",
-"en": "Fill your hunger bar",
-"done": "空腹ゲージが 満タン",
+"ja": "たべものを たべよう",
+"en": "Eat some food",
+"done": "もちものの たべものを 1つ たべる",
 "where": "もちもの",
 "coins": 10,
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "eat"
 },
 {
 "id": "S018",
@@ -252,7 +269,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:bag"
 },
 {
 "id": "S019",
@@ -266,7 +284,8 @@
 "xp": 40,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "buyWand"
 },
 {
 "id": "S020",
@@ -280,7 +299,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "near:blocks"
 },
 {
 "id": "S021",
@@ -294,7 +314,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "near:hut_easy"
 },
 {
 "id": "S022",
@@ -308,7 +329,8 @@
 "xp": 30,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "a:wh:5"
 },
 {
 "id": "S023",
@@ -322,7 +344,8 @@
 "xp": 40,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$run:5"
 },
 {
 "id": "S024",
@@ -336,7 +359,8 @@
 "xp": 40,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "a:wh:Medium:5"
 },
 {
 "id": "S025",
@@ -350,7 +374,8 @@
 "xp": 60,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "a:wh:Hard:5"
 },
 {
 "id": "S026",
@@ -364,7 +389,8 @@
 "xp": 10,
 "learn": "",
 "why": "自分に あう むずかしさを 選べる",
-"memo": ""
+"memo": "",
+"check": "near:level_sign"
 },
 {
 "id": "S027",
@@ -378,7 +404,8 @@
 "xp": 40,
 "learn": "英単語・文",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:quiz"
 },
 {
 "id": "S028",
@@ -392,7 +419,8 @@
 "xp": 60,
 "learn": "英単語・文",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:gym"
 },
 {
 "id": "S029",
@@ -406,7 +434,8 @@
 "xp": 20,
 "learn": "かく",
 "why": "4つの 力の 「かく」",
-"memo": ""
+"memo": "",
+"check": "ok:spell"
 },
 {
 "id": "S030",
@@ -420,7 +449,8 @@
 "xp": 20,
 "learn": "きく",
 "why": "「きく」",
-"memo": ""
+"memo": "",
+"check": "ok:listen"
 },
 {
 "id": "S031",
@@ -434,7 +464,8 @@
 "xp": 40,
 "learn": "はなす",
 "why": "「はなす」",
-"memo": ""
+"memo": "",
+"check": "a:speak"
 },
 {
 "id": "S032",
@@ -448,7 +479,8 @@
 "xp": 40,
 "learn": "まちがえた 単語",
 "why": "まちがいを そのままに しない",
-"memo": ""
+"memo": "",
+"check": "a:review:3"
 },
 {
 "id": "S033",
@@ -462,7 +494,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:worldmap"
 },
 {
 "id": "S034",
@@ -476,7 +509,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:willow"
 },
 {
 "id": "S035",
@@ -490,7 +524,8 @@
 "xp": 40,
 "learn": "会話",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:quest"
 },
 {
 "id": "S036",
@@ -504,7 +539,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:fishworld"
 },
 {
 "id": "S037",
@@ -518,7 +554,8 @@
 "xp": 30,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "fwcatch:2"
 },
 {
 "id": "S038",
@@ -532,7 +569,8 @@
 "xp": 30,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "fwcatch:3"
 },
 {
 "id": "S039",
@@ -546,7 +584,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:errand"
 },
 {
 "id": "S040",
@@ -560,7 +599,8 @@
 "xp": 60,
 "learn": "英語の 指示を 聞いて 動く",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:mission"
 },
 {
 "id": "S041",
@@ -574,7 +614,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:pet"
 },
 {
 "id": "S042",
@@ -588,7 +629,8 @@
 "xp": 30,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$pet:1"
 },
 {
 "id": "S043",
@@ -602,7 +644,8 @@
 "xp": 20,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "spend:pet:feed"
 },
 {
 "id": "S044",
@@ -616,7 +659,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:park"
 },
 {
 "id": "S045",
@@ -630,7 +674,8 @@
 "xp": 10,
 "learn": "のりものの 英語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:ride"
 },
 {
 "id": "S046",
@@ -644,7 +689,8 @@
 "xp": 10,
 "learn": "あいさつ",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:emma"
 },
 {
 "id": "S047",
@@ -658,7 +704,8 @@
 "xp": 20,
 "learn": "あいさつ",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:talk:3"
 },
 {
 "id": "S048",
@@ -672,7 +719,8 @@
 "xp": 30,
 "learn": "お店の 英会話",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "convdone:books"
 },
 {
 "id": "S049",
@@ -686,7 +734,8 @@
 "xp": 30,
 "learn": "ちゅうもんの 英語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "convdone:pizza"
 },
 {
 "id": "S050",
@@ -700,7 +749,8 @@
 "xp": 30,
 "learn": "ちゅうもんの 英語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "convdone:burger"
 },
 {
 "id": "S051",
@@ -714,7 +764,8 @@
 "xp": 30,
 "learn": "お店の 英会話",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "convdone:electronics"
 },
 {
 "id": "S052",
@@ -728,7 +779,8 @@
 "xp": 30,
 "learn": "お店の 英会話",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "convdone:phones"
 },
 {
 "id": "S053",
@@ -742,7 +794,8 @@
 "xp": 60,
 "learn": "はなす",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "convdone:cafe"
 },
 {
 "id": "S054",
@@ -756,7 +809,8 @@
 "xp": 30,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:buddy"
 },
 {
 "id": "S055",
@@ -770,7 +824,8 @@
 "xp": 60,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:battle"
 },
 {
 "id": "S056",
@@ -784,7 +839,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:farm"
 },
 {
 "id": "S057",
@@ -798,7 +854,8 @@
 "xp": 20,
 "learn": "やさいの 英語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ok:farm:plant"
 },
 {
 "id": "S058",
@@ -812,7 +869,8 @@
 "xp": 30,
 "learn": "やさいの 英語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ok:farm:harvest"
 },
 {
 "id": "S059",
@@ -826,7 +884,8 @@
 "xp": 30,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ok:farm:brush"
 },
 {
 "id": "S060",
@@ -840,7 +899,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:ride"
 },
 {
 "id": "S061",
@@ -854,7 +914,8 @@
 "xp": 40,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "spend:ride"
 },
 {
 "id": "S062",
@@ -868,7 +929,8 @@
 "xp": 20,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "spend:block"
 },
 {
 "id": "S063",
@@ -882,7 +944,8 @@
 "xp": 30,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:blockwild"
 },
 {
 "id": "S064",
@@ -896,11 +959,12 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "near:mansion"
 },
 {
 "id": "S065",
-"on": true,
+"on": false,
 "chapter": "6 しまの くらし",
 "ja": "しゃしんを とろう",
 "en": "Take a photo",
@@ -910,7 +974,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "まだ ゲームに ない（メインの島の 🔜）。できたら 採用に する",
+"check": "ui:photo"
 },
 {
 "id": "S066",
@@ -924,7 +989,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:minigame"
 },
 {
 "id": "S067",
@@ -938,11 +1004,12 @@
 "xp": 20,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:gp"
 },
 {
 "id": "S068",
-"on": true,
+"on": false,
 "chapter": "6 しまの くらし",
 "ja": "きせつの クイズに こたえよう",
 "en": "Answer the season quiz",
@@ -952,7 +1019,8 @@
 "xp": 30,
 "learn": "きせつの 英語",
 "why": "",
-"memo": ""
+"memo": "まだ ゲームに ない（メインの島の 🔜）。できたら 採用に する",
+"check": "ui:season"
 },
 {
 "id": "S069",
@@ -966,7 +1034,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:eiken5"
 },
 {
 "id": "S070",
@@ -980,7 +1049,8 @@
 "xp": 60,
 "learn": "よむ",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:eiken:g5:reading"
 },
 {
 "id": "S071",
@@ -994,7 +1064,8 @@
 "xp": 80,
 "learn": "はなす",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:interview:g5"
 },
 {
 "id": "S072",
@@ -1008,7 +1079,8 @@
 "xp": 80,
 "learn": "よむ",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:eiken:g5:reading:3"
 },
 {
 "id": "S073",
@@ -1022,7 +1094,8 @@
 "xp": 20,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:eiken4"
 },
 {
 "id": "S074",
@@ -1036,7 +1109,8 @@
 "xp": 80,
 "learn": "よむ",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:eiken:g4:reading"
 },
 {
 "id": "S075",
@@ -1050,7 +1124,8 @@
 "xp": 100,
 "learn": "はなす",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:interview:g4"
 },
 {
 "id": "S076",
@@ -1064,7 +1139,8 @@
 "xp": 20,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "enter:eiken3"
 },
 {
 "id": "S077",
@@ -1078,7 +1154,8 @@
 "xp": 100,
 "learn": "よむ",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:eiken:g3:reading"
 },
 {
 "id": "S078",
@@ -1092,7 +1169,8 @@
 "xp": 120,
 "learn": "はなす",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:interview:g3"
 },
 {
 "id": "S079",
@@ -1106,21 +1184,23 @@
 "xp": 60,
 "learn": "かく",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "a:writing"
 },
 {
 "id": "S080",
 "on": true,
 "chapter": "7 えいけん",
-"ja": "1かいで 8わり せいかい しよう",
-"en": "Score 80% in one set",
-"done": "1回の 正解が 8割 以上",
+"ja": "1かいで ぜんもん せいかい しよう",
+"en": "Get every question right in one set",
+"done": "英検の 1セットを 全問 正解",
 "where": "英検の 島",
 "coins": 150,
 "xp": 100,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:eiken:perfect"
 },
 {
 "id": "S081",
@@ -1134,7 +1214,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:login"
 },
 {
 "id": "S082",
@@ -1148,7 +1229,8 @@
 "xp": 50,
 "learn": "",
 "why": "つづける 習慣",
-"memo": ""
+"memo": "",
+"check": "$streak:3"
 },
 {
 "id": "S083",
@@ -1162,7 +1244,8 @@
 "xp": 100,
 "learn": "",
 "why": "つづける 習慣",
-"memo": ""
+"memo": "",
+"check": "$streak:7"
 },
 {
 "id": "S084",
@@ -1176,7 +1259,8 @@
 "xp": 0,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$weekxp:100"
 },
 {
 "id": "S085",
@@ -1190,7 +1274,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:ranking"
 },
 {
 "id": "S086",
@@ -1204,35 +1289,38 @@
 "xp": 60,
 "learn": "まちがえた 単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "a:review:10"
 },
 {
 "id": "S087",
 "on": true,
 "chapter": "8 まいにち つづける",
-"ja": "ことばを 20こ おぼえよう",
-"en": "Learn 20 words",
-"done": "覚えた 単語が 20（2日以上・3回 つづけて 正解）",
+"ja": "ことばを 20こ せいかい しよう",
+"en": "Get 20 different words right",
+"done": "ちがう ことばを 20こ 正解",
 "where": "",
 "coins": 100,
 "xp": 80,
 "learn": "英単語",
 "why": "保護者レポートの「覚えた単語」と 同じ 数え方",
-"memo": ""
+"memo": "",
+"check": "$words:20"
 },
 {
 "id": "S088",
 "on": true,
 "chapter": "8 まいにち つづける",
-"ja": "ことばを 50こ おぼえよう",
-"en": "Learn 50 words",
-"done": "覚えた 単語が 50",
+"ja": "ことばを 50こ せいかい しよう",
+"en": "Get 50 different words right",
+"done": "ちがう ことばを 50こ 正解",
 "where": "",
 "coins": 200,
 "xp": 150,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$words:50"
 },
 {
 "id": "S089",
@@ -1246,7 +1334,8 @@
 "xp": 30,
 "learn": "はなす",
 "why": "先生が いる 時間だけに するか 要検討",
-"memo": ""
+"memo": "",
+"check": "voice"
 },
 {
 "id": "S090",
@@ -1260,7 +1349,8 @@
 "xp": 10,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "dash"
 },
 {
 "id": "S091",
@@ -1274,7 +1364,8 @@
 "xp": 100,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$dex:30"
 },
 {
 "id": "S092",
@@ -1288,7 +1379,8 @@
 "xp": 100,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$fish:100"
 },
 {
 "id": "S093",
@@ -1302,7 +1394,8 @@
 "xp": 100,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "ui:buddy:10"
 },
 {
 "id": "S094",
@@ -1316,7 +1409,8 @@
 "xp": 0,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$level:10"
 },
 {
 "id": "S095",
@@ -1330,7 +1424,8 @@
 "xp": 100,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$clothes:5"
 },
 {
 "id": "S096",
@@ -1344,35 +1439,38 @@
 "xp": 150,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$islands:19"
 },
 {
 "id": "S097",
 "on": true,
 "chapter": "9 マスター",
-"ja": "ことばを 100こ おぼえよう",
-"en": "Learn 100 words",
-"done": "覚えた 単語が 100",
+"ja": "ことばを 100こ せいかい しよう",
+"en": "Get 100 different words right",
+"done": "ちがう ことばを 100こ 正解",
 "where": "",
 "coins": 300,
 "xp": 200,
 "learn": "英単語",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$words:100"
 },
 {
 "id": "S098",
 "on": true,
 "chapter": "9 マスター",
-"ja": "3きゅうの めんせつで ごうかく ライン",
-"en": "Reach a pass score in the Grade 3 interview",
-"done": "3級 面接で 合格ラインの 点",
+"ja": "3きゅうの めんせつを 3かい やろう",
+"en": "Do the Grade 3 interview 3 times",
+"done": "3級 面接を 3回 終える",
 "where": "英検3級の 島",
 "coins": 300,
 "xp": 200,
 "learn": "はなす",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "award:interview:g3:3"
 },
 {
 "id": "S099",
@@ -1386,7 +1484,8 @@
 "xp": 30,
 "learn": "",
 "why": "",
-"memo": ""
+"memo": "",
+"check": "$friends:1"
 },
 {
 "id": "S100",
@@ -1400,7 +1499,8 @@
 "xp": 500,
 "learn": "英単語",
 "why": "はじめの 100 の さいごの 大きな 目標",
-"memo": ""
+"memo": "",
+"check": "$dex:100"
 }
 ],
 "ladders": [

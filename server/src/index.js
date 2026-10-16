@@ -84,6 +84,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
   });
 
   // タスクの 表（/admin/tasks で 書きかえる。ゲームは /api/tasks で 採用の 行だけ 読む）。
+  // テスト（node --test）では ほかの 検査の コインの 数を うごかさないよう 切る。タスクの 検査は TASKS=on で 入れる。
+  const tasksOn = process.env.TASKS === 'on' || (process.env.TASKS !== 'off' && !process.env.NODE_TEST_CONTEXT);
   const tasks = await new TaskStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'tasks.json'), { log }).init();
 
   const app = express();
@@ -322,7 +324,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, claps: parentReports.service.clapHub }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, claps: parentReports.service.clapHub }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();

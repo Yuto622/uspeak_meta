@@ -3165,6 +3165,12 @@
     "あそびかた": "How to play",
     "かった ブロックは、ひろばと BLOCKWILD（ブロックの とびら）で つかえます。BLOCKWILD の クリエイティブに 出てくるのは、ここで かった ブロックだけ。": "Blocks you buy here can be used in the plaza and in BLOCKWILD (the block door). Only blocks bought here appear in BLOCKWILD's creative mode.",
     "かった ブロックは、ひろばと BLOCKWILD（ブロックの とびら）で つかえます。": "Blocks you buy here can be used in the plaza and in BLOCKWILD (the block door).",
-    "1日 れんぞく ログイン中！": "1 day in a row!"
+    "1日 れんぞく ログイン中！": "1 day in a row!",
+    "つぎに やること": "Next up",
+    "あと {0}こ": "{0} to go",
+    "{0}こ できた": "{0} done",
+    "しょう {0}": "Chapter {0}",
+    "この しょうを おえると 🪙 {0}": "Finish this chapter for 🪙 {0}",
+    "「{0}」 クリア！": "“{0}” cleared!"
   }
 }

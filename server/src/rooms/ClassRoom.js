@@ -5,7 +5,8 @@ import { Room, ServerError, matchMaker } from '../colyseus.js';
 import { RoomState, Player, ANIMS } from '../schema.js';
 import { config } from '../config.js';
 import { judge, JudgeError } from '../game/judge.js';
-import { applyOp, sanitizeWallet, EconomyError } from '../game/economy.js';
+import { applyOp as applyOpRaw, sanitizeWallet, EconomyError } from '../game/economy.js';
+import { blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, UI_EVENTS } from '../tasks/engine.js';
 import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
 import { cleanSay, MAX_CHARS } from '../game/say.js';
@@ -57,6 +58,15 @@ import { FARM, sanitizeFarm, settle as settleFarm, statePayload as farmPayload, 
 import { reportPath, exportPath, classPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
+
+// タスク（tasks/engine.js）：コインが うごく ところは ぜんぶ applyOp を 通るので、ここで 1 枚 つつんで
+// 「なにが おきたか」を その子の タスクに 数える。だれの 財布かは 部屋が 入室の ときに 登録する。
+const WALLET_WATCH = new WeakMap();
+function applyOp(wallet, op) {
+  const entry = applyOpRaw(wallet, op);
+  try { WALLET_WATCH.get(wallet)?.(op); } catch (err) { log.warn('[tasks] could not count an op:', err.message); }
+  return entry;
+}
 import { boxFromEvents, makeSet as makeReviewSet, publicSet as reviewPublic, answer as reviewAnswer, dueCount as reviewDue, jstDay, COIN as REVIEW_COIN, PER_QUIZ as REVIEW_PER, ReviewError } from '../game/review.js';
 import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, placeLabel } from '../game/class-mode.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
@@ -129,6 +139,9 @@ export class ClassRoom extends Room {
     this.roblox = options.roblox || null;
     // 保護者の 👏（parent-report）。この 部屋が あるあいだ、届いたら すぐ 見せる。
     this.claps = options.claps || null;
+    // タスクの 表（/admin/tasks）。無ければ タスクは 出さない。
+    this.tasks = options.tasks || null;
+    this.taskQueue = new Set();
     this.claps?.rooms?.add(this);
     if (this.roblox?.enabled) this.roblox.rooms.add(this);
     this.classCode = sanitizeClassCode(options.classCode);
@@ -250,6 +263,9 @@ export class ClassRoom extends Room {
     this.onMessage('gp:cp', (client, msg) => this.onGpCp(client, msg));
     this.onMessage('gp:item', (client, msg) => this.onGpItem(client, msg));
     this.onMessage('dash:get', (client) => this.onDashboard(client));
+    // タスク：ページにしか 分からない こと（画面を ひらいた・はなしかけた）。名前は engine.js の UI_EVENTS だけ。
+    this.onMessage('task:ui', (client, msg) => this.onTaskUi(client, msg));
+    this.onMessage('tasks:get', (client) => this.taskSend(client.sessionId, true));
     this.onMessage('quick:start', (client, msg) => this.onQuickStart(client, msg));
     this.onMessage('quick:answer', (client, msg) => this.onQuickAnswer(client, msg));
     this.onMessage('quick:quit', (client) => { const priv = this.priv.get(client.sessionId); if (priv) priv.quick = null; client.send('quick:closed', { reason: 'quit' }); });
@@ -385,6 +401,7 @@ export class ClassRoom extends Room {
     // 講師キーで 入った 先生か（名簿の 先生は あとで 名簿が かわると 生徒に もどる。recheckRoles）。
     priv.byKey = !!auth.byKey;
     this.priv.set(client.sessionId, priv);
+    WALLET_WATCH.set(priv.wallet, (op) => { taskOp(priv.tasks, op); this.taskTouch(client.sessionId); });
 
     const player = new Player();
     player.name = auth.name;
@@ -409,6 +426,7 @@ export class ClassRoom extends Room {
     if (this.classMode.paused && auth.role !== 'teacher') client.send('class:pause', { by: '' });
     this.scheduleReviewOffer(client.sessionId);
     this.persist(client.sessionId);
+    this.taskTouch(client.sessionId);
     log.info(`[room ${this.roomId}] join ${auth.role} "${auth.name}" (${client.sessionId}) restored=${restored} clients=${this.clients.length}`);
   }
 
@@ -509,10 +527,12 @@ export class ClassRoom extends Room {
       // Walking out of the room is hanging up. Nobody presses anything to leave a call
       // here, the same way nobody presses anything to leave a building.
       if (player.space !== msg.s && this.voice.has(client.sessionId)) this.dropVoice(client.sessionId, 'moved');
+      if (player.space !== msg.s) { taskSpace(priv.tasks, msg.s); this.taskTouch(client.sessionId); }
       player.space = msg.s;
     }
     player.x = clamp(num(msg.x, player.x), -WORLD_LIMIT, WORLD_LIMIT);
     player.z = clamp(num(msg.z, player.z), -WORLD_LIMIT, WORLD_LIMIT);
+    if (taskPosition(priv.tasks, player.space, player.x, player.z)) this.taskTouch(client.sessionId);
     player.yaw = num(msg.r, player.yaw);
     if (ANIMS.includes(msg.a)) player.anim = msg.a;
     if (Number.isInteger(msg.t) && msg.t >= 0) player.ts = msg.t >>> 0;
@@ -1078,6 +1098,7 @@ export class ClassRoom extends Room {
       land: sanitizeLand(parseJson(record.land_json, null)),
       fw: sanitizeFw(parseJson(record.fishworld_json, null)),
       food: sanitizeFood(parseJson(record.food_json, null)),
+      tasks: sanitizeTasks(parseJson(record.tasks_json, null)),
       reviewDay: typeof record.review_day === 'string' ? record.review_day : '',
       review: null,
       // Blocks moved out of the room and onto the plaza; a save from before that keeps
@@ -1157,12 +1178,131 @@ export class ClassRoom extends Room {
       land_json: JSON.stringify(priv.land),
       fishworld_json: JSON.stringify({ dex: priv.fw.dex, bag: priv.fw.bag, caught: priv.fw.caught }),
       food_json: JSON.stringify(foodForSave(priv.food)),
+      tasks_json: JSON.stringify(priv.tasks || blankTasks()),
       review_day: priv.reviewDay || '',
       // Kept so a teacher's own row is not mistaken for a child's when the family
       // report links are drawn up.
       role: player.role,
       updated_at: iso, last_seen: priv.lastSeen, first_seen: priv.firstSeen,
     });
+  }
+
+  // ---- tasks（左の「つぎに やること」）-----------------------------------------------
+  // 数えるのは engine.js、ここは「いつ しらべるか」と「すんだら はらう」だけ。
+  // しらべるのは できごとの あと（同じ 瞬間の できごとは 1 回に まとめる）。
+
+  taskTouch(id) {
+    if (!this.tasks) return;
+    this.taskQueue.add(id);
+    if (this.taskQueue.size > 1) return;
+    queueMicrotask(() => {
+      const ids = [...this.taskQueue];
+      this.taskQueue.clear();
+      for (const sid of ids) {
+        try { this.taskRun(sid); } catch (err) { log.warn('[tasks] could not settle:', err.message); }
+      }
+    });
+  }
+
+  taskPlan() {
+    const at = this.tasks?.updatedAt || 0;
+    if (!this.taskCache || this.taskCache.at !== at || this.taskCache.store !== this.tasks) {
+      const adopted = this.tasks.adopted();
+      const rules = readRules(adopted.rules);
+      this.taskCache = { at, store: this.tasks, rules, plan: taskPlan(adopted.onboarding, rules) };
+    }
+    return this.taskCache;
+  }
+
+  taskStats(id) {
+    const priv = this.priv.get(id);
+    const player = this.state.players.get(id);
+    let friends = 0;
+    if (player && !String(player.space).startsWith('in:')) {
+      for (const [other, p] of this.state.players) if (other !== id && p.connected && p.space === player.space) friends += 1;
+    }
+    return {
+      coins: priv.wallet.coins,
+      fish: (priv.wallet.catches || 0) + (priv.fw?.caught || 0),
+      dex: (priv.wallet.dex?.length || 0) + (priv.fw?.dex?.length || 0),
+      level: priv.progress.level, streak: priv.login.streak, weekxp: priv.week.xp,
+      clothes: priv.wardrobe?.length || 0, pet: priv.pet ? 1 : 0,
+      run: priv.tasks.run, words: priv.tasks.w.length, islands: priv.tasks.seen.length, friends,
+    };
+  }
+
+  taskRun(id) {
+    const priv = this.priv.get(id);
+    const player = this.state.players.get(id);
+    if (!priv || !player || player.role === 'teacher' || this.taskBusy) return;
+    const { rules, plan } = this.taskPlan();
+    if (!plan.list.length) return;
+    this.taskBusy = true;
+    let paid = 0; let finished = []; let chapters = [];
+    try {
+      for (let round = 0; round < 5; round++) {
+        const out = settleTasks(priv.tasks, plan, rules, this.taskStats(id));
+        if (!out.finished.length && !out.chaptersDone.length) break;
+        for (const row of out.finished) {
+          if (row.coins > 0) {
+            const entry = applyOp(priv.wallet, { type: 'award', amount: row.coins, id: `task:${row.id}` });
+            this.store.appendCoin(this.coinRow(id, entry));
+            paid += row.coins;
+          }
+          if (row.xp > 0) this.awardXp(id, row.xp, `task:${row.id}`);
+        }
+        for (const n of out.chaptersDone) {
+          if (rules.chapterReward > 0) {
+            const entry = applyOp(priv.wallet, { type: 'award', amount: rules.chapterReward, id: `task:chapter:${n + 1}` });
+            this.store.appendCoin(this.coinRow(id, entry));
+            paid += rules.chapterReward;
+          }
+        }
+        finished = finished.concat(out.finished);
+        chapters = chapters.concat(out.chaptersDone.map((n) => ({ n: n + 1, name: String(plan.chapters[n].name || '').replace(/^\d+\s*/, '') })));
+      }
+    } finally { this.taskBusy = false; }
+    const client = this.clientOf(id);
+    if (finished.length || chapters.length) {
+      priv.tasks.at = Date.now();
+      this.persist(id);
+      client?.send('tasks:done', {
+        tasks: finished.map((r) => ({ id: r.id, ja: r.ja, en: r.en || r.ja, coins: r.coins || 0, xp: r.xp || 0 })),
+        chapters: chapters.map((c) => ({ ...c, coins: rules.chapterReward })),
+        coins: paid, ...this.walletPayload(id), progress: this.progressPayload(id),
+      });
+    }
+    this.taskSend(id);
+  }
+
+  taskPayload(id) {
+    const priv = this.priv.get(id);
+    const player = this.state.players.get(id);
+    if (!this.tasks || !priv || !player || player.role === 'teacher') return null;
+    const { rules, plan } = this.taskPlan();
+    if (!plan.list.length) return null;
+    return taskView(priv.tasks, plan, rules, this.taskStats(id));
+  }
+
+  // おなじ 中身は 2 回 おくらない（位置や 答えの たびに 呼ばれる）。
+  taskSend(id, force = false) {
+    const priv = this.priv.get(id);
+    const payload = this.taskPayload(id);
+    if (!priv || !payload) return;
+    const text = JSON.stringify(payload);
+    if (!force && priv.taskSent === text) return;
+    priv.taskSent = text;
+    this.clientOf(id)?.send('tasks:state', payload);
+  }
+
+  onTaskUi(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const name = typeof msg?.name === 'string' ? msg.name : '';
+    if (!priv || !UI_EVENTS.has(name)) return;
+    // 1 つの 名前は 20 回まで（「3にんと はなそう」「なかま 10にん」が 数えるのは そこまで）。
+    if ((priv.tasks.c[`ui:${name}`] || 0) >= 20) return;
+    taskBumpKey(priv.tasks, `ui:${name}`);
+    this.taskTouch(client.sessionId);
   }
 
   // ---- progression ---------------------------------------------------------------
@@ -1206,6 +1346,7 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(client.sessionId);
     const player = this.state.players.get(client.sessionId);
     if (!priv || !player) return;
+    taskBumpKey(priv.tasks, 'dash'); this.taskTouch(client.sessionId);
     const minutes = Math.floor(priv.study.ms / 60000);
     const answers = priv.stats.attempts;
     const weak = weakestOf(priv.skills);
@@ -1366,6 +1507,7 @@ export class ClassRoom extends Room {
     if (!priv) return;
     try {
       priv.worn = wearItem({ owned: priv.wardrobe, worn: priv.worn, id: msg?.id, off: !!msg?.off });
+      if (!msg?.off) { taskBumpKey(priv.tasks, 'wear'); this.taskTouch(client.sessionId); }
       this.pushOutfit(client.sessionId);
       this.persist(client.sessionId);
       client.send('wear:on', this.wornPayload(client.sessionId));
@@ -1541,6 +1683,8 @@ export class ClassRoom extends Room {
       const priv = this.priv.get(sessionId);
       if (priv) {
         addAnswer(priv.skills, row[4], Number(row[6]) === 1);
+        taskAnswer(priv.tasks, { qid: row[3], mode: row[4], correct: Number(row[6]) === 1 });
+        this.taskTouch(sessionId);
         this.markStudied(priv);
         // **11か所ある学習ログの書き込みは全部ここを通る**ので、月の箱もここで足す。
         // 12個目の活動を足した人が months.js を知らなくても数えられる。
@@ -2103,6 +2247,7 @@ export class ClassRoom extends Room {
     if (this.voice.get(id)?.room === room) { client.send('voice:room', { room, kind, peers, me: id, max: cap, ...ice }); return; }
     this.dropVoice(id, 'moved');
     this.voice.set(id, { room, at: Date.now(), signals: 0, since: Date.now() });
+    { const p = this.priv.get(id); if (p) { taskBumpKey(p.tasks, 'voice'); this.taskTouch(id); } }
     // The newcomer is told who is already here and calls them; everyone here is told
     // someone arrived and waits to be called. One offer per pair, decided by arrival.
     // In a big room there is nobody to call: the SFU is the one connection each browser
@@ -2355,6 +2500,7 @@ export class ClassRoom extends Room {
     // have run out.
     if (result.complete && !state.done) {
       state.done = true;
+      taskBumpKey(priv.tasks, `convdone:${topic.spot}`); this.taskTouch(client.sessionId);
       const left = roomLeft(priv.caps, 'conv', CONV.dailyCoinCap);
       const paid = Math.min(CONV.reward.topicCoins, left);
       if (paid > 0) {
@@ -2959,6 +3105,7 @@ export class ClassRoom extends Room {
     const grade = FW_GRADES.includes(msg?.grade) ? msg.grade : 'ok';
     const fish = fwLottery(pending.zone, grade);
     const { first, bonus } = catchFish(priv.fw, fish);
+    taskBumpKey(priv.tasks, `fwcatch:${pending.zone}`); this.taskTouch(client.sessionId);
     const payload = { grade, fish: fishPayload(fish), first, coins: 0 };
     if (bonus > 0) {
       // 図鑑の初回：Roblox と同じ fishdex_first。コインが動く所は coinRow 1つなので、Roblox にも届く。
@@ -3120,6 +3267,7 @@ export class ClassRoom extends Room {
     if (!priv) return;
     try {
       const out = eatFood(priv.food, typeof msg?.id === 'string' ? msg.id : '');
+      taskBumpKey(priv.tasks, 'eat'); this.taskTouch(client.sessionId);
       this.persist(client.sessionId);
       client.send('food:ate', { id: out.item.id, gained: Math.round((out.after - out.before) * 100) / 100, ...foodPayload(priv.food) });
     } catch (err) {
@@ -4280,6 +4428,7 @@ export class ClassRoom extends Room {
       sessionId, role: player.role, classCode: this.classCode, restored, position,
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
       food: foodPayload(priv.food),
+      tasks: this.taskPayload(sessionId),
       classPaused: !!this.classMode?.paused,
       progress: this.progressPayload(sessionId),
       missionsDone: [...priv.missionsDone],

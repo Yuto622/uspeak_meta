@@ -18,6 +18,7 @@ export const TABLES = {
       { key: 'on', label: '採用', type: 'bool' }, { key: 'id', label: 'ID', type: 'text' },
       { key: 'chapter', label: '章', type: 'text' }, { key: 'ja', label: '画面に出す文（日本語）', type: 'text' },
       { key: 'en', label: '画面に出す文（英語）', type: 'text' }, { key: 'done', label: '完了の条件（案）', type: 'text' },
+      { key: 'check', label: '完了の しらべかた（サーバー）', type: 'text' },
       { key: 'where', label: '行き先・ボタン', type: 'text' }, { key: 'coins', label: 'コイン（案）', type: 'int' },
       { key: 'xp', label: 'XP（案）', type: 'int' }, { key: 'learn', label: '学ぶこと', type: 'text' },
       { key: 'why', label: 'ねらい', type: 'text' }, { key: 'memo', label: 'メモ', type: 'text' },
@@ -120,6 +121,11 @@ export class TaskStore {
         const saved = JSON.parse(await fs.readFile(this.file, 'utf8'));
         this.tables = {};
         for (const t of Object.keys(TABLES)) this.tables[t] = validateTable(t, saved.tables?.[t] || []).rows || [];
+        // 版 1 の ファイルには「完了の しらべかた」の 列が 無い。おなじ ID の 行は seed から 入れる（入れかえた 順番と 文は そのまま）。
+        if ((saved.version || 1) < 2) {
+          const seed = new Map(loadSeed().onboarding.map((r) => [r.id, r.check]));
+          for (const r of this.tables.onboarding) if (!r.check && seed.get(r.id)) r.check = seed.get(r.id);
+        }
         this.updatedAt = saved.updatedAt || 0;
         return this;
       } catch (err) {
@@ -157,7 +163,7 @@ export class TaskStore {
 
   async flush() {
     if (!this.file) return;
-    const body = JSON.stringify({ version: 1, updatedAt: this.updatedAt, tables: this.tables });
+    const body = JSON.stringify({ version: 2, updatedAt: this.updatedAt, tables: this.tables });
     const tmp = `${this.file}.${process.pid}.tmp`;
     await fs.mkdir(path.dirname(this.file), { recursive: true });
     await fs.writeFile(tmp, body);
