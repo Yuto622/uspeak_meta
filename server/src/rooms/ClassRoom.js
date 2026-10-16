@@ -15,7 +15,7 @@ import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SE
 import { MODES as GYM_MODES, WORDS, createSet, questionPayload as gymPayload, answerSet } from '../game/gym.js';
 import { ARENA, createBattle, statePayload, quizPayload, chooseWaza, answerQuiz, BattleError, DAILY_CAP } from '../game/battle.js';
 import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
-import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError } from '../game/pets.js';
+import { PET_ISLAND, EGG_COST, hatch, sanitizePet, petPayload, act as petAct, PetError, SPECIES_BY_ID } from '../game/pets.js';
 import { phaseAt } from '../../../client/dist/world-clock.js';
 import { NIGHT, REACH as GHOST_REACH, COINS as GHOST_COINS, DAILY_CAP as GHOST_CAP, RESPAWN_MS, ghostPayload, sanitizeCaps, roomLeft } from '../game/night.js';
 // 月ごとの学習記録。**答えた瞬間にその月の箱へ1つ足す**（学習ログは追記専用で
@@ -106,6 +106,8 @@ export function sanitizeAvatar(raw) {
   // that does not exist by sending it here.
   const wear = sanitizeWorn(WARDROBE, a.wear);
   if (wear.length) out.wear = wear;
+  // ペット（横を 歩く）。本物の しゅるいだけ。部屋が priv.pet から 入れる（ページが 送っても 上書きされる）。
+  if (SPECIES_BY_ID[a.pet]) out.pet = a.pet;
   return JSON.stringify(out);
 }
 
@@ -266,7 +268,7 @@ export class ClassRoom extends Room {
       if (!player) return;
       // Choosing a different face does not undress you, and a page cannot dress itself by
       // putting `wear` in a profile message: the outfit is whatever the room has recorded.
-      player.avatar = sanitizeAvatar({ ...(msg?.avatar && typeof msg.avatar === 'object' ? msg.avatar : {}), wear: priv?.worn || [] });
+      player.avatar = sanitizeAvatar({ ...(msg?.avatar && typeof msg.avatar === 'object' ? msg.avatar : {}), wear: priv?.worn || [], pet: priv?.pet?.species });
     });
     this.onMessage('wallet:get', (client) => client.send('wallet', { ok: true, op: 'get', ...this.walletPayload(client.sessionId) }));
     this.onMessage('conv:list', (client) => client.send('conv:spots', { island: CONV.id, spots: convSpots() }));
@@ -388,7 +390,7 @@ export class ClassRoom extends Room {
     player.name = auth.name;
     // The outfit is the record's, not the joining page's: a child who bought a crown last
     // week is wearing it when they come back, on everyone's screen.
-    player.avatar = sanitizeAvatar({ ...parseJson(auth.avatar, {}), wear: priv.worn });
+    player.avatar = sanitizeAvatar({ ...parseJson(auth.avatar, {}), wear: priv.worn, pet: priv.pet?.species });
     player.role = auth.role;
     player.connected = true;
     if (position) { player.space = position.space; player.x = position.x; player.z = position.z; }
@@ -1321,7 +1323,7 @@ export class ClassRoom extends Room {
     const player = this.state.players.get(sessionId);
     const priv = this.priv.get(sessionId);
     if (!player || !priv) return;
-    player.avatar = sanitizeAvatar({ ...parseJson(player.avatar, {}), wear: priv.worn });
+    player.avatar = sanitizeAvatar({ ...parseJson(player.avatar, {}), wear: priv.worn, pet: priv.pet?.species });
   }
 
   onWearList(client) {
@@ -1884,6 +1886,7 @@ export class ClassRoom extends Room {
     const entry = applyOp(priv.wallet, { type: 'spend', amount: EGG_COST, id: 'pet:egg' });
     this.store.appendCoin(this.coinRow(client.sessionId, entry));
     priv.pet = hatch();
+    this.pushOutfit(client.sessionId);   // となりの 子にも ペットが 見える
     this.persist(client.sessionId);
     client.send('pet:hatched', { pet: petPayload(priv.pet), ...this.walletPayload(client.sessionId) });
     log.info(`[room ${this.roomId}] "${priv.name}" hatched a ${priv.pet.species} called ${priv.pet.name}`);

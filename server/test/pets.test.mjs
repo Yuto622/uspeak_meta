@@ -102,3 +102,12 @@ test('the island has a nest, a kitchen and a meadow, far enough apart', () => {
   assert.equal(EGG_COST, 300);
   assert.equal(FEED_COST, 20);
 });
+
+test('the pet walks beside its owner on every screen: only real species reach the shared avatar', async () => {
+  process.env.LOG_LEVEL = process.env.LOG_LEVEL || 'error';
+  const { sanitizeAvatar } = await import('../src/rooms/ClassRoom.js');
+  assert.equal(JSON.parse(sanitizeAvatar({ id: 'kai', pet: 'fox' })).pet, 'fox');
+  assert.equal(JSON.parse(sanitizeAvatar({ id: 'kai', pet: 'dragon' })).pet, undefined);
+  assert.equal(JSON.parse(sanitizeAvatar({ id: 'kai' })).pet, undefined);
+  for (const s of SPECIES) assert.equal(JSON.parse(sanitizeAvatar({ pet: s.id })).pet, s.id);
+});

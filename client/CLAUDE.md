@@ -1141,6 +1141,15 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   サーバーの `fishPayload` がそのまま渡す。`server/test/fishworld.test.mjs` が「全部の魚に写真のファイルがあるか」を見る。
   `emoji` は写真が無いときの予備。
 
+## ペットは 3D で、いつも 横を 歩く（2026-10）
+- **形は `pet-models.js` の `buildPet(kind)` / `animatePet()`**（こいぬ・こねこ・うさぎ・かえる・パンダ・きつね。箱と 球だけ）。
+  `createPetBuddy(holder)` が プレイヤーの Group の 子に なって 右横を 歩く（歩くと 少し うしろ、止まると 横で 見上げる）。
+  子に しているので 島・家の 中・自分の 島の どこでも いっしょ。うさぎと かえるは はねる。
+- **自分の ペット**は `net-client.js` が `state.pet` の たびに `petBuddy.set(species)`、毎フレーム `petBuddy.update(dt, moving)`。
+- **となりの 子の ペット**は 姿の 文字（`player.avatar`）の `pet`。部屋の `sanitizeAvatar` が 本物の しゅるいだけ 通し、
+  `priv.pet` から 入れる（入室・`profile`・`pushOutfit`・たまごが かえった とき）。`remote-players.js` が 同じ buddy を 付ける。
+- **ペット島の 画面の 絵も 3D**：`pet.js` が `createBagPreview(renderer)` の `show(canvas, 'pet:<kind>')` で 回す（島の renderer を 借りる）。描けない ときは 絵文字。
+
 ## きせかえ（アバターの店／2026-09 追加）
 
 `wardrobe.json`（16 アイテム・4 スロット）/ `wardrobe-data.js`（読み込みと検証・**サーバーと共有**）/

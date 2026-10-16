@@ -2,14 +2,18 @@
 //
 // The pet's hunger and mood are the server's numbers, falling with real time. This
 // screen shows them and asks; it never decides that a pet has been fed.
+import { createBagPreview } from './bag-preview.js';
+
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const EGG_COST = 300;
 const FEED_COST = 20;
 
-export function createPetUI({ send, toast, isOnline, getPet, getWallet }) {
+export function createPetUI({ send, toast, isOnline, getPet, getWallet, renderer = null }) {
   let where = 'nest';
+  // ペットの 絵は 3D（島の renderer を 借りて 回す。持ち物と 同じ しくみ）。描けない ときは 絵文字。
+  const preview = renderer ? createBagPreview(renderer) : null;
 
   const dialog = document.createElement('dialog');
   dialog.id = 'pet-dialog';
@@ -47,7 +51,7 @@ export function createPetUI({ send, toast, isOnline, getPet, getWallet }) {
     const patLabel = pet.canPat ? 'なでる（むりょう）' : `なでる（あと ${Math.ceil(pet.patIn / 1000)}秒）`;
     body().innerHTML = `${flash ? `<p class="pet-flash">${esc(flash)}</p>` : ''}
       <div class="pet-card">
-        <span class="pet-face">${esc(pet.emoji)}</span>
+        <span class="pet-face"><canvas class="pet-3d" width="192" height="192" aria-label="${esc(pet.ja)}"></canvas><span class="pet-emoji">${esc(pet.emoji)}</span></span>
         <div>
           <strong>${esc(pet.name)}</strong>
           <small>${esc(pet.ja)} · ${esc(pet.en)} · Lv.${pet.level}${pet.days ? ` · ${pet.days}日いっしょ` : ''}</small>
@@ -69,10 +73,13 @@ export function createPetUI({ send, toast, isOnline, getPet, getWallet }) {
     if (feed) feed.onclick = () => { feed.disabled = true; send('pet:act', { action: 'feed' }); };
     if (pat) pat.onclick = () => { pat.disabled = true; send('pet:act', { action: 'pat' }); };
     $('#pet-done', dialog).onclick = close;
+    const canvas = $('.pet-3d', dialog);
+    const shown = !!(canvas && preview && preview.show(canvas, `pet:${pet.species}`));
+    dialog.querySelector('.pet-face')?.classList.toggle('drawn', shown);
   }
 
   function open() { if (!dialog.open) dialog.showModal(); render(); }
-  function close() { dialog.close(); }
+  function close() { preview?.stop(); dialog.close(); }
 
   $('#pet-close', dialog).onclick = close;
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });

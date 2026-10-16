@@ -5,6 +5,7 @@ import * as THREE from './three.module.js';
 import { buildAvatar, dressAvatar } from './avatars.js';
 import { itemModel } from './wardrobe-models.js';
 import { NET } from './net-config.js';
+import { createPetBuddy } from './pet-models.js';
 
 function textSprite(text, { bg = '#345344', color = '#fff4d7', size = 30, width = 512, scale = 1 } = {}) {
   const c = document.createElement('canvas');
@@ -61,8 +62,11 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
     label.position.set(0, 3.15, 0);
     label.visible = tagsOn;
     group.add(label);
+    // ペット：姿の 文字の `pet`（部屋が 本物の ペットだけ 入れる）。横を 歩く。
+    const pet = createPetBuddy(group);
+    pet.set(config.pet);
     return {
-      id, group, model, label, bubble: null, bubbleUntil: 0, avatarJson: info.avatar,
+      id, group, model, label, pet, lastT: 0, bubble: null, bubbleUntil: 0, avatarJson: info.avatar,
       name: info.name, role: info.role, space: info.space, anim: info.anim || 'idle', connected: info.connected !== false,
       buffer: [], // {t, x, z, yaw}
       pos: new THREE.Vector3(info.x, 0, info.z), yaw: info.yaw || 0, vel: new THREE.Vector3(),
@@ -81,6 +85,7 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
       setShadows(r.model);
       r.group.add(r.model);
       r.avatarJson = info.avatar;
+      r.pet.set(config.pet);
       dressed.delete(id);
     }
     if (!dressed.has(id) && wardrobe) { dress(r); dressed.add(id); }
@@ -203,6 +208,7 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
       const limbs = r.model.userData.limbs || [];
       limbs.forEach((g, i) => { g.rotation.x = moving ? Math.sin(t * speed + (i % 2) * Math.PI) * (i < 2 ? 0.4 : 0.3) : 0; });
       r.group.position.y = moving ? Math.abs(Math.sin(t * 12)) * 0.075 : 0;
+      r.pet.update(r.lastT ? Math.min(0.1, Math.max(0, t - r.lastT)) : 0, moving); r.lastT = t;
       if (r.bubble && now > r.bubbleUntil) { r.group.remove(r.bubble); r.bubble = null; }
     }
   }

@@ -20,6 +20,7 @@ import { createVoice, TALK_ISLAND } from './voice.js';
 import { createBattleUI } from './battle.js';
 import { createDojoUI } from './dojo.js';
 import { createPetUI } from './pet.js';
+import { createPetBuddy } from './pet-models.js';
 import { createDailyUI } from './daily.js';
 import { createNight } from './night-world.js';
 import { createRideUI } from './ride.js';
@@ -177,10 +178,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     getWallet: () => state.wallet, getMove: () => state.move,
   });
   const petUI = createPetUI({
-    send: atSend,
+    send: atSend, renderer,
     toast, isOnline: () => state.mode === 'online',
     getPet: () => state.pet, getWallet: () => state.wallet,
   });
+  // 手に 入れた ペットは いつも 横を 歩く（となりの 子からも 見える：部屋が 姿の 文字に 入れて 配る）。
+  const petBuddy = createPetBuddy(player);
   const daily = createDailyUI({
     send: atSend,
     isOnline: () => state.mode === 'online',
@@ -533,6 +536,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       battle.restore(m.battle);
       state.move = m.move || null;
       state.pet = m.pet || null;
+      petBuddy.set(state.pet?.species);
       if (!viaToken) {
         restoreProgress(m.progressJson);
         if (m.position && m.restored) teleportTo(m.position, 'restore');
@@ -651,8 +655,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('battle:error', (m) => battle.onError(m));
     r.onMessage('fish:learned', (m) => { state.move = m.move; if (m.wallet) applyWallet(m.wallet); dojo.onLearned(m); });
     r.onMessage('fish:error', (m) => dojo.onError(m));
-    r.onMessage('pet:hatched', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onHatched(m); });
-    r.onMessage('pet:acted', (m) => { state.pet = m.pet; if (m.wallet) applyWallet(m.wallet); petUI.onActed(m); });
+    r.onMessage('pet:hatched', (m) => { state.pet = m.pet; petBuddy.set(m.pet?.species); if (m.wallet) applyWallet(m.wallet); petUI.onHatched(m); });
+    r.onMessage('pet:acted', (m) => { state.pet = m.pet; petBuddy.set(m.pet?.species); if (m.wallet) applyWallet(m.wallet); petUI.onActed(m); });
     r.onMessage('pet:error', (m) => petUI.onError(m));
     r.onMessage('block:shop', (m) => { town.onShop(m); rememberBlocks(m); });
     r.onMessage('block:bought', (m) => { if (m.wallet) applyWallet(m.wallet); town.onBought(m); rememberBlocks(m); blockwild.refresh(); });
@@ -987,6 +991,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // ---- per-frame ----------------------------------------------------------------
 
   function update(t, dt, { moving = false, running = false } = {}) {
+    petBuddy.update(dt, moving);
     const now = performance.now();
     if (state.pendingTeleport) applyPendingTeleport();
     if (ownBubble && now > ownBubbleUntil) { player.remove(ownBubble); ownBubble = null; }

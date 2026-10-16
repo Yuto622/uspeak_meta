@@ -5,6 +5,7 @@
 // 物の形は それぞれの 場所と 同じ：ふく＝wardrobe-models、いえ＝land-world の buildIslandModel、
 // ブロック＝立方体、たべもの＝ここの ボクセル（foodModel）。
 import * as THREE from './three.module.js';
+import { buildPet, animatePet, PET_KINDS } from './pet-models.js';
 import { itemModel } from './wardrobe-models.js';
 import { buildIslandModel } from './land-world.js';
 
@@ -75,6 +76,7 @@ function modelFor(key, info) {
   if (kind === 'food') return { group: foodModel(id) };
   if (kind === 'wear') { const g = itemModel(info); return g ? { group: g } : null; }
   if (kind === 'block') return { group: blockModel(info?.color) };
+  if (kind === 'pet' && PET_KINDS.includes(id)) { const g = buildPet(id); return { group: g, animate: (t) => animatePet(g, t, false) }; }
   if (kind === 'house' && info?.theme) {
     const m = buildIslandModel({ theme: info.theme, grid: info.grid }, { sign: false, sea: 'disc' });
     return { group: m.group, animate: (t) => m.animate(t), dispose: () => m.dispose?.() };

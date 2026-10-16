@@ -1,5 +1,5 @@
 // iPad 横向きで ゲームを 開き、渡した 式を ページの 中で 評価して JSON で 出す（見た目の 数字を 測る 用）。
-// node test/e2e/ipad-probe.mjs '<js expression>' [island]
+// node test/e2e/ipad-probe.mjs '<js expression>' [island]   （SHOT=path.jpg で 最後に 写真）
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -37,4 +37,5 @@ try {
   await page.waitForTimeout(2000);
   const out = await page.evaluate(`(async () => { const box = (s) => [...document.querySelectorAll(s)].filter((e) => e.offsetParent || getComputedStyle(e).position === 'fixed').map((e) => { const r = e.getBoundingClientRect(); const cs = getComputedStyle(e); return { s, id: e.id, cls: String(e.className).slice(0, 40), x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), fs: cs.fontSize, color: cs.color, txt: (e.innerText || '').replace(/\\s+/g, ' ').slice(0, 40) }; }); return (${process.argv[2]}); })()`);
   console.log(JSON.stringify(out, null, 1));
+  if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, type: 'jpeg', quality: 85, timeout: 180000 });   // SHOT=path で 写真も
 } finally { await browser.close(); server.kill('SIGTERM'); }

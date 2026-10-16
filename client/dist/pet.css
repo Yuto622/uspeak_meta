@@ -38,3 +38,7 @@
 .pet-where { margin: 10px 0 0; font-size: 12px; color: #7b8a7f; }
 
 @media (max-width: 600px) { .pet-actions { grid-template-columns: 1fr; } }
+/* ペットの 3D（島の renderer を 借りて 回す）。描けない ときは 絵文字のまま。 */
+.pet-face .pet-3d { display: none; width: 96px; height: 96px; }
+.pet-face.drawn .pet-3d { display: block; }
+.pet-face.drawn .pet-emoji { display: none; }
