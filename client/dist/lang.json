@@ -3178,6 +3178,8 @@
     "もう いちど さおを なげてね。": "Cast your rod again.",
     "せんせいが いる ときに じぶんで かけるよ。いまは フレーズを えらんでね。": "You can type your own words when your teacher is here. For now, pick a phrase.",
     "せんせいが いる ときだけ はなせるよ。": "You can talk only when your teacher is here.",
-    "マイクが つかえない ときは ここに かいてね": "If the mic doesn't work, type here"
+    "マイクが つかえない ときは ここに かいてね": "If the mic doesn't work, type here",
+    "🎁 ようこそ！ {n} コイン もらったよ": "🎁 Welcome! You got {n} coins",
+    "きいて、えを おそう": "Listen and tap the picture"
   }
 }

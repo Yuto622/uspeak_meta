@@ -43,8 +43,10 @@ export function createDailyUI({ send, isOnline }) {
   }
 
   // The bonus is already in the wallet by the time this renders; the screen is a receipt.
-  function onBonus(m) {
+  function onBonus(m, { quiet = false } = {}) {
     lastBonus = m;
+    // はじめて 来た 日は 画面を ひらかない（島を 見る 前に 表が 出ると なにを すれば いいか まよう）。
+    if (quiet) return;
     body().innerHTML = `<div class="daily-hit">
         <span>🎁</span>
         <h3>ログインボーナス</h3>

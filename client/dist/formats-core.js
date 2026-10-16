@@ -17,8 +17,9 @@
 //   order   ならべかえ（文の単語カード）
 //   fill    あなうめ（文の空欄に単語カード）
 //   listen  きいて えらぶ（🔊 → 英単語4つ）
+//   picture きいて えを えらぶ（🔊 → 絵 3 つ。文字を 読めない 1 年生の いちばん はじめ）
 
-export const FORMATS = ['mc', 'match', 'spell', 'type', 'order', 'fill', 'listen'];
+export const FORMATS = ['mc', 'match', 'spell', 'type', 'order', 'fill', 'listen', 'picture'];
 
 // ヘッダーの色・アイコン・題（英語大＋日本語小）。Roblox 版と同じ値。
 export const FORMAT_META = {
@@ -29,6 +30,7 @@ export const FORMAT_META = {
   order: { color: '#4682DC', icon: '↔', en: 'Put in Order', ja: 'ならべかえ' },
   fill: { color: '#E27A2D', icon: '✏', en: 'Fill the Blank', ja: 'あなうめ' },
   listen: { color: '#E66496', icon: '🔊', en: 'Listen', ja: 'きいて えらぶ' },
+  picture: { color: '#E0A020', icon: '🖼', en: 'Listen & Pick', ja: 'きいて えを えらぶ' },
 };
 
 // 変換できる問題か：spell は英字 3〜10 文字、type は英字 12 文字まで。
@@ -163,6 +165,7 @@ export function publicFormat(fmt, { attempt = 1 } = {}) {
     case 'order': return { ...base, ja: fmt.ja, words: [...fmt.words] };
     case 'fill': return { ...base, ja: fmt.ja, before: fmt.before, after: fmt.after, cards: [...fmt.cards] };
     case 'listen': return { ...base, word: fmt.word, choices: [...fmt.choices] };
+    case 'picture': return { ...base, word: fmt.word, choices: [...fmt.choices] };
     default: return base;
   }
 }
@@ -180,6 +183,7 @@ export function checkFormat(fmt, answer) {
     case 'order': return key(Array.isArray(answer) ? answer.join(' ') : answer) === key(fmt.sentence);
     case 'fill': return norm(answer) === norm(fmt.answer);
     case 'listen': return norm(answer) === norm(fmt.word);
+    case 'picture': return String(answer ?? '') === fmt.answer;
     default: return false;
   }
 }
@@ -190,6 +194,7 @@ export function revealFormat(fmt) {
     case 'match': return { pairs: fmt.pairs.map((p) => ({ en: p.en, ja: p.ja })) };
     case 'order': return { sentence: fmt.sentence };
     case 'mc': return { answer: fmt.answer };
+    case 'picture': return { answer: fmt.answer };
     default: return { answer: fmt.word ?? fmt.answer };
   }
 }

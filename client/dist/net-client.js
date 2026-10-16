@@ -699,7 +699,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('night:ghosts', (m) => { night.setGhosts(m.ghosts); if (m.caught) night.pop(m.caught); });
     r.onMessage('ghost:caught', (m) => { if (m.wallet) applyWallet(m.wallet); night.onCaught(m); });
     r.onMessage('ghost:error', (m) => night.onError(m));
-    r.onMessage('login:bonus', (m) => { if (m.wallet) applyWallet(m.wallet); daily.onBonus(m); });
+    r.onMessage('login:bonus', (m) => {
+      if (m.wallet) applyWallet(m.wallet);
+      const firstDay = m.streak === 1;
+      daily.onBonus(m, { quiet: firstDay });
+      if (firstDay) toast(tr('🎁 ようこそ！ {n} コイン もらったよ', { n: m.coins }));
+    });
     r.onMessage('rank', (m) => daily.onRank(m));
     r.onMessage('levelup', (m) => toast(tr('{who} が レベル {n} に なりました！', { who: m.name, n: m.level })));
     r.onMessage('mission:opened', (m) => mission.onOpened(m));

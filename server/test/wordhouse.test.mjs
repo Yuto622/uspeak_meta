@@ -1,6 +1,7 @@
 // 英単語ハウス（メインの島）— 形式の重み・Roblox と同じルール・答えはページに来ない。
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+const makeRngT = (seed) => { let a = seed >>> 0 || 1; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
 import { existsSync, readFileSync } from 'node:fs';
 import { makeRng, checkFormat } from '../../client/dist/formats-core.js';
 import { BANK, LEVELS, HOUSES, SET_SIZE, COIN, COIN_RETRY, XP, PERFECT_BONUS, startSet, askPayload, answer, WordHouseError } from '../src/game/wordhouse.js';
@@ -73,7 +74,8 @@ test('えらぶ・あなうめ are the Roblox hut questions, and what the import
   const dropped = new Set(hut.dropped.filter((d) => d.why !== 'duplicate question').map((d) => `${d.level}|${d.q}`)); // a duplicate keeps its first copy
   assert.ok(hut.dropped.some((d) => /全部/.test(d.why)), 'the "all of them" questions are out');
   for (const [level, def] of Object.entries(LEVELS)) {
-    assert.ok(BANK[level].choice.length >= 100, `${level} has the hut questions`);
+    // SUPER EASY は 絵の ヒントが ある 文だけ（ほとんどは「きいて えを えらぶ」）。
+    assert.ok(BANK[level].choice.length >= (level === 'SuperEasy' ? 20 : 100), `${level} has the hut questions`);
     for (const c of BANK[level].choice) {
       assert.equal(new Set(c.o.map((x) => x.toLowerCase())).size, 4, `${level} "${c.q}" has four different choices`);
       assert.ok(c.o.includes(c.a) && !/^all of/i.test(c.a), `${level} "${c.q}"`);
@@ -92,3 +94,15 @@ test('えらぶ・あなうめ are the Roblox hut questions, and what the import
     }
   }
 });
+
+test('SUPER EASY は 字を 読めない 子から：きいて 3 つの 絵から えらぶ。文の 問題は 絵の ヒントつき だけ', async () => {
+  const { startSet } = await import('../src/game/wordhouse.js');
+  const set = startSet('hut_easy', 'SuperEasy', { rng: makeRngT(3) });
+  const kinds = set.items.map((it) => it.kind);
+  assert.ok(kinds.filter((k) => k === 'picture').length >= 5, kinds.join(','));
+  for (const it of set.items) {
+    if (it.kind === 'picture') { assert.equal(it.fmt.choices.length, 3); assert.ok(it.fmt.choices.includes(it.fmt.answer)); assert.equal(new Set(it.fmt.choices).size, 3); }
+    if (it.kind === 'mc') assert.match(it.fmt.prompt, /^\p{Extended_Pictographic}/u, 'a sentence comes with its picture');
+  }
+});
+

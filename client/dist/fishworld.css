@@ -369,3 +369,6 @@ html:not([data-lang=ja]) #fw-hud .en, html[data-lang=ja] #fw-hud .ja { display: 
 dialog .fmt-quit { display: none; }
 /* さかなつりの 左の 魚の 名前：英語の 画面では 名前（訳）と 下の 英語名が 同じに なるので 下は 出さない。 */
 html[data-lang="en"] #fish-showcase-name .ja { display: none; }
+/* きいて えを えらぶ（picture）：絵は 大きく 3 つ。1 年生の 指で まちがえない 大きさ。 */
+.fmt-choices.fmt-pics { grid-template-columns: repeat(3, 1fr); }
+.fmt-choice.fmt-pic { font-size: 54px; line-height: 1; min-height: 96px; }

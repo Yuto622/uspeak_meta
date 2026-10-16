@@ -18,7 +18,8 @@ import {
 } from '../../../client/dist/formats-core.js';
 
 export const LEVELS = {
-  SuperEasy: { house: 'hut_easy', weights: ['mc', 'mc', 'match', 'listen'], zone: '1', bank: null, grade: 'g5', en: 'SUPER EASY', ja: 'スーパーイージー' },
+  // SUPER EASY は 字を 読めない 1 年生から：ほとんどが「きいて えを えらぶ」、ときどき 絵つきの 文（読み上げる）。
+  SuperEasy: { house: 'hut_easy', weights: ['picture', 'picture', 'picture', 'picture', 'mc'], zone: '1', bank: null, grade: 'g5', en: 'SUPER EASY', ja: 'スーパーイージー' },
   Easy: { house: 'hut_easy', weights: ['mc', 'mc', 'fill', 'order', 'match', 'listen'], zone: '1', bank: 'easy', grade: 'g5', en: 'EASY', ja: 'イージー' },
   Medium: { house: 'hut_medium', weights: ['mc', 'mc', 'fill', 'order', 'match', 'listen'], zone: '2', bank: 'medium', grade: 'g4', en: 'MEDIUM', ja: 'ミディアム' },
   Hard: { house: 'hut_hard', weights: ['mc', 'fill', 'order', 'match', 'listen', 'type'], zone: '3', bank: 'hard', grade: 'g3', en: 'HARD', ja: 'ハード' },
@@ -45,7 +46,9 @@ export function loadBanks() {
     const pool = (words[def.zone] || []).filter((q) => q.q && q.a && Array.isArray(q.o));
     const sentences = [...(eiken[def.grade]?.writing || []), ...(eiken[def.grade]?.speaking || [])]
       .filter((s) => s.en && s.ja && s.en.split(/\s+/).length >= 3 && s.en.split(/\s+/).length <= 9);
-    const choice = (huts[level] || []).filter((q) => q.q && q.a && Array.isArray(q.o) && q.o.length === 4 && q.o.includes(q.a));
+    let choice = (huts[level] || []).filter((q) => q.q && q.a && Array.isArray(q.o) && q.o.length === 4 && q.o.includes(q.a));
+    // SUPER EASY の 文は 絵の ヒントが ある ものだけ（「He ____ English.」のような 文法は 1 年生には 早い）。
+    if (level === 'SuperEasy') choice = choice.filter((q) => /^\p{Extended_Pictographic}/u.test(q.q));
     const blanks = choice.filter((q) => (q.q.match(/_{2,}/g) || []).length === 1);
     if (pool.length < 8 || sentences.length < 6 || choice.length < SET_SIZE || blanks.length < 6) throw new Error(`wordhouse: level ${level} has too few questions`);
     banks[level] = { pool, sentences, choice, blanks };
@@ -53,6 +56,8 @@ export function loadBanks() {
   return banks;
 }
 export const BANK = loadBanks();
+// きいて えを えらぶ の ことば（ジムの 110 語：絵と 英語と 日本語）。
+const PICTURES = read('gym-words.json').words.filter((w) => w.emoji && /^[a-z][a-z ]*$/i.test(w.en));
 
 // あなうめ：小屋の問題の ____ を穴にする。カードは小屋の 4 択（ならびは buildMc と同じく まぜる）。
 function fillFor(c, rng) {
@@ -69,6 +74,12 @@ function itemFor(level, kind, used, rng) {
     used.add(key(pick));
     return pick;
   };
+  if (kind === 'picture') {
+    const w = fresh(PICTURES, (x) => `p:${x.en}`);
+    const others = shuffle(PICTURES.filter((x) => x.emoji !== w.emoji && x.en !== w.en), rng).slice(0, 2);
+    const fmt = { id: `p${Math.floor(rng() * 1e9).toString(36)}`, kind: 'picture', word: w.en, ja: w.ja, choices: shuffle([w.emoji, ...others.map((x) => x.emoji)], rng), answer: w.emoji };
+    return { kind, word: w.en, fmt };
+  }
   if (kind === 'fill') {
     const c = fresh(b.blanks, (x) => `c:${x.q}`);
     return { kind, word: c.q, fmt: fillFor(c, rng) };

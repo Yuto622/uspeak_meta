@@ -19,6 +19,9 @@ const HOWTO = {
   order: [['👆', 'ことばを じゅんばんに おす', 'Tap the words in order'], ['↩', 'まちがえたら おして もどす', 'Tap a word to take it back']],
   fill: [['👆', 'カードを おすと はいる', 'Tap a card to fill the blank'], ['✅', 'Check を おす', 'Then press Check']],
   listen: [['🔊', 'おとを きく', 'Listen'], ['👆', 'えいごを えらぶ', 'Tap the word']],
+  picture: [['🔊', 'おとを きく', 'Listen'], ['👆', 'えを おす', 'Tap the picture']],
+  // 文の あなに あう ことば（mc で prompt が ある とき）
+  mcPrompt: [['🔊', 'ぶんを きく', 'Listen to the sentence'], ['👆', 'あう ことばを えらぶ', 'Tap the word that fits']],
 };
 
 // 英語だけを読み上げる（日本語や記号は読まない）。
@@ -45,7 +48,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     <div class="fmt-feedback" role="status" hidden></div>
     <footer class="fmt-foot">
       <button type="button" class="fmt-speak" aria-label="よみあげる" data-t-label="よみあげる">🔊</button>
-      <div class="fmt-howto">${(HOWTO[fmt.kind] || []).map(([ic, ja, en], i) => `<span><i>${i + 1}</i>${ic} ${isJa() ? esc(ja) : esc(en)}</span>`).join('')}</div>
+      <div class="fmt-howto">${(HOWTO[fmt.kind === 'mc' && fmt.prompt ? 'mcPrompt' : fmt.kind] || []).map(([ic, ja, en], i) => `<span><i>${i + 1}</i>${ic} ${isJa() ? esc(ja) : esc(en)}</span>`).join('')}</div>
       <button type="button" class="fmt-check primary"><b>✅ Check</b><small data-t="こたえあわせ">こたえあわせ</small></button>
     </footer>
   </section>`;
@@ -73,6 +76,15 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     body.innerHTML = `<button type="button" class="fmt-ear" aria-label="きく"><span class="fmt-ring"></span>🔊</button>
       <p class="fmt-sub" data-t="きいて、えいごを えらぼう">きいて、えいごを えらぼう</p>
       <div class="fmt-choices fmt-en">${fmt.choices.map((c) => `<button type="button" class="fmt-choice" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+    body.querySelector('.fmt-ear').onclick = () => say(fmt.word);
+    body.querySelectorAll('.fmt-choice').forEach((b) => { b.onclick = () => { if (locked) return; answer = b.dataset.v; b.classList.add('picked'); submit(); }; });
+    say(fmt.word);
+  } else if (fmt.kind === 'picture') {
+    // 1 年生の いちばん はじめ：きいて、絵を おす。字は いらない。
+    checkBtn.hidden = true;
+    body.innerHTML = `<button type="button" class="fmt-ear" aria-label="きく"><span class="fmt-ring"></span>🔊</button>
+      <p class="fmt-sub" data-t="きいて、えを おそう">きいて、えを おそう</p>
+      <div class="fmt-choices fmt-pics">${fmt.choices.map((c) => `<button type="button" class="fmt-choice fmt-pic" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
     body.querySelector('.fmt-ear').onclick = () => say(fmt.word);
     body.querySelectorAll('.fmt-choice').forEach((b) => { b.onclick = () => { if (locked) return; answer = b.dataset.v; b.classList.add('picked'); submit(); }; });
     say(fmt.word);
@@ -226,7 +238,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     } else {
       feedback.innerHTML = escaped ? `<b>Not quite…</b><small data-t="こたえは こちら">こたえは こちら</small>` : `<b>Not quite…</b><small data-t="もういちど！">もういちど！</small>`;
     }
-    if (fmt.kind === 'mc' || fmt.kind === 'listen' || fmt.kind === 'fill') {
+    if (fmt.kind === 'mc' || fmt.kind === 'listen' || fmt.kind === 'fill' || fmt.kind === 'picture') {
       const want = reveal?.answer;
       body.querySelectorAll('.fmt-choice').forEach((b) => {
         if (b.classList.contains('picked') || (fmt.kind === 'fill' && b.classList.contains('used'))) b.classList.add(correct ? 'right' : 'wrong');
@@ -254,7 +266,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     }
     // まちがえたら 正しい 英語を 声でも きかせる（読めない 子にも 答えが とどく）。
     if (!correct && reveal) {
-      const en = reveal.sentence || reveal.answer || (reveal.pairs ? '' : fmt.word) || '';
+      const en = fmt.kind === 'picture' ? fmt.word : (reveal.sentence || reveal.answer || (reveal.pairs ? '' : fmt.word) || '');
       if (/[A-Za-z]/.test(en)) setTimeout(() => say(en), 350);
     }
     if (fmt.kind === 'type') {
