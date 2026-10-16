@@ -375,7 +375,11 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (['hut_easy', 'fishing_pier'].includes(spot.id)) doneGuide();
     if (spot.kind === 'gate') { goWorld(spot.to); return true; }
     // 英会話の お店：戸口では 中に 入る（false ＝ island-interior の 部屋へ）。中の カウンターで ウーピーと 話す。
-    if (spot.kind === 'talk_shop') { if (rpg.insideBuilding) { shops.conv?.enter(spot); return true; } return false; }
+    if (spot.kind === 'talk_shop') {
+      // プレミアムの お店（名簿の「プレミアム」）。入口で ことわる（守るのは 部屋の conv:start）。
+      if ((rpg.premiumLock || []).includes('talkshops')) { toast(tr('🔒 プレミアムの おみせです。せんせいに きいてね。')); return true; }
+      if (rpg.insideBuilding) { shops.conv?.enter(spot); return true; } return false;
+    }
     // たてる ばしょ → BLOCKWILD（ブロックの 世界。オフラインでも 開く）。
     if (spot.kind === 'blockwild') { shops.blockwild?.open(); return true; }
     if (spot.kind === 'word_house') { wordhouse.open(spot.house || spot.id); return true; }
@@ -404,7 +408,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     block_shop: () => tr('🧱 ブロックを 見る'),
     land_shop: () => tr('🏠 いえを 見る'),
     blockwild: () => '⛏ BLOCKWILD',
-    talk_shop: (sp) => (rpg.insideBuilding ? `🗣 ${tr('英語で はなす')}` : `🚪 ${tr('はいる')}`),
+    talk_shop: (sp) => ((rpg.premiumLock || []).includes('talkshops') ? `🔒 ${tr('プレミアム')}` : rpg.insideBuilding ? `🗣 ${tr('英語で はなす')}` : `🚪 ${tr('はいる')}`),
     gate: (sp) => `🌀 ${isJa() ? String(sp.ja || '').replace(/への ゲート$/, '') : sp.character} →`,
   };
   const label = (spot) => (LABEL[spot?.kind] || (() => tr('はいる')))(spot);

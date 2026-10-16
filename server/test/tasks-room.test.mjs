@@ -28,7 +28,7 @@ test('光の道の 行き先：メインの島の 場所か、とぶ 島か。�
   assert.deepEqual(goOf(parseCheck('near:fishing_pier')), { island: 'main', spot: 'fishing_pier' });
   assert.deepEqual(goOf(parseCheck('sell')), { island: 'main', spot: 'fish_buy' });
   assert.deepEqual(goOf(parseCheck('enter:willow')), { island: 'willow' });
-  assert.deepEqual(goOf(parseCheck('convdone:books')), { island: 'main', spot: 'books' });
+  assert.deepEqual(goOf(parseCheck('convdone:books')), { island: 'main', spot: 'books', shop: 'talkshops' });
   assert.deepEqual(goOf(parseCheck('award:eiken:g4:reading')), { island: 'eiken4' });
   assert.equal(goOf(parseCheck('$coins:100')), null);
   assert.equal(goOf(parseCheck('enter:in:main:books')), null);

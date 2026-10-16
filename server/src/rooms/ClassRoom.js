@@ -1270,7 +1270,7 @@ export class ClassRoom extends Room {
   // 入れない 島の タスクは とばす（🔒 の 島へ 道を 出さない）。
   taskSkip(id) {
     const locked = this.lockedIslands(id);
-    return locked.length ? (it) => locked.includes(goOf(it.check)?.island) : null;
+    return locked.length ? (it) => { const g = goOf(it.check); return !!g && (locked.includes(g.island) || locked.includes(g.shop)); } : null;
   }
 
   taskStats(id) {
@@ -2480,7 +2480,8 @@ export class ClassRoom extends Room {
     const topic = CONV.topicById.get(typeof msg?.topic === 'string' ? msg.topic : '');
     if (!topic) { client.send('conv:error', { reason: 'unknown topic' }); return; }
     const house = CONV.spotById.get(topic.spot);
-    if ((!house?.home || house.home.id === CONV.id) && this.islandLocked(client.sessionId, 'conv')) { client.send('conv:error', { reason: 'premium' }); return; }
+    const onConvIsland = !house?.home || house.home.id === CONV.id;
+    if (this.islandLocked(client.sessionId, onConvIsland ? 'conv' : 'talkshops')) { client.send('conv:error', { reason: 'premium' }); return; }
     if (!this.atConvHouse(client.sessionId, topic.spot)) {
       client.send('conv:error', { reason: 'too far', spot: this.convSpotPayload(topic.spot) });
       return;
@@ -2618,6 +2619,7 @@ export class ClassRoom extends Room {
     const island = EIKEN_ISLANDS.get(typeof msg?.island === 'string' ? msg.island : '');
     const hall = island?.spotById.get(typeof msg?.hall === 'string' ? msg.hall : '');
     if (!island || !hall) { client.send('eiken:error', { reason: 'unknown hall' }); return; }
+    if (this.islandLocked(client.sessionId, island.id)) { client.send('eiken:error', { reason: 'premium' }); return; }
     if (!this.atEikenHall(client.sessionId, island.id, hall.id)) {
       client.send('eiken:error', { reason: 'too far', spot: this.eikenSpotPayload(island.id, hall.id) });
       return;
@@ -2746,6 +2748,7 @@ export class ClassRoom extends Room {
     if (!priv) return;
     const island = EIKEN_ISLANDS.get(typeof msg?.island === 'string' ? msg.island : '');
     if (!island) { client.send('interview:error', { reason: 'unknown island' }); return; }
+    if (this.islandLocked(client.sessionId, island.id)) { client.send('interview:error', { reason: 'premium' }); return; }
     if (!this.atInterviewRoom(client.sessionId, island.id)) {
       client.send('interview:error', { reason: 'too far', spot: this.eikenSpotPayload(island.id, INTERVIEW_ROOM) });
       return;

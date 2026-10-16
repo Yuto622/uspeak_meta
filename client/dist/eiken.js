@@ -325,6 +325,7 @@ export function createEikenUI({ send, speak, toast, isOnline, learn }) {
         close();
         return;
       }
+      if (m?.reason === 'premium') { toast(t('🔒 プレミアムの しまです。せんせいに きいてね。')); close(); return; }
       toast(t({ 'too fast': 'すこし ゆっくりね。', 'unknown hall': 'その 館は ありません。' }[m?.reason] || 'うまく いきませんでした。'));
       render();
     },

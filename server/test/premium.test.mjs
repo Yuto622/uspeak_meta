@@ -40,12 +40,17 @@ test('名簿の「プレミアム」列は シート・CSV・はりつけ の �
 
 test('プレミアムで ない 子：2 つの 島に 🔒、英会話島の 家では 話せない。プレミアムの 子と 先生は 入れる', async () => {
   const ken = await join('prem1', 'Ken');
-  assert.deepEqual(ken.welcome.locked, ['conv', 'talk']);
+  assert.deepEqual(ken.welcome.locked, ['conv', 'talk', 'eiken5', 'eiken4', 'eiken3', 'talkshops']);
   assert.equal(ken.welcome.premium, false);
   const topic = [...CONV.topicById.values()].find((t) => { const h = CONV.spotById.get(t.spot); return !h.home || h.home.id === CONV.id; });
   ken.room.send('conv:start', { topic: topic.id });
   assert.equal((await nextMessage(ken.room, 'conv:error')).reason, 'premium');
-  assert.ok(!ken.welcome.tasks.tasks.some((t) => ['conv', 'talk'].includes(t.go?.island)), 'no task points at a locked island');
+  assert.ok(!ken.welcome.tasks.tasks.some((t) => ken.welcome.locked.includes(t.go?.island) || t.go?.shop), 'no task points at a locked island');
+  ken.room.send('eiken:start', { island: 'eiken5', hall: 'reading' });
+  assert.equal((await nextMessage(ken.room, 'eiken:error')).reason, 'premium', 'the Eiken islands are premium too');
+  const shopTopic = [...CONV.topicById.values()].find((t) => CONV.spotById.get(t.spot).home?.id === 'main');
+  ken.room.send('conv:start', { topic: shopTopic.id });
+  assert.equal((await nextMessage(ken.room, 'conv:error')).reason, 'premium', 'and the talk shops on the main island');
 
   const pia = await join('prem1', 'Pia');
   assert.deepEqual(pia.welcome.locked, []);

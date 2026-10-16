@@ -177,7 +177,7 @@ export function goOf(check) {
   const enter = /^enter:([a-z0-9]+)$/.exec(key);
   if (enter) return HUBS.has(enter[1]) ? { island: enter[1] } : null;
   const shop = /^convdone:([a-z_]+)$/.exec(key);
-  if (shop && MAIN.spots.has(shop[1])) return { island: MAIN.id, spot: shop[1] };
+  if (shop && MAIN.spots.has(shop[1])) return { island: MAIN.id, spot: shop[1], shop: 'talkshops' };
   for (const [re, go] of GO_RULES) if (re.test(key)) return { ...go };
   return null;
 }

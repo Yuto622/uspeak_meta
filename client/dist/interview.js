@@ -288,6 +288,7 @@ export function createInterviewUI({ send, toast, isOnline }) {
       render();
       const said = {
         'too far': 'めんせつの間の 中で できます。',
+        premium: '🔒 プレミアムの しまです。せんせいに きいてね。',
         'too fast': 'ちょっと まってから こたえてね。',
         'nothing heard': 'なにか 言ってから おくってね。',
         'unknown island': 'この島には めんせつの間が ありません。',
