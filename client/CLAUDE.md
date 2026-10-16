@@ -1159,6 +1159,12 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 守るのは 部屋：英会話島の 家の `conv:start` と みんなで はなす しまの `voice:join` は `premium` で ことわる。メインの島の 英会話の お店は 入れる。
 - 入れない 島の タスクは とばす（`engine.js` の `skip`）。**おはなし島は 2026-10 に「みんなで はなす しま」に 名前を かえた**（id は `talk` の まま）。
 
+## テーマパークの のりもの代（2026-10）
+- **のる たびに U-Speak コイン**（メリーゴーランド 10・かんらんしゃ 15・ジェットコースター 25）。値段は `park-rides.json`（部屋の `server/src/game/themepark.js` も 同じ ものを 読む）。
+- オンラインは `park:ride {id}` → 部屋が `applyOp spend` → `park:ride:ok`（さいふ つき）／`park:ride:error`（`not enough coins` / `too fast`＝3 秒の 2 度おし / `unknown ride`）。ページは へんじが 来るまで のせない（`net.parkPay`）。
+- オフラインは この ページの さいふ（`fishing.store.spend`）。「入口まで 歩いて 見る」は ただ。
+- 検査は `server/test/themepark.test.mjs`。
+
 ## ペットは 3D で、いつも 横を 歩く（2026-10）
 - **形は `pet-models.js` の `buildPet(kind)` / `animatePet()`**（こいぬ・こねこ・うさぎ・かえる・パンダ・きつね。球・カプセル・円すい・輪だけの ちびキャラ：大きい頭・ひかりが 2 つの 目・首わと すず・まばたき・いき）。
   小さい ぶひん（0.09 以下）は 影を 落とさない（となりの 子の ペットが ふえても 重く しない）。足もとの まるい かげは buddy だけ。

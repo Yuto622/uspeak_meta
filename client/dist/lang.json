@@ -3202,6 +3202,12 @@
     "おみせの ひとと えいごで やりとり": "Talk with the shop staff in English",
     "ちゅうもんや かいものを えいごで できる": "Order and shop in English",
     "おうちの ひとか せんせいに「プレミアムに したい」と はなしてね。": "Ask your family or your teacher about Premium.",
-    "わかった": "OK"
+    "わかった": "OK",
+    "{0} コインで のれるよ（いま {1} コイン）": "Ride for {0} coins (you have {1})",
+    "🪙 {0} で のる →": "🪙 Ride for {0} →",
+    "コインが たりないよ（{0} コイン いるよ）。えいごで コインを ためよう！": "Not enough coins (you need {0}). Earn coins with English!",
+    "すこし まってから もう いちど おしてね。": "Wait a moment, then tap again.",
+    "いまは のれないよ。もう いちど おしてね。": "You can't ride right now. Tap again.",
+    "{0} コイン はらったよ。いってらっしゃい！": "You paid {0} coins. Enjoy the ride!"
   }
 }

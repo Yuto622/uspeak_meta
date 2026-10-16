@@ -79,6 +79,7 @@ function applyOp(wallet, op) {
 }
 import { boxFromEvents, makeSet as makeReviewSet, publicSet as reviewPublic, answer as reviewAnswer, dueCount as reviewDue, jstDay, COIN as REVIEW_COIN, PER_QUIZ as REVIEW_PER, ReviewError } from '../game/review.js';
 import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, placeLabel } from '../game/class-mode.js';
+import { rideOf, ParkError } from '../game/themepark.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004 };
@@ -257,6 +258,7 @@ export class ClassRoom extends Room {
     this.onMessage('food:open', (client, msg) => this.onFoodOpen(client, msg));
     this.onMessage('food:buy', (client, msg) => this.onFoodBuy(client, msg));
     this.onMessage('food:eat', (client, msg) => this.onFoodEat(client, msg));
+    this.onMessage('park:ride', (client, msg) => this.onParkRide(client, msg));
     this.onMessage('main:leave', (client) => this.onMainLeave(client.sessionId));
     this.onMessage('prop:list', (client) => client.send('prop:shop', this.propShopPayload(client.sessionId)));
     this.onMessage('prop:buy', (client, msg) => this.onPropBuy(client, msg));
@@ -3343,6 +3345,26 @@ export class ClassRoom extends Room {
     if (!STALLS.stalls.has(shop)) { client.send('food:error', { reason: 'no such shop' }); return; }
     if (!this.atStall(client.sessionId, shop)) { client.send('food:error', { reason: 'too far' }); return; }
     client.send('food:menu', { ...menuPayload(shop), ...foodPayload(priv.food), ...this.walletPayload(client.sessionId) });
+  }
+
+  // テーマパークの のりもの：のる たびに コインを はらう。2 度おしで 2 回 とらない（3 秒）。
+  onParkRide(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const id = typeof msg?.id === 'string' ? msg.id : '';
+    try {
+      const ride = rideOf(id);
+      const now = Date.now();
+      if (priv.parkRideAt && now - priv.parkRideAt < 3000) throw new ParkError('too fast');
+      const entry = applyOp(priv.wallet, { type: 'spend', amount: ride.price, id: `park:${ride.id}` });
+      priv.parkRideAt = now;
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      this.persist(client.sessionId);
+      client.send('park:ride:ok', { id: ride.id, price: ride.price, ...this.walletPayload(client.sessionId) });
+    } catch (err) {
+      if (!(err instanceof ParkError) && !(err instanceof EconomyError)) throw err;
+      client.send('park:ride:error', { id, reason: err.message, ...this.walletPayload(client.sessionId) });
+    }
   }
 
   onFoodBuy(client, msg) {

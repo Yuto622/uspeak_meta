@@ -101,7 +101,7 @@ onLangChange(()=>{clockTick=0;renderQuests()});
 for(const ev of ['pointerdown','keydown'])addEventListener(ev,()=>ambience.arm());
 function worldClock(world){if(!world)return;atmosphere.state.targetNight=world.night;ambience.setNight(world.night);if(clockTick++%12)return;bilingual(timeButton,`${world.mark} ${world.en} ${mmss(world.endsIn)}`,world.ja);timeButton.setAttribute('aria-pressed',String(world.id==='night'))}
 timeButton.onclick=()=>{const wait=untilNight(net.serverNow());toast(wait?tr('夜は みんな いっしょに やってきます。あと {t} で 夜。',{t:mmss(wait/1000)}):tr('いまは 夜。おばけに 近づいて 杖を ふろう。'))};
-const park=createThemePark({scene,camera,player,box,rand,toast,speak,openDialog,dialog,atmosphere,learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()}});
+const park=createThemePark({scene,camera,player,box,rand,toast,speak,openDialog,dialog,atmosphere,pay:id=>net.parkPay(id),coins:()=>fishing.store.state.coins,spendLocal:(n,id)=>fishing.store.spend(n,'park:'+id),learn:(english,japanese)=>{if(!words.some(w=>w[0]===english))words.push([english,japanese]);persist()}});
 const avatars=setupAvatars({player,toast,renderer});
 // コインの見える化. The badge is the island's, not any one screen's: it sits in the header
 // wherever a child is, and every coin the game pays goes through the fishing store's

@@ -896,6 +896,18 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       fishing.refreshWallet?.();
     } catch (err) { console.warn('[net] wallet reconcile failed', err); }
   }
+  // テーマパークの のりもの代。オンラインは 部屋が はらう（へんじを まつ）。オフラインは null（ページの さいふで はらう）。
+  function parkPay(id) {
+    if (state.mode !== 'online' || !room) return null;
+    return new Promise((resolve) => {
+      const offs = [];
+      const done = (v) => { clearTimeout(timer); offs.forEach((off) => off?.()); resolve(v); };
+      const timer = setTimeout(() => done({ ok: false, reason: 'timeout' }), 6000);
+      offs.push(room.onMessage('park:ride:ok', (m) => { if (m.wallet) applyWallet(m.wallet); done({ ok: true, price: m.price }); }));
+      offs.push(room.onMessage('park:ride:error', (m) => { if (m.wallet) applyWallet(m.wallet); done({ ok: false, reason: m.reason }); }));
+      room.send('park:ride', { id });
+    });
+  }
   function walletError(e) {
     const known = { 'not enough coins': 'コインが たりません。', 'already owned': 'もう もっています。', 'nothing to sell': 'うれる さかなが ありません。', 'sell cap': 'きょうは もう うれないよ。あした また うってね。', 'no cast': 'もう いちど さおを なげてね。' }[e];
     return known ? tr(known) : tr('サーバーが うけつけませんでした: {why}', { why: e });
@@ -1099,7 +1111,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   return {
     // 検査用：左の タスクの カードと 光の道。
     tasks: { card: taskCard, guide: taskGuide },
-    update, teleportTo, currentSpace,
+    update, teleportTo, currentSpace, parkPay,
     get online() { return state.mode === 'online'; },
     get role() { return state.role; },
     get mode() { return state.mode; },

@@ -1,0 +1,8 @@
+{
+  "_note": "テーマパークの のりもの代（U-Speak コイン）。ページは 値札を 出すだけ、はらうのは 部屋（server/src/game/themepark.js）。",
+  "rides": [
+    { "id": "carousel", "price": 10 },
+    { "id": "wheel", "price": 15 },
+    { "id": "coaster", "price": 25 }
+  ]
+}
