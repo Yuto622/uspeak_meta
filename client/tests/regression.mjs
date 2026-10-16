@@ -536,8 +536,20 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  assert.equal(rpg[mod].doorNear(player),null,hub+': the landing is not a doorway');
  assert.equal(rpg.mapSmall(ctx),true,hub+': the island draws its own minimap');
  rpg.activate('willow');
- assert.equal(rpg[mod].visible,false);
+ // メインの島だけは U-Speak島の となりに 見えている（橋で わたる）。見えても 話しかけは できない。
+ assert.equal(rpg[mod].visible,hub==='main');
  assert.equal(rpg[near](),null);
+ if(hub==='main'){
+  const {BRIDGE,onBridge,crossing}=await import('../dist/bridge.js');
+  const lx=BRIDGE.x-island.x,lz=BRIDGE.north+1.5-island.z;
+  assert.equal(rpg.main.blocked(BRIDGE.x,BRIDGE.north+1.5),false,'the bridge lands on open ground on the main island (local '+lx+','+lz+')');
+  assert.ok(onBridge(BRIDGE.x,BRIDGE.south-0.5)&&onBridge(BRIDGE.x,BRIDGE.north+0.5),'the bridge reaches both shores');
+  assert.ok(BRIDGE.south<-18&&BRIDGE.south>-20,'the bridge starts on the U-Speak island (|z| <= 20)');
+  assert.equal(crossing('willow',BRIDGE.x,BRIDGE.mid-2),'main');
+  assert.equal(crossing('main',BRIDGE.x,BRIDGE.mid+2),'willow');
+  assert.equal(crossing('willow',BRIDGE.x,BRIDGE.mid+2),null,'no flicker on the near half');
+  console.log('PASS: メインの島 と U-Speak島 は 橋で つながる（歩いて わたれる）。');
+ }
  console.log('PASS: '+island.name+' — '+island.spots.length+' places standable, reachable on foot, each with a clear paved path, none overlapping.');
  // のりもの島 has one more thing to check: the road. A checkpoint a child cannot drive
  // to, or a stretch of road through a shop, would only be found by driving it.
