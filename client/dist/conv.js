@@ -261,6 +261,7 @@ export function createConvUI({ send, toast, isOnline }) {
       state.busy = false;
       const said = {
         'too far': 'その 家の 中で 話せます。',
+        'premium': '🔒 プレミアムの しまです。せんせいに きいてね。',
         'too fast': 'ちょっと まってね。',
         'turn limit': '今日の おはなしは ここまで。また 来てね。',
         'daily limit': '今日は たくさん 話したね。また あした！',

@@ -45,12 +45,12 @@ export class RoomState extends Schema {
     // the phrases and nothing else.
     this.freeChat = true;
     // 通話. Three settings, not two: 'all' (the default — every building on every island,
-    // plus おはなし島 itself), 'rooms' (おはなし島 and nowhere else) and 'off' (a teacher
-    // has closed all of it, おはなし島 included). A class starts open: a child who walks
+    // plus みんなで はなす しま itself), 'rooms' (みんなで はなす しま and nowhere else) and 'off' (a teacher
+    // has closed all of it, みんなで はなす しま included). A class starts open: a child who walks
     // into a building is in the call with whoever else is inside, and nobody had to switch
     // anything on for that to be true.
     this.voice = 'all';
-    // Whether this server has an SFU behind it, and so whether おはなし島's plaza is a
+    // Whether this server has an SFU behind it, and so whether みんなで はなす しま's plaza is a
     // hall for a hundred or a room for six. The page needs to know before anybody taps.
     this.stageOpen = false;
     // 英検の はんていの きびしさ。'strict' / 'normal' / 'easy' の3つで、**先生だけが

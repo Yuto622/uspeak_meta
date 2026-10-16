@@ -124,8 +124,8 @@ test('a save while the gate is on takes effect immediately, and the download is 
   const bytes = Buffer.from(await (await api('/roster.csv')).arrayBuffer());
   assert.deepEqual([...bytes.subarray(0, 3)], [0xef, 0xbb, 0xbf], 'a BOM for Excel');
   const csv = bytes.toString('utf8').slice(1);
-  assert.ok(csv.startsWith('name,teacher\r\n'));
-  assert.match(csv, /^Ben,FALSE$/m);
+  assert.ok(csv.startsWith('name,teacher,premium\r\n'));
+  assert.match(csv, /^Ben,FALSE,FALSE$/m);
   assert.ok(!/Aki/.test(csv));
   // Off again: anyone, and the setting survives in its file.
   await api('/enforce', { method: 'PUT', body: { enforce: false } });
@@ -136,14 +136,14 @@ test('a save while the gate is on takes effect immediately, and the download is 
 test('the 先生か column: true makes a teacher without the key, in either gate mode, and round-trips', async () => {
   // A CSV with a teacher column (either language) is read on the server.
   const parsed = await (await api('/parse', { method: 'POST', body: 'name,先生か\nMs Sato,true\nKen,false\nYumi,\n', type: 'text/plain' })).json();
-  assert.deepEqual(parsed.rows, [{ name: 'Ms Sato', teacher: true }, { name: 'Ken', teacher: false }, { name: 'Yumi', teacher: false }]);
+  assert.deepEqual(parsed.rows, [{ name: 'Ms Sato', teacher: true, premium: false }, { name: 'Ken', teacher: false, premium: false }, { name: 'Yumi', teacher: false, premium: false }]);
   const saved = await (await api('/roster', { method: 'PUT', body: { rows: parsed.rows } })).json();
   assert.ok(saved.ok);
-  assert.deepEqual(saved.rows, [{ name: 'Ms Sato', teacher: true }, { name: 'Ken', teacher: false }, { name: 'Yumi', teacher: false }]);
-  assert.deepEqual((await (await api('/roster')).json()).rows.find((r) => r.name === 'Ms Sato'), { name: 'Ms Sato', teacher: true });
+  assert.deepEqual(saved.rows, [{ name: 'Ms Sato', teacher: true, premium: false }, { name: 'Ken', teacher: false, premium: false }, { name: 'Yumi', teacher: false, premium: false }]);
+  assert.deepEqual((await (await api('/roster')).json()).rows.find((r) => r.name === 'Ms Sato'), { name: 'Ms Sato', teacher: true, premium: false });
   const csv = Buffer.from(await (await api('/roster.csv')).arrayBuffer()).toString('utf8');
-  assert.match(csv, /^Ms Sato,TRUE$/m);
-  assert.match(csv, /^Ken,FALSE$/m);
+  assert.match(csv, /^Ms Sato,TRUE,FALSE$/m);
+  assert.match(csv, /^Ken,FALSE,FALSE$/m);
   // Gate open (the default): the teacher row still decides the role.
   const t = await join('ms sato'); assert.equal((await nextMessage(t, 'welcome')).role, 'teacher'); await t.leave(); await sleep(100);
   const k = await join('Ken'); assert.equal((await nextMessage(k, 'welcome')).role, 'student'); await k.leave(); await sleep(100);

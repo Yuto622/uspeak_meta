@@ -24,7 +24,7 @@ import { hooks } from './net-hooks.js';
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-// おはなし島 is the one island that is itself a room: standing on its grass is being in
+// みんなで はなす しま is the one island that is itself a room: standing on its grass is being in
 // the call with everyone else on it. Everywhere else, a room is one you walked into —
 // in:<island>:<building> — because a child's own マイルーム and their building lot are
 // theirs alone, and an island is not a call.
@@ -54,9 +54,9 @@ const SCREEN = { frameRate: { ideal: 6, max: 12 }, width: { max: 1280 }, height:
 const LOG_MAX = 12;      // how many written messages the panel keeps
 const NAMES_MAX = 11;    // names shown in a big room before the rest become a number
 
-export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = null }) {
+export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = null, hallLocked = () => false }) {
   const state = {
-    mode: 'all',        // 'all' どの島の どの部屋でも（既定）/ 'rooms' おはなし島だけ / 'off' 止まっている
+    mode: 'all',        // 'all' どの島の どの部屋でも（既定）/ 'rooms' みんなで はなす しまだけ / 'off' 止まっている
     busyCamera: false,  // one camera switch at a time, or two taps race each other
     space: '',          // where the child is standing
     room: '',           // the call they are in, if any
@@ -136,7 +136,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
   // But a child who wants to see their friends has to know where to go, and on the rail is
   // where this game puts "the thing you can do from here". So: one button, always in the
   // same spot, that does the obvious thing wherever it is pressed — join with the camera
-  // on, turn the camera off again, or take you to おはなし島 when there is nobody to call
+  // on, turn the camera off again, or take you to みんなで はなす しま when there is nobody to call
   // where you are standing.
   const railButton = document.createElement('button');
   railButton.type = 'button';
@@ -173,10 +173,10 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
     // A teacher can stop every call in the class. Flying somewhere to find that out again
     // is not an answer, so say it here instead.
     if (state.mode === 'off') { toast('いまは 先生が おはなしを とめています。'); return; }
-    // Nobody to call from a beach. おはなし島 is where a class meets, so go there — but
+    // Nobody to call from a beach. みんなで はなす しま is where a class meets, so go there — but
     // only claim the journey if it actually began (a flight already in the air, an open
     // dialog, or a lesson in progress all refuse it).
-    if (onGoToHall?.()) toast('おはなし島に とびます。');
+    if (onGoToHall?.()) toast('みんなで はなす しまに とびます。');
     else toast('いまは とべません。もういちど ためしてね。');
   };
   $('#voice-write', panel).addEventListener('submit', (e) => { e.preventDefault(); write(); });
@@ -360,7 +360,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
   }
 
   // Where this child may talk, right now: any room on any island, unless a teacher has
-  // narrowed it to おはなし島 ('rooms') or closed it ('off'). おはなし島 itself is always a
+  // narrowed it to みんなで はなす しま ('rooms') or closed it ('off'). みんなで はなす しま itself is always a
   // room — standing on it is being in the call — for as long as talking is open at all.
   const openHere = () => (state.mode === 'off' ? false : state.mode === 'all' ? isCallRoom(state.space) : isTalkSpace(state.space));
 
@@ -426,7 +426,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
       note2.textContent = 'ここで はなす';
     } else {
       label.textContent = '📹 Video call';
-      note2.textContent = 'おはなし島へ';
+      note2.textContent = hallLocked() ? '🔒 みんなで はなす しま' : 'みんなで はなす しまへ';
     }
     railButton.classList.toggle('on', state.joined);
   }
@@ -761,7 +761,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
 
   // ---- 大広間 ------------------------------------------------------------------------------
   //
-  // Six children in a building connect to each other. A hundred on おはなし島 cannot: each
+  // Six children in a building connect to each other. A hundred on みんなで はなす しま cannot: each
   // browser would hold ninety-nine connections. A room that size runs through an SFU
   // instead, and the server says which kind of room a child has walked into. The code for
   // it — and the 600KB SDK behind it — is fetched the first time that happens.
@@ -1130,6 +1130,7 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
       const said = {
         closed: 'おはなしは まだ ひらいていません。',
         'not in a room': '部屋の 中で 話せます。',
+        'premium': '🔒 プレミアムの しまです。せんせいに きいてね。',
         'no teacher': 'せんせいが いる ときだけ はなせるよ。',
         'room is full': 'この 部屋は いっぱいです。',
         'too fast': 'つうしんが こみあっています。',

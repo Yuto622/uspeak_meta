@@ -23,6 +23,8 @@ const HEADER_NAME = new Set(['name', 'なまえ', '名前', 'account', 'アカ�
 export const ANY_CLASS = '*';
 // 先生の 列（2026-10）：true の 人は 講師キーなしで 先生として 入る（授業モードの ボタンが 出る）。
 const HEADER_TEACHER = new Set(['teacher', 'is teacher', 'isteacher', '先生', 'せんせい', '先生か', '講師', 'role', 'ロール']);
+// プレミアム（英会話島・みんなで はなす しまに 入れる）。
+const HEADER_PREMIUM = new Set(['premium', 'プレミアム', 'ぷれみあむ', 'paid', '有料']);
 const TRUE_WORDS = new Set(['true', 'yes', 'y', '1', 'はい', '○', '◯', 'o', '先生', 'せんせい', 'teacher', '講師', 'on', '✓', '✔']);
 export const isTrueCell = (v) => v === true || TRUE_WORDS.has(fold(v));
 
@@ -31,7 +33,7 @@ export const isTrueCell = (v) => v === true || TRUE_WORDS.has(fold(v));
 export function parseRosterRows(rows) {
   if (!Array.isArray(rows) || !rows.length) return [];
   const cells = rows.map((r) => (Array.isArray(r) ? r.map((c) => String(c ?? '').trim()) : []));
-  let classCol = 0; let nameCol = 1; let noteCol = 2; let teacherCol = -1; let start = 0;
+  let classCol = 0; let nameCol = 1; let noteCol = 2; let teacherCol = -1; let premiumCol = -1; let start = 0;
   const first = cells[0].map(fold);
   const headerName = first.findIndex((c) => HEADER_NAME.has(c));
   const headerClass = first.findIndex((c) => HEADER_CLASS.has(c));
@@ -40,7 +42,8 @@ export function parseRosterRows(rows) {
     nameCol = headerName;
     classCol = headerClass;                     // -1 when there is no class column at all
     teacherCol = first.findIndex((c) => HEADER_TEACHER.has(c));
-    noteCol = first.findIndex((c, i) => i !== nameCol && i !== classCol && i !== teacherCol && c);
+    premiumCol = first.findIndex((c) => HEADER_PREMIUM.has(c));
+    noteCol = first.findIndex((c, i) => i !== nameCol && i !== classCol && i !== teacherCol && i !== premiumCol && c);
     start = 1;
   } else if (headerClass >= 0) {
     classCol = headerClass; nameCol = first.findIndex((c, i) => i !== classCol); start = 1;
@@ -56,7 +59,8 @@ export function parseRosterRows(rows) {
     const cls = classCol >= 0 ? (row[classCol] ?? '') : '';
     const note = noteCol >= 0 ? (row[noteCol] ?? '') : '';
     const teacher = teacherCol >= 0 && isTrueCell(row[teacherCol] ?? '');
-    out.push({ class: !cls || cls === ANY_CLASS ? ANY_CLASS : cls, name, note, ...(teacher ? { teacher: true } : {}) });
+    const premium = premiumCol >= 0 && isTrueCell(row[premiumCol] ?? '');
+    out.push({ class: !cls || cls === ANY_CLASS ? ANY_CLASS : cls, name, note, ...(teacher ? { teacher: true } : {}), ...(premium ? { premium: true } : {}) });
   }
   return out;
 }

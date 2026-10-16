@@ -13,6 +13,7 @@ import assert from 'node:assert/strict';
 process.env.STORE_BACKEND = 'memory';
 process.env.TEACHER_KEY = 'testkey12345';
 process.env.LOG_LEVEL = 'error';
+process.env.PREMIUM_ISLANDS = ''; // プレミアムの 鍵は premium.test.mjs が 見る
 // ここは 通話と じゆうにゅうりょくの しくみの 検査。先生が いない ときに 止まる ことは safety.test.mjs が 見る。
 process.env.CALLS_NEED_TEACHER = 'off';
 // Three seconds, not two hours: long enough to prove a real elapsed-time measurement is

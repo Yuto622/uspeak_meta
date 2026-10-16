@@ -1,4 +1,4 @@
-// 百人. A whole school standing on おはなし島 at once, joined for real over WebSocket.
+// 百人. A whole school standing on みんなで はなす しま at once, joined for real over WebSocket.
 //
 // The SFU's own capacity is LiveKit's business (a machine holds thousands); what is tested
 // here is ours — that a hundred children are admitted to one room, that each is handed a
@@ -12,6 +12,7 @@ process.env.STORE_BACKEND = 'memory';
 process.env.TEACHER_KEY = 'testkey12345';
 process.env.MAX_CLIENTS = '120';
 process.env.LOG_LEVEL = 'error';
+process.env.PREMIUM_ISLANDS = ''; // プレミアムの 鍵は premium.test.mjs が 見る
 // ここは 通話と じゆうにゅうりょくの しくみの 検査。先生が いない ときに 止まる ことは safety.test.mjs が 見る。
 process.env.CALLS_NEED_TEACHER = 'off';
 process.env.CHAT_MIN_INTERVAL_MS = '0';
@@ -31,7 +32,7 @@ const waitFor = async (fn, ms = 15000) => { const t0 = Date.now(); while (Date.n
 before(async () => { server = await startServer({ port: 0 }); url = `ws://127.0.0.1:${server.server.address().port}`; });
 after(async () => { await server.shutdown('test'); });
 
-test('大広間: a hundred children stand on おはなし島 and are all in the same call', async () => {
+test('大広間: a hundred children stand on みんなで はなす しま and are all in the same call', async () => {
   const HOW_MANY = 100;
   const kids = [];
   // Joined in small batches: a classroom arrives over a minute, not in one instant, and a

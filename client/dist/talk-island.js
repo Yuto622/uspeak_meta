@@ -1,4 +1,4 @@
-// おはなし島 — the island that is a call.
+// みんなで はなす しま — the island that is a call.
 //
 // Every other island is a set of buildings with something to do inside them. This one is
 // a place to stand in: the grass itself is the room, so the middle of it is an open ring
@@ -54,7 +54,7 @@ export function createTalkIsland({ scene }) {
       for (let i = 0; i < 4; i += 1) D(yard.x, 4.8 + i * 0.42, yard.z, 3 - i * 0.7, 0.42, 3 - i * 0.7, i % 2 ? warm : shade(warm, -0.12));
       D(yard.x, 6.7, yard.z, 0.4, 1.1, 0.4, warm, 0.8);
       obstacles.push({ x: yard.x, z: yard.z, w: 1.9, d: 1.9 });
-      sprite({ en: 'TALK ISLAND · let\'s talk together', ja: 'おはなし島 · みんなで 話そう' }, yard.x, 8.4, yard.z, { width: 12, size: 30 });
+      sprite({ en: 'TALK ISLAND · let\'s talk together', ja: 'みんなで はなす しま · みんなで 話そう' }, yard.x, 8.4, yard.z, { width: 12, size: 30 });
 
       // Benches facing the lantern, because that is what a ring of people is.
       for (let i = 0; i < 8; i += 1) {

@@ -45,6 +45,7 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
       ${here ? `<em class="wm-badge here"><b class="en">📍 You are here</b><i class="ja">📍 いま ここ</i></em>` : ''}
       ${done ? '<em class="wm-badge done">✓</em>' : ''}
       ${open ? '' : '<span class="wm-lock" aria-hidden="true">🔒</span>'}
+      ${state.premium?.(r.id) ? `<em class="wm-badge prem"><b class="en">⭐ Premium</b><i class="ja">⭐ プレミアム</i></em>` : ''}
     </button>`;
   };
   const hubs = destinations.filter((d) => d.hub);

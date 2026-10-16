@@ -48,6 +48,8 @@ export const config = Object.freeze({
   // こどもの 安全：通話（声・カメラ）と じぶんで かいた 文は、先生が 部屋に いる ときだけ。
   // おうちで こどもだけの 時間には えらんだ フレーズだけ（ROBLOX と おなじ 考え。検査は CALLS_NEED_TEACHER=off で 外せる）。
   callsNeedTeacher: process.env.CALLS_NEED_TEACHER !== 'off',
+  // プレミアムの 島（名簿の「プレミアム」列が true の 子と 先生だけ）。カンマで 区切る。空で だれでも。
+  premiumIslands: (process.env.PREMIUM_ISLANDS ?? 'conv,talk').split(',').map((s) => s.trim()).filter(Boolean),
   // 入って 何ミリ秒後に「Review time!」の カードを 出すか（検査では 短く する）。
   reviewOfferDelayMs: int('REVIEW_OFFER_DELAY_MS', 20000),
   // 授業モード：ストップの 自動再開と、復習の クラス結果を 出すまで（検査では 短く する）。

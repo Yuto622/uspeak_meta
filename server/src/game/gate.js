@@ -76,7 +76,7 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
     try {
       const rows = await roster.listRoster(classCode);
       if (rows === null || rows === undefined) return entry || null;   // no register kept at all
-      const fresh = { names: new Set(rows.map((r) => fold(r.name))), teachers: new Set(rows.filter((r) => r.teacher).map((r) => fold(r.name))), at: now(), source: 'register', version: version() };
+      const fresh = { names: new Set(rows.map((r) => fold(r.name))), teachers: new Set(rows.filter((r) => r.teacher).map((r) => fold(r.name))), premium: new Set(rows.filter((r) => r.premium).map((r) => fold(r.name))), at: now(), source: 'register', version: version() };
       cache.set(classCode, fresh);
       await saveSnapshot();
       return fresh;
@@ -96,6 +96,13 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
       try {
         const entry = await register(classCode);
         return !!entry?.teachers?.has(fold(name));
+      } catch { return false; }
+    },
+    // 名簿の「プレミアム」列が true の 人か（英会話島・みんなで はなす しま）。読めなければ false。
+    async isPremium({ classCode, name }) {
+      try {
+        const entry = await register(classCode);
+        return !!entry?.premium?.has(fold(name));
       } catch { return false; }
     },
     async allow({ classCode, name, role, store: storeOverride }) {

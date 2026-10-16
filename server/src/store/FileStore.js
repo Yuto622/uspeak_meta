@@ -71,7 +71,7 @@ export class FileStore {
   // Replace the register (the admin page's save). Written whole and atomically, as its
   // own file, so a teacher can still open it in an editor.
   async saveRoster(rows) {
-    const clean = rows.filter((r) => r && r.name).map((r) => ({ class: r.class && r.class !== '*' ? String(r.class) : '*', name: String(r.name), note: String(r.note ?? ''), ...(r.teacher ? { teacher: true } : {}) }));
+    const clean = rows.filter((r) => r && r.name).map((r) => ({ class: r.class && r.class !== '*' ? String(r.class) : '*', name: String(r.name), note: String(r.note ?? ''), ...(r.teacher ? { teacher: true } : {}), ...(r.premium ? { premium: true } : {}) }));
     this.rosterVersion += 1;
     if (!this.filePath) { this.memoryRoster = clean; return; }
     const file = this.rosterFile;
@@ -208,11 +208,11 @@ export function eventMatches(e, { username = '', classCode = '', since = 0, unti
 
 function rosterRowsFromJson(parsed) {
   const rows = [];
-  const push = (cls, name, note, teacher = false) => { if (name) rows.push({ class: cls && cls !== '*' ? String(cls) : '*', name: String(name), note: String(note ?? ''), ...(teacher === true || teacher === 'true' ? { teacher: true } : {}) }); };
+  const push = (cls, name, note, teacher = false, premium = false) => { if (name) rows.push({ class: cls && cls !== '*' ? String(cls) : '*', name: String(name), note: String(note ?? ''), ...(teacher === true || teacher === 'true' ? { teacher: true } : {}), ...(premium === true || premium === 'true' ? { premium: true } : {}) }); };
   if (Array.isArray(parsed)) {
-    for (const r of parsed) push(r?.class, r?.name, r?.note, r?.teacher);
+    for (const r of parsed) push(r?.class, r?.name, r?.note, r?.teacher, r?.premium);
   } else if (parsed && Array.isArray(parsed.rows)) {
-    for (const r of parsed.rows) push(r?.class, r?.name, r?.note, r?.teacher);
+    for (const r of parsed.rows) push(r?.class, r?.name, r?.note, r?.teacher, r?.premium);
   } else if (parsed && typeof parsed.classes === 'object') {
     for (const [cls, names] of Object.entries(parsed.classes)) for (const name of Array.isArray(names) ? names : []) push(cls, name, '');
   }

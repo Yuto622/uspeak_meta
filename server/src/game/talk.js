@@ -1,4 +1,4 @@
-// おはなし島 — the island that is a call.
+// みんなで はなす しま — the island that is a call.
 //
 // Every other room in this project is a building: you walk in, and the people inside it
 // are the people you can hear. This island is the exception on purpose. The whole of it
@@ -47,5 +47,5 @@ export function loadTalk(file = DATA_PATH) {
 
 export const TALK = loadTalk();
 
-// Is this a place on おはなし島 — the grass itself, or one of its booths?
+// Is this a place on みんなで はなす しま — the grass itself, or one of its booths?
 export const isTalkSpace = (space) => space === TALK.id || String(space || '').startsWith(`in:${TALK.id}:`);

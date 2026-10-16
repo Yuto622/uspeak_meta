@@ -1,4 +1,4 @@
-// Browser end-to-end check for おはなし: two children on おはなし島 are in a call by
+// Browser end-to-end check for おはなし: two children on みんなで はなす しま are in a call by
 // standing on it, two children who walk into the same building elsewhere can hear each
 // other once a teacher opens it, and the server never carries a byte of either.
 //
@@ -94,7 +94,7 @@ async function enterHall(page, isle) {
   await page.waitForFunction(() => uspeak.net.currentSpace() === 'in:eiken5:speaking', null, { timeout: 60000, polling: 150 });
 }
 
-// おはなし島 is the island that is a call: flying to it is all it takes.
+// みんなで はなす しま is the island that is a call: flying to it is all it takes.
 async function landOnTalkIsland(page) {
   await page.evaluate(() => { uspeak.rpg.fly('talk'); uspeak.rpg.finishFlight(); });
   await page.waitForFunction(() => uspeak.net.currentSpace() === 'talk', null, { timeout: 150000, polling: 150 });
@@ -150,7 +150,7 @@ try {
   });
   check('the rail has a call button as soon as a child is online', !!(await rail(a)), await rail(a));
   check('and out on the grass it offers to take them where the class meets',
-    (await rail(a)).includes('おはなし島'), await rail(a));
+    (await rail(a)).includes('みんなで はなす しま'), await rail(a));
   // Pressed rather than tapped: this window (520x420) is shorter than any real device and
   // the rail has scrolled the button out of it, which a real thumb would simply scroll
   // back. Whether it is reachable is browser-layout.mjs's job; this is about what it does.
@@ -160,7 +160,7 @@ try {
   // checks that the flight started and then lands the plane, exactly as the ✈ button's
   // own "skip" does.
   await a.waitForFunction(() => uspeak.rpg.state.mode === 'flight', null, { timeout: 30000, polling: 150 });
-  check('pressing it sets off for おはなし島', true, await a.evaluate(() => uspeak.rpg.state.target));
+  check('pressing it sets off for みんなで はなす しま', true, await a.evaluate(() => uspeak.rpg.state.target));
   await a.evaluate(() => uspeak.rpg.finishFlight());
   await a.waitForFunction(() => uspeak.net.currentSpace() === 'talk', null, { timeout: 60000, polling: 200 });
   check('and it lands there', (await a.evaluate(() => uspeak.net.currentSpace())) === 'talk');
@@ -168,11 +168,11 @@ try {
     .catch(() => {});
   check('and on the island it offers the call itself', (await rail(a)).includes('ここで'), await rail(a));
 
-  // ---- おはなし島: nobody opens anything, because the island is already a call.
+  // ---- みんなで はなす しま: nobody opens anything, because the island is already a call.
   await landOnTalkIsland(a);
   await landOnTalkIsland(b);
   await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 90000, polling: 200 });
-  check('landing on おはなし島 opens the call, with no teacher and no switch', true,
+  check('landing on みんなで はなす しま opens the call, with no teacher and no switch', true,
     await a.evaluate(() => document.querySelector('#voice-room').textContent));
   check('and everyone standing on the island is in it',
     (await bothJoin(a, b)) && (await peers(a))[0]?.name === 'Ren', JSON.stringify(await peers(a)));
@@ -196,10 +196,10 @@ try {
     /ステージ|Stage/.test(await a.evaluate(() => document.querySelector('#voice-room').textContent)),
     await a.evaluate(() => document.querySelector('#voice-room').textContent));
 
-  // A teacher who needs the class quiet narrows it to おはなし島, and opens it again.
+  // A teacher who needs the class quiet narrows it to みんなで はなす しま, and opens it again.
   await t.evaluate(() => uspeak.net.room.send('teacher', { cmd: 'voice', mode: 'rooms' }));
   await a.waitForFunction(() => document.querySelector('#voice-panel').hidden, null, { timeout: 60000, polling: 200 });
-  check('a teacher can narrow it back to おはなし島 alone', true);
+  check('a teacher can narrow it back to みんなで はなす しま alone', true);
   await t.evaluate(() => uspeak.net.room.send('teacher', { cmd: 'voice', mode: 'all' }));
   await a.waitForFunction(() => !document.querySelector('#voice-panel').hidden, null, { timeout: 60000, polling: 200 });
   check('and open it again', true);

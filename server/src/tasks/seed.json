@@ -1329,7 +1329,7 @@
 "ja": "おはなしの しまで ビデオつうわ しよう",
 "en": "Join a video call",
 "done": "ビデオ通話に 1回 入る",
-"where": "右の おはなし島へ",
+"where": "右の みんなで はなす しまへ",
 "coins": 50,
 "xp": 30,
 "learn": "はなす",
@@ -2352,7 +2352,7 @@
 {
 "id": "L066",
 "on": true,
-"island": "おはなし島",
+"island": "みんなで はなす しま",
 "kind": "はなす",
 "ja": "ビデオつうわに {n}かい はいろう",
 "en": "Join {n} video calls",
@@ -2365,7 +2365,7 @@
 {
 "id": "L067",
 "on": true,
-"island": "おはなし島",
+"island": "みんなで はなす しま",
 "kind": "はなす",
 "ja": "こえで {n}かい こたえよう",
 "en": "Answer out loud {n} times",

@@ -11,6 +11,7 @@ process.env.ANSWER_MIN_INTERVAL_MS = '0';
 process.env.CHAT_MIN_INTERVAL_MS = '0';
 process.env.MAX_CLIENTS = '3';
 process.env.LOG_LEVEL = 'error';
+process.env.PREMIUM_ISLANDS = ''; // プレミアムの 鍵は premium.test.mjs が 見る
 // ここは 通話と じゆうにゅうりょくの しくみの 検査。先生が いない ときに 止まる ことは safety.test.mjs が 見る。
 process.env.CALLS_NEED_TEACHER = 'off';
 process.env.AI_MIN_INTERVAL_MS = '0';
@@ -1637,7 +1638,7 @@ test('おはなし: the room you walked into is the call, and the server only in
   };
   const hall = 'in:eiken5:speaking';
 
-  // Talking is open from the start, everywhere: おはなし島 because the island is one room,
+  // Talking is open from the start, everywhere: みんなで はなす しま because the island is one room,
   // and every building on every island because a room is a call. Nobody opened anything.
   assert.equal(a.room.state.voice, 'all', 'the class starts with every room open');
   await stand(a, TALK.id);
@@ -1747,7 +1748,7 @@ test('おはなし: the room you walked into is the call, and the server only in
   assert.equal(gone.id, b.room.sessionId);
   assert.equal(gone.joined, false);
 
-  // And a teacher can close all of it, おはなし島 included.
+  // And a teacher can close all of it, みんなで はなす しま included.
   t.room.send('teacher', { cmd: 'voice', mode: 'off' });
   assert.equal((await nextMessage(a.room, 'voice:closed')).reason, 'closed');
   await waitFor(() => a.room.state.voice === 'off');

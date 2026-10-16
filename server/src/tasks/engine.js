@@ -220,12 +220,12 @@ export function plan(rows, rules) {
 
 // できる ものを ぜんぶ すませる（見えている 3 つの 中だけ。すむと つぎが 見えて、それも すんでいれば つづけて すむ）。
 // 返すのは あたらしく すんだ 行と、あたらしく おわった 章の 番号。
-export function settle(prog, plan, rules, stats) {
+export function settle(prog, plan, rules, stats, skip = null) {
   const finished = [];
   const chaptersDone = [];
   const done = new Set(prog.done);
   for (let guard = 0; guard < 200; guard++) {
-    const window = plan.list.filter((it) => !done.has(it.row.id)).slice(0, rules.visible);
+    const window = plan.list.filter((it) => !done.has(it.row.id) && !skip?.(it)).slice(0, rules.visible);
     const hit = window.find((it) => met(prog, it.check, stats));
     if (!hit) break;
     done.add(hit.row.id);
@@ -234,20 +234,21 @@ export function settle(prog, plan, rules, stats) {
   }
   plan.chapters.forEach((ch, i) => {
     if (prog.paid.includes(i)) return;
-    if (ch.items.every((it) => done.has(it.row.id))) { prog.paid.push(i); chaptersDone.push(i); }
+    if (ch.items.every((it) => done.has(it.row.id) || skip?.(it))) { prog.paid.push(i); chaptersDone.push(i); }
   });
   return { finished, chaptersDone };
 }
 
 // ページに おくる 形。
-export function view(prog, plan, rules, stats) {
+export function view(prog, plan, rules, stats, skip = null) {
   const done = new Set(prog.done);
-  const idx = plan.chapters.findIndex((ch) => ch.items.some((it) => !done.has(it.row.id)));
+  const idx = plan.chapters.findIndex((ch) => ch.items.some((it) => !done.has(it.row.id) && !skip?.(it)));
   if (idx < 0) return { all: true, total: plan.list.length, done: plan.list.length, tasks: [] };
   const ch = plan.chapters[idx];
-  const size = ch.items.length + (rules.endowed ? 1 : 0);
-  const got = ch.items.filter((it) => done.has(it.row.id)).length + (rules.endowed ? 1 : 0);
-  const window = plan.list.filter((it) => !done.has(it.row.id)).slice(0, rules.visible);
+  const items = ch.items.filter((it) => !skip?.(it) || done.has(it.row.id));
+  const size = items.length + (rules.endowed ? 1 : 0);
+  const got = items.filter((it) => done.has(it.row.id)).length + (rules.endowed ? 1 : 0);
+  const window = plan.list.filter((it) => !done.has(it.row.id) && !skip?.(it)).slice(0, rules.visible);
   return {
     chapter: { n: idx + 1, of: plan.chapters.length, name: ch.name.replace(/^\d+\s*/, ''), done: got, size, reward: rules.chapterReward },
     // はじめの 半分は「◯こ できた」、のこり 半分は「あと ◯こ」（Koo & Fishbach 2012）

@@ -44,7 +44,7 @@ export const PLAYER_COLUMNS = [
 ];
 export const LEARNING_COLUMNS = ['timestamp', 'class', 'name', 'question_id', 'mode', 'choice', 'correct', 'xp', 'session_id'];
 // The class register. A teacher keeps this: one row per child who is allowed in.
-export const ROSTER_COLUMNS = ['class', 'name', 'note', 'teacher'];
+export const ROSTER_COLUMNS = ['class', 'name', 'note', 'teacher', 'premium'];
 export const COIN_COLUMNS = ['timestamp', 'class', 'name', 'op', 'item', 'quantity', 'delta', 'balance', 'session_id'];
 
 // Names and class codes are sanitized so they never contain '|'.

@@ -144,12 +144,13 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const voice = createVoice({
     send: atSend,
     toast,
-    roomLabel: (space) => (space === TALK_ISLAND ? tr('おはなし島の ひろば') : rpg.insideBuilding?.spot?.name || ''),
+    roomLabel: (space) => (space === TALK_ISLAND ? tr('みんなで はなす しまの ひろば') : rpg.insideBuilding?.spot?.name || ''),
     // Pressing the rail's call button where no call is possible takes the child to the
     // island where one always is. Flying is the game's own way of going somewhere, so it
     // is the game's own flight, not a teleport — and, like every other flight in this
     // game, it has to leave the building first. Returns whether it set off, so the button
     // does not announce a journey the game refused.
+    hallLocked: () => (rpg.premiumLock || []).includes(TALK_ISLAND),
     onGoToHall: () => {
       if (rpg.state.current === TALK_ISLAND) return true;
       rpg.inside?.leave?.(true);
@@ -508,6 +509,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     let welcomed = false;
 
     r.onMessage('tasks:state', (m) => taskCard.set(m));
+    r.onMessage('premium', (m) => { rpg.setPremiumLock?.(m.locked || []); if (m.premium) toast(tr('⭐ プレミアムの しまに 行けるように なったよ！')); });
     r.onMessage('tasks:done', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); taskCard.done(m); });
     r.onMessage('welcome', (m) => {
       if (m.world) { state.skew = m.world.now - Date.now(); night.setPhase(m.world); }
@@ -537,6 +539,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (rb) { if (m.robloxReport) { rb.href = /^https?:/i.test(m.robloxReport) ? m.robloxReport : location.origin + m.robloxReport; rb.hidden = false; } else rb.hidden = true; }
       applyProgress(m.progress);
       taskCard.set(m.tasks || null);
+      rpg.setPremiumLock?.(m.locked || []);
       mission.setClassMission(m.missionId);
       mission.setDone(m.missionsDone);
       mission.restore(m.errand);

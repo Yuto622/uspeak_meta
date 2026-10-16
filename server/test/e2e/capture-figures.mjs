@@ -40,7 +40,7 @@ const ISLANDS = [
   ['willow', 'はじまりの島'], ['errand', 'おつかい島'], ['school', 'ことばの学校島'],
   ['arena', 'えいごアリーナ島'], ['pet', 'ペット島'], ['ride', 'のりもの島'],
   ['town', 'まちづくり島'], ['eiken5', '英検5級の島'], ['eiken3', '英検3級の島'],
-  ['conv', '英会話島'], ['talk', 'おはなし島'], ['wear', 'きせかえ島'], ['farm', 'ぼくじょう島'],
+  ['conv', '英会話島'], ['talk', 'みんなで はなす しま'], ['wear', 'きせかえ島'], ['farm', 'ぼくじょう島'],
   ['mini', 'ミニゲーム島'], ['park', 'テーマパーク'],
 ];
 
@@ -315,11 +315,11 @@ try {
   await page.evaluate(() => uspeak.net.gp.quit());
   await sleep(1500);
 
-  // おはなし島の通話パネル。部屋に入ると出る。島が外に写るので、ここも昼に。
+  // みんなで はなす しまの通話パネル。部屋に入ると出る。島が外に写るので、ここも昼に。
   await at('talk', 'chat');
   if (want('screen-talk')) await daylight(40);
   await page.waitForFunction(() => !document.querySelector('#voice-panel')?.hidden, null, { timeout: 40000, polling: 300 }).catch(() => {});
-  await sleep(1500); await shot('screen-talk', 'おはなし島・通話のパネル');
+  await sleep(1500); await shot('screen-talk', 'みんなで はなす しま・通話のパネル');
 
   // どこからでも開く画面
   await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });

@@ -7,7 +7,7 @@ import { config } from '../config.js';
 import { judge, JudgeError } from '../game/judge.js';
 import { ZONES as FISH_ZONES, GRADES as FISH_GRADES, chooseFish } from '../../../client/dist/fishing-data.js';
 import { applyOp as applyOpRaw, sanitizeWallet, EconomyError } from '../game/economy.js';
-import { blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, UI_EVENTS } from '../tasks/engine.js';
+import { blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, goOf, UI_EVENTS } from '../tasks/engine.js';
 import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
 import { cleanSay, MAX_CHARS } from '../game/say.js';
@@ -63,6 +63,8 @@ import { log } from '../log.js';
 // さかなを うって もらえる コインは 1日 ここまで（U-Speak島の つりと メインの島・つり島の かいとりやの 合計）。
 // 魚の 値段は Roblox と そろえて あるので 値段は かえず、1日の 上限で しばる（ほかの 島の 上限と おなじ 考え）。
 export const SELL_CAP = 300;
+// プレミアムの 島（admin の 名簿の「プレミアム」列が true の 子と 先生だけ）。
+export const PREMIUM_ISLANDS = config.premiumIslands;
 // 1 回 なげてから つぎに なげられるまで。答えは 1 投げに 2 回まで。
 const FISH_CAST_GAP_MS = config.answerMinIntervalMs * 5; // ふだんは 2 秒（答えの 間かく 400ms × 5）
 const FISH_CAST_TTL_MS = 5 * 60_000;
@@ -92,7 +94,7 @@ const PERFECT_BONUS_COINS = 10;
 const VOICE_MAX = 6;
 // How long after a child's last move or answer their time still counts as study.
 const STUDY_IDLE_MS = 2 * 60 * 1000;
-const VOICE_MODES = ['all', 'rooms', 'off'];   // どこでも（既定）/ おはなし島だけ / ぜんぶ止める
+const VOICE_MODES = ['all', 'rooms', 'off'];   // どこでも（既定）/ みんなで はなす しまだけ / ぜんぶ止める
 const SIGNAL_MAX_BYTES = 8192;     // an SDP offer is ~4KB; a candidate is a line
 const SIGNAL_BURST = 120;          // per five seconds, per child   // Roblox: COIN_PERFECT_BONUS, for a clean ten
 const STALE_MOVE_MS = 5000;
@@ -411,6 +413,7 @@ export class ClassRoom extends Room {
     // 講師キーで 入った 先生か（名簿の 先生は あとで 名簿が かわると 生徒に もどる。recheckRoles）。
     priv.byKey = !!auth.byKey;
     this.priv.set(client.sessionId, priv);
+    priv.premium = !!(await this.gate?.isPremium?.({ classCode: this.classCode, name: auth.name }));
     WALLET_WATCH.set(priv.wallet, (op) => { taskOp(priv.tasks, op); this.taskTouch(client.sessionId); });
 
     const player = new Player();
@@ -446,6 +449,15 @@ export class ClassRoom extends Room {
   async recheckRole(id) {
     const player = this.state.players.get(id);
     const priv = this.priv.get(id);
+    // プレミアム も 名簿で かわる（admin で オンに したら 入ったままの 子にも すぐ 効く）。
+    if (player && priv && this.gate?.isPremium) {
+      const on = !!(await this.gate.isPremium({ classCode: this.classCode, name: player.name }));
+      if (on !== !!priv.premium) {
+        priv.premium = on;
+        this.clientOf(id)?.send('premium', this.premiumPayload(id));
+        this.taskSend(id, true);
+      }
+    }
     if (!player || !priv || priv.byKey || !this.gate?.isTeacher) return false;
     const want = (await this.gate.isTeacher({ classCode: this.classCode, name: player.name })) ? 'teacher' : 'student';
     if (want === player.role || !this.state.players.has(id)) return false;
@@ -730,7 +742,7 @@ export class ClassRoom extends Room {
       }
       case 'voice': {
         // 'all' is the default the class starts in, so a teacher never has to do anything
-        // for a call to work anywhere; the command is for narrowing it to おはなし島 when a
+        // for a call to work anywhere; the command is for narrowing it to みんなで はなす しま when a
         // lesson needs quiet, or closing everything at once.
         const mode = VOICE_MODES.includes(msg.mode) ? msg.mode : (msg.on === true ? 'all' : msg.on === false ? 'off' : 'all');
         this.state.voice = mode;
@@ -741,7 +753,7 @@ export class ClassRoom extends Room {
         }
         this.broadcast('notice', { text: {
           all: 'おはなしを ひらきました。どの島の どの部屋でも 話せます。',
-          rooms: 'おはなしは おはなし島だけに なりました。',
+          rooms: 'おはなしは みんなで はなす しまだけに なりました。',
           off: 'おはなしは 先生が とじました。',
         }[mode] }, { except: client });
         client.send('teacher:ack', { cmd, ok: true, mode, on: mode === 'all' });
@@ -1218,6 +1230,16 @@ export class ClassRoom extends Room {
     });
   }
 
+  // ---- プレミアムの 島 ---------------------------------------------------------------
+  lockedIslands(id) {
+    const player = this.state.players.get(id);
+    const priv = this.priv.get(id);
+    if (!player || player.role === 'teacher' || priv?.premium) return [];
+    return [...PREMIUM_ISLANDS];
+  }
+  premiumPayload(id) { return { premium: !!this.priv.get(id)?.premium, locked: this.lockedIslands(id) }; }
+  islandLocked(id, island) { return this.lockedIslands(id).includes(island); }
+
   // ---- tasks（左の「つぎに やること」）-----------------------------------------------
   // 数えるのは engine.js、ここは「いつ しらべるか」と「すんだら はらう」だけ。
   // しらべるのは できごとの あと（同じ 瞬間の できごとは 1 回に まとめる）。
@@ -1243,6 +1265,12 @@ export class ClassRoom extends Room {
       this.taskCache = { at, store: this.tasks, rules, plan: taskPlan(adopted.onboarding, rules) };
     }
     return this.taskCache;
+  }
+
+  // 入れない 島の タスクは とばす（🔒 の 島へ 道を 出さない）。
+  taskSkip(id) {
+    const locked = this.lockedIslands(id);
+    return locked.length ? (it) => locked.includes(goOf(it.check)?.island) : null;
   }
 
   taskStats(id) {
@@ -1273,7 +1301,7 @@ export class ClassRoom extends Room {
     let paid = 0; let finished = []; let chapters = [];
     try {
       for (let round = 0; round < 5; round++) {
-        const out = settleTasks(priv.tasks, plan, rules, this.taskStats(id));
+        const out = settleTasks(priv.tasks, plan, rules, this.taskStats(id), this.taskSkip(id));
         if (!out.finished.length && !out.chaptersDone.length) break;
         for (const row of out.finished) {
           if (row.coins > 0) {
@@ -1313,7 +1341,7 @@ export class ClassRoom extends Room {
     if (!this.tasks || !priv || !player) return null;
     const { rules, plan } = this.taskPlan();
     if (!plan.list.length) return null;
-    return taskView(priv.tasks, plan, rules, this.taskStats(id));
+    return taskView(priv.tasks, plan, rules, this.taskStats(id), this.taskSkip(id));
   }
 
   // おなじ 中身は 2 回 おくらない（位置や 答えの たびに 呼ばれる）。
@@ -2166,7 +2194,7 @@ export class ClassRoom extends Room {
   static get VOICE_MAX() { return VOICE_MAX; }
 
   // Where talking is open. The default is everywhere ('all'): a child who walks into a
-  // building on any island is in the call with whoever else is inside, and おはなし島 is
+  // building on any island is in the call with whoever else is inside, and みんなで はなす しま is
   // a call by standing on it. A teacher can narrow it to that island alone ('rooms') when
   // a lesson needs quiet, or close all of it ('off').
   voiceOpenFor(space) {
@@ -2175,7 +2203,7 @@ export class ClassRoom extends Room {
     return isTalkSpace(space);
   }
 
-  // The room a child is in. おはなし島 itself counts as one — that is the whole point of it
+  // The room a child is in. みんなで はなす しま itself counts as one — that is the whole point of it
   // — and everywhere else it is a building walked into: "in:<island>:<building>". A child's
   // own マイルーム and their building lot are theirs alone, and an island is not a call.
   voiceRoomOf(sessionId) {
@@ -2185,7 +2213,7 @@ export class ClassRoom extends Room {
     return /^in:[^:]+:[^:]+$/.test(space) ? space : '';
   }
 
-  // How many the room is meant to hold, from the island's own data. おはなし島's plaza is
+  // How many the room is meant to hold, from the island's own data. みんなで はなす しま's plaza is
   // where a whole school gathers; every other room is a handful of children in a building.
   voiceRoomMax(room) {
     return room === TALK.id ? Math.min(TALK.plaza.max, STAGE_MAX) : VOICE_MAX;
@@ -2260,6 +2288,7 @@ export class ClassRoom extends Room {
     const room = this.voiceRoomOf(id);
     if (!room) { client.send('voice:error', { reason: 'not in a room' }); return; }
     if (!this.voiceOpenFor(player.space)) { client.send('voice:error', { reason: 'closed' }); return; }
+    if ((room === TALK.id || String(room).startsWith(`in:${TALK.id}:`)) && this.islandLocked(id, 'talk')) { client.send('voice:error', { reason: 'premium' }); return; }
     if (config.callsNeedTeacher && player.role !== 'teacher' && !this.teacherPresent()) { client.send('voice:error', { reason: 'no teacher' }); return; }
     // A microphone open all day is the same exposure a runaway AI conversation would be,
     // and it had no guard at all: a tab left in a call room, forgotten overnight, would
@@ -2450,6 +2479,8 @@ export class ClassRoom extends Room {
     if (!priv) return;
     const topic = CONV.topicById.get(typeof msg?.topic === 'string' ? msg.topic : '');
     if (!topic) { client.send('conv:error', { reason: 'unknown topic' }); return; }
+    const house = CONV.spotById.get(topic.spot);
+    if ((!house?.home || house.home.id === CONV.id) && this.islandLocked(client.sessionId, 'conv')) { client.send('conv:error', { reason: 'premium' }); return; }
     if (!this.atConvHouse(client.sessionId, topic.spot)) {
       client.send('conv:error', { reason: 'too far', spot: this.convSpotPayload(topic.spot) });
       return;
@@ -4500,6 +4531,7 @@ export class ClassRoom extends Room {
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
       food: foodPayload(priv.food),
       tasks: this.taskPayload(sessionId),
+      ...this.premiumPayload(sessionId),
       classPaused: !!this.classMode?.paused,
       progress: this.progressPayload(sessionId),
       missionsDone: [...priv.missionsDone],

@@ -2,7 +2,7 @@
 //
 // voice.js has two ways of putting children in a call and the room decides which: six in
 // a building talk browser to browser (a mesh, no server in the middle), and a hundred in
-// おはなし島's plaza talk through LiveKit, which takes each voice once and forwards it to
+// みんなで はなす しま's plaza talk through LiveKit, which takes each voice once and forwards it to
 // whoever is listening. This file is only the second one, and it is loaded — all 600KB of
 // the SDK with it — the first time a child actually walks into a big room. A class of six
 // never downloads it.

@@ -9,6 +9,7 @@ process.env.STORE_BACKEND = 'memory';
 process.env.TEACHER_KEY = 'testkey12345';
 process.env.ANSWER_MIN_INTERVAL_MS = '0';
 process.env.LOG_LEVEL = 'error';
+process.env.PREMIUM_ISLANDS = ''; // プレミアムの 鍵は premium.test.mjs が 見る
 process.env.CHAT_MIN_INTERVAL_MS = '0';
 
 const { startServer } = await import('../src/index.js');

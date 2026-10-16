@@ -60,7 +60,7 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   // じゆうにゅうりょく. Off leaves the chat running with the preset phrases only, which
   // is what a lesson wants when the writing is meant to be English and not chatter.
   $('#net-t-free').onclick = () => send({ cmd: 'free', on: !freeChat });
-  // 通話. おはなし島 is always open — that island is one room and children go there to
+  // 通話. みんなで はなす しま is always open — that island is one room and children go there to
   // talk. This button is for the rest of the world: press once to open every building on
   // every island, again to close all of it (the island included), again to go back.
   $('#net-t-voice').onclick = () => send({ cmd: 'voice', mode: { all: 'rooms', rooms: 'off', off: 'all' }[voiceMode] || 'all' });
@@ -190,14 +190,14 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     $('#net-roster').innerHTML = rows.map((p) => `<tr class="${p.connected ? '' : 'net-offline'}"><td><button type="button" class="net-t-name" data-child="${esc(p.name)}" title="メモと英検の目安">${esc(p.name)}</button>${p.connected ? '' : ' <small>(切断中)</small>'}</td><td><small>${esc(p.space)}</small></td><td title="${p.xp ?? 0} XP">${p.level ?? 1}</td><td>${p.coins}</td><td>${p.correct}/${p.attempts}</td><td><button type="button" data-call="${p.id}" title="呼び出す">📢</button><button type="button" data-move="${p.id}" title="ここへ移動">⤵</button><button type="button" data-stage="${p.id}" class="${staged.has(p.id) ? 'on' : ''}" title="ステージに上げる（大広間でカメラと画面を使えるようにする）">${staged.has(p.id) ? '🎤' : '🎙'}</button></td></tr>`).join('') || '<tr><td colspan="6">生徒はまだいません</td></tr>';
     root.querySelectorAll('[data-call]').forEach((b) => { b.onclick = () => send({ cmd: 'call', target: b.dataset.call }); });
     root.querySelectorAll('[data-move]').forEach((b) => { b.onclick = () => { const p = point(); if (p) send({ cmd: 'move', target: b.dataset.move, ...p }); }; });
-    // ステージ: in 大広間（おはなし島）only the teacher is seen, so this is how a child gets
+    // ステージ: in 大広間（みんなで はなす しま）only the teacher is seen, so this is how a child gets
     // to show the hall their face and their screen. Small rooms never need it.
     root.querySelectorAll('[data-stage]').forEach((b) => {
       b.onclick = () => { const id = b.dataset.stage; send({ cmd: 'stage', target: id, on: !staged.has(id) }); };
     });
     $('#net-t-chat').textContent = chatPaused ? '▶ チャットを再開' : '⏸ チャットを一時停止';
     $('#net-t-free').textContent = freeChat ? '✏ じゆうにゅうりょく：オン' : '✏ じゆうにゅうりょく：オフ';
-    $('#net-t-voice').textContent = { all: '🎙 おはなし：どの島でも', rooms: '🎙 おはなし：おはなし島だけ', off: '🔇 おはなし：とじている' }[voiceMode];
+    $('#net-t-voice').textContent = { all: '🎙 おはなし：どの島でも', rooms: '🎙 おはなし：みんなで はなす しまだけ', off: '🔇 おはなし：とじている' }[voiceMode];
     $('#net-t-eiken').textContent = EIKEN_SAID[eikenLevel] || EIKEN_SAID.normal;
     $('#net-teacher-hint').textContent = `接続中 ${rows.filter((p) => p.connected).length} 人 · 集合・移動は今いる場所（${getSpace()}）へ`;
     renderNotices();
@@ -248,14 +248,14 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
     onRoster(m) { roster = m.players || []; notices = Array.isArray(m.notices) ? m.notices : []; exam = m.exam || null; chatPaused = !!m.chatPaused; freeChat = m.freeChat !== false; if (m.eikenLevel) eikenLevel = m.eikenLevel; if (open) renderRoster(); },
     onAck(m) {
       if (m.ok === false) {
-        const said = { 'not in a big room': 'ステージは おはなし島（大広間）だけです。', 'no such student': 'その生徒が見つかりません。', 'unknown level': 'その きびしさは ありません。',
+        const said = { 'not in a big room': 'ステージは みんなで はなす しま（大広間）だけです。', 'no such student': 'その生徒が見つかりません。', 'unknown level': 'その きびしさは ありません。',
           'not found': 'その子の記録が見つかりません。', 'empty note': 'メモが空です。', 'could not write': '保存できませんでした。もう一度おしてください。' }[m.error];
         toast(said || `先生コマンド失敗: ${m.error || m.cmd}`);
       }
       else if (m.cmd === 'gather') toast(`${m.count} 人に集合を指示しました。`);
       else if (m.cmd === 'voice') {
         voiceMode = m.mode || 'rooms';
-        toast({ all: 'どの島のどの部屋でも話せるようにしました。', rooms: 'おはなしはおはなし島だけになりました。', off: 'おはなしをとじました。' }[voiceMode]);
+        toast({ all: 'どの島のどの部屋でも話せるようにしました。', rooms: 'おはなしは みんなで はなす しまだけになりました。', off: 'おはなしをとじました。' }[voiceMode]);
         if (open) renderRoster();
       }
       else if (m.cmd === 'stage') {

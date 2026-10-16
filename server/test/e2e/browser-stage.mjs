@@ -1,5 +1,5 @@
 // 大広間 end-to-end: a real LiveKit server, a real Colyseus server, and real browsers
-// standing on おはなし島 talking through the SFU rather than to each other.
+// standing on みんなで はなす しま talking through the SFU rather than to each other.
 //
 // What is being checked is the whole rule: the island is one room for a hundred rather
 // than six, a child's browser makes one connection instead of ninety-nine, the voice
@@ -130,7 +130,7 @@ try {
   }
   await a.waitForFunction(() => uspeak.net.voice.state.kind === 'sfu', null, { timeout: 60000, polling: 200 });
   const state = await voiceState(a);
-  check('おはなし島 is one room for a hundred, not six', state.kind === 'sfu' && state.max === 100, JSON.stringify({ kind: state.kind, max: state.max }));
+  check('みんなで はなす しま is one room for a hundred, not six', state.kind === 'sfu' && state.max === 100, JSON.stringify({ kind: state.kind, max: state.max }));
 
   await a.waitForFunction(() => uspeak.net.voice.state.peers.size >= 2, null, { timeout: 120000, polling: 300 });
   check('everyone standing on it is in the same call',
