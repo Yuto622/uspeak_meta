@@ -54,7 +54,7 @@ const SPOTS = [
 try {
   const ctx = await browser.newContext({ viewport: { width: 1100, height: 780 } });
   // 既定は 日本語（2026-10〜）。この検査は「英語を えらんだ ことが ある 子」の 道を 見る（えらんだ 言語は 残る）。
-  await ctx.addInitScript(() => { try { if (!sessionStorage.getItem('lang-seeded')) { localStorage.setItem('uspeak-lang-v1', 'en'); sessionStorage.setItem('lang-seeded', '1'); } } catch { /* */ } });
+  await ctx.addInitScript(() => { try { if (!sessionStorage.getItem('lang-seeded')) { localStorage.setItem('uspeak-lang-v2', 'en'); sessionStorage.setItem('lang-seeded', '1'); } } catch { /* */ } });
   const page = await ctx.newPage();
   await page.route('**/*', (r) => (r.request().url().includes('127.0.0.1') ? r.continue() : r.abort()));
   await page.goto(`http://127.0.0.1:${PORT}/`, { waitUntil: 'commit', timeout: 240000 });

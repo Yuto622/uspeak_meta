@@ -20,7 +20,8 @@
 // `document` が無いときは「何もしないで日本語を返す」に落ちる（訳が要るのは画面だけ）。
 const dom = () => (typeof document === 'undefined' ? null : document);
 
-const KEY = 'uspeak-lang-v1';
+// v2（2026-10）：日本語を 既定に した とき、英語が 既定だった ころの 選択（v1）を 1回だけ 捨てた。
+const KEY = 'uspeak-lang-v2';
 const DEFAULT = 'ja';            // **既定は日本語**（2026-10）。英語は ボタンで選ぶもの。前に えらんだ 言語は localStorage に のこる。
 const EVENT = 'uspeak:lang';
 

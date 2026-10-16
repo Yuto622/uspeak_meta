@@ -59,7 +59,7 @@ const done = [];
 async function newPage(label) {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   // ガイドの 文は 日本語なので、写真も 日本語の 画面で 撮る（既定は 英語）。
-  await ctx.addInitScript(() => { try { localStorage.setItem('uspeak-lang-v1', 'ja'); } catch { /* */ } });
+  await ctx.addInitScript(() => { try { localStorage.setItem('uspeak-lang-v2', 'ja'); } catch { /* */ } });
   const page = await ctx.newPage();
   await page.route('**/fonts.googleapis.com/**', (r) => r.abort());
   const seen = new Set();

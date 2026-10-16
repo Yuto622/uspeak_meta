@@ -48,7 +48,7 @@ const record = (where, list) => {
 
 try {
   const ctx = await browser.newContext({ viewport: { width: 1180, height: 860 }, deviceScaleFactor: 1 });
-  await ctx.addInitScript(() => { try { localStorage.setItem('uspeak-lang-v1', 'en'); } catch { /* */ } });
+  await ctx.addInitScript(() => { try { localStorage.setItem('uspeak-lang-v2', 'en'); } catch { /* */ } });
   const page = await ctx.newPage();
   await page.route('**/*', (r) => (r.request().url().includes('127.0.0.1') ? r.continue() : r.abort()));
   page.on('pageerror', (e) => console.log('[pageerror]', e.message));
