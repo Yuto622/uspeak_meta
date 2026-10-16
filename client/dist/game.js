@@ -74,13 +74,22 @@ const ambience=createAmbience({isMuted:()=>muted});atmosphere.state.follow=playe
 // 「?」は**全部の島と全部のきのうを、写真つきで1ページずつ**見せる画面になった。
 // 前は長い文章が1つのダイアログに入っていて、はじめての子には読み切れなかった。
 const guide=createGuide({toast});
-// 画面の言語。**ふだんは英語**で、ヘッダーの「あ」を押すと日本語（ひらがな）になる。
+// 画面の言語。**ふだんは日本語**（2026-10〜）で、ヘッダーの「A」を押すと英語になる。
 // レッスンは外国人の先生が進めるので、画面が英語のほうが先生はそのまま読める。
 // **辞書は待たない**（`loadDictionary` は非同期）。読めていない間は日本語がそのまま
 // 出るだけで、画面は壊れない。2行で書いてあるボタンは辞書を使わないので最初から正しい。
 // 画面ぜんぶ。`t()` を書き忘れた所も、画面に出た文字を辞書で引いて英語にする
 // （`i18n-dom.js`）。辞書が読めてから始める。
-loadDictionary().then(()=>startDomTranslation());
+// **日本語の ときは 起動を 待たせない**：辞書（lang.json・約250KB）は 手が すいた ときに 読む。
+// その前に「A」が 押されたら、その場で 読む（どちらでも 1回だけ）。
+let dictLoading=null;
+const startEnglish=()=>dictLoading||(dictLoading=loadDictionary().then(()=>startDomTranslation()));
+if(getLang()!=='ja')startEnglish();
+else{
+  const offLang=onLangChange(()=>{if(getLang()!=='ja'){offLang();startEnglish();}});
+  const idle=globalThis.requestIdleCallback||((fn)=>setTimeout(fn,1));
+  setTimeout(()=>idle(()=>{offLang();startEnglish();},{timeout:4000}),6000);
+}
 $('#lang-toggle').onclick=()=>{setLang(getLang()==='ja'?'en':'ja')};
 // 切り替えたら、**開いている画面だけ**描き直す。`data-t` と `.en`/`.ja` は i18n.js と CSS が
 // 自分でやるので、ここで直すのは JavaScript が毎回書いている文字（時計・クエスト）だけ。

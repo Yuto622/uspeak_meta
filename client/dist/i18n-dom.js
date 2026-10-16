@@ -129,12 +129,13 @@ function onRecords(records) {
 export function startDomTranslation(root = document.documentElement) {
   if (observer || typeof MutationObserver === 'undefined') return;
   observer = new MutationObserver(onRecords);
-  observer.observe(root, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTRS });
-  if (!isJa()) { walk(root); observer.takeRecords(); }
+  // **日本語の あいだは 見張らない**（訳す ものが ない のに、時計や HUD の 書きかえの たびに 知らせが 積まれる）。
+  // 英語に したら 画面ぜんぶを 引きなおしてから 見張りを はじめる。
+  const watch = () => observer.observe(root, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+  if (!isJa()) { walk(root); watch(); observer.takeRecords(); }
   onLangChange(() => {
-    if (isJa()) restore(root);
-    else walk(root);
-    observer.takeRecords();
+    if (isJa()) { observer.disconnect(); restore(root); }
+    else { walk(root); watch(); observer.takeRecords(); }
   });
 }
 

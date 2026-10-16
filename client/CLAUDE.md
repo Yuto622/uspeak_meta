@@ -37,6 +37,12 @@
 | PUYO U-SPEAK / えいごスイカゲーム（ミニゲーム島から） | puyo.js / suika.js / puyo/ / suika/ / mini-island.js / minigames.json |
 | 宝箱・鍵・秘宝 | treasure-data.js / treasure.js / adventure-state.js |
 
+## 軽くする（2026-10）— 見た目と 体験は 変えずに
+- **`three.module.js` は 公式の 小さく した 版**（r160 の `build/three.module.min.js` を 同じ名前で 置いた。1.27MB → 670KB、中身は 同じ）。
+  差し替えるときも npm の 公式の min を 使う（自分で 小さく しない）。`tests/regression.mjs` は この ファイルを 文の 検査から 外している。
+- **日本語の ときは 辞書（lang.json・約250KB）を 起動で 読まない。** 6 秒後の 手が すいた ときに 読む（`game.js` の `startEnglish`）。その前に「A」が 押されたら その場で。
+- **日本語の あいだは 画面の 訳の 見張り（MutationObserver）を 止める**（`i18n-dom.js`）。英語に したら 引きなおしてから 見張る。
+
 ## 読みこみ画面（`#loading`／2026-10 更新）
 
 `index.html` の `#loading` と `loading.css` / `loading.js`（ふつうの script・three.js より先に動く）。**WebGL を 使わず CSS の 3D だけ**の

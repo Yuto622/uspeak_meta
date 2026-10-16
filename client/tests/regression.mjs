@@ -173,7 +173,7 @@
   const { readdirSync } = await import('node:fs');
   const sources = [['index.html', html]];
   for (const f of readdirSync(dist)) {
-    if (!f.endsWith('.js') || f === 'i18n.js') continue;
+    if (!f.endsWith('.js') || f === 'i18n.js' || f === 'three.module.js') continue;   // three.js は 小さく した 公式の 版（名前が 1文字）
     sources.push([f, readFileSync(dist + f, 'utf8')]);
   }
   const marks = [];
