@@ -57,5 +57,6 @@ test('プレミアムで ない 子：2 つの 島に 🔒、英会話島の 家
   assert.equal(pia.welcome.premium, true);
   const t = await join('prem1', 'Sensei', { teacherKey: 'testkey12345' });
   assert.deepEqual(t.welcome.locked, [], 'a teacher can always go');
+  assert.ok(t.welcome.islands.includes('eiken5'), 'but sees which islands are premium');
   await Promise.all([ken.room.leave(), pia.room.leave(), t.room.leave()]);
 });

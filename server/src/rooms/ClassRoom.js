@@ -1237,7 +1237,8 @@ export class ClassRoom extends Room {
     if (!player || player.role === 'teacher' || priv?.premium) return [];
     return [...PREMIUM_ISLANDS];
   }
-  premiumPayload(id) { return { premium: !!this.priv.get(id)?.premium, locked: this.lockedIslands(id) }; }
+  // `islands` は どの 島が プレミアムか（先生にも ⭐ の 札を 見せる）、`locked` は この 子が 入れない 島。
+  premiumPayload(id) { return { premium: !!this.priv.get(id)?.premium, islands: [...PREMIUM_ISLANDS], locked: this.lockedIslands(id) }; }
   islandLocked(id, island) { return this.lockedIslands(id).includes(island); }
 
   // ---- tasks（左の「つぎに やること」）-----------------------------------------------

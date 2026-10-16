@@ -509,7 +509,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     let welcomed = false;
 
     r.onMessage('tasks:state', (m) => taskCard.set(m));
-    r.onMessage('premium', (m) => { rpg.setPremiumLock?.(m.locked || []); if (m.premium) toast(tr('⭐ プレミアムの しまに 行けるように なったよ！')); });
+    r.onMessage('premium', (m) => { rpg.setPremiumLock?.(m.locked || [], m.islands || []); if (m.premium) toast(tr('⭐ プレミアムの しまに 行けるように なったよ！')); });
     r.onMessage('tasks:done', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); taskCard.done(m); });
     r.onMessage('welcome', (m) => {
       if (m.world) { state.skew = m.world.now - Date.now(); night.setPhase(m.world); }
@@ -539,7 +539,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (rb) { if (m.robloxReport) { rb.href = /^https?:/i.test(m.robloxReport) ? m.robloxReport : location.origin + m.robloxReport; rb.hidden = false; } else rb.hidden = true; }
       applyProgress(m.progress);
       taskCard.set(m.tasks || null);
-      rpg.setPremiumLock?.(m.locked || []);
+      rpg.setPremiumLock?.(m.locked || [], m.islands || []);
       mission.setClassMission(m.missionId);
       mission.setDone(m.missionsDone);
       mission.restore(m.errand);
