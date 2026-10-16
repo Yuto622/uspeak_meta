@@ -49,6 +49,7 @@ import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
 import { createClassMode } from './class-mode.js';
 import { createTaskCard } from './tasks.js';
+import { createTaskGuide } from './task-guide.js';
 
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
   let fwAutoAt = ''; // いま 自動で つりはじめた 水辺（はなれると 空に もどる）
@@ -299,7 +300,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // メインの島（2D の地図のホーム）と 英単語ハウス。正解もコインも部屋が決める（wh:* / main:*）。
   const plainSend = (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); };
   // 左の「つぎに やること」。中身も すんだかも 部屋が 決める。
-  const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online' });
+  const taskGuide = createTaskGuide({ scene, player, rpg });
+  const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online', guide: taskGuide });
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
   const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh(), onGoFood: () => main?.goHome() });
@@ -1001,6 +1003,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
 
   function update(t, dt, { moving = false, running = false } = {}) {
     petBuddy.update(dt, moving);
+    taskGuide.update(t);
     const now = performance.now();
     if (state.pendingTeleport) applyPendingTeleport();
     if (ownBubble && now > ownBubbleUntil) { player.remove(ownBubble); ownBubble = null; }
@@ -1080,6 +1083,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   boot();
 
   return {
+    // 検査用：左の タスクの カードと 光の道。
+    tasks: { card: taskCard, guide: taskGuide },
     update, teleportTo, currentSpace,
     get online() { return state.mode === 'online'; },
     get role() { return state.role; },

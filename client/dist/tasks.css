@@ -25,6 +25,12 @@
 #task-card .task-next li::before { content: '○'; color: #f0d79a99; font-size: 11px; }
 #task-card .task-next li span { flex: 1; }
 #task-card .task-next li b { font-weight: 600; color: #f0d79a; font-size: 11px; }
+#task-card .task-guide-btn { margin-top: 8px; width: 100%; min-height: 34px; border-radius: 10px; border: 1px solid #2f8f6f55; background: #e8f4ec; color: #1d4d44; font-size: 12px; font-weight: 700; cursor: pointer; }
+#task-card .task-guide-btn[aria-pressed="true"] { background: #fff3c4; border-color: #e0b84a88; color: #6a4a00; }
+/* 行き先が ほかの 島：しまの ちずの ボタンを 光らせる */
+.task-glow { animation: task-glow 1.6s ease-in-out infinite; }
+@keyframes task-glow { 0%, 100% { box-shadow: 0 0 0 0 #ffe08a00; } 50% { box-shadow: 0 0 0 4px #ffe08acc, 0 0 22px 4px #ffd36a99; } }
+@media (prefers-reduced-motion: reduce) { .task-glow { animation: none; box-shadow: 0 0 0 3px #ffe08acc; } }
 #task-card .task-goal { margin: 8px 0 0; font-size: 11px; color: #f0d79acc; }
 #task-card .task-cheer { margin: 0 0 8px; padding: 6px 9px; border-radius: 10px; background: #f6c453; color: #3b2a00; font-weight: 800; font-size: 13px; }
 #task-card.pop { animation: task-pop .5s ease; }

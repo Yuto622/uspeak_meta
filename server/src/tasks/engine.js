@@ -140,6 +140,48 @@ export function have(prog, check, stats) {
   return Math.min(check.n, prog.c[check.key] || 0);
 }
 
+
+// 光の道の 行き先：{ island, spot? }。spot は メインの島の 場所（main_island.json）。分からなければ null。
+const HUBS = new Set(['main', 'willow', 'park', 'errand', 'school', 'arena', 'pet', 'ride', 'town', 'eiken5', 'eiken4', 'eiken3', 'talk', 'conv', 'wear', 'mini', 'farm', 'land', 'fishworld']);
+const GO_RULES = [
+  [/^(sell|award:fish_sell)/, { island: 'main', spot: 'fish_buy' }],
+  [/^\$(fish|dex)$/, { island: 'main', spot: 'fishing_pier' }],
+  [/^a:wh:Medium/, { island: 'main', spot: 'hut_medium' }],
+  [/^a:wh:Hard/, { island: 'main', spot: 'hut_hard' }],
+  [/^(a|ok):wh/, { island: 'main', spot: 'hut_easy' }],
+  [/^(spend:wear|wear$)/, { island: 'main', spot: 'clothes' }],
+  [/^spend:food/, { island: 'main', spot: 'shop_food0' }],
+  [/^spend:block/, { island: 'main', spot: 'blocks' }],
+  [/^ui:blockwild/, { island: 'main', spot: 'build_gate' }],
+  [/^ui:homemap/, { island: 'main' }],
+  [/^convdone:(cafe|market|school|dream)$/, { island: 'conv' }],
+  [/^(award|a|ok):(eiken|interview):g5/, { island: 'eiken5' }],
+  [/^(award|a|ok):(eiken|interview):g4/, { island: 'eiken4' }],
+  [/^(award|a|ok):(eiken|interview):g3/, { island: 'eiken3' }],
+  [/^award:mission/, { island: 'errand' }],
+  [/^(spend:pet|\$pet$)/, { island: 'pet' }],
+  [/^(ok|a):farm/, { island: 'farm' }],
+  [/^award:battle/, { island: 'arena' }],
+  [/^award:(quiz|gym)/, { island: 'school' }],
+  [/^(spend:ride|award:gp)/, { island: 'ride' }],
+  [/^fwcatch:/, { island: 'fishworld' }],
+  [/^ui:(emma|quest)/, { island: 'willow' }],
+  [/^ui:ride/, { island: 'park' }],
+  [/^ui:minigame/, { island: 'mini' }],
+  [/^voice$/, { island: 'talk' }],
+];
+export function goOf(check) {
+  if (!check) return null;
+  if (check.near) return { island: MAIN.id, spot: check.near };
+  const key = check.stat ? `$${check.stat}` : check.key;
+  const enter = /^enter:([a-z0-9]+)$/.exec(key);
+  if (enter) return HUBS.has(enter[1]) ? { island: enter[1] } : null;
+  const shop = /^convdone:([a-z_]+)$/.exec(key);
+  if (shop && MAIN.spots.has(shop[1])) return { island: MAIN.id, spot: shop[1] };
+  for (const [re, go] of GO_RULES) if (re.test(key)) return { ...go };
+  return null;
+}
+
 const truthy = (v) => /^(true|1|yes|on|はい)$/i.test(String(v ?? '').trim());
 
 export function readRules(rows) {
@@ -217,6 +259,7 @@ export function view(prog, plan, rules, stats) {
       coins: it.row.coins || 0, xp: it.row.xp || 0,
       have: have(prog, it.check, stats), need: it.check.near ? 1 : it.check.n,
       near: it.check.near || null,
+      go: goOf(it.check),
     })),
   };
 }

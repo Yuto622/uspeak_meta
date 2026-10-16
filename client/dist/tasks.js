@@ -9,7 +9,7 @@ import { isJa, onLangChange, t as tr } from './i18n.js';
 const FOLD_KEY = 'uspeak-tasks-fold-v1';
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export function createTaskCard({ send = () => {}, isOnline = () => false } = {}) {
+export function createTaskCard({ send = () => {}, isOnline = () => false, guide = null } = {}) {
   const panel = document.querySelector('.quest-panel');
   const card = document.createElement('section');
   card.id = 'task-card';
@@ -27,6 +27,7 @@ export function createTaskCard({ send = () => {}, isOnline = () => false } = {})
 
   function render() {
     const on = !!data && isOnline() && !data.all;
+    guide?.set(on ? data : null);
     card.hidden = !on;
     panel?.classList.toggle('has-tasks', on);
     if (!on) return;
@@ -54,12 +55,14 @@ export function createTaskCard({ send = () => {}, isOnline = () => false } = {})
         <strong>${esc(text(first))}</strong>
         ${first.where && isJa() ? `<small>📍 ${esc(first.where)}</small>` : ''}
         <div class="task-row">${meter(first)}${reward(first)}</div>
+        ${guide?.available ? `<button type="button" class="task-guide-btn" aria-pressed="${guide.shown}">🧭 ${guide.shown ? tr('みちを けす') : tr('みちを 出す')}</button>` : ''}
       </div>` : ''}
       ${rest.length ? `<ol class="task-next">${rest.map((task) => `<li><span>${esc(text(task))}</span>${task.need > 1 ? `<b>${task.have}/${task.need}</b>` : ''}</li>`).join('')}</ol>` : ''}
       ${ch.reward > 0 ? `<p class="task-goal">${tr('この しょうを おえると 🪙 {0}', [ch.reward])}</p>` : ''}`;
   }
 
   card.addEventListener('click', (e) => {
+    if (e.target.closest('.task-guide-btn')) { guide?.toggle(); render(); return; }
     if (!e.target.closest('.task-head')) return;
     folded = !folded;
     try { localStorage.setItem(FOLD_KEY, folded ? '1' : '0'); } catch { /* private mode */ }
@@ -117,6 +120,9 @@ export function createTaskCard({ send = () => {}, isOnline = () => false } = {})
     }
   };
   setInterval(watch, 700);
+  // 30 秒 すすまないと 道が 出る。ボタンの 文も それに あわせる。
+  let lastShown = null;
+  setInterval(() => { const now = !!guide?.shown; if (now !== lastShown) { lastShown = now; if (data) render(); } }, 1000);
 
   return {
     set(payload) { data = payload || null; render(); },

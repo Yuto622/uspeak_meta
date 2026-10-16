@@ -3171,6 +3171,8 @@
     "{0}こ できた": "{0} done",
     "しょう {0}": "Chapter {0}",
     "この しょうを おえると 🪙 {0}": "Finish this chapter for 🪙 {0}",
-    "「{0}」 クリア！": "“{0}” cleared!"
+    "「{0}」 クリア！": "“{0}” cleared!",
+    "みちを けす": "Hide the path",
+    "みちを 出す": "Show the path"
   }
 }

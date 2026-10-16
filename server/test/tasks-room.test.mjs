@@ -8,7 +8,7 @@ process.env.ANSWER_MIN_INTERVAL_MS = '0';
 process.env.LOG_LEVEL = 'error';
 process.env.TASKS = 'on';
 
-const { parseCheck, blankTasks, readRules, plan, settle, view, onOp, onSpace, onAnswer, MAIN_SPOTS } = await import('../src/tasks/engine.js');
+const { parseCheck, blankTasks, readRules, plan, settle, view, onOp, onSpace, onAnswer, MAIN_SPOTS, goOf } = await import('../src/tasks/engine.js');
 const { loadSeed } = await import('../src/tasks/store.js');
 const { startServer } = await import('../src/index.js');
 const { Client } = await import('colyseus.js');
@@ -22,6 +22,16 @@ test('しらべかたの 3 つの 形が 読める。読めない ものは null
   assert.deepEqual(parseCheck('sell'), { key: 'sell', n: 1 });
   assert.equal(parseCheck(''), null);
   assert.equal(parseCheck('two words'), null);
+});
+
+test('光の道の 行き先：メインの島の 場所か、とぶ 島か。分からなければ null', () => {
+  assert.deepEqual(goOf(parseCheck('near:fishing_pier')), { island: 'main', spot: 'fishing_pier' });
+  assert.deepEqual(goOf(parseCheck('sell')), { island: 'main', spot: 'fish_buy' });
+  assert.deepEqual(goOf(parseCheck('enter:willow')), { island: 'willow' });
+  assert.deepEqual(goOf(parseCheck('convdone:books')), { island: 'main', spot: 'books' });
+  assert.deepEqual(goOf(parseCheck('award:eiken:g4:reading')), { island: 'eiken4' });
+  assert.equal(goOf(parseCheck('$coins:100')), null);
+  assert.equal(goOf(parseCheck('enter:in:main:books')), null);
 });
 
 test('seed の 100 行は ぜんぶ 読める しらべかたを 持つ', () => {
@@ -88,6 +98,7 @@ test('部屋: はいると 3 つ 届く。つりばに 近づくと 部屋が �
   assert.deepEqual(welcome.tasks.tasks.map((t) => t.id), ['S001', 'S002', 'S003']);
   assert.equal(welcome.tasks.tasks[0].ja, 'つりばに いってみよう');
   assert.equal(welcome.tasks.chapter.name, 'はじめの いっぽ');
+  assert.deepEqual(welcome.tasks.tasks[0].go, { island: 'main', spot: 'fishing_pier' }, 'where the path of light leads');
   const coins = welcome.wallet.coins;
 
   const pier = MAIN_SPOTS.get('fishing_pier');
