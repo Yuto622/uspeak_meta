@@ -1234,7 +1234,8 @@ export class ClassRoom extends Room {
   lockedIslands(id) {
     const player = this.state.players.get(id);
     const priv = this.priv.get(id);
-    if (!player || player.role === 'teacher' || priv?.premium) return [];
+    // 先生も 名簿の「プレミアム」が true で ないと 入れない。
+    if (!player || priv?.premium) return [];
     return [...PREMIUM_ISLANDS];
   }
   // `islands` は どの 島が プレミアムか（先生にも ⭐ の 札を 見せる）、`locked` は この 子が 入れない 島。
