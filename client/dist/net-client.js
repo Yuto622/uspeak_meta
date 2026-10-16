@@ -50,6 +50,7 @@ import { createTownUI } from './town.js';
 import { createClassMode } from './class-mode.js';
 import { createTaskCard } from './tasks.js';
 import { createTaskGuide } from './task-guide.js';
+import { createPremiumPromo } from './premium.js';
 
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
   let fwAutoAt = ''; // いま 自動で つりはじめた 水辺（はなれると 空に もどる）
@@ -302,6 +303,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const plainSend = (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); };
   // 左の「つぎに やること」。中身も すんだかも 部屋が 決める。
   const taskGuide = createTaskGuide({ scene, player, rpg });
+  // ⭐ プレミアムの おしらせ（🔒 の 島や お店を おした とき）。
+  createPremiumPromo();
   const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online', guide: taskGuide });
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;

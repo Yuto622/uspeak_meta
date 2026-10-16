@@ -1,0 +1,20 @@
+/* ⭐ プレミアムの おしらせ（premium.js）。dialog そのものに display を 書かない（CLAUDE.md）。 */
+#premium-dialog { border: 0; padding: 0; background: transparent; max-width: min(720px, calc(100vw - 32px)); width: 100%; }
+#premium-dialog::backdrop { background: #10302acc; }
+#premium-dialog .pr-card { background: linear-gradient(170deg, #fffaf0, #fff3d6); border-radius: 22px; padding: 18px 20px 20px; box-shadow: 0 20px 60px #0007; color: #1b3a2f; max-height: calc(100dvh - 40px); overflow: auto; }
+#premium-dialog .pr-top { display: flex; justify-content: space-between; align-items: center; }
+#premium-dialog .pr-badge { background: #ffd246; color: #5a3c00; font-weight: 900; font-size: 14px; padding: 6px 14px; border-radius: 99px; box-shadow: 0 2px 0 #c99a00; }
+#premium-dialog .pr-x { width: 40px; height: 40px; border-radius: 50%; border: 0; background: #1b3a2f14; font-size: 22px; cursor: pointer; }
+#premium-dialog h2 { margin: 10px 0 4px; font-size: 26px; }
+#premium-dialog .pr-lead { margin: 0 0 12px; font-size: 16px; font-weight: 700; color: #b0601c; }
+#premium-dialog .pr-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#premium-dialog .pr-shots img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 14px; box-shadow: 0 6px 18px #0003; background: #e8e2cf; }
+#premium-dialog .pr-points { list-style: none; padding: 0; margin: 14px 0 10px; display: grid; gap: 6px; }
+#premium-dialog .pr-points li { background: #fff; border-radius: 12px; padding: 9px 12px; font-size: 16px; font-weight: 700; box-shadow: 0 1px 0 #e8dcb8; }
+#premium-dialog .pr-ask { margin: 8px 0 14px; font-size: 14px; color: #5b5a4a; }
+#premium-dialog .pr-ok { width: 100%; min-height: 48px; border: 0; border-radius: 14px; background: #1b3a2f; color: #fff6dd; font-size: 17px; font-weight: 800; cursor: pointer; }
+@media (max-width: 560px), (max-height: 560px) {
+  #premium-dialog h2 { font-size: 20px; }
+  #premium-dialog .pr-points li { font-size: 14px; padding: 7px 10px; }
+  #premium-dialog .pr-shots img { aspect-ratio: 16 / 9; }
+}
