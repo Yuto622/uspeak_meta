@@ -11,6 +11,8 @@ process.env.ANSWER_MIN_INTERVAL_MS = '0';
 process.env.CHAT_MIN_INTERVAL_MS = '0';
 process.env.MAX_CLIENTS = '3';
 process.env.LOG_LEVEL = 'error';
+// ここは 通話と じゆうにゅうりょくの しくみの 検査。先生が いない ときに 止まる ことは safety.test.mjs が 見る。
+process.env.CALLS_NEED_TEACHER = 'off';
 process.env.AI_MIN_INTERVAL_MS = '0';
 
 // The world's clock decides whether the ghosts are out, and waiting for nightfall would
@@ -21,7 +23,7 @@ process.env.WORLD_TIME_OFFSET_MS = String(untilNight() + 20000);
 
 const { startServer } = await import('../src/index.js');
 const { Client } = await import('colyseus.js');
-const { FISH } = await import('../../client/dist/fishing-data.js');
+const { FISH, FISH_BY_ID: FISH_BY_ID_T } = await import('../../client/dist/fishing-data.js');
 const { WILLOW_LESSONS } = await import('../../client/dist/lesson-data.js');
 const { MISSIONS } = await import('../src/game/missions.js');
 const { REWARDS, xpToNext } = await import('../src/game/progression.js');
@@ -38,6 +40,12 @@ const nextMessage = (room, type, ms = 3000) => new Promise((resolve, reject) => 
   const timer = setTimeout(() => reject(new Error(`no ${type}`)), ms);
   const off = room.onMessage(type, (m) => { clearTimeout(timer); off(); resolve(m); });
 });
+
+// U-Speak島の つり：なげると 部屋が 魚を 決める。その 魚にだけ 答えられる。
+const castFish = async (room) => {
+  room.send('fish:cast', { zone: 'pond', grade: 'all' });
+  return FISH_BY_ID_T[(await nextMessage(room, 'fish:cast')).fish];
+};
 async function join(name, extra = {}) {
   const client = new Client(url);
   const room = await client.joinOrCreate('class', { classCode: 'test-1', name, ...extra });
@@ -166,23 +174,24 @@ test('answers, coins and catches are decided by the server', async () => {
   r = await nextMessage(a.room, 'answer:result');
   assert.equal(r.ok, false);
   // A correct fish answer awards the catch server-side; selling requires that inventory.
-  a.room.send('economy', { op: 'sell', id: FISH[0].id, quantity: 1 });
+  const f0 = await castFish(a.room);
+  a.room.send('economy', { op: 'sell', id: f0.id, quantity: 1 });
   let w = await nextMessage(a.room, 'wallet');
   // The purse starts at whatever the day's login bonus put in it, and selling a fish you
   // never caught adds nothing to it.
   const purse = a.welcome.wallet.coins;
   assert.equal(w.ok, false); assert.equal(w.wallet.coins, purse);
-  a.room.send('answer', { q: `fish:${FISH[0].id}`, c: FISH[0].id });
+  a.room.send('answer', { q: `fish:${f0.id}`, c: f0.id });
   r = await nextMessage(a.room, 'answer:result');
-  assert.equal(r.wallet.inventory[FISH[0].id], 1);
+  assert.equal(r.wallet.inventory[f0.id], 1);
   // 10 + 10 = 20, still inside level 1.
   assert.equal(r.progress.level, 1);
   assert.equal(r.progress.total, REWARDS.lesson.xp + REWARDS.fishWord.xp);
-  a.room.send('economy', { op: 'sell', id: FISH[0].id, quantity: 1 });
+  a.room.send('economy', { op: 'sell', id: f0.id, quantity: 1 });
   w = await nextMessage(a.room, 'wallet');
   // The catch also paid the dex bonus, because it was the first of its species.
-  assert.equal(w.ok, true); assert.equal(w.wallet.coins, purse + FISH[0].price + DEX_BONUS);
-  a.room.send('economy', { op: 'catch', id: FISH[0].id });
+  assert.equal(w.ok, true); assert.equal(w.wallet.coins, purse + f0.price + DEX_BONUS);
+  a.room.send('economy', { op: 'catch', id: f0.id });
   w = await nextMessage(a.room, 'wallet');
   assert.equal(w.ok, false, 'clients cannot award themselves catches');
   // Progress blob round-trips.
@@ -195,8 +204,8 @@ test('answers, coins and catches are decided by the server', async () => {
   await sleep(100);
   const again = await join('Chika');
   assert.equal(again.welcome.restored, true);
-  assert.equal(again.welcome.wallet.coins, purse + FISH[0].price + DEX_BONUS);
-  assert.deepEqual(again.welcome.wallet.dex, [FISH[0].id], 'the species stays discovered after selling it');
+  assert.equal(again.welcome.wallet.coins, purse + f0.price + DEX_BONUS);
+  assert.deepEqual(again.welcome.wallet.dex, [f0.id], 'the species stays discovered after selling it');
   assert.deepEqual(again.welcome.stats, { correct: 2, attempts: 3 });
   // Level and XP survive the round trip through the store, like coins do.
   assert.equal(again.welcome.progress.level, 1);
@@ -586,7 +595,7 @@ test('the dojo trades a fish for a move, and the move joins the battle', async (
   };
 
   // Land a fish the honest way, which the server judges.
-  const fish = FISH[0];
+  const fish = await castFish(a.room);
   a.room.send('answer', { q: `fish:${fish.id}`, c: fish.id });
   let r = await nextMessage(a.room, 'answer:result');
   assert.equal(r.wallet.inventory[fish.id], 1);
@@ -659,8 +668,8 @@ test('a pet is bought, fed and patted in three different places', async () => {
   // Earn honestly: win coins in the arena? No - just take the teacher's word for it by
   // catching fish, which the server judges.
   let coins = a.welcome.wallet.coins;
-  for (let i = 0; i < 12 && coins < EGG_COST + FEED_COST; i += 1) {
-    a.room.send('answer', { q: `fish:${FISH[i].id}`, c: FISH[i].id });
+  for (let i = 0; i < 60 && coins < EGG_COST + FEED_COST; i += 1) {
+    { const cf = await castFish(a.room); a.room.send('answer', { q: `fish:${cf.id}`, c: cf.id }); }
     const r = await nextMessage(a.room, 'answer:result');
     a.room.send('economy', { op: 'sellAll' });
     const w = await nextMessage(a.room, 'wallet');
@@ -897,7 +906,7 @@ test('a vehicle is bought at its own gate, and the race is run in order', async 
   // judges the fish and pays for them; nothing here is the page's to decide.
   let coins = bought.wallet.coins;
   for (let i = 0; i < 7; i += 1) {
-    a.room.send('answer', { q: `fish:${FISH[i].id}`, c: FISH[i].id });
+    { const cf = await castFish(a.room); a.room.send('answer', { q: `fish:${cf.id}`, c: cf.id }); }
     await nextMessage(a.room, 'answer:result');
     a.room.send('economy', { op: 'sellAll' });
     coins = (await nextMessage(a.room, 'wallet')).wallet.coins;

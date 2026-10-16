@@ -40,9 +40,9 @@ test('a missed day starts the run over, and a full run wraps to day 1', () => {
   // The eighth day in a row is day 1 of the next cycle, but the streak keeps counting.
   const wrapped = claimLogin(login, jst('2026-04-20T13:00:00') + CYCLE * 86400000);
   assert.deepEqual(wrapped, { day: 1, streak: CYCLE + 1, coins: LOGIN_REWARDS[0] });
-  // Skip a day and the run is broken: back to day 1 with a streak of 1.
+  // Skip days and nothing is lost: it is the next day of the cycle and one more day played.
   const broken = claimLogin(login, jst('2026-04-20T13:00:00') + (CYCLE + 3) * 86400000);
-  assert.deepEqual(broken, { day: 1, streak: 1, coins: LOGIN_REWARDS[0] });
+  assert.deepEqual(broken, { day: 2, streak: CYCLE + 2, coins: LOGIN_REWARDS[1] });
 });
 
 test('a stored login is not trusted further than it can be checked', () => {

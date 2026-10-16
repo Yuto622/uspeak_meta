@@ -18,6 +18,7 @@ export const FEED_XP = 5;
 export const PAT_XP = 2;
 export const FULL_AT = 98;        // too full to eat
 export const DAY_MS = 86400 * 1000;
+export const PET_FLOOR = 40;
 
 export class PetError extends Error {}
 
@@ -101,8 +102,10 @@ export function decay(pet, now = Date.now()) {
   if (!pet) return pet;
   const elapsed = Math.max(0, now - (pet.seen || now));
   const lost = (elapsed / DAY_MS) * 100;
-  pet.hunger = Math.max(0, pet.hunger - lost);
-  pet.happy = Math.max(0, pet.happy - lost);
+  // 週に 1 回の 子が 来るたびに 0 の ペットに 会う のは つらい（罪悪感で あそばせない）。
+  // 待っている あいだは FLOOR より 下には へらない（すでに 下なら そのまま）。
+  pet.hunger = Math.max(Math.min(pet.hunger, PET_FLOOR), pet.hunger - lost);
+  pet.happy = Math.max(Math.min(pet.happy, PET_FLOOR), pet.happy - lost);
   pet.seen = now;
   return pet;
 }

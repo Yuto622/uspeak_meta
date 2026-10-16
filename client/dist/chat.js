@@ -144,6 +144,7 @@ export function createChat({ onSend, onSay, speak, toast, isPaused, isFree }) {
         paused: 'チャットは先生によって一時停止中です。',
         rate: 'ちょっと まってから おくってね。',
         'free off': 'いまは えらんだ フレーズだけ 送れます。',
+        'no teacher': 'せんせいが いる ときに じぶんで かけるよ。いまは フレーズを えらんでね。',
         long: `ながすぎます（${max}文字まで）。`,
         empty: 'なにか かいてから おくってね。',
         spam: 'おなじ もじが おおすぎます。',

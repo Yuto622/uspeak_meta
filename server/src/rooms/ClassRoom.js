@@ -5,6 +5,7 @@ import { Room, ServerError, matchMaker } from '../colyseus.js';
 import { RoomState, Player, ANIMS } from '../schema.js';
 import { config } from '../config.js';
 import { judge, JudgeError } from '../game/judge.js';
+import { ZONES as FISH_ZONES, GRADES as FISH_GRADES, chooseFish } from '../../../client/dist/fishing-data.js';
 import { applyOp as applyOpRaw, sanitizeWallet, EconomyError } from '../game/economy.js';
 import { blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, UI_EVENTS } from '../tasks/engine.js';
 import { blankPlayerRecord } from '../store/records.js';
@@ -58,6 +59,13 @@ import { FARM, sanitizeFarm, settle as settleFarm, statePayload as farmPayload, 
 import { reportPath, exportPath, classPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
 import { log } from '../log.js';
+
+// さかなを うって もらえる コインは 1日 ここまで（U-Speak島の つりと メインの島・つり島の かいとりやの 合計）。
+// 魚の 値段は Roblox と そろえて あるので 値段は かえず、1日の 上限で しばる（ほかの 島の 上限と おなじ 考え）。
+export const SELL_CAP = 300;
+// 1 回 なげてから つぎに なげられるまで。答えは 1 投げに 2 回まで。
+const FISH_CAST_GAP_MS = config.answerMinIntervalMs * 5; // ふだんは 2 秒（答えの 間かく 400ms × 5）
+const FISH_CAST_TTL_MS = 5 * 60_000;
 
 // タスク（tasks/engine.js）：コインが うごく ところは ぜんぶ applyOp を 通るので、ここで 1 枚 つつんで
 // 「なにが おきたか」を その子の タスクに 数える。だれの 財布かは 部屋が 入室の ときに 登録する。
@@ -234,6 +242,8 @@ export class ClassRoom extends Room {
     this.onMessage('fw:answer', (client, msg) => this.onFwAnswer(client, msg));
     this.onMessage('fw:reel', (client, msg) => this.onFwReel(client, msg));
     this.onMessage('fw:sell', (client, msg) => this.onFwSell(client, msg));
+    // U-Speak島の つり：なげた ときに 部屋が 魚を 引く。答えは その 魚にだけ 2 回まで。
+    this.onMessage('fish:cast', (client, msg) => this.onFishCast(client, msg));
     this.onMessage('fw:cancel', (client) => this.onFwCancel(client));
     // メインの島（2D）。英単語ハウス・島にいた時間。つり場とかいとりやは fw:* の spot 'main'。
     this.onMessage('wh:start', (client, msg) => this.onWhStart(client, msg));
@@ -552,6 +562,17 @@ export class ClassRoom extends Room {
       if (err instanceof JudgeError) { client.send('answer:result', { q: msg.q, ok: false, error: err.message }); return; }
       throw err;
     }
+    // つりの 問題は 部屋が 引いた 魚にだけ。なげて いない・ちがう 魚・3 回目は 受けつけない
+    // （前は 問題の 名前に 答えが 入っていて、同じ 名前を 送るだけで 魚と コインが いくらでも 出た）。
+    if (result.kind === 'fish') {
+      const cast = priv.fishCast;
+      if (!cast || cast.fishId !== result.fishId || now - cast.at > FISH_CAST_TTL_MS || cast.tries >= 2) {
+        client.send('answer:result', { q: msg.q, ok: false, error: 'no cast' });
+        return;
+      }
+      cast.tries += 1;
+      if (result.correct || cast.tries >= 2) priv.fishCast = null;
+    }
     priv.lastAnswerAt = now;
     priv.stats.attempts += 1;
     if (result.correct) priv.stats.correct += 1;
@@ -591,7 +612,13 @@ export class ClassRoom extends Room {
     // asking to write its own record.
     if (['catch', 'award', 'spend'].includes(op.type)) { client.send('wallet', { ok: false, op: op.type, error: 'this reward is granted by the server', ...this.walletPayload(client.sessionId) }); return; }
     try {
+      if (op.type === 'sell' || op.type === 'sellAll') {
+        // まず ためしに うって 何コインに なるか 見る（財布は うごかさない）。
+        const trial = applyOpRaw(structuredClone(priv.wallet), op);
+        if (trial.delta > roomLeft(priv.caps, 'sell', SELL_CAP)) { client.send('wallet', { ok: false, op: op.type, error: 'sell cap', ...this.walletPayload(client.sessionId) }); return; }
+      }
       const entry = applyOp(priv.wallet, op);
+      if (op.type === 'sell' || op.type === 'sellAll') priv.caps.sell += Math.max(0, entry.delta || 0);
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
       this.persist(client.sessionId);
       client.send('wallet', { ok: true, op: op.type, ...this.walletPayload(client.sessionId) });
@@ -649,6 +676,10 @@ export class ClassRoom extends Room {
     if (!player || !priv) return '';
     if (!this.state.freeChat && player.role !== 'teacher') {
       client.send('chat:blocked', { reason: 'free off' });
+      return '';
+    }
+    if (config.callsNeedTeacher && player.role !== 'teacher' && !this.teacherPresent()) {
+      client.send('chat:blocked', { reason: 'no teacher' });
       return '';
     }
     const out = cleanSay(raw, { last: priv.lastSayText });
@@ -1086,7 +1117,7 @@ export class ClassRoom extends Room {
       // rejoining is not a way to start the day over.
       caps: sanitizeCaps({
         day: record.cap_day, battle: record.battle_coins, ghost: record.ghost_coins, course: record.course_coins,
-        eiken: record.eiken_coins, conv: record.conv_coins, voice: record.voice_minutes, farm: record.farm_coins,
+        eiken: record.eiken_coins, conv: record.conv_coins, voice: record.voice_minutes, farm: record.farm_coins, wordhouse: record.wordhouse_coins, sell: record.sell_coins,
       }),
       // ぼくじょう島: the farm itself. Grows only when watered, so nothing to tick.
       farm: sanitizeFarm(parseJson(record.farm_json, null)),
@@ -1170,7 +1201,7 @@ export class ClassRoom extends Room {
       months_json: JSON.stringify(priv.months),
       eiken_json: JSON.stringify(priv.ready),
       notes_json: JSON.stringify(priv.notes),
-      farm_json: JSON.stringify({ ...priv.farm, q: null }), farm_coins: priv.caps.farm,
+      farm_json: JSON.stringify({ ...priv.farm, q: null }), farm_coins: priv.caps.farm, wordhouse_coins: priv.caps.wordhouse, sell_coins: priv.caps.sell,
       study_ms: Math.floor(priv.study.ms), study_days: priv.study.days, study_day: priv.study.day,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
@@ -1843,15 +1874,19 @@ export class ClassRoom extends Room {
     priv.stats.attempts += 1;
     if (result.correct) priv.stats.correct += 1;
 
-    const payload = { ...result, mode: session.mode };
+    // 「話す」を 文字で 打った ときは 練習には なるが、コインと「はなす」の 記録には しない。
+    const gymTyped = session.mode === 'speak' && msg?.typed === true;
+    const payload = { ...result, mode: session.mode, typed: gymTyped };
     if (result.correct) {
-      const entry = applyOp(priv.wallet, { type: 'award', amount: REWARDS.gym.coins, id: `gym:${session.mode}` });
-      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      if (!gymTyped) {
+        const entry = applyOp(priv.wallet, { type: 'award', amount: REWARDS.gym.coins, id: `gym:${session.mode}` });
+        this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      }
       const level = this.awardXp(client.sessionId, REWARDS.gym.xp, `gym:${session.mode}`);
       payload.levels = level?.levels || 0;
     }
     this.appendLearning([
-      new Date(now).toISOString(), this.classCode, priv.name, `gym:${session.mode}:${result.word}`, session.mode === 'speak' ? 'speak' : 'listen',
+      new Date(now).toISOString(), this.classCode, priv.name, `gym:${session.mode}:${result.word}`, gymTyped ? 'typed' : session.mode === 'speak' ? 'speak' : 'listen',
       (session.mode === 'speak' ? heard : String(result.answer)).slice(0, 80), result.correct ? 1 : 0,
       result.correct ? REWARDS.gym.xp : 0, client.sessionId,
     ]);
@@ -1944,6 +1979,7 @@ export class ClassRoom extends Room {
   sendBattleTurn(client, priv, battle, out) {
     const payload = { ...out, ...statePayload(battle) };
     if (out.over) {
+      taskBumpKey(priv.tasks, 'done:battle'); this.taskTouch(client.sessionId);
       // Paid out of what is left of today's allowance, so the last battle of the day can
       // pay part of a prize rather than nothing at all.
       const room = this.battleRoom(priv);
@@ -2223,6 +2259,7 @@ export class ClassRoom extends Room {
     const room = this.voiceRoomOf(id);
     if (!room) { client.send('voice:error', { reason: 'not in a room' }); return; }
     if (!this.voiceOpenFor(player.space)) { client.send('voice:error', { reason: 'closed' }); return; }
+    if (config.callsNeedTeacher && player.role !== 'teacher' && !this.teacherPresent()) { client.send('voice:error', { reason: 'no teacher' }); return; }
     // A microphone open all day is the same exposure a runaway AI conversation would be,
     // and it had no guard at all: a tab left in a call room, forgotten overnight, would
     // simply run — and on the big room, run up a real LiveKit bill. A teacher is exempt,
@@ -2314,8 +2351,11 @@ export class ClassRoom extends Room {
   // leave, is the point — a call already past the cap must not simply keep running until
   // someone hangs up.
   tickVoice(now) {
+    const teacher = !config.callsNeedTeacher || this.teacherPresent();
     for (const id of [...this.voice.keys()]) {
       if (this.state.players.get(id)?.role === 'teacher') continue;
+      // 先生が 出ていったら こどもどうしの 通話は 切る。
+      if (!teacher) { this.dropVoice(id, 'no teacher'); continue; }
       this.settleVoice(id);
       const priv = this.priv.get(id);
       if (priv && this.voiceMinutesLeft(priv) <= 0) this.dropVoice(id, 'daily limit');
@@ -2586,8 +2626,10 @@ export class ClassRoom extends Room {
     priv.stats.attempts += 1;
     if (result.correct) priv.stats.correct += 1;
 
-    const payload = { ...result, island: session.island, hall: session.hall, skill: session.skill, grade: session.grade };
-    const rate = eikenReward(session.skill, session.grade);
+    // 話すの 館で 文字を 打った 答えは、コインと「はなす」の 記録には しない（画面に 文が 出ているので 写せる）。
+    const eikenTyped = session.skill === 'speaking' && msg?.typed === true;
+    const payload = { ...result, island: session.island, hall: session.hall, skill: session.skill, grade: session.grade, typed: eikenTyped };
+    const rate = eikenTyped ? { ...eikenReward(session.skill, session.grade), coins: 0 } : eikenReward(session.skill, session.grade);
     if (result.correct) {
       // The coins stop at the day's ceiling; the XP does not, because XP is the record of
       // what a child did and a report that flattens a good afternoon is a worse report.
@@ -2612,11 +2654,15 @@ export class ClassRoom extends Room {
     this.appendLearning([
       // **どのきびしさで ○ になったのかも残す。** 保護者が読む数字なので、
       // 「やさしい判定で満点」と「きびしい判定で満点」が同じに見えてはいけない。
-      new Date(now).toISOString(), this.classCode, priv.name, `eiken:${session.grade}:${session.skill}:${session.level}:${result.index}`, session.skill,
+      new Date(now).toISOString(), this.classCode, priv.name, `eiken:${session.grade}:${session.skill}:${session.level}:${result.index}`, eikenTyped ? 'typed' : session.skill,
       String(result.picked ?? '').slice(0, 80), result.correct ? 1 : 0, result.correct ? rate.xp : 0, client.sessionId,
     ]);
 
     if (result.done) {
+      // タスクは コインでは なく「おわった こと」で 数える（1日の 上限で 0 コインでも すむ）。
+      taskBumpKey(priv.tasks, `done:eiken:${session.grade}:${session.skill}`);
+      if (result.perfect) taskBumpKey(priv.tasks, 'done:eiken:perfect');
+      this.taskTouch(client.sessionId);
       if (result.perfect) {
         const left = roomLeft(priv.caps, 'eiken', EIKEN_CAP);
         const bonus = Math.min(PERFECT_BONUS_COINS, left);
@@ -2744,6 +2790,7 @@ export class ClassRoom extends Room {
     // The end of the sitting: the marks, the coins (once, for finishing), and a comment.
     const result = interviewResult(session);
     priv.interview = null;
+    taskBumpKey(priv.tasks, `done:interview:${session.grade}`); this.taskTouch(client.sessionId);
     const left = roomLeft(priv.caps, 'eiken', EIKEN_CAP);
     const paid = Math.min(result.coins, left);
     if (paid > 0) {
@@ -3074,7 +3121,7 @@ export class ClassRoom extends Room {
     const fast = now - q.askedAt < FW_FAST_MS;
     const result = answerFw(q, msg?.answer);
     const given = String(Array.isArray(msg?.answer) ? msg.answer.join(' ') : (msg?.answer && typeof msg.answer === 'object' ? JSON.stringify(msg.answer) : msg?.answer ?? '')).slice(0, 80);
-    const xp = result.correct ? FW_XP : 0;
+    const xp = result.correct ? (result.assisted ? Math.ceil(FW_XP / 2) : FW_XP) : 0;
     this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `fw:${q.zone}:${q.kind}:${q.word}`, `fw-${q.kind}`, given, result.correct ? 1 : 0, xp, client.sessionId]);
     priv.stats.attempts += 1;
     // Roblox と同じ形の記録。保護者ページ・先生ページでは Roblox の釣りと合算される。
@@ -3083,7 +3130,7 @@ export class ClassRoom extends Room {
     if (result.correct) {
       priv.stats.correct += 1;
       priv.fw.q = null;
-      priv.fw.pending = { zone: q.zone, spot: q.spot, word: q.word, at: now };
+      priv.fw.pending = { zone: q.zone, spot: q.spot, word: q.word, at: now, assisted: !!result.assisted };
       const level = this.awardXp(client.sessionId, xp, `fw:${q.kind}`);
       payload.levels = level?.levels || 0;
       payload.progress = this.progressPayload(client.sessionId);
@@ -3102,7 +3149,8 @@ export class ClassRoom extends Room {
     if (!pending) { client.send('fw:error', { reason: 'nothing on the line' }); return; }
     if (!this.atFwSpot(client.sessionId, pending.spot)) { client.send('fw:error', { reason: 'too far', spot: pending.spot }); return; }
     priv.fw.pending = null;
-    const grade = FW_GRADES.includes(msg?.grade) ? msg.grade : 'ok';
+    // 答えを 見てからの 正解は いちばん ふつうの くじ（あてずっぽうで レアを ねらえない）。
+    const grade = pending.assisted ? 'ok' : (FW_GRADES.includes(msg?.grade) ? msg.grade : 'ok');
     const fish = fwLottery(pending.zone, grade);
     const { first, bonus } = catchFish(priv.fw, fish);
     taskBumpKey(priv.tasks, `fwcatch:${pending.zone}`); this.taskTouch(client.sessionId);
@@ -3118,13 +3166,30 @@ export class ClassRoom extends Room {
     this.persist(client.sessionId);
   }
 
+  onFishCast(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const now = Date.now();
+    const zone = FISH_ZONES.find((z) => z.id === msg?.zone);
+    const grade = msg?.grade === 'all' || FISH_GRADES.includes(msg?.grade) ? msg.grade : 'all';
+    if (!zone || now - (priv.lastFishCastAt || 0) < FISH_CAST_GAP_MS) return;
+    let fish;
+    try { fish = chooseFish(zone.id, grade); } catch { fish = chooseFish(zone.id, 'all'); }
+    priv.lastFishCastAt = now;
+    priv.fishCast = { fishId: fish.id, at: now, tries: 0 };
+    client.send('fish:cast', { fish: fish.id });
+  }
+
   onFwSell(client, msg) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
     const spot = typeof msg?.spot === 'string' ? msg.spot : '';
     if (!FW.spotById.has(spot) || !this.atFwSpot(client.sessionId, spot)) { client.send('fw:error', { reason: 'too far', spot }); return; }
     try {
+      const trial = sellFrom(structuredClone(priv.fw), msg?.all ? '*' : String(msg?.en || ''));
+      if (trial.coins > roomLeft(priv.caps, 'sell', SELL_CAP)) { client.send('fw:error', { reason: 'sell cap' }); return; }
       const sold = sellFrom(priv.fw, msg?.all ? '*' : String(msg?.en || ''));
+      priv.caps.sell += sold.coins;
       const entry = applyOp(priv.wallet, { type: 'award', amount: sold.coins, id: `fish_sell:${sold.item}` });
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
       client.send('fw:sold', { coins: sold.coins, count: sold.count, item: sold.item, ...this.fwPayload(client.sessionId) });
@@ -4273,7 +4338,12 @@ export class ClassRoom extends Room {
     cm.token += 1;
     clearTimeout(cm.resumeTimer);
     cm.resumeTimer = null;
-    for (const { client: c } of this.classStudents()) c.send(on ? 'class:pause' : 'class:resume', { by });
+    for (const { client: c } of this.classStudents()) {
+      c.send(on ? 'class:pause' : 'class:resume', { by });
+      // 先生の 話を きいている あいだは おなかも へらない（すなおに 止まった 子が おそく ならない）。
+      const p = this.priv.get(c.sessionId);
+      if (p?.food) { if (on) pauseFood(p.food); else resumeFood(p.food); c.send('food:state', foodPayload(p.food)); }
+    }
     if (on) {
       const my = cm.token;
       // 念のため 10 分で 自動再開（先生が 押し忘れても 授業が 止まりつづけない）。

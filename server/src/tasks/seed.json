@@ -825,7 +825,7 @@
 "learn": "英単語",
 "why": "",
 "memo": "",
-"check": "award:battle"
+"check": "done:battle"
 },
 {
 "id": "S056",
@@ -1050,7 +1050,7 @@
 "learn": "よむ",
 "why": "",
 "memo": "",
-"check": "award:eiken:g5:reading"
+"check": "done:eiken:g5:reading"
 },
 {
 "id": "S071",
@@ -1065,7 +1065,7 @@
 "learn": "はなす",
 "why": "",
 "memo": "",
-"check": "award:interview:g5"
+"check": "done:interview:g5"
 },
 {
 "id": "S072",
@@ -1080,7 +1080,7 @@
 "learn": "よむ",
 "why": "",
 "memo": "",
-"check": "award:eiken:g5:reading:3"
+"check": "done:eiken:g5:reading:3"
 },
 {
 "id": "S073",
@@ -1110,7 +1110,7 @@
 "learn": "よむ",
 "why": "",
 "memo": "",
-"check": "award:eiken:g4:reading"
+"check": "done:eiken:g4:reading"
 },
 {
 "id": "S075",
@@ -1125,7 +1125,7 @@
 "learn": "はなす",
 "why": "",
 "memo": "",
-"check": "award:interview:g4"
+"check": "done:interview:g4"
 },
 {
 "id": "S076",
@@ -1155,7 +1155,7 @@
 "learn": "よむ",
 "why": "",
 "memo": "",
-"check": "award:eiken:g3:reading"
+"check": "done:eiken:g3:reading"
 },
 {
 "id": "S078",
@@ -1170,7 +1170,7 @@
 "learn": "はなす",
 "why": "",
 "memo": "",
-"check": "award:interview:g3"
+"check": "done:interview:g3"
 },
 {
 "id": "S079",
@@ -1200,7 +1200,7 @@
 "learn": "",
 "why": "",
 "memo": "",
-"check": "award:eiken:perfect"
+"check": "done:eiken:perfect"
 },
 {
 "id": "S081",
@@ -1221,9 +1221,9 @@
 "id": "S082",
 "on": true,
 "chapter": "8 まいにち つづける",
-"ja": "3にち つづけて あそぼう",
-"en": "Play 3 days in a row",
-"done": "3日 れんぞく ログイン",
+"ja": "3にち あそぼう",
+"en": "Play on 3 days",
+"done": "あそんだ 日が 3日（つづけて いなくて よい）",
 "where": "",
 "coins": 100,
 "xp": 50,
@@ -1236,9 +1236,9 @@
 "id": "S083",
 "on": true,
 "chapter": "8 まいにち つづける",
-"ja": "7にち つづけて あそぼう",
-"en": "Play 7 days in a row",
-"done": "7日 れんぞく ログイン",
+"ja": "7にち あそぼう",
+"en": "Play on 7 days",
+"done": "あそんだ 日が 7日（つづけて いなくて よい）",
 "where": "",
 "coins": 300,
 "xp": 100,
@@ -1324,7 +1324,7 @@
 },
 {
 "id": "S089",
-"on": true,
+"on": false,
 "chapter": "8 まいにち つづける",
 "ja": "おはなしの しまで ビデオつうわ しよう",
 "en": "Join a video call",
@@ -1334,7 +1334,7 @@
 "xp": 30,
 "learn": "はなす",
 "why": "先生が いる 時間だけに するか 要検討",
-"memo": "",
+"memo": "子どもに カメラを つける ことを すすめない（安全）。先生が 授業で つかう",
 "check": "voice"
 },
 {
@@ -1470,7 +1470,7 @@
 "learn": "はなす",
 "why": "",
 "memo": "",
-"check": "award:interview:g3:3"
+"check": "done:interview:g3:3"
 },
 {
 "id": "S099",

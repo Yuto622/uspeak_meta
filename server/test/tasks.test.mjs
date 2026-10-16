@@ -79,7 +79,7 @@ test('reorder, switch off and save: the game sees only adopted rows, in the save
   const saved = await (await api('/tasks/onboarding', { method: 'PUT', body: { rows: moved } })).json();
   assert.equal(saved.ok, true);
   const pub = await (await fetch(`${http}/api/tasks`)).json();
-  assert.equal(pub.onboarding.length, 97, 'S065 and S068 (not in the game yet) start switched off');
+  assert.equal(pub.onboarding.length, 96, 'S065 and S068 (not in the game yet) and S089 (camera) start switched off');
   assert.equal(pub.onboarding[0].id, 'S004');
   assert.ok(!pub.onboarding.some((r) => r.id === 'S001'));
   assert.ok(existsSync(pathJoin(dir, 'tasks.json')));

@@ -12,6 +12,8 @@ process.env.STORE_BACKEND = 'memory';
 process.env.TEACHER_KEY = 'testkey12345';
 process.env.MAX_CLIENTS = '120';
 process.env.LOG_LEVEL = 'error';
+// ここは 通話と じゆうにゅうりょくの しくみの 検査。先生が いない ときに 止まる ことは safety.test.mjs が 見る。
+process.env.CALLS_NEED_TEACHER = 'off';
 process.env.CHAT_MIN_INTERVAL_MS = '0';
 process.env.LIVEKIT_URL = 'wss://livekit.example.test';
 process.env.LIVEKIT_API_KEY = 'devkey';

@@ -38,12 +38,13 @@ export function sanitizeLogin(raw) {
   return l;
 }
 
-// Roblox's rule exactly: yesterday continues the run, anything older starts it over, and
-// the same day pays nothing. Returns null when there is nothing to claim.
+// 来た 日を 数える（つづけて いなくても 0 に もどさない）。週 1〜2 回の 教室の 子が
+// 「切れた」と 感じる しくみに しない（docs/uspeak-retention.md：日の 連続で あおらない）。
+// 同じ 日は 2 回 もらえない。Roblox は「きのうから つづいて いるか」で 数えるが、こちらは 来た 日数。
 export function claimLogin(login, now = Date.now()) {
   const today = dayIndex(now);
   if (login.day === today) return null;
-  login.streak = login.day === today - 1 ? login.streak + 1 : 1;
+  login.streak += 1;
   login.day = today;
   const dayInCycle = ((login.streak - 1) % CYCLE) + 1;
   return { day: dayInCycle, streak: login.streak, coins: LOGIN_REWARDS[dayInCycle - 1] };

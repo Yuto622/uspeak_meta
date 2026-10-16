@@ -8,7 +8,7 @@
 import { readFileSync } from 'node:fs';
 
 export const MAX = 20;
-export const RATE_MS = Number(process.env.FOOD_RATE_MS) || 60_000; // 1 点へるのに 1 分（まんぷくから 0 まで 20 分）。検査だけ 縮める
+export const RATE_MS = Number(process.env.FOOD_RATE_MS) || 240_000; // 1 点へるのに 4 分（まんぷくから 0 まで 80 分＝授業 1 回では まず 0 に ならない）。検査だけ 縮める
 export const SLOW = 0.6;            // 0 のときの 歩く はやさ
 export const BAG_MAX = 9;           // 1 しゅるい 9 こまで
 
@@ -53,7 +53,8 @@ export const STALLS = loadStalls();
 
 const clampInt = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.floor(Number(v) || 0)));
 
-export function blankFood() { return { h: MAX, at: 0, bag: {} }; }
+// はじめての 子は りんごを 2 こ もって くる（おなかが へっても すぐ たべられる）。
+export function blankFood() { return { h: MAX, at: 0, bag: { apple: 2 } }; }
 
 // 保存から読む。`at` は保存しない（つながった ときに 動きはじめる）。
 export function sanitizeFood(raw) {

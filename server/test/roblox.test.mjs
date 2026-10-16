@@ -14,7 +14,7 @@ process.env.LOG_LEVEL = 'error';
 
 const { startServer } = await import('../src/index.js');
 const { Client } = await import('colyseus.js');
-const { FISH } = await import('../../client/dist/fishing-data.js');
+const { FISH, FISH_BY_ID: FISH_BY_ID_T } = await import('../../client/dist/fishing-data.js');
 const { summarize, periodRange, SEED_METRICS, metricToRow, validateMetric, CUSTOM } = await import('../src/game/roblox-metrics.js');
 const { signRobloxReport, toMillis } = await import('../src/roblox/sync.js');
 const { signClass } = await import('../src/game/report.js');
@@ -28,6 +28,12 @@ const nextMessage = (room, type, ms = 3000) => new Promise((resolve, reject) => 
   const timer = setTimeout(() => reject(new Error(`no ${type}`)), ms);
   const off = room.onMessage(type, (m) => { clearTimeout(timer); off(); resolve(m); });
 });
+
+// U-Speak島の つり：なげると 部屋が 魚を 決める。その 魚にだけ 答えられる。
+const castFish = async (room) => {
+  room.send('fish:cast', { zone: 'pond', grade: 'all' });
+  return FISH_BY_ID_T[(await nextMessage(room, 'fish:cast')).fish];
+};
 const post = (path, body, { key = KEY, raw = false } = {}) => fetch(`${http}${path}`, {
   method: 'POST', headers: { 'content-type': 'application/json', ...(key ? { 'x-uspeak-key': key } : {}) }, body: raw ? body : JSON.stringify(body),
 });
@@ -244,7 +250,7 @@ test('pending → ack：未配達の増減が届き、印が付くまで何度�
   await nextMessage(room, 'wallet');
   assert.equal((await server.store.listWalletEntries({ username: 'rbx_ken', undelivered: true })).length, atJoin);
   // はじめての さかな → 図鑑のボーナス（コインが ふえる）。
-  room.send('answer', { q: `fish:${FISH[0].id}`, c: FISH[0].id });
+  { const cf = await castFish(room); room.send('answer', { q: `fish:${cf.id}`, c: cf.id }); }
   const res = await nextMessage(room, 'answer:result');
   assert.equal(res.correct, true);
   assert.ok(res.wallet.coins > before);
@@ -387,7 +393,7 @@ test('管理ページ：指標に「retry 回数」を1行足すと、保護者�
   await nextMessage(room, 'welcome');
   await sleep(50);
   const beforeN = (await server.store.listWalletEntries({ username: 'rbx_hana' })).length;
-  room.send('answer', { q: `fish:${FISH[1].id}`, c: FISH[1].id });
+  { const cf = await castFish(room); room.send('answer', { q: `fish:${cf.id}`, c: cf.id }); }
   await nextMessage(room, 'answer:result');
   assert.equal((await server.store.listWalletEntries({ username: 'rbx_hana' })).length, beforeN + 1);
   // 先生コンソールのリンク一覧にも Roblox のページが並ぶ。

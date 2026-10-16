@@ -338,7 +338,7 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
   function onCaught(m) { state.data = { ...state.data, ...m }; $('#fw-coins', dialog).textContent = (m.wallet?.coins ?? state.data?.wallet?.coins ?? 0).toLocaleString(); onCatch(m); }
   function onSold(m) { state.data = { ...state.data, ...m }; $('#fw-coins', dialog).textContent = (m.wallet?.coins ?? 0).toLocaleString(); toast(tr('◈ {n} コインに なりました！', { n: m.coins })); render(); }
   function onError(m) {
-    const why = { 'too far': 'つりばに たってね。', 'no question': 'さおを なげなおそう。', 'nothing on the line': 'さおを なげなおそう。', 'nothing to sell': 'うる さかなが ないよ。', 'too fast': 'ちょっと まってね。' }[m.reason] || m.reason;
+    const why = { 'sell cap': 'きょうは もう うれないよ。あした また うってね。', 'too far': 'つりばに たってね。', 'no question': 'さおを なげなおそう。', 'nothing on the line': 'さおを なげなおそう。', 'nothing to sell': 'うる さかなが ないよ。', 'too fast': 'ちょっと まってね。' }[m.reason] || m.reason;
     toast(tr(why));
     if (state.view === 'cast') { clearTimeout(state.wait); isl()?.endCast?.(); hud.hidden = true; state.view = 'zone'; if (m.reason !== 'too far') { show(); render(); } }
     if (m.reason === 'too far') close();

@@ -54,7 +54,9 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
   const feedback = root.querySelector('.fmt-feedback');
   const checkBtn = root.querySelector('.fmt-check');
   root.querySelector('.fmt-quit').onclick = () => onQuit?.();
-  root.querySelector('.fmt-speak').onclick = () => say(spoken(fmt.prompt) || fmt.word || '');
+  root.querySelector('.fmt-speak').onclick = () => say(spoken(fmt.prompt) || fmt.word || fmt.say || '');
+  // つづり・タイピングは 聞いて 書く（日本語だけを 見て ローマ字に しない）。
+  if ((fmt.kind === 'spell' || fmt.kind === 'type') && fmt.say) setTimeout(() => say(fmt.say), 300);
 
   const submit = () => { if (locked || answer === null || answer === undefined) return; locked = true; checkBtn.disabled = true; onCheck?.(answer); };
   checkBtn.onclick = submit;
@@ -249,6 +251,11 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
         const text = reveal.sentence || reveal.answer || '';
         body.insertAdjacentHTML('beforeend', `<p class="fmt-answer">Answer: <b>${esc(text)}</b></p>`);
       }
+    }
+    // まちがえたら 正しい 英語を 声でも きかせる（読めない 子にも 答えが とどく）。
+    if (!correct && reveal) {
+      const en = reveal.sentence || reveal.answer || (reveal.pairs ? '' : fmt.word) || '';
+      if (/[A-Za-z]/.test(en)) setTimeout(() => say(en), 350);
     }
     if (fmt.kind === 'type') {
       if (correct) root._paintBoxes(answer.split('').map(() => 'ok'));

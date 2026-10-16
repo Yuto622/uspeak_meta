@@ -158,8 +158,8 @@ export function publicFormat(fmt, { attempt = 1 } = {}) {
   switch (fmt.kind) {
     case 'mc': return { ...base, word: fmt.word, choices: [...fmt.choices], ...(fmt.prompt ? { prompt: fmt.prompt } : {}) };
     case 'match': return { ...base, left: [...fmt.left], right: [...fmt.right] };
-    case 'spell': return { ...base, ja: fmt.ja, letters: [...fmt.letters] };
-    case 'type': return { ...base, ja: fmt.ja, length: fmt.length, ...(attempt >= 2 ? { hint: fmt.word[0] } : {}) };
+    case 'spell': return { ...base, ja: fmt.ja, letters: [...fmt.letters], say: fmt.word };
+    case 'type': return { ...base, ja: fmt.ja, length: fmt.length, say: fmt.word, ...(attempt >= 2 ? { hint: fmt.word[0] } : {}) };
     case 'order': return { ...base, ja: fmt.ja, words: [...fmt.words] };
     case 'fill': return { ...base, ja: fmt.ja, before: fmt.before, after: fmt.after, cards: [...fmt.cards] };
     case 'listen': return { ...base, word: fmt.word, choices: [...fmt.choices] };

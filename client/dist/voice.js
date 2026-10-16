@@ -1130,12 +1130,13 @@ export function createVoice({ send, toast, roomLabel = () => '', onGoToHall = nu
       const said = {
         closed: 'おはなしは まだ ひらいていません。',
         'not in a room': '部屋の 中で 話せます。',
+        'no teacher': 'せんせいが いる ときだけ はなせるよ。',
         'room is full': 'この 部屋は いっぱいです。',
         'too fast': 'つうしんが こみあっています。',
         'daily limit': 'きょうの つうわの じかんを つかいきりました。またあした！',
       }[m?.reason];
       if (said) { state.error = said; toast(said); }
-      if (['closed', 'not in a room', 'room is full', 'daily limit'].includes(m?.reason) && state.joined) leave(true);
+      if (['closed', 'not in a room', 'room is full', 'daily limit', 'no teacher'].includes(m?.reason) && state.joined) leave(true);
       render();
     },
     leave,

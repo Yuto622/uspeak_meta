@@ -22,7 +22,7 @@ test('おなかは つながっている間だけ へり、0 で とまる', () 
   assert.equal(hungerNow(f, T + RATE_MS * 500), MAX - 5, 'paused while away');
   resume(f, T + RATE_MS * 500);
   assert.equal(hungerNow(f, T + RATE_MS * 600), 0, 'never below zero');
-  assert.deepEqual(sanitizeFood(forSave(f, T + RATE_MS * 600)), { h: 0, at: 0, bag: {} });
+  assert.deepEqual(sanitizeFood(forSave(f, T + RATE_MS * 600)), { h: 0, at: 0, bag: { apple: 2 } }, 'a new child brings two apples');
 });
 
 test('たべると ふえる（満タンまで）、かばんから へる、ないものは たべられない', () => {
@@ -69,7 +69,7 @@ test('屋台: 前に立たないと 買えない、部屋が コインを取っ�
   room.send('food:buy', { shop: 'fruit', id: 'apple' });
   const bought = await nextMessage(room, 'food:bought');
   assert.equal(bought.wallet.coins, welcome.wallet.coins - 6);
-  assert.deepEqual(bought.bag.map((b) => [b.id, b.n]), [['apple', 1]]);
+  assert.deepEqual(bought.bag.map((b) => [b.id, b.n]), [['apple', 3]], 'two to start with, one bought');
   room.send('food:buy', { shop: 'sweets', id: 'cake' });
   assert.equal((await nextMessage(room, 'food:error')).reason, 'too far', 'the sweets stall is somewhere else');
 

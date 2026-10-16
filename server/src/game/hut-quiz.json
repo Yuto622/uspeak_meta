@@ -196,7 +196,7 @@
     ]
    },
    {
-    "q": "A ____ is an animal. ??",
+    "q": "🐶 A ____ is an animal.",
     "a": "dog",
     "o": [
      "dish",
@@ -206,7 +206,7 @@
     ]
    },
    {
-    "q": "I drink ____ every morning. ??",
+    "q": "🥛 I drink ____ every morning.",
     "a": "milk",
     "o": [
      "music",
@@ -226,7 +226,7 @@
     ]
    },
    {
-    "q": "I read a ____ . ??",
+    "q": "📖 I read a ____ .",
     "a": "book",
     "o": [
      "ball",
@@ -236,7 +236,7 @@
     ]
    },
    {
-    "q": "An ____ is a fruit. ??",
+    "q": "🍎 An ____ is a fruit.",
     "a": "apple",
     "o": [
      "apple",
@@ -246,7 +246,7 @@
     ]
    },
    {
-    "q": "A ____ swims in the sea. ??",
+    "q": "🐟 A ____ swims in the sea.",
     "a": "fish",
     "o": [
      "face",
@@ -256,7 +256,7 @@
     ]
    },
    {
-    "q": "I write with a ____ . ??",
+    "q": "🖊️ I write with a ____ .",
     "a": "pen",
     "o": [
      "pot",
@@ -266,7 +266,7 @@
     ]
    },
    {
-    "q": "The ____ is red. ??",
+    "q": "🍅 The ____ is red.",
     "a": "tomato",
     "o": [
      "table",
@@ -276,7 +276,7 @@
     ]
    },
    {
-    "q": "I sleep in my ____ . ??",
+    "q": "🛏️ I sleep in my ____ .",
     "a": "bed",
     "o": [
      "bed",
@@ -286,7 +286,7 @@
     ]
    },
    {
-    "q": "A ____ has four legs. ??",
+    "q": "🐱 A ____ has four legs.",
     "a": "cat",
     "o": [
      "car",
@@ -646,7 +646,7 @@
     ]
    },
    {
-    "q": "A ____ is a big animal. ??",
+    "q": "🐘 A ____ is a big animal.",
     "a": "elephant",
     "o": [
      "evening",
@@ -656,7 +656,7 @@
     ]
    },
    {
-    "q": "I eat ____ for lunch. ??",
+    "q": "🍞 I eat ____ for lunch.",
     "a": "bread",
     "o": [
      "brush",
@@ -666,7 +666,7 @@
     ]
    },
    {
-    "q": "A ____ gives us eggs. ??",
+    "q": "🐔 A ____ gives us eggs.",
     "a": "chicken",
     "o": [
      "chocolate",
@@ -676,7 +676,7 @@
     ]
    },
    {
-    "q": "I like ____ . ??",
+    "q": "🍰 I like ____ .",
     "a": "cake",
     "o": [
      "card",
@@ -686,7 +686,7 @@
     ]
    },
    {
-    "q": "A ____ lives in water. ??",
+    "q": "🐸 A ____ lives in water.",
     "a": "frog",
     "o": [
      "frame",
@@ -696,7 +696,7 @@
     ]
    },
    {
-    "q": "I study at ____ . ??",
+    "q": "🏫 I study at ____ .",
     "a": "school",
     "o": [
      "shop",
@@ -706,7 +706,7 @@
     ]
    },
    {
-    "q": "I sit on a ____ . ??",
+    "q": "🪑 I sit on a ____ .",
     "a": "chair",
     "o": [
      "chair",
@@ -716,7 +716,7 @@
     ]
    },
    {
-    "q": "I open the ____ . ??",
+    "q": "🚪 I open the ____ .",
     "a": "door",
     "o": [
      "doll",
@@ -726,7 +726,7 @@
     ]
    },
    {
-    "q": "I look out the ____ . ??",
+    "q": "🪟 I look out the ____ .",
     "a": "window",
     "o": [
      "wing",
@@ -756,7 +756,7 @@
     ]
    },
    {
-    "q": "Grass is ____ . ??",
+    "q": "🟩 Grass is ____ .",
     "a": "green",
     "o": [
      "glass",
@@ -786,7 +786,7 @@
     ]
    },
    {
-    "q": "The sky is ____ . ??",
+    "q": "🟦 The sky is ____ .",
     "a": "blue",
     "o": [
      "black",
@@ -1178,7 +1178,7 @@
     ]
    },
    {
-    "q": "____ name is Mary. She is from USA.",
+    "q": "____ name is Mary. She is from the USA.",
     "a": "Her",
     "o": [
      "She",
@@ -1838,13 +1838,13 @@
     ]
    },
    {
-    "q": "I ____ go to the library.",
+    "q": "I ____ go to the library. I go every day.",
     "a": "always",
     "o": [
      "always",
-     "never",
-     "sometimes",
-     "often"
+     "am",
+     "is",
+     "are"
     ]
    },
    {
@@ -2133,7 +2133,7 @@
     "o": [
      "along",
      "at",
-     "to",
+     "of",
      "in"
     ]
    },
@@ -2142,7 +2142,7 @@
     "a": "in",
     "o": [
      "in",
-     "on",
+     "of",
      "at",
      "to"
     ]
@@ -2351,10 +2351,10 @@
     "q": "Open your ____, please.",
     "a": "books",
     "o": [
-     "book",
      "books",
-     "pen",
-     "pens"
+     "eat",
+     "run",
+     "sleep"
     ]
    },
    {
@@ -2363,8 +2363,8 @@
     "o": [
      "late",
      "later",
-     "early",
-     "lately"
+     "lately",
+     "slowly"
     ]
    },
    {
@@ -2878,13 +2878,13 @@
     ]
    },
    {
-    "q": "This soup is very ____.",
+    "q": "This soup is very ____. Be careful!",
     "a": "hot",
     "o": [
      "hot",
-     "cold",
      "fast",
-     "long"
+     "long",
+     "tall"
     ]
    },
    {
@@ -2901,10 +2901,10 @@
     "q": "She ____ a sandwich for lunch.",
     "a": "eats",
     "o": [
-     "makes",
      "eats",
      "drinks",
-     "goes"
+     "goes",
+     "sleeps"
     ]
    },
    {
@@ -2918,7 +2918,7 @@
     ]
    },
    {
-    "q": "I don't like ____ vegetables.",
+    "q": "Broccoli is a ____ vegetable.",
     "a": "green",
     "o": [
      "green",
@@ -2999,7 +2999,7 @@
    },
    {
     "q": "A ____ can fly.",
-    "a": "fish",
+    "a": "bird",
     "o": [
      "bird",
      "fish",
@@ -3108,7 +3108,7 @@
     ]
    },
    {
-    "q": "It is very ____ tonight.",
+    "q": "It is very ____ tonight. I need a coat.",
     "a": "cold",
     "o": [
      "cold",
@@ -3378,7 +3378,7 @@
     ]
    },
    {
-    "q": "I ____ go to the library on Saturdays.",
+    "q": "I ____ go to the library on Saturdays. I go almost every week.",
     "a": "usually",
     "o": [
      "usually",
@@ -3439,7 +3439,7 @@
    },
    {
     "q": "Good ____. - Sleep well.",
-    "a": "afternoon",
+    "a": "night",
     "o": [
      "night",
      "morning",
@@ -3929,7 +3929,7 @@
    },
    {
     "q": "I go to the ____ to swim.",
-    "a": "park",
+    "a": "pool",
     "o": [
      "pool",
      "library",
@@ -8473,7 +8473,7 @@
     "q": "You should stay home ____ you have a cold.",
     "a": "if",
     "o": [
-     "because",
+     "but",
      "if",
      "though",
      "until"
@@ -8483,7 +8483,7 @@
     "q": "I don't know ____ he will come or not.",
     "a": "whether",
     "o": [
-     "if",
+     "which",
      "whether",
      "that",
      "what"
@@ -9430,7 +9430,7 @@
     ]
    },
    {
-    "q": "I'm ____ on the weekend.",
+    "q": "I'm ____ on the weekend, so let's play!",
     "a": "free",
     "o": [
      "busy",
@@ -10520,7 +10520,7 @@
     ]
    },
    {
-    "q": "He ____ after his father.",
+    "q": "He ____ after his father. They look the same.",
     "a": "takes",
     "o": [
      "looks",
@@ -10812,7 +10812,7 @@
   ],
   "Hard": [
    {
-    "q": "Choose the correct: Hardly ___ finished when the phone rang.",
+    "q": "Hardly ___ finished when the phone rang.",
     "a": "had I",
     "o": [
      "I had",
@@ -11732,7 +11732,7 @@
     ]
    },
    {
-    "q": "He ____ after his father.",
+    "q": "He ____ after his father. They look the same.",
     "a": "takes",
     "o": [
      "looks",
@@ -12665,7 +12665,7 @@
     "q": "He noticed a man ____ out of the store.",
     "a": "running",
     "o": [
-     "run",
+     "runs",
      "to run",
      "running",
      "ran"
@@ -12715,7 +12715,7 @@
     "q": "I heard someone ____ my name.",
     "a": "calling",
     "o": [
-     "call",
+     "calls",
      "to call",
      "called",
      "calling"
@@ -15453,7 +15453,7 @@
    },
    {
     "q": "He is ____ the moon.",
-    "a": "at",
+    "a": "over",
     "o": [
      "over",
      "under",
@@ -15643,7 +15643,7 @@
    },
    {
     "q": "Practice makes ____.",
-    "a": "better",
+    "a": "perfect",
     "o": [
      "perfect",
      "good",

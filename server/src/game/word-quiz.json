@@ -184,7 +184,7 @@
 "answer": 3
 },
 {
-"q": "____ name is Mary. She is from USA.",
+"q": "____ name is Mary. She is from the USA.",
 "choices": [
 "She",
 "Her",
@@ -854,12 +854,12 @@
 "answer": 2
 },
 {
-"q": "I ____ go to the library.",
+"q": "I ____ go to the library. I go every day.",
 "choices": [
 "always",
-"never",
-"sometimes",
-"often"
+"am",
+"is",
+"are"
 ],
 "answer": 0
 },
@@ -1138,7 +1138,7 @@
 "choices": [
 "along",
 "at",
-"to",
+"of",
 "in"
 ],
 "answer": 0
@@ -1147,7 +1147,7 @@
 "q": "The book is ____ the bag.",
 "choices": [
 "in",
-"on",
+"of",
 "at",
 "to"
 ],
@@ -1356,20 +1356,20 @@
 {
 "q": "Open your ____, please.",
 "choices": [
-"book",
 "books",
-"pen",
-"pens"
+"eat",
+"run",
+"sleep"
 ],
-"answer": 1
+"answer": 0
 },
 {
 "q": "I am ____ for the meeting.",
 "choices": [
 "late",
 "later",
-"early",
-"lately"
+"lately",
+"slowly"
 ],
 "answer": 0
 },
@@ -1904,12 +1904,12 @@
 "answer": 0
 },
 {
-"q": "This soup is very ____.",
+"q": "This soup is very ____. Be careful!",
 "choices": [
 "hot",
-"cold",
 "fast",
-"long"
+"long",
+"tall"
 ],
 "answer": 0
 },
@@ -1926,12 +1926,12 @@
 {
 "q": "She ____ a sandwich for lunch.",
 "choices": [
-"makes",
 "eats",
 "drinks",
-"goes"
+"goes",
+"sleeps"
 ],
-"answer": 1
+"answer": 0
 },
 {
 "q": "We need some ____ for the salad.",
@@ -1944,7 +1944,7 @@
 "answer": 0
 },
 {
-"q": "I don't like ____ vegetables.",
+"q": "Broccoli is a ____ vegetable.",
 "choices": [
 "green",
 "red",
@@ -2031,7 +2031,7 @@
 "dog",
 "pig"
 ],
-"answer": 1
+"answer": 0
 },
 {
 "q": "The ____ is very hot today.",
@@ -2134,7 +2134,7 @@
 "answer": 0
 },
 {
-"q": "It is very ____ tonight.",
+"q": "It is very ____ tonight. I need a coat.",
 "choices": [
 "cold",
 "hot",
@@ -2404,7 +2404,7 @@
 "answer": 0
 },
 {
-"q": "I ____ go to the library on Saturdays.",
+"q": "I ____ go to the library on Saturdays. I go almost every week.",
 "choices": [
 "usually",
 "never",
@@ -2471,7 +2471,7 @@
 "afternoon",
 "evening"
 ],
-"answer": 2
+"answer": 0
 },
 {
 "q": "Wait a ____, please.",
@@ -2961,7 +2961,7 @@
 "park",
 "store"
 ],
-"answer": 2
+"answer": 0
 },
 {
 "q": "Do you like ____? - No, I don't like running.",
@@ -7558,7 +7558,7 @@
 {
 "q": "You should stay home ____ you have a cold.",
 "choices": [
-"because",
+"but",
 "if",
 "though",
 "until"
@@ -7568,7 +7568,7 @@
 {
 "q": "I don't know ____ he will come or not.",
 "choices": [
-"if",
+"which",
 "whether",
 "that",
 "what"
@@ -8526,7 +8526,7 @@
 "answer": 0
 },
 {
-"q": "I'm ____ on the weekend.",
+"q": "I'm ____ on the weekend, so let's play!",
 "choices": [
 "busy",
 "free",
@@ -9636,7 +9636,7 @@
 "answer": 0
 },
 {
-"q": "He ____ after his father.",
+"q": "He ____ after his father. They look the same.",
 "choices": [
 "looks",
 "takes",
@@ -9978,7 +9978,7 @@
 ],
 "hard": [
 {
-"q": "Choose the correct: Hardly ___ finished when the phone rang.",
+"q": "Hardly ___ finished when the phone rang.",
 "choices": [
 "I had",
 "had I",
@@ -10898,7 +10898,7 @@
 "answer": 0
 },
 {
-"q": "He ____ after his father.",
+"q": "He ____ after his father. They look the same.",
 "choices": [
 "looks",
 "takes",
@@ -11840,7 +11840,7 @@
 {
 "q": "He noticed a man ____ out of the store.",
 "choices": [
-"run",
+"runs",
 "to run",
 "running",
 "ran"
@@ -11900,7 +11900,7 @@
 {
 "q": "I heard someone ____ my name.",
 "choices": [
-"call",
+"calls",
 "to call",
 "called",
 "calling"
@@ -14805,7 +14805,7 @@
 "at",
 "in"
 ],
-"answer": 2
+"answer": 0
 },
 {
 "q": "Don't pull my ____.",
@@ -14995,7 +14995,7 @@
 "better",
 "well"
 ],
-"answer": 2
+"answer": 0
 },
 {
 "q": "Better late than ____.",

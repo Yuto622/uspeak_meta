@@ -11,15 +11,15 @@ export function createLobby({ onJoin, onOffline, defaultClass, prefs }) {
   dialog.setAttribute('aria-labelledby', 'net-lobby-title');
   dialog.innerHTML = `<form method="dialog" id="net-lobby-form">
     <div class="eyebrow">U-SPEAK · CLASSROOM</div>
-    <h2 id="net-lobby-title" data-t="クラスに参加しよう">クラスに参加しよう</h2>
-    <p data-t="名前を入れると、同じクラスのみんなと同じ世界で冒険できます。">名前を入れると、同じクラスのみんなと同じ世界で冒険できます。</p>
-    <label><span data-t="なまえ">なまえ</span><input id="net-name" name="name" maxlength="16" autocomplete="off" autocapitalize="off" required placeholder="例：Yuto" data-t-ph="例：Yuto"></label>
-    <label><span data-t="クラスコード">クラスコード</span><input id="net-class" name="class" maxlength="24" autocomplete="off" autocapitalize="off" placeholder="先生から聞いたコード" data-t-ph="先生から聞いたコード"></label>
+    <h2 id="net-lobby-title" data-t="クラスに はいろう">クラスに はいろう</h2>
+    <p data-t="なまえを いれると、クラスの みんなと いっしょに あそべるよ。">なまえを いれると、クラスの みんなと いっしょに あそべるよ。</p>
+    <label><span data-t="なまえ">なまえ</span><input id="net-name" name="name" maxlength="16" autocomplete="off" autocapitalize="off" placeholder="れい：ゆうと" data-t-ph="れい：ゆうと"></label>
+    <label><span data-t="クラスの あいことば">クラスの あいことば</span><input id="net-class" name="class" maxlength="24" autocomplete="off" autocapitalize="off" placeholder="せんせいに きいた ことば" data-t-ph="せんせいに きいた ことば"></label>
     <details id="net-teacher-details"><summary data-t="先生用">先生用</summary><label><span data-t="講師キー">講師キー</span><input id="net-key" name="key" type="password" autocomplete="off"></label></details>
     <p id="net-lobby-error" class="net-error" role="alert" hidden></p>
     <div class="net-lobby-actions">
-      <button type="submit" class="primary" id="net-join" data-t="クラスに参加 →">クラスに参加 →</button>
-      <button type="button" id="net-offline" data-t="ひとりで遊ぶ（オフライン）">ひとりで遊ぶ（オフライン）</button>
+      <button type="submit" class="primary" id="net-join" data-t="クラスに はいる →">クラスに はいる →</button>
+      <button type="button" id="net-offline" data-t="ひとりで あそぶ">ひとりで あそぶ</button>
     </div>
     <p class="net-fine" data-t="オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。">オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。</p>
   </form>`;
@@ -28,7 +28,7 @@ export function createLobby({ onJoin, onOffline, defaultClass, prefs }) {
   // （`applyDom()` が走ったときには、まだ document に居なかった）。
   applyDom(dialog);
   // 訳し直したあとも、**つなぎに行っている最中かどうかは そのまま**にする
-  // （ここで false にすると「接続中…」が「クラスに参加 →」に戻って、2回押せてしまう）。
+  // （ここで false にすると「接続中…」が「クラスに はいる →」に戻って、2回押せてしまう）。
   onLangChange(() => { applyDom(dialog); busy($('#net-join').disabled); });
   const $ = (s) => dialog.querySelector(s);
   $('#net-name').value = prefs?.name || '';
@@ -36,7 +36,7 @@ export function createLobby({ onJoin, onOffline, defaultClass, prefs }) {
   $('#net-key').value = prefs?.teacherKey || '';
   if (prefs?.teacherKey) $('#net-teacher-details').open = true;
 
-  function busy(v) { $('#net-join').disabled = v; $('#net-offline').disabled = v; $('#net-join').textContent = t(v ? '接続中…' : 'クラスに参加 →'); }
+  function busy(v) { $('#net-join').disabled = v; $('#net-offline').disabled = v; $('#net-join').textContent = t(v ? '接続中…' : 'クラスに はいる →'); }
   function error(text) { $('#net-lobby-error').textContent = text || ''; $('#net-lobby-error').hidden = !text; }
 
   $('#net-lobby-form').addEventListener('submit', (e) => {

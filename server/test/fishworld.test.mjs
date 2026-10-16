@@ -110,7 +110,7 @@ test('出題 → 1回目 不正解は もういちど（同じ問題・同じ形
   const q2 = prepare(3, { rng: makeRng(5), now: 2000 });
   assert.ok(['type', 'spell', 'mc'].includes(q2.kind));
   const right = q2.kind === 'mc' ? q2.fmt.answer : q2.word;
-  assert.deepEqual(answer(q2, right), { correct: true });
+  assert.deepEqual(answer(q2, right), { correct: true, assisted: false }, 'first-try right is a full catch');
 });
 
 test('くじ：catchRates の確率どおり、正解のあとは ゴミが出ない、PERFECT は レアに寄る', () => {

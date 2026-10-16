@@ -7,7 +7,9 @@ const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const LETTERS = ['A', 'B', 'C', 'D'];
 
-export function createQuizUI({ send, speak, toast, isOnline }) {
+export function createQuizUI({ send, speak: rawSpeak, toast, isOnline }) {
+  // 「____」や「Choose the correct:」は 読まない（きく 子に 意味の ない 音）。
+  const speak = (text) => rawSpeak(String(text || '').replace(/^Choose the correct:\s*/i, '').replace(/_{2,}/g, ' … '));
   let question = null;   // { q, choices, index, total, correct, hut, name }
   let locked = false;
   let hutName = '';
@@ -87,8 +89,11 @@ export function createQuizUI({ send, speak, toast, isOnline }) {
       if (!question) return;
       render({ correct: m.correct, answer: m.answer, picked: m.picked, xp: m.correct ? 10 : 0, coins: m.correct ? 10 : 0 });
       if (m.levels > 0) toast(`レベル ${m.progress.level} になった！`);
+      // まちがえたら 正しい 文を 声で きかせてから つぎへ（読めなくても 答えが とどく）。
+      const right = question.choices?.[m.answer];
+      if (!m.correct && right) rawSpeak(/_{2,}/.test(question.q) ? String(question.q).replace(/^Choose the correct:\s*/i, '').replace(/_{2,}/, right) : right);
       if (!m.done) {
-        setTimeout(() => { if (m.next) { question = m.next; render(); speak(m.next.q); } }, 1400);
+        setTimeout(() => { if (m.next) { question = m.next; render(); speak(m.next.q); } }, m.correct ? 1400 : 3200);
         return;
       }
       setTimeout(() => {

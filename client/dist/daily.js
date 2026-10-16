@@ -11,7 +11,7 @@ export function createDailyUI({ send, isOnline }) {
   dialog.id = 'daily-dialog';
   dialog.setAttribute('aria-labelledby', 'daily-title');
   dialog.innerHTML = `<div class="quiz-head">
-      <div><span class="eyebrow">EVERY DAY</span><h2 id="daily-title">日課</h2></div>
+      <div><span class="eyebrow">EVERY DAY</span><h2 id="daily-title">まいにちの ごほうび</h2></div>
       <button type="button" id="daily-close" aria-label="閉じる">×</button>
     </div><div id="daily-body"></div>`;
   document.body.append(dialog);
@@ -49,10 +49,10 @@ export function createDailyUI({ send, isOnline }) {
         <span>🎁</span>
         <h3>ログインボーナス</h3>
         <p><b>◈ ${m.coins}</b> コインを もらいました。</p>
-        <small>${m.streak}日 れんぞく ログイン中！</small>
+        <small>${m.streak}にちめ の ログイン！</small>
       </div>
       ${stamps(m.day, m.cycle, m.rewards || [])}
-      <p class="daily-note">日本時間の おひる12時に つぎの日に なります。${m.cycle}日 つづくと また1日目から。</p>
+      <p class="daily-note">おひるの 12じに つぎの ひに なるよ。${m.cycle}かい あそぶと また 1にちめから。</p>
       <div class="quiz-actions">
         <button type="button" id="daily-rank">♛ ランキング</button>
         <button type="button" class="primary" id="daily-go">ぼうけんに もどる</button>
@@ -72,10 +72,10 @@ export function createDailyUI({ send, isOnline }) {
         <span>🎁</span>
         <h3>ログインボーナス</h3>
         <p>きょうの ぶんは もう もらったよ。</p>
-        ${streak > 0 ? `<small>${streak}日 れんぞく ログイン中！</small>` : ''}
+        ${streak > 0 ? `<small>${streak}にちめ の ログイン！</small>` : ''}
       </div>
       ${stamps(day, cycle, rewards)}
-      <p class="daily-note">日本時間の おひる12時に つぎの日に なります。${cycle}日 つづくと また1日目から。</p>
+      <p class="daily-note">おひるの 12じに つぎの ひに なるよ。${cycle}かい あそぶと また 1にちめから。</p>
       <div class="quiz-actions">
         <button type="button" id="daily-rank">♛ ランキング</button>
         <button type="button" class="primary" id="daily-go">とじる</button>

@@ -108,15 +108,23 @@ export function askPayload(q) {
   return { qid: q.id, ...zoneInfo(q.zone), attempt: q.attempt, format: publicFormat(q.fmt, { attempt: q.attempt }) };
 }
 
+const shuffleCopy = (arr) => { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
 // 判定。1回目の不正解は「もういちど」（同じ問題を同じ形式で）、2回目は答えを見せて魚は逃げる。
 export function answer(q, given) {
   const correct = checkFormat(q.fmt, given);
-  if (correct) return { correct: true };
+  // 答えを 見たあとの 正解は「おぼえなおし」：魚は つれるが、いちばん ふつうの くじ（ClassRoom が grade を 下げる）。
+  if (correct) return { correct: true, assisted: !!q.revealed };
   if (q.attempt >= 2) return { correct: false, escaped: true, reveal: revealFormat(q.fmt), diff: diffFormat(q.fmt, given) };
   q.attempt = 2;
   // えらぶ・せんつなぎ・あなうめ・きいて えらぶ・ならべかえ は1回目から正しい線（答え）を見せる（Roblox と同じ）。
   // つづり・タイピングは枠の色だけ（タイピングは2回目に「さいしょの もじ」）。
   const show = ['mc', 'match', 'fill', 'listen', 'order'].includes(q.kind);
+  if (show) {
+    q.revealed = true;
+    // 2 回目は ならびを かえる（1 回目と おなじ 場所を おすだけで 正解に ならない）。
+    for (const key of ['choices', 'cards', 'right']) if (Array.isArray(q.fmt[key])) q.fmt[key] = shuffleCopy(q.fmt[key]);
+  }
   return { correct: false, escaped: false, diff: diffFormat(q.fmt, given), ...(show ? { reveal: revealFormat(q.fmt) } : {}), format: publicFormat(q.fmt, { attempt: 2 }) };
 }
 

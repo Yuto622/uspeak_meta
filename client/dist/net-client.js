@@ -555,6 +555,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       }
       state.lastSent.s = ''; // force a fresh position sample
     });
+    r.onMessage('fish:cast', (m) => fishing.setCastFish?.(m.fish));
     r.onMessage('wallet', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.ok === false && m.error) toast(walletError(m.error)); });
     r.onMessage('answer:result', (m) => { if (m.wallet) applyWallet(m.wallet); applyProgress(m.progress, m.levels); if (m.ok === false && m.error !== 'too fast') console.warn('[net] answer rejected', m); });
     r.onMessage('teleport', (m) => { teleportTo(m, m.reason); toast(tr(m.reason === 'gather' ? '{who} 先生の ところに あつまれ！' : '{who} 先生が うごかしました。', { who: m.by })); });
@@ -885,7 +886,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     } catch (err) { console.warn('[net] wallet reconcile failed', err); }
   }
   function walletError(e) {
-    const known = { 'not enough coins': 'コインが たりません。', 'already owned': 'もう もっています。', 'nothing to sell': 'うれる さかなが ありません。' }[e];
+    const known = { 'not enough coins': 'コインが たりません。', 'already owned': 'もう もっています。', 'nothing to sell': 'うれる さかなが ありません。', 'sell cap': 'きょうは もう うれないよ。あした また うってね。', 'no cast': 'もう いちど さおを なげてね。' }[e];
     return known ? tr(known) : tr('サーバーが うけつけませんでした: {why}', { why: e });
   }
   function restoreProgress(json) {
@@ -912,6 +913,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     room.send('progress', { json });
   }
   hooks.on('answer', ({ q, c }) => { if (room && state.mode === 'online') room.send('answer', { q, c }); });
+  // U-Speak島の つり：どの 魚が かかるかは 部屋が 決める（ページの くじは オフラインの ときだけ）。
+  hooks.on('fishcast', (m) => { if (room && state.mode === 'online') room.send('fish:cast', m); });
   hooks.on('economy', (op) => { if (room && state.mode === 'online') room.send('economy', op); });
 
   // ---- teleport (teacher commands, restore) -----------------------------------------

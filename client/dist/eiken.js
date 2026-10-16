@@ -168,7 +168,7 @@ export function createEikenUI({ send, speak, toast, isOnline, learn }) {
         const said = $('#eiken-typed', dialog).value.trim();
         if (!said || locked) return;
         locked = true;
-        send('eiken:answer', { heard: said });
+        send('eiken:answer', { heard: said, typed: true });
       };
     }
     wireActions();
@@ -277,6 +277,11 @@ export function createEikenUI({ send, speak, toast, isOnline, learn }) {
         xp: m.xp, coins: m.coins, capped: m.capped,
       };
       render(feedback);
+      // まちがえたら 正しい 英語を 声で（答えが 番号なら その ことば）。
+      if (!m.correct) {
+        const right = typeof m.answer === 'number' ? question.choices?.[m.answer] : m.answer;
+        if (right && /[A-Za-z]/.test(String(right))) setTimeout(() => speak(String(right)), 300);
+      }
       // 4 たくの こたえは 番号で とどく（0〜3）。たんごちょうには 番号ではなく えらんだ ことばを のせる。
       if (m.correct && question.skill !== 'listening') {
         const en = typeof m.answer === 'number' ? question.choices?.[m.answer] : m.answer;

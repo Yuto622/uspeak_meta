@@ -50,3 +50,17 @@ body.on-errand-island #task-card { margin: 0; }
 body[data-main] .quest-panel.has-tasks, body[data-warp] .quest-panel.has-tasks, body.on-journey .quest-panel.has-tasks { display: none; }
 
 @media (prefers-reduced-motion: reduce) { #task-card.pop { animation: none; } }
+
+/* 横向きの スマホ（高さ 560px 以下）：左下の スティックに かからないよう、カードは「いまの 1 つ」だけ。
+   つぎの 2 つと 章の ごほうびは しまう（たたむと 見出しだけ）。下の 帯（.bottom）は すきまで タップを とらない。 */
+@media (max-height: 560px) {
+  #task-card { padding: 8px 10px 8px; }
+  #task-card .task-next,
+  #task-card .task-goal { display: none; }
+  #task-card .task-bar { margin: 5px 0 6px; }
+  #task-card .task-now { padding: 7px 9px; }
+  #task-card .task-now strong { font-size: 14px; }
+  #task-card .task-guide-btn { margin-top: 5px; min-height: 30px; }
+  .bottom { pointer-events: none; }
+  .bottom > * { pointer-events: auto; }
+}

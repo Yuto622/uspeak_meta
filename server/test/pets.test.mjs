@@ -29,10 +29,10 @@ test('hunger and mood fall with real time, not with play time', () => {
   assert.equal(view.hunger, 50);
   assert.equal(view.happy, 50);
 
-  // Two more days bottoms out but never goes below zero.
+  // Days away stop at PET_FLOOR: a once-a-week child does not come back to an empty pet.
   view = petPayload(pet, now + DAY_MS * 3);
-  assert.equal(view.hunger, 0);
-  assert.equal(view.happy, 0);
+  assert.equal(view.hunger, 40);
+  assert.equal(view.happy, 40);
 
   // Time going backwards (a clock change) must not refill it.
   const before = pet.hunger;

@@ -76,7 +76,7 @@ export function createGymUI({ send, speak, toast, isOnline }) {
       </div>
       <div class="gym-mic">
         <button type="button" id="gym-listen" class="primary" ${feedback ? 'disabled' : ''}>🎤 言ってみる</button>
-        <div class="mission-row"><input id="gym-text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(q.say)}" ${feedback ? 'disabled' : ''}>
+        <div class="mission-row"><input id="gym-text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="マイクが つかえない ときは ここに かいてね" ${feedback ? 'disabled' : ''}>
           <button type="button" id="gym-send" ${feedback ? 'disabled' : ''}>おくる</button></div>
         <p id="gym-status" role="status">${esc(status)}</p>
       </div>
@@ -90,7 +90,7 @@ export function createGymUI({ send, speak, toast, isOnline }) {
         const text = input.value.trim();
         if (!text || busy) return;
         busy = true;
-        send('gym:answer', { text });
+        send('gym:answer', { text, typed: true });
       };
       $('#gym-send', dialog).onclick = submit;
       input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); submit(); } });
@@ -164,8 +164,9 @@ export function createGymUI({ send, speak, toast, isOnline }) {
       if (!question) return;
       render({ correct: m.correct, close: m.close, answer: m.answer, picked: m.picked ?? -1, word: m.word, ja: m.ja });
       if (m.levels > 0) toast(`レベル ${m.progress.level} になった！`);
+      if (!m.correct && m.word) setTimeout(() => speak(m.word), 300);
       if (!m.done) {
-        setTimeout(() => { if (m.next) { question = m.next; render(); if (m.next.mode === 'listen') speak(m.next.say); } }, 1600);
+        setTimeout(() => { if (m.next) { question = m.next; render(); if (m.next.mode === 'listen') speak(m.next.say); } }, m.correct ? 1600 : 3000);
         return;
       }
       setTimeout(() => {

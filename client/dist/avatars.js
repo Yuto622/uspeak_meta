@@ -4,14 +4,14 @@ import * as THREE from './three.module.js';
 // `update(t, moving)` の `t` とぶつかるので、`t as tr` として import する（game.js と同じ）。
 import {t as tr, onLangChange} from './i18n.js';
 export const AVATARS=[
- {id:'kai',name:'Kai',type:'男性',style:'ショートヘア・冒険家',hair:0x343137,skin:0xe6b68e,shirt:0x397e87,cut:'short'},
- {id:'mia',name:'Mia',type:'女性',style:'ロングヘア・旅人',hair:0x55362b,skin:0xf1c9a2,shirt:0xc38189,cut:'long'},
- {id:'ren',name:'Ren',type:'中性的',style:'シルバーヘア・スカウト',hair:0xc3c9cb,skin:0xb98059,shirt:0x6774ad,cut:'bob'},
- {id:'leo',name:'Leo',type:'男性',style:'カーリーヘア・探検家',hair:0x302824,skin:0x865738,shirt:0xd2a34d,cut:'curly'},
- {id:'aya',name:'Aya',type:'女性',style:'ツインテール・トラベラー',hair:0x292e39,skin:0xdba57e,shirt:0x759768,cut:'twin'},
- {id:'noa',name:'Noa',type:'中性的',style:'ミントヘア・クリエイター',hair:0x8bb3aa,skin:0xf0d0b2,shirt:0xb67856,cut:'short'},
- {id:'nova',name:'Nova',type:'スペシャル',style:'宇宙服・スターエクスプローラー',hair:0x656f7b,skin:0xc68d65,shirt:0xe0e7e5,cut:'space'},
- {id:'bolt',name:'Bolt',type:'スペシャル',style:'ロボット・ことばの相棒',hair:0x425d6b,skin:0xadc4c7,shirt:0x5396ab,cut:'robot'}
+ {id:'kai',name:'Kai',type:'おとこのこ',style:'みじかい かみ・ぼうけんか',hair:0x343137,skin:0xe6b68e,shirt:0x397e87,cut:'short'},
+ {id:'mia',name:'Mia',type:'おんなのこ',style:'ながい かみ・たびびと',hair:0x55362b,skin:0xf1c9a2,shirt:0xc38189,cut:'long'},
+ {id:'ren',name:'Ren',type:'どちらでも',style:'ぎんいろの かみ・スカウト',hair:0xc3c9cb,skin:0xb98059,shirt:0x6774ad,cut:'bob'},
+ {id:'leo',name:'Leo',type:'おとこのこ',style:'くるくる かみ・たんけんか',hair:0x302824,skin:0x865738,shirt:0xd2a34d,cut:'curly'},
+ {id:'aya',name:'Aya',type:'おんなのこ',style:'ツインテール・トラベラー',hair:0x292e39,skin:0xdba57e,shirt:0x759768,cut:'twin'},
+ {id:'noa',name:'Noa',type:'どちらでも',style:'ミントいろの かみ・クリエイター',hair:0x8bb3aa,skin:0xf0d0b2,shirt:0xb67856,cut:'short'},
+ {id:'nova',name:'Nova',type:'とくべつ',style:'うちゅうふく・ほしの たんけんか',hair:0x656f7b,skin:0xc68d65,shirt:0xe0e7e5,cut:'space'},
+ {id:'bolt',name:'Bolt',type:'とくべつ',style:'ロボット・ことばの あいぼう',hair:0x425d6b,skin:0xadc4c7,shirt:0x5396ab,cut:'robot'}
 ];
 const geometry=new THREE.BoxGeometry(),materials=new Map();const material=c=>{if(!materials.has(c))materials.set(c,new THREE.MeshStandardMaterial({color:c,roughness:.7}));return materials.get(c)};
 export function buildAvatar(config){const a=AVATARS.find(a=>a.id===config.id)||AVATARS[0],skin=config.skin??a.skin,shirt=config.shirt??a.shirt,g=new THREE.Group();
@@ -68,11 +68,11 @@ export function setupAvatars({player,toast,renderer:worldRenderer}){
  function apply(){player.clear();model=buildAvatar(committed);player.add(model);if(dressWith)dressWith(model,outfit);$('#avatar-button').textContent='◉ '+AVATARS.find(a=>a.id===committed.id).name}
  function resize(){if(!previewRenderer)return;const c=$('#avatar-preview'),w=c.clientWidth||280,h=c.clientHeight||330;previewRenderer.setSize(w,h,false);previewCamera.aspect=w/h;previewCamera.updateProjectionMatrix()}
  function preview(){if(previewModel)previewScene.remove(previewModel);previewModel=buildAvatar(draft);previewScene.add(previewModel);const a=AVATARS.find(a=>a.id===draft.id);$('#avatar-name').textContent=a.name;$('#avatar-description').textContent=a.style;$('#avatar-skin-section').hidden=a.cut==='robot';renderChoices();resize()}
- function renderChoices(){$('#avatar-choices').innerHTML=AVATARS.map(a=>`<button type="button" class="avatar-choice ${a.id===draft.id?'chosen':''}" data-avatar="${a.id}" aria-pressed="${a.id===draft.id}"><span>${tr(a.type)}</span><strong>${a.name}</strong><small>${tr(a.style)}</small></button>`).join('');document.querySelectorAll('[data-avatar]').forEach(b=>b.onclick=()=>{draft={id:b.dataset.avatar};preview()});const a=AVATARS.find(a=>a.id===draft.id);for(const [target,key,colors]of[['#avatar-skins','skin',skinColors],['#avatar-outfits','shirt',outfitColors]]){$(target).innerHTML=colors.map((c,i)=>`<button type="button" class="avatar-swatch" style="--swatch:#${c.toString(16).padStart(6,'0')}" data-${key}="${c}" aria-label="${tr(key==='skin'?'肌の色':'服の色')} ${i+1}" aria-pressed="${(draft[key]??a[key])===c}"></button>`).join('');document.querySelectorAll(`[data-${key}]`).forEach(b=>b.onclick=()=>{draft[key]=Number(b.dataset[key]);preview()})}}
- function open(){if(document.body.classList.contains('on-journey'))return;draft={...committed};$('#avatar-cancel').hidden=first;$('#avatar-confirm').textContent=tr(first?'このアバターで冒険をはじめる →':'このアバターに変更する →');modal.showModal();if(!previewRenderer){try{previewRenderer=new THREE.WebGLRenderer({canvas:$('#avatar-preview'),antialias:true,alpha:false});previewRenderer.setPixelRatio(Math.min(devicePixelRatio,1.5));previewRenderer.outputColorSpace=THREE.SRGBColorSpace;previewRenderer.toneMapping=THREE.ACESFilmicToneMapping}catch{$('#avatar-preview').hidden=true;$('#avatar-preview-fallback').hidden=false}}preview()}
+ function renderChoices(){$('#avatar-choices').innerHTML=AVATARS.map(a=>`<button type="button" class="avatar-choice ${a.id===draft.id?'chosen':''}" data-avatar="${a.id}" aria-pressed="${a.id===draft.id}"><span>${tr(a.type)}</span><strong>${a.name}</strong><small>${tr(a.style)}</small></button>`).join('');document.querySelectorAll('[data-avatar]').forEach(b=>b.onclick=()=>{draft={id:b.dataset.avatar};preview()});const a=AVATARS.find(a=>a.id===draft.id);for(const [target,key,colors]of[['#avatar-skins','skin',skinColors],['#avatar-outfits','shirt',outfitColors]]){$(target).innerHTML=colors.map((c,i)=>`<button type="button" class="avatar-swatch" style="--swatch:#${c.toString(16).padStart(6,'0')}" data-${key}="${c}" aria-label="${tr(key==='skin'?'はだの いろ':'ふくの いろ')} ${i+1}" aria-pressed="${(draft[key]??a[key])===c}"></button>`).join('');document.querySelectorAll(`[data-${key}]`).forEach(b=>b.onclick=()=>{draft[key]=Number(b.dataset[key]);preview()})}}
+ function open(){if(document.body.classList.contains('on-journey'))return;draft={...committed};$('#avatar-cancel').hidden=first;$('#avatar-confirm').textContent=tr(first?'この すがたで はじめる →':'この すがたに かえる →');modal.showModal();if(!previewRenderer){try{previewRenderer=new THREE.WebGLRenderer({canvas:$('#avatar-preview'),antialias:true,alpha:false});previewRenderer.setPixelRatio(Math.min(devicePixelRatio,1.5));previewRenderer.outputColorSpace=THREE.SRGBColorSpace;previewRenderer.toneMapping=THREE.ACESFilmicToneMapping}catch{$('#avatar-preview').hidden=true;$('#avatar-preview-fallback').hidden=false}}preview()}
  $('#avatar-button').onclick=open;$('#avatar-cancel').onclick=()=>modal.close();modal.addEventListener('cancel',e=>{if(first)e.preventDefault()});$('#avatar-confirm').onclick=()=>{committed={...draft};apply();try{localStorage.setItem('uspeak-avatar-v1',JSON.stringify(committed))}catch{toast(tr('アバターを変更しました。このブラウザでは選択を保存できません。'))}first=false;modal.close();toast(tr('{name} で冒険へ！',{name:AVATARS.find(a=>a.id===committed.id).name}))};
 // 言語を切り替えたら、**開いているときだけ**カードを書き直す（閉じていれば次に開くとき）。
-onLangChange(()=>{if(modal.open){renderChoices();$('#avatar-confirm').textContent=tr(first?'このアバターで冒険をはじめる →':'このアバターに変更する →')}});
+onLangChange(()=>{if(modal.open){renderChoices();$('#avatar-confirm').textContent=tr(first?'この すがたで はじめる →':'この すがたに かえる →')}});
  addEventListener('resize',resize);apply();
  function update(t,moving){if(model){const limbs=model.userData.limbs;limbs.forEach((g,i)=>g.rotation.x=moving?Math.sin(t*10+(i%2)*Math.PI)*(i<2?.4:.3):0)}if(modal.open&&previewRenderer&&previewModel){previewModel.rotation.y=Math.sin(t*.4)*.4;previewRenderer.render(previewScene,previewCamera)}}
  return {open,update,get config(){return {...committed}},get isOpen(){return modal.open},get first(){return first},

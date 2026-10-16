@@ -39,6 +39,7 @@ const BY_MODE = {
   quiz: 'read',             // ことばの学校の単語クイズ
   race: 'read',             // 📦 の日本語→英語
   writing: 'write',         // 英検ライティング: 単語をならべる
+  typed: 'write',           // 「話す」の 問題を 文字で 打った（話した ことには しない）
   chat: 'write',            // じゆうにゅうりょく
   // ぼくじょう島: ことばを選ぶ・穴うめは よむ、ならべる・つづるは かく、受け答えは はなす
   'farm-word': 'read', 'farm-fill': 'read', 'farm-order': 'write', 'farm-spell': 'write', 'farm-letters': 'write', 'farm-reply': 'speak',
