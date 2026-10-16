@@ -41,7 +41,17 @@ export const TABLES = {
       { key: 'year', label: '年', type: 'text' }, { key: 'month', label: '月', type: 'text' },
       { key: 'ja', label: 'イベント（画面の文）', type: 'text' }, { key: 'en', label: 'イベント（英語）', type: 'text' },
       { key: 'task', label: '月の 大きな タスク', type: 'text' }, { key: 'eiken', label: '英検の めやす（覚えた ことばの 合計）', type: 'text' },
-      { key: 'island', label: '島', type: 'text' }, { key: 'memo', label: 'メモ', type: 'text' },
+      { key: 'island', label: '島', type: 'text' }, { key: 'season', label: 'シーズン（学期）', type: 'text' },
+      { key: 'memo', label: 'メモ', type: 'text' },
+    ],
+  },
+  rules: {
+    label: '見せかたの ルール', prefix: 'V',
+    columns: [
+      { key: 'on', label: '採用', type: 'bool' }, { key: 'id', label: 'ID', type: 'text' },
+      { key: 'key', label: 'キー', type: 'text' }, { key: 'rule', label: 'ルール', type: 'text' },
+      { key: 'value', label: '値', type: 'text' }, { key: 'how', label: '画面での 見せかた', type: 'text' },
+      { key: 'why', label: '理由', type: 'text' }, { key: 'source', label: '出典', type: 'text' },
     ],
   },
   daily: {

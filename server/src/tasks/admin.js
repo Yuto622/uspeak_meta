@@ -67,7 +67,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const H = { 'content-type': 'application/json', 'x-requested-with': 'uspeak-admin' };
 const $ = (s) => document.querySelector(s);
 let data = null, cur = 'onboarding', rows = [], dirty = false;
-const WIDE = new Set(['ja', 'en', 'done', 'task', 'tiers', 'memo', 'why']), MID = new Set(['chapter', 'island', 'where', 'learn', 'eiken']);
+const WIDE = new Set(['ja', 'en', 'done', 'task', 'tiers', 'memo', 'why', 'rule', 'how', 'source']), MID = new Set(['chapter', 'island', 'where', 'learn', 'eiken']);
 function setDirty(v) { dirty = v; $('#save').disabled = !v; $('#dirty').textContent = v ? '保存して いない 変更が あります' : ''; }
 function cols() { return data.tables[cur].columns; }
 function renderTabs() {
