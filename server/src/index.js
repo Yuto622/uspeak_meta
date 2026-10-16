@@ -11,6 +11,8 @@ import { createStore, createSheetsApi } from './store/index.js';
 import { createRobloxSeats } from './parent-report/roblox-seats.js';
 import { createAccess } from './game/access.js';
 import { mountAdmin } from './admin/roster-admin.js';
+import { TaskStore } from './tasks/store.js';
+import { tasksAdminExtension } from './tasks/admin.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
 import { reportFor, reportHtml, reportNoLatexHtml, verifyReport, verifyExport, verifyClass, classCsv, certHtml } from './game/report.js';
@@ -80,6 +82,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
     store, roster, seats, roblox, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
     baseUrl: config.corsOrigins.find((o) => /^https?:\/\//.test(o)) || '',
   });
+
+  // タスクの 表（/admin/tasks で 書きかえる。ゲームは /api/tasks で 採用の 行だけ 読む）。
+  const tasks = await new TaskStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'tasks.json'), { log }).init();
 
   const app = express();
   app.disable('x-powered-by');
@@ -275,7 +280,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
   }
 
   // 管理ページ. Mounted only with ADMIN_KEY (admin/roster-admin.js).
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: parentReports.adminExtend });
+  const tasksAdmin = tasksAdminExtension({ tasks, log });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); } });
+  app.get('/api/tasks', (req, res) => { res.set('Cache-Control', 'public, max-age=60'); res.json({ ok: true, updatedAt: tasks.updatedAt, ...tasks.adopted() }); });
   // 保護者レポートの 口（Webhook・LIFF・/r/:token・教室の タブ）。
   parentReports.mount(app, { verifyClass, secret: config.reportSecret });
   // Roblox 版からの口（鍵がなければ開かない）。
