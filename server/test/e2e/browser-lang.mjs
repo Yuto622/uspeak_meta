@@ -73,7 +73,8 @@ try {
     await page.getAttribute('#net-class', 'placeholder'));
   await page.click('#net-offline');
   await sleep(1500);
-  await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+  // オフラインも メインの島から はじまる。この 検査は U-Speak島の 上で 見る。
+  await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); uspeak.net.main.skipHome?.(); });
 
   // 見えている文字だけを読む。`.en` と `.ja` は両方 DOM にいるので、
   // `textContent` で読むと どちらの言語でも同じ文字列が返ってしまう。

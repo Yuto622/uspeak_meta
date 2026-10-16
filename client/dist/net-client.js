@@ -827,6 +827,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r?.leave(true);
     remotes.clear();
     setMode('offline');
+    // オフラインでも はじまりは メインの島（クラスに 入ったときと おなじ）。
+    if (fromLobby) homeNow();
     if (fromLobby) toast(tr('ひとりで あそびます。右上の ボタンから いつでも クラスに 入れます。'));
   }
 
@@ -1058,7 +1060,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   }
 
   function boot() {
-    if (!Colyseus) return;
+    if (!Colyseus) { homeNow(); return; }
     const session = storage.get(sessionStorage, STORAGE_KEYS.session);
     const start = () => {
       if (session?.name) {

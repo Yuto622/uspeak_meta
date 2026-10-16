@@ -42,6 +42,8 @@ const check = (name, ok, detail = '') => { results.push({ name, ok }); console.l
 
 try {
   const ctx = await browser.newContext({ viewport: { width: 1100, height: 780 } });
+  // 既定は 日本語（2026-10〜）。この 検査は 英語から はじめるので、英語を えらんだ 子として 入る。
+  await ctx.addInitScript(() => { try { localStorage.setItem('uspeak-lang-v2', 'en'); } catch { /* */ } });
   const page = await ctx.newPage();
   await page.route('**/*', (r) => (r.request().url().includes('127.0.0.1') ? r.continue() : r.abort()));
   await page.goto(`http://127.0.0.1:${PORT}/`, { waitUntil: 'commit', timeout: 240000 });
@@ -50,7 +52,8 @@ try {
   await page.waitForSelector('#net-lobby[open]', { timeout: 60000 });
   await page.click('#net-offline');
   await sleep(1500);
-  await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+  // オフラインも メインの島から はじまる。この 検査は U-Speak島の 上で 見る。
+  await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); uspeak.net.main.skipHome?.(); });
 
   const tap = () => page.evaluate(() => document.querySelector('#lang-toggle').click());
   const lang = () => page.evaluate(() => document.documentElement.dataset.lang);

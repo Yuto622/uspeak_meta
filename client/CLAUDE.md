@@ -1141,6 +1141,14 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   サーバーの `fishPayload` がそのまま渡す。`server/test/fishworld.test.mjs` が「全部の魚に写真のファイルがあるか」を見る。
   `emoji` は写真が無いときの予備。
 
+## 左の「つぎに やること」（タスク／2026-10）
+- **中身は /admin/tasks の「はじめの100」**。ページは `tasks.js` + `tasks.css` で 3 つ ならべるだけ。すんだか・コイン・XP・章の ごほうびは 部屋（`server/src/tasks/engine.js`・`ClassRoom.taskRun`）。
+- 行の「完了の しらべかた」（check 列）：`near:<メインの島の 場所>` / `<できごと>:<数>` / `$<数字>:<数>`。読めない 行は 出さない。
+- ページにしか 分からない こと（画面を ひらいた・話しかけた）は `task:ui {name}`。名前は engine.js の `UI_EVENTS` だけ。
+- 置き場所は `.quest-panel` の いちばん 上。U-Speak島以外（`.on-errand-island`）は 入れ物ごと 出して カードだけ。
+- **オフラインでも はじまりは メインの島**（`goOffline(true)` と Colyseus が 無い とき も `homeNow()`）。タスクは オンラインだけ。
+- サーバーの テスト（node --test）では タスクを 切る（ほかの 検査の コインが ずれる）。タスクの 検査は `TASKS=on`。
+
 ## ペットは 3D で、いつも 横を 歩く（2026-10）
 - **形は `pet-models.js` の `buildPet(kind)` / `animatePet()`**（こいぬ・こねこ・うさぎ・かえる・パンダ・きつね。箱と 球だけ）。
   `createPetBuddy(holder)` が プレイヤーの Group の 子に なって 右横を 歩く（歩くと 少し うしろ、止まると 横で 見上げる）。
