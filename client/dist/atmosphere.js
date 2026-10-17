@@ -26,7 +26,8 @@ export function createAtmosphere({scene,camera,renderer,sun,water,box,colliders,
  for(let i=0;i<75;i++){let x=-30+rand()*60,z=i%2?-24-rand()*3:24+rand()*3;if(x>13&&x<21&&z>0)continue;let h=1.2+rand()*2.1;box(x,-2.4,z,1.3+rand()*2,h,1.5+rand()*2,[0x8c8972,0xa5a082,0xbeb28d][i%3]);box(x,-2.4+h/2,z,1.4,.14,1.6,0xd1bf94)}
  // A monumental offshore stone arch and distant rock spires.
  for(let i=0;i<8;i++){let x=52+i*2;box(x,2+Math.sin(i/7*Math.PI)*9,-22,2.3,5,5,0x89988b)}for(const x of[52,66]){box(x,0,-22,5,15,7,0x829185);box(x,7.9,-22,5.4,.8,7.2,0x82985c)}
- for(let i=0;i<18;i++){let x=-85+i*9,z=-66-rand()*15;let h=12+rand()*20;for(let j=0;j<4;j++)box(x+j*.4,h*j/6-5,z,10-j*1.8,h/3,8-j,0x79948b)}
+ for(let i=0;i<18;i++){let x=-85+i*9,z=-66-rand()*15;let h=12+rand()*20;if(x+5>-88&&x-5<36)continue;// メインの島に かさなる 山は 立てない
+ for(let j=0;j<4;j++)box(x+j*.4,h*j/6-5,z,10-j*1.8,h/3,8-j,0x79948b)}
  // Detailed roof ridges, stone walks, market produce, and a reading garden.
  for(const [x,z,w]of[[-12,-5,7],[13,-7,6.5]]){for(let j=0;j<10;j++){box(x,6.2,z-3+j*.66,.6,.16,.52,0x8c6749)}for(let j=0;j<6;j++){box(x-2.5+j, .35,z+4.5,.86,.08,1.15,j%2?0xbeb89a:0xcec8ab)}}
  for(let i=0;i<3;i++){box(-17+i*1.4,.8,0,1.15,1.1,1,0x94764e);box(-17+i*1.4,1.39,0,1.2,.1,1.1,0xb9a071);for(let j=0;j<6;j++)box(-17.35+i*1.4+(j%3)*.31,1.55,-.25+Math.floor(j/3)*.42,.25,.23,.3,[0xd89d46,0xbc7152,0x90a354][i])}
