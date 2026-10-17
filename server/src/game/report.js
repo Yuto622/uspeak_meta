@@ -315,6 +315,15 @@ function inARowLine(r) {
   return `<p class="inarow">✦ <b>${esc(label)}つづけています。</b></p>`;
 }
 
+// クラスの なかの 順位（`game/rankings.js` の standingOf）。**その 子の 順位と 人数だけ**：
+// ほかの 子の 名前と 数は 保護者に 出さない。やって いない 指標は 出ない。
+function ranksBlock(r) {
+  const list = (r.ranks || []).slice(0, 8);
+  if (!list.length) return '';
+  return `<h3 style="margin:26px 0 8px;font-size:14px;color:#5d6d62;letter-spacing:1px;">🏆 クラスの なかの 順位</h3>
+ <table>${list.map((x) => `<tr><th>${esc(x.icon)} ${esc(x.ja)}</th><td><b>${x.rank}位</b> <small>/ ${x.of}人・${esc(x.value)} ${esc(x.unit)}</small></td></tr>`).join('')}</table>`;
+}
+
 export function reportHtml(r, { token = '', view = '' } = {}) {
   const meet = view === 'meet';
   const row = (label, value, note = '') => value === null || value === undefined || value === '' ? ''
@@ -409,6 +418,7 @@ ${inARowLine(r)}
 ${schoolLine(r)}
 ${examBlock(r)}
 ${notesBlock(r)}
+${ranksBlock(r)}
  <h3 style="margin:26px 0 0;font-size:14px;color:#5d6d62;letter-spacing:1px;">はじめてからの ぜんぶ</h3>
  <div class="cards">
   <div class="card"><span>レベル</span><b>${r.level}</b></div>

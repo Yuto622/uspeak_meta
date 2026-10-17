@@ -3208,6 +3208,12 @@
     "コインが たりないよ（{0} コイン いるよ）。えいごで コインを ためよう！": "Not enough coins (you need {0}). Earn coins with English!",
     "すこし まってから もう いちど おしてね。": "Wait a moment, then tap again.",
     "いまは のれないよ。もう いちど おしてね。": "You can't ride right now. Tap again.",
-    "{0} コイン はらったよ。いってらっしゃい！": "You paid {0} coins. Enjoy the ride!"
+    "{0} コイン はらったよ。いってらっしゃい！": "You paid {0} coins. Enjoy the ride!",
+    "あと {0}日で リセット": "Resets in {0} days",
+    "いままで ぜんぶ": "All time",
+    "（はやい じゅん）": "(fastest first)",
+    "まだ だれも いません。いちばんのりに なろう！": "Nobody yet. Be the first!",
+    "きみは {0}い（{1}にん の なか）": "You are #{0} (out of {1})",
+    "きみは まだ ここに いないよ。やって みよう！": "You're not on this one yet. Give it a try!"
   }
 }

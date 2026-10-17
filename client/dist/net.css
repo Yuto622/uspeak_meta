@@ -106,6 +106,13 @@
 .daily-rank li em { font-style: normal; font-weight: 700; font-size: 13px; }
 .daily-rank li:nth-child(1) b { color: #b8860b; font-size: 15px; }
 .daily-rank li.me { background: #cdebd2; }
+.rank-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 8px; margin-bottom: 6px; scrollbar-width: thin; }
+.rank-tabs button { flex: none; border: 0; border-radius: 99px; padding: 7px 12px; background: #eef0e2; color: #2d4a3b; font-weight: 700; font-size: 12px; cursor: pointer; white-space: nowrap; }
+.rank-tabs button[aria-selected="true"] { background: #1b3a2f; color: #fff6dd; }
+.rank-title { margin: 4px 0 8px; font-size: 16px; }
+.rank-tabs :is(.ja, .en), .rank-title :is(.ja, .en), .daily-rank em :is(.ja, .en) { display: inline; font-size: inherit; font-weight: inherit; }
+.rank-title small { font-size: 12px; font-weight: 600; color: #7b8a7f; margin-left: 6px; }
+.rank-mine { margin-top: 2px; border-top: 2px dashed #d9d4bd; padding-top: 6px; }
 .daily-mine { margin: 12px 0 0; font-size: 13px; text-align: right; }
 
 .rank-button {

@@ -80,6 +80,7 @@ function applyOp(wallet, op) {
 import { boxFromEvents, makeSet as makeReviewSet, publicSet as reviewPublic, answer as reviewAnswer, dueCount as reviewDue, jstDay, COIN as REVIEW_COIN, PER_QUIZ as REVIEW_PER, ReviewError } from '../game/review.js';
 import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, placeLabel } from '../game/class-mode.js';
 import { rideOf, ParkError } from '../game/themepark.js';
+import { rankings, boardPayload } from '../game/rankings.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004 };
@@ -2156,31 +2157,28 @@ export class ClassRoom extends Room {
   // is the same idea and is what this room already is.
   onRank(client) {
     const key = weekIndex();
-    const live = new Map();
-    for (const [id, priv] of this.priv) {
-      if (priv.week.key === key) live.set(priv.name, priv.week.xp);
-    }
-    // Everyone in the class, not only whoever is online right now.
-    let stored = [];
-    try { stored = this.store.listClass?.(this.classCode) || []; } catch (err) { log.warn(`[room ${this.roomId}] rank read failed:`, err.message); }
-    for (const record of stored) {
-      if (Number(record.week_key) !== key) continue;
-      if (live.has(record.name)) continue;
-      live.set(record.name, Math.max(0, Math.floor(Number(record.week_xp) || 0)));
-    }
-    const top = [...live.entries()]
-      .map(([name, xp]) => ({ name, xp }))
-      .sort((a, b) => b.xp - a.xp || a.name.localeCompare(b.name))
-      .slice(0, 10);
     const me = this.priv.get(client.sessionId);
+    const boards = this.classBoards();
+    const week = boards.find((b) => b.key === 'week_xp');
     client.send('rank', {
-      top,
+      // 前の 画面（今週の XP だけ）の ための 形も のこす。
+      top: (week?.rows || []).slice(0, 10).map((r) => ({ name: r.name, xp: r.value })),
       name: me ? me.name : '',
       mine: me && me.week.key === key ? me.week.xp : 0,
       daysLeft: daysLeftInWeek(),
       classCode: this.classCode,
       season: seasonFor(),
+      boards: boardPayload(boards, me ? me.name : ''),
     });
+  }
+
+  // クラスの ランキング（`game/rankings.js`）。いま 入って いる 子は さきに 保存して、
+  // 入って いない 子の 行と いっしょに ならべる（ランキングは 名簿の 全員）。
+  classBoards() {
+    for (const id of this.priv.keys()) { try { this.persist(id); } catch (err) { log.warn(`[room ${this.roomId}] rank persist failed:`, err.message); } }
+    let stored = [];
+    try { stored = this.store.listClass?.(this.classCode) || []; } catch (err) { log.warn(`[room ${this.roomId}] rank read failed:`, err.message); }
+    return rankings(stored, { weekKey: weekIndex() });
   }
 
   // ---- おはなし（部屋の中の通話）-------------------------------------------------------

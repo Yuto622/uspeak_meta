@@ -10,7 +10,7 @@
 import { isTeacherName, namePrefix } from './roblox-seats.js';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import { weeklyData, monthlyData } from './aggregate.js';
+import { weeklyData, monthlyData, periodStats, periodRanks } from './aggregate.js';
 import { weeklyTex, monthlyTex, qrCardsTex, templateVersion, texts, goalText } from './render-tex.js';
 import { childMessages, bundle, retryUuid, mask } from './line.js';
 import { newToken } from './store.js';
@@ -103,6 +103,19 @@ export function createParentReports({
   const eventsFor = async (username) => (await store.listRobloxEvents?.({ username })) || [];
 
   // ---- データと レポート -------------------------------------------------------------------
+  // クラスの 順位（その 期間・その 教室の 子どうし）。1 回の 配信で 子の 数だけ よばれるので 教室・期間ごとに 1 回だけ 数える。
+  const rankCache = new Map();
+  async function classStats(classCode, period) {
+    const key = `${classCode}|${period.start}|${period.end}`;
+    const hit = rankCache.get(key);
+    if (hit && now() - hit.at < 10 * 60 * 1000) return hit.all;
+    const all = [];
+    for (const st of await students(classCode)) all.push({ username: st.username, stats: periodStats(await eventsFor(st.username), period) });
+    rankCache.set(key, { at: now(), all });
+    if (rankCache.size > 200) rankCache.delete(rankCache.keys().next().value);
+    return all;
+  }
+
   async function dataFor(classCode, student, kind, period) {
     const s = reports.settings(classCode);
     const teacher = reports.comment(classCode, student.username, period.key);
@@ -110,6 +123,7 @@ export function createParentReports({
     const opts = { nick: student.nick, sender: senderOf(s, classCode), teacher: teacher ? { text: teacher.text } : null };
     const d = kind === 'monthly' ? monthlyData(rows, { month: period, ...opts }) : weeklyData(rows, { week: period, ...opts });
     d.teacherLabel = s.teacher_label || '先生';
+    try { d.ranks = periodRanks(await classStats(classCode, period), student.username); } catch (err) { log.warn?.('[parent-report] ranks failed:', err.message); d.ranks = []; }
     return d;
   }
 
@@ -200,7 +214,9 @@ export function createParentReports({
           const alt = kind === 'monthly'
             ? `${student.nick}さん：${data.month}月は${data.dayCount}日英語をしました`
             : fmt(T.weekly.altText, { nick: student.nick, days: data.dayCount, answers: data.answers });
-          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt });
+          const best = (data.ranks || [])[0];
+          const altRank = best ? `（クラスで ${best.ja} ${best.rank}位）` : '';
+          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt + altRank });
         }
         for (const l of links) {
           if (!groups.has(l.line_user_id)) groups.set(l.line_user_id, []);

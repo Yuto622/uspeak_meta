@@ -112,6 +112,8 @@ export function reportTex(r, { font = process.env.REPORT_FONT || '' } = {}) {
     ...inARow,
     ...exam,
     ...note,
+    // クラスの 順位（その 子の 順位と 人数だけ。`game/rankings.js` の standingOf）。よい ほうから 3 つ。
+    ...(r.ranks || []).slice(0, 3).map((x) => [`クラスの 順位：${x.ja}`, `${x.rank}位 / ${x.of}人`]),
     ['英語の問題', r.attempts ? `${r.correct} / ${r.attempts} 問` : ''],
     ['英語で話した回数', r.phrases ? `${r.phrases} 回` : ''],
     ['おつかい', r.errands ? `${r.errands} 件 たっせい` : ''],

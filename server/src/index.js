@@ -17,6 +17,8 @@ import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
 import { reportFor, reportHtml, reportNoLatexHtml, verifyReport, verifyExport, verifyClass, classCsv, certHtml } from './game/report.js';
 import { classView, classHtml } from './game/classview.js';
+import { rankings, standingOf, classRankingHtml } from './game/rankings.js';
+import { weekIndex } from './game/daily.js';
 import { sanitizeMonths } from './game/months.js';
 import { reportTex } from './game/report-tex.js';
 import { texToPdf, latexAvailable, LatexError } from './game/latex.js';
@@ -173,9 +175,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
       // Roblox の学習の表。鍵が無くても、記録が貯まっていれば出す（記録は消さないので）。
       let robloxRows = [];
       try { robloxRows = await roblox.classRows(classCode, { records }); } catch (err) { log.warn('[class] roblox rows failed:', err.message); }
-      if (String(req.query.format || '').toLowerCase() === 'json') { res.json({ ...view, roblox: robloxRows.map(({ reportToken, ...r }) => r) }); return; }
+      if (String(req.query.format || '').toLowerCase() === 'json') { res.json({ ...view, rankings: rankings(records, { weekKey: weekIndex() }), roblox: robloxRows.map(({ reportToken, ...r }) => r) }); return; }
       const parentsLink = `<section style="margin:16px 0;padding:14px 16px;border-radius:14px;background:#fff3e6;border:1px solid #f0c9a5"><b>📨 保護者レポート（LINE配信）</b> — 配信の設定・QRカードの印刷・先生のひとこと：<a href="/class/${encodeURIComponent(classCode)}/parents?t=${encodeURIComponent(String(req.query.t || ''))}">ひらく →</a></section>`;
-      res.type('text/html; charset=utf-8').send(classHtml(view, { extra: parentsLink + robloxClassSection(robloxRows, { classCode, token: String(req.query.t || '') }) }));
+      res.type('text/html; charset=utf-8').send(classHtml(view, { extra: parentsLink + classRankingHtml(rankings(records, { weekKey: weekIndex() })) + robloxClassSection(robloxRows, { classCode, token: String(req.query.t || '') }) }));
     });
 
     // 先生ページの Roblox の表を CSV に。署名は教室ページと同じ。
@@ -239,6 +241,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
         return;
       }
       const report = reportFor(record);
+      // クラスの なかの 順位（その 子の ぶんだけ）。
+      try { report.ranks = standingOf(rankings(store.listClass?.(record.class) || [], { weekKey: weekIndex() }), record.name); } catch (err) { log.warn('[report] ranks failed:', err.message); report.ranks = []; }
       const token = String(req.query.t || '');
       const format = String(req.query.format || '').toLowerCase();
       if (format === 'json') { res.json(report); return; }

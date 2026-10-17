@@ -57,6 +57,13 @@ const badge = (preview, weekly) => (preview
   : '');
 
 // ---- 毎週版 -------------------------------------------------------------------------------
+// クラスの 順位（よい ほうから 2 つ。その 子の 順位と 人数だけ）。
+function ranksLine(d) {
+  const list = (d.ranks || []).slice(0, 2);
+  if (!list.length) return '';
+  return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries クラスの 順位}\\\\[0.5mm]{\\fontsize{10.5}{14}\\selectfont\\color{brand} ${list.map((x) => tex(`${x.ja} ${x.rank}位 / ${x.of}人`)).join('　・　')}}\\\\[2mm]\n`;
+}
+
 export function weeklyTex(d, { preview = false } = {}) {
   const { weekly, texts: T } = templates();
   const W = T.weekly;
@@ -100,6 +107,7 @@ export function weeklyTex(d, { preview = false } = {}) {
 
   const goal = goalText(d, W);
   if (goal) nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ${tex(W.goalTitle)}}\\\\[0.5mm]{\\fontsize{11.5}{15}\\selectfont\\color{brand}\\bfseries ${tex(goal)}}\\\\[2mm]\n${nextBlock}`;
+  nextBlock = ranksLine(d) + nextBlock;
   return fill(weekly, {
     badge: badge(preview, true),
     sender: d.sender || '教室', nick: d.nick, range: d.range, titleSize: titleSize(d.nick, 17, 14),
@@ -171,6 +179,7 @@ export function monthlyTex(d, { preview = false } = {}) {
   else if (d.game?.kind === 'place') game = `{\\small\\color{brand} ${tex(fmt(M.gamePlace, d.game))}}\\\\[1mm]\n{\\scriptsize\\note{${tex(M.gamePlaceTalk)}}}`;
   else game = `{\\small\\color{gray} ${tex(M.gameNone)}}`;
 
+  { const rl = ranksLine(d); if (rl) game = `${rl}${game}`; }
   const step = d.nextStep || { key: 'keep' };
   return fill(monthly, {
     badge: badge(preview, false),

@@ -1164,6 +1164,14 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 守るのは 部屋：英会話島の 家の `conv:start` と みんなで はなす しまの `voice:join` は `premium` で ことわる。メインの島の 英会話の お店は 入れる。
 - 入れない 島の タスクは とばす（`engine.js` の `skip`）。**おはなし島は 2026-10 に「みんなで はなす しま」に 名前を かえた**（id は `talk` の まま）。
 
+## ランキング（あらゆる 指標／2026-10）
+- **中身は `server/src/game/rankings.js` の 1 か所**（`METRICS`：今週の XP・ぜんぶの XP・レベル・せいかい・せいかいりつ（20 問から）・学習時間・学習日・連続ログイン・コイン・さかな・ずかん・フレーズ・おつかい・タスク・じぶんの島・ベストラップ・5 技能）。行を 足せば ぜんぶに 出る。
+- 先生と 0 の 子は ならべない。同じ 数は 同じ 順位。保存の 行から 毎回 計算（ランキングの 表は 持たない）。
+- ゲーム：右の「♛ ランキング」→ `rank` → 部屋が 入って いる 子を 保存してから クラス全員を ならべて `boards`（上の 10 人＋じぶん）。画面は `daily.js` の タブ。
+- 保護者の web レポートと PDF：**その 子の 順位と 人数だけ**（`standingOf`。ほかの 子の 名前と 数は 出さない）。先生の /class：指標ごとに 上の 3 人（`classRankingHtml`）。
+- LINE の 週・月 レポート：その 期間の Roblox の 記録で 教室の 子どうし（`aggregate.js` の `periodStats` / `periodRanks`）。よい ほうから 2 つを 画像に、1 つを 通知の 文に。
+- 検査は `server/test/rankings.test.mjs`。
+
 ## テーマパークの のりもの代（2026-10）
 - **のる たびに U-Speak コイン**（メリーゴーランド 10・かんらんしゃ 15・ジェットコースター 25）。値段は `park-rides.json`（部屋の `server/src/game/themepark.js` も 同じ ものを 読む）。
 - オンラインは `park:ride {id}` → 部屋が `applyOp spend` → `park:ride:ok`（さいふ つき）／`park:ride:error`（`not enough coins` / `too fast`＝3 秒の 2 度おし / `unknown ride`）。ページは へんじが 来るまで のせない（`net.parkPay`）。

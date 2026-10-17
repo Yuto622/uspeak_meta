@@ -172,6 +172,39 @@ export function weeklyData(rows, { week, nick = '', sender = '', teacher = null 
   };
 }
 
+// ---- クラスの 順位（週・月の レポートに 1 行）--------------------------------------------------
+// その 期間の 数字（こたえた 数・せいかい・英語を した 日・話した 数・学習の 分）。順位は service が クラスで ならべる。
+export const PERIOD_METRICS = [
+  { key: 'answers', ja: 'こたえた 問題', unit: '問' },
+  { key: 'correct', ja: 'せいかい', unit: '問' },
+  { key: 'days', ja: '英語を した 日', unit: '日' },
+  { key: 'speak', ja: '英語で 話した', unit: '回' },
+  { key: 'minutes', ja: '学習 時間', unit: '分' },
+];
+export function periodStats(rows, r) {
+  const events = normalize(rows).filter((e) => inRange(e, r));
+  const quiz = events.filter(isQuiz);
+  return {
+    answers: quiz.length,
+    correct: quiz.filter((e) => correctOf(e) === true).length,
+    days: new Set(events.map((e) => dayKey(e.ts))).size,
+    speak: events.filter((e) => e.type === 'speak').length,
+    minutes: Math.round(events.filter((e) => e.type === 'session').reduce((n, e) => n + (Number(e.data.seconds) || 0), 0) / 60),
+  };
+}
+// stats: [{ username, stats }] → その 子の 順位（0 の 指標は 出さない。同じ 数は 同じ 順位）。よい ほうから。
+export function periodRanks(all, username) {
+  const out = [];
+  for (const m of PERIOD_METRICS) {
+    const rows = all.filter((x) => x.stats[m.key] > 0).sort((a, b) => b.stats[m.key] - a.stats[m.key]);
+    const mine = rows.find((x) => x.username === username);
+    if (!mine) continue;
+    const rank = rows.findIndex((x) => x.stats[m.key] === mine.stats[m.key]) + 1;
+    out.push({ key: m.key, ja: m.ja, unit: m.unit, value: mine.stats[m.key], rank, of: rows.length });
+  }
+  return out.sort((a, b) => a.rank / a.of - b.rank / b.of || a.rank - b.rank);
+}
+
 // ---- 月次版 -------------------------------------------------------------------------------
 function skillTable(quiz, events, r) {
   const out = {};
