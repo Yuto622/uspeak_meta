@@ -51,7 +51,7 @@ const VT_SHIM = `(() => {
   // 動画の シークが 終わるまで まつ（本物の 時計で、長くても 1.5 秒）。
   vt.settle = () => new Promise((resolve) => { const t0 = realNow(); const poll = () => { const busy = [...document.querySelectorAll('video')].some((v) => v.seeking); if (!busy || realNow() - t0 > 1500) resolve(); else realSet(poll, 15); }; poll(); });
   const realPlay = HTMLMediaElement.prototype.play, realPause = HTMLMediaElement.prototype.pause;
-  HTMLMediaElement.prototype.play = function () { if (vt.manual) { this.dataset.vtPlaying = '1'; return Promise.resolve(); } return realPlay.call(this); };
+  HTMLMediaElement.prototype.play = function () { if (vt.manual) { this.dataset.vtPlaying = '1'; if (this.readyState < 2) { const v = this; realPlay.call(v).then(() => { if (vt.manual) realPause.call(v); }).catch(() => {}); } return Promise.resolve(); } return realPlay.call(this); };
   HTMLMediaElement.prototype.pause = function () { if (vt.manual) { this.dataset.vtPlaying = ''; } return realPause.call(this); };
   vt.stop = () => {
     vt.off = realNow() - vt.t; vt.manual = false;
@@ -73,11 +73,22 @@ export async function launch() {
 export async function openGame(browser, port, { name, cls = 'demo', teacher = false, w = 1280, h = 720, scale = 1.5, clock = true } = {}) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: scale, hasTouch: false });
   await ctx.addInitScript(VT_SHIM);
+  // 撮影用の Chromium には 声が ない（読み上げが すぐ おわって、ウーピーの 口が 動かない）。
+  // 声なしに して、ゲームの「文字数 × 55ms だけ 口を 動かす」道を 使わせる。
+  if (process.env.CHAR_WEBM_DIR) await ctx.addInitScript(() => { try { Object.defineProperty(window, 'speechSynthesis', { value: undefined, configurable: true }); } catch {} });
   const page = await ctx.newPage();
   await page.route('**/fonts.googleapis.com/**', (r) => r.abort());
   // 撮影用の Chromium は H.264 を 再生できない。同じ 動画の WebM 版を わたす（ゲームの ファイルは そのまま）。
   if (process.env.CHAR_WEBM_DIR) {
-    await page.route('**/assets/character/*.mp4', (r) => r.fulfill({ path: path.join(process.env.CHAR_WEBM_DIR, path.basename(new URL(r.request().url()).pathname).replace(/\.mp4$/, '.webm')), contentType: 'video/webm' }));
+    // シークは Range（206）で 取りにくるので、その 形で かえす（まるごと 返すと シークが 止まる）。
+    await page.route('**/assets/character/*.mp4', (r) => {
+      const file = path.join(process.env.CHAR_WEBM_DIR, path.basename(new URL(r.request().url()).pathname).replace(/\.mp4$/, '.webm'));
+      const buf = fs.readFileSync(file);
+      const m = /bytes=(\d+)-(\d*)/.exec(r.request().headers().range || '');
+      if (!m) return r.fulfill({ status: 200, body: buf, headers: { 'content-type': 'video/webm', 'accept-ranges': 'bytes', 'content-length': String(buf.length) } });
+      const start = Number(m[1]); const end = m[2] ? Math.min(Number(m[2]), buf.length - 1) : buf.length - 1;
+      return r.fulfill({ status: 206, body: buf.subarray(start, end + 1), headers: { 'content-type': 'video/webm', 'accept-ranges': 'bytes', 'content-range': `bytes ${start}-${end}/${buf.length}`, 'content-length': String(end - start + 1) } });
+    });
   }
   await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'commit', timeout: 240000 });
   await page.waitForSelector('#avatar-dialog[open]', { timeout: 240000 });

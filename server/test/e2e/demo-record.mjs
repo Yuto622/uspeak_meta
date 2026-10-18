@@ -104,6 +104,11 @@ const scenes = {
     const cafe = CONV.spotById.get('cafe');
     await page.evaluate(({ id, x, z }) => uspeak.net.teleportTo({ space: id, x, z }), { id: CONV.id, x: cafe.wx, z: cafe.wz + 2 });
     await page.waitForTimeout(3000);
+    // ウーピーの 2 本の 動画（ふつう・口が うごく）を 撮る 前に 読みこんでおく（仮の 時計の 間は 読みこみが はじまらない）。
+    await page.evaluate(() => uspeak.net.conv.enter('cafe'));
+    await page.waitForFunction(() => [...document.querySelectorAll('#conv-stage video')].every((v) => v.readyState >= 3), null, { timeout: 30000 }).catch(() => console.log('demo: videos not ready'));
+    await page.evaluate(() => document.querySelector('#conv-close')?.click());
+    await page.waitForTimeout(800);
     const tl = timeline();
     const typeLine = (t0, text) => { [...text].forEach((_, k) => tl.at(t0 + k * 0.05, () => page.evaluate((v) => { const b = document.querySelector('#conv-text'); if (b) b.value = v; }, text.slice(0, k + 1)))); return t0 + text.length * 0.05; };
     tl.at(0.3, () => page.evaluate(() => uspeak.net.conv.enter('cafe')));
