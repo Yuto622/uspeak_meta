@@ -48,7 +48,7 @@ export function verifyRobloxReport(secret, username, token) {
 }
 export const robloxReportPath = (secret, username) => `/report/${encodeURIComponent(username)}?t=${signRobloxReport(secret, username)}`;
 
-export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret = '', log = console, now = Date.now }) {
+export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret = '', questions = null, log = console, now = Date.now }) {
   const enabled = !!key;
   const rooms = new Set();          // ClassRoom が入室時に登録する（残高を押し込むため）
   const hits = new Map();           // key -> { count, at }
@@ -283,6 +283,20 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
       const at = now();
       const words = pickWords(state, at);
       res.json({ ok: true, username, due: dueCount(state, at), items: words.map((w) => ({ word: w, options: optionsFor(state, w) })) });
+    });
+
+    // 問題データベース（/admin/qbank で「Robloxに出す」に した 問題）。Roblox は ここから 取って 出題する。
+    // ?grade=3級&skill=reading&format=…&page=0&limit=500。updatedAt が かわったら 取りなおせば よい。
+    api.get('/questions', (req, res) => {
+      if (!questions) { res.json({ ok: true, updatedAt: 0, total: 0, items: [] }); return; }
+      const { updatedAt, items } = questions();
+      const q = req.query;
+      const list = items.filter((it) => (!q.grade || it.grade === q.grade) && (!q.skill || it.skill === q.skill) && (!q.format || it.format === q.format));
+      const limit = Math.min(1000, Math.max(1, Number(q.limit) || 500));
+      const page = Math.max(0, Number(q.page) || 0);
+      res.json({ ok: true, updatedAt, total: list.length, page, limit,
+        items: list.slice(page * limit, page * limit + limit).map((it) => ({ id: it.id, grade: it.grade, skill: it.skill, format: it.format,
+          passage: it.passage, question: it.question, choices: it.choices, answer: it.answer, explanation: it.explanation, model_answer: it.model_answer, tags: it.tags })) });
     });
 
     app.use('/api/roblox', api);

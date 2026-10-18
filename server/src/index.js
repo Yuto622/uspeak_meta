@@ -13,6 +13,9 @@ import { createAccess } from './game/access.js';
 import { mountAdmin } from './admin/roster-admin.js';
 import { TaskStore } from './tasks/store.js';
 import { tasksAdminExtension } from './tasks/admin.js';
+import { QBankStore } from './qbank/store.js';
+import { qbankAdminExtension } from './qbank/admin.js';
+import { setExtraQuestions } from './game/eiken.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
 import { reportFor, reportHtml, reportNoLatexHtml, verifyReport, verifyExport, verifyClass, classCsv, certHtml } from './game/report.js';
@@ -67,7 +70,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   const cpuPercent = createCpuSampler();
   const startedAt = Date.now();
   // Roblox 連携（roblox/sync.js）: 学習の記録を受け、コインを両側で同じにする。鍵がなければ口は開かない。
-  const roblox = createRoblox({ store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, log });
+  const roblox = createRoblox({ store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, questions: () => ({ updatedAt: qbank.updatedAt, items: qbank.live('roblox') }), log });
   await roblox.ensureSeeds();
   await roblox.refreshLinks();
 
@@ -88,6 +91,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // タスクの 表（/admin/tasks で 書きかえる。ゲームは /api/tasks で 採用の 行だけ 読む）。
   // テスト（node --test）では ほかの 検査の コインの 数を うごかさないよう 切る。タスクの 検査は TASKS=on で 入れる。
   const tasksOn = process.env.TASKS === 'on' || (process.env.TASKS !== 'off' && !process.env.NODE_TEST_CONTEXT);
+  // 問題データベース（/admin/qbank）。web版に出す 問題は 英検の島に まざり、Robloxに出す 問題は /api/roblox/questions で 取られる。
+  const qbank = await new QBankStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'qbank.json'), { log }).init();
+  qbank.onChange((q) => { const added = setExtraQuestions(q.live('web')); if (q.items.length) log.info('[qbank] web questions mixed in:', JSON.stringify(added)); });
   const tasks = await new TaskStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'tasks.json'), { log }).init();
 
   const app = express();
@@ -287,7 +293,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
 
   // 管理ページ. Mounted only with ADMIN_KEY (admin/roster-admin.js).
   const tasksAdmin = tasksAdminExtension({ tasks, log });
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); } });
+  const qbankAdmin = qbankAdminExtension({ qbank, log });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); } });
   app.get('/api/tasks', (req, res) => { res.set('Cache-Control', 'public, max-age=60'); res.json({ ok: true, updatedAt: tasks.updatedAt, ...tasks.adopted() }); });
   // 保護者レポートの 口（Webhook・LIFF・/r/:token・教室の タブ）。
   parentReports.mount(app, { verifyClass, secret: config.reportSecret });

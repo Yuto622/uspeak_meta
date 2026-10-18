@@ -296,3 +296,8 @@ cd server && node --test test/roblox.test.mjs
 保存するのは Roblox のアカウント名（`username`）と `userId`、答えた問題・正誤・かかった時間・
 いた時間・コインの増減。本名・メール・生年月日は受け取らない。保護者ページは 1 人ぶんの
 署名つきリンクで、検索エンジンには載せない（`noindex`）。
+
+
+## 問題データベースを 取る（GET /api/roblox/questions）
+
+`/admin/qbank` で「Robloxに出す」に した 英検形式の 問題を 取る口。使いかたと Luau の 例は [`QBANK.md`](QBANK.md)。
