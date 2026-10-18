@@ -106,3 +106,21 @@ test('shuffling moves the answer off A', () => {
   const total = counts.reduce((a, b) => a + b, 0);
   for (const c of counts) assert.ok(c > total * 0.15, `answer positions are skewed: ${counts}`);
 });
+
+test('答えが「all of them」「B and C」の 問題は 出ない。直した 問題は 答えが 1 つに きまる', async () => {
+  const combo = /^(all of (them|the above)|[A-D] and [A-D])$/i;
+  for (const difficulty of DIFFICULTIES) {
+    for (const q of BANK[difficulty]) assert.ok(!q.choices.some((c) => combo.test(c.trim())), `${difficulty}: ${q.q}`);
+  }
+  const all = DIFFICULTIES.flatMap((d) => BANK[d]);
+  const find = (s) => all.find((q) => q.q === s);
+  assert.equal(find('____ is good for our health.').choices[find('____ is good for our health.').answer], 'Swimming');
+  assert.ok(find("A: I don't like natto.  B: Neither ____ I."), 'Neither には 前の 文が ある');
+  assert.ok(!all.some((q) => /She keep on|a traditional Japanese clothes|____ used by my father/.test(q.q)), '文法の まちがいは のこっていない');
+  // hut-quiz.json（英単語ハウス）も 同じ 直し
+  const { readFileSync } = await import('node:fs');
+  const hut = JSON.parse(readFileSync(new URL('../src/game/hut-quiz.json', import.meta.url), 'utf8')).levels;
+  const huts = Object.values(hut).filter(Array.isArray).flat().filter((q) => q && q.q);
+  assert.ok(!huts.some((q) => /She keep on|a traditional Japanese clothes|____ used by my father|^Neither ____ I\.$|^So ____ I\.$|you to buy this/.test(q.q)));
+  for (const q of huts) assert.ok(q.o.includes(q.a), q.q);
+});

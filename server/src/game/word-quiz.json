@@ -1584,14 +1584,14 @@
 "answer": 0
 },
 {
-"q": "See you ____!",
+"q": "It's late. See you ____ morning!",
 "choices": [
-"soon",
-"again",
 "tomorrow",
-"all of them"
+"yesterday",
+"ago",
+"last"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "I like ____. I like numbers.",
@@ -2434,12 +2434,12 @@
 "answer": 0
 },
 {
-"q": "Have a nice ____!",
+"q": "Have a nice ____! See you on Monday.",
 "choices": [
-"day",
-"pen",
-"bag",
-"book"
+"weekend",
+"breakfast",
+"homework",
+"yesterday"
 ],
 "answer": 0
 },
@@ -2476,9 +2476,9 @@
 {
 "q": "Wait a ____, please.",
 "choices": [
-"minute",
+"moment",
 "hour",
-"day",
+"year",
 "week"
 ],
 "answer": 0
@@ -3944,14 +3944,14 @@
 "answer": 0
 },
 {
-"q": "I'm ____ to hear that.",
+"q": "I'm ____ to hear that your dog is sick.",
 "choices": [
 "sorry",
 "happy",
 "glad",
-"all of them"
+"fine"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "She is always ____.",
@@ -4344,14 +4344,14 @@
 "answer": 0
 },
 {
-"q": "The cat is ____ the box.",
+"q": "The cat is ____ the box, so I can't see it.",
 "choices": [
 "in",
 "on",
-"under",
-"all of them"
+"by",
+"near"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "The pencil is ____ the desk.",
@@ -5064,14 +5064,14 @@
 "answer": 0
 },
 {
-"q": "See you next ____!",
+"q": "Have a nice weekend. See you next ____!",
 "choices": [
-"time",
 "week",
-"month",
-"all of them"
+"day",
+"hour",
+"minute"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "Congratulations!",
@@ -5976,7 +5976,7 @@
 "answer": 1
 },
 {
-"q": "She keep on ____ the piano.",
+"q": "She kept on ____ the piano for hours.",
 "choices": [
 "play",
 "playing",
@@ -6606,7 +6606,7 @@
 "answer": 2
 },
 {
-"q": "What ____ you to buy this?",
+"q": "What ____ you buy this?",
 "choices": [
 "make",
 "made",
@@ -8429,11 +8429,11 @@
 "q": "Kyoto is ____ for its old temples.",
 "choices": [
 "famous",
-"known",
-"popular",
-"all of them"
+"interested",
+"careful",
+"proud"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "Have you ever eaten ____?",
@@ -8456,7 +8456,7 @@
 "answer": 0
 },
 {
-"q": "____ is a traditional Japanese clothes.",
+"q": "____ is a kind of traditional Japanese clothing.",
 "choices": [
 "Kimono",
 "Suit",
@@ -8700,10 +8700,10 @@
 "choices": [
 "travel",
 "to travel",
-"traveling",
-"all of them"
+"travels",
+"traveled"
 ],
-"answer": 3
+"answer": 1
 },
 {
 "q": "He came here ____ Japanese culture.",
@@ -8780,10 +8780,10 @@
 "choices": [
 "Swim",
 "Swimming",
-"To swim",
-"B and C"
+"Swims",
+"Swam"
 ],
-"answer": 3
+"answer": 1
 },
 {
 "q": "Thank you for ____ such a great dinner.",
@@ -8986,14 +8986,14 @@
 "answer": 1
 },
 {
-"q": "The car ____ used by my father is new.",
+"q": "The car ____ by my father is new.",
 "choices": [
-"is",
-"was",
-"were",
-"be"
+"used",
+"using",
+"uses",
+"to use"
 ],
-"answer": 1
+"answer": 0
 },
 {
 "q": "She was ____ to the party by Ken.",
@@ -9670,10 +9670,10 @@
 "choices": [
 "out",
 "up",
-"in",
-"A and C"
+"off",
+"away"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "I'm ____ of hearing your excuses.",
@@ -9719,21 +9719,21 @@
 "q": "Wait a ____, please.",
 "choices": [
 "moment",
-"while",
-"minute",
-"all of them"
+"hour",
+"year",
+"week"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "Kyoto is ____ for its temples.",
 "choices": [
 "famous",
-"known",
-"popular",
-"all of them"
+"kind",
+"sure",
+"ready"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "Japan is ____ the east of China.",
@@ -9900,10 +9900,10 @@
 "choices": [
 "remember",
 "remind",
-"recall",
-"all of them"
+"memory",
+"memorial"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "She ____ a doctor last year.",
@@ -9966,14 +9966,14 @@
 "answer": 0
 },
 {
-"q": "Have a nice ____!",
+"q": "Have a nice ____! See you on Monday.",
 "choices": [
 "weekend",
-"day",
-"trip",
-"all of them"
+"breakfast",
+"homework",
+"yesterday"
 ],
-"answer": 3
+"answer": 0
 }
 ],
 "hard": [
@@ -10288,14 +10288,14 @@
 "answer": 2
 },
 {
-"q": "____ not knowing what to do, I asked for help.",
+"q": "____ what to do, I asked for help.",
 "choices": [
-"Because",
-"As",
-"Since",
-"Not"
+"Not knowing",
+"Not know",
+"Knew not",
+"Not knew"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "____ the book, I went to bed.",
@@ -10638,7 +10638,7 @@
 "answer": 2
 },
 {
-"q": "Neither ____ I.",
+"q": "A: I don't like natto.  B: Neither ____ I.",
 "choices": [
 "do",
 "did",
@@ -10648,7 +10648,7 @@
 "answer": 0
 },
 {
-"q": "So ____ I.",
+"q": "A: I like soccer.  B: So ____ I.",
 "choices": [
 "do",
 "did",
@@ -11870,12 +11870,12 @@
 {
 "q": "I saw her ____ the street.",
 "choices": [
-"cross",
-"crossed",
 "crossing",
-"A and C"
+"crossed",
+"to crossing",
+"crosses"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "The movie made me ____.",
@@ -11968,14 +11968,14 @@
 "answer": 0
 },
 {
-"q": "The company's profits have ____ significantly this year.",
+"q": "The company's profits have ____ significantly this year, so the workers got a bonus.",
 "choices": [
 "increased",
 "declined",
-"expanded",
-"all of them"
+"fallen",
+"dropped"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "She has a ____ for learning languages.",
@@ -11998,14 +11998,14 @@
 "answer": 0
 },
 {
-"q": "The data ____ our initial theory.",
+"q": "The new data ____ our initial theory, so we had to change it.",
 "choices": [
 "contradicts",
 "supports",
 "verifies",
-"all of them"
+"confirms"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "The new law will go into ____ next month.",
@@ -12031,11 +12031,11 @@
 "q": "We must find a ____ to this problem.",
 "choices": [
 "solution",
-"resolution",
-"remedy",
-"all of them"
+"reason",
+"cause",
+"question"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "The market is ____ with new products.",
@@ -12048,14 +12048,14 @@
 "answer": 0
 },
 {
-"q": "The results were ____ beyond our expectations.",
+"q": "The results were ____; they went far beyond our expectations.",
 "choices": [
-"satisfactory",
-"sufficient",
-"significant",
-"all of them"
+"outstanding",
+"disappointing",
+"average",
+"poor"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "He is an ____ figure in the industry.",
@@ -12068,14 +12068,14 @@
 "answer": 0
 },
 {
-"q": "The strategy proved to be very ____.",
+"q": "The strategy proved to be very ____: sales doubled in a month.",
 "choices": [
 "effective",
-"efficient",
-"productive",
-"all of them"
+"useless",
+"harmful",
+"expensive"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "There is a ____ between the two reports.",
@@ -12088,14 +12088,14 @@
 "answer": 0
 },
 {
-"q": "The economy is in a state of ____.",
+"q": "The economy is in a ____, so many people have lost their jobs.",
 "choices": [
 "recession",
 "expansion",
 "growth",
-"A and B"
+"boom"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "We need to ____ the risks involved.",
@@ -12961,11 +12961,11 @@
 "q": "____ the weather is good, we'll go.",
 "choices": [
 "Provided",
-"Providing",
-"Provides",
-"A and B"
+"Despite",
+"Because of",
+"In spite"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "Global warming is a ____ threat to our planet.",
@@ -13400,12 +13400,12 @@
 {
 "q": "____ for your help, I would have failed.",
 "choices": [
-"Were it not",
 "Had it not been",
-"But",
-"B and C"
+"Were it not",
+"If it is not",
+"Unless it was"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "No sooner ____ the game started than it began to rain.",
@@ -13778,14 +13778,14 @@
 "answer": 0
 },
 {
-"q": "The mountain is, ____, the most beautiful in Japan.",
+"q": "He is, so ____ speak, a walking dictionary.",
 "choices": [
-"so to speak",
-"as it were",
-"if you will",
-"all of them"
+"to",
+"as",
+"for",
+"that"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "He is ____ his father in many ways.",
@@ -14501,21 +14501,21 @@
 "q": "He is ____ to the noise now.",
 "choices": [
 "accustomed",
-"used",
-"familiar",
-"A and B"
+"interested",
+"aware",
+"afraid"
 ],
-"answer": 3
+"answer": 0
 },
 {
-"q": "The results are ____ to change.",
+"q": "The schedule is ____ to change without notice.",
 "choices": [
 "subject",
-"liable",
-"prone",
-"all of them"
+"project",
+"reject",
+"object"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "He is ____ on winning.",
@@ -14538,14 +14538,14 @@
 "answer": 0
 },
 {
-"q": "He is ____ for the task.",
+"q": "She is well ____ for the job; she has ten years of experience.",
 "choices": [
-"eligible",
 "qualified",
 "capable",
-"all of them"
+"able",
+"skillful"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "The house is ____ repair.",
@@ -14618,14 +14618,14 @@
 "answer": 0
 },
 {
-"q": "He is ____ to making mistakes.",
+"q": "He is ____ to making mistakes when he is tired.",
 "choices": [
 "prone",
-"subject",
-"liable",
-"all of them"
+"likely",
+"willing",
+"eager"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "The news came as a surprise ____ me.",
@@ -14651,11 +14651,11 @@
 "q": "She is ____ for her wisdom.",
 "choices": [
 "renowned",
-"noted",
-"famous",
-"all of them"
+"afraid",
+"fond",
+"aware"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "He is ____ to the rules.",
@@ -14710,12 +14710,12 @@
 {
 "q": "He is ____ with the result.",
 "choices": [
-"content",
-"happy",
 "satisfied",
-"all of them"
+"interested",
+"fond",
+"proud"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "The law is ____ to everyone.",
@@ -14738,14 +14738,14 @@
 "answer": 0
 },
 {
-"q": "The system is ____ to errors.",
+"q": "Old software is ____ to errors, so please update it.",
 "choices": [
 "susceptible",
-"open",
-"prone",
-"all of them"
+"resistant",
+"immune",
+"unaffected"
 ],
-"answer": 3
+"answer": 0
 },
 {
 "q": "He is ____ for the post.",

@@ -296,13 +296,13 @@
     ]
    },
    {
-    "q": "The cat is ____ the box.",
+    "q": "The cat is ____ the box, so I can't see it.",
     "a": "in",
     "o": [
-     "to",
      "in",
      "on",
-     "at"
+     "by",
+     "near"
     ]
    },
    {
@@ -3408,13 +3408,13 @@
     ]
    },
    {
-    "q": "Have a nice ____!",
-    "a": "day",
+    "q": "Have a nice ____! See you on Monday.",
+    "a": "weekend",
     "o": [
-     "day",
-     "pen",
-     "bag",
-     "book"
+     "weekend",
+     "breakfast",
+     "homework",
+     "yesterday"
     ]
    },
    {
@@ -3449,11 +3449,11 @@
    },
    {
     "q": "Wait a ____, please.",
-    "a": "minute",
+    "a": "moment",
     "o": [
-     "minute",
+     "moment",
      "hour",
-     "day",
+     "year",
      "week"
     ]
    },
@@ -6890,7 +6890,7 @@
     ]
    },
    {
-    "q": "She keep on ____ the piano.",
+    "q": "She kept on ____ the piano for hours.",
     "a": "playing",
     "o": [
      "play",
@@ -7520,7 +7520,7 @@
     ]
    },
    {
-    "q": "What ____ you to buy this?",
+    "q": "What ____ you buy this?",
     "a": "made",
     "o": [
      "make",
@@ -9360,7 +9360,7 @@
     ]
    },
    {
-    "q": "____ is a traditional Japanese clothes.",
+    "q": "____ is a kind of traditional Japanese clothing.",
     "a": "Kimono",
     "o": [
      "Kimono",
@@ -9870,13 +9870,13 @@
     ]
    },
    {
-    "q": "The car ____ used by my father is new.",
-    "a": "was",
+    "q": "The car ____ by my father is new.",
+    "a": "used",
     "o": [
-     "is",
-     "was",
-     "were",
-     "be"
+     "used",
+     "using",
+     "uses",
+     "to use"
     ]
    },
    {
@@ -11122,13 +11122,13 @@
     ]
    },
    {
-    "q": "____ not knowing what to do, I asked for help.",
-    "a": "Not",
+    "q": "____ what to do, I asked for help.",
+    "a": "Not knowing",
     "o": [
-     "Because",
-     "As",
-     "Since",
-     "Not"
+     "Not knowing",
+     "Not know",
+     "Knew not",
+     "Not knew"
     ]
    },
    {
@@ -11472,7 +11472,7 @@
     ]
    },
    {
-    "q": "Neither ____ I.",
+    "q": "A: I don't like natto.  B: Neither ____ I.",
     "a": "do",
     "o": [
      "do",
@@ -11482,7 +11482,7 @@
     ]
    },
    {
-    "q": "So ____ I.",
+    "q": "A: I like soccer.  B: So ____ I.",
     "a": "do",
     "o": [
      "do",

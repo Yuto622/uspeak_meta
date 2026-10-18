@@ -42,7 +42,8 @@ export function loadBank(file = BANK_PATH) {
     })
       // 「all of them（ぜんぶ）」が 答えの 問題は 出さない。ほかの 3 つも どれも 正しく 見え（See you soon / again / tomorrow）、
       // 中には 英語として まちがった 選択肢も ある（My dream is travel…）。つり島の 取りこみ（hut-quiz.json の「全部」型）と 同じ あつかい。
-      .filter((q) => !q.choices.some((c) => /^all of (them|the above)$/i.test(c.trim())));
+      // 「B and C」のような 組み合わせの 答えも 同じ（2026-10：見つかった ものは 答えが 1 つに なる 形に 書きかえた）。
+      .filter((q) => !q.choices.some((c) => /^(all of (them|the above)|[A-D] and [A-D])$/i.test(c.trim())));
     if (banks[difficulty].length < QUESTIONS_PER_SESSION) throw new Error(`word-quiz.json: ${difficulty} needs at least ${QUESTIONS_PER_SESSION} questions`);
   }
   return banks;
