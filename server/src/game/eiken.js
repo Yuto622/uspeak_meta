@@ -116,7 +116,7 @@ export function setExtraQuestions(items = []) {
     if (!g || !extra[g][it.skill] || !Array.isArray(it.choices) || it.choices.length !== CHOICES) continue;
     const choices = [it.answer, ...it.choices.filter((c) => c !== it.answer)];
     if (choices.length !== CHOICES || new Set(choices.map((c) => c.toLowerCase())).size !== CHOICES) continue;
-    if (it.skill === 'reading') extra[g].reading.push({ text: it.passage || it.question, q: it.passage ? it.question : '（ ）に 入る ものを えらぼう。', choices, hint: text(it.explanation), answer: 0 });
+    if (it.skill === 'reading') extra[g].reading.push({ text: it.passage || it.question, q: it.passage ? it.question : /\(\s*\)/.test(it.question) ? '（ ）に 入る ものを えらぼう。' : 'ただしい ものを えらぼう。', choices, hint: text(it.explanation), answer: 0 });
     else if (text(it.passage)) extra[g].listening.push({ say: it.passage, q: it.question, choices, answer: 0 });
   }
   const added = {};

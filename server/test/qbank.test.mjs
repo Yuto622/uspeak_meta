@@ -21,6 +21,9 @@ test('こわれた 行は 入らない（答えが 選択肢に ない・同じ 
   assert.equal(cleanItem(item('d', { grade: '9級' })), null);
   // xlsx の 見出し（日本語）でも 読める
   assert.ok(cleanItem({ ID: 'e', 級: '3級', 技能: 'リスニング', 問題: 'Q?', 正解: 'A', 本文・スクリプト: '★: hi' }));
+  // 列が ない → オン、列が あって 空 → オフ
+  const f = cleanItem({ ID: 'f', 級: '5級', 技能: 'reading', 問題: 'Q', 正解: 'A', 'web版に出す': '', 'Robloxに出す': '○' });
+  assert.equal(f.on, true); assert.equal(f.web, false); assert.equal(f.roblox, true);
 });
 
 test('入れかえ・上書き・オンオフ・書きかえ。CSV で 出して 読みもどせる', async () => {

@@ -21,7 +21,8 @@ const MAX_TEXT = 4000;
 
 const str = (v, max = MAX_TEXT) => String(v ?? '').replace(/\r\n?/g, '\n').trim().slice(0, max);
 const YES = new Set(['1', 'true', 'yes', 'on', '○', '◯', 'o', 'y', 'はい', '出す']);
-const flag = (v, dflt) => (v === undefined || v === null || v === '' ? dflt : typeof v === 'boolean' ? v : YES.has(String(v).trim().toLowerCase()));
+// 列が ない ときだけ 既定値（オン）。列が あって 空なら オフ（スプレッドシートの 空欄 ＝ 出さない）。
+const flag = (v, dflt) => (v === undefined || v === null ? dflt : typeof v === 'boolean' ? v : YES.has(String(v).trim().toLowerCase()));
 
 // 1 行を きれいに する。使えない 行は null（理由は 呼ぶ がわで 数える）。
 export function cleanItem(raw) {
