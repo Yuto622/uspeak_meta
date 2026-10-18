@@ -39,8 +39,20 @@ const VT_SHIM = `(() => {
     }
     vt.t = end;
     for (const a of anims()) { try { if (a.playState === 'running') a.pause(); if (a.playState === 'paused') a.currentTime = (a.currentTime || 0) + ms; } catch {} }
+    // 動画（ウーピー）も 仮の 時間で 1 コマずつ すすめる。ページが play() した ものだけ（vtPlaying）。
+    for (const v of document.querySelectorAll('video')) {
+      try {
+        if (!v.paused) { v.dataset.vtPlaying = '1'; realPause.call(v); }
+        if (v.dataset.vtPlaying === '1' && v.duration > 0) v.currentTime = (v.currentTime + ms / 1000) % v.duration;
+      } catch {}
+    }
     const q = vt.q; vt.q = []; for (const cb of q) { try { cb(vt.t); } catch (e) { console.error(e); } }
   };
+  // 動画の シークが 終わるまで まつ（本物の 時計で、長くても 1.5 秒）。
+  vt.settle = () => new Promise((resolve) => { const t0 = realNow(); const poll = () => { const busy = [...document.querySelectorAll('video')].some((v) => v.seeking); if (!busy || realNow() - t0 > 1500) resolve(); else realSet(poll, 15); }; poll(); });
+  const realPlay = HTMLMediaElement.prototype.play, realPause = HTMLMediaElement.prototype.pause;
+  HTMLMediaElement.prototype.play = function () { if (vt.manual) { this.dataset.vtPlaying = '1'; return Promise.resolve(); } return realPlay.call(this); };
+  HTMLMediaElement.prototype.pause = function () { if (vt.manual) { this.dataset.vtPlaying = ''; } return realPause.call(this); };
   vt.stop = () => {
     vt.off = realNow() - vt.t; vt.manual = false;
     const q = vt.q; vt.q = []; for (const cb of q) realRaf(() => cb(performance.now()));
@@ -63,6 +75,10 @@ export async function openGame(browser, port, { name, cls = 'demo', teacher = fa
   await ctx.addInitScript(VT_SHIM);
   const page = await ctx.newPage();
   await page.route('**/fonts.googleapis.com/**', (r) => r.abort());
+  // 撮影用の Chromium は H.264 を 再生できない。同じ 動画の WebM 版を わたす（ゲームの ファイルは そのまま）。
+  if (process.env.CHAR_WEBM_DIR) {
+    await page.route('**/assets/character/*.mp4', (r) => r.fulfill({ path: path.join(process.env.CHAR_WEBM_DIR, path.basename(new URL(r.request().url()).pathname).replace(/\.mp4$/, '.webm')), contentType: 'video/webm' }));
+  }
   await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'commit', timeout: 240000 });
   await page.waitForSelector('#avatar-dialog[open]', { timeout: 240000 });
   await page.evaluate(() => document.querySelector('#avatar-confirm').click());
@@ -91,6 +107,7 @@ export async function record(page, dir, { seconds, fps = 30, step = null, settle
   for (let i = 0; i < n; i++) {
     if (step) await step(i, i / fps);
     await page.evaluate((ms) => window.__vt.step(ms), 1000 / fps);
+    await page.evaluate(() => window.__vt.settle());
     if (settle) await page.waitForTimeout(settle);
     await page.screenshot({ path: path.join(dir, `f${String(i).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 88, timeout: 120000 });
   }
