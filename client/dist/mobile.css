@@ -506,3 +506,80 @@
   .hotbar button small { opacity: .7; }
   .stats button[data-cap]::after { font-size: 12px; opacity: 1; }
 }
+
+/* --- 12. スマホの 横もち（高さ 500px 以下）— ボタンを へらして 島を 見せる ---------------
+   844x390 で 数えたら、島の 上に ボタンが 28 こ のっていて、右の バーは 文字が 切れ
+   （「World… しまの…」）、いちばん 下の ランキングは はみ出していた。ここでは：
+   - 上の バーは コイン・レベル・⋯ だけ。きせかえ・アバター・おと・？・A・⏏ は ⋯ の 中（phone-menu.js）。
+   - 右は 絵だけの まるい ボタン 1 列（🏠 ✈ 🎣 📖 📹 🏆）。文字は 縦もち・iPad で 読める。
+   - 下の ホットバーは たんごちょう と じぶんの め だけ（しまの ちず は ✈ と 同じ、ぼうけん は いつもの 状態）。
+   - 🎒 おなかは 左上の ロゴの となりに 小さく。
+   **iPad は いちばん 低い 横もちでも 744px なので、ここには 入らない。パソコンは pointer: fine で 入らない。** */
+.more-button { display: none; }
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+  /* 上の バー */
+  header { top: calc(8px + env(safe-area-inset-top)); left: calc(10px + env(safe-area-inset-left)); right: calc(10px + env(safe-area-inset-right)); }
+  header .brand > div, header .location { display: none; }
+  header .brand-icon { width: 40px; height: 40px; font-size: 28px; border-radius: 12px; }
+  header .stats { padding: 4px 6px; gap: 6px; flex-wrap: wrap; justify-content: flex-end; max-width: 300px; }
+  header .stats > #avatar-button, header .stats > #wear-button, header .stats > #sound,
+  header .stats > #help, header .stats > #lang-toggle, header .stats > #logout-button { display: none; }
+  header .stats > #record-button span:not(.level) { display: none; }
+  header .stats > .more-button { display: grid; place-content: center; width: 40px; height: 40px; font-size: 22px; font-weight: 700; line-height: 1; border-radius: 12px; background: #1b3a2f; color: #fff6e6; order: 3; }
+  header { z-index: 8; }
+  header .stats > .coin-hud { order: 1; }
+  header .stats > #record-button { order: 2; }
+  body[data-more] header .stats::after { content: ''; flex-basis: 100%; order: 4; }
+  body[data-more] header .stats > #avatar-button, body[data-more] header .stats > #wear-button,
+  body[data-more] header .stats > #sound, body[data-more] header .stats > #help,
+  body[data-more] header .stats > #lang-toggle, body[data-more] header .stats > #logout-button:not([hidden]) { display: grid; place-content: center; order: 5; width: 40px; height: 40px; }
+  body[data-more] header .stats > #avatar-button { width: auto; padding: 0 10px; }
+
+  /* 🎒 おなか：ロゴの となり */
+  .right-rail > #hunger, body > #hunger {
+    position: fixed; top: calc(12px + env(safe-area-inset-top)); left: calc(60px + env(safe-area-inset-left)); right: auto;
+    width: auto; margin: 0; padding: 4px 8px; flex-wrap: nowrap; min-height: 34px;
+  }
+  #hunger .hg-cap, #hunger .hg-go { display: none; }
+  #hunger .hg-icons { order: 0; flex-basis: auto; }
+  #hunger .hg-icons i { width: 10px; font-size: 11px; }
+  #hunger-notice { top: calc(56px + env(safe-area-inset-top)); max-width: min(440px, 50vw); }
+
+  /* 右の 列：絵だけの まるい ボタン */
+  .right-rail {
+    top: calc(58px + env(safe-area-inset-top)); bottom: auto; right: calc(10px + env(safe-area-inset-right));
+    width: 46px; gap: 6px; overflow: visible;
+  }
+  .right-rail .map-panel, .right-rail .scenery-controls, .right-rail > #roblox-button { display: none; }
+  .right-rail > #main-island-button { position: static; width: auto; margin: 0; }
+  .right-rail > button:not(#hunger) {
+    width: 46px; height: 46px; min-height: 46px; padding: 0; border-radius: 50%;
+    display: grid; place-content: center; font-size: 0; line-height: 1;
+  }
+  .right-rail > button:not(#hunger) > * { display: none !important; }
+  .right-rail > button::before { font-size: 21px; line-height: 1; }
+  .right-rail > #main-island-button { order: 1; } .right-rail > #main-island-button::before { content: '🏠'; }
+  .right-rail > #flight-button { order: 2; } .right-rail > #flight-button::before { content: '✈️'; }
+  .right-rail > #fishing-button { order: 3; } .right-rail > #fishing-button::before { content: '🎣'; }
+  .right-rail > #rpg-buddy-button { order: 4; } .right-rail > #rpg-buddy-button::before { content: '📖'; }
+  .right-rail > #voice-button { order: 5; } .right-rail > #voice-button::before { content: '📹'; }
+  .right-rail > #rank-button { order: 6; } .right-rail > #rank-button::before { content: '🏆'; }
+
+  /* 左の「つぎに やること」：スティックの 上で おわる */
+  .quest-panel, .park-panel, #errand-hud, #rpg-region-panel {
+    top: calc(58px + env(safe-area-inset-top)); left: calc(10px + env(safe-area-inset-left));
+    width: 196px; max-height: calc(100dvh - 58px - 132px); padding: 10px 12px;
+  }
+
+  /* 下：スティック・ホットバー（2 つ）・つうしんの ボタン */
+  .mobile-pad { left: calc(12px + env(safe-area-inset-left)); bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .stick { width: 100px; height: 100px; }
+  .hotbar #explore, .hotbar #mapbtn { display: none; }
+  .hotbar { padding: 4px; gap: 4px; }
+  .hotbar button { min-height: 44px; padding: 4px 10px; flex-direction: row; gap: 6px; }
+  .hotbar button small { display: none; }
+  .bottom { bottom: calc(8px + env(safe-area-inset-bottom)); }
+  .net-dock { bottom: calc(10px + env(safe-area-inset-bottom)); right: calc(66px + env(safe-area-inset-right)); max-width: calc(100vw - 420px); }
+  .net-dock > button, .net-dock > * { min-height: 40px; }
+  .near { bottom: calc(66px + env(safe-area-inset-bottom)); }
+}
