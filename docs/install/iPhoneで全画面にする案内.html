@@ -22,7 +22,9 @@ figcaption { font-size:8.8pt; color:var(--mute); margin-top:3px; text-align:cent
 .two { display:grid; grid-template-columns:1.9fr 1fr; gap:10px; align-items:end; }
 .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
 .step { border:1px solid var(--line); border-radius:10px; padding:7px; break-inside:avoid; }
-.step img { width:100%; display:block; border:0; border-radius:6px; }
+.step img { width:100%; height:300px; object-fit:contain; background:#111; display:block; border:0; border-radius:6px; }
+.print-only { display:none; }
+@media print { .print-only { display:block; } .screen-only { display:none; } }
 .step h3 { font-size:10pt; margin:6px 0 2px; color:var(--g); }
 .step h3 span { display:inline-grid; place-content:center; width:20px; height:20px; border-radius:50%; background:var(--o); color:#fff; font-size:10pt; margin-right:5px; vertical-align:1px; }
 .step p { font-size:8.8pt; color:var(--ink); }
@@ -50,45 +52,45 @@ th { background:#eef3ef; color:var(--g); white-space:nowrap; }
     <h2>お子さまの画面に出る案内</h2>
     <p>iPhone のブラウザで遊んでいると、島に入って少ししてから<b>1回だけ</b>、この案内が出ます。「わかった」を押すと閉じて、二度と出ません。</p>
     <div class="two">
-      <figure><img src="iphone/land-hint.jpg" alt="" style="height:236px;object-fit:cover"><figcaption>横向きのとき</figcaption></figure>
-      <figure><img src="iphone/port-hint.jpg" alt="" style="height:236px;object-fit:cover;object-position:center 62%"><figcaption>縦向きのとき</figcaption></figure>
+      <figure><img src="iphone/land-hint.jpg" alt="" style="height:200px;object-fit:cover"><figcaption>横向きのとき</figcaption></figure>
+      <figure><img src="iphone/port-hint.jpg" alt="" style="height:200px;object-fit:cover;object-position:center 62%"><figcaption>縦向きのとき</figcaption></figure>
     </div>
     <p class="note" style="margin-top:4px">iPad・Android・パソコン、すでにホーム画面のアイコンから開いているときは出ません。</p>
   </div>
 
   <div class="section">
     <h2>ホーム画面に追加する（1分）</h2>
+    <p class="note" style="margin-bottom:5px">実際の iPhone の画面です（連絡先やほかのアプリにはモザイクをかけています）。</p>
     <div class="steps">
-      <div class="step"><img src="iphone/m-safari.jpg" alt="">
+      <div class="step"><img src="iphone/real-1.jpg" alt="">
         <h3><span>1</span>共有ボタン</h3>
-        <p>Safari は画面の下（または上）の <b>共有ボタン</b>（四角から上向きの矢印）を押します。見当たらないときは <span class="k">•••</span> の中の <span class="k">共有</span>。</p></div>
-      <div class="step"><img src="iphone/m-sheet.jpg" alt="">
+        <p>アドレスバーの右（Safari は画面の下のことも）の <b>共有ボタン</b>（四角から上向きの矢印）を押します。見当たらないときは <span class="k">•••</span> の中の <span class="k">共有</span>。</p></div>
+      <div class="step"><img src="iphone/real-2.jpg" alt="">
         <h3><span>2</span>ホーム画面に追加</h3>
-        <p>出てきたメニューを下へスクロールして <span class="k">ホーム画面に追加</span> を押します。</p></div>
-      <div class="step"><img src="iphone/m-add.jpg" alt="">
+        <p>メニューを上へ引き出して（下へスクロールして） <span class="k">ホーム画面に追加</span> を押します。</p></div>
+      <div class="step"><img src="iphone/real-3.jpg" alt="">
         <h3><span>3</span>追加</h3>
         <p>名前が「U-Speak」になっていることを確かめて、右上の <span class="k">追加</span>。「Webアプリとして開く」が出たら<b>オンのまま</b>にします。</p></div>
-      <div class="step"><img src="iphone/m-home.jpg" alt="">
+      <div class="step"><img src="iphone/real-4.jpg" alt="">
         <h3><span>4</span>アイコンから開く</h3>
         <p>ホーム画面に緑の <b>u.</b> が出ます。<b>次からはこのアイコンから開いてください。</b></p></div>
     </div>
   </div>
-  <div class="foot"><span>合同会社 U-Speak Lab　｜　手順の画面はイメージです（iOS・ブラウザの版で少しちがいます）</span><span>1 / 2</span></div>
+  <div class="foot"><span>合同会社 U-Speak Lab　｜　iOS・ブラウザの版によって、画面が少しちがうことがあります</span><span>1 / 2</span></div>
 </section>
 
 <section class="page">
   <div class="section">
-    <h2>Chrome で遊んでいる場合</h2>
-    <div class="two" style="grid-template-columns:1.6fr 1fr;align-items:start">
-      <figure><img src="iphone/m-chrome.jpg" alt=""><figcaption>Chrome（横向き）：アドレスバーの右の共有ボタン</figcaption></figure>
+    <h2>動画で見る（12秒）</h2>
+    <div class="two" style="grid-template-columns:auto 1fr;align-items:center;gap:16px">
+      <video class="screen-only" src="iphone/add-to-home.mp4" poster="iphone/real-1.jpg" controls playsinline muted style="width:150px;border-radius:10px;border:1px solid #d9e2dc"></video><img class="print-only" src="iphone/real-1.jpg" alt="" style="width:120px;border-radius:10px;border:1px solid #d9e2dc">
       <div>
-        <p>iPhone の Chrome でも追加できます（iOS 16.4 以降）。</p>
-        <ol style="margin:4px 0 0;padding-left:1.3em">
-          <li>アドレスバーの右の <b>共有ボタン</b> を押す</li>
-          <li><span class="k">ホーム画面に追加</span> を押す（見当たらないときはメニューを下へ）</li>
-          <li>右上の <span class="k">追加</span> を押す</li>
-        </ol>
-        <p class="note" style="margin-top:6px">うまくいかないときは、Safari で同じページを開いて、前のページの手順で追加してください。</p>
+        <p>上の 4 つの手順を、実際の iPhone で録画した動画です（連絡先とほかのアプリはモザイク）。</p>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+          <img src="iphone/qr-video.png" alt="" style="width:96px;height:96px">
+          <p class="note" style="margin:0">スマホで読みとると動画が開きます。<br>https://uspeak-multiplayer.fly.dev/assets/app/add-to-home.mp4</p>
+        </div>
+        <p class="note" style="margin-top:6px">Safari・Chrome など、どのブラウザでも同じ流れです（iOS 16.4 以降）。うまくいかないときは、Safari で同じページを開いて追加してください。</p>
       </div>
     </div>
   </div>
