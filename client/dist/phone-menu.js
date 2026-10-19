@@ -39,3 +39,24 @@ if (phone && !installed && root.requestFullscreen) {
   addEventListener('pointerup', ask, true);
   addEventListener('touchend', ask, true);
 }
+
+// スマホの 横もち だけ：右の 列（🏠 ✈ 🎣 📖 📹 🏆）を「☰」1 つに しまう（mobile.css の 14）。
+// 押すと 右に ならび、どれかを 押すか ほかを さわると しまう。
+const railBtn = document.createElement('button');
+railBtn.type = 'button';
+railBtn.id = 'rail-toggle';
+railBtn.className = 'rail-toggle';
+railBtn.textContent = '☰';
+railBtn.setAttribute('aria-label', 'しまの メニュー');
+railBtn.dataset.tLabel = 'しまの メニュー';
+railBtn.setAttribute('aria-expanded', 'false');
+document.body.append(railBtn);
+const setRail = (on) => {
+  if (on) document.body.dataset.rail = '1'; else delete document.body.dataset.rail;
+  railBtn.setAttribute('aria-expanded', String(on));
+  railBtn.textContent = on ? '✕' : '☰';
+};
+railBtn.addEventListener('click', (e) => { e.stopPropagation(); setRail(!document.body.dataset.rail); });
+const rail = document.querySelector('.right-rail');
+rail?.addEventListener('click', (e) => { if (e.target.closest('button, a')) setRail(false); });
+document.addEventListener('pointerdown', (e) => { if (document.body.dataset.rail && !rail?.contains(e.target) && e.target !== railBtn) setRail(false); });

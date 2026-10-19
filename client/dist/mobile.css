@@ -620,3 +620,28 @@
   #install-hint .ih-steps { grid-template-columns: repeat(3, 1fr); }
   #install-hint .ih-steps li { flex-direction: column; text-align: center; gap: 6px; font-size: 13px; }
 }
+
+/* --- 14. スマホの 横もち：右の 列は「☰」に しまう（phone-menu.js） --------------------
+   12 で 絵だけに しても 右に 6 こ ＋ 下に 3 こ ならんで、まだ 見にくかった。
+   ふだんは ☰ 1 つ。押すと 右に 6 こ 出る。下の つうしんは 💬 と おつかい だけ（人数の 札は 出さない）。 */
+.rail-toggle { display: none; }
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+  .rail-toggle {
+    display: grid; place-content: center; position: fixed; z-index: 7;
+    top: calc(58px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right));
+    width: 46px; height: 46px; border-radius: 50%; font-size: 22px; font-weight: 800; line-height: 1;
+    background: #1b3a2f; color: #fff6e6; border: 1.5px solid #fff2c8b3; box-shadow: 0 4px 14px #0005;
+  }
+  body:not([data-rail]) .right-rail > button:not(#hunger), body:not([data-rail]) .right-rail > a { display: none; }
+  /* ひらくと ☰ の 左に 横 1 列（縦に ならべると 390px に 入らない）。 */
+  body[data-rail] .right-rail { z-index: 7; flex-direction: row; width: auto; right: calc(62px + env(safe-area-inset-right)); }
+  #net-status { display: none; }
+  .net-dock { right: calc(10px + env(safe-area-inset-right)); max-width: calc(100vw - 360px); }
+  body[data-arcade] .rail-toggle, body[data-race] .rail-toggle, body[data-gp] .rail-toggle, body[data-main] .rail-toggle,
+  body[data-warp] .rail-toggle, body[data-more] .rail-toggle { display: none; }
+}
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 380px) {
+  .rail-toggle { top: calc(52px + env(safe-area-inset-top)); width: 40px; height: 40px; font-size: 19px; }
+  body[data-rail] .right-rail { width: auto; right: calc(56px + env(safe-area-inset-right)); }
+  .net-dock { right: calc(10px + env(safe-area-inset-right)); }
+}
