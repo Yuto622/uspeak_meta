@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><title>U-Speak をホーム画面に追加する</title>
+<style>
+@page { size: A4; margin: 11mm 13mm 9mm; }
+:root { --g:#1B3A2F; --o:#E27A2D; --cream:#FFF6E6; --ink:#1F2A24; --mute:#5b6b62; --line:#d9e2dc; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:'Noto Sans CJK JP','Noto Sans JP',sans-serif; color:var(--ink); font-size:9.6pt; line-height:1.48; }
+h1 { font-size:20pt; margin:0; color:var(--g); letter-spacing:.02em; }
+h2 { font-size:13pt; color:var(--g); margin:0 0 6px; padding-left:10px; border-left:5px solid var(--o); }
+h3 { font-size:11pt; margin:0 0 4px; color:var(--g); }
+p { margin:0 0 6px; }
+.page { page-break-after:always; }
+.page:last-child { page-break-after:auto; }
+.top { display:flex; align-items:center; gap:14px; padding-bottom:8px; border-bottom:2px solid var(--g); margin-bottom:9px; }
+.top img { width:52px; height:52px; border-radius:12px; }
+.top .sub { color:var(--mute); font-size:9.5pt; }
+.lead { background:var(--cream); border-radius:10px; padding:8px 12px; margin-bottom:9px; }
+.lead b { color:var(--o); }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.card { border:1px solid var(--line); border-radius:10px; padding:7px 11px; break-inside:avoid; }
+.card.best { border:2px solid var(--o); }
+.tag { display:inline-block; font-size:8.5pt; font-weight:700; color:#fff; background:var(--o); border-radius:20px; padding:1px 9px; margin-left:6px; vertical-align:2px; }
+.tag.g { background:var(--g); }
+ol { margin:4px 0 0; padding-left:1.4em; }
+ol li { margin-bottom:3px; }
+.ico { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border:1.5px solid var(--g); border-radius:5px; vertical-align:-5px; margin:0 2px; }
+.ico svg { width:13px; height:13px; }
+.k { font-weight:700; background:#eef3ef; border-radius:4px; padding:0 5px; }
+.url { font-family:'DejaVu Sans Mono',monospace; font-size:9.5pt; background:#eef3ef; border-radius:5px; padding:2px 7px; word-break:break-all; }
+.urlbox { display:flex; gap:14px; align-items:center; border:1px dashed var(--g); border-radius:10px; padding:8px 12px; margin-bottom:9px; }
+.urlbox img { width:92px; height:92px; }
+.blank { display:inline-block; min-width:150px; border-bottom:1.5px solid var(--ink); }
+.note { font-size:9.5pt; color:var(--mute); }
+table { width:100%; border-collapse:collapse; font-size:9.5pt; }
+th, td { border:1px solid var(--line); padding:3px 7px; text-align:left; vertical-align:top; }
+th { background:#eef3ef; color:var(--g); white-space:nowrap; }
+.check li { list-style:none; margin-left:-1.4em; }
+.check li::before { content:'□'; color:var(--g); font-weight:700; margin-right:6px; }
+.foot { margin-top:10px; font-size:9pt; color:var(--mute); border-top:1px solid var(--line); padding-top:6px; display:flex; justify-content:space-between; }
+.section { margin-bottom:8px; }
+</style></head><body>
+
+<!-- 1 ページ目 -->
+<section class="page">
+  <div class="top">
+    <img src="icon.png" alt="">
+    <div><h1>U-Speak をホーム画面に追加する</h1>
+    <div class="sub">教室の先生・スタッフ向け　｜　アプリのダウンロードは不要です</div></div>
+  </div>
+
+  <div class="lead">
+    U-Speak はブラウザで動く教材です。<b>ホーム画面にアイコンを置くと、アプリと同じようにワンタップ・全画面で開けます。</b>
+    App Store からのダウンロードもアカウントも不要で、容量もほとんど使いません。新しい版は自動で入るので、更新作業もありません。
+  </div>
+
+  <div class="urlbox">
+    <img src="qr-base.png" alt="">
+    <div>
+      <h3>開くページ（教室専用のURL）</h3>
+      <p>教室ごとのURLを U-Speak Lab からお送りしています。<b>必ずそのURLを開いてから</b>ホーム画面に追加してください。追加したアイコンは、そのクラスに入った状態で開きます。</p>
+      <p>教室のURL：<span class="url">https://uspeak-multiplayer.fly.dev/?class=</span><span class="blank"></span></p>
+      <p class="note">左のQRは共通の入口です（クラス名を自分で入力する場合）。</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>台数で、いちばん早い方法を選んでください</h2>
+    <div class="grid2">
+      <div class="card best">
+        <h3>教室で管理しているiPad・Chromebookが多い<span class="tag">いちばん早い</span></h3>
+        <p>端末の管理画面から<b>全台に一度に配る</b>のがいちばん確実です。子どもが操作する必要はありません。手順は2ページ目の「C」をご覧ください。</p>
+      </div>
+      <div class="card">
+        <h3>数台だけ・ご家庭の端末<span class="tag g">1台1分</span></h3>
+        <p>端末ごとに下の手順で追加します。保護者の方にお願いする場合も、このページをそのまま渡してください。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>A　iPad・iPhone</h2>
+    <div class="card">
+      <ol>
+        <li><b>Safari</b> で教室のURLを開きます。（iPadOS / iOS 16.4 以降なら Chrome・Edge でも同じ手順でできます）</li>
+        <li>画面上（iPhone は下）の <b>共有ボタン</b>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#1B3A2F" stroke-width="2.4"><path d="M12 3v12M7 8l5-5 5 5M5 12v8h14v-8"/></svg></span> をタップします。</li>
+        <li>メニューを下へスクロールして <span class="k">ホーム画面に追加</span> をタップします。</li>
+        <li>名前が「U-Speak」になっていることを確認して、右上の <span class="k">追加</span> をタップします。</li>
+        <li>ホーム画面に緑の <b>u.</b> のアイコンが出ます。<b>次からはこのアイコンから開いてください。</b></li>
+      </ol>
+      <p class="note" style="margin-top:6px">「ホーム画面に追加」が出ないときは、プライベートブラウズになっていないか、LINE などのアプリ内ブラウザで開いていないかを確認し、Safari で開き直してください。</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>B　Android・パソコン（Chrome / Edge）</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Android（Chrome）</h3>
+        <ol>
+          <li>Chrome で教室のURLを開きます。</li>
+          <li>右上の <span class="k">⋮</span> → <span class="k">ホーム画面に追加</span>（または <span class="k">アプリをインストール</span>）。</li>
+          <li><span class="k">インストール</span> をタップします。</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Windows・Mac・Chromebook</h3>
+        <ol>
+          <li>Chrome か Edge で教室のURLを開きます。</li>
+          <li>アドレスバー右端の <b>インストール</b> アイコン（画面に矢印）を押します。<br><span class="note">見つからないときは ⋮ → 「キャスト、保存、共有」→「ページをアプリとしてインストール」</span></li>
+          <li>デスクトップやアプリ一覧から開けるようになります。</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>合同会社 U-Speak Lab</span><span>1 / 2</span></div>
+</section>
+
+<!-- 2 ページ目 -->
+<section class="page">
+  <div class="section">
+    <h2>C　管理している端末に一斉に配る（管理者向け）</h2>
+    <div class="grid2">
+      <div class="card best">
+        <h3>iPad（Apple School Manager ＋ MDM）</h3>
+        <ol>
+          <li>MDM（Jamf・Intune・LanScope など）で、iPad 向けの <b>「Webクリップ」</b> を新しく作ります。</li>
+          <li>ラベル：<span class="k">U-Speak</span>　URL：<b>教室のURL</b></li>
+          <li>アイコン：下のURLの画像を登録します。<br><span class="url">https://uspeak-multiplayer.fly.dev/assets/app/apple-touch-icon.png</span></li>
+          <li><span class="k">フルスクリーン</span> をオンにして、対象の iPad に配信します。</li>
+        </ol>
+        <p class="note">項目の名前は MDM の製品によって少しちがいます。学校の端末の場合は、教育委員会や ICT 支援員の方にこのページをお渡しください。</p>
+      </div>
+      <div class="card">
+        <h3>Chromebook（Google 管理コンソール）</h3>
+        <ol>
+          <li>管理コンソール → <span class="k">デバイス</span> → <span class="k">Chrome</span> → <span class="k">アプリと拡張機能</span> → <span class="k">ユーザーとブラウザ</span>。</li>
+          <li>右下の ＋ から <span class="k">URL で追加</span>（Add by URL）を選び、<b>教室のURL</b> を入れます。</li>
+          <li>インストールのポリシーを <span class="k">強制インストール</span> にします。</li>
+        </ol>
+        <p class="note">配信先の組織部門をまちがえないようご注意ください。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>はじめて開いたとき</h2>
+    <div class="card">
+      <ol>
+        <li><b>名前とクラスのあいことばを1回だけ入れます。</b> iPad・iPhone はホーム画面のアイコンと Safari で保存場所が分かれているため、Safari で入れていても、もう一度入力が必要です。</li>
+        <li><b>学習の記録・コインは消えません。</b> 記録はサーバーに保存されているので、同じ名前・同じクラスで入れば続きから遊べます。</li>
+        <li>話す練習を初めて使うときに「マイクの使用を許可しますか？」と出たら <span class="k">許可</span> を押してください。</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>こまったとき</h2>
+    <table>
+      <tr><th>こんなとき</th><th>こうしてください</th></tr>
+      <tr><td>マイクが使えない</td><td>iPad：<span class="k">設定</span> → <span class="k">Safari</span> → <span class="k">マイク</span> を「確認」か「許可」に。Android・パソコン：アドレスバー左の鍵マーク → マイク → 許可。</td></tr>
+      <tr><td>共用の iPad で次の子に代わる</td><td>画面上のバーの <b>⏏（ログアウト）</b> を押すと、名前とクラスが消えて次の子が入れます。</td></tr>
+      <tr><td>アイコンを消したい</td><td>アイコンを長押し → 削除。学習の記録はサーバーにあるので消えません。</td></tr>
+      <tr><td>新しい版にしたい</td><td>作業は不要です。開くたびに最新の版が読み込まれます。</td></tr>
+      <tr><td>別のクラスで使う端末</td><td>クラスごとにそのURLを開いて追加すると、アイコンがクラスの数だけ並びます（どれも「U-Speak」なので、追加するときに名前を「U-Speak 月曜A」などに変えると分かりやすくなります）。</td></tr>
+      <tr><td>画面が小さい・見づらい</td><td>iPad・iPhone は横向きでお使いください。</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>導入日のチェックリスト</h2>
+    <div class="card">
+      <ul class="check" style="margin:0;padding-left:1.4em">
+        <li>教室のURLを U-Speak Lab から受け取った</li>
+        <li>先生の端末でアイコンを追加し、開けることを確認した</li>
+        <li>生徒の端末に追加した（台数が多いときは C の一斉配信）</li>
+        <li>1台で名前とあいことばを入れて、クラスに入れることを確認した</li>
+        <li>話す練習でマイクの許可を出した</li>
+        <li>保護者の方に、ご家庭で使う場合の手順（A・B）を渡した</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="note">ご不明な点は、U-Speak Lab の担当までお気軽にご連絡ください。</p>
+  <div class="foot"><span>合同会社 U-Speak Lab</span><span>2 / 2</span></div>
+</section>
+</body></html>

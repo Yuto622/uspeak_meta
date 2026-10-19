@@ -417,6 +417,17 @@ Roblox 版（USpeakTeacherLive / USpeakReviewServer）と 同じ 動き・同じ
 夜の底（半球光 .58→.85、太陽 .7→1.0、露出 1.03→1.08）も上げた。**夜の雰囲気を消さないこと** — おばけと
 提灯の見せ場なので、さらに明るくしたくなったら、まずこの光源の `distance`/`LAMP` から。
 
+## ホーム画面に 追加（PWA／2026-10）
+
+アプリは 出さず、**ホーム画面に アイコンを 置ける Web アプリ**に した（`manifest.webmanifest` / `assets/app/` の アイコン / `index.html` の head）。
+- **start_url は サーバーが 決める**（`server/src/index.js` の `/manifest.webmanifest`）。`index.html` の 小さな script が `?class=` を つけて
+  manifest を 取り、サーバーが `start_url: /?class=…` を 入れて かえす。教室の URL から 追加した アイコンは そのクラスで 開く。
+  Chrome は start_url が ないと 追加させないので、消さないこと。
+- **Service Worker は 置いていない。** ファイル名に 版が 入っていないので、キャッシュを 持つと 直した ものが 教室に 出なくなる（上の no-cache と 同じ 理由）。
+- iPad・iPhone の ホーム画面の アイコンは Safari と 保存場所が 別。はじめて 開くと 名前と あいことばを 1 回 入れなおす（記録は サーバーに ある）。
+- 教室に 配る 手順は `docs/install/ホーム画面に追加_教室向けガイド.pdf`（元は 同じ 名前の html。直したら PDF も 作りなおす）。
+- 検査は `server/test/static.test.mjs` の「ホーム画面に 追加できる」。
+
 ## 保存互換性
 
 localStorageのキー:

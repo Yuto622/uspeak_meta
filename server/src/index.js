@@ -1,5 +1,6 @@
 import http from 'node:http';
 import path from 'node:path';
+import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import cors from 'cors';
@@ -312,13 +313,24 @@ export async function startServer({ port = config.port, storeOverride = null } =
     // 同梱ゲーム（racers / blockwild / puyo / suika）と character の動画は別扱い。
     // あちらは丸ごと差し替えるまで1バイトも変わらないうえ、1本で何百ファイル・数MB
     // あるので、開くたびに全部へ問い合わせると目に見えて遅くなる。長めに持たせる。
+    // ホーム画面の アイコン（PWA）は manifest の start_url で 開く。教室ごとの URL（`/?class=...`）から
+    // 追加したら そのクラスで 開くように、index.html が `?class=` を つけて 取りに くる。
+    let manifest = null;
+    app.get('/manifest.webmanifest', async (req, res, next) => {
+      try {
+        manifest ||= JSON.parse(await fs.promises.readFile(path.join(clientDir, 'manifest.webmanifest'), 'utf8'));
+      } catch { next(); return; }
+      const cls = String(req.query.class || '').trim().slice(0, 64);
+      res.set('Cache-Control', 'no-cache');
+      res.type('application/manifest+json').send(JSON.stringify({ ...manifest, start_url: cls ? `/?class=${encodeURIComponent(cls)}` : '/' }));
+    });
     const VENDORED = /[\\/](racers|blockwild|puyo|suika|assets|vendor)[\\/]/;
     app.use(express.static(clientDir, {
       maxAge: '1h',
       etag: true,
       setHeaders(res, filePath) {
         if (VENDORED.test(filePath)) { res.setHeader('Cache-Control', 'public, max-age=86400'); return; }
-        if (/\.(js|mjs|css|html|json)$/i.test(filePath)) res.setHeader('Cache-Control', 'no-cache');
+        if (/\.(js|mjs|css|html|json|webmanifest)$/i.test(filePath)) res.setHeader('Cache-Control', 'no-cache');
       },
     }));
   }

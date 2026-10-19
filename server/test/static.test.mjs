@@ -77,3 +77,35 @@ test('自分たちのファイルは毎回聞きに来る、同梱ゲームは�
     proc.kill('SIGTERM');
   }
 });
+
+// ホーム画面に 追加した とき（PWA）。教室ごとの URL（`/?class=...`）から 追加したら、
+// アイコンも そのクラスで 開くこと。index.html が `?class=` を つけて manifest を 取り、
+// サーバーが start_url に 入れて かえす（Chrome は start_url が ないと 追加させない）。
+test('ホーム画面に 追加できる（manifest と アイコン）', async () => {
+  const proc = await up();
+  try {
+    const base = `http://127.0.0.1:${PORT}`;
+    const html = await (await fetch(`${base}/index.html`)).text();
+    assert.match(html, /<link rel="manifest" href="manifest\.webmanifest">/);
+    assert.match(html, /manifest\.webmanifest\?class=/, 'the page must ask for its own class in the manifest');
+    assert.match(html, /<link rel="apple-touch-icon" href="assets\/app\/apple-touch-icon\.png">/);
+    const res = await fetch(`${base}/manifest.webmanifest`);
+    assert.equal(res.status, 200);
+    assert.match(res.headers.get('content-type') || '', /manifest\+json/);
+    assert.match(res.headers.get('cache-control') || '', /no-cache/, 'the manifest must be revalidated like our own files');
+    const m = await res.json();
+    assert.equal(m.display, 'standalone');
+    assert.equal(m.start_url, '/');
+    const mine = await (await fetch(`${base}/manifest.webmanifest?class=treebell-b`)).json();
+    assert.equal(mine.start_url, '/?class=treebell-b', 'the home-screen icon must keep the class');
+    assert.deepEqual(mine.icons, m.icons);
+    assert.ok(m.icons.some((i) => i.sizes === '512x512' && i.purpose === 'maskable'));
+    for (const src of [...m.icons.map((i) => i.src), 'assets/app/apple-touch-icon.png', 'assets/app/favicon-32.png']) {
+      const r = await fetch(`${base}/${src}`);
+      assert.equal(r.status, 200, `${src} should be served`);
+      assert.match(r.headers.get('content-type') || '', /image\/png/);
+    }
+  } finally {
+    proc.kill('SIGTERM');
+  }
+});
