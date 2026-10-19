@@ -109,7 +109,7 @@ export function createTaskGuide({ scene, player, rpg }) {
     try { rpg.main?.setTarget?.(spot || ''); } catch { /* the island is still building */ }
   }
   function glowMap(on) {
-    for (const el of document.querySelectorAll('#flight-button, #mapbtn')) el.classList.toggle('task-glow', on);
+    for (const el of document.querySelectorAll('#flight-button, #mapbtn, #rail-toggle')) el.classList.toggle('task-glow', on);
   }
 
   function hide() { dots.visible = halo.visible = false; dots.count = halo.count = 0; route = []; }

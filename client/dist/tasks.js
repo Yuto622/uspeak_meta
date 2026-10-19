@@ -20,8 +20,9 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
   let data = null;
   let cheer = null;
   let cheerTimer = 0;
-  let folded = false;
-  try { folded = localStorage.getItem(FOLD_KEY) === '1'; } catch { /* private mode */ }
+  // スマホの 横もちは 画面が せまいので、はじめは たたんで 札だけ（ひらけば そのまま 覚える）。
+  let folded = matchMedia('(pointer: coarse) and (orientation: landscape) and (max-height: 500px)').matches;
+  try { const saved = localStorage.getItem(FOLD_KEY); if (saved !== null) folded = saved === '1'; } catch { /* private mode */ }
 
   const text = (task) => (isJa() ? task.ja : (task.en || task.ja));
 
@@ -43,6 +44,7 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
       : '');
     const reward = (task) => (task.coins > 0 ? `<span class="task-coins">🪙 ${task.coins}</span>` : (task.xp > 0 ? `<span class="task-coins">✧ ${task.xp} XP</span>` : ''));
     card.classList.toggle('folded', folded);
+    panel?.classList.toggle('tasks-folded', folded);
     card.innerHTML = `
       <button type="button" class="task-head" aria-expanded="${!folded}">
         <span class="task-eyebrow">${tr('つぎに やること')}</span>
