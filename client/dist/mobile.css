@@ -588,3 +588,12 @@
   /* ガイドの ページの 点（10px）は 指で 押せない。横もちでは 出さず「まえ／つぎ」で めくる。 */
   .guide-dots { display: none; }
 }
+/* ブラウザの バーが 出ている 横もち（高さ 380px 以下・iPhone の Safari / Chrome）：右の 6 こが 入りきらず 🏆 が 切れた。少し 小さく。 */
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 380px) {
+  .right-rail { top: calc(52px + env(safe-area-inset-top)); gap: 4px; width: 40px; }
+  .right-rail > button:not(#hunger) { width: 40px; height: 40px; min-height: 40px; }
+  .right-rail > button::before { font-size: 18px; }
+  header .brand-icon { width: 36px; height: 36px; }
+  header .stats > .more-button { width: 36px; height: 36px; }
+  .net-dock { right: calc(58px + env(safe-area-inset-right)); }
+}
