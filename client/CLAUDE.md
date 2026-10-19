@@ -423,6 +423,7 @@ Roblox 版（USpeakTeacherLive / USpeakReviewServer）と 同じ 動き・同じ
 - **start_url は サーバーが 決める**（`server/src/index.js` の `/manifest.webmanifest`）。`index.html` の 小さな script が `?class=` を つけて
   manifest を 取り、サーバーが `start_url: /?class=…` を 入れて かえす。教室の URL から 追加した アイコンは そのクラスで 開く。
   Chrome は start_url が ないと 追加させないので、消さないこと。
+- **iPhone で ブラウザの まま あそんでいる 子に 1 回だけ「ホーム画面に 追加すると 全画面」**（`install-hint.js`・見た目は `mobile.css` の 13）。島で 10 秒 なにも 開いていない ときに 出し、`uspeak-ios-a2hs-v1` に 覚えて 二度と 出さない。iPad・Android・パソコン・アイコンから ひらいた ときは 出さない。保護者・教室むけの 説明は `docs/install/iPhoneで全画面にする案内.pdf`。
 - **Service Worker は 置いていない。** ファイル名に 版が 入っていないので、キャッシュを 持つと 直した ものが 教室に 出なくなる（上の no-cache と 同じ 理由）。
 - iPad・iPhone の ホーム画面の アイコンは Safari と 保存場所が 別。はじめて 開くと 名前と あいことばを 1 回 入れなおす（記録は サーバーに ある）。
 - 教室に 配る 手順は `docs/install/ホーム画面に追加_教室向けガイド.pdf`（元は 同じ 名前の html。直したら PDF も 作りなおす）。

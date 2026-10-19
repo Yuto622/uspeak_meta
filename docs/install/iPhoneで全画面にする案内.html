@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><title>iPhone で U-Speak を全画面で遊ぶ</title>
+<style>
+@page { size: A4; margin: 11mm 13mm 9mm; }
+:root { --g:#1B3A2F; --o:#E27A2D; --cream:#FFF6E6; --ink:#1F2A24; --mute:#5b6b62; --line:#d9e2dc; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:'Noto Sans CJK JP','Noto Sans JP',sans-serif; color:var(--ink); font-size:9.6pt; line-height:1.5; }
+h1 { font-size:19pt; margin:0; color:var(--g); }
+h2 { font-size:12.5pt; color:var(--g); margin:0 0 6px; padding-left:10px; border-left:5px solid var(--o); }
+p { margin:0 0 5px; }
+.page { page-break-after:always; }
+.page:last-child { page-break-after:auto; }
+.top { display:flex; align-items:center; gap:12px; padding-bottom:8px; border-bottom:2px solid var(--g); margin-bottom:9px; }
+.top img { width:50px; height:50px; border-radius:12px; }
+.sub { color:var(--mute); font-size:9.5pt; }
+.lead { background:var(--cream); border-radius:10px; padding:8px 12px; margin-bottom:10px; }
+.lead b { color:var(--o); }
+.section { margin-bottom:10px; }
+figure { margin:0; }
+figure img { width:100%; display:block; border-radius:8px; border:1px solid var(--line); }
+figcaption { font-size:8.8pt; color:var(--mute); margin-top:3px; text-align:center; }
+.two { display:grid; grid-template-columns:1.9fr 1fr; gap:10px; align-items:end; }
+.steps { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.step { border:1px solid var(--line); border-radius:10px; padding:7px; break-inside:avoid; }
+.step img { width:100%; display:block; border:0; border-radius:6px; }
+.step h3 { font-size:10pt; margin:6px 0 2px; color:var(--g); }
+.step h3 span { display:inline-grid; place-content:center; width:20px; height:20px; border-radius:50%; background:var(--o); color:#fff; font-size:10pt; margin-right:5px; vertical-align:1px; }
+.step p { font-size:8.8pt; color:var(--ink); }
+.note { font-size:8.8pt; color:var(--mute); }
+.k { font-weight:700; background:#eef3ef; border-radius:4px; padding:0 4px; }
+table { width:100%; border-collapse:collapse; font-size:9pt; }
+th, td { border:1px solid var(--line); padding:4px 7px; text-align:left; vertical-align:top; }
+th { background:#eef3ef; color:var(--g); white-space:nowrap; }
+.foot { margin-top:8px; font-size:8.6pt; color:var(--mute); border-top:1px solid var(--line); padding-top:5px; display:flex; justify-content:space-between; }
+</style></head><body>
+
+<section class="page">
+  <div class="top">
+    <img src="icon.png" alt="">
+    <div><h1>iPhone で U-Speak を全画面で遊ぶ</h1>
+    <div class="sub">保護者・教室の方向け　｜　アプリのダウンロードは不要です</div></div>
+  </div>
+
+  <div class="lead">
+    iPhone のブラウザ（Safari・Chrome）では、画面の上下にブラウザのバーが残ります。これは Apple の仕様で、ページの側からは消せません。
+    <b>ホーム画面に U-Speak を追加すると、バーのない全画面で開けるようになります。</b>追加は最初の1回だけで、その後はアイコンを押すだけです。
+  </div>
+
+  <div class="section">
+    <h2>お子さまの画面に出る案内</h2>
+    <p>iPhone のブラウザで遊んでいると、島に入って少ししてから<b>1回だけ</b>、この案内が出ます。「わかった」を押すと閉じて、二度と出ません。</p>
+    <div class="two">
+      <figure><img src="iphone/land-hint.jpg" alt="" style="height:236px;object-fit:cover"><figcaption>横向きのとき</figcaption></figure>
+      <figure><img src="iphone/port-hint.jpg" alt="" style="height:236px;object-fit:cover;object-position:center 62%"><figcaption>縦向きのとき</figcaption></figure>
+    </div>
+    <p class="note" style="margin-top:4px">iPad・Android・パソコン、すでにホーム画面のアイコンから開いているときは出ません。</p>
+  </div>
+
+  <div class="section">
+    <h2>ホーム画面に追加する（1分）</h2>
+    <div class="steps">
+      <div class="step"><img src="iphone/m-safari.jpg" alt="">
+        <h3><span>1</span>共有ボタン</h3>
+        <p>Safari は画面の下（または上）の <b>共有ボタン</b>（四角から上向きの矢印）を押します。見当たらないときは <span class="k">•••</span> の中の <span class="k">共有</span>。</p></div>
+      <div class="step"><img src="iphone/m-sheet.jpg" alt="">
+        <h3><span>2</span>ホーム画面に追加</h3>
+        <p>出てきたメニューを下へスクロールして <span class="k">ホーム画面に追加</span> を押します。</p></div>
+      <div class="step"><img src="iphone/m-add.jpg" alt="">
+        <h3><span>3</span>追加</h3>
+        <p>名前が「U-Speak」になっていることを確かめて、右上の <span class="k">追加</span>。「Webアプリとして開く」が出たら<b>オンのまま</b>にします。</p></div>
+      <div class="step"><img src="iphone/m-home.jpg" alt="">
+        <h3><span>4</span>アイコンから開く</h3>
+        <p>ホーム画面に緑の <b>u.</b> が出ます。<b>次からはこのアイコンから開いてください。</b></p></div>
+    </div>
+  </div>
+  <div class="foot"><span>合同会社 U-Speak Lab　｜　手順の画面はイメージです（iOS・ブラウザの版で少しちがいます）</span><span>1 / 2</span></div>
+</section>
+
+<section class="page">
+  <div class="section">
+    <h2>Chrome で遊んでいる場合</h2>
+    <div class="two" style="grid-template-columns:1.6fr 1fr;align-items:start">
+      <figure><img src="iphone/m-chrome.jpg" alt=""><figcaption>Chrome（横向き）：アドレスバーの右の共有ボタン</figcaption></figure>
+      <div>
+        <p>iPhone の Chrome でも追加できます（iOS 16.4 以降）。</p>
+        <ol style="margin:4px 0 0;padding-left:1.3em">
+          <li>アドレスバーの右の <b>共有ボタン</b> を押す</li>
+          <li><span class="k">ホーム画面に追加</span> を押す（見当たらないときはメニューを下へ）</li>
+          <li>右上の <span class="k">追加</span> を押す</li>
+        </ol>
+        <p class="note" style="margin-top:6px">うまくいかないときは、Safari で同じページを開いて、前のページの手順で追加してください。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>追加したあと</h2>
+    <figure><img src="iphone/land-game.jpg" alt=""><figcaption>アイコンから開くと、ブラウザのバーがなくなり、島が画面いっぱいに出ます</figcaption></figure>
+  </div>
+
+  <div class="section">
+    <h2>よくある質問</h2>
+    <table>
+      <tr><th>アイコンから開いたら、名前を聞かれた</th><td>iPhone はアイコンと Safari で保存場所が分かれているため、<b>最初の1回だけ</b>名前とクラスのあいことばを入れ直してください。<b>学習の記録・コインはサーバーにあるので消えません。</b></td></tr>
+      <tr><th>アプリのダウンロードは必要？</th><td>いりません。容量もほとんど使いません。新しい版は開くたびに自動で入ります。</td></tr>
+      <tr><th>案内を消してしまった</th><td>このページの手順で、いつでも追加できます。</td></tr>
+      <tr><th>アイコンを消したい</th><td>アイコンを長押し → 削除。学習の記録は消えません。</td></tr>
+      <tr><th>Android・iPad は？</th><td>Android のスマホは、最初に画面にさわったときに自動で全画面になります。iPad はそのまま遊べます（ホーム画面に追加すると、同じように全画面になります）。</td></tr>
+      <tr><th>話す練習のマイク</th><td>アイコンから開いて初めて話す練習をするとき「マイクの使用を許可しますか？」と出たら <span class="k">許可</span> を押してください。</td></tr>
+    </table>
+  </div>
+  <p class="note">ご不明な点は、教室の先生または U-Speak Lab までお気軽にご連絡ください。</p>
+  <div class="foot"><span>合同会社 U-Speak Lab</span><span>2 / 2</span></div>
+</section>
+</body></html>
