@@ -119,6 +119,53 @@ const scenes = {
     tl.at(e + 0.4, () => doStep(page, { sel: '#conv-send' }));
     return record(page, out, { seconds: Number(process.env.DUR || 15), fps: FPS, step: (i, t) => tl.run(t) });
   },
+  // 3b) みんなで 同じ島：同じ クラスコードの 6 人が 主人公と いっしょに 歩き、定型文で あいさつする。
+  //     6 人は colyseus.js の ほんものの 接続（部屋は ふつうの 生徒と 同じに あつかう）。
+  async together(page) {
+    await page.waitForTimeout(2500);
+    const me = await roomOf(page);
+    const sid = await page.evaluate(() => uspeak.net.sessionId);
+    const looks = [['mia', 0xe8b48a, 0xc77d8a], ['ren', 0xc98a5e, 0x6b78b5], ['aya', 0xf0c9a5, 0xd4a33f], ['leo', 0xa86b45, 0x6e9a5a], ['noa', 0xe8b48a, 0xc2734f], ['bolt', 0xe8b48a, 0x3a4a6b]];
+    const names = ['Hina', 'Sota', 'Yui', 'Riku', 'Mei', 'Haru'];
+    const kids = [];
+    for (let k = 0; k < names.length; k += 1) {
+      const r = await new Client(`ws://127.0.0.1:${port}`).joinOrCreate('class', { classCode: 'demo', name: names[k] });
+      r.onMessage('*', () => {});
+      r.send('profile', { avatar: { id: looks[k][0], skin: looks[k][1], shirt: looks[k][2] } });
+      kids.push(r);
+    }
+    // 主人公の まわりに 半円で ならび、主人公が 歩くと ついてくる（すこし ずつ おくれて）。
+    const slots = names.map((_, k) => { const a = Math.PI * (0.15 + 0.7 * (k / (names.length - 1))); return { dx: Math.cos(a) * 3.2, dz: Math.sin(a) * 3.2 + 1.2 }; });
+    const pos = slots.map(() => null);
+    const follow = (dt) => {
+      const p = me.room.state.players.get(sid);
+      if (!p) return;
+      kids.forEach((r, k) => {
+        const want = { x: p.x + slots[k].dx, z: p.z + slots[k].dz };
+        const cur = pos[k] || want;
+        const lag = 1 - Math.exp(-dt * (2.2 + k * 0.25));
+        const nx = cur.x + (want.x - cur.x) * lag; const nz = cur.z + (want.z - cur.z) * lag;
+        const moving = Math.hypot(nx - cur.x, nz - cur.z) > 0.02;
+        pos[k] = { x: nx, z: nz };
+        r.send('move', { s: p.space, x: nx, z: nz, r: Math.atan2(nx - cur.x, nz - cur.z) || 0, a: moving ? 'walk' : 'idle', t: Date.now() % 4294967296 });
+      });
+    };
+    for (let i = 0; i < 20; i += 1) { follow(0.2); await page.waitForTimeout(60); }
+    const tl = timeline();
+    const say = (k, id) => () => kids[k].send('chat', { id });
+    tl.at(0.4, say(0, 'hello'));
+    tl.at(1.0, say(2, 'nice-to-meet'));
+    tl.at(1.8, () => page.keyboard.down('w'));
+    tl.at(2.2, say(1, 'lets-go'));
+    tl.at(3.2, say(4, 'follow-me'));
+    tl.at(4.6, say(3, 'great'));
+    tl.at(6.6, () => page.keyboard.up('w'));
+    tl.at(7.0, say(5, 'thank-you'));
+    let last = 0;
+    try {
+      return await record(page, out, { seconds: Number(process.env.DUR || 9), fps: FPS, step: async (i, t) => { await tl.run(t); follow(t - last || 1 / FPS); last = t; await page.waitForTimeout(25); } });
+    } finally { for (const r of kids) r.leave().catch(() => {}); }
+  },
   // 4) ランキング：クラスの いろいろな 指標（中身は サーバーの rankings.js で 作った 見本の クラス）。
   async rank(page) {
     await page.waitForTimeout(1500);
