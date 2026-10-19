@@ -22,7 +22,7 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
   let cheerTimer = 0;
   // スマホの 横もちは 画面が せまいので、はじめは たたんで 札だけ（ひらけば そのまま 覚える）。
   // スマホの 横もちは 保存を 読まず いつも たたんで はじめる（PC で ひらいた 覚えが スマホに 効くと 画面の 半分が カードに なる）。
-  const phone = () => matchMedia('(pointer: coarse) and (orientation: landscape) and (max-height: 500px)').matches;
+  const phone = () => matchMedia('(pointer: coarse) and (orientation: landscape) and (max-height: 1100px)').matches;
   let folded = phone();
   if (!folded) { try { const saved = localStorage.getItem(FOLD_KEY); if (saved !== null) folded = saved === '1'; } catch { /* private mode */ } }
 

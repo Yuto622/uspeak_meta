@@ -507,7 +507,8 @@
   .stats button[data-cap]::after { font-size: 12px; opacity: 1; }
 }
 
-/* --- 12. スマホの 横もち（高さ 500px 以下）— ボタンを へらして 島を 見せる ---------------
+/* --- 12. スマホと iPad の 横もち（高さ 1100px 以下）— ボタンを へらして 島を 見せる ---------------
+   2026-10：はじめは スマホ（500px 以下）だけ だったが、iPad にも 同じ 収納式を あてる ことに なった。iPad だけの 大きさは 16。
    844x390 で 数えたら、島の 上に ボタンが 28 こ のっていて、右の バーは 文字が 切れ
    （「World… しまの…」）、いちばん 下の ランキングは はみ出していた。ここでは：
    - 上の バーは コイン・レベル・⋯ だけ。きせかえ・アバター・おと・？・A・⏏ は ⋯ の 中（phone-menu.js）。
@@ -516,7 +517,7 @@
    - 🎒 おなかは 左上の ロゴの となりに 小さく。
    **iPad は いちばん 低い 横もちでも 744px なので、ここには 入らない。パソコンは pointer: fine で 入らない。** */
 .more-button { display: none; }
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 1100px) {
   /* 上の バー */
   header { top: calc(8px + env(safe-area-inset-top)); left: calc(10px + env(safe-area-inset-left)); right: calc(10px + env(safe-area-inset-right)); }
   header .brand > div, header .location { display: none; }
@@ -752,7 +753,7 @@
   #install-hint .ih-ok { width: 100%; min-height: 44px; border-radius: 14px; background: #1b3a2f; color: #fff6e6; font-size: 15px; font-weight: 800; }
 }
 /* 横もちは 高さが ないので、3 つの 手順を よこに ならべる。 */
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 1100px) {
   #install-hint .ih-card { width: min(640px, 100%); padding: 12px 16px; }
   #install-hint .ih-steps { grid-template-columns: repeat(3, 1fr); }
   #install-hint .ih-steps li { flex-direction: column; text-align: center; gap: 6px; font-size: 13px; }
@@ -762,7 +763,7 @@
    12 で 絵だけに しても 右に 6 こ ＋ 下に 3 こ ならんで、まだ 見にくかった。
    ふだんは ☰ 1 つ。押すと 右に 6 こ 出る。下の つうしんは 💬 と おつかい だけ（人数の 札は 出さない）。 */
 .rail-toggle { display: none; }
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 1100px) {
   .rail-toggle {
     display: grid; place-content: center; position: fixed; z-index: 7;
     top: calc(58px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right));
@@ -783,16 +784,70 @@
   .net-dock { right: calc(10px + env(safe-area-inset-right)); }
 }
 
-
-/* --- 15. iPad の 横もち（高さ 501〜1100px）：右の 列も「☰」に しまう ------------------
-   スマホ（12・14）と 同じ 考えで、iPad は 少し ゆるく：🎒 おなか・🏠・ミニマップは いつも 見せ、
-   そのほか（時計・描画・✈ 🎣 📖 📹 🏆・Roblox）は ☰ を 押した ときだけ 下に ならぶ。
-   ☰ は 右の 列の 中（流れの 中）に あり、ミニマップの すぐ 下。iPad 縦もちと パソコンは かわらない。 */
+/* --- 16. iPad の 横もち（高さ 501〜1100px）：12・14 と 同じ 作りで、字と ボタンを ひとまわり 大きく ---------
+   画面に 余裕が あるので、スマホの 11〜13px を 13〜15px に、まるい ボタンを 54px に。ミニマップだけは 出す（右上の ☰ の 下）。 */
 @media (pointer: coarse) and (orientation: landscape) and (min-height: 501px) and (max-height: 1100px) {
-  .right-rail > .rail-toggle { display: grid; place-content: center; position: static; order: 1; width: 100%; min-height: 44px; border-radius: 14px; font-size: 20px; font-weight: 800; background: #1b3a2f; color: #fff6e6; border: 1.5px solid #fff2c8b3; box-shadow: 0 4px 14px #0005; }
-  body:not([data-rail]) .right-rail > :is(.scenery-controls, #flight-button, #fishing-button, #rpg-buddy-button, #voice-button, #rank-button, #roblox-button) { display: none; }
-  .right-rail > :is(.scenery-controls, #flight-button, #fishing-button, #rpg-buddy-button, #voice-button, #rank-button, #roblox-button) { order: 2; }
-  /* ひらいている あいだは ミニマップを ひっこめる（1180x820 で 🏆 が 下の つうしんに かぶった） */
-  body[data-rail] .right-rail > .map-panel { display: none; }
-  body[data-arcade] .right-rail > .rail-toggle, body[data-race] .right-rail > .rail-toggle, body[data-gp] .right-rail > .rail-toggle, body[data-main] .right-rail > .rail-toggle, body[data-warp] .right-rail > .rail-toggle { display: none; }
+  header .brand-icon { width: 46px; height: 46px; font-size: 32px; }
+  header .stats { max-width: 420px; gap: 8px; padding: 5px 8px; }
+  header .stats > .more-button { width: 46px; height: 46px; font-size: 24px; }
+  .right-rail { width: 54px; gap: 8px; }
+  .right-rail > button:not(#hunger):not(#rail-toggle) { width: 54px; height: 54px; min-height: 54px; }
+  .right-rail > button:not(#hunger):not(#rail-toggle)::before { font-size: 25px; }
+  .rail-toggle { width: 54px; height: 54px; min-height: 54px; font-size: 24px; }
+  body[data-rail] .right-rail > button:not(#hunger):not(#rail-toggle) { margin-right: 0; }
+  .right-rail .map-panel { display: block; position: fixed; right: calc(10px + env(safe-area-inset-right)); top: calc(126px + env(safe-area-inset-top)); width: 150px; padding: 8px 10px; }
+  .right-rail .map-panel canvas { height: 96px; }
+  .right-rail .map-panel p { display: none; }
+  body[data-rail] .right-rail .map-panel { display: none; }
+  #hunger .hg-icons i { width: 12px; font-size: 13px; }
+  .quest-panel.has-tasks.tasks-folded { max-width: 240px; }
+  .quest-panel.has-tasks:not(.tasks-folded) { width: 280px; max-width: 280px; }
+  #task-card:not(.folded) .task-now strong { font-size: 15px; }
+  #task-card:not(.folded) .task-now small, #task-card:not(.folded) .task-guide-btn { font-size: 12px; }
+  .hotbar button { font-size: 13px; }
+  /* 画面いっぱいの ダイアログ：字を ひとまわり */
+  .guide-head h2 { font-size: 18px; }
+  #guide-tabs button { min-height: 36px; font-size: 13px; padding: 5px 11px; }
+  .guide-words h3 { font-size: 17px; }
+  .guide-words h3 .ja { font-size: 14px; }
+  .guide-words p { font-size: 14px; line-height: 1.8; }
+  .guide-tip { font-size: 13px !important; }
+  #guide-foot button { min-height: 38px; font-size: 13px; }
+  #rpg-dialog .rpg-header h2 { font-size: 18px; }
+  #rpg-dialog .rpg-tabs button { min-height: 40px; font-size: 14px; padding: 8px 12px; }
+  #rpg-content h2 { font-size: 20px; }
+  #rpg-content h3 { font-size: 16px; }
+  #rpg-content p { font-size: 14px; }
+  #rpg-preview { height: 240px; }
+  .ad-overview strong { font-size: 22px; }
+  .ad-overview small, .ad-overview i { font-size: 12px; }
+  #avatar-dialog .avatar-layout { grid-template-columns: 34% 66%; }
+  #avatar-dialog .avatar-stage canvas { height: 420px; }
+  #avatar-dialog .avatar-stage h2 { font-size: 22px; }
+  #avatar-dialog .avatar-stage p { font-size: 13px; }
+  #avatar-dialog .avatar-settings { padding: 16px 20px 0; }
+  #avatar-dialog .avatar-settings h2 { font-size: 20px; }
+  #avatar-dialog .avatar-settings > p, #avatar-dialog .avatar-settings h3 { font-size: 13px; }
+  #avatar-dialog #avatar-choices { gap: 8px; }
+  #avatar-dialog .avatar-choice { padding: 9px 11px; }
+  #avatar-dialog .avatar-choice strong { font-size: 16px; }
+  #avatar-dialog .avatar-choice small { font-size: 12px; white-space: normal; }
+  #avatar-dialog .avatar-swatch { width: 30px; height: 30px; min-height: 30px; }
+  #avatar-dialog .avatar-actions .primary { min-height: 44px; font-size: 14px; }
+  #wordbook-dialog .wb-head { padding: 10px 16px 4px; }
+  #wordbook-dialog .wb-title h2 { font-size: 22px; }
+  #wordbook-dialog .wb-orb { font-size: 12px; padding: 5px 11px; }
+  #wordbook-dialog .wb-orb b { font-size: 18px; }
+  #wordbook-dialog .wb-tabs button { min-height: 38px; font-size: 14px; }
+  #wordbook-dialog .wb-search { min-height: 38px; }
+  #wordbook-dialog .wb-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; padding: 10px 16px 18px; }
+  #wordbook-dialog .wb-card { height: 130px; }
+  #wordbook-dialog .wb-face.front b { font-size: 21px; }
+  #net-lobby { width: min(720px, calc(100vw - 24px)); padding: 18px 24px 14px; }
+  #net-lobby h2 { font-size: 22px; }
+  #net-lobby p, #net-lobby details { font-size: 14px; }
+  #net-lobby label { font-size: 12px; }
+  #net-lobby input { padding: 10px 12px; }
+  #net-lobby .net-lobby-actions button { min-height: 44px; font-size: 15px; }
+  #net-lobby .net-fine { font-size: 12px; }
 }
