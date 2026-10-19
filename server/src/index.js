@@ -104,6 +104,19 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // gzip the static client: three.module.js is the official minified r160 (670 KB raw), which matters
   // when a whole class (or several) opens the page at the same moment on one Wi-Fi AP.
   app.use(compression({ threshold: 1024 }));
+  // 個人情報の 守り：どの へんじにも つける 頭。
+  // - HSTS：https で 来た ときだけ（Fly の 前段が https を 終える。http の LAN 配信では つけない）
+  // - frame は 同じ origin だけ（同梱ゲームの iframe は 同じ origin。よその サイトに 埋められて 子どもの 画面を 盗まれない）
+  // - カメラ・マイクは 自分だけ、よその サイトからは 使えない。Referrer は よそへ 送らない（URL に クラス・名前が 入ることが ある）。
+  app.use((req, res, next) => {
+    if (req.secure) res.set('Strict-Transport-Security', 'max-age=15552000; includeSubDomains');
+    res.set('X-Content-Type-Options', 'nosniff');
+    res.set('X-Frame-Options', 'SAMEORIGIN');
+    res.set('Referrer-Policy', 'no-referrer');
+    res.set('Permissions-Policy', 'camera=(self), microphone=(self), display-capture=(self), geolocation=(), payment=(), usb=()');
+    res.set('Cross-Origin-Opener-Policy', 'same-origin');
+    next();
+  });
 
   // 問題の形式（7つ）の見た目と操作を試す開発用のページ（client/dist/dev-formats.html）。
   app.get('/dev/formats', (req, res) => res.redirect(302, '/dev-formats.html'));

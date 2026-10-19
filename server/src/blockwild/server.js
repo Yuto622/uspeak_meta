@@ -22,6 +22,7 @@ import { WebSocketServer } from 'ws';
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { Worker } from 'node:worker_threads';
+import { who } from '../log.js';
 
 export const BW_MAX_PLAYERS = 20;
 export const BW_W = 256;            // the vendored world is 256 × 256 × 64 (src/world.js)
@@ -162,7 +163,7 @@ export function createBlockwildServer({ server, dataDir, log = console, maxPlaye
         w.players.set(me.id, me);
         broadcast(w, { t: 'join', id: me.id, name: me.name }, me);
         roster(w);
-        log.info(`[blockwild] "${me.name}" joined the ${code} world (${w.players.size}/${maxPlayers}, ${w.edits.size} edits)`);
+        log.info(`[blockwild] ${who(me.name)} joined the ${code} world (${w.players.size}/${maxPlayers}, ${w.edits.size} edits)`);
         return;
       }
       switch (m.t) {
@@ -211,7 +212,7 @@ export function createBlockwildServer({ server, dataDir, log = console, maxPlaye
       w.players.delete(me.id);
       broadcast(w, { t: 'leave', id: me.id });
       roster(w);
-      log.info(`[blockwild] "${me.name}" left the ${code} world (${w.players.size}/${maxPlayers})`);
+      log.info(`[blockwild] ${who(me.name)} left the ${code} world (${w.players.size}/${maxPlayers})`);
       if (w.dirty) scheduleSave(w);
       me = null;
     });

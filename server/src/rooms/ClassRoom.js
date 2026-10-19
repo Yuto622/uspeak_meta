@@ -58,7 +58,7 @@ import { createGate } from '../game/gate.js';
 import { FARM, sanitizeFarm, settle as settleFarm, statePayload as farmPayload, prepare as prepareFarm, judge as judgeFarm, askPayload as farmAsk, spotForAct, FarmError } from '../game/farm.js';
 import { reportPath, exportPath, classPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
-import { log } from '../log.js';
+import { log, who } from '../log.js';
 
 // さかなを うって もらえる コインは 1日 ここまで（U-Speak島の つりと メインの島・つり島の かいとりやの 合計）。
 // 魚の 値段は Roblox と そろえて あるので 値段は かえず、1日の 上限で しばる（ほかの 島の 上限と おなじ 考え）。
@@ -354,7 +354,7 @@ export class ClassRoom extends Room {
     // and never to refuse a child it has seen before.
     const pass = await this.gate.allow({ classCode: this.classCode, name, role });
     if (!pass.ok) {
-      log.warn(`[room ${this.roomId}] refused "${name}" for class=${this.classCode} (${pass.reason})`);
+      log.warn(`[room ${this.roomId}] refused ${who(name)} for class=${this.classCode} (${pass.reason})`);
       throw new ServerError(ERR.NOT_ON_ROSTER, 'not on the class register');
     }
     for (const [id, p] of this.state.players) {
@@ -368,7 +368,7 @@ export class ClassRoom extends Room {
       if (silentFor < GHOST_MS) throw new ServerError(ERR.NAME_IN_USE, 'name in use');
       p.connected = false;
       const ghost = this.clients.find((c) => c.sessionId === id);
-      log.info(`[room ${this.roomId}] evicting silent seat "${name}" (${id}, ${silentFor}ms)`);
+      log.info(`[room ${this.roomId}] evicting silent seat ${who(name)} (${id}, ${silentFor}ms)`);
       ghost?.leave(4003);
     }
     return { name, role, byKey, avatar: sanitizeAvatar(options?.avatar) };
@@ -443,7 +443,7 @@ export class ClassRoom extends Room {
     this.scheduleReviewOffer(client.sessionId);
     this.persist(client.sessionId);
     this.taskTouch(client.sessionId);
-    log.info(`[room ${this.roomId}] join ${auth.role} "${auth.name}" (${client.sessionId}) restored=${restored} clients=${this.clients.length}`);
+    log.info(`[room ${this.roomId}] join ${auth.role} ${who(auth.name)} (${client.sessionId}) restored=${restored} clients=${this.clients.length}`);
   }
 
   // 名簿の「先生か」を 読みなおす。先生は 入った ときに 1 回 決めていたので、admin で false に しても
@@ -474,7 +474,7 @@ export class ClassRoom extends Room {
       this.state.teacherId = next;
     }
     client?.send('role', { role: want, teacherId: this.state.teacherId });
-    log.info(`[room ${this.roomId}] role of "${player.name}" is now ${want} (register)`);
+    log.info(`[room ${this.roomId}] role of ${who(player.name)} is now ${want} (register)`);
     return true;
   }
   async recheckRoles() {
@@ -508,7 +508,7 @@ export class ClassRoom extends Room {
       if (player.role === 'teacher') this.state.teacherId = id;
       resumeFood(priv.food);
       newClient.send('welcome', this.welcomePayload(id, true, null));
-      log.info(`[room ${this.roomId}] reconnected "${player.name}" (${id})`);
+      log.info(`[room ${this.roomId}] reconnected ${who(player.name)} (${id})`);
     } catch {
       this.remove(id);
     }
@@ -534,7 +534,7 @@ export class ClassRoom extends Room {
     this.priv.delete(id);
     this.state.players.delete(id);
     if (this.state.teacherId === id) this.state.teacherId = '';
-    log.info(`[room ${this.roomId}] left "${name}" (${id}) clients=${this.clients.length}`);
+    log.info(`[room ${this.roomId}] left ${who(name)} (${id}) clients=${this.clients.length}`);
   }
 
   findDisconnectedByName(name) {
@@ -760,7 +760,7 @@ export class ClassRoom extends Room {
           off: 'おはなしは 先生が とじました。',
         }[mode] }, { except: client });
         client.send('teacher:ack', { cmd, ok: true, mode, on: mode === 'all' });
-        log.info(`[room ${this.roomId}] voice mode "${mode}" by "${me.name}"`);
+        log.info(`[room ${this.roomId}] voice mode "${mode}" by ${who(me.name)}`);
         return;
       }
       // ステージ. In a big room only the teacher is seen; this is how a child gets to show
@@ -783,7 +783,7 @@ export class ClassRoom extends Room {
           text: on ? 'ステージに 上がりました。カメラと がめんが つかえます。' : 'ステージから おりました。',
         });
         client.send('teacher:ack', { cmd, ok: true, target, on });
-        log.info(`[room ${this.roomId}] "${student.name}" ${on ? 'on' : 'off'} the stage in ${room}`);
+        log.info(`[room ${this.roomId}] ${who(student.name)} ${on ? 'on' : 'off'} the stage in ${room}`);
         return;
       }
       case 'eiken': {
@@ -2329,7 +2329,7 @@ export class ClassRoom extends Room {
           ?.send('voice:peer', { id, name: player.name, role: player.role, joined: true });
       }
     }
-    log.info(`[room ${this.roomId}] "${player.name}" opened a microphone in ${room} (${kind}, ${peers.length + 1} of ${cap})`);
+    log.info(`[room ${this.roomId}] ${who(player.name)} opened a microphone in ${room} (${kind}, ${peers.length + 1} of ${cap})`);
   }
 
   onVoiceLeave(client, reason = 'left') {
@@ -4438,7 +4438,7 @@ export class ClassRoom extends Room {
       if (p.role !== 'teacher') n += 1;
     }
     this.classToast(`Moving ${n} students to ${dest.en} · ${n} にんと ${dest.jp} へ いどうします`);
-    log.info(`[room ${this.roomId}] class move to ${dest.id} by "${me.name}"`);
+    log.info(`[room ${this.roomId}] class move to ${dest.id} by ${who(me.name)}`);
   }
 
   // ---- 苦手単語の 復習（game/review.js）---------------------------------------------------
