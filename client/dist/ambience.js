@@ -111,6 +111,48 @@ export function createAmbience({ isMuted }) {
     addTrack(state.night < 0.5 ? 'day' : 'night');
   }
 
+  // ---- 足音と とびらの 音（ファイルは なく、ブラウザーが 作る。風と 同じ 考え）---------------------
+  // 足音：白い ノイズの 短い つぶ（80ms）を 帯域で 絞った もの。外は 低め（土・草）、家の 中は 高め（木の 床）。
+  // 歩くと 0.42 秒に 1 歩、走ると 0.28 秒、そっと 歩くと 0.7 秒で 小さく。master を 通るので ミュート・全画面で 黙る。
+  let tap = null; let stepPhase = 0;
+  function tapBuffer() {
+    if (tap) return tap;
+    tap = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.09), ctx.sampleRate);
+    const d = tap.getChannelData(0);
+    for (let i = 0; i < d.length; i += 1) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length) ** 2;
+    return tap;
+  }
+  function footstep({ running = false, sneaking = false, indoors = false } = {}) {
+    if (!ctx || !state.on || state.busy || ctx.state !== 'running') return;
+    const now = ctx.currentTime;
+    const src = ctx.createBufferSource(); src.buffer = tapBuffer();
+    src.playbackRate.value = 0.85 + Math.random() * 0.3;
+    const bp = ctx.createBiquadFilter(); bp.type = 'bandpass';
+    bp.frequency.value = (indoors ? 1100 : 420) * (0.9 + Math.random() * 0.2); bp.Q.value = indoors ? 2.2 : 0.9;
+    const g = ctx.createGain();
+    const level = (sneaking ? 0.08 : running ? 0.34 : 0.22) * (indoors ? 0.8 : 1);
+    g.gain.setValueAtTime(level, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + (indoors ? 0.07 : 0.1));
+    src.connect(bp).connect(g).connect(master);
+    src.start(now); src.stop(now + 0.12);
+  }
+  // とびら：あけると 低い コトッ（110Hz）＋ 上がる 2 音（ド→ソ）、しめると コトッ＋ 下がる 1 音。
+  function tone(freq, at, dur, level, type = 'sine') {
+    const o = ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(freq, at);
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, at);
+    g.gain.exponentialRampToValueAtTime(level, at + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+    o.connect(g).connect(master); o.start(at); o.stop(at + dur + 0.02);
+  }
+  function door(opening) {
+    if (!ctx || !state.on || state.busy || ctx.state !== 'running') return;
+    const now = ctx.currentTime;
+    tone(110, now, 0.16, 0.28, 'triangle');            // コトッ
+    footstep({ indoors: true });                         // 木の 当たる 音
+    if (opening) { tone(523, now + 0.06, 0.18, 0.12); tone(784, now + 0.17, 0.26, 0.12); }
+    else tone(392, now + 0.06, 0.22, 0.1);
+  }
+
   function apply() {
     if (!ctx) return;
     // 全画面の別ゲームやレースが上がっている間は黙る。あちらには あちらの音がある。
@@ -151,6 +193,15 @@ export function createAmbience({ isMuted }) {
       }
       apply();
     },
+    // 毎フレーム：歩いている 間だけ 歩幅の 時計を 進め、1 歩ごとに 足音。止まると 時計は 戻る（次の 1 歩目が すぐ 鳴る）。
+    step(dt, { moving = false, running = false, sneaking = false, indoors = false } = {}) {
+      if (!moving) { stepPhase = 0.3; return; }
+      const period = sneaking ? 0.7 : running ? 0.28 : 0.42;
+      stepPhase += dt;
+      if (stepPhase >= period) { stepPhase -= period; footstep({ running, sneaking, indoors }); }
+    },
+    // 建物に 入った（true）／出た（false）とき。
+    door,
     setMuted(muted) {
       state.on = !muted;
       if (state.on) start();
