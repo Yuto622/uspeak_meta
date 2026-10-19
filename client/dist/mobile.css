@@ -582,4 +582,9 @@
   .net-dock { bottom: calc(10px + env(safe-area-inset-bottom)); right: calc(66px + env(safe-area-inset-right)); max-width: calc(100vw - 420px); }
   .net-dock > button, .net-dock > * { min-height: 40px; }
   .near { bottom: calc(88px + env(safe-area-inset-bottom)); }
+  /* しまの ちず（2D）の 下から 出る カードは 390px に 入らない（558px）。カードの 中で スクロール。 */
+  #main-island { overflow-y: auto; overscroll-behavior: contain; }
+  .mi-sheet-card { max-height: calc(100dvh - 12px); overflow-y: auto; overscroll-behavior: contain; }
+  /* ガイドの ページの 点（10px）は 指で 押せない。横もちでは 出さず「まえ／つぎ」で めくる。 */
+  .guide-dots { display: none; }
 }
