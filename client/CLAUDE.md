@@ -529,6 +529,7 @@ UI側でもnearby()で現地にいることを再確認します。
 - **光の 道の 行き先の 光は ☰ にも のる**（`task-guide.js` の `.task-glow` は `#flight-button, #mapbtn, #rail-toggle`）。✈ が しまわれている あいだ、子は ☰ が 光るのを 見て ひらく。
 - **走るのは スティックを 外まで 押す**（`game.js`：`stick.state.mag >= .97`＝Shift と 同じ）。スマホには Shift が ないので、これが ないと 走れない。
 - **大きな 画面（あそびかたガイド・RPG の ノート）は 画面いっぱい**（`#guide-dialog` / `#rpg-dialog`。ノッチの ぶんは `safe-area-inset-left/right` の padding）。頭 47px・タブ 38px・字は 12〜15px。`#guide-stage` の `flex: 1` は Safari が 本文を 0px に つぶしたので `flex: 1 1 auto`（guide.css）。
+- **すがた えらび・たんごちょう も 画面いっぱい**（左の 3D は 30%・8 人は 4 列・ボタンは 下の 帯／頭と 道具を 1 だんずつ・カードは 140px）。**ロビーは 幅 640px で なまえ と あいことば を となりどうし**、ボタン 2 つは 横ならび。
 - `#rail-toggle` は `.right-rail` の 中に ある（`phone-menu.js` が append）。スマホでは `position: fixed` で 右上、iPad では 列の 中に ならぶ（下）。
 
 ### iPad の 横もち（高さ 501〜1100px／2026-10）
