@@ -512,9 +512,10 @@ UI側でもnearby()で現地にいることを再確認します。
 - ホットバーは たんごちょう と じぶんの め だけ（しまの ちず は ✈ と 同じ）。🎒 おなかは ロゴの となり（めもりだけ）。
 - **スマホは さいしょの タッチで だまって 全画面**（`phone-menu.js` の 下半分、`requestFullscreen`）。じぶんで ぬけたら もう たのまない。iPhone は ページの 全画面が ない（Apple が みとめていない）ので 何も しない＝ホーム画面の アイコン（PWA）で バーを 消す。iPad・パソコン・ホーム画面から ひらいた ときは 何も しない。
 - 右の 列に ボタンを 足したら、ここにも `order` と 絵文字を 1 行 足す（足さないと 空の まるが 出る）。#hunger は この 列の 規則から 外してある。
-- **タスクは 消さない。左上に 1 行の 札**（`.quest-panel.tasks-folded` ＋ `#task-card.folded`）。`tasks.js` は この 画面幅なら さいしょから たたんで 出し、札を 押すと ひらく（覚えるのは 同じ `uspeak-tasks-fold-v1`）。先生（`body.cm-teacher`）は 🎓 の まるい ボタンの 下に 同じ 札（tasks.css / class-mode.css の 「先生は 隠す」を `!important` で 上書き）。
+- **タスクは 消さない。左上に 1 行の 札**（`.quest-panel.tasks-folded` ＋ `#task-card.folded`）。`tasks.js` は この 画面幅では **保存を 読まず いつも たたんで はじめ**（PC で ひらいた 覚えが 効くと 画面の 半分が カードに なった）、札を 押すと 220px の 小さい カード（いまの 1 つ・つぎの 一覧と 章の ごほうびは 出さない）。カードの そとを さわると たたむ。先生（`body.cm-teacher`）は 🎓 の まるい ボタンの 下に 同じ 札（tasks.css / class-mode.css の 「先生は 隠す」を `!important` で 上書き）。
 - **光の 道の 行き先の 光は ☰ にも のる**（`task-guide.js` の `.task-glow` は `#flight-button, #mapbtn, #rail-toggle`）。✈ が しまわれている あいだ、子は ☰ が 光るのを 見て ひらく。
 - **走るのは スティックを 外まで 押す**（`game.js`：`stick.state.mag >= .97`＝Shift と 同じ）。スマホには Shift が ないので、これが ないと 走れない。
+- **大きな 画面（あそびかたガイド・RPG の ノート）は 画面いっぱい**（`#guide-dialog` / `#rpg-dialog`。ノッチの ぶんは `safe-area-inset-left/right` の padding）。頭 47px・タブ 38px・字は 12〜15px。`#guide-stage` の `flex: 1` は Safari が 本文を 0px に つぶしたので `flex: 1 1 auto`（guide.css）。
 - `#rail-toggle` は `.right-rail` の 中に ある（`phone-menu.js` が append）。スマホでは `position: fixed` で 右上、iPad では 列の 中に ならぶ（下）。
 
 ### iPad の 横もち（高さ 501〜1100px／2026-10）

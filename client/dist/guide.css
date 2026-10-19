@@ -66,7 +66,8 @@
 
 /* 本文。写真と文の2段組。 */
 #guide-stage {
-  flex: 1;
+  /* flex: 1（基準 0%）だと、高さが auto の ダイアログの 中で Safari が 本文を 0px に つぶす（iPhone 横もちで 写真も 文も 消えた）。基準は auto。 */
+  flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
   display: grid;

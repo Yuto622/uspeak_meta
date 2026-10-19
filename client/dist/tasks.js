@@ -21,8 +21,10 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
   let cheer = null;
   let cheerTimer = 0;
   // スマホの 横もちは 画面が せまいので、はじめは たたんで 札だけ（ひらけば そのまま 覚える）。
-  let folded = matchMedia('(pointer: coarse) and (orientation: landscape) and (max-height: 500px)').matches;
-  try { const saved = localStorage.getItem(FOLD_KEY); if (saved !== null) folded = saved === '1'; } catch { /* private mode */ }
+  // スマホの 横もちは 保存を 読まず いつも たたんで はじめる（PC で ひらいた 覚えが スマホに 効くと 画面の 半分が カードに なる）。
+  const phone = () => matchMedia('(pointer: coarse) and (orientation: landscape) and (max-height: 500px)').matches;
+  let folded = phone();
+  if (!folded) { try { const saved = localStorage.getItem(FOLD_KEY); if (saved !== null) folded = saved === '1'; } catch { /* private mode */ } }
 
   const text = (task) => (isJa() ? task.ja : (task.en || task.ja));
 
@@ -67,9 +69,14 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
     if (e.target.closest('.task-guide-btn')) { guide?.toggle(); render(); return; }
     if (!e.target.closest('.task-head')) return;
     folded = !folded;
-    try { localStorage.setItem(FOLD_KEY, folded ? '1' : '0'); } catch { /* private mode */ }
+    if (!phone()) { try { localStorage.setItem(FOLD_KEY, folded ? '1' : '0'); } catch { /* private mode */ } }
     render();
   });
+  // スマホの 横もち：カードの そとを さわったら たたむ（島を 見るのが 先）。
+  document.addEventListener('pointerdown', (e) => {
+    if (folded || !phone() || card.hidden || card.contains(e.target)) return;
+    folded = true; render();
+  }, { capture: true, passive: true });
 
   onLangChange(render);
 
