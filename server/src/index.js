@@ -12,6 +12,7 @@ import { createStore, createSheetsApi } from './store/index.js';
 import { createRobloxSeats } from './parent-report/roblox-seats.js';
 import { createAccess } from './game/access.js';
 import { mountAdmin } from './admin/roster-admin.js';
+import { eraseStudent, startRetention, rateLimit } from './privacy.js';
 import { TaskStore } from './tasks/store.js';
 import { tasksAdminExtension } from './tasks/admin.js';
 import { QBankStore } from './qbank/store.js';
@@ -99,7 +100,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
 
   const app = express();
   app.disable('x-powered-by');
-  app.set('trust proxy', true);
+  // Fly の 前段 1 つだけ 信じる（true だと X-Forwarded-For の 左はし＝利用者が 書ける 値が req.ip に なり、しめ出しが すり抜けられる）。
+  app.set('trust proxy', 1);
   app.use(cors({ origin: (origin, cb) => cb(null, originAllowed(origin)), credentials: false }));
   // gzip the static client: three.module.js is the official minified r160 (670 KB raw), which matters
   // when a whole class (or several) opens the page at the same moment on one Wi-Fi AP.
@@ -308,7 +310,22 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // 管理ページ. Mounted only with ADMIN_KEY (admin/roster-admin.js).
   const tasksAdmin = tasksAdminExtension({ tasks, log });
   const qbankAdmin = qbankAdminExtension({ qbank, log });
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); } });
+  // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
+  const privacyAdmin = ({ api }) => {
+    api.post('/erase', express.json({ limit: '4kb' }), async (req, res) => {
+      const classCode = String(req.body?.classCode || '').trim().slice(0, 40);
+      const name = String(req.body?.name || '').trim().slice(0, 40);
+      const username = String(req.body?.username || '').trim().slice(0, 40);
+      if (!classCode || !name) { res.status(400).json({ ok: false, error: 'クラスと 名前が いります' }); return; }
+      try { res.json({ ok: true, ...(await eraseStudent({ store, parentReports, log }, { classCode, name, username })) }); }
+      catch (err) { log.warn('[privacy] erase failed:', err.message); res.status(500).json({ ok: false, error: '消せませんでした' }); }
+    });
+  };
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); privacyAdmin(ctx); } });
+  // 保持期間（RETENTION_DAYS、既定 400 日）：学習ログ・コインログ・送信の 記録を 毎日 消す。
+  const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
+  // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
+  app.use(['/api/liff', '/r', '/report', '/class', '/export'], rateLimit({ windowMs: 60_000, max: 120 }));
   app.get('/api/tasks', (req, res) => { res.set('Cache-Control', 'public, max-age=60'); res.json({ ok: true, updatedAt: tasks.updatedAt, ...tasks.adopted() }); });
   // 保護者レポートの 口（Webhook・LIFF・/r/:token・教室の タブ）。
   parentReports.mount(app, { verifyClass, secret: config.reportSecret });
@@ -373,6 +390,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
     log.info(`[server] ${signal} received, shutting down`);
     try { blockwild.close(); } catch (err) { log.warn('[server] blockwild shutdown error:', err.message); }
     try { await gameServer.gracefullyShutdown(false); } catch (err) { log.warn('[server] shutdown error:', err.message); }
+    stopRetention();
     await parentReports.close();
     await closeStore();
   };

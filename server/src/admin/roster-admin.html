@@ -27,6 +27,8 @@
   .pill { display:inline-block; padding:2px 10px; border-radius:20px; font-size:12px; font-weight:700; background:#e8efe9; color:var(--ink) }
   .pill.on { background:#dff3e6; color:var(--ok) } .pill.off { background:#f3e6e5; color:var(--bad) }
   .tools { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px }
+  #erase-card input { font-size:14px; padding:8px 10px; border-radius:8px; border:1px solid var(--line) }
+  #erase-card button.danger { font-size:14px; padding:9px 14px; border-radius:10px; border:1px solid #b23b2e; background:#b23b2e; color:#fff; cursor:pointer; font-weight:700 }
   .tools button, .tools label.btn { font-size:14px; padding:9px 14px; border-radius:10px; border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; font-weight:600 }
   .tools button.primary { background:var(--ink); color:#fff; border-color:var(--ink) }
   .tools button.primary[disabled] { opacity:.5; cursor:not-allowed }
@@ -117,6 +119,17 @@
       <strong>貼りつけ</strong>：スプレッドシートの名前の列を選んでコピーし、「貼りつけ」に貼ると表に入ります。<br>
       <strong>保存</strong>を押すまでサーバーには書かれません。保存するとその場で効きます（授業中でも）。
     </p>
+  </section>
+  <section class="card" id="erase-card">
+    <h2 style="font-size:16px;margin:0 0 4px">この 子の 記録を 消す <span class="pill">個人情報の 削除</span></h2>
+    <p class="muted" style="margin:0 0 8px">保護者・本人からの もうしでに こたえます。記録・学習ログ・コインログ・Roblox との 紐づけ・保護者の LINE の 紐づけ・QR・レポートの PDF を その 子の ぶんだけ 消します（<b>もどせません</b>）。名簿の 行は 上の 表で 消してください。</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input id="erase-class" placeholder="クラス（例 a）" style="width:140px">
+      <input id="erase-name" placeholder="ロビーの 名前" style="width:160px">
+      <input id="erase-username" placeholder="Roblox の 名前（あれば）" style="width:180px">
+      <button type="button" id="erase-go" class="danger">消す</button>
+      <span id="erase-result" class="muted"></span>
+    </div>
   </section>
   <section class="card" id="roblox-card" hidden>
     <h2 style="font-size:16px;margin:0 0 4px">Roblox 連携 <span class="pill" id="rb-pill">…</span></h2>
@@ -307,6 +320,20 @@ Chika"></textarea>
       toast(on ? '制限 ON：名簿にある名前だけ入れます' : '制限 OFF：だれでも入れます');
     } catch (err) { e.target.checked = !on; toast(`切り替えられませんでした：${err.message}`, true); }
   });
+
+  document.getElementById('erase-go').onclick = async () => {
+    const classCode = document.getElementById('erase-class').value.trim(), name = document.getElementById('erase-name').value.trim(), username = document.getElementById('erase-username').value.trim();
+    if (!classCode || !name) { toast('クラスと 名前を 入れてください', true); return; }
+    if (!confirm(`クラス「${classCode}」の「${name}」の 記録を ぜんぶ 消します。もどせません。よろしいですか？`)) return;
+    try {
+      const r = await fetch('/admin/api/erase', { method: 'POST', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify({ classCode, name, username }) });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error || r.status);
+      const n = j.store || {}; const p = j.reports || {};
+      document.getElementById('erase-result').textContent = `消しました：記録 ${n.player}・学習ログ ${n.learning} 行・コイン ${n.coins} 行・Roblox ${n.roblox_links + n.roblox_events}・保護者の 紐づけ ${p.parent_links ?? 0}・レポート ${p.reports ?? 0}${n.note ? '（' + n.note + '）' : ''}`;
+      toast('消しました');
+    } catch (err) { toast(`消せませんでした：${err.message}`, true); }
+  };
 
   window.addEventListener('beforeunload', (e) => { if (dirty || rb.dirty) { e.preventDefault(); e.returnValue = ''; } });
   load().catch((err) => toast(`読みこめませんでした：${err.message}`, true));

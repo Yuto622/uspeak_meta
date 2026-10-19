@@ -110,6 +110,43 @@ export class FileStore {
     this.dirty = true;
   }
 
+  // 個人情報の 削除（本人・保護者からの もうしでに こたえる）。記録・学習ログ・コインログ・Roblox との 紐づけを
+  // その 子の ぶんだけ 消す。Roblox の できごと（roblox_events）は username で 別に 消す（erasePlayer の username）。
+  async erasePlayer(classCode, name, { username = '' } = {}) {
+    const key = playerKey(classCode, name);
+    const same = (r) => r && String(r.class) === String(classCode) && String(r.name) === String(name);
+    const out = { player: 0, learning: 0, coins: 0, roblox_links: 0, roblox_events: 0, wallet: 0 };
+    if (this.data.players[key]) { delete this.data.players[key]; out.player = 1; }
+    const keep = (list, pred) => { const before = list.length; const kept = list.filter((r) => !pred(r)); return [kept, before - kept.length]; };
+    [this.data.learning, out.learning] = keep(this.data.learning, same);
+    [this.data.coins, out.coins] = keep(this.data.coins, same);
+    const u = String(username || '').toLowerCase();
+    [this.data.roblox_links, out.roblox_links] = keep(this.data.roblox_links, (r) => (String(r.class) === String(classCode) && String(r.name) === String(name)) || (u && String(r.username || '').toLowerCase() === u));
+    if (u) {
+      [this.data.roblox_events, out.roblox_events] = keep(this.data.roblox_events, (r) => String(r.username || '').toLowerCase() === u);
+      for (const e of this.data.roblox_events) this.eventIds.add(e.id);
+      [this.data.wallet_entries, out.wallet] = keep(this.data.wallet_entries || [], (r) => String(r.username || '').toLowerCase() === u);
+      if (this.data.wallet_snapshots && this.data.wallet_snapshots[u]) delete this.data.wallet_snapshots[u];
+    }
+    this.dirty = true;
+    await this.flush();
+    return out;
+  }
+
+  // 保持期間：学習ログ・コインログ・配った ウォレットの 行は 日付で 消す（月ごとの まとめは 記録の months_json に 残る）。
+  async prune({ maxAgeMs, now = Date.now() } = {}) {
+    if (!(maxAgeMs > 0)) return { learning: 0, coins: 0, wallet: 0 };
+    const cutoff = now - maxAgeMs;
+    const old = (r) => { const t = Date.parse(r.timestamp || r.created_at || r.delivered_at || ''); return Number.isFinite(t) && t < cutoff; };
+    const n = { learning: 0, coins: 0, wallet: 0 };
+    const drop = (list, pred) => { const kept = list.filter((r) => !pred(r)); return [kept, list.length - kept.length]; };
+    [this.data.learning, n.learning] = drop(this.data.learning, old);
+    [this.data.coins, n.coins] = drop(this.data.coins, old);
+    [this.data.wallet_entries, n.wallet] = drop(this.data.wallet_entries || [], (r) => r.delivered_at && old(r));
+    if (n.learning || n.coins || n.wallet) { this.dirty = true; await this.flush(); }
+    return n;
+  }
+
   async flush() {
     if (!this.dirty || !this.filePath) { this.dirty = false; return; }
     await fs.mkdir(path.dirname(this.filePath), { recursive: true });

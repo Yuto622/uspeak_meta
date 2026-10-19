@@ -361,6 +361,15 @@ export function createParentReports({
     for (const ext of ['pdf', 'png', 'thumb.png']) await fs.rm(fileFor(token, ext), { force: true }).catch(() => {});
   }
 
+  // ---- 消す（個人情報の 削除）-------------------------------------------------------------
+  async function eraseStudent(classCode, username) {
+    const r = reports.eraseStudent(classCode, username);
+    for (const token of r.tokens) await removeFiles(token);
+    await reports.flush?.();
+    const { tokens, ...counts } = r;
+    return counts;
+  }
+
   // ---- 止める ----------------------------------------------------------------------------
   async function stopClass(classCode) {
     reports.saveSettings(classCode, { enabled: false, stopped_at: new Date(now()).toISOString() });
@@ -542,7 +551,7 @@ export function createParentReports({
 
   return {
     students, buildReport, preview, qrCards, deliverClass, resend, dueNow, tick, housekeeping, summaryLine, notifyOps,
-    stopClass, stopStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, isStudentToken, studentPage, studentMonthly, clap, clapHub, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
+    stopClass, stopStudent, eraseStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, isStudentToken, studentPage, studentMonthly, clap, clapHub, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
     start(intervalMs = 60000) { const t = setInterval(() => tick(), intervalMs); t.unref?.(); return t; },
   };
 }

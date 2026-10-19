@@ -40,7 +40,7 @@ const post = (url, body) => fetch(url, { method: 'POST', headers: { 'content-typ
     const info = await post('/api/liff/info', { t });
     if (!info.ok) { say('<p>' + esc(info.error) + '</p>'); return; }
     say('<p class="big">' + esc(info.classroom) + 'に通う ' + esc(info.nickname) + ' さんの学習レポートを、このLINEで受け取ります。</p>'
-      + '<p class="muted">お子さまの本名・ご連絡先はお預かりしません。教室のご判断でいつでも停止できます。</p>'
+      + '<p class="muted">お子さまの本名・ご連絡先はお預かりしません。教室のご判断でいつでも停止できます。<br>保存する情報と使いみちは <a href="/privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a> をご覧ください。</p>'
       + '<button class="btn orange" id="agree">同意して受け取る</button>');
     document.getElementById('agree').onclick = async (e) => {
       e.target.disabled = true;

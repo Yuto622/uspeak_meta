@@ -65,6 +65,8 @@ export const config = Object.freeze({
   storeBackend: (env.STORE_BACKEND ?? 'auto').trim().toLowerCase(),
   storeFlushMs: Math.max(1000, int('STORE_FLUSH_MS', 5000)),
   dataDir: env.DATA_DIR ?? './data',
+  // 個人情報の 保持期間（日）。学習ログ・コインログ・送信の 記録は これより 古い 行を 毎日 消す。0 で 消さない。
+  retentionDays: Math.max(0, int('RETENTION_DAYS', 400)),
   google: {
     sheetId: (env.GOOGLE_SHEET_ID ?? '').trim(),
     email: (env.GOOGLE_SERVICE_ACCOUNT_EMAIL ?? '').trim(),

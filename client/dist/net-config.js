@@ -54,8 +54,10 @@ export function resolveServerUrl() {
   if (typeof fromConfig === 'string' && fromConfig.trim()) return normalize(fromConfig.trim());
   const meta = document.querySelector('meta[name="uspeak-server"]')?.content;
   if (meta) return normalize(meta.trim());
+  // ?server= は 開発（localhost・LAN の IP）だけ。本番の URL に ?server=wss://よそ を つけた リンクで
+  // 名前・クラス・先生の 鍵が よそへ 送られないように。
   const q = new URLSearchParams(location.search).get('server');
-  if (q) return normalize(q.trim());
+  if (q && /^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|\[::1\]$)/.test(location.hostname)) return normalize(q.trim());
   if (location.protocol === 'file:') return 'ws://localhost:2567';
   return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`;
 }

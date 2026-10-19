@@ -10,7 +10,7 @@ import { applyOp as applyOpRaw, sanitizeWallet, EconomyError } from '../game/eco
 import { blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, goOf, UI_EVENTS } from '../tasks/engine.js';
 import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
-import { cleanSay, MAX_CHARS } from '../game/say.js';
+import { cleanSay, scrubContact, MAX_CHARS } from '../game/say.js';
 import { MISSIONS } from '../game/missions.js';
 import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS, eikenReward } from '../game/progression.js';
 import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SESSION } from '../game/wordquiz.js';
@@ -1383,7 +1383,7 @@ export class ClassRoom extends Room {
     addWeekXp(priv.week, amount);
     if (player) player.level = priv.progress.level;
     if (result.levels > 0) {
-      log.info(`[room ${this.roomId}] "${priv.name}" reached level ${result.level} (${reason})`);
+      log.info(`[room ${this.roomId}] ${who(priv.name)} reached level ${result.level} (${reason})`);
       this.broadcast('levelup', { name: priv.name, level: result.level }, { except: this.clientOf(sessionId) });
     }
     return result;
@@ -1560,7 +1560,7 @@ export class ClassRoom extends Room {
         id: item.id, ...this.walletPayload(client.sessionId), ...this.wornPayload(client.sessionId),
       });
       this.onWearList(client);
-      log.info(`[room ${this.roomId}] "${priv.name}" bought ${item.id} for ${item.price}`);
+      log.info(`[room ${this.roomId}] ${who(priv.name)} bought ${item.id} for ${item.price}`);
     } catch (err) {
       if (!(err instanceof WardrobeError)) throw err;
       client.send('wear:error', { reason: err.message });
@@ -1809,7 +1809,7 @@ export class ClassRoom extends Room {
     priv.quiz = createSession(hut.difficulty);
     priv.quiz.hut = hut.id;
     client.send('quiz:question', { ...questionPayload(priv.quiz), hut: hut.id, name: hut.name });
-    log.info(`[room ${this.roomId}] "${priv.name}" entered the ${hut.difficulty} hut`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} entered the ${hut.difficulty} hut`);
   }
 
   onQuizAnswer(client, msg) {
@@ -1852,7 +1852,7 @@ export class ClassRoom extends Room {
         payload.perfectBonus = PERFECT_BONUS_COINS;
       }
       priv.quiz = null;
-      log.info(`[room ${this.roomId}] "${priv.name}" finished a ${session.difficulty} set ${result.score}/${result.total}`);
+      log.info(`[room ${this.roomId}] ${who(priv.name)} finished a ${session.difficulty} set ${result.score}/${result.total}`);
     }
     payload.progress = this.progressPayload(client.sessionId);
     payload.wallet = this.walletPayload(client.sessionId).wallet;
@@ -1886,7 +1886,7 @@ export class ClassRoom extends Room {
     }
     priv.gym = createSet(mode);
     client.send('gym:question', gymPayload(priv.gym));
-    log.info(`[room ${this.roomId}] "${priv.name}" started a ${mode} set at the gym`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} started a ${mode} set at the gym`);
   }
 
   onGymAnswer(client, msg) {
@@ -1927,7 +1927,7 @@ export class ClassRoom extends Room {
 
     if (result.done) {
       priv.gym = null;
-      log.info(`[room ${this.roomId}] "${priv.name}" finished a ${session.mode} set ${result.score}/${result.total}`);
+      log.info(`[room ${this.roomId}] ${who(priv.name)} finished a ${session.mode} set ${result.score}/${result.total}`);
     }
     payload.progress = this.progressPayload(client.sessionId);
     payload.wallet = this.walletPayload(client.sessionId).wallet;
@@ -1971,7 +1971,7 @@ export class ClassRoom extends Room {
     priv.battle = createBattle({ difficulty: stand.difficulty, level: priv.progress.level, move: priv.move });
     priv.battle.stand = stand.id;
     client.send('battle:state', { ...statePayload(priv.battle), stand: stand.id, name: stand.name, room: this.battleRoom(priv) });
-    log.info(`[room ${this.roomId}] "${priv.name}" entered the ${stand.difficulty} arena`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} entered the ${stand.difficulty} arena`);
   }
 
   onBattleWaza(client, msg) {
@@ -2028,7 +2028,7 @@ export class ClassRoom extends Room {
       payload.room = this.battleRoom(priv);
       payload.wallet = this.walletPayload(client.sessionId).wallet;
       priv.battle = null;
-      log.info(`[room ${this.roomId}] "${priv.name}" ${out.won ? 'won' : 'lost'} a ${battle.difficulty} battle for ${paid} coins`);
+      log.info(`[room ${this.roomId}] ${who(priv.name)} ${out.won ? 'won' : 'lost'} a ${battle.difficulty} battle for ${paid} coins`);
       this.persist(client.sessionId);
     }
     client.send('battle:turn', payload);
@@ -2071,7 +2071,7 @@ export class ClassRoom extends Room {
       move, forgot: forgot && forgot.id !== move.id ? forgot : null,
       ...this.walletPayload(client.sessionId),
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" learned ${move.name} from ${move.fishName}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} learned ${move.name} from ${move.fishName}`);
   }
 
   // ---- ペット島 ----------------------------------------------------------------------
@@ -2103,7 +2103,7 @@ export class ClassRoom extends Room {
     this.pushOutfit(client.sessionId);   // となりの 子にも ペットが 見える
     this.persist(client.sessionId);
     client.send('pet:hatched', { pet: petPayload(priv.pet), ...this.walletPayload(client.sessionId) });
-    log.info(`[room ${this.roomId}] "${priv.name}" hatched a ${priv.pet.species} called ${priv.pet.name}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} hatched a ${priv.pet.species} called ${priv.pet.name}`);
   }
 
   onPetAct(client, msg) {
@@ -2149,7 +2149,7 @@ export class ClassRoom extends Room {
     const entry = applyOp(priv.wallet, { type: 'award', amount: claim.coins, id: `login:day${claim.day}` });
     this.store.appendCoin(this.coinRow(sessionId, entry));
     this.persist(sessionId);
-    log.info(`[room ${this.roomId}] "${priv.name}" claimed day ${claim.day} (streak ${claim.streak}) for ${claim.coins}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} claimed day ${claim.day} (streak ${claim.streak}) for ${claim.coins}`);
     return { ...claim, cycle: CYCLE, rewards: [...LOGIN_REWARDS], ...this.walletPayload(sessionId) };
   }
 
@@ -2524,7 +2524,8 @@ export class ClassRoom extends Room {
       client.send('conv:error', { reason: 'too far', spot: this.convSpotPayload(state.spot) });
       return;
     }
-    const utterance = typeof msg?.text === 'string' ? msg.text.replace(/\s+/g, ' ').trim().slice(0, 200) : '';
+    // 外の AI へ わたす 前に 電話番号・メール・URL・SNS の ID は 消す（個人情報は サーバーの 外に 出さない）。
+    const utterance = typeof msg?.text === 'string' ? scrubContact(msg.text.replace(/\s+/g, ' ').trim().slice(0, 200)) : '';
     if (!utterance) return;
 
     const now = Date.now();
@@ -2589,7 +2590,7 @@ export class ClassRoom extends Room {
       payload.capped = paid < CONV.reward.topicCoins;
       payload.bonusXp = CONV.reward.topicXp;
       payload.levels = (level?.levels || 0) + (bonus?.levels || 0);
-      log.info(`[room ${this.roomId}] "${priv.name}" finished ${topic.id} in ${state.turns.length} turns`);
+      log.info(`[room ${this.roomId}] ${who(priv.name)} finished ${topic.id} in ${state.turns.length} turns`);
     }
     payload.wallet = this.walletPayload(client.sessionId).wallet;
     payload.progress = this.progressPayload(client.sessionId);
@@ -2641,7 +2642,7 @@ export class ClassRoom extends Room {
       ...eikenPayload(session), island: island.id, hall: hall.id, badge: island.badge, name: hall.name,
       room: roomLeft(priv.caps, 'eiken', EIKEN_CAP),
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" started a ${island.grade} ${hall.skill} set`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} started a ${island.grade} ${hall.skill} set`);
   }
 
   onEikenAnswer(client, msg) {
@@ -2710,7 +2711,7 @@ export class ClassRoom extends Room {
         payload.perfectBonus = bonus;
       }
       priv.eiken = null;
-      log.info(`[room ${this.roomId}] "${priv.name}" finished a ${session.grade} ${session.skill} set ${result.score}/${result.total}`);
+      log.info(`[room ${this.roomId}] ${who(priv.name)} finished a ${session.grade} ${session.skill} set ${result.score}/${result.total}`);
     }
     payload.progress = this.progressPayload(client.sessionId);
     payload.wallet = this.walletPayload(client.sessionId).wallet;
@@ -2773,7 +2774,7 @@ export class ClassRoom extends Room {
       room: roomLeft(priv.caps, 'eiken', EIKEN_CAP),
       opening: 'Hello! May I have your card, please? ... Thank you. Please read the passage aloud.',
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" sat down for a ${island.grade} interview (${session.cardId})`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} sat down for a ${island.grade} interview (${session.cardId})`);
   }
 
   async onInterviewSay(client, msg) {
@@ -2863,7 +2864,7 @@ export class ClassRoom extends Room {
       progress: this.progressPayload(client.sessionId),
       levels: done?.levels || 0,
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" finished a ${session.grade} interview ${result.right}/${result.total} for ${paid}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} finished a ${session.grade} interview ${result.right}/${result.total} for ${paid}`);
   }
 
   onInterviewQuit(client) {
@@ -2928,7 +2929,7 @@ export class ClassRoom extends Room {
     this.persist(client.sessionId);
     // `kind` on the wire says what was bought (gear or block); the gear's own kind (weapon, food…) travels as `category`.
     client.send('bw:bought', { ...gearPayload(item), category: item.kind, kind: 'gear', ...this.walletPayload(client.sessionId) });
-    log.info(`[room ${this.roomId}] "${priv.name}" bought ${item.id} in BLOCKWILD for ${item.price}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} bought ${item.id} in BLOCKWILD for ${item.price}`);
   }
 
   buyBlock(client, msg, { channel, gate }) {
@@ -2955,7 +2956,7 @@ export class ClassRoom extends Room {
       ...this.shopPayload(client.sessionId), ...this.walletPayload(client.sessionId),
     });
     if (channel === 'bw') client.send('bw:bought', { kind: 'block', id: block.id, word: block.word, ja: block.ja, price: block.price, ...this.walletPayload(client.sessionId) });
-    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${block.id} block${channel === 'bw' ? ' (in BLOCKWILD)' : ''}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} bought the ${block.id} block${channel === 'bw' ? ' (in BLOCKWILD)' : ''}`);
   }
 
   // かぐ屋. Furniture is bought exactly as blocks are - by kind, at the shop that sells
@@ -2988,7 +2989,7 @@ export class ClassRoom extends Room {
       id: item.id, word: item.word, ja: item.ja,
       ...this.propShopPayload(client.sessionId), ...this.walletPayload(client.sessionId),
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${item.id}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} bought the ${item.id}`);
   }
 
   // マイルーム. Walking into the doorway is what opens it now - there is no counter to
@@ -3099,7 +3100,7 @@ export class ClassRoom extends Room {
     client.send('room:moved', {
       room: roomPayload(priv.room, priv.props), ...this.walletPayload(client.sessionId),
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" moved into the ${next.id}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} moved into the ${next.id}`);
   }
 
   // ---- 土地島 -------------------------------------------------------------------------
@@ -3466,7 +3467,7 @@ export class ClassRoom extends Room {
     priv.land.look = deal.look.id;
     this.persist(client.sessionId);
     client.send('land:bought', { ...landPayload(priv.land), ...this.walletPayload(client.sessionId) });
-    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${deal.look.id} island (step ${deal.tier.tier})`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} bought the ${deal.look.id} island (step ${deal.tier.tier})`);
   }
 
   // Another look of the step already owned (もようがえ), for a fraction of its price.
@@ -3485,7 +3486,7 @@ export class ClassRoom extends Room {
     priv.land.look = deal.look.id;
     this.persist(client.sessionId);
     client.send('land:bought', { ...landPayload(priv.land), restyled: true, ...this.walletPayload(client.sessionId) });
-    log.info(`[room ${this.roomId}] "${priv.name}" restyled their island to ${deal.look.id}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} restyled their island to ${deal.look.id}`);
   }
 
   // Walking onto the ferry is walking onto the island: the page builds it from this.
@@ -3598,7 +3599,7 @@ export class ClassRoom extends Room {
       id: vehicle.id, name: vehicle.name, word: vehicle.word, ja: vehicle.ja,
       ...this.garagePayload(client.sessionId), ...this.walletPayload(client.sessionId),
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" bought the ${vehicle.id} for ${vehicle.price}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} bought the ${vehicle.id} for ${vehicle.price}`);
   }
 
   onRideEquip(client, msg) {
@@ -3656,7 +3657,7 @@ export class ClassRoom extends Room {
       ...this.raceRow(now),
     });
     this.raceBroadcast('race:field', this.raceRow(now));
-    log.info(`[room ${this.roomId}] "${priv.name}" is on the grid (${this.race.racers.size} racing)`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} is on the grid (${this.race.racers.size} racing)`);
   }
 
   onRaceLeave(client, reason = 'left') {
@@ -3770,7 +3771,7 @@ export class ClassRoom extends Room {
       standings: standings(this.race), ...this.walletPayload(client.sessionId),
       progress: this.progressPayload(client.sessionId), levels: level?.levels || 0,
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" finished ${place}${['st', 'nd', 'rd'][place - 1] || 'th'} (best lap ${(best / 1000).toFixed(1)}s)`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} finished ${place}${['st', 'nd', 'rd'][place - 1] || 'th'} (best lap ${(best / 1000).toFixed(1)}s)`);
   }
 
   // Called once a second from the room's own tick: the lights, the running order, and the
@@ -3884,7 +3885,7 @@ export class ClassRoom extends Room {
       ...this.gpRow(now),
     });
     this.gpBroadcast('gp:field', this.gpRow(now));
-    log.info(`[room ${this.roomId}] "${priv.name}" is on the grand prix grid (${this.gp.racers.size} racing)`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} is on the grand prix grid (${this.gp.racers.size} racing)`);
   }
 
   onGpLeave(client, reason = 'left') {
@@ -3982,7 +3983,7 @@ export class ClassRoom extends Room {
       standings: gpStandings(this.gp), ...this.walletPayload(client.sessionId),
       progress: this.progressPayload(client.sessionId), levels: level?.levels || 0,
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" finished the grand prix ${place}${['st', 'nd', 'rd'][place - 1] || 'th'}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} finished the grand prix ${place}${['st', 'nd', 'rd'][place - 1] || 'th'}`);
   }
 
   // 10 Hz: the rivals drive, the lights go out, and the race ends.
@@ -4139,7 +4140,7 @@ export class ClassRoom extends Room {
       ...this.missionPayload(mission, 'talk'),
       request: mission.request, requestJa: mission.requestJa,
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" took errand ${mission.id}`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} took errand ${mission.id}`);
   }
 
   onMissionQuit(client) {
@@ -4183,7 +4184,8 @@ export class ClassRoom extends Room {
       return;
     }
 
-    const utterance = typeof msg?.text === 'string' ? msg.text.replace(/\s+/g, ' ').trim().slice(0, 200) : '';
+    // 外の AI へ わたす 前に 電話番号・メール・URL・SNS の ID は 消す（個人情報は サーバーの 外に 出さない）。
+    const utterance = typeof msg?.text === 'string' ? scrubContact(msg.text.replace(/\s+/g, ' ').trim().slice(0, 200)) : '';
     if (!utterance) return;
 
     const now = Date.now();
@@ -4232,7 +4234,7 @@ export class ClassRoom extends Room {
       payload.stage = 'deliver';
       payload.item = mission.item;
       payload.from = this.spotPayload(mission.from);
-      log.info(`[room ${this.roomId}] "${priv.name}" finished talking for ${mission.id} in ${state.turns.length} turns`);
+      log.info(`[room ${this.roomId}] ${who(priv.name)} finished talking for ${mission.id} in ${state.turns.length} turns`);
     }
     this.persist(client.sessionId);
     client.send('mission:turn', payload);
@@ -4261,7 +4263,7 @@ export class ClassRoom extends Room {
       missionsDone: [...priv.missionsDone], wallet: this.walletPayload(client.sessionId).wallet,
       turns: state.turns.length,
     });
-    log.info(`[room ${this.roomId}] "${priv.name}" delivered ${mission.id} for ${mission.reward} coins`);
+    log.info(`[room ${this.roomId}] ${who(priv.name)} delivered ${mission.id} for ${mission.reward} coins`);
     priv.mission = null;
   }
 
@@ -4410,7 +4412,7 @@ export class ClassRoom extends Room {
       cm.resumeTimer.unref?.();
     }
     this.sendClassStateToTeachers();
-    log.info(`[room ${this.roomId}] class ${on ? 'frozen' : 'resumed'}${by ? ` by "${by}"` : ''}`);
+    log.info(`[room ${this.roomId}] class ${on ? 'frozen' : 'resumed'}${by ? ` by ${who(by)}` : ''}`);
   }
 
   onClassFreeze(client, msg) {

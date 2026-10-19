@@ -144,6 +144,21 @@ export class SheetsStore {
     if (entry) entry.record = copy; else this.cache.set(key, { rowIndex: 0, record: copy });
   }
 
+  // 個人情報の 削除：players の 行を 空に する（行は 残る。append だけの learning_log / coin_log は シートで 手で 消す＝返り値の note）。
+  async erasePlayer(classCode, name) {
+    const key = playerKey(classCode, name);
+    const entry = this.cache.get(key);
+    this.pendingPlayers.delete(key);
+    this.cache.delete(key);
+    let player = 0;
+    if (entry?.rowIndex > 0) {
+      await this.api.update(`${SHEETS.players}!A${entry.rowIndex}:${lastCol}${entry.rowIndex}`, [new Array(PLAYER_COLUMNS.length).fill('')]);
+      player = 1;
+    }
+    return { player, learning: 0, coins: 0, roblox_links: 0, roblox_events: 0, wallet: 0, note: 'learning_log / coin_log / roblox_events の 行は Google シートで 名前で しぼって 消してください' };
+  }
+  async prune() { return { learning: 0, coins: 0, wallet: 0, note: 'sheets: 保持期間は シート側で' }; }
+
   appendLearning(row) { this.queueRow(this.pendingLearning, row); }
   appendCoin(row) { this.queueRow(this.pendingCoins, row); }
 

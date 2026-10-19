@@ -21,7 +21,7 @@ export function createLobby({ onJoin, onOffline, defaultClass, prefs }) {
       <button type="submit" class="primary" id="net-join" data-t="クラスに はいる →">クラスに はいる →</button>
       <button type="button" id="net-offline" data-t="ひとりで あそぶ">ひとりで あそぶ</button>
     </div>
-    <p class="net-fine" data-t="オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。">オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。</p>
+    <p class="net-fine" data-t="オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。">オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。 <a href="/privacy.html" target="_blank" rel="noopener" data-t="プライバシーポリシー">プライバシーポリシー</a></p>
   </form>`;
   document.body.append(dialog);
   // この枠は JavaScript で建てるので、**建てたあとに一度 訳を当てる**
@@ -33,8 +33,8 @@ export function createLobby({ onJoin, onOffline, defaultClass, prefs }) {
   const $ = (s) => dialog.querySelector(s);
   $('#net-name').value = prefs?.name || '';
   $('#net-class').value = prefs?.classCode || defaultClass || '';
-  $('#net-key').value = prefs?.teacherKey || '';
-  if (prefs?.teacherKey) $('#net-teacher-details').open = true;
+  // 先生の 鍵は localStorage に 入れない・読まない（共用の iPad で 次の 子に 見えない ように）。
+  $('#net-key').value = '';
 
   function busy(v) { $('#net-join').disabled = v; $('#net-offline').disabled = v; $('#net-join').textContent = t(v ? '接続中…' : 'クラスに はいる →'); }
   function error(text) { $('#net-lobby-error').textContent = text || ''; $('#net-lobby-error').hidden = !text; }

@@ -18,6 +18,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
+import { ipTag } from '../log.js';
 import { decodeUpload, rosterFromText, rosterToCsv } from '../store/roster-text.js';
 import { isTrueCell } from '../store/roster-sheet.js';
 import { validateMetric, metricToRow, parseMetric } from '../game/roblox-metrics.js';
@@ -80,18 +81,18 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
 
   router.post('/login', express.urlencoded({ extended: false, limit: '4kb' }), (req, res) => {
     const ip = req.ip || 'unknown';
-    if (tooManyFails(ip)) { log.warn(`[admin] login locked for ${ip}`); res.redirect(303, '/admin?locked'); return; }
+    if (tooManyFails(ip)) { log.warn(`[admin] login locked for ${ipTag(ip)}`); res.redirect(303, '/admin?locked'); return; }
     const given = String(req.body?.password ?? '');
     if (!safeEqual(given, adminKey)) {
       noteFail(ip);
-      log.warn(`[admin] wrong password from ${ip}`);
+      log.warn(`[admin] wrong password from ${ipTag(ip)}`);
       res.redirect(303, '/admin?bad');
       return;
     }
     fails.delete(ip);
     const exp = now() + SESSION_MS;
     setCookie(res, `${exp}.${sign(adminKey, exp)}`, Math.floor(SESSION_MS / 1000));
-    log.info(`[admin] login from ${ip}`);
+    log.info(`[admin] login from ${ipTag(ip)}`);
     res.redirect(303, '/admin');
   });
 

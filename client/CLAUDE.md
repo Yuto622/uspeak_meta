@@ -429,6 +429,13 @@ Roblox 版（USpeakTeacherLive / USpeakReviewServer）と 同じ 動き・同じ
 - 教室に 配る 手順は `docs/install/ホーム画面に追加_教室向けガイド.pdf`（元は 同じ 名前の html。直したら PDF も 作りなおす）。
 - 検査は `server/test/static.test.mjs` の「ホーム画面に 追加できる」。
 
+## 個人情報の 守り（2026-10）
+
+公開の ポリシーは `dist/privacy.html`（ロビーの 下の 「プライバシーポリシー」と LINE の 同意画面から）。運用は `docs/PRIVACY.md`。
+- **`?server=` は localhost と LAN の IP でしか 効かない**（`net-config.js`）。本番の URL に `?server=wss://よそ` を つけた リンクで 名前・クラス・先生の 鍵が よそへ 行かないため。
+- **先生の 鍵は localStorage に 書かない・読まない**（`lobby.js`）。共用の iPad で 次の 子に 見えない ように。sessionStorage（タブを 閉じると 消える）には 再読みこみの ために 残る。
+- サーバー側（ログの 札・AI へ わたす 前の そうじ・1 人ぶんの 削除・保持期間・安全の 頭・総当たりの 守り）は `docs/PRIVACY.md` と `server/src/privacy.js`。
+
 ## 保存互換性
 
 localStorageのキー:

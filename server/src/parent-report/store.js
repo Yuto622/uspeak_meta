@@ -130,12 +130,39 @@ export class ReportStore {
     if (rows.length) this.touch();
     return rows.length;
   }
-  // 30 日 たった 止めた 紐づけを 消す。
-  purge(now = Date.now()) {
+  // 保持期間：30 日 たった 止めた 紐づけ・ブロック（友だち解除）から 30 日 たった 紐づけ・切れて 30 日 たった QR の 中身・
+  // 400 日 より 前の 送信の 記録（LINE の ID が 入っている）を 消す。
+  purge(now = Date.now(), { keepDeliveriesMs = 400 * 86400000, graceMs = 30 * 86400000 } = {}) {
     const before = this.data.parent_links.length;
-    this.data.parent_links = this.data.parent_links.filter((l) => !(l.status === 'stopped' && l.deleted_after && Date.parse(l.deleted_after) <= now));
-    if (this.data.parent_links.length !== before) this.touch();
+    const gone = (iso) => { const t = Date.parse(iso || ''); return Number.isFinite(t) && t + graceMs <= now; };
+    this.data.parent_links = this.data.parent_links.filter((l) => !(l.status === 'stopped' && l.deleted_after && Date.parse(l.deleted_after) <= now) && !(l.status === 'blocked' && gone(l.updated_at || l.created_at)));
+    const tokensBefore = this.data.link_tokens.length;
+    this.data.link_tokens = this.data.link_tokens.filter((t) => !gone(t.revoked_at) && !gone(t.expires_at));
+    const delBefore = this.data.deliveries.length;
+    this.data.deliveries = this.data.deliveries.filter((d) => { const t = Date.parse(d.sent_at || ''); return !(Number.isFinite(t) && t + keepDeliveriesMs <= now); });
+    const removed = (before - this.data.parent_links.length) + (tokensBefore - this.data.link_tokens.length) + (delBefore - this.data.deliveries.length);
+    if (removed) this.touch();
     return before - this.data.parent_links.length;
+  }
+
+  // 個人情報の 削除：その 子の 紐づけ・QR・先生の ひとこと・レポート・送信の 記録・👏 を ぜんぶ 消し、消した レポートの token を 返す（ファイルは 呼ぶ側が 消す）。
+  eraseStudent(classroomId, username) {
+    const mine = (r) => r.classroom_id === classroomId && r.student_username === username;
+    const out = {};
+    const tokens = this.data.reports.filter(mine).map((r) => r.access_token);
+    const reportIds = new Set(this.data.reports.filter(mine).map((r) => r.id));
+    const lineIds = new Set(this.data.parent_links.filter(mine).map((l) => l.line_user_id));
+    for (const t of ['parent_links', 'link_tokens', 'teacher_comments', 'reports', 'claps']) {
+      const before = this.data[t].length;
+      this.data[t] = this.data[t].filter((r) => !mine(r));
+      out[t] = before - this.data[t].length;
+    }
+    // 送信の 記録は 子の 名前を 持たない：その 子の レポート宛て、または その 保護者の LINE 宛て の 行を 消す。
+    const delBefore = this.data.deliveries.length;
+    this.data.deliveries = this.data.deliveries.filter((d) => !(reportIds.has(d.report_id) || lineIds.has(d.line_user_id)));
+    out.deliveries = delBefore - this.data.deliveries.length;
+    this.touch();
+    return { ...out, tokens };
   }
 
   // ---- 先生の ひとこと ---------------------------------------------------------------------
