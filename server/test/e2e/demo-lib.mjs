@@ -68,7 +68,9 @@ export async function startServer(port, env = {}) {
   return server;
 }
 export async function launch() {
-  return chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--no-sandbox', '--autoplay-policy=no-user-gesture-required'] });
+  return chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--no-sandbox', '--autoplay-policy=no-user-gesture-required',
+    // 通話の 場面だけ：マイクの 許可を 自動で 出し、にせの マイクを つかう（カメラは 使わない）。
+    ...(process.env.FAKE_MEDIA ? ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] : [])] });
 }
 export async function openGame(browser, port, { name, cls = 'demo', teacher = false, w = 1280, h = 720, scale = 1.5, clock = true } = {}) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: scale, hasTouch: false });

@@ -166,6 +166,38 @@ const scenes = {
       return await record(page, out, { seconds: Number(process.env.DUR || 9), fps: FPS, step: async (i, t) => { await tl.run(t); follow(t - last || 1 / FPS); last = t; await page.waitForTimeout(25); } });
     } finally { for (const r of kids) r.leave().catch(() => {}); }
   },
+  // 3c) みんなで はなす しま：同じ クラスの 先生と 友だちと 通話（オンライン授業）。FAKE_MEDIA=1 で 撮る。
+  //     友だちと 先生は colyseus.js の 接続なので 声は 出ないが、部屋の 名簿と 定型文は 本物の 流れ。
+  async call(page) {
+    const talk = { x: 80, z: 200 };
+    await page.evaluate((t) => uspeak.net.teleportTo({ space: 'talk', x: t.x, z: t.z + 6 }), talk);
+    await page.waitForTimeout(3000);
+    const people = [['Tanaka', true], ['Hina'], ['Sota'], ['Yui']];
+    const bots = [];
+    for (const [name, teacher] of people) {
+      const r = await new Client(`ws://127.0.0.1:${port}`).joinOrCreate('class', { classCode: 'demo', name, ...(teacher ? { teacherKey: process.env.TEACHER_KEY } : {}) });
+      r.onMessage('*', () => {});
+      const k = bots.length;
+      r.send('move', { s: 'talk', x: talk.x - 3 + k * 2, z: talk.z + 3, r: Math.PI, a: 'idle', t: Date.now() % 4294967296 });
+      bots.push(r);
+    }
+    await page.waitForTimeout(800);
+    for (const r of bots) r.send('voice:join');
+    await page.waitForTimeout(800);
+    await page.evaluate(() => document.querySelector('#voice-join')?.click());
+    await page.waitForTimeout(3000);
+    const tl = timeline();
+    const say = (k, id) => () => bots[k].send('voice:msg', { id });
+    tl.at(0.6, say(0, 'hello'));
+    tl.at(1.8, say(1, 'hi-there'));
+    tl.at(3.0, say(2, 'nice-to-meet'));
+    tl.at(4.0, () => page.evaluate(() => document.querySelector('#voice-full')?.click()));
+    tl.at(5.2, say(3, 'great'));
+    tl.at(6.4, say(0, 'thank-you'));
+    try {
+      return await record(page, out, { seconds: Number(process.env.DUR || 8), fps: FPS, step: async (i, t) => { await tl.run(t); await page.waitForTimeout(20); } });
+    } finally { for (const r of bots) r.leave().catch(() => {}); }
+  },
   // 4) ランキング：クラスの いろいろな 指標（中身は サーバーの rankings.js で 作った 見本の クラス）。
   async rank(page) {
     await page.waitForTimeout(1500);
