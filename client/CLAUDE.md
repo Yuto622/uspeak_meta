@@ -84,9 +84,10 @@ loading.js の タイマーも 自分で 止まる。`prefers-reduced-motion` �
 Roblox 版（USpeakTeacherLive / USpeakReviewServer）と 同じ 動き・同じ ルール。画面は `class-mode.js` + `class-mode.css`、
 部屋は `server/src/game/class-mode.js`（決まりと 行き先の 表）・`server/src/game/review.js`（復習の ルール）と `ClassRoom` の `class:*` / `review:*`。
 
-- **先生の 判定は サーバー**：講師キー、または **admin（/admin）の 名簿で「先生か」が true** の 名前（`roster` の `teacher` 列。
-  CSV なら `teacher` か `先生か` の 列に true）。`gate.isTeacher()` が 名簿を 見て、`onAuth` が role を 決める。名簿の 入場 きりかえ
-  （open / roster）とは 関係なく 効く。**名前だけで 先生に なれる**ので、先生の 名前は 子どもが 使わない ものに すること。
+- **先生の 判定は サーバー**：講師キー、または **admin（/admin）の 名簿で「先生か」が true ＋ その 行の あいことば（`pin`）が 合った** 名前。
+  `gate.isTeacher({name, pin})` が 名簿を 見て、`onAuth` が role を 決める。ロビーの「先生用」の 1 つの 欄が 講師キーにも 先生の あいことばにも なる。
+  **2026-10-20 から 名前だけでは 先生に なれない**（あいことばの ない 先生の 行は 講師キーで 入る）。あいことばが 合わないと 入室も できない（4005 `wrong password`）。
+  子どもの 行に あいことばを 書くと、その 子は ロビーの「じぶんの あいことば（あれば）」（`#net-pin`・join の `pin`）が 必要に なる（open でも）。
 - **名簿を かえたら 入ったままの 人にも すぐ 効く**（`ClassRoom.recheckRole`）。admin で 保存すると 名簿の 版が あがり、
   tick が 全員の「先生か」を 読みなおして かわった 人に `role` を おくる（ボタン・先生コンソールが 消える／出る）。
   トークンでの つなぎなおし（`onAuth` を 通らない）でも 読みなおす。1 分ごとにも 読む（名簿が スプレッドシートの とき）。

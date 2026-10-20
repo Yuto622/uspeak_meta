@@ -59,7 +59,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const $ = (s) => document.querySelector(s);
   const state = {
     mode: 'offline', // offline | connecting | online | reconnecting
-    role: 'student', sessionId: null, name: '', classCode: '', teacherKey: '',
+    role: 'student', sessionId: null, name: '', classCode: '', teacherKey: '', pin: '',
     attempts: 0, intentionalLeave: false, chatPaused: false, freeChat: true, teacherId: '',
     progress: null, wallet: null, move: null, pet: null, lastSpace: '', lastSendAt: 0, lastSent: { s: '', x: NaN, z: NaN, r: NaN, a: '' }, lastProgressJson: '', lastProgressAt: 0,
     pendingTeleport: null, hiddenAt: 0, resumedAt: 0, lastAvatarJson: '',
@@ -440,7 +440,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     return rpg.state.current || 'willow';
   }
   function joinOptions() {
-    return { classCode: state.classCode, name: state.name, teacherKey: state.teacherKey || undefined, avatar: avatars.config };
+    return { classCode: state.classCode, name: state.name, teacherKey: state.teacherKey || undefined, pin: state.pin || undefined, avatar: avatars.config };
   }
   function setMode(mode) {
     if (mode !== 'online') { const rb = document.getElementById('roblox-button'); if (rb) rb.hidden = true; }
@@ -461,7 +461,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     classMode.setOnline(mode === 'online' || mode === 'reconnecting');
   }
   function saveSession() {
-    storage.set(sessionStorage, STORAGE_KEYS.session, { name: state.name, classCode: state.classCode, teacherKey: state.teacherKey, token: room?.reconnectionToken || '', sessionId: state.sessionId });
+    storage.set(sessionStorage, STORAGE_KEYS.session, { name: state.name, classCode: state.classCode, teacherKey: state.teacherKey, pin: state.pin, token: room?.reconnectionToken || '', sessionId: state.sessionId });
     storage.set(localStorage, STORAGE_KEYS.prefs, { name: state.name, classCode: state.classCode });
   }
   function clearSession() { storage.remove(sessionStorage, STORAGE_KEYS.session); }
@@ -472,10 +472,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // 一瞬 見えてから とぶ（「つなぎ なおしています…」の あいだも）。つながらなくても メインの島は 歩ける。
   function homeNow() { if (!state.mainShown) { state.mainShown = true; main.goHome({ first: true }); } }
 
-  async function connect({ name, classCode, teacherKey }, { silent = false } = {}) {
+  async function connect({ name, classCode, teacherKey, pin }, { silent = false } = {}) {
     homeNow();
     if (!Colyseus) { lobby.error(tr('つうしんの ぶひんが よみこめませんでした。')); return; }
-    state.name = name; state.classCode = classCode || 'default'; state.teacherKey = teacherKey || '';
+    state.name = name; state.classCode = classCode || 'default'; state.teacherKey = teacherKey || ''; state.pin = pin || '';
     state.intentionalLeave = false;
     state.attempts = 0;
     lobby.busy(true);
@@ -500,6 +500,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     if (code === 4002 || /class is full/.test(text)) return tr('この クラスは いっぱいです。先生に つたえてね。');
     // 入場ゲート: the class register did not have this name. Say what to check, not what
     // went wrong - a child cannot fix a register.
+    if (code === 4005 || /password/.test(text)) return tr('あいことばが ちがいます。先生に 聞いてね。');
     if (code === 4004 || /register/.test(text)) return tr('この 名前は この クラスの めいぼに ありません。クラスコードと なまえを たしかめて、先生に 聞いて ください。');
     if (/Failed to fetch|NetworkError|Load failed|ECONN|timeout/i.test(text)) return tr('サーバーに つながりません。Wi-Fi を たしかめて ください。');
     return tr('つなげませんでした（{why}）', { why: text.slice(0, 80) });
@@ -814,7 +815,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     if (!confirm(tr('ログアウトしますか？ なまえと クラスを わすれます。'))) return;
     goOffline(false);
     storage.remove(localStorage, STORAGE_KEYS.prefs);
-    state.name = ''; state.classCode = ''; state.teacherKey = ''; state.role = 'student';
+    state.name = ''; state.classCode = ''; state.teacherKey = ''; state.pin = ''; state.role = 'student';
     classMode.setRole('student');
     lobby.reset();
     lobby.open();
@@ -1094,7 +1095,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     const start = () => {
       if (session?.name) {
         // Same tab reloaded (or restored by Safari): rejoin automatically.
-        state.name = session.name; state.classCode = session.classCode || 'default'; state.teacherKey = session.teacherKey || '';
+        state.name = session.name; state.classCode = session.classCode || 'default'; state.teacherKey = session.teacherKey || ''; state.pin = session.pin || '';
         client = new Colyseus.Client(resolveServerUrl());
         setMode('reconnecting');
         homeNow();

@@ -1,6 +1,8 @@
 // 個人情報の 守り — ログに 名前を 書かない・AI に わたす 前の そうじ・1 人ぶんの 削除・保持期間・総当たりの 守り。
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
 process.env.LOG_LEVEL = 'error';
 process.env.LOG_SALT = 'test-salt';
@@ -10,6 +12,7 @@ const { scrubContact, cleanSay } = await import('../src/game/say.js');
 const { FileStore } = await import('../src/store/FileStore.js');
 const { ReportStore } = await import('../src/parent-report/store.js');
 const { eraseStudent, rateLimit } = await import('../src/privacy.js');
+const { signLink, verifyLink, signReport, verifyReport, LINK_TTL } = await import('../src/game/report.js');
 
 test('ログの 札：名前は 出ない・同じ 名前は 同じ 札・鍵なしでは 逆引き できない', () => {
   const a = who('ゆうと'), b = who('ゆうと'), c = who('はな');
@@ -135,4 +138,22 @@ test('総当たりの 守り：同じ IP から 上限を こえると 429、別
     t += 61_000;
     assert.equal(await call('1.1.1.1'), 200, 'the window has passed');
   })();
+});
+
+test('署名つき リンクには 期限が あり、切れた リンク・ちがう 子・ちがう 鍵は 通らない。古い 形は 猶予の あいだだけ', () => {
+  const secret = 'a-report-secret-long-enough';
+  const NOW = Date.parse('2026-10-20T00:00:00Z');
+  const t = signLink(secret, '6-1|Aki', LINK_TTL.report, { now: NOW });
+  assert.match(t, /^\d+\.[\w-]{24}$/);
+  assert.equal(verifyLink(secret, '6-1|Aki', t, { now: NOW + 100 * 86400000 }), true);
+  assert.equal(verifyLink(secret, '6-1|Aki', t, { now: NOW + 181 * 86400000 }), false, 'expired');
+  assert.equal(verifyLink(secret, '6-1|Ben', t, { now: NOW }), false);
+  assert.equal(verifyLink('other-secret-long-enough-too', '6-1|Aki', t, { now: NOW }), false);
+  assert.equal(verifyLink(secret, '6-1|Aki', t.replace(/^\d+/, (d) => String(Number(d) + 86400 * 365)), { now: NOW }), false, 'the expiry is signed too');
+  assert.equal(verifyReport(secret, '6-1', 'Aki', signReport(secret, '6-1', 'Aki')), true);
+  // 古い 形（期限なし）は 猶予の 日までは 通り、過ぎたら 通らない
+  const { createHmac } = require('node:crypto');
+  const legacy = createHmac('sha256', secret).update('6-1|Aki').digest('base64url').slice(0, 24);
+  assert.equal(verifyLink(secret, '6-1|Aki', legacy, { now: NOW }), true);
+  assert.equal(verifyLink(secret, '6-1|Aki', legacy, { now: Date.parse('2027-02-01T00:00:00Z') }), false);
 });

@@ -99,45 +99,49 @@ export function reportFor(record, { now = Date.now() } = {}) {
   };
 }
 
-export function signReport(secret, classCode, name) {
-  return createHmac('sha256', secret).update(`${classCode}|${name}`).digest('base64url').slice(0, 24);
+// ---- 署名つき リンク（2026-10 から 期限つき）------------------------------------------------
+// token = `${期限(秒)}.${HMAC(種類|…|期限)}`。期限の ない 古い 形は LEGACY_UNTIL（REPORT_LINK_LEGACY_UNTIL、
+// 既定 2027-01-31）まで 受けつける：配布ずみの QR・リンクが 当日 切れないため。それを 過ぎたら 先生コンソールから 取りなおす。
+const DAY = 86400000;
+export const LINK_TTL = { report: 180 * DAY, roblox: 180 * DAY, class: 30 * DAY, export: 30 * DAY };
+const LEGACY_UNTIL = Date.parse(process.env.REPORT_LINK_LEGACY_UNTIL || '2027-01-31T00:00:00Z');
+const mac = (secret, text) => createHmac('sha256', secret).update(text).digest('base64url').slice(0, 24);
+const safeEq = (a, b) => { const x = Buffer.from(String(a)); const y = Buffer.from(String(b)); return x.length === y.length && timingSafeEqual(x, y); };
+export function signLink(secret, parts, ttlMs, { now = Date.now() } = {}) {
+  const exp = Math.floor((now + ttlMs) / 1000);
+  return `${exp}.${mac(secret, `${parts}|${exp}`)}`;
+}
+export function verifyLink(secret, parts, token, { now = Date.now() } = {}) {
+  const t = String(token || '');
+  const dot = t.indexOf('.');
+  if (dot > 0) {
+    const exp = Number(t.slice(0, dot));
+    if (!Number.isFinite(exp) || exp * 1000 < now) return false;
+    return safeEq(mac(secret, `${parts}|${exp}`), t.slice(dot + 1));
+  }
+  // 古い 形（期限なし）
+  if (now >= LEGACY_UNTIL) return false;
+  return safeEq(mac(secret, parts), t);
 }
 
-export function verifyReport(secret, classCode, name, token) {
-  const want = Buffer.from(signReport(secret, classCode, name));
-  const got = Buffer.from(String(token || ''));
-  return want.length === got.length && timingSafeEqual(want, got);
-}
+export const signReport = (secret, classCode, name) => signLink(secret, `${classCode}|${name}`, LINK_TTL.report);
+export const verifyReport = (secret, classCode, name, token) => verifyLink(secret, `${classCode}|${name}`, token);
 
 // クラスぜんぶを1枚の CSV にする口。**子ども1人ぶんの署名とは別の文字を混ぜる**ので、
 // 1人ぶんのリンクをクラス全員ぶんに読み替えることはできない。
-export function signExport(secret, classCode) {
-  return createHmac('sha256', secret).update(`export|${classCode}`).digest('base64url').slice(0, 24);
-}
-
-export function verifyExport(secret, classCode, token) {
-  const want = Buffer.from(signExport(secret, classCode));
-  const got = Buffer.from(String(token || ''));
-  return want.length === got.length && timingSafeEqual(want, got);
-}
+export const signExport = (secret, classCode) => signLink(secret, `export|${classCode}`, LINK_TTL.export);
+export const verifyExport = (secret, classCode, token) => verifyLink(secret, `export|${classCode}`, token);
 
 // 教室のようす（オーナー向け）。**CSV とも1人ぶんとも別の文字を混ぜる**ので、
 // どちらのリンクもこのページには読み替えられない。
-export function signClass(secret, classCode) {
-  return createHmac('sha256', secret).update(`class|${classCode}`).digest('base64url').slice(0, 24);
-}
-
-export function verifyClass(secret, classCode, token) {
-  const want = Buffer.from(signClass(secret, classCode));
-  const got = Buffer.from(String(token || ''));
-  return want.length === got.length && timingSafeEqual(want, got);
-}
+export const signClass = (secret, classCode) => signLink(secret, `class|${classCode}`, LINK_TTL.class);
+export const verifyClass = (secret, classCode, token) => verifyLink(secret, `class|${classCode}`, token);
 
 export const classPath = (secret, classCode) =>
-  `/class/${encodeURIComponent(classCode)}?t=${signClass(secret, classCode)}`;
+  `/class/${encodeURIComponent(classCode)}?t=${encodeURIComponent(signClass(secret, classCode))}`;
 
 export const exportPath = (secret, classCode) =>
-  `/export/${encodeURIComponent(classCode)}.csv?t=${signExport(secret, classCode)}`;
+  `/export/${encodeURIComponent(classCode)}.csv?t=${encodeURIComponent(signExport(secret, classCode))}`;
 
 // 教室が自分の記録を持ち出すための CSV。**出せるほうが導入されやすく、実際には誰も
 // 出ていかない。** 「うちの記録なのに取り出せない」と思わせないことのほうが大事。

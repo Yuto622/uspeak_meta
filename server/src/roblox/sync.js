@@ -11,6 +11,7 @@
 // **Web のコイン残高 = Roblox の残高の最新値 ＋ まだ Roblox に届いていない Web の増減。**
 // 2つの世界が同じ数字を見せるための約束で、Roblox にまだ1度も入っていない子は
 // これまで通り Web の残高だけで動く（`balanceOf` が null を返す）。
+import { signLink, verifyLink, LINK_TTL } from '../game/report.js';
 import { createHmac, timingSafeEqual, randomBytes } from 'node:crypto';
 import express from 'express';
 import { SEED_METRICS, SEED_PREVIOUS, summarize, parseMetric } from '../game/roblox-metrics.js';
@@ -41,11 +42,8 @@ export function toMillis(v, fallback = 0) {
 
 // 保護者ページ `/report/<username>` のリンク。署名は1人ぶんの Web レポートとも別
 // （`roblox|<username>`）なので、どちらのリンクも読み替えられない。
-export const signRobloxReport = (secret, username) => createHmac('sha256', secret).update(`roblox|${username}`).digest('base64url').slice(0, 24);
-export function verifyRobloxReport(secret, username, token) {
-  if (!secret || !username || !token) return false;
-  return safeEqual(signRobloxReport(secret, username), String(token));
-}
+export const signRobloxReport = (secret, username) => signLink(secret, `roblox|${username}`, LINK_TTL.roblox);
+export const verifyRobloxReport = (secret, username, token) => verifyLink(secret, `roblox|${username}`, token);
 export const robloxReportPath = (secret, username) => `/report/${encodeURIComponent(username)}?t=${signRobloxReport(secret, username)}`;
 
 export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret = '', questions = null, log = console, now = Date.now }) {

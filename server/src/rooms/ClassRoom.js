@@ -83,7 +83,7 @@ import { rideOf, ParkError } from '../game/themepark.js';
 import { rankings, boardPayload } from '../game/rankings.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
-export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004 };
+export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004, WRONG_PIN: 4005, TOO_MANY: 4006 };
 // 名簿の「先生か」を 読みなおす 間かく（admin で 保存したら すぐ。名簿が スプレッドシートの ときの ための 保険）。
 const ROLE_RECHECK_MS = 60 * 1000;
 const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only within a lesson window
@@ -131,6 +131,19 @@ export function sanitizeAvatar(raw) {
   // ペット（横を 歩く）。本物の しゅるいだけ。部屋が priv.pet から 入れる（ページが 送っても 上書きされる）。
   if (SPECIES_BY_ID[a.pet]) out.pet = a.pet;
   return JSON.stringify(out);
+}
+
+// 入室の 総当たりの 守り：1 IP 1 分 120 回まで（学校の NAT で 100 人が 同じ IP でも 足りる。足りなければ JOIN_PER_MIN）。
+// 同じ 機械の 中（検査・開発）は 数えない。
+const joinHits = new Map();
+const JOIN_PER_MIN = Math.max(10, Number(process.env.JOIN_PER_MIN) || 120);
+function tooManyJoins(ip) {
+  if (!ip || ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1') return false;
+  const now = Date.now();
+  const h = joinHits.get(ip);
+  if (!h || now - h.at > 60_000) { joinHits.set(ip, { n: 1, at: now }); if (joinHits.size > 5000) joinHits.clear(); return false; }
+  h.n += 1;
+  return h.n > JOIN_PER_MIN;
 }
 
 function isTeacherKey(candidate) {
@@ -344,17 +357,22 @@ export class ClassRoom extends Room {
 
   // ---- lifecycle -------------------------------------------------------------
 
-  async onAuth(client, options) {
+  async onAuth(client, options, request) {
+    // 1 つの IP から 短い 時間に 入ろうと しすぎたら ことわる（名前・あいことばの 総当たりの 守り）。
+    const ip = request?.headers?.['fly-client-ip'] || request?.socket?.remoteAddress || '';
+    if (tooManyJoins(ip)) throw new ServerError(ERR.TOO_MANY, 'too many attempts');
     const name = sanitizeName(options?.name);
     if (!name) throw new ServerError(ERR.NAME_REQUIRED, 'name required');
-    // 先生は 2 とおり：講師キーを 持っている 人と、admin の 名簿で「先生」に ✓ が ついている 人。
+    // 先生は 2 とおり：講師キーを 持っている 人と、admin の 名簿で「先生」に ✓ ＋ あいことば が 合った 人。
+    // ロビーの「先生用」の 1 つの 入力が、講師キーにも 先生の あいことばにも なる。
     const byKey = isTeacherKey(options?.teacherKey);
-    const role = byKey || await this.gate.isTeacher?.({ classCode: this.classCode, name }) ? 'teacher' : 'student';
+    const role = byKey || await this.gate.isTeacher?.({ classCode: this.classCode, name, pin: typeof options?.teacherKey === 'string' ? options.teacherKey : '' }) ? 'teacher' : 'student';
     // 入場ゲート. A refusal here is a locked door, so the gate is written never to throw
     // and never to refuse a child it has seen before.
-    const pass = await this.gate.allow({ classCode: this.classCode, name, role });
+    const pass = await this.gate.allow({ classCode: this.classCode, name, role, pin: typeof options?.pin === 'string' ? options.pin : '' });
     if (!pass.ok) {
       log.warn(`[room ${this.roomId}] refused ${who(name)} for class=${this.classCode} (${pass.reason})`);
+      if (pass.reason === 'wrong pin') throw new ServerError(ERR.WRONG_PIN, 'wrong password');
       throw new ServerError(ERR.NOT_ON_ROSTER, 'not on the class register');
     }
     for (const [id, p] of this.state.players) {
@@ -371,7 +389,7 @@ export class ClassRoom extends Room {
       log.info(`[room ${this.roomId}] evicting silent seat ${who(name)} (${id}, ${silentFor}ms)`);
       ghost?.leave(4003);
     }
-    return { name, role, byKey, avatar: sanitizeAvatar(options?.avatar) };
+    return { name, role, byKey, teacherPin: role === 'teacher' && !byKey ? String(options?.teacherKey || '') : '', avatar: sanitizeAvatar(options?.avatar) };
   }
 
   async onJoin(client, options, auth) {
@@ -415,6 +433,7 @@ export class ClassRoom extends Room {
     priv.lastMoveAt = now;
     // 講師キーで 入った 先生か（名簿の 先生は あとで 名簿が かわると 生徒に もどる。recheckRoles）。
     priv.byKey = !!auth.byKey;
+    priv.teacherPin = auth.teacherPin || '';
     this.priv.set(client.sessionId, priv);
     priv.premium = !!(await this.gate?.isPremium?.({ classCode: this.classCode, name: auth.name }));
     WALLET_WATCH.set(priv.wallet, (op) => { taskOp(priv.tasks, op); this.taskTouch(client.sessionId); });
@@ -462,7 +481,7 @@ export class ClassRoom extends Room {
       }
     }
     if (!player || !priv || priv.byKey || !this.gate?.isTeacher) return false;
-    const want = (await this.gate.isTeacher({ classCode: this.classCode, name: player.name })) ? 'teacher' : 'student';
+    const want = (await this.gate.isTeacher({ classCode: this.classCode, name: player.name, pin: priv.teacherPin || '' })) ? 'teacher' : 'student';
     if (want === player.role || !this.state.players.has(id)) return false;
     player.role = want;
     const client = this.clients.find((c) => c.sessionId === id);

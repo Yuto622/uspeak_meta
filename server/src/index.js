@@ -110,6 +110,24 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // - HSTS：https で 来た ときだけ（Fly の 前段が https を 終える。http の LAN 配信では つけない）
   // - frame は 同じ origin だけ（同梱ゲームの iframe は 同じ origin。よその サイトに 埋められて 子どもの 画面を 盗まれない）
   // - カメラ・マイクは 自分だけ、よその サイトからは 使えない。Referrer は よそへ 送らない（URL に クラス・名前が 入ることが ある）。
+  // CSP：script は 自分の ファイルと インライン（index.html・管理画面）、外から 読むのは Google Fonts と LINE の LIFF SDK だけ。
+  // つなぐ 先は 自分（wss も）・LiveKit・LINE。よその サイトへ 子どもの 情報を 送る script は 動かない。iframe は 同梱ゲーム（自分）だけ。
+  const lk = config.livekit?.url ? config.livekit.url.replace(/^ws/, 'http') : '';
+  const csp = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.line-scdn.net",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' data: https://fonts.gstatic.com",
+    "img-src 'self' data: blob: https://*.line-scdn.net https://profile.line-scdn.net",
+    "media-src 'self' blob: data:",
+    `connect-src 'self' ws: wss: https://api.line.me https://access.line.me${lk ? ' ' + lk + ' ' + lk.replace(/^http/, 'ws') : ''}`,
+    "worker-src 'self' blob:",
+    "frame-src 'self'",
+    "frame-ancestors 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self' https://access.line.me",
+  ].join('; ');
   app.use((req, res, next) => {
     if (req.secure) res.set('Strict-Transport-Security', 'max-age=15552000; includeSubDomains');
     res.set('X-Content-Type-Options', 'nosniff');
@@ -117,6 +135,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
     res.set('Referrer-Policy', 'no-referrer');
     res.set('Permissions-Policy', 'camera=(self), microphone=(self), display-capture=(self), geolocation=(), payment=(), usb=()');
     res.set('Cross-Origin-Opener-Policy', 'same-origin');
+    res.set('Content-Security-Policy', csp);
     next();
   });
 
@@ -364,6 +383,14 @@ export async function startServer({ port = config.port, storeOverride = null } =
       },
     }));
   }
+
+  // エラーは 中身を 出さない（スタック・パス・シートの エラー文を 子どもや 攻撃者に 見せない）。ログにだけ。
+  app.use((err, req, res, next) => {
+    if (res.headersSent) return next(err);
+    log.warn(`[http] ${req.method} ${req.path}: ${err.status || 500} ${err.message}`);
+    const status = err.status || err.statusCode || 500;
+    res.status(status).type('text/plain; charset=utf-8').send(status === 413 ? 'too large' : status === 400 ? 'bad request' : 'うまく いきませんでした。もう一度 ためしてください。');
+  });
 
   const server = http.createServer(app);
   const transport = new WebSocketTransport({

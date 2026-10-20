@@ -44,7 +44,8 @@ export const PLAYER_COLUMNS = [
 ];
 export const LEARNING_COLUMNS = ['timestamp', 'class', 'name', 'question_id', 'mode', 'choice', 'correct', 'xp', 'session_id'];
 // The class register. A teacher keeps this: one row per child who is allowed in.
-export const ROSTER_COLUMNS = ['class', 'name', 'note', 'teacher', 'premium'];
+// pin：その 名前で 入る ときの あいことば（先生は 必須＝名前だけで 先生に なれない。子どもは あれば 必要）。
+export const ROSTER_COLUMNS = ['class', 'name', 'note', 'teacher', 'premium', 'pin'];
 export const COIN_COLUMNS = ['timestamp', 'class', 'name', 'op', 'item', 'quantity', 'delta', 'balance', 'session_id'];
 
 // Names and class codes are sanitized so they never contain '|'.

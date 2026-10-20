@@ -29,6 +29,8 @@ export const OPEN = 'open';
 export const ROSTER = 'roster';
 
 const fold = (s) => String(s ?? '').normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
+import { timingSafeEqual } from 'node:crypto';
+const samePin = (want, got) => { const a = Buffer.from(String(want).normalize('NFKC').trim()); const b = Buffer.from(String(got ?? '').normalize('NFKC').trim()); return a.length === b.length && a.length > 0 && timingSafeEqual(a, b); };
 
 // `mode` is a string or a function returning one (the admin page can turn the gate on
 // and off at run time). `version` is read on every check: when the register source bumps
@@ -76,7 +78,7 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
     try {
       const rows = await roster.listRoster(classCode);
       if (rows === null || rows === undefined) return entry || null;   // no register kept at all
-      const fresh = { names: new Set(rows.map((r) => fold(r.name))), teachers: new Set(rows.filter((r) => r.teacher).map((r) => fold(r.name))), premium: new Set(rows.filter((r) => r.premium).map((r) => fold(r.name))), at: now(), source: 'register', version: version() };
+      const fresh = { names: new Set(rows.map((r) => fold(r.name))), teachers: new Set(rows.filter((r) => r.teacher).map((r) => fold(r.name))), premium: new Set(rows.filter((r) => r.premium).map((r) => fold(r.name))), pins: new Map(rows.filter((r) => r.pin).map((r) => [fold(r.name), String(r.pin)])), at: now(), source: 'register', version: version() };
       cache.set(classCode, fresh);
       await saveSnapshot();
       return fresh;
@@ -92,11 +94,20 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
     forget(classCode) { if (classCode) cache.delete(classCode); else cache.clear(); },
     // 名簿の「先生」列が true の 人か（admin ページ）。入場の きりかえ（open / roster）とは 関係なく 見る：
     // 名簿を 使わない 教室でも、先生だけ 名簿に 書いて おけば 授業モードが 出る。読めなければ false（先生に しない）。
-    async isTeacher({ classCode, name }) {
+    // 2026-10：名前だけでは 先生に ならない。名簿の 行に あいことば（pin）が あり、それと 一致した ときだけ。
+    // あいことばの ない 先生の 行は、講師キー（TEACHER_KEY）で 入る（admin の 画面に そう 書いてある）。
+    async isTeacher({ classCode, name, pin = '' }) {
       try {
         const entry = await register(classCode);
-        return !!entry?.teachers?.has(fold(name));
+        if (!entry?.teachers?.has(fold(name))) return false;
+        const want = entry.pins?.get(fold(name)) || '';
+        if (!want) { log.warn?.(`[gate] teacher row without a pin in class=${classCode}: not granted (set あいことば in /admin)`); return false; }
+        return samePin(want, pin);
       } catch { return false; }
+    },
+    // 子どもの 行に あいことばが あるか（ロビーで 聞くため）。
+    async needsPin({ classCode, name }) {
+      try { const entry = await register(classCode); return !!entry?.pins?.get(fold(name)); } catch { return false; }
     },
     // 名簿の「プレミアム」列が true の 人か（英会話島・みんなで はなす しま）。読めなければ false。
     async isPremium({ classCode, name }) {
@@ -105,7 +116,13 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
         return !!entry?.premium?.has(fold(name));
       } catch { return false; }
     },
-    async allow({ classCode, name, role, store: storeOverride }) {
+    async allow({ classCode, name, role, pin = '', store: storeOverride }) {
+      // あいことばの ある 行は、open でも roster でも、それが 合わないと 入れない（なりすましの 守り）。
+      if (role !== 'teacher') {
+        const entry0 = await register(classCode);
+        const want = entry0?.pins?.get(fold(name));
+        if (want && !samePin(want, pin)) return { ok: false, reason: 'wrong pin' };
+      }
       if (modeNow() !== ROSTER) return { ok: true, reason: 'open' };
       if (role === 'teacher') return { ok: true, reason: 'teacher key' };
       const entry = await register(classCode);

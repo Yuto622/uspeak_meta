@@ -20,11 +20,25 @@ const makeStore = ({ roster = { '6-1': ['Aki', 'Ben'] }, records = {}, fail = fa
   async loadPlayer(classCode, name) { return records[`${classCode}|${name}`] || null; },
 });
 
-test('an open door is an open door: nothing is read, nobody is refused', async () => {
+test('an open door is an open door: nobody is refused (the register is read once, only for an あいことば)', async () => {
   const store = makeStore();
   const gate = createGate({ store, mode: OPEN, log: quiet });
   assert.deepEqual(await gate.allow({ classCode: '6-1', name: 'Anyone', role: 'student' }), { ok: true, reason: 'open' });
-  assert.equal(store.calls, 0, 'the register is not even consulted');
+  assert.deepEqual(await gate.allow({ classCode: '6-1', name: 'Other', role: 'student' }), { ok: true, reason: 'open' });
+  assert.equal(store.calls, 1, 'read once and cached: an open door does not hit the sheet per child');
+});
+
+test('あいことば: a row with a pin is refused without it, in open mode too; teachers need theirs', async () => {
+  const rows = [{ class: '6-1', name: 'Aki', pin: 'aki-1' }, { class: '6-1', name: 'Ms Sato', teacher: true, pin: 'sato' }, { class: '6-1', name: 'Mr Nopin', teacher: true }];
+  const store = { calls: 0, async listRoster() { this.calls += 1; return rows.map((r) => ({ ...r })); }, async loadPlayer() { return null; } };
+  const gate = createGate({ store, mode: OPEN, log: quiet });
+  assert.equal((await gate.allow({ classCode: '6-1', name: 'Aki', role: 'student' })).reason, 'wrong pin');
+  assert.equal((await gate.allow({ classCode: '6-1', name: 'aki ', role: 'student', pin: 'aki-1' })).ok, true);
+  assert.equal((await gate.allow({ classCode: '6-1', name: 'Ben', role: 'student' })).ok, true, 'no pin on the row: as before');
+  assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Ms Sato', pin: 'sato' }), true);
+  assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Ms Sato' }), false);
+  assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Mr Nopin' }), false, 'a teacher row without a pin is never a teacher by name');
+  assert.equal(await gate.needsPin({ classCode: '6-1', name: 'Aki' }), true);
 });
 
 test('with a register, the register decides — and spelling is not a test', async () => {

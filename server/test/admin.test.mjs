@@ -124,8 +124,8 @@ test('a save while the gate is on takes effect immediately, and the download is 
   const bytes = Buffer.from(await (await api('/roster.csv')).arrayBuffer());
   assert.deepEqual([...bytes.subarray(0, 3)], [0xef, 0xbb, 0xbf], 'a BOM for Excel');
   const csv = bytes.toString('utf8').slice(1);
-  assert.ok(csv.startsWith('name,teacher,premium\r\n'));
-  assert.match(csv, /^Ben,FALSE,FALSE$/m);
+  assert.ok(csv.startsWith('name,teacher,premium,pin\r\n'));
+  assert.match(csv, /^Ben,FALSE,FALSE,$/m);
   assert.ok(!/Aki/.test(csv));
   // Off again: anyone, and the setting survives in its file.
   await api('/enforce', { method: 'PUT', body: { enforce: false } });
@@ -133,35 +133,41 @@ test('a save while the gate is on takes effect immediately, and the download is 
   assert.equal(JSON.parse(readFileSync(pathJoin(dir, 'roster-settings.json'), 'utf8')).enforce, false);
 });
 
-test('the 先生か column: true makes a teacher without the key, in either gate mode, and round-trips', async () => {
-  // A CSV with a teacher column (either language) is read on the server.
-  const parsed = await (await api('/parse', { method: 'POST', body: 'name,先生か\nMs Sato,true\nKen,false\nYumi,\n', type: 'text/plain' })).json();
-  assert.deepEqual(parsed.rows, [{ name: 'Ms Sato', teacher: true, premium: false }, { name: 'Ken', teacher: false, premium: false }, { name: 'Yumi', teacher: false, premium: false }]);
+test('the 先生か column: true + あいことば makes a teacher without the key, in either gate mode, and round-trips', async () => {
+  // A CSV with a teacher column (either language) is read on the server. 2026-10: a teacher row needs an あいことば (pin).
+  const parsed = await (await api('/parse', { method: 'POST', body: 'name,先生か,あいことば\nMs Sato,true,sato-pass\nKen,false,\nYumi,,\n', type: 'text/plain' })).json();
+  assert.deepEqual(parsed.rows, [{ name: 'Ms Sato', teacher: true, premium: false, pin: 'sato-pass' }, { name: 'Ken', teacher: false, premium: false, pin: '' }, { name: 'Yumi', teacher: false, premium: false, pin: '' }]);
   const saved = await (await api('/roster', { method: 'PUT', body: { rows: parsed.rows } })).json();
   assert.ok(saved.ok);
-  assert.deepEqual(saved.rows, [{ name: 'Ms Sato', teacher: true, premium: false }, { name: 'Ken', teacher: false, premium: false }, { name: 'Yumi', teacher: false, premium: false }]);
-  assert.deepEqual((await (await api('/roster')).json()).rows.find((r) => r.name === 'Ms Sato'), { name: 'Ms Sato', teacher: true, premium: false });
+  assert.deepEqual(saved.rows, parsed.rows);
+  assert.deepEqual((await (await api('/roster')).json()).rows.find((r) => r.name === 'Ms Sato'), { name: 'Ms Sato', teacher: true, premium: false, pin: 'sato-pass' });
   const csv = Buffer.from(await (await api('/roster.csv')).arrayBuffer()).toString('utf8');
-  assert.match(csv, /^Ms Sato,TRUE,FALSE$/m);
-  assert.match(csv, /^Ken,FALSE,FALSE$/m);
-  // Gate open (the default): the teacher row still decides the role.
-  const t = await join('ms sato'); assert.equal((await nextMessage(t, 'welcome')).role, 'teacher'); await t.leave(); await sleep(100);
+  assert.match(csv, /^Ms Sato,TRUE,FALSE,sato-pass$/m);
+  assert.match(csv, /^Ken,FALSE,FALSE,$/m);
+  // Gate open (the default): the teacher row + its pin decide the role. The name alone is a student.
+  const t = await join('ms sato', 'default', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t, 'welcome')).role, 'teacher'); await t.leave(); await sleep(100);
+  // The name alone, or a wrong pin, does not even get in (nobody can sit down as the teacher).
+  await assert.rejects(() => join('ms sato'), /password|4005/);
+  await assert.rejects(() => join('ms sato', 'default', { teacherKey: 'wrong' }), /password|4005/);
   const k = await join('Ken'); assert.equal((await nextMessage(k, 'welcome')).role, 'student'); await k.leave(); await sleep(100);
   // Gate on: same.
   await api('/enforce', { method: 'PUT', body: { enforce: true } });
-  const t2 = await join('Ms Sato'); assert.equal((await nextMessage(t2, 'welcome')).role, 'teacher'); await t2.leave(); await sleep(100);
+  const t2 = await join('Ms Sato', 'default', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t2, 'welcome')).role, 'teacher'); await t2.leave(); await sleep(100);
+  // A teacher row without a pin is never a teacher by name (the key still works).
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: true }, { name: 'Ken', teacher: false }] } });
+  const t4 = await join('Ms Sato'); assert.equal((await nextMessage(t4, 'welcome')).role, 'student'); await t4.leave(); await sleep(100);
   // Unticked again: back to a student at the next join.
-  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: false }, { name: 'Ken', teacher: false }] } });
-  const t3 = await join('Ms Sato'); assert.equal((await nextMessage(t3, 'welcome')).role, 'student'); await t3.leave(); await sleep(100);
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: false, pin: 'sato-pass' }, { name: 'Ken', teacher: false }] } });
+  const t3 = await join('Ms Sato', 'default', { pin: 'sato-pass' }); assert.equal((await nextMessage(t3, 'welcome')).role, 'student'); await t3.leave(); await sleep(100);
   await api('/enforce', { method: 'PUT', body: { enforce: false } });
 });
 
 test('先生か false: a teacher who is already in the room becomes a student at once (no rejoin needed)', async () => {
-  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: true }, { name: 'Ken', teacher: false }] } });
-  const t = await join('Ms Kato', '6-2');
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: true, pin: 'kato-pass' }, { name: 'Ken', teacher: false }] } });
+  const t = await join('Ms Kato', '6-2', { teacherKey: 'kato-pass' });
   assert.equal((await nextMessage(t, 'welcome')).role, 'teacher');
   const roleP = nextMessage(t, 'role', 4000);
-  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: false }, { name: 'Ken', teacher: false }] } });
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: false, pin: 'kato-pass' }, { name: 'Ken', teacher: false }] } });
   assert.equal((await roleP).role, 'student');
   // The room agrees: a class-mode command from her is ignored now.
   t.send('class:freeze', { on: true });
@@ -169,7 +175,7 @@ test('先生か false: a teacher who is already in the room becomes a student at
   assert.equal([...t.state.players.values()].find((p) => p.name === 'Ms Kato')?.role, 'student');
   // …and true again gives it back.
   const backP = nextMessage(t, 'role', 4000);
-  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: true }] } });
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Kato', teacher: true, pin: 'kato-pass' }] } });
   assert.equal((await backP).role, 'teacher');
   await t.leave(); await sleep(100);
   // A key teacher keeps the role whatever the register says.
