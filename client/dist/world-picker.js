@@ -34,9 +34,9 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
   const card = (r) => {
     const [icon, color] = lookOf(r);
     const open = state.unlocked(r.id);
-    const here = r.id === state.current;
+    const here = r.id === state.current || (r.id === 'main' && state.current === 'willow');
     const done = !r.hub && open && state.cleared(r.id);
-    const sub = r.yomi || r.name;
+    const sub = r.id === 'main' ? `${r.yomi || r.name} · はしで U-Speak島へ` : (r.yomi || r.name);
     return `<button type="button" class="wm-card${open ? '' : ' locked'}${here ? ' here' : ''}" data-world="${esc(r.id)}" style="--wc:${color}"
         aria-label="${esc(isJa() ? r.name : title(r))}">
       <span class="wm-icon" aria-hidden="true">${icon}</span>
@@ -48,7 +48,8 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
       ${state.premium?.(r.id) ? `<em class="wm-badge prem"><b class="en">⭐ Premium</b><i class="ja">⭐ プレミアム</i></em>` : ''}
     </button>`;
   };
-  const hubs = destinations.filter((d) => d.hub);
+  // U-Speak島（willow）は メインの島と 橋で つながっている（2026-10）。カードは 出さず、メインの島の カードに「橋で U-Speak島へ」。
+  const hubs = destinations.filter((d) => d.hub && d.id !== 'willow');
   const regions = destinations.filter((d) => !d.hub);
   host.innerHTML = `<section class="wm">
     <header class="wm-head">

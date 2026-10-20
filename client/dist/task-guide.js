@@ -28,7 +28,7 @@ export function createTaskGuide({ scene, player, rpg }) {
 
   fetch('main_island.json').then((r) => r.json()).then((j) => {
     const i = j.island;
-    isle = { roads: i.roads || [], hills: i.hills || [], spots: new Map(i.spots.map((s) => [s.id, { x: s.x, z: s.z }])) };
+    isle = { roads: i.roads || [], hills: i.hills || [], dock: i.dock || null, spots: new Map(i.spots.map((s) => [s.id, { x: s.x, z: s.z }])) };
   }).catch(() => {});
 
   // 矢じるし（＞）。子どもには まるより「どっちへ」が 分かる。まわりに やわらかい 光の わ。
@@ -103,10 +103,10 @@ export function createTaskGuide({ scene, player, rpg }) {
     return len > straight * 3 ? [P, T] : pts;
   }
 
-  function setBeacon(spot) {
+  function setBeacon(spot, at = null) {
     if (beaconOn === spot) return;
     beaconOn = spot;
-    try { rpg.main?.setTarget?.(spot || ''); } catch { /* the island is still building */ }
+    try { rpg.main?.setTarget?.(spot || '', at); } catch { /* the island is still building */ }
   }
   function glowMap(on) {
     for (const el of document.querySelectorAll('#flight-button, #mapbtn, #rail-toggle')) el.classList.toggle('task-glow', on);
@@ -119,9 +119,12 @@ export function createTaskGuide({ scene, player, rpg }) {
     const show = wanted();
     const here = rpg.state?.current;
     const walking = rpg.state?.mode !== 'flight' && !rpg.insideBuilding && !rpg.interiorScene;
-    glowMap(!!(show && g && g.island !== here && walking));
-    const target = show && g?.spot && g.island === 'main' && here === 'main' && isle?.spots.get(g.spot);
-    setBeacon(target ? g.spot : '');
+    // U-Speak島 と メインの島は 橋で つながっている：その あいだは 飛ばずに 歩く（✈ は 光らせない）。
+    const neighbours = (g?.island === 'willow' && here === 'main') || (g?.island === 'main' && here === 'willow');
+    glowMap(!!(show && g && g.island !== here && !neighbours && walking));
+    const bridgeEnd = isle && { x: isle.dock?.x ?? 31, z: isle.dock?.z ?? 37, bridge: true };
+    const target = show && here === 'main' && (g?.island === 'willow' ? bridgeEnd : (g?.spot && g.island === 'main' && isle?.spots.get(g.spot)));
+    setBeacon(target ? (target.bridge ? 'bridge' : g.spot) : '', target?.bridge ? target : null);
     if (!target || !walking) { hide(); return; }
     const o = rpg.main.origin();
     const P = { x: player.position.x - o.x, z: player.position.z - o.z };
