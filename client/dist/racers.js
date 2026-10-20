@@ -9,6 +9,7 @@ export function createRacers({ toast, onOpen, onClose }) {
     id: 'racers',
     home: './racers/index.html',
     name: 'AURORA KART',
+    fit: true,
     hint: 'AURORA KART。「← U-Speak」で 島に もどれます。',
     toast,
     onOpen,

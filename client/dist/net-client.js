@@ -305,7 +305,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // 左の「つぎに やること」。中身も すんだかも 部屋が 決める。
   const taskGuide = createTaskGuide({ scene, player, rpg });
   // ⭐ プレミアムの おしらせ（🔒 の 島や お店を おした とき）。
-  createPremiumPromo();
+  createPremiumPromo({ offline: () => state.mode !== 'online' && state.mode !== 'reconnecting' });
   const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online', guide: taskGuide });
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
@@ -443,6 +443,16 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function joinOptions() {
     return { classCode: state.classCode, name: state.name, teacherKey: state.teacherKey || undefined, pin: state.pin || undefined, avatar: avatars.config };
   }
+  // プレミアムの 島（英会話島・みんなで はなす しま・英検の 3 島・英会話の お店）。名簿の「プレミアム」を 知って いるのは
+  // サーバーだけ なので、**オフラインでは いつも しめる**（前は オフラインだと 錠が からっぽで、英検の 島に 飛べた）。
+  // 中身（採点・AI・通話）も サーバーが いないと うごかない。一覧は 部屋が おしえた ものを 使い、来る 前は サーバーの 既定と 同じ。
+  const PREMIUM_DEFAULT = ['conv', 'talk', 'eiken5', 'eiken4', 'eiken3', 'talkshops'];
+  function lockPremiumOffline() {
+    const all = state.premiumIslands?.length ? state.premiumIslands : PREMIUM_DEFAULT;
+    rpg.setPremiumLock?.(all, all);
+    // いま プレミアムの 島に 立っていたら（つながりが 切れた・保存から 戻った）、メインの島へ。
+    if (all.includes(rpg.state.current)) { if (rpg.fly('main') === false) rpg.activate('main', true, true); }
+  }
   function setMode(mode) {
     if (mode !== 'online') { const rb = document.getElementById('roblox-button'); if (rb) rb.hidden = true; }
     state.mode = mode;
@@ -456,6 +466,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     voice.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
+    if (mode === 'offline' || mode === 'connecting') lockPremiumOffline();
     if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); if (myLand.active) myLand.leave(true); town.hideHud(); voice.setMode('off'); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
     const out = document.getElementById('logout-button'); if (out) out.hidden = !(mode === 'online' || mode === 'reconnecting');
@@ -514,7 +525,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     let welcomed = false;
 
     r.onMessage('tasks:state', (m) => taskCard.set(m));
-    r.onMessage('premium', (m) => { rpg.setPremiumLock?.(m.locked || [], m.islands || []); if (m.premium) toast(tr('⭐ プレミアムの しまに 行けるように なったよ！')); });
+    r.onMessage('premium', (m) => { if (m.islands) state.premiumIslands = m.islands; rpg.setPremiumLock?.(m.locked || [], m.islands || []); if (m.premium) toast(tr('⭐ プレミアムの しまに 行けるように なったよ！')); });
     r.onMessage('tasks:done', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); taskCard.done(m); });
     r.onMessage('welcome', (m) => {
       noteRoster({ onRoster: !!m.onRoster, name: state.name, classCode: state.classCode });
@@ -545,6 +556,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (rb) { if (m.robloxReport) { rb.href = /^https?:/i.test(m.robloxReport) ? m.robloxReport : location.origin + m.robloxReport; rb.hidden = false; } else rb.hidden = true; }
       applyProgress(m.progress);
       taskCard.set(m.tasks || null);
+      if (m.islands) state.premiumIslands = m.islands;
       rpg.setPremiumLock?.(m.locked || [], m.islands || []);
       mission.setClassMission(m.missionId);
       mission.setDone(m.missionsDone);

@@ -1,0 +1,50 @@
+/* PUYO U-SPEAK を スマホの 横もちに あわせる（arcade.js の fitPhone が iframe に 差しこむ）。
+ * 同梱の puyo/ は 1 バイトも 触らない。メニューは 1 画面に、ゲームは
+ * 「スコア｜ばん｜つぎ」を 1 れつに して、ボタンは 左下（いどう）と 右下（まわす・おとす）に わける。 */
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 560px) {
+  /* メニュー */
+  .overlay { padding: 6px max(10px, env(safe-area-inset-right)) 6px max(10px, env(safe-area-inset-left)); }
+  .overlay__card { padding: 10px 14px; border-radius: 14px; }
+  .overlay__card--wide { width: min(820px, 100%); }
+  #title-screen .overlay__card { padding-left: 96px; } /* 左上の「← もどる」に かさならない */
+  .logo { font-size: 24px; }
+  .logo__sub { margin: 2px 0 8px; font-size: 11px; }
+  .modes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .mode { padding: 8px 10px; }
+  .mode h2 { font-size: 14px; margin: 2px 0 3px; }
+  .mode p { font-size: 11px; line-height: 1.4; }
+  .mode__tag { font-size: 11px; letter-spacing: .12em; }
+  .options { margin-top: 8px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .option { padding: 4px 8px; font-size: 11px; min-height: 34px; }
+  .option select { font-size: 11px; padding: 3px; }
+  .bank { margin-top: 8px; padding-top: 6px; gap: 12px; font-size: 11px; }
+  .link { font-size: 11px; min-height: 34px; }
+  .controls-hint { display: none; }
+  .overlay__buttons { margin-top: 10px; }
+  .button { padding: 9px 18px; min-height: 36px; }
+  .results__words, .wordbook { max-height: 40dvh; overflow-y: auto; }
+
+  /* ゲーム */
+  :root { --field-width: calc((100dvh - 50px) * 0.48) !important; }
+  #app { height: 100dvh; min-height: 0; gap: 4px; padding: 4px max(10px, env(safe-area-inset-right)) 4px max(10px, env(safe-area-inset-left)); overflow: hidden; }
+  .topbar { flex: none; gap: 8px; flex-wrap: nowrap; }
+  .topbar__title { font-size: 14px; }
+  .topbar__quit { padding: 5px 10px; min-height: 32px; font-size: 11px; }
+  .stage { flex: 1; min-height: 0; flex-wrap: nowrap; gap: 12px; align-items: flex-start; }
+  .player { flex-wrap: nowrap; gap: 6px; }
+  .field { order: 0; }
+  .panel--stats, .panel--side { width: 92px; flex-direction: column; padding: 6px; gap: 6px; max-height: calc(100dvh - 120px); overflow-y: auto; scrollbar-width: none; }
+  .stat__label, .panel__label { font-size: 11px; letter-spacing: .06em; }
+  .stat__value { font-size: 17px; }
+  .wordlog__list { max-height: 96px; font-size: 11px; }
+  .legend { display: none; }
+  /* ボタンは ばらして 画面の 下の 両はし（親ゆびの ところ） */
+  .touch, body.touch-device .touch { display: contents; }
+  .touch__btn { position: fixed; z-index: 15; width: 56px; min-width: 0; height: 48px; min-height: 0; bottom: max(8px, env(safe-area-inset-bottom)); font-size: 18px; }
+  .touch__btn[data-action="left"]      { left: max(10px, env(safe-area-inset-left)); }
+  .touch__btn[data-action="softDrop"]  { left: calc(max(10px, env(safe-area-inset-left)) + 62px); }
+  .touch__btn[data-action="right"]     { left: calc(max(10px, env(safe-area-inset-left)) + 124px); }
+  .touch__btn[data-action="rotateCcw"] { right: calc(max(10px, env(safe-area-inset-right)) + 124px); }
+  .touch__btn[data-action="hardDrop"]  { right: calc(max(10px, env(safe-area-inset-right)) + 62px); font-size: 12px; }
+  .touch__btn[data-action="rotateCw"]  { right: max(10px, env(safe-area-inset-right)); }
+}

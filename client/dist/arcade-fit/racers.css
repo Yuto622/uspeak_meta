@@ -1,0 +1,42 @@
+/* AURORA KART を スマホの 横もちに あわせる（arcade.js の fitPhone が iframe に 差しこむ）。
+ * 同梱の racers/ は 1 バイトも 触らない。高さ 393px で メニューが 2 画面ぶん 縦に のびていたので、
+ * 左の メニューは 自分の 中で スクロールし、「レースを はじめる」は いつも 下に 見える。 */
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 560px) {
+  body:not(.racing) { overflow: hidden !important; }
+  header { padding: 8px max(14px, env(safe-area-inset-right)) 8px max(14px, env(safe-area-inset-left)); }
+  .wordmark { font-size: 20px; }
+  .wordmark small { font-size: 11px; letter-spacing: 1px; margin-left: 6px; }
+  .top-actions { gap: 6px; }
+  .top-actions button { padding: 7px 11px; font-size: 12px; min-height: 34px; }
+  .menu {
+    margin: 50px 0 0 max(16px, env(safe-area-inset-left)) !important;
+    width: min(400px, 50vw) !important;
+    max-height: calc(100dvh - 56px);
+    overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    padding-right: 6px; box-sizing: border-box; scrollbar-width: thin;
+  }
+  .eyebrow { display: none; }
+  h1 { font-size: 40px !important; margin: 0 0 6px !important; }
+  .mode-tabs button { padding: 6px 0 8px; font-size: 12px; }
+  .mode-description { margin: 6px 0 6px !important; font-size: 12px; line-height: 1.5; }
+  .label-row { margin: 8px 0 5px !important; font-size: 11px; }
+  .tracks { gap: 4px; }
+  .tracks button { padding: 6px 10px !important; }
+  .tracks button > b { font-size: 20px; }
+  .tracks button span { font-size: 13px; }
+  .tracks button small { font-size: 11px; }
+  .kart-tabs button { padding: 6px 3px; font-size: 13px; min-height: 34px; }
+  .kart-stat, .colors > span { font-size: 11px; }
+  .colors { margin: 8px 0 !important; }
+  .preferences { margin: 6px 0 8px !important; font-size: 11px; }
+  .primary { padding: 11px 16px !important; font-size: 15px; }
+  #start { position: sticky; bottom: 0; z-index: 3; box-shadow: 0 -12px 18px #081d2add; }
+  .profile-strip { margin-top: 6px; }
+  .profile-strip span, #garageClass, .course-tag span { font-size: 11px !important; }
+  .menu-tip { display: none; }
+  /* 右の カートの 紹介は 小さく、カートを ふさがない */
+  .showcase { display: block !important; left: 56% !important; right: max(16px, env(safe-area-inset-right)) !important; top: 16% !important; bottom: 22% !important; }
+  .showcase h2 { font-size: 42px !important; margin: 4px 0 !important; }
+  .showcase p { font-size: 11px !important; max-width: 260px; line-height: 1.6; }
+  .course-tag { display: block !important; bottom: 14px !important; right: max(16px, env(safe-area-inset-right)); transform: scale(.7); transform-origin: right bottom; }
+}

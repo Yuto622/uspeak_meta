@@ -20,7 +20,7 @@
 // header — is done by reaching into its document (`settle`) rather than by editing its
 // files. That keeps every vendored byte identical to the build that was handed over,
 // which is what makes each SOURCE.json worth having.
-export function createArcade({ id, home, name, hint, settle, toast, onOpen, onClose }) {
+export function createArcade({ id, home, name, hint, settle, fit, toast, onOpen, onClose }) {
   const shell = document.createElement('div');
   shell.className = 'arcade';
   shell.id = `arcade-${id}`;
@@ -65,6 +65,7 @@ export function createArcade({ id, home, name, hint, settle, toast, onOpen, onCl
       frame.setAttribute('allow', 'autoplay; gamepad; fullscreen; pointer-lock');
       frame.addEventListener('load', () => {
         let borrowed = false;
+        if (fit) try { fitPhone(frame.contentDocument, id); } catch { /* the game still plays, just unfitted */ }
         try { borrowed = !!settle?.(frame.contentDocument, { close }); } catch { borrowed = false; }
         escape.hidden = borrowed;
         // …but a borrowed button is only a way out while it is on screen, and these games
@@ -110,4 +111,17 @@ export function homeButton(doc, host, close) {
   back.onclick = () => close();
   host.prepend(back);
   return true;
+}
+
+// スマホの 横もちに あわせる CSS（`arcade-fit/<id>.css`）を、ゲームの document に 足す。
+// 同梱の ファイルは 触らない（SOURCE.json の ハッシュが そのまま）。中身は どれも
+// `(pointer: coarse) and (orientation: landscape) and (max-height: 560px)` の 中だけ なので、
+// パソコンと iPad には 何も おきない。あとから 読むので、あちらの CSS に 同じ 強さで 勝つ。
+export function fitPhone(doc, id) {
+  if (!doc?.head || doc.getElementById('uspeak-fit')) return;
+  const link = doc.createElement('link');
+  link.id = 'uspeak-fit';
+  link.rel = 'stylesheet';
+  link.href = new URL(`arcade-fit/${id}.css`, location.href).href;
+  doc.head.append(link);
 }

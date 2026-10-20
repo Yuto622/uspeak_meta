@@ -29,7 +29,7 @@ const PROMO = {
 const keyOf = (id) => (/^eiken/.test(id) ? 'eiken' : id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export function createPremiumPromo() {
+export function createPremiumPromo({ offline = () => false } = {}) {
   const dialog = document.createElement('dialog');
   dialog.id = 'premium-dialog';
   dialog.setAttribute('aria-labelledby', 'premium-title');
@@ -46,7 +46,7 @@ export function createPremiumPromo() {
       <p class="pr-lead">${esc(tr('プレミアムに すると、こんな ことが できるよ！'))}</p>
       <div class="pr-shots">${p.shots.map((s) => `<img src="${G}${s}" alt="" loading="lazy" decoding="async">`).join('')}</div>
       <ul class="pr-points">${p.points.map((x) => `<li>✨ ${esc(tr(x))}</li>`).join('')}</ul>
-      <p class="pr-ask">🔒 ${esc(tr('おうちの ひとか せんせいに「プレミアムに したい」と はなしてね。'))}</p>
+      <p class="pr-ask">🔒 ${esc(offline() ? tr('プレミアムの しまは クラスに はいって いる ときだけ 行けるよ。') : tr('おうちの ひとか せんせいに「プレミアムに したい」と はなしてね。'))}</p>
       <button type="button" class="pr-ok" data-premium-close>${esc(tr('わかった'))}</button>
     </div>`;
     applyDom(dialog);

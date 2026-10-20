@@ -44,6 +44,7 @@ export function createSuika({ toast, onOpen, onClose }) {
     id: 'suika',
     home: './suika/index.html',
     name: 'えいご スイカゲーム',
+    fit: true,
     hint: 'えいご スイカゲーム。「← U-Speak」で 島に もどれます。',
     toast,
     onOpen,

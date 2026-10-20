@@ -10,6 +10,7 @@ export function createPuyo({ toast, onOpen, onClose }) {
     id: 'puyo',
     home: './puyo/index.html',
     name: 'PUYO U-SPEAK',
+    fit: true,
     hint: 'PUYO U-SPEAK。「← U-Speak」で 島に もどれます。',
     toast,
     onOpen,

@@ -1,0 +1,76 @@
+/* えいご スイカゲームを スマホの 横もちに あわせる（arcade.js の fitPhone が iframe に 差しこむ）。
+ * 同梱の suika/ は 1 バイトも 触らない。もとは 900px 以下で たて 1 列（1500px）に なり、
+ * ゲームばんが 画面の 下に しずんでいた。横もちでは 3 れつ：左＝スコア・つぎ・ミッション・ことば、
+ * まんなか＝ゲームばん（画面の 高さ いっぱい）、右＝しんかの じゅんばん。 */
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 560px) {
+  html, body { height: 100%; overflow: hidden; }
+  #app { max-width: none; height: 100dvh; display: flex; flex-direction: column;
+    padding: 6px max(10px, env(safe-area-inset-right)) 6px max(10px, env(safe-area-inset-left)); }
+  .topbar { flex: none; flex-wrap: nowrap; padding: 0 0 6px; gap: 8px; }
+  .logo { font-size: 17px; white-space: nowrap; text-shadow: none; }
+  .topbar-btns { flex-wrap: nowrap; gap: 6px; }
+  .tbtn { font-size: 12px; padding: 6px 10px; min-height: 34px; border-width: 2px; white-space: nowrap; }
+  .foot { display: none; }
+
+  .stage {
+    flex: 1; min-height: 0; max-width: none; margin: 0;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-areas: "left board right" "word board right";
+    gap: 6px 10px; align-items: stretch;
+  }
+  .board-area { display: contents; }
+  .board-frame { grid-area: board; height: 100%; width: auto; max-width: none; aspect-ratio: 440 / 662; padding: 6px; border-radius: 16px; align-self: center; }
+  #board { width: 100%; height: 100%; }
+  .word-bar { grid-area: word; max-width: none; padding: 6px 8px; gap: 6px; }
+  .wb-emoji { font-size: 26px; }
+  .wb-text b { font-size: 16px; }
+  .wb-text i { font-size: 11px; line-height: 1.3; }
+  .wb-btn { padding: 6px 8px; font-size: 13px; min-height: 34px; }
+  .wb-btn .lbl { display: none; }
+
+  .panel { gap: 6px; min-height: 0; overflow-y: auto; scrollbar-width: none; flex-direction: column; flex-wrap: nowrap; }
+  .panel-left { grid-area: left; }
+  .panel-right { grid-area: right; }
+  .panel .card { flex: none; padding: 6px 9px; border-width: 2px; border-radius: 12px; }
+  .card-title { font-size: 12px; margin: 0 0 4px; }
+  .card-note { font-size: 11px; margin: -2px 0 4px; }
+  .score-row { padding: 0; }
+  .score-row .label { font-size: 11px; }
+  .score-row .value { font-size: 22px; }
+  .score-row .value.small { font-size: 15px; }
+  .score-card .score-row:not(.big) { display: inline-flex; width: 48%; }
+  .next-emoji { font-size: 26px; }
+  .next-text b { font-size: 15px; }
+  .next-text i { font-size: 11px; }
+  .mission-emoji { font-size: 24px; }
+  .mission-text b { font-size: 13px; }
+  .mission-text i { font-size: 11px; }
+  .mini-say { width: 28px; height: 28px; font-size: 12px; }
+  .eng-row { margin-bottom: 0; }
+  .eng-row b { font-size: 12px; }
+  .eng-note { display: none; }
+
+  .chain { flex-direction: row; flex-wrap: wrap; gap: 4px; justify-content: flex-start; }
+  .chain-item { flex-direction: column; gap: 1px; padding: 4px 2px; width: calc(33.3% - 3px); }
+  .chain-emoji { width: auto; font-size: 20px; }
+  .chain-text { align-items: center; text-align: center; }
+  .chain-text b { font-size: 11px; }
+  .chain-text i { font-size: 11px; }
+
+  /* ゲームばんの 上の まど（タイトル・おしまい）は ばんの 中に おさめる */
+  .overlay:not(.full) { padding: 6px; }
+  .overlay:not(.full) .ov-box { padding: 10px; max-height: 100%; overflow-y: auto; border-width: 3px; }
+  .ov-emoji { font-size: 24px; }
+  .ov-title { font-size: 16px; margin: 2px 0; white-space: nowrap; }
+  .ov-lead { font-size: 12px; line-height: 1.5; margin: 4px 0; }
+  .ov-hint { display: none; }
+  .big-btn { font-size: 15px; padding: 8px 12px; margin-top: 6px; }
+  .big-btn .sub { display: none; }
+  .ov-lead br { display: none; }
+  /* ジャンル・ずかん・あそびかた（画面いっぱい） */
+  .overlay.full { padding: 8px; }
+  .overlay.full .ov-box { max-width: min(760px, 100%); padding: 10px 14px; }
+  .genre-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
+  .help-list { font-size: 12px; line-height: 1.6; }
+}
