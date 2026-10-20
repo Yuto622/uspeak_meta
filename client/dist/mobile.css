@@ -868,3 +868,30 @@
   #net-lobby .net-lobby-actions button { min-height: 44px; font-size: 15px; }
   #net-lobby .net-fine { font-size: 12px; }
 }
+
+/* 17. スマホは 横で あそぶ（2026-10）。縦に もっている 間は 画面を ぜんぶ かくして「よこに してね」だけ。
+   クラスは phone-menu.js が スマホの ときだけ つける。Android は 全画面で 横に 固定するので ここには 来ない。
+   iPhone は Apple が ページの 向きの 固定を みとめていないので、子が 横に すれば その場で ゲームに もどる。
+   ダイアログ（top layer）も body の 子なので visibility で いっしょに かくれる。
+   画面を 90° まわして 見せる 方法は とらない（top layer の ダイアログは まわらず、スティックと 指の 向きも ずれる）。 */
+@media (orientation: portrait) {
+  html.sideways-only body, html.sideways-only body * { visibility: hidden !important; }
+  html.sideways-only dialog::backdrop { background: transparent !important; backdrop-filter: none !important; }
+  html.sideways-only { background: #173f38; }
+  html.sideways-only::before {
+    content: "📱"; position: fixed; z-index: 2147483647; left: 50%; top: 32%;
+    font-size: 72px; line-height: 1; transform: translate(-50%, -50%);
+    animation: sideways-turn 2.4s ease-in-out infinite;
+  }
+  html.sideways-only::after {
+    visibility: visible;
+    content: "スマホを よこに してね\ATurn your phone sideways\A\Aまわらない ときは\A「がめんの むきの ロック」を オフに";
+    white-space: pre; text-align: center; position: fixed; inset: 0; z-index: 2147483646;
+    display: flex; align-items: center; justify-content: center; padding-top: 22vh; box-sizing: border-box;
+    background: radial-gradient(circle at 50% 32%, #24604f, #173f38 70%); color: #fff7e0;
+    font: 800 20px/1.6 system-ui, "Hiragino Maru Gothic ProN", sans-serif; letter-spacing: .04em;
+  }
+  html.sideways-only[data-lang="en"]::after { content: "Turn your phone sideways\A\AIf it does not turn,\Aswitch off rotation lock"; }
+}
+@keyframes sideways-turn { 0%, 25% { transform: translate(-50%, -50%) rotate(0); } 55%, 100% { transform: translate(-50%, -50%) rotate(-90deg); } }
+@media (prefers-reduced-motion: reduce) { html.sideways-only::before { animation: none; transform: translate(-50%, -50%) rotate(-90deg); } }

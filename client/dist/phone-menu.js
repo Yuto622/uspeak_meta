@@ -29,16 +29,24 @@ if (stats) {
 const root = document.documentElement;
 const phone = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) <= 500;
 const installed = matchMedia('(display-mode: standalone), (display-mode: fullscreen)').matches || navigator.standalone;
+// 横で 固定する（Android の Chrome は 全画面か ホーム画面の アイコンの ときだけ みとめる。iPhone・iPad は ない）。
+const lockSideways = () => { try { screen.orientation?.lock?.('landscape')?.catch?.(() => {}); } catch { /* not allowed here */ } };
 if (phone && !installed && root.requestFullscreen) {
   const ask = () => {
     removeEventListener('pointerup', ask, true);
     removeEventListener('touchend', ask, true);
-    if (document.fullscreenElement) return;
-    root.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+    if (document.fullscreenElement) { lockSideways(); return; }
+    root.requestFullscreen({ navigationUI: 'hide' }).then(lockSideways, () => {});
   };
   addEventListener('pointerup', ask, true);
   addEventListener('touchend', ask, true);
 }
+if (phone && installed) lockSideways();
+
+// **スマホは いつも 横で あそぶ。** 向きを 固定 できない 端末（iPhone は Apple が みとめていない）では、
+// 縦に もっている 間 画面を かくして「よこに してね」だけ 出す（mobile.css の 17。`html.sideways-only`）。
+// 自動の 検査（Playwright＝navigator.webdriver）と `?portrait=1` では 出さない（縦の レイアウト検査が ある）。
+if (phone && !navigator.webdriver && !/[?&]portrait=1\b/.test(location.search)) root.classList.add('sideways-only');
 
 // スマホの 横もち だけ：右の 列（🏠 ✈ 🎣 📖 📹 🏆）を「☰」1 つに しまう（mobile.css の 14）。
 // 押すと 右に ならび、どれかを 押すか ほかを さわると しまう。
