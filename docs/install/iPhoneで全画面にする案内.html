@@ -21,8 +21,13 @@ figure img { width:100%; display:block; border-radius:8px; border:1px solid var(
 figcaption { font-size:8.8pt; color:var(--mute); margin-top:3px; text-align:center; }
 .two { display:grid; grid-template-columns:1.9fr 1fr; gap:10px; align-items:end; }
 .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.steps.five { grid-template-columns:repeat(5,1fr); gap:7px; }
+.steps.five .step img { height:330px; }
+.which { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:0 0 6px; }
+.which div { border:1px solid var(--line); border-radius:8px; padding:4px 8px; font-size:8.6pt; }
+.which b { color:var(--g); }
 .step { border:1px solid var(--line); border-radius:10px; padding:7px; break-inside:avoid; }
-.step img { width:100%; height:300px; object-fit:contain; background:#111; display:block; border:0; border-radius:6px; }
+.step img { width:100%; height:250px; object-fit:contain; background:#111; display:block; border:0; border-radius:6px; }
 .print-only { display:none; }
 @media print { .print-only { display:block; } .screen-only { display:none; } }
 .step h3 { font-size:10pt; margin:6px 0 2px; color:var(--g); }
@@ -52,15 +57,19 @@ th { background:#eef3ef; color:var(--g); white-space:nowrap; }
     <h2>お子さまの画面に出る案内</h2>
     <p>iPhone のブラウザで遊んでいると、島に入って少ししてから<b>1回だけ</b>、この案内が出ます。「わかった」を押すと閉じて、二度と出ません。</p>
     <div class="two">
-      <figure><img src="iphone/land-hint.jpg" alt="" style="height:200px;object-fit:cover"><figcaption>横向きのとき</figcaption></figure>
-      <figure><img src="iphone/port-hint.jpg" alt="" style="height:200px;object-fit:cover;object-position:center 62%"><figcaption>縦向きのとき</figcaption></figure>
+      <figure><img src="iphone/land-hint.jpg" alt="" style="height:150px;object-fit:cover"><figcaption>横向きのとき</figcaption></figure>
+      <figure><img src="iphone/port-hint.jpg" alt="" style="height:150px;object-fit:cover;object-position:center 62%"><figcaption>縦向きのとき</figcaption></figure>
     </div>
     <p class="note" style="margin-top:4px">iPad・Android・パソコン、すでにホーム画面のアイコンから開いているときは出ません。</p>
   </div>
 
   <div class="section">
     <h2>ホーム画面に追加する（1分）</h2>
-    <p class="note" style="margin-bottom:5px">実際の iPhone の画面です（連絡先やほかのアプリにはモザイクをかけています）。</p>
+    <div class="which">
+      <div><b>Chrome で 開いた とき</b> → この ページの 手順（アドレスバーの 右に 共有ボタン）</div>
+      <div><b>Safari・LINE から 開いた とき</b> → 2 ページ目の 手順（画面の 下の <span class="k">•••</span> から）</div>
+    </div>
+    <p class="note" style="margin-bottom:5px"><b>Chrome の 場合</b>。実際の iPhone の画面です（連絡先やほかのアプリにはモザイクをかけています）。</p>
     <div class="steps">
       <div class="step"><img src="iphone/real-1.jpg" alt="">
         <h3><span>1</span>共有ボタン</h3>
@@ -76,16 +85,54 @@ th { background:#eef3ef; color:var(--g); white-space:nowrap; }
         <p>ホーム画面に緑の <b>u.</b> が出ます。<b>次からはこのアイコンから開いてください。</b></p></div>
     </div>
   </div>
-  <div class="foot"><span>合同会社 U-Speak Lab　｜　iOS・ブラウザの版によって、画面が少しちがうことがあります</span><span>1 / 2</span></div>
+  <div class="foot"><span>合同会社 U-Speak Lab　｜　iOS・ブラウザの版によって、画面が少しちがうことがあります</span><span>1 / 3</span></div>
 </section>
 
 <section class="page">
   <div class="section">
-    <h2>動画で見る（12秒）</h2>
+    <h2>Safari で 開いた とき・LINE から 開いた とき（1分）</h2>
+    <p>LINE で 届いた リンクを 押すと、LINE の 中の ブラウザで 開きます。<b>そこからは ホーム画面に 追加できない</b>ので、まず Safari で 開きなおします（①）。はじめから Safari で 開いている ときは ② から。</p>
+    <p class="note" style="margin-bottom:5px">実際の iPhone（iOS 26・Safari）の 画面です（連絡先と ほかの アプリには モザイクを かけています）。</p>
+    <div class="steps five">
+      <div class="step"><img src="iphone/safari-1.jpg" alt="">
+        <h3><span>1</span>ブラウザで開く</h3>
+        <p><b>LINE から 開いた ときだけ</b>。右下の <span class="k">⋮</span> を 押して <span class="k">ブラウザで開く</span>。Safari に きりかわります。</p></div>
+      <div class="step"><img src="iphone/safari-2.jpg" alt="">
+        <h3><span>2</span>••• → 共有</h3>
+        <p>Safari の 画面の 下の <span class="k">•••</span> を 押して、いちばん 上の <span class="k">共有</span>。</p></div>
+      <div class="step"><img src="iphone/safari-3.jpg" alt="">
+        <h3><span>3</span>ホーム画面に追加</h3>
+        <p>出てきた メニューを 上へ 引きあげて（下へ スクロールして） <span class="k">ホーム画面に追加</span>。</p></div>
+      <div class="step"><img src="iphone/safari-4.jpg" alt="">
+        <h3><span>4</span>追加</h3>
+        <p>「Webアプリとして開く」が <b>オン</b>（緑）なのを 確かめて、右上の <span class="k">追加</span>。</p></div>
+      <div class="step"><img src="iphone/safari-5.jpg" alt="">
+        <h3><span>5</span>アイコンから開く</h3>
+        <p>ホーム画面に 緑の <b>u.</b> が 出ます。<b>次からは この アイコンから 開いてください。</b></p></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>動画で見る（Safari・19秒）</h2>
+    <div style="display:flex;gap:14px;align-items:center">
+      <video class="screen-only" src="iphone/add-to-home-safari.mp4" poster="iphone/safari-2.jpg" controls playsinline muted style="width:130px;border-radius:10px;border:1px solid #d9e2dc"></video><img class="print-only" src="iphone/safari-2.jpg" alt="" style="width:100px;border-radius:10px;border:1px solid #d9e2dc">
+      <img src="iphone/qr-video-safari.png" alt="" style="width:96px;height:96px">
+      <div>
+        <p>LINE の 中の ブラウザ → Safari → ホーム画面に 追加 までを 実際の iPhone で 録画しました。</p>
+        <p class="note" style="margin:0">スマホで 読みとると 動画が 開きます。<br>https://uspeak-multiplayer.fly.dev/assets/app/add-to-home-safari.mp4</p>
+        <p class="note" style="margin-top:6px"><span class="k">•••</span> が 見えない ときは、画面を 少し 下へ スクロールすると 下の バーが 出ます。古い iOS では 下の バーに 共有ボタン（四角から 上向きの 矢印）が あり、それを 押して ③ へ。</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>合同会社 U-Speak Lab　｜　iOS・ブラウザの版によって、画面が少しちがうことがあります</span><span>2 / 3</span></div>
+</section>
+
+<section class="page">
+  <div class="section">
+    <h2>動画で見る（Chrome・12秒）</h2>
     <div class="two" style="grid-template-columns:auto 1fr;align-items:center;gap:16px">
       <video class="screen-only" src="iphone/add-to-home.mp4" poster="iphone/real-1.jpg" controls playsinline muted style="width:150px;border-radius:10px;border:1px solid #d9e2dc"></video><img class="print-only" src="iphone/real-1.jpg" alt="" style="width:120px;border-radius:10px;border:1px solid #d9e2dc">
       <div>
-        <p>上の 4 つの手順を、実際の iPhone で録画した動画です（連絡先とほかのアプリはモザイク）。</p>
+        <p>1 ページ目の Chrome の 4 つの 手順を、実際の iPhone で 録画した 動画です（連絡先と ほかの アプリは モザイク）。</p>
         <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
           <img src="iphone/qr-video.png" alt="" style="width:96px;height:96px">
           <p class="note" style="margin:0">スマホで読みとると動画が開きます。<br>https://uspeak-multiplayer.fly.dev/assets/app/add-to-home.mp4</p>
@@ -97,13 +144,14 @@ th { background:#eef3ef; color:var(--g); white-space:nowrap; }
 
   <div class="section">
     <h2>追加したあと</h2>
-    <figure><img src="iphone/land-game.jpg" alt=""><figcaption>アイコンから開くと、ブラウザのバーがなくなり、島が画面いっぱいに出ます</figcaption></figure>
+    <figure><img src="iphone/land-game.jpg" alt="" style="height:210px;object-fit:cover"><figcaption>アイコンから開くと、ブラウザのバーがなくなり、島が画面いっぱいに出ます</figcaption></figure>
   </div>
 
   <div class="section">
     <h2>よくある質問</h2>
     <table>
       <tr><th>アイコンから開いたら、名前を聞かれた</th><td>iPhone はアイコンと Safari で保存場所が分かれているため、<b>最初の1回だけ</b>名前とクラスのあいことばを入れ直してください。<b>学習の記録・コインはサーバーにあるので消えません。</b></td></tr>
+      <tr><th>LINE で 開いたら 追加が 出ない</th><td>LINE の 中の ブラウザからは 追加できません。右下の <span class="k">⋮</span> → <span class="k">ブラウザで開く</span> で Safari に してから、2 ページ目の 手順で 追加してください。</td></tr>
       <tr><th>アプリのダウンロードは必要？</th><td>いりません。容量もほとんど使いません。新しい版は開くたびに自動で入ります。</td></tr>
       <tr><th>案内を消してしまった</th><td>このページの手順で、いつでも追加できます。</td></tr>
       <tr><th>アイコンを消したい</th><td>アイコンを長押し → 削除。学習の記録は消えません。</td></tr>
@@ -112,6 +160,6 @@ th { background:#eef3ef; color:var(--g); white-space:nowrap; }
     </table>
   </div>
   <p class="note">ご不明な点は、教室の先生または U-Speak Lab までお気軽にご連絡ください。</p>
-  <div class="foot"><span>合同会社 U-Speak Lab</span><span>2 / 2</span></div>
+  <div class="foot"><span>合同会社 U-Speak Lab</span><span>3 / 3</span></div>
 </section>
 </body></html>
