@@ -105,6 +105,10 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
         return samePin(want, pin);
       } catch { return false; }
     },
+    // 名簿に この 名前が あるか（入場の open / roster とは 関係なく）。オフラインで あそべる 期間の 判定に 使う。
+    async onRegister({ classCode, name }) {
+      try { const entry = await register(classCode); return !!entry?.names?.has(fold(name)); } catch { return false; }
+    },
     // 子どもの 行に あいことばが あるか（ロビーで 聞くため）。
     async needsPin({ classCode, name }) {
       try { const entry = await register(classCode); return !!entry?.pins?.get(fold(name)); } catch { return false; }

@@ -436,6 +436,8 @@ export class ClassRoom extends Room {
     priv.teacherPin = auth.teacherPin || '';
     this.priv.set(client.sessionId, priv);
     priv.premium = !!(await this.gate?.isPremium?.({ classCode: this.classCode, name: auth.name }));
+    // 名簿に ある 子か（先生は いつも）。ページは これを 覚えて、ひとりで あそぶ（オフライン）を 期限なしに する。
+    priv.onRoster = auth.role === 'teacher' || !!(await this.gate?.onRegister?.({ classCode: this.classCode, name: auth.name }));
     WALLET_WATCH.set(priv.wallet, (op) => { taskOp(priv.tasks, op); this.taskTouch(client.sessionId); });
 
     const player = new Player();
@@ -4573,7 +4575,7 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(sessionId);
     const player = this.state.players.get(sessionId);
     return {
-      sessionId, role: player.role, classCode: this.classCode, restored, position,
+      sessionId, role: player.role, classCode: this.classCode, restored, position, onRoster: !!priv?.onRoster,
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
       food: foodPayload(priv.food),
       tasks: this.taskPayload(sessionId),

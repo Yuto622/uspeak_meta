@@ -7,6 +7,7 @@ import { createRemotePlayers } from './remote-players.js';
 import { createChat } from './chat.js';
 import { createTeacherPanel } from './teacher.js';
 import { createLobby } from './lobby.js';
+import { daysLeft, startOffline, noteRoster, OFFLINE_DAYS } from './offline-pass.js';
 // 画面の言語。**`t` という名前は このファイルでは使えない**（`const t = state.pendingTeleport`
 // と `update(t, dt, …)` がある）ので `tr` として import する。
 import { t as tr, onLangChange } from './i18n.js';
@@ -405,7 +406,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     isOnline: () => state.mode === 'online',
     serverNow: () => Date.now() + state.skew,
   });
-  const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs });
+  const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs, offlineDays: () => daysLeft() });
   // Collect the controls into one dock so the layout is decided by flexbox, not by
   // four separately maintained offsets.
   const dock = document.createElement('div');
@@ -516,6 +517,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('premium', (m) => { rpg.setPremiumLock?.(m.locked || [], m.islands || []); if (m.premium) toast(tr('⭐ プレミアムの しまに 行けるように なったよ！')); });
     r.onMessage('tasks:done', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); taskCard.done(m); });
     r.onMessage('welcome', (m) => {
+      noteRoster({ onRoster: !!m.onRoster, name: state.name, classCode: state.classCode });
       if (m.world) { state.skew = m.world.now - Date.now(); night.setPhase(m.world); }
       // The block list is also the palette's colours, so it is worth the one message.
       town.prime();
@@ -835,16 +837,25 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   }
 
   function goOffline(fromLobby = false) {
+    // 名簿に ない 子は さいしょに ひとりで あそんだ 日から 14 日まで（offline-pass.js）。過ぎたら クラスに 入る ように 言う。
+    const allowed = !fromLobby || startOffline();
     state.intentionalLeave = true;
     clearTimeout(reconnectTimer);
     clearSession();
     const r = room; room = null;
     r?.leave(true);
     remotes.clear();
+    if (!allowed) {
+      lobby.open({ error: tr('ひとりで あそべる {0} 日が おわりました。先生に クラスの あいことばを きいて、クラスに はいってね。', [OFFLINE_DAYS]) });
+      return;
+    }
     setMode('offline');
     // オフラインでも はじまりは メインの島（クラスに 入ったときと おなじ）。
     if (fromLobby) homeNow();
-    if (fromLobby) toast(tr('ひとりで あそびます。右上の ボタンから いつでも クラスに 入れます。'));
+    if (fromLobby) {
+      const left = daysLeft();
+      toast(left === Infinity ? tr('ひとりで あそびます。右上の ボタンから いつでも クラスに 入れます。') : tr('ひとりで あそびます（のこり {0} 日）。クラスに 入ると ずっと あそべます。', [left]));
+    }
   }
 
   document.addEventListener('visibilitychange', () => {
