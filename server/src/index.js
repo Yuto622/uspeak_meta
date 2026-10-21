@@ -25,6 +25,7 @@ import { roadmapAdminExtension } from './roadmap/admin.js';
 import { mountRoadmapApi } from './roadmap/api.js';
 import { roadmapClassHtml } from './roadmap/pages.js';
 import { setQbankWords } from './game/roadmap.js';
+import { setPierQuestions } from './game/eiken-pier.js';
 import { setExtraQuestions } from './game/eiken.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
@@ -108,7 +109,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   const tasksOn = process.env.TASKS === 'on' || (process.env.TASKS !== 'off' && !process.env.NODE_TEST_CONTEXT);
   // 問題データベース（/admin/qbank）。web版に出す 問題は 英検の島に まざり、Robloxに出す 問題は /api/roblox/questions で 取られる。
   const qbank = await new QBankStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'qbank.json'), { log }).init();
-  qbank.onChange((q) => { const added = setExtraQuestions(q.live('web')); if (q.items.length) log.info('[qbank] web questions mixed in:', JSON.stringify(added)); setQbankWords(q.items.filter((it) => it.on !== false)); });
+  qbank.onChange((q) => { const added = setExtraQuestions(q.live('web')); if (q.items.length) log.info('[qbank] web questions mixed in:', JSON.stringify(added)); setQbankWords(q.items.filter((it) => it.on !== false)); setPierQuestions(q.live('web')); });
   const tasks = await new TaskStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'tasks.json'), { log }).init();
 
   const app = express();

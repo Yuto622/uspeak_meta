@@ -87,6 +87,7 @@ import { boxFromEvents, makeSet as makeReviewSet, publicSet as reviewPublic, ans
 import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, placeLabel } from '../game/class-mode.js';
 import { rideOf, ParkError } from '../game/themepark.js';
 import { rankings, boardPayload } from '../game/rankings.js';
+import { isPier, preparePier, pierInfo, PierError } from '../game/eiken-pier.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004, WRONG_PIN: 4005, TOO_MANY: 4006 };
@@ -3157,7 +3158,7 @@ export class ClassRoom extends Room {
   // 3つの小屋（いけ・かわ・うみ）が3つのゾーン。立っている小屋がゾーンで、メニューで選ばせない。
   atFwSpot(sessionId, spotId) {
     // メインの島の つり場は 2D の地図の上：立つ場所は無いので、位置では止めない。
-    if (spotId === 'main') return true;
+    if (spotId === 'main' || isPier(spotId)) return true;
     const spot = FW.spotById.get(spotId);
     return !!spot && this.atPlace(sessionId, FW.island, spot);
   }
@@ -3173,7 +3174,7 @@ export class ClassRoom extends Room {
     const spot = typeof msg?.spot === 'string' ? msg.spot : '';
     if (!FW.spotById.has(spot)) { client.send('fw:error', { reason: 'no such spot' }); return; }
     if (!this.atFwSpot(client.sessionId, spot)) { client.send('fw:error', { reason: 'too far', spot }); return; }
-    client.send('fw:state', { spot, zone: FW.spotById.get(spot).zone, ...this.fwPayload(client.sessionId) });
+    client.send('fw:state', { spot, zone: FW.spotById.get(spot).zone, ...(isPier(spot) ? { pier: pierInfo(spot) } : {}), ...this.fwPayload(client.sessionId) });
   }
 
   // さおを投げる ＝ 問題が出る。形式はゾーンごとの重みで抽選、答えはここに残る。
@@ -3183,11 +3184,14 @@ export class ClassRoom extends Room {
     const spot = typeof msg?.spot === 'string' ? msg.spot : '';
     if (!FW.spotById.has(spot)) { client.send('fw:error', { reason: 'no such spot' }); return; }
     if (!this.atFwSpot(client.sessionId, spot)) { client.send('fw:error', { reason: 'too far', spot }); return; }
-    const q = prepareFw(FW.spotById.get(spot).zone);
+    // メインの島の 英検の つり場は 級ごとの 問題（game/eiken-pier.js）。
+    let q;
+    try { q = isPier(spot) ? preparePier(spot) : prepareFw(FW.spotById.get(spot).zone); }
+    catch (err) { if (err instanceof PierError) { client.send('fw:error', { reason: 'no questions', spot }); return; } throw err; }
     q.spot = spot;
     priv.fw.q = q;
     priv.fw.pending = null;
-    client.send('fw:ask', fwAsk(q));
+    client.send('fw:ask', q.pier ? { ...fwAsk(q), ...pierInfo(q.pier) } : fwAsk(q));
   }
 
   onFwAnswer(client, msg) {
@@ -3207,7 +3211,9 @@ export class ClassRoom extends Room {
     this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `fw:${q.zone}:${q.kind}:${q.word}`, `fw-${q.kind}`, given, result.correct ? 1 : 0, xp, client.sessionId]);
     priv.stats.attempts += 1;
     // Roblox と同じ形の記録。保護者ページ・先生ページでは Roblox の釣りと合算される。
-    this.robloxEvent(client.sessionId, 'quiz', 'fishing', { correct: result.correct, word: q.word, level: 'Fishing', zone: q.zone, format: q.kind, fast, retry }, now);
+    // 英検の つり場は 級（grade）と 英検の 形か（eiken）も：ロードマップの 単語と 合格見込みが それで すすむ。
+    const pierData = q.pier ? { grade: q.grade, pier: q.pier, level: 'EikenPier', ...(q.eiken ? { eiken: true, qbank: q.qbank || undefined } : {}) } : {};
+    this.robloxEvent(client.sessionId, 'quiz', 'fishing', { correct: result.correct, ...(q.word ? { word: q.word } : {}), level: 'Fishing', zone: q.zone, format: q.kind, fast, retry, ...pierData }, now);
     const payload = { qid: q.id, zone: q.zone, kind: q.kind, ...result, xp };
     if (result.correct) {
       priv.stats.correct += 1;

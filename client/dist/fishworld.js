@@ -29,7 +29,9 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
   const state = { spot: '', zone: 0, view: 'zone', data: null, ask: null, ctl: null, tab: 'zone', timing: null, castAt: 0, pending: null, wait: 0 };
   // メインの島（2D）の つり場では 3D の島が無い：うきは 画面の中で うかべる（flat）。
   let flat = false;
-  const isl = () => (flat ? null : island);
+  // メインの島の つり場は メインの島の 3D（main-world.js の startCast など）で うきを 見る。
+  let stage = null;
+  const isl = () => (flat ? null : stage || island);
 
   const dialog = document.createElement('dialog');
   dialog.id = 'fw-dialog';
@@ -75,10 +77,11 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
   }
 
   // `auto`：水辺に来たら そのまま さおを なげる（つり場の ページは 出さない）。ずかん・うるは 左下の 📖 から。
-  function enter(spot, { flat: noIsland = false, tab = 'zone', auto = false } = {}) {
+  function enter(spot, { flat: noIsland = false, stage: on = null, tab = 'zone', auto = false } = {}) {
     if (!isOnline()) { toast(tr('つり島は オンラインで あそべます。')); return false; }
     if (busy()) return false;
-    flat = !!noIsland;
+    flat = !!noIsland && !on;
+    stage = on;
     state.spot = spot.id;
     state.zone = spot.zone;
     state.view = 'zone'; state.tab = tab;
@@ -89,7 +92,8 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
 
   function zoneOf(n = state.zone) { return state.data?.zones?.find((z) => z.zone === n) || { zone: n, stars: '★', en: 'Pond', ja: 'いけ', grade: '', gradeEn: '', color: '#78C882' }; }
   function head() {
-    const z = zoneOf();
+    // メインの島の 英検の つり場は その つり場の 名前と 色（部屋の fw:state の pier）。
+    const z = (state.data?.spot === state.spot && state.data?.pier) || zoneOf();
     dialog.style.setProperty('--zc', z.color || '#78C882');
     dialog.dataset.zone = String(state.zone || 1);
     dialog.dataset.view = state.view;
@@ -338,10 +342,10 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
   function onCaught(m) { state.data = { ...state.data, ...m }; $('#fw-coins', dialog).textContent = (m.wallet?.coins ?? state.data?.wallet?.coins ?? 0).toLocaleString(); onCatch(m); }
   function onSold(m) { state.data = { ...state.data, ...m }; $('#fw-coins', dialog).textContent = (m.wallet?.coins ?? 0).toLocaleString(); toast(tr('◈ {n} コインに なりました！', { n: m.coins })); render(); }
   function onError(m) {
-    const why = { 'sell cap': 'きょうは もう うれないよ。あした また うってね。', 'too far': 'つりばに たってね。', 'no question': 'さおを なげなおそう。', 'nothing on the line': 'さおを なげなおそう。', 'nothing to sell': 'うる さかなが ないよ。', 'too fast': 'ちょっと まってね。' }[m.reason] || m.reason;
+    const why = { 'sell cap': 'きょうは もう うれないよ。あした また うってね。', 'too far': 'つりばに たってね。', 'no question': 'さおを なげなおそう。', 'nothing on the line': 'さおを なげなおそう。', 'nothing to sell': 'うる さかなが ないよ。', 'too fast': 'ちょっと まってね。', 'no questions': 'この つり場の 問題は じゅんび ちゅうだよ。' }[m.reason] || m.reason;
     toast(tr(why));
     if (state.view === 'cast') { clearTimeout(state.wait); isl()?.endCast?.(); hud.hidden = true; state.view = 'zone'; if (m.reason !== 'too far') { show(); render(); } }
-    if (m.reason === 'too far') close();
+    if (m.reason === 'too far' || m.reason === 'no questions') close();
   }
 
   // 左下の 📖：つり島に いる間だけ。どこからでも ずかん（と うる）を ひらける（位置のいらない つり場 "main" で開く）。

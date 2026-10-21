@@ -9,6 +9,7 @@
 // ふつうの島より大きいので、createIsland に size / power / land / dock を渡している。
 import { createIsland, NEAR_DISTANCE } from './island-kit.js';
 import { isJa } from './i18n.js';
+import { createCastFx } from './cast-fx.js';
 
 export { NEAR_DISTANCE };
 
@@ -28,6 +29,7 @@ const PIER = { x: 4, minZ: 24, maxZ: 35, w: 3.4 };
 const inBay = (x, z) => x > BAY.minX && x < BAY.maxX && z > BAY.minZ;
 
 export function createMainWorld({ scene }) {
+  let fx = null; // つりの 3D の 演出（cast-fx.js）。島が 建ったあと。
   const island = createIsland({
     scene,
     seed: 4242,
@@ -36,7 +38,7 @@ export function createMainWorld({ scene }) {
     dock: { x: 31, z: 37 },
     hills: [{ x: -46, z: -32, r: 7 }],
     land: (x, z) => !inBay(x, z),
-    build({ island: data, B, D, sprite, house, path, resident, door, tree, bush, flowers, rock, bench, lamp, fence, bunting, obstacles, rand }) {
+    build({ island: data, B, D, sprite, house, path, resident, door, tree, bush, flowers, rock, bench, lamp, fence, bunting, obstacles, rand, root }) {
       const boxes = [];          // 木や花を置かない場所（建物・道・水）
       const keep = (x, z, w, d) => boxes.push({ x, z, w, d });
 
@@ -48,12 +50,35 @@ export function createMainWorld({ scene }) {
       for (let i = 0; i <= Math.round((pier.maxZ - pier.minZ) / 1.1); i += 1) D(pier.x, 0.2, pier.minZ + i * 1.1, pier.w, 0.22, 0.95, i % 2 ? 0xc0a077 : 0xb79768);
       for (const side of [-1, 1]) for (let z = pier.minZ + 2; z <= pier.maxZ; z += 3) D(pier.x + side * (pier.w / 2 + 0.1), -0.4, z, 0.3, 1.6, 0.3, 0x8a7350);
       lamp(pier.x + pier.w / 2 + 0.4, pier.maxZ - 1);
+      // 英検の つり場：さんばしの とちゅうから 東西に 板の 道、そこから 級ごとの さんばしを 平行に（main_island.json の eikenPiers）。
+      const ep = data.eikenPiers;
+      const fingers = ep ? data.spots.filter((sp) => sp.kind === 'eiken_pier') : [];
+      if (ep) {
+        for (let x = ep.x0; x <= ep.x1; x += 1.1) D(x, 0.2, ep.z, 1.05, 0.22, ep.w, (Math.round(x / 1.1) % 2) ? 0xc0a077 : 0xb79768);
+        for (let x = ep.x0 + 1; x <= ep.x1; x += 3) for (const side of [-1, 1]) D(x, -0.4, ep.z + side * (ep.w / 2 + 0.1), 0.3, 1.6, 0.3, 0x8a7350);
+        for (const sp of fingers) {
+          for (let z = ep.z + ep.w / 2; z <= (sp.end ?? ep.end); z += 1.1) D(sp.x, 0.2, z, ep.fw, 0.22, 0.95, (Math.round(z / 1.1) % 2) ? 0xc0a077 : 0xb79768);
+          for (const side of [-1, 1]) for (let z = ep.z + 2; z <= (sp.end ?? ep.end); z += 3) D(sp.x + side * (ep.fw / 2 + 0.1), -0.4, z, 0.3, 1.6, 0.3, 0x8a7350);
+        }
+      }
+      // 水の 当たり判定：歩ける 板（さんばし・板の 道・英検の さんばし）を のぞいた 水を 箱で うめる。
       const margin = 0.35;
-      const westR = pier.x - pier.w / 2 + 0.05 - margin;
-      const eastL = pier.x + pier.w / 2 - 0.05 + margin;
       const top = bay.minZ + margin;
-      obstacles.push({ x: (bay.minX + westR) / 2, z: top + 12, w: (westR - bay.minX) / 2, d: 12 });
-      obstacles.push({ x: (eastL + bay.maxX) / 2, z: top + 12, w: (bay.maxX - eastL) / 2, d: 12 });
+      const bottom = bay.minZ + 24;
+      const walk = [{ x0: pier.x - pier.w / 2 + 0.05 - margin, x1: pier.x + pier.w / 2 - 0.05 + margin, z0: top - 1, z1: pier.maxZ - margin }];
+      if (ep) {
+        walk.push({ x0: ep.x0 - 0.5 + margin, x1: ep.x1 + 0.5 - margin, z0: ep.z - ep.w / 2 + margin, z1: ep.z + ep.w / 2 - margin });
+        for (const sp of fingers) walk.push({ x0: sp.x - ep.fw / 2 + margin, x1: sp.x + ep.fw / 2 - margin, z0: ep.z, z1: (sp.end ?? ep.end) - margin });
+      }
+      const xs = [...new Set([bay.minX, bay.maxX, ...walk.flatMap((w) => [w.x0, w.x1])])].filter((x) => x >= bay.minX && x <= bay.maxX).sort((a, b) => a - b);
+      const zs = [...new Set([top, bottom, ...walk.flatMap((w) => [w.z0, w.z1])])].filter((z) => z >= top && z <= bottom).sort((a, b) => a - b);
+      for (let i = 0; i < xs.length - 1; i += 1) {
+        for (let j = 0; j < zs.length - 1; j += 1) {
+          const cx = (xs[i] + xs[i + 1]) / 2; const cz = (zs[j] + zs[j + 1]) / 2;
+          if (walk.some((w) => cx > w.x0 && cx < w.x1 && cz > w.z0 && cz < w.z1)) continue;
+          obstacles.push({ x: cx, z: cz, w: (xs[i + 1] - xs[i]) / 2, d: (zs[j + 1] - zs[j]) / 2 });
+        }
+      }
       keep((bay.minX + bay.maxX) / 2, bay.minZ + 10, bw / 2 + 1, 11);
 
       // 道：Roblox の 町の 灰色の道。東西の大通りと、ゲートの列にそう 南北の道。
@@ -105,6 +130,15 @@ export function createMainWorld({ scene }) {
           D(def.x + 1.2, 1.5, def.z + 2.5, 0.08, 0.08, 2.2, 0x6d543a);
           D(def.x - 1.1, 0.55, def.z + 1.6, 0.7, 0.6, 0.7, 0x5a8fb0);
           sprite({ en: '🎣 Fishing Pier', ja: '🎣 つり場' }, def.x, 3.2, def.z + 2.4, { width: 6, size: 30 });
+        } else if (def.kind === 'eiken_pier') {
+          // 英検の つり場：さきに 級の 色の 旗と 看板、さおかけ。
+          D(def.x - 1.1, 1.4, def.z + 0.6, 0.16, 2.8, 0.16, 0x6f5b3e);
+          D(def.x - 0.55, 2.4, def.z + 0.6, 1.0, 0.7, 0.06, color, 0.25);
+          D(def.x + 1.0, 0.8, def.z + 0.4, 0.2, 1.2, 0.2, 0x8a7350);
+          D(def.x + 1.0, 1.5, def.z + 0.7, 0.08, 0.08, 2.2, 0x6d543a);
+          sprite({ en: `🎣 ${def.en}`, ja: `🎣 ${def.ja}` }, def.x, 3.6, def.z, { width: 6.4, size: 30, background: `#${color.toString(16).padStart(6, '0')}dd` });
+          // 板の 道の 入口にも 小さな 札（遠くから どの さんばしか わかる）。
+          sprite({ en: def.short || def.en.replace('Eiken ', '').replace(' Pier', ''), ja: def.ja.replace('の つり場', '') }, def.x, 2.4, (data.eikenPiers?.z || 28.5) + 1.6, { width: 3.2, size: 34, background: `#${color.toString(16).padStart(6, '0')}` });
         } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop' || def.kind === 'talk_shop' || def.kind === 'homework') {
           // 専用の島と 同じ お店（中に入ると その島の 3D の メニュー）。
           house(def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color, Number(def.roof), { en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` });
@@ -133,10 +167,11 @@ export function createMainWorld({ scene }) {
         door(def, 0.75, 0);
         keep((def.x + def.path.x) / 2, (def.z + def.path.z) / 2, Math.abs(def.x - def.path.x) / 2 + 1.5, Math.abs(def.z - def.path.z) / 2 + 1.5);
         if (def.kind === 'fishing') path(def.path.x, def.path.z, def.x, (data.pier || PIER).minZ);
-        if (def.kind !== 'fishing' && def.kind !== 'gate') path(def.path.x, def.path.z, def.x, def.z);
+        if (def.kind !== 'fishing' && def.kind !== 'gate' && def.kind !== 'eiken_pier') path(def.path.x, def.path.z, def.x, def.z);
         else if (def.kind === 'gate' && def.path.x !== def.x) path(def.path.x, def.path.z, def.x, def.z);
         resident(def);
       }
+      fx = createCastFx({ root, B });
 
       // お店の 外がわ（2026-10）。どの家も 同じ 形（island-kit の house）なので、屋根の 上の 大きな しるしと
       // 戸口の 両わきの 小物で「なんの お店か」を 遠くから 分かるように する。D（まとめて 描く 箱）だけで 作る＝重くならない。
@@ -425,6 +460,11 @@ export function createMainWorld({ scene }) {
     const pier = d.pier || PIER;
     ctx.fillStyle = '#b7905f';
     ctx.fillRect(px(pier.x - pier.w / 2), py(pier.minZ), pier.w * k, (pier.maxZ - pier.minZ) * k);
+    const ep = d.eikenPiers;
+    if (ep) {
+      ctx.fillRect(px(ep.x0), py(ep.z - ep.w / 2), (ep.x1 - ep.x0) * k, ep.w * k);
+      for (const sp of d.spots) if (sp.kind === 'eiken_pier') ctx.fillRect(px(sp.x - ep.fw / 2), py(ep.z), ep.fw * k, ((sp.end ?? ep.end) - ep.z) * k);
+    }
     ctx.fillRect(px(31 - 3.5), py(37), 7 * k, 7 * k);
     // 建物（飾り）の タイル。
     const tile = (x, z, w, dd, fill) => { ctx.fillStyle = fill; ctx.beginPath(); ctx.roundRect(px(x - w / 2), py(z - dd / 2), w * k, dd * k, 2); ctx.fill(); };
@@ -435,7 +475,7 @@ export function createMainWorld({ scene }) {
     // 入れる場所：建物の タイル ＋ 色の まるに 絵。
     const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a' };
     const GATE = { park: '🎡', ride: '🏁', town: '🧱', meadow: '🏰', fishworld: '🌊' };
-    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', homework: '📚' };
+    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚' };
     for (const sp of d.spots) {
       if (sp.kind === 'word_house') tile(sp.x, sp.z - 4.6, 8.4, 6.4, '#f2b98a');
       else if (sp.w && sp.d) tile(sp.x, sp.z - 1.1 - sp.d / 2, sp.w, sp.d, '#efe2c6');
@@ -447,7 +487,7 @@ export function createMainWorld({ scene }) {
       const r = sp.id === target ? 6.5 : 5.2;
       ctx.fillStyle = sp.id === target ? '#ffd246' : '#ffffff';
       ctx.beginPath(); ctx.arc(x, y, r + 1.4, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = COLORS[sp.kind] || '#4fae6b';
+      ctx.fillStyle = sp.kind === 'eiken_pier' ? `#${Number(sp.color).toString(16).padStart(6, '0')}` : COLORS[sp.kind] || '#4fae6b';
       ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
       ctx.font = '7px sans-serif';
       ctx.fillText(sp.kind === 'gate' ? (GATE[sp.to] || '🌀') : (ICON[sp.kind] || sp.icon || '•'), x, y + 0.5);
@@ -465,8 +505,35 @@ export function createMainWorld({ scene }) {
     return true;
   }
 
-  return Object.assign(island, {
-    drawMap,
+  // ---- つりの 3D の 演出（つり島と 同じ：さお・うき・「！」・魚が はねる）----
+  // spotId は つり場の id（`main` ＝ まんなかの さんばし、`pier_g5` などの 英検の つり場）。
+  function castPoint(spotId) {
+    const d = island.data; if (!d) return null;
+    if (spotId === 'main' || spotId === 'fishing_pier') { const p = d.pier || PIER; return { x: p.x, z: p.maxZ + 2.6 }; }
+    const sp = d.spots.find((s) => s.id === spotId);
+    return sp ? { x: sp.x, z: (sp.end ?? d.eikenPiers?.end ?? sp.z + 1) + 2.4 } : null;
+  }
+  function startCast(spotId) {
+    const at = castPoint(spotId);
+    if (!fx || !at) return false;
+    return fx.start({ cast: at, waterY: -0.42 });
+  }
+  const baseUpdate = island.update;
+  function update(t, player) {
+    baseUpdate(t, player);
+    if (fx && island.visible) fx.update(t, player);
+  }
+
+  const out = Object.assign(island, {
+    drawMap, update,
     ready: loadMainWorld().then((d) => { island.receive(d.island); return d; }),
+    startCast,
+    bite: () => fx?.bite(),
+    endCast: () => fx?.end(),
+    splash: (fish) => fx?.splash(fish),
+    chase: (camera, player, dt) => (fx && island.visible ? fx.chase(camera, player, dt) : false),
   });
+  // Object.assign は getter を 値に して しまうので defineProperty で。
+  Object.defineProperty(out, 'casting', { get: () => !!fx?.casting, enumerable: true });
+  return out;
 }

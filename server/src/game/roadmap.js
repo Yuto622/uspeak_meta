@@ -323,6 +323,7 @@ const EIKEN_HALLS = (g, isl) => ({
   speaking: P(isl, 'speaking', '🎤', `Eiken ${g} · Speaking Hall`, `英検${g}級の島 はなすの館`, 'speaking'),
   interview: P(isl, 'interview', '🧑‍🏫', `Eiken ${g} · Interview Room`, `英検${g}級の島 めんせつの間`, 'speaking'),
 });
+const PIER = (g, gja, gen) => P('main', `pier_${g}`, '🎣', `Main Island · Eiken ${gen} Pier`, `メインの島 英検${gja}の つり場`, 'words');
 const PLACES = {
   jr: {
     words: [P('main', 'hut_easy', '🏠', 'Word House · SUPER EASY', '英単語ハウス（SUPER EASY）', 'words'), P('school', 'gym', '🏋️', 'Word Gym', 'ことばの ジム', 'words')],
@@ -332,19 +333,19 @@ const PLACES = {
     write: [P('main', 'hut_easy', '🏠', 'Word House', '英単語ハウス', 'writing')],
   },
   g5: (() => { const h = EIKEN_HALLS('5', 'eiken5'); const pond = P('fishworld', 'pond', '🎣', 'Fishing Island · Pond (Grade 5)', 'つり島 ★いけ（5級）', 'words'); const hut = P('main', 'hut_easy', '🏠', 'Word House · EASY', '英単語ハウス（EASY・5級）', 'words');
-    return { words: [pond, hut], read: [h.reading, hut], listen: [h.listening, pond], speak: [h.speaking], write: [h.writing, hut] }; })(),
+    return { words: [PIER('g5', '5級', 'Grade 5'), pond, hut], read: [h.reading, PIER('g5', '5級', 'Grade 5')], listen: [h.listening, pond], speak: [h.speaking], write: [h.writing, hut] }; })(),
   g4: (() => { const h = EIKEN_HALLS('4', 'eiken4'); const river = P('fishworld', 'river', '🎣', 'Fishing Island · River (Grade 4)', 'つり島 ★★かわ（4級）', 'words'); const hut = P('main', 'hut_medium', '🏠', 'Word House · MEDIUM', '英単語ハウス（MEDIUM・4級）', 'words');
-    return { words: [river, hut], read: [h.reading, hut], listen: [h.listening, river], speak: [h.speaking], write: [h.writing, hut] }; })(),
+    return { words: [PIER('g4', '4級', 'Grade 4'), river, hut], read: [h.reading, PIER('g4', '4級', 'Grade 4')], listen: [h.listening, river], speak: [h.speaking], write: [h.writing, hut] }; })(),
   g3: (() => { const h = EIKEN_HALLS('3', 'eiken3'); const sea = P('fishworld', 'sea', '🎣', 'Fishing Island · Sea (Grade 3)', 'つり島 ★★★うみ（3級）', 'words'); const hut = P('main', 'hut_hard', '🏠', 'Word House · HARD', '英単語ハウス（HARD・3級）', 'words');
-    return { words: [sea, hut], read: [h.reading, hut], listen: [h.listening, sea], speak: [h.speaking, h.interview], write: [h.writing, hut] }; })(),
+    return { words: [PIER('g3', '3級', 'Grade 3'), sea, hut], read: [h.reading, PIER('g3', '3級', 'Grade 3')], listen: [h.listening, sea], speak: [h.speaking, h.interview], write: [h.writing, hut] }; })(),
 };
-const HIGH = (gja) => {
-  const pier = P('willow', 'sea', '🎣', 'U-Speak Island · Starlight Sea', 'U-Speak島 星海の桟橋（準2・2級の ことば）', 'words');
+const HIGH = (gja, g, gen) => {
+  const pier = PIER(g, gja, gen);
   const hw = P('homework', 'desk', '📚', 'Homework Island', 'しゅくだい島', 'reading');
   const conv = P('conv', '', '💬', 'Conversation Island', '英会話島', 'speaking');
-  return { words: [pier, hw], read: [hw], listen: [pier], speak: [conv], write: [hw], note: `${gja}は Roblox の 問題DBの 問題でも 練習できます` };
+  return { words: [pier, hw], read: [pier, hw], listen: [hw], speak: [conv], write: [hw], note: `${gja}は Roblox の 問題DBの 問題でも 練習できます` };
 };
-PLACES.gp2 = HIGH('準2級'); PLACES.g2 = HIGH('2級'); PLACES.gp1 = HIGH('準1級');
+PLACES.gp2 = HIGH('準2級', 'gp2', 'Pre-2'); PLACES.g2 = HIGH('2級', 'g2', 'Grade 2'); PLACES.gp1 = HIGH('準1級', 'gp1', 'Pre-1');
 const REVIEW = P('', 'review', '🔁', 'Weak-word Review', '苦手単語の 復習（マイページ）', 'words');
 
 export function placesFor(grade, { skills = [], chances = [], wordsLeft = 0, quizLeft = 0 } = {}) {

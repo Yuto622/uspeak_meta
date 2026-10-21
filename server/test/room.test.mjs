@@ -610,7 +610,7 @@ test('the dojo trades a fish for a move, and the move joins the battle', async (
   await standAt(dojo);
   a.room.send('fish:feed', { id: 'not-a-fish' });
   assert.equal((await nextMessage(a.room, 'fish:error')).reason, 'unknown fish');
-  a.room.send('fish:feed', { id: FISH[5].id });
+  a.room.send('fish:feed', { id: FISH.find((f) => f.id !== fish.id).id });
   assert.equal((await nextMessage(a.room, 'fish:error')).reason, 'no fish', 'you cannot eat what you do not have');
 
   a.room.send('fish:feed', { id: fish.id });

@@ -536,6 +536,15 @@
    "maxZ": 35,
    "w": 3.4
   },
+  "eikenPiers": {
+   "z": 29,
+   "x0": -14,
+   "x1": 21,
+   "w": 2.4,
+   "end": 43,
+   "fw": 2.6,
+   "note": "英検の つり場：いまの さんばしの とちゅうから 東西に 板の 道、そこから 級ごとの さんばしを 平行に。西から 5・4・3級、いまの つり場、準2・2・準1級。"
+  },
   "roads": [
    {
     "x0": -46,
@@ -641,7 +650,7 @@
     "id": "fishing_pier",
     "kind": "fishing",
     "x": 4,
-    "z": 31,
+    "z": 33.5,
     "path": {
      "x": 4,
      "z": 16
@@ -650,6 +659,102 @@
     "character": "Captain",
     "en": "Fish in English",
     "ja": "英語で釣りをする"
+   },
+   {
+    "id": "pier_g5",
+    "kind": "eiken_pier",
+    "grade": "g5",
+    "character": "Nana",
+    "x": -12.6,
+    "z": 42,
+    "end": 43,
+    "path": {
+     "x": -12.6,
+     "z": 29
+    },
+    "color": 4102746,
+    "en": "Eiken Grade 5 Pier",
+    "ja": "英検5級の つり場"
+   },
+   {
+    "id": "pier_g4",
+    "kind": "eiken_pier",
+    "grade": "g4",
+    "character": "Ken",
+    "x": -7.4,
+    "z": 32,
+    "end": 33,
+    "path": {
+     "x": -7.4,
+     "z": 29
+    },
+    "color": 3043000,
+    "en": "Eiken Grade 4 Pier",
+    "ja": "英検4級の つり場"
+   },
+   {
+    "id": "pier_g3",
+    "kind": "eiken_pier",
+    "grade": "g3",
+    "character": "Sora",
+    "x": -2.2,
+    "z": 42,
+    "end": 43,
+    "path": {
+     "x": -2.2,
+     "z": 29
+    },
+    "color": 8019144,
+    "en": "Eiken Grade 3 Pier",
+    "ja": "英検3級の つり場"
+   },
+   {
+    "id": "pier_gp2",
+    "kind": "eiken_pier",
+    "grade": "gp2",
+    "character": "Rina",
+    "x": 9.6,
+    "z": 42,
+    "end": 43,
+    "path": {
+     "x": 9.6,
+     "z": 29
+    },
+    "color": 14842413,
+    "en": "Eiken Grade Pre-2 Pier",
+    "ja": "英検準2級の つり場"
+   },
+   {
+    "id": "pier_g2",
+    "kind": "eiken_pier",
+    "grade": "g2",
+    "character": "Taku",
+    "x": 14.6,
+    "z": 32,
+    "end": 33,
+    "path": {
+     "x": 14.6,
+     "z": 29
+    },
+    "color": 13650058,
+    "en": "Eiken Grade 2 Pier",
+    "ja": "英検2級の つり場"
+   },
+   {
+    "id": "pier_gp1",
+    "kind": "eiken_pier",
+    "grade": "gp1",
+    "character": "Professor Owl",
+    "x": 19.6,
+    "z": 42,
+    "end": 43,
+    "path": {
+     "x": 19.6,
+     "z": 29
+    },
+    "color": 13014088,
+    "en": "Eiken Grade Pre-1 Pier",
+    "ja": "英検準1級の つり場"
    },
    {
     "id": "gate_fishing",

@@ -30,6 +30,8 @@ const KIND = {
 const FOOD_POI = { shop_food0: 'fruit', shop_food2: 'sweets', shop_food3: 'drinks' };
 // 専用の島と 同じ お店（3D の島で 入る）。
 const SHOP_POI = { clothes: ['Clothes and hats for your avatar.', 'アバターの ふくや ぼうしを かえるよ。'], blocks: ['Blocks for the plaza and BLOCKWILD.', 'ひろば と BLOCKWILD の ブロックを かえるよ。'], mansion: ['Buy your own island house.', 'じぶんの しまの いえを かえるよ。'] };
+// 英検の つり場の 魚は つり島の ゾーンの 魚（5級＝いけ・4級＝かわ・3級より 上＝うみ）。
+const PIER_ZONE = { g5: 1, g4: 2, g3: 3, gp2: 3, g2: 3, gp1: 3 };
 const GATE_TO = { gate_race: 'ride', gate_rpg: 'meadow', gate_build: 'town', gate_park: 'park', gate_fishing: 'fishworld' };
 // じゅんびちゅうの場所に いちばん近い Web の島（あれば カードから行ける）。
 const ALT = { clothes: 'wear', blocks: 'town', build_area: 'town', mansion: 'land', arena1: 'arena', arena2: 'arena', npc_talk: 'conv' };
@@ -392,7 +394,10 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
       return true;
     }
     if (!isOnline()) { toast(tr('オンラインで あそべます。')); return true; }
-    if (spot.kind === 'fishing') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, auto: true });
+    // つり場：3D の 島の 上で さお・うきを 見て まつ（つり島と 同じ）。英検の つり場は 級ごとの 問題（部屋が 問題DB から 出す）。
+    const stage = rpg.main?.startCast ? rpg.main : null;
+    if (spot.kind === 'fishing') fishworld.enter({ id: 'main', zone: 1 }, stage ? { stage, auto: true } : { flat: true, auto: true });
+    if (spot.kind === 'eiken_pier') fishworld.enter({ id: spot.id, zone: PIER_ZONE[spot.grade] || 1 }, stage ? { stage, auto: true } : { flat: true, auto: true });
     if (spot.kind === 'fish_buy') fishworld.enter({ id: 'main', zone: 1 }, { flat: true, tab: 'bag' });
     if (spot.kind === 'food_shop') food?.openShop(spot.shop);
     // 専用の島と 同じ お店：ふくや → きせかえの 3D の店、ブロックや → まちづくり島の ブロック屋、いえの おみせ → 土地島の ふどうさん。
@@ -405,6 +410,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     word_house: (sp) => `📖 ${tr('はいる')}（${LEVEL_LABEL[sp.id === 'hut_easy' ? easyLevel() : HOUSE_INFO[sp.id]?.levels?.[0] || 'Easy']?.[0] || ''}）`,
     level_sign: () => tr('🔁 レベルを かえる'),
     fishing: () => tr('🎣 英語で釣りをする'),
+    eiken_pier: () => tr('🎣 英検の 問題で つる'),
     fish_buy: () => tr('🐟 さかなを うる'),
     food_shop: () => tr('🛒 たべものを かう'),
     wear_shop: () => tr('👕 ふくを 見る'),
