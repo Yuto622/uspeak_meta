@@ -7,6 +7,7 @@
 // on a phone, from a printout — and because a guessable link would show one family
 // another family's child. The signature is an HMAC of the class and the name with a
 // secret that never leaves the server, so a link cannot be edited into somebody else's.
+import { parentLines } from './roadmap.js';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { totalXp, xpToNext } from './progression.js';
 import { ROOMS } from './town.js';
@@ -296,6 +297,17 @@ function homeworkBlock(r) {
  <p class="fine">先生が くばった 宿題を、ゲームの 宿題島で といた 記録です。</p>`;
 }
 
+// ロードマップ（いまの 段階・次まで・英検の 見込み・おすすめの 場所）。
+function roadmapBlock(r) {
+  const L = parentLines(r.roadmap);
+  if (!L) return '';
+  return `<h3 class="sub">🗺 ロードマップ</h3>
+ <table class="exam"><tr><th>${esc(L.stageLine)}</th><td><b>${esc(L.nextLine)}</b></td></tr>
+ ${L.eiken.map((t) => `<tr><th colspan="2">${esc(t)}</th></tr>`).join('')}
+ ${L.places.length ? `<tr><th colspan="2">おすすめの 場所：${esc(L.places.join('・'))}</th></tr>` : ''}</table>
+ <p class="fine">${esc(L.note)}</p>`;
+}
+
 function notesBlock(r) {
   if (!r.notes?.length) return '';
   return `<div class="notes"><h3 class="sub">先生から</h3>${r.notes.map((n) => `<p><small>${esc(new Date(n.at).toLocaleDateString('ja-JP', JST))}</small>${esc(n.text).replace(/\n/g, '<br>')}</p>`).join('')}</div>`;
@@ -436,6 +448,7 @@ ${monthBlock(r)}
 ${inARowLine(r)}
 ${schoolLine(r)}
 ${examBlock(r)}
+${roadmapBlock(r)}
 ${homeworkBlock(r)}
 ${notesBlock(r)}
 ${ranksBlock(r)}

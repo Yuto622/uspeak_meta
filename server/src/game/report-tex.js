@@ -111,6 +111,10 @@ export function reportTex(r, { font = process.env.REPORT_FONT || '' } = {}) {
     ...ago,
     ...inARow,
     ...exam,
+    // ロードマップ（いまの 段階・次まで・英検の 見込み）。
+    ...(r.roadmap?.stage ? [['ロードマップ', `${r.roadmap.stage.id}「${r.roadmap.stage.ja}」${r.roadmap.index + 1} / 12`],
+      ['次の 段階まで', r.roadmap.last ? 'さいごの 段階' : [r.roadmap.words.left ? `単語 あと ${r.roadmap.words.left} こ` : '', r.roadmap.quiz.left ? `クイズ あと ${r.roadmap.quiz.left} 問` : ''].filter(Boolean).join('・') || 'もうすぐ 進めます'],
+      ...r.roadmap.eiken.filter((c) => c.chance !== null).slice(0, 1).map((c) => [`英検${c.ja}の 見込み`, `約 ${c.chance}%（練習問題から）`])] : []),
     ...note,
     // クラスの 順位（その 子の 順位と 人数だけ。`game/rankings.js` の standingOf）。よい ほうから 3 つ。
     ...(r.ranks || []).slice(0, 3).map((x) => [`クラスの 順位：${x.ja}`, `${x.rank}位 / ${x.of}人`]),

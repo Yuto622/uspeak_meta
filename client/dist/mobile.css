@@ -565,6 +565,7 @@
   .right-rail > #rpg-buddy-button { order: 4; } .right-rail > #rpg-buddy-button::before { content: '📖'; }
   .right-rail > #voice-button { order: 5; } .right-rail > #voice-button::before { content: '📹'; }
   .right-rail > #rank-button { order: 6; } .right-rail > #rank-button::before { content: '🏆'; }
+  .right-rail > #roadmap-button { order: 7; } .right-rail > #roadmap-button::before { content: '🗺️'; }
 
   /* 左の「つぎに やること」：スティックの 上で おわる */
   .quest-panel, .park-panel, #errand-hud, #rpg-region-panel {

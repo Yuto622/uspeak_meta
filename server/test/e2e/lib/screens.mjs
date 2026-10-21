@@ -39,6 +39,8 @@ export const SCREENS = [
   // マイページ: the chart is drawn to a canvas whose size comes from the dialog, so it is
   // worth measuring at every width rather than trusting one.
   { id: 'dash', sel: '#dash-dialog', go: `uspeak.net.dash.open(); await new Promise(r => setTimeout(r, 700))` },
+  // 🗺 ロードマップ：すごろくの 12 マス（スマホは 横に すべる）と 4 つの カード。
+  { id: 'roadmap', sel: '#roadmap-dialog', go: `uspeak.net.roadmap.open(); await new Promise(r => setTimeout(r, 1500))` },
   // きせかえ: a preview canvas beside a grid of cards. The two-column body has to become
   // one column on a phone, and the cards have to stay pressable at every width.
   { id: 'wear', sel: '#wear-dialog', go: `uspeak.net.wardrobe.open(); await new Promise(r => setTimeout(r, 900))` },

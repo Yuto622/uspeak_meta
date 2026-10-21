@@ -1245,6 +1245,20 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   毎週版の 1 まいめは 入りきらない ときだけ ぜんたいを 小さく する（`weekly.tex.j2` の `\bodybox`。LINE の 画像は 1 まいめだけ なので、あふれた 分は 見えなく なる）。
 - 検査は `server/test/homework.test.mjs`（読みとり・各形式・7 形式の 判定・くばるまで 出ない・部屋の 流れ・コイン 1 回・やりなおし・レポート）。
 
+## 🗺 ロードマップ（A・B・C・1〜9 の 12 段階／2026-10）
+- **計算は `server/src/game/roadmap.js` の 1 か所**（保存は `server/src/roadmap/store.js`＝DATA_DIR/roadmap.json、窓口は `roadmap/service.js`）。入力は roblox_events（Roblox と Web の 両方）＝保護者レポートと 同じ 箱。
+- 段階：A・B・C＝英検Jr. BRONZE・SILVER・GOLD くらい、1・2＝5級、3・4＝4級、5・6＝3級、7＝準2級、8＝2級、9＝準1級。名前・中身・単語・はじめの 段階は **/admin/roadmap**（クラスごと、`*` は 既定）。
+- **進む 条件**：その 段階の 単語の 8 割を 覚えた（2 日以上に 分けて 3 回 つづけて 正解＝`aggregate.js` の masteryTimeline）＋ **その 段階に 入ってから** その 級の クイズ 20 問 以上・正解率 8 割（はじめての 答えだけ）。8 割は 英検Jr. の「80% で 次の グレード」と 同じ。
+  1 問の 級は `gradeOfEvent`（data.grade → つり島の zone → 英単語ハウスの level → 単語の 段階 → level の 文字）。
+- **単語は ゲームで 実際に 出る ことばから**（出ない 単語を 条件に すると 進めない）：A〜C＝ことばの ジムの 絵の ことば（英単語ハウス SUPER EASY）、1〜6＝つり島の いけ・かわ・うみ と U-Speak島の つり、7〜9＝U-Speak島の つり（準2・2級）＋ 問題DB の 1 語の 答え（`setQbankWords`、80 語まで）。admin で 単語を かえるときも 出る ことばに。
+- **段階を 上げるのは サーバーだけ**：部屋は `rm:get` と 10 問 ごと・入室 8 秒後に 見て、みたせば 1 段階 上げて `rm:up`（コイン `STAGE_COINS`＝100、1 段階 1 回＝store の `paid`）。先生が /class で かえても コインは 出ない。Roblox は `GET /api/roadmap/:username`（X-USpeak-Key）で 同じ 計算（上がれば コインは Roblox の さいふへ）。
+- **英検の 合格見込み（`passChance`）**：協会の 公開情報（一次の 問題数・CSE は 技能ごと 同じ 満点・「2 級 以下 各技能 6 割 程度、準1級 7 割 程度で 多くが 合格」）＋ その子の その級の 正解・不正解（ベータ分布）。英検の 形（英検の島・`eiken: true`）が 1 技能 10 問 あれば それだけ、なければ 単語クイズも（`basis: 'all'`）。作文・面接は 入れない。「あと ◯ 問ずつ」「正解率を ◯% に」は `planFor`。**合格の 約束では ない と 画面にも レポートにも 書く。**
+  英検の島・きょうの5ふん の 答えは `ClassRoom.eikenEvent` が roblox_events に 書く（やさしい 判定と 話すは 書かない）。
+- おすすめの 場所は `placesFor`（級 × いちばん 弱い 力）。画面の「いく」は `rpg.fly(island)`、苦手単語の 復習は `review:start`。
+- 画面：`roadmap.js` + `roadmap.css`（右の バーの「🗺 Roadmap ロードマップ」、オンラインだけ。スマホは ☰ の 中の 🗺️）。英語を 大きく・日本語を 小さく 両方 出すので 入れ物は `translate="no"`（lang.json に 入れない）。
+- 先生：/class の「🗺 ロードマップ」（段階・次まで・今週の 学習日・英検の 見込み・段階を かえる）。保護者：web レポート（`roadmapBlock`）・PDF（report-tex）・LINE（画像の 1 行・PDF の 2 まいめの カード・吹き出し `roadmapText`）。
+- 検査は `server/test/roadmap.test.mjs`（条件・見込み・保存・API・レポート）と `roadmap-room.test.mjs`（部屋・コイン 1 回）、レイアウトは screens.mjs の `roadmap`。
+
 ## ランキング（あらゆる 指標／2026-10）
 - **中身は `server/src/game/rankings.js` の 1 か所**（`METRICS`：今週の XP・ぜんぶの XP・レベル・せいかい・せいかいりつ（20 問から）・学習時間・学習日・連続ログイン・コイン・さかな・ずかん・フレーズ・おつかい・タスク・じぶんの島・ベストラップ・5 技能）。行を 足せば ぜんぶに 出る。
 - 先生と 0 の 子は ならべない。同じ 数は 同じ 順位。保存の 行から 毎回 計算（ランキングの 表は 持たない）。

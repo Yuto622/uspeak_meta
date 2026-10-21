@@ -23,6 +23,7 @@ import { createDojoUI } from './dojo.js';
 import { createPetUI } from './pet.js';
 import { createPetBuddy } from './pet-models.js';
 import { createDailyUI } from './daily.js';
+import { createRoadmapUI } from './roadmap.js';
 import { createNight } from './night-world.js';
 import { createRideUI } from './ride.js';
 import { createRaceUI } from './race.js';
@@ -194,6 +195,15 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     send: atSend,
     isOnline: () => state.mode === 'online',
   });
+  // 🗺 ロードマップ（段階・英検の 見こみ・おすすめの 場所）。「いく」は その 島へ ひこうきで。
+  const roadmap = createRoadmapUI({
+    send: atSend, toast, speak,
+    go: (p) => {
+      if (!p?.island) return false;
+      if (rpg.state.current === p.island) { toast(`${p.ja} は この 島に あるよ`); return true; }
+      return rpg.fly(p.island);
+    },
+  });
   // まちづくり島. The room a child builds in is an interior scene of its own, like the
   // park's: the island, the weather and everyone else stay outside. (`room` is already
   // the Colyseus room in this file, so the child's own room is `myRoom`.)
@@ -346,6 +356,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       dock.append(food.gauge, b);
       const rank = document.querySelector('#rank-button');
       if (rank) dock.append(rank);
+      const road = document.querySelector('#roadmap-button');
+      if (road) dock.append(road);
       document.querySelector('main')?.append(dock);
     }
   }
@@ -470,6 +482,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     chat.setAvailable(mode === 'online' || mode === 'reconnecting');
     voice.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
+    roadmap.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
     if (mode === 'offline' || mode === 'connecting') lockPremiumOffline();
     if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); if (myLand.active) myLand.leave(true); town.hideHud(); voice.setMode('off'); }
@@ -662,6 +675,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('fw:result', (m) => { if (m.progress) applyProgress(m.progress, m.levels); fishworld.onResult(m); });
     r.onMessage('fw:catch', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onCatch(m); });
     r.onMessage('hw:list', (m) => homework.onList(m));
+    r.onMessage('rm:state', (m) => roadmap.onState(m));
+    r.onMessage('rm:up', (m) => { if (m.wallet) applyWallet(m.wallet); roadmap.onUp(m); });
     r.onMessage('hw:ask', (m) => homework.onAsk(m));
     r.onMessage('hw:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); homework.onResult(m); });
     r.onMessage('hw:done', (m) => homework.onDone(m));
@@ -1157,6 +1172,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get remotes() { return remotes; },
     get gp() { return gp; },
     get dash() { return dash; },
+    get roadmap() { return roadmap; },
     get quick() { return quick; },
     get wardrobe() { return wardrobe; },
     get racers() { return racers; },

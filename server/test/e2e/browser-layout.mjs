@@ -228,7 +228,7 @@ try {
 
     // ---- every screen a child can open, one at a time -----------------------------------
     await page.evaluate(LAYOUT_HELPERS);
-    for (const screen of SCREENS) {
+    for (const screen of SCREENS.filter((s) => !process.env.ONLY_SCREENS || process.env.ONLY_SCREENS.split(',').includes(s.id))) {
       try {
         // Opening a screen means flying to an island, walking into a building and asking
         // the server for something — at three frames a second, with five browsers' worth

@@ -12,7 +12,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { weeklyData, monthlyData, periodStats, periodRanks } from './aggregate.js';
 import { weeklyTex, monthlyTex, qrCardsTex, templateVersion, texts, goalText } from './render-tex.js';
-import { childMessages, homeworkText, bundle, retryUuid, mask } from './line.js';
+import { childMessages, homeworkText, roadmapText, bundle, retryUuid, mask } from './line.js';
 import { newToken } from './store.js';
 import { DAY, dayKey, parts, weekOf, lastWeek, monthOf, lastMonth, isoWeekNumber, jaRange } from './jst.js';
 
@@ -25,7 +25,7 @@ const fmt = (s, a = {}) => String(s || '').replace(/\{(\w+)\}/g, (_, k) => (a[k]
 const hhmm = (s) => { const [h, m] = String(s || '19:00').split(':').map(Number); return (h || 0) * 60 + (m || 0); };
 
 export function createParentReports({
-  store, roster = null, seats = null, reports, roblox = null, homework = null, renderer, line, log = console, now = Date.now,
+  store, roster = null, seats = null, reports, roblox = null, homework = null, roadmap = null, renderer, line, log = console, now = Date.now,
   baseUrl = process.env.REPORT_BASE_URL || '', liffId = process.env.LIFF_ID || '', opsUserId = process.env.OPS_LINE_USER_ID || '',
   filesDir = '',
 }) {
@@ -130,6 +130,11 @@ export function createParentReports({
       const hw = homework?.periodSummary?.(classCode, webName, period);
       d.homework = hw && hw.total ? hw : null;
     } catch (err) { log.warn?.('[parent-report] homework failed:', err.message); d.homework = null; }
+    // ロードマップ（いまの 段階・次まで・英検の 見込み）。見るだけ（ここでは 段階を 上げない）。
+    try {
+      const webName = roblox?.childFor?.(student.username)?.name || student.nick || student.username;
+      d.roadmap = roadmap ? await roadmap.view(classCode, webName, { username: student.username, rows, advance: false }) : null;
+    } catch (err) { log.warn?.('[parent-report] roadmap failed:', err.message); d.roadmap = null; }
     return d;
   }
 
@@ -223,7 +228,7 @@ export function createParentReports({
           const best = (data.ranks || [])[0];
           const altRank = best ? `（クラスで ${best.ja} ${best.rank}位）` : '';
           const altHw = data.homework ? `・宿題 ${data.homework.done}/${data.homework.total} おわり` : '';
-          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt + altRank + altHw, homework: homeworkText(data.homework, { nick: student.nick, range: data.range }) });
+          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt + altRank + altHw, homework: [roadmapText(data.roadmap), homeworkText(data.homework, { nick: student.nick, range: data.range })].filter(Boolean).join('\n\n') });
         }
         for (const l of links) {
           if (!groups.has(l.line_user_id)) groups.set(l.line_user_id, []);

@@ -7,6 +7,7 @@
 //    **ページから 来た ユーザー ID を そのまま 信じない**ため。
 //  - dry-run（LINE_DRY_RUN=1、または トークンが 無い）：送らずに ログだけ。
 // LINE の ユーザー ID・トークンは ログに 出さない（mask）。
+import { parentLines } from '../game/roadmap.js';
 import { createHmac, createHash, timingSafeEqual } from 'node:crypto';
 
 const API = 'https://api.line.me';
@@ -118,6 +119,13 @@ export function homeworkText(hw, { nick = '', range = '' } = {}) {
   if (kinds.length) lines.push(`形ごとの正解率：${kinds.join('・')}`);
   if (hw.missed.length) lines.push(`もう一度練習したいことば：${hw.missed.slice(0, 8).join(', ')}`);
   return lines.join('\n').slice(0, 4800);
+}
+
+// ロードマップ（いまの 段階・次まで・英検の 見込み・おすすめの 場所）を 1 つの 吹き出しに。
+export function roadmapText(v) {
+  const L = parentLines(v);
+  if (!L) return '';
+  return [`🗺 ${L.stageLine}`, L.nextLine, ...L.eiken, ...(L.places.length ? [`おすすめ：${L.places.join('・')}`] : []), `※${L.note}`].join('\n').slice(0, 2000);
 }
 
 export function childMessages({ nick, range, sender, png, thumb, pdf, monthlyPdf = '', altText, homework = '' }) {

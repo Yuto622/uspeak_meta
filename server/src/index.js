@@ -19,6 +19,12 @@ import { QBankStore } from './qbank/store.js';
 import { qbankAdminExtension } from './qbank/admin.js';
 import { HomeworkStore } from './homework/store.js';
 import { homeworkAdminExtension } from './homework/admin.js';
+import { RoadmapStore } from './roadmap/store.js';
+import { createRoadmapService } from './roadmap/service.js';
+import { roadmapAdminExtension } from './roadmap/admin.js';
+import { mountRoadmapApi } from './roadmap/api.js';
+import { roadmapClassHtml } from './roadmap/pages.js';
+import { setQbankWords } from './game/roadmap.js';
 import { setExtraQuestions } from './game/eiken.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
@@ -89,8 +95,11 @@ export async function startServer({ port = config.port, storeOverride = null } =
   }
   // 宿題（/admin/homework で 入れて くばる。宿題島で とく）。答えつきなので DATA_DIR に だけ 置く。保護者レポート（LINE）も 読む。
   const homework = await new HomeworkStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'homework.json'), { log }).init();
+  // ロードマップ（A・B・C・1〜9）。設定と 段階は DATA_DIR/roadmap.json、計算は 記録（Roblox と Web）から 毎回。
+  const roadmapStore = await new RoadmapStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roadmap.json'), { log }).init();
+  const roadmap = createRoadmapService({ store, roadmap: roadmapStore, roblox, log });
   const parentReports = await setupParentReports({
-    store, roster, seats, roblox, homework, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
+    store, roster, seats, roblox, homework, roadmap, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
     baseUrl: config.corsOrigins.find((o) => /^https?:\/\//.test(o)) || '',
   });
 
@@ -99,7 +108,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   const tasksOn = process.env.TASKS === 'on' || (process.env.TASKS !== 'off' && !process.env.NODE_TEST_CONTEXT);
   // 問題データベース（/admin/qbank）。web版に出す 問題は 英検の島に まざり、Robloxに出す 問題は /api/roblox/questions で 取られる。
   const qbank = await new QBankStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'qbank.json'), { log }).init();
-  qbank.onChange((q) => { const added = setExtraQuestions(q.live('web')); if (q.items.length) log.info('[qbank] web questions mixed in:', JSON.stringify(added)); });
+  qbank.onChange((q) => { const added = setExtraQuestions(q.live('web')); if (q.items.length) log.info('[qbank] web questions mixed in:', JSON.stringify(added)); setQbankWords(q.items.filter((it) => it.on !== false)); });
   const tasks = await new TaskStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'tasks.json'), { log }).init();
 
   const app = express();
@@ -220,9 +229,27 @@ export async function startServer({ port = config.port, storeOverride = null } =
       // Roblox の学習の表。鍵が無くても、記録が貯まっていれば出す（記録は消さないので）。
       let robloxRows = [];
       try { robloxRows = await roblox.classRows(classCode, { records }); } catch (err) { log.warn('[class] roblox rows failed:', err.message); }
-      if (String(req.query.format || '').toLowerCase() === 'json') { res.json({ ...view, rankings: rankings(records, { weekKey: weekIndex() }), roblox: robloxRows.map(({ reportToken, ...r }) => r) }); return; }
+      // ロードマップ：Web の 名簿の 子と、Roblox だけの 子。
+      let roadmapRows = [];
+      try {
+        const names = [...new Set([...records.filter((r) => r?.name && r.role !== 'teacher').map((r) => r.name), ...robloxRows.map((r) => r.name || r.username).filter(Boolean)])];
+        roadmapRows = await roadmap.classList(classCode, names);
+      } catch (err) { log.warn('[class] roadmap failed:', err.message); }
+      if (String(req.query.format || '').toLowerCase() === 'json') { res.json({ ...view, rankings: rankings(records, { weekKey: weekIndex() }), roblox: robloxRows.map(({ reportToken, ...r }) => r), roadmap: roadmapRows }); return; }
       const parentsLink = `<section style="margin:16px 0;padding:14px 16px;border-radius:14px;background:#fff3e6;border:1px solid #f0c9a5"><b>📨 保護者レポート（LINE配信）</b> — 配信の設定・QRカードの印刷・先生のひとこと：<a href="/class/${encodeURIComponent(classCode)}/parents?t=${encodeURIComponent(String(req.query.t || ''))}">ひらく →</a></section>`;
-      res.type('text/html; charset=utf-8').send(classHtml(view, { extra: parentsLink + classRankingHtml(rankings(records, { weekKey: weekIndex() })) + robloxClassSection(robloxRows, { classCode, token: String(req.query.t || '') }) }));
+      res.type('text/html; charset=utf-8').send(classHtml(view, { extra: parentsLink + roadmapClassHtml(roadmapRows, { classCode, token: String(req.query.t || ''), saved: String(req.query.saved || '') }) + classRankingHtml(rankings(records, { weekKey: weekIndex() })) + robloxClassSection(robloxRows, { classCode, token: String(req.query.t || '') }) }));
+    });
+
+    // ロードマップの 段階を 先生が 手で かえる（/class の 表の フォーム）。署名は 教室ページと 同じ。
+    app.post('/class/:classCode/roadmap', express.urlencoded({ extended: false, limit: '4kb' }), async (req, res) => {
+      const classCode = req.params.classCode;
+      const t = String(req.body?.t || '');
+      res.set('Cache-Control', 'no-store');
+      if (!verifyClass(config.reportSecret, classCode, t)) { res.status(404).type('text/plain; charset=utf-8').send('見つかりません。'); return; }
+      const name = String(req.body?.name || '').trim().slice(0, 40);
+      const r = name ? await roadmap.setStage(classCode, name, String(req.body?.stage || '')) : { ok: false };
+      const saved = r.ok ? `${name} さんを ${req.body.stage} に しました` : '';
+      res.redirect(303, `/class/${encodeURIComponent(classCode)}?t=${encodeURIComponent(t)}&saved=${encodeURIComponent(saved)}#roadmap`);
     });
 
     // 先生ページの Roblox の表を CSV に。署名は教室ページと同じ。
@@ -290,6 +317,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
       try { report.ranks = standingOf(rankings(store.listClass?.(record.class) || [], { weekKey: weekIndex() }), record.name); } catch (err) { log.warn('[report] ranks failed:', err.message); report.ranks = []; }
       // 宿題（くばった もの・その 子の すすみぐあい）。
       try { report.homework = homework.listFor(record.class, record.name); } catch (err) { log.warn('[report] homework failed:', err.message); report.homework = []; }
+      // ロードマップ（今の 段階・次まで・英検の 見込み）。見るだけ（ここでは 段階を 上げない）。
+      try { report.roadmap = await roadmap.view(record.class, record.name, { advance: false }); } catch (err) { log.warn('[report] roadmap failed:', err.message); report.roadmap = null; }
       const token = String(req.query.t || '');
       const format = String(req.query.format || '').toLowerCase();
       if (format === 'json') { res.json(report); return; }
@@ -336,6 +365,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   const tasksAdmin = tasksAdminExtension({ tasks, log });
   const qbankAdmin = qbankAdminExtension({ qbank, log });
   const homeworkAdmin = homeworkAdminExtension({ homework, aiReady: !!config.ai.apiKey, log });
+  const roadmapAdmin = roadmapAdminExtension({ roadmap: roadmapStore, log });
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
   const privacyAdmin = ({ api }) => {
     api.post('/erase', express.json({ limit: '4kb' }), async (req, res) => {
@@ -343,11 +373,11 @@ export async function startServer({ port = config.port, storeOverride = null } =
       const name = String(req.body?.name || '').trim().slice(0, 40);
       const username = String(req.body?.username || '').trim().slice(0, 40);
       if (!classCode || !name) { res.status(400).json({ ok: false, error: 'クラスと 名前が いります' }); return; }
-      try { res.json({ ok: true, ...(await eraseStudent({ store, parentReports, homework, log }, { classCode, name, username })) }); }
+      try { res.json({ ok: true, ...(await eraseStudent({ store, parentReports, homework, roadmap: roadmapStore, log }, { classCode, name, username })) }); }
       catch (err) { log.warn('[privacy] erase failed:', err.message); res.status(500).json({ ok: false, error: '消せませんでした' }); }
     });
   };
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); privacyAdmin(ctx); } });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); } });
   // 保持期間（RETENTION_DAYS、既定 400 日）：学習ログ・コインログ・送信の 記録を 毎日 消す。
   const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
   // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
@@ -357,6 +387,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   parentReports.mount(app, { verifyClass, secret: config.reportSecret });
   // Roblox 版からの口（鍵がなければ開かない）。
   roblox.mount(app);
+  mountRoadmapApi(app, { service: roadmap, roadmap: roadmapStore, roblox, key: config.roblox.key, log });
 
   if (config.serveClient) {
     // このゲームのファイル名にはバージョンが入っていない（`game.js` は毎回 `game.js`）。
@@ -411,7 +442,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, claps: parentReports.service.clapHub }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, claps: parentReports.service.clapHub }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();
@@ -428,7 +459,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
     await parentReports.close();
     await closeStore();
   };
-  return { app, server, gameServer, store, shutdown, port, blockwild, roblox, parentReports, homework };
+  return { app, server, gameServer, store, shutdown, port, blockwild, roblox, parentReports, homework, roadmap, roadmapStore };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { tex as texEscape } from '../game/report-tex.js';
 import { WEEKDAYS_JA } from './jst.js';
+import { parentLines } from '../game/roadmap.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const DIR = path.resolve(here, '../../templates/report');
@@ -74,6 +75,29 @@ function homeworkLine(d) {
   if (h.accuracy !== null && h.accuracy !== undefined) bits.push(`正解率 ${h.accuracy}%`);
   return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries 宿題}\\quad{\\fontsize{10}{13}\\selectfont\\color{brand} ${tex(bits.join('・'))}}\\\\[1.4mm]\n`;
 }
+// ロードマップ（1 まいめに 1 行）。
+function roadmapLine(d) {
+  const v = d.roadmap;
+  if (!v?.stage) return '';
+  const c = (v.eiken || []).find((x) => x.chance !== null);
+  const bits = [`${v.stage.id}「${v.stage.ja}」`, v.last ? 'さいごの 段階' : [v.words.left ? `単語 あと ${v.words.left} こ` : '', v.quiz.left ? `クイズ あと ${v.quiz.left} 問` : ''].filter(Boolean).join('・') || 'もうすぐ 次へ'];
+  if (c) bits.push(`英検${c.ja} 見込み 約${c.chance}%`);
+  return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ロードマップ}\\quad{\\fontsize{10}{13}\\selectfont\\color{brand} ${tex(bits.join('・'))}}\\\\[1.4mm]\n`;
+}
+function roadmapCard(d, small, big) {
+  const L = parentLines(d.roadmap);
+  if (!L) return '';
+  const line = (t, c = 'brand') => `{${small}\\color{${c}} ${tex(t)}}\\\\[0.6mm]`;
+  return `\\begin{card}
+\\cardtitle{${tex('ロードマップ')}}\\\\[1mm]
+{${big}\\color{brand}\\bfseries ${tex(L.stageLine)}}\\\\[0.6mm]
+${line(L.nextLine)}
+${L.eiken.map((t) => line(t, 'good')).join('\n')}
+${L.places.length ? line(`おすすめの 場所：${L.places.join('・')}`) : ''}
+{\\fontsize{7.5}{9.5}\\selectfont\\color{gray} ${tex(L.note)}}
+\\end{card}
+`;
+}
 function homeworkStatus(r) {
   if (r.status === 'done') return { text: `${r.correct}/${r.total}問 正解（${r.score}%）${r.doneDay ? `・${mdDay(r.doneDay)} 提出` : ''}${r.late ? '・おくれて 提出' : ''}`, color: r.late ? 'accent' : 'good' };
   if (r.overdue) return { text: `しめきり すぎ（${r.answered}/${r.total}問）`, color: 'accent' };
@@ -82,9 +106,14 @@ function homeworkStatus(r) {
 }
 export function homeworkPage(d, { weekly = true } = {}) {
   const h = d.homework;
-  if (!h?.total) return '';
   const big = weekly ? '\\fontsize{11}{14}\\selectfont' : '\\normalsize';
   const small = weekly ? '\\fontsize{9}{12}\\selectfont' : '\\small';
+  // 2 まいめ：ロードマップ（あれば）と 宿題（あれば）。どちらも なければ 1 まいだけ。
+  const rm = roadmapCard(d, small, big);
+  const head = (title) => `\\newpage
+{${weekly ? '\\fontsize{15}{19}\\selectfont' : '\\Large'}\\color{brand}\\bfseries ${tex(title)}}\\;{${small}\\color{gray} ${tex(d.range)}}\\\\[1mm]
+`;
+  if (!h?.total) return rm ? head(`${d.nick}さんの ロードマップ`) + rm : '';
   const stat = (label, value) => `{${small}\\color{gray} ${tex(label)}}\\;{${big}\\color{brand}\\bfseries ${tex(value)}}`;
   const stats = [
     stat('提出', `${h.done} / ${h.total}`), stat('しめきりまでに', `${h.onTime}`),
@@ -106,9 +135,7 @@ export function homeworkPage(d, { weekly = true } = {}) {
   const missed = h.missed.length
     ? `{${big}\\color{brand}\\bfseries ${tex(h.missed.join(', '))}}\\\\[0.6mm]{${small}\\color{gray} ${tex('おうちで 声に 出して 1 回ずつ 読んで みて ください')}}`
     : `{${small}\\color{good}\\bfseries ${tex('まちがえた ことばは ありません')}}`;
-  return `\\newpage
-{${weekly ? '\\fontsize{15}{19}\\selectfont' : '\\Large'}\\color{brand}\\bfseries ${tex(`${d.nick}さんの宿題`)}}\\;{${small}\\color{gray} ${tex(d.range)}}\\\\[1mm]
-\\begin{card}
+  return `${head(`${d.nick}さんの宿題`)}${rm}\\begin{card}
 \\cardtitle{${tex('すすみぐあい')}}\\\\[1mm]
 ${stats}\\\\[1mm]
 ${work}${time ? `\\\\[1mm]\n${time}` : ''}
@@ -154,7 +181,7 @@ export function weeklyTex(d, { preview = false } = {}) {
   }
 
   // 先生の ひとこと・宿題・順位が ぜんぶ ある 週は 1 まいに 入らないので、ことわりの 1 行を 省く。
-  const crowded = !!d.teacher?.text && !!(d.homework?.total || d.ranks?.length);
+  const crowded = !!d.teacher?.text && !!(d.homework?.total || d.ranks?.length || d.roadmap);
   let nextBlock;
   if (d.next) {
     const ja = d.next.ja ? `\\;{\\fontsize{10}{12}\\selectfont\\color{gray}（${tex(d.next.ja)}）}` : (d.next.fromMiss ? `\\;{\\fontsize{9}{12}\\selectfont\\color{gray}${tex(W.nextFromMiss)}}` : '');
@@ -169,7 +196,7 @@ export function weeklyTex(d, { preview = false } = {}) {
 
   const goal = goalText(d, W);
   if (goal) nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ${tex(W.goalTitle)}}\\\\[0.5mm]{\\fontsize{11.5}{15}\\selectfont\\color{brand}\\bfseries ${tex(goal)}}\\\\[2mm]\n${nextBlock}`;
-  nextBlock = homeworkLine(d) + ranksLine(d) + nextBlock;
+  nextBlock = roadmapLine(d) + homeworkLine(d) + ranksLine(d) + nextBlock;
   return fill(weekly, {
     badge: badge(preview, true),
     sender: d.sender || '教室', nick: d.nick, range: d.range, titleSize: titleSize(d.nick, 17, 14),
@@ -241,7 +268,7 @@ export function monthlyTex(d, { preview = false } = {}) {
   else if (d.game?.kind === 'place') game = `{\\small\\color{brand} ${tex(fmt(M.gamePlace, d.game))}}\\\\[1mm]\n{\\scriptsize\\note{${tex(M.gamePlaceTalk)}}}`;
   else game = `{\\small\\color{gray} ${tex(M.gameNone)}}`;
 
-  { const rl = homeworkLine(d) + ranksLine(d); if (rl) game = `${rl}${game}`; }
+  { const rl = roadmapLine(d) + homeworkLine(d) + ranksLine(d); if (rl) game = `${rl}${game}`; }
   const step = d.nextStep || { key: 'keep' };
   return fill(monthly, {
     badge: badge(preview, false),

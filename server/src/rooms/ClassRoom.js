@@ -174,6 +174,7 @@ export class ClassRoom extends Room {
     this.tasks = options.tasks || null;
     // 宿題（/admin/homework で 先生が くばった もの）。無ければ 宿題島は からっぽ。
     this.homework = options.homework || null;
+    this.roadmap = options.roadmap || null;
     this.taskQueue = new Set();
     this.claps?.rooms?.add(this);
     if (this.roblox?.enabled) this.roblox.rooms.add(this);
@@ -272,6 +273,8 @@ export class ClassRoom extends Room {
     this.onMessage('fw:cancel', (client) => this.onFwCancel(client));
     // 宿題島：先生が くばった 宿題を 7 形式で とく。答えあわせは つり島と 同じ（1 回 まちがえたら もう 1 回）。
     this.onMessage('hw:list', (client) => this.onHwList(client));
+    // ロードマップ（game/roadmap.js・roadmap/service.js）。見るだけ。段階を 上げるのは サーバーが 条件を 見て。
+    this.onMessage('rm:get', (client) => this.onRoadmap(client).catch((err) => log.warn(`[room ${this.roomId}] roadmap failed:`, err?.message || err)));
     this.onMessage('hw:start', (client, msg) => this.onHwStart(client, msg));
     this.onMessage('hw:answer', (client, msg) => this.onHwAnswer(client, msg));
     this.onMessage('hw:next', (client) => { const priv = this.priv.get(client.sessionId); if (priv?.hw && !priv.hw.q) this.hwNext(client); });
@@ -476,6 +479,7 @@ export class ClassRoom extends Room {
     // 授業の とちゅうで 入ってきた 子にも、ストップ中なら ストップを かける。
     if (this.classMode.paused && auth.role !== 'teacher') client.send('class:pause', { by: '' });
     this.scheduleReviewOffer(client.sessionId);
+    this.scheduleRoadmapCheck(client.sessionId, 8000);
     this.persist(client.sessionId);
     this.taskTouch(client.sessionId);
     log.info(`[room ${this.roomId}] join ${auth.role} ${who(auth.name)} (${client.sessionId}) restored=${restored} clients=${this.clients.length}`);
@@ -1535,6 +1539,7 @@ export class ClassRoom extends Room {
     if (recordEiken(priv.ready, session.grade, result.skill, result.correct, session.level) && result.correct) {
       bumpMonth(priv.months, { eg: session.grade });
     }
+    this.eikenEvent(client.sessionId, session.grade, result.skill, session.level, result.correct, now);
     this.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, `quick:${session.grade}:${result.skill}:${session.level}:${result.index}`, result.skill,
       String(result.picked ?? '').slice(0, 80), result.correct ? 1 : 0, result.correct ? (payload.xp || 0) : 0, client.sessionId,
@@ -1793,6 +1798,9 @@ export class ClassRoom extends Room {
         bumpMonth(priv.months, { answers: 1, correct: Number(row[6]) === 1 ? 1 : 0, xp: Number(row[7]) || 0 }, { day: true, home: !this.teacherPresent() });
         // 保護者レポートの「話す」：声に出して 英語を 使った 回数を、Roblox と 同じ 記録（roblox_events）にも 1 行。
         if (skillOf(row[4]) === 'speak') this.robloxEvent(sessionId, 'speak', String(row[4] || 'speak').slice(0, 40), { mode: String(row[4] || '') });
+        // ロードマップ：10 問 ごとに「次の 段階に 進めるか」を 見る（記録が 書かれて から 読むので 少し おくらせる）。
+        priv.rmAnswers = (priv.rmAnswers || 0) + 1;
+        if (priv.rmAnswers % 10 === 0) this.scheduleRoadmapCheck(sessionId, 1500);
       }
     } catch (err) {
       // A miscounted skill must never cost a child the record of the answer itself.
@@ -2723,6 +2731,7 @@ export class ClassRoom extends Room {
     if (recordEiken(priv.ready, session.grade, session.skill, result.correct, session.level) && result.correct) {
       bumpMonth(priv.months, { eg: session.grade });
     }
+    if (!eikenTyped) this.eikenEvent(client.sessionId, session.grade, session.skill, session.level, result.correct, now);
     this.appendLearning([
       // **どのきびしさで ○ になったのかも残す。** 保護者が読む数字なので、
       // 「やさしい判定で満点」と「きびしい判定で満点」が同じに見えてはいけない。
@@ -3539,6 +3548,14 @@ export class ClassRoom extends Room {
 
   // Web で起きた学習を Roblox と同じ形で roblox_events に貯める（source=web）。保護者ページ・
   // 先生ページの指標は Roblox の記録と合算される。鍵が無くても貯める（記録は消さないので）。
+  // 英検の 形の 問題の 答えを、Roblox と 同じ 記録にも（ロードマップの 英検の 見込み・保護者レポート）。
+  // 話すは 'speak' の 記録が 別に ある。やさしい 判定（2 たく・言いかえ）は 見込みの 根拠に しない ので 書かない。
+  eikenEvent(sessionId, grade, skill, level, correct, now = Date.now()) {
+    if (skill === 'speaking' || level === 'easy') return;
+    const format = skill === 'listening' ? 'listen' : skill === 'writing' ? 'order' : 'mc';
+    this.robloxEvent(sessionId, 'quiz', 'eiken', { correct: !!correct, grade, skill, level: `eiken-${level || 'normal'}`, format, eiken: true }, now);
+  }
+
   robloxEvent(sessionId, type, world, data, now = Date.now()) {
     const priv = this.priv.get(sessionId);
     if (!priv || !this.store.appendRobloxEvents) return;
@@ -4650,6 +4667,32 @@ export class ClassRoom extends Room {
     this.classMode.run = null;
     const weak = [...run.missed.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([w]) => w);
     this.clients.find((c) => c.sessionId === run.teacher)?.send('class:result', { correct: run.correct, total: run.total, weak });
+  }
+
+  // ---- ロードマップ ----------------------------------------------------------------------
+  async roadmapView(sessionId, { advance = true } = {}) {
+    const priv = this.priv.get(sessionId);
+    if (!priv || !this.roadmap) return null;
+    const v = await this.roadmap.view(this.classCode, priv.name, { username: this.reviewUsername(priv), advance: advance && this.state.players.get(sessionId)?.role !== 'teacher' });
+    // 段階が 上がった：コイン（1 段階 1 回・日の 上限の 外）と お祝い。
+    for (const up of v.ups) {
+      if (up.coins > 0) {
+        const entry = applyOp(priv.wallet, { type: 'award', amount: up.coins, id: `roadmap:${up.to}` });
+        this.store.appendCoin(this.coinRow(sessionId, entry));
+      }
+      this.persist(sessionId);
+      this.clients.find((c) => c.sessionId === sessionId)?.send('rm:up', { ...up, stage: v.stage, ...this.walletPayload(sessionId) });
+    }
+    return v;
+  }
+  async onRoadmap(client) {
+    if (!this.roadmap) { client.send('rm:state', { off: true }); return; }
+    const v = await this.roadmapView(client.sessionId);
+    if (v) { const { ups, username, ...view } = v; client.send('rm:state', view); }
+  }
+  scheduleRoadmapCheck(sessionId, ms) {
+    if (!this.roadmap || this.state.players.get(sessionId)?.role === 'teacher') return;
+    this.clock.setTimeout(() => this.roadmapView(sessionId).catch((err) => log.warn(`[room ${this.roomId}] roadmap check failed:`, err?.message || err)), ms);
   }
 
   // 入って 20 秒後、復習の 時期の 単語が 3 つ 以上 あれば、1 日 1 回だけ 小さな カード。
