@@ -1783,3 +1783,14 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   強さ（● 声をかけましょう）の色で使っているので、ぶつけると行ごと赤くなる（実際になった）。
 - **メモは既定で「先生だけ」。** 「保護者のレポートに『先生から』としてのせる」に印を付けた
   ものだけが保護者に出る。けすときは確認を出す。
+
+## 自然な 声（/api/tts）と 正解・不正解の 効果音（2026-10 追加）
+
+- **声**：`speech.js` の `playVoice()` が さきに サーバーの 声（`GET /api/tts?lang=en|ja&t=…`、`server/src/tts/service.js`）を 鳴らす。だめなとき（鍵なし＝503・オフライン・file:・4 秒 こない・再生 できない）は いつもの 端末の 声（speechSynthesis）。`createSpeech` の speak も、ウーピー（`character.js` の say）も これを とおる。♫ を 切ると `stopVoice()`。
+  - サーバー：OpenAI の TTS（`OPENAI_API_KEY`・`OPENAI_TTS_MODEL` 既定 gpt-4o-mini-tts・`OPENAI_TTS_VOICE` 既定 coral）。作った mp3 は `DATA_DIR/tts/<hash>.mp3` に のこり、同じ 文は 2 回目から ファイルを 返す（ブラウザにも `immutable` で のこる）。文は 300 字まで・1 IP 1 分 60 回・新しく 作るのは 1 日 `TTS_DAILY_NEW`（既定 3000）回まで。鍵は サーバーだけ。
+  - iPad：さいしょの タップで 同じ Audio に 無音を ならして 解錠（fetch の あとでも 鳴る）。
+  - 検査：`server/test/tts.test.mjs`、`server/test/e2e/browser-speech.mjs`（503 → 端末の 声、/api/tts が あれば そちら）。
+- **効果音**：`sfx.js`（WebAudio で その場で 作る。ファイルなし）。`sfx.judge(correct)` … true ＝ピンポン、false ＝ブッブー、それ以外は 鳴らさない。
+  - オンライン：`net-client.js` の `quiz/gym/eiken/quick/farm/fw/hw/wh:result`・`interview:turn`・`review:result`（ok）・`battle:turn`（quiz.correct）で 鳴らす（判定は サーバー）。
+  - オフラインでも 判定する 画面：game.js の レッスン・fishing.js・adventure.js の バトル。`answer:result` では 鳴らさない（その 3 つと 二重に なるので）。
+  - ♫ を 切ると 鳴らない（game.js が `configureSfx({ isMuted })`）。

@@ -29,6 +29,7 @@ import { setPierQuestions } from './game/eiken-pier.js';
 import { setExtraQuestions } from './game/eiken.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
+import { createTts } from './tts/service.js';
 import { reportFor, reportHtml, reportNoLatexHtml, verifyReport, verifyExport, verifyClass, classCsv, certHtml } from './game/report.js';
 import { classView, classHtml } from './game/classview.js';
 import { rankings, standingOf, classRankingHtml } from './game/rankings.js';
@@ -68,7 +69,7 @@ function createCpuSampler(intervalMs = 2000) {
   return () => percent;
 }
 
-export async function startServer({ port = config.port, storeOverride = null } = {}) {
+export async function startServer({ port = config.port, storeOverride = null, ttsGenerate = null } = {}) {
   const problems = validateConfig(log);
   if (problems.length) {
     for (const p of problems) log.error('[config]', p);
@@ -388,6 +389,9 @@ export async function startServer({ port = config.port, storeOverride = null } =
   parentReports.mount(app, { verifyClass, secret: config.reportSecret });
   // Roblox 版からの口（鍵がなければ開かない）。
   roblox.mount(app);
+  // 自然な 声（鍵が なければ 503 で、ブラウザの 声に もどる）。
+  const tts = createTts({ dir: config.storeBackend === 'memory' ? '' : path.resolve(config.dataDir, 'tts'), apiKey: config.ai.apiKey, model: config.ai.ttsModel, voice: config.ai.ttsVoice, dailyNew: config.ai.ttsDailyNew, timeoutMs: config.ai.timeoutMs, generate: ttsGenerate, log });
+  tts.mount(app);
   mountRoadmapApi(app, { service: roadmap, roadmap: roadmapStore, roblox, key: config.roblox.key, log });
 
   if (config.serveClient) {

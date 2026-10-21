@@ -55,15 +55,84 @@ export function forSpeech(text, japanese = JA.test(String(text))) {
 
 export function isJapanese(text) { return JA.test(String(text ?? '')); }
 
+// ---- 自然な 声（サーバーの /api/tts）--------------------------------------------------------
+// **端末の 声は 端末しだい**（iPad の 一部は ロボットの よう）。サーバーが 作った 声（mp3）を
+// 先に ためし、だめなら（鍵が ない・オフライン・file:・4 秒 こない）いつもの 端末の 声で 読む。
+// 同じ 文は ブラウザにも のこる（Cache-Control: immutable と、ここの 小さな 箱）。
+let player = null; let token = 0; let off = false; let fails = 0;
+const blobs = new Map(); // 文 → objectURL（さいきんの 60 こ）
+const canServe = () => !off && typeof Audio === 'function' && typeof fetch === 'function' && /^https?:$/.test(globalThis.location?.protocol || '');
+function silentWav() {
+  // **iPad の 解錠。** さいしょに さわった ときに 同じ Audio で 無音を ならして おくと、
+  // あとから（fetch の あと＝タップの 外でも）鳴らせる。
+  const n = 160; const b = new Uint8Array(44 + n); const v = new DataView(b.buffer);
+  const tag = (o, t) => { for (let i = 0; i < 4; i += 1) b[o + i] = t.charCodeAt(i); };
+  tag(0, 'RIFF'); v.setUint32(4, 36 + n, true); tag(8, 'WAVE'); tag(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, 8000, true); v.setUint32(28, 16000, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); tag(36, 'data'); v.setUint32(40, n, true);
+  return URL.createObjectURL(new Blob([b], { type: 'audio/wav' }));
+}
+function getPlayer() {
+  if (player) return player;
+  player = new Audio(); player.preload = 'auto';
+  const unlock = () => {
+    removeEventListener('pointerdown', unlock, true); removeEventListener('keydown', unlock, true);
+    if (player.src) return;
+    try { player.src = silentWav(); player.play()?.catch(() => {}); } catch { /* 解錠 できなくても 端末の 声が ある */ }
+  };
+  addEventListener('pointerdown', unlock, true); addEventListener('keydown', unlock, true);
+  return player;
+}
+if (canServe()) { try { getPlayer(); } catch { off = true; } }
+
+export function stopVoice() {
+  token += 1;
+  try { player?.pause(); } catch { /* なにも ならして いない */ }
+}
+
+// サーバーの 声で 読む。読めなければ fallback()。onend は 読みおわり（とちゅうで 止めたときは よばない）。
+export function playVoice(text, { japanese = isJapanese(text), onend, fallback } = {}) {
+  const said = forSpeech(text, japanese);
+  if (!said) return;
+  if (!canServe()) { fallback?.(); return; }
+  const me = (token += 1);
+  const audio = getPlayer();
+  let gave = false;
+  const giveUp = () => { if (gave || me !== token) return; gave = true; try { audio.pause(); } catch { /* */ } fallback?.(); };
+  const timer = setTimeout(giveUp, 4000);
+  const key = `${japanese ? 'ja' : 'en'}|${said}`;
+  const ready = blobs.has(key) ? Promise.resolve(blobs.get(key)) : fetch(`/api/tts?lang=${japanese ? 'ja' : 'en'}&t=${encodeURIComponent(said)}`).then(async (res) => {
+    // 503 ＝ この サーバーには 声が ない。この あとは 聞きに いかない。
+    if (res.status === 503 || res.status === 404) { off = true; throw new Error('no tts'); }
+    if (!res.ok) throw new Error(`tts ${res.status}`);
+    const url = URL.createObjectURL(await res.blob());
+    blobs.set(key, url);
+    if (blobs.size > 60) { const [k, u] = blobs.entries().next().value; blobs.delete(k); URL.revokeObjectURL(u); }
+    return url;
+  });
+  ready.then((url) => {
+    if (me !== token || gave) return;
+    audio.onended = () => { if (me === token) onend?.(); };
+    audio.onerror = () => giveUp();
+    audio.src = url;
+    const p = audio.play();
+    (p?.then ? p : Promise.resolve()).then(() => { clearTimeout(timer); fails = 0; }, () => giveUp());
+  }).catch(() => { clearTimeout(timer); if ((fails += 1) >= 3) off = true; giveUp(); });
+}
+
 // 読み上げる。`japanese` を渡さなければ、文字を見て自分で決める。
 export function createSpeech({ isMuted, onUnavailable }) {
   return function speak(text, options = {}) {
     if (isMuted?.()) return;
     const synth = globalThis.speechSynthesis;
-    if (!synth || typeof SpeechSynthesisUtterance !== 'function') { onUnavailable?.(); return; }
     const japanese = options.japanese ?? JA.test(String(text));
     const said = forSpeech(text, japanese);
     if (!said) return;
+    try { synth?.cancel(); } catch { /* */ }
+    playVoice(text, { japanese, fallback: () => device(said, japanese, options) });
+  };
+  function device(said, japanese, options) {
+    const synth = globalThis.speechSynthesis;
+    if (!synth || typeof SpeechSynthesisUtterance !== 'function') { onUnavailable?.(); return; }
     try {
       synth.cancel();
       const utter = new SpeechSynthesisUtterance(said);
@@ -76,5 +145,6 @@ export function createSpeech({ isMuted, onUnavailable }) {
       utter.pitch = options.pitch ?? 1;
       synth.speak(utter);
     } catch { onUnavailable?.(); }
-  };
+  }
+  return speak;
 }

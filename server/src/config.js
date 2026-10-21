@@ -84,6 +84,10 @@ export const config = Object.freeze({
     dailyTurnsPerStudent: int('AI_DAILY_TURNS_PER_STUDENT', 200),
     // 宿題の 読みとり（写真も 読む）。小さい モデルで 足りなければ OPENAI_HOMEWORK_MODEL で かえる。
     homeworkModel: (env.OPENAI_HOMEWORK_MODEL ?? '').trim(),
+    // 自然な 声（/api/tts）。作った 音は DATA_DIR/tts に のこるので、同じ 文は 1 回しか 作らない。
+    ttsModel: (env.OPENAI_TTS_MODEL ?? 'gpt-4o-mini-tts').trim(),
+    ttsVoice: (env.OPENAI_TTS_VOICE ?? 'coral').trim(),
+    ttsDailyNew: int('TTS_DAILY_NEW', 3000),
   },
   // 大広間（SFU）. A mesh is six children; a school assembly is a hundred, and a hundred
   // browsers cannot each hold ninety-nine connections. A LiveKit server forwards the

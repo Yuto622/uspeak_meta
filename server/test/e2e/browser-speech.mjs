@@ -23,6 +23,12 @@ const { chromium } = require('playwright');
 
 const PORT = 2715;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const silentWav = () => {
+  const n = 1600; const b = Buffer.alloc(44 + n);
+  b.write('RIFF', 0); b.writeUInt32LE(36 + n, 4); b.write('WAVEfmt ', 8); b.writeUInt32LE(16, 16); b.writeUInt16LE(1, 20); b.writeUInt16LE(1, 22);
+  b.writeUInt32LE(8000, 24); b.writeUInt32LE(16000, 28); b.writeUInt16LE(2, 32); b.writeUInt16LE(16, 34); b.write('data', 36); b.writeUInt32LE(n, 40);
+  return b;
+};
 const server = spawn('node', ['src/index.js'], {
   cwd: serverDir,
   env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'error' },
@@ -109,6 +115,47 @@ try {
   await page.evaluate(() => document.querySelector('#sound').click());
   const muted = await say('すきな 色は？');
   check('♫ を切ったら 読み上げない', muted === null);
+
+  // **サーバーに 自然な 声が あれば、そちらを 鳴らす**（端末の 声は つかわない）。
+  // この サーバーには 鍵が ないので、/api/tts を こちらで 返す（無音の wav）。
+  const page2 = await ctx.newPage();
+  const asked = [];
+  await page2.route('**/api/tts*', (r) => { asked.push(new URL(r.request().url()).searchParams); r.fulfill({ status: 200, contentType: 'audio/wav', body: silentWav() }); });
+  await page2.goto(`http://127.0.0.1:${PORT}/phrases.json`, { waitUntil: 'load' });
+  const played = await page2.evaluate(async () => {
+    globalThis.__said = [];
+    const { createSpeech } = await import('/speech.js');
+    const speak = createSpeech({ isMuted: () => false });
+    let ended = false;
+    const a = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function play() { const p = a.call(this); p.then(() => { ended = true; }, () => {}); return p; };
+    speak('Good morning!');
+    for (let i = 0; i < 40 && !ended; i += 1) await new Promise((r) => setTimeout(r, 100));
+    return { ended, said: globalThis.__said.length };
+  });
+  check('サーバーの 声が あれば それを 鳴らす', played.ended && played.said === 0 && asked[0]?.get('lang') === 'en' && asked[0]?.get('t') === 'Good morning!', JSON.stringify(played));
+
+  // 正解・不正解の 効果音（sfx.js）：true → 高い 2 音、false → 低い 2 音、それ以外は 鳴らさない。♫ を 切ったら 鳴らさない。
+  const tones = await page2.evaluate(async () => {
+    const made = [];
+    class FakeCtx {
+      constructor() { this.currentTime = 0; this.state = 'running'; this.destination = {}; }
+      createOscillator() { const o = { type: '', frequency: { setValueAtTime: (f) => made.push({ f, type: o.type }), exponentialRampToValueAtTime() {} }, connect() {}, disconnect() {}, start() {}, stop() {} }; return o; }
+      createGain() { return { gain: { setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }, connect() {}, disconnect() {} }; }
+    }
+    globalThis.AudioContext = FakeCtx;
+    const { sfx, configureSfx } = await import('/sfx.js');
+    const wait = () => new Promise((r) => setTimeout(r, 150));
+    const out = {};
+    sfx.judge(true); out.right = made.splice(0).map((x) => x.f); await wait();
+    sfx.judge(false); out.wrong = made.splice(0).map((x) => x.f); await wait();
+    sfx.judge(undefined); out.none = made.splice(0).length;
+    let mute = true; configureSfx({ isMuted: () => mute });
+    sfx.judge(true); out.muted = made.splice(0).length;
+    return out;
+  });
+  check('正解は 高い 音・不正解は 低い 音', tones.right.length >= 2 && Math.min(...tones.right) > 800 && tones.wrong.length === 2 && Math.max(...tones.wrong) < 300, JSON.stringify(tones));
+  check('…判定が ない 返事と ♫ を 切った ときは 鳴らない', tones.none === 0 && tones.muted === 0);
 } catch (err) {
   console.log('E2E ERROR', err);
   results.push({ name: 'script', ok: false });

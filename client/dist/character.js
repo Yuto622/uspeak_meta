@@ -1,5 +1,5 @@
 // ウーピー、画面の中の。Two clips and a voice, shared by every screen the character
-import { forSpeech, isJapanese } from './speech.js';
+import { forSpeech, isJapanese, playVoice, stopVoice } from './speech.js';
 // appears on (英会話島 の conv.js と、英検の島の めんせつの間 の interview.js).
 //
 // The screens own their own markup and their own CSS — a conversation and an interview
@@ -51,6 +51,13 @@ export function createCharacter({ stage, idle, talk, line, lang = 'en-US', rate 
     mouth(true);
     const stop = () => { clearTimeout(timer); mouth(false); };
     const wait = Math.max(MIN_TALK_MS, String(text).length * READ_MS_PER_CHAR);
+    // さきに サーバーの 自然な 声（speech.js の playVoice）。だめなら 下の 端末の 声。
+    timer = setTimeout(stop, wait + 8000);
+    try { globalThis.speechSynthesis?.cancel(); } catch { /* */ }
+    playVoice(text, { onend: stop, fallback: () => { clearTimeout(timer); device(text, stop, wait); } });
+  }
+
+  function device(text, stop, wait) {
     const synth = globalThis.speechSynthesis;
     if (!synth || typeof SpeechSynthesisUtterance !== 'function') {
       timer = setTimeout(stop, wait);
@@ -78,6 +85,7 @@ export function createCharacter({ stage, idle, talk, line, lang = 'en-US', rate 
 
   function hush() {
     clearTimeout(timer);
+    stopVoice();
     try { globalThis.speechSynthesis?.cancel(); } catch { /* nothing to stop */ }
     mouth(false);
   }

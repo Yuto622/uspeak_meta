@@ -54,6 +54,7 @@ import { createTaskCard } from './tasks.js';
 import { createTaskGuide } from './task-guide.js';
 import { createPremiumPromo } from './premium.js';
 import { createHomework } from './homework.js';
+import { sfx } from './sfx.js';
 
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
   let fwAutoAt = ''; // いま 自動で つりはじめた 水辺（はなれると 空に もどる）
@@ -604,7 +605,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('notice', (m) => toast(m.text));
     for (const type of ['class:state', 'class:toast', 'class:reviewStarted', 'class:result', 'class:pause', 'class:resume', 'class:incoming', 'class:arrived', 'class:goto',
       'review:offer', 'review:start', 'review:none', 'review:result', 'review:done', 'review:error']) {
-      r.onMessage(type, (m) => { if (m?.wallet) applyWallet(m.wallet); classMode.handle(type, m || {}); });
+      r.onMessage(type, (m) => { if (m?.wallet) applyWallet(m.wallet); if (type === 'review:result') sfx.judge(m?.ok); classMode.handle(type, m || {}); });
     }
     r.onMessage('chat', (m) => onChat(m));
     r.onMessage('chat:blocked', (m) => chat.blocked(m.reason, m.max));
@@ -612,19 +613,19 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('teacher:ack', (m) => teacher.onAck(m));
     r.onMessage('xp', (m) => applyProgress(m, m.levels));
     r.onMessage('quiz:question', (m) => quiz.onQuestion(m));
-    r.onMessage('quiz:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); quiz.onResult(m); });
+    r.onMessage('quiz:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); sfx.judge(m.correct); quiz.onResult(m); });
     r.onMessage('quiz:closed', (m) => quiz.onClosed(m));
     r.onMessage('quiz:error', (m) => quiz.onError(m));
     r.onMessage('gym:question', (m) => gym.onQuestion(m));
-    r.onMessage('gym:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); gym.onResult(m); });
+    r.onMessage('gym:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); sfx.judge(m.correct); gym.onResult(m); });
     r.onMessage('gym:closed', (m) => gym.onClosed(m));
     r.onMessage('gym:error', (m) => gym.onError(m));
     r.onMessage('eiken:question', (m) => eiken.onQuestion(m));
-    r.onMessage('eiken:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); eiken.onResult(m); });
+    r.onMessage('eiken:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); sfx.judge(m.correct); eiken.onResult(m); });
     r.onMessage('eiken:closed', (m) => eiken.onClosed(m));
     r.onMessage('eiken:error', (m) => eiken.onError(m));
     r.onMessage('interview:card', (m) => interview.onCard(m));
-    r.onMessage('interview:turn', (m) => { applyProgress(m.progress); interview.onTurn(m); });
+    r.onMessage('interview:turn', (m) => { applyProgress(m.progress); sfx.judge(m.correct); interview.onTurn(m); });
     r.onMessage('interview:done', (m) => { applyWallet(m.wallet); applyProgress(m.progress); interview.onDone(m); });
     r.onMessage('interview:closed', (m) => interview.onClosed(m));
     r.onMessage('interview:error', (m) => interview.onError(m));
@@ -658,7 +659,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('gp:error', (m) => gp.onError(m));
     r.onMessage('dash:state', (m) => dash.onState(m));
     r.onMessage('quick:question', (m) => quick.onQuestion(m));
-    r.onMessage('quick:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); quick.onResult(m); });
+    r.onMessage('quick:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); sfx.judge(m.correct); quick.onResult(m); });
     r.onMessage('quick:error', (m) => quick.onError(m));
     r.onMessage('quick:closed', (m) => quick.onClosed(m));
     r.onMessage('wear:shop', (m) => { wardrobe.onShop(m); dressMe(m.worn, wardrobe.table); });
@@ -668,17 +669,17 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('wear:error', (m) => wardrobe.onError(m));
     r.onMessage('farm:state', (m) => { if (m.wallet) applyWallet(m.wallet); farm.onState(m); });
     r.onMessage('farm:ask', (m) => farm.onAsk(m));
-    r.onMessage('farm:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress, m.levels); farm.onResult(m); });
+    r.onMessage('farm:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress, m.levels); sfx.judge(m.correct); farm.onResult(m); });
     r.onMessage('farm:error', (m) => farm.onError(m));
     r.onMessage('fw:state', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onState(m); });
     r.onMessage('fw:ask', (m) => fishworld.onAsk(m));
-    r.onMessage('fw:result', (m) => { if (m.progress) applyProgress(m.progress, m.levels); fishworld.onResult(m); });
+    r.onMessage('fw:result', (m) => { if (m.progress) applyProgress(m.progress, m.levels); sfx.judge(m.correct); fishworld.onResult(m); });
     r.onMessage('fw:catch', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onCatch(m); });
     r.onMessage('hw:list', (m) => homework.onList(m));
     r.onMessage('rm:state', (m) => roadmap.onState(m));
     r.onMessage('rm:up', (m) => { if (m.wallet) applyWallet(m.wallet); roadmap.onUp(m); });
     r.onMessage('hw:ask', (m) => homework.onAsk(m));
-    r.onMessage('hw:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); homework.onResult(m); });
+    r.onMessage('hw:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); sfx.judge(m.correct); homework.onResult(m); });
     r.onMessage('hw:done', (m) => homework.onDone(m));
     r.onMessage('hw:error', (m) => homework.onError(m));
     r.onMessage('fw:sold', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onSold(m); });
@@ -696,7 +697,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('food:bought', (m) => food.onBought(m));
     r.onMessage('food:ate', (m) => food.onAte(m));
     r.onMessage('food:error', (m) => food.onError(m));
-    r.onMessage('wh:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress, m.levels); wordhouse.onResult(m); });
+    r.onMessage('wh:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress, m.levels); sfx.judge(m.correct); wordhouse.onResult(m); });
     r.onMessage('wh:error', (m) => wordhouse.onError(m));
     r.onMessage('farm:board', (m) => farm.onBoard(m));
     r.onMessage('voice:room', (m) => voice.onRoom(m));
@@ -708,7 +709,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('rtc:signal', (m) => voice.onSignal(m));
     r.onMessage('battle:state', (m) => battle.onState(m));
     r.onMessage('battle:quiz', (m) => battle.onQuiz(m));
-    r.onMessage('battle:turn', (m) => { if (m.wallet) applyWallet(m.wallet); battle.onTurn(m); });
+    r.onMessage('battle:turn', (m) => { if (m.wallet) applyWallet(m.wallet); sfx.judge(m.quiz?.correct); battle.onTurn(m); });
     r.onMessage('battle:closed', (m) => battle.onClosed(m));
     r.onMessage('battle:error', (m) => battle.onError(m));
     r.onMessage('fish:learned', (m) => { state.move = m.move; if (m.wallet) applyWallet(m.wallet); dojo.onLearned(m); });
