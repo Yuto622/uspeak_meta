@@ -4756,12 +4756,22 @@ export class ClassRoom extends Room {
     }, config.reviewOfferDelayMs);
   }
 
+  homeworkResume(name) {
+    const open = this.homework.listFor(this.classCode, name).filter((h) => !h.done && h.answered > 0);
+    if (!open.length) return null;
+    const at = (h) => Math.max(0, ...Object.values(this.homework.progressOf(this.classCode, name, h.id)?.answers || {}).map((x) => x.at || 0));
+    const h = open.sort((x, y) => at(y) - at(x))[0];
+    return { id: h.id, title: h.title, answered: h.answered, total: h.total };
+  }
+
   welcomePayload(sessionId, restored, position) {
     const priv = this.priv.get(sessionId);
     const player = this.state.players.get(sessionId);
     return {
       sessionId, role: player.role, classCode: this.classCode, restored, position, onRoster: !!priv?.onRoster,
       homework: this.homework ? this.homework.listFor(this.classCode, priv.name).filter((h) => !h.done).length : 0,
+      // とちゅうで やめた 宿題（いちばん 新しく さわった もの）。入った ときに「まえの つづき」を 出す。
+      homeworkResume: this.homework ? this.homeworkResume(priv.name) : null,
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
       food: foodPayload(priv.food),
       tasks: this.taskPayload(sessionId),

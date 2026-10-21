@@ -4,6 +4,7 @@
 //   progress: { '<クラス>|<名前>|<宿題の id>': { answers: { <問題の id>: { ok, tries, at } }, startedAt, doneAt, paid } } }
 // **draft は 子どもに 出ない。** 先生が admin で たしかめて「くばる」を 押すと published に なる。
 // **宿題は クラスコードごとに くばる**：クラスの ない 宿題は 保存も くばるも できない（どの クラスにも 出ない）。
+import { writeJsonFile } from '../store/write-json.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { checkItems, wordOf, KIND_JA } from './items.js';
@@ -38,10 +39,7 @@ export class HomeworkStore {
     this.updatedAt = this.now();
     if (!this.file) return;
     const body = JSON.stringify({ updatedAt: this.updatedAt, assignments: this.assignments, progress: this.progress });
-    await fs.mkdir(path.dirname(this.file), { recursive: true });
-    const tmp = `${this.file}.${process.pid}.tmp`;
-    await fs.writeFile(tmp, body);
-    await fs.rename(tmp, this.file);
+    await writeJsonFile(this.file, body);
   }
 
   get(id) { return this.assignments.find((a) => a.id === id) || null; }

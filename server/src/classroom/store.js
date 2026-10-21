@@ -6,6 +6,7 @@
 //
 // パスワードは そのまま のこさない：key = HMAC-SHA256(秘密, パスワード)。秘密は REPORT_SECRET（サーバーだけ）。
 // 同じ パスワードは 2 つの 教室に つけられない（パスワードで 教室を さがすので）。
+import { writeJsonFile } from '../store/write-json.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHmac, randomBytes, randomUUID } from 'node:crypto';
@@ -39,10 +40,7 @@ export class ClassroomStore {
 
   async flush() {
     if (!this.file) return;
-    await fs.mkdir(path.dirname(this.file), { recursive: true });
-    const tmp = `${this.file}.${process.pid}.tmp`;
-    await fs.writeFile(tmp, JSON.stringify({ rooms: this.rooms }));
-    await fs.rename(tmp, this.file);
+    await writeJsonFile(this.file, JSON.stringify({ rooms: this.rooms }));
   }
 
   keyOf(password) { return createHmac('sha256', this.secret).update(`classroom|${String(password)}`).digest('hex'); }

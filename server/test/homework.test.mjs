@@ -232,6 +232,33 @@ test('宿題の コイン：その日の 上限で もらえなかった 宿題�
   await sleep(50);
 });
 
+test('宿題の 再開と 保存：とちゅうで ぬけても 答えは のこり、入りなおすと「まえの つづき」と つづきから', async () => {
+  const { Client } = await import('colyseus.js');
+  const hw = server.homework;
+  const items = [{ kind: 'mc', en: 'cat', ja: 'ねこ' }, { kind: 'mc', en: 'dog', ja: 'いぬ' }, { kind: 'mc', en: 'bird', ja: 'とり' }];
+  const { assignment: a } = await hw.create({ title: 'どうぶつ', classes: 'hwres', items });
+  await hw.publish(a.id, true);
+  let room = await new Client(url).joinOrCreate('class', { classCode: 'hwres', name: 'Kai' });
+  let welcome = await nextMessage(room, 'welcome');
+  assert.equal(welcome.homeworkResume, null, 'まだ はじめて いない ときは 出ない');
+  room.send('hw:start', { aid: a.id });
+  const ask = await nextMessage(room, 'hw:ask');
+  const first = items.find((it) => it.en === ask.format.word);
+  room.send('hw:answer', { qid: ask.qid, answer: first.ja });
+  await nextMessage(room, 'hw:result');
+  await room.leave(); await sleep(80);
+  // 同時に たくさん 書いても ファイルは こわれない
+  await Promise.all(Array.from({ length: 20 }, () => hw.flush()));
+  room = await new Client(url).joinOrCreate('class', { classCode: 'hwres', name: 'Kai' });
+  welcome = await nextMessage(room, 'welcome');
+  assert.deepEqual(welcome.homeworkResume, { id: a.id, title: 'どうぶつ', answered: 1, total: 3 });
+  room.send('hw:start', { aid: a.id });
+  const next = await nextMessage(room, 'hw:ask');
+  assert.equal(next.index, 2, 'つづきから（1 問目は もう 出ない）');
+  assert.notEqual(next.format.word, first.en);
+  await room.leave(); await sleep(50);
+});
+
 test('LINE の 週・月 レポート：期間の まとめ（提出・しめきり・正解率・形ごと・まちがえた ことば）→ 画像の 1 行・PDF の 2 まいめ・吹き出し', async () => {
   const { weeklyTex, monthlyTex } = await import('../src/parent-report/render-tex.js');
   const { weeklyData, monthlyData } = await import('../src/parent-report/aggregate.js');

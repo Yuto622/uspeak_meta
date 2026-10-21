@@ -114,5 +114,28 @@ export function createHomework({ send, speak = null, toast = () => {}, isOnline 
     if (m?.reason === 'no such homework' || m?.reason === 'gone') { toast(tr('その しゅくだいは もう ないよ。')); state.view = 'list'; send('hw:list'); }
   }
 
-  return { open, close, onList, onAsk, onResult, onDone, onError, get isOpen() { return dialog.open; } };
+  // 入った ときの「まえの つづき」：とちゅうで やめた 宿題を その場で つづきから（しゅくだい島へ 行かなくて いい）。
+  let resumeCard = null;
+  function offerResume(r) {
+    if (!r?.id || !isOnline()) return;
+    resumeCard?.remove();
+    resumeCard = document.createElement('div');
+    resumeCard.className = 'hw-resume';
+    resumeCard.setAttribute('role', 'status');
+    resumeCard.innerHTML = `<span class="hw-resume-ic" aria-hidden="true">📚</span><span class="hw-resume-text"><b>${esc(tr('まえの つづき'))}</b><small><span translate="no">${esc(r.title)}</span> ${esc(tr('{0} / {1} もん', [r.answered, r.total]))}</small></span>
+      <button type="button" class="hw-resume-go">${esc(tr('つづける'))} →</button><button type="button" class="hw-resume-x" aria-label="とじる" data-t-label="とじる">✕</button>`;
+    document.body.append(resumeCard);
+    applyDom(resumeCard);
+    const off = () => { resumeCard?.remove(); resumeCard = null; };
+    resumeCard.querySelector('.hw-resume-x').onclick = off;
+    resumeCard.querySelector('.hw-resume-go').onclick = () => {
+      off();
+      if (!open()) return;
+      state.view = 'ask';
+      send('hw:start', { aid: r.id });
+    };
+    setTimeout(off, 30000);
+  }
+
+  return { open, close, onList, onAsk, onResult, onDone, onError, offerResume, get isOpen() { return dialog.open; } };
 }

@@ -571,7 +571,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       eiken.setLevel(r.state?.eikenLevel);
       if (m.wallet) applyWallet(m.wallet);
       // まだ おわって いない 宿題が あれば 1 回 おしらせ（しゅくだい島で とける）。
-      if (m.homework > 0 && !m.restored) setTimeout(() => toast(tr('📚 しゅくだいが {0} こ あるよ。しゅくだい島へ いこう！', [m.homework])), 4000);
+      // とちゅうの 宿題が あれば「まえの つづき」の カード（おすと その場で つづきから）。なければ 数の おしらせ。
+      if (m.homeworkResume && !m.restored) setTimeout(() => homework.offerResume(m.homeworkResume), 3500);
+      else if (m.homework > 0 && !m.restored) setTimeout(() => toast(tr('📚 しゅくだいが {0} こ あるよ。しゅくだい島へ いこう！', [m.homework])), 4000);
       // Roblox の学習データ（自分のぶん）。リンクが来たときだけボタンが出る。
       const rb = document.getElementById('roblox-button');
       if (rb) { if (m.robloxReport) { rb.href = /^https?:/i.test(m.robloxReport) ? m.robloxReport : location.origin + m.robloxReport; rb.hidden = false; } else rb.hidden = true; }
@@ -1226,7 +1228,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     farmLabel: (spot) => farm.label(spot),
     farm,
     petLabel: (spot) => petUI.label(spot),
-    town, myRoom, myPlaza, voice, conv, race,
+    town, myRoom, myPlaza, voice, conv, race, daily,
     // Whichever of the two a child is standing in. The page's E and Q keys work on it.
     get builder() { return myRoom.active ? myRoom : myPlaza.active ? myPlaza : null; },
     townInteract: () => { const near = rpg.townNearby(); if (near) town.enter(near.spot); },

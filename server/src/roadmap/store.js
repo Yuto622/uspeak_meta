@@ -3,6 +3,7 @@
 // { classes: { '<クラス>' | '*': { start: 'A', stages: { '<段階>': { en, ja, note, words: [...] } } } },
 //   students: { '<クラス>|<名前>': { stage, since, paid: ['B', …], history: [{ from, to, at, by }] } } }
 // '*' は クラスの 設定が ない ときの 既定（教室ぜんぶ）。段階の 計算は game/roadmap.js、ここは 書いて 読むだけ。
+import { writeJsonFile } from '../store/write-json.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { STAGE_IDS, DEFAULT_STAGES } from '../game/roadmap.js';
@@ -37,10 +38,7 @@ export class RoadmapStore {
   async flush() {
     this.updatedAt = this.now();
     if (!this.file) return;
-    await fs.mkdir(path.dirname(this.file), { recursive: true });
-    const tmp = `${this.file}.${process.pid}.tmp`;
-    await fs.writeFile(tmp, JSON.stringify({ updatedAt: this.updatedAt, classes: this.classes, students: this.students }));
-    await fs.rename(tmp, this.file);
+    await writeJsonFile(this.file, JSON.stringify({ updatedAt: this.updatedAt, classes: this.classes, students: this.students }));
   }
 
   // その クラスの 設定（無ければ '*'、それも 無ければ null＝既定）。

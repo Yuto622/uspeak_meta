@@ -3,6 +3,7 @@
 // 中身は DATA_DIR/qbank.json（リポジトリには 置かない：答えつきの 問題を 公開しない）。
 // 1 行 ＝ 1 問。`web` が ○ の 問題は 英検の島（eiken.js）の 出題に まざり、`roblox` が ○ の 問題は
 // GET /api/roblox/questions で Roblox が 取りにくる。`on` を 外すと どちらにも 出ない。
+import { writeJsonFile } from '../store/write-json.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -165,9 +166,6 @@ export class QBankStore {
   async flush() {
     if (!this.file) return;
     const body = JSON.stringify({ version: 1, updatedAt: this.updatedAt, items: this.items });
-    const tmp = `${this.file}.${process.pid}.tmp`;
-    await fs.mkdir(path.dirname(this.file), { recursive: true });
-    await fs.writeFile(tmp, body);
-    await fs.rename(tmp, this.file);
+    await writeJsonFile(this.file, body);
   }
 }

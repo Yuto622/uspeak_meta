@@ -1260,7 +1260,8 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   `problemOf()` が「出せない 理由」を 返し、admin の 表で 赤く なる。出せない 問題が 1 つでも あれば くばれない。出題の たびに formats-core の build* で 作りなおし、判定も `checkFormat`（つり島と 同じ `answer()`：1 回 まちがえたら もう 1 回）。
 - **部屋**（`ClassRoom` の `hw:list` / `hw:start {aid, redo}` / `hw:answer` / `hw:next` / `hw:quit`）。1 回目で 正解＝○、答えを 見てから・2 回 まちがい＝×（「まちがえた ところを もう いちど」で ○ に なる）。
   1 問 3 XP、はじめて ぜんぶ おわったら 20 コイン（1 日 60 まで、caps の `homework`）。**上限の 日に おえた 宿題は「はらった」に しない**（`payHomework`）ので、つぎに 一覧・宿題を ひらいた ときに はらう（`payOwedHomework` → `wallet`）。記録は 学習ログ（`hw-<形>`）と `robloxEvent('quiz', 'homework', {level:'Homework', format, word})`＝苦手単語の 復習・先生の /class にも のる。
-  welcome の `homework`（のこりの 数）で 1 回 おしらせ。
+  welcome の `homework`（のこりの 数）で 1 回 おしらせ。**とちゅうで やめた 宿題が あれば** welcome の `homeworkResume`（いちばん 新しく さわった もの）で「📚 まえの つづき ○/○ もん つづける →」の カード（`homework.offerResume`・30 秒で きえる）。おすと その場で つづきから（しゅくだい島へ 行かなくて いい）。
+  **保存**：1 問 おえる たびに `DATA_DIR/homework.json` に 書く（とちゅうで ぬけても・サーバーが 再起動しても のこる）。書きこみは `store/write-json.js` が 同じ ファイルごとに 1 本ずつ 順番に する（前は 同時に 答えると 同じ 一時ファイルを 2 つが 書いて こわれる おそれが あった。ロードマップ・教室・タスク・問題DB も 同じ）。
 - **admin の 一覧は クラスごと**（`/admin/homework` の「クラス」。名簿の クラスと 宿題に 書いた クラスを `classKeyOf` で そろえて ならべる）。えらんだ クラスは この ブラウザに 覚え（`uspeak-admin-hw-class`）、新しく 読みとった 宿題の クラスにも 入る。**クラスは かならず**（`store.js` の create/update/publish が クラス なしを ことわる・admin でも 止める）。宿題は 書いた クラスの 子にだけ 出る（`forClass` は クラスが 入って いる ものだけ。前の「クラス なし＝全員」は もう ない）。クラス なしの 古い 宿題は 一覧の「⚠ クラスが きまって いない」に 出るので「なおす」で クラスを 入れる。
 - **しゅくだい島**（`homework-island.js` + `homework.json`、HUBS の `homework`）：いえ 1 けん（戸口で `homework.open()`）・黒板・本の 山・えんぴつ。画面は `homework.js` + `homework.css`（一覧 → 1 問 → おわり）。オンラインの ときだけ。
 - **英会話教室の 先生の 画面 `/teacher/homework`**（運営の /admin とは べつ・`server/src/classroom/teacher.js`）：教室の **パスワード 1 つ** で 入る。パスワードで 教室（＝クラスコード）が きまり、その 教室の クラスの 宿題だけ 見えて・作れて・くばれる（クラスコードは 入れない。1 クラスの 教室は 欄も 出ない）。どの クラスを さわれるかは サーバーが きめる（`mountHomeworkApi` の scope。よその 宿題は 403、ほかの 教室と まざった 宿題は 見るだけ）。読みとり（AI）は 1 教室 1 時間 40 回まで。

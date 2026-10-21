@@ -2,6 +2,7 @@
 // 中身は 運営者が /admin/tasks で 入れかえ・書きかえ する。記録は DATA_DIR/tasks.json（Fly の ボリューム）。
 // ファイルが 無い ときは 同じ フォルダの seed.json（設計シートと 同じ 中身）から 始める。
 // 書くのは tmp に 書いてから rename（とちゅうで 落ちても 壊れない）。file が 無ければ メモリだけ（テスト）。
+import { writeJsonFile } from '../store/write-json.js';
 import { promises as fs, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -164,10 +165,7 @@ export class TaskStore {
   async flush() {
     if (!this.file) return;
     const body = JSON.stringify({ version: 2, updatedAt: this.updatedAt, tables: this.tables });
-    const tmp = `${this.file}.${process.pid}.tmp`;
-    await fs.mkdir(path.dirname(this.file), { recursive: true });
-    await fs.writeFile(tmp, body);
-    await fs.rename(tmp, this.file);
+    await writeJsonFile(this.file, body);
   }
 }
 
