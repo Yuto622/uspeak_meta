@@ -544,7 +544,7 @@
   #hunger .hg-cap, #hunger .hg-go { display: none; }
   #hunger .hg-icons { order: 0; flex-basis: auto; }
   #hunger .hg-icons i { width: 10px; font-size: 11px; }
-  #hunger-notice { top: calc(56px + env(safe-area-inset-top)); max-width: min(440px, 50vw); }
+  #hunger-notice { top: calc(56px + env(safe-area-inset-top)); bottom: auto; height: auto; max-width: min(440px, 50vw); }
 
   /* 右の 列：絵だけの まるい ボタン */
   .right-rail {
