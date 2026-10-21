@@ -100,9 +100,30 @@ export function createLine({
 // ---- 吹き出しを 作る ------------------------------------------------------------------------
 // 1 人ぶん：画像（毎週版）＋ ボタン［PDFで見る］（月の まとめが あれば もう 1 つ）。
 // 本文は「{ニックネーム}さんの英語きろく（期間）」だけ。宣伝・告知は 一切 入れない。
-export function childMessages({ nick, range, sender, png, thumb, pdf, monthlyPdf = '', altText }) {
+// 宿題の すすみぐあい（その 期間）を 1 つの 吹き出しに。数字は homework/store.js の periodSummary。
+const md = (d) => (d ? `${Number(d.slice(5, 7))}/${Number(d.slice(8, 10))}` : '');
+export function homeworkText(hw, { nick = '', range = '' } = {}) {
+  if (!hw || !hw.total) return '';
+  const lines = [`📚 ${nick}さんの宿題（${range}）`];
+  lines.push(`提出 ${hw.done} / ${hw.total}${hw.done ? `（しめきりまでに ${hw.onTime}）` : ''}${hw.overdue ? `・しめきり すぎ ${hw.overdue}` : ''}`);
+  for (const r of hw.rows.slice(0, 8)) {
+    const st = r.status === 'done' ? `✅ ${r.correct}/${r.total}問 正解（${r.score}%）${r.doneDay ? ` ${md(r.doneDay)}提出` : ''}${r.late ? '・おくれて提出' : ''}`
+      : r.overdue ? `⏰ しめきり すぎ ${r.answered}/${r.total}問` : r.status === 'doing' ? `とちゅう ${r.answered}/${r.total}問` : 'まだ';
+    lines.push(`・${r.title}：${st}${r.due && r.status !== 'done' ? `　しめきり ${md(r.due)}` : ''}`);
+  }
+  if (hw.rows.length > 8) lines.push(`ほか ${hw.rows.length - 8} 件`);
+  if (hw.answered) lines.push(`この期間に答えた問題 ${hw.answered}問・正解率 ${hw.accuracy}%${hw.minutes ? `・取り組んだ時間 約${hw.minutes}分` : ''}${hw.days ? `（${hw.days}日）` : ''}`);
+  if (hw.answered) lines.push(`1回で正解 ${hw.firstTry}問・やり直し ${hw.retries}回${hw.avgScore !== null ? `・提出した宿題の平均 ${hw.avgScore}%` : ''}`);
+  const kinds = hw.byKind.filter((k) => k.n >= 2).map((k) => `${k.ja} ${Math.round((k.ok / k.n) * 100)}%`);
+  if (kinds.length) lines.push(`形ごとの正解率：${kinds.join('・')}`);
+  if (hw.missed.length) lines.push(`もう一度練習したいことば：${hw.missed.slice(0, 8).join(', ')}`);
+  return lines.join('\n').slice(0, 4800);
+}
+
+export function childMessages({ nick, range, sender, png, thumb, pdf, monthlyPdf = '', altText, homework = '' }) {
   const out = [];
   if (png) out.push({ type: 'image', originalContentUrl: png, previewImageUrl: thumb || png });
+  if (homework) out.push({ type: 'text', text: homework });
   const actions = [];
   if (pdf) actions.push({ type: 'uri', label: 'PDFで見る', uri: pdf });
   if (monthlyPdf) actions.push({ type: 'uri', label: '月のまとめ(PDF)', uri: monthlyPdf });

@@ -1257,6 +1257,24 @@
     "en": "Build in BLOCKWILD",
     "ja": "BLOCKWILD で たてる",
     "icon": "⛏"
+   },
+   {
+    "id": "homework_house",
+    "kind": "homework",
+    "x": 38.5,
+    "z": 8,
+    "path": {
+     "x": 38.5,
+     "z": 16
+    },
+    "color": 15250262,
+    "roof": 9068090,
+    "w": 8,
+    "d": 6.4,
+    "icon": "📚",
+    "character": "Upee",
+    "en": "Homework House",
+    "ja": "しゅくだいの いえ"
    }
   ],
   "deco": [

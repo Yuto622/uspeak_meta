@@ -5,7 +5,7 @@
 // **draft は 子どもに 出ない。** 先生が admin で たしかめて「くばる」を 押すと published に なる。
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { checkItems } from './items.js';
+import { checkItems, wordOf, KIND_JA } from './items.js';
 
 const MAX_ASSIGNMENTS = 500;
 const str = (v, max = 80) => String(v ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -142,6 +142,65 @@ export class HomeworkStore {
   }
   listFor(classCode, name, now = this.now()) {
     return this.forClass(classCode).map((a) => this.summaryOf(a, this.progressOf(classCode, name, a.id), now));
+  }
+
+  // 保護者レポート（LINE の 週・月）：その 期間の 宿題の すすみぐあいを ぜんぶ。
+  //   period = { start, end }（ミリ秒）。期間中に くばられて いた 宿題（くばった 日が 期間の おわりより 前で、
+  //   しめきりが 期間の はじまり 以降 か しめきり なし で まだ おわって いない、または 期間中に おわった もの）。
+  periodSummary(classCode, name, period) {
+    const { start, end } = period;
+    const dayOf = (ms) => jstDay(ms);
+    const startDay = dayOf(start); const endDay = dayOf(end);
+    const list = this.forClass(classCode).filter((a) => (a.publishedAt || 0) <= end).map((a) => ({ a, p: this.progressOf(classCode, name, a.id) }))
+      .filter(({ a, p }) => (p?.doneAt ? p.doneAt >= start : true) && (!a.due || a.due >= startDay || !p?.doneAt));
+    const byKind = {};
+    const missed = [];
+    let answered = 0; let correct = 0; let tries = 0; let firstTry = 0;
+    const stamps = [];
+    const rows = list.map(({ a, p }) => {
+      const sum = this.summaryOf(a, p, end);
+      for (const it of a.items) {
+        const ans = p?.answers?.[it.id];
+        if (!ans) continue;
+        const k = it.kind;
+        byKind[k] = byKind[k] || { kind: k, ja: KIND_JA[k] || k, n: 0, ok: 0 };
+        byKind[k].n += 1; if (ans.ok) byKind[k].ok += 1;
+        if (ans.at >= start && ans.at <= end) {
+          answered += 1; if (ans.ok) correct += 1;
+          tries += ans.tries; if (ans.ok && ans.tries === 1) firstTry += 1;
+          stamps.push(ans.at);
+        }
+        if (!ans.ok) { const w = wordOf(it) || it.answer || it.en || it.sentence; if (w && !missed.includes(w)) missed.push(w); }
+      }
+      const doneDay = p?.doneAt ? dayOf(p.doneAt) : '';
+      return {
+        ...sum, doneDay,
+        onTime: !!p?.doneAt && (!a.due || doneDay <= a.due),
+        late: !!p?.doneAt && !!a.due && doneDay > a.due,
+        overdue: !p?.doneAt && !!a.due && a.due < (endDay < dayOf(Date.now()) ? endDay : dayOf(Date.now())),
+        status: p?.doneAt ? 'done' : (sum.answered ? 'doing' : 'todo'),
+      };
+    });
+    // とりくんだ 時間（答えと 答えの あいだが 3 分 以内なら つづけて やって いた とみなす）
+    stamps.sort((x, y) => x - y);
+    let ms = 0;
+    for (let i = 1; i < stamps.length; i += 1) { const gap = stamps[i] - stamps[i - 1]; if (gap <= 180000) ms += gap; }
+    const days = new Set(stamps.map(dayOf)).size;
+    return {
+      total: rows.length,
+      done: rows.filter((r) => r.done).length,
+      onTime: rows.filter((r) => r.onTime).length,
+      late: rows.filter((r) => r.late).length,
+      overdue: rows.filter((r) => r.overdue).length,
+      doing: rows.filter((r) => r.status === 'doing').length,
+      todo: rows.filter((r) => r.status === 'todo').length,
+      answered, correct, accuracy: answered ? Math.round((correct / answered) * 100) : null,
+      firstTry, retries: Math.max(0, tries - answered), minutes: Math.round(ms / 60000), days,
+      avgScore: rows.filter((r) => r.done).length ? Math.round(rows.filter((r) => r.done).reduce((n, r) => n + r.score, 0) / rows.filter((r) => r.done).length) : null,
+      byKind: Object.values(byKind).sort((x, y) => y.n - x.n),
+      missed: missed.slice(0, 12),
+      rows: rows.sort((x, y) => (x.due || '9999').localeCompare(y.due || '9999')),
+    };
   }
 
   // 先生の 画面：その 宿題を やった 子の 一覧。

@@ -47,6 +47,7 @@ const COPY = {
   gate_rpg: ['The RPG quest: meet buddies with English.', 'RPG の ぼうけん。えいごで なかまに であう。'],
   gate_build: ['Build with blocks.', 'ブロックで たてものを つくる。'],
   gate_park: ['The Theme Park: rides and fireworks.', 'テーマパーク：のりものと はなび。'],
+  homework_house: ['Do the homework your teacher handed out. Same as Homework Island.', '先生が くばった しゅくだいを とく。しゅくだい島と おなじ。'],
 };
 const SCENERY = {
   GinjiDenki: ['📺', 'Electronics'], JijiBooks: ['📚', 'Books'], MogumoBurger: ['🍔', 'Burgers'], HibanaPizza: ['🍕', 'Pizza'],
@@ -383,6 +384,8 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     // たてる ばしょ → BLOCKWILD（ブロックの 世界。オフラインでも 開く）。
     if (spot.kind === 'blockwild') { shops.blockwild?.open(); return true; }
     if (spot.kind === 'word_house') { wordhouse.open(spot.house || spot.id); return true; }
+    // しゅくだいの いえ（しゅくだい島の いえと 同じ 画面。オフラインなら その 画面が ことわる）。
+    if (spot.kind === 'homework') { shops.homework?.open(); return true; }
     if (spot.kind === 'level_sign') {
       const next = toggleEasyLevel();
       toast(tr('レベルを {lv} に かえたよ', { lv: LEVEL_LABEL[next][0] }));
@@ -408,6 +411,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     block_shop: () => tr('🧱 ブロックを 見る'),
     land_shop: () => tr('🏠 いえを 見る'),
     blockwild: () => '⛏ BLOCKWILD',
+    homework: () => `📚 ${tr('しゅくだいを する')}`,
     talk_shop: (sp) => ((rpg.premiumLock || []).includes('talkshops') ? `🔒 ${tr('プレミアム')}` : rpg.insideBuilding ? `🗣 ${tr('英語で はなす')}` : `🚪 ${tr('はいる')}`),
     gate: (sp) => `🌀 ${isJa() ? String(sp.ja || '').replace(/への ゲート$/, '') : sp.character} →`,
   };

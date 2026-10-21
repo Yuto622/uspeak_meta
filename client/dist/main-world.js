@@ -105,7 +105,7 @@ export function createMainWorld({ scene }) {
           D(def.x + 1.2, 1.5, def.z + 2.5, 0.08, 0.08, 2.2, 0x6d543a);
           D(def.x - 1.1, 0.55, def.z + 1.6, 0.7, 0.6, 0.7, 0x5a8fb0);
           sprite({ en: '🎣 Fishing Pier', ja: '🎣 つり場' }, def.x, 3.2, def.z + 2.4, { width: 6, size: 30 });
-        } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop' || def.kind === 'talk_shop') {
+        } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop' || def.kind === 'talk_shop' || def.kind === 'homework') {
           // 専用の島と 同じ お店（中に入ると その島の 3D の メニュー）。
           house(def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color, Number(def.roof), { en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` });
           facade(def.decor || def.kind, def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color);
@@ -181,6 +181,18 @@ export function createMainWorld({ scene }) {
             D(R - 0.5, 0.75, fz, 0.9, 1.5, 0.9, 0xf3f5f8); D(R - 0.5, 0.85, fz + 0.46, 0.6, 0.6, 0.04, 0x8ab4d8, 0.6);
             D(R + 0.5, 1.05, fz, 0.8, 2.1, 0.8, 0xdfe6ee); D(R + 0.5, 1.4, fz + 0.41, 0.06, 0.6, 0.04, 0x9aa4b0);
             solid(R, fz, 1, 0.5);
+            break;
+          }
+          case 'homework': {
+            // 屋根に 大きな えんぴつと ノート。わきに 黒板と ランドセル（宿題の いえ と 分かる）。
+            D(x, roofY + 0.25, front - 1.4, 3.0, 0.3, 2.2, 0xfffbf0); D(x, roofY + 0.42, front - 1.4, 0.12, 0.05, 2.2, 0xd9483b);
+            for (let i = 0; i < 4; i += 1) D(x - 1.1 + i * 0.7, roofY + 0.42, front - 1.4, 0.5, 0.04, 1.8, 0x9fc3e6);
+            D(x + 0.9, roofY + 1.6, front - 1.4, 0.45, 2.4, 0.45, 0xf0c84a); D(x + 0.9, roofY + 3.0, front - 1.4, 0.45, 0.45, 0.45, 0xe9b48a);
+            D(x + 0.9, roofY + 3.3, front - 1.4, 0.18, 0.2, 0.18, 0x333333); D(x + 0.9, roofY + 0.32, front - 1.4, 0.48, 0.25, 0.48, 0xe58fa0);
+            D(L, 1.1, fz, 1.4, 1.2, 0.12, 0x2f5d48); D(L, 1.1, fz + 0.07, 1.2, 1.0, 0.02, 0x3c6b55);
+            for (const sx of [-0.55, 0.55]) D(L + sx, 0.5, fz - 0.25, 0.08, 1, 0.08, 0x6f5b3e);
+            D(R, 0.55, fz, 0.9, 1.0, 0.6, 0xc8423a); D(R, 1.0, fz + 0.32, 0.9, 0.3, 0.06, 0x8f2a24);
+            solid(L, fz, 0.8, 0.4); solid(R, fz, 0.6, 0.4);
             break;
           }
           case 'books': {
@@ -421,9 +433,9 @@ export function createMainWorld({ scene }) {
       tile(dec.x, dec.z, dec.w || 3, dec.d || 2.4, '#e9dcc0');
     }
     // 入れる場所：建物の タイル ＋ 色の まるに 絵。
-    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', talk_shop: '#4fae6b', blockwild: '#b5603a' };
+    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a' };
     const GATE = { park: '🎡', ride: '🏁', town: '🧱', meadow: '🏰', fishworld: '🌊' };
-    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣' };
+    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', homework: '📚' };
     for (const sp of d.spots) {
       if (sp.kind === 'word_house') tile(sp.x, sp.z - 4.6, 8.4, 6.4, '#f2b98a');
       else if (sp.w && sp.d) tile(sp.x, sp.z - 1.1 - sp.d / 2, sp.w, sp.d, '#efe2c6');

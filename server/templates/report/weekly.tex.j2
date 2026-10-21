@@ -15,6 +15,9 @@
 {\color{white}\fontsize{11}{13}\selectfont {{ range }}}
 \vspace{3.6mm}
 
+% 中身が 1 まいに 入りきらない 週は、ぜんたいを すこし 小さく して 入れる（LINE の 画像は 1 まいめだけ）。
+\par\newsavebox{\bodybox}\newlength{\bodymax}\setlength{\bodymax}{\dimexpr\textheight-\pagetotal-11mm\relax}
+\sbox{\bodybox}{\begin{minipage}[t]{\textwidth}
 {{{ teacherCard }}}
 
 % ===== 今週のがんばり =====
@@ -41,9 +44,13 @@
 \begin{card}[colback=accent!10,colframe=accent!45,boxrule=0.8pt]
 {{{ nextBlock }}}
 \end{card}
+\end{minipage}}
+\newlength{\bodyh}\setlength{\bodyh}{\dimexpr\ht\bodybox+\dp\bodybox\relax}
+\ifdim\bodyh>\bodymax {\centering\resizebox*{!}{\bodymax}{\usebox{\bodybox}}\par}\else \usebox{\bodybox}\par\fi
 
 \vfill
 {\fontsize{8}{10.5}\selectfont\color{gray}
 {{ footer1 }}\\
 {{ footer2 }}\par}
+{{{ homeworkPage }}}
 \end{document}

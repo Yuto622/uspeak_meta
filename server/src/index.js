@@ -87,8 +87,10 @@ export async function startServer({ port = config.port, storeOverride = null } =
       seats.refresh().then(async () => log.info(`[parent-report] Roblox seat sheet: ${(await seats.classes()).length} classes, ${(await seats.seats()).length} seats`));
     } catch (err) { log.warn('[parent-report] Roblox seat sheet disabled:', err.message); }
   }
+  // 宿題（/admin/homework で 入れて くばる。宿題島で とく）。答えつきなので DATA_DIR に だけ 置く。保護者レポート（LINE）も 読む。
+  const homework = await new HomeworkStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'homework.json'), { log }).init();
   const parentReports = await setupParentReports({
-    store, roster, seats, roblox, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
+    store, roster, seats, roblox, homework, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
     baseUrl: config.corsOrigins.find((o) => /^https?:\/\//.test(o)) || '',
   });
 
@@ -98,8 +100,6 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // 問題データベース（/admin/qbank）。web版に出す 問題は 英検の島に まざり、Robloxに出す 問題は /api/roblox/questions で 取られる。
   const qbank = await new QBankStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'qbank.json'), { log }).init();
   qbank.onChange((q) => { const added = setExtraQuestions(q.live('web')); if (q.items.length) log.info('[qbank] web questions mixed in:', JSON.stringify(added)); });
-  // 宿題（/admin/homework で 入れて くばる。宿題島で とく）。答えつきなので DATA_DIR に だけ 置く。
-  const homework = await new HomeworkStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'homework.json'), { log }).init();
   const tasks = await new TaskStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'tasks.json'), { log }).init();
 
   const app = express();

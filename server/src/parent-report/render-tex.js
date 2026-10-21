@@ -61,7 +61,67 @@ const badge = (preview, weekly) => (preview
 function ranksLine(d) {
   const list = (d.ranks || []).slice(0, 2);
   if (!list.length) return '';
-  return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries クラスの 順位}\\\\[0.5mm]{\\fontsize{10.5}{14}\\selectfont\\color{brand} ${list.map((x) => tex(`${x.ja} ${x.rank}位 / ${x.of}人`)).join('　・　')}}\\\\[2mm]\n`;
+  return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries クラスの 順位}\\quad{\\fontsize{10}{13}\\selectfont\\color{brand} ${list.map((x) => tex(`${x.ja} ${x.rank}位 / ${x.of}人`)).join('　・　')}}\\\\[1.4mm]\n`;
+}
+
+// 宿題（その 期間に くばられて いた ぶん）。1 ページ目には 1 行、2 ページ目に くわしく（LINE の 画像は 1 ページ目だけ）。
+const mdDay = (s) => { const m = /^\d{4}-(\d{2})-(\d{2})$/.exec(s || ''); return m ? `${Number(m[1])}/${Number(m[2])}` : ''; };
+function homeworkLine(d) {
+  const h = d.homework;
+  if (!h?.total) return '';
+  const bits = [`${h.done} / ${h.total} おわり`];
+  if (h.overdue) bits.push(`しめきり すぎ ${h.overdue}`);
+  if (h.accuracy !== null && h.accuracy !== undefined) bits.push(`正解率 ${h.accuracy}%`);
+  return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries 宿題}\\quad{\\fontsize{10}{13}\\selectfont\\color{brand} ${tex(bits.join('・'))}}\\\\[1.4mm]\n`;
+}
+function homeworkStatus(r) {
+  if (r.status === 'done') return { text: `${r.correct}/${r.total}問 正解（${r.score}%）${r.doneDay ? `・${mdDay(r.doneDay)} 提出` : ''}${r.late ? '・おくれて 提出' : ''}`, color: r.late ? 'accent' : 'good' };
+  if (r.overdue) return { text: `しめきり すぎ（${r.answered}/${r.total}問）`, color: 'accent' };
+  if (r.status === 'doing') return { text: `とちゅう（${r.answered}/${r.total}問）`, color: 'brand' };
+  return { text: 'まだ', color: 'gray' };
+}
+export function homeworkPage(d, { weekly = true } = {}) {
+  const h = d.homework;
+  if (!h?.total) return '';
+  const big = weekly ? '\\fontsize{11}{14}\\selectfont' : '\\normalsize';
+  const small = weekly ? '\\fontsize{9}{12}\\selectfont' : '\\small';
+  const stat = (label, value) => `{${small}\\color{gray} ${tex(label)}}\\;{${big}\\color{brand}\\bfseries ${tex(value)}}`;
+  const stats = [
+    stat('提出', `${h.done} / ${h.total}`), stat('しめきりまでに', `${h.onTime}`),
+    ...(h.late ? [stat('おくれて', `${h.late}`)] : []), ...(h.overdue ? [stat('しめきり すぎ', `${h.overdue}`)] : []),
+  ].join('\\quad ');
+  const work = h.answered ? [
+    stat('答えた 問題', `${h.answered}問`), stat('正解率', `${h.accuracy}%`), stat('1回で 正解', `${h.firstTry}問`), stat('やり直し', `${h.retries}回`),
+  ].join('\\quad ') : `{${small}\\color{gray} ${tex('この 期間は まだ 答えて いません')}}`;
+  const time = [h.minutes ? stat('取り組んだ 時間', `約${h.minutes}分`) : '', h.days ? stat('やった 日', `${h.days}日`) : '', h.avgScore !== null && h.avgScore !== undefined ? stat('提出した 宿題の 平均', `${h.avgScore}%`) : ''].filter(Boolean).join('\\quad ');
+  const rows = h.rows.slice(0, 12).map((r) => {
+    const st = homeworkStatus(r);
+    const due = r.due ? `しめきり ${mdDay(r.due)}` : 'しめきり なし';
+    return `{${big}\\color{brand}\\bfseries ${tex(r.title)}}\\hfill{${small}\\color{gray} ${tex(due)}}\\\\[0.3mm]{${small}\\color{${st.color}}\\bfseries ${tex(st.text)}}\\\\[1.6mm]`;
+  }).join('\n') + (h.rows.length > 12 ? `\n{${small}\\color{gray} ${tex(`ほか ${h.rows.length - 12} 件`)}}` : '');
+  const kinds = h.byKind.map((k) => {
+    const rate = k.n ? k.ok / k.n : 0;
+    return `\\begin{tikzpicture}\\fill[soft] (0,0) rectangle (3,0.28);\\fill[good] (0,0) rectangle (${Math.max(0.05, 3 * rate).toFixed(2)},0.28);\\end{tikzpicture}\\;{${small}\\color{brand} ${tex(`${k.ja} ${k.ok}/${k.n}（${Math.round(rate * 100)}%）`)}}`;
+  }).join('\\\\[0.8mm]\n');
+  const missed = h.missed.length
+    ? `{${big}\\color{brand}\\bfseries ${tex(h.missed.join(', '))}}\\\\[0.6mm]{${small}\\color{gray} ${tex('おうちで 声に 出して 1 回ずつ 読んで みて ください')}}`
+    : `{${small}\\color{good}\\bfseries ${tex('まちがえた ことばは ありません')}}`;
+  return `\\newpage
+{${weekly ? '\\fontsize{15}{19}\\selectfont' : '\\Large'}\\color{brand}\\bfseries ${tex(`${d.nick}さんの宿題`)}}\\;{${small}\\color{gray} ${tex(d.range)}}\\\\[1mm]
+\\begin{card}
+\\cardtitle{${tex('すすみぐあい')}}\\\\[1mm]
+${stats}\\\\[1mm]
+${work}${time ? `\\\\[1mm]\n${time}` : ''}
+\\end{card}
+\\begin{card}
+\\cardtitle{${tex('宿題ごと')}}\\\\[1.2mm]
+${rows}
+\\end{card}
+${kinds ? `\\begin{card}\n\\cardtitle{${tex('問題の 形ごとの 正解')}}\\\\[1.2mm]\n${kinds}\n\\end{card}\n` : ''}\\begin{card}[colback=accent!10,colframe=accent!45,boxrule=0.8pt]
+\\cardtitle{${tex('もう一度 練習したい ことば')}}\\\\[1mm]
+${missed}
+\\end{card}
+`;
 }
 
 export function weeklyTex(d, { preview = false } = {}) {
@@ -93,27 +153,29 @@ export function weeklyTex(d, { preview = false } = {}) {
     wordCards = `{\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.noLearned)}}`;
   }
 
+  // 先生の ひとこと・宿題・順位が ぜんぶ ある 週は 1 まいに 入らないので、ことわりの 1 行を 省く。
+  const crowded = !!d.teacher?.text && !!(d.homework?.total || d.ranks?.length);
   let nextBlock;
   if (d.next) {
     const ja = d.next.ja ? `\\;{\\fontsize{10}{12}\\selectfont\\color{gray}（${tex(d.next.ja)}）}` : (d.next.fromMiss ? `\\;{\\fontsize{9}{12}\\selectfont\\color{gray}${tex(W.nextFromMiss)}}` : '');
     const ask = d.next.ja ? fmt(W.homeWithJa, { ja: d.next.ja }) : fmt(W.homeNoJa, { en: d.next.en });
     nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{brand}\\bfseries 次に覚える単語}\\quad{\\fontsize{${Math.min(14, wordSize(d.next.en))}}{14}\\selectfont\\color{brand}\\bfseries ${tex(d.next.en)}}${ja}\\\\[1.6mm]
 {\\fontsize{10}{12}\\selectfont\\color{brand}\\bfseries おうちで1分}\\\\[0.6mm]
-{\\fontsize{12}{16}\\selectfont\\color{brand}${tex(ask)}}\\\\[0.4mm]
-{\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.homeSub)}}`;
+{\\fontsize{12}{16}\\selectfont\\color{brand}${tex(ask)}}${crowded ? '' : `\\\\[0.4mm]
+{\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.homeSub)}}`}`;
   } else {
     nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{brand}\\bfseries 次に覚える単語}\\\\[1mm]{\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.noNext)}}`;
   }
 
   const goal = goalText(d, W);
   if (goal) nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ${tex(W.goalTitle)}}\\\\[0.5mm]{\\fontsize{11.5}{15}\\selectfont\\color{brand}\\bfseries ${tex(goal)}}\\\\[2mm]\n${nextBlock}`;
-  nextBlock = ranksLine(d) + nextBlock;
+  nextBlock = homeworkLine(d) + ranksLine(d) + nextBlock;
   return fill(weekly, {
     badge: badge(preview, true),
     sender: d.sender || '教室', nick: d.nick, range: d.range, titleSize: titleSize(d.nick, 17, 14),
     teacherCard: teacherCard(d.teacher, d.teacherLabel, { weekly: true }),
     dayCircles, dayCount: d.dayCount, streakLine, answers: d.answers, prevAnswers: d.prevAnswers, diffText,
-    wordCards, nextBlock,
+    wordCards, nextBlock, homeworkPage: homeworkPage(d, { weekly: true }),
     footer1: W.footer1, footer2: fmt(W.footer2, { sender: d.sender || '教室' }),
   });
 }
@@ -179,7 +241,7 @@ export function monthlyTex(d, { preview = false } = {}) {
   else if (d.game?.kind === 'place') game = `{\\small\\color{brand} ${tex(fmt(M.gamePlace, d.game))}}\\\\[1mm]\n{\\scriptsize\\note{${tex(M.gamePlaceTalk)}}}`;
   else game = `{\\small\\color{gray} ${tex(M.gameNone)}}`;
 
-  { const rl = ranksLine(d); if (rl) game = `${rl}${game}`; }
+  { const rl = homeworkLine(d) + ranksLine(d); if (rl) game = `${rl}${game}`; }
   const step = d.nextStep || { key: 'keep' };
   return fill(monthly, {
     badge: badge(preview, false),
@@ -191,6 +253,7 @@ export function monthlyTex(d, { preview = false } = {}) {
     // 数字の見方は 固定文（texts.json に 書いた TeX を そのまま。人の 名前は 入らない）。
     legend: M.legend.join('\\\\\n'),
     footer: fmt(M.footer, { sender: d.sender || '教室' }),
+    homeworkPage: homeworkPage(d, { weekly: false }),
   });
 }
 

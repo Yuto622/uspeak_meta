@@ -184,3 +184,46 @@ test('部屋：一覧 → 1 問ずつ → まちがえたら もう 1 回 → �
   await room.leave();
   await sleep(50);
 });
+
+test('LINE の 週・月 レポート：期間の まとめ（提出・しめきり・正解率・形ごと・まちがえた ことば）→ 画像の 1 行・PDF の 2 まいめ・吹き出し', async () => {
+  const { weeklyTex, monthlyTex } = await import('../src/parent-report/render-tex.js');
+  const { weeklyData, monthlyData } = await import('../src/parent-report/aggregate.js');
+  const { weekOf, monthOf } = await import('../src/parent-report/jst.js');
+  const { homeworkText, childMessages } = await import('../src/parent-report/line.js');
+  const at = (y, m, d, h = 12) => Date.UTC(y, m - 1, d, h - 9);
+  let now = at(2026, 10, 5);
+  const s = await new HomeworkStore(null, { now: () => now }).init();
+  const words = [['apple', 'りんご'], ['banana', 'バナナ'], ['cat', 'ねこ'], ['dog', 'いぬ'], ['egg', 'たまご']].map(([en, ja]) => ({ en, ja }));
+  const a = (await s.create({ title: 'Unit 5', classes: ['c1'], due: '2026-10-08', items: words })).assignment; await s.publish(a.id, true);
+  const b = (await s.create({ title: 'Lesson 3', classes: ['c1'], due: '2026-10-07', items: [{ sentence: 'I play soccer.' }, { sentence: 'I like cats.' }] })).assignment; await s.publish(b.id, true);
+  const c = (await s.create({ title: 'ふくしゅう', classes: ['c1'], due: '2026-10-20', items: words })).assignment; await s.publish(c.id, true);
+  await s.create({ title: 'したがき', classes: ['c1'], items: words }); // くばって いない ものは 数えない
+  for (const [i, it] of a.items.entries()) { now = at(2026, 10, 6) + i * 60000; await s.record('c1', 'たろう', a.id, it.id, i !== 2); if (i === 2) await s.record('c1', 'たろう', a.id, it.id, false); }
+  now = at(2026, 10, 9); await s.record('c1', 'たろう', b.id, b.items[0].id, true);
+  const hw = s.periodSummary('c1', 'たろう', { start: at(2026, 10, 5, 0), end: at(2026, 10, 11, 23) });
+  assert.equal(hw.total, 3);
+  assert.deepEqual([hw.done, hw.onTime, hw.late, hw.overdue, hw.doing, hw.todo], [1, 1, 0, 1, 1, 1]);
+  assert.deepEqual([hw.answered, hw.correct, hw.accuracy, hw.firstTry, hw.retries, hw.days, hw.avgScore], [6, 5, 83, 5, 1, 2, 80]);
+  assert.deepEqual(hw.missed, ['cat']);
+  assert.equal(hw.byKind.reduce((n, k) => n + k.n, 0), 6);
+  assert.equal(s.periodSummary('c1', 'じろう', { start: at(2026, 10, 5, 0), end: at(2026, 10, 11, 23) }).done, 0, 'ほかの 子の 記録は まざらない');
+  assert.equal(s.periodSummary('c2', 'たろう', { start: at(2026, 10, 5, 0), end: at(2026, 10, 11, 23) }).total, 0, 'ほかの クラスの 宿題は 出ない');
+
+  const text = homeworkText(hw, { nick: 'たろう', range: '10/5〜10/11' });
+  for (const want of ['提出 1 / 3', 'しめきり すぎ 1', 'Unit 5', '4/5問 正解', 'Lesson 3', '正解率 83%', '1回で正解 5問', 'cat']) assert.ok(text.includes(want), want);
+  assert.equal(homeworkText(null), '');
+  const msgs = childMessages({ nick: 'たろう', range: 'r', sender: 's', png: 'https://x/p.png', pdf: 'https://x/p.pdf', homework: text });
+  assert.deepEqual(msgs.map((m) => m.type), ['image', 'text', 'template']);
+  assert.deepEqual(childMessages({ nick: 'たろう', range: 'r', sender: 's', png: 'https://x/p.png' }).map((m) => m.type), ['image'], '宿題が ない 子は 吹き出しも ない');
+
+  const rows = [{ username: 'taro', type: 'quiz', at: at(2026, 10, 6), world: 'fishworld', payload: { word: 'apple', correct: true } }];
+  const d = weeklyData(rows, { week: weekOf(at(2026, 10, 6)), nick: 'たろう', sender: '教室' });
+  const plain = weeklyTex(d);
+  assert.ok(!plain.includes('さんの宿題') && !plain.includes('\\newpage'), '宿題が ない 週は いままでどおり 1 まい');
+  const src = weeklyTex({ ...d, homework: hw });
+  assert.ok(src.includes('1 / 3 おわり'), '画像（1 まいめ）に 1 行');
+  assert.ok(src.includes('\\newpage') && src.includes('たろうさんの宿題') && src.includes('Unit 5') && src.includes('cat'), 'PDF の 2 まいめに くわしく');
+  const m = monthlyData(rows, { month: monthOf(at(2026, 10, 6)), nick: 'たろう' });
+  assert.ok(monthlyTex({ ...m, homework: hw }).includes('たろうさんの宿題'));
+  assert.ok(!monthlyTex(m).includes('\\newpage'));
+});
