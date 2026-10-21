@@ -68,6 +68,14 @@ test('パスワードで 入ると その 教室の クラスの 宿題だけ。
   assert.match(pageHtml, /さくら英会話/);
   assert.match(pageHtml, /type="hidden" id="classes" value="sakura"/);
   assert.equal((await teacherApi('', '/homework')).status, 401);
+  // 保護者レポート（QR カード）は 宿題とは べつの ページ。その 教室の クラスの 署名つき リンクだけ。
+  assert.match(pageHtml, /href="\/teacher\/reports"/);
+  const rep = await (await fetch(`${http}/teacher/reports`, { headers: { cookie: sakura } })).text();
+  const link = /href="(\/class\/sakura\/parents\?t=[^"]+)"/.exec(rep)?.[1];
+  assert.ok(link, 'さくらの 保護者レポートの リンク');
+  assert.ok(!rep.includes('momiji'), 'よその 教室の クラスは 出ない');
+  assert.equal((await fetch(`${http}${link.replace(/&amp;/g, '&')}`)).status, 200, 'リンクは ひらける');
+  assert.equal((await fetch(`${http}/teacher/reports`, { redirect: 'manual' })).status, 303, 'ログイン して いないと 宿題の ログインへ');
   // 運営の 鍵で 先生の 口は ひらかない・先生の 鍵で 運営の 口も ひらかない
   assert.equal((await fetch(`${http}/teacher/api/homework`, { headers: { cookie: admin } })).status, 401);
   assert.equal((await fetch(`${http}/admin/api/homework`, { headers: { cookie: sakura } })).status, 401);

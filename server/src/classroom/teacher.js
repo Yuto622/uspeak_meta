@@ -11,6 +11,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import express from 'express';
 import { ipTag } from '../log.js';
 import { mountHomeworkApi, page as homeworkPage } from '../homework/admin.js';
+import { signClass } from '../game/report.js';
 
 const COOKIE = 'uspeak_teacher';
 const SESSION_MS = 12 * 60 * 60 * 1000;
@@ -56,6 +57,14 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
     if (req.path === '/') { res.redirect(303, '/teacher/homework'); return; }
     res.send(homeworkPage({ aiReady, room: { name: room.name, classes: room.classes } }));
   });
+  // 保護者レポート（LINE の 登録の QR カード・登録の ようす・先生の ひとこと）と 教室の ようす。**宿題とは べつの ページ。**
+  // その 教室の クラスだけ、/class の 署名つきの リンクを 作って わたす（中身は /class/:code/parents が そのまま 出す）。
+  router.get('/reports', (req, res) => {
+    const room = roomOf(req);
+    res.type('text/html; charset=utf-8');
+    if (!room) { res.redirect(303, '/teacher/homework'); return; }
+    res.send(reportsHtml(room, (c) => signClass(secret, c)));
+  });
   router.post('/login', express.urlencoded({ extended: false, limit: '4kb' }), (req, res) => {
     const ip = req.get('fly-client-ip') || req.ip || 'unknown';
     if (locked(ip)) { log.warn(`[teacher] login locked for ${ipTag(ip)}`); res.redirect(303, '/teacher/homework?locked'); return; }
@@ -90,6 +99,27 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
   });
   router.use('/api', api);
   app.use('/teacher', router);
+}
+
+function reportsHtml(room, sign) {
+  const rows = room.classes.map((c) => {
+    const t = encodeURIComponent(sign(c)); const code = encodeURIComponent(c);
+    return `<div class="card"><h2>クラス ${esc(c)}</h2>
+      <p><a class="btn main" href="/class/${code}/parents?t=${t}" target="_blank" rel="noopener">📨 保護者レポート（QR カードの 印刷・登録・先生の ひとこと）</a></p>
+      <p><a class="btn" href="/class/${code}?t=${t}" target="_blank" rel="noopener">🏫 教室の ようす（せいせき・ランキング・ロードマップ）</a></p></div>`;
+  }).join('');
+  return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>保護者レポート — ${esc(room.name)}</title>
+<style>*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans JP",system-ui,sans-serif;background:#fffbf5;color:#1b3a2f}.wrap{max-width:900px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:0 0 10px}.muted{color:#6e665c;font-size:13px;line-height:1.7}.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.card{background:#fff;border:1px solid #eadfcd;border-radius:14px;padding:14px 16px;margin:12px 0}.card p{margin:8px 0}
+.btn{display:inline-block;min-height:44px;padding:11px 16px;border-radius:12px;border:1px solid #d9d1c3;background:#fff;color:#1b3a2f;font-weight:700;text-decoration:none}.btn.main{background:#e27a2d;border-color:#e27a2d;color:#fff}
+button{min-height:38px;border:1px solid #d9d1c3;border-radius:10px;background:#fff;font:inherit;font-weight:700;padding:0 12px;cursor:pointer}</style></head><body><div class="wrap">
+<div class="bar"><p class="muted" style="margin:0"><a href="/teacher/homework">← 宿題</a> ・ <b>${esc(room.name)}</b></p><form method="post" action="/teacher/logout" style="margin:0"><button type="submit">ログアウト</button></form></div>
+<h1>📨 保護者レポート</h1>
+<p class="muted">保護者の 方に LINE で 週・月の レポートを とどけます。<b>QR カード</b>（A4・8 人ぶん）を 印刷して わたすと、保護者の 方が 読みとって 登録できます。登録の ようす・配信の 設定・先生の ひとことも ここから。</p>
+${rows}
+</div></body></html>`;
 }
 
 function loginHtml({ bad, locked }) {
