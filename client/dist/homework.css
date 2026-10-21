@@ -1,0 +1,41 @@
+/* 宿題の 画面（しゅくだい島）。形の 部品（.fmt）は formats-ui の まま。 */
+#homework-dialog { width: min(760px, 94vw); max-height: 92dvh; padding: 0; border: 0; border-radius: 22px; background: #fffaf0; color: #1b3a2f; overflow: hidden; }
+#homework-dialog[open] { display: flex; flex-direction: column; }
+#homework-dialog::backdrop { background: #10302acc; backdrop-filter: blur(4px); }
+.hw-head { position: static; display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: linear-gradient(110deg, #e8b04a, #d9763a); color: #fff; flex: none; }
+.hw-head small { font-size: 11px; letter-spacing: 2px; opacity: .85; }
+.hw-head h2 { margin: 2px 0 0; font-size: 22px; }
+.hw-count { margin-left: auto; font-weight: 800; font-size: 15px; background: #ffffff33; border-radius: 999px; padding: 3px 12px; }
+.hw-count:empty { display: none; }
+.hw-x { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ffffff66; background: #ffffff22; color: #fff; font-size: 22px; }
+.hw-body { padding: 16px 18px 20px; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
+.hw-wait, .hw-empty { text-align: center; color: #6e665c; padding: 30px 0; }
+.hw-empty b { font-size: 44px; display: block; }
+.hw-empty p { font-size: 17px; font-weight: 700; color: #1b3a2f; margin: 8px 0 4px; }
+.hw-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.hw-card { display: flex; gap: 12px; align-items: center; background: #fff; border: 2px solid #f0e2c4; border-radius: 16px; padding: 12px 14px; }
+.hw-card.is-done { background: #f6fbf6; border-color: #cfe6d3; }
+.hw-card-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.hw-name { font-size: 17px; }
+.hw-card-main small { font-size: 12px; color: #6e665c; }
+.hw-note { white-space: pre-wrap; }
+.hw-tag { align-self: flex-start; font-size: 12px; font-weight: 800; border-radius: 999px; padding: 2px 10px; }
+.hw-tag.new { background: #e27a2d; color: #fff; }
+.hw-tag.mid { background: #fdf0d8; color: #8a5a12; }
+.hw-tag.late { background: #fbe1da; color: #b5432b; }
+.hw-tag.done { background: #dff1e3; color: #2f6b3f; }
+.hw-bar { height: 6px; border-radius: 999px; background: #f0e8d8; overflow: hidden; }
+.hw-bar i { display: block; height: 100%; background: linear-gradient(90deg, #58b368, #2f8f5b); }
+.hw-card-go { display: flex; flex-direction: column; gap: 6px; flex: none; }
+.hw-go, .hw-redo { min-height: 44px; border-radius: 12px; padding: 8px 16px; font-weight: 800; font-size: 15px; border: 0; }
+.hw-go { background: #1b3a2f; color: #fff; }
+.hw-redo { background: #fff4e2; color: #8a5a12; border: 1px solid #f0d6a6; font-size: 13px; }
+.hw-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.hw-progress b { font-size: 14px; flex: none; max-width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hw-progress .hw-bar { flex: 1; }
+.hw-done { text-align: center; padding: 16px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.hw-medal { font-size: 60px; line-height: 1; }
+.hw-done h3 { margin: 0; font-size: 22px; }
+.hw-score { margin: 0; font-size: 18px; }
+.hw-score b { font-size: 40px; color: #2f8f5b; }
+.hw-coins { margin: 0; font-weight: 800; color: #b07a10; font-size: 18px; }

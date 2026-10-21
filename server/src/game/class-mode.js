@@ -27,6 +27,7 @@ export const DESTINATIONS = [
   { id: 'pet', en: 'Pet Island', jp: 'ペット じま', icon: '🥚' },
   { id: 'wear', en: 'Dress-up Island', jp: 'きせかえ じま', icon: '👕' },
   { id: 'mini', en: 'Minigame Island', jp: 'ミニゲーム じま', icon: '🍉' },
+  { id: 'homework', en: 'Homework Island', jp: 'しゅくだい じま', icon: '📚' },
 ];
 export const DEST_BY_ID = new Map(DESTINATIONS.map((d) => [d.id, d]));
 

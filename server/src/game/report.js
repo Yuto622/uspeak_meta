@@ -281,6 +281,21 @@ function examBlock(r) {
   <p class="fine">島の練習問題の直近20問の正解率です（やさしい判定の答えは数えていません）。合格の予想ではなく、受ける級を先生と相談するときの目安です。</p>`;
 }
 
+// 宿題（先生が くばった もの）。おわった・とちゅう・まだ・しめきり すぎ を 1 行ずつ。新しい 5 つまで。
+// **ほかの 子とは くらべない**（その 子の ぶんだけ）。宿題が ない クラスでは 出さない。
+function homeworkBlock(r) {
+  const list = Array.isArray(r.homework) ? r.homework.slice(0, 5) : [];
+  if (!list.length) return '';
+  const day = (d) => (d ? `${Number(d.slice(5, 7))}/${Number(d.slice(8, 10))}` : '');
+  const state = (h) => (h.done ? `✅ おわり・せいかい ${h.correct} / ${h.total}（${h.score}%）`
+    : h.overdue ? `⏰ しめきり すぎ・${h.answered} / ${h.total} 問`
+      : h.answered ? `とちゅう・${h.answered} / ${h.total} 問` : 'まだ');
+  const done = r.homework.filter((h) => h.done).length;
+  return `<h3 class="sub">宿題（${done} / ${r.homework.length} おわり）</h3>
+ <table class="exam">${list.map((h) => `<tr><th>${esc(h.title)}${h.due ? `<small>しめきり ${esc(day(h.due))}</small>` : ''}</th><td><b>${esc(state(h))}</b></td></tr>`).join('')}</table>
+ <p class="fine">先生が くばった 宿題を、ゲームの 宿題島で といた 記録です。</p>`;
+}
+
 function notesBlock(r) {
   if (!r.notes?.length) return '';
   return `<div class="notes"><h3 class="sub">先生から</h3>${r.notes.map((n) => `<p><small>${esc(new Date(n.at).toLocaleDateString('ja-JP', JST))}</small>${esc(n.text).replace(/\n/g, '<br>')}</p>`).join('')}</div>`;
@@ -421,6 +436,7 @@ ${monthBlock(r)}
 ${inARowLine(r)}
 ${schoolLine(r)}
 ${examBlock(r)}
+${homeworkBlock(r)}
 ${notesBlock(r)}
 ${ranksBlock(r)}
  <h3 style="margin:26px 0 0;font-size:14px;color:#5d6d62;letter-spacing:1px;">はじめてからの ぜんぶ</h3>

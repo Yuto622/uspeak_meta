@@ -1,0 +1,30 @@
+{
+  "_": "宿題島. One house — しゅくだいの いえ — and the whole island points at it: walk in and the homework your teacher handed out opens. The questions are NOT here (they carry answers and live in DATA_DIR/homework.json on the server, put there from /admin/homework). Coordinates are relative to the island's own x/z, like every other island's JSON. Colours are decimals because island-kit.js reads them as numbers.",
+  "island": {
+    "id": "homework",
+    "name": "しゅくだい島",
+    "en": "HOMEWORK ISLE",
+    "x": -100,
+    "z": 165,
+    "radius": 5,
+    "grass": 9293458,
+    "grassTop": 10936203,
+    "spawn": { "x": 0, "z": 21 },
+    "courtyard": { "x": 0, "z": 9 },
+    "spots": [
+      {
+        "id": "desk",
+        "kind": "homework",
+        "name": "しゅくだいの いえ",
+        "en": "Homework House",
+        "character": "Upee",
+        "ja": "先生が くばった しゅくだいを とく",
+        "x": 0,
+        "z": -2,
+        "color": 15250262,
+        "tone": "📚",
+        "path": { "x": 0, "z": 9 }
+      }
+    ]
+  }
+}

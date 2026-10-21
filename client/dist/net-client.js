@@ -52,6 +52,7 @@ import { createClassMode } from './class-mode.js';
 import { createTaskCard } from './tasks.js';
 import { createTaskGuide } from './task-guide.js';
 import { createPremiumPromo } from './premium.js';
+import { createHomework } from './homework.js';
 
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
   let fwAutoAt = ''; // いま 自動で つりはじめた 水辺（はなれると 空に もどる）
@@ -224,6 +225,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // the game, and none of it needs the server, so it opens offline too.
     // メインの島：英単語ハウス・看板・つり場・かいとりや・ゲート。何をするかは main-island.js の walkIn。
     if (islandId === 'main') { sendMove(); return main.walkIn(spot); }
+    // しゅくだい島：いえに 入ると 宿題の 一覧（オンラインの とき だけ。問題は 部屋に ある）。
+    if (islandId === 'homework') return homework.open();
     if (islandId === 'mini') {
       const game = arcades[spot.game || spot.kind];
       if (game) { game.open(); return true; }
@@ -306,6 +309,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const taskGuide = createTaskGuide({ scene, player, rpg });
   // ⭐ プレミアムの おしらせ（🔒 の 島や お店を おした とき）。
   createPremiumPromo({ offline: () => state.mode !== 'online' && state.mode !== 'reconnecting' });
+  // 宿題（しゅくだい島の いえ）。問題・判定・ごほうびは 部屋（hw:*）。
+  const homework = createHomework({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
   const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online', guide: taskGuide });
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
@@ -551,6 +556,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       teacher.setEikenLevel(r.state?.eikenLevel);
       eiken.setLevel(r.state?.eikenLevel);
       if (m.wallet) applyWallet(m.wallet);
+      // まだ おわって いない 宿題が あれば 1 回 おしらせ（しゅくだい島で とける）。
+      if (m.homework > 0 && !m.restored) setTimeout(() => toast(tr('📚 しゅくだいが {0} こ あるよ。しゅくだい島へ いこう！', [m.homework])), 4000);
       // Roblox の学習データ（自分のぶん）。リンクが来たときだけボタンが出る。
       const rb = document.getElementById('roblox-button');
       if (rb) { if (m.robloxReport) { rb.href = /^https?:/i.test(m.robloxReport) ? m.robloxReport : location.origin + m.robloxReport; rb.hidden = false; } else rb.hidden = true; }
@@ -654,6 +661,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('fw:ask', (m) => fishworld.onAsk(m));
     r.onMessage('fw:result', (m) => { if (m.progress) applyProgress(m.progress, m.levels); fishworld.onResult(m); });
     r.onMessage('fw:catch', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onCatch(m); });
+    r.onMessage('hw:list', (m) => homework.onList(m));
+    r.onMessage('hw:ask', (m) => homework.onAsk(m));
+    r.onMessage('hw:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); homework.onResult(m); });
+    r.onMessage('hw:done', (m) => homework.onDone(m));
+    r.onMessage('hw:error', (m) => homework.onError(m));
     r.onMessage('fw:sold', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onSold(m); });
     r.onMessage('fw:error', (m) => fishworld.onError(m));
     r.onMessage('wh:ask', (m) => wordhouse.onAsk(m));
@@ -1153,6 +1165,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get arcades() { return arcades; },
     // One question for the frame loop: is a whole-window guest game up?
     arcadeOpen: () => racers.isOpen || blockwild.isOpen || Object.values(arcades).some((g) => g.isOpen),
+    homeworkLabel: (spot) => `${spot?.tone || '📚'} ${tr('しゅくだいを する')}`,
+    homework,
     miniLabel: (spot) => `${spot?.tone || '🎮'} ${tr('{what} で あそぶ', { what: spot?.name || tr('ゲーム') })}`,
     openLobby: () => lobby.open({ name: state.name }),
     openMission: () => mission.open(),

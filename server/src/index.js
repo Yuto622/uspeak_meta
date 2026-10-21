@@ -17,6 +17,8 @@ import { TaskStore } from './tasks/store.js';
 import { tasksAdminExtension } from './tasks/admin.js';
 import { QBankStore } from './qbank/store.js';
 import { qbankAdminExtension } from './qbank/admin.js';
+import { HomeworkStore } from './homework/store.js';
+import { homeworkAdminExtension } from './homework/admin.js';
 import { setExtraQuestions } from './game/eiken.js';
 import { ClassRoom } from './rooms/ClassRoom.js';
 import { createTutor } from './ai/tutor.js';
@@ -96,6 +98,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // 問題データベース（/admin/qbank）。web版に出す 問題は 英検の島に まざり、Robloxに出す 問題は /api/roblox/questions で 取られる。
   const qbank = await new QBankStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'qbank.json'), { log }).init();
   qbank.onChange((q) => { const added = setExtraQuestions(q.live('web')); if (q.items.length) log.info('[qbank] web questions mixed in:', JSON.stringify(added)); });
+  // 宿題（/admin/homework で 入れて くばる。宿題島で とく）。答えつきなので DATA_DIR に だけ 置く。
+  const homework = await new HomeworkStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'homework.json'), { log }).init();
   const tasks = await new TaskStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'tasks.json'), { log }).init();
 
   const app = express();
@@ -284,6 +288,8 @@ export async function startServer({ port = config.port, storeOverride = null } =
       const report = reportFor(record);
       // クラスの なかの 順位（その 子の ぶんだけ）。
       try { report.ranks = standingOf(rankings(store.listClass?.(record.class) || [], { weekKey: weekIndex() }), record.name); } catch (err) { log.warn('[report] ranks failed:', err.message); report.ranks = []; }
+      // 宿題（くばった もの・その 子の すすみぐあい）。
+      try { report.homework = homework.listFor(record.class, record.name); } catch (err) { log.warn('[report] homework failed:', err.message); report.homework = []; }
       const token = String(req.query.t || '');
       const format = String(req.query.format || '').toLowerCase();
       if (format === 'json') { res.json(report); return; }
@@ -329,6 +335,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // 管理ページ. Mounted only with ADMIN_KEY (admin/roster-admin.js).
   const tasksAdmin = tasksAdminExtension({ tasks, log });
   const qbankAdmin = qbankAdminExtension({ qbank, log });
+  const homeworkAdmin = homeworkAdminExtension({ homework, aiReady: !!config.ai.apiKey, log });
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
   const privacyAdmin = ({ api }) => {
     api.post('/erase', express.json({ limit: '4kb' }), async (req, res) => {
@@ -336,11 +343,11 @@ export async function startServer({ port = config.port, storeOverride = null } =
       const name = String(req.body?.name || '').trim().slice(0, 40);
       const username = String(req.body?.username || '').trim().slice(0, 40);
       if (!classCode || !name) { res.status(400).json({ ok: false, error: 'クラスと 名前が いります' }); return; }
-      try { res.json({ ok: true, ...(await eraseStudent({ store, parentReports, log }, { classCode, name, username })) }); }
+      try { res.json({ ok: true, ...(await eraseStudent({ store, parentReports, homework, log }, { classCode, name, username })) }); }
       catch (err) { log.warn('[privacy] erase failed:', err.message); res.status(500).json({ ok: false, error: '消せませんでした' }); }
     });
   };
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); privacyAdmin(ctx); } });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); privacyAdmin(ctx); } });
   // 保持期間（RETENTION_DAYS、既定 400 日）：学習ログ・コインログ・送信の 記録を 毎日 消す。
   const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
   // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
@@ -404,7 +411,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, claps: parentReports.service.clapHub }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, claps: parentReports.service.clapHub }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();
@@ -421,7 +428,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
     await parentReports.close();
     await closeStore();
   };
-  return { app, server, gameServer, store, shutdown, port, blockwild, roblox, parentReports };
+  return { app, server, gameServer, store, shutdown, port, blockwild, roblox, parentReports, homework };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

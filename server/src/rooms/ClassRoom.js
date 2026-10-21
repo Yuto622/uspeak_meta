@@ -47,6 +47,8 @@ import {
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { GEAR, gearPayload } from '../game/blockwild-shop.js';
+import { buildItem as buildHwItem, wordOf as hwWordOf } from '../homework/items.js';
+import { publicFormat as hwPublic } from '../../../client/dist/formats-core.js';
 import { FW, sanitizeFw, prepare as prepareFw, answer as answerFw, askPayload as fwAsk, lottery as fwLottery, catchFish, sellFrom, statePayload as fwState, fishPayload, GRADES as FW_GRADES, FAST_MS as FW_FAST_MS, XP_PER_CATCH as FW_XP, FishworldError } from '../game/fishworld.js';
 import { startSet as whStart, answer as whAnswer, askPayload as whAsk, HOUSES as WH_HOUSES, DAILY_COIN_CAP as WH_CAP, PERFECT_BONUS as WH_BONUS, WordHouseError } from '../game/wordhouse.js';
 import { LAND, LAND_ISLAND, sanitizeLand, landPayload, islandPayload as landIslandPayload, priceOfNext as landPriceOfNext, priceOfRestyle as landPriceOfRestyle, LandError } from '../game/land.js';
@@ -66,6 +68,10 @@ export const SELL_CAP = 300;
 // プレミアムの 島（admin の 名簿の「プレミアム」列が true の 子と 先生だけ）。
 export const PREMIUM_ISLANDS = config.premiumIslands;
 // 1 回 なげてから つぎに なげられるまで。答えは 1 投げに 2 回まで。
+// 宿題：1 問 3 XP（答えを 見てからは 1）、はじめて ぜんぶ おわったら 20 コイン（1 日 60 まで）。
+const HW_XP = 3;
+const HW_DONE_COINS = 20;
+const HW_CAP = 60;
 const FISH_CAST_GAP_MS = config.answerMinIntervalMs * 5; // ふだんは 2 秒（答えの 間かく 400ms × 5）
 const FISH_CAST_TTL_MS = 5 * 60_000;
 
@@ -166,6 +172,8 @@ export class ClassRoom extends Room {
     this.claps = options.claps || null;
     // タスクの 表（/admin/tasks）。無ければ タスクは 出さない。
     this.tasks = options.tasks || null;
+    // 宿題（/admin/homework で 先生が くばった もの）。無ければ 宿題島は からっぽ。
+    this.homework = options.homework || null;
     this.taskQueue = new Set();
     this.claps?.rooms?.add(this);
     if (this.roblox?.enabled) this.roblox.rooms.add(this);
@@ -262,6 +270,12 @@ export class ClassRoom extends Room {
     // U-Speak島の つり：なげた ときに 部屋が 魚を 引く。答えは その 魚にだけ 2 回まで。
     this.onMessage('fish:cast', (client, msg) => this.onFishCast(client, msg));
     this.onMessage('fw:cancel', (client) => this.onFwCancel(client));
+    // 宿題島：先生が くばった 宿題を 7 形式で とく。答えあわせは つり島と 同じ（1 回 まちがえたら もう 1 回）。
+    this.onMessage('hw:list', (client) => this.onHwList(client));
+    this.onMessage('hw:start', (client, msg) => this.onHwStart(client, msg));
+    this.onMessage('hw:answer', (client, msg) => this.onHwAnswer(client, msg));
+    this.onMessage('hw:next', (client) => { const priv = this.priv.get(client.sessionId); if (priv?.hw && !priv.hw.q) this.hwNext(client); });
+    this.onMessage('hw:quit', (client) => { const priv = this.priv.get(client.sessionId); if (priv) priv.hw = null; });
     // メインの島（2D）。英単語ハウス・島にいた時間。つり場とかいとりやは fw:* の spot 'main'。
     this.onMessage('wh:start', (client, msg) => this.onWhStart(client, msg));
     this.onMessage('wh:answer', (client, msg) => this.onWhAnswer(client, msg));
@@ -3260,6 +3274,93 @@ export class ClassRoom extends Room {
   }
 
   // ✕ で やめる：魚は逃げる（問題も、釣れる寸前の魚も捨てる）。
+  // ---- 宿題 ---------------------------------------------------------------------------------------
+  onHwList(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    client.send('hw:list', { items: this.homework ? this.homework.listFor(this.classCode, priv.name) : [] });
+  }
+
+  // つぎの 1 問を 出す（まだ 答えて いない 問題から 順に）。ぜんぶ 答えて いれば おしまいの まとめ。
+  hwNext(client) {
+    const priv = this.priv.get(client.sessionId);
+    const run = priv?.hw;
+    if (!run) return;
+    const a = this.homework.get(run.aid);
+    if (!a || a.status !== 'published') { priv.hw = null; client.send('hw:error', { reason: 'gone' }); return; }
+    const p = this.homework.progressOf(this.classCode, priv.name, a.id);
+    // ふつうは まだ 答えて いない 問題。「やりなおす」は × だった 問題（この 回で まだ やって いない もの）。
+    const left = a.items.filter((it) => (run.redo ? !p?.answers?.[it.id]?.ok : !p?.answers?.[it.id]) && !run.seen.has(it.id));
+    const item = left[0];
+    if (!item) {
+      priv.hw = null;
+      client.send('hw:done', { ...this.homework.summaryOf(a, p), coins: run.coins || 0 });
+      return;
+    }
+    const fmt = buildHwItem(item, a.items);
+    run.q = { id: `hq${Date.now().toString(36)}${(run.n += 1).toString(36)}`, item: item.id, kind: fmt.kind, fmt, attempt: 1, askedAt: Date.now() };
+    const done = a.items.filter((it) => p?.answers?.[it.id]).length;
+    client.send('hw:ask', { aid: a.id, title: a.title, qid: run.q.id, index: done + 1, total: a.items.length, format: hwPublic(fmt, { attempt: 1 }) });
+  }
+
+  onHwStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv || !this.homework) return;
+    const aid = typeof msg?.aid === 'string' ? msg.aid : '';
+    const ok = this.homework.forClass(this.classCode).some((a) => a.id === aid);
+    if (!ok) { client.send('hw:error', { reason: 'no such homework' }); return; }
+    priv.hw = { aid, q: null, n: 0, seen: new Set(), coins: 0, redo: !!msg?.redo };
+    this.hwNext(client);
+  }
+
+  async onHwAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const run = priv?.hw;
+    const q = run?.q;
+    if (!q || q.id !== msg?.qid) { client.send('hw:error', { reason: 'no question' }); return; }
+    const now = Date.now();
+    if (now - (priv.lastHwAt || 0) < config.answerMinIntervalMs) { client.send('hw:error', { reason: 'too fast' }); return; }
+    priv.lastHwAt = now;
+    const a = this.homework.get(run.aid);
+    const item = a?.items.find((it) => it.id === q.item);
+    if (!item) { priv.hw = null; client.send('hw:error', { reason: 'gone' }); return; }
+    const retry = q.attempt >= 2;
+    const fast = now - q.askedAt < FW_FAST_MS;
+    const result = answerFw(q, msg?.answer);   // つり島と 同じ：1 回目の まちがいは もう 1 回、2 回目は 答えを 見せて つぎへ
+    const given = String(Array.isArray(msg?.answer) ? msg.answer.join(' ') : (msg?.answer && typeof msg.answer === 'object' ? JSON.stringify(msg.answer) : msg?.answer ?? '')).slice(0, 80);
+    const xp = result.correct ? (result.assisted ? 1 : HW_XP) : 0;
+    const word = hwWordOf(item);
+    this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `hw:${a.id}:${item.id}:${q.kind}${word ? `:${word}` : ''}`, `hw-${q.kind}`, given, result.correct ? 1 : 0, xp, client.sessionId]);
+    priv.stats.attempts += 1;
+    // 保護者レポート・苦手単語の 復習・先生の /class に のる 形（Roblox と 同じ）。
+    this.robloxEvent(client.sessionId, 'quiz', 'homework', { correct: result.correct, ...(word ? { word } : {}), level: 'Homework', homework: a.id, format: q.kind, fast, retry }, now);
+    const payload = { qid: q.id, kind: q.kind, ...result, xp };
+    if (result.correct || result.escaped) {
+      run.q = null;
+      if (result.correct) priv.stats.correct += 1;
+      // 1 回目で 正解 ＝ ○。答えを 見てからの 正解・2 回 まちがい ＝ ×（もう 1 回 やれば ○ に なる）
+      run.seen.add(item.id);
+      const rec = await this.homework.record(this.classCode, priv.name, a.id, item.id, result.correct && !result.assisted);
+      if (xp) { const level = this.awardXp(client.sessionId, xp, `hw:${q.kind}`); payload.levels = level?.levels || 0; payload.progress = this.progressPayload(client.sessionId); }
+      if (rec?.finished && await this.homework.markPaid(this.classCode, priv.name, a.id)) {
+        const paid = Math.min(HW_DONE_COINS, roomLeft(priv.caps, 'homework', HW_CAP));
+        if (paid > 0) {
+          const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `homework:${a.id}` });
+          priv.caps.homework += paid;
+          this.store.appendCoin(this.coinRow(client.sessionId, entry));
+          Object.assign(payload, this.walletPayload(client.sessionId));
+        }
+        run.coins = paid;
+        taskBumpKey(priv.tasks, 'homework'); this.taskTouch(client.sessionId);
+      }
+      const p = this.homework.progressOf(this.classCode, priv.name, a.id);
+      payload.answered = a.items.filter((it) => p?.answers?.[it.id]).length;
+      payload.total = a.items.length;
+    }
+    client.send('hw:result', payload);
+    this.persist(client.sessionId);
+  }
+
   onFwCancel(client) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
@@ -4576,6 +4677,7 @@ export class ClassRoom extends Room {
     const player = this.state.players.get(sessionId);
     return {
       sessionId, role: player.role, classCode: this.classCode, restored, position, onRoster: !!priv?.onRoster,
+      homework: this.homework ? this.homework.listFor(this.classCode, priv.name).filter((h) => !h.done).length : 0,
       ...this.walletPayload(sessionId), stats: { ...priv.stats }, progressJson: priv.progressJson,
       food: foodPayload(priv.food),
       tasks: this.taskPayload(sessionId),

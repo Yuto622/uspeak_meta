@@ -10,6 +10,9 @@ WORKDIR /app
 COPY server/package.json server/package-lock.json ./server/
 RUN cd server && npm ci --omit=dev --no-audit --no-fund
 
+# 宿題の PDF から 文字を 取りだす（pdftotext・数 MB）。写真だけの PDF は AI が 読む。
+RUN apk add --no-cache poppler-utils
+
 # 保護者レポートの PDF。LaTeX(XeLaTeX) と日本語フォントで、1枚の紙のために 500MB ほど
 # 積むことになるので、既定では入れません。入れると、レポート画面の「デザインされた PDF」
 # ボタンがサーバー側で組み上がります（入れなくても .tex は落とせますし、ブラウザーの

@@ -6,6 +6,7 @@ import path from 'node:path';
 import { FileStore } from '../src/store/FileStore.js';
 import { ReportStore } from '../src/parent-report/store.js';
 import { eraseStudent } from '../src/privacy.js';
+import { HomeworkStore } from '../src/homework/store.js';
 import { promises as fs } from 'node:fs';
 
 const [classCode, name, username = ''] = process.argv.slice(2);
@@ -16,6 +17,7 @@ const store = new FileStore(path.join(dataDir, 'store.json')); await store.init(
 const reports = await new ReportStore(path.join(dataDir, 'parent-reports.json')).init();
 const dir = path.join(dataDir, 'parent-reports');
 const service = { eraseStudent: async (c, u) => { const r = reports.eraseStudent(c, u); for (const t of r.tokens) for (const ext of ['pdf', 'png', 'thumb.png']) await fs.rm(path.join(dir, `${t}.${ext}`), { force: true }).catch(() => {}); await reports.flush(); const { tokens, ...n } = r; return n; } };
-const out = await eraseStudent({ store, parentReports: { service } }, { classCode, name, username });
+const homework = await new HomeworkStore(path.join(dataDir, 'homework.json')).init();
+const out = await eraseStudent({ store, parentReports: { service }, homework }, { classCode, name, username });
 await store.close(); await reports.close();
 console.log(JSON.stringify(out, null, 2));

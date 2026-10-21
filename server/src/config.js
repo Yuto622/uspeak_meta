@@ -82,6 +82,8 @@ export const config = Object.freeze({
     timeoutMs: int('AI_TIMEOUT_MS', 20000),
     minIntervalMs: int('AI_MIN_INTERVAL_MS', 1200),
     dailyTurnsPerStudent: int('AI_DAILY_TURNS_PER_STUDENT', 200),
+    // 宿題の 読みとり（写真も 読む）。小さい モデルで 足りなければ OPENAI_HOMEWORK_MODEL で かえる。
+    homeworkModel: (env.OPENAI_HOMEWORK_MODEL ?? '').trim(),
   },
   // 大広間（SFU）. A mesh is six children; a school assembly is a hundred, and a hundred
   // browsers cannot each hold ninety-nine connections. A LiveKit server forwards the

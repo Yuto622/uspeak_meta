@@ -1227,6 +1227,22 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **オフラインでは プレミアムの 島を いつも しめる**（`net-client.js` の `lockPremiumOffline()`。`connecting` の 間も）。名簿を 知って いるのは サーバーだけで、採点・AI・通話も サーバーが いないと うごかないため。いま その 島に いたら メインの島へ。お知らせは「クラスに はいって いる ときだけ 行けるよ」。
 - 入れない 島の タスクは とばす（`engine.js` の `skip`）。**おはなし島は 2026-10 に「みんなで はなす しま」に 名前を かえた**（id は `talk` の まま）。
 
+## 宿題（/admin/homework → しゅくだい島 → 保護者レポート／2026-10）
+- **先生が 入れる → AI か きまりで 読みとる → 先生が たしかめて「くばる」→ 子どもが しゅくだい島で 7 形式で とく → 部屋が 判定 → 保護者レポート。**
+  **くばるまで 子どもには 出ない**（AI は 答えを まちがえる ことが ある）。問題（答えつき）は `DATA_DIR/homework.json` だけ（`server/src/homework/store.js`）。client/dist にも リポジトリにも 置かない。
+- **入れられる 形式**（`server/src/homework/files.js`）。形の きまった ものは AI を 通さない（答えが 1 字も かわらない）：
+  CSV・TSV・Excel(.xlsx)・.ods／Kahoot の テンプレート・Blooket の CSV・Quizlet（ことば ⇥ 意味）・列の 名前（英語・日本語・英文・あな・形式・まちがい）／Moodle の GIFT・Aiken・Moodle XML／JSON。
+  形の ない ものは AI（`extract.js`。`OPENAI_API_KEY`、モデルは `OPENAI_HOMEWORK_MODEL` で かえられる）：写真（JPEG・PNG・WebP・iPhone の HEIC は 画面が JPEG に して 送る）・PDF（そのまま わたす。文字の 層は `pdftotext` でも 読む＝Dockerfile に poppler-utils）・Word(.docx)・PowerPoint(.pptx)・.odt・テキスト。
+  キーが ない ときは きまり（`parseRules`：「apple = りんご」「I (play) soccer.」「I ( ) tennis. [play, run]」「英文 訳」）。古い .doc/.xls/.ppt は ことわる。zip は 自前（`unzip()`、依存を ふやさない）。
+- **7 形式への ふりわけは `items.js`**：形を 書いて いない ことばの 行は えらぶ・つづり・きいて えらぶ・タイピング・せんつなぎ に まぜる（`assignKinds`。できない 形は とばす）。英文＋訳＝ならべかえ、あなの ある 文＝あなうめ、問題文＋選択肢＝問題文つきの えらぶ（`prompt` / `answer`）。
+  `problemOf()` が「出せない 理由」を 返し、admin の 表で 赤く なる。出せない 問題が 1 つでも あれば くばれない。出題の たびに formats-core の build* で 作りなおし、判定も `checkFormat`（つり島と 同じ `answer()`：1 回 まちがえたら もう 1 回）。
+- **部屋**（`ClassRoom` の `hw:list` / `hw:start {aid, redo}` / `hw:answer` / `hw:next` / `hw:quit`）。1 回目で 正解＝○、答えを 見てから・2 回 まちがい＝×（「まちがえた ところを もう いちど」で ○ に なる）。
+  1 問 3 XP、はじめて ぜんぶ おわったら 20 コイン（1 日 60 まで、caps の `homework`）。記録は 学習ログ（`hw-<形>`）と `robloxEvent('quiz', 'homework', {level:'Homework', format, word})`＝苦手単語の 復習・先生の /class にも のる。
+  welcome の `homework`（のこりの 数）で 1 回 おしらせ。
+- **しゅくだい島**（`homework-island.js` + `homework.json`、HUBS の `homework`）：いえ 1 けん（戸口で `homework.open()`）・黒板・本の 山・えんぴつ。画面は `homework.js` + `homework.css`（一覧 → 1 問 → おわり）。オンラインの ときだけ。
+- **保護者レポート**：`report.homework`（`homework.listFor`）を `homeworkBlock()` が「宿題（n / m おわり）」として 出す（その 子の ぶんだけ）。1 人ぶんの 削除（privacy.js・erase-student.mjs）でも 消える。
+- 検査は `server/test/homework.test.mjs`（読みとり・各形式・7 形式の 判定・くばるまで 出ない・部屋の 流れ・コイン 1 回・やりなおし・レポート）。
+
 ## ランキング（あらゆる 指標／2026-10）
 - **中身は `server/src/game/rankings.js` の 1 か所**（`METRICS`：今週の XP・ぜんぶの XP・レベル・せいかい・せいかいりつ（20 問から）・学習時間・学習日・連続ログイン・コイン・さかな・ずかん・フレーズ・おつかい・タスク・じぶんの島・ベストラップ・5 技能）。行を 足せば ぜんぶに 出る。
 - 先生と 0 の 子は ならべない。同じ 数は 同じ 順位。保存の 行から 毎回 計算（ランキングの 表は 持たない）。
