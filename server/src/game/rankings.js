@@ -19,6 +19,8 @@ const len = (json) => { const v = parse(json, []); return Array.isArray(v) ? v.l
 // `week: true` は 今週の ぶんだけ（week_key が いまの 週の 子だけ 数える）。
 export const METRICS = [
   { key: 'week_xp', icon: '✧', ja: 'こんしゅうの XP', en: 'XP this week', unit: 'XP', unitEn: 'XP', week: true, of: (r) => num(r.week_xp) },
+  // のびた XP：今週 − 先週（ふえた ぶんだけ）。はじめたばかりの 子も 1 位に なれる（ぜんぶの XP は 前から いる 子が 強い）。
+  { key: 'growth', icon: '🚀', ja: 'のびた XP（せんしゅうより）', en: 'XP growth (vs last week)', unit: 'XP', unitEn: 'XP', week: true, of: (r, wk) => Math.max(0, num(r.week_xp) - num(histOf(r)[wk - 1])) },
   { key: 'total_xp', icon: '⭐', ja: 'ぜんぶの XP', en: 'Total XP', unit: 'XP', unitEn: 'XP', of: (r) => totalXp({ level: Math.max(1, num(r.level) || 1), xp: num(r.xp) }) },
   { key: 'level', icon: '🏅', ja: 'レベル', en: 'Level', unit: 'Lv', unitEn: 'Lv', of: (r) => (num(r.xp) > 0 || num(r.level) > 1 ? Math.max(1, Math.floor(num(r.level) || 1)) : 0) },
   { key: 'correct', icon: '✅', ja: 'せいかいした かず', en: 'Correct answers', unit: 'もん', unitEn: '', of: (r) => num(r.correct) },
@@ -41,6 +43,58 @@ export const METRIC_BY_KEY = new Map(METRICS.map((m) => [m.key, m]));
 
 const isTeacher = (r) => String(r.role || '') === 'teacher';
 
+// ---- 週ごとの XP（week_hist_json）-------------------------------------------------------------
+const HIST_WEEKS = 12;
+export function sanitizeWeekHist(raw) {
+  const out = {};
+  if (raw && typeof raw === 'object') for (const [k, v] of Object.entries(raw)) { const w = Math.floor(Number(k)); const x = Math.floor(Number(v)); if (w > 0 && x > 0) out[w] = Math.min(1e9, x); }
+  return out;
+}
+// いまの 週を 書きこみ、古い 週を すてる（保存の たびに）。
+export function noteWeek(hist, week) {
+  const h = sanitizeWeekHist(hist);
+  if (week?.key && week.xp > 0) h[week.key] = Math.floor(week.xp);
+  const keep = Object.keys(h).map(Number).sort((a, b) => b - a).slice(0, HIST_WEEKS);
+  return Object.fromEntries(keep.map((k) => [k, h[k]]));
+}
+export const histOf = (r) => sanitizeWeekHist(parse(r?.week_hist_json, {}));
+
+// ---- 宇宙の 段階（今週の XP で きまる。**だれとも くらべない・さがらない**。週が かわると また ほしくずから）--------
+export const TIERS = [
+  { id: 'dust', icon: '✨', ja: 'ほしくず', en: 'Stardust', min: 0 },
+  { id: 'moon', icon: '🌙', ja: 'つき', en: 'Moon', min: 30 },
+  { id: 'planet', icon: '🪐', ja: 'わくせい', en: 'Planet', min: 80 },
+  { id: 'star', icon: '⭐', ja: 'こうせい', en: 'Star', min: 160 },
+  { id: 'nebula', icon: '🌌', ja: 'せいうん', en: 'Nebula', min: 300 },
+  { id: 'galaxy', icon: '🌠', ja: 'ぎんが', en: 'Galaxy', min: 500 },
+];
+export function tierOf(xp) {
+  let i = 0;
+  TIERS.forEach((t, j) => { if (xp >= t.min) i = j; });
+  const now = TIERS[i]; const next = TIERS[i + 1] || null;
+  // 次の 段階までの すすみ（0〜1）。さいごの 段階は いっぱい。
+  const p = next ? (xp - now.min) / (next.min - now.min) : 1;
+  return { ...now, index: i, next, toNext: next ? next.min - xp : 0, progress: Math.max(0, Math.min(1, p)) };
+}
+
+// じぶんくらべ（ランキングの いちばん 上）：今週・先週・じこベスト（今週は のぞく）・段階。
+export function selfView(week, hist, weekKey) {
+  const h = sanitizeWeekHist(hist);
+  const xp = week?.key === weekKey ? Math.max(0, Math.floor(week.xp || 0)) : 0;
+  const lastWeek = h[weekKey - 1] || 0;
+  const best = Math.max(0, ...Object.entries(h).filter(([k]) => Number(k) !== weekKey).map(([, v]) => v));
+  return { weekXp: xp, lastWeek, best, tier: tierOf(xp), tiers: TIERS.map(({ id, icon, ja, en, min }) => ({ id, icon, ja, en, min })) };
+}
+
+// クラス みんなで ためる 目標（今週の XP の 合計）。1 人 GOAL_PER_KID ずつ（入って いる 子の 数）。
+export const GOAL_PER_KID = 150;
+export function classGoal(boards) {
+  const rows = boards.find((b) => b.key === 'week_xp')?.rows || [];
+  const total = rows.reduce((n, r) => n + r.value, 0);
+  const kids = Math.max(1, rows.length);
+  return { now: total, goal: kids * GOAL_PER_KID, kids: rows.length };
+}
+
 // records（プレイヤーの 行）→ 指標ごとの ならび。weekKey は いまの 週（week_xp を 数える 週）。
 export function rankings(records, { weekKey = null, metrics = METRICS } = {}) {
   const kids = new Map();
@@ -52,7 +106,7 @@ export function rankings(records, { weekKey = null, metrics = METRICS } = {}) {
     const rows = [];
     for (const r of kids.values()) {
       if (m.week && weekKey !== null && num(r.week_key) !== num(weekKey)) continue;
-      const value = m.of(r);
+      const value = m.of(r, num(weekKey));
       if (!(value > 0)) continue;
       rows.push({ name: r.name, value });
     }
@@ -64,10 +118,19 @@ export function rankings(records, { weekKey = null, metrics = METRICS } = {}) {
 }
 
 // ゲームに 送る 形：指標ごとに 上 top 人と、じぶんの 行（top に いなくても）。
+// near：じぶんの まわり（上 2 人・じぶん・下 1 人）。**ほかの 子の 数は 送らない**（名前と 順位だけ）。
+// gap：すぐ 上の 子まで あと いくつ（同じ 数なら 1）。1 位なら 0。
 export function boardPayload(boards, name, { top = 10 } = {}) {
   return boards.map((b) => {
     const me = b.rows.find((r) => r.name === name) || null;
-    return { key: b.key, icon: b.icon, ja: b.ja, en: b.en, unit: b.unit, unitEn: b.unitEn, better: b.better, of: b.rows.length, top: b.rows.slice(0, top), me };
+    let near = []; let gap = 0; let ahead = '';
+    if (me) {
+      const i = b.rows.indexOf(me);
+      near = b.rows.slice(Math.max(0, i - 2), i + 2).map((r) => (r === me ? { ...r, me: true } : { name: r.name, rank: r.rank }));
+      const up = [...b.rows.slice(0, i)].reverse().find((r) => r.rank < me.rank);
+      if (up) { gap = b.better === 'low' ? Math.max(0.1, Math.round((me.value - up.value) * 10) / 10) : Math.max(1, up.value - me.value + (up.value === me.value ? 1 : 0)); ahead = up.name; }
+    }
+    return { key: b.key, icon: b.icon, ja: b.ja, en: b.en, unit: b.unit, unitEn: b.unitEn, better: b.better, of: b.rows.length, top: b.rows.slice(0, top), me, near, gap, ahead };
   });
 }
 

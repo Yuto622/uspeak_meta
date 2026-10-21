@@ -86,7 +86,7 @@ function applyOp(wallet, op) {
 import { boxFromEvents, makeSet as makeReviewSet, publicSet as reviewPublic, answer as reviewAnswer, dueCount as reviewDue, jstDay, COIN as REVIEW_COIN, PER_QUIZ as REVIEW_PER, ReviewError } from '../game/review.js';
 import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, placeLabel } from '../game/class-mode.js';
 import { rideOf, ParkError } from '../game/themepark.js';
-import { rankings, boardPayload } from '../game/rankings.js';
+import { rankings, boardPayload, sanitizeWeekHist, noteWeek, selfView, classGoal } from '../game/rankings.js';
 import { isPier, preparePier, pierInfo, PierError } from '../game/eiken-pier.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
@@ -1185,6 +1185,7 @@ export class ClassRoom extends Room {
       fw: sanitizeFw(parseJson(record.fishworld_json, null)),
       food: sanitizeFood(parseJson(record.food_json, null)),
       tasks: sanitizeTasks(parseJson(record.tasks_json, null)),
+      weekHist: sanitizeWeekHist(parseJson(record.week_hist_json, null)),
       reviewDay: typeof record.review_day === 'string' ? record.review_day : '',
       review: null,
       // Blocks moved out of the room and onto the plaza; a save from before that keeps
@@ -1265,6 +1266,7 @@ export class ClassRoom extends Room {
       fishworld_json: JSON.stringify({ dex: priv.fw.dex, bag: priv.fw.bag, caught: priv.fw.caught }),
       food_json: JSON.stringify(foodForSave(priv.food)),
       tasks_json: JSON.stringify(priv.tasks || blankTasks()),
+      week_hist_json: JSON.stringify(noteWeek(priv.weekHist || {}, priv.week)),
       review_day: priv.reviewDay || '',
       // Kept so a teacher's own row is not mistaken for a child's when the family
       // report links are drawn up.
@@ -2213,6 +2215,9 @@ export class ClassRoom extends Room {
       classCode: this.classCode,
       season: seasonFor(),
       boards: boardPayload(boards, me ? me.name : ''),
+      // じぶんくらべ（今週・先週・じこベスト・宇宙の 段階）と クラス みんなの 目標。
+      self: me ? selfView(me.week, noteWeek(me.weekHist || {}, me.week), key) : null,
+      classGoal: classGoal(boards),
     });
   }
 
