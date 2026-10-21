@@ -516,7 +516,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   // A resident with a nameplate, at one of the island's spots.
   function resident(def) {
     const npc = person(Number(def.color), 0xe8c39a, def.x, def.z);
-    const label = sprite(def.character, def.x, 3.5, def.z, { width: 4.4, size: 40, depthTest: false });
+    // labelBg / labelWidth：札の 色と 幅（英検の つり場は 級の 色で「🎣 英検3級 · Sora」を 1 枚に）。
+    const label = sprite(def.label || def.character, def.x, 3.5, def.z, { width: def.labelWidth || 4.4, size: def.labelSize || 40, depthTest: false, ...(def.labelBg ? { background: def.labelBg } : {}) });
     // 住人の下の一言。英語が無いデータもある（その時は日本語のまま出る）。
     const ja = sprite({ en: def.en || def.ja, ja: def.ja }, def.x, 2.95, def.z, { width: 6.6, size: 30, background: '#1c3b2fdd', color: '#dff0d4', depthTest: false });
     ja.visible = false;
@@ -555,7 +556,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
       if (dist < 14) sp.npc.rotation.y = Math.atan2(player.position.x - root.position.x - sp.def.x, player.position.z - root.position.z - sp.def.z);
       // Nameplates fade in as a child walks up to a building — unless the signs are down
       // altogether, which is what a race does (see setLabels).
-      sp.label.visible = labelsOn && dist < LABEL_DISTANCE;
+      sp.label.visible = labelsOn && (sp.def.labelAlways || dist < LABEL_DISTANCE);
       sp.ja.visible = labelsOn && dist < NEAR_DISTANCE + 2;
       sp.label.position.y = 3.5 + Math.sin(t * 1.6 + sp.def.z) * 0.06;
     }

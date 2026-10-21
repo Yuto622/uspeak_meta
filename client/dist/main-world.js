@@ -136,9 +136,10 @@ export function createMainWorld({ scene }) {
           D(def.x - 0.55, 2.4, def.z + 0.6, 1.0, 0.7, 0.06, color, 0.25);
           D(def.x + 1.0, 0.8, def.z + 0.4, 0.2, 1.2, 0.2, 0x8a7350);
           D(def.x + 1.0, 1.5, def.z + 0.7, 0.08, 0.08, 2.2, 0x6d543a);
-          sprite({ en: `🎣 ${def.en}`, ja: `🎣 ${def.ja}` }, def.x, 3.6, def.z, { width: 6.4, size: 30, background: `#${color.toString(16).padStart(6, '0')}dd` });
-          // 板の 道の 入口にも 小さな 札（遠くから どの さんばしか わかる）。
-          sprite({ en: def.short || def.en.replace('Eiken ', '').replace(' Pier', ''), ja: def.ja.replace('の つり場', '') }, def.x, 2.4, (data.eikenPiers?.z || 28.5) + 1.6, { width: 3.2, size: 34, background: `#${color.toString(16).padStart(6, '0')}` });
+          // 札は 1 まいだけ（級を 級の 色で。住人の 名前は 近づくと 出る 一言に まかせる）。前は さんばしの 名前・入口の 札・住人の 名前が かさなって 読めなかった。
+          // 幅は さんばしの 間（5）より せまく。入口は 文字の ない 級の 色の 柱 2 本（遠くから 色で どの さんばしか わかる）。
+          const ez = (data.eikenPiers?.z || 28.5) + 1.4;
+          for (const sx of [-1.25, 1.25]) { D(def.x + sx, 0.9, ez, 0.22, 1.4, 0.22, color, 0.2); D(def.x + sx, 1.7, ez, 0.36, 0.2, 0.36, 0xf7f1e1); }
         } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop' || def.kind === 'talk_shop' || def.kind === 'homework') {
           // 専用の島と 同じ お店（中に入ると その島の 3D の メニュー）。
           house(def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color, Number(def.roof), { en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` });
@@ -169,7 +170,10 @@ export function createMainWorld({ scene }) {
         if (def.kind === 'fishing') path(def.path.x, def.path.z, def.x, (data.pier || PIER).minZ);
         if (def.kind !== 'fishing' && def.kind !== 'gate' && def.kind !== 'eiken_pier') path(def.path.x, def.path.z, def.x, def.z);
         else if (def.kind === 'gate' && def.path.x !== def.x) path(def.path.x, def.path.z, def.x, def.z);
-        resident(def);
+        if (def.kind === 'eiken_pier') {
+          const g = def.ja.replace('の つり場', ''); const ge = def.en.replace(' Pier', '').replace('Grade ', '');
+          resident({ ...def, label: { en: `🎣 ${ge}`, ja: `🎣 ${g}` }, labelWidth: 4.8, labelSize: 60, labelAlways: true, labelBg: `#${color.toString(16).padStart(6, '0')}` });
+        } else resident(def);
       }
       fx = createCastFx({ root, B });
 
