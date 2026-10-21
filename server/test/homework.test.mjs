@@ -114,8 +114,19 @@ test('先生が くばるまで 出ない・出せない 問題が あれば く
   assert.equal((await hw.publish(a.id, true)).ok, true);
   assert.equal(hw.forClass('6-1').length, 1);
   assert.equal(hw.forClass('6-2').length, 0);
-  const { assignment: b } = await hw.create({ title: 'bad', items: [{ kind: 'fill', sentence: 'I run.', blank: 'swim' }] });
+  const { assignment: b } = await hw.create({ title: 'bad', classes: '6-1', items: [{ kind: 'fill', sentence: 'I run.', blank: 'swim' }] });
   assert.equal((await hw.publish(b.id, true)).ok, false);
+  // 宿題は クラスコードごと：クラスの ない 宿題は 作れない・クラスを けす なおしも できない
+  const none = await hw.create({ title: 'no class', items: [{ en: 'red', ja: 'あか' }, { en: 'blue', ja: 'あお' }] });
+  assert.equal(none.ok, false);
+  assert.match(none.error, /クラスコード/);
+  assert.equal((await hw.update(a.id, { classes: '' })).ok, false);
+  assert.equal((await hw.update(a.id, { title: 'Unit 2b' })).ok, true, 'leaving the classes out keeps them');
+  assert.deepEqual(hw.get(a.id).classes, ['6-1']);
+  // 前の 版で クラスなしで くばられた 宿題は もう どこにも 出ない
+  hw.assignments.push({ id: 'old', title: 'old', classes: [], due: '', status: 'published', items: hw.get(a.id).items, createdAt: 0, publishedAt: 1 });
+  assert.ok(!hw.forClass('6-1').some((x) => x.id === 'old'));
+  assert.equal((await hw.publish('old', true)).ok, false);
 });
 
 let server; let url;

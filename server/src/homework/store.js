@@ -3,11 +3,13 @@
 // { assignments: [{ id, title, classes: [クラス], due: 'YYYY-MM-DD', status: 'draft' | 'published', items: [...], createdAt, publishedAt, via }],
 //   progress: { '<クラス>|<名前>|<宿題の id>': { answers: { <問題の id>: { ok, tries, at } }, startedAt, doneAt, paid } } }
 // **draft は 子どもに 出ない。** 先生が admin で たしかめて「くばる」を 押すと published に なる。
+// **宿題は クラスコードごとに くばる**：クラスの ない 宿題は 保存も くばるも できない（どの クラスにも 出ない）。
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { checkItems, wordOf, KIND_JA } from './items.js';
 
 const MAX_ASSIGNMENTS = 500;
+const NO_CLASS = 'クラスコードを 入れて ください（宿題は クラスごとに くばります）';
 const str = (v, max = 80) => String(v ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 const classKey = (s) => String(s ?? '').normalize('NFKC').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 24);
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
@@ -45,7 +47,8 @@ export class HomeworkStore {
   get(id) { return this.assignments.find((a) => a.id === id) || null; }
 
   clean(input, prev = null) {
-    const classes = (Array.isArray(input.classes) ? input.classes : String(input.classes ?? '').split(/[,、\s]+/)).map(classKey).filter(Boolean);
+    const raw = input.classes === undefined ? prev?.classes ?? [] : input.classes;
+    const classes = (Array.isArray(raw) ? raw : String(raw ?? '').split(/[,、\s]+/)).map(classKey).filter(Boolean);
     const { items, problems } = checkItems(input.items ?? prev?.items ?? []);
     return {
       title: str(input.title ?? prev?.title, 60) || 'しゅくだい',
@@ -57,6 +60,7 @@ export class HomeworkStore {
   }
 
   async create(input) {
+    if (!this.clean(input).classes.length) return { ok: false, error: NO_CLASS };
     if (this.assignments.length >= MAX_ASSIGNMENTS) return { ok: false, error: `宿題は ${MAX_ASSIGNMENTS} こまでです（古い ものを 消して ください）` };
     const c = this.clean(input);
     const at = this.now();
@@ -71,6 +75,7 @@ export class HomeworkStore {
     const a = this.get(id);
     if (!a) return { ok: false, error: 'その 宿題は ありません' };
     const c = this.clean(input, a);
+    if (!c.classes.length) return { ok: false, error: NO_CLASS };
     if (a.status === 'published' && c.problems.length) return { ok: false, error: 'くばって いる 宿題に 出せない 問題が あります', problems: c.problems };
     Object.assign(a, { title: c.title, classes: c.classes, due: c.due, note: c.note, items: c.items });
     await this.flush();
@@ -84,6 +89,7 @@ export class HomeworkStore {
     if (on) {
       const { problems, items } = checkItems(a.items);
       if (!items.length) return { ok: false, error: '問題が ありません' };
+      if (!a.classes.length) return { ok: false, error: NO_CLASS };
       if (problems.length) return { ok: false, error: '出せない 問題が あります。なおすか 消して ください', problems };
       a.status = 'published'; a.publishedAt = a.publishedAt || this.now();
     } else a.status = 'draft';
@@ -99,10 +105,10 @@ export class HomeworkStore {
     return { ok: before !== this.assignments.length };
   }
 
-  // そのクラスに くばって ある 宿題（新しい 順）。classes が からなら どのクラスにも。
+  // そのクラスに くばって ある 宿題（新しい 順）。クラスの ない 宿題は どこにも 出ない。
   forClass(classCode) {
     const c = classKey(classCode);
-    return this.assignments.filter((a) => a.status === 'published' && (!a.classes.length || a.classes.includes(c)));
+    return this.assignments.filter((a) => a.status === 'published' && a.classes.includes(c));
   }
 
   key(classCode, name, id) { return `${classKey(classCode)}|${str(name, 40)}|${id}`; }

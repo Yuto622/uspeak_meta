@@ -72,14 +72,14 @@ th{background:#1b3a2f;color:#fff}td input{width:100%;min-height:32px}td select{m
 
 <div id="editor" hidden>
 <h2>2. たしかめて なおす</h2>
-<div class="bar"><label>だい <input id="title" size="28"></label><label>クラス（からなら ぜんぶ） <input id="classes" size="20" placeholder="6-1, 6-2"></label><label>しめきり <input type="date" id="due"></label></div>
+<div class="bar"><label>だい <input id="title" size="28"></label><label><b>クラスコード</b>（かならず・いくつでも） <input id="classes" size="20" placeholder="6-1, 6-2" list="cls-list" required></label><datalist id="cls-list"></datalist><label>しめきり <input type="date" id="due"></label></div>
 <table><thead><tr><th>#</th><th>形</th><th>英語（ことば・文・問題文）</th><th>日本語・正解</th><th>あな</th><th>まちがいの 候補（, で 区切る）</th><th></th></tr></thead><tbody id="rows"></tbody></table>
 <div class="bar"><button id="add">＋ 問題を 足す</button><button id="auto">形を おまかせで ふりなおす</button></div>
 <div class="bar"><button class="main" id="save">下書きを 保存</button><button class="go" id="savepub">保存して くばる</button><button id="cancel">やめる</button></div>
 </div>
 
 <h2>3. 宿題の 一覧</h2>
-<div class="bar"><label>クラス <select id="cls"><option value="">ぜんぶの クラス</option></select></label><span class="muted">えらんだ クラスの 宿題だけ 出ます。新しく 読みとった 宿題も この クラスに なります。</span></div>
+<div class="bar"><label>クラス <select id="cls"><option value="">ぜんぶの クラス</option></select></label><span class="muted">宿題は クラスコードごとに くばります。えらんだ クラスの 宿題だけ 出て、新しく 読みとった 宿題も この クラスに なります。</span></div>
 <div id="list"></div>
 </div>
 <script>
@@ -119,7 +119,7 @@ $('#rows').onclick=e=>{const d=e.target.dataset.del;if(d!==undefined){read();ite
 $('#add').onclick=()=>{read();items.push({kind:'mc',en:'',ja:'',sentence:'',blank:'',wrong:[],prompt:'',answer:''});paint()};
 $('#auto').onclick=async()=>{read();const r=await fetch('/admin/api/homework/extract',{method:'POST',headers:H,body:JSON.stringify({text:'',files:[{name:'x.json',type:'application/json',data:btoa(unescape(encodeURIComponent(JSON.stringify(items.map(({kind,...x})=>x)))))}]})}).then(r=>r.json());if(r.ok){items=r.items;paint()}};
 $('#cancel').onclick=()=>{$('#editor').hidden=true;editing=null};
-async function save(pub){read();if(pub&&!$('#classes').value.trim()&&!confirm('クラスが からです。すべての クラスに くばりますか？'))return;const body={title:$('#title').value,classes:$('#classes').value,due:$('#due').value,items,via:'admin'};
+async function save(pub){read();if(!$('#classes').value.trim()){msg('クラスコードを 入れて ください（宿題は クラスごとに くばります）');$('#classes').focus();return}const body={title:$('#title').value,classes:$('#classes').value,due:$('#due').value,items,via:'admin'};
 let r=editing?await fetch('/admin/api/homework/'+editing,{method:'PUT',headers:H,body:JSON.stringify(body)}).then(r=>r.json()):await fetch('/admin/api/homework',{method:'POST',headers:H,body:JSON.stringify(body)}).then(r=>r.json());
 if(!r.ok){msg('保存できません：'+r.error);showProblems(r.problems);return}const id=r.assignment.id;
 if(r.problems&&r.problems.length){showProblems(r.problems);msg('下書きを 保存しました。赤い 行を なおすと くばれます');editing=id;load();return}
@@ -128,10 +128,10 @@ $('#editor').hidden=true;editing=null;picked=[];paintFiles();$('#text').value=''
 function showProblems(ps){if(!ps)return;const bad={};ps.forEach(p=>bad[p.index]=p.reason);mark(bad)}
 $('#save').onclick=()=>save(false);$('#savepub').onclick=()=>save(true);
 async function load(){const r=await fetch('/admin/api/homework',{headers:H});if(r.status===401){location.href='/admin';return}const d=await r.json();meta=d;
-const sel=$('#cls');sel.innerHTML='<option value="">ぜんぶの クラス</option>'+(d.classes||[]).map(c=>'<option'+(c===cls?' selected':'')+'>'+esc(c)+'</option>').join('');if(cls&&!(d.classes||[]).includes(cls)){cls='';sel.value=''}
-const card=a=>'<div class="card"><h3>'+esc(a.title)+'<span class="pill '+(a.status==='published'?'pub':'draft')+'">'+(a.status==='published'?'くばっています':'下書き')+'</span></h3><div class="muted">'+a.items.length+' 問 ・ クラス '+esc(a.classes.join(', ')||'ぜんぶ')+(a.due?' ・ しめきり '+esc(a.due):'')+' ・ はじめた '+a.started+' 人 ・ おわった '+a.finished+' 人'+(a.problems.length?' ・ <b style="color:#b5432b">出せない 問題 '+a.problems.length+'</b>':'')+'</div>'+
+$('#cls-list').innerHTML=(d.classes||[]).map(c=>'<option value="'+esc(c)+'">').join('');const sel=$('#cls');sel.innerHTML='<option value="">ぜんぶの クラス</option>'+(d.classes||[]).map(c=>'<option'+(c===cls?' selected':'')+'>'+esc(c)+'</option>').join('');if(cls&&!(d.classes||[]).includes(cls)){cls='';sel.value=''}
+const card=a=>'<div class="card"><h3>'+esc(a.title)+'<span class="pill '+(a.status==='published'?'pub':'draft')+'">'+(a.status==='published'?'くばっています':'下書き')+'</span></h3><div class="muted">'+a.items.length+' 問 ・ クラス '+(a.classes.length?esc(a.classes.join(', ')):'<b style="color:#b5432b">なし</b>')+(a.due?' ・ しめきり '+esc(a.due):'')+' ・ はじめた '+a.started+' 人 ・ おわった '+a.finished+' 人'+(a.problems.length?' ・ <b style="color:#b5432b">出せない 問題 '+a.problems.length+'</b>':'')+'</div>'+
 '<div class="bar"><button data-edit="'+a.id+'">なおす</button>'+(a.status==='published'?'<button data-pub="'+a.id+'" data-on="0">くばるのを やめる</button>':'<button class="go" data-pub="'+a.id+'" data-on="1">くばる</button>')+'<button data-prog="'+a.id+'">すすみぐあい</button><button class="warn" data-rm="'+a.id+'">消す</button></div><div id="p-'+a.id+'"></div></div>';
-const groups=cls?[[cls,d.items.filter(a=>a.classes.includes(cls))],['すべての クラス',d.items.filter(a=>!a.classes.length)]]:[...(d.classes||[]).map(c=>[c,d.items.filter(a=>a.classes.includes(c))]),['すべての クラス（クラスを きめて いない）',d.items.filter(a=>!a.classes.length)]];
+const groups=cls?[[cls,d.items.filter(a=>a.classes.includes(cls))],['⚠ クラスが きまって いない（くばれません。「なおす」で クラスコードを 入れて ください）',d.items.filter(a=>!a.classes.length)]]:[...(d.classes||[]).map(c=>[c,d.items.filter(a=>a.classes.includes(c))]),['⚠ クラスが きまって いない（くばれません。「なおす」で クラスコードを 入れて ください）',d.items.filter(a=>!a.classes.length)]];
 $('#list').innerHTML=groups.filter(g=>g[1].length).map(g=>'<h3 class="grp">'+esc(g[0])+' <span class="muted">'+g[1].length+' こ</span></h3>'+g[1].map(card).join('')).join('')||'<p class="muted">まだ ありません。</p>'}
 $('#cls').onchange=()=>{cls=$('#cls').value;try{localStorage.setItem(CLS_KEY,cls)}catch{};load()};
 $('#list').onclick=async e=>{const b=e.target.closest('button');if(!b)return;

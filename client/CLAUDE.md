@@ -1246,7 +1246,7 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **部屋**（`ClassRoom` の `hw:list` / `hw:start {aid, redo}` / `hw:answer` / `hw:next` / `hw:quit`）。1 回目で 正解＝○、答えを 見てから・2 回 まちがい＝×（「まちがえた ところを もう いちど」で ○ に なる）。
   1 問 3 XP、はじめて ぜんぶ おわったら 20 コイン（1 日 60 まで、caps の `homework`）。記録は 学習ログ（`hw-<形>`）と `robloxEvent('quiz', 'homework', {level:'Homework', format, word})`＝苦手単語の 復習・先生の /class にも のる。
   welcome の `homework`（のこりの 数）で 1 回 おしらせ。
-- **admin の 一覧は クラスごと**（`/admin/homework` の「クラス」。名簿の クラスと 宿題に 書いた クラスを `classKeyOf` で そろえて ならべる）。えらんだ クラスは この ブラウザに 覚え（`uspeak-admin-hw-class`）、新しく 読みとった 宿題の クラスにも 入る。クラスを からの まま「くばる」と きくのは「すべての クラスに くばりますか？」。
+- **admin の 一覧は クラスごと**（`/admin/homework` の「クラス」。名簿の クラスと 宿題に 書いた クラスを `classKeyOf` で そろえて ならべる）。えらんだ クラスは この ブラウザに 覚え（`uspeak-admin-hw-class`）、新しく 読みとった 宿題の クラスにも 入る。**クラスは かならず**（`store.js` の create/update/publish が クラス なしを ことわる・admin でも 止める）。宿題は 書いた クラスの 子にだけ 出る（`forClass` は クラスが 入って いる ものだけ。前の「クラス なし＝全員」は もう ない）。クラス なしの 古い 宿題は 一覧の「⚠ クラスが きまって いない」に 出るので「なおす」で クラスを 入れる。
 - **しゅくだい島**（`homework-island.js` + `homework.json`、HUBS の `homework`）：いえ 1 けん（戸口で `homework.open()`）・黒板・本の 山・えんぴつ。画面は `homework.js` + `homework.css`（一覧 → 1 問 → おわり）。オンラインの ときだけ。
 - **保護者レポート**：`report.homework`（`homework.listFor`）を `homeworkBlock()` が「宿題（n / m おわり）」として 出す（その 子の ぶんだけ）。1 人ぶんの 削除（privacy.js・erase-student.mjs）でも 消える。
 - **LINE の 週・月 レポート**：`homework.periodSummary(クラス, 名前, 期間)`（提出・しめきりまでに・おくれて・しめきり すぎ・答えた 数・正解率・1 回で 正解・やり直し・時間・日数・形ごと・まちがえた ことば・宿題ごとの 行）を `service.js` の dataFor が `d.homework` に 入れる。画像（1 まいめ）に 1 行（`homeworkLine`）、PDF の 2 まいめに くわしく（`homeworkPage`・テンプレートの `{{{ homeworkPage }}}`）、LINE に 吹き出し 1 つ（`line.js` の `homeworkText`）、通知の 文に 件数。**名前は Web の 名前**（Roblox の 子は `roblox.childFor` で ひく）。
