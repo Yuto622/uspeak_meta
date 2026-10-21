@@ -12,6 +12,10 @@
   header { background:var(--ink); color:#fff; padding:14px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
   header h1 { font-size:17px; margin:0; flex:1; }
   header form { margin:0 }
+  /* 上の リンク：暗い 緑の 上で 読めるように 白い 文字の ボタンに（ふつうの 青・むらさきの リンク色は 読めない） */
+  header p { margin:0 }
+  header a, header a:visited { display:inline-block; color:#fff; text-decoration:none; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.28); border-radius:10px; padding:7px 12px; font-size:13px; line-height:1.4 }
+  header a:hover, header a:focus-visible { background:var(--accent); border-color:var(--accent); color:#fff; outline:none }
   header button { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.4); border-radius:8px; padding:6px 12px; font-size:13px; cursor:pointer }
   main { max-width:980px; margin:0 auto; padding:20px 16px 80px; }
   .card { background:var(--card); border-radius:14px; padding:18px 20px; box-shadow:0 6px 24px rgba(27,58,47,.08); margin-bottom:16px; }

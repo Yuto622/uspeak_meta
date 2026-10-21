@@ -33,7 +33,7 @@ body[data-arcade] #hunger, body[data-race] #hunger, body[data-gp] #hunger, body[
 /* おなかが すいた ときの 帯（food.js）。下の まんなか（「E …」の ボタンの 上）。上は 右の 列と かさなるので 使わない。
    0 の 間は 赤、少ない 間は クリーム。スマホは 上（下は スティックと ボタンで いっぱい）。 */
 #hunger-notice { position: fixed; left: 50%; bottom: 196px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 10px;
-  width: max-content; max-width: min(620px, 92vw); padding: 8px 8px 8px 14px; border-radius: 18px; background: #fffbf5; color: #1b3a2f;
+  width: max-content; max-width: min(620px, 92vw); height: auto; max-height: 160px; padding: 8px 8px 8px 14px; border-radius: 18px; background: #fffbf5; color: #1b3a2f;
   box-shadow: 0 8px 24px #0004, inset 0 0 0 2px #e27a2d; }
 #hunger-notice[hidden] { display: none; }
 #hunger-notice[data-level=empty] { background: #7a2a22; color: #fff; box-shadow: 0 8px 24px #0005, inset 0 0 0 2px #ffb08a; }
