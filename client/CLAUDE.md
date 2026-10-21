@@ -1248,6 +1248,9 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   welcome の `homework`（のこりの 数）で 1 回 おしらせ。
 - **admin の 一覧は クラスごと**（`/admin/homework` の「クラス」。名簿の クラスと 宿題に 書いた クラスを `classKeyOf` で そろえて ならべる）。えらんだ クラスは この ブラウザに 覚え（`uspeak-admin-hw-class`）、新しく 読みとった 宿題の クラスにも 入る。**クラスは かならず**（`store.js` の create/update/publish が クラス なしを ことわる・admin でも 止める）。宿題は 書いた クラスの 子にだけ 出る（`forClass` は クラスが 入って いる ものだけ。前の「クラス なし＝全員」は もう ない）。クラス なしの 古い 宿題は 一覧の「⚠ クラスが きまって いない」に 出るので「なおす」で クラスを 入れる。
 - **しゅくだい島**（`homework-island.js` + `homework.json`、HUBS の `homework`）：いえ 1 けん（戸口で `homework.open()`）・黒板・本の 山・えんぴつ。画面は `homework.js` + `homework.css`（一覧 → 1 問 → おわり）。オンラインの ときだけ。
+- **英会話教室の 先生の 画面 `/teacher/homework`**（運営の /admin とは べつ・`server/src/classroom/teacher.js`）：教室の **パスワード 1 つ** で 入る。パスワードで 教室（＝クラスコード）が きまり、その 教室の クラスの 宿題だけ 見えて・作れて・くばれる（クラスコードは 入れない。1 クラスの 教室は 欄も 出ない）。どの クラスを さわれるかは サーバーが きめる（`mountHomeworkApi` の scope。よその 宿題は 403、ほかの 教室と まざった 宿題は 見るだけ）。読みとり（AI）は 1 教室 1 時間 40 回まで。
+  - パスワードの 表は **`/admin/classrooms`**（運営だけ。列：教室の 名前・クラスコード・パスワード）。パスワードは のこさず HMAC（REPORT_SECRET）だけ 保存（`DATA_DIR/classrooms.json`）するので、作った ときに 1 回だけ 見える。かえると 前の ログインは 使えなく なる。教室ごとに ちがう パスワード・1 クラスは 1 教室だけ・8 文字 以上。
+  - 検査：`server/test/classroom.test.mjs`。
 - **保護者レポート**：`report.homework`（`homework.listFor`）を `homeworkBlock()` が「宿題（n / m おわり）」として 出す（その 子の ぶんだけ）。1 人ぶんの 削除（privacy.js・erase-student.mjs）でも 消える。
 - **LINE の 週・月 レポート**：`homework.periodSummary(クラス, 名前, 期間)`（提出・しめきりまでに・おくれて・しめきり すぎ・答えた 数・正解率・1 回で 正解・やり直し・時間・日数・形ごと・まちがえた ことば・宿題ごとの 行）を `service.js` の dataFor が `d.homework` に 入れる。画像（1 まいめ）に 1 行（`homeworkLine`）、PDF の 2 まいめに くわしく（`homeworkPage`・テンプレートの `{{{ homeworkPage }}}`）、LINE に 吹き出し 1 つ（`line.js` の `homeworkText`）、通知の 文に 件数。**名前は Web の 名前**（Roblox の 子は `roblox.childFor` で ひく）。
   毎週版の 1 まいめは 入りきらない ときだけ ぜんたいを 小さく する（`weekly.tex.j2` の `\bodybox`。LINE の 画像は 1 まいめだけ なので、あふれた 分は 見えなく なる）。

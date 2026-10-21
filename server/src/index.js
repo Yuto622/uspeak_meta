@@ -19,6 +19,9 @@ import { QBankStore } from './qbank/store.js';
 import { qbankAdminExtension } from './qbank/admin.js';
 import { HomeworkStore } from './homework/store.js';
 import { homeworkAdminExtension } from './homework/admin.js';
+import { ClassroomStore } from './classroom/store.js';
+import { classroomAdminExtension } from './classroom/admin.js';
+import { mountTeacherHomework } from './classroom/teacher.js';
 import { RoadmapStore } from './roadmap/store.js';
 import { createRoadmapService } from './roadmap/service.js';
 import { roadmapAdminExtension } from './roadmap/admin.js';
@@ -368,6 +371,10 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   const qbankAdmin = qbankAdminExtension({ qbank, log });
   const homeworkAdmin = homeworkAdminExtension({ homework, aiReady: !!config.ai.apiKey, rosterClasses: async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class), log });
   const roadmapAdmin = roadmapAdminExtension({ roadmap: roadmapStore, log });
+  // 教室の パスワード（/admin/classrooms）と、英会話教室の 先生の 宿題の 画面（/teacher/homework）。
+  const rosterClasses = async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class);
+  const classrooms = config.reportSecret ? await new ClassroomStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'classrooms.json'), { secret: config.reportSecret, log }).init() : null;
+  const classroomAdmin = classrooms ? classroomAdminExtension({ classrooms, rosterClasses, log }) : () => {};
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
   const privacyAdmin = ({ api }) => {
     api.post('/erase', express.json({ limit: '4kb' }), async (req, res) => {
@@ -379,11 +386,12 @@ export async function startServer({ port = config.port, storeOverride = null, tt
       catch (err) { log.warn('[privacy] erase failed:', err.message); res.status(500).json({ ok: false, error: '消せませんでした' }); }
     });
   };
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); } });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); } });
   // 保持期間（RETENTION_DAYS、既定 400 日）：学習ログ・コインログ・送信の 記録を 毎日 消す。
   const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
   // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
-  app.use(['/api/liff', '/r', '/report', '/class', '/export'], rateLimit({ windowMs: 60_000, max: 120 }));
+  app.use(['/api/liff', '/r', '/report', '/class', '/export', '/teacher'], rateLimit({ windowMs: 60_000, max: 120 }));
+  if (classrooms) mountTeacherHomework(app, { classrooms, homework, secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
   app.get('/api/tasks', (req, res) => { res.set('Cache-Control', 'public, max-age=60'); res.json({ ok: true, updatedAt: tasks.updatedAt, ...tasks.adopted() }); });
   // 保護者レポートの 口（Webhook・LIFF・/r/:token・教室の タブ）。
   parentReports.mount(app, { verifyClass, secret: config.reportSecret });
