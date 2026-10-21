@@ -33,9 +33,10 @@ input,button{min-height:38px;border:1px solid #d9d1c3;border-radius:10px;backgro
 button.main{background:#1b3a2f;color:#fff;border-color:#1b3a2f}button.warn{color:#b5432b;border-color:#e3b3a6}
 table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:14px}th,td{border-bottom:1px solid #f0e8da;padding:6px;text-align:left;vertical-align:top}
 th{background:#1b3a2f;color:#fff}td input{width:100%}tr.bad td{background:#fff1ec}.why{color:#b5432b;font-size:12px}.pw{display:flex;gap:6px}.pw input{font-family:ui-monospace,Menlo,monospace}
-.state{font-size:12px;color:#2f8f5b}.state.no{color:#b5432b}#msg{font-weight:700;min-height:22px}code{background:#f4efe4;border-radius:6px;padding:1px 6px}</style></head><body><div class="wrap">
+.state{font-size:12px;color:#2f8f5b}.state.no{color:#b5432b}#msg{font-weight:700;min-height:22px}.share{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;background:#fff;border:2px solid #e27a2d;border-radius:14px;padding:12px 16px;margin:12px 0}.share b{display:block;font-size:13px;color:#6e665c;margin-bottom:2px}.share a{font-size:18px;font-weight:700;color:#1b3a2f;word-break:break-all}code{background:#f4efe4;border-radius:6px;padding:1px 6px}</style></head><body><div class="wrap">
 <p class="muted"><a href="/admin">← 管理トップ</a> ・ <a href="/admin/homework">宿題（運営）</a></p>
 <h1>🔑 教室の パスワード</h1>
+<div class="share"><div><b>教室に わたす 管理画面の URL</b><a id="share-url" href="/teacher/homework" target="_blank" rel="noopener">/teacher/homework</a></div><button id="copy-url">URL を コピー</button></div>
 <p class="muted">英会話教室の 先生は <code id="url">/teacher/homework</code> を ひらいて、ここの <b>パスワード</b> だけで 入れます。<b>パスワードで 教室と クラスが きまる</b>ので、先生は クラスコードを 入れません。その 教室の クラスの 宿題だけ 見えて、作れて、くばれます。<br>
 パスワードは サーバーに のこさないので、<b>作った ときに 1 回だけ 見えます</b>。「作る」→ コピーして 教室に わたす → 「保存」。わすれたら 作りなおして ください（前の パスワードでは 入れなく なります）。<br>
 1 つの 教室に クラスを いくつでも（, で 区切る）。1 つの クラスは 1 つの 教室だけ。パスワードは 教室ごとに ちがう もので、<span id="min">8</span> 文字 以上。</p>
@@ -46,17 +47,19 @@ th{background:#1b3a2f;color:#fff}td input{width:100%}tr.bad td{background:#fff1e
 <script>
 const $=s=>document.querySelector(s);const H={'x-requested-with':'uspeak-admin','content-type':'application/json'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let rows=[];$('#url').textContent=location.origin+'/teacher/homework';
+let rows=[];const TURL=location.origin+'/teacher/homework';$('#url').textContent=TURL;$('#share-url').textContent=TURL;$('#share-url').href=TURL;
+const copy=async(v,ok)=>{try{await navigator.clipboard.writeText(v);$('#msg').textContent=ok}catch{$('#msg').textContent='コピーできません。手で えらんで コピーして ください'}};
+$('#copy-url').onclick=()=>copy(TURL,'URL を コピーしました');
 const ABC='abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const make=()=>Array.from(crypto.getRandomValues(new Uint8Array(12)),x=>ABC[x%ABC.length]).join('');
 function paint(){$('#rows').innerHTML=rows.map((r,i)=>'<tr data-row="'+i+'"><td><input data-i="'+i+'" data-f="name" value="'+esc(r.name)+'" placeholder="例：さくら 英会話"></td><td><input data-i="'+i+'" data-f="classes" value="'+esc(r.classes)+'" placeholder="例：sakura1, sakura2" list="cls-list"></td>'+
-'<td><div class="pw"><input data-i="'+i+'" data-f="password" value="'+esc(r.password||'')+'" placeholder="'+(r.hasPassword?'（いまの まま）':'パスワード')+'" autocomplete="off" spellcheck="false"><button data-make="'+i+'">作る</button><button data-copy="'+i+'">コピー</button></div>'+
+'<td><div class="pw"><input data-i="'+i+'" data-f="password" value="'+esc(r.password||'')+'" placeholder="'+(r.hasPassword?'（いまの まま）':'パスワード')+'" autocomplete="off" spellcheck="false"><button data-make="'+i+'">作る</button><button data-copy="'+i+'" title="URL と パスワードを いっしょに コピー">わたす 文を コピー</button></div>'+
 '<div class="state'+(r.hasPassword?'':' no')+'">'+(r.password?'⚠ まだ 保存して いません。コピーして わたしてから「保存」':r.hasPassword?'✓ パスワード あり（'+new Date(r.setAt).toLocaleDateString('ja-JP')+' に つけた）':'パスワード なし')+'</div><div class="why"></div></td>'+
 '<td><button class="warn" data-del="'+i+'">消す</button></td></tr>').join('')||'<tr><td colspan="4" class="muted">まだ 教室が ありません。「＋ 教室を 足す」で 作れます。</td></tr>'}
 $('#rows').addEventListener('input',e=>{const el=e.target;if(el.dataset.f)rows[+el.dataset.i][el.dataset.f]=el.value});
 $('#rows').onclick=async e=>{const b=e.target.closest('button');if(!b)return;
 if(b.dataset.make!==undefined){rows[+b.dataset.make].password=make();paint()}
-if(b.dataset.copy!==undefined){const v=rows[+b.dataset.copy].password;if(!v){$('#msg').textContent='コピーできるのは 新しい パスワードだけです（いまの パスワードは 見られません）';return}try{await navigator.clipboard.writeText(v);$('#msg').textContent='コピーしました'}catch{$('#msg').textContent='コピーできません。手で えらんで コピーして ください'}}
+if(b.dataset.copy!==undefined){const r=rows[+b.dataset.copy];if(!r.password){$('#msg').textContent='コピーできるのは 新しい パスワードだけです（いまの パスワードは 見られません）';return}copy('U-Speak 宿題の 管理画面（'+(r.name||'教室')+'）\\n'+TURL+'\\nパスワード：'+r.password,'URL と パスワードを コピーしました（そのまま 教室に わたせます）')}
 if(b.dataset.del!==undefined){const r=rows[+b.dataset.del];if((r.name||r.id)&&!confirm('「'+(r.name||'この 教室')+'」を 消しますか？ この 教室の 先生は 入れなく なります（宿題は のこります）'))return;rows.splice(+b.dataset.del,1);paint()}};
 $('#add').onclick=()=>{rows.push({name:'',classes:'',password:make(),hasPassword:false});paint()};
 $('#save').onclick=async()=>{const r=await fetch('/admin/api/classrooms',{method:'PUT',headers:H,body:JSON.stringify({rows:rows.map(({id,name,classes,password})=>({id,name,classes,password}))})}).then(r=>r.json()).catch(e=>({ok:false,error:String(e)}));
