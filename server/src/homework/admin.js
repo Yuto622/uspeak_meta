@@ -4,7 +4,10 @@ import express from 'express';
 import { extractHomework } from './extract.js';
 import { KINDS, KIND_JA, checkItems } from './items.js';
 
-export function homeworkAdminExtension({ homework, aiReady = false, log = console }) {
+// store.js の クラスの 書きかたに そろえる（名簿の「6-1」と 宿題の「6-1」が 同じ クラスに なるように）。
+const classKeyOf = (s) => String(s ?? '').normalize('NFKC').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 24);
+
+export function homeworkAdminExtension({ homework, aiReady = false, rosterClasses = async () => [], log = console }) {
   return ({ router, api, authed }) => {
     api.use('/homework', express.json({ limit: '60mb' }));
     router.get('/homework', (req, res) => {
@@ -19,7 +22,13 @@ export function homeworkAdminExtension({ homework, aiReady = false, log = consol
       const rows = homework.classProgress(a.id);
       return { ...a, problems: checkItems(a.items).problems, started: rows.length, finished: rows.filter((r) => r.done).length };
     };
-    api.get('/homework', (req, res) => res.json({ ok: true, kinds: KINDS, kindJa: KIND_JA, ai: aiReady, items: homework.assignments.map(view) }));
+    // クラスごとに 分けて 見る：名簿の クラスと、宿題に 書いて ある クラス。
+    api.get('/homework', async (req, res) => {
+      let roster = [];
+      try { roster = await rosterClasses(); } catch (err) { log.warn('[homework] roster classes failed:', err.message); }
+      const classes = [...new Set([...roster.map(classKeyOf), ...homework.assignments.flatMap((a) => a.classes)].filter((c) => c && c !== '*'))].sort();
+      res.json({ ok: true, kinds: KINDS, kindJa: KIND_JA, ai: aiReady, classes, items: homework.assignments.map(view) });
+    });
     // 読みとるだけ（保存しない）。文・ファイル（写真・PDF・Word・Excel・CSV…）を まとめて。
     api.post('/homework/extract', async (req, res) => {
       if (!guard(req, res)) return;
@@ -46,7 +55,7 @@ button{font-weight:700;cursor:pointer}button.main{background:#1b3a2f;color:#fff;
 table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:13px}th,td{border-bottom:1px solid #f0e8da;padding:5px 6px;text-align:left;vertical-align:top}
 th{background:#1b3a2f;color:#fff}td input{width:100%;min-height:32px}td select{min-height:32px}tr.bad td{background:#fff1ec}tr.bad .why{color:#b5432b;font-size:12px}
 .card{background:#fff;border:1px solid #eadfcd;border-radius:14px;padding:12px 14px;margin:8px 0}.card h3{margin:0 0 4px;font-size:16px}.pill{display:inline-block;font-size:12px;border-radius:999px;padding:1px 9px;margin-left:6px}
-.pill.draft{background:#f4efe4}.pill.pub{background:#2f8f5b;color:#fff}#msg{min-height:20px;font-weight:700}.warns{color:#8a5a12;font-size:13px}</style></head><body><div class="wrap">
+.pill.draft{background:#f4efe4}.pill.pub{background:#2f8f5b;color:#fff}#msg{min-height:20px;font-weight:700}h3.grp{margin:18px 0 6px;font-size:16px;border-bottom:2px solid #eadfcd;padding-bottom:4px}.warns{color:#8a5a12;font-size:13px}</style></head><body><div class="wrap">
 <p class="muted"><a href="/admin">← 管理トップ</a> ・ <a href="/admin/qbank">問題データベース</a></p>
 <h1>宿題</h1>
 <p class="muted">プリントの 写真・PDF・Word・Excel・CSV・テキストを 入れると、問題と 答えを 読みとって ゲームの 7 つの 形（えらぶ・せんつなぎ・つづり・タイピング・ならべかえ・あなうめ・きいて えらぶ）に ふりわけます。
@@ -70,12 +79,14 @@ th{background:#1b3a2f;color:#fff}td input{width:100%;min-height:32px}td select{m
 </div>
 
 <h2>3. 宿題の 一覧</h2>
+<div class="bar"><label>クラス <select id="cls"><option value="">ぜんぶの クラス</option></select></label><span class="muted">えらんだ クラスの 宿題だけ 出ます。新しく 読みとった 宿題も この クラスに なります。</span></div>
 <div id="list"></div>
 </div>
 <script>
 const $=s=>document.querySelector(s);const H={'x-requested-with':'uspeak-admin','content-type':'application/json'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let picked=[],meta={kinds:[],kindJa:{}},editing=null,items=[];
+const CLS_KEY='uspeak-admin-hw-class';let cls='';try{cls=localStorage.getItem(CLS_KEY)||''}catch{}
 const msg=t=>{$('#msg').textContent=t||''};
 // 写真は ブラウザで JPEG に して 小さく（iPhone の HEIC も ここで JPEG に なる）
 function shrink(file){return new Promise((ok)=>{const url=URL.createObjectURL(file);const img=new Image();img.onload=()=>{const k=Math.min(1,2200/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);ok({name:file.name.replace(/\\.(heic|heif|png|webp)$/i,'.jpg'),type:'image/jpeg',data:c.toDataURL('image/jpeg',.85)})};img.onerror=()=>{URL.revokeObjectURL(url);ok(null)};img.src=url})}
@@ -90,7 +101,7 @@ document.addEventListener('paste',e=>{const fs=[...(e.clipboardData?.files||[])]
 $('#read').onclick=async()=>{if(!picked.length&&!$('#text').value.trim()){msg('ファイルか 文を 入れて ください');return}msg('読みとり中…（写真・PDF は 1 分ほど かかる ことが あります）');$('#warns').textContent='';
 const r=await fetch('/admin/api/homework/extract',{method:'POST',headers:H,body:JSON.stringify({text:$('#text').value,files:picked})}).then(r=>r.json()).catch(e=>({ok:false,error:String(e)}));
 if(!r.ok){msg('読めません：'+r.error);return}msg(r.items.length+' 問 読みとりました（'+({ai:'AI',rules:'きまり',file:'ファイルの 形','file+ai':'ファイル＋AI'}[r.via]||r.via)+'）');$('#warns').innerHTML=(r.warnings||[]).map(esc).join('<br>');
-editing=null;items=r.items;$('#title').value=r.title||'';$('#classes').value='';$('#due').value='';openEditor()};
+editing=null;items=r.items;$('#title').value=r.title||'';$('#classes').value=cls;$('#due').value='';openEditor()};
 function openEditor(){$('#editor').hidden=false;paint();$('#editor').scrollIntoView({behavior:'smooth'})}
 function paint(){$('#rows').innerHTML=items.map((it,i)=>{const kind='<select data-i="'+i+'" data-f="kind">'+meta.kinds.map(k=>'<option value="'+k+'"'+(k===it.kind?' selected':'')+'>'+esc(meta.kindJa[k]||k)+'</option>').join('')+'</select>';
 const main=it.prompt?it.prompt:(['order','fill'].includes(it.kind)?it.sentence:it.en);const second=it.prompt?it.answer:it.ja;
@@ -108,7 +119,7 @@ $('#rows').onclick=e=>{const d=e.target.dataset.del;if(d!==undefined){read();ite
 $('#add').onclick=()=>{read();items.push({kind:'mc',en:'',ja:'',sentence:'',blank:'',wrong:[],prompt:'',answer:''});paint()};
 $('#auto').onclick=async()=>{read();const r=await fetch('/admin/api/homework/extract',{method:'POST',headers:H,body:JSON.stringify({text:'',files:[{name:'x.json',type:'application/json',data:btoa(unescape(encodeURIComponent(JSON.stringify(items.map(({kind,...x})=>x)))))}]})}).then(r=>r.json());if(r.ok){items=r.items;paint()}};
 $('#cancel').onclick=()=>{$('#editor').hidden=true;editing=null};
-async function save(pub){read();const body={title:$('#title').value,classes:$('#classes').value,due:$('#due').value,items,via:'admin'};
+async function save(pub){read();if(pub&&!$('#classes').value.trim()&&!confirm('クラスが からです。すべての クラスに くばりますか？'))return;const body={title:$('#title').value,classes:$('#classes').value,due:$('#due').value,items,via:'admin'};
 let r=editing?await fetch('/admin/api/homework/'+editing,{method:'PUT',headers:H,body:JSON.stringify(body)}).then(r=>r.json()):await fetch('/admin/api/homework',{method:'POST',headers:H,body:JSON.stringify(body)}).then(r=>r.json());
 if(!r.ok){msg('保存できません：'+r.error);showProblems(r.problems);return}const id=r.assignment.id;
 if(r.problems&&r.problems.length){showProblems(r.problems);msg('下書きを 保存しました。赤い 行を なおすと くばれます');editing=id;load();return}
@@ -117,8 +128,12 @@ $('#editor').hidden=true;editing=null;picked=[];paintFiles();$('#text').value=''
 function showProblems(ps){if(!ps)return;const bad={};ps.forEach(p=>bad[p.index]=p.reason);mark(bad)}
 $('#save').onclick=()=>save(false);$('#savepub').onclick=()=>save(true);
 async function load(){const r=await fetch('/admin/api/homework',{headers:H});if(r.status===401){location.href='/admin';return}const d=await r.json();meta=d;
-$('#list').innerHTML=d.items.map(a=>'<div class="card"><h3>'+esc(a.title)+'<span class="pill '+(a.status==='published'?'pub':'draft')+'">'+(a.status==='published'?'くばっています':'下書き')+'</span></h3><div class="muted">'+a.items.length+' 問 ・ クラス '+esc(a.classes.join(', ')||'ぜんぶ')+(a.due?' ・ しめきり '+esc(a.due):'')+' ・ はじめた '+a.started+' 人 ・ おわった '+a.finished+' 人'+(a.problems.length?' ・ <b style="color:#b5432b">出せない 問題 '+a.problems.length+'</b>':'')+'</div>'+
-'<div class="bar"><button data-edit="'+a.id+'">なおす</button>'+(a.status==='published'?'<button data-pub="'+a.id+'" data-on="0">くばるのを やめる</button>':'<button class="go" data-pub="'+a.id+'" data-on="1">くばる</button>')+'<button data-prog="'+a.id+'">すすみぐあい</button><button class="warn" data-rm="'+a.id+'">消す</button></div><div id="p-'+a.id+'"></div></div>').join('')||'<p class="muted">まだ ありません。</p>'}
+const sel=$('#cls');sel.innerHTML='<option value="">ぜんぶの クラス</option>'+(d.classes||[]).map(c=>'<option'+(c===cls?' selected':'')+'>'+esc(c)+'</option>').join('');if(cls&&!(d.classes||[]).includes(cls)){cls='';sel.value=''}
+const card=a=>'<div class="card"><h3>'+esc(a.title)+'<span class="pill '+(a.status==='published'?'pub':'draft')+'">'+(a.status==='published'?'くばっています':'下書き')+'</span></h3><div class="muted">'+a.items.length+' 問 ・ クラス '+esc(a.classes.join(', ')||'ぜんぶ')+(a.due?' ・ しめきり '+esc(a.due):'')+' ・ はじめた '+a.started+' 人 ・ おわった '+a.finished+' 人'+(a.problems.length?' ・ <b style="color:#b5432b">出せない 問題 '+a.problems.length+'</b>':'')+'</div>'+
+'<div class="bar"><button data-edit="'+a.id+'">なおす</button>'+(a.status==='published'?'<button data-pub="'+a.id+'" data-on="0">くばるのを やめる</button>':'<button class="go" data-pub="'+a.id+'" data-on="1">くばる</button>')+'<button data-prog="'+a.id+'">すすみぐあい</button><button class="warn" data-rm="'+a.id+'">消す</button></div><div id="p-'+a.id+'"></div></div>';
+const groups=cls?[[cls,d.items.filter(a=>a.classes.includes(cls))],['すべての クラス',d.items.filter(a=>!a.classes.length)]]:[...(d.classes||[]).map(c=>[c,d.items.filter(a=>a.classes.includes(c))]),['すべての クラス（クラスを きめて いない）',d.items.filter(a=>!a.classes.length)]];
+$('#list').innerHTML=groups.filter(g=>g[1].length).map(g=>'<h3 class="grp">'+esc(g[0])+' <span class="muted">'+g[1].length+' こ</span></h3>'+g[1].map(card).join('')).join('')||'<p class="muted">まだ ありません。</p>'}
+$('#cls').onchange=()=>{cls=$('#cls').value;try{localStorage.setItem(CLS_KEY,cls)}catch{};load()};
 $('#list').onclick=async e=>{const b=e.target.closest('button');if(!b)return;
 if(b.dataset.edit){const a=meta.items.find(x=>x.id===b.dataset.edit);editing=a.id;items=JSON.parse(JSON.stringify(a.items));$('#title').value=a.title;$('#classes').value=a.classes.join(', ');$('#due').value=a.due||'';openEditor();showProblems(a.problems)}
 if(b.dataset.pub){const r=await fetch('/admin/api/homework/'+b.dataset.pub+'/publish',{method:'POST',headers:H,body:JSON.stringify({on:b.dataset.on==='1'})}).then(r=>r.json());msg(r.ok?(b.dataset.on==='1'?'くばりました':'くばるのを やめました'):'できません：'+r.error);load()}

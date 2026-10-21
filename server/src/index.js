@@ -364,7 +364,7 @@ export async function startServer({ port = config.port, storeOverride = null } =
   // 管理ページ. Mounted only with ADMIN_KEY (admin/roster-admin.js).
   const tasksAdmin = tasksAdminExtension({ tasks, log });
   const qbankAdmin = qbankAdminExtension({ qbank, log });
-  const homeworkAdmin = homeworkAdminExtension({ homework, aiReady: !!config.ai.apiKey, log });
+  const homeworkAdmin = homeworkAdminExtension({ homework, aiReady: !!config.ai.apiKey, rosterClasses: async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class), log });
   const roadmapAdmin = roadmapAdminExtension({ roadmap: roadmapStore, log });
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
   const privacyAdmin = ({ api }) => {
