@@ -1590,6 +1590,8 @@ test('英会話島: the house you stand in is the scene, and the aims are the se
   assert.ok(first.aimsMet.includes('name'), 'saying your name meets the first aim');
   assert.equal(first.xp, 12, 'and an aim met is XP, on the spot');
   assert.equal(first.done, false);
+  // こたえの れい：まだの 目あての お手本の 文（台本の とき）。言えた 目あての 文は もう 出ない。
+  assert.ok(first.suggestions.length >= 1 && !first.suggestions.includes('My name is Yuto.'), JSON.stringify(first.suggestions));
 
   // An aim once met stays met, and the coins come only when the whole scene is done.
   a.room.send('conv:say', { text: "I'm fine, thank you." });
@@ -1602,6 +1604,8 @@ test('英会話島: the house you stand in is the scene, and the aims are the se
   assert.equal(third.coins, 40);
   assert.equal(third.bonusXp, 30);
   assert.ok(third.wallet.coins >= 40, 'and the coins are in the wallet the server keeps');
+  // おわりは ふりかえり：言えた 文が のる。
+  assert.deepEqual(third.recap.said, ['My name is Sora.', "I'm fine, thank you.", 'I like soccer very much.']);
 
   // Walking out of the house stops the talking; walking back in picks it up again.
   await stand(0, 21);
@@ -1613,6 +1617,11 @@ test('英会話島: the house you stand in is the scene, and the aims are the se
   assert.equal(back.resumed, true);
   assert.equal(back.turn, 3, 'the conversation is where it was left');
   assert.deepEqual(back.aimsMet.sort(), ['how', 'like', 'name']);
+  // おわった 場面の「もう一度 はなす」は さいしょから。
+  a.room.send('conv:start', { topic: 'hello', again: true });
+  const again = await nextMessage(a.room, 'conv:opened');
+  assert.equal(again.turn, 0); assert.deepEqual(again.aimsMet, []);
+  assert.equal(again.suggestions.length, 3);
 
   // Choosing another scene starts a new one, from nothing.
   a.room.send('conv:start', { topic: 'order' });

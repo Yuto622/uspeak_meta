@@ -34,7 +34,7 @@ import {
   INTERVIEW_XP, InterviewError,
 } from '../game/interview.js';
 import { TALK, isTalkSpace } from '../game/talk.js';
-import { CONV, asMission as convMission, topicPayload as convPayload, convSpots } from '../game/conv.js';
+import { CONV, asMission as convMission, topicPayload as convPayload, convSpots, starters as convStarters } from '../game/conv.js';
 import {
   createRace, joinRace, leaveRace, maybeStart, beginIfDue, crossCheckpoint, standings,
   raceOver, prizeFor, itemXp, coursePayload, LAPS, GRID_MS, MAX_RACERS,
@@ -2535,7 +2535,9 @@ export class ClassRoom extends Room {
     // Walking back into the same conversation picks it up where it was left; choosing a
     // different scene starts a new one.
     const had = priv.conv;
-    if (!had || had.topic !== topic.id) {
+    // おわった 場面の「もう一度」（msg.again）は さいしょから。
+    const over = had && (had.done || had.turns.length >= CONV.turnLimit);
+    if (!had || had.topic !== topic.id || (msg?.again && over)) {
       priv.conv = { topic: topic.id, spot: topic.spot, turns: [], goalsMet: [], done: false, at: Date.now() };
     }
     const state = priv.conv;
@@ -2546,6 +2548,8 @@ export class ClassRoom extends Room {
       turn: state.turns.length,
       done: state.done,
       resumed: !!had && had.topic === topic.id && state.turns.length > 0,
+      // さいしょの 答えの れい（まだの 目あての お手本の 文）。
+      suggestions: convStarters(topic, state.goalsMet),
     });
   }
 
@@ -2599,6 +2603,10 @@ export class ClassRoom extends Room {
     const gained = result.goalsMet.filter((id) => !state.goalsMet.includes(id));
     state.goalsMet = result.goalsMet;
     state.turns.push({ child: utterance, reply: result.reply });
+    // 「こう いうと もっと いいよ」は 会話の あいだは 出さず、おわりの まとめで 見せる（その場では ウーピーが 言いなおすだけ）。
+    if (result.better && result.better.toLowerCase().replace(/[^a-z]/g, '') !== utterance.toLowerCase().replace(/[^a-z]/g, '')) {
+      state.tips = [...(state.tips || []), { said: utterance.slice(0, 120), better: result.better }].slice(-6);
+    }
 
     const xp = gained.length * CONV.reward.aimXp;
     this.appendLearning([
@@ -2613,6 +2621,8 @@ export class ClassRoom extends Room {
       reply: result.reply, hint: result.hint, aimsMet: state.goalsMet, gained,
       turn: state.turns.length, turnLimit: CONV.turnLimit, xp,
       levels: level?.levels || 0, done: false,
+      suggestions: result.suggestions?.length ? result.suggestions : convStarters(topic, state.goalsMet),
+      replyJa: result.replyJa || '',
     };
 
     // Finishing a scene pays once, the first time, and stops at the day's ceiling. Talking
@@ -2635,6 +2645,10 @@ export class ClassRoom extends Room {
       payload.bonusXp = CONV.reward.topicXp;
       payload.levels = (level?.levels || 0) + (bonus?.levels || 0);
       log.info(`[room ${this.roomId}] ${who(priv.name)} finished ${topic.id} in ${state.turns.length} turns`);
+    }
+    // おわり（ぜんぶ できた・回数の さいご）は まとめ：言えた 文と、もっと よく いう 文（3 つまで）。
+    if (payload.done || state.turns.length >= CONV.turnLimit) {
+      payload.recap = { said: state.turns.map((t) => t.child).slice(-8), tips: (state.tips || []).slice(-3) };
     }
     payload.wallet = this.walletPayload(client.sessionId).wallet;
     payload.progress = this.progressPayload(client.sessionId);
@@ -3294,6 +3308,7 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
     client.send('hw:list', { items: this.homework ? this.homework.listFor(this.classCode, priv.name) : [] });
+    this.payOwedHomework(client);
   }
 
   // つぎの 1 問を 出す（まだ 答えて いない 問題から 順に）。ぜんぶ 答えて いれば おしまいの まとめ。
@@ -3318,6 +3333,31 @@ export class ClassRoom extends Room {
     client.send('hw:ask', { aid: a.id, title: a.title, qid: run.q.id, index: done + 1, total: a.items.length, format: hwPublic(fmt, { attempt: 1 }) });
   }
 
+  // 宿題を ぜんぶ おえた ごほうび（1 つの 宿題に 1 回・HW_DONE_COINS）。**その日の 上限で 0 の ときは「はらった」に しない**
+  // ので、つぎの 日に 宿題を ひらくと（hw:list・hw:start）その とき はらう。前は 上限の 日に おえると 二度と もらえなかった。
+  async payHomework(sessionId, aid) {
+    const priv = this.priv.get(sessionId);
+    if (!priv || !this.homework) return 0;
+    const p = this.homework.progressOf(this.classCode, priv.name, aid);
+    if (!p?.doneAt || p.paid) return 0;
+    const paid = Math.min(HW_DONE_COINS, roomLeft(priv.caps, 'homework', HW_CAP));
+    if (paid <= 0 || !await this.homework.markPaid(this.classCode, priv.name, aid)) return 0;
+    const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `homework:${aid}` });
+    priv.caps.homework += paid;
+    this.store.appendCoin(this.coinRow(sessionId, entry));
+    this.persist(sessionId);
+    return paid;
+  }
+
+  // まだ もらって いない ごほうび（上限の 日に おえた 宿題）を はらう。
+  async payOwedHomework(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv || !this.homework) return;
+    let total = 0;
+    for (const a of this.homework.forClass(this.classCode)) total += await this.payHomework(client.sessionId, a.id);
+    if (total) client.send('wallet', { ...this.walletPayload(client.sessionId), ok: true, reason: 'homework' });
+  }
+
   onHwStart(client, msg) {
     const priv = this.priv.get(client.sessionId);
     if (!priv || !this.homework) return;
@@ -3325,6 +3365,7 @@ export class ClassRoom extends Room {
     const ok = this.homework.forClass(this.classCode).some((a) => a.id === aid);
     if (!ok) { client.send('hw:error', { reason: 'no such homework' }); return; }
     priv.hw = { aid, q: null, n: 0, seen: new Set(), coins: 0, redo: !!msg?.redo };
+    this.payOwedHomework(client);
     this.hwNext(client);
   }
 
@@ -3357,16 +3398,10 @@ export class ClassRoom extends Room {
       run.seen.add(item.id);
       const rec = await this.homework.record(this.classCode, priv.name, a.id, item.id, result.correct && !result.assisted);
       if (xp) { const level = this.awardXp(client.sessionId, xp, `hw:${q.kind}`); payload.levels = level?.levels || 0; payload.progress = this.progressPayload(client.sessionId); }
-      if (rec?.finished && await this.homework.markPaid(this.classCode, priv.name, a.id)) {
-        const paid = Math.min(HW_DONE_COINS, roomLeft(priv.caps, 'homework', HW_CAP));
-        if (paid > 0) {
-          const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id: `homework:${a.id}` });
-          priv.caps.homework += paid;
-          this.store.appendCoin(this.coinRow(client.sessionId, entry));
-          Object.assign(payload, this.walletPayload(client.sessionId));
-        }
-        run.coins = paid;
+      if (rec?.finished) {
         taskBumpKey(priv.tasks, 'homework'); this.taskTouch(client.sessionId);
+        run.coins = await this.payHomework(client.sessionId, a.id);
+        if (run.coins) Object.assign(payload, this.walletPayload(client.sessionId));
       }
       const p = this.homework.progressOf(this.classCode, priv.name, a.id);
       payload.answered = a.items.filter((it) => p?.answers?.[it.id]).length;

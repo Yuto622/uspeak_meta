@@ -196,6 +196,42 @@ test('部屋：一覧 → 1 問ずつ → まちがえたら もう 1 回 → �
   await sleep(50);
 });
 
+test('宿題の コイン：その日の 上限で もらえなかった 宿題は「はらった」に しない。つぎに 一覧を ひらくと はらう', async () => {
+  const { Client } = await import('colyseus.js');
+  const { matchMaker } = (await import('colyseus')).default;
+  const hw = server.homework;
+  const ids = [];
+  for (let i = 0; i < 4; i += 1) {
+    const { assignment: a } = await hw.create({ title: `cap${i}`, classes: 'hwcap', items: [{ kind: 'mc', en: 'red', ja: 'あか', wrong: ['あお', 'きいろ', 'みどり'] }] });
+    assert.equal((await hw.publish(a.id, true)).ok, true); ids.push(a.id);
+  }
+  const room = await new Client(url).joinOrCreate('class', { classCode: 'hwcap', name: 'Rin' });
+  const welcome = await nextMessage(room, 'welcome');
+  const coinsOf = () => matchMaker.getRoomById(room.roomId).priv.get(room.sessionId).wallet.coins;
+  const finish = async (aid) => {
+    room.send('hw:start', { aid });
+    const ask = await nextMessage(room, 'hw:ask');
+    room.send('hw:answer', { qid: ask.qid, answer: 'あか' });
+    await nextMessage(room, 'hw:result');
+    room.send('hw:next');
+    return (await nextMessage(room, 'hw:done')).coins;
+  };
+  const got = [];
+  for (const id of ids) got.push(await finish(id));
+  assert.deepEqual(got, [20, 20, 20, 0], '1 日 60 コインまで');
+  assert.equal(coinsOf(), welcome.wallet.coins + 60);
+  assert.equal(hw.progressOf('hwcap', 'Rin', ids[3]).paid, false, '上限の 日に おえた 宿題は まだ はらって いない');
+  // つぎの 日（上限が もどる）に 一覧を ひらくと はらう。2 回目は もう 出ない
+  matchMaker.getRoomById(room.roomId).priv.get(room.sessionId).caps.homework = 0;
+  const paid = nextMessage(room, 'wallet');
+  room.send('hw:list');
+  assert.equal((await paid).wallet.coins, welcome.wallet.coins + 80);
+  room.send('hw:list'); await nextMessage(room, 'hw:list'); await sleep(50);
+  assert.equal(coinsOf(), welcome.wallet.coins + 80);
+  await room.leave();
+  await sleep(50);
+});
+
 test('LINE の 週・月 レポート：期間の まとめ（提出・しめきり・正解率・形ごと・まちがえた ことば）→ 画像の 1 行・PDF の 2 まいめ・吹き出し', async () => {
   const { weeklyTex, monthlyTex } = await import('../src/parent-report/render-tex.js');
   const { weeklyData, monthlyData } = await import('../src/parent-report/aggregate.js');

@@ -149,3 +149,13 @@ test('mission rewards are a server-only economy operation', () => {
   assert.throws(() => applyOp(w, { type: 'award', amount: 99999 }), EconomyError);
   assert.throws(() => applyOp(w, { type: 'award', amount: 1.5 }), EconomyError);
 });
+
+test('会話の 手助け：答えの れいは 英語だけ・3 つまで、「もっと よく」は 英語、日本語の いみは そのまま', () => {
+  const mission = { goals: [{ id: 'a', ja: 'x', en: 'y' }] };
+  const r = sanitizeTurn({ reply: 'Hi!', goalsMet: [], complete: false, hint: '', suggestions: ['I am fine.', 'げんき', 'I am fine.', 'Good!', 'Okay.', 'Yes.'], better: 'I play soccer.', replyJa: 'こんにちは！' }, mission, []);
+  assert.deepEqual(r.suggestions, ['I am fine.', 'Good!', 'Okay.']);
+  assert.equal(r.better, 'I play soccer.');
+  assert.equal(r.replyJa, 'こんにちは！');
+  const n = sanitizeTurn({ reply: 'Hi!', goalsMet: [], hint: '', better: 'サッカー', replyJa: 'I am an AI model' }, mission, []);
+  assert.deepEqual([n.suggestions, n.better, n.replyJa], [[], '', '']);
+});

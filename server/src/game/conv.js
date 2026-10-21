@@ -91,6 +91,11 @@ export function asMission(topic) {
 // What the page is allowed to know: the scene, the aims in Japanese, and the opening line.
 // Not the hints for aims that have not been met — those come one at a time, from the AI,
 // when a child is actually stuck.
+// 答えの れい（まだ 言えて いない 目あての お手本の 文、3 つまで）。AI が 出さない ときと、さいしょの 1 回に。
+export function starters(topic, met = []) {
+  return (topic.goals || []).map((g, i) => (met.includes(g.id) ? '' : topic.hints?.[i] || '')).filter(Boolean).slice(0, 3);
+}
+
 export function topicPayload(topic) {
   const spot = CONV.spotById.get(topic.spot);
   return {

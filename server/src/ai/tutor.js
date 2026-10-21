@@ -25,6 +25,8 @@ const REGISTER = {
 
 const MAX_REPLY_CHARS = 240;
 const MAX_HINT_CHARS = 80;
+const MAX_SUGGESTION_CHARS = 60;
+const JA_CHARS = /[぀-ゟ゠-ヿ㐀-鿿]/;
 
 // One AI, one name, across everything a child talks to. Ported from the Roblox place,
 // where "My name is ChatGPT" was a real problem worth solving at the prompt level and
@@ -106,7 +108,12 @@ How to judge:
 - After each of the child's messages, decide which goals have been met SO FAR across the whole conversation, and list every met goal id. A goal once met stays met.
 - A goal counts as met if the child conveyed the meaning, even with mistakes in grammar or spelling. Speech recognition makes errors; judge intent, not form.
 - Set "complete" to true only when every goal id is in "goalsMet".
-- "hint" is a short nudge in Japanese for the child, shown on screen when they seem stuck. Leave it as an empty string unless it is needed.`;
+- "hint" is a short nudge in Japanese for the child, shown on screen when they seem stuck. Leave it as an empty string unless it is needed.
+
+Help for the child (shown on screen, never spoken by you):
+- "suggestions": two or three very short English answers (at most eight words each, at the child's level) that the child could say next in reply to your line. Vary them. Use a made-up first name such as Yuto, never the child's own details.
+- "better": if the child's last message had a grammar or word mistake but you understood it, the natural, correct way to say what they meant (at most twelve words). Otherwise an empty string. Never repeat personal information.
+- "replyJa": your reply put into easy Japanese for a six-year-old (mostly hiragana, words separated by spaces).`;
 }
 
 const TURN_SCHEMA = {
@@ -119,8 +126,11 @@ const TURN_SCHEMA = {
       goalsMet: { type: 'array', items: { type: 'string' }, description: 'Every goal id met so far in this conversation.' },
       complete: { type: 'boolean', description: 'True only when every goal has been met.' },
       hint: { type: 'string', description: 'A short hint in Japanese, or an empty string.' },
+      suggestions: { type: 'array', items: { type: 'string' }, description: 'Two or three short English answers the child could say next.' },
+      better: { type: 'string', description: "A correct way to say the child's last message, or an empty string." },
+      replyJa: { type: 'string', description: 'The reply in easy Japanese.' },
     },
-    required: ['reply', 'goalsMet', 'complete', 'hint'],
+    required: ['reply', 'goalsMet', 'complete', 'hint', 'suggestions', 'better', 'replyJa'],
     additionalProperties: false,
   },
 };
@@ -137,11 +147,18 @@ export function sanitizeTurn(raw, mission, previousGoals = []) {
   if (!reply) reply = 'Sorry, could you say that again?';
   else if (mentionsModel(reply)) reply = IN_CHARACTER_FALLBACK;
   const hint = clean(raw?.hint, MAX_HINT_CHARS);
+  // 子どもを 助ける 文（画面に 出すだけ）。英語の 答えの れいは 英語だけ・短く。
+  const safe = (v, max) => { const t = clean(v, max); return t && !mentionsModel(t) ? t : ''; };
+  const suggestions = [...new Set((Array.isArray(raw?.suggestions) ? raw.suggestions : []).map((x) => safe(x, MAX_SUGGESTION_CHARS)).filter((x) => x && !JA_CHARS.test(x)))].slice(0, 3);
+  const better = safe(raw?.better, MAX_SUGGESTION_CHARS * 2);
   return {
     reply,
     goalsMet,
     complete: goalsMet.length === mission.goals.length,
     hint: mentionsModel(hint) ? '' : hint,
+    suggestions,
+    better: JA_CHARS.test(better) ? '' : better,
+    replyJa: safe(raw?.replyJa, MAX_REPLY_CHARS),
   };
 }
 
@@ -273,6 +290,10 @@ function createScriptedTutor() {
         goalsMet,
         complete: !next,
         hint: next ? `つぎは「${next.ja}」を英語で言ってみよう。` : '',
+        // 台本の ときの 答えの れいは、まだの 目あての お手本の 文。
+        suggestions: mission.goals.map((g, i) => (met.has(g.id) ? '' : mission.hints?.[i] || '')).filter(Boolean).slice(0, 3),
+        better: '',
+        replyJa: '',
         usage: { in: 0, out: 0 },
       };
     },

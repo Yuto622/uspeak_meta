@@ -785,6 +785,21 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   `tests/regression.mjs` の「paved path runs through a building」で落ちる（実際に落として直した）。
   ステージ（マイクのある東屋）は家の裏（z=-11.5）に置いてある。
 
+### 会話の 画面（話す 練習の 作り／2026-10 更新）
+
+似た アプリ（Duolingo の Lily・Speak・Buddy.ai・Ello・Google Read Along・Alexa Reading Sidekick・Praktika・Gliglish・Mondly）と
+研究（子どもの 声と 日本人の 英語は 音声認識が まちがえやすい・待つ 時間は 3〜5 秒・会話中は 言いなおしで 見せ、説明は おわってから）を 見て 決めた。
+- **まんなかに 大きな「🎤 おして はなす」**（押すと 聞く、もう一度 押すと おわる）。聞こえて いる ことばは その場で ログに 出る（`interimResults`）。
+  聞いて いる 間は ボタンが 赤く、ウーピーの 耳（`.conv-ear`）が 光る。**キーボードは ⌨️ を おした ときだけ**（マイクの ない 端末は 最初から）。
+- **こたえの れい（💡 れい）**：サーバーが 送る `suggestions`（AI＝つぎに 言える 短い 英語 2〜3 こ、台本＝まだの 目あての お手本の 文）。
+  おすと ウーピーが その 文を いう → 子どもが まねして 🎤。**おしただけでは おくらない**（言うのは 子ども・目あての 判定は サーバー）。
+  自分で 出るのは 2 回 つづけて 聞きとれなかった とき と、ウーピーが 話しおわって 9 秒 なにも しなかった とき。
+- 自信の ない 聞きとり（confidence 0〜0.5）だけ「この 文で おくる？」と たしかめる（iPad は いつも 0 なので たしかめない）。
+- 🔊 もう一度・🐢 ゆっくりで（声を 0.75 倍。`playVoice({slow})`・`character.say(text, {slow, keepLine})`）・🇯🇵 いみ（AI の `replyJa`、台本の ときは ボタンが 出ない）。ログの ウーピーの 行にも 🔊。
+- へんじを 待つ 間は ログに「…」。**会話中は まちがいを なおさない**（ウーピーが 正しい 言いかたで 返すだけ）。AI の `better`（子どもの 文の 正しい 言いかた）は 部屋が `state.tips` に ためて、
+  おわり（ぜんぶ できた・14 回）に **ふりかえり**（`recap`：言えた 文・「こう いうと もっと いいよ」3 つまで・🔁 もう一度 はなす＝`conv:start {again:true}`・🏠 ほかの はなし）。
+- 新しい 3 つ（suggestions・better・replyJa）は `tutor.js` の schema と `sanitizeTurn`（英語だけ・3 つまで・「AI」を 言わない）。おつかい島も 同じ tutor なので 送られて くるが 使って いない。
+
 ## のりもの島（カートレース／2026-09 更新）
 
 `ride-island.js` + `vehicles.json`（島・サーキット・グリッド・パッド・箱・ライバル）/
@@ -1244,7 +1259,7 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **7 形式への ふりわけは `items.js`**：形を 書いて いない ことばの 行は えらぶ・つづり・きいて えらぶ・タイピング・せんつなぎ に まぜる（`assignKinds`。できない 形は とばす）。英文＋訳＝ならべかえ、あなの ある 文＝あなうめ、問題文＋選択肢＝問題文つきの えらぶ（`prompt` / `answer`）。
   `problemOf()` が「出せない 理由」を 返し、admin の 表で 赤く なる。出せない 問題が 1 つでも あれば くばれない。出題の たびに formats-core の build* で 作りなおし、判定も `checkFormat`（つり島と 同じ `answer()`：1 回 まちがえたら もう 1 回）。
 - **部屋**（`ClassRoom` の `hw:list` / `hw:start {aid, redo}` / `hw:answer` / `hw:next` / `hw:quit`）。1 回目で 正解＝○、答えを 見てから・2 回 まちがい＝×（「まちがえた ところを もう いちど」で ○ に なる）。
-  1 問 3 XP、はじめて ぜんぶ おわったら 20 コイン（1 日 60 まで、caps の `homework`）。記録は 学習ログ（`hw-<形>`）と `robloxEvent('quiz', 'homework', {level:'Homework', format, word})`＝苦手単語の 復習・先生の /class にも のる。
+  1 問 3 XP、はじめて ぜんぶ おわったら 20 コイン（1 日 60 まで、caps の `homework`）。**上限の 日に おえた 宿題は「はらった」に しない**（`payHomework`）ので、つぎに 一覧・宿題を ひらいた ときに はらう（`payOwedHomework` → `wallet`）。記録は 学習ログ（`hw-<形>`）と `robloxEvent('quiz', 'homework', {level:'Homework', format, word})`＝苦手単語の 復習・先生の /class にも のる。
   welcome の `homework`（のこりの 数）で 1 回 おしらせ。
 - **admin の 一覧は クラスごと**（`/admin/homework` の「クラス」。名簿の クラスと 宿題に 書いた クラスを `classKeyOf` で そろえて ならべる）。えらんだ クラスは この ブラウザに 覚え（`uspeak-admin-hw-class`）、新しく 読みとった 宿題の クラスにも 入る。**クラスは かならず**（`store.js` の create/update/publish が クラス なしを ことわる・admin でも 止める）。宿題は 書いた クラスの 子にだけ 出る（`forClass` は クラスが 入って いる ものだけ。前の「クラス なし＝全員」は もう ない）。クラス なしの 古い 宿題は 一覧の「⚠ クラスが きまって いない」に 出るので「なおす」で クラスを 入れる。
 - **しゅくだい島**（`homework-island.js` + `homework.json`、HUBS の `homework`）：いえ 1 けん（戸口で `homework.open()`）・黒板・本の 山・えんぴつ。画面は `homework.js` + `homework.css`（一覧 → 1 問 → おわり）。オンラインの ときだけ。

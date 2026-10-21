@@ -44,20 +44,21 @@ export function createCharacter({ stage, idle, talk, line, lang = 'en-US', rate 
 
   // A line, spoken aloud if the browser can, with the mouth moving for as long as it
   // takes either way.
-  function say(text) {
+  // opts.slow：ゆっくり もう一度。opts.onend：読みおわり（会話の「だまって いる」を 数えはじめる）。
+  function say(text, opts = {}) {
     clearTimeout(timer);
-    last = text;
-    if (line) line.textContent = text;
+    // opts.keepLine：お手本を いう ときは 字幕（ウーピーの いまの ことば）を そのまま に する。
+    if (!opts.keepLine) { last = text; if (line) line.textContent = text; }
     mouth(true);
-    const stop = () => { clearTimeout(timer); mouth(false); };
+    const stop = () => { clearTimeout(timer); mouth(false); const f = opts.onend; opts.onend = null; f?.(); };
     const wait = Math.max(MIN_TALK_MS, String(text).length * READ_MS_PER_CHAR);
     // さきに サーバーの 自然な 声（speech.js の playVoice）。だめなら 下の 端末の 声。
     timer = setTimeout(stop, wait + 8000);
     try { globalThis.speechSynthesis?.cancel(); } catch { /* */ }
-    playVoice(text, { onend: stop, fallback: () => { clearTimeout(timer); device(text, stop, wait); } });
+    playVoice(text, { slow: !!opts.slow, onend: stop, fallback: () => { clearTimeout(timer); device(text, stop, wait, opts.slow); } });
   }
 
-  function device(text, stop, wait) {
+  function device(text, stop, wait, slow = false) {
     const synth = globalThis.speechSynthesis;
     if (!synth || typeof SpeechSynthesisUtterance !== 'function') {
       timer = setTimeout(stop, wait);
@@ -71,7 +72,7 @@ export function createCharacter({ stage, idle, talk, line, lang = 'en-US', rate 
       const japanese = isJapanese(text);
       const utter = new SpeechSynthesisUtterance(forSpeech(text, japanese));
       utter.lang = japanese ? 'ja-JP' : lang;
-      utter.rate = japanese ? 1 : rate;
+      utter.rate = (japanese ? 1 : rate) * (slow ? 0.78 : 1);
       utter.onend = stop;
       utter.onerror = stop;
       synth.speak(utter);

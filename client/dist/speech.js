@@ -90,7 +90,8 @@ export function stopVoice() {
 }
 
 // サーバーの 声で 読む。読めなければ fallback()。onend は 読みおわり（とちゅうで 止めたときは よばない）。
-export function playVoice(text, { japanese = isJapanese(text), onend, fallback } = {}) {
+// slow：ゆっくり もう一度（0.75 倍。声の 高さは かえない）。
+export function playVoice(text, { japanese = isJapanese(text), onend, fallback, slow = false } = {}) {
   const said = forSpeech(text, japanese);
   if (!said) return;
   if (!canServe()) { fallback?.(); return; }
@@ -114,6 +115,7 @@ export function playVoice(text, { japanese = isJapanese(text), onend, fallback }
     audio.onended = () => { if (me === token) onend?.(); };
     audio.onerror = () => giveUp();
     audio.src = url;
+    try { audio.preservesPitch = true; audio.playbackRate = slow ? 0.75 : 1; } catch { /* 古い ブラウザ */ }
     const p = audio.play();
     (p?.then ? p : Promise.resolve()).then(() => { clearTimeout(timer); fails = 0; }, () => giveUp());
   }).catch(() => { clearTimeout(timer); if ((fails += 1) >= 3) off = true; giveUp(); });
@@ -128,7 +130,7 @@ export function createSpeech({ isMuted, onUnavailable }) {
     const said = forSpeech(text, japanese);
     if (!said) return;
     try { synth?.cancel(); } catch { /* */ }
-    playVoice(text, { japanese, fallback: () => device(said, japanese, options) });
+    playVoice(text, { japanese, slow: !!options.slow, fallback: () => device(said, japanese, options.slow ? { ...options, rate: japanese ? 0.85 : 0.65 } : options) });
   };
   function device(said, japanese, options) {
     const synth = globalThis.speechSynthesis;
