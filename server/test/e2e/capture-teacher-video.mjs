@@ -30,14 +30,18 @@ try {
   const t0 = Date.now(); const marks = {};
   await p.goto(`${base}/teacher/homework`); await p.waitForSelector('#read');
   // 字幕・マウス・枠
-  await p.addStyleTag({ content: `#cap{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:99;max-width:1000px;padding:14px 22px;border-radius:16px;background:#1b3a2fee;color:#fff;font:800 24px/1.45 "Noto Sans JP",sans-serif;box-shadow:0 10px 30px #0006;text-align:center}
+  await p.addStyleTag({ content: `#cap,#cur{inset:auto;border:0;overflow:visible;color:inherit}
+    #cap{position:fixed;left:50%;bottom:26px;margin:0;transform:translateX(-50%);z-index:99;max-width:1000px;padding:14px 22px;border-radius:16px;background:#1b3a2fee;color:#fff;font:800 24px/1.45 "Noto Sans JP",sans-serif;box-shadow:0 10px 30px #0006;text-align:center}
+    #cap{color:#fff}
     #cap small{display:block;font-size:17px;font-weight:600;opacity:.85}
     #cur{position:fixed;z-index:100;width:26px;height:26px;margin:-4px 0 0 -4px;pointer-events:none;transition:left .7s ease,top .7s ease}
     #cur::before{content:'';position:absolute;inset:0;background:#fff;clip-path:polygon(0 0,0 80%,22% 62%,38% 100%,52% 94%,36% 58%,64% 58%);filter:drop-shadow(0 0 2px #000) drop-shadow(0 2px 3px #0008)}
     #cur.down::after{content:'';position:absolute;left:-14px;top:-14px;width:40px;height:40px;border-radius:50%;border:4px solid #e27a2d;animation:ring .5s ease-out}
     @keyframes ring{from{transform:scale(.4);opacity:1}to{transform:scale(1.4);opacity:0}}
     .hl{outline:5px solid #e27a2d !important;outline-offset:4px;border-radius:14px;transition:outline-color .3s}` });
-  await p.evaluate(() => { const c = document.createElement('div'); c.id = 'cap'; document.body.append(c); const m = document.createElement('div'); m.id = 'cur'; m.style.left = '640px'; m.style.top = '420px'; document.body.append(m); });
+  await p.evaluate(() => { const c = document.createElement('div'); c.id = 'cap'; c.popover = 'manual'; document.body.append(c); const m = document.createElement('div'); m.id = 'cur'; m.popover = 'manual'; m.style.left = '640px'; m.style.top = '420px'; document.body.append(m); c.showPopover(); m.showPopover(); });
+  // 字幕と マウスは popover（いちばん 上の 層）。ダイアログを ひらいたら 出しなおして、その 上に のせる。
+  const raise = () => p.evaluate(() => { for (const id of ['cap', 'cur']) { const e = document.getElementById(id); e.hidePopover(); e.showPopover(); } });
   const cap = (t, s = '') => p.evaluate(([t, s]) => { document.getElementById('cap').innerHTML = `${t}${s ? `<small>${s}</small>` : ''}`; }, [t, s]);
   const hl = (sel, on = true) => p.evaluate(([sel, on]) => { document.querySelectorAll('.hl').forEach((e) => e.classList.remove('hl')); const e = sel && document.querySelector(sel); if (e && on) { e.classList.add('hl'); e.scrollIntoView({ block: 'center', behavior: 'smooth' }); } }, [sel, on]);
   const move = async (sel) => { const box = await p.locator(sel).first().boundingBox(); if (!box) return; await p.evaluate(([x, y]) => { const c = document.getElementById('cur'); c.style.left = `${x}px`; c.style.top = `${y}px`; }, [box.x + box.width / 2, box.y + box.height / 2]); await sleep(800); };
@@ -63,7 +67,7 @@ try {
   await cap('なおしたい ところは その場で 書きかえるだけ', '赤い 問題は くばる 前に なおします');
   await hl('#rows .q'); await move('#rows .q input[data-f="second"]'); await sleep(2800);
   await cap('「👀 せいとの 画面で みる」で 子どもの 画面を ためせます'); await hl('#preview'); await sleep(1000);
-  await click('#preview'); await p.waitForSelector('#pv-dlg[open] .fmt'); await sleep(1500);
+  await click('#preview'); await p.waitForSelector('#pv-dlg[open] .fmt'); await raise(); await sleep(1500);
   await cap('子どもと おなじ ように おして ○× を ためせます（記録は のこりません）');
   await click('#pv-host .fmt button:has-text("りんご")'); await sleep(2200);
   await click('#pv-dlg [data-close]'); await sleep(600);
