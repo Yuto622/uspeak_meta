@@ -122,6 +122,12 @@ export class ReportStore {
     this.touch();
     return l;
   }
+  // push が とどいた（メニューの「月に 1 回だけ」が 次を いつ 送るか きめる）。
+  noteSent(lineUserId, at) {
+    const rows = this.links({ lineUserId, status: 'active' });
+    for (const l of rows) l.last_sent_at = at;
+    if (rows.length) this.touch();
+  }
   setLinkStatus(filter, status, { purgeAfterDays = 0 } = {}) {
     const rows = this.links(filter);
     const after = purgeAfterDays ? new Date(Date.now() + purgeAfterDays * 86400000).toISOString() : '';

@@ -143,7 +143,7 @@ function render() {
     <p class="row"><a class="btn orange" href="\${API}/cards.pdf\${q}" target="_blank">保護者用 QRカードを印刷（A4・8人）</a></p>
     <table><tr><th>ニックネーム</th><th>保護者</th><th></th></tr>
     \${S.students.map((st) => '<tr><td>' + esc(st.nick) + (st.paused ? ' <span class="pill gray">停止中</span>' : '') + '</td><td>'
-      + (st.claps ? '<span class="pill">👏 ' + st.claps + '</span> ' : '') + (st.parents ? '<span class="pill">' + st.parents + '人 登録</span>' : '<span class="pill gray">未登録</span>') + (st.blocked ? ' <span class="pill red">ブロック ' + st.blocked + '</span>' : '')
+      + (st.claps ? '<span class="pill">👏 ' + st.claps + '</span> ' : '') + (st.parents ? '<span class="pill">' + st.parents + '人 登録</span>' : '<span class="pill gray">未登録</span>') + (st.blocked ? ' <span class="pill red">ブロック ' + st.blocked + '</span>' : '') + (st.monthly ? ' <span class="pill gray">月1回 ' + st.monthly + '</span>' : '') + (st.stoppedByParent ? ' <span class="pill gray">保護者が停止 ' + st.stoppedByParent + '</span>' : '')
       + '</td><td class="row"><button class="btn ghost" data-prev="' + esc(st.username) + '">プレビュー</button>'
       + (st.url ? '<button class="btn ghost" data-url="' + esc(st.url) + '">専用URLをコピー</button>' : '')
       + '<button class="btn ghost" data-tok="' + esc(st.username) + '">QRを作り直す</button>'

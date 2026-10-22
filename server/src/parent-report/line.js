@@ -5,6 +5,7 @@
 //  - verifySignature(rawBody, header)：Webhook の 署名（HMAC-SHA256・base64）。
 //  - verifyIdToken(idToken)：LIFF から 来た ID トークンを LINE に 確かめて、ユーザー ID（sub）を 返す。
 //    **ページから 来た ユーザー ID を そのまま 信じない**ため。
+//  - reply(replyToken, messages)：Webhook への 返事（下の メニュー）。**通数に かぞえられない＝無料**（push は かぞえる）。
 //  - dry-run（LINE_DRY_RUN=1、または トークンが 無い）：送らずに ログだけ。
 // LINE の ユーザー ID・トークンは ログに 出さない（mask）。
 import { parentLines } from '../game/roadmap.js';
@@ -65,6 +66,22 @@ export function createLine({
     }
   }
 
+  // 返事（Reply API）。1 回だけ・30 秒 いないに 使える トークン なので やりなおさない。
+  async function reply(replyToken, messages) {
+    if (!replyToken || !messages?.length) return { ok: false, error: 'nothing to send' };
+    const msgs = messages.slice(0, 5);
+    if (dryRun) {
+      sent.push({ reply: true, replyToken, messages: msgs, at: Date.now() });
+      log.info?.(`[line] dry-run reply: ${msgs.length} message(s)`);
+      return { ok: true, dryRun: true };
+    }
+    try {
+      const res = await call('POST', '/v2/bot/message/reply', { replyToken, messages: msgs });
+      if (res.ok) return { ok: true };
+      return { ok: false, status: res.status, error: `${res.status} ${(await res.text().catch(() => '')).slice(0, 200)}` };
+    } catch (err) { return { ok: false, error: `network: ${err.message}` }; }
+  }
+
   function verifySignature(rawBody, header) {
     if (!secret || !header) return false;
     const want = createHmac('sha256', secret).update(rawBody).digest('base64');
@@ -95,7 +112,7 @@ export function createLine({
     } catch (err) { return { used: null, limit: null, error: err.message }; }
   }
 
-  return { push, verifySignature, verifyIdToken, quota, get dryRun() { return dryRun; }, sent };
+  return { push, reply, verifySignature, verifyIdToken, quota, get dryRun() { return dryRun; }, sent };
 }
 
 // ---- 吹き出しを 作る ------------------------------------------------------------------------
@@ -126,6 +143,15 @@ export function roadmapText(v) {
   const L = parentLines(v);
   if (!L) return '';
   return [`🗺 ${L.stageLine}`, L.nextLine, ...L.eiken, ...(L.places.length ? [`おすすめ：${L.places.join('・')}`] : []), `※${L.note}`].join('\n').slice(0, 2000);
+}
+
+// おうちで できる こと 1 つ（週の レポート）。研究では「のばせる ところ」を 具体的に 1 つ つたえる 文が いちばん 効いた
+// （Kraft & Rogers 2015・READY4K）。ことばは 復習の 箱で 時期の きた もの → 宿題で まちがえた もの。
+export function homeTip(d) {
+  const words = [...new Set([d?.next?.en, ...(d?.homework?.missed || [])].filter((w) => w && /^[A-Za-z][A-Za-z' -]{0,30}$/.test(w)))].slice(0, 3);
+  if (words.length) return `🏠 おうちで できる こと：${words.map((w) => `「${w}」`).join('')}を、おうちの方が 日本語で 言い、お子さんが 英語で こたえる クイズを 1 分。`;
+  if (d?.zero) return '🏠 おうちで できる こと：「U-Speak で どんな ことばを おぼえた？」と 1 回 きいて みて ください。';
+  return '🏠 おうちで できる こと：今週 おぼえた ことばを 1 つ、お子さんに 英語で おしえて もらって ください。';
 }
 
 export function childMessages({ nick, range, sender, png, thumb, pdf, monthlyPdf = '', altText, homework = '' }) {

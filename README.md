@@ -1160,6 +1160,18 @@ fly secrets set -a uspeak-multiplayer RENDER_URL=http://uspeak-report-worker.fly
 を入れれば、`RENDER_URL` なしでその機械で組みます。レポートのファイルはボリューム（`DATA_DIR/parent-reports/`）に置くので、
 生徒が多い教室ではボリュームを 3GB にしてください。
 
+### LINE の 下の メニュー と 保護者の とどく 回数（2026-10 追加）
+
+- **こちらから 送る 回数は ふやさない。保護者が 見に くる ほうを ふやす。** 返事（Reply API）は LINE の 通数に かぞえられない＝無料、push は かぞえる（無料プランは 月 200 通）。
+- 下の メニューは 4 つ：📊 さいしんの レポート（いちばん 新しい 週の 画像と、これまでの 週の ページ）・📚 いまの 宿題（のこりと しめきり）・🗺 ロードマップ（段階・次まで・英検の 見込み）・⚙ とどく 回数。
+  中身は `server/src/parent-report/menu.js`（形と 文）＋ `service.js` の `answerMenu`（あつめる）。同じ ことば（「宿題」など・20 字まで）を 打っても こたえる。長い 相談の 文には こたえない（教室の 人が 返す）。
+- **とどく 回数は 保護者ごと**：「教室の 設定どおり／月に 1 回だけ／とめる」（ふやすは ない）。紐づけの `pref` に 入り、配信の `wantsNow()` が まもる（月に 1 回だけ＝前に とどいてから 27 日）。先生の 保護者レポートの タブに「月1回」「保護者が停止」の 人数が 出る。
+- 毎週の 文の さいごに **🏠 おうちで できる こと 1 つ**（`line.js` の `homeTip`：復習の 時期の ことば・宿題で まちがえた ことば）。吹き出しは ふやさない（きょうだいの まとめが 5 を こえると push が ふえる）。
+- **メニューの 登録は 1 回だけ**（画像や ボタンを かえた ときは もう一度）：
+  `fly ssh console -C "node /app/server/scripts/line-richmenu.mjs"`（鍵は サーバーの `LINE_CHANNEL_ACCESS_TOKEN`。チャットや コマンドに 鍵を 書かない）。画像は `server/templates/line-richmenu.png`（作りなおしは `node scripts/make-line-richmenu-image.mjs`）。
+  LINE Official Account Manager の「応答メッセージ」は オフに する（オンだと 自動の 返事が 二重に 出る）。Webhook は オンの まま。
+- 検査は `server/test/parent-report.test.mjs` の「menu」「おうちで できる こと」。
+
 ## 教室さま向けの説明資料（島とゲームのぜんぶ・PDF）
 
 `docs/uspeak-guide.tex` → **`docs/uspeak-guide.pdf`**（A4・25ページ・画像43点）。

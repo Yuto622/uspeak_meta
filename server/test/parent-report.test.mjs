@@ -346,3 +346,57 @@ test('compiles: the weekly image is exactly 1040×1300 and the thumbnail is smal
   const m = await compileTex(monthlyTex(monthlyData(week41('taro'), { month: monthOf(at(2026, 10, 6)), nick: 'たろう' })), { kind: 'monthly' });
   assert.equal(m.png.readUInt32BE(16), 1040);
 });
+
+// ---- LINE の 下の メニュー（返事は Reply＝無料）と 保護者の とどく 回数 ------------------------------
+test('menu: ボタンと 同じ ことばの メッセージだけに こたえる（長い 相談には こたえない）', async () => {
+  const { menuAction, menuReply, RICH_MENU } = await import('../src/parent-report/menu.js');
+  assert.deepEqual(menuAction({ type: 'postback', postback: { data: 'menu=homework' } }), { kind: 'homework' });
+  assert.deepEqual(menuAction({ type: 'postback', postback: { data: 'menu=pref' } }), { kind: 'ask-pref' });
+  assert.deepEqual(menuAction({ type: 'postback', postback: { data: 'menu=pref&set=stop' } }), { kind: 'pref', pref: 'stop' });
+  assert.deepEqual(menuAction({ type: 'postback', postback: { data: 'menu=pref&set=daily' } }), { kind: 'ask-pref' }, 'ふやす えらびは ない（えらびなおしの 画面に もどる）');
+  assert.deepEqual(menuAction({ type: 'message', message: { type: 'text', text: '宿題' } }), { kind: 'homework' });
+  assert.equal(menuAction({ type: 'message', message: { type: 'text', text: '来週の 授業を おやすみ したいのですが、宿題は どうなりますか' } }), null);
+  assert.equal(RICH_MENU.areas.length, 4);
+  assert.equal(RICH_MENU.areas.reduce((n, a) => n + a.bounds.width, 0), RICH_MENU.size.width);
+  assert.match(menuReply({ kind: 'report' }, { registered: false })[0].text, /QR/);
+});
+
+test('menu: 下の ボタンで さいしんの レポート・宿題・とどく 回数。返事は reply（push の 通数に ならない）', async () => {
+  const h = harness({ events: week41('taro') });
+  h.reports.saveSettings('c1', { enabled: true });
+  h.reports.addLink({ classroomId: 'c1', username: 'taro', nickname: 'Taro', lineUserId: 'Umom', consentVersion: 'v1' });
+  await h.service.deliverClass('c1', { period: weekOf(at(2026, 10, 6)) });
+  const pushes = h.line.sent.filter((p) => !p.reply).length;
+  const ask = async (data) => {
+    h.service.onWebhookEvents([{ type: 'postback', replyToken: `rt-${data}`, source: { userId: 'Umom' }, postback: { data } }]);
+    for (let i = 0; i < 50 && !h.line.sent.some((p) => p.replyToken === `rt-${data}`); i += 1) await new Promise((r) => setTimeout(r, 10));
+    return h.line.sent.find((p) => p.replyToken === `rt-${data}`).messages;
+  };
+  const rep = await ask('menu=report');
+  assert.equal(rep[0].type, 'image');
+  assert.match(rep[1].text, /Taroさんの さいしんの レポート/);
+  assert.match(rep[1].text, /https:\/\/example\.test\/r\//);
+  assert.match((await ask('menu=homework'))[0].text, /宿題は ありません|宿題/);
+  const pref = await ask('menu=pref');
+  assert.match(pref[0].text, /教室の 設定どおり/);
+  assert.equal(pref[0].quickReply.items.length, 3);
+  assert.match((await ask('menu=pref&set=stop'))[0].text, /とめました/);
+  assert.equal(h.reports.links({ lineUserId: 'Umom' })[0].pref, 'stop');
+  assert.equal(h.line.sent.filter((p) => !p.reply).length, pushes, 'メニューの 返事で push は ふえない');
+  // とめた 人には 次の 週 送らない。月に 1 回は 27 日 たつまで 送らない。
+  const r = await h.service.deliverClass('c1', { period: weekOf(at(2026, 10, 6)), force: true });
+  assert.equal(r.counts.sent, 0);
+  await ask('menu=pref&set=monthly');
+  const r2 = await h.service.deliverClass('c1', { period: weekOf(at(2026, 10, 6)), force: true });
+  assert.equal(r2.counts.sent, 0, 'さいごに とどいてから 27 日 たって いない');
+  h.reports.links({ lineUserId: 'Umom' })[0].last_sent_at = new Date(at(2026, 9, 1)).toISOString();
+  const r3 = await h.service.deliverClass('c1', { period: weekOf(at(2026, 10, 6)), force: true });
+  assert.equal(r3.counts.sent, 1);
+});
+
+test('おうちで できる こと：復習の 時期の ことば・宿題で まちがえた ことばを 1 行に', async () => {
+  const { homeTip } = await import('../src/parent-report/line.js');
+  assert.match(homeTip({ next: { en: 'apple' }, homework: { missed: ['red', 'apple'] } }), /「apple」「red」/);
+  assert.match(homeTip({ zero: true }), /きいて みて/);
+  assert.match(homeTip({}), /おしえて もらって/);
+});

@@ -12,7 +12,8 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { weeklyData, monthlyData, periodStats, periodRanks } from './aggregate.js';
 import { weeklyTex, monthlyTex, qrCardsTex, templateVersion, texts, goalText } from './render-tex.js';
-import { childMessages, homeworkText, roadmapText, bundle, retryUuid, mask } from './line.js';
+import { childMessages, homeworkText, roadmapText, homeTip, bundle, retryUuid, mask } from './line.js';
+import { menuAction, menuReply } from './menu.js';
 import { newToken } from './store.js';
 import { DAY, dayKey, parts, weekOf, lastWeek, monthOf, lastMonth, isoWeekNumber, jaRange } from './jst.js';
 
@@ -188,6 +189,16 @@ export function createParentReports({
 
   // ---- 配信 -------------------------------------------------------------------------------
   // 教室 1 つの 1 回ぶん。opts.testTo＝運営者の LINE に だけ 送る（テスト送信）。opts.only＝この 生徒だけ。
+  // おうちで できる こと は 文の 吹き出しの さいごに 足す（吹き出しを ふやすと きょうだいの まとめが 5 を こえて push が ふえる）。
+  const withTip = (body, tip) => (body && tip ? `${body}\n\n${tip}` : body);
+  const MONTH_GAP = 27 * DAY;
+  function wantsNow(link, kind) {
+    const pref = link.pref || 'class';
+    if (pref === 'stop') return false;
+    if (pref === 'monthly' && kind === 'weekly') return !link.last_sent_at || now() - Date.parse(link.last_sent_at) >= MONTH_GAP;
+    return true;
+  }
+
   async function deliverClass(classCode, { kind = 'weekly', period = null, testTo = '', only = '', monthlyFor = null, force = false } = {}) {
     const s = reports.settings(classCode);
     const T = texts();
@@ -203,7 +214,8 @@ export function createParentReports({
     for (const student of await students(classCode)) {
       if (only && student.username !== only) continue;
       if (!testTo && paused.has(student.username)) continue;
-      const links = testTo ? [{ line_user_id: testTo }] : reports.links({ classroomId: classCode, username: student.username, status: 'active' });
+      // 保護者が LINE の メニューで えらんだ とどく 回数（menu.js）：とめる＝送らない、月に 1 回＝前に とどいてから 27 日 たつまで 送らない。
+      const links = testTo ? [{ line_user_id: testTo }] : reports.links({ classroomId: classCode, username: student.username, status: 'active' }).filter((l) => wantsNow(l, kind));
       if (!links.length) continue;
       try {
         const { report, data } = await buildReport(classCode, student, kind, periodNow, { force: !!testTo });
@@ -228,7 +240,7 @@ export function createParentReports({
           const best = (data.ranks || [])[0];
           const altRank = best ? `（クラスで ${best.ja} ${best.rank}位）` : '';
           const altHw = data.homework ? `・宿題 ${data.homework.done}/${data.homework.total} おわり` : '';
-          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt + altRank + altHw, homework: [roadmapText(data.roadmap), homeworkText(data.homework, { nick: student.nick, range: data.range })].filter(Boolean).join('\n\n') });
+          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt + altRank + altHw, homework: withTip([roadmapText(data.roadmap), homeworkText(data.homework, { nick: student.nick, range: data.range })].filter(Boolean).join('\n\n'), kind === 'weekly' ? homeTip(data) : '') });
         }
         for (const l of links) {
           if (!groups.has(l.line_user_id)) groups.set(l.line_user_id, []);
@@ -254,7 +266,7 @@ export function createParentReports({
         const res = await line.push(to, msgs, { retryKey });
         const status = res.ok ? 'sent' : res.permanent ? 'blocked' : 'failed';
         for (const it of covered) reports.addDelivery({ report_id: it.reportId, run_id: run.id, line_user_id: to, status, error: res.ok ? '' : String(res.error || '').slice(0, 200), retry_key: retryKey });
-        if (res.ok) { counts.sent += covered.length; counts.messages += 1; } else if (res.permanent) {
+        if (res.ok) { counts.sent += covered.length; counts.messages += 1; if (!testTo) reports.noteSent(to, new Date(now()).toISOString()); } else if (res.permanent) {
           counts.blocked += covered.length;
           if (testTo) errors.push(`LINE が 受けつけませんでした：${res.error}`);
           // ブロック・存在しない 相手：次から 送らない。
@@ -522,9 +534,50 @@ export function createParentReports({
         recent.unshift({ id: uid, type: e.type, at: new Date(at).toISOString() });
         reports.setMeta({ recent_contacts: recent.slice(0, 5) });
       }
+      // 下の メニュー（リッチメニューの postback）と、同じ ことばの メッセージ。返事は Reply API＝無料。
+      const action = menuAction(e);
+      if (action && e.replyToken) answerMenu(uid, action, e.replyToken).catch((err) => log.warn?.('[line] menu failed:', err.message));
       if (e.type === 'unfollow') reports.setLinkStatus({ lineUserId: uid, status: 'active' }, 'blocked');
       if (e.type === 'follow') reports.setLinkStatus({ lineUserId: uid, status: 'blocked' }, 'active');
     }
+  }
+
+  // メニューの 返事に いる 中身を あつめて、menu.js が 文に する。
+  async function answerMenu(uid, action, replyToken) {
+    const links = reports.links({ lineUserId: uid, status: 'active' });
+    const kids = [];
+    for (const l of links) {
+      if (kids.some((k) => k.classCode === l.classroom_id && k.username === l.student_username)) continue;
+      const s = reports.settings(l.classroom_id);
+      const paused = (s.paused_students || []).includes(l.student_username);
+      const st = { username: l.student_username, nick: l.nickname || l.student_username };
+      const webName = roblox?.childFor?.(st.username)?.name || st.nick || st.username;
+      const kid = { classCode: l.classroom_id, username: st.username, nick: st.nick, paused, frequency: s.frequency || 'weekly' };
+      if (!paused) {
+        if (action.kind === 'report') {
+          const latest = reports.reports({ student_username: st.username, classroom_id: l.classroom_id, kind: 'weekly' })
+            .filter((r) => !r.revoked_at && Date.parse(r.expires_at) > now()).sort((a, b) => b.period_key.localeCompare(a.period_key))[0];
+          let range = '';
+          try { range = JSON.parse(latest?.data_json || '{}').range || ''; } catch { /* なくても よい */ }
+          kid.report = latest ? { png: latest.png_url, thumb: latest.thumb_url, pdf: latest.pdf_url, range } : null;
+          try { kid.page = base ? pageUrl(l.classroom_id, st) : ''; } catch { kid.page = ''; }
+        }
+        if (action.kind === 'homework') { try { kid.homework = homework?.listFor?.(l.classroom_id, webName) || []; } catch { kid.homework = []; } }
+        if (action.kind === 'roadmap') {
+          try { kid.roadmap = roadmap ? await roadmap.view(l.classroom_id, webName, { username: st.username, rows: await eventsFor(st.username), advance: false }) : null; } catch { kid.roadmap = null; }
+        }
+      }
+      kids.push(kid);
+    }
+    if (action.kind === 'pref' && links.length) {
+      for (const l of links) { l.pref = action.pref; l.updated_at = new Date(now()).toISOString(); }
+      reports.touch();
+    }
+    const pref = links[0]?.pref || 'class';
+    const messages = menuReply(action, { kids, pref, registered: links.length > 0 });
+    const res = await line.reply(replyToken, messages);
+    if (!res.ok) log.warn?.(`[line] reply to ${mask(uid)} failed: ${res.error}`);
+    return res;
   }
 
   // ---- 画面用の まとめ ---------------------------------------------------------------------
@@ -537,6 +590,8 @@ export function createParentReports({
       return {
         username: st.username, nick: st.nick, paused: paused.has(st.username),
         parents: links.filter((l) => l.status === 'active').length, blocked: links.filter((l) => l.status === 'blocked').length,
+        // 保護者が LINE の メニューで えらんだ とどく 回数（月に 1 回だけ・とめる の 人数）。
+        monthly: links.filter((l) => l.status === 'active' && l.pref === 'monthly').length, stoppedByParent: links.filter((l) => l.status === 'active' && l.pref === 'stop').length,
         ...(withUrl ? { url: pageUrl(classCode, st), claps: clapsThisWeek(classCode, st.username) } : {}),
       };
     });
