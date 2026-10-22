@@ -15,10 +15,18 @@ const FREQ_JA = { weekly: '毎週', biweekly: '2 週に 1 回', monthly: '毎月
 
 // リッチメニューの 形（richmenu-setup.js が 起動で LINE に 登録する）。画像は 2500×1686（大）。2026-10 v2：
 //   上：📊 今週の がんばり（大）｜🗺 ロードマップ
-//   下：📚 宿題｜🏠 おうちで 1 分｜🎮 ゲームを ひらく（URL）｜⚙ とどく 回数
+//   下：📚 宿題｜🏠 おうちで 1 分｜🎮 そのまま あそぶ（全画面の やりかた＋PDF・動画＋Safari で ひらく）｜⚙ とどく 回数
 // 続けて もらう（LTV）ための 形：毎週 ひらく 理由（がんばり）と、おうちで 声を かける きっかけ（1 分）と、そのまま 遊べる 入口を 大きく。
 // 「回数」は 目立たせない（止める 人を ふやさない）が、かならず 置く（止められない メニューは 信用を なくす）。
-export const GAME_URL = process.env.REPORT_BASE_URL || 'https://uspeak-multiplayer.fly.dev';
+export const GAME_URL = (process.env.REPORT_BASE_URL || 'https://uspeak-multiplayer.fly.dev').replace(/\/+$/, '');
+// 「そのまま あそぶ」は すぐ ひらかず、全画面の やりかたを 先に 出す（LINE の 中の ブラウザでは バーが のこり、ホーム画面にも 追加できない）。
+// PDF と 動画は ゲームと 同じ サーバー（client/dist/assets/app）。ゲームは ?openExternalBrowser=1 で LINE の 外（Safari）で ひらく。
+export const FULLSCREEN = {
+  pdf: `${GAME_URL}/assets/app/iphone-fullscreen-guide.pdf`,
+  video: `${GAME_URL}/assets/app/add-to-home-safari.mp4`,
+  videoChrome: `${GAME_URL}/assets/app/add-to-home.mp4`,
+  play: `${GAME_URL}/?openExternalBrowser=1`,
+};
 const W = 2500; const H = 1686; const TOP = 900;
 export const MENU_TILES = [
   { kind: 'report', label: '📊 今週の がんばり', bounds: { x: 0, y: 0, width: 1666, height: TOP } },
@@ -31,13 +39,11 @@ export const MENU_TILES = [
 export const RICH_MENU = {
   size: { width: W, height: H },
   selected: true,
-  name: 'uspeak-parent-v2',
+  name: 'uspeak-parent-v3',
   chatBarText: 'U-Speak メニュー',
   areas: MENU_TILES.map(({ kind, label, bounds }) => ({
     bounds,
-    action: kind === 'game'
-      ? { type: 'uri', label: 'ゲームを ひらく', uri: GAME_URL }
-      : { type: 'postback', data: `menu=${kind}`, displayText: label.replace(/^\S+\s/, '') },
+    action: { type: 'postback', data: `menu=${kind}`, displayText: label.replace(/^\S+\s/, '') },
   })),
 };
 
@@ -47,7 +53,7 @@ export function menuAction(e) {
     const q = new URLSearchParams(String(e.postback?.data || ''));
     const kind = q.get('menu');
     if (kind === 'pref' && q.get('set') && PREFS[q.get('set')]) return { kind: 'pref', pref: q.get('set') };
-    if (['report', 'homework', 'roadmap', 'home', 'pref'].includes(kind)) return { kind: kind === 'pref' ? 'ask-pref' : kind };
+    if (['report', 'homework', 'roadmap', 'home', 'game', 'pref'].includes(kind)) return { kind: kind === 'pref' ? 'ask-pref' : kind };
     return null;
   }
   if (e?.type === 'message' && e.message?.type === 'text') {
@@ -57,6 +63,7 @@ export function menuAction(e) {
     if (/宿題|しゅくだい/.test(t)) return { kind: 'homework' };
     if (/ロードマップ|段階/.test(t)) return { kind: 'roadmap' };
     if (/おうち|1分|１分/.test(t)) return { kind: 'home' };
+    if (/あそぶ|遊ぶ|ゲーム|全画面/.test(t)) return { kind: 'game' };
     if (/回数|頻度|とどく|届く|停止|とめ|止め/.test(t)) return { kind: 'ask-pref' };
   }
   return null;
@@ -66,8 +73,46 @@ const md = (d) => (d ? `${Number(d.slice(5, 7))}/${Number(d.slice(8, 10))}` : ''
 const text = (t) => ({ type: 'text', text: String(t).slice(0, 4800) });
 const NOT_YET = 'まだ 登録が ありません。教室で もらった QR コードから 登録して ください。';
 
+// 🎮 そのまま あそぶ：全画面の やりかた（iPhone）＋ PDF・動画 ＋ Safari で ひらく ボタン。
+function gameCard() {
+  const G = '#1B3A2F'; const O = '#E27A2D'; const M = '#6B7A74';
+  const t = (text, o = {}) => ({ type: 'text', text, wrap: true, size: 'sm', color: '#1F2A26', ...o });
+  const step = (n, body) => ({ type: 'box', layout: 'horizontal', margin: 'md', spacing: 'md', contents: [
+    { type: 'box', layout: 'vertical', width: '24px', height: '24px', cornerRadius: '12px', backgroundColor: O, justifyContent: 'center', contents: [t(String(n), { color: '#FFFFFF', weight: 'bold', align: 'center', size: 'xs' })] },
+    t(body, { flex: 1 }),
+  ] });
+  const btn = (label, uri, style = 'link', color = G) => ({ type: 'button', style, color, height: 'sm', action: { type: 'uri', label, uri } });
+  return {
+    type: 'flex',
+    altText: '🎮 全画面で あそぶ には：ホーム画面に U-Speak を 追加（やりかたの PDF・動画つき）',
+    contents: { type: 'bubble', size: 'mega',
+      header: { type: 'box', layout: 'vertical', backgroundColor: G, paddingAll: '16px', contents: [
+        t('🎮 U-Speak で あそぶ', { color: '#CFE3D8', size: 'xs' }),
+        t('全画面で あそぶ には', { color: '#FFFFFF', size: 'xl', weight: 'bold', margin: 'sm' }),
+        t('LINE や Safari の まま だと 上と 下に バーが のこります。ホーム画面に 1 回 追加すると、つぎから アイコンで 全画面に。', { color: '#CFE3D8', size: 'xs', margin: 'sm' }),
+      ] },
+      body: { type: 'box', layout: 'vertical', paddingAll: '16px', contents: [
+        t('iPhone（1 分・はじめの 1 回だけ）', { size: 'xs', color: M, weight: 'bold' }),
+        step(1, '下の「🎮 Safari で ひらく」を おす'),
+        step(2, '画面の 下の「•••」→「共有」'),
+        step(3, '「ホーム画面に追加」→ 右上の「追加」'),
+        step(4, 'ホーム画面の 緑の u. から ひらく'),
+        { type: 'box', layout: 'vertical', margin: 'lg', paddingAll: '10px', backgroundColor: '#F4F7F5', cornerRadius: '8px', contents: [
+          t('Android・iPad は そのまま 全画面で あそべます。', { size: 'xs', color: M }),
+        ] },
+      ] },
+      footer: { type: 'box', layout: 'vertical', spacing: 'sm', paddingAll: '12px', contents: [
+        btn('🎮 Safari で ひらく', FULLSCREEN.play, 'primary', O),
+        btn('📄 やりかた（PDF・写真つき）', FULLSCREEN.pdf),
+        btn('▶ やりかたの 動画（19 秒）', FULLSCREEN.video),
+      ] },
+    },
+  };
+}
+
 // 返事の 吹き出し（5 つまで）。ctx = { kids: [{nick, paused, frequency, report, page, homework, roadmap}], pref, registered }
 export function menuReply(action, { kids = [], pref = 'class', registered = false } = {}) {
+  if (action.kind === 'game') return [gameCard()];   // 登録が なくても 見せて よい（あそびかたの 案内だけ）
   if (!registered) return [text(NOT_YET)];
   const active = kids.filter((k) => !k.paused);
   const pausedLine = kids.filter((k) => k.paused).map((k) => `${k.nick}さんの レポートは 教室で 止めて います。`).join('\n');

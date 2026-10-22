@@ -360,7 +360,11 @@ test('menu: ボタンと 同じ ことばの メッセージだけに こたえ�
   // ぜんぶの ボタンが 画像の 中に おさまり、すきまも かさなりも ない（面積の 合計 ＝ 画像）。
   assert.ok(RICH_MENU.areas.every(({ bounds: b }) => b.x >= 0 && b.y >= 0 && b.x + b.width <= RICH_MENU.size.width && b.y + b.height <= RICH_MENU.size.height));
   assert.equal(RICH_MENU.areas.reduce((n, a) => n + a.bounds.width * a.bounds.height, 0), RICH_MENU.size.width * RICH_MENU.size.height);
-  assert.ok(RICH_MENU.areas.some((a) => a.action.type === 'uri' && /^https:\/\//.test(a.action.uri)), 'ゲームを ひらく 入口');
+  assert.deepEqual(menuAction({ type: 'postback', postback: { data: 'menu=game' } }), { kind: 'game' });
+  const game = menuReply({ kind: 'game' }, { registered: false })[0];
+  const gj = JSON.stringify(game.contents);
+  assert.equal(game.type, 'flex', '登録が なくても あそびかたは 出す');
+  assert.ok(/iphone-fullscreen-guide\.pdf/.test(gj) && /add-to-home-safari\.mp4/.test(gj) && /openExternalBrowser=1/.test(gj), 'PDF・動画・Safari で ひらく');
   assert.ok(RICH_MENU.areas.some((a) => a.action.data === 'menu=pref'), '回数を かえる ボタンは かならず ある');
   assert.deepEqual(menuAction({ type: 'postback', postback: { data: 'menu=home' } }), { kind: 'home' });
   const home = menuReply({ kind: 'home' }, { registered: true, kids: [{ nick: 'かい', roadmap: { words: { next: ['apple', 'dog', '<b>'] } } }] })[0].text;

@@ -2166,7 +2166,7 @@ test('ぼくじょう島: every job is a question, the answer is judged here, an
   await stand(...at('house'));
   a.room.send('farm:open', { spot: 'house' });
   const house = await nextMessage(a.room, 'farm:state');
-  assert.equal(house.farm.hearts.seeds, 1);
+  assert.equal(house.farm.hearts.seeds, right.farm.hearts.seeds, 'hearts survive the reopen (2 on the villager\'s birthday)');
   assert.equal(house.farm.day, farmDay());
   await a.room.leave();
   await sleep(150);

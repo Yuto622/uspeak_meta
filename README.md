@@ -1167,7 +1167,7 @@ fly secrets set -a uspeak-multiplayer RENDER_URL=http://uspeak-report-worker.fly
   中身は `server/src/parent-report/menu.js`（形と 文）＋ `service.js` の `answerMenu`（あつめる）。同じ ことば（「宿題」など・20 字まで）を 打っても こたえる。長い 相談の 文には こたえない（教室の 人が 返す）。
 - **とどく 回数は 保護者ごと**：「教室の 設定どおり／月に 1 回だけ／とめる」（ふやすは ない）。紐づけの `pref` に 入り、配信の `wantsNow()` が まもる（月に 1 回だけ＝前に とどいてから 27 日）。先生の 保護者レポートの タブに「月1回」「保護者が停止」の 人数が 出る。
 - 毎週の 文の さいごに **🏠 おうちで できる こと 1 つ**（`line.js` の `homeTip`：復習の 時期の ことば・宿題で まちがえた ことば）。吹き出しは ふやさない（きょうだいの まとめが 5 を こえると push が ふえる）。
-- **メニュー（v2・2026-10）**：上に 大きく「📊 今週の がんばり」「🗺 ロードマップ」、下に「📚 宿題」「🏠 おうちで 1 分（お子さんが 英語で 言い、おうちの方が 当てる）」「🎮 そのまま あそぶ（ゲームの URL）」「⚙ とどく 回数」。
+- **メニュー（v2・2026-10）**：上に 大きく「📊 今週の がんばり」「🗺 ロードマップ」、下に「📚 宿題」「🏠 おうちで 1 分（お子さんが 英語で 言い、おうちの方が 当てる）」「🎮 そのまま あそぶ（全画面の やりかたの カード：Safari で ひらく `?openExternalBrowser=1`・PDF `assets/app/iphone-fullscreen-guide.pdf`・動画 `add-to-home-safari.mp4`）」「⚙ とどく 回数」。
   ロードマップは 文では なく **カード（Flex）**：段階・12 だんかいの バー・たんご／クイズの バー・英検の 見こみ・おすすめ・「🎮 つづきを あそぶ」。
 - **メニューの 登録は 自動**：サーバーの 起動で `richmenu-setup.js` が、既定の メニューが `RICH_MENU.name` で なければ 作りなおす（名前の v を 上げると 入れかわる）。
   すぐ 作りなおす ときは `fly ssh console -C "node /app/server/scripts/line-richmenu.mjs"`（鍵は サーバーの `LINE_CHANNEL_ACCESS_TOKEN`。チャットや コマンドに 鍵を 書かない）。画像は `server/templates/line-richmenu.png`（作りなおしは `node scripts/make-line-richmenu-image.mjs`）。
