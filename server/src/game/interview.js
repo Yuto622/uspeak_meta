@@ -22,7 +22,11 @@ import { GRADE_RATE } from './progression.js';
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const INTERVIEW_BANK_PATH = path.resolve(here, 'interview-bank.json');
 
-export const KINDS = ['passage', 'picture', 'self'];
+// 準2級〜1級の 形も（2026-10）：narrate＝3・4 コマの 絵を 話す（2級・準1級）、opinion＝意見と 理由（準2級〜）、
+// speech＝1級の スピーチ。どれも keys の グループ ＋ minWords（短すぎる 答えは ×）で 見る。
+export const KINDS = ['passage', 'picture', 'self', 'narrate', 'opinion', 'speech'];
+// 長く 話す 形の 既定の 語数（データに minWords が なければ）。
+const MIN_WORDS = { self: 2, opinion: 10, narrate: 25, speech: 60 };
 // What a whole interview is worth. Deliberately close to a set of five in one of the
 // halls: this takes about as long, and asks for more.
 export const INTERVIEW_XP = { read: 10, answer: 12, finish: 20 };
@@ -51,8 +55,11 @@ export function loadInterviewBank(file = INTERVIEW_BANK_PATH) {
       const where = `${grade}/${card.id || '?'}`;
       if (!text(card.id) || seen.has(card.id)) throw new Error(`interview-bank.json: ${where} has a missing or repeated id`);
       seen.add(card.id);
-      if (!text(card.passage)) throw new Error(`interview-bank.json: ${where} has no passage to read`);
-      if (!text(card.ja)) throw new Error(`interview-bank.json: ${where} has no Japanese for the passage`);
+      // 準1級・1級は 本番に 音読が ない（noRead）。それ以外は 音読の 文と その 日本語が いる。
+      if (card.noRead !== true) {
+        if (!text(card.passage)) throw new Error(`interview-bank.json: ${where} has no passage to read`);
+        if (!text(card.ja)) throw new Error(`interview-bank.json: ${where} has no Japanese for the passage`);
+      }
       const steps = card.steps || [];
       if (steps.length < 3) throw new Error(`interview-bank.json: ${where} needs at least three questions`);
       for (const [i, step] of steps.entries()) {
@@ -66,7 +73,7 @@ export function loadInterviewBank(file = INTERVIEW_BANK_PATH) {
             throw new Error(`interview-bank.json: ${at} has an empty group of key words`);
           }
         }
-        if (step.kind === 'picture' && !text(step.scene)) throw new Error(`interview-bank.json: ${at} is about a picture nobody described`);
+        if ((step.kind === 'picture' || step.kind === 'narrate') && !text(step.scene)) throw new Error(`interview-bank.json: ${at} is about a picture nobody described`);
       }
     }
     grades[grade] = { title: text(source.title), howto: text(source.howto), cards };
@@ -94,7 +101,7 @@ const wordCount = (s) => (normalise(s) ? normalise(s).split(' ').length : 0);
 export function markAnswer(step, heard) {
   const said = ` ${normalise(heard)} `;
   const words = wordCount(heard);
-  const need = Number(step.minWords) || (step.kind === 'self' ? 2 : 1);
+  const need = Number(step.minWords) || MIN_WORDS[step.kind] || 1;
   const missing = [];
   for (const group of step.keys) {
     const hit = group.some((k) => said.includes(` ${normalise(k)} `) || (normalise(k).includes(' ') && said.includes(` ${normalise(k)} `)));
@@ -128,7 +135,7 @@ export function startInterview(grade, { random = Math.random, now = Date.now(), 
     level: levelOf(level),  // その面接のあいだ ずっと同じもので採点する
     cardId: card.id,
     card,
-    stage: 'read',          // read -> ask -> done
+    stage: card.noRead === true ? 'ask' : 'read',          // read -> ask -> done（音読の ない 級は ask から）
     at: 0,                  // which question
     startedAt: now,
     marks: [],              // one per stage, in order
@@ -145,11 +152,11 @@ export function interviewPayload(session) {
     grade: session.grade,
     title: INTERVIEW[session.grade].title,
     howto: INTERVIEW[session.grade].howto,
-    card: { id: card.id, title: card.title || '', passage: card.passage, ja: card.ja },
+    card: { id: card.id, title: card.title || '', passage: card.passage || '', ja: card.ja || '', noRead: card.noRead === true },
     stage: session.stage,
     at: session.at,
     of: card.steps.length,
-    question: step ? { kind: step.kind, q: step.q, ja: step.ja, scene: step.scene || '', emoji: step.emoji || '' } : null,
+    question: step ? { kind: step.kind, q: step.q, ja: step.ja, scene: step.scene || '', emoji: step.emoji || '', minWords: Number(step.minWords) || MIN_WORDS[step.kind] || 0 } : null,
   };
 }
 
@@ -161,7 +168,7 @@ export function interviewStep(session, heard, { now = Date.now() } = {}) {
     session.stage = 'done';
     return { ok: false, reason: 'time' };
   }
-  const said = String(heard ?? '').slice(0, 400);
+  const said = String(heard ?? '').slice(0, 2000); // 1級の スピーチは 長い
   if (session.stage === 'read') {
     const mark = markReading(session.card.passage, said, session.level);
     session.marks.push({ kind: 'read', correct: mark.correct, close: mark.close });

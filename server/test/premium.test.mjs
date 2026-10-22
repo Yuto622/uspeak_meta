@@ -40,7 +40,7 @@ test('名簿の「プレミアム」列は シート・CSV・はりつけ の �
 
 test('プレミアムで ない 子：2 つの 島に 🔒、英会話島の 家では 話せない。プレミアムの 子と 先生は 入れる', async () => {
   const ken = await join('prem1', 'Ken');
-  assert.deepEqual(ken.welcome.locked, ['conv', 'talk', 'eiken5', 'eiken4', 'eiken3', 'talkshops']);
+  assert.deepEqual(ken.welcome.locked, ['conv', 'talk', 'eiken5', 'eiken4', 'eiken3', 'eikenp2', 'eiken2', 'eikenp1', 'eiken1', 'talkshops']);
   assert.equal(ken.welcome.premium, false);
   const topic = [...CONV.topicById.values()].find((t) => { const h = CONV.spotById.get(t.spot); return !h.home || h.home.id === CONV.id; });
   ken.room.send('conv:start', { topic: topic.id });
@@ -56,7 +56,7 @@ test('プレミアムで ない 子：2 つの 島に 🔒、英会話島の 家
   assert.deepEqual(pia.welcome.locked, []);
   assert.equal(pia.welcome.premium, true);
   const t = await join('prem1', 'Sensei', { teacherKey: 'testkey12345' });
-  assert.deepEqual(t.welcome.locked, ['conv', 'talk', 'eiken5', 'eiken4', 'eiken3', 'talkshops'], 'a teacher needs the column too');
+  assert.deepEqual(t.welcome.locked, ['conv', 'talk', 'eiken5', 'eiken4', 'eiken3', 'eikenp2', 'eiken2', 'eikenp1', 'eiken1', 'talkshops'], 'a teacher needs the column too');
   assert.ok(t.welcome.islands.includes('eiken5'), 'but sees which islands are premium');
   await Promise.all([ken.room.leave(), pia.room.leave(), t.room.leave()]);
 });

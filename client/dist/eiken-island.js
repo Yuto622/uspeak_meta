@@ -1,4 +1,4 @@
-// 英検の島（5級・4級・3級）— three islands, one layout, four halls each.
+// 英検の島（5級〜1級）— seven islands, one layout, four halls each.
 //
 // The layout is the same on all three on purpose: a child who has learned where 読む
 // stands on 5級 knows where it stands on 3級, so climbing a grade is about the English
@@ -36,6 +36,8 @@ const mix = (a, b, k) => {
 // The numerals, drawn as blocks on a seven-segment frame: a 5 that reads as a 5 from the
 // water, without a font or a texture.
 const DIGITS = {
+  1: ['.#.', '##.', '.#.', '.#.', '###'],
+  2: ['###', '..#', '###', '#..', '###'],
   3: ['###', '..#', '###', '..#', '###'],
   4: ['#.#', '#.#', '###', '..#', '..#'],
   5: ['###', '#..', '###', '..#', '###'],
@@ -80,7 +82,7 @@ export function createEikenIsland({ scene, id }) {
       }
       D(0, 7.1, gz, 10.4, 1.1, 1.4, t.stone);
       D(0, 7.85, gz, 11, 0.5, 1.8, shade(t.stone, -0.12));
-      const digit = DIGITS[data.badge?.[0]] || DIGITS[5];
+      const digit = DIGITS[String(data.badge || '').replace('準', '')[0]] || DIGITS[5]; // 準2級 → 2、準1級 → 1
       digit.forEach((row, ry) => {
         [...row].forEach((cell, rx) => {
           if (cell !== '#') return;

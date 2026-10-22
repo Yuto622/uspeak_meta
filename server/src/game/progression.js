@@ -83,7 +83,7 @@ export const REWARDS = {
 };
 
 // What a grade multiplies that by. 5級 is where a child starts, so it is the unit.
-export const GRADE_RATE = { g5: 1, g4: 1.25, g3: 1.5 };
+export const GRADE_RATE = { g5: 1, g4: 1.25, g3: 1.5, gp2: 1.75, g2: 2, gp1: 2.25, g1: 2.5 };
 export const eikenReward = (skill, grade) => {
   const base = REWARDS.eiken[skill] || REWARDS.eiken.reading;
   const rate = GRADE_RATE[grade] || 1;

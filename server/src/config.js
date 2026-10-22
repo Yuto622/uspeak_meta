@@ -50,7 +50,7 @@ export const config = Object.freeze({
   callsNeedTeacher: process.env.CALLS_NEED_TEACHER !== 'off',
   // プレミアムの 島（名簿の「プレミアム」列が true の 子と 先生だけ）。カンマで 区切る。空で だれでも。
   // 島の id のほか、`talkshops` は メインの島の 英会話の お店（本屋・ピザ屋 など 5 けん）。
-  premiumIslands: (process.env.PREMIUM_ISLANDS ?? 'conv,talk,eiken5,eiken4,eiken3,talkshops').split(',').map((s) => s.trim()).filter(Boolean),
+  premiumIslands: (process.env.PREMIUM_ISLANDS ?? 'conv,talk,eiken5,eiken4,eiken3,eikenp2,eiken2,eikenp1,eiken1,talkshops').split(',').map((s) => s.trim()).filter(Boolean),
   // 入って 何ミリ秒後に「Review time!」の カードを 出すか（検査では 短く する）。
   reviewOfferDelayMs: int('REVIEW_OFFER_DELAY_MS', 20000),
   // 授業モード：ストップの 自動再開と、復習の クラス結果を 出すまで（検査では 短く する）。

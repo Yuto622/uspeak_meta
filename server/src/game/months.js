@@ -44,10 +44,10 @@ const KEY = /^\d{4}-(0[1-9]|1[0-2])$/;
 // 教室の日のほかに自分で開いた日が数えられれば、面談で「塾の日でも、おうちで5分
 // やれています」と言える。**端末の申告ではなく、サーバーが部屋に先生がいたかで決める**。
 //
-// `eg` は英検の級ごとの正解数（`g5`・`g4`・`g3`）。やさしい判定の○は入れない。
+// `eg` は英検の級ごとの正解数（`EIKEN_GRADES`＝5級〜1級）。やさしい判定の○は入れない。
 // 「中学1年生くらいの英語の問題に 24問 正解」と、学校の英語につなげて言うため。
-export const EIKEN_GRADES = ['g5', 'g4', 'g3'];
-const blankEg = () => ({ g5: 0, g4: 0, g3: 0 });
+export const EIKEN_GRADES = ['g5', 'g4', 'g3', 'gp2', 'g2', 'gp1', 'g1'];
+const blankEg = () => Object.fromEntries(EIKEN_GRADES.map((g) => [g, 0]));
 const blank = () => ({ answers: 0, correct: 0, xp: 0, coins: 0, seconds: 0, days: [], home: [], eg: blankEg() });
 
 // 保存から読む。**壊れていたら捨てて空から**（古い保存・手で触った保存・別バージョン）。

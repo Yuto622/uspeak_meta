@@ -23,7 +23,7 @@ test('やさしいは2たく、知らない級は断る、変な答えは×', ()
   const s = createQuick('g4', Math.random, 'easy');
   assert.equal(quickPayload(s).choices.length, 2);
   assert.equal(answerQuick(s, { choice: '0' }).correct, false, '数字の文字列は受けない');
-  assert.throws(() => createQuick('g1'), QuickError);
+  assert.throws(() => createQuick('g9'), QuickError);
 });
 
 test('全問正解で perfect', () => {

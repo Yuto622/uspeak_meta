@@ -142,7 +142,7 @@ export function have(prog, check, stats) {
 
 
 // 光の道の 行き先：{ island, spot? }。spot は メインの島の 場所（main_island.json）。分からなければ null。
-const HUBS = new Set(['main', 'willow', 'park', 'errand', 'school', 'arena', 'pet', 'ride', 'town', 'eiken5', 'eiken4', 'eiken3', 'talk', 'conv', 'wear', 'mini', 'farm', 'land', 'fishworld', 'homework']);
+const HUBS = new Set(['main', 'willow', 'park', 'errand', 'school', 'arena', 'pet', 'ride', 'town', 'eiken5', 'eiken4', 'eiken3', 'eikenp2', 'eiken2', 'eikenp1', 'eiken1', 'talk', 'conv', 'wear', 'mini', 'farm', 'land', 'fishworld', 'homework']);
 const GO_RULES = [
   [/^(sell|award:fish_sell)/, { island: 'main', spot: 'fish_buy' }],
   [/^\$(fish|dex)$/, { island: 'main', spot: 'fishing_pier' }],
@@ -158,6 +158,10 @@ const GO_RULES = [
   [/^(award|a|ok|done):(eiken|interview):g5/, { island: 'eiken5' }],
   [/^(award|a|ok|done):(eiken|interview):g4/, { island: 'eiken4' }],
   [/^(award|a|ok|done):(eiken|interview):g3/, { island: 'eiken3' }],
+  [/^(award|a|ok|done):(eiken|interview):gp2/, { island: 'eikenp2' }],
+  [/^(award|a|ok|done):(eiken|interview):g2/, { island: 'eiken2' }],
+  [/^(award|a|ok|done):(eiken|interview):gp1/, { island: 'eikenp1' }],
+  [/^(award|a|ok|done):(eiken|interview):g1/, { island: 'eiken1' }],
   [/^award:mission/, { island: 'errand' }],
   [/^(spend:pet|\$pet$)/, { island: 'pet' }],
   [/^(ok|a):farm/, { island: 'farm' }],

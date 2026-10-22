@@ -56,6 +56,17 @@ test('web版に出す 問題が 英検の島（5級の 読む）に まざり、
   assert.equal(BANK.g5.reading.length, before);
 });
 
+test('話す：DB の「日本語 → 英語で 言う」行は その級の 話すの館に まざり、面接の 行は まざらない', () => {
+  const before = BANK.g1.speaking.length;
+  const say = cleanItem({ id: 'sp1', grade: '1級', skill: 'speaking', question: 'その 計画には 長所も 短所も あります。', answer: 'The plan has both advantages and disadvantages.' });
+  const iv = cleanItem({ id: 'sp2', grade: '1級', skill: 'speaking', passage: 'A card', question: 'No.1 Why?', answer: 'Because it is fun.' });
+  const added = setExtraQuestions([say, iv]);
+  assert.equal(added['g1.speaking'], 1);
+  assert.deepEqual(BANK.g1.speaking.at(-1), { ja: say.question, en: say.answer });
+  setExtraQuestions([]);
+  assert.equal(BANK.g1.speaking.length, before);
+});
+
 let server; let base;
 before(async () => { server = await startServer({ port: 0 }); base = `http://127.0.0.1:${server.server.address().port}`; });
 after(async () => { setExtraQuestions([]); await server.shutdown('test'); });

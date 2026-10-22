@@ -695,7 +695,7 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   `town.json` の `w`/`d` を変えたら `server/test` を回すこと。
 - `room_json` は `{tier, furniture, plaza}`。古いセーブの `blocks` はひろばへ読み替える（消さない）。
 
-## 英検の島（5級・4級・3級／2026-09 追加）
+## 英検の島（5級・4級・3級／2026-09 追加・準2級〜1級は 2026-10）
 
 `eiken-island.js` + `eiken.json`（3島・同じ間取り）/ `eiken.js` + `eiken.css`（4技能の画面）。
 サーバーは `server/src/game/eiken.js` と `eiken-bank.json`。
@@ -751,6 +751,23 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   `server/test/room.test.mjs`（実ソケット・**子どもは変えられない**・先生が変えると
   全員に降りる・セットが きびしさを 持ちつづける）/ `browser-eiken.mjs`（実ブラウザ・
   先生がボタンを押す → 子どもの画面の札が変わる → つぎのセットが本当にゆるくなる）。
+
+### 準2級・2級・準1級・1級の 島と 面接の 形（2026-10 追加）
+
+- 島は **7つ**（`eiken5` `eiken4` `eiken3` `eikenp2` `eiken2` `eikenp1` `eiken1`）。間取りは 同じ、`eiken.json` の
+  `theme` と 位置だけ ちがう。級の 並びは `server/src/game/eiken.js` の `GRADES`（g5 g4 g3 gp2 g2 gp1 g1）が 正本。
+  島を 足すときは `rpg.js`（作る・`EIKEN_IDS`・`ISLANDS`・返す オブジェクト）/ `rpg-data.js`（HUBS）/
+  `world-picker.js`（LOOK）/ `net-client.js`（PREMIUM_DEFAULT）/ サーバーの `config.js`（premiumIslands）/
+  `class-mode.js` / `tasks/engine.js` / `progression.js`（GRADE_RATE）/ `tests/regression.mjs` を そろえる。
+- **面接の 形（`interview.js` の `KINDS`）**：`passage` `picture` `self` に 加えて `narrate`（3〜4コマの 絵を 話す・2級/準1級）・
+  `opinion`（意見＋理由・準2級〜）・`speech`（1級の スピーチ）。長く 話す 形は **`minWords`**（無ければ `MIN_WORDS`）より
+  短いと ×。準1級・1級は 本番に 音読が ないので カードに `noRead: true`（`passage` なし、`ask` から 始まる）。
+- **面接の 画面**：大きい 🎤 を 押して 話す → もう一度 押して 送る（`continuous` で 長い 答えも 切れない）。
+  話して いる あいだ 聞きとった 文と 語数が 出る。音読は 読めた 語が 光る。日本語は 最初 かくす（`#iv-jabtn`）。
+  ⌨（`#iv-kbd`）で 書いて 答える ことも できる（マイクが 無い 端末は さいしょから 書く）。長い 形は 考える 時間（`PREP`）の
+  カウントダウンつき。答えた あとに お手本と 🔊。
+- **問題は U-Speak Lab の オリジナル**（CC BY 4.0）。英検の 面接を そのまま 使える オープンな データセットは 無いので、
+  協会が 公開して いる 形（音読→質問の 順・コマ数・意見の 型）に 合わせて 作った。過去問の 文は 入れない。
 
 ## 英会話島（AI英会話・キャラクター動画／2026-09 追加）
 

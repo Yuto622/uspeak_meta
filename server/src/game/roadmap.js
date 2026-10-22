@@ -50,8 +50,10 @@ export const EIKEN = {
   gp2: { ja: '準2級', en: 'Grade Pre-2', school: '高校中級程度', vocab: 3600, items: { reading: 29, listening: 30 }, cut: 0.6, cse: [1322, 1800], writing: true },
   g2: { ja: '2級', en: 'Grade 2', school: '高校卒業程度', vocab: 5100, items: { reading: 31, listening: 30 }, cut: 0.6, cse: [1520, 1950], writing: true },
   gp1: { ja: '準1級', en: 'Grade Pre-1', school: '大学中級程度', vocab: 7500, items: { reading: 31, listening: 29 }, cut: 0.7, cse: [1792, 2250], writing: true },
+  // 1級は ロードマップの 段階には ないが、英検の 島（1級）の 記録の ために 置く（問題数は 目安）。
+  g1: { ja: '1級', en: 'Grade 1', school: '大学上級程度', vocab: 10000, items: { reading: 35, listening: 27 }, cut: 0.7, cse: [2028, 2550], writing: true },
 };
-export const GRADE_ORDER = ['jr', 'g5', 'g4', 'g3', 'gp2', 'g2', 'gp1'];
+export const GRADE_ORDER = ['jr', 'g5', 'g4', 'g3', 'gp2', 'g2', 'gp1', 'g1'];
 
 // 既定の 12 段階。`jr` は 英検Jr. の どの グレード くらいか（A・B・C だけ）。
 // `cando` は その 段階で できる ように なる こと（英検の Can-do リスト・CEFR の「できる こと」の 考えかた。子ども・保護者に 見せる）。
@@ -141,7 +143,7 @@ export const startOf = (settings) => (STAGE_IDS.includes(settings?.start) ? sett
 const GRADE_ALIAS = {
   g5: 'g5', 5: 'g5', '5級': 'g5', g4: 'g4', 4: 'g4', '4級': 'g4', g3: 'g3', 3: 'g3', '3級': 'g3',
   gp2: 'gp2', p2: 'gp2', '準2': 'gp2', '準2級': 'gp2', 'pre-2': 'gp2', g2: 'g2', 2: 'g2', '2級': 'g2',
-  gp1: 'gp1', p1: 'gp1', '準1': 'gp1', '準1級': 'gp1', '準1級以上': 'gp1', 'pre-1': 'gp1', jr: 'jr', junior: 'jr', 'ジュニア': 'jr',
+  gp1: 'gp1', p1: 'gp1', '準1': 'gp1', '準1級': 'gp1', '準1級以上': 'gp1', 'pre-1': 'gp1', g1: 'g1', '1級': 'g1', jr: 'jr', junior: 'jr', 'ジュニア': 'jr',
 };
 const HUT = { supereasy: 'jr', easy: 'g5', medium: 'g4', hard: 'g3' };
 export function gradeOfEvent(e, wordGrade = new Map()) {
@@ -364,13 +366,13 @@ const PLACES = {
   g3: (() => { const h = EIKEN_HALLS('3', 'eiken3'); const sea = P('fishworld', 'sea', '🎣', 'Fishing Island · Sea (Grade 3)', 'つり島 ★★★うみ（3級）', 'words'); const hut = P('main', 'hut_hard', '🏠', 'Word House · HARD', '英単語ハウス（HARD・3級）', 'words');
     return { words: [PIER('g3', '3級', 'Grade 3'), sea, hut], read: [h.reading, PIER('g3', '3級', 'Grade 3')], listen: [h.listening, sea], speak: [h.speaking, h.interview], write: [h.writing, hut] }; })(),
 };
-const HIGH = (gja, g, gen) => {
+// 準2級・2級・準1級は その 級の 英検の島（2026-10 に 足した）＋ メインの島の その 級の つり場。
+const HIGH = (gja, g, gen, isl) => {
   const pier = PIER(g, gja, gen);
-  const hw = P('homework', 'desk', '📚', 'Homework Island', 'しゅくだい島', 'reading');
-  const conv = P('conv', '', '💬', 'Conversation Island', '英会話島', 'speaking');
-  return { words: [pier, hw], read: [pier, hw], listen: [hw], speak: [conv], write: [hw], note: `${gja}は Roblox の 問題DBの 問題でも 練習できます` };
+  const h = EIKEN_HALLS(gja.replace(/級$/, ''), isl);
+  return { words: [pier, h.reading], read: [h.reading, pier], listen: [h.listening], speak: [h.interview, h.speaking], write: [h.writing], note: `${gja}は 問題DB の 問題も まざります` };
 };
-PLACES.gp2 = HIGH('準2級', 'gp2', 'Pre-2'); PLACES.g2 = HIGH('2級', 'g2', 'Grade 2'); PLACES.gp1 = HIGH('準1級', 'gp1', 'Pre-1');
+PLACES.gp2 = HIGH('準2級', 'gp2', 'Pre-2', 'eikenp2'); PLACES.g2 = HIGH('2級', 'g2', 'Grade 2', 'eiken2'); PLACES.gp1 = HIGH('準1級', 'gp1', 'Pre-1', 'eikenp1');
 const REVIEW = P('', 'review', '🔁', 'Weak-word Review', '苦手単語の 復習（マイページ）', 'words');
 
 export function placesFor(grade, { skills = [], chances = [], wordsLeft = 0, quizLeft = 0, refresh = 0 } = {}) {

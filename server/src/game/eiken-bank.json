@@ -985,6 +985,1526 @@
           "en": "I hope to see you again soon."
         }
       ]
+    },
+    "gp2": {
+      "reading": [
+        {
+          "text": "A: Did you finish your report? B: Not yet. I have to ( ) it by Friday.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "finish",
+            "forget",
+            "borrow",
+            "throw"
+          ],
+          "hint": "by Friday = 金曜日までに"
+        },
+        {
+          "text": "The museum was so ( ) that we had to wait in line for an hour.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "crowded",
+            "empty",
+            "quiet",
+            "cheap"
+          ],
+          "hint": "wait in line = 列に並んで待つ"
+        },
+        {
+          "text": "Ken ( ) his umbrella on the train, so he got wet on the way home.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "left",
+            "lent",
+            "kept",
+            "found"
+          ],
+          "hint": "got wet = ぬれた"
+        },
+        {
+          "text": "If it ( ) tomorrow, the picnic will be held in the gym.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "rains",
+            "rained",
+            "will rain",
+            "raining"
+          ],
+          "hint": "if の文では、未来のことでも現在形を使う"
+        },
+        {
+          "text": "My sister has been studying French ( ) three years.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "for",
+            "since",
+            "during",
+            "while"
+          ],
+          "hint": "期間の長さ（3年間）を表す前置詞"
+        },
+        {
+          "text": "The new library has a café ( ) visitors can relax and read.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "where",
+            "which",
+            "what",
+            "who"
+          ],
+          "hint": "場所を説明する関係副詞"
+        },
+        {
+          "text": "Emi's school started a \"No Phone Day\" last month. On that day, students do not use their phones after school. Instead, they read books or talk with their families. Many students said they slept better that night.",
+          "q": "What do students do on No Phone Day?",
+          "choices": [
+            "They read books or talk with their families.",
+            "They use their phones all day.",
+            "They stay at school until night.",
+            "They buy new books."
+          ],
+          "hint": "instead = その代わりに"
+        },
+        {
+          "text": "Dear Ms. Brown, Thank you for the cooking class last Saturday. I made the apple pie again for my parents, and they loved it. Could you teach us how to make bread next time? Yuki",
+          "q": "What does Yuki want to learn next?",
+          "choices": [
+            "How to make bread.",
+            "How to make apple pie.",
+            "How to cook rice.",
+            "How to make cookies."
+          ],
+          "hint": "next time = 次回"
+        },
+        {
+          "text": "A: How about going to the movies tonight? B: I'd love to, but I have to ( ) my little brother.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "take care of",
+            "look like",
+            "get off",
+            "give up"
+          ],
+          "hint": "take care of = 世話をする"
+        },
+        {
+          "text": "The town built a new bridge ( ) people could cross the river more easily.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "so that",
+            "even if",
+            "as soon as",
+            "because of"
+          ],
+          "hint": "so that ... can/could = ～できるように"
+        },
+        {
+          "text": "The Green Town Market opens every Sunday from 8 a.m. to noon. Local farmers sell fresh vegetables and fruit. This month, there is a special event for children: they can make jam with apples from the farm.",
+          "q": "What can children do this month?",
+          "choices": [
+            "Make jam with apples.",
+            "Sell vegetables at the market.",
+            "Pick fruit on the farm.",
+            "Open the market at 8 a.m."
+          ],
+          "hint": "special event = 特別なイベント"
+        },
+        {
+          "text": "I'm looking forward to ( ) you at the party next week.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "seeing",
+            "see",
+            "saw",
+            "seen"
+          ],
+          "hint": "look forward to のあとは ...ing"
+        },
+        {
+          "text": "Kaito practiced hard every day, and ( ) he won first prize in the speech contest.",
+          "q": "Which word or phrase fits in the ( )?",
+          "choices": [
+            "finally",
+            "nearly",
+            "hardly",
+            "already"
+          ],
+          "hint": "ついに、とうとう"
+        }
+      ],
+      "listening": [
+        {
+          "say": "A: Excuse me, does this bus go to the city hospital? B: No, you need to take the number five bus. It stops right over there.",
+          "q": "Which bus goes to the city hospital?",
+          "choices": [
+            "The number five bus.",
+            "This bus.",
+            "The number nine bus.",
+            "The train."
+          ]
+        },
+        {
+          "say": "Mika usually walks to school, but today it was raining hard. So her father drove her to school on his way to work.",
+          "q": "How did Mika get to school today?",
+          "choices": [
+            "Her father drove her.",
+            "She walked.",
+            "She took a bus.",
+            "She rode her bike."
+          ]
+        },
+        {
+          "say": "A: Mom, can I go to Ken's house after lunch? B: Yes, but finish your homework first. And come home by five.",
+          "q": "What does the boy have to do first?",
+          "choices": [
+            "Finish his homework.",
+            "Eat lunch at Ken's house.",
+            "Come home by three.",
+            "Call Ken."
+          ]
+        },
+        {
+          "say": "Attention, shoppers. Today only, all fruit on the first floor is twenty percent off. The store will close at nine tonight.",
+          "q": "What is on sale today?",
+          "choices": [
+            "Fruit.",
+            "Vegetables.",
+            "Clothes.",
+            "Bread."
+          ]
+        },
+        {
+          "say": "Takashi wanted to buy a new soccer ball, but the shop was closed. He will go back to the shop on Saturday with his brother.",
+          "q": "When will Takashi go back to the shop?",
+          "choices": [
+            "On Saturday.",
+            "Today.",
+            "On Sunday.",
+            "Tomorrow morning."
+          ]
+        },
+        {
+          "say": "A: I lost my key. I think I left it in the music room. B: Let's ask Mr. Hara. He has the key to that room.",
+          "q": "Where does the first speaker think the key is?",
+          "choices": [
+            "In the music room.",
+            "In Mr. Hara's car.",
+            "In the gym.",
+            "At home."
+          ]
+        },
+        {
+          "say": "Last summer, Yoko joined a volunteer program in Okinawa. She helped clean beaches and learned about sea turtles. She wants to join again next year.",
+          "q": "What did Yoko learn about?",
+          "choices": [
+            "Sea turtles.",
+            "Beach volleyball.",
+            "Old castles.",
+            "Tropical fruit."
+          ]
+        },
+        {
+          "say": "A: Would you like something to drink? B: Just water, please. I've already had two cups of coffee today.",
+          "q": "What does the second speaker want?",
+          "choices": [
+            "Water.",
+            "Coffee.",
+            "Tea.",
+            "Juice."
+          ]
+        },
+        {
+          "say": "Here is the weather news. It will be sunny this morning, but it will start to snow in the evening. Please be careful if you are driving tonight.",
+          "q": "What will the weather be like in the evening?",
+          "choices": [
+            "Snowy.",
+            "Sunny.",
+            "Rainy.",
+            "Windy."
+          ]
+        },
+        {
+          "say": "Our school trip is next Tuesday. Please come to the station by seven thirty. Don't forget to bring your lunch and a raincoat.",
+          "q": "What time should students come to the station?",
+          "choices": [
+            "By seven thirty.",
+            "By seven.",
+            "By eight thirty.",
+            "By six thirty."
+          ]
+        },
+        {
+          "say": "A: How was the concert? B: The music was great, but we couldn't see the stage well because our seats were in the back.",
+          "q": "What was the problem?",
+          "choices": [
+            "They couldn't see the stage well.",
+            "The music was bad.",
+            "The concert was canceled.",
+            "They had no tickets."
+          ]
+        },
+        {
+          "say": "Ryo's family moved to a new town last month. At first, he felt lonely, but now he has two good friends from the baseball team.",
+          "q": "How is Ryo now?",
+          "choices": [
+            "He has made good friends.",
+            "He still feels lonely.",
+            "He wants to move again.",
+            "He quit the baseball team."
+          ]
+        },
+        {
+          "say": "A: Can you help me carry these chairs to the gym? B: Sure. But I have to go to the teachers' room first. I'll be there in ten minutes.",
+          "q": "Where will the second speaker go first?",
+          "choices": [
+            "To the teachers' room.",
+            "To the gym.",
+            "To the library.",
+            "Home."
+          ]
+        }
+      ],
+      "writing": [
+        {
+          "ja": "私は昨日からかぜをひいています。",
+          "en": "I have had a cold since yesterday."
+        },
+        {
+          "ja": "この本は私の兄によって書かれました。",
+          "en": "This book was written by my brother."
+        },
+        {
+          "ja": "私は将来、看護師になりたいです。",
+          "en": "I want to be a nurse in the future."
+        },
+        {
+          "ja": "窓を開けてもかまいませんか。",
+          "en": "Do you mind if I open the window?"
+        },
+        {
+          "ja": "彼は忙しすぎて昼ごはんを食べられませんでした。",
+          "en": "He was too busy to eat lunch."
+        },
+        {
+          "ja": "私たちは駅で会うことにしました。",
+          "en": "We decided to meet at the station."
+        },
+        {
+          "ja": "もし晴れたら、私たちは海に行きます。",
+          "en": "If it is sunny, we will go to the sea."
+        },
+        {
+          "ja": "これは私が先週買ったかばんです。",
+          "en": "This is the bag I bought last week."
+        },
+        {
+          "ja": "彼女はピアノをひくのが得意です。",
+          "en": "She is good at playing the piano."
+        },
+        {
+          "ja": "宿題を手伝ってくれてありがとう。",
+          "en": "Thank you for helping me with my homework."
+        },
+        {
+          "ja": "私は一度も北海道に行ったことがありません。",
+          "en": "I have never been to Hokkaido."
+        },
+        {
+          "ja": "あのぼうしをかぶっている男の子はだれですか。",
+          "en": "Who is the boy wearing that hat?"
+        },
+        {
+          "ja": "環境を守ることは大切です。",
+          "en": "It is important to protect the environment."
+        }
+      ],
+      "speaking": [
+        {
+          "ja": "毎朝、犬の散歩に行くようにしています。",
+          "en": "I try to walk my dog every morning."
+        },
+        {
+          "ja": "今週末、家族とキャンプに行く予定です。",
+          "en": "I'm going to go camping with my family this weekend."
+        },
+        {
+          "ja": "スマートフォンを使いすぎるのはよくないと思います。",
+          "en": "I think using smartphones too much is not good."
+        },
+        {
+          "ja": "その映画はおもしろかったので、もう一度見たいです。",
+          "en": "The movie was interesting, so I want to see it again."
+        },
+        {
+          "ja": "電車でお年寄りに席をゆずりました。",
+          "en": "I gave my seat to an elderly person on the train."
+        },
+        {
+          "ja": "外国の人と英語で話してみたいです。",
+          "en": "I'd like to try talking with people from other countries in English."
+        },
+        {
+          "ja": "天気がよければ、明日公園でサッカーをします。",
+          "en": "If the weather is nice, I'll play soccer in the park tomorrow."
+        },
+        {
+          "ja": "リサイクルはごみを減らすよい方法です。",
+          "en": "Recycling is a good way to reduce trash."
+        },
+        {
+          "ja": "私は3年間ずっと英語を勉強しています。",
+          "en": "I have been studying English for three years."
+        },
+        {
+          "ja": "もっと野菜を食べたほうがいいですよ。",
+          "en": "You should eat more vegetables."
+        },
+        {
+          "ja": "図書館は静かに勉強するのによい場所です。",
+          "en": "The library is a good place to study quietly."
+        },
+        {
+          "ja": "私の夢は世界中を旅行することです。",
+          "en": "My dream is to travel around the world."
+        },
+        {
+          "ja": "遅れてすみません。バスが来なかったんです。",
+          "en": "I'm sorry I'm late. The bus didn't come."
+        }
+      ]
+    },
+    "g2": {
+      "reading": [
+        {
+          "text": "Thank you for joining the Green Town Cleanup. Please meet at the station at 9 a.m. on Saturday. Gloves and bags will be provided, but please bring your own drink.",
+          "q": "What should participants bring?",
+          "choices": [
+            "Their own drink.",
+            "Gloves.",
+            "Garbage bags.",
+            "A map of the town."
+          ],
+          "hint": "provide = 用意する"
+        },
+        {
+          "text": "Ms. Kondo had wanted to visit Italy for years. Last spring, she finally ( ) enough money to go there.",
+          "q": "Which word best fits in the ( )?",
+          "choices": [
+            "saved",
+            "lost",
+            "spent",
+            "wasted"
+          ],
+          "hint": "finally = ついに。お金を「ためた」のは？"
+        },
+        {
+          "text": "The new shopping mall is so popular that it is always ( ) on weekends.",
+          "q": "Which word best fits in the ( )?",
+          "choices": [
+            "crowded",
+            "empty",
+            "quiet",
+            "closed"
+          ],
+          "hint": "so ... that ~ = とても…なので～"
+        },
+        {
+          "text": "Takeshi's company moved its office to a small town. Now he can live near the sea, but he has to take a train for an hour when he visits his clients in the city.",
+          "q": "What is one disadvantage of Takeshi's new situation?",
+          "choices": [
+            "He must travel an hour to see his clients.",
+            "He cannot live near the sea.",
+            "His office is bigger than before.",
+            "He lost his job."
+          ],
+          "hint": "disadvantage = 不利な点"
+        },
+        {
+          "text": "Scientists have found that taking a short nap after lunch can help people concentrate better in the afternoon. However, naps longer than 30 minutes may make people feel more tired.",
+          "q": "What may happen if people nap for more than 30 minutes?",
+          "choices": [
+            "They may feel more tired.",
+            "They may concentrate better.",
+            "They may eat more lunch.",
+            "They may sleep longer at night."
+          ],
+          "hint": "nap = 昼寝"
+        },
+        {
+          "text": "A: Could you tell me how to get to the city museum? B: Sure. Go straight and ( ) left at the second traffic light.",
+          "q": "Which word best fits in the ( )?",
+          "choices": [
+            "turn",
+            "stop",
+            "cross",
+            "pass"
+          ],
+          "hint": "traffic light = 信号"
+        },
+        {
+          "text": "Because of the heavy snow, the train was ( ) for two hours, and many passengers were late for work.",
+          "q": "Which word best fits in the ( )?",
+          "choices": [
+            "delayed",
+            "arrived",
+            "invented",
+            "hurried"
+          ],
+          "hint": "late for work = 仕事に遅れる"
+        },
+        {
+          "text": "Dear Mr. Fujita, I am writing to ask whether I could change my piano lesson from Thursday to Friday next week. I have an important exam on Thursday. Best regards, Sara",
+          "q": "Why does Sara want to change her lesson?",
+          "choices": [
+            "She has an exam on Thursday.",
+            "She is sick on Friday.",
+            "Her piano is broken.",
+            "Mr. Fujita is busy on Thursday."
+          ],
+          "hint": "whether ~ = ～かどうか"
+        },
+        {
+          "text": "Online shopping is convenient, but it has created a new problem. Many packages are delivered when people are not at home, so delivery workers must visit the same house several times.",
+          "q": "What problem does the passage describe?",
+          "choices": [
+            "Delivery workers often visit the same house more than once.",
+            "Online shopping is too expensive.",
+            "Packages are often broken.",
+            "People cannot find what they want online."
+          ],
+          "hint": "several times = 何度も"
+        },
+        {
+          "text": "Ken's grandmother always says that it is never too late to learn something new. At the age of 75, she ( ) taking English lessons.",
+          "q": "Which word best fits in the ( )?",
+          "choices": [
+            "started",
+            "stopped",
+            "forgot",
+            "refused"
+          ],
+          "hint": "never too late = 遅すぎることはない"
+        },
+        {
+          "text": "The town decided to ( ) the old factory into a museum so that visitors can learn about the town's history.",
+          "q": "Which word best fits in the ( )?",
+          "choices": [
+            "turn",
+            "bring",
+            "take",
+            "fall"
+          ],
+          "hint": "turn A into B = AをBに変える"
+        },
+        {
+          "text": "Many birds fly south in autumn to find warmer weather and more food. Some of them travel thousands of kilometers without stopping to rest.",
+          "q": "Why do many birds fly south in autumn?",
+          "choices": [
+            "To find warmer weather and more food.",
+            "To build new nests.",
+            "To escape from other birds.",
+            "To rest after summer."
+          ],
+          "hint": "south = 南"
+        },
+        {
+          "text": "Hiroshi joined the drama club last April. At first, he was too shy to speak in front of others. After a few months of practice, however, he became confident enough to play the main role.",
+          "q": "How did Hiroshi change after a few months?",
+          "choices": [
+            "He became confident.",
+            "He became shy.",
+            "He quit the club.",
+            "He started writing plays."
+          ],
+          "hint": "confident = 自信のある"
+        }
+      ],
+      "listening": [
+        {
+          "say": "A: Excuse me, does this bus go to the city hospital? B: No, it doesn't. You need to take the number 12 bus from the other side of the street.",
+          "q": "How can the person get to the hospital?",
+          "choices": [
+            "Take the number 12 bus.",
+            "Take this bus.",
+            "Walk across the park.",
+            "Call a taxi."
+          ]
+        },
+        {
+          "say": "I was going to play tennis with my friend this afternoon, but it started raining. So we decided to watch a movie at her house instead.",
+          "q": "What will the speaker do this afternoon?",
+          "choices": [
+            "Watch a movie.",
+            "Play tennis.",
+            "Go shopping.",
+            "Stay at home alone."
+          ]
+        },
+        {
+          "say": "Attention, shoppers. Today only, all vegetables are 20 percent off. The sale ends at 6 p.m., so don't miss this chance.",
+          "q": "Until when is the sale?",
+          "choices": [
+            "Until 6 p.m.",
+            "Until tomorrow.",
+            "Until 8 p.m.",
+            "Until noon."
+          ]
+        },
+        {
+          "say": "My sister is studying to become a nurse. She works at a café on weekends to pay for her school.",
+          "q": "Why does the speaker's sister work at a café?",
+          "choices": [
+            "To pay for her school.",
+            "To become a cook.",
+            "To meet new friends.",
+            "To learn about coffee."
+          ]
+        },
+        {
+          "say": "A: Have you finished your report yet? B: Not yet. I still need to find some more information at the library. I'll finish it by Friday.",
+          "q": "What will the second speaker do at the library?",
+          "choices": [
+            "Find more information.",
+            "Return some books.",
+            "Meet a teacher.",
+            "Print the report."
+          ]
+        },
+        {
+          "say": "Last year, our school started a recycling program. Students collect cans and paper every Wednesday, and the money from recycling is used to buy new books.",
+          "q": "How is the money from recycling used?",
+          "choices": [
+            "To buy new books.",
+            "To build a new gym.",
+            "To pay the teachers.",
+            "To plant trees."
+          ]
+        },
+        {
+          "say": "I usually drive to work, but my car is being repaired this week. So I have to get up thirty minutes earlier to catch the train.",
+          "q": "Why does the speaker have to get up earlier this week?",
+          "choices": [
+            "The speaker's car is being repaired.",
+            "The train schedule changed.",
+            "The speaker moved to a new house.",
+            "Work starts earlier."
+          ]
+        },
+        {
+          "say": "Welcome to the Sky Tower. The elevator to the top floor takes about one minute. Please do not take food or drinks onto the observation deck.",
+          "q": "What are visitors asked not to do?",
+          "choices": [
+            "Take food or drinks onto the observation deck.",
+            "Use the elevator.",
+            "Take pictures.",
+            "Go to the top floor."
+          ]
+        },
+        {
+          "say": "A: You look tired. B: I stayed up late last night because I was preparing for today's presentation. I'm glad it's over now.",
+          "q": "Why is the second speaker tired?",
+          "choices": [
+            "The speaker stayed up late preparing a presentation.",
+            "The speaker ran a marathon.",
+            "The speaker worked all weekend.",
+            "The speaker could not sleep because of noise."
+          ]
+        },
+        {
+          "say": "Mika wanted to buy a new laptop, but it was too expensive. Her uncle gave her his old one, and she uses it for her homework every day.",
+          "q": "Where did Mika get her laptop?",
+          "choices": [
+            "From her uncle.",
+            "From a shop.",
+            "From her school.",
+            "From a friend."
+          ]
+        },
+        {
+          "say": "Tonight will be cloudy with strong winds. Tomorrow morning, heavy rain is expected, so please take an umbrella when you go out.",
+          "q": "What will the weather be like tomorrow morning?",
+          "choices": [
+            "Rainy.",
+            "Sunny and warm.",
+            "Snowy.",
+            "Cloudy with no rain."
+          ]
+        },
+        {
+          "say": "Our town's summer festival will be held next Saturday. This year, volunteers are needed to help clean up after the fireworks. If you are interested, please call the town office.",
+          "q": "What are volunteers needed for?",
+          "choices": [
+            "To clean up after the fireworks.",
+            "To sell food.",
+            "To set off the fireworks.",
+            "To make posters."
+          ]
+        },
+        {
+          "say": "A: Are you going to the concert on Sunday? B: I wanted to, but the tickets were sold out. I'll watch it online instead.",
+          "q": "How will the second speaker enjoy the concert?",
+          "choices": [
+            "By watching it online.",
+            "By going to the hall.",
+            "By buying a ticket at the door.",
+            "By listening to the radio."
+          ]
+        }
+      ],
+      "writing": [
+        {
+          "ja": "その町は観光客の数を増やそうとしている。",
+          "en": "The town is trying to increase the number of tourists."
+        },
+        {
+          "ja": "健康のために毎日運動することが大切だ。",
+          "en": "It is important to exercise every day for your health."
+        },
+        {
+          "ja": "彼女は環境を守るために何ができるか考えた。",
+          "en": "She thought about what she could do to protect the environment."
+        },
+        {
+          "ja": "その店は自分のバッグを持ってきた客に割引をする。",
+          "en": "The store gives a discount to customers who bring their own bags."
+        },
+        {
+          "ja": "その問題を解決するのは簡単ではない。",
+          "en": "It is not easy to solve the problem."
+        },
+        {
+          "ja": "私は留学するためにお金をためている。",
+          "en": "I am saving money to study abroad."
+        },
+        {
+          "ja": "その博物館は先月から閉まっている。",
+          "en": "The museum has been closed since last month."
+        },
+        {
+          "ja": "もし時間があれば、ボランティア活動をしたい。",
+          "en": "If I have time, I want to do volunteer work."
+        },
+        {
+          "ja": "多くの人が電車の代わりに自転車を使っている。",
+          "en": "Many people are using bicycles instead of trains."
+        },
+        {
+          "ja": "その本は若者の間で人気がある。",
+          "en": "The book is popular among young people."
+        },
+        {
+          "ja": "彼は遅れないように早く家を出た。",
+          "en": "He left home early so that he would not be late."
+        },
+        {
+          "ja": "その会議は来週まで延期された。",
+          "en": "The meeting was put off until next week."
+        }
+      ],
+      "speaking": [
+        {
+          "ja": "この町には、もっと公園が必要だと思います。",
+          "en": "I think this town needs more parks."
+        },
+        {
+          "ja": "インターネットのおかげで、情報を簡単に見つけられます。",
+          "en": "Thanks to the internet, we can find information easily."
+        },
+        {
+          "ja": "食品ロスを減らすことは、私たちみんなの責任です。",
+          "en": "Reducing food waste is everyone's responsibility."
+        },
+        {
+          "ja": "将来、海外で働いてみたいです。",
+          "en": "I would like to work abroad in the future."
+        },
+        {
+          "ja": "地元の伝統を守ることは大切だと思います。",
+          "en": "I believe it is important to protect local traditions."
+        },
+        {
+          "ja": "最近、オンラインで買い物をする人が増えています。",
+          "en": "These days, more people are shopping online."
+        },
+        {
+          "ja": "ボランティア活動を通して、多くのことを学びました。",
+          "en": "I learned a lot through volunteer activities."
+        },
+        {
+          "ja": "お年寄りが安心して暮らせる町にするべきです。",
+          "en": "We should make our town a place where elderly people can live safely."
+        },
+        {
+          "ja": "十分な睡眠をとることは、健康に欠かせません。",
+          "en": "Getting enough sleep is necessary for good health."
+        },
+        {
+          "ja": "公共交通機関を使えば、空気をきれいに保てます。",
+          "en": "If we use public transportation, we can keep the air clean."
+        },
+        {
+          "ja": "私の意見では、生徒の宿題はもっと少なくするべきです。",
+          "en": "In my opinion, students should get less homework."
+        },
+        {
+          "ja": "新しい技術は、私たちの生活をより便利にしてくれます。",
+          "en": "New technology makes our lives more convenient."
+        }
+      ]
+    },
+    "gp1": {
+      "reading": [
+        {
+          "text": "The company decided to ( ) the project because it was too expensive to continue.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "abandon",
+            "celebrate",
+            "admire",
+            "borrow"
+          ],
+          "hint": "too expensive to continue = 続けるには お金が かかりすぎる"
+        },
+        {
+          "text": "After months of negotiation, the two sides finally reached an ( ).",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "agreement",
+            "accident",
+            "audience",
+            "ancestor"
+          ],
+          "hint": "reach an ... = …に 達する"
+        },
+        {
+          "text": "The new medicine is said to ( ) the pain within minutes.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "relieve",
+            "reveal",
+            "refuse",
+            "retire"
+          ],
+          "hint": "pain = 痛み"
+        },
+        {
+          "text": "Many residents ( ) to the plan to build a factory near the river.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "objected",
+            "obeyed",
+            "obtained",
+            "occurred"
+          ],
+          "hint": "object to = …に 反対する"
+        },
+        {
+          "text": "The museum's collection is ( ), including works from over fifty countries.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "extensive",
+            "fragile",
+            "temporary",
+            "reluctant"
+          ],
+          "hint": "over fifty countries = 50か国以上"
+        },
+        {
+          "text": "Due to heavy snow, the train service was ( ) for several hours.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "suspended",
+            "sustained",
+            "supposed",
+            "surrounded"
+          ],
+          "hint": "Due to = …のせいで"
+        },
+        {
+          "text": "The police are still trying to ( ) the cause of the fire.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "determine",
+            "decorate",
+            "decline",
+            "deserve"
+          ],
+          "hint": "cause = 原因"
+        },
+        {
+          "text": "The city introduced a new policy to ( ) people to use public transportation.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "encourage",
+            "prevent",
+            "punish",
+            "ignore"
+          ],
+          "hint": "policy = 政策"
+        },
+        {
+          "text": "More towns in Japan are turning empty schools into community centers. Because the number of children is falling, many schools have closed. Instead of tearing the buildings down, towns now use them for cafés, libraries, and classes for older people.",
+          "q": "Why have many schools closed?",
+          "choices": [
+            "Because there are fewer children.",
+            "Because the buildings were too old.",
+            "Because towns needed more cafés.",
+            "Because older people wanted classes."
+          ],
+          "hint": "the number of children is falling = 子どもの数が 減っている"
+        },
+        {
+          "text": "A growing number of companies let employees choose when they start and finish work. Supporters say this helps parents and reduces crowded trains. Critics, however, worry that it becomes harder for teams to meet.",
+          "q": "What is one concern about flexible working hours?",
+          "choices": [
+            "Teams may find it harder to meet.",
+            "Trains will become more crowded.",
+            "Parents will have less time.",
+            "Companies will pay workers less."
+          ],
+          "hint": "Critics = 批判する人たち"
+        },
+        {
+          "text": "Scientists have found that short naps of about twenty minutes can improve memory and concentration. Longer naps, however, may make people feel tired and confused after waking up.",
+          "q": "According to the passage, what is true about long naps?",
+          "choices": [
+            "They may leave people feeling tired.",
+            "They improve memory the most.",
+            "They last about twenty minutes.",
+            "They help people concentrate better."
+          ],
+          "hint": "however の あとに 注目しよう"
+        },
+        {
+          "text": "Some supermarkets now sell oddly shaped vegetables at lower prices. In the past, such vegetables were often thrown away even though they tasted the same. This change helps farmers and reduces food waste.",
+          "q": "What happened to oddly shaped vegetables in the past?",
+          "choices": [
+            "They were often thrown away.",
+            "They were sold at high prices.",
+            "They were given to schools.",
+            "They were used in restaurants."
+          ],
+          "hint": "In the past = 昔は"
+        },
+        {
+          "text": "Although the festival attracted record crowds, organizers were ( ) about holding it again because of the high cost of security.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "hesitant",
+            "confident",
+            "delighted",
+            "grateful"
+          ],
+          "hint": "Although … = …だけれども"
+        }
+      ],
+      "listening": [
+        {
+          "say": "I was going to take the train, but it was delayed because of the storm. So I decided to share a taxi with a coworker.",
+          "q": "How did the speaker get to work?",
+          "choices": [
+            "By taxi.",
+            "By train.",
+            "By bus.",
+            "On foot."
+          ]
+        },
+        {
+          "say": "Our town's library will be closed for repairs until March. In the meantime, books can be borrowed from the community center next to the station.",
+          "q": "Where can people borrow books until March?",
+          "choices": [
+            "At the community center.",
+            "At the town library.",
+            "At the station office.",
+            "At the school library."
+          ]
+        },
+        {
+          "say": "The concert was supposed to be held outdoors, but the forecast says it will rain. The organizers have moved it to the city hall.",
+          "q": "Why was the concert moved?",
+          "choices": [
+            "Rain is expected.",
+            "The park is too small.",
+            "The city hall is cheaper.",
+            "The singer was sick."
+          ]
+        },
+        {
+          "say": "I used to drive to work every day, but last year I started cycling. It's cheaper, and I feel much healthier now.",
+          "q": "What does the speaker say about cycling?",
+          "choices": [
+            "It is cheaper and healthier.",
+            "It is faster than driving.",
+            "It is dangerous in the city.",
+            "It is too tiring to continue."
+          ]
+        },
+        {
+          "say": "Attention, shoppers. Today only, all winter coats are thirty percent off. The sale ends at six p.m., so don't miss this chance.",
+          "q": "When does the sale end?",
+          "choices": [
+            "At six p.m.",
+            "At three p.m.",
+            "Tomorrow morning.",
+            "At the end of winter."
+          ]
+        },
+        {
+          "say": "Many students say they feel stressed before exams. Experts recommend getting enough sleep and taking short breaks rather than studying all night.",
+          "q": "What do experts recommend?",
+          "choices": [
+            "Sleeping well and taking breaks.",
+            "Studying all night.",
+            "Drinking more coffee.",
+            "Skipping meals before exams."
+          ]
+        },
+        {
+          "say": "I applied for the job at the design company, but they chose someone with more experience. I'm going to take an online course to improve my skills.",
+          "q": "What will the speaker do next?",
+          "choices": [
+            "Take an online course.",
+            "Start a design company.",
+            "Apply for the same job again.",
+            "Ask for more money."
+          ]
+        },
+        {
+          "say": "The new park has a playground, a running track, and a garden where residents can grow vegetables. It opens next Saturday.",
+          "q": "What can residents do in the garden?",
+          "choices": [
+            "Grow vegetables.",
+            "Play tennis.",
+            "Have barbecues.",
+            "Watch movies."
+          ]
+        },
+        {
+          "say": "Sorry I'm late. I missed my usual bus, and the next one didn't come for twenty minutes.",
+          "q": "Why was the speaker late?",
+          "choices": [
+            "The speaker missed the bus.",
+            "The train stopped.",
+            "The speaker overslept.",
+            "The road was closed."
+          ]
+        },
+        {
+          "say": "Our company will start a recycling program next month. Each floor will have separate boxes for paper, cans, and plastic.",
+          "q": "What will the company start next month?",
+          "choices": [
+            "A recycling program.",
+            "A new cafeteria.",
+            "A training course.",
+            "A sports event."
+          ]
+        },
+        {
+          "say": "My grandmother learned to use a tablet last year. Now she reads e-books and video-chats with her friends every week.",
+          "q": "What does the grandmother do every week?",
+          "choices": [
+            "She video-chats with friends.",
+            "She visits the library.",
+            "She teaches computer classes.",
+            "She buys new books."
+          ]
+        },
+        {
+          "say": "The festival committee is looking for volunteers to guide visitors and clean up. Anyone interested should email the city office by Friday.",
+          "q": "What should interested people do by Friday?",
+          "choices": [
+            "Email the city office.",
+            "Visit the festival site.",
+            "Call the committee leader.",
+            "Buy a ticket."
+          ]
+        }
+      ],
+      "writing": [
+        {
+          "ja": "その計画は資金不足のために延期された。",
+          "en": "The plan was postponed due to a lack of funds."
+        },
+        {
+          "ja": "彼女は困難にもかかわらず夢をあきらめなかった。",
+          "en": "She never gave up her dream despite the difficulties."
+        },
+        {
+          "ja": "多くの若者が地方へ移住することを考えている。",
+          "en": "Many young people are thinking of moving to rural areas."
+        },
+        {
+          "ja": "その政策は環境を守ることを目的としている。",
+          "en": "The policy aims to protect the environment."
+        },
+        {
+          "ja": "睡眠不足は集中力に影響を与えることがある。",
+          "en": "A lack of sleep can affect your concentration."
+        },
+        {
+          "ja": "私たちは食品ロスを減らす方法を話し合った。",
+          "en": "We discussed ways to reduce food waste."
+        },
+        {
+          "ja": "その町は観光客を引きつけるために祭りを始めた。",
+          "en": "The town started a festival to attract tourists."
+        },
+        {
+          "ja": "テクノロジーは私たちの働き方を大きく変えた。",
+          "en": "Technology has greatly changed the way we work."
+        },
+        {
+          "ja": "彼はボランティアとして地域の行事に参加した。",
+          "en": "He took part in a local event as a volunteer."
+        },
+        {
+          "ja": "高齢者の数は年々増えている。",
+          "en": "The number of elderly people is increasing every year."
+        },
+        {
+          "ja": "その会社は在宅勤務を導入することに決めた。",
+          "en": "The company decided to introduce working from home."
+        },
+        {
+          "ja": "リサイクルは天然資源の節約に役立つ。",
+          "en": "Recycling helps us save natural resources."
+        },
+        {
+          "ja": "彼女はその提案に強く反対した。",
+          "en": "She strongly objected to the proposal."
+        }
+      ],
+      "speaking": [
+        {
+          "ja": "地域の人々はもっと協力し合うべきだと思います。",
+          "en": "I think people in local communities should cooperate with each other more."
+        },
+        {
+          "ja": "オンライン授業には利点と欠点の両方があります。",
+          "en": "Online classes have both advantages and disadvantages."
+        },
+        {
+          "ja": "環境を守るために、私たちは使い捨てプラスチックを減らすべきです。",
+          "en": "To protect the environment, we should reduce single-use plastic."
+        },
+        {
+          "ja": "もし私が彼女だったら、もう一度挑戦するでしょう。",
+          "en": "If I were her, I would try again."
+        },
+        {
+          "ja": "健康的な食生活は多くの病気を防ぐのに役立ちます。",
+          "en": "A healthy diet helps prevent many diseases."
+        },
+        {
+          "ja": "在宅勤務のおかげで、人々は通勤時間を節約できます。",
+          "en": "Thanks to working from home, people can save commuting time."
+        },
+        {
+          "ja": "高齢化は日本にとって深刻な問題です。",
+          "en": "The aging population is a serious issue for Japan."
+        },
+        {
+          "ja": "観光は地域経済を活性化させることができます。",
+          "en": "Tourism can help boost the local economy."
+        },
+        {
+          "ja": "スマートフォンに頼りすぎるのはよくないと思います。",
+          "en": "I don't think it is good to depend too much on smartphones."
+        },
+        {
+          "ja": "その問題を解決するには、政府の支援が必要です。",
+          "en": "Government support is needed to solve the problem."
+        },
+        {
+          "ja": "子どもたちは自然の中でもっと時間を過ごすべきです。",
+          "en": "Children should spend more time in nature."
+        },
+        {
+          "ja": "災害に備えることは、すべての家庭にとって大切です。",
+          "en": "Preparing for disasters is important for every family."
+        },
+        {
+          "ja": "異なる文化を理解することで、視野が広がります。",
+          "en": "Understanding different cultures broadens our perspective."
+        }
+      ]
+    },
+    "g1": {
+      "reading": [
+        {
+          "text": "The scientist's theory was initially met with ( ), but later evidence proved her right.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "skepticism",
+            "enthusiasm",
+            "hospitality",
+            "nostalgia"
+          ],
+          "hint": "later evidence proved her right = 後に 正しいと 証明された"
+        },
+        {
+          "text": "The government took measures to ( ) the impact of rising food prices on poor families.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "mitigate",
+            "aggravate",
+            "exaggerate",
+            "imitate"
+          ],
+          "hint": "impact を やわらげる 動詞は？"
+        },
+        {
+          "text": "His speech was so ( ) that the audience was moved to tears.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "eloquent",
+            "tedious",
+            "ambiguous",
+            "hostile"
+          ],
+          "hint": "moved to tears = 感動して 涙を 流した"
+        },
+        {
+          "text": "The two companies decided to ( ) in order to compete with larger rivals.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "merge",
+            "diverge",
+            "linger",
+            "dwindle"
+          ],
+          "hint": "compete with larger rivals = より大きな ライバルと 競う"
+        },
+        {
+          "text": "Despite the ( ) weather, the volunteers continued cleaning the beach.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "inclement",
+            "benevolent",
+            "lucrative",
+            "meticulous"
+          ],
+          "hint": "Despite = …にもかかわらず"
+        },
+        {
+          "text": "The population of the village has been steadily ( ) as young people move to cities.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "dwindling",
+            "flourishing",
+            "soaring",
+            "thriving"
+          ],
+          "hint": "young people move to cities = 若者が 都市へ 出ていく"
+        },
+        {
+          "text": "The new evidence ( ) doubt on the earlier conclusion.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "cast",
+            "bore",
+            "drew",
+            "took"
+          ],
+          "hint": "… doubt on = …に 疑いを 投げかける"
+        },
+        {
+          "text": "She is known for her ( ) attention to detail; she never misses even small mistakes.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "meticulous",
+            "careless",
+            "reckless",
+            "indifferent"
+          ],
+          "hint": "never misses even small mistakes = 小さな ミスも 見逃さない"
+        },
+        {
+          "text": "The committee will ( ) the proposal carefully before making a decision.",
+          "q": "Which word best fits the ( )?",
+          "choices": [
+            "scrutinize",
+            "neglect",
+            "abolish",
+            "fabricate"
+          ],
+          "hint": "carefully before making a decision"
+        },
+        {
+          "text": "Urban farming, the practice of growing food in cities, is gaining popularity. Supporters argue that it shortens supply chains and gives residents access to fresh produce. Critics point out, however, that land in cities is expensive and that yields are often too small to make a real difference.",
+          "q": "What is one criticism of urban farming?",
+          "choices": [
+            "Its yields are often too small.",
+            "It makes supply chains longer.",
+            "Residents dislike fresh produce.",
+            "It uses too much water."
+          ],
+          "hint": "Critics point out ... に 注目"
+        },
+        {
+          "text": "Some researchers believe that boredom is not entirely negative. When people are bored, their minds tend to wander, and this can lead to creative ideas. Constantly checking smartphones may therefore reduce opportunities for creativity.",
+          "q": "According to the passage, why might smartphones reduce creativity?",
+          "choices": [
+            "They leave less time for boredom.",
+            "They make people too tired.",
+            "They provide wrong information.",
+            "They cause people to forget ideas."
+          ],
+          "hint": "therefore の 前の 内容を 見よう"
+        },
+        {
+          "text": "Several cities have introduced congestion charges, fees that drivers must pay to enter the city center at busy times. Although the policy was unpopular at first, traffic decreased and air quality improved, and many residents came to support it.",
+          "q": "How did residents' opinions change over time?",
+          "choices": [
+            "Many came to support the policy.",
+            "They became more opposed to it.",
+            "They stopped caring about it.",
+            "They asked for higher fees."
+          ],
+          "hint": "came to support = 支持するように なった"
+        },
+        {
+          "text": "Microplastics, tiny pieces of plastic less than five millimeters long, have been found in oceans, soil, and even rainwater. Because they are so small, they are extremely difficult to remove once they enter the environment.",
+          "q": "Why are microplastics hard to deal with?",
+          "choices": [
+            "They are too small to remove easily.",
+            "They dissolve in rainwater.",
+            "They are found only in oceans.",
+            "They are larger than five millimeters."
+          ],
+          "hint": "Because they are so small"
+        }
+      ],
+      "listening": [
+        {
+          "say": "While the new subway line has shortened commuting times, local shop owners complain that fewer people now walk past their stores.",
+          "q": "What problem has the subway line caused?",
+          "choices": [
+            "Fewer people pass local shops.",
+            "Commuting times have increased.",
+            "Trains are too crowded.",
+            "Ticket prices have risen."
+          ]
+        },
+        {
+          "say": "The research team had expected the new crop to resist drought, but the results were disappointing. They now plan to cross it with a wild species.",
+          "q": "What will the research team do next?",
+          "choices": [
+            "Cross the crop with a wild species.",
+            "Give up the research.",
+            "Plant the crop in wetter areas.",
+            "Publish their successful results."
+          ]
+        },
+        {
+          "say": "Although the town invested heavily in tourism, most visitors only come for a day. Officials are now trying to encourage overnight stays by promoting local hot springs and evening events.",
+          "q": "What are officials trying to do?",
+          "choices": [
+            "Get visitors to stay overnight.",
+            "Reduce the number of tourists.",
+            "Build a new airport.",
+            "Close the hot springs."
+          ]
+        },
+        {
+          "say": "Contrary to popular belief, the study found that people who worked four days a week completed just as many tasks as those who worked five.",
+          "q": "What did the study find?",
+          "choices": [
+            "Four-day workers were equally productive.",
+            "Five-day workers did more tasks.",
+            "Four-day workers felt more stressed.",
+            "Most people prefer five days."
+          ]
+        },
+        {
+          "say": "I'd originally planned to major in economics, but after volunteering abroad, I switched to public health. I want to help improve medical care in developing countries.",
+          "q": "Why did the speaker change majors?",
+          "choices": [
+            "Because of volunteering abroad.",
+            "Because economics was too hard.",
+            "Because of a parent's advice.",
+            "Because of a job offer."
+          ]
+        },
+        {
+          "say": "The museum's new exhibition uses virtual reality so that visitors can experience what life was like in the city two hundred years ago.",
+          "q": "What can visitors experience at the exhibition?",
+          "choices": [
+            "City life two hundred years ago.",
+            "Life in the future.",
+            "A trip into space.",
+            "Life under the sea."
+          ]
+        },
+        {
+          "say": "The council has postponed its decision on the new stadium until it receives more feedback from residents about noise and traffic.",
+          "q": "Why was the decision postponed?",
+          "choices": [
+            "To get more feedback from residents.",
+            "Because of a lack of money.",
+            "Because the builders quit.",
+            "To wait for better weather."
+          ]
+        },
+        {
+          "say": "Many companies now offer paid leave for employees who want to volunteer. They say it boosts staff morale and improves their reputation in the community.",
+          "q": "What is one benefit companies mention?",
+          "choices": [
+            "Higher staff morale.",
+            "Lower taxes.",
+            "Fewer working hours.",
+            "More overseas customers."
+          ]
+        },
+        {
+          "say": "Experts warn that relying solely on AI translation can lead to misunderstandings, especially when texts contain humor or cultural references.",
+          "q": "When is AI translation especially likely to cause problems?",
+          "choices": [
+            "When texts contain humor or cultural references.",
+            "When texts are very short.",
+            "When texts are about science.",
+            "When texts are written by experts."
+          ]
+        },
+        {
+          "say": "The startup's app connects farmers directly with restaurants, cutting out wholesalers. As a result, farmers earn more and restaurants get fresher ingredients.",
+          "q": "What does the app do?",
+          "choices": [
+            "It connects farmers with restaurants.",
+            "It delivers food to homes.",
+            "It teaches people to farm.",
+            "It helps wholesalers find farmers."
+          ]
+        },
+        {
+          "say": "Although electric cars produce no exhaust, critics note that producing their batteries requires large amounts of energy and rare metals.",
+          "q": "What concern do critics raise?",
+          "choices": [
+            "Battery production uses a lot of energy and metals.",
+            "Electric cars produce exhaust.",
+            "Electric cars are too slow.",
+            "There are too many charging stations."
+          ]
+        },
+        {
+          "say": "The library has extended its opening hours until ten p.m. on weekdays, responding to requests from students and working adults.",
+          "q": "Why did the library extend its hours?",
+          "choices": [
+            "Students and workers requested it.",
+            "It received more books.",
+            "It wanted to save electricity.",
+            "The building was renovated."
+          ]
+        }
+      ],
+      "writing": [
+        {
+          "ja": "その発見は医療に革命をもたらす可能性がある。",
+          "en": "The discovery could revolutionize medical care."
+        },
+        {
+          "ja": "持続可能な開発には国際協力が不可欠だ。",
+          "en": "International cooperation is essential for sustainable development."
+        },
+        {
+          "ja": "その政策は予想外の結果をもたらした。",
+          "en": "The policy brought about unexpected consequences."
+        },
+        {
+          "ja": "私たちは短期的な利益より長期的な影響を考えるべきだ。",
+          "en": "We should consider long-term effects rather than short-term profits."
+        },
+        {
+          "ja": "技術の進歩は新たな倫理的問題を生んでいる。",
+          "en": "Technological progress is creating new ethical problems."
+        },
+        {
+          "ja": "人口減少は地方経済に深刻な打撃を与えている。",
+          "en": "Population decline is seriously damaging rural economies."
+        },
+        {
+          "ja": "教育は社会の不平等を減らす鍵である。",
+          "en": "Education is the key to reducing social inequality."
+        },
+        {
+          "ja": "その会社は環境への影響を最小限に抑えようとしている。",
+          "en": "The company is trying to minimize its environmental impact."
+        },
+        {
+          "ja": "多様性を尊重することは現代社会で重要だ。",
+          "en": "Respecting diversity is important in modern society."
+        },
+        {
+          "ja": "彼の主張は確かな証拠に基づいている。",
+          "en": "His argument is based on solid evidence."
+        },
+        {
+          "ja": "私たちには情報の信頼性を確かめることが求められている。",
+          "en": "We are required to verify the reliability of information."
+        },
+        {
+          "ja": "再生可能エネルギーへの移行は避けられない。",
+          "en": "The shift to renewable energy is inevitable."
+        },
+        {
+          "ja": "人工知能は雇用市場を大きく変えるだろう。",
+          "en": "Artificial intelligence will transform the job market."
+        }
+      ],
+      "speaking": [
+        {
+          "ja": "技術は賢く使えば社会を豊かにすると私は信じています。",
+          "en": "I believe that technology can enrich society if we use it wisely."
+        },
+        {
+          "ja": "一方で、この政策には重大な欠点もあります。",
+          "en": "On the other hand, this policy also has serious drawbacks."
+        },
+        {
+          "ja": "結論として、私たちは環境と経済のバランスを取らなければなりません。",
+          "en": "In conclusion, we must strike a balance between the environment and the economy."
+        },
+        {
+          "ja": "第一に、高齢化が労働力不足を引き起こしています。",
+          "en": "First, the aging population is causing a labor shortage."
+        },
+        {
+          "ja": "この問題は一つの国だけでは解決できません。",
+          "en": "This problem cannot be solved by a single country alone."
+        },
+        {
+          "ja": "批判する人もいますが、利点のほうが欠点を上回ると思います。",
+          "en": "Some people criticize it, but I think the benefits outweigh the drawbacks."
+        },
+        {
+          "ja": "例えば、多くの企業が柔軟な働き方を導入しています。",
+          "en": "For example, many companies have introduced flexible working styles."
+        },
+        {
+          "ja": "教育への投資は、国の未来への投資です。",
+          "en": "Investing in education is investing in the future of the nation."
+        },
+        {
+          "ja": "私たちには次の世代のために地球を守る責任があります。",
+          "en": "We have a responsibility to protect the planet for future generations."
+        },
+        {
+          "ja": "その結果、地域社会はより強く結びつくでしょう。",
+          "en": "As a result, local communities will become more closely connected."
+        },
+        {
+          "ja": "政府と市民が協力することが不可欠です。",
+          "en": "It is essential for the government and citizens to work together."
+        },
+        {
+          "ja": "したがって、私はこの意見に強く賛成します。",
+          "en": "Therefore, I strongly agree with this opinion."
+        },
+        {
+          "ja": "情報があふれる時代には、批判的に考える力が必要です。",
+          "en": "In an age of information overload, we need critical thinking skills."
+        }
+      ]
     }
   }
 }

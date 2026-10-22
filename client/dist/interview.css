@@ -110,3 +110,45 @@
 }
 /* 暗い まどの 中の 文は まどの 字の 色（ふつうの dialog の p の うすい 灰色が 本文と ふくろうの セリフに 入っていた）。 */
 #iv-dialog p { color: inherit; }
+
+/* 2026-10 作りなおし（interview.js の 上の 説明）：大きな 🎤・聞こえた ことば・読めた ことばが 光る・お手本 🔊・語数メーター */
+.iv-mic { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 12px; width: 100%; min-height: 64px;
+  padding: 10px 18px; border: 0; border-radius: 18px; background: #2f8f6b; color: #fff; text-align: left; cursor: pointer; box-shadow: 0 4px 0 #1f6b4f; }
+.iv-mic .iv-mic-ico { grid-row: 1 / span 2; font-size: 30px; line-height: 1; }
+.iv-mic b { font-size: 19px; }
+.iv-mic small { font-size: 12px; opacity: .85; min-height: 1em; }
+.iv-mic.on { background: #d9534f; box-shadow: 0 4px 0 #a33a37; animation: iv-pulse 1.2s ease-in-out infinite; }
+.iv-mic:disabled { opacity: .5; }
+@keyframes iv-pulse { 50% { box-shadow: 0 4px 0 #a33a37, 0 0 0 8px #d9534f44; } }
+.iv-acts button { flex: 1 1 auto; min-width: 0; font-size: 13px; padding: 8px 10px; }
+.iv-acts button[aria-pressed="true"] { background: #ffd16633; color: #ffe9a8; }
+.iv-live { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; padding: 8px 12px; border-radius: 12px; background: #ffffff12; font-size: 15px; }
+.iv-live em { font-style: normal; font-weight: 800; color: #ffb38a; margin-left: auto; }
+.iv-live em.ok { color: #74c39a; }
+.iv-passage .iv-w { border-radius: 6px; transition: background .2s, color .2s; }
+.iv-passage .iv-w.hit { background: #74c39a40; color: #d8ffe9; }
+.iv-prep { margin: 0 0 8px; padding: 6px 10px; border-radius: 10px; background: #ffd16622; color: #ffe9a8; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+.iv-prep b { font-size: 18px; }
+.iv-prep button { margin-left: auto; min-height: 30px; padding: 2px 10px; border-radius: 9px; background: #ffffff1a; color: inherit; font-weight: 700; }
+.iv-fb { margin: 0 0 10px; padding: 8px 10px; border-radius: 12px; font-weight: 800; font-size: 14px; display: grid; gap: 4px; }
+.iv-fb.ok { background: #74c39a2e; color: #c9f5dc; }
+.iv-fb.no { background: #e8927c26; color: #ffd8c9; }
+.iv-fb span { font-weight: 600; font-size: 13px; }
+.iv-fb b { font-weight: 700; color: #fff; }
+.iv-say { min-width: 34px; min-height: 30px; border-radius: 9px; background: #ffffff1f; color: inherit; }
+.iv-need { margin: 8px 0 0; font-size: 12px; color: #ffd166; }
+.iv-panels ol { margin: 6px 0 0; padding-left: 0; list-style: none; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.iv-panels li { background: #ffffff12; border-radius: 10px; padding: 6px 8px; font-size: 12px; line-height: 1.5; }
+.iv-scene-emo { display: block; font-size: 26px; letter-spacing: .1em; margin-bottom: 4px; }
+@media (max-height: 560px) {
+  .iv-mic { min-height: 50px; padding: 6px 14px; }
+  .iv-mic b { font-size: 16px; }
+  .iv-acts button { min-height: 34px; padding: 4px 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .iv-mic.on { animation: none; } }
+/* 右の 列は 中身が 長いと スクロールする。flex の 子が ちぢんで 文が 🎤 の 下に もぐらない ように（1級の 長い お手本で 起きた）。 */
+.iv-side > * { flex-shrink: 0; }
+/* 下の 小さい 字が 空の ときは「おして はなす」を まんなかに。 */
+.iv-mic small:empty { display: none; }
+.iv-mic b { grid-row: 1 / span 2; align-self: center; }
+.iv-mic b:has(+ small:not(:empty)) { grid-row: 1; align-self: end; }

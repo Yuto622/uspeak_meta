@@ -7,7 +7,7 @@ import { writeJsonFile } from '../store/write-json.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-export const GRADES = ['5級', '4級', '3級', '準2級', '2級', '準1級以上', 'ジュニア'];
+export const GRADES = ['5級', '4級', '3級', '準2級', '2級', '準1級', '準1級以上', '1級', 'ジュニア'];
 export const SKILLS = ['reading', 'listening', 'writing', 'speaking'];
 // 列（xlsx の 見出しと 同じ 名前でも 受けとる）。
 export const COLUMNS = [

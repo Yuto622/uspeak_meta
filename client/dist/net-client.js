@@ -477,7 +477,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // プレミアムの 島（英会話島・みんなで はなす しま・英検の 3 島・英会話の お店）。名簿の「プレミアム」を 知って いるのは
   // サーバーだけ なので、**オフラインでは いつも しめる**（前は オフラインだと 錠が からっぽで、英検の 島に 飛べた）。
   // 中身（採点・AI・通話）も サーバーが いないと うごかない。一覧は 部屋が おしえた ものを 使い、来る 前は サーバーの 既定と 同じ。
-  const PREMIUM_DEFAULT = ['conv', 'talk', 'eiken5', 'eiken4', 'eiken3', 'talkshops'];
+  const PREMIUM_DEFAULT = ['conv', 'talk', 'eiken5', 'eiken4', 'eiken3', 'eikenp2', 'eiken2', 'eikenp1', 'eiken1', 'talkshops'];
   function lockPremiumOffline() {
     const all = state.premiumIslands?.length ? state.premiumIslands : PREMIUM_DEFAULT;
     rpg.setPremiumLock?.(all, all);

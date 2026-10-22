@@ -1,7 +1,8 @@
 // 月ごとの学習記録。**ここを間違えると保護者に嘘の数字が出る**ので、境目を厚く見る。
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { monthKey, dayKey, bump, sanitizeMonths, trimMonths, recentMonths, KEEP_MONTHS } from '../src/game/months.js';
+import { monthKey, dayKey, bump, sanitizeMonths, trimMonths, recentMonths, KEEP_MONTHS, EIKEN_GRADES } from '../src/game/months.js';
+const EG0 = Object.fromEntries(EIKEN_GRADES.map((g) => [g, 0]));
 
 // JST の時刻を UTC のミリ秒にする（テストの意図を読めるように）。
 const jst = (s) => Date.parse(`${s}+09:00`);
@@ -26,7 +27,7 @@ test('答えるたびに足され、同じ日に何回きても「1日」', () =
   bump(m, { answers: 1, correct: 1, xp: 10 }, t('2026-09-16T17:00'));
   bump(m, { answers: 1, correct: 0, xp: 0 }, t('2026-09-16T17:05'));
   bump(m, { answers: 1, correct: 1, xp: 10 }, t('2026-09-18T17:00'));
-  assert.deepEqual(m['2026-09'], { answers: 3, correct: 2, xp: 20, coins: 0, seconds: 0, days: ['2026-09-16', '2026-09-18'], home: [], eg: { g5: 0, g4: 0, g3: 0 } });
+  assert.deepEqual(m['2026-09'], { answers: 3, correct: 2, xp: 20, coins: 0, seconds: 0, days: ['2026-09-16', '2026-09-18'], home: [], eg: EG0 });
 });
 
 test('コインと学習時間は 日を数えない（答えていない子を「きた日」にしない）', () => {
@@ -46,7 +47,7 @@ test('壊れた保存は捨てて空から。レポート全体が出ないほ�
   assert.deepEqual(sanitizeMonths({ '2026-13': { answers: 5 } }), {}, '13月は無い');
   // 数でないもの・負の数は 0 に。
   const out = sanitizeMonths({ '2026-09': { answers: 'x', correct: -4, xp: 1.9, coins: null, seconds: 30, days: 'nope' } });
-  assert.deepEqual(out['2026-09'], { answers: 0, correct: 0, xp: 1, coins: 0, seconds: 30, days: [], home: [], eg: { g5: 0, g4: 0, g3: 0 } });
+  assert.deepEqual(out['2026-09'], { answers: 0, correct: 0, xp: 1, coins: 0, seconds: 30, days: [], home: [], eg: EG0 });
   // 正解が回答数を超える保存は信じない。
   const lying = sanitizeMonths({ '2026-09': { answers: 3, correct: 99 } });
   assert.equal(lying['2026-09'].correct, 3);
@@ -104,7 +105,7 @@ test('おうちの日は「きた日」の中にだけ数え、英検は級ご�
   const m = months['2026-09'];
   assert.deepEqual(m.days, ['2026-09-16', '2026-09-17']);
   assert.deepEqual(m.home, ['2026-09-16']);
-  assert.deepEqual(m.eg, { g5: 1, g4: 0, g3: 0 });
+  assert.deepEqual(m.eg, { ...EG0, g5: 1 });
   const [row] = recentMonths(months, 1, { now: at });
   assert.equal(row.home, 1);
   assert.equal(row.eg.g5, 1);
@@ -113,7 +114,7 @@ test('おうちの日は「きた日」の中にだけ数え、英検は級ご�
 test('保存のおうちの日が、きた日に無ければ捨てる（古い形の保存にも足せる）', () => {
   const out = sanitizeMonths({ '2026-09': { answers: 2, days: ['2026-09-01'], home: ['2026-09-01', '2026-09-02', '2026-08-30'], eg: { g5: '3', g4: -1 } } });
   assert.deepEqual(out['2026-09'].home, ['2026-09-01']);
-  assert.deepEqual(out['2026-09'].eg, { g5: 3, g4: 0, g3: 0 });
+  assert.deepEqual(out['2026-09'].eg, { ...EG0, g5: 3 });
   // 形の古い箱（home も eg も無い）に足しても落ちない。
   const old = { '2026-09': { answers: 1, correct: 0, xp: 0, coins: 0, seconds: 0, days: [] } };
   bump(old, { answers: 1, eg: 'g4' }, { now: Date.parse('2026-09-10T03:00:00Z'), day: true, home: true });

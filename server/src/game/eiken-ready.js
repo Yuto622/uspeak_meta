@@ -16,18 +16,19 @@
 // **やさしい判定の○は数えない。** やさしいは4たくを2たくにし、言いかえを通す練習用の
 // 判定なので、そこでの正解率を「受けられそう」の根拠にはできない。
 
-export const GRADES = ['g5', 'g4', 'g3'];
+export const GRADES = ['g5', 'g4', 'g3', 'gp2', 'g2', 'gp1', 'g1'];
 export const SKILLS = ['reading', 'listening', 'writing', 'speaking'];
-export const LABEL = { g5: '5級', g4: '4級', g3: '3級' };
+export const LABEL = { g5: '5級', g4: '4級', g3: '3級', gp2: '準2級', g2: '2級', gp1: '準1級', g1: '1級' };
 export const SKILL_LABEL = { reading: 'よむ', listening: 'きく', writing: 'かく', speaking: 'はなす' };
 
-// 日本英語検定協会の「各級の目安」。5級＝中学初級程度、4級＝中学中級程度、3級＝中学卒業程度。
+// 日本英語検定協会の「各級の目安」。5級＝中学初級程度、4級＝中学中級程度、3級＝中学卒業程度、準2級＝高校中級程度、2級＝高校卒業程度、準1級＝大学中級程度、1級＝大学上級程度。
 // 保護者の「これは何につながるの？」（高学年で出てくる問い）に、学校の言葉で答えるため。
-export const SCHOOL = { g5: '中学1年生くらい', g4: '中学2年生くらい', g3: '中学卒業くらい' };
+export const SCHOOL = { g5: '中学1年生くらい', g4: '中学2年生くらい', g3: '中学卒業くらい', gp2: '高校中級くらい', g2: '高校卒業くらい', gp1: '大学中級くらい', g1: '大学上級くらい' };
 
-// 一次で見る技能。二次（3級の面接）は別に出す。
-export const REQUIRED = { g5: ['reading', 'listening'], g4: ['reading', 'listening'], g3: ['reading', 'listening', 'writing'] };
-export const SECOND = { g5: [], g4: [], g3: ['speaking'] };
+// 一次で見る技能。二次（3級から上の面接）は別に出す。
+export const REQUIRED = { g5: ['reading', 'listening'], g4: ['reading', 'listening'], g3: ['reading', 'listening', 'writing'],
+  gp2: ['reading', 'listening', 'writing'], g2: ['reading', 'listening', 'writing'], gp1: ['reading', 'listening', 'writing'], g1: ['reading', 'listening', 'writing'] };
+export const SECOND = { g5: [], g4: [], g3: ['speaking'], gp2: ['speaking'], g2: ['speaking'], gp1: ['speaking'], g1: ['speaking'] };
 
 // 見るのは直近の20問。**昔の失敗をいつまでも引きずらない**（半年前の3問が今の判断を
 // 下げるのはおかしい）ためと、保存を小さく保つため（1技能20文字）。

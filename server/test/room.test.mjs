@@ -1239,8 +1239,8 @@ test('英検の島: the hall you stand in is the skill you get, and the server d
     });
   };
 
-  // Three islands, four halls each, and a hall that is not on the island it claims.
-  assert.equal(EIKEN.list.length, 3);
+  // Seven islands (5級〜1級), four halls each, and a hall that is not on the island it claims.
+  assert.equal(EIKEN.list.length, 7);
   a.room.send('eiken:start', { island: 'eiken5', hall: 'nowhere' });
   assert.equal((await nextMessage(a.room, 'eiken:error')).reason, 'unknown hall');
 

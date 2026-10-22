@@ -32,7 +32,7 @@ const server = spawn('node', ['src/index.js'], {
   cwd: serverDir,
   // No key: the scripted examiner and the scripted comment, which is what a school
   // without an API key gets and therefore what this test should exercise.
-  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', OPENAI_API_KEY: '', ANSWER_MIN_INTERVAL_MS: '0' },
+  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', OPENAI_API_KEY: '', ANSWER_MIN_INTERVAL_MS: '0', PREMIUM_ISLANDS: '' },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 server.stdout.on('data', (d) => process.stdout.write('[server] ' + d));
@@ -50,7 +50,8 @@ const check = (name, ok, detail = '') => { results.push({ name, ok, detail }); c
 const coins = (page) => page.evaluate(() => uspeak.fishing.store.state.coins);
 const card = (page) => page.evaluate(() => document.querySelector('#iv-card')?.textContent?.replace(/\s+/g, ' ').trim() || '');
 const marks = (page) => page.evaluate(() => [...document.querySelectorAll('#iv-marks i')].map((i) => i.className || '-'));
-const answer = async (page, text) => { await page.fill('#iv-text', text); await page.click('#iv-send'); };
+// 書く 欄は ⌨️ で 出す（2026-10。マイクの ない 端末では はじめから 出て いる）。
+const answer = async (page, text) => { if (await page.isHidden('#iv-text')) await page.click('#iv-kbd'); await page.fill('#iv-text', text); await page.click('#iv-send'); };
 
 // The bank is the server's, and the test reads it the way a teacher would: from disk.
 const BANK = JSON.parse(readFileSync(path.resolve(serverDir, 'src/game/interview-bank.json'), 'utf8')).grades;

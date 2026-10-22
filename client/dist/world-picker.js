@@ -11,7 +11,7 @@ import { isJa } from './i18n.js';
 const LOOK = {
   willow: ['🏡', '#5aae78'], park: ['🎡', '#e27a2d'], errand: ['🛍️', '#e0a526'], school: ['🏫', '#5b97e6'],
   arena: ['⚔️', '#c8573e'], pet: ['🐣', '#f0b43c'], ride: ['🏁', '#4f86d9'], town: ['🏗️', '#7db65a'],
-  eiken5: ['📗', '#4fae6b'], eiken4: ['📙', '#e08a2c'], eiken3: ['📘', '#3f6fb8'], talk: ['💬', '#3baacb'],
+  eiken5: ['📗', '#4fae6b'], eiken4: ['📙', '#e08a2c'], eiken3: ['📘', '#3f6fb8'], eikenp2: ['📕', '#d9663a'], eiken2: ['📗', '#2f7a6f'], eikenp1: ['📓', '#6a4fa8'], eiken1: ['👑', '#b8902a'], talk: ['💬', '#3baacb'],
   conv: ['🗣️', '#e0668e'], wear: ['👕', '#b06fc4'], mini: ['🎮', '#7a5cc8'], homework: ['📚', '#d9763a'], farm: ['🐄', '#8dbe45'],
   land: ['🏝️', '#2fa3b8'], fishworld: ['🎣', '#3b9fd4'], main: ['🏠', '#e27a2d'],
   meadow: ['🌼', '#86b85c'], forest: ['🌲', '#3f8a5c'], reef: ['🪸', '#2fb3b0'], canyon: ['🏜️', '#c8783e'],

@@ -2856,7 +2856,9 @@ export class ClassRoom extends Room {
       island: island.id,
       badge: island.badge,
       room: roomLeft(priv.caps, 'eiken', EIKEN_CAP),
-      opening: 'Hello! May I have your card, please? ... Thank you. Please read the passage aloud.',
+      opening: session.card.noRead === true
+        ? 'Hello! May I have your card, please? ... Thank you. Let\'s begin.'
+        : 'Hello! May I have your card, please? ... Thank you. Please read the passage aloud.',
     });
     log.info(`[room ${this.roomId}] ${who(priv.name)} sat down for a ${island.grade} interview (${session.cardId})`);
   }
@@ -2871,7 +2873,8 @@ export class ClassRoom extends Room {
       client.send('interview:error', { reason: 'too far', spot: this.eikenSpotPayload(session.island, INTERVIEW_ROOM) });
       return;
     }
-    const heard = typeof msg?.heard === 'string' ? msg.heard.replace(/\s+/g, ' ').trim().slice(0, 400) : '';
+    // 1級の スピーチ（2 分）・準1級の 4 コマ説明は 長いので 2000 字まで。
+    const heard = typeof msg?.heard === 'string' ? msg.heard.replace(/\s+/g, ' ').trim().slice(0, 2000) : '';
     if (!heard) { client.send('interview:error', { reason: 'nothing heard' }); return; }
     const now = Date.now();
     if (now - priv.lastInterviewAt < config.answerMinIntervalMs) { client.send('interview:error', { reason: 'too fast' }); return; }
@@ -2930,6 +2933,9 @@ export class ClassRoom extends Room {
       passage: { en: 'the question about the passage', ja: 'パッセージの しつもん' },
       picture: { en: 'the question about the picture', ja: '絵の しつもん' },
       self: { en: 'the question about themselves', ja: '自分のことを 話す しつもん' },
+      narrate: { en: 'telling the picture story', ja: '絵の ストーリーを 話す ところ' },
+      opinion: { en: 'giving an opinion with a reason', ja: '意見と 理由を 言う しつもん' },
+      speech: { en: 'the speech', ja: 'スピーチ' },
     };
     const missed = session.marks.filter((m) => !m.correct).map((m) => PART[m.kind] || PART.passage);
     let comment = null;

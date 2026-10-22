@@ -22,7 +22,8 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 export const BANK_PATH = path.resolve(here, 'eiken-bank.json');
 export const ISLANDS_PATH = path.resolve(here, '../../../client/dist/eiken.json');
 
-export const GRADES = ['g5', 'g4', 'g3'];
+// 2026-10：準2級・2級・準1級・1級の 島を 足した（7 島・同じ 間取り）。
+export const GRADES = ['g5', 'g4', 'g3', 'gp2', 'g2', 'gp1', 'g1'];
 export const SKILLS = ['reading', 'listening', 'writing', 'speaking'];
 // The fifth building on each island: 面接の間. Not a skill, and not in the courtyard's
 // four quarters — the room a child walks past everything else to reach.
@@ -91,7 +92,8 @@ export function loadBank(file = BANK_PATH) {
       // over before a child sees the same question again in one sitting.
       const seen = new Set();
       for (const item of bank[skill]) {
-        const key = (item.q || item.en || '').toLowerCase();
+        // 読む・聞くは 問いが 同じ（Which word fits …?）でも 本文が ちがえば 別の 問題。
+        const key = (item.q || item.en || '').toLowerCase() + '|' + (item.text || item.say || '');
         if (seen.has(key)) throw new Error(`eiken-bank.json: ${grade}.${skill} repeats "${key.slice(0, 40)}"`);
         seen.add(key);
       }
@@ -104,16 +106,24 @@ export function loadBank(file = BANK_PATH) {
 export const BANK = loadBank();
 
 // ---- 問題データベース（/admin/qbank）から まぜる 問題 -------------------------------------------
-// 「web版に出す」の 問題のうち、5級・4級・3級の 4択の 読む・聞く を 英検の島の 出題に まぜる。
+// 「web版に出す」の 問題のうち、各級の 4択の 読む・聞く と「日本語→英語で 言う」話す を その 級の 英検の島の 出題に まぜる（準1級以上は 準1級の 島）。
 // もとの バンク（eiken-bank.json）は BASE に のこし、データベースが かわる たびに つくりなおす。
 // 出題中の セットは 問題を 写して 持っているので、とちゅうで かわっても こわれない。
 const BASE = Object.fromEntries(GRADES.map((g) => [g, Object.fromEntries(SKILLS.map((s) => [s, BANK[g][s]]))]));
-const QB_GRADE = { '5級': 'g5', '4級': 'g4', '3級': 'g3' };
+const QB_GRADE = { '5級': 'g5', '4級': 'g4', '3級': 'g3', '準2級': 'gp2', '2級': 'g2', '準1級': 'gp1', '準1級以上': 'gp1', '1級': 'g1' };
 export function setExtraQuestions(items = []) {
-  const extra = Object.fromEntries(GRADES.map((g) => [g, { reading: [], listening: [] }]));
+  const extra = Object.fromEntries(GRADES.map((g) => [g, { reading: [], listening: [], speaking: [] }]));
   for (const it of items) {
     const g = QB_GRADE[it.grade];
-    if (!g || !extra[g][it.skill] || !Array.isArray(it.choices) || it.choices.length !== CHOICES) continue;
+    if (!g || !extra[g][it.skill]) continue;
+    // 話す：本文の ない「日本語 → 英語で 言う」の 行（面接の 行は キーワードが ないので 面接の間 では 使わない）。
+    if (it.skill === 'speaking') {
+      const en = text(it.answer);
+      const n = wordsOf(en).length;
+      if (!text(it.passage) && !(it.choices || []).length && n >= 2 && n <= 25 && /[^\x00-\x7f]/.test(it.question)) extra[g].speaking.push({ ja: text(it.question), en });
+      continue;
+    }
+    if (!Array.isArray(it.choices) || it.choices.length !== CHOICES) continue;
     const choices = [it.answer, ...it.choices.filter((c) => c !== it.answer)];
     if (choices.length !== CHOICES || new Set(choices.map((c) => c.toLowerCase())).size !== CHOICES) continue;
     if (it.skill === 'reading') extra[g].reading.push({ text: it.passage || it.question, q: it.passage ? it.question : /\(\s*\)/.test(it.question) ? '（ ）に 入る ものを えらぼう。' : 'ただしい ものを えらぼう。', choices, hint: text(it.explanation), answer: 0 });
@@ -123,7 +133,7 @@ export function setExtraQuestions(items = []) {
   for (const g of GRADES) {
     for (const s of SKILLS) {
       const seen = new Set(BASE[g][s].map((x) => (x.q || x.en || '').toLowerCase() + '|' + (x.text || x.say || '')));
-      const more = (extra[g][s] || []).filter((x) => { const k = x.q.toLowerCase() + '|' + (x.text || x.say); if (seen.has(k)) return false; seen.add(k); return true; });
+      const more = (extra[g][s] || []).filter((x) => { const k = (x.q || x.en).toLowerCase() + '|' + (x.text || x.say || ''); if (seen.has(k)) return false; seen.add(k); return true; });
       BANK[g][s] = [...BASE[g][s], ...more];
       added[`${g}.${s}`] = more.length;
     }
