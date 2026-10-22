@@ -142,7 +142,7 @@ export function homeworkText(hw, { nick = '', range = '' } = {}) {
 export function roadmapText(v) {
   const L = parentLines(v);
   if (!L) return '';
-  return [`🗺 ${L.stageLine}`, L.nextLine, ...L.eiken, ...(L.places.length ? [`おすすめ：${L.places.join('・')}`] : []), `※${L.note}`].join('\n').slice(0, 2000);
+  return [`🗺 ${L.stageLine}`, ...(L.cando ? [L.cando] : []), L.nextLine, ...L.eiken, ...(L.places.length ? [`おすすめ：${L.places.join('・')}`] : []), `※${L.note}`].join('\n').slice(0, 2000);
 }
 
 // おうちで できる こと 1 つ（週の レポート）。研究では「のばせる ところ」を 具体的に 1 つ つたえる 文が いちばん 効いた

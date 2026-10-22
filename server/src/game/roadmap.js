@@ -32,6 +32,8 @@ export const STAGE_IDS = ['A', 'B', 'C', '1', '2', '3', '4', '5', '6', '7', '8',
 export const WORD_RATE = 0.8;      // 単語の 8 割
 export const QUIZ_MIN = 20;        // クイズ 20 問 以上
 export const QUIZ_RATE = 0.8;      // 正解率 8 割
+export const QUIZ_RECENT = 30;     // 正解率は さいきんの 30 問で 見る（はじめの まちがいを ずっと ひきずらない）
+export const CHECKPOINTS = [25, 50, 75]; // 段階の とちゅうの スタンプ（単語の 進み）
 export const STAGE_COINS = 100;    // 段階が 上がった ときの コイン（1 段階 1 回だけ）
 export const MIN_SKILL = 10;       // 合格見込みを 出す まえに 1 技能 これだけ ほしい
 export const TARGET_CHANCE = 0.8;  // 「あと これだけ」の めやす（見込み 80%）
@@ -48,20 +50,21 @@ export const EIKEN = {
 };
 export const GRADE_ORDER = ['jr', 'g5', 'g4', 'g3', 'gp2', 'g2', 'gp1'];
 
-// 既定の 12 段階。`jrLevel` は 英検Jr. の どの グレード くらいか（A・B・C だけ）。
+// 既定の 12 段階。`jr` は 英検Jr. の どの グレード くらいか（A・B・C だけ）。
+// `cando` は その 段階で できる ように なる こと（英検の Can-do リスト・CEFR の「できる こと」の 考えかた。子ども・保護者に 見せる）。
 export const DEFAULT_STAGES = [
-  { id: 'A', grade: 'jr', en: 'Hello Words', ja: 'はじめの ことば', note: '英検Jr. BRONZE くらい。どうぶつ・たべものの ことばを 絵で。', jr: 'BRONZE' },
-  { id: 'B', grade: 'jr', en: 'Everyday Words', ja: 'まいにちの ことば', note: '英検Jr. SILVER くらい。がっこう・しぜんの ことば。', jr: 'SILVER' },
-  { id: 'C', grade: 'jr', en: 'Ready for Grade 5', ja: '5級への じゅんび', note: '英検Jr. GOLD くらい。のりもの・くらしの ことば。', jr: 'GOLD' },
-  { id: '1', grade: 'g5', en: 'Grade 5 · Step 1', ja: '5級 ステップ1', note: '英検5級（中学初級程度）の まえ半分。' },
-  { id: '2', grade: 'g5', en: 'Grade 5 · Step 2', ja: '5級 ステップ2', note: '英検5級の あと半分。ここを こえたら 5級の 目安。' },
-  { id: '3', grade: 'g4', en: 'Grade 4 · Step 1', ja: '4級 ステップ1', note: '英検4級（中学中級程度）の まえ半分。' },
-  { id: '4', grade: 'g4', en: 'Grade 4 · Step 2', ja: '4級 ステップ2', note: '英検4級の あと半分。' },
-  { id: '5', grade: 'g3', en: 'Grade 3 · Step 1', ja: '3級 ステップ1', note: '英検3級（中学卒業程度）の まえ半分。' },
-  { id: '6', grade: 'g3', en: 'Grade 3 · Step 2', ja: '3級 ステップ2', note: '英検3級の あと半分。作文と 面接も はじまる。' },
-  { id: '7', grade: 'gp2', en: 'Grade Pre-2', ja: '準2級', note: '英検準2級（高校中級程度）。' },
-  { id: '8', grade: 'g2', en: 'Grade 2', ja: '2級', note: '英検2級（高校卒業程度）。' },
-  { id: '9', grade: 'gp1', en: 'Grade Pre-1', ja: '準1級', note: '英検準1級（大学中級程度）。' },
+  { id: 'A', grade: 'jr', en: 'Hello Words', ja: 'はじめの ことば', note: '英検Jr. BRONZE くらい。どうぶつ・たべものの ことばを 絵で。', jr: 'BRONZE', cando: { en: 'I can say the names of animals and food.', ja: 'どうぶつや たべものの 名前が 言える' } },
+  { id: 'B', grade: 'jr', en: 'Everyday Words', ja: 'まいにちの ことば', note: '英検Jr. SILVER くらい。がっこう・しぜんの ことば。', jr: 'SILVER', cando: { en: 'I can name things at school and outside.', ja: 'がっこうや そとで 見る ものの 名前が 言える' } },
+  { id: 'C', grade: 'jr', en: 'Ready for Grade 5', ja: '5級への じゅんび', note: '英検Jr. GOLD くらい。のりもの・くらしの ことば。', jr: 'GOLD', cando: { en: 'I can say what I like.', ja: 'すきな ものを 英語で 言える' } },
+  { id: '1', grade: 'g5', en: 'Grade 5 · Step 1', ja: '5級 ステップ1', note: '英検5級（中学初級程度）の まえ半分。', cando: { en: 'I can greet people and say my name.', ja: 'あいさつと じこしょうかいが できる' } },
+  { id: '2', grade: 'g5', en: 'Grade 5 · Step 2', ja: '5級 ステップ2', note: '英検5級の あと半分。ここを こえたら 5級の ことばの 土台が できた 目安（本番の 見込みは 英検の 見込みで）。', cando: { en: 'I can answer short questions about me.', ja: 'じぶんの ことの みじかい しつもんに こたえられる' } },
+  { id: '3', grade: 'g4', en: 'Grade 4 · Step 1', ja: '4級 ステップ1', note: '英検4級（中学中級程度）の まえ半分。', cando: { en: 'I can talk about my day.', ja: 'いちにちの ことを 話せる' } },
+  { id: '4', grade: 'g4', en: 'Grade 4 · Step 2', ja: '4級 ステップ2', note: '英検4級の あと半分。', cando: { en: 'I can read a short message or notice.', ja: 'みじかい メッセージや おしらせが 読める' } },
+  { id: '5', grade: 'g3', en: 'Grade 3 · Step 1', ja: '3級 ステップ1', note: '英検3級（中学卒業程度）の まえ半分。', cando: { en: 'I can talk about what I did.', ja: 'したことを 話せる' } },
+  { id: '6', grade: 'g3', en: 'Grade 3 · Step 2', ja: '3級 ステップ2', note: '英検3級の あと半分。作文と 面接も はじまる。', cando: { en: 'I can write a few sentences about me.', ja: 'じぶんの ことを 2〜3 文で 書ける' } },
+  { id: '7', grade: 'gp2', en: 'Grade Pre-2', ja: '準2級', note: '英検準2級（高校中級程度）。', cando: { en: 'I can give my opinion with a reason.', ja: '理由を つけて 考えを 言える' } },
+  { id: '8', grade: 'g2', en: 'Grade 2', ja: '2級', note: '英検2級（高校卒業程度）。', cando: { en: 'I can read a short article and talk about it.', ja: 'みじかい 記事を 読んで 話しあえる' } },
+  { id: '9', grade: 'gp1', en: 'Grade Pre-1', ja: '準1級', note: '英検準1級（大学中級程度）。', cando: { en: 'I can explain my ideas on social topics.', ja: '社会の 話題で 考えを 説明できる' } },
 ];
 
 // ---- 既定の 単語（ゲームで 出る ことば）-----------------------------------------------------
@@ -126,7 +129,7 @@ export function stagesFor(settings = null) {
   return DEFAULT_STAGES.map((d) => {
     const o = over[d.id] || {};
     const words = Array.isArray(o.words) && o.words.length ? clean(o.words) : defaultWords(d.id);
-    return { ...d, en: o.en || d.en, ja: o.ja || d.ja, note: o.note ?? d.note, words, custom: !!(o.words && o.words.length) };
+    return { ...d, en: o.en || d.en, ja: o.ja || d.ja, note: o.note ?? d.note, cando: o.cando?.ja ? { en: String(o.cando.en || ''), ja: String(o.cando.ja) } : d.cando, words, custom: !!(o.words && o.words.length) };
   });
 }
 export const startOf = (settings) => (STAGE_IDS.includes(settings?.start) ? settings.start : 'A');
@@ -182,12 +185,20 @@ export function roadmapOf(rows, { settings = null, state = null, now = Date.now(
   // クイズ：この 段階に 入ってから、この 段階の 級の はじめての 答え
   const graded = quiz.filter((e) => isClean(e) && okOf(e) !== null).map((e) => ({ e, g: gradeOfEvent(e, wordGrade) }));
   const mine = graded.filter((x) => x.g === stage.grade && x.e.ts >= since);
-  const qn = mine.length; const qc = mine.filter((x) => okOf(x.e)).length;
-  const acc = qn ? qc / qn : 0;
+  const qn = mine.length;
+  // 正解率は さいきんの QUIZ_RECENT 問（前は 段階に 入ってからの ぜんぶ＝はじめに 10/20 だと 30 問 つづけて 正解が いった）。
+  const recent = mine.slice(-QUIZ_RECENT).map((x) => !!okOf(x.e));
+  const qc = recent.filter(Boolean).length;
+  const acc = recent.length ? qc / recent.length : 0;
   const quizLeft = Math.max(0, QUIZ_MIN - qn);
-  // 正解率が 8 割に とどかない ときは「あと ◯ 問 つづけて 正解」で とどく 数（20 問を こえても）。
+  // 正解率が 8 割に とどかない ときは「あと ◯ 問 つづけて 正解」で とどく 数（古い 答えは まどから おちる）。
   let streakNeed = 0;
-  if (qn >= QUIZ_MIN && acc < QUIZ_RATE) streakNeed = Math.ceil((QUIZ_RATE * qn - qc) / (1 - QUIZ_RATE) - 1e-9);
+  if (qn >= QUIZ_MIN && acc < QUIZ_RATE) {
+    for (let k = 1; k <= QUIZ_RECENT; k += 1) {
+      const win = [...recent, ...Array(k).fill(true)].slice(-QUIZ_RECENT);
+      if (win.filter(Boolean).length / win.length >= QUIZ_RATE) { streakNeed = k; break; }
+    }
+  }
   const wordsLeft = Math.max(0, needWords - known.length);
   const ready = wordsLeft === 0 && quizLeft === 0 && acc >= QUIZ_RATE;
   const last = idx === STAGE_IDS.length - 1;
@@ -195,7 +206,7 @@ export function roadmapOf(rows, { settings = null, state = null, now = Date.now(
   // 4 つの 力（保護者レポートと 同じ 対応：聞く＝listen、書く＝type・spell、それ以外＝読む。話す＝声に 出した 回数）
   const bar = { read: { n: 0, ok: 0 }, listen: { n: 0, ok: 0 }, write: { n: 0, ok: 0 }, speak: { n: 0 } };
   for (const x of graded) if (x.g === stage.grade) { const s = skillOfQuiz(x.e); bar[s].n += 1; if (okOf(x.e)) bar[s].ok += 1; }
-  bar.speak.n = events.filter((e) => e.type === 'speak').length;
+  bar.speak.n = events.filter((e) => e.type === 'speak' && e.ts >= since).length; // この 段階に 入ってから
   const skills = ['read', 'listen', 'speak', 'write'].map((k) => {
     const b = bar[k];
     const value = k === 'speak' ? Math.min(1, b.n / 10) : (b.n ? Math.min(1, b.n / QUIZ_MIN) * Math.min(1, (b.ok / b.n) / QUIZ_RATE) : 0);
@@ -212,11 +223,13 @@ export function roadmapOf(rows, { settings = null, state = null, now = Date.now(
   const weekDays = new Set(quiz.filter((e) => e.ts >= wk.start && e.ts <= wk.end).map((e) => dayKey(e.ts))).size;
 
   return {
-    stage: { id: stage.id, en: stage.en, ja: stage.ja, note: stage.note, grade: stage.grade, gradeJa: EIKEN[stage.grade].ja, jr: stage.jr || '' },
+    stage: { id: stage.id, en: stage.en, ja: stage.ja, note: stage.note, grade: stage.grade, gradeJa: EIKEN[stage.grade].ja, jr: stage.jr || '', cando: stage.cando || null },
     index: idx, since, last,
-    stages: stages.map((s, i) => ({ id: s.id, en: s.en, ja: s.ja, grade: s.grade, gradeJa: EIKEN[s.grade].ja, words: s.words.length, done: i < idx, here: i === idx })),
+    stages: stages.map((s, i) => ({ id: s.id, en: s.en, ja: s.ja, grade: s.grade, gradeJa: EIKEN[s.grade].ja, words: s.words.length, done: i < idx, here: i === idx, cando: s.cando || null })),
     words: { total: words.length, known: known.length, need: needWords, left: wordsLeft, next: words.filter((w) => !mastered.has(w)).slice(0, 6) },
-    quiz: { n: qn, correct: qc, acc: qn ? Math.round(acc * 100) : null, min: QUIZ_MIN, rate: Math.round(QUIZ_RATE * 100), left: quizLeft, streakNeed },
+    quiz: { n: qn, correct: qc, acc: qn ? Math.round(acc * 100) : null, min: QUIZ_MIN, rate: Math.round(QUIZ_RATE * 100), left: quizLeft, streakNeed, recent: recent.length, window: QUIZ_RECENT },
+    // 段階の とちゅうの スタンプ（単語が 25・50・75%）。すぐ 先の 小さな 目標（Bandura & Schunk 1981）。
+    checkpoints: CHECKPOINTS.map((p) => ({ p, reached: needWords ? known.length / needWords >= p / 100 : true })),
     ready: ready && !last,
     skills,
     eiken: chances,
@@ -388,5 +401,6 @@ export function parentLines(v) {
   const nextLine = v.last ? 'さいごの 段階です' : parts.length ? `次の 段階まで：${parts.join('・')}` : '次の 段階に 進めます（つぎに ゲームを ひらいた とき）';
   const eiken = v.eiken.map(chanceText).filter(Boolean);
   const places = (v.places?.list || []).slice(0, 3).map((p) => `${p.ja}${p.why?.n ? `（${p.why.kind === 'words' ? `単語 ${p.why.n} こ` : `${p.why.n} 問`}）` : ''}`);
-  return { stageLine, nextLine, eiken, places, note: '英検の 見込みは 島の 練習問題（英検の 形）の 正解・不正解と、協会の 公開している 一次試験の 問題数・合格の 目安（2級 以下 各技能 6 割 程度・準1級 7 割 程度）から 計算した ものです。作文・面接は ふくまず、合格を 約束する ものでは ありません。' };
+  const cando = s.cando?.ja ? `この 段階で めざす こと：${s.cando.ja}` : '';
+  return { stageLine, nextLine, cando, eiken, places, note: '英検の 見込みは 島の 練習問題（英検の 形）の 正解・不正解と、協会の 公開している 一次試験の 問題数・合格の 目安（2級 以下 各技能 6 割 程度・準1級 7 割 程度）から 計算した ものです。作文・面接は ふくまず、合格を 約束する ものでは ありません。' };
 }

@@ -100,3 +100,16 @@
   .rm-skill { grid-template-columns: 28px 96px 1fr 60px; }
 }
 @media (max-width: 480px) { .rm-meters { grid-template-columns: 1fr; } }
+
+/* 2026-10：めざす こと（Can-do）・つぎは これ（1 つだけ 大きく）・単語の とちゅうの スタンプ */
+.rm-cando { margin: 6px 0 2px; font-weight: 700; color: #ffe9a8; }
+.rm-cando .rm-bi > b { font-size: 14px; }
+.rm-go-top { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 10px; width: 100%; min-height: 52px; margin: 10px 0 4px; padding: 8px 14px;
+  border: 0; border-radius: 14px; background: #e27a2d; color: #fff; font: inherit; font-weight: 800; text-align: left; cursor: pointer; box-shadow: 0 4px 0 #b85f1d; }
+.rm-go-top > span { font-size: 24px; }
+.rm-go-top > b { font-size: 18px; }
+.rm-go-top:active { transform: translateY(2px); box-shadow: 0 2px 0 #b85f1d; }
+.rm-meters i.rm-stamped { position: relative; overflow: visible; }
+.rm-meters i.rm-stamped > b { border-radius: 999px; }
+.rm-stamp { position: absolute; top: 50%; transform: translate(-50%, -50%); font-style: normal; font-size: 14px; line-height: 1; color: rgba(255, 255, 255, .55); pointer-events: none; }
+.rm-stamp.on { font-size: 18px; filter: drop-shadow(0 1px 2px #0006); }

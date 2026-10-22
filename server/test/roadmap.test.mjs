@@ -75,7 +75,15 @@ test('進む 条件：単語の 8 割を 覚えた（2 日 以上・3 回 つづ
   v = roadmapOf(low, { state: { stage: 'A', since: T0 + 3 * DAY }, now: T0 + 4 * DAY });
   assert.equal(v.ready, false);
   assert.equal(v.quiz.acc, 50);
-  assert.equal(v.quiz.streakNeed, 30, '(0.8*20-10)/0.2 = 30 more right in a row');
+  assert.equal(v.quiz.streakNeed, 17, 'さいきんの 30 問で 見るので、前の まちがいは まどから おちる（前は 30 問 つづけて だった）');
+  // とちゅうの スタンプと「できる ように なる こと」
+  assert.deepEqual(v.checkpoints.map((c) => c.reached), [true, true, true]);
+  assert.match(v.stage.cando.ja, /名前が 言える/);
+  // はじめに まちがえても、さいきんの 30 問が 8 割なら すすめる
+  const back = [...low, ...jrQuiz(30, 30, T0 + 3.5 * DAY)];
+  const vb = roadmapOf(back, { state: { stage: 'A', since: T0 + 3 * DAY }, now: T0 + 4 * DAY });
+  assert.equal(vb.quiz.acc, 97, '29 / 30');
+  assert.equal(vb.ready, true);
   // まちがえた 単語は 覚えた から はずれる
   const lost = [...rows, quiz(T0 + 5 * DAY, { word: A[0], correct: false, level: 'SuperEasy' })];
   assert.equal(roadmapOf(lost, { now: T0 + 6 * DAY }).words.known, need - 1);

@@ -55,12 +55,17 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
     if (w.left) { en.push(`${w.left} more word${w.left > 1 ? 's' : ''}`); ja.push(`単語 あと ${w.left} こ`); }
     if (q.left) { en.push(`${q.left} more quiz${q.left > 1 ? 'zes' : ''}`); ja.push(`クイズ あと ${q.left} 問`); }
     else if (q.acc !== null && q.acc < q.rate) { en.push(`${q.streakNeed} correct in a row`); ja.push(`あと ${q.streakNeed} 問 つづけて 正解`); }
+    // いちばん 上に「つぎは これ」を 1 つだけ（えらぶ ものが 多いと 小さい 子は うごけない）。のこりは 下の「ほかの ばしょ」。
+    const top = v.places?.list?.[0];
+    const goTop = top ? `<button type="button" class="rm-go-top" data-go="0"><span>${top.emoji}</span>${bi(`Next: ${top.en}`, `つぎは ${top.ja}`)}<b>▶</b></button>` : '';
+    // 単語の とちゅうの スタンプ（25・50・75%）。
+    const stamps = (v.checkpoints || []).map((c) => `<em class="rm-stamp${c.reached ? ' on' : ''}" style="left:${c.p}%">${c.reached ? '🎖' : '・'}</em>`).join('');
     const head = v.ready ? bi('Ready for the next stage!', 'つぎの 段階に すすめるよ！', 'rm-big') : bi(`Next stage: ${en.join(' · ')}`, `次の 段階まで あと ${ja.join('・')}`, 'rm-big');
-    return `<section class="rm-card rm-next">${head}
+    return `<section class="rm-card rm-next">${head}${goTop}
       <div class="rm-meters">
-        <div>${bi(`Words ${w.known} / ${w.need}`, `覚えた 単語（${w.total} この 8 わり）`)}<i><b style="width:${pct(w.known, w.need)}%"></b></i></div>
+        <div>${bi(`Words ${w.known} / ${w.need}`, `覚えた 単語（${w.total} この 8 わり）`)}<i class="rm-stamped"><b style="width:${pct(w.known, w.need)}%"></b>${stamps}</i></div>
         <div>${bi(`Quizzes ${Math.min(q.n, q.min)} / ${q.min}`, 'この 段階の クイズ')}<i><b style="width:${pct(q.n, q.min)}%"></b></i></div>
-        <div>${bi(`Correct ${q.acc ?? 0}% / ${q.rate}%`, '正解率')}<i><b style="width:${pct(q.acc ?? 0, q.rate)}%"></b></i></div>
+        <div>${bi(`Correct ${q.acc ?? 0}% / ${q.rate}% (last ${q.window || 30})`, `正解率（さいきんの ${q.window || 30} 問）`)}<i><b style="width:${pct(q.acc ?? 0, q.rate)}%"></b></i></div>
       </div>
       ${w.next?.length ? `<p class="rm-words">${bi('Words to learn next', 'つぎに 覚える ことば')} ${w.next.map((x) => `<span>${esc(x)}</span>`).join('')}</p>` : ''}</section>`;
   }
@@ -92,11 +97,11 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
   }
 
   function placesCard(v) {
-    const list = v.places?.list || [];
+    const list = (v.places?.list || []).slice(1); // 1 つめは 上の「つぎは これ」
     if (!list.length) return '';
     const why = (p) => (p.why?.kind === 'words' ? bi(`${p.why.n} words`, `単語 ${p.why.n} こ`) : bi(`${p.why?.n || 10} questions`, `${p.why?.n || 10} 問`));
-    return `<section class="rm-card">${bi('Where to practice', 'どこで れんしゅう する？', 'rm-sub')}<ul class="rm-places">${list.map((p, i) => `<li>
-      <span class="rm-pi">${p.emoji}</span><div>${bi(p.en, p.ja)}<em>${why(p)}</em></div><button type="button" data-go="${i}">${bi('Go', 'いく')}</button></li>`).join('')}</ul>
+    return `<section class="rm-card">${bi('Other places', 'ほかの ばしょ', 'rm-sub')}<ul class="rm-places">${list.map((p, i) => `<li>
+      <span class="rm-pi">${p.emoji}</span><div>${bi(p.en, p.ja)}<em>${why(p)}</em></div><button type="button" data-go="${i + 1}">${bi('Go', 'いく')}</button></li>`).join('')}</ul>
       ${v.places.note ? `<small class="rm-fine">${esc(v.places.note)}</small>` : ''}</section>`;
   }
 
@@ -104,6 +109,7 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
     if (v.off) { body.innerHTML = `<p class="rm-wait">${bi('Roadmap is not available now', 'いまは ロードマップを ひらけないよ')}</p>`; return; }
     const s = v.stage;
     body.innerHTML = `<section class="rm-now">${bi(`Stage ${s.id} · ${s.en}`, `いまの 段階：${s.id}「${s.ja}」${s.gradeJa}${s.jr ? ` ${s.jr}` : ''}`, 'rm-hero')}
+      ${s.cando?.ja ? `<p class="rm-cando">🎯 ${bi(`Goal: ${s.cando.en}`, `めざす こと：${s.cando.ja}`)}</p>` : ''}
       ${s.note ? `<small>${esc(s.note)}</small>` : ''}<span class="rm-week">${bi(`${v.weekDays} day${v.weekDays === 1 ? '' : 's'} this week`, `今週 ${v.weekDays} 日`)}</span></section>
       ${board(v)}<div class="rm-grid">${nextCard(v)}${skillsCard(v)}${eikenCard(v)}${placesCard(v)}</div>`;
     body.querySelectorAll('[data-go]').forEach((b) => {
@@ -118,7 +124,22 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
     body.querySelector('.rm-board .here')?.scrollIntoView?.({ block: 'nearest', inline: 'center' });
   }
 
-  function onState(v) { last = v; if (dialog.open) render(v); }
+  // とちゅうの スタンプを はじめて とった とき 1 回だけ おしらせ（この 端末に 覚える）。
+  const STAMP_KEY = 'uspeak-rm-stamps-v1';
+  function noteStamps(v) {
+    if (!v?.stage || !v.checkpoints) return;
+    let seen = {};
+    try { seen = JSON.parse(localStorage.getItem(STAMP_KEY) || '{}') || {}; } catch { /* private mode */ }
+    const best = Math.max(0, ...v.checkpoints.filter((c) => c.reached).map((c) => c.p));
+    const before = Number(seen[v.stage.id]) || 0;
+    if (best > before) {
+      seen[v.stage.id] = best;
+      try { localStorage.setItem(STAMP_KEY, JSON.stringify(seen)); } catch { /* private mode */ }
+      // はじめて 見た ときに もう 進んで いた ぶんは だまって 覚える（入った 日に 3 つ 出ない ように）。
+      if (before || Object.keys(seen).length > 1) toast(`🎖 ${v.stage.id} の スタンプ ${best}%！ この ちょうし`);
+    }
+  }
+  function onState(v) { last = v; noteStamps(v); if (dialog.open) render(v); }
 
   // 段階が 上がった：紙ふぶき・⭐が となりへ・コイン。
   function onUp(m) {
@@ -128,6 +149,7 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
     party.innerHTML = `<div class="rm-confetti">${Array.from({ length: 36 }, (_, i) => `<i style="--x:${(i * 37) % 100};--d:${(i % 9) * 0.12}s;--h:${(i * 47) % 360}"></i>`).join('')}</div>
       <div class="rm-up"><span class="rm-up-star">⭐</span>${bi('Stage up!', 'だんかい アップ！', 'rm-up-title')}
       <p class="rm-up-step"><b>${esc(m.from)}</b> → <b>${esc(m.to)}</b></p>${bi(m.stage?.en || '', m.stage?.ja || '')}
+      ${m.stage?.cando?.ja ? `<p class="rm-cando">🎯 ${bi(m.stage.cando.en, `つぎは「${m.stage.cando.ja}」を めざそう`)}</p>` : ''}
       ${m.coins ? `<p class="rm-up-coins">◈ +${m.coins} ${bi('coins', 'コイン')}</p>` : ''}<button type="button" class="rm-up-ok">${bi('Yay!', 'やったね！')}</button></div>`;
     speak(`Stage up! Welcome to stage ${m.to}!`);
     party.querySelector('.rm-up-ok').onclick = () => { party.hidden = true; party.innerHTML = ''; send('rm:get', {}); };
