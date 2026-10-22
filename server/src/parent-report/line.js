@@ -8,7 +8,7 @@
 //  - reply(replyToken, messages)：Webhook への 返事（下の メニュー）。**通数に かぞえられない＝無料**（push は かぞえる）。
 //  - dry-run（LINE_DRY_RUN=1、または トークンが 無い）：送らずに ログだけ。
 // LINE の ユーザー ID・トークンは ログに 出さない（mask）。
-import { parentLines } from '../game/roadmap.js';
+import { parentLines, STAGE_IDS } from '../game/roadmap.js';
 import { createHmac, createHash, timingSafeEqual } from 'node:crypto';
 
 const API = 'https://api.line.me';
@@ -143,6 +143,74 @@ export function roadmapText(v) {
   const L = parentLines(v);
   if (!L) return '';
   return [`🗺 ${L.stageLine}`, ...(L.cando ? [L.cando] : []), L.nextLine, ...L.eiken, ...(L.places.length ? [`おすすめ：${L.places.join('・')}`] : []), `※${L.note}`].join('\n').slice(0, 2000);
+}
+
+// ロードマップの カード（LINE の Flex Message）。文だけの 吹き出しは 長くて 読まれない ので、
+// 「いま どこ」→「次まで あと どれだけ（バー）」→「英検の 見こみ」→「おすすめ」の 順に 1 まいに する。
+const GREEN = '#1B3A2F'; const ORANGE = '#E27A2D'; const MUTED = '#6B7A74'; const TRACK = '#E8EEEA';
+const pct = (a, b) => (b > 0 ? Math.max(0, Math.min(100, Math.round((a / b) * 100))) : 0);
+const tx = (text, o = {}) => ({ type: 'text', text: String(text).slice(0, 300), wrap: true, size: 'sm', color: '#1F2A26', ...o });
+function bar(p, color) {
+  const inner = { type: 'box', layout: 'vertical', contents: [{ type: 'filler' }], width: `${Math.max(p, 2)}%`, height: '8px', backgroundColor: color, cornerRadius: '4px' };
+  return { type: 'box', layout: 'vertical', contents: [inner], height: '8px', backgroundColor: TRACK, cornerRadius: '4px', margin: 'sm' };
+}
+function meter(label, right, p, color = GREEN) {
+  return { type: 'box', layout: 'vertical', margin: 'md', contents: [
+    { type: 'box', layout: 'horizontal', contents: [tx(label, { flex: 3, weight: 'bold' }), tx(right, { flex: 4, align: 'end', color: MUTED, size: 'xs' })] },
+    bar(p, color),
+  ] };
+}
+const section = (title) => tx(title, { size: 'xs', color: MUTED, weight: 'bold', margin: 'xl' });
+
+export function roadmapFlex(nick, v, { page = '', game = '' } = {}) {
+  const L = parentLines(v);
+  if (!L) return null;
+  const s = v.stage;
+  const of = STAGE_IDS.length;
+  const header = { type: 'box', layout: 'vertical', backgroundColor: GREEN, paddingAll: '16px', contents: [
+    tx(`🗺 ${nick}さんの ロードマップ`, { color: '#CFE3D8', size: 'xs' }),
+    { type: 'box', layout: 'baseline', margin: 'sm', contents: [
+      tx(s.id, { size: 'xxl', weight: 'bold', color: '#FFFFFF', flex: 0 }),
+      tx(s.ja, { size: 'lg', weight: 'bold', color: '#FFFFFF', margin: 'md' }),
+    ] },
+    tx(`${s.gradeJa}${s.jr ? ` ${s.jr}` : ''} くらい ・ ${v.index + 1} / ${of} だんかい`, { color: '#CFE3D8', size: 'xs', margin: 'sm' }),
+    { type: 'box', layout: 'horizontal', spacing: 'xs', margin: 'md', contents: STAGE_IDS.map((_, i) => ({ type: 'box', layout: 'vertical', contents: [{ type: 'filler' }], height: '6px', cornerRadius: '3px', backgroundColor: i < v.index ? '#7FC4A0' : i === v.index ? ORANGE : '#3C5A4E' })) },
+  ] };
+  const body = [];
+  if (s.cando?.ja) body.push(section('🎯 この だんかいで めざす こと'), tx(s.cando.ja, { weight: 'bold', margin: 'sm' }));
+  body.push(section(v.last ? '🏁 さいごの だんかい' : '🚩 つぎの だんかいまで'));
+  if (!v.last) {
+    if (v.words.need) body.push(meter('📘 たんご', v.words.left ? `${v.words.known} / ${v.words.need} こ（あと ${v.words.left}）` : '✓ クリア', pct(v.words.known, v.words.need)));
+    if (v.quiz.left) body.push(meter('✏️ クイズ', `${v.quiz.n} / ${v.quiz.min} もん（あと ${v.quiz.left}）`, pct(v.quiz.n, v.quiz.min), ORANGE));
+    else if (v.quiz.acc !== null && v.quiz.acc < v.quiz.rate) body.push(meter('✏️ クイズの せいかい', `${v.quiz.acc}% → ${v.quiz.rate}%`, pct(v.quiz.acc, v.quiz.rate), ORANGE));
+    else body.push(meter('✏️ クイズ', '✓ クリア', 100, ORANGE));
+    if (!v.words.left && !v.quiz.left && !(v.quiz.acc !== null && v.quiz.acc < v.quiz.rate)) body.push(tx('🎉 つぎに ゲームを ひらくと 次の だんかいへ！', { color: ORANGE, weight: 'bold', margin: 'md' }));
+  }
+  if (v.eiken?.length) {
+    body.push(section('📝 英検（一次）の 見こみ'));
+    for (const c of v.eiken.slice(0, 3)) {
+      const right = c.chance === null
+        ? `あと ${c.lacking.reduce((n, l) => n + l.more, 0)} もんで わかる`
+        : `やく ${c.chance}%`;
+      body.push(meter(`英検${c.ja}`, right, c.chance ?? 0, c.chance === null ? '#B9C4BF' : c.chance >= 80 ? '#2E9B63' : c.chance >= 50 ? ORANGE : '#D9534F'));
+    }
+  }
+  const places = (v.places?.list || []).slice(0, 3);
+  if (places.length) {
+    body.push(section('👉 おすすめの れんしゅう'));
+    for (const p of places) body.push({ type: 'box', layout: 'horizontal', margin: 'sm', paddingAll: '8px', backgroundColor: '#F4F7F5', cornerRadius: '8px', contents: [
+      tx(p.emoji || '•', { flex: 0 }), tx(p.ja, { margin: 'md', size: 'sm' }),
+    ] });
+  }
+  body.push(tx('※ 見こみは 島の 練習問題の 正解率から 出した めやすです（作文・面接は ふくまず、合格の 約束では ありません）。', { size: 'xxs', color: MUTED, margin: 'xl' }));
+  const bubble = { type: 'bubble', size: 'mega', header, body: { type: 'box', layout: 'vertical', paddingAll: '16px', contents: body } };
+  // いちばん 下は「つづきを あそぶ」（ゲームへ）。ひらいた その 場で 次の 1 問に つなげる ことが 続けて もらう いちばんの 近道。
+  const buttons = [];
+  if (game) buttons.push({ type: 'button', style: 'primary', color: ORANGE, height: 'sm', action: { type: 'uri', label: '🎮 つづきを あそぶ', uri: game } });
+  if (page) buttons.push({ type: 'button', style: 'link', color: GREEN, height: 'sm', action: { type: 'uri', label: 'くわしい レポートを 見る', uri: page } });
+  if (buttons.length) bubble.footer = { type: 'box', layout: 'vertical', spacing: 'sm', paddingAll: '12px', contents: buttons };
+  const alt = `🗺 ${nick}さん：${s.id}「${s.ja}」${v.index + 1}/${of}。${L.nextLine}`;
+  return { type: 'flex', altText: alt.slice(0, 400), contents: bubble };
 }
 
 // おうちで できる こと 1 つ（週の レポート）。研究では「のばせる ところ」を 具体的に 1 つ つたえる 文が いちばん 効いた

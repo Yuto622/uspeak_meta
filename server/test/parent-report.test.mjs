@@ -356,8 +356,21 @@ test('menu: ボタンと 同じ ことばの メッセージだけに こたえ�
   assert.deepEqual(menuAction({ type: 'postback', postback: { data: 'menu=pref&set=daily' } }), { kind: 'ask-pref' }, 'ふやす えらびは ない（えらびなおしの 画面に もどる）');
   assert.deepEqual(menuAction({ type: 'message', message: { type: 'text', text: '宿題' } }), { kind: 'homework' });
   assert.equal(menuAction({ type: 'message', message: { type: 'text', text: '来週の 授業を おやすみ したいのですが、宿題は どうなりますか' } }), null);
-  assert.equal(RICH_MENU.areas.length, 4);
-  assert.equal(RICH_MENU.areas.reduce((n, a) => n + a.bounds.width, 0), RICH_MENU.size.width);
+  assert.equal(RICH_MENU.areas.length, 6);
+  // ぜんぶの ボタンが 画像の 中に おさまり、すきまも かさなりも ない（面積の 合計 ＝ 画像）。
+  assert.ok(RICH_MENU.areas.every(({ bounds: b }) => b.x >= 0 && b.y >= 0 && b.x + b.width <= RICH_MENU.size.width && b.y + b.height <= RICH_MENU.size.height));
+  assert.equal(RICH_MENU.areas.reduce((n, a) => n + a.bounds.width * a.bounds.height, 0), RICH_MENU.size.width * RICH_MENU.size.height);
+  assert.ok(RICH_MENU.areas.some((a) => a.action.type === 'uri' && /^https:\/\//.test(a.action.uri)), 'ゲームを ひらく 入口');
+  assert.ok(RICH_MENU.areas.some((a) => a.action.data === 'menu=pref'), '回数を かえる ボタンは かならず ある');
+  assert.deepEqual(menuAction({ type: 'postback', postback: { data: 'menu=home' } }), { kind: 'home' });
+  const home = menuReply({ kind: 'home' }, { registered: true, kids: [{ nick: 'かい', roadmap: { words: { next: ['apple', 'dog', '<b>'] } } }] })[0].text;
+  assert.match(home, /「apple」「dog」/); assert.doesNotMatch(home, /<b>/);
+  const { roadmapOf } = await import('../src/game/roadmap.js');
+  const card = menuReply({ kind: 'roadmap' }, { registered: true, kids: [{ nick: 'かい', roadmap: roadmapOf([], { now: Date.now() }), page: 'https://example.com/r' }] })[0];
+  assert.equal(card.type, 'flex'); assert.ok(card.altText.length <= 400 && card.altText.includes('かいさん'));
+  const json = JSON.stringify(card.contents);
+  assert.ok(json.includes('はじめの ことば') && json.includes('たんご') && json.includes('英検5級') && json.includes('https://example.com/r'));
+  assert.ok(json.length < 30000, 'Flex は 30KB まで');
   assert.match(menuReply({ kind: 'report' }, { registered: false })[0].text, /QR/);
 });
 
@@ -403,11 +416,12 @@ test('おうちで できる こと：復習の 時期の ことば・宿題で 
 
 test('LINE の 下の メニュー：起動で まだ ない ときだけ 作って 全員の 既定に、2 回目は 何も しない', async () => {
   const { ensureRichMenu } = await import('../src/parent-report/richmenu-setup.js');
+  const { RICH_MENU } = await import('../src/parent-report/menu.js');
   let def = ''; const calls = [];
   const res = (status, body) => ({ ok: status < 300, status, text: async () => (body ? JSON.stringify(body) : '') });
   const fetchImpl = async (url, o) => {
     calls.push(`${o.method} ${url.replace(/^https:\/\/[^/]+/, '')}`);
-    if (url.endsWith('/richmenu/list')) return res(200, { richmenus: def ? [{ richMenuId: def, name: 'uspeak-parent-v1' }] : [{ richMenuId: 'old', name: 'uspeak-parent-v0' }, { richMenuId: 'keep', name: 'other' }] });
+    if (url.endsWith('/richmenu/list')) return res(200, { richmenus: def ? [{ richMenuId: def, name: RICH_MENU.name }] : [{ richMenuId: 'old', name: 'uspeak-parent-v0' }, { richMenuId: 'keep', name: 'other' }] });
     if (url.endsWith('/user/all/richmenu') && o.method === 'GET') return def ? res(200, { richMenuId: def }) : res(404, { message: 'no default' });
     if (o.method === 'POST' && url.endsWith('/v2/bot/richmenu')) return res(200, { richMenuId: 'new1' });
     if (o.method === 'POST' && url.includes('/user/all/richmenu/')) { def = 'new1'; return res(200); }

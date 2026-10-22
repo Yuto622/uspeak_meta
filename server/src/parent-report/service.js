@@ -562,8 +562,9 @@ export function createParentReports({
           kid.report = latest ? { png: latest.png_url, thumb: latest.thumb_url, pdf: latest.pdf_url, range } : null;
           try { kid.page = base ? pageUrl(l.classroom_id, st) : ''; } catch { kid.page = ''; }
         }
-        if (action.kind === 'homework') { try { kid.homework = homework?.listFor?.(l.classroom_id, webName) || []; } catch { kid.homework = []; } }
-        if (action.kind === 'roadmap') {
+        if (action.kind === 'homework' || action.kind === 'home') { try { kid.homework = homework?.listFor?.(l.classroom_id, webName) || []; } catch { kid.homework = []; } }
+        if (action.kind === 'roadmap') { try { kid.page = base ? pageUrl(l.classroom_id, st) : ''; } catch { kid.page = ''; } }
+        if (action.kind === 'roadmap' || action.kind === 'home') {
           try { kid.roadmap = roadmap ? await roadmap.view(l.classroom_id, webName, { username: st.username, rows: await eventsFor(st.username), advance: false }) : null; } catch { kid.roadmap = null; }
         }
       }

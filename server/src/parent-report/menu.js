@@ -1,10 +1,10 @@
 // LINE の 下の メニュー（リッチメニュー）と、その 返事。
 //
 // 保護者が 自分で 見に くる 機能だけ（こちらから 送る 回数は ふやさない）。返事は Reply API なので **通数に かぞえられない＝無料**。
-// ボタンは 4 つ：📊 さいしんの レポート・📚 いまの 宿題・🗺 ロードマップ・⚙ とどく 回数。
+// ボタンは 6 つ（v2）：📊 今週の がんばり・🗺 ロードマップ・📚 いまの 宿題・🏠 おうちで 1 分・🎮 ゲーム（URL）・⚙ とどく 回数。
 // とどく 回数は「教室の 設定どおり／月に 1 回だけ／とめる」の 3 つ（ふやすは なし）。service.js の wantsNow() が 配信で まもる。
 // 中身（だれの 子か・宿題・段階）は service.js が あつめて わたす。ここは 文を 作るだけ（テストしやすい ように）。
-import { roadmapText } from './line.js';
+import { roadmapFlex } from './line.js';
 
 export const PREFS = {
   class: '教室の 設定どおり',
@@ -13,20 +13,31 @@ export const PREFS = {
 };
 const FREQ_JA = { weekly: '毎週', biweekly: '2 週に 1 回', monthly: '毎月' };
 
-// リッチメニューの 形（scripts/line-richmenu.mjs が LINE に 登録する）。画像は 2500×843 を 4 つに わける。
+// リッチメニューの 形（richmenu-setup.js が 起動で LINE に 登録する）。画像は 2500×1686（大）。2026-10 v2：
+//   上：📊 今週の がんばり（大）｜🗺 ロードマップ
+//   下：📚 宿題｜🏠 おうちで 1 分｜🎮 ゲームを ひらく（URL）｜⚙ とどく 回数
+// 続けて もらう（LTV）ための 形：毎週 ひらく 理由（がんばり）と、おうちで 声を かける きっかけ（1 分）と、そのまま 遊べる 入口を 大きく。
+// 「回数」は 目立たせない（止める 人を ふやさない）が、かならず 置く（止められない メニューは 信用を なくす）。
+export const GAME_URL = process.env.REPORT_BASE_URL || 'https://uspeak-multiplayer.fly.dev';
+const W = 2500; const H = 1686; const TOP = 900;
+export const MENU_TILES = [
+  { kind: 'report', label: '📊 今週の がんばり', bounds: { x: 0, y: 0, width: 1666, height: TOP } },
+  { kind: 'roadmap', label: '🗺 ロードマップ', bounds: { x: 1666, y: 0, width: W - 1666, height: TOP } },
+  { kind: 'homework', label: '📚 いまの 宿題', bounds: { x: 0, y: TOP, width: 625, height: H - TOP } },
+  { kind: 'home', label: '🏠 おうちで 1 分', bounds: { x: 625, y: TOP, width: 625, height: H - TOP } },
+  { kind: 'game', label: '🎮 ゲームを ひらく', bounds: { x: 1250, y: TOP, width: 625, height: H - TOP } },
+  { kind: 'pref', label: '⚙ とどく 回数', bounds: { x: 1875, y: TOP, width: 625, height: H - TOP } },
+];
 export const RICH_MENU = {
-  size: { width: 2500, height: 843 },
+  size: { width: W, height: H },
   selected: true,
-  name: 'uspeak-parent-v1',
-  chatBarText: 'メニュー',
-  areas: [
-    ['report', '📊 さいしんの レポート'],
-    ['homework', '📚 いまの 宿題'],
-    ['roadmap', '🗺 ロードマップ'],
-    ['pref', '⚙ とどく 回数'],
-  ].map(([kind, label], i) => ({
-    bounds: { x: i * 625, y: 0, width: 625, height: 843 },
-    action: { type: 'postback', data: `menu=${kind}`, displayText: label.replace(/^\S+\s/, '') },
+  name: 'uspeak-parent-v2',
+  chatBarText: 'U-Speak メニュー',
+  areas: MENU_TILES.map(({ kind, label, bounds }) => ({
+    bounds,
+    action: kind === 'game'
+      ? { type: 'uri', label: 'ゲームを ひらく', uri: GAME_URL }
+      : { type: 'postback', data: `menu=${kind}`, displayText: label.replace(/^\S+\s/, '') },
   })),
 };
 
@@ -36,7 +47,7 @@ export function menuAction(e) {
     const q = new URLSearchParams(String(e.postback?.data || ''));
     const kind = q.get('menu');
     if (kind === 'pref' && q.get('set') && PREFS[q.get('set')]) return { kind: 'pref', pref: q.get('set') };
-    if (['report', 'homework', 'roadmap', 'pref'].includes(kind)) return { kind: kind === 'pref' ? 'ask-pref' : kind };
+    if (['report', 'homework', 'roadmap', 'home', 'pref'].includes(kind)) return { kind: kind === 'pref' ? 'ask-pref' : kind };
     return null;
   }
   if (e?.type === 'message' && e.message?.type === 'text') {
@@ -45,6 +56,7 @@ export function menuAction(e) {
     if (/レポート|れぽーと/.test(t)) return { kind: 'report' };
     if (/宿題|しゅくだい/.test(t)) return { kind: 'homework' };
     if (/ロードマップ|段階/.test(t)) return { kind: 'roadmap' };
+    if (/おうち|1分|１分/.test(t)) return { kind: 'home' };
     if (/回数|頻度|とどく|届く|停止|とめ|止め/.test(t)) return { kind: 'ask-pref' };
   }
   return null;
@@ -82,9 +94,20 @@ export function menuReply(action, { kids = [], pref = 'class', registered = fals
     return [text([...blocks, pausedLine].filter(Boolean).join('\n\n') || '宿題は ありません。')];
   }
   if (action.kind === 'roadmap') {
-    const out = active.map((k) => text(roadmapText(k.roadmap) ? `${k.nick}さん\n${roadmapText(k.roadmap)}` : `🗺 ${k.nick}さんの ロードマップは まだ ありません（ゲームで 問題に こたえると はじまります）。`));
+    const out = active.map((k) => roadmapFlex(k.nick, k.roadmap, { page: k.page, game: GAME_URL }) || text(`🗺 ${k.nick}さんの ロードマップは まだ ありません（ゲームで 問題に こたえると はじまります）。`));
     if (pausedLine) out.push(text(pausedLine));
     return out.slice(0, 5);
+  }
+  if (action.kind === 'home') {
+    // おうちで 1 分：お子さんが 英語で 言い、おうちの方が いみを 当てる（日本語の 訳が なくても できる 形）。
+    // ことばは ロードマップの「次に おぼえる」と 宿題で まちがえた もの。声かけが 続けて もらう いちばんの 理由（Kraft & Rogers 2015）。
+    const blocks = active.map((k) => {
+      const missed = (k.homework || []).flatMap((h) => h.missed || []);
+      const words = [...new Set([...(k.roadmap?.words?.next || []), ...missed].filter((w) => typeof w === 'string' && /^[A-Za-z][A-Za-z' -]{0,30}$/.test(w)))].slice(0, 3);
+      if (!words.length) return `🏠 ${k.nick}さんと 1 分：「きょう U-Speak で どんな 英語を おぼえた？」と きいて、1 つ 英語で 言って もらって ください。`;
+      return [`🏠 ${k.nick}さんと 1 分クイズ`, `① ${k.nick}さんに 英語で 言って もらう：${words.map((w) => `「${w}」`).join('')}`, '② おうちの方が いみを 当てる（わからなければ おしえて もらう）', '③ 言えたら「すごい！」と ひとこと 🎉'].join('\n');
+    });
+    return [text([...blocks, pausedLine].filter(Boolean).join('\n\n') || NOT_YET)];
   }
   const freq = [...new Set(kids.map((k) => FREQ_JA[k.frequency] || '毎週'))].join('・');
   const items = Object.entries(PREFS).map(([key, label]) => ({ type: 'action', action: { type: 'postback', label: (key === pref ? `✓ ${label}` : label).slice(0, 20), data: `menu=pref&set=${key}`, displayText: label } }));
