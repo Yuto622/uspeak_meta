@@ -9,7 +9,7 @@ import { isJa, onLangChange, t as tr } from './i18n.js';
 const FOLD_KEY = 'uspeak-tasks-fold-v1';
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export function createTaskCard({ send = () => {}, isOnline = () => false, guide = null } = {}) {
+export function createTaskCard({ send = () => {}, isOnline = () => false, guide = null, openHomework = null } = {}) {
   const panel = document.querySelector('.quest-panel');
   const card = document.createElement('section');
   card.id = 'task-card';
@@ -28,19 +28,30 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
 
   const text = (task) => (isJa() ? task.ja : (task.en || task.ja));
 
+  // 先生が くばった 宿題（部屋が いちばん いそぐ 1 つを 送る。のこって いない 日は なし）。
+  const dueText = (hw) => {
+    if (hw.daysLeft === null || hw.daysLeft === undefined) return '';
+    if (hw.overdue) return tr('しめきり すぎ');
+    if (hw.daysLeft === 0) return tr('きょう まで');
+    if (hw.daysLeft === 1) return tr('あした まで');
+    return tr('あと {0}にち', [hw.daysLeft]);
+  };
+
   function render() {
-    const on = !!data && isOnline() && !data.all;
-    guide?.set(on ? data : null);
+    const hw = data?.homework || null;
+    const on = !!data && isOnline() && (!data.all || !!hw);
+    // 光の 道は 宿題が あれば しゅくだいの いえへ（1 わくめ と 同じ）。
+    guide?.set(on ? (hw ? { ...data, tasks: [{ id: `hw:${hw.id}`, have: hw.answered, go: hw.go }, ...(data.tasks || [])] } : data) : null);
     card.hidden = !on;
     panel?.classList.toggle('has-tasks', on);
     if (!on) return;
-    const ch = data.chapter;
-    const pct = Math.round((ch.done / Math.max(1, ch.size)) * 100);
-    const left = ch.size - ch.done;
-    const count = data.framing === 'left'
-      ? tr('あと {0}こ', [left])
+    const ch = data.chapter || null;
+    const pct = hw ? Math.round((hw.answered / Math.max(1, hw.total)) * 100) : Math.round((ch.done / Math.max(1, ch.size)) * 100);
+    const count = !ch ? '' : data.framing === 'left'
+      ? tr('あと {0}こ', [ch.size - ch.done])
       : tr('{0}こ できた', [ch.done]);
-    const [first, ...rest] = data.tasks;
+    // 宿題が ある ときは 宿題が「いまの 1 つ」、アクティビティは 下の 小さい 一覧に。
+    const [first, ...rest] = hw ? [null, ...data.tasks] : data.tasks;
     const meter = (task) => (task.need > 1
       ? `<span class="task-meter"><i style="width:${Math.round((task.have / task.need) * 100)}%"></i></span><b class="task-count">${task.have} / ${task.need}</b>`
       : '');
@@ -50,11 +61,21 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
     card.innerHTML = `
       <button type="button" class="task-head" aria-expanded="${!folded}">
         <span class="task-eyebrow">${tr('つぎに やること')}</span>
-        <span class="task-chapter">${esc(isJa() && ch.name ? ch.name : tr('しょう {0}', [ch.n]))} · ${count}</span>
+        <span class="task-chapter">${hw
+          ? `📝 ${tr('しゅくだい')} ${hw.answered} / ${hw.total}${dueText(hw) ? ` · ${esc(dueText(hw))}` : ''}`
+          : `${esc(isJa() && ch.name ? ch.name : tr('しょう {0}', [ch.n]))} · ${count}`}</span>
         <span class="task-fold" aria-hidden="true">${folded ? '▾' : '▴'}</span>
       </button>
       <div class="task-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
       ${cheer ? `<div class="task-cheer">✓ ${esc(cheer)}</div>` : ''}
+      ${hw ? `<div class="task-now task-hw${hw.overdue ? ' late' : ''}">
+        <span class="task-hw-tag">📝 ${tr('しゅくだい')}${dueText(hw) ? ` · ${esc(dueText(hw))}` : ''}</span>
+        <strong translate="no">${esc(hw.title)}</strong>
+        <div class="task-row"><span class="task-meter"><i style="width:${pct}%"></i></span><b class="task-count">${hw.answered} / ${hw.total}</b></div>
+        ${openHomework ? `<button type="button" class="task-hw-go">▶ ${tr('しゅくだいを する')}</button>` : ''}
+        ${hw.more > 0 ? `<small>${tr('ほかに {0}こ', [hw.more])}</small>` : ''}
+        ${guide?.available ? `<button type="button" class="task-guide-btn" aria-pressed="${guide.shown}">🧭 ${guide.shown ? tr('みちを けす') : tr('みちを 出す')}</button>` : ''}
+      </div>` : ''}
       ${first ? `<div class="task-now">
         <strong>${esc(text(first))}</strong>
         ${first.where && isJa() ? `<small>📍 ${esc(first.where)}</small>` : ''}
@@ -62,11 +83,12 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
         ${guide?.available ? `<button type="button" class="task-guide-btn" aria-pressed="${guide.shown}">🧭 ${guide.shown ? tr('みちを けす') : tr('みちを 出す')}</button>` : ''}
       </div>` : ''}
       ${rest.length ? `<ol class="task-next">${rest.map((task) => `<li><span>${esc(text(task))}</span>${task.need > 1 ? `<b>${task.have}/${task.need}</b>` : ''}</li>`).join('')}</ol>` : ''}
-      ${ch.reward > 0 ? `<p class="task-goal">${tr('この しょうを おえると 🪙 {0}', [ch.reward])}</p>` : ''}`;
+      ${ch && ch.reward > 0 ? `<p class="task-goal">${tr('この しょうを おえると 🪙 {0}', [ch.reward])}</p>` : ''}`;
   }
 
   card.addEventListener('click', (e) => {
     if (e.target.closest('.task-guide-btn')) { guide?.toggle(); render(); return; }
+    if (e.target.closest('.task-hw-go')) { openHomework?.(); return; }
     if (!e.target.closest('.task-head')) return;
     folded = !folded;
     if (!phone()) { try { localStorage.setItem(FOLD_KEY, folded ? '1' : '0'); } catch { /* private mode */ } }

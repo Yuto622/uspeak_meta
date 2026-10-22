@@ -25,6 +25,12 @@
 #task-card .task-next li::before { content: '○'; color: #f0d79a99; font-size: 11px; }
 #task-card .task-next li span { flex: 1; }
 #task-card .task-next li b { font-weight: 600; color: #f0d79a; font-size: 11px; }
+/* 先生の 宿題（1 わくめ）。しめきりを すぎても 赤で せめない（やさしい オレンジ）。 */
+#task-card .task-hw { border-left: 5px solid #e27a2d; }
+#task-card .task-hw-tag { display: inline-block; margin-bottom: 4px; padding: 2px 8px; border-radius: 999px; background: #fde3cf; color: #8a3f08; font-size: 11px; font-weight: 800; }
+#task-card .task-hw.late .task-hw-tag { background: #e27a2d; color: #fff; }
+#task-card .task-hw-go { margin-top: 8px; width: 100%; min-height: 40px; border: 0; border-radius: 10px; background: #e27a2d; color: #fff; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 3px 0 #b85f1d; }
+#task-card .task-hw-go:active { transform: translateY(2px); box-shadow: 0 1px 0 #b85f1d; }
 #task-card .task-guide-btn { margin-top: 8px; width: 100%; min-height: 34px; border-radius: 10px; border: 1px solid #2f8f6f55; background: #e8f4ec; color: #1d4d44; font-size: 12px; font-weight: 700; cursor: pointer; }
 #task-card .task-guide-btn[aria-pressed="true"] { background: #fff3c4; border-color: #e0b84a88; color: #6a4a00; }
 /* 行き先が ほかの 島：しまの ちずの ボタンを 光らせる */

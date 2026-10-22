@@ -7,7 +7,7 @@ import { config } from '../config.js';
 import { judge, JudgeError } from '../game/judge.js';
 import { ZONES as FISH_ZONES, GRADES as FISH_GRADES, chooseFish } from '../../../client/dist/fishing-data.js';
 import { applyOp as applyOpRaw, sanitizeWallet, EconomyError } from '../game/economy.js';
-import { blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, goOf, UI_EVENTS } from '../tasks/engine.js';
+import { blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, goOf, homeworkPin, UI_EVENTS } from '../tasks/engine.js';
 import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
 import { cleanSay, scrubContact, MAX_CHARS } from '../game/say.js';
@@ -520,7 +520,8 @@ export class ClassRoom extends Room {
   async recheckRoles() {
     if (this.rolesChecking) return;
     this.rolesChecking = true;
-    try { for (const id of [...this.state.players.keys()]) await this.recheckRole(id); }
+    // 先生が 宿題を くばった・しめきりが かわった ときも 1 分 いないに 左の カードに とどく（同じ 中身なら おくらない）。
+    try { for (const id of [...this.state.players.keys()]) { await this.recheckRole(id); this.taskSend(id); } }
     catch (err) { log.warn(`[room ${this.roomId}] role recheck failed:`, err?.message || err); }
     finally { this.rolesChecking = false; this.rolesCheckedAt = Date.now(); }
   }
@@ -1342,8 +1343,9 @@ export class ClassRoom extends Room {
     const player = this.state.players.get(id);
     // 先生にも 出す（子どもと 同じ 道を じぶんで ためせる）。
     if (!priv || !player || this.taskBusy) return;
-    const { rules, plan } = this.taskPlan();
+    const { plan } = this.taskPlan();
     if (!plan.list.length) return;
+    const rules = this.taskRules(id);
     this.taskBusy = true;
     let paid = 0; let finished = []; let chapters = [];
     try {
@@ -1382,13 +1384,29 @@ export class ClassRoom extends Room {
     this.taskSend(id);
   }
 
+  // 左の カードの 1 わくめに 出す 宿題（のこって いなければ null）。先生には 出さない。
+  taskHomework(id) {
+    const priv = this.priv.get(id);
+    const player = this.state.players.get(id);
+    if (!this.homework || !priv || !player || player.role === 'teacher') return null;
+    try { return homeworkPin(this.homework.listFor(this.classCode, priv.name), jstDay(Date.now())); } catch { return null; }
+  }
+
+  // 宿題が ある ときは アクティビティを 1 つ へらす（ならぶ 数は いつも 同じ。見えない タスクが かってに すまない ように settle も 同じ 数）。
+  taskRules(id, hw = this.taskHomework(id)) {
+    const { rules } = this.taskPlan();
+    return hw ? { ...rules, visible: Math.max(1, rules.visible - 1) } : rules;
+  }
+
   taskPayload(id) {
     const priv = this.priv.get(id);
     const player = this.state.players.get(id);
-    if (!this.tasks || !priv || !player) return null;
-    const { rules, plan } = this.taskPlan();
-    if (!plan.list.length) return null;
-    return taskView(priv.tasks, plan, rules, this.taskStats(id), this.taskSkip(id));
+    if (!priv || !player) return null;
+    const homework = this.taskHomework(id);
+    const plan = this.tasks ? this.taskPlan().plan : null;
+    if (!plan?.list.length) return homework ? { all: true, total: 0, done: 0, tasks: [], homework } : null;
+    const view = taskView(priv.tasks, plan, this.taskRules(id, homework), this.taskStats(id), this.taskSkip(id));
+    return homework ? { ...view, homework } : view;
   }
 
   // おなじ 中身は 2 回 おくらない（位置や 答えの たびに 呼ばれる）。
@@ -3330,12 +3348,14 @@ export class ClassRoom extends Room {
     if (!item) {
       priv.hw = null;
       client.send('hw:done', { ...this.homework.summaryOf(a, p), coins: run.coins || 0 });
+      this.taskSend(client.sessionId);
       return;
     }
     const fmt = buildHwItem(item, a.items);
     run.q = { id: `hq${Date.now().toString(36)}${(run.n += 1).toString(36)}`, item: item.id, kind: fmt.kind, fmt, attempt: 1, askedAt: Date.now() };
     const done = a.items.filter((it) => p?.answers?.[it.id]).length;
     client.send('hw:ask', { aid: a.id, title: a.title, qid: run.q.id, index: done + 1, total: a.items.length, format: hwPublic(fmt, { attempt: 1 }) });
+    this.taskSend(client.sessionId); // 左の カードの「3 / 10」
   }
 
   // 宿題を ぜんぶ おえた ごほうび（1 つの 宿題に 1 回・HW_DONE_COINS）。**その日の 上限で 0 の ときは「はらった」に しない**

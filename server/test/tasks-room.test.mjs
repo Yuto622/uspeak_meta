@@ -8,7 +8,7 @@ process.env.ANSWER_MIN_INTERVAL_MS = '0';
 process.env.LOG_LEVEL = 'error';
 process.env.TASKS = 'on';
 
-const { parseCheck, blankTasks, readRules, plan, settle, view, onOp, onSpace, onAnswer, MAIN_SPOTS, goOf } = await import('../src/tasks/engine.js');
+const { parseCheck, blankTasks, readRules, plan, settle, view, onOp, onSpace, onAnswer, MAIN_SPOTS, goOf, homeworkPin } = await import('../src/tasks/engine.js');
 const { loadSeed } = await import('../src/tasks/store.js');
 const { startServer } = await import('../src/index.js');
 const { Client } = await import('colyseus.js');
@@ -127,4 +127,34 @@ test('部屋: 先生にも 同じ タスクが 出る（じぶんで ためせ�
   const welcome = await nextMessage(room, 'welcome');
   assert.equal(welcome.tasks.tasks[0].id, 'S001');
   await room.leave();
+});
+
+test('宿題の ピン：のこって いる 宿題の うち しめきりが いちばん ちかい 1 つ（すぎた ものが 先・しめきり なしは あと）', () => {
+  const h = (id, due, extra = {}) => ({ id, title: id, due, total: 5, answered: 0, done: false, ...extra });
+  assert.equal(homeworkPin([], '2026-10-22'), null);
+  assert.equal(homeworkPin([h('a', '', { done: true })], '2026-10-22'), null, 'おわった 宿題は 出さない');
+  const pin = homeworkPin([h('none', ''), h('late', '2026-10-21'), h('soon', '2026-10-24')], '2026-10-22');
+  assert.equal(pin.id, 'late'); assert.equal(pin.overdue, true); assert.equal(pin.daysLeft, -1); assert.equal(pin.more, 2);
+  assert.deepEqual(pin.go, { island: 'main', spot: 'homework_house' }, '光の 道は しゅくだいの いえへ');
+  const p2 = homeworkPin([h('none', ''), h('soon', '2026-10-24', { answered: 2 })], '2026-10-22');
+  assert.equal(p2.id, 'soon'); assert.equal(p2.daysLeft, 2); assert.equal(p2.answered, 2);
+  assert.equal(homeworkPin([h('none', '')], '2026-10-22').daysLeft, null);
+});
+
+test('部屋: 宿題が ある 子は 1 わくめが 宿題・アクティビティは 2 つ。先生には 出さない', async () => {
+  const made = await server.homework.create({ title: 'Colors', classes: 'tasks3', due: '2099-01-01', items: [{ en: 'red', ja: 'あか' }, { en: 'blue', ja: 'あお' }, { en: 'green', ja: 'みどり' }] });
+  assert.equal(made.ok, true, JSON.stringify(made));
+  await server.homework.publish(made.assignment.id, true);
+  const room = await new Client(url).joinOrCreate('class', { classCode: 'tasks3', name: 'Mio' });
+  room.onMessage('*', () => {});
+  const welcome = await nextMessage(room, 'welcome');
+  assert.equal(welcome.tasks.homework.title, 'Colors');
+  assert.equal(welcome.tasks.homework.total, 3);
+  assert.deepEqual(welcome.tasks.tasks.map((t) => t.id), ['S001', 'S002'], 'ならぶ 数は 3 の まま');
+  await room.leave();
+  const t = await new Client(url).joinOrCreate('class', { classCode: 'tasks3', name: 'Sensei', teacherKey: 'testkey12345' });
+  const tw = await nextMessage(t, 'welcome');
+  assert.equal(tw.tasks.homework, undefined);
+  assert.equal(tw.tasks.tasks.length, 3);
+  await t.leave();
 });

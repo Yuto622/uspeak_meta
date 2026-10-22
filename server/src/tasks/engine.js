@@ -264,3 +264,23 @@ export function view(prog, plan, rules, stats, skip = null) {
     })),
   };
 }
+
+// ---- 宿題の ピン（左の カードの いちばん 上）--------------------------------------------------
+// 先生が くばった 宿題が のこって いる ときだけ、1 わくめを 宿題に する（のこりの わくは いままでの アクティビティ）。
+// 学校の 学習アプリと 同じ：Khan Academy は 先生の 課題を しめきり順で いちばん 上に、Prodigy は 先生の 課題を ゲームの 中に 出す。
+// 宿題が ない 日は なにも 出さない（あそびの タスクだけ。やらされ感を ふやさない）。
+// list は HomeworkStore.listFor() の 形。today は JST の 'YYYY-MM-DD'。
+const dayMs = (d) => Date.parse(`${d}T00:00:00Z`);
+export function homeworkPin(list, today) {
+  const open = (list || []).filter((h) => h && !h.done && h.total > 0);
+  if (!open.length) return null;
+  // しめきりを すぎた もの → しめきりが ちかい もの → しめきり なし（くばった 順）。
+  const rank = (h) => (h.due ? dayMs(h.due) : Infinity);
+  const h = [...open].sort((a, b) => rank(a) - rank(b))[0];
+  const daysLeft = h.due ? Math.round((dayMs(h.due) - dayMs(today)) / 86400e3) : null;
+  return {
+    id: h.id, title: h.title, answered: h.answered, total: h.total, due: h.due || '',
+    daysLeft, overdue: daysLeft !== null && daysLeft < 0, more: open.length - 1,
+    go: MAIN.spots.has('homework_house') ? { island: MAIN.id, spot: 'homework_house' } : { island: 'homework' },
+  };
+}

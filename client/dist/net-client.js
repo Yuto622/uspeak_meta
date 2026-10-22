@@ -322,7 +322,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   createPremiumPromo({ offline: () => state.mode !== 'online' && state.mode !== 'reconnecting' });
   // 宿題（しゅくだい島の いえ）。問題・判定・ごほうびは 部屋（hw:*）。
   const homework = createHomework({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
-  const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online', guide: taskGuide });
+  const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online', guide: taskGuide, openHomework: () => homework.open() });
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
   const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh(), onGoFood: () => main?.goHome() });
