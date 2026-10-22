@@ -71,9 +71,11 @@ try {
     await page.textContent('#net-lobby-title'));
   check('…入力らんの みほんも英語', (await page.getAttribute('#net-class', 'placeholder')) === 'The code your teacher gave you',
     await page.getAttribute('#net-class', 'placeholder'));
-  await page.click('#net-offline');
+  // ひとりで あそぶ（オフライン）は もう ない。クラスに 入ってから 見る。
+  await page.fill('#net-name', 'Lang'); await page.fill('#net-class', 'e2e-lang'); await page.click('#net-join');
+  await page.waitForFunction(() => uspeak.net?.main?.homed, null, { timeout: 60000 }).catch(() => {});
   await sleep(1500);
-  // オフラインも メインの島から はじまる。この 検査は U-Speak島の 上で 見る。
+  // はじまりは メインの島。この 検査は U-Speak島の 上で 見る。
   await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); uspeak.net.main.skipHome?.(); });
 
   // 見えている文字だけを読む。`.en` と `.ja` は両方 DOM にいるので、

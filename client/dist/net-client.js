@@ -7,7 +7,6 @@ import { createRemotePlayers } from './remote-players.js';
 import { createChat } from './chat.js';
 import { createTeacherPanel } from './teacher.js';
 import { createLobby } from './lobby.js';
-import { daysLeft, startOffline, noteRoster, OFFLINE_DAYS } from './offline-pass.js';
 // 画面の言語。**`t` という名前は このファイルでは使えない**（`const t = state.pendingTeleport`
 // と `update(t, dt, …)` がある）ので `tr` として import する。
 import { t as tr, onLangChange } from './i18n.js';
@@ -424,7 +423,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     isOnline: () => state.mode === 'online',
     serverNow: () => Date.now() + state.skew,
   });
-  const lobby = createLobby({ onJoin: (opts) => connect(opts), onOffline: () => goOffline(true), defaultClass: defaultClassCode(), prefs, offlineDays: () => daysLeft() });
+  const lobby = createLobby({ onJoin: (opts) => connect(opts), defaultClass: defaultClassCode(), prefs });
   // Collect the controls into one dock so the layout is decided by flexbox, not by
   // four separately maintained offsets.
   const dock = document.createElement('div');
@@ -506,7 +505,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   async function connect({ name, classCode, teacherKey, pin }, { silent = false } = {}) {
     homeNow();
     if (!Colyseus) { lobby.error(tr('つうしんの ぶひんが よみこめませんでした。')); return; }
-    state.name = name; state.classCode = classCode || 'default'; state.teacherKey = teacherKey || ''; state.pin = pin || '';
+    state.name = name; state.classCode = classCode || ''; state.teacherKey = teacherKey || ''; state.pin = pin || '';
     state.intentionalLeave = false;
     state.attempts = 0;
     lobby.busy(true);
@@ -528,6 +527,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     const text = String(err?.message || err || '');
     if (code === 4001 || /name in use/.test(text)) return tr('その名前は もう つかわれています。べつの 名前に してね。');
     if (code === 4000 || /name required/.test(text)) return tr('なまえを いれてね。');
+    if (code === 4007 || /class required/.test(text)) return tr('クラスの あいことばを いれてね。先生に きいてね。');
     if (code === 4002 || /class is full/.test(text)) return tr('この クラスは いっぱいです。先生に つたえてね。');
     // 入場ゲート: the class register did not have this name. Say what to check, not what
     // went wrong - a child cannot fix a register.
@@ -547,7 +547,6 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('premium', (m) => { if (m.islands) state.premiumIslands = m.islands; rpg.setPremiumLock?.(m.locked || [], m.islands || []); if (m.premium) toast(tr('⭐ プレミアムの しまに 行けるように なったよ！')); });
     r.onMessage('tasks:done', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); taskCard.done(m); });
     r.onMessage('welcome', (m) => {
-      noteRoster({ onRoster: !!m.onRoster, name: state.name, classCode: state.classCode });
       if (m.world) { state.skew = m.world.now - Date.now(); night.setPhase(m.world); }
       // The block list is also the palette's colours, so it is worth the one message.
       town.prime();
@@ -798,7 +797,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       clearTimeout(probeTimer); probeTimer = null;
       if (room !== r) return;
       room = null;
-      if (state.intentionalLeave) { setMode('offline'); return; }
+      if (state.intentionalLeave) { setMode('offline'); return; } // ログアウト（ロビーは logout が ひらく）
       console.info('[net] connection lost', code);
       setMode('reconnecting');
       scheduleReconnect(0);
@@ -857,7 +856,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // ログアウト：クラスから でて、この ブラウザが おぼえている なまえ・クラスも わすれる（つぎの 人が つかえる）。
   function logout() {
     if (!confirm(tr('ログアウトしますか？ なまえと クラスを わすれます。'))) return;
-    goOffline(false);
+    leaveClass();
     storage.remove(localStorage, STORAGE_KEYS.prefs);
     state.name = ''; state.classCode = ''; state.teacherKey = ''; state.pin = ''; state.role = 'student';
     classMode.setRole('student');
@@ -878,26 +877,15 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     document.querySelector('#lang-toggle')?.after(b);
   }
 
-  function goOffline(fromLobby = false) {
-    // 名簿に ない 子は さいしょに ひとりで あそんだ 日から 14 日まで（offline-pass.js）。過ぎたら クラスに 入る ように 言う。
-    const allowed = !fromLobby || startOffline();
+  // クラスから でる（ログアウト・やめる）。ひとりで あそぶ（オフライン）は 2026-10 に なくした ので、でたら いつも ロビー。
+  function leaveClass() {
     state.intentionalLeave = true;
     clearTimeout(reconnectTimer);
     clearSession();
     const r = room; room = null;
     r?.leave(true);
     remotes.clear();
-    if (!allowed) {
-      lobby.open({ error: tr('ひとりで あそべる {0} 日が おわりました。先生に クラスの あいことばを きいて、クラスに はいってね。', [OFFLINE_DAYS]) });
-      return;
-    }
     setMode('offline');
-    // オフラインでも はじまりは メインの島（クラスに 入ったときと おなじ）。
-    if (fromLobby) homeNow();
-    if (fromLobby) {
-      const left = daysLeft();
-      toast(left === Infinity ? tr('ひとりで あそびます。右上の ボタンから いつでも クラスに 入れます。') : tr('ひとりで あそびます（のこり {0} 日）。クラスに 入ると ずっと あそべます。', [left]));
-    }
   }
 
   document.addEventListener('visibilitychange', () => {
@@ -1120,9 +1108,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     el.className = 'offline';
     el.innerHTML = `<i></i><b class="net-count" hidden></b><span class="net-label">${escapeHtml(tr('オフライン'))}</span>`;
     el.onclick = () => {
-      if (state.mode === 'online' || state.mode === 'reconnecting') {
-        if (confirm(tr('クラスから でて、ひとりで あそびますか？'))) goOffline(true);
-      } else lobby.open({ name: state.name });
+      if (state.mode === 'online' || state.mode === 'reconnecting') return;
+      lobby.open({ name: state.name });
     };
     document.body.append(el);
     // The count lives in its own element so narrow screens can hide the words
@@ -1143,12 +1130,13 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   }
 
   function boot() {
-    if (!Colyseus) { homeNow(); return; }
+    // つうしんの ぶひんが ないと クラスに 入れない（ひとりで あそぶは もう ない）。ロビーで そう いう。
+    if (!Colyseus) { const show = () => lobby.open({ error: tr('つうしんの ぶひんが よみこめませんでした。') }); if (avatars.first) $('#avatar-dialog')?.addEventListener('close', show, { once: true }); else show(); return; }
     const session = storage.get(sessionStorage, STORAGE_KEYS.session);
     const start = () => {
       if (session?.name) {
         // Same tab reloaded (or restored by Safari): rejoin automatically.
-        state.name = session.name; state.classCode = session.classCode || 'default'; state.teacherKey = session.teacherKey || ''; state.pin = session.pin || '';
+        state.name = session.name; state.classCode = session.classCode || ''; state.teacherKey = session.teacherKey || ''; state.pin = session.pin || '';
         client = new Colyseus.Client(resolveServerUrl());
         setMode('reconnecting');
         homeNow();
@@ -1268,7 +1256,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     ghostNearby: () => night.nearby(currentSpace()),
     ghostLabel: (near) => night.label(near),
     ghostSwing: () => night.swing(currentSpace()),
-    leave: () => goOffline(true),
+    leave: () => { leaveClass(); lobby.open({ name: state.name }); },
   };
 }
 

@@ -145,20 +145,20 @@ test('the 先生か column: true + あいことば makes a teacher without the k
   assert.match(csv, /^Ms Sato,TRUE,FALSE,sato-pass$/m);
   assert.match(csv, /^Ken,FALSE,FALSE,$/m);
   // Gate open (the default): the teacher row + its pin decide the role. The name alone is a student.
-  const t = await join('ms sato', 'default', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t, 'welcome')).role, 'teacher'); await t.leave(); await sleep(100);
+  const t = await join('ms sato', '6-1', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t, 'welcome')).role, 'teacher'); await t.leave(); await sleep(100);
   // The name alone, or a wrong pin, does not even get in (nobody can sit down as the teacher).
   await assert.rejects(() => join('ms sato'), /password|4005/);
-  await assert.rejects(() => join('ms sato', 'default', { teacherKey: 'wrong' }), /password|4005/);
+  await assert.rejects(() => join('ms sato', '6-1', { teacherKey: 'wrong' }), /password|4005/);
   const k = await join('Ken'); assert.equal((await nextMessage(k, 'welcome')).role, 'student'); await k.leave(); await sleep(100);
   // Gate on: same.
   await api('/enforce', { method: 'PUT', body: { enforce: true } });
-  const t2 = await join('Ms Sato', 'default', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t2, 'welcome')).role, 'teacher'); await t2.leave(); await sleep(100);
+  const t2 = await join('Ms Sato', '6-1', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t2, 'welcome')).role, 'teacher'); await t2.leave(); await sleep(100);
   // A teacher row without a pin is never a teacher by name (the key still works).
   await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: true }, { name: 'Ken', teacher: false }] } });
   const t4 = await join('Ms Sato'); assert.equal((await nextMessage(t4, 'welcome')).role, 'student'); await t4.leave(); await sleep(100);
   // Unticked again: back to a student at the next join.
   await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: false, pin: 'sato-pass' }, { name: 'Ken', teacher: false }] } });
-  const t3 = await join('Ms Sato', 'default', { pin: 'sato-pass' }); assert.equal((await nextMessage(t3, 'welcome')).role, 'student'); await t3.leave(); await sleep(100);
+  const t3 = await join('Ms Sato', '6-1', { pin: 'sato-pass' }); assert.equal((await nextMessage(t3, 'welcome')).role, 'student'); await t3.leave(); await sleep(100);
   await api('/enforce', { method: 'PUT', body: { enforce: false } });
 });
 
@@ -191,4 +191,9 @@ test('eight wrong passwords lock the door for a while', async () => {
   for (let i = 0; i < 8; i += 1) await fetch(`${http}/admin/login`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: 'password=nope', redirect: 'manual' });
   const locked = await fetch(`${http}/admin/login`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: 'password=owner-password-123', redirect: 'manual' });
   assert.match(locked.headers.get('location'), /locked/, 'even the right password waits');
+});
+
+test('クラスコードが ないと 入れない（ひとりで あそぶ も ない）', async () => {
+  await assert.rejects(() => join('Kai', ''), /class required|4007/);
+  await assert.rejects(() => join('Kai', '!!!'), /class required|4007/, '記号だけ＝からっぽ');
 });

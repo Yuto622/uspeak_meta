@@ -90,7 +90,7 @@ import { rankings, boardPayload, sanitizeWeekHist, noteWeek, selfView, classGoal
 import { isPier, preparePier, pierInfo, PierError } from '../game/eiken-pier.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
-export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004, WRONG_PIN: 4005, TOO_MANY: 4006 };
+export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004, WRONG_PIN: 4005, TOO_MANY: 4006, CLASS_REQUIRED: 4007 };
 // 名簿の「先生か」を 読みなおす 間かく（admin で 保存したら すぐ。名簿が スプレッドシートの ときの ための 保険）。
 const ROLE_RECHECK_MS = 60 * 1000;
 const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only within a lesson window
@@ -379,6 +379,8 @@ export class ClassRoom extends Room {
     // 1 つの IP から 短い 時間に 入ろうと しすぎたら ことわる（名前・あいことばの 総当たりの 守り）。
     const ip = request?.headers?.['fly-client-ip'] || request?.socket?.remoteAddress || '';
     if (tooManyJoins(ip)) throw new ServerError(ERR.TOO_MANY, 'too many attempts');
+    // クラスコード（クラスの あいことば）が ないと 入れない（2026-10。ひとりで あそぶ も なくした）。
+    if (this.classCode === 'default') throw new ServerError(ERR.CLASS_REQUIRED, 'class required');
     const name = sanitizeName(options?.name);
     if (!name) throw new ServerError(ERR.NAME_REQUIRED, 'name required');
     // 先生は 2 とおり：講師キーを 持っている 人と、admin の 名簿で「先生」に ✓ ＋ あいことば が 合った 人。

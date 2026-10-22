@@ -50,9 +50,11 @@ try {
   await page.waitForSelector('#avatar-dialog[open]', { timeout: 240000 });
   await page.click('#avatar-confirm');
   await page.waitForSelector('#net-lobby[open]', { timeout: 60000 });
-  await page.click('#net-offline');
+  // ひとりで あそぶ（オフライン）は もう ない。クラスに 入ってから 見る。
+  await page.fill('#net-name', 'Signs'); await page.fill('#net-class', 'e2e-signs'); await page.click('#net-join');
+  await page.waitForFunction(() => uspeak.net?.main?.homed, null, { timeout: 60000 }).catch(() => {});
   await sleep(1500);
-  // オフラインも メインの島から はじまる。この 検査は U-Speak島の 上で 見る。
+  // はじまりは メインの島。この 検査は U-Speak島の 上で 見る。
   await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); uspeak.net.main.skipHome?.(); });
 
   const tap = () => page.evaluate(() => document.querySelector('#lang-toggle').click());

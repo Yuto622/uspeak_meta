@@ -1,11 +1,12 @@
-// Join dialog: name (student identity), class code, optional teacher key. Offline play stays available.
+// Join dialog: name (student identity), class code, optional teacher key.
+// クラスの あいことば（クラスコード）が ないと 入れない（2026-10 に ひとりで あそぶ＝オフラインを なくした）。
 //
 // **この教材で最初に読む文字がここにある。** 画面の言語は英語が既定なので、
 // この枠も英語で出る（`i18n.js`／ヘッダーの「あ」で日本語になる）。
 // `data-t` は静的な文に、`t()` は JavaScript が組み立てる文に使う。
 import { t, applyDom, onLangChange } from './i18n.js';
 
-export function createLobby({ onJoin, onOffline, defaultClass, prefs, offlineDays = () => Infinity }) {
+export function createLobby({ onJoin, defaultClass, prefs }) {
   const dialog = document.createElement('dialog');
   dialog.id = 'net-lobby';
   dialog.setAttribute('aria-labelledby', 'net-lobby-title');
@@ -20,7 +21,6 @@ export function createLobby({ onJoin, onOffline, defaultClass, prefs, offlineDay
     <p id="net-lobby-error" class="net-error" role="alert" hidden></p>
     <div class="net-lobby-actions">
       <button type="submit" class="primary" id="net-join" data-t="クラスに はいる →">クラスに はいる →</button>
-      <button type="button" id="net-offline">ひとりで あそぶ</button>
     </div>
     <p class="net-fine" data-t="オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。">オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。 <a href="/privacy.html" target="_blank" rel="noopener" data-t="プライバシーポリシー">プライバシーポリシー</a></p>
   </form>`;
@@ -37,25 +37,18 @@ export function createLobby({ onJoin, onOffline, defaultClass, prefs, offlineDay
   // 先生の 鍵は localStorage に 入れない・読まない（共用の iPad で 次の 子に 見えない ように）。
   $('#net-key').value = '';
 
-  let busyNow = false;
-  // ひとりで あそぶ：名簿に ない 子は のこり 日数を 出し、0 なら 押せない（offline-pass.js）。
-  function paintOffline() {
-    const left = offlineDays();
-    const b = $('#net-offline');
-    b.textContent = left === Infinity ? t('ひとりで あそぶ') : left > 0 ? t('ひとりで あそぶ（のこり {0} 日）', [left]) : t('ひとりで あそべる きかんは おわりました');
-    b.disabled = busyNow || left <= 0;
-  }
-  function busy(v) { busyNow = v; $('#net-join').disabled = v; paintOffline(); $('#net-join').textContent = t(v ? '接続中…' : 'クラスに はいる →'); }
+  function busy(v) { $('#net-join').disabled = v; $('#net-join').textContent = t(v ? '接続中…' : 'クラスに はいる →'); }
   function error(text) { $('#net-lobby-error').textContent = text || ''; $('#net-lobby-error').hidden = !text; }
 
   $('#net-lobby-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = $('#net-name').value.trim();
     if (!name) { error(t('なまえを いれてね。')); return; }
+    const classCode = $('#net-class').value.trim();
+    if (!classCode) { error(t('クラスの あいことばを いれてね。先生に きいてね。')); $('#net-class').focus(); return; }
     error('');
-    onJoin({ name, classCode: $('#net-class').value.trim(), teacherKey: $('#net-key').value, pin: $('#net-pin').value });
+    onJoin({ name, classCode, teacherKey: $('#net-key').value, pin: $('#net-pin').value });
   });
-  $('#net-offline').onclick = () => { close(); onOffline(); };
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); });
 
   function open({ error: msg = '', name = '' } = {}) {
