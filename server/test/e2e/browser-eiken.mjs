@@ -20,7 +20,7 @@ const SHOTS = path.resolve(serverDir, 'loadtest-results');
 mkdirSync(SHOTS, { recursive: true });
 
 const PORT = 2627;
-const server = spawn('node', ['src/index.js'], { cwd: serverDir, env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', ANSWER_MIN_INTERVAL_MS: '0', TEACHER_KEY: 'testkey12345' }, stdio: ['ignore', 'pipe', 'pipe'] });
+const server = spawn('node', ['src/index.js'], { cwd: serverDir, env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'info', ANSWER_MIN_INTERVAL_MS: '0', TEACHER_KEY: 'testkey12345', PREMIUM_ISLANDS: '' }, stdio: ['ignore', 'pipe', 'pipe'] });
 server.stdout.on('data', (d) => process.stdout.write('[server] ' + d));
 server.stderr.on('data', (d) => process.stdout.write('[server:err] ' + d));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -46,8 +46,8 @@ try {
   await sleep(800);
   const at = await pos(a);
   check('arrived on 英検5級の島', at.space === 'eiken5', `at (${at.x.toFixed(1)},${at.z.toFixed(1)})`);
-  check('three 英検 islands exist, four halls and an interview room each',
-    data.islands.length === 3
+  check('seven 英検 islands (5級〜1級) exist, four halls and an interview room each',
+    data.islands.length === 7
       && data.islands.every((i) => i.spots.filter((s) => s.skill).length === 4)
       && data.islands.every((i) => i.spots.some((s) => s.kind === 'interview')),
     data.islands.map((i) => `${i.badge}:${i.spots.length}`).join(' '));

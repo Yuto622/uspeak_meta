@@ -759,6 +759,9 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   島を 足すときは `rpg.js`（作る・`EIKEN_IDS`・`ISLANDS`・返す オブジェクト）/ `rpg-data.js`（HUBS）/
   `world-picker.js`（LOOK）/ `net-client.js`（PREMIUM_DEFAULT）/ サーバーの `config.js`（premiumIslands）/
   `class-mode.js` / `tasks/engine.js` / `progression.js`（GRADE_RATE）/ `tests/regression.mjs` を そろえる。
+- **島は ひろげて ある**（2026-10・つめつめ だった）：`eiken-island.js` の `SIZE`（40×34）・`K`（1.35＝建物の 間だけ ひろげる）・
+  `FRONT`（8＝船着き場・大通り・門を 前へ）。館は ±20、うしろの 館は z −17.5、面接の間は z −23（`eiken.json`）。
+  まわりの 木・岩・灯ろうは `onLand()` で 陸の 上だけ。`island-kit.js` の `scatter` も `size` に あわせる（ほかの 島は そのまま）。
 - **面接の 形（`interview.js` の `KINDS`）**：`passage` `picture` `self` に 加えて `narrate`（3〜4コマの 絵を 話す・2級/準1級）・
   `opinion`（意見＋理由・準2級〜）・`speech`（1級の スピーチ）。長く 話す 形は **`minWords`**（無ければ `MIN_WORDS`）より
   短いと ×。準1級・1級は 本番に 音読が ないので カードに `noRead: true`（`passage` なし、`ask` から 始まる）。

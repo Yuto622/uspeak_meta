@@ -13,6 +13,13 @@ import { createIsland, NEAR_DISTANCE } from './island-kit.js';
 
 export { NEAR_DISTANCE };
 
+// 2026-10 島を ひろげた（建物が つめつめ だった）。建物の 大きさは そのまま、置く 場所の 間だけ K 倍。
+// 船着き場の 側は FRONT だけ 前へ（大通りと 門も いっしょに）。館と 面接の間の 位置は eiken.json。
+const K = 1.35;
+const FRONT = 8;
+const SIZE = { x: 40, z: 34 };
+const onLand = (x, z, m = 3) => (x / (SIZE.x - m)) ** 2 + (z / (SIZE.z - m)) ** 2 <= 1;
+
 let promise = null;
 export function loadEikenData() {
   if (!promise) {
@@ -47,6 +54,8 @@ export function createEikenIsland({ scene, id }) {
   const island = createIsland({
     scene,
     seed: 19850000 + id.length * 7919,
+    size: SIZE,
+    dock: { x: 0, z: 21 + FRONT },
     build(kit) {
       const { island: data, B, D, sprite, house, path, resident, door, scatter, obstacles, tree, bench, flowers, lamp, rock, fence, bunting, shade, rand } = kit;
       const t = data.theme || {};
@@ -56,12 +65,12 @@ export function createEikenIsland({ scene, id }) {
       // ---- the avenue -----------------------------------------------------------------
       // One straight walk from the dock to the fork, so a child arriving sees all four
       // halls without being told where to go. Everything else is built beside it.
-      B(0, 0.1, 6, 5.4, 0.18, 26, shade(t.stone, -0.06));
-      B(0, 0.2, 6, 4.2, 0.16, 25, t.stone);
-      for (let z = 17; z > -6; z -= 3.2) {
+      B(0, 0.1, 6 + FRONT / 2, 5.4, 0.18, 26 + FRONT, shade(t.stone, -0.06));
+      B(0, 0.2, 6 + FRONT / 2, 4.2, 0.16, 25 + FRONT, t.stone);
+      for (let z = 17 + FRONT; z > -6; z -= 3.2) {
         B(0, 0.29, z, 3.4, 0.1, 1.9, shade(t.stone, 0.08));
       }
-      for (const z of [13.6, 6.4, 0.8]) {
+      for (const z of [13.6 + FRONT, 13.6, 6.4, 0.8]) {
         for (const sx of [-3.4, 3.4]) {
           D(sx, 1.5, z, 0.3, 3, 0.3, t.beam);
           D(sx, 3.2, z, 0.75, 0.7, 0.75, t.lamp, 1.35);
@@ -72,7 +81,7 @@ export function createEikenIsland({ scene, id }) {
 
       // ---- the gate -------------------------------------------------------------------
       // The grade, in numerals you can read from the dock, on an arch you walk under.
-      const gz = 16;
+      const gz = 16 + FRONT;
       for (const sx of [-4.6, 4.6]) {
         D(sx, 0.5, gz, 2.2, 1, 2.2, shade(t.stone, -0.12));
         D(sx, 3.4, gz, 1.5, 6.8, 1.5, t.stone);
@@ -154,13 +163,13 @@ export function createEikenIsland({ scene, id }) {
       // Trees last, so they fill whatever the architecture left.
       scatter(data, 80);
       for (let i = 0; i < 7; i += 1) {
-        const x = (rand() - 0.5) * 46;
-        const z = -24 + rand() * 4;
-        if (Math.abs(x) < 6) continue;
+        const x = (rand() - 0.5) * 46 * K;
+        const z = -24 * K + rand() * 4;
+        if (Math.abs(x) < 6 || !onLand(x, z)) continue;
         tree(x, z, 0.8 + rand() * 0.5, t.key === 'voyager' ? 1 : -1);
       }
-      fence(0, 23.5, 9, 'x');
-      for (const sx of [-19, 19]) { rock(sx, 19, 1.1); rock(sx + 2.4, 20.4, 0.7); }
+      fence(0, 23.5 + FRONT, 9, 'x');
+      for (const sx of [-19 * K, 19 * K]) { rock(sx, 19 + FRONT, 1.1); rock(sx + 2.4, 20.4 + FRONT, 0.7); }
     },
   });
 
@@ -178,7 +187,7 @@ export function createEikenIsland({ scene, id }) {
 function backPlaza({ D, B, obstacles, shade, rand }, t, data) {
   // Far enough back that the two lanes to 書く and 話す run in front of it, not through
   // it: everything here is built inside a box the paths never enter.
-  const z = -11.5;
+  const z = -11.5 * K;
   B(0, 0.12, z, 11.6, 0.18, 8, shade(t.stone, -0.08));
   B(0, 0.24, z, 10.2, 0.14, 6.8, t.stone);
   if (t.key === 'starter') {
@@ -374,7 +383,7 @@ function buildStarter({ D, B, sprite, obstacles, tree, flowers, bush, shade, ran
     ['A', 0xef6f6c], ['B', 0x6fb7d9], ['C', 0xf7d774], ['D', 0x8ac96f], ['E', 0xf2a65a],
   ];
   letters.forEach(([letter, colour], i) => {
-    const bx = 7.5 + (i % 2) * 2.4;
+    const bx = 7.5 * K + (i % 2) * 2.4;
     const by = 1.1 + Math.floor(i / 2) * 2.2;
     const bz = 0 + (i % 3) * 2.2 - 2.2;
     D(bx, by, bz, 2, 2, 2, colour);
@@ -383,30 +392,30 @@ function buildStarter({ D, B, sprite, obstacles, tree, flowers, bush, shade, ran
     obstacles.push({ x: bx, z: bz, w: 1.1, d: 1.1 });
   });
   // A kite, tied to a post, because the wind is always up on this island.
-  D(-7.5, 1.6, 0, 0.3, 3.2, 0.3, t.beam);
-  obstacles.push({ x: -7.5, z: 0, w: 0.4, d: 0.4 });
-  for (let i = 0; i < 7; i += 1) D(-7.5 - i * 0.8, 3.6 + i * 1.1, 0.3 + i * 0.35, 0.16, 0.16, 0.16, 0xf5efdd);
-  D(-13.2, 11.2, 2.4, 2.4, 2.4, 0.3, 0xef6f6c, 0.5);
-  D(-13.2, 11.2, 2.4, 1, 3.4, 0.34, 0xf7d774, 0.5);
-  for (let i = 0; i < 4; i += 1) D(-13.2 - 0.4 - i * 0.5, 10.1 - i * 0.9, 2.4, 0.5, 0.5, 0.22, [0x6fb7d9, 0x8ac96f, 0xef6f6c, 0xf7d774][i], 0.5);
+  D(-7.5 * K, 1.6, 0, 0.3, 3.2, 0.3, t.beam);
+  obstacles.push({ x: -7.5 * K, z: 0, w: 0.4, d: 0.4 });
+  for (let i = 0; i < 7; i += 1) D(-7.5 * K - i * 0.8, 3.6 + i * 1.1, 0.3 + i * 0.35, 0.16, 0.16, 0.16, 0xf5efdd);
+  D(-13.2 * K, 11.2, 2.4, 2.4, 2.4, 0.3, 0xef6f6c, 0.5);
+  D(-13.2 * K, 11.2, 2.4, 1, 3.4, 0.34, 0xf7d774, 0.5);
+  for (let i = 0; i < 4; i += 1) D(-13.2 * K - 0.4 - i * 0.5, 10.1 - i * 0.9, 2.4, 0.5, 0.5, 0.22, [0x6fb7d9, 0x8ac96f, 0xef6f6c, 0xf7d774][i], 0.5);
   // Sunflowers along the shore, and a sandcastle on the beach by the dock.
   for (let i = 0; i < 26; i += 1) {
     const a = rand() * Math.PI * 2;
-    const r = 20 + rand() * 6;
+    const r = (20 + rand() * 6) * K;
     const x = Math.cos(a) * r;
     const z = Math.sin(a) * r * 0.82;
-    if (Math.abs(x) < 6 && z > 6) continue;
+    if ((Math.abs(x) < 6 && z > 6) || !onLand(x, z)) continue;
     D(x, 1.2, z, 0.18, 2.4, 0.18, 0x5f8a4a);
     D(x, 2.5, z, 1, 1, 0.5, 0xf7d774, 0.25);
     D(x, 2.5, z + 0.26, 0.5, 0.5, 0.2, 0x8a6a3a);
   }
-  for (const [cx, cz, s] of [[10, 20, 1], [11.6, 21.4, 0.7]]) {
+  for (const [cx, cz, s] of [[10, 20 + FRONT, 1], [11.6, 21.4 + FRONT, 0.7]]) {
     D(cx, 0.6 * s, cz, 3 * s, 1.2 * s, 3 * s, 0xe6d7ae);
     D(cx, 1.5 * s, cz, 2 * s, 0.8 * s, 2 * s, 0xefe2be);
     for (const sx of [-1, 1]) for (const sz of [-1, 1]) D(cx + sx * 1.2 * s, 1.5 * s, cz + sz * 1.2 * s, 0.7 * s, 1.6 * s, 0.7 * s, 0xefe2be);
   }
-  for (let i = 0; i < 10; i += 1) { const x = (rand() - 0.5) * 40; const z = -20 + rand() * 6; if (Math.abs(x) > 6) { bush(x, z, 0.9); flowers(x + 1.4, z + 1, [0xef6f6c, 0xf7d774, 0xdfe4ef][i % 3]); } }
-  for (const sx of [-22, 22]) tree(sx, 6, 1.25, 0);
+  for (let i = 0; i < 10; i += 1) { const x = (rand() - 0.5) * 40 * K; const z = -20 * K + rand() * 6; if (Math.abs(x) > 6 && onLand(x, z)) { bush(x, z, 0.9); flowers(x + 1.4, z + 1, [0xef6f6c, 0xf7d774, 0xdfe4ef][i % 3]); } }
+  for (const sx of [-22 * K, 22 * K]) tree(sx, 6, 1.25, 0);
 }
 
 // ---- 4級: まなびの島 -----------------------------------------------------------------
@@ -415,7 +424,7 @@ function buildStarter({ D, B, sprite, obstacles, tree, flowers, bush, shade, ran
 // study, a tower of books, lamps for the evenings you stay late.
 function buildLearner({ D, B, sprite, obstacles, tree, bench, shade, rand }, t, data) {
   // The clock tower, east of the avenue.
-  const cx = 8.4;
+  const cx = 8.4 * K;
   const cz = 0;
   D(cx, 0.7, cz, 6.4, 1.4, 6.4, shade(t.stone, -0.12));
   D(cx, 1.5, cz, 5.4, 0.4, 5.4, t.stone);
@@ -432,7 +441,7 @@ function buildLearner({ D, B, sprite, obstacles, tree, bench, shade, rand }, t, 
   D(cx, 9.4, cz, 3.2, 1.6, 3.2, t.accent, 0.6);                 // the bell, lit at night
   obstacles.push({ x: cx, z: cz, w: 3.2, d: 3.2 });
   // The book tower: a spiral of open books climbing a post, west of the avenue.
-  const bx = -8.4;
+  const bx = -8.4 * K;
   D(bx, 0.6, 0, 4.4, 1.2, 4.4, shade(t.stone, -0.08));
   D(bx, 4, 0, 0.7, 7, 0.7, t.beam);
   for (let i = 0; i < 9; i += 1) {
@@ -446,18 +455,18 @@ function buildLearner({ D, B, sprite, obstacles, tree, bench, shade, rand }, t, 
   // Maples down the long edges, and reading benches under them.
   for (let i = 0; i < 16; i += 1) {
     const side = i % 2 ? 1 : -1;
-    const x = side * (20 + rand() * 5);
-    const z = -18 + i * 2.4 + rand() * 2;
-    if (Math.abs(z) > 22) continue;
+    const x = side * (20 + rand() * 5) * K;
+    const z = (-18 + i * 2.4 + rand() * 2) * K;
+    if (Math.abs(z) > 22 * K || !onLand(x, z)) continue;
     D(x, 1.7, z, 0.55, 3.4, 0.55, 0x7a5a3a);
     D(x, 3.7, z, 3.2, 1.5, 3.2, i % 3 ? 0xd9873f : 0xc2612f);
     D(x, 4.7, z, 2.2, 1, 2.2, 0xe8a44a);
     for (let j = 0; j < 3; j += 1) D(x + (rand() - 0.5) * 3, 0.2, z + (rand() - 0.5) * 3, 0.7, 0.1, 0.7, 0xc2612f);
   }
-  for (const [sx, sz] of [[-13, 8], [13, 8]]) bench(sx, sz, 0);
+  for (const [sx, sz] of [[-13 * K, 8], [13 * K, 8]]) bench(sx, sz, 0);
   // A low stone wall along the back, where the island looks out to sea.
-  for (let x = -14; x <= 14; x += 2) D(x, 0.8, -23, 1.9, 1.6, 1.2, shade(t.stone, -0.05));
-  for (let x = -13; x <= 13; x += 4) D(x, 1.75, -23, 1.1, 0.4, 1.5, t.stone);
+  for (let x = -14; x <= 14; x += 2) D(x, 0.8, -23 * K, 1.9, 1.6, 1.2, shade(t.stone, -0.05));
+  for (let x = -13; x <= 13; x += 4) D(x, 1.75, -23 * K, 1.1, 0.4, 1.5, t.stone);
 }
 
 // ---- 3級: たびだちの島 ---------------------------------------------------------------
@@ -466,7 +475,7 @@ function buildLearner({ D, B, sprite, obstacles, tree, bench, shade, rand }, t, 
 // observatory for what is beyond it, and light that behaves like the small hours.
 function buildVoyager({ D, B, sprite, obstacles, tree, rock, shade, rand }, t, data) {
   // The lighthouse, east of the avenue, with a lamp that burns at night.
-  const lx = 8.6;
+  const lx = 8.6 * K;
   const lz = 0;
   D(lx, 0.8, lz, 7, 1.6, 7, shade(t.stone, -0.15));
   D(lx, 1.7, lz, 6, 0.4, 6, t.stone);
@@ -483,7 +492,7 @@ function buildVoyager({ D, B, sprite, obstacles, tree, rock, shade, rand }, t, d
   for (let i = 0; i < 7; i += 1) D(lx + 5 + i * 3.4, 19.6, lz + i * 1.2, 3, 0.4, 1.6 + i * 0.35, t.accent, 0.85);
   obstacles.push({ x: lx, z: lz, w: 3.4, d: 3.4 });
   // The observatory, west: a drum, a dome, and the slit the telescope looks through.
-  const ox = -8.6;
+  const ox = -8.6 * K;
   D(ox, 0.5, 0, 8, 1, 8, shade(t.stone, -0.12));
   D(ox, 2.6, 0, 6.4, 3.6, 6.4, t.wall);
   for (let i = 0; i < 8; i += 1) {
@@ -501,26 +510,26 @@ function buildVoyager({ D, B, sprite, obstacles, tree, rock, shade, rand }, t, d
   // Standing stones with a light in them, in a ring behind the halls.
   for (let i = 0; i < 7; i += 1) {
     const a = (i / 7) * Math.PI * 2;
-    const x = Math.cos(a) * 9;
-    const z = -22 + Math.sin(a) * 3.4;
+    const x = Math.cos(a) * 9 * K;
+    const z = -22 * K + Math.sin(a) * 3.4;
     D(x, 1.9, z, 1.1, 3.8, 1.1, shade(t.stone, -0.2));
     D(x, 3.9, z, 0.7, 0.7, 0.7, t.accent, 1.1);
   }
   // A pine wood, dark and vertical, and glassy rocks along the shore.
   for (let i = 0; i < 18; i += 1) {
     const side = i % 2 ? 1 : -1;
-    const x = side * (18 + rand() * 8);
-    const z = -20 + i * 2.2 + rand() * 2.4;
-    if (Math.abs(z) > 22) continue;
+    const x = side * (18 + rand() * 8) * K;
+    const z = (-20 + i * 2.2 + rand() * 2.4) * K;
+    if (Math.abs(z) > 22 * K || !onLand(x, z)) continue;
     D(x, 2, z, 0.5, 4, 0.5, 0x4a4032);
     for (let j = 0; j < 4; j += 1) D(x, 3.4 + j * 1.05, z, 3 - j * 0.65, 1.1, 3 - j * 0.65, j % 2 ? 0x35604a : 0x2f5542);
   }
   for (let i = 0; i < 12; i += 1) {
     const a = rand() * Math.PI * 2;
-    const r = 21 + rand() * 5;
+    const r = (21 + rand() * 5) * K;
     const x = Math.cos(a) * r;
     const z = Math.sin(a) * r * 0.82;
-    if (Math.abs(x) < 6 && z > 6) continue;
+    if ((Math.abs(x) < 6 && z > 6) || !onLand(x, z)) continue;
     D(x, 0.7, z, 1.4, 1.4, 1.4, shade(t.stone, -0.25));
     D(x, 1.5, z, 0.7, 0.9, 0.7, t.accent, 0.8);
   }

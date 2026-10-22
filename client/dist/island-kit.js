@@ -451,8 +451,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
       && !(Math.abs(x) < 5 && z > 8);
     // A handful of copses, then everything else scattered between them.
     for (let g = 0; g < 5; g += 1) {
-      const gx = (rand() - 0.5) * 48;
-      const gz = (rand() - 0.5) * 40;
+      const gx = (rand() - 0.5) * HX * 1.6;   // いつもの 島（30×25）では 48・40・54・44・27・22 の まま
+      const gz = (rand() - 0.5) * HZ * 1.6;
       if (!clear(gx, gz, 12)) continue;
       const kind = Math.floor(rand() * 3);
       for (let i = 0; i < 4 + Math.floor(rand() * 4); i += 1) {
@@ -463,9 +463,9 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
       }
     }
     for (let i = 0; i < count; i += 1) {
-      const x = (rand() - 0.5) * 54;
-      const z = (rand() - 0.5) * 44;
-      if ((x / 27) ** 2 + (z / 22) ** 2 > 1) continue;      // stay on the land
+      const x = (rand() - 0.5) * (HX - 3) * 2;
+      const z = (rand() - 0.5) * (HZ - 3) * 2;
+      if ((x / (HX - 3)) ** 2 + (z / (HZ - 3)) ** 2 > 1) continue;      // stay on the land
       if (!clear(x, z, 7)) continue;
       const roll = rand();
       if (roll > 0.88) tree(x, z, 0.7 + rand() * 0.6);

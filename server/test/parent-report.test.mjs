@@ -400,3 +400,25 @@ test('おうちで できる こと：復習の 時期の ことば・宿題で 
   assert.match(homeTip({ zero: true }), /きいて みて/);
   assert.match(homeTip({}), /おしえて もらって/);
 });
+
+test('LINE の 下の メニュー：起動で まだ ない ときだけ 作って 全員の 既定に、2 回目は 何も しない', async () => {
+  const { ensureRichMenu } = await import('../src/parent-report/richmenu-setup.js');
+  let def = ''; const calls = [];
+  const res = (status, body) => ({ ok: status < 300, status, text: async () => (body ? JSON.stringify(body) : '') });
+  const fetchImpl = async (url, o) => {
+    calls.push(`${o.method} ${url.replace(/^https:\/\/[^/]+/, '')}`);
+    if (url.endsWith('/richmenu/list')) return res(200, { richmenus: def ? [{ richMenuId: def, name: 'uspeak-parent-v1' }] : [{ richMenuId: 'old', name: 'uspeak-parent-v0' }, { richMenuId: 'keep', name: 'other' }] });
+    if (url.endsWith('/user/all/richmenu') && o.method === 'GET') return def ? res(200, { richMenuId: def }) : res(404, { message: 'no default' });
+    if (o.method === 'POST' && url.endsWith('/v2/bot/richmenu')) return res(200, { richMenuId: 'new1' });
+    if (o.method === 'POST' && url.includes('/user/all/richmenu/')) { def = 'new1'; return res(200); }
+    return res(200);
+  };
+  assert.equal((await ensureRichMenu({ token: '', fetchImpl })).ok, false, '鍵が ない ときは 何も しない');
+  const first = await ensureRichMenu({ token: 't', fetchImpl, log: {} });
+  assert.equal(first.created, true);
+  assert.ok(calls.includes('DELETE /v2/bot/richmenu/old') && !calls.includes('DELETE /v2/bot/richmenu/keep'), '消すのは 前の uspeak-parent-v* だけ');
+  assert.ok(calls.includes('POST /v2/bot/user/all/richmenu/new1'));
+  calls.length = 0;
+  assert.equal((await ensureRichMenu({ token: 't', fetchImpl, log: {} })).already, true);
+  assert.equal(calls.length, 2, '2 回目は 見るだけ');
+});

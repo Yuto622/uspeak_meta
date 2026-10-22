@@ -18,6 +18,7 @@ import { tasksAdminExtension } from './tasks/admin.js';
 import { QBankStore } from './qbank/store.js';
 import { qbankAdminExtension } from './qbank/admin.js';
 import { speakingRows, SEED_TAG } from './qbank/seed-speaking.js';
+import { ensureRichMenu } from './parent-report/richmenu-setup.js';
 import { HomeworkStore } from './homework/store.js';
 import { homeworkAdminExtension } from './homework/admin.js';
 import { ClassroomStore } from './classroom/store.js';
@@ -108,6 +109,10 @@ export async function startServer({ port = config.port, storeOverride = null, tt
     store, roster, seats, roblox, homework, roadmap, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
     baseUrl: config.corsOrigins.find((o) => /^https?:\/\//.test(o)) || '',
   });
+  // LINE の 下の メニュー：まだ ない（か 古い）ときだけ 登録する。起動は 待たない。
+  if (process.env.LINE_CHANNEL_ACCESS_TOKEN && process.env.LINE_DRY_RUN !== '1' && config.storeBackend !== 'memory') {
+    ensureRichMenu({ log }).catch((err) => log.warn('[line] rich menu setup failed:', err.message));
+  }
 
   // タスクの 表（/admin/tasks で 書きかえる。ゲームは /api/tasks で 採用の 行だけ 読む）。
   // テスト（node --test）では ほかの 検査の コインの 数を うごかさないよう 切る。タスクの 検査は TASKS=on で 入れる。
