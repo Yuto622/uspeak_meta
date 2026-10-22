@@ -91,9 +91,12 @@ export function itemsToCsv(items) {
   return '﻿' + lines.join('\n');
 }
 
+// 問題文の（日本語の いみ）・先頭の No.1・記号を のぞいて くらべる（seed の 二重チェック）。
+const seedKey = (s) => String(s || '').split('（')[0].replace(/^\s*No\.\s*\d+\s*/i, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+
 export class QBankStore {
   constructor(file, { log = console, now = Date.now } = {}) {
-    this.file = file; this.log = log; this.now = now; this.items = []; this.updatedAt = 0; this.listeners = new Set();
+    this.file = file; this.log = log; this.now = now; this.items = []; this.updatedAt = 0; this.seeded = []; this.listeners = new Set();
   }
 
   async init() {
@@ -102,6 +105,7 @@ export class QBankStore {
         const saved = JSON.parse(await fs.readFile(this.file, 'utf8'));
         this.items = cleanItems(saved.items).items;
         this.updatedAt = saved.updatedAt || 0;
+        this.seeded = Array.isArray(saved.seeded) ? saved.seeded.map(String) : [];
       } catch (err) {
         if (err.code !== 'ENOENT') this.log.warn?.(`[qbank] ${this.file} could not be read (${err.message}); starting empty`);
       }
@@ -161,11 +165,24 @@ export class QBankStore {
     return { ok: true, item: merged };
   }
 
+  // リポジトリの 問題（面接・話すの館）を 1 回だけ 足す。tag ごとに 1 回：admin で 消した 行は もどって こない。
+  // もう ある 問題（同じ ID か、同じ 級・問題・正解）は とばすので、前に CSV で 入れた 行と 二重に ならない。
+  async seed(tag, rows) {
+    if (this.seeded.includes(tag)) return { ok: true, added: 0, already: true };
+    const key = (it) => `${it.grade}|${seedKey(it.question)}|${seedKey(it.answer)}`;
+    const ids = new Set(this.items.map((it) => it.id)); const keys = new Set(this.items.map(key));
+    const add = cleanItems(rows).items.filter((it) => !ids.has(it.id) && !keys.has(key(it)));
+    this.items = [...this.items, ...add].slice(0, MAX_ITEMS);
+    this.seeded.push(tag);
+    await this.touch();
+    return { ok: true, added: add.length };
+  }
+
   async touch() { this.updatedAt = this.now(); await this.flush(); this.emit(); }
 
   async flush() {
     if (!this.file) return;
-    const body = JSON.stringify({ version: 1, updatedAt: this.updatedAt, items: this.items });
+    const body = JSON.stringify({ version: 1, updatedAt: this.updatedAt, seeded: this.seeded, items: this.items });
     await writeJsonFile(this.file, body);
   }
 }

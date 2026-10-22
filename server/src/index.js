@@ -17,6 +17,7 @@ import { TaskStore } from './tasks/store.js';
 import { tasksAdminExtension } from './tasks/admin.js';
 import { QBankStore } from './qbank/store.js';
 import { qbankAdminExtension } from './qbank/admin.js';
+import { speakingRows, SEED_TAG } from './qbank/seed-speaking.js';
 import { HomeworkStore } from './homework/store.js';
 import { homeworkAdminExtension } from './homework/admin.js';
 import { ClassroomStore } from './classroom/store.js';
@@ -114,6 +115,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 問題データベース（/admin/qbank）。web版に出す 問題は 英検の島に まざり、Robloxに出す 問題は /api/roblox/questions で 取られる。
   const qbank = await new QBankStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'qbank.json'), { log }).init();
   qbank.onChange((q) => { const added = setExtraQuestions(q.live('web')); if (q.items.length) log.info('[qbank] web questions mixed in:', JSON.stringify(added)); setQbankWords(q.items.filter((it) => it.on !== false)); setPierQuestions(q.live('web')); });
+  // 面接・話すの館の 問題を 既存の データベースにも（1 回だけ。もう ある 行は とばす）。
+  try { const r = await qbank.seed(SEED_TAG, speakingRows()); if (r.added) log.info(`[qbank] speaking questions added: ${r.added}`); } catch (err) { log.warn('[qbank] speaking seed failed:', err.message); }
   const tasks = await new TaskStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'tasks.json'), { log }).init();
 
   const app = express();

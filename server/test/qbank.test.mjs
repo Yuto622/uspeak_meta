@@ -67,6 +67,20 @@ test('話す：DB の「日本語 → 英語で 言う」行は その級の 話
   assert.equal(BANK.g1.speaking.length, before);
 });
 
+test('面接・話すの館の 問題は 既存の DB に 1 回だけ 足され、もう ある 行（No.1 の ない 古い 形も）は とばす', async () => {
+  const { speakingRows, SEED_TAG } = await import('../src/qbank/seed-speaking.js');
+  const rows = speakingRows();
+  assert.ok(rows.some((r) => r.grade === '1級') && rows.some((r) => r.grade === '準1級以上'), '準1級・1級も 入る');
+  const q = await new QBankStore(null).init();
+  const card = rows.find((r) => r.id.startsWith('IV-'));
+  const old = { id: 'OLD-1', grade: card.grade, skill: 'speaking', format: '面接（カード音読・質問）', passage: 'x', question: card.question.replace(/^No\.\d+ /, ''), answer: card.answer };
+  await q.import([old]);
+  const first = await q.seed(SEED_TAG, rows);
+  assert.equal(first.added, rows.length - 1, '同じ 問題は 二重に しない');
+  assert.equal((await q.seed(SEED_TAG, rows)).added, 0, '2 回目は 何も しない（admin で 消した 行は もどらない）');
+  assert.ok(q.items.filter((it) => /^(IV|SP)-/.test(it.id)).every((it) => it.web && !it.roblox), 'web版に ある 問題として 入り、Roblox には 出さない');
+});
+
 let server; let base;
 before(async () => { server = await startServer({ port: 0 }); base = `http://127.0.0.1:${server.server.address().port}`; });
 after(async () => { setExtraQuestions([]); await server.shutdown('test'); });
