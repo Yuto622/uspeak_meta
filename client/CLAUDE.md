@@ -1283,6 +1283,12 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   毎週版の 1 まいめは 入りきらない ときだけ ぜんたいを 小さく する（`weekly.tex.j2` の `\bodybox`。LINE の 画像は 1 まいめだけ なので、あふれた 分は 見えなく なる）。
 - 検査は `server/test/homework.test.mjs`（読みとり・各形式・7 形式の 判定・くばるまで 出ない・部屋の 流れ・コイン 1 回・やりなおし・レポート）。
 
+## パソコンの 右がわを 1 つの 列に（`pc-tidy.css` / `pc-tidy.js`／2026-10）
+- **マウス・幅 1001px 以上だけ**（タッチの 端末は mobile.css の まま）。`.right-rail.pc-tidy` を 2 列の grid に して、`.top-dock`（おなか・🏠・ランキング・ロードマップ）を 地図の すぐ下へ うつす（`display: contents`）。
+- 「しまの ちず」（#flight-button）は ホットバーの 3 と 同じ なので 右からは けす。ひるま・カメラ・え・けしき は「⚙ みえかた」の 中（`body.pc-view-open`）。
+- 上の バーの おと・あそびかた・ログアウト は「⋯」の 中（phone-menu.js の `body[data-more]` を そのまま 使う）。WASD の ヒントは うごいたら（20 秒で）きえる（`body.pc-moved`）。
+- 右の 列に ボタンを 足したら pc-tidy.css に `order` と 絵（`::before`）を 1 行。
+
 ## 🗺 ロードマップ（A・B・C・1〜9 の 12 段階／2026-10）
 - **計算は `server/src/game/roadmap.js` の 1 か所**（保存は `server/src/roadmap/store.js`＝DATA_DIR/roadmap.json、窓口は `roadmap/service.js`）。入力は roblox_events（Roblox と Web の 両方）＝保護者レポートと 同じ 箱。
 - 段階：A・B・C＝英検Jr. BRONZE・SILVER・GOLD くらい、1・2＝5級、3・4＝4級、5・6＝3級、7＝準2級、8＝2級、9＝準1級。名前・中身・単語・はじめの 段階は **/admin/roadmap**（クラスごと、`*` は 既定）。
@@ -1305,6 +1311,8 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   ⑦ **前の 段階の 見なおし**：前の 段階で 覚えて 45 日 あいた ことば（`refresh`）が 3 つ 以上なら「🔁 わすれかけの ことば」が いちばん 先。`review:start {refresh:true}` で 部屋が その ことばを 出す（どの ことばかは サーバー）。
   ⑧ **とびきゅう**：単語 8 割 ＋ この 段階に 入ってから 10 問 以上・9 割（`FAST_N` / `FAST_RATE`）なら 20 問を 待たない（先生が もどした あとも 0 から なので、すぐ こえない）。
 - **画面（2026-10 作りなおし・宇宙の 旅）**：`hero()` の 上に 研究ごとの 説明。つぎまでの 輪（goal-gradient）・🚩スタートは さいしょから ✓（endowed progress）・きょうの 1 歩 と 大きな ▶（すぐ 先の 目標）・1 本の 旅の 道（Duolingo の path。つぎの 段階は 霧の 中で めざす ことだけ）・できる ように なった ことの コレクション（自己効力感）・くわしい 数字と 英検は「くわしく」の 中。
+  その 2：スタンプは 輪と 同じ ものさし（`progressOf`）・「あと ◯% で 🎖」・ゴールの ごほうび 🎁（◈100・🏅）・バッジ 12 まいの わく（とった・いま ❔・🔒）・今週の ★ 7 つ・輪は ひらくと 0 から のびる（`@property --p`）。
+  「つぎは これ」は その 場所の 戸口の 前へ **ワープ**（net-client.js の roadmap の `go`：プレミアム・ひらいて いない 島は とばない）。
   `.rm-head` は `<header>` なので、`position: relative` に するときは `inset: auto`（style.css の header の top/left が 効いて ずれた）。道を 中央に よせるのは `scrollLeft`（scrollIntoView は ダイアログ ごと ずらす）。
 
 ## ランキング（あらゆる 指標／2026-10）

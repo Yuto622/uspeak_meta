@@ -49,6 +49,7 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
   // ⑤ できる ように なった ことの コレクション（できた 体験が 自信に なる＝Bandura の 自己効力感）。
   // ⑥ くわしい 数字・4 つの 力・英検は「くわしく」の 中に（小さい 子には 1 画面 1 つ）。
   const pct = (a, b) => (b ? Math.min(100, Math.round((a / b) * 100)) : 100);
+  const STAMPS = [25, 50, 75];
   function progressOf(v) {
     if (v.last) return 100;
     if (v.ready) return 100;
@@ -74,14 +75,18 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
   function hero(v) {
     const s = v.stage; const p = progressOf(v);
     const top = v.places?.list?.[0];
-    const stamps = [{ p: 0, reached: true, start: true }, ...(v.checkpoints || [])];
+    // スタンプは 輪と 同じ ものさし（前は 単語だけで 見て いたので、輪が 32% でも スタンプが 0 だった）。
+    const stamps = [{ p: 0, reached: true, start: true }, ...STAMPS.map((x) => ({ p: x, reached: p >= x }))];
+    const nextStamp = STAMPS.find((x) => p < x);
     const fastNear = !v.ready && v.words.left === 0 && (v.quiz.acc ?? 0) >= 90 && v.quiz.n >= 5;
     return `<section class="rm2-hero">
-      <div class="rm2-ring" style="--p:${p}"><div><b>${p}<small>%</small></b><span>${bi(v.last ? 'Top!' : `to stage ${esc(v.stages[v.index + 1]?.id || '')}`, v.last ? 'ゴール' : 'つぎまで')}</span></div></div>
+      <div class="rm2-ringWrap"><div class="rm2-ring" style="--p:${p}"><div><b>${p}<small>%</small></b><span>${bi(v.last ? 'Top!' : `to stage ${esc(v.stages[v.index + 1]?.id || '')}`, v.last ? 'ゴール' : 'つぎまで')}</span></div></div>
+        ${!v.last && !v.ready ? `<p class="rm2-almost">${nextStamp ? bi(`${nextStamp - p}% to 🎖`, `あと ${nextStamp - p}% で 🎖`) : bi(`${100 - p}% to ⭐`, `あと ${100 - p}% で ⭐ ゴール`)}</p>` : ''}</div>
       <div class="rm2-heroText">
         ${bi(`Stage ${s.id} · ${s.en}`, `いまの 段階 ${s.id}「${s.ja}」`, 'rm2-stage')}
         ${s.cando?.ja ? `<p class="rm2-goal">🎯 ${bi(s.cando.en, s.cando.ja)}</p>` : ''}
-        <div class="rm2-stamps">${stamps.map((c) => `<span class="${c.reached ? 'on' : ''}" title="${c.start ? 'start' : `${c.p}%`}">${c.reached ? (c.start ? '🚩' : '🎖') : '○'}<small>${c.start ? 'スタート' : `${c.p}%`}</small></span>`).join('')}<span class="goal">${v.ready || v.last ? '⭐' : '☆'}<small>ゴール</small></span></div>
+        <div class="rm2-stamps">${stamps.map((c) => `<span class="${c.reached ? 'on' : ''}" title="${c.start ? 'start' : `${c.p}%`}">${c.reached ? (c.start ? '🚩' : '🎖') : '○'}<small>${c.start ? 'スタート' : `${c.p}%`}</small></span>`).join('')}<span class="goal">${v.ready || v.last ? '⭐' : '☆'}<small>ゴール</small></span>
+          ${v.last ? '' : `<span class="prize">🎁<small>${esc(`◈100・🏅 ${v.stages[v.index]?.id || ''}`)}</small></span>`}</div>
         <div class="rm2-today"><div>${bi('Today\'s step', 'きょうの 1 歩', 'rm2-todayHead')}${todayStep(v)}</div>
           ${top ? `<button type="button" class="rm-go-top" data-go="0"><span>${top.emoji}</span>${bi(top.en, top.ja)}<b>▶</b></button>` : ''}</div>
         ${fastNear ? `<p class="rm2-fast">🚀 ${bi('Fast track! 90% right skips the wait', 'とびきゅう チャンス！ 9 わり 正解で 20 問 またずに すすめる')}</p>` : ''}
@@ -93,15 +98,18 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
       const cls = s.done ? 'done' : s.here ? 'here' : i === v.index + 1 ? 'next' : 'fog';
       const tip = s.done || s.here ? (s.cando?.ja || '') : i === v.index + 1 ? (s.cando?.ja ? `つぎは「${s.cando.ja}」` : '') : '？';
       return `<li class="${cls}" style="--i:${i}" title="${esc(tip)}"><span class="rm2-node">${s.done ? '✓' : s.here ? '⭐' : cls === 'next' ? esc(s.id) : '🔒'}</span>
-        <b>${esc(s.id)}</b><small>${esc(cls === 'fog' ? s.gradeJa : s.ja)}</small>${cls === 'next' && s.cando?.ja ? `<em>${esc(s.cando.ja)}</em>` : ''}</li>`;
+        <b>${esc(s.id)}</b>${cls === 'fog' ? '' : `<small>${esc(s.ja)}</small>`}${cls === 'next' && s.cando?.ja ? `<em>${esc(s.cando.ja)}</em>` : ''}</li>`;
     }).join('')}</ol>`;
   }
 
   function collection(v) {
+    // バッジ 12 まいの わく（あいた わくが 見えると うめたく なる）。とった ものは 光る・いまの は ？・その先は 🔒。
     const got = v.stages.filter((s) => s.done && s.cando?.ja);
-    return `<section class="rm-card rm2-got">${bi(`Things you can do (${got.length})`, `できる ように なった こと（${got.length}）`, 'rm-sub')}
-      ${got.length ? `<ul>${got.map((s) => `<li><span>🏅</span>${bi(s.cando.en, s.cando.ja)}<em>${esc(s.id)}</em></li>`).join('')}</ul>`
-        : `<p class="rm2-empty">${bi('Finish this stage to get your first badge!', 'この 段階を おえると さいしょの バッジ！')}</p>`}</section>`;
+    const slots = v.stages.map((s) => `<li class="${s.done ? 'on' : s.here ? 'now' : ''}" title="${esc(s.done ? s.cando?.ja || '' : s.here ? `つぎの バッジ：${s.cando?.ja || ''}` : '')}"><span>${s.done ? '🏅' : s.here ? '❔' : '🔒'}</span><small>${esc(s.id)}</small></li>`).join('');
+    const last = got[got.length - 1];
+    return `<section class="rm-card rm2-got">${bi(`Badges ${got.length} / ${v.stages.length}`, `できる ように なった こと ${got.length} / ${v.stages.length}`, 'rm-sub')}
+      <ol class="rm2-slots">${slots}</ol>
+      ${last ? `<p class="rm2-lastBadge">🏅 ${bi(last.cando.en, last.cando.ja)}</p>` : `<p class="rm2-empty">${bi('Finish this stage to get your first badge!', `この 段階を おえると さいしょの バッジ「${v.stage.cando?.ja || ''}」`)}</p>`}</section>`;
   }
 
   function details(v) {
@@ -156,6 +164,7 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
     if (v.off) { body.innerHTML = `<p class="rm-wait">${bi('Roadmap is not available now', 'いまは ロードマップを ひらけないよ')}</p>`; return; }
     body.innerHTML = `<div class="rm2">${hero(v)}${path(v)}
       <div class="rm2-row">${collection(v)}<section class="rm-card rm2-week">${bi(`${v.weekDays} day${v.weekDays === 1 ? '' : 's'} this week`, `今週 ${v.weekDays} 日 れんしゅう した`, 'rm-sub')}
+        <div class="rm2-dots">${Array.from({ length: 7 }, (_, i) => `<i class="${i < v.weekDays ? 'on' : ''}">${i < v.weekDays ? '★' : ''}</i>`).join('')}</div>
         <p>${bi('Little and often beats long and rare.', 'すこしずつ なんども が いちばん のびる')}</p></section></div>
       ${details(v)}</div>`;
     body.querySelectorAll('[data-go]').forEach((b) => {
@@ -178,7 +187,8 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
     if (!v?.stage || !v.checkpoints) return;
     let seen = {};
     try { seen = JSON.parse(localStorage.getItem(STAMP_KEY) || '{}') || {}; } catch { /* private mode */ }
-    const best = Math.max(0, ...v.checkpoints.filter((c) => c.reached).map((c) => c.p));
+    const pr = progressOf(v);
+    const best = Math.max(0, ...STAMPS.filter((x) => pr >= x));
     const before = Number(seen[v.stage.id]) || 0;
     if (best > before) {
       seen[v.stage.id] = best;

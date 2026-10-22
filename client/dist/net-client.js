@@ -23,6 +23,7 @@ import { createPetUI } from './pet.js';
 import { createPetBuddy } from './pet-models.js';
 import { createDailyUI } from './daily.js';
 import { createRoadmapUI } from './roadmap.js';
+import { startWarp, stopWarp, setWarp } from './warp.js';
 import { createNight } from './night-world.js';
 import { createRideUI } from './ride.js';
 import { createRaceUI } from './race.js';
@@ -198,10 +199,23 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // 🗺 ロードマップ（段階・英検の 見こみ・おすすめの 場所）。「いく」は その 島へ ひこうきで。
   const roadmap = createRoadmapUI({
     send: atSend, toast, speak,
+    // 「つぎは これ」を おすと その 場所（建物の 戸口の 前）へ すぐ ワープ（さがす 手間を なくす）。
+    // プレミアムの 島・まだ ひらいて いない 島には とばない（いつもどおり 🔒）。
     go: (p) => {
       if (!p?.island) return false;
-      if (rpg.state.current === p.island) { toast(`${p.ja} は この 島に あるよ`); return true; }
-      return rpg.fly(p.island);
+      if (rpg.premiumLock?.includes(p.island)) { toast(tr('🔒 プレミアムの しまです。せんせいに きいてね。')); return true; }
+      if (rpg.store?.unlocked && !rpg.store.unlocked(p.island) && p.island !== 'main') { toast(tr('まだ ひらいていません')); return true; }
+      try { startWarp(); setWarp(0.5); setTimeout(stopWarp, 700); } catch { /* 演出なし */ }
+      if (!goPlace({ island: p.island, to: p.island })) return rpg.fly(p.island);
+      const isl = rpg[p.island]?.data;
+      const sp = p.spot && isl?.spots?.find((x) => x.id === p.spot);
+      if (sp) {
+        const at = sp.path || { x: sp.x, z: sp.z + 4 };
+        player.position.set(isl.x + at.x, 0, isl.z + at.z);
+        state.lastSent.s = '';
+      }
+      toast(`✨ ${p.ja}`);
+      return true;
     },
   });
   // まちづくり島. The room a child builds in is an interior scene of its own, like the
