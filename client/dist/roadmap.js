@@ -1,4 +1,4 @@
-// 🗺 ロードマップ — A・B・C・1〜9 の 12 段階を すごろくの ように ならべ、いまの 場所に ⭐。
+// 🗺 ロードマップ — A・B・C・1〜9 の 12 段階を 1 本の 旅の 道に ならべ、いまの 場所に ⭐（2026-10 作りなおし・下の hero() の 説明）。
 // 中身は ぜんぶ 部屋が きめる（rm:get → rm:state、段階が 上がると rm:up）。ページは ならべるだけ・お祝いするだけ。
 // 英語を 大きく、日本語を 小さく 両方 出すので、入れ物は translate="no"（訳の 層が 2 重に しない）。
 const SKILL = {
@@ -41,33 +41,80 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
     send('rm:get', {});
   }
 
-  function board(v) {
-    return `<ol class="rm-board">${v.stages.map((s, i) => `<li class="${s.done ? 'done' : s.here ? 'here' : 'later'}" style="--i:${i}">
-      <span class="rm-id">${esc(s.id)}</span>${s.here ? '<span class="rm-star" aria-label="you are here">⭐</span>' : s.done ? '<span class="rm-check">✓</span>' : ''}
-      ${bi(s.en, s.ja, 'rm-name')}<em>${esc(s.gradeJa)}</em></li>`).join('')}</ol>`;
+  // ---- 2026-10 作りなおし：やる気の 研究から -------------------------------------------------
+  // ① つぎまでの 輪（goal-gradient：ゴールが ちかいほど はやく なる＝Kivetz 2006）。
+  // ② はじめた ぶんの スタンプは さいしょから ✓（endowed progress：2 こ おして ある カードは 34% vs 19%＝Nunes & Drèze 2006）。
+  // ③ きょうの 1 歩（すぐ 先の 小さな 目標が 遠い 目標より 効く＝Bandura & Schunk 1981・小さな 前進＝Amabile & Kramer 2011）。
+  // ④ 旅の 道は 1 本（Duolingo の path：つぎに やる ことが 迷わない）。つぎの 段階は 霧の 中で「めざす こと」だけ ちらっと（好奇心の すきま＝Loewenstein 1994）。
+  // ⑤ できる ように なった ことの コレクション（できた 体験が 自信に なる＝Bandura の 自己効力感）。
+  // ⑥ くわしい 数字・4 つの 力・英検は「くわしく」の 中に（小さい 子には 1 画面 1 つ）。
+  const pct = (a, b) => (b ? Math.min(100, Math.round((a / b) * 100)) : 100);
+  function progressOf(v) {
+    if (v.last) return 100;
+    if (v.ready) return 100;
+    const w = v.words; const q = v.quiz;
+    return Math.round((pct(w.known, w.need) * 0.5) + (pct(Math.min(q.n, q.min), q.min) * 0.3) + (pct(q.acc ?? 0, q.rate) * 0.2));
+  }
+  function todayStep(v) {
+    const w = v.words; const q = v.quiz;
+    if (v.last) return bi('You reached the top! Keep your words fresh.', 'いちばん 上まで きたよ！ ことばを わすれない ように つづけよう');
+    if (v.ready) return bi('Open the game once more to level up!', 'つぎに ゲームを ひらくと だんかい アップ！');
+    if ((v.refresh?.n || 0) >= 3) return bi('Refresh 5 old words today', 'きょうは わすれかけの ことばを 5 こ');
+    const stamp = (v.checkpoints || []).find((c) => !c.reached);
+    if (stamp && w.left) {
+      const to = Math.max(1, Math.ceil((stamp.p / 100) * w.need) - w.known);
+      return bi(`Learn ${to} more word${to > 1 ? 's' : ''} → stamp ${stamp.p}%`, `ことばを あと ${to} こ 覚えると 🎖 ${stamp.p}%`);
+    }
+    if (w.left) return bi(`Learn ${w.left} more words`, `ことばを あと ${w.left} こ 覚えよう`);
+    if (q.left) { const n = Math.min(q.left, 10); return bi(`Answer ${n} quizzes today`, `きょうは クイズを ${n} 問`); }
+    if (q.streakNeed) return bi(`${q.streakNeed} right in a row`, `あと ${q.streakNeed} 問 つづけて 正解`);
+    return bi('Keep going!', 'この ちょうし！');
   }
 
-  function nextCard(v) {
-    if (v.last) return `<section class="rm-card rm-next">${bi('You reached the final stage!', 'さいごの 段階まで きたよ！', 'rm-big')}</section>`;
-    const w = v.words; const q = v.quiz;
-    const pct = (a, b) => (b ? Math.min(100, Math.round((a / b) * 100)) : 100);
-    const en = []; const ja = [];
-    if (w.left) { en.push(`${w.left} more word${w.left > 1 ? 's' : ''}`); ja.push(`単語 あと ${w.left} こ`); }
-    if (q.left) { en.push(`${q.left} more quiz${q.left > 1 ? 'zes' : ''}`); ja.push(`クイズ あと ${q.left} 問`); }
-    else if (q.acc !== null && q.acc < q.rate) { en.push(`${q.streakNeed} correct in a row`); ja.push(`あと ${q.streakNeed} 問 つづけて 正解`); }
-    // いちばん 上に「つぎは これ」を 1 つだけ（えらぶ ものが 多いと 小さい 子は うごけない）。のこりは 下の「ほかの ばしょ」。
+  function hero(v) {
+    const s = v.stage; const p = progressOf(v);
     const top = v.places?.list?.[0];
-    const goTop = top ? `<button type="button" class="rm-go-top" data-go="0"><span>${top.emoji}</span>${bi(`Next: ${top.en}`, `つぎは ${top.ja}`)}<b>▶</b></button>` : '';
-    // 単語の とちゅうの スタンプ（25・50・75%）。
-    const stamps = (v.checkpoints || []).map((c) => `<em class="rm-stamp${c.reached ? ' on' : ''}" style="left:${c.p}%">${c.reached ? '🎖' : '・'}</em>`).join('');
-    const head = v.ready ? bi('Ready for the next stage!', 'つぎの 段階に すすめるよ！', 'rm-big') : bi(`Next stage: ${en.join(' · ')}`, `次の 段階まで あと ${ja.join('・')}`, 'rm-big');
-    return `<section class="rm-card rm-next">${head}${goTop}
-      <div class="rm-meters">
-        <div>${bi(`Words ${w.known} / ${w.need}`, `覚えた 単語（${w.total} この 8 わり）`)}<i class="rm-stamped"><b style="width:${pct(w.known, w.need)}%"></b>${stamps}</i></div>
+    const stamps = [{ p: 0, reached: true, start: true }, ...(v.checkpoints || [])];
+    const fastNear = !v.ready && v.words.left === 0 && (v.quiz.acc ?? 0) >= 90 && v.quiz.n >= 5;
+    return `<section class="rm2-hero">
+      <div class="rm2-ring" style="--p:${p}"><div><b>${p}<small>%</small></b><span>${bi(v.last ? 'Top!' : `to stage ${esc(v.stages[v.index + 1]?.id || '')}`, v.last ? 'ゴール' : 'つぎまで')}</span></div></div>
+      <div class="rm2-heroText">
+        ${bi(`Stage ${s.id} · ${s.en}`, `いまの 段階 ${s.id}「${s.ja}」`, 'rm2-stage')}
+        ${s.cando?.ja ? `<p class="rm2-goal">🎯 ${bi(s.cando.en, s.cando.ja)}</p>` : ''}
+        <div class="rm2-stamps">${stamps.map((c) => `<span class="${c.reached ? 'on' : ''}" title="${c.start ? 'start' : `${c.p}%`}">${c.reached ? (c.start ? '🚩' : '🎖') : '○'}<small>${c.start ? 'スタート' : `${c.p}%`}</small></span>`).join('')}<span class="goal">${v.ready || v.last ? '⭐' : '☆'}<small>ゴール</small></span></div>
+        <div class="rm2-today"><div>${bi('Today\'s step', 'きょうの 1 歩', 'rm2-todayHead')}${todayStep(v)}</div>
+          ${top ? `<button type="button" class="rm-go-top" data-go="0"><span>${top.emoji}</span>${bi(top.en, top.ja)}<b>▶</b></button>` : ''}</div>
+        ${fastNear ? `<p class="rm2-fast">🚀 ${bi('Fast track! 90% right skips the wait', 'とびきゅう チャンス！ 9 わり 正解で 20 問 またずに すすめる')}</p>` : ''}
+      </div></section>`;
+  }
+
+  function path(v) {
+    return `<ol class="rm2-path">${v.stages.map((s, i) => {
+      const cls = s.done ? 'done' : s.here ? 'here' : i === v.index + 1 ? 'next' : 'fog';
+      const tip = s.done || s.here ? (s.cando?.ja || '') : i === v.index + 1 ? (s.cando?.ja ? `つぎは「${s.cando.ja}」` : '') : '？';
+      return `<li class="${cls}" style="--i:${i}" title="${esc(tip)}"><span class="rm2-node">${s.done ? '✓' : s.here ? '⭐' : cls === 'next' ? esc(s.id) : '🔒'}</span>
+        <b>${esc(s.id)}</b><small>${esc(cls === 'fog' ? s.gradeJa : s.ja)}</small>${cls === 'next' && s.cando?.ja ? `<em>${esc(s.cando.ja)}</em>` : ''}</li>`;
+    }).join('')}</ol>`;
+  }
+
+  function collection(v) {
+    const got = v.stages.filter((s) => s.done && s.cando?.ja);
+    return `<section class="rm-card rm2-got">${bi(`Things you can do (${got.length})`, `できる ように なった こと（${got.length}）`, 'rm-sub')}
+      ${got.length ? `<ul>${got.map((s) => `<li><span>🏅</span>${bi(s.cando.en, s.cando.ja)}<em>${esc(s.id)}</em></li>`).join('')}</ul>`
+        : `<p class="rm2-empty">${bi('Finish this stage to get your first badge!', 'この 段階を おえると さいしょの バッジ！')}</p>`}</section>`;
+  }
+
+  function details(v) {
+    const w = v.words; const q = v.quiz;
+    return `<details class="rm2-more"><summary>${bi('Details', 'くわしく（ことば・クイズ・4 つの 力・英検）')}</summary>
+      <section class="rm-card rm-next"><div class="rm-meters">
+        <div>${bi(`Words ${w.known} / ${w.need}`, `覚えた 単語（${w.total} この 8 わり）`)}<i><b style="width:${pct(w.known, w.need)}%"></b></i></div>
         <div>${bi(`Quizzes ${Math.min(q.n, q.min)} / ${q.min}`, 'この 段階の クイズ')}<i><b style="width:${pct(q.n, q.min)}%"></b></i></div>
         <div>${bi(`Correct ${q.acc ?? 0}% / ${q.rate}% (last ${q.window || 30})`, `正解率（さいきんの ${q.window || 30} 問）`)}<i><b style="width:${pct(q.acc ?? 0, q.rate)}%"></b></i></div>
       </div>
-      ${w.next?.length ? `<p class="rm-words">${bi('Words to learn next', 'つぎに 覚える ことば')} ${w.next.map((x) => `<span>${esc(x)}</span>`).join('')}</p>` : ''}</section>`;
+      ${w.next?.length ? `<p class="rm-words">${bi('Words to learn next', 'つぎに 覚える ことば')} ${w.next.map((x) => `<span>${esc(x)}</span>`).join('')}</p>` : ''}
+      ${w.fading ? `<p class="rm-fine">${esc(`わすれかけの ことば ${w.fading} こ（45 日 あいた ことばは 1 回 正解すると もどる）`)}</p>` : ''}</section>
+      <div class="rm-grid">${skillsCard(v)}${eikenCard(v)}${placesCard(v)}</div></details>`;
   }
 
   function skillsCard(v) {
@@ -107,21 +154,22 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
 
   function render(v) {
     if (v.off) { body.innerHTML = `<p class="rm-wait">${bi('Roadmap is not available now', 'いまは ロードマップを ひらけないよ')}</p>`; return; }
-    const s = v.stage;
-    body.innerHTML = `<section class="rm-now">${bi(`Stage ${s.id} · ${s.en}`, `いまの 段階：${s.id}「${s.ja}」${s.gradeJa}${s.jr ? ` ${s.jr}` : ''}`, 'rm-hero')}
-      ${s.cando?.ja ? `<p class="rm-cando">🎯 ${bi(`Goal: ${s.cando.en}`, `めざす こと：${s.cando.ja}`)}</p>` : ''}
-      ${s.note ? `<small>${esc(s.note)}</small>` : ''}<span class="rm-week">${bi(`${v.weekDays} day${v.weekDays === 1 ? '' : 's'} this week`, `今週 ${v.weekDays} 日`)}</span></section>
-      ${board(v)}<div class="rm-grid">${nextCard(v)}${skillsCard(v)}${eikenCard(v)}${placesCard(v)}</div>`;
+    body.innerHTML = `<div class="rm2">${hero(v)}${path(v)}
+      <div class="rm2-row">${collection(v)}<section class="rm-card rm2-week">${bi(`${v.weekDays} day${v.weekDays === 1 ? '' : 's'} this week`, `今週 ${v.weekDays} 日 れんしゅう した`, 'rm-sub')}
+        <p>${bi('Little and often beats long and rare.', 'すこしずつ なんども が いちばん のびる')}</p></section></div>
+      ${details(v)}</div>`;
     body.querySelectorAll('[data-go]').forEach((b) => {
       b.onclick = () => {
         const p = v.places.list[Number(b.dataset.go)];
         if (!p) return;
-        if (p.spot === 'review') { close(); send('review:start', {}); return; }
+        if (p.spot === 'review') { close(); send('review:start', p.refresh ? { refresh: true } : {}); return; }
         close();
         if (go(p) === false) toast(`${p.ja}へ いこう`);
       };
     });
-    body.querySelector('.rm-board .here')?.scrollIntoView?.({ block: 'nearest', inline: 'center' });
+    // scrollIntoView は ダイアログ ごと ずらすので、道の 中だけ 横に うごかす。
+    const pathEl = body.querySelector('.rm2-path'); const here = pathEl?.querySelector('.here');
+    if (pathEl && here) pathEl.scrollLeft = Math.max(0, here.offsetLeft - pathEl.clientWidth / 2 + here.offsetWidth / 2);
   }
 
   // とちゅうの スタンプを はじめて とった とき 1 回だけ おしらせ（この 端末に 覚える）。

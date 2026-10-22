@@ -34,6 +34,9 @@ export const QUIZ_MIN = 20;        // クイズ 20 問 以上
 export const QUIZ_RATE = 0.8;      // 正解率 8 割
 export const QUIZ_RECENT = 30;     // 正解率は さいきんの 30 問で 見る（はじめの まちがいを ずっと ひきずらない）
 export const CHECKPOINTS = [25, 50, 75]; // 段階の とちゅうの スタンプ（単語の 進み）
+export const FADE_DAYS = 45;       // 覚えた 単語でも、さいごの 正解から 45 日 あくと「わすれかけ」（覚えた に かぞえない）
+export const FAST_N = 10;          // とびきゅう：この 段階に 入ってから その 級を 10 問 以上 といて
+export const FAST_RATE = 0.9;      //   9 割 正解で、単語も 8 割 なら、20 問を 待たずに すすむ（先生が もどした あとも 0 から）
 export const STAGE_COINS = 100;    // 段階が 上がった ときの コイン（1 段階 1 回だけ）
 export const MIN_SKILL = 10;       // 合格見込みを 出す まえに 1 技能 これだけ ほしい
 export const TARGET_CHANCE = 0.8;  // 「あと これだけ」の めやす（見込み 80%）
@@ -177,10 +180,16 @@ export function roadmapOf(rows, { settings = null, state = null, now = Date.now(
   const idx = STAGE_IDS.indexOf(stageId);
   const stage = stages[idx];
   const mastered = masteredAt(masteryTimeline(quiz), now);
+  // さいごに 正解した 時刻（わすれかけ を 見る。間を あけた くりかえしが 長く のこる＝Cepeda 2006）。
+  const lastOk = new Map();
+  for (const e of quiz) if (isClean(e) && okOf(e)) { const w = englishWord(e.data.word); if (w) lastOk.set(w, e.ts); }
+  const fresh = (w) => mastered.has(w) && now - (lastOk.get(w) || 0) <= FADE_DAYS * 86400e3;
 
-  // 単語：その 段階の 単語の 8 割
+  // 単語：その 段階の 単語の 8 割（わすれかけ は かぞえない）
   const words = stage.words;
-  const known = words.filter((w) => mastered.has(w));
+  const known = words.filter(fresh);
+  // 前の 段階の 見なおし：前に 覚えた のに 45 日 あいた ことば（`review:start {refresh:true}` で 出す）。
+  const faded = stages.slice(0, idx).flatMap((x) => x.words).filter((w) => mastered.has(w) && !fresh(w));
   const needWords = Math.ceil(words.length * WORD_RATE);
   // クイズ：この 段階に 入ってから、この 段階の 級の はじめての 答え
   const graded = quiz.filter((e) => isClean(e) && okOf(e) !== null).map((e) => ({ e, g: gradeOfEvent(e, wordGrade) }));
@@ -200,7 +209,9 @@ export function roadmapOf(rows, { settings = null, state = null, now = Date.now(
     }
   }
   const wordsLeft = Math.max(0, needWords - known.length);
-  const ready = wordsLeft === 0 && quizLeft === 0 && acc >= QUIZ_RATE;
+  // とびきゅう：もう できる 子は 20 問を 待たない（この 段階に 入ってからの 答えだけ＝先生が もどした 段階を すぐ こえない）。
+  const fast = wordsLeft === 0 && qn >= FAST_N && acc >= FAST_RATE;
+  const ready = wordsLeft === 0 && ((quizLeft === 0 && acc >= QUIZ_RATE) || fast);
   const last = idx === STAGE_IDS.length - 1;
 
   // 4 つの 力（保護者レポートと 同じ 対応：聞く＝listen、書く＝type・spell、それ以外＝読む。話す＝声に 出した 回数）
@@ -226,14 +237,15 @@ export function roadmapOf(rows, { settings = null, state = null, now = Date.now(
     stage: { id: stage.id, en: stage.en, ja: stage.ja, note: stage.note, grade: stage.grade, gradeJa: EIKEN[stage.grade].ja, jr: stage.jr || '', cando: stage.cando || null },
     index: idx, since, last,
     stages: stages.map((s, i) => ({ id: s.id, en: s.en, ja: s.ja, grade: s.grade, gradeJa: EIKEN[s.grade].ja, words: s.words.length, done: i < idx, here: i === idx, cando: s.cando || null })),
-    words: { total: words.length, known: known.length, need: needWords, left: wordsLeft, next: words.filter((w) => !mastered.has(w)).slice(0, 6) },
-    quiz: { n: qn, correct: qc, acc: qn ? Math.round(acc * 100) : null, min: QUIZ_MIN, rate: Math.round(QUIZ_RATE * 100), left: quizLeft, streakNeed, recent: recent.length, window: QUIZ_RECENT },
+    words: { total: words.length, known: known.length, need: needWords, left: wordsLeft, next: words.filter((w) => !fresh(w)).slice(0, 6), fading: words.filter((w) => mastered.has(w) && !fresh(w)).length },
+    refresh: { n: faded.length, words: faded.slice(0, 10) },
+    quiz: { fast, n: qn, correct: qc, acc: qn ? Math.round(acc * 100) : null, min: QUIZ_MIN, rate: Math.round(QUIZ_RATE * 100), left: quizLeft, streakNeed, recent: recent.length, window: QUIZ_RECENT },
     // 段階の とちゅうの スタンプ（単語が 25・50・75%）。すぐ 先の 小さな 目標（Bandura & Schunk 1981）。
     checkpoints: CHECKPOINTS.map((p) => ({ p, reached: needWords ? known.length / needWords >= p / 100 : true })),
     ready: ready && !last,
     skills,
     eiken: chances,
-    places: placesFor(stage.grade, { skills, chances, wordsLeft, quizLeft }),
+    places: placesFor(stage.grade, { skills, chances, wordsLeft, quizLeft, refresh: faded.length }),
     weekDays,
     mastered: mastered.size,
   };
@@ -361,10 +373,12 @@ const HIGH = (gja, g, gen) => {
 PLACES.gp2 = HIGH('準2級', 'gp2', 'Pre-2'); PLACES.g2 = HIGH('2級', 'g2', 'Grade 2'); PLACES.gp1 = HIGH('準1級', 'gp1', 'Pre-1');
 const REVIEW = P('', 'review', '🔁', 'Weak-word Review', '苦手単語の 復習（マイページ）', 'words');
 
-export function placesFor(grade, { skills = [], chances = [], wordsLeft = 0, quizLeft = 0 } = {}) {
+export function placesFor(grade, { skills = [], chances = [], wordsLeft = 0, quizLeft = 0, refresh = 0 } = {}) {
   const T = PLACES[grade] || PLACES.g5;
   const out = [];
   const add = (p, why) => { if (p && !out.some((x) => x.island === p.island && x.spot === p.spot)) out.push({ ...p, why }); };
+  // わすれかけ が 3 つ 以上 あれば いちばん 先に（前の 段階の 見なおし・1 回 5 問）。
+  if (refresh >= 3) out.push({ ...REVIEW, refresh: true, en: 'Refresh old words', ja: 'わすれかけの ことば', emoji: '🔁', why: { kind: 'words', n: Math.min(refresh, 5) } });
   if (wordsLeft) for (const p of T.words) add(p, { kind: 'words', n: wordsLeft });
   // いちばん 弱い 力から（数が 少ない か 正解率が ひくい）
   const weak = skills.filter((s) => s.key !== 'speak').sort((a, b) => a.value - b.value);

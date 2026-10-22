@@ -65,7 +65,14 @@ test('進む 条件：単語の 8 割を 覚えた（2 日 以上・3 回 つづ
   v = roadmapOf(rows, { state: { stage: 'A', since: T0 + 3 * DAY }, now: T0 + 4 * DAY });
   assert.equal(v.quiz.n, 19);
   assert.equal(v.quiz.left, 1);
-  assert.equal(v.ready, false);
+  // とびきゅう：単語 8 割 ＋ その 級の さいきんの 20 問が 9 割（ここは 19/20）なら 20 問を 待たない
+  assert.equal(v.quiz.fast, true);
+  assert.equal(v.ready, true);
+  // 9 割に とどかなければ、いつもどおり 20 問を 待つ
+  const slow = [...learn(A.slice(0, need)), ...jrQuiz(19, 4, T0 + 3 * DAY)];
+  const vs = roadmapOf(slow, { state: { stage: 'A', since: T0 + 3 * DAY }, now: T0 + 4 * DAY });
+  assert.equal(vs.quiz.fast, false);
+  assert.equal(vs.ready, false);
   const plus = [...rows, ...jrQuiz(1, 99, T0 + 3 * DAY + 60000)];
   v = roadmapOf(plus, { state: { stage: 'A', since: T0 + 3 * DAY }, now: T0 + 4 * DAY });
   assert.equal(v.quiz.n, 20);
@@ -197,4 +204,21 @@ test('保護者レポート：今の 段階・次まで・英検の 見込み（
   const d = weeklyData(rows, { week: weekOf(T0 + DAY), nick: 'かい', sender: '教室' });
   const src = weeklyTex({ ...d, roadmap: v });
   assert.ok(src.includes('ロードマップ') && src.includes('\\newpage') && src.includes('かいさんの ロードマップ'));
+});
+
+test('わすれかけ：覚えた 単語でも 45 日 あくと かぞえない。前の 段階の ぶんは 見なおしに 出る', () => {
+  const A = stagesFor().find((x) => x.id === 'A').words;
+  const B = stagesFor().find((x) => x.id === 'B').words;
+  const rows = [...learn(A), ...learn(B.slice(0, 3))];
+  let v = roadmapOf(rows, { state: { stage: 'B', since: T0 }, now: T0 + 10 * DAY });
+  assert.equal(v.words.known, 3);
+  assert.equal(v.refresh.n, 0);
+  v = roadmapOf(rows, { state: { stage: 'B', since: T0 }, now: T0 + 50 * DAY });
+  assert.equal(v.words.known, 0, '45 日 あいた');
+  assert.equal(v.words.fading, 3);
+  assert.equal(v.refresh.n, A.length, 'A の ことばは 見なおしへ');
+  assert.equal(v.places.list[0].refresh, true, 'いちばん 先に「わすれかけの ことば」');
+  // 1 回 正解すれば もどる（覚えた の 3 回 は もう すんで いる）
+  const again = [...rows, quiz(T0 + 49 * DAY, { word: B[0], correct: true, level: 'SuperEasy' })];
+  assert.equal(roadmapOf(again, { state: { stage: 'B', since: T0 }, now: T0 + 50 * DAY }).words.known, 1);
 });

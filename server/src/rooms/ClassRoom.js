@@ -83,7 +83,7 @@ function applyOp(wallet, op) {
   try { WALLET_WATCH.get(wallet)?.(op); } catch (err) { log.warn('[tasks] could not count an op:', err.message); }
   return entry;
 }
-import { boxFromEvents, makeSet as makeReviewSet, publicSet as reviewPublic, answer as reviewAnswer, dueCount as reviewDue, jstDay, COIN as REVIEW_COIN, PER_QUIZ as REVIEW_PER, ReviewError } from '../game/review.js';
+import { boxFromEvents, optionsFor as reviewOptions, makeSet as makeReviewSet, publicSet as reviewPublic, answer as reviewAnswer, dueCount as reviewDue, jstDay, COIN as REVIEW_COIN, PER_QUIZ as REVIEW_PER, ReviewError } from '../game/review.js';
 import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, placeLabel } from '../game/class-mode.js';
 import { rideOf, ParkError } from '../game/themepark.js';
 import { rankings, boardPayload, sanitizeWeekHist, noteWeek, selfView, classGoal } from '../game/rankings.js';
@@ -205,7 +205,7 @@ export class ClassRoom extends Room {
     this.onMessage('class:freeze', (client, msg) => this.onClassFreeze(client, msg));
     this.onMessage('class:review', (client) => this.onClassReview(client).catch((err) => log.warn(`[room ${this.roomId}] class review failed:`, err?.message || err)));
     this.onMessage('class:move', (client, msg) => this.onClassMove(client, msg));
-    this.onMessage('review:start', (client) => this.onReviewStart(client).catch((err) => log.warn(`[room ${this.roomId}] review start failed:`, err?.message || err)));
+    this.onMessage('review:start', (client, msg) => this.onReviewStart(client, msg).catch((err) => log.warn(`[room ${this.roomId}] review start failed:`, err?.message || err)));
     this.onMessage('review:answer', (client, msg) => this.onReviewAnswer(client, msg));
     this.onMessage('review:quit', (client) => { const p = this.priv.get(client.sessionId); if (p) p.review = null; });
 
@@ -4669,9 +4669,21 @@ export class ClassRoom extends Room {
     return set.items.length;
   }
 
-  async onReviewStart(client) {
+  async onReviewStart(client, msg) {
     const priv = this.priv.get(client.sessionId);
     if (!priv || priv.review) return;
+    // ロードマップの「わすれかけの ことば」：前の 段階で 覚えて 45 日 あいた ことば（どの ことばかは サーバーが きめる）。
+    if (msg?.refresh && this.roadmap) {
+      const v = await this.roadmapView(client.sessionId, { advance: false });
+      const words = (v?.refresh?.words || []).slice(0, REVIEW_PER);
+      if (words.length) {
+        const state = await this.reviewStateOf(priv);
+        const set = { items: words.map((w) => ({ word: w, options: reviewOptions(state, w), done: false })), correct: 0, mode: 'self', classRun: 0, at: Date.now() };
+        priv.review = set;
+        client.send('review:start', reviewPublic(set));
+        return;
+      }
+    }
     await this.startReview(client.sessionId);
   }
 
