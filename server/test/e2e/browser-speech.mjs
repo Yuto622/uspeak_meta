@@ -157,7 +157,7 @@ try {
   check('予備の 作る 音：正解は 高い 音・不正解は 低い 音', tones.right.length >= 2 && Math.min(...tones.right) > 800 && tones.wrong.length === 2 && Math.max(...tones.wrong) < 300, JSON.stringify(tones));
   check('…判定が ない 返事と ♫ を 切った ときは 鳴らない', tones.none === 0 && tones.muted === 0);
 
-  // 本番は ファイル（assets/sfx の CC0 の 音）を 鳴らす。ほんとうの AudioContext で 読めて デコード できるか。
+  // 本番は ファイル（assets/sfx の 木琴の 音）を 鳴らす。ほんとうの AudioContext で 読めて デコード できるか。
   const page3 = await ctx.newPage();
   await page3.goto(`http://127.0.0.1:${PORT}/phrases.json`, { waitUntil: 'load' });
   const file = await page3.evaluate(async () => {
@@ -171,7 +171,7 @@ try {
     sfx.judge(true); await new Promise((r) => setTimeout(r, 200)); sfx.judge(false);
     return used;
   });
-  check('効果音は ファイル（CC0 の 音）を 鳴らす', file.length === 2 && file.every((d) => d > 0.3), JSON.stringify(file));
+  check('効果音は ファイル（木琴の 音）を 鳴らす', file.length === 2 && file.every((d) => d > 0.3), JSON.stringify(file));
 } catch (err) {
   console.log('E2E ERROR', err);
   results.push({ name: 'script', ok: false });

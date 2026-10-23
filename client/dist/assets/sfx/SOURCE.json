@@ -1,6 +1,16 @@
 {
-  "_": "正解・不正解の 効果音。オープンソースの UI 効果音集 uisfx 0.4.0（npm: uisfx、https://uisfx.com）の「glass」パックを そのまま 置いて いる。音は CC0 1.0（パブリックドメイン。商用も 改変も 自由、表記も いらない）。LICENSE-AUDIO.txt を 参照。差し替えるときは 同じ 名前で 上書きし、ここの ハッシュも 書き直すこと。",
-  "license": "CC0-1.0",
-  "correct": { "from": "uisfx@0.4.0 sounds/glass/success.mp3", "bytes": 8820, "sha256": "c3a9ace5be630327355f43d069c1208933304583e636dc6bd595a6f547c91cdb", "plays": "正解（上がる 3 音の ベル）" },
-  "wrong": { "from": "uisfx@0.4.0 sounds/glass/error.mp3", "bytes": 7566, "sha256": "380c731be98f48cb9d3c0c76373a31ff57d90cb7b04ad76e5e0b16e73877e9c0", "plays": "不正解（下がる 2 音。こわくない 大きさ）" }
+  "_": "正解・不正解の 効果音。木の 鍵盤（マリンバ）を 物理モデルで 鳴らした 音を docs/make-sfx.py で 作って いる（外の 音素材は つかって いない。権利は U-Speak Lab）。前の uisfx「glass」は 不自然 と 言われて やめた。差し替えるときは スクリプトを なおして 走らせれば、ここの バイト数と ハッシュも 書き直される。",
+  "license": "U-Speak Lab（自作）",
+  "correct": {
+    "from": "docs/make-sfx.py（マリンバ ソ→ド＋上の ド）",
+    "bytes": 8640,
+    "sha256": "6ee406339718b222d40967061c58008a862c5cc00c3d85f8881921bcde6aa132",
+    "plays": "正解（上がる 2 音の 木琴。明るく 短い）"
+  },
+  "wrong": {
+    "from": "docs/make-sfx.py（マリンバ ミ→ド・低め）",
+    "bytes": 6720,
+    "sha256": "f9bf5201be52981c322bcb8bc314835e99486c8afb89335a28c28dd5f3d28485",
+    "plays": "不正解（下がる 2 音の 木琴。やわらかく 小さめ。こわくない）"
+  }
 }

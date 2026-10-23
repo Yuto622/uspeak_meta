@@ -1,4 +1,4 @@
-// 正解・不正解の 効果音。音は オープンソース（CC0）の uisfx「glass」（assets/sfx/SOURCE.json）。
+// 正解・不正解の 効果音。音は 木琴（マリンバ）を 物理モデルで 鳴らした 自作の 音（docs/make-sfx.py・assets/sfx/SOURCE.json）。
 // ファイルが 読めない とき（file:・オフラインで まだ 読んで いない）は、WebAudio で その場で 作る 音で 代わりに 鳴らす。
 // 判定は いつも サーバー（または オフラインの その画面）。ここは 音を 鳴らす だけ。
 //   import { sfx } from './sfx.js';  sfx.judge(correct)   // true → ピンポン、false → ブッブー
@@ -65,14 +65,15 @@ function play(kind) {
     if (sample(a, kind)) return true;
     const t = a.currentTime + 0.01;
     if (kind === 'right') {
-      // ピンポン：明るい 2 音（E6 → C6 ではなく 上がる 2 音で「できた！」）
-      tone(a, { at: t, freq: 1046.5, len: 0.16, type: 'triangle', vol: 0.14 });
-      tone(a, { at: t + 0.11, freq: 1568, len: 0.32, type: 'triangle', vol: 0.13 });
-      tone(a, { at: t + 0.11, freq: 3136, len: 0.18, type: 'sine', vol: 0.025 });
+      // 木琴の ラ → レ（ファイルと 同じ 上がる 4 度の 2 音）。基音＋4 倍の 倍音で 木の 音に 近づける
+      tone(a, { at: t, freq: 880, len: 0.45, vol: 0.16 });
+      tone(a, { at: t, freq: 3458, len: 0.08, vol: 0.03 });
+      tone(a, { at: t + 0.1, freq: 1174.7, len: 0.55, vol: 0.16 });
+      tone(a, { at: t + 0.1, freq: 4616, len: 0.07, vol: 0.03 });
     } else {
-      // ブッブー：ひくく やわらかい 2 回（こわく ならない 音の 大きさ）
-      tone(a, { at: t, freq: 220, to: 196, len: 0.16, type: 'square', vol: 0.045 });
-      tone(a, { at: t + 0.2, freq: 196, to: 165, len: 0.26, type: 'square', vol: 0.045 });
+      // 木琴の レ → シ♭（低め・短め。こわく ならない 音の 大きさ）
+      tone(a, { at: t, freq: 293.7, len: 0.22, vol: 0.12 });
+      tone(a, { at: t + 0.16, freq: 233.1, len: 0.3, vol: 0.12 });
     }
     return true;
   } catch { return false; }
