@@ -1864,6 +1864,7 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **声**：`speech.js` の `playVoice()` が さきに サーバーの 声（`GET /api/tts?lang=en|ja&t=…`、`server/src/tts/service.js`）を 鳴らす。だめなとき（鍵なし＝503・オフライン・file:・4 秒 こない・再生 できない）は いつもの 端末の 声（speechSynthesis）。`createSpeech` の speak も、ウーピー（`character.js` の say）も これを とおる。♫ を 切ると `stopVoice()`。
   - サーバー：OpenAI の TTS（`OPENAI_API_KEY`・`OPENAI_TTS_MODEL` 既定 gpt-4o-mini-tts・`OPENAI_TTS_VOICE` 既定 coral）。作った mp3 は `DATA_DIR/tts/<hash>.mp3` に のこり、同じ 文は 2 回目から ファイルを 返す（ブラウザにも `immutable` で のこる）。文は 300 字まで・1 IP 1 分 60 回・新しく 作るのは 1 日 `TTS_DAILY_NEW`（既定 3000）回まで。鍵は サーバーだけ。
   - iPad：さいしょの タップで 同じ Audio に 無音を ならして 解錠（fetch の あとでも 鳴る）。
+  - 動画の ナレーション用：`&voice=`（`VOICES` の 一覧だけ。ほかは いつもの 声）と `&style=narr`（大人むけの 落ちついた 語り）。ゲームは つけないので キャッシュも いつもの まま。
   - 検査：`server/test/tts.test.mjs`、`server/test/e2e/browser-speech.mjs`（503 → 端末の 声、/api/tts が あれば そちら）。
 - **効果音**：`sfx.js`。音は 木琴（マリンバ）を 物理モデルで 鳴らした 自作の 音（`docs/make-sfx.py` が 作る `assets/sfx/correct.mp3`・`wrong.mp3`。正解＝ソ→ド、不正解＝ミ→ド の 低め。ハッシュは `assets/sfx/SOURCE.json`）。前の uisfx「glass」は 不自然 と 言われて やめた。さいしょの タップで 読んで おき、読めない とき（file:・オフラインで まだ 読んで いない）は WebAudio で 作る 音で 代わりに 鳴らす。`sfx.judge(correct)` … true ＝ピンポン、false ＝ブッブー、それ以外は 鳴らさない。
   - オンライン：`net-client.js` の `quiz/gym/eiken/quick/farm/fw/hw/wh:result`・`interview:turn`・`review:result`（ok）・`battle:turn`（quiz.correct）で 鳴らす（判定は サーバー）。

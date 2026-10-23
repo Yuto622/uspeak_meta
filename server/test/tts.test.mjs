@@ -46,6 +46,18 @@ test('からの 文・長すぎる 文は ことわる。1 日に 新しく 作�
   assert.equal(n, 2);
 });
 
+test('声（一覧の ものだけ）と ナレーションの 話しかたを えらべる。いつもの 声とは べつに のこす', async () => {
+  const calls = [];
+  const tts = createTts({ dir: '', generate: async (text, o) => { calls.push([o.voice, o.instructions]); return Buffer.from('x'); }, log: quiet });
+  await tts.get('こんにちは', 'ja');
+  await tts.get('こんにちは', 'ja', { voice: 'onyx', style: 'narr' });
+  await tts.get('こんにちは', 'ja', { voice: 'evil; rm', style: 'x' });
+  assert.equal(calls[0][0], 'coral'); assert.match(calls[0][1], /小学生/);
+  assert.equal(calls[1][0], 'onyx'); assert.match(calls[1][1], /ナレーター/);
+  assert.equal(calls.length, 3);
+  assert.equal(calls[2][0], 'coral', '一覧に ない 声は いつもの 声');
+});
+
 test('作るのに しっぱいしたら 502（のこさない）', async () => {
   const tts = createTts({ dir: '', generate: async () => { throw new Error('down'); }, log: quiet });
   assert.equal((await tts.get('Hi', 'en')).status, 502);
