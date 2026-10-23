@@ -13,7 +13,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { parseEvent, worldLabel } from '../game/roblox-metrics.js';
+import { parseEvent, worldLabel, sourceOf } from '../game/roblox-metrics.js';
 import { englishWord, boxFromEvents, nextWord } from '../game/review.js';
 import { meaningOf } from './dictionary.js';
 import { DAY, dayKey, parts, weekOf, monthOf, prevWeek, jaRange } from './jst.js';
@@ -40,6 +40,9 @@ const isFirst = (e) => e.data.retry !== true;                 // はじめての
 const isClean = (e) => isFirst(e) && e.data.fast !== true;    // 正解率に 入れる 回答
 const correctOf = (e) => (e.data.correct === true ? true : e.data.correct === false ? false : null);
 const inRange = (e, r) => e.ts >= r.start && e.ts <= r.end;
+// web と Roblox の どちらで といたか（数だけ。レポートと LINE に 内わけを 出す）
+const isWeb = (e) => sourceOf(e, e.data) === 'web';
+export const bySource = (list) => ({ web: list.filter(isWeb).length, roblox: list.filter((e) => !isWeb(e)).length });
 
 // 問題の 形 → 4 つの 力。聞く＝listen、書く＝type・spell、それ以外（mc・match・fill・order・形なし）＝読む。
 export function skillOfQuiz(e) {
@@ -165,7 +168,7 @@ export function weeklyData(rows, { week, nick = '', sender = '', teacher = null 
 
   return {
     kind: 'weekly', periodKey: week.key, range: jaRange(week), nick, sender, teacher, goal,
-    days, dayCount, streak, answers, prevAnswers, diff,
+    days, dayCount, streak, answers, prevAnswers, diff, bySource: bySource(inWeek),
     learned, next: next ? { en: next, ja: meaningOf(next), fromMiss: nextFromMiss } : null,
     situation, situationArgs: { n: graduated, level: newGrade },
     zero: dayCount === 0,
@@ -276,7 +279,7 @@ export function monthlyData(rows, { month, nick = '', sender = '', teacher = nul
   return {
     kind: 'monthly', periodKey: month.key, range: jaRange(month), month: month.m, nick, sender, teacher,
     learned: { then, now, sameMonth, firstLabel: `${firstMonth.m}月`, nowLabel: `${month.m}月`, months: Math.max(1, monthsBetween) },
-    calendar, firstWeekday, dayCount, skills, best, grade, game, nextStep,
+    calendar, firstWeekday, dayCount, skills, best, grade, game, nextStep, bySource: bySource(quiz.filter((e) => inRange(e, month))),
     zero: dayCount === 0,
   };
 }

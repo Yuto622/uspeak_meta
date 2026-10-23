@@ -17,6 +17,7 @@ import express from 'express';
 import { SEED_METRICS, SEED_PREVIOUS, summarize, parseMetric } from '../game/roblox-metrics.js';
 import { sameUser } from '../store/FileStore.js';
 import { boxFromEvents, pickWords, optionsFor, dueCount } from '../game/review.js';
+import { createDrill, MAX_N } from './drill.js';
 
 const MAX_EVENTS = 300;
 const MAX_DATA_BYTES = 32 * 1024;
@@ -214,7 +215,7 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
         rows.push({
           id, ts: toMillis(ev.ts, now()), type: str(ev.type, 40) || 'unknown', world: str(ev.world, 40) || world,
           place_id: str(ev.placeId, 32) || placeId, username: str(ev.username, MAX_NAME), user_id: str(ev.userId, 32),
-          class_code: str(ev.classCode, 24), data_json: dataJson, received_at: received,
+          class_code: str(ev.classCode, 24), data_json: dataJson, received_at: received, source: 'roblox',
         });
       }
       const result = store.appendRobloxEvents(rows);
@@ -295,6 +296,20 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
       res.json({ ok: true, updatedAt, total: list.length, page, limit,
         items: list.slice(page * limit, page * limit + limit).map((it) => ({ id: it.id, grade: it.grade, skill: it.skill, format: it.format,
           passage: it.passage, question: it.question, choices: it.choices, answer: it.answer, explanation: it.explanation, model_answer: it.model_answer, tags: it.tags })) });
+    });
+
+    // 英検ドリル ワールド：DB の 問題を 7 形式で 出す（drill.js）。答えは 署名つきの token に とじて Roblox の サーバーだけが 持つ。
+    const drill = createDrill({ secret: key, items: () => (questions ? questions().items : []), store, now });
+    api.get('/drill', (req, res) => {
+      const kinds = req.query.kinds ? String(req.query.kinds).split(',') : null;
+      const list = drill.pick({ grade: str(req.query.grade, 10), n: Math.min(MAX_N, Number(req.query.n) || 10), kinds });
+      res.json({ ok: true, updatedAt: questions ? questions().updatedAt : 0, items: list });
+    });
+    api.post('/drill/check', (req, res) => {
+      const b = req.body || {};
+      const out = drill.check({ token: b.token, answer: b.answer, attempt: b.attempt, username: str(b.username, MAX_NAME), userId: str(b.userId, 32),
+        classCode: str(b.classCode, 24), ms: b.ms, world: str(b.world, 40) || 'eiken-drill', placeId: str(b.placeId, 32) });
+      res.status(out.ok ? 200 : 400).json(out);
     });
 
     app.use('/api/roblox', api);

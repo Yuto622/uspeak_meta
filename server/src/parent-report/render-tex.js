@@ -167,6 +167,8 @@ export function weeklyTex(d, { preview = false } = {}) {
   const streakLine = line ? `\\node[anchor=north west,inner sep=0,text=good,font=\\fontsize{9}{11}\\selectfont\\bfseries,text width=4.15cm,align=left] at (1.55,-1.62) {${tex(line)}};` : '';
   // 増えた ときだけ ↑。減った ときは 数字を 並べるだけ（赤・↓ は 使わない）。
   const diffText = d.diff > 0 ? `　{\\color{good}\\bfseries ↑ ${d.diff}問ふえた}` : '';
+  // web と Roblox の 内わけ（Roblox で といた ときだけ）
+  const sourceText = d.bySource?.roblox ? `　web ${d.bySource.web}・Roblox ${d.bySource.roblox}` : '';
 
   let wordCards;
   if (d.learned.length) {
@@ -201,7 +203,7 @@ export function weeklyTex(d, { preview = false } = {}) {
     badge: badge(preview, true),
     sender: d.sender || '教室', nick: d.nick, range: d.range, titleSize: titleSize(d.nick, 17, 14),
     teacherCard: teacherCard(d.teacher, d.teacherLabel, { weekly: true }),
-    dayCircles, dayCount: d.dayCount, streakLine, answers: d.answers, prevAnswers: d.prevAnswers, diffText,
+    dayCircles, dayCount: d.dayCount, streakLine, answers: d.answers, prevAnswers: d.prevAnswers, diffText, sourceText,
     wordCards, nextBlock, homeworkPage: homeworkPage(d, { weekly: true }),
     footer1: W.footer1, footer2: fmt(W.footer2, { sender: d.sender || '教室' }),
   });

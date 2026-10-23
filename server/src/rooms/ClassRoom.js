@@ -3638,7 +3638,7 @@ export class ClassRoom extends Room {
     try {
       this.store.appendRobloxEvents([{
         id: `web-${sessionId}-${now.toString(36)}-${this.fwSeq.toString(36)}`, ts: now, type, world, place_id: 'web',
-        username, user_id: '', class_code: this.classCode, data_json: JSON.stringify({ ...data, source: 'web' }), received_at: new Date(now).toISOString(),
+        username, user_id: '', class_code: this.classCode, data_json: JSON.stringify({ ...data, source: 'web' }), received_at: new Date(now).toISOString(), source: 'web',
       }]);
     } catch (err) { log.warn(`[room ${this.roomId}] roblox event failed:`, err.message); }
   }

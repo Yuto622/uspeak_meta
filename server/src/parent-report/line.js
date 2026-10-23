@@ -138,6 +138,12 @@ export function homeworkText(hw, { nick = '', range = '' } = {}) {
   return lines.join('\n').slice(0, 4800);
 }
 
+// web と Roblox の どちらで といたか（その 期間の 問題の 数）。どちらも 0 なら 出さない。
+export function sourceText(bs) {
+  if (!bs || !(bs.web + bs.roblox)) return '';
+  return `🎮 といた 場所：web ${bs.web}問・Roblox ${bs.roblox}問`;
+}
+
 // ロードマップ（いまの 段階・次まで・英検の 見込み・おすすめの 場所）を 1 つの 吹き出しに。
 export function roadmapText(v) {
   const L = parentLines(v);

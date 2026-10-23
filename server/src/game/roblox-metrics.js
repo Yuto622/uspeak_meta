@@ -49,6 +49,13 @@ export const LEVEL_ORDER = ['supereasy', 'easy', 'medium', 'hard', 'fishing', 'b
 export const levelLabel = (l, labels = null) => labels?.[l] ?? LEVEL_LABELS[String(l || '').toLowerCase()] ?? (l || '（レベルなし）');
 export const worldLabel = (w, labels = null) => labels?.[w] ?? WORLD_LABELS[String(w || '').toLowerCase()] ?? (w || '（場所なし）');
 
+// どこで といたか（web / roblox）。列が 空の 古い 行は data.source と place_id で きめる。
+export function sourceOf(row, data = {}) {
+  const s = String(row?.source || data?.source || '').toLowerCase();
+  if (s === 'web' || s === 'roblox') return s;
+  return String(row?.place_id || '') === 'web' ? 'web' : 'roblox';
+}
+
 // ---- 記録の形 ---------------------------------------------------------------------------
 // 保存の行（data_json が文字列）を、計算しやすい形に。`data` は Roblox が付けたまま。
 export function parseEvent(row) {
@@ -57,7 +64,7 @@ export function parseEvent(row) {
   if (!data || typeof data !== 'object' || Array.isArray(data)) data = {};
   return {
     id: String(row.id || ''), ts: Number(row.ts) || 0, type: String(row.type || ''), world: String(row.world || ''),
-    username: String(row.username || ''), class_code: String(row.class_code || ''), data,
+    username: String(row.username || ''), class_code: String(row.class_code || ''), data, source: sourceOf(row, data),
   };
 }
 
@@ -254,6 +261,9 @@ export function validateMetric(row) {
 // 最初から入っている指標。管理ページで変えられる（消すこともできる）。
 export const SEED_METRICS = [
   { key: 'questions', label_ja: '問題数', label_en: 'Questions', kind: 'count', event_type: 'quiz', expr: { where: { retry: false } }, order: 10, unit: 'count' },
+  // どこで といたか（web の 記録は data.source="web"。Roblox の 記録には ない か "roblox"）
+  { key: 'questions_web', label_ja: 'web で といた 問題', label_en: 'Questions on web', kind: 'count', event_type: 'quiz', expr: { where: { retry: false, source: 'web' } }, order: 11, unit: 'count' },
+  { key: 'questions_roblox', label_ja: 'Roblox で といた 問題', label_en: 'Questions on Roblox', kind: 'count', event_type: 'quiz', expr: { where: { retry: false, source: { $ne: 'web' } } }, order: 12, unit: 'count' },
   { key: 'accuracy', label_ja: '正答率', label_en: 'Accuracy', kind: 'ratio', event_type: 'quiz', expr: { num: { where: { retry: false, correct: true } }, den: { where: { retry: false } } }, order: 20, unit: 'percent' },
   { key: 'guess_rate', label_ja: 'あてずっぽう率', label_en: 'Guess rate', kind: 'custom', event_type: '', expr: { fn: 'guess_rate' }, order: 30, unit: 'percent' },
   { key: 'study_seconds', label_ja: '学習時間', label_en: 'Study time', kind: 'sum', event_type: 'session', expr: { field: 'seconds' }, order: 40, unit: 'seconds' },

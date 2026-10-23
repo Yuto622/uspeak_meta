@@ -91,7 +91,8 @@ export function rowToRecord(row, columns) {
 // ---- Roblox 連携（docs/ROBLOX_SYNC.md）-------------------------------------------
 // Roblox 版が送ってくる学習の記録。**消さない**（指標は毎回ここから計算する）。
 // `data_json` は Roblox が付けた中身そのまま（型は検査しない：新しい type が来ても落とさず貯める）。
-export const ROBLOX_EVENT_COLUMNS = ['id', 'ts', 'type', 'world', 'place_id', 'username', 'user_id', 'class_code', 'data_json', 'received_at'];
+// source ＝ どこで といたか（web / roblox）。あとから 足した 列なので、空の 古い 行は data_json の source と place_id で 決める。
+export const ROBLOX_EVENT_COLUMNS = ['id', 'ts', 'type', 'world', 'place_id', 'username', 'user_id', 'class_code', 'data_json', 'received_at', 'source'];
 // Web で動いたコイン（±）。Roblox が取りに来て `delivered_at` を書くまで「未配達」。
 export const WALLET_ENTRY_COLUMNS = ['id', 'username', 'amount', 'reason', 'created_at', 'delivered_at'];
 // Roblox 側の残高の最新値（username につき1行、新しいほうが勝つ）。
