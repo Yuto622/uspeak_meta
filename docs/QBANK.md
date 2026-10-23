@@ -76,3 +76,9 @@ ReplicatedStorage に コピーし、`USpeakDrillClient` の「画面（ここ�
 - ドリル ワールドの 記録も 同じ 表に 入るので、保護者レポート（web・PDF）・LINE の 週／月・先生の /class に そのまま 足される。
 - 内わけ：週の レポートの「先週 ○問」の 横に `web ○・Roblox ○`（Roblox で といた ときだけ）。LINE の 文の 吹き出しの 先頭に
   `🎮 といた 場所：web ○問・Roblox ○問`。先生の /class の 表に「web で といた 問題」「Roblox で といた 問題」の 列。
+
+### 一発 セットアップ（Roblox Studio の コマンドバー）
+
+`roblox/setup-drill-place.lua`（`scripts/make-roblox-drill-setup.py` が 作る）を ドリル用の place の コマンドバーに はって Enter。
+スクリプト 3 つ（USpeakDrill・USpeakDrillClient・USpeakWalletSync）・HTTP オン・級ごとの 入口 7 つ を 入れる。
+Secrets（USPEAK_WEB_KEY）と USpeakFormatUI の コピーだけは 手で（コマンドでは できない）。
