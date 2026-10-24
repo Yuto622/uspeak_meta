@@ -138,6 +138,14 @@ export function homeworkText(hw, { nick = '', range = '' } = {}) {
   return lines.join('\n').slice(0, 4800);
 }
 
+// 英検の 面接れんしゅう（その 期間）。さいごの 結果と、もう一度 れんしゅう したい ところ。
+export function interviewText(iv) {
+  if (!iv || !iv.total) return '';
+  const lines = [`🎤 英検の 面接れんしゅう：${iv.grade} ${iv.right} / ${iv.total} できた${iv.count > 1 ? `（${iv.count}回・いちばん よかった のは ${iv.best.grade} ${iv.best.right} / ${iv.best.total}）` : ''}`];
+  lines.push(iv.missed.length ? `もう一度 れんしゅう したい ところ：${iv.missed.join('・')}` : 'ぜんぶ こたえられました。');
+  return lines.join('\n');
+}
+
 // web と Roblox の どちらで といたか（その 期間の 問題の 数）。どちらも 0 なら 出さない。
 export function sourceText(bs) {
   if (!bs || !(bs.web + bs.roblox)) return '';

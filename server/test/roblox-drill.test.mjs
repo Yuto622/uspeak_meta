@@ -74,7 +74,9 @@ test('にせの token・期限切れは ことわる。1 日の コインは 上
   const t = signToken('k', { fmt: { kind: 'type', word: 'cat', ja: 'ねこ', length: 3 }, exp: Date.now() + 1000 });
   assert.ok(readToken('k', t));
   assert.equal(readToken('other', t), null);
-  assert.equal(readToken('k', t.replace(/.$/, (c) => (c === 'A' ? 'B' : 'A'))), null);
+  // 署名の まんなかの 1 文字を かえる（さいごの 文字は base64 の あまりの ビットで、かえても 同じ バイトに なる ことが ある）
+  const at = t.length - 10;
+  assert.equal(readToken('k', t.slice(0, at) + (t[at] === 'A' ? 'B' : 'A') + t.slice(at + 1)), null);
   assert.equal(readToken('k', t, Date.now() + 5000), null);
   const drill = createDrill({ secret: 'k', items: () => [] });
   let total = 0;
@@ -94,4 +96,16 @@ test('web か Roblox か：列（source）が なくても data.source と place
   assert.deepEqual(bySource(rows), { web: 2, roblox: 2 });
   assert.equal(sourceText({ web: 2, roblox: 2 }), '🎮 といた 場所：web 2問・Roblox 2問');
   assert.equal(sourceText({ web: 0, roblox: 0 }), '');
+});
+
+test('英検の 面接の 結果：週の まとめと LINE の 1 行', async () => {
+  const { interviewSummary, normalize } = await import('../src/parent-report/aggregate.js');
+  const { interviewText } = await import('../src/parent-report/line.js');
+  const ev = (ts, d) => ({ id: String(ts), ts, type: 'interview', world: 'eiken', place_id: 'web', username: 'yuri', data_json: JSON.stringify({ ...d, source: 'web' }) });
+  const rows = normalize([ev(1000, { grade: '3級', right: 4, total: 6, missed: ['絵の しつもん'] }), ev(2000, { grade: '3級', right: 6, total: 6, missed: [] })]);
+  const iv = interviewSummary(rows, { start: 0, end: 5000 });
+  assert.deepEqual([iv.count, iv.right, iv.total, iv.best.right], [2, 6, 6, 6]);
+  assert.match(interviewText(iv), /🎤 英検の 面接れんしゅう：3級 6 \/ 6 できた（2回/);
+  assert.equal(interviewSummary(rows, { start: 3000, end: 5000 }), null);
+  assert.equal(interviewText(null), '');
 });

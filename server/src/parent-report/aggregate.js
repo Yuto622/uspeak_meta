@@ -95,6 +95,18 @@ export function masteredAt(changes, at) {
   return set;
 }
 
+// ---- 英検の 面接れんしゅう（めんせつの間）---------------------------------------------------------
+// その 期間に 何回 したか・さいごの 結果（級・できた 数）・もう一度 れんしゅう したい ところ。なければ null。
+export function interviewSummary(events, r) {
+  const list = events.filter((e) => e.type === 'interview' && inRange(e, r) && Number(e.data.total) > 0);
+  if (!list.length) return null;
+  const last = list[list.length - 1];
+  const best = list.reduce((b, e) => (Number(e.data.right) / Number(e.data.total) > Number(b.data.right) / Number(b.data.total) ? e : b), list[0]);
+  return { count: list.length, grade: String(last.data.grade || ''), right: Number(last.data.right) || 0, total: Number(last.data.total) || 0,
+    best: { grade: String(best.data.grade || ''), right: Number(best.data.right) || 0, total: Number(best.data.total) || 0 },
+    missed: (Array.isArray(last.data.missed) ? last.data.missed : []).map(String).slice(0, 3) };
+}
+
 // ---- 毎週版 -------------------------------------------------------------------------------
 export function weeklyData(rows, { week, nick = '', sender = '', teacher = null } = {}) {
   const events = normalize(rows);
@@ -168,7 +180,7 @@ export function weeklyData(rows, { week, nick = '', sender = '', teacher = null 
 
   return {
     kind: 'weekly', periodKey: week.key, range: jaRange(week), nick, sender, teacher, goal,
-    days, dayCount, streak, answers, prevAnswers, diff, bySource: bySource(inWeek),
+    days, dayCount, streak, answers, prevAnswers, diff, bySource: bySource(inWeek), interview: interviewSummary(events, week),
     learned, next: next ? { en: next, ja: meaningOf(next), fromMiss: nextFromMiss } : null,
     situation, situationArgs: { n: graduated, level: newGrade },
     zero: dayCount === 0,
@@ -279,7 +291,7 @@ export function monthlyData(rows, { month, nick = '', sender = '', teacher = nul
   return {
     kind: 'monthly', periodKey: month.key, range: jaRange(month), month: month.m, nick, sender, teacher,
     learned: { then, now, sameMonth, firstLabel: `${firstMonth.m}月`, nowLabel: `${month.m}月`, months: Math.max(1, monthsBetween) },
-    calendar, firstWeekday, dayCount, skills, best, grade, game, nextStep, bySource: bySource(quiz.filter((e) => inRange(e, month))),
+    calendar, firstWeekday, dayCount, skills, best, grade, game, nextStep, bySource: bySource(quiz.filter((e) => inRange(e, month))), interview: interviewSummary(events, month),
     zero: dayCount === 0,
   };
 }

@@ -12,7 +12,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { weeklyData, monthlyData, periodStats, periodRanks } from './aggregate.js';
 import { weeklyTex, monthlyTex, qrCardsTex, templateVersion, texts, goalText } from './render-tex.js';
-import { childMessages, homeworkText, sourceText, roadmapText, homeTip, bundle, retryUuid, mask } from './line.js';
+import { childMessages, homeworkText, interviewText, sourceText, roadmapText, homeTip, bundle, retryUuid, mask } from './line.js';
 // web と Roblox の 内わけは、ほかの 文が ある 吹き出しの 先頭に だけ 足す（吹き出しの 数を ふやさない：1 回に 5 つまで）。
 const withSource = (parts, bs) => (parts.length && sourceText(bs) ? [sourceText(bs), ...parts] : parts);
 import { menuAction, menuReply } from './menu.js';
@@ -242,7 +242,7 @@ export function createParentReports({
           const best = (data.ranks || [])[0];
           const altRank = best ? `（クラスで ${best.ja} ${best.rank}位）` : '';
           const altHw = data.homework ? `・宿題 ${data.homework.done}/${data.homework.total} おわり` : '';
-          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt + altRank + altHw, homework: withTip(withSource([roadmapText(data.roadmap), homeworkText(data.homework, { nick: student.nick, range: data.range })].filter(Boolean), data.bySource).join('\n\n'), kind === 'weekly' ? homeTip(data) : '') });
+          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt + altRank + altHw, homework: withTip(withSource([roadmapText(data.roadmap), interviewText(data.interview), homeworkText(data.homework, { nick: student.nick, range: data.range })].filter(Boolean), data.bySource).join('\n\n'), kind === 'weekly' ? homeTip(data) : '') });
         }
         for (const l of links) {
           if (!groups.has(l.line_user_id)) groups.set(l.line_user_id, []);

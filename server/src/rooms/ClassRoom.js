@@ -2938,6 +2938,8 @@ export class ClassRoom extends Room {
       speech: { en: 'the speech', ja: 'スピーチ' },
     };
     const missed = session.marks.filter((m) => !m.correct).map((m) => PART[m.kind] || PART.passage);
+    // 保護者レポート・LINE：面接の 結果（級・できた 数・もう一度 れんしゅう したい ところ）。
+    this.robloxEvent(client.sessionId, 'interview', 'eiken', { grade: session.grade, right: result.right, total: result.total, missed: [...new Set(missed.map((p) => p.ja))] });
     let comment = null;
     try {
       comment = await this.tutor.comment({ grade: session.grade, right: result.right, total: result.total, missed });

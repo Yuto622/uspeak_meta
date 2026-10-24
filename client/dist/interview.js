@@ -114,9 +114,16 @@ export function createInterviewUI({ send, toast, isOnline }) {
   }
 
   const esc2 = esc;
+  // 絵の しつもん：絵文字を 1 まいの「絵」として 大きく 見せる。日本語の 説明は 答えが 書いて あるので
+  // ふだんは かくし、🇯🇵 いみ で 出す（本番は 絵だけを 見て こたえる）。絵の ストーリー（コマ）は そのまま。
+  const glyphs = (s) => (globalThis.Intl?.Segmenter ? [...new Intl.Segmenter('ja', { granularity: 'grapheme' }).segment(String(s))].map((x) => x.segment) : Array.from(String(s))).filter((g) => g.trim());
   function sceneHtml(q) {
     if (!q.scene) return '';
     const panels = String(q.scene).split(/[／]/).map((x) => x.trim()).filter(Boolean);
+    if (q.kind === 'picture' && q.emoji) {
+      const pic = glyphs(q.emoji).map((g) => `<span>${esc2(g)}</span>`).join('');
+      return `<div class="iv-pic" role="img" aria-label="しつもんの 絵">${pic}</div><p class="iv-ja iv-scene-ja"${state.showJa ? '' : ' hidden'}>${esc2(q.scene)}</p>`;
+    }
     const emo = q.emoji ? `<span class="iv-scene-emo">${esc2(q.emoji)}</span>` : '';
     if (panels.length > 1) return `<div class="iv-scene iv-panels">${emo}<ol>${panels.map((p) => `<li>${esc2(p)}</li>`).join('')}</ol></div>`;
     return `<p class="iv-scene">${emo}${esc2(q.scene)}</p>`;
