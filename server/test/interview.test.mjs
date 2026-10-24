@@ -37,9 +37,9 @@ test('面接: every grade has an interview, and each one is a whole exam', () =>
     assert.ok(bank, `${grade} has no interview`);
     assert.ok(bank.cards.length >= 2, `${grade} needs a second card so a second go differs`);
     for (const card of bank.cards) {
-      // 準1級・1級は 本番に 音読が ない：絵の 説明（準1級）か スピーチ（1級）から 始まって、意見で 終わる。
+      // 準1級・1級は 本番に 音読が ない：意見（準1級。絵の 説明は 本物の 絵が ないので 入れない）か スピーチ（1級）。
       if (card.noRead) {
-        assert.ok(['narrate', 'speech'].includes(card.steps[0].kind), `${card.id} (no reading) does not start with a picture story or a speech`);
+        assert.ok(['opinion', 'speech'].includes(card.steps[0].kind), `${card.id} (no reading) does not start with an opinion or a speech`);
         assert.ok(card.steps.some((s) => s.kind === 'opinion'), `${card.id} never asks what the child thinks`);
         continue;
       }
@@ -49,11 +49,11 @@ test('面接: every grade has an interview, and each one is a whole exam', () =>
       // 準2級からは 自分の ことも「意見」で 聞く。
       assert.equal(card.steps[0].kind, 'passage', `${card.id} does not start with the passage`);
       assert.ok(card.steps.some((s) => s.kind === 'self' || s.kind === 'opinion'), `${card.id} never asks about the child`);
-      for (const step of card.steps) assert.ok(KINDS.includes(step.kind));
+      for (const step of card.steps) assert.ok(KINDS.includes(step.kind) && step.kind !== 'picture' && step.kind !== 'narrate', `${card.id}: no picture questions (there is no real picture)`);
     }
   }
-  // 3級 is the real interview, so it is longer than the 5級 speaking test.
-  assert.ok(INTERVIEW.g3.cards[0].steps.length > INTERVIEW.g5.cards[0].steps.length);
+  // 3級 is the real interview: never shorter than the 5級 speaking test（絵の しつもんを ぬいたので 同じ 長さの ことも ある）。
+  assert.ok(INTERVIEW.g3.cards[0].steps.length >= INTERVIEW.g5.cards[0].steps.length);
 });
 
 test('面接: a broken bank is refused rather than half-loaded', () => {
@@ -113,7 +113,7 @@ test('面接: a harder grade is worth more for the same sitting', () => {
   const g5 = interviewResult(sitThrough('g5').session);
   const g3 = interviewResult(sitThrough('g3').session);
   assert.ok(g3.coins > g5.coins, '3級 pays more than 5級');
-  assert.ok(g3.total > g5.total, 'and asks more');
+  assert.ok(g3.total >= g5.total, 'and never asks less');
 });
 
 test('面接: what counts as an answer, and what does not', () => {

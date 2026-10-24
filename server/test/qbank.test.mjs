@@ -103,3 +103,20 @@ test('admin で 入れた 問題を Roblox が 取れる（鍵が ないと 401�
   const csv = await (await fetch(`${base}/admin/api/qbank.csv`, { headers: { cookie } })).text();
   assert.ok(csv.includes('r2'));
 });
+
+test('本物の 絵が ない 絵の 問題は 1 回だけ 配信を 止める（消さない）', async () => {
+  const { QBankStore } = await import('../src/qbank/store.js');
+  const { NO_PICTURE_TAG, isPictureRow } = await import('../src/qbank/seed-speaking.js');
+  const q = await new QBankStore(null).init();
+  q.items = [
+    { id: 'A', grade: '3級', skill: 'speaking', format: '二次試験（面接）', tags: 'イラストの質問', passage: 'x\n【イラスト】公園', choices: [], on: true, web: true, roblox: false },
+    { id: 'B', grade: '5級', skill: 'listening', format: 'イラストの内容一致選択', tags: '', passage: '[絵: 犬]', choices: [], on: true, web: true, roblox: true },
+    { id: 'C', grade: '5級', skill: 'reading', format: '短文の語句空所補充', tags: '', passage: '', choices: [], on: true, web: true, roblox: true },
+  ];
+  const r = await q.disableOnce(NO_PICTURE_TAG, isPictureRow);
+  assert.equal(r.changed, 2);
+  assert.deepEqual(q.items.map((it) => it.on), [false, false, true]);
+  q.items[0].on = true;
+  assert.equal((await q.disableOnce(NO_PICTURE_TAG, isPictureRow)).already, true, 'admin で もどした 行は そのまま');
+  assert.equal(q.items[0].on, true);
+});

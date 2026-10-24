@@ -61,7 +61,9 @@ export function loadInterviewBank(file = INTERVIEW_BANK_PATH) {
         if (!text(card.ja)) throw new Error(`interview-bank.json: ${where} has no Japanese for the passage`);
       }
       const steps = card.steps || [];
-      if (steps.length < 3) throw new Error(`interview-bank.json: ${where} needs at least three questions`);
+      // 絵の しつもんを 入れない ので、4級は しつもんが 2 つの カードも ある。
+      if (steps.length < 2) throw new Error(`interview-bank.json: ${where} needs at least two questions`);
+      if (steps.some((st) => st.kind === 'picture' || st.kind === 'narrate')) throw new Error(`interview-bank.json: ${where} has a picture question, but there is no real picture to show`);
       for (const [i, step] of steps.entries()) {
         const at = `${where}[${i}]`;
         if (!KINDS.includes(step.kind)) throw new Error(`interview-bank.json: ${at} has unknown kind "${step.kind}"`);

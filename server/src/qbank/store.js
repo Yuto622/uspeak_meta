@@ -178,6 +178,16 @@ export class QBankStore {
     return { ok: true, added: add.length };
   }
 
+  // tag ごとに 1 回だけ、あう 行の 配信を 止める（消さない：admin で もどせる）。
+  async disableOnce(tag, match) {
+    if (this.seeded.includes(tag)) return { ok: true, changed: 0, already: true };
+    let changed = 0;
+    for (const it of this.items) if (match(it) && (it.on || it.web || it.roblox)) { it.on = false; it.web = false; it.roblox = false; changed += 1; }
+    this.seeded.push(tag);
+    await this.touch();
+    return { ok: true, changed };
+  }
+
   async touch() { this.updatedAt = this.now(); await this.flush(); this.emit(); }
 
   async flush() {

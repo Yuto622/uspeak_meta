@@ -5,6 +5,9 @@ import { INTERVIEW_BANK_PATH } from '../game/interview.js';
 import { BANK_PATH } from '../game/eiken.js';
 
 export const SEED_TAG = 'speaking-2026-10';
+// 本物の 絵が ない「絵を 見て こたえる」問題（面接の 絵の しつもん・絵の ストーリー、絵を 文で 説明した リスニング）は 出さない。
+export const NO_PICTURE_TAG = 'no-picture-2026-10';
+export const isPictureRow = (it) => /イラストの(質問|説明)/.test(it.tags || '') || /【イラスト】/.test(it.passage || '') || /イラストの内容一致/.test(it.format || '') || /^\[絵[:：]/.test(it.passage || '');
 const JA = { g5: '5級', g4: '4級', g3: '3級', gp2: '準2級', g2: '2級', gp1: '準1級以上', g1: '1級' };
 const KIND = { passage: 'パッセージの質問', picture: 'イラストの質問', self: '受験者自身の質問', narrate: 'イラストの説明（ナレーション）', opinion: '意見と理由', speech: 'スピーチ' };
 const LICENSE = 'U-Speak Lab オリジナル（CC BY 4.0）';
