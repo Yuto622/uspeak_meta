@@ -5,7 +5,7 @@
    ・上の バーの おと・あそびかた・ログアウト は「⋯」の 中（English と コインと LV は そのまま）
    ・左下の WASD は うごいたら（または 20 秒で）きえる
    タッチの 端末（iPad・スマホ）は mobile.css の まま。
-   「パソコン」は index.html が html に つける .pc-ui（マウスか タッチパッドが ある パソコン。タッチ画面の パソコンも 入る）。 */
+   「パソコン」は index.html が html に つける .pc-ui（Windows・Mac・Linux・Chromebook。タッチ画面でも パソコン。iPad・iPhone・Android は 入らない）。 */
 @media (min-width: 1001px) {
   .right-rail.pc-tidy { position: fixed; top: 112px; right: 24px; width: 236px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; z-index: 3; align-content: start; }
   .right-rail.pc-tidy > * { position: static !important; width: auto !important; margin: 0 !important; top: auto !important; right: auto !important; left: auto !important; }
