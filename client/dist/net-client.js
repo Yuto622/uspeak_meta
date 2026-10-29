@@ -500,7 +500,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     voice.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     roadmap.setOnline(mode === 'online' || mode === 'reconnecting');
-    parentQr.setOnline(mode === 'online' || mode === 'reconnecting', state.role === 'teacher');
+    parentQr.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
     if (mode === 'offline' || mode === 'connecting') lockPremiumOffline();
     if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); if (myLand.active) myLand.leave(true); town.hideHud(); voice.setMode('off'); }

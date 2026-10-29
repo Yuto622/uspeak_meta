@@ -296,6 +296,35 @@ test('game QR: the child\'s own button gives the same URL as the printed QR card
   assert.equal(h.service.childLink('', 'taro'), '');
 });
 
+test('teacher LINE: one class QR, the ID token is checked, every child in one digest, kept apart from parents', async () => {
+  const h = harness({ events: [...week41('taro')] });
+  h.reports.saveSettings('c1', { enabled: true, sender_name: 'ツリーベル英会話教室' });
+  const tt = h.reports.teacherToken('c1');
+  assert.equal(h.reports.teacherToken('c1').token, tt.token, 'the same QR every time');
+  assert.equal(h.service.linkInfo(tt.token).teacher, true);
+  assert.equal((await h.service.register(tt.token, 'forged')).ok, false);
+  h.verified.set('idT', 'Uteach');
+  const r = await h.service.register(tt.token, 'idT');
+  assert.deepEqual([r.ok, r.teacher], [true, true]);
+  assert.equal(h.reports.links({ lineUserId: 'Uteach' }).length, 0, 'not a parent link (no parent menu, no sibling bundle)');
+  // 保護者が いない 子も まとめに 入る
+  const out = await h.service.deliverClass('c1', { period: weekOf(at(2026, 10, 6)) });
+  assert.equal(out.counts.teachers, 1);
+  const push = h.line.sent.find((p) => p.to === 'Uteach');
+  assert.match(push.messages[0].text, /ツリーベル英会話教室/);
+  assert.match(push.messages[0].text, /Taro：3日・3問/);
+  assert.match(push.messages[0].text, /Hana：0日・0問/);
+  assert.match(push.messages[0].text, /https:\/\/example\.test\/r\//);
+  // 作りなおすと 前の QR は 使えず、登録も 消える
+  assert.equal(h.service.resetTeacherLine('c1'), 1);
+  assert.equal(h.service.linkInfo(tt.token), null);
+  assert.notEqual(h.reports.teacherToken('c1').token, tt.token);
+  // 長い クラスでも 吹き出しは 5 つまで・1 つ 4500 字まで
+  const rows = Array.from({ length: 200 }, (_, i) => ({ nick: `kid${i}`, url: 'https://example.test/r/' + 'x'.repeat(40), data: { dayCount: 1, answers: 9 } }));
+  const msgs = h.service.teacherDigest({ classroom: 'X', range: 'r', kind: 'weekly', rows });
+  assert.ok(msgs.length <= 5 && msgs.every((m) => m.text.length <= 4500));
+});
+
 test('goal: one "next step" line, strongest first', () => {
   const wk = weekOf(at(2026, 10, 6));
   assert.equal(weeklyData([], { week: wk, nick: 'a' }).goal.key, 'start');

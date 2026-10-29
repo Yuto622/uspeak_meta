@@ -21,6 +21,7 @@ import { DAY, dayKey, parts, weekOf, lastWeek, monthOf, lastMonth, isoWeekNumber
 
 export const CONSENT_VERSION = 'v1';
 export const MAX_PARENTS_PER_TOKEN = 4;
+export const MAX_TEACHERS_PER_CLASS = 5;
 export const REPORT_DAYS = 60;
 const STALE_MS = 24 * 3600 * 1000;
 
@@ -276,6 +277,10 @@ export function createParentReports({
         } else { counts.failed += covered.length; errors.push(`送信 ${mask(to)}: ${res.error}`); }
       }
     }
+    // 先生の LINE（クラス 全員の まとめ）。1 人 だけの 送りなおし（only）や テスト では 送らない。
+    if (!only && !testTo) {
+      try { counts.teachers = (await deliverTeachers(classCode, kind, periodNow, runKey)).sent; } catch (err) { errors.push(`先生の まとめ: ${err.message}`); }
+    }
     reports.finishRun(run.id, counts);
     log.info?.(`[parent-report] ${runKey}: ${JSON.stringify(counts)}`);
     if (!testTo && (counts.failed > 0 || errors.length)) await notifyOps(`⚠ 保護者レポート：${senderOf(s, classCode)}（${periodNow.key}）で 失敗 ${counts.failed}件。\n${errors.slice(0, 3).join('\n')}`);
@@ -403,6 +408,7 @@ export function createParentReports({
     reports.revokeReports((r) => r.classroom_id === classCode);
     for (const r of reports.reports({ classroom_id: classCode })) await removeFiles(r.access_token);
     for (const t of reports.data.link_tokens) if (t.classroom_id === classCode && !t.revoked_at) t.revoked_at = new Date(now()).toISOString();
+    reports.resetTeacherLine(classCode);
     reports.touch();
     return n;
   }
@@ -506,12 +512,16 @@ export function createParentReports({
 
   // ---- 登録（QR → LIFF）--------------------------------------------------------------------
   function linkInfo(token) {
+    const tt = reports.findTeacherToken(token);
+    if (tt) return { teacher: true, classroom: senderOf(reports.settings(tt.classroom_id), tt.classroom_id), consentVersion: CONSENT_VERSION };
     const t = reports.findToken(token, now());
     if (!t) return null;
     const s = reports.settings(t.classroom_id);
     return { nickname: t.nickname, classroom: senderOf(s, t.classroom_id), consentVersion: CONSENT_VERSION };
   }
   async function register(token, idToken) {
+    const tt = reports.findTeacherToken(token);
+    if (tt) return registerTeacher(tt, idToken);
     const t = reports.findToken(token, now());
     if (!t) return { ok: false, error: 'このQRコードは使えません。教室にお問い合わせください。' };
     const who = await line.verifyIdToken(idToken);
@@ -523,6 +533,58 @@ export function createParentReports({
     if (!already) { t.used_count = (t.used_count || 0) + 1; reports.touch(); }
     log.info?.(`[parent-report] linked ${mask(who.userId)} to a student of ${t.classroom_id}`);
     return { ok: true, nickname: t.nickname };
+  }
+
+  // 先生の LINE：その クラスの 全員の まとめが とどく（クラスに 5 人まで）。
+  async function registerTeacher(tt, idToken) {
+    const who = await line.verifyIdToken(idToken);
+    if (!who) return { ok: false, error: 'LINEの確認ができませんでした。もう一度ひらいてください。' };
+    const existing = reports.teacherLinks({ classroomId: tt.classroom_id }).filter((l) => l.status !== 'stopped');
+    if (!existing.some((l) => l.line_user_id === who.userId) && existing.length >= MAX_TEACHERS_PER_CLASS) return { ok: false, error: `先生の LINE は ${MAX_TEACHERS_PER_CLASS}人までです。` };
+    reports.addTeacherLink({ classroomId: tt.classroom_id, lineUserId: who.userId, consentVersion: CONSENT_VERSION });
+    log.info?.(`[parent-report] teacher LINE ${mask(who.userId)} for ${tt.classroom_id}`);
+    return { ok: true, teacher: true, classroom: senderOf(reports.settings(tt.classroom_id), tt.classroom_id) };
+  }
+  // ゲームの 先生の「👪」：先生の QR は LINE の 中で 登録ページ（LIFF）を ひらく。LIFF が ない（設定まえ・テスト）ときは ''。
+  const teacherLink = (classCode) => (classCode && liffId && !line.dryRun ? `https://liff.line.me/${liffId}?t=${reports.teacherToken(classCode).token}` : '');
+  function resetTeacherLine(classCode) { return reports.resetTeacherLine(classCode); }
+
+  // 先生への まとめ：1 人 1 行（日数・問題・宿題・面接）と、その 子の ページ（レポート）。吹き出しは 1 回 5 つまで。
+  function teacherDigest({ classroom, range, kind, rows }) {
+    const head = `📊 ${classroom}　${range}\n${kind === 'monthly' ? '月' : '週'}の まとめ（${rows.length}人）`;
+    const lines = rows.map((r) => {
+      const d = r.data || {};
+      const bits = [`${d.dayCount || 0}日`, `${d.answers || 0}問`];
+      if (d.homework?.total) bits.push(`宿題 ${d.homework.done}/${d.homework.total}`);
+      if (d.interview?.best) bits.push(`面接 ${d.interview.best.grade || ''} ${d.interview.best.right}/${d.interview.best.total}`.replace('  ', ' '));
+      if (d.roadmap?.stage?.id) bits.push(`段階 ${d.roadmap.stage.id}`);
+      return `${d.zero ? '⚪' : '🟢'} ${r.nick}：${bits.join('・')}${r.url ? `\n${r.url}` : ''}`;
+    });
+    const bubbles = []; let cur = head;
+    for (const l of lines) {
+      if ((cur + '\n\n' + l).length > 4500) { bubbles.push(cur); cur = l; } else cur += `\n\n${l}`;
+    }
+    bubbles.push(cur);
+    return bubbles.slice(0, 5).map((text) => ({ type: 'text', text }));
+  }
+  async function deliverTeachers(classCode, kind, periodNow, runKey, { testTo = '' } = {}) {
+    const links = testTo ? [] : reports.teacherLinks({ classroomId: classCode, status: 'active' });
+    if (!links.length) return { sent: 0 };
+    const s = reports.settings(classCode);
+    const rows = [];
+    for (const st of await students(classCode)) {
+      try { rows.push({ nick: st.nick, url: base ? pageUrl(classCode, st) : '', data: await dataFor(classCode, st, kind, periodNow) }); } catch (err) { log.warn?.('[parent-report] teacher digest:', err.message); }
+    }
+    if (!rows.length) return { sent: 0 };
+    const msgs = teacherDigest({ classroom: senderOf(s, classCode), range: rows[0].data?.range || '', kind, rows });
+    let sent = 0;
+    for (const l of links) {
+      const res = await line.push(l.line_user_id, msgs, { retryKey: retryUuid(runKey, 'teacher', l.line_user_id) });
+      if (res.ok) sent += 1;
+      else if (res.permanent && (res.status === 400 || res.status === 403 || res.status === 404)) reports.setTeacherLinkStatus({ lineUserId: l.line_user_id }, 'blocked');
+      else log.warn?.(`[parent-report] teacher push ${mask(l.line_user_id)}: ${res.error}`);
+    }
+    return { sent };
   }
 
   // Webhook（follow / unfollow）。
@@ -541,8 +603,8 @@ export function createParentReports({
       // 下の メニュー（リッチメニューの postback）と、同じ ことばの メッセージ。返事は Reply API＝無料。
       const action = menuAction(e);
       if (action && e.replyToken) answerMenu(uid, action, e.replyToken).catch((err) => log.warn?.('[line] menu failed:', err.message));
-      if (e.type === 'unfollow') reports.setLinkStatus({ lineUserId: uid, status: 'active' }, 'blocked');
-      if (e.type === 'follow') reports.setLinkStatus({ lineUserId: uid, status: 'blocked' }, 'active');
+      if (e.type === 'unfollow') { reports.setLinkStatus({ lineUserId: uid, status: 'active' }, 'blocked'); reports.setTeacherLinkStatus({ lineUserId: uid, status: 'active' }, 'blocked'); }
+      if (e.type === 'follow') { reports.setLinkStatus({ lineUserId: uid, status: 'blocked' }, 'active'); reports.setTeacherLinkStatus({ lineUserId: uid, status: 'blocked' }, 'active'); }
     }
   }
 
@@ -602,7 +664,7 @@ export function createParentReports({
     });
     const registered = rows.filter((r) => r.parents > 0).length;
     const lastRun = reports.runs({ classroom_id: classCode }).filter((r) => !r.test).slice(-1)[0] || null;
-    return { settings: s, students: rows, registered, total: rows.length, lastRun: lastRun ? { ...lastRun, counts: JSON.parse(lastRun.counts_json || '{}') } : null };
+    return { settings: s, students: rows, registered, total: rows.length, teachers: reports.teacherLinks({ classroomId: classCode, status: 'active' }).length, lastRun: lastRun ? { ...lastRun, counts: JSON.parse(lastRun.counts_json || '{}') } : null };
   }
   // 先生の ひとことの 締め切り：次の 配信の 前日 23:59（JST）。
   function nextSend(classCode, from = now()) {
@@ -623,7 +685,7 @@ export function createParentReports({
 
   return {
     students, buildReport, preview, qrCards, deliverClass, resend, dueNow, tick, housekeeping, summaryLine, notifyOps,
-    stopClass, stopStudent, eraseStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, isStudentToken, studentPage, studentMonthly, clap, clapHub, childLink, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
+    stopClass, stopStudent, eraseStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, isStudentToken, studentPage, studentMonthly, clap, clapHub, childLink, teacherLink, resetTeacherLine, teacherDigest, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
     start(intervalMs = 60000) { const t = setInterval(() => tick(), intervalMs); t.unref?.(); return t; },
   };
 }

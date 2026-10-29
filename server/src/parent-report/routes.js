@@ -156,6 +156,8 @@ export function mountParentReports(app, { service, reports, line, verifyClass, s
       res.type('application/pdf').set('Content-Disposition', `inline; filename="uspeak-qr-${code(req)}.pdf"`).send(pdf);
     } catch (err) { res.status(500).type('text/plain; charset=utf-8').send(`QRカードを作れませんでした：${err.message}`); }
   });
+  // 先生の LINE（クラス 全員の まとめ）を ぜんぶ 止めて、ゲームの 先生の QR を 作りなおす。
+  api.post('/teacher-line/reset', (req, res) => res.json({ ok: true, removed: service.resetTeacherLine(code(req)) }));
   api.post('/stop-all', async (req, res) => {
     if (req.body?.confirm !== code(req)) { res.status(400).json({ ok: false, error: '確認の文字が違います。' }); return; }
     const n = await service.stopClass(code(req));

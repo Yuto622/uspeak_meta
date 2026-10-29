@@ -1,4 +1,5 @@
 // 👪 おうちの ひとの LINE — 右の 列の ボタン。この 子 だけの 保護者ページの QR（先生が 印刷する QR カードと 同じ）。
+// 先生が おすと クラスの QR：先生の LINE に クラス 全員の まとめが とどく（先生か どうかは 部屋が きめる）。
 // URL は 部屋が きめる（parent:qr）。ここは QR の 絵を かいて 見せる だけ。QR の 作り方は vendor/qrcode.js（押した ときだけ 読む）。
 // 英語を 大きく、日本語を 小さく 両方 出すので、入れ物は translate="no"。
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -48,12 +49,24 @@ export function createParentQrUI({ send }) {
   async function onQr(m) {
     if (!dialog.open) return;
     if (!m?.ok || !m.url) {
+      if (m?.teacher) { body.innerHTML = `<p class="pq-wait">${bi('LINE is not set up yet.', 'LINE の せってい（LIFF）が まだです。U-Speak Lab に れんらく してください')}</p>`; return; }
       body.innerHTML = `<p class="pq-wait">${bi('Not available now. Ask your teacher.', 'いまは 出せません。せんせいに きいてね')}</p>`;
       return;
     }
     const url = new URL(m.url, location.origin).href;
     let svg = '';
     try { svg = qrSvg((await lib).create, url); } catch { /* 下の 字だけ */ }
+    if (m.teacher) {
+      body.innerHTML = `<div class="pq-card"><div class="pq-qr">${svg}</div>
+      <div class="pq-text">${bi(`Class ${m.classCode || ''}`, 'せんせい用：クラス ぜんいんの まとめ', 'pq-nick')}
+      <ol>
+        <li>${bi('Scan with your phone.', '先生の スマホで よみとる')}</li>
+        <li>${bi('Tap "Agree" in LINE.', 'LINE で「同意して受け取る」を おす')}</li>
+      </ol>
+      <p class="pq-note">${bi('Every student, on the report day.', '保護者レポートと 同じ日に、ぜんいんの 日数・問題・宿題・面接が とどく')}</p>
+      <p class="pq-note">${bi('For teachers only. Do not show children or parents.', '先生 だけ。子どもや 保護者には 見せないでください')}</p></div></div>`;
+      return;
+    }
     body.innerHTML = `<div class="pq-card"><div class="pq-qr">${svg}</div>
       <div class="pq-text">${bi(`${m.nick || ''}`, 'さん の QR', 'pq-nick')}
       <ol>
@@ -67,7 +80,7 @@ export function createParentQrUI({ send }) {
 
   return {
     onQr,
-    setOnline(on, teacher = false) { button.hidden = !on || teacher; if (!on) close(); },
+    setOnline(on) { button.hidden = !on; if (!on) close(); },
     get isOpen() { return dialog.open; },
   };
 }

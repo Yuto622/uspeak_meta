@@ -172,6 +172,7 @@ export class ClassRoom extends Room {
     // 保護者の 👏（parent-report）。この 部屋が あるあいだ、届いたら すぐ 見せる。
     this.claps = options.claps || null;
     this.parentLink = options.parentLink || null;
+    this.teacherLink = options.teacherLink || null;
     // タスクの 表（/admin/tasks）。無ければ タスクは 出さない。
     this.tasks = options.tasks || null;
     // 宿題（/admin/homework で 先生が くばった もの）。無ければ 宿題島は からっぽ。
@@ -2224,13 +2225,21 @@ export class ClassRoom extends Room {
   // This week's XP, ranked within the class. Roblox ranked per school code; a class code
   // is the same idea and is what this room already is.
   // 右の 列「👪 おうちの ひとの LINE」：この 子 だけの 保護者ページの URL（QR カードと 同じ）。QR の 絵は 画面が かく。
-  // URL は 部屋が きめる（名前と クラスは 入室の ときに サーバーが たしかめた もの）。先生には 出さない。
+  // URL は 部屋が きめる（名前と クラスは 入室の ときに サーバーが たしかめた もの）。
   onParentQr(client) {
     const priv = this.priv.get(client.sessionId);
-    if (!priv || !this.parentLink || this.state.players.get(client.sessionId)?.role === 'teacher') { client.send('parent:qr', { ok: false }); return; }
+    if (!priv || !this.parentLink) { client.send('parent:qr', { ok: false }); return; }
+    const teacher = this.state.players.get(client.sessionId)?.role === 'teacher';
     const t = Date.now();
     if (priv.parentQrAt && t - priv.parentQrAt < 1500) return;
     priv.parentQrAt = t;
+    // 先生は クラスの QR（その LINE に クラス 全員の まとめが とどく）。先生か どうかは 入室の ときに サーバーが きめた もの。
+    if (teacher) {
+      let url = '';
+      try { url = this.teacherLink?.(this.classCode) || ''; } catch (err) { log.warn?.('[parent-qr]', err.message); }
+      client.send('parent:qr', { ok: !!url, url, teacher: true, classCode: this.classCode });
+      return;
+    }
     const username = this.roblox?.usernameFor ? this.roblox.usernameFor(this.classCode, priv.name) : priv.name;
     let url = '';
     try { url = this.parentLink(this.classCode, username, priv.name) || ''; } catch (err) { log.warn?.('[parent-qr]', err.message); }

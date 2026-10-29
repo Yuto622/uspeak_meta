@@ -39,7 +39,10 @@ const post = (url, body) => fetch(url, { method: 'POST', headers: { 'content-typ
     const t = new URLSearchParams(location.search).get('t') || '';
     const info = await post('/api/liff/info', { t });
     if (!info.ok) { say('<p>' + esc(info.error) + '</p>'); return; }
-    say('<p class="big">' + esc(info.classroom) + 'に通う ' + esc(info.nickname) + ' さんの学習レポートを、このLINEで受け取ります。</p>'
+    if (info.teacher) say('<p class="big">' + esc(info.classroom) + 'の 先生用：クラス全員の 学習のまとめを、このLINEで受け取ります。</p>'
+      + '<p class="muted">生徒ひとりひとりの 日数・問題・宿題・面接と、レポートのページが 毎回 届きます。この QR は 先生だけが 使ってください（保護者には わたさないでください）。<br><a href="/privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a></p>'
+      + '<button class="btn orange" id="agree">同意して受け取る</button>');
+    else say('<p class="big">' + esc(info.classroom) + 'に通う ' + esc(info.nickname) + ' さんの学習レポートを、このLINEで受け取ります。</p>'
       + '<p class="muted">お子さまの本名・ご連絡先はお預かりしません。教室のご判断でいつでも停止できます。<br>保存する情報と使いみちは <a href="/privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a> をご覧ください。</p>'
       + '<button class="btn orange" id="agree">同意して受け取る</button>');
     document.getElementById('agree').onclick = async (e) => {
@@ -48,7 +51,7 @@ const post = (url, body) => fetch(url, { method: 'POST', headers: { 'content-typ
       if (!r.ok) { say('<p>' + esc(r.error) + '</p>'); return; }
       box.style.display = 'none';
       document.getElementById('ok').style.display = 'block';
-      document.getElementById('okText').textContent = r.nickname + ' さんのレポートが、決まった日にこのLINEに届きます。';
+      document.getElementById('okText').textContent = r.teacher ? 'クラス全員の まとめが、保護者レポートと 同じ日に このLINEに届きます。' : r.nickname + ' さんのレポートが、決まった日にこのLINEに届きます。';
       try {
         const f = await liff.getFriendship();
         if (!f.friendFlag) document.getElementById('friend').innerHTML = 'レポートを受け取るには、公式アカウントを友だちに追加してください。'
@@ -158,10 +161,19 @@ function render() {
       + Object.entries(S.candidates).map(([k, list]) => '<h3>' + CAT[k] + '</h3>' + list.map((t) => '<button class="btn ghost" data-cmt="' + esc(t) + '">' + esc(t) + '</button>').join('')).join('')
       : '<p class="muted">配信がオフのあいだは選べません。</p>'}
   </div>
+  <div class="card"><h2>先生の LINE（クラス全員のまとめ）</h2>
+    <p class="muted">ゲームに 先生として 入り、右の 👪 ボタンの QR を 先生の スマホで 読みとると、保護者レポートと 同じ日に クラス全員の まとめが 届きます（5人まで）。</p>
+    <p>登録：<b>\${S.teachers || 0} 人</b></p>
+    <button class="btn ghost" id="tReset">先生の LINE を ぜんぶ 止めて、QR を 作りなおす</button>
+  </div>
   <div class="card"><h2>教室全体を停止</h2>
     <p class="muted">配信を止め、保護者の登録と レポートのURLを無効にします（登録は30日後に完全に削除）。</p>
     <button class="btn danger" id="stopAll">教室全体を停止する</button>
   </div>\`;
+  document.getElementById('tReset').onclick = async () => {
+    if (!confirm('先生の LINE の 登録を ぜんぶ 消して、前の QR を 使えなくします。よろしいですか？')) return;
+    const r = await post('/teacher-line/reset', {}); if (r.ok) load();
+  };
   document.getElementById('fr').value = s.frequency; document.getElementById('wd').value = String(s.send_weekday);
   document.getElementById('save').onclick = async () => {
     const r = await post('/settings', { enabled: en.checked, frequency: fr.value, send_weekday: Number(wd.value), send_time: tm.value, skip_zero_week: sz.checked, monthly_pdf: mp.checked, sender_name: sn.value, teacher_label: tl.value });

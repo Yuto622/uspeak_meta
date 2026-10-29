@@ -8,6 +8,8 @@
 //   reports          作った レポート（PDF・画像の 置き場所と、見る ための access_token）
 //   deliveries       送った 結果（1 通ずつ）
 //   report_runs      配信 1 回ぶんの まとめ
+//   teacher_links    先生の LINE（クラス 全員の まとめが とどく。status: active / blocked / stopped）
+//   teacher_tokens   先生の QR の 中身（クラスに 1 つ。作りなおすと 前の QR は 使えない）
 //   meta             全体の スイッチ・通知を 出した 日 など
 //
 // 書くのは まとめて（250ms）、tmp に 書いてから rename（とちゅうで 落ちても 壊れない）。path が 無ければ メモリだけ（テスト）。
@@ -15,7 +17,7 @@ import { promises as fs } from 'node:fs';
 import { randomBytes } from 'node:crypto';
 import path from 'node:path';
 
-export const TABLES = ['parent_links', 'link_tokens', 'report_settings', 'teacher_comments', 'reports', 'deliveries', 'report_runs', 'claps'];
+export const TABLES = ['parent_links', 'link_tokens', 'report_settings', 'teacher_comments', 'reports', 'deliveries', 'report_runs', 'claps', 'teacher_links', 'teacher_tokens'];
 const MAX_DELIVERIES = 20000;
 const MAX_RUNS = 2000;
 
@@ -106,6 +108,43 @@ export class ReportStore {
     return t;
   }
 
+  // ---- 先生の LINE（クラス 全員の まとめ）-----------------------------------------------------
+  // 保護者の 紐づけとは 表を 分ける（保護者の メニュー・きょうだいの まとめに まざらない）。
+  teacherToken(classroomId) {
+    let t = this.data.teacher_tokens.find((x) => x.classroom_id === classroomId && !x.revoked_at);
+    if (!t) { t = { token: newToken(), classroom_id: classroomId, revoked_at: '', created_at: new Date().toISOString() }; this.data.teacher_tokens.push(t); this.touch(); }
+    return t;
+  }
+  findTeacherToken(token) {
+    return this.data.teacher_tokens.find((x) => x.token === token && !x.revoked_at) || null;
+  }
+  teacherLinks({ classroomId = '', lineUserId = '', status = '' } = {}) {
+    return this.data.teacher_links.filter((l) => (!classroomId || l.classroom_id === classroomId) && (!lineUserId || l.line_user_id === lineUserId) && (!status || l.status === status));
+  }
+  addTeacherLink({ classroomId, lineUserId, consentVersion }) {
+    const at = new Date().toISOString();
+    let l = this.data.teacher_links.find((x) => x.classroom_id === classroomId && x.line_user_id === lineUserId);
+    if (l) Object.assign(l, { status: 'active', consent_version: consentVersion, consented_at: at, updated_at: at });
+    else { l = { id: newId(), classroom_id: classroomId, line_user_id: lineUserId, status: 'active', consent_version: consentVersion, consented_at: at, created_at: at }; this.data.teacher_links.push(l); }
+    this.touch();
+    return l;
+  }
+  setTeacherLinkStatus(filter, status) {
+    const rows = this.teacherLinks(filter); const at = new Date().toISOString();
+    for (const l of rows) { l.status = status; l.updated_at = at; }
+    if (rows.length) this.touch();
+    return rows.length;
+  }
+  // 先生の LINE を ぜんぶ 止めて、QR も 作りなおす（QR が もれた ときの ため）。止めた 紐づけは 消す。
+  resetTeacherLine(classroomId) {
+    const at = new Date().toISOString();
+    for (const t of this.data.teacher_tokens) if (t.classroom_id === classroomId && !t.revoked_at) t.revoked_at = at;
+    const before = this.data.teacher_links.length;
+    this.data.teacher_links = this.data.teacher_links.filter((l) => l.classroom_id !== classroomId);
+    this.touch();
+    return before - this.data.teacher_links.length;
+  }
+
   // ---- 保護者の 紐づけ ---------------------------------------------------------------------
   links({ classroomId = '', username = '', lineUserId = '', status = '' } = {}) {
     return this.data.parent_links.filter((l) => (!classroomId || l.classroom_id === classroomId) && (!username || l.student_username === username)
@@ -142,6 +181,8 @@ export class ReportStore {
     const before = this.data.parent_links.length;
     const gone = (iso) => { const t = Date.parse(iso || ''); return Number.isFinite(t) && t + graceMs <= now; };
     this.data.parent_links = this.data.parent_links.filter((l) => !(l.status === 'stopped' && l.deleted_after && Date.parse(l.deleted_after) <= now) && !(l.status === 'blocked' && gone(l.updated_at || l.created_at)));
+    this.data.teacher_links = this.data.teacher_links.filter((l) => !(l.status === 'blocked' && gone(l.updated_at || l.created_at)));
+    this.data.teacher_tokens = this.data.teacher_tokens.filter((t) => !gone(t.revoked_at));
     const tokensBefore = this.data.link_tokens.length;
     this.data.link_tokens = this.data.link_tokens.filter((t) => !gone(t.revoked_at) && !gone(t.expires_at));
     const delBefore = this.data.deliveries.length;
