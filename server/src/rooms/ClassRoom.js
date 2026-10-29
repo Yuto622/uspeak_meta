@@ -171,6 +171,7 @@ export class ClassRoom extends Room {
     this.roblox = options.roblox || null;
     // 保護者の 👏（parent-report）。この 部屋が あるあいだ、届いたら すぐ 見せる。
     this.claps = options.claps || null;
+    this.parentLink = options.parentLink || null;
     // タスクの 表（/admin/tasks）。無ければ タスクは 出さない。
     this.tasks = options.tasks || null;
     // 宿題（/admin/homework で 先生が くばった もの）。無ければ 宿題島は からっぽ。
@@ -247,6 +248,7 @@ export class ClassRoom extends Room {
     this.onMessage('pet:hatch', (client) => this.onPetHatch(client));
     this.onMessage('pet:act', (client, msg) => this.onPetAct(client, msg));
     this.onMessage('rank', (client) => this.onRank(client));
+    this.onMessage('parent:qr', (client) => this.onParentQr(client));
     this.onMessage('ghost:hit', (client, msg) => this.onGhostHit(client, msg));
     this.onMessage('block:list', (client) => client.send('block:shop', this.shopPayload(client.sessionId)));
     this.onMessage('block:buy', (client, msg) => this.onBlockBuy(client, msg));
@@ -2221,6 +2223,20 @@ export class ClassRoom extends Room {
 
   // This week's XP, ranked within the class. Roblox ranked per school code; a class code
   // is the same idea and is what this room already is.
+  // 右の 列「👪 おうちの ひとの LINE」：この 子 だけの 保護者ページの URL（QR カードと 同じ）。QR の 絵は 画面が かく。
+  // URL は 部屋が きめる（名前と クラスは 入室の ときに サーバーが たしかめた もの）。先生には 出さない。
+  onParentQr(client) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv || !this.parentLink || this.state.players.get(client.sessionId)?.role === 'teacher') { client.send('parent:qr', { ok: false }); return; }
+    const t = Date.now();
+    if (priv.parentQrAt && t - priv.parentQrAt < 1500) return;
+    priv.parentQrAt = t;
+    const username = this.roblox?.usernameFor ? this.roblox.usernameFor(this.classCode, priv.name) : priv.name;
+    let url = '';
+    try { url = this.parentLink(this.classCode, username, priv.name) || ''; } catch (err) { log.warn?.('[parent-qr]', err.message); }
+    client.send('parent:qr', { ok: !!url, url, nick: priv.name });
+  }
+
   onRank(client) {
     const key = weekIndex();
     const me = this.priv.get(client.sessionId);

@@ -4,8 +4,9 @@
    ・「しまの ちず」は 下の ホットバーの 3 と 同じ なので 右からは けす（光の 道は ホットバーの 3 を 光らせる）
    ・上の バーの おと・あそびかた・ログアウト は「⋯」の 中（English と コインと LV は そのまま）
    ・左下の WASD は うごいたら（または 20 秒で）きえる
-   タッチの 端末（iPad・スマホ）は mobile.css の まま。 */
-@media (pointer: fine) and (min-width: 1001px) {
+   タッチの 端末（iPad・スマホ）は mobile.css の まま。
+   「パソコン」は index.html が html に つける .pc-ui（マウスか タッチパッドが ある パソコン。タッチ画面の パソコンも 入る）。 */
+@media (min-width: 1001px) {
   .right-rail.pc-tidy { position: fixed; top: 112px; right: 24px; width: 236px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; z-index: 3; align-content: start; }
   .right-rail.pc-tidy > * { position: static !important; width: auto !important; margin: 0 !important; top: auto !important; right: auto !important; left: auto !important; }
   .right-rail.pc-tidy > .map-panel { grid-column: 1 / -1; order: 0; }
@@ -15,10 +16,10 @@
   .right-rail.pc-tidy #hunger { grid-column: 1 / -1; order: 1; }
   .right-rail.pc-tidy > .flight-button { display: none !important; }
   /* 2 列の ボタン：どれも 同じ 形・同じ 高さ */
-  .right-rail.pc-tidy :is(#main-island-button, #rank-button, #roadmap-button, .fishing-button, .rpg-buddy-button, .voice-button, .roblox-button:not([hidden])) {
+  .right-rail.pc-tidy :is(#main-island-button, #rank-button, #roadmap-button, #parent-qr-button, .fishing-button, .rpg-buddy-button, .voice-button, .roblox-button:not([hidden])) {
     min-height: 54px; padding: 8px 8px !important; border-radius: 14px !important; display: flex !important; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-align: center; font-size: 13px; line-height: 1.2;
   }
-  .right-rail.pc-tidy :is(#main-island-button, #rank-button, #roadmap-button, .fishing-button, .rpg-buddy-button, .voice-button) :is(.en, .ja) { font-size: 13px; }
+  .right-rail.pc-tidy :is(#main-island-button, #rank-button, #roadmap-button, #parent-qr-button, .fishing-button, .rpg-buddy-button, .voice-button) :is(.en, .ja) { font-size: 13px; }
   .right-rail.pc-tidy #main-island-button { order: 2; }
   .right-rail.pc-tidy #rank-button { order: 3; }
   .right-rail.pc-tidy #roadmap-button { order: 4; }
@@ -26,6 +27,8 @@
   .right-rail.pc-tidy .fishing-button > span { display: block; }
   .right-rail.pc-tidy .rpg-buddy-button { order: 6; }
   .right-rail.pc-tidy .voice-button { order: 7; }
+  .right-rail.pc-tidy #parent-qr-button { order: 8; grid-column: 1 / -1; min-height: 44px; flex-direction: row !important; gap: 6px; }
+  .right-rail.pc-tidy #parent-qr-button::before { content: '👪'; font-size: 18px; line-height: 1; }
   .right-rail.pc-tidy .roblox-button:not([hidden]) { order: 8; grid-column: 1 / -1; min-height: 40px; }
   .right-rail.pc-tidy .pc-view-toggle { order: 9; grid-column: 1 / -1; }
   /* 字だけだと さがしにくいので 絵を 1 つずつ（えらぶ 時間が へる） */
@@ -36,16 +39,20 @@
   .right-rail.pc-tidy .rpg-buddy-button::before { content: '📖'; }
   .right-rail.pc-tidy > .scenery-controls { order: 10; grid-column: 1 / -1; display: none !important; }
   body.pc-view-open .right-rail.pc-tidy > .scenery-controls { display: grid !important; }
-  .pc-view-toggle { min-height: 36px; border-radius: 12px; border: 1px solid #fff8; background: #fcfae9d9; color: #405a43; font-size: 13px; font-weight: 700; cursor: pointer; }
-  body.pc-view-open .pc-view-toggle { background: #345940; color: #fff4d4; }
+  html.pc-ui .pc-view-toggle { min-height: 36px; border-radius: 12px; border: 1px solid #fff8; background: #fcfae9d9; color: #405a43; font-size: 13px; font-weight: 700; cursor: pointer; }
+  html.pc-ui body.pc-view-open .pc-view-toggle { background: #345940; color: #fff4d4; }
   /* 上の バー：おと・あそびかた・ログアウト は ⋯ の 中 */
-  header .stats > .more-button { display: grid; place-content: center; width: 40px; height: 40px; border-radius: 12px; font-size: 22px; font-weight: 700; background: #e5e9dc; }
-  body:not([data-more]) header .stats > :is(#sound, #help, #logout-button) { display: none !important; }
+  html.pc-ui header .stats > .more-button { display: grid; place-content: center; width: 40px; height: 40px; border-radius: 12px; font-size: 22px; font-weight: 700; background: #e5e9dc; }
+  html.pc-ui body:not([data-more]) header .stats > :is(#sound, #help, #logout-button) { display: none !important; }
   /* WASD の ヒントは うごいたら きえる */
-  body.pc-moved .control-hint { opacity: 0; pointer-events: none; transition: opacity .6s; }
+  html.pc-ui body.pc-moved .control-hint { opacity: 0; pointer-events: none; transition: opacity .6s; }
 }
-@media (pointer: fine) and (min-width: 1001px) {
+@media (min-width: 1001px) {
   .right-rail.pc-tidy .voice-button { white-space: normal; font-size: 12px; overflow: hidden; }
   .right-rail.pc-tidy .voice-button * { white-space: normal !important; text-align: center; }
   .right-rail.pc-tidy .rpg-buddy-button { white-space: normal; }
 }
+/* タッチ画面の パソコンは mobile.css を 読まない（index.html）ので、☰ は ここで けす。 */
+html.pc-ui #rail-toggle, html.pc-ui .more-button { display: none; }
+/* ⚙ みえかた は パソコンの 列だけ（iPad・スマホでは 白い まるに なっていた）。 */
+.right-rail:not(.pc-tidy) > .pc-view-toggle { display: none !important; }

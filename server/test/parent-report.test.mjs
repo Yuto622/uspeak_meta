@@ -287,6 +287,15 @@ test('page: the QR token opens the child\'s own page (no LINE), built on demand;
   assert.equal(await h.service.studentPage(t.token), null, 'a remade QR retires the old URL');
 });
 
+test('game QR: the child\'s own button gives the same URL as the printed QR card', async () => {
+  const h = harness({ events: week41('taro'), now: at(2026, 10, 13, 10) });
+  const url = h.service.childLink('c1', 'taro', 'Taro');
+  assert.equal(url, `https://example.test/r/${h.reports.tokenFor('c1', 'taro', 'Taro').token}`);
+  assert.equal(h.service.childLink('c1', 'taro', 'Taro'), url, 'pressing again gives the same QR');
+  assert.notEqual(h.service.childLink('c1', 'hana', 'Hana'), url, 'each child has a different QR');
+  assert.equal(h.service.childLink('', 'taro'), '');
+});
+
 test('goal: one "next step" line, strongest first', () => {
   const wk = weekOf(at(2026, 10, 6));
   assert.equal(weeklyData([], { week: wk, nick: 'a' }).goal.key, 'start');

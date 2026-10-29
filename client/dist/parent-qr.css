@@ -1,0 +1,26 @@
+/* 👪 おうちの ひとの LINE（parent-qr.js）。英語は 大きく、日本語は 小さく。字は 11px より 小さく しない。 */
+#parent-qr-dialog { width: min(640px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; border: 0; border-radius: 22px;
+  background: linear-gradient(160deg, #10302a, #173f38 55%, #1f4d44); color: #f4f1e3; box-shadow: 0 24px 70px rgba(0, 0, 0, .45); overflow: auto; }
+#parent-qr-dialog::backdrop { background: rgba(6, 18, 15, .6); }
+.pq-head { position: static; display: flex; align-items: center; justify-content: space-between; padding: 14px 18px 8px; }
+.pq-close { width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .12); color: #fff; font-size: 22px; cursor: pointer; }
+.pq-body { padding: 0 18px 18px; }
+.pq-bi { display: inline-flex; flex-direction: column; line-height: 1.2; }
+.pq-bi > b { font-size: 15px; font-weight: 800; }
+.pq-bi > small { font-size: 12px; opacity: .8; font-weight: 600; margin-top: 2px; }
+.pq-title > b { font-size: 22px; }
+.pq-title > small { font-size: 13px; }
+.pq-nick > b { font-size: 22px; color: #ffd978; }
+.pq-wait { padding: 30px; text-align: center; }
+.pq-card { display: flex; gap: 18px; align-items: center; }
+.pq-qr { flex: none; width: 220px; height: 220px; border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 6px 20px rgba(0, 0, 0, .3); }
+.pq-qr svg { display: block; width: 100%; height: 100%; }
+.pq-text ol { margin: 10px 0; padding-left: 22px; display: grid; gap: 8px; }
+.pq-note { margin: 8px 0 0; }
+.pq-note > .pq-bi > b { font-size: 13px; color: #ffd978; }
+@media (max-height: 520px) {
+  .pq-qr { width: 170px; height: 170px; }
+  .pq-head { padding: 8px 14px 4px; }
+  .pq-text ol { gap: 4px; margin: 6px 0; }
+}
+@media (max-width: 520px) { .pq-card { flex-direction: column; } }

@@ -37,6 +37,7 @@
   "devDependencies": {
     "colyseus.js": "0.15.28",
     "esbuild": "^0.24.2",
-    "livekit-client": "^2.22.3"
+    "livekit-client": "^2.22.3",
+    "qrcode": "^1.5.4"
   }
 }

@@ -1,6 +1,8 @@
-// パソコン（マウス・幅 1001px 以上）だけ：右がわを 1 つの 列に まとめる（見た目は pc-tidy.css）。
+// パソコン（マウス・タッチパッド・幅 1001px 以上）だけ：右がわを 1 つの 列に まとめる（見た目は pc-tidy.css）。
 // .top-dock（net-client.js が つくる）は オンラインに なってから できるので、できるまで まつ。
-const pc = matchMedia('(pointer: fine) and (min-width: 1001px)');
+// .pc-ui は index.html が つける（タッチ画面の パソコンも パソコン あつかい）。
+const wide = matchMedia('(min-width: 1001px)');
+const pc = { get matches() { return document.documentElement.classList.contains('pc-ui') && wide.matches; }, addEventListener: (t, f) => wide.addEventListener?.(t, f) };
 const rail = document.querySelector('.right-rail');
 if (rail) {
   const view = document.createElement('button');

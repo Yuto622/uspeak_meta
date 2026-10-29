@@ -44,3 +44,22 @@ await build({
   logLevel: 'warning',
 });
 console.log(`vendored livekit-client ${lk.version} -> client/dist/vendor/livekit.js`);
+
+// QR コード（右の 列の「おうちの ひとの LINE」）。作る ところ（core）だけ。絵は parent-qr.js が SVG で かく。
+// ボタンを 押した ときだけ 読む（ESM）。
+const qr = JSON.parse(readFileSync(path.resolve(here, '../node_modules/qrcode/package.json'), 'utf8'));
+const qrOut = path.resolve(here, '../../client/dist/vendor/qrcode.js');
+await build({
+  stdin: { contents: "export { create } from 'qrcode/lib/core/qrcode.js';", resolveDir: path.resolve(here, '..') },
+  bundle: true,
+  platform: 'browser',
+  format: 'esm',
+  target: ['es2019', 'safari14'],
+  minify: true,
+  sourcemap: false,
+  legalComments: 'inline',
+  banner: { js: `/* qrcode ${qr.version} core browser bundle (MIT). Built by server/scripts/vendor-client-sdk.mjs */` },
+  outfile: qrOut,
+  logLevel: 'warning',
+});
+console.log(`vendored qrcode ${qr.version} -> client/dist/vendor/qrcode.js`);

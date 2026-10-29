@@ -23,6 +23,7 @@ import { createPetUI } from './pet.js';
 import { createPetBuddy } from './pet-models.js';
 import { createDailyUI } from './daily.js';
 import { createRoadmapUI } from './roadmap.js';
+import { createParentQrUI } from './parent-qr.js';
 import { startWarp, stopWarp, setWarp } from './warp.js';
 import { createNight } from './night-world.js';
 import { createRideUI } from './ride.js';
@@ -196,6 +197,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     send: atSend,
     isOnline: () => state.mode === 'online',
   });
+  // 👪 おうちの ひとの LINE（この 子 だけの 保護者ページの QR。URL は 部屋が きめる）。
+  const parentQr = createParentQrUI({ send: atSend });
   // 🗺 ロードマップ（段階・英検の 見こみ・おすすめの 場所）。「いく」は その 島へ ひこうきで。
   const roadmap = createRoadmapUI({
     send: atSend, toast, speak,
@@ -364,7 +367,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     document.querySelector('.right-rail')?.prepend(food.gauge);
     // パソコン（マウス）では 右のバーは 並びではなく、ボタンが 1 つずつ 場所を 持つ（style.css）。場所の ない
     // ゲージ・🏠・ランキングが 左上に 落ちて ロゴに かさなっていたので、地図の すぐ左に 1 つの 列で 置く。
-    if (globalThis.matchMedia?.('(pointer: fine)').matches) {
+    if (document.documentElement.classList.contains('pc-ui')) {
       const dock = document.createElement('div');
       dock.className = 'top-dock';
       dock.append(food.gauge, b);
@@ -497,6 +500,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     voice.setAvailable(mode === 'online' || mode === 'reconnecting');
     daily.setOnline(mode === 'online' || mode === 'reconnecting');
     roadmap.setOnline(mode === 'online' || mode === 'reconnecting');
+    parentQr.setOnline(mode === 'online' || mode === 'reconnecting', state.role === 'teacher');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
     if (mode === 'offline' || mode === 'connecting') lockPremiumOffline();
     if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); if (myLand.active) myLand.leave(true); town.hideHud(); voice.setMode('off'); }
@@ -692,6 +696,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('fw:catch', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onCatch(m); });
     r.onMessage('hw:list', (m) => homework.onList(m));
     r.onMessage('rm:state', (m) => roadmap.onState(m));
+    r.onMessage('parent:qr', (m) => parentQr.onQr(m));
     r.onMessage('rm:up', (m) => { if (m.wallet) applyWallet(m.wallet); roadmap.onUp(m); });
     r.onMessage('hw:ask', (m) => homework.onAsk(m));
     r.onMessage('hw:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); sfx.judge(m.correct); homework.onResult(m); });

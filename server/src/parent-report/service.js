@@ -429,6 +429,8 @@ export function createParentReports({
   // QR カードと 同じ 合言葉で /r/<合言葉> を ひらくと、その 子の 最新の 週の レポート（なければ その場で 作る）と
   // これまでの 週・1か月の まとめが 見られる。QR を 作り直すと 前の URL は 使えなくなる。生徒の 配信を 止めると 見られない。
   const pageUrl = (classCode, st) => urlFor(reports.tokenFor(classCode, st.username, st.nick, { now: now() }).token);
+  // ゲームの 右の 列「おうちの ひとの LINE」：その 子の ページ（QR カードと 同じ URL。LINE で 受け取る ボタンは その ページに ある）。
+  const childLink = (classCode, username, nick) => (classCode && username ? pageUrl(classCode, { username, nick: nick || username }) : '');
   const isStudentToken = (token) => !!reports.findToken(token, now());
   const viewable = (r) => r && !r.revoked_at && Date.parse(r.expires_at) > now();
   async function studentPage(token) {
@@ -621,7 +623,7 @@ export function createParentReports({
 
   return {
     students, buildReport, preview, qrCards, deliverClass, resend, dueNow, tick, housekeeping, summaryLine, notifyOps,
-    stopClass, stopStudent, eraseStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, isStudentToken, studentPage, studentMonthly, clap, clapHub, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
+    stopClass, stopStudent, eraseStudent, fileForRequest, linkInfo, register, onWebhookEvents, classStatus, nextSend, robloxClassCodes, isStudentToken, studentPage, studentMonthly, clap, clapHub, childLink, classNameOf: (code) => seatNames.get(code) || '', seatStatus: async () => (seats ? seats.status() : null),
     start(intervalMs = 60000) { const t = setInterval(() => tick(), intervalMs); t.unref?.(); return t; },
   };
 }
