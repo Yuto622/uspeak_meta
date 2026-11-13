@@ -117,15 +117,29 @@ export function menuReply(action, { kids = [], pref = 'class', registered = fals
   const active = kids.filter((k) => !k.paused);
   const pausedLine = kids.filter((k) => k.paused).map((k) => `${k.nick}さんの レポートは 教室で 止めて います。`).join('\n');
   if (action.kind === 'report') {
+    // 画像（レポートの 1 まいめ）を かならず いっしょに 返す。URL だけの 文は 出さない（ボタンに する）。
+    // 吹き出しは 5 つまで：1 人＝画像＋ボタン、きょうだいは 画像を 先に ならべて ボタンは さいごに まとめて。
     const out = [];
-    const one = active.length === 1;
-    for (const k of active) {
-      if (one && k.report?.png) out.push({ type: 'image', originalContentUrl: k.report.png, previewImageUrl: k.report.thumb || k.report.png });
-      const lines = [k.report ? `📊 ${k.nick}さんの さいしんの レポート（${k.report.range}）` : `📊 ${k.nick}さんの レポートは まだ ありません。`];
-      if (k.page) lines.push(`これまでの 週も 見られます：${k.page}`);
-      else if (k.report?.pdf) lines.push(`PDF：${k.report.pdf}`);
-      out.push(text(lines.join('\n')));
+    const none = [];
+    const withImg = active.filter((k) => k.report?.png);
+    for (const k of active) if (!k.report?.png) none.push(k);
+    const room = 5 - (pausedLine ? 1 : 0) - (none.length ? 1 : 0);
+    const solo = withImg.length === 1;
+    const shown = withImg.slice(0, solo ? 1 : Math.max(0, room - 1));
+    for (const k of shown) out.push({ type: 'image', originalContentUrl: k.report.png, previewImageUrl: k.report.thumb || k.report.png });
+    if (shown.length) {
+      const actions = [];
+      for (const k of shown.slice(0, solo ? 1 : 4)) {
+        if (solo && k.report.pdf) actions.push({ type: 'uri', label: 'PDFで見る', uri: k.report.pdf });
+        if (k.page) actions.push({ type: 'uri', label: (solo ? 'これまでの週も見る' : `${k.nick}さんのページ`).slice(0, 20), uri: k.page });
+        else if (!solo && k.report.pdf) actions.push({ type: 'uri', label: `${k.nick}さんのPDF`.slice(0, 20), uri: k.report.pdf });
+      }
+      const title = solo ? `${shown[0].nick}さんの さいしんの レポート` : 'さいしんの レポート';
+      const body = solo ? (shown[0].report.range || '今週の がんばり') : shown.map((k) => k.nick).join('・');
+      if (actions.length) out.push({ type: 'template', altText: `📊 ${title}`.slice(0, 400), template: { type: 'buttons', title: `📊 ${title}`.slice(0, 40), text: String(body).slice(0, 60), actions: actions.slice(0, 4) } });
+      else out.push(text(`📊 ${title}${solo && shown[0].report.range ? `（${shown[0].report.range}）` : ''}`));
     }
+    if (none.length) out.push(text(none.map((k) => `📊 ${k.nick}さんの レポートは まだ ありません（英語の きろくが たまると 作られます）。`).join('\n')));
     if (pausedLine) out.push(text(pausedLine));
     return out.slice(0, 5);
   }

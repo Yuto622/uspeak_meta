@@ -623,9 +623,14 @@ export function createParentReports({
         if (action.kind === 'report') {
           const latest = reports.reports({ student_username: st.username, classroom_id: l.classroom_id, kind: 'weekly' })
             .filter((r) => !r.revoked_at && Date.parse(r.expires_at) > now()).sort((a, b) => b.period_key.localeCompare(a.period_key))[0];
+          // まだ 1 まいも ない（配信の 前・画像が ない 古い もの）ときは、その場で 先週ぶんを 作る（返事に 画像を かならず つける）。
+          let rep = latest;
+          if (!rep?.png_url) {
+            try { rep = (await buildReport(l.classroom_id, st, 'weekly', lastWeek(now()), { force: !!latest })).report; } catch (err) { log.warn?.('[line] menu report could not be built:', err.message); }
+          }
           let range = '';
-          try { range = JSON.parse(latest?.data_json || '{}').range || ''; } catch { /* なくても よい */ }
-          kid.report = latest ? { png: latest.png_url, thumb: latest.thumb_url, pdf: latest.pdf_url, range } : null;
+          try { range = JSON.parse(rep?.data_json || '{}').range || ''; } catch { /* なくても よい */ }
+          kid.report = rep ? { png: rep.png_url, thumb: rep.thumb_url, pdf: rep.pdf_url, range } : null;
           try { kid.page = base ? pageUrl(l.classroom_id, st) : ''; } catch { kid.page = ''; }
         }
         if (action.kind === 'homework' || action.kind === 'home') { try { kid.homework = homework?.listFor?.(l.classroom_id, webName) || []; } catch { kid.homework = []; } }

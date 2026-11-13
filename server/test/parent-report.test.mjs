@@ -429,8 +429,10 @@ test('menu: 下の ボタンで さいしんの レポート・宿題・とど�
   };
   const rep = await ask('menu=report');
   assert.equal(rep[0].type, 'image');
-  assert.match(rep[1].text, /Taroさんの さいしんの レポート/);
-  assert.match(rep[1].text, /https:\/\/example\.test\/r\//);
+  assert.equal(rep[1].type, 'template', 'URL だけの 文では なく ボタン');
+  assert.match(rep[1].template.title, /Taroさんの さいしんの レポート/);
+  assert.deepEqual(rep[1].template.actions.map((x) => x.label), ['PDFで見る', 'これまでの週も見る']);
+  assert.ok(rep[1].template.actions.every((x) => x.uri.startsWith('https://example.test/r/')));
   assert.match((await ask('menu=homework'))[0].text, /宿題は ありません|宿題/);
   const pref = await ask('menu=pref');
   assert.match(pref[0].text, /教室の 設定どおり/);
@@ -447,6 +449,15 @@ test('menu: 下の ボタンで さいしんの レポート・宿題・とど�
   h.reports.links({ lineUserId: 'Umom' })[0].last_sent_at = new Date(at(2026, 9, 1)).toISOString();
   const r3 = await h.service.deliverClass('c1', { period: weekOf(at(2026, 10, 6)), force: true });
   assert.equal(r3.counts.sent, 1);
+  // きょうだい：まだ 1 まいも 作って いない 子も その場で 作って、画像を 2 まい とも 返す。
+  h.reports.addLink({ classroomId: 'c1', username: 'hana', nickname: 'Hana', lineUserId: 'Usib', consentVersion: 'v1' });
+  h.reports.addLink({ classroomId: 'c1', username: 'taro', nickname: 'Taro', lineUserId: 'Usib', consentVersion: 'v1' });
+  h.service.onWebhookEvents([{ type: 'postback', replyToken: 'rt-sib', source: { userId: 'Usib' }, postback: { data: 'menu=report' } }]);
+  for (let i = 0; i < 80 && !h.line.sent.some((p) => p.replyToken === 'rt-sib'); i += 1) await new Promise((r) => setTimeout(r, 10));
+  const sib = h.line.sent.find((p) => p.replyToken === 'rt-sib').messages;
+  assert.deepEqual(sib.map((m) => m.type), ['image', 'image', 'template']);
+  assert.equal(sib[2].template.actions.length, 2);
+  assert.ok(sib.length <= 5);
 });
 
 test('おうちで できる こと：復習の 時期の ことば・宿題で まちがえた ことばを 1 行に', async () => {
