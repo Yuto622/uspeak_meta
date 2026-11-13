@@ -1,7 +1,7 @@
 // メインの島（3D）— Roblox の メインワールドを、ほかの島と同じ 島の部品（island-kit）で建てたもの。
 //
 // 並びは main_island.json の `island`（Roblox の pois を Web の島の大きさに並べなおしたもの）。
-// スタート（入り江の東の 船着き場）の まわりに よく つかう 場所を あつめて ある（2026-11）：すぐ 北の 大通りぞいに 屋台 3 つ、
+// スタート（⭐・大通りの まんなか、さんばしの 入口の よこ）の まわりに よく つかう 場所を あつめて ある（2026-11）：大通りぞいに 屋台 3 つ、
 // その 北に ふくや・ブロックや・いえの おみせ・さかなの かいとりや、奥に 英単語ハウス 3 軒と レベルの かんばん。
 // 入り江の さんばしは スタートに 近い 東から 英検 5・4・3級。つりの ものは さんばしの 入口に 1 か所（すぐ 西に つり島への ゲート、真正面に かいとりや）。
 // 西は ほかの ゲートの列と 英会話の お店（プレミアム）。
@@ -28,6 +28,9 @@ export function loadMainWorld() {
 // 入り江とさんばしは データで決まるが、島を建てる前（createIsland）に要るので 先に読む値を持つ。
 const BAY = { minX: -16, maxX: 22, minZ: 25 };
 const PIER = { x: 4, minZ: 24, maxZ: 35, w: 3.4 };
+// スタート（⭐）＝ひこうき・🏠・はじめての 入室で あらわれる 場所。島の まんなか（さんばしの 入口の よこ・大通りの 南）。
+// 橋が つくのは 船着き場（dock）の まま。main_island.json の `start` と 同じ 数字。
+const START = { x: 10.5, z: 21 };
 const inBay = (x, z) => x > BAY.minX && x < BAY.maxX && z > BAY.minZ;
 
 export function createMainWorld({ scene }) {
@@ -95,8 +98,8 @@ export function createMainWorld({ scene }) {
         }
       }
 
-      // スタートの ほし（Roblox のスポーン）。船着き場から あがった ところ。
-      const st = data.start || { x: 31, z: 30 };
+      // スタートの ほし（Roblox のスポーン）。島の まんなか（2026-11：前は 南東の 船着き場の 上で、西の 場所が 遠かった）。
+      const st = data.start || START;
       B(st.x, 0.2, st.z, 5, 0.2, 5, 0xf2d27a);
       D(st.x, 0.36, st.z, 3, 0.12, 3, 0xf2b630, 0.6);
       sprite({ en: '⭐ START', ja: '⭐ スタート' }, st.x, 2.6, st.z, { width: 5, size: 30 });
@@ -499,7 +502,7 @@ export function createMainWorld({ scene }) {
       ctx.fillText(sp.kind === 'gate' ? (GATE[sp.to] || '🌀') : (ICON[sp.kind] || sp.icon || '•'), x, y + 0.5);
     }
     // スタートの ほし。
-    const st = d.start || { x: 31, z: 30 };
+    const st = d.start || START;
     ctx.font = '8px sans-serif'; ctx.fillText('⭐', px(st.x), py(st.z));
     // きみ（オレンジ）。
     const me = { x: player.position.x - o.x, z: player.position.z - o.z };
@@ -530,6 +533,8 @@ export function createMainWorld({ scene }) {
     if (fx && island.visible) fx.update(t, player);
   }
 
+  // あらわれる 場所は スタートの ほし（island-kit の 既定は 船着き場）。
+  island.arrival = { x: START.x, z: START.z };
   const out = Object.assign(island, {
     drawMap, update,
     ready: loadMainWorld().then((d) => { island.receive(d.island); return d; }),
