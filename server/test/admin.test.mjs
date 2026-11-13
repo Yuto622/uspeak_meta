@@ -156,9 +156,9 @@ test('the 先生か column: true + あいことば makes a teacher without the k
   // Gate on: same.
   await api('/enforce', { method: 'PUT', body: { enforce: true } });
   const t2 = await join('Ms Sato', '6-1', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t2, 'welcome')).role, 'teacher'); await t2.leave(); await sleep(100);
-  // A teacher row without a pin is never a teacher by name (the key still works).
-  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: true }, { name: 'Ken', teacher: false }] } });
-  const t4 = await join('Ms Sato'); assert.equal((await nextMessage(t4, 'welcome')).role, 'student'); await t4.leave(); await sleep(100);
+  // 先生の 行に 先生パスワードが ないと 保存できない（空だと 名前だけで 生徒として 入れて しまう）。
+  const noPin = await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: true }, { name: 'Ken', teacher: false }] } });
+  assert.equal(noPin.status, 400); assert.match((await noPin.json()).error, /先生パスワード.*Ms Sato/);
   // Unticked again: back to a student at the next join.
   await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: false, pin: 'sato-pass' }, { name: 'Ken', teacher: false }] } });
   const t3 = await join('Ms Sato', '6-1', { pin: 'sato-pass' }); assert.equal((await nextMessage(t3, 'welcome')).role, 'student'); await t3.leave(); await sleep(100);

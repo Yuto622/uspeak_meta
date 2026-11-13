@@ -16,7 +16,7 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
     <p data-t="なまえを いれると、クラスの みんなと いっしょに あそべるよ。">なまえを いれると、クラスの みんなと いっしょに あそべるよ。</p>
     <label><span data-t="なまえ">なまえ</span><input id="net-name" name="name" maxlength="16" autocomplete="off" autocapitalize="off" placeholder="れい：ゆうと" data-t-ph="れい：ゆうと"></label>
     <label><span data-t="クラスコード">クラスコード</span><input id="net-class" name="class" maxlength="24" autocomplete="off" autocapitalize="off" placeholder="せんせいに きいた ことば" data-t-ph="せんせいに きいた ことば"></label>
-    <details id="net-teacher-details"><summary data-t="先生用">先生用</summary><label><span data-t="先生の あいことば">先生の あいことば</span><input id="net-key" name="key" type="password" autocomplete="off"></label></details>
+    <details id="net-teacher-details"><summary data-t="先生用">先生用</summary><label><span data-t="先生パスワード">先生パスワード</span><input id="net-key" name="key" type="password" autocomplete="off"></label></details>
     <p id="net-lobby-error" class="net-error" role="alert" hidden></p>
     <div class="net-lobby-actions">
       <button type="submit" class="primary" id="net-join" data-t="クラスに はいる →">クラスに はいる →</button>

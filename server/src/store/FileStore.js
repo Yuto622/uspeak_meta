@@ -245,7 +245,7 @@ export function eventMatches(e, { username = '', classCode = '', since = 0, unti
 
 function rosterRowsFromJson(parsed) {
   const rows = [];
-  const push = (cls, name, note, teacher = false, premium = false, pin = '', stopped = false) => { if (name) rows.push({ class: cls && cls !== '*' ? String(cls) : '*', name: String(name), note: String(note ?? ''), ...(teacher === true || teacher === 'true' ? { teacher: true } : {}), ...(premium === true || premium === 'true' ? { premium: true } : {}), ...(stopped === true || stopped === 'true' ? { stopped: true } : {}) }); };
+  const push = (cls, name, note, teacher = false, premium = false, pin = '', stopped = false) => { if (name) rows.push({ class: cls && cls !== '*' ? String(cls) : '*', name: String(name), note: String(note ?? ''), ...(teacher === true || teacher === 'true' ? { teacher: true } : {}), ...(premium === true || premium === 'true' ? { premium: true } : {}), ...(pin ? { pin: String(pin).slice(0, 40) } : {}), ...(stopped === true || stopped === 'true' ? { stopped: true } : {}) }); };
   if (Array.isArray(parsed)) {
     for (const r of parsed) push(r?.class, r?.name, r?.note, r?.teacher, r?.premium, r?.pin, r?.stopped);
   } else if (parsed && Array.isArray(parsed.rows)) {

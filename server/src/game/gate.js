@@ -101,7 +101,7 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
         const entry = await register(classCode);
         if (!entry?.teachers?.has(fold(name))) return false;
         const want = entry.pins?.get(fold(name)) || '';
-        if (!want) { log.warn?.(`[gate] teacher row without a pin in class=${classCode}: not granted (set あいことば in /admin)`); return false; }
+        if (!want) { log.warn?.(`[gate] teacher row without a pin in class=${classCode}: not granted (set 先生パスワード in /admin)`); return false; }
         return samePin(want, pin);
       } catch { return false; }
     },
@@ -130,8 +130,11 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
       // 子どもの あいことば（ロビーの「じぶんの あいことば」）は 2026-11 に なくした：子どもの 行の pin は 見ない。
       if (role !== 'teacher') {
         const entry0 = await register(classCode);
-        const want = entry0?.teachers?.has(fold(name)) ? entry0?.pins?.get(fold(name)) : '';
-        if (want && !samePin(want, pin)) return { ok: false, reason: 'wrong pin' };
+        // 先生の 行は、先生パスワードが 一致しないと 入れない（パスワードが 空の 先生の 行も 入れない。講師キーなら 入れる）。
+        if (entry0?.teachers?.has(fold(name))) {
+          const want = entry0?.pins?.get(fold(name)) || '';
+          if (!want || !samePin(want, pin)) return { ok: false, reason: 'wrong pin' };
+        }
       }
       if (modeNow() !== ROSTER) return { ok: true, reason: 'open' };
       if (role === 'teacher') return { ok: true, reason: 'teacher key' };

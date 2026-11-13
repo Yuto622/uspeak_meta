@@ -550,7 +550,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // 入場ゲート: the class register did not have this name. Say what to check, not what
     // went wrong - a child cannot fix a register.
     if (code === 4008 || /stopped/.test(text)) return tr('この アカウントは いま つかえません。先生に きいてね。');
-    if (code === 4005 || /password/.test(text)) return tr('あいことばが ちがいます。先生は「先生用」に いれてね。');
+    if (code === 4005 || /password/.test(text)) return tr('先生パスワードが ちがいます。「先生用」を ひらいて いれてね。');
     if (code === 4004 || /register/.test(text)) return tr('この 名前は この クラスの めいぼに ありません。クラスコードと なまえを たしかめて、先生に 聞いて ください。');
     if (/Failed to fetch|NetworkError|Load failed|ECONN|timeout/i.test(text)) return tr('サーバーに つながりません。Wi-Fi を たしかめて ください。');
     return tr('つなげませんでした（{why}）', { why: text.slice(0, 80) });

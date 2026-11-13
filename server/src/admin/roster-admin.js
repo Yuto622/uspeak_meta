@@ -135,6 +135,9 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
     const rows = req.body?.rows;
     if (!Array.isArray(rows) || rows.length > MAX_ROWS) { res.status(400).json({ ok: false, error: 'rows' }); return; }
     const clipped = rows.map((r) => ({ class: '*', name: clip(typeof r === 'string' ? r : r?.name), note: '', teacher: typeof r === 'object' && r ? isTrueCell(r.teacher ?? '') : false, premium: typeof r === 'object' && r ? isTrueCell(r.premium ?? '') : false , pin: typeof r === 'object' && r ? clip(r.pin ?? '').slice(0, 40) : '', stopped: typeof r === 'object' && r ? isTrueCell(r.stopped ?? '') : false }));
+    // 先生の 行は 先生パスワードが いる（空だと 先生に なれず、名前だけで 生徒として 入って しまう）。
+    const noPin = clipped.filter((r) => r.name && r.teacher && !r.pin).map((r) => r.name);
+    if (noPin.length) { res.status(400).json({ ok: false, error: `先生の 行に 先生パスワードが ありません：${noPin.slice(0, 5).join('、')}${noPin.length > 5 ? ' ほか' : ''}` }); return; }
     try {
       const saved = await access.replace(clipped);
       res.json({ ok: true, count: saved.length, rows: saved.map((r) => ({ name: r.name, teacher: !!r.teacher, premium: !!r.premium, pin: r.pin || '', stopped: !!r.stopped })) });

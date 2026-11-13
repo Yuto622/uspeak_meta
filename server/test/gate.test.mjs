@@ -38,6 +38,8 @@ test('あいことば: only teacher rows are guarded by their pin (children have
   assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Ms Sato', pin: 'sato' }), true);
   assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Ms Sato' }), false);
   assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Mr Nopin' }), false, 'a teacher row without a pin is never a teacher by name');
+  assert.equal((await gate.allow({ classCode: '6-1', name: 'Mr Nopin', role: 'student' })).reason, 'wrong pin', 'and does not get in as a student either');
+  assert.equal((await gate.allow({ classCode: '6-1', name: 'Mr Nopin', role: 'teacher', byKey: true })).ok, true, 'the TEACHER_KEY still works');
 });
 
 test('with a register, the register decides — and spelling is not a test', async () => {
