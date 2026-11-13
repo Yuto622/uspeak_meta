@@ -56,6 +56,33 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
 
   const newId = () => `${now().toString(36)}-${(seq += 1).toString(36)}-${randomBytes(3).toString('hex')}`;
 
+  // ---- 保護者ページの ライブ更新 -----------------------------------------------------------
+  // 記録（Roblox からも Web からも）は ぜんぶ store.appendRobloxEvents を 通るので、そこで「この 子に 新しい 記録」を 知らせる。
+  // ひらいている 保護者ページ（/report-live の SSE）が それを 受けて 自分を 読みなおす。中身は 送らない（合図 だけ）。
+  const watchers = new Map();       // username（小文字）-> Set<fn>
+  const lower = (u) => String(u || '').toLowerCase();
+  const notify = (username) => { for (const fn of watchers.get(lower(username)) || []) { try { fn(); } catch { /* 切れた 画面 */ } } };
+  function watch(username, fn) {
+    const k = lower(username);
+    if (!watchers.has(k)) watchers.set(k, new Set());
+    watchers.get(k).add(fn);
+    return () => { const set = watchers.get(k); if (!set) return; set.delete(fn); if (!set.size) watchers.delete(k); };
+  }
+  const watching = () => [...watchers.values()].reduce((n, set) => n + set.size, 0);
+  if (store?.appendRobloxEvents) {
+    if (!store.robloxListeners) {
+      const append = store.appendRobloxEvents.bind(store);
+      store.robloxListeners = new Set();
+      store.appendRobloxEvents = (rows) => {
+        const out = append(rows);
+        const names = new Set((rows || []).map((r) => r?.username).filter(Boolean));
+        for (const fn of store.robloxListeners) for (const n of names) fn(n);
+        return out;
+      };
+    }
+    store.robloxListeners.add(notify);
+  }
+
   // ---- 紐づけ（Roblox のアカウント名 ⇔ Web の子）---------------------------------------
   // 表が空、または載っていない名前は「同じ名前」。表は1分ほど手元に置く（コインの行は
   // 同期の中から書くので、ここは待てない）。
@@ -319,7 +346,7 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
   return {
     enabled, rooms, store, mount, ensureSeeds, metricDefs, refreshLinks,
     links: () => links.map((r) => ({ ...r })),
-    usernameFor, childFor, balanceOf, walletAdd, carryOver, pushBalance, summaryFor, classRows,
+    usernameFor, childFor, balanceOf, walletAdd, carryOver, pushBalance, summaryFor, classRows, watch, watching, notify,
     reportPath: (username) => (reportSecret ? robloxReportPath(reportSecret, username) : ''),
     parseMetric,
   };

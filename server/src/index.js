@@ -284,6 +284,25 @@ export async function startServer({ port = config.port, storeOverride = null, tt
       res.send(robloxClassCsv(rows));
     });
 
+    // 保護者ページの ライブ更新（SSE）。新しい 記録が 入った しゅんかんに「読みなおして」の 合図 だけ 送る（中身は 送らない）。
+    // 同じ 署名つきリンクで 守る。`/report/<クラス>/<名前>` と ぶつからない ように 道を 分けて ある。
+    const LIVE_MAX = 300; const LIVE_MS = 30 * 60 * 1000;
+    app.get('/report-live/:username', (req, res) => {
+      const { username } = req.params;
+      if (!verifyRobloxReport(config.reportSecret, username, req.query.t)) { res.status(404).end(); return; }
+      if (roblox.watching() >= LIVE_MAX) { res.status(503).set('Retry-After', '30').end(); return; }
+      res.set({ 'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-store, no-transform', 'X-Accel-Buffering': 'no', 'X-Robots-Tag': 'noindex, nofollow' });
+      res.flushHeaders?.();
+      res.write('retry: 3000\n\n');
+      let timer = null;
+      const send = () => { if (timer) return; timer = setTimeout(() => { timer = null; try { res.write('event: update\ndata: 1\n\n'); res.flush?.(); } catch { /* closed */ } }, 300); };
+      const off = roblox.watch(username, send);
+      const beat = setInterval(() => { try { res.write(': keep\n\n'); res.flush?.(); } catch { /* closed */ } }, 20000);
+      const done = setTimeout(() => res.end(), LIVE_MS);     // 画面が つなぎなおす（EventSource）
+      const close = () => { off(); clearInterval(beat); clearTimeout(done); clearTimeout(timer); };
+      req.on('close', close); res.on('close', close);
+    });
+
     // Roblox の保護者ページ。1人ぶんの署名つきリンク（`roblox|<username>`）。
     // `/report/<クラス>/<名前>` とは段の数が違うので、ぶつからない。
     app.get('/report/:username', async (req, res) => {

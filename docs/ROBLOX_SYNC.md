@@ -161,22 +161,24 @@ local function post(path, body)
 	return HttpService:JSONDecode(res.Body)
 end
 
--- 学習の記録：まとめて送る（30 秒ごと、または 100 件たまったら）
-local queue = {}
-local function track(player, kind, data, world)
-	table.insert(queue, { id = player.UserId .. "-" .. os.time() .. "-" .. #queue, ts = os.time(), type = kind,
-		username = player.Name, userId = tostring(player.UserId), classCode = player:GetAttribute("ClassCode") or "", world = world, data = data })
+-- 学習の記録：**記録が 出てから 2 秒後に 送る**（その間の 記録は 1 回に まとめる・100 件 たまったら すぐ）。
+-- 保護者ページは 記録が とどいた しゅんかんに 自分で 更新される（/report-live）ので、Roblox で 答えて 数秒で 画面に 出る。
+-- そのまま 置ける スクリプトは `roblox/USpeakEventSync.server.luau`（`_G.USpeakTrack(player, kind, data, world)` を 呼ぶだけ）。
+local queue, seq, scheduled = {}, 0, false
+local function flush()
+	scheduled = false
+	if #queue == 0 then return end
+	local batch = queue; queue = {}
+	local r = post("/events", { batchId = tostring(os.time()), placeId = tostring(game.PlaceId), world = "main", events = batch })
+	if not r then for _, e in ipairs(batch) do table.insert(queue, e) end end   -- 失敗したら次回に（id が同じなので二重にならない）
 end
-task.spawn(function()
-	while true do
-		task.wait(30)
-		if #queue > 0 then
-			local batch = queue; queue = {}
-			local r = post("/events", { batchId = tostring(os.time()), placeId = tostring(game.PlaceId), world = "main", events = batch })
-			if not r then for _, e in ipairs(batch) do table.insert(queue, e) end end   -- 失敗したら次回に（id が同じなので二重にならない）
-		end
-	end
-end)
+local function track(player, kind, data, world)
+	seq += 1
+	table.insert(queue, { id = player.UserId .. "-" .. os.time() .. "-" .. seq, ts = os.time(), type = kind,
+		username = player.Name, userId = tostring(player.UserId), classCode = player:GetAttribute("ClassCode") or "", world = world, data = data })
+	if #queue >= 100 then task.spawn(flush) elseif not scheduled then scheduled = true; task.delay(2, flush) end
+end
+task.spawn(function() while true do task.wait(15); flush() end end)   -- 失敗した ぶんの 送りなおし
 
 -- コイン：入室時と 5 分ごと。Web で動いたぶんを DataStore の残高に足し、適用した id に印を付ける。
 local function syncWallet(player, coins)   -- coins: その子の残高を持つオブジェクト（{ get = fn, add = fn, applied = {id=true} }）

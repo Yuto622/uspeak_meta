@@ -434,3 +434,26 @@ test('FileStore: 古い 行を すてても、まだ Roblox に 届いていな�
   const left = await fs.listWalletEntries({ username: 'a', undelivered: true });
   assert.deepEqual(left.map((e) => e.id), ['keep']);
 });
+
+test('保護者ページの ライブ更新：記録が 入った しゅんかんに その 子の 画面だけに 合図（中身は 送らない）', async () => {
+  const { FileStore } = await import('../src/store/FileStore.js');
+  const { createRoblox, signRobloxReport } = await import('../src/roblox/sync.js');
+  const { parentHtml } = await import('../src/roblox/pages.js');
+  const store = new FileStore(null);
+  await store.init?.();
+  const roblox = createRoblox({ store, key: 'k', reportSecret: 's' });
+  const got = [];
+  const off = roblox.watch('Kai', () => got.push('kai'));
+  roblox.watch('Mia', () => got.push('mia'));
+  store.appendRobloxEvents([{ id: 'a1', ts: Date.now(), type: 'quiz', username: 'kai', data_json: '{}' }]);
+  assert.deepEqual(got, ['kai'], '名前の 大文字・小文字は 区別しない。ほかの 子には 行かない');
+  assert.equal(roblox.watching(), 2);
+  off();
+  store.appendRobloxEvents([{ id: 'a2', ts: Date.now(), type: 'quiz', username: 'Kai', data_json: '{}' }]);
+  assert.deepEqual(got, ['kai'], 'とじた 画面には 送らない');
+  assert.equal(roblox.watching(), 1);
+  const html = parentHtml(await roblox.summaryFor('Kai'));
+  assert.match(html, /report-live/);
+  assert.ok(!parentHtml(await roblox.summaryFor('Kai'), { live: false }).includes('EventSource'));
+  assert.ok(signRobloxReport('s', 'Kai'));
+});

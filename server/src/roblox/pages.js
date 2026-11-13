@@ -1,6 +1,6 @@
 // Roblox の学習記録の画面（docs/ROBLOX_SYNC.md）。
 //
-//  * `parentHtml`   保護者ページ `/report/<username>`。1枚、スクリプトなし、スマホと印刷。
+//  * `parentHtml`   保護者ページ `/report/<username>`。1枚、スマホと印刷。スクリプトは ライブ更新（LIVE_SCRIPT）だけ。
 //  * `classSection` 先生ページ `/class/<クラス>` に足す表（並べ替え・CSV・行を開くと詳細）。
 //  * `classCsv`     その表の CSV。
 //
@@ -111,7 +111,7 @@ function recentSection(recent) {
 }
 
 // ---- 保護者ページ -----------------------------------------------------------------------
-export function parentHtml(s, { madeAt = Date.now() } = {}) {
+export function parentHtml(s, { madeAt = Date.now(), live = true } = {}) {
   const M = s.metrics;
   const scalars = M.filter(isScalar);
   const cards = scalars.filter((m) => m.values.all !== undefined && m.key !== 'guess_rate').map((m) => `<div><span>${esc(m.label_ja)}</span><b>${esc(formatValue(m.values.all, m.unit))}</b></div>`).join('');
@@ -138,8 +138,37 @@ ${guess ? `<section><h2>あてずっぽう率</h2><div class="guess"><b class="$
 ${tables}${lists}
 ${recentSection(s.recent)}
 <footer>このページは1人ぶんのリンクです。ほかの人に送らないでください。Roblox 上の学習記録（アカウント名・回答・利用時間）を U-Speak Web に保存し、保護者と教室に表示しています。</footer>
-</main></body></html>`;
+</main>${live ? LIVE_SCRIPT : ''}</body></html>`;
 }
+
+// ライブ更新：サーバーの 合図（/report-live の SSE）で この ページを 読みなおして 中身だけ 入れかえる。
+// 合図が 来ない ネットワークでも 20 秒ごとに 見なおす。ひらいた <details> と スクロールは そのまま。
+const LIVE_SCRIPT = `<style>@media print{#live{display:none}}</style><div id="live" style="position:fixed;right:10px;bottom:10px;z-index:9;background:#1b3a2f;color:#fff;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;box-shadow:0 2px 8px #0003"><span id="live-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#9aa;margin-right:6px"></span><span id="live-text">ライブ更新</span></div>
+<script>(function(){
+var dot=document.getElementById('live-dot'),text=document.getElementById('live-text'),busy=false,again=false,last=Date.now(),on=false;
+var hhmmss=function(){return new Date().toLocaleTimeString('ja-JP',{hour12:false})};
+var paint=function(){dot.style.background=on?'#4ade80':'#f2b630';text.textContent=(on?'ライブ':'つなぎなおし中')+' · 更新 '+hhmmss()};
+function refresh(){
+  if(busy){again=true;return}busy=true;
+  fetch(location.href,{cache:'no-store',credentials:'same-origin'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(html){
+    var doc=new DOMParser().parseFromString(html,'text/html');var open=[];
+    document.querySelectorAll('main details').forEach(function(d,i){if(d.open)open.push(i)});
+    var h=doc.querySelector('header'),m=doc.querySelector('main');
+    if(h&&m){document.querySelector('header').innerHTML=h.innerHTML;document.querySelector('main').innerHTML=m.innerHTML;
+      document.querySelectorAll('main details').forEach(function(d,i){if(open.indexOf(i)>=0)d.open=true});document.title=doc.title;last=Date.now();paint()}
+  }).catch(function(){}).then(function(){busy=false;if(again){again=false;refresh()}});
+}
+function connect(){
+  if(!window.EventSource)return;
+  var es=new EventSource('/report-live/'+location.pathname.split('/').pop()+location.search);
+  es.onopen=function(){on=true;paint()};
+  es.addEventListener('update',refresh);
+  es.onerror=function(){on=false;paint()};
+}
+connect();paint();
+setInterval(function(){if(!document.hidden&&Date.now()-last>20000)refresh()},5000);
+document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh()});
+})();</script>`;
 
 // ---- 先生ページの表 ---------------------------------------------------------------------
 const FIXED = ['study_seconds', 'questions', 'accuracy', 'guess_rate'];
