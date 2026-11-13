@@ -60,6 +60,7 @@ import { createGate } from '../game/gate.js';
 import { FARM, sanitizeFarm, settle as settleFarm, statePayload as farmPayload, prepare as prepareFarm, judge as judgeFarm, askPayload as farmAsk, spotForAct, FarmError } from '../game/farm.js';
 import { reportPath, exportPath, classPath } from '../game/report.js';
 import { createTutor } from '../ai/tutor.js';
+import { FISH_BY_ID } from '../../../client/dist/fishing-data.js';
 import { log, who } from '../log.js';
 
 // さかなを うって もらえる コインは 1日 ここまで（U-Speak島の つりと メインの島・つり島の かいとりやの 合計）。
@@ -89,6 +90,30 @@ import { rideOf, ParkError } from '../game/themepark.js';
 import { rankings, boardPayload, sanitizeWeekHist, noteWeek, selfView, classGoal } from '../game/rankings.js';
 import { isPier, preparePier, pierInfo, PierError } from '../game/eiken-pier.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
+
+// 学習ログの 1 行 → 保護者レポートの 箱（roblox_events）の quiz。もう 自分で 書いて いる あそび（英検・つり島・宿題・英単語ハウス・復習）と、
+// 正解・不正解では ない もの（チャット・会話・面接の 1 問ずつ・声の 判定）は null。word は 英単語の ときだけ（苦手単語の 箱に 入る）。
+const ENGLISH_WORD = /^[A-Za-z][A-Za-z' -]{0,30}$/;
+export function quizEventOf(row, lastQid = '') {
+  const qid = String(row?.[3] || ''); const mode = String(row?.[4] || '');
+  const head = qid.split(':')[0];
+  if (!qid || mode === 'chat' || mode === 'speak' || mode === 'conv' || mode === 'mission' || mode === 'interview') return null;
+  if (['quick', 'eiken', 'fw', 'hw', 'wh', 'review', 'interview', 'conv', 'mission', 'chat'].includes(head)) return null;
+  const parts = qid.split(':');
+  const data = { correct: Number(row[6]) === 1, fast: false, retry: qid === lastQid };
+  const word = (w) => { if (ENGLISH_WORD.test(String(w || ''))) data.word = String(w); };
+  let world = 'other';
+  if (head === 'fish') { const f = FISH_BY_ID[parts[1]]; world = 'fishing'; data.level = 'Fishing'; if (f) { word(f.word); if (f.grade) data.grade = String(f.grade); } }
+  else if (head === 'lesson') { world = 'island'; data.level = 'Lesson'; }
+  else if (head === 'quiz') { world = 'school'; data.level = 'School'; }
+  else if (head === 'gym') { world = 'gym'; data.level = 'Gym'; word(parts[2]); }
+  else if (head === 'battle') { world = 'battle'; data.level = 'Battle'; }
+  else if (head === 'farm') { world = 'farm'; data.level = 'Farm'; }
+  else if (head === 'race' || head === 'gp') { world = 'racing'; data.level = 'Racing'; word(parts[2]); }
+  else { world = 'rpg'; data.level = 'RPG'; }
+  data.format = mode.slice(0, 24);
+  return { world, data };
+}
 
 export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004, WRONG_PIN: 4005, TOO_MANY: 4006, CLASS_REQUIRED: 4007, STOPPED: 4008 };
 // 名簿の「先生か」を 読みなおす 間かく（admin で 保存したら すぐ。名簿が スプレッドシートの ときの ための 保険）。
@@ -1873,6 +1898,11 @@ export class ClassRoom extends Room {
         bumpMonth(priv.months, { answers: 1, correct: Number(row[6]) === 1 ? 1 : 0, xp: Number(row[7]) || 0 }, { day: true, home: !this.teacherPresent() });
         // 保護者レポートの「話す」：声に出して 英語を 使った 回数を、Roblox と 同じ 記録（roblox_events）にも 1 行。
         if (skillOf(row[4]) === 'speak') this.robloxEvent(sessionId, 'speak', String(row[4] || 'speak').slice(0, 40), { mode: String(row[4] || '') });
+        // 保護者レポート（LINE の PDF）・ロードマップ・苦手単語の 箱は roblox_events を 読む。じぶんで 書いて いない あそび
+        // （U-Speak島の つり・レッスン・ことばの学校・ジム・アリーナ・ぼくじょう・レースの 📦）も ここで 1 行 のせる（2026-11）。
+        const ev = quizEventOf(row, priv.lastQuizQid);
+        priv.lastQuizQid = String(row[3] || '');
+        if (ev) this.robloxEvent(sessionId, 'quiz', ev.world, ev.data, Date.parse(row[0]) || Date.now());
         // ロードマップ：10 問 ごとに「次の 段階に 進めるか」を 見る（記録が 書かれて から 読むので 少し おくらせる）。
         priv.rmAnswers = (priv.rmAnswers || 0) + 1;
         if (priv.rmAnswers % 10 === 0) this.scheduleRoadmapCheck(sessionId, 1500);

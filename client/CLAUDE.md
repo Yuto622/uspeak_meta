@@ -106,6 +106,8 @@ Roblox 版（USpeakTeacherLive / USpeakReviewServer）と 同じ 動き・同じ
   - 🌍 Move together：行き先カード（`DESTINATIONS`、今いる 場所は のぞく）→ 全員（先生も）に 5 秒の カウントダウン → `goPlace()`（net-client）で
     その 島へ。英単語ハウスは その 戸口の 前。**15 秒に 1 回**。失敗しても 25 秒で 表示が 閉じる。
   - 先生の 操作は **1 秒に 1 回**まで（部屋が 捨てる）。結果は `class:toast`。Web の 先生が 動かせるのは Web の 生徒だけ。
+- **保護者レポートの 箱（roblox_events）には Web の ぜんぶの 正解・不正解が のる（2026-11）**：`ClassRoom.appendLearning` が `quizEventOf(row)` で 1 行 足す（U-Speak島の つり＝単語と 級つき・レッスン・ことばの学校・ジム（聞く・書く）・アリーナ・ぼくじょう・レースの 📦）。
+  じぶんで 書いて いる あそび（英検・つり島・宿題・英単語ハウス・復習）と、正解・不正解では ない もの（チャット・AI英会話・おつかい・面接の 1 問ずつ・声の 判定）は 足さない（二重に 数えない）。あそびを 足したら `quizEventOf` に 1 行。
 - **復習の 箱は 1 つ**：`review.js` が roblox_events の quiz（Roblox と Web。Web は `robloxEvent` が source=web で 書く）を 古い 順に たたんで
   毎回 計算する（別の 表は 持たない＝同期が いらない）。まちがい→1 日後、時期後 or level=Review で 正解→3 日後→7 日後→卒業、60 語まで、英単語だけ。
   出題は「🔊 を 聞いて 4 つから」（`#review-dialog`）。**読み上げるので 単語（`say`）は ページに 送る**（つり島の listen と 同じ）。判定・+3 コインは 部屋。

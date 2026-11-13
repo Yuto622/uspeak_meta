@@ -43,9 +43,10 @@ export const WORLD_LABELS = {
 export const LEVEL_LABELS = {
   supereasy: 'とても かんたん', easy: 'かんたん', medium: 'ふつう', hard: 'むずかしい',
   fishing: 'さかなつり', battle: 'バトル', gym: 'ことばのジム', racing: 'レース',
+  lesson: 'レッスン', school: 'ことばの学校', farm: 'ぼくじょう', rpg: 'RPG',
   5: '5級', 4: '4級', 3: '3級', pre2: '準2級', 2: '2級',
 };
-export const LEVEL_ORDER = ['supereasy', 'easy', 'medium', 'hard', 'fishing', 'battle', 'gym', 'racing', '5', '4', '3', 'pre2', '2'];
+export const LEVEL_ORDER = ['supereasy', 'easy', 'medium', 'hard', 'fishing', 'battle', 'gym', 'racing', 'lesson', 'school', 'farm', 'rpg', '5', '4', '3', 'pre2', '2'];
 export const levelLabel = (l, labels = null) => labels?.[l] ?? LEVEL_LABELS[String(l || '').toLowerCase()] ?? (l || '（レベルなし）');
 export const worldLabel = (w, labels = null) => labels?.[w] ?? WORLD_LABELS[String(w || '').toLowerCase()] ?? (w || '（場所なし）');
 

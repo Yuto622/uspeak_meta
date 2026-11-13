@@ -188,6 +188,14 @@ test('answers, coins and catches are decided by the server', async () => {
   // 10 + 10 = 20, still inside level 1.
   assert.equal(r.progress.level, 1);
   assert.equal(r.progress.total, REWARDS.lesson.xp + REWARDS.fishWord.xp);
+  // 保護者レポート（LINE の PDF）・ロードマップが 読む 箱にも のる：レッスン 2 問（2 問目は やりなおし）と つり 1 問（単語と 級つき）。
+  {
+    const evs = (await server.store.listRobloxEvents({ username: 'Chika' })).filter((e) => e.type === 'quiz').map((e) => ({ world: e.world, ...JSON.parse(e.data_json) }));
+    assert.deepEqual(evs.map((e) => [e.world, e.correct, e.retry]), [['island', true, false], ['island', false, true], ['fishing', true, false]]);
+    assert.equal(evs[2].word, f0.word);
+    assert.equal(evs[2].grade, String(f0.grade));
+    assert.ok(evs.every((e) => e.source === 'web'));
+  }
   a.room.send('economy', { op: 'sell', id: f0.id, quantity: 1 });
   w = await nextMessage(a.room, 'wallet');
   // The catch also paid the dex bonus, because it was the first of its species.
