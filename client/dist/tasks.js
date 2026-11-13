@@ -20,6 +20,8 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
   let data = null;
   let cheer = null;
   let cheerTimer = 0;
+  let asking = '';       // 「スキップする？」と きいて いる タスク
+  let askTimer = 0;
   // スマホの 横もちは 画面が せまいので、はじめは たたんで 札だけ（ひらけば そのまま 覚える）。
   // スマホの 横もちは 保存を 読まず いつも たたんで はじめる（PC で ひらいた 覚えが スマホに 効くと 画面の 半分が カードに なる）。
   const phone = () => matchMedia('(pointer: coarse) and (orientation: landscape) and (max-height: 1100px)').matches;
@@ -39,14 +41,16 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
 
   function render() {
     const hw = data?.homework || null;
-    const on = !!data && isOnline() && (!data.all || !!hw);
+    const on = !!data && isOnline() && (!data.all || !!hw || data.skipped > 0);
     // 光の 道は 宿題が あれば しゅくだいの いえへ（1 わくめ と 同じ）。
     guide?.set(on ? (hw ? { ...data, tasks: [{ id: `hw:${hw.id}`, have: hw.answered, go: hw.go }, ...(data.tasks || [])] } : data) : null);
     card.hidden = !on;
     panel?.classList.toggle('has-tasks', on);
     if (!on) return;
     const ch = data.chapter || null;
-    const pct = hw ? Math.round((hw.answered / Math.max(1, hw.total)) * 100) : Math.round((ch.done / Math.max(1, ch.size)) * 100);
+    const pct = hw ? Math.round((hw.answered / Math.max(1, hw.total)) * 100) : (ch ? Math.round((ch.done / Math.max(1, ch.size)) * 100) : 100);
+    // スキップ：かくす だけ（すんだ ことには ならない・コインも 出ない）。2 回 おして きめる（まちがえて おさない ように）。
+    const skipBtn = (task) => `<button type="button" class="task-skip-btn" data-skip="${esc(task.id)}">${asking === task.id ? `⏭ ${tr('スキップする？ もう いちど おす')}` : `⏭ ${tr('スキップ')}`}</button>`;
     const count = !ch ? '' : data.framing === 'left'
       ? tr('あと {0}こ', [ch.size - ch.done])
       : tr('{0}こ できた', [ch.done]);
@@ -63,7 +67,7 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
         <span class="task-eyebrow">${tr('つぎに やること')}</span>
         <span class="task-chapter">${hw
           ? `📝 ${tr('しゅくだい')} ${hw.answered} / ${hw.total}${dueText(hw) ? ` · ${esc(dueText(hw))}` : ''}`
-          : `${esc(isJa() && ch.name ? ch.name : tr('しょう {0}', [ch.n]))} · ${count}`}</span>
+          : (ch ? `${esc(isJa() && ch.name ? ch.name : tr('しょう {0}', [ch.n]))} · ${count}` : tr('スキップした タスクが あるよ'))}</span>
         <span class="task-fold" aria-hidden="true">${folded ? '▾' : '▴'}</span>
       </button>
       <div class="task-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
@@ -81,14 +85,25 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
         ${first.where && isJa() ? `<small>📍 ${esc(first.where)}</small>` : ''}
         <div class="task-row">${meter(first)}${reward(first)}</div>
         ${guide?.available ? `<button type="button" class="task-guide-btn" aria-pressed="${guide.shown}">🧭 ${guide.shown ? tr('みちを けす') : tr('みちを 出す')}</button>` : ''}
+        ${skipBtn(first)}
       </div>` : ''}
       ${rest.length ? `<ol class="task-next">${rest.map((task) => `<li><span>${esc(text(task))}</span>${task.need > 1 ? `<b>${task.have}/${task.need}</b>` : ''}</li>`).join('')}</ol>` : ''}
-      ${ch && ch.reward > 0 ? `<p class="task-goal">${tr('この しょうを おえると 🪙 {0}', [ch.reward])}</p>` : ''}`;
+      ${ch && ch.reward > 0 ? `<p class="task-goal">${tr('この しょうを おえると 🪙 {0}', [ch.reward])}</p>` : ''}
+      ${data.skipped > 0 ? `<button type="button" class="task-unskip-btn">↩ ${tr('スキップした {0}こ を もどす', [data.skipped])}</button>` : ''}`;
   }
 
   card.addEventListener('click', (e) => {
     if (e.target.closest('.task-guide-btn')) { guide?.toggle(); render(); return; }
     if (e.target.closest('.task-hw-go')) { openHomework?.(); return; }
+    const sk = e.target.closest('.task-skip-btn');
+    if (sk) {
+      const id = sk.dataset.skip;
+      if (asking !== id) { asking = id; clearTimeout(askTimer); askTimer = setTimeout(() => { asking = ''; render(); }, 4000); render(); return; }
+      asking = ''; clearTimeout(askTimer);
+      send('task:skip', { id });
+      return;
+    }
+    if (e.target.closest('.task-unskip-btn')) { send('task:unskip', {}); return; }
     if (!e.target.closest('.task-head')) return;
     folded = !folded;
     if (!phone()) { try { localStorage.setItem(FOLD_KEY, folded ? '1' : '0'); } catch { /* private mode */ } }

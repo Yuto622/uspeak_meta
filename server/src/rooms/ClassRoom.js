@@ -7,7 +7,7 @@ import { config } from '../config.js';
 import { judge, JudgeError } from '../game/judge.js';
 import { ZONES as FISH_ZONES, GRADES as FISH_GRADES, chooseFish } from '../../../client/dist/fishing-data.js';
 import { applyOp as applyOpRaw, sanitizeWallet, EconomyError } from '../game/economy.js';
-import { blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, goOf, homeworkPin, UI_EVENTS } from '../tasks/engine.js';
+import { skipTask, unskipTasks, blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, goOf, homeworkPin, UI_EVENTS } from '../tasks/engine.js';
 import { blankPlayerRecord } from '../store/records.js';
 import { PHRASE_IDS } from '../phrases.js';
 import { cleanSay, scrubContact, MAX_CHARS } from '../game/say.js';
@@ -314,6 +314,8 @@ export class ClassRoom extends Room {
     this.onMessage('dash:get', (client) => this.onDashboard(client));
     // タスク：ページにしか 分からない こと（画面を ひらいた・はなしかけた）。名前は engine.js の UI_EVENTS だけ。
     this.onMessage('task:ui', (client, msg) => this.onTaskUi(client, msg));
+    this.onMessage('task:skip', (client, msg) => this.onTaskSkip(client, msg));
+    this.onMessage('task:unskip', (client) => this.onTaskUnskip(client));
     this.onMessage('tasks:get', (client) => this.taskSend(client.sessionId, true));
     this.onMessage('quick:start', (client, msg) => this.onQuickStart(client, msg));
     this.onMessage('quick:answer', (client, msg) => this.onQuickAnswer(client, msg));
@@ -1321,9 +1323,45 @@ export class ClassRoom extends Room {
   }
 
   // 入れない 島の タスクは とばす（🔒 の 島へ 道を 出さない）。
+  // 出さない タスク：入れない 島（プレミアム）の もの と、子どもが じぶんで スキップした もの。
   taskSkip(id) {
     const locked = this.lockedIslands(id);
-    return locked.length ? (it) => { const g = goOf(it.check); return !!g && (locked.includes(g.island) || locked.includes(g.shop)); } : null;
+    const own = this.priv.get(id)?.tasks?.skipped || [];
+    if (!locked.length && !own.length) return null;
+    return (it) => {
+      if (own.includes(it.row.id)) return true;
+      const g = goOf(it.check);
+      return !!g && (locked.includes(g.island) || locked.includes(g.shop));
+    };
+  }
+  // 「スキップ」：いま 見えて いる タスクを かくす。すんだ ことには ならない（コイン・XP・章の ごほうびは 出ない）。1 秒に 1 回。
+  onTaskSkip(client, msg) {
+    const id = client.sessionId;
+    const priv = this.priv.get(id);
+    const tid = typeof msg?.id === 'string' ? msg.id.slice(0, 40) : '';
+    if (!priv || !tid || !this.tasks) return;
+    const t = Date.now();
+    if (priv.taskSkipAt && t - priv.taskSkipAt < 1000) return;
+    priv.taskSkipAt = t;
+    const { plan } = this.taskPlan();
+    if (!plan.list.length || !skipTask(priv.tasks, plan, this.taskRules(id), tid, this.taskSkip(id))) return;
+    priv.tasks.at = t;
+    this.persist(id);
+    this.taskRun(id);
+    this.taskSend(id, true);
+  }
+  onTaskUnskip(client) {
+    const id = client.sessionId;
+    const priv = this.priv.get(id);
+    if (!priv || !this.tasks) return;
+    const t = Date.now();
+    if (priv.taskSkipAt && t - priv.taskSkipAt < 1000) return;
+    priv.taskSkipAt = t;
+    if (!unskipTasks(priv.tasks)) return;
+    priv.tasks.at = t;
+    this.persist(id);
+    this.taskRun(id);
+    this.taskSend(id, true);
   }
 
   taskStats(id) {
@@ -1411,6 +1449,10 @@ export class ClassRoom extends Room {
     const plan = this.tasks ? this.taskPlan().plan : null;
     if (!plan?.list.length) return homework ? { all: true, total: 0, done: 0, tasks: [], homework } : null;
     const view = taskView(priv.tasks, plan, this.taskRules(id, homework), this.taskStats(id), this.taskSkip(id));
+    // じぶんで スキップした 数（まだ すんで いない ものだけ）。カードの「もどす」に 出す。
+    const doneSet = new Set(priv.tasks.done);
+    const skipped = (priv.tasks.skipped || []).filter((x) => !doneSet.has(x)).length;
+    if (skipped) view.skipped = skipped;
     return homework ? { ...view, homework } : view;
   }
 

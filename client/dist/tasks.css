@@ -33,6 +33,11 @@
 #task-card .task-hw-go:active { transform: translateY(2px); box-shadow: 0 1px 0 #b85f1d; }
 #task-card .task-guide-btn { margin-top: 8px; width: 100%; min-height: 34px; border-radius: 10px; border: 1px solid #2f8f6f55; background: #e8f4ec; color: #1d4d44; font-size: 12px; font-weight: 700; cursor: pointer; }
 #task-card .task-guide-btn[aria-pressed="true"] { background: #fff3c4; border-color: #e0b84a88; color: #6a4a00; }
+/* スキップ：めだたない 小さな ボタン（かくす だけ・すんだ ことには ならない）。もどすは カードの 下。 */
+#task-card .task-skip-btn { margin-top: 6px; width: 100%; min-height: 34px; border-radius: 10px; border: 1px dashed #8a9a8f; background: transparent; color: #5e6b65; font-size: 12px; font-weight: 700; cursor: pointer; }
+#task-card .task-skip-btn:hover { background: #f1efe4; }
+#task-card .task-unskip-btn { margin-top: 8px; width: 100%; min-height: 34px; border-radius: 10px; border: 1px solid #ffffff44; background: #ffffff14; color: #e8f1ea; font-size: 12px; font-weight: 700; cursor: pointer; }
+#task-card.folded .task-unskip-btn { display: none; }
 /* 行き先が ほかの 島：しまの ちずの ボタンを 光らせる */
 .task-glow { animation: task-glow 1.6s ease-in-out infinite; }
 @keyframes task-glow { 0%, 100% { box-shadow: 0 0 0 0 #ffe08a00; } 50% { box-shadow: 0 0 0 4px #ffe08acc, 0 0 22px 4px #ffd36a99; } }

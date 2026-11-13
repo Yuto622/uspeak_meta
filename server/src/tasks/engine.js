@@ -33,13 +33,15 @@ export const UI_EVENTS = new Set([
 const MAX_KEYS = 400;
 const MAX_WORDS = 150;
 
-export function blankTasks() { return { done: [], c: {}, seen: [], w: [], run: 0, paid: [], at: 0 }; }
+// skipped＝子どもが「スキップ」した タスク（かくす だけ。すんだ ことには しない・コインも XP も 出さない・もどせる）。
+export function blankTasks() { return { done: [], c: {}, seen: [], w: [], run: 0, paid: [], at: 0, skipped: [] }; }
 
 export function sanitizeTasks(raw) {
   const t = blankTasks();
   if (!raw || typeof raw !== 'object') return t;
   const ids = (v, max) => (Array.isArray(v) ? v.filter((x) => typeof x === 'string' && x.length <= 40).slice(0, max) : []);
   t.done = ids(raw.done, 3000);
+  t.skipped = ids(raw.skipped, 3000);
   t.seen = ids(raw.seen, 64);
   t.w = ids(raw.w, MAX_WORDS);
   t.paid = (Array.isArray(raw.paid) ? raw.paid : []).filter((n) => Number.isInteger(n) && n >= 0 && n < 1000).slice(0, 500);
@@ -238,7 +240,9 @@ export function settle(prog, plan, rules, stats, skip = null) {
   }
   plan.chapters.forEach((ch, i) => {
     if (prog.paid.includes(i)) return;
-    if (ch.items.every((it) => done.has(it.row.id) || skip?.(it))) { prog.paid.push(i); chaptersDone.push(i); }
+    // じぶんで スキップした タスクが のこる 章は おわった ことに しない（章の ごほうびは 出ない。もどして すませば 出る）。
+    const own = new Set(prog.skipped || []);
+    if (ch.items.every((it) => done.has(it.row.id) || (skip?.(it) && !own.has(it.row.id)))) { prog.paid.push(i); chaptersDone.push(i); }
   });
   return { finished, chaptersDone };
 }
@@ -267,6 +271,22 @@ export function view(prog, plan, rules, stats, skip = null) {
       go: goOf(it.check),
     })),
   };
+}
+
+// 子どもの「スキップ」：いま 見えて いる タスクだけ・まだ すんで いない ものだけ。返すのは できたか。
+export function skipTask(prog, plan, rules, id, skip = null) {
+  const done = new Set(prog.done);
+  const window = plan.list.filter((it) => !done.has(it.row.id) && !skip?.(it)).slice(0, rules.visible);
+  if (!window.some((it) => it.row.id === id)) return false;
+  if (!Array.isArray(prog.skipped)) prog.skipped = [];
+  if (!prog.skipped.includes(id)) prog.skipped.push(id);
+  return true;
+}
+// スキップを ぜんぶ もどす（すんだ ものは そのまま）。返すのは もどした 数。
+export function unskipTasks(prog) {
+  const n = (prog.skipped || []).length;
+  prog.skipped = [];
+  return n;
 }
 
 // ---- 宿題の ピン（左の カードの いちばん 上）--------------------------------------------------

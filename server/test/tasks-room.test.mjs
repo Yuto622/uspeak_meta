@@ -8,7 +8,7 @@ process.env.ANSWER_MIN_INTERVAL_MS = '0';
 process.env.LOG_LEVEL = 'error';
 process.env.TASKS = 'on';
 
-const { parseCheck, blankTasks, readRules, plan, settle, view, onOp, onSpace, onAnswer, MAIN_SPOTS, goOf, homeworkPin } = await import('../src/tasks/engine.js');
+const { parseCheck, blankTasks, readRules, plan, settle, view, onOp, onSpace, onAnswer, MAIN_SPOTS, goOf, homeworkPin, skipTask, unskipTasks, sanitizeTasks } = await import('../src/tasks/engine.js');
 const { loadSeed } = await import('../src/tasks/store.js');
 const { startServer } = await import('../src/index.js');
 const { Client } = await import('colyseus.js');
@@ -119,6 +119,61 @@ test('部屋: はいると 3 つ 届く。つりばに 近づくと 部屋が �
   room.send('tasks:get');
   const again = await nextMessage(room, 'tasks:state');
   assert.equal(again.done, 1, 'fishdex is not on screen yet, so nothing else is done');
+  await room.leave();
+});
+
+test('スキップ：かくす だけ。すんだ ことには ならず、章の ごほうびも 出ない。もどして すませば 出る', () => {
+  const rules = readRules([{ key: 'visible', value: '2' }, { key: 'chapter_reward', value: '100' }]);
+  const rows = [
+    { id: 'A', ja: 'a', check: 'sell', chapter: '1 a', coins: 10 },
+    { id: 'B', ja: 'b', check: 'enter:pet', chapter: '1 a', coins: 10 },
+    { id: 'C', ja: 'c', check: 'sell', chapter: '2 b', coins: 10 },
+  ];
+  const p = plan(rows, rules);
+  const prog = blankTasks();
+  const own = (it) => prog.skipped.includes(it.row.id);
+  assert.equal(skipTask(prog, p, rules, 'C', own), false, '見えて いない タスクは スキップ できない');
+  assert.equal(skipTask(prog, p, rules, 'B', own), true);
+  assert.deepEqual(view(prog, p, rules, {}, own).tasks.map((t) => t.id), ['A', 'C'], 'B は かくれて つぎが 見える');
+  assert.ok(!prog.done.includes('B'), 'すんだ ことには ならない');
+  onOp(prog, { type: 'sell' });
+  const out = settle(prog, p, rules, {}, own);
+  assert.deepEqual(out.finished.map((r) => r.id).sort(), ['A', 'C']);
+  assert.deepEqual(out.chaptersDone, [1], 'スキップが のこる 1 章の ごほうびは 出ない（2 章は 出る）');
+  assert.equal(view(prog, p, rules, {}, own).all, true);
+  assert.equal(sanitizeTasks(JSON.parse(JSON.stringify(prog))).skipped.length, 1, '保存しても のこる');
+  // もどす → すませる → 1 章の ごほうび
+  assert.equal(unskipTasks(prog), 1);
+  assert.deepEqual(view(prog, p, rules, {}, own).tasks.map((t) => t.id), ['B']);
+  onSpace(prog, 'pet');
+  const again = settle(prog, p, rules, {}, own);
+  assert.deepEqual([again.finished.map((r) => r.id), again.chaptersDone], [['B'], [0]]);
+});
+
+test('部屋: スキップは 部屋が きめる。コインは 出ず、つぎの タスクが 出て、もどせる', async () => {
+  const room = await new Client(url).joinOrCreate('class', { classCode: 'tasks1', name: 'Sora' });
+  room.onMessage('*', () => {});
+  const welcome = await nextMessage(room, 'welcome');
+  const coins = welcome.wallet.coins;
+  let paid = false; room.onMessage('tasks:done', () => { paid = true; });
+  room.send('task:skip', { id: 'S050' });           // 見えて いない タスク
+  await sleep(1100);
+  let state = nextMessage(room, 'tasks:state');
+  room.send('task:skip', { id: 'S001' });
+  state = await state;
+  assert.deepEqual(state.tasks.map((t) => t.id), ['S002', 'S003', 'S004']);
+  assert.equal(state.skipped, 1);
+  assert.equal(state.done, 0, 'すんだ 数は ふえない');
+  await sleep(1100);
+  const back = nextMessage(room, 'tasks:state');
+  room.send('task:unskip');
+  const after = await back;
+  assert.deepEqual(after.tasks.map((t) => t.id), ['S001', 'S002', 'S003']);
+  assert.equal(after.skipped, undefined);
+  assert.equal(paid, false, 'コインは 出ない');
+  room.send('wallet:get');
+  await sleep(100);
+  assert.equal(coins, welcome.wallet.coins);
   await room.leave();
 });
 
