@@ -1,0 +1,48 @@
+% 異次元（宇宙）の 見た目。preamble.tex の 色と カードを 上書きする（毎週版・月次版だけ。QR カードは 紙に 刷るので 明るい まま）。
+\usetikzlibrary{shadings}
+\definecolor{space}{HTML}{090D26}
+\definecolor{cardbg}{HTML}{131A44}
+\definecolor{headA}{HTML}{2A1466}
+\definecolor{headB}{HTML}{0B3A7A}
+\definecolor{neonA}{HTML}{46E6FF}
+\definecolor{neonB}{HTML}{A974FF}
+\definecolor{neonC}{HTML}{FF62B0}
+\definecolor{brand}{HTML}{F3F6FF}
+\definecolor{accent}{HTML}{FFC94D}
+\definecolor{good}{HTML}{4FF0C2}
+\definecolor{soft}{HTML}{2E3A78}
+\definecolor{gray}{HTML}{B4BEE6}
+\definecolor{lgray}{HTML}{6A76B4}
+\colorlet{ongood}{space}
+\colorlet{onaccent}{space}
+\pagecolor{space}
+\AtBeginDocument{\color{brand}}
+% どの ページにも：星雲 2 つと 星。
+\AddToHook{shipout/background}{\put(0,-\paperheight){\begin{tikzpicture}[x=\paperwidth,y=\paperheight]
+\path[use as bounding box] (0,0) rectangle (1,1);
+\fill[space] (0,0) rectangle (1,1);
+\shade[inner color=neonB!34!space,outer color=space] (0.05,0.25) circle (0.5\paperwidth);
+\shade[inner color=headB!80!space,outer color=space] (1.0,0.55) circle (0.44\paperwidth);
+\foreach \x/\y/\s/\o in {.06/.93/.9/.9,.14/.71/.6/.6,.22/.52/.8/.7,.09/.38/.5/.5,.31/.12/.9/.8,.47/.05/.6/.6,.58/.63/.5/.45,.66/.34/.8/.7,.74/.78/.6/.6,.83/.17/.9/.8,.91/.44/.6/.6,.95/.69/.8/.7,.38/.83/.5/.5,.52/.29/.6/.5,.71/.08/.5/.6,.18/.19/.6/.6,.87/.90/.5/.5,.42/.46/.5/.4,.03/.58/.6/.5,.62/.90/.5/.5}
+  {\fill[white,opacity=\o] (\x,\y) circle (\s pt);}
+\foreach \x/\y in {.27/.66,.79/.27,.93/.035}
+  {\fill[neonA,opacity=.85] (\x,\y) -- ++(1.1pt,1.1pt) -- ++(-1.1pt,3pt) -- ++(-1.1pt,-3pt) -- ++(-3pt,-1.1pt) -- ++(3pt,-1.1pt) -- ++(1.1pt,-3pt) -- ++(1.1pt,3pt) -- ++(3pt,1.1pt) -- cycle;}
+\end{tikzpicture}}}
+% ヘッダー：次元の とびら（光の 輪）と 惑星。#1＝高さ。
+\newcommand{\cosmichead}[1]{%
+\begin{scope}
+\clip (current page.north west) rectangle ($(current page.north east)+(0,-#1)$);
+\shade[left color=headA,right color=headB,shading angle=65] (current page.north west) rectangle ($(current page.north east)+(0,-#1)$);
+\coordinate (P) at ($(current page.north east)+(-19mm,-0.47*#1)$);
+\foreach \r/\o in {40/.10,32/.16,25/.24,18.5/.36,13/.5}{\draw[neonA,line width=0.55pt,opacity=\o] (P) circle (\r mm);}
+\draw[accent,line width=1pt,rotate around={-18:(P)}] ($(P)+(11.5mm,0)$) arc (0:180:11.5mm and 2.8mm);
+\shade[ball color=neonB] (P) circle (6.6mm);
+\draw[accent,line width=1pt,rotate around={-18:(P)}] ($(P)+(-11.5mm,0)$) arc (180:360:11.5mm and 2.8mm);
+\foreach \x/\y/\s in {8/4/.7,31/7/.5,52/3/.8,71/9/.5,88/5/.6,44/15/.5,63/19/.6,97/16/.7,20/18/.5}
+  {\fill[white,opacity=.85] ($(current page.north west)+(\x mm,-\y mm)$) circle (\s pt);}
+\end{scope}
+\shade[left color=neonA,right color=neonC,middle color=neonB] ($(current page.north west)+(0,-#1)$) rectangle ($(current page.north east)+(0,-#1-0.8mm)$);}
+% ガラスの カード（ふちは 光の グラデーション）。hot＝先生・おうちで 1 分 の 金いろ。
+\renewtcolorbox{card}[1][]{enhanced,colback=cardbg,opacityback=0.86,coltext=brand,boxrule=0.8pt,frame style={left color=neonA!75!cardbg,right color=neonB!80!cardbg},arc=3.4mm,left=3mm,right=3mm,top=2mm,bottom=2mm,before skip=2.6mm,after skip=0mm,#1}
+\tcbset{hot/.style={colback=accent!13!cardbg,frame style={left color=accent,right color=neonC}}}
+\renewcommand{\cardtitle}[1]{{\color{neonA}\bfseries #1}}

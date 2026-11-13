@@ -28,12 +28,15 @@ let cache = null;
 export function templates() {
   if (cache) return cache;
   const preamble = read('preamble.tex');
-  const weekly = read('weekly.tex.j2').replace('\\input{preamble.tex}', preamble);
-  const monthly = read('monthly.tex.j2').replace('\\input{preamble.tex}', preamble);
+  // theme.tex＝異次元（宇宙）の 色。毎週版・月次版だけ（QR カードは 紙に 刷るので preamble の 明るい 色の まま）。
+  const theme = read('theme.tex');
+  const inline = (name) => read(name).replace('\\input{preamble.tex}', () => preamble).replace('\\input{theme.tex}', () => theme);
+  const weekly = inline('weekly.tex.j2');
+  const monthly = inline('monthly.tex.j2');
   const texts = JSON.parse(read('texts.json'));
   // どの 版で 作ったか（reports.template_version）：文の 版 ＋ テンプレートの 中身の ハッシュ。
   const hash = createHash('sha256').update(weekly).update(monthly).update(JSON.stringify(texts)).digest('hex').slice(0, 8);
-  cache = { weekly, monthly, texts, version: `t${texts.version || 1}-${hash}` };
+  cache = { weekly, monthly, texts, preamble, version: `t${texts.version || 1}-${hash}` };
   return cache;
 }
 export const templateVersion = () => templates().version;
@@ -48,13 +51,13 @@ function teacherCard(teacher, label, { weekly }) {
   if (!teacher?.text) return '';     // 先生が えらんだ 回だけ。無ければ 欄ごと 出さない。
   const from = `${tex(label || '先生')}より`;
   return weekly
-    ? `\\begin{card}[colframe=accent,boxrule=0.9pt]\n{\\fontsize{9}{11}\\selectfont\\color{accent}\\bfseries ${from}}\\\\[0.4mm]\n{\\fontsize{11.5}{15}\\selectfont\\color{brand}\\bfseries ${tex(teacher.text)}}\n\\end{card}`
-    : `\\begin{card}[colframe=accent,boxrule=1pt]\n{\\small\\color{accent}\\bfseries ${from}}\\\\[0.6mm]\n{\\large\\color{brand}\\bfseries ${tex(teacher.text)}}\n\\end{card}`;
+    ? `\\begin{card}[hot]\n{\\fontsize{9}{11}\\selectfont\\color{accent}\\bfseries ${from}}\\\\[0.4mm]\n{\\fontsize{11.5}{15}\\selectfont\\color{brand}\\bfseries ${tex(teacher.text)}}\n\\end{card}`
+    : `\\begin{card}[hot]\n{\\small\\color{accent}\\bfseries ${from}}\\\\[0.6mm]\n{\\large\\color{brand}\\bfseries ${tex(teacher.text)}}\n\\end{card}`;
 }
 const badge = (preview, weekly) => (preview
   ? (weekly
-    ? '\\node[fill=accent,text=brand,font=\\fontsize{8}{8}\\selectfont\\bfseries,rounded corners=1.2mm,inner xsep=1.6mm,inner ysep=0.8mm,anchor=north east] at ($(current page.north east)+(-4mm,-2.6mm)$) {見本};'
-    : '\\node[fill=accent,text=brand,font=\\small\\bfseries,rounded corners=1.2mm,inner xsep=2mm,inner ysep=1mm,anchor=north east] at ($(current page.north east)+(-10mm,-5mm)$) {見本};')
+    ? '\\node[fill=accent,text=onaccent,font=\\fontsize{8}{8}\\selectfont\\bfseries,rounded corners=1.2mm,inner xsep=1.6mm,inner ysep=0.8mm,anchor=north east] at ($(current page.north east)+(-4mm,-2.6mm)$) {見本};'
+    : '\\node[fill=accent,text=onaccent,font=\\small\\bfseries,rounded corners=1.2mm,inner xsep=2mm,inner ysep=1mm,anchor=north east] at ($(current page.north east)+(-10mm,-5mm)$) {見本};')
   : '');
 
 // ---- 毎週版 -------------------------------------------------------------------------------
@@ -144,7 +147,7 @@ ${work}${time ? `\\\\[1mm]\n${time}` : ''}
 \\cardtitle{${tex('宿題ごと')}}\\\\[1.2mm]
 ${rows}
 \\end{card}
-${kinds ? `\\begin{card}\n\\cardtitle{${tex('問題の 形ごとの 正解')}}\\\\[1.2mm]\n${kinds}\n\\end{card}\n` : ''}\\begin{card}[colback=accent!10,colframe=accent!45,boxrule=0.8pt]
+${kinds ? `\\begin{card}\n\\cardtitle{${tex('問題の 形ごとの 正解')}}\\\\[1.2mm]\n${kinds}\n\\end{card}\n` : ''}\\begin{card}[hot]
 \\cardtitle{${tex('もう一度 練習したい ことば')}}\\\\[1mm]
 ${missed}
 \\end{card}
@@ -158,7 +161,7 @@ export function weeklyTex(d, { preview = false } = {}) {
   const dayCircles = d.days.map((on, i) => {
     const x = (i * 0.78 + 0.3).toFixed(2);
     return on
-      ? `\\fill[good] (${x},-0.95) circle (0.29); \\node[text=white,font=\\fontsize{9}{9}\\selectfont\\bfseries] at (${x},-0.95) {${order[i]}};`
+      ? `\\fill[good,opacity=0.22] (${x},-0.95) circle (0.37); \\fill[good] (${x},-0.95) circle (0.29); \\node[text=ongood,font=\\fontsize{9}{9}\\selectfont\\bfseries] at (${x},-0.95) {${order[i]}};`
       : `\\draw[lgray,line width=0.8pt] (${x},-0.95) circle (0.29); \\node[text=lgray,font=\\fontsize{9}{9}\\selectfont] at (${x},-0.95) {${order[i]}};`;
   }).join('\n');
   let line = '';
@@ -168,7 +171,7 @@ export function weeklyTex(d, { preview = false } = {}) {
   // 増えた ときだけ ↑。減った ときは 数字を 並べるだけ（赤・↓ は 使わない）。
   const diffText = d.diff > 0 ? `　{\\color{good}\\bfseries ↑ ${d.diff}問ふえた}` : '';
   // web と Roblox の 内わけ（Roblox で といた ときだけ）
-  const sourceText = d.bySource?.roblox ? `　web ${d.bySource.web}・Roblox ${d.bySource.roblox}` : '';
+  const sourceText = d.bySource?.roblox ? `\\\\web ${d.bySource.web}問・Roblox ${d.bySource.roblox}問` : '';
 
   let wordCards;
   if (d.learned.length) {
@@ -176,7 +179,7 @@ export function weeklyTex(d, { preview = false } = {}) {
       const x = (i * 3.83).toFixed(2);
       const ja = w.ja ? `\\node[font=\\fontsize{9.5}{10}\\selectfont,text=gray] at ($(${x},0)+(1.775,0.33)$) {${tex(w.ja)}};` : '';
       const y = w.ja ? 0.86 : 0.66;
-      return `\\draw[fill=good!8,draw=good!45,rounded corners=2mm] (${x},0) rectangle ++(3.55,1.32);\n\\node[font=\\fontsize{${wordSize(w.en)}}{${wordSize(w.en)}}\\selectfont\\bfseries,text=brand] at ($(${x},0)+(1.775,${y})$) {${tex(w.en)}};\n${ja}`;
+      return `\\draw[fill=good!13!cardbg,draw=good!75!cardbg,rounded corners=2mm] (${x},0) rectangle ++(3.55,1.32);\n\\node[font=\\fontsize{${wordSize(w.en)}}{${wordSize(w.en)}}\\selectfont\\bfseries,text=brand] at ($(${x},0)+(1.775,${y})$) {${tex(w.en)}};\n${ja}`;
     }).join('\n')}\n\\end{tikzpicture}`;
   } else {
     wordCards = `{\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.noLearned)}}`;
@@ -188,12 +191,12 @@ export function weeklyTex(d, { preview = false } = {}) {
   if (d.next) {
     const ja = d.next.ja ? `\\;{\\fontsize{10}{12}\\selectfont\\color{gray}（${tex(d.next.ja)}）}` : (d.next.fromMiss ? `\\;{\\fontsize{9}{12}\\selectfont\\color{gray}${tex(W.nextFromMiss)}}` : '');
     const ask = d.next.ja ? fmt(W.homeWithJa, { ja: d.next.ja }) : fmt(W.homeNoJa, { en: d.next.en });
-    nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{brand}\\bfseries 次に覚える単語}\\quad{\\fontsize{${Math.min(14, wordSize(d.next.en))}}{14}\\selectfont\\color{brand}\\bfseries ${tex(d.next.en)}}${ja}\\\\[1.6mm]
-{\\fontsize{10}{12}\\selectfont\\color{brand}\\bfseries おうちで1分}\\\\[0.6mm]
+    nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{neonA}\\bfseries 次に覚える単語}\\quad{\\fontsize{${Math.min(14, wordSize(d.next.en))}}{14}\\selectfont\\color{brand}\\bfseries ${tex(d.next.en)}}${ja}\\\\[1.6mm]
+{\\fontsize{10}{12}\\selectfont\\color{neonA}\\bfseries おうちで1分}\\\\[0.6mm]
 {\\fontsize{12}{16}\\selectfont\\color{brand}${tex(ask)}}${crowded ? '' : `\\\\[0.4mm]
 {\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.homeSub)}}`}`;
   } else {
-    nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{brand}\\bfseries 次に覚える単語}\\\\[1mm]{\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.noNext)}}`;
+    nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{neonA}\\bfseries 次に覚える単語}\\\\[1mm]{\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.noNext)}}`;
   }
 
   const goal = goalText(d, W);
@@ -236,7 +239,7 @@ export function monthlyTex(d, { preview = false } = {}) {
     const top = Math.max(1, L.now, L.then);
     const w = (n) => Math.max(0.15, (5.1 * n) / top).toFixed(2);
     const grew = L.now - L.then;
-    learnedBars = `\\begin{tikzpicture}\n\\fill[lgray!60] (0,1.1) rectangle (${w(L.then)},1.6); \\node[anchor=west,font=\\normalsize,text=gray] at (${(Number(w(L.then)) + 0.1).toFixed(2)},1.35) {${tex(L.firstLabel)}　${L.then}語};\n\\fill[good] (0,0) rectangle (${w(L.now)},0.5); \\node[anchor=west,font=\\normalsize\\bfseries,text=brand] at (${(Number(w(L.now)) + 0.1).toFixed(2)},0.25) {${tex(L.nowLabel)}　${L.now}語};\n\\end{tikzpicture}${grew > 0 ? `\\\\[1mm]\n{\\small\\color{good}\\bfseries ${tex(fmt(M.grewMonths, { months: L.months, n: grew }))}}` : ''}`;
+    learnedBars = `\\begin{tikzpicture}\n\\fill[lgray] (0,1.1) rectangle (${w(L.then)},1.6); \\node[anchor=west,font=\\normalsize,text=gray] at (${(Number(w(L.then)) + 0.1).toFixed(2)},1.35) {${tex(L.firstLabel)}　${L.then}語};\n\\fill[good] (0,0) rectangle (${w(L.now)},0.5); \\node[anchor=west,font=\\normalsize\\bfseries,text=brand] at (${(Number(w(L.now)) + 0.1).toFixed(2)},0.25) {${tex(L.nowLabel)}　${L.now}語};\n\\end{tikzpicture}${grew > 0 ? `\\\\[1mm]\n{\\small\\color{good}\\bfseries ${tex(fmt(M.grewMonths, { months: L.months, n: grew }))}}` : ''}`;
   }
 
   // カレンダー（日曜はじまり）。
@@ -245,7 +248,7 @@ export function monthlyTex(d, { preview = false } = {}) {
     const pos = i + d.firstWeekday;
     const col = pos % 7; const row = Math.floor(pos / 7);
     return on
-      ? `\\fill[good] (${col},-${row}) circle (0.25); \\node[font=\\scriptsize\\bfseries,text=white] at (${col},-${row}) {${day}};`
+      ? `\\fill[good] (${col},-${row}) circle (0.25); \\node[font=\\scriptsize\\bfseries,text=ongood] at (${col},-${row}) {${day}};`
       : `\\draw[lgray] (${col},-${row}) circle (0.25); \\node[font=\\scriptsize,text=lgray] at (${col},-${row}) {${day}};`;
   }).join('\n');
   const calendar = `\\begin{tikzpicture}[x=0.78cm,y=0.62cm]\n${WEEKDAYS_JA.map((w, i) => `\\node[font=\\scriptsize,text=gray] at (${i},0.7) {${w}};`).join(' ')}\n${cells}\n\\end{tikzpicture}`;
@@ -288,7 +291,7 @@ export function monthlyTex(d, { preview = false } = {}) {
 
 // ---- 保護者用 QR カード（A4 に 8 人）---------------------------------------------------------
 export function qrCardsTex({ classroom, cards }) {
-  const preamble = templates().weekly.split('\\begin{document}')[0].replace(/\\documentclass[^\n]*\n/, '').replace(/\\usepackage\[paperwidth[^\n]*\n/, '');
+  const { preamble } = templates();
   const pages = [];
   for (let i = 0; i < cards.length; i += 8) {
     const boxes = cards.slice(i, i + 8).map((c) => `\\begin{tcolorbox}[enhanced,colback=white,colframe=soft,boxrule=0.6pt,arc=3mm,width=0.485\\textwidth,height=60mm,left=3mm,right=3mm,top=2.5mm,bottom=2mm,nobeforeafter,valign=top]

@@ -3,10 +3,10 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=13mm,top=10mm,bottom=10mm]{geometry}
 \input{preamble.tex}
+\input{theme.tex}
 \begin{document}
 \begin{tikzpicture}[remember picture,overlay]
-\fill[brand] (current page.north west) rectangle ($(current page.north east)+(0,-34mm)$);
-\fill[accent] ($(current page.north west)+(0,-34mm)$) rectangle ($(current page.north east)+(0,-35.5mm)$);
+\cosmichead{35.5mm}
 {{{ badge }}}
 \end{tikzpicture}
 {\color{white}\small U-Speak（{{ sender }}でご利用中の学習ツール）より}\\[2mm]
@@ -63,7 +63,7 @@
 \end{minipage}
 
 % ===== 来月の一歩 ＋ おうちで1分 =====
-\begin{card}[colback=accent!10,colframe=accent!45,boxrule=0.8pt]
+\begin{card}[hot]
 \cardtitle{来月の一歩}\quad{\color{brand} {{ nextStep }}}\\[2mm]
 \cardtitle{おうちで1分}\;{\footnotesize\note{（どちらか1つでOK）}}\\[1mm]
 {\color{brand} ①{{ home1 }}}\\
@@ -71,7 +71,7 @@
 \end{card}
 
 % ===== 数字の見方 =====
-\begin{card}[colback=white]
+\begin{card}
 \cardtitle{\small 数字の見方}\\[0.6mm]
 {\scriptsize\color{gray}\setlength{\baselineskip}{11pt}
 {{{ legend }}}}
