@@ -150,6 +150,9 @@ test('the 先生か column: true + あいことば makes a teacher without the k
   await assert.rejects(() => join('ms sato'), /password|4005/);
   await assert.rejects(() => join('ms sato', '6-1', { teacherKey: 'wrong' }), /password|4005/);
   const k = await join('Ken'); assert.equal((await nextMessage(k, 'welcome')).role, 'student'); await k.leave(); await sleep(100);
+  // 先生の あいことばを「じぶんの あいことば」の 欄（pin）に 入れても 先生（前は だまって 生徒に なり、授業モードが 出なかった）。
+  const tp = await join('Ms Sato', '6-1', { pin: 'sato-pass' }); assert.equal((await nextMessage(tp, 'welcome')).role, 'teacher'); await tp.leave(); await sleep(100);
+  await assert.rejects(() => join('Ms Sato', '6-1', { pin: 'wrong' }), /password|4005/);
   // Gate on: same.
   await api('/enforce', { method: 'PUT', body: { enforce: true } });
   const t2 = await join('Ms Sato', '6-1', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t2, 'welcome')).role, 'teacher'); await t2.leave(); await sleep(100);

@@ -416,7 +416,18 @@ export class ClassRoom extends Room {
     // 先生は 2 とおり：講師キーを 持っている 人と、admin の 名簿で「先生」に ✓ ＋ あいことば が 合った 人。
     // ロビーの「先生用」の 1 つの 入力が、講師キーにも 先生の あいことばにも なる。
     const byKey = isTeacherKey(options?.teacherKey);
-    const role = byKey || await this.gate.isTeacher?.({ classCode: this.classCode, name, pin: typeof options?.teacherKey === 'string' ? options.teacherKey : '' }) ? 'teacher' : 'student';
+    // 先生の あいことばは「先生用」の 欄でも「じぶんの あいことば」の 欄でも よい（2026-11）。
+    // 目に つく 下の 欄に 入れた 先生が、だまって 生徒として 入り、授業モードの ボタンが 出なかった。
+    // どちらも 名簿の 同じ あいことばと くらべるだけ なので、ゆるく しても なりすましは ふえない。
+    const keyIn = typeof options?.teacherKey === 'string' ? options.teacherKey : '';
+    const pinIn = typeof options?.pin === 'string' ? options.pin : '';
+    let teacherPin = '';
+    if (!byKey) {
+      for (const cand of [keyIn, pinIn]) {
+        if (cand && await this.gate.isTeacher?.({ classCode: this.classCode, name, pin: cand })) { teacherPin = cand; break; }
+      }
+    }
+    const role = byKey || teacherPin ? 'teacher' : 'student';
     // 入場ゲート. A refusal here is a locked door, so the gate is written never to throw
     // and never to refuse a child it has seen before.
     const pass = await this.gate.allow({ classCode: this.classCode, name, role, byKey, pin: typeof options?.pin === 'string' ? options.pin : '' });
@@ -440,7 +451,7 @@ export class ClassRoom extends Room {
       log.info(`[room ${this.roomId}] evicting silent seat ${who(name)} (${id}, ${silentFor}ms)`);
       ghost?.leave(4003);
     }
-    return { name, role, byKey, teacherPin: role === 'teacher' && !byKey ? String(options?.teacherKey || '') : '', avatar: sanitizeAvatar(options?.avatar) };
+    return { name, role, byKey, teacherPin, avatar: sanitizeAvatar(options?.avatar) };
   }
 
   async onJoin(client, options, auth) {

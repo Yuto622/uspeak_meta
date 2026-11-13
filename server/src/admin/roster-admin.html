@@ -96,10 +96,6 @@
       <button type="button" id="add">＋ 行をふやす</button>
       <button type="button" id="paste">📋 貼りつけ（1行に1つ）</button>
       <label class="btn">📂 CSV を読みこむ<input type="file" id="file" accept=".csv,.tsv,.txt,text/csv,text/plain"></label>
-      <select id="import-mode" title="読みこみ方">
-        <option value="replace">読みこみ：置きかえる</option>
-        <option value="append">読みこみ：追加する</option>
-      </select>
       <a id="download" class="btn" href="/admin/api/roster.csv" style="font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);text-decoration:none;font-weight:600">⬇ CSV で保存</a>
       <span class="spacer"></span>
       <input type="search" id="filter" placeholder="名前でしぼる">
@@ -194,7 +190,6 @@ TREEBELL_Toda01	a"></textarea>
 Ben
 Chika"></textarea>
   <div class="row">
-    <select id="paste-mode"><option value="append">追加する</option><option value="replace">置きかえる</option></select>
     <button type="button" id="paste-cancel">やめる</button>
     <button type="button" id="paste-ok" class="primary">表に入れる</button>
   </div>
@@ -244,7 +239,6 @@ Chika"></textarea>
     $('#teacher-notice').hidden = state.teacherKeySet;
     $('#sheet-notice').hidden = state.editable;
     for (const id of ['#add', '#paste', '#file']) $(id).disabled = !state.editable;
-    $('#import-mode').disabled = !state.editable;
   }
 
   async function load() {
@@ -288,22 +282,23 @@ Chika"></textarea>
     if (!j.ok) throw new Error(j.error || 'parse');
     return j.rows;
   }
-  function take(newRows, mode) {
+  function take(newRows) {
     const names = newRows.map((r) => ({ name: r.name, teacher: !!r.teacher, premium: !!r.premium, pin: r.pin || '', stopped: !!r.stopped }));
-    if (mode === 'replace') rows = names; else rows = rows.concat(names);
+    // 読みこみは いつも 追加（置きかえは 今の 名簿を まるごと 消すので なくした。消すのは 行の ✕ で）。
+    rows = rows.concat(names);
     render(); setDirty(true);
     toast(`${names.length} 人を表に入れました（まだ保存していません）`);
   }
   $('#file').addEventListener('change', async (e) => {
     const f = e.target.files[0]; if (!f) return;
-    try { take(await parseText(f), $('#import-mode').value); } catch (err) { toast(`読みこめませんでした：${err.message}`, true); }
+    try { take(await parseText(f)); } catch (err) { toast(`読みこめませんでした：${err.message}`, true); }
     e.target.value = '';
   });
   $('#paste').addEventListener('click', () => { $('#paste-text').value = ''; $('#paste-dialog').showModal(); $('#paste-text').focus(); });
   $('#paste-cancel').addEventListener('click', () => $('#paste-dialog').close());
   $('#paste-ok').addEventListener('click', async () => {
     const text = $('#paste-text').value; if (!text.trim()) { $('#paste-dialog').close(); return; }
-    try { take(await parseText(text), $('#paste-mode').value); $('#paste-dialog').close(); } catch (err) { toast(`読みこめませんでした：${err.message}`, true); }
+    try { take(await parseText(text)); $('#paste-dialog').close(); } catch (err) { toast(`読みこめませんでした：${err.message}`, true); }
   });
 
   $('#save').addEventListener('click', async () => {
