@@ -17,32 +17,59 @@
 \colorlet{onaccent}{space}
 \pagecolor{space}
 \AtBeginDocument{\color{brand}}
-% どの ページにも：星雲 2 つと 星。
-\AddToHook{shipout/background}{\put(0,-\paperheight){\begin{tikzpicture}[x=\paperwidth,y=\paperheight]
-\path[use as bounding box] (0,0) rectangle (1,1);
+% 背景：星雲 2 つ・星・ワープの すじ・ネオンの 床。ページの はじめに \cosmicbg。
+% （shipout の フックで 描くと、さいごの ページで 透明と グラデーションが 落ちる。本文の はじめに overlay で 描く。）
+\newcommand{\cosmicbg}{\begin{tikzpicture}[remember picture,overlay,shift={(current page.south west)},x=\paperwidth,y=\paperheight]
 \fill[space] (0,0) rectangle (1,1);
 \shade[inner color=neonB!34!space,outer color=space] (0.05,0.25) circle (0.5\paperwidth);
 \shade[inner color=headB!80!space,outer color=space] (1.0,0.55) circle (0.44\paperwidth);
+% ワープの 光の すじ（右上の とびらから）。
+\begin{scope}[shift={(0.855,0.925)}]
+\foreach \a/\l/\o in {186/.9/.10,193/1.1/.07,201/.8/.12,208/1.2/.06,215/1.0/.10,222/1.3/.07,229/.9/.12,236/1.2/.06,243/1.1/.10,250/1.3/.07,257/1.0/.11,264/1.2/.06,271/.9/.09,278/.6/.07}
+  {\draw[neonA,line width=0.5pt,opacity=\o] (\a:0.16\paperwidth) -- (\a:\l\paperheight);}
+\foreach \a/\b/\l in {197/.35/.62,211/.5/.8,226/.42/.7,239/.6/.95,254/.38/.66,267/.5/.78}
+  {\draw[neonC,line width=1.1pt,opacity=.22,line cap=round] (\a:\b\paperheight) -- (\a:\l\paperheight);}
+\end{scope}
+% 奥へ つづく ネオンの 床（下）。
+\begin{scope}
+\clip (0,0) rectangle (1,0.17);
+\shade[top color=space,bottom color=neonB!30!space] (0,0) rectangle (1,0.17);
+\foreach \k in {-14,...,14}{\draw[neonB,line width=0.45pt,opacity=.38] (0.5,0.17) -- ({0.5+\k*0.11},0);}
+\foreach \y/\o in {.006/.5,.022/.45,.042/.38,.066/.3,.094/.22,.126/.14,.158/.08}{\draw[neonA,line width=0.45pt,opacity=\o] (0,\y) -- (1,\y);}
+\end{scope}
+\shade[left color=space,right color=space,middle color=neonC!70!space] (0,0.169) rectangle (1,0.171);
 \foreach \x/\y/\s/\o in {.06/.93/.9/.9,.14/.71/.6/.6,.22/.52/.8/.7,.09/.38/.5/.5,.31/.12/.9/.8,.47/.05/.6/.6,.58/.63/.5/.45,.66/.34/.8/.7,.74/.78/.6/.6,.83/.17/.9/.8,.91/.44/.6/.6,.95/.69/.8/.7,.38/.83/.5/.5,.52/.29/.6/.5,.71/.08/.5/.6,.18/.19/.6/.6,.87/.90/.5/.5,.42/.46/.5/.4,.03/.58/.6/.5,.62/.90/.5/.5}
   {\fill[white,opacity=\o] (\x,\y) circle (\s pt);}
 \foreach \x/\y in {.27/.66,.79/.27,.93/.035}
   {\fill[neonA,opacity=.85] (\x,\y) -- ++(1.1pt,1.1pt) -- ++(-1.1pt,3pt) -- ++(-1.1pt,-3pt) -- ++(-3pt,-1.1pt) -- ++(3pt,-1.1pt) -- ++(1.1pt,-3pt) -- ++(1.1pt,3pt) -- ++(3pt,1.1pt) -- cycle;}
-\end{tikzpicture}}}
-% ヘッダー：次元の とびら（光の 輪）と 惑星。#1＝高さ。
+\end{tikzpicture}}
+% ヘッダー：ワームホール（かさなる 光の 輪）と 惑星、ななめの ネオンの ふち。#1＝高さ。
 \newcommand{\cosmichead}[1]{%
 \begin{scope}
-\clip (current page.north west) rectangle ($(current page.north east)+(0,-#1)$);
+\clip (current page.north west) -- ($(current page.north west)+(0,-#1)$) -- ($(current page.north east)+(0,-#1+5.5mm)$) -- (current page.north east) -- cycle;
 \shade[left color=headA,right color=headB,shading angle=65] (current page.north west) rectangle ($(current page.north east)+(0,-#1)$);
-\coordinate (P) at ($(current page.north east)+(-19mm,-0.47*#1)$);
-\foreach \r/\o in {40/.10,32/.16,25/.24,18.5/.36,13/.5}{\draw[neonA,line width=0.55pt,opacity=\o] (P) circle (\r mm);}
-\draw[accent,line width=1pt,rotate around={-18:(P)}] ($(P)+(11.5mm,0)$) arc (0:180:11.5mm and 2.8mm);
-\shade[ball color=neonB] (P) circle (6.6mm);
-\draw[accent,line width=1pt,rotate around={-18:(P)}] ($(P)+(-11.5mm,0)$) arc (180:360:11.5mm and 2.8mm);
+\coordinate (P) at ($(current page.north east)+(-20mm,-0.45*#1)$);
+\foreach \a in {0,12,...,348}{\draw[neonA,line width=0.4pt,opacity=.13] (P) -- ++(\a:70mm);}
+\foreach \r/\o/\c in {46/.10/neonB,37/.16/neonA,29/.22/neonB,22/.32/neonA,16/.45/neonC,11.5/.6/neonA}
+  {\draw[\c,line width=0.7pt,opacity=\o,rotate around={-14:(P)}] (P) ellipse (\r mm and 0.62*\r mm);}
+\foreach \r/\o in {12/.07,10/.09,8.2/.12}{\fill[neonA,opacity=\o] (P) circle (\r mm);}
+\draw[accent,line width=1.1pt,rotate around={-18:(P)}] ($(P)+(11.5mm,0)$) arc (0:180:11.5mm and 2.8mm);
+\shade[ball color=neonB] (P) circle (6.4mm);
+\draw[accent,line width=1.1pt,rotate around={-18:(P)}] ($(P)+(-11.5mm,0)$) arc (180:360:11.5mm and 2.8mm);
+\fill[accent] ($(P)+(-13mm,6.5mm)$) circle (1.1mm);\fill[neonC] ($(P)+(12mm,-8.2mm)$) circle (0.8mm);
 \foreach \x/\y/\s in {8/4/.7,31/7/.5,52/3/.8,71/9/.5,88/5/.6,44/15/.5,63/19/.6,97/16/.7,20/18/.5}
   {\fill[white,opacity=.85] ($(current page.north west)+(\x mm,-\y mm)$) circle (\s pt);}
 \end{scope}
-\shade[left color=neonA,right color=neonC,middle color=neonB] ($(current page.north west)+(0,-#1)$) rectangle ($(current page.north east)+(0,-#1-0.8mm)$);}
+\foreach \w/\o in {2.6mm/.10,1.5mm/.2}{\draw[neonA,line width=\w,opacity=\o] ($(current page.north west)+(0,-#1)$) -- ($(current page.north east)+(0,-#1+5.5mm)$);}
+\shade[left color=neonA,right color=neonC,middle color=neonB] ($(current page.north west)+(0,-#1+0.4mm)$) -- ($(current page.north east)+(0,-#1+5.9mm)$) -- ($(current page.north east)+(0,-#1+5.1mm)$) -- ($(current page.north west)+(0,-#1-0.4mm)$) -- cycle;}
+% HUD の 小さな 英字（かざり）。
+\newcommand{\hud}[1]{{\fontsize{7}{8}\selectfont\bfseries\color{neonA}\addfontfeatures{LetterSpace=18}#1}}
 % ガラスの カード（ふちは 光の グラデーション）。hot＝先生・おうちで 1 分 の 金いろ。
-\renewtcolorbox{card}[1][]{enhanced,colback=cardbg,opacityback=0.86,coltext=brand,boxrule=0.8pt,frame style={left color=neonA!75!cardbg,right color=neonB!80!cardbg},arc=3.4mm,left=3mm,right=3mm,top=2mm,bottom=2mm,before skip=2.6mm,after skip=0mm,#1}
-\tcbset{hot/.style={colback=accent!13!cardbg,frame style={left color=accent,right color=neonC}}}
+\renewtcolorbox{card}[1][]{enhanced,colback=cardbg,opacityback=0.84,coltext=brand,boxrule=0.9pt,frame style={left color=neonA!85!cardbg,right color=neonB!85!cardbg},
+  arc=4.2mm,sharp corners=downhill,fuzzy halo=1.3mm with neonA!22!space,left=3mm,right=3mm,top=2mm,bottom=2mm,before skip=2.6mm,after skip=0mm,
+  overlay={\fill[neonA] ([xshift=0.2mm,yshift=-0.2mm]frame.north west) -- ++(7mm,0) -- ++(-1.2mm,-1.2mm) -- ++(-4.6mm,0) -- ++(0,-4.6mm) -- ++(-1.2mm,-1.2mm) -- cycle;
+    \foreach \k in {0,1,2}{\fill[neonB,opacity=.9] ([xshift=-2.2mm-\k*1.7mm,yshift=1.1mm]frame.south east) -- ++(1.1mm,0) -- ++(0.9mm,1.1mm) -- ++(-1.1mm,0) -- cycle;}},#1}
+\tcbset{hot/.style={colback=accent!13!cardbg,frame style={left color=accent,right color=neonC},fuzzy halo=1.3mm with accent!22!space,
+  overlay={\fill[accent] ([xshift=0.2mm,yshift=-0.2mm]frame.north west) -- ++(7mm,0) -- ++(-1.2mm,-1.2mm) -- ++(-4.6mm,0) -- ++(0,-4.6mm) -- ++(-1.2mm,-1.2mm) -- cycle;
+    \foreach \k in {0,1,2}{\fill[neonC,opacity=.9] ([xshift=-2.2mm-\k*1.7mm,yshift=1.1mm]frame.south east) -- ++(1.1mm,0) -- ++(0.9mm,1.1mm) -- ++(-1.1mm,0) -- cycle;}}}}
 \renewcommand{\cardtitle}[1]{{\color{neonA}\bfseries #1}}

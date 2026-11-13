@@ -113,7 +113,7 @@ export function homeworkPage(d, { weekly = true } = {}) {
   const small = weekly ? '\\fontsize{9}{12}\\selectfont' : '\\small';
   // 2 まいめ：ロードマップ（あれば）と 宿題（あれば）。どちらも なければ 1 まいだけ。
   const rm = roadmapCard(d, small, big);
-  const head = (title) => `\\newpage
+  const head = (title) => `\\newpage\\cosmicbg%
 {${weekly ? '\\fontsize{15}{19}\\selectfont' : '\\Large'}\\color{brand}\\bfseries ${tex(title)}}\\;{${small}\\color{gray} ${tex(d.range)}}\\\\[1mm]
 `;
   if (!h?.total) return rm ? head(`${d.nick}さんの ロードマップ`) + rm : '';
@@ -158,16 +158,23 @@ export function weeklyTex(d, { preview = false } = {}) {
   const { weekly, texts: T } = templates();
   const W = T.weekly;
   const order = ['月', '火', '水', '木', '金', '土', '日'];
+  // 7 つの 曜日を 輪に（うめた 日が 光る）。まんなかに 日数。
   const dayCircles = d.days.map((on, i) => {
-    const x = (i * 0.78 + 0.3).toFixed(2);
+    const seg = 360 / 7; const from = 90 - i * seg - 4; const to = 90 - (i + 1) * seg + 4; const mid = (from + to) / 2;
+    const arc = `(1.25,-1.6) ++(${from.toFixed(1)}:0.98) arc (${from.toFixed(1)}:${to.toFixed(1)}:0.98)`;
+    const at = `($(1.25,-1.6)+(${mid.toFixed(1)}:0.98)$)`;
     return on
-      ? `\\fill[good,opacity=0.22] (${x},-0.95) circle (0.37); \\fill[good] (${x},-0.95) circle (0.29); \\node[text=ongood,font=\\fontsize{9}{9}\\selectfont\\bfseries] at (${x},-0.95) {${order[i]}};`
-      : `\\draw[lgray,line width=0.8pt] (${x},-0.95) circle (0.29); \\node[text=lgray,font=\\fontsize{9}{9}\\selectfont] at (${x},-0.95) {${order[i]}};`;
+      ? `\\draw[good,opacity=0.22,line width=7mm] ${arc}; \\draw[good,line width=5mm] ${arc}; \\node[text=ongood,font=\\fontsize{9}{9}\\selectfont\\bfseries] at ${at} {${order[i]}};`
+      : `\\draw[soft,line width=5mm] ${arc}; \\node[text=lgray,font=\\fontsize{9}{9}\\selectfont] at ${at} {${order[i]}};`;
   }).join('\n');
+  // 先週と 今週の 長さ（ゲージ）。
+  const top = Math.max(1, d.answers, d.prevAnswers);
+  const bar = (n) => Math.max(0.12, (4.7 * n) / top).toFixed(2);
+  const powerBar = `\\fill[soft] (6.2,-2.12) rectangle ++(4.7,0.13); \\fill[lgray] (6.2,-2.12) rectangle ++(${bar(d.prevAnswers)},0.13);\n\\fill[soft] (6.2,-2.32) rectangle ++(4.7,0.16); \\shade[left color=accent,right color=neonC] (6.2,-2.32) rectangle ++(${bar(d.answers)},0.16);`;
   let line = '';
   if (d.streak >= 3) line = fmt(W.streak, { n: d.streak });
   else if (d.situation) line = fmt(W.situations[d.situation], d.situationArgs);
-  const streakLine = line ? `\\node[anchor=north west,inner sep=0,text=good,font=\\fontsize{9}{11}\\selectfont\\bfseries,text width=4.15cm,align=left] at (1.55,-1.62) {${tex(line)}};` : '';
+  const streakLine = line ? `\\node[anchor=north west,inner sep=0,text=good,font=\\fontsize{9}{11}\\selectfont\\bfseries,text width=2.75cm,align=left] at (2.75,-1.2) {${tex(line)}};` : '';
   // 増えた ときだけ ↑。減った ときは 数字を 並べるだけ（赤・↓ は 使わない）。
   const diffText = d.diff > 0 ? `　{\\color{good}\\bfseries ↑ ${d.diff}問ふえた}` : '';
   // web と Roblox の 内わけ（Roblox で といた ときだけ）
@@ -179,7 +186,7 @@ export function weeklyTex(d, { preview = false } = {}) {
       const x = (i * 3.83).toFixed(2);
       const ja = w.ja ? `\\node[font=\\fontsize{9.5}{10}\\selectfont,text=gray] at ($(${x},0)+(1.775,0.33)$) {${tex(w.ja)}};` : '';
       const y = w.ja ? 0.86 : 0.66;
-      return `\\draw[fill=good!13!cardbg,draw=good!75!cardbg,rounded corners=2mm] (${x},0) rectangle ++(3.55,1.32);\n\\node[font=\\fontsize{${wordSize(w.en)}}{${wordSize(w.en)}}\\selectfont\\bfseries,text=brand] at ($(${x},0)+(1.775,${y})$) {${tex(w.en)}};\n${ja}`;
+      return `\\draw[fill=good!13!cardbg,draw=good,line width=0.7pt] (${x},0.28) -- ++(0.28,-0.28) -- ++(3.27,0) -- ++(0,1.04) -- ++(-0.28,0.28) -- ++(-3.27,0) -- cycle; \\fill[good] ($(${x},0)+(3.55,1.32)$) -- ++(-0.5,0) -- ++(0.5,-0.5) -- cycle;\n\\node[font=\\fontsize{${wordSize(w.en)}}{${wordSize(w.en)}}\\selectfont\\bfseries,text=brand] at ($(${x},0)+(1.775,${y})$) {${tex(w.en)}};\n${ja}`;
     }).join('\n')}\n\\end{tikzpicture}`;
   } else {
     wordCards = `{\\fontsize{9.5}{12}\\selectfont\\color{gray} ${tex(W.noLearned)}}`;
@@ -206,7 +213,7 @@ export function weeklyTex(d, { preview = false } = {}) {
     badge: badge(preview, true),
     sender: d.sender || '教室', nick: d.nick, range: d.range, titleSize: titleSize(d.nick, 17, 14),
     teacherCard: teacherCard(d.teacher, d.teacherLabel, { weekly: true }),
-    dayCircles, dayCount: d.dayCount, streakLine, answers: d.answers, prevAnswers: d.prevAnswers, diffText, sourceText,
+    powerBar, dayCircles, dayCount: d.dayCount, streakLine, answers: d.answers, prevAnswers: d.prevAnswers, diffText, sourceText,
     wordCards, nextBlock, homeworkPage: homeworkPage(d, { weekly: true }),
     footer1: W.footer1, footer2: fmt(W.footer2, { sender: d.sender || '教室' }),
   });

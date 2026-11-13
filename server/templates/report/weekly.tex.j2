@@ -5,15 +5,17 @@
 \input{preamble.tex}
 \input{theme.tex}
 \begin{document}
+\cosmicbg%
 % ===== ヘッダー =====
 \begin{tikzpicture}[remember picture,overlay]
-\cosmichead{25mm}
+\cosmichead{27.5mm}
+\node[anchor=north west,inner sep=0] at ($(current page.north west)+(6mm,-1.6mm)$) {\hud{WEEKLY LOG // U-SPEAK DIMENSION}};
 {{{ badge }}}
 \end{tikzpicture}
 {\color{white}\fontsize{9}{11}\selectfont U-Speak（{{ sender }}でご利用中の学習ツール）より}\\[1.4mm]
 {\color{white}\fontsize{ {{{ titleSize }}} }{20}\selectfont\bfseries {{ nick }}さんの英語きろく}\\[1.2mm]
 {\color{white}\fontsize{11}{13}\selectfont {{ range }}}
-\vspace{3.6mm}
+\vspace{4.4mm}
 
 % 中身が 1 まいに 入りきらない 週は、ぜんたいを すこし 小さく して 入れる（LINE の 画像は 1 まいめだけ）。
 \par\newsavebox{\bodybox}\newlength{\bodymax}\setlength{\bodymax}{\dimexpr\textheight-\pagetotal-11mm\relax}
@@ -25,12 +27,14 @@
 \begin{tikzpicture}
 \node[anchor=north west,inner sep=0,font=\fontsize{10}{12}\selectfont\bfseries,text=neonA] at (0,0) {英語をした日};
 {{{ dayCircles }}}
-\node[anchor=north west,inner sep=0,text=good] at (0,-1.45) {\fontsize{24}{24}\selectfont\bfseries {{ dayCount }}\,{\fontsize{12}{12}\selectfont 日}};
+\node[inner sep=0,text=brand] at (1.25,-1.66) {\fontsize{20}{20}\selectfont\bfseries {{ dayCount }}{\fontsize{10}{10}\selectfont\color{good} 日}};
 {{{ streakLine }}}
-\draw[soft,line width=0.8pt] (5.85,0.05) -- (5.85,-2.55);
+\draw[neonB,opacity=.55,line width=0.8pt,dash pattern=on 2pt off 2pt] (5.85,0.05) -- (5.85,-3.0);
 \node[anchor=north west,inner sep=0,font=\fontsize{10}{12}\selectfont\bfseries,text=neonA] at (6.2,0) {英語のクイズに答えた数};
-\node[anchor=north west,inner sep=0,text=accent] at (6.2,-0.55) {\fontsize{34}{34}\selectfont\bfseries {{ answers }}\,{\fontsize{14}{14}\selectfont 問}};
-\node[anchor=north west,inner sep=0,text=gray,align=left,font=\fontsize{9.5}{12.5}\selectfont] at (6.2,-1.9) {先週 {{ prevAnswers }}問{{{ diffText }}}{{{ sourceText }}}};
+\foreach \r/\o in {1.5/.05,1.15/.07,0.8/.09}{\fill[accent,opacity=\o] (7.6,-1.25) ellipse (1.6*\r cm and 0.62*\r cm);}
+{{{ powerBar }}}
+\node[anchor=north west,inner sep=0,text=accent] at (6.2,-0.62) {\fontsize{38}{38}\selectfont\bfseries {{ answers }}\,{\fontsize{14}{14}\selectfont 問}};
+\node[anchor=north west,inner sep=0,text=gray,align=left,font=\fontsize{9.5}{12.5}\selectfont] at (6.2,-2.42) {先週 {{ prevAnswers }}問{{{ diffText }}}{{{ sourceText }}}};
 \end{tikzpicture}
 \end{card}
 
