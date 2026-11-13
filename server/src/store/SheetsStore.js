@@ -115,7 +115,7 @@ export class SheetsStore {
   // whatever longer list was there before.
   async saveRoster(rows) {
     const before = (await this.api.getValues(`${SHEETS.roster}!A1:F`)).length;
-    const values = [ROSTER_COLUMNS, ...rows.filter((r) => r && r.name).map((r) => [r.class && r.class !== '*' ? String(r.class) : '', String(r.name), String(r.note ?? ''), r.teacher ? 'TRUE' : 'FALSE', r.premium ? 'TRUE' : 'FALSE', String(r.pin ?? '')])];
+    const values = [ROSTER_COLUMNS, ...rows.filter((r) => r && r.name).map((r) => [r.class && r.class !== '*' ? String(r.class) : '', String(r.name), String(r.note ?? ''), r.teacher ? 'TRUE' : 'FALSE', r.premium ? 'TRUE' : 'FALSE', String(r.pin ?? ''), r.stopped ? 'TRUE' : 'FALSE'])];
     while (values.length < before) values.push(['', '', '', '', '', '']);
     await this.api.update(`${SHEETS.roster}!A1`, values);
     this.rosterVersion = (this.rosterVersion || 0) + 1;

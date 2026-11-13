@@ -90,7 +90,7 @@ import { rankings, boardPayload, sanitizeWeekHist, noteWeek, selfView, classGoal
 import { isPier, preparePier, pierInfo, PierError } from '../game/eiken-pier.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
 
-export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004, WRONG_PIN: 4005, TOO_MANY: 4006, CLASS_REQUIRED: 4007 };
+export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004, WRONG_PIN: 4005, TOO_MANY: 4006, CLASS_REQUIRED: 4007, STOPPED: 4008 };
 // 名簿の「先生か」を 読みなおす 間かく（admin で 保存したら すぐ。名簿が スプレッドシートの ときの ための 保険）。
 const ROLE_RECHECK_MS = 60 * 1000;
 const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only within a lesson window
@@ -394,10 +394,11 @@ export class ClassRoom extends Room {
     const role = byKey || await this.gate.isTeacher?.({ classCode: this.classCode, name, pin: typeof options?.teacherKey === 'string' ? options.teacherKey : '' }) ? 'teacher' : 'student';
     // 入場ゲート. A refusal here is a locked door, so the gate is written never to throw
     // and never to refuse a child it has seen before.
-    const pass = await this.gate.allow({ classCode: this.classCode, name, role, pin: typeof options?.pin === 'string' ? options.pin : '' });
+    const pass = await this.gate.allow({ classCode: this.classCode, name, role, byKey, pin: typeof options?.pin === 'string' ? options.pin : '' });
     if (!pass.ok) {
       log.warn(`[room ${this.roomId}] refused ${who(name)} for class=${this.classCode} (${pass.reason})`);
       if (pass.reason === 'wrong pin') throw new ServerError(ERR.WRONG_PIN, 'wrong password');
+      if (pass.reason === 'stopped') throw new ServerError(ERR.STOPPED, 'account stopped');
       throw new ServerError(ERR.NOT_ON_ROSTER, 'not on the class register');
     }
     for (const [id, p] of this.state.players) {
@@ -499,6 +500,12 @@ export class ClassRoom extends Room {
   async recheckRole(id) {
     const player = this.state.players.get(id);
     const priv = this.priv.get(id);
+    // 停止：admin で「停止」に したら 入ったままの 人も 出す（講師キーで 入った 人は そのまま）。
+    if (player && priv && !priv.byKey && this.gate?.isStopped && await this.gate.isStopped({ classCode: this.classCode, name: player.name })) {
+      log.info(`[room ${this.roomId}] ${who(player.name)} was stopped in the register: leaving`);
+      try { this.clientOf(id)?.leave(ERR.STOPPED); } catch { /* もう いない */ }
+      return false;
+    }
     // プレミアム も 名簿で かわる（admin で オンに したら 入ったままの 子にも すぐ 効く）。
     if (player && priv && this.gate?.isPremium) {
       const on = !!(await this.gate.isPremium({ classCode: this.classCode, name: player.name }));

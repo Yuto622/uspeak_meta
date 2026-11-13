@@ -26,6 +26,8 @@ const HEADER_TEACHER = new Set(['teacher', 'is teacher', 'isteacher', '先生', 
 // プレミアム（英会話島・みんなで はなす しまに 入れる）。
 const HEADER_PREMIUM = new Set(['premium', 'プレミアム', 'ぷれみあむ', 'paid', '有料']);
 // あいことば（2026-10）：先生の 行は 必須（名前だけで 先生に なれない）。子どもの 行は あれば 入る ときに 聞く。
+// 停止（2026-11）：true の アカウントは 入れない（記録は のこる。false に もどせば また 入れる）。
+const HEADER_STOPPED = new Set(['stopped', 'stop', '停止', 'ていし', 'suspended', '利用停止', '休止']);
 const HEADER_PIN = new Set(['pin', 'あいことば', '合言葉', 'password', 'パスワード', 'passcode', 'pass']);
 const TRUE_WORDS = new Set(['true', 'yes', 'y', '1', 'はい', '○', '◯', 'o', '先生', 'せんせい', 'teacher', '講師', 'on', '✓', '✔']);
 export const isTrueCell = (v) => v === true || TRUE_WORDS.has(fold(v));
@@ -35,7 +37,7 @@ export const isTrueCell = (v) => v === true || TRUE_WORDS.has(fold(v));
 export function parseRosterRows(rows) {
   if (!Array.isArray(rows) || !rows.length) return [];
   const cells = rows.map((r) => (Array.isArray(r) ? r.map((c) => String(c ?? '').trim()) : []));
-  let classCol = 0; let nameCol = 1; let noteCol = 2; let teacherCol = -1; let premiumCol = -1; let pinCol = -1; let start = 0;
+  let classCol = 0; let nameCol = 1; let noteCol = 2; let teacherCol = -1; let premiumCol = -1; let pinCol = -1; let stoppedCol = -1; let start = 0;
   const first = cells[0].map(fold);
   const headerName = first.findIndex((c) => HEADER_NAME.has(c));
   const headerClass = first.findIndex((c) => HEADER_CLASS.has(c));
@@ -46,7 +48,8 @@ export function parseRosterRows(rows) {
     teacherCol = first.findIndex((c) => HEADER_TEACHER.has(c));
     premiumCol = first.findIndex((c) => HEADER_PREMIUM.has(c));
     pinCol = first.findIndex((c) => HEADER_PIN.has(c));
-    noteCol = first.findIndex((c, i) => i !== nameCol && i !== classCol && i !== teacherCol && i !== premiumCol && i !== pinCol && c);
+    stoppedCol = first.findIndex((c) => HEADER_STOPPED.has(c));
+    noteCol = first.findIndex((c, i) => i !== nameCol && i !== classCol && i !== teacherCol && i !== premiumCol && i !== pinCol && i !== stoppedCol && c);
     start = 1;
   } else if (headerClass >= 0) {
     classCol = headerClass; nameCol = first.findIndex((c, i) => i !== classCol); start = 1;
@@ -64,7 +67,8 @@ export function parseRosterRows(rows) {
     const teacher = teacherCol >= 0 && isTrueCell(row[teacherCol] ?? '');
     const premium = premiumCol >= 0 && isTrueCell(row[premiumCol] ?? '');
     const pin = pinCol >= 0 ? String(row[pinCol] ?? '').slice(0, 40) : '';
-    out.push({ class: !cls || cls === ANY_CLASS ? ANY_CLASS : cls, name, note, ...(teacher ? { teacher: true } : {}), ...(premium ? { premium: true } : {}), ...(pin ? { pin } : {}) });
+    const stopped = stoppedCol >= 0 && isTrueCell(row[stoppedCol] ?? '');
+    out.push({ class: !cls || cls === ANY_CLASS ? ANY_CLASS : cls, name, note, ...(teacher ? { teacher: true } : {}), ...(premium ? { premium: true } : {}), ...(pin ? { pin } : {}), ...(stopped ? { stopped: true } : {}) });
   }
   return out;
 }

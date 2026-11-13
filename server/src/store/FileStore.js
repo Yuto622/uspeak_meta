@@ -71,7 +71,7 @@ export class FileStore {
   // Replace the register (the admin page's save). Written whole and atomically, as its
   // own file, so a teacher can still open it in an editor.
   async saveRoster(rows) {
-    const clean = rows.filter((r) => r && r.name).map((r) => ({ class: r.class && r.class !== '*' ? String(r.class) : '*', name: String(r.name), note: String(r.note ?? ''), ...(r.teacher ? { teacher: true } : {}), ...(r.premium ? { premium: true } : {}), ...(r.pin ? { pin: String(r.pin).slice(0, 40) } : {}) }));
+    const clean = rows.filter((r) => r && r.name).map((r) => ({ class: r.class && r.class !== '*' ? String(r.class) : '*', name: String(r.name), note: String(r.note ?? ''), ...(r.teacher ? { teacher: true } : {}), ...(r.premium ? { premium: true } : {}), ...(r.pin ? { pin: String(r.pin).slice(0, 40) } : {}), ...(r.stopped ? { stopped: true } : {}) }));
     this.rosterVersion += 1;
     if (!this.filePath) { this.memoryRoster = clean; return; }
     const file = this.rosterFile;
@@ -245,11 +245,11 @@ export function eventMatches(e, { username = '', classCode = '', since = 0, unti
 
 function rosterRowsFromJson(parsed) {
   const rows = [];
-  const push = (cls, name, note, teacher = false, premium = false, pin = '') => { if (name) rows.push({ class: cls && cls !== '*' ? String(cls) : '*', name: String(name), note: String(note ?? ''), ...(teacher === true || teacher === 'true' ? { teacher: true } : {}), ...(premium === true || premium === 'true' ? { premium: true } : {}) }); };
+  const push = (cls, name, note, teacher = false, premium = false, pin = '', stopped = false) => { if (name) rows.push({ class: cls && cls !== '*' ? String(cls) : '*', name: String(name), note: String(note ?? ''), ...(teacher === true || teacher === 'true' ? { teacher: true } : {}), ...(premium === true || premium === 'true' ? { premium: true } : {}), ...(stopped === true || stopped === 'true' ? { stopped: true } : {}) }); };
   if (Array.isArray(parsed)) {
-    for (const r of parsed) push(r?.class, r?.name, r?.note, r?.teacher, r?.premium, r?.pin);
+    for (const r of parsed) push(r?.class, r?.name, r?.note, r?.teacher, r?.premium, r?.pin, r?.stopped);
   } else if (parsed && Array.isArray(parsed.rows)) {
-    for (const r of parsed.rows) push(r?.class, r?.name, r?.note, r?.teacher, r?.premium, r?.pin);
+    for (const r of parsed.rows) push(r?.class, r?.name, r?.note, r?.teacher, r?.premium, r?.pin, r?.stopped);
   } else if (parsed && typeof parsed.classes === 'object') {
     for (const [cls, names] of Object.entries(parsed.classes)) for (const name of Array.isArray(names) ? names : []) push(cls, name, '');
   }

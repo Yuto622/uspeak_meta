@@ -78,7 +78,7 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
     try {
       const rows = await roster.listRoster(classCode);
       if (rows === null || rows === undefined) return entry || null;   // no register kept at all
-      const fresh = { names: new Set(rows.map((r) => fold(r.name))), teachers: new Set(rows.filter((r) => r.teacher).map((r) => fold(r.name))), premium: new Set(rows.filter((r) => r.premium).map((r) => fold(r.name))), pins: new Map(rows.filter((r) => r.pin).map((r) => [fold(r.name), String(r.pin)])), at: now(), source: 'register', version: version() };
+      const fresh = { names: new Set(rows.map((r) => fold(r.name))), teachers: new Set(rows.filter((r) => r.teacher).map((r) => fold(r.name))), premium: new Set(rows.filter((r) => r.premium).map((r) => fold(r.name))), stopped: new Set(rows.filter((r) => r.stopped).map((r) => fold(r.name))), pins: new Map(rows.filter((r) => r.pin).map((r) => [fold(r.name), String(r.pin)])), at: now(), source: 'register', version: version() };
       cache.set(classCode, fresh);
       await saveSnapshot();
       return fresh;
@@ -120,7 +120,16 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
         return !!entry?.premium?.has(fold(name));
       } catch { return false; }
     },
-    async allow({ classCode, name, role, pin = '', store: storeOverride }) {
+    // 名簿の「停止」列が true の アカウントか（入れない。入ったままの 人は 部屋が 出す）。読めなければ false。
+    async isStopped({ classCode, name }) {
+      try { const entry = await register(classCode); return !!entry?.stopped?.has(fold(name)); } catch { return false; }
+    },
+    async allow({ classCode, name, role, pin = '', byKey = false, store: storeOverride }) {
+      // 停止の 行は open でも roster でも 入れない（先生の 行も）。講師キーを 持つ 人（運営）だけは 入れる。
+      if (!byKey) {
+        const e = await register(classCode);
+        if (e?.stopped?.has(fold(name))) return { ok: false, reason: 'stopped' };
+      }
       // あいことばの ある 行は、open でも roster でも、それが 合わないと 入れない（なりすましの 守り）。
       if (role !== 'teacher') {
         const entry0 = await register(classCode);

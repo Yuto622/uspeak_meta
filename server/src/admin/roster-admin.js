@@ -108,7 +108,7 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
 
   const state = async () => ({
     ok: true,
-    rows: (await access.rows()).map((r) => ({ name: r.name, teacher: !!r.teacher, premium: !!r.premium, pin: r.pin || '' })),
+    rows: (await access.rows()).map((r) => ({ name: r.name, teacher: !!r.teacher, premium: !!r.premium, pin: r.pin || '', stopped: !!r.stopped })),
     enforce: access.enforce,
     mode: access.mode(),
     envModeSet: access.envModeSet,
@@ -134,10 +134,10 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
     if (!access.editable) { res.status(409).json({ ok: false, error: 'not-editable' }); return; }
     const rows = req.body?.rows;
     if (!Array.isArray(rows) || rows.length > MAX_ROWS) { res.status(400).json({ ok: false, error: 'rows' }); return; }
-    const clipped = rows.map((r) => ({ class: '*', name: clip(typeof r === 'string' ? r : r?.name), note: '', teacher: typeof r === 'object' && r ? isTrueCell(r.teacher ?? '') : false, premium: typeof r === 'object' && r ? isTrueCell(r.premium ?? '') : false , pin: typeof r === 'object' && r ? clip(r.pin ?? '').slice(0, 40) : ''}));
+    const clipped = rows.map((r) => ({ class: '*', name: clip(typeof r === 'string' ? r : r?.name), note: '', teacher: typeof r === 'object' && r ? isTrueCell(r.teacher ?? '') : false, premium: typeof r === 'object' && r ? isTrueCell(r.premium ?? '') : false , pin: typeof r === 'object' && r ? clip(r.pin ?? '').slice(0, 40) : '', stopped: typeof r === 'object' && r ? isTrueCell(r.stopped ?? '') : false }));
     try {
       const saved = await access.replace(clipped);
-      res.json({ ok: true, count: saved.length, rows: saved.map((r) => ({ name: r.name, teacher: !!r.teacher, premium: !!r.premium, pin: r.pin || '' })) });
+      res.json({ ok: true, count: saved.length, rows: saved.map((r) => ({ name: r.name, teacher: !!r.teacher, premium: !!r.premium, pin: r.pin || '', stopped: !!r.stopped })) });
     } catch (err) { log.warn('[admin] roster save failed:', err.message); res.status(500).json({ ok: false, error: err.message }); }
   });
 
@@ -154,7 +154,7 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
   api.post('/parse', express.raw({ type: () => true, limit: '2mb' }), (req, res) => {
     try {
       const text = Buffer.isBuffer(req.body) ? decodeUpload(req.body) : String(req.body ?? '');
-      const rows = rosterFromText(text).slice(0, MAX_ROWS).map((r) => ({ name: r.name, teacher: !!r.teacher, premium: !!r.premium, pin: r.pin || '' }));
+      const rows = rosterFromText(text).slice(0, MAX_ROWS).map((r) => ({ name: r.name, teacher: !!r.teacher, premium: !!r.premium, pin: r.pin || '', stopped: !!r.stopped }));
       res.json({ ok: true, rows });
     } catch (err) { res.status(400).json({ ok: false, error: err.message }); }
   });
