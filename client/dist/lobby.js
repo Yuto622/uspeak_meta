@@ -1,5 +1,5 @@
 // Join dialog: name (student identity), class code, optional teacher key.
-// クラスの あいことば（クラスコード）が ないと 入れない（2026-10 に ひとりで あそぶ＝オフラインを なくした）。
+// クラスコードが ないと 入れない（2026-10 に ひとりで あそぶ＝オフラインを なくした）。
 //
 // **この教材で最初に読む文字がここにある。** 画面の言語は英語が既定なので、
 // この枠も英語で出る（`i18n.js`／ヘッダーの「あ」で日本語になる）。
@@ -15,8 +15,7 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
     <h2 id="net-lobby-title" data-t="クラスに はいろう">クラスに はいろう</h2>
     <p data-t="なまえを いれると、クラスの みんなと いっしょに あそべるよ。">なまえを いれると、クラスの みんなと いっしょに あそべるよ。</p>
     <label><span data-t="なまえ">なまえ</span><input id="net-name" name="name" maxlength="16" autocomplete="off" autocapitalize="off" placeholder="れい：ゆうと" data-t-ph="れい：ゆうと"></label>
-    <label><span data-t="クラスの あいことば">クラスの あいことば</span><input id="net-class" name="class" maxlength="24" autocomplete="off" autocapitalize="off" placeholder="せんせいに きいた ことば" data-t-ph="せんせいに きいた ことば"></label>
-    <label id="net-pin-label"><span data-t="じぶんの あいことば（あれば）">じぶんの あいことば（あれば）</span><input id="net-pin" name="pin" type="password" maxlength="40" autocomplete="off" autocapitalize="off"></label>
+    <label><span data-t="クラスコード">クラスコード</span><input id="net-class" name="class" maxlength="24" autocomplete="off" autocapitalize="off" placeholder="せんせいに きいた ことば" data-t-ph="せんせいに きいた ことば"></label>
     <details id="net-teacher-details"><summary data-t="先生用">先生用</summary><label><span data-t="先生の あいことば">先生の あいことば</span><input id="net-key" name="key" type="password" autocomplete="off"></label></details>
     <p id="net-lobby-error" class="net-error" role="alert" hidden></p>
     <div class="net-lobby-actions">
@@ -45,9 +44,9 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
     const name = $('#net-name').value.trim();
     if (!name) { error(t('なまえを いれてね。')); return; }
     const classCode = $('#net-class').value.trim();
-    if (!classCode) { error(t('クラスの あいことばを いれてね。先生に きいてね。')); $('#net-class').focus(); return; }
+    if (!classCode) { error(t('クラスコードを いれてね。先生に きいてね。')); $('#net-class').focus(); return; }
     error('');
-    onJoin({ name, classCode, teacherKey: $('#net-key').value, pin: $('#net-pin').value });
+    onJoin({ name, classCode, teacherKey: $('#net-key').value });
   });
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); });
 
@@ -64,7 +63,6 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
     $('#net-name').value = '';
     $('#net-class').value = defaultClass || '';
     $('#net-key').value = '';
-    $('#net-pin').value = '';
     $('#net-teacher-details').open = false;
   }
   return { open, close, busy, error, reset, get isOpen() { return dialog.open; } };

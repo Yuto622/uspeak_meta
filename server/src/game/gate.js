@@ -109,10 +109,6 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
     async onRegister({ classCode, name }) {
       try { const entry = await register(classCode); return !!entry?.names?.has(fold(name)); } catch { return false; }
     },
-    // 子どもの 行に あいことばが あるか（ロビーで 聞くため）。
-    async needsPin({ classCode, name }) {
-      try { const entry = await register(classCode); return !!entry?.pins?.get(fold(name)); } catch { return false; }
-    },
     // 名簿の「プレミアム」列が true の 人か（英会話島・みんなで はなす しま）。読めなければ false。
     async isPremium({ classCode, name }) {
       try {
@@ -130,10 +126,11 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
         const e = await register(classCode);
         if (e?.stopped?.has(fold(name))) return { ok: false, reason: 'stopped' };
       }
-      // あいことばの ある 行は、open でも roster でも、それが 合わないと 入れない（なりすましの 守り）。
+      // 先生の 行（あいことばつき）は、その あいことばが ないと 入れない（名前だけで 先生の 席に すわらせない）。
+      // 子どもの あいことば（ロビーの「じぶんの あいことば」）は 2026-11 に なくした：子どもの 行の pin は 見ない。
       if (role !== 'teacher') {
         const entry0 = await register(classCode);
-        const want = entry0?.pins?.get(fold(name));
+        const want = entry0?.teachers?.has(fold(name)) ? entry0?.pins?.get(fold(name)) : '';
         if (want && !samePin(want, pin)) return { ok: false, reason: 'wrong pin' };
       }
       if (modeNow() !== ROSTER) return { ok: true, reason: 'open' };

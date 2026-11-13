@@ -416,9 +416,8 @@ export class ClassRoom extends Room {
     // 先生は 2 とおり：講師キーを 持っている 人と、admin の 名簿で「先生」に ✓ ＋ あいことば が 合った 人。
     // ロビーの「先生用」の 1 つの 入力が、講師キーにも 先生の あいことばにも なる。
     const byKey = isTeacherKey(options?.teacherKey);
-    // 先生の あいことばは「先生用」の 欄でも「じぶんの あいことば」の 欄でも よい（2026-11）。
-    // 目に つく 下の 欄に 入れた 先生が、だまって 生徒として 入り、授業モードの ボタンが 出なかった。
-    // どちらも 名簿の 同じ あいことばと くらべるだけ なので、ゆるく しても なりすましは ふえない。
+    // 先生の あいことばは ロビーの「先生用」（teacherKey）。古い ページが pin で 送って きても 先生に する
+    // （2026-11：下の「じぶんの あいことば」に 入れた 先生が だまって 生徒に なり、授業モードが 出なかった。その 欄は もう ない）。
     const keyIn = typeof options?.teacherKey === 'string' ? options.teacherKey : '';
     const pinIn = typeof options?.pin === 'string' ? options.pin : '';
     let teacherPin = '';
