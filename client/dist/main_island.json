@@ -635,10 +635,10 @@
    {
     "id": "fish_buy",
     "kind": "fish_buy",
-    "x": 5,
+    "x": 4,
     "z": 8,
     "path": {
-     "x": 5,
+     "x": 4,
      "z": 16
     },
     "color": 3120783,
@@ -760,10 +760,10 @@
     "id": "gate_fishing",
     "kind": "gate",
     "to": "fishworld",
-    "x": -8,
+    "x": -4,
     "z": 21,
     "path": {
-     "x": -8,
+     "x": -4,
      "z": 16
     },
     "color": 5808348,
