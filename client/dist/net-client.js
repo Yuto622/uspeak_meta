@@ -536,7 +536,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     } catch (err) {
       setMode('offline');
       const msg = friendlyError(err);
-      if (silent) toast(msg); else lobby.open({ error: msg });
+      // 先生パスワードが ちがう（または 入って いない）ときは「先生用」を ひらいて その 欄へ。
+      if (silent) toast(msg); else lobby.open({ error: msg, teacher: err?.code === 4005 });
     }
   }
 
@@ -857,7 +858,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if ([4004, 4005, 4007, 4008].includes(err?.code)) {
         storage.remove(sessionStorage, STORAGE_KEYS.session);
         setMode('offline');
-        lobby.open({ error: friendlyError(err), name: state.name });
+        lobby.open({ error: friendlyError(err), name: state.name, teacher: err?.code === 4005 });
         return;
       }
       state.attempts += 1;

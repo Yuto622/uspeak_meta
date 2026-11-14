@@ -50,12 +50,15 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
   });
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); });
 
-  function open({ error: msg = '', name = '' } = {}) {
+  // teacher: 先生パスワードが ちがった とき。たたんだ「先生用」を ひらいて、その 欄に カーソルを 置く
+  // （たたまれた ままだと 気づかず、パスワード なしで 何回も 入ろうと して しまう）。
+  function open({ error: msg = '', name = '', teacher = false } = {}) {
     if (name) $('#net-name').value = name;
     error(msg);
     busy(false);
+    if (teacher) $('#net-teacher-details').open = true;
     if (!dialog.open) dialog.showModal();
-    setTimeout(() => $('#net-name').focus(), 50);
+    setTimeout(() => $(teacher ? '#net-key' : '#net-name').focus(), 50);
   }
   function close() { if (dialog.open) dialog.close(); }
   // ログアウトの あと：前の 人の なまえ・クラス・講師キーを のこさない。
