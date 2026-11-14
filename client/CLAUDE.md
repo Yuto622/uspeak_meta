@@ -59,8 +59,8 @@ loading.js の タイマーも 自分で 止まる。`prefers-reduced-motion` �
 ## ひこうきの ワープ（`warp.css` / `warp.js`／2026-10 追加）
 
 島から 島へ 飛ぶ 間（`rpg.js` の `fly()` → `finishFlight()`、テーマパーク行きの `themepark.js` の 飛行）は `startWarp()` / `stopWarp()` が
-`body[data-warp]` を 立てる。`#warp-fx`（`pointer-events: none`・z-index 14）が 3D の 上に 光の すじ・手前へ 流れる ネオンの 輪・光の つぶ・
-色ずれの ふちを かぶせ、`#rpg-flight-hud` / `#travel-hud` は ホログラムの ガラスに なる。強さは `setWarp(u)`（`--warp` = sin(πu)、下限 0.5）で
+`body[data-warp]` を 立てる。`#warp-fx`（`pointer-events: none`・z-index 14）が 3D の 上に **ひろがる 輪 3 本と 動かない 暗い ふち**だけ かぶせ、`#rpg-flight-hud` / `#travel-hud` は こい 色の 板（ぼかし なし）。
+**2026-11 に 重いと 言われて 軽くした**（光の すじ・つぶ・まんなかの 光・走査線・色ずれ・パネルの すりガラス・まわる 虹の ふち・虹色の 文字を やめた）。動かすのは transform と opacity だけ。画面いっぱいの 動く もの・filter・backdrop-filter・光の box-shadow を 足さない こと。強さは `setWarp(u)`（`--warp` = sin(πu)、下限 0.5）で
 とちゅうが いちばん 強い。飛んでいる 間は 島の 道具（おなか・🏠・チャット・ビデオ通話・ランキング・左下の 入口）を しまう。
 **相棒ショー（`adventure.js`）は 同じ パネルを 使うが ワープは 出さない**（`startWarp` を 呼ばない）。
 
