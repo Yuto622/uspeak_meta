@@ -247,6 +247,14 @@ body[data-arcade] #fw-hud, body[data-race] #fw-hud { display: none; }
 .fmt-card.linked { border-color: var(--pair, #e27a2d); background: color-mix(in srgb, var(--pair, #e27a2d) 14%, #fff); box-shadow: 0 3px 0 var(--pair, #e27a2d); }
 .fmt-card.linked .fmt-plug { border-color: var(--pair, #e27a2d); background: var(--pair, #e27a2d); }
 .fmt-card.linked .fmt-num { display: inline-grid; }
+/* ひっぱって おく（つづり・ならべかえ・あなうめ）：ゴースト・もとの カードは うすく・はなす 先が 光る。 */
+.fmt-body { position: relative; }
+.fmt-tile, .fmt-slot.filled, .fmt-cards .fmt-choice { touch-action: none; -webkit-user-select: none; user-select: none; }
+.fmt-ghost { opacity: .92; transform: scale(1.08) rotate(-2deg); box-shadow: 0 10px 22px #1b3a2f44 !important; }
+.fmt-dragging { opacity: .35; }
+.fmt-slot.fmt-over, .fmt-blank.fmt-over { border-color: #ffb800 !important; border-style: solid !important; background: #fff8dc !important; box-shadow: 0 0 0 4px #ffd24688; }
+.fmt-build.fmt-over, .fmt-bank.fmt-over, .fmt-sentence.fmt-over { outline: 3px dashed #ffb800; outline-offset: 2px; }
+.fmt-box.next { border-color: #e27a2d; animation: fmt-wait 1s ease-in-out infinite; }
 /* ひっぱって つなぐ：指で スクロールさせない・はなす 先の カードを 光らせる。 */
 .fmt-match .fmt-card { touch-action: none; -webkit-user-select: none; user-select: none; }
 .fmt-match .fmt-col .fmt-card.hover, .fmt-match[data-waiting] .fmt-col .fmt-card.hover:not(.linked), .fmt-match[data-waiting] .fmt-col .fmt-card.hover.linked { border-color: #ffb800; border-style: solid; background: #fff8dc; box-shadow: 0 0 0 5px #ffd246aa; transform: scale(1.03); }

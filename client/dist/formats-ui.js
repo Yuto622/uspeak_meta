@@ -30,6 +30,62 @@ const englishOnly = (s) => String(s ?? '').replace(/[^A-Za-z0-9' ,.?!-]+/g, ' ')
 // 問題文を読むときは 空欄（____）と 日本語のヒント「(月曜)」を落とす（英語の声のまま 読ませる）。
 const spoken = (s) => String(s || '').replace(/[（(][^)）]*[\u3040-\u30ff\u4e00-\u9fff][^)）]*[)）]/g, '').replace(/_{2,}/g, ' ').replace(/\s+/g, ' ').trim();
 
+// 上の「いま する こと」の 1 行と すすんだ 数（せんつなぎと 同じ 見た目）。中は translate="no" なので 言語は ここで えらぶ。
+const GUIDE = '<div class="fmt-mguide"><p class="fmt-mstep"></p><span class="fmt-mcount"></span></div>';
+const L = (ja, en) => (isJa() ? ja : en);
+function setGuide(body, step, done = null, total = null) {
+  const g = body.querySelector('.fmt-mstep'); if (g) g.innerHTML = step;
+  const c = body.querySelector('.fmt-mcount'); if (!c) return;
+  c.innerHTML = total ? `${'<i class="on"></i>'.repeat(done)}${'<i></i>'.repeat(Math.max(0, total - done))}<b>${done} / ${total}</b>` : '';
+}
+
+// おしたまま ひっぱって おく（つづり・ならべかえ・あなうめ）。タップの 動きは そのまま（ひっぱった ときだけ click を すてる）。
+// 入れ物の 中の どこに 描きなおされても 効く ように、入れ物に 1 つだけ つける。ゴーストは 入れ物の 中に absolute で
+// （ダイアログの top layer や transform の 下でも ずれない）。
+function dragDrop(box, { from, to, onDrop, locked }) {
+  let d = null; let skip = false;
+  box.addEventListener('click', (e) => { if (skip) { e.stopPropagation(); e.preventDefault(); skip = false; } }, true);
+  const targetAt = (x, y) => { const el = document.elementFromPoint(x, y)?.closest?.(to); return el && box.contains(el) ? el : null; };
+  const clear = () => box.querySelectorAll('.fmt-over').forEach((x) => x.classList.remove('fmt-over'));
+  box.addEventListener('pointerdown', (e) => {
+    if (locked() || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    const src = e.target.closest?.(from);
+    if (!src || src.disabled || !box.contains(src)) return;
+    d = { src, id: e.pointerId, x0: e.clientX, y0: e.clientY, ghost: null };
+  });
+  box.addEventListener('pointermove', (e) => {
+    if (!d || e.pointerId !== d.id) return;
+    if (!d.ghost) {
+      if (Math.hypot(e.clientX - d.x0, e.clientY - d.y0) < 10) return;
+      try { box.setPointerCapture(e.pointerId); } catch { /* 古い 端末 */ }
+      const r = d.src.getBoundingClientRect(); const b = box.getBoundingClientRect();
+      const g = d.src.cloneNode(true);
+      g.classList.add('fmt-ghost'); g.removeAttribute('data-i'); g.removeAttribute('data-pos');
+      Object.assign(g.style, { position: 'absolute', left: `${r.left - b.left}px`, top: `${r.top - b.top}px`, width: `${r.width}px`, height: `${r.height}px`, margin: '0', pointerEvents: 'none', zIndex: '20' });
+      box.append(g);
+      d.ghost = g; d.dx = e.clientX - r.left; d.dy = e.clientY - r.top;
+      d.src.classList.add('fmt-dragging');
+    }
+    e.preventDefault();
+    const b = box.getBoundingClientRect();
+    d.ghost.style.left = `${e.clientX - d.dx - b.left}px`;
+    d.ghost.style.top = `${e.clientY - d.dy - b.top}px`;
+    clear();
+    targetAt(e.clientX, e.clientY)?.classList.add('fmt-over');
+  });
+  const end = (e) => {
+    if (!d || e.pointerId !== d.id) return;
+    const cur = d; d = null;
+    clear();
+    if (!cur.ghost) return; // ふつうの タップ
+    cur.ghost.remove(); cur.src.classList.remove('fmt-dragging');
+    skip = true; setTimeout(() => { skip = false; }, 0); // はなした 直後の click だけ すてる
+    if (e.type === 'pointerup' && !locked()) onDrop(cur.src, targetAt(e.clientX, e.clientY));
+  };
+  box.addEventListener('pointerup', end);
+  box.addEventListener('pointercancel', end);
+}
+
 export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswer = null } = {}) {
   const meta = FORMAT_META[fmt.kind] || FORMAT_META.mc;
   const attempt = fmt.attempt || 1;
@@ -67,24 +123,25 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
   // ---- 形式ごとの中身 ----
   if (fmt.kind === 'mc') {
     checkBtn.hidden = true;
-    body.innerHTML = `${fmt.prompt ? `<h3 class="fmt-q fmt-prompt">${esc(fmt.prompt)}</h3>` : `<h3 class="fmt-q">What is "<span class="fmt-word">${esc(fmt.word)}</span>"?</h3>`}
+    body.innerHTML = `${GUIDE}${fmt.prompt ? `<h3 class="fmt-q fmt-prompt">${esc(fmt.prompt)}</h3>` : `<h3 class="fmt-q">What is "<span class="fmt-word">${esc(fmt.word)}</span>"?</h3>`}
       <div class="fmt-choices">${fmt.choices.map((c) => `<button type="button" class="fmt-choice" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+    setGuide(body, fmt.prompt ? L('👆 ＿＿ に あう ことばを 1つ えらぼう', '👆 Tap the word that fits the blank') : L(`👆 「<b>${esc(fmt.word)}</b>」の いみを 1つ えらぼう`, `👆 Tap the meaning of “<b>${esc(fmt.word)}</b>”`));
     body.querySelectorAll('.fmt-choice').forEach((b) => { b.onclick = () => { if (locked) return; answer = b.dataset.v; b.classList.add('picked'); submit(); }; });
     say(spoken(fmt.prompt) || fmt.word);
   } else if (fmt.kind === 'listen') {
     checkBtn.hidden = true;
-    body.innerHTML = `<button type="button" class="fmt-ear" aria-label="きく"><span class="fmt-ring"></span>🔊</button>
-      <p class="fmt-sub" data-t="きいて、えいごを えらぼう">きいて、えいごを えらぼう</p>
+    body.innerHTML = `${GUIDE}<button type="button" class="fmt-ear" aria-label="きく"><span class="fmt-ring"></span>🔊</button>
       <div class="fmt-choices fmt-en">${fmt.choices.map((c) => `<button type="button" class="fmt-choice" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+    setGuide(body, L('🔊 きいて、おなじ えいごを 1つ えらぼう <em>（🔊 を おすと もう いちど）</em>', '🔊 Listen and tap the same word <em>(tap 🔊 to hear again)</em>'));
     body.querySelector('.fmt-ear').onclick = () => say(fmt.word);
     body.querySelectorAll('.fmt-choice').forEach((b) => { b.onclick = () => { if (locked) return; answer = b.dataset.v; b.classList.add('picked'); submit(); }; });
     say(fmt.word);
   } else if (fmt.kind === 'picture') {
     // 1 年生の いちばん はじめ：きいて、絵を おす。字は いらない。
     checkBtn.hidden = true;
-    body.innerHTML = `<button type="button" class="fmt-ear" aria-label="きく"><span class="fmt-ring"></span>🔊</button>
-      <p class="fmt-sub" data-t="きいて、えを おそう">きいて、えを おそう</p>
+    body.innerHTML = `${GUIDE}<button type="button" class="fmt-ear" aria-label="きく"><span class="fmt-ring"></span>🔊</button>
       <div class="fmt-choices fmt-pics">${fmt.choices.map((c) => `<button type="button" class="fmt-choice fmt-pic" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+    setGuide(body, L('🔊 きいて、その えを おそう <em>（🔊 を おすと もう いちど）</em>', '🔊 Listen and tap the picture <em>(tap 🔊 to hear again)</em>'));
     body.querySelector('.fmt-ear').onclick = () => say(fmt.word);
     body.querySelectorAll('.fmt-choice').forEach((b) => { b.onclick = () => { if (locked) return; answer = b.dataset.v; b.classList.add('picked'); submit(); }; });
     say(fmt.word);
@@ -203,7 +260,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
         body.querySelectorAll('.fmt-card.hover').forEach((h) => h.classList.remove('hover'));
         tempLine(0, 0);
         if (!d.moved) return; // ふつうの タップ（click が うごく）
-        skipClick = true; setTimeout(() => { skipClick = false; }, 400);
+        skipClick = true; setTimeout(() => { skipClick = false; }, 0);
         const over = e.type === 'pointerup' ? cardAt(e.clientX, e.clientY) : null;
         if (over && over.dataset.side !== d.side && !locked) {
           const j = Number(over.dataset.i);
@@ -223,7 +280,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     // （前は「2まい おして いれかえ」だったが、何を すればいいか 分からない子が 多かった。）
     const items = fmt.kind === 'spell' ? fmt.letters : fmt.words;
     const n = items.length;
-    body.innerHTML = `${fmt.ja ? `<p class="fmt-ja">${esc(fmt.ja)}</p>` : ''}
+    body.innerHTML = `${GUIDE}${fmt.ja ? `<p class="fmt-ja">${esc(fmt.ja)}</p>` : ''}
       <div class="fmt-build" aria-label="${isJa() ? 'こたえ' : 'Your answer'}"></div>
       <div class="fmt-bank"></div>
       <div class="fmt-tools"><button type="button" class="fmt-undo">↩ <span>${isJa() ? 'ひとつ もどす' : 'Undo'}</span></button><button type="button" class="fmt-clear">🧹 <span>${isJa() ? 'ぜんぶ もどす' : 'Clear'}</span></button></div>`;
@@ -233,22 +290,44 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     const paint = (states = null) => {
       build.innerHTML = Array.from({ length: n }, (_, pos) => {
         const idx = placed[pos];
-        if (idx === undefined) return `<span class="fmt-slot${pos === placed.length ? ' next' : ''}"><i>${pos + 1}</i></span>`;
+        if (idx === undefined) return `<span class="fmt-slot${pos === placed.length ? ' next' : ''}" data-pos="${pos}"><i>${pos + 1}</i></span>`;
         return `<button type="button" class="fmt-slot filled ${states ? states[pos] || '' : ''}" data-pos="${pos}">${esc(items[idx])}</button>`;
       }).join('');
       bank.innerHTML = items.map((it, i) => `<button type="button" class="fmt-tile${placed.includes(i) ? ' used' : ''}" data-i="${i}" ${placed.includes(i) ? 'disabled' : ''}>${esc(it)}</button>`).join('');
       answer = placed.length === n ? placed.map((i) => items[i]) : null;
       checkBtn.disabled = !answer;
       checkBtn.classList.toggle('ready', !!answer && !locked);
+      const what = fmt.kind === 'spell' ? L('もじ', 'letters') : L('ことば', 'words');
+      if (!locked) setGuide(body, placed.length === n ? L('✅ ならべたね！ <em>した の Check を おそう（カードを おすと もどせるよ）</em>', '✅ Done! <em>Press Check below (tap a card to take it back)</em>')
+          : placed.length === 0 ? L(`👆 したの ${what}を じゅんばんに おそう <em>（ひっぱって ならべても いいよ）</em>`, `👆 Tap the ${what} in order <em>(or drag them up)</em>`)
+            : L(`👆 ${placed.length + 1} ばんめの ${what}を えらぼう <em>（ひっぱって いれかえも できるよ）</em>`, `👆 Pick ${what === 'letters' ? 'letter' : 'word'} no. ${placed.length + 1} <em>(drag to swap)</em>`), placed.length, n);
       build.querySelectorAll('.fmt-slot.filled').forEach((el) => { el.onclick = () => { if (locked) return; placed.splice(Number(el.dataset.pos), 1); paint(); }; });
       bank.querySelectorAll('.fmt-tile:not(.used)').forEach((el) => { el.onclick = () => { if (locked || placed.length >= n) return; placed.push(Number(el.dataset.i)); if (fmt.kind === 'order') say(items[Number(el.dataset.i)]); paint(); }; });
     };
+    // ひっぱって おく：下の カード → 上の わく（おいた 場所に はいる）、上の カード → べつの わく（いれかえ）・下（もどす）。
+    dragDrop(body, {
+      from: '.fmt-tile:not(.used), .fmt-slot.filled', to: '.fmt-slot, .fmt-build, .fmt-bank', locked: () => locked,
+      onDrop: (src, target) => {
+        if (!target) return;
+        const at = target.dataset.pos !== undefined ? Math.min(Number(target.dataset.pos), placed.length) : placed.length;
+        if (src.classList.contains('fmt-tile')) {
+          if (target.closest('.fmt-bank') || placed.length >= n) return;
+          const i = Number(src.dataset.i);
+          placed.splice(at, 0, i);
+          if (fmt.kind === 'order') say(items[i]);
+        } else {
+          const from = Number(src.dataset.pos); const [i] = placed.splice(from, 1);
+          if (!target.closest('.fmt-bank')) placed.splice(Math.min(at, placed.length), 0, i);
+        }
+        paint();
+      },
+    });
     body.querySelector('.fmt-undo').onclick = () => { if (!locked && placed.length) { placed.pop(); paint(); } };
     body.querySelector('.fmt-clear').onclick = () => { if (!locked) { placed.length = 0; paint(); } };
     paint();
     root._paintTiles = (states) => paint(states);
   } else if (fmt.kind === 'fill') {
-    body.innerHTML = `${fmt.ja ? `<p class="fmt-ja">${esc(fmt.ja)}</p>` : ''}
+    body.innerHTML = `${GUIDE}${fmt.ja ? `<p class="fmt-ja">${esc(fmt.ja)}</p>` : ''}
       <p class="fmt-sentence fmt-en"><span>${esc(fmt.before)}</span> <span class="fmt-blank" data-v=""></span> <span>${esc(fmt.after)}</span></p>
       <div class="fmt-choices fmt-en fmt-cards">${fmt.cards.map((c) => `<button type="button" class="fmt-choice" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
     const blank = body.querySelector('.fmt-blank');
@@ -259,21 +338,30 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
       blank.classList.toggle('filled', !!v);
       body.querySelectorAll('.fmt-cards .fmt-choice').forEach((b) => { b.classList.toggle('used', b.dataset.v === v); });
       checkBtn.disabled = !answer;
+      checkBtn.classList.toggle('ready', !!answer && !locked);
+      setGuide(body, answer ? L(`✅ 「<b>${esc(answer)}</b>」を いれたね <em>した の Check を おそう（□ を おすと もどせるよ）</em>`, `✅ You put in “<b>${esc(answer)}</b>” <em>Press Check below (tap the box to undo)</em>`)
+        : L('👆 □ に はいる カードを えらぼう <em>（ひっぱって いれても いいよ）</em>', '👆 Pick the card for the box <em>(or drag it in)</em>'));
     };
+    dragDrop(body, { from: '.fmt-cards .fmt-choice', to: '.fmt-blank, .fmt-sentence', locked: () => locked, onDrop: (src, target) => { if (target) set(src.dataset.v); } });
     body.querySelectorAll('.fmt-cards .fmt-choice').forEach((b) => { b.onclick = () => { if (locked) return; set(b.dataset.v === answer ? '' : b.dataset.v); }; });
     blank.onclick = () => { if (!locked) set(''); };
-    checkBtn.disabled = true;
+    set('');
     say(`${fmt.before} ${fmt.after}`);
   } else if (fmt.kind === 'type') {
     const n = fmt.length;
     let typed = '';
-    body.innerHTML = `<p class="fmt-ja">${esc(fmt.ja)}</p>
+    body.innerHTML = `${GUIDE}<p class="fmt-ja">${esc(fmt.ja)}</p>
       <div class="fmt-boxes">${Array.from({ length: n }, (_, i) => `<span class="fmt-box" data-i="${i}"></span>`).join('')}</div>
       ${fmt.hint ? `<p class="fmt-hint">💡 ${isJa() ? 'ヒント：さいしょの もじは' : 'Hint: the first letter is'}「 <b>${esc(fmt.hint)}</b> 」</p>` : ''}
       <div class="fmt-keys">${KEY_ROWS.map((row, r) => `<div class="fmt-keyrow">${r === 2 ? '<button type="button" class="fmt-key fmt-key-del" data-k="⌫"><b>⌫</b><small>けす</small></button>' : ''}${[...row].map((k) => `<button type="button" class="fmt-key" data-k="${k}">${k}</button>`).join('')}${r === 2 ? '<button type="button" class="fmt-key fmt-key-enter" data-k="⏎" disabled><b>Enter ⏎</b></button>' : ''}</div>`).join('')}</div>`;
     const boxes = [...body.querySelectorAll('.fmt-box')];
     const enter = body.querySelector('.fmt-key-enter');
-    const paint = () => { boxes.forEach((b, i) => { b.textContent = typed[i] || ''; b.classList.toggle('filled', !!typed[i]); }); enter.disabled = typed.length < n; answer = typed.length === n ? typed : null; checkBtn.disabled = !answer; };
+    const paint = () => {
+      boxes.forEach((b, i) => { b.textContent = typed[i] || ''; b.classList.toggle('filled', !!typed[i]); b.classList.toggle('next', i === typed.length && !locked); });
+      enter.disabled = typed.length < n; answer = typed.length === n ? typed : null; checkBtn.disabled = !answer;
+      if (!locked) setGuide(body, typed.length === n ? L('✅ うてたね！ <em>Enter か Check を おそう</em>', '✅ Done! <em>Press Enter or Check</em>')
+          : L(`⌨ えいごで うとう <em>（あと ${n - typed.length} もじ・まちがえたら ⌫）</em>`, `⌨ Type it in English <em>(${n - typed.length} more · ⌫ to fix)</em>`), typed.length, n);
+    };
     const press = (k) => {
       if (locked) return;
       if (k === '⌫') typed = typed.slice(0, -1);
@@ -295,6 +383,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
   // ---- ○× ----
   function showResult(correct, { diff = null, reveal = null, escaped = false } = {}) {
     locked = true;
+    if (fmt.kind !== 'match') setGuide(body, correct ? L('🎉 せいかい！', '🎉 Correct!') : L('👀 こたえを みてね', '👀 Look at the answer'));
     feedback.hidden = false;
     feedback.className = `fmt-feedback ${correct ? 'ok' : 'ng'}`;
     if (correct) {
