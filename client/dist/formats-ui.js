@@ -13,7 +13,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const KEY_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
 const HOWTO = {
   mc: [['👀', 'えいごを よむ', 'Read the word'], ['👆', 'いみを えらぶ', 'Tap the meaning']],
-  match: [['👆', 'えいごを おす', 'Tap a word'], ['🎨', 'おなじ いみを おす（おなじ いろに なる）', 'Tap its meaning: they turn the same colour']],
+  match: [['👆', 'えいごを おす', 'Tap a word'], ['🎨', 'おなじ いみを おす（ひっぱって つないでも いいよ）', 'Tap its meaning (or drag to join)']],
   spell: [['👆', 'もじを じゅんばんに おす', 'Tap the letters in order'], ['↩', 'まちがえたら おして もどす', 'Tap a letter to take it back']],
   type: [['⌨', 'もじを うつ', 'Type the letters'], ['⏎', 'Enter で こたえる', 'Press Enter to answer']],
   order: [['👆', 'ことばを じゅんばんに おす', 'Tap the words in order'], ['↩', 'まちがえたら おして もどす', 'Tap a word to take it back']],
@@ -114,7 +114,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
         const stroke = colors ? colors[l] : colorOf.get(l);
         const dx = (x2 - x1) / 2;
         return `<path d="M${x1} ${y1} C${x1 + dx} ${y1} ${x2 - dx} ${y2} ${x2} ${y2}" fill="none" stroke="${stroke}" stroke-width="5" stroke-linecap="round"/>`;
-      }).join('');
+      }).join('') + '<path class="fmt-temp" fill="none" stroke="#ffb800" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 9"/>';
       answer = links.size === fmt.left.length ? fmt.left.map((_, i) => fmt.right[links.get(i)]) : null;
       checkBtn.disabled = !answer;
       checkBtn.classList.toggle('ready', !!answer && !locked);
@@ -166,8 +166,52 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
       if (side === 'l') say(fmt.left[i]);
       draw();
     };
+    // おして つなぐ（タップ 2 回）と、おしたまま ひっぱって つなぐ（ドラッグ）の どちらでも よい。
+    // ひっぱって いる あいだ、まるから 指まで 点線が のびる。はなした ところが 反対の 列の カードなら つなぐ。
+    let drag = null; // { side, i, id, x0, y0, moved }
+    let skipClick = false;
+    const tempLine = (x, y) => {
+      const t = svg.querySelector('.fmt-temp'); if (!t) return;
+      if (!drag?.moved) { t.setAttribute('d', ''); return; }
+      const box = body.querySelector('.fmt-match').getBoundingClientRect();
+      const q = card(drag.side, drag.i).querySelector('.fmt-plug').getBoundingClientRect();
+      const x1 = q.left + q.width / 2 - box.left; const y1 = q.top + q.height / 2 - box.top;
+      const x2 = x - box.left; const y2 = y - box.top; const dx = (x2 - x1) / 2;
+      t.setAttribute('d', `M${x1} ${y1} C${x1 + dx} ${y1} ${x2 - dx} ${y2} ${x2} ${y2}`);
+    };
+    const cardAt = (x, y) => document.elementFromPoint(x, y)?.closest?.('.fmt-match .fmt-card');
     body.querySelectorAll('.fmt-card').forEach((c) => {
-      c.onclick = () => tap(c.dataset.side, Number(c.dataset.i));
+      c.onclick = () => { if (skipClick) { skipClick = false; return; } tap(c.dataset.side, Number(c.dataset.i)); };
+      c.addEventListener('pointerdown', (e) => {
+        if (locked || (e.pointerType === 'mouse' && e.button !== 0)) return;
+        drag = { side: c.dataset.side, i: Number(c.dataset.i), id: e.pointerId, x0: e.clientX, y0: e.clientY, moved: false };
+        try { c.setPointerCapture(e.pointerId); } catch { /* 古い 端末 */ }
+      });
+      c.addEventListener('pointermove', (e) => {
+        if (!drag || e.pointerId !== drag.id) return;
+        if (!drag.moved && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 10) return;
+        if (!drag.moved) { drag.moved = true; picked = { side: drag.side, i: drag.i }; if (drag.side === 'l') say(fmt.left[drag.i]); draw(); }
+        e.preventDefault();
+        tempLine(e.clientX, e.clientY);
+        body.querySelectorAll('.fmt-card.hover').forEach((h) => h.classList.remove('hover'));
+        const over = cardAt(e.clientX, e.clientY);
+        if (over && over.dataset.side !== drag.side) over.classList.add('hover');
+      });
+      const end = (e) => {
+        if (!drag || e.pointerId !== drag.id) return;
+        const d = drag; drag = null;
+        body.querySelectorAll('.fmt-card.hover').forEach((h) => h.classList.remove('hover'));
+        tempLine(0, 0);
+        if (!d.moved) return; // ふつうの タップ（click が うごく）
+        skipClick = true; setTimeout(() => { skipClick = false; }, 400);
+        const over = e.type === 'pointerup' ? cardAt(e.clientX, e.clientY) : null;
+        if (over && over.dataset.side !== d.side && !locked) {
+          const j = Number(over.dataset.i);
+          connect(d.side === 'l' ? d.i : j, d.side === 'l' ? j : d.i);
+        } else draw(); // とちゅうで はなした：えらんだ まま（つぎに タップで つなげる）
+      };
+      c.addEventListener('pointerup', end);
+      c.addEventListener('pointercancel', end);
     });
     checkBtn.disabled = true;
     requestAnimationFrame(() => draw());
