@@ -934,6 +934,24 @@
     "ja": "いえの おみせ"
    },
    {
+    "id": "weapons",
+    "kind": "weapon_shop",
+    "x": 38,
+    "z": -16,
+    "path": {
+    "x": 38,
+    "z": -8.5
+    },
+    "color": 7031964,
+    "roof": 3811660,
+    "w": 8,
+    "d": 6.4,
+    "icon": "⚔️",
+    "character": "Garo",
+    "en": "Weapon Shop",
+    "ja": "ぶきや"
+   },
+   {
     "id": "phones",
     "decor": "phones",
     "x": -44,

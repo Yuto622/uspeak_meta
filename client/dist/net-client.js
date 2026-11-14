@@ -36,6 +36,7 @@ import { createFarmUI, nextStep as nextFarmStep } from './farm.js';
 import { createLand } from './land-world.js';
 import { createLandUI } from './land.js';
 import { createFishworldUI } from './fishworld.js';
+import { createWeaponShop } from './weapon-shop.js';
 import { createWordHouseUI } from './wordhouse.js';
 import { createFoodUI } from './food.js';
 import { createBagUI } from './bag.js';
@@ -347,7 +348,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
     send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash, food,
-    shops: { wardrobe, town, land, conv, homework, get blockwild() { return blockwild; } },
+    shops: { wardrobe, town, land, conv, homework, weapons: createWeaponShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }) }), get blockwild() { return blockwild; } },
     guide: guide || { open() {} },
     getCoins: () => state.wallet?.coins ?? fishing.store.state.coins,
     getLevel: () => state.progress?.level ?? Number(document.querySelector('#level')?.textContent || 1),

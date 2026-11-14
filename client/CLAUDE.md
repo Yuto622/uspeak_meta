@@ -1362,6 +1362,13 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   週ごとの XP は 列 `week_hist_json`（さいきん 12 週）。
 - 検査は `server/test/rankings.test.mjs`。
 
+## ぶきや（メインの島・100 本／2026-11）
+- **品は `weapons-data.js`**（形 10 × 素材 10）。`fishing-data.js` の ITEMS に `kind: 'weapon'` で 足すので、値段と 買う 判定は サーバーの `economy.js`（表の 値段）。ページの 値段は 使わない。
+- **前からの 6 本（wood-sword・steel-sword・bow・trident・staff・sunblade）は id と 値段を かえない**（セーブが その id）。表の その マスに 入る（`LEGACY`）。
+- 画面は `weapon-shop.js` + `weapon-shop.css`（島の renderer を 借りる `bag-preview.js` の `weapon:<id>`。カードの 絵は 1 本 1 回 焼く）。形は `fishing-models.js` の `equipmentModel`。手に もつのは `store.equip`（fishing.js が 毎コマ 見る）。
+- 島の お店は `main_island.json` の `weapon_shop`（`main-world.js` の facade）。戸口で `main-island.js` の walkIn → `shops.weapons.open()`。
+- 見た目だけ：つりや 英語の むずかしさは かわらない。検査は `server/test/weapons.test.mjs`。
+
 ## テーマパークの のりもの代（2026-10）
 - **のる たびに U-Speak コイン**（メリーゴーランド 10・かんらんしゃ 15・ジェットコースター 25）。値段は `park-rides.json`（部屋の `server/src/game/themepark.js` も 同じ ものを 読む）。
 - オンラインは `park:ride {id}` → 部屋が `applyOp spend` → `park:ride:ok`（さいふ つき）／`park:ride:error`（`not enough coins` / `too fast`＝3 秒の 2 度おし / `unknown ride`）。ページは へんじが 来るまで のせない（`net.parkPay`）。

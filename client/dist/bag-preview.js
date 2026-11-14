@@ -8,6 +8,8 @@ import * as THREE from './three.module.js';
 import { buildPet, animatePet, PET_KINDS } from './pet-models.js';
 import { itemModel } from './wardrobe-models.js';
 import { buildIslandModel } from './land-world.js';
+import { equipmentModel } from './fishing-models.js';
+import { ITEM_BY_ID } from './fishing-data.js';
 
 const mat = (color, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...extra });
 const box = (g, x, y, z, w, h, d, color, extra) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat(color, extra)); m.position.set(x, y, z); g.add(m); return m; };
@@ -70,12 +72,14 @@ function blockModel(colour) {
   return g;
 }
 
-// key は "food:apple" / "wear:cap-red" / "house:<look>" / "block:<id>"。info は その物の データ。
+// key は "food:apple" / "wear:cap-red" / "house:<look>" / "block:<id>" / "weapon:<id>"。info は その物の データ。
 function modelFor(key, info) {
   const [kind, id] = key.split(':');
   if (kind === 'food') return { group: foodModel(id) };
   if (kind === 'wear') { const g = itemModel(info); return g ? { group: g } : null; }
   if (kind === 'block') return { group: blockModel(info?.color) };
+  // ぶき（ぶきや の 100 本）。持つ ところを まんなかに して 少し かたむける。
+  if (kind === 'weapon' && ITEM_BY_ID[id]) { const g = new THREE.Group(); const w = equipmentModel(ITEM_BY_ID[id]); w.rotation.z = -0.35; g.add(w); return { group: g }; }
   if (kind === 'pet' && PET_KINDS.includes(id)) { const g = buildPet(id); return { group: g, animate: (t) => animatePet(g, t, false) }; }
   if (kind === 'house' && info?.theme) {
     const m = buildIslandModel({ theme: info.theme, grid: info.grid }, { sign: false, sea: 'disc' });

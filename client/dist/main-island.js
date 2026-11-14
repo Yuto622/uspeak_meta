@@ -404,6 +404,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (spot.kind === 'wear_shop') shops.wardrobe?.open({});
     if (spot.kind === 'block_shop') shops.town?.enter({ kind: 'shop' });
     if (spot.kind === 'land_shop') shops.land?.enter({ kind: 'office' });
+    if (spot.kind === 'weapon_shop') shops.weapons?.open();
     return true;
   }
   const LABEL = {
@@ -416,6 +417,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     wear_shop: () => tr('👕 ふくを 見る'),
     block_shop: () => tr('🧱 ブロックを 見る'),
     land_shop: () => tr('🏠 いえを 見る'),
+    weapon_shop: () => tr('⚔️ ぶきを 見る'),
     blockwild: () => '⛏ BLOCKWILD',
     homework: () => `📚 ${tr('しゅくだいを する')}`,
     talk_shop: (sp) => ((rpg.premiumLock || []).includes('talkshops') ? `🔒 ${tr('プレミアム')}` : rpg.insideBuilding ? `🗣 ${tr('英語で はなす')}` : `🚪 ${tr('はいる')}`),

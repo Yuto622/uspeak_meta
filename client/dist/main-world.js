@@ -145,7 +145,7 @@ export function createMainWorld({ scene }) {
           // 幅は さんばしの 間（5）より せまく。入口は 文字の ない 級の 色の 柱 2 本（遠くから 色で どの さんばしか わかる）。
           const ez = (data.eikenPiers?.z || 28.5) + 1.4;
           for (const sx of [-1.25, 1.25]) { D(def.x + sx, 0.9, ez, 0.22, 1.4, 0.22, color, 0.2); D(def.x + sx, 1.7, ez, 0.36, 0.2, 0.36, 0xf7f1e1); }
-        } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop' || def.kind === 'talk_shop' || def.kind === 'homework') {
+        } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop' || def.kind === 'weapon_shop' || def.kind === 'talk_shop' || def.kind === 'homework') {
           // 専用の島と 同じ お店（中に入ると その島の 3D の メニュー）。
           house(def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color, Number(def.roof), { en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` });
           facade(def.decor || def.kind, def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color);
@@ -312,6 +312,19 @@ export function createMainWorld({ scene }) {
               for (let k = 0; k < 3; k += 1) D(sx + (k === 2 ? 0 : (k ? 0.5 : -0.5)), 0.5 + (k === 2 ? 1 : 0), fz, 0.95, 0.95, 0.95, cols[(k + (sx === L ? 0 : 3)) % cols.length]);
               solid(sx, fz, 1, 0.5);
             }
+            break;
+          }
+          case 'weapon_shop': {
+            // 屋根に 大きな けんが 2 本 ×に。戸口の わきに たてと やりの たな。
+            for (const sgn of [-1, 1]) {
+              const ty = roofY + 2.0; const tz = front - 1.3;
+              for (let k = 0; k < 6; k += 1) D(x + sgn * (k * 0.32 - 0.8), ty + k * 0.32 - 0.8, tz, 0.3, 0.3, 0.2, 0xd8e4ea, 0.15);
+              D(x - sgn * 1.0, ty - 1.0, tz, 0.7, 0.18, 0.24, 0xf1ce76); D(x - sgn * 1.25, ty - 1.25, tz, 0.2, 0.4, 0.2, 0x756043);
+            }
+            D(L, 1.0, fz, 1.1, 1.3, 0.16, 0x9b6a3c); D(L, 1.0, fz + 0.1, 0.8, 1.0, 0.06, 0xf1ce76); D(L, 1.0, fz + 0.14, 0.26, 0.26, 0.04, 0x9b6a3c);
+            for (const sx of [R - 0.4, R + 0.4]) { D(sx, 1.2, fz, 0.1, 2.4, 0.1, 0x8a6a45); D(sx, 2.5, fz, 0.18, 0.36, 0.18, 0xbacfd8, 0.2); }
+            D(R, 0.3, fz, 1.3, 0.2, 0.5, 0x6f5b3e);
+            solid(L, fz, 0.6, 0.3); solid(R, fz, 0.7, 0.3);
             break;
           }
           case 'land_shop': {
@@ -482,7 +495,7 @@ export function createMainWorld({ scene }) {
       tile(dec.x, dec.z, dec.w || 3, dec.d || 2.4, '#e9dcc0');
     }
     // 入れる場所：建物の タイル ＋ 色の まるに 絵。
-    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a' };
+    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a' };
     const GATE = { park: '🎡', ride: '🏁', town: '🧱', meadow: '🏰', fishworld: '🌊' };
     const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚' };
     for (const sp of d.spots) {

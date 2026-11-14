@@ -1,0 +1,59 @@
+/* ぶきや（メインの島）。display は [open] の 側に 書く（閉じた ダイアログが タップを 吸わない ように）。 */
+#weapon-dialog { width: min(1060px, 96vw); max-width: 96vw; max-height: 92dvh; padding: 0; border: 0; border-radius: 26px; overflow: hidden; background: #fbf7ee; color: #1b3a2f; box-shadow: 0 30px 90px #0a1a2a66; }
+#weapon-dialog[open] { display: flex; flex-direction: column; }
+#weapon-dialog::backdrop { background: #0b1a2acc; }
+.ws-head { position: static; display: flex; align-items: center; gap: 14px; padding: 14px 20px; background: linear-gradient(120deg, #3a2a52, #20445e); color: #fff; flex: none; }
+.ws-head small { font: 800 11px/1 ui-monospace, Menlo, monospace; letter-spacing: .25em; color: #ffd76a; }
+.ws-head h2 { margin: 4px 0 0; font-size: 24px; color: #fff; }
+.ws-head h2 .en, .ws-head h2 .ja { font-size: 24px; }
+.ws-head .ja, .ws-btn .ja, .ws-tabs .ja, .ws-fine .ja, .ws-price .ja, .ws-tag .ja { font-style: normal; }
+.ws-coins { margin-left: auto; background: #0005; padding: 7px 14px; border-radius: 99px; font-weight: 900; font-size: 17px; color: #ffd76a; }
+.ws-close { width: 44px; height: 44px; border-radius: 12px; border: 0; background: #ffffff22; color: #fff; font-size: 20px; cursor: pointer; }
+.ws-body { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 330px 1fr; }
+.ws-show { padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: radial-gradient(circle at 50% 30%, #ffffff, #efe6d4); border-right: 1px solid #e6dcc6; overflow-y: auto; }
+#ws-canvas { width: 260px; height: 260px; border-radius: 22px; background: radial-gradient(circle at 50% 40%, #fff, #e3ecef); }
+.ws-pick { text-align: center; }
+.ws-pick h3 { margin: 4px 0 0; font-size: 24px; display: flex; align-items: center; gap: 8px; justify-content: center; }
+.ws-pick p { margin: 2px 0 4px; color: #5d6d62; font-size: 15px; line-height: 1.3; }
+.ws-say { border: 0; background: #e8f1ef; border-radius: 99px; width: 38px; height: 38px; font-size: 18px; cursor: pointer; }
+.ws-stars { color: #d4a100; font-size: 13px; letter-spacing: .05em; }
+.ws-stars.big { font-size: 18px; display: block; }
+.ws-mat { display: inline-block; margin-top: 4px; padding: 2px 10px; border-radius: 99px; font-size: 12px; font-weight: 800; background: color-mix(in srgb, var(--c) 30%, #fff); border: 1.5px solid var(--c); }
+.ws-acts { width: 100%; display: flex; justify-content: center; }
+.ws-btn { min-width: 200px; min-height: 52px; border-radius: 16px; border: 0; font-size: 18px; font-weight: 900; background: #1b3a2f; color: #fff; cursor: pointer; box-shadow: 0 4px 0 #0e2219; }
+.ws-btn.buy { background: #e27a2d; box-shadow: 0 4px 0 #a9531a; }
+.ws-btn.ghost { background: #fff; color: #1b3a2f; box-shadow: inset 0 0 0 2px #1b3a2f; }
+.ws-btn:disabled { background: #e6e1d4; color: #7a857e; box-shadow: none; }
+.ws-fine { font-size: 12px; color: #6e7a72; text-align: center; margin: 2px 0 0; line-height: 1.5; }
+.ws-list { display: flex; flex-direction: column; min-height: 0; }
+.ws-tabs { flex: none; display: flex; gap: 6px; padding: 10px 12px; overflow-x: auto; border-bottom: 1px solid #e6dcc6; }
+.ws-tabs button { flex: none; display: flex; align-items: center; gap: 4px; padding: 8px 12px; border-radius: 99px; border: 1.5px solid #e0d6c0; background: #fff; font-size: 14px; font-weight: 700; color: #1b3a2f; cursor: pointer; min-height: 40px; }
+.ws-tabs button.on { background: #1b3a2f; color: #fff; border-color: #1b3a2f; }
+.ws-grid { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); gap: 10px; align-content: start; }
+.ws-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 6px 10px; border-radius: 16px; border: 2px solid #ece4d2; background: #fff; cursor: pointer; text-align: center; color: #1b3a2f; }
+.ws-card > * { flex: none; }
+.ws-card.pick { border-color: #e27a2d; box-shadow: 0 0 0 3px #e27a2d44; }
+.ws-card.own { background: #f4fbf6; }
+.ws-img { width: 96px; height: 96px; display: grid; place-items: center; border-radius: 14px; background: radial-gradient(circle at 50% 40%, #fff, color-mix(in srgb, var(--c) 22%, #eef2f0)); }
+.ws-img img { width: 100%; height: 100%; object-fit: contain; }
+.ws-img i { font-style: normal; font-size: 40px; }
+.ws-card b { font-size: 14px; line-height: 1.2; margin-top: 4px; }
+.ws-card small { font-size: 12px; color: #5d6d62; }
+.ws-price { font-size: 14px; font-weight: 900; color: #a9531a; }
+.ws-tag { position: absolute; top: 6px; right: 6px; font-style: normal; font-size: 11px; font-weight: 900; padding: 2px 7px; border-radius: 99px; background: #2f8f5b; color: #fff; }
+.ws-tag.on { background: #e27a2d; }
+/* せまい 画面・横もちの スマホ：左を ちいさく。 */
+@media (max-width: 760px), (max-height: 560px) {
+  #weapon-dialog { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; }
+  .ws-body { grid-template-columns: 220px 1fr; }
+  #ws-canvas { width: 116px; height: 116px; }
+  .ws-show { padding: 8px; gap: 4px; }
+  .ws-fine { display: none; }
+  .ws-pick p { margin: 0; }
+  .ws-pick h3 { font-size: 18px; }
+  .ws-btn { min-width: 0; width: 100%; font-size: 16px; min-height: 46px; }
+  .ws-head { padding: 8px 14px; }
+  .ws-head h2, .ws-head h2 .en, .ws-head h2 .ja { font-size: 18px; }
+  .ws-grid { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
+  .ws-img { width: 72px; height: 72px; }
+}

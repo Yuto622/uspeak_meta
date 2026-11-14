@@ -1,4 +1,5 @@
 import {SPECIES} from './fish-species.js';
+import {NEW_WEAPONS,legacyWeaponInfo} from './weapons-data.js';
 // Original game fish. Grade labels are study-difficulty guides, not an official exam word list.
 const vocabulary={
  '5':[['apple','りんご'],['book','本'],['water','水'],['school','学校'],['friend','友だち'],['happy','うれしい'],['morning','朝'],['family','家族'],['house','家'],['music','音楽'],['small','小さい'],['white','白い'],['swim','泳ぐ'],['play','遊ぶ'],['eat','食べる'],['read','読む'],['beautiful','美しい'],['animal','動物'],['flower','花'],['weather','天気']],
@@ -67,6 +68,9 @@ export const ITEMS=[
  {id:'staff',name:'星詠みの杖',kind:'weapon',price:1000,color:0xaa90d2,style:'staff',description:'先端に星の結晶を宿す杖。'},
  {id:'sunblade',name:'暁のレジェンドソード',kind:'weapon',price:1800,color:0xf1ce76,style:'sword',description:'あたたかな光を放つ特別な剣。'}
 ];
+// ぶきや（メインの島）の 100 本＝前から ある 6 本（表の 情報を そえる）＋ weapons-data.js の 94 本。
+for(const it of ITEMS)if(it.kind==='weapon')Object.assign(it,legacyWeaponInfo(it.id)||{});
+ITEMS.push(...NEW_WEAPONS);
 export const ITEM_BY_ID=Object.assign(Object.create(null),Object.fromEntries(ITEMS.map(i=>[i.id,i])));
 export function chooseFish(zone,grade='all',random=Math.random){const pool=FISH.filter(f=>f.zone===zone&&(grade==='all'||f.grade===grade));if(!pool.length)throw new Error('釣り場と級が一致しません');let n=random()*pool.reduce((s,f)=>s+RARITIES[f.rarity].weight,0);return pool.find(f=>(n-=RARITIES[f.rarity].weight)<0)||pool.at(-1)}
 export function choicesFor(fish,random=Math.random){const rest=FISH.filter(f=>f.id!==fish.id&&f.grade===fish.grade);const options=[fish];while(options.length<4){const i=Math.min(rest.length-1,Math.floor(random()*rest.length));options.push(rest.splice(i,1)[0])}for(let i=options.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[options[i],options[j]]=[options[j],options[i]]}return options.map(f=>({id:f.id,meaning:f.meaning}))}
