@@ -113,6 +113,13 @@
 .fw-count { position: absolute; top: 12px; right: 12px; font-style: normal; font-size: 13px; font-weight: 900; color: #fff; background: var(--ink); padding: 2px 8px; border-radius: 99px; }
 .fw-sell { margin-top: 4px; font-size: 13px; font-weight: 800; padding: 7px 12px; border-radius: 12px; border: 0; background: #fff1e4; color: #a9531a; cursor: pointer; min-height: 36px; box-shadow: inset 0 0 0 1.5px #e27a2d; }
 .fw-sell .ja { font-style: normal; }
+/* カードの 高さは 中身に あわせる（写真が 縮んで ボタンが カードの 外へ はみ出し、下が 見切れて いた）。
+   ボタンは カードの 横いっぱい・大きめで、下の 色の 線とは かさならない。 */
+.fw-grid { align-items: start; }
+.fw-fish { padding-bottom: 14px; }
+.fw-fish > * { flex: none; }
+.fw-fish .fw-sell { width: 100%; min-height: 42px; font-size: 14px; margin-top: 6px; }
+#fw-body { padding-bottom: 28px; }
 .fw-sell:disabled { background: #f1efe8; color: #8a9389; box-shadow: inset 0 0 0 1.5px #d9d4c6; cursor: default; opacity: 1; }
 /* きょう あと うれる コイン（1 日の 上限）。 */
 .fw-capline { margin: -4px 0 10px; padding: 8px 14px; border-radius: 12px; background: #fff7e3; color: #8a5a12; font-size: 14px; font-weight: 700; text-align: center; }
