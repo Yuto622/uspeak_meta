@@ -226,12 +226,31 @@ body[data-arcade] #fw-hud, body[data-race] #fw-hud { display: none; }
 @keyframes fmt-pulse { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.35); opacity: 0; } }
 .fmt-match { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; }
 .fmt-col { display: flex; flex-direction: column; gap: 8px; }
-.fmt-card { font-size: 16px; padding: 10px 8px; border-radius: 12px; border: 2px solid #dfe6e1; background: #fff; cursor: pointer; min-height: 44px; }
-.fmt-card.picked { border-color: #ffd246; box-shadow: 0 0 0 3px #ffd24666, 0 0 14px #ffd246; }
-.fmt-card.linked { border-color: var(--pair, #e27a2d); background: color-mix(in srgb, var(--pair, #e27a2d) 16%, #fff); box-shadow: inset 6px 0 0 var(--pair, #e27a2d); }
-.fmt-right .fmt-card.linked { box-shadow: inset -6px 0 0 var(--pair, #e27a2d); }
-/* えいごを おしたら、みぎの列が「ここを おして」と ゆれる（反対も同じ）。 */
-.fmt-match[data-waiting="r"] .fmt-right .fmt-card:not(.linked), .fmt-match[data-waiting="l"] .fmt-left .fmt-card:not(.linked) { border-style: dashed; border-color: #ffd246; animation: fmt-wait 1s ease-in-out infinite; }
+/* せんつなぎ：上に「いま する こと」と つないだ 数、カードの 内がわに つなぐ まる（プラグ）、つないだら 同じ 色と 番号。 */
+.fmt-mguide { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; padding: 10px 14px; border-radius: 14px; background: #f3efe4; }
+.fmt-mstep { flex: 1; margin: 0; font-size: 17px; font-weight: 800; color: #1b3a2f; line-height: 1.4; }
+.fmt-mstep b { color: #e27a2d; font-size: 1.15em; }
+.fmt-mstep em { font-style: normal; font-weight: 600; font-size: 14px; color: #5d6d62; white-space: nowrap; }
+.fmt-mcount { display: flex; align-items: center; gap: 4px; flex: none; }
+.fmt-mcount i { width: 12px; height: 12px; border-radius: 50%; background: #dfe6e1; }
+.fmt-mcount i.on { background: #2f8f5b; }
+.fmt-mcount b { margin-left: 6px; font-size: 14px; color: #1b3a2f; }
+.fmt-card { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 18px; font-weight: 800; color: #1b3a2f; padding: 10px 26px; border-radius: 14px; border: 2px solid #dfe6e1; background: #fff; cursor: pointer; min-height: 52px; box-shadow: 0 3px 0 #dfe6e1; transition: transform .12s, box-shadow .12s, background .12s; }
+.fmt-card:hover { transform: translateY(-1px); }
+.fmt-card:active { transform: translateY(2px); box-shadow: 0 1px 0 #dfe6e1; }
+.fmt-plug { position: absolute; top: 50%; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; background: #fff; border: 3px solid #c9d4cd; }
+.fmt-left .fmt-plug { right: -10px; }
+.fmt-right .fmt-plug { left: -10px; }
+.fmt-num { display: none; width: 24px; height: 24px; border-radius: 50%; place-items: center; font-size: 13px; font-weight: 900; color: #fff; background: var(--pair, #e27a2d); flex: none; }
+.fmt-card.picked { border-color: #ffb800; background: #fff8dc; box-shadow: 0 0 0 4px #ffd24688, 0 3px 0 #ffb800; transform: translateY(-1px); }
+.fmt-card.picked .fmt-plug { border-color: #ffb800; background: #ffd246; }
+.fmt-card.linked { border-color: var(--pair, #e27a2d); background: color-mix(in srgb, var(--pair, #e27a2d) 14%, #fff); box-shadow: 0 3px 0 var(--pair, #e27a2d); }
+.fmt-card.linked .fmt-plug { border-color: var(--pair, #e27a2d); background: var(--pair, #e27a2d); }
+.fmt-card.linked .fmt-num { display: inline-grid; }
+/* えらぶ 側の まだ つないで いない カードの まるが 光る（前は 列ぜんぶが 点線で ゆれて うるさかった）。 */
+.fmt-match[data-waiting="r"] .fmt-right .fmt-card:not(.linked) .fmt-plug, .fmt-match[data-waiting="l"] .fmt-left .fmt-card:not(.linked) .fmt-plug { border-color: #ffb800; animation: fmt-plug 1s ease-in-out infinite; }
+.fmt-match[data-waiting="r"] .fmt-right .fmt-card:not(.linked) { border-color: #ffd24699; }
+@keyframes fmt-plug { 50% { box-shadow: 0 0 0 5px #ffd24677; } }
 @keyframes fmt-wait { 50% { box-shadow: 0 0 0 4px #ffd24666; } }
 .fmt-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 /* つづり・ならべかえ：上が こたえの ならび、下が カード。 */
@@ -330,6 +349,9 @@ body[data-arcade] #fw-hud, body[data-race] #fw-hud { display: none; }
   .fw-catch-label b { font-size: 30px; }
   .fw-rays { top: 130px; }
   .fmt-match { gap: 0 28px; }
+  .fmt-mstep { font-size: 15px; }
+  .fmt-mstep em { font-size: 12px; white-space: normal; }
+  .fmt-card { font-size: 16px; min-height: 46px; padding: 8px 20px; }
   .fmt-card { font-size: 14px; padding: 8px 6px; }
   .fmt-key { width: 30px; height: 40px; font-size: 14px; }
   .fmt-key-del { width: 48px; } .fmt-key-enter { width: 66px; font-size: 12px; }
@@ -339,7 +361,7 @@ body[data-arcade] #fw-hud, body[data-race] #fw-hud { display: none; }
   #fw-hud { bottom: 150px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .fw-waves, .fw-shine, .fw-rays, .fw-icon, .fw-perfect, .fmt-slot.next, .fmt-check.ready, .fmt-match .fmt-card { animation: none; }
+  .fw-waves, .fw-shine, .fw-rays, .fw-icon, .fw-perfect, .fmt-slot.next, .fmt-check.ready, .fmt-match .fmt-card, .fmt-match .fmt-plug { animation: none; }
 }
 
 /* style.css は全部の .en/.ja を 12px の block にする（右のバーの2行用）。つり島の見出しとボタンは
@@ -372,3 +394,12 @@ html[data-lang="en"] #fish-showcase-name .ja { display: none; }
 /* きいて えを えらぶ（picture）：絵は 大きく 3 つ。1 年生の 指で まちがえない 大きさ。 */
 .fmt-choices.fmt-pics { grid-template-columns: repeat(3, 1fr); }
 .fmt-choice.fmt-pic { font-size: 54px; line-height: 1; min-height: 96px; }
+/* せんつなぎ：横もちの スマホ（高さが ひくい）は ガイドと カードを ちいさく（4 まいが スクロール なしで 入る）。 */
+@media (max-height: 560px) {
+  .fmt-mguide { margin-bottom: 6px; padding: 5px 10px; }
+  .fmt-mstep { font-size: 14px; }
+  .fmt-mstep em { font-size: 12px; }
+  .fmt-col { gap: 6px; }
+  .fmt-card { font-size: 15px; min-height: 40px; padding: 5px 18px; }
+  .fmt-num { width: 20px; height: 20px; font-size: 11px; }
+}

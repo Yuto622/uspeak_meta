@@ -92,9 +92,13 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     // えいごを おして、おなじ いみを おす → 2まいが おなじ いろに なって せんで つながる（どちらから おしてもよい）。
     // つないだ カードを もう一度 おすと はずれる。ぜんぶ つながると Check が光る。
     const PAIR = ['#e27a2d', '#3f8fd6', '#9b5fd0', '#2fa37a', '#d9668d', '#c9a227'];
-    body.innerHTML = `<div class="fmt-match"><div class="fmt-col fmt-left">${fmt.left.map((en, i) => `<button type="button" class="fmt-card" data-side="l" data-i="${i}">${esc(en)}</button>`).join('')}</div>
+    // 上に「いま する こと」を 1 行（えらんだ ことばを 入れて）と つないだ 数。カードの 内がわに つなぐ まる（プラグ）、
+    // つないだ 2 まいは 同じ 色・同じ 番号（線が 見えにくい 小さい 画面でも わかる）。
+    const cardHtml = (side, i, text) => `<button type="button" class="fmt-card" data-side="${side}" data-i="${i}"><span class="fmt-num"></span><span class="fmt-ctext">${esc(text)}</span><i class="fmt-plug"></i></button>`;
+    body.innerHTML = `<div class="fmt-mguide"><p class="fmt-mstep"></p><span class="fmt-mcount"></span></div>
+      <div class="fmt-match"><div class="fmt-col fmt-left">${fmt.left.map((en, i) => cardHtml('l', i, en)).join('')}</div>
       <svg class="fmt-lines" aria-hidden="true"></svg>
-      <div class="fmt-col fmt-right">${fmt.right.map((ja, i) => `<button type="button" class="fmt-card" data-side="r" data-i="${i}">${esc(ja)}</button>`).join('')}</div></div>`;
+      <div class="fmt-col fmt-right">${fmt.right.map((ja, i) => cardHtml('r', i, ja)).join('')}</div></div>`;
     const links = new Map(); // left index -> right index
     const colorOf = new Map(); // left index -> pair colour (stays with the word while it is linked)
     let picked = null; // { side, i }
@@ -103,11 +107,13 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     const draw = (colors = null) => {
       const box = body.querySelector('.fmt-match').getBoundingClientRect();
       svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+      const mid = (el) => { const q = el.querySelector('.fmt-plug').getBoundingClientRect(); return [q.left + q.width / 2 - box.left, q.top + q.height / 2 - box.top]; };
       svg.innerHTML = [...links.entries()].map(([l, r]) => {
-        const a = card('l', l).getBoundingClientRect();
-        const b = card('r', r).getBoundingClientRect();
+        const [x1, y1] = mid(card('l', l));
+        const [x2, y2] = mid(card('r', r));
         const stroke = colors ? colors[l] : colorOf.get(l);
-        return `<line x1="${a.right - box.left}" y1="${a.top + a.height / 2 - box.top}" x2="${b.left - box.left}" y2="${b.top + b.height / 2 - box.top}" stroke="${stroke}" stroke-width="5" stroke-linecap="round"/>`;
+        const dx = (x2 - x1) / 2;
+        return `<path d="M${x1} ${y1} C${x1 + dx} ${y1} ${x2 - dx} ${y2} ${x2} ${y2}" fill="none" stroke="${stroke}" stroke-width="5" stroke-linecap="round"/>`;
       }).join('');
       answer = links.size === fmt.left.length ? fmt.left.map((_, i) => fmt.right[links.get(i)]) : null;
       checkBtn.disabled = !answer;
@@ -118,13 +124,28 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
         c.classList.toggle('linked', l !== null);
         c.style.setProperty('--pair', l !== null ? (colors ? colors[l] : colorOf.get(l)) : '');
         c.classList.toggle('picked', !!picked && picked.side === c.dataset.side && picked.i === i);
+        c.querySelector('.fmt-num').textContent = l !== null ? String((order.indexOf(l) + 1) || l + 1) : '';
       });
-      body.querySelector('.fmt-match').dataset.waiting = picked ? (picked.side === 'l' ? 'r' : 'l') : '';
+      body.querySelector('.fmt-match').dataset.waiting = picked ? (picked.side === 'l' ? 'r' : 'l') : (links.size < fmt.left.length ? 'l' : '');
+      // いま する こと（えらんだ ことばを 入れる）
+      const n = fmt.left.length; const done = links.size;
+      const ja = isJa();
+      let step;
+      if (locked) step = ja ? '👀 こたえを みてね' : '👀 Look at the answer';
+      else if (picked?.side === 'l') step = ja ? `「<b>${esc(fmt.left[picked.i])}</b>」の いみは どれ？ <em>みぎから えらぼう 👉</em>` : `What does “<b>${esc(fmt.left[picked.i])}</b>” mean? <em>Tap it on the right 👉</em>`;
+      else if (picked?.side === 'r') step = ja ? `「<b>${esc(fmt.right[picked.i])}</b>」は えいごで どれ？ <em>👈 ひだりから えらぼう</em>` : `Which English word is “<b>${esc(fmt.right[picked.i])}</b>”? <em>👈 Tap it on the left</em>`;
+      else if (done === n) step = ja ? '✅ ぜんぶ つないだね！ <em>した の Check を おそう</em>' : '✅ All joined! <em>Press Check below</em>';
+      else if (done === 0) step = ja ? '👆 ひだりの えいごを 1つ えらぼう' : '👆 Tap an English word on the left';
+      else step = ja ? '👆 つぎの えいごを えらぼう <em>（つないだ カードを おすと はずれるよ）</em>' : '👆 Tap the next word <em>(tap a joined card to undo)</em>';
+      body.querySelector('.fmt-mstep').innerHTML = step;
+      body.querySelector('.fmt-mcount').innerHTML = `${'<i class="on"></i>'.repeat(done)}${'<i></i>'.repeat(n - done)}<b>${done} / ${n}</b>`;
     };
     const nextColor = () => PAIR.find((c) => ![...colorOf.values()].includes(c)) || PAIR[0];
+    const order = []; // つないだ 順（番号に つかう）
+    const forget = (k) => { links.delete(k); colorOf.delete(k); const at = order.indexOf(k); if (at >= 0) order.splice(at, 1); };
     const connect = (l, r) => {
-      for (const [k, v] of links) if (v === r) { links.delete(k); colorOf.delete(k); }
-      if (!links.has(l)) colorOf.set(l, nextColor());
+      for (const [k, v] of links) if (v === r) forget(k);
+      if (!links.has(l)) { colorOf.set(l, nextColor()); order.push(l); }
       links.set(l, r);
       picked = null;
       say(fmt.left[l]);
@@ -133,7 +154,7 @@ export function renderFormat(host, fmt, { speak = null, onCheck, onQuit, onAnswe
     const unlink = (side, i) => {
       const l = side === 'l' ? i : [...links.entries()].find(([, r]) => r === i)?.[0];
       if (l === undefined || !links.has(l)) return false;
-      links.delete(l); colorOf.delete(l); picked = null; draw();
+      forget(l); picked = null; draw();
       return true;
     };
     const tap = (side, i) => {
