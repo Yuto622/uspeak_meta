@@ -2,6 +2,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { playerKey } from './records.js';
+import { rowsForClass } from './roster-sheet.js';
 
 const MAX_LOG_ROWS = 50000;
 
@@ -65,7 +66,8 @@ export class FileStore {
   async listRoster(classCode) {
     const rows = await this.listAllRoster();
     if (rows === null) return null;
-    return rows.filter((r) => r.class === classCode || r.class === '*').map((r) => ({ ...r, class: classCode }));
+    // クラスコードは 大文字小文字を 区別しない（ロビーは 小文字に そろえる。名簿は「IAC」と 書いて ある ことも）。
+    return rowsForClass(rows, classCode);
   }
 
   // Replace the register (the admin page's save). Written whole and atomically, as its

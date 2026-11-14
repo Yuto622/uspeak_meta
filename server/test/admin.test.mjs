@@ -49,9 +49,9 @@ test('CSV, TSV and a paste all become the same rows', () => {
   // Excel on Windows: Shift_JIS.
   const sjis = Buffer.from([0x83, 0x4e, 0x83, 0x89, 0x83, 0x58, 0x2c, 0x96, 0xbc, 0x91, 0x4f, 0x0a, 0x36, 0x2d, 0x31, 0x2c, 0x82, 0xa0, 0x82, 0xab, 0x0a]);
   assert.deepEqual(rosterFromText(decodeUpload(sjis)), [{ class: '6-1', name: 'あき', note: '' }]);
-  // And the download (names only) reads back as every-class rows.
+  // And the download keeps the クラスコード (blank = every class).
   const csv = rosterToCsv([{ class: '6-1', name: 'A, "B"', note: '' }, { class: '*', name: 'Sora', note: 'x' }]);
-  assert.deepEqual(rosterFromText(csv), [{ class: '*', name: 'A, "B"', note: '' }, { class: '*', name: 'Sora', note: '' }]);
+  assert.deepEqual(rosterFromText(csv), [{ class: '6-1', name: 'A, "B"', note: '' }, { class: '*', name: 'Sora', note: '' }]);
 });
 
 test('the page is behind the password, and the API behind the cookie', async () => {
@@ -95,14 +95,15 @@ test('a CSV is parsed on the server, saved from the page, and the door closes at
   assert.equal(saved.count, 3, 'the same name twice is one row');
   const onDisk = JSON.parse(readFileSync(pathJoin(dir, 'roster.json'), 'utf8'));
   assert.deepEqual(onDisk.rows.map((r) => r.name), ['Aki', 'Chika', 'Sora']);
-  assert.ok(onDisk.rows.every((r) => r.class === '*'), 'a name on the list may enter any class');
+  assert.deepEqual(onDisk.rows.map((r) => r.class), ['6-1', '6-2', '*'], 'the クラスコード column is kept (blank = every class)');
   // Still open: the switch has not been turned on.
   const open = await join('Stranger'); await nextMessage(open, 'welcome'); await open.leave(); await sleep(100);
   const on = await (await api('/enforce', { method: 'PUT', body: { enforce: true } })).json();
   assert.equal(on.mode, 'roster');
   const aki = await join('aki'); assert.equal((await nextMessage(aki, 'welcome')).classCode, '6-1'); await aki.leave();
   const sora = await join('Sora', '6-2'); await nextMessage(sora, 'welcome'); await sora.leave();
-  const chika = await join('Chika', '6-1'); await nextMessage(chika, 'welcome'); await chika.leave();
+  const chika = await join('Chika', '6-2'); await nextMessage(chika, 'welcome'); await chika.leave();
+  await assert.rejects(() => join('Chika', '6-1'), /register|4004/i, 'Chika is a 6-2 name');
   await assert.rejects(() => join('Stranger'), /register|4004/i);
   const t = await join('Sensei', '6-1', { teacherKey: 'testkey12345' });
   assert.equal((await nextMessage(t, 'welcome')).role, 'teacher');
@@ -124,8 +125,8 @@ test('a save while the gate is on takes effect immediately, and the download is 
   const bytes = Buffer.from(await (await api('/roster.csv')).arrayBuffer());
   assert.deepEqual([...bytes.subarray(0, 3)], [0xef, 0xbb, 0xbf], 'a BOM for Excel');
   const csv = bytes.toString('utf8').slice(1);
-  assert.ok(csv.startsWith('name,teacher,premium,pin,stopped\r\n'));
-  assert.match(csv, /^Ben,FALSE,FALSE,,FALSE$/m);
+  assert.ok(csv.startsWith('class,name,teacher,premium,pin,stopped\r\n'));
+  assert.match(csv, /^,Ben,FALSE,FALSE,,FALSE$/m);
   assert.ok(!/Aki/.test(csv));
   // Off again: anyone, and the setting survives in its file.
   await api('/enforce', { method: 'PUT', body: { enforce: false } });
@@ -136,14 +137,14 @@ test('a save while the gate is on takes effect immediately, and the download is 
 test('the 先生か column: true + あいことば makes a teacher without the key, in either gate mode, and round-trips', async () => {
   // A CSV with a teacher column (either language) is read on the server. 2026-10: a teacher row needs an あいことば (pin).
   const parsed = await (await api('/parse', { method: 'POST', body: 'name,先生か,あいことば\nMs Sato,true,sato-pass\nKen,false,\nYumi,,\n', type: 'text/plain' })).json();
-  assert.deepEqual(parsed.rows, [{ name: 'Ms Sato', teacher: true, premium: false, pin: 'sato-pass', stopped: false }, { name: 'Ken', teacher: false, premium: false, pin: '', stopped: false }, { name: 'Yumi', teacher: false, premium: false, pin: '', stopped: false }]);
+  assert.deepEqual(parsed.rows, [{ class: '', name: 'Ms Sato', teacher: true, premium: false, pin: 'sato-pass', stopped: false }, { class: '', name: 'Ken', teacher: false, premium: false, pin: '', stopped: false }, { class: '', name: 'Yumi', teacher: false, premium: false, pin: '', stopped: false }]);
   const saved = await (await api('/roster', { method: 'PUT', body: { rows: parsed.rows } })).json();
   assert.ok(saved.ok);
   assert.deepEqual(saved.rows, parsed.rows);
-  assert.deepEqual((await (await api('/roster')).json()).rows.find((r) => r.name === 'Ms Sato'), { name: 'Ms Sato', teacher: true, premium: false, pin: 'sato-pass', stopped: false });
+  assert.deepEqual((await (await api('/roster')).json()).rows.find((r) => r.name === 'Ms Sato'), { class: '', name: 'Ms Sato', teacher: true, premium: false, pin: 'sato-pass', stopped: false });
   const csv = Buffer.from(await (await api('/roster.csv')).arrayBuffer()).toString('utf8');
-  assert.match(csv, /^Ms Sato,TRUE,FALSE,sato-pass,FALSE$/m);
-  assert.match(csv, /^Ken,FALSE,FALSE,,FALSE$/m);
+  assert.match(csv, /^,Ms Sato,TRUE,FALSE,sato-pass,FALSE$/m);
+  assert.match(csv, /^,Ken,FALSE,FALSE,,FALSE$/m);
   // Gate open (the default): the teacher row + its pin decide the role. The name alone is a student.
   const t = await join('ms sato', '6-1', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t, 'welcome')).role, 'teacher'); await t.leave(); await sleep(100);
   // The name alone, or a wrong pin, does not even get in (nobody can sit down as the teacher).
@@ -208,12 +209,27 @@ test('停止の 列：true の アカウントは 入れない。入ったまま
   assert.equal((await nextMessage(key, 'welcome')).role, 'teacher');
   await key.leave();
   const csv = await (await api('/roster.csv')).text();
-  assert.match(csv, /name,teacher,premium,pin,stopped/);
+  assert.match(csv, /class,name,teacher,premium,pin,stopped/);
   assert.match(csv, /Ken,FALSE,FALSE,,TRUE/);
   const back = rosterFromText('name,停止\nAoi,true\nRio,false');
   assert.deepEqual(back.map((r) => [r.name, !!r.stopped]), [['Aoi', true], ['Rio', false]]);
   await api('/roster', { method: 'PUT', body: { rows: [] } });
   await sleep(100);
+});
+
+test('クラスコードの 列：書いた 人は その クラスコードでしか 入れない（空は どの クラスでも・大文字小文字は 区別しない）', async () => {
+  await api('/enforce', { method: 'PUT', body: { enforce: true } });
+  await api('/roster', { method: 'PUT', body: { rows: [{ class: 'IAC', name: 'IACteacher1', teacher: true, premium: true, pin: 'iac-pass-1' }, { class: 'IAC', name: 'Haru' }, { name: 'Ken' }] } });
+  const got = await (await api('/roster')).json();
+  assert.deepEqual(got.rows.map((r) => [r.class, r.name]), [['IAC', 'IACteacher1'], ['IAC', 'Haru'], ['', 'Ken']]);
+  assert.match(await (await api('/roster.csv')).text(), /^IAC,IACteacher1,TRUE,TRUE,iac-pass-1,FALSE$/m);
+  const t = await join('IACteacher1', 'iac', { teacherKey: 'iac-pass-1' }); assert.equal((await nextMessage(t, 'welcome')).role, 'teacher'); await t.leave(); await sleep(100);
+  const h = await join('Haru', 'IAC'); assert.equal((await nextMessage(h, 'welcome')).role, 'student'); await h.leave(); await sleep(100);
+  await assert.rejects(() => join('IACteacher1', 'other', { teacherKey: 'iac-pass-1' }), /register|4004|4003|not/i, 'ほかの クラスコードでは 入れない');
+  await assert.rejects(() => join('Haru', 'other'), /register|4004|4003|not/i);
+  const k = await join('Ken', 'other'); await nextMessage(k, 'welcome'); await k.leave(); await sleep(100);   // 空の 人は どこでも
+  await api('/roster', { method: 'PUT', body: { rows: [] } });
+  await api('/enforce', { method: 'PUT', body: { enforce: false } });
 });
 
 test('eight wrong passwords lock the door for a while', async () => {
