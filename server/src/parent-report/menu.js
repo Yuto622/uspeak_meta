@@ -114,6 +114,8 @@ function gameCard() {
 export function menuReply(action, { kids = [], pref = 'class', registered = false } = {}) {
   if (action.kind === 'game') return [gameCard()];   // 登録が なくても 見せて よい（あそびかたの 案内だけ）
   if (!registered) return [text(NOT_YET)];
+  // 登録は あるが、子が もう 教室に いない（名簿から 消した など）ときも だまらない。
+  if (!kids.length && action.kind !== 'pref') return [text('いま この LINE で 見られる お子さまの レポートは ありません。くわしくは 教室に おたずね ください。')];
   const active = kids.filter((k) => !k.paused);
   const pausedLine = kids.filter((k) => k.paused).map((k) => `${k.nick}さんの レポートは 教室で 止めて います。`).join('\n');
   if (action.kind === 'report') {

@@ -29,7 +29,7 @@ const fmt = (s, a = {}) => String(s || '').replace(/\{(\w+)\}/g, (_, k) => (a[k]
 const hhmm = (s) => { const [h, m] = String(s || '19:00').split(':').map(Number); return (h || 0) * 60 + (m || 0); };
 
 export function createParentReports({
-  store, roster = null, seats = null, reports, roblox = null, homework = null, roadmap = null, renderer, line, log = console, now = Date.now,
+  store, roster = null, rosterOn = () => false, seats = null, reports, roblox = null, homework = null, roadmap = null, renderer, line, log = console, now = Date.now,
   baseUrl = process.env.REPORT_BASE_URL || '', liffId = process.env.LIFF_ID || '', opsUserId = process.env.OPS_LINE_USER_ID || '',
   filesDir = '',
 }) {
@@ -60,7 +60,12 @@ export function createParentReports({
     const userOf = (name) => (roblox?.usernameFor ? roblox.usernameFor(classCode, name) : name);
     let records = [];
     try { records = store.listClass?.(classCode) || []; } catch (err) { log.warn?.('[parent-report] listClass failed:', err.message); }
-    for (const r of records) if (r?.name && r.role !== 'teacher') add(userOf(r.name), r.name);
+    // 名簿で 制限 ON の ときは、Web の 記録の 子は 名簿に いる 子だけ（名簿から 消した 子は もう 入れないので、
+    // レポートにも LINE の メニューにも 出さない）。Roblox だけの 子（紐づけ・記録・座席）は 下で そのまま。
+    const fold = (s) => String(s ?? '').normalize('NFKC').trim().toLowerCase();
+    const onRoster = new Set((await rosterRows()).filter((r) => r?.name && (r.class === '*' || fold(r.class) === fold(classCode))).map((r) => fold(r.name)));
+    const strict = !!rosterOn();
+    for (const r of records) if (r?.name && r.role !== 'teacher' && (!strict || onRoster.has(fold(r.name)))) add(userOf(r.name), r.name);
     for (const r of await rosterRows()) if (r?.name && !r.teacher && r.class === classCode) add(userOf(r.name), r.name);
     try {
       for (const l of (await store.listRobloxLinks?.()) || []) if (l?.username && l.class === classCode) add(l.username, l.name || l.username);
@@ -612,8 +617,15 @@ export function createParentReports({
   async function answerMenu(uid, action, replyToken) {
     const links = reports.links({ lineUserId: uid, status: 'active' });
     const kids = [];
+    // もう 教室に いない 子（名簿から 消した など）は 出さない。教室ごとに 1 回だけ 一覧を 作る。
+    const inClass = new Map();
+    const stillThere = async (code, u) => {
+      if (!inClass.has(code)) inClass.set(code, new Set((await students(code)).map((x) => x.username.toLowerCase())));
+      return inClass.get(code).has(String(u || '').toLowerCase());
+    };
     for (const l of links) {
       if (kids.some((k) => k.classCode === l.classroom_id && k.username === l.student_username)) continue;
+      if (rosterOn() && !(await stillThere(l.classroom_id, l.student_username))) continue;
       const s = reports.settings(l.classroom_id);
       const paused = (s.paused_students || []).includes(l.student_username);
       const st = { username: l.student_username, nick: l.nickname || l.student_username };

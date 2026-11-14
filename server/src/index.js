@@ -106,7 +106,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   const roadmapStore = await new RoadmapStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roadmap.json'), { log }).init();
   const roadmap = createRoadmapService({ store, roadmap: roadmapStore, roblox, log });
   const parentReports = await setupParentReports({
-    store, roster, seats, roblox, homework, roadmap, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
+    store, roster, rosterOn: () => access.mode() === 'roster', seats, roblox, homework, roadmap, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
     baseUrl: config.corsOrigins.find((o) => /^https?:\/\//.test(o)) || '',
   });
   // LINE の 下の メニュー：まだ ない（か 古い）ときだけ 登録する。起動は 待たない。

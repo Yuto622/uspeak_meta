@@ -121,11 +121,13 @@ function harness({ students = [{ name: 'Taro' }, { name: 'Hana' }], events = [],
   line.verifyIdToken = async (t) => (verified.has(t) ? { userId: verified.get(t) } : null);
   let renders = 0;
   const renderer = { mode: 'fake', available: async () => true, render: async (src, { kind }) => { renders += 1; return { pdf: Buffer.from('%PDF'), png: kind === 'cards' ? undefined : Buffer.from('png'), thumb: kind === 'cards' ? undefined : Buffer.from('t') }; } };
+  let rosterOn = false;
   const service = createParentReports({
+    rosterOn: () => rosterOn,
     store: main, seats, reports, roblox: { usernameFor: (c, n) => n.toLowerCase() }, renderer, line, log: { info() {}, warn() {} }, now: () => now,
     baseUrl: 'https://example.test', liffId: 'LIFF', opsUserId: 'Uops', filesDir: mkdtempSync(path.join(tmpdir(), 'pr-')),
   });
-  return { service, reports, line, verified, get renders() { return renders; } };
+  return { service, reports, line, verified, get renders() { return renders; }, setRosterOn: (v) => { rosterOn = !!v; } };
 }
 const week41 = (u) => [quiz(at(2026, 10, 6), 'apple', true, {}, u), quiz(at(2026, 10, 7), 'apple', true, {}, u), quiz(at(2026, 10, 8), 'apple', true, {}, u)];
 
@@ -414,6 +416,27 @@ test('menu: ボタンと 同じ ことばの メッセージだけに こたえ�
   assert.ok(json.includes('はじめの ことば') && json.includes('たんご') && json.includes('英検5級') && json.includes('https://example.com/r'));
   assert.ok(json.length < 30000, 'Flex は 30KB まで');
   assert.match(menuReply({ kind: 'report' }, { registered: false })[0].text, /QR/);
+});
+
+test('名簿で 制限 ON：名簿から 消した Web の 子は 生徒にも LINE の メニューにも 出ない（Roblox だけの 子は のこる）', async () => {
+  // Hana は Web の 記録だけ（Roblox の 記録なし）・名簿には いない。Taro は Roblox の 記録が ある。
+  const h = harness({ events: week41('taro'), roster: [{ class: '*', name: 'Taro' }] });
+  h.reports.saveSettings('c1', { enabled: true });
+  h.reports.addLink({ classroomId: 'c1', username: 'hana', nickname: 'Hana', lineUserId: 'Ugone', consentVersion: 'v1' });
+  const ask = async (tok) => {
+    h.service.onWebhookEvents([{ type: 'postback', replyToken: tok, source: { userId: 'Ugone' }, postback: { data: 'menu=report' } }]);
+    for (let i = 0; i < 80 && !h.line.sent.some((p) => p.replyToken === tok); i += 1) await new Promise((r) => setTimeout(r, 10));
+    return h.line.sent.find((p) => p.replyToken === tok).messages;
+  };
+  assert.equal((await ask('rt-on0'))[0].type, 'image', '制限 OFF の あいだは いままでどおり');
+  assert.ok(typeof h.setRosterOn === 'function', 'harness が 名簿の きりかえを もつ');
+  h.setRosterOn(true);
+  const m = await ask('rt-on1');
+  assert.ok(!m.some((x) => x.type === 'image'), '名簿に いない 子の 画像は 出さない');
+  assert.match(m[0].text, /見られる お子さまの レポートは ありません/, 'だまらずに わけを 言う');
+  const names = (await h.service.students('c1')).map((x) => x.username);
+  assert.ok(!names.includes('hana'), 'レポートの 生徒にも 出ない');
+  assert.ok(names.includes('taro'), '名簿に いる 子（と Roblox の 子）は のこる');
 });
 
 test('menu: 前の デザインで 作った 画像は、レポートを 見る ときに いまの デザインで 作りなおす', async () => {
