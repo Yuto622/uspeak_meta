@@ -163,20 +163,30 @@ export function catchFish(fw, fish) {
   return { first, bonus: first ? FW.dexBonus : 0 };
 }
 
-export function sellFrom(fw, en) {
+// budget：きょう あと うれる コイン（部屋の 1 日の 上限）。「ぜんぶ」は 上限に 入る ぶんだけ 高い ほうから うる
+// （前は 1 円でも こえると まるごと ことわって いた）。1 ぴきは その 値段が 入らなければ 'sell cap'。
+export function sellFrom(fw, en, budget = Infinity) {
   if (en === '*') {
-    let total = 0; let count = 0;
-    for (const [name, n] of Object.entries(fw.bag)) { const f = FW.fishByEn.get(name.toLowerCase()); if (!f) continue; total += f.sell * n; count += n; }
-    if (!count) throw new FishworldError('nothing to sell');
-    fw.bag = {};
-    return { coins: total, count, item: '*' };
+    const all = Object.entries(fw.bag).map(([name, n]) => [name, n, FW.fishByEn.get(name.toLowerCase())]).filter(([, , f]) => f);
+    if (!all.length) throw new FishworldError('nothing to sell');
+    all.sort((a, b) => b[2].sell - a[2].sell);
+    let total = 0; let count = 0; let left = 0;
+    for (const [name, n, f] of all) {
+      let k = 0;
+      while (k < n && total + f.sell <= budget) { total += f.sell; k += 1; }
+      count += k; left += n - k;
+      if (n - k > 0) fw.bag[name] = n - k; else delete fw.bag[name];
+    }
+    if (!count) throw new FishworldError('sell cap');
+    return { coins: total, count, item: '*', left };
   }
   const f = FW.fishByEn.get(String(en || '').toLowerCase());
   const have = f ? fw.bag[f.en] || 0 : 0;
   if (!f || !have) throw new FishworldError('nothing to sell');
+  if (f.sell > budget) throw new FishworldError('sell cap');
   fw.bag[f.en] = have - 1;
   if (!fw.bag[f.en]) delete fw.bag[f.en];
-  return { coins: f.sell, count: 1, item: f.en };
+  return { coins: f.sell, count: 1, item: f.en, left: 0 };
 }
 
 export const fishPayload = (f) => ({ en: f.en, ja: f.ja, rarity: f.rarity, stars: FW.rarity[f.rarity]?.stars || '', color: FW.rarity[f.rarity]?.color || '#78C882', label: RARITY_LABEL[f.rarity], zone: f.zone, sell: f.sell, emoji: f.emoji, photo: f.photo || '', kind: f.kind });

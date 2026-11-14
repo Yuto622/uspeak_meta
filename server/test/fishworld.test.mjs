@@ -127,6 +127,20 @@ test('くじ：catchRates の確率どおり、正解のあとは ゴミが出�
   assert.ok(lottery(3, 'perfect', { rng }).zone !== 1);
 });
 
+test('きょうの 上限：1 ぴきは 値段が 入らないと sell cap、ぜんぶ うるは 入る ぶんだけ 高い ほうから（のこりは かごに）', () => {
+  const fw = blankFw();
+  const cheap = FW.fish.filter((f) => f.kind !== 'trash').sort((a, b) => a.sell - b.sell)[0];
+  const dear = FW.fish.filter((f) => f.kind !== 'trash').sort((a, b) => b.sell - a.sell)[0];
+  fw.bag[cheap.en] = 3; fw.bag[dear.en] = 1;
+  assert.throws(() => sellFrom(fw, dear.en, dear.sell - 1), /sell cap/);
+  assert.equal(fw.bag[dear.en], 1, 'ことわった ときは かごは そのまま');
+  const r = sellFrom(fw, '*', dear.sell + cheap.sell);
+  assert.equal(r.coins, dear.sell + cheap.sell); assert.equal(r.count, 2); assert.equal(r.left, 2);
+  assert.equal(fw.bag[cheap.en], 2); assert.equal(fw.bag[dear.en], undefined);
+  assert.throws(() => sellFrom(fw, '*', cheap.sell - 1), /sell cap/, '1 ぴきも 入らない ときは sell cap');
+  assert.equal(fw.bag[cheap.en], 2);
+});
+
 test('図鑑：初めての魚は +dexBonus、2匹目は 0。売ると袋から減って図鑑には残る', () => {
   const fw = blankFw();
   const tuna = FW.fishByEn.get('amberjack');
@@ -136,8 +150,8 @@ test('図鑑：初めての魚は +dexBonus、2匹目は 0。売ると袋から�
   const boot = FW.fishByEn.get('boot');
   assert.deepEqual(catchFish(fw, boot), { first: false, bonus: 0 }, 'ゴミは図鑑にも袋にも入らない');
   assert.equal(fw.bag.Boot, undefined);
-  assert.deepEqual(sellFrom(fw, 'Amberjack'), { coins: tuna.sell, count: 1, item: 'Amberjack' });
-  assert.deepEqual(sellFrom(fw, '*'), { coins: tuna.sell, count: 1, item: '*' });
+  assert.deepEqual(sellFrom(fw, 'Amberjack'), { coins: tuna.sell, count: 1, item: 'Amberjack', left: 0 });
+  assert.deepEqual(sellFrom(fw, '*'), { coins: tuna.sell, count: 1, item: '*', left: 0 });
   assert.throws(() => sellFrom(fw, 'Amberjack'), FishworldError);
   assert.ok(fw.dex.includes('Amberjack'), '売っても図鑑には残る');
   const s = statePayload(fw);

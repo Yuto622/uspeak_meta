@@ -3326,7 +3326,8 @@ export class ClassRoom extends Room {
 
   fwPayload(sessionId) {
     const priv = this.priv.get(sessionId);
-    return { ...fwState(priv.fw), ...this.walletPayload(sessionId) };
+    // sellLeft：きょう あと うれる コイン（かごの 画面に 出す・うれない ボタンを 止める）。
+    return { ...fwState(priv.fw), ...this.walletPayload(sessionId), sellLeft: roomLeft(priv.caps, 'sell', SELL_CAP), sellCap: SELL_CAP };
   }
 
   onFwOpen(client, msg) {
@@ -3435,17 +3436,16 @@ export class ClassRoom extends Room {
     const spot = typeof msg?.spot === 'string' ? msg.spot : '';
     if (!FW.spotById.has(spot) || !this.atFwSpot(client.sessionId, spot)) { client.send('fw:error', { reason: 'too far', spot }); return; }
     try {
-      const trial = sellFrom(structuredClone(priv.fw), msg?.all ? '*' : String(msg?.en || ''));
-      if (trial.coins > roomLeft(priv.caps, 'sell', SELL_CAP)) { client.send('fw:error', { reason: 'sell cap' }); return; }
-      const sold = sellFrom(priv.fw, msg?.all ? '*' : String(msg?.en || ''));
+      // きょうの 上限の のこりの 中で うる（ぜんぶ うるは 入る ぶんだけ。のこりは かごに）。
+      const sold = sellFrom(priv.fw, msg?.all ? '*' : String(msg?.en || ''), roomLeft(priv.caps, 'sell', SELL_CAP));
       priv.caps.sell += sold.coins;
       const entry = applyOp(priv.wallet, { type: 'award', amount: sold.coins, id: `fish_sell:${sold.item}` });
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
-      client.send('fw:sold', { coins: sold.coins, count: sold.count, item: sold.item, ...this.fwPayload(client.sessionId) });
+      client.send('fw:sold', { coins: sold.coins, count: sold.count, item: sold.item, left: sold.left, ...this.fwPayload(client.sessionId) });
       this.persist(client.sessionId);
     } catch (err) {
       if (!(err instanceof FishworldError)) throw err;
-      client.send('fw:error', { reason: err.message });
+      client.send('fw:error', { reason: err.message, sellLeft: roomLeft(priv.caps, 'sell', SELL_CAP) });
     }
   }
 

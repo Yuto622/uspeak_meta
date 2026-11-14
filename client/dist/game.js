@@ -29,7 +29,8 @@ const $=s=>document.querySelector(s);const canvas=$('#world');
 const lessons=WILLOW_LESSONS;
 let saved;try{saved=JSON.parse(localStorage.getItem('uspeak-willow-v1'))}catch{}let done=Array.isArray(saved?.done)?saved.done.filter(n=>Number.isInteger(n)&&n>=0&&n<4):[];done=[...new Set(done)];let words=Array.isArray(saved?.words)?saved.words.filter(w=>Array.isArray(w)&&w.length===2&&w.every(s=>typeof s==='string')&&!/^\d+$/.test(w[0].trim())):[];let selected=lessons.findIndex((_,i)=>!done.includes(i));if(selected<0)selected=0;let muted=false,activeLesson=0,step=0,nearest=-1;const dialog=$('#dialog');
 function persist(){try{localStorage.setItem('uspeak-willow-v1',JSON.stringify({done,words}))}catch{toast(tr('この ブラウザでは すすみぐあいを のこせません'))}}
-function toast(s){$('#toast').textContent=s;$('#toast').style.opacity=1;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('#toast').style.opacity=0,3500)}
+// お知らせは いちばん 上の ひらいた ダイアログの 中に 出す（body に あると モーダルの うしろに かくれて「押しても 何も おきない」に 見えた）。
+function toast(s){const t=$('#toast'),top=[...document.querySelectorAll('dialog[open]')].filter(d=>{try{return d.matches(':modal')}catch{return true}}).pop()||document.querySelector('main');if(t&&top&&t.parentElement!==top)top.append(t);$('#toast').textContent=s;$('#toast').style.opacity=1;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('#toast').style.opacity=0,3500)}
 // 読み上げは speech.js が1か所で持つ。**日本語と英語で声と速さを変え、日本語からは
 // 声に出てしまう記号（？ ！ 「」 …）を落とす。** 前はどんな文も英語の声で読んでいて、
 // 日本語がロボットのように聞こえ、「？」まで読み上げていた。

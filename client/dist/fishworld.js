@@ -156,13 +156,22 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
   function renderBag() {
     const d = state.data;
     const count = d.bag.reduce((s, f) => s + f.n, 0);
+    // きょう あと うれる コイン（部屋が 決める 1 日の 上限）。入らない さかなの ボタンは わけを 書いて 止める。
+    const left = Number.isFinite(d.sellLeft) ? d.sellLeft : Infinity;
+    const capped = left < d.bagValue;
+    const capLine = Number.isFinite(left)
+      ? `<p class="fw-capline ${left <= 0 ? 'none' : ''}">${left <= 0 ? bi('You sold enough for today. Your fish wait in the basket until tomorrow.', 'きょうは もう うれないよ。さかなは かごで あしたまで まってるよ。') : bi(`You can sell ◈ ${left} more today.`, `きょう あと ◈ ${left} ぶん うれるよ`)}</p>` : '';
+    const allLabel = capped && left > 0 ? bi('Sell what you can', 'うれる だけ うる') : bi(`Sell all · ◈ ${d.bagValue}`, `ぜんぶ うる · ◈ ${d.bagValue}`);
     body.innerHTML = `<div class="fw-bagtop">
         <div class="fw-bagsum"><span>🧺</span><p>${bi('In your basket', 'かごの さかな')} <b>${count}</b></p><p class="fw-price">◈ ${d.bagValue}</p></div>
-        <button type="button" class="fw-sellall" ${d.bag.length ? '' : 'disabled'}>${bi(`Sell all · ◈ ${d.bagValue}`, `ぜんぶ うる · ◈ ${d.bagValue}`)}</button></div>
-      <div class="fw-grid">${d.bag.map((f) => card({ ...f, have: true }, `<em class="fw-count">×${f.n}</em><button type="button" class="fw-sell" data-en="${esc(f.en)}">◈ ${f.sell} ${bi('Sell', 'うる')}</button>`)).join('') || `<div class="fw-empty"><span>🎣</span><p>${bi('No fish yet. Go and cast!', 'まだ さかなは ありません。さおを なげよう！')}</p></div>`}</div>
+        <button type="button" class="fw-sellall" ${d.bag.length && left > 0 ? '' : 'disabled'}>${allLabel}</button></div>
+      ${capLine}
+      <div class="fw-grid">${d.bag.map((f) => card({ ...f, have: true }, `<em class="fw-count">×${f.n}</em>${f.sell > left
+        ? `<button type="button" class="fw-sell" disabled>${bi('Tomorrow', 'あした うれる')}</button>`
+        : `<button type="button" class="fw-sell" data-en="${esc(f.en)}">◈ ${f.sell} ${bi('Sell', 'うる')}</button>`}`)).join('') || `<div class="fw-empty"><span>🎣</span><p>${bi('No fish yet. Go and cast!', 'まだ さかなは ありません。さおを なげよう！')}</p></div>`}</div>
       <p class="fw-fine">${bi('Sold fish stay in your Dex.', 'うっても ずかんには のこります。')}</p>`;
     $('.fw-sellall', body).onclick = () => send('fw:sell', { spot: state.spot, all: true });
-    body.querySelectorAll('.fw-sell').forEach((b) => { b.onclick = () => send('fw:sell', { spot: state.spot, en: b.dataset.en }); });
+    body.querySelectorAll('.fw-sell[data-en]').forEach((b) => { b.onclick = () => { b.disabled = true; send('fw:sell', { spot: state.spot, en: b.dataset.en }); }; });
   }
 
   // ---- さおを なげる（島の上で）----
@@ -340,10 +349,11 @@ export function createFishworldUI({ send, toast, speak, isOnline, island }) {
     show(); renderAsk(m);
   }
   function onCaught(m) { state.data = { ...state.data, ...m }; $('#fw-coins', dialog).textContent = (m.wallet?.coins ?? state.data?.wallet?.coins ?? 0).toLocaleString(); onCatch(m); }
-  function onSold(m) { state.data = { ...state.data, ...m }; $('#fw-coins', dialog).textContent = (m.wallet?.coins ?? 0).toLocaleString(); toast(tr('◈ {n} コインに なりました！', { n: m.coins })); render(); }
+  function onSold(m) { state.data = { ...state.data, ...m }; $('#fw-coins', dialog).textContent = (m.wallet?.coins ?? 0).toLocaleString(); toast(m.left ? tr('◈ {n} コインに なりました！（のこりは あした うれるよ）', { n: m.coins }) : tr('◈ {n} コインに なりました！', { n: m.coins })); render(); }
   function onError(m) {
     const why = { 'sell cap': 'きょうは もう うれないよ。あした また うってね。', 'too far': 'つりばに たってね。', 'no question': 'さおを なげなおそう。', 'nothing on the line': 'さおを なげなおそう。', 'nothing to sell': 'うる さかなが ないよ。', 'too fast': 'ちょっと まってね。', 'no questions': 'この つり場の 問題は じゅんび ちゅうだよ。' }[m.reason] || m.reason;
     toast(tr(why));
+    if (m.reason === 'sell cap' || m.reason === 'nothing to sell') { if (Number.isFinite(m.sellLeft)) state.data = { ...state.data, sellLeft: m.sellLeft }; if (dialog.open) render(); }
     if (state.view === 'cast') { clearTimeout(state.wait); isl()?.endCast?.(); hud.hidden = true; state.view = 'zone'; if (m.reason !== 'too far') { show(); render(); } }
     if (m.reason === 'too far' || m.reason === 'no questions') close();
   }
