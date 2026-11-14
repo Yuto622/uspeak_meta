@@ -416,6 +416,19 @@ test('menu: ボタンと 同じ ことばの メッセージだけに こたえ�
   assert.match(menuReply({ kind: 'report' }, { registered: false })[0].text, /QR/);
 });
 
+test('menu: 前の デザインで 作った 画像は、レポートを 見る ときに いまの デザインで 作りなおす', async () => {
+  const { templateVersion } = await import('../src/parent-report/render-tex.js');
+  const h = harness({ events: week41('taro') });
+  h.reports.saveSettings('c1', { enabled: true });
+  h.reports.addLink({ classroomId: 'c1', username: 'taro', nickname: 'Taro', lineUserId: 'Uold', consentVersion: 'v1' });
+  await h.service.deliverClass('c1', { period: weekOf(at(2026, 10, 6)) });
+  for (const r of h.reports.reports({ student_username: 'taro' })) r.template_version = 't0-olddesign';
+  h.service.onWebhookEvents([{ type: 'postback', replyToken: 'rt-old', source: { userId: 'Uold' }, postback: { data: 'menu=report' } }]);
+  for (let i = 0; i < 80 && !h.line.sent.some((p) => p.replyToken === 'rt-old'); i += 1) await new Promise((r) => setTimeout(r, 10));
+  assert.equal(h.line.sent.find((p) => p.replyToken === 'rt-old').messages[0].type, 'image');
+  assert.ok(h.reports.reports({ student_username: 'taro' }).some((r) => r.template_version === templateVersion() && !r.revoked_at), 'いまの デザインの 画像が できた');
+});
+
 test('menu: 下の ボタンで さいしんの レポート・宿題・とどく 回数。返事は reply（push の 通数に ならない）', async () => {
   const h = harness({ events: week41('taro') });
   h.reports.saveSettings('c1', { enabled: true });

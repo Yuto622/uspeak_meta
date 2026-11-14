@@ -624,8 +624,9 @@ export function createParentReports({
           const latest = reports.reports({ student_username: st.username, classroom_id: l.classroom_id, kind: 'weekly' })
             .filter((r) => !r.revoked_at && Date.parse(r.expires_at) > now()).sort((a, b) => b.period_key.localeCompare(a.period_key))[0];
           // まだ 1 まいも ない（配信の 前・画像が ない 古い もの）ときは、その場で 先週ぶんを 作る（返事に 画像を かならず つける）。
+          // デザインを かえた あとは、前の デザインで 作った 画像も 作りなおす（template_version が ちがう）。
           let rep = latest;
-          if (!rep?.png_url) {
+          if (!rep?.png_url || rep.template_version !== templateVersion()) {
             try { rep = (await buildReport(l.classroom_id, st, 'weekly', lastWeek(now()), { force: !!latest })).report; } catch (err) { log.warn?.('[line] menu report could not be built:', err.message); }
           }
           let range = '';
