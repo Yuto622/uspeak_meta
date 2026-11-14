@@ -852,7 +852,14 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (!r) r = await client.joinOrCreate('class', joinOptions());
       bind(r, viaToken);
     } catch (err) {
-      if (err?.code === 4008) { setMode('offline'); lobby.open({ error: friendlyError(err) }); return; }
+      // 名簿に ことわられた（停止・先生パスワード・名簿に ない・クラスコード）は、何回 やっても 同じ。
+      // やりなおさず すぐ ロビーへ（前は 40 回・約 3 分「つなぎ なおしています…」の まま 止まって 見えた）。
+      if ([4004, 4005, 4007, 4008].includes(err?.code)) {
+        storage.remove(sessionStorage, STORAGE_KEYS.session);
+        setMode('offline');
+        lobby.open({ error: friendlyError(err), name: state.name });
+        return;
+      }
       state.attempts += 1;
       if (state.attempts >= NET.RECONNECT_MAX_ATTEMPTS) {
         setMode('offline');
