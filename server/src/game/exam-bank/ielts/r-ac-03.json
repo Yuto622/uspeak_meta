@@ -97,10 +97,10 @@
   "choices": [
    "The Pueblo roof beams had been damaged by fire.",
    "Archaeologists refused to accept Douglass's methods.",
-   "Two sequences of tree rings could not at first be joined together.",
+   "Two sequences could not at first be linked.",
    "There were not enough beams to build a sequence."
   ],
-  "answer": "Two sequences of tree rings could not at first be joined together.",
+  "answer": "Two sequences could not at first be linked.",
   "explanation": "C段落：現在から さかのぼる 系列と「floating」系列の 間に「a gap separated them」。",
   "tags": "IELTS reading academic 考古学 年輪年代学 多肢選択"
  },
@@ -114,7 +114,7 @@
   "question": "Choose the correct answer.\n\nAccording to paragraph F, a tree-ring date may be misleading because",
   "choices": [
    "tropical trees produce two rings each year.",
-   "rings become harder to see as wood gets older.",
+   "rings become much harder to see as the wood gets older and darker.",
    "fires can change the width of the rings.",
    "timber may have been reused or had its outer layers removed."
   ],
@@ -245,7 +245,7 @@
    "attract other dinoflagellates for reproduction.",
    "confuse the predators that hunt them directly.",
    "make the animals feeding on them easier for predators to see.",
-   "communicate with nearby swimmers and boats."
+   "warn other dinoflagellates nearby that a predator is approaching."
   ],
   "answer": "make the animals feeding on them easier for predators to see.",
   "explanation": "D段落「by lighting up the small animals that feed on them, they make those grazers more visible to larger predators」。",
@@ -263,9 +263,9 @@
    "It was the first luciferase ever isolated.",
    "It helped jellyfish to hide from predators.",
    "It produced light without needing oxygen.",
-   "It enabled scientists to observe activity inside living cells."
+   "It made processes in living cells visible."
   ],
-  "answer": "It enabled scientists to observe activity inside living cells.",
+  "answer": "It made processes in living cells visible.",
   "explanation": "F段落「allowing scientists to observe processes inside living cells that had previously been invisible」。",
   "tags": "IELTS reading academic 科学 生物発光 多肢選択"
  },
@@ -408,7 +408,7 @@
   "question": "Choose the correct answer.\n\nWhy did the natural ice trade come to an end?",
   "choices": [
    "People stopped wanting cold drinks.",
-   "Norway took over the trade from the United States.",
+   "Norway took over most of the trade from American ice companies.",
    "Ice houses became too expensive to build.",
    "Pollution and cheaper artificial ice reduced demand for it."
   ],
@@ -537,7 +537,7 @@
   "question": "Choose the correct answer.\n\nWhat was the main advantage of Yoshino's design?",
   "choices": [
    "It used cobalt instead of titanium.",
-   "It could be produced without an electrolyte.",
+   "It could be produced without any liquid electrolyte.",
    "It did not contain any reactive lithium metal.",
    "It doubled the voltage of earlier batteries."
   ],

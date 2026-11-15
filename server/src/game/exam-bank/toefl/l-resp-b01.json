@@ -1,0 +1,614 @@
+[
+ {
+  "id": "TOEFL-LR-501",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Man: I'm thinking about dropping my statistics class.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I dropped my phone and broke it.",
+   "Statistics show that sales are rising.",
+   "Why? Is it harder than you expected?",
+   "The class is at nine in the morning."
+  ],
+  "answer": "Why? Is it harder than you expected?",
+  "explanation": "授業をやめようか考えているという発言に、理由を尋ねる応答が自然。",
+  "tags": "TOEFL2026 listening choose-a-response course"
+ },
+ {
+  "id": "TOEFL-LR-502",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Man: Is it possible to change roommates in the middle of the semester?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "Yes, but you have to talk to your resident advisor first.",
+   "My roommate is studying architecture, so she's always building models in our room.",
+   "The semester ends in December.",
+   "It's possible that it'll rain later."
+  ],
+  "answer": "Yes, but you have to talk to your resident advisor first.",
+  "explanation": "学期途中のルームメイト変更が可能かという質問に、条件付きで答えている応答が正解。",
+  "tags": "TOEFL2026 listening choose-a-response housing"
+ },
+ {
+  "id": "TOEFL-LR-503",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Woman: Do you know which room the materials science lecture moved to?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "The lecture was about metals and ceramics, and I took a lot of notes.",
+   "I moved to a new apartment in August.",
+   "Materials science is a very difficult major.",
+   "It's in Hall B now, on the first floor."
+  ],
+  "answer": "It's in Hall B now, on the first floor.",
+  "explanation": "教室がどこに移ったかを尋ねているので、新しい場所を答える応答が正解。move の繰り返しに注意。",
+  "tags": "TOEFL2026 listening choose-a-response course"
+ },
+ {
+  "id": "TOEFL-LR-504",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Woman: If it weren't for the long walk, the apartment would be perfect.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "It is perfect, then.",
+   "I walked there last weekend.",
+   "Have you considered getting a bike? There's a path along the river.",
+   "The apartment has two bedrooms and a balcony that looks out over the park by the river."
+  ],
+  "answer": "Have you considered getting a bike? There's a path along the river.",
+  "explanation": "If it weren't for ～「～がなければ」。唯一の欠点への対策を提案する応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response housing"
+ },
+ {
+  "id": "TOEFL-LR-505",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Woman: Didn't Dr. Okafor say the incubator would be fixed by today?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "She said hello to me this morning.",
+   "Incubators keep samples warm.",
+   "She did, but the replacement part hasn't arrived.",
+   "Today is Dr. Okafor's birthday."
+  ],
+  "answer": "She did, but the replacement part hasn't arrived.",
+  "explanation": "修理予定についての否定疑問に、予定通りにならなかった理由を答える応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response lab"
+ },
+ {
+  "id": "TOEFL-LR-506",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Man: Not that I'm complaining, but the new safety protocol adds about an hour to every session.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I'm not complaining about the food.",
+   "Protocols are written by the lab manager and reviewed by the university's safety office.",
+   "An hour is sixty minutes.",
+   "True, though it should cut down on contamination problems."
+  ],
+  "answer": "True, though it should cut down on contamination problems.",
+  "explanation": "Not that I'm complaining は遠回しな不満。不満を認めつつ利点を示す応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response lab"
+ },
+ {
+  "id": "TOEFL-LR-507",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Man: Someone left the chemistry lab door unlocked last night.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I locked my bike near the gym.",
+   "We'd better tell the lab manager about it.",
+   "Chemistry lab reports are due on Friday, so I'll be busy this week.",
+   "Last night's lecture was fascinating."
+  ],
+  "answer": "We'd better tell the lab manager about it.",
+  "explanation": "鍵の閉め忘れという問題に、管理者に報告しようと提案する応答が自然。",
+  "tags": "TOEFL2026 listening choose-a-response lab"
+ },
+ {
+  "id": "TOEFL-LR-508",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Man: Rumor has it the epidemiology course is being split into two semesters.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I heard a rumor about you.",
+   "Epidemics spread quickly, especially in crowded cities with poor sanitation.",
+   "Two semesters equal one year.",
+   "That would make sense—there's far too much material for one term."
+  ],
+  "answer": "That would make sense—there's far too much material for one term.",
+  "explanation": "授業が2学期に分けられるという噂に、それが妥当だと意見を述べる応答が自然。",
+  "tags": "TOEFL2026 listening choose-a-response course"
+ },
+ {
+  "id": "TOEFL-LR-509",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Woman: Something tells me Jamal isn't thrilled about his internship.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "Jamal told me something yesterday.",
+   "Well, he did say he spends most of his day making copies.",
+   "Thrillers are my favorite movies.",
+   "His internship started in June, and he's supposed to finish at the end of August."
+  ],
+  "answer": "Well, he did say he spends most of his day making copies.",
+  "explanation": "Jamal が不満そうだという推測に、その根拠を示す応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response internship"
+ },
+ {
+  "id": "TOEFL-LR-510",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Man: Excuse me, is this seat taken?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I take the bus every morning.",
+   "No, go ahead and sit down.",
+   "Yes, I took the test last week.",
+   "It's a really comfortable chair."
+  ],
+  "answer": "No, go ahead and sit down.",
+  "explanation": "席が空いているかを聞かれているので「どうぞ座って」と答えるのが自然。",
+  "tags": "TOEFL2026 listening choose-a-response campus"
+ },
+ {
+  "id": "TOEFL-LR-511",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Woman: Are you still interested in joining the debate team?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "The debate was on television last night.",
+   "I joined my parents for dinner.",
+   "Yes, but I'm worried about the time it takes.",
+   "She's an interesting speaker."
+  ],
+  "answer": "Yes, but I'm worried about the time it takes.",
+  "explanation": "まだ興味があるかという質問に、肯定しつつ懸念を述べる応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response club"
+ },
+ {
+  "id": "TOEFL-LR-512",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Woman: Do you know where the library printers are?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I printed my essay yesterday.",
+   "Yes, they're on the second floor, next to the elevators.",
+   "No, I don't really like reading.",
+   "The library is a very old building, but it was renovated last year."
+  ],
+  "answer": "Yes, they're on the second floor, next to the elevators.",
+  "explanation": "プリンターの場所を尋ねているので、具体的な場所を答える応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response library"
+ },
+ {
+  "id": "TOEFL-LR-513",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Man: Who should I talk to about the leak in our bathroom ceiling?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "The building manager—her office is on the ground floor.",
+   "The ceiling was painted last summer, but the color has already started to fade.",
+   "I talked to my mom yesterday.",
+   "Leaks can cause mold."
+  ],
+  "answer": "The building manager—her office is on the ground floor.",
+  "explanation": "誰に相談すべきかという質問に、担当者と場所を答える応答が正解。",
+  "tags": "TOEFL2026 listening choose-a-response housing"
+ },
+ {
+  "id": "TOEFL-LR-514",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Man: Do you know who's in charge of the robotics club's budget this year?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "The budget is about three thousand dollars.",
+   "I'm in charge of my little brother tonight.",
+   "Robots are used in many factories.",
+   "I think it's Priya, the new treasurer."
+  ],
+  "answer": "I think it's Priya, the new treasurer.",
+  "explanation": "誰が担当かを尋ねているので、人物名を答える応答が正解。金額を答える選択肢はわな。",
+  "tags": "TOEFL2026 listening choose-a-response club"
+ },
+ {
+  "id": "TOEFL-LR-515",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Woman: The engineering firm offered me a summer internship.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "Congratulations! Are you going to accept it?",
+   "I offered him a ride to the station.",
+   "Summer is my favorite season.",
+   "Engineers often work long hours, I hear, especially before big deadlines."
+  ],
+  "answer": "Congratulations! Are you going to accept it?",
+  "explanation": "インターンのオファーを受けたという報告に、祝福し受けるかを尋ねるのが自然。",
+  "tags": "TOEFL2026 listening choose-a-response internship"
+ },
+ {
+  "id": "TOEFL-LR-516",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Man: Is it too late to switch from the lecture section to the online section?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "The lecture was too long for me.",
+   "I switched off the light.",
+   "You have until Friday, as long as there's space.",
+   "Online classes are popular with working students."
+  ],
+  "answer": "You have until Friday, as long as there's space.",
+  "explanation": "変更が間に合うかという質問に、期限と条件を答える応答が正解。",
+  "tags": "TOEFL2026 listening choose-a-response course"
+ },
+ {
+  "id": "TOEFL-LR-517",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Woman: Do you know if the history final will be open-book?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I opened the window because it was hot.",
+   "History was my best subject in high school, but I'm majoring in biology now.",
+   "The final match is on Saturday.",
+   "The syllabus says we can bring one page of notes."
+  ],
+  "answer": "The syllabus says we can bring one page of notes.",
+  "explanation": "試験が持ち込み可かを尋ねているので、シラバスの規定を答える応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response course"
+ },
+ {
+  "id": "TOEFL-LR-518",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Woman: You haven't seen my lab partner around, have you?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I've never had a lab partner before.",
+   "I think he went to the computer lab after lunch.",
+   "He's a partner in a law firm.",
+   "Around the corner is the cafeteria."
+  ],
+  "answer": "I think he went to the computer lab after lunch.",
+  "explanation": "否定疑問の形で人を見かけたか尋ねているので、居場所の情報を答える応答が正解。",
+  "tags": "TOEFL2026 listening choose-a-response course"
+ },
+ {
+  "id": "TOEFL-LR-519",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Woman: The special collections room requires an appointment, right?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "The collection includes old maps.",
+   "I have a dentist appointment today.",
+   "Yes, you can book one through the library website.",
+   "The room is special to me."
+  ],
+  "answer": "Yes, you can book one through the library website.",
+  "explanation": "予約が必要かの確認に、肯定して方法を示す応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response library"
+ },
+ {
+  "id": "TOEFL-LR-520",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Man: I could've sworn the reading list said chapter nine, not ten.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I swore I'd never be late again.",
+   "Chapter ten is about coral reefs and how rising water temperatures affect them over time.",
+   "It was changed in last week's announcement—easy to miss.",
+   "The list is on the bulletin board."
+  ],
+  "answer": "It was changed in last week's announcement—easy to miss.",
+  "explanation": "could have sworn は「確かにそうだと思ったのに」という意味。変更の経緯を説明する応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response course"
+ },
+ {
+  "id": "TOEFL-LR-521",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Man: I'm torn between spending a semester in Kenya or in Norway.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "Norway is much colder than Kenya, I think.",
+   "What does each program offer in your field?",
+   "I tore my jacket on the fence.",
+   "I spent the semester studying hard."
+  ],
+  "answer": "What does each program offer in your field?",
+  "explanation": "どちらにするか迷っているという発言に、判断材料を尋ねて助言する応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response abroad"
+ },
+ {
+  "id": "TOEFL-LR-522",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Woman: What time does the hiking club meeting start tonight?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "It was a really great hike, and everyone enjoyed the view.",
+   "At seven, in Room 210 of the student center.",
+   "I'm not very good at climbing.",
+   "Tonight will be cold and windy."
+  ],
+  "answer": "At seven, in Room 210 of the student center.",
+  "explanation": "開始時刻を尋ねているので、時刻と場所を答える応答が正解。",
+  "tags": "TOEFL2026 listening choose-a-response club"
+ },
+ {
+  "id": "TOEFL-LR-523",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Man: Does the work-study job count toward my financial aid package?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I work at the gym on weekends.",
+   "My package arrived this morning.",
+   "Counting the money took an hour.",
+   "Yes, it's listed as part of the total award."
+  ],
+  "answer": "Yes, it's listed as part of the total award.",
+  "explanation": "仕事が援助に含まれるかを尋ねているので、含まれると答える応答が正解。package の別の意味に注意。",
+  "tags": "TOEFL2026 listening choose-a-response finaid"
+ },
+ {
+  "id": "TOEFL-LR-524",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Woman: Would you like to help us plant trees on Saturday with the environmental club?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I'd love to. What time should I be there?",
+   "Trees produce oxygen.",
+   "The club was founded ten years ago.",
+   "I planted the idea in his mind."
+  ],
+  "answer": "I'd love to. What time should I be there?",
+  "explanation": "参加の誘いに対して承諾し、時間を尋ねる応答が自然。",
+  "tags": "TOEFL2026 listening choose-a-response club"
+ },
+ {
+  "id": "TOEFL-LR-525",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Woman: Our music club needs someone to design the poster for the spring concert.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I could do it if you send me the details.",
+   "The concert hall holds about 500 people.",
+   "I've never been to the spring festival.",
+   "Posters are not allowed on the dorm doors."
+  ],
+  "answer": "I could do it if you send me the details.",
+  "explanation": "ポスター作りの担い手を探しているという発言に、引き受ける申し出をするのが自然。",
+  "tags": "TOEFL2026 listening choose-a-response club"
+ },
+ {
+  "id": "TOEFL-LR-526",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Woman: You're coming to the climate panel discussion tonight, aren't you?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "The climate here is quite mild, so the panel will probably talk about other regions.",
+   "The panel is made of wood.",
+   "I'd planned to, but my study group just rescheduled to tonight.",
+   "Tonight is the coldest night of the year."
+  ],
+  "answer": "I'd planned to, but my study group just rescheduled to tonight.",
+  "explanation": "付加疑問で出席を確認されているので、事情を説明して答える応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response campus"
+ },
+ {
+  "id": "TOEFL-LR-527",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Woman: I heard the financial aid office is moving to a new building next month.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I'd rather pay in cash, honestly.",
+   "Yes, I moved into my new apartment last month, and I love the neighborhood.",
+   "Really? I hope they post the new location online.",
+   "The office printer is out of paper again."
+  ],
+  "answer": "Really? I hope they post the new location online.",
+  "explanation": "移転の情報に対して驚き、新しい場所の告知を期待する応答が自然。move の繰り返しのわなに注意。",
+  "tags": "TOEFL2026 listening choose-a-response finaid"
+ },
+ {
+  "id": "TOEFL-LR-528",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Woman: Is the library open late during exam week?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "Exams start on the twelfth.",
+   "I'm not late for anything.",
+   "The library has a quiet floor.",
+   "Yes, it stays open until two in the morning."
+  ],
+  "answer": "Yes, it stays open until two in the morning.",
+  "explanation": "試験期間に遅くまで開いているかを尋ねているので、閉館時刻を答える応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response library"
+ },
+ {
+  "id": "TOEFL-LR-529",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Woman: The heater in my dorm room hasn't worked for three days.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "It's supposed to be warm this weekend.",
+   "I worked in the dining hall for three years before I started my graduate program.",
+   "You should submit a maintenance request online right away.",
+   "Dorm rooms are assigned in June."
+  ],
+  "answer": "You should submit a maintenance request online right away.",
+  "explanation": "暖房の故障という問題に対し、修理依頼を勧める応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response housing"
+ },
+ {
+  "id": "TOEFL-LR-530",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Woman: I'd sooner live off campus than pay that much for a shared room.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I'll live on campus sooner.",
+   "Shared rooms have two desks.",
+   "Just remember to factor in transportation and utilities.",
+   "My rent is paid monthly."
+  ],
+  "answer": "Just remember to factor in transportation and utilities.",
+  "explanation": "would sooner ～ than ...「...するくらいなら～したい」。考慮すべき費用を助言する応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response housing"
+ },
+ {
+  "id": "TOEFL-LR-531",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Man: I'm thinking of biking to campus instead of driving.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I think the bike shop closed.",
+   "Driving lessons are expensive.",
+   "The campus is in the city center.",
+   "Good idea. You'd save a lot on parking permits."
+  ],
+  "answer": "Good idea. You'd save a lot on parking permits.",
+  "explanation": "自転車通学を考えているという発言に、その利点を述べて賛成する応答が自然。",
+  "tags": "TOEFL2026 listening choose-a-response campus"
+ },
+ {
+  "id": "TOEFL-LR-532",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Man: Are we allowed to eat in the materials testing lab?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "The lab tests metals and plastics to see how much force they can handle before breaking.",
+   "No, food and drinks have to stay in the hallway lockers.",
+   "I already ate lunch, thanks.",
+   "The lab is allowed to stay open late."
+  ],
+  "answer": "No, food and drinks have to stay in the hallway lockers.",
+  "explanation": "飲食が許されているかの質問に、規則を答えている応答が適切。",
+  "tags": "TOEFL2026 listening choose-a-response lab"
+ },
+ {
+  "id": "TOEFL-LR-533",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Woman: Housing says there are no single rooms left for next year.",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "I'm single, actually.",
+   "Have you looked into the off-campus apartments near the river?",
+   "Next year I'm taking five classes and working part-time at the campus bookstore.",
+   "There's no room in my backpack."
+  ],
+  "answer": "Have you looked into the off-campus apartments near the river?",
+  "explanation": "個室が残っていないという問題に、代替案を提案する応答が自然。single や room の別の意味に注意。",
+  "tags": "TOEFL2026 listening choose-a-response housing"
+ },
+ {
+  "id": "TOEFL-LR-534",
+  "skill": "listening",
+  "format": "Listening: Listen and Choose a Response",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Man: How come the field samples haven't been labeled yet?",
+  "question": "Choose the best response to the speaker.",
+  "choices": [
+   "They were collected near the coast.",
+   "The new labeling machine still hasn't been delivered.",
+   "I came by bus today.",
+   "Labels should include the date."
+  ],
+  "answer": "The new labeling machine still hasn't been delivered.",
+  "explanation": "How come は理由を尋ねる表現なので、理由を述べている応答が正解。",
+  "tags": "TOEFL2026 listening choose-a-response lab"
+ }
+]

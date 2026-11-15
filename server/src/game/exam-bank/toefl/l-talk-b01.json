@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-LT-501-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a materials science class.\nProfessor: Concrete is the most widely used building material on Earth, but it has a weakness: it cracks. Small cracks may not look serious, but they let water inside. In reinforced concrete, that water can reach the steel bars inside and make them rust. Rusting steel expands, which creates more cracks, and over time the structure weakens. Repairing cracks costs governments enormous amounts of money every year.\nSo researchers asked an unusual question: what if concrete could repair itself? One of the most interesting solutions uses bacteria. Certain types of bacteria can survive in extreme conditions—they form spores, a kind of sleeping state, and can stay inactive for many years.\nHere's how it works. When the concrete is mixed, engineers add these bacterial spores along with food for them—usually a calcium compound such as calcium lactate. As long as the concrete is dry and intact, the spores do nothing. But when a crack forms and water gets in, the spores wake up. They consume the food and produce calcium carbonate—basically limestone—which fills the crack.\nThis works well for small cracks, generally less than a millimeter wide. It won't fix a broken bridge. And self-healing concrete is more expensive to produce. However, engineers argue that if it reduces repairs over a building's lifetime, the higher starting cost may be worth it.\nLet's look at some test results to see how well these materials actually perform.",
+  "question": "What is the talk mainly about?",
+  "choices": [
+   "Why steel is stronger than concrete",
+   "Concrete that uses bacteria to repair its own cracks",
+   "How bacteria damage buildings",
+   "The history of concrete and why it is the most widely used building material"
+  ],
+  "answer": "Concrete that uses bacteria to repair its own cracks",
+  "explanation": "細菌を使って自らひび割れを修復するコンクリートが主題。",
+  "tags": "TOEFL2026 listening academic-talk materials science"
+ },
+ {
+  "id": "TOEFL-LT-501-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a materials science class.\nProfessor: Concrete is the most widely used building material on Earth, but it has a weakness: it cracks. Small cracks may not look serious, but they let water inside. In reinforced concrete, that water can reach the steel bars inside and make them rust. Rusting steel expands, which creates more cracks, and over time the structure weakens. Repairing cracks costs governments enormous amounts of money every year.\nSo researchers asked an unusual question: what if concrete could repair itself? One of the most interesting solutions uses bacteria. Certain types of bacteria can survive in extreme conditions—they form spores, a kind of sleeping state, and can stay inactive for many years.\nHere's how it works. When the concrete is mixed, engineers add these bacterial spores along with food for them—usually a calcium compound such as calcium lactate. As long as the concrete is dry and intact, the spores do nothing. But when a crack forms and water gets in, the spores wake up. They consume the food and produce calcium carbonate—basically limestone—which fills the crack.\nThis works well for small cracks, generally less than a millimeter wide. It won't fix a broken bridge. And self-healing concrete is more expensive to produce. However, engineers argue that if it reduces repairs over a building's lifetime, the higher starting cost may be worth it.\nLet's look at some test results to see how well these materials actually perform.",
+  "question": "Why does the professor mention rusting steel?",
+  "choices": [
+   "To compare the strength of steel with the strength of concrete in bridges",
+   "To show that bacteria can also repair steel",
+   "To describe a new type of building material",
+   "To explain why small cracks can become a serious problem"
+  ],
+  "answer": "To explain why small cracks can become a serious problem",
+  "explanation": "小さなひびから水が入り鉄筋がさびて膨張し、構造が弱まることを説明するため。",
+  "tags": "TOEFL2026 listening academic-talk materials science"
+ },
+ {
+  "id": "TOEFL-LT-501-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a materials science class.\nProfessor: Concrete is the most widely used building material on Earth, but it has a weakness: it cracks. Small cracks may not look serious, but they let water inside. In reinforced concrete, that water can reach the steel bars inside and make them rust. Rusting steel expands, which creates more cracks, and over time the structure weakens. Repairing cracks costs governments enormous amounts of money every year.\nSo researchers asked an unusual question: what if concrete could repair itself? One of the most interesting solutions uses bacteria. Certain types of bacteria can survive in extreme conditions—they form spores, a kind of sleeping state, and can stay inactive for many years.\nHere's how it works. When the concrete is mixed, engineers add these bacterial spores along with food for them—usually a calcium compound such as calcium lactate. As long as the concrete is dry and intact, the spores do nothing. But when a crack forms and water gets in, the spores wake up. They consume the food and produce calcium carbonate—basically limestone—which fills the crack.\nThis works well for small cracks, generally less than a millimeter wide. It won't fix a broken bridge. And self-healing concrete is more expensive to produce. However, engineers argue that if it reduces repairs over a building's lifetime, the higher starting cost may be worth it.\nLet's look at some test results to see how well these materials actually perform.",
+  "question": "What causes the bacteria in the concrete to become active?",
+  "choices": [
+   "The concrete being mixed",
+   "High temperatures",
+   "Contact with steel",
+   "Water entering a crack"
+  ],
+  "answer": "Water entering a crack",
+  "explanation": "ひび割れから水が入ると芽胞が目覚めて活動を始める。",
+  "tags": "TOEFL2026 listening academic-talk materials science"
+ },
+ {
+  "id": "TOEFL-LT-501-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a materials science class.\nProfessor: Concrete is the most widely used building material on Earth, but it has a weakness: it cracks. Small cracks may not look serious, but they let water inside. In reinforced concrete, that water can reach the steel bars inside and make them rust. Rusting steel expands, which creates more cracks, and over time the structure weakens. Repairing cracks costs governments enormous amounts of money every year.\nSo researchers asked an unusual question: what if concrete could repair itself? One of the most interesting solutions uses bacteria. Certain types of bacteria can survive in extreme conditions—they form spores, a kind of sleeping state, and can stay inactive for many years.\nHere's how it works. When the concrete is mixed, engineers add these bacterial spores along with food for them—usually a calcium compound such as calcium lactate. As long as the concrete is dry and intact, the spores do nothing. But when a crack forms and water gets in, the spores wake up. They consume the food and produce calcium carbonate—basically limestone—which fills the crack.\nThis works well for small cracks, generally less than a millimeter wide. It won't fix a broken bridge. And self-healing concrete is more expensive to produce. However, engineers argue that if it reduces repairs over a building's lifetime, the higher starting cost may be worth it.\nLet's look at some test results to see how well these materials actually perform.",
+  "question": "What is the professor's view of self-healing concrete?",
+  "choices": [
+   "It will soon replace all ordinary concrete.",
+   "It is too expensive to be useful.",
+   "It has limits but may save money over time.",
+   "It can repair any kind of damage."
+  ],
+  "answer": "It has limits but may save money over time.",
+  "explanation": "小さなひびに限られ高価だが、長期的には修理費を減らせる可能性があると評価している。",
+  "tags": "TOEFL2026 listening academic-talk materials science"
+ },
+ {
+  "id": "TOEFL-LT-502-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a chemistry class.\nProfessor: Hold up your hands. Your left and right hands are mirror images of each other, but you can't place one perfectly on top of the other—try putting your right hand into a left-handed glove. Many molecules have this same property. We call them chiral, from the Greek word for hand, and the two mirror-image forms are called enantiomers.\nIn most respects, enantiomers are chemically identical. They have the same boiling point, the same solubility. But in the body, they can behave very differently, because many of the molecules they interact with—enzymes, receptors—are themselves chiral. It's like a handshake: a right hand fits comfortably with another right hand, but not with a left.\nThe classic illustration is thalidomide, a drug prescribed in the late 1950s, mainly in Europe, to treat morning sickness during pregnancy. It caused severe birth defects in thousands of children. It's often said that one enantiomer was the effective sedative while the other caused the defects—and that if only the \"good\" form had been sold, the tragedy would have been avoided.\nThat's a tidy story, but it's misleading. Research later showed that thalidomide's enantiomers convert into each other inside the body. So even a pure dose of one form would quickly become a mixture. The real lessons were about inadequate testing, and the disaster led to much stricter drug regulation.\nStill, chirality matters enormously in pharmacology. Today, regulators require companies to study each enantiomer of a new chiral drug separately, and some medicines are sold as a single form.",
+  "question": "Why does the professor ask students to hold up their hands?",
+  "choices": [
+   "To check whether students are paying attention",
+   "To demonstrate a laboratory safety rule",
+   "To give a familiar example of mirror-image objects that cannot be overlapped",
+   "To count how many students are present"
+  ],
+  "answer": "To give a familiar example of mirror-image objects that cannot be overlapped",
+  "explanation": "重ね合わせられない鏡像の身近な例を示すため。",
+  "tags": "TOEFL2026 listening academic-talk chemistry"
+ },
+ {
+  "id": "TOEFL-LT-502-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a chemistry class.\nProfessor: Hold up your hands. Your left and right hands are mirror images of each other, but you can't place one perfectly on top of the other—try putting your right hand into a left-handed glove. Many molecules have this same property. We call them chiral, from the Greek word for hand, and the two mirror-image forms are called enantiomers.\nIn most respects, enantiomers are chemically identical. They have the same boiling point, the same solubility. But in the body, they can behave very differently, because many of the molecules they interact with—enzymes, receptors—are themselves chiral. It's like a handshake: a right hand fits comfortably with another right hand, but not with a left.\nThe classic illustration is thalidomide, a drug prescribed in the late 1950s, mainly in Europe, to treat morning sickness during pregnancy. It caused severe birth defects in thousands of children. It's often said that one enantiomer was the effective sedative while the other caused the defects—and that if only the \"good\" form had been sold, the tragedy would have been avoided.\nThat's a tidy story, but it's misleading. Research later showed that thalidomide's enantiomers convert into each other inside the body. So even a pure dose of one form would quickly become a mixture. The real lessons were about inadequate testing, and the disaster led to much stricter drug regulation.\nStill, chirality matters enormously in pharmacology. Today, regulators require companies to study each enantiomer of a new chiral drug separately, and some medicines are sold as a single form.",
+  "question": "According to the professor, why can enantiomers act differently in the body?",
+  "choices": [
+   "They have different boiling points.",
+   "One form dissolves in water and the other does not.",
+   "The body produces only one form.",
+   "Many molecules in the body are themselves chiral."
+  ],
+  "answer": "Many molecules in the body are themselves chiral.",
+  "explanation": "体内の酵素や受容体自体がキラルなので、握手のように相性が異なるから。",
+  "tags": "TOEFL2026 listening academic-talk chemistry"
+ },
+ {
+  "id": "TOEFL-LT-502-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a chemistry class.\nProfessor: Hold up your hands. Your left and right hands are mirror images of each other, but you can't place one perfectly on top of the other—try putting your right hand into a left-handed glove. Many molecules have this same property. We call them chiral, from the Greek word for hand, and the two mirror-image forms are called enantiomers.\nIn most respects, enantiomers are chemically identical. They have the same boiling point, the same solubility. But in the body, they can behave very differently, because many of the molecules they interact with—enzymes, receptors—are themselves chiral. It's like a handshake: a right hand fits comfortably with another right hand, but not with a left.\nThe classic illustration is thalidomide, a drug prescribed in the late 1950s, mainly in Europe, to treat morning sickness during pregnancy. It caused severe birth defects in thousands of children. It's often said that one enantiomer was the effective sedative while the other caused the defects—and that if only the \"good\" form had been sold, the tragedy would have been avoided.\nThat's a tidy story, but it's misleading. Research later showed that thalidomide's enantiomers convert into each other inside the body. So even a pure dose of one form would quickly become a mixture. The real lessons were about inadequate testing, and the disaster led to much stricter drug regulation.\nStill, chirality matters enormously in pharmacology. Today, regulators require companies to study each enantiomer of a new chiral drug separately, and some medicines are sold as a single form.",
+  "question": "What does the professor say about the common story of thalidomide?",
+  "choices": [
+   "It oversimplifies what actually happened.",
+   "It is completely accurate.",
+   "It was invented by drug companies.",
+   "It has never been studied scientifically."
+  ],
+  "answer": "It oversimplifies what actually happened.",
+  "explanation": "分かりやすい話だが誤解を招くもので、実際は体内で鏡像体が相互変換すると述べている。",
+  "tags": "TOEFL2026 listening academic-talk chemistry"
+ },
+ {
+  "id": "TOEFL-LT-502-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a chemistry class.\nProfessor: Hold up your hands. Your left and right hands are mirror images of each other, but you can't place one perfectly on top of the other—try putting your right hand into a left-handed glove. Many molecules have this same property. We call them chiral, from the Greek word for hand, and the two mirror-image forms are called enantiomers.\nIn most respects, enantiomers are chemically identical. They have the same boiling point, the same solubility. But in the body, they can behave very differently, because many of the molecules they interact with—enzymes, receptors—are themselves chiral. It's like a handshake: a right hand fits comfortably with another right hand, but not with a left.\nThe classic illustration is thalidomide, a drug prescribed in the late 1950s, mainly in Europe, to treat morning sickness during pregnancy. It caused severe birth defects in thousands of children. It's often said that one enantiomer was the effective sedative while the other caused the defects—and that if only the \"good\" form had been sold, the tragedy would have been avoided.\nThat's a tidy story, but it's misleading. Research later showed that thalidomide's enantiomers convert into each other inside the body. So even a pure dose of one form would quickly become a mixture. The real lessons were about inadequate testing, and the disaster led to much stricter drug regulation.\nStill, chirality matters enormously in pharmacology. Today, regulators require companies to study each enantiomer of a new chiral drug separately, and some medicines are sold as a single form.",
+  "question": "What can be inferred about the effect of selling only one form of thalidomide?",
+  "choices": [
+   "It would have completely prevented the tragedy.",
+   "It would have made the drug ineffective.",
+   "It probably would not have prevented the birth defects.",
+   "It was already required by regulators in Europe at the time the drug was sold."
+  ],
+  "answer": "It probably would not have prevented the birth defects.",
+  "explanation": "体内で相互変換するため、一方だけを売っても先天異常は防げなかったと推測できる。",
+  "tags": "TOEFL2026 listening academic-talk chemistry"
+ },
+ {
+  "id": "TOEFL-LT-503-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an urban studies class.\nProfessor: In 1961, a writer named Jane Jacobs published The Death and Life of Great American Cities. Jacobs wasn't a trained planner—she was a journalist living in Greenwich Village, in New York—but her book became one of the most influential works in urban studies.\nAt the time, many planners believed that crowded, mixed neighborhoods were unhealthy and chaotic. Their solution was to clear them and build large housing towers surrounded by open space, with homes, shops, and offices kept in separate zones.\nJacobs argued the opposite. She observed her own street closely and concluded that safety came not from police or empty space, but from what she called \"eyes on the street.\" When a street has shops, apartments, and businesses that are busy at different times of day, there are always people around—shopkeepers, residents looking out their windows, people walking by. Their casual attention discourages crime and helps when something goes wrong.\nIn contrast, the open spaces around many new housing towers were often empty. No one felt responsible for them, and they could become dangerous.\nJacobs also argued for short blocks, buildings of different ages, and density. Old buildings, for instance, offer cheaper rents, which allow small businesses to survive.\nNow, critics have pointed out that her ideas were based mainly on a few neighborhoods in New York and may not apply everywhere. And ironically, many of the neighborhoods she praised have since become so popular that ordinary people can no longer afford them. But her emphasis on observing how people actually use streets has shaped planning ever since.",
+  "question": "What is the talk mainly about?",
+  "choices": [
+   "The history of housing towers in New York",
+   "Jane Jacobs's ideas about what makes city neighborhoods work",
+   "How police reduced crime in American cities",
+   "Why Jane Jacobs became a journalist"
+  ],
+  "answer": "Jane Jacobs's ideas about what makes city neighborhoods work",
+  "explanation": "都市の近隣がうまく機能する条件についてのジェイン・ジェイコブズの考えが主題。",
+  "tags": "TOEFL2026 listening academic-talk urban studies"
+ },
+ {
+  "id": "TOEFL-LT-503-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an urban studies class.\nProfessor: In 1961, a writer named Jane Jacobs published The Death and Life of Great American Cities. Jacobs wasn't a trained planner—she was a journalist living in Greenwich Village, in New York—but her book became one of the most influential works in urban studies.\nAt the time, many planners believed that crowded, mixed neighborhoods were unhealthy and chaotic. Their solution was to clear them and build large housing towers surrounded by open space, with homes, shops, and offices kept in separate zones.\nJacobs argued the opposite. She observed her own street closely and concluded that safety came not from police or empty space, but from what she called \"eyes on the street.\" When a street has shops, apartments, and businesses that are busy at different times of day, there are always people around—shopkeepers, residents looking out their windows, people walking by. Their casual attention discourages crime and helps when something goes wrong.\nIn contrast, the open spaces around many new housing towers were often empty. No one felt responsible for them, and they could become dangerous.\nJacobs also argued for short blocks, buildings of different ages, and density. Old buildings, for instance, offer cheaper rents, which allow small businesses to survive.\nNow, critics have pointed out that her ideas were based mainly on a few neighborhoods in New York and may not apply everywhere. And ironically, many of the neighborhoods she praised have since become so popular that ordinary people can no longer afford them. But her emphasis on observing how people actually use streets has shaped planning ever since.",
+  "question": "According to Jacobs, what makes a street safe?",
+  "choices": [
+   "Large open spaces between buildings",
+   "Frequent police patrols",
+   "Separating homes, shops, and offices into different zones of the city",
+   "The presence of people throughout the day"
+  ],
+  "answer": "The presence of people throughout the day",
+  "explanation": "一日中人がいて自然に見守る「街路の目」が安全をもたらす。",
+  "tags": "TOEFL2026 listening academic-talk urban studies"
+ },
+ {
+  "id": "TOEFL-LT-503-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an urban studies class.\nProfessor: In 1961, a writer named Jane Jacobs published The Death and Life of Great American Cities. Jacobs wasn't a trained planner—she was a journalist living in Greenwich Village, in New York—but her book became one of the most influential works in urban studies.\nAt the time, many planners believed that crowded, mixed neighborhoods were unhealthy and chaotic. Their solution was to clear them and build large housing towers surrounded by open space, with homes, shops, and offices kept in separate zones.\nJacobs argued the opposite. She observed her own street closely and concluded that safety came not from police or empty space, but from what she called \"eyes on the street.\" When a street has shops, apartments, and businesses that are busy at different times of day, there are always people around—shopkeepers, residents looking out their windows, people walking by. Their casual attention discourages crime and helps when something goes wrong.\nIn contrast, the open spaces around many new housing towers were often empty. No one felt responsible for them, and they could become dangerous.\nJacobs also argued for short blocks, buildings of different ages, and density. Old buildings, for instance, offer cheaper rents, which allow small businesses to survive.\nNow, critics have pointed out that her ideas were based mainly on a few neighborhoods in New York and may not apply everywhere. And ironically, many of the neighborhoods she praised have since become so popular that ordinary people can no longer afford them. But her emphasis on observing how people actually use streets has shaped planning ever since.",
+  "question": "Why does the professor mention old buildings?",
+  "choices": [
+   "To argue that they should be replaced",
+   "To describe where Jacobs lived",
+   "To show that they are dangerous",
+   "To explain how they help small businesses survive"
+  ],
+  "answer": "To explain how they help small businesses survive",
+  "explanation": "古い建物は家賃が安く、小さな商売が存続できるから。",
+  "tags": "TOEFL2026 listening academic-talk urban studies"
+ },
+ {
+  "id": "TOEFL-LT-503-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an urban studies class.\nProfessor: In 1961, a writer named Jane Jacobs published The Death and Life of Great American Cities. Jacobs wasn't a trained planner—she was a journalist living in Greenwich Village, in New York—but her book became one of the most influential works in urban studies.\nAt the time, many planners believed that crowded, mixed neighborhoods were unhealthy and chaotic. Their solution was to clear them and build large housing towers surrounded by open space, with homes, shops, and offices kept in separate zones.\nJacobs argued the opposite. She observed her own street closely and concluded that safety came not from police or empty space, but from what she called \"eyes on the street.\" When a street has shops, apartments, and businesses that are busy at different times of day, there are always people around—shopkeepers, residents looking out their windows, people walking by. Their casual attention discourages crime and helps when something goes wrong.\nIn contrast, the open spaces around many new housing towers were often empty. No one felt responsible for them, and they could become dangerous.\nJacobs also argued for short blocks, buildings of different ages, and density. Old buildings, for instance, offer cheaper rents, which allow small businesses to survive.\nNow, critics have pointed out that her ideas were based mainly on a few neighborhoods in New York and may not apply everywhere. And ironically, many of the neighborhoods she praised have since become so popular that ordinary people can no longer afford them. But her emphasis on observing how people actually use streets has shaped planning ever since.",
+  "question": "What irony does the professor point out?",
+  "choices": [
+   "Neighborhoods Jacobs admired have become too expensive for many people.",
+   "Jacobs later changed her mind and began to support large housing towers.",
+   "Planners rejected all of Jacobs's ideas.",
+   "Jacobs never lived in New York."
+  ],
+  "answer": "Neighborhoods Jacobs admired have become too expensive for many people.",
+  "explanation": "彼女が称賛した地区が人気になりすぎて一般の人には住めなくなったという皮肉。",
+  "tags": "TOEFL2026 listening academic-talk urban studies"
+ },
+ {
+  "id": "TOEFL-LT-504-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to part of a talk in a botany class.\nProfessor: In the fall, in many parts of the world, the leaves on trees turn yellow, orange, and red. Many people think the trees make these colors in the fall. That's partly true, but the story is more interesting.\nLeaves are green because they contain chlorophyll. Chlorophyll helps the plant use sunlight to make food. This process is called photosynthesis, and it happens mostly in the leaves. But leaves also have yellow and orange colors in them all summer long. We just can't see them, because there is so much green chlorophyll.\nIn the fall, the days get shorter and colder. The tree gets ready for winter, and it stops making chlorophyll. The green color slowly breaks down. Then the yellow and orange colors, which were there all the time, can finally be seen. So yellow leaves are not new colors—they were hiding!\nRed is different. Many trees, like some maples, actually make new red colors in the fall. Scientists are still studying why. One idea is that the red color protects the leaf from too much sunlight while the tree takes useful nutrients back from the leaf before it falls.\nStudent: So is that why some years the colors are brighter?\nProfessor: Good question. Yes, the weather matters. Sunny days and cool nights usually make the reds stronger. A very warm, cloudy fall often gives duller colors.",
+  "question": "What is the main topic of the talk?",
+  "choices": [
+   "How trees make food from sunlight",
+   "Why some trees lose their leaves",
+   "How maple trees are different from other trees",
+   "Why leaves change color in the fall"
+  ],
+  "answer": "Why leaves change color in the fall",
+  "explanation": "秋に葉の色が変わる理由が主題。",
+  "tags": "TOEFL2026 listening academic-talk botany"
+ },
+ {
+  "id": "TOEFL-LT-504-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to part of a talk in a botany class.\nProfessor: In the fall, in many parts of the world, the leaves on trees turn yellow, orange, and red. Many people think the trees make these colors in the fall. That's partly true, but the story is more interesting.\nLeaves are green because they contain chlorophyll. Chlorophyll helps the plant use sunlight to make food. This process is called photosynthesis, and it happens mostly in the leaves. But leaves also have yellow and orange colors in them all summer long. We just can't see them, because there is so much green chlorophyll.\nIn the fall, the days get shorter and colder. The tree gets ready for winter, and it stops making chlorophyll. The green color slowly breaks down. Then the yellow and orange colors, which were there all the time, can finally be seen. So yellow leaves are not new colors—they were hiding!\nRed is different. Many trees, like some maples, actually make new red colors in the fall. Scientists are still studying why. One idea is that the red color protects the leaf from too much sunlight while the tree takes useful nutrients back from the leaf before it falls.\nStudent: So is that why some years the colors are brighter?\nProfessor: Good question. Yes, the weather matters. Sunny days and cool nights usually make the reds stronger. A very warm, cloudy fall often gives duller colors.",
+  "question": "According to the professor, where do the yellow and orange colors come from?",
+  "choices": [
+   "The tree makes them when the weather gets cold.",
+   "They come from the soil.",
+   "They are in the leaves all summer but hidden.",
+   "They appear when the leaves fall."
+  ],
+  "answer": "They are in the leaves all summer but hidden.",
+  "explanation": "黄色やオレンジは夏の間も葉にあり、葉緑素に隠れていただけ。",
+  "tags": "TOEFL2026 listening academic-talk botany"
+ },
+ {
+  "id": "TOEFL-LT-504-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to part of a talk in a botany class.\nProfessor: In the fall, in many parts of the world, the leaves on trees turn yellow, orange, and red. Many people think the trees make these colors in the fall. That's partly true, but the story is more interesting.\nLeaves are green because they contain chlorophyll. Chlorophyll helps the plant use sunlight to make food. This process is called photosynthesis, and it happens mostly in the leaves. But leaves also have yellow and orange colors in them all summer long. We just can't see them, because there is so much green chlorophyll.\nIn the fall, the days get shorter and colder. The tree gets ready for winter, and it stops making chlorophyll. The green color slowly breaks down. Then the yellow and orange colors, which were there all the time, can finally be seen. So yellow leaves are not new colors—they were hiding!\nRed is different. Many trees, like some maples, actually make new red colors in the fall. Scientists are still studying why. One idea is that the red color protects the leaf from too much sunlight while the tree takes useful nutrients back from the leaf before it falls.\nStudent: So is that why some years the colors are brighter?\nProfessor: Good question. Yes, the weather matters. Sunny days and cool nights usually make the reds stronger. A very warm, cloudy fall often gives duller colors.",
+  "question": "What does the professor say about red colors?",
+  "choices": [
+   "They are always hidden by chlorophyll.",
+   "They appear only on cloudy days.",
+   "Some trees make them new in the fall.",
+   "Scientists fully understand why they appear."
+  ],
+  "answer": "Some trees make them new in the fall.",
+  "explanation": "赤色は一部の木が秋に新たに作るものだと述べている。",
+  "tags": "TOEFL2026 listening academic-talk botany"
+ },
+ {
+  "id": "TOEFL-LT-504-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to part of a talk in a botany class.\nProfessor: In the fall, in many parts of the world, the leaves on trees turn yellow, orange, and red. Many people think the trees make these colors in the fall. That's partly true, but the story is more interesting.\nLeaves are green because they contain chlorophyll. Chlorophyll helps the plant use sunlight to make food. This process is called photosynthesis, and it happens mostly in the leaves. But leaves also have yellow and orange colors in them all summer long. We just can't see them, because there is so much green chlorophyll.\nIn the fall, the days get shorter and colder. The tree gets ready for winter, and it stops making chlorophyll. The green color slowly breaks down. Then the yellow and orange colors, which were there all the time, can finally be seen. So yellow leaves are not new colors—they were hiding!\nRed is different. Many trees, like some maples, actually make new red colors in the fall. Scientists are still studying why. One idea is that the red color protects the leaf from too much sunlight while the tree takes useful nutrients back from the leaf before it falls.\nStudent: So is that why some years the colors are brighter?\nProfessor: Good question. Yes, the weather matters. Sunny days and cool nights usually make the reds stronger. A very warm, cloudy fall often gives duller colors.",
+  "question": "What kind of weather gives the brightest red colors?",
+  "choices": [
+   "Warm and cloudy days",
+   "Rainy days and warm nights",
+   "Sunny days and cool nights",
+   "Very cold and snowy days"
+  ],
+  "answer": "Sunny days and cool nights",
+  "explanation": "晴れた日と涼しい夜が赤色を強くすると答えている。",
+  "tags": "TOEFL2026 listening academic-talk botany"
+ },
+ {
+  "id": "TOEFL-LT-505-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a climatology class.\nProfessor: Over the past several decades, the Arctic has warmed far faster than the planet as a whole. Recent analyses suggest that since 1979, it has warmed nearly four times as fast as the global average. Today I want to examine one of the main mechanisms behind this \"Arctic amplification\": the ice–albedo feedback.\nAlbedo simply refers to how much incoming sunlight a surface reflects. Fresh snow is extremely reflective, sending back the large majority of the sunlight that hits it. Open ocean, by contrast, is dark and absorbs over ninety percent.\nNow consider what happens as the climate warms. Sea ice melts earlier in spring and forms later in autumn. Where bright ice used to sit, there is now dark water. That water absorbs more solar energy, which warms it further, which in turn melts more ice. The process reinforces itself—it's what we call a positive feedback. \"Positive\" here doesn't mean good; it means the effect amplifies the original change.\nI want to be careful, though, not to suggest that albedo explains everything. Other factors contribute substantially—for instance, changes in how heat is transported from lower latitudes, and the fact that the Arctic's lower atmosphere is relatively stable, which traps warming near the surface. In fact, climate models suggest that some amplification would occur even without changes in ice cover, which tells us albedo is a major contributor rather than the sole cause.\nThe consequences extend beyond the Arctic. There's ongoing debate about whether a warmer Arctic is altering weather patterns farther south, though the evidence there remains contested.",
+  "question": "What is the talk mainly about?",
+  "choices": [
+   "How sea ice forms in winter",
+   "A process that helps explain why the Arctic is warming rapidly",
+   "Why the ocean absorbs sunlight",
+   "The history of Arctic exploration"
+  ],
+  "answer": "A process that helps explain why the Arctic is warming rapidly",
+  "explanation": "北極の急速な温暖化を説明する仕組み（氷–アルベド・フィードバック）が主題。",
+  "tags": "TOEFL2026 listening academic-talk climatology"
+ },
+ {
+  "id": "TOEFL-LT-505-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a climatology class.\nProfessor: Over the past several decades, the Arctic has warmed far faster than the planet as a whole. Recent analyses suggest that since 1979, it has warmed nearly four times as fast as the global average. Today I want to examine one of the main mechanisms behind this \"Arctic amplification\": the ice–albedo feedback.\nAlbedo simply refers to how much incoming sunlight a surface reflects. Fresh snow is extremely reflective, sending back the large majority of the sunlight that hits it. Open ocean, by contrast, is dark and absorbs over ninety percent.\nNow consider what happens as the climate warms. Sea ice melts earlier in spring and forms later in autumn. Where bright ice used to sit, there is now dark water. That water absorbs more solar energy, which warms it further, which in turn melts more ice. The process reinforces itself—it's what we call a positive feedback. \"Positive\" here doesn't mean good; it means the effect amplifies the original change.\nI want to be careful, though, not to suggest that albedo explains everything. Other factors contribute substantially—for instance, changes in how heat is transported from lower latitudes, and the fact that the Arctic's lower atmosphere is relatively stable, which traps warming near the surface. In fact, climate models suggest that some amplification would occur even without changes in ice cover, which tells us albedo is a major contributor rather than the sole cause.\nThe consequences extend beyond the Arctic. There's ongoing debate about whether a warmer Arctic is altering weather patterns farther south, though the evidence there remains contested.",
+  "question": "Why does the professor explain the meaning of \"positive\" in \"positive feedback\"?",
+  "choices": [
+   "To prevent students from thinking the effect is beneficial",
+   "To show that the feedback is weak",
+   "To introduce a negative feedback",
+   "To criticize how scientists use everyday language to describe technical ideas"
+  ],
+  "answer": "To prevent students from thinking the effect is beneficial",
+  "explanation": "「良い」という意味ではなく変化を増幅するという意味だと誤解を防ぐため。",
+  "tags": "TOEFL2026 listening academic-talk climatology"
+ },
+ {
+  "id": "TOEFL-LT-505-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a climatology class.\nProfessor: Over the past several decades, the Arctic has warmed far faster than the planet as a whole. Recent analyses suggest that since 1979, it has warmed nearly four times as fast as the global average. Today I want to examine one of the main mechanisms behind this \"Arctic amplification\": the ice–albedo feedback.\nAlbedo simply refers to how much incoming sunlight a surface reflects. Fresh snow is extremely reflective, sending back the large majority of the sunlight that hits it. Open ocean, by contrast, is dark and absorbs over ninety percent.\nNow consider what happens as the climate warms. Sea ice melts earlier in spring and forms later in autumn. Where bright ice used to sit, there is now dark water. That water absorbs more solar energy, which warms it further, which in turn melts more ice. The process reinforces itself—it's what we call a positive feedback. \"Positive\" here doesn't mean good; it means the effect amplifies the original change.\nI want to be careful, though, not to suggest that albedo explains everything. Other factors contribute substantially—for instance, changes in how heat is transported from lower latitudes, and the fact that the Arctic's lower atmosphere is relatively stable, which traps warming near the surface. In fact, climate models suggest that some amplification would occur even without changes in ice cover, which tells us albedo is a major contributor rather than the sole cause.\nThe consequences extend beyond the Arctic. There's ongoing debate about whether a warmer Arctic is altering weather patterns farther south, though the evidence there remains contested.",
+  "question": "What does the professor imply about the role of albedo?",
+  "choices": [
+   "It is important but is not the only cause of Arctic amplification.",
+   "It is the only cause of Arctic warming.",
+   "It has little effect on Arctic temperatures.",
+   "It has not been included in climate models."
+  ],
+  "answer": "It is important but is not the only cause of Arctic amplification.",
+  "explanation": "主要な要因だが唯一の原因ではないと示唆している。",
+  "tags": "TOEFL2026 listening academic-talk climatology"
+ },
+ {
+  "id": "TOEFL-LT-505-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a climatology class.\nProfessor: Over the past several decades, the Arctic has warmed far faster than the planet as a whole. Recent analyses suggest that since 1979, it has warmed nearly four times as fast as the global average. Today I want to examine one of the main mechanisms behind this \"Arctic amplification\": the ice–albedo feedback.\nAlbedo simply refers to how much incoming sunlight a surface reflects. Fresh snow is extremely reflective, sending back the large majority of the sunlight that hits it. Open ocean, by contrast, is dark and absorbs over ninety percent.\nNow consider what happens as the climate warms. Sea ice melts earlier in spring and forms later in autumn. Where bright ice used to sit, there is now dark water. That water absorbs more solar energy, which warms it further, which in turn melts more ice. The process reinforces itself—it's what we call a positive feedback. \"Positive\" here doesn't mean good; it means the effect amplifies the original change.\nI want to be careful, though, not to suggest that albedo explains everything. Other factors contribute substantially—for instance, changes in how heat is transported from lower latitudes, and the fact that the Arctic's lower atmosphere is relatively stable, which traps warming near the surface. In fact, climate models suggest that some amplification would occur even without changes in ice cover, which tells us albedo is a major contributor rather than the sole cause.\nThe consequences extend beyond the Arctic. There's ongoing debate about whether a warmer Arctic is altering weather patterns farther south, though the evidence there remains contested.",
+  "question": "What is the professor's attitude toward claims that Arctic warming affects weather farther south?",
+  "choices": [
+   "They are clearly correct.",
+   "The evidence for them is still unsettled.",
+   "They have been clearly disproven by studies of weather patterns farther south.",
+   "They are irrelevant to climatology."
+  ],
+  "answer": "The evidence for them is still unsettled.",
+  "explanation": "根拠はまだ議論中だと述べ、結論は出ていないと考えている。",
+  "tags": "TOEFL2026 listening academic-talk climatology"
+ },
+ {
+  "id": "TOEFL-LT-506-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a media studies class.\nProfessor: Today, many people complain that online news is shaped by advertising—that headlines are designed to attract clicks. But this tension is not new. To see where it began, let's go back to New York in 1833.\nAt the time, most American newspapers cost about six cents—quite expensive for an ordinary worker. They were sold mostly by yearly subscription to merchants and political supporters, and their content focused on business news and party politics.\nThen a printer named Benjamin Day launched The Sun, priced at just one penny. How could he sell a paper so cheaply? The key was a new business model. Day relied on advertising, not sales, for most of his income. And advertisers paid according to how many people read the paper. So circulation became everything.\nTo attract a mass audience, the \"penny press\" changed what news looked like. Papers sent reporters to police courts, covered crimes and human-interest stories, and were sold on the street by newsboys. Within a few years, The Sun had one of the largest circulations in the country. In 1835, it even published a series of invented stories claiming that life had been discovered on the Moon—and sales soared.\nHistorians are divided on how to judge the penny press. Some emphasize that it made news available to working people for the first time, and became less tied to political parties. Others point out that the same pressures led to sensationalism. I think both views are right, and that's exactly why it's relevant to debates about digital media today.",
+  "question": "Why does the professor begin by talking about online news?",
+  "choices": [
+   "To criticize modern journalists",
+   "To explain how news websites are designed",
+   "To show that a current issue has historical roots",
+   "To compare prices of online and print news"
+  ],
+  "answer": "To show that a current issue has historical roots",
+  "explanation": "現代の問題が歴史的な起源を持つことを示すために導入している。",
+  "tags": "TOEFL2026 listening academic-talk media studies"
+ },
+ {
+  "id": "TOEFL-LT-506-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a media studies class.\nProfessor: Today, many people complain that online news is shaped by advertising—that headlines are designed to attract clicks. But this tension is not new. To see where it began, let's go back to New York in 1833.\nAt the time, most American newspapers cost about six cents—quite expensive for an ordinary worker. They were sold mostly by yearly subscription to merchants and political supporters, and their content focused on business news and party politics.\nThen a printer named Benjamin Day launched The Sun, priced at just one penny. How could he sell a paper so cheaply? The key was a new business model. Day relied on advertising, not sales, for most of his income. And advertisers paid according to how many people read the paper. So circulation became everything.\nTo attract a mass audience, the \"penny press\" changed what news looked like. Papers sent reporters to police courts, covered crimes and human-interest stories, and were sold on the street by newsboys. Within a few years, The Sun had one of the largest circulations in the country. In 1835, it even published a series of invented stories claiming that life had been discovered on the Moon—and sales soared.\nHistorians are divided on how to judge the penny press. Some emphasize that it made news available to working people for the first time, and became less tied to political parties. Others point out that the same pressures led to sensationalism. I think both views are right, and that's exactly why it's relevant to debates about digital media today.",
+  "question": "What made it possible for The Sun to be sold for one penny?",
+  "choices": [
+   "It was paid for by a political party that wanted to reach more voters.",
+   "Most of its income came from advertising.",
+   "It was printed on very cheap paper.",
+   "It had no reporters."
+  ],
+  "answer": "Most of its income came from advertising.",
+  "explanation": "収入の大部分を広告に頼るビジネスモデルだったから。",
+  "tags": "TOEFL2026 listening academic-talk media studies"
+ },
+ {
+  "id": "TOEFL-LT-506-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a media studies class.\nProfessor: Today, many people complain that online news is shaped by advertising—that headlines are designed to attract clicks. But this tension is not new. To see where it began, let's go back to New York in 1833.\nAt the time, most American newspapers cost about six cents—quite expensive for an ordinary worker. They were sold mostly by yearly subscription to merchants and political supporters, and their content focused on business news and party politics.\nThen a printer named Benjamin Day launched The Sun, priced at just one penny. How could he sell a paper so cheaply? The key was a new business model. Day relied on advertising, not sales, for most of his income. And advertisers paid according to how many people read the paper. So circulation became everything.\nTo attract a mass audience, the \"penny press\" changed what news looked like. Papers sent reporters to police courts, covered crimes and human-interest stories, and were sold on the street by newsboys. Within a few years, The Sun had one of the largest circulations in the country. In 1835, it even published a series of invented stories claiming that life had been discovered on the Moon—and sales soared.\nHistorians are divided on how to judge the penny press. Some emphasize that it made news available to working people for the first time, and became less tied to political parties. Others point out that the same pressures led to sensationalism. I think both views are right, and that's exactly why it's relevant to debates about digital media today.",
+  "question": "Why does the professor mention the story about life on the Moon?",
+  "choices": [
+   "To show that newspapers reported science accurately",
+   "To explain why The Sun went out of business",
+   "To give an example of sensational content that increased sales",
+   "To describe early discoveries in astronomy"
+  ],
+  "answer": "To give an example of sensational content that increased sales",
+  "explanation": "売上を伸ばした扇情的な内容の例として挙げている。",
+  "tags": "TOEFL2026 listening academic-talk media studies"
+ },
+ {
+  "id": "TOEFL-LT-506-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a media studies class.\nProfessor: Today, many people complain that online news is shaped by advertising—that headlines are designed to attract clicks. But this tension is not new. To see where it began, let's go back to New York in 1833.\nAt the time, most American newspapers cost about six cents—quite expensive for an ordinary worker. They were sold mostly by yearly subscription to merchants and political supporters, and their content focused on business news and party politics.\nThen a printer named Benjamin Day launched The Sun, priced at just one penny. How could he sell a paper so cheaply? The key was a new business model. Day relied on advertising, not sales, for most of his income. And advertisers paid according to how many people read the paper. So circulation became everything.\nTo attract a mass audience, the \"penny press\" changed what news looked like. Papers sent reporters to police courts, covered crimes and human-interest stories, and were sold on the street by newsboys. Within a few years, The Sun had one of the largest circulations in the country. In 1835, it even published a series of invented stories claiming that life had been discovered on the Moon—and sales soared.\nHistorians are divided on how to judge the penny press. Some emphasize that it made news available to working people for the first time, and became less tied to political parties. Others point out that the same pressures led to sensationalism. I think both views are right, and that's exactly why it's relevant to debates about digital media today.",
+  "question": "What is the professor's view of the penny press?",
+  "choices": [
+   "It was entirely harmful to journalism.",
+   "It was a complete success with no drawbacks.",
+   "It had no influence on modern media.",
+   "It had both positive and negative effects."
+  ],
+  "answer": "It had both positive and negative effects.",
+  "explanation": "労働者に新聞を届けた利点と、扇情主義という欠点の両方を認めている。",
+  "tags": "TOEFL2026 listening academic-talk media studies"
+ },
+ {
+  "id": "TOEFL-LT-507-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a cognitive science class.\nProfessor: We tend to assume that if something changes right in front of us, we'll notice. A series of experiments since the 1990s suggests that assumption is badly mistaken. The phenomenon is called change blindness.\nThe most famous demonstration was conducted by Daniel Simons and Daniel Levin in 1998. A researcher would stop a pedestrian on a college campus and ask for directions. As they talked, two other people carrying a large door walked rudely between them. During the brief moment when the door blocked the pedestrian's view, the original researcher was replaced by a different person—different height, different clothing, different voice. The conversation then simply continued.\nRoughly half of the pedestrians failed to notice that they were now talking to someone else entirely.\nHow can that be? The prevailing interpretation is that our brains don't build a detailed, complete picture of the world from moment to moment. Instead, we encode a fairly sparse representation—the gist of a scene—and rely on the world itself as a kind of external memory. If I need to know what's on the table, I can just look again. This is efficient most of the time, but it means that changes to details we didn't specifically attend to can slip by.\nInterestingly, the people who were least likely to notice were often those who saw the researcher as belonging to the same broad category—say, \"a student\"—as the replacement. That hints that we encode people partly by social category rather than individual features.\nNow, it would be a mistake to conclude that perception is simply unreliable. Rather, it's selective, and the selection usually serves us well.",
+  "question": "What is the main idea of the talk?",
+  "choices": [
+   "People have excellent memories for faces.",
+   "Experiments on campuses are unreliable.",
+   "Change blindness affects only a small number of people.",
+   "People often fail to notice changes because the brain stores only limited visual detail."
+  ],
+  "answer": "People often fail to notice changes because the brain stores only limited visual detail.",
+  "explanation": "脳は視覚の詳細を限られた形でしか保持しないため、変化に気づかないことが多いというのが要点。",
+  "tags": "TOEFL2026 listening academic-talk cognitive science"
+ },
+ {
+  "id": "TOEFL-LT-507-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a cognitive science class.\nProfessor: We tend to assume that if something changes right in front of us, we'll notice. A series of experiments since the 1990s suggests that assumption is badly mistaken. The phenomenon is called change blindness.\nThe most famous demonstration was conducted by Daniel Simons and Daniel Levin in 1998. A researcher would stop a pedestrian on a college campus and ask for directions. As they talked, two other people carrying a large door walked rudely between them. During the brief moment when the door blocked the pedestrian's view, the original researcher was replaced by a different person—different height, different clothing, different voice. The conversation then simply continued.\nRoughly half of the pedestrians failed to notice that they were now talking to someone else entirely.\nHow can that be? The prevailing interpretation is that our brains don't build a detailed, complete picture of the world from moment to moment. Instead, we encode a fairly sparse representation—the gist of a scene—and rely on the world itself as a kind of external memory. If I need to know what's on the table, I can just look again. This is efficient most of the time, but it means that changes to details we didn't specifically attend to can slip by.\nInterestingly, the people who were least likely to notice were often those who saw the researcher as belonging to the same broad category—say, \"a student\"—as the replacement. That hints that we encode people partly by social category rather than individual features.\nNow, it would be a mistake to conclude that perception is simply unreliable. Rather, it's selective, and the selection usually serves us well.",
+  "question": "What is the purpose of the door in the experiment?",
+  "choices": [
+   "To block the pedestrian's view while the researcher was replaced",
+   "To test whether people would stop the conversation to help carry the door",
+   "To distract the pedestrian with noise",
+   "To show how rude people can be"
+  ],
+  "answer": "To block the pedestrian's view while the researcher was replaced",
+  "explanation": "視界がふさがれた瞬間に人物を入れ替えるため。",
+  "tags": "TOEFL2026 listening academic-talk cognitive science"
+ },
+ {
+  "id": "TOEFL-LT-507-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a cognitive science class.\nProfessor: We tend to assume that if something changes right in front of us, we'll notice. A series of experiments since the 1990s suggests that assumption is badly mistaken. The phenomenon is called change blindness.\nThe most famous demonstration was conducted by Daniel Simons and Daniel Levin in 1998. A researcher would stop a pedestrian on a college campus and ask for directions. As they talked, two other people carrying a large door walked rudely between them. During the brief moment when the door blocked the pedestrian's view, the original researcher was replaced by a different person—different height, different clothing, different voice. The conversation then simply continued.\nRoughly half of the pedestrians failed to notice that they were now talking to someone else entirely.\nHow can that be? The prevailing interpretation is that our brains don't build a detailed, complete picture of the world from moment to moment. Instead, we encode a fairly sparse representation—the gist of a scene—and rely on the world itself as a kind of external memory. If I need to know what's on the table, I can just look again. This is efficient most of the time, but it means that changes to details we didn't specifically attend to can slip by.\nInterestingly, the people who were least likely to notice were often those who saw the researcher as belonging to the same broad category—say, \"a student\"—as the replacement. That hints that we encode people partly by social category rather than individual features.\nNow, it would be a mistake to conclude that perception is simply unreliable. Rather, it's selective, and the selection usually serves us well.",
+  "question": "What does the professor mean by describing the world as \"a kind of external memory\"?",
+  "choices": [
+   "We write down information to remember it.",
+   "Computers store most of our memories.",
+   "Our surroundings rarely change.",
+   "We can look again instead of storing every detail in our minds."
+  ],
+  "answer": "We can look again instead of storing every detail in our minds.",
+  "explanation": "すべてを記憶せず、必要なときに見直せばよいという意味。",
+  "tags": "TOEFL2026 listening academic-talk cognitive science"
+ },
+ {
+  "id": "TOEFL-LT-507-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in a cognitive science class.\nProfessor: We tend to assume that if something changes right in front of us, we'll notice. A series of experiments since the 1990s suggests that assumption is badly mistaken. The phenomenon is called change blindness.\nThe most famous demonstration was conducted by Daniel Simons and Daniel Levin in 1998. A researcher would stop a pedestrian on a college campus and ask for directions. As they talked, two other people carrying a large door walked rudely between them. During the brief moment when the door blocked the pedestrian's view, the original researcher was replaced by a different person—different height, different clothing, different voice. The conversation then simply continued.\nRoughly half of the pedestrians failed to notice that they were now talking to someone else entirely.\nHow can that be? The prevailing interpretation is that our brains don't build a detailed, complete picture of the world from moment to moment. Instead, we encode a fairly sparse representation—the gist of a scene—and rely on the world itself as a kind of external memory. If I need to know what's on the table, I can just look again. This is efficient most of the time, but it means that changes to details we didn't specifically attend to can slip by.\nInterestingly, the people who were least likely to notice were often those who saw the researcher as belonging to the same broad category—say, \"a student\"—as the replacement. That hints that we encode people partly by social category rather than individual features.\nNow, it would be a mistake to conclude that perception is simply unreliable. Rather, it's selective, and the selection usually serves us well.",
+  "question": "What is the professor's attitude toward human perception?",
+  "choices": [
+   "It is fundamentally unreliable.",
+   "It is perfectly accurate in most situations.",
+   "It has not been studied enough to judge.",
+   "It is selective but generally useful."
+  ],
+  "answer": "It is selective but generally useful.",
+  "explanation": "知覚は信頼できないのではなく選択的であり、通常は役に立っていると述べている。",
+  "tags": "TOEFL2026 listening academic-talk cognitive science"
+ },
+ {
+  "id": "TOEFL-LT-508-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a music history class.\nProfessor: Today, we take the piano for granted. But when it was invented, it solved a real problem for musicians. To understand that problem, we need to look at the instrument that came before it: the harpsichord.\nA harpsichord looks a bit like a piano, but inside, when you press a key, a small device plucks the string, a little like a finger plucking a guitar string. The problem is that it plucks the string the same way every time. Whether you press the key gently or hard, the sound is about equally loud. So harpsichord players couldn't easily make one note softer and the next note louder.\nAround the year 1700, in Florence, Italy, an instrument maker named Bartolomeo Cristofori found a solution. Instead of plucking the strings, his instrument struck them with small hammers covered in leather. If you pressed the key harder, the hammer hit the string harder, and the note was louder. Press gently, and it was soft. He called it something like \"harpsichord with soft and loud\"—in Italian, \"piano e forte.\" That's where our word \"piano\" comes from.\nAt first, the new instrument wasn't very popular. It was expensive, and its sound was quieter than people expected. It took decades for composers to really write for it. But by the late 1700s, composers such as Mozart were writing music that depended on those changes between soft and loud.",
+  "question": "What problem with the harpsichord does the professor describe?",
+  "choices": [
+   "It was too large and too expensive for most families to keep at home.",
+   "Players could not easily control how loud each note was.",
+   "Its strings broke very often.",
+   "It could only play a few notes."
+  ],
+  "answer": "Players could not easily control how loud each note was.",
+  "explanation": "弦をはじく仕組みのため、音の強弱を変えにくいという問題。",
+  "tags": "TOEFL2026 listening academic-talk music history"
+ },
+ {
+  "id": "TOEFL-LT-508-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a music history class.\nProfessor: Today, we take the piano for granted. But when it was invented, it solved a real problem for musicians. To understand that problem, we need to look at the instrument that came before it: the harpsichord.\nA harpsichord looks a bit like a piano, but inside, when you press a key, a small device plucks the string, a little like a finger plucking a guitar string. The problem is that it plucks the string the same way every time. Whether you press the key gently or hard, the sound is about equally loud. So harpsichord players couldn't easily make one note softer and the next note louder.\nAround the year 1700, in Florence, Italy, an instrument maker named Bartolomeo Cristofori found a solution. Instead of plucking the strings, his instrument struck them with small hammers covered in leather. If you pressed the key harder, the hammer hit the string harder, and the note was louder. Press gently, and it was soft. He called it something like \"harpsichord with soft and loud\"—in Italian, \"piano e forte.\" That's where our word \"piano\" comes from.\nAt first, the new instrument wasn't very popular. It was expensive, and its sound was quieter than people expected. It took decades for composers to really write for it. But by the late 1700s, composers such as Mozart were writing music that depended on those changes between soft and loud.",
+  "question": "How was Cristofori's instrument different from the harpsichord?",
+  "choices": [
+   "It had no keys.",
+   "It hit the strings with hammers instead of plucking them.",
+   "It used leather strings.",
+   "It was played with a bow, in the same way as a violin or cello."
+  ],
+  "answer": "It hit the strings with hammers instead of plucking them.",
+  "explanation": "弦をはじく代わりに革で覆ったハンマーで打つ仕組みだった。",
+  "tags": "TOEFL2026 listening academic-talk music history"
+ },
+ {
+  "id": "TOEFL-LT-508-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a music history class.\nProfessor: Today, we take the piano for granted. But when it was invented, it solved a real problem for musicians. To understand that problem, we need to look at the instrument that came before it: the harpsichord.\nA harpsichord looks a bit like a piano, but inside, when you press a key, a small device plucks the string, a little like a finger plucking a guitar string. The problem is that it plucks the string the same way every time. Whether you press the key gently or hard, the sound is about equally loud. So harpsichord players couldn't easily make one note softer and the next note louder.\nAround the year 1700, in Florence, Italy, an instrument maker named Bartolomeo Cristofori found a solution. Instead of plucking the strings, his instrument struck them with small hammers covered in leather. If you pressed the key harder, the hammer hit the string harder, and the note was louder. Press gently, and it was soft. He called it something like \"harpsichord with soft and loud\"—in Italian, \"piano e forte.\" That's where our word \"piano\" comes from.\nAt first, the new instrument wasn't very popular. It was expensive, and its sound was quieter than people expected. It took decades for composers to really write for it. But by the late 1700s, composers such as Mozart were writing music that depended on those changes between soft and loud.",
+  "question": "Why does the professor explain the Italian phrase \"piano e forte\"?",
+  "choices": [
+   "To show where the word \"piano\" comes from",
+   "To explain how to play soft music",
+   "To show that Cristofori spoke several languages",
+   "To describe a famous composition"
+  ],
+  "answer": "To show where the word \"piano\" comes from",
+  "explanation": "「ピアノ」という言葉の由来を示すため。",
+  "tags": "TOEFL2026 listening academic-talk music history"
+ },
+ {
+  "id": "TOEFL-LT-508-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a music history class.\nProfessor: Today, we take the piano for granted. But when it was invented, it solved a real problem for musicians. To understand that problem, we need to look at the instrument that came before it: the harpsichord.\nA harpsichord looks a bit like a piano, but inside, when you press a key, a small device plucks the string, a little like a finger plucking a guitar string. The problem is that it plucks the string the same way every time. Whether you press the key gently or hard, the sound is about equally loud. So harpsichord players couldn't easily make one note softer and the next note louder.\nAround the year 1700, in Florence, Italy, an instrument maker named Bartolomeo Cristofori found a solution. Instead of plucking the strings, his instrument struck them with small hammers covered in leather. If you pressed the key harder, the hammer hit the string harder, and the note was louder. Press gently, and it was soft. He called it something like \"harpsichord with soft and loud\"—in Italian, \"piano e forte.\" That's where our word \"piano\" comes from.\nAt first, the new instrument wasn't very popular. It was expensive, and its sound was quieter than people expected. It took decades for composers to really write for it. But by the late 1700s, composers such as Mozart were writing music that depended on those changes between soft and loud.",
+  "question": "What can be inferred about the piano in its early years?",
+  "choices": [
+   "It immediately replaced the harpsichord.",
+   "Mozart helped Cristofori design it.",
+   "It was cheaper than the harpsichord.",
+   "It did not become widely used right away."
+  ],
+  "answer": "It did not become widely used right away.",
+  "explanation": "当初は高価で人気がなく、作曲家が本格的に使うまで数十年かかった。",
+  "tags": "TOEFL2026 listening academic-talk music history"
+ },
+ {
+  "id": "TOEFL-LT-509-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to part of a talk in a marine science class.\nProfessor: Today I want to answer a simple question: how do whales stay warm? Some whales swim in very cold water, near the ice in the Arctic and the Antarctic. The water there can be colder than zero degrees Celsius. But a whale's body stays at about thirty-six degrees—almost the same as yours. So how do they do it?\nThe main answer is blubber. Blubber is a thick layer of fat under the skin. In some whales, like the bowhead whale, it can be more than forty centimeters thick. That's about the length of your arm from your elbow to your fingers! Fat does not let heat move through it easily, so blubber works like a warm winter coat.\nBlubber has other jobs, too. It stores energy. Many whales eat a lot in the summer, when there is plenty of food in cold waters. Then they travel to warmer places and eat very little for months. During that time, they use the energy in their blubber.\nThere's one more trick. Whales have special blood vessels in their fins and tails. Warm blood going out passes very close to cold blood coming back. The warm blood heats the cold blood before it returns to the body. So the whale doesn't lose much heat through its thin fins.\nNext time, we'll look at how seals, which are much smaller than whales, solve the same problem.",
+  "question": "What is the talk mainly about?",
+  "choices": [
+   "Why whales travel to warmer places",
+   "How whales keep their bodies warm in cold water",
+   "How whales find food in the Arctic",
+   "Why some whales are bigger than others"
+  ],
+  "answer": "How whales keep their bodies warm in cold water",
+  "explanation": "クジラが冷たい水の中で体温を保つ仕組みが主題。",
+  "tags": "TOEFL2026 listening academic-talk marine science"
+ },
+ {
+  "id": "TOEFL-LT-509-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to part of a talk in a marine science class.\nProfessor: Today I want to answer a simple question: how do whales stay warm? Some whales swim in very cold water, near the ice in the Arctic and the Antarctic. The water there can be colder than zero degrees Celsius. But a whale's body stays at about thirty-six degrees—almost the same as yours. So how do they do it?\nThe main answer is blubber. Blubber is a thick layer of fat under the skin. In some whales, like the bowhead whale, it can be more than forty centimeters thick. That's about the length of your arm from your elbow to your fingers! Fat does not let heat move through it easily, so blubber works like a warm winter coat.\nBlubber has other jobs, too. It stores energy. Many whales eat a lot in the summer, when there is plenty of food in cold waters. Then they travel to warmer places and eat very little for months. During that time, they use the energy in their blubber.\nThere's one more trick. Whales have special blood vessels in their fins and tails. Warm blood going out passes very close to cold blood coming back. The warm blood heats the cold blood before it returns to the body. So the whale doesn't lose much heat through its thin fins.\nNext time, we'll look at how seals, which are much smaller than whales, solve the same problem.",
+  "question": "Why does the professor compare blubber to a winter coat?",
+  "choices": [
+   "Because whales lose blubber in the summer",
+   "Because blubber is made of hair",
+   "Because both keep heat from escaping",
+   "Because whales need different blubber in winter"
+  ],
+  "answer": "Because both keep heat from escaping",
+  "explanation": "脂肪は熱を通しにくく、冬のコートのように体を温かく保つから。",
+  "tags": "TOEFL2026 listening academic-talk marine science"
+ },
+ {
+  "id": "TOEFL-LT-509-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to part of a talk in a marine science class.\nProfessor: Today I want to answer a simple question: how do whales stay warm? Some whales swim in very cold water, near the ice in the Arctic and the Antarctic. The water there can be colder than zero degrees Celsius. But a whale's body stays at about thirty-six degrees—almost the same as yours. So how do they do it?\nThe main answer is blubber. Blubber is a thick layer of fat under the skin. In some whales, like the bowhead whale, it can be more than forty centimeters thick. That's about the length of your arm from your elbow to your fingers! Fat does not let heat move through it easily, so blubber works like a warm winter coat.\nBlubber has other jobs, too. It stores energy. Many whales eat a lot in the summer, when there is plenty of food in cold waters. Then they travel to warmer places and eat very little for months. During that time, they use the energy in their blubber.\nThere's one more trick. Whales have special blood vessels in their fins and tails. Warm blood going out passes very close to cold blood coming back. The warm blood heats the cold blood before it returns to the body. So the whale doesn't lose much heat through its thin fins.\nNext time, we'll look at how seals, which are much smaller than whales, solve the same problem.",
+  "question": "According to the professor, what is another use of blubber?",
+  "choices": [
+   "It stores energy for times when whales eat little.",
+   "It helps whales swim faster when they travel to warmer places.",
+   "It protects whales from sharks.",
+   "It makes whales lighter in the water."
+  ],
+  "answer": "It stores energy for times when whales eat little.",
+  "explanation": "食べ物の少ない時期に使うエネルギーを蓄える役割がある。",
+  "tags": "TOEFL2026 listening academic-talk marine science"
+ },
+ {
+  "id": "TOEFL-LT-509-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to part of a talk in a marine science class.\nProfessor: Today I want to answer a simple question: how do whales stay warm? Some whales swim in very cold water, near the ice in the Arctic and the Antarctic. The water there can be colder than zero degrees Celsius. But a whale's body stays at about thirty-six degrees—almost the same as yours. So how do they do it?\nThe main answer is blubber. Blubber is a thick layer of fat under the skin. In some whales, like the bowhead whale, it can be more than forty centimeters thick. That's about the length of your arm from your elbow to your fingers! Fat does not let heat move through it easily, so blubber works like a warm winter coat.\nBlubber has other jobs, too. It stores energy. Many whales eat a lot in the summer, when there is plenty of food in cold waters. Then they travel to warmer places and eat very little for months. During that time, they use the energy in their blubber.\nThere's one more trick. Whales have special blood vessels in their fins and tails. Warm blood going out passes very close to cold blood coming back. The warm blood heats the cold blood before it returns to the body. So the whale doesn't lose much heat through its thin fins.\nNext time, we'll look at how seals, which are much smaller than whales, solve the same problem.",
+  "question": "What will the professor probably talk about next time?",
+  "choices": [
+   "How seals stay warm",
+   "How whales use their tails to swim",
+   "Where bowhead whales live",
+   "Why whale blood is warm"
+  ],
+  "answer": "How seals stay warm",
+  "explanation": "次回はアザラシが同じ問題をどう解決するかを扱うと述べている。",
+  "tags": "TOEFL2026 listening academic-talk marine science"
+ },
+ {
+  "id": "TOEFL-LT-510-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in an agricultural history class.\nProfessor: Many Indigenous peoples of North America, including the Haudenosaunee, or Iroquois, grew three crops together: corn, beans, and squash. They were often called the \"Three Sisters.\" Today, I want to explain why planting them together worked so well—because it's not just a nice story. There's real science behind it.\nFirst, the corn. Corn grows tall and straight, so it gives the beans something to climb. Bean plants are vines; without support, they spread along the ground.\nSecond, the beans. Beans have a special relationship with certain bacteria that live on their roots. These bacteria take nitrogen from the air and turn it into a form that plants can use. Nitrogen is something corn needs a lot of, so the beans help keep the soil fertile.\nThird, the squash. Squash has large, wide leaves that spread across the ground. They shade the soil, which keeps it moist and makes it harder for weeds to grow.\nStudent: So each plant helps the others?\nProfessor: Exactly. And there's a nutritional side, too. Corn, beans, and squash together provide a more balanced diet than any one of them alone.\nEuropean settlers who arrived later often planted crops in separate rows. Some of them thought the mixed fields looked messy. But researchers who have compared the methods have found that the Three Sisters system can produce more food energy and protein from the same area of land.",
+  "question": "What is the talk mainly about?",
+  "choices": [
+   "How European farming replaced Indigenous methods",
+   "How bacteria cause plant diseases",
+   "Why growing three crops together was effective",
+   "The history of corn in Europe"
+  ],
+  "answer": "Why growing three crops together was effective",
+  "explanation": "3つの作物を一緒に植えることがなぜ効果的だったかが主題。",
+  "tags": "TOEFL2026 listening academic-talk agricultural history"
+ },
+ {
+  "id": "TOEFL-LT-510-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in an agricultural history class.\nProfessor: Many Indigenous peoples of North America, including the Haudenosaunee, or Iroquois, grew three crops together: corn, beans, and squash. They were often called the \"Three Sisters.\" Today, I want to explain why planting them together worked so well—because it's not just a nice story. There's real science behind it.\nFirst, the corn. Corn grows tall and straight, so it gives the beans something to climb. Bean plants are vines; without support, they spread along the ground.\nSecond, the beans. Beans have a special relationship with certain bacteria that live on their roots. These bacteria take nitrogen from the air and turn it into a form that plants can use. Nitrogen is something corn needs a lot of, so the beans help keep the soil fertile.\nThird, the squash. Squash has large, wide leaves that spread across the ground. They shade the soil, which keeps it moist and makes it harder for weeds to grow.\nStudent: So each plant helps the others?\nProfessor: Exactly. And there's a nutritional side, too. Corn, beans, and squash together provide a more balanced diet than any one of them alone.\nEuropean settlers who arrived later often planted crops in separate rows. Some of them thought the mixed fields looked messy. But researchers who have compared the methods have found that the Three Sisters system can produce more food energy and protein from the same area of land.",
+  "question": "What role do beans play in the system?",
+  "choices": [
+   "They help add usable nitrogen to the soil.",
+   "They provide shade for the soil.",
+   "They support the corn as it grows.",
+   "They keep insects away from the squash and the corn growing next to them."
+  ],
+  "answer": "They help add usable nitrogen to the soil.",
+  "explanation": "根の細菌が空気中の窒素を植物が使える形にし、土を肥沃に保つ。",
+  "tags": "TOEFL2026 listening academic-talk agricultural history"
+ },
+ {
+  "id": "TOEFL-LT-510-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in an agricultural history class.\nProfessor: Many Indigenous peoples of North America, including the Haudenosaunee, or Iroquois, grew three crops together: corn, beans, and squash. They were often called the \"Three Sisters.\" Today, I want to explain why planting them together worked so well—because it's not just a nice story. There's real science behind it.\nFirst, the corn. Corn grows tall and straight, so it gives the beans something to climb. Bean plants are vines; without support, they spread along the ground.\nSecond, the beans. Beans have a special relationship with certain bacteria that live on their roots. These bacteria take nitrogen from the air and turn it into a form that plants can use. Nitrogen is something corn needs a lot of, so the beans help keep the soil fertile.\nThird, the squash. Squash has large, wide leaves that spread across the ground. They shade the soil, which keeps it moist and makes it harder for weeds to grow.\nStudent: So each plant helps the others?\nProfessor: Exactly. And there's a nutritional side, too. Corn, beans, and squash together provide a more balanced diet than any one of them alone.\nEuropean settlers who arrived later often planted crops in separate rows. Some of them thought the mixed fields looked messy. But researchers who have compared the methods have found that the Three Sisters system can produce more food energy and protein from the same area of land.",
+  "question": "Why does the professor mention that the system is \"not just a nice story\"?",
+  "choices": [
+   "To emphasize that it has a scientific basis",
+   "To show that the story is not true",
+   "To introduce a famous legend",
+   "To criticize modern farming"
+  ],
+  "answer": "To emphasize that it has a scientific basis",
+  "explanation": "単なる言い伝えでなく、科学的根拠があることを強調するため。",
+  "tags": "TOEFL2026 listening academic-talk agricultural history"
+ },
+ {
+  "id": "TOEFL-LT-510-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in an agricultural history class.\nProfessor: Many Indigenous peoples of North America, including the Haudenosaunee, or Iroquois, grew three crops together: corn, beans, and squash. They were often called the \"Three Sisters.\" Today, I want to explain why planting them together worked so well—because it's not just a nice story. There's real science behind it.\nFirst, the corn. Corn grows tall and straight, so it gives the beans something to climb. Bean plants are vines; without support, they spread along the ground.\nSecond, the beans. Beans have a special relationship with certain bacteria that live on their roots. These bacteria take nitrogen from the air and turn it into a form that plants can use. Nitrogen is something corn needs a lot of, so the beans help keep the soil fertile.\nThird, the squash. Squash has large, wide leaves that spread across the ground. They shade the soil, which keeps it moist and makes it harder for weeds to grow.\nStudent: So each plant helps the others?\nProfessor: Exactly. And there's a nutritional side, too. Corn, beans, and squash together provide a more balanced diet than any one of them alone.\nEuropean settlers who arrived later often planted crops in separate rows. Some of them thought the mixed fields looked messy. But researchers who have compared the methods have found that the Three Sisters system can produce more food energy and protein from the same area of land.",
+  "question": "What can be inferred about European settlers' view of mixed fields?",
+  "choices": [
+   "They immediately adopted the method.",
+   "They underestimated how productive the fields were.",
+   "They thought the method used too much land compared with their own farms.",
+   "They believed it produced too much protein."
+  ],
+  "answer": "They underestimated how productive the fields were.",
+  "explanation": "見た目が乱雑だと考えたが、実際は同じ面積でより多く生産できると研究が示している。",
+  "tags": "TOEFL2026 listening academic-talk agricultural history"
+ }
+]

@@ -1,0 +1,542 @@
+[
+ {
+  "id": "TOEFL-LC-516-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to a conversation between a student and a librarian.\nStudent (man): Hi. I want to print my homework, but the printer says my card has no money.\nLibrarian (woman): OK. You need to add money to your student card first. You can do it at the machine by the front door.\nStudent: Can I pay with cash?\nLibrarian: Yes, cash or a bank card. The smallest amount is two dollars.\nStudent: Great. And how much is one page?\nLibrarian: Ten cents for black and white, and fifty cents for color.\nStudent: I only need black and white. It's five pages.\nLibrarian: Then two dollars is more than enough. After you add the money, just tap your card on the printer again.\nStudent: Thanks a lot!",
+  "question": "Why does the student talk to the librarian?",
+  "choices": [
+   "He wants to know how much it costs to print pages in color.",
+   "He lost his student card.",
+   "He wants to buy a new printer.",
+   "He cannot print because his card has no money."
+  ],
+  "answer": "He cannot print because his card has no money.",
+  "explanation": "学生はカードに残高がなく印刷できないため司書に話しかけている。",
+  "tags": "TOEFL2026 listening conversation library"
+ },
+ {
+  "id": "TOEFL-LC-516-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to a conversation between a student and a librarian.\nStudent (man): Hi. I want to print my homework, but the printer says my card has no money.\nLibrarian (woman): OK. You need to add money to your student card first. You can do it at the machine by the front door.\nStudent: Can I pay with cash?\nLibrarian: Yes, cash or a bank card. The smallest amount is two dollars.\nStudent: Great. And how much is one page?\nLibrarian: Ten cents for black and white, and fifty cents for color.\nStudent: I only need black and white. It's five pages.\nLibrarian: Then two dollars is more than enough. After you add the money, just tap your card on the printer again.\nStudent: Thanks a lot!",
+  "question": "How much will the student pay for his pages?",
+  "choices": [
+   "Ten cents",
+   "Fifty cents",
+   "Two dollars and fifty cents",
+   "Five dollars"
+  ],
+  "answer": "Fifty cents",
+  "explanation": "白黒は1枚10セントで5枚なので50セント。2ドルは最低チャージ額で、印刷代ではない。",
+  "tags": "TOEFL2026 listening conversation library"
+ },
+ {
+  "id": "TOEFL-LC-517-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and an academic advisor.\nStudent (woman): I'm trying to register for Introduction to Botany, but the system says I need a prerequisite.\nAdvisor (man): Let me look. Ah, it requires General Biology One.\nStudent: But I took biology at my community college before I transferred here.\nAdvisor: Then the problem is probably that your old course hasn't been matched to ours yet. Did you send your transcript to the registrar?\nStudent: I think so, in August.\nAdvisor: Hmm, it should be processed by now. I'll email the registrar and ask them to check. Meanwhile, I can give you a prerequisite override so you can register today.\nStudent: Really? That would be great. The class is almost full.\nAdvisor: Done. Try registering again in about ten minutes.",
+  "question": "Why can't the student register for the botany course?",
+  "choices": [
+   "The system does not show that she has taken the required course.",
+   "The course is already full.",
+   "She has already signed up for too many credits this semester.",
+   "She registered too late."
+  ],
+  "answer": "The system does not show that she has taken the required course.",
+  "explanation": "編入前に履修した生物学がまだ照合されておらず、前提科目未履修と表示されている。",
+  "tags": "TOEFL2026 listening conversation course"
+ },
+ {
+  "id": "TOEFL-LC-517-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and an academic advisor.\nStudent (woman): I'm trying to register for Introduction to Botany, but the system says I need a prerequisite.\nAdvisor (man): Let me look. Ah, it requires General Biology One.\nStudent: But I took biology at my community college before I transferred here.\nAdvisor: Then the problem is probably that your old course hasn't been matched to ours yet. Did you send your transcript to the registrar?\nStudent: I think so, in August.\nAdvisor: Hmm, it should be processed by now. I'll email the registrar and ask them to check. Meanwhile, I can give you a prerequisite override so you can register today.\nStudent: Really? That would be great. The class is almost full.\nAdvisor: Done. Try registering again in about ten minutes.",
+  "question": "What does the advisor do to help the student?",
+  "choices": [
+   "He signs her up for General Biology One.",
+   "He finds her a different botany class.",
+   "He gives her permission to skip the prerequisite check.",
+   "He sends her transcript to the registrar for a second time today."
+  ],
+  "answer": "He gives her permission to skip the prerequisite check.",
+  "explanation": "前提条件のオーバーライド（免除措置）を出して登録できるようにしている。",
+  "tags": "TOEFL2026 listening conversation course"
+ },
+ {
+  "id": "TOEFL-LC-518-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a graduate student and an undergraduate.\nGrad student (man): Welcome to the paleontology prep lab, Fatima. Before you touch anything, let me explain how we work here.\nUndergraduate (woman): Thanks. I'm excited—I've never worked with real fossils.\nGrad student: These are bones from a site in Montana, still partly inside the rock. Your job is to remove the rock around them with these small air tools. Think of it like a tiny jackhammer.\nUndergraduate: That sounds risky. What if I damage the bone?\nGrad student: That's the right worry. Go slowly, and always work away from the bone, not toward it. When you get within a few millimeters, switch to the needles.\nUndergraduate: Should I keep a record of what I do?\nGrad student: Yes, every session. Write the specimen number, what you removed, and anything unusual—like a crack or a change in color. Those notes help us later when we reconstruct how the animal was buried.\nUndergraduate: Got it.",
+  "question": "What is the main purpose of the conversation?",
+  "choices": [
+   "To describe a dig site in Montana",
+   "To discuss how dinosaurs became extinct",
+   "To choose a topic for a research paper",
+   "To train a new lab worker in fossil preparation"
+  ],
+  "answer": "To train a new lab worker in fossil preparation",
+  "explanation": "化石の処理作業の方法を新人に教えている。",
+  "tags": "TOEFL2026 listening conversation lab"
+ },
+ {
+  "id": "TOEFL-LC-518-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a graduate student and an undergraduate.\nGrad student (man): Welcome to the paleontology prep lab, Fatima. Before you touch anything, let me explain how we work here.\nUndergraduate (woman): Thanks. I'm excited—I've never worked with real fossils.\nGrad student: These are bones from a site in Montana, still partly inside the rock. Your job is to remove the rock around them with these small air tools. Think of it like a tiny jackhammer.\nUndergraduate: That sounds risky. What if I damage the bone?\nGrad student: That's the right worry. Go slowly, and always work away from the bone, not toward it. When you get within a few millimeters, switch to the needles.\nUndergraduate: Should I keep a record of what I do?\nGrad student: Yes, every session. Write the specimen number, what you removed, and anything unusual—like a crack or a change in color. Those notes help us later when we reconstruct how the animal was buried.\nUndergraduate: Got it.",
+  "question": "Why does the graduate student want the woman to note unusual features?",
+  "choices": [
+   "They help researchers understand how the animal was buried.",
+   "They are needed so that the lab can sell the fossils to a museum.",
+   "They show how fast she is working.",
+   "They are required by the state of Montana."
+  ],
+  "answer": "They help researchers understand how the animal was buried.",
+  "explanation": "記録は動物がどのように埋まったかを再構成するのに役立つと述べている。",
+  "tags": "TOEFL2026 listening conversation lab"
+ },
+ {
+  "id": "TOEFL-LC-519-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between a student and a professor who advises graduate applicants.\nStudent (woman): Professor Mensah, I'm applying to doctoral programs in epidemiology, and I'm confused about funding. Some programs offer full funding, but others list a fellowship that only covers tuition.\nProfessor (man): That distinction is crucial. \"Full funding\" generally means tuition plus a living stipend, usually in exchange for teaching or research assistance. A tuition-only award leaves you paying for rent, food, everything else.\nStudent: So a tuition waiver alone isn't really a good offer?\nProfessor: Not necessarily bad, but you'd want to know whether stipends become available after the first year. Some departments guarantee them only if you pass the qualifying exam.\nStudent: Should I ask that directly? I don't want to seem like money is all I care about.\nProfessor: Programs expect that question. Asking shows you're thinking realistically about five years of study. What would worry me is a student who accepts an offer without knowing how they'll pay rent.\nStudent: That's reassuring.\nProfessor: Also, compare stipends against local living costs. A smaller stipend in an inexpensive town may go further than a larger one in a major city.",
+  "question": "According to the professor, what does \"full funding\" usually include?",
+  "choices": [
+   "Tuition and money for living expenses",
+   "Tuition only",
+   "Living expenses but not tuition",
+   "Only money for research equipment"
+  ],
+  "answer": "Tuition and money for living expenses",
+  "explanation": "通常、授業料と生活費の手当（スタイペンド）の両方を含むと説明している。",
+  "tags": "TOEFL2026 listening conversation finaid"
+ },
+ {
+  "id": "TOEFL-LC-519-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between a student and a professor who advises graduate applicants.\nStudent (woman): Professor Mensah, I'm applying to doctoral programs in epidemiology, and I'm confused about funding. Some programs offer full funding, but others list a fellowship that only covers tuition.\nProfessor (man): That distinction is crucial. \"Full funding\" generally means tuition plus a living stipend, usually in exchange for teaching or research assistance. A tuition-only award leaves you paying for rent, food, everything else.\nStudent: So a tuition waiver alone isn't really a good offer?\nProfessor: Not necessarily bad, but you'd want to know whether stipends become available after the first year. Some departments guarantee them only if you pass the qualifying exam.\nStudent: Should I ask that directly? I don't want to seem like money is all I care about.\nProfessor: Programs expect that question. Asking shows you're thinking realistically about five years of study. What would worry me is a student who accepts an offer without knowing how they'll pay rent.\nStudent: That's reassuring.\nProfessor: Also, compare stipends against local living costs. A smaller stipend in an inexpensive town may go further than a larger one in a major city.",
+  "question": "Why does the professor say programs expect questions about funding?",
+  "choices": [
+   "Because such questions show realistic planning",
+   "Because funding rules change every year",
+   "Because most students cannot afford tuition",
+   "Because it is part of the official interview"
+  ],
+  "answer": "Because such questions show realistic planning",
+  "explanation": "資金について尋ねることは5年間の学業を現実的に考えている証拠だから。",
+  "tags": "TOEFL2026 listening conversation finaid"
+ },
+ {
+  "id": "TOEFL-LC-520-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between a student and a professor.\nStudent (woman): Professor Haddad, I'm back from my semester in Peru, and I'd like to turn my observations into an independent study. I spent time in a village that has been growing potatoes on terraces for centuries.\nProfessor (man): Wonderful. What exactly caught your attention?\nStudent: The farmers plant dozens of potato varieties in the same field, at different heights. I'd assumed it was just tradition, but one farmer explained it as insurance—if frost hits the lower terraces, the higher ones may survive, and the reverse for disease.\nProfessor: That's a well-documented strategy in agricultural anthropology. The question for an independent study is what you can add.\nStudent: I was thinking of comparing how younger and older farmers talk about the practice. The younger ones mentioned market prices much more often.\nProfessor: Now that's promising. You'd be looking at how a risk strategy is being reinterpreted under market pressure. But did you record those conversations with consent?\nStudent: Yes, I had a consent form approved before I left.\nProfessor: Good. Then draft a two-page proposal, and we'll find a theoretical framework to anchor it.",
+  "question": "According to the farmer, why are many potato varieties planted at different heights?",
+  "choices": [
+   "To reduce the risk of losing the entire crop",
+   "To produce different potatoes that can be sold in different markets",
+   "To follow a religious tradition",
+   "To make harvesting easier"
+  ],
+  "answer": "To reduce the risk of losing the entire crop",
+  "explanation": "霜や病気で全滅しないようにする「保険」として説明されている。",
+  "tags": "TOEFL2026 listening conversation abroad"
+ },
+ {
+  "id": "TOEFL-LC-520-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between a student and a professor.\nStudent (woman): Professor Haddad, I'm back from my semester in Peru, and I'd like to turn my observations into an independent study. I spent time in a village that has been growing potatoes on terraces for centuries.\nProfessor (man): Wonderful. What exactly caught your attention?\nStudent: The farmers plant dozens of potato varieties in the same field, at different heights. I'd assumed it was just tradition, but one farmer explained it as insurance—if frost hits the lower terraces, the higher ones may survive, and the reverse for disease.\nProfessor: That's a well-documented strategy in agricultural anthropology. The question for an independent study is what you can add.\nStudent: I was thinking of comparing how younger and older farmers talk about the practice. The younger ones mentioned market prices much more often.\nProfessor: Now that's promising. You'd be looking at how a risk strategy is being reinterpreted under market pressure. But did you record those conversations with consent?\nStudent: Yes, I had a consent form approved before I left.\nProfessor: Good. Then draft a two-page proposal, and we'll find a theoretical framework to anchor it.",
+  "question": "Why does the professor react positively to the student's comparison idea?",
+  "choices": [
+   "It requires no further data collection.",
+   "It has already been approved as a thesis.",
+   "It focuses on market prices rather than farming.",
+   "It could add something new to existing research."
+  ],
+  "answer": "It could add something new to existing research.",
+  "explanation": "既に知られた戦略に対し、世代間の解釈の違いという新しい視点を加えられるから。",
+  "tags": "TOEFL2026 listening conversation abroad"
+ },
+ {
+  "id": "TOEFL-LC-521-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between two students who are planning an event.\nWoman: So for the sociology club's panel on housing costs, we have three speakers confirmed: a city council member, a tenant organizer, and a professor from economics.\nMan: Great mix. My only worry is that the council member might dominate the discussion. Last year's panel turned into a forty-minute speech.\nWoman: Good point. What if we give each speaker exactly eight minutes for opening remarks, and then have a moderator ask questions?\nMan: That helps. And we should collect audience questions on cards rather than letting people line up at the microphone. That way the moderator can choose a range of questions.\nWoman: I like that. Who should moderate, though? It should be someone neutral.\nMan: What about Dr. Bianchi from the journalism department? She's interviewed politicians before.\nWoman: Perfect. I'll email her today. If she says no, we can ask a club officer.",
+  "question": "What concern does the man raise?",
+  "choices": [
+   "The speakers might not show up.",
+   "The audience might be too small.",
+   "The room might be too expensive.",
+   "One speaker might take up too much time."
+  ],
+  "answer": "One speaker might take up too much time.",
+  "explanation": "市議会議員が話を独占するのではないかと心配している。",
+  "tags": "TOEFL2026 listening conversation club"
+ },
+ {
+  "id": "TOEFL-LC-521-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between two students who are planning an event.\nWoman: So for the sociology club's panel on housing costs, we have three speakers confirmed: a city council member, a tenant organizer, and a professor from economics.\nMan: Great mix. My only worry is that the council member might dominate the discussion. Last year's panel turned into a forty-minute speech.\nWoman: Good point. What if we give each speaker exactly eight minutes for opening remarks, and then have a moderator ask questions?\nMan: That helps. And we should collect audience questions on cards rather than letting people line up at the microphone. That way the moderator can choose a range of questions.\nWoman: I like that. Who should moderate, though? It should be someone neutral.\nMan: What about Dr. Bianchi from the journalism department? She's interviewed politicians before.\nWoman: Perfect. I'll email her today. If she says no, we can ask a club officer.",
+  "question": "Why does the man suggest collecting audience questions on cards?",
+  "choices": [
+   "So that audience members can stay anonymous",
+   "So the moderator can select a variety of questions",
+   "Because the speakers have said that they prefer written questions",
+   "Because the speakers prefer written questions"
+  ],
+  "answer": "So the moderator can select a variety of questions",
+  "explanation": "司会者がさまざまな質問を選べるようにするため。",
+  "tags": "TOEFL2026 listening conversation club"
+ },
+ {
+  "id": "TOEFL-LC-522-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a professor during office hours.\nStudent (woman): Professor Reyes, I wanted to ask about switching my cognitive science project from an individual project to a group one.\nProfessor (man): What's prompting that?\nStudent: I'm designing a memory experiment, and I realized I need at least forty participants to get meaningful results. Recruiting and testing that many people alone would take the entire semester.\nProfessor: That's a fair point. Do you have potential partners?\nStudent: Two classmates, Leo and Shirin, are interested in similar questions—how sleep affects recall.\nProfessor: All right, but group projects have a different grading structure. Each of you would need to submit a short individual reflection describing your specific contributions, in addition to the shared report.\nStudent: That sounds reasonable.\nProfessor: And you'll need approval from the ethics review board before testing anyone. Since you're working with human participants, that can take two or three weeks, so submit the application soon.\nStudent: We'll start on it this weekend.",
+  "question": "Why does the student want to change to a group project?",
+  "choices": [
+   "She does not get along well with the other students in her section.",
+   "Her original topic was rejected.",
+   "Testing enough participants alone would take too long.",
+   "Group projects receive higher grades."
+  ],
+  "answer": "Testing enough participants alone would take too long.",
+  "explanation": "40人以上の参加者を一人で集めて実験するのは時間がかかりすぎるため。",
+  "tags": "TOEFL2026 listening conversation course"
+ },
+ {
+  "id": "TOEFL-LC-522-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a professor during office hours.\nStudent (woman): Professor Reyes, I wanted to ask about switching my cognitive science project from an individual project to a group one.\nProfessor (man): What's prompting that?\nStudent: I'm designing a memory experiment, and I realized I need at least forty participants to get meaningful results. Recruiting and testing that many people alone would take the entire semester.\nProfessor: That's a fair point. Do you have potential partners?\nStudent: Two classmates, Leo and Shirin, are interested in similar questions—how sleep affects recall.\nProfessor: All right, but group projects have a different grading structure. Each of you would need to submit a short individual reflection describing your specific contributions, in addition to the shared report.\nStudent: That sounds reasonable.\nProfessor: And you'll need approval from the ethics review board before testing anyone. Since you're working with human participants, that can take two or three weeks, so submit the application soon.\nStudent: We'll start on it this weekend.",
+  "question": "What does the professor say the students must do before testing participants?",
+  "choices": [
+   "Get approval from an ethics review board",
+   "Write their individual reflections",
+   "Choose a new research question",
+   "Find forty more classmates"
+  ],
+  "answer": "Get approval from an ethics review board",
+  "explanation": "人を対象とする研究なので、倫理審査委員会の承認が必要だと述べている。",
+  "tags": "TOEFL2026 listening conversation course"
+ },
+ {
+  "id": "TOEFL-LC-523-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a career center counselor.\nStudent (man): I want to apply for a summer internship with the city's urban planning department, but I've never written a cover letter.\nCounselor (woman): No problem. A cover letter should be short—one page. Start by saying which position you're applying for and why you're interested.\nStudent: Should I talk about my classes?\nCounselor: Yes, but pick one or two that really connect to the job. Didn't you mention a project on bike lanes?\nStudent: Yeah, in my urban studies class we mapped where cyclists had accidents.\nCounselor: That's perfect. Describe what you did and what you learned. Employers like specific examples.\nStudent: OK. Can you look at it when I'm done?\nCounselor: Of course. Book a thirty-minute appointment online, and bring a printed copy.",
+  "question": "What does the counselor suggest the student include in his letter?",
+  "choices": [
+   "A complete list of every class he has taken at the university",
+   "Information about his hobbies",
+   "A request for a higher salary",
+   "A specific project from one of his classes"
+  ],
+  "answer": "A specific project from one of his classes",
+  "explanation": "授業で行った具体的なプロジェクト（自転車レーンの地図作り）を書くよう勧めている。",
+  "tags": "TOEFL2026 listening conversation internship"
+ },
+ {
+  "id": "TOEFL-LC-523-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a career center counselor.\nStudent (man): I want to apply for a summer internship with the city's urban planning department, but I've never written a cover letter.\nCounselor (woman): No problem. A cover letter should be short—one page. Start by saying which position you're applying for and why you're interested.\nStudent: Should I talk about my classes?\nCounselor: Yes, but pick one or two that really connect to the job. Didn't you mention a project on bike lanes?\nStudent: Yeah, in my urban studies class we mapped where cyclists had accidents.\nCounselor: That's perfect. Describe what you did and what you learned. Employers like specific examples.\nStudent: OK. Can you look at it when I'm done?\nCounselor: Of course. Book a thirty-minute appointment online, and bring a printed copy.",
+  "question": "Why does the counselor mention the bike lane project?",
+  "choices": [
+   "It was assigned by the city.",
+   "It is a good example that relates to the job.",
+   "She worked on it with the student.",
+   "It is required for the application."
+  ],
+  "answer": "It is a good example that relates to the job.",
+  "explanation": "仕事に関連する具体例として最適だから。",
+  "tags": "TOEFL2026 listening conversation internship"
+ },
+ {
+  "id": "TOEFL-LC-524-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a registrar's office employee.\nStudent (man): Hi. I'm a senior, and I just found out I'm one credit short of graduating in May.\nEmployee (woman): Let's see. You have 119 credits, and the requirement is 120. That's right.\nStudent: I took a two-credit independent study last spring, but my record only shows one.\nEmployee: Hmm. Sometimes independent studies are entered with the default value. Do you have any documentation—an email from the professor, or the original form?\nStudent: I have the signed form at home. It says two credits.\nEmployee: Then bring it in, or scan it and upload it through the student portal under \"record corrections.\" We'll check it with the department.\nStudent: And if it's corrected, I'm fine for May?\nEmployee: Yes. But I'd suggest you don't wait. The deadline for spring graduation applications is the end of next week, and corrections can take several days.\nStudent: I'll scan it tonight.",
+  "question": "What is the student's problem?",
+  "choices": [
+   "He failed a required course.",
+   "He missed the graduation application deadline.",
+   "His record may show the wrong number of credits for one course.",
+   "He cannot find a professor for an independent study."
+  ],
+  "answer": "His record may show the wrong number of credits for one course.",
+  "explanation": "独立研究の単位が2単位ではなく1単位と記録されている可能性がある。",
+  "tags": "TOEFL2026 listening conversation course"
+ },
+ {
+  "id": "TOEFL-LC-524-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a registrar's office employee.\nStudent (man): Hi. I'm a senior, and I just found out I'm one credit short of graduating in May.\nEmployee (woman): Let's see. You have 119 credits, and the requirement is 120. That's right.\nStudent: I took a two-credit independent study last spring, but my record only shows one.\nEmployee: Hmm. Sometimes independent studies are entered with the default value. Do you have any documentation—an email from the professor, or the original form?\nStudent: I have the signed form at home. It says two credits.\nEmployee: Then bring it in, or scan it and upload it through the student portal under \"record corrections.\" We'll check it with the department.\nStudent: And if it's corrected, I'm fine for May?\nEmployee: Yes. But I'd suggest you don't wait. The deadline for spring graduation applications is the end of next week, and corrections can take several days.\nStudent: I'll scan it tonight.",
+  "question": "Why does the employee advise the student not to wait?",
+  "choices": [
+   "The registrar's office will close soon for the summer break.",
+   "The correction may take time and a deadline is coming.",
+   "The form may be lost.",
+   "His professor is leaving the university."
+  ],
+  "answer": "The correction may take time and a deadline is coming.",
+  "explanation": "訂正には数日かかり、卒業申請の締め切りが来週末に迫っているため。",
+  "tags": "TOEFL2026 listening conversation course"
+ },
+ {
+  "id": "TOEFL-LC-525-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a librarian.\nStudent (man): Hi. I'm writing a paper on the history of radio in West Africa, and I'm having trouble finding sources.\nLibrarian (woman): Have you tried our regional studies databases?\nStudent: I searched the main catalog, but I only found two books.\nLibrarian: The catalog doesn't include most journal articles. Let me show you. If you go to the library homepage and click \"Databases,\" you can choose \"Africa\" as the region. There's one that collects newspapers from the 1950s onward.\nStudent: Newspapers? I didn't think of those.\nLibrarian: They're great for media history. You can see radio schedules, advertisements, even letters from listeners.\nStudent: Wow. Can I access it from home?\nLibrarian: Yes, just log in with your student account.",
+  "question": "Why did the student come to the librarian?",
+  "choices": [
+   "He wanted to borrow a radio.",
+   "He needed help logging in to his account.",
+   "He could not find enough sources for his paper.",
+   "He wanted to read newspapers from today."
+  ],
+  "answer": "He could not find enough sources for his paper.",
+  "explanation": "論文の資料が十分見つからないため相談している。",
+  "tags": "TOEFL2026 listening conversation library"
+ },
+ {
+  "id": "TOEFL-LC-525-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a librarian.\nStudent (man): Hi. I'm writing a paper on the history of radio in West Africa, and I'm having trouble finding sources.\nLibrarian (woman): Have you tried our regional studies databases?\nStudent: I searched the main catalog, but I only found two books.\nLibrarian: The catalog doesn't include most journal articles. Let me show you. If you go to the library homepage and click \"Databases,\" you can choose \"Africa\" as the region. There's one that collects newspapers from the 1950s onward.\nStudent: Newspapers? I didn't think of those.\nLibrarian: They're great for media history. You can see radio schedules, advertisements, even letters from listeners.\nStudent: Wow. Can I access it from home?\nLibrarian: Yes, just log in with your student account.",
+  "question": "Why does the librarian recommend old newspapers?",
+  "choices": [
+   "They are easier to find than books, and they can be read at home.",
+   "They contain useful information about radio's history.",
+   "They are the only sources in the library.",
+   "They are required by his professor."
+  ],
+  "answer": "They contain useful information about radio's history.",
+  "explanation": "ラジオ番組表や広告、投書などメディア史に役立つ情報が載っているから。",
+  "tags": "TOEFL2026 listening conversation library"
+ },
+ {
+  "id": "TOEFL-LC-526-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a study abroad advisor.\nStudent (woman): I've been accepted to the agricultural program in Kenya, but I just realized it overlaps with the first two weeks of fall semester here.\nAdvisor (man): Yes, the program ends in mid-September. Have you talked to your fall professors?\nStudent: Not yet. I wasn't sure if that was allowed.\nAdvisor: It's allowed, but it's your responsibility. We have a standard letter that explains the program, and you'd send it to each professor along with a plan for how you'll keep up—like completing readings online.\nStudent: What if a professor says no?\nAdvisor: Then you might need to take that course in a different semester. That's why it's important to contact them before registration closes. Which courses are you planning on?\nStudent: Soil science, statistics, and a history elective.\nAdvisor: The soil science professor is usually flexible—she's run field programs herself. Statistics might be tougher because of the weekly quizzes.",
+  "question": "What is the student's problem?",
+  "choices": [
+   "She was not accepted to the program.",
+   "She cannot afford the trip to Kenya.",
+   "She needs to change her major before she is allowed to travel to Kenya.",
+   "Her study abroad program overlaps with the start of the semester."
+  ],
+  "answer": "Her study abroad program overlaps with the start of the semester.",
+  "explanation": "留学プログラムが秋学期の最初の2週間と重なっている。",
+  "tags": "TOEFL2026 listening conversation abroad"
+ },
+ {
+  "id": "TOEFL-LC-526-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a study abroad advisor.\nStudent (woman): I've been accepted to the agricultural program in Kenya, but I just realized it overlaps with the first two weeks of fall semester here.\nAdvisor (man): Yes, the program ends in mid-September. Have you talked to your fall professors?\nStudent: Not yet. I wasn't sure if that was allowed.\nAdvisor: It's allowed, but it's your responsibility. We have a standard letter that explains the program, and you'd send it to each professor along with a plan for how you'll keep up—like completing readings online.\nStudent: What if a professor says no?\nAdvisor: Then you might need to take that course in a different semester. That's why it's important to contact them before registration closes. Which courses are you planning on?\nStudent: Soil science, statistics, and a history elective.\nAdvisor: The soil science professor is usually flexible—she's run field programs herself. Statistics might be tougher because of the weekly quizzes.",
+  "question": "Why does the advisor think the statistics course may be a problem?",
+  "choices": [
+   "The professor does not allow online readings.",
+   "It is only offered in the spring.",
+   "It is required for her major.",
+   "It has frequent quizzes that she would miss."
+  ],
+  "answer": "It has frequent quizzes that she would miss.",
+  "explanation": "毎週の小テストがあるため欠席が難しいと考えている。",
+  "tags": "TOEFL2026 listening conversation abroad"
+ },
+ {
+  "id": "TOEFL-LC-527-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between two officers of a student club.\nWoman: I've been looking at the attendance data for the urban gardening club, and it's puzzling. We had sixty people sign up in September, but only about twelve come to the weekend work sessions.\nMan: Maybe people just lose interest once classes get busy?\nWoman: That's what I assumed, but I sent out a short survey, and the most common answer wasn't time. It was that people didn't know what to do when they arrived. They felt awkward standing around.\nMan: Huh. So it's less about motivation and more about structure.\nWoman: Exactly. Experienced members just start working, and newcomers feel like they're in the way.\nMan: What if we pair each new person with an experienced member for their first few sessions? Like a buddy system.\nWoman: That's one idea. I was also thinking of posting a task board at the garden—watering, weeding, compost—so anyone can pick something up immediately.\nMan: We could do both. It wouldn't cost anything.\nWoman: Let's propose it at Thursday's meeting and track attendance for a month to see if it makes a difference.",
+  "question": "What did the woman's survey reveal?",
+  "choices": [
+   "New members were unsure what to do at the sessions.",
+   "Most members were too busy with classes.",
+   "Members disliked the location of the garden.",
+   "Members wanted sessions on weekdays instead."
+  ],
+  "answer": "New members were unsure what to do at the sessions.",
+  "explanation": "最も多い回答は、到着しても何をすべきかわからないというものだった。",
+  "tags": "TOEFL2026 listening conversation club"
+ },
+ {
+  "id": "TOEFL-LC-527-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between two officers of a student club.\nWoman: I've been looking at the attendance data for the urban gardening club, and it's puzzling. We had sixty people sign up in September, but only about twelve come to the weekend work sessions.\nMan: Maybe people just lose interest once classes get busy?\nWoman: That's what I assumed, but I sent out a short survey, and the most common answer wasn't time. It was that people didn't know what to do when they arrived. They felt awkward standing around.\nMan: Huh. So it's less about motivation and more about structure.\nWoman: Exactly. Experienced members just start working, and newcomers feel like they're in the way.\nMan: What if we pair each new person with an experienced member for their first few sessions? Like a buddy system.\nWoman: That's one idea. I was also thinking of posting a task board at the garden—watering, weeding, compost—so anyone can pick something up immediately.\nMan: We could do both. It wouldn't cost anything.\nWoman: Let's propose it at Thursday's meeting and track attendance for a month to see if it makes a difference.",
+  "question": "What do the speakers plan to do to evaluate their changes?",
+  "choices": [
+   "Send out a second survey",
+   "Interview experienced members",
+   "Compare their club with another club",
+   "Track attendance for a month"
+  ],
+  "answer": "Track attendance for a month",
+  "explanation": "1か月間出席者数を追跡して効果を確かめる予定。",
+  "tags": "TOEFL2026 listening conversation club"
+ },
+ {
+  "id": "TOEFL-LC-528-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between two students at a bus stop.\nWoman: Is this the stop for the downtown bus?\nMan: Yes, the number 5. But it's usually late in the afternoon because of traffic.\nWoman: Oh no. I have a dentist appointment at four thirty.\nMan: Where is it?\nWoman: On Elm Street, near the city museum.\nMan: Then you might be faster on the green line train. The station is just across the street, and it stops right by the museum.\nWoman: Really? How often does it come?\nMan: Every eight minutes. And you can use your student card, so it's free.\nWoman: Free? I didn't know that. Thanks so much!\nMan: No problem. Just tap your card at the gate.",
+  "question": "Why does the man suggest taking the train?",
+  "choices": [
+   "It will probably get the woman to her appointment faster.",
+   "The bus does not go downtown.",
+   "The train is cheaper than walking.",
+   "The bus stop is closed today."
+  ],
+  "answer": "It will probably get the woman to her appointment faster.",
+  "explanation": "バスは午後遅れがちで、電車の方が早く目的地に着けるから。",
+  "tags": "TOEFL2026 listening conversation daily"
+ },
+ {
+  "id": "TOEFL-LC-528-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between two students at a bus stop.\nWoman: Is this the stop for the downtown bus?\nMan: Yes, the number 5. But it's usually late in the afternoon because of traffic.\nWoman: Oh no. I have a dentist appointment at four thirty.\nMan: Where is it?\nWoman: On Elm Street, near the city museum.\nMan: Then you might be faster on the green line train. The station is just across the street, and it stops right by the museum.\nWoman: Really? How often does it come?\nMan: Every eight minutes. And you can use your student card, so it's free.\nWoman: Free? I didn't know that. Thanks so much!\nMan: No problem. Just tap your card at the gate.",
+  "question": "What does the woman learn about the train?",
+  "choices": [
+   "It runs every twenty minutes.",
+   "It does not stop near the museum.",
+   "She must buy a ticket at the gate.",
+   "Students can ride it for free."
+  ],
+  "answer": "Students can ride it for free.",
+  "explanation": "学生証で無料で乗れることを初めて知った。",
+  "tags": "TOEFL2026 listening conversation daily"
+ },
+ {
+  "id": "TOEFL-LC-529-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between two students.\nMan: So, Yuna, how was your year in Copenhagen? You studied architecture there, right?\nWoman: Right. It was amazing, but it took me a while to adjust to the way classes worked.\nMan: How so?\nWoman: Well, here we have lots of small assignments and quizzes. There, almost the entire grade came from one big design project and an oral exam at the end.\nMan: An oral exam for architecture?\nWoman: Yeah, you present your design and then a panel of two professors questions you for about thirty minutes. The first time, I was terrified.\nMan: I bet. Was it worth it, though?\nWoman: Absolutely. I learned to defend my ideas, and I spent a lot of time looking at how the city designs public spaces—bike bridges, harbor swimming areas. I'm actually basing my senior project on it.\nMan: That's great. I'm applying for the same program next year.\nWoman: Then start practicing explaining your work out loud. Trust me.",
+  "question": "What does the woman say was difficult at first?",
+  "choices": [
+   "Finding a place to live in the city",
+   "Adjusting to a different system of assessment",
+   "Learning to speak Danish",
+   "Paying for the program"
+  ],
+  "answer": "Adjusting to a different system of assessment",
+  "explanation": "評価方法（大きな課題1つと口頭試問）の違いに慣れるのに時間がかかったと述べている。",
+  "tags": "TOEFL2026 listening conversation abroad"
+ },
+ {
+  "id": "TOEFL-LC-529-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between two students.\nMan: So, Yuna, how was your year in Copenhagen? You studied architecture there, right?\nWoman: Right. It was amazing, but it took me a while to adjust to the way classes worked.\nMan: How so?\nWoman: Well, here we have lots of small assignments and quizzes. There, almost the entire grade came from one big design project and an oral exam at the end.\nMan: An oral exam for architecture?\nWoman: Yeah, you present your design and then a panel of two professors questions you for about thirty minutes. The first time, I was terrified.\nMan: I bet. Was it worth it, though?\nWoman: Absolutely. I learned to defend my ideas, and I spent a lot of time looking at how the city designs public spaces—bike bridges, harbor swimming areas. I'm actually basing my senior project on it.\nMan: That's great. I'm applying for the same program next year.\nWoman: Then start practicing explaining your work out loud. Trust me.",
+  "question": "Why does the woman tell the man to practice explaining his work out loud?",
+  "choices": [
+   "Because his English needs improvement",
+   "Because she wants to hear about his design",
+   "Because the application requires an interview",
+   "Because he will probably face an oral exam"
+  ],
+  "answer": "Because he will probably face an oral exam",
+  "explanation": "同じプログラムでは口頭試問があるため、声に出して説明する練習を勧めている。",
+  "tags": "TOEFL2026 listening conversation abroad"
+ },
+ {
+  "id": "TOEFL-LC-530-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a study abroad advisor.\nAdvisor (man): So, you're interested in our program in New Zealand?\nStudent (woman): Yes, the one about marine ecosystems. But I'm worried about the cost.\nAdvisor: That's understandable. The good thing is that you pay the same tuition as here. The extra costs are mostly the flight and housing.\nStudent: How much is housing?\nAdvisor: Students live with local families, and it's about the same as a dorm room here. Meals are included, too.\nStudent: Oh, that's better than I expected. Are there any scholarships?\nAdvisor: Yes, there's a travel scholarship that covers up to half the flight. You'd need to write a short essay about why the program matters for your studies.\nStudent: I can do that. I'm an environmental science major, so it fits perfectly.\nAdvisor: Great. The essay is due March first.",
+  "question": "What is the student mainly concerned about?",
+  "choices": [
+   "The cost of the program",
+   "Living with a local family",
+   "Her level of English",
+   "The length of the flight"
+  ],
+  "answer": "The cost of the program",
+  "explanation": "費用が心配だと最初に述べている。",
+  "tags": "TOEFL2026 listening conversation abroad"
+ },
+ {
+  "id": "TOEFL-LC-530-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a study abroad advisor.\nAdvisor (man): So, you're interested in our program in New Zealand?\nStudent (woman): Yes, the one about marine ecosystems. But I'm worried about the cost.\nAdvisor: That's understandable. The good thing is that you pay the same tuition as here. The extra costs are mostly the flight and housing.\nStudent: How much is housing?\nAdvisor: Students live with local families, and it's about the same as a dorm room here. Meals are included, too.\nStudent: Oh, that's better than I expected. Are there any scholarships?\nAdvisor: Yes, there's a travel scholarship that covers up to half the flight. You'd need to write a short essay about why the program matters for your studies.\nStudent: I can do that. I'm an environmental science major, so it fits perfectly.\nAdvisor: Great. The essay is due March first.",
+  "question": "What does the advisor say about housing in the program?",
+  "choices": [
+   "It is much more expensive than a dorm room on the home campus.",
+   "Students must find their own apartments.",
+   "It costs about the same as a dorm and includes meals.",
+   "It is paid for by the travel scholarship."
+  ],
+  "answer": "It costs about the same as a dorm and includes meals.",
+  "explanation": "ホームステイで寮と同程度の費用、食事込みだと説明している。",
+  "tags": "TOEFL2026 listening conversation abroad"
+ }
+]

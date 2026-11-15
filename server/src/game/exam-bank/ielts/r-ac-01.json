@@ -98,7 +98,7 @@
    "It is produced by every species of tardigrade.",
    "It protects tardigrades mainly from extreme heat.",
    "Its practical benefits for humans have not yet been established.",
-   "It completely prevented X-ray damage in human cells."
+   "It completely prevented X-ray damage in the human cells that were tested."
   ],
   "answer": "Its practical benefits for humans have not yet been established.",
   "explanation": "E段落の 最後「such uses remain speculative」＝応用は まだ 推測の 段階。1種だけの タンパク質で、ダメージは「considerably less（かなり 少ない）」であり ゼロでは ない。",
@@ -391,10 +391,10 @@
   "choices": [
    "they move more slowly than clocks on the Earth's surface.",
    "their atomic clocks are less accurate than ground clocks.",
-   "the effect of weaker gravity is greater than the effect of their speed.",
+   "weaker gravity affects them more than their speed does.",
    "their signals are affected by radio interference."
   ],
-  "answer": "the effect of weaker gravity is greater than the effect of their speed.",
+  "answer": "weaker gravity affects them more than their speed does.",
   "explanation": "D段落：速さで 遅れ、重力が 弱いことで 進む。「The second effect is larger」なので 全体では 進む。",
   "tags": "IELTS reading academic 技術 GPS 多肢選択"
  },
@@ -410,9 +410,9 @@
    "GLONASS and Galileo are less accurate than GPS.",
    "Receivers cannot combine signals from different networks.",
    "Ground-based backup systems are too expensive to build.",
-   "Infrastructure that relies on satellite timing may be vulnerable to interference."
+   "Systems that depend on GPS timing could be disrupted."
   ],
-  "answer": "Infrastructure that relies on satellite timing may be vulnerable to interference.",
+  "answer": "Systems that depend on GPS timing could be disrupted.",
   "explanation": "F段落：信号が 弱く jamming や spoofing で 乱される → 地上の バックアップに もっと 投資すべき。受信機は 複数の 信号を 組み合わせられる と ある。",
   "tags": "IELTS reading academic 技術 GPS 多肢選択"
  },
@@ -557,9 +557,9 @@
    "They have restored most of the mangroves lost since 1950.",
    "They work best when combined with shrimp farming.",
    "They have now been abandoned by most countries.",
-   "They are less successful when seedlings are planted in unsuitable places."
+   "They often fail in unsuitable locations."
   ],
-  "answer": "They are less successful when seedlings are planted in unsuitable places.",
+  "answer": "They often fail in unsuitable locations.",
   "explanation": "F段落「seedlings planted on mudflats where mangroves never naturally grew often die」＝適さない 場所では 失敗しやすい。",
   "tags": "IELTS reading academic 環境 マングローブ 多肢選択"
  },

@@ -1,0 +1,542 @@
+[
+ {
+  "id": "TOEFL-LC-501-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a professor.\nStudent (man): Professor Nakamura, do you have a minute? It's about access to the materials lab.\nProfessor (woman): Sure, Ethan. What's going on?\nStudent: My card stopped working on the lab door. I need to run tensile tests on my samples this week.\nProfessor: Ah, I think I know why. Access cards are linked to the safety certification, and those expire after one year. When did you do yours?\nStudent: Last October, I think.\nProfessor: Then it expired a few weeks ago. You'll need to retake the refresher module—it's shorter than the original, about an hour.\nStudent: And then my card will work again?\nProfessor: Not immediately. The safety office updates access lists every Monday. So if you finish the module today, you'd be in by Monday.\nStudent: That's cutting it close. My results are due Friday the following week.\nProfessor: In the meantime, you could prepare your samples in the general workshop—no special access is needed there.",
+  "question": "Why did the student's access card stop working?",
+  "choices": [
+   "He lost his original card.",
+   "The lab was closed for repairs.",
+   "His safety certification expired.",
+   "The professor removed him from the course."
+  ],
+  "answer": "His safety certification expired.",
+  "explanation": "アクセス権は安全講習の資格と連動しており、1年で失効したため。",
+  "tags": "TOEFL2026 listening conversation lab"
+ },
+ {
+  "id": "TOEFL-LC-501-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a professor.\nStudent (man): Professor Nakamura, do you have a minute? It's about access to the materials lab.\nProfessor (woman): Sure, Ethan. What's going on?\nStudent: My card stopped working on the lab door. I need to run tensile tests on my samples this week.\nProfessor: Ah, I think I know why. Access cards are linked to the safety certification, and those expire after one year. When did you do yours?\nStudent: Last October, I think.\nProfessor: Then it expired a few weeks ago. You'll need to retake the refresher module—it's shorter than the original, about an hour.\nStudent: And then my card will work again?\nProfessor: Not immediately. The safety office updates access lists every Monday. So if you finish the module today, you'd be in by Monday.\nStudent: That's cutting it close. My results are due Friday the following week.\nProfessor: In the meantime, you could prepare your samples in the general workshop—no special access is needed there.",
+  "question": "What does the professor suggest the student do while he waits?",
+  "choices": [
+   "Ask another student to run his tests",
+   "Request a deadline extension",
+   "Visit the safety office every day",
+   "Prepare his samples in a different workspace"
+  ],
+  "answer": "Prepare his samples in a different workspace",
+  "explanation": "待つ間、特別な許可のいらない一般作業場で試料の準備をするよう勧めている。",
+  "tags": "TOEFL2026 listening conversation lab"
+ },
+ {
+  "id": "TOEFL-LC-502-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between two students.\nWoman: Did you hear back about your housing application for next year?\nMan: Yeah, I got a room in North Hall. But it's a triple—three people in one room.\nWoman: Oh. That might be crowded.\nMan: That's what I'm worried about. I study better when it's quiet.\nWoman: You could ask to be put on the waiting list for a double. People drop out all summer, so rooms open up.\nMan: Is there a fee for that?\nWoman: No, but you have to do it online before May fifteenth. Also, the triples are cheaper, so if you stay there, you'd save some money.\nMan: True. Maybe I'll add my name to the list, and if nothing opens up, I'll just use the library more.",
+  "question": "What is the man's concern about his room?",
+  "choices": [
+   "It is too far from his classes, and he doesn't have a bike or car.",
+   "It may be too crowded and noisy for studying.",
+   "It is too expensive.",
+   "He doesn't know his roommates."
+  ],
+  "answer": "It may be too crowded and noisy for studying.",
+  "explanation": "3人部屋だと混み合って静かに勉強できないことを心配している。",
+  "tags": "TOEFL2026 listening conversation housing"
+ },
+ {
+  "id": "TOEFL-LC-502-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between two students.\nWoman: Did you hear back about your housing application for next year?\nMan: Yeah, I got a room in North Hall. But it's a triple—three people in one room.\nWoman: Oh. That might be crowded.\nMan: That's what I'm worried about. I study better when it's quiet.\nWoman: You could ask to be put on the waiting list for a double. People drop out all summer, so rooms open up.\nMan: Is there a fee for that?\nWoman: No, but you have to do it online before May fifteenth. Also, the triples are cheaper, so if you stay there, you'd save some money.\nMan: True. Maybe I'll add my name to the list, and if nothing opens up, I'll just use the library more.",
+  "question": "What does the man decide to do?",
+  "choices": [
+   "Move off campus",
+   "Join the waiting list for a different room",
+   "Cancel his housing application",
+   "Change his roommates"
+  ],
+  "answer": "Join the waiting list for a different room",
+  "explanation": "2人部屋のキャンセル待ちリストに名前を入れることにしている。",
+  "tags": "TOEFL2026 listening conversation housing"
+ },
+ {
+  "id": "TOEFL-LC-503-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a financial aid officer.\nStudent (woman): I'm here because my father lost his job in October, and our family's income has dropped a lot. My aid package was based on last year's income.\nOfficer (man): I'm sorry to hear that. You can request what's called a professional judgment review. Basically, we reconsider your aid based on your current situation rather than last year's tax return.\nStudent: What do I need to provide?\nOfficer: A letter from his former employer showing the end date, and any records of unemployment benefits. You'll also write a brief statement explaining the change.\nStudent: How long does the review take?\nOfficer: Usually three to four weeks. I should be honest—an increase isn't guaranteed. Most of our grant money has already been awarded for this year. But you might qualify for more work-study hours or a lower-interest loan.\nStudent: Even that would help. I'd rather not leave school.\nOfficer: We'll do what we can. Let me print the checklist for you.",
+  "question": "What is the main purpose of the conversation?",
+  "choices": [
+   "To complain about a mistake that the office made in her aid package",
+   "To apply for a job in the financial aid office",
+   "To find out about loans for graduate school",
+   "To ask about changing aid because of a drop in family income"
+  ],
+  "answer": "To ask about changing aid because of a drop in family income",
+  "explanation": "家族の収入減少を理由に援助の見直しを相談している。",
+  "tags": "TOEFL2026 listening conversation finaid"
+ },
+ {
+  "id": "TOEFL-LC-503-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a financial aid officer.\nStudent (woman): I'm here because my father lost his job in October, and our family's income has dropped a lot. My aid package was based on last year's income.\nOfficer (man): I'm sorry to hear that. You can request what's called a professional judgment review. Basically, we reconsider your aid based on your current situation rather than last year's tax return.\nStudent: What do I need to provide?\nOfficer: A letter from his former employer showing the end date, and any records of unemployment benefits. You'll also write a brief statement explaining the change.\nStudent: How long does the review take?\nOfficer: Usually three to four weeks. I should be honest—an increase isn't guaranteed. Most of our grant money has already been awarded for this year. But you might qualify for more work-study hours or a lower-interest loan.\nStudent: Even that would help. I'd rather not leave school.\nOfficer: We'll do what we can. Let me print the checklist for you.",
+  "question": "What does the officer imply about the result of the review?",
+  "choices": [
+   "The student may receive help in a form other than grant money.",
+   "The student will definitely receive a much larger grant than before.",
+   "The review will be finished within a week.",
+   "The student's father must come to the office."
+  ],
+  "answer": "The student may receive help in a form other than grant money.",
+  "explanation": "給付金はほぼ配分済みだが、勤労学生の時間増や低金利ローンの可能性があると示唆している。",
+  "tags": "TOEFL2026 listening conversation finaid"
+ },
+ {
+  "id": "TOEFL-LC-504-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a lab manager.\nStudent (woman): Hello, I'm in Professor Haddad's marine biology course, and we're supposed to use the seawater tanks for our project.\nManager (man): Right. Have you done the tank safety training yet?\nStudent: Not yet. Is it online?\nManager: Part of it is. There's a thirty-minute video and a short quiz. After you pass, you come here for a hands-on session where I show you how to test the water and feed the animals.\nStudent: When are the hands-on sessions?\nManager: Tuesdays at four and Saturdays at ten. Each one is limited to six students.\nStudent: Tuesdays I have a chemistry lab until five. Saturday works.\nManager: OK. I'll put you down for this Saturday, but you have to pass the quiz by Friday night, or I'll give your spot to someone else.\nStudent: Understood. I'll do it tonight.",
+  "question": "What must the student do before the hands-on session?",
+  "choices": [
+   "Feed the animals in the tanks",
+   "Pass an online quiz",
+   "Talk to Professor Haddad",
+   "Finish her chemistry lab report"
+  ],
+  "answer": "Pass an online quiz",
+  "explanation": "実地講習の前にオンラインのビデオとクイズに合格する必要がある。",
+  "tags": "TOEFL2026 listening conversation lab"
+ },
+ {
+  "id": "TOEFL-LC-504-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a lab manager.\nStudent (woman): Hello, I'm in Professor Haddad's marine biology course, and we're supposed to use the seawater tanks for our project.\nManager (man): Right. Have you done the tank safety training yet?\nStudent: Not yet. Is it online?\nManager: Part of it is. There's a thirty-minute video and a short quiz. After you pass, you come here for a hands-on session where I show you how to test the water and feed the animals.\nStudent: When are the hands-on sessions?\nManager: Tuesdays at four and Saturdays at ten. Each one is limited to six students.\nStudent: Tuesdays I have a chemistry lab until five. Saturday works.\nManager: OK. I'll put you down for this Saturday, but you have to pass the quiz by Friday night, or I'll give your spot to someone else.\nStudent: Understood. I'll do it tonight.",
+  "question": "Why does the student choose the Saturday session?",
+  "choices": [
+   "Saturday sessions are shorter.",
+   "She has a class on Tuesday afternoons.",
+   "The Tuesday session is already full.",
+   "Her professor recommended it."
+  ],
+  "answer": "She has a class on Tuesday afternoons.",
+  "explanation": "火曜日は5時まで化学の実験があるため土曜日を選んでいる。",
+  "tags": "TOEFL2026 listening conversation lab"
+ },
+ {
+  "id": "TOEFL-LC-505-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a resident advisor.\nStudent (woman): Hi, Marcus. Can I talk to you about something? It's my roommate.\nRA (man): Sure. What's happening?\nStudent: She has friends over almost every night until one or two in the morning. I have an eight a.m. lab three days a week, and I'm exhausted.\nRA: Have you talked to her about it directly?\nStudent: Sort of. I mentioned it once, but she just said they'd be quieter. Nothing really changed.\nRA: OK. A good next step is a roommate agreement. It's a written plan where you both agree on things like quiet hours and guests. I can sit in and help, so it doesn't feel like a fight.\nStudent: And if she doesn't follow it?\nRA: Then we'd look at other options, including a room change. But honestly, most of the time, once things are written down, people take them more seriously.\nStudent: OK, let's try that.",
+  "question": "What does the resident advisor suggest first?",
+  "choices": [
+   "Moving to a different room",
+   "Writing a formal agreement with the roommate",
+   "Reporting the roommate to the housing office",
+   "Studying in the library at night"
+  ],
+  "answer": "Writing a formal agreement with the roommate",
+  "explanation": "まずルームメイト協定を書面で作ることを提案している。",
+  "tags": "TOEFL2026 listening conversation housing"
+ },
+ {
+  "id": "TOEFL-LC-505-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a resident advisor.\nStudent (woman): Hi, Marcus. Can I talk to you about something? It's my roommate.\nRA (man): Sure. What's happening?\nStudent: She has friends over almost every night until one or two in the morning. I have an eight a.m. lab three days a week, and I'm exhausted.\nRA: Have you talked to her about it directly?\nStudent: Sort of. I mentioned it once, but she just said they'd be quieter. Nothing really changed.\nRA: OK. A good next step is a roommate agreement. It's a written plan where you both agree on things like quiet hours and guests. I can sit in and help, so it doesn't feel like a fight.\nStudent: And if she doesn't follow it?\nRA: Then we'd look at other options, including a room change. But honestly, most of the time, once things are written down, people take them more seriously.\nStudent: OK, let's try that.",
+  "question": "What does the resident advisor imply about written agreements?",
+  "choices": [
+   "They often change people's behavior.",
+   "They are required for all roommates.",
+   "They rarely solve problems.",
+   "They are only used as a last resort."
+  ],
+  "answer": "They often change people's behavior.",
+  "explanation": "書面にすると人はより真剣に受け止めることが多いと述べている。",
+  "tags": "TOEFL2026 listening conversation housing"
+ },
+ {
+  "id": "TOEFL-LC-506-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a professor.\nStudent (woman): Professor Osei, I wanted to ask your advice. I've been offered two summer positions, and I need to decide by Friday.\nProfessor (man): Congratulations. What are they?\nStudent: One is at a large pharmaceutical company, working in their chemistry quality-control lab. It pays well. The other is a research assistant job here, helping Dr. Varga with her catalyst project. It pays less, but I'd be part of an actual research study.\nProfessor: What do you want to do after you graduate?\nStudent: I'm thinking about graduate school, but I'm not completely sure.\nProfessor: Then consider this: the research job could lead to your name on a published paper and a strong recommendation letter—both matter a great deal for graduate admissions. The company job would show you what industry work is like, which is also valuable if you're uncertain.\nStudent: So it depends on how sure I am about grad school.\nProfessor: Exactly. Why don't you talk to Dr. Varga's current students and ask what a typical day is like?",
+  "question": "Why does the student visit the professor?",
+  "choices": [
+   "To ask for a recommendation letter",
+   "To apply for a position in his lab",
+   "To get advice on choosing between two jobs",
+   "To discuss a chemistry exam"
+  ],
+  "answer": "To get advice on choosing between two jobs",
+  "explanation": "2つの夏の仕事のどちらを選ぶか助言を求めている。",
+  "tags": "TOEFL2026 listening conversation internship"
+ },
+ {
+  "id": "TOEFL-LC-506-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a professor.\nStudent (woman): Professor Osei, I wanted to ask your advice. I've been offered two summer positions, and I need to decide by Friday.\nProfessor (man): Congratulations. What are they?\nStudent: One is at a large pharmaceutical company, working in their chemistry quality-control lab. It pays well. The other is a research assistant job here, helping Dr. Varga with her catalyst project. It pays less, but I'd be part of an actual research study.\nProfessor: What do you want to do after you graduate?\nStudent: I'm thinking about graduate school, but I'm not completely sure.\nProfessor: Then consider this: the research job could lead to your name on a published paper and a strong recommendation letter—both matter a great deal for graduate admissions. The company job would show you what industry work is like, which is also valuable if you're uncertain.\nStudent: So it depends on how sure I am about grad school.\nProfessor: Exactly. Why don't you talk to Dr. Varga's current students and ask what a typical day is like?",
+  "question": "What is the professor's attitude toward the two options?",
+  "choices": [
+   "The company job is clearly the better choice because it pays more.",
+   "Each has advantages depending on the student's goals.",
+   "The research job pays too little to consider.",
+   "The student should reject both and wait."
+  ],
+  "answer": "Each has advantages depending on the student's goals.",
+  "explanation": "大学院志望の確実さによってどちらにも利点があると中立的に述べている。",
+  "tags": "TOEFL2026 listening conversation internship"
+ },
+ {
+  "id": "TOEFL-LC-507-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between two students.\nMan: You did that internship with the regional water authority last summer, didn't you? I'm thinking of applying.\nWoman: I did. It was valuable, but probably not in the way you'd expect.\nMan: What do you mean?\nWoman: The description talked about climate modeling, and I imagined running simulations all day. In reality, I spent most of my time cleaning decades of rainfall records—fixing missing values, converting old units.\nMan: That sounds tedious.\nWoman: It was, at first. But it taught me that the models are only as good as the historical data feeding them. By August, I'd found a gauge that had been recording too low for years because a tree had grown over it.\nMan: Seriously? Did that change anything?\nWoman: It shifted the drought estimates for one valley noticeably. My supervisor presented it to the board. So I'd say apply, but go in expecting data work, not glamour.\nMan: Fair enough. Honestly, that makes it sound more interesting.",
+  "question": "What does the woman imply about the internship description?",
+  "choices": [
+   "It was written by her supervisor.",
+   "It accurately described the tasks she would do every day.",
+   "It did not mention climate at all.",
+   "It gave a misleading impression of the daily work."
+  ],
+  "answer": "It gave a misleading impression of the daily work.",
+  "explanation": "説明はシミュレーション中心だと思わせたが、実際はデータ整理が中心だったと示唆している。",
+  "tags": "TOEFL2026 listening conversation internship"
+ },
+ {
+  "id": "TOEFL-LC-507-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between two students.\nMan: You did that internship with the regional water authority last summer, didn't you? I'm thinking of applying.\nWoman: I did. It was valuable, but probably not in the way you'd expect.\nMan: What do you mean?\nWoman: The description talked about climate modeling, and I imagined running simulations all day. In reality, I spent most of my time cleaning decades of rainfall records—fixing missing values, converting old units.\nMan: That sounds tedious.\nWoman: It was, at first. But it taught me that the models are only as good as the historical data feeding them. By August, I'd found a gauge that had been recording too low for years because a tree had grown over it.\nMan: Seriously? Did that change anything?\nWoman: It shifted the drought estimates for one valley noticeably. My supervisor presented it to the board. So I'd say apply, but go in expecting data work, not glamour.\nMan: Fair enough. Honestly, that makes it sound more interesting.",
+  "question": "Why does the woman mention the tree that grew over a rain gauge?",
+  "choices": [
+   "To show that the water authority was poorly managed",
+   "To explain why she left the internship early",
+   "To illustrate why careful data cleaning mattered",
+   "To describe a problem caused by drought"
+  ],
+  "answer": "To illustrate why careful data cleaning mattered",
+  "explanation": "データ整理が実際の推定値を変えるほど重要だった具体例として挙げている。",
+  "tags": "TOEFL2026 listening conversation internship"
+ },
+ {
+  "id": "TOEFL-LC-508-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between two members of a student club.\nMan: The astronomy club's star-watching night is next Thursday, right?\nWoman: It was. I just checked the weather, and it's supposed to be cloudy all day Thursday.\nMan: That's a problem. You can't see stars through clouds.\nWoman: Exactly. Friday looks clear, though. Should we move it?\nMan: We've already put up posters that say Thursday.\nWoman: We could make new posters and post the change on the club's social media page. Most people check that anyway.\nMan: OK. But we also reserved the roof of the science building for Thursday. We'll need to ask the facilities office about Friday.\nWoman: I'll email them right now. If the roof isn't free, we could use the soccer field.",
+  "question": "What problem do the students discuss?",
+  "choices": [
+   "Too few people coming to their event",
+   "The loss of their telescopes",
+   "Bad weather on the day of their event",
+   "A mistake on their posters"
+  ],
+  "answer": "Bad weather on the day of their event",
+  "explanation": "木曜日は曇りで星が見えないという問題を話し合っている。",
+  "tags": "TOEFL2026 listening conversation club"
+ },
+ {
+  "id": "TOEFL-LC-508-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between two members of a student club.\nMan: The astronomy club's star-watching night is next Thursday, right?\nWoman: It was. I just checked the weather, and it's supposed to be cloudy all day Thursday.\nMan: That's a problem. You can't see stars through clouds.\nWoman: Exactly. Friday looks clear, though. Should we move it?\nMan: We've already put up posters that say Thursday.\nWoman: We could make new posters and post the change on the club's social media page. Most people check that anyway.\nMan: OK. But we also reserved the roof of the science building for Thursday. We'll need to ask the facilities office about Friday.\nWoman: I'll email them right now. If the roof isn't free, we could use the soccer field.",
+  "question": "What will the woman do next?",
+  "choices": [
+   "Make new posters",
+   "Contact the facilities office",
+   "Check the weather again",
+   "Reserve the soccer field"
+  ],
+  "answer": "Contact the facilities office",
+  "explanation": "施設課にすぐメールすると言っている。",
+  "tags": "TOEFL2026 listening conversation club"
+ },
+ {
+  "id": "TOEFL-LC-509-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a financial aid advisor.\nStudent (man): Hi, I got an email saying my financial aid form is incomplete, but I thought I'd sent everything.\nAdvisor (woman): Let me check. What's your student number?\nStudent: 4-0-7-2-2-9.\nAdvisor: OK, Daniel. It looks like we have your tax information, but we're missing a signature from one of your parents.\nStudent: Oh no. My mom signed it, but maybe she missed a page.\nAdvisor: That's common. The good news is she can sign electronically. I'll send a link to the email address on your form.\nStudent: How long do we have?\nAdvisor: The deadline is the thirtieth. If it's not signed by then, your aid for the spring could be delayed, and you might have to pay part of your tuition yourself first.\nStudent: I'll call her tonight. Thanks for explaining.",
+  "question": "Why did the student go to the financial aid office?",
+  "choices": [
+   "To find out why his form was incomplete",
+   "To ask whether he can get a larger scholarship for the spring",
+   "To pay his spring tuition",
+   "To change his email address"
+  ],
+  "answer": "To find out why his form was incomplete",
+  "explanation": "書類が不完全だというメールを受け、理由を確かめに来ている。",
+  "tags": "TOEFL2026 listening conversation finaid"
+ },
+ {
+  "id": "TOEFL-LC-509-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to a conversation between a student and a financial aid advisor.\nStudent (man): Hi, I got an email saying my financial aid form is incomplete, but I thought I'd sent everything.\nAdvisor (woman): Let me check. What's your student number?\nStudent: 4-0-7-2-2-9.\nAdvisor: OK, Daniel. It looks like we have your tax information, but we're missing a signature from one of your parents.\nStudent: Oh no. My mom signed it, but maybe she missed a page.\nAdvisor: That's common. The good news is she can sign electronically. I'll send a link to the email address on your form.\nStudent: How long do we have?\nAdvisor: The deadline is the thirtieth. If it's not signed by then, your aid for the spring could be delayed, and you might have to pay part of your tuition yourself first.\nStudent: I'll call her tonight. Thanks for explaining.",
+  "question": "What will happen if the form is not signed by the thirtieth?",
+  "choices": [
+   "The student will lose his place in class.",
+   "The advisor will call the student's mother.",
+   "The student's aid may arrive late.",
+   "The student will need new tax information."
+  ],
+  "answer": "The student's aid may arrive late.",
+  "explanation": "期限までに署名がないと春学期の援助が遅れる可能性があると述べている。",
+  "tags": "TOEFL2026 listening conversation finaid"
+ },
+ {
+  "id": "TOEFL-LC-510-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to a conversation between a student and a dormitory staff member.\nStudent (woman): Excuse me. I locked my key inside my room.\nStaff (man): That happens a lot! What's your room number?\nStudent: It's 314.\nStaff: And can I see your student ID?\nStudent: Here you go.\nStaff: Thank you, Amara. I can open the door for you, but first you need to sign this form. The first time is free. After that, it costs fifteen dollars.\nStudent: Oh, this is my first time. Good.\nStaff: OK, I'll walk up with you now. One tip: many students keep their key on a long cord, so they don't forget it.\nStudent: That's a good idea. I'll buy one at the campus store.",
+  "question": "What is the woman's problem?",
+  "choices": [
+   "She lost her student ID.",
+   "She has to pay a fifteen-dollar fine.",
+   "She wants to change rooms.",
+   "She cannot get into her room."
+  ],
+  "answer": "She cannot get into her room.",
+  "explanation": "部屋に鍵を置いたまま閉めてしまい入れないことが問題。",
+  "tags": "TOEFL2026 listening conversation housing"
+ },
+ {
+  "id": "TOEFL-LC-510-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to a conversation between a student and a dormitory staff member.\nStudent (woman): Excuse me. I locked my key inside my room.\nStaff (man): That happens a lot! What's your room number?\nStudent: It's 314.\nStaff: And can I see your student ID?\nStudent: Here you go.\nStaff: Thank you, Amara. I can open the door for you, but first you need to sign this form. The first time is free. After that, it costs fifteen dollars.\nStudent: Oh, this is my first time. Good.\nStaff: OK, I'll walk up with you now. One tip: many students keep their key on a long cord, so they don't forget it.\nStudent: That's a good idea. I'll buy one at the campus store.",
+  "question": "How much will the woman pay today?",
+  "choices": [
+   "Five dollars",
+   "Nothing",
+   "Fifteen dollars",
+   "Thirty-one dollars"
+  ],
+  "answer": "Nothing",
+  "explanation": "初回は無料で、彼女は初めてなので支払いはない。",
+  "tags": "TOEFL2026 listening conversation housing"
+ },
+ {
+  "id": "TOEFL-LC-511-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to a conversation between two students.\nWoman: Hey, Tomás! Are you coming to the international food night on Friday?\nMan: Maybe. What is it exactly?\nWoman: Students from different clubs cook food from their home countries. Everyone brings one dish to share.\nMan: Sounds fun. Do I have to bring something?\nWoman: Only if you want to cook. Tickets are three dollars if you don't bring food, and free if you do.\nMan: My grandmother taught me to make empanadas. I could bring those.\nWoman: Perfect! Then you get in for free. It starts at six in the student center.\nMan: Do I need to sign up?\nWoman: Yes, just write your name and your dish on the list outside the club office.\nMan: OK, I'll do that after class.",
+  "question": "What is the conversation mainly about?",
+  "choices": [
+   "A cooking class at the student center",
+   "A trip to another country",
+   "An event where students share food",
+   "A new restaurant near campus"
+  ],
+  "answer": "An event where students share food",
+  "explanation": "国際料理の夕べというイベントについての会話。",
+  "tags": "TOEFL2026 listening conversation club"
+ },
+ {
+  "id": "TOEFL-LC-511-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to a conversation between two students.\nWoman: Hey, Tomás! Are you coming to the international food night on Friday?\nMan: Maybe. What is it exactly?\nWoman: Students from different clubs cook food from their home countries. Everyone brings one dish to share.\nMan: Sounds fun. Do I have to bring something?\nWoman: Only if you want to cook. Tickets are three dollars if you don't bring food, and free if you do.\nMan: My grandmother taught me to make empanadas. I could bring those.\nWoman: Perfect! Then you get in for free. It starts at six in the student center.\nMan: Do I need to sign up?\nWoman: Yes, just write your name and your dish on the list outside the club office.\nMan: OK, I'll do that after class.",
+  "question": "What will the man probably do after class?",
+  "choices": [
+   "Buy a ticket for three dollars",
+   "Call his grandmother",
+   "Write his name on a list",
+   "Go to the student center to cook"
+  ],
+  "answer": "Write his name on a list",
+  "explanation": "最後に「授業の後にリストに名前を書く」と言っている。",
+  "tags": "TOEFL2026 listening conversation club"
+ },
+ {
+  "id": "TOEFL-LC-512-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between a student and an academic advisor.\nStudent (man): I'd like to add a second major in music history, but my advisor in chemistry told me it's unrealistic.\nAdvisor (woman): Let's look at the numbers rather than impressions. You're a sophomore with 54 credits. Music history requires 36 credits, and four of your general education courses already count toward it.\nStudent: So really I need about 24 more?\nAdvisor: Roughly. The tricky part isn't the total; it's sequencing. The music history seminars are offered only in alternating years, and two of them conflict with required chemistry labs.\nStudent: So that's what my chemistry advisor meant.\nAdvisor: Probably. One option is taking a lab during the summer session, which frees a slot in spring. Another is choosing a minor instead—18 credits, and the seminars become optional.\nStudent: I'd honestly rather have the full major. I'm hoping to work in museum conservation, analyzing old instruments.\nAdvisor: Then the combination makes real sense. Let's map out all four years now so you can see whether it works before you commit.",
+  "question": "According to the advisor, what is the main difficulty with the double major?",
+  "choices": [
+   "Scheduling conflicts between required courses",
+   "The total number of credits needed",
+   "The student's grades in chemistry",
+   "The cost of summer courses"
+  ],
+  "answer": "Scheduling conflicts between required courses",
+  "explanation": "単位総数ではなく、隔年開講のゼミと化学の必修実験が重なる時間割の問題だと述べている。",
+  "tags": "TOEFL2026 listening conversation course"
+ },
+ {
+  "id": "TOEFL-LC-512-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between a student and an academic advisor.\nStudent (man): I'd like to add a second major in music history, but my advisor in chemistry told me it's unrealistic.\nAdvisor (woman): Let's look at the numbers rather than impressions. You're a sophomore with 54 credits. Music history requires 36 credits, and four of your general education courses already count toward it.\nStudent: So really I need about 24 more?\nAdvisor: Roughly. The tricky part isn't the total; it's sequencing. The music history seminars are offered only in alternating years, and two of them conflict with required chemistry labs.\nStudent: So that's what my chemistry advisor meant.\nAdvisor: Probably. One option is taking a lab during the summer session, which frees a slot in spring. Another is choosing a minor instead—18 credits, and the seminars become optional.\nStudent: I'd honestly rather have the full major. I'm hoping to work in museum conservation, analyzing old instruments.\nAdvisor: Then the combination makes real sense. Let's map out all four years now so you can see whether it works before you commit.",
+  "question": "Why does the student mention museum conservation?",
+  "choices": [
+   "To show that he wants to quit chemistry",
+   "To explain why both fields matter for his career goal",
+   "To ask about a museum internship",
+   "To suggest a topic for a seminar paper in his music history course"
+  ],
+  "answer": "To explain why both fields matter for his career goal",
+  "explanation": "古楽器の分析という目標に化学と音楽史の両方が必要であることを説明するため。",
+  "tags": "TOEFL2026 listening conversation course"
+ },
+ {
+  "id": "TOEFL-LC-513-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between a student and a professor.\nStudent (man): Dr. Lindgren, I've run into something odd with my coral samples. The ones from the warmer tank are actually growing faster than the controls.\nProfessor (woman): Faster? That's not what we predicted. How much faster?\nStudent: About twelve percent over three weeks. I double-checked the measurements.\nProfessor: Hmm. Before we get excited, let's rule out the boring explanations. Was the lighting identical in both tanks?\nStudent: I assumed so—they're on the same timer.\nProfessor: Same timer doesn't mean same intensity. The warmer tank is closer to the window, isn't it? Afternoon sunlight could be giving those corals extra energy for photosynthesis by their algae.\nStudent: I hadn't thought of that.\nProfessor: It's an easy thing to overlook. Measure the light at different times of day in both tanks. If there's a difference, we'll need to cover the window and repeat the run.\nStudent: That would set me back almost a month.\nProfessor: Better a month now than a reviewer finding the flaw later. Short-term growth spurts under mild warming have been reported, so your result might hold up—but we need to be sure.",
+  "question": "Why does the professor mention the window?",
+  "choices": [
+   "To complain about the condition of the lab",
+   "To show that the corals in both tanks need much more sunlight to grow",
+   "To suggest an alternative explanation for the student's result",
+   "To explain why the timer stopped working"
+  ],
+  "answer": "To suggest an alternative explanation for the student's result",
+  "explanation": "窓からの日光という別の要因が成長の違いを生んだ可能性を指摘するため。",
+  "tags": "TOEFL2026 listening conversation lab"
+ },
+ {
+  "id": "TOEFL-LC-513-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to a conversation between a student and a professor.\nStudent (man): Dr. Lindgren, I've run into something odd with my coral samples. The ones from the warmer tank are actually growing faster than the controls.\nProfessor (woman): Faster? That's not what we predicted. How much faster?\nStudent: About twelve percent over three weeks. I double-checked the measurements.\nProfessor: Hmm. Before we get excited, let's rule out the boring explanations. Was the lighting identical in both tanks?\nStudent: I assumed so—they're on the same timer.\nProfessor: Same timer doesn't mean same intensity. The warmer tank is closer to the window, isn't it? Afternoon sunlight could be giving those corals extra energy for photosynthesis by their algae.\nStudent: I hadn't thought of that.\nProfessor: It's an easy thing to overlook. Measure the light at different times of day in both tanks. If there's a difference, we'll need to cover the window and repeat the run.\nStudent: That would set me back almost a month.\nProfessor: Better a month now than a reviewer finding the flaw later. Short-term growth spurts under mild warming have been reported, so your result might hold up—but we need to be sure.",
+  "question": "What is the professor's attitude toward the student's finding?",
+  "choices": [
+   "Cautious but open to the possibility that it is real",
+   "Convinced that it is a measurement error",
+   "Excited that it proves their hypothesis",
+   "Uninterested because it contradicts the prediction"
+  ],
+  "answer": "Cautious but open to the possibility that it is real",
+  "explanation": "結論を急がず他の説明を排除すべきとしつつ、結果が正しい可能性も認めている。",
+  "tags": "TOEFL2026 listening conversation lab"
+ },
+ {
+  "id": "TOEFL-LC-514-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a librarian.\nStudent (man): Hi. My professor said I should use primary sources for my paper on the 1918 flu epidemic in our city. I'm not exactly sure where to begin.\nLibrarian (woman): Good topic. We have a few things that could help. First, the local newspaper from that period is digitized, so you can search it for words like \"influenza\" or \"quarantine.\"\nStudent: That's great.\nLibrarian: Second, our special collections hold records from the city health department, including weekly death counts by neighborhood. Those aren't online, so you'd need to visit in person and request them in advance.\nStudent: Weekly counts by neighborhood? That could show where the disease spread fastest.\nLibrarian: Exactly. Some students have combined them with old city maps to look at things like crowding and access to clinics.\nStudent: That's a lot more interesting than just summarizing a textbook.\nLibrarian: That's the idea. Fill out this request form, and the materials will be ready in two days.",
+  "question": "What does the librarian say about the health department records?",
+  "choices": [
+   "They can be searched online.",
+   "They contain only newspaper articles.",
+   "They were lost during the epidemic.",
+   "They must be requested in advance and viewed in person."
+  ],
+  "answer": "They must be requested in advance and viewed in person.",
+  "explanation": "オンラインにないため、事前に請求して来館して閲覧する必要がある。",
+  "tags": "TOEFL2026 listening conversation library"
+ },
+ {
+  "id": "TOEFL-LC-514-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and a librarian.\nStudent (man): Hi. My professor said I should use primary sources for my paper on the 1918 flu epidemic in our city. I'm not exactly sure where to begin.\nLibrarian (woman): Good topic. We have a few things that could help. First, the local newspaper from that period is digitized, so you can search it for words like \"influenza\" or \"quarantine.\"\nStudent: That's great.\nLibrarian: Second, our special collections hold records from the city health department, including weekly death counts by neighborhood. Those aren't online, so you'd need to visit in person and request them in advance.\nStudent: Weekly counts by neighborhood? That could show where the disease spread fastest.\nLibrarian: Exactly. Some students have combined them with old city maps to look at things like crowding and access to clinics.\nStudent: That's a lot more interesting than just summarizing a textbook.\nLibrarian: That's the idea. Fill out this request form, and the materials will be ready in two days.",
+  "question": "What can be inferred about the student's research plan?",
+  "choices": [
+   "He may compare death counts across different parts of the city.",
+   "He will write only about the national effects of the flu.",
+   "He has already finished collecting data from the newspaper archive.",
+   "He plans to interview survivors of the epidemic."
+  ],
+  "answer": "He may compare death counts across different parts of the city.",
+  "explanation": "地区別の死者数で感染の広がりを見られると興味を示しており、地区間の比較をすると推測できる。",
+  "tags": "TOEFL2026 listening conversation library"
+ },
+ {
+  "id": "TOEFL-LC-515-1",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and an internship supervisor.\nSupervisor (woman): So, Kwame, you've been with the newsroom for three weeks now. How are you finding it?\nStudent (man): Honestly, it's faster than I expected. In my media studies classes we spend weeks analyzing one article. Here, I'm writing three short pieces a day.\nSupervisor: That's the reality of digital news. But I've noticed your pieces sometimes need a lot of editing for length.\nStudent: I know. I keep including background that I think is important.\nSupervisor: Background matters, but readers on phones usually decide within the first two sentences whether to keep reading. Try putting the most important new fact first, then add context afterward.\nStudent: Like the inverted pyramid?\nSupervisor: Exactly. And one more thing—you can link to an earlier article for background instead of repeating it.\nStudent: That makes sense. I'll try that on today's story about the transit budget.",
+  "question": "What problem does the supervisor point out?",
+  "choices": [
+   "The student writes too slowly.",
+   "The student's facts are not accurate.",
+   "The student's articles are often too long.",
+   "The student does not attend meetings."
+  ],
+  "answer": "The student's articles are often too long.",
+  "explanation": "記事の長さのために編集が多く必要だと指摘している。",
+  "tags": "TOEFL2026 listening conversation internship"
+ },
+ {
+  "id": "TOEFL-LC-515-2",
+  "skill": "listening",
+  "format": "Listening: Listen to a Conversation",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to a conversation between a student and an internship supervisor.\nSupervisor (woman): So, Kwame, you've been with the newsroom for three weeks now. How are you finding it?\nStudent (man): Honestly, it's faster than I expected. In my media studies classes we spend weeks analyzing one article. Here, I'm writing three short pieces a day.\nSupervisor: That's the reality of digital news. But I've noticed your pieces sometimes need a lot of editing for length.\nStudent: I know. I keep including background that I think is important.\nSupervisor: Background matters, but readers on phones usually decide within the first two sentences whether to keep reading. Try putting the most important new fact first, then add context afterward.\nStudent: Like the inverted pyramid?\nSupervisor: Exactly. And one more thing—you can link to an earlier article for background instead of repeating it.\nStudent: That makes sense. I'll try that on today's story about the transit budget.",
+  "question": "Why does the supervisor mention readers on phones?",
+  "choices": [
+   "To suggest that the student should apply for a job at a print newspaper",
+   "To complain about how people read news today",
+   "To explain why the most important information should come first",
+   "To recommend that the student use shorter words"
+  ],
+  "answer": "To explain why the most important information should come first",
+  "explanation": "スマホの読者は最初の2文で読み続けるか決めるので、最重要情報を先に置くべきだと説明している。",
+  "tags": "TOEFL2026 listening conversation internship"
+ }
+]

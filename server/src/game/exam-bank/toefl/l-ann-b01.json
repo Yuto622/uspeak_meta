@@ -1,0 +1,434 @@
+[
+ {
+  "id": "TOEFL-LA-501-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from the university library.\nThe library is happy to announce a new service for students: equipment lending. Starting Monday, you can borrow cameras, microphones, tripods, and portable hard drives from the media desk on the first floor. Items can be borrowed for up to three days. To borrow equipment, you must first watch a short online video about how to care for the items, and then show your student ID at the desk. Late returns will result in a fee of five dollars per day, and you won't be able to borrow equipment again for two weeks.",
+  "question": "What must students do before borrowing equipment for the first time?",
+  "choices": [
+   "Pay a five-dollar deposit",
+   "Watch an online video",
+   "Take a photography class",
+   "Fill out a form at the media desk"
+  ],
+  "answer": "Watch an online video",
+  "explanation": "初めて借りる前に機材の扱いに関する短いオンライン動画を見る必要がある。",
+  "tags": "TOEFL2026 listening announcement library"
+ },
+ {
+  "id": "TOEFL-LA-501-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from the university library.\nThe library is happy to announce a new service for students: equipment lending. Starting Monday, you can borrow cameras, microphones, tripods, and portable hard drives from the media desk on the first floor. Items can be borrowed for up to three days. To borrow equipment, you must first watch a short online video about how to care for the items, and then show your student ID at the desk. Late returns will result in a fee of five dollars per day, and you won't be able to borrow equipment again for two weeks.",
+  "question": "What will happen if a student returns an item late?",
+  "choices": [
+   "The student will pay a fee and lose borrowing privileges for a while.",
+   "The student will have to watch the video again.",
+   "The student's grade will be lowered.",
+   "The student will be banned from borrowing any library books for a year."
+  ],
+  "answer": "The student will pay a fee and lose borrowing privileges for a while.",
+  "explanation": "1日5ドルの延滞料がかかり、2週間借りられなくなる。",
+  "tags": "TOEFL2026 listening announcement library"
+ },
+ {
+  "id": "TOEFL-LA-502-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from the career center.\nHello, students. The career center's spring internship fair will be held next Friday from noon to four in the gymnasium. More than sixty employers will attend, including engineering firms, hospitals, environmental organizations, and city government offices. To prepare, we're offering resume reviews all this week. Just drop by our office with a printed copy—no appointment needed. On the day of the fair, please dress neatly and bring several copies of your resume. Also, download the fair's app, which lets you see which employers are looking for students in your major.",
+  "question": "What is offered during the week before the fair?",
+  "choices": [
+   "Practice interviews with employers",
+   "Free professional clothing",
+   "Workshops on using the app",
+   "Resume reviews without an appointment"
+  ],
+  "answer": "Resume reviews without an appointment",
+  "explanation": "フェアの前の週に予約なしで履歴書の添削が受けられる。",
+  "tags": "TOEFL2026 listening announcement internship"
+ },
+ {
+  "id": "TOEFL-LA-502-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from the career center.\nHello, students. The career center's spring internship fair will be held next Friday from noon to four in the gymnasium. More than sixty employers will attend, including engineering firms, hospitals, environmental organizations, and city government offices. To prepare, we're offering resume reviews all this week. Just drop by our office with a printed copy—no appointment needed. On the day of the fair, please dress neatly and bring several copies of your resume. Also, download the fair's app, which lets you see which employers are looking for students in your major.",
+  "question": "What is one feature of the fair's app?",
+  "choices": [
+   "It lets students apply directly for internships during the fair itself.",
+   "It gives directions to employers' offices.",
+   "It shows which employers want students from certain majors.",
+   "It allows students to print their resumes."
+  ],
+  "answer": "It shows which employers want students from certain majors.",
+  "explanation": "アプリでどの企業が自分の専攻の学生を探しているか分かる。",
+  "tags": "TOEFL2026 listening announcement internship"
+ },
+ {
+  "id": "TOEFL-LA-503-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement on the campus radio station.\nThis is your weekly campus events update. On Thursday evening, the Film Society is showing a documentary about the history of jazz in New Orleans, followed by a discussion with Professor Whitfield from the music department. The screening starts at seven in the Arts Center, and it's free for students. Seats are limited to one hundred and fifty, so arrive early. Also this week, the Outdoor Club is looking for volunteers to help clean up the riverbank on Sunday morning. Gloves and bags will be provided, and volunteers get a free breakfast afterward.",
+  "question": "What will happen after the film?",
+  "choices": [
+   "A live jazz performance",
+   "A discussion with a professor",
+   "A free breakfast",
+   "A trip to New Orleans"
+  ],
+  "answer": "A discussion with a professor",
+  "explanation": "上映後にウィットフィールド教授との討論があると言っている。",
+  "tags": "TOEFL2026 listening announcement club"
+ },
+ {
+  "id": "TOEFL-LA-503-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement on the campus radio station.\nThis is your weekly campus events update. On Thursday evening, the Film Society is showing a documentary about the history of jazz in New Orleans, followed by a discussion with Professor Whitfield from the music department. The screening starts at seven in the Arts Center, and it's free for students. Seats are limited to one hundred and fifty, so arrive early. Also this week, the Outdoor Club is looking for volunteers to help clean up the riverbank on Sunday morning. Gloves and bags will be provided, and volunteers get a free breakfast afterward.",
+  "question": "What does the speaker suggest about the screening?",
+  "choices": [
+   "It is only open to music majors.",
+   "It requires a ticket purchase.",
+   "It may fill up quickly.",
+   "It will be shown twice."
+  ],
+  "answer": "It may fill up quickly.",
+  "explanation": "席は150に限られているので早めに来るよう勧めている。",
+  "tags": "TOEFL2026 listening announcement club"
+ },
+ {
+  "id": "TOEFL-LA-504-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement made by a professor at the start of class.\nOkay, everyone, a couple of announcements about your final projects in this urban studies course. Several of you have asked whether you can study a neighborhood outside the city. The answer is yes, as long as you can visit it at least three times during the semester—observation is central to this assignment, and secondhand descriptions aren't enough. Second, the proposal deadline is moving from the twentieth to the fifteenth. I know that's earlier, but it gives me time to meet with each of you individually before you begin fieldwork. Finally, if you're planning to interview residents, please see me first. Interviews require a consent process, and I'd like to make sure you're prepared.",
+  "question": "What condition does the professor set for studying a neighborhood outside the city?",
+  "choices": [
+   "Students must live in that neighborhood.",
+   "Students must work in pairs.",
+   "Students must be able to visit it several times.",
+   "Students must get permission from residents."
+  ],
+  "answer": "Students must be able to visit it several times.",
+  "explanation": "学期中に少なくとも3回訪問できることが条件。",
+  "tags": "TOEFL2026 listening announcement course"
+ },
+ {
+  "id": "TOEFL-LA-504-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement made by a professor at the start of class.\nOkay, everyone, a couple of announcements about your final projects in this urban studies course. Several of you have asked whether you can study a neighborhood outside the city. The answer is yes, as long as you can visit it at least three times during the semester—observation is central to this assignment, and secondhand descriptions aren't enough. Second, the proposal deadline is moving from the twentieth to the fifteenth. I know that's earlier, but it gives me time to meet with each of you individually before you begin fieldwork. Finally, if you're planning to interview residents, please see me first. Interviews require a consent process, and I'd like to make sure you're prepared.",
+  "question": "Why has the proposal deadline been moved earlier?",
+  "choices": [
+   "Because the semester is ending sooner",
+   "So the professor can meet each student before fieldwork",
+   "Because several students requested more time to plan their fieldwork",
+   "So that interviews can be completed faster"
+  ],
+  "answer": "So the professor can meet each student before fieldwork",
+  "explanation": "フィールドワーク前に一人ひとりと面談する時間を作るため。",
+  "tags": "TOEFL2026 listening announcement course"
+ },
+ {
+  "id": "TOEFL-LA-505-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement made by a professor in a media studies class.\nBefore we begin, I want to clarify the policy on using AI writing tools in this course, since I've received a lot of questions. You may use them for brainstorming or for checking grammar. However, any text in your essays must be written by you. If you used a tool at any stage, add a short note at the end of your essay explaining how. That note will not lower your grade—what will cause problems is undisclosed use. And here's my reasoning: one of the goals of this course is to examine how media technologies shape what we say and how we say it. Reflecting on your own use of these tools is part of that learning.",
+  "question": "What does the professor require students to do if they use an AI tool?",
+  "choices": [
+   "Explain how they used it in a note",
+   "Submit the tool's output separately",
+   "Get permission before every assignment",
+   "Use it only for grammar"
+  ],
+  "answer": "Explain how they used it in a note",
+  "explanation": "使用した場合は、どのように使ったかを末尾に短く記す必要がある。",
+  "tags": "TOEFL2026 listening announcement course"
+ },
+ {
+  "id": "TOEFL-LA-505-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement made by a professor in a media studies class.\nBefore we begin, I want to clarify the policy on using AI writing tools in this course, since I've received a lot of questions. You may use them for brainstorming or for checking grammar. However, any text in your essays must be written by you. If you used a tool at any stage, add a short note at the end of your essay explaining how. That note will not lower your grade—what will cause problems is undisclosed use. And here's my reasoning: one of the goals of this course is to examine how media technologies shape what we say and how we say it. Reflecting on your own use of these tools is part of that learning.",
+  "question": "How does the professor justify the policy?",
+  "choices": [
+   "It is required by a new university-wide policy on technology use.",
+   "It makes grading faster.",
+   "It prevents students from using the internet.",
+   "It connects to the course's focus on how media shape communication."
+  ],
+  "answer": "It connects to the course's focus on how media shape communication.",
+  "explanation": "メディア技術が表現に与える影響を考える授業の目標と結びつくと説明している。",
+  "tags": "TOEFL2026 listening announcement course"
+ },
+ {
+  "id": "TOEFL-LA-506-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from campus safety.\nAttention, students and staff. Because of the snowstorm expected tonight, all classes before ten a.m. tomorrow are canceled. Classes after ten will take place as normal unless you receive another message. The campus shuttle will run on a reduced schedule, with buses every thirty minutes instead of every fifteen. Please use the main paths, which will be cleared first, and avoid the hill behind the library, which can become icy. If you live off campus and the roads are dangerous, contact your professors directly about missing class.",
+  "question": "Which classes are canceled tomorrow?",
+  "choices": [
+   "All classes for the whole day",
+   "Only classes behind the library",
+   "Classes for students who live off campus",
+   "Those that begin before 10 a.m."
+  ],
+  "answer": "Those that begin before 10 a.m.",
+  "explanation": "午前10時より前の授業が休講になる。",
+  "tags": "TOEFL2026 listening announcement campus"
+ },
+ {
+  "id": "TOEFL-LA-506-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from campus safety.\nAttention, students and staff. Because of the snowstorm expected tonight, all classes before ten a.m. tomorrow are canceled. Classes after ten will take place as normal unless you receive another message. The campus shuttle will run on a reduced schedule, with buses every thirty minutes instead of every fifteen. Please use the main paths, which will be cleared first, and avoid the hill behind the library, which can become icy. If you live off campus and the roads are dangerous, contact your professors directly about missing class.",
+  "question": "What are people advised to avoid?",
+  "choices": [
+   "The hill behind the library",
+   "The main paths",
+   "The campus shuttle",
+   "Driving to campus at any time"
+  ],
+  "answer": "The hill behind the library",
+  "explanation": "凍結しやすい図書館裏の坂を避けるよう勧めている。",
+  "tags": "TOEFL2026 listening announcement campus"
+ },
+ {
+  "id": "TOEFL-LA-507-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement made by a professor at the beginning of a seminar.\nBefore we start, a word about last week's response papers. Many of them summarized the readings accurately, which is fine, but that's not what I asked for. The prompt asked you to evaluate the authors' use of evidence in their argument about the decline of local newspapers. A summary tells me what they said; an evaluation tells me whether their reasoning holds up and why. For example, one author relies heavily on circulation data from just three cities. Is that a sufficient basis for claims about the entire country? That's the kind of question I want you to pursue. I'll allow anyone who wishes to revise their paper to resubmit it by Friday, and I'll grade the revised version only.",
+  "question": "What was the main problem with many students' papers?",
+  "choices": [
+   "They contained inaccurate summaries.",
+   "They were submitted late.",
+   "They used too much circulation data.",
+   "They summarized rather than evaluated the readings."
+  ],
+  "answer": "They summarized rather than evaluated the readings.",
+  "explanation": "評価を求めたのに要約にとどまっていたことが問題。",
+  "tags": "TOEFL2026 listening announcement course"
+ },
+ {
+  "id": "TOEFL-LA-507-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement made by a professor at the beginning of a seminar.\nBefore we start, a word about last week's response papers. Many of them summarized the readings accurately, which is fine, but that's not what I asked for. The prompt asked you to evaluate the authors' use of evidence in their argument about the decline of local newspapers. A summary tells me what they said; an evaluation tells me whether their reasoning holds up and why. For example, one author relies heavily on circulation data from just three cities. Is that a sufficient basis for claims about the entire country? That's the kind of question I want you to pursue. I'll allow anyone who wishes to revise their paper to resubmit it by Friday, and I'll grade the revised version only.",
+  "question": "Why does the professor mention data from three cities?",
+  "choices": [
+   "To show which cities had the most newspapers",
+   "To illustrate the kind of critical question students should ask",
+   "To recommend a source for the revised paper",
+   "To explain why local newspapers declined"
+  ],
+  "answer": "To illustrate the kind of critical question students should ask",
+  "explanation": "根拠の十分さを問う批判的な問いの例として挙げている。",
+  "tags": "TOEFL2026 listening announcement course"
+ },
+ {
+  "id": "TOEFL-LA-508-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the director of a university greenhouse.\nGood morning, everyone who uses the botany greenhouse. We've detected an outbreak of whiteflies in Room B, the tropical plant section. These insects feed on plant sap and spread quickly, so we're taking several steps. First, Room B is closed until further notice. Second, we're releasing a small parasitic wasp that lays its eggs in whitefly larvae—it's harmless to people and plants, and it allows us to avoid chemical sprays that could affect ongoing experiments. Third, please do not carry plants, tools, or even lab coats between rooms without checking them carefully. Whiteflies are tiny and can travel on clothing. If you see them anywhere else, report it immediately.",
+  "question": "Why has the greenhouse chosen to use wasps instead of chemical sprays?",
+  "choices": [
+   "Because sprays are too expensive",
+   "Because the wasps also pollinate plants",
+   "Because chemical sprays are illegal",
+   "To avoid affecting ongoing experiments"
+  ],
+  "answer": "To avoid affecting ongoing experiments",
+  "explanation": "化学薬品は進行中の実験に影響しうるため、寄生バチを使う。",
+  "tags": "TOEFL2026 listening announcement lab"
+ },
+ {
+  "id": "TOEFL-LA-508-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the director of a university greenhouse.\nGood morning, everyone who uses the botany greenhouse. We've detected an outbreak of whiteflies in Room B, the tropical plant section. These insects feed on plant sap and spread quickly, so we're taking several steps. First, Room B is closed until further notice. Second, we're releasing a small parasitic wasp that lays its eggs in whitefly larvae—it's harmless to people and plants, and it allows us to avoid chemical sprays that could affect ongoing experiments. Third, please do not carry plants, tools, or even lab coats between rooms without checking them carefully. Whiteflies are tiny and can travel on clothing. If you see them anywhere else, report it immediately.",
+  "question": "Why does the director mention lab coats?",
+  "choices": [
+   "Lab coats must be worn in Room B.",
+   "Whiteflies can be carried on clothing to other rooms.",
+   "The wasps may damage clothing.",
+   "New lab coats are available."
+  ],
+  "answer": "Whiteflies can be carried on clothing to other rooms.",
+  "explanation": "コナジラミは衣服について移動しうるので、持ち運ぶ物は注意して確認する必要がある。",
+  "tags": "TOEFL2026 listening announcement lab"
+ },
+ {
+  "id": "TOEFL-LA-509-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the coordinator of a research internship program.\nWelcome to the first day of the summer research internship. You'll spend the next ten weeks working in labs across campus, from marine science to materials engineering. A few expectations. You'll work thirty-five hours a week, but your schedule is set by your lab supervisor, so some of you may have early mornings or occasional weekends—especially those doing fieldwork tied to tides or weather. Every Friday at noon, all interns meet here for a lunch seminar, where one of you will give a ten-minute talk about your progress. These aren't meant to be polished; they're practice in explaining research to non-specialists. At the end of the summer, you'll present a poster at the research symposium.",
+  "question": "Why might some interns work on weekends?",
+  "choices": [
+   "They need to prepare their posters.",
+   "The labs are busy during the week.",
+   "Their fieldwork may depend on natural conditions.",
+   "They want to earn extra money."
+  ],
+  "answer": "Their fieldwork may depend on natural conditions.",
+  "explanation": "潮や天候に左右されるフィールドワークをする場合があるため。",
+  "tags": "TOEFL2026 listening announcement internship"
+ },
+ {
+  "id": "TOEFL-LA-509-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the coordinator of a research internship program.\nWelcome to the first day of the summer research internship. You'll spend the next ten weeks working in labs across campus, from marine science to materials engineering. A few expectations. You'll work thirty-five hours a week, but your schedule is set by your lab supervisor, so some of you may have early mornings or occasional weekends—especially those doing fieldwork tied to tides or weather. Every Friday at noon, all interns meet here for a lunch seminar, where one of you will give a ten-minute talk about your progress. These aren't meant to be polished; they're practice in explaining research to non-specialists. At the end of the summer, you'll present a poster at the research symposium.",
+  "question": "What is the purpose of the Friday talks?",
+  "choices": [
+   "To evaluate interns' final grades",
+   "To choose the best poster to present at the end-of-summer symposium",
+   "To practice explaining research to a general audience",
+   "To report problems to supervisors"
+  ],
+  "answer": "To practice explaining research to a general audience",
+  "explanation": "専門外の人に研究を説明する練習のためだと述べている。",
+  "tags": "TOEFL2026 listening announcement internship"
+ },
+ {
+  "id": "TOEFL-LA-510-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the university library.\nAttention, library users. Over the summer, the library will undergo a major renovation of the second and third floors, which house the social sciences and humanities collections. From June first to August fifteenth, these floors will be closed. Books from those floors will be moved to a storage facility off campus, but you can still request them. Use the online catalog, select \"storage request,\" and the item will be delivered to the main desk within forty-eight hours. Study space will be limited during this period, so the business school has agreed to open its reading room to all students. When the renovation is complete, the floors will feature more group study rooms and expanded power outlets.",
+  "question": "How can students get books from the closed floors during the renovation?",
+  "choices": [
+   "By visiting the storage facility",
+   "By asking the business school",
+   "By requesting them online for delivery",
+   "By waiting until August"
+  ],
+  "answer": "By requesting them online for delivery",
+  "explanation": "オンラインで保管庫請求をすると48時間以内にカウンターに届く。",
+  "tags": "TOEFL2026 listening announcement library"
+ },
+ {
+  "id": "TOEFL-LA-510-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the university library.\nAttention, library users. Over the summer, the library will undergo a major renovation of the second and third floors, which house the social sciences and humanities collections. From June first to August fifteenth, these floors will be closed. Books from those floors will be moved to a storage facility off campus, but you can still request them. Use the online catalog, select \"storage request,\" and the item will be delivered to the main desk within forty-eight hours. Study space will be limited during this period, so the business school has agreed to open its reading room to all students. When the renovation is complete, the floors will feature more group study rooms and expanded power outlets.",
+  "question": "What has the business school agreed to do?",
+  "choices": [
+   "Open its reading room to all students",
+   "Store books from the library",
+   "Pay for the renovation",
+   "Provide extra power outlets"
+  ],
+  "answer": "Open its reading room to all students",
+  "explanation": "閲覧室をすべての学生に開放することに同意した。",
+  "tags": "TOEFL2026 listening announcement library"
+ },
+ {
+  "id": "TOEFL-LA-511-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement made by the director of a research facility.\nColleagues and students, I have a brief but important announcement regarding the scanning electron microscope. Over the past month, we've seen a sharp increase in requests, and the current booking system—essentially first come, first served—has led to a few groups reserving large blocks of time they ultimately don't use. Effective next Monday, we're introducing two changes. First, no single user may book more than six hours per week in advance; additional time can be claimed only within forty-eight hours of an open slot. Second, if you fail to show up for a booking without canceling at least twelve hours ahead, your advance booking privileges will be suspended for two weeks. These measures aren't intended to penalize anyone, but rather to ensure that graduate students with thesis deadlines aren't crowded out.",
+  "question": "What problem led to the new booking rules?",
+  "choices": [
+   "The microscope has been breaking down frequently.",
+   "Too few people have been using the microscope.",
+   "Some users reserved time that went unused.",
+   "Graduate students have been damaging samples."
+  ],
+  "answer": "Some users reserved time that went unused.",
+  "explanation": "一部のグループが大量に予約し、実際には使わないことがあったため。",
+  "tags": "TOEFL2026 listening announcement lab"
+ },
+ {
+  "id": "TOEFL-LA-511-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement made by the director of a research facility.\nColleagues and students, I have a brief but important announcement regarding the scanning electron microscope. Over the past month, we've seen a sharp increase in requests, and the current booking system—essentially first come, first served—has led to a few groups reserving large blocks of time they ultimately don't use. Effective next Monday, we're introducing two changes. First, no single user may book more than six hours per week in advance; additional time can be claimed only within forty-eight hours of an open slot. Second, if you fail to show up for a booking without canceling at least twelve hours ahead, your advance booking privileges will be suspended for two weeks. These measures aren't intended to penalize anyone, but rather to ensure that graduate students with thesis deadlines aren't crowded out.",
+  "question": "According to the speaker, what is the intended purpose of the changes?",
+  "choices": [
+   "To raise money for a new microscope",
+   "To give fairer access to students with urgent deadlines",
+   "To discourage undergraduate use",
+   "To reduce staff working hours"
+  ],
+  "answer": "To give fairer access to students with urgent deadlines",
+  "explanation": "論文締め切りのある大学院生が締め出されないようにすることが目的。",
+  "tags": "TOEFL2026 listening announcement lab"
+ },
+ {
+  "id": "TOEFL-LA-512-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement made by a professor in a chemistry lab course.\nBefore you put on your goggles, I need to go over a change to our procedures. Starting this week, all waste containing heavy metals—that includes anything from today's copper experiment—must go in the yellow containers under the fume hoods, not in the general chemical waste. Last semester, mixed waste caused a problem with the disposal company, and the university was fined. Each container now has a log sheet. Whenever you add waste, write the date, your initials, and the approximate volume. I know this adds a minute or two, but it's required by the safety office, and I'll be checking the sheets at the end of every session. Missing entries will count against your lab participation grade.",
+  "question": "Why has the procedure for chemical waste changed?",
+  "choices": [
+   "The yellow containers are cheaper.",
+   "The copper experiment is new this semester.",
+   "Mixed waste previously led to a fine.",
+   "Students complained about the fume hoods."
+  ],
+  "answer": "Mixed waste previously led to a fine.",
+  "explanation": "以前、廃棄物の混在で大学が罰金を科されたため。",
+  "tags": "TOEFL2026 listening announcement lab"
+ },
+ {
+  "id": "TOEFL-LA-512-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement made by a professor in a chemistry lab course.\nBefore you put on your goggles, I need to go over a change to our procedures. Starting this week, all waste containing heavy metals—that includes anything from today's copper experiment—must go in the yellow containers under the fume hoods, not in the general chemical waste. Last semester, mixed waste caused a problem with the disposal company, and the university was fined. Each container now has a log sheet. Whenever you add waste, write the date, your initials, and the approximate volume. I know this adds a minute or two, but it's required by the safety office, and I'll be checking the sheets at the end of every session. Missing entries will count against your lab participation grade.",
+  "question": "What will happen if students do not complete the log sheets?",
+  "choices": [
+   "They will have to repeat the experiment.",
+   "Their lab participation grade will be affected.",
+   "They will be reported to the disposal company.",
+   "They will lose access to the fume hoods."
+  ],
+  "answer": "Their lab participation grade will be affected.",
+  "explanation": "記入漏れは実験参加点の減点になると述べている。",
+  "tags": "TOEFL2026 listening announcement lab"
+ }
+]

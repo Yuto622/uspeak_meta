@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-LT-511-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a marine science class.\nProfessor: We often talk about how the ocean helps slow climate change by absorbing carbon dioxide. And it does—the ocean has taken up roughly a quarter of the carbon dioxide that humans have released. But this comes at a cost, and that cost is called ocean acidification.\nWhen carbon dioxide dissolves in seawater, it reacts with water to form carbonic acid. That acid releases hydrogen ions, which lowers the water's pH. Since the start of the industrial era, the average pH at the ocean surface has dropped by about 0.1 units. That might sound tiny, but the pH scale is logarithmic, so it corresponds to about a thirty percent increase in acidity.\nNow, here's why this matters for marine life. Many organisms—corals, oysters, clams, and tiny floating snails called pteropods—build shells or skeletons from calcium carbonate. To do this, they need carbonate ions from the seawater. But the extra hydrogen ions combine with carbonate ions, leaving fewer available. So building shells takes more energy, and in some conditions, existing shells can even begin to dissolve.\nPteropods are a good example. In laboratory experiments, their shells became pitted and thinner in water with the chemistry predicted for later this century. And these snails are a food source for many fish, including salmon.\nI should note that not all species respond the same way. Some algae may actually benefit from more carbon dioxide. That's one reason predicting the effects on entire ecosystems is so difficult.",
+  "question": "What is the main topic of the talk?",
+  "choices": [
+   "Why the ocean is getting warmer",
+   "How pteropods move through the water",
+   "How absorbing carbon dioxide changes ocean chemistry and affects sea life",
+   "How to measure the pH of seawater"
+  ],
+  "answer": "How absorbing carbon dioxide changes ocean chemistry and affects sea life",
+  "explanation": "二酸化炭素の吸収による海洋酸性化と海洋生物への影響が主題。",
+  "tags": "TOEFL2026 listening academic-talk marine science"
+ },
+ {
+  "id": "TOEFL-LT-511-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a marine science class.\nProfessor: We often talk about how the ocean helps slow climate change by absorbing carbon dioxide. And it does—the ocean has taken up roughly a quarter of the carbon dioxide that humans have released. But this comes at a cost, and that cost is called ocean acidification.\nWhen carbon dioxide dissolves in seawater, it reacts with water to form carbonic acid. That acid releases hydrogen ions, which lowers the water's pH. Since the start of the industrial era, the average pH at the ocean surface has dropped by about 0.1 units. That might sound tiny, but the pH scale is logarithmic, so it corresponds to about a thirty percent increase in acidity.\nNow, here's why this matters for marine life. Many organisms—corals, oysters, clams, and tiny floating snails called pteropods—build shells or skeletons from calcium carbonate. To do this, they need carbonate ions from the seawater. But the extra hydrogen ions combine with carbonate ions, leaving fewer available. So building shells takes more energy, and in some conditions, existing shells can even begin to dissolve.\nPteropods are a good example. In laboratory experiments, their shells became pitted and thinner in water with the chemistry predicted for later this century. And these snails are a food source for many fish, including salmon.\nI should note that not all species respond the same way. Some algae may actually benefit from more carbon dioxide. That's one reason predicting the effects on entire ecosystems is so difficult.",
+  "question": "Why does the professor say that the pH scale is logarithmic?",
+  "choices": [
+   "To show that a small change in pH is significant",
+   "To explain how pH is measured in a lab",
+   "To show that the surface of the ocean is not actually acidic at all",
+   "To compare seawater with fresh water"
+  ],
+  "answer": "To show that a small change in pH is significant",
+  "explanation": "0.1の低下が酸性度約30%増に相当し、重大な変化であることを示すため。",
+  "tags": "TOEFL2026 listening academic-talk marine science"
+ },
+ {
+  "id": "TOEFL-LT-511-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a marine science class.\nProfessor: We often talk about how the ocean helps slow climate change by absorbing carbon dioxide. And it does—the ocean has taken up roughly a quarter of the carbon dioxide that humans have released. But this comes at a cost, and that cost is called ocean acidification.\nWhen carbon dioxide dissolves in seawater, it reacts with water to form carbonic acid. That acid releases hydrogen ions, which lowers the water's pH. Since the start of the industrial era, the average pH at the ocean surface has dropped by about 0.1 units. That might sound tiny, but the pH scale is logarithmic, so it corresponds to about a thirty percent increase in acidity.\nNow, here's why this matters for marine life. Many organisms—corals, oysters, clams, and tiny floating snails called pteropods—build shells or skeletons from calcium carbonate. To do this, they need carbonate ions from the seawater. But the extra hydrogen ions combine with carbonate ions, leaving fewer available. So building shells takes more energy, and in some conditions, existing shells can even begin to dissolve.\nPteropods are a good example. In laboratory experiments, their shells became pitted and thinner in water with the chemistry predicted for later this century. And these snails are a food source for many fish, including salmon.\nI should note that not all species respond the same way. Some algae may actually benefit from more carbon dioxide. That's one reason predicting the effects on entire ecosystems is so difficult.",
+  "question": "Why do shell-building organisms have more difficulty in acidified water?",
+  "choices": [
+   "The water contains too much calcium.",
+   "Fewer carbonate ions are available to them.",
+   "The water is too cold for them.",
+   "They cannot find enough food."
+  ],
+  "answer": "Fewer carbonate ions are available to them.",
+  "explanation": "水素イオンが炭酸イオンと結びつき、利用できる炭酸イオンが減るから。",
+  "tags": "TOEFL2026 listening academic-talk marine science"
+ },
+ {
+  "id": "TOEFL-LT-511-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a marine science class.\nProfessor: We often talk about how the ocean helps slow climate change by absorbing carbon dioxide. And it does—the ocean has taken up roughly a quarter of the carbon dioxide that humans have released. But this comes at a cost, and that cost is called ocean acidification.\nWhen carbon dioxide dissolves in seawater, it reacts with water to form carbonic acid. That acid releases hydrogen ions, which lowers the water's pH. Since the start of the industrial era, the average pH at the ocean surface has dropped by about 0.1 units. That might sound tiny, but the pH scale is logarithmic, so it corresponds to about a thirty percent increase in acidity.\nNow, here's why this matters for marine life. Many organisms—corals, oysters, clams, and tiny floating snails called pteropods—build shells or skeletons from calcium carbonate. To do this, they need carbonate ions from the seawater. But the extra hydrogen ions combine with carbonate ions, leaving fewer available. So building shells takes more energy, and in some conditions, existing shells can even begin to dissolve.\nPteropods are a good example. In laboratory experiments, their shells became pitted and thinner in water with the chemistry predicted for later this century. And these snails are a food source for many fish, including salmon.\nI should note that not all species respond the same way. Some algae may actually benefit from more carbon dioxide. That's one reason predicting the effects on entire ecosystems is so difficult.",
+  "question": "Why does the professor mention that some algae may benefit?",
+  "choices": [
+   "To argue that ocean acidification is not as serious a problem as people think",
+   "To show that predicting ecosystem effects is complicated",
+   "To suggest a solution to acidification",
+   "To explain why pteropods eat algae"
+  ],
+  "answer": "To show that predicting ecosystem effects is complicated",
+  "explanation": "種によって反応が異なり、生態系全体への影響の予測が難しいことを示すため。",
+  "tags": "TOEFL2026 listening academic-talk marine science"
+ },
+ {
+  "id": "TOEFL-LT-512-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a paleontology class.\nProfessor: For most of the twentieth century, dinosaurs were pictured as scaly, reptile-like animals. Feathers were considered a feature of birds alone. That picture changed dramatically in 1996, when farmers in Liaoning Province, in northeastern China, found a small dinosaur fossil that was later named Sinosauropteryx.\nWhat made the fossil remarkable was its preservation. The animal had been buried in fine volcanic ash and lake mud, which preserved not only bones but traces of soft tissue. Along its back and tail were thin, hair-like filaments—simple feathers. Sinosauropteryx clearly couldn't fly; its arms were short, and the filaments were nothing like the stiff flight feathers of a modern bird.\nThat raises an obvious question: if not for flight, what were feathers for? Most researchers now think the earliest feathers served for insulation, keeping small, active animals warm. Later, some feathers may have been used for display—attracting mates or signaling to rivals. Flight came much later, building on structures that had originally evolved for other purposes. Biologists call this kind of shift exaptation.\nThere's a further twist. In 2010, researchers examined Sinosauropteryx under powerful microscopes and found melanosomes—tiny structures that contain pigment. By comparing their shapes with those in living birds, they concluded that the tail had reddish-brown and pale stripes. So we can now say something about a dinosaur's color, which would have seemed like science fiction thirty years ago.\nSince 1996, dozens of feathered dinosaur species have been described, many from the same region.",
+  "question": "What is the main point of the talk?",
+  "choices": [
+   "A fossil discovery changed scientists' understanding of dinosaurs and feathers.",
+   "Birds and dinosaurs evolved completely separately, as scientists once believed.",
+   "Volcanic ash is the best material for preserving fossils.",
+   "Dinosaurs used feathers mainly for flight."
+  ],
+  "answer": "A fossil discovery changed scientists' understanding of dinosaurs and feathers.",
+  "explanation": "シノサウロプテリクスの発見が恐竜と羽毛の理解を大きく変えたことが要点。",
+  "tags": "TOEFL2026 listening academic-talk paleontology"
+ },
+ {
+  "id": "TOEFL-LT-512-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a paleontology class.\nProfessor: For most of the twentieth century, dinosaurs were pictured as scaly, reptile-like animals. Feathers were considered a feature of birds alone. That picture changed dramatically in 1996, when farmers in Liaoning Province, in northeastern China, found a small dinosaur fossil that was later named Sinosauropteryx.\nWhat made the fossil remarkable was its preservation. The animal had been buried in fine volcanic ash and lake mud, which preserved not only bones but traces of soft tissue. Along its back and tail were thin, hair-like filaments—simple feathers. Sinosauropteryx clearly couldn't fly; its arms were short, and the filaments were nothing like the stiff flight feathers of a modern bird.\nThat raises an obvious question: if not for flight, what were feathers for? Most researchers now think the earliest feathers served for insulation, keeping small, active animals warm. Later, some feathers may have been used for display—attracting mates or signaling to rivals. Flight came much later, building on structures that had originally evolved for other purposes. Biologists call this kind of shift exaptation.\nThere's a further twist. In 2010, researchers examined Sinosauropteryx under powerful microscopes and found melanosomes—tiny structures that contain pigment. By comparing their shapes with those in living birds, they concluded that the tail had reddish-brown and pale stripes. So we can now say something about a dinosaur's color, which would have seemed like science fiction thirty years ago.\nSince 1996, dozens of feathered dinosaur species have been described, many from the same region.",
+  "question": "According to the professor, what was the probable original function of feathers?",
+  "choices": [
+   "Helping the animal fly",
+   "Keeping the body warm",
+   "Protecting the animal from predators",
+   "Helping the animal swim"
+  ],
+  "answer": "Keeping the body warm",
+  "explanation": "最初の羽毛は保温のためだったと考えられている。",
+  "tags": "TOEFL2026 listening academic-talk paleontology"
+ },
+ {
+  "id": "TOEFL-LT-512-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a paleontology class.\nProfessor: For most of the twentieth century, dinosaurs were pictured as scaly, reptile-like animals. Feathers were considered a feature of birds alone. That picture changed dramatically in 1996, when farmers in Liaoning Province, in northeastern China, found a small dinosaur fossil that was later named Sinosauropteryx.\nWhat made the fossil remarkable was its preservation. The animal had been buried in fine volcanic ash and lake mud, which preserved not only bones but traces of soft tissue. Along its back and tail were thin, hair-like filaments—simple feathers. Sinosauropteryx clearly couldn't fly; its arms were short, and the filaments were nothing like the stiff flight feathers of a modern bird.\nThat raises an obvious question: if not for flight, what were feathers for? Most researchers now think the earliest feathers served for insulation, keeping small, active animals warm. Later, some feathers may have been used for display—attracting mates or signaling to rivals. Flight came much later, building on structures that had originally evolved for other purposes. Biologists call this kind of shift exaptation.\nThere's a further twist. In 2010, researchers examined Sinosauropteryx under powerful microscopes and found melanosomes—tiny structures that contain pigment. By comparing their shapes with those in living birds, they concluded that the tail had reddish-brown and pale stripes. So we can now say something about a dinosaur's color, which would have seemed like science fiction thirty years ago.\nSince 1996, dozens of feathered dinosaur species have been described, many from the same region.",
+  "question": "Why does the professor mention the term \"exaptation\"?",
+  "choices": [
+   "To name the process that preserved the fossil",
+   "To explain how melanosomes produce color",
+   "To describe a feature that evolved for one purpose and was later used for another",
+   "To describe the region where the fossil was found"
+  ],
+  "answer": "To describe a feature that evolved for one purpose and was later used for another",
+  "explanation": "元々別の目的で進化した構造が後に飛行に使われるようになったことを表す用語として紹介している。",
+  "tags": "TOEFL2026 listening academic-talk paleontology"
+ },
+ {
+  "id": "TOEFL-LT-512-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a paleontology class.\nProfessor: For most of the twentieth century, dinosaurs were pictured as scaly, reptile-like animals. Feathers were considered a feature of birds alone. That picture changed dramatically in 1996, when farmers in Liaoning Province, in northeastern China, found a small dinosaur fossil that was later named Sinosauropteryx.\nWhat made the fossil remarkable was its preservation. The animal had been buried in fine volcanic ash and lake mud, which preserved not only bones but traces of soft tissue. Along its back and tail were thin, hair-like filaments—simple feathers. Sinosauropteryx clearly couldn't fly; its arms were short, and the filaments were nothing like the stiff flight feathers of a modern bird.\nThat raises an obvious question: if not for flight, what were feathers for? Most researchers now think the earliest feathers served for insulation, keeping small, active animals warm. Later, some feathers may have been used for display—attracting mates or signaling to rivals. Flight came much later, building on structures that had originally evolved for other purposes. Biologists call this kind of shift exaptation.\nThere's a further twist. In 2010, researchers examined Sinosauropteryx under powerful microscopes and found melanosomes—tiny structures that contain pigment. By comparing their shapes with those in living birds, they concluded that the tail had reddish-brown and pale stripes. So we can now say something about a dinosaur's color, which would have seemed like science fiction thirty years ago.\nSince 1996, dozens of feathered dinosaur species have been described, many from the same region.",
+  "question": "What can be inferred from the professor's comment about \"science fiction\"?",
+  "choices": [
+   "Some scientists doubt the color findings.",
+   "Science fiction writers predicted the discovery of feathered dinosaurs long ago.",
+   "Determining a dinosaur's color was once thought impossible.",
+   "Science fiction writers predicted feathered dinosaurs."
+  ],
+  "answer": "Determining a dinosaur's color was once thought impossible.",
+  "explanation": "30年前なら恐竜の色を知るのは不可能だと思われていたことが推測できる。",
+  "tags": "TOEFL2026 listening academic-talk paleontology"
+ },
+ {
+  "id": "TOEFL-LT-513-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in an epidemiology class.\nProfessor: In 1854, a terrible outbreak of cholera hit the Soho area of London. Within about ten days, hundreds of people died. At that time, most doctors believed that diseases like cholera were spread by \"bad air\"—unpleasant smells from rotting waste. A physician named John Snow disagreed. He suspected that cholera spread through dirty water.\nTo test his idea, Snow did something that seems simple today but was unusual then: he made a map. He marked the homes where people had died, and he noticed that the deaths were clustered around one public water pump on Broad Street.\nHe also looked closely at exceptions—and this is the part I want you to remember. Near the pump, there was a brewery where none of the workers got sick. Why? The workers drank beer made at the brewery, not water from the pump. On the other hand, a woman who lived far away died of cholera. It turned out that she liked the taste of the Broad Street water and had it delivered to her home.\nSnow presented his evidence to local officials, and they removed the pump's handle so no one could use it. The outbreak was already slowing down by then, so we can't say the handle alone ended it. But Snow's method—carefully mapping cases and studying exceptions—helped create the field of epidemiology.",
+  "question": "What did most doctors in 1854 believe about cholera?",
+  "choices": [
+   "It was spread by dirty water.",
+   "It was caused by drinking beer.",
+   "It was spread by bad air.",
+   "It came from animals."
+  ],
+  "answer": "It was spread by bad air.",
+  "explanation": "当時の多くの医師は「悪い空気」で広がると考えていた。",
+  "tags": "TOEFL2026 listening academic-talk epidemiology"
+ },
+ {
+  "id": "TOEFL-LT-513-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in an epidemiology class.\nProfessor: In 1854, a terrible outbreak of cholera hit the Soho area of London. Within about ten days, hundreds of people died. At that time, most doctors believed that diseases like cholera were spread by \"bad air\"—unpleasant smells from rotting waste. A physician named John Snow disagreed. He suspected that cholera spread through dirty water.\nTo test his idea, Snow did something that seems simple today but was unusual then: he made a map. He marked the homes where people had died, and he noticed that the deaths were clustered around one public water pump on Broad Street.\nHe also looked closely at exceptions—and this is the part I want you to remember. Near the pump, there was a brewery where none of the workers got sick. Why? The workers drank beer made at the brewery, not water from the pump. On the other hand, a woman who lived far away died of cholera. It turned out that she liked the taste of the Broad Street water and had it delivered to her home.\nSnow presented his evidence to local officials, and they removed the pump's handle so no one could use it. The outbreak was already slowing down by then, so we can't say the handle alone ended it. But Snow's method—carefully mapping cases and studying exceptions—helped create the field of epidemiology.",
+  "question": "Why does the professor mention the brewery workers?",
+  "choices": [
+   "They are an example of an exception that supported Snow's idea.",
+   "They helped Snow make his map.",
+   "They were the first people to get sick.",
+   "They owned the Broad Street pump and refused to let others use it."
+  ],
+  "answer": "They are an example of an exception that supported Snow's idea.",
+  "explanation": "ポンプの水を飲まずに発症しなかった例外として、Snowの説を支持する証拠だから。",
+  "tags": "TOEFL2026 listening academic-talk epidemiology"
+ },
+ {
+  "id": "TOEFL-LT-513-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in an epidemiology class.\nProfessor: In 1854, a terrible outbreak of cholera hit the Soho area of London. Within about ten days, hundreds of people died. At that time, most doctors believed that diseases like cholera were spread by \"bad air\"—unpleasant smells from rotting waste. A physician named John Snow disagreed. He suspected that cholera spread through dirty water.\nTo test his idea, Snow did something that seems simple today but was unusual then: he made a map. He marked the homes where people had died, and he noticed that the deaths were clustered around one public water pump on Broad Street.\nHe also looked closely at exceptions—and this is the part I want you to remember. Near the pump, there was a brewery where none of the workers got sick. Why? The workers drank beer made at the brewery, not water from the pump. On the other hand, a woman who lived far away died of cholera. It turned out that she liked the taste of the Broad Street water and had it delivered to her home.\nSnow presented his evidence to local officials, and they removed the pump's handle so no one could use it. The outbreak was already slowing down by then, so we can't say the handle alone ended it. But Snow's method—carefully mapping cases and studying exceptions—helped create the field of epidemiology.",
+  "question": "What does the professor say about removing the pump handle?",
+  "choices": [
+   "It is uncertain how much it alone stopped the outbreak.",
+   "It ended the outbreak immediately.",
+   "Local officials refused to do it.",
+   "It caused people in Soho to get their water from the brewery instead."
+  ],
+  "answer": "It is uncertain how much it alone stopped the outbreak.",
+  "explanation": "流行はすでに収まりつつあり、取っ手の撤去だけで終わったとは言えないと述べている。",
+  "tags": "TOEFL2026 listening academic-talk epidemiology"
+ },
+ {
+  "id": "TOEFL-LT-513-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in an epidemiology class.\nProfessor: In 1854, a terrible outbreak of cholera hit the Soho area of London. Within about ten days, hundreds of people died. At that time, most doctors believed that diseases like cholera were spread by \"bad air\"—unpleasant smells from rotting waste. A physician named John Snow disagreed. He suspected that cholera spread through dirty water.\nTo test his idea, Snow did something that seems simple today but was unusual then: he made a map. He marked the homes where people had died, and he noticed that the deaths were clustered around one public water pump on Broad Street.\nHe also looked closely at exceptions—and this is the part I want you to remember. Near the pump, there was a brewery where none of the workers got sick. Why? The workers drank beer made at the brewery, not water from the pump. On the other hand, a woman who lived far away died of cholera. It turned out that she liked the taste of the Broad Street water and had it delivered to her home.\nSnow presented his evidence to local officials, and they removed the pump's handle so no one could use it. The outbreak was already slowing down by then, so we can't say the handle alone ended it. But Snow's method—carefully mapping cases and studying exceptions—helped create the field of epidemiology.",
+  "question": "What does the professor want students to remember most?",
+  "choices": [
+   "The date of the outbreak",
+   "The number of people who died",
+   "The location of the brewery",
+   "The importance of studying exceptions"
+  ],
+  "answer": "The importance of studying exceptions",
+  "explanation": "「覚えておいてほしい」と言って例外を詳しく調べることを強調している。",
+  "tags": "TOEFL2026 listening academic-talk epidemiology"
+ },
+ {
+  "id": "TOEFL-LT-514-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a sociology class.\nProfessor: If you were looking for a job, who would you expect to help you most—your close friends or people you barely know? Most people say close friends. After all, they care about you. But in 1973, the sociologist Mark Granovetter published a paper with a surprising title: \"The Strength of Weak Ties.\"\nGranovetter interviewed people in a suburb of Boston who had recently changed jobs. He asked how they had learned about the new position. Among those who found jobs through personal contacts, most heard about them from people they saw only occasionally—former coworkers, old classmates, friends of friends—rather than from close friends.\nHis explanation is about information. Your close friends tend to know each other, move in the same circles, and hear the same news. So the information they have largely overlaps with what you already know. Acquaintances, on the other hand, are connected to different groups. They act as bridges to new information you wouldn't otherwise receive.\nNow, that doesn't mean close ties don't matter. Strong ties provide emotional support and help during a crisis. And some later research has found that, in certain situations—for example, in communities where trust is low—strong ties can be more useful for finding work.\nIn 2022, a large study using data from a professional networking platform tested Granovetter's idea with millions of users. It found that moderately weak ties—not the weakest ones—were the most helpful for job mobility. So the basic idea has held up remarkably well, with some refinement.",
+  "question": "What is the main topic of the talk?",
+  "choices": [
+   "Why close friendships are hard to maintain",
+   "How to write a successful job application by using personal connections",
+   "How acquaintances can be valuable sources of new information",
+   "The history of sociology as a field"
+  ],
+  "answer": "How acquaintances can be valuable sources of new information",
+  "explanation": "知人程度の弱いつながりが新しい情報源として価値を持つことが主題。",
+  "tags": "TOEFL2026 listening academic-talk sociology"
+ },
+ {
+  "id": "TOEFL-LT-514-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a sociology class.\nProfessor: If you were looking for a job, who would you expect to help you most—your close friends or people you barely know? Most people say close friends. After all, they care about you. But in 1973, the sociologist Mark Granovetter published a paper with a surprising title: \"The Strength of Weak Ties.\"\nGranovetter interviewed people in a suburb of Boston who had recently changed jobs. He asked how they had learned about the new position. Among those who found jobs through personal contacts, most heard about them from people they saw only occasionally—former coworkers, old classmates, friends of friends—rather than from close friends.\nHis explanation is about information. Your close friends tend to know each other, move in the same circles, and hear the same news. So the information they have largely overlaps with what you already know. Acquaintances, on the other hand, are connected to different groups. They act as bridges to new information you wouldn't otherwise receive.\nNow, that doesn't mean close ties don't matter. Strong ties provide emotional support and help during a crisis. And some later research has found that, in certain situations—for example, in communities where trust is low—strong ties can be more useful for finding work.\nIn 2022, a large study using data from a professional networking platform tested Granovetter's idea with millions of users. It found that moderately weak ties—not the weakest ones—were the most helpful for job mobility. So the basic idea has held up remarkably well, with some refinement.",
+  "question": "According to Granovetter, why are weak ties useful?",
+  "choices": [
+   "They offer more emotional support.",
+   "They connect people to groups with different information.",
+   "They are easier to maintain than close friendships.",
+   "They usually work at the same company."
+  ],
+  "answer": "They connect people to groups with different information.",
+  "explanation": "知人は別の集団とつながっており、新しい情報への橋渡しになるから。",
+  "tags": "TOEFL2026 listening academic-talk sociology"
+ },
+ {
+  "id": "TOEFL-LT-514-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a sociology class.\nProfessor: If you were looking for a job, who would you expect to help you most—your close friends or people you barely know? Most people say close friends. After all, they care about you. But in 1973, the sociologist Mark Granovetter published a paper with a surprising title: \"The Strength of Weak Ties.\"\nGranovetter interviewed people in a suburb of Boston who had recently changed jobs. He asked how they had learned about the new position. Among those who found jobs through personal contacts, most heard about them from people they saw only occasionally—former coworkers, old classmates, friends of friends—rather than from close friends.\nHis explanation is about information. Your close friends tend to know each other, move in the same circles, and hear the same news. So the information they have largely overlaps with what you already know. Acquaintances, on the other hand, are connected to different groups. They act as bridges to new information you wouldn't otherwise receive.\nNow, that doesn't mean close ties don't matter. Strong ties provide emotional support and help during a crisis. And some later research has found that, in certain situations—for example, in communities where trust is low—strong ties can be more useful for finding work.\nIn 2022, a large study using data from a professional networking platform tested Granovetter's idea with millions of users. It found that moderately weak ties—not the weakest ones—were the most helpful for job mobility. So the basic idea has held up remarkably well, with some refinement.",
+  "question": "Why does the professor mention communities where trust is low?",
+  "choices": [
+   "To explain why Granovetter chose Boston",
+   "To criticize the 2022 study",
+   "To show that weak ties never matter in communities where people know each other",
+   "To show that strong ties can sometimes be more helpful"
+  ],
+  "answer": "To show that strong ties can sometimes be more helpful",
+  "explanation": "状況によっては強いつながりの方が役立つこともあるという留保を示すため。",
+  "tags": "TOEFL2026 listening academic-talk sociology"
+ },
+ {
+  "id": "TOEFL-LT-514-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a sociology class.\nProfessor: If you were looking for a job, who would you expect to help you most—your close friends or people you barely know? Most people say close friends. After all, they care about you. But in 1973, the sociologist Mark Granovetter published a paper with a surprising title: \"The Strength of Weak Ties.\"\nGranovetter interviewed people in a suburb of Boston who had recently changed jobs. He asked how they had learned about the new position. Among those who found jobs through personal contacts, most heard about them from people they saw only occasionally—former coworkers, old classmates, friends of friends—rather than from close friends.\nHis explanation is about information. Your close friends tend to know each other, move in the same circles, and hear the same news. So the information they have largely overlaps with what you already know. Acquaintances, on the other hand, are connected to different groups. They act as bridges to new information you wouldn't otherwise receive.\nNow, that doesn't mean close ties don't matter. Strong ties provide emotional support and help during a crisis. And some later research has found that, in certain situations—for example, in communities where trust is low—strong ties can be more useful for finding work.\nIn 2022, a large study using data from a professional networking platform tested Granovetter's idea with millions of users. It found that moderately weak ties—not the weakest ones—were the most helpful for job mobility. So the basic idea has held up remarkably well, with some refinement.",
+  "question": "What does the professor conclude about Granovetter's idea?",
+  "choices": [
+   "It has been proven completely wrong.",
+   "It applies only to people in Boston.",
+   "It was never tested with large data sets.",
+   "It has been largely supported, with some adjustments."
+  ],
+  "answer": "It has been largely supported, with some adjustments.",
+  "explanation": "基本的な考えは非常によく支持されており、一部修正されたとまとめている。",
+  "tags": "TOEFL2026 listening academic-talk sociology"
+ },
+ {
+  "id": "TOEFL-LT-515-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an anthropology class.\nProfessor: In the early twentieth century, the anthropologist Bronisław Malinowski spent several years in the Trobriand Islands, off the coast of New Guinea. There, he documented a system of exchange known as the Kula ring, and it challenged a lot of assumptions about economics.\nHere's how it worked. Islanders traveled long distances by canoe, sometimes across open sea, to exchange two kinds of valuables: necklaces made of red shell, and armbands made of white shell. And these objects moved in opposite directions around a large circle of islands: the necklaces traveled clockwise, the armbands counterclockwise.\nNow, what's strange from a Western economic perspective is that these objects had no practical use. They were rarely worn. And nobody kept them for long. A man would receive a necklace, hold it for a while, and then pass it on to another partner. So what was the point?\nMalinowski argued that the value lay in the relationships. Kula partnerships lasted for life, and they were passed down through generations. Holding a famous necklace, one with a long history of owners, brought prestige. And the voyages created networks of trust between distant communities—networks that also made ordinary trade in food and tools possible.\nStudent: So the exchange was really about building connections, not about the objects themselves?\nProfessor: That's how Malinowski saw it. Later scholars, like Marcel Mauss, built on this to argue that gift-giving in many societies creates obligations that hold communities together. Some of you might see parallels in your own lives.",
+  "question": "What is the talk mainly about?",
+  "choices": [
+   "How Trobriand Islanders built their canoes",
+   "Why shell necklaces were used as money",
+   "An exchange system whose main value was social rather than material",
+   "The life and career of Malinowski"
+  ],
+  "answer": "An exchange system whose main value was social rather than material",
+  "explanation": "物の価値より人間関係に価値があった交換制度（クラ交易）が主題。",
+  "tags": "TOEFL2026 listening academic-talk anthropology"
+ },
+ {
+  "id": "TOEFL-LT-515-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an anthropology class.\nProfessor: In the early twentieth century, the anthropologist Bronisław Malinowski spent several years in the Trobriand Islands, off the coast of New Guinea. There, he documented a system of exchange known as the Kula ring, and it challenged a lot of assumptions about economics.\nHere's how it worked. Islanders traveled long distances by canoe, sometimes across open sea, to exchange two kinds of valuables: necklaces made of red shell, and armbands made of white shell. And these objects moved in opposite directions around a large circle of islands: the necklaces traveled clockwise, the armbands counterclockwise.\nNow, what's strange from a Western economic perspective is that these objects had no practical use. They were rarely worn. And nobody kept them for long. A man would receive a necklace, hold it for a while, and then pass it on to another partner. So what was the point?\nMalinowski argued that the value lay in the relationships. Kula partnerships lasted for life, and they were passed down through generations. Holding a famous necklace, one with a long history of owners, brought prestige. And the voyages created networks of trust between distant communities—networks that also made ordinary trade in food and tools possible.\nStudent: So the exchange was really about building connections, not about the objects themselves?\nProfessor: That's how Malinowski saw it. Later scholars, like Marcel Mauss, built on this to argue that gift-giving in many societies creates obligations that hold communities together. Some of you might see parallels in your own lives.",
+  "question": "What does the professor say about the necklaces and armbands?",
+  "choices": [
+   "They were worn every day.",
+   "They were kept by families for generations and rarely given to other islands.",
+   "They moved around the islands in opposite directions.",
+   "They were traded for food and tools."
+  ],
+  "answer": "They moved around the islands in opposite directions.",
+  "explanation": "首飾りは時計回り、腕輪は反時計回りに移動した。",
+  "tags": "TOEFL2026 listening academic-talk anthropology"
+ },
+ {
+  "id": "TOEFL-LT-515-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an anthropology class.\nProfessor: In the early twentieth century, the anthropologist Bronisław Malinowski spent several years in the Trobriand Islands, off the coast of New Guinea. There, he documented a system of exchange known as the Kula ring, and it challenged a lot of assumptions about economics.\nHere's how it worked. Islanders traveled long distances by canoe, sometimes across open sea, to exchange two kinds of valuables: necklaces made of red shell, and armbands made of white shell. And these objects moved in opposite directions around a large circle of islands: the necklaces traveled clockwise, the armbands counterclockwise.\nNow, what's strange from a Western economic perspective is that these objects had no practical use. They were rarely worn. And nobody kept them for long. A man would receive a necklace, hold it for a while, and then pass it on to another partner. So what was the point?\nMalinowski argued that the value lay in the relationships. Kula partnerships lasted for life, and they were passed down through generations. Holding a famous necklace, one with a long history of owners, brought prestige. And the voyages created networks of trust between distant communities—networks that also made ordinary trade in food and tools possible.\nStudent: So the exchange was really about building connections, not about the objects themselves?\nProfessor: That's how Malinowski saw it. Later scholars, like Marcel Mauss, built on this to argue that gift-giving in many societies creates obligations that hold communities together. Some of you might see parallels in your own lives.",
+  "question": "Why does the professor mention a \"Western economic perspective\"?",
+  "choices": [
+   "To point out why the system seemed puzzling",
+   "To argue that the Kula ring was a form of market",
+   "To explain where Malinowski was educated",
+   "To compare prices of different shells"
+  ],
+  "answer": "To point out why the system seemed puzzling",
+  "explanation": "実用性のない物を交換する制度が西洋経済の観点から奇妙に見えたことを示すため。",
+  "tags": "TOEFL2026 listening academic-talk anthropology"
+ },
+ {
+  "id": "TOEFL-LT-515-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an anthropology class.\nProfessor: In the early twentieth century, the anthropologist Bronisław Malinowski spent several years in the Trobriand Islands, off the coast of New Guinea. There, he documented a system of exchange known as the Kula ring, and it challenged a lot of assumptions about economics.\nHere's how it worked. Islanders traveled long distances by canoe, sometimes across open sea, to exchange two kinds of valuables: necklaces made of red shell, and armbands made of white shell. And these objects moved in opposite directions around a large circle of islands: the necklaces traveled clockwise, the armbands counterclockwise.\nNow, what's strange from a Western economic perspective is that these objects had no practical use. They were rarely worn. And nobody kept them for long. A man would receive a necklace, hold it for a while, and then pass it on to another partner. So what was the point?\nMalinowski argued that the value lay in the relationships. Kula partnerships lasted for life, and they were passed down through generations. Holding a famous necklace, one with a long history of owners, brought prestige. And the voyages created networks of trust between distant communities—networks that also made ordinary trade in food and tools possible.\nStudent: So the exchange was really about building connections, not about the objects themselves?\nProfessor: That's how Malinowski saw it. Later scholars, like Marcel Mauss, built on this to argue that gift-giving in many societies creates obligations that hold communities together. Some of you might see parallels in your own lives.",
+  "question": "What does the professor imply by saying that students might see parallels in their own lives?",
+  "choices": [
+   "Students should travel to the Trobriand Islands.",
+   "Gift-giving creates social obligations in many societies, including their own.",
+   "Students often trade valuable objects.",
+   "Modern societies no longer exchange gifts."
+  ],
+  "answer": "Gift-giving creates social obligations in many societies, including their own.",
+  "explanation": "贈与が義務を生み共同体を結びつけるのは自分たちの社会にも見られると示唆している。",
+  "tags": "TOEFL2026 listening academic-talk anthropology"
+ },
+ {
+  "id": "TOEFL-LT-516-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in an urban studies class.\nProfessor: When a highway becomes congested, the intuitive solution is to widen it. More lanes, more capacity, less traffic. Yet repeatedly, cities that have added lanes have found that within a few years, congestion returns to roughly where it was. Planners call this phenomenon induced demand.\nThe underlying logic is economic. Think of road space as a good whose price is paid not in money but in time. When a road is congested, driving is \"expensive,\" so some people adjust: they travel at off-peak hours, take transit, combine errands, or skip trips altogether. Widen the road, and the time cost drops. Those suppressed trips reappear. Over the longer term, people may even choose to live farther from work, and businesses may locate along the corridor, generating still more traffic.\nIn 2011, economists Gilles Duranton and Matthew Turner examined decades of data from U.S. metropolitan areas. They found that the total distance driven rose roughly in proportion to the increase in highway lane-kilometers—a relationship they called the \"fundamental law of road congestion.\" Adding capacity, in other words, mostly bought more driving rather than faster driving.\nNow, I don't want to overstate this. Wider roads aren't pointless; they allow more people to travel, which has value. The point is that they rarely deliver the reduced congestion they're promised.\nThe logic also runs in reverse. When roads are removed or narrowed—as happened in Seoul, where an elevated highway was torn down to restore a stream—traffic often doesn't simply move to nearby streets as feared. Some of it, in a sense, disappears.",
+  "question": "What is the main idea of the talk?",
+  "choices": [
+   "Highways should never be built in cities.",
+   "Adding road capacity tends to generate more traffic rather than reduce congestion.",
+   "Public transit is always faster than driving.",
+   "Seoul has the best traffic system in the world."
+  ],
+  "answer": "Adding road capacity tends to generate more traffic rather than reduce congestion.",
+  "explanation": "道路容量を増やしても交通量が増えるだけで渋滞は解消しにくいというのが要点。",
+  "tags": "TOEFL2026 listening academic-talk urban studies"
+ },
+ {
+  "id": "TOEFL-LT-516-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in an urban studies class.\nProfessor: When a highway becomes congested, the intuitive solution is to widen it. More lanes, more capacity, less traffic. Yet repeatedly, cities that have added lanes have found that within a few years, congestion returns to roughly where it was. Planners call this phenomenon induced demand.\nThe underlying logic is economic. Think of road space as a good whose price is paid not in money but in time. When a road is congested, driving is \"expensive,\" so some people adjust: they travel at off-peak hours, take transit, combine errands, or skip trips altogether. Widen the road, and the time cost drops. Those suppressed trips reappear. Over the longer term, people may even choose to live farther from work, and businesses may locate along the corridor, generating still more traffic.\nIn 2011, economists Gilles Duranton and Matthew Turner examined decades of data from U.S. metropolitan areas. They found that the total distance driven rose roughly in proportion to the increase in highway lane-kilometers—a relationship they called the \"fundamental law of road congestion.\" Adding capacity, in other words, mostly bought more driving rather than faster driving.\nNow, I don't want to overstate this. Wider roads aren't pointless; they allow more people to travel, which has value. The point is that they rarely deliver the reduced congestion they're promised.\nThe logic also runs in reverse. When roads are removed or narrowed—as happened in Seoul, where an elevated highway was torn down to restore a stream—traffic often doesn't simply move to nearby streets as feared. Some of it, in a sense, disappears.",
+  "question": "Why does the professor describe road space as a good paid for in time?",
+  "choices": [
+   "To explain why drivers change their behavior when congestion changes",
+   "To argue that drivers should pay tolls during the busiest hours of the day",
+   "To show that time is more valuable than money",
+   "To criticize economists' methods"
+  ],
+  "answer": "To explain why drivers change their behavior when congestion changes",
+  "explanation": "渋滞の度合いに応じて人々の行動が変わる理由を説明するため。",
+  "tags": "TOEFL2026 listening academic-talk urban studies"
+ },
+ {
+  "id": "TOEFL-LT-516-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in an urban studies class.\nProfessor: When a highway becomes congested, the intuitive solution is to widen it. More lanes, more capacity, less traffic. Yet repeatedly, cities that have added lanes have found that within a few years, congestion returns to roughly where it was. Planners call this phenomenon induced demand.\nThe underlying logic is economic. Think of road space as a good whose price is paid not in money but in time. When a road is congested, driving is \"expensive,\" so some people adjust: they travel at off-peak hours, take transit, combine errands, or skip trips altogether. Widen the road, and the time cost drops. Those suppressed trips reappear. Over the longer term, people may even choose to live farther from work, and businesses may locate along the corridor, generating still more traffic.\nIn 2011, economists Gilles Duranton and Matthew Turner examined decades of data from U.S. metropolitan areas. They found that the total distance driven rose roughly in proportion to the increase in highway lane-kilometers—a relationship they called the \"fundamental law of road congestion.\" Adding capacity, in other words, mostly bought more driving rather than faster driving.\nNow, I don't want to overstate this. Wider roads aren't pointless; they allow more people to travel, which has value. The point is that they rarely deliver the reduced congestion they're promised.\nThe logic also runs in reverse. When roads are removed or narrowed—as happened in Seoul, where an elevated highway was torn down to restore a stream—traffic often doesn't simply move to nearby streets as feared. Some of it, in a sense, disappears.",
+  "question": "What did Duranton and Turner find?",
+  "choices": [
+   "Wider highways greatly reduced congestion in most of the metropolitan areas they studied.",
+   "Driving increased roughly in proportion to new highway capacity.",
+   "Most drivers switched to public transit.",
+   "Highway use decreased over several decades."
+  ],
+  "answer": "Driving increased roughly in proportion to new highway capacity.",
+  "explanation": "総走行距離が車線距離の増加にほぼ比例して増えることを発見した。",
+  "tags": "TOEFL2026 listening academic-talk urban studies"
+ },
+ {
+  "id": "TOEFL-LT-516-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to part of a talk in an urban studies class.\nProfessor: When a highway becomes congested, the intuitive solution is to widen it. More lanes, more capacity, less traffic. Yet repeatedly, cities that have added lanes have found that within a few years, congestion returns to roughly where it was. Planners call this phenomenon induced demand.\nThe underlying logic is economic. Think of road space as a good whose price is paid not in money but in time. When a road is congested, driving is \"expensive,\" so some people adjust: they travel at off-peak hours, take transit, combine errands, or skip trips altogether. Widen the road, and the time cost drops. Those suppressed trips reappear. Over the longer term, people may even choose to live farther from work, and businesses may locate along the corridor, generating still more traffic.\nIn 2011, economists Gilles Duranton and Matthew Turner examined decades of data from U.S. metropolitan areas. They found that the total distance driven rose roughly in proportion to the increase in highway lane-kilometers—a relationship they called the \"fundamental law of road congestion.\" Adding capacity, in other words, mostly bought more driving rather than faster driving.\nNow, I don't want to overstate this. Wider roads aren't pointless; they allow more people to travel, which has value. The point is that they rarely deliver the reduced congestion they're promised.\nThe logic also runs in reverse. When roads are removed or narrowed—as happened in Seoul, where an elevated highway was torn down to restore a stream—traffic often doesn't simply move to nearby streets as feared. Some of it, in a sense, disappears.",
+  "question": "Why does the professor mention Seoul?",
+  "choices": [
+   "To show that removing a road may reduce traffic rather than shift it",
+   "To give an example of a successful highway expansion",
+   "To describe a city with very little traffic",
+   "To explain how streams affect road design"
+  ],
+  "answer": "To show that removing a road may reduce traffic rather than shift it",
+  "explanation": "道路を撤去しても交通が周辺に移るだけとは限らず、減ることもある例として挙げている。",
+  "tags": "TOEFL2026 listening academic-talk urban studies"
+ },
+ {
+  "id": "TOEFL-LT-517-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a climatology class.\nProfessor: How do we know what Earth's climate was like hundreds of thousands of years ago, long before thermometers existed? One of our best sources is ice.\nIn places like Antarctica and Greenland, snow falls and doesn't melt, even in summer. Year after year, new snow presses down on older snow, and slowly it turns into solid ice. In some places, the ice is more than three kilometers thick. Scientists drill down and pull out long cylinders of ice called ice cores.\nHere's the amazing part. When snow turns into ice, it traps tiny bubbles of air. Those bubbles are actual samples of the atmosphere from the time the ice formed. By measuring the gases in them, scientists can find out how much carbon dioxide was in the air thousands of years ago.\nThe ice itself also holds information. The water molecules contain slightly different forms of oxygen and hydrogen, and the ratio between them depends on the temperature when the snow fell. So the ice works like an ancient thermometer.\nThe longest continuous record so far comes from Antarctica and goes back about eight hundred thousand years. It shows that carbon dioxide and temperature rose and fell together through several ice ages. It also shows that today's carbon dioxide levels are higher than at any time in that entire record.\nNow, ice cores aren't perfect. Near the bottom, layers can be squeezed and harder to read. So scientists compare them with other records, such as ocean sediments.",
+  "question": "What is the main topic of the talk?",
+  "choices": [
+   "How ice cores reveal information about past climates",
+   "Why snow does not melt in Antarctica",
+   "How to drill through thick ice safely",
+   "Why carbon dioxide levels are rising"
+  ],
+  "answer": "How ice cores reveal information about past climates",
+  "explanation": "氷床コアから過去の気候を知る方法が主題。",
+  "tags": "TOEFL2026 listening academic-talk climatology"
+ },
+ {
+  "id": "TOEFL-LT-517-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a climatology class.\nProfessor: How do we know what Earth's climate was like hundreds of thousands of years ago, long before thermometers existed? One of our best sources is ice.\nIn places like Antarctica and Greenland, snow falls and doesn't melt, even in summer. Year after year, new snow presses down on older snow, and slowly it turns into solid ice. In some places, the ice is more than three kilometers thick. Scientists drill down and pull out long cylinders of ice called ice cores.\nHere's the amazing part. When snow turns into ice, it traps tiny bubbles of air. Those bubbles are actual samples of the atmosphere from the time the ice formed. By measuring the gases in them, scientists can find out how much carbon dioxide was in the air thousands of years ago.\nThe ice itself also holds information. The water molecules contain slightly different forms of oxygen and hydrogen, and the ratio between them depends on the temperature when the snow fell. So the ice works like an ancient thermometer.\nThe longest continuous record so far comes from Antarctica and goes back about eight hundred thousand years. It shows that carbon dioxide and temperature rose and fell together through several ice ages. It also shows that today's carbon dioxide levels are higher than at any time in that entire record.\nNow, ice cores aren't perfect. Near the bottom, layers can be squeezed and harder to read. So scientists compare them with other records, such as ocean sediments.",
+  "question": "What do the air bubbles in ice cores allow scientists to measure?",
+  "choices": [
+   "The thickness of the ice",
+   "The amount of carbon dioxide in the past atmosphere",
+   "How much snow fell each year in Antarctica and Greenland over time",
+   "The age of the oldest animals"
+  ],
+  "answer": "The amount of carbon dioxide in the past atmosphere",
+  "explanation": "気泡は当時の大気の試料なので、過去の二酸化炭素量を測定できる。",
+  "tags": "TOEFL2026 listening academic-talk climatology"
+ },
+ {
+  "id": "TOEFL-LT-517-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a climatology class.\nProfessor: How do we know what Earth's climate was like hundreds of thousands of years ago, long before thermometers existed? One of our best sources is ice.\nIn places like Antarctica and Greenland, snow falls and doesn't melt, even in summer. Year after year, new snow presses down on older snow, and slowly it turns into solid ice. In some places, the ice is more than three kilometers thick. Scientists drill down and pull out long cylinders of ice called ice cores.\nHere's the amazing part. When snow turns into ice, it traps tiny bubbles of air. Those bubbles are actual samples of the atmosphere from the time the ice formed. By measuring the gases in them, scientists can find out how much carbon dioxide was in the air thousands of years ago.\nThe ice itself also holds information. The water molecules contain slightly different forms of oxygen and hydrogen, and the ratio between them depends on the temperature when the snow fell. So the ice works like an ancient thermometer.\nThe longest continuous record so far comes from Antarctica and goes back about eight hundred thousand years. It shows that carbon dioxide and temperature rose and fell together through several ice ages. It also shows that today's carbon dioxide levels are higher than at any time in that entire record.\nNow, ice cores aren't perfect. Near the bottom, layers can be squeezed and harder to read. So scientists compare them with other records, such as ocean sediments.",
+  "question": "Why does the professor compare ice to a thermometer?",
+  "choices": [
+   "It is used to measure air temperature today.",
+   "It melts at a known temperature.",
+   "It is made of mercury.",
+   "Its chemical makeup reflects past temperatures."
+  ],
+  "answer": "Its chemical makeup reflects past temperatures.",
+  "explanation": "酸素や水素の同位体の比率が降雪時の気温によって決まるから。",
+  "tags": "TOEFL2026 listening academic-talk climatology"
+ },
+ {
+  "id": "TOEFL-LT-517-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a climatology class.\nProfessor: How do we know what Earth's climate was like hundreds of thousands of years ago, long before thermometers existed? One of our best sources is ice.\nIn places like Antarctica and Greenland, snow falls and doesn't melt, even in summer. Year after year, new snow presses down on older snow, and slowly it turns into solid ice. In some places, the ice is more than three kilometers thick. Scientists drill down and pull out long cylinders of ice called ice cores.\nHere's the amazing part. When snow turns into ice, it traps tiny bubbles of air. Those bubbles are actual samples of the atmosphere from the time the ice formed. By measuring the gases in them, scientists can find out how much carbon dioxide was in the air thousands of years ago.\nThe ice itself also holds information. The water molecules contain slightly different forms of oxygen and hydrogen, and the ratio between them depends on the temperature when the snow fell. So the ice works like an ancient thermometer.\nThe longest continuous record so far comes from Antarctica and goes back about eight hundred thousand years. It shows that carbon dioxide and temperature rose and fell together through several ice ages. It also shows that today's carbon dioxide levels are higher than at any time in that entire record.\nNow, ice cores aren't perfect. Near the bottom, layers can be squeezed and harder to read. So scientists compare them with other records, such as ocean sediments.",
+  "question": "Why does the professor mention ocean sediments?",
+  "choices": [
+   "As the source of the oldest ice",
+   "To explain why the ice in some places is more than three kilometers thick",
+   "To show that oceans absorb carbon dioxide",
+   "As another record that can be used to check ice core data"
+  ],
+  "answer": "As another record that can be used to check ice core data",
+  "explanation": "氷床コアは完全ではないため、比較する別の記録として挙げている。",
+  "tags": "TOEFL2026 listening academic-talk climatology"
+ },
+ {
+  "id": "TOEFL-LT-518-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a cognitive science class.\nProfessor: Let's say you have an exam in two weeks, and you have six hours to study. Is it better to study for six hours the night before, or one hour on six different days? Most of you know the answer, but what's interesting is why.\nIn the 1880s, a German researcher named Hermann Ebbinghaus tested his own memory. He memorized lists of nonsense syllables—meaningless combinations like \"DAX\" or \"BOK\"—and then checked how many he remembered after different amounts of time. He found that forgetting happens fast at first: much of the list was gone within a day. Then forgetting slows down. We call this pattern the forgetting curve.\nBut he also found something else. If he reviewed the list again after some time had passed, he relearned it faster, and he forgot it more slowly afterward. Each review made the memory stronger. This is called the spacing effect: spreading out study sessions leads to better long-term memory than cramming them together.\nNow, why does it work? One explanation is that when you return to material after a break, you have to work a little harder to remember it, and that effort strengthens the memory. When you cram, the information is still fresh, so you don't get that benefit. It feels easier, which is exactly why students often think cramming works better than it does.\nSo, the practical lesson: if you have six hours, use six days.",
+  "question": "What is the talk mainly about?",
+  "choices": [
+   "How to memorize nonsense syllables",
+   "The life of Hermann Ebbinghaus and his work as a German researcher",
+   "Why spreading out study sessions improves memory",
+   "Why students feel stressed before exams"
+  ],
+  "answer": "Why spreading out study sessions improves memory",
+  "explanation": "学習を分散させると記憶が良くなる理由（分散効果）が主題。",
+  "tags": "TOEFL2026 listening academic-talk cognitive science"
+ },
+ {
+  "id": "TOEFL-LT-518-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a cognitive science class.\nProfessor: Let's say you have an exam in two weeks, and you have six hours to study. Is it better to study for six hours the night before, or one hour on six different days? Most of you know the answer, but what's interesting is why.\nIn the 1880s, a German researcher named Hermann Ebbinghaus tested his own memory. He memorized lists of nonsense syllables—meaningless combinations like \"DAX\" or \"BOK\"—and then checked how many he remembered after different amounts of time. He found that forgetting happens fast at first: much of the list was gone within a day. Then forgetting slows down. We call this pattern the forgetting curve.\nBut he also found something else. If he reviewed the list again after some time had passed, he relearned it faster, and he forgot it more slowly afterward. Each review made the memory stronger. This is called the spacing effect: spreading out study sessions leads to better long-term memory than cramming them together.\nNow, why does it work? One explanation is that when you return to material after a break, you have to work a little harder to remember it, and that effort strengthens the memory. When you cram, the information is still fresh, so you don't get that benefit. It feels easier, which is exactly why students often think cramming works better than it does.\nSo, the practical lesson: if you have six hours, use six days.",
+  "question": "According to the professor, what did Ebbinghaus find about forgetting?",
+  "choices": [
+   "It happens quickly at first and then slows down.",
+   "It happens at the same rate over time.",
+   "It only begins after one week.",
+   "It does not happen with nonsense syllables."
+  ],
+  "answer": "It happens quickly at first and then slows down.",
+  "explanation": "最初は速く忘れ、その後ゆっくりになるという忘却曲線を発見した。",
+  "tags": "TOEFL2026 listening academic-talk cognitive science"
+ },
+ {
+  "id": "TOEFL-LT-518-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a cognitive science class.\nProfessor: Let's say you have an exam in two weeks, and you have six hours to study. Is it better to study for six hours the night before, or one hour on six different days? Most of you know the answer, but what's interesting is why.\nIn the 1880s, a German researcher named Hermann Ebbinghaus tested his own memory. He memorized lists of nonsense syllables—meaningless combinations like \"DAX\" or \"BOK\"—and then checked how many he remembered after different amounts of time. He found that forgetting happens fast at first: much of the list was gone within a day. Then forgetting slows down. We call this pattern the forgetting curve.\nBut he also found something else. If he reviewed the list again after some time had passed, he relearned it faster, and he forgot it more slowly afterward. Each review made the memory stronger. This is called the spacing effect: spreading out study sessions leads to better long-term memory than cramming them together.\nNow, why does it work? One explanation is that when you return to material after a break, you have to work a little harder to remember it, and that effort strengthens the memory. When you cram, the information is still fresh, so you don't get that benefit. It feels easier, which is exactly why students often think cramming works better than it does.\nSo, the practical lesson: if you have six hours, use six days.",
+  "question": "Why does the professor mention that cramming feels easier?",
+  "choices": [
+   "To recommend cramming for some exams",
+   "To show that Ebbinghaus preferred cramming",
+   "To explain why students may wrongly believe cramming is effective",
+   "To explain how nonsense syllables work"
+  ],
+  "answer": "To explain why students may wrongly believe cramming is effective",
+  "explanation": "簡単に感じるため、学生は詰め込み学習の効果を過大評価すると説明するため。",
+  "tags": "TOEFL2026 listening academic-talk cognitive science"
+ },
+ {
+  "id": "TOEFL-LT-518-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to part of a talk in a cognitive science class.\nProfessor: Let's say you have an exam in two weeks, and you have six hours to study. Is it better to study for six hours the night before, or one hour on six different days? Most of you know the answer, but what's interesting is why.\nIn the 1880s, a German researcher named Hermann Ebbinghaus tested his own memory. He memorized lists of nonsense syllables—meaningless combinations like \"DAX\" or \"BOK\"—and then checked how many he remembered after different amounts of time. He found that forgetting happens fast at first: much of the list was gone within a day. Then forgetting slows down. We call this pattern the forgetting curve.\nBut he also found something else. If he reviewed the list again after some time had passed, he relearned it faster, and he forgot it more slowly afterward. Each review made the memory stronger. This is called the spacing effect: spreading out study sessions leads to better long-term memory than cramming them together.\nNow, why does it work? One explanation is that when you return to material after a break, you have to work a little harder to remember it, and that effort strengthens the memory. When you cram, the information is still fresh, so you don't get that benefit. It feels easier, which is exactly why students often think cramming works better than it does.\nSo, the practical lesson: if you have six hours, use six days.",
+  "question": "How does the professor organize the talk?",
+  "choices": [
+   "By comparing two researchers and their opposing theories about how memory works",
+   "By listing several study methods in order of importance",
+   "By describing an experiment and then criticizing it",
+   "By posing a question, describing research, and then giving practical advice"
+  ],
+  "answer": "By posing a question, describing research, and then giving practical advice",
+  "explanation": "問いを投げかけ、研究を紹介し、最後に実践的な助言で締めくくっている。",
+  "tags": "TOEFL2026 listening academic-talk cognitive science"
+ },
+ {
+  "id": "TOEFL-LT-519-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an architecture class.\nProfessor: In the desert city of Yazd, in central Iran, the skyline is dotted with tall towers that have openings at the top. These are wind catchers, or badgirs, and for centuries they've cooled homes without any electricity at all.\nThe principle is fairly simple. Wind blowing across the city is stronger and cooler at heights above the buildings. The tower's openings face the wind, which is pushed down a shaft into the rooms below. As this fresh air enters, it pushes warm indoor air out through windows or other openings.\nBut the clever part is what happens when there's no wind. Hot air rises. During the day, the sun heats the tower, and the warm air inside it rises and escapes through the top. That pulls air up from the house below, which in turn draws in air from shaded courtyards or underground spaces. So even on a still day, air keeps moving.\nSome wind catchers were even connected to qanats—underground water channels. Air passing over the cool water was cooled further before entering the house, a bit like a natural air conditioner.\nStudent: Are architects still using them today?\nProfessor: They are, increasingly. Modern versions appear in buildings across the Middle East and even in Europe, often combined with sensors and adjustable vents. As cooling demand rises with warmer summers, there's growing interest in designs that reduce energy use. I'd argue that traditional buildings like these aren't just historical curiosities; they're a source of tested solutions.",
+  "question": "What is the main purpose of the talk?",
+  "choices": [
+   "To compare architecture in Iran and Europe",
+   "To explain how traditional wind catchers cool buildings",
+   "To describe the history of the city of Yazd",
+   "To explain how modern air conditioners work"
+  ],
+  "answer": "To explain how traditional wind catchers cool buildings",
+  "explanation": "伝統的な風の塔がどのように建物を冷やすかを説明することが目的。",
+  "tags": "TOEFL2026 listening academic-talk architecture"
+ },
+ {
+  "id": "TOEFL-LT-519-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an architecture class.\nProfessor: In the desert city of Yazd, in central Iran, the skyline is dotted with tall towers that have openings at the top. These are wind catchers, or badgirs, and for centuries they've cooled homes without any electricity at all.\nThe principle is fairly simple. Wind blowing across the city is stronger and cooler at heights above the buildings. The tower's openings face the wind, which is pushed down a shaft into the rooms below. As this fresh air enters, it pushes warm indoor air out through windows or other openings.\nBut the clever part is what happens when there's no wind. Hot air rises. During the day, the sun heats the tower, and the warm air inside it rises and escapes through the top. That pulls air up from the house below, which in turn draws in air from shaded courtyards or underground spaces. So even on a still day, air keeps moving.\nSome wind catchers were even connected to qanats—underground water channels. Air passing over the cool water was cooled further before entering the house, a bit like a natural air conditioner.\nStudent: Are architects still using them today?\nProfessor: They are, increasingly. Modern versions appear in buildings across the Middle East and even in Europe, often combined with sensors and adjustable vents. As cooling demand rises with warmer summers, there's growing interest in designs that reduce energy use. I'd argue that traditional buildings like these aren't just historical curiosities; they're a source of tested solutions.",
+  "question": "According to the professor, how does a wind catcher work when there is no wind?",
+  "choices": [
+   "Fans inside the tower push air down.",
+   "Warm air rising out of the tower draws air through the house.",
+   "Cool air from the shaded courtyards falls down into the tower from above.",
+   "The tower closes to keep heat out."
+  ],
+  "answer": "Warm air rising out of the tower draws air through the house.",
+  "explanation": "塔内の暖かい空気が上昇して抜け、家の中の空気を引き上げて流れを作る。",
+  "tags": "TOEFL2026 listening academic-talk architecture"
+ },
+ {
+  "id": "TOEFL-LT-519-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an architecture class.\nProfessor: In the desert city of Yazd, in central Iran, the skyline is dotted with tall towers that have openings at the top. These are wind catchers, or badgirs, and for centuries they've cooled homes without any electricity at all.\nThe principle is fairly simple. Wind blowing across the city is stronger and cooler at heights above the buildings. The tower's openings face the wind, which is pushed down a shaft into the rooms below. As this fresh air enters, it pushes warm indoor air out through windows or other openings.\nBut the clever part is what happens when there's no wind. Hot air rises. During the day, the sun heats the tower, and the warm air inside it rises and escapes through the top. That pulls air up from the house below, which in turn draws in air from shaded courtyards or underground spaces. So even on a still day, air keeps moving.\nSome wind catchers were even connected to qanats—underground water channels. Air passing over the cool water was cooled further before entering the house, a bit like a natural air conditioner.\nStudent: Are architects still using them today?\nProfessor: They are, increasingly. Modern versions appear in buildings across the Middle East and even in Europe, often combined with sensors and adjustable vents. As cooling demand rises with warmer summers, there's growing interest in designs that reduce energy use. I'd argue that traditional buildings like these aren't just historical curiosities; they're a source of tested solutions.",
+  "question": "Why does the professor mention qanats?",
+  "choices": [
+   "To describe how people in Yazd got their drinking water from underground",
+   "To explain how some wind catchers cooled air even more",
+   "To show where the towers were built",
+   "To explain why the city is in the desert"
+  ],
+  "answer": "To explain how some wind catchers cooled air even more",
+  "explanation": "地下水路の冷たい水の上を通すことで空気をさらに冷やした例として挙げている。",
+  "tags": "TOEFL2026 listening academic-talk architecture"
+ },
+ {
+  "id": "TOEFL-LT-519-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in an architecture class.\nProfessor: In the desert city of Yazd, in central Iran, the skyline is dotted with tall towers that have openings at the top. These are wind catchers, or badgirs, and for centuries they've cooled homes without any electricity at all.\nThe principle is fairly simple. Wind blowing across the city is stronger and cooler at heights above the buildings. The tower's openings face the wind, which is pushed down a shaft into the rooms below. As this fresh air enters, it pushes warm indoor air out through windows or other openings.\nBut the clever part is what happens when there's no wind. Hot air rises. During the day, the sun heats the tower, and the warm air inside it rises and escapes through the top. That pulls air up from the house below, which in turn draws in air from shaded courtyards or underground spaces. So even on a still day, air keeps moving.\nSome wind catchers were even connected to qanats—underground water channels. Air passing over the cool water was cooled further before entering the house, a bit like a natural air conditioner.\nStudent: Are architects still using them today?\nProfessor: They are, increasingly. Modern versions appear in buildings across the Middle East and even in Europe, often combined with sensors and adjustable vents. As cooling demand rises with warmer summers, there's growing interest in designs that reduce energy use. I'd argue that traditional buildings like these aren't just historical curiosities; they're a source of tested solutions.",
+  "question": "What is the professor's opinion of traditional buildings like wind catchers?",
+  "choices": [
+   "They offer valuable solutions for modern design.",
+   "They are interesting only from a historical point of view.",
+   "They are less effective than modern air conditioning.",
+   "They are too expensive to build today."
+  ],
+  "answer": "They offer valuable solutions for modern design.",
+  "explanation": "単なる歴史的珍品ではなく、検証済みの解決策の宝庫だと考えている。",
+  "tags": "TOEFL2026 listening academic-talk architecture"
+ },
+ {
+  "id": "TOEFL-LT-520-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a chemistry class.\nProfessor: Last week we talked about activation energy—the energy barrier that must be overcome before a reaction can proceed. Today, let's talk about catalysts, which are substances that speed up reactions without being used up themselves.\nHow do they do that? A catalyst provides an alternative pathway for the reaction, one with a lower activation energy. Think of it as finding a tunnel through a mountain instead of climbing over the top. The starting point and the destination are the same—the catalyst doesn't change how much energy the reaction releases overall—but far more molecules can make the trip in a given time.\nOne of the most important examples in history is the Haber-Bosch process, developed in Germany in the early twentieth century. It combines nitrogen from the air with hydrogen to make ammonia, which is used to produce fertilizer. Nitrogen gas is extremely stable—its two atoms are held together by a very strong triple bond—so without help, the reaction is far too slow to be useful. The process uses an iron-based catalyst, along with high pressure and temperatures around four hundred to five hundred degrees Celsius.\nThe impact was enormous. Synthetic fertilizer made from this ammonia is estimated to support food production for roughly half of the world's population today. But the process also consumes a large share of global energy, mostly from natural gas, so chemists are actively searching for catalysts that would work under milder conditions.\nYour own body is full of catalysts, too—we call them enzymes. We'll get to those on Thursday.",
+  "question": "What is the main topic of the talk?",
+  "choices": [
+   "How fertilizer is spread on farms",
+   "Why nitrogen makes up most of the air and how plants use it",
+   "How enzymes are made in the body",
+   "How catalysts speed up chemical reactions"
+  ],
+  "answer": "How catalysts speed up chemical reactions",
+  "explanation": "触媒が化学反応を速める仕組みが主題。",
+  "tags": "TOEFL2026 listening academic-talk chemistry"
+ },
+ {
+  "id": "TOEFL-LT-520-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a chemistry class.\nProfessor: Last week we talked about activation energy—the energy barrier that must be overcome before a reaction can proceed. Today, let's talk about catalysts, which are substances that speed up reactions without being used up themselves.\nHow do they do that? A catalyst provides an alternative pathway for the reaction, one with a lower activation energy. Think of it as finding a tunnel through a mountain instead of climbing over the top. The starting point and the destination are the same—the catalyst doesn't change how much energy the reaction releases overall—but far more molecules can make the trip in a given time.\nOne of the most important examples in history is the Haber-Bosch process, developed in Germany in the early twentieth century. It combines nitrogen from the air with hydrogen to make ammonia, which is used to produce fertilizer. Nitrogen gas is extremely stable—its two atoms are held together by a very strong triple bond—so without help, the reaction is far too slow to be useful. The process uses an iron-based catalyst, along with high pressure and temperatures around four hundred to five hundred degrees Celsius.\nThe impact was enormous. Synthetic fertilizer made from this ammonia is estimated to support food production for roughly half of the world's population today. But the process also consumes a large share of global energy, mostly from natural gas, so chemists are actively searching for catalysts that would work under milder conditions.\nYour own body is full of catalysts, too—we call them enzymes. We'll get to those on Thursday.",
+  "question": "Why does the professor mention a tunnel through a mountain?",
+  "choices": [
+   "To describe where the Haber-Bosch process was developed",
+   "To explain how ammonia is transported",
+   "To show that reactions release energy",
+   "To illustrate how a catalyst lowers the energy barrier"
+  ],
+  "answer": "To illustrate how a catalyst lowers the energy barrier",
+  "explanation": "触媒が活性化エネルギーの低い別の経路を作ることのたとえ。",
+  "tags": "TOEFL2026 listening academic-talk chemistry"
+ },
+ {
+  "id": "TOEFL-LT-520-3",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a chemistry class.\nProfessor: Last week we talked about activation energy—the energy barrier that must be overcome before a reaction can proceed. Today, let's talk about catalysts, which are substances that speed up reactions without being used up themselves.\nHow do they do that? A catalyst provides an alternative pathway for the reaction, one with a lower activation energy. Think of it as finding a tunnel through a mountain instead of climbing over the top. The starting point and the destination are the same—the catalyst doesn't change how much energy the reaction releases overall—but far more molecules can make the trip in a given time.\nOne of the most important examples in history is the Haber-Bosch process, developed in Germany in the early twentieth century. It combines nitrogen from the air with hydrogen to make ammonia, which is used to produce fertilizer. Nitrogen gas is extremely stable—its two atoms are held together by a very strong triple bond—so without help, the reaction is far too slow to be useful. The process uses an iron-based catalyst, along with high pressure and temperatures around four hundred to five hundred degrees Celsius.\nThe impact was enormous. Synthetic fertilizer made from this ammonia is estimated to support food production for roughly half of the world's population today. But the process also consumes a large share of global energy, mostly from natural gas, so chemists are actively searching for catalysts that would work under milder conditions.\nYour own body is full of catalysts, too—we call them enzymes. We'll get to those on Thursday.",
+  "question": "According to the professor, why is nitrogen gas difficult to react?",
+  "choices": [
+   "It is very rare in the air.",
+   "It reacts only with iron.",
+   "It is a liquid at room temperature, so it must be heated before it reacts.",
+   "Its atoms are joined by a very strong bond."
+  ],
+  "answer": "Its atoms are joined by a very strong bond.",
+  "explanation": "2つの原子が非常に強い三重結合で結ばれていて安定しているから。",
+  "tags": "TOEFL2026 listening academic-talk chemistry"
+ },
+ {
+  "id": "TOEFL-LT-520-4",
+  "skill": "listening",
+  "format": "Listening: Listen to an Academic Talk",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to part of a talk in a chemistry class.\nProfessor: Last week we talked about activation energy—the energy barrier that must be overcome before a reaction can proceed. Today, let's talk about catalysts, which are substances that speed up reactions without being used up themselves.\nHow do they do that? A catalyst provides an alternative pathway for the reaction, one with a lower activation energy. Think of it as finding a tunnel through a mountain instead of climbing over the top. The starting point and the destination are the same—the catalyst doesn't change how much energy the reaction releases overall—but far more molecules can make the trip in a given time.\nOne of the most important examples in history is the Haber-Bosch process, developed in Germany in the early twentieth century. It combines nitrogen from the air with hydrogen to make ammonia, which is used to produce fertilizer. Nitrogen gas is extremely stable—its two atoms are held together by a very strong triple bond—so without help, the reaction is far too slow to be useful. The process uses an iron-based catalyst, along with high pressure and temperatures around four hundred to five hundred degrees Celsius.\nThe impact was enormous. Synthetic fertilizer made from this ammonia is estimated to support food production for roughly half of the world's population today. But the process also consumes a large share of global energy, mostly from natural gas, so chemists are actively searching for catalysts that would work under milder conditions.\nYour own body is full of catalysts, too—we call them enzymes. We'll get to those on Thursday.",
+  "question": "Why are chemists searching for new catalysts for making ammonia?",
+  "choices": [
+   "The iron catalyst is too expensive.",
+   "The current process produces too little fertilizer.",
+   "The current process uses a great deal of energy.",
+   "Ammonia is no longer needed for fertilizer."
+  ],
+  "answer": "The current process uses a great deal of energy.",
+  "explanation": "現在の工程は世界のエネルギーの大きな割合を消費するので、温和な条件で働く触媒を探している。",
+  "tags": "TOEFL2026 listening academic-talk chemistry"
+ }
+]

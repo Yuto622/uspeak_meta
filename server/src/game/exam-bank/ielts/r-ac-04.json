@@ -96,7 +96,7 @@
   "question": "Choose the correct answer.\n\nWhy are high night-time temperatures particularly dangerous?",
   "choices": [
    "They increase the amount of ozone produced at night.",
-   "Elderly people are more likely to go outside at night.",
+   "Elderly people are more likely to go outside at night when it is cooler.",
    "The body has no chance to recover from the heat of the day.",
    "Air conditioners are less effective after sunset."
   ],
@@ -410,9 +410,9 @@
    "They have been abolished in many developing countries.",
    "They had little effect on literacy rates.",
    "They were first proposed in 1948.",
-   "They have not been enough to ensure that every child attends school."
+   "They have not ensured that all children attend school."
   ],
-  "answer": "They have not been enough to ensure that every child attends school.",
+  "answer": "They have not ensured that all children attend school.",
   "explanation": "F段落「laws alone have never been sufficient」で、今も 学校に 行けない 子どもが 何百万人も いる。",
   "tags": "IELTS reading academic 教育 義務教育の歴史 多肢選択"
  },

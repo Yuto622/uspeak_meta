@@ -98,7 +98,7 @@
    "Pidgins cannot be used for official purposes.",
    "Creoles develop most quickly in rural areas.",
    "The change from pidgin to creole can happen gradually.",
-   "A pidgin needs a single source language."
+   "A pidgin must take its vocabulary from a single source language."
   ],
   "answer": "The change from pidgin to creole can happen gradually.",
   "explanation": "C段落「the boundary between pidgin and creole can be gradual rather than clear-cut」。",
@@ -114,11 +114,11 @@
   "question": "Choose the correct answer.\n\nAccording to paragraph D, critics of Bickerton argue that",
   "choices": [
    "creoles in different regions have no features in common.",
-   "children cannot create a language within one generation.",
+   "children are unable to create a complete new language within only a single generation.",
    "the Hawaiian creole is not based on English.",
-   "similarities between creoles may come from the languages their first speakers already knew."
+   "the features creoles share may come from their speakers' original languages."
   ],
-  "answer": "similarities between creoles may come from the languages their first speakers already knew.",
+  "answer": "the features creoles share may come from their speakers' original languages.",
   "explanation": "D段落「the shared features might be explained by the languages that the original speakers brought with them」。",
   "tags": "IELTS reading academic 言語学 ピジン クレオール 多肢選択"
  },
@@ -390,7 +390,7 @@
   "question": "Choose the correct answer.\n\nHow does the protein produced by the 'period' gene help to keep time?",
   "choices": [
    "It is produced only when cells are exposed to light.",
-   "It sends signals directly from the eyes to the brain.",
+   "It carries information about light directly from the eyes to the brain.",
    "It gradually blocks the activity of the gene that produced it.",
    "It speeds up the body's response to blue light."
   ],
@@ -557,9 +557,9 @@
    "Coastal cities should stop building desalination plants.",
    "Desalination should replace other forms of water management.",
    "Plants should be built only in countries with high rainfall.",
-   "Fixing leaks and recycling wastewater should usually be tried first."
+   "Cheaper options should usually be tried first."
   ],
-  "answer": "Fixing leaks and recycling wastewater should usually be tried first.",
+  "answer": "Cheaper options should usually be tried first.",
   "explanation": "F段落「desalination should generally be considered only after cheaper and less damaging options」として 漏水の 修理と 下水の 再利用を あげる。",
   "tags": "IELTS reading academic 技術 海水淡水化 多肢選択"
  },

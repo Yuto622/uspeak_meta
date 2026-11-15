@@ -1,0 +1,470 @@
+[
+ {
+  "id": "TOEFL-LA-513-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement from the director of international programs.\nGood afternoon. I'm sorry to share that we've decided to suspend the spring semester program in the coastal region of Ecuador. This was not an easy decision. Our partner university there has been an excellent host for fifteen years, and the program is consistently among our most highly rated. However, recent flooding has damaged several of the facilities where students would live and study, and our partner has told us candidly that repairs won't be complete by January. Students who were accepted have two options: transfer to our program in the highlands near Quito, which has a similar focus on ecology and indigenous agriculture, or defer to the fall semester, when we fully expect the coastal program to resume. Either way, your application fees will carry over.",
+  "question": "Why has the coastal program been suspended?",
+  "choices": [
+   "The partner university decided to end its fifteen-year agreement.",
+   "Too few students applied.",
+   "The program received poor ratings.",
+   "Flood damage to facilities will not be repaired in time."
+  ],
+  "answer": "Flood damage to facilities will not be repaired in time.",
+  "explanation": "洪水で施設が損傷し、1月までに修理が終わらないため。",
+  "tags": "TOEFL2026 listening announcement abroad"
+ },
+ {
+  "id": "TOEFL-LA-513-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement from the director of international programs.\nGood afternoon. I'm sorry to share that we've decided to suspend the spring semester program in the coastal region of Ecuador. This was not an easy decision. Our partner university there has been an excellent host for fifteen years, and the program is consistently among our most highly rated. However, recent flooding has damaged several of the facilities where students would live and study, and our partner has told us candidly that repairs won't be complete by January. Students who were accepted have two options: transfer to our program in the highlands near Quito, which has a similar focus on ecology and indigenous agriculture, or defer to the fall semester, when we fully expect the coastal program to resume. Either way, your application fees will carry over.",
+  "question": "What does the speaker suggest about the future of the coastal program?",
+  "choices": [
+   "It is likely to resume in the fall.",
+   "It will be permanently replaced by the highlands program.",
+   "It will move to a different country.",
+   "Its future depends on application numbers."
+  ],
+  "answer": "It is likely to resume in the fall.",
+  "explanation": "秋学期には再開すると十分見込んでいると述べている。",
+  "tags": "TOEFL2026 listening announcement abroad"
+ },
+ {
+  "id": "TOEFL-LA-514-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement at a study abroad orientation.\nWelcome, everyone, to the pre-departure orientation for our fall programs. Before we split into groups by country, there are a few things that apply to all of you. First, register your travel plans with the international office through the online portal. This isn't just paperwork—if there's an emergency, such as a natural disaster or political unrest, it's how we locate you. Second, the university's health insurance does cover you abroad, but you must pay up front for most treatment and submit receipts afterward for reimbursement, so keep every receipt. Finally, check your course approvals. Several students last year took classes abroad that hadn't been approved, and those credits didn't transfer. Don't let that be you.",
+  "question": "According to the speaker, why should students register their travel plans?",
+  "choices": [
+   "So the university can find them during an emergency",
+   "So they can receive their visas faster",
+   "So their insurance will be activated",
+   "So their professors know when they leave"
+  ],
+  "answer": "So the university can find them during an emergency",
+  "explanation": "緊急時に大学が学生の居場所を把握するためだと説明している。",
+  "tags": "TOEFL2026 listening announcement abroad"
+ },
+ {
+  "id": "TOEFL-LA-514-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement at a study abroad orientation.\nWelcome, everyone, to the pre-departure orientation for our fall programs. Before we split into groups by country, there are a few things that apply to all of you. First, register your travel plans with the international office through the online portal. This isn't just paperwork—if there's an emergency, such as a natural disaster or political unrest, it's how we locate you. Second, the university's health insurance does cover you abroad, but you must pay up front for most treatment and submit receipts afterward for reimbursement, so keep every receipt. Finally, check your course approvals. Several students last year took classes abroad that hadn't been approved, and those credits didn't transfer. Don't let that be you.",
+  "question": "What does the speaker imply about some students last year?",
+  "choices": [
+   "They did not keep their medical receipts and couldn't get their money back.",
+   "They forgot to attend orientation.",
+   "They traveled to dangerous countries.",
+   "They lost credits because their courses were not approved in advance."
+  ],
+  "answer": "They lost credits because their courses were not approved in advance.",
+  "explanation": "事前承認のない授業を取り、単位が移行されなかった学生がいたことを示唆している。",
+  "tags": "TOEFL2026 listening announcement abroad"
+ },
+ {
+  "id": "TOEFL-LA-515-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to an announcement at a club meeting.\nHi, everybody, and welcome to the first meeting of the Music Club this year! I'm Lucía, the club president. We meet every Wednesday at five in the music building, Room 102. This month, we're planning a small concert on the last Friday. Anyone can play—piano, guitar, singing, anything. If you want to perform, please tell me by next Wednesday. And don't worry if you're a beginner. This club is for fun!",
+  "question": "When does the Music Club meet?",
+  "choices": [
+   "Every Friday at five",
+   "Every Wednesday at five",
+   "On the last Wednesday of the month",
+   "Every day after class"
+  ],
+  "answer": "Every Wednesday at five",
+  "explanation": "毎週水曜日5時に集まると言っている。",
+  "tags": "TOEFL2026 listening announcement club"
+ },
+ {
+  "id": "TOEFL-LA-515-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to an announcement at a club meeting.\nHi, everybody, and welcome to the first meeting of the Music Club this year! I'm Lucía, the club president. We meet every Wednesday at five in the music building, Room 102. This month, we're planning a small concert on the last Friday. Anyone can play—piano, guitar, singing, anything. If you want to perform, please tell me by next Wednesday. And don't worry if you're a beginner. This club is for fun!",
+  "question": "What should students do if they want to play in the concert?",
+  "choices": [
+   "Practice in Room 102 every day",
+   "Buy a ticket for the concert",
+   "Tell Lucía by next Wednesday",
+   "Join a beginner class"
+  ],
+  "answer": "Tell Lucía by next Wednesday",
+  "explanation": "演奏したい人は来週水曜日までにルシアに伝える必要がある。",
+  "tags": "TOEFL2026 listening announcement club"
+ },
+ {
+  "id": "TOEFL-LA-516-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the housing office.\nThis message is for all students who have applied for on-campus housing next year. Because of high demand, the housing office has decided to change the way rooms are assigned. Instead of a first-come, first-served system, assignments will now be based on a lottery. Each applicant will receive a random number on March tenth, and room selection will take place in that order. Students with documented medical or accessibility needs will continue to be placed before the lottery. We know some of you applied early hoping for an advantage, and we understand your frustration. However, last year's system meant students with slower internet connections or classes at the opening time were at a disadvantage.",
+  "question": "What is the main change the speaker announces?",
+  "choices": [
+   "Rooms will be assigned using a lottery.",
+   "Housing fees will increase next year.",
+   "Fewer rooms will be available.",
+   "Students must apply by March tenth."
+  ],
+  "answer": "Rooms will be assigned using a lottery.",
+  "explanation": "部屋の割り当てが先着順から抽選に変わる。",
+  "tags": "TOEFL2026 listening announcement housing"
+ },
+ {
+  "id": "TOEFL-LA-516-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the housing office.\nThis message is for all students who have applied for on-campus housing next year. Because of high demand, the housing office has decided to change the way rooms are assigned. Instead of a first-come, first-served system, assignments will now be based on a lottery. Each applicant will receive a random number on March tenth, and room selection will take place in that order. Students with documented medical or accessibility needs will continue to be placed before the lottery. We know some of you applied early hoping for an advantage, and we understand your frustration. However, last year's system meant students with slower internet connections or classes at the opening time were at a disadvantage.",
+  "question": "Why does the speaker mention slower internet connections?",
+  "choices": [
+   "To explain why the old system was unfair",
+   "To announce improvements to campus internet",
+   "To suggest students apply from the library",
+   "To explain a delay in the lottery"
+  ],
+  "answer": "To explain why the old system was unfair",
+  "explanation": "先着順は回線の遅い学生などに不利だったという理由を説明するため。",
+  "tags": "TOEFL2026 listening announcement housing"
+ },
+ {
+  "id": "TOEFL-LA-517-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from the financial aid office.\nGood morning. This is a reminder that the application for next year's financial aid opens on October first. All students who want aid—including those who received it this year—must submit a new application. Aid does not continue automatically. We recommend applying before December first, because some grants are given on a first-come, first-served basis. If you need help filling out the form, our office is holding free workshops every Wednesday afternoon in the student center. You don't need to sign up; just bring your tax information.",
+  "question": "What does the speaker emphasize about students who already receive aid?",
+  "choices": [
+   "They must apply again.",
+   "They do not need to apply again.",
+   "They will receive more money next year.",
+   "They must attend a workshop."
+  ],
+  "answer": "They must apply again.",
+  "explanation": "援助は自動継続されず、今年受け取った学生も再申請が必要だと強調している。",
+  "tags": "TOEFL2026 listening announcement finaid"
+ },
+ {
+  "id": "TOEFL-LA-517-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from the financial aid office.\nGood morning. This is a reminder that the application for next year's financial aid opens on October first. All students who want aid—including those who received it this year—must submit a new application. Aid does not continue automatically. We recommend applying before December first, because some grants are given on a first-come, first-served basis. If you need help filling out the form, our office is holding free workshops every Wednesday afternoon in the student center. You don't need to sign up; just bring your tax information.",
+  "question": "Why does the office recommend applying before December first?",
+  "choices": [
+   "The free workshops will end in December, so help will not be available.",
+   "The office closes for the holidays.",
+   "Tax information is only available until then.",
+   "Some grants are given out in the order that applications arrive."
+  ],
+  "answer": "Some grants are given out in the order that applications arrive.",
+  "explanation": "先着順で支給される給付金があるため。",
+  "tags": "TOEFL2026 listening announcement finaid"
+ },
+ {
+  "id": "TOEFL-LA-518-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement from the university's provost.\nI'd like to share some news about tuition and financial support for next year. As many of you know, the state has reduced its contribution to our operating budget for the second year in a row. As a result, the board has approved a tuition increase of three percent—below the rate of inflation, but an increase nonetheless. At the same time, we're expanding what we call our tuition guarantee: students from families earning under sixty thousand dollars a year will have tuition fully covered through grants, with no loans required. Previously, the threshold was forty-five thousand. In other words, while the headline cost goes up, the actual cost for roughly a third of our students will fall to zero. We believe this reflects our obligation to keep the university accessible.",
+  "question": "What does the provost say about the tuition increase?",
+  "choices": [
+   "It is the largest increase in the university's history.",
+   "It will be canceled if the state provides more money.",
+   "It is smaller than the rate of inflation.",
+   "It only applies to new students."
+  ],
+  "answer": "It is smaller than the rate of inflation.",
+  "explanation": "3%の値上げはインフレ率を下回ると述べている。",
+  "tags": "TOEFL2026 listening announcement finaid"
+ },
+ {
+  "id": "TOEFL-LA-518-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement from the university's provost.\nI'd like to share some news about tuition and financial support for next year. As many of you know, the state has reduced its contribution to our operating budget for the second year in a row. As a result, the board has approved a tuition increase of three percent—below the rate of inflation, but an increase nonetheless. At the same time, we're expanding what we call our tuition guarantee: students from families earning under sixty thousand dollars a year will have tuition fully covered through grants, with no loans required. Previously, the threshold was forty-five thousand. In other words, while the headline cost goes up, the actual cost for roughly a third of our students will fall to zero. We believe this reflects our obligation to keep the university accessible.",
+  "question": "What is the effect of changing the income threshold from $45,000 to $60,000?",
+  "choices": [
+   "Fewer students will receive grants.",
+   "More students will qualify to have their tuition fully covered.",
+   "Students will need to take out larger loans.",
+   "Tuition will rise much more for students from wealthier families."
+  ],
+  "answer": "More students will qualify to have their tuition fully covered.",
+  "explanation": "所得基準の引き上げで、授業料が全額補助される学生が増える。",
+  "tags": "TOEFL2026 listening announcement finaid"
+ },
+ {
+  "id": "TOEFL-LA-519-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement from the dean of students.\nGood evening. I'm writing—well, speaking—to address the concerns many of you raised about the proposed redesign of the central quad. Let me be candid: the original plan, which would have replaced most of the lawn with paved event space, was developed with too little student input, and the response at last week's forum made that abundantly clear. We've therefore paused the project. Over the next six weeks, a working group of students, faculty, and our landscape architects will consider alternatives, including permeable paving, which allows rainwater to soak into the ground, and keeping the oldest oak trees in place. The group's meetings will be open, and the recordings will be posted online. No construction will begin before the group's recommendations are published.",
+  "question": "Why has the redesign project been paused?",
+  "choices": [
+   "The construction budget ran out.",
+   "The oak trees were found to be diseased.",
+   "The landscape architects resigned.",
+   "Students were not adequately consulted on the original plan."
+  ],
+  "answer": "Students were not adequately consulted on the original plan.",
+  "explanation": "当初の計画は学生の意見が十分反映されておらず、強い反発があったため。",
+  "tags": "TOEFL2026 listening announcement campus"
+ },
+ {
+  "id": "TOEFL-LA-519-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Listen to an announcement from the dean of students.\nGood evening. I'm writing—well, speaking—to address the concerns many of you raised about the proposed redesign of the central quad. Let me be candid: the original plan, which would have replaced most of the lawn with paved event space, was developed with too little student input, and the response at last week's forum made that abundantly clear. We've therefore paused the project. Over the next six weeks, a working group of students, faculty, and our landscape architects will consider alternatives, including permeable paving, which allows rainwater to soak into the ground, and keeping the oldest oak trees in place. The group's meetings will be open, and the recordings will be posted online. No construction will begin before the group's recommendations are published.",
+  "question": "What can be inferred about the speaker's attitude?",
+  "choices": [
+   "She believes the original plan was ideal.",
+   "She acknowledges a mistake and wants a more open process.",
+   "She is annoyed by the students' complaints.",
+   "She is uncertain whether the central quad needs to be changed at all."
+  ],
+  "answer": "She acknowledges a mistake and wants a more open process.",
+  "explanation": "当初の過程の不備を率直に認め、公開の検討過程を約束している。",
+  "tags": "TOEFL2026 listening announcement campus"
+ },
+ {
+  "id": "TOEFL-LA-520-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to an announcement in the student cafeteria.\nHello, everyone. Today is Healthy Food Day in the cafeteria. All salads and fruit cups are half price until two o'clock. We also have a new soup made with vegetables from the university farm. You can try a small cup for free at the counter near the windows. Don't forget to bring your own cup or bottle—if you do, your drink is twenty-five cents cheaper. Enjoy your lunch!",
+  "question": "What is free today?",
+  "choices": [
+   "A small cup of new soup",
+   "All salads",
+   "A fruit cup",
+   "A bottle of water"
+  ],
+  "answer": "A small cup of new soup",
+  "explanation": "新しいスープの小さなカップを無料で試せると言っている。",
+  "tags": "TOEFL2026 listening announcement campus"
+ },
+ {
+  "id": "TOEFL-LA-520-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to an announcement in the student cafeteria.\nHello, everyone. Today is Healthy Food Day in the cafeteria. All salads and fruit cups are half price until two o'clock. We also have a new soup made with vegetables from the university farm. You can try a small cup for free at the counter near the windows. Don't forget to bring your own cup or bottle—if you do, your drink is twenty-five cents cheaper. Enjoy your lunch!",
+  "question": "How can students save money on drinks?",
+  "choices": [
+   "By bringing their own cup or bottle",
+   "By buying a salad",
+   "By coming before two o'clock",
+   "By working on the university farm"
+  ],
+  "answer": "By bringing their own cup or bottle",
+  "explanation": "自分のカップやボトルを持参すると飲み物が25セント安くなる。",
+  "tags": "TOEFL2026 listening announcement campus"
+ },
+ {
+  "id": "TOEFL-LA-521-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement at the beginning of a class.\nBefore we start today, a quick note about the field trip. As you know, on Saturday we're visiting the coastal research station to see how scientists measure ocean temperature. The bus will leave from the parking lot behind the science building at seven thirty sharp—it won't wait. Please wear closed shoes, because we'll be walking on wet rocks. Lunch is provided, but bring a water bottle. If you can't come, you'll need to complete an alternative assignment—a short report on an article I'll post online. Let me know by Thursday.",
+  "question": "Why should students wear closed shoes?",
+  "choices": [
+   "The research station requires uniforms.",
+   "It will be cold in the morning.",
+   "They will walk on wet rocks.",
+   "They will work in a laboratory."
+  ],
+  "answer": "They will walk on wet rocks.",
+  "explanation": "濡れた岩の上を歩くので、つま先の覆われた靴を履く必要がある。",
+  "tags": "TOEFL2026 listening announcement course"
+ },
+ {
+  "id": "TOEFL-LA-521-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement at the beginning of a class.\nBefore we start today, a quick note about the field trip. As you know, on Saturday we're visiting the coastal research station to see how scientists measure ocean temperature. The bus will leave from the parking lot behind the science building at seven thirty sharp—it won't wait. Please wear closed shoes, because we'll be walking on wet rocks. Lunch is provided, but bring a water bottle. If you can't come, you'll need to complete an alternative assignment—a short report on an article I'll post online. Let me know by Thursday.",
+  "question": "What must students who cannot go on the trip do?",
+  "choices": [
+   "Visit the station on another day",
+   "Watch a video in class",
+   "Write a report on an article",
+   "Give a presentation"
+  ],
+  "answer": "Write a report on an article",
+  "explanation": "行けない学生はオンラインに載せる論文についての短いレポートを書く。",
+  "tags": "TOEFL2026 listening announcement course"
+ },
+ {
+  "id": "TOEFL-LA-522-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the university's sustainability office.\nGood afternoon. As part of our commitment to reduce campus energy use by twenty percent over the next five years, the sustainability office is launching a competition between residence halls. Starting November first, each hall's electricity use will be compared with its average from the same month in previous years. The hall with the largest percentage reduction by the end of the semester will win funding for a project of its choice, up to five thousand dollars—past suggestions have included new furniture for common rooms and bike repair stations. Weekly results will be posted on screens in each lobby. Simple steps like unplugging chargers and using the stairs can make a measurable difference.",
+  "question": "How will the residence halls be compared?",
+  "choices": [
+   "By the total amount of electricity used",
+   "By the percentage drop compared with their own past use",
+   "By the number of students in each hall who sign up for the competition",
+   "By how many bikes each hall has"
+  ],
+  "answer": "By the percentage drop compared with their own past use",
+  "explanation": "各寮の過去の同月平均と比べた削減率で比較される。",
+  "tags": "TOEFL2026 listening announcement campus"
+ },
+ {
+  "id": "TOEFL-LA-522-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement from the university's sustainability office.\nGood afternoon. As part of our commitment to reduce campus energy use by twenty percent over the next five years, the sustainability office is launching a competition between residence halls. Starting November first, each hall's electricity use will be compared with its average from the same month in previous years. The hall with the largest percentage reduction by the end of the semester will win funding for a project of its choice, up to five thousand dollars—past suggestions have included new furniture for common rooms and bike repair stations. Weekly results will be posted on screens in each lobby. Simple steps like unplugging chargers and using the stairs can make a measurable difference.",
+  "question": "Why does the speaker mention new furniture and bike repair stations?",
+  "choices": [
+   "To describe recent energy-saving projects",
+   "To explain what caused high energy use",
+   "To show what each hall currently has",
+   "To give examples of what the prize could pay for"
+  ],
+  "answer": "To give examples of what the prize could pay for",
+  "explanation": "賞金で実現できるプロジェクトの例として挙げている。",
+  "tags": "TOEFL2026 listening announcement campus"
+ },
+ {
+  "id": "TOEFL-LA-523-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from the housing office.\nAttention, residents of West Hall. Next Tuesday, from nine a.m. to three p.m., workers will replace the hot water system in the building. During that time, there will be no hot water in any room or shared bathroom. Cold water will still be available. If you need a hot shower, the gym in the recreation center will be open to all West Hall residents with a student ID. We expect the work to finish on time, but if there are delays, we will send a text message to all residents. We're sorry for the inconvenience.",
+  "question": "What is the main purpose of the announcement?",
+  "choices": [
+   "To announce new rules about when residents can use the recreation center gym",
+   "To ask residents to move to another building",
+   "To explain how to report a broken shower",
+   "To inform residents about a temporary loss of hot water"
+  ],
+  "answer": "To inform residents about a temporary loss of hot water",
+  "explanation": "給湯設備の交換で一時的にお湯が使えなくなることを知らせている。",
+  "tags": "TOEFL2026 listening announcement housing"
+ },
+ {
+  "id": "TOEFL-LA-523-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Listen to an announcement from the housing office.\nAttention, residents of West Hall. Next Tuesday, from nine a.m. to three p.m., workers will replace the hot water system in the building. During that time, there will be no hot water in any room or shared bathroom. Cold water will still be available. If you need a hot shower, the gym in the recreation center will be open to all West Hall residents with a student ID. We expect the work to finish on time, but if there are delays, we will send a text message to all residents. We're sorry for the inconvenience.",
+  "question": "How will residents learn about any delays?",
+  "choices": [
+   "By text message",
+   "By a notice on the door",
+   "From the recreation center",
+   "By email from the gym"
+  ],
+  "answer": "By text message",
+  "explanation": "遅れがあれば全住人にテキストメッセージを送ると言っている。",
+  "tags": "TOEFL2026 listening announcement housing"
+ },
+ {
+  "id": "TOEFL-LA-524-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement at a student government meeting.\nBefore we vote on the club budgets, I want to explain a change in how funding requests will be handled this year. In the past, clubs received money based mainly on their size. This year, the committee will also consider how many students outside the club benefit from its activities. For instance, a club that holds public lectures or free workshops may receive more support than a larger club whose events are only for members. We made this change because student fees fund these budgets, and we want that money to serve the whole community. Clubs that disagree with their allocation can appeal within ten days.",
+  "question": "What new factor will be considered in funding decisions?",
+  "choices": [
+   "How long the club has existed",
+   "How many members a club has",
+   "How many events a club held last year compared with the year before",
+   "How many non-members benefit from a club's activities"
+  ],
+  "answer": "How many non-members benefit from a club's activities",
+  "explanation": "クラブ外の学生がどれだけ恩恵を受けるかが新たに考慮される。",
+  "tags": "TOEFL2026 listening announcement club"
+ },
+ {
+  "id": "TOEFL-LA-524-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Listen to an announcement at a student government meeting.\nBefore we vote on the club budgets, I want to explain a change in how funding requests will be handled this year. In the past, clubs received money based mainly on their size. This year, the committee will also consider how many students outside the club benefit from its activities. For instance, a club that holds public lectures or free workshops may receive more support than a larger club whose events are only for members. We made this change because student fees fund these budgets, and we want that money to serve the whole community. Clubs that disagree with their allocation can appeal within ten days.",
+  "question": "Why was this change made?",
+  "choices": [
+   "Because large clubs complained",
+   "Because budgets come from fees paid by all students",
+   "Because there was less money this year",
+   "Because public lectures are cheaper"
+  ],
+  "answer": "Because budgets come from fees paid by all students",
+  "explanation": "予算は全学生の学費から出ているので、地域全体に役立てたいから。",
+  "tags": "TOEFL2026 listening announcement club"
+ },
+ {
+  "id": "TOEFL-LA-525-1",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to an announcement in the library.\nGood evening. The library will close in thirty minutes, at ten o'clock. Please finish your work and save your files. If you want to borrow books, please go to the front desk now, because the desk closes at nine forty-five. The study rooms on the third floor must be empty by ten. Tomorrow, the library opens at eight a.m. as usual. Thank you, and good night.",
+  "question": "What time does the front desk close?",
+  "choices": [
+   "At 10:00",
+   "At 9:45",
+   "At 8:00",
+   "At 9:30"
+  ],
+  "answer": "At 9:45",
+  "explanation": "貸出カウンターは9時45分に閉まると言っている。図書館自体は10時。",
+  "tags": "TOEFL2026 listening announcement library"
+ },
+ {
+  "id": "TOEFL-LA-525-2",
+  "skill": "listening",
+  "format": "Listening: Listen to an Announcement",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Listen to an announcement in the library.\nGood evening. The library will close in thirty minutes, at ten o'clock. Please finish your work and save your files. If you want to borrow books, please go to the front desk now, because the desk closes at nine forty-five. The study rooms on the third floor must be empty by ten. Tomorrow, the library opens at eight a.m. as usual. Thank you, and good night.",
+  "question": "What are students asked to do now if they want to borrow books?",
+  "choices": [
+   "Go to the front desk",
+   "Go to the third floor",
+   "Come back tomorrow",
+   "Save their files"
+  ],
+  "answer": "Go to the front desk",
+  "explanation": "本を借りたい人は今すぐカウンターに行くよう言っている。",
+  "tags": "TOEFL2026 listening announcement library"
+ }
+]
