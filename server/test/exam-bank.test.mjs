@@ -18,6 +18,15 @@ test('どの 行も 形が ただしく・ID は 1 つずつ', () => {
   }
 });
 
+test('3 つの 試験とも 4 技能 そろって 大きな 量（1 試験 1,800 問 以上）', () => {
+  const rows = examBatches().flatMap((b) => b.rows);
+  for (const grade of Object.values(EXAMS)) {
+    const mine = rows.filter((r) => r.grade === grade);
+    assert.ok(mine.length >= 1800, `${grade}: ${mine.length}`);
+    for (const skill of ['reading', 'listening', 'writing', 'speaking']) assert.ok(mine.filter((r) => r.skill === skill).length >= 50, `${grade} ${skill}`);
+  }
+});
+
 test('admin だけ・CEFR の タグつき', () => {
   for (const r of examBatches().flatMap((b) => b.rows)) {
     assert.ok(/CEFR:(A1|A2|B1|B2|C1|C2)/.test(r.tags), r.id);

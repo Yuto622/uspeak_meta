@@ -95,6 +95,10 @@ export function itemsToCsv(items) {
 // 問題文の（日本語の いみ）・先頭の No.1・記号を のぞいて くらべる（seed の 二重チェック）。
 const seedKey = (s) => String(s || '').split('（')[0].replace(/^\s*No\.\s*\d+\s*/i, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 
+// TOEIC・TOEFL・IELTS は 本文も くらべる（同じ 問い方・同じ 答えでも 本文が ちがえば べつの 問題）。
+// 英検は 本文を 見ない（前に CSV で 入れた 古い 形の 行と 二重に しない ため）。
+const seedItemKey = (it) => `${it.grade}|${seedKey(it.question)}|${seedKey(it.answer)}` + (EXAM_GRADES.includes(it.grade) ? `|${seedKey(it.passage).slice(0, 300)}` : '');
+
 export class QBankStore {
   constructor(file, { log = console, now = Date.now } = {}) {
     this.file = file; this.log = log; this.now = now; this.items = []; this.updatedAt = 0; this.seeded = []; this.listeners = new Set();
@@ -176,19 +180,24 @@ export class QBankStore {
 
   // たくさんの ファイル（TOEIC・TOEFL・IELTS）を まとめて 足して、保存は 1 回だけ。
   async seedMany(batches) {
-    let added = 0; let changed = false;
-    for (const b of batches) { const r = this.seedNoSave(b.tag, b.rows); if (!r.already) { changed = true; added += r.added; } }
+    let added = 0; let changed = false; const sets = this.seedSets();
+    for (const b of batches) { const r = this.seedNoSave(b.tag, b.rows, sets); if (!r.already) { changed = true; added += r.added; } }
     if (changed) await this.touch();
     return { ok: true, added };
   }
 
-  seedNoSave(tag, rows) {
+  // いま ある ID と「同じ 問題」の 印（たくさんの ファイルを 足す ときは 1 回だけ 作る）。
+  seedSets() { return { ids: new Set(this.items.map((it) => it.id)), keys: new Set(this.items.map(seedItemKey)) }; }
+
+  seedNoSave(tag, rows, sets = null) {
     if (this.seeded.includes(tag)) return { ok: true, added: 0, already: true };
-    // TOEIC・TOEFL・IELTS は 本文も くらべる（同じ 問い方・同じ 答えでも 本文が ちがえば べつの 問題）。
-    // 英検は 本文を 見ない（前に CSV で 入れた 古い 形の 行と 二重に しない ため）。
-    const key = (it) => `${it.grade}|${seedKey(it.question)}|${seedKey(it.answer)}` + (EXAM_GRADES.includes(it.grade) ? `|${seedKey(it.passage).slice(0, 300)}` : '');
-    const ids = new Set(this.items.map((it) => it.id)); const keys = new Set(this.items.map(key));
-    const add = cleanItems(rows).items.filter((it) => !ids.has(it.id) && !keys.has(key(it)));
+    const { ids, keys } = sets || this.seedSets();
+    const add = [];
+    for (const it of cleanItems(rows).items) {
+      const k = seedItemKey(it);
+      if (ids.has(it.id) || keys.has(k)) continue;
+      ids.add(it.id); keys.add(k); add.push(it);
+    }
     this.items = [...this.items, ...add].slice(0, MAX_ITEMS);
     this.seeded.push(tag);
     return { ok: true, added: add.length };

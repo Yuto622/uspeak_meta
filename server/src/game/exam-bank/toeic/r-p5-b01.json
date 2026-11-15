@@ -1,650 +1,632 @@
 [
- {
-  "id": "TOEIC-R5-502",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "The plant manager requested the ------- of two additional safety inspectors for the night shift.",
-  "choices": [
-   "appointed",
-   "appoint",
-   "appointing",
-   "appointment"
-  ],
-  "answer": "appointment",
-  "explanation": "冠詞 the と前置詞 of の間には名詞が入る。",
-  "tags": "品詞 名詞"
- },
- {
-  "id": "TOEIC-R5-506",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "The hotel's banquet hall can accommodate up to 300 guests, making it ------- for large corporate events.",
-  "choices": [
-   "suitability",
-   "suit",
-   "suitable",
-   "suitably"
-  ],
-  "answer": "suitable",
-  "explanation": "make O C の C には形容詞が入る。",
-  "tags": "品詞 形容詞"
- },
- {
-  "id": "TOEIC-R5-510",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "Applicants with ------- in supply chain management will be given priority.",
-  "choices": [
-   "expertise",
-   "expertly",
-   "expert",
-   "expertized"
-  ],
-  "answer": "expertise",
-  "explanation": "前置詞 with の目的語になる不可算名詞 expertise（専門知識）が適切。expert は可算名詞で冠詞が必要。",
-  "tags": "品詞 名詞"
- },
- {
-  "id": "TOEIC-R5-513",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "The marketing team conducted a thorough ------- of customer feedback from the trade fair.",
-  "choices": [
-   "analytically",
-   "analysis",
-   "analytical",
-   "analyze"
-  ],
-  "answer": "analysis",
-  "explanation": "冠詞 a と形容詞 thorough の後には名詞が入る。",
-  "tags": "品詞 名詞"
- },
- {
-  "id": "TOEIC-R5-515",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The new invoicing system processes payments more ------- than the previous one.",
-  "choices": [
-   "efficiently",
-   "efficiency",
-   "efficient",
-   "efficiencies"
-  ],
-  "answer": "efficiently",
-  "explanation": "動詞 processes を修飾する副詞の比較級 more efficiently が正解。",
-  "tags": "品詞 副詞 比較"
- },
- {
-  "id": "TOEIC-R5-520",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "A2",
-  "band": "TOEIC目安:400",
-  "passage": "",
-  "question": "The gallery offers ------- admission to students on Wednesday afternoons.",
-  "choices": [
-   "freed",
-   "free",
-   "freedom",
-   "freely"
-  ],
-  "answer": "free",
-  "explanation": "名詞 admission を修飾する形容詞 free（無料の）が正解。",
-  "tags": "品詞 形容詞"
- },
- {
-  "id": "TOEIC-R5-522",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The shipping company is ------- for any damage that occurs while goods are in transit.",
-  "choices": [
-   "responsibilities",
-   "responsibly",
-   "responsibility",
-   "responsible"
-  ],
-  "answer": "responsible",
-  "explanation": "be responsible for ～（～に責任がある）の形。",
-  "tags": "品詞 形容詞"
- },
- {
-  "id": "TOEIC-R5-525",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "A2",
-  "band": "TOEIC目安:400",
-  "passage": "",
-  "question": "The new train line will make the trip to the airport much ------- for commuters.",
-  "choices": [
-   "easiness",
-   "easily",
-   "easier",
-   "ease"
-  ],
-  "answer": "easier",
-  "explanation": "make O C の C には形容詞が入り、much が比較級 easier を強調している。",
-  "tags": "品詞 形容詞 比較"
- },
- {
-  "id": "TOEIC-R5-530",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The logistics firm has become increasingly ------- in the overseas market.",
-  "choices": [
-   "compete",
-   "competition",
-   "competitive",
-   "competitively"
-  ],
-  "answer": "competitive",
-  "explanation": "become の補語で副詞 increasingly に修飾される形容詞が必要。",
-  "tags": "品詞 形容詞"
- },
- {
-  "id": "TOEIC-R5-537",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "Because of ------- weather, all outdoor events at the trade fair have been moved indoors.",
-  "choices": [
-   "favor",
-   "favorably",
-   "unfavorable",
-   "unfavorably"
-  ],
-  "answer": "unfavorable",
-  "explanation": "名詞 weather を修飾する形容詞 unfavorable（悪い）が正解。",
-  "tags": "品詞 形容詞"
- },
- {
-  "id": "TOEIC-R5-547",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The ------- of new solar panels on the factory roof will lower energy costs.",
-  "choices": [
-   "installation",
-   "install",
-   "installer",
-   "installed"
-  ],
-  "answer": "installation",
-  "explanation": "主語として「設置」を表す名詞 installation が入る。installer は「設置業者」で意味が合わない。",
-  "tags": "品詞 名詞"
- },
- {
-  "id": "TOEIC-R5-549",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "A2",
-  "band": "TOEIC目安:400",
-  "passage": "",
-  "question": "Thank you for your ------- in our cooking classes.",
-  "choices": [
-   "interestingly",
-   "interesting",
-   "interest",
-   "interested"
-  ],
-  "answer": "interest",
-  "explanation": "所有格 your の後には名詞 interest が入る。",
-  "tags": "品詞 名詞"
- },
- {
-  "id": "TOEIC-R5-565",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "Each of the new apartments ------- a balcony and a storage room.",
-  "choices": [
-   "include",
-   "have included",
-   "includes",
-   "including"
-  ],
-  "answer": "includes",
-  "explanation": "Each of ～ は単数扱いなので includes。",
-  "tags": "主述一致"
- },
- {
-  "id": "TOEIC-R5-567",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "Since joining the company, Ms. Petrova ------- three major marketing campaigns.",
-  "choices": [
-   "has led",
-   "leads",
-   "will lead",
-   "is leading"
-  ],
-  "answer": "has led",
-  "explanation": "Since ～ と経験・完了を表すので現在完了。",
-  "tags": "時制"
- },
- {
-  "id": "TOEIC-R5-568",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "C1",
-  "band": "TOEIC目安:860",
-  "passage": "",
-  "question": "------- the budget been approved earlier, the construction would have started in April.",
-  "choices": [
-   "Should",
-   "Had",
-   "If",
-   "Has"
-  ],
-  "answer": "Had",
-  "explanation": "If the budget had been ～ の if を省略した倒置形。",
-  "tags": "仮定法 倒置"
- },
- {
-  "id": "TOEIC-R5-581",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "C1",
-  "band": "TOEIC目安:860",
-  "passage": "",
-  "question": "The factory's emissions ------- closely since the new regulations took effect.",
-  "choices": [
-   "were monitoring",
-   "have monitored",
-   "monitor",
-   "have been monitored"
-  ],
-  "answer": "have been monitored",
-  "explanation": "since ～ で継続を表し、主語 emissions は「監視される」側なので現在完了受動態。",
-  "tags": "態 時制"
- },
- {
-  "id": "TOEIC-R5-596",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "Ms. Kim has been working at the clinic ------- 2018.",
-  "choices": [
-   "until",
-   "for",
-   "during",
-   "since"
-  ],
-  "answer": "since",
-  "explanation": "現在完了進行形と起点の年なので since。",
-  "tags": "前置詞 時制"
- },
- {
-  "id": "TOEIC-R5-602",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "The production line was stopped ------- the technicians could inspect the equipment.",
-  "choices": [
-   "in order",
-   "so that",
-   "even though",
-   "as if"
-  ],
-  "answer": "so that",
-  "explanation": "目的を表す so that ～ can/could が正解。",
-  "tags": "接続詞"
- },
- {
-  "id": "TOEIC-R5-609",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "The apartment comes ------- a fully equipped kitchen.",
-  "choices": [
-   "by",
-   "with",
-   "to",
-   "for"
-  ],
-  "answer": "with",
-  "explanation": "come with ～（～が付いている）の形。",
-  "tags": "前置詞"
- },
- {
-  "id": "TOEIC-R5-613",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The vendor offered a lower price. -------, the quality of its materials did not meet our standards.",
-  "choices": [
-   "Therefore",
-   "Consequently",
-   "However",
-   "Similarly"
-  ],
-  "answer": "However",
-  "explanation": "安い価格と品質の問題は対立するので However。",
-  "tags": "接続副詞"
- },
- {
-  "id": "TOEIC-R5-623",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The two firms merged their logistics divisions, and ------- now share a single distribution center.",
-  "choices": [
-   "theirs",
-   "their",
-   "they",
-   "them"
-  ],
-  "answer": "they",
-  "explanation": "節の主語になる主格 they が必要。",
-  "tags": "代名詞"
- },
- {
-  "id": "TOEIC-R5-625",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The trade fair will be held in Lyon, ------- the company first launched its product line.",
-  "choices": [
-   "when",
-   "what",
-   "where",
-   "which"
-  ],
-  "answer": "where",
-  "explanation": "場所を先行詞とし、後ろが完全な文なので関係副詞 where。",
-  "tags": "関係詞"
- },
- {
-  "id": "TOEIC-R5-627",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "C1",
-  "band": "TOEIC目安:860",
-  "passage": "",
-  "question": "The consultant identified several inefficiencies, most of ------- were related to outdated software.",
-  "choices": [
-   "what",
-   "them",
-   "whom",
-   "which"
-  ],
-  "answer": "which",
-  "explanation": "コンマの後で文をつなぐ関係代名詞が必要で、物が先行詞なので which。",
-  "tags": "関係詞"
- },
- {
-  "id": "TOEIC-R5-634",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "A2",
-  "band": "TOEIC目安:400",
-  "passage": "",
-  "question": "Ms. Garcia and ------- will represent the company at the trade fair.",
-  "choices": [
-   "my",
-   "I",
-   "me",
-   "mine"
-  ],
-  "answer": "I",
-  "explanation": "文の主語の一部なので主格 I を使う。",
-  "tags": "代名詞"
- },
- {
-  "id": "TOEIC-R5-638",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "Please ------- your seat at least 24 hours before your flight.",
-  "choices": [
-   "assure",
-   "convince",
-   "confirm",
-   "admit"
-  ],
-  "answer": "confirm",
-  "explanation": "座席を「確認する」の confirm が適切。",
-  "tags": "語彙"
- },
- {
-  "id": "TOEIC-R5-641",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The real estate agent said the property has ------- in value by 20 percent over five years.",
-  "choices": [
-   "appreciated",
-   "admired",
-   "approved",
-   "applauded"
-  ],
-  "answer": "appreciated",
-  "explanation": "appreciate in value（価値が上がる）の表現。",
-  "tags": "語彙"
- },
- {
-  "id": "TOEIC-R5-644",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The construction company was awarded the ------- to build the new city hospital.",
-  "choices": [
-   "contact",
-   "contract",
-   "context",
-   "contest"
-  ],
-  "answer": "contract",
-  "explanation": "be awarded the contract（契約を獲得する）の表現。",
-  "tags": "語彙"
- },
- {
-  "id": "TOEIC-R5-645",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "We are pleased to ------- that Ms. Ahmed has been promoted to head of human resources.",
-  "choices": [
-   "pronounce",
-   "notice",
-   "announce",
-   "advertise"
-  ],
-  "answer": "announce",
-  "explanation": "be pleased to announce that ～（～をお知らせします）の定型表現。",
-  "tags": "語彙"
- },
- {
-  "id": "TOEIC-R5-646",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "C1",
-  "band": "TOEIC目安:860",
-  "passage": "",
-  "question": "The auditors found several ------- between the reported figures and the bank statements.",
-  "choices": [
-   "dispatches",
-   "disruptions",
-   "dispositions",
-   "discrepancies"
-  ],
-  "answer": "discrepancies",
-  "explanation": "数字の「不一致」を表す discrepancies が文意に合う。",
-  "tags": "語彙"
- },
- {
-  "id": "TOEIC-R5-650",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "Customers who are not satisfied may request a full ------- within 30 days.",
-  "choices": [
-   "refund",
-   "refusal",
-   "remark",
-   "reform"
-  ],
-  "answer": "refund",
-  "explanation": "full refund（全額返金）が文意に合う。",
-  "tags": "語彙"
- },
- {
-  "id": "TOEIC-R5-667",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "A2",
-  "band": "TOEIC目安:400",
-  "passage": "",
-  "question": "The supermarket is ------- 24 hours a day.",
-  "choices": [
-   "open",
-   "opening",
-   "opened",
-   "opens"
-  ],
-  "answer": "open",
-  "explanation": "「営業している」状態を表す形容詞 open が正解。",
-  "tags": "語彙"
- },
- {
-  "id": "TOEIC-R5-668",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "Please ------- from using mobile phones during the performance.",
-  "choices": [
-   "restrain",
-   "refrain",
-   "prevent",
-   "avoid"
-  ],
-  "answer": "refrain",
-  "explanation": "refrain from doing（～を控える）の形。",
-  "tags": "語彙"
- },
- {
-  "id": "TOEIC-R5-669",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "Our technicians will ------- the damaged equipment free of charge.",
-  "choices": [
-   "repair",
-   "require",
-   "retire",
-   "reply"
-  ],
-  "answer": "repair",
-  "explanation": "壊れた機器を「修理する」repair が正解。",
-  "tags": "語彙"
- },
- {
-  "id": "TOEIC-R5-671",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "Interested candidates should submit a ------- letter along with their resume.",
-  "choices": [
-   "title",
-   "face",
-   "cover",
-   "head"
-  ],
-  "answer": "cover",
-  "explanation": "cover letter（添え状）の定型表現。",
-  "tags": "語彙 コロケーション"
- },
- {
-  "id": "TOEIC-R5-675",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B2",
-  "band": "TOEIC目安:730",
-  "passage": "",
-  "question": "The firm offers a wide ------- of financial services to small businesses.",
-  "choices": [
-   "range",
-   "level",
-   "degree",
-   "scale"
-  ],
-  "answer": "range",
-  "explanation": "a wide range of ～（幅広い～）の定型表現。",
-  "tags": "語彙 コロケーション"
- },
- {
-  "id": "TOEIC-R5-680",
-  "skill": "reading",
-  "format": "Part 5 短文穴埋め問題",
-  "level": "B1",
-  "band": "TOEIC目安:600",
-  "passage": "",
-  "question": "The museum's gift shop sells ------- of famous paintings.",
-  "choices": [
-   "reproductions",
-   "introductions",
-   "productions",
-   "reductions"
-  ],
-  "answer": "reproductions",
-  "explanation": "名画の「複製品」reproductions が文意に合う。",
-  "tags": "語彙"
- }
+  {
+    "id": "TOEIC-R5-502",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The plant manager requested the ------- of two additional safety inspectors for the night shift.",
+    "choices": [
+      "appointed",
+      "appoint",
+      "appointing",
+      "appointment"
+    ],
+    "answer": "appointment",
+    "explanation": "冠詞 the と前置詞 of の間には名詞が入る。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-506",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The hotel's banquet hall can accommodate up to 300 guests, making it ------- for large corporate events.",
+    "choices": [
+      "suitability",
+      "suit",
+      "suitable",
+      "suitably"
+    ],
+    "answer": "suitable",
+    "explanation": "make O C の C には形容詞が入る。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-510",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Applicants with ------- in supply chain management will be given priority.",
+    "choices": [
+      "expertise",
+      "expertly",
+      "expert",
+      "expertized"
+    ],
+    "answer": "expertise",
+    "explanation": "前置詞 with の目的語になる不可算名詞 expertise（専門知識）が適切。expert は可算名詞で冠詞が必要。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-513",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The marketing team conducted a thorough ------- of customer feedback from the trade fair.",
+    "choices": [
+      "analytically",
+      "analysis",
+      "analytical",
+      "analyze"
+    ],
+    "answer": "analysis",
+    "explanation": "冠詞 a と形容詞 thorough の後には名詞が入る。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-515",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The new invoicing system processes payments more ------- than the previous one.",
+    "choices": [
+      "efficiently",
+      "efficiency",
+      "efficient",
+      "efficiencies"
+    ],
+    "answer": "efficiently",
+    "explanation": "動詞 processes を修飾する副詞の比較級 more efficiently が正解。",
+    "tags": "品詞 副詞 比較"
+  },
+  {
+    "id": "TOEIC-R5-520",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The gallery offers ------- admission to students on Wednesday afternoons.",
+    "choices": [
+      "freed",
+      "free",
+      "freedom",
+      "freely"
+    ],
+    "answer": "free",
+    "explanation": "名詞 admission を修飾する形容詞 free（無料の）が正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-522",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The shipping company is ------- for any damage that occurs while goods are in transit.",
+    "choices": [
+      "responsibilities",
+      "responsibly",
+      "responsibility",
+      "responsible"
+    ],
+    "answer": "responsible",
+    "explanation": "be responsible for ～（～に責任がある）の形。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-525",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The new train line will make the trip to the airport much ------- for commuters.",
+    "choices": [
+      "easiness",
+      "easily",
+      "easier",
+      "ease"
+    ],
+    "answer": "easier",
+    "explanation": "make O C の C には形容詞が入り、much が比較級 easier を強調している。",
+    "tags": "品詞 形容詞 比較"
+  },
+  {
+    "id": "TOEIC-R5-530",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The logistics firm has become increasingly ------- in the overseas market.",
+    "choices": [
+      "compete",
+      "competition",
+      "competitive",
+      "competitively"
+    ],
+    "answer": "competitive",
+    "explanation": "become の補語で副詞 increasingly に修飾される形容詞が必要。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-537",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Because of ------- weather, all outdoor events at the trade fair have been moved indoors.",
+    "choices": [
+      "favor",
+      "favorably",
+      "unfavorable",
+      "unfavorably"
+    ],
+    "answer": "unfavorable",
+    "explanation": "名詞 weather を修飾する形容詞 unfavorable（悪い）が正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-547",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The ------- of new solar panels on the factory roof will lower energy costs.",
+    "choices": [
+      "installation",
+      "install",
+      "installer",
+      "installed"
+    ],
+    "answer": "installation",
+    "explanation": "主語として「設置」を表す名詞 installation が入る。installer は「設置業者」で意味が合わない。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-549",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Thank you for your ------- in our cooking classes.",
+    "choices": [
+      "interestingly",
+      "interesting",
+      "interest",
+      "interested"
+    ],
+    "answer": "interest",
+    "explanation": "所有格 your の後には名詞 interest が入る。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-565",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Each of the new apartments ------- a balcony and a storage room.",
+    "choices": [
+      "include",
+      "have included",
+      "includes",
+      "including"
+    ],
+    "answer": "includes",
+    "explanation": "Each of ～ は単数扱いなので includes。",
+    "tags": "主述一致"
+  },
+  {
+    "id": "TOEIC-R5-567",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Since joining the company, Ms. Petrova ------- three major marketing campaigns.",
+    "choices": [
+      "has led",
+      "leads",
+      "will lead",
+      "is leading"
+    ],
+    "answer": "has led",
+    "explanation": "Since ～ と経験・完了を表すので現在完了。",
+    "tags": "時制"
+  },
+  {
+    "id": "TOEIC-R5-568",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "------- the budget been approved earlier, the construction would have started in April.",
+    "choices": [
+      "Should",
+      "Had",
+      "If",
+      "Has"
+    ],
+    "answer": "Had",
+    "explanation": "If the budget had been ～ の if を省略した倒置形。",
+    "tags": "仮定法 倒置"
+  },
+  {
+    "id": "TOEIC-R5-581",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "The factory's emissions ------- closely since the new regulations took effect.",
+    "choices": [
+      "were monitoring",
+      "have monitored",
+      "monitor",
+      "have been monitored"
+    ],
+    "answer": "have been monitored",
+    "explanation": "since ～ で継続を表し、主語 emissions は「監視される」側なので現在完了受動態。",
+    "tags": "態 時制"
+  },
+  {
+    "id": "TOEIC-R5-596",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Ms. Kim has been working at the clinic ------- 2018.",
+    "choices": [
+      "until",
+      "for",
+      "during",
+      "since"
+    ],
+    "answer": "since",
+    "explanation": "現在完了進行形と起点の年なので since。",
+    "tags": "前置詞 時制"
+  },
+  {
+    "id": "TOEIC-R5-602",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The production line was stopped ------- the technicians could inspect the equipment.",
+    "choices": [
+      "in order",
+      "so that",
+      "even though",
+      "as if"
+    ],
+    "answer": "so that",
+    "explanation": "目的を表す so that ～ can/could が正解。",
+    "tags": "接続詞"
+  },
+  {
+    "id": "TOEIC-R5-609",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The apartment comes ------- a fully equipped kitchen.",
+    "choices": [
+      "by",
+      "with",
+      "to",
+      "for"
+    ],
+    "answer": "with",
+    "explanation": "come with ～（～が付いている）の形。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-613",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The vendor offered a lower price. -------, the quality of its materials did not meet our standards.",
+    "choices": [
+      "Therefore",
+      "Consequently",
+      "However",
+      "Similarly"
+    ],
+    "answer": "However",
+    "explanation": "安い価格と品質の問題は対立するので However。",
+    "tags": "接続副詞"
+  },
+  {
+    "id": "TOEIC-R5-623",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The two firms merged their logistics divisions, and ------- now share a single distribution center.",
+    "choices": [
+      "theirs",
+      "their",
+      "they",
+      "them"
+    ],
+    "answer": "they",
+    "explanation": "節の主語になる主格 they が必要。",
+    "tags": "代名詞"
+  },
+  {
+    "id": "TOEIC-R5-625",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The trade fair will be held in Lyon, ------- the company first launched its product line.",
+    "choices": [
+      "when",
+      "what",
+      "where",
+      "which"
+    ],
+    "answer": "where",
+    "explanation": "場所を先行詞とし、後ろが完全な文なので関係副詞 where。",
+    "tags": "関係詞"
+  },
+  {
+    "id": "TOEIC-R5-627",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "The consultant identified several inefficiencies, most of ------- were related to outdated software.",
+    "choices": [
+      "what",
+      "them",
+      "whom",
+      "which"
+    ],
+    "answer": "which",
+    "explanation": "コンマの後で文をつなぐ関係代名詞が必要で、物が先行詞なので which。",
+    "tags": "関係詞"
+  },
+  {
+    "id": "TOEIC-R5-634",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Ms. Garcia and ------- will represent the company at the trade fair.",
+    "choices": [
+      "my",
+      "I",
+      "me",
+      "mine"
+    ],
+    "answer": "I",
+    "explanation": "文の主語の一部なので主格 I を使う。",
+    "tags": "代名詞"
+  },
+  {
+    "id": "TOEIC-R5-638",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Please ------- your seat at least 24 hours before your flight.",
+    "choices": [
+      "assure",
+      "convince",
+      "confirm",
+      "admit"
+    ],
+    "answer": "confirm",
+    "explanation": "座席を「確認する」の confirm が適切。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-641",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The real estate agent said the property has ------- in value by 20 percent over five years.",
+    "choices": [
+      "appreciated",
+      "admired",
+      "approved",
+      "applauded"
+    ],
+    "answer": "appreciated",
+    "explanation": "appreciate in value（価値が上がる）の表現。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-644",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The construction company was awarded the ------- to build the new city hospital.",
+    "choices": [
+      "contact",
+      "contract",
+      "context",
+      "contest"
+    ],
+    "answer": "contract",
+    "explanation": "be awarded the contract（契約を獲得する）の表現。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-645",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "We are pleased to ------- that Ms. Ahmed has been promoted to head of human resources.",
+    "choices": [
+      "pronounce",
+      "notice",
+      "announce",
+      "advertise"
+    ],
+    "answer": "announce",
+    "explanation": "be pleased to announce that ～（～をお知らせします）の定型表現。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-646",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "The auditors found several ------- between the reported figures and the bank statements.",
+    "choices": [
+      "dispatches",
+      "disruptions",
+      "dispositions",
+      "discrepancies"
+    ],
+    "answer": "discrepancies",
+    "explanation": "数字の「不一致」を表す discrepancies が文意に合う。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-650",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Customers who are not satisfied may request a full ------- within 30 days.",
+    "choices": [
+      "refund",
+      "refusal",
+      "remark",
+      "reform"
+    ],
+    "answer": "refund",
+    "explanation": "full refund（全額返金）が文意に合う。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-667",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The supermarket is ------- 24 hours a day.",
+    "choices": [
+      "open",
+      "opening",
+      "opened",
+      "opens"
+    ],
+    "answer": "open",
+    "explanation": "「営業している」状態を表す形容詞 open が正解。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-669",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Our technicians will ------- the damaged equipment free of charge.",
+    "choices": [
+      "repair",
+      "require",
+      "retire",
+      "reply"
+    ],
+    "answer": "repair",
+    "explanation": "壊れた機器を「修理する」repair が正解。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-671",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Interested candidates should submit a ------- letter along with their resume.",
+    "choices": [
+      "title",
+      "face",
+      "cover",
+      "head"
+    ],
+    "answer": "cover",
+    "explanation": "cover letter（添え状）の定型表現。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-675",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The firm offers a wide ------- of financial services to small businesses.",
+    "choices": [
+      "range",
+      "level",
+      "degree",
+      "scale"
+    ],
+    "answer": "range",
+    "explanation": "a wide range of ～（幅広い～）の定型表現。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-680",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The museum's gift shop sells ------- of famous paintings.",
+    "choices": [
+      "reproductions",
+      "introductions",
+      "productions",
+      "reductions"
+    ],
+    "answer": "reproductions",
+    "explanation": "名画の「複製品」reproductions が文意に合う。",
+    "tags": "語彙"
+  }
 ]
