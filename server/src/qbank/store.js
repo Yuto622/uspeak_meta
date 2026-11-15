@@ -7,7 +7,8 @@ import { writeJsonFile } from '../store/write-json.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-export const GRADES = ['5級', '4級', '3級', '準2級', '2級', '準1級', '準1級以上', '1級', 'ジュニア'];
+export const GRADES = ['5級', '4級', '3級', '準2級', '2級', '準1級', '準1級以上', '1級', 'ジュニア', 'TOEIC', 'TOEFL', 'IELTS'];
+export const EXAM_GRADES = ['TOEIC', 'TOEFL', 'IELTS'];
 export const SKILLS = ['reading', 'listening', 'writing', 'speaking'];
 // 列（xlsx の 見出しと 同じ 名前でも 受けとる）。
 export const COLUMNS = [
@@ -33,7 +34,7 @@ export function cleanItem(raw) {
   for (const [key, ja] of COLUMNS) item[key] = get(key, ja);
   const out = {
     id: str(item.id, 40), grade: str(item.grade, 10), skill: SKILL_JA[str(item.skill)] || str(item.skill).toLowerCase(),
-    format: str(item.format, 60), passage: str(item.passage), question: str(item.question, 1000),
+    format: str(item.format, 60), passage: str(item.passage, 8000), question: str(item.question, 1000),
     choices: [item.choice_1, item.choice_2, item.choice_3, item.choice_4].map((c) => str(c, 300)).filter(Boolean),
     answer: str(item.answer, 1000), explanation: str(item.explanation, 600), model_answer: str(item.model_answer),
     source: str(item.source, 120), tags: str(item.tags, 300),
@@ -168,13 +169,28 @@ export class QBankStore {
   // リポジトリの 問題（面接・話すの館）を 1 回だけ 足す。tag ごとに 1 回：admin で 消した 行は もどって こない。
   // もう ある 問題（同じ ID か、同じ 級・問題・正解）は とばすので、前に CSV で 入れた 行と 二重に ならない。
   async seed(tag, rows) {
+    const r = this.seedNoSave(tag, rows);
+    if (!r.already) await this.touch();
+    return r;
+  }
+
+  // たくさんの ファイル（TOEIC・TOEFL・IELTS）を まとめて 足して、保存は 1 回だけ。
+  async seedMany(batches) {
+    let added = 0; let changed = false;
+    for (const b of batches) { const r = this.seedNoSave(b.tag, b.rows); if (!r.already) { changed = true; added += r.added; } }
+    if (changed) await this.touch();
+    return { ok: true, added };
+  }
+
+  seedNoSave(tag, rows) {
     if (this.seeded.includes(tag)) return { ok: true, added: 0, already: true };
-    const key = (it) => `${it.grade}|${seedKey(it.question)}|${seedKey(it.answer)}`;
+    // TOEIC・TOEFL・IELTS は 本文も くらべる（同じ 問い方・同じ 答えでも 本文が ちがえば べつの 問題）。
+    // 英検は 本文を 見ない（前に CSV で 入れた 古い 形の 行と 二重に しない ため）。
+    const key = (it) => `${it.grade}|${seedKey(it.question)}|${seedKey(it.answer)}` + (EXAM_GRADES.includes(it.grade) ? `|${seedKey(it.passage).slice(0, 300)}` : '');
     const ids = new Set(this.items.map((it) => it.id)); const keys = new Set(this.items.map(key));
     const add = cleanItems(rows).items.filter((it) => !ids.has(it.id) && !keys.has(key(it)));
     this.items = [...this.items, ...add].slice(0, MAX_ITEMS);
     this.seeded.push(tag);
-    await this.touch();
     return { ok: true, added: add.length };
   }
 

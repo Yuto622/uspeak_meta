@@ -82,3 +82,8 @@ ReplicatedStorage に コピーし、`USpeakDrillClient` の「画面（ここ�
 `roblox/setup-drill-place.lua`（`scripts/make-roblox-drill-setup.py` が 作る）を ドリル用の place の コマンドバーに はって Enter。
 スクリプト 3 つ（USpeakDrill・USpeakDrillClient・USpeakWalletSync）・HTTP オン・級ごとの 入口 7 つ を 入れる。
 Secrets（USPEAK_WEB_KEY）と USpeakFormatUI の コピーだけは 手で（コマンドでは できない）。
+
+## TOEIC・TOEFL・IELTS（2026-11）
+- 級の 列に `TOEIC` / `TOEFL` / `IELTS` が ふえた。画面の 上の タブ（ぜんぶ・英検・TOEIC・TOEFL・IELTS）で きりかえ、「レベル（CEFR）」で しぼれる。
+- 中身は オリジナルの 練習問題（`server/src/game/exam-bank/`）。起動の とき ファイルごとに 1 回だけ 入る。英検の島・Roblox には 出さない（web・Roblox は ×）。
+- しらべた こと・形・語い表（TSL・NAWL）は `docs/exam-formats.md`。

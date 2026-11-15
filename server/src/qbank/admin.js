@@ -4,6 +4,8 @@
 import express from 'express';
 import { GRADES, SKILLS, rowsFromDelimited, itemsToCsv } from './store.js';
 
+const EXAM_GRADES = ['TOEIC', 'TOEFL', 'IELTS'];
+
 const PAGE_SIZE = 100;
 
 export function qbankAdminExtension({ qbank, log = console }) {
@@ -17,7 +19,10 @@ export function qbankAdminExtension({ qbank, log = console }) {
     const match = (q) => {
       const grade = String(q.grade || ''); const skill = String(q.skill || ''); const fmt = String(q.format || '');
       const src = String(q.source || ''); const state = String(q.state || ''); const text = String(q.q || '').toLowerCase();
-      return (it) => (!grade || it.grade === grade) && (!skill || it.skill === skill) && (!fmt || it.format === fmt)
+      const exam = String(q.exam || ''); const cefr = String(q.cefr || '');
+      return (it) => (!grade || it.grade === grade)
+        && (!exam || (exam === 'eiken' ? !EXAM_GRADES.includes(it.grade) : it.grade === exam))
+        && (!cefr || ` ${it.tags} `.includes(` CEFR:${cefr} `)) && (!skill || it.skill === skill) && (!fmt || it.format === fmt)
         && (!src || it.source.includes(src))
         && (!state || (state === 'on' ? it.on : state === 'off' ? !it.on : state === 'web' ? it.on && it.web : state === 'roblox' ? it.on && it.roblox : true))
         && (!text || `${it.id} ${it.question} ${it.passage} ${it.answer} ${it.tags}`.toLowerCase().includes(text));
@@ -80,15 +85,18 @@ table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;ove
 th{background:#1b3a2f;color:#fff;position:sticky;top:0}td.q{max-width:520px}td.q small{display:block;color:#6e665c;white-space:pre-wrap;max-height:4.5em;overflow:hidden}
 .flag{min-height:30px;padding:0 8px;border-radius:8px}.flag.on{background:#2f8f5b;color:#fff;border-color:#2f8f5b}
 dialog{border:none;border-radius:16px;max-width:760px;width:94vw}dialog label{display:block;font-size:12px;color:#6e665c;margin-top:8px}dialog textarea,dialog input{width:100%;font:inherit;border:1px solid #d9d1c3;border-radius:8px;padding:6px}
-#msg{min-height:20px;font-weight:700}</style></head><body><div class="wrap">
+#msg{min-height:20px;font-weight:700}.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.tabs button{border-radius:99px}.tabs button.on{background:#1b3a2f;color:#fff;border-color:#1b3a2f}
+.info{background:#fff;border:1px solid #eadfcd;border-radius:12px;padding:10px 14px;margin:8px 0;font-size:13px}.info h3{margin:2px 0 6px;font-size:16px}.info table{font-size:12px;margin-top:6px}.info td,.info th{padding:4px 6px}.info th{position:static}</style></head><body><div class="wrap">
 <p class="muted"><a href="/admin">← 管理トップ</a> ・ <a href="/admin/tasks">タスク</a></p>
-<h1>問題データベース（英検形式）</h1>
+<h1>問題データベース（英検・TOEIC・TOEFL・IELTS）</h1>
 <p class="muted">「配信」が ○ の 問題だけ 出ます。<b>web版に出す</b> ＝ 英検の島（5級・4級・3級の 4択の 読む・聞く）に まざる。<b>Robloxに出す</b> ＝ Roblox が <code>GET /api/roblox/questions</code> で 取る。かえると すぐに 反映されます（サーバーの 再起動は いりません）。</p>
+<div class="tabs" id="tabs"><button data-exam="">ぜんぶ</button><button data-exam="eiken">英検</button><button data-exam="TOEIC">TOEIC</button><button data-exam="TOEFL">TOEFL</button><button data-exam="IELTS">IELTS</button></div>
+<div class="info" id="info" hidden></div>
 <div class="cards" id="cards"></div>
 <div class="bar"><b>入れる：</b><input type="file" id="file" accept=".csv,.tsv,.txt,.json"><select id="mode"><option value="replace">まるごと 入れかえ</option><option value="merge">同じ ID だけ 上書き・新しい ID は 足す</option></select><button class="main" id="up">アップロード</button>
 <a id="csv" href="/admin/api/qbank.csv"><button type="button">いまの しぼりこみを CSV で 書き出す</button></a></div>
 <div class="bar"><b>しぼりこみ：</b><select id="grade"><option value="">すべての 級</option></select><select id="skill"><option value="">すべての 技能</option></select>
-<select id="format"><option value="">すべての 形式</option></select><select id="state"><option value="">すべて</option><option value="on">配信中</option><option value="off">配信 停止</option><option value="web">web版に 出ている</option><option value="roblox">Roblox に 出ている</option></select>
+<select id="format"><option value="">すべての 形式</option></select><select id="cefr"><option value="">すべての レベル（CEFR）</option><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select><select id="state"><option value="">すべて</option><option value="on">配信中</option><option value="off">配信 停止</option><option value="web">web版に 出ている</option><option value="roblox">Roblox に 出ている</option></select>
 <input type="search" id="q" placeholder="ID・問題文・タグで さがす"><button id="go">さがす</button></div>
 <div class="bar"><b>しぼりこんだ <span id="hits">0</span> 問を まとめて：</b>
 <button data-bulk='{"on":true}'>配信する</button><button data-bulk='{"on":false}'>配信を 止める</button>
@@ -107,7 +115,7 @@ dialog{border:none;border-radius:16px;max-width:760px;width:94vw}dialog label{di
 const $=s=>document.querySelector(s);const H={'x-requested-with':'uspeak-admin'};let page=0,data=null;
 const SK={reading:'リーディング',listening:'リスニング',writing:'ライティング',speaking:'スピーキング'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const filt=()=>({grade:$('#grade').value,skill:$('#skill').value,format:$('#format').value,state:$('#state').value,q:$('#q').value});
+let exam='';const filt=()=>({exam,cefr:$('#cefr').value,grade:$('#grade').value,skill:$('#skill').value,format:$('#format').value,state:$('#state').value,q:$('#q').value});
 const msg=t=>{$('#msg').textContent=t||''};
 async function load(){const p=new URLSearchParams({...filt(),page});const r=await fetch('/admin/api/qbank?'+p);if(r.status===401){location.href='/admin';return}data=await r.json();render();$('#csv').href='/admin/api/qbank.csv?'+new URLSearchParams(filt())}
 function fill(sel,list,lab){const cur=sel.value;sel.innerHTML='<option value="">'+lab+'</option>'+list.map(v=>'<option value="'+esc(v)+'">'+esc(SK[v]||v)+'</option>').join('');sel.value=cur}
@@ -117,7 +125,12 @@ $('#hits').textContent=data.hits.toLocaleString();const pages=Math.max(1,Math.ce
 $('#rows').innerHTML=data.items.map(it=>'<tr><td>'+esc(it.id)+'</td><td>'+esc(it.grade)+'</td><td>'+esc(SK[it.skill])+'<br><small class="muted">'+esc(it.format)+'</small></td><td class="q">'+esc(it.question)+(it.passage?'<small>'+esc(it.passage)+'</small>':'')+(it.choices.length?'<small>'+it.choices.map(esc).join(' / ')+'</small>':'')+'</td><td>'+esc(it.answer).slice(0,160)+'</td>'+
 ['on','web','roblox'].map(k=>'<td><button class="flag'+(it[k]?' on':'')+'" data-id="'+esc(it.id)+'" data-k="'+k+'">'+(it[k]?'○':'—')+'</button></td>').join('')+'<td><button data-edit="'+esc(it.id)+'">書きかえ</button></td></tr>').join('')||'<tr><td colspan="9" class="muted">問題が ありません。上の「入れる」から CSV か JSON を アップロードしてください。</td></tr>'}
 async function post(url,body,isText){const r=await fetch(url,{method:'POST',headers:{...H,'content-type':isText?'text/plain; charset=utf-8':'application/json'},body:isText?body:JSON.stringify(body)});return r.json()}
-$('#go').onclick=()=>{page=0;load()};$('#q').onkeydown=e=>{if(e.key==='Enter'){page=0;load()}};['#grade','#skill','#format','#state'].forEach(s=>$(s).onchange=()=>{page=0;load()});
+$('#go').onclick=()=>{page=0;load()};$('#q').onkeydown=e=>{if(e.key==='Enter'){page=0;load()}};['#grade','#skill','#format','#state','#cefr'].forEach(s=>$(s).onchange=()=>{page=0;load()});
+const INFO={TOEIC:{h:'TOEIC（ETS）',p:'Listening & Reading（各 100 問・2 時間・10〜990 点）と Speaking & Writing（Speaking 11 問・約 20 分／Writing 8 問・約 60 分）。ここの 問題は 形を あわせた オリジナルで、写真の パート（L&R Part 1・S&W の 写真描写）は 絵が ないので 入れていない。',rows:[['Part 2 応答問題','25 問','質問 → 3 つの 応答'],['Part 3 会話問題','39 問','会話 × 3 問（図表つきも）'],['Part 4 説明文問題','30 問','トーク × 3 問'],['Part 5 短文穴埋め','30 問','文法・語い'],['Part 6 長文穴埋め','16 問','文書 × 4（文の 挿入も）'],['Part 7 読解','54 問','シングル・マルチ（2〜3 文書）'],['Speaking','11 問','音読・応答・資料を 見て 応答・意見'],['Writing','8 問','Eメール・意見の 記述']],src:'語い：TOEIC Service List（Browne & Culligan, CC BY-SA 4.0）'},
+TOEFL:{h:'TOEFL iBT（ETS・2026 年 1 月からの 新形式）',p:'スコアは 1〜6 の バンド（0.5 きざみ・CEFR に 対応：2≈A2・3≈B1・4≈B2・5≈C1・6≈C2）。Reading・Listening は アダプティブ。',rows:[['Reading','Complete the Words','学術文の 単語の 後半を おぎなう'],['Reading','Read in Daily Life','メール・お知らせ など 短い 文'],['Reading','Read an Academic Passage','約 200 語の 学術文'],['Listening','Choose a Response / Conversation / Announcement / Academic Talk','応答・会話・お知らせ・講義'],['Writing','Build a Sentence / Write an Email / Academic Discussion','語順・メール・ディスカッション'],['Speaking','Listen and Repeat / Take an Interview','くりかえす・インタビュー']],src:'語い：New Academic Word List（Browne & Culligan, CC BY-SA 4.0）'},
+IELTS:{h:'IELTS（British Council・IDP・Cambridge）',p:'バンド 1〜9（めやす：4.0〜5.0≈B1・5.5〜6.5≈B2・7.0〜8.0≈C1）。Academic と General Training。全体 約 2 時間 45 分。Writing Task 1 の グラフは 絵の かわりに 表・数字を 文字で のせている。',rows:[['Listening','40 問・30 分','Part 1 日常会話（フォーム）・Part 2 日常の 話・Part 3 学術の 会話・Part 4 講義'],['Reading','40 問・60 分','T/F/NG・Y/N/NG・見出し・多肢選択・文/要約完成'],['Writing','60 分','Task 1（150 語〜：図表 or 手紙）・Task 2（250 語〜：エッセイ・配点 2 倍）'],['Speaking','11〜14 分','Part 1 インタビュー・Part 2 キューカード・Part 3 ディスカッション']],src:'語い：New Academic Word List（Browne & Culligan, CC BY-SA 4.0）'}};
+function showInfo(){const i=INFO[exam];$('#info').hidden=!i;if(!i)return;$('#info').innerHTML='<h3>'+esc(i.h)+'</h3><div>'+esc(i.p)+'</div><table><thead><tr><th>パート</th><th>問題数・タイプ</th><th>中身</th></tr></thead><tbody>'+i.rows.map(r=>'<tr>'+r.map(c=>'<td>'+esc(c)+'</td>').join('')+'</tr>').join('')+'</tbody></table><div class="muted">問題は U-Speak Lab の オリジナル（CC BY 4.0）。公式問題・市販の 問題集の 文は 入れていません。'+esc(i.src)+'。くわしくは docs/exam-formats.md。</div>'}
+document.querySelectorAll('#tabs [data-exam]').forEach(b=>b.onclick=()=>{exam=b.dataset.exam;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));$('#grade').value='';showInfo();page=0;load()});document.querySelector('#tabs [data-exam=""]').classList.add('on');
 $('#prev').onclick=()=>{if(page>0){page--;load()}};$('#next').onclick=()=>{page++;load()};
 $('#up').onclick=async()=>{const f=$('#file').files[0];if(!f){msg('ファイルを えらんでください');return}msg('読みこみ中…');const text=await f.text();const mode=$('#mode').value;let r;
 if(/\\.json$/i.test(f.name)){let j;try{j=JSON.parse(text)}catch{msg('JSON が 読めません');return}r=await post('/admin/api/qbank/import',{mode,items:Array.isArray(j)?j:j.items})}else r=await post('/admin/api/qbank/import-text?mode='+mode,text,true);

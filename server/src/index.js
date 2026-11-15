@@ -18,6 +18,7 @@ import { tasksAdminExtension } from './tasks/admin.js';
 import { QBankStore } from './qbank/store.js';
 import { qbankAdminExtension } from './qbank/admin.js';
 import { speakingRows, SEED_TAG, NO_PICTURE_TAG, isPictureRow } from './qbank/seed-speaking.js';
+import { examBatches } from './qbank/seed-exams.js';
 import { ensureRichMenu } from './parent-report/richmenu-setup.js';
 import { HomeworkStore } from './homework/store.js';
 import { homeworkAdminExtension } from './homework/admin.js';
@@ -122,6 +123,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   qbank.onChange((q) => { const added = setExtraQuestions(q.live('web')); if (q.items.length) log.info('[qbank] web questions mixed in:', JSON.stringify(added)); setQbankWords(q.items.filter((it) => it.on !== false)); setPierQuestions(q.live('web')); });
   // 面接・話すの館の 問題を 既存の データベースにも（1 回だけ。もう ある 行は とばす）。
   try { const r = await qbank.seed(SEED_TAG, speakingRows()); if (r.added) log.info(`[qbank] speaking questions added: ${r.added}`); } catch (err) { log.warn('[qbank] speaking seed failed:', err.message); }
+  // TOEIC・TOEFL・IELTS の 練習問題（src/game/exam-bank）。1 回だけ 足す。英検の島・Roblox には 出さない。
+  try { const { added } = await qbank.seedMany(examBatches()); if (added) log.info(`[qbank] TOEIC/TOEFL/IELTS questions added: ${added}`); } catch (err) { log.warn('[qbank] exam seed failed:', err.message); }
   try { const r = await qbank.disableOnce(NO_PICTURE_TAG, isPictureRow); if (r.changed) log.info(`[qbank] picture questions turned off: ${r.changed}`); } catch (err) { log.warn('[qbank] picture cleanup failed:', err.message); }
   const tasks = await new TaskStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'tasks.json'), { log }).init();
 
