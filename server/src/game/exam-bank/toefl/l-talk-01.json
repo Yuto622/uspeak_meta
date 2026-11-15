@@ -83,7 +83,7 @@
       "Where camels can find water in the desert",
       "Why deserts are cold at night",
       "How camels are adapted to life in the desert",
-      "How people use camels for travel"
+      "How people in desert regions use camels for travel and trade"
     ],
     "answer": "How camels are adapted to life in the desert",
     "explanation": "ラクダが砂漠で生きるための体の仕組みについての講義です。",
@@ -152,7 +152,7 @@
     "passage": "Professor: Today we're going to look at an invention that changed how ideas spread in Europe: the printing press with movable metal type, developed by Johannes Gutenberg in Germany around 1450.\n\nNow, printing itself wasn't new. In China, people had been printing with carved wooden blocks for centuries, and movable type made of clay and later metal had also been developed in East Asia. What made Gutenberg's system so effective in Europe was a combination of things. He found a way to make large numbers of identical metal letters quickly and accurately, using a hand mold. He developed an oil-based ink that stuck well to metal. And he adapted a screw press—similar to the presses used to make wine—to push the paper evenly onto the type.\n\nBefore this, most books in Europe were copied by hand. A single copy of a long book could take months, so books were rare and expensive. With the press, a workshop could produce hundreds of copies of the same text in the time it once took to copy one.\n\nStudent: Did that mean more people could read?\n\nProfessor: Over time, yes, though not overnight. Cheaper books gave more people a reason to learn to read, and literacy rates slowly increased. Printed books also meant that scholars in different cities could read exactly the same text, which made it easier to compare ideas and correct errors. Within about fifty years, printing presses had spread to more than two hundred European cities.",
     "question": "What is the main purpose of the talk?",
     "choices": [
-      "To argue that printing was invented in Germany",
+      "To argue that printing with movable type was first invented in Germany",
       "To explain why Gutenberg's press had a major impact",
       "To describe how wine was made in the 1400s",
       "To compare Chinese and European writing systems"
@@ -206,7 +206,7 @@
     "passage": "Professor: Today we're going to look at an invention that changed how ideas spread in Europe: the printing press with movable metal type, developed by Johannes Gutenberg in Germany around 1450.\n\nNow, printing itself wasn't new. In China, people had been printing with carved wooden blocks for centuries, and movable type made of clay and later metal had also been developed in East Asia. What made Gutenberg's system so effective in Europe was a combination of things. He found a way to make large numbers of identical metal letters quickly and accurately, using a hand mold. He developed an oil-based ink that stuck well to metal. And he adapted a screw press—similar to the presses used to make wine—to push the paper evenly onto the type.\n\nBefore this, most books in Europe were copied by hand. A single copy of a long book could take months, so books were rare and expensive. With the press, a workshop could produce hundreds of copies of the same text in the time it once took to copy one.\n\nStudent: Did that mean more people could read?\n\nProfessor: Over time, yes, though not overnight. Cheaper books gave more people a reason to learn to read, and literacy rates slowly increased. Printed books also meant that scholars in different cities could read exactly the same text, which made it easier to compare ideas and correct errors. Within about fifty years, printing presses had spread to more than two hundred European cities.",
     "question": "What is the professor's view on the effect of printing on literacy?",
     "choices": [
-      "It had very little effect on literacy.",
+      "It had very little effect on literacy, since most books were still copied by hand.",
       "It made everyone able to read within a few years.",
       "It reduced literacy because books became cheaper.",
       "It increased reading gradually rather than immediately."
@@ -333,7 +333,7 @@
     "question": "Why does the professor mention an internal clock?",
     "choices": [
       "To explain how the butterflies adjust for the sun's movement",
-      "To show how long the butterflies can live",
+      "To show how long the butterflies of the late-summer generation can live",
       "To describe when the butterflies sleep",
       "To explain when the eggs hatch"
     ],
@@ -368,7 +368,7 @@
     "passage": "Professor: Last time we talked about the Great Depression in the United States. Today, I want to focus on a disaster that happened at the same time on the Great Plains: the Dust Bowl.\n\nDuring the 1930s, huge dust storms swept across parts of Kansas, Oklahoma, Texas, and nearby states. Some storms were so large that dust from the plains reached cities on the East Coast. People called them \"black blizzards.\" Families had to cover their windows with wet cloth, and many farms were completely ruined.\n\nSo, what caused it? Drought was one factor—there were several very dry years. But droughts had happened on the plains before without disasters on this scale. The bigger issue was how the land had been used. In the decades before, farmers had plowed up millions of acres of native prairie grass to plant wheat. Those grasses had deep roots that held the soil in place. Without them, when the rains stopped and the crops failed, there was nothing to keep the dry topsoil from blowing away.\n\nStudent: Did farmers know that at the time?\n\nProfessor: Most didn't. Wheat prices had been high, and plowing more land seemed like good business. After the disaster, the government created the Soil Conservation Service in 1935. It taught farmers techniques such as planting rows of trees to block the wind and rotating crops to protect the soil. In other words, the Dust Bowl was not just a natural disaster—it was partly caused by human decisions.",
     "question": "What is the professor's main point about the Dust Bowl?",
     "choices": [
-      "It was caused only by a long drought.",
+      "It was caused mainly by a long drought that no one could have prevented.",
       "It affected mainly cities on the East Coast.",
       "Human land use contributed greatly to the disaster.",
       "It ended the Great Depression."
@@ -404,7 +404,7 @@
     "passage": "Professor: Last time we talked about the Great Depression in the United States. Today, I want to focus on a disaster that happened at the same time on the Great Plains: the Dust Bowl.\n\nDuring the 1930s, huge dust storms swept across parts of Kansas, Oklahoma, Texas, and nearby states. Some storms were so large that dust from the plains reached cities on the East Coast. People called them \"black blizzards.\" Families had to cover their windows with wet cloth, and many farms were completely ruined.\n\nSo, what caused it? Drought was one factor—there were several very dry years. But droughts had happened on the plains before without disasters on this scale. The bigger issue was how the land had been used. In the decades before, farmers had plowed up millions of acres of native prairie grass to plant wheat. Those grasses had deep roots that held the soil in place. Without them, when the rains stopped and the crops failed, there was nothing to keep the dry topsoil from blowing away.\n\nStudent: Did farmers know that at the time?\n\nProfessor: Most didn't. Wheat prices had been high, and plowing more land seemed like good business. After the disaster, the government created the Soil Conservation Service in 1935. It taught farmers techniques such as planting rows of trees to block the wind and rotating crops to protect the soil. In other words, the Dust Bowl was not just a natural disaster—it was partly caused by human decisions.",
     "question": "Why does the professor mention that droughts had happened before?",
     "choices": [
-      "To suggest that the disaster could have been predicted",
+      "To suggest that scientists at the time could easily have predicted the disaster",
       "To show that drought alone does not explain the disaster",
       "To explain why farmers left the plains",
       "To compare the 1930s with modern droughts"
@@ -458,7 +458,7 @@
     "passage": "Professor: Many of you probably stay up late before exams to study. Today I want to show you why that may not be the best strategy, by looking at the relationship between sleep and memory.\n\nWhen you learn something new—say, a list of vocabulary words—the memory is at first fragile. It can be easily lost. Over time, the brain strengthens and stabilizes it. This process is called consolidation, and a lot of it seems to happen while we sleep.\n\nIn one common type of experiment, two groups of people learn the same material. One group learns it in the morning and is tested in the evening, after a day awake. The other group learns it in the evening and is tested the next morning, after a night of sleep. Both groups wait about twelve hours, but the group that slept usually remembers more.\n\nStudent: Couldn't that be because the morning group was busy and got distracted during the day?\n\nProfessor: That's a fair point, and researchers have thought about it. Being awake does bring new information that can interfere with memory. But other studies have recorded brain activity during sleep and found that brain regions involved in learning replay patterns from earlier in the day. Some studies also show that people who get more deep sleep after learning remember better. Together, this suggests sleep plays an active role, not just a protective one.\n\nSo the practical message is this: studying is important, but so is sleeping after you study.",
     "question": "What happened in the experiment the professor describes?",
     "choices": [
-      "The group tested in the evening remembered more.",
+      "The group that learned in the morning and was tested in the evening remembered more.",
       "The group that slept after learning usually remembered more.",
       "Both groups remembered the same amount.",
       "The group that slept forgot the material completely."
@@ -584,7 +584,7 @@
     "passage": "Professor: In ecology, we sometimes talk about \"keystone species.\" The term comes from architecture. In a stone arch, the keystone is the wedge-shaped stone at the very top. It's just one stone, but if you remove it, the whole arch collapses. A keystone species, similarly, has an effect on its ecosystem that's far larger than you'd expect from its numbers.\n\nA classic example is the sea otter along the Pacific coast of North America. Sea otters eat sea urchins—spiny animals that feed on kelp, a large seaweed that forms underwater forests. Kelp forests provide food and shelter for hundreds of species of fish and invertebrates.\n\nDuring the eighteenth and nineteenth centuries, sea otters were hunted almost to extinction for their fur. In many areas, once the otters disappeared, sea urchin populations exploded. The urchins ate through the kelp, and thriving forests were replaced by what researchers call \"urchin barrens\"—rocky sea floors with very little life.\n\nStudent: So when otters came back, did the kelp recover?\n\nProfessor: In many places, yes. After hunting was banned and otters were reintroduced to some areas, urchin numbers dropped, and the kelp grew back. Scientists have compared nearby sites with and without otters and found striking differences.\n\nNow, I should add a note of caution. Ecosystems are complex, and other factors—like water temperature and disease among urchin predators—also matter. But the otter case shows clearly how removing a single predator can trigger a chain of effects, which ecologists call a trophic cascade.",
     "question": "What is the main purpose of the talk?",
     "choices": [
-      "To describe the history of the fur trade",
+      "To describe the history of the fur trade along the Pacific coast of North America",
       "To explain the concept of a keystone species using an example",
       "To compare different types of seaweed",
       "To argue that sea urchins should be removed from the ocean"
@@ -675,7 +675,7 @@
     "question": "What did the experiment with the wheel show?",
     "choices": [
       "Participants ignored the random number.",
-      "Participants who saw sixty-five gave lower estimates.",
+      "Participants who saw sixty-five gave lower estimates than those who saw ten.",
       "Participants' estimates moved toward the number on the wheel.",
       "Participants knew the correct percentage."
     ],

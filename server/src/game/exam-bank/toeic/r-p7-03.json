@@ -1,0 +1,362 @@
+[
+ {
+  "id": "TOEIC-R7-026-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Riverside Market Welcomes New Vendors\n\nLANGFORD (May 5)—The Riverside Farmers' Market, held every Saturday from May through October, will feature eight new vendors this season. Among them are a bakery specializing in whole-grain breads, a beekeeper selling honey and candles, and a couple who grow more than twenty varieties of tomatoes.\n\nMarket manager Delphine Osei said the market received a record number of applications this year. \"We had space for only eight new stands, so the selection process was very competitive,\" she said.\n\nThe market will also introduce a \"Kids' Corner\" with cooking demonstrations for children on the first Saturday of each month. In addition, shoppers who bring their own bags will receive a token worth $1 that can be used at any stand.\n\n--- Text 2 ---\n\nTo: Delphine Osei <dosei@riversidemarket.example>\nFrom: Callum Reyes <callum@reyesbeefarm.example>\nDate: June 9\nSubject: Stand location\n\nDear Ms. Osei,\n\nThank you for including my farm in this year's market. Sales of my honey have been better than I expected, and customers have been very friendly.\n\nI am writing because my stand is currently located at the end of the row next to the Kids' Corner. On the days when the cooking demonstrations take place, the area becomes very crowded, and it is difficult for customers to reach my table. Would it be possible to move my stand to another spot, at least on those days?\n\nThank you for considering my request.\n\nCallum Reyes",
+  "question": "What is the purpose of the article?",
+  "choices": [
+   "To announce the closing of a market",
+   "To review a new bakery",
+   "To describe changes at a local market",
+   "To explain how vendors can apply for a stand next year"
+  ],
+  "answer": "To describe changes at a local market",
+  "explanation": "新しい出店者、子ども向けコーナー、エコバッグの特典など、今季の変化を紹介している。",
+  "tags": "Part7 ダブル 記事＋Eメール"
+ },
+ {
+  "id": "TOEIC-R7-026-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Riverside Market Welcomes New Vendors\n\nLANGFORD (May 5)—The Riverside Farmers' Market, held every Saturday from May through October, will feature eight new vendors this season. Among them are a bakery specializing in whole-grain breads, a beekeeper selling honey and candles, and a couple who grow more than twenty varieties of tomatoes.\n\nMarket manager Delphine Osei said the market received a record number of applications this year. \"We had space for only eight new stands, so the selection process was very competitive,\" she said.\n\nThe market will also introduce a \"Kids' Corner\" with cooking demonstrations for children on the first Saturday of each month. In addition, shoppers who bring their own bags will receive a token worth $1 that can be used at any stand.\n\n--- Text 2 ---\n\nTo: Delphine Osei <dosei@riversidemarket.example>\nFrom: Callum Reyes <callum@reyesbeefarm.example>\nDate: June 9\nSubject: Stand location\n\nDear Ms. Osei,\n\nThank you for including my farm in this year's market. Sales of my honey have been better than I expected, and customers have been very friendly.\n\nI am writing because my stand is currently located at the end of the row next to the Kids' Corner. On the days when the cooking demonstrations take place, the area becomes very crowded, and it is difficult for customers to reach my table. Would it be possible to move my stand to another spot, at least on those days?\n\nThank you for considering my request.\n\nCallum Reyes",
+  "question": "According to the article, how can shoppers receive a token?",
+  "choices": [
+   "By bringing their own bags",
+   "By attending a cooking demonstration",
+   "By buying from a new vendor",
+   "By arriving early on Saturdays"
+  ],
+  "answer": "By bringing their own bags",
+  "explanation": "自分の袋を持参した買い物客に$1のトークンを渡すと書かれている。",
+  "tags": "Part7 ダブル 記事＋Eメール"
+ },
+ {
+  "id": "TOEIC-R7-026-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Riverside Market Welcomes New Vendors\n\nLANGFORD (May 5)—The Riverside Farmers' Market, held every Saturday from May through October, will feature eight new vendors this season. Among them are a bakery specializing in whole-grain breads, a beekeeper selling honey and candles, and a couple who grow more than twenty varieties of tomatoes.\n\nMarket manager Delphine Osei said the market received a record number of applications this year. \"We had space for only eight new stands, so the selection process was very competitive,\" she said.\n\nThe market will also introduce a \"Kids' Corner\" with cooking demonstrations for children on the first Saturday of each month. In addition, shoppers who bring their own bags will receive a token worth $1 that can be used at any stand.\n\n--- Text 2 ---\n\nTo: Delphine Osei <dosei@riversidemarket.example>\nFrom: Callum Reyes <callum@reyesbeefarm.example>\nDate: June 9\nSubject: Stand location\n\nDear Ms. Osei,\n\nThank you for including my farm in this year's market. Sales of my honey have been better than I expected, and customers have been very friendly.\n\nI am writing because my stand is currently located at the end of the row next to the Kids' Corner. On the days when the cooking demonstrations take place, the area becomes very crowded, and it is difficult for customers to reach my table. Would it be possible to move my stand to another spot, at least on those days?\n\nThank you for considering my request.\n\nCallum Reyes",
+  "question": "What is indicated about Mr. Reyes?",
+  "choices": [
+   "He has sold at the market for many years.",
+   "He is one of this season's new vendors.",
+   "He sells whole-grain bread.",
+   "He manages the Kids' Corner."
+  ],
+  "answer": "He is one of this season's new vendors.",
+  "explanation": "記事に新規出店者として「はちみつとろうそくを売る養蜂家」が挙がり、Reyes さんは今年初めて参加しはちみつを売っている。",
+  "tags": "Part7 ダブル 記事＋Eメール"
+ },
+ {
+  "id": "TOEIC-R7-026-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Riverside Market Welcomes New Vendors\n\nLANGFORD (May 5)—The Riverside Farmers' Market, held every Saturday from May through October, will feature eight new vendors this season. Among them are a bakery specializing in whole-grain breads, a beekeeper selling honey and candles, and a couple who grow more than twenty varieties of tomatoes.\n\nMarket manager Delphine Osei said the market received a record number of applications this year. \"We had space for only eight new stands, so the selection process was very competitive,\" she said.\n\nThe market will also introduce a \"Kids' Corner\" with cooking demonstrations for children on the first Saturday of each month. In addition, shoppers who bring their own bags will receive a token worth $1 that can be used at any stand.\n\n--- Text 2 ---\n\nTo: Delphine Osei <dosei@riversidemarket.example>\nFrom: Callum Reyes <callum@reyesbeefarm.example>\nDate: June 9\nSubject: Stand location\n\nDear Ms. Osei,\n\nThank you for including my farm in this year's market. Sales of my honey have been better than I expected, and customers have been very friendly.\n\nI am writing because my stand is currently located at the end of the row next to the Kids' Corner. On the days when the cooking demonstrations take place, the area becomes very crowded, and it is difficult for customers to reach my table. Would it be possible to move my stand to another spot, at least on those days?\n\nThank you for considering my request.\n\nCallum Reyes",
+  "question": "How often does Mr. Reyes's problem most likely occur?",
+  "choices": [
+   "Every Saturday",
+   "Twice a week",
+   "Only in October",
+   "Once a month"
+  ],
+  "answer": "Once a month",
+  "explanation": "料理の実演は毎月第1土曜日（記事）なので、混雑の問題は月に1回。2つの文書の照合が必要。",
+  "tags": "Part7 ダブル 記事＋Eメール"
+ },
+ {
+  "id": "TOEIC-R7-026-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Riverside Market Welcomes New Vendors\n\nLANGFORD (May 5)—The Riverside Farmers' Market, held every Saturday from May through October, will feature eight new vendors this season. Among them are a bakery specializing in whole-grain breads, a beekeeper selling honey and candles, and a couple who grow more than twenty varieties of tomatoes.\n\nMarket manager Delphine Osei said the market received a record number of applications this year. \"We had space for only eight new stands, so the selection process was very competitive,\" she said.\n\nThe market will also introduce a \"Kids' Corner\" with cooking demonstrations for children on the first Saturday of each month. In addition, shoppers who bring their own bags will receive a token worth $1 that can be used at any stand.\n\n--- Text 2 ---\n\nTo: Delphine Osei <dosei@riversidemarket.example>\nFrom: Callum Reyes <callum@reyesbeefarm.example>\nDate: June 9\nSubject: Stand location\n\nDear Ms. Osei,\n\nThank you for including my farm in this year's market. Sales of my honey have been better than I expected, and customers have been very friendly.\n\nI am writing because my stand is currently located at the end of the row next to the Kids' Corner. On the days when the cooking demonstrations take place, the area becomes very crowded, and it is difficult for customers to reach my table. Would it be possible to move my stand to another spot, at least on those days?\n\nThank you for considering my request.\n\nCallum Reyes",
+  "question": "What does Mr. Reyes request?",
+  "choices": [
+   "A larger table",
+   "A different location for his stand",
+   "A refund of the fee he paid for his stand",
+   "Permission to sell on Sundays"
+  ],
+  "answer": "A different location for his stand",
+  "explanation": "少なくとも実演の日は出店場所を移してほしいと頼んでいる。",
+  "tags": "Part7 ダブル 記事＋Eメール"
+ },
+ {
+  "id": "TOEIC-R7-027-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Position Available: Marketing Coordinator\nHarlow & Finch Home Furnishings\n\nWe are looking for a marketing coordinator to join our team at our head office in Belford. The successful candidate will plan social media campaigns, coordinate photo shoots for our catalogs, and work closely with our store managers.\n\nRequirements:\n• Bachelor's degree in marketing or a related field\n• At least three years of marketing experience\n• Excellent writing skills\n• Experience with photo-editing software is preferred\n\nTo apply, send a résumé, a cover letter, and two writing samples to careers@harlowfinch.example by September 5.\n\n--- Text 2 ---\n\nTo: careers@harlowfinch.example\nFrom: Leticia Monroe\nDate: September 1\nSubject: Application for Marketing Coordinator\n\nDear Hiring Manager,\n\nI am writing to apply for the position of marketing coordinator. For the past four years, I have worked as a marketing assistant at Danforth Outdoor Gear, where I managed the company's social media accounts and helped increase our online followers by 60 percent.\n\nI hold a degree in communications and have taken several courses in photography. I am attaching my résumé and a cover letter. Writing samples will follow in a separate e-mail later this week, as I am currently updating them.\n\nI currently live in Corwick but would be happy to relocate to Belford.\n\nSincerely,\nLeticia Monroe\n\n--- Text 3 ---\n\nHarlow & Finch — Interview Schedule, Marketing Coordinator\nLocation: Head office, Conference Room 3\n\nMonday, September 15\n10:00 A.M. — Aaron Whitley\n1:30 P.M. — Leticia Monroe\n\nTuesday, September 16\n9:30 A.M. — Bettina Krause\n11:00 A.M. — Samuel Oduya\n\nInterview panel: Rachel Finch (Director of Marketing), Victor Ames (Human Resources)\nNote: Candidates traveling from outside Belford will be reimbursed for travel expenses.",
+  "question": "What is NOT listed as a duty of the marketing coordinator?",
+  "choices": [
+   "Planning online campaigns",
+   "Organizing photo shoots",
+   "Training new store managers",
+   "Working with store managers"
+  ],
+  "answer": "Training new store managers",
+  "explanation": "店長と協力するとはあるが、店長の研修は書かれていない。",
+  "tags": "Part7 トリプル 求人＋Eメール＋日程表 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-027-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Position Available: Marketing Coordinator\nHarlow & Finch Home Furnishings\n\nWe are looking for a marketing coordinator to join our team at our head office in Belford. The successful candidate will plan social media campaigns, coordinate photo shoots for our catalogs, and work closely with our store managers.\n\nRequirements:\n• Bachelor's degree in marketing or a related field\n• At least three years of marketing experience\n• Excellent writing skills\n• Experience with photo-editing software is preferred\n\nTo apply, send a résumé, a cover letter, and two writing samples to careers@harlowfinch.example by September 5.\n\n--- Text 2 ---\n\nTo: careers@harlowfinch.example\nFrom: Leticia Monroe\nDate: September 1\nSubject: Application for Marketing Coordinator\n\nDear Hiring Manager,\n\nI am writing to apply for the position of marketing coordinator. For the past four years, I have worked as a marketing assistant at Danforth Outdoor Gear, where I managed the company's social media accounts and helped increase our online followers by 60 percent.\n\nI hold a degree in communications and have taken several courses in photography. I am attaching my résumé and a cover letter. Writing samples will follow in a separate e-mail later this week, as I am currently updating them.\n\nI currently live in Corwick but would be happy to relocate to Belford.\n\nSincerely,\nLeticia Monroe\n\n--- Text 3 ---\n\nHarlow & Finch — Interview Schedule, Marketing Coordinator\nLocation: Head office, Conference Room 3\n\nMonday, September 15\n10:00 A.M. — Aaron Whitley\n1:30 P.M. — Leticia Monroe\n\nTuesday, September 16\n9:30 A.M. — Bettina Krause\n11:00 A.M. — Samuel Oduya\n\nInterview panel: Rachel Finch (Director of Marketing), Victor Ames (Human Resources)\nNote: Candidates traveling from outside Belford will be reimbursed for travel expenses.",
+  "question": "What is indicated about Ms. Monroe?",
+  "choices": [
+   "She has a degree in marketing.",
+   "She currently works in the marketing department at Harlow & Finch.",
+   "She has never used social media for work.",
+   "She has more experience than the job requires."
+  ],
+  "answer": "She has more experience than the job requires.",
+  "explanation": "求人は3年以上の経験を求め、Monroe さんは4年の経験がある。",
+  "tags": "Part7 トリプル 求人＋Eメール＋日程表 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-027-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Position Available: Marketing Coordinator\nHarlow & Finch Home Furnishings\n\nWe are looking for a marketing coordinator to join our team at our head office in Belford. The successful candidate will plan social media campaigns, coordinate photo shoots for our catalogs, and work closely with our store managers.\n\nRequirements:\n• Bachelor's degree in marketing or a related field\n• At least three years of marketing experience\n• Excellent writing skills\n• Experience with photo-editing software is preferred\n\nTo apply, send a résumé, a cover letter, and two writing samples to careers@harlowfinch.example by September 5.\n\n--- Text 2 ---\n\nTo: careers@harlowfinch.example\nFrom: Leticia Monroe\nDate: September 1\nSubject: Application for Marketing Coordinator\n\nDear Hiring Manager,\n\nI am writing to apply for the position of marketing coordinator. For the past four years, I have worked as a marketing assistant at Danforth Outdoor Gear, where I managed the company's social media accounts and helped increase our online followers by 60 percent.\n\nI hold a degree in communications and have taken several courses in photography. I am attaching my résumé and a cover letter. Writing samples will follow in a separate e-mail later this week, as I am currently updating them.\n\nI currently live in Corwick but would be happy to relocate to Belford.\n\nSincerely,\nLeticia Monroe\n\n--- Text 3 ---\n\nHarlow & Finch — Interview Schedule, Marketing Coordinator\nLocation: Head office, Conference Room 3\n\nMonday, September 15\n10:00 A.M. — Aaron Whitley\n1:30 P.M. — Leticia Monroe\n\nTuesday, September 16\n9:30 A.M. — Bettina Krause\n11:00 A.M. — Samuel Oduya\n\nInterview panel: Rachel Finch (Director of Marketing), Victor Ames (Human Resources)\nNote: Candidates traveling from outside Belford will be reimbursed for travel expenses.",
+  "question": "What application material had Ms. Monroe NOT yet sent on September 1?",
+  "choices": [
+   "Writing samples",
+   "A résumé",
+   "A cover letter",
+   "A list of references"
+  ],
+  "answer": "Writing samples",
+  "explanation": "文章サンプルは今週後半に別のメールで送ると書いている。",
+  "tags": "Part7 トリプル 求人＋Eメール＋日程表 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-027-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Position Available: Marketing Coordinator\nHarlow & Finch Home Furnishings\n\nWe are looking for a marketing coordinator to join our team at our head office in Belford. The successful candidate will plan social media campaigns, coordinate photo shoots for our catalogs, and work closely with our store managers.\n\nRequirements:\n• Bachelor's degree in marketing or a related field\n• At least three years of marketing experience\n• Excellent writing skills\n• Experience with photo-editing software is preferred\n\nTo apply, send a résumé, a cover letter, and two writing samples to careers@harlowfinch.example by September 5.\n\n--- Text 2 ---\n\nTo: careers@harlowfinch.example\nFrom: Leticia Monroe\nDate: September 1\nSubject: Application for Marketing Coordinator\n\nDear Hiring Manager,\n\nI am writing to apply for the position of marketing coordinator. For the past four years, I have worked as a marketing assistant at Danforth Outdoor Gear, where I managed the company's social media accounts and helped increase our online followers by 60 percent.\n\nI hold a degree in communications and have taken several courses in photography. I am attaching my résumé and a cover letter. Writing samples will follow in a separate e-mail later this week, as I am currently updating them.\n\nI currently live in Corwick but would be happy to relocate to Belford.\n\nSincerely,\nLeticia Monroe\n\n--- Text 3 ---\n\nHarlow & Finch — Interview Schedule, Marketing Coordinator\nLocation: Head office, Conference Room 3\n\nMonday, September 15\n10:00 A.M. — Aaron Whitley\n1:30 P.M. — Leticia Monroe\n\nTuesday, September 16\n9:30 A.M. — Bettina Krause\n11:00 A.M. — Samuel Oduya\n\nInterview panel: Rachel Finch (Director of Marketing), Victor Ames (Human Resources)\nNote: Candidates traveling from outside Belford will be reimbursed for travel expenses.",
+  "question": "When will Ms. Monroe be interviewed?",
+  "choices": [
+   "On Monday morning",
+   "On Monday afternoon",
+   "On Tuesday morning",
+   "On Tuesday afternoon"
+  ],
+  "answer": "On Monday afternoon",
+  "explanation": "日程表によると Monroe さんは9月15日（月）の午後1時30分。",
+  "tags": "Part7 トリプル 求人＋Eメール＋日程表 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-027-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Position Available: Marketing Coordinator\nHarlow & Finch Home Furnishings\n\nWe are looking for a marketing coordinator to join our team at our head office in Belford. The successful candidate will plan social media campaigns, coordinate photo shoots for our catalogs, and work closely with our store managers.\n\nRequirements:\n• Bachelor's degree in marketing or a related field\n• At least three years of marketing experience\n• Excellent writing skills\n• Experience with photo-editing software is preferred\n\nTo apply, send a résumé, a cover letter, and two writing samples to careers@harlowfinch.example by September 5.\n\n--- Text 2 ---\n\nTo: careers@harlowfinch.example\nFrom: Leticia Monroe\nDate: September 1\nSubject: Application for Marketing Coordinator\n\nDear Hiring Manager,\n\nI am writing to apply for the position of marketing coordinator. For the past four years, I have worked as a marketing assistant at Danforth Outdoor Gear, where I managed the company's social media accounts and helped increase our online followers by 60 percent.\n\nI hold a degree in communications and have taken several courses in photography. I am attaching my résumé and a cover letter. Writing samples will follow in a separate e-mail later this week, as I am currently updating them.\n\nI currently live in Corwick but would be happy to relocate to Belford.\n\nSincerely,\nLeticia Monroe\n\n--- Text 3 ---\n\nHarlow & Finch — Interview Schedule, Marketing Coordinator\nLocation: Head office, Conference Room 3\n\nMonday, September 15\n10:00 A.M. — Aaron Whitley\n1:30 P.M. — Leticia Monroe\n\nTuesday, September 16\n9:30 A.M. — Bettina Krause\n11:00 A.M. — Samuel Oduya\n\nInterview panel: Rachel Finch (Director of Marketing), Victor Ames (Human Resources)\nNote: Candidates traveling from outside Belford will be reimbursed for travel expenses.",
+  "question": "What is suggested about Ms. Monroe's trip to the interview?",
+  "choices": [
+   "Her travel costs will be paid by the company.",
+   "She will travel with Mr. Ames.",
+   "She will arrive the night before.",
+   "She will be interviewed by video call instead of in person."
+  ],
+  "answer": "Her travel costs will be paid by the company.",
+  "explanation": "Monroe さんは Belford 以外の Corwick 在住で、日程表の注記により市外から来る候補者は交通費が払い戻される。2文書の照合が必要。",
+  "tags": "Part7 トリプル 求人＋Eメール＋日程表 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-028-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Greystone Equipment Rentals — Rental Policies\n\n• Rental periods are calculated in full days. Equipment returned after 5:00 P.M. will be charged for an additional day.\n• A refundable deposit of 20 percent of the rental cost is required at pickup.\n• Customers are responsible for cleaning equipment before returning it. A cleaning fee of $40 will be charged for equipment returned dirty.\n• Delivery and pickup are available within 20 miles for $75 each way.\n• Members of our Contractor Club receive 10 percent off all rentals.\n\n--- Text 2 ---\n\nGREYSTONE EQUIPMENT RENTALS — INVOICE #77314\n\nCustomer: Ortega Landscaping (Contractor Club member)\nEquipment: Mini excavator, model GX-15\nPickup: July 8, 8:00 A.M.  Return: July 11, 6:15 P.M.\n\nRental, July 8–11 (3 days × $280) ... $840.00\nLate return (1 additional day) ...... $280.00\nContractor Club discount (10%) ... –$112.00\nCleaning fee ................... $40.00\nTotal ......................... $1,048.00\n\n--- Text 3 ---\n\nTo: billing@greystonerentals.example\nFrom: Pilar Ortega <pilar@ortegalandscaping.example>\nDate: July 14\nSubject: Invoice #77314\n\nHello,\n\nI have received the invoice for our recent excavator rental, and I have a question about one of the charges. Our crew washed the excavator thoroughly at our work site before bringing it back, and I have photos showing that it was clean when it was returned. I believe the vehicle must have become dusty on the drive back to your yard, which is mostly on unpaved roads.\n\nI understand and accept the charge for the extra day, since my crew was late returning the machine. However, I would appreciate it if you would review the other charge.\n\nThank you,\nPilar Ortega",
+  "question": "What is indicated about Greystone Equipment Rentals?",
+  "choices": [
+   "It does not require a deposit.",
+   "It rents equipment by the hour.",
+   "It is open 24 hours a day.",
+   "It offers delivery for a fee."
+  ],
+  "answer": "It offers delivery for a fee.",
+  "explanation": "20マイル以内なら片道$75で配送・引き取りをすると書かれている。",
+  "tags": "Part7 トリプル 案内＋請求書＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-028-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Greystone Equipment Rentals — Rental Policies\n\n• Rental periods are calculated in full days. Equipment returned after 5:00 P.M. will be charged for an additional day.\n• A refundable deposit of 20 percent of the rental cost is required at pickup.\n• Customers are responsible for cleaning equipment before returning it. A cleaning fee of $40 will be charged for equipment returned dirty.\n• Delivery and pickup are available within 20 miles for $75 each way.\n• Members of our Contractor Club receive 10 percent off all rentals.\n\n--- Text 2 ---\n\nGREYSTONE EQUIPMENT RENTALS — INVOICE #77314\n\nCustomer: Ortega Landscaping (Contractor Club member)\nEquipment: Mini excavator, model GX-15\nPickup: July 8, 8:00 A.M.  Return: July 11, 6:15 P.M.\n\nRental, July 8–11 (3 days × $280) ... $840.00\nLate return (1 additional day) ...... $280.00\nContractor Club discount (10%) ... –$112.00\nCleaning fee ................... $40.00\nTotal ......................... $1,048.00\n\n--- Text 3 ---\n\nTo: billing@greystonerentals.example\nFrom: Pilar Ortega <pilar@ortegalandscaping.example>\nDate: July 14\nSubject: Invoice #77314\n\nHello,\n\nI have received the invoice for our recent excavator rental, and I have a question about one of the charges. Our crew washed the excavator thoroughly at our work site before bringing it back, and I have photos showing that it was clean when it was returned. I believe the vehicle must have become dusty on the drive back to your yard, which is mostly on unpaved roads.\n\nI understand and accept the charge for the extra day, since my crew was late returning the machine. However, I would appreciate it if you would review the other charge.\n\nThank you,\nPilar Ortega",
+  "question": "Why was Ortega Landscaping charged for an additional day?",
+  "choices": [
+   "The company asked for an extra day in advance.",
+   "The pickup was delayed by one day.",
+   "The equipment was returned after 5:00 P.M.",
+   "The company is not a Contractor Club member."
+  ],
+  "answer": "The equipment was returned after 5:00 P.M.",
+  "explanation": "返却が7月11日午後6時15分で、午後5時以降の返却は1日分追加となる規定による。",
+  "tags": "Part7 トリプル 案内＋請求書＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-028-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Greystone Equipment Rentals — Rental Policies\n\n• Rental periods are calculated in full days. Equipment returned after 5:00 P.M. will be charged for an additional day.\n• A refundable deposit of 20 percent of the rental cost is required at pickup.\n• Customers are responsible for cleaning equipment before returning it. A cleaning fee of $40 will be charged for equipment returned dirty.\n• Delivery and pickup are available within 20 miles for $75 each way.\n• Members of our Contractor Club receive 10 percent off all rentals.\n\n--- Text 2 ---\n\nGREYSTONE EQUIPMENT RENTALS — INVOICE #77314\n\nCustomer: Ortega Landscaping (Contractor Club member)\nEquipment: Mini excavator, model GX-15\nPickup: July 8, 8:00 A.M.  Return: July 11, 6:15 P.M.\n\nRental, July 8–11 (3 days × $280) ... $840.00\nLate return (1 additional day) ...... $280.00\nContractor Club discount (10%) ... –$112.00\nCleaning fee ................... $40.00\nTotal ......................... $1,048.00\n\n--- Text 3 ---\n\nTo: billing@greystonerentals.example\nFrom: Pilar Ortega <pilar@ortegalandscaping.example>\nDate: July 14\nSubject: Invoice #77314\n\nHello,\n\nI have received the invoice for our recent excavator rental, and I have a question about one of the charges. Our crew washed the excavator thoroughly at our work site before bringing it back, and I have photos showing that it was clean when it was returned. I believe the vehicle must have become dusty on the drive back to your yard, which is mostly on unpaved roads.\n\nI understand and accept the charge for the extra day, since my crew was late returning the machine. However, I would appreciate it if you would review the other charge.\n\nThank you,\nPilar Ortega",
+  "question": "Which charge does Ms. Ortega question?",
+  "choices": [
+   "$40.00",
+   "$280.00",
+   "$112.00",
+   "$1,048.00"
+  ],
+  "answer": "$40.00",
+  "explanation": "洗ってから返したと主張し、清掃料について見直しを求めている。清掃料は$40。",
+  "tags": "Part7 トリプル 案内＋請求書＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-028-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Greystone Equipment Rentals — Rental Policies\n\n• Rental periods are calculated in full days. Equipment returned after 5:00 P.M. will be charged for an additional day.\n• A refundable deposit of 20 percent of the rental cost is required at pickup.\n• Customers are responsible for cleaning equipment before returning it. A cleaning fee of $40 will be charged for equipment returned dirty.\n• Delivery and pickup are available within 20 miles for $75 each way.\n• Members of our Contractor Club receive 10 percent off all rentals.\n\n--- Text 2 ---\n\nGREYSTONE EQUIPMENT RENTALS — INVOICE #77314\n\nCustomer: Ortega Landscaping (Contractor Club member)\nEquipment: Mini excavator, model GX-15\nPickup: July 8, 8:00 A.M.  Return: July 11, 6:15 P.M.\n\nRental, July 8–11 (3 days × $280) ... $840.00\nLate return (1 additional day) ...... $280.00\nContractor Club discount (10%) ... –$112.00\nCleaning fee ................... $40.00\nTotal ......................... $1,048.00\n\n--- Text 3 ---\n\nTo: billing@greystonerentals.example\nFrom: Pilar Ortega <pilar@ortegalandscaping.example>\nDate: July 14\nSubject: Invoice #77314\n\nHello,\n\nI have received the invoice for our recent excavator rental, and I have a question about one of the charges. Our crew washed the excavator thoroughly at our work site before bringing it back, and I have photos showing that it was clean when it was returned. I believe the vehicle must have become dusty on the drive back to your yard, which is mostly on unpaved roads.\n\nI understand and accept the charge for the extra day, since my crew was late returning the machine. However, I would appreciate it if you would review the other charge.\n\nThank you,\nPilar Ortega",
+  "question": "What does Ms. Ortega say about the extra day?",
+  "choices": [
+   "She thinks it was charged by mistake.",
+   "She agrees that it was fair.",
+   "She was not aware of the policy.",
+   "She wants to pay for it in cash."
+  ],
+  "answer": "She agrees that it was fair.",
+  "explanation": "作業員の返却が遅れたので追加1日分は理解し受け入れると書いている。",
+  "tags": "Part7 トリプル 案内＋請求書＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-028-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Greystone Equipment Rentals — Rental Policies\n\n• Rental periods are calculated in full days. Equipment returned after 5:00 P.M. will be charged for an additional day.\n• A refundable deposit of 20 percent of the rental cost is required at pickup.\n• Customers are responsible for cleaning equipment before returning it. A cleaning fee of $40 will be charged for equipment returned dirty.\n• Delivery and pickup are available within 20 miles for $75 each way.\n• Members of our Contractor Club receive 10 percent off all rentals.\n\n--- Text 2 ---\n\nGREYSTONE EQUIPMENT RENTALS — INVOICE #77314\n\nCustomer: Ortega Landscaping (Contractor Club member)\nEquipment: Mini excavator, model GX-15\nPickup: July 8, 8:00 A.M.  Return: July 11, 6:15 P.M.\n\nRental, July 8–11 (3 days × $280) ... $840.00\nLate return (1 additional day) ...... $280.00\nContractor Club discount (10%) ... –$112.00\nCleaning fee ................... $40.00\nTotal ......................... $1,048.00\n\n--- Text 3 ---\n\nTo: billing@greystonerentals.example\nFrom: Pilar Ortega <pilar@ortegalandscaping.example>\nDate: July 14\nSubject: Invoice #77314\n\nHello,\n\nI have received the invoice for our recent excavator rental, and I have a question about one of the charges. Our crew washed the excavator thoroughly at our work site before bringing it back, and I have photos showing that it was clean when it was returned. I believe the vehicle must have become dusty on the drive back to your yard, which is mostly on unpaved roads.\n\nI understand and accept the charge for the extra day, since my crew was late returning the machine. However, I would appreciate it if you would review the other charge.\n\nThank you,\nPilar Ortega",
+  "question": "In the e-mail, the word \"review\" in paragraph 2, line 2, is closest in meaning to",
+  "choices": [
+   "criticize",
+   "summarize",
+   "advertise",
+   "reconsider"
+  ],
+  "answer": "reconsider",
+  "explanation": "review the other charge は「もう一方の請求を見直す」。reconsider が最も近い。",
+  "tags": "Part7 トリプル 案内＋請求書＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-029-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: Natalia Brandt\nFrom: Oskar Lindahl\nDate: October 2\nSubject: Trip to the Velmont plant\n\nHi Natalia,\n\nHere is the travel plan for our visit to the Velmont plant next week. As discussed, we'll fly out on Tuesday morning and return on Thursday evening. I've booked rooms for us at the Kingsway Hotel, which is about ten minutes from the plant by taxi.\n\nThe plant manager, Mr. Dubois, has asked whether we could give a short presentation on our new quality-control software to his supervisors on Wednesday. I told him you would be the best person to do that, since you led the project. I hope that's all right with you.\n\nI've attached the itinerary. Please note that our return flight was changed; the airline canceled the 6:00 P.M. flight, so we're now on a later one.\n\nOskar\n\n--- Text 2 ---\n\nITINERARY — Oskar Lindahl and Natalia Brandt\n\nTuesday, October 7\n8:15 A.M. Depart Halston Airport, Flight PL 204\n10:40 A.M. Arrive Velmont Airport; taxi to Kingsway Hotel\n2:00 P.M. Tour of the Velmont plant with Mr. Dubois\n\nWednesday, October 8\n9:00 A.M. Meeting with production team\n1:00 P.M. Presentation to supervisors\n4:00 P.M. Free time\n\nThursday, October 9\n10:00 A.M. Review meeting with Mr. Dubois\n3:00 P.M. Check out of hotel\n7:45 P.M. Depart Velmont Airport, Flight PL 219",
+  "question": "What is the purpose of the e-mail?",
+  "choices": [
+   "To request approval for a business trip",
+   "To invite a colleague to a party",
+   "To share travel arrangements",
+   "To report a problem at a plant"
+  ],
+  "answer": "To share travel arrangements",
+  "explanation": "来週の工場訪問の旅程を伝え、旅程表を添付している。",
+  "tags": "Part7 ダブル Eメール＋旅程表 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-029-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: Natalia Brandt\nFrom: Oskar Lindahl\nDate: October 2\nSubject: Trip to the Velmont plant\n\nHi Natalia,\n\nHere is the travel plan for our visit to the Velmont plant next week. As discussed, we'll fly out on Tuesday morning and return on Thursday evening. I've booked rooms for us at the Kingsway Hotel, which is about ten minutes from the plant by taxi.\n\nThe plant manager, Mr. Dubois, has asked whether we could give a short presentation on our new quality-control software to his supervisors on Wednesday. I told him you would be the best person to do that, since you led the project. I hope that's all right with you.\n\nI've attached the itinerary. Please note that our return flight was changed; the airline canceled the 6:00 P.M. flight, so we're now on a later one.\n\nOskar\n\n--- Text 2 ---\n\nITINERARY — Oskar Lindahl and Natalia Brandt\n\nTuesday, October 7\n8:15 A.M. Depart Halston Airport, Flight PL 204\n10:40 A.M. Arrive Velmont Airport; taxi to Kingsway Hotel\n2:00 P.M. Tour of the Velmont plant with Mr. Dubois\n\nWednesday, October 8\n9:00 A.M. Meeting with production team\n1:00 P.M. Presentation to supervisors\n4:00 P.M. Free time\n\nThursday, October 9\n10:00 A.M. Review meeting with Mr. Dubois\n3:00 P.M. Check out of hotel\n7:45 P.M. Depart Velmont Airport, Flight PL 219",
+  "question": "What is indicated about Ms. Brandt?",
+  "choices": [
+   "She works at the Velmont plant.",
+   "She was in charge of a software project.",
+   "She booked the hotel rooms.",
+   "She will travel alone."
+  ],
+  "answer": "She was in charge of a software project.",
+  "explanation": "新しい品質管理ソフトのプロジェクトを率いたと書かれている。",
+  "tags": "Part7 ダブル Eメール＋旅程表 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-029-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: Natalia Brandt\nFrom: Oskar Lindahl\nDate: October 2\nSubject: Trip to the Velmont plant\n\nHi Natalia,\n\nHere is the travel plan for our visit to the Velmont plant next week. As discussed, we'll fly out on Tuesday morning and return on Thursday evening. I've booked rooms for us at the Kingsway Hotel, which is about ten minutes from the plant by taxi.\n\nThe plant manager, Mr. Dubois, has asked whether we could give a short presentation on our new quality-control software to his supervisors on Wednesday. I told him you would be the best person to do that, since you led the project. I hope that's all right with you.\n\nI've attached the itinerary. Please note that our return flight was changed; the airline canceled the 6:00 P.M. flight, so we're now on a later one.\n\nOskar\n\n--- Text 2 ---\n\nITINERARY — Oskar Lindahl and Natalia Brandt\n\nTuesday, October 7\n8:15 A.M. Depart Halston Airport, Flight PL 204\n10:40 A.M. Arrive Velmont Airport; taxi to Kingsway Hotel\n2:00 P.M. Tour of the Velmont plant with Mr. Dubois\n\nWednesday, October 8\n9:00 A.M. Meeting with production team\n1:00 P.M. Presentation to supervisors\n4:00 P.M. Free time\n\nThursday, October 9\n10:00 A.M. Review meeting with Mr. Dubois\n3:00 P.M. Check out of hotel\n7:45 P.M. Depart Velmont Airport, Flight PL 219",
+  "question": "What will Ms. Brandt most likely do at 1:00 P.M. on October 8?",
+  "choices": [
+   "Tour the plant",
+   "Check out of the hotel",
+   "Meet with the production team",
+   "Explain a new software program"
+  ],
+  "answer": "Explain a new software program",
+  "explanation": "Dubois さんの依頼で、水曜にソフトの発表をすることになっている。旅程表で水曜13時が発表。2文書の照合が必要。",
+  "tags": "Part7 ダブル Eメール＋旅程表 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-029-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: Natalia Brandt\nFrom: Oskar Lindahl\nDate: October 2\nSubject: Trip to the Velmont plant\n\nHi Natalia,\n\nHere is the travel plan for our visit to the Velmont plant next week. As discussed, we'll fly out on Tuesday morning and return on Thursday evening. I've booked rooms for us at the Kingsway Hotel, which is about ten minutes from the plant by taxi.\n\nThe plant manager, Mr. Dubois, has asked whether we could give a short presentation on our new quality-control software to his supervisors on Wednesday. I told him you would be the best person to do that, since you led the project. I hope that's all right with you.\n\nI've attached the itinerary. Please note that our return flight was changed; the airline canceled the 6:00 P.M. flight, so we're now on a later one.\n\nOskar\n\n--- Text 2 ---\n\nITINERARY — Oskar Lindahl and Natalia Brandt\n\nTuesday, October 7\n8:15 A.M. Depart Halston Airport, Flight PL 204\n10:40 A.M. Arrive Velmont Airport; taxi to Kingsway Hotel\n2:00 P.M. Tour of the Velmont plant with Mr. Dubois\n\nWednesday, October 8\n9:00 A.M. Meeting with production team\n1:00 P.M. Presentation to supervisors\n4:00 P.M. Free time\n\nThursday, October 9\n10:00 A.M. Review meeting with Mr. Dubois\n3:00 P.M. Check out of hotel\n7:45 P.M. Depart Velmont Airport, Flight PL 219",
+  "question": "What is suggested about Flight PL 219?",
+  "choices": [
+   "It replaced a canceled flight.",
+   "It departs on Tuesday morning.",
+   "It was booked by Mr. Dubois.",
+   "It leaves from Halston Airport."
+  ],
+  "answer": "It replaced a canceled flight.",
+  "explanation": "メールで、18時の便が欠航になり遅い便に変わったと書かれており、旅程表の19時45分発 PL 219 がそれにあたる。",
+  "tags": "Part7 ダブル Eメール＋旅程表 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-029-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: Natalia Brandt\nFrom: Oskar Lindahl\nDate: October 2\nSubject: Trip to the Velmont plant\n\nHi Natalia,\n\nHere is the travel plan for our visit to the Velmont plant next week. As discussed, we'll fly out on Tuesday morning and return on Thursday evening. I've booked rooms for us at the Kingsway Hotel, which is about ten minutes from the plant by taxi.\n\nThe plant manager, Mr. Dubois, has asked whether we could give a short presentation on our new quality-control software to his supervisors on Wednesday. I told him you would be the best person to do that, since you led the project. I hope that's all right with you.\n\nI've attached the itinerary. Please note that our return flight was changed; the airline canceled the 6:00 P.M. flight, so we're now on a later one.\n\nOskar\n\n--- Text 2 ---\n\nITINERARY — Oskar Lindahl and Natalia Brandt\n\nTuesday, October 7\n8:15 A.M. Depart Halston Airport, Flight PL 204\n10:40 A.M. Arrive Velmont Airport; taxi to Kingsway Hotel\n2:00 P.M. Tour of the Velmont plant with Mr. Dubois\n\nWednesday, October 8\n9:00 A.M. Meeting with production team\n1:00 P.M. Presentation to supervisors\n4:00 P.M. Free time\n\nThursday, October 9\n10:00 A.M. Review meeting with Mr. Dubois\n3:00 P.M. Check out of hotel\n7:45 P.M. Depart Velmont Airport, Flight PL 219",
+  "question": "The word \"led\" in paragraph 2, line 3, of the e-mail is closest in meaning to",
+  "choices": [
+   "followed",
+   "guided to a place",
+   "managed",
+   "won"
+  ],
+  "answer": "managed",
+  "explanation": "led the project は「プロジェクトを率いた・管理した」。managed が最も近い。",
+  "tags": "Part7 ダブル Eメール＋旅程表 照合問題"
+ }
+]

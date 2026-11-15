@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEIC-R6-011-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "From: registration@nrhs-conference.org\nTo: Kenji Moreau\nSubject: Your registration\n\nDear Mr. Moreau,\n\nThank you for registering for the Northern Regional Health Services Conference, which will take place at the Ashford Convention Center from November 12 to 14. Your registration has been [1] -------.\n\nPlease bring a printed or electronic copy of this e-mail to the registration desk when you arrive. You will receive your name badge and a conference program there. [2] -------.\n\nIf you have not yet booked a room, a limited number are still available at a reduced rate at the Ashford Grand Hotel, which is [3] ------- connected to the convention center by a covered walkway.\n\nShould you need to cancel, please notify us by October 31 to receive a full refund. Cancellations made after that date [4] ------- a $50 processing fee.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "confirmed",
+   "confirming",
+   "confirmation",
+   "confirms"
+  ],
+  "answer": "confirmed",
+  "explanation": "has been の後で「確認された」という受け身の現在完了なので過去分詞 confirmed。",
+  "tags": "Part6 Eメール 学会登録 態"
+ },
+ {
+  "id": "TOEIC-R6-011-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "From: registration@nrhs-conference.org\nTo: Kenji Moreau\nSubject: Your registration\n\nDear Mr. Moreau,\n\nThank you for registering for the Northern Regional Health Services Conference, which will take place at the Ashford Convention Center from November 12 to 14. Your registration has been [1] -------.\n\nPlease bring a printed or electronic copy of this e-mail to the registration desk when you arrive. You will receive your name badge and a conference program there. [2] -------.\n\nIf you have not yet booked a room, a limited number are still available at a reduced rate at the Ashford Grand Hotel, which is [3] ------- connected to the convention center by a covered walkway.\n\nShould you need to cancel, please notify us by October 31 to receive a full refund. Cancellations made after that date [4] ------- a $50 processing fee.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Unfortunately, the conference has been moved to next year.",
+   "The program includes a map of the meeting rooms and the full schedule of sessions.",
+   "Our hotel restaurant serves breakfast from 6:30 A.M.",
+   "Please pay the registration fee at the door in cash only."
+  ],
+  "answer": "The program includes a map of the meeting rooms and the full schedule of sessions.",
+  "explanation": "直前で受付で名札とプログラムがもらえると述べており、そのプログラムの中身を補足する文が自然。登録は既に完了しているので、当日現金払いは矛盾。",
+  "tags": "Part6 Eメール 学会登録 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-011-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "From: registration@nrhs-conference.org\nTo: Kenji Moreau\nSubject: Your registration\n\nDear Mr. Moreau,\n\nThank you for registering for the Northern Regional Health Services Conference, which will take place at the Ashford Convention Center from November 12 to 14. Your registration has been [1] -------.\n\nPlease bring a printed or electronic copy of this e-mail to the registration desk when you arrive. You will receive your name badge and a conference program there. [2] -------.\n\nIf you have not yet booked a room, a limited number are still available at a reduced rate at the Ashford Grand Hotel, which is [3] ------- connected to the convention center by a covered walkway.\n\nShould you need to cancel, please notify us by October 31 to receive a full refund. Cancellations made after that date [4] ------- a $50 processing fee.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "direct",
+   "direction",
+   "directed",
+   "directly"
+  ],
+  "answer": "directly",
+  "explanation": "過去分詞 connected を修飾するのは副詞 directly。",
+  "tags": "Part6 Eメール 学会登録 品詞"
+ },
+ {
+  "id": "TOEIC-R6-011-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "From: registration@nrhs-conference.org\nTo: Kenji Moreau\nSubject: Your registration\n\nDear Mr. Moreau,\n\nThank you for registering for the Northern Regional Health Services Conference, which will take place at the Ashford Convention Center from November 12 to 14. Your registration has been [1] -------.\n\nPlease bring a printed or electronic copy of this e-mail to the registration desk when you arrive. You will receive your name badge and a conference program there. [2] -------.\n\nIf you have not yet booked a room, a limited number are still available at a reduced rate at the Ashford Grand Hotel, which is [3] ------- connected to the convention center by a covered walkway.\n\nShould you need to cancel, please notify us by October 31 to receive a full refund. Cancellations made after that date [4] ------- a $50 processing fee.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "will be exempt from",
+   "will be free of",
+   "will be subject to",
+   "will be capable of"
+  ],
+  "answer": "will be subject to",
+  "explanation": "期限後のキャンセルには手数料が「かかる」ので be subject to。",
+  "tags": "Part6 Eメール 学会登録 語彙"
+ },
+ {
+  "id": "TOEIC-R6-012-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Employees\nFrom: Building Management\nSubject: Parking lot repaving\n\nThe north parking lot will be repaved over the weekend of August 23 and 24. All vehicles must be removed from the lot [1] ------- 7:00 P.M. on Friday, August 22. Vehicles that remain after that time may be towed at the owner's expense.\n\nDuring the work, employees may park in the south lot or in the public garage on Elm Street. [2] -------. Please keep your receipt and submit it to the front desk for reimbursement.\n\nThe repaving is expected to be finished by Monday morning. [3] -------, if rain delays the project, the north lot may remain closed until Tuesday. We will send an update by e-mail [4] ------- the schedule changes.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "no sooner than",
+   "no more than",
+   "no later than",
+   "not until"
+  ],
+  "answer": "no later than",
+  "explanation": "「金曜の午後7時までに」移動させるという期限を表すのは no later than。",
+  "tags": "Part6 社内メモ 駐車場 語彙"
+ },
+ {
+  "id": "TOEIC-R6-012-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Employees\nFrom: Building Management\nSubject: Parking lot repaving\n\nThe north parking lot will be repaved over the weekend of August 23 and 24. All vehicles must be removed from the lot [1] ------- 7:00 P.M. on Friday, August 22. Vehicles that remain after that time may be towed at the owner's expense.\n\nDuring the work, employees may park in the south lot or in the public garage on Elm Street. [2] -------. Please keep your receipt and submit it to the front desk for reimbursement.\n\nThe repaving is expected to be finished by Monday morning. [3] -------, if rain delays the project, the north lot may remain closed until Tuesday. We will send an update by e-mail [4] ------- the schedule changes.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "The company will cover the cost of parking in the garage on those days.",
+   "The south lot is reserved for visitors at all times.",
+   "Employees are encouraged to drive to work more often.",
+   "The garage on Elm Street was demolished last spring."
+  ],
+  "answer": "The company will cover the cost of parking in the garage on those days.",
+  "explanation": "直後の「領収書を受付に出せば払い戻す」と結びつくのは、ガレージ代を会社が負担するという文。",
+  "tags": "Part6 社内メモ 駐車場 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-012-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Employees\nFrom: Building Management\nSubject: Parking lot repaving\n\nThe north parking lot will be repaved over the weekend of August 23 and 24. All vehicles must be removed from the lot [1] ------- 7:00 P.M. on Friday, August 22. Vehicles that remain after that time may be towed at the owner's expense.\n\nDuring the work, employees may park in the south lot or in the public garage on Elm Street. [2] -------. Please keep your receipt and submit it to the front desk for reimbursement.\n\nThe repaving is expected to be finished by Monday morning. [3] -------, if rain delays the project, the north lot may remain closed until Tuesday. We will send an update by e-mail [4] ------- the schedule changes.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Therefore",
+   "However",
+   "Similarly",
+   "For example"
+  ],
+  "answer": "However",
+  "explanation": "「月曜朝には終わる予定」に対し「ただし雨なら火曜まで閉鎖の可能性」と逆の情報なので However。",
+  "tags": "Part6 社内メモ 駐車場 つなぎ語"
+ },
+ {
+  "id": "TOEIC-R6-012-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Employees\nFrom: Building Management\nSubject: Parking lot repaving\n\nThe north parking lot will be repaved over the weekend of August 23 and 24. All vehicles must be removed from the lot [1] ------- 7:00 P.M. on Friday, August 22. Vehicles that remain after that time may be towed at the owner's expense.\n\nDuring the work, employees may park in the south lot or in the public garage on Elm Street. [2] -------. Please keep your receipt and submit it to the front desk for reimbursement.\n\nThe repaving is expected to be finished by Monday morning. [3] -------, if rain delays the project, the north lot may remain closed until Tuesday. We will send an update by e-mail [4] ------- the schedule changes.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "unless",
+   "whether or not",
+   "despite",
+   "if"
+  ],
+  "answer": "if",
+  "explanation": "「予定が変わった場合には」連絡する、という条件なので if。",
+  "tags": "Part6 社内メモ 駐車場 接続詞"
+ },
+ {
+  "id": "TOEIC-R6-013-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Thank you for purchasing the Solano C200 coffee maker. To get the best results, please read this manual carefully before [1] ------- the appliance for the first time.\n\nYour coffee maker is covered by a two-year limited warranty. This warranty covers defects in materials and workmanship. [2] -------, it does not cover damage caused by dropping the unit or using it with the wrong electrical voltage.\n\nTo register your product, visit www.solano-home.example/register and enter the serial number found on the bottom of the unit. [3] -------.\n\nIf your coffee maker needs repair, please do not attempt to open it yourself. Instead, contact our service center, and a [4] ------- technician will assist you.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "use",
+   "used",
+   "to use",
+   "using"
+  ],
+  "answer": "using",
+  "explanation": "前置詞 before の後には動名詞が来るので using。",
+  "tags": "Part6 製品案内 保証 動名詞"
+ },
+ {
+  "id": "TOEIC-R6-013-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Thank you for purchasing the Solano C200 coffee maker. To get the best results, please read this manual carefully before [1] ------- the appliance for the first time.\n\nYour coffee maker is covered by a two-year limited warranty. This warranty covers defects in materials and workmanship. [2] -------, it does not cover damage caused by dropping the unit or using it with the wrong electrical voltage.\n\nTo register your product, visit www.solano-home.example/register and enter the serial number found on the bottom of the unit. [3] -------.\n\nIf your coffee maker needs repair, please do not attempt to open it yourself. Instead, contact our service center, and a [4] ------- technician will assist you.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Moreover",
+   "As a result",
+   "However",
+   "Likewise"
+  ],
+  "answer": "However",
+  "explanation": "保証の対象を述べた後に「しかし落下などは対象外」と対比しているので However。",
+  "tags": "Part6 製品案内 保証 つなぎ語"
+ },
+ {
+  "id": "TOEIC-R6-013-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Thank you for purchasing the Solano C200 coffee maker. To get the best results, please read this manual carefully before [1] ------- the appliance for the first time.\n\nYour coffee maker is covered by a two-year limited warranty. This warranty covers defects in materials and workmanship. [2] -------, it does not cover damage caused by dropping the unit or using it with the wrong electrical voltage.\n\nTo register your product, visit www.solano-home.example/register and enter the serial number found on the bottom of the unit. [3] -------.\n\nIf your coffee maker needs repair, please do not attempt to open it yourself. Instead, contact our service center, and a [4] ------- technician will assist you.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Registered customers also receive tips on cleaning and care by e-mail.",
+   "The coffee maker is available in three colors.",
+   "Our factory is located in a small coastal town.",
+   "Serial numbers are no longer printed on our products."
+  ],
+  "answer": "Registered customers also receive tips on cleaning and care by e-mail.",
+  "explanation": "製品登録の手順の直後に、登録者の特典を補足するのが自然。シリアル番号がもう印刷されていないという文は直前の手順と矛盾。",
+  "tags": "Part6 製品案内 保証 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-013-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Thank you for purchasing the Solano C200 coffee maker. To get the best results, please read this manual carefully before [1] ------- the appliance for the first time.\n\nYour coffee maker is covered by a two-year limited warranty. This warranty covers defects in materials and workmanship. [2] -------, it does not cover damage caused by dropping the unit or using it with the wrong electrical voltage.\n\nTo register your product, visit www.solano-home.example/register and enter the serial number found on the bottom of the unit. [3] -------.\n\nIf your coffee maker needs repair, please do not attempt to open it yourself. Instead, contact our service center, and a [4] ------- technician will assist you.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "qualifying",
+   "qualified",
+   "qualification",
+   "qualify"
+  ],
+  "answer": "qualified",
+  "explanation": "名詞 technician を修飾して「資格を持った」技術者を表す形容詞 qualified。",
+  "tags": "Part6 製品案内 保証 品詞"
+ },
+ {
+  "id": "TOEIC-R6-014-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "DELMONT (May 2)—The city's new bike-share program has proven far more popular than officials [1] -------. Since its launch in March, riders have taken more than 40,000 trips, nearly double the number predicted for the first three months.\n\nThe program allows users to unlock a bicycle with a mobile phone app and return it to any of the 35 stations around the city. [2] -------. Annual memberships, which cost $60, offer unlimited rides of up to 45 minutes each.\n\nBecause of the high demand, the city plans to add 15 stations by the end of the year, focusing on neighborhoods that are not well [3] ------- by buses. Officials also hope the program will help reduce traffic on downtown streets, [4] ------- congestion has become a growing problem.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "have expected",
+   "had expected",
+   "will expect",
+   "are expecting"
+  ],
+  "answer": "had expected",
+  "explanation": "人気が出た（過去）よりも前に予想していたので過去完了 had expected。",
+  "tags": "Part6 記事 シェアサイクル 時制"
+ },
+ {
+  "id": "TOEIC-R6-014-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "DELMONT (May 2)—The city's new bike-share program has proven far more popular than officials [1] -------. Since its launch in March, riders have taken more than 40,000 trips, nearly double the number predicted for the first three months.\n\nThe program allows users to unlock a bicycle with a mobile phone app and return it to any of the 35 stations around the city. [2] -------. Annual memberships, which cost $60, offer unlimited rides of up to 45 minutes each.\n\nBecause of the high demand, the city plans to add 15 stations by the end of the year, focusing on neighborhoods that are not well [3] ------- by buses. Officials also hope the program will help reduce traffic on downtown streets, [4] ------- congestion has become a growing problem.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Single rides cost $2 for the first 30 minutes.",
+   "The stations will be removed at the end of the summer.",
+   "Most riders said they would never use the program again.",
+   "Bicycles must be returned to the station where they were rented."
+  ],
+  "answer": "Single rides cost $2 for the first 30 minutes.",
+  "explanation": "直後で年会員の料金を述べているので、その前に1回利用の料金を示す文が自然。「借りた駅に返す」は直前の「どの駅にも返せる」と矛盾。",
+  "tags": "Part6 記事 シェアサイクル 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-014-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "DELMONT (May 2)—The city's new bike-share program has proven far more popular than officials [1] -------. Since its launch in March, riders have taken more than 40,000 trips, nearly double the number predicted for the first three months.\n\nThe program allows users to unlock a bicycle with a mobile phone app and return it to any of the 35 stations around the city. [2] -------. Annual memberships, which cost $60, offer unlimited rides of up to 45 minutes each.\n\nBecause of the high demand, the city plans to add 15 stations by the end of the year, focusing on neighborhoods that are not well [3] ------- by buses. Officials also hope the program will help reduce traffic on downtown streets, [4] ------- congestion has become a growing problem.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "serving",
+   "serve",
+   "served",
+   "service"
+  ],
+  "answer": "served",
+  "explanation": "be 動詞 are not well の後で「バスの便がよくない」という受け身。served が適切。",
+  "tags": "Part6 記事 シェアサイクル 態"
+ },
+ {
+  "id": "TOEIC-R6-014-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "DELMONT (May 2)—The city's new bike-share program has proven far more popular than officials [1] -------. Since its launch in March, riders have taken more than 40,000 trips, nearly double the number predicted for the first three months.\n\nThe program allows users to unlock a bicycle with a mobile phone app and return it to any of the 35 stations around the city. [2] -------. Annual memberships, which cost $60, offer unlimited rides of up to 45 minutes each.\n\nBecause of the high demand, the city plans to add 15 stations by the end of the year, focusing on neighborhoods that are not well [3] ------- by buses. Officials also hope the program will help reduce traffic on downtown streets, [4] ------- congestion has become a growing problem.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "which",
+   "what",
+   "when",
+   "where"
+  ],
+  "answer": "where",
+  "explanation": "場所 downtown streets を先行詞とし、後ろが完全な文なので関係副詞 where。",
+  "tags": "Part6 記事 シェアサイクル 関係詞"
+ },
+ {
+  "id": "TOEIC-R6-015-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Ms. Oyelaran,\n\nThank you for choosing the Seaview Inn. This e-mail [1] ------- your reservation for a double room from June 6 to June 9 (three nights).\n\nCheck-in time is 3:00 P.M., and checkout is at 11:00 A.M. If you expect to arrive late, please let us know so that we can hold your room. [2] -------.\n\nBreakfast is served in the lobby café every morning from 7:00 to 10:00 and is included in your room [3] -------. Free parking is also available behind the building.\n\nWe look forward to [4] ------- you soon.\n\nBest regards,\nTomás Ferreira\nFront Desk Manager",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "confirms",
+   "confirm",
+   "confirming",
+   "to confirm"
+  ],
+  "answer": "confirms",
+  "explanation": "主語 This e-mail（三人称単数）の述語動詞なので confirms。",
+  "tags": "Part6 Eメール 予約確認 動詞の形"
+ },
+ {
+  "id": "TOEIC-R6-015-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Ms. Oyelaran,\n\nThank you for choosing the Seaview Inn. This e-mail [1] ------- your reservation for a double room from June 6 to June 9 (three nights).\n\nCheck-in time is 3:00 P.M., and checkout is at 11:00 A.M. If you expect to arrive late, please let us know so that we can hold your room. [2] -------.\n\nBreakfast is served in the lobby café every morning from 7:00 to 10:00 and is included in your room [3] -------. Free parking is also available behind the building.\n\nWe look forward to [4] ------- you soon.\n\nBest regards,\nTomás Ferreira\nFront Desk Manager",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Unfortunately, all of our rooms are fully booked in June.",
+   "Our front desk is staffed 24 hours a day.",
+   "The hotel will close permanently at the end of the month.",
+   "Guests must check out before 8:00 A.M."
+  ],
+  "answer": "Our front desk is staffed 24 hours a day.",
+  "explanation": "遅れて到着する場合の案内の流れで「フロントは24時間対応」と補足するのが自然。満室・閉館・チェックアウト時刻の矛盾する文は不適。",
+  "tags": "Part6 Eメール 予約確認 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-015-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Ms. Oyelaran,\n\nThank you for choosing the Seaview Inn. This e-mail [1] ------- your reservation for a double room from June 6 to June 9 (three nights).\n\nCheck-in time is 3:00 P.M., and checkout is at 11:00 A.M. If you expect to arrive late, please let us know so that we can hold your room. [2] -------.\n\nBreakfast is served in the lobby café every morning from 7:00 to 10:00 and is included in your room [3] -------. Free parking is also available behind the building.\n\nWe look forward to [4] ------- you soon.\n\nBest regards,\nTomás Ferreira\nFront Desk Manager",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "fare",
+   "salary",
+   "rate",
+   "tip"
+  ],
+  "answer": "rate",
+  "explanation": "room rate で「宿泊料金」。fare は交通運賃。",
+  "tags": "Part6 Eメール 予約確認 語彙"
+ },
+ {
+  "id": "TOEIC-R6-015-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Ms. Oyelaran,\n\nThank you for choosing the Seaview Inn. This e-mail [1] ------- your reservation for a double room from June 6 to June 9 (three nights).\n\nCheck-in time is 3:00 P.M., and checkout is at 11:00 A.M. If you expect to arrive late, please let us know so that we can hold your room. [2] -------.\n\nBreakfast is served in the lobby café every morning from 7:00 to 10:00 and is included in your room [3] -------. Free parking is also available behind the building.\n\nWe look forward to [4] ------- you soon.\n\nBest regards,\nTomás Ferreira\nFront Desk Manager",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "welcome",
+   "welcomed",
+   "be welcomed",
+   "welcoming"
+  ],
+  "answer": "welcoming",
+  "explanation": "look forward to の to は前置詞なので後ろは動名詞 welcoming。",
+  "tags": "Part6 Eメール 予約確認 動名詞"
+ },
+ {
+  "id": "TOEIC-R6-016-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To Our Members:\n\nStarting January 1, Peak Point Fitness will make several changes to its membership options. First, all members will be able to use any of our four locations [1] ------- of which club they originally joined.\n\nSecond, we are adding early-morning hours. Our clubs will now open at 5:00 A.M. on weekdays, one hour earlier than before. [2] -------.\n\nFinally, monthly fees will increase by $3 to cover the cost of new equipment. [3] -------, members who renew their annual plan before December 15 will keep their current rate for another full year.\n\nWe appreciate your continued [4] ------- and look forward to seeing you at the gym.\n\nThe Peak Point Fitness Team",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "despite",
+   "regardless",
+   "instead",
+   "unlike"
+  ],
+  "answer": "regardless",
+  "explanation": "regardless of で「〜に関係なく」。後ろに of があるので regardless。",
+  "tags": "Part6 お知らせ ジム会員規約変更 語彙"
+ },
+ {
+  "id": "TOEIC-R6-016-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To Our Members:\n\nStarting January 1, Peak Point Fitness will make several changes to its membership options. First, all members will be able to use any of our four locations [1] ------- of which club they originally joined.\n\nSecond, we are adding early-morning hours. Our clubs will now open at 5:00 A.M. on weekdays, one hour earlier than before. [2] -------.\n\nFinally, monthly fees will increase by $3 to cover the cost of new equipment. [3] -------, members who renew their annual plan before December 15 will keep their current rate for another full year.\n\nWe appreciate your continued [4] ------- and look forward to seeing you at the gym.\n\nThe Peak Point Fitness Team",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "This change was made in response to requests from many members.",
+   "Weekend hours will be shortened to save energy.",
+   "Our newest location opened in the spring of last year.",
+   "Members are reminded to bring their own towels."
+  ],
+  "answer": "This change was made in response to requests from many members.",
+  "explanation": "開館時間を早める変更の理由を述べる文が直後に来るのが自然。他は前後と結びつかない。",
+  "tags": "Part6 お知らせ ジム会員規約変更 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-016-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To Our Members:\n\nStarting January 1, Peak Point Fitness will make several changes to its membership options. First, all members will be able to use any of our four locations [1] ------- of which club they originally joined.\n\nSecond, we are adding early-morning hours. Our clubs will now open at 5:00 A.M. on weekdays, one hour earlier than before. [2] -------.\n\nFinally, monthly fees will increase by $3 to cover the cost of new equipment. [3] -------, members who renew their annual plan before December 15 will keep their current rate for another full year.\n\nWe appreciate your continued [4] ------- and look forward to seeing you at the gym.\n\nThe Peak Point Fitness Team",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Accordingly",
+   "In other words",
+   "As a result",
+   "However"
+  ],
+  "answer": "However",
+  "explanation": "値上げを述べた後に「ただし期限前に更新すれば据え置き」と例外を示すので However。",
+  "tags": "Part6 お知らせ ジム会員規約変更 つなぎ語"
+ },
+ {
+  "id": "TOEIC-R6-016-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To Our Members:\n\nStarting January 1, Peak Point Fitness will make several changes to its membership options. First, all members will be able to use any of our four locations [1] ------- of which club they originally joined.\n\nSecond, we are adding early-morning hours. Our clubs will now open at 5:00 A.M. on weekdays, one hour earlier than before. [2] -------.\n\nFinally, monthly fees will increase by $3 to cover the cost of new equipment. [3] -------, members who renew their annual plan before December 15 will keep their current rate for another full year.\n\nWe appreciate your continued [4] ------- and look forward to seeing you at the gym.\n\nThe Peak Point Fitness Team",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "supportive",
+   "supported",
+   "support",
+   "supportively"
+  ],
+  "answer": "support",
+  "explanation": "形容詞 continued の後に名詞が必要。continued support で「変わらぬご愛顧」。",
+  "tags": "Part6 お知らせ ジム会員規約変更 品詞"
+ },
+ {
+  "id": "TOEIC-R6-017-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Mr. Castellano,\n\nThank you for taking the time to share your experience at Rosemary Bistro last Saturday. I was sorry to read that your table waited nearly an hour for your main courses.\n\nThat evening, two members of our kitchen staff were unexpectedly absent, and we were not able to [1] ------- the large number of guests. [2] -------, that is no excuse for the poor service you received.\n\n[3] -------. We are hiring an additional cook, and our servers will now inform guests right away if there is likely to be a delay.\n\nAs a token of our apology, I have enclosed a gift certificate for dinner for two. I sincerely hope you will give us another chance, and I would be pleased to greet you [4] ------- on your next visit.\n\nSincerely,\nYasmin Achebe, Owner",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "handled",
+   "handling",
+   "handles",
+   "handle"
+  ],
+  "answer": "handle",
+  "explanation": "be able to の後は動詞の原形 handle。",
+  "tags": "Part6 Eメール 苦情への返信 動詞の形"
+ },
+ {
+  "id": "TOEIC-R6-017-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Mr. Castellano,\n\nThank you for taking the time to share your experience at Rosemary Bistro last Saturday. I was sorry to read that your table waited nearly an hour for your main courses.\n\nThat evening, two members of our kitchen staff were unexpectedly absent, and we were not able to [1] ------- the large number of guests. [2] -------, that is no excuse for the poor service you received.\n\n[3] -------. We are hiring an additional cook, and our servers will now inform guests right away if there is likely to be a delay.\n\nAs a token of our apology, I have enclosed a gift certificate for dinner for two. I sincerely hope you will give us another chance, and I would be pleased to greet you [4] ------- on your next visit.\n\nSincerely,\nYasmin Achebe, Owner",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Therefore",
+   "Similarly",
+   "Nevertheless",
+   "In addition"
+  ],
+  "answer": "Nevertheless",
+  "explanation": "事情を説明した後で「それでも言い訳にはならない」と譲歩・逆接しているので Nevertheless。",
+  "tags": "Part6 Eメール 苦情への返信 つなぎ語"
+ },
+ {
+  "id": "TOEIC-R6-017-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Mr. Castellano,\n\nThank you for taking the time to share your experience at Rosemary Bistro last Saturday. I was sorry to read that your table waited nearly an hour for your main courses.\n\nThat evening, two members of our kitchen staff were unexpectedly absent, and we were not able to [1] ------- the large number of guests. [2] -------, that is no excuse for the poor service you received.\n\n[3] -------. We are hiring an additional cook, and our servers will now inform guests right away if there is likely to be a delay.\n\nAs a token of our apology, I have enclosed a gift certificate for dinner for two. I sincerely hope you will give us another chance, and I would be pleased to greet you [4] ------- on your next visit.\n\nSincerely,\nYasmin Achebe, Owner",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "We have already taken steps to prevent this from happening again.",
+   "Our restaurant has received several awards for its fast service.",
+   "The kitchen staff members were all on vacation that week.",
+   "We regret that we cannot offer you any compensation."
+  ],
+  "answer": "We have already taken steps to prevent this from happening again.",
+  "explanation": "直後の「料理人を増やし、遅れを伝える」という具体策の前置きとして自然。最後の選択肢は後の商品券の同封と矛盾する。",
+  "tags": "Part6 Eメール 苦情への返信 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-017-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Mr. Castellano,\n\nThank you for taking the time to share your experience at Rosemary Bistro last Saturday. I was sorry to read that your table waited nearly an hour for your main courses.\n\nThat evening, two members of our kitchen staff were unexpectedly absent, and we were not able to [1] ------- the large number of guests. [2] -------, that is no excuse for the poor service you received.\n\n[3] -------. We are hiring an additional cook, and our servers will now inform guests right away if there is likely to be a delay.\n\nAs a token of our apology, I have enclosed a gift certificate for dinner for two. I sincerely hope you will give us another chance, and I would be pleased to greet you [4] ------- on your next visit.\n\nSincerely,\nYasmin Achebe, Owner",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "personal",
+   "personally",
+   "personality",
+   "personalize"
+  ],
+  "answer": "personally",
+  "explanation": "動詞 greet を修飾する副詞 personally（私自ら）。",
+  "tags": "Part6 Eメール 苦情への返信 品詞"
+ },
+ {
+  "id": "TOEIC-R6-018-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: Sales Team\nFrom: Harriet Nakamura, Training Coordinator\nDate: February 10\n\nAll members of the sales team are required to attend a one-day workshop on our new customer database. The workshop will be held on Thursday, February 27, in Conference Room B and will run [1] ------- 9:00 A.M. to 4:00 P.M.\n\nThe session will be led by Arjun Mehta, who helped design the system. [2] -------. By the end of the day, participants should be able to search records, update client information, and create sales reports on their own.\n\nLunch will be provided. Please let me know by February 20 if you have any food [3] -------. Employees who cannot attend on that date must arrange to join the [4] ------- session in March.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "from",
+   "between",
+   "since",
+   "during"
+  ],
+  "answer": "from",
+  "explanation": "from A to B で「AからBまで」。between は and と組む。",
+  "tags": "Part6 社内メモ 研修 前置詞"
+ },
+ {
+  "id": "TOEIC-R6-018-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: Sales Team\nFrom: Harriet Nakamura, Training Coordinator\nDate: February 10\n\nAll members of the sales team are required to attend a one-day workshop on our new customer database. The workshop will be held on Thursday, February 27, in Conference Room B and will run [1] ------- 9:00 A.M. to 4:00 P.M.\n\nThe session will be led by Arjun Mehta, who helped design the system. [2] -------. By the end of the day, participants should be able to search records, update client information, and create sales reports on their own.\n\nLunch will be provided. Please let me know by February 20 if you have any food [3] -------. Employees who cannot attend on that date must arrange to join the [4] ------- session in March.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "The database has been in use at our company for over ten years.",
+   "He will explain each feature step by step and answer questions throughout the day.",
+   "Mr. Mehta will be unable to attend because of a scheduling conflict.",
+   "Unfortunately, the workshop has been canceled."
+  ],
+  "answer": "He will explain each feature step by step and answer questions throughout the day.",
+  "explanation": "講師の紹介に続き、講師が何をするかの説明が自然。後半の「到達目標」にもつながる。新システムなので10年使っているは矛盾。",
+  "tags": "Part6 社内メモ 研修 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-018-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: Sales Team\nFrom: Harriet Nakamura, Training Coordinator\nDate: February 10\n\nAll members of the sales team are required to attend a one-day workshop on our new customer database. The workshop will be held on Thursday, February 27, in Conference Room B and will run [1] ------- 9:00 A.M. to 4:00 P.M.\n\nThe session will be led by Arjun Mehta, who helped design the system. [2] -------. By the end of the day, participants should be able to search records, update client information, and create sales reports on their own.\n\nLunch will be provided. Please let me know by February 20 if you have any food [3] -------. Employees who cannot attend on that date must arrange to join the [4] ------- session in March.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "restricted",
+   "restrict",
+   "restrictive",
+   "restrictions"
+  ],
+  "answer": "restrictions",
+  "explanation": "food restrictions で「食事制限」。any の後に名詞が必要。",
+  "tags": "Part6 社内メモ 研修 品詞"
+ },
+ {
+  "id": "TOEIC-R6-018-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: Sales Team\nFrom: Harriet Nakamura, Training Coordinator\nDate: February 10\n\nAll members of the sales team are required to attend a one-day workshop on our new customer database. The workshop will be held on Thursday, February 27, in Conference Room B and will run [1] ------- 9:00 A.M. to 4:00 P.M.\n\nThe session will be led by Arjun Mehta, who helped design the system. [2] -------. By the end of the day, participants should be able to search records, update client information, and create sales reports on their own.\n\nLunch will be provided. Please let me know by February 20 if you have any food [3] -------. Employees who cannot attend on that date must arrange to join the [4] ------- session in March.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "previous",
+   "former",
+   "following",
+   "preceding"
+  ],
+  "answer": "following",
+  "explanation": "2月27日に出られない人は3月の「次の」回に出る。previous / preceding は過去になり不自然。",
+  "tags": "Part6 社内メモ 研修 語彙"
+ },
+ {
+  "id": "TOEIC-R6-019-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Hollis Furniture Spring Sale!\n\nThis weekend only, enjoy savings of up to 40 percent on sofas, tables, and beds at all three Hollis Furniture stores. [1] -------. Whether you are furnishing a new apartment or updating your office, we have something for you.\n\nShoppers who spend more than $500 will receive free delivery anywhere in the county. [2] -------, all purchases come with a one-year guarantee.\n\nThe sale begins Saturday at 9:00 A.M. Because popular items sell out [3] -------, we recommend arriving early. Can't make it to the store? Many of the sale items can also be [4] ------- on our Web site.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "Our stores will be closed this weekend.",
+   "Hundreds of items are included in this special event.",
+   "Prices will return to normal on Saturday morning.",
+   "We do not sell any furniture for offices."
+  ],
+  "answer": "Hundreds of items are included in this special event.",
+  "explanation": "セールの規模を伝え、次の「新居でもオフィスでも何かある」につながる。オフィス家具がないという文は直後と矛盾。",
+  "tags": "Part6 広告 家具店セール 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-019-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Hollis Furniture Spring Sale!\n\nThis weekend only, enjoy savings of up to 40 percent on sofas, tables, and beds at all three Hollis Furniture stores. [1] -------. Whether you are furnishing a new apartment or updating your office, we have something for you.\n\nShoppers who spend more than $500 will receive free delivery anywhere in the county. [2] -------, all purchases come with a one-year guarantee.\n\nThe sale begins Saturday at 9:00 A.M. Because popular items sell out [3] -------, we recommend arriving early. Can't make it to the store? Many of the sale items can also be [4] ------- on our Web site.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "In addition",
+   "Instead",
+   "Otherwise",
+   "Even so"
+  ],
+  "answer": "In addition",
+  "explanation": "無料配送に加えて1年保証もつくという追加情報なので In addition。",
+  "tags": "Part6 広告 家具店セール つなぎ語"
+ },
+ {
+  "id": "TOEIC-R6-019-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Hollis Furniture Spring Sale!\n\nThis weekend only, enjoy savings of up to 40 percent on sofas, tables, and beds at all three Hollis Furniture stores. [1] -------. Whether you are furnishing a new apartment or updating your office, we have something for you.\n\nShoppers who spend more than $500 will receive free delivery anywhere in the county. [2] -------, all purchases come with a one-year guarantee.\n\nThe sale begins Saturday at 9:00 A.M. Because popular items sell out [3] -------, we recommend arriving early. Can't make it to the store? Many of the sale items can also be [4] ------- on our Web site.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "quick",
+   "quicker",
+   "quickness",
+   "quickly"
+  ],
+  "answer": "quickly",
+  "explanation": "動詞 sell out を修飾する副詞 quickly。",
+  "tags": "Part6 広告 家具店セール 品詞"
+ },
+ {
+  "id": "TOEIC-R6-019-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Hollis Furniture Spring Sale!\n\nThis weekend only, enjoy savings of up to 40 percent on sofas, tables, and beds at all three Hollis Furniture stores. [1] -------. Whether you are furnishing a new apartment or updating your office, we have something for you.\n\nShoppers who spend more than $500 will receive free delivery anywhere in the county. [2] -------, all purchases come with a one-year guarantee.\n\nThe sale begins Saturday at 9:00 A.M. Because popular items sell out [3] -------, we recommend arriving early. Can't make it to the store? Many of the sale items can also be [4] ------- on our Web site.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "ordering",
+   "order",
+   "ordered",
+   "orders"
+  ],
+  "answer": "ordered",
+  "explanation": "can also be の後で受け身「注文されうる」となる過去分詞 ordered。",
+  "tags": "Part6 広告 家具店セール 態"
+ },
+ {
+  "id": "TOEIC-R6-020-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Ms. Pellegrini,\n\nI am writing about invoice #20-8813, which we received from your company on March 3. After reviewing it, I noticed that we were charged for 60 boxes of printer paper, [1] ------- our purchase order was for only 40 boxes.\n\nOur warehouse records confirm that 40 boxes were delivered on February 26. [2] -------. I have attached copies of the purchase order and the delivery receipt for your [3] -------.\n\nCould you please send us a corrected invoice? Once we receive it, we will process the payment promptly. We have always been pleased with your service, and I am sure this was simply an [4] ------- error.\n\nKind regards,\nBernard Osei\nPurchasing Department, Fenwick Engineering",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "because",
+   "so that",
+   "whereas",
+   "unless"
+  ],
+  "answer": "whereas",
+  "explanation": "「60箱請求されたが、注文は40箱だった」という対比なので whereas。",
+  "tags": "Part6 Eメール 請求書の不一致 接続詞"
+ },
+ {
+  "id": "TOEIC-R6-020-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Ms. Pellegrini,\n\nI am writing about invoice #20-8813, which we received from your company on March 3. After reviewing it, I noticed that we were charged for 60 boxes of printer paper, [1] ------- our purchase order was for only 40 boxes.\n\nOur warehouse records confirm that 40 boxes were delivered on February 26. [2] -------. I have attached copies of the purchase order and the delivery receipt for your [3] -------.\n\nCould you please send us a corrected invoice? Once we receive it, we will process the payment promptly. We have always been pleased with your service, and I am sure this was simply an [4] ------- error.\n\nKind regards,\nBernard Osei\nPurchasing Department, Fenwick Engineering",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "We would like to order an additional 20 boxes next month.",
+   "The paper was of excellent quality, as usual.",
+   "Our warehouse will be closed for inventory next week.",
+   "Therefore, it appears that the invoice contains a mistake."
+  ],
+  "answer": "Therefore, it appears that the invoice contains a mistake.",
+  "explanation": "40箱しか届いていない事実から「請求書に誤りがあるようだ」と結論づけ、証拠書類の添付へつながる。",
+  "tags": "Part6 Eメール 請求書の不一致 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-020-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Ms. Pellegrini,\n\nI am writing about invoice #20-8813, which we received from your company on March 3. After reviewing it, I noticed that we were charged for 60 boxes of printer paper, [1] ------- our purchase order was for only 40 boxes.\n\nOur warehouse records confirm that 40 boxes were delivered on February 26. [2] -------. I have attached copies of the purchase order and the delivery receipt for your [3] -------.\n\nCould you please send us a corrected invoice? Once we receive it, we will process the payment promptly. We have always been pleased with your service, and I am sure this was simply an [4] ------- error.\n\nKind regards,\nBernard Osei\nPurchasing Department, Fenwick Engineering",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "refer",
+   "reference",
+   "referred",
+   "referral"
+  ],
+  "answer": "reference",
+  "explanation": "for your reference で「ご参考までに」。所有格の後なので名詞。",
+  "tags": "Part6 Eメール 請求書の不一致 語彙"
+ },
+ {
+  "id": "TOEIC-R6-020-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Ms. Pellegrini,\n\nI am writing about invoice #20-8813, which we received from your company on March 3. After reviewing it, I noticed that we were charged for 60 boxes of printer paper, [1] ------- our purchase order was for only 40 boxes.\n\nOur warehouse records confirm that 40 boxes were delivered on February 26. [2] -------. I have attached copies of the purchase order and the delivery receipt for your [3] -------.\n\nCould you please send us a corrected invoice? Once we receive it, we will process the payment promptly. We have always been pleased with your service, and I am sure this was simply an [4] ------- error.\n\nKind regards,\nBernard Osei\nPurchasing Department, Fenwick Engineering",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "honest",
+   "honestly",
+   "honesty",
+   "honor"
+  ],
+  "answer": "honest",
+  "explanation": "冠詞 an と名詞 error の間には形容詞 honest。an honest error で「うっかりミス」。",
+  "tags": "Part6 Eメール 請求書の不一致 品詞"
+ }
+]

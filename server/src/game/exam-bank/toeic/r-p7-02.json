@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEIC-R7-015-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Lakeview Conference Center — Event Feedback Form\n\nEvent: Regional Retail Managers' Forum\nDate: September 18\nName (optional): Sung-min Park\nCompany: Hartwell Outfitters\n\nPlease rate the following (1 = poor, 5 = excellent):\nRegistration process: 5\nMeeting rooms: 4\nFood and beverages: 2\nAudio-visual equipment: 4\nOverall experience: 4\n\nComments:\nThe sessions were well organized, and the staff at the registration desk were extremely helpful. The keynote speaker was the highlight of the day. My only real disappointment was lunch. The line was very long, and by the time I reached the front, most of the hot dishes were gone. Perhaps lunch could be served in two shifts next time.\n\nWould you attend this event again?  [X] Yes  [ ] No",
+  "question": "What did Mr. Park rate the lowest?",
+  "choices": [
+   "Meeting rooms",
+   "Registration process",
+   "Audio-visual equipment",
+   "Food and beverages"
+  ],
+  "answer": "Food and beverages",
+  "explanation": "飲食の評価が2で最も低い。",
+  "tags": "Part7 フォーム アンケート"
+ },
+ {
+  "id": "TOEIC-R7-015-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Lakeview Conference Center — Event Feedback Form\n\nEvent: Regional Retail Managers' Forum\nDate: September 18\nName (optional): Sung-min Park\nCompany: Hartwell Outfitters\n\nPlease rate the following (1 = poor, 5 = excellent):\nRegistration process: 5\nMeeting rooms: 4\nFood and beverages: 2\nAudio-visual equipment: 4\nOverall experience: 4\n\nComments:\nThe sessions were well organized, and the staff at the registration desk were extremely helpful. The keynote speaker was the highlight of the day. My only real disappointment was lunch. The line was very long, and by the time I reached the front, most of the hot dishes were gone. Perhaps lunch could be served in two shifts next time.\n\nWould you attend this event again?  [X] Yes  [ ] No",
+  "question": "What does Mr. Park suggest?",
+  "choices": [
+   "Hiring a different keynote speaker",
+   "Dividing the lunch period into two groups",
+   "Using larger meeting rooms",
+   "Opening the registration desk earlier"
+  ],
+  "answer": "Dividing the lunch period into two groups",
+  "explanation": "次回は昼食を2交代制で出してはどうかと提案している。",
+  "tags": "Part7 フォーム アンケート"
+ },
+ {
+  "id": "TOEIC-R7-015-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Lakeview Conference Center — Event Feedback Form\n\nEvent: Regional Retail Managers' Forum\nDate: September 18\nName (optional): Sung-min Park\nCompany: Hartwell Outfitters\n\nPlease rate the following (1 = poor, 5 = excellent):\nRegistration process: 5\nMeeting rooms: 4\nFood and beverages: 2\nAudio-visual equipment: 4\nOverall experience: 4\n\nComments:\nThe sessions were well organized, and the staff at the registration desk were extremely helpful. The keynote speaker was the highlight of the day. My only real disappointment was lunch. The line was very long, and by the time I reached the front, most of the hot dishes were gone. Perhaps lunch could be served in two shifts next time.\n\nWould you attend this event again?  [X] Yes  [ ] No",
+  "question": "What is indicated about Mr. Park?",
+  "choices": [
+   "He would participate in the event in the future.",
+   "He was the event's keynote speaker.",
+   "He works for Lakeview Conference Center.",
+   "He left the event before lunch."
+  ],
+  "answer": "He would participate in the event in the future.",
+  "explanation": "「またこのイベントに参加するか」に Yes と答えている。",
+  "tags": "Part7 フォーム アンケート"
+ },
+ {
+  "id": "TOEIC-R7-016-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Rosa Delgado [11:02 A.M.]\nTeam, quick update on the Ferris Hall product launch. The venue just told me our reserved room will only hold 80 people, not 120 as we thought.\n\nKwame Asante [11:04 A.M.]\nThat's a problem. We've already had 96 people confirm.\n\nIngrid Halvorsen [11:05 A.M.]\nCould we use two rooms and stream the presentation into the second one?\n\nRosa Delgado [11:07 A.M.]\nI asked. The room next door is free, and they can set up a screen there for an extra $150.\n\nKwame Asante [11:08 A.M.]\nThat's well within our budget. I'd say go for it.\n\nIngrid Halvorsen [11:09 A.M.]\nAgreed. I'll update the event page so guests know there may be two viewing areas.\n\nRosa Delgado [11:10 A.M.]\nThanks. I'll confirm with the venue this afternoon and ask them to send a revised contract.",
+  "question": "What problem does Ms. Delgado report?",
+  "choices": [
+   "A speaker has canceled a presentation.",
+   "The venue has raised its rental fee.",
+   "A room is too small for the expected audience.",
+   "Fewer guests have registered than expected."
+  ],
+  "answer": "A room is too small for the expected audience.",
+  "explanation": "予約した部屋の定員が120人ではなく80人で、96人が参加予定なので足りない。",
+  "tags": "Part7 オンラインチャット 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-016-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Rosa Delgado [11:02 A.M.]\nTeam, quick update on the Ferris Hall product launch. The venue just told me our reserved room will only hold 80 people, not 120 as we thought.\n\nKwame Asante [11:04 A.M.]\nThat's a problem. We've already had 96 people confirm.\n\nIngrid Halvorsen [11:05 A.M.]\nCould we use two rooms and stream the presentation into the second one?\n\nRosa Delgado [11:07 A.M.]\nI asked. The room next door is free, and they can set up a screen there for an extra $150.\n\nKwame Asante [11:08 A.M.]\nThat's well within our budget. I'd say go for it.\n\nIngrid Halvorsen [11:09 A.M.]\nAgreed. I'll update the event page so guests know there may be two viewing areas.\n\nRosa Delgado [11:10 A.M.]\nThanks. I'll confirm with the venue this afternoon and ask them to send a revised contract.",
+  "question": "What does Ms. Halvorsen suggest?",
+  "choices": [
+   "Showing the presentation in an additional room",
+   "Moving the event to a different date",
+   "Limiting the number of guests to 80",
+   "Recording the presentation for later viewing"
+  ],
+  "answer": "Showing the presentation in an additional room",
+  "explanation": "2部屋を使い、2つ目の部屋に発表を中継することを提案している。",
+  "tags": "Part7 オンラインチャット 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-016-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Rosa Delgado [11:02 A.M.]\nTeam, quick update on the Ferris Hall product launch. The venue just told me our reserved room will only hold 80 people, not 120 as we thought.\n\nKwame Asante [11:04 A.M.]\nThat's a problem. We've already had 96 people confirm.\n\nIngrid Halvorsen [11:05 A.M.]\nCould we use two rooms and stream the presentation into the second one?\n\nRosa Delgado [11:07 A.M.]\nI asked. The room next door is free, and they can set up a screen there for an extra $150.\n\nKwame Asante [11:08 A.M.]\nThat's well within our budget. I'd say go for it.\n\nIngrid Halvorsen [11:09 A.M.]\nAgreed. I'll update the event page so guests know there may be two viewing areas.\n\nRosa Delgado [11:10 A.M.]\nThanks. I'll confirm with the venue this afternoon and ask them to send a revised contract.",
+  "question": "At 11:08 A.M., what does Mr. Asante most likely mean when he writes, \"I'd say go for it\"?",
+  "choices": [
+   "He wants to cancel the reservation.",
+   "He plans to attend the event in person.",
+   "He supports paying for the extra room.",
+   "He thinks the budget should be increased."
+  ],
+  "answer": "He supports paying for the extra room.",
+  "explanation": "追加の$150は予算内だとしたうえで、その案を進めるべきだと賛成している。",
+  "tags": "Part7 オンラインチャット 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-016-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Rosa Delgado [11:02 A.M.]\nTeam, quick update on the Ferris Hall product launch. The venue just told me our reserved room will only hold 80 people, not 120 as we thought.\n\nKwame Asante [11:04 A.M.]\nThat's a problem. We've already had 96 people confirm.\n\nIngrid Halvorsen [11:05 A.M.]\nCould we use two rooms and stream the presentation into the second one?\n\nRosa Delgado [11:07 A.M.]\nI asked. The room next door is free, and they can set up a screen there for an extra $150.\n\nKwame Asante [11:08 A.M.]\nThat's well within our budget. I'd say go for it.\n\nIngrid Halvorsen [11:09 A.M.]\nAgreed. I'll update the event page so guests know there may be two viewing areas.\n\nRosa Delgado [11:10 A.M.]\nThanks. I'll confirm with the venue this afternoon and ask them to send a revised contract.",
+  "question": "What will Ms. Delgado do later today?",
+  "choices": [
+   "Update the event's Web page",
+   "Finalize arrangements with the venue",
+   "Send invitations to more guests",
+   "Set up a screen in the next room"
+  ],
+  "answer": "Finalize arrangements with the venue",
+  "explanation": "午後に会場に確定の連絡をして修正契約書を送ってもらうと書いている。ウェブページの更新は Halvorsen さん。",
+  "tags": "Part7 オンラインチャット 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-017-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Warehouse Team Leader — Norbury Distribution Center\n\nOstrander Freight is seeking an experienced team leader for the evening shift (3:00 P.M. – 11:30 P.M.) at our Norbury Distribution Center.\n\nResponsibilities:\n• Supervise a team of 12 to 15 warehouse associates\n• Make sure that orders are packed accurately and shipped on schedule\n• Train new team members on safety procedures\n• Prepare daily reports on productivity\n\nRequirements:\n• At least two years of warehouse experience, including one year in a supervisory role\n• Ability to operate a forklift (certification can be obtained after hiring)\n• Strong communication skills\n\nWe offer an hourly wage of $24, a night-shift bonus, health insurance, and a retirement savings plan.\n\nInterested candidates should apply online at www.ostranderfreight.example/careers by July 15. Interviews will take place the following week.",
+  "question": "What is NOT listed as a responsibility of the position?",
+  "choices": [
+   "Writing reports on productivity",
+   "Training new workers",
+   "Overseeing a team",
+   "Ordering warehouse equipment"
+  ],
+  "answer": "Ordering warehouse equipment",
+  "explanation": "生産性の報告・新人研修・チームの監督は書かれているが、設備の発注は書かれていない。",
+  "tags": "Part7 求人広告 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-017-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Warehouse Team Leader — Norbury Distribution Center\n\nOstrander Freight is seeking an experienced team leader for the evening shift (3:00 P.M. – 11:30 P.M.) at our Norbury Distribution Center.\n\nResponsibilities:\n• Supervise a team of 12 to 15 warehouse associates\n• Make sure that orders are packed accurately and shipped on schedule\n• Train new team members on safety procedures\n• Prepare daily reports on productivity\n\nRequirements:\n• At least two years of warehouse experience, including one year in a supervisory role\n• Ability to operate a forklift (certification can be obtained after hiring)\n• Strong communication skills\n\nWe offer an hourly wage of $24, a night-shift bonus, health insurance, and a retirement savings plan.\n\nInterested candidates should apply online at www.ostranderfreight.example/careers by July 15. Interviews will take place the following week.",
+  "question": "What is indicated about forklift certification?",
+  "choices": [
+   "It is provided only to day-shift workers.",
+   "It must be renewed every year.",
+   "Applicants do not need to have it already.",
+   "It is required to submit an application."
+  ],
+  "answer": "Applicants do not need to have it already.",
+  "explanation": "資格は採用後に取得できると書かれているので、応募時点では不要。",
+  "tags": "Part7 求人広告 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-017-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Warehouse Team Leader — Norbury Distribution Center\n\nOstrander Freight is seeking an experienced team leader for the evening shift (3:00 P.M. – 11:30 P.M.) at our Norbury Distribution Center.\n\nResponsibilities:\n• Supervise a team of 12 to 15 warehouse associates\n• Make sure that orders are packed accurately and shipped on schedule\n• Train new team members on safety procedures\n• Prepare daily reports on productivity\n\nRequirements:\n• At least two years of warehouse experience, including one year in a supervisory role\n• Ability to operate a forklift (certification can be obtained after hiring)\n• Strong communication skills\n\nWe offer an hourly wage of $24, a night-shift bonus, health insurance, and a retirement savings plan.\n\nInterested candidates should apply online at www.ostranderfreight.example/careers by July 15. Interviews will take place the following week.",
+  "question": "When will interviews most likely be held?",
+  "choices": [
+   "Before July 15",
+   "In the third week of July",
+   "In early June",
+   "At the end of August"
+  ],
+  "answer": "In the third week of July",
+  "explanation": "応募締切が7月15日で、面接はその翌週とあるので7月の第3週ごろ。",
+  "tags": "Part7 求人広告 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-018-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "From Farm Stand to Supermarket Shelf\n\nWhen Marguerite Olawale began selling homemade fruit preserves at a weekend farmers' market eight years ago, she had no plans to start a company. — [1] — Today, her brand, Orchard Lane, is stocked in more than 300 grocery stores across four states.\n\nThe turning point came in 2021, when a buyer for a regional supermarket chain tasted her apricot jam at the market and asked whether she could supply 50 stores. — [2] — \"I said yes before I had any idea how I would do it,\" Ms. Olawale recalled with a laugh.\n\nMeeting that first order meant moving production from her home kitchen to a rented commercial kitchen and hiring her first three employees. It also meant learning about food safety certification, labeling regulations, and shipping logistics—subjects she admits she knew almost nothing about. — [3] —\n\nDespite its rapid growth, Orchard Lane still buys most of its fruit from family farms within 100 miles of its facility. Ms. Olawale says this is not only a matter of principle but also a practical choice. — [4] — \"Fruit that hasn't traveled far simply tastes better, and our customers notice the difference.\"",
+  "question": "What is the article mainly about?",
+  "choices": [
+   "The opening of a new farmers' market",
+   "Changes to food safety regulations",
+   "A supermarket chain's new store design",
+   "The growth of a small food business"
+  ],
+  "answer": "The growth of a small food business",
+  "explanation": "週末の市場から始まり300店舗で扱われるようになったジャムの会社の成長を描いている。",
+  "tags": "Part7 記事 文挿入 語彙"
+ },
+ {
+  "id": "TOEIC-R7-018-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "From Farm Stand to Supermarket Shelf\n\nWhen Marguerite Olawale began selling homemade fruit preserves at a weekend farmers' market eight years ago, she had no plans to start a company. — [1] — Today, her brand, Orchard Lane, is stocked in more than 300 grocery stores across four states.\n\nThe turning point came in 2021, when a buyer for a regional supermarket chain tasted her apricot jam at the market and asked whether she could supply 50 stores. — [2] — \"I said yes before I had any idea how I would do it,\" Ms. Olawale recalled with a laugh.\n\nMeeting that first order meant moving production from her home kitchen to a rented commercial kitchen and hiring her first three employees. It also meant learning about food safety certification, labeling regulations, and shipping logistics—subjects she admits she knew almost nothing about. — [3] —\n\nDespite its rapid growth, Orchard Lane still buys most of its fruit from family farms within 100 miles of its facility. Ms. Olawale says this is not only a matter of principle but also a practical choice. — [4] — \"Fruit that hasn't traveled far simply tastes better, and our customers notice the difference.\"",
+  "question": "What happened in 2021?",
+  "choices": [
+   "Ms. Olawale received a large order.",
+   "Ms. Olawale opened her first store.",
+   "Orchard Lane moved to another state.",
+   "A supermarket chain bought Orchard Lane."
+  ],
+  "answer": "Ms. Olawale received a large order.",
+  "explanation": "地域スーパーのバイヤーから50店舗分の供給を頼まれた。",
+  "tags": "Part7 記事 文挿入 語彙"
+ },
+ {
+  "id": "TOEIC-R7-018-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "From Farm Stand to Supermarket Shelf\n\nWhen Marguerite Olawale began selling homemade fruit preserves at a weekend farmers' market eight years ago, she had no plans to start a company. — [1] — Today, her brand, Orchard Lane, is stocked in more than 300 grocery stores across four states.\n\nThe turning point came in 2021, when a buyer for a regional supermarket chain tasted her apricot jam at the market and asked whether she could supply 50 stores. — [2] — \"I said yes before I had any idea how I would do it,\" Ms. Olawale recalled with a laugh.\n\nMeeting that first order meant moving production from her home kitchen to a rented commercial kitchen and hiring her first three employees. It also meant learning about food safety certification, labeling regulations, and shipping logistics—subjects she admits she knew almost nothing about. — [3] —\n\nDespite its rapid growth, Orchard Lane still buys most of its fruit from family farms within 100 miles of its facility. Ms. Olawale says this is not only a matter of principle but also a practical choice. — [4] — \"Fruit that hasn't traveled far simply tastes better, and our customers notice the difference.\"",
+  "question": "The word \"meeting\" in paragraph 3, line 1, is closest in meaning to",
+  "choices": [
+   "gathering",
+   "greeting",
+   "fulfilling",
+   "discussing"
+  ],
+  "answer": "fulfilling",
+  "explanation": "Meeting that first order は「最初の注文に応える（を満たす）」こと。fulfilling が最も近い。",
+  "tags": "Part7 記事 文挿入 語彙"
+ },
+ {
+  "id": "TOEIC-R7-018-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "From Farm Stand to Supermarket Shelf\n\nWhen Marguerite Olawale began selling homemade fruit preserves at a weekend farmers' market eight years ago, she had no plans to start a company. — [1] — Today, her brand, Orchard Lane, is stocked in more than 300 grocery stores across four states.\n\nThe turning point came in 2021, when a buyer for a regional supermarket chain tasted her apricot jam at the market and asked whether she could supply 50 stores. — [2] — \"I said yes before I had any idea how I would do it,\" Ms. Olawale recalled with a laugh.\n\nMeeting that first order meant moving production from her home kitchen to a rented commercial kitchen and hiring her first three employees. It also meant learning about food safety certification, labeling regulations, and shipping logistics—subjects she admits she knew almost nothing about. — [3] —\n\nDespite its rapid growth, Orchard Lane still buys most of its fruit from family farms within 100 miles of its facility. Ms. Olawale says this is not only a matter of principle but also a practical choice. — [4] — \"Fruit that hasn't traveled far simply tastes better, and our customers notice the difference.\"",
+  "question": "In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n\"A small-business advisory center in her city helped her through the process.\"",
+  "choices": [
+   "[1]",
+   "[3]",
+   "[2]",
+   "[4]"
+  ],
+  "answer": "[3]",
+  "explanation": "the process は直前の認証・表示規制・物流など、ほとんど知らなかった分野を学ぶ過程を指すので [3] が適切。",
+  "tags": "Part7 記事 文挿入 語彙"
+ },
+ {
+  "id": "TOEIC-R7-019-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "NOTICE: ELEVATOR MAINTENANCE\n\nBuilding: Carrington Tower, 210 Ellis Avenue\n\nThe passenger elevators on the east side of the building will be out of service for scheduled maintenance from Monday, February 10, through Wednesday, February 12. The west elevators and the freight elevator will continue to operate normally.\n\nDuring this period, please expect longer waiting times, especially between 8:30 and 9:30 A.M. Tenants are encouraged to use the stairs when traveling only one or two floors.\n\nDeliveries scheduled for these dates should use the freight elevator, which is located at the rear loading area. Delivery companies must check in with building security before unloading.\n\nVisitors who require assistance may ask the security desk in the main lobby to arrange for an escort.\n\nWe apologize for any inconvenience. For questions, contact the building office at extension 400.",
+  "question": "What is the purpose of the notice?",
+  "choices": [
+   "To inform tenants about temporary changes",
+   "To announce the opening of a new building",
+   "To ask tenants to report broken elevators",
+   "To introduce a new security company"
+  ],
+  "answer": "To inform tenants about temporary changes",
+  "explanation": "東側エレベーターの点検で一時的に使えなくなることを知らせている。",
+  "tags": "Part7 お知らせ"
+ },
+ {
+  "id": "TOEIC-R7-019-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "NOTICE: ELEVATOR MAINTENANCE\n\nBuilding: Carrington Tower, 210 Ellis Avenue\n\nThe passenger elevators on the east side of the building will be out of service for scheduled maintenance from Monday, February 10, through Wednesday, February 12. The west elevators and the freight elevator will continue to operate normally.\n\nDuring this period, please expect longer waiting times, especially between 8:30 and 9:30 A.M. Tenants are encouraged to use the stairs when traveling only one or two floors.\n\nDeliveries scheduled for these dates should use the freight elevator, which is located at the rear loading area. Delivery companies must check in with building security before unloading.\n\nVisitors who require assistance may ask the security desk in the main lobby to arrange for an escort.\n\nWe apologize for any inconvenience. For questions, contact the building office at extension 400.",
+  "question": "What are tenants encouraged to do?",
+  "choices": [
+   "Arrive at work after 9:30 A.M.",
+   "Use the freight elevator",
+   "Check in with security every morning",
+   "Take the stairs for short trips"
+  ],
+  "answer": "Take the stairs for short trips",
+  "explanation": "1〜2階分の移動なら階段を使うよう勧めている。貨物用エレベーターは配送用。",
+  "tags": "Part7 お知らせ"
+ },
+ {
+  "id": "TOEIC-R7-019-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "NOTICE: ELEVATOR MAINTENANCE\n\nBuilding: Carrington Tower, 210 Ellis Avenue\n\nThe passenger elevators on the east side of the building will be out of service for scheduled maintenance from Monday, February 10, through Wednesday, February 12. The west elevators and the freight elevator will continue to operate normally.\n\nDuring this period, please expect longer waiting times, especially between 8:30 and 9:30 A.M. Tenants are encouraged to use the stairs when traveling only one or two floors.\n\nDeliveries scheduled for these dates should use the freight elevator, which is located at the rear loading area. Delivery companies must check in with building security before unloading.\n\nVisitors who require assistance may ask the security desk in the main lobby to arrange for an escort.\n\nWe apologize for any inconvenience. For questions, contact the building office at extension 400.",
+  "question": "What is indicated about delivery companies?",
+  "choices": [
+   "They cannot make deliveries during the maintenance.",
+   "They should use the front entrance.",
+   "They must call extension 400 in advance.",
+   "They must report to security before unloading."
+  ],
+  "answer": "They must report to security before unloading.",
+  "explanation": "荷下ろしの前に警備員に届け出なければならないと書かれている。",
+  "tags": "Part7 お知らせ"
+ },
+ {
+  "id": "TOEIC-R7-020-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Clinic Staff\nFrom: Dr. Simone Achterberg\nDate: January 6\nSubject: Patient reminder system\n\nDear team,\n\nAs many of you know, missed appointments have become a growing problem for our clinic. Last quarter, about one in eight patients did not show up for a scheduled visit, which led to long waiting lists and wasted staff time.\n\nTo address this, we will begin using an automated reminder service on February 1. Patients will receive a text message three days before their appointment and again on the morning of the visit. They will be able to confirm or cancel by replying to the message, and any canceled slots will automatically be offered to patients on the waiting list.\n\nPatients who prefer not to receive text messages may choose to receive an automated phone call instead. Reception staff should ask patients about their preference when they check in during January.\n\nA representative from the service provider will give a short demonstration at our staff meeting next Wednesday. I hope you will all be able to attend.\n\nSimone",
+  "question": "What problem does Dr. Achterberg mention?",
+  "choices": [
+   "The clinic has too few receptionists.",
+   "Text messages have been sent to the wrong patients.",
+   "Patients have been missing appointments.",
+   "The waiting room is too crowded."
+  ],
+  "answer": "Patients have been missing appointments.",
+  "explanation": "前四半期は患者の約8人に1人が予約に来なかったと述べている。",
+  "tags": "Part7 Eメール 推測問題"
+ },
+ {
+  "id": "TOEIC-R7-020-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Clinic Staff\nFrom: Dr. Simone Achterberg\nDate: January 6\nSubject: Patient reminder system\n\nDear team,\n\nAs many of you know, missed appointments have become a growing problem for our clinic. Last quarter, about one in eight patients did not show up for a scheduled visit, which led to long waiting lists and wasted staff time.\n\nTo address this, we will begin using an automated reminder service on February 1. Patients will receive a text message three days before their appointment and again on the morning of the visit. They will be able to confirm or cancel by replying to the message, and any canceled slots will automatically be offered to patients on the waiting list.\n\nPatients who prefer not to receive text messages may choose to receive an automated phone call instead. Reception staff should ask patients about their preference when they check in during January.\n\nA representative from the service provider will give a short demonstration at our staff meeting next Wednesday. I hope you will all be able to attend.\n\nSimone",
+  "question": "What will happen when a patient cancels by text message?",
+  "choices": [
+   "The time slot will be offered to someone else.",
+   "The patient will be charged a fee.",
+   "A receptionist will call the patient.",
+   "The patient will be removed from the clinic's records."
+  ],
+  "answer": "The time slot will be offered to someone else.",
+  "explanation": "キャンセルされた枠は自動的に順番待ちの患者に提供されると書かれている。",
+  "tags": "Part7 Eメール 推測問題"
+ },
+ {
+  "id": "TOEIC-R7-020-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Clinic Staff\nFrom: Dr. Simone Achterberg\nDate: January 6\nSubject: Patient reminder system\n\nDear team,\n\nAs many of you know, missed appointments have become a growing problem for our clinic. Last quarter, about one in eight patients did not show up for a scheduled visit, which led to long waiting lists and wasted staff time.\n\nTo address this, we will begin using an automated reminder service on February 1. Patients will receive a text message three days before their appointment and again on the morning of the visit. They will be able to confirm or cancel by replying to the message, and any canceled slots will automatically be offered to patients on the waiting list.\n\nPatients who prefer not to receive text messages may choose to receive an automated phone call instead. Reception staff should ask patients about their preference when they check in during January.\n\nA representative from the service provider will give a short demonstration at our staff meeting next Wednesday. I hope you will all be able to attend.\n\nSimone",
+  "question": "What are reception staff asked to do in January?",
+  "choices": [
+   "Attend a training course outside the clinic",
+   "Ask patients how they want to be reminded",
+   "Call every patient with an appointment",
+   "Shorten the waiting list"
+  ],
+  "answer": "Ask patients how they want to be reminded",
+  "explanation": "1月中、受付で患者に連絡方法の希望（テキストか電話か）を尋ねるよう依頼している。",
+  "tags": "Part7 Eメール 推測問題"
+ },
+ {
+  "id": "TOEIC-R7-021-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Liam Becker [7:41 A.M.]\nMorning, Sofia. My train is stopped outside Granger Station. There's a signal problem.\n\nSofia Reyes [7:43 A.M.]\nOh no. Do you know how long you'll be?\n\nLiam Becker [7:44 A.M.]\nNo idea. Could you start the 8:30 meeting with the design team without me?\n\nSofia Reyes [7:45 A.M.]\nSure thing. Is the agenda on the shared drive?\n\nLiam Becker [7:46 A.M.]\nYes, in the \"Spring Catalog\" folder. The cover designs are in there too. Could you ask the team to look at those first?\n\nSofia Reyes [7:47 A.M.]\nNo problem. I'll print a few copies so everyone can compare them.\n\nLiam Becker [7:48 A.M.]\nThanks. I'll join as soon as I get in.",
+  "question": "Why is Mr. Becker late?",
+  "choices": [
+   "He missed his bus.",
+   "He has a doctor's appointment.",
+   "He went to the wrong station.",
+   "His train has been delayed."
+  ],
+  "answer": "His train has been delayed.",
+  "explanation": "信号トラブルで電車が Granger 駅の手前で止まっている。",
+  "tags": "Part7 テキストメッセージ 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-021-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Liam Becker [7:41 A.M.]\nMorning, Sofia. My train is stopped outside Granger Station. There's a signal problem.\n\nSofia Reyes [7:43 A.M.]\nOh no. Do you know how long you'll be?\n\nLiam Becker [7:44 A.M.]\nNo idea. Could you start the 8:30 meeting with the design team without me?\n\nSofia Reyes [7:45 A.M.]\nSure thing. Is the agenda on the shared drive?\n\nLiam Becker [7:46 A.M.]\nYes, in the \"Spring Catalog\" folder. The cover designs are in there too. Could you ask the team to look at those first?\n\nSofia Reyes [7:47 A.M.]\nNo problem. I'll print a few copies so everyone can compare them.\n\nLiam Becker [7:48 A.M.]\nThanks. I'll join as soon as I get in.",
+  "question": "At 7:45 A.M., what does Ms. Reyes mean when she writes, \"Sure thing\"?",
+  "choices": [
+   "She knows when the train will arrive.",
+   "She has already read the agenda.",
+   "She agrees to lead the meeting.",
+   "She will meet Mr. Becker at the station."
+  ],
+  "answer": "She agrees to lead the meeting.",
+  "explanation": "「自分抜きで8:30の会議を始めてくれるか」という依頼に「もちろん」と承諾している。",
+  "tags": "Part7 テキストメッセージ 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-022-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: Customer Service Representatives\nFrom: Douglas Ferreira, Customer Service Manager\nDate: April 17\nRe: Holiday weekend coverage\n\nAs you know, our call center will remain open during the upcoming holiday weekend, May 24–26, although with reduced hours (9:00 A.M. to 5:00 P.M.). We expect call volume to be lower than usual, so we will need only six representatives per day.\n\nA sign-up sheet has been posted on the bulletin board outside my office. Please add your name to the days you are available by April 30. Representatives who work on any of the three days will receive double pay for those hours and an additional day off to be used before the end of June.\n\nIf not enough people volunteer, I will assign shifts based on last year's schedule, giving priority to those who did not work last year.\n\nPlease see me if you have any questions.",
+  "question": "What is the purpose of the memo?",
+  "choices": [
+   "To announce that the call center will close",
+   "To find staff to work on certain days",
+   "To explain a new telephone system",
+   "To introduce a new manager"
+  ],
+  "answer": "To find staff to work on certain days",
+  "explanation": "連休中の勤務者を募集し、申込表に記入するよう求めている。",
+  "tags": "Part7 社内メモ"
+ },
+ {
+  "id": "TOEIC-R7-022-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: Customer Service Representatives\nFrom: Douglas Ferreira, Customer Service Manager\nDate: April 17\nRe: Holiday weekend coverage\n\nAs you know, our call center will remain open during the upcoming holiday weekend, May 24–26, although with reduced hours (9:00 A.M. to 5:00 P.M.). We expect call volume to be lower than usual, so we will need only six representatives per day.\n\nA sign-up sheet has been posted on the bulletin board outside my office. Please add your name to the days you are available by April 30. Representatives who work on any of the three days will receive double pay for those hours and an additional day off to be used before the end of June.\n\nIf not enough people volunteer, I will assign shifts based on last year's schedule, giving priority to those who did not work last year.\n\nPlease see me if you have any questions.",
+  "question": "What is offered to employees who work during the holiday weekend?",
+  "choices": [
+   "Extra pay and time off",
+   "A gift certificate",
+   "A promotion",
+   "A free training course"
+  ],
+  "answer": "Extra pay and time off",
+  "explanation": "給与2倍と、6月末までに使える休日1日が与えられる。",
+  "tags": "Part7 社内メモ"
+ },
+ {
+  "id": "TOEIC-R7-022-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: Customer Service Representatives\nFrom: Douglas Ferreira, Customer Service Manager\nDate: April 17\nRe: Holiday weekend coverage\n\nAs you know, our call center will remain open during the upcoming holiday weekend, May 24–26, although with reduced hours (9:00 A.M. to 5:00 P.M.). We expect call volume to be lower than usual, so we will need only six representatives per day.\n\nA sign-up sheet has been posted on the bulletin board outside my office. Please add your name to the days you are available by April 30. Representatives who work on any of the three days will receive double pay for those hours and an additional day off to be used before the end of June.\n\nIf not enough people volunteer, I will assign shifts based on last year's schedule, giving priority to those who did not work last year.\n\nPlease see me if you have any questions.",
+  "question": "According to the memo, what might Mr. Ferreira do after April 30?",
+  "choices": [
+   "Assign shifts to employees",
+   "Extend the call center's hours",
+   "Post a new bulletin board",
+   "Cancel the reduced schedule"
+  ],
+  "answer": "Assign shifts to employees",
+  "explanation": "希望者が足りなければ昨年のスケジュールを基にシフトを割り当てると書かれている。",
+  "tags": "Part7 社内メモ"
+ },
+ {
+  "id": "TOEIC-R7-023-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Kestrel Print & Design\nProfessional printing for businesses of every size\n\nBusiness cards — from $35 per 500\nBrochures (full color, folded) — from $0.60 each\nPosters and banners — from $18 each\nCustom notepads — from $4.50 each\n\nNeed it fast? Our Express Service guarantees that orders placed before noon will be ready by 5:00 P.M. the same day (an additional 25 percent charge applies). Express Service is not available for banners.\n\nFirst-time customers receive 10 percent off any order of $100 or more.\n\nVisit our shop at 77 Mercer Lane or order online at www.kestrelprint.example.\n\n--- Text 2 ---\n\nTo: orders@kestrelprint.example\nFrom: Yusuf Brennan <ybrennan@calloway-realty.example>\nDate: March 10\nSubject: Order inquiry\n\nHello,\n\nI am the office manager at Calloway Realty, and I am interested in placing my first order with your shop. We are opening a new branch next week and need 300 folded brochures and two large banners for the grand opening on March 15.\n\nI also need 500 business cards for our new branch manager, Ms. Juliet Navarro. Could you tell me whether these could all be ready by Thursday, March 13? I plan to submit the designs tomorrow morning.\n\nFinally, could you confirm whether the first-time customer discount would apply to this order?\n\nThank you,\nYusuf Brennan",
+  "question": "What is indicated about Kestrel Print & Design?",
+  "choices": [
+   "It is open only on weekdays.",
+   "It offers free delivery on large orders.",
+   "It has more than one shop.",
+   "It charges extra for faster service."
+  ],
+  "answer": "It charges extra for faster service.",
+  "explanation": "Express Service は25%の追加料金がかかると書かれている。",
+  "tags": "Part7 ダブル 広告＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-023-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Kestrel Print & Design\nProfessional printing for businesses of every size\n\nBusiness cards — from $35 per 500\nBrochures (full color, folded) — from $0.60 each\nPosters and banners — from $18 each\nCustom notepads — from $4.50 each\n\nNeed it fast? Our Express Service guarantees that orders placed before noon will be ready by 5:00 P.M. the same day (an additional 25 percent charge applies). Express Service is not available for banners.\n\nFirst-time customers receive 10 percent off any order of $100 or more.\n\nVisit our shop at 77 Mercer Lane or order online at www.kestrelprint.example.\n\n--- Text 2 ---\n\nTo: orders@kestrelprint.example\nFrom: Yusuf Brennan <ybrennan@calloway-realty.example>\nDate: March 10\nSubject: Order inquiry\n\nHello,\n\nI am the office manager at Calloway Realty, and I am interested in placing my first order with your shop. We are opening a new branch next week and need 300 folded brochures and two large banners for the grand opening on March 15.\n\nI also need 500 business cards for our new branch manager, Ms. Juliet Navarro. Could you tell me whether these could all be ready by Thursday, March 13? I plan to submit the designs tomorrow morning.\n\nFinally, could you confirm whether the first-time customer discount would apply to this order?\n\nThank you,\nYusuf Brennan",
+  "question": "Why is Mr. Brennan placing an order?",
+  "choices": [
+   "His company is changing its name.",
+   "He is planning a trade show.",
+   "His company is opening a new office.",
+   "He is starting his own business."
+  ],
+  "answer": "His company is opening a new office.",
+  "explanation": "新しい支店を来週開くためにパンフレットや横断幕が必要だと書いている。",
+  "tags": "Part7 ダブル 広告＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-023-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Kestrel Print & Design\nProfessional printing for businesses of every size\n\nBusiness cards — from $35 per 500\nBrochures (full color, folded) — from $0.60 each\nPosters and banners — from $18 each\nCustom notepads — from $4.50 each\n\nNeed it fast? Our Express Service guarantees that orders placed before noon will be ready by 5:00 P.M. the same day (an additional 25 percent charge applies). Express Service is not available for banners.\n\nFirst-time customers receive 10 percent off any order of $100 or more.\n\nVisit our shop at 77 Mercer Lane or order online at www.kestrelprint.example.\n\n--- Text 2 ---\n\nTo: orders@kestrelprint.example\nFrom: Yusuf Brennan <ybrennan@calloway-realty.example>\nDate: March 10\nSubject: Order inquiry\n\nHello,\n\nI am the office manager at Calloway Realty, and I am interested in placing my first order with your shop. We are opening a new branch next week and need 300 folded brochures and two large banners for the grand opening on March 15.\n\nI also need 500 business cards for our new branch manager, Ms. Juliet Navarro. Could you tell me whether these could all be ready by Thursday, March 13? I plan to submit the designs tomorrow morning.\n\nFinally, could you confirm whether the first-time customer discount would apply to this order?\n\nThank you,\nYusuf Brennan",
+  "question": "Who is Ms. Navarro?",
+  "choices": [
+   "An employee of Kestrel Print & Design",
+   "A manager at Calloway Realty",
+   "A graphic designer",
+   "A first-time customer"
+  ],
+  "answer": "A manager at Calloway Realty",
+  "explanation": "新支店の支店長で、名刺はその人のためのもの。",
+  "tags": "Part7 ダブル 広告＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-023-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Kestrel Print & Design\nProfessional printing for businesses of every size\n\nBusiness cards — from $35 per 500\nBrochures (full color, folded) — from $0.60 each\nPosters and banners — from $18 each\nCustom notepads — from $4.50 each\n\nNeed it fast? Our Express Service guarantees that orders placed before noon will be ready by 5:00 P.M. the same day (an additional 25 percent charge applies). Express Service is not available for banners.\n\nFirst-time customers receive 10 percent off any order of $100 or more.\n\nVisit our shop at 77 Mercer Lane or order online at www.kestrelprint.example.\n\n--- Text 2 ---\n\nTo: orders@kestrelprint.example\nFrom: Yusuf Brennan <ybrennan@calloway-realty.example>\nDate: March 10\nSubject: Order inquiry\n\nHello,\n\nI am the office manager at Calloway Realty, and I am interested in placing my first order with your shop. We are opening a new branch next week and need 300 folded brochures and two large banners for the grand opening on March 15.\n\nI also need 500 business cards for our new branch manager, Ms. Juliet Navarro. Could you tell me whether these could all be ready by Thursday, March 13? I plan to submit the designs tomorrow morning.\n\nFinally, could you confirm whether the first-time customer discount would apply to this order?\n\nThank you,\nYusuf Brennan",
+  "question": "Which item could NOT be ordered with Express Service?",
+  "choices": [
+   "Brochures",
+   "Banners",
+   "Business cards",
+   "Notepads"
+  ],
+  "answer": "Banners",
+  "explanation": "広告に「Express Service は横断幕には利用できない」とあり、Brennan さんは横断幕を2枚注文しようとしている。",
+  "tags": "Part7 ダブル 広告＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-023-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Kestrel Print & Design\nProfessional printing for businesses of every size\n\nBusiness cards — from $35 per 500\nBrochures (full color, folded) — from $0.60 each\nPosters and banners — from $18 each\nCustom notepads — from $4.50 each\n\nNeed it fast? Our Express Service guarantees that orders placed before noon will be ready by 5:00 P.M. the same day (an additional 25 percent charge applies). Express Service is not available for banners.\n\nFirst-time customers receive 10 percent off any order of $100 or more.\n\nVisit our shop at 77 Mercer Lane or order online at www.kestrelprint.example.\n\n--- Text 2 ---\n\nTo: orders@kestrelprint.example\nFrom: Yusuf Brennan <ybrennan@calloway-realty.example>\nDate: March 10\nSubject: Order inquiry\n\nHello,\n\nI am the office manager at Calloway Realty, and I am interested in placing my first order with your shop. We are opening a new branch next week and need 300 folded brochures and two large banners for the grand opening on March 15.\n\nI also need 500 business cards for our new branch manager, Ms. Juliet Navarro. Could you tell me whether these could all be ready by Thursday, March 13? I plan to submit the designs tomorrow morning.\n\nFinally, could you confirm whether the first-time customer discount would apply to this order?\n\nThank you,\nYusuf Brennan",
+  "question": "What is most likely true about Mr. Brennan's order?",
+  "choices": [
+   "It will be delivered on March 15.",
+   "It will be ready on March 10.",
+   "It will qualify for a discount.",
+   "It will include custom notepads."
+  ],
+  "answer": "It will qualify for a discount.",
+  "explanation": "初回で、パンフレット300部（$0.60×300＝$180）だけでも$100を超えるため、初回10%割引の対象になる。2つの文書の照合が必要。",
+  "tags": "Part7 ダブル 広告＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-024-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Wakefield City Library — Spring Workshop Series\n\nAll workshops are free, but space is limited. Register at the information desk or on our Web site.\n\nWriting a Winning Résumé\nTuesday, April 8, 6:00–7:30 P.M., Room 2\nInstructor: Paulina Grünewald, career counselor\n\nIntroduction to Spreadsheets\nSaturday, April 12, 10:00 A.M.–12:00 P.M., Computer Lab\nInstructor: Edwin Marsh, accountant\n(Participants must have a library card to use the lab computers.)\n\nStarting a Home-Based Business\nThursday, April 17, 6:30–8:00 P.M., Room 1\nInstructor: Ruth Adeyemi, small-business owner\n\nPublic Speaking Basics\nWednesday, April 23, 6:00–7:30 P.M., Room 2\nInstructor: Tomasz Wilk, communications trainer\n\n--- Text 2 ---\n\nTo: Grace Lindqvist <glindqvist@wakefieldlib.example>\nFrom: Ruth Adeyemi <ruth@adeyemi-crafts.example>\nDate: April 2\nSubject: My workshop\n\nDear Ms. Lindqvist,\n\nThank you again for inviting me to lead a workshop this spring. Unfortunately, I have just learned that I must attend a trade fair out of town during the week of April 14, and I will not return until April 19.\n\nI would still very much like to give the workshop. Would it be possible to move it to the following week? I am free on any evening except Wednesday. If a room is not available, I would also be happy to hold the session online.\n\nI apologize for the trouble, and I hope we can find a solution.\n\nBest regards,\nRuth Adeyemi",
+  "question": "What is indicated about the workshops?",
+  "choices": [
+   "There is no charge to attend them.",
+   "They are all held in the computer lab.",
+   "They are held only on weekends.",
+   "They are taught by library employees."
+  ],
+  "answer": "There is no charge to attend them.",
+  "explanation": "お知らせに「すべて無料」とある。講師は外部の専門家。",
+  "tags": "Part7 ダブル お知らせ＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-024-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Wakefield City Library — Spring Workshop Series\n\nAll workshops are free, but space is limited. Register at the information desk or on our Web site.\n\nWriting a Winning Résumé\nTuesday, April 8, 6:00–7:30 P.M., Room 2\nInstructor: Paulina Grünewald, career counselor\n\nIntroduction to Spreadsheets\nSaturday, April 12, 10:00 A.M.–12:00 P.M., Computer Lab\nInstructor: Edwin Marsh, accountant\n(Participants must have a library card to use the lab computers.)\n\nStarting a Home-Based Business\nThursday, April 17, 6:30–8:00 P.M., Room 1\nInstructor: Ruth Adeyemi, small-business owner\n\nPublic Speaking Basics\nWednesday, April 23, 6:00–7:30 P.M., Room 2\nInstructor: Tomasz Wilk, communications trainer\n\n--- Text 2 ---\n\nTo: Grace Lindqvist <glindqvist@wakefieldlib.example>\nFrom: Ruth Adeyemi <ruth@adeyemi-crafts.example>\nDate: April 2\nSubject: My workshop\n\nDear Ms. Lindqvist,\n\nThank you again for inviting me to lead a workshop this spring. Unfortunately, I have just learned that I must attend a trade fair out of town during the week of April 14, and I will not return until April 19.\n\nI would still very much like to give the workshop. Would it be possible to move it to the following week? I am free on any evening except Wednesday. If a room is not available, I would also be happy to hold the session online.\n\nI apologize for the trouble, and I hope we can find a solution.\n\nBest regards,\nRuth Adeyemi",
+  "question": "What is required for the spreadsheet workshop?",
+  "choices": [
+   "A personal laptop",
+   "An advance fee",
+   "Prior experience with spreadsheets",
+   "A library card"
+  ],
+  "answer": "A library card",
+  "explanation": "ラボのパソコンを使うには図書館カードが必要と書かれている。",
+  "tags": "Part7 ダブル お知らせ＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-024-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Wakefield City Library — Spring Workshop Series\n\nAll workshops are free, but space is limited. Register at the information desk or on our Web site.\n\nWriting a Winning Résumé\nTuesday, April 8, 6:00–7:30 P.M., Room 2\nInstructor: Paulina Grünewald, career counselor\n\nIntroduction to Spreadsheets\nSaturday, April 12, 10:00 A.M.–12:00 P.M., Computer Lab\nInstructor: Edwin Marsh, accountant\n(Participants must have a library card to use the lab computers.)\n\nStarting a Home-Based Business\nThursday, April 17, 6:30–8:00 P.M., Room 1\nInstructor: Ruth Adeyemi, small-business owner\n\nPublic Speaking Basics\nWednesday, April 23, 6:00–7:30 P.M., Room 2\nInstructor: Tomasz Wilk, communications trainer\n\n--- Text 2 ---\n\nTo: Grace Lindqvist <glindqvist@wakefieldlib.example>\nFrom: Ruth Adeyemi <ruth@adeyemi-crafts.example>\nDate: April 2\nSubject: My workshop\n\nDear Ms. Lindqvist,\n\nThank you again for inviting me to lead a workshop this spring. Unfortunately, I have just learned that I must attend a trade fair out of town during the week of April 14, and I will not return until April 19.\n\nI would still very much like to give the workshop. Would it be possible to move it to the following week? I am free on any evening except Wednesday. If a room is not available, I would also be happy to hold the session online.\n\nI apologize for the trouble, and I hope we can find a solution.\n\nBest regards,\nRuth Adeyemi",
+  "question": "Why did Ms. Adeyemi write the e-mail?",
+  "choices": [
+   "To register for a workshop",
+   "To request a larger room",
+   "To ask to change the date of her workshop",
+   "To recommend another instructor"
+  ],
+  "answer": "To ask to change the date of her workshop",
+  "explanation": "見本市のため予定の週に不在になるので、翌週への変更を依頼している。",
+  "tags": "Part7 ダブル お知らせ＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-024-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Wakefield City Library — Spring Workshop Series\n\nAll workshops are free, but space is limited. Register at the information desk or on our Web site.\n\nWriting a Winning Résumé\nTuesday, April 8, 6:00–7:30 P.M., Room 2\nInstructor: Paulina Grünewald, career counselor\n\nIntroduction to Spreadsheets\nSaturday, April 12, 10:00 A.M.–12:00 P.M., Computer Lab\nInstructor: Edwin Marsh, accountant\n(Participants must have a library card to use the lab computers.)\n\nStarting a Home-Based Business\nThursday, April 17, 6:30–8:00 P.M., Room 1\nInstructor: Ruth Adeyemi, small-business owner\n\nPublic Speaking Basics\nWednesday, April 23, 6:00–7:30 P.M., Room 2\nInstructor: Tomasz Wilk, communications trainer\n\n--- Text 2 ---\n\nTo: Grace Lindqvist <glindqvist@wakefieldlib.example>\nFrom: Ruth Adeyemi <ruth@adeyemi-crafts.example>\nDate: April 2\nSubject: My workshop\n\nDear Ms. Lindqvist,\n\nThank you again for inviting me to lead a workshop this spring. Unfortunately, I have just learned that I must attend a trade fair out of town during the week of April 14, and I will not return until April 19.\n\nI would still very much like to give the workshop. Would it be possible to move it to the following week? I am free on any evening except Wednesday. If a room is not available, I would also be happy to hold the session online.\n\nI apologize for the trouble, and I hope we can find a solution.\n\nBest regards,\nRuth Adeyemi",
+  "question": "Which workshop will most likely be rescheduled?",
+  "choices": [
+   "Starting a Home-Based Business",
+   "Writing a Winning Résumé",
+   "Introduction to Spreadsheets",
+   "Public Speaking Basics"
+  ],
+  "answer": "Starting a Home-Based Business",
+  "explanation": "Adeyemi さんが担当するのは4月17日の「在宅ビジネスの始め方」。2つの文書の照合が必要。",
+  "tags": "Part7 ダブル お知らせ＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-024-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Wakefield City Library — Spring Workshop Series\n\nAll workshops are free, but space is limited. Register at the information desk or on our Web site.\n\nWriting a Winning Résumé\nTuesday, April 8, 6:00–7:30 P.M., Room 2\nInstructor: Paulina Grünewald, career counselor\n\nIntroduction to Spreadsheets\nSaturday, April 12, 10:00 A.M.–12:00 P.M., Computer Lab\nInstructor: Edwin Marsh, accountant\n(Participants must have a library card to use the lab computers.)\n\nStarting a Home-Based Business\nThursday, April 17, 6:30–8:00 P.M., Room 1\nInstructor: Ruth Adeyemi, small-business owner\n\nPublic Speaking Basics\nWednesday, April 23, 6:00–7:30 P.M., Room 2\nInstructor: Tomasz Wilk, communications trainer\n\n--- Text 2 ---\n\nTo: Grace Lindqvist <glindqvist@wakefieldlib.example>\nFrom: Ruth Adeyemi <ruth@adeyemi-crafts.example>\nDate: April 2\nSubject: My workshop\n\nDear Ms. Lindqvist,\n\nThank you again for inviting me to lead a workshop this spring. Unfortunately, I have just learned that I must attend a trade fair out of town during the week of April 14, and I will not return until April 19.\n\nI would still very much like to give the workshop. Would it be possible to move it to the following week? I am free on any evening except Wednesday. If a room is not available, I would also be happy to hold the session online.\n\nI apologize for the trouble, and I hope we can find a solution.\n\nBest regards,\nRuth Adeyemi",
+  "question": "What is suggested about Ms. Adeyemi?",
+  "choices": [
+   "She has taught at the library many times in the past.",
+   "She is not available on the evening of April 23.",
+   "She prefers to give workshops online.",
+   "She works as a career counselor."
+  ],
+  "answer": "She is not available on the evening of April 23.",
+  "explanation": "水曜日以外なら空いていると書いており、4月23日は水曜日（Public Speaking の日）なので都合が悪い。",
+  "tags": "Part7 ダブル お知らせ＋Eメール 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-025-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "Altamira Suites — Meeting Packages\n\nOur meeting rooms are ideal for workshops, interviews, and small conferences. All packages include free Wi-Fi, a projector, and bottled water.\n\nBasic Package — $350 per day\nRoom for up to 15 people\n\nStandard Package — $600 per day\nRoom for up to 30 people, morning coffee break\n\nPremium Package — $950 per day\nRoom for up to 50 people, morning and afternoon coffee breaks, buffet lunch\n\nGuests staying at Altamira Suites receive 15 percent off any meeting package. Bookings must be made at least ten days in advance.\n\n--- Text 2 ---\n\nTo: events@altamirasuites.example\nFrom: Hyun-woo Kang <hkang@novaline-tech.example>\nDate: August 4\nSubject: Meeting room booking\n\nHello,\n\nI would like to book a meeting room for a training day on August 20. We expect 24 participants, and we would like a coffee break in the morning. We will arrange our own lunch at a nearby restaurant.\n\nThree of our trainers will be traveling from our head office and will stay at your hotel on the nights of August 19 and 20. Could you please reserve three single rooms for them as well?\n\nKind regards,\nHyun-woo Kang\nTraining Manager, Novaline Technologies\n\n--- Text 3 ---\n\nReview posted by H. Kang on August 23\n\nWe held a training day at Altamira Suites, and overall it went very well. The room was bright and comfortable, and the coffee break was generous. The staff were helpful, especially when our projector cable stopped working and a technician replaced it within minutes.\n\nMy only suggestion is to provide clearer signs. Several of our participants had trouble finding the meeting room, which is in a separate wing of the building, and a few arrived late. Still, I would happily book here again.",
+  "question": "What is included in all meeting packages?",
+  "choices": [
+   "A buffet lunch",
+   "An afternoon coffee break",
+   "A room for 50 people",
+   "Internet access"
+  ],
+  "answer": "Internet access",
+  "explanation": "すべてのパッケージに無料 Wi-Fi・プロジェクター・ボトル水が含まれる。",
+  "tags": "Part7 トリプル ウェブページ＋Eメール＋レビュー 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-025-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "Altamira Suites — Meeting Packages\n\nOur meeting rooms are ideal for workshops, interviews, and small conferences. All packages include free Wi-Fi, a projector, and bottled water.\n\nBasic Package — $350 per day\nRoom for up to 15 people\n\nStandard Package — $600 per day\nRoom for up to 30 people, morning coffee break\n\nPremium Package — $950 per day\nRoom for up to 50 people, morning and afternoon coffee breaks, buffet lunch\n\nGuests staying at Altamira Suites receive 15 percent off any meeting package. Bookings must be made at least ten days in advance.\n\n--- Text 2 ---\n\nTo: events@altamirasuites.example\nFrom: Hyun-woo Kang <hkang@novaline-tech.example>\nDate: August 4\nSubject: Meeting room booking\n\nHello,\n\nI would like to book a meeting room for a training day on August 20. We expect 24 participants, and we would like a coffee break in the morning. We will arrange our own lunch at a nearby restaurant.\n\nThree of our trainers will be traveling from our head office and will stay at your hotel on the nights of August 19 and 20. Could you please reserve three single rooms for them as well?\n\nKind regards,\nHyun-woo Kang\nTraining Manager, Novaline Technologies\n\n--- Text 3 ---\n\nReview posted by H. Kang on August 23\n\nWe held a training day at Altamira Suites, and overall it went very well. The room was bright and comfortable, and the coffee break was generous. The staff were helpful, especially when our projector cable stopped working and a technician replaced it within minutes.\n\nMy only suggestion is to provide clearer signs. Several of our participants had trouble finding the meeting room, which is in a separate wing of the building, and a few arrived late. Still, I would happily book here again.",
+  "question": "Which package will Mr. Kang most likely book?",
+  "choices": [
+   "The Basic Package",
+   "The Premium Package",
+   "The Standard Package",
+   "A custom package"
+  ],
+  "answer": "The Standard Package",
+  "explanation": "参加者24人で朝のコーヒーブレイク希望、昼食は不要なので Standard Package が合う。",
+  "tags": "Part7 トリプル ウェブページ＋Eメール＋レビュー 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-025-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "Altamira Suites — Meeting Packages\n\nOur meeting rooms are ideal for workshops, interviews, and small conferences. All packages include free Wi-Fi, a projector, and bottled water.\n\nBasic Package — $350 per day\nRoom for up to 15 people\n\nStandard Package — $600 per day\nRoom for up to 30 people, morning coffee break\n\nPremium Package — $950 per day\nRoom for up to 50 people, morning and afternoon coffee breaks, buffet lunch\n\nGuests staying at Altamira Suites receive 15 percent off any meeting package. Bookings must be made at least ten days in advance.\n\n--- Text 2 ---\n\nTo: events@altamirasuites.example\nFrom: Hyun-woo Kang <hkang@novaline-tech.example>\nDate: August 4\nSubject: Meeting room booking\n\nHello,\n\nI would like to book a meeting room for a training day on August 20. We expect 24 participants, and we would like a coffee break in the morning. We will arrange our own lunch at a nearby restaurant.\n\nThree of our trainers will be traveling from our head office and will stay at your hotel on the nights of August 19 and 20. Could you please reserve three single rooms for them as well?\n\nKind regards,\nHyun-woo Kang\nTraining Manager, Novaline Technologies\n\n--- Text 3 ---\n\nReview posted by H. Kang on August 23\n\nWe held a training day at Altamira Suites, and overall it went very well. The room was bright and comfortable, and the coffee break was generous. The staff were helpful, especially when our projector cable stopped working and a technician replaced it within minutes.\n\nMy only suggestion is to provide clearer signs. Several of our participants had trouble finding the meeting room, which is in a separate wing of the building, and a few arrived late. Still, I would happily book here again.",
+  "question": "What is suggested about Novaline Technologies' booking?",
+  "choices": [
+   "It may receive a discount.",
+   "It was made too late to be accepted.",
+   "It includes lunch for all participants.",
+   "It was canceled because of a scheduling conflict."
+  ],
+  "answer": "It may receive a discount.",
+  "explanation": "トレーナーがホテルに宿泊するため、宿泊客15%割引の対象になりうる。8月4日に8月20日分を予約しており10日前の条件も満たす。",
+  "tags": "Part7 トリプル ウェブページ＋Eメール＋レビュー 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-025-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "Altamira Suites — Meeting Packages\n\nOur meeting rooms are ideal for workshops, interviews, and small conferences. All packages include free Wi-Fi, a projector, and bottled water.\n\nBasic Package — $350 per day\nRoom for up to 15 people\n\nStandard Package — $600 per day\nRoom for up to 30 people, morning coffee break\n\nPremium Package — $950 per day\nRoom for up to 50 people, morning and afternoon coffee breaks, buffet lunch\n\nGuests staying at Altamira Suites receive 15 percent off any meeting package. Bookings must be made at least ten days in advance.\n\n--- Text 2 ---\n\nTo: events@altamirasuites.example\nFrom: Hyun-woo Kang <hkang@novaline-tech.example>\nDate: August 4\nSubject: Meeting room booking\n\nHello,\n\nI would like to book a meeting room for a training day on August 20. We expect 24 participants, and we would like a coffee break in the morning. We will arrange our own lunch at a nearby restaurant.\n\nThree of our trainers will be traveling from our head office and will stay at your hotel on the nights of August 19 and 20. Could you please reserve three single rooms for them as well?\n\nKind regards,\nHyun-woo Kang\nTraining Manager, Novaline Technologies\n\n--- Text 3 ---\n\nReview posted by H. Kang on August 23\n\nWe held a training day at Altamira Suites, and overall it went very well. The room was bright and comfortable, and the coffee break was generous. The staff were helpful, especially when our projector cable stopped working and a technician replaced it within minutes.\n\nMy only suggestion is to provide clearer signs. Several of our participants had trouble finding the meeting room, which is in a separate wing of the building, and a few arrived late. Still, I would happily book here again.",
+  "question": "What problem occurred during the training day?",
+  "choices": [
+   "The coffee break was too short.",
+   "A piece of equipment failed.",
+   "The room was too small.",
+   "The Wi-Fi was unavailable."
+  ],
+  "answer": "A piece of equipment failed.",
+  "explanation": "プロジェクターのケーブルが動かなくなり、技術者がすぐに交換した。",
+  "tags": "Part7 トリプル ウェブページ＋Eメール＋レビュー 照合問題"
+ },
+ {
+  "id": "TOEIC-R7-025-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "Altamira Suites — Meeting Packages\n\nOur meeting rooms are ideal for workshops, interviews, and small conferences. All packages include free Wi-Fi, a projector, and bottled water.\n\nBasic Package — $350 per day\nRoom for up to 15 people\n\nStandard Package — $600 per day\nRoom for up to 30 people, morning coffee break\n\nPremium Package — $950 per day\nRoom for up to 50 people, morning and afternoon coffee breaks, buffet lunch\n\nGuests staying at Altamira Suites receive 15 percent off any meeting package. Bookings must be made at least ten days in advance.\n\n--- Text 2 ---\n\nTo: events@altamirasuites.example\nFrom: Hyun-woo Kang <hkang@novaline-tech.example>\nDate: August 4\nSubject: Meeting room booking\n\nHello,\n\nI would like to book a meeting room for a training day on August 20. We expect 24 participants, and we would like a coffee break in the morning. We will arrange our own lunch at a nearby restaurant.\n\nThree of our trainers will be traveling from our head office and will stay at your hotel on the nights of August 19 and 20. Could you please reserve three single rooms for them as well?\n\nKind regards,\nHyun-woo Kang\nTraining Manager, Novaline Technologies\n\n--- Text 3 ---\n\nReview posted by H. Kang on August 23\n\nWe held a training day at Altamira Suites, and overall it went very well. The room was bright and comfortable, and the coffee break was generous. The staff were helpful, especially when our projector cable stopped working and a technician replaced it within minutes.\n\nMy only suggestion is to provide clearer signs. Several of our participants had trouble finding the meeting room, which is in a separate wing of the building, and a few arrived late. Still, I would happily book here again.",
+  "question": "What does Mr. Kang recommend in his review?",
+  "choices": [
+   "Hiring more technicians",
+   "Offering more food during breaks",
+   "Lowering the price of packages",
+   "Improving directions to the meeting room"
+  ],
+  "answer": "Improving directions to the meeting room",
+  "explanation": "会議室が別棟にあり見つけにくかったので、案内表示を分かりやすくするよう提案している。",
+  "tags": "Part7 トリプル ウェブページ＋Eメール＋レビュー 照合問題"
+ }
+]

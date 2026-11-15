@@ -1,0 +1,362 @@
+[
+ {
+  "id": "TOEIC-R6-021-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "PORT ALDEN (June 9)—After nearly two years of planning, chef Ingrid Solberg will open her first restaurant, Tidewater Table, on Harbor Street next Friday. The 60-seat restaurant occupies a former fish market, and much of the original brickwork has been carefully [1] -------.\n\nMs. Solberg, who previously worked in kitchens in three countries, said her menu will change weekly [2] ------- on what local fishermen and farmers can supply. \"I want every dish to reflect the season,\" she said.\n\n[3] -------. Reservations for the first month are already nearly full, according to the restaurant's manager. Walk-in guests will be seated at the bar on a first-come, first-served basis.\n\nTidewater Table will be open for dinner Tuesday through Sunday. Lunch service is expected to begin in the fall, [4] ------- additional staff have been hired.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "preserved",
+   "preserving",
+   "preservation",
+   "preserves"
+  ],
+  "answer": "preserved",
+  "explanation": "has been carefully の後は受け身の過去分詞。「保存されてきた」で preserved。",
+  "tags": "Part6 記事 レストラン開店 態"
+ },
+ {
+  "id": "TOEIC-R6-021-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "PORT ALDEN (June 9)—After nearly two years of planning, chef Ingrid Solberg will open her first restaurant, Tidewater Table, on Harbor Street next Friday. The 60-seat restaurant occupies a former fish market, and much of the original brickwork has been carefully [1] -------.\n\nMs. Solberg, who previously worked in kitchens in three countries, said her menu will change weekly [2] ------- on what local fishermen and farmers can supply. \"I want every dish to reflect the season,\" she said.\n\n[3] -------. Reservations for the first month are already nearly full, according to the restaurant's manager. Walk-in guests will be seated at the bar on a first-come, first-served basis.\n\nTidewater Table will be open for dinner Tuesday through Sunday. Lunch service is expected to begin in the fall, [4] ------- additional staff have been hired.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "depended",
+   "depending",
+   "dependent",
+   "depends"
+  ],
+  "answer": "depending",
+  "explanation": "depending on で「〜次第で」。分詞構文の慣用表現。",
+  "tags": "Part6 記事 レストラン開店 語彙"
+ },
+ {
+  "id": "TOEIC-R6-021-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "PORT ALDEN (June 9)—After nearly two years of planning, chef Ingrid Solberg will open her first restaurant, Tidewater Table, on Harbor Street next Friday. The 60-seat restaurant occupies a former fish market, and much of the original brickwork has been carefully [1] -------.\n\nMs. Solberg, who previously worked in kitchens in three countries, said her menu will change weekly [2] ------- on what local fishermen and farmers can supply. \"I want every dish to reflect the season,\" she said.\n\n[3] -------. Reservations for the first month are already nearly full, according to the restaurant's manager. Walk-in guests will be seated at the bar on a first-come, first-served basis.\n\nTidewater Table will be open for dinner Tuesday through Sunday. Lunch service is expected to begin in the fall, [4] ------- additional staff have been hired.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Ms. Solberg has decided to postpone the opening indefinitely.",
+   "Fish markets in the area have become more popular than restaurants.",
+   "The restaurant will not accept reservations of any kind.",
+   "Local interest in the restaurant has been strong."
+  ],
+  "answer": "Local interest in the restaurant has been strong.",
+  "explanation": "直後の「最初の1か月の予約はほぼ満席」の前置きとして、地元の関心が高いという文が自然。予約を受けないは直後と矛盾。",
+  "tags": "Part6 記事 レストラン開店 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-021-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "PORT ALDEN (June 9)—After nearly two years of planning, chef Ingrid Solberg will open her first restaurant, Tidewater Table, on Harbor Street next Friday. The 60-seat restaurant occupies a former fish market, and much of the original brickwork has been carefully [1] -------.\n\nMs. Solberg, who previously worked in kitchens in three countries, said her menu will change weekly [2] ------- on what local fishermen and farmers can supply. \"I want every dish to reflect the season,\" she said.\n\n[3] -------. Reservations for the first month are already nearly full, according to the restaurant's manager. Walk-in guests will be seated at the bar on a first-come, first-served basis.\n\nTidewater Table will be open for dinner Tuesday through Sunday. Lunch service is expected to begin in the fall, [4] ------- additional staff have been hired.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "unless",
+   "so",
+   "once",
+   "even though"
+  ],
+  "answer": "once",
+  "explanation": "「追加スタッフが雇われ次第」ランチを始めるので once（〜するとすぐ）。",
+  "tags": "Part6 記事 レストラン開店 接続詞"
+ },
+ {
+  "id": "TOEIC-R6-022-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Notice to All Passengers\n\nEffective April 1, Skylane Air will update its carry-on baggage policy. Each passenger may bring one carry-on bag and one personal item, such as a purse or laptop bag, on board. Carry-on bags must not [1] ------- 10 kilograms.\n\n[2] -------. Any bag that does not fit in the sizing box at the gate will be checked, and a fee of $35 will be charged.\n\nPassengers who are traveling [3] ------- an infant may bring one additional bag for baby supplies at no charge.\n\nFor a complete list of baggage rules, please visit our Web site or ask an airport [4] ------- for assistance. We thank you for flying with Skylane Air.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "excess",
+   "excessive",
+   "exceeding",
+   "exceed"
+  ],
+  "answer": "exceed",
+  "explanation": "助動詞 must not の後は動詞の原形 exceed（超える）。",
+  "tags": "Part6 お知らせ 手荷物規定 動詞の形"
+ },
+ {
+  "id": "TOEIC-R6-022-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Notice to All Passengers\n\nEffective April 1, Skylane Air will update its carry-on baggage policy. Each passenger may bring one carry-on bag and one personal item, such as a purse or laptop bag, on board. Carry-on bags must not [1] ------- 10 kilograms.\n\n[2] -------. Any bag that does not fit in the sizing box at the gate will be checked, and a fee of $35 will be charged.\n\nPassengers who are traveling [3] ------- an infant may bring one additional bag for baby supplies at no charge.\n\nFor a complete list of baggage rules, please visit our Web site or ask an airport [4] ------- for assistance. We thank you for flying with Skylane Air.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Gate agents will check the size of bags before boarding.",
+   "Meals are now served free of charge on all flights.",
+   "Passengers may bring as many bags as they wish.",
+   "Checked baggage fees have been eliminated."
+  ],
+  "answer": "Gate agents will check the size of bags before boarding.",
+  "explanation": "直後の「ゲートの計測箱に入らない荷物は預け入れになる」の前置きとして、搭乗前にサイズ確認があるという文が自然。",
+  "tags": "Part6 お知らせ 手荷物規定 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-022-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Notice to All Passengers\n\nEffective April 1, Skylane Air will update its carry-on baggage policy. Each passenger may bring one carry-on bag and one personal item, such as a purse or laptop bag, on board. Carry-on bags must not [1] ------- 10 kilograms.\n\n[2] -------. Any bag that does not fit in the sizing box at the gate will be checked, and a fee of $35 will be charged.\n\nPassengers who are traveling [3] ------- an infant may bring one additional bag for baby supplies at no charge.\n\nFor a complete list of baggage rules, please visit our Web site or ask an airport [4] ------- for assistance. We thank you for flying with Skylane Air.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "for",
+   "by",
+   "with",
+   "among"
+  ],
+  "answer": "with",
+  "explanation": "「乳児を連れて旅行する」は travel with an infant。",
+  "tags": "Part6 お知らせ 手荷物規定 前置詞"
+ },
+ {
+  "id": "TOEIC-R6-022-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Notice to All Passengers\n\nEffective April 1, Skylane Air will update its carry-on baggage policy. Each passenger may bring one carry-on bag and one personal item, such as a purse or laptop bag, on board. Carry-on bags must not [1] ------- 10 kilograms.\n\n[2] -------. Any bag that does not fit in the sizing box at the gate will be checked, and a fee of $35 will be charged.\n\nPassengers who are traveling [3] ------- an infant may bring one additional bag for baby supplies at no charge.\n\nFor a complete list of baggage rules, please visit our Web site or ask an airport [4] ------- for assistance. We thank you for flying with Skylane Air.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "represent",
+   "representative",
+   "representation",
+   "representing"
+  ],
+  "answer": "representative",
+  "explanation": "an airport の後に「係員」を表す名詞 representative が入る。",
+  "tags": "Part6 お知らせ 手荷物規定 品詞"
+ },
+ {
+  "id": "TOEIC-R6-023-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Mr. Abernathy,\n\nI am pleased to offer you a position in the Summer Internship Program at Calder & Rhee Architects. Your portfolio and interview made a strong impression on our [1] ------- committee.\n\nThe internship will begin on June 16 and last ten weeks. You will work with our design team on several residential projects. [2] -------.\n\nPlease confirm your acceptance by replying to this e-mail no later than May 9. [3] ------- you accept, our human resources department will send you some forms to complete before your first day.\n\nWe are excited about the possibility of [4] ------- with you this summer.\n\nSincerely,\nEvelyn Sato\nSenior Partner",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "select",
+   "selection",
+   "selective",
+   "selectively"
+  ],
+  "answer": "selection",
+  "explanation": "selection committee で「選考委員会」。名詞が名詞を修飾する複合名詞。",
+  "tags": "Part6 Eメール インターン採用 品詞"
+ },
+ {
+  "id": "TOEIC-R6-023-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Mr. Abernathy,\n\nI am pleased to offer you a position in the Summer Internship Program at Calder & Rhee Architects. Your portfolio and interview made a strong impression on our [1] ------- committee.\n\nThe internship will begin on June 16 and last ten weeks. You will work with our design team on several residential projects. [2] -------.\n\nPlease confirm your acceptance by replying to this e-mail no later than May 9. [3] ------- you accept, our human resources department will send you some forms to complete before your first day.\n\nWe are excited about the possibility of [4] ------- with you this summer.\n\nSincerely,\nEvelyn Sato\nSenior Partner",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Our firm specializes only in large commercial buildings.",
+   "Unfortunately, we were unable to offer you a position.",
+   "Your interview has been scheduled for next Monday.",
+   "Interns are paid weekly and receive a transportation allowance."
+  ],
+  "answer": "Interns are paid weekly and receive a transportation allowance.",
+  "explanation": "インターンの業務内容を述べた後に待遇を補足する文が自然。住宅案件に携わるとあるので「大型商業ビルのみ」は矛盾。",
+  "tags": "Part6 Eメール インターン採用 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-023-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Mr. Abernathy,\n\nI am pleased to offer you a position in the Summer Internship Program at Calder & Rhee Architects. Your portfolio and interview made a strong impression on our [1] ------- committee.\n\nThe internship will begin on June 16 and last ten weeks. You will work with our design team on several residential projects. [2] -------.\n\nPlease confirm your acceptance by replying to this e-mail no later than May 9. [3] ------- you accept, our human resources department will send you some forms to complete before your first day.\n\nWe are excited about the possibility of [4] ------- with you this summer.\n\nSincerely,\nEvelyn Sato\nSenior Partner",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Once",
+   "Unless",
+   "Although",
+   "Whereas"
+  ],
+  "answer": "Once",
+  "explanation": "「受諾したら（すぐに）書類を送る」なので Once。",
+  "tags": "Part6 Eメール インターン採用 接続詞"
+ },
+ {
+  "id": "TOEIC-R6-023-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Mr. Abernathy,\n\nI am pleased to offer you a position in the Summer Internship Program at Calder & Rhee Architects. Your portfolio and interview made a strong impression on our [1] ------- committee.\n\nThe internship will begin on June 16 and last ten weeks. You will work with our design team on several residential projects. [2] -------.\n\nPlease confirm your acceptance by replying to this e-mail no later than May 9. [3] ------- you accept, our human resources department will send you some forms to complete before your first day.\n\nWe are excited about the possibility of [4] ------- with you this summer.\n\nSincerely,\nEvelyn Sato\nSenior Partner",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "work",
+   "worked",
+   "working",
+   "to work"
+  ],
+  "answer": "working",
+  "explanation": "前置詞 of の後は動名詞 working。",
+  "tags": "Part6 Eメール インターン採用 動名詞"
+ },
+ {
+  "id": "TOEIC-R6-024-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\n\nTo: All Staff\nFrom: Office Operations\nRe: Expanded recycling program\n\nAs part of our effort to reduce waste, we are expanding our recycling program. Beginning next Monday, separate bins for paper, plastic, and cans will be placed in every kitchen and copy room. Small desk bins will [1] ------- be collected each evening by the cleaning staff.\n\n[2] -------. Therefore, please make sure that food containers are rinsed before you throw them away. Items that are dirty cannot be [3] ------- and must be placed in the general trash.\n\nWe have also arranged for a local company to pick up old electronics, such as keyboards and printer cartridges, once a month. A collection box will be set up near the [4] ------- of the main lobby.\n\nThank you for helping us make our office greener.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "no longer",
+   "such as",
+   "as well as",
+   "in order to"
+  ],
+  "answer": "no longer",
+  "explanation": "各所に分別箱を置くので、机の小さなごみ箱は「もう回収されない」。no longer。",
+  "tags": "Part6 社内メモ リサイクル 語彙"
+ },
+ {
+  "id": "TOEIC-R6-024-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\n\nTo: All Staff\nFrom: Office Operations\nRe: Expanded recycling program\n\nAs part of our effort to reduce waste, we are expanding our recycling program. Beginning next Monday, separate bins for paper, plastic, and cans will be placed in every kitchen and copy room. Small desk bins will [1] ------- be collected each evening by the cleaning staff.\n\n[2] -------. Therefore, please make sure that food containers are rinsed before you throw them away. Items that are dirty cannot be [3] ------- and must be placed in the general trash.\n\nWe have also arranged for a local company to pick up old electronics, such as keyboards and printer cartridges, once a month. A collection box will be set up near the [4] ------- of the main lobby.\n\nThank you for helping us make our office greener.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Our office has used the same recycling bins for twenty years.",
+   "Recycling only works when materials are clean.",
+   "The cleaning staff will now work only on weekends.",
+   "Plastic items should always be placed in the general trash."
+  ],
+  "answer": "Recycling only works when materials are clean.",
+  "explanation": "直後の Therefore（だから容器をすすいで）の理由として「きれいでないとリサイクルできない」が必要。",
+  "tags": "Part6 社内メモ リサイクル 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-024-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\n\nTo: All Staff\nFrom: Office Operations\nRe: Expanded recycling program\n\nAs part of our effort to reduce waste, we are expanding our recycling program. Beginning next Monday, separate bins for paper, plastic, and cans will be placed in every kitchen and copy room. Small desk bins will [1] ------- be collected each evening by the cleaning staff.\n\n[2] -------. Therefore, please make sure that food containers are rinsed before you throw them away. Items that are dirty cannot be [3] ------- and must be placed in the general trash.\n\nWe have also arranged for a local company to pick up old electronics, such as keyboards and printer cartridges, once a month. A collection box will be set up near the [4] ------- of the main lobby.\n\nThank you for helping us make our office greener.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "processing",
+   "process",
+   "processor",
+   "processed"
+  ],
+  "answer": "processed",
+  "explanation": "cannot be の後の受け身で過去分詞 processed（処理される）。",
+  "tags": "Part6 社内メモ リサイクル 態"
+ },
+ {
+  "id": "TOEIC-R6-024-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\n\nTo: All Staff\nFrom: Office Operations\nRe: Expanded recycling program\n\nAs part of our effort to reduce waste, we are expanding our recycling program. Beginning next Monday, separate bins for paper, plastic, and cans will be placed in every kitchen and copy room. Small desk bins will [1] ------- be collected each evening by the cleaning staff.\n\n[2] -------. Therefore, please make sure that food containers are rinsed before you throw them away. Items that are dirty cannot be [3] ------- and must be placed in the general trash.\n\nWe have also arranged for a local company to pick up old electronics, such as keyboards and printer cartridges, once a month. A collection box will be set up near the [4] ------- of the main lobby.\n\nThank you for helping us make our office greener.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "enter",
+   "entering",
+   "entrance",
+   "entrant"
+  ],
+  "answer": "entrance",
+  "explanation": "the の後で「入口」を表す名詞 entrance。entrant は「参加者」。",
+  "tags": "Part6 社内メモ リサイクル 品詞"
+ },
+ {
+  "id": "TOEIC-R6-025-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Ms. Fairbanks,\n\nOur records show that your subscription to Gardener's Quarterly will [1] ------- with the winter issue. We hope you have enjoyed reading our practical advice on growing vegetables, flowers, and herbs.\n\n[2] -------. By renewing now, you will receive four more issues for just $24, a savings of 20 percent off the regular price.\n\nAs a subscriber, you also have full access to our online library of more than 500 articles. This benefit will end if your subscription [3] -------.\n\nTo renew, simply complete the enclosed form and return it in the postage-paid envelope, or visit our Web site. We look forward to [4] ------- you as a reader for another year.\n\nSincerely,\nConrad Ibsen\nSubscription Services",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "expiration",
+   "expired",
+   "expiring",
+   "expire"
+  ],
+  "answer": "expire",
+  "explanation": "助動詞 will の後は動詞の原形 expire（期限が切れる）。",
+  "tags": "Part6 手紙 定期購読の更新 動詞の形"
+ },
+ {
+  "id": "TOEIC-R6-025-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Ms. Fairbanks,\n\nOur records show that your subscription to Gardener's Quarterly will [1] ------- with the winter issue. We hope you have enjoyed reading our practical advice on growing vegetables, flowers, and herbs.\n\n[2] -------. By renewing now, you will receive four more issues for just $24, a savings of 20 percent off the regular price.\n\nAs a subscriber, you also have full access to our online library of more than 500 articles. This benefit will end if your subscription [3] -------.\n\nTo renew, simply complete the enclosed form and return it in the postage-paid envelope, or visit our Web site. We look forward to [4] ------- you as a reader for another year.\n\nSincerely,\nConrad Ibsen\nSubscription Services",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Unfortunately, the magazine will stop publication next year.",
+   "We would like to invite you to continue your subscription at a special rate.",
+   "Your payment for next year has already been received.",
+   "We have recently started a new magazine about cooking."
+  ],
+  "answer": "We would like to invite you to continue your subscription at a special rate.",
+  "explanation": "直後の「今更新すれば20%引き」の前置きとして、特別料金での継続を勧める文が自然。既に支払い済みや廃刊は文脈と矛盾。",
+  "tags": "Part6 手紙 定期購読の更新 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-025-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Ms. Fairbanks,\n\nOur records show that your subscription to Gardener's Quarterly will [1] ------- with the winter issue. We hope you have enjoyed reading our practical advice on growing vegetables, flowers, and herbs.\n\n[2] -------. By renewing now, you will receive four more issues for just $24, a savings of 20 percent off the regular price.\n\nAs a subscriber, you also have full access to our online library of more than 500 articles. This benefit will end if your subscription [3] -------.\n\nTo renew, simply complete the enclosed form and return it in the postage-paid envelope, or visit our Web site. We look forward to [4] ------- you as a reader for another year.\n\nSincerely,\nConrad Ibsen\nSubscription Services",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "lapsed",
+   "will lapse",
+   "lapses",
+   "lapsing"
+  ],
+  "answer": "lapses",
+  "explanation": "条件の if 節では未来のことも現在形。主語が単数なので lapses。",
+  "tags": "Part6 手紙 定期購読の更新 時制"
+ },
+ {
+  "id": "TOEIC-R6-025-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Ms. Fairbanks,\n\nOur records show that your subscription to Gardener's Quarterly will [1] ------- with the winter issue. We hope you have enjoyed reading our practical advice on growing vegetables, flowers, and herbs.\n\n[2] -------. By renewing now, you will receive four more issues for just $24, a savings of 20 percent off the regular price.\n\nAs a subscriber, you also have full access to our online library of more than 500 articles. This benefit will end if your subscription [3] -------.\n\nTo renew, simply complete the enclosed form and return it in the postage-paid envelope, or visit our Web site. We look forward to [4] ------- you as a reader for another year.\n\nSincerely,\nConrad Ibsen\nSubscription Services",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "keeping",
+   "keep",
+   "kept",
+   "be kept"
+  ],
+  "answer": "keeping",
+  "explanation": "look forward to の後は動名詞 keeping。",
+  "tags": "Part6 手紙 定期購読の更新 動名詞"
+ }
+]

@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEIC-R6-001-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "To: All Staff\nFrom: Dana Whitfield, Facilities Manager\nSubject: Office move\n\nDear colleagues,\n\nAs you know, our team will move to the fourth floor of the Harmon Building next month. To make the move as smooth as possible, please pack your personal items [1] ------- Friday, May 9. Boxes and labels are available in the supply room.\n\nThe movers will arrive early on Saturday morning. [2] -------. The IT department will disconnect all computers and phones on Friday afternoon, so please save your work before you [3] ------- for the day.\n\nOn Monday, a map of the new desk assignments will be posted in the reception area. If you have any questions, please contact me directly. Thank you for your [4] -------.\n\nDana Whitfield",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "until",
+   "since",
+   "among",
+   "by"
+  ],
+  "answer": "by",
+  "explanation": "期限「〜までに（済ませる）」は by。until は「〜までずっと（継続）」で、荷造りを完了させる期限には合わない。",
+  "tags": "Part6 Eメール 社内移転 前置詞"
+ },
+ {
+  "id": "TOEIC-R6-001-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "To: All Staff\nFrom: Dana Whitfield, Facilities Manager\nSubject: Office move\n\nDear colleagues,\n\nAs you know, our team will move to the fourth floor of the Harmon Building next month. To make the move as smooth as possible, please pack your personal items [1] ------- Friday, May 9. Boxes and labels are available in the supply room.\n\nThe movers will arrive early on Saturday morning. [2] -------. The IT department will disconnect all computers and phones on Friday afternoon, so please save your work before you [3] ------- for the day.\n\nOn Monday, a map of the new desk assignments will be posted in the reception area. If you have any questions, please contact me directly. Thank you for your [4] -------.\n\nDana Whitfield",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "The new furniture was ordered from an overseas supplier last year.",
+   "For this reason, no employees will be allowed in the office that day.",
+   "Please submit your expense reports by the end of the month.",
+   "Our clients have praised the quality of the new product line."
+  ],
+  "answer": "For this reason, no employees will be allowed in the office that day.",
+  "explanation": "直前の「土曜の朝に引っ越し業者が来る」を受けて「そのため当日は入室できない」と続けるのが自然。他は文脈と無関係。",
+  "tags": "Part6 Eメール 社内移転 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-001-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "To: All Staff\nFrom: Dana Whitfield, Facilities Manager\nSubject: Office move\n\nDear colleagues,\n\nAs you know, our team will move to the fourth floor of the Harmon Building next month. To make the move as smooth as possible, please pack your personal items [1] ------- Friday, May 9. Boxes and labels are available in the supply room.\n\nThe movers will arrive early on Saturday morning. [2] -------. The IT department will disconnect all computers and phones on Friday afternoon, so please save your work before you [3] ------- for the day.\n\nOn Monday, a map of the new desk assignments will be posted in the reception area. If you have any questions, please contact me directly. Thank you for your [4] -------.\n\nDana Whitfield",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "leave",
+   "leaving",
+   "will leave",
+   "to leave"
+  ],
+  "answer": "leave",
+  "explanation": "時を表す接続詞 before の後は未来のことでも現在形を使う。will leave は不可。",
+  "tags": "Part6 Eメール 社内移転 時制"
+ },
+ {
+  "id": "TOEIC-R6-001-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "To: All Staff\nFrom: Dana Whitfield, Facilities Manager\nSubject: Office move\n\nDear colleagues,\n\nAs you know, our team will move to the fourth floor of the Harmon Building next month. To make the move as smooth as possible, please pack your personal items [1] ------- Friday, May 9. Boxes and labels are available in the supply room.\n\nThe movers will arrive early on Saturday morning. [2] -------. The IT department will disconnect all computers and phones on Friday afternoon, so please save your work before you [3] ------- for the day.\n\nOn Monday, a map of the new desk assignments will be posted in the reception area. If you have any questions, please contact me directly. Thank you for your [4] -------.\n\nDana Whitfield",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "cooperate",
+   "cooperative",
+   "cooperation",
+   "cooperatively"
+  ],
+  "answer": "cooperation",
+  "explanation": "所有格 your の後には名詞が必要。Thank you for your cooperation. は定型表現。",
+  "tags": "Part6 Eメール 社内移転 品詞"
+ },
+ {
+  "id": "TOEIC-R6-002-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "NOTICE TO LIBRARY USERS\n\nThe Eastbrook Public Library will be closed from June 2 to June 20 while the main reading room is [1] -------. During this period, new shelving, brighter lighting, and additional power outlets for laptops will be installed.\n\nBooks that are due during the closure may be returned to the drop box at the front entrance, which will remain open 24 hours a day. [2] -------, no late fees will be charged for items returned by June 27.\n\n[3] -------. Patrons who need to use a computer may visit the Westside Branch, located at 418 Garner Avenue. That branch will extend its weekday hours [4] ------- 9:00 P.M. throughout the closure.\n\nWe apologize for any inconvenience and look forward to welcoming you to our improved facility.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "renovating",
+   "renovation",
+   "renovated",
+   "renovates"
+  ],
+  "answer": "renovated",
+  "explanation": "be 動詞 is の後で「改装される」という受け身が必要なので過去分詞 renovated。",
+  "tags": "Part6 お知らせ 図書館改装 態"
+ },
+ {
+  "id": "TOEIC-R6-002-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "NOTICE TO LIBRARY USERS\n\nThe Eastbrook Public Library will be closed from June 2 to June 20 while the main reading room is [1] -------. During this period, new shelving, brighter lighting, and additional power outlets for laptops will be installed.\n\nBooks that are due during the closure may be returned to the drop box at the front entrance, which will remain open 24 hours a day. [2] -------, no late fees will be charged for items returned by June 27.\n\n[3] -------. Patrons who need to use a computer may visit the Westside Branch, located at 418 Garner Avenue. That branch will extend its weekday hours [4] ------- 9:00 P.M. throughout the closure.\n\nWe apologize for any inconvenience and look forward to welcoming you to our improved facility.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "In addition",
+   "However",
+   "Otherwise",
+   "Instead"
+  ],
+  "answer": "In addition",
+  "explanation": "返却ボックスが使えるという便宜に「さらに延滞料も取らない」と情報を追加しているので In addition。",
+  "tags": "Part6 お知らせ 図書館改装 つなぎ語"
+ },
+ {
+  "id": "TOEIC-R6-002-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "NOTICE TO LIBRARY USERS\n\nThe Eastbrook Public Library will be closed from June 2 to June 20 while the main reading room is [1] -------. During this period, new shelving, brighter lighting, and additional power outlets for laptops will be installed.\n\nBooks that are due during the closure may be returned to the drop box at the front entrance, which will remain open 24 hours a day. [2] -------, no late fees will be charged for items returned by June 27.\n\n[3] -------. Patrons who need to use a computer may visit the Westside Branch, located at 418 Garner Avenue. That branch will extend its weekday hours [4] ------- 9:00 P.M. throughout the closure.\n\nWe apologize for any inconvenience and look forward to welcoming you to our improved facility.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "The library first opened its doors more than fifty years ago.",
+   "Volunteers are needed to help with the annual book sale.",
+   "Unfortunately, the drop box has been removed for repairs.",
+   "Our online catalog and e-book service will also remain available."
+  ],
+  "answer": "Our online catalog and e-book service will also remain available.",
+  "explanation": "休館中も使えるサービスを紹介する流れ（直後で別館のパソコン利用を案内）に合う。返却ボックスは開いていると前段にあるので最後の選択肢は矛盾。",
+  "tags": "Part6 お知らせ 図書館改装 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-002-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "NOTICE TO LIBRARY USERS\n\nThe Eastbrook Public Library will be closed from June 2 to June 20 while the main reading room is [1] -------. During this period, new shelving, brighter lighting, and additional power outlets for laptops will be installed.\n\nBooks that are due during the closure may be returned to the drop box at the front entrance, which will remain open 24 hours a day. [2] -------, no late fees will be charged for items returned by June 27.\n\n[3] -------. Patrons who need to use a computer may visit the Westside Branch, located at 418 Garner Avenue. That branch will extend its weekday hours [4] ------- 9:00 P.M. throughout the closure.\n\nWe apologize for any inconvenience and look forward to welcoming you to our improved facility.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "by",
+   "until",
+   "within",
+   "since"
+  ],
+  "answer": "until",
+  "explanation": "「午後9時まで（ずっと）開館時間を延長する」という継続の終点なので until。",
+  "tags": "Part6 お知らせ 図書館改装 前置詞"
+ },
+ {
+  "id": "TOEIC-R6-003-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Planning a business lunch or an office celebration? Let Greenleaf Catering take care of the food so you can focus on your guests.\n\nFor more than ten years, we have provided fresh, [1] ------- meals to companies throughout the Riverton area. Our menu includes sandwiches, salads, hot dishes, and desserts, and we can easily [2] ------- special dietary needs such as vegetarian or gluten-free meals.\n\nOrdering is simple. Choose your items on our Web site at least 48 hours in advance, and our staff will deliver everything on time. [3] -------.\n\nThis month only, new customers will receive 15 percent off their first order of $200 or more. To take advantage of this offer, simply enter the code NEWLEAF when you [4] ------- your order online.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "afford",
+   "affordable",
+   "affordably",
+   "affordability"
+  ],
+  "answer": "affordable",
+  "explanation": "名詞 meals を修飾する形容詞が必要。fresh, affordable meals と形容詞が並ぶ。",
+  "tags": "Part6 広告 ケータリング 品詞"
+ },
+ {
+  "id": "TOEIC-R6-003-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Planning a business lunch or an office celebration? Let Greenleaf Catering take care of the food so you can focus on your guests.\n\nFor more than ten years, we have provided fresh, [1] ------- meals to companies throughout the Riverton area. Our menu includes sandwiches, salads, hot dishes, and desserts, and we can easily [2] ------- special dietary needs such as vegetarian or gluten-free meals.\n\nOrdering is simple. Choose your items on our Web site at least 48 hours in advance, and our staff will deliver everything on time. [3] -------.\n\nThis month only, new customers will receive 15 percent off their first order of $200 or more. To take advantage of this offer, simply enter the code NEWLEAF when you [4] ------- your order online.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "accommodate",
+   "accompany",
+   "accumulate",
+   "acquire"
+  ],
+  "answer": "accommodate",
+  "explanation": "accommodate special needs で「特別な要望に対応する」。他は意味が合わない。",
+  "tags": "Part6 広告 ケータリング 語彙"
+ },
+ {
+  "id": "TOEIC-R6-003-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Planning a business lunch or an office celebration? Let Greenleaf Catering take care of the food so you can focus on your guests.\n\nFor more than ten years, we have provided fresh, [1] ------- meals to companies throughout the Riverton area. Our menu includes sandwiches, salads, hot dishes, and desserts, and we can easily [2] ------- special dietary needs such as vegetarian or gluten-free meals.\n\nOrdering is simple. Choose your items on our Web site at least 48 hours in advance, and our staff will deliver everything on time. [3] -------.\n\nThis month only, new customers will receive 15 percent off their first order of $200 or more. To take advantage of this offer, simply enter the code NEWLEAF when you [4] ------- your order online.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Our kitchen is closed on national holidays for cleaning.",
+   "Unfortunately, we no longer offer delivery to downtown offices.",
+   "We will even set up the tables and clear them away after your event.",
+   "Please call our office to apply for a position as a driver."
+  ],
+  "answer": "We will even set up the tables and clear them away after your event.",
+  "explanation": "注文・配達が簡単だという流れに「設営と片付けまでする」という追加の利点が続くのが自然。配達をやめたという文は直前と矛盾。",
+  "tags": "Part6 広告 ケータリング 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-003-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Planning a business lunch or an office celebration? Let Greenleaf Catering take care of the food so you can focus on your guests.\n\nFor more than ten years, we have provided fresh, [1] ------- meals to companies throughout the Riverton area. Our menu includes sandwiches, salads, hot dishes, and desserts, and we can easily [2] ------- special dietary needs such as vegetarian or gluten-free meals.\n\nOrdering is simple. Choose your items on our Web site at least 48 hours in advance, and our staff will deliver everything on time. [3] -------.\n\nThis month only, new customers will receive 15 percent off their first order of $200 or more. To take advantage of this offer, simply enter the code NEWLEAF when you [4] ------- your order online.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "make up",
+   "take off",
+   "carry",
+   "place"
+  ],
+  "answer": "place",
+  "explanation": "place an order で「注文する」というコロケーション。",
+  "tags": "Part6 広告 ケータリング 語彙"
+ },
+ {
+  "id": "TOEIC-R6-004-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Department Heads\nFrom: Rafael Okonkwo, Accounting\nDate: September 3\nRe: New expense reporting system\n\nBeginning October 1, all expense reports must be submitted through ClearClaim, our new online system. Paper forms will no longer be [1] -------.\n\nClearClaim allows employees to upload photos of their receipts directly from their mobile phones. [2] -------, reports can be approved by managers within a day instead of a week.\n\n[3] ------- the change, the accounting team will hold short training sessions every Tuesday and Thursday in September. Please encourage your staff to attend one of them. [4] -------.\n\nThank you for helping us make this transition a success.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "accepting",
+   "accepted",
+   "accept",
+   "acceptance"
+  ],
+  "answer": "accepted",
+  "explanation": "be 動詞の後の受け身「受理されない」なので過去分詞 accepted。",
+  "tags": "Part6 社内メモ 経費精算システム 態"
+ },
+ {
+  "id": "TOEIC-R6-004-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Department Heads\nFrom: Rafael Okonkwo, Accounting\nDate: September 3\nRe: New expense reporting system\n\nBeginning October 1, all expense reports must be submitted through ClearClaim, our new online system. Paper forms will no longer be [1] -------.\n\nClearClaim allows employees to upload photos of their receipts directly from their mobile phones. [2] -------, reports can be approved by managers within a day instead of a week.\n\n[3] ------- the change, the accounting team will hold short training sessions every Tuesday and Thursday in September. Please encourage your staff to attend one of them. [4] -------.\n\nThank you for helping us make this transition a success.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "On the other hand",
+   "Even so",
+   "As a result",
+   "Until then"
+  ],
+  "answer": "As a result",
+  "explanation": "レシートをスマホで送れる→その結果承認が早くなる、という因果関係なので As a result。",
+  "tags": "Part6 社内メモ 経費精算システム つなぎ語"
+ },
+ {
+  "id": "TOEIC-R6-004-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Department Heads\nFrom: Rafael Okonkwo, Accounting\nDate: September 3\nRe: New expense reporting system\n\nBeginning October 1, all expense reports must be submitted through ClearClaim, our new online system. Paper forms will no longer be [1] -------.\n\nClearClaim allows employees to upload photos of their receipts directly from their mobile phones. [2] -------, reports can be approved by managers within a day instead of a week.\n\n[3] ------- the change, the accounting team will hold short training sessions every Tuesday and Thursday in September. Please encourage your staff to attend one of them. [4] -------.\n\nThank you for helping us make this transition a success.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Despite",
+   "Rather than",
+   "Except for",
+   "To prepare employees for"
+  ],
+  "answer": "To prepare employees for",
+  "explanation": "研修会を開く目的「変更に備えるため」を表す。Despite（〜にもかかわらず）では意味が通らない。",
+  "tags": "Part6 社内メモ 経費精算システム 前置詞"
+ },
+ {
+  "id": "TOEIC-R6-004-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Department Heads\nFrom: Rafael Okonkwo, Accounting\nDate: September 3\nRe: New expense reporting system\n\nBeginning October 1, all expense reports must be submitted through ClearClaim, our new online system. Paper forms will no longer be [1] -------.\n\nClearClaim allows employees to upload photos of their receipts directly from their mobile phones. [2] -------, reports can be approved by managers within a day instead of a week.\n\n[3] ------- the change, the accounting team will hold short training sessions every Tuesday and Thursday in September. Please encourage your staff to attend one of them. [4] -------.\n\nThank you for helping us make this transition a success.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "A schedule and sign-up sheet are attached to this memo.",
+   "The paper forms can be printed from the shared drive as usual.",
+   "The accounting department will move to the third floor next year.",
+   "Mr. Okonkwo joined the company as an intern in 2015."
+  ],
+  "answer": "A schedule and sign-up sheet are attached to this memo.",
+  "explanation": "研修への参加を促した直後に「日程表と申込表を添付した」と続くのが自然。紙の書式を使い続ける内容は本文と矛盾。",
+  "tags": "Part6 社内メモ 経費精算システム 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-005-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "HALVERSTON (April 14)—Brightwater Textiles, a manufacturer of outdoor clothing, announced on Monday that it will open a second factory in Halverston's northern industrial park. The facility is expected to create about 150 jobs when it [1] ------- operating next spring.\n\nCompany president Lorena Vasquez said the decision was driven by strong demand for the company's waterproof jackets. \"Our current factory is running at full [2] -------, and we simply cannot keep up with orders,\" she explained.\n\n[3] -------. Several local officials attended Monday's announcement and praised the company's commitment to the region.\n\nConstruction will begin in June. Brightwater plans to recruit workers through a series of job fairs, the first of which will be held at the Halverston Community Center [4] ------- the summer.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "began",
+   "had begun",
+   "will have begun",
+   "begins"
+  ],
+  "answer": "begins",
+  "explanation": "時を表す when 節の中なので未来のことでも現在形 begins。",
+  "tags": "Part6 記事 地元企業の拡大 時制"
+ },
+ {
+  "id": "TOEIC-R6-005-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "HALVERSTON (April 14)—Brightwater Textiles, a manufacturer of outdoor clothing, announced on Monday that it will open a second factory in Halverston's northern industrial park. The facility is expected to create about 150 jobs when it [1] ------- operating next spring.\n\nCompany president Lorena Vasquez said the decision was driven by strong demand for the company's waterproof jackets. \"Our current factory is running at full [2] -------, and we simply cannot keep up with orders,\" she explained.\n\n[3] -------. Several local officials attended Monday's announcement and praised the company's commitment to the region.\n\nConstruction will begin in June. Brightwater plans to recruit workers through a series of job fairs, the first of which will be held at the Halverston Community Center [4] ------- the summer.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "capability",
+   "captivity",
+   "capacity",
+   "caption"
+  ],
+  "answer": "capacity",
+  "explanation": "run at full capacity で「フル稼働している」。capability は「能力」で、この定型表現には使わない。",
+  "tags": "Part6 記事 地元企業の拡大 語彙"
+ },
+ {
+  "id": "TOEIC-R6-005-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "HALVERSTON (April 14)—Brightwater Textiles, a manufacturer of outdoor clothing, announced on Monday that it will open a second factory in Halverston's northern industrial park. The facility is expected to create about 150 jobs when it [1] ------- operating next spring.\n\nCompany president Lorena Vasquez said the decision was driven by strong demand for the company's waterproof jackets. \"Our current factory is running at full [2] -------, and we simply cannot keep up with orders,\" she explained.\n\n[3] -------. Several local officials attended Monday's announcement and praised the company's commitment to the region.\n\nConstruction will begin in June. Brightwater plans to recruit workers through a series of job fairs, the first of which will be held at the Halverston Community Center [4] ------- the summer.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "The project is the largest private investment in the city in nearly a decade.",
+   "Ms. Vasquez plans to retire from the company at the end of the year.",
+   "Waterproof jackets are rarely popular in the region's climate.",
+   "The company was forced to close its only factory last month."
+  ],
+  "answer": "The project is the largest private investment in the city in nearly a decade.",
+  "explanation": "続く「地元当局者が出席し称賛した」の理由として、市にとって大きな投資であるという文が自然につながる。工場閉鎖や需要がないという文は本文と矛盾。",
+  "tags": "Part6 記事 地元企業の拡大 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-005-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "HALVERSTON (April 14)—Brightwater Textiles, a manufacturer of outdoor clothing, announced on Monday that it will open a second factory in Halverston's northern industrial park. The facility is expected to create about 150 jobs when it [1] ------- operating next spring.\n\nCompany president Lorena Vasquez said the decision was driven by strong demand for the company's waterproof jackets. \"Our current factory is running at full [2] -------, and we simply cannot keep up with orders,\" she explained.\n\n[3] -------. Several local officials attended Monday's announcement and praised the company's commitment to the region.\n\nConstruction will begin in June. Brightwater plans to recruit workers through a series of job fairs, the first of which will be held at the Halverston Community Center [4] ------- the summer.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "while",
+   "during",
+   "between",
+   "along"
+  ],
+  "answer": "during",
+  "explanation": "名詞 the summer の前に置けて「夏の間に」を表す前置詞は during。while は接続詞。",
+  "tags": "Part6 記事 地元企業の拡大 前置詞"
+ },
+ {
+  "id": "TOEIC-R6-006-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Mr. Haddad,\n\nThank you for your recent order from Pinecrest Home Goods. We are writing to let you know that the reading lamp you ordered (item #4471) is temporarily out of stock. We expect to receive a new [1] ------- from our supplier on March 18.\n\nThe other items in your order, a desk organizer and a set of picture frames, were shipped today. [2] ------- should arrive within three to five business days.\n\nWe will send the lamp as soon as it is available, at no extra [3] ------- to you. [4] -------. Simply reply to this e-mail, and we will process your request right away.\n\nWe apologize for the delay.\n\nCustomer Service Team\nPinecrest Home Goods",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "shipper",
+   "shipped",
+   "shipment",
+   "shipping"
+  ],
+  "answer": "shipment",
+  "explanation": "形容詞 new の後で「（新しい）入荷分」を表す名詞 shipment が入る。shipper は「荷主」で意味が違う。",
+  "tags": "Part6 Eメール 配送遅延 品詞"
+ },
+ {
+  "id": "TOEIC-R6-006-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Mr. Haddad,\n\nThank you for your recent order from Pinecrest Home Goods. We are writing to let you know that the reading lamp you ordered (item #4471) is temporarily out of stock. We expect to receive a new [1] ------- from our supplier on March 18.\n\nThe other items in your order, a desk organizer and a set of picture frames, were shipped today. [2] ------- should arrive within three to five business days.\n\nWe will send the lamp as soon as it is available, at no extra [3] ------- to you. [4] -------. Simply reply to this e-mail, and we will process your request right away.\n\nWe apologize for the delay.\n\nCustomer Service Team\nPinecrest Home Goods",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "It",
+   "They",
+   "We",
+   "Its"
+  ],
+  "answer": "They",
+  "explanation": "主語は直前の「デスク整理用品と写真立てのセット（2点）」なので複数の They。",
+  "tags": "Part6 Eメール 配送遅延 代名詞"
+ },
+ {
+  "id": "TOEIC-R6-006-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Mr. Haddad,\n\nThank you for your recent order from Pinecrest Home Goods. We are writing to let you know that the reading lamp you ordered (item #4471) is temporarily out of stock. We expect to receive a new [1] ------- from our supplier on March 18.\n\nThe other items in your order, a desk organizer and a set of picture frames, were shipped today. [2] ------- should arrive within three to five business days.\n\nWe will send the lamp as soon as it is available, at no extra [3] ------- to you. [4] -------. Simply reply to this e-mail, and we will process your request right away.\n\nWe apologize for the delay.\n\nCustomer Service Team\nPinecrest Home Goods",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "cost",
+   "price",
+   "fare",
+   "rate"
+  ],
+  "answer": "cost",
+  "explanation": "at no extra cost で「追加料金なしで」という定型表現。",
+  "tags": "Part6 Eメール 配送遅延 語彙"
+ },
+ {
+  "id": "TOEIC-R6-006-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Mr. Haddad,\n\nThank you for your recent order from Pinecrest Home Goods. We are writing to let you know that the reading lamp you ordered (item #4471) is temporarily out of stock. We expect to receive a new [1] ------- from our supplier on March 18.\n\nThe other items in your order, a desk organizer and a set of picture frames, were shipped today. [2] ------- should arrive within three to five business days.\n\nWe will send the lamp as soon as it is available, at no extra [3] ------- to you. [4] -------. Simply reply to this e-mail, and we will process your request right away.\n\nWe apologize for the delay.\n\nCustomer Service Team\nPinecrest Home Goods",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "The desk organizer is our best-selling product this year.",
+   "Our store will be closed for the holidays next week.",
+   "Please return the picture frames in their original box.",
+   "If you would prefer to cancel the lamp and receive a refund, we can arrange that as well."
+  ],
+  "answer": "If you would prefer to cancel the lamp and receive a refund, we can arrange that as well.",
+  "explanation": "直後の「このメールに返信すれば手続きする」に合うのは、キャンセルと返金という選択肢を提示する文。",
+  "tags": "Part6 Eメール 配送遅延 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-007-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "ATTENTION RESIDENTS OF MAPLE COURT APARTMENTS\n\nPlease be advised that the water supply to Buildings A and B will be shut off on Wednesday, July 16, from 9:00 A.M. to 3:00 P.M. The city water department needs to replace an old pipe [1] ------- under the parking lot.\n\n[2] -------. We recommend that residents fill a few containers with water the night before for drinking and cooking.\n\nWhen the water is turned back on, it may look slightly cloudy for a few minutes. This is normal and not a cause for [3] -------. Simply let the tap run until the water is clear.\n\nWe appreciate your patience. Any questions should be directed to the management office, which can be reached at 555-0148 [4] ------- weekdays.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "locating",
+   "locate",
+   "location",
+   "located"
+  ],
+  "answer": "located",
+  "explanation": "an old pipe を後ろから修飾し「駐車場の下にある（置かれた）」の意味になる過去分詞 located。",
+  "tags": "Part6 お知らせ 断水 分詞"
+ },
+ {
+  "id": "TOEIC-R6-007-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "ATTENTION RESIDENTS OF MAPLE COURT APARTMENTS\n\nPlease be advised that the water supply to Buildings A and B will be shut off on Wednesday, July 16, from 9:00 A.M. to 3:00 P.M. The city water department needs to replace an old pipe [1] ------- under the parking lot.\n\n[2] -------. We recommend that residents fill a few containers with water the night before for drinking and cooking.\n\nWhen the water is turned back on, it may look slightly cloudy for a few minutes. This is normal and not a cause for [3] -------. Simply let the tap run until the water is clear.\n\nWe appreciate your patience. Any questions should be directed to the management office, which can be reached at 555-0148 [4] ------- weekdays.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Building C will be painted later in the summer.",
+   "During this time, no water will be available in kitchens or bathrooms.",
+   "Parking fees will increase slightly next year.",
+   "The new pipe has already been working well for months."
+  ],
+  "answer": "During this time, no water will be available in kitchens or bathrooms.",
+  "explanation": "断水時間を述べた直後に「その間は台所や浴室で水が使えない」と説明し、次の「前夜に水をためておく」助言につながる。",
+  "tags": "Part6 お知らせ 断水 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-007-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "ATTENTION RESIDENTS OF MAPLE COURT APARTMENTS\n\nPlease be advised that the water supply to Buildings A and B will be shut off on Wednesday, July 16, from 9:00 A.M. to 3:00 P.M. The city water department needs to replace an old pipe [1] ------- under the parking lot.\n\n[2] -------. We recommend that residents fill a few containers with water the night before for drinking and cooking.\n\nWhen the water is turned back on, it may look slightly cloudy for a few minutes. This is normal and not a cause for [3] -------. Simply let the tap run until the water is clear.\n\nWe appreciate your patience. Any questions should be directed to the management office, which can be reached at 555-0148 [4] ------- weekdays.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "concern",
+   "concerned",
+   "concerning",
+   "concernedly"
+  ],
+  "answer": "concern",
+  "explanation": "前置詞 for の後の名詞。not a cause for concern で「心配には及ばない」。",
+  "tags": "Part6 お知らせ 断水 品詞"
+ },
+ {
+  "id": "TOEIC-R6-007-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "ATTENTION RESIDENTS OF MAPLE COURT APARTMENTS\n\nPlease be advised that the water supply to Buildings A and B will be shut off on Wednesday, July 16, from 9:00 A.M. to 3:00 P.M. The city water department needs to replace an old pipe [1] ------- under the parking lot.\n\n[2] -------. We recommend that residents fill a few containers with water the night before for drinking and cooking.\n\nWhen the water is turned back on, it may look slightly cloudy for a few minutes. This is normal and not a cause for [3] -------. Simply let the tap run until the water is clear.\n\nWe appreciate your patience. Any questions should be directed to the management office, which can be reached at 555-0148 [4] ------- weekdays.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "in",
+   "at",
+   "on",
+   "to"
+  ],
+  "answer": "on",
+  "explanation": "曜日（weekdays）の前の前置詞は on。",
+  "tags": "Part6 お知らせ 断水 前置詞"
+ },
+ {
+  "id": "TOEIC-R6-008-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Now Hiring: Front Desk Associate\n\nThe Larkspur Hotel, a 120-room hotel in the heart of Port Ellison, is looking for a friendly and organized front desk associate to join our team. The successful [1] ------- will check guests in and out, answer telephone inquiries, and handle reservations.\n\nApplicants should have at least one year of experience in customer service. Familiarity with hotel booking software is a plus [2] ------- not required, as full training will be provided. [3] -------.\n\nWe offer competitive pay, paid vacation, and free meals during shifts. To apply, please send a résumé and a brief cover letter to hr@larkspurhotel.com. Applications will be reviewed as they are [4] -------.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "candidacy",
+   "candid",
+   "candidate",
+   "candidly"
+  ],
+  "answer": "candidate",
+  "explanation": "冠詞 The と形容詞 successful の後で「採用される人」を表す名詞 candidate。",
+  "tags": "Part6 求人広告 品詞"
+ },
+ {
+  "id": "TOEIC-R6-008-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Now Hiring: Front Desk Associate\n\nThe Larkspur Hotel, a 120-room hotel in the heart of Port Ellison, is looking for a friendly and organized front desk associate to join our team. The successful [1] ------- will check guests in and out, answer telephone inquiries, and handle reservations.\n\nApplicants should have at least one year of experience in customer service. Familiarity with hotel booking software is a plus [2] ------- not required, as full training will be provided. [3] -------.\n\nWe offer competitive pay, paid vacation, and free meals during shifts. To apply, please send a résumé and a brief cover letter to hr@larkspurhotel.com. Applications will be reviewed as they are [4] -------.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "but",
+   "so",
+   "or",
+   "nor"
+  ],
+  "answer": "but",
+  "explanation": "「あれば有利だが必須ではない」という逆接なので but。",
+  "tags": "Part6 求人広告 接続詞"
+ },
+ {
+  "id": "TOEIC-R6-008-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Now Hiring: Front Desk Associate\n\nThe Larkspur Hotel, a 120-room hotel in the heart of Port Ellison, is looking for a friendly and organized front desk associate to join our team. The successful [1] ------- will check guests in and out, answer telephone inquiries, and handle reservations.\n\nApplicants should have at least one year of experience in customer service. Familiarity with hotel booking software is a plus [2] ------- not required, as full training will be provided. [3] -------.\n\nWe offer competitive pay, paid vacation, and free meals during shifts. To apply, please send a résumé and a brief cover letter to hr@larkspurhotel.com. Applications will be reviewed as they are [4] -------.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "The hotel restaurant was recently featured in a travel magazine.",
+   "Because the hotel is open around the clock, the position requires some weekend and evening shifts.",
+   "Guests may request a late checkout for an additional fee.",
+   "This position does not involve any contact with guests."
+  ],
+  "answer": "Because the hotel is open around the clock, the position requires some weekend and evening shifts.",
+  "explanation": "応募条件・勤務条件を述べる段落なので、週末や夜間のシフトがあるという条件の追加が自然。客と接しないという文は仕事内容と矛盾。",
+  "tags": "Part6 求人広告 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-008-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Now Hiring: Front Desk Associate\n\nThe Larkspur Hotel, a 120-room hotel in the heart of Port Ellison, is looking for a friendly and organized front desk associate to join our team. The successful [1] ------- will check guests in and out, answer telephone inquiries, and handle reservations.\n\nApplicants should have at least one year of experience in customer service. Familiarity with hotel booking software is a plus [2] ------- not required, as full training will be provided. [3] -------.\n\nWe offer competitive pay, paid vacation, and free meals during shifts. To apply, please send a résumé and a brief cover letter to hr@larkspurhotel.com. Applications will be reviewed as they are [4] -------.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "receiving",
+   "receive",
+   "receipt",
+   "received"
+  ],
+  "answer": "received",
+  "explanation": "they are received で「受け取られ次第」という受け身。",
+  "tags": "Part6 求人広告 態"
+ },
+ {
+  "id": "TOEIC-R6-009-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Dr. Lindqvist,\n\nOn behalf of the Coastal Small Business Association, I would like to thank you for speaking at our annual conference last Thursday. Your presentation on managing cash flow was both practical and [1] -------.\n\nMany attendees told us afterward that it was the most useful session of the day. [2] -------, several members have asked whether you would be willing to lead a half-day workshop on the same topic later this year.\n\n[3] -------. We would, of course, cover your travel costs and pay a speaker's fee. If the idea appeals to you, I would be happy to discuss possible dates at your [4] -------.\n\nThank you again for your valuable contribution.\n\nSincerely,\nMonique Arceneaux\nEvents Director",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "engage",
+   "engagement",
+   "engages",
+   "engaging"
+  ],
+  "answer": "engaging",
+  "explanation": "both A and B で並ぶのは形容詞 practical と同じ品詞の engaging（引きつける）。",
+  "tags": "Part6 手紙 講演のお礼 品詞"
+ },
+ {
+  "id": "TOEIC-R6-009-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Dr. Lindqvist,\n\nOn behalf of the Coastal Small Business Association, I would like to thank you for speaking at our annual conference last Thursday. Your presentation on managing cash flow was both practical and [1] -------.\n\nMany attendees told us afterward that it was the most useful session of the day. [2] -------, several members have asked whether you would be willing to lead a half-day workshop on the same topic later this year.\n\n[3] -------. We would, of course, cover your travel costs and pay a speaker's fee. If the idea appeals to you, I would be happy to discuss possible dates at your [4] -------.\n\nThank you again for your valuable contribution.\n\nSincerely,\nMonique Arceneaux\nEvents Director",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Nevertheless",
+   "In fact",
+   "In contrast",
+   "Otherwise"
+  ],
+  "answer": "In fact",
+  "explanation": "「最も役立ったと言われた」をさらに具体例で強めて「実際に、ワークショップを依頼する声もある」と続くので In fact。",
+  "tags": "Part6 手紙 講演のお礼 つなぎ語"
+ },
+ {
+  "id": "TOEIC-R6-009-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Dr. Lindqvist,\n\nOn behalf of the Coastal Small Business Association, I would like to thank you for speaking at our annual conference last Thursday. Your presentation on managing cash flow was both practical and [1] -------.\n\nMany attendees told us afterward that it was the most useful session of the day. [2] -------, several members have asked whether you would be willing to lead a half-day workshop on the same topic later this year.\n\n[3] -------. We would, of course, cover your travel costs and pay a speaker's fee. If the idea appeals to you, I would be happy to discuss possible dates at your [4] -------.\n\nThank you again for your valuable contribution.\n\nSincerely,\nMonique Arceneaux\nEvents Director",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Unfortunately, the conference had to be canceled due to bad weather.",
+   "Our association was founded by a group of restaurant owners.",
+   "Such a workshop would most likely take place in our downtown office.",
+   "Your presentation was shorter than we had expected."
+  ],
+  "answer": "Such a workshop would most likely take place in our downtown office.",
+  "explanation": "直前のワークショップの提案を受けて、その開催場所の説明を加え、費用負担の話へつながる。会議中止の文は前段（講演が行われた）と矛盾。",
+  "tags": "Part6 手紙 講演のお礼 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-009-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Dr. Lindqvist,\n\nOn behalf of the Coastal Small Business Association, I would like to thank you for speaking at our annual conference last Thursday. Your presentation on managing cash flow was both practical and [1] -------.\n\nMany attendees told us afterward that it was the most useful session of the day. [2] -------, several members have asked whether you would be willing to lead a half-day workshop on the same topic later this year.\n\n[3] -------. We would, of course, cover your travel costs and pay a speaker's fee. If the idea appeals to you, I would be happy to discuss possible dates at your [4] -------.\n\nThank you again for your valuable contribution.\n\nSincerely,\nMonique Arceneaux\nEvents Director",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "convenience",
+   "convenient",
+   "conveniently",
+   "convene"
+  ],
+  "answer": "convenience",
+  "explanation": "at your convenience で「ご都合のよいときに」。所有格の後なので名詞。",
+  "tags": "Part6 手紙 講演のお礼 品詞"
+ },
+ {
+  "id": "TOEIC-R6-010-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "FOR IMMEDIATE RELEASE\n\nContact: Priya Raman, Communications Office, Corliss Museum of Design\n\nThe Corliss Museum of Design is pleased to announce Everyday Objects, a new exhibition opening on October 4. The exhibition [1] ------- more than 200 household items, from kitchen tools to radios, produced over the past century.\n\nVisitors will learn how designers have balanced appearance, cost, and ease of use. [2] -------. These include an interactive area where guests can test early telephone models and compare them with today's devices.\n\nEveryday Objects will remain on view through February 28. Admission is free for museum members, and tickets for [3] ------- may be purchased online or at the front desk. Guided tours will be offered every Saturday at 11:00 A.M. [4] ------- space on each tour is limited, advance registration is strongly recommended.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "featuring",
+   "to feature",
+   "featured",
+   "features"
+  ],
+  "answer": "features",
+  "explanation": "主語 The exhibition に対応する述語動詞が必要。現在形 features。",
+  "tags": "Part6 プレスリリース 美術館 動詞の形"
+ },
+ {
+  "id": "TOEIC-R6-010-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "FOR IMMEDIATE RELEASE\n\nContact: Priya Raman, Communications Office, Corliss Museum of Design\n\nThe Corliss Museum of Design is pleased to announce Everyday Objects, a new exhibition opening on October 4. The exhibition [1] ------- more than 200 household items, from kitchen tools to radios, produced over the past century.\n\nVisitors will learn how designers have balanced appearance, cost, and ease of use. [2] -------. These include an interactive area where guests can test early telephone models and compare them with today's devices.\n\nEveryday Objects will remain on view through February 28. Admission is free for museum members, and tickets for [3] ------- may be purchased online or at the front desk. Guided tours will be offered every Saturday at 11:00 A.M. [4] ------- space on each tour is limited, advance registration is strongly recommended.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "The museum's café is located on the ground floor.",
+   "The museum will be closed for the entire month of October.",
+   "Several hands-on displays are also included.",
+   "Most of the objects were designed by a single artist."
+  ],
+  "answer": "Several hands-on displays are also included.",
+  "explanation": "直後の These include an interactive area... の These が指す複数名詞として hands-on displays が必要。",
+  "tags": "Part6 プレスリリース 美術館 文挿入"
+ },
+ {
+  "id": "TOEIC-R6-010-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "FOR IMMEDIATE RELEASE\n\nContact: Priya Raman, Communications Office, Corliss Museum of Design\n\nThe Corliss Museum of Design is pleased to announce Everyday Objects, a new exhibition opening on October 4. The exhibition [1] ------- more than 200 household items, from kitchen tools to radios, produced over the past century.\n\nVisitors will learn how designers have balanced appearance, cost, and ease of use. [2] -------. These include an interactive area where guests can test early telephone models and compare them with today's devices.\n\nEveryday Objects will remain on view through February 28. Admission is free for museum members, and tickets for [3] ------- may be purchased online or at the front desk. Guided tours will be offered every Saturday at 11:00 A.M. [4] ------- space on each tour is limited, advance registration is strongly recommended.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "members",
+   "nonmembers",
+   "exhibitors",
+   "volunteers"
+  ],
+  "answer": "nonmembers",
+  "explanation": "会員は無料と述べた後なので、チケットを買うのは「非会員」。",
+  "tags": "Part6 プレスリリース 美術館 語彙"
+ },
+ {
+  "id": "TOEIC-R6-010-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "FOR IMMEDIATE RELEASE\n\nContact: Priya Raman, Communications Office, Corliss Museum of Design\n\nThe Corliss Museum of Design is pleased to announce Everyday Objects, a new exhibition opening on October 4. The exhibition [1] ------- more than 200 household items, from kitchen tools to radios, produced over the past century.\n\nVisitors will learn how designers have balanced appearance, cost, and ease of use. [2] -------. These include an interactive area where guests can test early telephone models and compare them with today's devices.\n\nEveryday Objects will remain on view through February 28. Admission is free for museum members, and tickets for [3] ------- may be purchased online or at the front desk. Guided tours will be offered every Saturday at 11:00 A.M. [4] ------- space on each tour is limited, advance registration is strongly recommended.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "Because",
+   "Although",
+   "Unless",
+   "So that"
+  ],
+  "answer": "Because",
+  "explanation": "「定員が限られているので事前登録を勧める」という理由なので Because。",
+  "tags": "Part6 プレスリリース 美術館 接続詞"
+ }
+]

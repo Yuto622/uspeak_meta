@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEIC-R7-001-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Carla Mendes [9:58 A.M.]\nHi Owen. I'm at the Brookfield branch for the training session, but the projector here won't connect to my laptop.\n\nOwen Pruitt [10:01 A.M.]\nDid you try the gray cable in the top drawer of the podium? The black one hasn't worked for months.\n\nCarla Mendes [10:03 A.M.]\nI just found it. It fits, but the screen is still blank.\n\nOwen Pruitt [10:05 A.M.]\nThen the projector may need to be restarted. There's a switch on the back. Hold it down for five seconds.\n\nCarla Mendes [10:09 A.M.]\nThat did it! Thanks so much. The participants are starting to arrive.\n\nOwen Pruitt [10:10 A.M.]\nGlad to hear it. Good luck with the session.",
+  "question": "Why did Ms. Mendes contact Mr. Pruitt?",
+  "choices": [
+   "She was having trouble with some equipment.",
+   "She could not find the training room.",
+   "She wanted to reschedule a training session.",
+   "She needed more copies of a handout."
+  ],
+  "answer": "She was having trouble with some equipment.",
+  "explanation": "冒頭で「プロジェクターがノートパソコンにつながらない」と書いており、機器のトラブルで連絡している。",
+  "tags": "Part7 テキストメッセージ 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-001-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Carla Mendes [9:58 A.M.]\nHi Owen. I'm at the Brookfield branch for the training session, but the projector here won't connect to my laptop.\n\nOwen Pruitt [10:01 A.M.]\nDid you try the gray cable in the top drawer of the podium? The black one hasn't worked for months.\n\nCarla Mendes [10:03 A.M.]\nI just found it. It fits, but the screen is still blank.\n\nOwen Pruitt [10:05 A.M.]\nThen the projector may need to be restarted. There's a switch on the back. Hold it down for five seconds.\n\nCarla Mendes [10:09 A.M.]\nThat did it! Thanks so much. The participants are starting to arrive.\n\nOwen Pruitt [10:10 A.M.]\nGlad to hear it. Good luck with the session.",
+  "question": "At 10:09 A.M., what does Ms. Mendes most likely mean when she writes, \"That did it\"?",
+  "choices": [
+   "She has finished the training session.",
+   "The projector is now working.",
+   "She has located the correct cable.",
+   "The participants have all arrived."
+  ],
+  "answer": "The projector is now working.",
+  "explanation": "直前で Pruitt さんが「背面のスイッチを5秒押して再起動」と助言し、それで解決したことを表している。ケーブルは10:03に既に見つけている。",
+  "tags": "Part7 テキストメッセージ 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-002-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Lena Hoffmann <lhoffmann@quillmail.example>\nFrom: Gareth Bellamy <gbellamy@orchardpress.example>\nDate: August 12\nSubject: Your manuscript\n\nDear Ms. Hoffmann,\n\nThank you for sending us the manuscript of your cookbook, Seasons at the Table. Our editorial team has now reviewed it, and we are delighted to say that we would like to publish it next spring.\n\nBefore we prepare a contract, we would like to discuss a few points with you. First, our designers suggest adding photographs for about twenty of the recipes. Second, we feel that the chapter on breads could be shortened slightly so that the book does not exceed 250 pages.\n\nWould you be available to meet at our office on Hale Street sometime next week? I am free on Tuesday and Thursday afternoons. Alternatively, we could hold the meeting by video call if that is more convenient for you.\n\nI look forward to working with you on this project.\n\nBest regards,\nGareth Bellamy\nSenior Editor, Orchard Press",
+  "question": "What is the main purpose of the e-mail?",
+  "choices": [
+   "To request payment for an order",
+   "To reject a manuscript",
+   "To invite an author to a book signing",
+   "To accept a book for publication"
+  ],
+  "answer": "To accept a book for publication",
+  "explanation": "第1段落で「来春出版したい」と伝えており、原稿の採用が主目的。",
+  "tags": "Part7 Eメール 語彙問題"
+ },
+ {
+  "id": "TOEIC-R7-002-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Lena Hoffmann <lhoffmann@quillmail.example>\nFrom: Gareth Bellamy <gbellamy@orchardpress.example>\nDate: August 12\nSubject: Your manuscript\n\nDear Ms. Hoffmann,\n\nThank you for sending us the manuscript of your cookbook, Seasons at the Table. Our editorial team has now reviewed it, and we are delighted to say that we would like to publish it next spring.\n\nBefore we prepare a contract, we would like to discuss a few points with you. First, our designers suggest adding photographs for about twenty of the recipes. Second, we feel that the chapter on breads could be shortened slightly so that the book does not exceed 250 pages.\n\nWould you be available to meet at our office on Hale Street sometime next week? I am free on Tuesday and Thursday afternoons. Alternatively, we could hold the meeting by video call if that is more convenient for you.\n\nI look forward to working with you on this project.\n\nBest regards,\nGareth Bellamy\nSenior Editor, Orchard Press",
+  "question": "What is suggested about the cookbook?",
+  "choices": [
+   "It already contains many photographs.",
+   "It will be published next week.",
+   "It may be too long in its current form.",
+   "It was written by several authors."
+  ],
+  "answer": "It may be too long in its current form.",
+  "explanation": "パンの章を少し短くして250ページを超えないようにと提案しており、現状では長すぎる可能性がある。",
+  "tags": "Part7 Eメール 語彙問題"
+ },
+ {
+  "id": "TOEIC-R7-002-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Lena Hoffmann <lhoffmann@quillmail.example>\nFrom: Gareth Bellamy <gbellamy@orchardpress.example>\nDate: August 12\nSubject: Your manuscript\n\nDear Ms. Hoffmann,\n\nThank you for sending us the manuscript of your cookbook, Seasons at the Table. Our editorial team has now reviewed it, and we are delighted to say that we would like to publish it next spring.\n\nBefore we prepare a contract, we would like to discuss a few points with you. First, our designers suggest adding photographs for about twenty of the recipes. Second, we feel that the chapter on breads could be shortened slightly so that the book does not exceed 250 pages.\n\nWould you be available to meet at our office on Hale Street sometime next week? I am free on Tuesday and Thursday afternoons. Alternatively, we could hold the meeting by video call if that is more convenient for you.\n\nI look forward to working with you on this project.\n\nBest regards,\nGareth Bellamy\nSenior Editor, Orchard Press",
+  "question": "The word \"points\" in paragraph 2, line 1, is closest in meaning to",
+  "choices": [
+   "scores",
+   "tips",
+   "directions",
+   "issues"
+  ],
+  "answer": "issues",
+  "explanation": "discuss a few points は「いくつかの事項を話し合う」で、issues（論点・事項）が最も近い。",
+  "tags": "Part7 Eメール 語彙問題"
+ },
+ {
+  "id": "TOEIC-R7-003-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "HILLCREST COMMUNITY GARDEN\nSpring Volunteer Day\n\nSaturday, April 12, 8:30 A.M. – 12:30 P.M.\n\nJoin your neighbors to get the garden ready for the growing season! Tasks will include clearing weeds, repairing the wooden fence, and planting flower beds near the entrance.\n\n• Gloves and tools will be provided.\n• Please wear clothes that you don't mind getting dirty.\n• Coffee, juice, and muffins will be served in the morning.\n• Volunteers under 16 must be accompanied by an adult.\n\nNo registration is necessary, but if you are coming with a group of five or more, please e-mail Martin Kowalczyk at mkowalczyk@hillcrestgarden.example so we can prepare enough supplies.\n\nIn case of heavy rain, the event will be moved to Saturday, April 19.",
+  "question": "What is NOT mentioned as a task for volunteers?",
+  "choices": [
+   "Removing weeds",
+   "Painting a shed",
+   "Fixing a fence",
+   "Planting flowers"
+  ],
+  "answer": "Painting a shed",
+  "explanation": "雑草取り・柵の修理・花の植え付けは書かれているが、物置のペンキ塗りは書かれていない。",
+  "tags": "Part7 お知らせ NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-003-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "HILLCREST COMMUNITY GARDEN\nSpring Volunteer Day\n\nSaturday, April 12, 8:30 A.M. – 12:30 P.M.\n\nJoin your neighbors to get the garden ready for the growing season! Tasks will include clearing weeds, repairing the wooden fence, and planting flower beds near the entrance.\n\n• Gloves and tools will be provided.\n• Please wear clothes that you don't mind getting dirty.\n• Coffee, juice, and muffins will be served in the morning.\n• Volunteers under 16 must be accompanied by an adult.\n\nNo registration is necessary, but if you are coming with a group of five or more, please e-mail Martin Kowalczyk at mkowalczyk@hillcrestgarden.example so we can prepare enough supplies.\n\nIn case of heavy rain, the event will be moved to Saturday, April 19.",
+  "question": "Why should some people contact Mr. Kowalczyk?",
+  "choices": [
+   "To sign up as an individual volunteer",
+   "To request a set of tools",
+   "To let him know about a large group",
+   "To ask whether the event has been canceled"
+  ],
+  "answer": "To let him know about a large group",
+  "explanation": "5人以上のグループで来る場合はメールで知らせるよう書かれている。個人の登録は不要。",
+  "tags": "Part7 お知らせ NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-004-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Small Town, Big Screen\n\nGLENWOOD (October 3)—When the Royale Theater closed its doors in 2019, many residents of Glenwood assumed the town would never have a cinema again. — [1] — The 1920s building sat empty for nearly four years, and there were even plans to replace it with a parking garage.\n\nThat changed last year, when a group of local residents formed a nonprofit organization to buy and restore the theater. — [2] — Through a combination of private donations, a grant from the state arts council, and a lively crowdfunding campaign, the group raised $1.2 million.\n\nThe renovated Royale reopened in September with a screening of a classic comedy. In addition to new films, the theater now hosts live music, community meetings, and a monthly film club for students. — [3] — Ticket prices have been kept deliberately low, at $7 for adults and $4 for children.\n\n\"We wanted the Royale to be a gathering place again, not just a business,\" said Evan Cho, the group's chairperson. — [4] — Early figures suggest the plan is working: more than 6,000 tickets were sold in the first month alone.",
+  "question": "What is the article mainly about?",
+  "choices": [
+   "The revival of a historic theater",
+   "The construction of a new parking garage",
+   "A film festival for students",
+   "The history of comedy films"
+  ],
+  "answer": "The revival of a historic theater",
+  "explanation": "閉館した映画館を住民団体が買い取り修復し、再開した経緯が中心。",
+  "tags": "Part7 記事 文挿入 語彙"
+ },
+ {
+  "id": "TOEIC-R7-004-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Small Town, Big Screen\n\nGLENWOOD (October 3)—When the Royale Theater closed its doors in 2019, many residents of Glenwood assumed the town would never have a cinema again. — [1] — The 1920s building sat empty for nearly four years, and there were even plans to replace it with a parking garage.\n\nThat changed last year, when a group of local residents formed a nonprofit organization to buy and restore the theater. — [2] — Through a combination of private donations, a grant from the state arts council, and a lively crowdfunding campaign, the group raised $1.2 million.\n\nThe renovated Royale reopened in September with a screening of a classic comedy. In addition to new films, the theater now hosts live music, community meetings, and a monthly film club for students. — [3] — Ticket prices have been kept deliberately low, at $7 for adults and $4 for children.\n\n\"We wanted the Royale to be a gathering place again, not just a business,\" said Evan Cho, the group's chairperson. — [4] — Early figures suggest the plan is working: more than 6,000 tickets were sold in the first month alone.",
+  "question": "How did the nonprofit group obtain funding?",
+  "choices": [
+   "Only from ticket sales",
+   "Through a bank loan",
+   "From several different sources",
+   "From the town government alone"
+  ],
+  "answer": "From several different sources",
+  "explanation": "個人の寄付・州の芸術評議会の助成金・クラウドファンディングの組み合わせと書かれている。",
+  "tags": "Part7 記事 文挿入 語彙"
+ },
+ {
+  "id": "TOEIC-R7-004-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Small Town, Big Screen\n\nGLENWOOD (October 3)—When the Royale Theater closed its doors in 2019, many residents of Glenwood assumed the town would never have a cinema again. — [1] — The 1920s building sat empty for nearly four years, and there were even plans to replace it with a parking garage.\n\nThat changed last year, when a group of local residents formed a nonprofit organization to buy and restore the theater. — [2] — Through a combination of private donations, a grant from the state arts council, and a lively crowdfunding campaign, the group raised $1.2 million.\n\nThe renovated Royale reopened in September with a screening of a classic comedy. In addition to new films, the theater now hosts live music, community meetings, and a monthly film club for students. — [3] — Ticket prices have been kept deliberately low, at $7 for adults and $4 for children.\n\n\"We wanted the Royale to be a gathering place again, not just a business,\" said Evan Cho, the group's chairperson. — [4] — Early figures suggest the plan is working: more than 6,000 tickets were sold in the first month alone.",
+  "question": "The word \"deliberately\" in paragraph 3, line 4, is closest in meaning to",
+  "choices": [
+   "slowly",
+   "intentionally",
+   "temporarily",
+   "carefully"
+  ],
+  "answer": "intentionally",
+  "explanation": "deliberately low は「意図的に低く」。intentionally が最も近い。carefully（注意深く）は別の意味。",
+  "tags": "Part7 記事 文挿入 語彙"
+ },
+ {
+  "id": "TOEIC-R7-004-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Small Town, Big Screen\n\nGLENWOOD (October 3)—When the Royale Theater closed its doors in 2019, many residents of Glenwood assumed the town would never have a cinema again. — [1] — The 1920s building sat empty for nearly four years, and there were even plans to replace it with a parking garage.\n\nThat changed last year, when a group of local residents formed a nonprofit organization to buy and restore the theater. — [2] — Through a combination of private donations, a grant from the state arts council, and a lively crowdfunding campaign, the group raised $1.2 million.\n\nThe renovated Royale reopened in September with a screening of a classic comedy. In addition to new films, the theater now hosts live music, community meetings, and a monthly film club for students. — [3] — Ticket prices have been kept deliberately low, at $7 for adults and $4 for children.\n\n\"We wanted the Royale to be a gathering place again, not just a business,\" said Evan Cho, the group's chairperson. — [4] — Early figures suggest the plan is working: more than 6,000 tickets were sold in the first month alone.",
+  "question": "In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n\"The work included replacing the roof, the seats, and the sound system.\"",
+  "choices": [
+   "[1]",
+   "[3]",
+   "[4]",
+   "[2]"
+  ],
+  "answer": "[2]",
+  "explanation": "The work は直前の「建物を買い取り修復する（restore）」作業を指すので [2] が適切。",
+  "tags": "Part7 記事 文挿入 語彙"
+ },
+ {
+  "id": "TOEIC-R7-005-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "BRIGHTSIDE LANGUAGE CENTER\n\nImprove your business English in just eight weeks!\n\nOur Professional Communication course is designed for working adults who need to use English in meetings, presentations, and e-mails. Classes are limited to eight students, so everyone gets plenty of speaking practice.\n\nCourse options:\n• Weekday evenings: Mondays and Wednesdays, 7:00–8:30 P.M.\n• Saturday mornings: 9:30 A.M.–12:30 P.M.\n\nAll instructors hold teaching certificates and have at least five years of experience working in international companies.\n\nTuition: $480 (textbook included). Sign up before May 1 and save $50!\n\nA free 20-minute level check is required before enrolling. Book yours online at www.brightside-lang.example or call 555-0192.\n\nMany local employers will reimburse tuition for this course. Ask your human resources department for details.",
+  "question": "For whom is the course most likely intended?",
+  "choices": [
+   "Employees who use English at work",
+   "Children preparing for school exams",
+   "Teachers seeking a certificate",
+   "Tourists planning a short trip"
+  ],
+  "answer": "Employees who use English at work",
+  "explanation": "会議・プレゼン・メールで英語を使う社会人向けと書かれている。",
+  "tags": "Part7 広告 推測問題"
+ },
+ {
+  "id": "TOEIC-R7-005-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "BRIGHTSIDE LANGUAGE CENTER\n\nImprove your business English in just eight weeks!\n\nOur Professional Communication course is designed for working adults who need to use English in meetings, presentations, and e-mails. Classes are limited to eight students, so everyone gets plenty of speaking practice.\n\nCourse options:\n• Weekday evenings: Mondays and Wednesdays, 7:00–8:30 P.M.\n• Saturday mornings: 9:30 A.M.–12:30 P.M.\n\nAll instructors hold teaching certificates and have at least five years of experience working in international companies.\n\nTuition: $480 (textbook included). Sign up before May 1 and save $50!\n\nA free 20-minute level check is required before enrolling. Book yours online at www.brightside-lang.example or call 555-0192.\n\nMany local employers will reimburse tuition for this course. Ask your human resources department for details.",
+  "question": "What is indicated about the classes?",
+  "choices": [
+   "They are held only on weekends.",
+   "They have a small number of students.",
+   "They are taught online.",
+   "They do not require a textbook."
+  ],
+  "answer": "They have a small number of students.",
+  "explanation": "1クラス8人までと書かれている。平日夜のクラスもあり、教科書は授業料に含まれる。",
+  "tags": "Part7 広告 推測問題"
+ },
+ {
+  "id": "TOEIC-R7-005-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "BRIGHTSIDE LANGUAGE CENTER\n\nImprove your business English in just eight weeks!\n\nOur Professional Communication course is designed for working adults who need to use English in meetings, presentations, and e-mails. Classes are limited to eight students, so everyone gets plenty of speaking practice.\n\nCourse options:\n• Weekday evenings: Mondays and Wednesdays, 7:00–8:30 P.M.\n• Saturday mornings: 9:30 A.M.–12:30 P.M.\n\nAll instructors hold teaching certificates and have at least five years of experience working in international companies.\n\nTuition: $480 (textbook included). Sign up before May 1 and save $50!\n\nA free 20-minute level check is required before enrolling. Book yours online at www.brightside-lang.example or call 555-0192.\n\nMany local employers will reimburse tuition for this course. Ask your human resources department for details.",
+  "question": "What must people do before joining the course?",
+  "choices": [
+   "Submit a letter from their employer",
+   "Pay a $50 deposit",
+   "Take a short assessment",
+   "Attend a sample class"
+  ],
+  "answer": "Take a short assessment",
+  "explanation": "入学前に20分の無料レベルチェックが必須とある。$50は早期申込の割引額。",
+  "tags": "Part7 広告 推測問題"
+ },
+ {
+  "id": "TOEIC-R7-006-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "FAIRMONT OFFICE SUPPLY — ORDER CONFIRMATION\n\nOrder number: FO-55721\nOrder date: January 14\nCustomer: Dalia Rosen, Westgate Dental Clinic\nDelivery address: 82 Westgate Road, Suite 3\n\nItem | Quantity | Unit price | Total\nCopy paper (case of 10 packs) | 3 | $42.00 | $126.00\nBlack ink cartridges | 6 | $18.50 | $111.00\nAppointment cards (box of 500) | 2 | $25.00 | $50.00\nDesk chair, model RX-2 | 1 | $189.00 | $189.00\n\nSubtotal: $476.00\nDelivery: FREE (orders over $300)\nTotal charged: $476.00\n\nEstimated delivery: January 16 (desk chair: January 22)\n\nNote: The desk chair is shipped directly from the manufacturer and will arrive separately. Assembly service is available for an additional $30; please call our customer service line to arrange it.",
+  "question": "What is indicated about the order?",
+  "choices": [
+   "The customer did not pay a delivery charge.",
+   "It was placed by a furniture store.",
+   "All of the items will arrive on January 16.",
+   "It included a charge for chair assembly."
+  ],
+  "answer": "The customer did not pay a delivery charge.",
+  "explanation": "合計が$300を超えたため配送料は無料（FREE）。椅子は1月22日に別送で、組み立て料金は含まれていない。",
+  "tags": "Part7 フォーム 注文書"
+ },
+ {
+  "id": "TOEIC-R7-006-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "FAIRMONT OFFICE SUPPLY — ORDER CONFIRMATION\n\nOrder number: FO-55721\nOrder date: January 14\nCustomer: Dalia Rosen, Westgate Dental Clinic\nDelivery address: 82 Westgate Road, Suite 3\n\nItem | Quantity | Unit price | Total\nCopy paper (case of 10 packs) | 3 | $42.00 | $126.00\nBlack ink cartridges | 6 | $18.50 | $111.00\nAppointment cards (box of 500) | 2 | $25.00 | $50.00\nDesk chair, model RX-2 | 1 | $189.00 | $189.00\n\nSubtotal: $476.00\nDelivery: FREE (orders over $300)\nTotal charged: $476.00\n\nEstimated delivery: January 16 (desk chair: January 22)\n\nNote: The desk chair is shipped directly from the manufacturer and will arrive separately. Assembly service is available for an additional $30; please call our customer service line to arrange it.",
+  "question": "How much did the customer pay for ink cartridges?",
+  "choices": [
+   "$18.50",
+   "$126.00",
+   "$189.00",
+   "$111.00"
+  ],
+  "answer": "$111.00",
+  "explanation": "インクカートリッジは6個×$18.50＝$111.00。",
+  "tags": "Part7 フォーム 注文書"
+ },
+ {
+  "id": "TOEIC-R7-006-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "FAIRMONT OFFICE SUPPLY — ORDER CONFIRMATION\n\nOrder number: FO-55721\nOrder date: January 14\nCustomer: Dalia Rosen, Westgate Dental Clinic\nDelivery address: 82 Westgate Road, Suite 3\n\nItem | Quantity | Unit price | Total\nCopy paper (case of 10 packs) | 3 | $42.00 | $126.00\nBlack ink cartridges | 6 | $18.50 | $111.00\nAppointment cards (box of 500) | 2 | $25.00 | $50.00\nDesk chair, model RX-2 | 1 | $189.00 | $189.00\n\nSubtotal: $476.00\nDelivery: FREE (orders over $300)\nTotal charged: $476.00\n\nEstimated delivery: January 16 (desk chair: January 22)\n\nNote: The desk chair is shipped directly from the manufacturer and will arrive separately. Assembly service is available for an additional $30; please call our customer service line to arrange it.",
+  "question": "According to the form, what should Ms. Rosen do if she wants help putting the chair together?",
+  "choices": [
+   "Visit the manufacturer's Web site",
+   "Return the chair to the store",
+   "Contact customer service",
+   "Write a note on the order form"
+  ],
+  "answer": "Contact customer service",
+  "explanation": "組み立てサービスは$30で、カスタマーサービスに電話して手配するよう書かれている。",
+  "tags": "Part7 フォーム 注文書"
+ },
+ {
+  "id": "TOEIC-R7-007-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Nadia Farouk [2:14 P.M.]\nHi Jun. The client from Halden Logistics just called. They want to move tomorrow's meeting from 3:00 to 10:00 A.M.\n\nJun Takeda [2:16 P.M.]\nHmm. I have the budget review with Ms. Grant at 10:00.\n\nNadia Farouk [2:17 P.M.]\nI know. Could Pablo take your place at the review? He prepared most of the figures anyway.\n\nJun Takeda [2:19 P.M.]\nThat's true. I'll check with him, but I don't see why not.\n\nNadia Farouk [2:20 P.M.]\nGreat. I'll tell Halden that 10:00 works for us, then. Should I book the larger conference room? They're bringing four people this time.\n\nJun Takeda [2:22 P.M.]\nYes, please. And let's order coffee for everyone.\n\nNadia Farouk [2:23 P.M.]\nWill do.",
+  "question": "What problem does Mr. Takeda mention?",
+  "choices": [
+   "He has not finished a budget report.",
+   "A client has canceled an order.",
+   "A conference room is unavailable.",
+   "He has a scheduling conflict."
+  ],
+  "answer": "He has a scheduling conflict.",
+  "explanation": "10時に予算レビューの予定があり、クライアントとの会議の新しい時間と重なっている。",
+  "tags": "Part7 テキストメッセージ 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-007-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Nadia Farouk [2:14 P.M.]\nHi Jun. The client from Halden Logistics just called. They want to move tomorrow's meeting from 3:00 to 10:00 A.M.\n\nJun Takeda [2:16 P.M.]\nHmm. I have the budget review with Ms. Grant at 10:00.\n\nNadia Farouk [2:17 P.M.]\nI know. Could Pablo take your place at the review? He prepared most of the figures anyway.\n\nJun Takeda [2:19 P.M.]\nThat's true. I'll check with him, but I don't see why not.\n\nNadia Farouk [2:20 P.M.]\nGreat. I'll tell Halden that 10:00 works for us, then. Should I book the larger conference room? They're bringing four people this time.\n\nJun Takeda [2:22 P.M.]\nYes, please. And let's order coffee for everyone.\n\nNadia Farouk [2:23 P.M.]\nWill do.",
+  "question": "At 2:19 P.M., what does Mr. Takeda most likely mean when he writes, \"I don't see why not\"?",
+  "choices": [
+   "He expects Pablo to agree to the plan.",
+   "He does not understand the budget figures.",
+   "He thinks the meeting should not be moved.",
+   "He cannot find the conference room."
+  ],
+  "answer": "He expects Pablo to agree to the plan.",
+  "explanation": "Pablo に代わってもらう案について「断る理由は見当たらない＝たぶん大丈夫」という意味。",
+  "tags": "Part7 テキストメッセージ 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-007-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Nadia Farouk [2:14 P.M.]\nHi Jun. The client from Halden Logistics just called. They want to move tomorrow's meeting from 3:00 to 10:00 A.M.\n\nJun Takeda [2:16 P.M.]\nHmm. I have the budget review with Ms. Grant at 10:00.\n\nNadia Farouk [2:17 P.M.]\nI know. Could Pablo take your place at the review? He prepared most of the figures anyway.\n\nJun Takeda [2:19 P.M.]\nThat's true. I'll check with him, but I don't see why not.\n\nNadia Farouk [2:20 P.M.]\nGreat. I'll tell Halden that 10:00 works for us, then. Should I book the larger conference room? They're bringing four people this time.\n\nJun Takeda [2:22 P.M.]\nYes, please. And let's order coffee for everyone.\n\nNadia Farouk [2:23 P.M.]\nWill do.",
+  "question": "What will Ms. Farouk most likely do next?",
+  "choices": [
+   "Prepare budget figures",
+   "Contact a client",
+   "Meet with Ms. Grant",
+   "Cancel a coffee order"
+  ],
+  "answer": "Contact a client",
+  "explanation": "2:20に「Halden に10時で大丈夫と伝える」と書いている。",
+  "tags": "Part7 テキストメッセージ 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-008-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Staff, Dunmore Regional Office\nFrom: Celeste Ambrose, Office Manager\nDate: November 4\nSubject: Kitchen refrigerator\n\nOver the past few weeks, several employees have complained that the refrigerator in the second-floor kitchen is overcrowded and that some food has been left inside for a long time.\n\nTo keep the kitchen clean and pleasant for everyone, we will begin the following routine next week:\n\n1. Please label all food with your name and the date.\n2. Every Friday at 4:00 P.M., the refrigerator will be emptied. Any items remaining at that time will be thrown away, except for unopened drinks.\n3. Shared items such as milk and condiments will be purchased by the office and stored on the top shelf.\n\nA second refrigerator has also been ordered for the third-floor break room and should arrive by the end of the month.\n\nThank you for your cooperation.",
+  "question": "Why was the memo written?",
+  "choices": [
+   "To invite staff to an office party",
+   "To report a broken appliance",
+   "To announce new kitchen rules",
+   "To introduce a new office manager"
+  ],
+  "answer": "To announce new kitchen rules",
+  "explanation": "冷蔵庫の混雑と放置された食品への苦情を受け、新しいルールを知らせている。",
+  "tags": "Part7 社内メモ"
+ },
+ {
+  "id": "TOEIC-R7-008-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Staff, Dunmore Regional Office\nFrom: Celeste Ambrose, Office Manager\nDate: November 4\nSubject: Kitchen refrigerator\n\nOver the past few weeks, several employees have complained that the refrigerator in the second-floor kitchen is overcrowded and that some food has been left inside for a long time.\n\nTo keep the kitchen clean and pleasant for everyone, we will begin the following routine next week:\n\n1. Please label all food with your name and the date.\n2. Every Friday at 4:00 P.M., the refrigerator will be emptied. Any items remaining at that time will be thrown away, except for unopened drinks.\n3. Shared items such as milk and condiments will be purchased by the office and stored on the top shelf.\n\nA second refrigerator has also been ordered for the third-floor break room and should arrive by the end of the month.\n\nThank you for your cooperation.",
+  "question": "What will happen every Friday afternoon?",
+  "choices": [
+   "Milk will be delivered to the office.",
+   "Most items will be removed from the refrigerator.",
+   "Employees will clean the third-floor break room.",
+   "A new refrigerator will be installed."
+  ],
+  "answer": "Most items will be removed from the refrigerator.",
+  "explanation": "毎週金曜16時に冷蔵庫を空にし、未開封の飲み物以外は捨てると書かれている。",
+  "tags": "Part7 社内メモ"
+ },
+ {
+  "id": "TOEIC-R7-008-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\n\nTo: All Staff, Dunmore Regional Office\nFrom: Celeste Ambrose, Office Manager\nDate: November 4\nSubject: Kitchen refrigerator\n\nOver the past few weeks, several employees have complained that the refrigerator in the second-floor kitchen is overcrowded and that some food has been left inside for a long time.\n\nTo keep the kitchen clean and pleasant for everyone, we will begin the following routine next week:\n\n1. Please label all food with your name and the date.\n2. Every Friday at 4:00 P.M., the refrigerator will be emptied. Any items remaining at that time will be thrown away, except for unopened drinks.\n3. Shared items such as milk and condiments will be purchased by the office and stored on the top shelf.\n\nA second refrigerator has also been ordered for the third-floor break room and should arrive by the end of the month.\n\nThank you for your cooperation.",
+  "question": "What is indicated about the office?",
+  "choices": [
+   "It will soon have an additional refrigerator.",
+   "It has only one floor.",
+   "It does not allow food in the kitchen.",
+   "It recently hired a cleaning company."
+  ],
+  "answer": "It will soon have an additional refrigerator.",
+  "explanation": "3階の休憩室用に2台目の冷蔵庫を注文済みで、月末までに届く予定。",
+  "tags": "Part7 社内メモ"
+ },
+ {
+  "id": "TOEIC-R7-009-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: Marcus Lindgren\nFrom: Tessa Okafor\nDate: May 22\nSubject: Quarterly supplier review\n\nHi Marcus,\n\nI've finished reviewing the performance of our three packaging suppliers for the first quarter, and I wanted to share the main findings before Friday's meeting.\n\nCorbett Packaging continues to deliver on time and has had no quality issues. However, they have informed us that their prices will rise by 8 percent starting in July.\n\nMilford Containers offered the lowest prices, but nearly 15 percent of their deliveries arrived late, which caused delays on two of our production lines in March.\n\nRidgeway Box Company is a newer supplier for us. Their prices fall between the other two, and their deliveries have been reliable so far. Their sales representative has also offered to visit our plant to suggest ways to reduce packaging waste.\n\nGiven these results, I recommend that we shift part of our orders from Milford to Ridgeway in the next quarter. I've attached a spreadsheet with the full figures. Let me know if you'd like me to prepare slides for the meeting.\n\nTessa",
+  "question": "What is the purpose of the e-mail?",
+  "choices": [
+   "To complain about a late delivery",
+   "To introduce a new sales representative",
+   "To announce a change in production schedules",
+   "To summarize an evaluation of suppliers"
+  ],
+  "answer": "To summarize an evaluation of suppliers",
+  "explanation": "3社の包装業者の第1四半期の評価結果を会議前に共有している。",
+  "tags": "Part7 Eメール 語彙 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-009-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: Marcus Lindgren\nFrom: Tessa Okafor\nDate: May 22\nSubject: Quarterly supplier review\n\nHi Marcus,\n\nI've finished reviewing the performance of our three packaging suppliers for the first quarter, and I wanted to share the main findings before Friday's meeting.\n\nCorbett Packaging continues to deliver on time and has had no quality issues. However, they have informed us that their prices will rise by 8 percent starting in July.\n\nMilford Containers offered the lowest prices, but nearly 15 percent of their deliveries arrived late, which caused delays on two of our production lines in March.\n\nRidgeway Box Company is a newer supplier for us. Their prices fall between the other two, and their deliveries have been reliable so far. Their sales representative has also offered to visit our plant to suggest ways to reduce packaging waste.\n\nGiven these results, I recommend that we shift part of our orders from Milford to Ridgeway in the next quarter. I've attached a spreadsheet with the full figures. Let me know if you'd like me to prepare slides for the meeting.\n\nTessa",
+  "question": "What is NOT mentioned about Corbett Packaging?",
+  "choices": [
+   "It has delivered on time.",
+   "It has not had quality problems.",
+   "It has offered to visit the plant.",
+   "It will raise its prices."
+  ],
+  "answer": "It has offered to visit the plant.",
+  "explanation": "工場訪問を申し出たのは Ridgeway の営業担当者で、Corbett ではない。",
+  "tags": "Part7 Eメール 語彙 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-009-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: Marcus Lindgren\nFrom: Tessa Okafor\nDate: May 22\nSubject: Quarterly supplier review\n\nHi Marcus,\n\nI've finished reviewing the performance of our three packaging suppliers for the first quarter, and I wanted to share the main findings before Friday's meeting.\n\nCorbett Packaging continues to deliver on time and has had no quality issues. However, they have informed us that their prices will rise by 8 percent starting in July.\n\nMilford Containers offered the lowest prices, but nearly 15 percent of their deliveries arrived late, which caused delays on two of our production lines in March.\n\nRidgeway Box Company is a newer supplier for us. Their prices fall between the other two, and their deliveries have been reliable so far. Their sales representative has also offered to visit our plant to suggest ways to reduce packaging waste.\n\nGiven these results, I recommend that we shift part of our orders from Milford to Ridgeway in the next quarter. I've attached a spreadsheet with the full figures. Let me know if you'd like me to prepare slides for the meeting.\n\nTessa",
+  "question": "The word \"fall\" in paragraph 4, line 2, is closest in meaning to",
+  "choices": [
+   "drop",
+   "trip",
+   "decline",
+   "lie"
+  ],
+  "answer": "lie",
+  "explanation": "Their prices fall between the other two は「価格が他の2社の間に位置する」。ここでの fall は「下がる」ではなく「（範囲に）ある＝lie」。",
+  "tags": "Part7 Eメール 語彙 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-009-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: Marcus Lindgren\nFrom: Tessa Okafor\nDate: May 22\nSubject: Quarterly supplier review\n\nHi Marcus,\n\nI've finished reviewing the performance of our three packaging suppliers for the first quarter, and I wanted to share the main findings before Friday's meeting.\n\nCorbett Packaging continues to deliver on time and has had no quality issues. However, they have informed us that their prices will rise by 8 percent starting in July.\n\nMilford Containers offered the lowest prices, but nearly 15 percent of their deliveries arrived late, which caused delays on two of our production lines in March.\n\nRidgeway Box Company is a newer supplier for us. Their prices fall between the other two, and their deliveries have been reliable so far. Their sales representative has also offered to visit our plant to suggest ways to reduce packaging waste.\n\nGiven these results, I recommend that we shift part of our orders from Milford to Ridgeway in the next quarter. I've attached a spreadsheet with the full figures. Let me know if you'd like me to prepare slides for the meeting.\n\nTessa",
+  "question": "What does Ms. Okafor recommend?",
+  "choices": [
+   "Ending the contract with Corbett immediately",
+   "Placing some orders with Ridgeway instead of Milford",
+   "Negotiating lower prices with Ridgeway",
+   "Delaying Friday's meeting"
+  ],
+  "answer": "Placing some orders with Ridgeway instead of Milford",
+  "explanation": "最後の段落で、次の四半期に Milford への注文の一部を Ridgeway に移すことを勧めている。",
+  "tags": "Part7 Eメール 語彙 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-010-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "ATTENTION SHOPPERS\n\nStarting Monday, March 3, the Elmhurst Market pharmacy counter will move from the back of the store to a new location next to the main entrance. The new counter will have a private consultation area where customers can speak with a pharmacist.\n\nPharmacy hours will also change:\nMonday – Friday: 8:00 A.M. – 9:00 P.M. (previously 9:00 A.M. – 7:00 P.M.)\nSaturday: 9:00 A.M. – 6:00 P.M. (no change)\nSunday: Closed\n\nPrescriptions can still be refilled online or through our automated phone line at any time. Customers who have questions about the move may speak with any pharmacy staff member or call the pharmacy directly at 555-0163. We thank you for your patience during this change.",
+  "question": "What is changing at Elmhurst Market?",
+  "choices": [
+   "The location of the pharmacy counter",
+   "The store's main entrance",
+   "The method for refilling prescriptions",
+   "The pharmacy's Saturday hours"
+  ],
+  "answer": "The location of the pharmacy counter",
+  "explanation": "薬局カウンターが店の奥から正面入口の横に移る。土曜の時間は変更なし。",
+  "tags": "Part7 お知らせ"
+ },
+ {
+  "id": "TOEIC-R7-010-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "ATTENTION SHOPPERS\n\nStarting Monday, March 3, the Elmhurst Market pharmacy counter will move from the back of the store to a new location next to the main entrance. The new counter will have a private consultation area where customers can speak with a pharmacist.\n\nPharmacy hours will also change:\nMonday – Friday: 8:00 A.M. – 9:00 P.M. (previously 9:00 A.M. – 7:00 P.M.)\nSaturday: 9:00 A.M. – 6:00 P.M. (no change)\nSunday: Closed\n\nPrescriptions can still be refilled online or through our automated phone line at any time. Customers who have questions about the move may speak with any pharmacy staff member or call the pharmacy directly at 555-0163. We thank you for your patience during this change.",
+  "question": "What is indicated about the pharmacy's new weekday hours?",
+  "choices": [
+   "They are the same as Saturday's hours.",
+   "They are longer than before.",
+   "They begin later than before.",
+   "They include Sundays."
+  ],
+  "answer": "They are longer than before.",
+  "explanation": "平日は9時〜19時から8時〜21時に変わり、開店が早く閉店が遅くなった。",
+  "tags": "Part7 お知らせ"
+ },
+ {
+  "id": "TOEIC-R7-011-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "Rethinking the Office Lunch Break\n\nA growing number of companies are encouraging employees to take a real lunch break away from their desks. — [1] — According to a recent survey by the Workplace Wellness Institute, nearly 60 percent of office workers say they usually eat lunch while continuing to work.\n\nResearchers point out that stepping away from the desk, even for twenty minutes, can improve concentration in the afternoon. — [2] — Some firms have responded by redesigning their break rooms with comfortable seating and plants, while others have introduced \"no-meeting\" periods between noon and 1:00 P.M.\n\nNot everyone is convinced, however. Some managers worry that longer breaks will reduce productivity, especially in busy periods. — [3] — Supporters argue that the opposite is true. \"When people return refreshed, they tend to make fewer mistakes,\" said Dr. Helena Voss, the author of the survey.\n\n— [4] — For now, the institute recommends that companies start small, for example by asking teams to hold a shared lunch once a week.",
+  "question": "What is the article mainly about?",
+  "choices": [
+   "The cost of providing lunch to employees",
+   "A new type of office furniture",
+   "Efforts to encourage workers to take breaks",
+   "Ways to shorten business meetings"
+  ],
+  "answer": "Efforts to encourage workers to take breaks",
+  "explanation": "社員に机を離れて昼休みを取るよう促す企業の動きについての記事。",
+  "tags": "Part7 記事 文挿入"
+ },
+ {
+  "id": "TOEIC-R7-011-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "Rethinking the Office Lunch Break\n\nA growing number of companies are encouraging employees to take a real lunch break away from their desks. — [1] — According to a recent survey by the Workplace Wellness Institute, nearly 60 percent of office workers say they usually eat lunch while continuing to work.\n\nResearchers point out that stepping away from the desk, even for twenty minutes, can improve concentration in the afternoon. — [2] — Some firms have responded by redesigning their break rooms with comfortable seating and plants, while others have introduced \"no-meeting\" periods between noon and 1:00 P.M.\n\nNot everyone is convinced, however. Some managers worry that longer breaks will reduce productivity, especially in busy periods. — [3] — Supporters argue that the opposite is true. \"When people return refreshed, they tend to make fewer mistakes,\" said Dr. Helena Voss, the author of the survey.\n\n— [4] — For now, the institute recommends that companies start small, for example by asking teams to hold a shared lunch once a week.",
+  "question": "According to the article, what have some companies done?",
+  "choices": [
+   "Set aside time when meetings are not scheduled",
+   "Required employees to eat lunch at their desks",
+   "Reduced the length of lunch breaks",
+   "Hired researchers to study productivity"
+  ],
+  "answer": "Set aside time when meetings are not scheduled",
+  "explanation": "正午から1時の間に会議を入れない時間を設けた企業があると書かれている。",
+  "tags": "Part7 記事 文挿入"
+ },
+ {
+  "id": "TOEIC-R7-011-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:860",
+  "passage": "Rethinking the Office Lunch Break\n\nA growing number of companies are encouraging employees to take a real lunch break away from their desks. — [1] — According to a recent survey by the Workplace Wellness Institute, nearly 60 percent of office workers say they usually eat lunch while continuing to work.\n\nResearchers point out that stepping away from the desk, even for twenty minutes, can improve concentration in the afternoon. — [2] — Some firms have responded by redesigning their break rooms with comfortable seating and plants, while others have introduced \"no-meeting\" periods between noon and 1:00 P.M.\n\nNot everyone is convinced, however. Some managers worry that longer breaks will reduce productivity, especially in busy periods. — [3] — Supporters argue that the opposite is true. \"When people return refreshed, they tend to make fewer mistakes,\" said Dr. Helena Voss, the author of the survey.\n\n— [4] — For now, the institute recommends that companies start small, for example by asking teams to hold a shared lunch once a week.",
+  "question": "In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n\"They also say it can reduce stress and eye strain.\"",
+  "choices": [
+   "[1]",
+   "[3]",
+   "[4]",
+   "[2]"
+  ],
+  "answer": "[2]",
+  "explanation": "They は Researchers を指し、also で「集中力の向上」に加えて別の効果を述べるので [2] が適切。",
+  "tags": "Part7 記事 文挿入"
+ },
+ {
+  "id": "TOEIC-R7-012-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Theo Grant [4:46 P.M.]\nI'm still at the Wexford site. The tile delivery came, but it's the wrong color—light gray instead of white.\n\nAmara Diallo [4:48 P.M.]\nOh no. The client was very specific about white.\n\nTheo Grant [4:49 P.M.]\nI know. Should I send them back?\n\nAmara Diallo [4:51 P.M.]\nHold on. Let me call the supplier first and see how fast they can get the right ones to us.\n\nAmara Diallo [5:07 P.M.]\nThey can deliver white tiles on Thursday morning. They'll pick up the gray ones at the same time.\n\nTheo Grant [5:08 P.M.]\nThat's cutting it close. We planned to start tiling on Thursday afternoon.",
+  "question": "At 4:51 P.M., what does Ms. Diallo mean when she writes, \"Hold on\"?",
+  "choices": [
+   "She is asking Mr. Grant to stay on the phone.",
+   "She wants Mr. Grant to wait before acting.",
+   "She thinks the tiles should be kept.",
+   "She will visit the work site soon."
+  ],
+  "answer": "She wants Mr. Grant to wait before acting.",
+  "explanation": "タイルを返品すべきか聞かれ、「まず業者に電話するから待って」と行動を保留するよう求めている。",
+  "tags": "Part7 テキストメッセージ 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-012-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Theo Grant [4:46 P.M.]\nI'm still at the Wexford site. The tile delivery came, but it's the wrong color—light gray instead of white.\n\nAmara Diallo [4:48 P.M.]\nOh no. The client was very specific about white.\n\nTheo Grant [4:49 P.M.]\nI know. Should I send them back?\n\nAmara Diallo [4:51 P.M.]\nHold on. Let me call the supplier first and see how fast they can get the right ones to us.\n\nAmara Diallo [5:07 P.M.]\nThey can deliver white tiles on Thursday morning. They'll pick up the gray ones at the same time.\n\nTheo Grant [5:08 P.M.]\nThat's cutting it close. We planned to start tiling on Thursday afternoon.",
+  "question": "What does Mr. Grant imply about the Thursday delivery?",
+  "choices": [
+   "It will arrive too late to be used.",
+   "It will include the wrong items again.",
+   "It will be more expensive than expected.",
+   "It leaves little extra time."
+  ],
+  "answer": "It leaves little extra time.",
+  "explanation": "That's cutting it close は「ぎりぎりだ」の意味。木曜午前に届き午後から作業するので余裕がほとんどない。",
+  "tags": "Part7 テキストメッセージ 意図問題"
+ },
+ {
+  "id": "TOEIC-R7-013-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "https://www.harborlinetours.example/faq\n\nHarborline Boat Tours — Frequently Asked Questions\n\nHow long are the tours?\nOur Harbor Highlights tour lasts 75 minutes. The Sunset Cruise lasts two hours and includes light refreshments.\n\nWhere do tours depart from?\nAll tours leave from Pier 9, next to the Maritime Museum. Please arrive at least 20 minutes before departure to check in.\n\nWhat happens if the weather is bad?\nTours operate in light rain, and all of our boats have covered seating areas. If a tour is canceled because of high winds or storms, you may choose a full refund or a ticket for another date.\n\nCan I bring food on board?\nGuests may bring snacks and nonalcoholic drinks. Food may not be brought on the Sunset Cruise, which provides its own refreshments.\n\nAre discounts available?\nChildren under 12 ride at half price. Groups of 15 or more receive 10 percent off when booking at least one week in advance.",
+  "question": "What is indicated about the Sunset Cruise?",
+  "choices": [
+   "It departs from the Maritime Museum's own dock.",
+   "It allows guests to bring their own meals.",
+   "It is longer than the Harbor Highlights tour.",
+   "It is offered only to groups."
+  ],
+  "answer": "It is longer than the Harbor Highlights tour.",
+  "explanation": "Sunset Cruise は2時間、Harbor Highlights は75分なので長い。持ち込みは不可。",
+  "tags": "Part7 ウェブページ"
+ },
+ {
+  "id": "TOEIC-R7-013-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "https://www.harborlinetours.example/faq\n\nHarborline Boat Tours — Frequently Asked Questions\n\nHow long are the tours?\nOur Harbor Highlights tour lasts 75 minutes. The Sunset Cruise lasts two hours and includes light refreshments.\n\nWhere do tours depart from?\nAll tours leave from Pier 9, next to the Maritime Museum. Please arrive at least 20 minutes before departure to check in.\n\nWhat happens if the weather is bad?\nTours operate in light rain, and all of our boats have covered seating areas. If a tour is canceled because of high winds or storms, you may choose a full refund or a ticket for another date.\n\nCan I bring food on board?\nGuests may bring snacks and nonalcoholic drinks. Food may not be brought on the Sunset Cruise, which provides its own refreshments.\n\nAre discounts available?\nChildren under 12 ride at half price. Groups of 15 or more receive 10 percent off when booking at least one week in advance.",
+  "question": "What are passengers asked to do?",
+  "choices": [
+   "Arrive early to check in",
+   "Bring their own umbrellas",
+   "Book at least one week ahead",
+   "Show a museum ticket"
+  ],
+  "answer": "Arrive early to check in",
+  "explanation": "出発の20分前までに到着してチェックインするよう書かれている。1週間前の予約は団体割引の条件。",
+  "tags": "Part7 ウェブページ"
+ },
+ {
+  "id": "TOEIC-R7-013-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "https://www.harborlinetours.example/faq\n\nHarborline Boat Tours — Frequently Asked Questions\n\nHow long are the tours?\nOur Harbor Highlights tour lasts 75 minutes. The Sunset Cruise lasts two hours and includes light refreshments.\n\nWhere do tours depart from?\nAll tours leave from Pier 9, next to the Maritime Museum. Please arrive at least 20 minutes before departure to check in.\n\nWhat happens if the weather is bad?\nTours operate in light rain, and all of our boats have covered seating areas. If a tour is canceled because of high winds or storms, you may choose a full refund or a ticket for another date.\n\nCan I bring food on board?\nGuests may bring snacks and nonalcoholic drinks. Food may not be brought on the Sunset Cruise, which provides its own refreshments.\n\nAre discounts available?\nChildren under 12 ride at half price. Groups of 15 or more receive 10 percent off when booking at least one week in advance.",
+  "question": "What will happen if a tour is canceled due to a storm?",
+  "choices": [
+   "Passengers will receive a 10 percent discount.",
+   "The tour will take place inside the museum.",
+   "The tour will depart from a different pier.",
+   "Passengers can choose between two options."
+  ],
+  "answer": "Passengers can choose between two options.",
+  "explanation": "全額返金か別の日のチケットかを選べると書かれている。",
+  "tags": "Part7 ウェブページ"
+ },
+ {
+  "id": "TOEIC-R7-014-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Thornbury Apartments Management\n14 Calloway Street\nThornbury\n\nJune 3\n\nMr. Felix Arango\n14 Calloway Street, Apt. 6C\nThornbury\n\nDear Mr. Arango,\n\nThank you for your letter of May 28 regarding the noise from the rooftop air-conditioning unit above your apartment. We have looked into the matter and agree that the unit is louder than it should be.\n\nA technician from Coolbreeze Mechanical inspected the unit on June 1 and found that one of its fans was damaged. A replacement part has been ordered and is expected to arrive within ten days. Once it is installed, the noise should be greatly reduced.\n\nIn the meantime, we would like to offer you the use of the guest suite on the ground floor on any nights when the noise is disturbing your sleep. Please contact the front office to reserve it at no charge.\n\nWe apologize for the inconvenience and appreciate your patience.\n\nSincerely,\nAbigail Thorne\nProperty Manager",
+  "question": "Why did Ms. Thorne write the letter?",
+  "choices": [
+   "To respond to a complaint",
+   "To announce a rent increase",
+   "To introduce a new technician",
+   "To request that a tenant move out"
+  ],
+  "answer": "To respond to a complaint",
+  "explanation": "Arango さんの騒音についての手紙（苦情）への返答。",
+  "tags": "Part7 手紙 推測問題"
+ },
+ {
+  "id": "TOEIC-R7-014-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Thornbury Apartments Management\n14 Calloway Street\nThornbury\n\nJune 3\n\nMr. Felix Arango\n14 Calloway Street, Apt. 6C\nThornbury\n\nDear Mr. Arango,\n\nThank you for your letter of May 28 regarding the noise from the rooftop air-conditioning unit above your apartment. We have looked into the matter and agree that the unit is louder than it should be.\n\nA technician from Coolbreeze Mechanical inspected the unit on June 1 and found that one of its fans was damaged. A replacement part has been ordered and is expected to arrive within ten days. Once it is installed, the noise should be greatly reduced.\n\nIn the meantime, we would like to offer you the use of the guest suite on the ground floor on any nights when the noise is disturbing your sleep. Please contact the front office to reserve it at no charge.\n\nWe apologize for the inconvenience and appreciate your patience.\n\nSincerely,\nAbigail Thorne\nProperty Manager",
+  "question": "What is suggested about Mr. Arango's apartment?",
+  "choices": [
+   "It is on the ground floor.",
+   "It has a broken window.",
+   "It is located on the top floor.",
+   "It was recently renovated."
+  ],
+  "answer": "It is located on the top floor.",
+  "explanation": "屋上の空調機が「彼の部屋の真上」にあると書かれており、最上階にあると推測できる。",
+  "tags": "Part7 手紙 推測問題"
+ },
+ {
+  "id": "TOEIC-R7-014-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Thornbury Apartments Management\n14 Calloway Street\nThornbury\n\nJune 3\n\nMr. Felix Arango\n14 Calloway Street, Apt. 6C\nThornbury\n\nDear Mr. Arango,\n\nThank you for your letter of May 28 regarding the noise from the rooftop air-conditioning unit above your apartment. We have looked into the matter and agree that the unit is louder than it should be.\n\nA technician from Coolbreeze Mechanical inspected the unit on June 1 and found that one of its fans was damaged. A replacement part has been ordered and is expected to arrive within ten days. Once it is installed, the noise should be greatly reduced.\n\nIn the meantime, we would like to offer you the use of the guest suite on the ground floor on any nights when the noise is disturbing your sleep. Please contact the front office to reserve it at no charge.\n\nWe apologize for the inconvenience and appreciate your patience.\n\nSincerely,\nAbigail Thorne\nProperty Manager",
+  "question": "What does Ms. Thorne offer to Mr. Arango?",
+  "choices": [
+   "A discount on next month's rent",
+   "A free place to sleep temporarily",
+   "A new air conditioner for his apartment",
+   "A visit from the property manager"
+  ],
+  "answer": "A free place to sleep temporarily",
+  "explanation": "騒音で眠れない夜は1階のゲストスイートを無料で使えると申し出ている。",
+  "tags": "Part7 手紙 推測問題"
+ }
+]

@@ -9,7 +9,7 @@
     "question": "How did the Impressionist movement get its name?",
     "choices": [
       "A critic used a painting's title to make fun of the artists.",
-      "The artists chose it at their first meeting.",
+      "The artists chose it at their first meeting to describe their new painting style.",
       "The Paris Salon gave the name to the group.",
       "Monet named the movement after a harbor."
     ],
@@ -154,7 +154,7 @@
     "choices": [
       "To explain how to manage a farm efficiently",
       "To describe the history of the Nobel Prize",
-      "To argue that all resources should be privatized",
+      "To argue that shared resources should be privatized or controlled by the government",
       "To present Hardin's argument and a later challenge to it"
     ],
     "answer": "To present Hardin's argument and a later challenge to it",
@@ -245,7 +245,7 @@
       "To correct an error in the textbook",
       "To show that a small number represents a large chemical change",
       "To explain how to measure pH",
-      "To compare the ocean to fresh water"
+      "To compare the chemistry of the ocean with that of lakes and rivers"
     ],
     "answer": "To show that a small number represents a large chemical change",
     "explanation": "0.1という小さな数値でも大きな化学変化であることを示すためです。",
@@ -296,7 +296,7 @@
     "passage": "Professor: The Iliad and the Odyssey are among the oldest works of Western literature. They're also very long—the Iliad is more than fifteen thousand lines. For centuries, scholars assumed that a single poet named Homer wrote them down. But in the early twentieth century, a young American scholar named Milman Parry asked a different question: what if these poems were composed orally, without writing at all?\n\nParry noticed something about the language of the poems. They're full of repeated phrases—\"swift-footed Achilles,\" \"rosy-fingered Dawn,\" \"the wine-dark sea.\" These phrases often fit precisely into the rhythm of the verse. Parry argued that they were tools: a poet performing aloud, composing as he went, could use these ready-made phrases to fill out a line quickly while thinking ahead to the next.\n\nStudent: But how could anyone test that? The poems were written down thousands of years ago.\n\nProfessor: Exactly the problem, and Parry's solution was clever. In the 1930s, he and his assistant, Albert Lord, traveled to Yugoslavia, where there was still a living tradition of singers who performed long epic poems without writing. They recorded hundreds of performances. They found that these singers used the same kinds of formulas—and that no two performances of the \"same\" song were identical. The singers weren't memorizing a fixed text; they were recreating the story each time.\n\nThis research changed how we read Homer. Repetition, which a modern reader might see as a weakness, turns out to be a sign of a highly skilled oral art.",
     "question": "What is the talk mainly about?",
     "choices": [
-      "The plot of the Iliad and the Odyssey",
+      "The plot and main characters of the Iliad and the Odyssey",
       "Evidence that Homer's epics came from an oral tradition",
       "The history of Yugoslavia",
       "How to write poetry with a strong rhythm"
@@ -368,7 +368,7 @@
     "passage": "Professor: How can we tell whether an animal recognizes itself? We can't simply ask. In 1970, the psychologist Gordon Gallup developed a method that's still widely used: the mirror test, sometimes called the mark test.\n\nHere's how it works. First, chimpanzees were given time to get used to a mirror. Initially, they reacted as though they were seeing another chimp—making threatening gestures, for instance. After a few days, though, they began using the mirror to examine parts of their own bodies they couldn't otherwise see. Then, while the animals were anesthetized, Gallup placed a red mark on their foreheads, in a spot visible only in the mirror. When they woke up and saw their reflection, they touched the mark on their own heads—suggesting they understood the image was themselves.\n\nSince then, a small number of other species have passed versions of the test, including orangutans, bottlenose dolphins, Asian elephants, and Eurasian magpies. Most animals tested, however, do not.\n\nStudent: Does that mean dogs, for example, don't recognize themselves?\n\nProfessor: Not necessarily, and that's an important criticism of the test. It assumes the animal relies heavily on vision and cares about a mark on its body. Dogs depend much more on smell. In fact, researchers have designed a \"sniff test\" in which dogs spent more time investigating samples of their own urine that had been altered than unaltered ones. So failing the mirror test may reflect the test's design rather than a lack of self-awareness. As always, we need to be careful about judging other species by our own senses.",
     "question": "What is the main purpose of the talk?",
     "choices": [
-      "To compare the intelligence of chimpanzees and dogs",
+      "To compare the intelligence of chimpanzees, dolphins, elephants, and dogs",
       "To explain a test of self-recognition and its limitations",
       "To describe how animals use mirrors in the wild",
       "To argue that only humans are self-aware"
@@ -460,7 +460,7 @@
     "choices": [
       "To describe a new treatment for pain",
       "To show that placebo effects involve real biological processes",
-      "To explain why placebos are dangerous",
+      "To explain why placebos can be dangerous when they are given to patients in pain",
       "To give an example of the nocebo effect"
     ],
     "answer": "To show that placebo effects involve real biological processes",
@@ -514,7 +514,7 @@
     "choices": [
       "To explain why trade can benefit even a less efficient country",
       "To compare the economies of England and Portugal today",
-      "To argue that free trade harms workers",
+      "To argue that free trade mainly benefits the more productive country",
       "To describe how wine and cloth are produced"
     ],
     "answer": "To explain why trade can benefit even a less efficient country",
@@ -638,7 +638,7 @@
     "passage": "Professor: Tardigrades—sometimes called water bears—are microscopic animals, usually less than a millimeter long, found in moss, soil, and sediments almost everywhere on Earth. They've gained something of a celebrity status because of their extraordinary resilience. In laboratory experiments, certain species have survived extreme cold, very high doses of radiation, and even exposure to the vacuum of space on a satellite mission in 2007.\n\nI want to be precise, though, because popular accounts often exaggerate. Tardigrades are not \"indestructible,\" and they don't thrive in these conditions. Their survival depends largely on entering a dormant state called cryptobiosis. When their environment dries out, they lose almost all their body water, pull in their legs, and curl into a compact form called a tun. Their metabolism drops to an almost undetectable level. In that state, they can endure conditions that would kill them when active, and later revive when water returns.\n\nStudent: How do their cells survive losing that much water? Wouldn't everything fall apart?\n\nProfessor: That's the central puzzle. In many organisms that survive drying, a sugar called trehalose helps protect cell structures. But many tardigrades produce relatively little trehalose. Instead, researchers have identified unusual proteins unique to tardigrades that appear to form a glass-like solid as the cell dries, holding other molecules in place until water returns. Another tardigrade protein seems to shield DNA from damage, and when it was introduced into human cells in culture, those cells became more tolerant of X-rays.\n\nThat's where the practical interest lies. If we understood these mechanisms well enough, they might help us store vaccines or other biological materials without refrigeration.",
     "question": "What can be inferred about the possible practical uses of this research?",
     "choices": [
-      "They have already been put into widespread use.",
+      "They have already been put into widespread use for storing vaccines without refrigeration.",
       "They depend on understanding the protective mechanisms better.",
       "They involve sending tardigrades into space.",
       "They are unrelated to medicine."
@@ -656,7 +656,7 @@
     "passage": "Professor: Many of you will have heard of the Hawthorne effect—the idea that people change their behavior simply because they know they're being observed. The term comes from a series of studies conducted between the mid-1920s and early 1930s at the Hawthorne Works, a Western Electric factory near Chicago.\n\nThe most famous of these were the illumination experiments. Researchers varied the lighting in work areas to see how it affected productivity. The story usually told is that productivity rose no matter what they did—when the lights got brighter, and even when they got dimmer. The conclusion drawn was that the workers were responding not to the lighting but to the attention they were receiving.\n\nStudent: So the effect was basically discovered by accident?\n\nProfessor: That's how it's often presented, and it makes a tidy story. But here's where it gets interesting. The original data from the illumination experiments were thought to have been lost, and the famous summary was passed down secondhand for decades. When economists eventually located and reanalyzed surviving data in the late 2000s, they found that the evidence for a dramatic effect was much weaker than the legend suggested. Some apparent changes could be explained by other factors, such as the fact that lighting was usually changed on Sundays, and output tended to vary across the week anyway.\n\nNone of this means that being observed never affects behavior. Researchers still design studies with that possibility in mind. But it's a useful reminder of how a memorable story can harden into accepted fact, especially when few people go back to examine the original evidence.",
     "question": "What is the professor's main point?",
     "choices": [
-      "Lighting has a strong effect on worker productivity.",
+      "Changes in factory lighting have a strong and consistent effect on worker productivity.",
       "A well-known finding rests on weaker evidence than is commonly believed.",
       "Observation never affects people's behavior.",
       "Factories in the 1920s had poor working conditions."
