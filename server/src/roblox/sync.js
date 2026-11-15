@@ -18,6 +18,7 @@ import { SEED_METRICS, SEED_PREVIOUS, summarize, parseMetric } from '../game/rob
 import { sameUser } from '../store/FileStore.js';
 import { boxFromEvents, pickWords, optionsFor, dueCount } from '../game/review.js';
 import { createDrill, MAX_N } from './drill.js';
+import { createRobloxHomework } from './homework.js';
 
 const MAX_EVENTS = 300;
 const MAX_DATA_BYTES = 32 * 1024;
@@ -47,7 +48,7 @@ export const signRobloxReport = (secret, username) => signLink(secret, `roblox|$
 export const verifyRobloxReport = (secret, username, token) => verifyLink(secret, `roblox|${username}`, token);
 export const robloxReportPath = (secret, username) => `/report/${encodeURIComponent(username)}?t=${signRobloxReport(secret, username)}`;
 
-export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret = '', questions = null, log = console, now = Date.now }) {
+export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret = '', questions = null, homework = () => null, seats = () => null, roster = () => null, log = console, now = Date.now }) {
   const enabled = !!key;
   const rooms = new Set();          // ClassRoom が入室時に登録する（残高を押し込むため）
   const hits = new Map();           // key -> { count, at }
@@ -338,6 +339,9 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
         classCode: str(b.classCode, 24), ms: b.ms, world: str(b.world, 40) || 'eiken-drill', placeId: str(b.placeId, 32) });
       res.status(out.ok ? 200 : 400).json(out);
     });
+
+    // 宿題プレース：Web の 宿題を Roblox でも とく（homework.js）。置き場は Web の 1 つ。
+    createRobloxHomework({ homework, childFor, seats, roster, store, walletAdd, now, log }).mount(api);
 
     app.use('/api/roblox', api);
     log.info(`[roblox] /api/roblox is served (rate=${ratePerMin}/min)`);

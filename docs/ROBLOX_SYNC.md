@@ -303,3 +303,26 @@ cd server && node --test test/roblox.test.mjs
 ## 問題データベースを 取る（GET /api/roblox/questions）
 
 `/admin/qbank` で「Robloxに出す」に した 英検形式の 問題を 取る口。使いかたと Luau の 例は [`QBANK.md`](QBANK.md)。
+
+## 宿題プレース（Web の 宿題を Roblox で とく）
+
+Web で 先生が クラスに くばった 宿題（`/admin/homework`・`/teacher/homework`）を、Roblox の 宿題プレースで とく。
+**宿題の 置き場は Web の 1 つだけ**（`server/src/homework/store.js`）。Web の 宿題島で とちゅうまで やって、つづきを
+Roblox で やっても 同じ すすみぐあい・同じ ごほうび（ぜんぶ おえたら 20 コイン・1 日 60 まで）・同じ 保護者レポート。
+
+- 画面と 判定は メインワールドと 同じ `USpeakFormatUI`（ならべかえ・あなうめ・タイピング・せんつなぎ・きいて えらぶ・つづり）に
+  「えらぶ（4択）」を 足した もの（`roblox/USpeakFormatUI.luau` が 正本）。
+- 1 問の もと（答えつき）は Roblox の **サーバーだけ** が 受けとる。子どもの 端末には `FormatUI.public`（答えの ない 形）だけ。
+- 1 回目で 正解 ＝ ○、2 回目の 正解・2 回 まちがい ＝ ×（Web の 宿題島と 同じ）。記録は `type="quiz"`・`world="homework"`・`level="Homework"`。
+- だれの 宿題か：アカウント名 → ① /admin の 紐づけ ② Roblox の 座席シート ③ Roblox が 送る `classCode`（メインワールドから
+  来る ときの TeleportData）④ 名簿の 同じ 名前。名前は 紐づけの Web の 名前、なければ アカウント名。
+
+| 口 | 送る もの | 返る もの |
+|---|---|---|
+| `POST /api/roblox/homework/list` | `{ username, userId?, classCode? }` | `{ ok, child, coins, items: [まとめ…] }`（まだ もらって いない ごほうびも ここで はらう） |
+| `POST /api/roblox/homework/items` | `{ username, classCode?, aid }` | `{ ok, assignment, items: [1 問の もと…], answers }` |
+| `POST /api/roblox/homework/answer` | `{ username, userId?, classCode?, aid, itemId, ok, attempt, kind, ms }` | `{ ok, answered, total, finished, coins, summary }` |
+
+Roblox 側：`roblox/setup-homework-place.lua`（`scripts/make-roblox-homework-setup.py` が 作る）を 宿題プレースの コマンドバーに
+はって Enter。スクリプト 3 つ（USpeakFormatUI・USpeakHomework・USpeakHomeworkClient）・HTTP オン・しゅくだいの へや（つくえ 6 こ）を 入れる。
+コインは Web の コインの 行に 入るので、メインワールドの `USpeakWalletSync` が 次に 同期した ときに Roblox の 残高に 入る。

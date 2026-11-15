@@ -87,7 +87,10 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   const cpuPercent = createCpuSampler();
   const startedAt = Date.now();
   // Roblox 連携（roblox/sync.js）: 学習の記録を受け、コインを両側で同じにする。鍵がなければ口は開かない。
-  const roblox = createRoblox({ store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, questions: () => ({ updatedAt: qbank.updatedAt, items: qbank.live('roblox') }), log });
+  // 宿題・座席シートは この あとで 作るので、Roblox の 宿題プレースの 口は 呼ばれた ときに 読む。
+  let homeworkRef = null; let seatsRef = null;
+  const roblox = createRoblox({ store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, questions: () => ({ updatedAt: qbank.updatedAt, items: qbank.live('roblox') }),
+    homework: () => homeworkRef, seats: () => seatsRef, roster: () => roster, log });
   await roblox.ensureSeeds();
   await roblox.refreshLinks();
 
@@ -102,6 +105,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   }
   // 宿題（/admin/homework で 入れて くばる。宿題島で とく）。答えつきなので DATA_DIR に だけ 置く。保護者レポート（LINE）も 読む。
   const homework = await new HomeworkStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'homework.json'), { log }).init();
+  homeworkRef = homework; seatsRef = seats;
   // ロードマップ（A・B・C・1〜9）。設定と 段階は DATA_DIR/roadmap.json、計算は 記録（Roblox と Web）から 毎回。
   const roadmapStore = await new RoadmapStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roadmap.json'), { log }).init();
   const roadmap = createRoadmapService({ store, roadmap: roadmapStore, roblox, log });
