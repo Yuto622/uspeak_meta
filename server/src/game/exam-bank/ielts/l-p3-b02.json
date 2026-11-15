@@ -8,7 +8,7 @@
   "passage": "Lecturer: Welcome back, everyone. Let's review last week's river fieldwork. Ana, Ben and Chloe, you were the group on the upper section. How did it go?\nAna: Well, mostly. Our aim was to see whether the river channel gets wider and deeper downstream, as the theory predicts.\nBen: We measured at eight sites. The width and depth increased as expected, but the velocity results were strange.\nLecturer: In what way?\nChloe: The theory says velocity should increase downstream, but at two of our sites it was much slower than we expected.\nBen: We think it's because of a small weir between sites five and six. It holds the water back.\nLecturer: That's a good explanation. Human structures often interrupt natural patterns. Make sure you discuss it in your report.\nAna: We will. The other problem was the float method. We timed an orange over ten metres.\nChloe: But the wind kept blowing it towards the bank, so some timings weren't accurate.\nLecturer: That's a common issue. A flow meter would have been better. Did you repeat the measurements?\nBen: Three times at each site, and we used the average.\nLecturer: Good. What about presenting the data?\nChloe: We were going to use bar charts, but I think scatter graphs would show the relationship with distance better.\nLecturer: I agree. And you could add a line of best fit. Now, for the report, who's doing what?\nAna: I'll write the methodology section. Ben's doing the data analysis because he's best at statistics.\nChloe: And I'll write the conclusion and evaluation, including the problems with the float.\nLecturer: Fine. Please remember the report must include a risk assessment, even though we prepared one together before the trip.\nAna: Should we just copy that one?\nLecturer: No, you should add any new risks you noticed on the day.",
   "question": "What do the students think caused the unexpected velocity results?",
   "choices": [
-   "heavy rain the day before",
+   "heavy rain in the hills during the day before their visit",
    "a structure across the river",
    "mistakes in measuring depth"
   ],
@@ -44,7 +44,7 @@
   "choices": [
    "They show the link with distance more clearly.",
    "They are easier to draw by hand.",
-   "The lecturer requires them."
+   "The lecturer requires them for every fieldwork report this year."
   ],
   "answer": "They show the link with distance more clearly.",
   "explanation": "距離との関係をよりよく示せると考えている。",
@@ -94,7 +94,7 @@
   "question": "Why did the students stop using aluminium?",
   "choices": [
    "It made the stool too heavy.",
-   "It was too expensive.",
+   "It was too expensive for a student project budget.",
    "It was not strong enough."
   ],
   "answer": "It made the stool too heavy.",
@@ -229,7 +229,7 @@
   "passage": "Nadia: So, we've got the feedback from the user testing sessions on our app prototype for the community library. Shall we go through it?\nElliot: Yes. The good news is that everyone found the search function easy to use. That's the part we spent longest on, so I'm relieved.\nNadia: But the reservation process was a real problem. Several older users didn't realise they had to press \"confirm\" at the end, so their books weren't actually reserved.\nElliot: The button was at the bottom of the screen, and they didn't scroll down. We could move it higher up.\nNadia: Or we could remove that step entirely. If someone taps \"reserve\", why ask them to confirm?\nElliot: Because people tap things by accident. Then the library would have to deal with lots of unwanted reservations.\nNadia: Hmm. What if the reservation happens immediately, but there's an \"undo\" option for a few seconds?\nElliot: That's elegant. It keeps the process simple but still lets people correct mistakes. Let's go with that.\nNadia: Next issue: the text size. Some testers found it too small, even though we'd followed the standard guidelines.\nElliot: We could add a setting so users can increase it.\nNadia: Most of them didn't look in the settings, though. I'd rather make the default larger.\nElliot: OK, that's probably more inclusive. What about the colour scheme? The librarian said the pale green was hard to read against white.\nNadia: Yes, the contrast ratio didn't meet accessibility standards. I'll change it to a darker green.\nElliot: Then for the next round of testing, should we use the same participants?\nNadia: Some of them, so we can check the problems are fixed. But we also need new people who haven't seen the app, otherwise they'll already know how it works.\nElliot: Good point. Let's aim for half and half.",
   "question": "Why does Nadia prefer a larger default text size?",
   "choices": [
-   "The guidelines require it.",
+   "The accessibility guidelines say it must be done that way.",
    "The librarian asked for it.",
    "Most users did not explore the settings."
   ],
@@ -299,7 +299,7 @@
   "choices": [
    "the chemistry department",
    "the students themselves",
-   "a local water company"
+   "an engineer from a local water company"
   ],
   "answer": "the chemistry department",
   "explanation": "サンプルを化学科に送って調べてもらった。",
@@ -433,7 +433,7 @@
   "passage": "Rosa: So, we need to decide how to collect data for our study on people's attitudes to working from home.\nHiroshi: I'd assumed we'd do an online questionnaire. It's quick, and we can reach lots of people.\nRosa: That was my first thought too, but I've been reading about it. Online surveys tend to over-represent people who are already comfortable with technology, and they're more likely to be the ones who work from home anyway.\nHiroshi: So our results would be skewed. What's the alternative? Phone interviews?\nRosa: Possibly. Or we could combine methods. An online questionnaire for breadth, and then a smaller number of in-depth interviews.\nHiroshi: A mixed-methods approach. That would give us both numbers and explanations. But it doubles the workload.\nRosa: Not necessarily. We could limit the interviews to about eight people, selected from the questionnaire respondents.\nHiroshi: How would we choose them?\nRosa: We'd pick people with different views, some strongly positive, some negative, some neutral. That's called purposive sampling.\nHiroshi: OK, that makes sense. Now, the questionnaire itself. I was going to use a five-point scale for most items, from \"strongly agree\" to \"strongly disagree\".\nRosa: Fine, but I'd remove the middle option. People often choose \"neutral\" just to avoid thinking.\nHiroshi: I'm not sure. Some people genuinely are neutral. If we force them to choose, the data might be less accurate.\nRosa: That's fair. Let's keep the five points, then.\nHiroshi: What about recording the interviews?\nRosa: We'll need written permission from each participant, and we'll have to delete the recordings once they're transcribed.\nHiroshi: I'll draft the permission form, then. You're better at writing interview questions.\nRosa: Deal.",
   "question": "What problem does Rosa identify with online questionnaires?",
   "choices": [
-   "They are too expensive to run.",
+   "They are too expensive to run for a project with no funding.",
    "They produce too little data.",
    "They may not represent the population fairly."
   ],
@@ -518,7 +518,7 @@
   "passage": "Lecturer: Thanks for staying behind, Mia, Kaito and Femi. I've read the first draft of your report on the transport survey. There's a lot of good work, but I have some concerns about the methodology.\nMia: Is it the sample size? We only got ninety responses.\nLecturer: Actually, ninety is acceptable for a project of this scale. My main concern is how you selected people. You surveyed people at the bus station.\nKaito: Yes, because we wanted to know about public transport use.\nLecturer: But your research question asks how all residents travel to work. People at a bus station are obviously more likely to use buses.\nFemi: I see. So our finding that sixty percent of people commute by bus is probably too high.\nLecturer: Exactly. You can't change the data now, but you must discuss this limitation clearly in your report.\nMia: Should we collect more data from other places?\nLecturer: If you have time, yes. A supermarket or a library would give you a broader mix. But even then, mention the original bias.\nKaito: We could go to the shopping centre this Saturday.\nLecturer: Good. Another point: some of your questions were leading. For example, \"Don't you think buses are too expensive?\" pushes people towards agreeing.\nFemi: That was my question. I didn't realise.\nLecturer: It's a common mistake. A neutral version would be \"How would you describe bus fares?\" with a range of options.\nMia: We can't change questions we've already asked, though.\nLecturer: No, but use the neutral wording for the new survey, and compare results if you can. That could actually become an interesting part of your discussion.\nKaito: That's a good idea. When is the final deadline?\nLecturer: The 28th. Bring me a revised draft by the 20th if you'd like more feedback.",
   "question": "What is the lecturer's main concern about the survey?",
   "choices": [
-   "the number of responses",
+   "the small number of responses they received from residents",
    "the place where people were surveyed",
    "the length of the questionnaire"
   ],
@@ -553,7 +553,7 @@
   "question": "Where do the students plan to collect more data?",
   "choices": [
    "at a shopping centre",
-   "at a library",
+   "at a library in the town centre",
    "at a supermarket"
   ],
   "answer": "at a shopping centre",

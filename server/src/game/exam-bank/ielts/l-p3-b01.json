@@ -9,7 +9,7 @@
   "question": "Why did the students change their main target audience?",
   "choices": [
    "Older office workers were more willing to pay.",
-   "Students did not drink much takeaway coffee.",
+   "Students said they did not usually drink very much takeaway coffee.",
    "The tutor recommended a different group."
   ],
   "answer": "Older office workers were more willing to pay.",
@@ -129,7 +129,7 @@
   "choices": [
    "It is easier than using the four Ps.",
    "It shows changes in consumer views clearly.",
-   "The lecturer requires it."
+   "The lecturer requires it in every third-year marketing project."
   ],
   "answer": "It shows changes in consumer views clearly.",
   "explanation": "消費者のブランド認識が時間とともにどう変わったかを視覚的に示せるから。",
@@ -180,7 +180,7 @@
   "choices": [
    "They found the museum boring.",
    "They were not aware of the events.",
-   "The tickets were too expensive."
+   "They felt the tickets were too expensive for people their age."
   ],
   "answer": "They were not aware of the events.",
   "explanation": "退屈だからと予想していたが、実際は何をやっているか知らないことが主な理由だった。",
@@ -315,7 +315,7 @@
   "question": "What will Hannah do during medication rounds next week?",
   "choices": [
    "prepare medication under supervision",
-   "give medication to patients alone",
+   "give medication to patients on her own during the rounds",
    "only observe the senior nurses"
   ],
   "answer": "prepare medication under supervision",
@@ -366,7 +366,7 @@
   "question": "Why does Daniel decide not to ask for a swap?",
   "choices": [
    "His travel time is not long enough to qualify.",
-   "Aisha does not want to change.",
+   "Aisha has decided that she does not want to change placements.",
    "The deadline for swaps has passed."
   ],
   "answer": "His travel time is not long enough to qualify.",
@@ -433,7 +433,7 @@
   "passage": "Mentor: Hi Leon, hi Priyanka. Before you start on the surgical ward tomorrow, I wanted to go over a few things.\nLeon: Thanks. We're both a bit nervous.\nMentor: That's normal. Now, shifts. You'll both be doing the early shift for the first week, which starts at 7.15. Please arrive ten minutes before, so you can hear the handover from the night staff.\nPriyanka: Is the handover where they talk about each patient?\nMentor: Yes. It's one of the most important parts of the day. Bring a notebook, but don't take it home, because it contains confidential information. You'll leave it in the locker room.\nLeon: OK. What will we be doing in the first few days?\nMentor: Mostly helping with basic care, like washing and feeding patients, and taking observations, such as temperature and pulse. I know some students think that's not real nursing, but it's when you notice changes in a patient's condition.\nPriyanka: I hadn't thought of it like that.\nMentor: Now, each of you will have a named mentor. Leon, yours is Carlos. Priyanka, you'll be with me for the first two weeks, and then with Bridget, who's coming back from holiday.\nPriyanka: Great.\nMentor: One thing we're very strict about is hand hygiene. There are gel dispensers at every bed, and you must use them before and after touching any patient.\nLeon: What about jewellery?\nMentor: Only a plain wedding ring. No watches, either. You'll need a watch with a second hand for taking pulses, but it must be the kind you pin to your uniform.\nLeon: I haven't got one of those.\nMentor: The hospital shop sells them, and they're not expensive.\nPriyanka: And if we're unsure about anything?\nMentor: Always ask. Nobody will think less of you. It's far worse to guess.",
   "question": "Why should the students arrive before 7.15?",
   "choices": [
-   "to collect their uniforms",
+   "to collect their uniforms and safety equipment from the office",
    "to hear the night staff's handover",
    "to meet their mentors"
   ],
@@ -451,7 +451,7 @@
   "question": "What must the students do with their handover notebooks?",
   "choices": [
    "show them to their mentor",
-   "write them up at home",
+   "take them home and write them up properly every evening",
    "leave them at the hospital"
   ],
   "answer": "leave them at the hospital",
@@ -603,7 +603,7 @@
   "passage": "Marta: Right, we need to finalise our hypothesis for the urban fieldwork. I think we should go with the one about air quality.\nOscar: The idea that pollution levels drop the further you get from the ring road?\nMarta: Yes. It's measurable, and we can borrow the portable monitors from the department.\nOscar: The problem is that only two monitors are available, and they're booked for most of the term. We'd only have them for one day.\nMarta: One day isn't enough to make reliable conclusions. Traffic varies so much depending on the day of the week.\nOscar: Exactly. So I'd suggest the alternative: investigating whether the quality of the environment improves with distance from the city centre. We could use an environmental quality survey, scoring things like litter, graffiti and green space.\nMarta: That's subjective, though. Two people could give the same street completely different scores.\nOscar: True, but we can reduce that. If we both score every site independently and then use the average, it's more reliable.\nMarta: And we'd need clear definitions for each score. Like, what exactly counts as a \"high\" amount of litter.\nOscar: Right. We can write a scoring guide before we start.\nMarta: OK, I'm convinced. How many sites?\nOscar: The guidelines say at least fifteen. I'd go for twenty, along a transect running south from the centre.\nMarta: South takes us through the industrial area, though. That might distort the results.\nOscar: Hmm, you're right. West, then, which is mainly residential.\nMarta: Fine. We could also add a questionnaire for residents, asking how they feel about their area.\nOscar: That'd add a human dimension. But ethics approval for questionnaires takes about a month.\nMarta: Then we'd better apply this week.",
   "question": "Why do the students reject the air quality hypothesis?",
   "choices": [
-   "The monitors were not accurate.",
+   "The monitors were not accurate enough for a university project.",
    "The ring road was closed for repairs.",
    "They could not use the monitors for long enough."
   ],

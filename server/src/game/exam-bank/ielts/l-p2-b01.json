@@ -25,7 +25,7 @@
   "passage": "Good morning, everyone, and welcome to Thornbury Wildlife Park. My name's Rosa, and I'm one of the rangers here. Before you set off, I'd like to give you a few pieces of information to help you enjoy your visit.\n\nFirst, a word about the park itself. Many people think we're a zoo, but we're actually a conservation centre. Most of our animals came here because they were injured or couldn't survive in the wild, and our main aim is to breed rare native species and return them to nature. Last year, for example, we released forty water voles into local rivers.\n\nNow, the most popular area is the otter enclosure. Feeding time used to be at eleven, but we've moved it to half past two, because the otters are much more active in the afternoon. So if you want to see them at their best, come back after lunch.\n\nYou'll notice there's a new walkway through the woodland. It was built last spring, and it goes right up into the trees, about eight metres above the ground. It's perfectly safe, but please note that it's closed in strong winds. Today the forecast is calm, so it should be open all day.\n\nAs for food, the main café is next to the gift shop. There's also a picnic area by the lake, but please don't feed the ducks bread. It's bad for them. You can buy special duck food at the café for fifty pence a bag.\n\nFinally, we're running a photography competition this month. Upload your best animal photo to our website before the 30th. The prize is a family season ticket, and the winning picture will be printed in our guidebook next year.\n\nEnjoy your day!\n\n[Notes]\nPicnic area: by the (4) ______ (do not feed ducks bread)\nPhoto competition prize: a family (5) ______ ticket",
   "question": "Why has the otter feeding time been changed?",
   "choices": [
-   "Too many visitors came in the morning.",
+   "Too many visitors were coming to watch in the morning.",
    "The otters are more active later in the day.",
    "The keepers had too much work at eleven."
   ],
@@ -100,7 +100,7 @@
   "passage": "Hello and thanks for tuning in to Community Radio's weekend guide. Today I'm going to tell you about the changes at Marsh End Wildlife Park, which reopens next Saturday after six months of work.\n\nThe biggest change is the new entrance. Previously, visitors arrived through the car park, which meant a long walk past the service buildings. Now the entrance is on the river side, and you can actually arrive by boat from the town centre. The boat runs every forty-five minutes, and although it's slower than driving, it's a lovely way to start the day.\n\nTicket prices have gone up slightly. An adult ticket is now fourteen pounds, rather than twelve. However, the park has introduced a new policy: if you visit on a weekday and show a library card from the local area, you get in for half price. The park's director told me this was to encourage local families who might not otherwise come.\n\nInside, there are some new residents. The park has two red pandas, which arrived from a breeding programme in the Netherlands. They're quite shy, so the keepers have asked visitors to stay quiet near their enclosure. Don't expect to see them straight away; they often sleep high in the trees until mid-morning.\n\nThe old reptile house has been completely rebuilt, and it's now a tropical butterfly house. It's kept at twenty-eight degrees, so you might want to take your coat off before you go in.\n\nFor children, there's a new activity trail with twelve wooden posts. At each post there's a question about the animals, and children who complete the trail can collect a badge from the information desk.\n\nAnd finally, the park is looking for volunteers to help with guided walks. No experience is needed, but you must be available at least two weekends a month.\n\n[Notes]\nFormer reptile house is now a tropical (4) ______ house\nChildren who finish the activity trail receive a (5) ______",
   "question": "Who can get a reduced ticket price?",
   "choices": [
-   "all visitors who arrive by boat",
+   "all visitors who arrive at the park by boat from the town",
    "local library card holders on weekdays",
    "families with more than two children"
   ],
@@ -235,7 +235,7 @@
   "choices": [
    "Old painted panels were found and needed restoring.",
    "The builders found problems with the roof.",
-   "The council ran out of money."
+   "The council could not afford to pay the builders on time."
   ],
   "answer": "Old painted panels were found and needed restoring.",
   "explanation": "古い天井を外したら19世紀の絵が描かれたパネルが見つかり、修復が必要になったため。",
@@ -477,7 +477,7 @@
   "choices": [
    "their own snacks",
    "their own water bottle",
-   "a spare tyre"
+   "a spare tyre and a basic repair kit"
   ],
   "answer": "their own water bottle",
   "explanation": "ゴミを減らすためペットボトルを配らないので、自分のボトルを持参するよう言っている。",
