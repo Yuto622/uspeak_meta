@@ -1,0 +1,578 @@
+[
+ {
+  "id": "TOEFL-RD-533-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Campus Tour Guides Needed\nAdmissions is hiring tour guides for the spring semester. Guides lead groups of prospective students and their families on 60-minute walking tours, answering questions about academics and student life. Successful applicants will be outgoing, reliable, and able to walk for extended periods. All new guides must attend a paid two-day training on January 12–13. Applicants who cannot attend both days will not be considered.",
+  "question": "What is a guide's main responsibility?",
+  "choices": [
+   "Interviewing high school applicants who want admission to the university",
+   "Planning events for current students",
+   "Showing visitors around campus and answering questions",
+   "Writing brochures for the university"
+  ],
+  "answer": "Showing visitors around campus and answering questions",
+  "explanation": "lead groups ... on walking tours, answering questions とある。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-533-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Campus Tour Guides Needed\nAdmissions is hiring tour guides for the spring semester. Guides lead groups of prospective students and their families on 60-minute walking tours, answering questions about academics and student life. Successful applicants will be outgoing, reliable, and able to walk for extended periods. All new guides must attend a paid two-day training on January 12–13. Applicants who cannot attend both days will not be considered.",
+  "question": "What is stated about the training?",
+  "choices": [
+   "It is unpaid.",
+   "It is optional for experienced guides.",
+   "It takes place during the tours.",
+   "Attendance on both days is mandatory."
+  ],
+  "answer": "Attendance on both days is mandatory.",
+  "explanation": "cannot attend both days will not be considered とある。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-534-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Late-Night Menu at The Grill (9 p.m.–1 a.m.)\nBurgers (beef, chicken, or bean) — $7\nLoaded fries — $4\nGrilled cheese — $5\nMilkshakes — $4\nCombo: any burger + fries + milkshake — $12\nOrders placed through the app after midnight receive 10% off.",
+  "question": "How much does a student save by buying the combo instead of each item separately?",
+  "choices": [
+   "$3",
+   "$1",
+   "$4",
+   "$5"
+  ],
+  "answer": "$3",
+  "explanation": "7 + 4 + 4 = 15、コンボは 12 なので 3 ドル得。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-534-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Late-Night Menu at The Grill (9 p.m.–1 a.m.)\nBurgers (beef, chicken, or bean) — $7\nLoaded fries — $4\nGrilled cheese — $5\nMilkshakes — $4\nCombo: any burger + fries + milkshake — $12\nOrders placed through the app after midnight receive 10% off.",
+  "question": "How can a student get a discount?",
+  "choices": [
+   "Buy two burgers",
+   "Order through the app after midnight",
+   "Order before 9 p.m.",
+   "Choose the bean burger"
+  ],
+  "answer": "Order through the app after midnight",
+  "explanation": "Orders placed through the app after midnight receive 10% off。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-535-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Intramural Soccer Registration\nTeams of 8–12 players can register for the fall league until September 20. Each team must have at least three players of each gender on the field during matches. A $40 team deposit is required at registration and will be returned at the end of the season to teams that do not miss any scheduled games. Matches are played on Sunday afternoons on the north field.",
+  "question": "Under what condition will a team get its deposit back?",
+  "choices": [
+   "If it wins the league",
+   "If it registers before September 20",
+   "If it plays every scheduled game",
+   "If it has twelve players"
+  ],
+  "answer": "If it plays every scheduled game",
+  "explanation": "teams that do not miss any scheduled games に返金。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-535-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Intramural Soccer Registration\nTeams of 8–12 players can register for the fall league until September 20. Each team must have at least three players of each gender on the field during matches. A $40 team deposit is required at registration and will be returned at the end of the season to teams that do not miss any scheduled games. Matches are played on Sunday afternoons on the north field.",
+  "question": "Which team could NOT register?",
+  "choices": [
+   "A team with eight players",
+   "A team with ten players",
+   "A team with twelve players",
+   "A team with seven players"
+  ],
+  "answer": "A team with seven players",
+  "explanation": "8〜12 人なので 7 人は不可。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-535-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Intramural Soccer Registration\nTeams of 8–12 players can register for the fall league until September 20. Each team must have at least three players of each gender on the field during matches. A $40 team deposit is required at registration and will be returned at the end of the season to teams that do not miss any scheduled games. Matches are played on Sunday afternoons on the north field.",
+  "question": "When are league matches played?",
+  "choices": [
+   "On Sunday afternoons",
+   "On Saturday mornings",
+   "On weekday evenings",
+   "On Sunday mornings"
+  ],
+  "answer": "On Sunday afternoons",
+  "explanation": "Matches are played on Sunday afternoons とある。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-536-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Subletting Policy Update\nStudents living in university apartments may now sublet their units during the summer, provided that the new occupant is a currently enrolled student or a visiting researcher approved by the university. The original tenant remains responsible for any damage and for rent payments throughout the sublet period. Requests must be submitted to the Housing Office at least 30 days before the sublet begins.",
+  "question": "Who may live in a sublet apartment?",
+  "choices": [
+   "Any family member of the tenant",
+   "A current student or an approved visiting researcher",
+   "Anyone who pays the full summer rent in advance",
+   "Only first-year students"
+  ],
+  "answer": "A current student or an approved visiting researcher",
+  "explanation": "currently enrolled student or a visiting researcher approved とある。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-536-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Subletting Policy Update\nStudents living in university apartments may now sublet their units during the summer, provided that the new occupant is a currently enrolled student or a visiting researcher approved by the university. The original tenant remains responsible for any damage and for rent payments throughout the sublet period. Requests must be submitted to the Housing Office at least 30 days before the sublet begins.",
+  "question": "Who is responsible for damage during the sublet?",
+  "choices": [
+   "The new occupant",
+   "The Housing Office",
+   "The original tenant",
+   "The visiting researcher's department"
+  ],
+  "answer": "The original tenant",
+  "explanation": "The original tenant remains responsible とある。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-536-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Subletting Policy Update\nStudents living in university apartments may now sublet their units during the summer, provided that the new occupant is a currently enrolled student or a visiting researcher approved by the university. The original tenant remains responsible for any damage and for rent payments throughout the sublet period. Requests must be submitted to the Housing Office at least 30 days before the sublet begins.",
+  "question": "What does \"provided that\" mean in the notice?",
+  "choices": [
+   "even though",
+   "because",
+   "unless",
+   "on the condition that"
+  ],
+  "answer": "on the condition that",
+  "explanation": "provided that＝〜という条件で。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-537-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Software Licenses for Students\nThrough an agreement with several software providers, enrolled students can download statistics, design, and office software at no cost. Licenses remain active while you are enrolled and expire 30 days after graduation or withdrawal. Note that the licenses are for academic use only; using the software for paid freelance work violates the agreement and may result in your access being cancelled.",
+  "question": "When do the licenses expire?",
+  "choices": [
+   "A month after a student leaves the university",
+   "At the end of each semester",
+   "One year after download",
+   "Immediately after the graduation ceremony ends"
+  ],
+  "answer": "A month after a student leaves the university",
+  "explanation": "expire 30 days after graduation or withdrawal とある。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-537-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Software Licenses for Students\nThrough an agreement with several software providers, enrolled students can download statistics, design, and office software at no cost. Licenses remain active while you are enrolled and expire 30 days after graduation or withdrawal. Note that the licenses are for academic use only; using the software for paid freelance work violates the agreement and may result in your access being cancelled.",
+  "question": "Which use of the software would break the rules?",
+  "choices": [
+   "Completing a statistics assignment",
+   "Designing a logo for a paying client",
+   "Writing a class report",
+   "Preparing a presentation for a seminar"
+  ],
+  "answer": "Designing a logo for a paying client",
+  "explanation": "paid freelance work violates the agreement。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-538-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Airport Shuttle — End of Semester\nThe university will run free shuttles to the regional airport on December 18 and 19. Buses leave from the Student Union every two hours from 6 a.m. to 6 p.m. Seats must be reserved online, and each passenger may bring one large suitcase and one carry-on bag. Students with flights before 9 a.m. should take the 6 a.m. bus, as the trip takes about 90 minutes in heavy traffic.",
+  "question": "How many shuttles leave each day?",
+  "choices": [
+   "Six",
+   "Twelve",
+   "Seven",
+   "Two"
+  ],
+  "answer": "Seven",
+  "explanation": "6, 8, 10, 12, 14, 16, 18 時の 7 本。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-538-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Airport Shuttle — End of Semester\nThe university will run free shuttles to the regional airport on December 18 and 19. Buses leave from the Student Union every two hours from 6 a.m. to 6 p.m. Seats must be reserved online, and each passenger may bring one large suitcase and one carry-on bag. Students with flights before 9 a.m. should take the 6 a.m. bus, as the trip takes about 90 minutes in heavy traffic.",
+  "question": "Why should students with early flights take the first bus?",
+  "choices": [
+   "Later buses are already full.",
+   "The airport closes at 9 a.m.",
+   "Only the first bus allows suitcases.",
+   "The trip can take an hour and a half."
+  ],
+  "answer": "The trip can take an hour and a half.",
+  "explanation": "the trip takes about 90 minutes in heavy traffic とある。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-538-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Airport Shuttle — End of Semester\nThe university will run free shuttles to the regional airport on December 18 and 19. Buses leave from the Student Union every two hours from 6 a.m. to 6 p.m. Seats must be reserved online, and each passenger may bring one large suitcase and one carry-on bag. Students with flights before 9 a.m. should take the 6 a.m. bus, as the trip takes about 90 minutes in heavy traffic.",
+  "question": "What must students do in order to ride the shuttle?",
+  "choices": [
+   "Reserve a seat online",
+   "Pay a fee at the Student Union",
+   "Show a printed flight ticket",
+   "Bring only one carry-on bag"
+  ],
+  "answer": "Reserve a seat online",
+  "explanation": "Seats must be reserved online とある。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-539-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Notice of Rent Adjustment\nFollowing a review of operating costs, the Board of Residential Life has approved a 4% increase in rent for all residence halls, effective next academic year. The increase reflects rising utility costs and the completion of accessibility upgrades in three older buildings. Students who qualify for need-based aid will have the additional amount covered automatically through an expanded housing grant. Comments may be submitted through the online feedback form until March 1, and a public forum will be held in the Student Union on February 20.",
+  "question": "What reasons are given for the rent increase?",
+  "choices": [
+   "A shortage of rooms and new staff",
+   "Higher utility costs and building improvements",
+   "Lower enrollment and fewer residents",
+   "Changes to the meal plan"
+  ],
+  "answer": "Higher utility costs and building improvements",
+  "explanation": "rising utility costs and ... accessibility upgrades とある。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-539-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Notice of Rent Adjustment\nFollowing a review of operating costs, the Board of Residential Life has approved a 4% increase in rent for all residence halls, effective next academic year. The increase reflects rising utility costs and the completion of accessibility upgrades in three older buildings. Students who qualify for need-based aid will have the additional amount covered automatically through an expanded housing grant. Comments may be submitted through the online feedback form until March 1, and a public forum will be held in the Student Union on February 20.",
+  "question": "What can be inferred about students who receive need-based aid?",
+  "choices": [
+   "They must apply again for housing.",
+   "They will pay a higher percentage.",
+   "They will not have to pay the increase themselves.",
+   "They will be moved to the older buildings."
+  ],
+  "answer": "They will not have to pay the increase themselves.",
+  "explanation": "covered automatically とあるので自己負担なし。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-539-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Notice of Rent Adjustment\nFollowing a review of operating costs, the Board of Residential Life has approved a 4% increase in rent for all residence halls, effective next academic year. The increase reflects rising utility costs and the completion of accessibility upgrades in three older buildings. Students who qualify for need-based aid will have the additional amount covered automatically through an expanded housing grant. Comments may be submitted through the online feedback form until March 1, and a public forum will be held in the Student Union on February 20.",
+  "question": "How can students express their views on the decision?",
+  "choices": [
+   "Only by writing to the Board",
+   "By refusing to pay rent",
+   "By voting in a student election",
+   "Through an online form or at a public meeting"
+  ],
+  "answer": "Through an online form or at a public meeting",
+  "explanation": "online feedback form と public forum が示されている。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-540-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Data Retention Notice\nIn accordance with the university's updated records policy, student email accounts will now be deactivated 12 months after graduation rather than remaining active indefinitely. Graduates are strongly advised to migrate any messages and files they wish to keep before that date. Alumni may request a forwarding address, which will redirect incoming mail to a personal account for a further 24 months, but it will not provide access to stored content.",
+  "question": "What change does the notice describe?",
+  "choices": [
+   "Graduate email accounts will no longer remain active permanently.",
+   "Students will receive larger storage space.",
+   "Email accounts will be created for alumni.",
+   "Messages will be deleted every 12 months."
+  ],
+  "answer": "Graduate email accounts will no longer remain active permanently.",
+  "explanation": "deactivated 12 months after graduation rather than remaining active indefinitely。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-540-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Data Retention Notice\nIn accordance with the university's updated records policy, student email accounts will now be deactivated 12 months after graduation rather than remaining active indefinitely. Graduates are strongly advised to migrate any messages and files they wish to keep before that date. Alumni may request a forwarding address, which will redirect incoming mail to a personal account for a further 24 months, but it will not provide access to stored content.",
+  "question": "What does the forwarding service allow alumni to do?",
+  "choices": [
+   "Read their old stored messages",
+   "Receive new messages at a personal address",
+   "Keep their university account active permanently",
+   "Recover deleted files"
+  ],
+  "answer": "Receive new messages at a personal address",
+  "explanation": "redirect incoming mail ... but not provide access to stored content。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-540-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Data Retention Notice\nIn accordance with the university's updated records policy, student email accounts will now be deactivated 12 months after graduation rather than remaining active indefinitely. Graduates are strongly advised to migrate any messages and files they wish to keep before that date. Alumni may request a forwarding address, which will redirect incoming mail to a personal account for a further 24 months, but it will not provide access to stored content.",
+  "question": "The word \"migrate\" in the notice is closest in meaning to",
+  "choices": [
+   "delete",
+   "print",
+   "transfer",
+   "protect"
+  ],
+  "answer": "transfer",
+  "explanation": "ここでは移す（transfer）の意味。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-541-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Peer Writing Consultant — Applications Open\nThe Writing Center invites applications from undergraduates who have completed at least one writing-intensive course with distinction. Consultants work one-on-one with students at every stage of the writing process, from brainstorming to revision. Rather than correcting errors directly, consultants are expected to ask questions that help writers identify and solve problems themselves. Selected applicants must enroll in a two-credit pedagogy seminar during their first semester of employment, which counts toward degree requirements.",
+  "question": "Which approach are consultants expected to take?",
+  "choices": [
+   "Editing papers to remove all mistakes",
+   "Writing sample paragraphs for students",
+   "Grading drafts before submission",
+   "Guiding writers to find solutions on their own"
+  ],
+  "answer": "Guiding writers to find solutions on their own",
+  "explanation": "ask questions that help writers ... solve problems themselves。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-541-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Peer Writing Consultant — Applications Open\nThe Writing Center invites applications from undergraduates who have completed at least one writing-intensive course with distinction. Consultants work one-on-one with students at every stage of the writing process, from brainstorming to revision. Rather than correcting errors directly, consultants are expected to ask questions that help writers identify and solve problems themselves. Selected applicants must enroll in a two-credit pedagogy seminar during their first semester of employment, which counts toward degree requirements.",
+  "question": "What is stated about the pedagogy seminar?",
+  "choices": [
+   "It earns academic credit.",
+   "It is optional for experienced applicants.",
+   "It takes place before applications are reviewed.",
+   "It is offered only in the summer."
+  ],
+  "answer": "It earns academic credit.",
+  "explanation": "a two-credit pedagogy seminar ... counts toward degree requirements。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-542-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Statement from the Environmental Action Club\nAfter considerable discussion, the executive board has decided to postpone the campus-wide clothing swap originally planned for April. Although the event attracted record interest last year, volunteers reported that a large share of donated items were unsuitable for reuse and ultimately had to be discarded — an outcome that contradicts the very purpose of the event. We are developing clearer donation guidelines and a sorting system, and we expect to hold the swap in the fall. Members willing to help design these guidelines should attend Thursday's planning meeting.",
+  "question": "Why was the event postponed?",
+  "choices": [
+   "Not enough students were interested.",
+   "Too many donations last year could not be reused.",
+   "The club lacked funding.",
+   "The venue was unavailable in April."
+  ],
+  "answer": "Too many donations last year could not be reused.",
+  "explanation": "a large share of donated items were unsuitable for reuse とある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-542-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Statement from the Environmental Action Club\nAfter considerable discussion, the executive board has decided to postpone the campus-wide clothing swap originally planned for April. Although the event attracted record interest last year, volunteers reported that a large share of donated items were unsuitable for reuse and ultimately had to be discarded — an outcome that contradicts the very purpose of the event. We are developing clearer donation guidelines and a sorting system, and we expect to hold the swap in the fall. Members willing to help design these guidelines should attend Thursday's planning meeting.",
+  "question": "Why does the club consider last year's outcome a problem?",
+  "choices": [
+   "It cost the club too much money.",
+   "Volunteers were unable to attend.",
+   "Throwing items away goes against the event's goal.",
+   "Students complained about the quality of clothes."
+  ],
+  "answer": "Throwing items away goes against the event's goal.",
+  "explanation": "contradicts the very purpose of the event とある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-543-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Recreation Center Membership Changes\nBeginning in July, access to the Recreation Center will no longer be included automatically in student fees for part-time students. Full-time students will retain free access. Part-time students may purchase a semester membership at a prorated rate based on their number of credit hours, with a maximum fee of $75. The change was recommended by a student-led committee seeking to reduce mandatory fees for those who rarely use campus facilities.",
+  "question": "Who will be affected by the new policy?",
+  "choices": [
+   "Full-time students",
+   "Recreation Center staff",
+   "Alumni members",
+   "Part-time students"
+  ],
+  "answer": "Part-time students",
+  "explanation": "part-time students の扱いが変わる。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-543-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Recreation Center Membership Changes\nBeginning in July, access to the Recreation Center will no longer be included automatically in student fees for part-time students. Full-time students will retain free access. Part-time students may purchase a semester membership at a prorated rate based on their number of credit hours, with a maximum fee of $75. The change was recommended by a student-led committee seeking to reduce mandatory fees for those who rarely use campus facilities.",
+  "question": "How will the membership fee for part-time students be determined?",
+  "choices": [
+   "According to how many credit hours they take",
+   "By how often they use the center",
+   "By their year of study",
+   "By a flat rate of $75 for every part-time student"
+  ],
+  "answer": "According to how many credit hours they take",
+  "explanation": "prorated rate based on their number of credit hours。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-543-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Recreation Center Membership Changes\nBeginning in July, access to the Recreation Center will no longer be included automatically in student fees for part-time students. Full-time students will retain free access. Part-time students may purchase a semester membership at a prorated rate based on their number of credit hours, with a maximum fee of $75. The change was recommended by a student-led committee seeking to reduce mandatory fees for those who rarely use campus facilities.",
+  "question": "What was the committee's goal?",
+  "choices": [
+   "To raise money for a new gym",
+   "To lower required costs for students who seldom use the facilities",
+   "To limit crowding at the center",
+   "To encourage part-time students to exercise more"
+  ],
+  "answer": "To lower required costs for students who seldom use the facilities",
+  "explanation": "reduce mandatory fees for those who rarely use ... とある。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-544-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "From: Director of Campus Dining\nSubject: Pilot of tray-free dining\nDear students, beginning next week, Westfield Dining Hall will pilot a tray-free system for one month. Research conducted at other institutions suggests that removing trays reduces both food waste and the water used for washing, since diners tend to take only what they can carry. We recognize that this may be inconvenient for some, and trays will remain available on request for anyone who needs one. Your feedback during the pilot will determine whether the policy is extended to other halls.",
+  "question": "According to the email, why does removing trays reduce waste?",
+  "choices": [
+   "Trays are expensive to replace.",
+   "Food is served in smaller portions.",
+   "People take less food when they cannot carry much.",
+   "Diners must pay for each item separately at the counter."
+  ],
+  "answer": "People take less food when they cannot carry much.",
+  "explanation": "diners tend to take only what they can carry とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-544-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "From: Director of Campus Dining\nSubject: Pilot of tray-free dining\nDear students, beginning next week, Westfield Dining Hall will pilot a tray-free system for one month. Research conducted at other institutions suggests that removing trays reduces both food waste and the water used for washing, since diners tend to take only what they can carry. We recognize that this may be inconvenient for some, and trays will remain available on request for anyone who needs one. Your feedback during the pilot will determine whether the policy is extended to other halls.",
+  "question": "What will decide whether the policy expands?",
+  "choices": [
+   "The amount of water saved in one week",
+   "A vote by dining staff",
+   "Results from other institutions",
+   "Student feedback during the trial"
+  ],
+  "answer": "Student feedback during the trial",
+  "explanation": "Your feedback ... will determine whether the policy is extended とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-545-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Parking Lot C Closure and Mitigation Plan\nLot C will close permanently on May 15 to make way for the new engineering building. To offset the loss of approximately 300 spaces, the university will expand shuttle service from the remote Lot F, extending hours until midnight and increasing frequency to every eight minutes during peak periods. Permit holders assigned to Lot C will be automatically reassigned to Lot F at a reduced rate, though they may instead request a refund for the remainder of the year.",
+  "question": "Why is Lot C closing?",
+  "choices": [
+   "A new building will be constructed there.",
+   "It is too far from campus.",
+   "Too few drivers used it.",
+   "It needs major repairs."
+  ],
+  "answer": "A new building will be constructed there.",
+  "explanation": "to make way for the new engineering building とある。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-545-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Parking Lot C Closure and Mitigation Plan\nLot C will close permanently on May 15 to make way for the new engineering building. To offset the loss of approximately 300 spaces, the university will expand shuttle service from the remote Lot F, extending hours until midnight and increasing frequency to every eight minutes during peak periods. Permit holders assigned to Lot C will be automatically reassigned to Lot F at a reduced rate, though they may instead request a refund for the remainder of the year.",
+  "question": "What options do current Lot C permit holders have?",
+  "choices": [
+   "Parking in any lot for free",
+   "Moving to Lot F at a lower price or receiving a refund",
+   "Keeping their spaces until the year ends",
+   "Buying a new permit at full price"
+  ],
+  "answer": "Moving to Lot F at a lower price or receiving a refund",
+  "explanation": "reassigned to Lot F at a reduced rate ... or request a refund。",
+  "tags": "TOEFL2026 DailyLife transit"
+ }
+]

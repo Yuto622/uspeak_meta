@@ -1,0 +1,434 @@
+[
+ {
+  "id": "TOEIC-R6-514-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Ms. Moreau,\n\nThank you for choosing the Willowbank Inn. This e-mail [1] ------- your reservation for a double room from July 8 to July 11.\n\nCheck-in begins at 3:00 P.M., and check-out is at 11:00 A.M. If you will arrive after 10:00 P.M., please call us so that we can [2] ------- your room. Free parking is available behind the main building.\n\nBreakfast is served in the dining room every morning from 7:00 to 9:30. [3] -------.\n\nWe look forward to [4] ------- you.\n\nBest wishes,\nTomasz Wilk\nFront Desk Manager",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "confirming",
+   "confirm",
+   "confirms",
+   "confirmation"
+  ],
+  "answer": "confirms",
+  "explanation": "主語 This e-mail（単数）に続く動詞なので confirms。",
+  "tags": "品詞 主述一致"
+ },
+ {
+  "id": "TOEIC-R6-514-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Ms. Moreau,\n\nThank you for choosing the Willowbank Inn. This e-mail [1] ------- your reservation for a double room from July 8 to July 11.\n\nCheck-in begins at 3:00 P.M., and check-out is at 11:00 A.M. If you will arrive after 10:00 P.M., please call us so that we can [2] ------- your room. Free parking is available behind the main building.\n\nBreakfast is served in the dining room every morning from 7:00 to 9:30. [3] -------.\n\nWe look forward to [4] ------- you.\n\nBest wishes,\nTomasz Wilk\nFront Desk Manager",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "hide",
+   "hold",
+   "hire",
+   "heat"
+  ],
+  "answer": "hold",
+  "explanation": "遅く着く客のために部屋を「確保しておく」hold。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R6-514-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Ms. Moreau,\n\nThank you for choosing the Willowbank Inn. This e-mail [1] ------- your reservation for a double room from July 8 to July 11.\n\nCheck-in begins at 3:00 P.M., and check-out is at 11:00 A.M. If you will arrive after 10:00 P.M., please call us so that we can [2] ------- your room. Free parking is available behind the main building.\n\nBreakfast is served in the dining room every morning from 7:00 to 9:30. [3] -------.\n\nWe look forward to [4] ------- you.\n\nBest wishes,\nTomasz Wilk\nFront Desk Manager",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "It is included in the price of your room.",
+   "We hope you enjoyed your stay with us.",
+   "The inn does not serve any meals.",
+   "Please leave your key in the car."
+  ],
+  "answer": "It is included in the price of your room.",
+  "explanation": "朝食の案内に続き、料金に含まれると補足する文が自然。滞在前のメールなので「楽しまれましたか」は不適切。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-514-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Ms. Moreau,\n\nThank you for choosing the Willowbank Inn. This e-mail [1] ------- your reservation for a double room from July 8 to July 11.\n\nCheck-in begins at 3:00 P.M., and check-out is at 11:00 A.M. If you will arrive after 10:00 P.M., please call us so that we can [2] ------- your room. Free parking is available behind the main building.\n\nBreakfast is served in the dining room every morning from 7:00 to 9:30. [3] -------.\n\nWe look forward to [4] ------- you.\n\nBest wishes,\nTomasz Wilk\nFront Desk Manager",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "welcome",
+   "welcomes",
+   "welcomed",
+   "welcoming"
+  ],
+  "answer": "welcoming",
+  "explanation": "look forward to の to は前置詞なので動名詞 welcoming。",
+  "tags": "動名詞"
+ },
+ {
+  "id": "TOEIC-R6-515-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Staff\nFrom: Facilities Department\nRe: Green Office Initiative\n\nAs part of our commitment to reducing our environmental impact, the company is launching the Green Office Initiative next month. The program aims to cut electricity use in our headquarters by 20 percent [1] ------- the end of next year.\n\nSeveral changes will take effect immediately. Motion sensors will be installed so that lights switch off automatically in empty rooms, and printers will be set to print on both sides of the page by default. [2] -------.\n\nEach floor will also appoint a \"green representative\" [3] ------- role will be to share energy-saving tips and collect suggestions from colleagues. Staff interested in volunteering should contact the Facilities Department. We are confident that, with everyone's [4] -------, we can reach our goal.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "since",
+   "by",
+   "until",
+   "within"
+  ],
+  "answer": "by",
+  "explanation": "期限「～までに」を表す by。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R6-515-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Staff\nFrom: Facilities Department\nRe: Green Office Initiative\n\nAs part of our commitment to reducing our environmental impact, the company is launching the Green Office Initiative next month. The program aims to cut electricity use in our headquarters by 20 percent [1] ------- the end of next year.\n\nSeveral changes will take effect immediately. Motion sensors will be installed so that lights switch off automatically in empty rooms, and printers will be set to print on both sides of the page by default. [2] -------.\n\nEach floor will also appoint a \"green representative\" [3] ------- role will be to share energy-saving tips and collect suggestions from colleagues. Staff interested in volunteering should contact the Facilities Department. We are confident that, with everyone's [4] -------, we can reach our goal.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "The motion sensors were removed from the building last year.",
+   "As a result, the headquarters will close at noon every day.",
+   "Printing will no longer be permitted under any circumstances.",
+   "Employees are also asked to shut down their computers before leaving each evening."
+  ],
+  "answer": "Employees are also asked to shut down their computers before leaving each evening.",
+  "explanation": "電力削減のための変更点に続き、従業員への協力依頼を述べる文が自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-515-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Staff\nFrom: Facilities Department\nRe: Green Office Initiative\n\nAs part of our commitment to reducing our environmental impact, the company is launching the Green Office Initiative next month. The program aims to cut electricity use in our headquarters by 20 percent [1] ------- the end of next year.\n\nSeveral changes will take effect immediately. Motion sensors will be installed so that lights switch off automatically in empty rooms, and printers will be set to print on both sides of the page by default. [2] -------.\n\nEach floor will also appoint a \"green representative\" [3] ------- role will be to share energy-saving tips and collect suggestions from colleagues. Staff interested in volunteering should contact the Facilities Department. We are confident that, with everyone's [4] -------, we can reach our goal.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "whose",
+   "which",
+   "who",
+   "whom"
+  ],
+  "answer": "whose",
+  "explanation": "後ろの名詞 role の所有者を表す関係代名詞 whose。",
+  "tags": "関係詞"
+ },
+ {
+  "id": "TOEIC-R6-515-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Staff\nFrom: Facilities Department\nRe: Green Office Initiative\n\nAs part of our commitment to reducing our environmental impact, the company is launching the Green Office Initiative next month. The program aims to cut electricity use in our headquarters by 20 percent [1] ------- the end of next year.\n\nSeveral changes will take effect immediately. Motion sensors will be installed so that lights switch off automatically in empty rooms, and printers will be set to print on both sides of the page by default. [2] -------.\n\nEach floor will also appoint a \"green representative\" [3] ------- role will be to share energy-saving tips and collect suggestions from colleagues. Staff interested in volunteering should contact the Facilities Department. We are confident that, with everyone's [4] -------, we can reach our goal.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "cooperatively",
+   "cooperative",
+   "cooperation",
+   "cooperate"
+  ],
+  "answer": "cooperation",
+  "explanation": "所有格 everyone's の後には名詞 cooperation。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R6-516-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "IT Service Notice\n\nThe company's e-mail and file servers will be [1] ------- for scheduled maintenance this Saturday from 8:00 P.M. to midnight. During this period, you will not be able to send or receive e-mail or access shared folders.\n\n[2] -------. Any documents that are open when the servers shut down may be lost.\n\nThe maintenance will include security updates and the installation of additional storage. These improvements should make file access noticeably faster. If you experience any problems after the maintenance is complete, please [3] ------- the IT help desk at extension 4400.\n\nThank you for your [4] -------.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "availability",
+   "unavailability",
+   "unavailably",
+   "unavailable"
+  ],
+  "answer": "unavailable",
+  "explanation": "be 動詞の補語になる形容詞で、メンテナンス中は「利用できない」ので unavailable。",
+  "tags": "品詞 形容詞"
+ },
+ {
+  "id": "TOEIC-R6-516-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "IT Service Notice\n\nThe company's e-mail and file servers will be [1] ------- for scheduled maintenance this Saturday from 8:00 P.M. to midnight. During this period, you will not be able to send or receive e-mail or access shared folders.\n\n[2] -------. Any documents that are open when the servers shut down may be lost.\n\nThe maintenance will include security updates and the installation of additional storage. These improvements should make file access noticeably faster. If you experience any problems after the maintenance is complete, please [3] ------- the IT help desk at extension 4400.\n\nThank you for your [4] -------.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "The help desk will be closed permanently.",
+   "E-mail will be available as usual on Saturday night.",
+   "Please save your work and close all files before 8:00 P.M.",
+   "The servers will be replaced with older models."
+  ],
+  "answer": "Please save your work and close all files before 8:00 P.M.",
+  "explanation": "直後の「開いたままの文書は失われる可能性」につながるのは、作業を保存して閉じるよう促す文。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-516-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "IT Service Notice\n\nThe company's e-mail and file servers will be [1] ------- for scheduled maintenance this Saturday from 8:00 P.M. to midnight. During this period, you will not be able to send or receive e-mail or access shared folders.\n\n[2] -------. Any documents that are open when the servers shut down may be lost.\n\nThe maintenance will include security updates and the installation of additional storage. These improvements should make file access noticeably faster. If you experience any problems after the maintenance is complete, please [3] ------- the IT help desk at extension 4400.\n\nThank you for your [4] -------.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "contact",
+   "contacted",
+   "contacting",
+   "contacts"
+  ],
+  "answer": "contact",
+  "explanation": "please の後は動詞の原形で命令文になる。",
+  "tags": "命令文"
+ },
+ {
+  "id": "TOEIC-R6-516-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "IT Service Notice\n\nThe company's e-mail and file servers will be [1] ------- for scheduled maintenance this Saturday from 8:00 P.M. to midnight. During this period, you will not be able to send or receive e-mail or access shared folders.\n\n[2] -------. Any documents that are open when the servers shut down may be lost.\n\nThe maintenance will include security updates and the installation of additional storage. These improvements should make file access noticeably faster. If you experience any problems after the maintenance is complete, please [3] ------- the IT help desk at extension 4400.\n\nThank you for your [4] -------.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "understandable",
+   "understanding",
+   "understand",
+   "understood"
+  ],
+  "answer": "understanding",
+  "explanation": "所有格 your の後で「ご理解」を表す名詞 understanding。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R6-517-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Regional Hospital Expands Remote Consultations\n\nNorthgate Regional Hospital has [1] ------- expanded its telemedicine service, allowing patients in outlying towns to consult specialists by video rather than traveling up to three hours for an appointment. The service, first introduced as a pilot in the cardiology department, is now available in six departments, including dermatology and endocrinology.\n\nHospital administrators say that the [2] ------- of the pilot was measured not only by patient satisfaction scores but also by a marked decline in missed appointments. [3] -------.\n\nNot all consultations can be conducted remotely, [4] -------. Patients who require physical examinations or diagnostic tests will still need to visit the hospital in person. Nonetheless, the hospital estimates that roughly a quarter of follow-up appointments could eventually take place online.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "consideration",
+   "considerably",
+   "consider",
+   "considerable"
+  ],
+  "answer": "considerably",
+  "explanation": "has と expanded の間で動詞を修飾する副詞 considerably。",
+  "tags": "品詞 副詞"
+ },
+ {
+  "id": "TOEIC-R6-517-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Regional Hospital Expands Remote Consultations\n\nNorthgate Regional Hospital has [1] ------- expanded its telemedicine service, allowing patients in outlying towns to consult specialists by video rather than traveling up to three hours for an appointment. The service, first introduced as a pilot in the cardiology department, is now available in six departments, including dermatology and endocrinology.\n\nHospital administrators say that the [2] ------- of the pilot was measured not only by patient satisfaction scores but also by a marked decline in missed appointments. [3] -------.\n\nNot all consultations can be conducted remotely, [4] -------. Patients who require physical examinations or diagnostic tests will still need to visit the hospital in person. Nonetheless, the hospital estimates that roughly a quarter of follow-up appointments could eventually take place online.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "succeed",
+   "successfully",
+   "success",
+   "successful"
+  ],
+  "answer": "success",
+  "explanation": "the と of の間には名詞が入る。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R6-517-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Regional Hospital Expands Remote Consultations\n\nNorthgate Regional Hospital has [1] ------- expanded its telemedicine service, allowing patients in outlying towns to consult specialists by video rather than traveling up to three hours for an appointment. The service, first introduced as a pilot in the cardiology department, is now available in six departments, including dermatology and endocrinology.\n\nHospital administrators say that the [2] ------- of the pilot was measured not only by patient satisfaction scores but also by a marked decline in missed appointments. [3] -------.\n\nNot all consultations can be conducted remotely, [4] -------. Patients who require physical examinations or diagnostic tests will still need to visit the hospital in person. Nonetheless, the hospital estimates that roughly a quarter of follow-up appointments could eventually take place online.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Patients in outlying towns have no access to the Internet.",
+   "Consequently, the pilot was discontinued after only one month.",
+   "Cardiology is the hospital's most recently opened department.",
+   "Doctors also reported that shorter waiting times allowed them to see more patients each week."
+  ],
+  "answer": "Doctors also reported that shorter waiting times allowed them to see more patients each week.",
+  "explanation": "試験運用の成果を列挙する流れなので、医師側の利点を加える文が自然。中止は本文と矛盾する。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-517-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Regional Hospital Expands Remote Consultations\n\nNorthgate Regional Hospital has [1] ------- expanded its telemedicine service, allowing patients in outlying towns to consult specialists by video rather than traveling up to three hours for an appointment. The service, first introduced as a pilot in the cardiology department, is now available in six departments, including dermatology and endocrinology.\n\nHospital administrators say that the [2] ------- of the pilot was measured not only by patient satisfaction scores but also by a marked decline in missed appointments. [3] -------.\n\nNot all consultations can be conducted remotely, [4] -------. Patients who require physical examinations or diagnostic tests will still need to visit the hospital in person. Nonetheless, the hospital estimates that roughly a quarter of follow-up appointments could eventually take place online.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "however",
+   "therefore",
+   "likewise",
+   "instead"
+  ],
+  "answer": "however",
+  "explanation": "前段の成功に対し、遠隔では対応できない場合もあると逆接で述べるので however。",
+  "tags": "接続副詞"
+ },
+ {
+  "id": "TOEIC-R6-518-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Mr. Chandran,\n\nYour current lease for Unit 5C at Elmwood Terrace will end on December 31. We are pleased to offer you the opportunity to [1] ------- your lease for another twelve months.\n\nThe monthly rent for the new term will be $1,420, an increase of 3 percent. This adjustment reflects rising maintenance and insurance costs. [2] -------.\n\nTo accept this offer, please sign the enclosed renewal form and return it to our office by November 15. If we do not hear from you by that date, we will assume that you [3] ------- to move out at the end of your current lease.\n\nShould you have any questions, please do not hesitate to contact me. We truly value you as a [4] -------.\n\nSincerely,\nOlivia Mensah\nLeasing Manager",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "restore",
+   "remind",
+   "renew",
+   "resume"
+  ],
+  "answer": "renew",
+  "explanation": "賃貸契約を「更新する」renew。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R6-518-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Mr. Chandran,\n\nYour current lease for Unit 5C at Elmwood Terrace will end on December 31. We are pleased to offer you the opportunity to [1] ------- your lease for another twelve months.\n\nThe monthly rent for the new term will be $1,420, an increase of 3 percent. This adjustment reflects rising maintenance and insurance costs. [2] -------.\n\nTo accept this offer, please sign the enclosed renewal form and return it to our office by November 15. If we do not hear from you by that date, we will assume that you [3] ------- to move out at the end of your current lease.\n\nShould you have any questions, please do not hesitate to contact me. We truly value you as a [4] -------.\n\nSincerely,\nOlivia Mensah\nLeasing Manager",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "The building will be sold to a new owner next week.",
+   "Please return your keys to the office immediately.",
+   "Your rent will therefore decrease next year.",
+   "All other terms of your lease will remain unchanged."
+  ],
+  "answer": "All other terms of your lease will remain unchanged.",
+  "explanation": "家賃の変更点を説明した後、それ以外の条件は変わらないと補足する文が自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-518-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Mr. Chandran,\n\nYour current lease for Unit 5C at Elmwood Terrace will end on December 31. We are pleased to offer you the opportunity to [1] ------- your lease for another twelve months.\n\nThe monthly rent for the new term will be $1,420, an increase of 3 percent. This adjustment reflects rising maintenance and insurance costs. [2] -------.\n\nTo accept this offer, please sign the enclosed renewal form and return it to our office by November 15. If we do not hear from you by that date, we will assume that you [3] ------- to move out at the end of your current lease.\n\nShould you have any questions, please do not hesitate to contact me. We truly value you as a [4] -------.\n\nSincerely,\nOlivia Mensah\nLeasing Manager",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "intending",
+   "intend",
+   "intentionally",
+   "intention"
+  ],
+  "answer": "intend",
+  "explanation": "that 節の主語 you に続く動詞が必要で intend to do の形。",
+  "tags": "品詞 動詞"
+ },
+ {
+  "id": "TOEIC-R6-518-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Dear Mr. Chandran,\n\nYour current lease for Unit 5C at Elmwood Terrace will end on December 31. We are pleased to offer you the opportunity to [1] ------- your lease for another twelve months.\n\nThe monthly rent for the new term will be $1,420, an increase of 3 percent. This adjustment reflects rising maintenance and insurance costs. [2] -------.\n\nTo accept this offer, please sign the enclosed renewal form and return it to our office by November 15. If we do not hear from you by that date, we will assume that you [3] ------- to move out at the end of your current lease.\n\nShould you have any questions, please do not hesitate to contact me. We truly value you as a [4] -------.\n\nSincerely,\nOlivia Mensah\nLeasing Manager",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "resident",
+   "reside",
+   "residence",
+   "residential"
+  ],
+  "answer": "resident",
+  "explanation": "冠詞 a の後で人を表す名詞 resident（居住者）。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R6-519-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Ms. Nakagawa,\n\nThank you for selecting Saffron Table Catering for your company's anniversary dinner on April 22. I am writing to confirm the details we discussed on the phone yesterday.\n\nWe will provide a three-course dinner for 120 guests, [1] ------- vegetarian and gluten-free options. Our staff will arrive at the venue at 3:00 P.M. to set up and will remain until all tables have been [2] -------.\n\n[3] -------. The remaining balance will be due within seven days after the event. Please note that the final number of guests must be confirmed no later than April 12, as we will begin ordering ingredients [4] ------- that date.\n\nKind regards,\nDaniel Fischer\nEvent Coordinator",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "including",
+   "included",
+   "inclusion",
+   "include"
+  ],
+  "answer": "including",
+  "explanation": "名詞の前で「～を含めて」を表す including。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R6-519-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Ms. Nakagawa,\n\nThank you for selecting Saffron Table Catering for your company's anniversary dinner on April 22. I am writing to confirm the details we discussed on the phone yesterday.\n\nWe will provide a three-course dinner for 120 guests, [1] ------- vegetarian and gluten-free options. Our staff will arrive at the venue at 3:00 P.M. to set up and will remain until all tables have been [2] -------.\n\n[3] -------. The remaining balance will be due within seven days after the event. Please note that the final number of guests must be confirmed no later than April 12, as we will begin ordering ingredients [4] ------- that date.\n\nKind regards,\nDaniel Fischer\nEvent Coordinator",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "clear",
+   "clearing",
+   "clears",
+   "cleared"
+  ],
+  "answer": "cleared",
+  "explanation": "have been の後は過去分詞で「片付けられる」。",
+  "tags": "態 完了"
+ },
+ {
+  "id": "TOEIC-R6-519-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Ms. Nakagawa,\n\nThank you for selecting Saffron Table Catering for your company's anniversary dinner on April 22. I am writing to confirm the details we discussed on the phone yesterday.\n\nWe will provide a three-course dinner for 120 guests, [1] ------- vegetarian and gluten-free options. Our staff will arrive at the venue at 3:00 P.M. to set up and will remain until all tables have been [2] -------.\n\n[3] -------. The remaining balance will be due within seven days after the event. Please note that the final number of guests must be confirmed no later than April 12, as we will begin ordering ingredients [4] ------- that date.\n\nKind regards,\nDaniel Fischer\nEvent Coordinator",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Unfortunately, we are unable to cater events with more than 100 guests.",
+   "As agreed, a deposit of 30 percent is required to secure the date.",
+   "We no longer offer vegetarian dishes.",
+   "The dinner has therefore been moved to May."
+  ],
+  "answer": "As agreed, a deposit of 30 percent is required to secure the date.",
+  "explanation": "直後の「残金は～」に対応して、まず手付金を説明する文が来るのが自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-519-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Ms. Nakagawa,\n\nThank you for selecting Saffron Table Catering for your company's anniversary dinner on April 22. I am writing to confirm the details we discussed on the phone yesterday.\n\nWe will provide a three-course dinner for 120 guests, [1] ------- vegetarian and gluten-free options. Our staff will arrive at the venue at 3:00 P.M. to set up and will remain until all tables have been [2] -------.\n\n[3] -------. The remaining balance will be due within seven days after the event. Please note that the final number of guests must be confirmed no later than April 12, as we will begin ordering ingredients [4] ------- that date.\n\nKind regards,\nDaniel Fischer\nEvent Coordinator",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "at",
+   "of",
+   "on",
+   "in"
+  ],
+  "answer": "on",
+  "explanation": "特定の日付には on を使う。",
+  "tags": "前置詞"
+ }
+]

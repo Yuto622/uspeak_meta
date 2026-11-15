@@ -1,0 +1,704 @@
+[
+ {
+  "id": "TOEFL-RD-518-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "From: Library Tech Desk\nTo: Kofi Mensah\nSubject: Laptop loan reminder\nHi Kofi, the laptop you borrowed on April 2 is due back tomorrow by 5 p.m. If you still need it, you can renew it once for another week on the library website. Late returns are charged $5 per day.",
+  "question": "What is the main purpose of the email?",
+  "choices": [
+   "To offer Kofi a new laptop",
+   "To tell Kofi that he owes $5",
+   "To ask Kofi to repair a laptop",
+   "To remind Kofi that a laptop must be returned"
+  ],
+  "answer": "To remind Kofi that a laptop must be returned",
+  "explanation": "is due back tomorrow というリマインダー。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-518-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "From: Library Tech Desk\nTo: Kofi Mensah\nSubject: Laptop loan reminder\nHi Kofi, the laptop you borrowed on April 2 is due back tomorrow by 5 p.m. If you still need it, you can renew it once for another week on the library website. Late returns are charged $5 per day.",
+  "question": "How can Kofi keep the laptop longer?",
+  "choices": [
+   "By renewing it online once",
+   "By paying $5",
+   "By visiting the desk tomorrow",
+   "By borrowing a different laptop"
+  ],
+  "answer": "By renewing it online once",
+  "explanation": "renew it once for another week on the library website とある。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-519-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Bike Share on Campus\nUnlock any blue bike with the CampusRide app. The first 30 minutes of each trip are free; after that, it costs 50 cents for every 15 minutes. Bikes must be returned to a station. Leaving a bike outside a station will result in a $10 charge.",
+  "question": "How much would a 45-minute ride cost?",
+  "choices": [
+   "Nothing",
+   "50 cents",
+   "$1",
+   "$10"
+  ],
+  "answer": "50 cents",
+  "explanation": "最初の 30 分無料、残り 15 分で 50 セント。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-519-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Bike Share on Campus\nUnlock any blue bike with the CampusRide app. The first 30 minutes of each trip are free; after that, it costs 50 cents for every 15 minutes. Bikes must be returned to a station. Leaving a bike outside a station will result in a $10 charge.",
+  "question": "What will cause a $10 charge?",
+  "choices": [
+   "Riding for more than an hour without stopping",
+   "Using the app incorrectly",
+   "Leaving a bike away from a station",
+   "Riding off campus"
+  ],
+  "answer": "Leaving a bike away from a station",
+  "explanation": "Leaving a bike outside a station will result in a $10 charge。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-520-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "WANTED: Note-takers\nThe Disability Resource Office is looking for students to take clear notes in lectures for classmates who need support. You will be paid $100 per course each semester. You must already be enrolled in the course and have a grade average of B or higher. Apply online by September 15.",
+  "question": "Who are the note-takers helping?",
+  "choices": [
+   "Professors who are writing books",
+   "Students who missed the course because of illness",
+   "Office staff",
+   "Classmates who need learning support"
+  ],
+  "answer": "Classmates who need learning support",
+  "explanation": "for classmates who need support とある。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-520-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "WANTED: Note-takers\nThe Disability Resource Office is looking for students to take clear notes in lectures for classmates who need support. You will be paid $100 per course each semester. You must already be enrolled in the course and have a grade average of B or higher. Apply online by September 15.",
+  "question": "Which student is eligible to apply?",
+  "choices": [
+   "A student taking the course with a B+ average",
+   "A student with a C average who is taking the course",
+   "A student who took the course last year",
+   "A student who is not enrolled at the university"
+  ],
+  "answer": "A student taking the course with a B+ average",
+  "explanation": "受講中かつ B 以上の平均が条件。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-521-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Weekend Brunch at Riverside Commons\nSaturdays and Sundays, 10 a.m.–1 p.m.\nMade-to-order omelets • Pancakes • Fresh fruit • Yogurt bar\nVegan options are marked with a green leaf on the menu board.\nPlease note: Meal swipes are accepted until 12:30 p.m. only.",
+  "question": "How can students find vegan dishes?",
+  "choices": [
+   "Ask a cook",
+   "Look for a green leaf on the menu board",
+   "Go to the yogurt bar",
+   "Check the website"
+  ],
+  "answer": "Look for a green leaf on the menu board",
+  "explanation": "marked with a green leaf とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-521-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Weekend Brunch at Riverside Commons\nSaturdays and Sundays, 10 a.m.–1 p.m.\nMade-to-order omelets • Pancakes • Fresh fruit • Yogurt bar\nVegan options are marked with a green leaf on the menu board.\nPlease note: Meal swipes are accepted until 12:30 p.m. only.",
+  "question": "What is true about paying with a meal swipe?",
+  "choices": [
+   "It can be used all weekend.",
+   "It is accepted only on Saturdays.",
+   "It cannot be used during the last 30 minutes.",
+   "It is accepted only for made-to-order omelets."
+  ],
+  "answer": "It cannot be used during the last 30 minutes.",
+  "explanation": "until 12:30 p.m. only で終了は 1 p.m.。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-522-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Reminder from Housing: The deadline to apply for summer housing is April 20. Summer rooms are available only in Birch Hall, and all rooms are single rooms with shared kitchens. Students taking summer classes will be given priority. Rent must be paid in full before you move in.",
+  "question": "Who will get rooms first?",
+  "choices": [
+   "First-year students",
+   "Students who apply on the last day, April 20",
+   "Students who need a kitchen",
+   "Students enrolled in summer classes"
+  ],
+  "answer": "Students enrolled in summer classes",
+  "explanation": "Students taking summer classes will be given priority。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-522-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Reminder from Housing: The deadline to apply for summer housing is April 20. Summer rooms are available only in Birch Hall, and all rooms are single rooms with shared kitchens. Students taking summer classes will be given priority. Rent must be paid in full before you move in.",
+  "question": "What is true about summer rooms?",
+  "choices": [
+   "Students do not share bedrooms.",
+   "Each room has its own kitchen.",
+   "They are in several buildings.",
+   "Rent can be paid after moving in."
+  ],
+  "answer": "Students do not share bedrooms.",
+  "explanation": "all rooms are single rooms とある。キッチンは共用。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-522-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Reminder from Housing: The deadline to apply for summer housing is April 20. Summer rooms are available only in Birch Hall, and all rooms are single rooms with shared kitchens. Students taking summer classes will be given priority. Rent must be paid in full before you move in.",
+  "question": "When must rent be paid?",
+  "choices": [
+   "On April 20",
+   "Before moving in",
+   "At the end of summer",
+   "Every week"
+  ],
+  "answer": "Before moving in",
+  "explanation": "Rent must be paid in full before you move in。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-523-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Important: Two-Step Login Required\nBeginning October 1, all students and staff will be required to use two-step verification when signing in to university email and the learning platform. After entering your password, you will confirm your identity using an authentication app or a text message. Accounts that have not been set up by the deadline will be temporarily restricted until the user visits the IT Service Desk in person with photo ID. Setup takes about five minutes and instructions are available on the IT website.",
+  "question": "What is the main purpose of the notice?",
+  "choices": [
+   "To introduce a new learning platform",
+   "To explain how to reset a forgotten password",
+   "To announce a new security requirement for logging in",
+   "To report that accounts have been hacked"
+  ],
+  "answer": "To announce a new security requirement for logging in",
+  "explanation": "two-step verification の導入告知。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-523-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Important: Two-Step Login Required\nBeginning October 1, all students and staff will be required to use two-step verification when signing in to university email and the learning platform. After entering your password, you will confirm your identity using an authentication app or a text message. Accounts that have not been set up by the deadline will be temporarily restricted until the user visits the IT Service Desk in person with photo ID. Setup takes about five minutes and instructions are available on the IT website.",
+  "question": "What will happen to users who miss the deadline?",
+  "choices": [
+   "Their accounts will be permanently deleted.",
+   "They will be charged a fee.",
+   "They will receive a new password by text.",
+   "They will have to go to the service desk to regain full access."
+  ],
+  "answer": "They will have to go to the service desk to regain full access.",
+  "explanation": "temporarily restricted until the user visits the IT Service Desk とある。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-523-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Important: Two-Step Login Required\nBeginning October 1, all students and staff will be required to use two-step verification when signing in to university email and the learning platform. After entering your password, you will confirm your identity using an authentication app or a text message. Accounts that have not been set up by the deadline will be temporarily restricted until the user visits the IT Service Desk in person with photo ID. Setup takes about five minutes and instructions are available on the IT website.",
+  "question": "The word \"restricted\" in the notice is closest in meaning to",
+  "choices": [
+   "limited",
+   "removed",
+   "repaired",
+   "watched"
+  ],
+  "answer": "limited",
+  "explanation": "restricted＝制限された（limited）。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-524-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "To all club presidents:\nFunding requests for next semester are due on November 5. This year, the Student Activities Committee will give priority to events that are open to the entire campus rather than to club members only. Requests over $500 must include a detailed budget and at least one quote from a supplier. Late requests will be considered only if money remains after the first round of decisions.\n— Student Activities Committee",
+  "question": "Which event is most likely to receive priority?",
+  "choices": [
+   "A dinner for club officers",
+   "A free concert that any student can attend",
+   "A training session for the members of the club only",
+   "A trip for the club's top players"
+  ],
+  "answer": "A free concert that any student can attend",
+  "explanation": "open to the entire campus を優先する。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-524-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "To all club presidents:\nFunding requests for next semester are due on November 5. This year, the Student Activities Committee will give priority to events that are open to the entire campus rather than to club members only. Requests over $500 must include a detailed budget and at least one quote from a supplier. Late requests will be considered only if money remains after the first round of decisions.\n— Student Activities Committee",
+  "question": "What is required for a request of $700?",
+  "choices": [
+   "A letter from a professor",
+   "Approval from all club members",
+   "A detailed budget and a supplier's quote",
+   "Payment of a deposit"
+  ],
+  "answer": "A detailed budget and a supplier's quote",
+  "explanation": "Requests over $500 must include a detailed budget and ... quote。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-524-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "To all club presidents:\nFunding requests for next semester are due on November 5. This year, the Student Activities Committee will give priority to events that are open to the entire campus rather than to club members only. Requests over $500 must include a detailed budget and at least one quote from a supplier. Late requests will be considered only if money remains after the first round of decisions.\n— Student Activities Committee",
+  "question": "What can be inferred about late requests?",
+  "choices": [
+   "They will be rejected immediately.",
+   "They will be given extra money.",
+   "They must be under $500.",
+   "They may receive no funding."
+  ],
+  "answer": "They may receive no funding.",
+  "explanation": "only if money remains なので資金が出ない可能性がある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-525-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Service Change: Route 12 (Campus–Downtown)\nDue to construction on Harbor Street, Route 12 buses will be detoured along Elm Avenue from June 3 to August 30. The Harbor & 5th stop will be temporarily closed; passengers should use the temporary stop at Elm & 5th, about two blocks away. Expect trips to take up to 10 minutes longer during peak hours. Evening and weekend schedules are unchanged.",
+  "question": "Why is the bus route changing?",
+  "choices": [
+   "Because of road construction",
+   "Because of a new downtown station",
+   "Because fewer passengers use it",
+   "Because of a driver shortage"
+  ],
+  "answer": "Because of road construction",
+  "explanation": "Due to construction on Harbor Street とある。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-525-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Service Change: Route 12 (Campus–Downtown)\nDue to construction on Harbor Street, Route 12 buses will be detoured along Elm Avenue from June 3 to August 30. The Harbor & 5th stop will be temporarily closed; passengers should use the temporary stop at Elm & 5th, about two blocks away. Expect trips to take up to 10 minutes longer during peak hours. Evening and weekend schedules are unchanged.",
+  "question": "What should passengers who normally use Harbor & 5th do?",
+  "choices": [
+   "Take a different bus route",
+   "Walk to a temporary stop nearby",
+   "Board at the downtown station",
+   "Wait for the stop to reopen in June"
+  ],
+  "answer": "Walk to a temporary stop nearby",
+  "explanation": "use the temporary stop at Elm & 5th とある。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-525-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Service Change: Route 12 (Campus–Downtown)\nDue to construction on Harbor Street, Route 12 buses will be detoured along Elm Avenue from June 3 to August 30. The Harbor & 5th stop will be temporarily closed; passengers should use the temporary stop at Elm & 5th, about two blocks away. Expect trips to take up to 10 minutes longer during peak hours. Evening and weekend schedules are unchanged.",
+  "question": "What is indicated about evening buses?",
+  "choices": [
+   "They will be canceled during construction.",
+   "They will continue to use Harbor Street.",
+   "They will follow their usual schedule.",
+   "They will run more frequently."
+  ],
+  "answer": "They will follow their usual schedule.",
+  "explanation": "Evening and weekend schedules are unchanged とある。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-526-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Research Assistant Position — Psychology Department\nProfessor Adebayo's lab seeks an undergraduate assistant for a study on memory in older adults. Duties include scheduling participants, running computer-based tasks, and entering data. Approximately 8–10 hours per week; schedule is flexible but must include at least one weekday morning. Preference will be given to applicants who have completed Research Methods I. To apply, send a short statement of interest and an unofficial transcript to the lab coordinator.",
+  "question": "Which task is NOT mentioned as part of the job?",
+  "choices": [
+   "Arranging appointments with participants",
+   "Running tasks on a computer",
+   "Entering data",
+   "Writing research articles"
+  ],
+  "answer": "Writing research articles",
+  "explanation": "記事執筆は職務に含まれていない。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-526-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Research Assistant Position — Psychology Department\nProfessor Adebayo's lab seeks an undergraduate assistant for a study on memory in older adults. Duties include scheduling participants, running computer-based tasks, and entering data. Approximately 8–10 hours per week; schedule is flexible but must include at least one weekday morning. Preference will be given to applicants who have completed Research Methods I. To apply, send a short statement of interest and an unofficial transcript to the lab coordinator.",
+  "question": "What is a requirement of the position?",
+  "choices": [
+   "Being available on at least one weekday morning",
+   "Having already completed the course Research Methods I",
+   "Working exactly ten hours a week",
+   "Having experience with older adults"
+  ],
+  "answer": "Being available on at least one weekday morning",
+  "explanation": "must include at least one weekday morning が必須。Research Methods I は優遇条件。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-526-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Research Assistant Position — Psychology Department\nProfessor Adebayo's lab seeks an undergraduate assistant for a study on memory in older adults. Duties include scheduling participants, running computer-based tasks, and entering data. Approximately 8–10 hours per week; schedule is flexible but must include at least one weekday morning. Preference will be given to applicants who have completed Research Methods I. To apply, send a short statement of interest and an unofficial transcript to the lab coordinator.",
+  "question": "What should applicants send?",
+  "choices": [
+   "A full research proposal",
+   "A brief statement and an unofficial record of their grades",
+   "Two letters of recommendation",
+   "A list of published papers"
+  ],
+  "answer": "A brief statement and an unofficial record of their grades",
+  "explanation": "a short statement of interest and an unofficial transcript とある。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-527-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Food Allergy Policy — Campus Dining\nAll menu items list the eight major allergens on the digital screens above each station. However, because our kitchens share equipment, we cannot guarantee that any dish is completely free of traces. Students with severe allergies are encouraged to meet with our dietitian, who can arrange for meals to be prepared separately. Appointments can be booked through the Dining Services website.",
+  "question": "Why can the kitchens not guarantee allergen-free food?",
+  "choices": [
+   "Ingredients change every day.",
+   "The screens are often incorrect.",
+   "Equipment is used for many different dishes.",
+   "There is no dietitian on staff."
+  ],
+  "answer": "Equipment is used for many different dishes.",
+  "explanation": "because our kitchens share equipment とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-527-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Food Allergy Policy — Campus Dining\nAll menu items list the eight major allergens on the digital screens above each station. However, because our kitchens share equipment, we cannot guarantee that any dish is completely free of traces. Students with severe allergies are encouraged to meet with our dietitian, who can arrange for meals to be prepared separately. Appointments can be booked through the Dining Services website.",
+  "question": "What is suggested for students with serious allergies?",
+  "choices": [
+   "Eating only at one station",
+   "Bringing food from home",
+   "Avoiding all dining halls",
+   "Meeting with the dietitian"
+  ],
+  "answer": "Meeting with the dietitian",
+  "explanation": "encouraged to meet with our dietitian とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-527-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Food Allergy Policy — Campus Dining\nAll menu items list the eight major allergens on the digital screens above each station. However, because our kitchens share equipment, we cannot guarantee that any dish is completely free of traces. Students with severe allergies are encouraged to meet with our dietitian, who can arrange for meals to be prepared separately. Appointments can be booked through the Dining Services website.",
+  "question": "Where is allergen information shown?",
+  "choices": [
+   "On screens above each food station",
+   "On cards placed on each table",
+   "Only on the Dining Services website",
+   "On a poster at the entrance"
+  ],
+  "answer": "On screens above each food station",
+  "explanation": "listed on the digital screens above each station とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-528-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Climbing Wall Orientation\nBefore using the climbing wall for the first time, all users must complete a 45-minute safety orientation. Orientations are held every Tuesday and Friday at 4 p.m. and are limited to six participants. Climbers with documented experience from another gym may instead take a 10-minute belay test. Once you pass either option, a sticker will be added to your recreation card.",
+  "question": "What must first-time users do?",
+  "choices": [
+   "Buy their own climbing equipment",
+   "Complete a safety orientation or pass a short test",
+   "Climb with a staff member every time they visit the wall",
+   "Show a medical certificate"
+  ],
+  "answer": "Complete a safety orientation or pass a short test",
+  "explanation": "orientation が必要、経験者は belay test で代替可。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-528-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Climbing Wall Orientation\nBefore using the climbing wall for the first time, all users must complete a 45-minute safety orientation. Orientations are held every Tuesday and Friday at 4 p.m. and are limited to six participants. Climbers with documented experience from another gym may instead take a 10-minute belay test. Once you pass either option, a sticker will be added to your recreation card.",
+  "question": "How do staff know that a climber has been approved?",
+  "choices": [
+   "The climber receives an email.",
+   "The climber's name is posted on the wall.",
+   "A sticker is placed on the recreation card.",
+   "The climber wears a special wristband."
+  ],
+  "answer": "A sticker is placed on the recreation card.",
+  "explanation": "a sticker will be added to your recreation card とある。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-528-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Climbing Wall Orientation\nBefore using the climbing wall for the first time, all users must complete a 45-minute safety orientation. Orientations are held every Tuesday and Friday at 4 p.m. and are limited to six participants. Climbers with documented experience from another gym may instead take a 10-minute belay test. Once you pass either option, a sticker will be added to your recreation card.",
+  "question": "What can be inferred about the orientation sessions?",
+  "choices": [
+   "They are held every day.",
+   "They are only for experienced climbers.",
+   "They take more than one hour.",
+   "Students may need to sign up early because space is limited."
+  ],
+  "answer": "Students may need to sign up early because space is limited.",
+  "explanation": "limited to six participants なので早めの申込みが必要と推測できる。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-529-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "From: Resident Assistant, Floor 4\nSubject: Quiet hours during exams\nHi all — starting this Sunday and continuing through the final exam period, 24-hour quiet hours will be in effect. This means music, phone calls, and conversations should not be audible outside your room at any time. The common lounge will remain open as a silent study space. If noise becomes a problem, please contact me before contacting campus security.",
+  "question": "What will happen starting Sunday?",
+  "choices": [
+   "Noise rules will apply all day and night.",
+   "The lounge will close for exams.",
+   "Residents may not use their phones.",
+   "Security guards will patrol the floor."
+  ],
+  "answer": "Noise rules will apply all day and night.",
+  "explanation": "24-hour quiet hours will be in effect とある。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-529-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "From: Resident Assistant, Floor 4\nSubject: Quiet hours during exams\nHi all — starting this Sunday and continuing through the final exam period, 24-hour quiet hours will be in effect. This means music, phone calls, and conversations should not be audible outside your room at any time. The common lounge will remain open as a silent study space. If noise becomes a problem, please contact me before contacting campus security.",
+  "question": "What does the RA ask residents to do about noise problems?",
+  "choices": [
+   "Call security immediately",
+   "Contact the RA first",
+   "Move to the lounge",
+   "Leave a note on the door"
+  ],
+  "answer": "Contact the RA first",
+  "explanation": "contact me before contacting campus security とある。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-530-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Forum post — Re: Printing credit question\nGood question! Every student gets $20 of printing credit at the start of each semester. Black-and-white pages cost 5 cents and color pages cost 25 cents. Unused credit doesn't carry over to the next semester, so use it up before finals. You can add more credit at any library kiosk, but that money isn't refundable. — Posted by a Library Assistant",
+  "question": "How many color pages can a student print with the initial credit alone?",
+  "choices": [
+   "20",
+   "100",
+   "80",
+   "400"
+  ],
+  "answer": "80",
+  "explanation": "$20 ÷ 25 セント = 80 ページ。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-530-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Forum post — Re: Printing credit question\nGood question! Every student gets $20 of printing credit at the start of each semester. Black-and-white pages cost 5 cents and color pages cost 25 cents. Unused credit doesn't carry over to the next semester, so use it up before finals. You can add more credit at any library kiosk, but that money isn't refundable. — Posted by a Library Assistant",
+  "question": "What happens to unused credit at the end of the semester?",
+  "choices": [
+   "It is refunded.",
+   "It is added to next semester's credit.",
+   "It is donated to the library.",
+   "It is lost."
+  ],
+  "answer": "It is lost.",
+  "explanation": "doesn't carry over とあるので失われる。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-530-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Forum post — Re: Printing credit question\nGood question! Every student gets $20 of printing credit at the start of each semester. Black-and-white pages cost 5 cents and color pages cost 25 cents. Unused credit doesn't carry over to the next semester, so use it up before finals. You can add more credit at any library kiosk, but that money isn't refundable. — Posted by a Library Assistant",
+  "question": "What is true about credit added at a library kiosk?",
+  "choices": [
+   "It cannot be refunded.",
+   "It is matched by the library.",
+   "It carries over to the next semester.",
+   "It can be used only for color pages."
+  ],
+  "answer": "It cannot be refunded.",
+  "explanation": "that money isn't refundable とある。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-531-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Carpool Program — Commuter Services\nStudents who drive to campus with at least two passengers can apply for a carpool permit. The permit costs $90 per semester instead of the standard $240 and allows parking in reserved spaces near the main buildings. All members of the carpool must be registered students, and the permit will be cancelled if fewer than three registered people regularly arrive together.",
+  "question": "How much money does a carpool permit save compared with a standard permit?",
+  "choices": [
+   "$90",
+   "$150",
+   "$240",
+   "$330"
+  ],
+  "answer": "$150",
+  "explanation": "$240 − $90 = $150。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-531-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Carpool Program — Commuter Services\nStudents who drive to campus with at least two passengers can apply for a carpool permit. The permit costs $90 per semester instead of the standard $240 and allows parking in reserved spaces near the main buildings. All members of the carpool must be registered students, and the permit will be cancelled if fewer than three registered people regularly arrive together.",
+  "question": "Under what condition can the permit be cancelled?",
+  "choices": [
+   "One member graduates.",
+   "The driver changes cars.",
+   "The group regularly has fewer than three people.",
+   "The car is parked in a reserved space."
+  ],
+  "answer": "The group regularly has fewer than three people.",
+  "explanation": "fewer than three registered people regularly arrive together でキャンセル。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-531-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Carpool Program — Commuter Services\nStudents who drive to campus with at least two passengers can apply for a carpool permit. The permit costs $90 per semester instead of the standard $240 and allows parking in reserved spaces near the main buildings. All members of the carpool must be registered students, and the permit will be cancelled if fewer than three registered people regularly arrive together.",
+  "question": "Where may carpool permit holders park?",
+  "choices": [
+   "Only in lots far from campus",
+   "In any space on the street",
+   "In the visitors' garage",
+   "In reserved spaces close to the main buildings"
+  ],
+  "answer": "In reserved spaces close to the main buildings",
+  "explanation": "allows parking in reserved spaces near the main buildings とある。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-532-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Hey Orchestra members,\nOur winter concert is officially confirmed for December 9 in Harmon Hall. Because the hall is booked by another group in the afternoon, our dress rehearsal will start at 6 p.m. instead of the usual 3 p.m., and the concert will begin at 8. Please plan to arrive no later than 5:45. Black formal clothing is required; if you need to borrow a jacket, let me know by Friday. — Ji-woo (Orchestra Manager)",
+  "question": "Why is the rehearsal later than usual?",
+  "choices": [
+   "Another group is using the hall earlier.",
+   "The concert was moved to a later date in December.",
+   "Members have classes in the afternoon.",
+   "The conductor will arrive late."
+  ],
+  "answer": "Another group is using the hall earlier.",
+  "explanation": "booked by another group in the afternoon とある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-532-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Hey Orchestra members,\nOur winter concert is officially confirmed for December 9 in Harmon Hall. Because the hall is booked by another group in the afternoon, our dress rehearsal will start at 6 p.m. instead of the usual 3 p.m., and the concert will begin at 8. Please plan to arrive no later than 5:45. Black formal clothing is required; if you need to borrow a jacket, let me know by Friday. — Ji-woo (Orchestra Manager)",
+  "question": "What should members who need a jacket do?",
+  "choices": [
+   "Buy one before December 9",
+   "Tell Ji-woo by Friday",
+   "Wear any color they like",
+   "Come to the hall at 3 p.m."
+  ],
+  "answer": "Tell Ji-woo by Friday",
+  "explanation": "let me know by Friday とある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ }
+]

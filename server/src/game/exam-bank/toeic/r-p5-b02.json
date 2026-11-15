@@ -1,0 +1,650 @@
+[
+ {
+  "id": "TOEIC-R5-501",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "The new clinic on Harbor Street is ------- located near the central bus terminal.",
+  "choices": [
+   "convenient",
+   "convenience",
+   "conveniently",
+   "convene"
+  ],
+  "answer": "conveniently",
+  "explanation": "過去分詞 located を修飾するのは副詞 conveniently。",
+  "tags": "品詞 副詞"
+ },
+ {
+  "id": "TOEIC-R5-505",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Tenants must give the property management office written ------- at least sixty days before moving out.",
+  "choices": [
+   "notifiable",
+   "notified",
+   "notify",
+   "notification"
+  ],
+  "answer": "notification",
+  "explanation": "形容詞 written が修飾する名詞が必要で、「書面による通知」となる。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R5-507",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Sales of the accounting software increased ------- after the company introduced a monthly subscription plan.",
+  "choices": [
+   "substantially",
+   "substance",
+   "substantial",
+   "substantiate"
+  ],
+  "answer": "substantially",
+  "explanation": "自動詞 increased を修飾する副詞が必要。",
+  "tags": "品詞 副詞"
+ },
+ {
+  "id": "TOEIC-R5-512",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The board considered the merger proposal ------- because the projected savings relied on optimistic assumptions.",
+  "choices": [
+   "questionably",
+   "questioning",
+   "questionable",
+   "question"
+  ],
+  "answer": "questionable",
+  "explanation": "consider O C の C に入る形容詞 questionable（疑わしい）が正解。",
+  "tags": "品詞 形容詞"
+ },
+ {
+  "id": "TOEIC-R5-518",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The ------- of the new tracking software into existing warehouse systems took longer than anticipated.",
+  "choices": [
+   "integration",
+   "integrative",
+   "integrate",
+   "integrated"
+  ],
+  "answer": "integration",
+  "explanation": "主語になる名詞が必要で、integration A into B（AのBへの統合）となる。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R5-519",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The construction crew worked ------- to finish the bridge before the holiday weekend.",
+  "choices": [
+   "tiredness",
+   "tireless",
+   "tire",
+   "tirelessly"
+  ],
+  "answer": "tirelessly",
+  "explanation": "自動詞 worked を修飾する副詞が必要。",
+  "tags": "品詞 副詞"
+ },
+ {
+  "id": "TOEIC-R5-526",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The ------- of the annual sustainability report has been postponed until next month.",
+  "choices": [
+   "publish",
+   "published",
+   "publishable",
+   "publication"
+  ],
+  "answer": "publication",
+  "explanation": "冠詞 the と of の間には名詞 publication（発行）が入る。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R5-532",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The training session will focus on effective ------- between departments.",
+  "choices": [
+   "communication",
+   "communicatively",
+   "communicate",
+   "communicative"
+  ],
+  "answer": "communication",
+  "explanation": "形容詞 effective が修飾する名詞 communication が入る。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R5-538",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Entries for the photography contest will be judged ------- on creativity and technical skill.",
+  "choices": [
+   "primaries",
+   "primacy",
+   "primary",
+   "primarily"
+  ],
+  "answer": "primarily",
+  "explanation": "judged on を修飾する副詞 primarily（主に）が入る。",
+  "tags": "品詞 副詞"
+ },
+ {
+  "id": "TOEIC-R5-542",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The new air filtration system has ------- improved working conditions in the paint shop.",
+  "choices": [
+   "noticeable",
+   "noticing",
+   "noticeably",
+   "notice"
+  ],
+  "answer": "noticeably",
+  "explanation": "has と improved の間で動詞を修飾する副詞が入る。",
+  "tags": "品詞 副詞"
+ },
+ {
+  "id": "TOEIC-R5-556",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "Ms. Brown ------- the conference in Singapore last week.",
+  "choices": [
+   "attends",
+   "attended",
+   "has attended",
+   "will attend"
+  ],
+  "answer": "attended",
+  "explanation": "last week があるので過去形を使う。",
+  "tags": "時制"
+ },
+ {
+  "id": "TOEIC-R5-569",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The committee is considering ------- the annual trade fair to a larger venue.",
+  "choices": [
+   "moved",
+   "moving",
+   "move",
+   "to move"
+  ],
+  "answer": "moving",
+  "explanation": "consider は動名詞を目的語にとる。",
+  "tags": "動名詞"
+ },
+ {
+  "id": "TOEIC-R5-570",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "The train to Northport usually ------- on time.",
+  "choices": [
+   "to arrive",
+   "arrive",
+   "arrives",
+   "arriving"
+  ],
+  "answer": "arrives",
+  "explanation": "usually は習慣を表し、主語が単数なので arrives。",
+  "tags": "時制 主述一致"
+ },
+ {
+  "id": "TOEIC-R5-573",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The hospital plans ------- a new pediatric ward next year.",
+  "choices": [
+   "to open",
+   "opened",
+   "opens",
+   "opening"
+  ],
+  "answer": "to open",
+  "explanation": "plan は to 不定詞を目的語にとる。",
+  "tags": "不定詞"
+ },
+ {
+  "id": "TOEIC-R5-574",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The finance team ------- the annual budget when the system crashed.",
+  "choices": [
+   "will review",
+   "reviews",
+   "has reviewed",
+   "was reviewing"
+  ],
+  "answer": "was reviewing",
+  "explanation": "過去のある時点で進行中だった動作なので過去進行形。",
+  "tags": "時制"
+ },
+ {
+  "id": "TOEIC-R5-583",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "------- the weather was poor, the outdoor concert went ahead as planned.",
+  "choices": [
+   "Unless",
+   "Although",
+   "Despite",
+   "Because"
+  ],
+  "answer": "Although",
+  "explanation": "後ろが節で逆接なので接続詞 Although。Despite は前置詞。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R5-587",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Guests may check out late ------- they notify the front desk in advance.",
+  "choices": [
+   "so that",
+   "whether",
+   "provided that",
+   "even though"
+  ],
+  "answer": "provided that",
+  "explanation": "条件を表す provided that（～という条件で）が正解。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R5-588",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The hotel is located ------- walking distance of the convention center.",
+  "choices": [
+   "along",
+   "between",
+   "among",
+   "within"
+  ],
+  "answer": "within",
+  "explanation": "within walking distance of ～（～から歩いて行ける距離に）の定型表現。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R5-589",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "------- you are a new or returning customer, our staff will be happy to assist you.",
+  "choices": [
+   "Either",
+   "Unless",
+   "Both",
+   "Whether"
+  ],
+  "answer": "Whether",
+  "explanation": "Whether A or B（AであれBであれ）の形。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R5-594",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The software is not only easy to use ------- affordable.",
+  "choices": [
+   "so that",
+   "but also",
+   "as well",
+   "and also"
+  ],
+  "answer": "but also",
+  "explanation": "not only A but also B の相関表現。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R5-598",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "Please place your luggage ------- the seat in front of you.",
+  "choices": [
+   "about",
+   "among",
+   "under",
+   "through"
+  ],
+  "answer": "under",
+  "explanation": "「前の座席の下に」を表す under が正解。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R5-607",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "------- the factory upgrades its machinery, it will not be able to meet the new quality standards.",
+  "choices": [
+   "Whereas",
+   "Although",
+   "Whether",
+   "Unless"
+  ],
+  "answer": "Unless",
+  "explanation": "「～しない限り」を表す Unless が文意に合う。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R5-608",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The marketing budget was increased ------- the board's decision to expand into overseas markets.",
+  "choices": [
+   "in exchange for",
+   "in place of",
+   "in light of",
+   "in spite of"
+  ],
+  "answer": "in light of",
+  "explanation": "in light of ～（～を考慮して）が因果関係に合う。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R5-611",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "------- the shipment arrives, the warehouse team will check every item against the invoice.",
+  "choices": [
+   "So that",
+   "In order",
+   "Even so",
+   "As soon as"
+  ],
+  "answer": "As soon as",
+  "explanation": "As soon as（～するとすぐに）が文意に合う。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R5-612",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The seminar is intended ------- employees who have recently joined the company.",
+  "choices": [
+   "at",
+   "with",
+   "for",
+   "to"
+  ],
+  "answer": "for",
+  "explanation": "be intended for ～（～向けである）の形。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R5-617",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "The training room is ------- the second floor.",
+  "choices": [
+   "in",
+   "to",
+   "on",
+   "into"
+  ],
+  "answer": "on",
+  "explanation": "階を表すときは on を使う。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R5-624",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "If you have any questions, please contact ------- at the front desk.",
+  "choices": [
+   "us",
+   "we",
+   "our",
+   "ourselves"
+  ],
+  "answer": "us",
+  "explanation": "動詞 contact の目的語なので目的格 us。",
+  "tags": "代名詞"
+ },
+ {
+  "id": "TOEIC-R5-630",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "This umbrella is not mine. Is it -------?",
+  "choices": [
+   "your",
+   "yourself",
+   "yours",
+   "you"
+  ],
+  "answer": "yours",
+  "explanation": "「あなたのもの」を表す所有代名詞 yours。",
+  "tags": "代名詞"
+ },
+ {
+  "id": "TOEIC-R5-636",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "All staff must ------- with the new safety guidelines.",
+  "choices": [
+   "obey",
+   "observe",
+   "follow",
+   "comply"
+  ],
+  "answer": "comply",
+  "explanation": "後ろに with をとれるのは comply（従う）だけ。",
+  "tags": "語彙 コロケーション"
+ },
+ {
+  "id": "TOEIC-R5-642",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "The doctor will see you shortly. Please have a ------- in the waiting room.",
+  "choices": [
+   "sit",
+   "place",
+   "chair",
+   "seat"
+  ],
+  "answer": "seat",
+  "explanation": "have a seat（お掛けください）の決まった表現。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R5-648",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The catering company can ------- special dietary requirements with advance notice.",
+  "choices": [
+   "accommodate",
+   "accumulate",
+   "acquaint",
+   "accompany"
+  ],
+  "answer": "accommodate",
+  "explanation": "要望に「対応する」accommodate が正解。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R5-651",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The new manager quickly ------- a good relationship with the staff.",
+  "choices": [
+   "installed",
+   "settled",
+   "founded",
+   "established"
+  ],
+  "answer": "established",
+  "explanation": "establish a relationship（関係を築く）のコロケーション。",
+  "tags": "語彙 コロケーション"
+ },
+ {
+  "id": "TOEIC-R5-655",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The marketing director asked for a detailed ------- of the costs of exhibiting at the trade fair.",
+  "choices": [
+   "setback",
+   "outbreak",
+   "breakdown",
+   "turnover"
+  ],
+  "answer": "breakdown",
+  "explanation": "費用の「内訳」を表す breakdown が正解。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R5-656",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "Please ------- the form and return it to the reception desk.",
+  "choices": [
+   "take off",
+   "fill up",
+   "put on",
+   "fill out"
+  ],
+  "answer": "fill out",
+  "explanation": "用紙に「記入する」は fill out。",
+  "tags": "語彙 句動詞"
+ },
+ {
+  "id": "TOEIC-R5-660",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The museum's renovation was made possible by a generous ------- from a local foundation.",
+  "choices": [
+   "grip",
+   "grade",
+   "graph",
+   "grant"
+  ],
+  "answer": "grant",
+  "explanation": "財団からの「助成金」grant が文意に合う。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R5-672",
+  "skill": "reading",
+  "format": "Part 5 短文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The hotel was fully ------- during the international film festival.",
+  "choices": [
+   "paid",
+   "spent",
+   "charged",
+   "booked"
+  ],
+  "answer": "booked",
+  "explanation": "fully booked（満室の）の表現。",
+  "tags": "語彙"
+ }
+]

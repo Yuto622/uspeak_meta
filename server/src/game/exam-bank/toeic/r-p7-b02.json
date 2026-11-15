@@ -1,0 +1,650 @@
+[
+ {
+  "id": "TOEIC-R7-512-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Maritime Museum Reopens After Two-Year Renovation\n\nPORT ELLERY (March 3) — The Port Ellery Maritime Museum will reopen to the public on Saturday following a two-year renovation that cost $18 million. [1] The project added a glass-roofed gallery overlooking the harbor and restored the museum's original 1890s warehouse building.\n\nThe new gallery will house the museum's largest item, a 22-meter fishing schooner built in 1911, which had been kept in storage for more than a decade because there was no space to display it. [2] Visitors will also find interactive displays explaining how ships were navigated before satellite technology.\n\nDirector Aiyana Redcloud said the museum hopes to attract 150,000 visitors in its first year, nearly double its previous annual attendance. [3] Admission will be free on opening weekend, and the café on the top floor will offer harbor views. [4]",
+  "question": "What is the article mainly about?",
+  "choices": [
+   "The completion of improvements to a museum",
+   "A museum's decision to close",
+   "A plan to develop the city's harbor",
+   "The construction of a new fishing boat for the museum"
+  ],
+  "answer": "The completion of improvements to a museum",
+  "explanation": "2年間の改修を終えた海事博物館の再開を伝える記事。",
+  "tags": "読解 主題"
+ },
+ {
+  "id": "TOEIC-R7-512-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Maritime Museum Reopens After Two-Year Renovation\n\nPORT ELLERY (March 3) — The Port Ellery Maritime Museum will reopen to the public on Saturday following a two-year renovation that cost $18 million. [1] The project added a glass-roofed gallery overlooking the harbor and restored the museum's original 1890s warehouse building.\n\nThe new gallery will house the museum's largest item, a 22-meter fishing schooner built in 1911, which had been kept in storage for more than a decade because there was no space to display it. [2] Visitors will also find interactive displays explaining how ships were navigated before satellite technology.\n\nDirector Aiyana Redcloud said the museum hopes to attract 150,000 visitors in its first year, nearly double its previous annual attendance. [3] Admission will be free on opening weekend, and the café on the top floor will offer harbor views. [4]",
+  "question": "What is indicated about the fishing schooner?",
+  "choices": [
+   "It is still used for fishing.",
+   "It was built especially for the museum.",
+   "It was not on display for many years.",
+   "It will be moved to another port."
+  ],
+  "answer": "It was not on display for many years.",
+  "explanation": "展示スペースがなく10年以上倉庫に保管されていたとある。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-512-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Maritime Museum Reopens After Two-Year Renovation\n\nPORT ELLERY (March 3) — The Port Ellery Maritime Museum will reopen to the public on Saturday following a two-year renovation that cost $18 million. [1] The project added a glass-roofed gallery overlooking the harbor and restored the museum's original 1890s warehouse building.\n\nThe new gallery will house the museum's largest item, a 22-meter fishing schooner built in 1911, which had been kept in storage for more than a decade because there was no space to display it. [2] Visitors will also find interactive displays explaining how ships were navigated before satellite technology.\n\nDirector Aiyana Redcloud said the museum hopes to attract 150,000 visitors in its first year, nearly double its previous annual attendance. [3] Admission will be free on opening weekend, and the café on the top floor will offer harbor views. [4]",
+  "question": "What does Ms. Redcloud expect?",
+  "choices": [
+   "Admission prices will rise.",
+   "Attendance will increase significantly.",
+   "The café will be relocated to the ground floor.",
+   "More staff will be hired."
+  ],
+  "answer": "Attendance will increase significantly.",
+  "explanation": "初年度に従来のほぼ2倍の15万人の来館を見込んでいる。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-512-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Maritime Museum Reopens After Two-Year Renovation\n\nPORT ELLERY (March 3) — The Port Ellery Maritime Museum will reopen to the public on Saturday following a two-year renovation that cost $18 million. [1] The project added a glass-roofed gallery overlooking the harbor and restored the museum's original 1890s warehouse building.\n\nThe new gallery will house the museum's largest item, a 22-meter fishing schooner built in 1911, which had been kept in storage for more than a decade because there was no space to display it. [2] Visitors will also find interactive displays explaining how ships were navigated before satellite technology.\n\nDirector Aiyana Redcloud said the museum hopes to attract 150,000 visitors in its first year, nearly double its previous annual attendance. [3] Admission will be free on opening weekend, and the café on the top floor will offer harbor views. [4]",
+  "question": "In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n\"Much of the funding came from a regional tourism grant.\"",
+  "choices": [
+   "[1]",
+   "[2]",
+   "[3]",
+   "[4]"
+  ],
+  "answer": "[1]",
+  "explanation": "改修費1800万ドルに言及した直後に資金源を述べるのが自然。",
+  "tags": "読解 文挿入"
+ },
+ {
+  "id": "TOEIC-R7-513-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Customer Notice: Warranty Service at Dalton Appliances\n\nAll major appliances purchased from Dalton Appliances come with a two-year manufacturer's warranty covering parts and labor. Customers may also purchase our Extended Care Plan, which adds three more years of coverage and includes one free maintenance check per year.\n\nTo request warranty repairs, please call our service line at 555-0177 or visit any Dalton store with your receipt. A technician will normally visit your home within three business days. Please note that the warranty does not cover damage caused by improper installation or by moving the appliance.\n\nCustomers who have lost their receipt can still receive service if their purchase was registered on our Web site.",
+  "question": "What is the notice mainly about?",
+  "choices": [
+   "A seasonal sale on all major kitchen appliances",
+   "Job openings for technicians",
+   "The opening of a new store",
+   "How to obtain repairs under a warranty"
+  ],
+  "answer": "How to obtain repairs under a warranty",
+  "explanation": "保証修理の内容と依頼方法を説明している。",
+  "tags": "読解 主題"
+ },
+ {
+  "id": "TOEIC-R7-513-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Customer Notice: Warranty Service at Dalton Appliances\n\nAll major appliances purchased from Dalton Appliances come with a two-year manufacturer's warranty covering parts and labor. Customers may also purchase our Extended Care Plan, which adds three more years of coverage and includes one free maintenance check per year.\n\nTo request warranty repairs, please call our service line at 555-0177 or visit any Dalton store with your receipt. A technician will normally visit your home within three business days. Please note that the warranty does not cover damage caused by improper installation or by moving the appliance.\n\nCustomers who have lost their receipt can still receive service if their purchase was registered on our Web site.",
+  "question": "What does the Extended Care Plan include?",
+  "choices": [
+   "A replacement appliance",
+   "Professional installation",
+   "A yearly maintenance check",
+   "Free delivery"
+  ],
+  "answer": "A yearly maintenance check",
+  "explanation": "延長プランには年1回の無料点検が含まれる。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-513-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Customer Notice: Warranty Service at Dalton Appliances\n\nAll major appliances purchased from Dalton Appliances come with a two-year manufacturer's warranty covering parts and labor. Customers may also purchase our Extended Care Plan, which adds three more years of coverage and includes one free maintenance check per year.\n\nTo request warranty repairs, please call our service line at 555-0177 or visit any Dalton store with your receipt. A technician will normally visit your home within three business days. Please note that the warranty does not cover damage caused by improper installation or by moving the appliance.\n\nCustomers who have lost their receipt can still receive service if their purchase was registered on our Web site.",
+  "question": "What is NOT covered by the warranty?",
+  "choices": [
+   "Technicians' labor",
+   "Damage that occurs while an appliance is being moved",
+   "Repairs needed within the first two years",
+   "Replacement parts"
+  ],
+  "answer": "Damage that occurs while an appliance is being moved",
+  "explanation": "移動による損傷は保証対象外と明記されている。",
+  "tags": "読解 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-514-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Nadia Haddad [2:15 P.M.]: Quick update on the Hamburg Logistics Fair. The booth layout is confirmed, but the shipping company says our display stands won't arrive until Tuesday morning.\nSergio Blanco [2:16 P.M.]: The fair opens Tuesday at 10. That's cutting it close.\nNadia Haddad [2:17 P.M.]: Exactly. Kenji, could your team set up on Monday with what we already have there?\nKenji Watanabe [2:19 P.M.]: We can. The screens and brochures are already at the venue. We just won't have the stands.\nSergio Blanco [2:20 P.M.]: What about renting stands locally as a backup?\nNadia Haddad [2:22 P.M.]: I checked. The venue rents them for €400 for the week.\nSergio Blanco [2:23 P.M.]: I'd rather spend that than risk an empty booth on opening day.\nNadia Haddad [2:24 P.M.]: Agreed. I'll book them this afternoon and cancel if ours arrive on Monday after all.\nKenji Watanabe [2:25 P.M.]: Sounds good. I'll send everyone the setup schedule tonight.",
+  "question": "What problem is being discussed?",
+  "choices": [
+   "The brochures for the fair have not been printed yet.",
+   "The fair has been postponed.",
+   "The booth location has changed.",
+   "Some equipment may not arrive in time."
+  ],
+  "answer": "Some equipment may not arrive in time.",
+  "explanation": "展示スタンドの到着が開幕当日の朝になる問題を話し合っている。",
+  "tags": "読解 主題"
+ },
+ {
+  "id": "TOEIC-R7-514-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Nadia Haddad [2:15 P.M.]: Quick update on the Hamburg Logistics Fair. The booth layout is confirmed, but the shipping company says our display stands won't arrive until Tuesday morning.\nSergio Blanco [2:16 P.M.]: The fair opens Tuesday at 10. That's cutting it close.\nNadia Haddad [2:17 P.M.]: Exactly. Kenji, could your team set up on Monday with what we already have there?\nKenji Watanabe [2:19 P.M.]: We can. The screens and brochures are already at the venue. We just won't have the stands.\nSergio Blanco [2:20 P.M.]: What about renting stands locally as a backup?\nNadia Haddad [2:22 P.M.]: I checked. The venue rents them for €400 for the week.\nSergio Blanco [2:23 P.M.]: I'd rather spend that than risk an empty booth on opening day.\nNadia Haddad [2:24 P.M.]: Agreed. I'll book them this afternoon and cancel if ours arrive on Monday after all.\nKenji Watanabe [2:25 P.M.]: Sounds good. I'll send everyone the setup schedule tonight.",
+  "question": "At 2:16 P.M., what does Mr. Blanco imply when he writes, \"That's cutting it close\"?",
+  "choices": [
+   "There may not be enough time to prepare.",
+   "The rental cost is too high.",
+   "He cannot attend the fair.",
+   "The booth is too small."
+  ],
+  "answer": "There may not be enough time to prepare.",
+  "explanation": "10時開幕の当日朝に届くのでは準備が間に合わない恐れがあるという意味。",
+  "tags": "読解 意図"
+ },
+ {
+  "id": "TOEIC-R7-514-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Nadia Haddad [2:15 P.M.]: Quick update on the Hamburg Logistics Fair. The booth layout is confirmed, but the shipping company says our display stands won't arrive until Tuesday morning.\nSergio Blanco [2:16 P.M.]: The fair opens Tuesday at 10. That's cutting it close.\nNadia Haddad [2:17 P.M.]: Exactly. Kenji, could your team set up on Monday with what we already have there?\nKenji Watanabe [2:19 P.M.]: We can. The screens and brochures are already at the venue. We just won't have the stands.\nSergio Blanco [2:20 P.M.]: What about renting stands locally as a backup?\nNadia Haddad [2:22 P.M.]: I checked. The venue rents them for €400 for the week.\nSergio Blanco [2:23 P.M.]: I'd rather spend that than risk an empty booth on opening day.\nNadia Haddad [2:24 P.M.]: Agreed. I'll book them this afternoon and cancel if ours arrive on Monday after all.\nKenji Watanabe [2:25 P.M.]: Sounds good. I'll send everyone the setup schedule tonight.",
+  "question": "What is indicated about the screens?",
+  "choices": [
+   "They will be rented locally.",
+   "They will arrive on Tuesday.",
+   "They were damaged while being shipped to Hamburg.",
+   "They are already at the fair location."
+  ],
+  "answer": "They are already at the fair location.",
+  "explanation": "スクリーンとパンフレットはすでに会場にあると Watanabe さんが述べている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-514-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Nadia Haddad [2:15 P.M.]: Quick update on the Hamburg Logistics Fair. The booth layout is confirmed, but the shipping company says our display stands won't arrive until Tuesday morning.\nSergio Blanco [2:16 P.M.]: The fair opens Tuesday at 10. That's cutting it close.\nNadia Haddad [2:17 P.M.]: Exactly. Kenji, could your team set up on Monday with what we already have there?\nKenji Watanabe [2:19 P.M.]: We can. The screens and brochures are already at the venue. We just won't have the stands.\nSergio Blanco [2:20 P.M.]: What about renting stands locally as a backup?\nNadia Haddad [2:22 P.M.]: I checked. The venue rents them for €400 for the week.\nSergio Blanco [2:23 P.M.]: I'd rather spend that than risk an empty booth on opening day.\nNadia Haddad [2:24 P.M.]: Agreed. I'll book them this afternoon and cancel if ours arrive on Monday after all.\nKenji Watanabe [2:25 P.M.]: Sounds good. I'll send everyone the setup schedule tonight.",
+  "question": "What will Ms. Haddad do this afternoon?",
+  "choices": [
+   "Reserve display stands from the venue",
+   "Cancel the booth reservation",
+   "Call the shipping company",
+   "Send out a setup schedule"
+  ],
+  "answer": "Reserve display stands from the venue",
+  "explanation": "今日の午後に会場のスタンドを予約すると述べている。日程表を送るのは Watanabe さん。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-515-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Brennan Island Ferry — Winter Timetable (November 1 – March 31)\n\nDeparts Mainland Pier | Arrives Brennan Island\n7:15 A.M. | 7:55 A.M.\n10:30 A.M. | 11:10 A.M.\n2:00 P.M. | 2:40 P.M.\n5:45 P.M. | 6:25 P.M. (Fridays and Saturdays only)\n\nFares: Adults $9 one way; children under 12 $4; bicycles $2.\nTickets can be purchased at the pier office or on board (cash only on board).\nIn bad weather, sailings may be canceled. Check our Web site for updates.",
+  "question": "How long does the trip to Brennan Island take?",
+  "choices": [
+   "15 minutes",
+   "30 minutes",
+   "40 minutes",
+   "One hour"
+  ],
+  "answer": "40 minutes",
+  "explanation": "どの便も出発から到着まで40分かかっている。",
+  "tags": "読解 表 詳細"
+ },
+ {
+  "id": "TOEIC-R7-515-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Brennan Island Ferry — Winter Timetable (November 1 – March 31)\n\nDeparts Mainland Pier | Arrives Brennan Island\n7:15 A.M. | 7:55 A.M.\n10:30 A.M. | 11:10 A.M.\n2:00 P.M. | 2:40 P.M.\n5:45 P.M. | 6:25 P.M. (Fridays and Saturdays only)\n\nFares: Adults $9 one way; children under 12 $4; bicycles $2.\nTickets can be purchased at the pier office or on board (cash only on board).\nIn bad weather, sailings may be canceled. Check our Web site for updates.",
+  "question": "What is stated about tickets bought on the ferry?",
+  "choices": [
+   "They cost more than tickets bought at the pier.",
+   "They must be paid for in cash.",
+   "They must be reserved online.",
+   "They are not available for children."
+  ],
+  "answer": "They must be paid for in cash.",
+  "explanation": "船内では現金のみと書かれている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-516-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Mr. Abernathy,\n\nThis is a reminder that you have an appointment with Dr. Sofia Marchetti at Westpark Eye Clinic on Thursday, May 14, at 3:30 P.M.\n\nDuring your visit, the doctor will check your eyesight and may put drops in your eyes. These drops can make your vision blurry for a few hours, so please do not drive to your appointment. You may want to ask a friend or family member to take you home.\n\nIf you need to change your appointment, please call us at 555-0124 at least one day before.\n\nWestpark Eye Clinic",
+  "question": "Why is Mr. Abernathy advised not to drive?",
+  "choices": [
+   "The clinic has no parking.",
+   "He will need to pick up new glasses after the visit.",
+   "A nearby road will be closed.",
+   "His vision may be unclear after the exam."
+  ],
+  "answer": "His vision may be unclear after the exam.",
+  "explanation": "目薬で数時間視界がぼやけることがあるため運転しないよう求めている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-516-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Dear Mr. Abernathy,\n\nThis is a reminder that you have an appointment with Dr. Sofia Marchetti at Westpark Eye Clinic on Thursday, May 14, at 3:30 P.M.\n\nDuring your visit, the doctor will check your eyesight and may put drops in your eyes. These drops can make your vision blurry for a few hours, so please do not drive to your appointment. You may want to ask a friend or family member to take you home.\n\nIf you need to change your appointment, please call us at 555-0124 at least one day before.\n\nWestpark Eye Clinic",
+  "question": "What should Mr. Abernathy do if he needs to change his appointment?",
+  "choices": [
+   "Call the clinic at least a day in advance",
+   "Visit the front desk in person",
+   "Ask a family member to come instead",
+   "Send an e-mail to the doctor"
+  ],
+  "answer": "Call the clinic at least a day in advance",
+  "explanation": "変更する場合は少なくとも前日までに電話するよう書かれている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-517-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: All Staff, Kingsbridge Accounting\nFrom: Tomas Varga, IT Manager\nDate: September 8\nSubject: New password manager\n\nHello everyone,\n\nStarting next Monday, we will begin using a password manager called KeySafe. It will store all your work passwords securely and fill them in automatically when you log in to our systems.\n\nThe installation will be done remotely by the IT team, department by department. The tax department will be first on Monday, followed by audit on Tuesday and payroll on Wednesday. You do not need to do anything before your installation day, but please keep your computer switched on that morning.\n\nAfter KeySafe is installed, you will be asked to create one master password. Make sure it is at least 14 characters long, and do not write it down. If you forget it, the IT team will not be able to recover it for you.\n\nTomas",
+  "question": "What is the purpose of the e-mail?",
+  "choices": [
+   "To ask staff to change all of their passwords immediately",
+   "To announce the introduction of new software",
+   "To schedule computer repairs",
+   "To report a security problem"
+  ],
+  "answer": "To announce the introduction of new software",
+  "explanation": "パスワード管理ソフト KeySafe の導入を知らせている。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-517-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: All Staff, Kingsbridge Accounting\nFrom: Tomas Varga, IT Manager\nDate: September 8\nSubject: New password manager\n\nHello everyone,\n\nStarting next Monday, we will begin using a password manager called KeySafe. It will store all your work passwords securely and fill them in automatically when you log in to our systems.\n\nThe installation will be done remotely by the IT team, department by department. The tax department will be first on Monday, followed by audit on Tuesday and payroll on Wednesday. You do not need to do anything before your installation day, but please keep your computer switched on that morning.\n\nAfter KeySafe is installed, you will be asked to create one master password. Make sure it is at least 14 characters long, and do not write it down. If you forget it, the IT team will not be able to recover it for you.\n\nTomas",
+  "question": "When will the payroll department receive the installation?",
+  "choices": [
+   "On Thursday",
+   "On Tuesday",
+   "On Wednesday",
+   "On Monday"
+  ],
+  "answer": "On Wednesday",
+  "explanation": "給与部門は水曜日にインストールされる。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-517-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: All Staff, Kingsbridge Accounting\nFrom: Tomas Varga, IT Manager\nDate: September 8\nSubject: New password manager\n\nHello everyone,\n\nStarting next Monday, we will begin using a password manager called KeySafe. It will store all your work passwords securely and fill them in automatically when you log in to our systems.\n\nThe installation will be done remotely by the IT team, department by department. The tax department will be first on Monday, followed by audit on Tuesday and payroll on Wednesday. You do not need to do anything before your installation day, but please keep your computer switched on that morning.\n\nAfter KeySafe is installed, you will be asked to create one master password. Make sure it is at least 14 characters long, and do not write it down. If you forget it, the IT team will not be able to recover it for you.\n\nTomas",
+  "question": "What are employees warned about?",
+  "choices": [
+   "Computers must be shut down on installation day.",
+   "A forgotten master password cannot be recovered.",
+   "Old passwords will stop working on Monday.",
+   "KeySafe will cost each department money."
+  ],
+  "answer": "A forgotten master password cannot be recovered.",
+  "explanation": "マスターパスワードを忘れるとIT部門でも復元できないと警告している。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-518-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Drone Delivery Trial Yields Mixed Results\n\nAfter a six-month trial in the rural district of Ashcombe, parcel carrier Swiftway has concluded that drone deliveries are feasible for small packages but not yet economical on a large scale.\n\nDuring the trial, drones completed 4,800 deliveries of medicines and small spare parts to farms and villages, cutting average delivery times from two days to under three hours. [1] Customer feedback was overwhelmingly positive, particularly among farmers who previously had to drive to the nearest town to collect urgent parts.\n\nHowever, the cost per delivery was roughly four times that of a conventional van route. [2] Strong winds grounded the fleet on 23 of the trial's 180 days, and each drone required a trained operator to monitor its flight, a regulatory requirement that significantly inflated labor costs. [3]\n\nSwiftway's head of innovation, Priyanka Desai, said the company would apply for permission to have a single operator supervise several drones at once. \"If regulators agree, the numbers start to look very different,\" she said. [4] The company has not yet decided whether to extend the trial to other regions.",
+  "question": "What did the trial find?",
+  "choices": [
+   "Drones were fast but expensive to operate.",
+   "Drones were unable to carry medicines.",
+   "Customers were generally unhappy with the service.",
+   "Drones were cheaper to run than vans."
+  ],
+  "answer": "Drones were fast but expensive to operate.",
+  "explanation": "配達時間は大幅に短縮したが、1件あたりの費用はバンの約4倍だった。",
+  "tags": "読解 主題"
+ },
+ {
+  "id": "TOEIC-R7-518-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Drone Delivery Trial Yields Mixed Results\n\nAfter a six-month trial in the rural district of Ashcombe, parcel carrier Swiftway has concluded that drone deliveries are feasible for small packages but not yet economical on a large scale.\n\nDuring the trial, drones completed 4,800 deliveries of medicines and small spare parts to farms and villages, cutting average delivery times from two days to under three hours. [1] Customer feedback was overwhelmingly positive, particularly among farmers who previously had to drive to the nearest town to collect urgent parts.\n\nHowever, the cost per delivery was roughly four times that of a conventional van route. [2] Strong winds grounded the fleet on 23 of the trial's 180 days, and each drone required a trained operator to monitor its flight, a regulatory requirement that significantly inflated labor costs. [3]\n\nSwiftway's head of innovation, Priyanka Desai, said the company would apply for permission to have a single operator supervise several drones at once. \"If regulators agree, the numbers start to look very different,\" she said. [4] The company has not yet decided whether to extend the trial to other regions.",
+  "question": "The word \"inflated\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "filled",
+   "praised",
+   "delayed",
+   "raised"
+  ],
+  "answer": "raised",
+  "explanation": "inflate costs は「費用を押し上げる」なので raised。",
+  "tags": "読解 語彙"
+ },
+ {
+  "id": "TOEIC-R7-518-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Drone Delivery Trial Yields Mixed Results\n\nAfter a six-month trial in the rural district of Ashcombe, parcel carrier Swiftway has concluded that drone deliveries are feasible for small packages but not yet economical on a large scale.\n\nDuring the trial, drones completed 4,800 deliveries of medicines and small spare parts to farms and villages, cutting average delivery times from two days to under three hours. [1] Customer feedback was overwhelmingly positive, particularly among farmers who previously had to drive to the nearest town to collect urgent parts.\n\nHowever, the cost per delivery was roughly four times that of a conventional van route. [2] Strong winds grounded the fleet on 23 of the trial's 180 days, and each drone required a trained operator to monitor its flight, a regulatory requirement that significantly inflated labor costs. [3]\n\nSwiftway's head of innovation, Priyanka Desai, said the company would apply for permission to have a single operator supervise several drones at once. \"If regulators agree, the numbers start to look very different,\" she said. [4] The company has not yet decided whether to extend the trial to other regions.",
+  "question": "What is suggested about the regulatory requirement?",
+  "choices": [
+   "It applies only in windy conditions.",
+   "It was introduced after the trial ended.",
+   "Changing it could make drone delivery more affordable.",
+   "It has already been removed."
+  ],
+  "answer": "Changing it could make drone delivery more affordable.",
+  "explanation": "1人で複数機を監視する許可が出れば採算が大きく変わると述べており、規制緩和で費用が下がると示唆している。",
+  "tags": "読解 推測"
+ },
+ {
+  "id": "TOEIC-R7-518-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Drone Delivery Trial Yields Mixed Results\n\nAfter a six-month trial in the rural district of Ashcombe, parcel carrier Swiftway has concluded that drone deliveries are feasible for small packages but not yet economical on a large scale.\n\nDuring the trial, drones completed 4,800 deliveries of medicines and small spare parts to farms and villages, cutting average delivery times from two days to under three hours. [1] Customer feedback was overwhelmingly positive, particularly among farmers who previously had to drive to the nearest town to collect urgent parts.\n\nHowever, the cost per delivery was roughly four times that of a conventional van route. [2] Strong winds grounded the fleet on 23 of the trial's 180 days, and each drone required a trained operator to monitor its flight, a regulatory requirement that significantly inflated labor costs. [3]\n\nSwiftway's head of innovation, Priyanka Desai, said the company would apply for permission to have a single operator supervise several drones at once. \"If regulators agree, the numbers start to look very different,\" she said. [4] The company has not yet decided whether to extend the trial to other regions.",
+  "question": "In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n\"Part of the reason was the weather.\"",
+  "choices": [
+   "[1]",
+   "[2]",
+   "[3]",
+   "[4]"
+  ],
+  "answer": "[2]",
+  "explanation": "費用が高かった理由の一つとして天候を挙げ、直後の強風の話につながる[2]が適切。",
+  "tags": "読解 文挿入"
+ },
+ {
+  "id": "TOEIC-R7-519-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Customer Reviews — Golden Fern Catering\n\n★★★★★ Reviewed by Amira S., June 12\nWe hired Golden Fern for our office's summer picnic for 60 people. The food was excellent, especially the grilled vegetables and the lemon cake. The staff arrived early and set up everything without our help. We will definitely use them again.\n\n★★★☆☆ Reviewed by Paul D., June 20\nThe food at our product launch was tasty, but there was not enough for the 90 guests we had, and some people did not get dessert. When I contacted the company, the manager apologized and offered a 20 percent discount on our next order, which I appreciated.\n\n★★★★☆ Reviewed by Keiko T., June 28\nGreat choice of vegetarian dishes for our training day. Delivery was 15 minutes late, but the driver had called ahead to let us know.",
+  "question": "What did Amira S. like about the service?",
+  "choices": [
+   "The prices were low.",
+   "The menu included a wide variety of seafood dishes.",
+   "The event was moved indoors.",
+   "The staff prepared everything themselves."
+  ],
+  "answer": "The staff prepared everything themselves.",
+  "explanation": "スタッフが早く来て手伝いなしで準備したことを評価している。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-519-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Customer Reviews — Golden Fern Catering\n\n★★★★★ Reviewed by Amira S., June 12\nWe hired Golden Fern for our office's summer picnic for 60 people. The food was excellent, especially the grilled vegetables and the lemon cake. The staff arrived early and set up everything without our help. We will definitely use them again.\n\n★★★☆☆ Reviewed by Paul D., June 20\nThe food at our product launch was tasty, but there was not enough for the 90 guests we had, and some people did not get dessert. When I contacted the company, the manager apologized and offered a 20 percent discount on our next order, which I appreciated.\n\n★★★★☆ Reviewed by Keiko T., June 28\nGreat choice of vegetarian dishes for our training day. Delivery was 15 minutes late, but the driver had called ahead to let us know.",
+  "question": "What problem did Paul D. have?",
+  "choices": [
+   "The food was served cold.",
+   "The amount of food was insufficient.",
+   "The bill was incorrect.",
+   "The staff arrived late."
+  ],
+  "answer": "The amount of food was insufficient.",
+  "explanation": "90人の客に対して料理が足りず、デザートが行き渡らなかった。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-519-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Customer Reviews — Golden Fern Catering\n\n★★★★★ Reviewed by Amira S., June 12\nWe hired Golden Fern for our office's summer picnic for 60 people. The food was excellent, especially the grilled vegetables and the lemon cake. The staff arrived early and set up everything without our help. We will definitely use them again.\n\n★★★☆☆ Reviewed by Paul D., June 20\nThe food at our product launch was tasty, but there was not enough for the 90 guests we had, and some people did not get dessert. When I contacted the company, the manager apologized and offered a 20 percent discount on our next order, which I appreciated.\n\n★★★★☆ Reviewed by Keiko T., June 28\nGreat choice of vegetarian dishes for our training day. Delivery was 15 minutes late, but the driver had called ahead to let us know.",
+  "question": "What is indicated about Keiko T.'s order?",
+  "choices": [
+   "She was informed of a delay in advance.",
+   "It was canceled at the last minute.",
+   "It was for a summer picnic.",
+   "It included only meat dishes."
+  ],
+  "answer": "She was informed of a delay in advance.",
+  "explanation": "配達は15分遅れたが、運転手が事前に電話で知らせた。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-520-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMORANDUM\nTo: All Employees, Velmora Insurance\nFrom: Human Resources\nDate: April 3\nSubject: Revised hybrid work policy\n\nFollowing a review of last year's pilot program, Velmora will make hybrid working permanent from May 1. Employees in eligible roles may work from home up to two days per week, provided that their manager approves a fixed schedule in advance.\n\nTuesdays and Thursdays will be \"team days,\" on which all staff are expected to be in the office. This is intended to make it easier to schedule meetings and training sessions.\n\nEmployees who wish to work from home must complete a home-office safety checklist, available on the HR portal. The company will provide each approved employee with a one-time payment of $250 toward the cost of a desk chair or monitor.\n\nRoles that involve handling original customer documents are not eligible for hybrid work at this time.",
+  "question": "What is the purpose of the memo?",
+  "choices": [
+   "To invite staff to a training session",
+   "To ask for feedback on a pilot program",
+   "To describe a permanent policy change",
+   "To announce the end of hybrid work"
+  ],
+  "answer": "To describe a permanent policy change",
+  "explanation": "試行の結果、ハイブリッド勤務を5月から正式導入すると説明している。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-520-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMORANDUM\nTo: All Employees, Velmora Insurance\nFrom: Human Resources\nDate: April 3\nSubject: Revised hybrid work policy\n\nFollowing a review of last year's pilot program, Velmora will make hybrid working permanent from May 1. Employees in eligible roles may work from home up to two days per week, provided that their manager approves a fixed schedule in advance.\n\nTuesdays and Thursdays will be \"team days,\" on which all staff are expected to be in the office. This is intended to make it easier to schedule meetings and training sessions.\n\nEmployees who wish to work from home must complete a home-office safety checklist, available on the HR portal. The company will provide each approved employee with a one-time payment of $250 toward the cost of a desk chair or monitor.\n\nRoles that involve handling original customer documents are not eligible for hybrid work at this time.",
+  "question": "According to the memo, why must staff be in the office on Tuesdays and Thursdays?",
+  "choices": [
+   "Because customers visit on those days",
+   "To make arranging meetings easier",
+   "Because the office is cleaned on other days",
+   "To complete safety checklists"
+  ],
+  "answer": "To make arranging meetings easier",
+  "explanation": "会議や研修の日程を組みやすくするためと書かれている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-520-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMORANDUM\nTo: All Employees, Velmora Insurance\nFrom: Human Resources\nDate: April 3\nSubject: Revised hybrid work policy\n\nFollowing a review of last year's pilot program, Velmora will make hybrid working permanent from May 1. Employees in eligible roles may work from home up to two days per week, provided that their manager approves a fixed schedule in advance.\n\nTuesdays and Thursdays will be \"team days,\" on which all staff are expected to be in the office. This is intended to make it easier to schedule meetings and training sessions.\n\nEmployees who wish to work from home must complete a home-office safety checklist, available on the HR portal. The company will provide each approved employee with a one-time payment of $250 toward the cost of a desk chair or monitor.\n\nRoles that involve handling original customer documents are not eligible for hybrid work at this time.",
+  "question": "Who is NOT able to work from home?",
+  "choices": [
+   "Staff who handle original customer documents",
+   "Staff who received the $250 payment",
+   "Staff whose fixed schedules have been approved by managers",
+   "Staff who have completed the checklist"
+  ],
+  "answer": "Staff who handle original customer documents",
+  "explanation": "顧客書類の原本を扱う職種は対象外と明記されている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-521-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Harlow Instruments Reports Lower Profit Despite Record Sales\n\nHarlow Instruments, a manufacturer of laboratory testing equipment, reported record quarterly revenue of $412 million on Thursday, up 9 percent from the same period last year. Net profit, however, fell 14 percent to $31 million, as the company absorbed higher costs for electronic components and the expense of opening a new distribution center in Rotterdam.\n\nChief financial officer Marguerite Olsen told analysts that component prices had begun to stabilize and that the Rotterdam facility, which became fully operational in August, would reduce shipping costs to European customers by roughly a fifth. [1] \"We made a deliberate choice to invest during a strong period of demand,\" she said.\n\nAnalysts were broadly sympathetic. [2] Several noted that the company's order backlog, a measure of future sales, stood at its highest level in five years. [3] Shares in Harlow fell 2 percent in early trading before recovering to close slightly higher. [4]",
+  "question": "Why did Harlow's profit decline?",
+  "choices": [
+   "It lost a major customer.",
+   "It closed a facility.",
+   "Its costs increased.",
+   "Its sales fell."
+  ],
+  "answer": "Its costs increased.",
+  "explanation": "部品費の上昇と新物流センターの開設費用で利益が減った。売上は過去最高。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-521-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Harlow Instruments Reports Lower Profit Despite Record Sales\n\nHarlow Instruments, a manufacturer of laboratory testing equipment, reported record quarterly revenue of $412 million on Thursday, up 9 percent from the same period last year. Net profit, however, fell 14 percent to $31 million, as the company absorbed higher costs for electronic components and the expense of opening a new distribution center in Rotterdam.\n\nChief financial officer Marguerite Olsen told analysts that component prices had begun to stabilize and that the Rotterdam facility, which became fully operational in August, would reduce shipping costs to European customers by roughly a fifth. [1] \"We made a deliberate choice to invest during a strong period of demand,\" she said.\n\nAnalysts were broadly sympathetic. [2] Several noted that the company's order backlog, a measure of future sales, stood at its highest level in five years. [3] Shares in Harlow fell 2 percent in early trading before recovering to close slightly higher. [4]",
+  "question": "What is suggested about the Rotterdam facility?",
+  "choices": [
+   "It mainly serves customers in Asia.",
+   "It opened more than a year ago.",
+   "It will soon be sold.",
+   "It is expected to lower expenses in the future."
+  ],
+  "answer": "It is expected to lower expenses in the future.",
+  "explanation": "欧州向けの輸送費を約5分の1削減すると述べられている。",
+  "tags": "読解 推測"
+ },
+ {
+  "id": "TOEIC-R7-521-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Harlow Instruments Reports Lower Profit Despite Record Sales\n\nHarlow Instruments, a manufacturer of laboratory testing equipment, reported record quarterly revenue of $412 million on Thursday, up 9 percent from the same period last year. Net profit, however, fell 14 percent to $31 million, as the company absorbed higher costs for electronic components and the expense of opening a new distribution center in Rotterdam.\n\nChief financial officer Marguerite Olsen told analysts that component prices had begun to stabilize and that the Rotterdam facility, which became fully operational in August, would reduce shipping costs to European customers by roughly a fifth. [1] \"We made a deliberate choice to invest during a strong period of demand,\" she said.\n\nAnalysts were broadly sympathetic. [2] Several noted that the company's order backlog, a measure of future sales, stood at its highest level in five years. [3] Shares in Harlow fell 2 percent in early trading before recovering to close slightly higher. [4]",
+  "question": "The word \"sympathetic\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "understanding",
+   "indifferent",
+   "emotional",
+   "sorrowful"
+  ],
+  "answer": "understanding",
+  "explanation": "ここでは同社の判断に「理解を示した」という意味。",
+  "tags": "読解 語彙"
+ },
+ {
+  "id": "TOEIC-R7-521-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Harlow Instruments Reports Lower Profit Despite Record Sales\n\nHarlow Instruments, a manufacturer of laboratory testing equipment, reported record quarterly revenue of $412 million on Thursday, up 9 percent from the same period last year. Net profit, however, fell 14 percent to $31 million, as the company absorbed higher costs for electronic components and the expense of opening a new distribution center in Rotterdam.\n\nChief financial officer Marguerite Olsen told analysts that component prices had begun to stabilize and that the Rotterdam facility, which became fully operational in August, would reduce shipping costs to European customers by roughly a fifth. [1] \"We made a deliberate choice to invest during a strong period of demand,\" she said.\n\nAnalysts were broadly sympathetic. [2] Several noted that the company's order backlog, a measure of future sales, stood at its highest level in five years. [3] Shares in Harlow fell 2 percent in early trading before recovering to close slightly higher. [4]",
+  "question": "In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n\"That figure suggests strong revenue in the coming quarters.\"",
+  "choices": [
+   "[1]",
+   "[2]",
+   "[3]",
+   "[4]"
+  ],
+  "answer": "[3]",
+  "explanation": "受注残が5年ぶりの高水準という数字の直後に置くと That figure が自然に指す。",
+  "tags": "読解 文挿入"
+ },
+ {
+  "id": "TOEIC-R7-522-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "CITY OF WESTMERE — ROAD WORKS NOTICE\nKingsley Avenue Resurfacing\n\nWhat: The section of Kingsley Avenue between Orchard Street and Bell Road will be resurfaced. New bicycle lanes will also be painted on both sides of the road.\n\nWhen: Work will take place from August 4 to August 22, Monday to Friday, between 9:00 P.M. and 5:00 A.M. Work is scheduled at night to reduce disruption to traffic.\n\nEffects: One lane will remain open in each direction at all times. On-street parking on this section will not be permitted during working hours. Bus routes 12 and 14 will operate as normal, but the stop outside Kingsley Library will be moved temporarily to Orchard Street.\n\nQuestions: Contact the Public Works Department at 555-0150.",
+  "question": "What is the purpose of the notice?",
+  "choices": [
+   "To announce a new bus route",
+   "To inform residents about upcoming road repairs",
+   "To ask residents for their opinions on new bicycle lanes",
+   "To report a traffic accident"
+  ],
+  "answer": "To inform residents about upcoming road repairs",
+  "explanation": "Kingsley Avenue の再舗装工事を知らせる告知。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-522-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "CITY OF WESTMERE — ROAD WORKS NOTICE\nKingsley Avenue Resurfacing\n\nWhat: The section of Kingsley Avenue between Orchard Street and Bell Road will be resurfaced. New bicycle lanes will also be painted on both sides of the road.\n\nWhen: Work will take place from August 4 to August 22, Monday to Friday, between 9:00 P.M. and 5:00 A.M. Work is scheduled at night to reduce disruption to traffic.\n\nEffects: One lane will remain open in each direction at all times. On-street parking on this section will not be permitted during working hours. Bus routes 12 and 14 will operate as normal, but the stop outside Kingsley Library will be moved temporarily to Orchard Street.\n\nQuestions: Contact the Public Works Department at 555-0150.",
+  "question": "Why will the work be done at night?",
+  "choices": [
+   "Because it is cooler at night",
+   "Because the library is closed at night",
+   "To reduce the cost of the project",
+   "To limit the effect on traffic"
+  ],
+  "answer": "To limit the effect on traffic",
+  "explanation": "交通への影響を減らすため夜間に行うと書かれている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-522-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "CITY OF WESTMERE — ROAD WORKS NOTICE\nKingsley Avenue Resurfacing\n\nWhat: The section of Kingsley Avenue between Orchard Street and Bell Road will be resurfaced. New bicycle lanes will also be painted on both sides of the road.\n\nWhen: Work will take place from August 4 to August 22, Monday to Friday, between 9:00 P.M. and 5:00 A.M. Work is scheduled at night to reduce disruption to traffic.\n\nEffects: One lane will remain open in each direction at all times. On-street parking on this section will not be permitted during working hours. Bus routes 12 and 14 will operate as normal, but the stop outside Kingsley Library will be moved temporarily to Orchard Street.\n\nQuestions: Contact the Public Works Department at 555-0150.",
+  "question": "What is NOT true about the project?",
+  "choices": [
+   "Parking will be restricted during working hours.",
+   "It will last about three weeks.",
+   "The road will be completely closed.",
+   "Bicycle lanes will be added."
+  ],
+  "answer": "The road will be completely closed.",
+  "explanation": "各方向1車線は常に通行可能なので、全面通行止めは誤り。",
+  "tags": "読解 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-522-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "CITY OF WESTMERE — ROAD WORKS NOTICE\nKingsley Avenue Resurfacing\n\nWhat: The section of Kingsley Avenue between Orchard Street and Bell Road will be resurfaced. New bicycle lanes will also be painted on both sides of the road.\n\nWhen: Work will take place from August 4 to August 22, Monday to Friday, between 9:00 P.M. and 5:00 A.M. Work is scheduled at night to reduce disruption to traffic.\n\nEffects: One lane will remain open in each direction at all times. On-street parking on this section will not be permitted during working hours. Bus routes 12 and 14 will operate as normal, but the stop outside Kingsley Library will be moved temporarily to Orchard Street.\n\nQuestions: Contact the Public Works Department at 555-0150.",
+  "question": "What will happen to a bus stop?",
+  "choices": [
+   "It will be removed permanently.",
+   "It will be closed on weekends.",
+   "It will be served by route 12 only.",
+   "It will be relocated for a period of time."
+  ],
+  "answer": "It will be relocated for a period of time.",
+  "explanation": "図書館前のバス停は一時的に Orchard Street へ移設される。",
+  "tags": "読解 詳細"
+ }
+]

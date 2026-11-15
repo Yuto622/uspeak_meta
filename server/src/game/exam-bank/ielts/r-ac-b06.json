@@ -95,7 +95,7 @@
   "passage": "Why Cities Are Warmer\n\nA  Anyone who has walked from a park into a busy city street on a summer afternoon will have noticed the difference in temperature. Cities are typically warmer than the surrounding countryside, a phenomenon known as the urban heat island effect. The difference is often modest during the day but can become much larger at night, when rural areas cool quickly while city streets and buildings continue to release the heat they have absorbed. On calm, clear nights, the centres of some large cities may be several degrees warmer than nearby farmland.\n\nB  The effect was first recorded more than two hundred years ago. In the early nineteenth century, an English amateur scientist named Luke Howard compared temperature measurements taken in central London with those from the surrounding countryside and found that the city was consistently warmer, especially at night. He attributed the difference partly to the heat produced by the burning of fuel in homes and workshops. Howard is better known today for proposing the names still used to classify clouds, but his work on urban climate was equally pioneering.\n\nC  Several factors combine to produce the effect. Dark surfaces such as asphalt roads and roofs absorb a large proportion of the sunlight that falls on them and store it as heat. Concrete and brick have a high capacity to store heat, which they release slowly during the evening. In addition, cities have far less vegetation than rural areas. Plants cool their surroundings through evapotranspiration, the process by which water evaporates from leaves and soil, using energy that would otherwise warm the air. Tall buildings also trap heat between them and reduce the wind that might carry it away, while vehicles, air-conditioning units and industry add heat directly.\n\nD  The consequences can be serious. During heatwaves, high night-time temperatures prevent people's bodies from recovering from the heat of the day, and elderly people and those with certain health conditions are particularly at risk. Several severe heatwaves in recent decades have caused thousands of additional deaths in cities. Higher temperatures also increase demand for electricity for air-conditioning, which in turn releases more waste heat and, where electricity comes from fossil fuels, more greenhouse gases. Heat can also worsen air quality by speeding up the chemical reactions that form ground-level ozone.\n\nE  Fortunately, there are many ways to reduce urban heat. One of the simplest is to make surfaces more reflective. So-called 'cool roofs', coated with white or light-coloured materials, can stay much cooler than conventional dark roofs on sunny days, lowering the temperature inside buildings. Planting trees along streets provides shade and cooling through evapotranspiration, and studies have found that neighbourhoods with more tree cover are noticeably cooler than similar areas without trees. Green roofs, covered with plants, and features such as fountains and ponds can also help.\n\nF  These measures are particularly important because the urban heat island effect adds to the warming caused by climate change. As more of the world's population moves to cities, and as heatwaves become more frequent and intense, planning for heat is becoming as important as planning for floods or traffic. However, the benefits of cooling measures are not always shared equally. In many cities, wealthier neighbourhoods have more trees and green space than poorer ones, which means that the people with the fewest resources to cope with heat are often the most exposed to it. Some city authorities have therefore begun to target tree-planting programmes at the hottest and most deprived areas.",
   "question": "According to the passage, why are high night-time temperatures dangerous during heatwaves?",
   "choices": [
-   "People use less air-conditioning at night.",
+   "People tend to use less air-conditioning at night to save electricity.",
    "Ozone forms only at night.",
    "People's bodies cannot recover from the daytime heat.",
    "Buildings absorb more sunlight at night."
@@ -262,7 +262,7 @@
   "choices": [
    "to stop ink from spreading",
    "to make paper stronger",
-   "to show the price of the paper",
+   "to show buyers the price and the size of each sheet",
    "to identify the mill that produced the paper"
   ],
   "answer": "to identify the mill that produced the paper",
@@ -556,7 +556,7 @@
   "choices": [
    "to replace the need to reduce greenhouse gas emissions",
    "to buy time and protect valuable sites while emissions are reduced",
-   "to restore all damaged reefs within a few decades",
+   "to restore all of the world's damaged reefs within the next few decades",
    "to create new reefs in cooler waters"
   ],
   "answer": "to buy time and protect valuable sites while emissions are reduced",

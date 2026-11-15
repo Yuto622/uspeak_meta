@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-RA-501-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Mangrove Forests\n\nMangroves are trees that grow along tropical coastlines, where land meets the sea. Most trees cannot survive in salty water, but mangroves have developed several ways to deal with salt. Some species block much of the salt at their roots, while others push extra salt out through their leaves. Their roots also grow above the mud, which allows them to take in air when the soil has very little oxygen.\n\nMangrove forests are important for both people and wildlife. The thick tangle of roots slows down waves and protects the coast from storms and erosion. Young fish, crabs, and shrimp hide among the roots, where large predators cannot easily follow them. In fact, many fish that people catch in the open sea spend the early part of their lives in mangrove forests.\n\nMangroves also store large amounts of carbon. Because the mud around their roots contains little oxygen, dead leaves and wood break down very slowly. As a result, carbon stays buried in the soil for a long time instead of returning to the air.\n\nUnfortunately, many mangrove forests have been cleared to build shrimp farms, ports, and hotels. Some countries are now replanting mangroves, but scientists say it is better and cheaper to protect existing forests than to grow new ones.",
+  "question": "What is the passage mainly about?",
+  "choices": [
+   "The features of mangroves and why they are valuable",
+   "The ways shrimp farms are built and operated along tropical coasts",
+   "The difference between tropical and cold forests",
+   "Why fish leave the open sea"
+  ],
+  "answer": "The features of mangroves and why they are valuable",
+  "explanation": "塩分への適応と人・生物にとっての価値が中心。",
+  "tags": "TOEFL2026 AcademicPassage marine-science main-idea"
+ },
+ {
+  "id": "TOEFL-RA-501-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Mangrove Forests\n\nMangroves are trees that grow along tropical coastlines, where land meets the sea. Most trees cannot survive in salty water, but mangroves have developed several ways to deal with salt. Some species block much of the salt at their roots, while others push extra salt out through their leaves. Their roots also grow above the mud, which allows them to take in air when the soil has very little oxygen.\n\nMangrove forests are important for both people and wildlife. The thick tangle of roots slows down waves and protects the coast from storms and erosion. Young fish, crabs, and shrimp hide among the roots, where large predators cannot easily follow them. In fact, many fish that people catch in the open sea spend the early part of their lives in mangrove forests.\n\nMangroves also store large amounts of carbon. Because the mud around their roots contains little oxygen, dead leaves and wood break down very slowly. As a result, carbon stays buried in the soil for a long time instead of returning to the air.\n\nUnfortunately, many mangrove forests have been cleared to build shrimp farms, ports, and hotels. Some countries are now replanting mangroves, but scientists say it is better and cheaper to protect existing forests than to grow new ones.",
+  "question": "According to the passage, how do some mangroves deal with salt?",
+  "choices": [
+   "They grow only in fresh water.",
+   "They remove salt through their leaves.",
+   "They store salt in their fruit.",
+   "They close their roots tightly whenever the tide rises."
+  ],
+  "answer": "They remove salt through their leaves.",
+  "explanation": "others push extra salt out through their leaves とある。",
+  "tags": "TOEFL2026 AcademicPassage marine-science factual"
+ },
+ {
+  "id": "TOEFL-RA-501-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Mangrove Forests\n\nMangroves are trees that grow along tropical coastlines, where land meets the sea. Most trees cannot survive in salty water, but mangroves have developed several ways to deal with salt. Some species block much of the salt at their roots, while others push extra salt out through their leaves. Their roots also grow above the mud, which allows them to take in air when the soil has very little oxygen.\n\nMangrove forests are important for both people and wildlife. The thick tangle of roots slows down waves and protects the coast from storms and erosion. Young fish, crabs, and shrimp hide among the roots, where large predators cannot easily follow them. In fact, many fish that people catch in the open sea spend the early part of their lives in mangrove forests.\n\nMangroves also store large amounts of carbon. Because the mud around their roots contains little oxygen, dead leaves and wood break down very slowly. As a result, carbon stays buried in the soil for a long time instead of returning to the air.\n\nUnfortunately, many mangrove forests have been cleared to build shrimp farms, ports, and hotels. Some countries are now replanting mangroves, but scientists say it is better and cheaper to protect existing forests than to grow new ones.",
+  "question": "According to the passage, all of the following are benefits of mangrove forests EXCEPT",
+  "choices": [
+   "protecting coasts from storms",
+   "sheltering young sea animals",
+   "providing wood for building hotels",
+   "storing carbon in the soil"
+  ],
+  "answer": "providing wood for building hotels",
+  "explanation": "ホテル建設は伐採理由として出ており、利点ではない。",
+  "tags": "TOEFL2026 AcademicPassage marine-science negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-501-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Mangrove Forests\n\nMangroves are trees that grow along tropical coastlines, where land meets the sea. Most trees cannot survive in salty water, but mangroves have developed several ways to deal with salt. Some species block much of the salt at their roots, while others push extra salt out through their leaves. Their roots also grow above the mud, which allows them to take in air when the soil has very little oxygen.\n\nMangrove forests are important for both people and wildlife. The thick tangle of roots slows down waves and protects the coast from storms and erosion. Young fish, crabs, and shrimp hide among the roots, where large predators cannot easily follow them. In fact, many fish that people catch in the open sea spend the early part of their lives in mangrove forests.\n\nMangroves also store large amounts of carbon. Because the mud around their roots contains little oxygen, dead leaves and wood break down very slowly. As a result, carbon stays buried in the soil for a long time instead of returning to the air.\n\nUnfortunately, many mangrove forests have been cleared to build shrimp farms, ports, and hotels. Some countries are now replanting mangroves, but scientists say it is better and cheaper to protect existing forests than to grow new ones.",
+  "question": "What can be inferred about fish catches in the open sea?",
+  "choices": [
+   "They do not depend on coastal areas.",
+   "They are larger near shrimp farms.",
+   "They increase when mangroves are replanted quickly.",
+   "They may decrease if mangroves are destroyed."
+  ],
+  "answer": "They may decrease if mangroves are destroyed.",
+  "explanation": "多くの魚が幼少期をマングローブで過ごすので、破壊で漁獲が減ると推測できる。",
+  "tags": "TOEFL2026 AcademicPassage marine-science inference"
+ },
+ {
+  "id": "TOEFL-RA-501-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Mangrove Forests\n\nMangroves are trees that grow along tropical coastlines, where land meets the sea. Most trees cannot survive in salty water, but mangroves have developed several ways to deal with salt. Some species block much of the salt at their roots, while others push extra salt out through their leaves. Their roots also grow above the mud, which allows them to take in air when the soil has very little oxygen.\n\nMangrove forests are important for both people and wildlife. The thick tangle of roots slows down waves and protects the coast from storms and erosion. Young fish, crabs, and shrimp hide among the roots, where large predators cannot easily follow them. In fact, many fish that people catch in the open sea spend the early part of their lives in mangrove forests.\n\nMangroves also store large amounts of carbon. Because the mud around their roots contains little oxygen, dead leaves and wood break down very slowly. As a result, carbon stays buried in the soil for a long time instead of returning to the air.\n\nUnfortunately, many mangrove forests have been cleared to build shrimp farms, ports, and hotels. Some countries are now replanting mangroves, but scientists say it is better and cheaper to protect existing forests than to grow new ones.",
+  "question": "The word \"tangle\" in the passage is closest in meaning to",
+  "choices": [
+   "twisted mass",
+   "straight line",
+   "empty space",
+   "small group"
+  ],
+  "answer": "twisted mass",
+  "explanation": "tangle＝もつれ合った塊。",
+  "tags": "TOEFL2026 AcademicPassage marine-science vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-502-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Earthquake-Resistant Buildings\n\nIn countries where earthquakes are common, engineers must design buildings that can survive strong shaking. A building does not fall down simply because the ground moves. It falls because different parts of the structure move in different ways and break apart. For this reason, engineers try to control how a building moves during an earthquake.\n\nOne method is base isolation. In this system, the building does not sit directly on the ground. Instead, it rests on special bearings made of layers of rubber and steel. When the ground shakes, the bearings move from side to side, while the building above moves much less. People inside may feel a slow swaying motion instead of sudden violent shaking.\n\nAnother method is the use of dampers. A damper works somewhat like the shock absorbers in a car. It takes in part of the energy of the shaking and turns it into heat. Some tall towers even have a very heavy weight hanging near the top. When the building leans one way, the weight swings the other way and reduces the movement.\n\nThese technologies are expensive, so they are mostly used in hospitals, important government buildings, and tall towers. However, even simple rules, such as using strong connections between walls and floors, can save many lives in ordinary homes.",
+  "question": "According to the passage, why do buildings collapse during earthquakes?",
+  "choices": [
+   "The ground opens beneath them.",
+   "Parts of the building move differently and separate.",
+   "Their foundations are too weak to support their heavy weight.",
+   "Their windows break first."
+  ],
+  "answer": "Parts of the building move differently and separate.",
+  "explanation": "different parts of the structure move in different ways and break apart とある。",
+  "tags": "TOEFL2026 AcademicPassage architecture factual"
+ },
+ {
+  "id": "TOEFL-RA-502-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Earthquake-Resistant Buildings\n\nIn countries where earthquakes are common, engineers must design buildings that can survive strong shaking. A building does not fall down simply because the ground moves. It falls because different parts of the structure move in different ways and break apart. For this reason, engineers try to control how a building moves during an earthquake.\n\nOne method is base isolation. In this system, the building does not sit directly on the ground. Instead, it rests on special bearings made of layers of rubber and steel. When the ground shakes, the bearings move from side to side, while the building above moves much less. People inside may feel a slow swaying motion instead of sudden violent shaking.\n\nAnother method is the use of dampers. A damper works somewhat like the shock absorbers in a car. It takes in part of the energy of the shaking and turns it into heat. Some tall towers even have a very heavy weight hanging near the top. When the building leans one way, the weight swings the other way and reduces the movement.\n\nThese technologies are expensive, so they are mostly used in hospitals, important government buildings, and tall towers. However, even simple rules, such as using strong connections between walls and floors, can save many lives in ordinary homes.",
+  "question": "How does base isolation protect a building?",
+  "choices": [
+   "The building is attached more firmly to the ground so it cannot move.",
+   "Heavy weights are placed under the floor.",
+   "Bearings move with the ground so the building moves less.",
+   "The walls are made of rubber."
+  ],
+  "answer": "Bearings move with the ground so the building moves less.",
+  "explanation": "bearings move from side to side, while the building above moves much less。",
+  "tags": "TOEFL2026 AcademicPassage architecture factual"
+ },
+ {
+  "id": "TOEFL-RA-502-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Earthquake-Resistant Buildings\n\nIn countries where earthquakes are common, engineers must design buildings that can survive strong shaking. A building does not fall down simply because the ground moves. It falls because different parts of the structure move in different ways and break apart. For this reason, engineers try to control how a building moves during an earthquake.\n\nOne method is base isolation. In this system, the building does not sit directly on the ground. Instead, it rests on special bearings made of layers of rubber and steel. When the ground shakes, the bearings move from side to side, while the building above moves much less. People inside may feel a slow swaying motion instead of sudden violent shaking.\n\nAnother method is the use of dampers. A damper works somewhat like the shock absorbers in a car. It takes in part of the energy of the shaking and turns it into heat. Some tall towers even have a very heavy weight hanging near the top. When the building leans one way, the weight swings the other way and reduces the movement.\n\nThese technologies are expensive, so they are mostly used in hospitals, important government buildings, and tall towers. However, even simple rules, such as using strong connections between walls and floors, can save many lives in ordinary homes.",
+  "question": "Why does the author mention the shock absorbers in a car?",
+  "choices": [
+   "To show that cars are safer than buildings",
+   "To describe a material used in bearings",
+   "To compare the cost of different technologies",
+   "To help explain how dampers work"
+  ],
+  "answer": "To help explain how dampers work",
+  "explanation": "damper の仕組みをなじみのある例で説明するため。",
+  "tags": "TOEFL2026 AcademicPassage architecture rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-502-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Earthquake-Resistant Buildings\n\nIn countries where earthquakes are common, engineers must design buildings that can survive strong shaking. A building does not fall down simply because the ground moves. It falls because different parts of the structure move in different ways and break apart. For this reason, engineers try to control how a building moves during an earthquake.\n\nOne method is base isolation. In this system, the building does not sit directly on the ground. Instead, it rests on special bearings made of layers of rubber and steel. When the ground shakes, the bearings move from side to side, while the building above moves much less. People inside may feel a slow swaying motion instead of sudden violent shaking.\n\nAnother method is the use of dampers. A damper works somewhat like the shock absorbers in a car. It takes in part of the energy of the shaking and turns it into heat. Some tall towers even have a very heavy weight hanging near the top. When the building leans one way, the weight swings the other way and reduces the movement.\n\nThese technologies are expensive, so they are mostly used in hospitals, important government buildings, and tall towers. However, even simple rules, such as using strong connections between walls and floors, can save many lives in ordinary homes.",
+  "question": "What can be inferred about ordinary homes?",
+  "choices": [
+   "They usually do not have base isolation or dampers.",
+   "They are safer than hospitals.",
+   "They do not need strong connections.",
+   "They are usually built on rubber bearings to reduce shaking."
+  ],
+  "answer": "They usually do not have base isolation or dampers.",
+  "explanation": "技術は高価で主に病院などに使われるので、一般住宅にはふつうないと推測できる。",
+  "tags": "TOEFL2026 AcademicPassage architecture inference"
+ },
+ {
+  "id": "TOEFL-RA-502-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Earthquake-Resistant Buildings\n\nIn countries where earthquakes are common, engineers must design buildings that can survive strong shaking. A building does not fall down simply because the ground moves. It falls because different parts of the structure move in different ways and break apart. For this reason, engineers try to control how a building moves during an earthquake.\n\nOne method is base isolation. In this system, the building does not sit directly on the ground. Instead, it rests on special bearings made of layers of rubber and steel. When the ground shakes, the bearings move from side to side, while the building above moves much less. People inside may feel a slow swaying motion instead of sudden violent shaking.\n\nAnother method is the use of dampers. A damper works somewhat like the shock absorbers in a car. It takes in part of the energy of the shaking and turns it into heat. Some tall towers even have a very heavy weight hanging near the top. When the building leans one way, the weight swings the other way and reduces the movement.\n\nThese technologies are expensive, so they are mostly used in hospitals, important government buildings, and tall towers. However, even simple rules, such as using strong connections between walls and floors, can save many lives in ordinary homes.",
+  "question": "The word \"violent\" in the passage is closest in meaning to",
+  "choices": [
+   "very slow",
+   "very strong",
+   "quiet",
+   "regular"
+  ],
+  "answer": "very strong",
+  "explanation": "violent shaking＝激しい揺れ。",
+  "tags": "TOEFL2026 AcademicPassage architecture vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-503-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Third Places\n\nSociologists sometimes divide daily life into three kinds of places. The first place is the home, and the second place is the workplace or school. The third place is somewhere people go to relax and talk with others outside home and work, such as a café, a barbershop, a library, or a park.\n\nAccording to researchers who study these spaces, good third places share several features. They are easy to reach, often within walking distance. They are inexpensive or free, so people can visit regularly. Most importantly, they have a group of regular visitors who make newcomers feel welcome. Conversation is the main activity, and people of different ages and backgrounds can meet as equals.\n\nThird places are thought to be important for communities. They help people form friendships with neighbors they would not otherwise meet. They also allow people to share local news and discuss problems in the neighborhood. Some researchers believe that the loss of such places can make people feel lonely and less connected to where they live.\n\nIn recent decades, some traditional third places have disappeared, partly because many people now spend more of their free time at home and online. At the same time, new kinds of third places, such as community gardens and shared workspaces, have appeared in many cities.",
+  "question": "Which of the following best states the main idea of the passage?",
+  "choices": [
+   "Cafés are more popular than libraries.",
+   "Most people prefer to spend free time online.",
+   "Informal public places outside home and work help build community.",
+   "Workplaces have replaced homes as the most important places in modern community life."
+  ],
+  "answer": "Informal public places outside home and work help build community.",
+  "explanation": "third place の特徴と地域社会への意義が主題。",
+  "tags": "TOEFL2026 AcademicPassage sociology main-idea"
+ },
+ {
+  "id": "TOEFL-RA-503-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Third Places\n\nSociologists sometimes divide daily life into three kinds of places. The first place is the home, and the second place is the workplace or school. The third place is somewhere people go to relax and talk with others outside home and work, such as a café, a barbershop, a library, or a park.\n\nAccording to researchers who study these spaces, good third places share several features. They are easy to reach, often within walking distance. They are inexpensive or free, so people can visit regularly. Most importantly, they have a group of regular visitors who make newcomers feel welcome. Conversation is the main activity, and people of different ages and backgrounds can meet as equals.\n\nThird places are thought to be important for communities. They help people form friendships with neighbors they would not otherwise meet. They also allow people to share local news and discuss problems in the neighborhood. Some researchers believe that the loss of such places can make people feel lonely and less connected to where they live.\n\nIn recent decades, some traditional third places have disappeared, partly because many people now spend more of their free time at home and online. At the same time, new kinds of third places, such as community gardens and shared workspaces, have appeared in many cities.",
+  "question": "Which of the following is NOT mentioned as a feature of good third places?",
+  "choices": [
+   "They are located within walking distance for many visitors.",
+   "They cost little or nothing.",
+   "They have regular visitors.",
+   "They offer organized classes."
+  ],
+  "answer": "They offer organized classes.",
+  "explanation": "授業の提供は述べられていない。",
+  "tags": "TOEFL2026 AcademicPassage sociology negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-503-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Third Places\n\nSociologists sometimes divide daily life into three kinds of places. The first place is the home, and the second place is the workplace or school. The third place is somewhere people go to relax and talk with others outside home and work, such as a café, a barbershop, a library, or a park.\n\nAccording to researchers who study these spaces, good third places share several features. They are easy to reach, often within walking distance. They are inexpensive or free, so people can visit regularly. Most importantly, they have a group of regular visitors who make newcomers feel welcome. Conversation is the main activity, and people of different ages and backgrounds can meet as equals.\n\nThird places are thought to be important for communities. They help people form friendships with neighbors they would not otherwise meet. They also allow people to share local news and discuss problems in the neighborhood. Some researchers believe that the loss of such places can make people feel lonely and less connected to where they live.\n\nIn recent decades, some traditional third places have disappeared, partly because many people now spend more of their free time at home and online. At the same time, new kinds of third places, such as community gardens and shared workspaces, have appeared in many cities.",
+  "question": "According to the passage, what is the main activity in a third place?",
+  "choices": [
+   "Conversation",
+   "Working",
+   "Shopping",
+   "Reading"
+  ],
+  "answer": "Conversation",
+  "explanation": "Conversation is the main activity とある。",
+  "tags": "TOEFL2026 AcademicPassage sociology factual"
+ },
+ {
+  "id": "TOEFL-RA-503-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Third Places\n\nSociologists sometimes divide daily life into three kinds of places. The first place is the home, and the second place is the workplace or school. The third place is somewhere people go to relax and talk with others outside home and work, such as a café, a barbershop, a library, or a park.\n\nAccording to researchers who study these spaces, good third places share several features. They are easy to reach, often within walking distance. They are inexpensive or free, so people can visit regularly. Most importantly, they have a group of regular visitors who make newcomers feel welcome. Conversation is the main activity, and people of different ages and backgrounds can meet as equals.\n\nThird places are thought to be important for communities. They help people form friendships with neighbors they would not otherwise meet. They also allow people to share local news and discuss problems in the neighborhood. Some researchers believe that the loss of such places can make people feel lonely and less connected to where they live.\n\nIn recent decades, some traditional third places have disappeared, partly because many people now spend more of their free time at home and online. At the same time, new kinds of third places, such as community gardens and shared workspaces, have appeared in many cities.",
+  "question": "What does the passage suggest about community gardens?",
+  "choices": [
+   "They are replacing all cafés.",
+   "They can serve as a new kind of third place.",
+   "They are mainly used by people who want to work alone.",
+   "They make people feel lonely."
+  ],
+  "answer": "They can serve as a new kind of third place.",
+  "explanation": "new kinds of third places の例として挙げられている。",
+  "tags": "TOEFL2026 AcademicPassage sociology inference"
+ },
+ {
+  "id": "TOEFL-RA-503-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Third Places\n\nSociologists sometimes divide daily life into three kinds of places. The first place is the home, and the second place is the workplace or school. The third place is somewhere people go to relax and talk with others outside home and work, such as a café, a barbershop, a library, or a park.\n\nAccording to researchers who study these spaces, good third places share several features. They are easy to reach, often within walking distance. They are inexpensive or free, so people can visit regularly. Most importantly, they have a group of regular visitors who make newcomers feel welcome. Conversation is the main activity, and people of different ages and backgrounds can meet as equals.\n\nThird places are thought to be important for communities. They help people form friendships with neighbors they would not otherwise meet. They also allow people to share local news and discuss problems in the neighborhood. Some researchers believe that the loss of such places can make people feel lonely and less connected to where they live.\n\nIn recent decades, some traditional third places have disappeared, partly because many people now spend more of their free time at home and online. At the same time, new kinds of third places, such as community gardens and shared workspaces, have appeared in many cities.",
+  "question": "The phrase \"as equals\" in the passage is closest in meaning to",
+  "choices": [
+   "at the same time",
+   "in the same place",
+   "with the same status",
+   "for the same reason"
+  ],
+  "answer": "with the same status",
+  "explanation": "as equals＝対等な立場で。",
+  "tags": "TOEFL2026 AcademicPassage sociology vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-504-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Cacti Survive in Deserts\n\nDeserts receive very little rain, and the rain that does fall may come only a few times a year. Cacti are among the plants best suited to these dry conditions. Their bodies and life processes have changed over time in ways that help them save water.\n\nMost plants lose water through tiny openings in their leaves. Cacti have reduced their leaves to sharp spines, so they lose much less water. The spines also protect the plant from thirsty animals and provide a little shade. Instead of leaves, the thick green stem of a cactus carries out photosynthesis, the process plants use to make food from sunlight.\n\nThe stem also works as a water tank. It has soft tissue that can swell when water is available and shrink during dry periods. Many cacti have folds along their stems, which allow them to expand like an accordion after rain.\n\nCacti also have a special way of breathing. Most plants open their tiny pores during the day to take in carbon dioxide. Cacti open them at night, when the air is cooler and less water escapes. They store the carbon dioxide and use it the next day for photosynthesis.\n\nFinally, the roots of many cacti spread widely just below the surface. This allows them to absorb rainwater quickly before it evaporates.",
+  "question": "According to the passage, which part of a cactus makes food from sunlight?",
+  "choices": [
+   "The spines",
+   "The roots",
+   "The flowers",
+   "The stem"
+  ],
+  "answer": "The stem",
+  "explanation": "the thick green stem ... carries out photosynthesis とある。",
+  "tags": "TOEFL2026 AcademicPassage botany factual"
+ },
+ {
+  "id": "TOEFL-RA-504-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Cacti Survive in Deserts\n\nDeserts receive very little rain, and the rain that does fall may come only a few times a year. Cacti are among the plants best suited to these dry conditions. Their bodies and life processes have changed over time in ways that help them save water.\n\nMost plants lose water through tiny openings in their leaves. Cacti have reduced their leaves to sharp spines, so they lose much less water. The spines also protect the plant from thirsty animals and provide a little shade. Instead of leaves, the thick green stem of a cactus carries out photosynthesis, the process plants use to make food from sunlight.\n\nThe stem also works as a water tank. It has soft tissue that can swell when water is available and shrink during dry periods. Many cacti have folds along their stems, which allow them to expand like an accordion after rain.\n\nCacti also have a special way of breathing. Most plants open their tiny pores during the day to take in carbon dioxide. Cacti open them at night, when the air is cooler and less water escapes. They store the carbon dioxide and use it the next day for photosynthesis.\n\nFinally, the roots of many cacti spread widely just below the surface. This allows them to absorb rainwater quickly before it evaporates.",
+  "question": "Why do cacti open their pores at night?",
+  "choices": [
+   "To lose less water",
+   "To avoid insects",
+   "To absorb rainwater",
+   "To release heat"
+  ],
+  "answer": "To lose less water",
+  "explanation": "when the air is cooler and less water escapes とある。",
+  "tags": "TOEFL2026 AcademicPassage botany factual"
+ },
+ {
+  "id": "TOEFL-RA-504-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Cacti Survive in Deserts\n\nDeserts receive very little rain, and the rain that does fall may come only a few times a year. Cacti are among the plants best suited to these dry conditions. Their bodies and life processes have changed over time in ways that help them save water.\n\nMost plants lose water through tiny openings in their leaves. Cacti have reduced their leaves to sharp spines, so they lose much less water. The spines also protect the plant from thirsty animals and provide a little shade. Instead of leaves, the thick green stem of a cactus carries out photosynthesis, the process plants use to make food from sunlight.\n\nThe stem also works as a water tank. It has soft tissue that can swell when water is available and shrink during dry periods. Many cacti have folds along their stems, which allow them to expand like an accordion after rain.\n\nCacti also have a special way of breathing. Most plants open their tiny pores during the day to take in carbon dioxide. Cacti open them at night, when the air is cooler and less water escapes. They store the carbon dioxide and use it the next day for photosynthesis.\n\nFinally, the roots of many cacti spread widely just below the surface. This allows them to absorb rainwater quickly before it evaporates.",
+  "question": "Why does the author mention an accordion?",
+  "choices": [
+   "To explain how cacti make sounds",
+   "To describe how cactus stems expand",
+   "To compare cacti to musical instruments",
+   "To show how roots spread"
+  ],
+  "answer": "To describe how cactus stems expand",
+  "explanation": "折りたたみ構造が雨の後に広がる様子を説明するため。",
+  "tags": "TOEFL2026 AcademicPassage botany rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-504-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Cacti Survive in Deserts\n\nDeserts receive very little rain, and the rain that does fall may come only a few times a year. Cacti are among the plants best suited to these dry conditions. Their bodies and life processes have changed over time in ways that help them save water.\n\nMost plants lose water through tiny openings in their leaves. Cacti have reduced their leaves to sharp spines, so they lose much less water. The spines also protect the plant from thirsty animals and provide a little shade. Instead of leaves, the thick green stem of a cactus carries out photosynthesis, the process plants use to make food from sunlight.\n\nThe stem also works as a water tank. It has soft tissue that can swell when water is available and shrink during dry periods. Many cacti have folds along their stems, which allow them to expand like an accordion after rain.\n\nCacti also have a special way of breathing. Most plants open their tiny pores during the day to take in carbon dioxide. Cacti open them at night, when the air is cooler and less water escapes. They store the carbon dioxide and use it the next day for photosynthesis.\n\nFinally, the roots of many cacti spread widely just below the surface. This allows them to absorb rainwater quickly before it evaporates.",
+  "question": "According to the passage, all of the following help cacti survive EXCEPT",
+  "choices": [
+   "shallow, wide roots",
+   "stems that store water",
+   "large, flat leaves",
+   "spines that reduce water loss"
+  ],
+  "answer": "large, flat leaves",
+  "explanation": "葉はトゲに変化しており、大きく平らな葉はない。",
+  "tags": "TOEFL2026 AcademicPassage botany negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-504-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Cacti Survive in Deserts\n\nDeserts receive very little rain, and the rain that does fall may come only a few times a year. Cacti are among the plants best suited to these dry conditions. Their bodies and life processes have changed over time in ways that help them save water.\n\nMost plants lose water through tiny openings in their leaves. Cacti have reduced their leaves to sharp spines, so they lose much less water. The spines also protect the plant from thirsty animals and provide a little shade. Instead of leaves, the thick green stem of a cactus carries out photosynthesis, the process plants use to make food from sunlight.\n\nThe stem also works as a water tank. It has soft tissue that can swell when water is available and shrink during dry periods. Many cacti have folds along their stems, which allow them to expand like an accordion after rain.\n\nCacti also have a special way of breathing. Most plants open their tiny pores during the day to take in carbon dioxide. Cacti open them at night, when the air is cooler and less water escapes. They store the carbon dioxide and use it the next day for photosynthesis.\n\nFinally, the roots of many cacti spread widely just below the surface. This allows them to absorb rainwater quickly before it evaporates.",
+  "question": "The word \"evaporates\" in the passage is closest in meaning to",
+  "choices": [
+   "freezes",
+   "becomes very cold",
+   "becomes dirty",
+   "turns into gas"
+  ],
+  "answer": "turns into gas",
+  "explanation": "evaporate＝蒸発する。",
+  "tags": "TOEFL2026 AcademicPassage botany vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-505-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spread of the Potato\n\nThe potato was first grown thousands of years ago in the Andes Mountains of South America. Farmers there developed hundreds of varieties that could grow at high altitudes, where few other crops survived. They also invented a method of freeze-drying potatoes by leaving them outside on cold nights and pressing out the water. The dried potatoes could be stored for years.\n\nIn the sixteenth century, Spanish ships brought potatoes to Europe. At first, many Europeans did not trust the new plant. It was unfamiliar, and it belongs to the same plant family as some poisonous species. In several regions, potatoes were grown mainly as food for animals or as a curiosity in gardens.\n\nOver the next two hundred years, attitudes slowly changed. Potatoes produced far more food per field than wheat or rye, and they grew well in poor soil and cool weather. Because they grew underground, they were also less likely to be destroyed during wars. Some rulers actively encouraged farmers to plant them.\n\nBy the nineteenth century, potatoes had become a basic food for millions of people in northern Europe. Some historians argue that the potato helped populations grow by providing cheap calories. However, depending heavily on a single crop was risky, as shown when a plant disease destroyed potato harvests in Ireland in the 1840s.",
+  "question": "What is the passage mainly about?",
+  "choices": [
+   "How the potato became an important food in Europe",
+   "How to freeze-dry vegetables",
+   "Why wheat is better than potatoes",
+   "The history of plant diseases"
+  ],
+  "answer": "How the potato became an important food in Europe",
+  "explanation": "アンデス起源からヨーロッパの主食になるまでの経緯。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history main-idea"
+ },
+ {
+  "id": "TOEFL-RA-505-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spread of the Potato\n\nThe potato was first grown thousands of years ago in the Andes Mountains of South America. Farmers there developed hundreds of varieties that could grow at high altitudes, where few other crops survived. They also invented a method of freeze-drying potatoes by leaving them outside on cold nights and pressing out the water. The dried potatoes could be stored for years.\n\nIn the sixteenth century, Spanish ships brought potatoes to Europe. At first, many Europeans did not trust the new plant. It was unfamiliar, and it belongs to the same plant family as some poisonous species. In several regions, potatoes were grown mainly as food for animals or as a curiosity in gardens.\n\nOver the next two hundred years, attitudes slowly changed. Potatoes produced far more food per field than wheat or rye, and they grew well in poor soil and cool weather. Because they grew underground, they were also less likely to be destroyed during wars. Some rulers actively encouraged farmers to plant them.\n\nBy the nineteenth century, potatoes had become a basic food for millions of people in northern Europe. Some historians argue that the potato helped populations grow by providing cheap calories. However, depending heavily on a single crop was risky, as shown when a plant disease destroyed potato harvests in Ireland in the 1840s.",
+  "question": "Why did many Europeans first distrust the potato?",
+  "choices": [
+   "It was too expensive to grow.",
+   "It was unfamiliar and related to poisonous plants.",
+   "It needed more water than European farmers could provide.",
+   "It was used only by soldiers."
+  ],
+  "answer": "It was unfamiliar and related to poisonous plants.",
+  "explanation": "unfamiliar で poisonous species と同じ科だったため。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history factual"
+ },
+ {
+  "id": "TOEFL-RA-505-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spread of the Potato\n\nThe potato was first grown thousands of years ago in the Andes Mountains of South America. Farmers there developed hundreds of varieties that could grow at high altitudes, where few other crops survived. They also invented a method of freeze-drying potatoes by leaving them outside on cold nights and pressing out the water. The dried potatoes could be stored for years.\n\nIn the sixteenth century, Spanish ships brought potatoes to Europe. At first, many Europeans did not trust the new plant. It was unfamiliar, and it belongs to the same plant family as some poisonous species. In several regions, potatoes were grown mainly as food for animals or as a curiosity in gardens.\n\nOver the next two hundred years, attitudes slowly changed. Potatoes produced far more food per field than wheat or rye, and they grew well in poor soil and cool weather. Because they grew underground, they were also less likely to be destroyed during wars. Some rulers actively encouraged farmers to plant them.\n\nBy the nineteenth century, potatoes had become a basic food for millions of people in northern Europe. Some historians argue that the potato helped populations grow by providing cheap calories. However, depending heavily on a single crop was risky, as shown when a plant disease destroyed potato harvests in Ireland in the 1840s.",
+  "question": "According to the passage, which of the following was NOT an advantage of potatoes?",
+  "choices": [
+   "They produced more food per field than wheat.",
+   "They grew in poor soil.",
+   "They could be harvested several times a year.",
+   "They were less likely to be destroyed in wars."
+  ],
+  "answer": "They could be harvested several times a year.",
+  "explanation": "年数回の収穫は述べられていない。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-505-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spread of the Potato\n\nThe potato was first grown thousands of years ago in the Andes Mountains of South America. Farmers there developed hundreds of varieties that could grow at high altitudes, where few other crops survived. They also invented a method of freeze-drying potatoes by leaving them outside on cold nights and pressing out the water. The dried potatoes could be stored for years.\n\nIn the sixteenth century, Spanish ships brought potatoes to Europe. At first, many Europeans did not trust the new plant. It was unfamiliar, and it belongs to the same plant family as some poisonous species. In several regions, potatoes were grown mainly as food for animals or as a curiosity in gardens.\n\nOver the next two hundred years, attitudes slowly changed. Potatoes produced far more food per field than wheat or rye, and they grew well in poor soil and cool weather. Because they grew underground, they were also less likely to be destroyed during wars. Some rulers actively encouraged farmers to plant them.\n\nBy the nineteenth century, potatoes had become a basic food for millions of people in northern Europe. Some historians argue that the potato helped populations grow by providing cheap calories. However, depending heavily on a single crop was risky, as shown when a plant disease destroyed potato harvests in Ireland in the 1840s.",
+  "question": "Why does the author mention Ireland in the 1840s?",
+  "choices": [
+   "To give an example of how farmers successfully stored their harvests",
+   "To explain where potatoes came from",
+   "To describe a method of storing food",
+   "To show the danger of relying on one crop"
+  ],
+  "answer": "To show the danger of relying on one crop",
+  "explanation": "single crop への依存の危険の例。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-505-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spread of the Potato\n\nThe potato was first grown thousands of years ago in the Andes Mountains of South America. Farmers there developed hundreds of varieties that could grow at high altitudes, where few other crops survived. They also invented a method of freeze-drying potatoes by leaving them outside on cold nights and pressing out the water. The dried potatoes could be stored for years.\n\nIn the sixteenth century, Spanish ships brought potatoes to Europe. At first, many Europeans did not trust the new plant. It was unfamiliar, and it belongs to the same plant family as some poisonous species. In several regions, potatoes were grown mainly as food for animals or as a curiosity in gardens.\n\nOver the next two hundred years, attitudes slowly changed. Potatoes produced far more food per field than wheat or rye, and they grew well in poor soil and cool weather. Because they grew underground, they were also less likely to be destroyed during wars. Some rulers actively encouraged farmers to plant them.\n\nBy the nineteenth century, potatoes had become a basic food for millions of people in northern Europe. Some historians argue that the potato helped populations grow by providing cheap calories. However, depending heavily on a single crop was risky, as shown when a plant disease destroyed potato harvests in Ireland in the 1840s.",
+  "question": "What can be inferred about the freeze-dried potatoes made in the Andes?",
+  "choices": [
+   "They helped people have food during times when crops did not grow.",
+   "They were sold mainly to Europeans.",
+   "They were eaten only by animals.",
+   "They could not be stored for long."
+  ],
+  "answer": "They helped people have food during times when crops did not grow.",
+  "explanation": "何年も保存できたので不作の時期の食料になったと推測できる。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history inference"
+ },
+ {
+  "id": "TOEFL-RA-506-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Birth of Television News\n\nWhen television first became common in homes during the 1950s, news programs were short and simple. Many early broadcasts lasted only fifteen minutes. A presenter sat at a desk and read the news aloud, and there were few moving pictures. Film had to be shot, developed, and physically carried to the studio, so images of events often appeared a day or more after they happened.\n\nDuring the 1960s, several changes made television news more powerful. Programs became longer, and networks hired more reporters who traveled to report from different places. New technology allowed film to be processed more quickly, and later, satellites made it possible to show events from other continents on the same day.\n\nThese changes affected how people understood the world. Viewers could now see wars, protests, and natural disasters in their own living rooms. Some historians believe that images on television had a stronger emotional effect than newspaper articles describing the same events. Politicians also realized that how they looked and spoke on screen could influence voters.\n\nToday, many people get their news from the internet instead of from scheduled programs. Even so, many habits that began in early television news, such as a trusted presenter and short reports with strong pictures, can still be seen in online videos.",
+  "question": "According to the passage, why were images in early TV news often delayed?",
+  "choices": [
+   "Presenters refused to show pictures.",
+   "Film had to be developed and carried to the studio.",
+   "News programs were broadcast only once or twice a week.",
+   "Satellites were too expensive."
+  ],
+  "answer": "Film had to be developed and carried to the studio.",
+  "explanation": "shot, developed, and physically carried to the studio とある。",
+  "tags": "TOEFL2026 AcademicPassage media-studies factual"
+ },
+ {
+  "id": "TOEFL-RA-506-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Birth of Television News\n\nWhen television first became common in homes during the 1950s, news programs were short and simple. Many early broadcasts lasted only fifteen minutes. A presenter sat at a desk and read the news aloud, and there were few moving pictures. Film had to be shot, developed, and physically carried to the studio, so images of events often appeared a day or more after they happened.\n\nDuring the 1960s, several changes made television news more powerful. Programs became longer, and networks hired more reporters who traveled to report from different places. New technology allowed film to be processed more quickly, and later, satellites made it possible to show events from other continents on the same day.\n\nThese changes affected how people understood the world. Viewers could now see wars, protests, and natural disasters in their own living rooms. Some historians believe that images on television had a stronger emotional effect than newspaper articles describing the same events. Politicians also realized that how they looked and spoke on screen could influence voters.\n\nToday, many people get their news from the internet instead of from scheduled programs. Even so, many habits that began in early television news, such as a trusted presenter and short reports with strong pictures, can still be seen in online videos.",
+  "question": "All of the following changes in the 1960s are mentioned EXCEPT",
+  "choices": [
+   "longer programs",
+   "more reporters traveling",
+   "the use of color cameras",
+   "faster processing of film"
+  ],
+  "answer": "the use of color cameras",
+  "explanation": "カラーカメラは述べられていない。",
+  "tags": "TOEFL2026 AcademicPassage media-studies negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-506-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Birth of Television News\n\nWhen television first became common in homes during the 1950s, news programs were short and simple. Many early broadcasts lasted only fifteen minutes. A presenter sat at a desk and read the news aloud, and there were few moving pictures. Film had to be shot, developed, and physically carried to the studio, so images of events often appeared a day or more after they happened.\n\nDuring the 1960s, several changes made television news more powerful. Programs became longer, and networks hired more reporters who traveled to report from different places. New technology allowed film to be processed more quickly, and later, satellites made it possible to show events from other continents on the same day.\n\nThese changes affected how people understood the world. Viewers could now see wars, protests, and natural disasters in their own living rooms. Some historians believe that images on television had a stronger emotional effect than newspaper articles describing the same events. Politicians also realized that how they looked and spoke on screen could influence voters.\n\nToday, many people get their news from the internet instead of from scheduled programs. Even so, many habits that began in early television news, such as a trusted presenter and short reports with strong pictures, can still be seen in online videos.",
+  "question": "What can be inferred about politicians in the 1960s?",
+  "choices": [
+   "They stopped speaking to newspapers.",
+   "They controlled which events news programs were allowed to show.",
+   "They avoided appearing on television.",
+   "They began to pay more attention to their appearance on TV."
+  ],
+  "answer": "They began to pay more attention to their appearance on TV.",
+  "explanation": "画面での見え方が有権者に影響すると気づいたとある。",
+  "tags": "TOEFL2026 AcademicPassage media-studies inference"
+ },
+ {
+  "id": "TOEFL-RA-506-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Birth of Television News\n\nWhen television first became common in homes during the 1950s, news programs were short and simple. Many early broadcasts lasted only fifteen minutes. A presenter sat at a desk and read the news aloud, and there were few moving pictures. Film had to be shot, developed, and physically carried to the studio, so images of events often appeared a day or more after they happened.\n\nDuring the 1960s, several changes made television news more powerful. Programs became longer, and networks hired more reporters who traveled to report from different places. New technology allowed film to be processed more quickly, and later, satellites made it possible to show events from other continents on the same day.\n\nThese changes affected how people understood the world. Viewers could now see wars, protests, and natural disasters in their own living rooms. Some historians believe that images on television had a stronger emotional effect than newspaper articles describing the same events. Politicians also realized that how they looked and spoke on screen could influence voters.\n\nToday, many people get their news from the internet instead of from scheduled programs. Even so, many habits that began in early television news, such as a trusted presenter and short reports with strong pictures, can still be seen in online videos.",
+  "question": "Why does the author mention online videos in the last paragraph?",
+  "choices": [
+   "To show that some features of early TV news continue today",
+   "To argue that online news is less reliable",
+   "To explain why TV news programs became longer",
+   "To describe the first news programs"
+  ],
+  "answer": "To show that some features of early TV news continue today",
+  "explanation": "初期テレビの習慣が今も残る例として。",
+  "tags": "TOEFL2026 AcademicPassage media-studies rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-506-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Birth of Television News\n\nWhen television first became common in homes during the 1950s, news programs were short and simple. Many early broadcasts lasted only fifteen minutes. A presenter sat at a desk and read the news aloud, and there were few moving pictures. Film had to be shot, developed, and physically carried to the studio, so images of events often appeared a day or more after they happened.\n\nDuring the 1960s, several changes made television news more powerful. Programs became longer, and networks hired more reporters who traveled to report from different places. New technology allowed film to be processed more quickly, and later, satellites made it possible to show events from other continents on the same day.\n\nThese changes affected how people understood the world. Viewers could now see wars, protests, and natural disasters in their own living rooms. Some historians believe that images on television had a stronger emotional effect than newspaper articles describing the same events. Politicians also realized that how they looked and spoke on screen could influence voters.\n\nToday, many people get their news from the internet instead of from scheduled programs. Even so, many habits that began in early television news, such as a trusted presenter and short reports with strong pictures, can still be seen in online videos.",
+  "question": "The word \"scheduled\" in the passage is closest in meaning to",
+  "choices": [
+   "very popular",
+   "planned for a set time",
+   "shown on many channels at once",
+   "free of charge"
+  ],
+  "answer": "planned for a set time",
+  "explanation": "scheduled＝決まった時間に予定された。",
+  "tags": "TOEFL2026 AcademicPassage media-studies vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-507-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Self-Healing Concrete\n\nConcrete is strong under compression, but it is vulnerable to small cracks. Over time, temperature changes, heavy loads, and drying can produce fine fractures in its surface. Although these cracks may appear harmless, they allow water and salts to penetrate the material and reach the steel bars inside. Once the steel begins to corrode, it expands, causing further cracking and eventually weakening the entire structure. Repairing such damage is costly, and inspecting large bridges or tunnels is difficult.\n\nTo address this problem, researchers have developed concrete that can partially repair itself. One promising approach involves mixing dormant bacteria into the concrete along with a source of food, such as calcium lactate. The bacteria are chosen from species that can survive for years in a dry, highly alkaline environment. When a crack forms and water enters, the bacteria become active, consume the food, and produce calcium carbonate, a mineral similar to limestone. This mineral gradually fills the crack and seals it.\n\nLaboratory tests have shown that cracks narrower than about one millimeter can be sealed within weeks. However, the technology faces several obstacles. The added ingredients raise the cost of the concrete, and engineers are still uncertain how long the bacteria remain viable inside real structures. Nevertheless, supporters argue that the savings in maintenance over decades could outweigh the higher initial price.",
+  "question": "According to the passage, why are small cracks in concrete a problem?",
+  "choices": [
+   "They make the concrete too heavy.",
+   "They cause the concrete to dry out too quickly in summer.",
+   "They let water and salts reach the steel inside.",
+   "They prevent bacteria from growing."
+  ],
+  "answer": "They let water and salts reach the steel inside.",
+  "explanation": "allow water and salts to ... reach the steel bars とある。",
+  "tags": "TOEFL2026 AcademicPassage materials-science factual"
+ },
+ {
+  "id": "TOEFL-RA-507-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Self-Healing Concrete\n\nConcrete is strong under compression, but it is vulnerable to small cracks. Over time, temperature changes, heavy loads, and drying can produce fine fractures in its surface. Although these cracks may appear harmless, they allow water and salts to penetrate the material and reach the steel bars inside. Once the steel begins to corrode, it expands, causing further cracking and eventually weakening the entire structure. Repairing such damage is costly, and inspecting large bridges or tunnels is difficult.\n\nTo address this problem, researchers have developed concrete that can partially repair itself. One promising approach involves mixing dormant bacteria into the concrete along with a source of food, such as calcium lactate. The bacteria are chosen from species that can survive for years in a dry, highly alkaline environment. When a crack forms and water enters, the bacteria become active, consume the food, and produce calcium carbonate, a mineral similar to limestone. This mineral gradually fills the crack and seals it.\n\nLaboratory tests have shown that cracks narrower than about one millimeter can be sealed within weeks. However, the technology faces several obstacles. The added ingredients raise the cost of the concrete, and engineers are still uncertain how long the bacteria remain viable inside real structures. Nevertheless, supporters argue that the savings in maintenance over decades could outweigh the higher initial price.",
+  "question": "What do the bacteria produce that seals cracks?",
+  "choices": [
+   "Calcium lactate",
+   "Steel",
+   "Salt",
+   "Calcium carbonate"
+  ],
+  "answer": "Calcium carbonate",
+  "explanation": "produce calcium carbonate とある。",
+  "tags": "TOEFL2026 AcademicPassage materials-science factual"
+ },
+ {
+  "id": "TOEFL-RA-507-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Self-Healing Concrete\n\nConcrete is strong under compression, but it is vulnerable to small cracks. Over time, temperature changes, heavy loads, and drying can produce fine fractures in its surface. Although these cracks may appear harmless, they allow water and salts to penetrate the material and reach the steel bars inside. Once the steel begins to corrode, it expands, causing further cracking and eventually weakening the entire structure. Repairing such damage is costly, and inspecting large bridges or tunnels is difficult.\n\nTo address this problem, researchers have developed concrete that can partially repair itself. One promising approach involves mixing dormant bacteria into the concrete along with a source of food, such as calcium lactate. The bacteria are chosen from species that can survive for years in a dry, highly alkaline environment. When a crack forms and water enters, the bacteria become active, consume the food, and produce calcium carbonate, a mineral similar to limestone. This mineral gradually fills the crack and seals it.\n\nLaboratory tests have shown that cracks narrower than about one millimeter can be sealed within weeks. However, the technology faces several obstacles. The added ingredients raise the cost of the concrete, and engineers are still uncertain how long the bacteria remain viable inside real structures. Nevertheless, supporters argue that the savings in maintenance over decades could outweigh the higher initial price.",
+  "question": "The word \"dormant\" in the passage is closest in meaning to",
+  "choices": [
+   "inactive",
+   "harmful",
+   "tiny",
+   "artificial"
+  ],
+  "answer": "inactive",
+  "explanation": "dormant＝休眠状態の。",
+  "tags": "TOEFL2026 AcademicPassage materials-science vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-507-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Self-Healing Concrete\n\nConcrete is strong under compression, but it is vulnerable to small cracks. Over time, temperature changes, heavy loads, and drying can produce fine fractures in its surface. Although these cracks may appear harmless, they allow water and salts to penetrate the material and reach the steel bars inside. Once the steel begins to corrode, it expands, causing further cracking and eventually weakening the entire structure. Repairing such damage is costly, and inspecting large bridges or tunnels is difficult.\n\nTo address this problem, researchers have developed concrete that can partially repair itself. One promising approach involves mixing dormant bacteria into the concrete along with a source of food, such as calcium lactate. The bacteria are chosen from species that can survive for years in a dry, highly alkaline environment. When a crack forms and water enters, the bacteria become active, consume the food, and produce calcium carbonate, a mineral similar to limestone. This mineral gradually fills the crack and seals it.\n\nLaboratory tests have shown that cracks narrower than about one millimeter can be sealed within weeks. However, the technology faces several obstacles. The added ingredients raise the cost of the concrete, and engineers are still uncertain how long the bacteria remain viable inside real structures. Nevertheless, supporters argue that the savings in maintenance over decades could outweigh the higher initial price.",
+  "question": "Which of the following is NOT mentioned as a challenge for self-healing concrete?",
+  "choices": [
+   "It costs more.",
+   "It is weaker than ordinary concrete.",
+   "The bacteria may not survive long in real structures.",
+   "Its benefits depend on long-term savings."
+  ],
+  "answer": "It is weaker than ordinary concrete.",
+  "explanation": "通常より弱いとは述べていない。",
+  "tags": "TOEFL2026 AcademicPassage materials-science negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-507-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Self-Healing Concrete\n\nConcrete is strong under compression, but it is vulnerable to small cracks. Over time, temperature changes, heavy loads, and drying can produce fine fractures in its surface. Although these cracks may appear harmless, they allow water and salts to penetrate the material and reach the steel bars inside. Once the steel begins to corrode, it expands, causing further cracking and eventually weakening the entire structure. Repairing such damage is costly, and inspecting large bridges or tunnels is difficult.\n\nTo address this problem, researchers have developed concrete that can partially repair itself. One promising approach involves mixing dormant bacteria into the concrete along with a source of food, such as calcium lactate. The bacteria are chosen from species that can survive for years in a dry, highly alkaline environment. When a crack forms and water enters, the bacteria become active, consume the food, and produce calcium carbonate, a mineral similar to limestone. This mineral gradually fills the crack and seals it.\n\nLaboratory tests have shown that cracks narrower than about one millimeter can be sealed within weeks. However, the technology faces several obstacles. The added ingredients raise the cost of the concrete, and engineers are still uncertain how long the bacteria remain viable inside real structures. Nevertheless, supporters argue that the savings in maintenance over decades could outweigh the higher initial price.",
+  "question": "What can be inferred about cracks wider than one millimeter?",
+  "choices": [
+   "They are sealed faster than narrow cracks because more water enters.",
+   "They do not allow water to enter.",
+   "They may not be sealed effectively by the bacteria.",
+   "They are not a concern for engineers."
+  ],
+  "answer": "They may not be sealed effectively by the bacteria.",
+  "explanation": "1mm 未満が封じられると示されているので、広いひびは難しいと推測できる。",
+  "tags": "TOEFL2026 AcademicPassage materials-science inference"
+ },
+ {
+  "id": "TOEFL-RA-508-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Potlatch Ceremonies\n\nAmong several Indigenous peoples of the Pacific Northwest coast of North America, the potlatch has long been a central social institution. A potlatch is a ceremonial feast held by a family or chief to mark important events, such as a birth, a marriage, the naming of an heir, or the raising of a carved pole. Guests are invited from other communities, and the host distributes large quantities of goods, including blankets, food, and carved objects.\n\nTo outside observers in the nineteenth century, the potlatch appeared wasteful, since hosts sometimes gave away nearly everything they owned. Anthropologists later argued that this interpretation misunderstood its purpose. By giving generously, a host publicly confirmed his family's rank and rights, such as access to fishing sites or the use of certain songs and names. The guests acted as witnesses; by accepting gifts, they acknowledged these claims. In societies without written records, such public recognition played a role similar to that of legal documents.\n\nThe potlatch also redistributed wealth. Goods accumulated by successful families flowed to others, and hosts could expect to receive gifts in return at future ceremonies. From 1885 to 1951, the Canadian government banned the practice, partly because officials viewed it as an obstacle to assimilation. Many communities continued holding potlatches in secret, and the ceremony remains an important expression of cultural identity today.",
+  "question": "Which of the following best expresses the main idea of the passage?",
+  "choices": [
+   "The potlatch was a wasteful custom that disappeared in 1885.",
+   "Carved poles were the most valuable goods in the Pacific Northwest.",
+   "Indigenous peoples used written records to settle disputes.",
+   "The potlatch served important social and legal functions despite being misunderstood by outsiders."
+  ],
+  "answer": "The potlatch served important social and legal functions despite being misunderstood by outsiders.",
+  "explanation": "部外者の誤解と、地位確認・富の再分配という機能が主題。",
+  "tags": "TOEFL2026 AcademicPassage anthropology main-idea"
+ },
+ {
+  "id": "TOEFL-RA-508-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Potlatch Ceremonies\n\nAmong several Indigenous peoples of the Pacific Northwest coast of North America, the potlatch has long been a central social institution. A potlatch is a ceremonial feast held by a family or chief to mark important events, such as a birth, a marriage, the naming of an heir, or the raising of a carved pole. Guests are invited from other communities, and the host distributes large quantities of goods, including blankets, food, and carved objects.\n\nTo outside observers in the nineteenth century, the potlatch appeared wasteful, since hosts sometimes gave away nearly everything they owned. Anthropologists later argued that this interpretation misunderstood its purpose. By giving generously, a host publicly confirmed his family's rank and rights, such as access to fishing sites or the use of certain songs and names. The guests acted as witnesses; by accepting gifts, they acknowledged these claims. In societies without written records, such public recognition played a role similar to that of legal documents.\n\nThe potlatch also redistributed wealth. Goods accumulated by successful families flowed to others, and hosts could expect to receive gifts in return at future ceremonies. From 1885 to 1951, the Canadian government banned the practice, partly because officials viewed it as an obstacle to assimilation. Many communities continued holding potlatches in secret, and the ceremony remains an important expression of cultural identity today.",
+  "question": "According to the passage, what role did guests play at a potlatch?",
+  "choices": [
+   "They served as witnesses to the host's claims.",
+   "They decided who would become chief.",
+   "They paid for the food served.",
+   "They wrote down the host's rights for future generations."
+  ],
+  "answer": "They served as witnesses to the host's claims.",
+  "explanation": "The guests acted as witnesses とある。",
+  "tags": "TOEFL2026 AcademicPassage anthropology factual"
+ },
+ {
+  "id": "TOEFL-RA-508-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Potlatch Ceremonies\n\nAmong several Indigenous peoples of the Pacific Northwest coast of North America, the potlatch has long been a central social institution. A potlatch is a ceremonial feast held by a family or chief to mark important events, such as a birth, a marriage, the naming of an heir, or the raising of a carved pole. Guests are invited from other communities, and the host distributes large quantities of goods, including blankets, food, and carved objects.\n\nTo outside observers in the nineteenth century, the potlatch appeared wasteful, since hosts sometimes gave away nearly everything they owned. Anthropologists later argued that this interpretation misunderstood its purpose. By giving generously, a host publicly confirmed his family's rank and rights, such as access to fishing sites or the use of certain songs and names. The guests acted as witnesses; by accepting gifts, they acknowledged these claims. In societies without written records, such public recognition played a role similar to that of legal documents.\n\nThe potlatch also redistributed wealth. Goods accumulated by successful families flowed to others, and hosts could expect to receive gifts in return at future ceremonies. From 1885 to 1951, the Canadian government banned the practice, partly because officials viewed it as an obstacle to assimilation. Many communities continued holding potlatches in secret, and the ceremony remains an important expression of cultural identity today.",
+  "question": "Why does the author compare public recognition to legal documents?",
+  "choices": [
+   "To show that the potlatch was illegal",
+   "To explain how claims were confirmed without written records",
+   "To argue that legal documents are unnecessary",
+   "To describe the goods given at ceremonies"
+  ],
+  "answer": "To explain how claims were confirmed without written records",
+  "explanation": "文字記録のない社会での公的承認の役割を説明するため。",
+  "tags": "TOEFL2026 AcademicPassage anthropology rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-508-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Potlatch Ceremonies\n\nAmong several Indigenous peoples of the Pacific Northwest coast of North America, the potlatch has long been a central social institution. A potlatch is a ceremonial feast held by a family or chief to mark important events, such as a birth, a marriage, the naming of an heir, or the raising of a carved pole. Guests are invited from other communities, and the host distributes large quantities of goods, including blankets, food, and carved objects.\n\nTo outside observers in the nineteenth century, the potlatch appeared wasteful, since hosts sometimes gave away nearly everything they owned. Anthropologists later argued that this interpretation misunderstood its purpose. By giving generously, a host publicly confirmed his family's rank and rights, such as access to fishing sites or the use of certain songs and names. The guests acted as witnesses; by accepting gifts, they acknowledged these claims. In societies without written records, such public recognition played a role similar to that of legal documents.\n\nThe potlatch also redistributed wealth. Goods accumulated by successful families flowed to others, and hosts could expect to receive gifts in return at future ceremonies. From 1885 to 1951, the Canadian government banned the practice, partly because officials viewed it as an obstacle to assimilation. Many communities continued holding potlatches in secret, and the ceremony remains an important expression of cultural identity today.",
+  "question": "According to the passage, all of the following could be occasions for a potlatch EXCEPT",
+  "choices": [
+   "a marriage",
+   "the naming of an heir",
+   "the end of a fishing season",
+   "the raising of a carved pole"
+  ],
+  "answer": "the end of a fishing season",
+  "explanation": "漁期の終わりは挙げられていない。",
+  "tags": "TOEFL2026 AcademicPassage anthropology negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-508-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Potlatch Ceremonies\n\nAmong several Indigenous peoples of the Pacific Northwest coast of North America, the potlatch has long been a central social institution. A potlatch is a ceremonial feast held by a family or chief to mark important events, such as a birth, a marriage, the naming of an heir, or the raising of a carved pole. Guests are invited from other communities, and the host distributes large quantities of goods, including blankets, food, and carved objects.\n\nTo outside observers in the nineteenth century, the potlatch appeared wasteful, since hosts sometimes gave away nearly everything they owned. Anthropologists later argued that this interpretation misunderstood its purpose. By giving generously, a host publicly confirmed his family's rank and rights, such as access to fishing sites or the use of certain songs and names. The guests acted as witnesses; by accepting gifts, they acknowledged these claims. In societies without written records, such public recognition played a role similar to that of legal documents.\n\nThe potlatch also redistributed wealth. Goods accumulated by successful families flowed to others, and hosts could expect to receive gifts in return at future ceremonies. From 1885 to 1951, the Canadian government banned the practice, partly because officials viewed it as an obstacle to assimilation. Many communities continued holding potlatches in secret, and the ceremony remains an important expression of cultural identity today.",
+  "question": "What can be inferred from the fact that communities held potlatches in secret?",
+  "choices": [
+   "Most people supported the government ban.",
+   "Potlatches were no longer about giving gifts.",
+   "Officials attended the secret ceremonies.",
+   "The ceremony was highly valued by those communities."
+  ],
+  "answer": "The ceremony was highly valued by those communities.",
+  "explanation": "禁止下でも続けたことから重要視されていたと推測できる。",
+  "tags": "TOEFL2026 AcademicPassage anthropology inference"
+ }
+]

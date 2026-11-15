@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-V-001",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "The professor asked students to arrange the desks in the ------- into small circles for group work.",
+  "choices": [
+   "classroom",
+   "harvest",
+   "syllable",
+   "missile"
+  ],
+  "answer": "classroom",
+  "explanation": "正解 classroom（classroom）＝「教室」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL classroom"
+ },
+ {
+  "id": "TOEFL-V-002",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "Students who finish the reading early may start the ------- for next week.",
+  "choices": [
+   "rainfall",
+   "homework",
+   "fossil",
+   "cattle"
+  ],
+  "answer": "homework",
+  "explanation": "正解 homework（homework）＝「宿題」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL homework"
+ },
+ {
+  "id": "TOEFL-V-003",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "If you do not know a word, you can look it up in a -------.",
+  "choices": [
+   "reservoir",
+   "tumor",
+   "dictionary",
+   "cylinder"
+  ],
+  "answer": "dictionary",
+  "explanation": "正解 dictionary（dictionary）＝「辞書」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL dictionary"
+ },
+ {
+  "id": "TOEFL-V-004",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "First-year students usually live in dormitories on -------.",
+  "choices": [
+   "fever",
+   "orbit",
+   "accent",
+   "campus"
+  ],
+  "answer": "campus",
+  "explanation": "正解 campus（campus）＝「大学の構内、キャンパス」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL campus"
+ },
+ {
+  "id": "TOEFL-V-005",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "The cooking club shared a simple ------- for vegetable soup.",
+  "choices": [
+   "recipe",
+   "treaty",
+   "syndrome",
+   "ballot"
+  ],
+  "answer": "recipe",
+  "explanation": "正解 recipe（recipe）＝「料理の作り方、レシピ」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL recipe"
+ },
+ {
+  "id": "TOEFL-V-006",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "The ------- for the history essay is Friday at noon.",
+  "choices": [
+   "harvest",
+   "deadline",
+   "molecule",
+   "organ"
+  ],
+  "answer": "deadline",
+  "explanation": "正解 deadline（deadline）＝「締め切り」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL deadline"
+ },
+ {
+  "id": "TOEFL-V-007",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "There will be a short vocabulary ------- at the start of every class.",
+  "choices": [
+   "missile",
+   "tribe",
+   "quiz",
+   "valve"
+  ],
+  "answer": "quiz",
+  "explanation": "正解 quiz（quiz）＝「小テスト」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL quiz"
+ },
+ {
+  "id": "TOEFL-V-008",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "Please read chapter four of the ------- before the next lecture.",
+  "choices": [
+   "reactor",
+   "parcel",
+   "bucket",
+   "textbook"
+  ],
+  "answer": "textbook",
+  "explanation": "正解 textbook（textbook）＝「教科書」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL textbook"
+ },
+ {
+  "id": "TOEFL-V-009",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "Many people enjoy reading or walking in their ------- time.",
+  "choices": [
+   "leisure",
+   "lung",
+   "ion",
+   "liver"
+  ],
+  "answer": "leisure",
+  "explanation": "正解 leisure（leisure）＝「余暇、自由な時間」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL leisure"
+ },
+ {
+  "id": "TOEFL-V-010",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "The club put up a ------- in the hallway to advertise its meeting.",
+  "choices": [
+   "fungus",
+   "poster",
+   "enzyme",
+   "dioxide"
+  ],
+  "answer": "poster",
+  "explanation": "正解 poster（poster）＝「ポスター、掲示物」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL poster"
+ },
+ {
+  "id": "TOEFL-V-011",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "She wrote about her trip in a ------- every evening.",
+  "choices": [
+   "nucleus",
+   "tumor",
+   "diary",
+   "vein"
+  ],
+  "answer": "diary",
+  "explanation": "正解 diary（diary）＝「日記」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL diary"
+ },
+ {
+  "id": "TOEFL-V-012",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "In case of fire, please leave the building through the nearest -------.",
+  "choices": [
+   "thesis",
+   "motif",
+   "axiom",
+   "exit"
+  ],
+  "answer": "exit",
+  "explanation": "正解 exit（exit）＝「出口」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL exit"
+ },
+ {
+  "id": "TOEFL-V-013",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "The chemistry students wear safety glasses in the -------.",
+  "choices": [
+   "lab",
+   "myth",
+   "vowel",
+   "clue"
+  ],
+  "answer": "lab",
+  "explanation": "正解 lab（lab）＝「実験室」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL lab"
+ },
+ {
+  "id": "TOEFL-V-014",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "We watched a new science fiction film at the ------- downtown.",
+  "choices": [
+   "cattle",
+   "cinema",
+   "pest",
+   "marrow"
+  ],
+  "answer": "cinema",
+  "explanation": "正解 cinema（cinema）＝「映画館」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL cinema"
+ },
+ {
+  "id": "TOEFL-V-015",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "The ------- spoke for an hour about the history of the city.",
+  "choices": [
+   "insect",
+   "mineral",
+   "lecturer",
+   "organism"
+  ],
+  "answer": "lecturer",
+  "explanation": "正解 lecturer（lecturer）＝「講師」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL lecturer"
+ },
+ {
+  "id": "TOEFL-V-016",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "Lin meets a math ------- twice a week to get extra help.",
+  "choices": [
+   "tumor",
+   "tribe",
+   "terminal",
+   "tutor"
+  ],
+  "answer": "tutor",
+  "explanation": "正解 tutor（tutor）＝「個人指導の先生、チューター」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL tutor"
+ },
+ {
+  "id": "TOEFL-V-017",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "The region gets very little -------, so farmers must save water.",
+  "choices": [
+   "rainfall",
+   "homework",
+   "applause",
+   "chess"
+  ],
+  "answer": "rainfall",
+  "explanation": "正解 rainfall（rainfall）＝「降水量」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL rainfall"
+ },
+ {
+  "id": "TOEFL-V-018",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "She kept her notes neat so that she could study easily.\nThe word \"neat\" in the sentence is closest in meaning to",
+  "choices": [
+   "short",
+   "tidy",
+   "colorful",
+   "secret"
+  ],
+  "answer": "tidy",
+  "explanation": "neat＝「きちんとした」。この文では tidy に最も近い。",
+  "tags": "NAWL neat"
+ },
+ {
+  "id": "TOEFL-V-019",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "The students came up with a clever solution to the problem.\nThe word \"clever\" in the sentence is closest in meaning to",
+  "choices": [
+   "expensive",
+   "slow",
+   "smart",
+   "strange"
+  ],
+  "answer": "smart",
+  "explanation": "clever＝「賢い、巧みな」。この文では smart に最も近い。",
+  "tags": "NAWL clever"
+ },
+ {
+  "id": "TOEFL-V-020",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "",
+  "question": "The view from the top of the mountain was incredible.\nThe word \"incredible\" in the sentence is closest in meaning to",
+  "choices": [
+   "ordinary",
+   "disappointing",
+   "cloudy",
+   "amazing"
+  ],
+  "answer": "amazing",
+  "explanation": "incredible＝「信じられないほどすばらしい」。この文では amazing に最も近い。",
+  "tags": "NAWL incredible"
+ },
+ {
+  "id": "TOEFL-V-021",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Researchers must ------- permission before they interview children.",
+  "choices": [
+   "obtain",
+   "dissolve",
+   "erase",
+   "subtract"
+  ],
+  "answer": "obtain",
+  "explanation": "正解 obtain（obtain）＝「得る、入手する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL obtain"
+ },
+ {
+  "id": "TOEFL-V-022",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Dark clothing tends to ------- more heat from the sun than light clothing.",
+  "choices": [
+   "punish",
+   "absorb",
+   "pronounce",
+   "insert"
+  ],
+  "answer": "absorb",
+  "explanation": "正解 absorb（absorb）＝「吸収する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL absorb"
+ },
+ {
+  "id": "TOEFL-V-023",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Energy ------- in the building fell after the old lights were replaced.",
+  "choices": [
+   "punishment",
+   "vocabulary",
+   "consumption",
+   "dictionary"
+  ],
+  "answer": "consumption",
+  "explanation": "正解 consumption（consumption）＝「消費」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL consumption"
+ },
+ {
+  "id": "TOEFL-V-024",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The school added computer programming to its -------.",
+  "choices": [
+   "lung",
+   "harvest",
+   "diameter",
+   "curriculum"
+  ],
+  "answer": "curriculum",
+  "explanation": "正解 curriculum（curriculum）＝「カリキュラム、教育課程」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL curriculum"
+ },
+ {
+  "id": "TOEFL-V-025",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Short breaks during the day can improve workers' -------.",
+  "choices": [
+   "productivity",
+   "altitude",
+   "velocity",
+   "nitrogen"
+  ],
+  "answer": "productivity",
+  "explanation": "正解 productivity（productivity）＝「生産性」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL productivity"
+ },
+ {
+  "id": "TOEFL-V-026",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The use of smartphones became ------- in the early 2010s.",
+  "choices": [
+   "naked",
+   "widespread",
+   "hollow",
+   "vertical"
+  ],
+  "answer": "widespread",
+  "explanation": "正解 widespread（widespread）＝「広まった、普及した」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL widespread"
+ },
+ {
+  "id": "TOEFL-V-027",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "------- to the museum is free for students on Sundays.",
+  "choices": [
+   "Emission",
+   "Erosion",
+   "admission",
+   "Velocity"
+  ],
+  "answer": "admission",
+  "explanation": "正解 admission（admission）＝「入場、入学」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL admission"
+ },
+ {
+  "id": "TOEFL-V-028",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Doctors must get a patient's ------- before an operation.",
+  "choices": [
+   "cattle",
+   "rope",
+   "bullet",
+   "consent"
+  ],
+  "answer": "consent",
+  "explanation": "正解 consent（consent）＝「同意」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL consent"
+ },
+ {
+  "id": "TOEFL-V-029",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Reading widely is one of the best ways to build your -------.",
+  "choices": [
+   "vocabulary",
+   "kidney",
+   "thumb",
+   "reservoir"
+  ],
+  "answer": "vocabulary",
+  "explanation": "正解 vocabulary（vocabulary）＝「語彙」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL vocabulary"
+ },
+ {
+  "id": "TOEFL-V-030",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The teacher gave detailed ------- on each student's essay.",
+  "choices": [
+   "oxygen",
+   "feedback",
+   "calcium",
+   "sodium"
+  ],
+  "answer": "feedback",
+  "explanation": "正解 feedback（feedback）＝「意見、フィードバック」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL feedback"
+ },
+ {
+  "id": "TOEFL-V-031",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Biologists ------- animals into groups based on shared features.",
+  "choices": [
+   "swell",
+   "bleed",
+   "classify",
+   "sneeze"
+  ],
+  "answer": "classify",
+  "explanation": "正解 classify（classify）＝「分類する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL classify"
+ },
+ {
+  "id": "TOEFL-V-032",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The city has a ------- population, with residents from over eighty countries.",
+  "choices": [
+   "naked",
+   "static",
+   "binary",
+   "diverse"
+  ],
+  "answer": "diverse",
+  "explanation": "正解 diverse（diverse）＝「多様な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL diverse"
+ },
+ {
+  "id": "TOEFL-V-033",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "It was ------- from her smile that she had passed the test.",
+  "choices": [
+   "evident",
+   "toxic",
+   "polar",
+   "null"
+  ],
+  "answer": "evident",
+  "explanation": "正解 evident（evident）＝「明らかな」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL evident"
+ },
+ {
+  "id": "TOEFL-V-034",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Aspirin is ------- used to reduce pain and fever.",
+  "choices": [
+   "vertically",
+   "commonly",
+   "horizontally",
+   "politically"
+  ],
+  "answer": "commonly",
+  "explanation": "正解 commonly（commonly）＝「一般に、よく」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL commonly"
+ },
+ {
+  "id": "TOEFL-V-035",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Most of the land in the valley is used for -------, especially rice farming.",
+  "choices": [
+   "cinema",
+   "ghost",
+   "agriculture",
+   "jazz"
+  ],
+  "answer": "agriculture",
+  "explanation": "正解 agriculture（agriculture）＝「農業」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL agriculture"
+ },
+ {
+  "id": "TOEFL-V-036",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "For desert travelers, carrying enough water is a -------.",
+  "choices": [
+   "parcel",
+   "syllable",
+   "liver",
+   "necessity"
+  ],
+  "answer": "necessity",
+  "explanation": "正解 necessity（necessity）＝「必要（なもの）」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL necessity"
+ },
+ {
+  "id": "TOEFL-V-037",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Each student must complete a written ------- every week.",
+  "choices": [
+   "assignment",
+   "cattle",
+   "missile",
+   "harvest"
+  ],
+  "answer": "assignment",
+  "explanation": "正解 assignment（assignment）＝「課題」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL assignment"
+ },
+ {
+  "id": "TOEFL-V-038",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The two keys look -------, but only one opens the door.",
+  "choices": [
+   "chronic",
+   "identical",
+   "toxic",
+   "elastic"
+  ],
+  "answer": "identical",
+  "explanation": "正解 identical（identical）＝「まったく同じ」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL identical"
+ },
+ {
+  "id": "TOEFL-V-039",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Your student ID is ------- until the end of the academic year.",
+  "choices": [
+   "nasty",
+   "naked",
+   "valid",
+   "bizarre"
+  ],
+  "answer": "valid",
+  "explanation": "正解 valid（valid）＝「有効な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL valid"
+ },
+ {
+  "id": "TOEFL-V-040",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Please do not ------- the speaker; questions will be taken at the end.",
+  "choices": [
+   "dissolve",
+   "harvest",
+   "irrigate",
+   "interrupt"
+  ],
+  "answer": "interrupt",
+  "explanation": "正解 interrupt（interrupt）＝「（話などを）さえぎる」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL interrupt"
+ }
+]

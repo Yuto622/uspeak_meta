@@ -1,0 +1,434 @@
+[
+ {
+  "id": "TOEIC-R6-520-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: All Production Staff\nFrom: Kwame Asante, Plant Safety Officer\nDate: February 10\nSubject: New Hearing Protection Rules\n\nStarting March 1, hearing protection will be [1] ------- in all areas of the production floor, not just near the stamping presses. Recent noise measurements showed that sound levels in several other areas are higher than we [2] -------.\n\nEarplugs are available at no cost from dispensers next to each entrance. [3] -------. Supervisors will check that employees are following the new rule during each shift.\n\nProtecting your hearing is important, and damage is often permanent. Thank you for helping to keep our workplace [4] -------.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "requirement",
+   "requiring",
+   "requires",
+   "required"
+  ],
+  "answer": "required",
+  "explanation": "保護具は「義務付けられる」ので受動態 will be required。",
+  "tags": "態"
+ },
+ {
+  "id": "TOEIC-R6-520-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: All Production Staff\nFrom: Kwame Asante, Plant Safety Officer\nDate: February 10\nSubject: New Hearing Protection Rules\n\nStarting March 1, hearing protection will be [1] ------- in all areas of the production floor, not just near the stamping presses. Recent noise measurements showed that sound levels in several other areas are higher than we [2] -------.\n\nEarplugs are available at no cost from dispensers next to each entrance. [3] -------. Supervisors will check that employees are following the new rule during each shift.\n\nProtecting your hearing is important, and damage is often permanent. Thank you for helping to keep our workplace [4] -------.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "expected",
+   "will expect",
+   "expecting",
+   "expectation"
+  ],
+  "answer": "expected",
+  "explanation": "測定結果が示した過去の時点での予想なので過去形 expected。",
+  "tags": "時制"
+ },
+ {
+  "id": "TOEIC-R6-520-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: All Production Staff\nFrom: Kwame Asante, Plant Safety Officer\nDate: February 10\nSubject: New Hearing Protection Rules\n\nStarting March 1, hearing protection will be [1] ------- in all areas of the production floor, not just near the stamping presses. Recent noise measurements showed that sound levels in several other areas are higher than we [2] -------.\n\nEarplugs are available at no cost from dispensers next to each entrance. [3] -------. Supervisors will check that employees are following the new rule during each shift.\n\nProtecting your hearing is important, and damage is often permanent. Thank you for helping to keep our workplace [4] -------.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "The stamping presses will be removed next month.",
+   "Earplugs will cost $5 per pair starting in March.",
+   "Employees who prefer earmuffs may request a pair from their supervisor.",
+   "Hearing protection is no longer necessary near the presses."
+  ],
+  "answer": "Employees who prefer earmuffs may request a pair from their supervisor.",
+  "explanation": "耳栓の入手方法に続き、別の選択肢としてイヤーマフを案内する文が自然。耳栓は無料なので有料化は矛盾。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-520-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: All Production Staff\nFrom: Kwame Asante, Plant Safety Officer\nDate: February 10\nSubject: New Hearing Protection Rules\n\nStarting March 1, hearing protection will be [1] ------- in all areas of the production floor, not just near the stamping presses. Recent noise measurements showed that sound levels in several other areas are higher than we [2] -------.\n\nEarplugs are available at no cost from dispensers next to each entrance. [3] -------. Supervisors will check that employees are following the new rule during each shift.\n\nProtecting your hearing is important, and damage is often permanent. Thank you for helping to keep our workplace [4] -------.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "safely",
+   "safe",
+   "safety",
+   "save"
+  ],
+  "answer": "safe",
+  "explanation": "keep O C の C には形容詞 safe が入る。",
+  "tags": "品詞 形容詞"
+ },
+ {
+  "id": "TOEIC-R6-521-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Credit Union Launches Loan Program for Local Startups\n\nThe Eastbrook Community Credit Union has unveiled a lending program aimed at entrepreneurs who have struggled to secure financing from traditional banks. Under the program, businesses that have been operating for less than two years may borrow up to $50,000 at a fixed interest rate, [1] ------- they complete a free twelve-hour financial planning course.\n\n\"Many promising ventures are turned down simply because they lack a credit history,\" said branch director Amara Nwosu. \"[2] -------.\"\n\nThe credit union has set aside $3 million for the initiative, which will be reviewed after eighteen months. If default rates remain low, the fund may be [3] -------. Applicants are evaluated on the [4] ------- of their business plans rather than solely on their credit scores.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "provided that",
+   "as though",
+   "whereas",
+   "so that"
+  ],
+  "answer": "provided that",
+  "explanation": "融資の条件を示す provided that（～という条件で）。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R6-521-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Credit Union Launches Loan Program for Local Startups\n\nThe Eastbrook Community Credit Union has unveiled a lending program aimed at entrepreneurs who have struggled to secure financing from traditional banks. Under the program, businesses that have been operating for less than two years may borrow up to $50,000 at a fixed interest rate, [1] ------- they complete a free twelve-hour financial planning course.\n\n\"Many promising ventures are turned down simply because they lack a credit history,\" said branch director Amara Nwosu. \"[2] -------.\"\n\nThe credit union has set aside $3 million for the initiative, which will be reviewed after eighteen months. If default rates remain low, the fund may be [3] -------. Applicants are evaluated on the [4] ------- of their business plans rather than solely on their credit scores.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Our branch will close next month for renovations.",
+   "That is why we only lend to companies with long credit histories.",
+   "We want to judge them on their potential rather than on their past.",
+   "Interest rates on savings accounts have also risen."
+  ],
+  "answer": "We want to judge them on their potential rather than on their past.",
+  "explanation": "信用履歴がないだけで断られるという発言に続き、将来性で判断したいという文が自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-521-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Credit Union Launches Loan Program for Local Startups\n\nThe Eastbrook Community Credit Union has unveiled a lending program aimed at entrepreneurs who have struggled to secure financing from traditional banks. Under the program, businesses that have been operating for less than two years may borrow up to $50,000 at a fixed interest rate, [1] ------- they complete a free twelve-hour financial planning course.\n\n\"Many promising ventures are turned down simply because they lack a credit history,\" said branch director Amara Nwosu. \"[2] -------.\"\n\nThe credit union has set aside $3 million for the initiative, which will be reviewed after eighteen months. If default rates remain low, the fund may be [3] -------. Applicants are evaluated on the [4] ------- of their business plans rather than solely on their credit scores.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "enlarges",
+   "enlarged",
+   "enlarging",
+   "enlargement"
+  ],
+  "answer": "enlarged",
+  "explanation": "受動態 may be の後には過去分詞 enlarged。",
+  "tags": "態"
+ },
+ {
+  "id": "TOEIC-R6-521-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Credit Union Launches Loan Program for Local Startups\n\nThe Eastbrook Community Credit Union has unveiled a lending program aimed at entrepreneurs who have struggled to secure financing from traditional banks. Under the program, businesses that have been operating for less than two years may borrow up to $50,000 at a fixed interest rate, [1] ------- they complete a free twelve-hour financial planning course.\n\n\"Many promising ventures are turned down simply because they lack a credit history,\" said branch director Amara Nwosu. \"[2] -------.\"\n\nThe credit union has set aside $3 million for the initiative, which will be reviewed after eighteen months. If default rates remain low, the fund may be [3] -------. Applicants are evaluated on the [4] ------- of their business plans rather than solely on their credit scores.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "vie",
+   "viable",
+   "viably",
+   "viability"
+  ],
+  "answer": "viability",
+  "explanation": "the と of の間には名詞 viability（実現可能性）が入る。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R6-522-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Lost Property at Westline Coaches\n\nIf you leave an item on one of our buses, please contact our Lost Property Office as soon as possible. Items found on our buses are sent to the office at Grove Street Terminal [1] ------- 24 hours.\n\nTo report a lost item, fill out the online form on our Web site. Please [2] ------- a detailed description, including the color, brand, and any distinctive markings. [3] -------.\n\nFound items are kept for 30 days. After that, items that have not been [4] ------- are donated to local charities. Identification is required when you collect an item from the office.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "between",
+   "among",
+   "since",
+   "within"
+  ],
+  "answer": "within",
+  "explanation": "「24時間以内に」を表す within。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R6-522-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Lost Property at Westline Coaches\n\nIf you leave an item on one of our buses, please contact our Lost Property Office as soon as possible. Items found on our buses are sent to the office at Grove Street Terminal [1] ------- 24 hours.\n\nTo report a lost item, fill out the online form on our Web site. Please [2] ------- a detailed description, including the color, brand, and any distinctive markings. [3] -------.\n\nFound items are kept for 30 days. After that, items that have not been [4] ------- are donated to local charities. Identification is required when you collect an item from the office.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "providing",
+   "provision",
+   "provide",
+   "provided"
+  ],
+  "answer": "provide",
+  "explanation": "Please の後は動詞の原形。",
+  "tags": "命令文"
+ },
+ {
+  "id": "TOEIC-R6-522-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Lost Property at Westline Coaches\n\nIf you leave an item on one of our buses, please contact our Lost Property Office as soon as possible. Items found on our buses are sent to the office at Grove Street Terminal [1] ------- 24 hours.\n\nTo report a lost item, fill out the online form on our Web site. Please [2] ------- a detailed description, including the color, brand, and any distinctive markings. [3] -------.\n\nFound items are kept for 30 days. After that, items that have not been [4] ------- are donated to local charities. Identification is required when you collect an item from the office.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "All of our buses are cleaned twice a year.",
+   "You should also include the date, time, and route number of your journey.",
+   "We are unable to accept reports submitted online.",
+   "Items are thrown away immediately after they are found."
+  ],
+  "answer": "You should also include the date, time, and route number of your journey.",
+  "explanation": "報告フォームに書く情報の説明に続き、追加で書く情報を示す文が自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-522-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Lost Property at Westline Coaches\n\nIf you leave an item on one of our buses, please contact our Lost Property Office as soon as possible. Items found on our buses are sent to the office at Grove Street Terminal [1] ------- 24 hours.\n\nTo report a lost item, fill out the online form on our Web site. Please [2] ------- a detailed description, including the color, brand, and any distinctive markings. [3] -------.\n\nFound items are kept for 30 days. After that, items that have not been [4] ------- are donated to local charities. Identification is required when you collect an item from the office.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "claimed",
+   "claims",
+   "claim",
+   "claiming"
+  ],
+  "answer": "claimed",
+  "explanation": "have not been の後は過去分詞で「引き取られていない」。",
+  "tags": "態 完了"
+ },
+ {
+  "id": "TOEIC-R6-523-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Mr. Silva,\n\nOn behalf of Ostrander Logistics, I am delighted to offer you the position of Warehouse Operations Analyst. The interview panel was impressed by your experience with inventory software and your [1] ------- to improving efficiency.\n\nAs discussed, your starting salary will be $58,000 per year, and you will be eligible for our health and retirement plans after a 90-day probationary period. [2] -------.\n\nPlease confirm your acceptance of this offer by signing the attached letter and returning it to me by June 6. [3] ------- you have signed, I will send you information about your first day, including where to park and whom to report to.\n\nWe are excited about the prospect of [4] ------- you to our team.\n\nSincerely,\nGrace Holloway\nHuman Resources Manager",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "approaching",
+   "approachable",
+   "approached",
+   "approach"
+  ],
+  "answer": "approach",
+  "explanation": "所有格 your の後で、approach to doing（～への取り組み方）の名詞 approach。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R6-523-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Mr. Silva,\n\nOn behalf of Ostrander Logistics, I am delighted to offer you the position of Warehouse Operations Analyst. The interview panel was impressed by your experience with inventory software and your [1] ------- to improving efficiency.\n\nAs discussed, your starting salary will be $58,000 per year, and you will be eligible for our health and retirement plans after a 90-day probationary period. [2] -------.\n\nPlease confirm your acceptance of this offer by signing the attached letter and returning it to me by June 6. [3] ------- you have signed, I will send you information about your first day, including where to park and whom to report to.\n\nWe are excited about the prospect of [4] ------- you to our team.\n\nSincerely,\nGrace Holloway\nHuman Resources Manager",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Unfortunately, we have decided to offer the position to another candidate.",
+   "Your anticipated start date is Monday, June 23.",
+   "Please send us your resume so that we can arrange an interview.",
+   "The probationary period has been eliminated for all positions."
+  ],
+  "answer": "Your anticipated start date is Monday, June 23.",
+  "explanation": "給与・福利厚生という採用条件の説明に続き、勤務開始日を示す文が自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-523-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Mr. Silva,\n\nOn behalf of Ostrander Logistics, I am delighted to offer you the position of Warehouse Operations Analyst. The interview panel was impressed by your experience with inventory software and your [1] ------- to improving efficiency.\n\nAs discussed, your starting salary will be $58,000 per year, and you will be eligible for our health and retirement plans after a 90-day probationary period. [2] -------.\n\nPlease confirm your acceptance of this offer by signing the attached letter and returning it to me by June 6. [3] ------- you have signed, I will send you information about your first day, including where to park and whom to report to.\n\nWe are excited about the prospect of [4] ------- you to our team.\n\nSincerely,\nGrace Holloway\nHuman Resources Manager",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Once",
+   "Whether",
+   "Unless",
+   "Although"
+  ],
+  "answer": "Once",
+  "explanation": "「署名していただいたら」を表す Once。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R6-523-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Dear Mr. Silva,\n\nOn behalf of Ostrander Logistics, I am delighted to offer you the position of Warehouse Operations Analyst. The interview panel was impressed by your experience with inventory software and your [1] ------- to improving efficiency.\n\nAs discussed, your starting salary will be $58,000 per year, and you will be eligible for our health and retirement plans after a 90-day probationary period. [2] -------.\n\nPlease confirm your acceptance of this offer by signing the attached letter and returning it to me by June 6. [3] ------- you have signed, I will send you information about your first day, including where to park and whom to report to.\n\nWe are excited about the prospect of [4] ------- you to our team.\n\nSincerely,\nGrace Holloway\nHuman Resources Manager",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "adds",
+   "added",
+   "adding",
+   "to add"
+  ],
+  "answer": "adding",
+  "explanation": "前置詞 of の後には動名詞が入る。",
+  "tags": "動名詞"
+ },
+ {
+  "id": "TOEIC-R6-524-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Free Event at Parkside Public Library\n\nJoin us on Saturday, October 18, at 2:00 P.M. for a talk by local author Ingrid Solberg. Ms. Solberg will read from her new book, [1] ------- tells the story of a small fishing village. After the reading, she will answer questions from the audience.\n\nThe event will take place in the library's community room. [2] -------. Copies of the book will be available for purchase, and Ms. Solberg will be happy to [3] ------- them.\n\nSeating is limited, so please arrive [4] -------.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "where",
+   "who",
+   "which",
+   "what"
+  ],
+  "answer": "which",
+  "explanation": "先行詞が book（物）で、コンマの後の非制限用法なので which。",
+  "tags": "関係詞"
+ },
+ {
+  "id": "TOEIC-R6-524-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Free Event at Parkside Public Library\n\nJoin us on Saturday, October 18, at 2:00 P.M. for a talk by local author Ingrid Solberg. Ms. Solberg will read from her new book, [1] ------- tells the story of a small fishing village. After the reading, she will answer questions from the audience.\n\nThe event will take place in the library's community room. [2] -------. Copies of the book will be available for purchase, and Ms. Solberg will be happy to [3] ------- them.\n\nSeating is limited, so please arrive [4] -------.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "No tickets are needed, and everyone is welcome.",
+   "The library will be closed all day on Saturday.",
+   "Ms. Solberg has never written a book before.",
+   "Tickets cost $40 and must be bought in advance."
+  ],
+  "answer": "No tickets are needed, and everyone is welcome.",
+  "explanation": "無料イベントなので、チケット不要で誰でも参加できるという文が合う。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-524-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Free Event at Parkside Public Library\n\nJoin us on Saturday, October 18, at 2:00 P.M. for a talk by local author Ingrid Solberg. Ms. Solberg will read from her new book, [1] ------- tells the story of a small fishing village. After the reading, she will answer questions from the audience.\n\nThe event will take place in the library's community room. [2] -------. Copies of the book will be available for purchase, and Ms. Solberg will be happy to [3] ------- them.\n\nSeating is limited, so please arrive [4] -------.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "signature",
+   "sight",
+   "signal",
+   "sign"
+  ],
+  "answer": "sign",
+  "explanation": "著者が本に「サインする」は sign。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R6-524-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Free Event at Parkside Public Library\n\nJoin us on Saturday, October 18, at 2:00 P.M. for a talk by local author Ingrid Solberg. Ms. Solberg will read from her new book, [1] ------- tells the story of a small fishing village. After the reading, she will answer questions from the audience.\n\nThe event will take place in the library's community room. [2] -------. Copies of the book will be available for purchase, and Ms. Solberg will be happy to [3] ------- them.\n\nSeating is limited, so please arrive [4] -------.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "prior",
+   "early",
+   "former",
+   "previous"
+  ],
+  "answer": "early",
+  "explanation": "動詞 arrive を修飾する副詞 early。他は形容詞。",
+  "tags": "品詞 副詞"
+ },
+ {
+  "id": "TOEIC-R6-525-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Subject: Shipment PX-2271 held at customs\n\nDear Mr. Lindgren,\n\nI am writing to inform you that your shipment of laboratory equipment, reference number PX-2271, is currently being held at the port of entry. Customs officials have requested additional documentation [1] ------- the shipment can be released.\n\nSpecifically, they require a certificate of origin for the twelve centrifuges listed on the invoice. [2] -------. Once we receive it, we will submit it to customs on your behalf.\n\nWe expect the shipment to be [3] ------- within two business days of submission. Please note that storage fees of $45 per day will apply if the goods remain at the port beyond Friday. We apologize for the inconvenience and will keep you [4] ------- of any developments.\n\nBest regards,\nAna Kovacs\nCustoms Brokerage Team",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "before",
+   "unless",
+   "whereas",
+   "after"
+  ],
+  "answer": "before",
+  "explanation": "書類提出が「解放される前に」必要なので before。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R6-525-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Subject: Shipment PX-2271 held at customs\n\nDear Mr. Lindgren,\n\nI am writing to inform you that your shipment of laboratory equipment, reference number PX-2271, is currently being held at the port of entry. Customs officials have requested additional documentation [1] ------- the shipment can be released.\n\nSpecifically, they require a certificate of origin for the twelve centrifuges listed on the invoice. [2] -------. Once we receive it, we will submit it to customs on your behalf.\n\nWe expect the shipment to be [3] ------- within two business days of submission. Please note that storage fees of $45 per day will apply if the goods remain at the port beyond Friday. We apologize for the inconvenience and will keep you [4] ------- of any developments.\n\nBest regards,\nAna Kovacs\nCustoms Brokerage Team",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Our office will be closed for the next two months.",
+   "The centrifuges have already been delivered to your laboratory.",
+   "Customs officials have already released the shipment.",
+   "Could you please ask your supplier to send us a copy of this document?"
+  ],
+  "answer": "Could you please ask your supplier to send us a copy of this document?",
+  "explanation": "直後の Once we receive it の it が指す書類を依頼する文が必要。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-525-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Subject: Shipment PX-2271 held at customs\n\nDear Mr. Lindgren,\n\nI am writing to inform you that your shipment of laboratory equipment, reference number PX-2271, is currently being held at the port of entry. Customs officials have requested additional documentation [1] ------- the shipment can be released.\n\nSpecifically, they require a certificate of origin for the twelve centrifuges listed on the invoice. [2] -------. Once we receive it, we will submit it to customs on your behalf.\n\nWe expect the shipment to be [3] ------- within two business days of submission. Please note that storage fees of $45 per day will apply if the goods remain at the port beyond Friday. We apologize for the inconvenience and will keep you [4] ------- of any developments.\n\nBest regards,\nAna Kovacs\nCustoms Brokerage Team",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "clearing",
+   "cleared",
+   "clearance",
+   "clearly"
+  ],
+  "answer": "cleared",
+  "explanation": "to be の後で「通関される」を表す過去分詞 cleared。",
+  "tags": "態"
+ },
+ {
+  "id": "TOEIC-R6-525-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Subject: Shipment PX-2271 held at customs\n\nDear Mr. Lindgren,\n\nI am writing to inform you that your shipment of laboratory equipment, reference number PX-2271, is currently being held at the port of entry. Customs officials have requested additional documentation [1] ------- the shipment can be released.\n\nSpecifically, they require a certificate of origin for the twelve centrifuges listed on the invoice. [2] -------. Once we receive it, we will submit it to customs on your behalf.\n\nWe expect the shipment to be [3] ------- within two business days of submission. Please note that storage fees of $45 per day will apply if the goods remain at the port beyond Friday. We apologize for the inconvenience and will keep you [4] ------- of any developments.\n\nBest regards,\nAna Kovacs\nCustoms Brokerage Team",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "information",
+   "inform",
+   "informed",
+   "informing"
+  ],
+  "answer": "informed",
+  "explanation": "keep O informed（Oに随時知らせる）の形で過去分詞。",
+  "tags": "分詞"
+ }
+]

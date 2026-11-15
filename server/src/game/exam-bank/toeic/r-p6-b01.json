@@ -1,0 +1,506 @@
+[
+ {
+  "id": "TOEIC-R6-501-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Notice to Patients\n\nStarting May 1, Lakeview Family Clinic will [1] ------- its hours on weekdays. The clinic will open at 7:30 A.M. instead of 8:30 A.M. This change will make it easier for patients to see a doctor before work. [2] -------. Our evening hours will stay the same, and we will continue to close at 6:00 P.M.\n\nPatients can book appointments by phone or through our Web site. [3] ------- you need to cancel an appointment, please let us know at least 24 hours in advance. This allows us to offer the time to [4] ------- patients.\n\nThank you for choosing Lakeview Family Clinic.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "extend",
+   "shorten",
+   "delay",
+   "close"
+  ],
+  "answer": "extend",
+  "explanation": "開院が1時間早くなり閉院時刻は同じなので、診療時間を「延長する」extend が正解。",
+  "tags": "語彙 文脈"
+ },
+ {
+  "id": "TOEIC-R6-501-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Notice to Patients\n\nStarting May 1, Lakeview Family Clinic will [1] ------- its hours on weekdays. The clinic will open at 7:30 A.M. instead of 8:30 A.M. This change will make it easier for patients to see a doctor before work. [2] -------. Our evening hours will stay the same, and we will continue to close at 6:00 P.M.\n\nPatients can book appointments by phone or through our Web site. [3] ------- you need to cancel an appointment, please let us know at least 24 hours in advance. This allows us to offer the time to [4] ------- patients.\n\nThank you for choosing Lakeview Family Clinic.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Doctors will no longer accept phone calls.",
+   "Many patients have asked for earlier appointments.",
+   "Unfortunately, our Web site is not working at this time.",
+   "The clinic will be closed for the entire month of May."
+  ],
+  "answer": "Many patients have asked for earlier appointments.",
+  "explanation": "直前の「出勤前に受診しやすくなる」に自然につながるのは、早い時間の予約を望む声があったという文。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-501-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Notice to Patients\n\nStarting May 1, Lakeview Family Clinic will [1] ------- its hours on weekdays. The clinic will open at 7:30 A.M. instead of 8:30 A.M. This change will make it easier for patients to see a doctor before work. [2] -------. Our evening hours will stay the same, and we will continue to close at 6:00 P.M.\n\nPatients can book appointments by phone or through our Web site. [3] ------- you need to cancel an appointment, please let us know at least 24 hours in advance. This allows us to offer the time to [4] ------- patients.\n\nThank you for choosing Lakeview Family Clinic.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Although",
+   "So",
+   "Unless",
+   "If"
+  ],
+  "answer": "If",
+  "explanation": "「キャンセルが必要な場合は」という条件を表す If が正解。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R6-501-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Notice to Patients\n\nStarting May 1, Lakeview Family Clinic will [1] ------- its hours on weekdays. The clinic will open at 7:30 A.M. instead of 8:30 A.M. This change will make it easier for patients to see a doctor before work. [2] -------. Our evening hours will stay the same, and we will continue to close at 6:00 P.M.\n\nPatients can book appointments by phone or through our Web site. [3] ------- you need to cancel an appointment, please let us know at least 24 hours in advance. This allows us to offer the time to [4] ------- patients.\n\nThank you for choosing Lakeview Family Clinic.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "each",
+   "others",
+   "other",
+   "another"
+  ],
+  "answer": "other",
+  "explanation": "複数名詞 patients を修飾できるのは other。another と each は単数名詞につく。",
+  "tags": "代名詞 限定詞"
+ },
+ {
+  "id": "TOEIC-R6-502-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Purchasing Team\nFrom: Marcus Oyelaran\nSubject: Delay in steel shipment\n\nDear team,\n\nI have just been informed by Grantham Metals that our next shipment of steel sheets will arrive four days later than [1] -------. The delay is due to a mechanical problem at the supplier's rolling mill. [2] -------, we expect the assembly line for our kitchen appliance range to be affected.\n\nTo minimize the impact, I have asked the production planners to [3] ------- the schedule so that the line works on the smaller models first, which require less steel. [4] -------. I will send an update as soon as Grantham confirms the new delivery date.\n\nBest regards,\nMarcus Oyelaran\nPurchasing Manager",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "schedules",
+   "scheduling",
+   "schedule",
+   "scheduled"
+  ],
+  "answer": "scheduled",
+  "explanation": "later than scheduled（予定より遅く）の定型表現で過去分詞が入る。",
+  "tags": "品詞 分詞"
+ },
+ {
+  "id": "TOEIC-R6-502-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Purchasing Team\nFrom: Marcus Oyelaran\nSubject: Delay in steel shipment\n\nDear team,\n\nI have just been informed by Grantham Metals that our next shipment of steel sheets will arrive four days later than [1] -------. The delay is due to a mechanical problem at the supplier's rolling mill. [2] -------, we expect the assembly line for our kitchen appliance range to be affected.\n\nTo minimize the impact, I have asked the production planners to [3] ------- the schedule so that the line works on the smaller models first, which require less steel. [4] -------. I will send an update as soon as Grantham confirms the new delivery date.\n\nBest regards,\nMarcus Oyelaran\nPurchasing Manager",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "For instance",
+   "In contrast",
+   "As a result",
+   "Otherwise"
+  ],
+  "answer": "As a result",
+  "explanation": "納品遅延の結果として組立ラインに影響が出るので As a result が適切。",
+  "tags": "接続副詞"
+ },
+ {
+  "id": "TOEIC-R6-502-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Purchasing Team\nFrom: Marcus Oyelaran\nSubject: Delay in steel shipment\n\nDear team,\n\nI have just been informed by Grantham Metals that our next shipment of steel sheets will arrive four days later than [1] -------. The delay is due to a mechanical problem at the supplier's rolling mill. [2] -------, we expect the assembly line for our kitchen appliance range to be affected.\n\nTo minimize the impact, I have asked the production planners to [3] ------- the schedule so that the line works on the smaller models first, which require less steel. [4] -------. I will send an update as soon as Grantham confirms the new delivery date.\n\nBest regards,\nMarcus Oyelaran\nPurchasing Manager",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "revise",
+   "reveal",
+   "resign",
+   "resemble"
+  ],
+  "answer": "revise",
+  "explanation": "小型モデルを先に作るよう日程を「修正する」revise が文意に合う。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R6-502-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Purchasing Team\nFrom: Marcus Oyelaran\nSubject: Delay in steel shipment\n\nDear team,\n\nI have just been informed by Grantham Metals that our next shipment of steel sheets will arrive four days later than [1] -------. The delay is due to a mechanical problem at the supplier's rolling mill. [2] -------, we expect the assembly line for our kitchen appliance range to be affected.\n\nTo minimize the impact, I have asked the production planners to [3] ------- the schedule so that the line works on the smaller models first, which require less steel. [4] -------. I will send an update as soon as Grantham confirms the new delivery date.\n\nBest regards,\nMarcus Oyelaran\nPurchasing Manager",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "The rolling mill was built more than fifty years ago.",
+   "We currently have enough steel in stock for about two days of full production.",
+   "Our kitchen appliances won a design award last year.",
+   "Thank you all for agreeing to the new delivery date."
+  ],
+  "answer": "We currently have enough steel in stock for about two days of full production.",
+  "explanation": "影響を最小限にする対策の話題に続き、在庫状況を説明する文が自然。新しい納期はまだ確定していない。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-503-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Enjoy Sunday Brunch at the Seabreeze Hotel!\n\nEvery Sunday from 10:00 A.M. to 2:00 P.M., our restaurant serves a [1] ------- brunch buffet. Choose from fresh fruit, warm pastries, eggs cooked to order, and local seafood. Children under six eat for free. [2] -------.\n\nTables fill up quickly, so we recommend [3] ------- a reservation. Call us at 555-0143 or book online. Large groups of ten or more can also reserve our private dining room overlooking the beach. Hotel guests receive a 15 percent discount when they show their room key [4] ------- paying.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "delicious",
+   "deliciously",
+   "delight",
+   "deliciousness"
+  ],
+  "answer": "delicious",
+  "explanation": "名詞 brunch buffet を修飾する形容詞 delicious が入る。",
+  "tags": "品詞 形容詞"
+ },
+ {
+  "id": "TOEIC-R6-503-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Enjoy Sunday Brunch at the Seabreeze Hotel!\n\nEvery Sunday from 10:00 A.M. to 2:00 P.M., our restaurant serves a [1] ------- brunch buffet. Choose from fresh fruit, warm pastries, eggs cooked to order, and local seafood. Children under six eat for free. [2] -------.\n\nTables fill up quickly, so we recommend [3] ------- a reservation. Call us at 555-0143 or book online. Large groups of ten or more can also reserve our private dining room overlooking the beach. Hotel guests receive a 15 percent discount when they show their room key [4] ------- paying.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Our chef will retire next year.",
+   "The restaurant is closed on Sundays.",
+   "Children aged six to twelve pay half price.",
+   "Rooms must be cleaned by noon."
+  ],
+  "answer": "Children aged six to twelve pay half price.",
+  "explanation": "直前の6歳未満の子どもの料金に続き、6〜12歳の料金を説明する文が自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-503-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Enjoy Sunday Brunch at the Seabreeze Hotel!\n\nEvery Sunday from 10:00 A.M. to 2:00 P.M., our restaurant serves a [1] ------- brunch buffet. Choose from fresh fruit, warm pastries, eggs cooked to order, and local seafood. Children under six eat for free. [2] -------.\n\nTables fill up quickly, so we recommend [3] ------- a reservation. Call us at 555-0143 or book online. Large groups of ten or more can also reserve our private dining room overlooking the beach. Hotel guests receive a 15 percent discount when they show their room key [4] ------- paying.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "make",
+   "making",
+   "made",
+   "makes"
+  ],
+  "answer": "making",
+  "explanation": "recommend は動名詞を目的語にとるので making。",
+  "tags": "動名詞"
+ },
+ {
+  "id": "TOEIC-R6-503-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Enjoy Sunday Brunch at the Seabreeze Hotel!\n\nEvery Sunday from 10:00 A.M. to 2:00 P.M., our restaurant serves a [1] ------- brunch buffet. Choose from fresh fruit, warm pastries, eggs cooked to order, and local seafood. Children under six eat for free. [2] -------.\n\nTables fill up quickly, so we recommend [3] ------- a reservation. Call us at 555-0143 or book online. Large groups of ten or more can also reserve our private dining room overlooking the beach. Hotel guests receive a 15 percent discount when they show their room key [4] ------- paying.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "since",
+   "until",
+   "during",
+   "when"
+  ],
+  "answer": "when",
+  "explanation": "「支払いの際に」を表す when (paying) が正解。during は後ろに動名詞をとらない。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R6-504-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\nTo: All Department Heads\nFrom: Priya Raman, Human Resources\nDate: September 3\nSubject: Leadership Training Program\n\nThis fall, Human Resources will offer a six-week leadership training program for employees who [1] ------- to supervisory roles within the past year. Sessions will be held every Thursday afternoon in Conference Room B.\n\nThe program covers topics such as giving feedback, managing conflict, and planning team goals. Each session [2] ------- by an experienced trainer from an outside consulting firm. [3] -------.\n\nPlease share this information with eligible staff in your department and encourage them to [4] -------. The registration deadline is September 20.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "are promoting",
+   "will be promoted",
+   "have been promoted",
+   "promoting"
+  ],
+  "answer": "have been promoted",
+  "explanation": "within the past year（過去1年以内に）と「昇進させられた」から現在完了の受動態。",
+  "tags": "時制 態"
+ },
+ {
+  "id": "TOEIC-R6-504-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\nTo: All Department Heads\nFrom: Priya Raman, Human Resources\nDate: September 3\nSubject: Leadership Training Program\n\nThis fall, Human Resources will offer a six-week leadership training program for employees who [1] ------- to supervisory roles within the past year. Sessions will be held every Thursday afternoon in Conference Room B.\n\nThe program covers topics such as giving feedback, managing conflict, and planning team goals. Each session [2] ------- by an experienced trainer from an outside consulting firm. [3] -------.\n\nPlease share this information with eligible staff in your department and encourage them to [4] -------. The registration deadline is September 20.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "led",
+   "leads",
+   "has led",
+   "will be led"
+  ],
+  "answer": "will be led",
+  "explanation": "主語 session は「指導される」側で、これからの研修なので未来の受動態。",
+  "tags": "態 時制"
+ },
+ {
+  "id": "TOEIC-R6-504-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\nTo: All Department Heads\nFrom: Priya Raman, Human Resources\nDate: September 3\nSubject: Leadership Training Program\n\nThis fall, Human Resources will offer a six-week leadership training program for employees who [1] ------- to supervisory roles within the past year. Sessions will be held every Thursday afternoon in Conference Room B.\n\nThe program covers topics such as giving feedback, managing conflict, and planning team goals. Each session [2] ------- by an experienced trainer from an outside consulting firm. [3] -------.\n\nPlease share this information with eligible staff in your department and encourage them to [4] -------. The registration deadline is September 20.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Last year's holiday party was a great success.",
+   "Participants will also meet individually with a mentor from senior management.",
+   "Conference Room B will be closed for renovation this fall.",
+   "The consulting firm recently moved its offices to another city."
+  ],
+  "answer": "Participants will also meet individually with a mentor from senior management.",
+  "explanation": "研修内容の説明に続けて、追加の内容（個別面談）を述べる文が自然。会議室Bが閉鎖されるのは本文と矛盾する。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-504-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "MEMO\nTo: All Department Heads\nFrom: Priya Raman, Human Resources\nDate: September 3\nSubject: Leadership Training Program\n\nThis fall, Human Resources will offer a six-week leadership training program for employees who [1] ------- to supervisory roles within the past year. Sessions will be held every Thursday afternoon in Conference Room B.\n\nThe program covers topics such as giving feedback, managing conflict, and planning team goals. Each session [2] ------- by an experienced trainer from an outside consulting firm. [3] -------.\n\nPlease share this information with eligible staff in your department and encourage them to [4] -------. The registration deadline is September 20.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "enroll",
+   "enrolling",
+   "enrollment",
+   "enrolled"
+  ],
+  "answer": "enroll",
+  "explanation": "encourage O to do の形で動詞の原形 enroll が入る。",
+  "tags": "品詞 不定詞"
+ },
+ {
+  "id": "TOEIC-R6-505-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "BRADFORD (June 12) — Corvell Freight announced on Monday that it will replace one-third of its delivery trucks with electric models over the next three years. The company, which operates [1] ------- distribution centers across the region, said the move would cut its fuel expenses significantly.\n\n\"Electric trucks cost more to purchase, but they are far cheaper to maintain and operate,\" said Corvell's chief operating officer, Lena Varga. \"[2] -------.\"\n\nThe company has also signed an agreement with a local utility to install charging stations at each of its sites. Industry analysts say the plan is [3] ------- ambitious, given that electric trucks with long driving ranges remain in short supply. [4] -------, Corvell expects the first fifty vehicles to be on the road by early next year.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "numerous",
+   "a great deal",
+   "much",
+   "every"
+  ],
+  "answer": "numerous",
+  "explanation": "複数形の可算名詞 distribution centers を修飾できるのは numerous。",
+  "tags": "数量詞"
+ },
+ {
+  "id": "TOEIC-R6-505-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "BRADFORD (June 12) — Corvell Freight announced on Monday that it will replace one-third of its delivery trucks with electric models over the next three years. The company, which operates [1] ------- distribution centers across the region, said the move would cut its fuel expenses significantly.\n\n\"Electric trucks cost more to purchase, but they are far cheaper to maintain and operate,\" said Corvell's chief operating officer, Lena Varga. \"[2] -------.\"\n\nThe company has also signed an agreement with a local utility to install charging stations at each of its sites. Industry analysts say the plan is [3] ------- ambitious, given that electric trucks with long driving ranges remain in short supply. [4] -------, Corvell expects the first fifty vehicles to be on the road by early next year.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "That is why we have decided to keep our current fleet unchanged.",
+   "Over the life of each vehicle, we expect the savings to more than make up for the higher price.",
+   "Most of our drivers prefer to work night shifts.",
+   "The utility company was founded more than a century ago."
+  ],
+  "answer": "Over the life of each vehicle, we expect the savings to more than make up for the higher price.",
+  "explanation": "購入費は高いが維持費が安いという発言に続き、節約分が価格差を上回るという文が自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-505-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "BRADFORD (June 12) — Corvell Freight announced on Monday that it will replace one-third of its delivery trucks with electric models over the next three years. The company, which operates [1] ------- distribution centers across the region, said the move would cut its fuel expenses significantly.\n\n\"Electric trucks cost more to purchase, but they are far cheaper to maintain and operate,\" said Corvell's chief operating officer, Lena Varga. \"[2] -------.\"\n\nThe company has also signed an agreement with a local utility to install charging stations at each of its sites. Industry analysts say the plan is [3] ------- ambitious, given that electric trucks with long driving ranges remain in short supply. [4] -------, Corvell expects the first fifty vehicles to be on the road by early next year.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "something",
+   "some",
+   "someone",
+   "somewhat"
+  ],
+  "answer": "somewhat",
+  "explanation": "形容詞 ambitious を修飾する副詞 somewhat（いくぶん）が入る。",
+  "tags": "品詞 副詞"
+ },
+ {
+  "id": "TOEIC-R6-505-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "BRADFORD (June 12) — Corvell Freight announced on Monday that it will replace one-third of its delivery trucks with electric models over the next three years. The company, which operates [1] ------- distribution centers across the region, said the move would cut its fuel expenses significantly.\n\n\"Electric trucks cost more to purchase, but they are far cheaper to maintain and operate,\" said Corvell's chief operating officer, Lena Varga. \"[2] -------.\"\n\nThe company has also signed an agreement with a local utility to install charging stations at each of its sites. Industry analysts say the plan is [3] ------- ambitious, given that electric trucks with long driving ranges remain in short supply. [4] -------, Corvell expects the first fifty vehicles to be on the road by early next year.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "For example",
+   "Therefore",
+   "Nevertheless",
+   "Similarly"
+  ],
+  "answer": "Nevertheless",
+  "explanation": "供給不足という懸念にもかかわらず導入を見込むので逆接の Nevertheless。",
+  "tags": "接続副詞"
+ },
+ {
+  "id": "TOEIC-R6-506-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Attention, Residents of Maple Court Apartments\n\nThe elevator in Building A will be out of service from Monday, March 9, to Wednesday, March 11, while technicians [1] ------- the motor and control panel. We apologize for the inconvenience.\n\nDuring this time, residents are asked to use the stairs or the elevator in Building B, which is connected to Building A by a [2] ------- on the second floor. [3] -------. Residents who need assistance carrying heavy items may contact the management office, and a staff member will be glad to help.\n\nThank you for your [4] ------- while we make these improvements.\n\nMaple Court Management Office",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "replacement",
+   "replace",
+   "replaced",
+   "replacing"
+  ],
+  "answer": "replace",
+  "explanation": "接続詞 while の後の節で主語 technicians に続く動詞（現在形）が必要。",
+  "tags": "品詞 動詞"
+ },
+ {
+  "id": "TOEIC-R6-506-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Attention, Residents of Maple Court Apartments\n\nThe elevator in Building A will be out of service from Monday, March 9, to Wednesday, March 11, while technicians [1] ------- the motor and control panel. We apologize for the inconvenience.\n\nDuring this time, residents are asked to use the stairs or the elevator in Building B, which is connected to Building A by a [2] ------- on the second floor. [3] -------. Residents who need assistance carrying heavy items may contact the management office, and a staff member will be glad to help.\n\nThank you for your [4] ------- while we make these improvements.\n\nMaple Court Management Office",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "doorbell",
+   "highway",
+   "driveway",
+   "walkway"
+  ],
+  "answer": "walkway",
+  "explanation": "2階で2つの建物をつなぐのは walkway（連絡通路）。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R6-506-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Attention, Residents of Maple Court Apartments\n\nThe elevator in Building A will be out of service from Monday, March 9, to Wednesday, March 11, while technicians [1] ------- the motor and control panel. We apologize for the inconvenience.\n\nDuring this time, residents are asked to use the stairs or the elevator in Building B, which is connected to Building A by a [2] ------- on the second floor. [3] -------. Residents who need assistance carrying heavy items may contact the management office, and a staff member will be glad to help.\n\nThank you for your [4] ------- while we make these improvements.\n\nMaple Court Management Office",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Please note that package deliveries will also be directed to the entrance of Building B.",
+   "The new fitness room will open in April.",
+   "Residents of Building B must use the stairs during this period.",
+   "The elevator in Building B is also closed for repairs."
+  ],
+  "answer": "Please note that package deliveries will also be directed to the entrance of Building B.",
+  "explanation": "B棟を使うよう求める流れに続き、配達もB棟入口になるという補足が自然。B棟のエレベーター停止は本文と矛盾する。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-506-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Attention, Residents of Maple Court Apartments\n\nThe elevator in Building A will be out of service from Monday, March 9, to Wednesday, March 11, while technicians [1] ------- the motor and control panel. We apologize for the inconvenience.\n\nDuring this time, residents are asked to use the stairs or the elevator in Building B, which is connected to Building A by a [2] ------- on the second floor. [3] -------. Residents who need assistance carrying heavy items may contact the management office, and a staff member will be glad to help.\n\nThank you for your [4] ------- while we make these improvements.\n\nMaple Court Management Office",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "patient",
+   "patiently",
+   "patience",
+   "patients"
+  ],
+  "answer": "patience",
+  "explanation": "所有格 your の後で「ご辛抱」を表す名詞 patience が正解。patients は「患者」。",
+  "tags": "品詞 名詞"
+ },
+ {
+  "id": "TOEIC-R6-507-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "To: Finance Department Staff\nFrom: Helena Brandt\nSubject: Preparations for the annual audit\n\nDear colleagues,\n\nThe external auditors from Whitfield & Ames will be on site from October 14 to 25. In previous years, much of their time was spent waiting for supporting documents, which [1] ------- the process considerably. This year, I would like us to have all reconciliations completed and filed in the shared folder before their arrival.\n\n[2] -------. Any account balance that differs from the prior year by more than 10 percent should be accompanied by a brief written explanation. Doing so will [3] ------- the number of follow-up questions we receive.\n\nI appreciate that this is a busy period. Should you foresee any difficulty meeting the October 7 internal deadline, please let me know [4] ------- so that we can reallocate tasks.\n\nRegards,\nHelena Brandt\nFinancial Controller",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "prolonging",
+   "will prolong",
+   "prolonged",
+   "prolongs"
+  ],
+  "answer": "prolonged",
+  "explanation": "In previous years の過去の出来事なので過去形 prolonged。",
+  "tags": "時制"
+ },
+ {
+  "id": "TOEIC-R6-507-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "To: Finance Department Staff\nFrom: Helena Brandt\nSubject: Preparations for the annual audit\n\nDear colleagues,\n\nThe external auditors from Whitfield & Ames will be on site from October 14 to 25. In previous years, much of their time was spent waiting for supporting documents, which [1] ------- the process considerably. This year, I would like us to have all reconciliations completed and filed in the shared folder before their arrival.\n\n[2] -------. Any account balance that differs from the prior year by more than 10 percent should be accompanied by a brief written explanation. Doing so will [3] ------- the number of follow-up questions we receive.\n\nI appreciate that this is a busy period. Should you foresee any difficulty meeting the October 7 internal deadline, please let me know [4] ------- so that we can reallocate tasks.\n\nRegards,\nHelena Brandt\nFinancial Controller",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Reconciliations will therefore not be required this year.",
+   "In addition, please pay particular attention to significant fluctuations.",
+   "Our cafeteria will be closed for the duration of the audit.",
+   "The auditors have asked us to postpone their visit until next year."
+  ],
+  "answer": "In addition, please pay particular attention to significant fluctuations.",
+  "explanation": "直後の「前年比10%以上変動した残高には説明を付ける」を導入する文が適切。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-507-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "To: Finance Department Staff\nFrom: Helena Brandt\nSubject: Preparations for the annual audit\n\nDear colleagues,\n\nThe external auditors from Whitfield & Ames will be on site from October 14 to 25. In previous years, much of their time was spent waiting for supporting documents, which [1] ------- the process considerably. This year, I would like us to have all reconciliations completed and filed in the shared folder before their arrival.\n\n[2] -------. Any account balance that differs from the prior year by more than 10 percent should be accompanied by a brief written explanation. Doing so will [3] ------- the number of follow-up questions we receive.\n\nI appreciate that this is a busy period. Should you foresee any difficulty meeting the October 7 internal deadline, please let me know [4] ------- so that we can reallocate tasks.\n\nRegards,\nHelena Brandt\nFinancial Controller",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "minimize",
+   "mobilize",
+   "magnify",
+   "maximize"
+  ],
+  "answer": "minimize",
+  "explanation": "説明を添える目的は追加質問を「最小限にする」こと。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R6-507-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "To: Finance Department Staff\nFrom: Helena Brandt\nSubject: Preparations for the annual audit\n\nDear colleagues,\n\nThe external auditors from Whitfield & Ames will be on site from October 14 to 25. In previous years, much of their time was spent waiting for supporting documents, which [1] ------- the process considerably. This year, I would like us to have all reconciliations completed and filed in the shared folder before their arrival.\n\n[2] -------. Any account balance that differs from the prior year by more than 10 percent should be accompanied by a brief written explanation. Doing so will [3] ------- the number of follow-up questions we receive.\n\nI appreciate that this is a busy period. Should you foresee any difficulty meeting the October 7 internal deadline, please let me know [4] ------- so that we can reallocate tasks.\n\nRegards,\nHelena Brandt\nFinancial Controller",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "prompted",
+   "promptness",
+   "prompt",
+   "promptly"
+  ],
+  "answer": "promptly",
+  "explanation": "動詞 let me know を修飾する副詞 promptly（速やかに）。",
+  "tags": "品詞 副詞"
+ }
+]

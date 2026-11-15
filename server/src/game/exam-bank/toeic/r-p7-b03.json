@@ -1,0 +1,632 @@
+[
+ {
+  "id": "TOEIC-R7-523-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Exhibition Team\nFrom: Rina Takahashi\nDate: February 2\nSubject: Hospitality Expo staffing\n\nHi all,\n\nThank you for volunteering to staff our booth at the Hospitality Expo in Melbrook next month. I've attached the booth schedule. Each shift must have at least two people on the stand, and one of them should be able to demonstrate the new induction cooktop.\n\nArjun has just told me that he can't work the Thursday afternoon shift after all, because he has a client meeting. Could someone take his place? Ideally, it should be someone who has been trained on the cooktop and who isn't already working that day, so that nobody has to do a full day.\n\nAlso, remember to collect your exhibitor badge from the registration desk in Hall B before 8:30 A.M. on your first day.\n\nThanks,\nRina\n\n--- Text 2 ---\n\nSolvia Kitchenware — Booth 214, Hospitality Expo (March 12–13)\n\nThursday, March 12\nMorning (9:00–1:00): Lena Ford*, Paulo Reis\nAfternoon (1:00–5:00): Arjun Mehta*, Grace Obi\n\nFriday, March 13\nMorning (9:00–1:00): Grace Obi, Tom Hallett*\nAfternoon (1:00–5:00): Paulo Reis, Lena Ford*\n\n* Trained to demonstrate the induction cooktop",
+  "question": "What is the purpose of the e-mail?",
+  "choices": [
+   "To request reimbursement for travel to Melbrook",
+   "To arrange staff coverage for an event",
+   "To announce a new product price",
+   "To invite clients to a booth"
+  ],
+  "answer": "To arrange staff coverage for an event",
+  "explanation": "展示会ブースの人員配置について調整を依頼している。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-523-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Exhibition Team\nFrom: Rina Takahashi\nDate: February 2\nSubject: Hospitality Expo staffing\n\nHi all,\n\nThank you for volunteering to staff our booth at the Hospitality Expo in Melbrook next month. I've attached the booth schedule. Each shift must have at least two people on the stand, and one of them should be able to demonstrate the new induction cooktop.\n\nArjun has just told me that he can't work the Thursday afternoon shift after all, because he has a client meeting. Could someone take his place? Ideally, it should be someone who has been trained on the cooktop and who isn't already working that day, so that nobody has to do a full day.\n\nAlso, remember to collect your exhibitor badge from the registration desk in Hall B before 8:30 A.M. on your first day.\n\nThanks,\nRina\n\n--- Text 2 ---\n\nSolvia Kitchenware — Booth 214, Hospitality Expo (March 12–13)\n\nThursday, March 12\nMorning (9:00–1:00): Lena Ford*, Paulo Reis\nAfternoon (1:00–5:00): Arjun Mehta*, Grace Obi\n\nFriday, March 13\nMorning (9:00–1:00): Grace Obi, Tom Hallett*\nAfternoon (1:00–5:00): Paulo Reis, Lena Ford*\n\n* Trained to demonstrate the induction cooktop",
+  "question": "Why is Mr. Mehta unable to work his shift?",
+  "choices": [
+   "He has a meeting with a client.",
+   "He must train new staff.",
+   "He will be on vacation during the expo.",
+   "He is ill."
+  ],
+  "answer": "He has a meeting with a client.",
+  "explanation": "顧客との打ち合わせがあるためと書かれている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-523-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Exhibition Team\nFrom: Rina Takahashi\nDate: February 2\nSubject: Hospitality Expo staffing\n\nHi all,\n\nThank you for volunteering to staff our booth at the Hospitality Expo in Melbrook next month. I've attached the booth schedule. Each shift must have at least two people on the stand, and one of them should be able to demonstrate the new induction cooktop.\n\nArjun has just told me that he can't work the Thursday afternoon shift after all, because he has a client meeting. Could someone take his place? Ideally, it should be someone who has been trained on the cooktop and who isn't already working that day, so that nobody has to do a full day.\n\nAlso, remember to collect your exhibitor badge from the registration desk in Hall B before 8:30 A.M. on your first day.\n\nThanks,\nRina\n\n--- Text 2 ---\n\nSolvia Kitchenware — Booth 214, Hospitality Expo (March 12–13)\n\nThursday, March 12\nMorning (9:00–1:00): Lena Ford*, Paulo Reis\nAfternoon (1:00–5:00): Arjun Mehta*, Grace Obi\n\nFriday, March 13\nMorning (9:00–1:00): Grace Obi, Tom Hallett*\nAfternoon (1:00–5:00): Paulo Reis, Lena Ford*\n\n* Trained to demonstrate the induction cooktop",
+  "question": "Who would be the most suitable replacement for Mr. Mehta?",
+  "choices": [
+   "Paulo Reis",
+   "Lena Ford",
+   "Tom Hallett",
+   "Grace Obi"
+  ],
+  "answer": "Tom Hallett",
+  "explanation": "調理器の研修を受けていて木曜に勤務がないのは Tom Hallett だけ。Lena Ford は木曜午前に勤務がある。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-523-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Exhibition Team\nFrom: Rina Takahashi\nDate: February 2\nSubject: Hospitality Expo staffing\n\nHi all,\n\nThank you for volunteering to staff our booth at the Hospitality Expo in Melbrook next month. I've attached the booth schedule. Each shift must have at least two people on the stand, and one of them should be able to demonstrate the new induction cooktop.\n\nArjun has just told me that he can't work the Thursday afternoon shift after all, because he has a client meeting. Could someone take his place? Ideally, it should be someone who has been trained on the cooktop and who isn't already working that day, so that nobody has to do a full day.\n\nAlso, remember to collect your exhibitor badge from the registration desk in Hall B before 8:30 A.M. on your first day.\n\nThanks,\nRina\n\n--- Text 2 ---\n\nSolvia Kitchenware — Booth 214, Hospitality Expo (March 12–13)\n\nThursday, March 12\nMorning (9:00–1:00): Lena Ford*, Paulo Reis\nAfternoon (1:00–5:00): Arjun Mehta*, Grace Obi\n\nFriday, March 13\nMorning (9:00–1:00): Grace Obi, Tom Hallett*\nAfternoon (1:00–5:00): Paulo Reis, Lena Ford*\n\n* Trained to demonstrate the induction cooktop",
+  "question": "What are staff members asked to do on their first day?",
+  "choices": [
+   "Pick up a badge before a certain time",
+   "Meet clients at 8:30 A.M.",
+   "Deliver the cooktop to the booth",
+   "Attend a training session in Hall B"
+  ],
+  "answer": "Pick up a badge before a certain time",
+  "explanation": "初日の午前8時30分までにホールBで出展者バッジを受け取るよう求めている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-523-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Exhibition Team\nFrom: Rina Takahashi\nDate: February 2\nSubject: Hospitality Expo staffing\n\nHi all,\n\nThank you for volunteering to staff our booth at the Hospitality Expo in Melbrook next month. I've attached the booth schedule. Each shift must have at least two people on the stand, and one of them should be able to demonstrate the new induction cooktop.\n\nArjun has just told me that he can't work the Thursday afternoon shift after all, because he has a client meeting. Could someone take his place? Ideally, it should be someone who has been trained on the cooktop and who isn't already working that day, so that nobody has to do a full day.\n\nAlso, remember to collect your exhibitor badge from the registration desk in Hall B before 8:30 A.M. on your first day.\n\nThanks,\nRina\n\n--- Text 2 ---\n\nSolvia Kitchenware — Booth 214, Hospitality Expo (March 12–13)\n\nThursday, March 12\nMorning (9:00–1:00): Lena Ford*, Paulo Reis\nAfternoon (1:00–5:00): Arjun Mehta*, Grace Obi\n\nFriday, March 13\nMorning (9:00–1:00): Grace Obi, Tom Hallett*\nAfternoon (1:00–5:00): Paulo Reis, Lena Ford*\n\n* Trained to demonstrate the induction cooktop",
+  "question": "What is indicated about Grace Obi?",
+  "choices": [
+   "She will replace Mr. Mehta.",
+   "She is scheduled to work on both days.",
+   "She is trained to demonstrate the cooktop.",
+   "She created the booth schedule."
+  ],
+  "answer": "She is scheduled to work on both days.",
+  "explanation": "日程表では木曜午後と金曜午前の両方に入っている。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-524-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Copperleaf Catering — Corporate Lunch Packages\n\nBasic: sandwiches, salad, fruit — $14 per person\nStandard: Basic package plus soup and dessert — $19 per person\nPremium: hot main course, two salads, dessert, and fresh juice — $26 per person\n\n• Free delivery within the city for orders of 20 or more people\n• Orders must be placed at least 48 hours in advance\n• 10% discount for first-time customers\n\n--- Text 2 ---\n\nTo: orders@copperleaf.example\nFrom: Dmitri Volkov, Office Manager, Ashgrove Architects\nDate: May 6\nSubject: Lunch order for May 9\n\nHello,\n\nWe would like to order lunch for a client workshop on Friday, May 9. There will be 25 participants. We'd like the package that includes soup and dessert, but could you replace the fruit with a cheese plate? I'm happy to pay extra for this if necessary.\n\nPlease deliver to our office at 18 Quarry Lane by 11:45 A.M. This is our first time ordering from you; a colleague recommended your company highly.\n\nBest regards,\nDmitri Volkov\n\n--- Text 3 ---\n\nCopperleaf Catering — Invoice #C-5520\nCustomer: Ashgrove Architects\nEvent date: May 9\n\nStandard lunch package × 25 @ $19.00 .... $475.00\nCheese plate substitution × 25 @ $1.50 .... $37.50\nDelivery .... $0.00\nSubtotal .... $512.50\nDiscount .... -$51.25\nTotal .... $461.25",
+  "question": "What is the purpose of the e-mail?",
+  "choices": [
+   "To cancel a reservation",
+   "To complain about a late delivery",
+   "To request a job interview",
+   "To place an order for an event"
+  ],
+  "answer": "To place an order for an event",
+  "explanation": "顧客向けワークショップの昼食を注文するメール。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-524-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Copperleaf Catering — Corporate Lunch Packages\n\nBasic: sandwiches, salad, fruit — $14 per person\nStandard: Basic package plus soup and dessert — $19 per person\nPremium: hot main course, two salads, dessert, and fresh juice — $26 per person\n\n• Free delivery within the city for orders of 20 or more people\n• Orders must be placed at least 48 hours in advance\n• 10% discount for first-time customers\n\n--- Text 2 ---\n\nTo: orders@copperleaf.example\nFrom: Dmitri Volkov, Office Manager, Ashgrove Architects\nDate: May 6\nSubject: Lunch order for May 9\n\nHello,\n\nWe would like to order lunch for a client workshop on Friday, May 9. There will be 25 participants. We'd like the package that includes soup and dessert, but could you replace the fruit with a cheese plate? I'm happy to pay extra for this if necessary.\n\nPlease deliver to our office at 18 Quarry Lane by 11:45 A.M. This is our first time ordering from you; a colleague recommended your company highly.\n\nBest regards,\nDmitri Volkov\n\n--- Text 3 ---\n\nCopperleaf Catering — Invoice #C-5520\nCustomer: Ashgrove Architects\nEvent date: May 9\n\nStandard lunch package × 25 @ $19.00 .... $475.00\nCheese plate substitution × 25 @ $1.50 .... $37.50\nDelivery .... $0.00\nSubtotal .... $512.50\nDiscount .... -$51.25\nTotal .... $461.25",
+  "question": "Which package did Mr. Volkov order?",
+  "choices": [
+   "Basic",
+   "Premium",
+   "Standard",
+   "A custom package with juice"
+  ],
+  "answer": "Standard",
+  "explanation": "スープとデザート付きのパッケージを希望しており、広告から Standard に当たる。請求書でも確認できる。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-524-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Copperleaf Catering — Corporate Lunch Packages\n\nBasic: sandwiches, salad, fruit — $14 per person\nStandard: Basic package plus soup and dessert — $19 per person\nPremium: hot main course, two salads, dessert, and fresh juice — $26 per person\n\n• Free delivery within the city for orders of 20 or more people\n• Orders must be placed at least 48 hours in advance\n• 10% discount for first-time customers\n\n--- Text 2 ---\n\nTo: orders@copperleaf.example\nFrom: Dmitri Volkov, Office Manager, Ashgrove Architects\nDate: May 6\nSubject: Lunch order for May 9\n\nHello,\n\nWe would like to order lunch for a client workshop on Friday, May 9. There will be 25 participants. We'd like the package that includes soup and dessert, but could you replace the fruit with a cheese plate? I'm happy to pay extra for this if necessary.\n\nPlease deliver to our office at 18 Quarry Lane by 11:45 A.M. This is our first time ordering from you; a colleague recommended your company highly.\n\nBest regards,\nDmitri Volkov\n\n--- Text 3 ---\n\nCopperleaf Catering — Invoice #C-5520\nCustomer: Ashgrove Architects\nEvent date: May 9\n\nStandard lunch package × 25 @ $19.00 .... $475.00\nCheese plate substitution × 25 @ $1.50 .... $37.50\nDelivery .... $0.00\nSubtotal .... $512.50\nDiscount .... -$51.25\nTotal .... $461.25",
+  "question": "Why was Ashgrove Architects not charged for delivery?",
+  "choices": [
+   "The order was placed a week in advance.",
+   "The order was for 20 or more people.",
+   "Ashgrove is a regular customer.",
+   "Ashgrove's office is next to Copperleaf."
+  ],
+  "answer": "The order was for 20 or more people.",
+  "explanation": "広告では20人以上の注文は市内配送無料で、注文は25人分。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-524-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Copperleaf Catering — Corporate Lunch Packages\n\nBasic: sandwiches, salad, fruit — $14 per person\nStandard: Basic package plus soup and dessert — $19 per person\nPremium: hot main course, two salads, dessert, and fresh juice — $26 per person\n\n• Free delivery within the city for orders of 20 or more people\n• Orders must be placed at least 48 hours in advance\n• 10% discount for first-time customers\n\n--- Text 2 ---\n\nTo: orders@copperleaf.example\nFrom: Dmitri Volkov, Office Manager, Ashgrove Architects\nDate: May 6\nSubject: Lunch order for May 9\n\nHello,\n\nWe would like to order lunch for a client workshop on Friday, May 9. There will be 25 participants. We'd like the package that includes soup and dessert, but could you replace the fruit with a cheese plate? I'm happy to pay extra for this if necessary.\n\nPlease deliver to our office at 18 Quarry Lane by 11:45 A.M. This is our first time ordering from you; a colleague recommended your company highly.\n\nBest regards,\nDmitri Volkov\n\n--- Text 3 ---\n\nCopperleaf Catering — Invoice #C-5520\nCustomer: Ashgrove Architects\nEvent date: May 9\n\nStandard lunch package × 25 @ $19.00 .... $475.00\nCheese plate substitution × 25 @ $1.50 .... $37.50\nDelivery .... $0.00\nSubtotal .... $512.50\nDiscount .... -$51.25\nTotal .... $461.25",
+  "question": "Why was a discount applied to the invoice?",
+  "choices": [
+   "The delivery arrived late.",
+   "The bill was paid early.",
+   "The cheese plates could not be supplied on May 9.",
+   "Ashgrove had not ordered from Copperleaf before."
+  ],
+  "answer": "Ashgrove had not ordered from Copperleaf before.",
+  "explanation": "メールで初めての注文と述べており、広告に初回10%割引とある。小計の10%が割引されている。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-524-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Copperleaf Catering — Corporate Lunch Packages\n\nBasic: sandwiches, salad, fruit — $14 per person\nStandard: Basic package plus soup and dessert — $19 per person\nPremium: hot main course, two salads, dessert, and fresh juice — $26 per person\n\n• Free delivery within the city for orders of 20 or more people\n• Orders must be placed at least 48 hours in advance\n• 10% discount for first-time customers\n\n--- Text 2 ---\n\nTo: orders@copperleaf.example\nFrom: Dmitri Volkov, Office Manager, Ashgrove Architects\nDate: May 6\nSubject: Lunch order for May 9\n\nHello,\n\nWe would like to order lunch for a client workshop on Friday, May 9. There will be 25 participants. We'd like the package that includes soup and dessert, but could you replace the fruit with a cheese plate? I'm happy to pay extra for this if necessary.\n\nPlease deliver to our office at 18 Quarry Lane by 11:45 A.M. This is our first time ordering from you; a colleague recommended your company highly.\n\nBest regards,\nDmitri Volkov\n\n--- Text 3 ---\n\nCopperleaf Catering — Invoice #C-5520\nCustomer: Ashgrove Architects\nEvent date: May 9\n\nStandard lunch package × 25 @ $19.00 .... $475.00\nCheese plate substitution × 25 @ $1.50 .... $37.50\nDelivery .... $0.00\nSubtotal .... $512.50\nDiscount .... -$51.25\nTotal .... $461.25",
+  "question": "What is suggested about Mr. Volkov's order?",
+  "choices": [
+   "It was placed with enough advance notice.",
+   "It was for 26 people.",
+   "It was delivered after 11:45 A.M.",
+   "It was later changed to the Premium package."
+  ],
+  "answer": "It was placed with enough advance notice.",
+  "explanation": "5月6日に5月9日分を注文しており、48時間前までという条件を満たしている。",
+  "tags": "読解 推測"
+ },
+ {
+  "id": "TOEIC-R7-525-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Position: Customer Support Specialist (Bilingual)\nCompany: Nordale Software, Lisbon office\n\nNordale Software is seeking a customer support specialist to help users of our accounting software by phone, e-mail, and live chat.\n\nRequirements:\n• Fluency in English and Portuguese; Spanish is a plus\n• At least one year of experience in customer service\n• Familiarity with accounting terms\n\nWorking hours: Monday–Friday, with one Saturday morning per month\n\nTo apply, send your résumé and a cover letter to careers@nordale.example by June 30. Shortlisted candidates will complete a short online test before the interview.\n\n--- Text 2 ---\n\nTo: careers@nordale.example\nFrom: Beatriz Santos\nDate: June 21\nSubject: Application — Customer Support Specialist\n\nDear Hiring Team,\n\nI am writing to apply for the Customer Support Specialist position advertised on your Web site. I am a native Portuguese speaker, and I have used English daily for the past four years in my current role at a hotel reservations center, where I handle guest inquiries by phone and e-mail. I also speak Spanish at an intermediate level.\n\nAlthough I have not worked in the software industry, I completed an evening course in bookkeeping last year, so I am familiar with basic accounting vocabulary.\n\nI am available for an interview at any time except June 27, when I will be traveling. I have attached my résumé.\n\nSincerely,\nBeatriz Santos",
+  "question": "What is NOT listed as a requirement for the position?",
+  "choices": [
+   "Knowledge of accounting terms",
+   "The ability to speak Portuguese",
+   "Experience in the software industry",
+   "Customer service experience"
+  ],
+  "answer": "Experience in the software industry",
+  "explanation": "求人の要件にソフトウェア業界の経験は含まれていない。",
+  "tags": "読解 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-525-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Position: Customer Support Specialist (Bilingual)\nCompany: Nordale Software, Lisbon office\n\nNordale Software is seeking a customer support specialist to help users of our accounting software by phone, e-mail, and live chat.\n\nRequirements:\n• Fluency in English and Portuguese; Spanish is a plus\n• At least one year of experience in customer service\n• Familiarity with accounting terms\n\nWorking hours: Monday–Friday, with one Saturday morning per month\n\nTo apply, send your résumé and a cover letter to careers@nordale.example by June 30. Shortlisted candidates will complete a short online test before the interview.\n\n--- Text 2 ---\n\nTo: careers@nordale.example\nFrom: Beatriz Santos\nDate: June 21\nSubject: Application — Customer Support Specialist\n\nDear Hiring Team,\n\nI am writing to apply for the Customer Support Specialist position advertised on your Web site. I am a native Portuguese speaker, and I have used English daily for the past four years in my current role at a hotel reservations center, where I handle guest inquiries by phone and e-mail. I also speak Spanish at an intermediate level.\n\nAlthough I have not worked in the software industry, I completed an evening course in bookkeeping last year, so I am familiar with basic accounting vocabulary.\n\nI am available for an interview at any time except June 27, when I will be traveling. I have attached my résumé.\n\nSincerely,\nBeatriz Santos",
+  "question": "What does Ms. Santos currently do?",
+  "choices": [
+   "She teaches bookkeeping courses.",
+   "She answers questions from hotel guests.",
+   "She develops accounting software.",
+   "She works in the accounting department of a hotel."
+  ],
+  "answer": "She answers questions from hotel guests.",
+  "explanation": "ホテル予約センターで宿泊客の問い合わせに対応している。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-525-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Position: Customer Support Specialist (Bilingual)\nCompany: Nordale Software, Lisbon office\n\nNordale Software is seeking a customer support specialist to help users of our accounting software by phone, e-mail, and live chat.\n\nRequirements:\n• Fluency in English and Portuguese; Spanish is a plus\n• At least one year of experience in customer service\n• Familiarity with accounting terms\n\nWorking hours: Monday–Friday, with one Saturday morning per month\n\nTo apply, send your résumé and a cover letter to careers@nordale.example by June 30. Shortlisted candidates will complete a short online test before the interview.\n\n--- Text 2 ---\n\nTo: careers@nordale.example\nFrom: Beatriz Santos\nDate: June 21\nSubject: Application — Customer Support Specialist\n\nDear Hiring Team,\n\nI am writing to apply for the Customer Support Specialist position advertised on your Web site. I am a native Portuguese speaker, and I have used English daily for the past four years in my current role at a hotel reservations center, where I handle guest inquiries by phone and e-mail. I also speak Spanish at an intermediate level.\n\nAlthough I have not worked in the software industry, I completed an evening course in bookkeeping last year, so I am familiar with basic accounting vocabulary.\n\nI am available for an interview at any time except June 27, when I will be traveling. I have attached my résumé.\n\nSincerely,\nBeatriz Santos",
+  "question": "Which of Ms. Santos's qualifications goes beyond the stated requirements?",
+  "choices": [
+   "Her four years of customer service",
+   "Her native Portuguese",
+   "Her knowledge of Spanish",
+   "Her bookkeeping course"
+  ],
+  "answer": "Her knowledge of Spanish",
+  "explanation": "求人ではスペイン語は「あれば尚可」で、必須要件以上の資格に当たる。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-525-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Position: Customer Support Specialist (Bilingual)\nCompany: Nordale Software, Lisbon office\n\nNordale Software is seeking a customer support specialist to help users of our accounting software by phone, e-mail, and live chat.\n\nRequirements:\n• Fluency in English and Portuguese; Spanish is a plus\n• At least one year of experience in customer service\n• Familiarity with accounting terms\n\nWorking hours: Monday–Friday, with one Saturday morning per month\n\nTo apply, send your résumé and a cover letter to careers@nordale.example by June 30. Shortlisted candidates will complete a short online test before the interview.\n\n--- Text 2 ---\n\nTo: careers@nordale.example\nFrom: Beatriz Santos\nDate: June 21\nSubject: Application — Customer Support Specialist\n\nDear Hiring Team,\n\nI am writing to apply for the Customer Support Specialist position advertised on your Web site. I am a native Portuguese speaker, and I have used English daily for the past four years in my current role at a hotel reservations center, where I handle guest inquiries by phone and e-mail. I also speak Spanish at an intermediate level.\n\nAlthough I have not worked in the software industry, I completed an evening course in bookkeeping last year, so I am familiar with basic accounting vocabulary.\n\nI am available for an interview at any time except June 27, when I will be traveling. I have attached my résumé.\n\nSincerely,\nBeatriz Santos",
+  "question": "What will Ms. Santos most likely do if she is shortlisted?",
+  "choices": [
+   "Take an online test",
+   "Visit the Lisbon office on June 27",
+   "Send a second cover letter",
+   "Work on a Saturday morning"
+  ],
+  "answer": "Take an online test",
+  "explanation": "求人に、選考に残った候補者は面接前にオンラインテストを受けるとある。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-525-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Position: Customer Support Specialist (Bilingual)\nCompany: Nordale Software, Lisbon office\n\nNordale Software is seeking a customer support specialist to help users of our accounting software by phone, e-mail, and live chat.\n\nRequirements:\n• Fluency in English and Portuguese; Spanish is a plus\n• At least one year of experience in customer service\n• Familiarity with accounting terms\n\nWorking hours: Monday–Friday, with one Saturday morning per month\n\nTo apply, send your résumé and a cover letter to careers@nordale.example by June 30. Shortlisted candidates will complete a short online test before the interview.\n\n--- Text 2 ---\n\nTo: careers@nordale.example\nFrom: Beatriz Santos\nDate: June 21\nSubject: Application — Customer Support Specialist\n\nDear Hiring Team,\n\nI am writing to apply for the Customer Support Specialist position advertised on your Web site. I am a native Portuguese speaker, and I have used English daily for the past four years in my current role at a hotel reservations center, where I handle guest inquiries by phone and e-mail. I also speak Spanish at an intermediate level.\n\nAlthough I have not worked in the software industry, I completed an evening course in bookkeeping last year, so I am familiar with basic accounting vocabulary.\n\nI am available for an interview at any time except June 27, when I will be traveling. I have attached my résumé.\n\nSincerely,\nBeatriz Santos",
+  "question": "In the e-mail, the word \"handle\" in paragraph 1 is closest in meaning to",
+  "choices": [
+   "lift",
+   "carry",
+   "touch",
+   "deal with"
+  ],
+  "answer": "deal with",
+  "explanation": "handle inquiries は「問い合わせに対応する」なので deal with。",
+  "tags": "読解 語彙"
+ },
+ {
+  "id": "TOEIC-R7-526-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Rosewood Lodge — Meeting & Event Rooms\n\nThe Alder Room: up to 20 people; projector and whiteboard; $300 per day\nThe Birch Room: up to 50 people; projector and sound system; $550 per day\nCedar Hall: up to 150 people; stage, sound system, and lighting; $1,400 per day\n\nAll bookings include free Wi-Fi and coffee service. Lunch can be added for $22 per person. Groups booking a full day in the Birch Room or Cedar Hall receive one free night's stay for the event organizer.\n\n--- Text 2 ---\n\nReview by Owen Clarke, posted October 9\n\nI organized a two-day sales training workshop for 35 colleagues at Rosewood Lodge last week. The room was a comfortable size, and the sound system worked perfectly. Lunch was delicious, though the coffee ran out by mid-afternoon on the second day. The staff were very helpful when our presenter's laptop would not connect to the projector—a technician solved the problem within minutes. I also enjoyed the free night's stay I received as the organizer.\n\n--- Text 3 ---\n\nTo: Owen Clarke\nFrom: Sunita Rao, Events Manager, Rosewood Lodge\nDate: October 10\nSubject: Thank you for your review\n\nDear Mr. Clarke,\n\nThank you for your kind review. I am sorry that the afternoon refreshments ran short on your second day. We have since changed our procedures so that coffee service is checked every hour.\n\nAs a gesture of goodwill, we would like to offer free lunch for all participants the next time you book a full-day event with us. Simply mention this e-mail when you make your reservation.\n\nBest regards,\nSunita Rao",
+  "question": "Which room did Mr. Clarke most likely use?",
+  "choices": [
+   "The Alder Room",
+   "Cedar Hall",
+   "A room not listed on the Web page",
+   "The Birch Room"
+  ],
+  "answer": "The Birch Room",
+  "explanation": "35人でサウンドシステムを使っており、条件に合うのは最大50人の Birch Room。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-526-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Rosewood Lodge — Meeting & Event Rooms\n\nThe Alder Room: up to 20 people; projector and whiteboard; $300 per day\nThe Birch Room: up to 50 people; projector and sound system; $550 per day\nCedar Hall: up to 150 people; stage, sound system, and lighting; $1,400 per day\n\nAll bookings include free Wi-Fi and coffee service. Lunch can be added for $22 per person. Groups booking a full day in the Birch Room or Cedar Hall receive one free night's stay for the event organizer.\n\n--- Text 2 ---\n\nReview by Owen Clarke, posted October 9\n\nI organized a two-day sales training workshop for 35 colleagues at Rosewood Lodge last week. The room was a comfortable size, and the sound system worked perfectly. Lunch was delicious, though the coffee ran out by mid-afternoon on the second day. The staff were very helpful when our presenter's laptop would not connect to the projector—a technician solved the problem within minutes. I also enjoyed the free night's stay I received as the organizer.\n\n--- Text 3 ---\n\nTo: Owen Clarke\nFrom: Sunita Rao, Events Manager, Rosewood Lodge\nDate: October 10\nSubject: Thank you for your review\n\nDear Mr. Clarke,\n\nThank you for your kind review. I am sorry that the afternoon refreshments ran short on your second day. We have since changed our procedures so that coffee service is checked every hour.\n\nAs a gesture of goodwill, we would like to offer free lunch for all participants the next time you book a full-day event with us. Simply mention this e-mail when you make your reservation.\n\nBest regards,\nSunita Rao",
+  "question": "What problem did Mr. Clarke mention?",
+  "choices": [
+   "The lunch was served cold.",
+   "A beverage was not available all day.",
+   "The sound system did not work.",
+   "The room was too small."
+  ],
+  "answer": "A beverage was not available all day.",
+  "explanation": "2日目の午後半ばにコーヒーがなくなったと書いている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-526-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Rosewood Lodge — Meeting & Event Rooms\n\nThe Alder Room: up to 20 people; projector and whiteboard; $300 per day\nThe Birch Room: up to 50 people; projector and sound system; $550 per day\nCedar Hall: up to 150 people; stage, sound system, and lighting; $1,400 per day\n\nAll bookings include free Wi-Fi and coffee service. Lunch can be added for $22 per person. Groups booking a full day in the Birch Room or Cedar Hall receive one free night's stay for the event organizer.\n\n--- Text 2 ---\n\nReview by Owen Clarke, posted October 9\n\nI organized a two-day sales training workshop for 35 colleagues at Rosewood Lodge last week. The room was a comfortable size, and the sound system worked perfectly. Lunch was delicious, though the coffee ran out by mid-afternoon on the second day. The staff were very helpful when our presenter's laptop would not connect to the projector—a technician solved the problem within minutes. I also enjoyed the free night's stay I received as the organizer.\n\n--- Text 3 ---\n\nTo: Owen Clarke\nFrom: Sunita Rao, Events Manager, Rosewood Lodge\nDate: October 10\nSubject: Thank you for your review\n\nDear Mr. Clarke,\n\nThank you for your kind review. I am sorry that the afternoon refreshments ran short on your second day. We have since changed our procedures so that coffee service is checked every hour.\n\nAs a gesture of goodwill, we would like to offer free lunch for all participants the next time you book a full-day event with us. Simply mention this e-mail when you make your reservation.\n\nBest regards,\nSunita Rao",
+  "question": "What is indicated about the projector problem?",
+  "choices": [
+   "Hotel staff fixed it quickly.",
+   "The presenter solved it alone.",
+   "It was caused by a power outage.",
+   "It caused the workshop to be canceled."
+  ],
+  "answer": "Hotel staff fixed it quickly.",
+  "explanation": "技術者が数分で解決したとある。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-526-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Rosewood Lodge — Meeting & Event Rooms\n\nThe Alder Room: up to 20 people; projector and whiteboard; $300 per day\nThe Birch Room: up to 50 people; projector and sound system; $550 per day\nCedar Hall: up to 150 people; stage, sound system, and lighting; $1,400 per day\n\nAll bookings include free Wi-Fi and coffee service. Lunch can be added for $22 per person. Groups booking a full day in the Birch Room or Cedar Hall receive one free night's stay for the event organizer.\n\n--- Text 2 ---\n\nReview by Owen Clarke, posted October 9\n\nI organized a two-day sales training workshop for 35 colleagues at Rosewood Lodge last week. The room was a comfortable size, and the sound system worked perfectly. Lunch was delicious, though the coffee ran out by mid-afternoon on the second day. The staff were very helpful when our presenter's laptop would not connect to the projector—a technician solved the problem within minutes. I also enjoyed the free night's stay I received as the organizer.\n\n--- Text 3 ---\n\nTo: Owen Clarke\nFrom: Sunita Rao, Events Manager, Rosewood Lodge\nDate: October 10\nSubject: Thank you for your review\n\nDear Mr. Clarke,\n\nThank you for your kind review. I am sorry that the afternoon refreshments ran short on your second day. We have since changed our procedures so that coffee service is checked every hour.\n\nAs a gesture of goodwill, we would like to offer free lunch for all participants the next time you book a full-day event with us. Simply mention this e-mail when you make your reservation.\n\nBest regards,\nSunita Rao",
+  "question": "What is suggested about Mr. Clarke?",
+  "choices": [
+   "He works for Rosewood Lodge.",
+   "He organized a workshop for more than 50 people.",
+   "He booked the room for full days.",
+   "He did not use the projector."
+  ],
+  "answer": "He booked the room for full days.",
+  "explanation": "無料宿泊は Birch Room か Cedar Hall を終日予約した場合の特典なので、終日予約したと分かる。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-526-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Rosewood Lodge — Meeting & Event Rooms\n\nThe Alder Room: up to 20 people; projector and whiteboard; $300 per day\nThe Birch Room: up to 50 people; projector and sound system; $550 per day\nCedar Hall: up to 150 people; stage, sound system, and lighting; $1,400 per day\n\nAll bookings include free Wi-Fi and coffee service. Lunch can be added for $22 per person. Groups booking a full day in the Birch Room or Cedar Hall receive one free night's stay for the event organizer.\n\n--- Text 2 ---\n\nReview by Owen Clarke, posted October 9\n\nI organized a two-day sales training workshop for 35 colleagues at Rosewood Lodge last week. The room was a comfortable size, and the sound system worked perfectly. Lunch was delicious, though the coffee ran out by mid-afternoon on the second day. The staff were very helpful when our presenter's laptop would not connect to the projector—a technician solved the problem within minutes. I also enjoyed the free night's stay I received as the organizer.\n\n--- Text 3 ---\n\nTo: Owen Clarke\nFrom: Sunita Rao, Events Manager, Rosewood Lodge\nDate: October 10\nSubject: Thank you for your review\n\nDear Mr. Clarke,\n\nThank you for your kind review. I am sorry that the afternoon refreshments ran short on your second day. We have since changed our procedures so that coffee service is checked every hour.\n\nAs a gesture of goodwill, we would like to offer free lunch for all participants the next time you book a full-day event with us. Simply mention this e-mail when you make your reservation.\n\nBest regards,\nSunita Rao",
+  "question": "What does Ms. Rao offer Mr. Clarke?",
+  "choices": [
+   "Free use of a projector",
+   "A partial refund for the coffee service on the second day",
+   "A discount on guest rooms",
+   "A free meal for a future group event"
+  ],
+  "answer": "A free meal for a future group event",
+  "explanation": "次回の終日イベントで参加者全員の昼食を無料にすると申し出ている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-527-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\nTo: All Staff, Fairmont Medical Supplies\nFrom: Sustainability Office\nDate: March 2\nSubject: Green Commute Rewards\n\nTo reduce our carbon footprint, we are launching Green Commute Rewards on April 1. Employees who travel to work by bicycle, on foot, by public transportation, or by carpooling with at least one colleague will earn points for each day they do so.\n\n• Cycling or walking: 3 points per day\n• Public transportation: 2 points per day\n• Carpooling: 1 point per day\n\nPoints can be exchanged at the end of each quarter for gift cards, extra vacation hours, or donations to an environmental charity. Every 100 points earns one reward. To take part, complete the registration form and return it to the Sustainability Office by March 20. Participants must record their journeys each week using the online log.\n\n--- Text 2 ---\n\nGreen Commute Rewards — Registration Form\n\nName: Tobias Engel\nDepartment: Warehouse Operations\nUsual commute (check one): [ ] Cycling/walking  [X] Public transportation  [ ] Carpooling\nDistance from home to work: 14 km\nPreferred reward type: [ ] Gift card  [X] Extra vacation hours  [ ] Charity donation\nComments: I plan to cycle to work twice a week once the weather gets warmer in May, and take the train on other days.\nDate submitted: March 24",
+  "question": "What is the purpose of the memo?",
+  "choices": [
+   "To announce new parking fees",
+   "To introduce a program that encourages greener travel",
+   "To recruit volunteer drivers",
+   "To report on charity donations"
+  ],
+  "answer": "To introduce a program that encourages greener travel",
+  "explanation": "環境にやさしい通勤にポイントを与える制度を紹介している。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-527-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\nTo: All Staff, Fairmont Medical Supplies\nFrom: Sustainability Office\nDate: March 2\nSubject: Green Commute Rewards\n\nTo reduce our carbon footprint, we are launching Green Commute Rewards on April 1. Employees who travel to work by bicycle, on foot, by public transportation, or by carpooling with at least one colleague will earn points for each day they do so.\n\n• Cycling or walking: 3 points per day\n• Public transportation: 2 points per day\n• Carpooling: 1 point per day\n\nPoints can be exchanged at the end of each quarter for gift cards, extra vacation hours, or donations to an environmental charity. Every 100 points earns one reward. To take part, complete the registration form and return it to the Sustainability Office by March 20. Participants must record their journeys each week using the online log.\n\n--- Text 2 ---\n\nGreen Commute Rewards — Registration Form\n\nName: Tobias Engel\nDepartment: Warehouse Operations\nUsual commute (check one): [ ] Cycling/walking  [X] Public transportation  [ ] Carpooling\nDistance from home to work: 14 km\nPreferred reward type: [ ] Gift card  [X] Extra vacation hours  [ ] Charity donation\nComments: I plan to cycle to work twice a week once the weather gets warmer in May, and take the train on other days.\nDate submitted: March 24",
+  "question": "How many points would an employee earn for carpooling to work for five days?",
+  "choices": [
+   "5",
+   "10",
+   "3",
+   "15"
+  ],
+  "answer": "5",
+  "explanation": "相乗りは1日1ポイントなので5日で5ポイント。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-527-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\nTo: All Staff, Fairmont Medical Supplies\nFrom: Sustainability Office\nDate: March 2\nSubject: Green Commute Rewards\n\nTo reduce our carbon footprint, we are launching Green Commute Rewards on April 1. Employees who travel to work by bicycle, on foot, by public transportation, or by carpooling with at least one colleague will earn points for each day they do so.\n\n• Cycling or walking: 3 points per day\n• Public transportation: 2 points per day\n• Carpooling: 1 point per day\n\nPoints can be exchanged at the end of each quarter for gift cards, extra vacation hours, or donations to an environmental charity. Every 100 points earns one reward. To take part, complete the registration form and return it to the Sustainability Office by March 20. Participants must record their journeys each week using the online log.\n\n--- Text 2 ---\n\nGreen Commute Rewards — Registration Form\n\nName: Tobias Engel\nDepartment: Warehouse Operations\nUsual commute (check one): [ ] Cycling/walking  [X] Public transportation  [ ] Carpooling\nDistance from home to work: 14 km\nPreferred reward type: [ ] Gift card  [X] Extra vacation hours  [ ] Charity donation\nComments: I plan to cycle to work twice a week once the weather gets warmer in May, and take the train on other days.\nDate submitted: March 24",
+  "question": "What is indicated about Mr. Engel's form?",
+  "choices": [
+   "It requests a gift card.",
+   "It does not include the name of his department.",
+   "It was submitted after the deadline.",
+   "It was submitted by a carpooler."
+  ],
+  "answer": "It was submitted after the deadline.",
+  "explanation": "締め切りは3月20日だが、提出日は3月24日。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-527-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\nTo: All Staff, Fairmont Medical Supplies\nFrom: Sustainability Office\nDate: March 2\nSubject: Green Commute Rewards\n\nTo reduce our carbon footprint, we are launching Green Commute Rewards on April 1. Employees who travel to work by bicycle, on foot, by public transportation, or by carpooling with at least one colleague will earn points for each day they do so.\n\n• Cycling or walking: 3 points per day\n• Public transportation: 2 points per day\n• Carpooling: 1 point per day\n\nPoints can be exchanged at the end of each quarter for gift cards, extra vacation hours, or donations to an environmental charity. Every 100 points earns one reward. To take part, complete the registration form and return it to the Sustainability Office by March 20. Participants must record their journeys each week using the online log.\n\n--- Text 2 ---\n\nGreen Commute Rewards — Registration Form\n\nName: Tobias Engel\nDepartment: Warehouse Operations\nUsual commute (check one): [ ] Cycling/walking  [X] Public transportation  [ ] Carpooling\nDistance from home to work: 14 km\nPreferred reward type: [ ] Gift card  [X] Extra vacation hours  [ ] Charity donation\nComments: I plan to cycle to work twice a week once the weather gets warmer in May, and take the train on other days.\nDate submitted: March 24",
+  "question": "How many points per day will Mr. Engel earn on the days he cycles to work?",
+  "choices": [
+   "4",
+   "2",
+   "1",
+   "3"
+  ],
+  "answer": "3",
+  "explanation": "メモでは自転車通勤は1日3ポイント。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-527-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\nTo: All Staff, Fairmont Medical Supplies\nFrom: Sustainability Office\nDate: March 2\nSubject: Green Commute Rewards\n\nTo reduce our carbon footprint, we are launching Green Commute Rewards on April 1. Employees who travel to work by bicycle, on foot, by public transportation, or by carpooling with at least one colleague will earn points for each day they do so.\n\n• Cycling or walking: 3 points per day\n• Public transportation: 2 points per day\n• Carpooling: 1 point per day\n\nPoints can be exchanged at the end of each quarter for gift cards, extra vacation hours, or donations to an environmental charity. Every 100 points earns one reward. To take part, complete the registration form and return it to the Sustainability Office by March 20. Participants must record their journeys each week using the online log.\n\n--- Text 2 ---\n\nGreen Commute Rewards — Registration Form\n\nName: Tobias Engel\nDepartment: Warehouse Operations\nUsual commute (check one): [ ] Cycling/walking  [X] Public transportation  [ ] Carpooling\nDistance from home to work: 14 km\nPreferred reward type: [ ] Gift card  [X] Extra vacation hours  [ ] Charity donation\nComments: I plan to cycle to work twice a week once the weather gets warmer in May, and take the train on other days.\nDate submitted: March 24",
+  "question": "What must participants do every week?",
+  "choices": [
+   "Attend a sustainability meeting",
+   "Submit a new registration form",
+   "Record their trips online",
+   "Exchange their points for rewards"
+  ],
+  "answer": "Record their trips online",
+  "explanation": "毎週オンラインの記録に通勤を記入する必要がある。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-528-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Former Textile Mill to Become Mixed-Use Development\n\nGRANTHAM FALLS (July 14) — The long-vacant Brayford textile mill on the east bank of the Carlow River will be converted into apartments, offices, and shops, the city planning board confirmed on Wednesday. The developer, Kestrel Urban Partners, intends to preserve the mill's brick facade and iconic clock tower while rebuilding the interior entirely.\n\nThe first phase, comprising 84 apartments, is due for completion in late 2027, with office space and ground-floor retail units following in the second phase. Under an agreement with the city, 20 percent of the apartments will be offered at below-market rents to households earning less than the regional median income.\n\nSome residents had opposed the scheme, citing concerns about parking. In response, Kestrel has reduced the number of apartments from 110 to 84 and added an underground garage.\n\n--- Text 2 ---\n\nTo: Leasing Inquiries, Kestrel Urban Partners\nFrom: Nadia Petrenko\nDate: September 3\nSubject: Brayford Mill apartments\n\nHello,\n\nI read about the Brayford Mill project in the local paper and am very interested in renting a two-bedroom apartment there. My partner and I both work in the city center and would prefer a unit facing the river.\n\nCould you tell me when applications will open and whether parking spaces are included in the rent? Also, my household income is somewhat below the regional median, so I would like to know how to apply for one of the reduced-rent units.\n\nThank you,\nNadia Petrenko\n\n--- Text 3 ---\n\nBrayford Mill — Phase 1 Apartment Types (preliminary)\n\nType | Bedrooms | Size | Est. monthly rent | View | Units\nA | 1 | 52 m² | $1,250 | Courtyard | 30\nB | 1 | 58 m² | $1,380 | River | 18\nC | 2 | 76 m² | $1,690 | Courtyard | 22\nD | 2 | 84 m² | $1,850 | River | 14\n\nParking: $95 per month per space (limited availability)\nApplications open November 1. Reduced-rent units are allocated by lottery.",
+  "question": "According to the article, why was the number of apartments reduced?",
+  "choices": [
+   "Because construction costs rose",
+   "To address local concerns about parking",
+   "Because the city requested more offices",
+   "To make room for the clock tower"
+  ],
+  "answer": "To address local concerns about parking",
+  "explanation": "駐車場への懸念を受けて戸数を110から84に減らし地下駐車場を加えた。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-528-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Former Textile Mill to Become Mixed-Use Development\n\nGRANTHAM FALLS (July 14) — The long-vacant Brayford textile mill on the east bank of the Carlow River will be converted into apartments, offices, and shops, the city planning board confirmed on Wednesday. The developer, Kestrel Urban Partners, intends to preserve the mill's brick facade and iconic clock tower while rebuilding the interior entirely.\n\nThe first phase, comprising 84 apartments, is due for completion in late 2027, with office space and ground-floor retail units following in the second phase. Under an agreement with the city, 20 percent of the apartments will be offered at below-market rents to households earning less than the regional median income.\n\nSome residents had opposed the scheme, citing concerns about parking. In response, Kestrel has reduced the number of apartments from 110 to 84 and added an underground garage.\n\n--- Text 2 ---\n\nTo: Leasing Inquiries, Kestrel Urban Partners\nFrom: Nadia Petrenko\nDate: September 3\nSubject: Brayford Mill apartments\n\nHello,\n\nI read about the Brayford Mill project in the local paper and am very interested in renting a two-bedroom apartment there. My partner and I both work in the city center and would prefer a unit facing the river.\n\nCould you tell me when applications will open and whether parking spaces are included in the rent? Also, my household income is somewhat below the regional median, so I would like to know how to apply for one of the reduced-rent units.\n\nThank you,\nNadia Petrenko\n\n--- Text 3 ---\n\nBrayford Mill — Phase 1 Apartment Types (preliminary)\n\nType | Bedrooms | Size | Est. monthly rent | View | Units\nA | 1 | 52 m² | $1,250 | Courtyard | 30\nB | 1 | 58 m² | $1,380 | River | 18\nC | 2 | 76 m² | $1,690 | Courtyard | 22\nD | 2 | 84 m² | $1,850 | River | 14\n\nParking: $95 per month per space (limited availability)\nApplications open November 1. Reduced-rent units are allocated by lottery.",
+  "question": "In the article, the word \"scheme\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "project",
+   "diagram",
+   "trick",
+   "routine"
+  ],
+  "answer": "project",
+  "explanation": "ここでの scheme は開発「計画」を指す。",
+  "tags": "読解 語彙"
+ },
+ {
+  "id": "TOEIC-R7-528-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Former Textile Mill to Become Mixed-Use Development\n\nGRANTHAM FALLS (July 14) — The long-vacant Brayford textile mill on the east bank of the Carlow River will be converted into apartments, offices, and shops, the city planning board confirmed on Wednesday. The developer, Kestrel Urban Partners, intends to preserve the mill's brick facade and iconic clock tower while rebuilding the interior entirely.\n\nThe first phase, comprising 84 apartments, is due for completion in late 2027, with office space and ground-floor retail units following in the second phase. Under an agreement with the city, 20 percent of the apartments will be offered at below-market rents to households earning less than the regional median income.\n\nSome residents had opposed the scheme, citing concerns about parking. In response, Kestrel has reduced the number of apartments from 110 to 84 and added an underground garage.\n\n--- Text 2 ---\n\nTo: Leasing Inquiries, Kestrel Urban Partners\nFrom: Nadia Petrenko\nDate: September 3\nSubject: Brayford Mill apartments\n\nHello,\n\nI read about the Brayford Mill project in the local paper and am very interested in renting a two-bedroom apartment there. My partner and I both work in the city center and would prefer a unit facing the river.\n\nCould you tell me when applications will open and whether parking spaces are included in the rent? Also, my household income is somewhat below the regional median, so I would like to know how to apply for one of the reduced-rent units.\n\nThank you,\nNadia Petrenko\n\n--- Text 3 ---\n\nBrayford Mill — Phase 1 Apartment Types (preliminary)\n\nType | Bedrooms | Size | Est. monthly rent | View | Units\nA | 1 | 52 m² | $1,250 | Courtyard | 30\nB | 1 | 58 m² | $1,380 | River | 18\nC | 2 | 76 m² | $1,690 | Courtyard | 22\nD | 2 | 84 m² | $1,850 | River | 14\n\nParking: $95 per month per space (limited availability)\nApplications open November 1. Reduced-rent units are allocated by lottery.",
+  "question": "Which apartment type best matches Ms. Petrenko's preferences?",
+  "choices": [
+   "Type B",
+   "Type D",
+   "Type C",
+   "Type A"
+  ],
+  "answer": "Type D",
+  "explanation": "2寝室で川向きの部屋を希望しており、表で該当するのは Type D。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-528-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Former Textile Mill to Become Mixed-Use Development\n\nGRANTHAM FALLS (July 14) — The long-vacant Brayford textile mill on the east bank of the Carlow River will be converted into apartments, offices, and shops, the city planning board confirmed on Wednesday. The developer, Kestrel Urban Partners, intends to preserve the mill's brick facade and iconic clock tower while rebuilding the interior entirely.\n\nThe first phase, comprising 84 apartments, is due for completion in late 2027, with office space and ground-floor retail units following in the second phase. Under an agreement with the city, 20 percent of the apartments will be offered at below-market rents to households earning less than the regional median income.\n\nSome residents had opposed the scheme, citing concerns about parking. In response, Kestrel has reduced the number of apartments from 110 to 84 and added an underground garage.\n\n--- Text 2 ---\n\nTo: Leasing Inquiries, Kestrel Urban Partners\nFrom: Nadia Petrenko\nDate: September 3\nSubject: Brayford Mill apartments\n\nHello,\n\nI read about the Brayford Mill project in the local paper and am very interested in renting a two-bedroom apartment there. My partner and I both work in the city center and would prefer a unit facing the river.\n\nCould you tell me when applications will open and whether parking spaces are included in the rent? Also, my household income is somewhat below the regional median, so I would like to know how to apply for one of the reduced-rent units.\n\nThank you,\nNadia Petrenko\n\n--- Text 3 ---\n\nBrayford Mill — Phase 1 Apartment Types (preliminary)\n\nType | Bedrooms | Size | Est. monthly rent | View | Units\nA | 1 | 52 m² | $1,250 | Courtyard | 30\nB | 1 | 58 m² | $1,380 | River | 18\nC | 2 | 76 m² | $1,690 | Courtyard | 22\nD | 2 | 84 m² | $1,850 | River | 14\n\nParking: $95 per month per space (limited availability)\nApplications open November 1. Reduced-rent units are allocated by lottery.",
+  "question": "What is true about parking at Brayford Mill?",
+  "choices": [
+   "It is not included in the rent.",
+   "It is free for reduced-rent households.",
+   "It is located entirely above ground.",
+   "There is an unlimited number of spaces."
+  ],
+  "answer": "It is not included in the rent.",
+  "explanation": "表では駐車場は1台月95ドルの別料金で、台数も限られている。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-528-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Former Textile Mill to Become Mixed-Use Development\n\nGRANTHAM FALLS (July 14) — The long-vacant Brayford textile mill on the east bank of the Carlow River will be converted into apartments, offices, and shops, the city planning board confirmed on Wednesday. The developer, Kestrel Urban Partners, intends to preserve the mill's brick facade and iconic clock tower while rebuilding the interior entirely.\n\nThe first phase, comprising 84 apartments, is due for completion in late 2027, with office space and ground-floor retail units following in the second phase. Under an agreement with the city, 20 percent of the apartments will be offered at below-market rents to households earning less than the regional median income.\n\nSome residents had opposed the scheme, citing concerns about parking. In response, Kestrel has reduced the number of apartments from 110 to 84 and added an underground garage.\n\n--- Text 2 ---\n\nTo: Leasing Inquiries, Kestrel Urban Partners\nFrom: Nadia Petrenko\nDate: September 3\nSubject: Brayford Mill apartments\n\nHello,\n\nI read about the Brayford Mill project in the local paper and am very interested in renting a two-bedroom apartment there. My partner and I both work in the city center and would prefer a unit facing the river.\n\nCould you tell me when applications will open and whether parking spaces are included in the rent? Also, my household income is somewhat below the regional median, so I would like to know how to apply for one of the reduced-rent units.\n\nThank you,\nNadia Petrenko\n\n--- Text 3 ---\n\nBrayford Mill — Phase 1 Apartment Types (preliminary)\n\nType | Bedrooms | Size | Est. monthly rent | View | Units\nA | 1 | 52 m² | $1,250 | Courtyard | 30\nB | 1 | 58 m² | $1,380 | River | 18\nC | 2 | 76 m² | $1,690 | Courtyard | 22\nD | 2 | 84 m² | $1,850 | River | 14\n\nParking: $95 per month per space (limited availability)\nApplications open November 1. Reduced-rent units are allocated by lottery.",
+  "question": "What will Ms. Petrenko most likely need to do to obtain a reduced-rent unit?",
+  "choices": [
+   "Pay a deposit by September",
+   "Apply before November 1",
+   "Enter a lottery",
+   "Prove that she works in the city center"
+  ],
+  "answer": "Enter a lottery",
+  "explanation": "減額家賃の部屋は抽選で割り当てられると表に記載されている。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-529-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Northline Rail — Service Changes, October 18–19\n\nDue to signal upgrades between Ashford Junction and Kelby, the following changes will apply this weekend:\n\n• Trains between Ashford Junction and Kelby will be replaced by buses. Allow up to 40 extra minutes for your journey.\n• Bicycles cannot be carried on replacement buses, except folding bicycles.\n• Express services from Kelby to Port Hale will run as normal.\n• Tickets valid for the affected dates may be used on the buses at no extra cost. Customers who choose not to travel may claim a full refund at any ticket office until October 31.\n\nNormal service will resume on Monday, October 20.\n\n--- Text 2 ---\n\nTo: Customer Relations, Northline Rail\nFrom: Graham Whitlock\nDate: October 21\nSubject: Weekend journey\n\nDear Customer Relations,\n\nOn Saturday, I traveled from Ashford Junction to Port Hale. I had heard there would be delays, so I left home early. However, when I arrived at the bus stop with my bicycle, the driver would not let me board, even though I explained that I had reserved a space for it on the train. I had to wait for a taxi, which cost me $48, and I missed my connection at Kelby.\n\nNobody at the station mentioned this rule when I bought my ticket on Friday. I would like to be reimbursed for the taxi fare.\n\nSincerely,\nGraham Whitlock",
+  "question": "Why were train services changed?",
+  "choices": [
+   "Because of bad weather",
+   "To make room for a special event",
+   "Because of a staff shortage",
+   "To allow work on signaling equipment"
+  ],
+  "answer": "To allow work on signaling equipment",
+  "explanation": "信号設備の改良工事のためと書かれている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-529-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Northline Rail — Service Changes, October 18–19\n\nDue to signal upgrades between Ashford Junction and Kelby, the following changes will apply this weekend:\n\n• Trains between Ashford Junction and Kelby will be replaced by buses. Allow up to 40 extra minutes for your journey.\n• Bicycles cannot be carried on replacement buses, except folding bicycles.\n• Express services from Kelby to Port Hale will run as normal.\n• Tickets valid for the affected dates may be used on the buses at no extra cost. Customers who choose not to travel may claim a full refund at any ticket office until October 31.\n\nNormal service will resume on Monday, October 20.\n\n--- Text 2 ---\n\nTo: Customer Relations, Northline Rail\nFrom: Graham Whitlock\nDate: October 21\nSubject: Weekend journey\n\nDear Customer Relations,\n\nOn Saturday, I traveled from Ashford Junction to Port Hale. I had heard there would be delays, so I left home early. However, when I arrived at the bus stop with my bicycle, the driver would not let me board, even though I explained that I had reserved a space for it on the train. I had to wait for a taxi, which cost me $48, and I missed my connection at Kelby.\n\nNobody at the station mentioned this rule when I bought my ticket on Friday. I would like to be reimbursed for the taxi fare.\n\nSincerely,\nGraham Whitlock",
+  "question": "What is indicated about the express services?",
+  "choices": [
+   "They were not affected by the changes.",
+   "They were canceled for the weekend.",
+   "They carried bicycles only on Sunday.",
+   "They were replaced by buses."
+  ],
+  "answer": "They were not affected by the changes.",
+  "explanation": "Kelby から Port Hale への急行は通常どおり運行した。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-529-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Northline Rail — Service Changes, October 18–19\n\nDue to signal upgrades between Ashford Junction and Kelby, the following changes will apply this weekend:\n\n• Trains between Ashford Junction and Kelby will be replaced by buses. Allow up to 40 extra minutes for your journey.\n• Bicycles cannot be carried on replacement buses, except folding bicycles.\n• Express services from Kelby to Port Hale will run as normal.\n• Tickets valid for the affected dates may be used on the buses at no extra cost. Customers who choose not to travel may claim a full refund at any ticket office until October 31.\n\nNormal service will resume on Monday, October 20.\n\n--- Text 2 ---\n\nTo: Customer Relations, Northline Rail\nFrom: Graham Whitlock\nDate: October 21\nSubject: Weekend journey\n\nDear Customer Relations,\n\nOn Saturday, I traveled from Ashford Junction to Port Hale. I had heard there would be delays, so I left home early. However, when I arrived at the bus stop with my bicycle, the driver would not let me board, even though I explained that I had reserved a space for it on the train. I had to wait for a taxi, which cost me $48, and I missed my connection at Kelby.\n\nNobody at the station mentioned this rule when I bought my ticket on Friday. I would like to be reimbursed for the taxi fare.\n\nSincerely,\nGraham Whitlock",
+  "question": "Why was Mr. Whitlock most likely not allowed on the bus?",
+  "choices": [
+   "The bus was already full.",
+   "He did not have a valid ticket.",
+   "He arrived after the bus had left.",
+   "His bicycle was not a folding type."
+  ],
+  "answer": "His bicycle was not a folding type.",
+  "explanation": "告知では折りたたみ式以外の自転車は代行バスに載せられない。",
+  "tags": "読解 クロスリファレンス"
+ },
+ {
+  "id": "TOEIC-R7-529-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Northline Rail — Service Changes, October 18–19\n\nDue to signal upgrades between Ashford Junction and Kelby, the following changes will apply this weekend:\n\n• Trains between Ashford Junction and Kelby will be replaced by buses. Allow up to 40 extra minutes for your journey.\n• Bicycles cannot be carried on replacement buses, except folding bicycles.\n• Express services from Kelby to Port Hale will run as normal.\n• Tickets valid for the affected dates may be used on the buses at no extra cost. Customers who choose not to travel may claim a full refund at any ticket office until October 31.\n\nNormal service will resume on Monday, October 20.\n\n--- Text 2 ---\n\nTo: Customer Relations, Northline Rail\nFrom: Graham Whitlock\nDate: October 21\nSubject: Weekend journey\n\nDear Customer Relations,\n\nOn Saturday, I traveled from Ashford Junction to Port Hale. I had heard there would be delays, so I left home early. However, when I arrived at the bus stop with my bicycle, the driver would not let me board, even though I explained that I had reserved a space for it on the train. I had to wait for a taxi, which cost me $48, and I missed my connection at Kelby.\n\nNobody at the station mentioned this rule when I bought my ticket on Friday. I would like to be reimbursed for the taxi fare.\n\nSincerely,\nGraham Whitlock",
+  "question": "What does Mr. Whitlock request?",
+  "choices": [
+   "A new bicycle reservation",
+   "An apology from the bus driver",
+   "Payment for a taxi ride",
+   "A full refund of his ticket"
+  ],
+  "answer": "Payment for a taxi ride",
+  "explanation": "タクシー代48ドルの払い戻しを求めている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-529-5",
+  "skill": "reading",
+  "format": "Part 7 読解問題（マルチ）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Northline Rail — Service Changes, October 18–19\n\nDue to signal upgrades between Ashford Junction and Kelby, the following changes will apply this weekend:\n\n• Trains between Ashford Junction and Kelby will be replaced by buses. Allow up to 40 extra minutes for your journey.\n• Bicycles cannot be carried on replacement buses, except folding bicycles.\n• Express services from Kelby to Port Hale will run as normal.\n• Tickets valid for the affected dates may be used on the buses at no extra cost. Customers who choose not to travel may claim a full refund at any ticket office until October 31.\n\nNormal service will resume on Monday, October 20.\n\n--- Text 2 ---\n\nTo: Customer Relations, Northline Rail\nFrom: Graham Whitlock\nDate: October 21\nSubject: Weekend journey\n\nDear Customer Relations,\n\nOn Saturday, I traveled from Ashford Junction to Port Hale. I had heard there would be delays, so I left home early. However, when I arrived at the bus stop with my bicycle, the driver would not let me board, even though I explained that I had reserved a space for it on the train. I had to wait for a taxi, which cost me $48, and I missed my connection at Kelby.\n\nNobody at the station mentioned this rule when I bought my ticket on Friday. I would like to be reimbursed for the taxi fare.\n\nSincerely,\nGraham Whitlock",
+  "question": "What is suggested about Mr. Whitlock?",
+  "choices": [
+   "He took an express train from Ashford Junction.",
+   "He was unaware of the bicycle restriction before his trip.",
+   "He traveled on Sunday.",
+   "He arrived in Port Hale on schedule."
+  ],
+  "answer": "He was unaware of the bicycle restriction before his trip.",
+  "explanation": "遅延は聞いていたが、駅で規則を知らされなかったと述べており、自転車の制限を知らなかったと考えられる。",
+  "tags": "読解 推測"
+ }
+]

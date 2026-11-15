@@ -1,0 +1,524 @@
+[
+ {
+  "id": "TOEIC-R7-501-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "NOTICE: Harmon Tower Parking Garage\n\nLevel 2 of the parking garage will be closed from Monday, April 7, through Friday, April 11, so that workers can repaint the lines and repair the lighting. Employees who usually park on Level 2 should use Level 3 or 4 during this period.\n\nThe garage entrance on Fifth Avenue will remain open. However, the elevator between the garage and the lobby will stop running at 7:00 P.M. each evening this week. After that time, please use the stairs next to the security desk.\n\nQuestions? Contact Building Services at ext. 2210.",
+  "question": "Why will Level 2 be closed?",
+  "choices": [
+   "To install new parking machines",
+   "Because of a water leak",
+   "For a company event",
+   "For maintenance work"
+  ],
+  "answer": "For maintenance work",
+  "explanation": "線の塗り直しと照明の修理のために閉鎖されるので、保守作業が正解。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-501-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "NOTICE: Harmon Tower Parking Garage\n\nLevel 2 of the parking garage will be closed from Monday, April 7, through Friday, April 11, so that workers can repaint the lines and repair the lighting. Employees who usually park on Level 2 should use Level 3 or 4 during this period.\n\nThe garage entrance on Fifth Avenue will remain open. However, the elevator between the garage and the lobby will stop running at 7:00 P.M. each evening this week. After that time, please use the stairs next to the security desk.\n\nQuestions? Contact Building Services at ext. 2210.",
+  "question": "What is mentioned about the elevator?",
+  "choices": [
+   "It will be closed for the whole week.",
+   "It can be used only by security staff.",
+   "It is being replaced with a faster model this week.",
+   "It will not operate after 7:00 P.M. this week."
+  ],
+  "answer": "It will not operate after 7:00 P.M. this week.",
+  "explanation": "エレベーターは今週毎晩午後7時に停止すると書かれている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-502-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Hana Lee [10:02 A.M.]\nHi Victor, are you close to the Brookside Café? They called asking about their delivery.\n\nVictor Mendes [10:05 A.M.]\nAbout ten minutes away. Traffic on Route 9 is really heavy because of road work.\n\nHana Lee [10:06 A.M.]\nOK. They need the paper cups before their lunch rush starts at 11:30.\n\nVictor Mendes [10:07 A.M.]\nThat won't be a problem.\n\nHana Lee [10:08 A.M.]\nGreat. After that, please stop by the warehouse and pick up two extra boxes for Pellman Hardware. They added to their order this morning.\n\nVictor Mendes [10:10 A.M.]\nGot it. I'll head there right after the café.",
+  "question": "Why is Mr. Mendes delayed?",
+  "choices": [
+   "There is construction on a road.",
+   "The warehouse was closed.",
+   "His truck broke down on the way to the café.",
+   "He went to the wrong address."
+  ],
+  "answer": "There is construction on a road.",
+  "explanation": "Route 9 の道路工事で渋滞していると述べている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-502-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Hana Lee [10:02 A.M.]\nHi Victor, are you close to the Brookside Café? They called asking about their delivery.\n\nVictor Mendes [10:05 A.M.]\nAbout ten minutes away. Traffic on Route 9 is really heavy because of road work.\n\nHana Lee [10:06 A.M.]\nOK. They need the paper cups before their lunch rush starts at 11:30.\n\nVictor Mendes [10:07 A.M.]\nThat won't be a problem.\n\nHana Lee [10:08 A.M.]\nGreat. After that, please stop by the warehouse and pick up two extra boxes for Pellman Hardware. They added to their order this morning.\n\nVictor Mendes [10:10 A.M.]\nGot it. I'll head there right after the café.",
+  "question": "At 10:07 A.M., what does Mr. Mendes most likely mean when he writes, \"That won't be a problem\"?",
+  "choices": [
+   "He does not mind waiting at the café.",
+   "He will deliver the cups before 11:30 A.M.",
+   "He will avoid driving on Route 9.",
+   "He has enough room in his truck for extra boxes."
+  ],
+  "answer": "He will deliver the cups before 11:30 A.M.",
+  "explanation": "11時30分までに紙コップが必要という発言への返答なので、それまでに届けられるという意味。",
+  "tags": "読解 意図"
+ },
+ {
+  "id": "TOEIC-R7-503-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Rafael Cortez\nFrom: Guest Relations, Harborview Grand Hotel\nDate: August 19\nSubject: Your recent stay\n\nDear Mr. Cortez,\n\nThank you for taking the time to tell us about your stay from August 14 to 16. We are sorry that the air conditioning in your room was not working properly on your first night and that it took more than an hour for a technician to arrive.\n\nWe have since replaced the cooling unit in that room and reviewed our procedures so that maintenance requests made at night are handled more quickly. To show our appreciation for your patience, we have refunded the charge for your first night to the credit card you used at check-in. You should see the refund on your statement within five business days.\n\nWe hope you will give us another opportunity to welcome you.\n\nSincerely,\nJosephine Abara\nGuest Relations Manager",
+  "question": "Why was the e-mail sent?",
+  "choices": [
+   "To request a payment",
+   "To confirm a reservation",
+   "To advertise a new service for business travelers",
+   "To respond to a guest's complaint"
+  ],
+  "answer": "To respond to a guest's complaint",
+  "explanation": "宿泊客の指摘に謝罪し対応を説明しているので、苦情への返答。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-503-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Rafael Cortez\nFrom: Guest Relations, Harborview Grand Hotel\nDate: August 19\nSubject: Your recent stay\n\nDear Mr. Cortez,\n\nThank you for taking the time to tell us about your stay from August 14 to 16. We are sorry that the air conditioning in your room was not working properly on your first night and that it took more than an hour for a technician to arrive.\n\nWe have since replaced the cooling unit in that room and reviewed our procedures so that maintenance requests made at night are handled more quickly. To show our appreciation for your patience, we have refunded the charge for your first night to the credit card you used at check-in. You should see the refund on your statement within five business days.\n\nWe hope you will give us another opportunity to welcome you.\n\nSincerely,\nJosephine Abara\nGuest Relations Manager",
+  "question": "What problem did Mr. Cortez experience?",
+  "choices": [
+   "A device in his room did not work well.",
+   "He could not find a parking space.",
+   "His room was not ready when he arrived at the hotel.",
+   "He was charged twice for his stay."
+  ],
+  "answer": "A device in his room did not work well.",
+  "explanation": "部屋のエアコンが正常に動かなかったとある。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-503-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "To: Rafael Cortez\nFrom: Guest Relations, Harborview Grand Hotel\nDate: August 19\nSubject: Your recent stay\n\nDear Mr. Cortez,\n\nThank you for taking the time to tell us about your stay from August 14 to 16. We are sorry that the air conditioning in your room was not working properly on your first night and that it took more than an hour for a technician to arrive.\n\nWe have since replaced the cooling unit in that room and reviewed our procedures so that maintenance requests made at night are handled more quickly. To show our appreciation for your patience, we have refunded the charge for your first night to the credit card you used at check-in. You should see the refund on your statement within five business days.\n\nWe hope you will give us another opportunity to welcome you.\n\nSincerely,\nJosephine Abara\nGuest Relations Manager",
+  "question": "What has the hotel done for Mr. Cortez?",
+  "choices": [
+   "It sent him a gift card.",
+   "It returned the cost of one night.",
+   "It upgraded his next reservation to a suite.",
+   "It offered him free breakfast."
+  ],
+  "answer": "It returned the cost of one night.",
+  "explanation": "初日の宿泊料金をクレジットカードに返金したと書かれている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-504-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "INVOICE\nClearpoint IT Solutions\nInvoice No. 7734 | Date: March 3\nBill to: Fernhill Dental Group, 22 Carver Road\n\nDescription | Qty | Amount\nMonthly network monitoring (February) | 1 | $450.00\nOn-site repair visit (Feb. 12): reception computer | 1 | $180.00\nBackup software license renewal (annual) | 3 | $270.00\nSubtotal: $900.00\nLoyal customer discount (5%): -$45.00\nTotal due: $855.00\n\nPayment is due within 30 days of the invoice date. Please include the invoice number with your payment. Questions about this invoice may be sent to billing@clearpoint.example.",
+  "question": "What is indicated about Fernhill Dental Group?",
+  "choices": [
+   "It purchased a new printer.",
+   "It paid in advance.",
+   "It receives a discount.",
+   "It has only one software license."
+  ],
+  "answer": "It receives a discount.",
+  "explanation": "長期顧客割引5%が適用されている。ライセンスは3つ。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-504-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "INVOICE\nClearpoint IT Solutions\nInvoice No. 7734 | Date: March 3\nBill to: Fernhill Dental Group, 22 Carver Road\n\nDescription | Qty | Amount\nMonthly network monitoring (February) | 1 | $450.00\nOn-site repair visit (Feb. 12): reception computer | 1 | $180.00\nBackup software license renewal (annual) | 3 | $270.00\nSubtotal: $900.00\nLoyal customer discount (5%): -$45.00\nTotal due: $855.00\n\nPayment is due within 30 days of the invoice date. Please include the invoice number with your payment. Questions about this invoice may be sent to billing@clearpoint.example.",
+  "question": "What service was provided on February 12?",
+  "choices": [
+   "Installation of new backup software on all computers",
+   "A network inspection by phone",
+   "Training for the client's staff",
+   "A computer repair at the client's office"
+  ],
+  "answer": "A computer repair at the client's office",
+  "explanation": "2月12日は受付のコンピューターの出張修理と記載されている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-505-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Tessaro Components to Expand Lindale Plant\n\nLINDALE (May 8) — Tessaro Components, a maker of precision parts for medical devices, announced plans on Tuesday to add a 6,000-square-meter production hall to its Lindale facility. [1] The expansion, expected to cost $24 million, will allow the company to double its output of surgical instrument parts by 2029.\n\nThe company currently employs 340 people in Lindale. Plant director Yusuf Demir said that about 120 new positions would be created, most of them for machine operators and quality inspectors. [2] \"We will be working with Lindale Technical College to design a training course so that local residents can qualify for these jobs,\" he said.\n\nConstruction is scheduled to begin in September. [3] Some neighbors have raised concerns about increased truck traffic on Mill Road, which passes a primary school. [4] In response, Tessaro has agreed to build a new access road connecting the plant directly to the highway.",
+  "question": "What does Tessaro Components produce?",
+  "choices": [
+   "Parts used in medical equipment",
+   "Delivery trucks",
+   "Software for training machine operators",
+   "School furniture"
+  ],
+  "answer": "Parts used in medical equipment",
+  "explanation": "医療機器用の精密部品メーカーと紹介されている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-505-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Tessaro Components to Expand Lindale Plant\n\nLINDALE (May 8) — Tessaro Components, a maker of precision parts for medical devices, announced plans on Tuesday to add a 6,000-square-meter production hall to its Lindale facility. [1] The expansion, expected to cost $24 million, will allow the company to double its output of surgical instrument parts by 2029.\n\nThe company currently employs 340 people in Lindale. Plant director Yusuf Demir said that about 120 new positions would be created, most of them for machine operators and quality inspectors. [2] \"We will be working with Lindale Technical College to design a training course so that local residents can qualify for these jobs,\" he said.\n\nConstruction is scheduled to begin in September. [3] Some neighbors have raised concerns about increased truck traffic on Mill Road, which passes a primary school. [4] In response, Tessaro has agreed to build a new access road connecting the plant directly to the highway.",
+  "question": "According to the article, what will the company do with a local college?",
+  "choices": [
+   "Hire its instructors full-time",
+   "Share a building",
+   "Develop a training course",
+   "Sponsor a research laboratory"
+  ],
+  "answer": "Develop a training course",
+  "explanation": "工科大学と協力して研修コースを設計すると述べている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-505-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Tessaro Components to Expand Lindale Plant\n\nLINDALE (May 8) — Tessaro Components, a maker of precision parts for medical devices, announced plans on Tuesday to add a 6,000-square-meter production hall to its Lindale facility. [1] The expansion, expected to cost $24 million, will allow the company to double its output of surgical instrument parts by 2029.\n\nThe company currently employs 340 people in Lindale. Plant director Yusuf Demir said that about 120 new positions would be created, most of them for machine operators and quality inspectors. [2] \"We will be working with Lindale Technical College to design a training course so that local residents can qualify for these jobs,\" he said.\n\nConstruction is scheduled to begin in September. [3] Some neighbors have raised concerns about increased truck traffic on Mill Road, which passes a primary school. [4] In response, Tessaro has agreed to build a new access road connecting the plant directly to the highway.",
+  "question": "The word \"raised\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "lifted",
+   "expressed",
+   "grown",
+   "collected"
+  ],
+  "answer": "expressed",
+  "explanation": "raise concerns は「懸念を表明する」なので expressed。",
+  "tags": "読解 語彙"
+ },
+ {
+  "id": "TOEIC-R7-505-4",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Tessaro Components to Expand Lindale Plant\n\nLINDALE (May 8) — Tessaro Components, a maker of precision parts for medical devices, announced plans on Tuesday to add a 6,000-square-meter production hall to its Lindale facility. [1] The expansion, expected to cost $24 million, will allow the company to double its output of surgical instrument parts by 2029.\n\nThe company currently employs 340 people in Lindale. Plant director Yusuf Demir said that about 120 new positions would be created, most of them for machine operators and quality inspectors. [2] \"We will be working with Lindale Technical College to design a training course so that local residents can qualify for these jobs,\" he said.\n\nConstruction is scheduled to begin in September. [3] Some neighbors have raised concerns about increased truck traffic on Mill Road, which passes a primary school. [4] In response, Tessaro has agreed to build a new access road connecting the plant directly to the highway.",
+  "question": "In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n\"Once construction starts, the work is expected to take about eighteen months.\"",
+  "choices": [
+   "[1]",
+   "[2]",
+   "[3]",
+   "[4]"
+  ],
+  "answer": "[3]",
+  "explanation": "「9月に着工予定」の直後に工期を述べる文が来るのが自然。",
+  "tags": "読解 文挿入"
+ },
+ {
+  "id": "TOEIC-R7-506-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Greenfield Health Center — Our Services\n\n• General check-ups for adults and children\n• Vaccinations (no appointment needed on Tuesday and Thursday mornings)\n• Physical therapy (Mondays, Wednesdays, and Fridays)\n• Nutrition advice from our registered dietitian\n\nOpening hours: Monday–Friday 8:00 A.M.–7:00 P.M.; Saturday 9:00 A.M.–1:00 P.M.\n\nNew patients: Please arrive 15 minutes early to complete a registration form. Bring a photo ID and your insurance card.",
+  "question": "When can patients get a vaccination without an appointment?",
+  "choices": [
+   "On Monday evenings",
+   "On Tuesday mornings",
+   "On Friday mornings",
+   "On Saturday afternoons"
+  ],
+  "answer": "On Tuesday mornings",
+  "explanation": "予防接種は火曜と木曜の午前なら予約不要。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-506-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Greenfield Health Center — Our Services\n\n• General check-ups for adults and children\n• Vaccinations (no appointment needed on Tuesday and Thursday mornings)\n• Physical therapy (Mondays, Wednesdays, and Fridays)\n• Nutrition advice from our registered dietitian\n\nOpening hours: Monday–Friday 8:00 A.M.–7:00 P.M.; Saturday 9:00 A.M.–1:00 P.M.\n\nNew patients: Please arrive 15 minutes early to complete a registration form. Bring a photo ID and your insurance card.",
+  "question": "What are new patients asked to do?",
+  "choices": [
+   "Call the dietitian",
+   "Pay a deposit",
+   "Come before their appointment time",
+   "Register on the center's Web site in advance"
+  ],
+  "answer": "Come before their appointment time",
+  "explanation": "登録用紙記入のため15分早く来るよう求められている。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-507-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Halcrow Engineering — Internal Training Registration Form\n\nEmployee name: Mei-Lin Zhou\nDepartment: Structural Design\nEmployee ID: 40187\nCourse requested: Advanced Project Scheduling (Course code PS-302)\nPreferred session: [ ] June 4–5 (Room 210)   [X] June 18–19 (online)\nHas this course been approved by your manager? [X] Yes   [ ] No\nManager's name: Daniel Oduya\n\nComments: I completed Introduction to Project Scheduling (PS-101) last year. I would prefer the online session because I will be visiting a construction site in Dunmore during the first week of June.\n\nPlease submit this form to the Training Office by May 20. Course materials will be sent by e-mail one week before the session begins.",
+  "question": "What is the purpose of the form?",
+  "choices": [
+   "To sign up for a course",
+   "To report a safety problem",
+   "To request vacation days",
+   "To apply for a promotion"
+  ],
+  "answer": "To sign up for a course",
+  "explanation": "社内研修の申込書である。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-507-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Halcrow Engineering — Internal Training Registration Form\n\nEmployee name: Mei-Lin Zhou\nDepartment: Structural Design\nEmployee ID: 40187\nCourse requested: Advanced Project Scheduling (Course code PS-302)\nPreferred session: [ ] June 4–5 (Room 210)   [X] June 18–19 (online)\nHas this course been approved by your manager? [X] Yes   [ ] No\nManager's name: Daniel Oduya\n\nComments: I completed Introduction to Project Scheduling (PS-101) last year. I would prefer the online session because I will be visiting a construction site in Dunmore during the first week of June.\n\nPlease submit this form to the Training Office by May 20. Course materials will be sent by e-mail one week before the session begins.",
+  "question": "Why did Ms. Zhou choose the June 18–19 session?",
+  "choices": [
+   "Room 210 is too small.",
+   "Her manager will teach the course.",
+   "The earlier session has already been fully booked.",
+   "She will be away on business in early June."
+  ],
+  "answer": "She will be away on business in early June.",
+  "explanation": "6月第1週は Dunmore の建設現場を訪問するためオンライン回を希望している。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-507-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Halcrow Engineering — Internal Training Registration Form\n\nEmployee name: Mei-Lin Zhou\nDepartment: Structural Design\nEmployee ID: 40187\nCourse requested: Advanced Project Scheduling (Course code PS-302)\nPreferred session: [ ] June 4–5 (Room 210)   [X] June 18–19 (online)\nHas this course been approved by your manager? [X] Yes   [ ] No\nManager's name: Daniel Oduya\n\nComments: I completed Introduction to Project Scheduling (PS-101) last year. I would prefer the online session because I will be visiting a construction site in Dunmore during the first week of June.\n\nPlease submit this form to the Training Office by May 20. Course materials will be sent by e-mail one week before the session begins.",
+  "question": "What is suggested about Ms. Zhou?",
+  "choices": [
+   "She works in the Training Office.",
+   "She will receive course materials on May 20.",
+   "She has taken a related course before.",
+   "She is Daniel Oduya's manager."
+  ],
+  "answer": "She has taken a related course before.",
+  "explanation": "昨年 PS-101 の入門コースを修了したとコメントしている。",
+  "tags": "読解 推測"
+ },
+ {
+  "id": "TOEIC-R7-508-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Owen Park [7:41 A.M.]\nMorning, Lucia. The concrete truck just called. They're running late, probably 9:30 instead of 8:00.\n\nLucia Ferraro [7:43 A.M.]\nThat's a problem. The pump operator is only booked until noon.\n\nOwen Park [7:44 A.M.]\nI know. Should I ask if he can stay longer?\n\nLucia Ferraro [7:46 A.M.]\nYes, please. If he can't, we'll have to pour the east section tomorrow.\n\nOwen Park [7:52 A.M.]\nJust spoke to him. He can stay until 2:00, but it'll be an extra $300.\n\nLucia Ferraro [7:53 A.M.]\nGo ahead. That's still cheaper than bringing everyone back tomorrow.\n\nOwen Park [7:54 A.M.]\nWill do. I'll let the crew know about the new timing.",
+  "question": "What problem does Mr. Park report?",
+  "choices": [
+   "Heavy rain is expected.",
+   "A delivery will arrive late.",
+   "A worker is sick.",
+   "Some of the equipment on site is broken."
+  ],
+  "answer": "A delivery will arrive late.",
+  "explanation": "コンクリート車の到着が8時から9時30分に遅れると報告している。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-508-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Owen Park [7:41 A.M.]\nMorning, Lucia. The concrete truck just called. They're running late, probably 9:30 instead of 8:00.\n\nLucia Ferraro [7:43 A.M.]\nThat's a problem. The pump operator is only booked until noon.\n\nOwen Park [7:44 A.M.]\nI know. Should I ask if he can stay longer?\n\nLucia Ferraro [7:46 A.M.]\nYes, please. If he can't, we'll have to pour the east section tomorrow.\n\nOwen Park [7:52 A.M.]\nJust spoke to him. He can stay until 2:00, but it'll be an extra $300.\n\nLucia Ferraro [7:53 A.M.]\nGo ahead. That's still cheaper than bringing everyone back tomorrow.\n\nOwen Park [7:54 A.M.]\nWill do. I'll let the crew know about the new timing.",
+  "question": "At 7:53 A.M., what does Ms. Ferraro mean when she writes, \"Go ahead\"?",
+  "choices": [
+   "She approves paying an additional fee.",
+   "She will call the truck driver herself.",
+   "She wants the crew to start pouring immediately.",
+   "She agrees to postpone the work until tomorrow."
+  ],
+  "answer": "She approves paying an additional fee.",
+  "explanation": "追加300ドルがかかるという報告への返答で、明日やり直すより安いと述べているので追加料金を承認している。",
+  "tags": "読解 意図"
+ },
+ {
+  "id": "TOEIC-R7-508-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Owen Park [7:41 A.M.]\nMorning, Lucia. The concrete truck just called. They're running late, probably 9:30 instead of 8:00.\n\nLucia Ferraro [7:43 A.M.]\nThat's a problem. The pump operator is only booked until noon.\n\nOwen Park [7:44 A.M.]\nI know. Should I ask if he can stay longer?\n\nLucia Ferraro [7:46 A.M.]\nYes, please. If he can't, we'll have to pour the east section tomorrow.\n\nOwen Park [7:52 A.M.]\nJust spoke to him. He can stay until 2:00, but it'll be an extra $300.\n\nLucia Ferraro [7:53 A.M.]\nGo ahead. That's still cheaper than bringing everyone back tomorrow.\n\nOwen Park [7:54 A.M.]\nWill do. I'll let the crew know about the new timing.",
+  "question": "What will Mr. Park most likely do next?",
+  "choices": [
+   "Cancel the concrete order",
+   "Book a different pump operator",
+   "Drive to the concrete supplier to collect the order",
+   "Inform workers of a schedule change"
+  ],
+  "answer": "Inform workers of a schedule change",
+  "explanation": "作業員に新しい時間を伝えると最後に述べている。",
+  "tags": "読解 推測"
+ },
+ {
+  "id": "TOEIC-R7-509-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\nTo: All Employees, Rutherford Packaging\nFrom: Sustainability Committee\nDate: January 15\nSubject: Progress on our waste reduction goals\n\nWe are pleased to report that last year the company sent 38 percent less waste to landfill than the year before, exceeding our target of 30 percent. This was achieved mainly through three changes: switching to reusable pallets with our two largest suppliers, composting food waste from the staff cafeteria, and selling plastic offcuts from the cutting line to a recycling firm.\n\nThis year, we will focus on reducing energy use. An outside consultant will carry out an energy audit of the Riverside plant in February, and the results will be shared at the March all-staff meeting. We also welcome ideas from employees. Suggestions can be submitted through the form on the intranet; the three best ideas will each receive a $200 award.",
+  "question": "What is the purpose of the memo?",
+  "choices": [
+   "To introduce a new committee member",
+   "To request funding from management",
+   "To announce the closure of the staff cafeteria",
+   "To report results and announce next steps"
+  ],
+  "answer": "To report results and announce next steps",
+  "explanation": "昨年の廃棄物削減の成果を報告し、今年の省エネの取り組みを知らせている。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-509-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\nTo: All Employees, Rutherford Packaging\nFrom: Sustainability Committee\nDate: January 15\nSubject: Progress on our waste reduction goals\n\nWe are pleased to report that last year the company sent 38 percent less waste to landfill than the year before, exceeding our target of 30 percent. This was achieved mainly through three changes: switching to reusable pallets with our two largest suppliers, composting food waste from the staff cafeteria, and selling plastic offcuts from the cutting line to a recycling firm.\n\nThis year, we will focus on reducing energy use. An outside consultant will carry out an energy audit of the Riverside plant in February, and the results will be shared at the March all-staff meeting. We also welcome ideas from employees. Suggestions can be submitted through the form on the intranet; the three best ideas will each receive a $200 award.",
+  "question": "What is NOT mentioned as a way the company reduced waste?",
+  "choices": [
+   "Composting food scraps",
+   "Printing fewer documents",
+   "Using reusable pallets",
+   "Selling leftover plastic"
+  ],
+  "answer": "Printing fewer documents",
+  "explanation": "パレット再利用・堆肥化・プラスチック端材の売却は挙げられているが、印刷削減は書かれていない。",
+  "tags": "読解 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-509-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "MEMO\nTo: All Employees, Rutherford Packaging\nFrom: Sustainability Committee\nDate: January 15\nSubject: Progress on our waste reduction goals\n\nWe are pleased to report that last year the company sent 38 percent less waste to landfill than the year before, exceeding our target of 30 percent. This was achieved mainly through three changes: switching to reusable pallets with our two largest suppliers, composting food waste from the staff cafeteria, and selling plastic offcuts from the cutting line to a recycling firm.\n\nThis year, we will focus on reducing energy use. An outside consultant will carry out an energy audit of the Riverside plant in February, and the results will be shared at the March all-staff meeting. We also welcome ideas from employees. Suggestions can be submitted through the form on the intranet; the three best ideas will each receive a $200 award.",
+  "question": "What will happen in March?",
+  "choices": [
+   "Audit findings will be presented to staff.",
+   "A consultant will begin visiting the plant.",
+   "The company will hire a new consultant.",
+   "New pallets will be ordered from suppliers."
+  ],
+  "answer": "Audit findings will be presented to staff.",
+  "explanation": "2月の監査結果を3月の全体会議で共有するとある。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-510-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Office Space for Lease — Calder Business Park\n\nModern offices from 80 to 400 square meters are now available in Building C. All units include high-speed Internet, shared meeting rooms, and 24-hour security. Free parking is provided for tenants and their visitors, and the park is a five-minute walk from Calder Station.\n\nFlexible lease terms of one, two, or three years are available. Tenants who sign a three-year lease before July 31 will receive the first two months rent-free.\n\nTo arrange a viewing, call Imani Brooks at 555-0198.",
+  "question": "What is NOT included with the offices?",
+  "choices": [
+   "Parking",
+   "Internet access",
+   "Furniture",
+   "Security"
+  ],
+  "answer": "Furniture",
+  "explanation": "インターネット、警備、駐車場は含まれるが、家具については書かれていない。",
+  "tags": "読解 NOT問題"
+ },
+ {
+  "id": "TOEIC-R7-510-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Office Space for Lease — Calder Business Park\n\nModern offices from 80 to 400 square meters are now available in Building C. All units include high-speed Internet, shared meeting rooms, and 24-hour security. Free parking is provided for tenants and their visitors, and the park is a five-minute walk from Calder Station.\n\nFlexible lease terms of one, two, or three years are available. Tenants who sign a three-year lease before July 31 will receive the first two months rent-free.\n\nTo arrange a viewing, call Imani Brooks at 555-0198.",
+  "question": "How can a tenant get two months without paying rent?",
+  "choices": [
+   "By recommending another tenant",
+   "By renting an office larger than 400 square meters",
+   "By paying a full year in advance",
+   "By signing a three-year lease by a certain date"
+  ],
+  "answer": "By signing a three-year lease by a certain date",
+  "explanation": "7月31日までに3年契約を結ぶと最初の2か月が無料になる。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-511-1",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Sales Staff\nFrom: Bernard Ochoa, Accounts Payable\nDate: October 2\nSubject: Updated expense reimbursement procedure\n\nDear colleagues,\n\nBeginning November 1, all expense claims must be submitted through the new ExpenseFlow app rather than on paper forms. The app allows you to photograph receipts with your phone and attach them directly to your claim, which should reduce processing time from about three weeks to under ten days.\n\nPlease note the following changes to the policy itself. Meals during business travel will now be reimbursed up to $65 per day, up from $50. However, claims submitted more than 60 days after the expense was incurred will no longer be accepted except with written approval from a department director.\n\nTraining sessions on the app will be held on October 15 and 22. Anyone unable to attend may watch a recorded version on the intranet.\n\nBernard Ochoa",
+  "question": "What is the main purpose of the e-mail?",
+  "choices": [
+   "To report an error in a payment",
+   "To ask staff to travel less",
+   "To explain changes to how expenses are claimed",
+   "To announce a competition for the sales department"
+  ],
+  "answer": "To explain changes to how expenses are claimed",
+  "explanation": "経費精算の提出方法と規定の変更を説明している。",
+  "tags": "読解 目的"
+ },
+ {
+  "id": "TOEIC-R7-511-2",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Sales Staff\nFrom: Bernard Ochoa, Accounts Payable\nDate: October 2\nSubject: Updated expense reimbursement procedure\n\nDear colleagues,\n\nBeginning November 1, all expense claims must be submitted through the new ExpenseFlow app rather than on paper forms. The app allows you to photograph receipts with your phone and attach them directly to your claim, which should reduce processing time from about three weeks to under ten days.\n\nPlease note the following changes to the policy itself. Meals during business travel will now be reimbursed up to $65 per day, up from $50. However, claims submitted more than 60 days after the expense was incurred will no longer be accepted except with written approval from a department director.\n\nTraining sessions on the app will be held on October 15 and 22. Anyone unable to attend may watch a recorded version on the intranet.\n\nBernard Ochoa",
+  "question": "What is indicated about the new app?",
+  "choices": [
+   "It can be used only on office computers.",
+   "It is expected to speed up reimbursements.",
+   "It replaces the need for training sessions.",
+   "It was designed by the sales team."
+  ],
+  "answer": "It is expected to speed up reimbursements.",
+  "explanation": "処理期間が約3週間から10日未満に短縮される見込みとある。",
+  "tags": "読解 詳細"
+ },
+ {
+  "id": "TOEIC-R7-511-3",
+  "skill": "reading",
+  "format": "Part 7 読解問題（シングル）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "To: All Sales Staff\nFrom: Bernard Ochoa, Accounts Payable\nDate: October 2\nSubject: Updated expense reimbursement procedure\n\nDear colleagues,\n\nBeginning November 1, all expense claims must be submitted through the new ExpenseFlow app rather than on paper forms. The app allows you to photograph receipts with your phone and attach them directly to your claim, which should reduce processing time from about three weeks to under ten days.\n\nPlease note the following changes to the policy itself. Meals during business travel will now be reimbursed up to $65 per day, up from $50. However, claims submitted more than 60 days after the expense was incurred will no longer be accepted except with written approval from a department director.\n\nTraining sessions on the app will be held on October 15 and 22. Anyone unable to attend may watch a recorded version on the intranet.\n\nBernard Ochoa",
+  "question": "What will require a director's approval?",
+  "choices": [
+   "A claim submitted after 60 days",
+   "Meals costing more than $50",
+   "The use of paper forms",
+   "Attendance at a training session"
+  ],
+  "answer": "A claim submitted after 60 days",
+  "explanation": "60日を過ぎた申請は部長の書面承認がないと受理されない。",
+  "tags": "読解 詳細"
+ }
+]

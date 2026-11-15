@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-RA-509-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Rise of the Piano\n\nThe piano was invented in Italy around 1700 by an instrument maker who wanted a keyboard that could play both softly and loudly. Earlier keyboard instruments, such as the harpsichord, produced sound by plucking strings, so players had little control over volume. In the new instrument, small hammers struck the strings, and the force of each strike depended on how hard the player pressed the key. This feature gave the instrument its original name, the pianoforte, meaning \"soft-loud.\"\n\nAt first, the piano spread slowly, partly because it was expensive and its sound was relatively quiet. During the late eighteenth and nineteenth centuries, however, makers introduced a series of improvements. Iron frames allowed strings to be stretched under much greater tension, producing a louder and richer tone that could fill concert halls. Mechanisms were refined so that a key could be repeated rapidly.\n\nThese technical changes influenced the music that composers wrote. Pieces began to feature dramatic contrasts in volume and fast, repeated notes that would have been impossible on earlier instruments. At the same time, industrial manufacturing reduced prices, and the piano became a symbol of middle-class respectability. In many homes, learning to play was considered an essential part of a good education, and publishers sold enormous quantities of sheet music arranged for amateur players. The piano thus shaped not only musical style but also domestic life.",
+  "question": "According to the passage, what was the main advantage of the piano over the harpsichord?",
+  "choices": [
+   "Players could control how loud each note was.",
+   "It was cheaper to build.",
+   "It could play many more notes at the same time.",
+   "It had a quieter sound."
+  ],
+  "answer": "Players could control how loud each note was.",
+  "explanation": "叩く強さで音量を変えられた。",
+  "tags": "TOEFL2026 AcademicPassage musicology factual"
+ },
+ {
+  "id": "TOEFL-RA-509-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Rise of the Piano\n\nThe piano was invented in Italy around 1700 by an instrument maker who wanted a keyboard that could play both softly and loudly. Earlier keyboard instruments, such as the harpsichord, produced sound by plucking strings, so players had little control over volume. In the new instrument, small hammers struck the strings, and the force of each strike depended on how hard the player pressed the key. This feature gave the instrument its original name, the pianoforte, meaning \"soft-loud.\"\n\nAt first, the piano spread slowly, partly because it was expensive and its sound was relatively quiet. During the late eighteenth and nineteenth centuries, however, makers introduced a series of improvements. Iron frames allowed strings to be stretched under much greater tension, producing a louder and richer tone that could fill concert halls. Mechanisms were refined so that a key could be repeated rapidly.\n\nThese technical changes influenced the music that composers wrote. Pieces began to feature dramatic contrasts in volume and fast, repeated notes that would have been impossible on earlier instruments. At the same time, industrial manufacturing reduced prices, and the piano became a symbol of middle-class respectability. In many homes, learning to play was considered an essential part of a good education, and publishers sold enormous quantities of sheet music arranged for amateur players. The piano thus shaped not only musical style but also domestic life.",
+  "question": "The word \"refined\" in the passage is closest in meaning to",
+  "choices": [
+   "simplified",
+   "improved",
+   "replaced",
+   "decorated"
+  ],
+  "answer": "improved",
+  "explanation": "refine＝改良する。",
+  "tags": "TOEFL2026 AcademicPassage musicology vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-509-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Rise of the Piano\n\nThe piano was invented in Italy around 1700 by an instrument maker who wanted a keyboard that could play both softly and loudly. Earlier keyboard instruments, such as the harpsichord, produced sound by plucking strings, so players had little control over volume. In the new instrument, small hammers struck the strings, and the force of each strike depended on how hard the player pressed the key. This feature gave the instrument its original name, the pianoforte, meaning \"soft-loud.\"\n\nAt first, the piano spread slowly, partly because it was expensive and its sound was relatively quiet. During the late eighteenth and nineteenth centuries, however, makers introduced a series of improvements. Iron frames allowed strings to be stretched under much greater tension, producing a louder and richer tone that could fill concert halls. Mechanisms were refined so that a key could be repeated rapidly.\n\nThese technical changes influenced the music that composers wrote. Pieces began to feature dramatic contrasts in volume and fast, repeated notes that would have been impossible on earlier instruments. At the same time, industrial manufacturing reduced prices, and the piano became a symbol of middle-class respectability. In many homes, learning to play was considered an essential part of a good education, and publishers sold enormous quantities of sheet music arranged for amateur players. The piano thus shaped not only musical style but also domestic life.",
+  "question": "What effect did iron frames have?",
+  "choices": [
+   "They made pianos lighter.",
+   "They reduced the price of pianos.",
+   "They made a louder sound possible.",
+   "They allowed hammers to be removed."
+  ],
+  "answer": "They made a louder sound possible.",
+  "explanation": "louder and richer tone that could fill concert halls とある。",
+  "tags": "TOEFL2026 AcademicPassage musicology factual"
+ },
+ {
+  "id": "TOEFL-RA-509-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Rise of the Piano\n\nThe piano was invented in Italy around 1700 by an instrument maker who wanted a keyboard that could play both softly and loudly. Earlier keyboard instruments, such as the harpsichord, produced sound by plucking strings, so players had little control over volume. In the new instrument, small hammers struck the strings, and the force of each strike depended on how hard the player pressed the key. This feature gave the instrument its original name, the pianoforte, meaning \"soft-loud.\"\n\nAt first, the piano spread slowly, partly because it was expensive and its sound was relatively quiet. During the late eighteenth and nineteenth centuries, however, makers introduced a series of improvements. Iron frames allowed strings to be stretched under much greater tension, producing a louder and richer tone that could fill concert halls. Mechanisms were refined so that a key could be repeated rapidly.\n\nThese technical changes influenced the music that composers wrote. Pieces began to feature dramatic contrasts in volume and fast, repeated notes that would have been impossible on earlier instruments. At the same time, industrial manufacturing reduced prices, and the piano became a symbol of middle-class respectability. In many homes, learning to play was considered an essential part of a good education, and publishers sold enormous quantities of sheet music arranged for amateur players. The piano thus shaped not only musical style but also domestic life.",
+  "question": "What can be inferred about music written before the late eighteenth century?",
+  "choices": [
+   "It was always played very loudly.",
+   "It was intended only for amateurs.",
+   "It could not be played on any kind of keyboard instrument.",
+   "It included fewer rapidly repeated notes."
+  ],
+  "answer": "It included fewer rapidly repeated notes.",
+  "explanation": "速い反復音は以前の楽器では不可能だったとある。",
+  "tags": "TOEFL2026 AcademicPassage musicology inference"
+ },
+ {
+  "id": "TOEFL-RA-509-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Rise of the Piano\n\nThe piano was invented in Italy around 1700 by an instrument maker who wanted a keyboard that could play both softly and loudly. Earlier keyboard instruments, such as the harpsichord, produced sound by plucking strings, so players had little control over volume. In the new instrument, small hammers struck the strings, and the force of each strike depended on how hard the player pressed the key. This feature gave the instrument its original name, the pianoforte, meaning \"soft-loud.\"\n\nAt first, the piano spread slowly, partly because it was expensive and its sound was relatively quiet. During the late eighteenth and nineteenth centuries, however, makers introduced a series of improvements. Iron frames allowed strings to be stretched under much greater tension, producing a louder and richer tone that could fill concert halls. Mechanisms were refined so that a key could be repeated rapidly.\n\nThese technical changes influenced the music that composers wrote. Pieces began to feature dramatic contrasts in volume and fast, repeated notes that would have been impossible on earlier instruments. At the same time, industrial manufacturing reduced prices, and the piano became a symbol of middle-class respectability. In many homes, learning to play was considered an essential part of a good education, and publishers sold enormous quantities of sheet music arranged for amateur players. The piano thus shaped not only musical style but also domestic life.",
+  "question": "Why does the author mention sheet music for amateur players?",
+  "choices": [
+   "To illustrate the piano's importance in middle-class homes",
+   "To explain how pianos were manufactured",
+   "To show that professionals disliked the piano",
+   "To describe the invention of the pianoforte"
+  ],
+  "answer": "To illustrate the piano's importance in middle-class homes",
+  "explanation": "家庭生活への影響の例として挙げている。",
+  "tags": "TOEFL2026 AcademicPassage musicology rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-510-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Chunking and Expertise\n\nIn a classic series of experiments, researchers showed chess positions to players of different skill levels for only a few seconds and then asked them to reconstruct the positions on an empty board. Expert players recalled the locations of most pieces accurately, while beginners remembered only a handful. At first, this result seemed to suggest that experts simply had better memories. However, a crucial variation of the experiment challenged that conclusion.\n\nWhen the pieces were placed randomly, in arrangements that could not occur in a real game, the experts' advantage almost disappeared. They performed only slightly better than novices. The researchers concluded that experts were not storing individual pieces but recognizing meaningful groups, or \"chunks,\" such as a familiar defensive formation. Because each chunk counts as a single unit in short-term memory, an expert can hold far more information than a beginner, who must treat each piece separately.\n\nLater studies found similar effects in other fields. Experienced musicians recall musical notation more accurately than non-musicians, and skilled programmers remember meaningful lines of code better than random ones. These findings suggest that expertise depends largely on a vast store of patterns built up through years of practice. Some researchers have estimated that a chess master may know tens of thousands of such patterns. The implication for education is that deep understanding grows from organized knowledge rather than from general mental ability alone.",
+  "question": "What is the passage mainly about?",
+  "choices": [
+   "Chess is the best way to improve memory.",
+   "Expert performance relies on recognizing familiar patterns.",
+   "Beginners have poor short-term memory.",
+   "Programmers and musicians use the same skills."
+  ],
+  "answer": "Expert performance relies on recognizing familiar patterns.",
+  "explanation": "chunk の認識が熟達の鍵であることが主題。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science main-idea"
+ },
+ {
+  "id": "TOEFL-RA-510-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Chunking and Expertise\n\nIn a classic series of experiments, researchers showed chess positions to players of different skill levels for only a few seconds and then asked them to reconstruct the positions on an empty board. Expert players recalled the locations of most pieces accurately, while beginners remembered only a handful. At first, this result seemed to suggest that experts simply had better memories. However, a crucial variation of the experiment challenged that conclusion.\n\nWhen the pieces were placed randomly, in arrangements that could not occur in a real game, the experts' advantage almost disappeared. They performed only slightly better than novices. The researchers concluded that experts were not storing individual pieces but recognizing meaningful groups, or \"chunks,\" such as a familiar defensive formation. Because each chunk counts as a single unit in short-term memory, an expert can hold far more information than a beginner, who must treat each piece separately.\n\nLater studies found similar effects in other fields. Experienced musicians recall musical notation more accurately than non-musicians, and skilled programmers remember meaningful lines of code better than random ones. These findings suggest that expertise depends largely on a vast store of patterns built up through years of practice. Some researchers have estimated that a chess master may know tens of thousands of such patterns. The implication for education is that deep understanding grows from organized knowledge rather than from general mental ability alone.",
+  "question": "What happened when chess pieces were placed randomly?",
+  "choices": [
+   "Experts remembered even more pieces.",
+   "Beginners outperformed experts.",
+   "Experts performed almost as poorly as beginners.",
+   "Neither group could remember the positions of any of the pieces."
+  ],
+  "answer": "Experts performed almost as poorly as beginners.",
+  "explanation": "the experts' advantage almost disappeared とある。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science factual"
+ },
+ {
+  "id": "TOEFL-RA-510-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Chunking and Expertise\n\nIn a classic series of experiments, researchers showed chess positions to players of different skill levels for only a few seconds and then asked them to reconstruct the positions on an empty board. Expert players recalled the locations of most pieces accurately, while beginners remembered only a handful. At first, this result seemed to suggest that experts simply had better memories. However, a crucial variation of the experiment challenged that conclusion.\n\nWhen the pieces were placed randomly, in arrangements that could not occur in a real game, the experts' advantage almost disappeared. They performed only slightly better than novices. The researchers concluded that experts were not storing individual pieces but recognizing meaningful groups, or \"chunks,\" such as a familiar defensive formation. Because each chunk counts as a single unit in short-term memory, an expert can hold far more information than a beginner, who must treat each piece separately.\n\nLater studies found similar effects in other fields. Experienced musicians recall musical notation more accurately than non-musicians, and skilled programmers remember meaningful lines of code better than random ones. These findings suggest that expertise depends largely on a vast store of patterns built up through years of practice. Some researchers have estimated that a chess master may know tens of thousands of such patterns. The implication for education is that deep understanding grows from organized knowledge rather than from general mental ability alone.",
+  "question": "Why does the author mention the experiment with random positions?",
+  "choices": [
+   "To prove that chess positions are difficult to learn",
+   "To describe how beginners learn chess",
+   "To show that experts cannot play unusual games",
+   "To show that experts do not simply have better general memory"
+  ],
+  "answer": "To show that experts do not simply have better general memory",
+  "explanation": "単に記憶力が良いという結論を覆すため。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-510-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Chunking and Expertise\n\nIn a classic series of experiments, researchers showed chess positions to players of different skill levels for only a few seconds and then asked them to reconstruct the positions on an empty board. Expert players recalled the locations of most pieces accurately, while beginners remembered only a handful. At first, this result seemed to suggest that experts simply had better memories. However, a crucial variation of the experiment challenged that conclusion.\n\nWhen the pieces were placed randomly, in arrangements that could not occur in a real game, the experts' advantage almost disappeared. They performed only slightly better than novices. The researchers concluded that experts were not storing individual pieces but recognizing meaningful groups, or \"chunks,\" such as a familiar defensive formation. Because each chunk counts as a single unit in short-term memory, an expert can hold far more information than a beginner, who must treat each piece separately.\n\nLater studies found similar effects in other fields. Experienced musicians recall musical notation more accurately than non-musicians, and skilled programmers remember meaningful lines of code better than random ones. These findings suggest that expertise depends largely on a vast store of patterns built up through years of practice. Some researchers have estimated that a chess master may know tens of thousands of such patterns. The implication for education is that deep understanding grows from organized knowledge rather than from general mental ability alone.",
+  "question": "The word \"crucial\" in the passage is closest in meaning to",
+  "choices": [
+   "extremely important",
+   "complicated",
+   "surprisingly difficult",
+   "early"
+  ],
+  "answer": "extremely important",
+  "explanation": "crucial＝決定的に重要な。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-510-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Chunking and Expertise\n\nIn a classic series of experiments, researchers showed chess positions to players of different skill levels for only a few seconds and then asked them to reconstruct the positions on an empty board. Expert players recalled the locations of most pieces accurately, while beginners remembered only a handful. At first, this result seemed to suggest that experts simply had better memories. However, a crucial variation of the experiment challenged that conclusion.\n\nWhen the pieces were placed randomly, in arrangements that could not occur in a real game, the experts' advantage almost disappeared. They performed only slightly better than novices. The researchers concluded that experts were not storing individual pieces but recognizing meaningful groups, or \"chunks,\" such as a familiar defensive formation. Because each chunk counts as a single unit in short-term memory, an expert can hold far more information than a beginner, who must treat each piece separately.\n\nLater studies found similar effects in other fields. Experienced musicians recall musical notation more accurately than non-musicians, and skilled programmers remember meaningful lines of code better than random ones. These findings suggest that expertise depends largely on a vast store of patterns built up through years of practice. Some researchers have estimated that a chess master may know tens of thousands of such patterns. The implication for education is that deep understanding grows from organized knowledge rather than from general mental ability alone.",
+  "question": "What would the author most likely recommend to teachers?",
+  "choices": [
+   "Test students' general memory before teaching them any new subject.",
+   "Help students organize knowledge into meaningful structures.",
+   "Have students memorize random lists.",
+   "Teach chess in every classroom."
+  ],
+  "answer": "Help students organize knowledge into meaningful structures.",
+  "explanation": "organized knowledge が深い理解を生むとある。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science inference"
+ },
+ {
+  "id": "TOEFL-RA-511-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Tracking Disease Through Wastewater\n\nPublic health agencies have traditionally monitored infectious diseases by counting cases reported by doctors and laboratories. This approach has limitations. Many infected people never see a doctor, especially if their symptoms are mild, and test results can take days to reach officials. As a result, reported numbers often lag behind the actual spread of a disease.\n\nWastewater surveillance offers a complementary method. Many viruses and bacteria are shed in human waste, sometimes even before an infected person feels sick. By collecting samples from sewage treatment plants and measuring the genetic material of specific pathogens, scientists can estimate how much of an infection is circulating in the community served by that plant. Because a single sample represents thousands of people, the method is relatively inexpensive and does not depend on individuals choosing to be tested.\n\nThis technique was used on a large scale during the COVID-19 pandemic, when rising levels of viral material in wastewater frequently preceded increases in hospital admissions by several days. Cities used these early signals to prepare hospitals and target testing campaigns. Researchers are now applying the approach to other threats, including influenza and antibiotic-resistant bacteria.\n\nThe method does have drawbacks. Rainfall can dilute samples, and the amount of material shed varies among individuals, so results indicate trends rather than exact case numbers. Privacy concerns may also arise if samples are taken from small areas, such as a single building.",
+  "question": "According to the passage, why do reported case numbers often lag behind actual infections?",
+  "choices": [
+   "Laboratories are not allowed to share their results with officials.",
+   "Doctors report only severe cases.",
+   "Many people do not see a doctor, and results take time.",
+   "Most diseases have no symptoms."
+  ],
+  "answer": "Many people do not see a doctor, and results take time.",
+  "explanation": "受診しない人が多く、結果の報告に時間がかかる。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology factual"
+ },
+ {
+  "id": "TOEFL-RA-511-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Tracking Disease Through Wastewater\n\nPublic health agencies have traditionally monitored infectious diseases by counting cases reported by doctors and laboratories. This approach has limitations. Many infected people never see a doctor, especially if their symptoms are mild, and test results can take days to reach officials. As a result, reported numbers often lag behind the actual spread of a disease.\n\nWastewater surveillance offers a complementary method. Many viruses and bacteria are shed in human waste, sometimes even before an infected person feels sick. By collecting samples from sewage treatment plants and measuring the genetic material of specific pathogens, scientists can estimate how much of an infection is circulating in the community served by that plant. Because a single sample represents thousands of people, the method is relatively inexpensive and does not depend on individuals choosing to be tested.\n\nThis technique was used on a large scale during the COVID-19 pandemic, when rising levels of viral material in wastewater frequently preceded increases in hospital admissions by several days. Cities used these early signals to prepare hospitals and target testing campaigns. Researchers are now applying the approach to other threats, including influenza and antibiotic-resistant bacteria.\n\nThe method does have drawbacks. Rainfall can dilute samples, and the amount of material shed varies among individuals, so results indicate trends rather than exact case numbers. Privacy concerns may also arise if samples are taken from small areas, such as a single building.",
+  "question": "The word \"complementary\" in the passage is closest in meaning to",
+  "choices": [
+   "free of charge",
+   "more accurate",
+   "replacing all other methods",
+   "adding to another method"
+  ],
+  "answer": "adding to another method",
+  "explanation": "complementary＝補完的な。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-511-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Tracking Disease Through Wastewater\n\nPublic health agencies have traditionally monitored infectious diseases by counting cases reported by doctors and laboratories. This approach has limitations. Many infected people never see a doctor, especially if their symptoms are mild, and test results can take days to reach officials. As a result, reported numbers often lag behind the actual spread of a disease.\n\nWastewater surveillance offers a complementary method. Many viruses and bacteria are shed in human waste, sometimes even before an infected person feels sick. By collecting samples from sewage treatment plants and measuring the genetic material of specific pathogens, scientists can estimate how much of an infection is circulating in the community served by that plant. Because a single sample represents thousands of people, the method is relatively inexpensive and does not depend on individuals choosing to be tested.\n\nThis technique was used on a large scale during the COVID-19 pandemic, when rising levels of viral material in wastewater frequently preceded increases in hospital admissions by several days. Cities used these early signals to prepare hospitals and target testing campaigns. Researchers are now applying the approach to other threats, including influenza and antibiotic-resistant bacteria.\n\nThe method does have drawbacks. Rainfall can dilute samples, and the amount of material shed varies among individuals, so results indicate trends rather than exact case numbers. Privacy concerns may also arise if samples are taken from small areas, such as a single building.",
+  "question": "Which of the following is NOT mentioned as an advantage of wastewater surveillance?",
+  "choices": [
+   "It identifies exactly which individuals are infected.",
+   "It is relatively inexpensive.",
+   "It does not depend on people getting tested.",
+   "It can give early warning of rising infections in a community."
+  ],
+  "answer": "It identifies exactly which individuals are infected.",
+  "explanation": "個人の特定はできず、むしろ傾向を示すだけ。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-511-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Tracking Disease Through Wastewater\n\nPublic health agencies have traditionally monitored infectious diseases by counting cases reported by doctors and laboratories. This approach has limitations. Many infected people never see a doctor, especially if their symptoms are mild, and test results can take days to reach officials. As a result, reported numbers often lag behind the actual spread of a disease.\n\nWastewater surveillance offers a complementary method. Many viruses and bacteria are shed in human waste, sometimes even before an infected person feels sick. By collecting samples from sewage treatment plants and measuring the genetic material of specific pathogens, scientists can estimate how much of an infection is circulating in the community served by that plant. Because a single sample represents thousands of people, the method is relatively inexpensive and does not depend on individuals choosing to be tested.\n\nThis technique was used on a large scale during the COVID-19 pandemic, when rising levels of viral material in wastewater frequently preceded increases in hospital admissions by several days. Cities used these early signals to prepare hospitals and target testing campaigns. Researchers are now applying the approach to other threats, including influenza and antibiotic-resistant bacteria.\n\nThe method does have drawbacks. Rainfall can dilute samples, and the amount of material shed varies among individuals, so results indicate trends rather than exact case numbers. Privacy concerns may also arise if samples are taken from small areas, such as a single building.",
+  "question": "Why might samples from a single building raise privacy concerns?",
+  "choices": [
+   "They are more expensive to collect.",
+   "They could reveal information about a small, identifiable group.",
+   "They are more affected by rainfall.",
+   "They contain no genetic material."
+  ],
+  "answer": "They could reveal information about a small, identifiable group.",
+  "explanation": "小さな範囲だと特定の人々の情報が分かりうるため。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology inference"
+ },
+ {
+  "id": "TOEFL-RA-511-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Tracking Disease Through Wastewater\n\nPublic health agencies have traditionally monitored infectious diseases by counting cases reported by doctors and laboratories. This approach has limitations. Many infected people never see a doctor, especially if their symptoms are mild, and test results can take days to reach officials. As a result, reported numbers often lag behind the actual spread of a disease.\n\nWastewater surveillance offers a complementary method. Many viruses and bacteria are shed in human waste, sometimes even before an infected person feels sick. By collecting samples from sewage treatment plants and measuring the genetic material of specific pathogens, scientists can estimate how much of an infection is circulating in the community served by that plant. Because a single sample represents thousands of people, the method is relatively inexpensive and does not depend on individuals choosing to be tested.\n\nThis technique was used on a large scale during the COVID-19 pandemic, when rising levels of viral material in wastewater frequently preceded increases in hospital admissions by several days. Cities used these early signals to prepare hospitals and target testing campaigns. Researchers are now applying the approach to other threats, including influenza and antibiotic-resistant bacteria.\n\nThe method does have drawbacks. Rainfall can dilute samples, and the amount of material shed varies among individuals, so results indicate trends rather than exact case numbers. Privacy concerns may also arise if samples are taken from small areas, such as a single building.",
+  "question": "Why does the author mention hospital admissions during the COVID-19 pandemic?",
+  "choices": [
+   "To argue that hospitals were poorly prepared",
+   "To explain how the virus was first discovered in sewage samples",
+   "To show that wastewater data provided early warnings",
+   "To criticize traditional testing methods"
+  ],
+  "answer": "To show that wastewater data provided early warnings",
+  "explanation": "下水データが入院増加より先に変化した例として。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-512-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Jet Stream\n\nHigh above the Earth's surface, at altitudes of about nine to twelve kilometers, narrow bands of strong wind circle the planet from west to east. These winds, known as jet streams, can reach speeds of more than 300 kilometers per hour. They form where cold polar air meets warmer air from lower latitudes; the greater the temperature difference, the stronger the wind.\n\nThe polar jet stream plays a major role in shaping weather in the mid-latitudes, including much of North America, Europe, and East Asia. It does not flow in a straight line but meanders in large waves. Areas beneath a northward bulge tend to experience warm conditions, while areas beneath a southward dip receive colder air. Storms often develop along the jet stream and are carried along by it, which is why forecasters pay close attention to its position.\n\nSometimes these waves become very large and move slowly, or even stall. When this happens, the same weather can persist over a region for days or weeks, leading to prolonged heat waves, cold spells, or heavy rainfall. Some scientists have proposed that rapid warming in the Arctic, by reducing the temperature contrast between the pole and lower latitudes, may weaken the jet stream and make such stalled patterns more frequent. Others argue that the evidence is not yet conclusive, since natural variability in the atmosphere is large and records are relatively short.",
+  "question": "According to the passage, what determines the strength of the jet stream?",
+  "choices": [
+   "The height of the mountains that lie beneath it",
+   "The amount of rainfall",
+   "The rotation speed of the Moon",
+   "The temperature difference between air masses"
+  ],
+  "answer": "The temperature difference between air masses",
+  "explanation": "the greater the temperature difference, the stronger the wind。",
+  "tags": "TOEFL2026 AcademicPassage climatology factual"
+ },
+ {
+  "id": "TOEFL-RA-512-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Jet Stream\n\nHigh above the Earth's surface, at altitudes of about nine to twelve kilometers, narrow bands of strong wind circle the planet from west to east. These winds, known as jet streams, can reach speeds of more than 300 kilometers per hour. They form where cold polar air meets warmer air from lower latitudes; the greater the temperature difference, the stronger the wind.\n\nThe polar jet stream plays a major role in shaping weather in the mid-latitudes, including much of North America, Europe, and East Asia. It does not flow in a straight line but meanders in large waves. Areas beneath a northward bulge tend to experience warm conditions, while areas beneath a southward dip receive colder air. Storms often develop along the jet stream and are carried along by it, which is why forecasters pay close attention to its position.\n\nSometimes these waves become very large and move slowly, or even stall. When this happens, the same weather can persist over a region for days or weeks, leading to prolonged heat waves, cold spells, or heavy rainfall. Some scientists have proposed that rapid warming in the Arctic, by reducing the temperature contrast between the pole and lower latitudes, may weaken the jet stream and make such stalled patterns more frequent. Others argue that the evidence is not yet conclusive, since natural variability in the atmosphere is large and records are relatively short.",
+  "question": "The word \"meanders\" in the passage is closest in meaning to",
+  "choices": [
+   "winds back and forth",
+   "speeds up",
+   "disappears",
+   "rises sharply"
+  ],
+  "answer": "winds back and forth",
+  "explanation": "meander＝蛇行する。",
+  "tags": "TOEFL2026 AcademicPassage climatology vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-512-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Jet Stream\n\nHigh above the Earth's surface, at altitudes of about nine to twelve kilometers, narrow bands of strong wind circle the planet from west to east. These winds, known as jet streams, can reach speeds of more than 300 kilometers per hour. They form where cold polar air meets warmer air from lower latitudes; the greater the temperature difference, the stronger the wind.\n\nThe polar jet stream plays a major role in shaping weather in the mid-latitudes, including much of North America, Europe, and East Asia. It does not flow in a straight line but meanders in large waves. Areas beneath a northward bulge tend to experience warm conditions, while areas beneath a southward dip receive colder air. Storms often develop along the jet stream and are carried along by it, which is why forecasters pay close attention to its position.\n\nSometimes these waves become very large and move slowly, or even stall. When this happens, the same weather can persist over a region for days or weeks, leading to prolonged heat waves, cold spells, or heavy rainfall. Some scientists have proposed that rapid warming in the Arctic, by reducing the temperature contrast between the pole and lower latitudes, may weaken the jet stream and make such stalled patterns more frequent. Others argue that the evidence is not yet conclusive, since natural variability in the atmosphere is large and records are relatively short.",
+  "question": "What happens when the jet stream's waves stall?",
+  "choices": [
+   "Storms immediately disappear.",
+   "Weather conditions remain the same for a long time.",
+   "Temperatures become more variable each day.",
+   "The jet stream reverses direction."
+  ],
+  "answer": "Weather conditions remain the same for a long time.",
+  "explanation": "the same weather can persist ... for days or weeks とある。",
+  "tags": "TOEFL2026 AcademicPassage climatology factual"
+ },
+ {
+  "id": "TOEFL-RA-512-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Jet Stream\n\nHigh above the Earth's surface, at altitudes of about nine to twelve kilometers, narrow bands of strong wind circle the planet from west to east. These winds, known as jet streams, can reach speeds of more than 300 kilometers per hour. They form where cold polar air meets warmer air from lower latitudes; the greater the temperature difference, the stronger the wind.\n\nThe polar jet stream plays a major role in shaping weather in the mid-latitudes, including much of North America, Europe, and East Asia. It does not flow in a straight line but meanders in large waves. Areas beneath a northward bulge tend to experience warm conditions, while areas beneath a southward dip receive colder air. Storms often develop along the jet stream and are carried along by it, which is why forecasters pay close attention to its position.\n\nSometimes these waves become very large and move slowly, or even stall. When this happens, the same weather can persist over a region for days or weeks, leading to prolonged heat waves, cold spells, or heavy rainfall. Some scientists have proposed that rapid warming in the Arctic, by reducing the temperature contrast between the pole and lower latitudes, may weaken the jet stream and make such stalled patterns more frequent. Others argue that the evidence is not yet conclusive, since natural variability in the atmosphere is large and records are relatively short.",
+  "question": "What can be inferred about the scientific debate described in the last paragraph?",
+  "choices": [
+   "All scientists now agree that Arctic warming is making the jet stream much stronger.",
+   "Arctic warming has stopped.",
+   "Researchers do not yet agree about the effect of Arctic warming on the jet stream.",
+   "Long weather records have settled the question."
+  ],
+  "answer": "Researchers do not yet agree about the effect of Arctic warming on the jet stream.",
+  "explanation": "提案する人と、証拠が不十分とする人がいる。",
+  "tags": "TOEFL2026 AcademicPassage climatology inference"
+ },
+ {
+  "id": "TOEFL-RA-512-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Jet Stream\n\nHigh above the Earth's surface, at altitudes of about nine to twelve kilometers, narrow bands of strong wind circle the planet from west to east. These winds, known as jet streams, can reach speeds of more than 300 kilometers per hour. They form where cold polar air meets warmer air from lower latitudes; the greater the temperature difference, the stronger the wind.\n\nThe polar jet stream plays a major role in shaping weather in the mid-latitudes, including much of North America, Europe, and East Asia. It does not flow in a straight line but meanders in large waves. Areas beneath a northward bulge tend to experience warm conditions, while areas beneath a southward dip receive colder air. Storms often develop along the jet stream and are carried along by it, which is why forecasters pay close attention to its position.\n\nSometimes these waves become very large and move slowly, or even stall. When this happens, the same weather can persist over a region for days or weeks, leading to prolonged heat waves, cold spells, or heavy rainfall. Some scientists have proposed that rapid warming in the Arctic, by reducing the temperature contrast between the pole and lower latitudes, may weaken the jet stream and make such stalled patterns more frequent. Others argue that the evidence is not yet conclusive, since natural variability in the atmosphere is large and records are relatively short.",
+  "question": "Which of the following best summarizes the passage?",
+  "choices": [
+   "Jet streams are dangerous for airplanes.",
+   "The Arctic is warming faster than any other region.",
+   "Forecasters can easily predict all heat waves.",
+   "The jet stream strongly affects mid-latitude weather, and its future behavior is debated."
+  ],
+  "answer": "The jet stream strongly affects mid-latitude weather, and its future behavior is debated.",
+  "explanation": "ジェット気流の仕組みと影響、将来をめぐる議論。",
+  "tags": "TOEFL2026 AcademicPassage climatology main-idea"
+ },
+ {
+  "id": "TOEFL-RA-513-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Reading Ancient Footprints\n\nFossil bones are not the only evidence of ancient animals. Trace fossils, such as footprints, burrows, and nests, preserve records of behavior rather than anatomy. Footprints in particular can reveal information that skeletons cannot, because they capture a moment in the life of a living animal.\n\nBy measuring the length of a footprint and the distance between successive prints, paleontologists can estimate how fast an animal was moving. This calculation relies on relationships observed in living animals: as speed increases, stride length grows relative to leg length. Applying such formulas to dinosaur trackways has shown that most large dinosaurs walked at modest speeds, although some smaller species appear to have been running.\n\nTrackways can also suggest social behavior. At several sites, dozens of parallel trails made by the same species head in the same direction, with smaller prints positioned between larger ones. Some researchers interpret such patterns as evidence that certain dinosaurs traveled in groups, perhaps protecting their young.\n\nHowever, footprints present challenges. It is often impossible to determine exactly which species made a particular track, since prints of related animals may look alike. In addition, the shape of a print depends on the softness of the ground; an animal walking in deep mud leaves a very different mark from one crossing firm sand. Consequently, paleontologists usually combine trackway evidence with skeletal fossils found in rocks of the same age.",
+  "question": "What is the passage mainly about?",
+  "choices": [
+   "What fossil footprints reveal about ancient animals and their limitations",
+   "Why dinosaurs walked slowly",
+   "How skeletons are excavated from rock",
+   "The differences between mud and sand"
+  ],
+  "answer": "What fossil footprints reveal about ancient animals and their limitations",
+  "explanation": "足跡化石からわかることと限界が主題。",
+  "tags": "TOEFL2026 AcademicPassage paleontology main-idea"
+ },
+ {
+  "id": "TOEFL-RA-513-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Reading Ancient Footprints\n\nFossil bones are not the only evidence of ancient animals. Trace fossils, such as footprints, burrows, and nests, preserve records of behavior rather than anatomy. Footprints in particular can reveal information that skeletons cannot, because they capture a moment in the life of a living animal.\n\nBy measuring the length of a footprint and the distance between successive prints, paleontologists can estimate how fast an animal was moving. This calculation relies on relationships observed in living animals: as speed increases, stride length grows relative to leg length. Applying such formulas to dinosaur trackways has shown that most large dinosaurs walked at modest speeds, although some smaller species appear to have been running.\n\nTrackways can also suggest social behavior. At several sites, dozens of parallel trails made by the same species head in the same direction, with smaller prints positioned between larger ones. Some researchers interpret such patterns as evidence that certain dinosaurs traveled in groups, perhaps protecting their young.\n\nHowever, footprints present challenges. It is often impossible to determine exactly which species made a particular track, since prints of related animals may look alike. In addition, the shape of a print depends on the softness of the ground; an animal walking in deep mud leaves a very different mark from one crossing firm sand. Consequently, paleontologists usually combine trackway evidence with skeletal fossils found in rocks of the same age.",
+  "question": "How do paleontologists estimate an animal's speed from footprints?",
+  "choices": [
+   "By measuring how deeply the prints sink into the ground",
+   "By comparing stride length to leg length",
+   "By counting the number of toes",
+   "By examining nearby bones"
+  ],
+  "answer": "By comparing stride length to leg length",
+  "explanation": "stride length grows relative to leg length の関係を使う。",
+  "tags": "TOEFL2026 AcademicPassage paleontology factual"
+ },
+ {
+  "id": "TOEFL-RA-513-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Reading Ancient Footprints\n\nFossil bones are not the only evidence of ancient animals. Trace fossils, such as footprints, burrows, and nests, preserve records of behavior rather than anatomy. Footprints in particular can reveal information that skeletons cannot, because they capture a moment in the life of a living animal.\n\nBy measuring the length of a footprint and the distance between successive prints, paleontologists can estimate how fast an animal was moving. This calculation relies on relationships observed in living animals: as speed increases, stride length grows relative to leg length. Applying such formulas to dinosaur trackways has shown that most large dinosaurs walked at modest speeds, although some smaller species appear to have been running.\n\nTrackways can also suggest social behavior. At several sites, dozens of parallel trails made by the same species head in the same direction, with smaller prints positioned between larger ones. Some researchers interpret such patterns as evidence that certain dinosaurs traveled in groups, perhaps protecting their young.\n\nHowever, footprints present challenges. It is often impossible to determine exactly which species made a particular track, since prints of related animals may look alike. In addition, the shape of a print depends on the softness of the ground; an animal walking in deep mud leaves a very different mark from one crossing firm sand. Consequently, paleontologists usually combine trackway evidence with skeletal fossils found in rocks of the same age.",
+  "question": "What do the smaller prints between larger ones suggest?",
+  "choices": [
+   "Smaller species were hunting larger ones.",
+   "The animals were running quickly.",
+   "Young animals may have been protected by adults.",
+   "The ground was too soft for the larger animals to cross safely."
+  ],
+  "answer": "Young animals may have been protected by adults.",
+  "explanation": "protecting their young と解釈されている。",
+  "tags": "TOEFL2026 AcademicPassage paleontology inference"
+ },
+ {
+  "id": "TOEFL-RA-513-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Reading Ancient Footprints\n\nFossil bones are not the only evidence of ancient animals. Trace fossils, such as footprints, burrows, and nests, preserve records of behavior rather than anatomy. Footprints in particular can reveal information that skeletons cannot, because they capture a moment in the life of a living animal.\n\nBy measuring the length of a footprint and the distance between successive prints, paleontologists can estimate how fast an animal was moving. This calculation relies on relationships observed in living animals: as speed increases, stride length grows relative to leg length. Applying such formulas to dinosaur trackways has shown that most large dinosaurs walked at modest speeds, although some smaller species appear to have been running.\n\nTrackways can also suggest social behavior. At several sites, dozens of parallel trails made by the same species head in the same direction, with smaller prints positioned between larger ones. Some researchers interpret such patterns as evidence that certain dinosaurs traveled in groups, perhaps protecting their young.\n\nHowever, footprints present challenges. It is often impossible to determine exactly which species made a particular track, since prints of related animals may look alike. In addition, the shape of a print depends on the softness of the ground; an animal walking in deep mud leaves a very different mark from one crossing firm sand. Consequently, paleontologists usually combine trackway evidence with skeletal fossils found in rocks of the same age.",
+  "question": "According to the passage, all of the following are difficulties in studying footprints EXCEPT",
+  "choices": [
+   "related species leave similar prints",
+   "the type of ground changes the print's shape",
+   "the maker of a track may be uncertain",
+   "footprints are too rare to study"
+  ],
+  "answer": "footprints are too rare to study",
+  "explanation": "足跡が少なすぎるとは述べていない。",
+  "tags": "TOEFL2026 AcademicPassage paleontology negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-513-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Reading Ancient Footprints\n\nFossil bones are not the only evidence of ancient animals. Trace fossils, such as footprints, burrows, and nests, preserve records of behavior rather than anatomy. Footprints in particular can reveal information that skeletons cannot, because they capture a moment in the life of a living animal.\n\nBy measuring the length of a footprint and the distance between successive prints, paleontologists can estimate how fast an animal was moving. This calculation relies on relationships observed in living animals: as speed increases, stride length grows relative to leg length. Applying such formulas to dinosaur trackways has shown that most large dinosaurs walked at modest speeds, although some smaller species appear to have been running.\n\nTrackways can also suggest social behavior. At several sites, dozens of parallel trails made by the same species head in the same direction, with smaller prints positioned between larger ones. Some researchers interpret such patterns as evidence that certain dinosaurs traveled in groups, perhaps protecting their young.\n\nHowever, footprints present challenges. It is often impossible to determine exactly which species made a particular track, since prints of related animals may look alike. In addition, the shape of a print depends on the softness of the ground; an animal walking in deep mud leaves a very different mark from one crossing firm sand. Consequently, paleontologists usually combine trackway evidence with skeletal fossils found in rocks of the same age.",
+  "question": "The word \"successive\" in the passage is closest in meaning to",
+  "choices": [
+   "following one after another",
+   "very large",
+   "pressed deeply into the ground",
+   "ancient"
+  ],
+  "answer": "following one after another",
+  "explanation": "successive＝連続する。",
+  "tags": "TOEFL2026 AcademicPassage paleontology vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-514-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Why Ice Floats\n\nMost substances become denser when they change from liquid to solid, because their molecules pack together more tightly. Water is a notable exception. Ice is about nine percent less dense than liquid water, which is why it floats. This unusual property results from the structure of the water molecule and the hydrogen bonds that form between molecules.\n\nA water molecule consists of one oxygen atom bonded to two hydrogen atoms. The oxygen atom attracts electrons more strongly, giving it a slight negative charge, while the hydrogen atoms carry slight positive charges. As a result, the hydrogen atoms of one molecule are attracted to the oxygen atoms of neighboring molecules. In liquid water, these hydrogen bonds constantly break and re-form, allowing molecules to move close together. When water freezes, however, each molecule becomes locked into a fixed position, bonded to four neighbors in an open, hexagonal pattern. This arrangement contains more empty space than the liquid, so the solid takes up more volume.\n\nThe consequences are significant for life on Earth. Because ice forms on the surface of lakes rather than sinking, it insulates the water below and keeps it from freezing solid. Aquatic organisms can therefore survive the winter. Water is also densest at about four degrees Celsius, so in cold seasons the deepest parts of a lake tend to remain at this temperature. On the other hand, the expansion of freezing water can crack rocks and damage pipes.",
+  "question": "According to the passage, why does ice float?",
+  "choices": [
+   "It contains air bubbles from the atmosphere.",
+   "It is less dense than liquid water.",
+   "Its molecules are packed more tightly.",
+   "It has fewer hydrogen atoms."
+  ],
+  "answer": "It is less dense than liquid water.",
+  "explanation": "Ice is about nine percent less dense とある。",
+  "tags": "TOEFL2026 AcademicPassage chemistry factual"
+ },
+ {
+  "id": "TOEFL-RA-514-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Why Ice Floats\n\nMost substances become denser when they change from liquid to solid, because their molecules pack together more tightly. Water is a notable exception. Ice is about nine percent less dense than liquid water, which is why it floats. This unusual property results from the structure of the water molecule and the hydrogen bonds that form between molecules.\n\nA water molecule consists of one oxygen atom bonded to two hydrogen atoms. The oxygen atom attracts electrons more strongly, giving it a slight negative charge, while the hydrogen atoms carry slight positive charges. As a result, the hydrogen atoms of one molecule are attracted to the oxygen atoms of neighboring molecules. In liquid water, these hydrogen bonds constantly break and re-form, allowing molecules to move close together. When water freezes, however, each molecule becomes locked into a fixed position, bonded to four neighbors in an open, hexagonal pattern. This arrangement contains more empty space than the liquid, so the solid takes up more volume.\n\nThe consequences are significant for life on Earth. Because ice forms on the surface of lakes rather than sinking, it insulates the water below and keeps it from freezing solid. Aquatic organisms can therefore survive the winter. Water is also densest at about four degrees Celsius, so in cold seasons the deepest parts of a lake tend to remain at this temperature. On the other hand, the expansion of freezing water can crack rocks and damage pipes.",
+  "question": "What happens to water molecules when water freezes?",
+  "choices": [
+   "They stop forming hydrogen bonds.",
+   "They move much closer together than they do in liquid water.",
+   "They form a fixed, open pattern with more empty space.",
+   "They lose their hydrogen atoms."
+  ],
+  "answer": "They form a fixed, open pattern with more empty space.",
+  "explanation": "locked into ... an open, hexagonal pattern とある。",
+  "tags": "TOEFL2026 AcademicPassage chemistry factual"
+ },
+ {
+  "id": "TOEFL-RA-514-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Why Ice Floats\n\nMost substances become denser when they change from liquid to solid, because their molecules pack together more tightly. Water is a notable exception. Ice is about nine percent less dense than liquid water, which is why it floats. This unusual property results from the structure of the water molecule and the hydrogen bonds that form between molecules.\n\nA water molecule consists of one oxygen atom bonded to two hydrogen atoms. The oxygen atom attracts electrons more strongly, giving it a slight negative charge, while the hydrogen atoms carry slight positive charges. As a result, the hydrogen atoms of one molecule are attracted to the oxygen atoms of neighboring molecules. In liquid water, these hydrogen bonds constantly break and re-form, allowing molecules to move close together. When water freezes, however, each molecule becomes locked into a fixed position, bonded to four neighbors in an open, hexagonal pattern. This arrangement contains more empty space than the liquid, so the solid takes up more volume.\n\nThe consequences are significant for life on Earth. Because ice forms on the surface of lakes rather than sinking, it insulates the water below and keeps it from freezing solid. Aquatic organisms can therefore survive the winter. Water is also densest at about four degrees Celsius, so in cold seasons the deepest parts of a lake tend to remain at this temperature. On the other hand, the expansion of freezing water can crack rocks and damage pipes.",
+  "question": "The word \"insulates\" in the passage is closest in meaning to",
+  "choices": [
+   "pushes down",
+   "makes dirty",
+   "breaks apart",
+   "protects from temperature change"
+  ],
+  "answer": "protects from temperature change",
+  "explanation": "insulate＝断熱する、温度変化から守る。",
+  "tags": "TOEFL2026 AcademicPassage chemistry vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-514-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Why Ice Floats\n\nMost substances become denser when they change from liquid to solid, because their molecules pack together more tightly. Water is a notable exception. Ice is about nine percent less dense than liquid water, which is why it floats. This unusual property results from the structure of the water molecule and the hydrogen bonds that form between molecules.\n\nA water molecule consists of one oxygen atom bonded to two hydrogen atoms. The oxygen atom attracts electrons more strongly, giving it a slight negative charge, while the hydrogen atoms carry slight positive charges. As a result, the hydrogen atoms of one molecule are attracted to the oxygen atoms of neighboring molecules. In liquid water, these hydrogen bonds constantly break and re-form, allowing molecules to move close together. When water freezes, however, each molecule becomes locked into a fixed position, bonded to four neighbors in an open, hexagonal pattern. This arrangement contains more empty space than the liquid, so the solid takes up more volume.\n\nThe consequences are significant for life on Earth. Because ice forms on the surface of lakes rather than sinking, it insulates the water below and keeps it from freezing solid. Aquatic organisms can therefore survive the winter. Water is also densest at about four degrees Celsius, so in cold seasons the deepest parts of a lake tend to remain at this temperature. On the other hand, the expansion of freezing water can crack rocks and damage pipes.",
+  "question": "What can be inferred about the bottom of a deep lake in winter?",
+  "choices": [
+   "It is likely to be warmer than the surface ice.",
+   "It freezes before the surface does.",
+   "It is usually colder than zero degrees Celsius all winter.",
+   "It contains no living organisms."
+  ],
+  "answer": "It is likely to be warmer than the surface ice.",
+  "explanation": "深部は約 4℃ にとどまるので表面の氷より暖かい。",
+  "tags": "TOEFL2026 AcademicPassage chemistry inference"
+ },
+ {
+  "id": "TOEFL-RA-514-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Why Ice Floats\n\nMost substances become denser when they change from liquid to solid, because their molecules pack together more tightly. Water is a notable exception. Ice is about nine percent less dense than liquid water, which is why it floats. This unusual property results from the structure of the water molecule and the hydrogen bonds that form between molecules.\n\nA water molecule consists of one oxygen atom bonded to two hydrogen atoms. The oxygen atom attracts electrons more strongly, giving it a slight negative charge, while the hydrogen atoms carry slight positive charges. As a result, the hydrogen atoms of one molecule are attracted to the oxygen atoms of neighboring molecules. In liquid water, these hydrogen bonds constantly break and re-form, allowing molecules to move close together. When water freezes, however, each molecule becomes locked into a fixed position, bonded to four neighbors in an open, hexagonal pattern. This arrangement contains more empty space than the liquid, so the solid takes up more volume.\n\nThe consequences are significant for life on Earth. Because ice forms on the surface of lakes rather than sinking, it insulates the water below and keeps it from freezing solid. Aquatic organisms can therefore survive the winter. Water is also densest at about four degrees Celsius, so in cold seasons the deepest parts of a lake tend to remain at this temperature. On the other hand, the expansion of freezing water can crack rocks and damage pipes.",
+  "question": "Why does the author mention cracked rocks and damaged pipes?",
+  "choices": [
+   "To explain why lakes freeze from the bottom",
+   "To point out a harmful effect of water's expansion",
+   "To describe how hydrogen bonds form",
+   "To show that ice is denser than water"
+  ],
+  "answer": "To point out a harmful effect of water's expansion",
+  "explanation": "凍結膨張の負の影響の例。",
+  "tags": "TOEFL2026 AcademicPassage chemistry rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-515-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Bus Rapid Transit\n\nAs cities grow, many face a difficult question: how can they move large numbers of people without the enormous cost of building subway systems? One answer that has spread widely since the 1970s is bus rapid transit, or BRT. The concept was developed most famously in the Brazilian city of Curitiba and later adopted by cities across Latin America, Asia, and Africa.\n\nBRT systems attempt to offer the speed and reliability of a train while using buses. Their key feature is dedicated lanes, usually in the center of the road, that are separated from ordinary traffic. Passengers pay before boarding at enclosed stations, much like at a subway station, so buses do not have to wait while each rider pays. Station platforms are level with the bus floor, which allows people, including those using wheelchairs, to enter quickly. Together, these features can greatly reduce the time buses spend stopped.\n\nThe main advantage of BRT is cost. Building a BRT line typically costs a small fraction of an equivalent subway line, and it can be completed in a few years rather than decades. However, BRT has limitations. Its capacity, though high for buses, is generally lower than that of heavy rail. In addition, its success depends on political commitment; when cities allow cars to use the dedicated lanes or fail to maintain stations, service quality declines quickly, and the system may lose public support.",
+  "question": "According to the passage, why do passengers pay before boarding?",
+  "choices": [
+   "So that fares can be lower",
+   "So that people using wheelchairs can enter the buses more easily",
+   "So that buses do not have to wait while people pay",
+   "So that cars cannot use the lanes"
+  ],
+  "answer": "So that buses do not have to wait while people pay",
+  "explanation": "buses do not have to wait while each rider pays とある。",
+  "tags": "TOEFL2026 AcademicPassage urban-studies factual"
+ },
+ {
+  "id": "TOEFL-RA-515-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Bus Rapid Transit\n\nAs cities grow, many face a difficult question: how can they move large numbers of people without the enormous cost of building subway systems? One answer that has spread widely since the 1970s is bus rapid transit, or BRT. The concept was developed most famously in the Brazilian city of Curitiba and later adopted by cities across Latin America, Asia, and Africa.\n\nBRT systems attempt to offer the speed and reliability of a train while using buses. Their key feature is dedicated lanes, usually in the center of the road, that are separated from ordinary traffic. Passengers pay before boarding at enclosed stations, much like at a subway station, so buses do not have to wait while each rider pays. Station platforms are level with the bus floor, which allows people, including those using wheelchairs, to enter quickly. Together, these features can greatly reduce the time buses spend stopped.\n\nThe main advantage of BRT is cost. Building a BRT line typically costs a small fraction of an equivalent subway line, and it can be completed in a few years rather than decades. However, BRT has limitations. Its capacity, though high for buses, is generally lower than that of heavy rail. In addition, its success depends on political commitment; when cities allow cars to use the dedicated lanes or fail to maintain stations, service quality declines quickly, and the system may lose public support.",
+  "question": "Which of the following is NOT mentioned as a feature of BRT?",
+  "choices": [
+   "Separate lanes",
+   "Enclosed stations",
+   "Platforms level with the bus floor",
+   "Underground tunnels"
+  ],
+  "answer": "Underground tunnels",
+  "explanation": "地下トンネルは BRT の特徴として挙がっていない。",
+  "tags": "TOEFL2026 AcademicPassage urban-studies negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-515-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Bus Rapid Transit\n\nAs cities grow, many face a difficult question: how can they move large numbers of people without the enormous cost of building subway systems? One answer that has spread widely since the 1970s is bus rapid transit, or BRT. The concept was developed most famously in the Brazilian city of Curitiba and later adopted by cities across Latin America, Asia, and Africa.\n\nBRT systems attempt to offer the speed and reliability of a train while using buses. Their key feature is dedicated lanes, usually in the center of the road, that are separated from ordinary traffic. Passengers pay before boarding at enclosed stations, much like at a subway station, so buses do not have to wait while each rider pays. Station platforms are level with the bus floor, which allows people, including those using wheelchairs, to enter quickly. Together, these features can greatly reduce the time buses spend stopped.\n\nThe main advantage of BRT is cost. Building a BRT line typically costs a small fraction of an equivalent subway line, and it can be completed in a few years rather than decades. However, BRT has limitations. Its capacity, though high for buses, is generally lower than that of heavy rail. In addition, its success depends on political commitment; when cities allow cars to use the dedicated lanes or fail to maintain stations, service quality declines quickly, and the system may lose public support.",
+  "question": "What is described as the main advantage of BRT?",
+  "choices": [
+   "It is much less expensive than a subway.",
+   "It carries more passengers than trains.",
+   "It requires no political support.",
+   "It uses no roads."
+  ],
+  "answer": "It is much less expensive than a subway.",
+  "explanation": "The main advantage of BRT is cost とある。",
+  "tags": "TOEFL2026 AcademicPassage urban-studies factual"
+ },
+ {
+  "id": "TOEFL-RA-515-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Bus Rapid Transit\n\nAs cities grow, many face a difficult question: how can they move large numbers of people without the enormous cost of building subway systems? One answer that has spread widely since the 1970s is bus rapid transit, or BRT. The concept was developed most famously in the Brazilian city of Curitiba and later adopted by cities across Latin America, Asia, and Africa.\n\nBRT systems attempt to offer the speed and reliability of a train while using buses. Their key feature is dedicated lanes, usually in the center of the road, that are separated from ordinary traffic. Passengers pay before boarding at enclosed stations, much like at a subway station, so buses do not have to wait while each rider pays. Station platforms are level with the bus floor, which allows people, including those using wheelchairs, to enter quickly. Together, these features can greatly reduce the time buses spend stopped.\n\nThe main advantage of BRT is cost. Building a BRT line typically costs a small fraction of an equivalent subway line, and it can be completed in a few years rather than decades. However, BRT has limitations. Its capacity, though high for buses, is generally lower than that of heavy rail. In addition, its success depends on political commitment; when cities allow cars to use the dedicated lanes or fail to maintain stations, service quality declines quickly, and the system may lose public support.",
+  "question": "What can be inferred about BRT systems where cars are allowed in the bus lanes?",
+  "choices": [
+   "They will carry more passengers than before because roads are wider.",
+   "Buses there are likely to become slower and less reliable.",
+   "They will cost more to build.",
+   "They will be converted to subways."
+  ],
+  "answer": "Buses there are likely to become slower and less reliable.",
+  "explanation": "service quality declines quickly とあるので遅く不安定になる。",
+  "tags": "TOEFL2026 AcademicPassage urban-studies inference"
+ },
+ {
+  "id": "TOEFL-RA-515-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Bus Rapid Transit\n\nAs cities grow, many face a difficult question: how can they move large numbers of people without the enormous cost of building subway systems? One answer that has spread widely since the 1970s is bus rapid transit, or BRT. The concept was developed most famously in the Brazilian city of Curitiba and later adopted by cities across Latin America, Asia, and Africa.\n\nBRT systems attempt to offer the speed and reliability of a train while using buses. Their key feature is dedicated lanes, usually in the center of the road, that are separated from ordinary traffic. Passengers pay before boarding at enclosed stations, much like at a subway station, so buses do not have to wait while each rider pays. Station platforms are level with the bus floor, which allows people, including those using wheelchairs, to enter quickly. Together, these features can greatly reduce the time buses spend stopped.\n\nThe main advantage of BRT is cost. Building a BRT line typically costs a small fraction of an equivalent subway line, and it can be completed in a few years rather than decades. However, BRT has limitations. Its capacity, though high for buses, is generally lower than that of heavy rail. In addition, its success depends on political commitment; when cities allow cars to use the dedicated lanes or fail to maintain stations, service quality declines quickly, and the system may lose public support.",
+  "question": "The word \"commitment\" in the passage is closest in meaning to",
+  "choices": [
+   "criticism",
+   "election",
+   "dedication",
+   "uncertainty"
+  ],
+  "answer": "dedication",
+  "explanation": "commitment＝本気の関与・献身。",
+  "tags": "TOEFL2026 AcademicPassage urban-studies vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-516-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Sea Otters and Kelp Forests\n\nAlong the rocky coasts of the North Pacific, underwater forests of giant kelp provide food and shelter for hundreds of species. Kelp is a large brown seaweed that can grow tens of centimeters in a single day under favorable conditions. Yet these forests are surprisingly fragile, and their health depends to a large extent on a single predator: the sea otter.\n\nSea otters feed heavily on sea urchins, spiny animals that graze on kelp. When otter populations are healthy, urchins tend to remain hidden in cracks and feed mainly on pieces of drifting kelp. When otters disappear, however, urchin numbers can increase dramatically. The urchins then move into the open and chew through the bases of kelp plants, which causes the plants to break loose and float away. Within a few years, a thriving forest can be reduced to a bare seafloor sometimes called an \"urchin barren.\"\n\nThis sequence was observed after sea otters were hunted nearly to extinction for their fur during the eighteenth and nineteenth centuries. In areas where otters were later protected and returned, kelp forests often recovered. Ecologists describe this kind of chain reaction, in which a predator indirectly affects plants by controlling herbivores, as a trophic cascade.\n\nThe example has influenced conservation strategies worldwide. It suggests that protecting a single key species can sometimes preserve an entire ecosystem, although researchers caution that warming waters and disease can also damage kelp forests regardless of otter numbers.",
+  "question": "Which of the following best states the main idea of the passage?",
+  "choices": [
+   "Kelp is the fastest-growing plant on Earth.",
+   "Sea urchins are the main predators of young sea otters along the coast.",
+   "Fur hunting has stopped in the North Pacific.",
+   "Sea otters help maintain kelp forests by controlling sea urchins."
+  ],
+  "answer": "Sea otters help maintain kelp forests by controlling sea urchins.",
+  "explanation": "ラッコがウニを抑えて海藻林を守る栄養カスケードが主題。",
+  "tags": "TOEFL2026 AcademicPassage marine-science main-idea"
+ },
+ {
+  "id": "TOEFL-RA-516-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Sea Otters and Kelp Forests\n\nAlong the rocky coasts of the North Pacific, underwater forests of giant kelp provide food and shelter for hundreds of species. Kelp is a large brown seaweed that can grow tens of centimeters in a single day under favorable conditions. Yet these forests are surprisingly fragile, and their health depends to a large extent on a single predator: the sea otter.\n\nSea otters feed heavily on sea urchins, spiny animals that graze on kelp. When otter populations are healthy, urchins tend to remain hidden in cracks and feed mainly on pieces of drifting kelp. When otters disappear, however, urchin numbers can increase dramatically. The urchins then move into the open and chew through the bases of kelp plants, which causes the plants to break loose and float away. Within a few years, a thriving forest can be reduced to a bare seafloor sometimes called an \"urchin barren.\"\n\nThis sequence was observed after sea otters were hunted nearly to extinction for their fur during the eighteenth and nineteenth centuries. In areas where otters were later protected and returned, kelp forests often recovered. Ecologists describe this kind of chain reaction, in which a predator indirectly affects plants by controlling herbivores, as a trophic cascade.\n\nThe example has influenced conservation strategies worldwide. It suggests that protecting a single key species can sometimes preserve an entire ecosystem, although researchers caution that warming waters and disease can also damage kelp forests regardless of otter numbers.",
+  "question": "According to the passage, how do urchins destroy kelp forests?",
+  "choices": [
+   "They eat through the bases of kelp plants.",
+   "They block sunlight from reaching the kelp.",
+   "They carry diseases that kill kelp.",
+   "They compete with kelp for nutrients."
+  ],
+  "answer": "They eat through the bases of kelp plants.",
+  "explanation": "chew through the bases of kelp plants とある。",
+  "tags": "TOEFL2026 AcademicPassage marine-science factual"
+ },
+ {
+  "id": "TOEFL-RA-516-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Sea Otters and Kelp Forests\n\nAlong the rocky coasts of the North Pacific, underwater forests of giant kelp provide food and shelter for hundreds of species. Kelp is a large brown seaweed that can grow tens of centimeters in a single day under favorable conditions. Yet these forests are surprisingly fragile, and their health depends to a large extent on a single predator: the sea otter.\n\nSea otters feed heavily on sea urchins, spiny animals that graze on kelp. When otter populations are healthy, urchins tend to remain hidden in cracks and feed mainly on pieces of drifting kelp. When otters disappear, however, urchin numbers can increase dramatically. The urchins then move into the open and chew through the bases of kelp plants, which causes the plants to break loose and float away. Within a few years, a thriving forest can be reduced to a bare seafloor sometimes called an \"urchin barren.\"\n\nThis sequence was observed after sea otters were hunted nearly to extinction for their fur during the eighteenth and nineteenth centuries. In areas where otters were later protected and returned, kelp forests often recovered. Ecologists describe this kind of chain reaction, in which a predator indirectly affects plants by controlling herbivores, as a trophic cascade.\n\nThe example has influenced conservation strategies worldwide. It suggests that protecting a single key species can sometimes preserve an entire ecosystem, although researchers caution that warming waters and disease can also damage kelp forests regardless of otter numbers.",
+  "question": "The word \"thriving\" in the passage is closest in meaning to",
+  "choices": [
+   "shrinking",
+   "flourishing",
+   "ancient",
+   "hidden"
+  ],
+  "answer": "flourishing",
+  "explanation": "thriving＝繁栄している。",
+  "tags": "TOEFL2026 AcademicPassage marine-science vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-516-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Sea Otters and Kelp Forests\n\nAlong the rocky coasts of the North Pacific, underwater forests of giant kelp provide food and shelter for hundreds of species. Kelp is a large brown seaweed that can grow tens of centimeters in a single day under favorable conditions. Yet these forests are surprisingly fragile, and their health depends to a large extent on a single predator: the sea otter.\n\nSea otters feed heavily on sea urchins, spiny animals that graze on kelp. When otter populations are healthy, urchins tend to remain hidden in cracks and feed mainly on pieces of drifting kelp. When otters disappear, however, urchin numbers can increase dramatically. The urchins then move into the open and chew through the bases of kelp plants, which causes the plants to break loose and float away. Within a few years, a thriving forest can be reduced to a bare seafloor sometimes called an \"urchin barren.\"\n\nThis sequence was observed after sea otters were hunted nearly to extinction for their fur during the eighteenth and nineteenth centuries. In areas where otters were later protected and returned, kelp forests often recovered. Ecologists describe this kind of chain reaction, in which a predator indirectly affects plants by controlling herbivores, as a trophic cascade.\n\nThe example has influenced conservation strategies worldwide. It suggests that protecting a single key species can sometimes preserve an entire ecosystem, although researchers caution that warming waters and disease can also damage kelp forests regardless of otter numbers.",
+  "question": "What can be inferred about urchins when otters are present?",
+  "choices": [
+   "They grow larger than usual.",
+   "They move to warmer waters where there are fewer otters.",
+   "Fear of predators keeps them from feeding in the open.",
+   "They feed only on living kelp."
+  ],
+  "answer": "Fear of predators keeps them from feeding in the open.",
+  "explanation": "otters がいると cracks に隠れているとある。",
+  "tags": "TOEFL2026 AcademicPassage marine-science inference"
+ },
+ {
+  "id": "TOEFL-RA-516-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Sea Otters and Kelp Forests\n\nAlong the rocky coasts of the North Pacific, underwater forests of giant kelp provide food and shelter for hundreds of species. Kelp is a large brown seaweed that can grow tens of centimeters in a single day under favorable conditions. Yet these forests are surprisingly fragile, and their health depends to a large extent on a single predator: the sea otter.\n\nSea otters feed heavily on sea urchins, spiny animals that graze on kelp. When otter populations are healthy, urchins tend to remain hidden in cracks and feed mainly on pieces of drifting kelp. When otters disappear, however, urchin numbers can increase dramatically. The urchins then move into the open and chew through the bases of kelp plants, which causes the plants to break loose and float away. Within a few years, a thriving forest can be reduced to a bare seafloor sometimes called an \"urchin barren.\"\n\nThis sequence was observed after sea otters were hunted nearly to extinction for their fur during the eighteenth and nineteenth centuries. In areas where otters were later protected and returned, kelp forests often recovered. Ecologists describe this kind of chain reaction, in which a predator indirectly affects plants by controlling herbivores, as a trophic cascade.\n\nThe example has influenced conservation strategies worldwide. It suggests that protecting a single key species can sometimes preserve an entire ecosystem, although researchers caution that warming waters and disease can also damage kelp forests regardless of otter numbers.",
+  "question": "Why does the author mention warming waters and disease?",
+  "choices": [
+   "To explain why otters were hunted",
+   "To describe how kelp grows quickly",
+   "To show that urchins prefer warm water",
+   "To note that otters alone cannot guarantee healthy kelp forests"
+  ],
+  "answer": "To note that otters alone cannot guarantee healthy kelp forests",
+  "explanation": "ラッコだけでは守れない要因もあることを示すため。",
+  "tags": "TOEFL2026 AcademicPassage marine-science rhetorical-purpose"
+ }
+]

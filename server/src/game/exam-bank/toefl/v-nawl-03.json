@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-V-081",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Only the city council has the ------- to approve new buildings.",
+  "choices": [
+   "authority",
+   "surplus",
+   "sediment",
+   "asteroid"
+  ],
+  "answer": "authority",
+  "explanation": "正解 authority（authority）＝「権限」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL authority"
+ },
+ {
+  "id": "TOEFL-V-082",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Scientists are studying the ------- of plastic waste on sea birds.",
+  "choices": [
+   "outlet",
+   "impact",
+   "aisle",
+   "ritual"
+  ],
+  "answer": "impact",
+  "explanation": "正解 impact（impact）＝「影響」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL impact"
+ },
+ {
+  "id": "TOEFL-V-083",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The unequal ------- of rainfall makes some regions very dry.",
+  "choices": [
+   "admission",
+   "translation",
+   "distribution",
+   "syllable"
+  ],
+  "answer": "distribution",
+  "explanation": "正解 distribution（distribution）＝「分布、分配」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL distribution"
+ },
+ {
+  "id": "TOEFL-V-084",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The two theories are ------- the same, differing only in small details.",
+  "choices": [
+   "reluctantly",
+   "loudly",
+   "randomly",
+   "essentially"
+  ],
+  "answer": "essentially",
+  "explanation": "正解 essentially（essentially）＝「本質的に、実質的に」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL essentially"
+ },
+ {
+  "id": "TOEFL-V-085",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "One ------- of living far from campus is the long commute.",
+  "choices": [
+   "disadvantage",
+   "consensus",
+   "dose",
+   "surplus"
+  ],
+  "answer": "disadvantage",
+  "explanation": "正解 disadvantage（disadvantage）＝「不利な点」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL disadvantage"
+ },
+ {
+  "id": "TOEFL-V-086",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Language is -------; new words appear and old ones change meaning.",
+  "choices": [
+   "static",
+   "dynamic",
+   "identical",
+   "null"
+  ],
+  "answer": "dynamic",
+  "explanation": "正解 dynamic（dynamic）＝「変化に富む、動的な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL dynamic"
+ },
+ {
+  "id": "TOEFL-V-087",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "------- to popular belief, bats are not blind.",
+  "choices": [
+   "Similar",
+   "Owing",
+   "contrary",
+   "Prior"
+  ],
+  "answer": "contrary",
+  "explanation": "正解 contrary（contrary）＝「〜に反して」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL contrary"
+ },
+ {
+  "id": "TOEFL-V-088",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The invention of the printing press had a ------- effect on education.",
+  "choices": [
+   "naked",
+   "hollow",
+   "verbal",
+   "tremendous"
+  ],
+  "answer": "tremendous",
+  "explanation": "正解 tremendous（tremendous）＝「とてつもない、ばく大な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL tremendous"
+ },
+ {
+  "id": "TOEFL-V-089",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Because it lasts twice as long, the new battery is ------- to the old one.",
+  "choices": [
+   "superior",
+   "identical",
+   "inferior",
+   "marginal"
+  ],
+  "answer": "superior",
+  "explanation": "正解 superior（superior）＝「より優れた」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL superior"
+ },
+ {
+  "id": "TOEFL-V-090",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "She became a ------- scientist after her discovery was published.",
+  "choices": [
+   "naked",
+   "prominent",
+   "nasty",
+   "hollow"
+  ],
+  "answer": "prominent",
+  "explanation": "正解 prominent（prominent）＝「著名な、目立つ」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL prominent"
+ },
+ {
+  "id": "TOEFL-V-091",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The ------- goal of the project is to provide clean water to every home.",
+  "choices": [
+   "toxic",
+   "naked",
+   "ultimate",
+   "chronic"
+  ],
+  "answer": "ultimate",
+  "explanation": "正解 ultimate（ultimate）＝「究極の、最終的な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL ultimate"
+ },
+ {
+  "id": "TOEFL-V-092",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The company was criticized for trying to ------- workers by paying very low wages.",
+  "choices": [
+   "comply",
+   "assert",
+   "resemble",
+   "exploit"
+  ],
+  "answer": "exploit",
+  "explanation": "正解 exploit（exploit）＝「搾取する、利用する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL exploit"
+ },
+ {
+  "id": "TOEFL-V-093",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The ------- of new students into school life takes time.",
+  "choices": [
+   "integration",
+   "evaporation",
+   "emission",
+   "erosion"
+  ],
+  "answer": "integration",
+  "explanation": "正解 integration（integration）＝「統合、溶け込むこと」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL integration"
+ },
+ {
+  "id": "TOEFL-V-094",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "English has become the ------- language of international science.",
+  "choices": [
+   "chronic",
+   "dominant",
+   "toxic",
+   "naked"
+  ],
+  "answer": "dominant",
+  "explanation": "正解 dominant（dominant）＝「支配的な、主要な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL dominant"
+ },
+ {
+  "id": "TOEFL-V-095",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The plan to build a highway through the park caused great -------.",
+  "choices": [
+   "applause",
+   "fatigue",
+   "controversy",
+   "syntax"
+  ],
+  "answer": "controversy",
+  "explanation": "正解 controversy（controversy）＝「論争」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL controversy"
+ },
+ {
+  "id": "TOEFL-V-096",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Heavy snow may ------- the roads impossible to use.",
+  "choices": [
+   "comply",
+   "resemble",
+   "precede",
+   "render"
+  ],
+  "answer": "render",
+  "explanation": "正解 render（render）＝「〜にする（ある状態にする）」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL render"
+ },
+ {
+  "id": "TOEFL-V-097",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The city went through a remarkable ------- after the new port opened.",
+  "choices": [
+   "transformation",
+   "transcription",
+   "punctuation",
+   "denominator"
+  ],
+  "answer": "transformation",
+  "explanation": "正解 transformation（transformation）＝「変化、変容」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL transformation"
+ },
+ {
+  "id": "TOEFL-V-098",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "There is a broad scientific ------- that the climate is warming.",
+  "choices": [
+   "monopoly",
+   "consensus",
+   "bracket",
+   "interval"
+  ],
+  "answer": "consensus",
+  "explanation": "正解 consensus（consensus）＝「合意、総意」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL consensus"
+ },
+ {
+  "id": "TOEFL-V-099",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Clear signs ------- movement through the busy station.",
+  "choices": [
+   "dilute",
+   "resemble",
+   "facilitate",
+   "erase"
+  ],
+  "answer": "facilitate",
+  "explanation": "正解 facilitate（facilitate）＝「容易にする、促進する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL facilitate"
+ },
+ {
+  "id": "TOEFL-V-100",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Engineers used steel bars to ------- the old bridge.",
+  "choices": [
+   "erode",
+   "dilute",
+   "undermine",
+   "reinforce"
+  ],
+  "answer": "reinforce",
+  "explanation": "正解 reinforce（reinforce）＝「補強する、強化する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL reinforce"
+ },
+ {
+  "id": "TOEFL-V-101",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "In English, an adjective usually ------- the noun it describes.",
+  "choices": [
+   "precedes",
+   "dissolves",
+   "accumulates",
+   "compensates"
+  ],
+  "answer": "precedes",
+  "explanation": "正解 precedes（precede）＝「〜に先立つ」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL precede"
+ },
+ {
+  "id": "TOEFL-V-102",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The project requires ------- in both statistics and biology.",
+  "choices": [
+   "ignorance",
+   "expertise",
+   "surplus",
+   "applause"
+  ],
+  "answer": "expertise",
+  "explanation": "正解 expertise（expertise）＝「専門知識」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL expertise"
+ },
+ {
+  "id": "TOEFL-V-103",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "In the experiment, a bright light served as the ------- for the eye to react.",
+  "choices": [
+   "residue",
+   "surplus",
+   "stimulus",
+   "sediment"
+  ],
+  "answer": "stimulus",
+  "explanation": "正解 stimulus（stimulus）＝「刺激」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL stimulus"
+ },
+ {
+  "id": "TOEFL-V-104",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The ancient palace had an ------- system of pipes for water.",
+  "choices": [
+   "idle",
+   "naked",
+   "elastic",
+   "elaborate"
+  ],
+  "answer": "elaborate",
+  "explanation": "正解 elaborate（elaborate）＝「精巧な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL elaborate"
+ },
+ {
+  "id": "TOEFL-V-105",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The university will ------- a new recycling program next month.",
+  "choices": [
+   "initiate",
+   "inhibit",
+   "undergo",
+   "resemble"
+  ],
+  "answer": "initiate",
+  "explanation": "正解 initiate（initiate）＝「始める」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL initiate"
+ },
+ {
+  "id": "TOEFL-V-106",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "A manager was hired to ------- the work of the three teams.",
+  "choices": [
+   "contradict",
+   "coordinate",
+   "undermine",
+   "erase"
+  ],
+  "answer": "coordinate",
+  "explanation": "正解 coordinate（coordinate）＝「調整する、まとめる」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL coordinate"
+ },
+ {
+  "id": "TOEFL-V-107",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The study will ------- a period of ten years.",
+  "choices": [
+   "erase",
+   "bleed",
+   "span",
+   "inject"
+  ],
+  "answer": "span",
+  "explanation": "正解 span（span）＝「（期間に）わたる」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL span"
+ },
+ {
+  "id": "TOEFL-V-108",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Repeated mistakes can ------- public trust in an institution.",
+  "choices": [
+   "reinforce",
+   "clarify",
+   "facilitate",
+   "undermine"
+  ],
+  "answer": "undermine",
+  "explanation": "正解 undermine（undermine）＝「損なう、弱める」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL undermine"
+ },
+ {
+  "id": "TOEFL-V-109",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "All laboratories must ------- with the new safety rules.",
+  "choices": [
+   "comply",
+   "interfere",
+   "contradict",
+   "resemble"
+  ],
+  "answer": "comply",
+  "explanation": "正解 comply（comply）＝「従う」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL comply"
+ },
+ {
+  "id": "TOEFL-V-110",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The ancient paintings ------- hunters chasing deer.",
+  "choices": [
+   "dissolve",
+   "depict",
+   "subtract",
+   "comply"
+  ],
+  "answer": "depict",
+  "explanation": "正解 depict（depict）＝「描く」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL depict"
+ },
+ {
+  "id": "TOEFL-V-111",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "After several tests, the doctor gave a clear -------.",
+  "choices": [
+   "harvest",
+   "syllable",
+   "diagnosis",
+   "vowel"
+  ],
+  "answer": "diagnosis",
+  "explanation": "正解 diagnosis（diagnosis）＝「診断」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL diagnosis"
+ },
+ {
+  "id": "TOEFL-V-112",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The government will ------- more money to public schools next year.",
+  "choices": [
+   "resemble",
+   "interrupt",
+   "sneeze",
+   "allocate"
+  ],
+  "answer": "allocate",
+  "explanation": "正解 allocate（allocate）＝「割り当てる」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL allocate"
+ },
+ {
+  "id": "TOEFL-V-113",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "It is difficult to make ------- decisions when you are very tired.",
+  "choices": [
+   "rational",
+   "naked",
+   "chronic",
+   "toxic"
+  ],
+  "answer": "rational",
+  "explanation": "正解 rational（rational）＝「合理的な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL rational"
+ },
+ {
+  "id": "TOEFL-V-114",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Many children closely ------- their parents.",
+  "choices": [
+   "comply",
+   "resemble",
+   "interfere",
+   "insert"
+  ],
+  "answer": "resemble",
+  "explanation": "正解 resemble（resemble）＝「似ている」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL resemble"
+ },
+ {
+  "id": "TOEFL-V-115",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "There is a ------- difference between the two shades of blue.",
+  "choices": [
+   "toxic",
+   "hollow",
+   "subtle",
+   "verbal"
+  ],
+  "answer": "subtle",
+  "explanation": "正解 subtle（subtle）＝「微妙な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL subtle"
+ },
+ {
+  "id": "TOEFL-V-116",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Researchers found a strong ------- between sleep and test scores.",
+  "choices": [
+   "substitution",
+   "elimination",
+   "projection",
+   "correlation"
+  ],
+  "answer": "correlation",
+  "explanation": "正解 correlation（correlation）＝「相関関係」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL correlation"
+ },
+ {
+  "id": "TOEFL-V-117",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Mosquitoes can ------- diseases such as malaria.",
+  "choices": [
+   "transmit",
+   "subtract",
+   "memorize",
+   "erase"
+  ],
+  "answer": "transmit",
+  "explanation": "正解 transmit（transmit）＝「伝える、感染させる」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL transmit"
+ },
+ {
+  "id": "TOEFL-V-118",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The death of her teacher had a ------- effect on her life.",
+  "choices": [
+   "toxic",
+   "profound",
+   "vertical",
+   "binary"
+  ],
+  "answer": "profound",
+  "explanation": "正解 profound（profound）＝「深い、重大な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL profound"
+ },
+ {
+  "id": "TOEFL-V-119",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The two courses ------- a great deal, so students should take only one.",
+  "choices": [
+   "evaporate",
+   "bleed",
+   "overlap",
+   "sneeze"
+  ],
+  "answer": "overlap",
+  "explanation": "正解 overlap（overlap）＝「重なる」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL overlap"
+ },
+ {
+  "id": "TOEFL-V-120",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Curiosity is a ------- shared by many successful scientists.",
+  "choices": [
+   "valve",
+   "reactor",
+   "fracture",
+   "trait"
+  ],
+  "answer": "trait",
+  "explanation": "正解 trait（trait）＝「特性、特徴」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL trait"
+ }
+]

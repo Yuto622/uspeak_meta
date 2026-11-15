@@ -115,7 +115,7 @@
   "choices": [
    "Fungi would not move resources to help trees without some benefit to themselves.",
    "Fungi evolved more recently than trees.",
-   "Trees compete with fungi for phosphorus.",
+   "Trees and fungi compete with each other for phosphorus in the soil.",
    "Mother trees have no evolutionary advantage."
   ],
   "answer": "Fungi would not move resources to help trees without some benefit to themselves.",
@@ -390,7 +390,7 @@
   "question": "According to the passage, why might writing letters by hand help young children recognise them?",
   "choices": [
    "It is faster than typing the letters.",
-   "It involves the same movement for every letter.",
+   "It involves the same simple movement for every letter of the alphabet.",
    "It allows them to trace the letters many times.",
    "It requires them to pay close attention to each letter's shape."
   ],
@@ -409,7 +409,7 @@
   "choices": [
    "They had more time to review their notes.",
    "They had to summarise because they could not write everything down.",
-   "They were less likely to be distracted by messages.",
+   "They were less likely to be distracted by messages and websites during the lecture.",
    "They were better students to begin with."
   ],
   "answer": "They had to summarise because they could not write everything down.",

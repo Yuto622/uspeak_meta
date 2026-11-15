@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-V-041",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The weather service's ------- of heavy snow turned out to be correct.",
+  "choices": [
+   "prediction",
+   "vitamin",
+   "kidney",
+   "cylinder"
+  ],
+  "answer": "prediction",
+  "explanation": "正解 prediction（prediction）＝「予測」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL prediction"
+ },
+ {
+  "id": "TOEFL-V-042",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Her argument was clear and -------, so it was easy to follow.",
+  "choices": [
+   "liquid",
+   "logical",
+   "hollow",
+   "oral"
+  ],
+  "answer": "logical",
+  "explanation": "正解 logical（logical）＝「論理的な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL logical"
+ },
+ {
+  "id": "TOEFL-V-043",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Online classes offer students more ------- in planning their week.",
+  "choices": [
+   "gravity",
+   "altitude",
+   "flexibility",
+   "mortality"
+  ],
+  "answer": "flexibility",
+  "explanation": "正解 flexibility（flexibility）＝「柔軟性」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL flexibility"
+ },
+ {
+  "id": "TOEFL-V-044",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The dancers moved to the steady ------- of the drums.",
+  "choices": [
+   "marrow",
+   "crystal",
+   "nitrogen",
+   "rhythm"
+  ],
+  "answer": "rhythm",
+  "explanation": "正解 rhythm（rhythm）＝「リズム」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL rhythm"
+ },
+ {
+  "id": "TOEFL-V-045",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The concert was broadcast ------- on radio and television.",
+  "choices": [
+   "simultaneously",
+   "vaguely",
+   "crudely",
+   "scarcely"
+  ],
+  "answer": "simultaneously",
+  "explanation": "正解 simultaneously（simultaneously）＝「同時に」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL simultaneously"
+ },
+ {
+  "id": "TOEFL-V-046",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Africa is the second-largest ------- on Earth.",
+  "choices": [
+   "tumor",
+   "continent",
+   "molecule",
+   "syllable"
+  ],
+  "answer": "continent",
+  "explanation": "正解 continent（continent）＝「大陸」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL continent"
+ },
+ {
+  "id": "TOEFL-V-047",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Hotel prices depend on the ------- of rooms during the festival.",
+  "choices": [
+   "fatigue",
+   "friction",
+   "availability",
+   "fusion"
+  ],
+  "answer": "availability",
+  "explanation": "正解 availability（availability）＝「入手可能性、空き状況」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL availability"
+ },
+ {
+  "id": "TOEFL-V-048",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Calcium is a ------- that helps build strong bones.",
+  "choices": [
+   "ritual",
+   "myth",
+   "dialect",
+   "mineral"
+  ],
+  "answer": "mineral",
+  "explanation": "正解 mineral（mineral）＝「ミネラル、鉱物」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL mineral"
+ },
+ {
+  "id": "TOEFL-V-049",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Wearing a helmet can ------- the risk of serious injury.",
+  "choices": [
+   "minimize",
+   "maximize",
+   "multiply",
+   "accelerate"
+  ],
+  "answer": "minimize",
+  "explanation": "正解 minimize（minimize）＝「最小限にする」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL minimize"
+ },
+ {
+  "id": "TOEFL-V-050",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Fish use their gills to take ------- from the water.",
+  "choices": [
+   "ink",
+   "oxygen",
+   "calcium",
+   "marble"
+  ],
+  "answer": "oxygen",
+  "explanation": "正解 oxygen（oxygen）＝「酸素」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL oxygen"
+ },
+ {
+  "id": "TOEFL-V-051",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "An ant is a small ------- that lives in large colonies.",
+  "choices": [
+   "reptile",
+   "mineral",
+   "insect",
+   "organ"
+  ],
+  "answer": "insect",
+  "explanation": "正解 insect（insect）＝「昆虫」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL insect"
+ },
+ {
+  "id": "TOEFL-V-052",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The new thermometer measures body temperature with great -------.",
+  "choices": [
+   "monopoly",
+   "velocity",
+   "prejudice",
+   "accuracy"
+  ],
+  "answer": "accuracy",
+  "explanation": "正解 accuracy（accuracy）＝「正確さ」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL accuracy"
+ },
+ {
+  "id": "TOEFL-V-053",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The village gets most of its electricity from ------- panels on the roofs.",
+  "choices": [
+   "solar",
+   "oral",
+   "lunar",
+   "verbal"
+  ],
+  "answer": "solar",
+  "explanation": "正解 solar（solar）＝「太陽の」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL solar"
+ },
+ {
+  "id": "TOEFL-V-054",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The climbers faced an almost ------- wall of rock.",
+  "choices": [
+   "verbal",
+   "vertical",
+   "monetary",
+   "marginal"
+  ],
+  "answer": "vertical",
+  "explanation": "正解 vertical（vertical）＝「垂直の」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL vertical"
+ },
+ {
+  "id": "TOEFL-V-055",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "------- is the scientific study of living things.",
+  "choices": [
+   "Calculus",
+   "Geology",
+   "biology",
+   "Grammar"
+  ],
+  "answer": "biology",
+  "explanation": "正解 biology（biology）＝「生物学」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL biology"
+ },
+ {
+  "id": "TOEFL-V-056",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Every autumn, the ------- of birds to warmer regions begins.",
+  "choices": [
+   "vocabulary",
+   "punishment",
+   "calculator",
+   "migration"
+  ],
+  "answer": "migration",
+  "explanation": "正解 migration（migration）＝「移住、移動」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL migration"
+ },
+ {
+  "id": "TOEFL-V-057",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Cutting down forests destroys the natural ------- of many animals.",
+  "choices": [
+   "habitat",
+   "syllabus",
+   "footnote",
+   "handout"
+  ],
+  "answer": "habitat",
+  "explanation": "正解 habitat（habitat）＝「生息地」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL habitat"
+ },
+ {
+  "id": "TOEFL-V-058",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Some household cleaning products are ------- if swallowed.",
+  "choices": [
+   "edible",
+   "toxic",
+   "verbal",
+   "polar"
+  ],
+  "answer": "toxic",
+  "explanation": "正解 toxic（toxic）＝「有毒な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL toxic"
+ },
+ {
+  "id": "TOEFL-V-059",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The explorers walked slowly through the ------- jungle.",
+  "choices": [
+   "shallow",
+   "vague",
+   "dense",
+   "hollow"
+  ],
+  "answer": "dense",
+  "explanation": "正解 dense（dense）＝「密集した、濃い」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL dense"
+ },
+ {
+  "id": "TOEFL-V-060",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The teacher tried to ------- the explanation for younger students.",
+  "choices": [
+   "inject",
+   "bleed",
+   "dissolve",
+   "simplify"
+  ],
+  "answer": "simplify",
+  "explanation": "正解 simplify（simplify）＝「簡単にする」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL simplify"
+ },
+ {
+  "id": "TOEFL-V-061",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The students found a ------- of a small fish in the rock.",
+  "choices": [
+   "fossil",
+   "dialect",
+   "ballot",
+   "recipe"
+  ],
+  "answer": "fossil",
+  "explanation": "正解 fossil（fossil）＝「化石」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL fossil"
+ },
+ {
+  "id": "TOEFL-V-062",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Vegetables contain many ------- the body needs.",
+  "choices": [
+   "syllables",
+   "nutrients",
+   "ballots",
+   "vowels"
+  ],
+  "answer": "nutrients",
+  "explanation": "正解 nutrients（nutrient）＝「栄養素」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL nutrient"
+ },
+ {
+  "id": "TOEFL-V-063",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Many whales ------- thousands of kilometers each year to find food.",
+  "choices": [
+   "dissolve",
+   "subtract",
+   "migrate",
+   "erase"
+  ],
+  "answer": "migrate",
+  "explanation": "正解 migrate（migrate）＝「移動する、渡る」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL migrate"
+ },
+ {
+  "id": "TOEFL-V-064",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The oil spill caused serious ------- damage along the coast.",
+  "choices": [
+   "verbal",
+   "monetary",
+   "grammatical",
+   "ecological"
+  ],
+  "answer": "ecological",
+  "explanation": "正解 ecological（ecological）＝「生態系の、環境の」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL ecological"
+ },
+ {
+  "id": "TOEFL-V-065",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Heavy rain helped the ------- on the hills turn green again.",
+  "choices": [
+   "vegetation",
+   "velocity",
+   "vocabulary",
+   "translation"
+  ],
+  "answer": "vegetation",
+  "explanation": "正解 vegetation（vegetation）＝「植物、植生」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL vegetation"
+ },
+ {
+  "id": "TOEFL-V-066",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Actors must ------- long scripts before a performance.",
+  "choices": [
+   "evaporate",
+   "memorize",
+   "dissolve",
+   "rotate"
+  ],
+  "answer": "memorize",
+  "explanation": "正解 memorize（memorize）＝「暗記する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL memorize"
+ },
+ {
+  "id": "TOEFL-V-067",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "She studied ------- and spent summers digging at ancient sites.",
+  "choices": [
+   "chemotherapy",
+   "hepatitis",
+   "archaeology",
+   "algebra"
+  ],
+  "answer": "archaeology",
+  "explanation": "正解 archaeology（archaeology）＝「考古学」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL archaeology"
+ },
+ {
+  "id": "TOEFL-V-068",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Without -------, the farms in this dry region could not grow rice.",
+  "choices": [
+   "translation",
+   "punishment",
+   "admission",
+   "irrigation"
+  ],
+  "answer": "irrigation",
+  "explanation": "正解 irrigation（irrigation）＝「灌漑」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL irrigation"
+ },
+ {
+  "id": "TOEFL-V-069",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The two small companies merged to form a larger firm.\nThe word \"merged\" in the sentence is closest in meaning to",
+  "choices": [
+   "combined",
+   "competed",
+   "separated",
+   "disappeared"
+  ],
+  "answer": "combined",
+  "explanation": "merge＝「合併する、融合する」。この文では combined に最も近い。",
+  "tags": "NAWL merge"
+ },
+ {
+  "id": "TOEFL-V-070",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "After the storm, branches were scattered across the road.\nThe word \"scattered\" in the sentence is closest in meaning to",
+  "choices": [
+   "piled",
+   "spread",
+   "hidden",
+   "cut"
+  ],
+  "answer": "spread",
+  "explanation": "scatter＝「まき散らす」。この文では spread に最も近い。",
+  "tags": "NAWL scatter"
+ },
+ {
+  "id": "TOEFL-V-071",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The atmosphere in the room was tense before the results were announced.\nThe word \"tense\" in the sentence is closest in meaning to",
+  "choices": [
+   "relaxed",
+   "cheerful",
+   "nervous",
+   "crowded"
+  ],
+  "answer": "nervous",
+  "explanation": "tense＝「緊張した」。この文では nervous に最も近い。",
+  "tags": "NAWL tense"
+ },
+ {
+  "id": "TOEFL-V-072",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "In the library, students can move freely between the floors.\nThe word \"freely\" in the sentence is closest in meaning to",
+  "choices": [
+   "carefully",
+   "quietly",
+   "by permission only",
+   "without restriction"
+  ],
+  "answer": "without restriction",
+  "explanation": "freely＝「自由に」。この文では without restriction に最も近い。",
+  "tags": "NAWL freely"
+ },
+ {
+  "id": "TOEFL-V-073",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "His answer was so vague that no one understood his plan.\nThe word \"vague\" in the sentence is closest in meaning to",
+  "choices": [
+   "unclear",
+   "precise",
+   "rude",
+   "brief"
+  ],
+  "answer": "unclear",
+  "explanation": "vague＝「あいまいな」。この文では unclear に最も近い。",
+  "tags": "NAWL vague"
+ },
+ {
+  "id": "TOEFL-V-074",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "A judge must remain neutral during a trial.\nThe word \"neutral\" in the sentence is closest in meaning to",
+  "choices": [
+   "emotional",
+   "impartial",
+   "silent",
+   "absent"
+  ],
+  "answer": "impartial",
+  "explanation": "neutral＝「中立の」。この文では impartial に最も近い。",
+  "tags": "NAWL neutral"
+ },
+ {
+  "id": "TOEFL-V-075",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The instructions for the experiment were straightforward.\nThe word \"straightforward\" in the sentence is closest in meaning to",
+  "choices": [
+   "confusing",
+   "lengthy",
+   "simple",
+   "dangerous"
+  ],
+  "answer": "simple",
+  "explanation": "straightforward＝「わかりやすい、単純な」。この文では simple に最も近い。",
+  "tags": "NAWL straightforward"
+ },
+ {
+  "id": "TOEFL-V-076",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The storm caused only minimal damage to the school.\nThe word \"minimal\" in the sentence is closest in meaning to",
+  "choices": [
+   "serious",
+   "expensive",
+   "unusual",
+   "very small"
+  ],
+  "answer": "very small",
+  "explanation": "minimal＝「最小限の」。この文では very small に最も近い。",
+  "tags": "NAWL minimal"
+ },
+ {
+  "id": "TOEFL-V-077",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "Scientists were puzzled by the bizarre behavior of the fish.\nThe word \"bizarre\" in the sentence is closest in meaning to",
+  "choices": [
+   "strange",
+   "normal",
+   "aggressive",
+   "gentle"
+  ],
+  "answer": "strange",
+  "explanation": "bizarre＝「奇妙な」。この文では strange に最も近い。",
+  "tags": "NAWL bizarre"
+ },
+ {
+  "id": "TOEFL-V-078",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The new camera is compact enough to fit in a pocket.\nThe word \"compact\" in the sentence is closest in meaning to",
+  "choices": [
+   "heavy",
+   "small",
+   "expensive",
+   "fragile"
+  ],
+  "answer": "small",
+  "explanation": "compact＝「小型の、ぎっしり詰まった」。この文では small に最も近い。",
+  "tags": "NAWL compact"
+ },
+ {
+  "id": "TOEFL-V-079",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The idea that the moon is made of cheese is ridiculous.\nThe word \"ridiculous\" in the sentence is closest in meaning to",
+  "choices": [
+   "reasonable",
+   "ancient",
+   "absurd",
+   "popular"
+  ],
+  "answer": "absurd",
+  "explanation": "ridiculous＝「ばかげた」。この文では absurd に最も近い。",
+  "tags": "NAWL ridiculous"
+ },
+ {
+  "id": "TOEFL-V-080",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "",
+  "question": "The course is designed for intermediate learners of Spanish.\nThe word \"intermediate\" in the sentence is closest in meaning to",
+  "choices": [
+   "beginning",
+   "native",
+   "elderly",
+   "middle-level"
+  ],
+  "answer": "middle-level",
+  "explanation": "intermediate＝「中級の、中間の」。この文では middle-level に最も近い。",
+  "tags": "NAWL intermediate"
+ }
+]

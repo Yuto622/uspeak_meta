@@ -96,7 +96,7 @@
   "question": "How did the introduction of open shelves affect library design?",
   "choices": [
    "Reading rooms became smaller.",
-   "Catalogues were placed near the entrance.",
+   "Catalogues had to be moved closer to the main entrance.",
    "Shelving had to be arranged for public use.",
    "Closed stacks were built on upper floors."
   ],
@@ -245,7 +245,7 @@
    "by following adult eels with electronic tags",
    "by dissecting adult eels in Trieste",
    "by locating where the smallest larvae were found",
-   "by studying the currents of the Gulf Stream"
+   "by studying how the currents of the Gulf Stream carry larvae"
   ],
   "answer": "by locating where the smallest larvae were found",
   "explanation": "第B段落で最も小さな標本が見つかった場所からサルガッソー海と結論づけたとある。",
@@ -410,9 +410,9 @@
    "It reduces the need for weather forecasting.",
    "It allows inverters to provide more inertia.",
    "It lowers the cost of building solar farms.",
-   "The wind is unlikely to be calm in all places at the same time."
+   "The wind rarely drops everywhere at once."
   ],
-  "answer": "The wind is unlikely to be calm in all places at the same time.",
+  "answer": "The wind rarely drops everywhere at once.",
   "explanation": "第F段落に風がすべての場所で同時に止むことはまずないとある。",
   "tags": "IELTS Academic multiple-choice renewable-grids"
  },

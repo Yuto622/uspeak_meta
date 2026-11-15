@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-V-161",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "When supply and demand are equal, the market is said to be in -------.",
+  "choices": [
+   "equilibrium",
+   "epidemic",
+   "evolution",
+   "erosion"
+  ],
+  "answer": "equilibrium",
+  "explanation": "正解 equilibrium（equilibrium）＝「均衡、平衡」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL equilibrium"
+ },
+ {
+  "id": "TOEFL-V-162",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Although no one said it aloud, there was an ------- agreement to keep the meeting short.",
+  "choices": [
+   "explicit",
+   "implicit",
+   "illegal",
+   "toxic"
+  ],
+  "answer": "implicit",
+  "explanation": "正解 implicit（implicit）＝「暗黙の」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL implicit"
+ },
+ {
+  "id": "TOEFL-V-163",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Instead of seeking a perfect solution, the committee took a ------- approach.",
+  "choices": [
+   "chronic",
+   "toxic",
+   "pragmatic",
+   "elastic"
+  ],
+  "answer": "pragmatic",
+  "explanation": "正解 pragmatic（pragmatic）＝「実用的な、現実的な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL pragmatic"
+ },
+ {
+  "id": "TOEFL-V-164",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "A good essay presents a ------- argument from start to finish.",
+  "choices": [
+   "chronic",
+   "crude",
+   "toxic",
+   "coherent"
+  ],
+  "answer": "coherent",
+  "explanation": "正解 coherent（coherent）＝「一貫性のある」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL coherent"
+ },
+ {
+  "id": "TOEFL-V-165",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The decision seemed -------, as no reasons were given.",
+  "choices": [
+   "arbitrary",
+   "empirical",
+   "explicit",
+   "elastic"
+  ],
+  "answer": "arbitrary",
+  "explanation": "正解 arbitrary（arbitrary）＝「恣意的な、気まぐれな」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL arbitrary"
+ },
+ {
+  "id": "TOEFL-V-166",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The error was -------, so the editor did not bother to correct it.",
+  "choices": [
+   "profound",
+   "trivial",
+   "tremendous",
+   "toxic"
+  ],
+  "answer": "trivial",
+  "explanation": "正解 trivial（trivial）＝「ささいな」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL trivial"
+ },
+ {
+  "id": "TOEFL-V-167",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "A ------- of vitamin D can weaken bones.",
+  "choices": [
+   "residue",
+   "threshold",
+   "deficiency",
+   "syllable"
+  ],
+  "answer": "deficiency",
+  "explanation": "正解 deficiency（deficiency）＝「欠乏」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL deficiency"
+ },
+ {
+  "id": "TOEFL-V-168",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The ------- of evidence from several studies made the conclusion convincing.",
+  "choices": [
+   "deviation",
+   "deflection",
+   "dilution",
+   "convergence"
+  ],
+  "answer": "convergence",
+  "explanation": "正解 convergence（convergence）＝「収束、一致」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL convergence"
+ },
+ {
+  "id": "TOEFL-V-169",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "It is a ------- that having more choices can make people less satisfied.",
+  "choices": [
+   "paradox",
+   "protocol",
+   "prototype",
+   "pathway"
+  ],
+  "answer": "paradox",
+  "explanation": "正解 paradox（paradox）＝「逆説、矛盾」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL paradox"
+ },
+ {
+  "id": "TOEFL-V-170",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The recipe allows the ------- of honey for sugar.",
+  "choices": [
+   "subscription",
+   "substitution",
+   "superstition",
+   "subtraction"
+  ],
+  "answer": "substitution",
+  "explanation": "正解 substitution（substitution）＝「代用、置き換え」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL substitution"
+ },
+ {
+  "id": "TOEFL-V-171",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "From the footprints, the researchers drew the ------- that the animal had been running.",
+  "choices": [
+   "interference",
+   "inheritance",
+   "inference",
+   "infection"
+  ],
+  "answer": "inference",
+  "explanation": "正解 inference（inference）＝「推論」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL inference"
+ },
+ {
+  "id": "TOEFL-V-172",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The course is divided into five ------- units that can be taken separately.",
+  "choices": [
+   "discreet",
+   "concrete",
+   "toxic",
+   "discrete"
+  ],
+  "answer": "discrete",
+  "explanation": "正解 discrete（discrete）＝「別々の、個別の」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL discrete"
+ },
+ {
+  "id": "TOEFL-V-173",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The study examined the ------- sequence of events, asking which came first.",
+  "choices": [
+   "temporal",
+   "tropical",
+   "tympanic",
+   "lunar"
+  ],
+  "answer": "temporal",
+  "explanation": "正解 temporal（temporal）＝「時間の」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL temporal"
+ },
+ {
+  "id": "TOEFL-V-174",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "A ------- study followed the same children from birth to age twenty.",
+  "choices": [
+   "latitudinal",
+   "longitudinal",
+   "literal",
+   "lateral"
+  ],
+  "answer": "longitudinal",
+  "explanation": "正解 longitudinal（longitudinal）＝「縦断的な（長期にわたる）」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL longitudinal"
+ },
+ {
+  "id": "TOEFL-V-175",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Differences in diet may ------- the results of the exercise study.",
+  "choices": [
+   "conform",
+   "confess",
+   "confound",
+   "conserve"
+  ],
+  "answer": "confound",
+  "explanation": "正解 confound（confound）＝「（結果を）混乱させる、交絡させる」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL confound"
+ },
+ {
+  "id": "TOEFL-V-176",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Some linguists argue that humans have an ------- ability to learn language.",
+  "choices": [
+   "toxic",
+   "obsolete",
+   "hollow",
+   "innate"
+  ],
+  "answer": "innate",
+  "explanation": "正解 innate（innate）＝「生まれつきの」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL innate"
+ },
+ {
+  "id": "TOEFL-V-177",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Exercise can increase the body's -------, helping it burn more energy.",
+  "choices": [
+   "metabolism",
+   "metaphor",
+   "mechanism",
+   "monopoly"
+  ],
+  "answer": "metabolism",
+  "explanation": "正解 metabolism（metabolism）＝「代謝」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL metabolism"
+ },
+ {
+  "id": "TOEFL-V-178",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "A neutral expert was asked to ------- between the two companies.",
+  "choices": [
+   "meditate",
+   "mediate",
+   "medicate",
+   "migrate"
+  ],
+  "answer": "mediate",
+  "explanation": "正解 mediate（mediate）＝「仲裁する、仲介する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL mediate"
+ },
+ {
+  "id": "TOEFL-V-179",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Some plastics take hundreds of years to ------- in the environment.",
+  "choices": [
+   "upgrade",
+   "elevate",
+   "degrade",
+   "meditate"
+  ],
+  "answer": "degrade",
+  "explanation": "正解 degrade（degrade）＝「分解する、劣化する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL degrade"
+ },
+ {
+  "id": "TOEFL-V-180",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The politician's speech was full of -------, but it contained few concrete plans.",
+  "choices": [
+   "arithmetic",
+   "metabolism",
+   "fertility",
+   "rhetoric"
+  ],
+  "answer": "rhetoric",
+  "explanation": "正解 rhetoric（rhetoric）＝「美辞麗句、修辞」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL rhetoric"
+ },
+ {
+  "id": "TOEFL-V-181",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The new policy produced only a ------- improvement in traffic.",
+  "choices": [
+   "marginal",
+   "tremendous",
+   "profound",
+   "toxic"
+  ],
+  "answer": "marginal",
+  "explanation": "正解 marginal（marginal）＝「わずかな」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL marginal"
+ },
+ {
+  "id": "TOEFL-V-182",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The company introduced a system ------- employees can work from home two days a week.",
+  "choices": [
+   "whereas",
+   "whereby",
+   "whenever",
+   "whichever"
+  ],
+  "answer": "whereby",
+  "explanation": "正解 whereby（whereby）＝「それによって（〜する）」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL whereby"
+ },
+ {
+  "id": "TOEFL-V-183",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Over time, layers of ------- at the bottom of the lake turned into rock.",
+  "choices": [
+   "sentiment",
+   "segment",
+   "sediment",
+   "sentence"
+  ],
+  "answer": "sediment",
+  "explanation": "正解 sediment（sediment）＝「堆積物」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL sediment"
+ },
+ {
+  "id": "TOEFL-V-184",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The city's population is predominantly young.\nThe word \"predominantly\" in the sentence is closest in meaning to",
+  "choices": [
+   "rarely",
+   "partly",
+   "never",
+   "mainly"
+  ],
+  "answer": "mainly",
+  "explanation": "predominantly＝「主に、大部分は」。この文では mainly に最も近い。",
+  "tags": "NAWL predominantly"
+ },
+ {
+  "id": "TOEFL-V-185",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The castle is supposedly haunted, but no one has seen a ghost.\nThe word \"supposedly\" in the sentence is closest in meaning to",
+  "choices": [
+   "reportedly",
+   "certainly",
+   "recently",
+   "officially"
+  ],
+  "answer": "reportedly",
+  "explanation": "supposedly＝「〜とされている、うわさでは」。この文では reportedly に最も近い。",
+  "tags": "NAWL supposedly"
+ },
+ {
+  "id": "TOEFL-V-186",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Other scientists were unable to replicate the experiment's results.\nThe word \"replicate\" in the sentence is closest in meaning to",
+  "choices": [
+   "publish",
+   "reproduce",
+   "criticize",
+   "ignore"
+  ],
+  "answer": "reproduce",
+  "explanation": "replicate＝「再現する」。この文では reproduce に最も近い。",
+  "tags": "NAWL replicate"
+ },
+ {
+  "id": "TOEFL-V-187",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "She was able to articulate her ideas clearly during the debate.\nThe word \"articulate\" in the sentence is closest in meaning to",
+  "choices": [
+   "hide",
+   "forget",
+   "express",
+   "change"
+  ],
+  "answer": "express",
+  "explanation": "articulate＝「はっきり述べる」。この文では express に最も近い。",
+  "tags": "NAWL articulate"
+ },
+ {
+  "id": "TOEFL-V-188",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "We presume that the package was lost in the mail.\nThe word \"presume\" in the sentence is closest in meaning to",
+  "choices": [
+   "know",
+   "deny",
+   "regret",
+   "assume"
+  ],
+  "answer": "assume",
+  "explanation": "presume＝「推定する、〜と思う」。この文では assume に最も近い。",
+  "tags": "NAWL presume"
+ },
+ {
+  "id": "TOEFL-V-189",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The drug may induce sleep in some patients.\nThe word \"induce\" in the sentence is closest in meaning to",
+  "choices": [
+   "cause",
+   "prevent",
+   "measure",
+   "delay"
+  ],
+  "answer": "cause",
+  "explanation": "induce＝「引き起こす、誘発する」。この文では cause に最も近い。",
+  "tags": "NAWL induce"
+ },
+ {
+  "id": "TOEFL-V-190",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The research was constrained by a lack of funding.\nThe word \"constrained\" in the sentence is closest in meaning to",
+  "choices": [
+   "supported",
+   "limited",
+   "celebrated",
+   "ended"
+  ],
+  "answer": "limited",
+  "explanation": "constrain＝「制約する」。この文では limited に最も近い。",
+  "tags": "NAWL constrain"
+ },
+ {
+  "id": "TOEFL-V-191",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Young children often cannot differentiate between fantasy and reality.\nThe word \"differentiate\" in the sentence is closest in meaning to",
+  "choices": [
+   "connect",
+   "imagine",
+   "distinguish",
+   "confuse"
+  ],
+  "answer": "distinguish",
+  "explanation": "differentiate＝「区別する」。この文では distinguish に最も近い。",
+  "tags": "NAWL differentiate"
+ },
+ {
+  "id": "TOEFL-V-192",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "It is risky to generalize from a single experiment.\nThe word \"generalize\" in the sentence is closest in meaning to",
+  "choices": [
+   "calculate",
+   "apologize",
+   "experiment again",
+   "draw broad conclusions"
+  ],
+  "answer": "draw broad conclusions",
+  "explanation": "generalize＝「一般化する」。この文では draw broad conclusions に最も近い。",
+  "tags": "NAWL generalize"
+ },
+ {
+  "id": "TOEFL-V-193",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Students are liable for any damage to library books.\nThe word \"liable\" in the sentence is closest in meaning to",
+  "choices": [
+   "responsible",
+   "grateful",
+   "famous",
+   "unaware"
+  ],
+  "answer": "responsible",
+  "explanation": "liable＝「責任がある」。この文では responsible に最も近い。",
+  "tags": "NAWL liable"
+ },
+ {
+  "id": "TOEFL-V-194",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The two approaches are fundamentally different.\nThe word \"fundamentally\" in the sentence is closest in meaning to",
+  "choices": [
+   "slightly",
+   "basically",
+   "recently",
+   "officially"
+  ],
+  "answer": "basically",
+  "explanation": "fundamentally＝「根本的に」。この文では basically に最も近い。",
+  "tags": "NAWL fundamentally"
+ },
+ {
+  "id": "TOEFL-V-195",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "The plane shook as it passed through turbulent air.\nThe word \"turbulent\" in the sentence is closest in meaning to",
+  "choices": [
+   "calm",
+   "cold",
+   "rough",
+   "thin"
+  ],
+  "answer": "rough",
+  "explanation": "turbulent＝「乱れた、荒れた」。この文では rough に最も近い。",
+  "tags": "NAWL turbulent"
+ },
+ {
+  "id": "TOEFL-V-196",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Sodium is highly reactive and must be stored in oil.\nThe word \"reactive\" in the sentence is closest in meaning to",
+  "choices": [
+   "heavy",
+   "colorful",
+   "stable",
+   "quick to react chemically"
+  ],
+  "answer": "quick to react chemically",
+  "explanation": "reactive＝「反応しやすい」。この文では quick to react chemically に最も近い。",
+  "tags": "NAWL reactive"
+ },
+ {
+  "id": "TOEFL-V-197",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Tectonic uplift slowly raised the mountains over millions of years.\nThe word \"uplift\" in the sentence is closest in meaning to",
+  "choices": [
+   "raising",
+   "sinking",
+   "cooling",
+   "melting"
+  ],
+  "answer": "raising",
+  "explanation": "uplift＝「隆起」。この文では raising に最も近い。",
+  "tags": "NAWL uplift"
+ },
+ {
+  "id": "TOEFL-V-198",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "Many economists believe that markets follow a cyclic pattern of growth and decline.\nThe word \"cyclic\" in the sentence is closest in meaning to",
+  "choices": [
+   "random",
+   "repeating",
+   "permanent",
+   "sudden"
+  ],
+  "answer": "repeating",
+  "explanation": "cyclic＝「周期的な」。この文では repeating に最も近い。",
+  "tags": "NAWL cyclic"
+ },
+ {
+  "id": "TOEFL-V-199",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "She left the company of her own volition, not because she was asked to.\nThe word \"volition\" in the sentence is closest in meaning to",
+  "choices": [
+   "salary",
+   "rumor",
+   "free will",
+   "accident"
+  ],
+  "answer": "free will",
+  "explanation": "volition＝「意志」。この文では free will に最も近い。",
+  "tags": "NAWL volition"
+ },
+ {
+  "id": "TOEFL-V-200",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "",
+  "question": "His actions were not congruent with his words.\nThe word \"congruent\" in the sentence is closest in meaning to",
+  "choices": [
+   "unrelated",
+   "rude",
+   "famous",
+   "consistent"
+  ],
+  "answer": "consistent",
+  "explanation": "congruent＝「一致した、調和した」。この文では consistent に最も近い。",
+  "tags": "NAWL congruent"
+ }
+]

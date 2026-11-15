@@ -1,0 +1,434 @@
+[
+ {
+  "id": "TOEIC-R6-508-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Become a Member of the Halvorsen Museum of Art\n\nMembers enjoy free admission to all exhibitions throughout the year, as well as invitations to special preview evenings. [1] -------, members receive a 10 percent discount at the museum café and gift shop.\n\nIndividual memberships cost $60 per year, and family memberships, which cover two adults and up to three children, cost $110. [2] -------.\n\nSigning up is easy. Simply complete the online form or visit the information desk on the ground floor. Your membership card will be mailed to you within ten business days. Until it [3] -------, you may use your e-mail confirmation to enter the museum.\n\nYour support helps us [4] ------- our collection and offer educational programs for the community.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "Otherwise",
+   "In addition",
+   "However",
+   "Instead"
+  ],
+  "answer": "In addition",
+  "explanation": "特典を追加で挙げているので In addition。",
+  "tags": "接続副詞"
+ },
+ {
+  "id": "TOEIC-R6-508-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Become a Member of the Halvorsen Museum of Art\n\nMembers enjoy free admission to all exhibitions throughout the year, as well as invitations to special preview evenings. [1] -------, members receive a 10 percent discount at the museum café and gift shop.\n\nIndividual memberships cost $60 per year, and family memberships, which cover two adults and up to three children, cost $110. [2] -------.\n\nSigning up is easy. Simply complete the online form or visit the information desk on the ground floor. Your membership card will be mailed to you within ten business days. Until it [3] -------, you may use your e-mail confirmation to enter the museum.\n\nYour support helps us [4] ------- our collection and offer educational programs for the community.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Our café is located next to the main entrance.",
+   "The museum will close permanently next year.",
+   "Students with a valid ID may join for only $35.",
+   "Children are not permitted to enter the museum."
+  ],
+  "answer": "Students with a valid ID may join for only $35.",
+  "explanation": "会費の説明が続く段落なので、学生料金を示す文が最も自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-508-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Become a Member of the Halvorsen Museum of Art\n\nMembers enjoy free admission to all exhibitions throughout the year, as well as invitations to special preview evenings. [1] -------, members receive a 10 percent discount at the museum café and gift shop.\n\nIndividual memberships cost $60 per year, and family memberships, which cover two adults and up to three children, cost $110. [2] -------.\n\nSigning up is easy. Simply complete the online form or visit the information desk on the ground floor. Your membership card will be mailed to you within ten business days. Until it [3] -------, you may use your e-mail confirmation to enter the museum.\n\nYour support helps us [4] ------- our collection and offer educational programs for the community.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "will arrive",
+   "arriving",
+   "arrived",
+   "arrives"
+  ],
+  "answer": "arrives",
+  "explanation": "時を表す until 節では未来のことも現在形で表す。",
+  "tags": "時制"
+ },
+ {
+  "id": "TOEIC-R6-508-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Become a Member of the Halvorsen Museum of Art\n\nMembers enjoy free admission to all exhibitions throughout the year, as well as invitations to special preview evenings. [1] -------, members receive a 10 percent discount at the museum café and gift shop.\n\nIndividual memberships cost $60 per year, and family memberships, which cover two adults and up to three children, cost $110. [2] -------.\n\nSigning up is easy. Simply complete the online form or visit the information desk on the ground floor. Your membership card will be mailed to you within ten business days. Until it [3] -------, you may use your e-mail confirmation to enter the museum.\n\nYour support helps us [4] ------- our collection and offer educational programs for the community.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "maintain",
+   "maintained",
+   "maintenance",
+   "maintains"
+  ],
+  "answer": "maintain",
+  "explanation": "help O do の形で動詞の原形が入る。",
+  "tags": "品詞 原形不定詞"
+ },
+ {
+  "id": "TOEIC-R6-509-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "FOR IMMEDIATE RELEASE\n\nBrightline Systems Introduces TaskHarbor 4.0\n\nApril 2 — Brightline Systems today released TaskHarbor 4.0, the latest version of its project management software for mid-sized businesses. The update features a redesigned dashboard that allows managers to view the progress of all their teams on a single screen.\n\n[1] -------, version 4.0 integrates directly with popular accounting and messaging tools, eliminating the need for users to switch between applications. \"Our customers told us they were spending too much time [2] ------- data from one program to another,\" said product director Samuel Achebe.\n\n[3] -------. Existing subscribers will receive the update automatically at no additional cost, [4] ------- new customers can try the software free for 30 days.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "Instead",
+   "Conversely",
+   "Moreover",
+   "Nonetheless"
+  ],
+  "answer": "Moreover",
+  "explanation": "新機能を追加で紹介しているので Moreover（さらに）。",
+  "tags": "接続副詞"
+ },
+ {
+  "id": "TOEIC-R6-509-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "FOR IMMEDIATE RELEASE\n\nBrightline Systems Introduces TaskHarbor 4.0\n\nApril 2 — Brightline Systems today released TaskHarbor 4.0, the latest version of its project management software for mid-sized businesses. The update features a redesigned dashboard that allows managers to view the progress of all their teams on a single screen.\n\n[1] -------, version 4.0 integrates directly with popular accounting and messaging tools, eliminating the need for users to switch between applications. \"Our customers told us they were spending too much time [2] ------- data from one program to another,\" said product director Samuel Achebe.\n\n[3] -------. Existing subscribers will receive the update automatically at no additional cost, [4] ------- new customers can try the software free for 30 days.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "transferred",
+   "transfers",
+   "transfer",
+   "transferring"
+  ],
+  "answer": "transferring",
+  "explanation": "spend time doing（～して時間を使う）の形で動名詞が入る。",
+  "tags": "動名詞"
+ },
+ {
+  "id": "TOEIC-R6-509-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "FOR IMMEDIATE RELEASE\n\nBrightline Systems Introduces TaskHarbor 4.0\n\nApril 2 — Brightline Systems today released TaskHarbor 4.0, the latest version of its project management software for mid-sized businesses. The update features a redesigned dashboard that allows managers to view the progress of all their teams on a single screen.\n\n[1] -------, version 4.0 integrates directly with popular accounting and messaging tools, eliminating the need for users to switch between applications. \"Our customers told us they were spending too much time [2] ------- data from one program to another,\" said product director Samuel Achebe.\n\n[3] -------. Existing subscribers will receive the update automatically at no additional cost, [4] ------- new customers can try the software free for 30 days.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "TaskHarbor 4.0 is available starting today.",
+   "Mr. Achebe joined the company as an intern.",
+   "Brightline Systems will stop selling TaskHarbor next month.",
+   "The previous version could not be installed on any computer."
+  ],
+  "answer": "TaskHarbor 4.0 is available starting today.",
+  "explanation": "直後に既存・新規顧客の入手方法が続くので、本日から提供開始という文が自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-509-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "FOR IMMEDIATE RELEASE\n\nBrightline Systems Introduces TaskHarbor 4.0\n\nApril 2 — Brightline Systems today released TaskHarbor 4.0, the latest version of its project management software for mid-sized businesses. The update features a redesigned dashboard that allows managers to view the progress of all their teams on a single screen.\n\n[1] -------, version 4.0 integrates directly with popular accounting and messaging tools, eliminating the need for users to switch between applications. \"Our customers told us they were spending too much time [2] ------- data from one program to another,\" said product director Samuel Achebe.\n\n[3] -------. Existing subscribers will receive the update automatically at no additional cost, [4] ------- new customers can try the software free for 30 days.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "despite",
+   "while",
+   "so that",
+   "in case"
+  ],
+  "answer": "while",
+  "explanation": "既存顧客と新規顧客を対比する接続詞 while。despite は前置詞。",
+  "tags": "接続詞"
+ },
+ {
+  "id": "TOEIC-R6-510-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Notice to Passengers\n\nFrom June 1 to June 30, the east entrance of Central Station will be closed [1] ------- construction. Please use the north or south entrance during this time.\n\nTicket machines at the east entrance will also be unavailable. [2] -------. Staff members will be at the north entrance to help passengers [3] ------- need directions.\n\nWe are sorry for any trouble this may cause, and we thank you for your patience during the work. When the work is finished, the station will have a larger waiting area and [4] ------- elevators.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "at",
+   "for",
+   "over",
+   "of"
+  ],
+  "answer": "for",
+  "explanation": "closed for construction（工事のため閉鎖）の for。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R6-510-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Notice to Passengers\n\nFrom June 1 to June 30, the east entrance of Central Station will be closed [1] ------- construction. Please use the north or south entrance during this time.\n\nTicket machines at the east entrance will also be unavailable. [2] -------. Staff members will be at the north entrance to help passengers [3] ------- need directions.\n\nWe are sorry for any trouble this may cause, and we thank you for your patience during the work. When the work is finished, the station will have a larger waiting area and [4] ------- elevators.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "Trains will not stop at Central Station in July.",
+   "The station first opened many years ago.",
+   "Extra machines have been placed near the south entrance.",
+   "Please buy your tickets at the east entrance."
+  ],
+  "answer": "Extra machines have been placed near the south entrance.",
+  "explanation": "東口の券売機が使えないという内容に続き、代わりの券売機を案内する文が自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-510-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Notice to Passengers\n\nFrom June 1 to June 30, the east entrance of Central Station will be closed [1] ------- construction. Please use the north or south entrance during this time.\n\nTicket machines at the east entrance will also be unavailable. [2] -------. Staff members will be at the north entrance to help passengers [3] ------- need directions.\n\nWe are sorry for any trouble this may cause, and we thank you for your patience during the work. When the work is finished, the station will have a larger waiting area and [4] ------- elevators.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "which",
+   "what",
+   "whose",
+   "who"
+  ],
+  "answer": "who",
+  "explanation": "先行詞 passengers（人）で節の主語になるので who。",
+  "tags": "関係詞"
+ },
+ {
+  "id": "TOEIC-R6-510-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Notice to Passengers\n\nFrom June 1 to June 30, the east entrance of Central Station will be closed [1] ------- construction. Please use the north or south entrance during this time.\n\nTicket machines at the east entrance will also be unavailable. [2] -------. Staff members will be at the north entrance to help passengers [3] ------- need directions.\n\nWe are sorry for any trouble this may cause, and we thank you for your patience during the work. When the work is finished, the station will have a larger waiting area and [4] ------- elevators.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "new",
+   "newly",
+   "news",
+   "newness"
+  ],
+  "answer": "new",
+  "explanation": "名詞 elevators を修飾する形容詞 new。",
+  "tags": "品詞 形容詞"
+ },
+ {
+  "id": "TOEIC-R6-511-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Subject: Changes to our return policy\n\nDear Valued Customer,\n\nThank you for shopping with Ardent Home Electronics. We are writing to let you know about an update to our return policy, which will take [1] ------- on August 1.\n\nCurrently, customers may return most items within 14 days. Under the new policy, this period will be [2] ------- to 30 days for most products purchased online or in our stores. [3] -------. Items must be returned in their original packaging with proof of purchase.\n\nWe believe these changes will make shopping with us more convenient. If you have any questions, our customer service team is available [4] ------- assist you seven days a week.\n\nSincerely,\nArdent Home Electronics",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "effectively",
+   "affect",
+   "effective",
+   "effect"
+  ],
+  "answer": "effect",
+  "explanation": "take effect（発効する）の名詞 effect。",
+  "tags": "品詞 コロケーション"
+ },
+ {
+  "id": "TOEIC-R6-511-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Subject: Changes to our return policy\n\nDear Valued Customer,\n\nThank you for shopping with Ardent Home Electronics. We are writing to let you know about an update to our return policy, which will take [1] ------- on August 1.\n\nCurrently, customers may return most items within 14 days. Under the new policy, this period will be [2] ------- to 30 days for most products purchased online or in our stores. [3] -------. Items must be returned in their original packaging with proof of purchase.\n\nWe believe these changes will make shopping with us more convenient. If you have any questions, our customer service team is available [4] ------- assist you seven days a week.\n\nSincerely,\nArdent Home Electronics",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "exceeded",
+   "expired",
+   "extended",
+   "shortened"
+  ],
+  "answer": "extended",
+  "explanation": "14日から30日に「延長される」ので extended。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R6-511-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Subject: Changes to our return policy\n\nDear Valued Customer,\n\nThank you for shopping with Ardent Home Electronics. We are writing to let you know about an update to our return policy, which will take [1] ------- on August 1.\n\nCurrently, customers may return most items within 14 days. Under the new policy, this period will be [2] ------- to 30 days for most products purchased online or in our stores. [3] -------. Items must be returned in their original packaging with proof of purchase.\n\nWe believe these changes will make shopping with us more convenient. If you have any questions, our customer service team is available [4] ------- assist you seven days a week.\n\nSincerely,\nArdent Home Electronics",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "From now on, we will no longer accept returns of any kind.",
+   "However, opened software and personal care items will still have a 14-day limit.",
+   "Our stores will close earlier on weekends.",
+   "Shipping fees have been reduced for international orders."
+  ],
+  "answer": "However, opened software and personal care items will still have a 14-day limit.",
+  "explanation": "「ほとんどの商品」とあるので、例外を説明する文が続くのが自然。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-511-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Subject: Changes to our return policy\n\nDear Valued Customer,\n\nThank you for shopping with Ardent Home Electronics. We are writing to let you know about an update to our return policy, which will take [1] ------- on August 1.\n\nCurrently, customers may return most items within 14 days. Under the new policy, this period will be [2] ------- to 30 days for most products purchased online or in our stores. [3] -------. Items must be returned in their original packaging with proof of purchase.\n\nWe believe these changes will make shopping with us more convenient. If you have any questions, our customer service team is available [4] ------- assist you seven days a week.\n\nSincerely,\nArdent Home Electronics",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "to",
+   "by",
+   "for",
+   "at"
+  ],
+  "answer": "to",
+  "explanation": "be available to do（～する用意がある）の to。",
+  "tags": "不定詞"
+ },
+ {
+  "id": "TOEIC-R6-512-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Pine River Bridge Project Reaches Milestone\n\nRIVERTON (November 4) — Work on the new Pine River Bridge passed a key milestone last week when crews [1] ------- the final steel section of the main span. The 420-meter bridge will replace a 1960s structure that can no longer handle the volume of traffic crossing it each day.\n\nThe project has not been without difficulties. Heavy flooding last spring forced work to stop for nearly six weeks. [2] -------, the construction firm, Halden Civil Works, says the bridge remains on track to open next September.\n\nOnce complete, the bridge will include two lanes in each direction as well as a protected path for cyclists and pedestrians. [3] -------. City officials say the old bridge will be [4] ------- after the new one opens, and its steel will be recycled.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "install",
+   "installing",
+   "installation",
+   "installed"
+  ],
+  "answer": "installed",
+  "explanation": "when 節の主語 crews に続く過去形の動詞 installed。",
+  "tags": "品詞 時制"
+ },
+ {
+  "id": "TOEIC-R6-512-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Pine River Bridge Project Reaches Milestone\n\nRIVERTON (November 4) — Work on the new Pine River Bridge passed a key milestone last week when crews [1] ------- the final steel section of the main span. The 420-meter bridge will replace a 1960s structure that can no longer handle the volume of traffic crossing it each day.\n\nThe project has not been without difficulties. Heavy flooding last spring forced work to stop for nearly six weeks. [2] -------, the construction firm, Halden Civil Works, says the bridge remains on track to open next September.\n\nOnce complete, the bridge will include two lanes in each direction as well as a protected path for cyclists and pedestrians. [3] -------. City officials say the old bridge will be [4] ------- after the new one opens, and its steel will be recycled.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "As a result",
+   "Even so",
+   "In other words",
+   "Likewise"
+  ],
+  "answer": "Even so",
+  "explanation": "工事中断があったにもかかわらず予定通りなので逆接の Even so。",
+  "tags": "接続副詞"
+ },
+ {
+  "id": "TOEIC-R6-512-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Pine River Bridge Project Reaches Milestone\n\nRIVERTON (November 4) — Work on the new Pine River Bridge passed a key milestone last week when crews [1] ------- the final steel section of the main span. The 420-meter bridge will replace a 1960s structure that can no longer handle the volume of traffic crossing it each day.\n\nThe project has not been without difficulties. Heavy flooding last spring forced work to stop for nearly six weeks. [2] -------, the construction firm, Halden Civil Works, says the bridge remains on track to open next September.\n\nOnce complete, the bridge will include two lanes in each direction as well as a protected path for cyclists and pedestrians. [3] -------. City officials say the old bridge will be [4] ------- after the new one opens, and its steel will be recycled.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "Halden Civil Works was unable to obtain any steel.",
+   "The bridge was closed permanently last spring.",
+   "Local cycling groups have welcomed this feature, which the old bridge lacked.",
+   "Traffic on the old bridge has fallen sharply in recent years."
+  ],
+  "answer": "Local cycling groups have welcomed this feature, which the old bridge lacked.",
+  "explanation": "自転車・歩行者用通路の説明に続き、その反応を述べる文が自然。交通量減少は本文と矛盾する。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-512-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Pine River Bridge Project Reaches Milestone\n\nRIVERTON (November 4) — Work on the new Pine River Bridge passed a key milestone last week when crews [1] ------- the final steel section of the main span. The 420-meter bridge will replace a 1960s structure that can no longer handle the volume of traffic crossing it each day.\n\nThe project has not been without difficulties. Heavy flooding last spring forced work to stop for nearly six weeks. [2] -------, the construction firm, Halden Civil Works, says the bridge remains on track to open next September.\n\nOnce complete, the bridge will include two lanes in each direction as well as a protected path for cyclists and pedestrians. [3] -------. City officials say the old bridge will be [4] ------- after the new one opens, and its steel will be recycled.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "dismantled",
+   "distributed",
+   "dismissed",
+   "displayed"
+  ],
+  "answer": "dismantled",
+  "explanation": "古い橋は「解体され」鋼材がリサイクルされるので dismantled。",
+  "tags": "語彙"
+ },
+ {
+  "id": "TOEIC-R6-513-1",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Exhibit at the 2027 Northern Food & Packaging Expo\n\nThe Northern Food & Packaging Expo returns to the Kessler Convention Center on May 18–20. Last year's event attracted more than 9,000 visitors from 30 countries, [1] ------- it one of the largest industry gatherings in the region.\n\nBooths are available in three sizes, starting at $1,800. Exhibitors who reserve space [2] ------- January 31 will receive a 10 percent early-booking discount. [3] -------.\n\nTo request a floor plan or reserve your booth, contact our exhibitor services team at expo@nfpexpo.example. Space is limited, so we encourage you to act [4] -------.",
+  "question": "Choose the best option for blank [1].",
+  "choices": [
+   "makes",
+   "to make",
+   "made",
+   "making"
+  ],
+  "answer": "making",
+  "explanation": "前の内容を受けて「その結果～にしている」を表す分詞構文 making。",
+  "tags": "分詞構文"
+ },
+ {
+  "id": "TOEIC-R6-513-2",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Exhibit at the 2027 Northern Food & Packaging Expo\n\nThe Northern Food & Packaging Expo returns to the Kessler Convention Center on May 18–20. Last year's event attracted more than 9,000 visitors from 30 countries, [1] ------- it one of the largest industry gatherings in the region.\n\nBooths are available in three sizes, starting at $1,800. Exhibitors who reserve space [2] ------- January 31 will receive a 10 percent early-booking discount. [3] -------.\n\nTo request a floor plan or reserve your booth, contact our exhibitor services team at expo@nfpexpo.example. Space is limited, so we encourage you to act [4] -------.",
+  "question": "Choose the best option for blank [2].",
+  "choices": [
+   "before",
+   "during",
+   "prior",
+   "since"
+  ],
+  "answer": "before",
+  "explanation": "期限を表す before。prior は to が必要。",
+  "tags": "前置詞"
+ },
+ {
+  "id": "TOEIC-R6-513-3",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Exhibit at the 2027 Northern Food & Packaging Expo\n\nThe Northern Food & Packaging Expo returns to the Kessler Convention Center on May 18–20. Last year's event attracted more than 9,000 visitors from 30 countries, [1] ------- it one of the largest industry gatherings in the region.\n\nBooths are available in three sizes, starting at $1,800. Exhibitors who reserve space [2] ------- January 31 will receive a 10 percent early-booking discount. [3] -------.\n\nTo request a floor plan or reserve your booth, contact our exhibitor services team at expo@nfpexpo.example. Space is limited, so we encourage you to act [4] -------.",
+  "question": "Choose the best option for blank [3].",
+  "choices": [
+   "The convention center will be demolished next year.",
+   "Last year's expo was canceled due to bad weather.",
+   "All booth packages include electricity, a table, and two chairs.",
+   "Visitors must be at least 18 years old to exhibit."
+  ],
+  "answer": "All booth packages include electricity, a table, and two chairs.",
+  "explanation": "ブース料金の説明に続き、パッケージ内容を述べる文が自然。昨年の中止は本文と矛盾する。",
+  "tags": "文挿入 文脈"
+ },
+ {
+  "id": "TOEIC-R6-513-4",
+  "skill": "reading",
+  "format": "Part 6 長文穴埋め問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Exhibit at the 2027 Northern Food & Packaging Expo\n\nThe Northern Food & Packaging Expo returns to the Kessler Convention Center on May 18–20. Last year's event attracted more than 9,000 visitors from 30 countries, [1] ------- it one of the largest industry gatherings in the region.\n\nBooths are available in three sizes, starting at $1,800. Exhibitors who reserve space [2] ------- January 31 will receive a 10 percent early-booking discount. [3] -------.\n\nTo request a floor plan or reserve your booth, contact our exhibitor services team at expo@nfpexpo.example. Space is limited, so we encourage you to act [4] -------.",
+  "question": "Choose the best option for blank [4].",
+  "choices": [
+   "quickness",
+   "quickly",
+   "quicken",
+   "quick"
+  ],
+  "answer": "quickly",
+  "explanation": "動詞 act を修飾する副詞 quickly。",
+  "tags": "品詞 副詞"
+ }
+]

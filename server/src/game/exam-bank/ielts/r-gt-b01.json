@@ -1,0 +1,502 @@
+[
+ {
+  "id": "IELTS-RG-501-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Maple Court Shared Flats: House Rules for Tenants\n\nA  Rent and bills. Rent is due on the first day of each month and should be paid by bank transfer. Electricity, water and internet are included in the rent, but tenants who use portable heaters will be charged an extra fee during the winter months. Please report any problems with payments to the office before the due date.\n\nB  Kitchen and shared areas. Each tenant has one shelf in the fridge and one cupboard. Please wash and put away your dishes within two hours of cooking. The cleaning rota is displayed on the kitchen door; every tenant is responsible for cleaning the kitchen and bathroom once every three weeks. Food left in the fridge after the end of a tenancy will be thrown away.\n\nC  Visitors. Tenants may have guests at any time, but overnight guests may stay for a maximum of three nights in any one month. Please inform your flatmates in advance if someone will be staying. Guests must not be given keys to the building.\n\nD  Noise. Quiet hours are from 11 p.m. to 7 a.m. on weekdays and from midnight to 8 a.m. at weekends. Please use headphones when listening to music or watching films late in the evening. Parties are not permitted in the flats under any circumstances.\n\nE  Repairs and maintenance. Report any repairs through the online form on the tenants' website. Emergency repairs, such as a burst pipe or a total loss of power, should be reported by telephone to the 24-hour line. Tenants must not attempt to repair electrical equipment themselves. Staff will give at least 24 hours' notice before entering a flat, except in an emergency.\n\nF  Bicycles and rubbish. Bicycles must be kept in the locked shed behind the building and not in corridors or stairways. Recycling bins are collected on Tuesdays and general waste on Fridays.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nThe cost of electricity is included in the rent.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "Section A に電気・水道・インターネットは家賃に含まれるとあるので TRUE。",
+  "tags": "IELTS General-Training TFNG tenancy-house-rules"
+ },
+ {
+  "id": "IELTS-RG-501-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Maple Court Shared Flats: House Rules for Tenants\n\nA  Rent and bills. Rent is due on the first day of each month and should be paid by bank transfer. Electricity, water and internet are included in the rent, but tenants who use portable heaters will be charged an extra fee during the winter months. Please report any problems with payments to the office before the due date.\n\nB  Kitchen and shared areas. Each tenant has one shelf in the fridge and one cupboard. Please wash and put away your dishes within two hours of cooking. The cleaning rota is displayed on the kitchen door; every tenant is responsible for cleaning the kitchen and bathroom once every three weeks. Food left in the fridge after the end of a tenancy will be thrown away.\n\nC  Visitors. Tenants may have guests at any time, but overnight guests may stay for a maximum of three nights in any one month. Please inform your flatmates in advance if someone will be staying. Guests must not be given keys to the building.\n\nD  Noise. Quiet hours are from 11 p.m. to 7 a.m. on weekdays and from midnight to 8 a.m. at weekends. Please use headphones when listening to music or watching films late in the evening. Parties are not permitted in the flats under any circumstances.\n\nE  Repairs and maintenance. Report any repairs through the online form on the tenants' website. Emergency repairs, such as a burst pipe or a total loss of power, should be reported by telephone to the 24-hour line. Tenants must not attempt to repair electrical equipment themselves. Staff will give at least 24 hours' notice before entering a flat, except in an emergency.\n\nF  Bicycles and rubbish. Bicycles must be kept in the locked shed behind the building and not in corridors or stairways. Recycling bins are collected on Tuesdays and general waste on Fridays.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nTenants may smoke on the balcony.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "喫煙やバルコニーについては書かれていないので NOT GIVEN。",
+  "tags": "IELTS General-Training TFNG tenancy-house-rules"
+ },
+ {
+  "id": "IELTS-RG-501-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Maple Court Shared Flats: House Rules for Tenants\n\nA  Rent and bills. Rent is due on the first day of each month and should be paid by bank transfer. Electricity, water and internet are included in the rent, but tenants who use portable heaters will be charged an extra fee during the winter months. Please report any problems with payments to the office before the due date.\n\nB  Kitchen and shared areas. Each tenant has one shelf in the fridge and one cupboard. Please wash and put away your dishes within two hours of cooking. The cleaning rota is displayed on the kitchen door; every tenant is responsible for cleaning the kitchen and bathroom once every three weeks. Food left in the fridge after the end of a tenancy will be thrown away.\n\nC  Visitors. Tenants may have guests at any time, but overnight guests may stay for a maximum of three nights in any one month. Please inform your flatmates in advance if someone will be staying. Guests must not be given keys to the building.\n\nD  Noise. Quiet hours are from 11 p.m. to 7 a.m. on weekdays and from midnight to 8 a.m. at weekends. Please use headphones when listening to music or watching films late in the evening. Parties are not permitted in the flats under any circumstances.\n\nE  Repairs and maintenance. Report any repairs through the online form on the tenants' website. Emergency repairs, such as a burst pipe or a total loss of power, should be reported by telephone to the 24-hour line. Tenants must not attempt to repair electrical equipment themselves. Staff will give at least 24 hours' notice before entering a flat, except in an emergency.\n\nF  Bicycles and rubbish. Bicycles must be kept in the locked shed behind the building and not in corridors or stairways. Recycling bins are collected on Tuesdays and general waste on Fridays.",
+  "question": "Which section contains the following information?\nthe procedure for reporting an urgent problem",
+  "choices": [
+   "Section C",
+   "Section D",
+   "Section E",
+   "Section F"
+  ],
+  "answer": "Section E",
+  "explanation": "Section E に緊急の修理は24時間対応の電話で報告するとある。",
+  "tags": "IELTS General-Training matching-information tenancy-house-rules"
+ },
+ {
+  "id": "IELTS-RG-501-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Maple Court Shared Flats: House Rules for Tenants\n\nA  Rent and bills. Rent is due on the first day of each month and should be paid by bank transfer. Electricity, water and internet are included in the rent, but tenants who use portable heaters will be charged an extra fee during the winter months. Please report any problems with payments to the office before the due date.\n\nB  Kitchen and shared areas. Each tenant has one shelf in the fridge and one cupboard. Please wash and put away your dishes within two hours of cooking. The cleaning rota is displayed on the kitchen door; every tenant is responsible for cleaning the kitchen and bathroom once every three weeks. Food left in the fridge after the end of a tenancy will be thrown away.\n\nC  Visitors. Tenants may have guests at any time, but overnight guests may stay for a maximum of three nights in any one month. Please inform your flatmates in advance if someone will be staying. Guests must not be given keys to the building.\n\nD  Noise. Quiet hours are from 11 p.m. to 7 a.m. on weekdays and from midnight to 8 a.m. at weekends. Please use headphones when listening to music or watching films late in the evening. Parties are not permitted in the flats under any circumstances.\n\nE  Repairs and maintenance. Report any repairs through the online form on the tenants' website. Emergency repairs, such as a burst pipe or a total loss of power, should be reported by telephone to the 24-hour line. Tenants must not attempt to repair electrical equipment themselves. Staff will give at least 24 hours' notice before entering a flat, except in an emergency.\n\nF  Bicycles and rubbish. Bicycles must be kept in the locked shed behind the building and not in corridors or stairways. Recycling bins are collected on Tuesdays and general waste on Fridays.",
+  "question": "Complete the sentence below. Choose NO MORE THAN TWO WORDS from the passage for the answer.\nEach tenant must clean the kitchen and bathroom once every ______.",
+  "answer": "three weeks",
+  "explanation": "Section B \"once every three weeks\" から。",
+  "tags": "IELTS General-Training completion tenancy-house-rules"
+ },
+ {
+  "id": "IELTS-RG-501-5",
+  "skill": "reading",
+  "format": "General Training: 短答",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Maple Court Shared Flats: House Rules for Tenants\n\nA  Rent and bills. Rent is due on the first day of each month and should be paid by bank transfer. Electricity, water and internet are included in the rent, but tenants who use portable heaters will be charged an extra fee during the winter months. Please report any problems with payments to the office before the due date.\n\nB  Kitchen and shared areas. Each tenant has one shelf in the fridge and one cupboard. Please wash and put away your dishes within two hours of cooking. The cleaning rota is displayed on the kitchen door; every tenant is responsible for cleaning the kitchen and bathroom once every three weeks. Food left in the fridge after the end of a tenancy will be thrown away.\n\nC  Visitors. Tenants may have guests at any time, but overnight guests may stay for a maximum of three nights in any one month. Please inform your flatmates in advance if someone will be staying. Guests must not be given keys to the building.\n\nD  Noise. Quiet hours are from 11 p.m. to 7 a.m. on weekdays and from midnight to 8 a.m. at weekends. Please use headphones when listening to music or watching films late in the evening. Parties are not permitted in the flats under any circumstances.\n\nE  Repairs and maintenance. Report any repairs through the online form on the tenants' website. Emergency repairs, such as a burst pipe or a total loss of power, should be reported by telephone to the 24-hour line. Tenants must not attempt to repair electrical equipment themselves. Staff will give at least 24 hours' notice before entering a flat, except in an emergency.\n\nF  Bicycles and rubbish. Bicycles must be kept in the locked shed behind the building and not in corridors or stairways. Recycling bins are collected on Tuesdays and general waste on Fridays.",
+  "question": "Answer the question below. Choose NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.\nWhat is the maximum number of nights an overnight guest may stay in one month?",
+  "answer": "three nights",
+  "explanation": "Section C \"a maximum of three nights in any one month\" から。",
+  "tags": "IELTS General-Training short-answer tenancy-house-rules"
+ },
+ {
+  "id": "IELTS-RG-502-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Moving Out: A Guide to Getting Your Deposit Back\n\nA  When you rent a property, you will normally be asked to pay a deposit, often equivalent to four or five weeks' rent. This money is held as security in case you damage the property or fail to pay the rent. In many places, landlords are legally required to protect the deposit in an approved scheme, and you should receive written confirmation of this within a few weeks of paying it.\n\nB  The most important document at the end of a tenancy is the inventory. This is a detailed list, usually with photographs, describing the condition of the property and its contents when you moved in. If you did not receive an inventory, take your own dated photographs as soon as possible after moving in and send copies to your landlord or agent by email, so that there is a record of when they were taken.\n\nC  Landlords may deduct money from your deposit for damage, unpaid rent or cleaning if the property is less clean than when you moved in. However, they cannot charge you for 'fair wear and tear', which means the gradual deterioration that results from normal use. A carpet that has become slightly worn after several years is an example of fair wear and tear; a large burn mark is not.\n\nD  Before you leave, clean the property thoroughly, including inside the oven and fridge, and remove all of your belongings. Return every key, including spare keys for windows and the post box. Attend the check-out inspection if you can, and take your own photographs on the day you leave. Make sure your landlord has your new address.\n\nE  If your landlord proposes deductions that you think are unfair, first try to reach an agreement by discussing the matter politely and providing evidence. If this fails, deposit protection schemes offer a free dispute resolution service, in which an independent adjudicator examines the evidence from both sides and makes a decision. Using this service does not require you to go to court.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nTenants can be charged for damage caused by normal use over time.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "第C段落で fair wear and tear（通常使用による劣化）は請求できないとあるので FALSE。",
+  "tags": "IELTS General-Training TFNG tenancy-deposit"
+ },
+ {
+  "id": "IELTS-RG-502-2",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Moving Out: A Guide to Getting Your Deposit Back\n\nA  When you rent a property, you will normally be asked to pay a deposit, often equivalent to four or five weeks' rent. This money is held as security in case you damage the property or fail to pay the rent. In many places, landlords are legally required to protect the deposit in an approved scheme, and you should receive written confirmation of this within a few weeks of paying it.\n\nB  The most important document at the end of a tenancy is the inventory. This is a detailed list, usually with photographs, describing the condition of the property and its contents when you moved in. If you did not receive an inventory, take your own dated photographs as soon as possible after moving in and send copies to your landlord or agent by email, so that there is a record of when they were taken.\n\nC  Landlords may deduct money from your deposit for damage, unpaid rent or cleaning if the property is less clean than when you moved in. However, they cannot charge you for 'fair wear and tear', which means the gradual deterioration that results from normal use. A carpet that has become slightly worn after several years is an example of fair wear and tear; a large burn mark is not.\n\nD  Before you leave, clean the property thoroughly, including inside the oven and fridge, and remove all of your belongings. Return every key, including spare keys for windows and the post box. Attend the check-out inspection if you can, and take your own photographs on the day you leave. Make sure your landlord has your new address.\n\nE  If your landlord proposes deductions that you think are unfair, first try to reach an agreement by discussing the matter politely and providing evidence. If this fails, deposit protection schemes offer a free dispute resolution service, in which an independent adjudicator examines the evidence from both sides and makes a decision. Using this service does not require you to go to court.",
+  "question": "What should tenants do if they did not receive an inventory?",
+  "choices": [
+   "ask the adjudicator to write one",
+   "refuse to pay the deposit",
+   "wait until the check-out inspection to record the condition of the property",
+   "take dated photographs and email them to the landlord"
+  ],
+  "answer": "take dated photographs and email them to the landlord",
+  "explanation": "第B段落に日付入りの写真を撮り、メールで送るよう書かれている。",
+  "tags": "IELTS General-Training multiple-choice tenancy-deposit"
+ },
+ {
+  "id": "IELTS-RG-502-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Moving Out: A Guide to Getting Your Deposit Back\n\nA  When you rent a property, you will normally be asked to pay a deposit, often equivalent to four or five weeks' rent. This money is held as security in case you damage the property or fail to pay the rent. In many places, landlords are legally required to protect the deposit in an approved scheme, and you should receive written confirmation of this within a few weeks of paying it.\n\nB  The most important document at the end of a tenancy is the inventory. This is a detailed list, usually with photographs, describing the condition of the property and its contents when you moved in. If you did not receive an inventory, take your own dated photographs as soon as possible after moving in and send copies to your landlord or agent by email, so that there is a record of when they were taken.\n\nC  Landlords may deduct money from your deposit for damage, unpaid rent or cleaning if the property is less clean than when you moved in. However, they cannot charge you for 'fair wear and tear', which means the gradual deterioration that results from normal use. A carpet that has become slightly worn after several years is an example of fair wear and tear; a large burn mark is not.\n\nD  Before you leave, clean the property thoroughly, including inside the oven and fridge, and remove all of your belongings. Return every key, including spare keys for windows and the post box. Attend the check-out inspection if you can, and take your own photographs on the day you leave. Make sure your landlord has your new address.\n\nE  If your landlord proposes deductions that you think are unfair, first try to reach an agreement by discussing the matter politely and providing evidence. If this fails, deposit protection schemes offer a free dispute resolution service, in which an independent adjudicator examines the evidence from both sides and makes a decision. Using this service does not require you to go to court.",
+  "question": "Which paragraph contains the following information?\na description of what happens when a tenant and landlord cannot agree",
+  "choices": [
+   "Paragraph B",
+   "Paragraph C",
+   "Paragraph D",
+   "Paragraph E"
+  ],
+  "answer": "Paragraph E",
+  "explanation": "第E段落に独立した裁定人による無料の紛争解決サービスが説明されている。",
+  "tags": "IELTS General-Training matching-information tenancy-deposit"
+ },
+ {
+  "id": "IELTS-RG-502-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Moving Out: A Guide to Getting Your Deposit Back\n\nA  When you rent a property, you will normally be asked to pay a deposit, often equivalent to four or five weeks' rent. This money is held as security in case you damage the property or fail to pay the rent. In many places, landlords are legally required to protect the deposit in an approved scheme, and you should receive written confirmation of this within a few weeks of paying it.\n\nB  The most important document at the end of a tenancy is the inventory. This is a detailed list, usually with photographs, describing the condition of the property and its contents when you moved in. If you did not receive an inventory, take your own dated photographs as soon as possible after moving in and send copies to your landlord or agent by email, so that there is a record of when they were taken.\n\nC  Landlords may deduct money from your deposit for damage, unpaid rent or cleaning if the property is less clean than when you moved in. However, they cannot charge you for 'fair wear and tear', which means the gradual deterioration that results from normal use. A carpet that has become slightly worn after several years is an example of fair wear and tear; a large burn mark is not.\n\nD  Before you leave, clean the property thoroughly, including inside the oven and fridge, and remove all of your belongings. Return every key, including spare keys for windows and the post box. Attend the check-out inspection if you can, and take your own photographs on the day you leave. Make sure your landlord has your new address.\n\nE  If your landlord proposes deductions that you think are unfair, first try to reach an agreement by discussing the matter politely and providing evidence. If this fails, deposit protection schemes offer a free dispute resolution service, in which an independent adjudicator examines the evidence from both sides and makes a decision. Using this service does not require you to go to court.",
+  "question": "Complete the sentence below. Choose NO MORE THAN FOUR WORDS from the passage for the answer.\nGradual deterioration resulting from normal use is known as ______.",
+  "answer": "fair wear and tear",
+  "explanation": "第C段落 \"'fair wear and tear', which means the gradual deterioration\" から。",
+  "tags": "IELTS General-Training completion tenancy-deposit"
+ },
+ {
+  "id": "IELTS-RG-503-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "NOTICE TO ALL STAFF: Changes to the Staff Canteen from 3 March\n\nA  Following the results of last autumn's staff survey, we are making several changes to the canteen on the ground floor of the main building. We hope these will make lunchtimes quicker and give everyone a wider choice of food.\n\nB  New opening hours. The canteen will open at 7.30 a.m. for breakfast, half an hour earlier than at present, and hot food will be served until 2.30 p.m. Sandwiches, salads and drinks will remain available from the self-service counter until 4 p.m. The canteen will continue to close at weekends.\n\nC  Payment. From 3 March, the canteen will no longer accept cash. Staff can pay using a bank card, a mobile phone or their staff ID card, which can be topped up at the machine beside the entrance. Staff who pay with their ID card will receive a 10% discount on all hot meals.\n\nD  Menu. A vegetarian main course will now be available every day, and a vegan option will be offered on Mondays, Wednesdays and Fridays. The weekly menu will be sent to all staff by email every Friday afternoon. Information about allergens is available from the serving staff, who can also show you the full list of ingredients for each dish.\n\nE  Seating. To reduce queues and crowding between 12.30 and 1.30 p.m., the meeting room next to the canteen will be available as extra seating during that hour. Please remember to return trays to the racks near the exit. Comments and suggestions can be left in the box by the till or sent to the facilities team.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nHot meals will be cheaper for staff who pay with their ID card.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "Payment の段落に ID カードで払うと温かい食事が10%引きとあるので TRUE。",
+  "tags": "IELTS General-Training TFNG staff-canteen-notice"
+ },
+ {
+  "id": "IELTS-RG-503-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "NOTICE TO ALL STAFF: Changes to the Staff Canteen from 3 March\n\nA  Following the results of last autumn's staff survey, we are making several changes to the canteen on the ground floor of the main building. We hope these will make lunchtimes quicker and give everyone a wider choice of food.\n\nB  New opening hours. The canteen will open at 7.30 a.m. for breakfast, half an hour earlier than at present, and hot food will be served until 2.30 p.m. Sandwiches, salads and drinks will remain available from the self-service counter until 4 p.m. The canteen will continue to close at weekends.\n\nC  Payment. From 3 March, the canteen will no longer accept cash. Staff can pay using a bank card, a mobile phone or their staff ID card, which can be topped up at the machine beside the entrance. Staff who pay with their ID card will receive a 10% discount on all hot meals.\n\nD  Menu. A vegetarian main course will now be available every day, and a vegan option will be offered on Mondays, Wednesdays and Fridays. The weekly menu will be sent to all staff by email every Friday afternoon. Information about allergens is available from the serving staff, who can also show you the full list of ingredients for each dish.\n\nE  Seating. To reduce queues and crowding between 12.30 and 1.30 p.m., the meeting room next to the canteen will be available as extra seating during that hour. Please remember to return trays to the racks near the exit. Comments and suggestions can be left in the box by the till or sent to the facilities team.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nThe canteen will start opening on Saturdays.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "週末は引き続き閉まるとあるので FALSE。",
+  "tags": "IELTS General-Training TFNG staff-canteen-notice"
+ },
+ {
+  "id": "IELTS-RG-503-3",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "NOTICE TO ALL STAFF: Changes to the Staff Canteen from 3 March\n\nA  Following the results of last autumn's staff survey, we are making several changes to the canteen on the ground floor of the main building. We hope these will make lunchtimes quicker and give everyone a wider choice of food.\n\nB  New opening hours. The canteen will open at 7.30 a.m. for breakfast, half an hour earlier than at present, and hot food will be served until 2.30 p.m. Sandwiches, salads and drinks will remain available from the self-service counter until 4 p.m. The canteen will continue to close at weekends.\n\nC  Payment. From 3 March, the canteen will no longer accept cash. Staff can pay using a bank card, a mobile phone or their staff ID card, which can be topped up at the machine beside the entrance. Staff who pay with their ID card will receive a 10% discount on all hot meals.\n\nD  Menu. A vegetarian main course will now be available every day, and a vegan option will be offered on Mondays, Wednesdays and Fridays. The weekly menu will be sent to all staff by email every Friday afternoon. Information about allergens is available from the serving staff, who can also show you the full list of ingredients for each dish.\n\nE  Seating. To reduce queues and crowding between 12.30 and 1.30 p.m., the meeting room next to the canteen will be available as extra seating during that hour. Please remember to return trays to the racks near the exit. Comments and suggestions can be left in the box by the till or sent to the facilities team.",
+  "question": "When will a vegan option be available?",
+  "choices": [
+   "every day",
+   "only on Fridays",
+   "on request",
+   "three days a week"
+  ],
+  "answer": "three days a week",
+  "explanation": "ヴィーガンの選択肢は月・水・金とあるので週3日。",
+  "tags": "IELTS General-Training multiple-choice staff-canteen-notice"
+ },
+ {
+  "id": "IELTS-RG-503-4",
+  "skill": "reading",
+  "format": "General Training: 短答",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "NOTICE TO ALL STAFF: Changes to the Staff Canteen from 3 March\n\nA  Following the results of last autumn's staff survey, we are making several changes to the canteen on the ground floor of the main building. We hope these will make lunchtimes quicker and give everyone a wider choice of food.\n\nB  New opening hours. The canteen will open at 7.30 a.m. for breakfast, half an hour earlier than at present, and hot food will be served until 2.30 p.m. Sandwiches, salads and drinks will remain available from the self-service counter until 4 p.m. The canteen will continue to close at weekends.\n\nC  Payment. From 3 March, the canteen will no longer accept cash. Staff can pay using a bank card, a mobile phone or their staff ID card, which can be topped up at the machine beside the entrance. Staff who pay with their ID card will receive a 10% discount on all hot meals.\n\nD  Menu. A vegetarian main course will now be available every day, and a vegan option will be offered on Mondays, Wednesdays and Fridays. The weekly menu will be sent to all staff by email every Friday afternoon. Information about allergens is available from the serving staff, who can also show you the full list of ingredients for each dish.\n\nE  Seating. To reduce queues and crowding between 12.30 and 1.30 p.m., the meeting room next to the canteen will be available as extra seating during that hour. Please remember to return trays to the racks near the exit. Comments and suggestions can be left in the box by the till or sent to the facilities team.",
+  "question": "Answer the question below. Choose NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.\nUntil what time will hot food be served?",
+  "answer": "2.30 p.m.",
+  "explanation": "New opening hours の段落 \"hot food will be served until 2.30 p.m.\" から。",
+  "tags": "IELTS General-Training short-answer staff-canteen-notice"
+ },
+ {
+  "id": "IELTS-RG-504-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Staff Canteen: Food Allergies and Special Diets\n\nA  Our commitment. The canteen team wants every member of staff to be able to eat safely. All of our dishes are prepared in the canteen kitchen by our own chefs, and we label every dish on the counter with the main allergens it contains.\n\nB  What you should do. If you have a food allergy, please tell the serving staff each time you order, even if you eat in the canteen regularly. Recipes and suppliers sometimes change, and staff on duty may differ from day to day. Do not rely only on the labels, as these show the main allergens but not every ingredient.\n\nC  Limits. Our kitchen handles nuts, sesame, gluten, milk and eggs. Although we take great care to keep ingredients separate, we cannot guarantee that any dish is completely free from traces of these allergens. Staff with severe allergies may prefer to bring their own food, and a microwave and fridge are available in the staff kitchen on the second floor for this purpose.\n\nD  Special diets. If you follow a diet for medical or religious reasons, you can ask the head chef, Mr Okonkwo, to prepare a suitable meal. Please give at least two working days' notice so that ingredients can be ordered. There is no extra charge for this service.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nStaff with allergies only need to inform the canteen once.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "Section B に毎回注文のたびに伝えるようにとあるので FALSE。",
+  "tags": "IELTS General-Training TFNG staff-canteen-allergy"
+ },
+ {
+  "id": "IELTS-RG-504-2",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Staff Canteen: Food Allergies and Special Diets\n\nA  Our commitment. The canteen team wants every member of staff to be able to eat safely. All of our dishes are prepared in the canteen kitchen by our own chefs, and we label every dish on the counter with the main allergens it contains.\n\nB  What you should do. If you have a food allergy, please tell the serving staff each time you order, even if you eat in the canteen regularly. Recipes and suppliers sometimes change, and staff on duty may differ from day to day. Do not rely only on the labels, as these show the main allergens but not every ingredient.\n\nC  Limits. Our kitchen handles nuts, sesame, gluten, milk and eggs. Although we take great care to keep ingredients separate, we cannot guarantee that any dish is completely free from traces of these allergens. Staff with severe allergies may prefer to bring their own food, and a microwave and fridge are available in the staff kitchen on the second floor for this purpose.\n\nD  Special diets. If you follow a diet for medical or religious reasons, you can ask the head chef, Mr Okonkwo, to prepare a suitable meal. Please give at least two working days' notice so that ingredients can be ordered. There is no extra charge for this service.",
+  "question": "Which section contains the following information?\nwhere staff can store food brought from home",
+  "choices": [
+   "Section A",
+   "Section B",
+   "Section C",
+   "Section D"
+  ],
+  "answer": "Section C",
+  "explanation": "Section C に2階のスタッフキッチンに電子レンジと冷蔵庫があるとある。",
+  "tags": "IELTS General-Training matching-information staff-canteen-allergy"
+ },
+ {
+  "id": "IELTS-RG-504-3",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Staff Canteen: Food Allergies and Special Diets\n\nA  Our commitment. The canteen team wants every member of staff to be able to eat safely. All of our dishes are prepared in the canteen kitchen by our own chefs, and we label every dish on the counter with the main allergens it contains.\n\nB  What you should do. If you have a food allergy, please tell the serving staff each time you order, even if you eat in the canteen regularly. Recipes and suppliers sometimes change, and staff on duty may differ from day to day. Do not rely only on the labels, as these show the main allergens but not every ingredient.\n\nC  Limits. Our kitchen handles nuts, sesame, gluten, milk and eggs. Although we take great care to keep ingredients separate, we cannot guarantee that any dish is completely free from traces of these allergens. Staff with severe allergies may prefer to bring their own food, and a microwave and fridge are available in the staff kitchen on the second floor for this purpose.\n\nD  Special diets. If you follow a diet for medical or religious reasons, you can ask the head chef, Mr Okonkwo, to prepare a suitable meal. Please give at least two working days' notice so that ingredients can be ordered. There is no extra charge for this service.",
+  "question": "Why should staff not rely only on the labels?",
+  "choices": [
+   "They do not list every ingredient.",
+   "They are changed every day.",
+   "They are written by suppliers.",
+   "They are only shown on hot dishes."
+  ],
+  "answer": "They do not list every ingredient.",
+  "explanation": "Section B にラベルは主なアレルゲンだけで全成分ではないとある。",
+  "tags": "IELTS General-Training multiple-choice staff-canteen-allergy"
+ },
+ {
+  "id": "IELTS-RG-504-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Staff Canteen: Food Allergies and Special Diets\n\nA  Our commitment. The canteen team wants every member of staff to be able to eat safely. All of our dishes are prepared in the canteen kitchen by our own chefs, and we label every dish on the counter with the main allergens it contains.\n\nB  What you should do. If you have a food allergy, please tell the serving staff each time you order, even if you eat in the canteen regularly. Recipes and suppliers sometimes change, and staff on duty may differ from day to day. Do not rely only on the labels, as these show the main allergens but not every ingredient.\n\nC  Limits. Our kitchen handles nuts, sesame, gluten, milk and eggs. Although we take great care to keep ingredients separate, we cannot guarantee that any dish is completely free from traces of these allergens. Staff with severe allergies may prefer to bring their own food, and a microwave and fridge are available in the staff kitchen on the second floor for this purpose.\n\nD  Special diets. If you follow a diet for medical or religious reasons, you can ask the head chef, Mr Okonkwo, to prepare a suitable meal. Please give at least two working days' notice so that ingredients can be ordered. There is no extra charge for this service.",
+  "question": "Complete the sentence below. Choose NO MORE THAN TWO WORDS from the passage for the answer.\nRequests for special meals need at least two ______ notice.",
+  "answer": "working days'",
+  "explanation": "Section D \"at least two working days' notice\" から。",
+  "tags": "IELTS General-Training completion staff-canteen-allergy"
+ },
+ {
+  "id": "IELTS-RG-505-1",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Riverside College: Short Courses This Spring\n\nA  Introduction to Bookkeeping. Learn how to record income and expenses, prepare simple accounts and use common spreadsheet functions. Ideal for people running a small business. Eight Tuesday evenings, starting 4 April. A certificate is awarded to students who complete a short final assignment.\n\nB  Conversational Spanish for Beginners. No previous knowledge is needed. Classes focus on speaking and listening in everyday situations such as shopping, ordering food and asking for directions. Ten Thursday evenings. The textbook is included in the course fee.\n\nC  Digital Photography. Bring your own camera, which may be a phone, and learn how to take better pictures using light, composition and simple editing software. Includes one Saturday field trip to the botanical gardens. Six Monday evenings.\n\nD  First Aid at Work. This one-day course on a Saturday covers basic life support, treating burns and dealing with choking. Successful participants receive a certificate valid for three years, which is recognised by many employers. Places are limited to twelve.\n\nE  Creative Writing. Develop your skills in writing short stories and poems through weekly exercises and friendly feedback from the group. The course ends with a public reading at the college library. Eight Wednesday evenings. Suitable for all levels.",
+  "question": "Which course contains the following information?\na course that includes a visit outside the college",
+  "choices": [
+   "Course A",
+   "Course B",
+   "Course C",
+   "Course D"
+  ],
+  "answer": "Course C",
+  "explanation": "Course C（写真）に植物園への土曜の校外学習が含まれる。",
+  "tags": "IELTS General-Training matching-information course-brochure-short"
+ },
+ {
+  "id": "IELTS-RG-505-2",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Riverside College: Short Courses This Spring\n\nA  Introduction to Bookkeeping. Learn how to record income and expenses, prepare simple accounts and use common spreadsheet functions. Ideal for people running a small business. Eight Tuesday evenings, starting 4 April. A certificate is awarded to students who complete a short final assignment.\n\nB  Conversational Spanish for Beginners. No previous knowledge is needed. Classes focus on speaking and listening in everyday situations such as shopping, ordering food and asking for directions. Ten Thursday evenings. The textbook is included in the course fee.\n\nC  Digital Photography. Bring your own camera, which may be a phone, and learn how to take better pictures using light, composition and simple editing software. Includes one Saturday field trip to the botanical gardens. Six Monday evenings.\n\nD  First Aid at Work. This one-day course on a Saturday covers basic life support, treating burns and dealing with choking. Successful participants receive a certificate valid for three years, which is recognised by many employers. Places are limited to twelve.\n\nE  Creative Writing. Develop your skills in writing short stories and poems through weekly exercises and friendly feedback from the group. The course ends with a public reading at the college library. Eight Wednesday evenings. Suitable for all levels.",
+  "question": "Which course contains the following information?\na course where the cost of a book is covered by the fee",
+  "choices": [
+   "Course B",
+   "Course C",
+   "Course D",
+   "Course E"
+  ],
+  "answer": "Course B",
+  "explanation": "Course B（スペイン語）に教科書代が受講料に含まれるとある。",
+  "tags": "IELTS General-Training matching-information course-brochure-short"
+ },
+ {
+  "id": "IELTS-RG-505-3",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Riverside College: Short Courses This Spring\n\nA  Introduction to Bookkeeping. Learn how to record income and expenses, prepare simple accounts and use common spreadsheet functions. Ideal for people running a small business. Eight Tuesday evenings, starting 4 April. A certificate is awarded to students who complete a short final assignment.\n\nB  Conversational Spanish for Beginners. No previous knowledge is needed. Classes focus on speaking and listening in everyday situations such as shopping, ordering food and asking for directions. Ten Thursday evenings. The textbook is included in the course fee.\n\nC  Digital Photography. Bring your own camera, which may be a phone, and learn how to take better pictures using light, composition and simple editing software. Includes one Saturday field trip to the botanical gardens. Six Monday evenings.\n\nD  First Aid at Work. This one-day course on a Saturday covers basic life support, treating burns and dealing with choking. Successful participants receive a certificate valid for three years, which is recognised by many employers. Places are limited to twelve.\n\nE  Creative Writing. Develop your skills in writing short stories and poems through weekly exercises and friendly feedback from the group. The course ends with a public reading at the college library. Eight Wednesday evenings. Suitable for all levels.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nThe First Aid certificate remains valid for more than two years.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "Course D に証明書は3年間有効とあるので TRUE。",
+  "tags": "IELTS General-Training TFNG course-brochure-short"
+ },
+ {
+  "id": "IELTS-RG-505-4",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Riverside College: Short Courses This Spring\n\nA  Introduction to Bookkeeping. Learn how to record income and expenses, prepare simple accounts and use common spreadsheet functions. Ideal for people running a small business. Eight Tuesday evenings, starting 4 April. A certificate is awarded to students who complete a short final assignment.\n\nB  Conversational Spanish for Beginners. No previous knowledge is needed. Classes focus on speaking and listening in everyday situations such as shopping, ordering food and asking for directions. Ten Thursday evenings. The textbook is included in the course fee.\n\nC  Digital Photography. Bring your own camera, which may be a phone, and learn how to take better pictures using light, composition and simple editing software. Includes one Saturday field trip to the botanical gardens. Six Monday evenings.\n\nD  First Aid at Work. This one-day course on a Saturday covers basic life support, treating burns and dealing with choking. Successful participants receive a certificate valid for three years, which is recognised by many employers. Places are limited to twelve.\n\nE  Creative Writing. Develop your skills in writing short stories and poems through weekly exercises and friendly feedback from the group. The course ends with a public reading at the college library. Eight Wednesday evenings. Suitable for all levels.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nThe Creative Writing course is taught by a published author.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "講師について書かれていないので NOT GIVEN。",
+  "tags": "IELTS General-Training TFNG course-brochure-short"
+ },
+ {
+  "id": "IELTS-RG-505-5",
+  "skill": "reading",
+  "format": "General Training: 短答",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Riverside College: Short Courses This Spring\n\nA  Introduction to Bookkeeping. Learn how to record income and expenses, prepare simple accounts and use common spreadsheet functions. Ideal for people running a small business. Eight Tuesday evenings, starting 4 April. A certificate is awarded to students who complete a short final assignment.\n\nB  Conversational Spanish for Beginners. No previous knowledge is needed. Classes focus on speaking and listening in everyday situations such as shopping, ordering food and asking for directions. Ten Thursday evenings. The textbook is included in the course fee.\n\nC  Digital Photography. Bring your own camera, which may be a phone, and learn how to take better pictures using light, composition and simple editing software. Includes one Saturday field trip to the botanical gardens. Six Monday evenings.\n\nD  First Aid at Work. This one-day course on a Saturday covers basic life support, treating burns and dealing with choking. Successful participants receive a certificate valid for three years, which is recognised by many employers. Places are limited to twelve.\n\nE  Creative Writing. Develop your skills in writing short stories and poems through weekly exercises and friendly feedback from the group. The course ends with a public reading at the college library. Eight Wednesday evenings. Suitable for all levels.",
+  "question": "Answer the question below. Choose NO MORE THAN ONE WORD AND/OR A NUMBER from the passage.\nHow many people can take the First Aid at Work course?",
+  "answer": "twelve",
+  "explanation": "Course D \"Places are limited to twelve\" から。",
+  "tags": "IELTS General-Training short-answer course-brochure-short"
+ },
+ {
+  "id": "IELTS-RG-506-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Diploma in Hospitality Management (One Year, Full-Time)\n\nA  This practical diploma prepares students for supervisory and management roles in hotels, restaurants, event venues and tourist attractions. It combines classroom study with substantial work experience, and is designed for school leavers as well as people who already work in the industry and wish to progress.\n\nB  Course content. Students study six core modules: customer service, food and beverage operations, accommodation management, marketing, finance for hospitality and managing people. In the second semester, students choose one specialist module from either event planning or sustainable tourism.\n\nC  Work placement. All students complete a ten-week paid placement with one of our partner employers. Placements are arranged by the college's careers team, although students may suggest their own employer if it meets our requirements. Students who are already employed in the industry may be able to complete the placement at their current workplace.\n\nD  Assessment. There are no written examinations. Instead, students are assessed through practical tasks, reports, presentations and a final project in which they plan and run a real event for the local community.\n\nE  Entry requirements. Applicants should normally have completed secondary education. Those without formal qualifications but with at least two years' relevant work experience are also welcome to apply and will be invited to an interview. Applicants whose first language is not English need an IELTS score of 5.5 or equivalent.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nStudents on the diploma take written exams at the end of each semester.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "Assessment の段落に筆記試験はないとあるので FALSE。",
+  "tags": "IELTS General-Training TFNG course-brochure-diploma"
+ },
+ {
+  "id": "IELTS-RG-506-2",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Diploma in Hospitality Management (One Year, Full-Time)\n\nA  This practical diploma prepares students for supervisory and management roles in hotels, restaurants, event venues and tourist attractions. It combines classroom study with substantial work experience, and is designed for school leavers as well as people who already work in the industry and wish to progress.\n\nB  Course content. Students study six core modules: customer service, food and beverage operations, accommodation management, marketing, finance for hospitality and managing people. In the second semester, students choose one specialist module from either event planning or sustainable tourism.\n\nC  Work placement. All students complete a ten-week paid placement with one of our partner employers. Placements are arranged by the college's careers team, although students may suggest their own employer if it meets our requirements. Students who are already employed in the industry may be able to complete the placement at their current workplace.\n\nD  Assessment. There are no written examinations. Instead, students are assessed through practical tasks, reports, presentations and a final project in which they plan and run a real event for the local community.\n\nE  Entry requirements. Applicants should normally have completed secondary education. Those without formal qualifications but with at least two years' relevant work experience are also welcome to apply and will be invited to an interview. Applicants whose first language is not English need an IELTS score of 5.5 or equivalent.",
+  "question": "What can students who already work in hospitality possibly do?",
+  "choices": [
+   "skip the core modules",
+   "finish the whole diploma in a single semester instead of a year",
+   "avoid the final project",
+   "complete the placement at their current workplace"
+  ],
+  "answer": "complete the placement at their current workplace",
+  "explanation": "Work placement の段落に現在の職場で実習を行える場合があるとある。",
+  "tags": "IELTS General-Training multiple-choice course-brochure-diploma"
+ },
+ {
+  "id": "IELTS-RG-506-3",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Diploma in Hospitality Management (One Year, Full-Time)\n\nA  This practical diploma prepares students for supervisory and management roles in hotels, restaurants, event venues and tourist attractions. It combines classroom study with substantial work experience, and is designed for school leavers as well as people who already work in the industry and wish to progress.\n\nB  Course content. Students study six core modules: customer service, food and beverage operations, accommodation management, marketing, finance for hospitality and managing people. In the second semester, students choose one specialist module from either event planning or sustainable tourism.\n\nC  Work placement. All students complete a ten-week paid placement with one of our partner employers. Placements are arranged by the college's careers team, although students may suggest their own employer if it meets our requirements. Students who are already employed in the industry may be able to complete the placement at their current workplace.\n\nD  Assessment. There are no written examinations. Instead, students are assessed through practical tasks, reports, presentations and a final project in which they plan and run a real event for the local community.\n\nE  Entry requirements. Applicants should normally have completed secondary education. Those without formal qualifications but with at least two years' relevant work experience are also welcome to apply and will be invited to an interview. Applicants whose first language is not English need an IELTS score of 5.5 or equivalent.",
+  "question": "What must applicants without formal qualifications have?",
+  "choices": [
+   "an IELTS score of 6.5",
+   "at least two years' relevant work experience",
+   "a reference from a partner employer",
+   "a certificate in customer service"
+  ],
+  "answer": "at least two years' relevant work experience",
+  "explanation": "Entry requirements に正式な資格がなくても2年以上の関連職歴があれば応募できるとある。",
+  "tags": "IELTS General-Training multiple-choice course-brochure-diploma"
+ },
+ {
+  "id": "IELTS-RG-506-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Diploma in Hospitality Management (One Year, Full-Time)\n\nA  This practical diploma prepares students for supervisory and management roles in hotels, restaurants, event venues and tourist attractions. It combines classroom study with substantial work experience, and is designed for school leavers as well as people who already work in the industry and wish to progress.\n\nB  Course content. Students study six core modules: customer service, food and beverage operations, accommodation management, marketing, finance for hospitality and managing people. In the second semester, students choose one specialist module from either event planning or sustainable tourism.\n\nC  Work placement. All students complete a ten-week paid placement with one of our partner employers. Placements are arranged by the college's careers team, although students may suggest their own employer if it meets our requirements. Students who are already employed in the industry may be able to complete the placement at their current workplace.\n\nD  Assessment. There are no written examinations. Instead, students are assessed through practical tasks, reports, presentations and a final project in which they plan and run a real event for the local community.\n\nE  Entry requirements. Applicants should normally have completed secondary education. Those without formal qualifications but with at least two years' relevant work experience are also welcome to apply and will be invited to an interview. Applicants whose first language is not English need an IELTS score of 5.5 or equivalent.",
+  "question": "Complete the sentence below. Choose NO MORE THAN ONE WORD from the passage for the answer.\nIn the final project, students plan and run a real ______ for the local community.",
+  "answer": "event",
+  "explanation": "Assessment の段落 \"plan and run a real event for the local community\" から。",
+  "tags": "IELTS General-Training completion course-brochure-diploma"
+ },
+ {
+  "id": "IELTS-RG-507-1",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Jobs Board: Vacancies in the Westfield Area\n\nA  Delivery Driver. Local bakery needs a reliable driver to deliver bread to cafés and shops. Early mornings, 5 a.m. to 11 a.m., Monday to Saturday. Full driving licence required; a van is provided. Ask for Aisha Rahman.\n\nB  Receptionist. A busy dental practice is looking for a friendly receptionist to answer phones, book appointments and welcome patients. Part-time, three days a week. Previous experience of a booking system would be useful but full training will be given.\n\nC  Warehouse Assistant. Temporary position for twelve weeks during our busiest season. Duties include packing orders and checking stock. You must be able to lift heavy boxes and stand for long periods. Overtime is available at weekends at a higher hourly rate.\n\nD  Care Assistant. Join our team supporting elderly residents in a small, family-run care home. No qualifications needed, as we will pay for you to complete a recognised care certificate. Day and night shifts available. Free meals during shifts.\n\nE  Library Assistant. The city library seeks an assistant to help with lending, shelving and children's reading activities on Saturday mornings. Good computer skills essential. This is a permanent post. Apply online by 30 June.",
+  "question": "Which advertisement contains the following information?\na job that offers free food to employees",
+  "choices": [
+   "Advertisement A",
+   "Advertisement B",
+   "Advertisement C",
+   "Advertisement D"
+  ],
+  "answer": "Advertisement D",
+  "explanation": "Advertisement D に勤務中の無料の食事とある。",
+  "tags": "IELTS General-Training matching-information job-ads"
+ },
+ {
+  "id": "IELTS-RG-507-2",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Jobs Board: Vacancies in the Westfield Area\n\nA  Delivery Driver. Local bakery needs a reliable driver to deliver bread to cafés and shops. Early mornings, 5 a.m. to 11 a.m., Monday to Saturday. Full driving licence required; a van is provided. Ask for Aisha Rahman.\n\nB  Receptionist. A busy dental practice is looking for a friendly receptionist to answer phones, book appointments and welcome patients. Part-time, three days a week. Previous experience of a booking system would be useful but full training will be given.\n\nC  Warehouse Assistant. Temporary position for twelve weeks during our busiest season. Duties include packing orders and checking stock. You must be able to lift heavy boxes and stand for long periods. Overtime is available at weekends at a higher hourly rate.\n\nD  Care Assistant. Join our team supporting elderly residents in a small, family-run care home. No qualifications needed, as we will pay for you to complete a recognised care certificate. Day and night shifts available. Free meals during shifts.\n\nE  Library Assistant. The city library seeks an assistant to help with lending, shelving and children's reading activities on Saturday mornings. Good computer skills essential. This is a permanent post. Apply online by 30 June.",
+  "question": "Which advertisement contains the following information?\na job that is only available for a limited period",
+  "choices": [
+   "Advertisement A",
+   "Advertisement B",
+   "Advertisement C",
+   "Advertisement D"
+  ],
+  "answer": "Advertisement C",
+  "explanation": "Advertisement C は12週間の臨時の仕事。",
+  "tags": "IELTS General-Training matching-information job-ads"
+ },
+ {
+  "id": "IELTS-RG-507-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Jobs Board: Vacancies in the Westfield Area\n\nA  Delivery Driver. Local bakery needs a reliable driver to deliver bread to cafés and shops. Early mornings, 5 a.m. to 11 a.m., Monday to Saturday. Full driving licence required; a van is provided. Ask for Aisha Rahman.\n\nB  Receptionist. A busy dental practice is looking for a friendly receptionist to answer phones, book appointments and welcome patients. Part-time, three days a week. Previous experience of a booking system would be useful but full training will be given.\n\nC  Warehouse Assistant. Temporary position for twelve weeks during our busiest season. Duties include packing orders and checking stock. You must be able to lift heavy boxes and stand for long periods. Overtime is available at weekends at a higher hourly rate.\n\nD  Care Assistant. Join our team supporting elderly residents in a small, family-run care home. No qualifications needed, as we will pay for you to complete a recognised care certificate. Day and night shifts available. Free meals during shifts.\n\nE  Library Assistant. The city library seeks an assistant to help with lending, shelving and children's reading activities on Saturday mornings. Good computer skills essential. This is a permanent post. Apply online by 30 June.",
+  "question": "Which advertisement contains the following information?\na job for which the employer will pay for a qualification",
+  "choices": [
+   "Advertisement A",
+   "Advertisement B",
+   "Advertisement C",
+   "Advertisement D"
+  ],
+  "answer": "Advertisement D",
+  "explanation": "Advertisement D に資格取得の費用を雇用主が支払うとある。",
+  "tags": "IELTS General-Training matching-information job-ads"
+ },
+ {
+  "id": "IELTS-RG-507-4",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Jobs Board: Vacancies in the Westfield Area\n\nA  Delivery Driver. Local bakery needs a reliable driver to deliver bread to cafés and shops. Early mornings, 5 a.m. to 11 a.m., Monday to Saturday. Full driving licence required; a van is provided. Ask for Aisha Rahman.\n\nB  Receptionist. A busy dental practice is looking for a friendly receptionist to answer phones, book appointments and welcome patients. Part-time, three days a week. Previous experience of a booking system would be useful but full training will be given.\n\nC  Warehouse Assistant. Temporary position for twelve weeks during our busiest season. Duties include packing orders and checking stock. You must be able to lift heavy boxes and stand for long periods. Overtime is available at weekends at a higher hourly rate.\n\nD  Care Assistant. Join our team supporting elderly residents in a small, family-run care home. No qualifications needed, as we will pay for you to complete a recognised care certificate. Day and night shifts available. Free meals during shifts.\n\nE  Library Assistant. The city library seeks an assistant to help with lending, shelving and children's reading activities on Saturday mornings. Good computer skills essential. This is a permanent post. Apply online by 30 June.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE, FALSE or NOT GIVEN.\nApplicants for the receptionist job do not need to have used a booking system before.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "Advertisement B に経験は役立つが必須ではなく、十分な研修があるとあるので TRUE。",
+  "tags": "IELTS General-Training TFNG job-ads"
+ },
+ {
+  "id": "IELTS-RG-507-5",
+  "skill": "reading",
+  "format": "General Training: 短答",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "passage": "Jobs Board: Vacancies in the Westfield Area\n\nA  Delivery Driver. Local bakery needs a reliable driver to deliver bread to cafés and shops. Early mornings, 5 a.m. to 11 a.m., Monday to Saturday. Full driving licence required; a van is provided. Ask for Aisha Rahman.\n\nB  Receptionist. A busy dental practice is looking for a friendly receptionist to answer phones, book appointments and welcome patients. Part-time, three days a week. Previous experience of a booking system would be useful but full training will be given.\n\nC  Warehouse Assistant. Temporary position for twelve weeks during our busiest season. Duties include packing orders and checking stock. You must be able to lift heavy boxes and stand for long periods. Overtime is available at weekends at a higher hourly rate.\n\nD  Care Assistant. Join our team supporting elderly residents in a small, family-run care home. No qualifications needed, as we will pay for you to complete a recognised care certificate. Day and night shifts available. Free meals during shifts.\n\nE  Library Assistant. The city library seeks an assistant to help with lending, shelving and children's reading activities on Saturday mornings. Good computer skills essential. This is a permanent post. Apply online by 30 June.",
+  "question": "Answer the question below. Choose NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.\nWhat will the bakery provide for the delivery driver?",
+  "answer": "a van",
+  "explanation": "Advertisement A \"a van is provided\" から。",
+  "tags": "IELTS General-Training short-answer job-ads"
+ }
+]

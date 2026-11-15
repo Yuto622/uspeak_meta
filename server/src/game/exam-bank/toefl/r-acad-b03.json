@@ -1,0 +1,542 @@
+[
+ {
+  "id": "TOEFL-RA-517-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Contact Hypothesis\n\nIn the mid-twentieth century, the psychologist Gordon Allport proposed that prejudice between groups could be reduced through interpersonal contact. Crucially, however, he argued that contact alone was insufficient; indeed, superficial or hostile encounters might reinforce existing stereotypes. Allport identified several conditions under which contact was most likely to be beneficial: the groups should have equal status within the situation, pursue common goals, cooperate rather than compete, and enjoy the support of authorities, laws, or customs.\n\nOver the following decades, the contact hypothesis became one of the most extensively tested ideas in social psychology. A large review of more than five hundred studies, published in 2006, found that intergroup contact was generally associated with reduced prejudice, and that this effect extended beyond racial and ethnic groups to attitudes toward elderly people, people with disabilities, and sexual minorities. Intriguingly, the review also suggested that Allport's conditions, while facilitating positive outcomes, were not strictly essential; even contact lacking some of them tended to reduce prejudice somewhat.\n\nResearchers have since examined the mechanisms involved. Contact appears to work less by increasing knowledge about the other group than by reducing anxiety and fostering empathy. Moreover, its effects can spread indirectly: merely knowing that a friend has a close relationship with a member of another group may improve one's own attitudes. Critics, however, note that much of the evidence is correlational, and that people who are already less prejudiced may simply be more likely to seek out contact in the first place.",
+  "question": "According to the passage, what did Allport claim about contact between groups?",
+  "choices": [
+   "It reduces prejudice only under certain conditions.",
+   "It always increases stereotypes.",
+   "It is unnecessary in places where laws prohibit discrimination.",
+   "It works best when groups compete."
+  ],
+  "answer": "It reduces prejudice only under certain conditions.",
+  "explanation": "contact alone was insufficient とし、条件を挙げた。",
+  "tags": "TOEFL2026 AcademicPassage sociology factual"
+ },
+ {
+  "id": "TOEFL-RA-517-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Contact Hypothesis\n\nIn the mid-twentieth century, the psychologist Gordon Allport proposed that prejudice between groups could be reduced through interpersonal contact. Crucially, however, he argued that contact alone was insufficient; indeed, superficial or hostile encounters might reinforce existing stereotypes. Allport identified several conditions under which contact was most likely to be beneficial: the groups should have equal status within the situation, pursue common goals, cooperate rather than compete, and enjoy the support of authorities, laws, or customs.\n\nOver the following decades, the contact hypothesis became one of the most extensively tested ideas in social psychology. A large review of more than five hundred studies, published in 2006, found that intergroup contact was generally associated with reduced prejudice, and that this effect extended beyond racial and ethnic groups to attitudes toward elderly people, people with disabilities, and sexual minorities. Intriguingly, the review also suggested that Allport's conditions, while facilitating positive outcomes, were not strictly essential; even contact lacking some of them tended to reduce prejudice somewhat.\n\nResearchers have since examined the mechanisms involved. Contact appears to work less by increasing knowledge about the other group than by reducing anxiety and fostering empathy. Moreover, its effects can spread indirectly: merely knowing that a friend has a close relationship with a member of another group may improve one's own attitudes. Critics, however, note that much of the evidence is correlational, and that people who are already less prejudiced may simply be more likely to seek out contact in the first place.",
+  "question": "Which of the following is NOT one of Allport's conditions?",
+  "choices": [
+   "The groups should have equal status.",
+   "The groups should share the same language.",
+   "The groups should cooperate.",
+   "The contact should be supported by authorities."
+  ],
+  "answer": "The groups should share the same language.",
+  "explanation": "同じ言語は条件に含まれていない。",
+  "tags": "TOEFL2026 AcademicPassage sociology negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-517-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Contact Hypothesis\n\nIn the mid-twentieth century, the psychologist Gordon Allport proposed that prejudice between groups could be reduced through interpersonal contact. Crucially, however, he argued that contact alone was insufficient; indeed, superficial or hostile encounters might reinforce existing stereotypes. Allport identified several conditions under which contact was most likely to be beneficial: the groups should have equal status within the situation, pursue common goals, cooperate rather than compete, and enjoy the support of authorities, laws, or customs.\n\nOver the following decades, the contact hypothesis became one of the most extensively tested ideas in social psychology. A large review of more than five hundred studies, published in 2006, found that intergroup contact was generally associated with reduced prejudice, and that this effect extended beyond racial and ethnic groups to attitudes toward elderly people, people with disabilities, and sexual minorities. Intriguingly, the review also suggested that Allport's conditions, while facilitating positive outcomes, were not strictly essential; even contact lacking some of them tended to reduce prejudice somewhat.\n\nResearchers have since examined the mechanisms involved. Contact appears to work less by increasing knowledge about the other group than by reducing anxiety and fostering empathy. Moreover, its effects can spread indirectly: merely knowing that a friend has a close relationship with a member of another group may improve one's own attitudes. Critics, however, note that much of the evidence is correlational, and that people who are already less prejudiced may simply be more likely to seek out contact in the first place.",
+  "question": "What can be inferred from the 2006 review?",
+  "choices": [
+   "Contact rarely changes people's attitudes toward elderly people.",
+   "The contact hypothesis applies only to ethnic groups.",
+   "Allport's conditions were more favorable than necessary.",
+   "Most studies contradicted Allport."
+  ],
+  "answer": "Allport's conditions were more favorable than necessary.",
+  "explanation": "条件は有益だが strictly essential ではなかった。",
+  "tags": "TOEFL2026 AcademicPassage sociology inference"
+ },
+ {
+  "id": "TOEFL-RA-517-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Contact Hypothesis\n\nIn the mid-twentieth century, the psychologist Gordon Allport proposed that prejudice between groups could be reduced through interpersonal contact. Crucially, however, he argued that contact alone was insufficient; indeed, superficial or hostile encounters might reinforce existing stereotypes. Allport identified several conditions under which contact was most likely to be beneficial: the groups should have equal status within the situation, pursue common goals, cooperate rather than compete, and enjoy the support of authorities, laws, or customs.\n\nOver the following decades, the contact hypothesis became one of the most extensively tested ideas in social psychology. A large review of more than five hundred studies, published in 2006, found that intergroup contact was generally associated with reduced prejudice, and that this effect extended beyond racial and ethnic groups to attitudes toward elderly people, people with disabilities, and sexual minorities. Intriguingly, the review also suggested that Allport's conditions, while facilitating positive outcomes, were not strictly essential; even contact lacking some of them tended to reduce prejudice somewhat.\n\nResearchers have since examined the mechanisms involved. Contact appears to work less by increasing knowledge about the other group than by reducing anxiety and fostering empathy. Moreover, its effects can spread indirectly: merely knowing that a friend has a close relationship with a member of another group may improve one's own attitudes. Critics, however, note that much of the evidence is correlational, and that people who are already less prejudiced may simply be more likely to seek out contact in the first place.",
+  "question": "The word \"fostering\" in the passage is closest in meaning to",
+  "choices": [
+   "hiding",
+   "measuring",
+   "replacing",
+   "encouraging"
+  ],
+  "answer": "encouraging",
+  "explanation": "foster＝育む・促す。",
+  "tags": "TOEFL2026 AcademicPassage sociology vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-517-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Contact Hypothesis\n\nIn the mid-twentieth century, the psychologist Gordon Allport proposed that prejudice between groups could be reduced through interpersonal contact. Crucially, however, he argued that contact alone was insufficient; indeed, superficial or hostile encounters might reinforce existing stereotypes. Allport identified several conditions under which contact was most likely to be beneficial: the groups should have equal status within the situation, pursue common goals, cooperate rather than compete, and enjoy the support of authorities, laws, or customs.\n\nOver the following decades, the contact hypothesis became one of the most extensively tested ideas in social psychology. A large review of more than five hundred studies, published in 2006, found that intergroup contact was generally associated with reduced prejudice, and that this effect extended beyond racial and ethnic groups to attitudes toward elderly people, people with disabilities, and sexual minorities. Intriguingly, the review also suggested that Allport's conditions, while facilitating positive outcomes, were not strictly essential; even contact lacking some of them tended to reduce prejudice somewhat.\n\nResearchers have since examined the mechanisms involved. Contact appears to work less by increasing knowledge about the other group than by reducing anxiety and fostering empathy. Moreover, its effects can spread indirectly: merely knowing that a friend has a close relationship with a member of another group may improve one's own attitudes. Critics, however, note that much of the evidence is correlational, and that people who are already less prejudiced may simply be more likely to seek out contact in the first place.",
+  "question": "Why does the author mention that less prejudiced people may seek out contact?",
+  "choices": [
+   "To point out a weakness in the evidence for the hypothesis",
+   "To show that contact increases anxiety",
+   "To explain Allport's original conditions",
+   "To argue that contact between groups should be required by law"
+  ],
+  "answer": "To point out a weakness in the evidence for the hypothesis",
+  "explanation": "相関データでは因果の向きが不明という批判の説明。",
+  "tags": "TOEFL2026 AcademicPassage sociology rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-518-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Confounding in Observational Studies\n\nMuch of what epidemiologists know about the causes of disease comes from observational studies, in which researchers record people's behaviors and health outcomes without assigning any treatment. Such studies are indispensable, because it would be unethical to deliberately expose participants to suspected hazards such as smoking or air pollution. Yet observational research is vulnerable to a pervasive problem known as confounding.\n\nA confounder is a third factor that is associated with both the exposure being studied and the outcome, thereby creating a misleading link between them. Suppose a study finds that people who drink coffee have higher rates of lung cancer. Before concluding that coffee is harmful, researchers must consider that, in some populations, coffee drinkers have historically been more likely to smoke. If smoking is not accounted for, the apparent effect of coffee may simply reflect the effect of tobacco.\n\nEpidemiologists use several strategies to address confounding. They can measure likely confounders and adjust for them statistically, or they can compare only individuals who are similar in key respects, such as age and smoking status. The most powerful remedy, however, is the randomized controlled trial, in which chance alone determines who receives an intervention. Randomization tends to distribute both known and unknown confounders evenly between groups. Because trials are expensive and sometimes impossible, though, conclusions often rest on the convergence of many observational studies that use different populations and methods, each with different potential biases.",
+  "question": "What is the passage mainly about?",
+  "choices": [
+   "Why coffee causes lung cancer",
+   "A source of error in observational research and ways to reduce it",
+   "The history of randomized trials",
+   "The ethics of studying air pollution"
+  ],
+  "answer": "A source of error in observational research and ways to reduce it",
+  "explanation": "交絡とその対処法が主題。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology main-idea"
+ },
+ {
+  "id": "TOEFL-RA-518-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Confounding in Observational Studies\n\nMuch of what epidemiologists know about the causes of disease comes from observational studies, in which researchers record people's behaviors and health outcomes without assigning any treatment. Such studies are indispensable, because it would be unethical to deliberately expose participants to suspected hazards such as smoking or air pollution. Yet observational research is vulnerable to a pervasive problem known as confounding.\n\nA confounder is a third factor that is associated with both the exposure being studied and the outcome, thereby creating a misleading link between them. Suppose a study finds that people who drink coffee have higher rates of lung cancer. Before concluding that coffee is harmful, researchers must consider that, in some populations, coffee drinkers have historically been more likely to smoke. If smoking is not accounted for, the apparent effect of coffee may simply reflect the effect of tobacco.\n\nEpidemiologists use several strategies to address confounding. They can measure likely confounders and adjust for them statistically, or they can compare only individuals who are similar in key respects, such as age and smoking status. The most powerful remedy, however, is the randomized controlled trial, in which chance alone determines who receives an intervention. Randomization tends to distribute both known and unknown confounders evenly between groups. Because trials are expensive and sometimes impossible, though, conclusions often rest on the convergence of many observational studies that use different populations and methods, each with different potential biases.",
+  "question": "According to the passage, why are observational studies necessary?",
+  "choices": [
+   "They are more accurate than trials.",
+   "They require no statistics.",
+   "It would be unethical to expose people to suspected hazards.",
+   "They always remove the problem of confounding from their results."
+  ],
+  "answer": "It would be unethical to expose people to suspected hazards.",
+  "explanation": "unethical to deliberately expose participants とある。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology factual"
+ },
+ {
+  "id": "TOEFL-RA-518-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Confounding in Observational Studies\n\nMuch of what epidemiologists know about the causes of disease comes from observational studies, in which researchers record people's behaviors and health outcomes without assigning any treatment. Such studies are indispensable, because it would be unethical to deliberately expose participants to suspected hazards such as smoking or air pollution. Yet observational research is vulnerable to a pervasive problem known as confounding.\n\nA confounder is a third factor that is associated with both the exposure being studied and the outcome, thereby creating a misleading link between them. Suppose a study finds that people who drink coffee have higher rates of lung cancer. Before concluding that coffee is harmful, researchers must consider that, in some populations, coffee drinkers have historically been more likely to smoke. If smoking is not accounted for, the apparent effect of coffee may simply reflect the effect of tobacco.\n\nEpidemiologists use several strategies to address confounding. They can measure likely confounders and adjust for them statistically, or they can compare only individuals who are similar in key respects, such as age and smoking status. The most powerful remedy, however, is the randomized controlled trial, in which chance alone determines who receives an intervention. Randomization tends to distribute both known and unknown confounders evenly between groups. Because trials are expensive and sometimes impossible, though, conclusions often rest on the convergence of many observational studies that use different populations and methods, each with different potential biases.",
+  "question": "Why does the author discuss coffee drinkers who smoke?",
+  "choices": [
+   "To prove that coffee prevents cancer",
+   "To argue that smokers should avoid coffee",
+   "To describe a randomized trial",
+   "To illustrate how a third factor can create a false association"
+  ],
+  "answer": "To illustrate how a third factor can create a false association",
+  "explanation": "交絡の具体例として。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-518-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Confounding in Observational Studies\n\nMuch of what epidemiologists know about the causes of disease comes from observational studies, in which researchers record people's behaviors and health outcomes without assigning any treatment. Such studies are indispensable, because it would be unethical to deliberately expose participants to suspected hazards such as smoking or air pollution. Yet observational research is vulnerable to a pervasive problem known as confounding.\n\nA confounder is a third factor that is associated with both the exposure being studied and the outcome, thereby creating a misleading link between them. Suppose a study finds that people who drink coffee have higher rates of lung cancer. Before concluding that coffee is harmful, researchers must consider that, in some populations, coffee drinkers have historically been more likely to smoke. If smoking is not accounted for, the apparent effect of coffee may simply reflect the effect of tobacco.\n\nEpidemiologists use several strategies to address confounding. They can measure likely confounders and adjust for them statistically, or they can compare only individuals who are similar in key respects, such as age and smoking status. The most powerful remedy, however, is the randomized controlled trial, in which chance alone determines who receives an intervention. Randomization tends to distribute both known and unknown confounders evenly between groups. Because trials are expensive and sometimes impossible, though, conclusions often rest on the convergence of many observational studies that use different populations and methods, each with different potential biases.",
+  "question": "Why are randomized controlled trials considered the most powerful remedy?",
+  "choices": [
+   "Chance distributes known and unknown confounders evenly.",
+   "They use only one population.",
+   "They are cheaper than other studies.",
+   "They do not need ethical approval."
+  ],
+  "answer": "Chance distributes known and unknown confounders evenly.",
+  "explanation": "Randomization tends to distribute ... evenly とある。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology factual"
+ },
+ {
+  "id": "TOEFL-RA-518-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Confounding in Observational Studies\n\nMuch of what epidemiologists know about the causes of disease comes from observational studies, in which researchers record people's behaviors and health outcomes without assigning any treatment. Such studies are indispensable, because it would be unethical to deliberately expose participants to suspected hazards such as smoking or air pollution. Yet observational research is vulnerable to a pervasive problem known as confounding.\n\nA confounder is a third factor that is associated with both the exposure being studied and the outcome, thereby creating a misleading link between them. Suppose a study finds that people who drink coffee have higher rates of lung cancer. Before concluding that coffee is harmful, researchers must consider that, in some populations, coffee drinkers have historically been more likely to smoke. If smoking is not accounted for, the apparent effect of coffee may simply reflect the effect of tobacco.\n\nEpidemiologists use several strategies to address confounding. They can measure likely confounders and adjust for them statistically, or they can compare only individuals who are similar in key respects, such as age and smoking status. The most powerful remedy, however, is the randomized controlled trial, in which chance alone determines who receives an intervention. Randomization tends to distribute both known and unknown confounders evenly between groups. Because trials are expensive and sometimes impossible, though, conclusions often rest on the convergence of many observational studies that use different populations and methods, each with different potential biases.",
+  "question": "The word \"pervasive\" in the passage is closest in meaning to",
+  "choices": [
+   "minor",
+   "widespread",
+   "recent",
+   "obvious"
+  ],
+  "answer": "widespread",
+  "explanation": "pervasive＝広く行き渡った。",
+  "tags": "TOEFL2026 AcademicPassage epidemiology vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-519-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Windcatchers\n\nLong before mechanical air conditioning, builders in the hot, arid regions of the Middle East devised an ingenious method of cooling buildings: the windcatcher. Typically a tall rectangular tower rising above the roof, the windcatcher has openings near its top that face the prevailing wind. Some towers open in a single direction, whereas others are divided internally so that they can capture breezes from several directions.\n\nThe windcatcher operates on two complementary principles. When wind blows against the tower, air is forced downward through a shaft and into the rooms below, creating a draft that cools occupants through evaporation of sweat. Simultaneously, openings on the side facing away from the wind experience lower pressure, which draws warm indoor air upward and out of the building. Even on still days, the tower can function as a chimney: air heated inside the building rises and escapes through the top, pulling cooler air in through lower openings or from shaded courtyards.\n\nIn some designs, the incoming air passed over underground water channels or porous clay jars filled with water before entering living spaces. As the water evaporated, it absorbed heat, lowering the air temperature further.\n\nInterest in windcatchers has revived as architects seek to reduce the energy consumed by cooling systems. Contemporary versions, built with modern materials and sometimes fitted with sensors and adjustable vents, have been installed in schools and offices in Europe and elsewhere. Their performance depends heavily on local climate, however, and in very humid regions evaporative cooling is considerably less effective.",
+  "question": "According to the passage, how does a windcatcher work on a day without wind?",
+  "choices": [
+   "Water in the tower freezes and cools the rooms.",
+   "The tower rotates to find a breeze.",
+   "Warm air rises and leaves through the tower, drawing in cooler air.",
+   "It stops working completely."
+  ],
+  "answer": "Warm air rises and leaves through the tower, drawing in cooler air.",
+  "explanation": "Even on still days ... function as a chimney とある。",
+  "tags": "TOEFL2026 AcademicPassage architecture factual"
+ },
+ {
+  "id": "TOEFL-RA-519-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Windcatchers\n\nLong before mechanical air conditioning, builders in the hot, arid regions of the Middle East devised an ingenious method of cooling buildings: the windcatcher. Typically a tall rectangular tower rising above the roof, the windcatcher has openings near its top that face the prevailing wind. Some towers open in a single direction, whereas others are divided internally so that they can capture breezes from several directions.\n\nThe windcatcher operates on two complementary principles. When wind blows against the tower, air is forced downward through a shaft and into the rooms below, creating a draft that cools occupants through evaporation of sweat. Simultaneously, openings on the side facing away from the wind experience lower pressure, which draws warm indoor air upward and out of the building. Even on still days, the tower can function as a chimney: air heated inside the building rises and escapes through the top, pulling cooler air in through lower openings or from shaded courtyards.\n\nIn some designs, the incoming air passed over underground water channels or porous clay jars filled with water before entering living spaces. As the water evaporated, it absorbed heat, lowering the air temperature further.\n\nInterest in windcatchers has revived as architects seek to reduce the energy consumed by cooling systems. Contemporary versions, built with modern materials and sometimes fitted with sensors and adjustable vents, have been installed in schools and offices in Europe and elsewhere. Their performance depends heavily on local climate, however, and in very humid regions evaporative cooling is considerably less effective.",
+  "question": "The word \"ingenious\" in the passage is closest in meaning to",
+  "choices": [
+   "ancient",
+   "expensive",
+   "dangerous",
+   "clever"
+  ],
+  "answer": "clever",
+  "explanation": "ingenious＝巧妙な。",
+  "tags": "TOEFL2026 AcademicPassage architecture vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-519-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Windcatchers\n\nLong before mechanical air conditioning, builders in the hot, arid regions of the Middle East devised an ingenious method of cooling buildings: the windcatcher. Typically a tall rectangular tower rising above the roof, the windcatcher has openings near its top that face the prevailing wind. Some towers open in a single direction, whereas others are divided internally so that they can capture breezes from several directions.\n\nThe windcatcher operates on two complementary principles. When wind blows against the tower, air is forced downward through a shaft and into the rooms below, creating a draft that cools occupants through evaporation of sweat. Simultaneously, openings on the side facing away from the wind experience lower pressure, which draws warm indoor air upward and out of the building. Even on still days, the tower can function as a chimney: air heated inside the building rises and escapes through the top, pulling cooler air in through lower openings or from shaded courtyards.\n\nIn some designs, the incoming air passed over underground water channels or porous clay jars filled with water before entering living spaces. As the water evaporated, it absorbed heat, lowering the air temperature further.\n\nInterest in windcatchers has revived as architects seek to reduce the energy consumed by cooling systems. Contemporary versions, built with modern materials and sometimes fitted with sensors and adjustable vents, have been installed in schools and offices in Europe and elsewhere. Their performance depends heavily on local climate, however, and in very humid regions evaporative cooling is considerably less effective.",
+  "question": "All of the following are mentioned as features of windcatchers EXCEPT",
+  "choices": [
+   "glass panels that trap sunlight",
+   "openings that face the prevailing wind",
+   "internal divisions in some towers",
+   "air passing over water before entering rooms"
+  ],
+  "answer": "glass panels that trap sunlight",
+  "explanation": "日光を集めるガラスは述べられていない。",
+  "tags": "TOEFL2026 AcademicPassage architecture negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-519-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Windcatchers\n\nLong before mechanical air conditioning, builders in the hot, arid regions of the Middle East devised an ingenious method of cooling buildings: the windcatcher. Typically a tall rectangular tower rising above the roof, the windcatcher has openings near its top that face the prevailing wind. Some towers open in a single direction, whereas others are divided internally so that they can capture breezes from several directions.\n\nThe windcatcher operates on two complementary principles. When wind blows against the tower, air is forced downward through a shaft and into the rooms below, creating a draft that cools occupants through evaporation of sweat. Simultaneously, openings on the side facing away from the wind experience lower pressure, which draws warm indoor air upward and out of the building. Even on still days, the tower can function as a chimney: air heated inside the building rises and escapes through the top, pulling cooler air in through lower openings or from shaded courtyards.\n\nIn some designs, the incoming air passed over underground water channels or porous clay jars filled with water before entering living spaces. As the water evaporated, it absorbed heat, lowering the air temperature further.\n\nInterest in windcatchers has revived as architects seek to reduce the energy consumed by cooling systems. Contemporary versions, built with modern materials and sometimes fitted with sensors and adjustable vents, have been installed in schools and offices in Europe and elsewhere. Their performance depends heavily on local climate, however, and in very humid regions evaporative cooling is considerably less effective.",
+  "question": "Why would windcatchers be less useful in very humid regions?",
+  "choices": [
+   "Humid regions have no wind.",
+   "Moist air limits how much evaporation can cool it.",
+   "Clay jars cannot be made there.",
+   "Buildings in humid regions rarely have courtyards or shaded areas."
+  ],
+  "answer": "Moist air limits how much evaporation can cool it.",
+  "explanation": "湿った空気では蒸発冷却が効きにくい。",
+  "tags": "TOEFL2026 AcademicPassage architecture inference"
+ },
+ {
+  "id": "TOEFL-RA-519-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Windcatchers\n\nLong before mechanical air conditioning, builders in the hot, arid regions of the Middle East devised an ingenious method of cooling buildings: the windcatcher. Typically a tall rectangular tower rising above the roof, the windcatcher has openings near its top that face the prevailing wind. Some towers open in a single direction, whereas others are divided internally so that they can capture breezes from several directions.\n\nThe windcatcher operates on two complementary principles. When wind blows against the tower, air is forced downward through a shaft and into the rooms below, creating a draft that cools occupants through evaporation of sweat. Simultaneously, openings on the side facing away from the wind experience lower pressure, which draws warm indoor air upward and out of the building. Even on still days, the tower can function as a chimney: air heated inside the building rises and escapes through the top, pulling cooler air in through lower openings or from shaded courtyards.\n\nIn some designs, the incoming air passed over underground water channels or porous clay jars filled with water before entering living spaces. As the water evaporated, it absorbed heat, lowering the air temperature further.\n\nInterest in windcatchers has revived as architects seek to reduce the energy consumed by cooling systems. Contemporary versions, built with modern materials and sometimes fitted with sensors and adjustable vents, have been installed in schools and offices in Europe and elsewhere. Their performance depends heavily on local climate, however, and in very humid regions evaporative cooling is considerably less effective.",
+  "question": "Why does the author mention schools and offices in Europe?",
+  "choices": [
+   "To argue that European buildings were the first to use windcatchers",
+   "To compare their costs with traditional towers",
+   "To show that the windcatcher concept is being adopted again today",
+   "To explain why windcatchers fail in humid areas"
+  ],
+  "answer": "To show that the windcatcher concept is being adopted again today",
+  "explanation": "現代での復活の例。",
+  "tags": "TOEFL2026 AcademicPassage architecture rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-520-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Print and the Standardization of Language\n\nThe introduction of movable-type printing in fifteenth-century Europe is frequently credited with accelerating the spread of ideas, but historians have also emphasized a subtler consequence: its role in standardizing written languages. Before printing, manuscripts were copied by hand, and scribes often spelled words according to their own regional pronunciation. A text copied in one town might therefore differ noticeably from the same text copied elsewhere.\n\nPrinters, in contrast, had strong commercial incentives to produce texts that could be sold across wide areas. A book written in a narrow local dialect would find few buyers, whereas one written in a form understood by readers in many regions could reach a larger market. Printers consequently gravitated toward the varieties of language spoken in influential centers, often those associated with royal courts, administrative offices, or major trading cities. Through repetition in thousands of copies, these forms gradually acquired prestige and came to be regarded as \"correct.\"\n\nThe process was neither rapid nor uniform. Early printers were themselves inconsistent, sometimes altering spellings simply to fit text neatly into a line. Many conventions were fixed only centuries later, with the publication of influential dictionaries and grammars. Nevertheless, scholars argue that print created the conditions for standard languages by making the same texts available to dispersed readers. Some have further suggested that shared print languages helped readers imagine themselves as members of a national community, laying cultural foundations for modern nationalism.",
+  "question": "Which of the following best states the main idea of the passage?",
+  "choices": [
+   "Scribes were more accurate than printers.",
+   "Dictionaries were the first printed books.",
+   "Royal courts invented movable type.",
+   "Printing contributed gradually to the standardization of written languages."
+  ],
+  "answer": "Printing contributed gradually to the standardization of written languages.",
+  "explanation": "印刷が書き言葉の標準化に寄与したことが主題。",
+  "tags": "TOEFL2026 AcademicPassage media-studies main-idea"
+ },
+ {
+  "id": "TOEFL-RA-520-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Print and the Standardization of Language\n\nThe introduction of movable-type printing in fifteenth-century Europe is frequently credited with accelerating the spread of ideas, but historians have also emphasized a subtler consequence: its role in standardizing written languages. Before printing, manuscripts were copied by hand, and scribes often spelled words according to their own regional pronunciation. A text copied in one town might therefore differ noticeably from the same text copied elsewhere.\n\nPrinters, in contrast, had strong commercial incentives to produce texts that could be sold across wide areas. A book written in a narrow local dialect would find few buyers, whereas one written in a form understood by readers in many regions could reach a larger market. Printers consequently gravitated toward the varieties of language spoken in influential centers, often those associated with royal courts, administrative offices, or major trading cities. Through repetition in thousands of copies, these forms gradually acquired prestige and came to be regarded as \"correct.\"\n\nThe process was neither rapid nor uniform. Early printers were themselves inconsistent, sometimes altering spellings simply to fit text neatly into a line. Many conventions were fixed only centuries later, with the publication of influential dictionaries and grammars. Nevertheless, scholars argue that print created the conditions for standard languages by making the same texts available to dispersed readers. Some have further suggested that shared print languages helped readers imagine themselves as members of a national community, laying cultural foundations for modern nationalism.",
+  "question": "According to the passage, why did printers favor widely understood forms of language?",
+  "choices": [
+   "They wanted to sell books to a larger market.",
+   "Governments required them to.",
+   "Local dialects could not be printed with movable type at that time.",
+   "Scribes refused to use dialects."
+  ],
+  "answer": "They wanted to sell books to a larger market.",
+  "explanation": "commercial incentives ... larger market とある。",
+  "tags": "TOEFL2026 AcademicPassage media-studies factual"
+ },
+ {
+  "id": "TOEFL-RA-520-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Print and the Standardization of Language\n\nThe introduction of movable-type printing in fifteenth-century Europe is frequently credited with accelerating the spread of ideas, but historians have also emphasized a subtler consequence: its role in standardizing written languages. Before printing, manuscripts were copied by hand, and scribes often spelled words according to their own regional pronunciation. A text copied in one town might therefore differ noticeably from the same text copied elsewhere.\n\nPrinters, in contrast, had strong commercial incentives to produce texts that could be sold across wide areas. A book written in a narrow local dialect would find few buyers, whereas one written in a form understood by readers in many regions could reach a larger market. Printers consequently gravitated toward the varieties of language spoken in influential centers, often those associated with royal courts, administrative offices, or major trading cities. Through repetition in thousands of copies, these forms gradually acquired prestige and came to be regarded as \"correct.\"\n\nThe process was neither rapid nor uniform. Early printers were themselves inconsistent, sometimes altering spellings simply to fit text neatly into a line. Many conventions were fixed only centuries later, with the publication of influential dictionaries and grammars. Nevertheless, scholars argue that print created the conditions for standard languages by making the same texts available to dispersed readers. Some have further suggested that shared print languages helped readers imagine themselves as members of a national community, laying cultural foundations for modern nationalism.",
+  "question": "Why does the author mention printers altering spellings to fit lines?",
+  "choices": [
+   "To criticize the quality of early books",
+   "To show that early printing did not immediately create consistency",
+   "To explain why dictionaries were unnecessary",
+   "To prove that printers preferred local dialects"
+  ],
+  "answer": "To show that early printing did not immediately create consistency",
+  "explanation": "標準化が速くも一様でもなかった例。",
+  "tags": "TOEFL2026 AcademicPassage media-studies rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-520-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Print and the Standardization of Language\n\nThe introduction of movable-type printing in fifteenth-century Europe is frequently credited with accelerating the spread of ideas, but historians have also emphasized a subtler consequence: its role in standardizing written languages. Before printing, manuscripts were copied by hand, and scribes often spelled words according to their own regional pronunciation. A text copied in one town might therefore differ noticeably from the same text copied elsewhere.\n\nPrinters, in contrast, had strong commercial incentives to produce texts that could be sold across wide areas. A book written in a narrow local dialect would find few buyers, whereas one written in a form understood by readers in many regions could reach a larger market. Printers consequently gravitated toward the varieties of language spoken in influential centers, often those associated with royal courts, administrative offices, or major trading cities. Through repetition in thousands of copies, these forms gradually acquired prestige and came to be regarded as \"correct.\"\n\nThe process was neither rapid nor uniform. Early printers were themselves inconsistent, sometimes altering spellings simply to fit text neatly into a line. Many conventions were fixed only centuries later, with the publication of influential dictionaries and grammars. Nevertheless, scholars argue that print created the conditions for standard languages by making the same texts available to dispersed readers. Some have further suggested that shared print languages helped readers imagine themselves as members of a national community, laying cultural foundations for modern nationalism.",
+  "question": "The word \"dispersed\" in the passage is closest in meaning to",
+  "choices": [
+   "educated",
+   "wealthy",
+   "scattered",
+   "local"
+  ],
+  "answer": "scattered",
+  "explanation": "dispersed＝散らばった。",
+  "tags": "TOEFL2026 AcademicPassage media-studies vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-520-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Print and the Standardization of Language\n\nThe introduction of movable-type printing in fifteenth-century Europe is frequently credited with accelerating the spread of ideas, but historians have also emphasized a subtler consequence: its role in standardizing written languages. Before printing, manuscripts were copied by hand, and scribes often spelled words according to their own regional pronunciation. A text copied in one town might therefore differ noticeably from the same text copied elsewhere.\n\nPrinters, in contrast, had strong commercial incentives to produce texts that could be sold across wide areas. A book written in a narrow local dialect would find few buyers, whereas one written in a form understood by readers in many regions could reach a larger market. Printers consequently gravitated toward the varieties of language spoken in influential centers, often those associated with royal courts, administrative offices, or major trading cities. Through repetition in thousands of copies, these forms gradually acquired prestige and came to be regarded as \"correct.\"\n\nThe process was neither rapid nor uniform. Early printers were themselves inconsistent, sometimes altering spellings simply to fit text neatly into a line. Many conventions were fixed only centuries later, with the publication of influential dictionaries and grammars. Nevertheless, scholars argue that print created the conditions for standard languages by making the same texts available to dispersed readers. Some have further suggested that shared print languages helped readers imagine themselves as members of a national community, laying cultural foundations for modern nationalism.",
+  "question": "What can be inferred about manuscripts before printing?",
+  "choices": [
+   "They were sold in large numbers to readers across all of Europe.",
+   "They followed strict national rules.",
+   "They were written only in royal courts.",
+   "Their spelling often reflected where they were copied."
+  ],
+  "answer": "Their spelling often reflected where they were copied.",
+  "explanation": "scribes spelled words according to their regional pronunciation。",
+  "tags": "TOEFL2026 AcademicPassage media-studies inference"
+ },
+ {
+  "id": "TOEFL-RA-521-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Chinampas of the Valley of Mexico\n\nWhen Spanish forces arrived in the Valley of Mexico in 1519, they encountered one of the most productive agricultural systems in the world. Around the shallow lakes surrounding the Aztec capital of Tenochtitlan, farmers cultivated narrow rectangular plots known as chinampas. Often described as \"floating gardens,\" chinampas did not actually float; they were artificial islands built up in the lake bed and anchored by willow trees planted along their edges.\n\nFarmers constructed them by piling alternating layers of mud from the lake bottom and decaying vegetation within frameworks of stakes. The surrounding canals served multiple functions. They supplied water that seeped into the plots from below, keeping roots moist even during dry periods, and they provided a means of transporting produce by canoe. Periodically, farmers dredged nutrient-rich sediment from the canals and spread it over the beds, renewing their fertility without fallow periods. Seedlings were raised in nursery beds and transplanted, allowing several harvests per year of maize, beans, squash, and flowers.\n\nScholars estimate that the chinampa zone supplied a substantial portion of the food consumed by the capital's large population. The system also required elaborate water management; dikes separated fresh water from the more saline parts of the lake system. After the conquest, many canals were drained, and the system declined. Today, a few chinampas survive on the southern edge of Mexico City, where researchers and farmers are exploring their potential as a model for sustainable urban agriculture.",
+  "question": "According to the passage, how were chinampas kept in place?",
+  "choices": [
+   "Trees planted along their edges anchored them.",
+   "They were tied to canoes.",
+   "They floated freely on the lake.",
+   "They were built on stone foundations at the bottom of the lake."
+  ],
+  "answer": "Trees planted along their edges anchored them.",
+  "explanation": "anchored by willow trees とある。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history factual"
+ },
+ {
+  "id": "TOEFL-RA-521-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Chinampas of the Valley of Mexico\n\nWhen Spanish forces arrived in the Valley of Mexico in 1519, they encountered one of the most productive agricultural systems in the world. Around the shallow lakes surrounding the Aztec capital of Tenochtitlan, farmers cultivated narrow rectangular plots known as chinampas. Often described as \"floating gardens,\" chinampas did not actually float; they were artificial islands built up in the lake bed and anchored by willow trees planted along their edges.\n\nFarmers constructed them by piling alternating layers of mud from the lake bottom and decaying vegetation within frameworks of stakes. The surrounding canals served multiple functions. They supplied water that seeped into the plots from below, keeping roots moist even during dry periods, and they provided a means of transporting produce by canoe. Periodically, farmers dredged nutrient-rich sediment from the canals and spread it over the beds, renewing their fertility without fallow periods. Seedlings were raised in nursery beds and transplanted, allowing several harvests per year of maize, beans, squash, and flowers.\n\nScholars estimate that the chinampa zone supplied a substantial portion of the food consumed by the capital's large population. The system also required elaborate water management; dikes separated fresh water from the more saline parts of the lake system. After the conquest, many canals were drained, and the system declined. Today, a few chinampas survive on the southern edge of Mexico City, where researchers and farmers are exploring their potential as a model for sustainable urban agriculture.",
+  "question": "Which of the following is NOT mentioned as a function of the canals?",
+  "choices": [
+   "Supplying water to the plots",
+   "Protecting the city from invaders",
+   "Providing transportation for produce",
+   "Supplying fertile sediment"
+  ],
+  "answer": "Protecting the city from invaders",
+  "explanation": "防衛は述べられていない。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history negative-factual"
+ },
+ {
+  "id": "TOEFL-RA-521-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Chinampas of the Valley of Mexico\n\nWhen Spanish forces arrived in the Valley of Mexico in 1519, they encountered one of the most productive agricultural systems in the world. Around the shallow lakes surrounding the Aztec capital of Tenochtitlan, farmers cultivated narrow rectangular plots known as chinampas. Often described as \"floating gardens,\" chinampas did not actually float; they were artificial islands built up in the lake bed and anchored by willow trees planted along their edges.\n\nFarmers constructed them by piling alternating layers of mud from the lake bottom and decaying vegetation within frameworks of stakes. The surrounding canals served multiple functions. They supplied water that seeped into the plots from below, keeping roots moist even during dry periods, and they provided a means of transporting produce by canoe. Periodically, farmers dredged nutrient-rich sediment from the canals and spread it over the beds, renewing their fertility without fallow periods. Seedlings were raised in nursery beds and transplanted, allowing several harvests per year of maize, beans, squash, and flowers.\n\nScholars estimate that the chinampa zone supplied a substantial portion of the food consumed by the capital's large population. The system also required elaborate water management; dikes separated fresh water from the more saline parts of the lake system. After the conquest, many canals were drained, and the system declined. Today, a few chinampas survive on the southern edge of Mexico City, where researchers and farmers are exploring their potential as a model for sustainable urban agriculture.",
+  "question": "What can be inferred from the passage about the term \"floating gardens\"?",
+  "choices": [
+   "It was invented by the Aztecs.",
+   "It refers to plants grown on boats.",
+   "It is somewhat misleading.",
+   "It accurately describes how chinampas worked."
+  ],
+  "answer": "It is somewhat misleading.",
+  "explanation": "実際には浮いていないので誤解を招く呼び名。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history inference"
+ },
+ {
+  "id": "TOEFL-RA-521-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Chinampas of the Valley of Mexico\n\nWhen Spanish forces arrived in the Valley of Mexico in 1519, they encountered one of the most productive agricultural systems in the world. Around the shallow lakes surrounding the Aztec capital of Tenochtitlan, farmers cultivated narrow rectangular plots known as chinampas. Often described as \"floating gardens,\" chinampas did not actually float; they were artificial islands built up in the lake bed and anchored by willow trees planted along their edges.\n\nFarmers constructed them by piling alternating layers of mud from the lake bottom and decaying vegetation within frameworks of stakes. The surrounding canals served multiple functions. They supplied water that seeped into the plots from below, keeping roots moist even during dry periods, and they provided a means of transporting produce by canoe. Periodically, farmers dredged nutrient-rich sediment from the canals and spread it over the beds, renewing their fertility without fallow periods. Seedlings were raised in nursery beds and transplanted, allowing several harvests per year of maize, beans, squash, and flowers.\n\nScholars estimate that the chinampa zone supplied a substantial portion of the food consumed by the capital's large population. The system also required elaborate water management; dikes separated fresh water from the more saline parts of the lake system. After the conquest, many canals were drained, and the system declined. Today, a few chinampas survive on the southern edge of Mexico City, where researchers and farmers are exploring their potential as a model for sustainable urban agriculture.",
+  "question": "The word \"elaborate\" in the passage is closest in meaning to",
+  "choices": [
+   "temporary",
+   "expensive",
+   "simple",
+   "complex"
+  ],
+  "answer": "complex",
+  "explanation": "elaborate＝精巧な、複雑な。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history vocabulary"
+ },
+ {
+  "id": "TOEFL-RA-521-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Chinampas of the Valley of Mexico\n\nWhen Spanish forces arrived in the Valley of Mexico in 1519, they encountered one of the most productive agricultural systems in the world. Around the shallow lakes surrounding the Aztec capital of Tenochtitlan, farmers cultivated narrow rectangular plots known as chinampas. Often described as \"floating gardens,\" chinampas did not actually float; they were artificial islands built up in the lake bed and anchored by willow trees planted along their edges.\n\nFarmers constructed them by piling alternating layers of mud from the lake bottom and decaying vegetation within frameworks of stakes. The surrounding canals served multiple functions. They supplied water that seeped into the plots from below, keeping roots moist even during dry periods, and they provided a means of transporting produce by canoe. Periodically, farmers dredged nutrient-rich sediment from the canals and spread it over the beds, renewing their fertility without fallow periods. Seedlings were raised in nursery beds and transplanted, allowing several harvests per year of maize, beans, squash, and flowers.\n\nScholars estimate that the chinampa zone supplied a substantial portion of the food consumed by the capital's large population. The system also required elaborate water management; dikes separated fresh water from the more saline parts of the lake system. After the conquest, many canals were drained, and the system declined. Today, a few chinampas survive on the southern edge of Mexico City, where researchers and farmers are exploring their potential as a model for sustainable urban agriculture.",
+  "question": "Why does the author mention Mexico City today in the last paragraph?",
+  "choices": [
+   "To show that the system may still be relevant",
+   "To explain why the canals were drained",
+   "To describe the size of Tenochtitlan",
+   "To criticize modern farming methods"
+  ],
+  "answer": "To show that the system may still be relevant",
+  "explanation": "持続可能な都市農業のモデルとして今も意義がある。",
+  "tags": "TOEFL2026 AcademicPassage agriculture-history rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-522-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Language and Spatial Thinking\n\nWhether the language we speak shapes the way we think has been debated for nearly a century. Strong versions of this idea, which claim that language determines what thoughts are possible, have largely been abandoned. However, research on spatial reference has revived interest in more modest claims that language influences habitual patterns of thought.\n\nSpeakers of English typically describe locations relative to their own bodies, using words such as \"left\" and \"right.\" By contrast, speakers of certain languages, including Guugu Yimithirr in northeastern Australia, rely on cardinal directions such as north and south even for small-scale arrangements; a speaker might say that a cup is to the east of a plate. To use such a language, speakers must continuously keep track of their orientation, and studies indicate that they do so with remarkable accuracy, even in unfamiliar surroundings.\n\nIn one type of experiment, participants viewed a row of objects arranged on a table, were rotated 180 degrees to face a second table, and were asked to recreate the arrangement. Speakers of languages relying on body-relative terms usually preserved the left-to-right order, whereas speakers of direction-based languages tended to preserve the compass orientation, effectively reversing the order. Critics have argued that such results may reflect cultural or environmental factors, such as rural versus urban living, rather than language itself. Subsequent studies have attempted to separate these influences, but the extent to which language, rather than culture, drives the differences remains contested.",
+  "question": "What is the passage mainly about?",
+  "choices": [
+   "The grammar of Australian languages",
+   "Evidence that language may influence how people think about space",
+   "Why strong forms of linguistic theory are correct",
+   "How to give directions in English"
+  ],
+  "answer": "Evidence that language may influence how people think about space",
+  "explanation": "空間表現の言語差と思考への影響をめぐる研究。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science main-idea"
+ },
+ {
+  "id": "TOEFL-RA-522-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Language and Spatial Thinking\n\nWhether the language we speak shapes the way we think has been debated for nearly a century. Strong versions of this idea, which claim that language determines what thoughts are possible, have largely been abandoned. However, research on spatial reference has revived interest in more modest claims that language influences habitual patterns of thought.\n\nSpeakers of English typically describe locations relative to their own bodies, using words such as \"left\" and \"right.\" By contrast, speakers of certain languages, including Guugu Yimithirr in northeastern Australia, rely on cardinal directions such as north and south even for small-scale arrangements; a speaker might say that a cup is to the east of a plate. To use such a language, speakers must continuously keep track of their orientation, and studies indicate that they do so with remarkable accuracy, even in unfamiliar surroundings.\n\nIn one type of experiment, participants viewed a row of objects arranged on a table, were rotated 180 degrees to face a second table, and were asked to recreate the arrangement. Speakers of languages relying on body-relative terms usually preserved the left-to-right order, whereas speakers of direction-based languages tended to preserve the compass orientation, effectively reversing the order. Critics have argued that such results may reflect cultural or environmental factors, such as rural versus urban living, rather than language itself. Subsequent studies have attempted to separate these influences, but the extent to which language, rather than culture, drives the differences remains contested.",
+  "question": "According to the passage, what must speakers of direction-based languages do?",
+  "choices": [
+   "Avoid describing small objects",
+   "Use left and right when describing nearby objects",
+   "Constantly keep track of their orientation",
+   "Learn English directions"
+  ],
+  "answer": "Constantly keep track of their orientation",
+  "explanation": "continuously keep track of their orientation とある。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science factual"
+ },
+ {
+  "id": "TOEFL-RA-522-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Language and Spatial Thinking\n\nWhether the language we speak shapes the way we think has been debated for nearly a century. Strong versions of this idea, which claim that language determines what thoughts are possible, have largely been abandoned. However, research on spatial reference has revived interest in more modest claims that language influences habitual patterns of thought.\n\nSpeakers of English typically describe locations relative to their own bodies, using words such as \"left\" and \"right.\" By contrast, speakers of certain languages, including Guugu Yimithirr in northeastern Australia, rely on cardinal directions such as north and south even for small-scale arrangements; a speaker might say that a cup is to the east of a plate. To use such a language, speakers must continuously keep track of their orientation, and studies indicate that they do so with remarkable accuracy, even in unfamiliar surroundings.\n\nIn one type of experiment, participants viewed a row of objects arranged on a table, were rotated 180 degrees to face a second table, and were asked to recreate the arrangement. Speakers of languages relying on body-relative terms usually preserved the left-to-right order, whereas speakers of direction-based languages tended to preserve the compass orientation, effectively reversing the order. Critics have argued that such results may reflect cultural or environmental factors, such as rural versus urban living, rather than language itself. Subsequent studies have attempted to separate these influences, but the extent to which language, rather than culture, drives the differences remains contested.",
+  "question": "In the rotation experiment, what would a direction-based speaker likely do with an object that was on the north side?",
+  "choices": [
+   "Place it on their right",
+   "Place it on their left",
+   "Leave it out of the new arrangement entirely",
+   "Place it on the north side again"
+  ],
+  "answer": "Place it on the north side again",
+  "explanation": "compass orientation を保つ傾向がある。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science inference"
+ },
+ {
+  "id": "TOEFL-RA-522-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Language and Spatial Thinking\n\nWhether the language we speak shapes the way we think has been debated for nearly a century. Strong versions of this idea, which claim that language determines what thoughts are possible, have largely been abandoned. However, research on spatial reference has revived interest in more modest claims that language influences habitual patterns of thought.\n\nSpeakers of English typically describe locations relative to their own bodies, using words such as \"left\" and \"right.\" By contrast, speakers of certain languages, including Guugu Yimithirr in northeastern Australia, rely on cardinal directions such as north and south even for small-scale arrangements; a speaker might say that a cup is to the east of a plate. To use such a language, speakers must continuously keep track of their orientation, and studies indicate that they do so with remarkable accuracy, even in unfamiliar surroundings.\n\nIn one type of experiment, participants viewed a row of objects arranged on a table, were rotated 180 degrees to face a second table, and were asked to recreate the arrangement. Speakers of languages relying on body-relative terms usually preserved the left-to-right order, whereas speakers of direction-based languages tended to preserve the compass orientation, effectively reversing the order. Critics have argued that such results may reflect cultural or environmental factors, such as rural versus urban living, rather than language itself. Subsequent studies have attempted to separate these influences, but the extent to which language, rather than culture, drives the differences remains contested.",
+  "question": "Why does the author mention rural versus urban living?",
+  "choices": [
+   "To present an alternative explanation for the results",
+   "To show where Guugu Yimithirr is spoken",
+   "To prove that language determines thought",
+   "To describe how the experiment was designed"
+  ],
+  "answer": "To present an alternative explanation for the results",
+  "explanation": "言語以外の要因という批判の例。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science rhetorical-purpose"
+ },
+ {
+  "id": "TOEFL-RA-522-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Language and Spatial Thinking\n\nWhether the language we speak shapes the way we think has been debated for nearly a century. Strong versions of this idea, which claim that language determines what thoughts are possible, have largely been abandoned. However, research on spatial reference has revived interest in more modest claims that language influences habitual patterns of thought.\n\nSpeakers of English typically describe locations relative to their own bodies, using words such as \"left\" and \"right.\" By contrast, speakers of certain languages, including Guugu Yimithirr in northeastern Australia, rely on cardinal directions such as north and south even for small-scale arrangements; a speaker might say that a cup is to the east of a plate. To use such a language, speakers must continuously keep track of their orientation, and studies indicate that they do so with remarkable accuracy, even in unfamiliar surroundings.\n\nIn one type of experiment, participants viewed a row of objects arranged on a table, were rotated 180 degrees to face a second table, and were asked to recreate the arrangement. Speakers of languages relying on body-relative terms usually preserved the left-to-right order, whereas speakers of direction-based languages tended to preserve the compass orientation, effectively reversing the order. Critics have argued that such results may reflect cultural or environmental factors, such as rural versus urban living, rather than language itself. Subsequent studies have attempted to separate these influences, but the extent to which language, rather than culture, drives the differences remains contested.",
+  "question": "The word \"contested\" in the passage is closest in meaning to",
+  "choices": [
+   "proven",
+   "disputed",
+   "forgotten",
+   "ignored"
+  ],
+  "answer": "disputed",
+  "explanation": "contested＝論争中の。",
+  "tags": "TOEFL2026 AcademicPassage cognitive-science vocabulary"
+ }
+]

@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-V-121",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Scientists believe that birds share a common ------- with dinosaurs.",
+  "choices": [
+   "ancestor",
+   "offspring",
+   "reservoir",
+   "syllable"
+  ],
+  "answer": "ancestor",
+  "explanation": "正解 ancestor（ancestor）＝「祖先」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL ancestor"
+ },
+ {
+  "id": "TOEFL-V-122",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The theory is interesting, but there is little ------- evidence to support it.",
+  "choices": [
+   "ridiculous",
+   "empirical",
+   "naked",
+   "elastic"
+  ],
+  "answer": "empirical",
+  "explanation": "正解 empirical（empirical）＝「経験的な、実証的な」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL empirical"
+ },
+ {
+  "id": "TOEFL-V-123",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Thick fur is an ------- to cold climates.",
+  "choices": [
+   "admission",
+   "accusation",
+   "adaptation",
+   "abbreviation"
+  ],
+  "answer": "adaptation",
+  "explanation": "正解 adaptation（adaptation）＝「適応」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL adaptation"
+ },
+ {
+  "id": "TOEFL-V-124",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The region gained greater ------- from the central government.",
+  "choices": [
+   "anatomy",
+   "altitude",
+   "fatigue",
+   "autonomy"
+  ],
+  "answer": "autonomy",
+  "explanation": "正解 autonomy（autonomy）＝「自治、自主性」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL autonomy"
+ },
+ {
+  "id": "TOEFL-V-125",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Some plants have a high ------- for salt.",
+  "choices": [
+   "tolerance",
+   "tolerant",
+   "tolerate",
+   "tolerantly"
+  ],
+  "answer": "tolerance",
+  "explanation": "正解 tolerance（tolerance）＝「耐性、寛容」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL tolerance"
+ },
+ {
+  "id": "TOEFL-V-126",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Solar power has become a ------- alternative to coal in many countries.",
+  "choices": [
+   "naked",
+   "viable",
+   "nasty",
+   "hollow"
+  ],
+  "answer": "viable",
+  "explanation": "正解 viable（viable）＝「実行可能な、成り立つ」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL viable"
+ },
+ {
+  "id": "TOEFL-V-127",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Cold temperatures ------- the growth of most bacteria.",
+  "choices": [
+   "accelerate",
+   "facilitate",
+   "inhibit",
+   "multiply"
+  ],
+  "answer": "inhibit",
+  "explanation": "正解 inhibit（inhibit）＝「抑制する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL inhibit"
+ },
+ {
+  "id": "TOEFL-V-128",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Some fish lay thousands of eggs, but few of their ------- survive.",
+  "choices": [
+   "ancestors",
+   "predators",
+   "habitats",
+   "offspring"
+  ],
+  "answer": "offspring",
+  "explanation": "正解 offspring（offspring）＝「子、子孫」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL offspring"
+ },
+ {
+  "id": "TOEFL-V-129",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Sugar can cause tooth ------- if teeth are not brushed regularly.",
+  "choices": [
+   "decay",
+   "growth",
+   "harvest",
+   "fusion"
+  ],
+  "answer": "decay",
+  "explanation": "正解 decay（decay）＝「腐敗、虫歯」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL decay"
+ },
+ {
+  "id": "TOEFL-V-130",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The museum displays ------- found in an ancient city.",
+  "choices": [
+   "syllables",
+   "artifacts",
+   "enzymes",
+   "dialects"
+  ],
+  "answer": "artifacts",
+  "explanation": "正解 artifacts（artifact）＝「人工遺物、工芸品」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL artifact"
+ },
+ {
+  "id": "TOEFL-V-131",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The diver was able to ------- the camera from the bottom of the lake.",
+  "choices": [
+   "inhibit",
+   "dilute",
+   "retrieve",
+   "pronounce"
+  ],
+  "answer": "retrieve",
+  "explanation": "正解 retrieve（retrieve）＝「取り戻す、回収する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL retrieve"
+ },
+ {
+  "id": "TOEFL-V-132",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Health officials worked quickly to stop the flu -------.",
+  "choices": [
+   "enzyme",
+   "equator",
+   "equation",
+   "epidemic"
+  ],
+  "answer": "epidemic",
+  "explanation": "正解 epidemic（epidemic）＝「流行病、伝染病の流行」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL epidemic"
+ },
+ {
+  "id": "TOEFL-V-133",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Long hours of driving can cause -------, which leads to accidents.",
+  "choices": [
+   "fatigue",
+   "fertility",
+   "fiber",
+   "fusion"
+  ],
+  "answer": "fatigue",
+  "explanation": "正解 fatigue（fatigue）＝「疲労」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL fatigue"
+ },
+ {
+  "id": "TOEFL-V-134",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The detective needed a ------- explanation for the missing money.",
+  "choices": [
+   "ridiculous",
+   "plausible",
+   "bizarre",
+   "toxic"
+  ],
+  "answer": "plausible",
+  "explanation": "正解 plausible（plausible）＝「もっともらしい」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL plausible"
+ },
+ {
+  "id": "TOEFL-V-135",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The Earth takes about twenty-four hours to ------- once on its axis.",
+  "choices": [
+   "dissolve",
+   "migrate",
+   "rotate",
+   "erase"
+  ],
+  "answer": "rotate",
+  "explanation": "正解 rotate（rotate）＝「回転する」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL rotate"
+ },
+ {
+  "id": "TOEFL-V-136",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "A single ------- in a gene can change the color of a flower.",
+  "choices": [
+   "migration",
+   "motivation",
+   "mortality",
+   "mutation"
+  ],
+  "answer": "mutation",
+  "explanation": "正解 mutation（mutation）＝「突然変異」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL mutation"
+ },
+ {
+  "id": "TOEFL-V-137",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "After the water evaporated, a white ------- of salt remained in the pan.",
+  "choices": [
+   "residue",
+   "reservoir",
+   "regime",
+   "rhythm"
+  ],
+  "answer": "residue",
+  "explanation": "正解 residue（residue）＝「残留物」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL residue"
+ },
+ {
+  "id": "TOEFL-V-138",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The ------- of smartphones has changed how students study.",
+  "choices": [
+   "preference",
+   "prevalence",
+   "prejudice",
+   "precipitation"
+  ],
+  "answer": "prevalence",
+  "explanation": "正解 prevalence（prevalence）＝「普及、広がり」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL prevalence"
+ },
+ {
+  "id": "TOEFL-V-139",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Please ------- your answers completely if you change them.",
+  "choices": [
+   "evaporate",
+   "absorb",
+   "erase",
+   "insert"
+  ],
+  "answer": "erase",
+  "explanation": "正解 erase（erase）＝「消す」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL erase"
+ },
+ {
+  "id": "TOEFL-V-140",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The forecast calls for heavy ------- in the form of snow.",
+  "choices": [
+   "transcription",
+   "computation",
+   "fermentation",
+   "precipitation"
+  ],
+  "answer": "precipitation",
+  "explanation": "正解 precipitation（precipitation）＝「降水（量）」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL precipitation"
+ },
+ {
+  "id": "TOEFL-V-141",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "On the map, blue lines ------- rivers.",
+  "choices": [
+   "denote",
+   "deceive",
+   "dissolve",
+   "inject"
+  ],
+  "answer": "denote",
+  "explanation": "正解 denote（denote）＝「示す、表す」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL denote"
+ },
+ {
+  "id": "TOEFL-V-142",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The kangaroo is ------- to Australia.",
+  "choices": [
+   "artificial",
+   "indigenous",
+   "foreign",
+   "binary"
+  ],
+  "answer": "indigenous",
+  "explanation": "正解 indigenous（indigenous）＝「（その土地に）固有の、先住の」。文の意味に合うのはこの語だけ。",
+  "tags": "NAWL indigenous"
+ },
+ {
+  "id": "TOEFL-V-143",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The patient was taken to the hospital with acute stomach pain.\nThe word \"acute\" in the sentence is closest in meaning to",
+  "choices": [
+   "mild",
+   "ancient",
+   "severe",
+   "long-lasting"
+  ],
+  "answer": "severe",
+  "explanation": "acute＝「（痛みなどが）激しい、急性の」。この文では severe に最も近い。",
+  "tags": "NAWL acute"
+ },
+ {
+  "id": "TOEFL-V-144",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The poem refers to an obscure legend that few readers know.\nThe word \"obscure\" in the sentence is closest in meaning to",
+  "choices": [
+   "famous",
+   "frightening",
+   "recent",
+   "little-known"
+  ],
+  "answer": "little-known",
+  "explanation": "obscure＝「あまり知られていない、不明瞭な」。この文では little-known に最も近い。",
+  "tags": "NAWL obscure"
+ },
+ {
+  "id": "TOEFL-V-145",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "After hearing the evidence, the jury was inclined to believe the witness.\nThe word \"inclined\" in the sentence is closest in meaning to",
+  "choices": [
+   "likely",
+   "unwilling",
+   "pretending",
+   "forbidden"
+  ],
+  "answer": "likely",
+  "explanation": "incline＝「〜する傾向がある」。この文では likely に最も近い。",
+  "tags": "NAWL incline"
+ },
+ {
+  "id": "TOEFL-V-146",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The scientist deliberately left one plant without water to compare results.\nThe word \"deliberately\" in the sentence is closest in meaning to",
+  "choices": [
+   "accidentally",
+   "intentionally",
+   "quickly",
+   "rarely"
+  ],
+  "answer": "intentionally",
+  "explanation": "deliberately＝「わざと、意図的に」。この文では intentionally に最も近い。",
+  "tags": "NAWL deliberately"
+ },
+ {
+  "id": "TOEFL-V-147",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Rapid population growth inevitably increases the demand for housing.\nThe word \"inevitably\" in the sentence is closest in meaning to",
+  "choices": [
+   "rarely",
+   "slightly",
+   "unavoidably",
+   "unfairly"
+  ],
+  "answer": "unavoidably",
+  "explanation": "inevitably＝「必然的に、避けられずに」。この文では unavoidably に最も近い。",
+  "tags": "NAWL inevitably"
+ },
+ {
+  "id": "TOEFL-V-148",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The author asserted that the ancient map was a later copy.\nThe word \"asserted\" in the sentence is closest in meaning to",
+  "choices": [
+   "denied",
+   "wondered",
+   "forgot",
+   "claimed"
+  ],
+  "answer": "claimed",
+  "explanation": "assert＝「主張する」。この文では claimed に最も近い。",
+  "tags": "NAWL assert"
+ },
+ {
+  "id": "TOEFL-V-149",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Concerns about safety are legitimate and should be taken seriously.\nThe word \"legitimate\" in the sentence is closest in meaning to",
+  "choices": [
+   "reasonable",
+   "foolish",
+   "secret",
+   "illegal"
+  ],
+  "answer": "reasonable",
+  "explanation": "legitimate＝「正当な、もっともな」。この文では reasonable に最も近い。",
+  "tags": "NAWL legitimate"
+ },
+ {
+  "id": "TOEFL-V-150",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The early tools were crude but effective.\nThe word \"crude\" in the sentence is closest in meaning to",
+  "choices": [
+   "beautiful",
+   "rough",
+   "expensive",
+   "fragile"
+  ],
+  "answer": "rough",
+  "explanation": "crude＝「粗雑な、未加工の」。この文では rough に最も近い。",
+  "tags": "NAWL crude"
+ },
+ {
+  "id": "TOEFL-V-151",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The house was elevated above the ground to protect it from floods.\nThe word \"elevated\" in the sentence is closest in meaning to",
+  "choices": [
+   "moved",
+   "painted",
+   "raised",
+   "cleaned"
+  ],
+  "answer": "raised",
+  "explanation": "elevate＝「持ち上げる、高める」。この文では raised に最も近い。",
+  "tags": "NAWL elevate"
+ },
+ {
+  "id": "TOEFL-V-152",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The museum displays primitive tools made of stone.\nThe word \"primitive\" in the sentence is closest in meaning to",
+  "choices": [
+   "modern",
+   "broken",
+   "valuable",
+   "early"
+  ],
+  "answer": "early",
+  "explanation": "primitive＝「原始的な、初期の」。この文では early に最も近い。",
+  "tags": "NAWL primitive"
+ },
+ {
+  "id": "TOEFL-V-153",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The university is very selective and accepts only a few applicants.\nThe word \"selective\" in the sentence is closest in meaning to",
+  "choices": [
+   "choosy",
+   "generous",
+   "crowded",
+   "cheap"
+  ],
+  "answer": "choosy",
+  "explanation": "selective＝「選択的な、えり好みする」。この文では choosy に最も近い。",
+  "tags": "NAWL selective"
+ },
+ {
+  "id": "TOEFL-V-154",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The medicine may have adverse effects on some patients.\nThe word \"adverse\" in the sentence is closest in meaning to",
+  "choices": [
+   "helpful",
+   "harmful",
+   "unknown",
+   "small"
+  ],
+  "answer": "harmful",
+  "explanation": "adverse＝「不利な、有害な」。この文では harmful に最も近い。",
+  "tags": "NAWL adverse"
+ },
+ {
+  "id": "TOEFL-V-155",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The two cities are comparable in size.\nThe word \"comparable\" in the sentence is closest in meaning to",
+  "choices": [
+   "different",
+   "famous",
+   "similar",
+   "growing"
+  ],
+  "answer": "similar",
+  "explanation": "comparable＝「同等の、比較できる」。この文では similar に最も近い。",
+  "tags": "NAWL comparable"
+ },
+ {
+  "id": "TOEFL-V-156",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Her research has been enormously influential in the field.\nThe word \"enormously\" in the sentence is closest in meaning to",
+  "choices": [
+   "slightly",
+   "rarely",
+   "unfairly",
+   "extremely"
+  ],
+  "answer": "extremely",
+  "explanation": "enormously＝「非常に、ばく大に」。この文では extremely に最も近い。",
+  "tags": "NAWL enormously"
+ },
+ {
+  "id": "TOEFL-V-157",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Better public transport increases the mobility of elderly residents.\nThe word \"mobility\" in the sentence is closest in meaning to",
+  "choices": [
+   "ability to move",
+   "income",
+   "health",
+   "loneliness"
+  ],
+  "answer": "ability to move",
+  "explanation": "mobility＝「移動性、流動性」。この文では ability to move に最も近い。",
+  "tags": "NAWL mobility"
+ },
+ {
+  "id": "TOEFL-V-158",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The optimal temperature for growing tomatoes is about 25°C.\nThe word \"optimal\" in the sentence is closest in meaning to",
+  "choices": [
+   "lowest",
+   "best",
+   "average",
+   "dangerous"
+  ],
+  "answer": "best",
+  "explanation": "optimal＝「最適な」。この文では best に最も近い。",
+  "tags": "NAWL optimal"
+ },
+ {
+  "id": "TOEFL-V-159",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "The trail is suitable for novice hikers.\nThe word \"novice\" in the sentence is closest in meaning to",
+  "choices": [
+   "expert",
+   "elderly",
+   "beginner",
+   "professional"
+  ],
+  "answer": "beginner",
+  "explanation": "novice＝「初心者」。この文では beginner に最も近い。",
+  "tags": "NAWL novice"
+ },
+ {
+  "id": "TOEFL-V-160",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "",
+  "question": "Sugar is soluble in water.\nThe word \"soluble\" in the sentence is closest in meaning to",
+  "choices": [
+   "heavy",
+   "harmful",
+   "invisible",
+   "able to dissolve"
+  ],
+  "answer": "able to dissolve",
+  "explanation": "soluble＝「溶ける、溶解性の」。この文では able to dissolve に最も近い。",
+  "tags": "NAWL soluble"
+ }
+]

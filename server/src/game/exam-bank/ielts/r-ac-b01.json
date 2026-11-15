@@ -242,7 +242,7 @@
   "passage": "Mining the Abyss\n\nA  Several kilometres beneath the surface of the Pacific Ocean, scattered across vast plains of fine sediment, lie billions of dark, potato-sized lumps known as polymetallic nodules. They form extraordinarily slowly, as metals dissolved in seawater and in the sediment gradually build up around a small core such as a fragment of shell or a shark's tooth. A single nodule may take millions of years to grow just a few centimetres. Yet these unremarkable-looking objects contain high concentrations of manganese, nickel, cobalt and copper, metals that are in growing demand for batteries, electric vehicles and renewable energy systems.\n\nB  The idea of harvesting nodules is not new. Scientific expeditions first brought them to the surface in the 1870s, and commercial interest surged in the 1960s and 1970s, when several consortia tested prototype collecting machines. Low metal prices and the enormous technical difficulty of operating at depths of four to six kilometres eventually led those early projects to be abandoned. Interest has returned in recent years because supporters argue that seabed metals could reduce dependence on land-based mines, many of which are associated with deforestation, polluted rivers and poor working conditions.\n\nC  Most of the nodules of commercial interest lie in areas beyond any country's national jurisdiction. Under the United Nations Convention on the Law of the Sea, the mineral resources of this international seabed are described as the 'common heritage of mankind', and activities there are regulated by the International Seabed Authority, which is based in Jamaica. The Authority has granted a number of exploration contracts, but at the time of writing it had not yet agreed on the detailed rules that would govern full commercial extraction. Negotiations have been slow, partly because member states disagree on how the financial benefits of mining should be shared.\n\nD  The method most companies propose is relatively simple in concept. A tracked vehicle the size of a small house would crawl across the seabed, using jets of water to lift nodules from the top layer of sediment. The nodules would then be pumped up a long pipe, called a riser, to a ship on the surface, where they would be separated from water and fine particles. The waste water and sediment would be returned to the ocean, either near the surface or at a greater depth.\n\nE  It is the environmental consequences of this process that worry many marine scientists. The abyssal plains were once assumed to be biological deserts, but recent surveys have revealed a surprising diversity of life, including sponges, sea cucumbers, worms and many species never before described. Some animals live directly on the nodules, which provide one of the few hard surfaces in an otherwise soft landscape. Removing the nodules would therefore remove their habitat for a period far longer than human history. In addition, the collecting vehicles would stir up clouds of sediment that could drift for considerable distances and settle on filter-feeding animals, and the noise and light from machinery could disturb species adapted to permanent darkness.\n\nF  Evidence from small-scale experiments supports these concerns. In one well-known study, a section of seabed off the coast of Peru was ploughed in 1989 to simulate mining disturbance. When researchers returned more than twenty-five years later, the tracks were still clearly visible, and many groups of animals had not returned to their original numbers. Such findings suggest that recovery in the deep sea is measured in decades or centuries rather than years.\n\nG  Faced with this uncertainty, a growing number of governments, scientists and even some vehicle manufacturers have called for a pause, or moratorium, on deep-sea mining until its effects are better understood. Supporters of mining reply that every source of metals has environmental costs, and that the relevant comparison is not between mining and doing nothing, but between seabed mining and expanding mines on land. What is clear is that decisions made in the coming years will affect an environment that humans have barely begun to explore.",
   "question": "Why were the commercial projects of the 1960s and 1970s abandoned?",
   "choices": [
-   "International law did not allow mining in the deep sea.",
+   "International law at that time did not permit any commercial mining in the deep sea.",
    "Scientists discovered rare animals living on the nodules.",
    "Metal prices were low and the work was technically very hard.",
    "The nodules contained less metal than expected."
@@ -261,7 +261,7 @@
   "question": "What argument do supporters of seabed mining make in the final paragraph?",
   "choices": [
    "The deep sea recovers quickly from disturbance.",
-   "A moratorium would be impossible to enforce.",
+   "A moratorium would be impossible to enforce because the seabed is beyond national control.",
    "Most seabed animals have already been described.",
    "Seabed mining should be compared with the expansion of mines on land."
   ],
@@ -390,7 +390,7 @@
   "question": "What did the experiments with eight-month-old infants show?",
   "choices": [
    "Infants learned the meanings of invented words.",
-   "Infants needed many hours of exposure to learn patterns.",
+   "Infants needed many hours of exposure before they could learn any patterns.",
    "Infants preferred real words to invented syllables.",
    "Infants noticed which syllables regularly appeared together."
   ],
@@ -539,9 +539,9 @@
    "They are mostly taken by workers from other regions.",
    "They usually offer better pay than jobs in agriculture.",
    "They have become less seasonal in recent years.",
-   "Many are temporary or low-paid, although they are open to people without qualifications."
+   "Many are seasonal or poorly paid."
   ],
-  "answer": "Many are temporary or low-paid, although they are open to people without qualifications.",
+  "answer": "Many are seasonal or poorly paid.",
   "explanation": "第C段落で資格のない人にも職があるという利点と、季節的・低賃金という問題が述べられている。",
   "tags": "IELTS Academic multiple-choice tourism-economics"
  },
@@ -555,11 +555,11 @@
   "question": "What does the writer recommend in the final paragraph?",
   "choices": [
    "Destinations should attract as many day-trippers as possible.",
-   "Destinations should consider the type of tourism they want rather than only visitor numbers.",
+   "They should decide what kind of tourism they want.",
    "Destinations should depend entirely on tourism after industrial decline.",
    "Destinations should limit the length of visitors' stays."
   ],
-  "answer": "Destinations should consider the type of tourism they want rather than only visitor numbers.",
+  "answer": "They should decide what kind of tourism they want.",
   "explanation": "第F段落の結論で「何人呼べるか」ではなく「どんな観光を望むか」を問うべきだとしている。",
   "tags": "IELTS Academic multiple-choice tourism-economics"
  },

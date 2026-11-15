@@ -1,0 +1,704 @@
+[
+ {
+  "id": "TOEFL-RD-501-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "MAPLE HALL CAFÉ — TODAY'S LUNCH (11:30–2:00)\nSoup of the day: tomato and basil ($3)\nRice bowl with chicken or tofu ($6)\nGarden salad ($4)\nFruit cup ($2)\nAll drinks are free with a meal card.",
+  "question": "How much does the rice bowl cost?",
+  "choices": [
+   "$6",
+   "$2",
+   "$3",
+   "$4"
+  ],
+  "answer": "$6",
+  "explanation": "Rice bowl の行に ($6) とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-501-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "MAPLE HALL CAFÉ — TODAY'S LUNCH (11:30–2:00)\nSoup of the day: tomato and basil ($3)\nRice bowl with chicken or tofu ($6)\nGarden salad ($4)\nFruit cup ($2)\nAll drinks are free with a meal card.",
+  "question": "What can students with a meal card get for free?",
+  "choices": [
+   "Soup",
+   "Drinks",
+   "Fruit cups",
+   "Salads"
+  ],
+  "answer": "Drinks",
+  "explanation": "最後の行に All drinks are free with a meal card とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-502-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Pool notice: The swimming pool will be closed on Saturday morning for cleaning. It will open again at 1:00 p.m. Please use the gym or the running track in the morning instead.",
+  "question": "Why will the pool be closed on Saturday morning?",
+  "choices": [
+   "There will be a swimming race.",
+   "The water is too cold.",
+   "It will be cleaned.",
+   "The staff will have a meeting."
+  ],
+  "answer": "It will be cleaned.",
+  "explanation": "for cleaning とあるので清掃のため。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-502-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Pool notice: The swimming pool will be closed on Saturday morning for cleaning. It will open again at 1:00 p.m. Please use the gym or the running track in the morning instead.",
+  "question": "When can people swim on Saturday?",
+  "choices": [
+   "Only in the morning",
+   "All day",
+   "Not at all",
+   "From 1:00 p.m."
+  ],
+  "answer": "From 1:00 p.m.",
+  "explanation": "It will open again at 1:00 p.m. とある。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-503-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Hi everyone! The Photography Club meets every Thursday at 6 p.m. in Room 204 of the Art Building. New members are welcome. You do not need your own camera — you can use your phone. — Lina",
+  "question": "Where does the club meet?",
+  "choices": [
+   "In the Art Building",
+   "In the main campus library",
+   "In a café",
+   "In the gym"
+  ],
+  "answer": "In the Art Building",
+  "explanation": "Room 204 of the Art Building とある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-503-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Hi everyone! The Photography Club meets every Thursday at 6 p.m. in Room 204 of the Art Building. New members are welcome. You do not need your own camera — you can use your phone. — Lina",
+  "question": "What does Lina say about cameras?",
+  "choices": [
+   "Members must buy one.",
+   "A phone is fine.",
+   "The club sells them.",
+   "Cameras are not allowed."
+  ],
+  "answer": "A phone is fine.",
+  "explanation": "you can use your phone とあるのでスマホでよい。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-504-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Campus Shuttle — Route B\nLeaves the Main Gate every 20 minutes from 7:00 a.m. to 9:00 p.m.\nStops: Main Gate → Library → Science Center → North Dorms\nThe shuttle is free for students. Please show your student ID.",
+  "question": "What do students need to ride the shuttle?",
+  "choices": [
+   "A ticket",
+   "Some coins",
+   "A student ID",
+   "A ticket from the driver"
+  ],
+  "answer": "A student ID",
+  "explanation": "Please show your student ID とある。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-504-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Campus Shuttle — Route B\nLeaves the Main Gate every 20 minutes from 7:00 a.m. to 9:00 p.m.\nStops: Main Gate → Library → Science Center → North Dorms\nThe shuttle is free for students. Please show your student ID.",
+  "question": "Which stop comes right after the Library?",
+  "choices": [
+   "Main Gate",
+   "North Dorms",
+   "Student Union Building",
+   "Science Center"
+  ],
+  "answer": "Science Center",
+  "explanation": "Main Gate → Library → Science Center の順。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-505-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "JOB AT THE BOOKSTORE\nWe need two students to help at the cash register. Hours: 10 hours a week, mostly afternoons. Pay: $15 an hour. Come to the bookstore office with your class schedule.",
+  "question": "How many students does the bookstore need?",
+  "choices": [
+   "Two",
+   "One",
+   "Ten",
+   "Fifteen"
+  ],
+  "answer": "Two",
+  "explanation": "We need two students とある。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-505-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "JOB AT THE BOOKSTORE\nWe need two students to help at the cash register. Hours: 10 hours a week, mostly afternoons. Pay: $15 an hour. Come to the bookstore office with your class schedule.",
+  "question": "What should students bring to the office?",
+  "choices": [
+   "A photo",
+   "Their class schedule",
+   "A letter from a teacher",
+   "Their bank card"
+  ],
+  "answer": "Their class schedule",
+  "explanation": "Come ... with your class schedule とある。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-506-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "To all residents of Oak House: The laundry room on the first floor is broken. Please use the laundry room in Pine House next door until Friday. We are sorry for the problem.",
+  "question": "What is the problem in Oak House?",
+  "choices": [
+   "The elevator is broken.",
+   "There is no hot water.",
+   "The laundry room does not work.",
+   "The front door of the building is locked."
+  ],
+  "answer": "The laundry room does not work.",
+  "explanation": "The laundry room ... is broken とある。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-506-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "To all residents of Oak House: The laundry room on the first floor is broken. Please use the laundry room in Pine House next door until Friday. We are sorry for the problem.",
+  "question": "Where can residents wash clothes this week?",
+  "choices": [
+   "On the second floor of Oak House",
+   "At a shop in town",
+   "In the gym",
+   "In Pine House"
+  ],
+  "answer": "In Pine House",
+  "explanation": "use the laundry room in Pine House next door とある。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-507-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Text message from Campus IT: Your new password is ready. Please log in before May 3 and change it to your own password. If you do not log in by then, your account will be locked.",
+  "question": "What should the student do before May 3?",
+  "choices": [
+   "Log in and change the password",
+   "Visit the IT office",
+   "Buy a new computer",
+   "Send an email to the IT office"
+  ],
+  "answer": "Log in and change the password",
+  "explanation": "log in before May 3 and change it とある。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-507-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Text message from Campus IT: Your new password is ready. Please log in before May 3 and change it to your own password. If you do not log in by then, your account will be locked.",
+  "question": "What will happen if the student does not log in by May 3?",
+  "choices": [
+   "The password will be sent again.",
+   "The account will be locked.",
+   "The student will pay a fee.",
+   "Nothing will happen."
+  ],
+  "answer": "The account will be locked.",
+  "explanation": "your account will be locked とある。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-508-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "From: Ravi\nTo: Mei\nHey Mei, I'm at the Union food court. The pizza line is really long, so I got us two noodle boxes. I'm sitting near the windows. See you soon!",
+  "question": "Why did Ravi buy noodles?",
+  "choices": [
+   "He does not like pizza.",
+   "Mei asked him to buy noodles.",
+   "The pizza line was long.",
+   "Pizza was sold out."
+  ],
+  "answer": "The pizza line was long.",
+  "explanation": "The pizza line is really long, so ... とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-508-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "From: Ravi\nTo: Mei\nHey Mei, I'm at the Union food court. The pizza line is really long, so I got us two noodle boxes. I'm sitting near the windows. See you soon!",
+  "question": "Where is Ravi sitting?",
+  "choices": [
+   "Near the door",
+   "Outside",
+   "In the kitchen area",
+   "Near the windows"
+  ],
+  "answer": "Near the windows",
+  "explanation": "I'm sitting near the windows とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-509-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Dear Resident,\nRoom inspections for all floors of Cedar Hall will take place on Monday, March 10, between 9 a.m. and 4 p.m. You do not need to be present. Staff will check smoke detectors, windows, and heaters. Please make sure the area around your heater is clear of boxes and clothing. If you have any maintenance problems, write them on the form attached to your door before Monday.\nCedar Hall Office",
+  "question": "What is the main purpose of this message?",
+  "choices": [
+   "To inform residents about room inspections",
+   "To ask residents to move to another room for a week",
+   "To announce new heaters",
+   "To invite residents to a meeting"
+  ],
+  "answer": "To inform residents about room inspections",
+  "explanation": "Room inspections ... will take place が主題。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-509-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Dear Resident,\nRoom inspections for all floors of Cedar Hall will take place on Monday, March 10, between 9 a.m. and 4 p.m. You do not need to be present. Staff will check smoke detectors, windows, and heaters. Please make sure the area around your heater is clear of boxes and clothing. If you have any maintenance problems, write them on the form attached to your door before Monday.\nCedar Hall Office",
+  "question": "What are residents asked to do?",
+  "choices": [
+   "Stay in their rooms all day",
+   "Keep the space near the heater clear",
+   "Buy a smoke detector",
+   "Open their windows"
+  ],
+  "answer": "Keep the space near the heater clear",
+  "explanation": "make sure the area around your heater is clear とある。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-509-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Dear Resident,\nRoom inspections for all floors of Cedar Hall will take place on Monday, March 10, between 9 a.m. and 4 p.m. You do not need to be present. Staff will check smoke detectors, windows, and heaters. Please make sure the area around your heater is clear of boxes and clothing. If you have any maintenance problems, write them on the form attached to your door before Monday.\nCedar Hall Office",
+  "question": "How can residents report a repair problem?",
+  "choices": [
+   "By calling the staff on Monday",
+   "By sending an email after the inspection",
+   "By writing it on a form on their door",
+   "By visiting the office at 4 p.m."
+  ],
+  "answer": "By writing it on a form on their door",
+  "explanation": "write them on the form attached to your door とある。",
+  "tags": "TOEFL2026 DailyLife campus-housing"
+ },
+ {
+  "id": "TOEFL-RD-510-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Fitness Center — Spring Class Schedule\nMon/Wed 7:00 a.m. Morning Yoga (beginner)\nTue/Thu 5:30 p.m. Indoor Cycling (all levels)\nFri 6:00 p.m. Strength Basics (beginner)\nSat 10:00 a.m. Dance Fitness (all levels)\nClasses are free, but space is limited. Sign up on the center's website up to 48 hours before each class.",
+  "question": "Which class meets twice a week in the evening?",
+  "choices": [
+   "Morning Yoga",
+   "Strength Basics",
+   "Dance Fitness",
+   "Indoor Cycling"
+  ],
+  "answer": "Indoor Cycling",
+  "explanation": "Tue/Thu 5:30 p.m. の Indoor Cycling。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-510-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Fitness Center — Spring Class Schedule\nMon/Wed 7:00 a.m. Morning Yoga (beginner)\nTue/Thu 5:30 p.m. Indoor Cycling (all levels)\nFri 6:00 p.m. Strength Basics (beginner)\nSat 10:00 a.m. Dance Fitness (all levels)\nClasses are free, but space is limited. Sign up on the center's website up to 48 hours before each class.",
+  "question": "What is true about the classes?",
+  "choices": [
+   "Students must register in advance online.",
+   "Each class has a small fee.",
+   "All classes are for advanced students.",
+   "Students can join any class without signing up."
+  ],
+  "answer": "Students must register in advance online.",
+  "explanation": "Sign up on the center's website up to 48 hours before とある。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-511-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Post on the Hiking Club page:\nOur trip to Silver Lake is moving from Saturday to Sunday because heavy rain is expected on Saturday. The bus will still leave from the Student Center at 8 a.m. If you can no longer come, please tell Daniel by Friday night so that someone on the waiting list can take your seat.",
+  "question": "Why was the trip changed?",
+  "choices": [
+   "The bus is not available.",
+   "Bad weather is expected.",
+   "Daniel is busy on Saturday.",
+   "Silver Lake is closed."
+  ],
+  "answer": "Bad weather is expected.",
+  "explanation": "heavy rain is expected on Saturday とある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-511-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Post on the Hiking Club page:\nOur trip to Silver Lake is moving from Saturday to Sunday because heavy rain is expected on Saturday. The bus will still leave from the Student Center at 8 a.m. If you can no longer come, please tell Daniel by Friday night so that someone on the waiting list can take your seat.",
+  "question": "What will NOT change?",
+  "choices": [
+   "The day of the trip",
+   "The list of members",
+   "The departure time and place",
+   "The destination's opening hours"
+  ],
+  "answer": "The departure time and place",
+  "explanation": "The bus will still leave ... at 8 a.m. とあり、出発時刻と場所は同じ。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-511-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Post on the Hiking Club page:\nOur trip to Silver Lake is moving from Saturday to Sunday because heavy rain is expected on Saturday. The bus will still leave from the Student Center at 8 a.m. If you can no longer come, please tell Daniel by Friday night so that someone on the waiting list can take your seat.",
+  "question": "Why should members who cannot come contact Daniel?",
+  "choices": [
+   "So they can get a refund",
+   "So he can change the bus",
+   "So the trip can be canceled if few people come",
+   "So their seats can go to other students"
+  ],
+  "answer": "So their seats can go to other students",
+  "explanation": "so that someone on the waiting list can take your seat とある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-512-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "IT Help Desk Notice\nThe campus Wi-Fi will be updated this Sunday from 1 a.m. to 5 a.m. During this time, you may lose your internet connection in all buildings. After the update, you will need to sign in again with your university email and password. Printers in the library will not be affected.",
+  "question": "What will students probably need to do after Sunday?",
+  "choices": [
+   "Sign in to the Wi-Fi again",
+   "Buy a new printer",
+   "Get a new university email address",
+   "Visit the help desk"
+  ],
+  "answer": "Sign in to the Wi-Fi again",
+  "explanation": "you will need to sign in again とある。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-512-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "IT Help Desk Notice\nThe campus Wi-Fi will be updated this Sunday from 1 a.m. to 5 a.m. During this time, you may lose your internet connection in all buildings. After the update, you will need to sign in again with your university email and password. Printers in the library will not be affected.",
+  "question": "What is stated about the library printers?",
+  "choices": [
+   "They will be replaced.",
+   "They will keep working normally.",
+   "They will be closed on Sunday morning.",
+   "They need a new password."
+  ],
+  "answer": "They will keep working normally.",
+  "explanation": "Printers in the library will not be affected とある。",
+  "tags": "TOEFL2026 DailyLife it-services"
+ },
+ {
+  "id": "TOEFL-RD-513-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "City Bus Pass for Students\nFull-time students can buy a semester bus pass for $60, which is half the regular price. Passes are sold at the Student Services desk. You must bring your student card and a proof of enrollment printed from the student portal. Lost passes cannot be replaced, so please keep yours in a safe place.",
+  "question": "How much does a regular semester pass probably cost?",
+  "choices": [
+   "$30",
+   "$60",
+   "$120",
+   "$600"
+  ],
+  "answer": "$120",
+  "explanation": "$60 が half the regular price なので通常は $120。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-513-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "City Bus Pass for Students\nFull-time students can buy a semester bus pass for $60, which is half the regular price. Passes are sold at the Student Services desk. You must bring your student card and a proof of enrollment printed from the student portal. Lost passes cannot be replaced, so please keep yours in a safe place.",
+  "question": "What must students bring to buy the pass?",
+  "choices": [
+   "A photo and a bank card",
+   "A letter from their teacher and a recent photo of themselves",
+   "Their old bus pass",
+   "A student card and a printed enrollment document"
+  ],
+  "answer": "A student card and a printed enrollment document",
+  "explanation": "student card and a proof of enrollment printed from the student portal。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-513-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "City Bus Pass for Students\nFull-time students can buy a semester bus pass for $60, which is half the regular price. Passes are sold at the Student Services desk. You must bring your student card and a proof of enrollment printed from the student portal. Lost passes cannot be replaced, so please keep yours in a safe place.",
+  "question": "What happens if a student loses the pass?",
+  "choices": [
+   "They cannot get a replacement.",
+   "They can get a new one for $30.",
+   "They should report it to the police.",
+   "They can print another one online."
+  ],
+  "answer": "They cannot get a replacement.",
+  "explanation": "Lost passes cannot be replaced とある。",
+  "tags": "TOEFL2026 DailyLife transit"
+ },
+ {
+  "id": "TOEFL-RD-514-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Hi Tomás,\nThanks for applying to work at the Recreation Center front desk. We'd like to invite you to a short interview on Wednesday at 3:15. It should take about 20 minutes. Please bring a list of the hours you are free each week. If Wednesday doesn't work, reply to this email and suggest another day.\nBest, Hana (Front Desk Manager)",
+  "question": "Why did Hana write to Tomás?",
+  "choices": [
+   "To offer him a full-time job",
+   "To invite him to an interview",
+   "To ask him to apply again",
+   "To tell him the job is filled"
+  ],
+  "answer": "To invite him to an interview",
+  "explanation": "We'd like to invite you to a short interview とある。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-514-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Hi Tomás,\nThanks for applying to work at the Recreation Center front desk. We'd like to invite you to a short interview on Wednesday at 3:15. It should take about 20 minutes. Please bring a list of the hours you are free each week. If Wednesday doesn't work, reply to this email and suggest another day.\nBest, Hana (Front Desk Manager)",
+  "question": "What should Tomás bring?",
+  "choices": [
+   "A letter of recommendation from a former employer",
+   "His university ID photo",
+   "Information about when he is available",
+   "A copy of his grades"
+  ],
+  "answer": "Information about when he is available",
+  "explanation": "a list of the hours you are free each week とある。",
+  "tags": "TOEFL2026 DailyLife part-time-jobs"
+ },
+ {
+  "id": "TOEFL-RD-515-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Notice from Dining Services: Starting next Monday, the North Dining Hall will no longer offer paper cups. Students are encouraged to bring their own reusable bottles or mugs. If you forget yours, you can borrow a mug at the counter and return it before you leave. Coffee will be 25 cents cheaper for anyone using their own cup.",
+  "question": "What change will happen next Monday?",
+  "choices": [
+   "Coffee prices will rise.",
+   "The dining hall will close.",
+   "Students must buy a reusable mug at the counter.",
+   "Paper cups will no longer be available."
+  ],
+  "answer": "Paper cups will no longer be available.",
+  "explanation": "will no longer offer paper cups とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-515-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Notice from Dining Services: Starting next Monday, the North Dining Hall will no longer offer paper cups. Students are encouraged to bring their own reusable bottles or mugs. If you forget yours, you can borrow a mug at the counter and return it before you leave. Coffee will be 25 cents cheaper for anyone using their own cup.",
+  "question": "What is offered to students who use their own cup?",
+  "choices": [
+   "A lower price on coffee",
+   "A free meal",
+   "A free mug",
+   "A faster line"
+  ],
+  "answer": "A lower price on coffee",
+  "explanation": "25 cents cheaper for anyone using their own cup とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-515-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Notice from Dining Services: Starting next Monday, the North Dining Hall will no longer offer paper cups. Students are encouraged to bring their own reusable bottles or mugs. If you forget yours, you can borrow a mug at the counter and return it before you leave. Coffee will be 25 cents cheaper for anyone using their own cup.",
+  "question": "What can students who forget their cup do?",
+  "choices": [
+   "Buy a paper cup for 25 cents",
+   "Borrow a mug and return it",
+   "Take a mug home",
+   "Ask a friend to pay"
+  ],
+  "answer": "Borrow a mug and return it",
+  "explanation": "borrow a mug at the counter and return it とある。",
+  "tags": "TOEFL2026 DailyLife dining"
+ },
+ {
+  "id": "TOEFL-RD-516-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Debate Society — Weekly Email\nThis week's topic: \"Should universities stop using grades?\" We will meet on Tuesday at 7 p.m. in the Law Library seminar room. Members who signed up to speak should prepare a three-minute opening statement. Everyone else is welcome to join the open discussion after the main speeches. Snacks will be provided by our treasurer, Grace.",
+  "question": "What should registered speakers prepare?",
+  "choices": [
+   "A written essay",
+   "A list of questions",
+   "A short opening statement",
+   "Snacks for the group to share after the speeches"
+  ],
+  "answer": "A short opening statement",
+  "explanation": "a three-minute opening statement とある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-516-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Debate Society — Weekly Email\nThis week's topic: \"Should universities stop using grades?\" We will meet on Tuesday at 7 p.m. in the Law Library seminar room. Members who signed up to speak should prepare a three-minute opening statement. Everyone else is welcome to join the open discussion after the main speeches. Snacks will be provided by our treasurer, Grace.",
+  "question": "What can members who are not speaking do?",
+  "choices": [
+   "Vote for the best speaker online",
+   "Leave before the speeches",
+   "Bring food for everyone",
+   "Take part in the open discussion"
+  ],
+  "answer": "Take part in the open discussion",
+  "explanation": "Everyone else is welcome to join the open discussion とある。",
+  "tags": "TOEFL2026 DailyLife clubs"
+ },
+ {
+  "id": "TOEFL-RD-517-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Tennis Court Booking Rules\n• Courts can be booked for one hour at a time.\n• Each student may make only two bookings per week.\n• If you are more than 10 minutes late, your court may be given to someone else.\n• Please bring your own racket and balls; equipment is not available for rent.",
+  "question": "What happens if a student arrives 15 minutes late?",
+  "choices": [
+   "The court may be given to another person.",
+   "The student must pay a fine.",
+   "The booking is extended.",
+   "The student loses all of their future bookings for the week."
+  ],
+  "answer": "The court may be given to another person.",
+  "explanation": "more than 10 minutes late ... may be given to someone else。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-517-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Tennis Court Booking Rules\n• Courts can be booked for one hour at a time.\n• Each student may make only two bookings per week.\n• If you are more than 10 minutes late, your court may be given to someone else.\n• Please bring your own racket and balls; equipment is not available for rent.",
+  "question": "Which statement is true?",
+  "choices": [
+   "Students can book courts for two hours at once.",
+   "Students cannot rent rackets at the courts.",
+   "Students can book as often as they like.",
+   "Balls are provided by the staff."
+  ],
+  "answer": "Students cannot rent rackets at the courts.",
+  "explanation": "equipment is not available for rent とある。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ },
+ {
+  "id": "TOEFL-RD-517-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Tennis Court Booking Rules\n• Courts can be booked for one hour at a time.\n• Each student may make only two bookings per week.\n• If you are more than 10 minutes late, your court may be given to someone else.\n• Please bring your own racket and balls; equipment is not available for rent.",
+  "question": "How many hours can one student book in a week at most?",
+  "choices": [
+   "One",
+   "Three",
+   "Two",
+   "Four"
+  ],
+  "answer": "Two",
+  "explanation": "1 回 1 時間・週 2 回までなので 2 時間。",
+  "tags": "TOEFL2026 DailyLife sports-facilities"
+ }
+]

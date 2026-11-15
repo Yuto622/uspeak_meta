@@ -97,10 +97,10 @@
   "choices": [
    "It made clocks small enough to carry.",
    "It allowed clocks to strike bells.",
-   "It released the energy of a falling weight in regular steps.",
+   "It released a weight's energy in small steps.",
    "It corrected errors using a sundial."
   ],
-  "answer": "It released the energy of a falling weight in regular steps.",
+  "answer": "It released a weight's energy in small steps.",
   "explanation": "第C段落で脱進機は重りのエネルギーを少しずつ規則的に放出する装置と説明されている。",
   "tags": "IELTS Academic multiple-choice timekeeping"
  },
@@ -243,7 +243,7 @@
   "question": "What surprised the astronomers about the volunteers in the galaxy project?",
   "choices": [
    "Volunteers preferred classifying animals to galaxies.",
-   "Volunteers made more errors than expected.",
+   "Volunteers made far more classification errors than the astronomers had expected.",
    "Volunteers found unusual objects that professionals had missed.",
    "Volunteers asked to be paid for their work."
   ],
@@ -263,9 +263,9 @@
    "Volunteers may publish results without permission.",
    "Projects may collect personal data about participants.",
    "Volunteers may compete with professional scientists for jobs.",
-   "Institutions may benefit from volunteers' unpaid work without sharing credit."
+   "Volunteers may do unpaid work for others' benefit."
   ],
-  "answer": "Institutions may benefit from volunteers' unpaid work without sharing credit.",
+  "answer": "Volunteers may do unpaid work for others' benefit.",
   "explanation": "第F段落で、機関が評価や資金を得る一方、参加者が見返りを得られないという懸念が述べられている。",
   "tags": "IELTS Academic multiple-choice citizen-science"
  },
@@ -391,7 +391,7 @@
   "choices": [
    "Air pollution often comes from the same sources as noise.",
    "People rarely report noise problems.",
-   "Heart disease develops too slowly to study.",
+   "Heart disease develops too slowly to be studied over a normal research period.",
    "Noise levels change too quickly to record."
   ],
   "answer": "Air pollution often comes from the same sources as noise.",
@@ -537,7 +537,7 @@
   "question": "What did experiments with bees kept inside the hive show?",
   "choices": [
    "Bees stop dancing when they cannot see the sun.",
-   "Bees rely only on landmarks inside the hive.",
+   "Bees rely only on landmarks inside the hive to orient their dances.",
    "Bees dance more slowly in the dark.",
    "Bees can adjust for the sun's movement without seeing it."
   ],
@@ -557,7 +557,7 @@
    "Radar devices may harm the bees that carry them.",
    "Some farm chemicals may interfere with bees' ability to return home.",
    "Flying robots may compete with bees for food.",
-   "Bees may lose their sense of direction in cities."
+   "Bees may lose their sense of direction when they are released in large cities."
   ],
   "answer": "Some farm chemicals may interfere with bees' ability to return home.",
   "explanation": "第F段落で一部の農薬が致死量以下でも巣に戻る能力を損なうとある。",
