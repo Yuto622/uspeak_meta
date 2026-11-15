@@ -71,11 +71,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: registering for classes",
-    "question": "Listen and repeat: Students who register late may have to pay an additional fee of fifty dollars.",
-    "answer": "Students who register late may have to pay an additional fee of fifty dollars.",
-    "model_answer": "Students who register late may have to pay an additional fee of fifty dollars.",
-    "explanation": "14 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 14語"
+    "question": "Listen and repeat: Students who register after the deadline may have to pay an additional fee of fifty dollars.",
+    "answer": "Students who register after the deadline may have to pay an additional fee of fifty dollars.",
+    "model_answer": "Students who register after the deadline may have to pay an additional fee of fifty dollars.",
+    "explanation": "16 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 16語"
   },
   {
     "id": "TOEFL-SR-011-7",
@@ -84,11 +84,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: registering for classes",
-    "question": "Listen and repeat: Before you finalize your schedule, make sure that none of your classes overlap and that you meet all prerequisites.",
-    "answer": "Before you finalize your schedule, make sure that none of your classes overlap and that you meet all prerequisites.",
-    "model_answer": "Before you finalize your schedule, make sure that none of your classes overlap and that you meet all prerequisites.",
-    "explanation": "19 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 19語"
+    "question": "Listen and repeat: Before finalizing your schedule, check that your classes do not overlap and that you meet all prerequisites.",
+    "answer": "Before finalizing your schedule, check that your classes do not overlap and that you meet all prerequisites.",
+    "model_answer": "Before finalizing your schedule, check that your classes do not overlap and that you meet all prerequisites.",
+    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 17語"
   },
   {
     "id": "TOEFL-SR-012-1",
@@ -175,11 +175,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a residence hall meeting",
-    "question": "Listen and repeat: Fire drills will be held twice each semester, and everyone is required to leave the building when the alarm sounds.",
-    "answer": "Fire drills will be held twice each semester, and everyone is required to leave the building when the alarm sounds.",
-    "model_answer": "Fire drills will be held twice each semester, and everyone is required to leave the building when the alarm sounds.",
-    "explanation": "20 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 20語"
+    "question": "Listen and repeat: Fire drills will be held twice each semester, and everyone must leave the building when the alarm sounds.",
+    "answer": "Fire drills will be held twice each semester, and everyone must leave the building when the alarm sounds.",
+    "model_answer": "Fire drills will be held twice each semester, and everyone must leave the building when the alarm sounds.",
+    "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 18語"
   },
   {
     "id": "TOEFL-SR-013-1",
@@ -253,11 +253,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a city bus ride",
-    "question": "Listen and repeat: Students can buy a discounted monthly pass at the transportation office in the student center.",
-    "answer": "Students can buy a discounted monthly pass at the transportation office in the student center.",
-    "model_answer": "Students can buy a discounted monthly pass at the transportation office in the student center.",
-    "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 15語"
+    "question": "Listen and repeat: Students can buy a discounted monthly pass at the transportation office in the student center building.",
+    "answer": "Students can buy a discounted monthly pass at the transportation office in the student center building.",
+    "model_answer": "Students can buy a discounted monthly pass at the transportation office in the student center building.",
+    "explanation": "16 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 16語"
   },
   {
     "id": "TOEFL-SR-013-7",
@@ -266,11 +266,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a city bus ride",
-    "question": "Listen and repeat: Because of road construction downtown, this bus will not stop at City Hall until the end of next month.",
-    "answer": "Because of road construction downtown, this bus will not stop at City Hall until the end of next month.",
-    "model_answer": "Because of road construction downtown, this bus will not stop at City Hall until the end of next month.",
-    "explanation": "19 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 19語"
+    "question": "Listen and repeat: Because of road construction, this bus will not stop at City Hall until the end of next month.",
+    "answer": "Because of road construction, this bus will not stop at City Hall until the end of next month.",
+    "model_answer": "Because of road construction, this bus will not stop at City Hall until the end of next month.",
+    "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 18語"
   },
   {
     "id": "TOEFL-SR-014-1",
@@ -331,11 +331,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: an art history seminar",
-    "question": "Listen and repeat: Many artists of this period were supported by wealthy families who commissioned their work.",
-    "answer": "Many artists of this period were supported by wealthy families who commissioned their work.",
-    "model_answer": "Many artists of this period were supported by wealthy families who commissioned their work.",
-    "explanation": "14 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 14語"
+    "question": "Listen and repeat: Many artists of this period were supported by wealthy families who paid for their work.",
+    "answer": "Many artists of this period were supported by wealthy families who paid for their work.",
+    "model_answer": "Many artists of this period were supported by wealthy families who paid for their work.",
+    "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 15語"
   },
   {
     "id": "TOEFL-SR-014-6",
@@ -344,11 +344,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: an art history seminar",
-    "question": "Listen and repeat: For next week, please write a short analysis comparing two paintings from the textbook's fourth chapter.",
-    "answer": "For next week, please write a short analysis comparing two paintings from the textbook's fourth chapter.",
-    "model_answer": "For next week, please write a short analysis comparing two paintings from the textbook's fourth chapter.",
-    "explanation": "16 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 16語"
+    "question": "Listen and repeat: For next week, please write a short analysis comparing two paintings from chapter four of the textbook.",
+    "answer": "For next week, please write a short analysis comparing two paintings from chapter four of the textbook.",
+    "model_answer": "For next week, please write a short analysis comparing two paintings from chapter four of the textbook.",
+    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 17語"
   },
   {
     "id": "TOEFL-SR-014-7",
@@ -357,11 +357,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: an art history seminar",
-    "question": "Listen and repeat: Historians still debate whether the woman in this famous portrait was a real person or an idealized figure created by the artist.",
-    "answer": "Historians still debate whether the woman in this famous portrait was a real person or an idealized figure created by the artist.",
-    "model_answer": "Historians still debate whether the woman in this famous portrait was a real person or an idealized figure created by the artist.",
-    "explanation": "22 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 22語"
+    "question": "Listen and repeat: Historians still debate whether the woman in this famous portrait was a real person or an imagined figure.",
+    "answer": "Historians still debate whether the woman in this famous portrait was a real person or an imagined figure.",
+    "model_answer": "Historians still debate whether the woman in this famous portrait was a real person or an imagined figure.",
+    "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 18語"
   },
   {
     "id": "TOEFL-SR-015-1",
@@ -409,11 +409,11 @@
     "level": "B1",
     "band": "TOEFL目安:バンド3",
     "passage": "Scene: a study abroad information session",
-    "question": "Listen and repeat: You will need a valid passport and, in many cases, a student visa.",
-    "answer": "You will need a valid passport and, in many cases, a student visa.",
-    "model_answer": "You will need a valid passport and, in many cases, a student visa.",
-    "explanation": "13 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 13語"
+    "question": "Listen and repeat: You will need a valid passport and often a student visa.",
+    "answer": "You will need a valid passport and often a student visa.",
+    "model_answer": "You will need a valid passport and often a student visa.",
+    "explanation": "11 語の 文を 一語も 落とさず 正確に くり返す。冠詞や 前置詞などの 弱く 発音される 語も 落とさず、自然な リズムと イントネーションで 言う。",
+    "tags": "TOEFL Speaking ListenAndRepeat 11語"
   },
   {
     "id": "TOEFL-SR-015-5",
@@ -422,9 +422,9 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a study abroad information session",
-    "question": "Listen and repeat: Scholarships are available for students who demonstrate financial need and strong academic performance.",
-    "answer": "Scholarships are available for students who demonstrate financial need and strong academic performance.",
-    "model_answer": "Scholarships are available for students who demonstrate financial need and strong academic performance.",
+    "question": "Listen and repeat: Scholarships are available for students who show financial need and strong academic performance.",
+    "answer": "Scholarships are available for students who show financial need and strong academic performance.",
+    "model_answer": "Scholarships are available for students who show financial need and strong academic performance.",
     "explanation": "13 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
     "tags": "TOEFL Speaking ListenAndRepeat 13語"
   },
@@ -448,10 +448,10 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a study abroad information session",
-    "question": "Listen and repeat: Credits earned at our partner universities can usually be transferred, but you should confirm this with your academic advisor beforehand.",
-    "answer": "Credits earned at our partner universities can usually be transferred, but you should confirm this with your academic advisor beforehand.",
-    "model_answer": "Credits earned at our partner universities can usually be transferred, but you should confirm this with your academic advisor beforehand.",
-    "explanation": "20 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 20語"
+    "question": "Listen and repeat: Credits earned at partner universities can usually be transferred, but please confirm this with your academic advisor first.",
+    "answer": "Credits earned at partner universities can usually be transferred, but please confirm this with your academic advisor first.",
+    "model_answer": "Credits earned at partner universities can usually be transferred, but please confirm this with your academic advisor first.",
+    "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 18語"
   }
 ]

@@ -84,11 +84,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a student health center",
-    "question": "Listen and repeat: Students who need to speak with a counselor can schedule a confidential appointment online or by calling the front desk.",
-    "answer": "Students who need to speak with a counselor can schedule a confidential appointment online or by calling the front desk.",
-    "model_answer": "Students who need to speak with a counselor can schedule a confidential appointment online or by calling the front desk.",
-    "explanation": "20 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 20語"
+    "question": "Listen and repeat: Students who want to speak with a counselor can book a confidential appointment online or by phone.",
+    "answer": "Students who want to speak with a counselor can book a confidential appointment online or by phone.",
+    "model_answer": "Students who want to speak with a counselor can book a confidential appointment online or by phone.",
+    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 17語"
   },
   {
     "id": "TOEFL-SR-007-1",
@@ -136,11 +136,11 @@
     "level": "B1",
     "band": "TOEFL目安:バンド3",
     "passage": "Scene: a campus orientation",
-    "question": "Listen and repeat: The student center has a bookstore, a bank, and several places to eat.",
-    "answer": "The student center has a bookstore, a bank, and several places to eat.",
-    "model_answer": "The student center has a bookstore, a bank, and several places to eat.",
-    "explanation": "13 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 13語"
+    "question": "Listen and repeat: The student center has a bookstore, a bank, and several cafés.",
+    "answer": "The student center has a bookstore, a bank, and several cafés.",
+    "model_answer": "The student center has a bookstore, a bank, and several cafés.",
+    "explanation": "11 語の 文を 一語も 落とさず 正確に くり返す。冠詞や 前置詞などの 弱く 発音される 語も 落とさず、自然な リズムと イントネーションで 言う。",
+    "tags": "TOEFL Speaking ListenAndRepeat 11語"
   },
   {
     "id": "TOEFL-SR-007-5",
@@ -162,11 +162,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a campus orientation",
-    "question": "Listen and repeat: Each new student will be assigned an academic advisor who can help you choose your courses.",
-    "answer": "Each new student will be assigned an academic advisor who can help you choose your courses.",
-    "model_answer": "Each new student will be assigned an academic advisor who can help you choose your courses.",
-    "explanation": "16 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 16語"
+    "question": "Listen and repeat: Each new student will be assigned an academic advisor who can help you choose courses.",
+    "answer": "Each new student will be assigned an academic advisor who can help you choose courses.",
+    "model_answer": "Each new student will be assigned an academic advisor who can help you choose courses.",
+    "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 15語"
   },
   {
     "id": "TOEFL-SR-007-7",
@@ -175,11 +175,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a campus orientation",
-    "question": "Listen and repeat: At the end of today's session, there will be a welcome reception on the lawn in front of the main library.",
-    "answer": "At the end of today's session, there will be a welcome reception on the lawn in front of the main library.",
-    "model_answer": "At the end of today's session, there will be a welcome reception on the lawn in front of the main library.",
-    "explanation": "21 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 21語"
+    "question": "Listen and repeat: At the end of today's session, there will be a welcome reception on the lawn outside the library.",
+    "answer": "At the end of today's session, there will be a welcome reception on the lawn outside the library.",
+    "model_answer": "At the end of today's session, there will be a welcome reception on the lawn outside the library.",
+    "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 18語"
   },
   {
     "id": "TOEFL-SR-008-1",
@@ -253,11 +253,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a field trip to a nature reserve",
-    "question": "Listen and repeat: The rangers monitor water quality every week to make sure the habitat remains healthy.",
-    "answer": "The rangers monitor water quality every week to make sure the habitat remains healthy.",
-    "model_answer": "The rangers monitor water quality every week to make sure the habitat remains healthy.",
-    "explanation": "14 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 14語"
+    "question": "Listen and repeat: The rangers test the water quality every week to make sure that the habitat remains healthy.",
+    "answer": "The rangers test the water quality every week to make sure that the habitat remains healthy.",
+    "model_answer": "The rangers test the water quality every week to make sure that the habitat remains healthy.",
+    "explanation": "16 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 16語"
   },
   {
     "id": "TOEFL-SR-008-7",
@@ -357,9 +357,9 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a career fair",
-    "question": "Listen and repeat: Students who cannot attend in person can still meet several employers through the virtual career fair next Thursday.",
-    "answer": "Students who cannot attend in person can still meet several employers through the virtual career fair next Thursday.",
-    "model_answer": "Students who cannot attend in person can still meet several employers through the virtual career fair next Thursday.",
+    "question": "Listen and repeat: Students who cannot attend in person can still meet several employers at the virtual career fair next Thursday.",
+    "answer": "Students who cannot attend in person can still meet several employers at the virtual career fair next Thursday.",
+    "model_answer": "Students who cannot attend in person can still meet several employers at the virtual career fair next Thursday.",
     "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
     "tags": "TOEFL Speaking ListenAndRepeat 18語"
   },
@@ -448,10 +448,10 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a chemistry lecture",
-    "question": "Listen and repeat: In next week's lab, you will measure the pH of several household products and compare your results with predictions.",
-    "answer": "In next week's lab, you will measure the pH of several household products and compare your results with predictions.",
-    "model_answer": "In next week's lab, you will measure the pH of several household products and compare your results with predictions.",
-    "explanation": "19 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 19語"
+    "question": "Listen and repeat: In next week's lab, you will measure the pH of several household products and compare the results.",
+    "answer": "In next week's lab, you will measure the pH of several household products and compare the results.",
+    "model_answer": "In next week's lab, you will measure the pH of several household products and compare the results.",
+    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 17語"
   }
 ]

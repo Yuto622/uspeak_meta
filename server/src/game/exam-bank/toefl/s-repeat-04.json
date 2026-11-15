@@ -84,11 +84,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a sports center introduction",
-    "question": "Listen and repeat: The indoor running track on the second floor is reserved for the university's athletics team on weekday mornings until nine.",
-    "answer": "The indoor running track on the second floor is reserved for the university's athletics team on weekday mornings until nine.",
-    "model_answer": "The indoor running track on the second floor is reserved for the university's athletics team on weekday mornings until nine.",
-    "explanation": "20 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 20語"
+    "question": "Listen and repeat: The indoor running track on the second floor is reserved for the athletics team on weekday mornings.",
+    "answer": "The indoor running track on the second floor is reserved for the athletics team on weekday mornings.",
+    "model_answer": "The indoor running track on the second floor is reserved for the athletics team on weekday mornings.",
+    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 17語"
   },
   {
     "id": "TOEFL-SR-017-1",
@@ -162,11 +162,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a computer lab",
-    "question": "Listen and repeat: Food and drinks are not permitted near the computers, since spills can cause serious damage.",
-    "answer": "Food and drinks are not permitted near the computers, since spills can cause serious damage.",
-    "model_answer": "Food and drinks are not permitted near the computers, since spills can cause serious damage.",
-    "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 15語"
+    "question": "Listen and repeat: Food and drinks are not permitted near the computers, because a single spill can cause serious damage.",
+    "answer": "Food and drinks are not permitted near the computers, because a single spill can cause serious damage.",
+    "model_answer": "Food and drinks are not permitted near the computers, because a single spill can cause serious damage.",
+    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 17語"
   },
   {
     "id": "TOEFL-SR-017-7",
@@ -175,11 +175,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a computer lab",
-    "question": "Listen and repeat: During final exam week, the lab will stay open twenty-four hours a day to give students extra time to complete their projects.",
-    "answer": "During final exam week, the lab will stay open twenty-four hours a day to give students extra time to complete their projects.",
-    "model_answer": "During final exam week, the lab will stay open twenty-four hours a day to give students extra time to complete their projects.",
-    "explanation": "22 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 22語"
+    "question": "Listen and repeat: During final exam week, the lab stays open twenty-four hours a day so students can finish their projects.",
+    "answer": "During final exam week, the lab stays open twenty-four hours a day so students can finish their projects.",
+    "model_answer": "During final exam week, the lab stays open twenty-four hours a day so students can finish their projects.",
+    "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 18語"
   },
   {
     "id": "TOEFL-SR-018-1",
@@ -253,11 +253,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a geology field lecture",
-    "question": "Listen and repeat: By studying the minerals in each layer, geologists can estimate how the climate changed over time.",
-    "answer": "By studying the minerals in each layer, geologists can estimate how the climate changed over time.",
-    "model_answer": "By studying the minerals in each layer, geologists can estimate how the climate changed over time.",
-    "explanation": "16 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 16語"
+    "question": "Listen and repeat: By studying the minerals in each layer, geologists can estimate how the climate has changed over time.",
+    "answer": "By studying the minerals in each layer, geologists can estimate how the climate has changed over time.",
+    "model_answer": "By studying the minerals in each layer, geologists can estimate how the climate has changed over time.",
+    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 17語"
   },
   {
     "id": "TOEFL-SR-018-7",
@@ -266,11 +266,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a geology field lecture",
-    "question": "Listen and repeat: Please collect one small sample from each layer, label it carefully, and record its exact location in your field notebook.",
-    "answer": "Please collect one small sample from each layer, label it carefully, and record its exact location in your field notebook.",
-    "model_answer": "Please collect one small sample from each layer, label it carefully, and record its exact location in your field notebook.",
-    "explanation": "20 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 20語"
+    "question": "Listen and repeat: Please collect one small sample from each layer, label it carefully, and record its location in your notebook.",
+    "answer": "Please collect one small sample from each layer, label it carefully, and record its location in your notebook.",
+    "model_answer": "Please collect one small sample from each layer, label it carefully, and record its location in your notebook.",
+    "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 18語"
   },
   {
     "id": "TOEFL-SR-019-1",
@@ -344,11 +344,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a job interview at the campus bookstore",
-    "question": "Listen and repeat: Employees are responsible for stocking shelves, helping customers, and operating the cash register.",
-    "answer": "Employees are responsible for stocking shelves, helping customers, and operating the cash register.",
-    "model_answer": "Employees are responsible for stocking shelves, helping customers, and operating the cash register.",
-    "explanation": "13 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 13語"
+    "question": "Listen and repeat: Employees are responsible for stocking shelves, helping customers, and operating the cash register during busy hours.",
+    "answer": "Employees are responsible for stocking shelves, helping customers, and operating the cash register during busy hours.",
+    "model_answer": "Employees are responsible for stocking shelves, helping customers, and operating the cash register during busy hours.",
+    "explanation": "16 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 16語"
   },
   {
     "id": "TOEFL-SR-019-7",
@@ -357,11 +357,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a job interview at the campus bookstore",
-    "question": "Listen and repeat: We will contact all applicants by the end of next week to let them know whether they have been selected for a second interview.",
-    "answer": "We will contact all applicants by the end of next week to let them know whether they have been selected for a second interview.",
-    "model_answer": "We will contact all applicants by the end of next week to let them know whether they have been selected for a second interview.",
-    "explanation": "24 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 24語"
+    "question": "Listen and repeat: We will contact every applicant by email before the end of next week to arrange a second interview.",
+    "answer": "We will contact every applicant by email before the end of next week to arrange a second interview.",
+    "model_answer": "We will contact every applicant by email before the end of next week to arrange a second interview.",
+    "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 18語"
   },
   {
     "id": "TOEFL-SR-020-1",
@@ -370,11 +370,11 @@
     "level": "A2",
     "band": "TOEFL目安:バンド2",
     "passage": "Scene: a recycling program announcement",
-    "question": "Listen and repeat: Our campus is going green this year.",
-    "answer": "Our campus is going green this year.",
-    "model_answer": "Our campus is going green this year.",
-    "explanation": "7 語の 文を 一語も 落とさず 正確に くり返す。冠詞や 前置詞などの 弱く 発音される 語も 落とさず、自然な リズムと イントネーションで 言う。",
-    "tags": "TOEFL Speaking ListenAndRepeat 7語"
+    "question": "Listen and repeat: Our campus is going green.",
+    "answer": "Our campus is going green.",
+    "model_answer": "Our campus is going green.",
+    "explanation": "5 語の 文を 一語も 落とさず 正確に くり返す。冠詞や 前置詞などの 弱く 発音される 語も 落とさず、自然な リズムと イントネーションで 言う。",
+    "tags": "TOEFL Speaking ListenAndRepeat 5語"
   },
   {
     "id": "TOEFL-SR-020-2",
@@ -409,11 +409,11 @@
     "level": "B1",
     "band": "TOEFL目安:バンド3",
     "passage": "Scene: a recycling program announcement",
-    "question": "Listen and repeat: Food waste from the dining halls will now be turned into compost for the gardens.",
-    "answer": "Food waste from the dining halls will now be turned into compost for the gardens.",
-    "model_answer": "Food waste from the dining halls will now be turned into compost for the gardens.",
-    "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 15語"
+    "question": "Listen and repeat: Food waste from the dining halls will now be turned into compost.",
+    "answer": "Food waste from the dining halls will now be turned into compost.",
+    "model_answer": "Food waste from the dining halls will now be turned into compost.",
+    "explanation": "12 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 12語"
   },
   {
     "id": "TOEFL-SR-020-5",
@@ -422,11 +422,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a recycling program announcement",
-    "question": "Listen and repeat: The goal of this program is to reduce the amount of waste sent to landfills by half.",
-    "answer": "The goal of this program is to reduce the amount of waste sent to landfills by half.",
-    "model_answer": "The goal of this program is to reduce the amount of waste sent to landfills by half.",
-    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 17語"
+    "question": "Listen and repeat: The goal of this program is to cut the waste sent to landfills by half.",
+    "answer": "The goal of this program is to cut the waste sent to landfills by half.",
+    "model_answer": "The goal of this program is to cut the waste sent to landfills by half.",
+    "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 15語"
   },
   {
     "id": "TOEFL-SR-020-6",
@@ -448,10 +448,10 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a recycling program announcement",
-    "question": "Listen and repeat: Last year's pilot program showed that clear labels on the bins significantly reduced the number of items placed in the wrong container.",
-    "answer": "Last year's pilot program showed that clear labels on the bins significantly reduced the number of items placed in the wrong container.",
-    "model_answer": "Last year's pilot program showed that clear labels on the bins significantly reduced the number of items placed in the wrong container.",
-    "explanation": "22 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 22語"
+    "question": "Listen and repeat: Last year's pilot program showed that clear labels greatly reduced the number of items in the wrong bin.",
+    "answer": "Last year's pilot program showed that clear labels greatly reduced the number of items in the wrong bin.",
+    "model_answer": "Last year's pilot program showed that clear labels greatly reduced the number of items in the wrong bin.",
+    "explanation": "18 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 18語"
   }
 ]

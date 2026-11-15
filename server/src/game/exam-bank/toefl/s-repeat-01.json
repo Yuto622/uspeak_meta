@@ -71,9 +71,9 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a library tour",
-    "question": "Listen and repeat: Books that are not returned by the due date will result in a small fine.",
-    "answer": "Books that are not returned by the due date will result in a small fine.",
-    "model_answer": "Books that are not returned by the due date will result in a small fine.",
+    "question": "Listen and repeat: Books that are returned late will result in a fine of fifty cents per day.",
+    "answer": "Books that are returned late will result in a fine of fifty cents per day.",
+    "model_answer": "Books that are returned late will result in a fine of fifty cents per day.",
     "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
     "tags": "TOEFL Speaking ListenAndRepeat 15語"
   },
@@ -84,11 +84,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a library tour",
-    "question": "Listen and repeat: Students can also access thousands of academic journals online through the library website from home.",
-    "answer": "Students can also access thousands of academic journals online through the library website from home.",
-    "model_answer": "Students can also access thousands of academic journals online through the library website from home.",
-    "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 15語"
+    "question": "Listen and repeat: Students can also read thousands of academic journals online, even when the library building is closed.",
+    "answer": "Students can also read thousands of academic journals online, even when the library building is closed.",
+    "model_answer": "Students can also read thousands of academic journals online, even when the library building is closed.",
+    "explanation": "16 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 16語"
   },
   {
     "id": "TOEFL-SR-002-1",
@@ -149,11 +149,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a lab safety briefing",
-    "question": "Listen and repeat: Always read the label carefully before you open any chemical container.",
-    "answer": "Always read the label carefully before you open any chemical container.",
-    "model_answer": "Always read the label carefully before you open any chemical container.",
-    "explanation": "11 語の 文を 一語も 落とさず 正確に くり返す。冠詞や 前置詞などの 弱く 発音される 語も 落とさず、自然な リズムと イントネーションで 言う。",
-    "tags": "TOEFL Speaking ListenAndRepeat 11語"
+    "question": "Listen and repeat: Always read the label carefully before you open any new chemical container.",
+    "answer": "Always read the label carefully before you open any new chemical container.",
+    "model_answer": "Always read the label carefully before you open any new chemical container.",
+    "explanation": "12 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 12語"
   },
   {
     "id": "TOEFL-SR-002-6",
@@ -266,9 +266,9 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: the first day of a biology course",
-    "question": "Listen and repeat: If you have a disability that requires accommodation, please contact the accessibility office as soon as possible.",
-    "answer": "If you have a disability that requires accommodation, please contact the accessibility office as soon as possible.",
-    "model_answer": "If you have a disability that requires accommodation, please contact the accessibility office as soon as possible.",
+    "question": "Listen and repeat: If you need any learning accommodations, please contact the accessibility office on campus as soon as possible.",
+    "answer": "If you need any learning accommodations, please contact the accessibility office on campus as soon as possible.",
+    "model_answer": "If you need any learning accommodations, please contact the accessibility office on campus as soon as possible.",
     "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
     "tags": "TOEFL Speaking ListenAndRepeat 17語"
   },
@@ -318,11 +318,11 @@
     "level": "B1",
     "band": "TOEFL目安:バンド3",
     "passage": "Scene: a campus dining hall",
-    "question": "Listen and repeat: Breakfast is served until ten o'clock on weekdays and later on weekends.",
-    "answer": "Breakfast is served until ten o'clock on weekdays and later on weekends.",
-    "model_answer": "Breakfast is served until ten o'clock on weekdays and later on weekends.",
-    "explanation": "12 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 12語"
+    "question": "Listen and repeat: Breakfast is served until ten on weekdays and later on weekends.",
+    "answer": "Breakfast is served until ten on weekdays and later on weekends.",
+    "model_answer": "Breakfast is served until ten on weekdays and later on weekends.",
+    "explanation": "11 語の 文を 一語も 落とさず 正確に くり返す。冠詞や 前置詞などの 弱く 発音される 語も 落とさず、自然な リズムと イントネーションで 言う。",
+    "tags": "TOEFL Speaking ListenAndRepeat 11語"
   },
   {
     "id": "TOEFL-SR-004-5",
@@ -344,11 +344,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a campus dining hall",
-    "question": "Listen and repeat: Students with food allergies can ask the kitchen staff for a list of ingredients in each dish.",
-    "answer": "Students with food allergies can ask the kitchen staff for a list of ingredients in each dish.",
-    "model_answer": "Students with food allergies can ask the kitchen staff for a list of ingredients in each dish.",
-    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 17語"
+    "question": "Listen and repeat: Students with food allergies can ask the kitchen staff for a full list of ingredients.",
+    "answer": "Students with food allergies can ask the kitchen staff for a full list of ingredients.",
+    "model_answer": "Students with food allergies can ask the kitchen staff for a full list of ingredients.",
+    "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 15語"
   },
   {
     "id": "TOEFL-SR-004-7",
@@ -357,11 +357,11 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a campus dining hall",
-    "question": "Listen and repeat: To reduce waste, the dining hall has replaced disposable cups with reusable ones that you can borrow for free.",
-    "answer": "To reduce waste, the dining hall has replaced disposable cups with reusable ones that you can borrow for free.",
-    "model_answer": "To reduce waste, the dining hall has replaced disposable cups with reusable ones that you can borrow for free.",
-    "explanation": "19 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 19語"
+    "question": "Listen and repeat: To reduce waste, the dining hall has replaced paper cups with reusable ones that students can borrow.",
+    "answer": "To reduce waste, the dining hall has replaced paper cups with reusable ones that students can borrow.",
+    "model_answer": "To reduce waste, the dining hall has replaced paper cups with reusable ones that students can borrow.",
+    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 17語"
   },
   {
     "id": "TOEFL-SR-005-1",
@@ -435,11 +435,11 @@
     "level": "B2",
     "band": "TOEFL目安:バンド4",
     "passage": "Scene: a museum visit",
-    "question": "Listen and repeat: Many of the objects in this room are more than two thousand years old and extremely fragile.",
-    "answer": "Many of the objects in this room are more than two thousand years old and extremely fragile.",
-    "model_answer": "Many of the objects in this room are more than two thousand years old and extremely fragile.",
-    "explanation": "17 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 17語"
+    "question": "Listen and repeat: Many of the objects in this room are more than two thousand years old.",
+    "answer": "Many of the objects in this room are more than two thousand years old.",
+    "model_answer": "Many of the objects in this room are more than two thousand years old.",
+    "explanation": "14 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 14語"
   },
   {
     "id": "TOEFL-SR-005-7",
@@ -448,10 +448,10 @@
     "level": "C1",
     "band": "TOEFL目安:バンド5",
     "passage": "Scene: a museum visit",
-    "question": "Listen and repeat: The special exhibition on ancient trade routes requires a separate ticket, which can be purchased at the information desk.",
-    "answer": "The special exhibition on ancient trade routes requires a separate ticket, which can be purchased at the information desk.",
-    "model_answer": "The special exhibition on ancient trade routes requires a separate ticket, which can be purchased at the information desk.",
-    "explanation": "19 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
-    "tags": "TOEFL Speaking ListenAndRepeat 19語"
+    "question": "Listen and repeat: The special exhibition on ancient trade routes requires a separate ticket from the information desk.",
+    "answer": "The special exhibition on ancient trade routes requires a separate ticket from the information desk.",
+    "model_answer": "The special exhibition on ancient trade routes requires a separate ticket from the information desk.",
+    "explanation": "15 語の 文を 一語も 落とさず 正確に くり返す。長い 文は 意味の かたまり（句・節）ごとに 区切って 覚え、冠詞・前置詞・語尾（-s / -ed）まで 再現する。",
+    "tags": "TOEFL Speaking ListenAndRepeat 15語"
   }
 ]
