@@ -8,7 +8,7 @@
   "passage": "The Hanseatic League\n\nFrom the thirteenth to the fifteenth centuries, trade in northern Europe was dominated by an organization known as the Hanseatic League, or the Hansa. Unlike a kingdom, the Hansa had no single ruler, permanent army, or fixed borders. Instead, it was a loose association of merchant groups and trading cities, eventually including more than 150 towns, from Bruges in the west to Novgorod in the east. Lübeck, a port on the Baltic Sea, served as its unofficial capital.\n\nThe League arose because medieval merchants faced considerable risks. Roads and seas were threatened by pirates and bandits, and each local ruler could impose his own tolls and taxes. By cooperating, merchants could share the costs of protection, negotiate favorable trading privileges from foreign rulers, and settle disputes according to common rules. The Hansa established permanent trading posts, known as kontors, in major foreign cities such as London and Bergen.\n\nHanseatic ships carried a wide range of goods. From the east came furs, wax, and timber; from the west came cloth, wine, and salt. Herring caught in the Baltic was especially important, because the Christian calendar contained many days on which meat could not be eaten.\n\nThe League gradually declined from the late fifteenth century onward. Powerful territorial states, such as England, Sweden, and Russia, increasingly favored their own merchants. At the same time, the rise of Atlantic trade routes shifted economic activity away from the Baltic. The last formal meeting of the Hansa took place in 1669.",
   "question": "According to paragraph 1, how was the Hanseatic League different from a kingdom?",
   "choices": [
-   "It had a much larger army.",
+   "It had a much larger army than any kingdom in Europe.",
    "It was located only in one city.",
    "It had no single ruler or fixed borders.",
    "It was ruled by the king of Sweden."
@@ -98,7 +98,7 @@
   "passage": "The Art of Fresco\n\nFresco is a technique of mural painting in which pigments are applied to wet plaster. The word comes from the Italian for \"fresh.\" Although wall paintings were made in many ancient cultures, the method reached a peak of sophistication in Italy between the fourteenth and sixteenth centuries, when artists such as Giotto and Michelangelo used it to decorate churches and palaces.\n\nIn true fresco, or buon fresco, the artist mixes pigments with water and paints them onto a fresh layer of lime plaster. As the plaster dries, a chemical reaction with carbon dioxide in the air forms a thin crystalline layer that binds the pigment into the wall itself. The result is extremely durable; the colors become part of the surface rather than sitting on top of it.\n\nThis method, however, imposes strict demands. Because the plaster remains workable for only a matter of hours, the artist must plaster only the area that can be completed in a single session. Each of these sections is called a giornata, from the Italian word for \"day.\" Experts can often identify the boundaries between giornate, which allows them to estimate how many days a fresco took to complete. Mistakes are difficult to correct, since the artist must chip away the plaster and begin again.\n\nSome details were added later onto the dry plaster, a technique called fresco secco. This allowed greater flexibility and the use of pigments that did not work well in wet lime. Unfortunately, such additions are far less durable, and in many old frescoes these parts have flaked away, while the areas painted in true fresco survive.",
   "question": "According to paragraph 2, why is true fresco so durable?",
   "choices": [
-   "The paint contains a special kind of oil.",
+   "The paint contains a special kind of oil that hardens over time.",
    "The wall is covered with glass after painting.",
    "The colors are applied in very thick layers.",
    "The pigment becomes bound into the wall as the plaster dries."
@@ -135,7 +135,7 @@
   "question": "Why does the author mention the giornata in paragraph 3?",
   "choices": [
    "To describe a type of pigment used in Italy",
-   "To show that frescoes were painted only in summer",
+   "To show that frescoes could only be painted during the long summer months",
    "To explain why Michelangelo preferred dry plaster",
    "To explain how the time limits of wet plaster shaped the artist's work"
   ],
@@ -155,7 +155,7 @@
    "They usually repaint damaged sections themselves.",
    "They can learn about how a painting was produced by examining its surface.",
    "They believe most frescoes were finished in one day.",
-   "They cannot tell where one section ends and another begins."
+   "They are usually unable to tell where one section ends and another begins."
   ],
   "answer": "They can learn about how a painting was produced by examining its surface.",
   "explanation": "ジョルナータの境目を見分けて制作日数を推定できるとあるので、表面から制作過程がわかると推測できる。",
@@ -243,7 +243,7 @@
   "question": "According to paragraph 3, what did the 2018 study find?",
   "choices": [
    "The link between waiting and later achievement was weaker than first reported.",
-   "Waiting time had no connection to family background.",
+   "Waiting time turned out to have no connection at all to the children's family background.",
    "The original findings were confirmed exactly.",
    "Children today wait longer than children in the 1960s."
   ],
@@ -260,7 +260,7 @@
   "passage": "Rethinking the Marshmallow Test\n\nIn a series of studies beginning in the late 1960s, the psychologist Walter Mischel and his colleagues at Stanford University offered young children a simple choice. A child could eat one treat, such as a marshmallow, immediately, or wait alone for several minutes and receive two treats. Some children ate the treat almost at once, while others used creative strategies to resist, such as covering their eyes or singing to themselves.\n\nThe experiment became famous because of follow-up research. Years later, Mischel's team reported that children who had waited longer tended, as adolescents, to have higher test scores and to be rated by their parents as more competent. These findings were widely interpreted as evidence that self-control in early childhood is a powerful predictor of later success.\n\nMore recent research, however, has complicated this conclusion. A 2018 study attempted to replicate the findings with a larger and more diverse group of children. It found a much weaker relationship between waiting time and later achievement, and much of that relationship disappeared once the researchers took into account factors such as family background and early cognitive ability.\n\nOther studies suggest that a child's decision to wait may depend on circumstances as well as personal traits. In one experiment, children who had just experienced an adult breaking a promise waited far less time than children whose experience had been reliable. From this perspective, eating the treat quickly may sometimes be a rational response to an environment in which future rewards are uncertain.",
   "question": "Why does the author mention children who saw an adult break a promise?",
   "choices": [
-   "To show that adults should never make promises to children",
+   "To show that adults should never make promises that they cannot keep to children",
    "To prove that self-control cannot be learned",
    "To suggest that a child's environment can influence the decision to wait",
    "To explain why the original study used marshmallows"
@@ -278,7 +278,7 @@
   "passage": "Managing Shared Resources\n\nIn 1968, the ecologist Garrett Hardin published an influential essay titled \"The Tragedy of the Commons.\" He asked readers to imagine a pasture open to all herders. Each herder gains the full benefit of adding another animal to the pasture, while the cost of overgrazing is shared by everyone. As a result, Hardin argued, every herder has an incentive to keep adding animals until the pasture is destroyed. He concluded that shared resources would inevitably be overused unless they were either controlled by the government or divided into private property.\n\nHardin's argument was widely applied to problems such as overfishing and the depletion of groundwater. However, the political scientist Elinor Ostrom challenged its central assumption. Studying communities around the world, from Swiss alpine pastures to irrigation systems in Nepal and fisheries in Turkey, she found that many groups had successfully managed common resources for generations without either government control or privatization.\n\nOstrom identified several conditions that these successful communities tended to share. The boundaries of the resource and the group of users were clearly defined. Users participated in making the rules, so the rules fitted local conditions. Behavior was monitored, often by the users themselves, and those who broke the rules faced penalties that increased gradually with repeated violations. Communities also had low-cost ways of resolving conflicts.\n\nOstrom did not claim that communities always succeed. Her point was that the tragedy Hardin described is not inevitable. In 2009, she became the first woman to receive the Nobel Prize in Economic Sciences, largely for this work.",
   "question": "According to paragraph 1, why did Hardin believe that shared pastures would be overused?",
   "choices": [
-   "Herders did not know how many animals the pasture could support.",
+   "Herders did not know how many animals the pasture could support in the long run.",
    "Each herder benefits fully from adding animals but shares the costs with others.",
    "Governments encouraged herders to keep more animals.",
    "Private owners refused to share their land."
@@ -314,7 +314,7 @@
   "passage": "Managing Shared Resources\n\nIn 1968, the ecologist Garrett Hardin published an influential essay titled \"The Tragedy of the Commons.\" He asked readers to imagine a pasture open to all herders. Each herder gains the full benefit of adding another animal to the pasture, while the cost of overgrazing is shared by everyone. As a result, Hardin argued, every herder has an incentive to keep adding animals until the pasture is destroyed. He concluded that shared resources would inevitably be overused unless they were either controlled by the government or divided into private property.\n\nHardin's argument was widely applied to problems such as overfishing and the depletion of groundwater. However, the political scientist Elinor Ostrom challenged its central assumption. Studying communities around the world, from Swiss alpine pastures to irrigation systems in Nepal and fisheries in Turkey, she found that many groups had successfully managed common resources for generations without either government control or privatization.\n\nOstrom identified several conditions that these successful communities tended to share. The boundaries of the resource and the group of users were clearly defined. Users participated in making the rules, so the rules fitted local conditions. Behavior was monitored, often by the users themselves, and those who broke the rules faced penalties that increased gradually with repeated violations. Communities also had low-cost ways of resolving conflicts.\n\nOstrom did not claim that communities always succeed. Her point was that the tragedy Hardin described is not inevitable. In 2009, she became the first woman to receive the Nobel Prize in Economic Sciences, largely for this work.",
   "question": "Why does the author mention Swiss alpine pastures and irrigation systems in Nepal?",
   "choices": [
-   "To show that Hardin's theory applies only to Europe and Asia",
+   "To show that Hardin's theory applies only to mountain regions in Europe and Asia",
    "To compare private and government-owned land",
    "To explain why fisheries in Turkey failed",
    "To provide examples of communities that managed shared resources successfully"
@@ -350,7 +350,7 @@
   "passage": "Managing Shared Resources\n\nIn 1968, the ecologist Garrett Hardin published an influential essay titled \"The Tragedy of the Commons.\" He asked readers to imagine a pasture open to all herders. Each herder gains the full benefit of adding another animal to the pasture, while the cost of overgrazing is shared by everyone. As a result, Hardin argued, every herder has an incentive to keep adding animals until the pasture is destroyed. He concluded that shared resources would inevitably be overused unless they were either controlled by the government or divided into private property.\n\nHardin's argument was widely applied to problems such as overfishing and the depletion of groundwater. However, the political scientist Elinor Ostrom challenged its central assumption. Studying communities around the world, from Swiss alpine pastures to irrigation systems in Nepal and fisheries in Turkey, she found that many groups had successfully managed common resources for generations without either government control or privatization.\n\nOstrom identified several conditions that these successful communities tended to share. The boundaries of the resource and the group of users were clearly defined. Users participated in making the rules, so the rules fitted local conditions. Behavior was monitored, often by the users themselves, and those who broke the rules faced penalties that increased gradually with repeated violations. Communities also had low-cost ways of resolving conflicts.\n\nOstrom did not claim that communities always succeed. Her point was that the tragedy Hardin described is not inevitable. In 2009, she became the first woman to receive the Nobel Prize in Economic Sciences, largely for this work.",
   "question": "Which of the following best states the main idea of the passage?",
   "choices": [
-   "Hardin proved that only governments can protect shared resources.",
+   "Hardin proved that only governments can protect shared resources from overuse by individual herders.",
    "Ostrom showed that overuse of shared resources can be avoided through local cooperation.",
    "Private property is the best solution for all environmental problems.",
    "Ostrom was the first economist to study fishing communities."
@@ -425,7 +425,7 @@
    "It becomes more complex and develops consistent rules.",
    "It loses most of its vocabulary.",
    "It stops being used by children.",
-   "It returns to the grammar of the lexifier."
+   "It stops being used by children and is spoken only by adults."
   ],
   "answer": "It becomes more complex and develops consistent rules.",
   "explanation": "子どもが母語として習得すると「becomes more complex and regular」、規則が整った完全な言語になる。",
@@ -442,7 +442,7 @@
   "choices": [
    "To prove that all creoles come from the same lexifier",
    "To suggest that creoles may provide insight into the human ability for language",
-   "To argue that creoles are less complete than other languages",
+   "To argue that creoles are less complete than languages with a longer written history",
    "To explain why pidgins disappear quickly"
   ],
   "answer": "To suggest that creoles may provide insight into the human ability for language",
@@ -513,7 +513,7 @@
   "question": "Why does the author mention the ban on hunting in 1911?",
   "choices": [
    "To show that the ban had no effect on otters",
-   "To argue that kelp should also be protected by law",
+   "To argue that kelp forests should also have been protected by the same law in 1911",
    "To explain how researchers were able to compare areas with and without otters",
    "To describe how urchins were introduced to new areas"
   ],
@@ -602,7 +602,7 @@
   "passage": "Pompeii: A City Frozen in Time\n\nIn 79 CE, the volcano Mount Vesuvius erupted violently, burying the Roman city of Pompeii and several nearby towns. For the people of Pompeii, the eruption was a disaster. For modern archaeologists, however, it created an extraordinary opportunity, because the city was preserved in a way that has few parallels anywhere in the world.\n\nThe eruption occurred in phases. First, a huge column of ash and pumice rose into the sky and fell on the city for many hours, collapsing roofs and covering the streets. Many residents fled during this phase. Then, a series of pyroclastic flows, fast-moving currents of hot gas and volcanic material, swept through the area, killing those who remained. Eventually, the city lay beneath several meters of volcanic deposits.\n\nBecause the city was buried so quickly, everyday objects were left where they had been used: bread in ovens, tools in workshops, and graffiti on walls. In the nineteenth century, the archaeologist Giuseppe Fiorelli noticed that the bodies of victims had decayed within the hardened ash, leaving hollow spaces in the shape of their bodies. He developed a method of pouring plaster into these spaces, producing casts that recorded the final positions of the victims in remarkable detail.\n\nPompeii has revealed a great deal about daily life in a Roman town, including food, trade, religion, and politics. Its preservation, however, also presents challenges. Since excavation exposed the ruins to weather, tourism, and vegetation, many structures have deteriorated, and today a considerable part of the archaeologists' work involves protecting what has already been uncovered.",
   "question": "Why does the author mention Giuseppe Fiorelli?",
   "choices": [
-   "To identify the person who discovered Mount Vesuvius",
+   "To identify the person who first predicted the eruption of Mount Vesuvius",
    "To explain why many residents escaped",
    "To describe a technique that recorded the positions of victims",
    "To show that excavations damaged the ruins"

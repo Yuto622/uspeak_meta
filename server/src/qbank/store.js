@@ -36,7 +36,7 @@ export function cleanItem(raw) {
     id: str(item.id, 40), grade: str(item.grade, 10), skill: SKILL_JA[str(item.skill)] || str(item.skill).toLowerCase(),
     format: str(item.format, 60), passage: str(item.passage, 8000), question: str(item.question, 1000),
     choices: [item.choice_1, item.choice_2, item.choice_3, item.choice_4].map((c) => str(c, 300)).filter(Boolean),
-    answer: str(item.answer, 1000), explanation: str(item.explanation, 600), model_answer: str(item.model_answer),
+    answer: str(item.answer), explanation: str(item.explanation, 600), model_answer: str(item.model_answer),
     source: str(item.source, 120), tags: str(item.tags, 300),
     on: flag(item.on, true), web: flag(item.web, true), roblox: flag(item.roblox, true),
   };

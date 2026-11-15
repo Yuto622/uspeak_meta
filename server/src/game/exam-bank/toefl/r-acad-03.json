@@ -9,7 +9,7 @@
   "question": "Why does the author mention the deepest hole ever drilled?",
   "choices": [
    "To explain how seismic waves are produced",
-   "To show that the Earth is smaller than once thought",
+   "To show that the Earth is much smaller than scientists once thought it was",
    "To describe where earthquakes usually occur",
    "To emphasize that direct observation of the deep Earth is impossible"
   ],
@@ -80,7 +80,7 @@
   "passage": "Seeing Inside the Earth\n\nNo one has ever traveled to the center of the Earth, and the deepest hole ever drilled reaches only about 12 kilometers, a tiny fraction of the planet's radius of roughly 6,400 kilometers. Yet geologists have a fairly detailed picture of the Earth's internal structure. Much of this knowledge comes from studying the seismic waves produced by earthquakes.\n\nEarthquakes generate several kinds of waves. Two of the most important travel through the Earth's interior. Primary waves, or P waves, are compressional waves that push and pull material in the direction they travel; they can pass through solids, liquids, and gases. Secondary waves, or S waves, move material from side to side and cannot pass through liquids. P waves also travel faster, so they are the first to arrive at a distant recording station.\n\nBy comparing the arrival times of these waves at stations around the world, scientists can infer the properties of the materials they have passed through. In the early twentieth century, researchers noticed that S waves never arrived at stations located on the opposite side of the Earth from an earthquake. Because S waves cannot travel through liquid, this \"shadow zone\" indicated that the outer part of the Earth's core must be liquid.\n\nIn 1936, the Danish seismologist Inge Lehmann studied faint P waves that appeared within the expected shadow zone. She proposed that they had been reflected by a distinct inner core, a hypothesis that was later confirmed. Today, scientists believe the inner core is solid despite its extremely high temperature, because the enormous pressure at the center of the Earth prevents the iron from melting.",
   "question": "What can be inferred from paragraph 4 about the inner core?",
   "choices": [
-   "It is cooler than the Earth's surface.",
+   "It is cooler than the surface of the Earth because it is so far from the Sun.",
    "It was discovered by drilling.",
    "Its iron would melt if the pressure were much lower.",
    "It does not reflect seismic waves."
@@ -99,7 +99,7 @@
   "question": "According to paragraph 1, what does the island rule state?",
   "choices": [
    "All mammals become smaller after reaching islands.",
-   "Island species evolve more slowly than mainland species.",
+   "Island species always evolve more slowly than their relatives on the mainland.",
    "Only predators change size on islands.",
    "Large species tend to shrink and small species tend to grow on islands."
   ],
@@ -171,7 +171,7 @@
   "question": "What can be inferred from paragraph 4 about the author's view of the island rule?",
   "choices": [
    "It describes a real tendency but should not be treated as a strict law.",
-   "It has been completely disproved by recent studies.",
+   "It has been completely disproved by recent statistical analyses of large datasets.",
    "It applies equally to all animal groups.",
    "It is the only explanation for evolution on islands."
   ],
@@ -188,7 +188,7 @@
   "passage": "The Paradox of Plenty\n\nIt might seem self-evident that the discovery of valuable natural resources would enrich a nation. Yet economists have long observed that countries with abundant oil, gas, or minerals have frequently grown more slowly than resource-poor countries. This apparent contradiction is often called the \"resource curse\" or the \"paradox of plenty.\"\n\nOne of the best-documented mechanisms behind it is known as \"Dutch disease,\" a term coined by The Economist in 1977 to describe the difficulties faced by the Netherlands after the discovery of a vast natural gas field in 1959. As gas exports surged, foreign buyers needed Dutch currency, and its value rose. A stronger currency made other Dutch exports, particularly manufactured goods, more expensive abroad, undermining the competitiveness of industries that had nothing to do with gas. Simultaneously, labor and capital were drawn into the booming resource sector and related services.\n\nThe consequences can be lasting. Manufacturing is often regarded as a source of technological learning and productivity growth, so its contraction may weaken an economy's long-term prospects. Moreover, commodity prices are notoriously volatile; when they fall, a country that has become dependent on a single export may face a sudden fiscal crisis.\n\nThe resource curse is not, however, an iron law. Norway, which discovered substantial oil reserves in the late 1960s, is frequently cited as a counterexample. By channeling a large share of its petroleum revenue into a sovereign wealth fund invested largely abroad, the Norwegian government limited upward pressure on its currency and saved wealth for future generations. Such cases suggest that the effects of resource wealth depend heavily on the quality of institutions and policy.",
   "question": "What is the \"paradox\" referred to in paragraph 1?",
   "choices": [
-   "Countries with few resources have never developed manufacturing.",
+   "Countries with few natural resources have never been able to develop manufacturing.",
    "Natural resources become cheaper as they become scarcer.",
    "Resource-rich countries have often grown more slowly than resource-poor ones.",
    "Oil-producing countries usually have weak currencies."
@@ -244,7 +244,7 @@
   "choices": [
    "To show that the resource curse can be avoided through careful policy",
    "To provide another example of Dutch disease",
-   "To argue that oil is less harmful than natural gas",
+   "To argue that oil is generally less harmful to an economy than natural gas",
    "To explain why Norway has no manufacturing sector"
   ],
   "answer": "To show that the resource curse can be avoided through careful policy",
@@ -333,7 +333,7 @@
   "question": "Why does the author mention William Caxton?",
   "choices": [
    "To explain why spelling came to reflect older pronunciations",
-   "To identify the person who caused the vowel shift",
+   "To identify the person whose printing press directly caused the vowel shift",
    "To show that printing was invented in England",
    "To describe how Chaucer's works were translated"
   ],
@@ -442,7 +442,7 @@
   "choices": [
    "Schmidt's view that nobody lived at the site may have been incorrect.",
    "Göbekli Tepe was built by farmers after all.",
-   "The site is younger than archaeologists first believed.",
+   "The site is much younger than archaeologists first believed when they began digging.",
    "Later research has shown that the pillars were never carved."
   ],
   "answer": "Schmidt's view that nobody lived at the site may have been incorrect.",
@@ -514,7 +514,7 @@
   "choices": [
    "To show that patrons controlled many details of the works they paid for",
    "To explain why ultramarine was rarely used in Florence",
-   "To argue that artists were paid according to the colors they used",
+   "To argue that artists were paid according to the number of colors they used",
    "To show that patrons knew little about painting"
   ],
   "answer": "To show that patrons controlled many details of the works they paid for",
@@ -569,7 +569,7 @@
    "It meant that the stars all had the same period.",
    "Differences in their apparent brightness could be attributed to real differences in luminosity.",
    "It allowed her to measure their parallax directly.",
-   "It proved that the Small Magellanic Cloud was part of the Milky Way."
+   "It proved that the Small Magellanic Cloud was located inside our own galaxy rather than far beyond it."
   ],
   "answer": "Differences in their apparent brightness could be attributed to real differences in luminosity.",
   "explanation": "距離がほぼ同じなので、見かけの明るさの差は本当の明るさ（光度）の差を表すと言えた。",
@@ -603,7 +603,7 @@
   "question": "Why does the author call Cepheids \"standard candles\"?",
   "choices": [
    "Their true brightness can be known, so they can be used to find distances.",
-   "They are the brightest stars in every galaxy.",
+   "They are the brightest stars in every galaxy, so they can be seen from very far away.",
    "They were first observed by candlelight.",
    "They have the same period as the Sun."
   ],
@@ -620,7 +620,7 @@
   "passage": "Measuring the Universe with Variable Stars\n\nMeasuring distances to objects beyond our solar system is one of the most persistent challenges in astronomy. For relatively nearby stars, astronomers can use parallax, the apparent shift in a star's position as the Earth orbits the Sun. Beyond a certain distance, however, this shift becomes too small to measure, and other methods are required.\n\nA crucial breakthrough came from the work of Henrietta Swan Leavitt, who was employed at the Harvard College Observatory in the early twentieth century to examine photographic plates. Studying thousands of variable stars in the Small Magellanic Cloud, she focused on a class now known as Cepheid variables, which brighten and dim in a regular cycle. In 1912, she published a striking observation: the brighter Cepheids took longer to complete each cycle. Because all the stars in the Small Magellanic Cloud are at roughly the same distance from Earth, differences in their apparent brightness had to reflect genuine differences in their luminosity.\n\nThe significance of this period-luminosity relationship was profound. By measuring how long a Cepheid takes to complete its cycle, astronomers can determine its true luminosity. Comparing this with how bright the star appears from Earth reveals its distance, since light dims predictably as it spreads out. Cepheids thus became \"standard candles.\"\n\nIn the 1920s, Edwin Hubble used Cepheids to show that the Andromeda Nebula lay far beyond the Milky Way, settling a long-running debate about whether such nebulae were separate galaxies. Hubble later combined distance measurements with other data to demonstrate that the universe is expanding. Leavitt, who died in 1921, received little recognition during her lifetime.",
   "question": "Why does the author mention Edwin Hubble in paragraph 4?",
   "choices": [
-   "To show that Hubble disagreed with Leavitt's findings",
+   "To show that Hubble disagreed with Leavitt's conclusions about the Magellanic Cloud",
    "To explain how Hubble discovered Cepheid variables",
    "To illustrate the major discoveries that Leavitt's work made possible",
    "To compare the careers of two Harvard astronomers"

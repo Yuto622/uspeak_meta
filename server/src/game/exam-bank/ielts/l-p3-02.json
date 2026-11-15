@@ -10,7 +10,7 @@
   "choices": [
    "Memories are not accepted as evidence.",
    "British school meals have changed recently.",
-   "The students went to different schools."
+   "The students went to very different types of school."
   ],
   "answer": "British school meals have changed recently.",
   "explanation": "Things have changed a lot in British schools over the last decade と 言っている。",
@@ -43,7 +43,7 @@
   "question": "What is Omar's main argument?",
   "choices": [
    "Lunch is part of children's education in Japan.",
-   "Japanese schools spend more money.",
+   "Japanese schools spend much more money on each meal.",
    "Japanese food is healthier."
   ],
   "answer": "Lunch is part of children's education in Japan.",
@@ -95,7 +95,7 @@
   "choices": [
    "Economic changes also contributed to it.",
    "Campaigners had no real influence.",
-   "It was ignored by most factory owners."
+   "It was ignored by most of the factory owners at the time."
   ],
   "answer": "Economic changes also contributed to it.",
   "explanation": "we think economic factors mattered too と Rosa。運動家の 役割は 否定せず 認める。",
@@ -112,7 +112,7 @@
   "choices": [
    "They are difficult to read.",
    "They may not represent the whole country.",
-   "They were written after the Act."
+   "They were written several years after the Act was passed."
   ],
   "answer": "They may not represent the whole country.",
   "explanation": "Two mills is a small sample. Be careful about generalising と 言っている。",
@@ -180,9 +180,9 @@
   "choices": [
    "It can pump water at night.",
    "It is more efficient in hot weather.",
-   "It avoids an expensive part that needs replacing."
+   "It has no battery to replace."
   ],
-  "answer": "It avoids an expensive part that needs replacing.",
+  "answer": "It has no battery to replace.",
   "explanation": "battery が 高く 数年ごとに 交換が 必要と Zara が 説明し、B に 決めた。夜の くみ上げは A の 利点。",
   "tags": "IELTS Listening Part3 engineering design solar water-pump"
  },
@@ -247,7 +247,7 @@
   "question": "What does the tutor say about the rejected design?",
   "choices": [
    "It should be described in the report.",
-   "It should be left out to save space.",
+   "It should be left out to save space in the report.",
    "It should be tested as well."
   ],
   "answer": "It should be described in the report.",
@@ -281,7 +281,7 @@
   "question": "In Aisha's critical incident, she",
   "choices": [
    "added an extra activity.",
-   "asked her mentor for help.",
+   "asked her mentor to take over the rest of the lesson.",
    "replaced a planned activity with discussion."
   ],
   "answer": "replaced a planned activity with discussion.",
@@ -350,7 +350,7 @@
   "choices": [
    "The evidence for them is inconsistent.",
    "It strongly confirms they exist.",
-   "There has been very little research."
+   "There has been very little research on the subject."
   ],
   "answer": "The evidence for them is inconsistent.",
   "explanation": "the empirical evidence is actually quite mixed と Sam が 言っている。",
@@ -416,7 +416,7 @@
   "passage": "TUTOR: So, Leila and Sam, you're researching how news apps choose which stories to show people. How's the literature review going?\nLEILA: Well, there's a lot written about \"filter bubbles\" — the idea that algorithms only show people views they already agree with.\nSAM: But the empirical evidence is actually quite mixed. Several large studies found that most people still see a fairly wide range of sources.\nTUTOR: So the popular idea may be exaggerated. That's a good tension to build your review around. What's your own study going to do?\nLEILA: We want to set up new accounts on two news apps and \"train\" them by only clicking on one type of story — say, sport — and then see how the front page changes.\nTUTOR: Interesting. How many accounts?\nSAM: We were thinking four on each app: two trained on sport, two on politics.\nTUTOR: You'll also need some accounts you don't train at all, as a comparison.\nLEILA: A control group. Of course. We'll add two untrained accounts per app.\nTUTOR: Good. How long will you run it?\nSAM: Two weeks. Is that enough?\nTUTOR: It's probably the minimum. And bear in mind that news varies from day to day. If there's a major event, every account will show it.\nLEILA: So we should compare accounts on the same day, rather than comparing different days.\nTUTOR: Exactly. Now, the apps' terms of service. Have you checked that creating test accounts is allowed?\nSAM: Not yet. I'll check this week.\nTUTOR: Please do, before you start. And ethics — since there are no human participants, it should be straightforward, but you still need to submit a form.\nLEILA: We'll do it. One more thing — how should we classify stories? Some are hard to label.\nTUTOR: Write clear definitions for each category before you begin, and both of you label a sample independently. If you disagree often, refine the definitions.\nSAM: That makes sense. It'll improve the reliability.",
   "question": "How will the students make their labelling more reliable?",
   "choices": [
-   "by asking the tutor to check every story",
+   "by asking the tutor to check every story they label",
    "by labelling a sample separately and comparing",
    "by using the apps' own categories"
   ],
@@ -452,7 +452,7 @@
   "choices": [
    "Beaches may protect the cliffs from waves.",
    "The tutor asked for it.",
-   "The aerial photos are unclear."
+   "The aerial photos do not show the cliff top clearly."
   ],
   "answer": "Beaches may protect the cliffs from waves.",
   "explanation": "a wider, higher beach protects the cliff by absorbing wave energy と 言っている。",
@@ -520,7 +520,7 @@
   "choices": [
    "Too few people agreed to take part.",
    "Participants may be unusually confident with technology.",
-   "All participants worked for one company."
+   "All of the participants worked for one company in the same city."
   ],
   "answer": "Participants may be unusually confident with technology.",
   "explanation": "through social media → more comfortable with technology than average と Alex が 言っている。",
@@ -554,7 +554,7 @@
   "choices": [
    "Older workers felt more connected than younger ones.",
    "Younger workers adapted more easily.",
-   "Online meetings were seen as inefficient."
+   "Online meetings were seen as inefficient by almost every participant."
   ],
   "answer": "Older workers felt more connected than younger ones.",
   "explanation": "若い 人が 適応すると 予想したが、it was the opposite と 言っている。",
@@ -569,7 +569,7 @@
   "passage": "TUTOR: Hello, Noor and Alex. You're investigating how remote working affects people's sense of belonging at work. Where are you up to?\nNOOR: We've finished our interviews. Twelve people, all office workers who've worked mainly from home for at least a year.\nTUTOR: How did you recruit them?\nALEX: Through social media, mostly. Which is a limitation, we know — they're probably more comfortable with technology than average.\nTUTOR: Good that you've recognised that. What are the main themes so far?\nNOOR: The strongest one is about informal contact. Almost everyone said they miss the small conversations — in the kitchen, in the corridor — more than formal meetings.\nALEX: And several said that online meetings feel more efficient, but less human. They get the work done, but nobody chats.\nTUTOR: Was there anything unexpected?\nNOOR: Yes. We assumed younger workers would adapt more easily, but in our sample it was the opposite. Older people who already had strong relationships at work felt more connected.\nTUTOR: That's interesting. Why do you think that might be?\nALEX: Probably because the younger ones never had the chance to build those relationships in person in the first place.\nTUTOR: Plausible. Be cautious about how strongly you state it, though, with only twelve participants.\nNOOR: We'll describe it as a pattern worth further research.\nTUTOR: How are you analysing the transcripts?\nALEX: Thematic analysis. We each coded four transcripts independently first, then met to agree a coding framework, and applied it to the rest.\nTUTOR: That's a solid approach. Keep a record of any disagreements and how you resolved them; it strengthens your methodology section.\nNOOR: We've been doing that in a shared document.\nTUTOR: And quotations — use them, but choose ones that genuinely represent a theme, not just the most dramatic.\nALEX: Good point. Some of the most quotable things were said by just one person.\nTUTOR: Then make that clear. Right, I'd like a full draft in a fortnight.",
   "question": "How did the students develop their coding framework?",
   "choices": [
-   "They used a framework from a published study.",
+   "They used a coding framework taken from a published study.",
    "They each coded some transcripts and then agreed on one.",
    "The tutor provided it."
   ],

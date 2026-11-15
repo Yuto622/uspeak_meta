@@ -27,7 +27,7 @@
   "question": "Why does the pool open late on Mondays?",
   "choices": [
    "It is cleaned in the morning.",
-   "Swimming lessons are held.",
+   "Swimming lessons are held for children.",
    "The staff have a meeting.",
    "The water is too cold."
   ],
@@ -63,7 +63,7 @@
   "question": "Why is Ken writing to Mia?",
   "choices": [
    "To cancel their movie plan",
-   "To ask Mia for a ride",
+   "To ask Mia to give him a ride to the theater",
    "To say that he will arrive late",
    "To choose a different movie"
   ],
@@ -173,7 +173,7 @@
    "To give information about a class trip",
    "To invite parents to a museum event",
    "To ask parents to help at school",
-   "To explain a change in school hours"
+   "To explain a change in the school's opening hours"
   ],
   "answer": "To give information about a class trip",
   "explanation": "科学館への遠足の日時・持ち物・費用を知らせるメール。保護者を招待しているわけではない。",
@@ -314,7 +314,7 @@
   "passage": "Just finished my first 10K run! It was raining the whole time, and my shoes got really wet, but I didn't stop. Big thanks to my sister, who trained with me every weekend for two months. Next goal: a half marathon in the spring!",
   "question": "What is suggested about the writer's sister?",
   "choices": [
-   "She ran a half marathon.",
+   "She ran a half marathon in the spring.",
    "She helped the writer prepare.",
    "She does not like rain.",
    "She works on weekends."
@@ -350,7 +350,7 @@
   "passage": "To all residents:\nThe elevator in Building B will be repaired on Tuesday, May 14, from 8:00 a.m. to 5:00 p.m. Please use the stairs during this time. If you need help carrying heavy items, call the office at extension 20. We are sorry for the trouble.",
   "question": "Why might a resident call the office?",
   "choices": [
-   "To report a broken window",
+   "To report a problem with the stairs in Building B",
    "To ask about the rent",
    "To book the elevator",
    "To get help with heavy items"
@@ -405,7 +405,7 @@
   "question": "Why has the lunch been moved?",
   "choices": [
    "The restaurant was fully booked on Thursday.",
-   "Priya will be away on Thursday.",
+   "Priya will be away from the office on Thursday.",
    "Several team members are sick.",
    "The conference room is needed for something else."
   ],
@@ -458,7 +458,7 @@
   "passage": "Campus Shuttle Update\n\nStarting Monday, October 3, the Blue Line shuttle will no longer stop at the Sports Center. This change will make trips between the main library and the train station about ten minutes shorter. Students who need to reach the Sports Center can use the Green Line, which now runs every 15 minutes instead of every 30 minutes. Updated timetables are available on the transportation office website.",
   "question": "What is the main purpose of the announcement?",
   "choices": [
-   "To announce a new sports facility",
+   "To announce the opening of a new sports facility",
    "To advertise a train service",
    "To ask students to walk to campus",
    "To explain a change to shuttle routes"
@@ -512,7 +512,7 @@
   "passage": "★★★☆☆\nI bought this backpack for a two-week trip. The good points: it has lots of pockets, and it's light enough to carry all day. The bad point: after a few days of rain, everything inside was damp. The description says \"water-resistant,\" but I'd say it only handles light showers. If you travel somewhere dry, it's a great choice. Otherwise, buy a rain cover too.",
   "question": "What problem did the writer have?",
   "choices": [
-   "One of the pockets broke.",
+   "One of the pockets broke during the trip.",
    "The bag was too heavy.",
    "The bag arrived late.",
    "The contents of the bag got wet."
@@ -548,7 +548,7 @@
   "passage": "★★★☆☆\nI bought this backpack for a two-week trip. The good points: it has lots of pockets, and it's light enough to carry all day. The bad point: after a few days of rain, everything inside was damp. The description says \"water-resistant,\" but I'd say it only handles light showers. If you travel somewhere dry, it's a great choice. Otherwise, buy a rain cover too.",
   "question": "What can be inferred about the writer's opinion?",
   "choices": [
-   "The backpack was too expensive.",
+   "The writer thinks the backpack is too expensive for its quality.",
    "The writer will never use it again.",
    "The product description was somewhat misleading.",
    "The writer traveled only in dry weather."
@@ -603,7 +603,7 @@
   "question": "Why is the gym introducing this system?",
   "choices": [
    "Classes were crowded while some reserved places went unused.",
-   "Members asked for more classes.",
+   "Members asked the gym to offer more classes on weekday evenings.",
    "The app was too difficult to use.",
    "Instructors wanted smaller classes."
   ],
@@ -694,7 +694,7 @@
   "choices": [
    "Each student can receive individual help.",
    "The kitchen is very small.",
-   "The ingredients are expensive.",
+   "The ingredients for the dishes are expensive to buy.",
    "Chef Nok teaches several classes."
   ],
   "answer": "Each student can receive individual help.",

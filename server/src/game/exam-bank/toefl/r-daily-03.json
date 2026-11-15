@@ -81,7 +81,7 @@
   "question": "What is an advantage of the Dedicated Desk plan?",
   "choices": [
    "Unlimited free coffee",
-   "A lower monthly price",
+   "A lower monthly price than the Flex plan",
    "A private office",
    "Access at any hour of the day"
   ],
@@ -154,7 +154,7 @@
   "choices": [
    "Students should attend them on campus.",
    "They will be canceled.",
-   "They will be held online too.",
+   "They will also be held online on the same day.",
    "They will be recorded."
   ],
   "answer": "Students should attend them on campus.",
@@ -188,7 +188,7 @@
   "passage": "We booked Casa Lumo for our anniversary based on its glowing reviews, and the food lived up to the hype—the grilled octopus was outstanding. Service, however, was another story. We waited forty minutes between courses, and our server seemed overwhelmed. To the manager's credit, she apologized and took dessert off the bill. I'd return, but probably on a quieter weeknight.",
   "question": "What does the writer imply?",
   "choices": [
-   "The food was disappointing.",
+   "The food did not live up to the restaurant's good reputation.",
    "The writer will never return.",
    "The restaurant may not have enough staff on busy nights.",
    "The writer did not like the octopus."
@@ -243,7 +243,7 @@
   "question": "What is Ms. Tanaka asked to prepare?",
   "choices": [
    "Materials about a past campaign",
-   "A list of references",
+   "A list of references from previous employers",
    "A written test",
    "A printed résumé"
   ],
@@ -262,7 +262,7 @@
   "choices": [
    "She already works for the company.",
    "She has passed the first stage of the hiring process.",
-   "Her interview will take place in person.",
+   "Her interview will take place in person at the main office.",
    "The position has already been filled."
   ],
   "answer": "She has passed the first stage of the hiring process.",
@@ -368,7 +368,7 @@
   "passage": "Your SoundWave headphones come with a one-year limited warranty covering manufacturing defects. The warranty does not cover damage caused by water, drops, or unauthorized repairs. To make a claim, keep your original receipt and contact support through our website. Registering your product online within 30 days extends the warranty to two years.",
   "question": "How can a customer get a longer warranty?",
   "choices": [
-   "By paying an extra fee",
+   "By paying an extra fee when making a warranty claim",
    "By registering the product online within a month",
    "By keeping the original box",
    "By buying a second pair"
@@ -386,7 +386,7 @@
   "passage": "Subject: Revisions to the Academic Integrity Policy\n\nDear students,\n\nFollowing consultation with faculty and the Student Union, the University Senate has approved revisions to the Academic Integrity Policy, effective at the start of the spring term. The most significant change concerns the use of generative AI tools. Rather than imposing a university-wide ban, the revised policy delegates authority to individual instructors, who must specify in their syllabi whether, and to what extent, such tools may be used. Where a syllabus is silent, the use of these tools in assessed work will be presumed to be unauthorized. Students who are uncertain are strongly encouraged to seek clarification before submitting work.\n\nOffice of the Provost",
   "question": "What is the most important change in the policy?",
   "choices": [
-   "AI tools will be prohibited throughout the university.",
+   "Generative AI tools will be prohibited in all courses throughout the university.",
    "The Student Union will judge cases of misconduct.",
    "Students must list all of their sources on a new form.",
    "Instructors will decide whether AI tools may be used in their courses."
@@ -460,7 +460,7 @@
   "choices": [
    "As completely unreasonable",
    "As understandable but not fully supported by the evidence",
-   "As the strongest argument in the debate",
+   "As the strongest and most persuasive argument against the plaza",
    "As irrelevant to the proposal"
   ],
   "answer": "As understandable but not fully supported by the evidence",
@@ -494,7 +494,7 @@
   "passage": "Participants Needed: Sleep and Memory Study\n\nThe Department of Psychology is seeking healthy adults aged 18–35 to take part in a study examining how sleep affects the consolidation of newly learned information. Participants will complete a short vocabulary-learning task in the evening, sleep overnight in our laboratory while their brain activity is monitored, and be tested the following morning. Individuals with diagnosed sleep disorders or who work night shifts are not eligible. Participants will receive $80 upon completion. All data will be anonymized, and participants may withdraw at any time without penalty, although compensation is provided only for completed sessions.",
   "question": "What is the study investigating?",
   "choices": [
-   "How night shifts affect health",
+   "How working night shifts affects people's long-term health",
    "How sleep influences the retention of new information",
    "What causes sleep disorders",
    "How quickly children learn vocabulary"
@@ -602,7 +602,7 @@
   "passage": "Why does my battery drain faster in cold weather?\nLithium-ion batteries rely on chemical reactions that slow down at low temperatures, temporarily reducing the energy the battery can deliver. Your device may therefore report a lower charge or even shut down unexpectedly. This effect is usually reversible: once the battery warms up, normal capacity returns. Repeatedly charging a battery while it is below freezing, however, can cause permanent damage and should be avoided.",
   "question": "What does the text advise against?",
   "choices": [
-   "Using the device outdoors",
+   "Using the device outdoors when the weather is cold",
    "Charging the battery when it is below freezing",
    "Letting the battery warm up",
    "Turning the device off in winter"
@@ -620,7 +620,7 @@
   "passage": "We are pleased to announce that Brightline Logistics has entered into an agreement to acquire Corvo Freight, subject to regulatory approval. The combined company will operate under the Brightline name, although Corvo's existing customer contracts will be honored in full. Until the transaction is finalized, which we anticipate will occur in the third quarter, both companies will continue to operate independently, and customers should continue to contact their usual representatives.",
   "question": "What should Corvo Freight customers do for now?",
   "choices": [
-   "Sign new contracts with Brightline",
+   "Sign new contracts with Brightline before the third quarter",
    "Keep contacting their usual representatives",
    "Contact the regulators directly",
    "Stop placing orders"

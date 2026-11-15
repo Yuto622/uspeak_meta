@@ -267,8 +267,8 @@
     "band": "TOEFL目安:バンド3",
     "passage": "A health researcher is interviewing university students about their sleep.",
     "question": "How many hours do you usually sleep, and do you think it is enough?",
-    "answer": "I usually sleep about six hours on weeknights, and maybe eight or nine on weekends. Honestly, I do not think six hours is enough. I often feel sleepy during my afternoon classes, and I sometimes need two cups of coffee to stay focused. The main reason is that I tend to study late at night, and then I have to get up early for my eight o'clock lectures.",
-    "model_answer": "I usually sleep about six hours on weeknights, and maybe eight or nine on weekends. Honestly, I do not think six hours is enough. I often feel sleepy during my afternoon classes, and I sometimes need two cups of coffee to stay focused. The main reason is that I tend to study late at night, and then I have to get up early for my eight o'clock lectures.",
+    "answer": "I usually sleep about six hours on weeknights, and maybe eight or nine on weekends. Honestly, I do not think six hours is enough. I often feel sleepy during my afternoon classes, and I sometimes need two cups of coffee to stay focused. The main reason is that I tend to study late at night, and then I have to get up early for my eight o'clock lectures. I really want to change this habit.",
+    "model_answer": "I usually sleep about six hours on weeknights, and maybe eight or nine on weekends. Honestly, I do not think six hours is enough. I often feel sleepy during my afternoon classes, and I sometimes need two cups of coffee to stay focused. The main reason is that I tend to study late at night, and then I have to get up early for my eight o'clock lectures. I really want to change this habit.",
     "explanation": "個人の 経験を 聞く 質問。答え（何を・どこで・いつ）→ 理由 → 具体的な エピソードの 順に 45 秒で まとめる。",
     "tags": "TOEFL Speaking Interview 話題:sleep Q1"
   },

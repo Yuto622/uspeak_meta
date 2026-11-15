@@ -27,7 +27,7 @@
   "question": "What problem does the writer mention?",
   "choices": [
    "The kitchen is too crowded.",
-   "The technician is late.",
+   "The technician cannot come until the following week.",
    "People have left private papers at the printer.",
    "Printing costs too much."
   ],
@@ -63,7 +63,7 @@
   "question": "What is Mr. Park asked to do?",
   "choices": [
    "Decide whether to wait or get his money back",
-   "Send the jacket back",
+   "Send the jacket back to the store in its original box",
    "Pick a different size",
    "Visit the store in two weeks"
   ],
@@ -117,7 +117,7 @@
   "question": "What must visitors do when they arrive on a weekday?",
   "choices": [
    "Register their car number at the front desk",
-   "Pay at a parking machine",
+   "Pay for their parking at the machine near the entrance",
    "Park only in the evening",
    "Show a weekend pass"
   ],
@@ -136,7 +136,7 @@
   "choices": [
    "Parking is not allowed.",
    "Visitors can park without a time limit.",
-   "Visitors must register twice.",
+   "Visitors must register their car number twice.",
    "Only staff members may park."
   ],
   "answer": "Visitors can park without a time limit.",
@@ -173,7 +173,7 @@
    "A full refund",
    "A free bus ride for a limited time",
    "Free parking at the airport",
-   "A discount on future tickets"
+   "A discount on tickets for future train journeys"
   ],
   "answer": "A free bus ride for a limited time",
   "explanation": "空港行きバスが「free for Line 4 ticket holders until noon」、正午まで無料になる。",
@@ -207,7 +207,7 @@
   "question": "Why will Dr. Chen hold extra office hours?",
   "choices": [
    "To collect late reports",
-   "To explain the grading system",
+   "To explain how late reports will be graded",
    "To help students analyze their data",
    "To return graded reports"
   ],
@@ -243,7 +243,7 @@
   "question": "What is suggested about a late check-out?",
   "choices": [
    "It is always free.",
-   "It must be booked online.",
+   "It must be requested online before arrival.",
    "It is never possible.",
    "Guests may have to pay extra for it."
   ],
@@ -386,7 +386,7 @@
   "passage": "Hi Jordan, the client meeting has been pushed back to 3 p.m. because their flight was delayed. Could you let the catering team know? We'll need the coffee and snacks an hour later than planned. Thanks! – Alex",
   "question": "What does Alex ask Jordan to do?",
   "choices": [
-   "Pick up the client at the airport",
+   "Pick up the client at the airport after the delay",
    "Cancel the snacks",
    "Move the meeting to another day",
    "Inform the catering team about the change"
@@ -460,7 +460,7 @@
   "choices": [
    "To create space for a new café",
    "To make the hall easier for wheelchair users to visit",
-   "To return fossils to other museums",
+   "To make room for fossils being returned from other museums",
    "To reduce the cost of membership"
   ],
   "answer": "To make the hall easier for wheelchair users to visit",
@@ -496,7 +496,7 @@
   "choices": [
    "Visitors will be able to see less of the museum than usual.",
    "The renovation is behind schedule.",
-   "The museum has received a large donation.",
+   "The museum has received a large donation from its members.",
    "Members asked for lower prices."
   ],
   "answer": "Visitors will be able to see less of the museum than usual.",

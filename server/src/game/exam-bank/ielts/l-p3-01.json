@@ -25,7 +25,7 @@
   "passage": "TUTOR: So, Hannah and Leo, how did the river fieldwork go?\nHANNAH: Mostly well. We took sediment samples at six points along the river, from the source down to the estuary.\nLEO: Although we only managed five in the end. The sixth site was flooded, so it wasn't safe to get down to the water.\nTUTOR: That's fine, as long as you explain it in your methodology. What were you hoping to find?\nHANNAH: Our hypothesis was that the particles would get smaller further downstream, because they're worn down as they travel.\nTUTOR: And did the data support that?\nLEO: Broadly, yes. But there was one odd result at site three, where the particles were much larger than expected.\nHANNAH: We think it's because there's a small stream joining the river just above that point, bringing coarser material from the hills.\nTUTOR: That's a plausible explanation. You should check it against a geological map, though, rather than just assuming.\nLEO: Good idea. We were also wondering about the statistics. We've got a lot of measurements, and we're not sure how to present them.\nTUTOR: I'd suggest a correlation between distance downstream and average particle size. A scatter graph would show the pattern far more clearly than a table.\nHANNAH: OK. Leo's better with spreadsheets, so he can do that part.\nLEO: Fine, and Hannah can write the discussion section. She's much more confident with the reading.\nTUTOR: Speaking of reading, make sure you include at least one source on erosion processes from the last five years. Some of your references were quite old.\nHANNAH: We noticed that. Most of what's in the library is from the nineties.\nTUTOR: Try the online journals. Now, one more thing: what was the biggest practical problem?\nLEO: Honestly, the equipment. One of the sieves was damaged, so some samples weren't sorted properly. We had to redo about a third of them in the lab.\nTUTOR: That's worth mentioning as a limitation. It doesn't invalidate your findings, but it does affect accuracy.\nHANNAH: Should we include photos?\nTUTOR: Yes, but keep them in an appendix, not in the main text. The word limit is tight.",
   "question": "What do the students think explains the result at site three?",
   "choices": [
-   "damage to the sampling equipment",
+   "damage to the sampling equipment at that site",
    "material carried by a smaller stream",
    "a mistake in their measurements"
   ],
@@ -76,7 +76,7 @@
   "passage": "TUTOR: So, Hannah and Leo, how did the river fieldwork go?\nHANNAH: Mostly well. We took sediment samples at six points along the river, from the source down to the estuary.\nLEO: Although we only managed five in the end. The sixth site was flooded, so it wasn't safe to get down to the water.\nTUTOR: That's fine, as long as you explain it in your methodology. What were you hoping to find?\nHANNAH: Our hypothesis was that the particles would get smaller further downstream, because they're worn down as they travel.\nTUTOR: And did the data support that?\nLEO: Broadly, yes. But there was one odd result at site three, where the particles were much larger than expected.\nHANNAH: We think it's because there's a small stream joining the river just above that point, bringing coarser material from the hills.\nTUTOR: That's a plausible explanation. You should check it against a geological map, though, rather than just assuming.\nLEO: Good idea. We were also wondering about the statistics. We've got a lot of measurements, and we're not sure how to present them.\nTUTOR: I'd suggest a correlation between distance downstream and average particle size. A scatter graph would show the pattern far more clearly than a table.\nHANNAH: OK. Leo's better with spreadsheets, so he can do that part.\nLEO: Fine, and Hannah can write the discussion section. She's much more confident with the reading.\nTUTOR: Speaking of reading, make sure you include at least one source on erosion processes from the last five years. Some of your references were quite old.\nHANNAH: We noticed that. Most of what's in the library is from the nineties.\nTUTOR: Try the online journals. Now, one more thing: what was the biggest practical problem?\nLEO: Honestly, the equipment. One of the sieves was damaged, so some samples weren't sorted properly. We had to redo about a third of them in the lab.\nTUTOR: That's worth mentioning as a limitation. It doesn't invalidate your findings, but it does affect accuracy.\nHANNAH: Should we include photos?\nTUTOR: Yes, but keep them in an appendix, not in the main text. The word limit is tight.",
   "question": "What does the tutor say about the damaged sieve?",
   "choices": [
-   "It means the findings are invalid.",
+   "It means the findings cannot be trusted at all.",
    "It should be reported as a limitation.",
    "It should be left out of the report."
   ],
@@ -93,7 +93,7 @@
   "passage": "TUTOR: Right, Amira and Josh, you're designing an experiment on memory. Where have you got to?\nAMIRA: We want to test whether people remember words better if they're grouped into categories — animals, fruit, tools — compared with a random list.\nJOSH: It's based on that classic idea that organising information reduces cognitive load.\nTUTOR: Good. How many participants?\nJOSH: We were aiming for sixty, but realistically we'll get about forty. Most will be first-year undergraduates.\nTUTOR: Forty is acceptable for a project like this. But think about whether using only students limits how far you can generalise.\nAMIRA: We've mentioned that. We also thought about recruiting older people from a community centre, but the ethics approval would take too long.\nTUTOR: Sensible. What about the design? Will each person do both lists?\nJOSH: That was the plan. But Amira pointed out that if they do the categorised list first, they might use the same strategy on the random list.\nTUTOR: Exactly — an order effect. So what's the solution?\nAMIRA: We'll split participants into two groups. Half do the categorised list first, half do the random list first.\nTUTOR: That's called counterbalancing. Make sure you use the term. And how will you measure recall?\nJOSH: They'll have two minutes to write down every word they remember. We'll count the correct words, but we're not sure about spelling mistakes.\nTUTOR: If the word is clearly recognisable, count it. You're measuring memory, not spelling.\nAMIRA: That makes sense. What about the time between seeing the list and recalling it?\nTUTOR: What were you thinking?\nAMIRA: Maybe a five-minute gap with a simple maths task, so they can't just repeat the words in their heads.\nTUTOR: That's a good idea. It's called a distractor task. Now, what's your biggest concern?\nJOSH: Honestly, the statistical analysis. Neither of us is very confident.\nTUTOR: There's a drop-in session with the statistics adviser on Thursdays. I'd go before you collect any data, not after, so the design suits the test you'll use.\nJOSH: We'll go this week.",
   "question": "Why are the students not including older participants?",
   "choices": [
-   "Older people were unwilling to take part.",
+   "Older people at the community centre were unwilling to take part.",
    "The tutor advised against it.",
    "Getting ethical approval would be too slow."
   ],
@@ -110,11 +110,11 @@
   "passage": "TUTOR: Right, Amira and Josh, you're designing an experiment on memory. Where have you got to?\nAMIRA: We want to test whether people remember words better if they're grouped into categories — animals, fruit, tools — compared with a random list.\nJOSH: It's based on that classic idea that organising information reduces cognitive load.\nTUTOR: Good. How many participants?\nJOSH: We were aiming for sixty, but realistically we'll get about forty. Most will be first-year undergraduates.\nTUTOR: Forty is acceptable for a project like this. But think about whether using only students limits how far you can generalise.\nAMIRA: We've mentioned that. We also thought about recruiting older people from a community centre, but the ethics approval would take too long.\nTUTOR: Sensible. What about the design? Will each person do both lists?\nJOSH: That was the plan. But Amira pointed out that if they do the categorised list first, they might use the same strategy on the random list.\nTUTOR: Exactly — an order effect. So what's the solution?\nAMIRA: We'll split participants into two groups. Half do the categorised list first, half do the random list first.\nTUTOR: That's called counterbalancing. Make sure you use the term. And how will you measure recall?\nJOSH: They'll have two minutes to write down every word they remember. We'll count the correct words, but we're not sure about spelling mistakes.\nTUTOR: If the word is clearly recognisable, count it. You're measuring memory, not spelling.\nAMIRA: That makes sense. What about the time between seeing the list and recalling it?\nTUTOR: What were you thinking?\nAMIRA: Maybe a five-minute gap with a simple maths task, so they can't just repeat the words in their heads.\nTUTOR: That's a good idea. It's called a distractor task. Now, what's your biggest concern?\nJOSH: Honestly, the statistical analysis. Neither of us is very confident.\nTUTOR: There's a drop-in session with the statistics adviser on Thursdays. I'd go before you collect any data, not after, so the design suits the test you'll use.\nJOSH: We'll go this week.",
   "question": "What problem did Amira identify with the original design?",
   "choices": [
-   "Participants might apply one strategy to both lists.",
+   "One list could affect the other.",
    "The lists were too long.",
    "There were not enough participants."
   ],
-  "answer": "Participants might apply one strategy to both lists.",
+  "answer": "One list could affect the other.",
   "explanation": "分類リストを 先に すると 同じ 方法を ランダムリストにも 使う＝order effect。",
   "tags": "IELTS Listening Part3 psychology experiment memory cognitive"
  },
@@ -197,9 +197,9 @@
   "choices": [
    "Cash flow was the only real problem.",
    "The problems were unrelated.",
-   "The management problem made the cash flow problem worse."
+   "One problem made the other worse."
   ],
-  "answer": "The management problem made the cash flow problem worse.",
+  "answer": "One problem made the other worse.",
   "explanation": "argue that the management problem made the financial one worse と Maya が 提案し 合意。",
   "tags": "IELTS Listening Part3 business case-study presentation"
  },
@@ -331,7 +331,7 @@
   "passage": "TUTOR: Let's look at the questionnaire you've drafted, Sofia and Ravi. It's for your project on why students choose particular coffee shops, isn't it?\nSOFIA: Yes. We've got twenty questions so far.\nTUTOR: That's rather a lot. Response rates fall sharply after about ten minutes. Can you cut it down?\nRAVI: We could remove the questions about age and course. They're not really central.\nTUTOR: Actually, I'd keep those. They're quick to answer and you might find interesting differences between groups. Look instead for questions that overlap.\nSOFIA: Questions seven and twelve are quite similar. Both ask about price.\nTUTOR: Combine those. Now, question four: \"Don't you agree that atmosphere is important?\" What's wrong with it?\nRAVI: It's... leading? It pushes people towards saying yes.\nTUTOR: Exactly. Rephrase it neutrally. And question nine uses the word \"ambience\". Will everyone understand that?\nSOFIA: Probably not international students. We'll say \"atmosphere\" consistently.\nTUTOR: Good. How will you distribute it?\nRAVI: Online, through the student union newsletter. Sofia wanted to stand outside the library with paper copies.\nSOFIA: I still think we'd get a better mix of people that way.\nTUTOR: You might, but you'd also have to type all the responses in yourselves. The online route is fine, but do a pilot first — send it to five or six friends and see if anything confuses them.\nRAVI: OK. And should we offer a prize to encourage people to take part?\nTUTOR: A small prize draw is fine. Just make sure you collect email addresses separately from the answers, so the responses stay anonymous.\nSOFIA: That's important. We hadn't thought of that.\nTUTOR: Also, include at least one open question at the end, so people can explain their choices in their own words. The quantitative data tells you what; the qualitative data often tells you why.\nRAVI: We'll add one. When do you need the final version?\nTUTOR: By next Friday, please, so I can check it before it goes out.",
   "question": "According to the tutor, an open question will help the students understand",
   "choices": [
-   "how many people prefer each shop.",
+   "how many people prefer each particular coffee shop.",
    "the reasons behind people's choices.",
    "which questions were confusing."
   ],
@@ -348,7 +348,7 @@
   "passage": "TUTOR: Come in, Daniel. You wanted to talk about your dissertation topic?\nDANIEL: Yes. I'm torn between two ideas. One is on Roman pottery found at the dig we did last summer, and the other is on how museums display human remains.\nTUTOR: Both have potential. What attracts you to the pottery?\nDANIEL: Well, I handled a lot of it on site, so I'd be working with primary material. And there are only a few published studies of that region.\nTUTOR: That's a real advantage. The gap in the literature gives you something original to say. And the museums topic?\nDANIEL: It's more about ethics — whether it's right to display skeletons, how communities feel about it. I find it fascinating, but there's already quite a lot written.\nTUTOR: Which can be a problem: it's hard to make an original contribution. Though it's not impossible if you focused on a particular museum.\nDANIEL: I suppose. My worry with the pottery is the technical side. I'd need to classify hundreds of fragments, and I'm not an expert.\nTUTOR: The finds specialist, Dr Okoro, runs training sessions in the lab. She'd show you the classification system in a couple of afternoons. It's more straightforward than it looks.\nDANIEL: That's reassuring. Would I be able to use the radiocarbon dates from the dig?\nTUTOR: Not yet; they won't be published until next year, and you'd need the director's permission. But you can date the pottery by its style, which is the traditional method anyway.\nDANIEL: OK. So, honestly, which would you choose?\nTUTOR: I'm not going to choose for you. But I'd say the pottery project is more manageable, and it builds directly on your practical experience, which examiners like to see.\nDANIEL: I think that's decided it. The pottery, then.\nTUTOR: Good. Your next step is a proposal: around five hundred words, with a provisional title and a short reading list. Send it to me by the end of the month.\nDANIEL: Will do. Should I mention the museums idea at all?\nTUTOR: You could note it as a possible area for future research in your conclusion. That shows awareness of the wider field.",
   "question": "What does Daniel see as an advantage of the pottery topic?",
   "choices": [
-   "It requires no specialist knowledge.",
+   "It requires no specialist knowledge of pottery at all.",
    "The radiocarbon dates are available.",
    "Little has been published on the region."
   ],
@@ -365,11 +365,11 @@
   "passage": "TUTOR: Come in, Daniel. You wanted to talk about your dissertation topic?\nDANIEL: Yes. I'm torn between two ideas. One is on Roman pottery found at the dig we did last summer, and the other is on how museums display human remains.\nTUTOR: Both have potential. What attracts you to the pottery?\nDANIEL: Well, I handled a lot of it on site, so I'd be working with primary material. And there are only a few published studies of that region.\nTUTOR: That's a real advantage. The gap in the literature gives you something original to say. And the museums topic?\nDANIEL: It's more about ethics — whether it's right to display skeletons, how communities feel about it. I find it fascinating, but there's already quite a lot written.\nTUTOR: Which can be a problem: it's hard to make an original contribution. Though it's not impossible if you focused on a particular museum.\nDANIEL: I suppose. My worry with the pottery is the technical side. I'd need to classify hundreds of fragments, and I'm not an expert.\nTUTOR: The finds specialist, Dr Okoro, runs training sessions in the lab. She'd show you the classification system in a couple of afternoons. It's more straightforward than it looks.\nDANIEL: That's reassuring. Would I be able to use the radiocarbon dates from the dig?\nTUTOR: Not yet; they won't be published until next year, and you'd need the director's permission. But you can date the pottery by its style, which is the traditional method anyway.\nDANIEL: OK. So, honestly, which would you choose?\nTUTOR: I'm not going to choose for you. But I'd say the pottery project is more manageable, and it builds directly on your practical experience, which examiners like to see.\nDANIEL: I think that's decided it. The pottery, then.\nTUTOR: Good. Your next step is a proposal: around five hundred words, with a provisional title and a short reading list. Send it to me by the end of the month.\nDANIEL: Will do. Should I mention the museums idea at all?\nTUTOR: You could note it as a possible area for future research in your conclusion. That shows awareness of the wider field.",
   "question": "What is the tutor's view of the museums topic?",
   "choices": [
-   "Originality would be difficult but possible.",
+   "Originality would be hard but possible.",
    "It is not academic enough.",
-   "It would require too much travel."
+   "It would require too much travel to other museums."
   ],
-  "answer": "Originality would be difficult but possible.",
+  "answer": "Originality would be hard but possible.",
   "explanation": "hard to make an original contribution. Though it's not impossible と 言っている。",
   "tags": "IELTS Listening Part3 archaeology dissertation pottery"
  },
@@ -433,7 +433,7 @@
   "passage": "ELLA: So for our linguistics project, we're looking at bilingual children who switch between languages in the same sentence. Where shall we start?\nKWAME: I think with recordings. My cousin's kids speak English and Twi at home, and my aunt has agreed to let us record a family meal.\nELLA: That's brilliant, but we'd need ethical approval first, especially because they're children.\nKWAME: True. And parental consent forms. I'll ask the department office for the template.\nELLA: Also, recording one meal might not give us enough data. What if the kids are shy because of the microphone?\nKWAME: Good point. Maybe we leave the recorder there for a week so they get used to it, and only analyse the last few days.\nELLA: That makes sense. Now, theory. I've been reading about the idea that switching shows a gap in vocabulary — children use the other language when they don't know a word.\nKWAME: But most recent research says that's too simple. Switching is often deliberate — to show emotion, or to include someone in the conversation.\nELLA: So we could test both explanations. Code each switch as either \"vocabulary gap\" or \"social purpose\".\nKWAME: Some will be hard to classify, though. We should have a third category, \"unclear\", rather than forcing them.\nELLA: Agreed. And we should both code the data separately and then compare, to check reliability.\nKWAME: Yes. Dr Lindqvist will want to see that. Who's transcribing?\nELLA: Well, you understand Twi, so it has to be you for those parts. I can't help much there.\nKWAME: Fine, but you could do the literature review while I'm transcribing.\nELLA: Deal. And the presentation at the end — slides or a poster?\nKWAME: The handbook says we can choose. I'd prefer a poster; we could include short quotations from the transcripts.\nELLA: Hmm, slides would let us play audio clips, though. That's more convincing.\nKWAME: But we'd need extra consent for playing their voices in public. Let's keep it simple.\nELLA: OK, poster it is.",
   "question": "Why do the students plan to record for a week?",
   "choices": [
-   "to collect data from several meals",
+   "to collect enough data from several different family meals",
    "so the children become used to the recorder",
    "because the parents asked them to"
   ],
@@ -469,7 +469,7 @@
   "choices": [
    "to avoid forcing difficult cases into categories",
    "because the tutor required it",
-   "to reduce the amount of transcription"
+   "to reduce the amount of transcription and coding work needed"
   ],
   "answer": "to avoid forcing difficult cases into categories",
   "explanation": "rather than forcing them と Kwame が 言っている。",
@@ -501,7 +501,7 @@
   "passage": "ELLA: So for our linguistics project, we're looking at bilingual children who switch between languages in the same sentence. Where shall we start?\nKWAME: I think with recordings. My cousin's kids speak English and Twi at home, and my aunt has agreed to let us record a family meal.\nELLA: That's brilliant, but we'd need ethical approval first, especially because they're children.\nKWAME: True. And parental consent forms. I'll ask the department office for the template.\nELLA: Also, recording one meal might not give us enough data. What if the kids are shy because of the microphone?\nKWAME: Good point. Maybe we leave the recorder there for a week so they get used to it, and only analyse the last few days.\nELLA: That makes sense. Now, theory. I've been reading about the idea that switching shows a gap in vocabulary — children use the other language when they don't know a word.\nKWAME: But most recent research says that's too simple. Switching is often deliberate — to show emotion, or to include someone in the conversation.\nELLA: So we could test both explanations. Code each switch as either \"vocabulary gap\" or \"social purpose\".\nKWAME: Some will be hard to classify, though. We should have a third category, \"unclear\", rather than forcing them.\nELLA: Agreed. And we should both code the data separately and then compare, to check reliability.\nKWAME: Yes. Dr Lindqvist will want to see that. Who's transcribing?\nELLA: Well, you understand Twi, so it has to be you for those parts. I can't help much there.\nKWAME: Fine, but you could do the literature review while I'm transcribing.\nELLA: Deal. And the presentation at the end — slides or a poster?\nKWAME: The handbook says we can choose. I'd prefer a poster; we could include short quotations from the transcripts.\nELLA: Hmm, slides would let us play audio clips, though. That's more convincing.\nKWAME: But we'd need extra consent for playing their voices in public. Let's keep it simple.\nELLA: OK, poster it is.",
   "question": "Why do they choose a poster rather than slides?",
   "choices": [
-   "The handbook requires a poster.",
+   "The course handbook says only posters are accepted for this project.",
    "A poster is easier to make.",
    "Playing recordings would need further permission."
   ],
@@ -520,7 +520,7 @@
   "choices": [
    "Usage was low, partly due to fewer stations.",
    "Usage was higher than predicted.",
-   "Users there complained mainly about price."
+   "Users there complained mainly about the price of each journey."
   ],
   "answer": "Usage was low, partly due to fewer stations.",
   "explanation": "郊外は very low、理由の 一つは far fewer docking stations。予想より 高いのは 都心。",
@@ -604,7 +604,7 @@
   "question": "Why does Jack think the results do not contradict the textbook?",
   "choices": [
    "The textbook figure is out of date.",
-   "They used a different type of yeast.",
+   "They used a different type of yeast from the one in the textbook.",
    "The temperatures tested were too far apart."
   ],
   "answer": "The temperatures tested were too far apart.",
