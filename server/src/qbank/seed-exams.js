@@ -12,6 +12,7 @@ export const EXAMS_SEED_TAG = 'exams-2026-11';
 export const EXAM_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../game/exam-bank');
 export const EXAMS = { toeic: 'TOEIC', toefl: 'TOEFL', ielts: 'IELTS' };
 const LICENSE = 'U-Speak Lab オリジナル（CC BY 4.0）';
+const hash = (str) => { let h = 2166136261; for (const ch of String(str)) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619) >>> 0; } return h.toString(36); };
 export const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 // 1 ファイルの 行（[{ id, skill, format, level, band, passage, question, choices, answer, explanation, model_answer, tags }]）→ 問題DB の 行。
@@ -61,10 +62,12 @@ export function examRows(dir = EXAM_DIR) {
 }
 
 // ファイルごとの 行と seed の 印（exam-bank:<試験>/<ファイル名>）。ファイルを 足すと つぎの 起動で その ファイルだけ 入る。
-// 1 回 入れた ファイルは もう 入れない（admin で 消した 行は もどらない）。
+// 1 回 入れた ファイルは 中身が かわらない かぎり もう 入れない（admin で 消した 行は もどらない）。
 export function examBatches(dir = EXAM_DIR) {
   return examFiles(dir).map(({ exam, file }) => {
     const list = JSON.parse(readFileSync(file, 'utf8'));
-    return { tag: `${EXAMS_SEED_TAG}:${exam}/${path.basename(file)}`, rows: list.filter((raw) => !problemOf(exam, raw)).map((raw) => toRow(exam, raw)) };
+    const rows = list.filter((raw) => !problemOf(exam, raw)).map((raw) => toRow(exam, raw));
+    // 印に ID の 一覧の ハッシュを 入れる：ファイルに 問題を 足すと 印が かわり、足した 分だけ 入る（ある ID は とばす）。
+    return { tag: `${EXAMS_SEED_TAG}:${exam}/${path.basename(file)}#${hash(rows.map((r) => r.id).join(','))}`, rows };
   });
 }

@@ -1,0 +1,650 @@
+[
+  {
+    "id": "TOEIC-R5-145",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "Mr. Lopez has been ------- with organizing the annual sales conference.",
+    "choices": [
+      "given",
+      "tasked",
+      "told",
+      "put"
+    ],
+    "answer": "tasked",
+    "explanation": "be tasked with ～（～を 任される）の 形。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-146",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Please ------- from using mobile phones during the performance.",
+    "choices": [
+      "avoid",
+      "prevent",
+      "stop",
+      "refrain"
+    ],
+    "answer": "refrain",
+    "explanation": "refrain from ～ing（～を 控える）。avoid・stop は from を 取らない。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-147",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The new regulations will have a significant ------- on small businesses.",
+    "choices": [
+      "impact",
+      "affect",
+      "result",
+      "outcome"
+    ],
+    "answer": "impact",
+    "explanation": "have an impact on ～（～に 影響を 与える）の 形。affect は 動詞。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-148",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The store offers a full ------- if the merchandise is returned within 14 days.",
+    "choices": [
+      "receipt",
+      "profit",
+      "refund",
+      "fare"
+    ],
+    "answer": "refund",
+    "explanation": "返品した ときに 受け取る「返金」refund。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-149",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Kendrick Logistics has a strong ------- for delivering shipments on time.",
+    "choices": [
+      "opinion",
+      "attention",
+      "statement",
+      "reputation"
+    ],
+    "answer": "reputation",
+    "explanation": "a reputation for ～（～で 評判が ある）。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-150",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The museum is ------- located near several hotels and restaurants.",
+    "choices": [
+      "considerably",
+      "conveniently",
+      "fluently",
+      "eagerly"
+    ],
+    "answer": "conveniently",
+    "explanation": "conveniently located（便利な 場所に ある）の 決まった 表現。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-151",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Employees are ------- to a 15 percent discount on all company products.",
+    "choices": [
+      "entitled",
+      "allowed",
+      "permitted",
+      "eligible"
+    ],
+    "answer": "entitled",
+    "explanation": "be entitled to ＋名詞（～を 受ける 権利が ある）。eligible は for を 取る。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-152",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Please ------- your seat belt while the aircraft is taxiing.",
+    "choices": [
+      "attach",
+      "connect",
+      "fasten",
+      "close"
+    ],
+    "answer": "fasten",
+    "explanation": "fasten your seat belt（シートベルトを 締める）。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-153",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The new laptop model has received ------- reviews from technology experts.",
+    "choices": [
+      "favorable",
+      "thankful",
+      "cheerful",
+      "grateful"
+    ],
+    "answer": "favorable",
+    "explanation": "favorable reviews（好意的な 評価）。他は 人の 気持ちを 表す。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-154",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Ms. Bennett will ------- the meeting in Mr. Novak's absence.",
+    "choices": [
+      "sit",
+      "chair",
+      "seat",
+      "desk"
+    ],
+    "answer": "chair",
+    "explanation": "chair は 動詞で「議長を 務める」。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-155",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Our firm ------- in providing legal advice to technology start-ups.",
+    "choices": [
+      "focuses",
+      "concentrates",
+      "specializes",
+      "dedicates"
+    ],
+    "answer": "specializes",
+    "explanation": "specialize in ～（～を 専門と する）。focus・concentrate は on を 取る。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-156",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The cost of the trip includes accommodation, meals, and -------.",
+    "choices": [
+      "transformation",
+      "translation",
+      "transaction",
+      "transportation"
+    ],
+    "answer": "transportation",
+    "explanation": "旅費に 含まれるのは「交通費」transportation。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-157",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Ms. Olsen's ------- includes ten years of experience in hotel management.",
+    "choices": [
+      "foreground",
+      "backbone",
+      "backup",
+      "background"
+    ],
+    "answer": "background",
+    "explanation": "経歴を 表す background が 正解。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-158",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The company decided to ------- its contract with the cleaning service.",
+    "choices": [
+      "exterminate",
+      "determine",
+      "terminate",
+      "dominate"
+    ],
+    "answer": "terminate",
+    "explanation": "契約を「終了する」は terminate。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-159",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Customers can track the ------- of their orders on our website.",
+    "choices": [
+      "statue",
+      "status",
+      "stature",
+      "statute"
+    ],
+    "answer": "status",
+    "explanation": "注文の「状況」status。つづりの 似た 語に 注意。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-160",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The CEO will ------- a speech at the opening ceremony.",
+    "choices": [
+      "deliver",
+      "say",
+      "talk",
+      "tell"
+    ],
+    "answer": "deliver",
+    "explanation": "deliver a speech（演説を する）の コロケーション。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-161",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Make sure to ------- a copy of the receipt for your records.",
+    "choices": [
+      "stay",
+      "remain",
+      "keep",
+      "last"
+    ],
+    "answer": "keep",
+    "explanation": "他動詞で「保管する」は keep。他は 自動詞。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-162",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The seminar will ------- topics such as budgeting and time management.",
+    "choices": [
+      "attend",
+      "cover",
+      "join",
+      "visit"
+    ],
+    "answer": "cover",
+    "explanation": "テーマを「扱う」は cover。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-163",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Hotel guests have ------- to the fitness center and swimming pool.",
+    "choices": [
+      "process",
+      "success",
+      "excess",
+      "access"
+    ],
+    "answer": "access",
+    "explanation": "have access to ～（～を 利用できる）。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-164",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The company is seeking a ------- candidate with strong communication skills.",
+    "choices": [
+      "qualified",
+      "quantified",
+      "quoted",
+      "quartered"
+    ],
+    "answer": "qualified",
+    "explanation": "qualified candidate（適任の 候補者）。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-165",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The board will ------- the proposal carefully before making a decision.",
+    "choices": [
+      "regard",
+      "concern",
+      "consider",
+      "reflect"
+    ],
+    "answer": "consider",
+    "explanation": "提案を「検討する」は consider。reflect は on が 必要。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-166",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Please ------- us of any changes to your contact information.",
+    "choices": [
+      "announce",
+      "report",
+      "declare",
+      "notify"
+    ],
+    "answer": "notify",
+    "explanation": "notify 人 of ～（人に ～を 知らせる）の 形を 取るのは notify。",
+    "tags": "語彙 語法"
+  },
+  {
+    "id": "TOEIC-R5-167",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Due to a ------- in the system, some customers received duplicate invoices.",
+    "choices": [
+      "misconduct",
+      "malfunction",
+      "misfortune",
+      "mislead"
+    ],
+    "answer": "malfunction",
+    "explanation": "システムの「不具合」は malfunction。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-168",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The project was completed within budget and ------- schedule.",
+    "choices": [
+      "on",
+      "at",
+      "by",
+      "for"
+    ],
+    "answer": "on",
+    "explanation": "on schedule（予定どおりに）の 決まった 表現。",
+    "tags": "語彙 前置詞 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-169",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "All staff are encouraged to ------- in the annual charity run.",
+    "choices": [
+      "participate",
+      "attend",
+      "enter",
+      "involve"
+    ],
+    "answer": "participate",
+    "explanation": "participate in ～（～に 参加する）。attend・enter は in を 取らない。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-170",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The restaurant has a seating ------- of 120 guests.",
+    "choices": [
+      "ability",
+      "capacity",
+      "capability",
+      "facility"
+    ],
+    "answer": "capacity",
+    "explanation": "seating capacity（座席数）の 決まった 表現。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-171",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Mr. Yilmaz was ------- for his innovative approach to customer service.",
+    "choices": [
+      "commanded",
+      "commented",
+      "commended",
+      "committed"
+    ],
+    "answer": "commended",
+    "explanation": "be commended for ～（～で 称賛される）。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-172",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The new safety measures are intended to ------- workplace accidents.",
+    "choices": [
+      "maximize",
+      "magnify",
+      "multiply",
+      "minimize"
+    ],
+    "answer": "minimize",
+    "explanation": "事故を「最小限に する」minimize が 文意に 合う。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-173",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "The client requested a detailed ------- of the costs before signing the contract.",
+    "choices": [
+      "breakdown",
+      "breakthrough",
+      "breakout",
+      "breakup"
+    ],
+    "answer": "breakdown",
+    "explanation": "費用の「内訳」は breakdown。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-174",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The company has ------- a new policy regarding remote work.",
+    "choices": [
+      "implicated",
+      "imported",
+      "impressed",
+      "implemented"
+    ],
+    "answer": "implemented",
+    "explanation": "方針を「実施する」は implement。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-175",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Please allow three to five business days for your application to be -------.",
+    "choices": [
+      "proceeded",
+      "processed",
+      "progressed",
+      "preceded"
+    ],
+    "answer": "processed",
+    "explanation": "申請が「処理される」は processed。proceed は 自動詞。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-176",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The firm's profits have remained ------- despite the economic slowdown.",
+    "choices": [
+      "stiff",
+      "staple",
+      "stable",
+      "stale"
+    ],
+    "answer": "stable",
+    "explanation": "利益が「安定した」まま、stable が 正解。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-177",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "Ms. Nakamura's proposal was ------- by the entire committee.",
+    "choices": [
+      "enclosed",
+      "enforced",
+      "endured",
+      "endorsed"
+    ],
+    "answer": "endorsed",
+    "explanation": "提案が「支持・承認された」endorsed。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-178",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "Please keep the noise to a ------- while the interviews are taking place.",
+    "choices": [
+      "minimum",
+      "minimal",
+      "minority",
+      "minute"
+    ],
+    "answer": "minimum",
+    "explanation": "keep ～ to a minimum（～を 最小限に 抑える）の 決まった 表現。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-179",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The new branch is ------- to open in early spring.",
+    "choices": [
+      "organized",
+      "reserved",
+      "scheduled",
+      "appointed"
+    ],
+    "answer": "scheduled",
+    "explanation": "be scheduled to do（～する 予定だ）。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-180",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "The ------- agenda will be distributed to all participants before the meeting.",
+    "choices": [
+      "tenant",
+      "tentative",
+      "tension",
+      "tenacious"
+    ],
+    "answer": "tentative",
+    "explanation": "tentative agenda（仮の 議題）が 正解。",
+    "tags": "語彙"
+  }
+]

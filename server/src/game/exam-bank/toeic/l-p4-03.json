@@ -1,0 +1,542 @@
+[
+  {
+    "id": "TOEIC-L4-021-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following announcement.\n\nHello, and welcome to the Riverside Public Library. We'd like to let you know about some events this week. On Wednesday evening at six, author Felipe Moreno will read from his new mystery novel in the main hall. On Saturday morning, we're holding a free computer class for adults who want to learn how to send e-mail and use the Internet. Space is limited to fifteen people, so please sign up at the information desk. Also, the library will be closed on Friday because of a staff training day. Thank you.",
+    "question": "Where is the announcement being made?",
+    "choices": [
+      "At a bookstore",
+      "At a school",
+      "At a library",
+      "At a computer shop"
+    ],
+    "answer": "At a library",
+    "explanation": "Riverside Public Library と 述べている。",
+    "tags": "場所 announcement"
+  },
+  {
+    "id": "TOEIC-L4-021-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following announcement.\n\nHello, and welcome to the Riverside Public Library. We'd like to let you know about some events this week. On Wednesday evening at six, author Felipe Moreno will read from his new mystery novel in the main hall. On Saturday morning, we're holding a free computer class for adults who want to learn how to send e-mail and use the Internet. Space is limited to fifteen people, so please sign up at the information desk. Also, the library will be closed on Friday because of a staff training day. Thank you.",
+    "question": "What will happen on Saturday morning?",
+    "choices": [
+      "A computer class",
+      "A book sale",
+      "A reading by an author",
+      "A staff meeting"
+    ],
+    "answer": "A computer class",
+    "explanation": "On Saturday morning, we're holding a free computer class と ある。",
+    "tags": "詳細 announcement"
+  },
+  {
+    "id": "TOEIC-L4-021-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following announcement.\n\nHello, and welcome to the Riverside Public Library. We'd like to let you know about some events this week. On Wednesday evening at six, author Felipe Moreno will read from his new mystery novel in the main hall. On Saturday morning, we're holding a free computer class for adults who want to learn how to send e-mail and use the Internet. Space is limited to fifteen people, so please sign up at the information desk. Also, the library will be closed on Friday because of a staff training day. Thank you.",
+    "question": "Why will the library be closed on Friday?",
+    "choices": [
+      "The building will be painted.",
+      "Staff will receive training.",
+      "It is a national holiday.",
+      "New shelves will be installed."
+    ],
+    "answer": "Staff will receive training.",
+    "explanation": "because of a staff training day と 理由を 述べている。",
+    "tags": "詳細 announcement"
+  },
+  {
+    "id": "TOEIC-L4-022-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following business report.\n\nAnd now for our weekly business report. Valemont Motors announced yesterday that it will build a new electric-vehicle factory just outside Granton. The company plans to invest eight hundred million dollars in the plant, which is expected to open in three years. Company president Yusuf Brandt said Granton was chosen because of its skilled workforce and its location near major highways. The factory will employ about fifteen hundred people. Local colleges have already agreed to offer special training programs for future employees. Shares of Valemont Motors rose four percent following the announcement.",
+    "question": "What did Valemont Motors announce?",
+    "choices": [
+      "It will merge with another company.",
+      "It has hired a new president.",
+      "It will close an old plant.",
+      "It will build a new factory."
+    ],
+    "answer": "It will build a new factory.",
+    "explanation": "will build a new electric-vehicle factory と 発表した。",
+    "tags": "話題 report"
+  },
+  {
+    "id": "TOEIC-L4-022-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following business report.\n\nAnd now for our weekly business report. Valemont Motors announced yesterday that it will build a new electric-vehicle factory just outside Granton. The company plans to invest eight hundred million dollars in the plant, which is expected to open in three years. Company president Yusuf Brandt said Granton was chosen because of its skilled workforce and its location near major highways. The factory will employ about fifteen hundred people. Local colleges have already agreed to offer special training programs for future employees. Shares of Valemont Motors rose four percent following the announcement.",
+    "question": "According to the speaker, why was Granton chosen?",
+    "choices": [
+      "It offered lower taxes.",
+      "Land there is inexpensive.",
+      "The company's headquarters is there.",
+      "It has skilled workers and good road access."
+    ],
+    "answer": "It has skilled workers and good road access.",
+    "explanation": "because of its skilled workforce and its location near major highways と ある。",
+    "tags": "詳細 report"
+  },
+  {
+    "id": "TOEIC-L4-022-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following business report.\n\nAnd now for our weekly business report. Valemont Motors announced yesterday that it will build a new electric-vehicle factory just outside Granton. The company plans to invest eight hundred million dollars in the plant, which is expected to open in three years. Company president Yusuf Brandt said Granton was chosen because of its skilled workforce and its location near major highways. The factory will employ about fifteen hundred people. Local colleges have already agreed to offer special training programs for future employees. Shares of Valemont Motors rose four percent following the announcement.",
+    "question": "What have local colleges agreed to do?",
+    "choices": [
+      "Sell land to the company",
+      "Conduct research on vehicles",
+      "Provide training programs",
+      "Build student housing"
+    ],
+    "answer": "Provide training programs",
+    "explanation": "Local colleges have already agreed to offer special training programs と ある。",
+    "tags": "詳細 report"
+  },
+  {
+    "id": "TOEIC-L4-023-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following telephone message.\n\nHi, this is Oksana from Bellwood Catering. I'm calling to confirm the details for your company's retirement party on May twelfth. We have you down for sixty guests, with a buffet dinner and a chocolate cake. I wanted to check one thing: on the order form, you asked for vegetarian options, but you didn't say how many guests need them. Could you send me that number by Friday? That way our chef can plan the menu and order the right amount of food. If it's easier, you can just reply to the confirmation e-mail I sent this morning. Thanks!",
+    "question": "What event is the speaker discussing?",
+    "choices": [
+      "A wedding reception",
+      "A retirement party",
+      "A product launch",
+      "A cooking class"
+    ],
+    "answer": "A retirement party",
+    "explanation": "your company's retirement party と 述べている。",
+    "tags": "話題 message"
+  },
+  {
+    "id": "TOEIC-L4-023-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following telephone message.\n\nHi, this is Oksana from Bellwood Catering. I'm calling to confirm the details for your company's retirement party on May twelfth. We have you down for sixty guests, with a buffet dinner and a chocolate cake. I wanted to check one thing: on the order form, you asked for vegetarian options, but you didn't say how many guests need them. Could you send me that number by Friday? That way our chef can plan the menu and order the right amount of food. If it's easier, you can just reply to the confirmation e-mail I sent this morning. Thanks!",
+    "question": "What information does the speaker need?",
+    "choices": [
+      "The number of vegetarian meals",
+      "The location of the event",
+      "The type of cake",
+      "The start time of the party"
+    ],
+    "answer": "The number of vegetarian meals",
+    "explanation": "vegetarian options が 必要な 人数を 知らせて ほしいと 言っている。",
+    "tags": "詳細 message"
+  },
+  {
+    "id": "TOEIC-L4-023-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following telephone message.\n\nHi, this is Oksana from Bellwood Catering. I'm calling to confirm the details for your company's retirement party on May twelfth. We have you down for sixty guests, with a buffet dinner and a chocolate cake. I wanted to check one thing: on the order form, you asked for vegetarian options, but you didn't say how many guests need them. Could you send me that number by Friday? That way our chef can plan the menu and order the right amount of food. If it's easier, you can just reply to the confirmation e-mail I sent this morning. Thanks!",
+    "question": "How can the listener respond?",
+    "choices": [
+      "By visiting the catering office",
+      "By filling out a form online",
+      "By calling the chef directly",
+      "By replying to an e-mail"
+    ],
+    "answer": "By replying to an e-mail",
+    "explanation": "you can just reply to the confirmation e-mail と 述べている。",
+    "tags": "詳細 message"
+  },
+  {
+    "id": "TOEIC-L4-024-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following announcement and floor directory.\n\nAttention, Lorimer Department Store shoppers. We're happy to announce that our customer appreciation sale starts today! For the next three days, all shoes are forty percent off, and selected handbags are twenty-five percent off. Please note that the shoe department has moved. It's now on the same floor as our men's clothing section, so please take the escalator up to that floor. If you spend over one hundred dollars, stop by the customer service desk on the first floor to receive a free gift. Thank you for shopping at Lorimer.\n\n[Floor directory]\nLorimer Department Store\n1F  Cosmetics / Customer Service\n2F  Women's Clothing\n3F  Men's Clothing\n4F  Home Goods / Café",
+    "question": "What is being announced?",
+    "choices": [
+      "A store opening",
+      "A new return policy",
+      "A sale",
+      "A fashion show"
+    ],
+    "answer": "A sale",
+    "explanation": "customer appreciation sale starts today と 告知している。",
+    "tags": "話題 announcement 図表"
+  },
+  {
+    "id": "TOEIC-L4-024-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following announcement and floor directory.\n\nAttention, Lorimer Department Store shoppers. We're happy to announce that our customer appreciation sale starts today! For the next three days, all shoes are forty percent off, and selected handbags are twenty-five percent off. Please note that the shoe department has moved. It's now on the same floor as our men's clothing section, so please take the escalator up to that floor. If you spend over one hundred dollars, stop by the customer service desk on the first floor to receive a free gift. Thank you for shopping at Lorimer.\n\n[Floor directory]\nLorimer Department Store\n1F  Cosmetics / Customer Service\n2F  Women's Clothing\n3F  Men's Clothing\n4F  Home Goods / Café",
+    "question": "Look at the graphic. On which floor are shoes now located?",
+    "choices": [
+      "3F",
+      "1F",
+      "2F",
+      "4F"
+    ],
+    "answer": "3F",
+    "explanation": "靴売り場は 紳士服と 同じ 階に 移動。表で Men's Clothing は 3F。",
+    "tags": "図表 announcement "
+  },
+  {
+    "id": "TOEIC-L4-024-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following announcement and floor directory.\n\nAttention, Lorimer Department Store shoppers. We're happy to announce that our customer appreciation sale starts today! For the next three days, all shoes are forty percent off, and selected handbags are twenty-five percent off. Please note that the shoe department has moved. It's now on the same floor as our men's clothing section, so please take the escalator up to that floor. If you spend over one hundred dollars, stop by the customer service desk on the first floor to receive a free gift. Thank you for shopping at Lorimer.\n\n[Floor directory]\nLorimer Department Store\n1F  Cosmetics / Customer Service\n2F  Women's Clothing\n3F  Men's Clothing\n4F  Home Goods / Café",
+    "question": "How can shoppers receive a free gift?",
+    "choices": [
+      "By joining a membership program",
+      "By spending over one hundred dollars",
+      "By completing a survey",
+      "By shopping on the first day"
+    ],
+    "answer": "By spending over one hundred dollars",
+    "explanation": "If you spend over one hundred dollars ... receive a free gift と ある。",
+    "tags": "詳細 announcement 図表"
+  },
+  {
+    "id": "TOEIC-L4-025-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk.\n\nWelcome back from lunch, everyone. In this part of the workshop, we're going to practice giving feedback to team members. I know many of you find this difficult, especially when the feedback isn't positive. The key is to focus on specific actions, not on the person. So instead of saying \"You're always late,\" you might say \"The report was submitted two days after the deadline.\" I'm going to divide you into pairs now. One person will play a manager and the other an employee. You'll have ten minutes for each role, and then we'll discuss what you noticed as a group.",
+    "question": "What is the workshop about?",
+    "choices": [
+      "Writing reports",
+      "Managing time",
+      "Giving feedback",
+      "Hiring new staff"
+    ],
+    "answer": "Giving feedback",
+    "explanation": "practice giving feedback to team members と ある。",
+    "tags": "話題 talk"
+  },
+  {
+    "id": "TOEIC-L4-025-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk.\n\nWelcome back from lunch, everyone. In this part of the workshop, we're going to practice giving feedback to team members. I know many of you find this difficult, especially when the feedback isn't positive. The key is to focus on specific actions, not on the person. So instead of saying \"You're always late,\" you might say \"The report was submitted two days after the deadline.\" I'm going to divide you into pairs now. One person will play a manager and the other an employee. You'll have ten minutes for each role, and then we'll discuss what you noticed as a group.",
+    "question": "According to the speaker, what should feedback focus on?",
+    "choices": [
+      "Personal qualities",
+      "Specific actions",
+      "Future goals",
+      "Company rules"
+    ],
+    "answer": "Specific actions",
+    "explanation": "The key is to focus on specific actions, not on the person と 述べている。",
+    "tags": "詳細 talk"
+  },
+  {
+    "id": "TOEIC-L4-025-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk.\n\nWelcome back from lunch, everyone. In this part of the workshop, we're going to practice giving feedback to team members. I know many of you find this difficult, especially when the feedback isn't positive. The key is to focus on specific actions, not on the person. So instead of saying \"You're always late,\" you might say \"The report was submitted two days after the deadline.\" I'm going to divide you into pairs now. One person will play a manager and the other an employee. You'll have ten minutes for each role, and then we'll discuss what you noticed as a group.",
+    "question": "What will listeners do next?",
+    "choices": [
+      "Watch a video",
+      "Take a break",
+      "Write a short essay",
+      "Practice in pairs"
+    ],
+    "answer": "Practice in pairs",
+    "explanation": "I'm going to divide you into pairs now と ある。",
+    "tags": "次の行動 talk"
+  },
+  {
+    "id": "TOEIC-L4-026-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following radio advertisement.\n\nLooking for a gym that fits your busy schedule? Peak Fitness is now open twenty-four hours a day, seven days a week, at all five of our city locations. Members can use any location, so you can work out near your home or near your office. Our new mobile app lets you book group classes and track your progress. And this month only, there's no sign-up fee for new members—a savings of fifty dollars. Come in for a free trial day and see for yourself. Peak Fitness: your goals, your time.",
+    "question": "What is being advertised?",
+    "choices": [
+      "A fitness center",
+      "A sports store",
+      "A medical clinic",
+      "A mobile phone company"
+    ],
+    "answer": "A fitness center",
+    "explanation": "Peak Fitness と いう ジムの 広告。",
+    "tags": "話題 advertisement"
+  },
+  {
+    "id": "TOEIC-L4-026-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following radio advertisement.\n\nLooking for a gym that fits your busy schedule? Peak Fitness is now open twenty-four hours a day, seven days a week, at all five of our city locations. Members can use any location, so you can work out near your home or near your office. Our new mobile app lets you book group classes and track your progress. And this month only, there's no sign-up fee for new members—a savings of fifty dollars. Come in for a free trial day and see for yourself. Peak Fitness: your goals, your time.",
+    "question": "What does the speaker say about the business's locations?",
+    "choices": [
+      "One will close soon.",
+      "They are near train stations.",
+      "Members can use all of them.",
+      "They offer free parking."
+    ],
+    "answer": "Members can use all of them.",
+    "explanation": "Members can use any location と 述べている。",
+    "tags": "詳細 advertisement"
+  },
+  {
+    "id": "TOEIC-L4-026-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following radio advertisement.\n\nLooking for a gym that fits your busy schedule? Peak Fitness is now open twenty-four hours a day, seven days a week, at all five of our city locations. Members can use any location, so you can work out near your home or near your office. Our new mobile app lets you book group classes and track your progress. And this month only, there's no sign-up fee for new members—a savings of fifty dollars. Come in for a free trial day and see for yourself. Peak Fitness: your goals, your time.",
+    "question": "What special offer is available this month?",
+    "choices": [
+      "A free water bottle",
+      "No sign-up fee",
+      "Half-price classes",
+      "A free personal trainer"
+    ],
+    "answer": "No sign-up fee",
+    "explanation": "this month only, there's no sign-up fee と ある。",
+    "tags": "詳細 advertisement"
+  },
+  {
+    "id": "TOEIC-L4-027-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following excerpt from a meeting.\n\nThanks for staying a few minutes after the meeting. I wanted to talk to the sales team about the new customer database. As you know, we started using it last month, and so far the results have been mixed. The software itself works well, but many of you are still entering client information in your old spreadsheets first and then copying it over. That doubles the work and leads to errors. Starting Monday, the spreadsheets will be removed from the shared drive. I realize that's a big change. So the software provider has agreed to send a trainer here on Thursday to answer your questions in person.",
+    "question": "What problem does the speaker mention?",
+    "choices": [
+      "Staff are doing extra work by using two systems.",
+      "The new software has technical errors.",
+      "Clients have complained about the sales team.",
+      "The shared drive is full."
+    ],
+    "answer": "Staff are doing extra work by using two systems.",
+    "explanation": "古い スプレッドシートに 入力してから 新システムに 写しており、二重の 作業に なっている。",
+    "tags": "問題 meeting"
+  },
+  {
+    "id": "TOEIC-L4-027-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following excerpt from a meeting.\n\nThanks for staying a few minutes after the meeting. I wanted to talk to the sales team about the new customer database. As you know, we started using it last month, and so far the results have been mixed. The software itself works well, but many of you are still entering client information in your old spreadsheets first and then copying it over. That doubles the work and leads to errors. Starting Monday, the spreadsheets will be removed from the shared drive. I realize that's a big change. So the software provider has agreed to send a trainer here on Thursday to answer your questions in person.",
+    "question": "What does the speaker mean when she says, \"I realize that's a big change\"?",
+    "choices": [
+      "She thinks the change should be postponed.",
+      "She is surprised by the team's results.",
+      "She wants the team to vote on the decision.",
+      "She understands that staff may need support."
+    ],
+    "answer": "She understands that staff may need support.",
+    "explanation": "大きな 変化だと 認めた うえで トレーナーを 呼ぶと 続けており、支援が 必要な ことを 理解している。",
+    "tags": "意図 meeting"
+  },
+  {
+    "id": "TOEIC-L4-027-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following excerpt from a meeting.\n\nThanks for staying a few minutes after the meeting. I wanted to talk to the sales team about the new customer database. As you know, we started using it last month, and so far the results have been mixed. The software itself works well, but many of you are still entering client information in your old spreadsheets first and then copying it over. That doubles the work and leads to errors. Starting Monday, the spreadsheets will be removed from the shared drive. I realize that's a big change. So the software provider has agreed to send a trainer here on Thursday to answer your questions in person.",
+    "question": "What will happen on Thursday?",
+    "choices": [
+      "The spreadsheets will be restored.",
+      "A trainer will visit.",
+      "A new client will be introduced.",
+      "The sales team will present results."
+    ],
+    "answer": "A trainer will visit.",
+    "explanation": "send a trainer here on Thursday と ある。",
+    "tags": "詳細 meeting"
+  },
+  {
+    "id": "TOEIC-L4-028-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following tour information.\n\nHello, everyone, and welcome aboard this boat tour of Silver Bay. My name is Callum, and I'll be your captain for the next ninety minutes. As we travel along the coast, you'll see the old lighthouse, some beautiful beaches, and, if we're lucky, a few seals resting on the rocks. Please stay seated while the boat is moving, and keep your life jackets nearby. Drinks and snacks are for sale at the back of the boat. We'll stop for twenty minutes at Pelican Island, where you can walk around and take pictures.",
+    "question": "Who is the speaker?",
+    "choices": [
+      "A boat captain",
+      "A lighthouse keeper",
+      "A photographer",
+      "A hotel manager"
+    ],
+    "answer": "A boat captain",
+    "explanation": "I'll be your captain と 自己紹介している。",
+    "tags": "話し手 information"
+  },
+  {
+    "id": "TOEIC-L4-028-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following tour information.\n\nHello, everyone, and welcome aboard this boat tour of Silver Bay. My name is Callum, and I'll be your captain for the next ninety minutes. As we travel along the coast, you'll see the old lighthouse, some beautiful beaches, and, if we're lucky, a few seals resting on the rocks. Please stay seated while the boat is moving, and keep your life jackets nearby. Drinks and snacks are for sale at the back of the boat. We'll stop for twenty minutes at Pelican Island, where you can walk around and take pictures.",
+    "question": "What are listeners asked to do while the boat is moving?",
+    "choices": [
+      "Wear sunglasses",
+      "Turn off their phones",
+      "Stay in their seats",
+      "Keep the windows closed"
+    ],
+    "answer": "Stay in their seats",
+    "explanation": "Please stay seated while the boat is moving と 頼んでいる。",
+    "tags": "依頼 information"
+  },
+  {
+    "id": "TOEIC-L4-028-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following tour information.\n\nHello, everyone, and welcome aboard this boat tour of Silver Bay. My name is Callum, and I'll be your captain for the next ninety minutes. As we travel along the coast, you'll see the old lighthouse, some beautiful beaches, and, if we're lucky, a few seals resting on the rocks. Please stay seated while the boat is moving, and keep your life jackets nearby. Drinks and snacks are for sale at the back of the boat. We'll stop for twenty minutes at Pelican Island, where you can walk around and take pictures.",
+    "question": "What will happen at Pelican Island?",
+    "choices": [
+      "Lunch will be served.",
+      "Passengers will change boats.",
+      "A guide will join the tour.",
+      "The tour will stop for a short time."
+    ],
+    "answer": "The tour will stop for a short time.",
+    "explanation": "We'll stop for twenty minutes at Pelican Island と ある。",
+    "tags": "次の行動 information"
+  },
+  {
+    "id": "TOEIC-L4-029-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following news report.\n\nIn community news, the town of Oakridge will begin a new recycling program next month. Residents will receive a blue bin for paper and cardboard and a green bin for glass and plastic. Collection will take place every other Tuesday. Town officials say the program should cut the amount of waste sent to the landfill by nearly half. The new bins will be delivered to homes over the next two weeks. Residents who have questions can call the town's public works office or attend an information session at Oakridge Town Hall on Saturday morning.",
+    "question": "What is the news report about?",
+    "choices": [
+      "A new recycling program",
+      "A landfill expansion",
+      "A town election",
+      "A change in tax rates"
+    ],
+    "answer": "A new recycling program",
+    "explanation": "a new recycling program の 開始を 伝えている。",
+    "tags": "話題 report"
+  },
+  {
+    "id": "TOEIC-L4-029-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following news report.\n\nIn community news, the town of Oakridge will begin a new recycling program next month. Residents will receive a blue bin for paper and cardboard and a green bin for glass and plastic. Collection will take place every other Tuesday. Town officials say the program should cut the amount of waste sent to the landfill by nearly half. The new bins will be delivered to homes over the next two weeks. Residents who have questions can call the town's public works office or attend an information session at Oakridge Town Hall on Saturday morning.",
+    "question": "How often will collection take place?",
+    "choices": [
+      "Every day",
+      "Once a month",
+      "Every two weeks",
+      "Twice a week"
+    ],
+    "answer": "Every two weeks",
+    "explanation": "every other Tuesday（隔週 火曜日）と ある。",
+    "tags": "詳細 report"
+  },
+  {
+    "id": "TOEIC-L4-029-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following news report.\n\nIn community news, the town of Oakridge will begin a new recycling program next month. Residents will receive a blue bin for paper and cardboard and a green bin for glass and plastic. Collection will take place every other Tuesday. Town officials say the program should cut the amount of waste sent to the landfill by nearly half. The new bins will be delivered to homes over the next two weeks. Residents who have questions can call the town's public works office or attend an information session at Oakridge Town Hall on Saturday morning.",
+    "question": "What will happen over the next two weeks?",
+    "choices": [
+      "The landfill will close.",
+      "Residents will vote.",
+      "Collection fees will rise.",
+      "Bins will be delivered."
+    ],
+    "answer": "Bins will be delivered.",
+    "explanation": "The new bins will be delivered to homes over the next two weeks と ある。",
+    "tags": "詳細 report"
+  },
+  {
+    "id": "TOEIC-L4-030-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk.\n\nHi, everyone. As the project manager for the Brookfield Clinic renovation, I want to give you a quick progress update. The good news is that the new waiting area and the reception desk are finished, about a week ahead of schedule. However, the special lighting for the examination rooms hasn't arrived yet. The supplier says it's been held up at the port. Since we can't install the ceilings until the lighting is in, the painters will start on the hallways first instead. I'll check with the supplier again tomorrow, and I'll send everyone a revised timeline by the end of the week.",
+    "question": "What is the speaker mainly discussing?",
+    "choices": [
+      "The opening of a new clinic",
+      "The progress of a renovation",
+      "Changes to a patient policy",
+      "The hiring of painters"
+    ],
+    "answer": "The progress of a renovation",
+    "explanation": "Brookfield Clinic renovation の 進捗報告を している。",
+    "tags": "話題 talk"
+  },
+  {
+    "id": "TOEIC-L4-030-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk.\n\nHi, everyone. As the project manager for the Brookfield Clinic renovation, I want to give you a quick progress update. The good news is that the new waiting area and the reception desk are finished, about a week ahead of schedule. However, the special lighting for the examination rooms hasn't arrived yet. The supplier says it's been held up at the port. Since we can't install the ceilings until the lighting is in, the painters will start on the hallways first instead. I'll check with the supplier again tomorrow, and I'll send everyone a revised timeline by the end of the week.",
+    "question": "What problem does the speaker mention?",
+    "choices": [
+      "Some equipment has been delayed.",
+      "The budget has been exceeded.",
+      "A worker was injured.",
+      "The design was rejected."
+    ],
+    "answer": "Some equipment has been delayed.",
+    "explanation": "the special lighting ... hasn't arrived yet と 述べている。",
+    "tags": "問題 talk"
+  },
+  {
+    "id": "TOEIC-L4-030-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk.\n\nHi, everyone. As the project manager for the Brookfield Clinic renovation, I want to give you a quick progress update. The good news is that the new waiting area and the reception desk are finished, about a week ahead of schedule. However, the special lighting for the examination rooms hasn't arrived yet. The supplier says it's been held up at the port. Since we can't install the ceilings until the lighting is in, the painters will start on the hallways first instead. I'll check with the supplier again tomorrow, and I'll send everyone a revised timeline by the end of the week.",
+    "question": "What will the painters do first?",
+    "choices": [
+      "Paint the waiting area",
+      "Repaint the reception desk",
+      "Work on the hallways",
+      "Paint the examination rooms"
+    ],
+    "answer": "Work on the hallways",
+    "explanation": "the painters will start on the hallways first instead と ある。",
+    "tags": "詳細 talk"
+  }
+]

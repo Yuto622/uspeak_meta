@@ -1,0 +1,650 @@
+[
+  {
+    "id": "TOEIC-R5-037",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The new policy will take ------- on the first of next month.",
+    "choices": [
+      "effective",
+      "effectively",
+      "effectiveness",
+      "effect"
+    ],
+    "answer": "effect",
+    "explanation": "take effect（効力を 生じる）の 決まった 形で、名詞 effect が 入る。",
+    "tags": "品詞 名詞 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-038",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Due to ------- demand, the workshop has been moved to a larger room.",
+    "choices": [
+      "overwhelm",
+      "overwhelmingly",
+      "overwhelming",
+      "overwhelmed"
+    ],
+    "answer": "overwhelming",
+    "explanation": "名詞 demand を 修飾する 形容詞 overwhelming（圧倒的な）が 正解。",
+    "tags": "品詞 形容詞 分詞"
+  },
+  {
+    "id": "TOEIC-R5-039",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The engineers conducted a ------- analysis of the bridge's structure.",
+    "choices": [
+      "thorough",
+      "thoroughly",
+      "thoroughness",
+      "more thoroughly"
+    ],
+    "answer": "thorough",
+    "explanation": "冠詞 a と 名詞 analysis の 間なので 形容詞 thorough（徹底的な）が 入る。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-040",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "The ------- of the two departments is expected to improve communication.",
+    "choices": [
+      "consolidate",
+      "consolidation",
+      "consolidated",
+      "consolidates"
+    ],
+    "answer": "consolidation",
+    "explanation": "The と of の 間は 名詞。consolidation（統合）が 主語に なる。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-041",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "Ms. Reyes is ------- the most experienced member of the design team.",
+    "choices": [
+      "arguably",
+      "arguable",
+      "argue",
+      "argument"
+    ],
+    "answer": "arguably",
+    "explanation": "最上級 the most experienced を 修飾する 副詞 arguably（おそらく）が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-042",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "Expenses that exceed the approved budget must be ------- justified in writing.",
+    "choices": [
+      "adequate",
+      "adequacy",
+      "adequately",
+      "adequateness"
+    ],
+    "answer": "adequately",
+    "explanation": "受動態 be justified を 修飾する 副詞 adequately（十分に）が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-043",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The factory has become increasingly ------- over the past decade.",
+    "choices": [
+      "produce",
+      "productive",
+      "productively",
+      "productivity"
+    ],
+    "answer": "productive",
+    "explanation": "become の 補語に なる 形容詞 productive（生産性の 高い）が 正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-044",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The hotel offers ------- rooms at reduced rates during the off-season.",
+    "choices": [
+      "space",
+      "spaciously",
+      "spaciousness",
+      "spacious"
+    ],
+    "answer": "spacious",
+    "explanation": "名詞 rooms を 修飾する 形容詞 spacious（広々とした）が 正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-045",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Mr. Obi's ------- as regional manager becomes effective on March 1.",
+    "choices": [
+      "appoint",
+      "appointed",
+      "appointment",
+      "appointing"
+    ],
+    "answer": "appointment",
+    "explanation": "所有格の あとで 主語に なる 名詞 appointment（任命）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-046",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Tickets for the banquet are available at a ------- price for early registrants.",
+    "choices": [
+      "reduce",
+      "reduction",
+      "reducing",
+      "reduced"
+    ],
+    "answer": "reduced",
+    "explanation": "「値引きされた 価格」と 受け身の 意味に なるので 過去分詞 reduced が 正解。",
+    "tags": "品詞 分詞"
+  },
+  {
+    "id": "TOEIC-R5-047",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The survey results were ------- different from what the analysts had predicted.",
+    "choices": [
+      "considerable",
+      "considerably",
+      "consider",
+      "consideration"
+    ],
+    "answer": "considerably",
+    "explanation": "形容詞 different を 修飾する 副詞 considerably（かなり）が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-048",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Please direct all ------- regarding the invoice to the billing department.",
+    "choices": [
+      "inquiries",
+      "inquire",
+      "inquiring",
+      "inquired"
+    ],
+    "answer": "inquiries",
+    "explanation": "all の あとで direct の 目的語に なる 名詞 inquiries（問い合わせ）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-049",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The CEO spoke ------- about the company's plans for expansion.",
+    "choices": [
+      "enthusiastic",
+      "enthusiastically",
+      "enthusiasm",
+      "enthusiast"
+    ],
+    "answer": "enthusiastically",
+    "explanation": "自動詞 spoke を 修飾する 副詞 enthusiastically が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-050",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The library's collection of business journals is ------- to all registered members.",
+    "choices": [
+      "accessible",
+      "access",
+      "accessibly",
+      "accessibility"
+    ],
+    "answer": "accessible",
+    "explanation": "be動詞の 補語で to と 結びつく 形容詞 accessible（利用できる）が 正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-051",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The marketing director asked for a ------- explanation of the budget increase.",
+    "choices": [
+      "detail",
+      "details",
+      "detailing",
+      "detailed"
+    ],
+    "answer": "detailed",
+    "explanation": "名詞 explanation を 修飾する 形容詞 detailed（詳しい）が 正解。",
+    "tags": "品詞 形容詞 分詞"
+  },
+  {
+    "id": "TOEIC-R5-052",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Our latest model is ------- lighter than its predecessor.",
+    "choices": [
+      "noticeable",
+      "notice",
+      "noticeably",
+      "noticing"
+    ],
+    "answer": "noticeably",
+    "explanation": "比較級 lighter を 修飾する 副詞 noticeably（目に 見えて）が 正解。",
+    "tags": "品詞 副詞 比較"
+  },
+  {
+    "id": "TOEIC-R5-053",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "Ms. Haddad's ------- in negotiating contracts makes her a valuable asset to the firm.",
+    "choices": [
+      "expert",
+      "expertly",
+      "experienced",
+      "expertise"
+    ],
+    "answer": "expertise",
+    "explanation": "所有格の あとで 主語に なり、in と 結びつく 名詞 expertise（専門知識）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-054",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The quarterly meeting ------- next Tuesday at 10 A.M.",
+    "choices": [
+      "was held",
+      "will be held",
+      "has held",
+      "holding"
+    ],
+    "answer": "will be held",
+    "explanation": "next Tuesday は 未来。会議は「開かれる」ので 未来の 受動態 will be held。",
+    "tags": "時制 態"
+  },
+  {
+    "id": "TOEIC-R5-055",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Mr. Barnes ------- for the company for over fifteen years.",
+    "choices": [
+      "has worked",
+      "is working",
+      "have worked",
+      "working"
+    ],
+    "answer": "has worked",
+    "explanation": "for over fifteen years（継続）と 主語 単数から 現在完了 has worked。",
+    "tags": "時制 一致"
+  },
+  {
+    "id": "TOEIC-R5-056",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The shipment ------- yesterday, but it has not yet been inspected.",
+    "choices": [
+      "arrives",
+      "will arrive",
+      "arrived",
+      "arriving"
+    ],
+    "answer": "arrived",
+    "explanation": "yesterday が あるので 過去形 arrived が 正解。",
+    "tags": "時制"
+  },
+  {
+    "id": "TOEIC-R5-057",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "All employees ------- to attend the safety training session.",
+    "choices": [
+      "requires",
+      "requiring",
+      "are required",
+      "has required"
+    ],
+    "answer": "are required",
+    "explanation": "社員は「求められる」ので 受動態。主語は 複数なので are required。",
+    "tags": "態 一致"
+  },
+  {
+    "id": "TOEIC-R5-058",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "By the time the conference begins, the organizers ------- all the name badges.",
+    "choices": [
+      "will have printed",
+      "have printed",
+      "printed",
+      "are printing"
+    ],
+    "answer": "will have printed",
+    "explanation": "By the time + 現在形（未来の 時点）までに 完了するので 未来完了 will have printed。",
+    "tags": "時制 未来完了"
+  },
+  {
+    "id": "TOEIC-R5-059",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The new branch office ------- by the regional director last week.",
+    "choices": [
+      "inspected",
+      "was inspected",
+      "is inspecting",
+      "has inspected"
+    ],
+    "answer": "was inspected",
+    "explanation": "支店は「視察された」。by と last week から 過去の 受動態 was inspected。",
+    "tags": "時制 態"
+  },
+  {
+    "id": "TOEIC-R5-060",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Each of the applicants ------- a short interview with the hiring committee.",
+    "choices": [
+      "have had",
+      "having",
+      "are having",
+      "has had"
+    ],
+    "answer": "has had",
+    "explanation": "Each of ～ は 単数扱い。単数に 合う 動詞は has had だけ。",
+    "tags": "一致"
+  },
+  {
+    "id": "TOEIC-R5-061",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "If the weather ------- clear, the outdoor reception will take place on the terrace.",
+    "choices": [
+      "remains",
+      "will remain",
+      "remained",
+      "remaining"
+    ],
+    "answer": "remains",
+    "explanation": "条件を 表す if 節では 未来の ことも 現在形で 表す。主語が 単数なので remains。",
+    "tags": "時制 条件節"
+  },
+  {
+    "id": "TOEIC-R5-062",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The list of approved suppliers ------- updated every six months.",
+    "choices": [
+      "are",
+      "be",
+      "were",
+      "is"
+    ],
+    "answer": "is",
+    "explanation": "主語の 中心は The list（単数）。習慣を 表す 現在の 受動態 is updated。",
+    "tags": "一致 態"
+  },
+  {
+    "id": "TOEIC-R5-063",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Ms. Lindqvist ------- the budget report when the power went out.",
+    "choices": [
+      "reviews",
+      "was reviewing",
+      "has reviewed",
+      "will review"
+    ],
+    "answer": "was reviewing",
+    "explanation": "停電が 起きた ときに 進行中だった 動作なので 過去進行形 was reviewing。",
+    "tags": "時制 進行形"
+  },
+  {
+    "id": "TOEIC-R5-064",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "The CEO insisted that the contract ------- by a legal expert before signing.",
+    "choices": [
+      "is reviewing",
+      "reviews",
+      "be reviewed",
+      "reviewed"
+    ],
+    "answer": "be reviewed",
+    "explanation": "insist that の 節では 動詞の 原形（仮定法現在）を 使う。契約は「確認される」ので be reviewed。",
+    "tags": "仮定法現在 態"
+  },
+  {
+    "id": "TOEIC-R5-065",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Since its opening in 2019, the café ------- a favorite among local office workers.",
+    "choices": [
+      "has become",
+      "becomes",
+      "became",
+      "will become"
+    ],
+    "answer": "has become",
+    "explanation": "Since ～ は 過去から 現在までの 継続を 表すので 現在完了 has become。",
+    "tags": "時制 現在完了"
+  },
+  {
+    "id": "TOEIC-R5-066",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The documents you requested ------- to you by courier this afternoon.",
+    "choices": [
+      "sent",
+      "have sent",
+      "are sending",
+      "will be sent"
+    ],
+    "answer": "will be sent",
+    "explanation": "書類は「送られる」ので 受動態。this afternoon は これからの 予定なので will be sent。",
+    "tags": "時制 態"
+  },
+  {
+    "id": "TOEIC-R5-067",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "Neither the manager nor her assistants ------- aware of the schedule change.",
+    "choices": [
+      "was",
+      "were",
+      "being",
+      "has been"
+    ],
+    "answer": "were",
+    "explanation": "neither A nor B では 動詞は B に 合わせる。assistants は 複数なので were。",
+    "tags": "一致"
+  },
+  {
+    "id": "TOEIC-R5-068",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Our customer service representatives ------- inquiries 24 hours a day.",
+    "choices": [
+      "answers",
+      "answering",
+      "answer",
+      "is answered"
+    ],
+    "answer": "answer",
+    "explanation": "主語 representatives は 複数で、習慣を 表す 現在形 answer が 正解。",
+    "tags": "一致 時制"
+  },
+  {
+    "id": "TOEIC-R5-069",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Construction on the new highway ------- next spring, according to city officials.",
+    "choices": [
+      "expected beginning",
+      "expects to begin",
+      "is expected to begin",
+      "has been expecting"
+    ],
+    "answer": "is expected to begin",
+    "explanation": "工事は「始まると 予想されている」ので 受動態 is expected to begin。",
+    "tags": "態"
+  },
+  {
+    "id": "TOEIC-R5-070",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The training manual ------- several times since it was first published.",
+    "choices": [
+      "has revised",
+      "has been revised",
+      "revised",
+      "is revising"
+    ],
+    "answer": "has been revised",
+    "explanation": "since から 現在完了。マニュアルは「改訂される」側なので 受動態 has been revised。",
+    "tags": "時制 態"
+  },
+  {
+    "id": "TOEIC-R5-071",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Please do not enter the laboratory while the experiment -------.",
+    "choices": [
+      "is conducting",
+      "conducts",
+      "has conducted",
+      "is being conducted"
+    ],
+    "answer": "is being conducted",
+    "explanation": "実験は「行われている 最中」なので 進行形の 受動態 is being conducted。",
+    "tags": "態 進行形"
+  },
+  {
+    "id": "TOEIC-R5-072",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Mr. Sato ------- the sales department before he was transferred to Singapore.",
+    "choices": [
+      "had managed",
+      "has managed",
+      "manages",
+      "will manage"
+    ],
+    "answer": "had managed",
+    "explanation": "異動した（過去）よりも 前の ことなので 過去完了 had managed。",
+    "tags": "時制 過去完了"
+  }
+]

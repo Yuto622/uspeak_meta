@@ -1,0 +1,542 @@
+[
+  {
+    "id": "TOEIC-L4-031-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following telephone message.\n\nHi, Lucy, it's Jonas. I'm at the convention center now, setting up our booth for the trade show tomorrow. Everything looks good, but I can't find the box with our product brochures. I think it may still be in the storage room at the office. Could you bring it with you when you come tomorrow morning? The show opens at nine, so please try to get here by eight thirty. Our booth number is 112, near the main entrance. I'll also need the extra price lists, but I can print those at the hotel tonight. Call me if you have any trouble finding it. Thanks.",
+    "question": "Where is the speaker now?",
+    "choices": [
+      "At the office",
+      "At a convention center",
+      "In a storage room",
+      "At an airport"
+    ],
+    "answer": "At a convention center",
+    "explanation": "I'm at the convention center now と 言っている。",
+    "tags": "場所 message"
+  },
+  {
+    "id": "TOEIC-L4-031-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following telephone message.\n\nHi, Lucy, it's Jonas. I'm at the convention center now, setting up our booth for the trade show tomorrow. Everything looks good, but I can't find the box with our product brochures. I think it may still be in the storage room at the office. Could you bring it with you when you come tomorrow morning? The show opens at nine, so please try to get here by eight thirty. Our booth number is 112, near the main entrance. I'll also need the extra price lists, but I can print those at the hotel tonight. Call me if you have any trouble finding it. Thanks.",
+    "question": "What does the speaker ask the listener to bring?",
+    "choices": [
+      "A laptop",
+      "A banner",
+      "Some business cards",
+      "Some brochures"
+    ],
+    "answer": "Some brochures",
+    "explanation": "the box with our product brochures を 持ってきて ほしいと 頼んでいる。",
+    "tags": "依頼 message"
+  },
+  {
+    "id": "TOEIC-L4-031-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following telephone message.\n\nHi, Lucy, it's Jonas. I'm at the convention center now, setting up our booth for the trade show tomorrow. Everything looks good, but I can't find the box with our product brochures. I think it may still be in the storage room at the office. Could you bring it with you when you come tomorrow morning? The show opens at nine, so please try to get here by eight thirty. Our booth number is 112, near the main entrance. I'll also need the extra price lists, but I can print those at the hotel tonight. Call me if you have any trouble finding it. Thanks.",
+    "question": "What time does the speaker want the listener to arrive?",
+    "choices": [
+      "At eight thirty",
+      "At eight o'clock",
+      "At nine o'clock",
+      "At nine thirty"
+    ],
+    "answer": "At eight thirty",
+    "explanation": "please try to get here by eight thirty と ある。",
+    "tags": "詳細 message"
+  },
+  {
+    "id": "TOEIC-L4-032-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following speech.\n\nGood afternoon. On behalf of the board of directors, I'd like to welcome you to Halvorsen Biotech's annual shareholders' meeting. It has been a remarkable year. Our revenue grew by eighteen percent, largely thanks to strong international sales of our diagnostic test kits. We also opened a research laboratory in Lisbon, which allows us to work closely with several European universities. Of course, not everything went according to plan. Approval of our new allergy medicine has taken longer than expected, so its release has been pushed back to next year. Our chief financial officer, Anneliese Wu, will now walk you through the financial statements in detail.",
+    "question": "Who most likely are the listeners?",
+    "choices": [
+      "University researchers",
+      "Medical patients",
+      "Company shareholders",
+      "New employees"
+    ],
+    "answer": "Company shareholders",
+    "explanation": "annual shareholders' meeting で 歓迎の あいさつを している。",
+    "tags": "聞き手 speech"
+  },
+  {
+    "id": "TOEIC-L4-032-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following speech.\n\nGood afternoon. On behalf of the board of directors, I'd like to welcome you to Halvorsen Biotech's annual shareholders' meeting. It has been a remarkable year. Our revenue grew by eighteen percent, largely thanks to strong international sales of our diagnostic test kits. We also opened a research laboratory in Lisbon, which allows us to work closely with several European universities. Of course, not everything went according to plan. Approval of our new allergy medicine has taken longer than expected, so its release has been pushed back to next year. Our chief financial officer, Anneliese Wu, will now walk you through the financial statements in detail.",
+    "question": "What does the speaker say contributed to revenue growth?",
+    "choices": [
+      "Lower production costs",
+      "A new advertising campaign",
+      "The sale of a laboratory",
+      "Overseas sales of a product"
+    ],
+    "answer": "Overseas sales of a product",
+    "explanation": "largely thanks to strong international sales of our diagnostic test kits と ある。",
+    "tags": "詳細 speech"
+  },
+  {
+    "id": "TOEIC-L4-032-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following speech.\n\nGood afternoon. On behalf of the board of directors, I'd like to welcome you to Halvorsen Biotech's annual shareholders' meeting. It has been a remarkable year. Our revenue grew by eighteen percent, largely thanks to strong international sales of our diagnostic test kits. We also opened a research laboratory in Lisbon, which allows us to work closely with several European universities. Of course, not everything went according to plan. Approval of our new allergy medicine has taken longer than expected, so its release has been pushed back to next year. Our chief financial officer, Anneliese Wu, will now walk you through the financial statements in detail.",
+    "question": "Why does the speaker say, \"not everything went according to plan\"?",
+    "choices": [
+      "To apologize for a financial loss",
+      "To introduce news about a delay",
+      "To criticize a competitor",
+      "To announce a change in leadership"
+    ],
+    "answer": "To introduce news about a delay",
+    "explanation": "直後に 新薬の 承認が 遅れて 発売が 延期された ことを 述べている。",
+    "tags": "意図 speech"
+  },
+  {
+    "id": "TOEIC-L4-033-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following announcement.\n\nGood morning, everyone. This is a reminder that the fire alarm system in our building will be tested today between two and three P.M. During that time, you may hear the alarm several times. You don't need to leave the building unless you hear an announcement telling you to do so. However, the elevators will be stopped for about fifteen minutes during the test, so please plan to use the stairs if you need to move between floors. We apologize for any disruption. If you have a meeting with visitors scheduled during that hour, you may want to let them know in advance.",
+    "question": "What will happen this afternoon?",
+    "choices": [
+      "An alarm system will be tested.",
+      "A fire drill will be held.",
+      "Visitors will tour the building.",
+      "New elevators will be installed."
+    ],
+    "answer": "An alarm system will be tested.",
+    "explanation": "the fire alarm system ... will be tested today と ある。",
+    "tags": "話題 announcement"
+  },
+  {
+    "id": "TOEIC-L4-033-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following announcement.\n\nGood morning, everyone. This is a reminder that the fire alarm system in our building will be tested today between two and three P.M. During that time, you may hear the alarm several times. You don't need to leave the building unless you hear an announcement telling you to do so. However, the elevators will be stopped for about fifteen minutes during the test, so please plan to use the stairs if you need to move between floors. We apologize for any disruption. If you have a meeting with visitors scheduled during that hour, you may want to let them know in advance.",
+    "question": "What are listeners told about the elevators?",
+    "choices": [
+      "They will be replaced next week.",
+      "They will be temporarily unavailable.",
+      "They are reserved for visitors.",
+      "They will run more slowly."
+    ],
+    "answer": "They will be temporarily unavailable.",
+    "explanation": "the elevators will be stopped for about fifteen minutes と ある。",
+    "tags": "詳細 announcement"
+  },
+  {
+    "id": "TOEIC-L4-033-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following announcement.\n\nGood morning, everyone. This is a reminder that the fire alarm system in our building will be tested today between two and three P.M. During that time, you may hear the alarm several times. You don't need to leave the building unless you hear an announcement telling you to do so. However, the elevators will be stopped for about fifteen minutes during the test, so please plan to use the stairs if you need to move between floors. We apologize for any disruption. If you have a meeting with visitors scheduled during that hour, you may want to let them know in advance.",
+    "question": "What does the speaker suggest some listeners do?",
+    "choices": [
+      "Reschedule their meetings",
+      "Work from home",
+      "Inform their visitors",
+      "Leave the building early"
+    ],
+    "answer": "Inform their visitors",
+    "explanation": "visitors との 会議が ある 人は let them know in advance と 勧めている。",
+    "tags": "提案 announcement"
+  },
+  {
+    "id": "TOEIC-L4-034-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following radio advertisement and coupon.\n\nSpring is here, and it's time to get your car ready for the road! At Dunmore Auto Care, our certified mechanics will check your tires, brakes, and battery while you relax in our comfortable waiting room with free coffee and Wi-Fi. Most services take less than an hour, and every repair comes with a one-year warranty. Right now, you can save on our most popular services with the coupon in this week's Dunmore Herald. Just remember that the offer on oil changes ends this Sunday, so book soon. Call us or schedule online at dunmore-autocare dot net.\n\n[Coupon]\nDunmore Auto Care — Spring Savings\nOil change ........... $10 off (expires April 6)\nTire rotation ........ $15 off (expires April 20)\nBrake inspection ..... $20 off (expires April 27)\nBattery check ........ Free (expires April 30)",
+    "question": "What kind of business is being advertised?",
+    "choices": [
+      "A café",
+      "A tire factory",
+      "A newspaper",
+      "A car repair shop"
+    ],
+    "answer": "A car repair shop",
+    "explanation": "mechanics が タイヤや ブレーキを 点検する 自動車整備店。",
+    "tags": "話題 advertisement 図表"
+  },
+  {
+    "id": "TOEIC-L4-034-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following radio advertisement and coupon.\n\nSpring is here, and it's time to get your car ready for the road! At Dunmore Auto Care, our certified mechanics will check your tires, brakes, and battery while you relax in our comfortable waiting room with free coffee and Wi-Fi. Most services take less than an hour, and every repair comes with a one-year warranty. Right now, you can save on our most popular services with the coupon in this week's Dunmore Herald. Just remember that the offer on oil changes ends this Sunday, so book soon. Call us or schedule online at dunmore-autocare dot net.\n\n[Coupon]\nDunmore Auto Care — Spring Savings\nOil change ........... $10 off (expires April 6)\nTire rotation ........ $15 off (expires April 20)\nBrake inspection ..... $20 off (expires April 27)\nBattery check ........ Free (expires April 30)",
+    "question": "What does the speaker say customers can do while they wait?",
+    "choices": [
+      "Watch a movie",
+      "Use free Internet access",
+      "Shop for accessories",
+      "Rent a car"
+    ],
+    "answer": "Use free Internet access",
+    "explanation": "free coffee and Wi-Fi と ある。",
+    "tags": "詳細 advertisement 図表"
+  },
+  {
+    "id": "TOEIC-L4-034-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following radio advertisement and coupon.\n\nSpring is here, and it's time to get your car ready for the road! At Dunmore Auto Care, our certified mechanics will check your tires, brakes, and battery while you relax in our comfortable waiting room with free coffee and Wi-Fi. Most services take less than an hour, and every repair comes with a one-year warranty. Right now, you can save on our most popular services with the coupon in this week's Dunmore Herald. Just remember that the offer on oil changes ends this Sunday, so book soon. Call us or schedule online at dunmore-autocare dot net.\n\n[Coupon]\nDunmore Auto Care — Spring Savings\nOil change ........... $10 off (expires April 6)\nTire rotation ........ $15 off (expires April 20)\nBrake inspection ..... $20 off (expires April 27)\nBattery check ........ Free (expires April 30)",
+    "question": "Look at the graphic. What is the date this Sunday?",
+    "choices": [
+      "April 6",
+      "April 20",
+      "April 27",
+      "April 30"
+    ],
+    "answer": "April 6",
+    "explanation": "オイル交換の 割引は 今週 日曜日に 終わる。表で Oil change の 期限は April 6。",
+    "tags": "図表 advertisement "
+  },
+  {
+    "id": "TOEIC-L4-035-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following instructions.\n\nOkay, everyone, before we begin the survey, let me explain how this will work. Each of you will be assigned a section of the shopping center. Your job is to approach shoppers and ask whether they'd be willing to answer five short questions about their shopping habits. If they agree, enter their answers into the tablet you've been given. Please don't push anyone who says no. Be polite and simply thank them for their time. Also, remember that people under eighteen should not be surveyed. Each of you should aim to complete at least forty surveys today. We'll meet back here at four o'clock to upload the data.",
+    "question": "What are the listeners going to do?",
+    "choices": [
+      "Sell products",
+      "Clean a shopping center",
+      "Conduct a survey",
+      "Repair tablets"
+    ],
+    "answer": "Conduct a survey",
+    "explanation": "before we begin the survey と 述べ、買い物客に 質問する 仕事を 説明している。",
+    "tags": "話題 instructions"
+  },
+  {
+    "id": "TOEIC-L4-035-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following instructions.\n\nOkay, everyone, before we begin the survey, let me explain how this will work. Each of you will be assigned a section of the shopping center. Your job is to approach shoppers and ask whether they'd be willing to answer five short questions about their shopping habits. If they agree, enter their answers into the tablet you've been given. Please don't push anyone who says no. Be polite and simply thank them for their time. Also, remember that people under eighteen should not be surveyed. Each of you should aim to complete at least forty surveys today. We'll meet back here at four o'clock to upload the data.",
+    "question": "What are listeners told not to do?",
+    "choices": [
+      "Use their own phones",
+      "Leave their assigned section",
+      "Give gifts to shoppers",
+      "Survey people under eighteen"
+    ],
+    "answer": "Survey people under eighteen",
+    "explanation": "people under eighteen should not be surveyed と ある。",
+    "tags": "詳細 instructions"
+  },
+  {
+    "id": "TOEIC-L4-035-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following instructions.\n\nOkay, everyone, before we begin the survey, let me explain how this will work. Each of you will be assigned a section of the shopping center. Your job is to approach shoppers and ask whether they'd be willing to answer five short questions about their shopping habits. If they agree, enter their answers into the tablet you've been given. Please don't push anyone who says no. Be polite and simply thank them for their time. Also, remember that people under eighteen should not be surveyed. Each of you should aim to complete at least forty surveys today. We'll meet back here at four o'clock to upload the data.",
+    "question": "What will happen at four o'clock?",
+    "choices": [
+      "A shift will begin.",
+      "Tablets will be handed out.",
+      "Data will be uploaded.",
+      "The shopping center will close."
+    ],
+    "answer": "Data will be uploaded.",
+    "explanation": "We'll meet back here at four o'clock to upload the data と ある。",
+    "tags": "次の行動 instructions"
+  },
+  {
+    "id": "TOEIC-L4-036-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following telephone message.\n\nHello, this is Hiroshi Mendez calling from Larkspur Publishing for Ms. Adeyemi. We received your manuscript for the children's book \"The Moonlight Garden,\" and our editors enjoyed it very much. We'd like to invite you to our office to discuss a possible contract. Would you be available sometime next week? We're free on Tuesday or Thursday afternoon. Also, if you have any sample illustrations, please bring them along. Our art director will be joining the meeting and would like to see your style. Please call me back at 555-0193. I look forward to hearing from you.",
+    "question": "Why is the speaker calling?",
+    "choices": [
+      "To reject a manuscript",
+      "To invite the listener to a meeting",
+      "To request payment",
+      "To order some books"
+    ],
+    "answer": "To invite the listener to a meeting",
+    "explanation": "invite you to our office to discuss a possible contract と ある。",
+    "tags": "目的 message"
+  },
+  {
+    "id": "TOEIC-L4-036-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following telephone message.\n\nHello, this is Hiroshi Mendez calling from Larkspur Publishing for Ms. Adeyemi. We received your manuscript for the children's book \"The Moonlight Garden,\" and our editors enjoyed it very much. We'd like to invite you to our office to discuss a possible contract. Would you be available sometime next week? We're free on Tuesday or Thursday afternoon. Also, if you have any sample illustrations, please bring them along. Our art director will be joining the meeting and would like to see your style. Please call me back at 555-0193. I look forward to hearing from you.",
+    "question": "What is the listener's profession most likely?",
+    "choices": [
+      "Editor",
+      "Teacher",
+      "Gardener",
+      "Writer"
+    ],
+    "answer": "Writer",
+    "explanation": "原稿（manuscript）を 送った 絵本の 作者と 考えられる。",
+    "tags": "聞き手 message"
+  },
+  {
+    "id": "TOEIC-L4-036-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following telephone message.\n\nHello, this is Hiroshi Mendez calling from Larkspur Publishing for Ms. Adeyemi. We received your manuscript for the children's book \"The Moonlight Garden,\" and our editors enjoyed it very much. We'd like to invite you to our office to discuss a possible contract. Would you be available sometime next week? We're free on Tuesday or Thursday afternoon. Also, if you have any sample illustrations, please bring them along. Our art director will be joining the meeting and would like to see your style. Please call me back at 555-0193. I look forward to hearing from you.",
+    "question": "What does the speaker ask the listener to bring?",
+    "choices": [
+      "Sample drawings",
+      "A signed contract",
+      "A list of references",
+      "Copies of the manuscript"
+    ],
+    "answer": "Sample drawings",
+    "explanation": "if you have any sample illustrations, please bring them along と 頼んでいる。",
+    "tags": "依頼 message"
+  },
+  {
+    "id": "TOEIC-L4-037-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following announcement.\n\nAttention, visitors. The Sandford Science Museum will close in thirty minutes. The gift shop on the first floor will stay open until six o'clock, so you still have time to pick up a souvenir. If you left a bag or coat in the lockers near the entrance, please remember to collect it before you leave. Also, tickets are now on sale for our new space exhibition, which opens next Saturday. Museum members can buy tickets at half price. Thank you for visiting, and we hope to see you again soon.",
+    "question": "Where is the announcement being made?",
+    "choices": [
+      "At a museum",
+      "At a theater",
+      "At a school",
+      "At a shopping mall"
+    ],
+    "answer": "At a museum",
+    "explanation": "The Sandford Science Museum と 述べている。",
+    "tags": "場所 announcement"
+  },
+  {
+    "id": "TOEIC-L4-037-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following announcement.\n\nAttention, visitors. The Sandford Science Museum will close in thirty minutes. The gift shop on the first floor will stay open until six o'clock, so you still have time to pick up a souvenir. If you left a bag or coat in the lockers near the entrance, please remember to collect it before you leave. Also, tickets are now on sale for our new space exhibition, which opens next Saturday. Museum members can buy tickets at half price. Thank you for visiting, and we hope to see you again soon.",
+    "question": "What are listeners reminded to do?",
+    "choices": [
+      "Return audio guides",
+      "Buy a membership",
+      "Visit the café",
+      "Collect items from the lockers"
+    ],
+    "answer": "Collect items from the lockers",
+    "explanation": "please remember to collect it before you leave と ある。",
+    "tags": "依頼 announcement"
+  },
+  {
+    "id": "TOEIC-L4-037-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following announcement.\n\nAttention, visitors. The Sandford Science Museum will close in thirty minutes. The gift shop on the first floor will stay open until six o'clock, so you still have time to pick up a souvenir. If you left a bag or coat in the lockers near the entrance, please remember to collect it before you leave. Also, tickets are now on sale for our new space exhibition, which opens next Saturday. Museum members can buy tickets at half price. Thank you for visiting, and we hope to see you again soon.",
+    "question": "What will happen next Saturday?",
+    "choices": [
+      "The gift shop will close.",
+      "A new exhibition will open.",
+      "Ticket prices will rise.",
+      "A special lecture will take place."
+    ],
+    "answer": "A new exhibition will open.",
+    "explanation": "our new space exhibition, which opens next Saturday と ある。",
+    "tags": "詳細 announcement"
+  },
+  {
+    "id": "TOEIC-L4-038-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following excerpt from a meeting.\n\nLet's look at the figures for our mobile banking app. Since we redesigned the home screen in April, the number of daily users has gone up by twelve percent. That's encouraging. But here's what concerns me: the number of people who start a loan application in the app and then quit before finishing has also gone up. Our designers think the new form is simply too long. Now, the legal department says we can't remove any of the required questions. So what I'd like to try is splitting the form into several shorter pages, with a progress bar at the top. Priya's team will build a test version next week.",
+    "question": "What has increased since April?",
+    "choices": [
+      "The number of loan approvals",
+      "The size of the design team",
+      "The number of daily users",
+      "The cost of the app"
+    ],
+    "answer": "The number of daily users",
+    "explanation": "the number of daily users has gone up by twelve percent と ある。",
+    "tags": "詳細 meeting"
+  },
+  {
+    "id": "TOEIC-L4-038-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following excerpt from a meeting.\n\nLet's look at the figures for our mobile banking app. Since we redesigned the home screen in April, the number of daily users has gone up by twelve percent. That's encouraging. But here's what concerns me: the number of people who start a loan application in the app and then quit before finishing has also gone up. Our designers think the new form is simply too long. Now, the legal department says we can't remove any of the required questions. So what I'd like to try is splitting the form into several shorter pages, with a progress bar at the top. Priya's team will build a test version next week.",
+    "question": "Why does the speaker mention the legal department?",
+    "choices": [
+      "To report a complaint from customers",
+      "To introduce a new team member",
+      "To explain why questions cannot be deleted",
+      "To suggest delaying the project"
+    ],
+    "answer": "To explain why questions cannot be deleted",
+    "explanation": "the legal department says we can't remove any of the required questions と、質問を 減らせない 理由を 示している。",
+    "tags": "意図 meeting"
+  },
+  {
+    "id": "TOEIC-L4-038-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following excerpt from a meeting.\n\nLet's look at the figures for our mobile banking app. Since we redesigned the home screen in April, the number of daily users has gone up by twelve percent. That's encouraging. But here's what concerns me: the number of people who start a loan application in the app and then quit before finishing has also gone up. Our designers think the new form is simply too long. Now, the legal department says we can't remove any of the required questions. So what I'd like to try is splitting the form into several shorter pages, with a progress bar at the top. Priya's team will build a test version next week.",
+    "question": "What does the speaker propose?",
+    "choices": [
+      "Dividing a form into shorter pages",
+      "Removing the progress bar",
+      "Hiring more designers",
+      "Ending the loan service"
+    ],
+    "answer": "Dividing a form into shorter pages",
+    "explanation": "splitting the form into several shorter pages と 提案している。",
+    "tags": "提案 meeting"
+  },
+  {
+    "id": "TOEIC-L4-039-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following news report.\n\nGood morning. Here's today's weather for the Clearwater area. It will be sunny and warm this morning, with temperatures reaching about twenty-six degrees by noon. But clouds will move in during the afternoon, and there's a good chance of heavy rain and strong winds this evening. If you're planning to go to the outdoor concert at Lakeshore Park tonight, the organizers say it will be moved indoors to the Civic Hall. Tomorrow will be cooler, with clear skies all day. Stay tuned for the sports news after this short break.",
+    "question": "What is the weather expected to be like this evening?",
+    "choices": [
+      "Sunny and warm",
+      "Cool and clear",
+      "Snowy",
+      "Rainy and windy"
+    ],
+    "answer": "Rainy and windy",
+    "explanation": "heavy rain and strong winds this evening と ある。",
+    "tags": "詳細 report"
+  },
+  {
+    "id": "TOEIC-L4-039-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following news report.\n\nGood morning. Here's today's weather for the Clearwater area. It will be sunny and warm this morning, with temperatures reaching about twenty-six degrees by noon. But clouds will move in during the afternoon, and there's a good chance of heavy rain and strong winds this evening. If you're planning to go to the outdoor concert at Lakeshore Park tonight, the organizers say it will be moved indoors to the Civic Hall. Tomorrow will be cooler, with clear skies all day. Stay tuned for the sports news after this short break.",
+    "question": "What has been changed because of the weather?",
+    "choices": [
+      "The date of a sports game",
+      "The location of a concert",
+      "The hours of a park",
+      "The route of a bus"
+    ],
+    "answer": "The location of a concert",
+    "explanation": "the outdoor concert ... will be moved indoors to the Civic Hall と ある。",
+    "tags": "詳細 report"
+  },
+  {
+    "id": "TOEIC-L4-039-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following news report.\n\nGood morning. Here's today's weather for the Clearwater area. It will be sunny and warm this morning, with temperatures reaching about twenty-six degrees by noon. But clouds will move in during the afternoon, and there's a good chance of heavy rain and strong winds this evening. If you're planning to go to the outdoor concert at Lakeshore Park tonight, the organizers say it will be moved indoors to the Civic Hall. Tomorrow will be cooler, with clear skies all day. Stay tuned for the sports news after this short break.",
+    "question": "What will listeners hear next?",
+    "choices": [
+      "A traffic report",
+      "An interview",
+      "An advertisement break",
+      "A music program"
+    ],
+    "answer": "An advertisement break",
+    "explanation": "Stay tuned for the sports news after this short break と あり、次は 短い 休憩（CM）。",
+    "tags": "次の行動 report"
+  },
+  {
+    "id": "TOEIC-L4-040-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk and chart.\n\nThanks for coming, everyone. As you know, our hotel chain has been asking guests to rate our services after their stays. I've put this quarter's results up on the screen. Most of the scores are quite good, and our front desk staff received the highest rating, which is great to see. However, one area is clearly behind the others, with a score of only three point one. Because of that, we're going to hire an outside consultant to look at how we run that service and suggest improvements. She'll begin visiting our locations next month, and I'd ask all of you to give her your full cooperation.\n\n[Chart]\nGuest Satisfaction Scores (out of 5)\nFront desk ........ 4.6\nRoom cleaning ..... 4.2\nRestaurant ........ 3.1\nFitness center .... 3.9",
+    "question": "Where do the listeners most likely work?",
+    "choices": [
+      "At a consulting firm",
+      "At a cleaning company",
+      "At a fitness center",
+      "At a hotel chain"
+    ],
+    "answer": "At a hotel chain",
+    "explanation": "our hotel chain と 述べている。",
+    "tags": "聞き手 talk 図表"
+  },
+  {
+    "id": "TOEIC-L4-040-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk and chart.\n\nThanks for coming, everyone. As you know, our hotel chain has been asking guests to rate our services after their stays. I've put this quarter's results up on the screen. Most of the scores are quite good, and our front desk staff received the highest rating, which is great to see. However, one area is clearly behind the others, with a score of only three point one. Because of that, we're going to hire an outside consultant to look at how we run that service and suggest improvements. She'll begin visiting our locations next month, and I'd ask all of you to give her your full cooperation.\n\n[Chart]\nGuest Satisfaction Scores (out of 5)\nFront desk ........ 4.6\nRoom cleaning ..... 4.2\nRestaurant ........ 3.1\nFitness center .... 3.9",
+    "question": "Look at the graphic. Which service will the consultant review?",
+    "choices": [
+      "Restaurant",
+      "Front desk",
+      "Room cleaning",
+      "Fitness center"
+    ],
+    "answer": "Restaurant",
+    "explanation": "評価が 3.1 と 低い サービスを 調べる。表で 3.1 は Restaurant。",
+    "tags": "図表 talk "
+  },
+  {
+    "id": "TOEIC-L4-040-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk and chart.\n\nThanks for coming, everyone. As you know, our hotel chain has been asking guests to rate our services after their stays. I've put this quarter's results up on the screen. Most of the scores are quite good, and our front desk staff received the highest rating, which is great to see. However, one area is clearly behind the others, with a score of only three point one. Because of that, we're going to hire an outside consultant to look at how we run that service and suggest improvements. She'll begin visiting our locations next month, and I'd ask all of you to give her your full cooperation.\n\n[Chart]\nGuest Satisfaction Scores (out of 5)\nFront desk ........ 4.6\nRoom cleaning ..... 4.2\nRestaurant ........ 3.1\nFitness center .... 3.9",
+    "question": "What are listeners asked to do?",
+    "choices": [
+      "Complete a guest survey",
+      "Cooperate with a consultant",
+      "Visit other locations",
+      "Train new staff"
+    ],
+    "answer": "Cooperate with a consultant",
+    "explanation": "give her your full cooperation と 頼んでいる。",
+    "tags": "依頼 talk 図表"
+  }
+]

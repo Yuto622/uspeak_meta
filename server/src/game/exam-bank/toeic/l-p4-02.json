@@ -1,0 +1,542 @@
+[
+  {
+    "id": "TOEIC-L4-011-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following traffic report.\n\nThis is Gemma Holt with your morning traffic update on Radio 88.5. If you're heading downtown on the Eastern Expressway, expect delays of up to twenty-five minutes. Road crews are repairing the surface of the bridge over the Taylor River, and only one lane is open in each direction. The work is expected to continue until Friday. Drivers might want to take Bayview Avenue instead, which is moving smoothly right now. Also, remember that the Saturday farmers' market returns to Central Square this weekend, so several streets around the square will be closed to cars from six A.M. to two P.M. I'll be back with another update in fifteen minutes.",
+    "question": "What is causing delays on the Eastern Expressway?",
+    "choices": [
+      "A traffic accident",
+      "Bridge repairs",
+      "Heavy snow",
+      "A parade"
+    ],
+    "answer": "Bridge repairs",
+    "explanation": "repairing the surface of the bridge と 原因を 述べている。",
+    "tags": "詳細 report"
+  },
+  {
+    "id": "TOEIC-L4-011-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following traffic report.\n\nThis is Gemma Holt with your morning traffic update on Radio 88.5. If you're heading downtown on the Eastern Expressway, expect delays of up to twenty-five minutes. Road crews are repairing the surface of the bridge over the Taylor River, and only one lane is open in each direction. The work is expected to continue until Friday. Drivers might want to take Bayview Avenue instead, which is moving smoothly right now. Also, remember that the Saturday farmers' market returns to Central Square this weekend, so several streets around the square will be closed to cars from six A.M. to two P.M. I'll be back with another update in fifteen minutes.",
+    "question": "What does the speaker suggest?",
+    "choices": [
+      "Taking the train",
+      "Leaving home later",
+      "Using a different road",
+      "Parking near Central Square"
+    ],
+    "answer": "Using a different road",
+    "explanation": "take Bayview Avenue instead と 別ルートを 勧めている。",
+    "tags": "提案 report"
+  },
+  {
+    "id": "TOEIC-L4-011-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following traffic report.\n\nThis is Gemma Holt with your morning traffic update on Radio 88.5. If you're heading downtown on the Eastern Expressway, expect delays of up to twenty-five minutes. Road crews are repairing the surface of the bridge over the Taylor River, and only one lane is open in each direction. The work is expected to continue until Friday. Drivers might want to take Bayview Avenue instead, which is moving smoothly right now. Also, remember that the Saturday farmers' market returns to Central Square this weekend, so several streets around the square will be closed to cars from six A.M. to two P.M. I'll be back with another update in fifteen minutes.",
+    "question": "What will happen this weekend?",
+    "choices": [
+      "A market will be held.",
+      "A bridge will reopen.",
+      "A new road will open.",
+      "A marathon will take place."
+    ],
+    "answer": "A market will be held.",
+    "explanation": "the Saturday farmers' market returns to Central Square と ある。",
+    "tags": "詳細 report"
+  },
+  {
+    "id": "TOEIC-L4-012-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following instructions.\n\nWelcome to your first day at Silverline Hotel. I'm Rafael, the front desk supervisor. This morning you'll learn how to use our reservation system. Each of you has a computer with a training account, so you can practice making and canceling bookings without affecting real guests. Please don't log in to the live system until I give you your personal password this afternoon. After lunch, you'll shadow one of our experienced clerks at the front desk for two hours. That will give you a chance to see how they handle check-ins and guest requests. At the end of the day, I'll ask you to complete a short quiz on what you've learned.",
+    "question": "Who most likely are the listeners?",
+    "choices": [
+      "Hotel guests",
+      "New hotel employees",
+      "Software developers",
+      "Travel agents"
+    ],
+    "answer": "New hotel employees",
+    "explanation": "Welcome to your first day at Silverline Hotel から 新しい 従業員と わかる。",
+    "tags": "聞き手 instructions"
+  },
+  {
+    "id": "TOEIC-L4-012-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following instructions.\n\nWelcome to your first day at Silverline Hotel. I'm Rafael, the front desk supervisor. This morning you'll learn how to use our reservation system. Each of you has a computer with a training account, so you can practice making and canceling bookings without affecting real guests. Please don't log in to the live system until I give you your personal password this afternoon. After lunch, you'll shadow one of our experienced clerks at the front desk for two hours. That will give you a chance to see how they handle check-ins and guest requests. At the end of the day, I'll ask you to complete a short quiz on what you've learned.",
+    "question": "What are listeners asked not to do?",
+    "choices": [
+      "Leave the training room",
+      "Use their mobile phones",
+      "Log in to the live system",
+      "Talk to guests"
+    ],
+    "answer": "Log in to the live system",
+    "explanation": "Please don't log in to the live system until ～ と 注意している。",
+    "tags": "詳細 instructions"
+  },
+  {
+    "id": "TOEIC-L4-012-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following instructions.\n\nWelcome to your first day at Silverline Hotel. I'm Rafael, the front desk supervisor. This morning you'll learn how to use our reservation system. Each of you has a computer with a training account, so you can practice making and canceling bookings without affecting real guests. Please don't log in to the live system until I give you your personal password this afternoon. After lunch, you'll shadow one of our experienced clerks at the front desk for two hours. That will give you a chance to see how they handle check-ins and guest requests. At the end of the day, I'll ask you to complete a short quiz on what you've learned.",
+    "question": "What will listeners do after lunch?",
+    "choices": [
+      "Take a written test",
+      "Tour the guest rooms",
+      "Meet the hotel manager",
+      "Observe experienced staff"
+    ],
+    "answer": "Observe experienced staff",
+    "explanation": "you'll shadow one of our experienced clerks と ある。shadow＝付いて 観察する。",
+    "tags": "次の行動 instructions"
+  },
+  {
+    "id": "TOEIC-L4-013-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following announcement.\n\nAttention, all staff. As part of our effort to reduce paper use, we're replacing the printed employee handbook with an online version. Starting June first, you'll be able to read the handbook on the company intranet, and any updates will be posted there right away instead of being sent out as printed pages. Paper copies will no longer be distributed. To help everyone get used to the new format, the human resources department will hold two short information sessions next Tuesday in Meeting Room B, one at ten and one at three. Attendance is optional, but I strongly recommend it if you're not familiar with the intranet.",
+    "question": "What is the announcement mainly about?",
+    "choices": [
+      "A change in how a document is provided",
+      "A revision of vacation policies",
+      "The purchase of new printers",
+      "The hiring of new staff"
+    ],
+    "answer": "A change in how a document is provided",
+    "explanation": "印刷版の 社員ハンドブックを オンライン版に 切り替える 話。",
+    "tags": "話題 announcement"
+  },
+  {
+    "id": "TOEIC-L4-013-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following announcement.\n\nAttention, all staff. As part of our effort to reduce paper use, we're replacing the printed employee handbook with an online version. Starting June first, you'll be able to read the handbook on the company intranet, and any updates will be posted there right away instead of being sent out as printed pages. Paper copies will no longer be distributed. To help everyone get used to the new format, the human resources department will hold two short information sessions next Tuesday in Meeting Room B, one at ten and one at three. Attendance is optional, but I strongly recommend it if you're not familiar with the intranet.",
+    "question": "What is the reason for the change?",
+    "choices": [
+      "To lower printing costs for customers",
+      "To follow a new law",
+      "To protect private information",
+      "To reduce paper use"
+    ],
+    "answer": "To reduce paper use",
+    "explanation": "As part of our effort to reduce paper use と 理由を 述べている。",
+    "tags": "詳細 announcement"
+  },
+  {
+    "id": "TOEIC-L4-013-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following announcement.\n\nAttention, all staff. As part of our effort to reduce paper use, we're replacing the printed employee handbook with an online version. Starting June first, you'll be able to read the handbook on the company intranet, and any updates will be posted there right away instead of being sent out as printed pages. Paper copies will no longer be distributed. To help everyone get used to the new format, the human resources department will hold two short information sessions next Tuesday in Meeting Room B, one at ten and one at three. Attendance is optional, but I strongly recommend it if you're not familiar with the intranet.",
+    "question": "What does the speaker recommend?",
+    "choices": [
+      "Printing a copy of the handbook",
+      "Attending an information session",
+      "Updating personal information",
+      "Contacting a supervisor"
+    ],
+    "answer": "Attending an information session",
+    "explanation": "information sessions に ついて I strongly recommend it と 言っている。",
+    "tags": "提案 announcement"
+  },
+  {
+    "id": "TOEIC-L4-014-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following telephone message.\n\nHi, Tomasz, it's Aiko from the design team. I'm calling about the brochure for the Lakeside Resort. I just finished the layout, and I'm going to send it to the client tomorrow morning. Before I do, could you check the prices in the room rate table? I copied them from last year's brochure, and I'm not sure they're current. You can find the file in our shared folder under \"Lakeside—Final.\" Oh, and I'm working from home today, so it's best to reach me on my cell phone rather than my desk phone. Thanks a lot.",
+    "question": "What has the speaker just completed?",
+    "choices": [
+      "A visit to a resort",
+      "A client presentation",
+      "The layout of a brochure",
+      "A price survey"
+    ],
+    "answer": "The layout of a brochure",
+    "explanation": "I just finished the layout と 述べている。",
+    "tags": "詳細 message"
+  },
+  {
+    "id": "TOEIC-L4-014-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following telephone message.\n\nHi, Tomasz, it's Aiko from the design team. I'm calling about the brochure for the Lakeside Resort. I just finished the layout, and I'm going to send it to the client tomorrow morning. Before I do, could you check the prices in the room rate table? I copied them from last year's brochure, and I'm not sure they're current. You can find the file in our shared folder under \"Lakeside—Final.\" Oh, and I'm working from home today, so it's best to reach me on my cell phone rather than my desk phone. Thanks a lot.",
+    "question": "What does the speaker ask the listener to do?",
+    "choices": [
+      "Check some prices",
+      "Contact a client",
+      "Book a room",
+      "Print some copies"
+    ],
+    "answer": "Check some prices",
+    "explanation": "could you check the prices in the room rate table? と 頼んでいる。",
+    "tags": "依頼 message"
+  },
+  {
+    "id": "TOEIC-L4-014-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Questions refer to the following telephone message.\n\nHi, Tomasz, it's Aiko from the design team. I'm calling about the brochure for the Lakeside Resort. I just finished the layout, and I'm going to send it to the client tomorrow morning. Before I do, could you check the prices in the room rate table? I copied them from last year's brochure, and I'm not sure they're current. You can find the file in our shared folder under \"Lakeside—Final.\" Oh, and I'm working from home today, so it's best to reach me on my cell phone rather than my desk phone. Thanks a lot.",
+    "question": "What does the speaker imply when she says, \"I'm working from home today\"?",
+    "choices": [
+      "She will miss a meeting.",
+      "She will send the file later.",
+      "She needs help with her computer.",
+      "She can't be reached at her office phone."
+    ],
+    "answer": "She can't be reached at her office phone.",
+    "explanation": "直後に cell phone で 連絡して ほしいと 言っており、会社の 電話には 出られない ことを 示す。",
+    "tags": "意図 message"
+  },
+  {
+    "id": "TOEIC-L4-015-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following introduction.\n\nThank you all for joining us for the final session of the Regional Small Business Forum. Our next speaker is Dr. Imani Farouk, a professor of economics at Eastvale University. Dr. Farouk has spent the last ten years studying how small, family-owned shops can compete with large online retailers. Her new book, \"Main Street Strategies,\" has received excellent reviews and is currently available at the registration table in the lobby at a special discount for forum participants. Today she'll be sharing three practical ideas that any small business can use to build customer loyalty. There will be time for questions at the end. Please welcome Dr. Farouk.",
+    "question": "Who is Dr. Farouk?",
+    "choices": [
+      "A business owner",
+      "A university professor",
+      "A bookstore manager",
+      "A forum organizer"
+    ],
+    "answer": "A university professor",
+    "explanation": "a professor of economics at Eastvale University と 紹介されている。",
+    "tags": "人物 introduction"
+  },
+  {
+    "id": "TOEIC-L4-015-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following introduction.\n\nThank you all for joining us for the final session of the Regional Small Business Forum. Our next speaker is Dr. Imani Farouk, a professor of economics at Eastvale University. Dr. Farouk has spent the last ten years studying how small, family-owned shops can compete with large online retailers. Her new book, \"Main Street Strategies,\" has received excellent reviews and is currently available at the registration table in the lobby at a special discount for forum participants. Today she'll be sharing three practical ideas that any small business can use to build customer loyalty. There will be time for questions at the end. Please welcome Dr. Farouk.",
+    "question": "What is available at the registration table?",
+    "choices": [
+      "A schedule",
+      "Name tags",
+      "A book",
+      "Refreshments"
+    ],
+    "answer": "A book",
+    "explanation": "Her new book ... is currently available at the registration table と ある。",
+    "tags": "詳細 introduction"
+  },
+  {
+    "id": "TOEIC-L4-015-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following introduction.\n\nThank you all for joining us for the final session of the Regional Small Business Forum. Our next speaker is Dr. Imani Farouk, a professor of economics at Eastvale University. Dr. Farouk has spent the last ten years studying how small, family-owned shops can compete with large online retailers. Her new book, \"Main Street Strategies,\" has received excellent reviews and is currently available at the registration table in the lobby at a special discount for forum participants. Today she'll be sharing three practical ideas that any small business can use to build customer loyalty. There will be time for questions at the end. Please welcome Dr. Farouk.",
+    "question": "What will Dr. Farouk talk about?",
+    "choices": [
+      "How to start an online store",
+      "Trends in global trade",
+      "Methods for raising money",
+      "Ways to keep customers loyal"
+    ],
+    "answer": "Ways to keep customers loyal",
+    "explanation": "three practical ideas ... to build customer loyalty と 述べている。",
+    "tags": "話題 introduction"
+  },
+  {
+    "id": "TOEIC-L4-016-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk and schedule.\n\nGood morning, and welcome to the Northfield Garden Show. I'm Odile, one of the event organizers. Before you head out, I'd like to mention a change to today's schedule. Unfortunately, the speaker for the noon session has a cold and won't be able to join us. So the session that was planned for two o'clock will be moved up to fill that slot, and the two o'clock time will now be used for a free plant-swap event in the main tent. Bring any extra seeds or cuttings you have and trade with other gardeners. Also, lunch is available at the food trucks near the parking area.\n\n[Schedule]\nNorthfield Garden Show — Talks\n10:00  Growing Herbs Indoors\n12:00  Composting for Beginners\n2:00   Designing Small Gardens\n4:00   Caring for Fruit Trees",
+    "question": "Who is the speaker?",
+    "choices": [
+      "An event organizer",
+      "A guest speaker",
+      "A food vendor",
+      "A plant scientist"
+    ],
+    "answer": "An event organizer",
+    "explanation": "I'm Odile, one of the event organizers と 自己紹介している。",
+    "tags": "話し手 talk 図表"
+  },
+  {
+    "id": "TOEIC-L4-016-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk and schedule.\n\nGood morning, and welcome to the Northfield Garden Show. I'm Odile, one of the event organizers. Before you head out, I'd like to mention a change to today's schedule. Unfortunately, the speaker for the noon session has a cold and won't be able to join us. So the session that was planned for two o'clock will be moved up to fill that slot, and the two o'clock time will now be used for a free plant-swap event in the main tent. Bring any extra seeds or cuttings you have and trade with other gardeners. Also, lunch is available at the food trucks near the parking area.\n\n[Schedule]\nNorthfield Garden Show — Talks\n10:00  Growing Herbs Indoors\n12:00  Composting for Beginners\n2:00   Designing Small Gardens\n4:00   Caring for Fruit Trees",
+    "question": "Look at the graphic. Which talk will now take place at noon?",
+    "choices": [
+      "Growing Herbs Indoors",
+      "Composting for Beginners",
+      "Designing Small Gardens",
+      "Caring for Fruit Trees"
+    ],
+    "answer": "Designing Small Gardens",
+    "explanation": "2 時の セッションが 正午に 繰り上がる。表で 2:00 は Designing Small Gardens。",
+    "tags": "図表 talk "
+  },
+  {
+    "id": "TOEIC-L4-016-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following talk and schedule.\n\nGood morning, and welcome to the Northfield Garden Show. I'm Odile, one of the event organizers. Before you head out, I'd like to mention a change to today's schedule. Unfortunately, the speaker for the noon session has a cold and won't be able to join us. So the session that was planned for two o'clock will be moved up to fill that slot, and the two o'clock time will now be used for a free plant-swap event in the main tent. Bring any extra seeds or cuttings you have and trade with other gardeners. Also, lunch is available at the food trucks near the parking area.\n\n[Schedule]\nNorthfield Garden Show — Talks\n10:00  Growing Herbs Indoors\n12:00  Composting for Beginners\n2:00   Designing Small Gardens\n4:00   Caring for Fruit Trees",
+    "question": "What are listeners invited to do at two o'clock?",
+    "choices": [
+      "Attend a cooking show",
+      "Exchange plants with others",
+      "Buy discounted tools",
+      "Join a garden tour"
+    ],
+    "answer": "Exchange plants with others",
+    "explanation": "a free plant-swap event ... trade with other gardeners と ある。",
+    "tags": "詳細 talk 図表"
+  },
+  {
+    "id": "TOEIC-L4-017-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following radio advertisement.\n\nDo you need help with your taxes this year? At Quickfile Tax Services, our friendly experts will prepare your tax forms quickly and correctly. We have twelve offices across the state, and most are open late on weekdays and all day on Saturdays. You don't even need an appointment—just walk in with your documents. Bring last year's tax return and any receipts you want to claim, and we'll take care of the rest. First-time customers get twenty dollars off their tax preparation fee. To find the office nearest you, visit our website at quickfile-tax dot com. Quickfile Tax Services: fast, easy, and accurate.",
+    "question": "What kind of business is being advertised?",
+    "choices": [
+      "A bank",
+      "A tax preparation service",
+      "A law firm",
+      "An insurance company"
+    ],
+    "answer": "A tax preparation service",
+    "explanation": "Quickfile Tax Services で 税務書類の 作成を 行う 会社。",
+    "tags": "話題 advertisement"
+  },
+  {
+    "id": "TOEIC-L4-017-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following radio advertisement.\n\nDo you need help with your taxes this year? At Quickfile Tax Services, our friendly experts will prepare your tax forms quickly and correctly. We have twelve offices across the state, and most are open late on weekdays and all day on Saturdays. You don't even need an appointment—just walk in with your documents. Bring last year's tax return and any receipts you want to claim, and we'll take care of the rest. First-time customers get twenty dollars off their tax preparation fee. To find the office nearest you, visit our website at quickfile-tax dot com. Quickfile Tax Services: fast, easy, and accurate.",
+    "question": "What does the speaker say about appointments?",
+    "choices": [
+      "They must be made online.",
+      "They are available only on Saturdays.",
+      "They require a deposit.",
+      "They are not necessary."
+    ],
+    "answer": "They are not necessary.",
+    "explanation": "You don't even need an appointment と 言っている。",
+    "tags": "詳細 advertisement"
+  },
+  {
+    "id": "TOEIC-L4-017-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following radio advertisement.\n\nDo you need help with your taxes this year? At Quickfile Tax Services, our friendly experts will prepare your tax forms quickly and correctly. We have twelve offices across the state, and most are open late on weekdays and all day on Saturdays. You don't even need an appointment—just walk in with your documents. Bring last year's tax return and any receipts you want to claim, and we'll take care of the rest. First-time customers get twenty dollars off their tax preparation fee. To find the office nearest you, visit our website at quickfile-tax dot com. Quickfile Tax Services: fast, easy, and accurate.",
+    "question": "How can new customers save money?",
+    "choices": [
+      "By receiving a discount on their first visit",
+      "By using a coupon from a newspaper",
+      "By filing their forms online",
+      "By visiting on a weekday"
+    ],
+    "answer": "By receiving a discount on their first visit",
+    "explanation": "First-time customers get twenty dollars off と ある。",
+    "tags": "詳細 advertisement"
+  },
+  {
+    "id": "TOEIC-L4-018-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following excerpt from a meeting.\n\nOK, let's move on to the customer survey results. Overall, people are happy with our meal-kit delivery service. Most customers said the recipes were easy to follow and the ingredients were fresh. However, nearly a third of them mentioned that our boxes contain too much plastic packaging. Several of our competitors have already switched to paper-based materials. Now, I know paper packaging costs a bit more, but customers clearly care about this. So I'd like the operations team to research a few suppliers and bring cost estimates to our next meeting. Marcus, could you lead that?",
+    "question": "What kind of business do the listeners work for?",
+    "choices": [
+      "A paper manufacturer",
+      "A restaurant chain",
+      "A meal-kit delivery company",
+      "A supermarket"
+    ],
+    "answer": "A meal-kit delivery company",
+    "explanation": "our meal-kit delivery service と 述べている。",
+    "tags": "聞き手 meeting"
+  },
+  {
+    "id": "TOEIC-L4-018-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following excerpt from a meeting.\n\nOK, let's move on to the customer survey results. Overall, people are happy with our meal-kit delivery service. Most customers said the recipes were easy to follow and the ingredients were fresh. However, nearly a third of them mentioned that our boxes contain too much plastic packaging. Several of our competitors have already switched to paper-based materials. Now, I know paper packaging costs a bit more, but customers clearly care about this. So I'd like the operations team to research a few suppliers and bring cost estimates to our next meeting. Marcus, could you lead that?",
+    "question": "What did many customers complain about?",
+    "choices": [
+      "The price of the service",
+      "The amount of packaging",
+      "The quality of the ingredients",
+      "Late deliveries"
+    ],
+    "answer": "The amount of packaging",
+    "explanation": "too much plastic packaging と 言及している。",
+    "tags": "詳細 meeting"
+  },
+  {
+    "id": "TOEIC-L4-018-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Questions refer to the following excerpt from a meeting.\n\nOK, let's move on to the customer survey results. Overall, people are happy with our meal-kit delivery service. Most customers said the recipes were easy to follow and the ingredients were fresh. However, nearly a third of them mentioned that our boxes contain too much plastic packaging. Several of our competitors have already switched to paper-based materials. Now, I know paper packaging costs a bit more, but customers clearly care about this. So I'd like the operations team to research a few suppliers and bring cost estimates to our next meeting. Marcus, could you lead that?",
+    "question": "Why does the speaker say, \"customers clearly care about this\"?",
+    "choices": [
+      "To praise the operations team",
+      "To explain why sales have fallen",
+      "To suggest canceling a survey",
+      "To justify a possible increase in costs"
+    ],
+    "answer": "To justify a possible increase in costs",
+    "explanation": "紙の 包装は 高いが 顧客が 重視しているので 検討する 価値が ある、と コスト増を 正当化している。",
+    "tags": "意図 meeting"
+  },
+  {
+    "id": "TOEIC-L4-019-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following announcement.\n\nGood morning, and welcome aboard the Coastal Express train to Bridgeport. We will be making stops at Milford, Ashton, and Fairhaven before arriving in Bridgeport at eleven thirty. Our café car, located in the middle of the train, is now open and serving hot drinks, sandwiches, and snacks. Please remember that the first car is a quiet car, so phone calls and loud conversations are not allowed there. If you need help with your luggage, please ask any member of our staff. Tickets will be checked shortly after we leave the station. Thank you for traveling with us.",
+    "question": "Where is the announcement being made?",
+    "choices": [
+      "On a train",
+      "On a bus",
+      "On a ship",
+      "At an airport"
+    ],
+    "answer": "On a train",
+    "explanation": "Coastal Express train と 述べている。",
+    "tags": "場所 announcement"
+  },
+  {
+    "id": "TOEIC-L4-019-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following announcement.\n\nGood morning, and welcome aboard the Coastal Express train to Bridgeport. We will be making stops at Milford, Ashton, and Fairhaven before arriving in Bridgeport at eleven thirty. Our café car, located in the middle of the train, is now open and serving hot drinks, sandwiches, and snacks. Please remember that the first car is a quiet car, so phone calls and loud conversations are not allowed there. If you need help with your luggage, please ask any member of our staff. Tickets will be checked shortly after we leave the station. Thank you for traveling with us.",
+    "question": "What is available in the middle of the train?",
+    "choices": [
+      "Extra luggage space",
+      "A first-class section",
+      "Food and drinks",
+      "Newspapers"
+    ],
+    "answer": "Food and drinks",
+    "explanation": "café car ... serving hot drinks, sandwiches, and snacks と ある。",
+    "tags": "詳細 announcement"
+  },
+  {
+    "id": "TOEIC-L4-019-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Questions refer to the following announcement.\n\nGood morning, and welcome aboard the Coastal Express train to Bridgeport. We will be making stops at Milford, Ashton, and Fairhaven before arriving in Bridgeport at eleven thirty. Our café car, located in the middle of the train, is now open and serving hot drinks, sandwiches, and snacks. Please remember that the first car is a quiet car, so phone calls and loud conversations are not allowed there. If you need help with your luggage, please ask any member of our staff. Tickets will be checked shortly after we leave the station. Thank you for traveling with us.",
+    "question": "What are passengers asked not to do in the first car?",
+    "choices": [
+      "Eat meals",
+      "Make phone calls",
+      "Store large bags",
+      "Open the windows"
+    ],
+    "answer": "Make phone calls",
+    "explanation": "the first car is a quiet car, so phone calls ... are not allowed と 言っている。",
+    "tags": "詳細 announcement"
+  },
+  {
+    "id": "TOEIC-L4-020-1",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following telephone message.\n\nHello, Mr. Abernathy. This is Kiran Desai from Pinecrest Property Management. I'm following up on the maintenance request you submitted on Monday about the heating in your apartment. Our technician was able to look at the system yesterday, and it seems the problem is a broken part in the furnace. Unfortunately, the manufacturer has stopped making that model, so finding a replacement part might take a while. In the meantime, we'll bring you two portable heaters this afternoon. We're also considering replacing the entire unit, but I need approval from the building owner first. I'll let you know as soon as I hear back.",
+    "question": "Why is the speaker calling?",
+    "choices": [
+      "To give an update on a repair",
+      "To schedule a property inspection",
+      "To request a rent payment",
+      "To advertise a new apartment"
+    ],
+    "answer": "To give an update on a repair",
+    "explanation": "暖房の 修理依頼に ついて 状況を 知らせる 電話。",
+    "tags": "目的 message"
+  },
+  {
+    "id": "TOEIC-L4-020-2",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following telephone message.\n\nHello, Mr. Abernathy. This is Kiran Desai from Pinecrest Property Management. I'm following up on the maintenance request you submitted on Monday about the heating in your apartment. Our technician was able to look at the system yesterday, and it seems the problem is a broken part in the furnace. Unfortunately, the manufacturer has stopped making that model, so finding a replacement part might take a while. In the meantime, we'll bring you two portable heaters this afternoon. We're also considering replacing the entire unit, but I need approval from the building owner first. I'll let you know as soon as I hear back.",
+    "question": "Why does the speaker say, \"the manufacturer has stopped making that model\"?",
+    "choices": [
+      "To recommend a different brand",
+      "To complain about the manufacturer",
+      "To suggest that the listener move",
+      "To explain why a repair may be delayed"
+    ],
+    "answer": "To explain why a repair may be delayed",
+    "explanation": "部品の 入手に 時間が かかる 理由として 述べている。",
+    "tags": "意図 message"
+  },
+  {
+    "id": "TOEIC-L4-020-3",
+    "skill": "listening",
+    "format": "Part 4 説明文問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Questions refer to the following telephone message.\n\nHello, Mr. Abernathy. This is Kiran Desai from Pinecrest Property Management. I'm following up on the maintenance request you submitted on Monday about the heating in your apartment. Our technician was able to look at the system yesterday, and it seems the problem is a broken part in the furnace. Unfortunately, the manufacturer has stopped making that model, so finding a replacement part might take a while. In the meantime, we'll bring you two portable heaters this afternoon. We're also considering replacing the entire unit, but I need approval from the building owner first. I'll let you know as soon as I hear back.",
+    "question": "What will the speaker do this afternoon?",
+    "choices": [
+      "Meet the building owner",
+      "Order a new furnace",
+      "Deliver some heaters",
+      "Inspect another apartment"
+    ],
+    "answer": "Deliver some heaters",
+    "explanation": "we'll bring you two portable heaters this afternoon と ある。",
+    "tags": "次の行動 message"
+  }
+]

@@ -1,0 +1,650 @@
+[
+  {
+    "id": "TOEIC-R5-001",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Ms. Okafor's presentation was ------- received by the board members.",
+    "choices": [
+      "warm",
+      "warmth",
+      "warmer",
+      "warmly"
+    ],
+    "answer": "warmly",
+    "explanation": "受動態 was received の 間に 入り 動詞を 修飾するので 副詞 warmly が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-002",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The new software allows staff to process invoices more -------.",
+    "choices": [
+      "efficient",
+      "efficiently",
+      "efficiency",
+      "efficiencies"
+    ],
+    "answer": "efficiently",
+    "explanation": "動詞 process を 修飾する 副詞が 必要で、more efficiently（より 効率よく）と なる。",
+    "tags": "品詞 副詞 比較"
+  },
+  {
+    "id": "TOEIC-R5-003",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "All ------- for the marketing position must be submitted by Friday.",
+    "choices": [
+      "apply",
+      "applied",
+      "applications",
+      "applicable"
+    ],
+    "answer": "applications",
+    "explanation": "All の あとに 来て 主語に なる 名詞が 必要。applications（応募書類）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-004",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The hotel's ------- location makes it popular with business travelers.",
+    "choices": [
+      "convenient",
+      "conveniently",
+      "convenience",
+      "conveniences"
+    ],
+    "answer": "convenient",
+    "explanation": "名詞 location を 修飾するので 形容詞 convenient（便利な）が 正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-005",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Mr. Delgado is ------- for approving all overtime requests in his department.",
+    "choices": [
+      "responsibly",
+      "responsibility",
+      "responsible",
+      "responsibilities"
+    ],
+    "answer": "responsible",
+    "explanation": "be responsible for ～（～に 責任が ある）の 形。be動詞の 補語に なる 形容詞を 選ぶ。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-006",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The company has made a ------- effort to reduce its energy use.",
+    "choices": [
+      "significantly",
+      "significant",
+      "significance",
+      "signify"
+    ],
+    "answer": "significant",
+    "explanation": "冠詞 a と 名詞 effort の 間なので 形容詞 significant（かなりの）が 入る。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-007",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Please read the instructions ------- before assembling the cabinet.",
+    "choices": [
+      "careful",
+      "care",
+      "caring",
+      "carefully"
+    ],
+    "answer": "carefully",
+    "explanation": "read the instructions という 文が 完成しているので、動詞を 修飾する 副詞 carefully が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-008",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The ------- of the new warehouse will take approximately six months.",
+    "choices": [
+      "construction",
+      "construct",
+      "constructive",
+      "constructed"
+    ],
+    "answer": "construction",
+    "explanation": "The と of の 間は 名詞の 位置。construction（建設）が 主語に なる。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-009",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Customers who are not ------- satisfied may return the merchandise within 30 days.",
+    "choices": [
+      "complete",
+      "completely",
+      "completion",
+      "completes"
+    ],
+    "answer": "completely",
+    "explanation": "形容詞 satisfied を 修飾する 副詞 completely（完全に）が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-010",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Ridgeway Consulting offers ------- advice to small businesses.",
+    "choices": [
+      "professionally",
+      "profession",
+      "professional",
+      "professionals"
+    ],
+    "answer": "professional",
+    "explanation": "名詞 advice を 修飾する 形容詞 professional（専門的な）が 正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-011",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The marketing team worked ------- to finish the campaign on time.",
+    "choices": [
+      "diligently",
+      "diligent",
+      "diligence",
+      "more diligent"
+    ],
+    "answer": "diligently",
+    "explanation": "自動詞 worked を 修飾する 副詞 diligently（勤勉に）が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-012",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Ms. Tanaka was praised for her ------- to the community project.",
+    "choices": [
+      "dedicate",
+      "dedicated",
+      "dedicates",
+      "dedication"
+    ],
+    "answer": "dedication",
+    "explanation": "所有格 her の あとは 名詞。dedication to ～（～への 献身）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-013",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Sales of the compact model have increased ------- since the price reduction.",
+    "choices": [
+      "steady",
+      "steadily",
+      "steadiness",
+      "steadied"
+    ],
+    "answer": "steadily",
+    "explanation": "自動詞 increased を 修飾する 副詞 steadily（着実に）が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-014",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The board expressed its ------- with the quarterly results.",
+    "choices": [
+      "satisfy",
+      "satisfied",
+      "satisfactory",
+      "satisfaction"
+    ],
+    "answer": "satisfaction",
+    "explanation": "所有格 its の あとは 名詞。satisfaction with ～（～への 満足）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-015",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The inspection revealed that the electrical system is in ------- condition.",
+    "choices": [
+      "excellently",
+      "excellence",
+      "excellent",
+      "excel"
+    ],
+    "answer": "excellent",
+    "explanation": "名詞 condition を 修飾する 形容詞 excellent が 正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-016",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Applicants must have ------- experience in project management.",
+    "choices": [
+      "extensive",
+      "extensively",
+      "extend",
+      "extension"
+    ],
+    "answer": "extensive",
+    "explanation": "名詞 experience を 修飾する 形容詞 extensive（豊富な）が 正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-017",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The restaurant's new menu has proven ------- popular with younger diners.",
+    "choices": [
+      "surprising",
+      "surprise",
+      "surprised",
+      "surprisingly"
+    ],
+    "answer": "surprisingly",
+    "explanation": "形容詞 popular を 修飾する 副詞 surprisingly（意外にも）が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-018",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "To ensure ------- delivery, please provide a complete shipping address.",
+    "choices": [
+      "prompt",
+      "promptly",
+      "promptness",
+      "prompted"
+    ],
+    "answer": "prompt",
+    "explanation": "名詞 delivery を 修飾する 形容詞 prompt（迅速な）が 正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-019",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Mr. Huang gave a very ------- talk on workplace safety.",
+    "choices": [
+      "inform",
+      "information",
+      "informative",
+      "informatively"
+    ],
+    "answer": "informative",
+    "explanation": "very と 名詞 talk の 間なので 形容詞 informative（有益な）が 入る。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-020",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Our technicians are ------- trained to repair all major appliances.",
+    "choices": [
+      "full",
+      "fully",
+      "fullness",
+      "fuller"
+    ],
+    "answer": "fully",
+    "explanation": "過去分詞 trained を 修飾する 副詞 fully（十分に）が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-021",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The museum relies on ------- from local businesses to fund its programs.",
+    "choices": [
+      "contribute",
+      "contributed",
+      "contributory",
+      "contributions"
+    ],
+    "answer": "contributions",
+    "explanation": "前置詞 on の 目的語に なる 名詞 contributions（寄付）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-022",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Visitors are ------- requested to sign in at the reception desk.",
+    "choices": [
+      "kind",
+      "kindly",
+      "kindness",
+      "kinder"
+    ],
+    "answer": "kindly",
+    "explanation": "受動態 are requested を 修飾する 副詞 kindly が 正解。依頼の 定型表現。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-023",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The financial report must be reviewed by an ------- accountant.",
+    "choices": [
+      "independent",
+      "independently",
+      "independence",
+      "depend"
+    ],
+    "answer": "independent",
+    "explanation": "冠詞 an と 名詞 accountant の 間なので 形容詞 independent（独立した）が 入る。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-024",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Ms. Ivanova's ------- of the contract terms helped avoid a costly mistake.",
+    "choices": [
+      "know",
+      "knowledgeable",
+      "knowledge",
+      "knowingly"
+    ],
+    "answer": "knowledge",
+    "explanation": "所有格の あとで 主語に なる 名詞 knowledge（知識）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-025",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The airline apologized for the ------- caused by the delayed departure.",
+    "choices": [
+      "inconvenient",
+      "inconveniently",
+      "inconvenienced",
+      "inconvenience"
+    ],
+    "answer": "inconvenience",
+    "explanation": "the の あとで apologized for の 目的語に なる 名詞 inconvenience（不便）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-026",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Please make sure the documents are ------- labeled before filing them.",
+    "choices": [
+      "clear",
+      "clearly",
+      "clarity",
+      "clearest"
+    ],
+    "answer": "clearly",
+    "explanation": "過去分詞 labeled を 修飾する 副詞 clearly が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-027",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The training program is designed to help new managers become more -------.",
+    "choices": [
+      "confident",
+      "confidently",
+      "confidence",
+      "confide"
+    ],
+    "answer": "confident",
+    "explanation": "become の 補語に なる 形容詞 confident（自信の ある）が 正解。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-028",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Weekly ------- of the equipment helps prevent unexpected breakdowns.",
+    "choices": [
+      "maintain",
+      "maintained",
+      "maintenance",
+      "maintainable"
+    ],
+    "answer": "maintenance",
+    "explanation": "Weekly に 修飾され 主語に なる 名詞 maintenance（保守点検）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-029",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The software update was ------- installed on all office computers last night.",
+    "choices": [
+      "successful",
+      "success",
+      "succeed",
+      "successfully"
+    ],
+    "answer": "successfully",
+    "explanation": "受動態の 間に 入り 動詞を 修飾する 副詞 successfully が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-030",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The committee will select the most ------- proposal for funding.",
+    "choices": [
+      "promise",
+      "promising",
+      "promised",
+      "promisingly"
+    ],
+    "answer": "promising",
+    "explanation": "the most と 名詞 proposal の 間なので 形容詞 promising（有望な）が 入る。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-031",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Hamilton Bakery is known for its ------- service and fresh ingredients.",
+    "choices": [
+      "friend",
+      "friendship",
+      "friendly",
+      "friendliness"
+    ],
+    "answer": "friendly",
+    "explanation": "名詞 service を 修飾する 形容詞 friendly。-ly で 終わるが 形容詞で ある 点に 注意。",
+    "tags": "品詞 形容詞"
+  },
+  {
+    "id": "TOEIC-R5-032",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The company's ------- to sustainability is reflected in its recycling program.",
+    "choices": [
+      "commitment",
+      "commit",
+      "committed",
+      "committing"
+    ],
+    "answer": "commitment",
+    "explanation": "所有格の あとで 主語に なる 名詞 commitment（取り組み）が 正解。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-033",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "All ------- must wear identification badges while in the building.",
+    "choices": [
+      "visitors",
+      "visit",
+      "visiting",
+      "visited"
+    ],
+    "answer": "visitors",
+    "explanation": "All の あとで 主語に なる 名詞 visitors が 正解。badges を 身につけるのは 人。",
+    "tags": "品詞 名詞"
+  },
+  {
+    "id": "TOEIC-R5-034",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The price of raw materials has risen -------, forcing manufacturers to adjust their budgets.",
+    "choices": [
+      "sharp",
+      "sharply",
+      "sharpen",
+      "sharpness"
+    ],
+    "answer": "sharply",
+    "explanation": "自動詞 risen を 修飾する 副詞 sharply（急激に）が 正解。",
+    "tags": "品詞 副詞"
+  },
+  {
+    "id": "TOEIC-R5-035",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The consultant's recommendations were both practical and -------.",
+    "choices": [
+      "afford",
+      "affordably",
+      "affordable",
+      "affordability"
+    ],
+    "answer": "affordable",
+    "explanation": "both A and B で 形容詞 practical と 並ぶので 形容詞 affordable が 正解。",
+    "tags": "品詞 形容詞 並列"
+  },
+  {
+    "id": "TOEIC-R5-036",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Ms. Kowalski handled the customer's complaint very -------.",
+    "choices": [
+      "professional",
+      "profession",
+      "professionalism",
+      "professionally"
+    ],
+    "answer": "professionally",
+    "explanation": "動詞 handled を 修飾する 副詞 professionally が 正解。",
+    "tags": "品詞 副詞"
+  }
+]

@@ -1,0 +1,650 @@
+[
+  {
+    "id": "TOEIC-R5-109",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Training sessions will be held ------- Monday and Wednesday afternoons.",
+    "choices": [
+      "in",
+      "at",
+      "by",
+      "on"
+    ],
+    "answer": "on",
+    "explanation": "特定の 曜日の 午後には on を 使う。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-110",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Parking is available directly ------- from the main entrance.",
+    "choices": [
+      "across",
+      "between",
+      "among",
+      "against"
+    ],
+    "answer": "across",
+    "explanation": "across from ～（～の 向かい側に）の 決まった 表現。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-111",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The manager reviewed the proposal ------- making her final decision.",
+    "choices": [
+      "until",
+      "before",
+      "prior",
+      "then"
+    ],
+    "answer": "before",
+    "explanation": "動名詞 making の 前に 置ける 前置詞 before が 正解。prior は prior to の 形が 必要。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-112",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "Ms. Ito was promoted ------- her outstanding sales performance.",
+    "choices": [
+      "in spite of",
+      "in case of",
+      "in recognition of",
+      "in addition"
+    ],
+    "answer": "in recognition of",
+    "explanation": "「～が 認められて」を 表す in recognition of が 文意に 合う。",
+    "tags": "前置詞 群前置詞"
+  },
+  {
+    "id": "TOEIC-R5-113",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "------- the contract expires in June, the two companies are already negotiating a new agreement.",
+    "choices": [
+      "Despite",
+      "Unless",
+      "Regardless",
+      "Although"
+    ],
+    "answer": "Although",
+    "explanation": "節を 導き「～だが（まだ 先なのに）」と 譲歩を 表す 接続詞 Although が 正解。",
+    "tags": "接続詞 譲歩"
+  },
+  {
+    "id": "TOEIC-R5-114",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The seminar will be postponed ------- enough people register.",
+    "choices": [
+      "whereas",
+      "despite",
+      "unless",
+      "because of"
+    ],
+    "answer": "unless",
+    "explanation": "「十分な 人数が 登録しない 限り 延期」と なる 接続詞 unless が 正解。",
+    "tags": "接続詞 条件"
+  },
+  {
+    "id": "TOEIC-R5-115",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "All prices listed in the catalog are subject to change ------- notice.",
+    "choices": [
+      "without",
+      "unless",
+      "except",
+      "beyond"
+    ],
+    "answer": "without",
+    "explanation": "without notice（予告 なしに）の 決まった 表現。",
+    "tags": "前置詞 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-116",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Visitors must remain ------- the designated areas at all times.",
+    "choices": [
+      "among",
+      "within",
+      "through",
+      "toward"
+    ],
+    "answer": "within",
+    "explanation": "remain within ～（～の 範囲内に とどまる）が 正解。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-117",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "------- reviewing the applications, the committee will contact the finalists.",
+    "choices": [
+      "Then",
+      "Afterward",
+      "Next",
+      "After"
+    ],
+    "answer": "After",
+    "explanation": "動名詞 reviewing の 前に 置ける 前置詞は After だけ。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-118",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Mr. Lund prepared the presentation slides -------, without any help from his team.",
+    "choices": [
+      "him",
+      "himself",
+      "his",
+      "he"
+    ],
+    "answer": "himself",
+    "explanation": "「自分で」と 強調する 再帰代名詞 himself が 正解。",
+    "tags": "代名詞 再帰"
+  },
+  {
+    "id": "TOEIC-R5-119",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The employees ------- completed the survey will receive a gift card.",
+    "choices": [
+      "which",
+      "whom",
+      "who",
+      "whose"
+    ],
+    "answer": "who",
+    "explanation": "先行詞が 人で、関係詞節の 主語に なるので who。",
+    "tags": "関係代名詞"
+  },
+  {
+    "id": "TOEIC-R5-120",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The conference center, ------- was renovated last year, can hold 800 guests.",
+    "choices": [
+      "which",
+      "that",
+      "what",
+      "who"
+    ],
+    "answer": "which",
+    "explanation": "コンマの 後の 非制限用法で 物を 受けるのは which。that は 使えない。",
+    "tags": "関係代名詞"
+  },
+  {
+    "id": "TOEIC-R5-121",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Please return the signed contract to ------- at your earliest convenience.",
+    "choices": [
+      "we",
+      "our",
+      "us",
+      "ourselves"
+    ],
+    "answer": "us",
+    "explanation": "前置詞 to の 目的語なので 目的格 us。",
+    "tags": "代名詞 格"
+  },
+  {
+    "id": "TOEIC-R5-122",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Mr. Kaur, ------- team won the sales award, will speak at the banquet.",
+    "choices": [
+      "who",
+      "whose",
+      "whom",
+      "which"
+    ],
+    "answer": "whose",
+    "explanation": "後ろの 名詞 team に つながる 所有格の 関係代名詞 whose。",
+    "tags": "関係代名詞"
+  },
+  {
+    "id": "TOEIC-R5-123",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Staff members should log off ------- computers before leaving the office.",
+    "choices": [
+      "their",
+      "they",
+      "them",
+      "theirs"
+    ],
+    "answer": "their",
+    "explanation": "名詞 computers の 前なので 所有格 their。",
+    "tags": "代名詞 格"
+  },
+  {
+    "id": "TOEIC-R5-124",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The new copier is much faster than ------- we used last year.",
+    "choices": [
+      "it",
+      "which",
+      "whose",
+      "the one"
+    ],
+    "answer": "the one",
+    "explanation": "前に 出た copier を 受ける the one（we used ～ が 後ろから 修飾）が 正解。",
+    "tags": "代名詞"
+  },
+  {
+    "id": "TOEIC-R5-125",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "The manager praised the interns, many of ------- had never worked in an office before.",
+    "choices": [
+      "them",
+      "whom",
+      "who",
+      "which"
+    ],
+    "answer": "whom",
+    "explanation": "前置詞 of の 後で 人を 受ける 関係代名詞は whom。them では 文が つながらない。",
+    "tags": "関係代名詞"
+  },
+  {
+    "id": "TOEIC-R5-126",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "This is the restaurant ------- the awards banquet will be held.",
+    "choices": [
+      "which",
+      "what",
+      "whose",
+      "where"
+    ],
+    "answer": "where",
+    "explanation": "後ろが 完全な 文で 場所を 表すので 関係副詞 where。",
+    "tags": "関係副詞"
+  },
+  {
+    "id": "TOEIC-R5-127",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Ms. Fischer and I will present ------- findings at the board meeting.",
+    "choices": [
+      "our",
+      "us",
+      "ours",
+      "we"
+    ],
+    "answer": "our",
+    "explanation": "名詞 findings の 前なので 所有格 our。",
+    "tags": "代名詞 格"
+  },
+  {
+    "id": "TOEIC-R5-128",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "------- who wish to attend the workshop should register online.",
+    "choices": [
+      "They",
+      "Them",
+      "Those",
+      "Whoever"
+    ],
+    "answer": "Those",
+    "explanation": "Those who ～（～する 人々）の 形。",
+    "tags": "代名詞"
+  },
+  {
+    "id": "TOEIC-R5-129",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Mr. Romero's report was more detailed than -------.",
+    "choices": [
+      "my",
+      "me",
+      "mine",
+      "myself"
+    ],
+    "answer": "mine",
+    "explanation": "比べるのは「報告書」どうしなので 所有代名詞 mine（＝my report）。",
+    "tags": "代名詞 所有"
+  },
+  {
+    "id": "TOEIC-R5-130",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The board approved the plan ------- the finance director had proposed.",
+    "choices": [
+      "that",
+      "what",
+      "whose",
+      "where"
+    ],
+    "answer": "that",
+    "explanation": "先行詞 the plan を 受け、proposed の 目的語に なる 関係代名詞 that。",
+    "tags": "関係代名詞"
+  },
+  {
+    "id": "TOEIC-R5-131",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The technicians repaired the elevator ------- in less than an hour.",
+    "choices": [
+      "them",
+      "their",
+      "theirs",
+      "themselves"
+    ],
+    "answer": "themselves",
+    "explanation": "「自分たちで」と 主語を 強調する 再帰代名詞 themselves。",
+    "tags": "代名詞 再帰"
+  },
+  {
+    "id": "TOEIC-R5-132",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "Ms. Grant will meet with ------- is interested in the volunteer program.",
+    "choices": [
+      "whomever",
+      "whoever",
+      "anyone",
+      "those"
+    ],
+    "answer": "whoever",
+    "explanation": "with の 目的語に なり、節内で is の 主語に なる 複合関係代名詞 whoever。",
+    "tags": "関係代名詞 複合"
+  },
+  {
+    "id": "TOEIC-R5-133",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The supplier ------- we usually order from has raised its prices.",
+    "choices": [
+      "what",
+      "whose",
+      "that",
+      "where"
+    ],
+    "answer": "that",
+    "explanation": "from の 目的語に なる 関係代名詞 that が 正解。where では from が 余る。",
+    "tags": "関係代名詞"
+  },
+  {
+    "id": "TOEIC-R5-134",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Each department must submit ------- own budget proposal by Friday.",
+    "choices": [
+      "its",
+      "it",
+      "it's",
+      "itself"
+    ],
+    "answer": "its",
+    "explanation": "own の 前は 所有格。department（単数）に 合う its。",
+    "tags": "代名詞 格"
+  },
+  {
+    "id": "TOEIC-R5-135",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Please ------- the attached file and let me know if you have any questions.",
+    "choices": [
+      "reply",
+      "respond",
+      "remind",
+      "review"
+    ],
+    "answer": "review",
+    "explanation": "目的語 the attached file を 取り「確認する」の 意味に なる review。reply・respond は to が 必要。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-136",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The company plans to ------- its operations to three new cities next year.",
+    "choices": [
+      "rise",
+      "expand",
+      "raise",
+      "lift"
+    ],
+    "answer": "expand",
+    "explanation": "expand A to B（A を B に 拡大する）が 文意に 合う。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-137",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "All visitors must ------- a valid form of identification at the front desk.",
+    "choices": [
+      "present",
+      "attend",
+      "perform",
+      "appear"
+    ],
+    "answer": "present",
+    "explanation": "身分証を「提示する」は present。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-138",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The ------- for submitting proposals has been extended to June 15.",
+    "choices": [
+      "overtime",
+      "receipt",
+      "deadline",
+      "admission"
+    ],
+    "answer": "deadline",
+    "explanation": "延長されるのは「締め切り」deadline。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-139",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Ms. Ward was ------- to the position of head chef after five years at the restaurant.",
+    "choices": [
+      "prepared",
+      "promoted",
+      "proposed",
+      "prevented"
+    ],
+    "answer": "promoted",
+    "explanation": "be promoted to ～（～に 昇進する）が 正解。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-140",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The hotel provides a free shuttle service to and from the -------.",
+    "choices": [
+      "passport",
+      "luggage",
+      "fare",
+      "airport"
+    ],
+    "answer": "airport",
+    "explanation": "シャトルが 往復する 場所なので airport。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-141",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Due to the bad weather, the outdoor event has been ------- until next weekend.",
+    "choices": [
+      "canceled",
+      "postponed",
+      "reversed",
+      "prevented"
+    ],
+    "answer": "postponed",
+    "explanation": "until next weekend と 組み「延期された」を 表す postponed。",
+    "tags": "語彙"
+  },
+  {
+    "id": "TOEIC-R5-142",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The damaged parts will be replaced free of charge because the product is still under -------.",
+    "choices": [
+      "receipt",
+      "invoice",
+      "warranty",
+      "refund"
+    ],
+    "answer": "warranty",
+    "explanation": "under warranty（保証期間中で）の 決まった 表現。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-143",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Our customer service team is well ------- to handle a wide range of inquiries.",
+    "choices": [
+      "equipped",
+      "supplied",
+      "furnished",
+      "stocked"
+    ],
+    "answer": "equipped",
+    "explanation": "be equipped to do（～する 能力・準備が ある）が 正解。",
+    "tags": "語彙 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-144",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The finance department will ------- the expense reports before reimbursing employees.",
+    "choices": [
+      "reserve",
+      "depart",
+      "renew",
+      "verify"
+    ],
+    "answer": "verify",
+    "explanation": "払い戻しの 前に 経費報告を「確認する」verify。",
+    "tags": "語彙"
+  }
+]

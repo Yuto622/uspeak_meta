@@ -1,0 +1,650 @@
+[
+  {
+    "id": "TOEIC-R5-073",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The number of online orders ------- sharply during the holiday season every year.",
+    "choices": [
+      "increases",
+      "increase",
+      "are increasing",
+      "have increased"
+    ],
+    "answer": "increases",
+    "explanation": "The number of ～ は 単数扱い。every year の 習慣なので increases。",
+    "tags": "一致"
+  },
+  {
+    "id": "TOEIC-R5-074",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The keynote speaker ------- at the airport by a hotel shuttle tomorrow morning.",
+    "choices": [
+      "met",
+      "will be met",
+      "is meeting",
+      "has met"
+    ],
+    "answer": "will be met",
+    "explanation": "講演者は「出迎えられる」ので 受動態。tomorrow から 未来の will be met。",
+    "tags": "時制 態"
+  },
+  {
+    "id": "TOEIC-R5-075",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Once the renovation -------, the restaurant will reopen with an expanded menu.",
+    "choices": [
+      "will be completed",
+      "completes",
+      "is completed",
+      "completing"
+    ],
+    "answer": "is completed",
+    "explanation": "Once（～したら）の 時の 副詞節では 未来も 現在形。改装は「完了される」ので is completed。",
+    "tags": "時制 態 時の副詞節"
+  },
+  {
+    "id": "TOEIC-R5-076",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Ms. Patel ------- to attend the conference, but her flight was canceled.",
+    "choices": [
+      "plans",
+      "will plan",
+      "is planning",
+      "had planned"
+    ],
+    "answer": "had planned",
+    "explanation": "欠航（過去）より 前に 予定していたので 過去完了 had planned。",
+    "tags": "時制 過去完了"
+  },
+  {
+    "id": "TOEIC-R5-077",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Every invoice ------- approval from a department head before payment.",
+    "choices": [
+      "require",
+      "requiring",
+      "are required",
+      "requires"
+    ],
+    "answer": "requires",
+    "explanation": "Every ～ は 単数扱いなので requires が 正解。",
+    "tags": "一致"
+  },
+  {
+    "id": "TOEIC-R5-078",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The results of the customer survey ------- at next week's meeting.",
+    "choices": [
+      "will discuss",
+      "will be discussed",
+      "discussing",
+      "has discussed"
+    ],
+    "answer": "will be discussed",
+    "explanation": "結果は「話し合われる」ので 未来の 受動態 will be discussed。",
+    "tags": "時制 態"
+  },
+  {
+    "id": "TOEIC-R5-079",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Two new technicians ------- to the maintenance team last month.",
+    "choices": [
+      "added",
+      "have added",
+      "were added",
+      "are adding"
+    ],
+    "answer": "were added",
+    "explanation": "技術者は チームに「加えられた」。last month から 過去の 受動態 were added。",
+    "tags": "時制 態"
+  },
+  {
+    "id": "TOEIC-R5-080",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "It is essential that every attendee ------- the registration form in advance.",
+    "choices": [
+      "complete",
+      "completing",
+      "to complete",
+      "completion"
+    ],
+    "answer": "complete",
+    "explanation": "It is essential that ～ の 節では 動詞の 原形（仮定法現在）を 使う。",
+    "tags": "仮定法現在"
+  },
+  {
+    "id": "TOEIC-R5-081",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The store will be closed ------- the national holiday.",
+    "choices": [
+      "during",
+      "while",
+      "among",
+      "since"
+    ],
+    "answer": "during",
+    "explanation": "名詞 the national holiday の 前なので 前置詞 during（～の 間）。while は 接続詞。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-082",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "------- the heavy rain, the outdoor concert went ahead as planned.",
+    "choices": [
+      "Although",
+      "Because",
+      "Despite",
+      "However"
+    ],
+    "answer": "Despite",
+    "explanation": "名詞句の 前に 置けて「～にもかかわらず」の 意味に なる 前置詞 Despite。",
+    "tags": "前置詞 接続詞"
+  },
+  {
+    "id": "TOEIC-R5-083",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Please submit your expense report ------- Friday.",
+    "choices": [
+      "until",
+      "by",
+      "within",
+      "along"
+    ],
+    "answer": "by",
+    "explanation": "期限（～までに）を 表すのは by。until は 継続の 終点。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-084",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The seminar was postponed ------- the speaker had a scheduling conflict.",
+    "choices": [
+      "because of",
+      "due to",
+      "despite",
+      "because"
+    ],
+    "answer": "because",
+    "explanation": "後ろが 主語＋動詞の 節なので 接続詞 because。because of・due to は 名詞の 前。",
+    "tags": "接続詞"
+  },
+  {
+    "id": "TOEIC-R5-085",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "Ms. Moreau has worked at the firm ------- 2018.",
+    "choices": [
+      "for",
+      "from",
+      "during",
+      "since"
+    ],
+    "answer": "since",
+    "explanation": "現在完了と 起点の 年 2018 を 結ぶのは since。for は 期間の 長さ。",
+    "tags": "前置詞 時制"
+  },
+  {
+    "id": "TOEIC-R5-086",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "",
+    "question": "------- you have any questions about your order, please contact our support team.",
+    "choices": [
+      "Unless",
+      "Whether",
+      "Should",
+      "Despite"
+    ],
+    "answer": "Should",
+    "explanation": "If you should have ～ の if を 省いた 倒置で Should が 文頭に 来る。",
+    "tags": "接続詞 倒置"
+  },
+  {
+    "id": "TOEIC-R5-087",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The conference room is located ------- the end of the hallway.",
+    "choices": [
+      "at",
+      "in",
+      "on",
+      "to"
+    ],
+    "answer": "at",
+    "explanation": "at the end of ～（～の 突き当たりに）が 決まった 表現。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-088",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Employees may work from home ------- they inform their supervisor in advance.",
+    "choices": [
+      "in spite of",
+      "provided that",
+      "regardless",
+      "so as"
+    ],
+    "answer": "provided that",
+    "explanation": "節を つなぎ「～という 条件で」を 表す 接続詞 provided that が 正解。",
+    "tags": "接続詞 条件"
+  },
+  {
+    "id": "TOEIC-R5-089",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The package was delivered ------- the receptionist was at lunch.",
+    "choices": [
+      "while",
+      "during",
+      "among",
+      "throughout"
+    ],
+    "answer": "while",
+    "explanation": "後ろが 節なので 接続詞 while（～している 間）。during は 前置詞。",
+    "tags": "接続詞"
+  },
+  {
+    "id": "TOEIC-R5-090",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Interns will receive training ------- their first week at the company.",
+    "choices": [
+      "although",
+      "whereas",
+      "throughout",
+      "unless"
+    ],
+    "answer": "throughout",
+    "explanation": "名詞句の 前なので 前置詞 throughout（～の 間 ずっと）が 正解。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-091",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "------- the new manager arrived, sales have improved significantly.",
+    "choices": [
+      "During",
+      "Since",
+      "Until",
+      "Before"
+    ],
+    "answer": "Since",
+    "explanation": "主節が 現在完了なので「～して 以来」の Since が 合う。During は 前置詞。",
+    "tags": "接続詞 時制"
+  },
+  {
+    "id": "TOEIC-R5-092",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The discount is available only ------- members of the loyalty program.",
+    "choices": [
+      "with",
+      "at",
+      "on",
+      "to"
+    ],
+    "answer": "to",
+    "explanation": "available to ～（～が 利用できる）の 形。",
+    "tags": "前置詞 コロケーション"
+  },
+  {
+    "id": "TOEIC-R5-093",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "",
+    "question": "The new printer is much faster ------- the old one.",
+    "choices": [
+      "then",
+      "as",
+      "to",
+      "than"
+    ],
+    "answer": "than",
+    "explanation": "比較級 faster と 組むのは than。",
+    "tags": "比較 前置詞"
+  },
+  {
+    "id": "TOEIC-R5-094",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "------- the budget is approved, we can begin hiring additional staff.",
+    "choices": [
+      "Once",
+      "Despite",
+      "Owing to",
+      "Rather"
+    ],
+    "answer": "Once",
+    "explanation": "節を 導き「いったん～したら」を 表す 接続詞 Once が 正解。",
+    "tags": "接続詞"
+  },
+  {
+    "id": "TOEIC-R5-095",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The factory will remain open ------- the holiday period to meet demand.",
+    "choices": [
+      "although",
+      "throughout",
+      "unless",
+      "beside"
+    ],
+    "answer": "throughout",
+    "explanation": "名詞句の 前で「～の 間 ずっと」を 表す 前置詞 throughout が 正解。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-096",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Mr. Grant decided to take the train ------- drive to the conference.",
+    "choices": [
+      "instead of",
+      "in addition",
+      "rather than",
+      "as well"
+    ],
+    "answer": "rather than",
+    "explanation": "to take と 原形 drive を 並べる rather than が 正解。instead of の 後は 動名詞。",
+    "tags": "接続詞 並列"
+  },
+  {
+    "id": "TOEIC-R5-097",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The report must be submitted no ------- than May 31.",
+    "choices": [
+      "late",
+      "latest",
+      "lately",
+      "later"
+    ],
+    "answer": "later",
+    "explanation": "no later than ～（遅くとも ～までに）の 決まった 表現。",
+    "tags": "比較 前置詞"
+  },
+  {
+    "id": "TOEIC-R5-098",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "Please keep your receipt ------- you need to return the item.",
+    "choices": [
+      "in case",
+      "in order",
+      "so that",
+      "even"
+    ],
+    "answer": "in case",
+    "explanation": "「～する 場合に 備えて」を 表す 接続詞 in case が 正解。",
+    "tags": "接続詞"
+  },
+  {
+    "id": "TOEIC-R5-099",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Ms. Cho will lead the project ------- Mr. Diaz is on leave.",
+    "choices": [
+      "during",
+      "while",
+      "through",
+      "along"
+    ],
+    "answer": "while",
+    "explanation": "後ろが 節なので 接続詞 while（～の 間）が 正解。",
+    "tags": "接続詞"
+  },
+  {
+    "id": "TOEIC-R5-100",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "------- its small size, the café attracts a large number of customers every morning.",
+    "choices": [
+      "Although",
+      "Even",
+      "Despite",
+      "Because"
+    ],
+    "answer": "Despite",
+    "explanation": "名詞句 its small size の 前で 譲歩を 表す 前置詞 Despite が 正解。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-101",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The shipment was delayed ------- a shortage of packing materials.",
+    "choices": [
+      "due to",
+      "because",
+      "since",
+      "so"
+    ],
+    "answer": "due to",
+    "explanation": "名詞句の 前で 理由を 表す 前置詞句 due to が 正解。",
+    "tags": "前置詞 理由"
+  },
+  {
+    "id": "TOEIC-R5-102",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Applicants should have ------- a degree in accounting or equivalent work experience.",
+    "choices": [
+      "neither",
+      "either",
+      "both",
+      "whether"
+    ],
+    "answer": "either",
+    "explanation": "or と 組むのは either（either A or B）。",
+    "tags": "相関接続詞"
+  },
+  {
+    "id": "TOEIC-R5-103",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "The workshop is open to ------- new and experienced employees.",
+    "choices": [
+      "either",
+      "neither",
+      "both",
+      "each"
+    ],
+    "answer": "both",
+    "explanation": "and と 組むのは both（both A and B）。",
+    "tags": "相関接続詞"
+  },
+  {
+    "id": "TOEIC-R5-104",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The lease cannot be renewed ------- the tenant pays the outstanding balance.",
+    "choices": [
+      "except",
+      "without",
+      "otherwise",
+      "unless"
+    ],
+    "answer": "unless",
+    "explanation": "節を 導き「～しない 限り」を 表す 接続詞 unless が 正解。",
+    "tags": "接続詞 条件"
+  },
+  {
+    "id": "TOEIC-R5-105",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "Our offices are closed on weekends, ------- emergency repair services remain available.",
+    "choices": [
+      "but",
+      "so",
+      "or",
+      "nor"
+    ],
+    "answer": "but",
+    "explanation": "閉まっている／利用できる という 対比なので but が 正解。",
+    "tags": "接続詞"
+  },
+  {
+    "id": "TOEIC-R5-106",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The new procedures will be introduced gradually ------- the next two months.",
+    "choices": [
+      "about",
+      "between",
+      "along",
+      "over"
+    ],
+    "answer": "over",
+    "explanation": "over the next two months（今後 2 か月に わたって）の 形。",
+    "tags": "前置詞"
+  },
+  {
+    "id": "TOEIC-R5-107",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "",
+    "question": "------- the delay in shipping, customers will receive a 10 percent discount.",
+    "choices": [
+      "Even though",
+      "Because of",
+      "As soon as",
+      "In order"
+    ],
+    "answer": "Because of",
+    "explanation": "名詞句の 前で 理由を 表す Because of が 正解。",
+    "tags": "前置詞 理由"
+  },
+  {
+    "id": "TOEIC-R5-108",
+    "skill": "reading",
+    "format": "Part 5 短文穴埋め問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "",
+    "question": "The committee members could not agree on ------- to approve the proposal.",
+    "choices": [
+      "that",
+      "unless",
+      "whether",
+      "although"
+    ],
+    "answer": "whether",
+    "explanation": "前置詞 on の 後で to 不定詞と 組み「～すべきか どうか」を 表す whether が 正解。",
+    "tags": "接続詞 名詞節"
+  }
+]
