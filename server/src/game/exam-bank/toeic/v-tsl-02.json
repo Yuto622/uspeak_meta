@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEIC-V-041",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "You must ------- your driver's license before it expires next month.",
+  "choices": [
+   "remove",
+   "refuse",
+   "renew",
+   "resign"
+  ],
+  "answer": "renew",
+  "explanation": "renew は「更新する」の 意味です。契約・免許・定期購読などを 延長する ことで、renew a contract / a subscription の 形で 使います。",
+  "tags": "TSL renew"
+ },
+ {
+  "id": "TOEIC-V-042",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The landlord asked every ------- in the building to move their cars before the parking lot is repainted.",
+  "choices": [
+   "tunnel",
+   "tenant",
+   "token",
+   "tablet"
+  ],
+  "answer": "tenant",
+  "explanation": "tenant は「賃借人・テナント」の 意味です。部屋や 店舗を 借りている 人・会社です。反対の 立場の landlord（家主）と セットで 覚えます。",
+  "tags": "TSL tenant"
+ },
+ {
+  "id": "TOEIC-V-043",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Please arrive at the airport at least two hours before your scheduled -------.",
+  "choices": [
+   "departure",
+   "deposit",
+   "dosage",
+   "deduction"
+  ],
+  "answer": "departure",
+  "explanation": "departure は「出発」の 意味です。depart（出発する）の 名詞形で、arrival（到着）の 反対です。departure time / gate の 形で 頻出です。",
+  "tags": "TSL departure"
+ },
+ {
+  "id": "TOEIC-V-044",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "We apologize for any ------- caused by the temporary closure of the east entrance.",
+  "choices": [
+   "independence",
+   "inheritance",
+   "incentive",
+   "inconvenience"
+  ],
+  "answer": "inconvenience",
+  "explanation": "inconvenience は「不便・迷惑」の 意味です。We apologize for any inconvenience. は お知らせや お詫びの 文の 定型表現です。",
+  "tags": "TSL inconvenience"
+ },
+ {
+  "id": "TOEIC-V-045",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The awards ------- will be held in the hotel's grand ballroom, and dinner will be served at seven.",
+  "choices": [
+   "bandage",
+   "bargain",
+   "basement",
+   "banquet"
+  ],
+  "answer": "banquet",
+  "explanation": "banquet は「宴会・祝宴」の 意味です。正式な 夕食会を 指し、awards banquet（表彰式の 晩餐会）の 形で よく 出ます。",
+  "tags": "TSL banquet"
+ },
+ {
+  "id": "TOEIC-V-046",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Your membership card will ------- at the end of this month, so please renew it soon.",
+  "choices": [
+   "explore",
+   "expand",
+   "expire",
+   "export"
+  ],
+  "answer": "expire",
+  "explanation": "expire は「期限が 切れる」の 意味です。自動詞で、The contract expires on ～ の ように 使います。名詞は expiration（満了）です。",
+  "tags": "TSL expire"
+ },
+ {
+  "id": "TOEIC-V-047",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The owners plan to ------- the old factory and turn it into modern apartments.",
+  "choices": [
+   "reserve",
+   "renovate",
+   "retire",
+   "reply"
+  ],
+  "answer": "renovate",
+  "explanation": "renovate は「改装する・修復する」の 意味です。古い 建物を 新しく する ことで、turn it into ～（～に 変える）と セットで よく 使われます。",
+  "tags": "TSL renovate"
+ },
+ {
+  "id": "TOEIC-V-048",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The hospital received a large ------- from a local business to buy new medical equipment.",
+  "choices": [
+   "donation",
+   "dimension",
+   "direction",
+   "duration"
+  ],
+  "answer": "donation",
+  "explanation": "donation は「寄付（金）」の 意味です。make a donation to ～（～に 寄付する）の 形で 使い、動詞は donate です。",
+  "tags": "TSL donation"
+ },
+ {
+  "id": "TOEIC-V-049",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "The manager asked customers for ------- on the new menu so she could improve it.",
+  "choices": [
+   "feedback",
+   "fireplace",
+   "footwear",
+   "forklift"
+  ],
+  "answer": "feedback",
+  "explanation": "feedback は「意見・感想」の 意味です。数えられない 名詞で、ask for feedback / give feedback on ～ の 形で 使います。",
+  "tags": "TSL feedback"
+ },
+ {
+  "id": "TOEIC-V-050",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "All online orders are packed and shipped from our ------- near the airport.",
+  "choices": [
+   "wallpaper",
+   "wardrobe",
+   "windshield",
+   "warehouse"
+  ],
+  "answer": "warehouse",
+  "explanation": "warehouse は「倉庫」の 意味です。物流の 場面で 頻出の 語で、商品を 保管し 発送する 建物を 指します。",
+  "tags": "TSL warehouse"
+ },
+ {
+  "id": "TOEIC-V-051",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Hot and cold ------- will be served in the lobby during the break.",
+  "choices": [
+   "bandages",
+   "batteries",
+   "beverages",
+   "blueprints"
+  ],
+  "answer": "beverages",
+  "explanation": "beverages は「飲み物」の 意味です。drink の 改まった 言い方で、food and beverages（飲食物）の 形で よく 使います。",
+  "tags": "TSL beverage"
+ },
+ {
+  "id": "TOEIC-V-052",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Every vehicle must pass a safety ------- before it can be used for deliveries.",
+  "choices": [
+   "inflation",
+   "inspection",
+   "injection",
+   "invasion"
+  ],
+  "answer": "inspection",
+  "explanation": "inspection は「検査・点検」の 意味です。pass an inspection（検査に 合格する）、safety inspection（安全点検）の 形で 使います。",
+  "tags": "TSL inspection"
+ },
+ {
+  "id": "TOEIC-V-053",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The ------- of this year's Employee of the Year award is Ms. Aiko Fujimura from the sales department.",
+  "choices": [
+   "recipe",
+   "recipient",
+   "reception",
+   "receptacle"
+  ],
+  "answer": "recipient",
+  "explanation": "recipient は「受取人・受賞者」の 意味です。receive（受け取る）から 派生した 人を 表す 語で、award recipient の 形で よく 出ます。",
+  "tags": "TSL recipient"
+ },
+ {
+  "id": "TOEIC-V-054",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Paper towels and cleaning supplies are located in ------- seven, next to the pet food.",
+  "choices": [
+   "aisle",
+   "ankle",
+   "anchor",
+   "axle"
+  ],
+  "answer": "aisle",
+  "explanation": "aisle は「通路」の 意味です。店の 棚の 間や 飛行機の 座席の 間の 通路を 指します。aisle seat（通路側の 席）も 頻出です。s は 発音しません。",
+  "tags": "TSL aisle"
+ },
+ {
+  "id": "TOEIC-V-055",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Officials will ------- the restaurant's kitchen to make sure it meets health standards.",
+  "choices": [
+   "insult",
+   "inspire",
+   "insist",
+   "inspect"
+  ],
+  "answer": "inspect",
+  "explanation": "inspect は「検査する・点検する」の 意味です。inspect A for B（A に B が ないか 調べる）の 形でも 使います。名詞は inspection です。",
+  "tags": "TSL inspect"
+ },
+ {
+  "id": "TOEIC-V-056",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "After the ------- of the two banks, the new company became the largest lender in the region.",
+  "choices": [
+   "margin",
+   "marker",
+   "merger",
+   "mentor"
+  ],
+  "answer": "merger",
+  "explanation": "merger は「合併」の 意味です。merge（合併する）の 名詞形で、merger and acquisition（M&A、合併と 買収）の 形でも 出ます。",
+  "tags": "TSL merger"
+ },
+ {
+  "id": "TOEIC-V-057",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The chef buys fresh ------- from local farms every morning.",
+  "choices": [
+   "instruments",
+   "incidents",
+   "ingredients",
+   "indicators"
+  ],
+  "answer": "ingredients",
+  "explanation": "ingredients は「材料・成分」の 意味です。料理の 材料や 製品の 成分を 指します。key ingredient（主な 材料・重要な 要素）も よく 使われます。",
+  "tags": "TSL ingredient"
+ },
+ {
+  "id": "TOEIC-V-058",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The travel agent sent me a detailed ------- that lists all my flights and hotel reservations.",
+  "choices": [
+   "inventory",
+   "itinerary",
+   "interval",
+   "ideology"
+  ],
+  "answer": "itinerary",
+  "explanation": "itinerary は「旅程（表）」の 意味です。出張や 旅行の 日程表を 指し、TOEIC の 出張関連の 文書で 頻出です。",
+  "tags": "TSL itinerary"
+ },
+ {
+  "id": "TOEIC-V-059",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The ------- presented three different designs for the new library.",
+  "choices": [
+   "architect",
+   "archive",
+   "ancestor",
+   "arrival"
+  ],
+  "answer": "architect",
+  "explanation": "architect は「建築家」の 意味です。建物を 設計する 人です。名詞 architecture（建築）・形容詞 architectural と あわせて 覚えます。",
+  "tags": "TSL architect"
+ },
+ {
+  "id": "TOEIC-V-060",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Employees who have worked here for one year are ------- for two weeks of paid vacation.",
+  "choices": [
+   "edible",
+   "eloquent",
+   "elastic",
+   "eligible"
+  ],
+  "answer": "eligible",
+  "explanation": "eligible は「資格の ある・適格な」の 意味です。be eligible for ～（～の 資格が ある）、be eligible to do の 形で 使います。",
+  "tags": "TSL eligible"
+ },
+ {
+  "id": "TOEIC-V-061",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The ------- of all research papers must be completed online by May 1.",
+  "choices": [
+   "subtraction",
+   "suspension",
+   "succession",
+   "submission"
+  ],
+  "answer": "submission",
+  "explanation": "submission は「提出（物）」の 意味です。submit（提出する）の 名詞形で、submission deadline（提出期限）の 形で よく 出ます。",
+  "tags": "TSL submission"
+ },
+ {
+  "id": "TOEIC-V-062",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Participants who complete the course will receive a ------- of completion.",
+  "choices": [
+   "cartridge",
+   "calculator",
+   "certificate",
+   "cabinet"
+  ],
+  "answer": "certificate",
+  "explanation": "certificate は「証明書・修了証」の 意味です。certificate of completion（修了証書）、gift certificate（商品券）の 形で 使います。",
+  "tags": "TSL certificate"
+ },
+ {
+  "id": "TOEIC-V-063",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "More than sixty percent of the survey ------- said they prefer to shop online.",
+  "choices": [
+   "residents",
+   "respondents",
+   "referees",
+   "retailers"
+  ],
+  "answer": "respondents",
+  "explanation": "respondents は「回答者」の 意味です。アンケートや 調査に 答えた 人です。respond（答える）の 派生語です。",
+  "tags": "TSL respondent"
+ },
+ {
+  "id": "TOEIC-V-064",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The factory workers were paid extra for working ------- during the busy season.",
+  "choices": [
+   "overtime",
+   "overhead",
+   "overview",
+   "overcast"
+  ],
+  "answer": "overtime",
+  "explanation": "overtime は「残業・時間外に」の 意味です。work overtime（残業する）、overtime pay（残業手当）の 形で 使います。",
+  "tags": "TSL overtime"
+ },
+ {
+  "id": "TOEIC-V-065",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The invoice is still -------, so please pay the remaining balance by Friday.",
+  "choices": [
+   "outstanding",
+   "outspoken",
+   "outdated",
+   "outgoing"
+  ],
+  "answer": "outstanding",
+  "explanation": "outstanding は「未払いの・未解決の；際立った」の 意味です。「優れた」の 意味の ほか、ビジネスでは outstanding balance / payment（未払い残高）の 意味が 重要です。",
+  "tags": "TSL outstanding"
+ },
+ {
+  "id": "TOEIC-V-066",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The company is known for its ------- products, such as a solar-powered delivery drone.",
+  "choices": [
+   "imitative",
+   "inactive",
+   "indecisive",
+   "innovative"
+  ],
+  "answer": "innovative",
+  "explanation": "innovative は「革新的な」の 意味です。新しい 発想を 取り入れた ものを 表し、innovative design / approach の 形で 使います。",
+  "tags": "TSL innovative"
+ },
+ {
+  "id": "TOEIC-V-067",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Several customers called to ------- about the opening hours of the new branch.",
+  "choices": [
+   "insure",
+   "invest",
+   "inquire",
+   "invade"
+  ],
+  "answer": "inquire",
+  "explanation": "inquire は「問い合わせる」の 意味です。inquire about ～（～について 問い合わせる）の 形で 使い、名詞は inquiry です。",
+  "tags": "TSL inquire"
+ },
+ {
+  "id": "TOEIC-V-068",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The hotel ballroom is the perfect ------- for a wedding reception or a corporate dinner.",
+  "choices": [
+   "value",
+   "venue",
+   "vendor",
+   "voucher"
+  ],
+  "answer": "venue",
+  "explanation": "venue は「開催地・会場」の 意味です。コンサート・会議・式典などが 行われる 場所を 指し、イベントの 告知文で 頻出です。",
+  "tags": "TSL venue"
+ },
+ {
+  "id": "TOEIC-V-069",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The new express train will save ------- about twenty minutes each way.",
+  "choices": [
+   "competitors",
+   "commuters",
+   "contributors",
+   "composers"
+  ],
+  "answer": "commuters",
+  "explanation": "commuters は「通勤者」の 意味です。commute（通勤する）を する 人で、commuter train（通勤電車）の 形でも 使います。",
+  "tags": "TSL commuter"
+ },
+ {
+  "id": "TOEIC-V-070",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Sign up for our monthly ------- to receive news about upcoming events and special offers.",
+  "choices": [
+   "newsletter",
+   "newsstand",
+   "nameplate",
+   "nightstand"
+  ],
+  "answer": "newsletter",
+  "explanation": "newsletter は「会報・ニュースレター」の 意味です。会社や 団体が 定期的に 送る お知らせで、sign up for a newsletter の 形で 頻出です。",
+  "tags": "TSL newsletter"
+ },
+ {
+  "id": "TOEIC-V-071",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "An outside firm will conduct an ------- of the company's financial records next month.",
+  "choices": [
+   "audience",
+   "audition",
+   "auction",
+   "audit"
+  ],
+  "answer": "audit",
+  "explanation": "audit は「監査」の 意味です。conduct an audit（監査を 行う）の 形で 使い、監査する人は auditor です。",
+  "tags": "TSL audit"
+ },
+ {
+  "id": "TOEIC-V-072",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "We hired a ------- to replace the roof and repair the walls of the warehouse.",
+  "choices": [
+   "conductor",
+   "consumer",
+   "contractor",
+   "commentator"
+  ],
+  "answer": "contractor",
+  "explanation": "contractor は「請負業者」の 意味です。建設や 修理などの 仕事を 契約で 引き受ける 業者を 指します。",
+  "tags": "TSL contractor"
+ },
+ {
+  "id": "TOEIC-V-073",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The new policy will ------- smoking anywhere on the hospital grounds.",
+  "choices": [
+   "promote",
+   "preserve",
+   "prohibit",
+   "provide"
+  ],
+  "answer": "prohibit",
+  "explanation": "prohibit は「禁止する」の 意味です。prohibit A from doing（A が ～するのを 禁じる）の 形でも 使います。ban と ほぼ 同じ 意味です。",
+  "tags": "TSL prohibit"
+ },
+ {
+  "id": "TOEIC-V-074",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "All staff members received a holiday ------- of five hundred dollars.",
+  "choices": [
+   "bonfire",
+   "bonus",
+   "bonnet",
+   "bottle"
+  ],
+  "answer": "bonus",
+  "explanation": "bonus は「賞与・特別手当」の 意味です。performance bonus（業績賞与）など、給料とは 別の 支給を 指します。",
+  "tags": "TSL bonus"
+ },
+ {
+  "id": "TOEIC-V-075",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Ms. Hassan will ------- the construction of the new hospital wing.",
+  "choices": [
+   "supervise",
+   "surrender",
+   "subtract",
+   "summarize"
+  ],
+  "answer": "supervise",
+  "explanation": "supervise は「監督する・管理する」の 意味です。仕事や 人の 様子を 見て 管理する ことで、名詞は supervision、人は supervisor です。",
+  "tags": "TSL supervise"
+ },
+ {
+  "id": "TOEIC-V-076",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The software company is ------- in Dublin, with branch offices in five countries.",
+  "choices": [
+   "handcrafted",
+   "handcuffed",
+   "headlined",
+   "headquartered"
+  ],
+  "answer": "headquartered",
+  "explanation": "headquartered は「本社を 置く」の 意味です。be headquartered in ～（～に 本社が ある）の 形で 使います。名詞 headquarters（本社）も 頻出です。",
+  "tags": "TSL headquarter"
+ },
+ {
+  "id": "TOEIC-V-077",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "",
+  "question": "A free ------- bus runs every fifteen minutes between the hotel and the convention center.",
+  "choices": [
+   "shovel",
+   "shelter",
+   "shelf",
+   "shuttle"
+  ],
+  "answer": "shuttle",
+  "explanation": "shuttle は「シャトル（往復便）」の 意味です。決まった 2 地点を 往復する バスや 便を 指し、free shuttle service の 形で よく 出ます。",
+  "tags": "TSL shuttle"
+ },
+ {
+  "id": "TOEIC-V-078",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "We need to order more ------- for the office, including envelopes, pens, and sticky notes.",
+  "choices": [
+   "scenery",
+   "machinery",
+   "stationery",
+   "bakery"
+  ],
+  "answer": "stationery",
+  "explanation": "stationery は「文房具・事務用品」の 意味です。数えられない 名詞です。発音が 同じ stationary（静止した）と つづりを 区別します。",
+  "tags": "TSL stationery"
+ },
+ {
+  "id": "TOEIC-V-079",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "If you ------- to the newspaper for one year, you will receive a free tote bag.",
+  "choices": [
+   "subtract",
+   "subscribe",
+   "subside",
+   "substitute"
+  ],
+  "answer": "subscribe",
+  "explanation": "subscribe は「定期購読する・登録する」の 意味です。subscribe to ～（～を 購読する）の 形で 使います。名詞は subscription です。",
+  "tags": "TSL subscribe"
+ },
+ {
+  "id": "TOEIC-V-080",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "Light ------- will be provided after the presentation in the main hall.",
+  "choices": [
+   "refreshments",
+   "requirements",
+   "retirements",
+   "reinforcements"
+  ],
+  "answer": "refreshments",
+  "explanation": "refreshments は「軽食・飲み物」の 意味です。通常 複数形で 使い、Refreshments will be served. は 案内文の 定型表現です。",
+  "tags": "TSL refreshment"
+ }
+]

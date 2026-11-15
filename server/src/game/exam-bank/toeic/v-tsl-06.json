@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEIC-V-201",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "",
+  "question": "The ------- agreed to repair the heating system before the new tenants move in.",
+  "choices": [
+   "landslide",
+   "landmark",
+   "landlord",
+   "landfill"
+  ],
+  "answer": "landlord",
+  "explanation": "landlord は「家主・大家」の 意味です。部屋や 建物を 貸す 人で、tenant（賃借人）と 対に なる 語です。",
+  "tags": "TSL landlord"
+ },
+ {
+  "id": "TOEIC-V-202",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The architect changed the ------- of the office to create more space for meetings.",
+  "choices": [
+   "layover",
+   "layout",
+   "lookout",
+   "lockout"
+  ],
+  "answer": "layout",
+  "explanation": "layout は「配置・間取り・レイアウト」の 意味です。部屋・店舗・ページの 配置を 指し、floor layout の 形でも 使います。",
+  "tags": "TSL layout"
+ },
+ {
+  "id": "TOEIC-V-203",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The ------- company is testing a new medicine for seasonal allergies.",
+  "choices": [
+   "pharmaceutical",
+   "philosophical",
+   "phonetic",
+   "photogenic"
+  ],
+  "answer": "pharmaceutical",
+  "explanation": "pharmaceutical は「製薬の」の 意味です。pharmaceutical company / industry（製薬会社・業界）の 形で 医療の 場面に 出ます。",
+  "tags": "TSL pharmaceutical"
+ },
+ {
+  "id": "TOEIC-V-204",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Customers can pay a ------- to receive their orders by the next morning.",
+  "choices": [
+   "premise",
+   "preview",
+   "prelude",
+   "premium"
+  ],
+  "answer": "premium",
+  "explanation": "premium は「割増料金・保険料；高級な」の 意味です。「割増料金」「保険料（insurance premium）」「高級品（premium products）」の 意味が 重要です。",
+  "tags": "TSL premium"
+ },
+ {
+  "id": "TOEIC-V-205",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "All laboratory staff must ------- to the safety guidelines at all times.",
+  "choices": [
+   "admire",
+   "adore",
+   "advise",
+   "adhere"
+  ],
+  "answer": "adhere",
+  "explanation": "adhere は「（規則などを）守る・固執する」の 意味です。adhere to ～（～を 守る）の 形で 使い、comply with、follow と ほぼ 同じ 意味です。",
+  "tags": "TSL adhere"
+ },
+ {
+  "id": "TOEIC-V-206",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The airline went ------- after several years of heavy losses.",
+  "choices": [
+   "barefoot",
+   "bashful",
+   "bankrupt",
+   "bilingual"
+  ],
+  "answer": "bankrupt",
+  "explanation": "bankrupt は「破産した」の 意味です。go bankrupt（破産する）の 形で 使い、名詞は bankruptcy です。",
+  "tags": "TSL bankrupt"
+ },
+ {
+  "id": "TOEIC-V-207",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "All products sold in the region must ------- with the new safety regulations.",
+  "choices": [
+   "compile",
+   "comply",
+   "compete",
+   "complete"
+  ],
+  "answer": "comply",
+  "explanation": "comply は「従う・応じる」の 意味です。comply with ～（～に 従う）の 形で 使い、名詞は compliance です。",
+  "tags": "TSL comply"
+ },
+ {
+  "id": "TOEIC-V-208",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Please keep a ------- of the signed contract for your records.",
+  "choices": [
+   "duplicate",
+   "diplomat",
+   "dumpling",
+   "debate"
+  ],
+  "answer": "duplicate",
+  "explanation": "duplicate は「写し・複製」の 意味です。名詞として「控え・コピー」、動詞として「複製する・重複させる」の 意味で 使います。",
+  "tags": "TSL duplicate"
+ },
+ {
+  "id": "TOEIC-V-209",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Ms. Ferreira was ------- for the Employee of the Year award by her colleagues.",
+  "choices": [
+   "nominated",
+   "nourished",
+   "neglected",
+   "narrated"
+  ],
+  "answer": "nominated",
+  "explanation": "nominated は「推薦する・指名する」の 意味です。be nominated for ～（～の 候補に 推薦される）の 形で 使います。",
+  "tags": "TSL nominate"
+ },
+ {
+  "id": "TOEIC-V-210",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The restaurant has high staff -------, so it is always hiring new servers.",
+  "choices": [
+   "turnpike",
+   "turntable",
+   "turnstile",
+   "turnover"
+  ],
+  "answer": "turnover",
+  "explanation": "turnover は「離職率；売上高」の 意味です。staff turnover（従業員の 入れ替わり）の 意味と、イギリス英語での「売上高」の 意味が あります。",
+  "tags": "TSL turnover"
+ },
+ {
+  "id": "TOEIC-V-211",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Please complete all ------- sections of the form, and leave the others blank.",
+  "choices": [
+   "amiable",
+   "audible",
+   "applicable",
+   "arable"
+  ],
+  "answer": "applicable",
+  "explanation": "applicable は「該当する・適用できる」の 意味です。if applicable（該当する 場合）は 書類で 頻出の 表現です。",
+  "tags": "TSL applicable"
+ },
+ {
+  "id": "TOEIC-V-212",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Many small businesses struggled during the economic -------.",
+  "choices": [
+   "download",
+   "downturn",
+   "downpour",
+   "downtown"
+  ],
+  "answer": "downturn",
+  "explanation": "downturn は「（景気の）低迷・下降」の 意味です。economic downturn（景気後退）の 形で 使い、upturn（上向き）の 反対です。",
+  "tags": "TSL downturn"
+ },
+ {
+  "id": "TOEIC-V-213",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The report found that the department's spending on travel was -------.",
+  "choices": [
+   "exclusive",
+   "excessive",
+   "exhaustive",
+   "expressive"
+  ],
+  "answer": "excessive",
+  "explanation": "excessive は「過度の」の 意味です。excess（超過）の 形容詞形で、excessive use / spending の 形で 使います。",
+  "tags": "TSL excessive"
+ },
+ {
+  "id": "TOEIC-V-214",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The machines are ------- checked to make sure they are working safely.",
+  "choices": [
+   "periodically",
+   "poetically",
+   "privately",
+   "patriotically"
+  ],
+  "answer": "periodically",
+  "explanation": "periodically は「定期的に」の 意味です。regularly と ほぼ 同じ 意味で、一定期間ごとに くり返す ことを 表します。",
+  "tags": "TSL periodically"
+ },
+ {
+  "id": "TOEIC-V-215",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The company has started a ------- campaign to hire fifty new engineers.",
+  "choices": [
+   "refreshment",
+   "retirement",
+   "resentment",
+   "recruitment"
+  ],
+  "answer": "recruitment",
+  "explanation": "recruitment は「採用（活動）」の 意味です。recruit（採用する）の 名詞形で、recruitment agency（人材紹介会社）の 形でも 使います。",
+  "tags": "TSL recruitment"
+ },
+ {
+  "id": "TOEIC-V-216",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "You will need a ------- from your family doctor to see a heart specialist.",
+  "choices": [
+   "rehearsal",
+   "reversal",
+   "referral",
+   "rival"
+  ],
+  "answer": "referral",
+  "explanation": "referral は「紹介（状）」の 意味です。refer（紹介する・差し向ける）の 名詞形で、医療や 人材紹介の 場面で 使います。",
+  "tags": "TSL referral"
+ },
+ {
+  "id": "TOEIC-V-217",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The company offers many opportunities for career -------, including management training.",
+  "choices": [
+   "advertisement",
+   "amusement",
+   "advancement",
+   "amendment"
+  ],
+  "answer": "advancement",
+  "explanation": "advancement は「昇進・進歩」の 意味です。career advancement（キャリアアップ・昇進）の 形で 求人広告に よく 出ます。",
+  "tags": "TSL advancement"
+ },
+ {
+  "id": "TOEIC-V-218",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Employees need written ------- from their manager to work overtime.",
+  "choices": [
+   "authenticity",
+   "authorization",
+   "automobile",
+   "autobiography"
+  ],
+  "answer": "authorization",
+  "explanation": "authorization は「許可・認可」の 意味です。authorize（認可する）の 名詞形で、without authorization（無許可で）の 形でも 使います。",
+  "tags": "TSL authorization"
+ },
+ {
+  "id": "TOEIC-V-219",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The hotel ------- can help you book restaurants and buy theater tickets.",
+  "choices": [
+   "concierge",
+   "condiment",
+   "consumer",
+   "contestant"
+  ],
+  "answer": "concierge",
+  "explanation": "concierge は「コンシェルジュ・接客係」の 意味です。ホテルで 宿泊客の 要望に 応える 係で、ホテルの 案内文で 頻出です。",
+  "tags": "TSL concierge"
+ },
+ {
+  "id": "TOEIC-V-220",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The young ------- started her own catering business with a small loan.",
+  "choices": [
+   "ingredient",
+   "instrument",
+   "interior",
+   "entrepreneur"
+  ],
+  "answer": "entrepreneur",
+  "explanation": "entrepreneur は「起業家」の 意味です。自分で 事業を 始める 人で、形容詞は entrepreneurial です。",
+  "tags": "TSL entrepreneur"
+ },
+ {
+  "id": "TOEIC-V-221",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The engineer applied for a ------- to protect her new invention.",
+  "choices": [
+   "pattern",
+   "patient",
+   "pavilion",
+   "patent"
+  ],
+  "answer": "patent",
+  "explanation": "patent は「特許」の 意味です。apply for a patent（特許を 申請する）の 形で 使います。",
+  "tags": "TSL patent"
+ },
+ {
+  "id": "TOEIC-V-222",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The full amount is ------- within thirty days of the invoice date.",
+  "choices": [
+   "playable",
+   "portable",
+   "payable",
+   "pliable"
+  ],
+  "answer": "payable",
+  "explanation": "payable は「支払うべき」の 意味です。payable to ～（～宛ての 支払い）、accounts payable（買掛金）の 形で 使います。",
+  "tags": "TSL payable"
+ },
+ {
+  "id": "TOEIC-V-223",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The ------- results of the survey will be presented at Monday's meeting.",
+  "choices": [
+   "predatory",
+   "preliminary",
+   "prehistoric",
+   "primitive"
+  ],
+  "answer": "preliminary",
+  "explanation": "preliminary は「予備の・暫定的な」の 意味です。最終版の 前の 段階を 表し、preliminary results / report の 形で 使います。",
+  "tags": "TSL preliminary"
+ },
+ {
+  "id": "TOEIC-V-224",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The board decided to ------- an additional $50,000 to the research department.",
+  "choices": [
+   "allocate",
+   "alienate",
+   "alleviate",
+   "allude"
+  ],
+  "answer": "allocate",
+  "explanation": "allocate は「割り当てる・配分する」の 意味です。allocate A to B（A を B に 割り当てる）の 形で、予算や 資源に 使います。",
+  "tags": "TSL allocate"
+ },
+ {
+  "id": "TOEIC-V-225",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Could you please ------- what you mean by \"flexible hours\" in the job advertisement?",
+  "choices": [
+   "clarify",
+   "classify",
+   "clatter",
+   "clamp"
+  ],
+  "answer": "clarify",
+  "explanation": "clarify は「明らかに する・説明する」の 意味です。わかりにくい 点を はっきり させる ことで、clarify a point / question の 形で 使います。",
+  "tags": "TSL clarify"
+ },
+ {
+  "id": "TOEIC-V-226",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The assistant will ------- a list of all the suppliers we worked with last year.",
+  "choices": [
+   "comply",
+   "compost",
+   "compel",
+   "compile"
+  ],
+  "answer": "compile",
+  "explanation": "compile は「まとめる・編集する」の 意味です。情報や データを 集めて 1 つに する ことで、compile a report / list の 形で 使います。",
+  "tags": "TSL compile"
+ },
+ {
+  "id": "TOEIC-V-227",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Customers can ------- their phone cases by adding their names or photos.",
+  "choices": [
+   "colonize",
+   "crystallize",
+   "customize",
+   "capsize"
+  ],
+  "answer": "customize",
+  "explanation": "customize は「（好みに）合わせて 作る」の 意味です。custom（注文の）から 派生し、customized service（個別対応の サービス）の 形でも 使います。",
+  "tags": "TSL customize"
+ },
+ {
+  "id": "TOEIC-V-228",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The manufacturer will ------- this model of printer next year because sales have been low.",
+  "choices": [
+   "discourage",
+   "discontinue",
+   "discover",
+   "disembark"
+  ],
+  "answer": "discontinue",
+  "explanation": "discontinue は「製造を 中止する・打ち切る」の 意味です。discontinued item（製造中止品）の 形で 使い、販売・サービスの 終了を 表します。",
+  "tags": "TSL discontinue"
+ },
+ {
+  "id": "TOEIC-V-229",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The company ships most of its ------- by rail because it is cheaper than trucks.",
+  "choices": [
+   "fright",
+   "freight",
+   "flight",
+   "frost"
+  ],
+  "answer": "freight",
+  "explanation": "freight は「貨物・運送」の 意味です。freight charges（運送料）、freight train（貨物列車）の 形で 物流の 場面に 頻出です。",
+  "tags": "TSL freight"
+ },
+ {
+  "id": "TOEIC-V-230",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The loan application was rejected because of ------- income.",
+  "choices": [
+   "insufficient",
+   "innocent",
+   "insistent",
+   "incident"
+  ],
+  "answer": "insufficient",
+  "explanation": "insufficient は「不十分な」の 意味です。sufficient（十分な）の 反対で、insufficient funds（残高不足）は 銀行で 頻出の 表現です。",
+  "tags": "TSL insufficient"
+ },
+ {
+  "id": "TOEIC-V-231",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Our drivers are always -------, so your package will arrive at the promised time.",
+  "choices": [
+   "punctured",
+   "pungent",
+   "pupil",
+   "punctual"
+  ],
+  "answer": "punctual",
+  "explanation": "punctual は「時間を 守る」の 意味です。be punctual for ～ の 形で、on time と ほぼ 同じ 意味を 表します。",
+  "tags": "TSL punctual"
+ },
+ {
+  "id": "TOEIC-V-232",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The ------- was delivered to the reception desk because no one was home.",
+  "choices": [
+   "parade",
+   "parrot",
+   "parcel",
+   "parsley"
+  ],
+  "answer": "parcel",
+  "explanation": "parcel は「小包」の 意味です。package と ほぼ 同じ 意味で、send a parcel（小包を 送る）の 形で 使います。",
+  "tags": "TSL parcel"
+ },
+ {
+  "id": "TOEIC-V-233",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "This charger is ------- with most smartphones and tablets.",
+  "choices": [
+   "combustible",
+   "compassionate",
+   "compatible",
+   "competent"
+  ],
+  "answer": "compatible",
+  "explanation": "compatible は「互換性の ある・両立できる」の 意味です。be compatible with ～（～と 互換性が ある）の 形で IT の 場面に 頻出です。",
+  "tags": "TSL compatible"
+ },
+ {
+  "id": "TOEIC-V-234",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The new air conditioner reduces energy ------- by thirty percent.",
+  "choices": [
+   "construction",
+   "consumption",
+   "contemplation",
+   "corruption"
+  ],
+  "answer": "consumption",
+  "explanation": "consumption は「消費（量）」の 意味です。consume（消費する）の 名詞形で、energy / fuel consumption の 形で 使います。",
+  "tags": "TSL consumption"
+ },
+ {
+  "id": "TOEIC-V-235",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Applicants who meet all of the ------- will be invited to an interview.",
+  "choices": [
+   "criteria",
+   "cafeterias",
+   "cameras",
+   "curtains"
+  ],
+  "answer": "criteria",
+  "explanation": "criteria は「基準（複数）」の 意味です。criterion の 複数形で、meet the criteria（基準を 満たす）の 形で 使います。",
+  "tags": "TSL criteria"
+ },
+ {
+  "id": "TOEIC-V-236",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The accountant found a ------- between the invoice and the delivery receipt.",
+  "choices": [
+   "democracy",
+   "diplomacy",
+   "delicacy",
+   "discrepancy"
+  ],
+  "answer": "discrepancy",
+  "explanation": "discrepancy は「食い違い・不一致」の 意味です。a discrepancy between A and B（A と B の 食い違い）の 形で 使います。",
+  "tags": "TSL discrepancy"
+ },
+ {
+  "id": "TOEIC-V-237",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The hospital wants to ------- its check-in process so that patients wait less.",
+  "choices": [
+   "straighten",
+   "strangle",
+   "stroll",
+   "streamline"
+  ],
+  "answer": "streamline",
+  "explanation": "streamline は「合理化する・効率化する」の 意味です。手順を 簡単で 効率的に する ことで、streamline operations の 形で 使います。",
+  "tags": "TSL streamline"
+ },
+ {
+  "id": "TOEIC-V-238",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The apartment complex offers many -------, including a pool, a gym, and a rooftop garden.",
+  "choices": [
+   "amendments",
+   "ambitions",
+   "amenities",
+   "anecdotes"
+  ],
+  "answer": "amenities",
+  "explanation": "amenities は「（生活の）設備・快適さ」の 意味です。通常 複数形で、ホテルや 住宅の 便利な 設備を 指します。",
+  "tags": "TSL amenity"
+ },
+ {
+  "id": "TOEIC-V-239",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "She bought her new car from a ------- just outside the city.",
+  "choices": [
+   "dictatorship",
+   "dealership",
+   "fellowship",
+   "friendship"
+  ],
+  "answer": "dealership",
+  "explanation": "dealership は「販売代理店」の 意味です。特に 自動車の 販売店を 指し、car dealership の 形で 使います。",
+  "tags": "TSL dealership"
+ },
+ {
+  "id": "TOEIC-V-240",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Customers who buy the washing machine this month will receive a $50 -------.",
+  "choices": [
+   "rebate",
+   "rebel",
+   "rebound",
+   "recess"
+  ],
+  "answer": "rebate",
+  "explanation": "rebate は「払い戻し・割戻し」の 意味です。購入後に 代金の 一部が 戻る 仕組みで、refund（返金）と 似た 意味です。",
+  "tags": "TSL rebate"
+ }
+]

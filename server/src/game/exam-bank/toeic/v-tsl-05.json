@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEIC-V-161",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "For security reasons, please do not leave your luggage ------- in the terminal.",
+  "choices": [
+   "unattended",
+   "unemployed",
+   "unanimous",
+   "unarmed"
+  ],
+  "answer": "unattended",
+  "explanation": "unattended は「放置された・付き添いの ない」の 意味です。leave ～ unattended（～を 放置する）の 形で 空港や 駅の アナウンスに 頻出です。",
+  "tags": "TSL unattended"
+ },
+ {
+  "id": "TOEIC-V-162",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The new train station is fully ------- to passengers in wheelchairs.",
+  "choices": [
+   "accountable",
+   "admirable",
+   "audible",
+   "accessible"
+  ],
+  "answer": "accessible",
+  "explanation": "accessible は「利用しやすい・行きやすい」の 意味です。accessible to ～（～が 利用できる）の 形で、バリアフリーや 交通の 便の よさを 表します。",
+  "tags": "TSL accessible"
+ },
+ {
+  "id": "TOEIC-V-163",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Workers at the plant ------- the engines by hand before testing them.",
+  "choices": [
+   "assume",
+   "assert",
+   "assemble",
+   "assign"
+  ],
+  "answer": "assemble",
+  "explanation": "assemble は「組み立てる；集める」の 意味です。名詞 assembly（組み立て・集会）と セットで、assembly line（組み立てライン）も 頻出です。",
+  "tags": "TSL assemble"
+ },
+ {
+  "id": "TOEIC-V-164",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The law firm offers a free thirty-minute ------- to new clients.",
+  "choices": [
+   "constellation",
+   "consultation",
+   "contamination",
+   "congregation"
+  ],
+  "answer": "consultation",
+  "explanation": "consultation は「相談・診察」の 意味です。consult（相談する）の 名詞形で、free consultation の 形で 広告に よく 出ます。",
+  "tags": "TSL consultation"
+ },
+ {
+  "id": "TOEIC-V-165",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "These work boots are made of ------- leather that will last for many years.",
+  "choices": [
+   "dutiful",
+   "durable",
+   "drowsy",
+   "dizzy"
+  ],
+  "answer": "durable",
+  "explanation": "durable は「耐久性の ある・丈夫な」の 意味です。長持ちする ものを 表し、durable goods（耐久消費財）の 形でも 使います。",
+  "tags": "TSL durable"
+ },
+ {
+  "id": "TOEIC-V-166",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The flight was delayed because of a ------- in the plane's navigation system.",
+  "choices": [
+   "malfunction",
+   "marathon",
+   "masterpiece",
+   "monopoly"
+  ],
+  "answer": "malfunction",
+  "explanation": "malfunction は「故障・不調」の 意味です。機械が 正しく 動かない ことを 表し、動詞としても 使えます。",
+  "tags": "TSL malfunction"
+ },
+ {
+  "id": "TOEIC-V-167",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The real estate agent showed the house to several ------- buyers over the weekend.",
+  "choices": [
+   "perspective",
+   "protective",
+   "productive",
+   "prospective"
+  ],
+  "answer": "prospective",
+  "explanation": "prospective は「見込みの ある・将来の」の 意味です。prospective buyer / employee（購入見込み客・入社予定者）の 形で 使います。",
+  "tags": "TSL prospective"
+ },
+ {
+  "id": "TOEIC-V-168",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The editor sent the report back to the author for -------.",
+  "choices": [
+   "revenue",
+   "reunion",
+   "revision",
+   "revival"
+  ],
+  "answer": "revision",
+  "explanation": "revision は「修正・改訂」の 意味です。revise（修正する）の 名詞形で、make revisions to ～（～を 修正する）の 形で 使います。",
+  "tags": "TSL revision"
+ },
+ {
+  "id": "TOEIC-V-169",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "More than fifty food ------- will be selling their products at the street festival.",
+  "choices": [
+   "vectors",
+   "venues",
+   "vendors",
+   "verdicts"
+  ],
+  "answer": "vendors",
+  "explanation": "vendors は「販売業者・売り手」の 意味です。屋台の 売り手や 取引先の 業者を 指し、supplier と ほぼ 同じ 意味でも 使われます。",
+  "tags": "TSL vendor"
+ },
+ {
+  "id": "TOEIC-V-170",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "There is no fee for cash ------- from the bank's own ATMs.",
+  "choices": [
+   "witnesses",
+   "withdrawals",
+   "wilderness",
+   "wardrobes"
+  ],
+  "answer": "withdrawals",
+  "explanation": "withdrawals は「引き出し・撤退」の 意味です。withdraw（引き出す）の 名詞形で、cash withdrawal（現金の 引き出し）の 形で 使います。",
+  "tags": "TSL withdrawal"
+ },
+ {
+  "id": "TOEIC-V-171",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Repairing the old machine would be more ------- than buying a new one.",
+  "choices": [
+   "costly",
+   "cozy",
+   "curly",
+   "cuddly"
+  ],
+  "answer": "costly",
+  "explanation": "costly は「費用の かかる・高価な」の 意味です。-ly で 終わるが 形容詞です。costly mistake（高くつく 失敗）の 形でも 使います。",
+  "tags": "TSL costly"
+ },
+ {
+  "id": "TOEIC-V-172",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The conference package includes an afternoon ------- to a nearby vineyard.",
+  "choices": [
+   "exclusion",
+   "extinction",
+   "exhaustion",
+   "excursion"
+  ],
+  "answer": "excursion",
+  "explanation": "excursion は「小旅行・遠足」の 意味です。短い 団体旅行を 指し、ツアーや 会議の 案内で よく 出ます。",
+  "tags": "TSL excursion"
+ },
+ {
+  "id": "TOEIC-V-173",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "After twenty years with the company, Mr. Petrov submitted his ------- in order to start his own business.",
+  "choices": [
+   "regulation",
+   "reservation",
+   "restoration",
+   "resignation"
+  ],
+  "answer": "resignation",
+  "explanation": "resignation は「辞職・辞表」の 意味です。submit / hand in one's resignation（辞表を 提出する）の 形で 使います。動詞は resign です。",
+  "tags": "TSL resignation"
+ },
+ {
+  "id": "TOEIC-V-174",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Either party may ------- the contract with thirty days' written notice.",
+  "choices": [
+   "tolerate",
+   "terrify",
+   "terminate",
+   "tabulate"
+  ],
+  "answer": "terminate",
+  "explanation": "terminate は「終了させる・解除する」の 意味です。terminate a contract / agreement の 形で 契約書に よく 出ます。名詞は termination です。",
+  "tags": "TSL terminate"
+ },
+ {
+  "id": "TOEIC-V-175",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The parking garage is ------- to the main hospital building.",
+  "choices": [
+   "adequate",
+   "adjacent",
+   "adhesive",
+   "adolescent"
+  ],
+  "answer": "adjacent",
+  "explanation": "adjacent は「隣接した」の 意味です。adjacent to ～（～に 隣接して）の 形で、next to と ほぼ 同じ 意味の 改まった 語です。",
+  "tags": "TSL adjacent"
+ },
+ {
+  "id": "TOEIC-V-176",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "A ------- for the airline said that flights would return to normal by evening.",
+  "choices": [
+   "spokesperson",
+   "salesclerk",
+   "sportscaster",
+   "stuntman"
+  ],
+  "answer": "spokesperson",
+  "explanation": "spokesperson は「広報担当者」の 意味です。会社や 団体を 代表して 発表する 人で、A spokesperson for ～ said ～ の 形で 報道文に 頻出です。",
+  "tags": "TSL spokesperson"
+ },
+ {
+  "id": "TOEIC-V-177",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Sales increased ------- after the company launched its new website.",
+  "choices": [
+   "considerably",
+   "considerately",
+   "courageously",
+   "cheerfully"
+  ],
+  "answer": "considerably",
+  "explanation": "considerably は「かなり・相当に」の 意味です。significantly や substantially と ほぼ 同じ 意味で、増減の 大きさを 表します。",
+  "tags": "TSL considerably"
+ },
+ {
+  "id": "TOEIC-V-178",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The fire was caused by ------- wiring in the kitchen.",
+  "choices": [
+   "fluffy",
+   "frosty",
+   "fruity",
+   "faulty"
+  ],
+  "answer": "faulty",
+  "explanation": "faulty は「欠陥の ある」の 意味です。defective と 似た 意味で、faulty wiring / equipment の 形で 使います。",
+  "tags": "TSL faulty"
+ },
+ {
+  "id": "TOEIC-V-179",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The photographer brought a ------- of her best work to the job interview.",
+  "choices": [
+   "portion",
+   "postcard",
+   "portfolio",
+   "porch"
+  ],
+  "answer": "portfolio",
+  "explanation": "portfolio は「作品集；（投資の）ポートフォリオ」の 意味です。作品を まとめた もの、または 保有する 投資資産の 組み合わせを 指します。",
+  "tags": "TSL portfolio"
+ },
+ {
+  "id": "TOEIC-V-180",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "We plan to ------- the kitchen by installing new cabinets and countertops.",
+  "choices": [
+   "remind",
+   "remodel",
+   "remark",
+   "reproach"
+  ],
+  "answer": "remodel",
+  "explanation": "remodel は「改装する・作り直す」の 意味です。renovate と ほぼ 同じ 意味で、家や 店の 改装に 使います。",
+  "tags": "TSL remodel"
+ },
+ {
+  "id": "TOEIC-V-181",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The road construction may cause some ------- to bus services this week.",
+  "choices": [
+   "description",
+   "disruption",
+   "distinction",
+   "decoration"
+  ],
+  "answer": "disruption",
+  "explanation": "disruption は「混乱・中断」の 意味です。disrupt（混乱させる）の 名詞形で、service disruption（運行の 乱れ）の 形で 使います。",
+  "tags": "TSL disruption"
+ },
+ {
+  "id": "TOEIC-V-182",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Nurses often work ------- hours, including nights and weekends.",
+  "choices": [
+   "irregular",
+   "irritable",
+   "irresistible",
+   "illiterate"
+  ],
+  "answer": "irregular",
+  "explanation": "irregular は「不規則な」の 意味です。irregular hours / schedule（不規則な 勤務時間）の 形で 使います。",
+  "tags": "TSL irregular"
+ },
+ {
+  "id": "TOEIC-V-183",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Candidates should have at least five years of ------- experience in the hotel industry.",
+  "choices": [
+   "mammal",
+   "manual",
+   "marital",
+   "managerial"
+  ],
+  "answer": "managerial",
+  "explanation": "managerial は「管理職の・経営上の」の 意味です。managerial experience / position（管理職の 経験・職）の 形で 求人に よく 出ます。",
+  "tags": "TSL managerial"
+ },
+ {
+  "id": "TOEIC-V-184",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The ------- department makes sure all employees are paid correctly and on time.",
+  "choices": [
+   "pavement",
+   "password",
+   "payroll",
+   "paycheck"
+  ],
+  "answer": "payroll",
+  "explanation": "payroll は「給与（台帳）・給与支払い」の 意味です。payroll department（給与課）、on the payroll（雇用されて）の 形で 使います。",
+  "tags": "TSL payroll"
+ },
+ {
+  "id": "TOEIC-V-185",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Please ------- the brochure carefully before we send it to the printer.",
+  "choices": [
+   "prove",
+   "prowl",
+   "proofread",
+   "prune"
+  ],
+  "answer": "proofread",
+  "explanation": "proofread は「校正する」の 意味です。誤字や 誤りを 確認する ことで、出版や 広報の 場面で よく 使われます。",
+  "tags": "TSL proofread"
+ },
+ {
+  "id": "TOEIC-V-186",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "A ------- from a large engineering firm visited the university to meet graduating students.",
+  "choices": [
+   "refugee",
+   "recruiter",
+   "referee",
+   "reindeer"
+  ],
+  "answer": "recruiter",
+  "explanation": "recruiter は「採用担当者」の 意味です。recruit（採用する）を 担当する 人で、job recruiter の 形でも 使います。",
+  "tags": "TSL recruiter"
+ },
+ {
+  "id": "TOEIC-V-187",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The company's ------- will vote on the merger at the annual meeting.",
+  "choices": [
+   "stockholders",
+   "stockpiles",
+   "stockings",
+   "stopwatches"
+  ],
+  "answer": "stockholders",
+  "explanation": "stockholders は「株主」の 意味です。shareholder と 同じ 意味で、annual stockholders' meeting（年次株主総会）の 形で 出ます。",
+  "tags": "TSL stockholder"
+ },
+ {
+  "id": "TOEIC-V-188",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The office space on the third floor has been ------- since the previous tenant moved out.",
+  "choices": [
+   "vague",
+   "vain",
+   "valiant",
+   "vacant"
+  ],
+  "answer": "vacant",
+  "explanation": "vacant は「空いている」の 意味です。部屋・建物・職位が 空いている ことを 表し、名詞は vacancy です。",
+  "tags": "TSL vacant"
+ },
+ {
+  "id": "TOEIC-V-189",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The new ------- line can produce 500 bicycles a day.",
+  "choices": [
+   "ambulance",
+   "anthem",
+   "apology",
+   "assembly"
+  ],
+  "answer": "assembly",
+  "explanation": "assembly は「組み立て；集会」の 意味です。assembly line（組み立てライン）、general assembly（総会）の 形で 使います。",
+  "tags": "TSL assembly"
+ },
+ {
+  "id": "TOEIC-V-190",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "All electricians must hold a valid ------- before they can work on the site.",
+  "choices": [
+   "clarification",
+   "classification",
+   "certification",
+   "cultivation"
+  ],
+  "answer": "certification",
+  "explanation": "certification は「資格（認定）・証明」の 意味です。certify（認定する）の 名詞形で、professional certification の 形で 使います。",
+  "tags": "TSL certification"
+ },
+ {
+  "id": "TOEIC-V-191",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "The ------- of the bridge for repairs will cause traffic delays for several weeks.",
+  "choices": [
+   "clover",
+   "closure",
+   "cluster",
+   "clutter"
+  ],
+  "answer": "closure",
+  "explanation": "closure は「閉鎖」の 意味です。close（閉める）の 名詞形で、road closure（道路閉鎖）の 形で 交通の お知らせに 頻出です。",
+  "tags": "TSL closure"
+ },
+ {
+  "id": "TOEIC-V-192",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Please check the ------- date on your credit card before entering it online.",
+  "choices": [
+   "expiration",
+   "exploration",
+   "exclamation",
+   "exaggeration"
+  ],
+  "answer": "expiration",
+  "explanation": "expiration は「満了・失効」の 意味です。expire（期限が 切れる）の 名詞形で、expiration date（有効期限）の 形で 使います。",
+  "tags": "TSL expiration"
+ },
+ {
+  "id": "TOEIC-V-193",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "According to the latest -------, sales will grow by eight percent next year.",
+  "choices": [
+   "projections",
+   "prohibitions",
+   "propellers",
+   "prosecutions"
+  ],
+  "answer": "projections",
+  "explanation": "projections は「予測・見積もり」の 意味です。将来の 数字の 見通しで、sales projections（売上予測）の 形で 使います。",
+  "tags": "TSL projection"
+ },
+ {
+  "id": "TOEIC-V-194",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The larger airline announced a ------- of its smaller rival for two billion dollars.",
+  "choices": [
+   "takeoff",
+   "turnout",
+   "tryout",
+   "takeover"
+  ],
+  "answer": "takeover",
+  "explanation": "takeover は「買収・乗っ取り」の 意味です。ある 会社が 別の 会社の 経営権を 得る ことで、acquisition と 似た 意味です。",
+  "tags": "TSL takeover"
+ },
+ {
+  "id": "TOEIC-V-195",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "",
+  "question": "Nearly half of the company's ------- now works from home at least two days a week.",
+  "choices": [
+   "workbench",
+   "workbook",
+   "workforce",
+   "workout"
+  ],
+  "answer": "workforce",
+  "explanation": "workforce は「全従業員・労働力」の 意味です。会社や 国の 働く 人 全体を 指します。",
+  "tags": "TSL workforce"
+ },
+ {
+  "id": "TOEIC-V-196",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Members ------- points every time they shop and can exchange them for gift cards.",
+  "choices": [
+   "accelerate",
+   "accumulate",
+   "accuse",
+   "acquaint"
+  ],
+  "answer": "accumulate",
+  "explanation": "accumulate は「ためる・蓄積する」の 意味です。accumulate points / data / wealth の 形で 使います。",
+  "tags": "TSL accumulate"
+ },
+ {
+  "id": "TOEIC-V-197",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "Each employee meets with his or her manager for an annual performance -------.",
+  "choices": [
+   "approval",
+   "appraisal",
+   "arrival",
+   "apparel"
+  ],
+  "answer": "appraisal",
+  "explanation": "appraisal は「評価・査定」の 意味です。performance appraisal（人事評価）、property appraisal（不動産鑑定）の 形で 使います。",
+  "tags": "TSL appraisal"
+ },
+ {
+  "id": "TOEIC-V-198",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The young carpenter worked as an ------- for three years before opening his own business.",
+  "choices": [
+   "apprentice",
+   "appendix",
+   "appetite",
+   "applause"
+  ],
+  "answer": "apprentice",
+  "explanation": "apprentice は「見習い・徒弟」の 意味です。熟練者の もとで 技術を 学ぶ 人を 指し、apprenticeship（見習い期間）も 関連語です。",
+  "tags": "TSL apprentice"
+ },
+ {
+  "id": "TOEIC-V-199",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The airline will ------- passengers for the delay by offering them free meal vouchers.",
+  "choices": [
+   "complicate",
+   "compress",
+   "comprise",
+   "compensate"
+  ],
+  "answer": "compensate",
+  "explanation": "compensate は「補償する・埋め合わせる」の 意味です。compensate A for B（A に B の 補償を する）の 形で 使い、名詞は compensation です。",
+  "tags": "TSL compensate"
+ },
+ {
+  "id": "TOEIC-V-200",
+  "skill": "reading",
+  "format": "語彙（TOEIC Service List）",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "",
+  "question": "The new online system will ------- communication between the head office and branch offices.",
+  "choices": [
+   "fabricate",
+   "fascinate",
+   "facilitate",
+   "falsify"
+  ],
+  "answer": "facilitate",
+  "explanation": "facilitate は「促進する・容易にする」の 意味です。物事を しやすく する ことで、facilitate a meeting（会議を 進行する）の 意味でも 使います。",
+  "tags": "TSL facilitate"
+ }
+]
