@@ -1,0 +1,722 @@
+[
+  {
+    "id": "TOEFL-LA-001-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Librarian: Good afternoon, everyone. This is a message from the main library. Next week is the university's spring break, so the library will have different hours. From Monday to Friday, we will open at ten in the morning and close at five in the afternoon. On Saturday and Sunday, the library will be closed. The computer room on the second floor will also be closed all week because we are putting in new computers. If you need to print something, please use the printers in the student center. Normal hours will start again the following Monday. Thank you, and have a nice break.",
+    "question": "When will the library close next week on weekdays?",
+    "choices": [
+      "At five in the afternoon",
+      "At ten in the morning",
+      "At ten at night",
+      "At noon"
+    ],
+    "answer": "At five in the afternoon",
+    "explanation": "平日は午前10時に開き、午後5時に閉まると言っています。",
+    "tags": "campus library hours announcement"
+  },
+  {
+    "id": "TOEFL-LA-001-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Librarian: Good afternoon, everyone. This is a message from the main library. Next week is the university's spring break, so the library will have different hours. From Monday to Friday, we will open at ten in the morning and close at five in the afternoon. On Saturday and Sunday, the library will be closed. The computer room on the second floor will also be closed all week because we are putting in new computers. If you need to print something, please use the printers in the student center. Normal hours will start again the following Monday. Thank you, and have a nice break.",
+    "question": "Why will the computer room be closed?",
+    "choices": [
+      "The printers are broken.",
+      "There are not enough staff members.",
+      "It is being painted.",
+      "New computers are being put in."
+    ],
+    "answer": "New computers are being put in.",
+    "explanation": "新しいコンピューターを設置するため閉まると説明しています。",
+    "tags": "campus library hours announcement"
+  },
+  {
+    "id": "TOEFL-LA-002-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Staff: Hello, students! This is an announcement from the campus cafeteria. This Friday is our International Food Day. From eleven to two, we will serve food from ten different countries, including Mexico, India, Korea, and Italy. All dishes cost four dollars each. Students who bring their own cup can get a free drink. Also, please tell us your favorite dish on the card at the door. The most popular dishes may become part of our regular menu next month. We hope to see you there!",
+    "question": "What can students get if they bring their own cup?",
+    "choices": [
+      "A free dish",
+      "A free drink",
+      "A discount card",
+      "A menu"
+    ],
+    "answer": "A free drink",
+    "explanation": "自分のカップを持ってくると無料の飲み物がもらえます。",
+    "tags": "campus cafeteria event announcement"
+  },
+  {
+    "id": "TOEFL-LA-002-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Staff: Hello, students! This is an announcement from the campus cafeteria. This Friday is our International Food Day. From eleven to two, we will serve food from ten different countries, including Mexico, India, Korea, and Italy. All dishes cost four dollars each. Students who bring their own cup can get a free drink. Also, please tell us your favorite dish on the card at the door. The most popular dishes may become part of our regular menu next month. We hope to see you there!",
+    "question": "Why does the cafeteria ask students to write on a card?",
+    "choices": [
+      "To sign up for a cooking class",
+      "To order food in advance",
+      "To choose dishes for the regular menu",
+      "To win a prize"
+    ],
+    "answer": "To choose dishes for the regular menu",
+    "explanation": "人気の料理を来月の通常メニューに加えるためにカードに書いてもらいます。",
+    "tags": "campus cafeteria event announcement"
+  },
+  {
+    "id": "TOEFL-LA-003-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Staff: Attention, please. This is an announcement for all students who use the swimming pool. Starting next Monday, the pool will open one hour earlier, at six in the morning. Many students asked for this change because they want to swim before class. Please remember that you must show your student card at the front desk every time you come. Also, the pool will be closed on the first Sunday of every month for cleaning. Swimming lessons for beginners are still on Wednesday evenings. You can sign up at the front desk. Thank you.",
+    "question": "Why will the pool open earlier?",
+    "choices": [
+      "The pool will be cleaned in the evening.",
+      "There are new swimming lessons.",
+      "The gym is closing.",
+      "Students asked to swim before class."
+    ],
+    "answer": "Students asked to swim before class.",
+    "explanation": "授業前に泳ぎたいという学生の要望が多かったためです。",
+    "tags": "campus sports facility announcement"
+  },
+  {
+    "id": "TOEFL-LA-003-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Staff: Attention, please. This is an announcement for all students who use the swimming pool. Starting next Monday, the pool will open one hour earlier, at six in the morning. Many students asked for this change because they want to swim before class. Please remember that you must show your student card at the front desk every time you come. Also, the pool will be closed on the first Sunday of every month for cleaning. Swimming lessons for beginners are still on Wednesday evenings. You can sign up at the front desk. Thank you.",
+    "question": "When is the pool closed?",
+    "choices": [
+      "On the first Sunday of every month",
+      "Every Monday morning",
+      "On Wednesday evenings",
+      "Every weekend"
+    ],
+    "answer": "On the first Sunday of every month",
+    "explanation": "毎月第1日曜日は清掃のため閉まると言っています。",
+    "tags": "campus sports facility announcement"
+  },
+  {
+    "id": "TOEFL-LA-004-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Registrar: Good morning. This is a reminder from the Registrar's Office. The deadline to add or drop classes for the fall semester is this Friday at five p.m. After that, you can still withdraw from a class until the end of October, but you will receive a \"W\" on your transcript, and you will not get a refund. If you need to add a class that is already full, you must get a signed permission form from the instructor and bring it to our office in person—we cannot accept these forms by email. Our office will stay open until seven p.m. on Thursday and Friday this week to help with the extra demand.",
+    "question": "What happens to students who withdraw from a class after Friday?",
+    "choices": [
+      "They must pay a late fee before their withdrawal is processed.",
+      "They get a mark on their transcript and no refund.",
+      "They need permission from the registrar.",
+      "They cannot take the class again."
+    ],
+    "answer": "They get a mark on their transcript and no refund.",
+    "explanation": "金曜以降の取り消しは成績記録に「W」がつき、返金もありません。",
+    "tags": "campus registration deadline announcement"
+  },
+  {
+    "id": "TOEFL-LA-004-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Registrar: Good morning. This is a reminder from the Registrar's Office. The deadline to add or drop classes for the fall semester is this Friday at five p.m. After that, you can still withdraw from a class until the end of October, but you will receive a \"W\" on your transcript, and you will not get a refund. If you need to add a class that is already full, you must get a signed permission form from the instructor and bring it to our office in person—we cannot accept these forms by email. Our office will stay open until seven p.m. on Thursday and Friday this week to help with the extra demand.",
+    "question": "What must students do to add a class that is full?",
+    "choices": [
+      "Email the instructor before Friday",
+      "Wait until the end of October",
+      "Bring a signed form from the instructor to the office",
+      "Join a waiting list online"
+    ],
+    "answer": "Bring a signed form from the instructor to the office",
+    "explanation": "担当教員の署名入り許可用紙を事務室へ直接持参する必要があります。メールは不可です。",
+    "tags": "campus registration deadline announcement"
+  },
+  {
+    "id": "TOEFL-LA-005-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Career Center: Attention, students. The annual Career Fair will take place next Wednesday from ten a.m. to three p.m. in the Student Union ballroom. More than sixty employers will attend, including companies in technology, healthcare, and education. Several of them are looking for summer interns, not only full-time employees, so first- and second-year students are encouraged to come as well. We strongly recommend bringing several printed copies of your résumé. If you would like someone to review your résumé before the fair, the Career Center is offering free fifteen-minute sessions every afternoon this week. No appointment is needed. Business casual dress is suggested.",
+    "question": "Why are first- and second-year students encouraged to attend?",
+    "choices": [
+      "The fair is required for all students who plan to graduate this year.",
+      "They can get free résumé printing.",
+      "Some employers are offering summer internships.",
+      "Employers want to hire them full-time."
+    ],
+    "answer": "Some employers are offering summer internships.",
+    "explanation": "夏のインターンを探している企業もあるため、1・2年生も参加を勧められています。",
+    "tags": "campus career fair announcement"
+  },
+  {
+    "id": "TOEFL-LA-005-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Career Center: Attention, students. The annual Career Fair will take place next Wednesday from ten a.m. to three p.m. in the Student Union ballroom. More than sixty employers will attend, including companies in technology, healthcare, and education. Several of them are looking for summer interns, not only full-time employees, so first- and second-year students are encouraged to come as well. We strongly recommend bringing several printed copies of your résumé. If you would like someone to review your résumé before the fair, the Career Center is offering free fifteen-minute sessions every afternoon this week. No appointment is needed. Business casual dress is suggested.",
+    "question": "What service does the Career Center offer this week?",
+    "choices": [
+      "Practice job interviews",
+      "Business clothing to borrow",
+      "Free transportation to the fair",
+      "Short résumé reviews without appointments"
+    ],
+    "answer": "Short résumé reviews without appointments",
+    "explanation": "今週の毎日午後、予約不要で15分の履歴書チェックを行います。",
+    "tags": "campus career fair announcement"
+  },
+  {
+    "id": "TOEFL-LA-006-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Housing Office: Hello, residents of North Hall. This is to let you know that a fire drill will be held in your building sometime next week. We can't tell you the exact day or time, because the purpose is to practice responding to a real emergency. When the alarm sounds, please leave the building immediately using the stairs, not the elevator. Do not stop to collect your belongings. Meet your floor leader in the parking lot on the east side of the building, so we can check that everyone is out. Residents who do not leave the building during the drill may be required to attend a fire safety workshop.",
+    "question": "Why is the exact time of the drill not announced?",
+    "choices": [
+      "Because the date has not been decided",
+      "To make the practice more like a real emergency",
+      "To avoid disturbing students during exams",
+      "Because the alarm system is being repaired"
+    ],
+    "answer": "To make the practice more like a real emergency",
+    "explanation": "本当の緊急時の対応を練習するのが目的なので、日時は知らされません。",
+    "tags": "housing dormitory fire drill announcement"
+  },
+  {
+    "id": "TOEFL-LA-006-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Housing Office: Hello, residents of North Hall. This is to let you know that a fire drill will be held in your building sometime next week. We can't tell you the exact day or time, because the purpose is to practice responding to a real emergency. When the alarm sounds, please leave the building immediately using the stairs, not the elevator. Do not stop to collect your belongings. Meet your floor leader in the parking lot on the east side of the building, so we can check that everyone is out. Residents who do not leave the building during the drill may be required to attend a fire safety workshop.",
+    "question": "What may happen to residents who stay inside during the drill?",
+    "choices": [
+      "They may have to attend a safety workshop.",
+      "They may have to pay a fine.",
+      "They may lose their housing.",
+      "They may have to meet their floor leader."
+    ],
+    "answer": "They may have to attend a safety workshop.",
+    "explanation": "避難しなかった住人は防火安全の講習への参加を求められる可能性があります。",
+    "tags": "housing dormitory fire drill announcement"
+  },
+  {
+    "id": "TOEFL-LA-007-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Transportation Services: Good morning. Due to road construction on Maple Avenue, the campus shuttle will follow a different route beginning Monday. The stop in front of the science building will be temporarily closed. Instead, the shuttle will stop on Lincoln Street, about a two-minute walk away. Because of the detour, each trip may take five to ten minutes longer than usual, so please plan accordingly, especially if you have early classes. The construction is expected to last about three weeks. You can check the shuttle's real-time location on the campus app. We apologize for the inconvenience.",
+    "question": "What change will happen to the shuttle service?",
+    "choices": [
+      "The shuttle will stop running for three weeks.",
+      "The shuttle will start running earlier.",
+      "One stop will be moved to a nearby street.",
+      "A new shuttle line will be added."
+    ],
+    "answer": "One stop will be moved to a nearby street.",
+    "explanation": "理学部棟前の停留所が一時閉鎖され、近くのリンカーン通りに移ります。",
+    "tags": "campus transportation shuttle announcement"
+  },
+  {
+    "id": "TOEFL-LA-007-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Transportation Services: Good morning. Due to road construction on Maple Avenue, the campus shuttle will follow a different route beginning Monday. The stop in front of the science building will be temporarily closed. Instead, the shuttle will stop on Lincoln Street, about a two-minute walk away. Because of the detour, each trip may take five to ten minutes longer than usual, so please plan accordingly, especially if you have early classes. The construction is expected to last about three weeks. You can check the shuttle's real-time location on the campus app. We apologize for the inconvenience.",
+    "question": "What does the speaker suggest students with early classes do?",
+    "choices": [
+      "Walk to campus instead",
+      "Allow extra travel time",
+      "Take a taxi",
+      "Contact their professors"
+    ],
+    "answer": "Allow extra travel time",
+    "explanation": "迂回で5～10分遅れる可能性があるので、余裕をもって計画するよう勧めています。",
+    "tags": "campus transportation shuttle announcement"
+  },
+  {
+    "id": "TOEFL-LA-008-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Librarian: Good afternoon. The library is pleased to announce a new equipment loan service. Starting this week, students can borrow laptops, portable chargers, and digital cameras from the main desk on the first floor. Laptops can be borrowed for up to four hours and must be used inside the library. Cameras and chargers can be taken home for up to three days. To borrow any item, you'll need your student ID. Please note that late returns will result in a fine of five dollars per hour for laptops, because other students are often waiting for them. We hope this service makes your studies a little easier.",
+    "question": "Which items can students take home?",
+    "choices": [
+      "Cameras and portable chargers",
+      "Laptops only",
+      "Laptops and cameras",
+      "All of the equipment"
+    ],
+    "answer": "Cameras and portable chargers",
+    "explanation": "カメラと充電器は3日間持ち帰れますが、ノートパソコンは館内のみです。",
+    "tags": "campus library new service announcement"
+  },
+  {
+    "id": "TOEFL-LA-008-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Librarian: Good afternoon. The library is pleased to announce a new equipment loan service. Starting this week, students can borrow laptops, portable chargers, and digital cameras from the main desk on the first floor. Laptops can be borrowed for up to four hours and must be used inside the library. Cameras and chargers can be taken home for up to three days. To borrow any item, you'll need your student ID. Please note that late returns will result in a fine of five dollars per hour for laptops, because other students are often waiting for them. We hope this service makes your studies a little easier.",
+    "question": "Why is the fine for late laptops high?",
+    "choices": [
+      "Laptops are very expensive to repair.",
+      "The library has only one laptop.",
+      "Laptops must be returned the same day.",
+      "Other students are often waiting to use them."
+    ],
+    "answer": "Other students are often waiting to use them.",
+    "explanation": "ほかの学生がよく順番を待っているため、延滞料が1時間5ドルと高いのです。",
+    "tags": "campus library new service announcement"
+  },
+  {
+    "id": "TOEFL-LA-009-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Environmental Club: Hi, everyone. This Saturday, the Environmental Club is organizing a cleanup of the riverbank behind the campus. We'll meet at the north gate at nine a.m. and work until noon. Gloves, bags, and tools will be provided, but please wear old clothes and comfortable shoes, since the ground can be muddy. Last year, about forty volunteers collected more than three hundred kilograms of trash. This year we hope to double the number of volunteers. Lunch will be provided afterward for all participants. If it rains, the event will be moved to the following Saturday. You can sign up on the club's web page.",
+    "question": "What should volunteers wear?",
+    "choices": [
+      "Old clothes and comfortable shoes",
+      "Gloves they bring from home",
+      "Club T-shirts",
+      "Rain jackets"
+    ],
+    "answer": "Old clothes and comfortable shoes",
+    "explanation": "地面がぬかるむことがあるので、古い服と歩きやすい靴を勧めています。",
+    "tags": "campus volunteering environment announcement"
+  },
+  {
+    "id": "TOEFL-LA-009-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Environmental Club: Hi, everyone. This Saturday, the Environmental Club is organizing a cleanup of the riverbank behind the campus. We'll meet at the north gate at nine a.m. and work until noon. Gloves, bags, and tools will be provided, but please wear old clothes and comfortable shoes, since the ground can be muddy. Last year, about forty volunteers collected more than three hundred kilograms of trash. This year we hope to double the number of volunteers. Lunch will be provided afterward for all participants. If it rains, the event will be moved to the following Saturday. You can sign up on the club's web page.",
+    "question": "What will happen if it rains on Saturday?",
+    "choices": [
+      "The event will be held indoors.",
+      "The event will be canceled.",
+      "The event will take place a week later.",
+      "The event will start later in the day."
+    ],
+    "answer": "The event will take place a week later.",
+    "explanation": "雨の場合は翌週の土曜日に延期されます。",
+    "tags": "campus volunteering environment announcement"
+  },
+  {
+    "id": "TOEFL-LA-010-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Before we start today, a quick announcement about next week. On Tuesday, instead of meeting here in the lecture hall, we'll meet at the natural history museum downtown. We'll be looking at the fossil collection we've been discussing. Please be at the museum entrance by ten. Entry is free with your student ID. You'll have a short worksheet to complete while you're there, and it counts as a quiz grade, so don't miss it. If you can't get to the museum for some reason, please email me before Monday, and I'll give you an alternative assignment. Thursday's class will be here as usual.",
+    "question": "Why will the class meet at the museum?",
+    "choices": [
+      "Because the lecture hall is being repaired",
+      "To see a fossil collection related to the course",
+      "To attend a talk by a guest speaker",
+      "To take the final exam"
+    ],
+    "answer": "To see a fossil collection related to the course",
+    "explanation": "授業で扱っている化石コレクションを見るため、博物館で集まります。",
+    "tags": "campus course announcement professor announcement"
+  },
+  {
+    "id": "TOEFL-LA-010-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Before we start today, a quick announcement about next week. On Tuesday, instead of meeting here in the lecture hall, we'll meet at the natural history museum downtown. We'll be looking at the fossil collection we've been discussing. Please be at the museum entrance by ten. Entry is free with your student ID. You'll have a short worksheet to complete while you're there, and it counts as a quiz grade, so don't miss it. If you can't get to the museum for some reason, please email me before Monday, and I'll give you an alternative assignment. Thursday's class will be here as usual.",
+    "question": "What should students do if they cannot go to the museum?",
+    "choices": [
+      "Complete the worksheet at home",
+      "Attend Thursday's class instead",
+      "Visit the museum on another day",
+      "Email the professor before Monday"
+    ],
+    "answer": "Email the professor before Monday",
+    "explanation": "行けない場合は月曜までに教授にメールすれば別の課題が出されます。",
+    "tags": "campus course announcement professor announcement"
+  },
+  {
+    "id": "TOEFL-LA-011-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "IT Services: This is an announcement regarding campus printing. Beginning next semester, the university will replace its current printing system with a print-credit model. Every student will receive a credit equivalent to five hundred black-and-white pages per semester at no charge. Color pages will use five times as many credits. Once your credits are used up, additional pages can be purchased online. This change is part of the university's effort to reduce paper waste; last year, an estimated twenty percent of printed pages were never picked up from the printers. To support this goal, print jobs that are not released within two hours will now be deleted automatically.",
+    "question": "What is the main purpose of the new printing system?",
+    "choices": [
+      "To lower the cost of color printing",
+      "To make printers faster",
+      "To reduce wasted paper",
+      "To allow printing from mobile phones"
+    ],
+    "answer": "To reduce wasted paper",
+    "explanation": "大学の紙の無駄を減らす取り組みの一環だと説明しています。",
+    "tags": "campus policy printing announcement"
+  },
+  {
+    "id": "TOEFL-LA-011-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "IT Services: This is an announcement regarding campus printing. Beginning next semester, the university will replace its current printing system with a print-credit model. Every student will receive a credit equivalent to five hundred black-and-white pages per semester at no charge. Color pages will use five times as many credits. Once your credits are used up, additional pages can be purchased online. This change is part of the university's effort to reduce paper waste; last year, an estimated twenty percent of printed pages were never picked up from the printers. To support this goal, print jobs that are not released within two hours will now be deleted automatically.",
+    "question": "Why does the speaker mention twenty percent of printed pages?",
+    "choices": [
+      "To explain how many credits students will receive",
+      "To show how much printing was being wasted",
+      "To compare color and black-and-white printing",
+      "To describe how many students use the printers"
+    ],
+    "answer": "To show how much printing was being wasted",
+    "explanation": "印刷されても取りに来られなかったページが約2割あったことは、無駄の大きさを示す例です。",
+    "tags": "campus policy printing announcement"
+  },
+  {
+    "id": "TOEFL-LA-012-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Dean: Good afternoon. I'm pleased to announce that the next speaker in our Science and Society lecture series will be Dr. Amara Osei, a marine biologist who has spent over a decade studying coral reef recovery in the Indian Ocean. Her talk, titled \"Can Reefs Bounce Back?\", will examine why some reefs recover quickly after bleaching events while others do not. The lecture is free and open to the public, but because our last event exceeded the hall's capacity, we're now asking attendees to reserve a seat online. Students in biology and environmental science courses may also be eligible for extra credit—check with your instructors.",
+    "question": "What will the guest speaker's talk focus on?",
+    "choices": [
+      "The causes of ocean pollution",
+      "Careers in marine biology",
+      "The history of the Indian Ocean",
+      "Differences in how coral reefs recover"
+    ],
+    "answer": "Differences in how coral reefs recover",
+    "explanation": "サンゴ礁が白化後に早く回復するものとしないものがある理由を扱います。",
+    "tags": "campus lecture series guest speaker announcement"
+  },
+  {
+    "id": "TOEFL-LA-012-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Dean: Good afternoon. I'm pleased to announce that the next speaker in our Science and Society lecture series will be Dr. Amara Osei, a marine biologist who has spent over a decade studying coral reef recovery in the Indian Ocean. Her talk, titled \"Can Reefs Bounce Back?\", will examine why some reefs recover quickly after bleaching events while others do not. The lecture is free and open to the public, but because our last event exceeded the hall's capacity, we're now asking attendees to reserve a seat online. Students in biology and environmental science courses may also be eligible for extra credit—check with your instructors.",
+    "question": "Why are attendees now asked to reserve seats?",
+    "choices": [
+      "Too many people came to the previous lecture.",
+      "The lecture will be held in a smaller room.",
+      "Seats are only available to students.",
+      "The speaker requested a list of attendees."
+    ],
+    "answer": "Too many people came to the previous lecture.",
+    "explanation": "前回の講演で会場の定員を超えたため、予約制にしたと説明しています。",
+    "tags": "campus lecture series guest speaker announcement"
+  },
+  {
+    "id": "TOEFL-LA-013-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Health Center: Attention, students and staff. The Student Health Center will hold free flu vaccination clinics on Tuesday and Wednesday of next week, from nine to four, in the gymnasium lobby. Vaccination is especially recommended for students living in residence halls, where illness tends to spread quickly in shared spaces. Please bring your student or employee ID and wear a short-sleeved shirt or one with loose sleeves. You'll be asked to wait for fifteen minutes after receiving the vaccine so that staff can watch for any rare reactions. If you've already had a flu shot elsewhere this season, there's no need to get another one.",
+    "question": "According to the announcement, why is vaccination especially recommended for dorm residents?",
+    "choices": [
+      "They are more likely to have health insurance.",
+      "Illness spreads easily in shared living spaces.",
+      "The clinic is located in their residence halls.",
+      "They must be vaccinated to keep their housing."
+    ],
+    "answer": "Illness spreads easily in shared living spaces.",
+    "explanation": "共用スペースで病気が広がりやすいため、寮生に特に勧めています。",
+    "tags": "campus health flu clinic announcement"
+  },
+  {
+    "id": "TOEFL-LA-013-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Health Center: Attention, students and staff. The Student Health Center will hold free flu vaccination clinics on Tuesday and Wednesday of next week, from nine to four, in the gymnasium lobby. Vaccination is especially recommended for students living in residence halls, where illness tends to spread quickly in shared spaces. Please bring your student or employee ID and wear a short-sleeved shirt or one with loose sleeves. You'll be asked to wait for fifteen minutes after receiving the vaccine so that staff can watch for any rare reactions. If you've already had a flu shot elsewhere this season, there's no need to get another one.",
+    "question": "Why must people wait after receiving the vaccine?",
+    "choices": [
+      "So staff can check for unusual reactions",
+      "To receive a second dose",
+      "To fill out a health survey",
+      "Because the clinic is very crowded"
+    ],
+    "answer": "So staff can check for unusual reactions",
+    "explanation": "まれな反応がないか職員が見守るため、15分待つよう求めています。",
+    "tags": "campus health flu clinic announcement"
+  },
+  {
+    "id": "TOEFL-LA-014-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Psychology Department: The Department of Psychology is currently recruiting participants for a study on memory and sleep. Participants will spend one night in our sleep laboratory, where we'll record brain activity while they sleep, and complete short memory tasks in the evening and the following morning. Participants must be between eighteen and thirty years old and must not be taking any medication that affects sleep. Those who complete the study will receive sixty dollars. Students enrolled in Introduction to Psychology may choose course credit instead of payment, but not both. All data will be stored anonymously. For details, visit the department's research page.",
+    "question": "What will participants do in the study?",
+    "choices": [
+      "Take a medication that improves sleep",
+      "Keep a sleep diary for a month and attend weekly interviews",
+      "Answer an online survey about memory",
+      "Sleep in a laboratory and complete memory tasks"
+    ],
+    "answer": "Sleep in a laboratory and complete memory tasks",
+    "explanation": "研究室で一晩眠り、夜と翌朝に記憶課題を行います。",
+    "tags": "campus research participants psychology announcement"
+  },
+  {
+    "id": "TOEFL-LA-014-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Psychology Department: The Department of Psychology is currently recruiting participants for a study on memory and sleep. Participants will spend one night in our sleep laboratory, where we'll record brain activity while they sleep, and complete short memory tasks in the evening and the following morning. Participants must be between eighteen and thirty years old and must not be taking any medication that affects sleep. Those who complete the study will receive sixty dollars. Students enrolled in Introduction to Psychology may choose course credit instead of payment, but not both. All data will be stored anonymously. For details, visit the department's research page.",
+    "question": "What can be inferred about students in Introduction to Psychology?",
+    "choices": [
+      "They are required to participate.",
+      "They will be paid more than other participants.",
+      "They cannot receive both payment and credit.",
+      "They must be over thirty years old."
+    ],
+    "answer": "They cannot receive both payment and credit.",
+    "explanation": "支払いの代わりに単位を選べるが両方は不可、と言っています。",
+    "tags": "campus research participants psychology announcement"
+  },
+  {
+    "id": "TOEFL-LA-015-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Library Director: As many of you know, renovation of the library's third floor begins on March first. During the construction, which is scheduled to last until early May, the entire third floor will be inaccessible. Books normally shelved there—mainly the history and political science collections—have been moved to temporary storage. You can still borrow them by submitting a request through the online catalog; items will be ready at the front desk within twenty-four hours. We also expect some noise during weekday working hours. Students who need a quiet space are encouraged to use the law library, which has agreed to welcome all students during this period.",
+    "question": "How can students get books from the third floor during the renovation?",
+    "choices": [
+      "By asking construction workers",
+      "By requesting them online and picking them up later",
+      "By visiting the storage building",
+      "By borrowing copies of them from the law library on the second floor"
+    ],
+    "answer": "By requesting them online and picking them up later",
+    "explanation": "オンラインで請求すれば24時間以内に受付に用意されます。",
+    "tags": "campus library renovation announcement"
+  },
+  {
+    "id": "TOEFL-LA-015-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Library Director: As many of you know, renovation of the library's third floor begins on March first. During the construction, which is scheduled to last until early May, the entire third floor will be inaccessible. Books normally shelved there—mainly the history and political science collections—have been moved to temporary storage. You can still borrow them by submitting a request through the online catalog; items will be ready at the front desk within twenty-four hours. We also expect some noise during weekday working hours. Students who need a quiet space are encouraged to use the law library, which has agreed to welcome all students during this period.",
+    "question": "Why does the director mention the law library?",
+    "choices": [
+      "It now holds the history collection.",
+      "It will also be renovated.",
+      "It has longer opening hours.",
+      "It offers a quieter place to study."
+    ],
+    "answer": "It offers a quieter place to study.",
+    "explanation": "工事の騒音を避けたい学生に、静かな場所として法学図書館を勧めています。",
+    "tags": "campus library renovation announcement"
+  },
+  {
+    "id": "TOEFL-LA-016-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Dining Services: Beginning next month, all campus dining halls will stop offering disposable plastic containers for take-out meals. Instead, students can pick up a free reusable container at any dining hall. After eating, simply return the container to a collection point, and you'll receive a token to exchange for a clean one next time. The program was tested in West Dining Hall last semester, where it reduced plastic waste by an estimated eighty percent. A small number of compostable containers will remain available for guests and for students who forget their token, at a cost of fifty cents each.",
+    "question": "How does the reusable container program work?",
+    "choices": [
+      "Students buy containers and keep them.",
+      "Students must wash containers at home.",
+      "Students exchange returned containers for clean ones using tokens.",
+      "Students pay a small deposit each semester and get it back at the end."
+    ],
+    "answer": "Students exchange returned containers for clean ones using tokens.",
+    "explanation": "容器を返すとトークンがもらえ、次回それで清潔な容器と交換する仕組みです。",
+    "tags": "campus sustainability policy dining announcement"
+  },
+  {
+    "id": "TOEFL-LA-016-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Dining Services: Beginning next month, all campus dining halls will stop offering disposable plastic containers for take-out meals. Instead, students can pick up a free reusable container at any dining hall. After eating, simply return the container to a collection point, and you'll receive a token to exchange for a clean one next time. The program was tested in West Dining Hall last semester, where it reduced plastic waste by an estimated eighty percent. A small number of compostable containers will remain available for guests and for students who forget their token, at a cost of fifty cents each.",
+    "question": "What does the speaker suggest about the trial in West Dining Hall?",
+    "choices": [
+      "It was successful enough to expand.",
+      "It caused complaints from students.",
+      "It was more expensive than expected.",
+      "It will continue for another semester."
+    ],
+    "answer": "It was successful enough to expand.",
+    "explanation": "プラスチックごみが約8割減ったという結果を挙げており、成功したので全体に広げると示唆しています。",
+    "tags": "campus sustainability policy dining announcement"
+  },
+  {
+    "id": "TOEFL-LA-017-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "English Department: The English Department invites submissions for this year's undergraduate essay prize. Essays may address any topic in literature, film, or cultural studies, and must be between two thousand and four thousand words. Papers written for a course are welcome, but they must be revised for a general academic audience rather than a single instructor. The winning essay will receive five hundred dollars and will be published in the department's annual journal. Two runners-up will each receive one hundred dollars. Submissions are due by April fifteenth. Please remove your name from the essay itself, since all entries are judged anonymously.",
+    "question": "What requirement applies to essays originally written for a course?",
+    "choices": [
+      "They must have received a high grade.",
+      "They must be shorter than two thousand words.",
+      "They must be revised for a broader audience.",
+      "They must be approved by the instructor."
+    ],
+    "answer": "They must be revised for a broader audience.",
+    "explanation": "授業で書いた論文は、一般の学術読者向けに書き直す必要があります。",
+    "tags": "campus writing contest announcement"
+  },
+  {
+    "id": "TOEFL-LA-017-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "English Department: The English Department invites submissions for this year's undergraduate essay prize. Essays may address any topic in literature, film, or cultural studies, and must be between two thousand and four thousand words. Papers written for a course are welcome, but they must be revised for a general academic audience rather than a single instructor. The winning essay will receive five hundred dollars and will be published in the department's annual journal. Two runners-up will each receive one hundred dollars. Submissions are due by April fifteenth. Please remove your name from the essay itself, since all entries are judged anonymously.",
+    "question": "Why should students remove their names from their essays?",
+    "choices": [
+      "The essays are evaluated anonymously.",
+      "The essays will be published without names.",
+      "The department will add the names later.",
+      "Names make the essays too long."
+    ],
+    "answer": "The essays are evaluated anonymously.",
+    "explanation": "すべての応募作品は匿名で審査されるためです。",
+    "tags": "campus writing contest announcement"
+  },
+  {
+    "id": "TOEFL-LA-018-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "IT Security Office: We've received reports that several students have gotten emails that appear to come from the university's financial aid office, asking them to \"confirm\" their bank details through a link. These messages are fraudulent. The financial aid office will never ask for banking information by email. If you receive such a message, do not click the link. Instead, forward it to our security team and then delete it. If you've already entered your information, change your university password immediately and contact your bank. Beginning next week, all students will also be required to use two-step verification when logging in to the student portal.",
+    "question": "What is the main purpose of the announcement?",
+    "choices": [
+      "To explain changes to financial aid",
+      "To warn students about fake emails",
+      "To introduce a new student portal",
+      "To ask students to update bank details"
+    ],
+    "answer": "To warn students about fake emails",
+    "explanation": "財務援助課を装った詐欺メールへの注意喚起が目的です。",
+    "tags": "campus IT security announcement"
+  },
+  {
+    "id": "TOEFL-LA-018-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "IT Security Office: We've received reports that several students have gotten emails that appear to come from the university's financial aid office, asking them to \"confirm\" their bank details through a link. These messages are fraudulent. The financial aid office will never ask for banking information by email. If you receive such a message, do not click the link. Instead, forward it to our security team and then delete it. If you've already entered your information, change your university password immediately and contact your bank. Beginning next week, all students will also be required to use two-step verification when logging in to the student portal.",
+    "question": "What should students who already entered their information do?",
+    "choices": [
+      "Forward the email to the financial aid office",
+      "Visit the IT office in person",
+      "Wait for two-step verification to begin",
+      "Change their password and contact their bank"
+    ],
+    "answer": "Change their password and contact their bank",
+    "explanation": "すでに入力した場合は、パスワードを変更し銀行に連絡するよう指示しています。",
+    "tags": "campus IT security announcement"
+  },
+  {
+    "id": "TOEFL-LA-019-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Music Department: The University Orchestra's winter concert will take place on Friday, December sixth, at seven-thirty in Harmon Concert Hall. This year's program pairs a well-known symphony by Beethoven with a new piece composed by one of our own graduate students, Lena Park, whose work will be performed for the very first time. Before the concert, at six forty-five, Ms. Park will give a short talk explaining the ideas behind her composition. Tickets are free for students but must be picked up in advance at the box office, as last year's concert was standing-room only. Doors close once the performance begins.",
+    "question": "What is special about this year's concert?",
+    "choices": [
+      "It is the orchestra's last concert.",
+      "It features a famous guest conductor who studied at the university.",
+      "It includes the first performance of a student's composition.",
+      "It will be held outdoors."
+    ],
+    "answer": "It includes the first performance of a student's composition.",
+    "explanation": "大学院生レナ・パークの新曲が初演されることが特徴です。",
+    "tags": "campus music performance announcement"
+  },
+  {
+    "id": "TOEFL-LA-019-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Music Department: The University Orchestra's winter concert will take place on Friday, December sixth, at seven-thirty in Harmon Concert Hall. This year's program pairs a well-known symphony by Beethoven with a new piece composed by one of our own graduate students, Lena Park, whose work will be performed for the very first time. Before the concert, at six forty-five, Ms. Park will give a short talk explaining the ideas behind her composition. Tickets are free for students but must be picked up in advance at the box office, as last year's concert was standing-room only. Doors close once the performance begins.",
+    "question": "Why should students pick up tickets early?",
+    "choices": [
+      "The concert is expected to be crowded.",
+      "Tickets will cost more on the day.",
+      "The box office closes at six forty-five.",
+      "Only a few tickets are free."
+    ],
+    "answer": "The concert is expected to be crowded.",
+    "explanation": "昨年は立ち見が出るほど混んだため、事前に受け取るよう勧めています。",
+    "tags": "campus music performance announcement"
+  },
+  {
+    "id": "TOEFL-LA-020-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Math Center: Good morning, everyone. As midterms approach, the Math Learning Center is extending its hours. From now until the end of exams, we'll be open until ten p.m. Monday through Thursday. In addition to drop-in tutoring, we're introducing small-group review sessions for calculus and statistics. Each session is limited to six students, so that tutors can respond to individual questions, and you'll need to sign up online at least one day in advance. Please bring your own notes and the specific problems you're struggling with—tutors can't help as effectively if you simply ask them to \"review everything.\"",
+    "question": "Why are the review sessions limited to six students?",
+    "choices": [
+      "Because the rooms are very small",
+      "Because there are only six tutors",
+      "To reduce the center's costs",
+      "So tutors can answer individual questions"
+    ],
+    "answer": "So tutors can answer individual questions",
+    "explanation": "チューターが個々の質問に対応できるよう、各回6人までになっています。",
+    "tags": "campus tutoring math center announcement"
+  },
+  {
+    "id": "TOEFL-LA-020-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Math Center: Good morning, everyone. As midterms approach, the Math Learning Center is extending its hours. From now until the end of exams, we'll be open until ten p.m. Monday through Thursday. In addition to drop-in tutoring, we're introducing small-group review sessions for calculus and statistics. Each session is limited to six students, so that tutors can respond to individual questions, and you'll need to sign up online at least one day in advance. Please bring your own notes and the specific problems you're struggling with—tutors can't help as effectively if you simply ask them to \"review everything.\"",
+    "question": "What does the speaker imply about students who ask tutors to \"review everything\"?",
+    "choices": [
+      "They should sign up for drop-in tutoring.",
+      "They are less likely to get useful help.",
+      "They will be asked to leave the session.",
+      "They need to bring more notes."
+    ],
+    "answer": "They are less likely to get useful help.",
+    "explanation": "「全部復習して」と頼まれても効果的に手伝えないと言い、具体的な問題を持参するよう示唆しています。",
+    "tags": "campus tutoring math center announcement"
+  }
+]

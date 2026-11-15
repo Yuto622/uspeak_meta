@@ -1,0 +1,614 @@
+[
+ {
+  "id": "TOEFL-RD-016-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Please note: The printer on the third floor is out of order. A technician will come on Thursday morning. Until then, please use the printer on the second floor next to the kitchen. Remember to collect your documents right away, as confidential papers have been left on the tray several times recently.",
+  "question": "Where should employees print documents for now?",
+  "choices": [
+   "On the third floor",
+   "In the technician's office",
+   "In the kitchen on the third floor",
+   "On the second floor"
+  ],
+  "answer": "On the second floor",
+  "explanation": "修理が終わるまでは「the printer on the second floor」を使うよう書かれている。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-016-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Please note: The printer on the third floor is out of order. A technician will come on Thursday morning. Until then, please use the printer on the second floor next to the kitchen. Remember to collect your documents right away, as confidential papers have been left on the tray several times recently.",
+  "question": "What problem does the writer mention?",
+  "choices": [
+   "The kitchen is too crowded.",
+   "The technician is late.",
+   "People have left private papers at the printer.",
+   "Printing costs too much."
+  ],
+  "answer": "People have left private papers at the printer.",
+  "explanation": "「confidential papers have been left on the tray」とあり、機密書類の置き忘れが問題になっている。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-017-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Dear Mr. Park,\n\nThank you for your order (#48211). Unfortunately, the blue jacket you ordered in size M is currently out of stock. We expect to receive more in about two weeks. You can either wait for the item or choose a full refund. Please let us know your choice by replying to this email. We apologize for the inconvenience.\n\nNorthline Clothing",
+  "question": "Why was this email sent?",
+  "choices": [
+   "To confirm that a jacket was delivered",
+   "To report that an item is not available",
+   "To advertise a new jacket",
+   "To ask Mr. Park to pay for an order"
+  ],
+  "answer": "To report that an item is not available",
+  "explanation": "「currently out of stock」とあり、注文品が在庫切れであることを知らせるメール。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-017-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Dear Mr. Park,\n\nThank you for your order (#48211). Unfortunately, the blue jacket you ordered in size M is currently out of stock. We expect to receive more in about two weeks. You can either wait for the item or choose a full refund. Please let us know your choice by replying to this email. We apologize for the inconvenience.\n\nNorthline Clothing",
+  "question": "What is Mr. Park asked to do?",
+  "choices": [
+   "Decide whether to wait or get his money back",
+   "Send the jacket back",
+   "Pick a different size",
+   "Visit the store in two weeks"
+  ],
+  "answer": "Decide whether to wait or get his money back",
+  "explanation": "入荷を待つか全額返金かを選び、メールで返信するよう求められている。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-018-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Neighborhood Clean-Up Day! This Saturday, we're meeting at Oak Park at 9 a.m. to pick up trash along the river. Gloves and bags will be provided. Wear comfortable shoes and bring a water bottle. Afterward, there'll be free snacks at the community center. Last year, 40 volunteers collected over 100 bags—let's beat that!",
+  "question": "What will be given to volunteers?",
+  "choices": [
+   "Water bottles",
+   "Comfortable shoes",
+   "Gloves and bags",
+   "Prize money"
+  ],
+  "answer": "Gloves and bags",
+  "explanation": "「Gloves and bags will be provided.」とあり、手袋とごみ袋が用意される。水筒は各自持参。",
+  "tags": "TOEFL2026 reading daily-life social-media"
+ },
+ {
+  "id": "TOEFL-RD-018-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Neighborhood Clean-Up Day! This Saturday, we're meeting at Oak Park at 9 a.m. to pick up trash along the river. Gloves and bags will be provided. Wear comfortable shoes and bring a water bottle. Afterward, there'll be free snacks at the community center. Last year, 40 volunteers collected over 100 bags—let's beat that!",
+  "question": "What does the writer hope to do this year?",
+  "choices": [
+   "Plant trees along the river",
+   "Open a new community center",
+   "Find exactly 40 volunteers",
+   "Collect more trash than last year"
+  ],
+  "answer": "Collect more trash than last year",
+  "explanation": "「over 100 bags—let's beat that!」は去年の記録を超えようという意味。",
+  "tags": "TOEFL2026 reading daily-life social-media"
+ },
+ {
+  "id": "TOEFL-RD-019-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "VISITOR PARKING\nVisitors may park in spaces marked \"V\" for up to 3 hours between 8 a.m. and 6 p.m., Monday to Friday. Please register your car number at the front desk when you arrive. Vehicles that are not registered or that stay longer than allowed may be towed at the owner's expense. Parking is unrestricted on weekends.",
+  "question": "What must visitors do when they arrive on a weekday?",
+  "choices": [
+   "Register their car number at the front desk",
+   "Pay at a parking machine",
+   "Park only in the evening",
+   "Show a weekend pass"
+  ],
+  "answer": "Register their car number at the front desk",
+  "explanation": "「Please register your car number at the front desk when you arrive.」とある。",
+  "tags": "TOEFL2026 reading daily-life sign"
+ },
+ {
+  "id": "TOEFL-RD-019-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "VISITOR PARKING\nVisitors may park in spaces marked \"V\" for up to 3 hours between 8 a.m. and 6 p.m., Monday to Friday. Please register your car number at the front desk when you arrive. Vehicles that are not registered or that stay longer than allowed may be towed at the owner's expense. Parking is unrestricted on weekends.",
+  "question": "What is true on Saturdays?",
+  "choices": [
+   "Parking is not allowed.",
+   "Visitors can park without a time limit.",
+   "Visitors must register twice.",
+   "Only staff members may park."
+  ],
+  "answer": "Visitors can park without a time limit.",
+  "explanation": "「Parking is unrestricted on weekends.」とあり、週末は制限がない。",
+  "tags": "TOEFL2026 reading daily-life sign"
+ },
+ {
+  "id": "TOEFL-RD-020-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Service Alert: Because of a signal problem near Central Station, Line 4 trains are running about 20 minutes behind schedule this morning. Passengers traveling to the airport are advised to take the Airport Express bus from Bay 6, which is free for Line 4 ticket holders until noon. We expect normal service to resume by early afternoon.",
+  "question": "What is causing the delay?",
+  "choices": [
+   "A problem with a signal",
+   "Bad weather",
+   "A crowded platform",
+   "Construction at the airport"
+  ],
+  "answer": "A problem with a signal",
+  "explanation": "「Because of a signal problem near Central Station」とあり、信号の故障が原因。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-020-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Service Alert: Because of a signal problem near Central Station, Line 4 trains are running about 20 minutes behind schedule this morning. Passengers traveling to the airport are advised to take the Airport Express bus from Bay 6, which is free for Line 4 ticket holders until noon. We expect normal service to resume by early afternoon.",
+  "question": "What is offered to Line 4 ticket holders?",
+  "choices": [
+   "A full refund",
+   "A free bus ride for a limited time",
+   "Free parking at the airport",
+   "A discount on future tickets"
+  ],
+  "answer": "A free bus ride for a limited time",
+  "explanation": "空港行きバスが「free for Line 4 ticket holders until noon」、正午まで無料になる。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-021-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Hi all,\n\nA quick reminder that your lab reports are due this Friday by 5 p.m. Please submit them through the course website, not by email. If you're having trouble with the data analysis, I'll hold extra office hours on Wednesday from 2 to 4 in Room 215. Late reports will lose 10% per day.\n\nBest,\nDr. Chen",
+  "question": "How should students submit their reports?",
+  "choices": [
+   "By email",
+   "In Room 215",
+   "In person on Wednesday",
+   "Through the course website"
+  ],
+  "answer": "Through the course website",
+  "explanation": "「submit them through the course website, not by email」とある。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-021-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Hi all,\n\nA quick reminder that your lab reports are due this Friday by 5 p.m. Please submit them through the course website, not by email. If you're having trouble with the data analysis, I'll hold extra office hours on Wednesday from 2 to 4 in Room 215. Late reports will lose 10% per day.\n\nBest,\nDr. Chen",
+  "question": "Why will Dr. Chen hold extra office hours?",
+  "choices": [
+   "To collect late reports",
+   "To explain the grading system",
+   "To help students analyze their data",
+   "To return graded reports"
+  ],
+  "answer": "To help students analyze their data",
+  "explanation": "データ分析で困っている学生のために追加のオフィスアワーを開く。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-022-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Welcome to Harbor View Hotel.\nBreakfast is served in the Seaside Room from 6:30 to 10:00. Check-out time is 11:00 a.m. If you need a late check-out, please ask at reception; it may be available for a small fee.\nFree Wi-Fi: network \"HarborGuest\" – the password is printed on your key card holder.",
+  "question": "Where can guests find the Wi-Fi password?",
+  "choices": [
+   "In the Seaside Room",
+   "On the key card holder",
+   "On a sign at reception",
+   "On the hotel website"
+  ],
+  "answer": "On the key card holder",
+  "explanation": "「the password is printed on your key card holder」とある。",
+  "tags": "TOEFL2026 reading daily-life information"
+ },
+ {
+  "id": "TOEFL-RD-022-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Welcome to Harbor View Hotel.\nBreakfast is served in the Seaside Room from 6:30 to 10:00. Check-out time is 11:00 a.m. If you need a late check-out, please ask at reception; it may be available for a small fee.\nFree Wi-Fi: network \"HarborGuest\" – the password is printed on your key card holder.",
+  "question": "What is suggested about a late check-out?",
+  "choices": [
+   "It is always free.",
+   "It must be booked online.",
+   "It is never possible.",
+   "Guests may have to pay extra for it."
+  ],
+  "answer": "Guests may have to pay extra for it.",
+  "explanation": "「it may be available for a small fee」とあり、少額の料金がかかる可能性がある。",
+  "tags": "TOEFL2026 reading daily-life information"
+ },
+ {
+  "id": "TOEFL-RD-023-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Sorry, friends! Our oven broke down this morning, so we can't bake bread today. We'll still be open for coffee and for cakes we made yesterday, all at half price. The repair person is coming tonight, and we hope to be back to normal tomorrow. Thanks for understanding!",
+  "question": "What is the bakery unable to do today?",
+  "choices": [
+   "Bake bread",
+   "Sell coffee",
+   "Open the store",
+   "Sell cakes"
+  ],
+  "answer": "Bake bread",
+  "explanation": "オーブンが壊れて「we can't bake bread today」。コーヒーとケーキは販売している。",
+  "tags": "TOEFL2026 reading daily-life social-media"
+ },
+ {
+  "id": "TOEFL-RD-023-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Sorry, friends! Our oven broke down this morning, so we can't bake bread today. We'll still be open for coffee and for cakes we made yesterday, all at half price. The repair person is coming tonight, and we hope to be back to normal tomorrow. Thanks for understanding!",
+  "question": "Why are the cakes probably half price?",
+  "choices": [
+   "The bakery is closing for good.",
+   "They are a new product.",
+   "They were not made today.",
+   "Customers complained about them."
+  ],
+  "answer": "They were not made today.",
+  "explanation": "ケーキは「made yesterday」、前日に作ったものなので半額にしていると考えられる。",
+  "tags": "TOEFL2026 reading daily-life social-media"
+ },
+ {
+  "id": "TOEFL-RD-024-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "We need volunteers for the school book fair on April 12! Tasks include setting up tables, helping children find books, and working at the cash desk. Shifts are two hours long, and even one shift is a big help. Please sign up on the sheet outside the main office by April 5.",
+  "question": "Which task is NOT mentioned?",
+  "choices": [
+   "Setting up tables",
+   "Helping children find books",
+   "Reading stories to children",
+   "Working at the cash desk"
+  ],
+  "answer": "Reading stories to children",
+  "explanation": "書かれている仕事は机の準備・本探しの手伝い・レジ。読み聞かせは書かれていない。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-024-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "We need volunteers for the school book fair on April 12! Tasks include setting up tables, helping children find books, and working at the cash desk. Shifts are two hours long, and even one shift is a big help. Please sign up on the sheet outside the main office by April 5.",
+  "question": "How long is each shift?",
+  "choices": [
+   "One hour",
+   "Half a day",
+   "All day",
+   "Two hours"
+  ],
+  "answer": "Two hours",
+  "explanation": "「Shifts are two hours long」とある。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-025-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "FOR RENT: Sunny one-bedroom apartment, a 5-minute walk from Elm Street Station. Fully furnished, with a washing machine. $950 per month, including water and internet; electricity is extra. No pets, please. Available from September 1. Contact Ms. Rivera to arrange a viewing.",
+  "question": "Which cost is NOT included in the rent?",
+  "choices": [
+   "Electricity",
+   "Water",
+   "Internet",
+   "Furniture"
+  ],
+  "answer": "Electricity",
+  "explanation": "「including water and internet; electricity is extra」とあり、電気代は別料金。",
+  "tags": "TOEFL2026 reading daily-life advertisement"
+ },
+ {
+  "id": "TOEFL-RD-025-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "FOR RENT: Sunny one-bedroom apartment, a 5-minute walk from Elm Street Station. Fully furnished, with a washing machine. $950 per month, including water and internet; electricity is extra. No pets, please. Available from September 1. Contact Ms. Rivera to arrange a viewing.",
+  "question": "Who would probably NOT be able to rent this apartment?",
+  "choices": [
+   "Someone without a car",
+   "Someone who has a dog",
+   "Someone who works near the station",
+   "Someone who needs a place in September"
+  ],
+  "answer": "Someone who has a dog",
+  "explanation": "「No pets, please.」とあるので、犬を飼っている人は借りられないと考えられる。",
+  "tags": "TOEFL2026 reading daily-life advertisement"
+ },
+ {
+  "id": "TOEFL-RD-026-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Hi Jordan, the client meeting has been pushed back to 3 p.m. because their flight was delayed. Could you let the catering team know? We'll need the coffee and snacks an hour later than planned. Thanks! – Alex",
+  "question": "Why was the meeting changed?",
+  "choices": [
+   "The meeting room was unavailable.",
+   "Alex is busy until 3 p.m.",
+   "The client's flight was late.",
+   "The catering team was late."
+  ],
+  "answer": "The client's flight was late.",
+  "explanation": "「because their flight was delayed」とあり、取引先の飛行機の遅れが理由。",
+  "tags": "TOEFL2026 reading daily-life text-message"
+ },
+ {
+  "id": "TOEFL-RD-026-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Hi Jordan, the client meeting has been pushed back to 3 p.m. because their flight was delayed. Could you let the catering team know? We'll need the coffee and snacks an hour later than planned. Thanks! – Alex",
+  "question": "What does Alex ask Jordan to do?",
+  "choices": [
+   "Pick up the client at the airport",
+   "Cancel the snacks",
+   "Move the meeting to another day",
+   "Inform the catering team about the change"
+  ],
+  "answer": "Inform the catering team about the change",
+  "explanation": "「Could you let the catering team know?」と、ケータリング担当への連絡を頼んでいる。",
+  "tags": "TOEFL2026 reading daily-life text-message"
+ },
+ {
+  "id": "TOEFL-RD-027-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Subject: Updated remote-work policy\n\nDear colleagues,\n\nFollowing feedback from last quarter's survey, we are adjusting our remote-work policy. From November 1, employees may work remotely up to three days per week, up from two. However, Tuesdays will now be designated as a \"team day,\" when everyone is expected in the office unless they have prior approval from their manager. We believe this balance will preserve flexibility while ensuring that teams have regular opportunities for face-to-face collaboration.\n\nPlease direct any questions to your department head.\n\nHuman Resources",
+  "question": "What is the main purpose of the email?",
+  "choices": [
+   "To announce changes to when staff can work from home",
+   "To ask employees to complete a survey",
+   "To introduce a new department head",
+   "To explain why the office will close on Tuesdays"
+  ],
+  "answer": "To announce changes to when staff can work from home",
+  "explanation": "在宅勤務の日数と火曜の出社日についての方針変更を知らせるメール。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-027-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Subject: Updated remote-work policy\n\nDear colleagues,\n\nFollowing feedback from last quarter's survey, we are adjusting our remote-work policy. From November 1, employees may work remotely up to three days per week, up from two. However, Tuesdays will now be designated as a \"team day,\" when everyone is expected in the office unless they have prior approval from their manager. We believe this balance will preserve flexibility while ensuring that teams have regular opportunities for face-to-face collaboration.\n\nPlease direct any questions to your department head.\n\nHuman Resources",
+  "question": "What can be inferred about the previous policy?",
+  "choices": [
+   "It required everyone to be in the office on Tuesdays.",
+   "It allowed employees to work remotely two days a week.",
+   "It did not permit remote work at all.",
+   "It was introduced last November."
+  ],
+  "answer": "It allowed employees to work remotely two days a week.",
+  "explanation": "「up to three days per week, up from two」から、以前は週2日まで在宅勤務できたとわかる。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-027-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Subject: Updated remote-work policy\n\nDear colleagues,\n\nFollowing feedback from last quarter's survey, we are adjusting our remote-work policy. From November 1, employees may work remotely up to three days per week, up from two. However, Tuesdays will now be designated as a \"team day,\" when everyone is expected in the office unless they have prior approval from their manager. We believe this balance will preserve flexibility while ensuring that teams have regular opportunities for face-to-face collaboration.\n\nPlease direct any questions to your department head.\n\nHuman Resources",
+  "question": "The word \"designated\" in the email is closest in meaning to",
+  "choices": [
+   "decorated",
+   "delayed",
+   "specified",
+   "divided"
+  ],
+  "answer": "specified",
+  "explanation": "designate は「（特定の目的に）指定する」という意味で、specified が最も近い。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-028-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Hartwell Museum of Natural History will close its Dinosaur Hall from January 8 to March 31 for a major renovation. The project will add interactive displays and improve access for visitors who use wheelchairs. During the closure, a selection of fossils will be displayed in the temporary exhibition space on the second floor. Members will receive invitations to a preview event before the hall reopens to the public. Admission prices will be reduced by 20% while the hall is closed.",
+  "question": "What is one goal of the renovation?",
+  "choices": [
+   "To create space for a new café",
+   "To make the hall easier for wheelchair users to visit",
+   "To return fossils to other museums",
+   "To reduce the cost of membership"
+  ],
+  "answer": "To make the hall easier for wheelchair users to visit",
+  "explanation": "「improve access for visitors who use wheelchairs」が改修の目的の一つ。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-028-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Hartwell Museum of Natural History will close its Dinosaur Hall from January 8 to March 31 for a major renovation. The project will add interactive displays and improve access for visitors who use wheelchairs. During the closure, a selection of fossils will be displayed in the temporary exhibition space on the second floor. Members will receive invitations to a preview event before the hall reopens to the public. Admission prices will be reduced by 20% while the hall is closed.",
+  "question": "Which of the following is NOT mentioned in the announcement?",
+  "choices": [
+   "Some fossils will be shown elsewhere in the museum.",
+   "Members will be able to see the hall early.",
+   "Tickets will be cheaper for a period.",
+   "Guided tours will be canceled."
+  ],
+  "answer": "Guided tours will be canceled.",
+  "explanation": "化石の仮展示・会員向け内覧会・入館料20%引きは書かれているが、ガイドツアー中止は書かれていない。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-028-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "The Hartwell Museum of Natural History will close its Dinosaur Hall from January 8 to March 31 for a major renovation. The project will add interactive displays and improve access for visitors who use wheelchairs. During the closure, a selection of fossils will be displayed in the temporary exhibition space on the second floor. Members will receive invitations to a preview event before the hall reopens to the public. Admission prices will be reduced by 20% while the hall is closed.",
+  "question": "Why will admission prices probably be reduced?",
+  "choices": [
+   "Visitors will be able to see less of the museum than usual.",
+   "The renovation is behind schedule.",
+   "The museum has received a large donation.",
+   "Members asked for lower prices."
+  ],
+  "answer": "Visitors will be able to see less of the museum than usual.",
+  "explanation": "恐竜ホールが閉鎖される期間だけ値下げするので、見られる展示が減る分の配慮だと考えられる。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-029-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Has anyone else had trouble with the new version of the StudyMate app? Since updating last week, my flashcards don't sync between my phone and laptop. I've tried logging out and reinstalling, but nothing has worked. I contacted support three days ago and haven't heard back. I'm not ready to give up on it yet—it's been a lifesaver during exam season—but if this isn't fixed soon, I'll have to look for an alternative.",
+  "question": "What problem is the writer describing?",
+  "choices": [
+   "The app has become too expensive.",
+   "Data is not shared correctly between devices.",
+   "The writer lost a phone.",
+   "The app deleted the writer's exam results."
+  ],
+  "answer": "Data is not shared correctly between devices.",
+  "explanation": "「my flashcards don't sync between my phone and laptop」とあり、端末間で同期されない。",
+  "tags": "TOEFL2026 reading daily-life forum-post"
+ },
+ {
+  "id": "TOEFL-RD-029-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Has anyone else had trouble with the new version of the StudyMate app? Since updating last week, my flashcards don't sync between my phone and laptop. I've tried logging out and reinstalling, but nothing has worked. I contacted support three days ago and haven't heard back. I'm not ready to give up on it yet—it's been a lifesaver during exam season—but if this isn't fixed soon, I'll have to look for an alternative.",
+  "question": "What has the writer already done?",
+  "choices": [
+   "Switched to another app",
+   "Received a reply from support",
+   "Bought a new laptop",
+   "Reinstalled the app"
+  ],
+  "answer": "Reinstalled the app",
+  "explanation": "「I've tried logging out and reinstalling」とあり、再インストールは試した。サポートからの返事はまだない。",
+  "tags": "TOEFL2026 reading daily-life forum-post"
+ },
+ {
+  "id": "TOEFL-RD-029-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Has anyone else had trouble with the new version of the StudyMate app? Since updating last week, my flashcards don't sync between my phone and laptop. I've tried logging out and reinstalling, but nothing has worked. I contacted support three days ago and haven't heard back. I'm not ready to give up on it yet—it's been a lifesaver during exam season—but if this isn't fixed soon, I'll have to look for an alternative.",
+  "question": "Which best describes the writer's attitude toward the app?",
+  "choices": [
+   "Frustrated but still hopeful",
+   "Completely satisfied",
+   "Indifferent",
+   "Angry enough to stop using it immediately"
+  ],
+  "answer": "Frustrated but still hopeful",
+  "explanation": "不満を述べつつ「I'm not ready to give up on it yet」とあり、まだ期待を残している。",
+  "tags": "TOEFL2026 reading daily-life forum-post"
+ },
+ {
+  "id": "TOEFL-RD-030-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Water Conservation Advisory\n\nDue to below-average rainfall this spring, reservoir levels are currently at 58% of capacity. Residents are asked to voluntarily limit outdoor watering to two days per week and to avoid washing vehicles at home. If levels fall below 50%, these measures will become mandatory, and fines may be issued for violations. Free water-saving kits, including low-flow showerheads, are available at City Hall while supplies last.",
+  "question": "Why has this advisory been issued?",
+  "choices": [
+   "A water pipe has broken.",
+   "The city is building a new reservoir.",
+   "Rainfall has been lower than usual.",
+   "Water prices are increasing."
+  ],
+  "answer": "Rainfall has been lower than usual.",
+  "explanation": "「Due to below-average rainfall this spring」とあり、春の雨が平年より少なかったため。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-030-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Water Conservation Advisory\n\nDue to below-average rainfall this spring, reservoir levels are currently at 58% of capacity. Residents are asked to voluntarily limit outdoor watering to two days per week and to avoid washing vehicles at home. If levels fall below 50%, these measures will become mandatory, and fines may be issued for violations. Free water-saving kits, including low-flow showerheads, are available at City Hall while supplies last.",
+  "question": "What would happen if reservoir levels dropped below 50%?",
+  "choices": [
+   "The restrictions would become compulsory.",
+   "Free kits would be delivered to every home.",
+   "All car washes would close.",
+   "Outdoor watering would be completely banned."
+  ],
+  "answer": "The restrictions would become compulsory.",
+  "explanation": "「these measures will become mandatory」とあり、任意だった制限が義務になる。mandatory = compulsory。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-030-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Water Conservation Advisory\n\nDue to below-average rainfall this spring, reservoir levels are currently at 58% of capacity. Residents are asked to voluntarily limit outdoor watering to two days per week and to avoid washing vehicles at home. If levels fall below 50%, these measures will become mandatory, and fines may be issued for violations. Free water-saving kits, including low-flow showerheads, are available at City Hall while supplies last.",
+  "question": "The phrase \"while supplies last\" suggests that",
+  "choices": [
+   "the kits will be sold later",
+   "the number of kits is limited",
+   "the kits are only for businesses",
+   "the kits must be returned"
+  ],
+  "answer": "the number of kits is limited",
+  "explanation": "「在庫がある限り」という意味で、キットの数に限りがあることを示す。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ }
+]

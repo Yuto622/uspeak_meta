@@ -1,0 +1,722 @@
+[
+  {
+    "id": "TOEFL-LT-001-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Professor: Good morning, everyone. Today I want to answer a simple question: why do leaves change color in the fall? Many people think the leaves \"turn\" red and yellow. But in fact, many of those colors were there the whole time.\n\nLeaves are green because they contain a lot of chlorophyll. Chlorophyll helps the plant use sunlight to make food. There is so much of it in summer that we can't see the other colors in the leaf. One of those colors is yellow-orange. It comes from a group of chemicals called carotenoids—the same kind of chemicals that make carrots orange.\n\nIn the fall, the days get shorter and the air gets cooler. The tree begins to get ready for winter, and it stops making new chlorophyll. The old chlorophyll breaks down. When the green disappears, the yellow and orange colors that were hidden can finally be seen.\n\nStudent: So where does the red come from? Is that hidden too?\n\nProfessor: Good question. No—red is different. In some trees, like certain maples, the leaves actually make new red chemicals in the fall. Sunny days and cool nights help them make more. That's why the red colors are brighter in some years than in others.\n\nSo, next time you walk across campus in October, look carefully. The yellow leaves are showing you colors that were there all summer. The red leaves are showing you something new.",
+    "question": "What is the talk mainly about?",
+    "choices": [
+      "How trees grow in the summer",
+      "Why leaves change color in the fall",
+      "Why carrots are orange",
+      "How to identify maple trees"
+    ],
+    "answer": "Why leaves change color in the fall",
+    "explanation": "秋に葉の色が変わる理由について説明しています。",
+    "tags": "biology botany autumn leaves academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-001-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Professor: Good morning, everyone. Today I want to answer a simple question: why do leaves change color in the fall? Many people think the leaves \"turn\" red and yellow. But in fact, many of those colors were there the whole time.\n\nLeaves are green because they contain a lot of chlorophyll. Chlorophyll helps the plant use sunlight to make food. There is so much of it in summer that we can't see the other colors in the leaf. One of those colors is yellow-orange. It comes from a group of chemicals called carotenoids—the same kind of chemicals that make carrots orange.\n\nIn the fall, the days get shorter and the air gets cooler. The tree begins to get ready for winter, and it stops making new chlorophyll. The old chlorophyll breaks down. When the green disappears, the yellow and orange colors that were hidden can finally be seen.\n\nStudent: So where does the red come from? Is that hidden too?\n\nProfessor: Good question. No—red is different. In some trees, like certain maples, the leaves actually make new red chemicals in the fall. Sunny days and cool nights help them make more. That's why the red colors are brighter in some years than in others.\n\nSo, next time you walk across campus in October, look carefully. The yellow leaves are showing you colors that were there all summer. The red leaves are showing you something new.",
+    "question": "According to the professor, why can't we see yellow in leaves during the summer?",
+    "choices": [
+      "The yellow chemicals are made only in the fall.",
+      "The sunlight is too strong.",
+      "There is too much green chlorophyll.",
+      "The leaves are too young."
+    ],
+    "answer": "There is too much green chlorophyll.",
+    "explanation": "夏は葉緑素（クロロフィル）が多すぎて、ほかの色が見えないと説明しています。",
+    "tags": "biology botany autumn leaves academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-001-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Professor: Good morning, everyone. Today I want to answer a simple question: why do leaves change color in the fall? Many people think the leaves \"turn\" red and yellow. But in fact, many of those colors were there the whole time.\n\nLeaves are green because they contain a lot of chlorophyll. Chlorophyll helps the plant use sunlight to make food. There is so much of it in summer that we can't see the other colors in the leaf. One of those colors is yellow-orange. It comes from a group of chemicals called carotenoids—the same kind of chemicals that make carrots orange.\n\nIn the fall, the days get shorter and the air gets cooler. The tree begins to get ready for winter, and it stops making new chlorophyll. The old chlorophyll breaks down. When the green disappears, the yellow and orange colors that were hidden can finally be seen.\n\nStudent: So where does the red come from? Is that hidden too?\n\nProfessor: Good question. No—red is different. In some trees, like certain maples, the leaves actually make new red chemicals in the fall. Sunny days and cool nights help them make more. That's why the red colors are brighter in some years than in others.\n\nSo, next time you walk across campus in October, look carefully. The yellow leaves are showing you colors that were there all summer. The red leaves are showing you something new.",
+    "question": "Why does the professor mention carrots?",
+    "choices": [
+      "To give an example of the same kind of color chemical",
+      "To explain what trees use for food",
+      "To show that leaves can be eaten",
+      "To compare the size of plants"
+    ],
+    "answer": "To give an example of the same kind of color chemical",
+    "explanation": "ニンジンを橙色にするのと同じ種類の色素（カロテノイド）の例として挙げています。",
+    "tags": "biology botany autumn leaves academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-001-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Professor: Good morning, everyone. Today I want to answer a simple question: why do leaves change color in the fall? Many people think the leaves \"turn\" red and yellow. But in fact, many of those colors were there the whole time.\n\nLeaves are green because they contain a lot of chlorophyll. Chlorophyll helps the plant use sunlight to make food. There is so much of it in summer that we can't see the other colors in the leaf. One of those colors is yellow-orange. It comes from a group of chemicals called carotenoids—the same kind of chemicals that make carrots orange.\n\nIn the fall, the days get shorter and the air gets cooler. The tree begins to get ready for winter, and it stops making new chlorophyll. The old chlorophyll breaks down. When the green disappears, the yellow and orange colors that were hidden can finally be seen.\n\nStudent: So where does the red come from? Is that hidden too?\n\nProfessor: Good question. No—red is different. In some trees, like certain maples, the leaves actually make new red chemicals in the fall. Sunny days and cool nights help them make more. That's why the red colors are brighter in some years than in others.\n\nSo, next time you walk across campus in October, look carefully. The yellow leaves are showing you colors that were there all summer. The red leaves are showing you something new.",
+    "question": "What can be inferred about red leaves?",
+    "choices": [
+      "They were red all summer.",
+      "They contain more chlorophyll than yellow leaves.",
+      "They appear only on trees with orange fruit.",
+      "The weather can affect how bright they are."
+    ],
+    "answer": "The weather can affect how bright they are.",
+    "explanation": "晴れた日と涼しい夜で赤い色素が増えると言っているので、天候が色の鮮やかさに影響すると推測できます。",
+    "tags": "biology botany autumn leaves academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-002-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Professor: Let's talk about an animal that lives in some of the hottest places on Earth: the camel. Camels can travel through the desert for many days without drinking water. How do they do it?\n\nFirst, let's clear up a common mistake. Many people believe that a camel's hump is full of water. It isn't. The hump is mostly fat. When there isn't much food, the camel's body can use this fat for energy. Keeping the fat in one place—on its back—also helps the camel stay cool, because the rest of its body isn't covered in a thick layer of fat.\n\nStudent: Then how do camels survive without water?\n\nProfessor: In several ways. Camels lose very little water. They don't sweat much, even when it's hot, because their body temperature can rise by several degrees during the day without hurting them. At night, when the desert gets cold, their body cools down again. Camels can also lose a large amount of the water in their bodies—much more than most animals can—and still be fine.\n\nAnd when they do find water, they drink a lot, very quickly. A thirsty camel can drink around one hundred liters in less than fifteen minutes. Most animals would get sick if they drank that much that fast, but camels can handle it.\n\nSo the camel doesn't carry water in its hump. Instead, its whole body is designed to save water and use it carefully.",
+    "question": "What is the main topic of the talk?",
+    "choices": [
+      "Where camels can find water in the desert",
+      "Why deserts are cold at night",
+      "How camels are adapted to life in the desert",
+      "How people use camels for travel"
+    ],
+    "answer": "How camels are adapted to life in the desert",
+    "explanation": "ラクダが砂漠で生きるための体の仕組みについての講義です。",
+    "tags": "biology animals desert camels academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-002-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Professor: Let's talk about an animal that lives in some of the hottest places on Earth: the camel. Camels can travel through the desert for many days without drinking water. How do they do it?\n\nFirst, let's clear up a common mistake. Many people believe that a camel's hump is full of water. It isn't. The hump is mostly fat. When there isn't much food, the camel's body can use this fat for energy. Keeping the fat in one place—on its back—also helps the camel stay cool, because the rest of its body isn't covered in a thick layer of fat.\n\nStudent: Then how do camels survive without water?\n\nProfessor: In several ways. Camels lose very little water. They don't sweat much, even when it's hot, because their body temperature can rise by several degrees during the day without hurting them. At night, when the desert gets cold, their body cools down again. Camels can also lose a large amount of the water in their bodies—much more than most animals can—and still be fine.\n\nAnd when they do find water, they drink a lot, very quickly. A thirsty camel can drink around one hundred liters in less than fifteen minutes. Most animals would get sick if they drank that much that fast, but camels can handle it.\n\nSo the camel doesn't carry water in its hump. Instead, its whole body is designed to save water and use it carefully.",
+    "question": "According to the professor, what is a camel's hump mainly made of?",
+    "choices": [
+      "Fat",
+      "Water",
+      "Muscle",
+      "Bone"
+    ],
+    "answer": "Fat",
+    "explanation": "こぶは水ではなく、ほとんどが脂肪だと説明しています。",
+    "tags": "biology animals desert camels academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-002-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Professor: Let's talk about an animal that lives in some of the hottest places on Earth: the camel. Camels can travel through the desert for many days without drinking water. How do they do it?\n\nFirst, let's clear up a common mistake. Many people believe that a camel's hump is full of water. It isn't. The hump is mostly fat. When there isn't much food, the camel's body can use this fat for energy. Keeping the fat in one place—on its back—also helps the camel stay cool, because the rest of its body isn't covered in a thick layer of fat.\n\nStudent: Then how do camels survive without water?\n\nProfessor: In several ways. Camels lose very little water. They don't sweat much, even when it's hot, because their body temperature can rise by several degrees during the day without hurting them. At night, when the desert gets cold, their body cools down again. Camels can also lose a large amount of the water in their bodies—much more than most animals can—and still be fine.\n\nAnd when they do find water, they drink a lot, very quickly. A thirsty camel can drink around one hundred liters in less than fifteen minutes. Most animals would get sick if they drank that much that fast, but camels can handle it.\n\nSo the camel doesn't carry water in its hump. Instead, its whole body is designed to save water and use it carefully.",
+    "question": "Why does the professor say \"let's clear up a common mistake\"?",
+    "choices": [
+      "To admit an error in an earlier lecture",
+      "To explain why a student's answer was wrong",
+      "To warn students about a difficult test question",
+      "To correct a belief many people have"
+    ],
+    "answer": "To correct a belief many people have",
+    "explanation": "こぶに水が入っているという多くの人の誤解を正すためです。",
+    "tags": "biology animals desert camels academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-002-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Professor: Let's talk about an animal that lives in some of the hottest places on Earth: the camel. Camels can travel through the desert for many days without drinking water. How do they do it?\n\nFirst, let's clear up a common mistake. Many people believe that a camel's hump is full of water. It isn't. The hump is mostly fat. When there isn't much food, the camel's body can use this fat for energy. Keeping the fat in one place—on its back—also helps the camel stay cool, because the rest of its body isn't covered in a thick layer of fat.\n\nStudent: Then how do camels survive without water?\n\nProfessor: In several ways. Camels lose very little water. They don't sweat much, even when it's hot, because their body temperature can rise by several degrees during the day without hurting them. At night, when the desert gets cold, their body cools down again. Camels can also lose a large amount of the water in their bodies—much more than most animals can—and still be fine.\n\nAnd when they do find water, they drink a lot, very quickly. A thirsty camel can drink around one hundred liters in less than fifteen minutes. Most animals would get sick if they drank that much that fast, but camels can handle it.\n\nSo the camel doesn't carry water in its hump. Instead, its whole body is designed to save water and use it carefully.",
+    "question": "How does the professor organize the information about water?",
+    "choices": [
+      "By comparing camels with several other desert animals",
+      "By describing several different ways camels manage water",
+      "By telling the story of one camel's journey",
+      "By listing camel behaviors from morning to night"
+    ],
+    "answer": "By describing several different ways camels manage water",
+    "explanation": "汗をかかない、体温の変化、大量に失っても平気、一気に飲むなど、水を管理する複数の方法を順に説明しています。",
+    "tags": "biology animals desert camels academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-003-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today we're going to look at an invention that changed how ideas spread in Europe: the printing press with movable metal type, developed by Johannes Gutenberg in Germany around 1450.\n\nNow, printing itself wasn't new. In China, people had been printing with carved wooden blocks for centuries, and movable type made of clay and later metal had also been developed in East Asia. What made Gutenberg's system so effective in Europe was a combination of things. He found a way to make large numbers of identical metal letters quickly and accurately, using a hand mold. He developed an oil-based ink that stuck well to metal. And he adapted a screw press—similar to the presses used to make wine—to push the paper evenly onto the type.\n\nBefore this, most books in Europe were copied by hand. A single copy of a long book could take months, so books were rare and expensive. With the press, a workshop could produce hundreds of copies of the same text in the time it once took to copy one.\n\nStudent: Did that mean more people could read?\n\nProfessor: Over time, yes, though not overnight. Cheaper books gave more people a reason to learn to read, and literacy rates slowly increased. Printed books also meant that scholars in different cities could read exactly the same text, which made it easier to compare ideas and correct errors. Within about fifty years, printing presses had spread to more than two hundred European cities.",
+    "question": "What is the main purpose of the talk?",
+    "choices": [
+      "To argue that printing was invented in Germany",
+      "To explain why Gutenberg's press had a major impact",
+      "To describe how wine was made in the 1400s",
+      "To compare Chinese and European writing systems"
+    ],
+    "answer": "To explain why Gutenberg's press had a major impact",
+    "explanation": "グーテンベルクの印刷機がなぜ大きな影響をもったかを説明する講義です。",
+    "tags": "history technology printing press academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-003-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today we're going to look at an invention that changed how ideas spread in Europe: the printing press with movable metal type, developed by Johannes Gutenberg in Germany around 1450.\n\nNow, printing itself wasn't new. In China, people had been printing with carved wooden blocks for centuries, and movable type made of clay and later metal had also been developed in East Asia. What made Gutenberg's system so effective in Europe was a combination of things. He found a way to make large numbers of identical metal letters quickly and accurately, using a hand mold. He developed an oil-based ink that stuck well to metal. And he adapted a screw press—similar to the presses used to make wine—to push the paper evenly onto the type.\n\nBefore this, most books in Europe were copied by hand. A single copy of a long book could take months, so books were rare and expensive. With the press, a workshop could produce hundreds of copies of the same text in the time it once took to copy one.\n\nStudent: Did that mean more people could read?\n\nProfessor: Over time, yes, though not overnight. Cheaper books gave more people a reason to learn to read, and literacy rates slowly increased. Printed books also meant that scholars in different cities could read exactly the same text, which made it easier to compare ideas and correct errors. Within about fifty years, printing presses had spread to more than two hundred European cities.",
+    "question": "Why does the professor mention printing in China?",
+    "choices": [
+      "To show that printing existed before Gutenberg",
+      "To show that Chinese printing was slower",
+      "To explain where Gutenberg learned to print",
+      "To introduce a topic for the next class"
+    ],
+    "answer": "To show that printing existed before Gutenberg",
+    "explanation": "印刷そのものは新しくなかったことを示すために、中国の例を挙げています。",
+    "tags": "history technology printing press academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-003-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today we're going to look at an invention that changed how ideas spread in Europe: the printing press with movable metal type, developed by Johannes Gutenberg in Germany around 1450.\n\nNow, printing itself wasn't new. In China, people had been printing with carved wooden blocks for centuries, and movable type made of clay and later metal had also been developed in East Asia. What made Gutenberg's system so effective in Europe was a combination of things. He found a way to make large numbers of identical metal letters quickly and accurately, using a hand mold. He developed an oil-based ink that stuck well to metal. And he adapted a screw press—similar to the presses used to make wine—to push the paper evenly onto the type.\n\nBefore this, most books in Europe were copied by hand. A single copy of a long book could take months, so books were rare and expensive. With the press, a workshop could produce hundreds of copies of the same text in the time it once took to copy one.\n\nStudent: Did that mean more people could read?\n\nProfessor: Over time, yes, though not overnight. Cheaper books gave more people a reason to learn to read, and literacy rates slowly increased. Printed books also meant that scholars in different cities could read exactly the same text, which made it easier to compare ideas and correct errors. Within about fifty years, printing presses had spread to more than two hundred European cities.",
+    "question": "According to the professor, which was part of Gutenberg's system?",
+    "choices": [
+      "Wooden blocks carved for each page",
+      "A machine powered by water",
+      "An oil-based ink that worked well on metal",
+      "Paper made from clay"
+    ],
+    "answer": "An oil-based ink that worked well on metal",
+    "explanation": "金属によくつく油性インクを開発したことが挙げられています。",
+    "tags": "history technology printing press academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-003-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today we're going to look at an invention that changed how ideas spread in Europe: the printing press with movable metal type, developed by Johannes Gutenberg in Germany around 1450.\n\nNow, printing itself wasn't new. In China, people had been printing with carved wooden blocks for centuries, and movable type made of clay and later metal had also been developed in East Asia. What made Gutenberg's system so effective in Europe was a combination of things. He found a way to make large numbers of identical metal letters quickly and accurately, using a hand mold. He developed an oil-based ink that stuck well to metal. And he adapted a screw press—similar to the presses used to make wine—to push the paper evenly onto the type.\n\nBefore this, most books in Europe were copied by hand. A single copy of a long book could take months, so books were rare and expensive. With the press, a workshop could produce hundreds of copies of the same text in the time it once took to copy one.\n\nStudent: Did that mean more people could read?\n\nProfessor: Over time, yes, though not overnight. Cheaper books gave more people a reason to learn to read, and literacy rates slowly increased. Printed books also meant that scholars in different cities could read exactly the same text, which made it easier to compare ideas and correct errors. Within about fifty years, printing presses had spread to more than two hundred European cities.",
+    "question": "What is the professor's view on the effect of printing on literacy?",
+    "choices": [
+      "It had very little effect on literacy.",
+      "It made everyone able to read within a few years.",
+      "It reduced literacy because books became cheaper.",
+      "It increased reading gradually rather than immediately."
+    ],
+    "answer": "It increased reading gradually rather than immediately.",
+    "explanation": "「一晩で、ではないが、時間とともに」識字率が徐々に上がったと述べています。",
+    "tags": "history technology printing press academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-004-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Have you ever noticed that it feels hotter downtown than in the countryside on a summer afternoon? That's not just your imagination. Cities are often several degrees warmer than the areas around them. Scientists call this the urban heat island effect.\n\nThere are a few main causes. The first is the materials cities are built with. Dark surfaces like asphalt roads and roofs absorb a lot of sunlight and store it as heat. At night, they slowly release that heat, so cities stay warm long after sunset. In fact, the difference between city and countryside is often largest at night.\n\nThe second cause is the lack of plants. Trees and grass cool the air in two ways: they provide shade, and they release water vapor through their leaves, which takes heat away from the surroundings—a bit like sweating cools your skin.\n\nThird, cities produce heat directly—from cars, factories, and air conditioners. And here's an unfortunate cycle: when it's hot, people use more air conditioning, and air conditioners release heat outside, making the city even warmer.\n\nSo what can cities do? Some are painting roofs white or light colors to reflect sunlight. Others are planting trees along streets or creating \"green roofs\" covered in plants. These steps not only lower temperatures; they can also reduce energy use. Next week, we'll look at data from a city that tried several of these strategies.",
+    "question": "What is the talk mainly about?",
+    "choices": [
+      "How air conditioners and other machines produce heat in buildings and cars",
+      "Why the countryside is cooler in winter",
+      "The causes of higher temperatures in cities and possible solutions",
+      "The history of building materials"
+    ],
+    "answer": "The causes of higher temperatures in cities and possible solutions",
+    "explanation": "都市が周囲より暑くなる原因と対策についての講義です。",
+    "tags": "environmental science urban heat island academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-004-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Have you ever noticed that it feels hotter downtown than in the countryside on a summer afternoon? That's not just your imagination. Cities are often several degrees warmer than the areas around them. Scientists call this the urban heat island effect.\n\nThere are a few main causes. The first is the materials cities are built with. Dark surfaces like asphalt roads and roofs absorb a lot of sunlight and store it as heat. At night, they slowly release that heat, so cities stay warm long after sunset. In fact, the difference between city and countryside is often largest at night.\n\nThe second cause is the lack of plants. Trees and grass cool the air in two ways: they provide shade, and they release water vapor through their leaves, which takes heat away from the surroundings—a bit like sweating cools your skin.\n\nThird, cities produce heat directly—from cars, factories, and air conditioners. And here's an unfortunate cycle: when it's hot, people use more air conditioning, and air conditioners release heat outside, making the city even warmer.\n\nSo what can cities do? Some are painting roofs white or light colors to reflect sunlight. Others are planting trees along streets or creating \"green roofs\" covered in plants. These steps not only lower temperatures; they can also reduce energy use. Next week, we'll look at data from a city that tried several of these strategies.",
+    "question": "According to the professor, when is the temperature difference between cities and the countryside often largest?",
+    "choices": [
+      "In the early morning",
+      "At night",
+      "At midday",
+      "In winter"
+    ],
+    "answer": "At night",
+    "explanation": "暗い表面が夜に熱を放出するため、差は夜に最も大きいことが多いと述べています。",
+    "tags": "environmental science urban heat island academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-004-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Have you ever noticed that it feels hotter downtown than in the countryside on a summer afternoon? That's not just your imagination. Cities are often several degrees warmer than the areas around them. Scientists call this the urban heat island effect.\n\nThere are a few main causes. The first is the materials cities are built with. Dark surfaces like asphalt roads and roofs absorb a lot of sunlight and store it as heat. At night, they slowly release that heat, so cities stay warm long after sunset. In fact, the difference between city and countryside is often largest at night.\n\nThe second cause is the lack of plants. Trees and grass cool the air in two ways: they provide shade, and they release water vapor through their leaves, which takes heat away from the surroundings—a bit like sweating cools your skin.\n\nThird, cities produce heat directly—from cars, factories, and air conditioners. And here's an unfortunate cycle: when it's hot, people use more air conditioning, and air conditioners release heat outside, making the city even warmer.\n\nSo what can cities do? Some are painting roofs white or light colors to reflect sunlight. Others are planting trees along streets or creating \"green roofs\" covered in plants. These steps not only lower temperatures; they can also reduce energy use. Next week, we'll look at data from a city that tried several of these strategies.",
+    "question": "Why does the professor compare plants to sweating?",
+    "choices": [
+      "To explain how releasing water cools the air",
+      "To show that plants need a lot of water",
+      "To describe how people stay cool in cities",
+      "To suggest that plants feel the heat as humans do"
+    ],
+    "answer": "To explain how releasing water cools the air",
+    "explanation": "葉から水蒸気を出すことで熱を奪う仕組みを、汗で肌が冷えることにたとえています。",
+    "tags": "environmental science urban heat island academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-004-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Have you ever noticed that it feels hotter downtown than in the countryside on a summer afternoon? That's not just your imagination. Cities are often several degrees warmer than the areas around them. Scientists call this the urban heat island effect.\n\nThere are a few main causes. The first is the materials cities are built with. Dark surfaces like asphalt roads and roofs absorb a lot of sunlight and store it as heat. At night, they slowly release that heat, so cities stay warm long after sunset. In fact, the difference between city and countryside is often largest at night.\n\nThe second cause is the lack of plants. Trees and grass cool the air in two ways: they provide shade, and they release water vapor through their leaves, which takes heat away from the surroundings—a bit like sweating cools your skin.\n\nThird, cities produce heat directly—from cars, factories, and air conditioners. And here's an unfortunate cycle: when it's hot, people use more air conditioning, and air conditioners release heat outside, making the city even warmer.\n\nSo what can cities do? Some are painting roofs white or light colors to reflect sunlight. Others are planting trees along streets or creating \"green roofs\" covered in plants. These steps not only lower temperatures; they can also reduce energy use. Next week, we'll look at data from a city that tried several of these strategies.",
+    "question": "What does the professor mean by \"an unfortunate cycle\"?",
+    "choices": [
+      "Hot weather kills street trees, and cities do not have enough money to replace them.",
+      "People move to cities, and cities grow larger.",
+      "Roofs must be painted again every year.",
+      "Using air conditioners makes cities hotter, which leads to more air conditioner use."
+    ],
+    "answer": "Using air conditioners makes cities hotter, which leads to more air conditioner use.",
+    "explanation": "暑いとエアコンを使い、エアコンの排熱でさらに暑くなるという悪循環を指しています。",
+    "tags": "environmental science urban heat island academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-005-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today's topic is one of the most remarkable migrations in the insect world: the journey of the monarch butterfly. Every fall, monarchs in eastern North America fly south—some traveling more than four thousand kilometers—to spend the winter in a few small areas of forest in the mountains of central Mexico. There, millions of them gather together on the trees.\n\nWhat makes this migration so unusual is that no single butterfly makes the full round trip. Most monarchs live only a few weeks as adults. In the spring, the butterflies that spent the winter in Mexico fly north and lay eggs. Their children continue north, and then the next generation, and the next. It takes several generations to reach Canada and the northern United States.\n\nStudent: Then how does the last generation know where to go in the fall?\n\nProfessor: That's the big question. The generation born in late summer is different. These butterflies can live for about eight months, and they don't reproduce right away. They fly all the way to Mexico—to a place they have never seen. Research suggests they use the position of the sun to find direction, and they have an internal clock that helps them correct for the sun's movement during the day. They may also sense Earth's magnetic field.\n\nUnfortunately, monarch numbers have declined in recent decades, partly because of the loss of milkweed, the only plant their caterpillars can eat. Many communities are now planting milkweed to help.",
+    "question": "What is unusual about the monarch migration?",
+    "choices": [
+      "The butterflies travel only at night.",
+      "The butterflies return to the same tree every year.",
+      "It takes place only once every few years.",
+      "It is completed over several generations."
+    ],
+    "answer": "It is completed over several generations.",
+    "explanation": "1匹がすべての往復をするのではなく、数世代かけて移動が完了する点が珍しいと述べています。",
+    "tags": "biology animal migration monarch butterflies academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-005-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today's topic is one of the most remarkable migrations in the insect world: the journey of the monarch butterfly. Every fall, monarchs in eastern North America fly south—some traveling more than four thousand kilometers—to spend the winter in a few small areas of forest in the mountains of central Mexico. There, millions of them gather together on the trees.\n\nWhat makes this migration so unusual is that no single butterfly makes the full round trip. Most monarchs live only a few weeks as adults. In the spring, the butterflies that spent the winter in Mexico fly north and lay eggs. Their children continue north, and then the next generation, and the next. It takes several generations to reach Canada and the northern United States.\n\nStudent: Then how does the last generation know where to go in the fall?\n\nProfessor: That's the big question. The generation born in late summer is different. These butterflies can live for about eight months, and they don't reproduce right away. They fly all the way to Mexico—to a place they have never seen. Research suggests they use the position of the sun to find direction, and they have an internal clock that helps them correct for the sun's movement during the day. They may also sense Earth's magnetic field.\n\nUnfortunately, monarch numbers have declined in recent decades, partly because of the loss of milkweed, the only plant their caterpillars can eat. Many communities are now planting milkweed to help.",
+    "question": "According to the professor, how is the late-summer generation different?",
+    "choices": [
+      "It is larger than other generations.",
+      "It lives much longer and delays reproducing.",
+      "It stays in Canada for the winter.",
+      "It feeds only on milkweed."
+    ],
+    "answer": "It lives much longer and delays reproducing.",
+    "explanation": "晩夏生まれの世代は約8か月生き、すぐには繁殖しない点が違います。",
+    "tags": "biology animal migration monarch butterflies academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-005-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today's topic is one of the most remarkable migrations in the insect world: the journey of the monarch butterfly. Every fall, monarchs in eastern North America fly south—some traveling more than four thousand kilometers—to spend the winter in a few small areas of forest in the mountains of central Mexico. There, millions of them gather together on the trees.\n\nWhat makes this migration so unusual is that no single butterfly makes the full round trip. Most monarchs live only a few weeks as adults. In the spring, the butterflies that spent the winter in Mexico fly north and lay eggs. Their children continue north, and then the next generation, and the next. It takes several generations to reach Canada and the northern United States.\n\nStudent: Then how does the last generation know where to go in the fall?\n\nProfessor: That's the big question. The generation born in late summer is different. These butterflies can live for about eight months, and they don't reproduce right away. They fly all the way to Mexico—to a place they have never seen. Research suggests they use the position of the sun to find direction, and they have an internal clock that helps them correct for the sun's movement during the day. They may also sense Earth's magnetic field.\n\nUnfortunately, monarch numbers have declined in recent decades, partly because of the loss of milkweed, the only plant their caterpillars can eat. Many communities are now planting milkweed to help.",
+    "question": "Why does the professor mention an internal clock?",
+    "choices": [
+      "To explain how the butterflies adjust for the sun's movement",
+      "To show how long the butterflies can live",
+      "To describe when the butterflies sleep",
+      "To explain when the eggs hatch"
+    ],
+    "answer": "To explain how the butterflies adjust for the sun's movement",
+    "explanation": "体内時計が、日中の太陽の位置の変化を補正するのに役立つと説明しています。",
+    "tags": "biology animal migration monarch butterflies academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-005-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today's topic is one of the most remarkable migrations in the insect world: the journey of the monarch butterfly. Every fall, monarchs in eastern North America fly south—some traveling more than four thousand kilometers—to spend the winter in a few small areas of forest in the mountains of central Mexico. There, millions of them gather together on the trees.\n\nWhat makes this migration so unusual is that no single butterfly makes the full round trip. Most monarchs live only a few weeks as adults. In the spring, the butterflies that spent the winter in Mexico fly north and lay eggs. Their children continue north, and then the next generation, and the next. It takes several generations to reach Canada and the northern United States.\n\nStudent: Then how does the last generation know where to go in the fall?\n\nProfessor: That's the big question. The generation born in late summer is different. These butterflies can live for about eight months, and they don't reproduce right away. They fly all the way to Mexico—to a place they have never seen. Research suggests they use the position of the sun to find direction, and they have an internal clock that helps them correct for the sun's movement during the day. They may also sense Earth's magnetic field.\n\nUnfortunately, monarch numbers have declined in recent decades, partly because of the loss of milkweed, the only plant their caterpillars can eat. Many communities are now planting milkweed to help.",
+    "question": "What can be inferred about planting milkweed?",
+    "choices": [
+      "It attracts other insects that harm monarchs.",
+      "It helps monarchs find their way to Mexico.",
+      "It may help increase the number of monarchs.",
+      "It is done mainly in central Mexico."
+    ],
+    "answer": "It may help increase the number of monarchs.",
+    "explanation": "幼虫が食べる唯一の植物が減ったことが減少の一因なので、植えることで数の回復を助けられると推測できます。",
+    "tags": "biology animal migration monarch butterflies academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-006-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Last time we talked about the Great Depression in the United States. Today, I want to focus on a disaster that happened at the same time on the Great Plains: the Dust Bowl.\n\nDuring the 1930s, huge dust storms swept across parts of Kansas, Oklahoma, Texas, and nearby states. Some storms were so large that dust from the plains reached cities on the East Coast. People called them \"black blizzards.\" Families had to cover their windows with wet cloth, and many farms were completely ruined.\n\nSo, what caused it? Drought was one factor—there were several very dry years. But droughts had happened on the plains before without disasters on this scale. The bigger issue was how the land had been used. In the decades before, farmers had plowed up millions of acres of native prairie grass to plant wheat. Those grasses had deep roots that held the soil in place. Without them, when the rains stopped and the crops failed, there was nothing to keep the dry topsoil from blowing away.\n\nStudent: Did farmers know that at the time?\n\nProfessor: Most didn't. Wheat prices had been high, and plowing more land seemed like good business. After the disaster, the government created the Soil Conservation Service in 1935. It taught farmers techniques such as planting rows of trees to block the wind and rotating crops to protect the soil. In other words, the Dust Bowl was not just a natural disaster—it was partly caused by human decisions.",
+    "question": "What is the professor's main point about the Dust Bowl?",
+    "choices": [
+      "It was caused only by a long drought.",
+      "It affected mainly cities on the East Coast.",
+      "Human land use contributed greatly to the disaster.",
+      "It ended the Great Depression."
+    ],
+    "answer": "Human land use contributed greatly to the disaster.",
+    "explanation": "干ばつだけでなく、人間の土地利用が大きな原因だったことが主張です。",
+    "tags": "history environment Dust Bowl agriculture academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-006-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Last time we talked about the Great Depression in the United States. Today, I want to focus on a disaster that happened at the same time on the Great Plains: the Dust Bowl.\n\nDuring the 1930s, huge dust storms swept across parts of Kansas, Oklahoma, Texas, and nearby states. Some storms were so large that dust from the plains reached cities on the East Coast. People called them \"black blizzards.\" Families had to cover their windows with wet cloth, and many farms were completely ruined.\n\nSo, what caused it? Drought was one factor—there were several very dry years. But droughts had happened on the plains before without disasters on this scale. The bigger issue was how the land had been used. In the decades before, farmers had plowed up millions of acres of native prairie grass to plant wheat. Those grasses had deep roots that held the soil in place. Without them, when the rains stopped and the crops failed, there was nothing to keep the dry topsoil from blowing away.\n\nStudent: Did farmers know that at the time?\n\nProfessor: Most didn't. Wheat prices had been high, and plowing more land seemed like good business. After the disaster, the government created the Soil Conservation Service in 1935. It taught farmers techniques such as planting rows of trees to block the wind and rotating crops to protect the soil. In other words, the Dust Bowl was not just a natural disaster—it was partly caused by human decisions.",
+    "question": "According to the professor, why was prairie grass important?",
+    "choices": [
+      "Its deep roots held the soil in place.",
+      "It was used to feed cattle.",
+      "It could survive without any rain.",
+      "It was more valuable than wheat."
+    ],
+    "answer": "Its deep roots held the soil in place.",
+    "explanation": "草原の草の深い根が土を押さえていたと説明しています。",
+    "tags": "history environment Dust Bowl agriculture academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-006-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Last time we talked about the Great Depression in the United States. Today, I want to focus on a disaster that happened at the same time on the Great Plains: the Dust Bowl.\n\nDuring the 1930s, huge dust storms swept across parts of Kansas, Oklahoma, Texas, and nearby states. Some storms were so large that dust from the plains reached cities on the East Coast. People called them \"black blizzards.\" Families had to cover their windows with wet cloth, and many farms were completely ruined.\n\nSo, what caused it? Drought was one factor—there were several very dry years. But droughts had happened on the plains before without disasters on this scale. The bigger issue was how the land had been used. In the decades before, farmers had plowed up millions of acres of native prairie grass to plant wheat. Those grasses had deep roots that held the soil in place. Without them, when the rains stopped and the crops failed, there was nothing to keep the dry topsoil from blowing away.\n\nStudent: Did farmers know that at the time?\n\nProfessor: Most didn't. Wheat prices had been high, and plowing more land seemed like good business. After the disaster, the government created the Soil Conservation Service in 1935. It taught farmers techniques such as planting rows of trees to block the wind and rotating crops to protect the soil. In other words, the Dust Bowl was not just a natural disaster—it was partly caused by human decisions.",
+    "question": "Why does the professor mention that droughts had happened before?",
+    "choices": [
+      "To suggest that the disaster could have been predicted",
+      "To show that drought alone does not explain the disaster",
+      "To explain why farmers left the plains",
+      "To compare the 1930s with modern droughts"
+    ],
+    "answer": "To show that drought alone does not explain the disaster",
+    "explanation": "以前にも干ばつはあったがこれほどの災害にはならなかった、つまり干ばつだけでは説明できないことを示すためです。",
+    "tags": "history environment Dust Bowl agriculture academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-006-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Last time we talked about the Great Depression in the United States. Today, I want to focus on a disaster that happened at the same time on the Great Plains: the Dust Bowl.\n\nDuring the 1930s, huge dust storms swept across parts of Kansas, Oklahoma, Texas, and nearby states. Some storms were so large that dust from the plains reached cities on the East Coast. People called them \"black blizzards.\" Families had to cover their windows with wet cloth, and many farms were completely ruined.\n\nSo, what caused it? Drought was one factor—there were several very dry years. But droughts had happened on the plains before without disasters on this scale. The bigger issue was how the land had been used. In the decades before, farmers had plowed up millions of acres of native prairie grass to plant wheat. Those grasses had deep roots that held the soil in place. Without them, when the rains stopped and the crops failed, there was nothing to keep the dry topsoil from blowing away.\n\nStudent: Did farmers know that at the time?\n\nProfessor: Most didn't. Wheat prices had been high, and plowing more land seemed like good business. After the disaster, the government created the Soil Conservation Service in 1935. It taught farmers techniques such as planting rows of trees to block the wind and rotating crops to protect the soil. In other words, the Dust Bowl was not just a natural disaster—it was partly caused by human decisions.",
+    "question": "Why did many farmers plow more land before the 1930s?",
+    "choices": [
+      "The government required them to.",
+      "The soil had become too poor for grass.",
+      "They wanted to stop dust storms.",
+      "Wheat prices were high, so it seemed profitable."
+    ],
+    "answer": "Wheat prices were high, so it seemed profitable.",
+    "explanation": "小麦価格が高く、耕地を広げるのが良い商売に見えたからです。",
+    "tags": "history environment Dust Bowl agriculture academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-007-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Many of you probably stay up late before exams to study. Today I want to show you why that may not be the best strategy, by looking at the relationship between sleep and memory.\n\nWhen you learn something new—say, a list of vocabulary words—the memory is at first fragile. It can be easily lost. Over time, the brain strengthens and stabilizes it. This process is called consolidation, and a lot of it seems to happen while we sleep.\n\nIn one common type of experiment, two groups of people learn the same material. One group learns it in the morning and is tested in the evening, after a day awake. The other group learns it in the evening and is tested the next morning, after a night of sleep. Both groups wait about twelve hours, but the group that slept usually remembers more.\n\nStudent: Couldn't that be because the morning group was busy and got distracted during the day?\n\nProfessor: That's a fair point, and researchers have thought about it. Being awake does bring new information that can interfere with memory. But other studies have recorded brain activity during sleep and found that brain regions involved in learning replay patterns from earlier in the day. Some studies also show that people who get more deep sleep after learning remember better. Together, this suggests sleep plays an active role, not just a protective one.\n\nSo the practical message is this: studying is important, but so is sleeping after you study.",
+    "question": "What is the main topic of the talk?",
+    "choices": [
+      "How to learn vocabulary more quickly",
+      "Why students feel tired before exams",
+      "The role of sleep in strengthening memory",
+      "Differences between morning and evening classes"
+    ],
+    "answer": "The role of sleep in strengthening memory",
+    "explanation": "睡眠が記憶の定着にどう関わるかについての講義です。",
+    "tags": "psychology sleep memory academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-007-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Many of you probably stay up late before exams to study. Today I want to show you why that may not be the best strategy, by looking at the relationship between sleep and memory.\n\nWhen you learn something new—say, a list of vocabulary words—the memory is at first fragile. It can be easily lost. Over time, the brain strengthens and stabilizes it. This process is called consolidation, and a lot of it seems to happen while we sleep.\n\nIn one common type of experiment, two groups of people learn the same material. One group learns it in the morning and is tested in the evening, after a day awake. The other group learns it in the evening and is tested the next morning, after a night of sleep. Both groups wait about twelve hours, but the group that slept usually remembers more.\n\nStudent: Couldn't that be because the morning group was busy and got distracted during the day?\n\nProfessor: That's a fair point, and researchers have thought about it. Being awake does bring new information that can interfere with memory. But other studies have recorded brain activity during sleep and found that brain regions involved in learning replay patterns from earlier in the day. Some studies also show that people who get more deep sleep after learning remember better. Together, this suggests sleep plays an active role, not just a protective one.\n\nSo the practical message is this: studying is important, but so is sleeping after you study.",
+    "question": "What happened in the experiment the professor describes?",
+    "choices": [
+      "The group tested in the evening remembered more.",
+      "The group that slept after learning usually remembered more.",
+      "Both groups remembered the same amount.",
+      "The group that slept forgot the material completely."
+    ],
+    "answer": "The group that slept after learning usually remembered more.",
+    "explanation": "学習後に眠ったグループのほうが多く覚えていると説明しています。",
+    "tags": "psychology sleep memory academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-007-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Many of you probably stay up late before exams to study. Today I want to show you why that may not be the best strategy, by looking at the relationship between sleep and memory.\n\nWhen you learn something new—say, a list of vocabulary words—the memory is at first fragile. It can be easily lost. Over time, the brain strengthens and stabilizes it. This process is called consolidation, and a lot of it seems to happen while we sleep.\n\nIn one common type of experiment, two groups of people learn the same material. One group learns it in the morning and is tested in the evening, after a day awake. The other group learns it in the evening and is tested the next morning, after a night of sleep. Both groups wait about twelve hours, but the group that slept usually remembers more.\n\nStudent: Couldn't that be because the morning group was busy and got distracted during the day?\n\nProfessor: That's a fair point, and researchers have thought about it. Being awake does bring new information that can interfere with memory. But other studies have recorded brain activity during sleep and found that brain regions involved in learning replay patterns from earlier in the day. Some studies also show that people who get more deep sleep after learning remember better. Together, this suggests sleep plays an active role, not just a protective one.\n\nSo the practical message is this: studying is important, but so is sleeping after you study.",
+    "question": "Why does the professor say \"That's a fair point\"?",
+    "choices": [
+      "To show that the student has made an error",
+      "To change the topic of the lecture",
+      "To indicate that the student's point disproves the experiment's conclusion",
+      "To accept that the student's alternative explanation is reasonable"
+    ],
+    "answer": "To accept that the student's alternative explanation is reasonable",
+    "explanation": "日中の干渉という学生の別の説明がもっともだと認めるためです。",
+    "tags": "psychology sleep memory academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-007-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Many of you probably stay up late before exams to study. Today I want to show you why that may not be the best strategy, by looking at the relationship between sleep and memory.\n\nWhen you learn something new—say, a list of vocabulary words—the memory is at first fragile. It can be easily lost. Over time, the brain strengthens and stabilizes it. This process is called consolidation, and a lot of it seems to happen while we sleep.\n\nIn one common type of experiment, two groups of people learn the same material. One group learns it in the morning and is tested in the evening, after a day awake. The other group learns it in the evening and is tested the next morning, after a night of sleep. Both groups wait about twelve hours, but the group that slept usually remembers more.\n\nStudent: Couldn't that be because the morning group was busy and got distracted during the day?\n\nProfessor: That's a fair point, and researchers have thought about it. Being awake does bring new information that can interfere with memory. But other studies have recorded brain activity during sleep and found that brain regions involved in learning replay patterns from earlier in the day. Some studies also show that people who get more deep sleep after learning remember better. Together, this suggests sleep plays an active role, not just a protective one.\n\nSo the practical message is this: studying is important, but so is sleeping after you study.",
+    "question": "What does the professor imply about staying up late to study before an exam?",
+    "choices": [
+      "It may reduce how much students remember.",
+      "It is the most effective way to study.",
+      "It has no effect on memory.",
+      "It is better than studying in the morning."
+    ],
+    "answer": "It may reduce how much students remember.",
+    "explanation": "講義の冒頭と結論から、徹夜は記憶の定着を妨げうると示唆しています。",
+    "tags": "psychology sleep memory academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-008-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today we're going to talk about a scientific idea that was rejected for decades before it was finally accepted: continental drift.\n\nIn 1912, a German scientist named Alfred Wegener proposed that the continents had once been joined together in one giant landmass, which later broke apart. The continents, he said, had slowly moved to their current positions.\n\nWegener had several kinds of evidence. First, the shapes of the continents seemed to fit together—especially the east coast of South America and the west coast of Africa. Second, fossils of the same ancient animals and plants were found on continents now separated by oceans. For example, fossils of a small freshwater reptile called Mesosaurus are found in both South America and southern Africa. It's very unlikely this animal could have swum across an ocean. Third, he found matching rock layers on different continents.\n\nStudent: That sounds pretty convincing. Why didn't people accept it?\n\nProfessor: The main problem was that Wegener couldn't explain how continents could move. What force could push such enormous masses of rock across the Earth? His suggested explanations didn't work, and many geologists thought the whole idea was impossible.\n\nThe answer came in the 1950s and 60s, when scientists studied the ocean floor. They discovered that new crust forms along ridges in the middle of the oceans and spreads outward. This became part of the theory of plate tectonics, which showed that Wegener had been right about the movement—though not about its cause.",
+    "question": "What is the talk mainly about?",
+    "choices": [
+      "How fossils are formed",
+      "Why an idea about moving continents was first rejected and later accepted",
+      "The life and career of a German scientist who studied ancient fossils",
+      "How the ocean floor was mapped"
+    ],
+    "answer": "Why an idea about moving continents was first rejected and later accepted",
+    "explanation": "大陸移動説が否定され、後に受け入れられた経緯についての講義です。",
+    "tags": "geology earth science continental drift academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-008-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today we're going to talk about a scientific idea that was rejected for decades before it was finally accepted: continental drift.\n\nIn 1912, a German scientist named Alfred Wegener proposed that the continents had once been joined together in one giant landmass, which later broke apart. The continents, he said, had slowly moved to their current positions.\n\nWegener had several kinds of evidence. First, the shapes of the continents seemed to fit together—especially the east coast of South America and the west coast of Africa. Second, fossils of the same ancient animals and plants were found on continents now separated by oceans. For example, fossils of a small freshwater reptile called Mesosaurus are found in both South America and southern Africa. It's very unlikely this animal could have swum across an ocean. Third, he found matching rock layers on different continents.\n\nStudent: That sounds pretty convincing. Why didn't people accept it?\n\nProfessor: The main problem was that Wegener couldn't explain how continents could move. What force could push such enormous masses of rock across the Earth? His suggested explanations didn't work, and many geologists thought the whole idea was impossible.\n\nThe answer came in the 1950s and 60s, when scientists studied the ocean floor. They discovered that new crust forms along ridges in the middle of the oceans and spreads outward. This became part of the theory of plate tectonics, which showed that Wegener had been right about the movement—though not about its cause.",
+    "question": "Why does the professor mention Mesosaurus?",
+    "choices": [
+      "As an example of an animal that swam across oceans",
+      "To explain how fossils move",
+      "As evidence that continents were once connected",
+      "To show that Wegener made a mistake"
+    ],
+    "answer": "As evidence that continents were once connected",
+    "explanation": "海で隔てられた大陸で同じ化石が見つかる例として、大陸がつながっていた証拠に挙げています。",
+    "tags": "geology earth science continental drift academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-008-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today we're going to talk about a scientific idea that was rejected for decades before it was finally accepted: continental drift.\n\nIn 1912, a German scientist named Alfred Wegener proposed that the continents had once been joined together in one giant landmass, which later broke apart. The continents, he said, had slowly moved to their current positions.\n\nWegener had several kinds of evidence. First, the shapes of the continents seemed to fit together—especially the east coast of South America and the west coast of Africa. Second, fossils of the same ancient animals and plants were found on continents now separated by oceans. For example, fossils of a small freshwater reptile called Mesosaurus are found in both South America and southern Africa. It's very unlikely this animal could have swum across an ocean. Third, he found matching rock layers on different continents.\n\nStudent: That sounds pretty convincing. Why didn't people accept it?\n\nProfessor: The main problem was that Wegener couldn't explain how continents could move. What force could push such enormous masses of rock across the Earth? His suggested explanations didn't work, and many geologists thought the whole idea was impossible.\n\nThe answer came in the 1950s and 60s, when scientists studied the ocean floor. They discovered that new crust forms along ridges in the middle of the oceans and spreads outward. This became part of the theory of plate tectonics, which showed that Wegener had been right about the movement—though not about its cause.",
+    "question": "According to the professor, what was the main reason many scientists rejected Wegener's idea?",
+    "choices": [
+      "The continents' shapes did not fit together.",
+      "He had no fossil evidence.",
+      "He was not a trained scientist.",
+      "He could not explain what made the continents move."
+    ],
+    "answer": "He could not explain what made the continents move.",
+    "explanation": "大陸を動かす力を説明できなかったことが主な理由です。",
+    "tags": "geology earth science continental drift academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-008-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Professor: Today we're going to talk about a scientific idea that was rejected for decades before it was finally accepted: continental drift.\n\nIn 1912, a German scientist named Alfred Wegener proposed that the continents had once been joined together in one giant landmass, which later broke apart. The continents, he said, had slowly moved to their current positions.\n\nWegener had several kinds of evidence. First, the shapes of the continents seemed to fit together—especially the east coast of South America and the west coast of Africa. Second, fossils of the same ancient animals and plants were found on continents now separated by oceans. For example, fossils of a small freshwater reptile called Mesosaurus are found in both South America and southern Africa. It's very unlikely this animal could have swum across an ocean. Third, he found matching rock layers on different continents.\n\nStudent: That sounds pretty convincing. Why didn't people accept it?\n\nProfessor: The main problem was that Wegener couldn't explain how continents could move. What force could push such enormous masses of rock across the Earth? His suggested explanations didn't work, and many geologists thought the whole idea was impossible.\n\nThe answer came in the 1950s and 60s, when scientists studied the ocean floor. They discovered that new crust forms along ridges in the middle of the oceans and spreads outward. This became part of the theory of plate tectonics, which showed that Wegener had been right about the movement—though not about its cause.",
+    "question": "What can be inferred from the professor's final comment?",
+    "choices": [
+      "Wegener's explanation of the cause was incorrect.",
+      "Wegener himself discovered seafloor spreading.",
+      "Plate tectonics shows that continents do not move.",
+      "Wegener's evidence was later found to be false."
+    ],
+    "answer": "Wegener's explanation of the cause was incorrect.",
+    "explanation": "「動きについては正しかったが、原因についてはそうではない」と述べており、原因の説明は誤りだったと推測できます。",
+    "tags": "geology earth science continental drift academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-009-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Professor: In ecology, we sometimes talk about \"keystone species.\" The term comes from architecture. In a stone arch, the keystone is the wedge-shaped stone at the very top. It's just one stone, but if you remove it, the whole arch collapses. A keystone species, similarly, has an effect on its ecosystem that's far larger than you'd expect from its numbers.\n\nA classic example is the sea otter along the Pacific coast of North America. Sea otters eat sea urchins—spiny animals that feed on kelp, a large seaweed that forms underwater forests. Kelp forests provide food and shelter for hundreds of species of fish and invertebrates.\n\nDuring the eighteenth and nineteenth centuries, sea otters were hunted almost to extinction for their fur. In many areas, once the otters disappeared, sea urchin populations exploded. The urchins ate through the kelp, and thriving forests were replaced by what researchers call \"urchin barrens\"—rocky sea floors with very little life.\n\nStudent: So when otters came back, did the kelp recover?\n\nProfessor: In many places, yes. After hunting was banned and otters were reintroduced to some areas, urchin numbers dropped, and the kelp grew back. Scientists have compared nearby sites with and without otters and found striking differences.\n\nNow, I should add a note of caution. Ecosystems are complex, and other factors—like water temperature and disease among urchin predators—also matter. But the otter case shows clearly how removing a single predator can trigger a chain of effects, which ecologists call a trophic cascade.",
+    "question": "What is the main purpose of the talk?",
+    "choices": [
+      "To describe the history of the fur trade",
+      "To explain the concept of a keystone species using an example",
+      "To compare different types of seaweed",
+      "To argue that sea urchins should be removed from the ocean"
+    ],
+    "answer": "To explain the concept of a keystone species using an example",
+    "explanation": "キーストーン種という概念を、ラッコの例を使って説明しています。",
+    "tags": "ecology keystone species sea otters academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-009-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Professor: In ecology, we sometimes talk about \"keystone species.\" The term comes from architecture. In a stone arch, the keystone is the wedge-shaped stone at the very top. It's just one stone, but if you remove it, the whole arch collapses. A keystone species, similarly, has an effect on its ecosystem that's far larger than you'd expect from its numbers.\n\nA classic example is the sea otter along the Pacific coast of North America. Sea otters eat sea urchins—spiny animals that feed on kelp, a large seaweed that forms underwater forests. Kelp forests provide food and shelter for hundreds of species of fish and invertebrates.\n\nDuring the eighteenth and nineteenth centuries, sea otters were hunted almost to extinction for their fur. In many areas, once the otters disappeared, sea urchin populations exploded. The urchins ate through the kelp, and thriving forests were replaced by what researchers call \"urchin barrens\"—rocky sea floors with very little life.\n\nStudent: So when otters came back, did the kelp recover?\n\nProfessor: In many places, yes. After hunting was banned and otters were reintroduced to some areas, urchin numbers dropped, and the kelp grew back. Scientists have compared nearby sites with and without otters and found striking differences.\n\nNow, I should add a note of caution. Ecosystems are complex, and other factors—like water temperature and disease among urchin predators—also matter. But the otter case shows clearly how removing a single predator can trigger a chain of effects, which ecologists call a trophic cascade.",
+    "question": "Why does the professor describe a stone arch?",
+    "choices": [
+      "To show how kelp forests are built",
+      "To compare ecosystems with buildings in cities",
+      "To explain where the term \"keystone\" comes from",
+      "To introduce a topic in architecture"
+    ],
+    "answer": "To explain where the term \"keystone\" comes from",
+    "explanation": "「キーストーン（要石）」という用語の由来を説明するためです。",
+    "tags": "ecology keystone species sea otters academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-009-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Professor: In ecology, we sometimes talk about \"keystone species.\" The term comes from architecture. In a stone arch, the keystone is the wedge-shaped stone at the very top. It's just one stone, but if you remove it, the whole arch collapses. A keystone species, similarly, has an effect on its ecosystem that's far larger than you'd expect from its numbers.\n\nA classic example is the sea otter along the Pacific coast of North America. Sea otters eat sea urchins—spiny animals that feed on kelp, a large seaweed that forms underwater forests. Kelp forests provide food and shelter for hundreds of species of fish and invertebrates.\n\nDuring the eighteenth and nineteenth centuries, sea otters were hunted almost to extinction for their fur. In many areas, once the otters disappeared, sea urchin populations exploded. The urchins ate through the kelp, and thriving forests were replaced by what researchers call \"urchin barrens\"—rocky sea floors with very little life.\n\nStudent: So when otters came back, did the kelp recover?\n\nProfessor: In many places, yes. After hunting was banned and otters were reintroduced to some areas, urchin numbers dropped, and the kelp grew back. Scientists have compared nearby sites with and without otters and found striking differences.\n\nNow, I should add a note of caution. Ecosystems are complex, and other factors—like water temperature and disease among urchin predators—also matter. But the otter case shows clearly how removing a single predator can trigger a chain of effects, which ecologists call a trophic cascade.",
+    "question": "According to the professor, what happened when sea otters disappeared?",
+    "choices": [
+      "Kelp forests grew larger.",
+      "Fish populations increased because there were fewer predators in the kelp.",
+      "Sea urchins also became extinct.",
+      "Sea urchins increased and destroyed kelp forests."
+    ],
+    "answer": "Sea urchins increased and destroyed kelp forests.",
+    "explanation": "ウニが急増してケルプを食べ尽くし、ウニ焼け（不毛な海底）になりました。",
+    "tags": "ecology keystone species sea otters academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-009-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Professor: In ecology, we sometimes talk about \"keystone species.\" The term comes from architecture. In a stone arch, the keystone is the wedge-shaped stone at the very top. It's just one stone, but if you remove it, the whole arch collapses. A keystone species, similarly, has an effect on its ecosystem that's far larger than you'd expect from its numbers.\n\nA classic example is the sea otter along the Pacific coast of North America. Sea otters eat sea urchins—spiny animals that feed on kelp, a large seaweed that forms underwater forests. Kelp forests provide food and shelter for hundreds of species of fish and invertebrates.\n\nDuring the eighteenth and nineteenth centuries, sea otters were hunted almost to extinction for their fur. In many areas, once the otters disappeared, sea urchin populations exploded. The urchins ate through the kelp, and thriving forests were replaced by what researchers call \"urchin barrens\"—rocky sea floors with very little life.\n\nStudent: So when otters came back, did the kelp recover?\n\nProfessor: In many places, yes. After hunting was banned and otters were reintroduced to some areas, urchin numbers dropped, and the kelp grew back. Scientists have compared nearby sites with and without otters and found striking differences.\n\nNow, I should add a note of caution. Ecosystems are complex, and other factors—like water temperature and disease among urchin predators—also matter. But the otter case shows clearly how removing a single predator can trigger a chain of effects, which ecologists call a trophic cascade.",
+    "question": "Why does the professor add \"a note of caution\"?",
+    "choices": [
+      "To point out that other factors also affect the ecosystem",
+      "To warn students that sea otters can be dangerous",
+      "To admit that the otter example is not true",
+      "To suggest that hunting should be allowed again"
+    ],
+    "answer": "To point out that other factors also affect the ecosystem",
+    "explanation": "水温や病気など、ほかの要因も関わることを示すためです。",
+    "tags": "ecology keystone species sea otters academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-010-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Professor: Let's continue our discussion of how people make judgments under uncertainty. Today's topic is the anchoring effect—the tendency to rely too heavily on the first number we encounter when making an estimate, even when that number is irrelevant.\n\nIn a well-known experiment from the 1970s, psychologists Amos Tversky and Daniel Kahneman spun what appeared to be a wheel of fortune in front of participants. The wheel was secretly designed to stop on either ten or sixty-five. Participants were then asked whether the percentage of African countries in the United Nations was higher or lower than that number, and then to give their own estimate. Those who saw ten gave a median estimate of about twenty-five percent; those who saw sixty-five estimated around forty-five percent. A random number had pulled their answers toward it.\n\nStudent: But people knew the wheel was random. Why would it affect them?\n\nProfessor: That's what makes the finding so striking. One explanation is that people start from the anchor and adjust, but they stop adjusting too soon. Another is that the anchor makes information consistent with it come to mind more easily.\n\nAnchoring isn't just a laboratory curiosity. In negotiations, the first offer often shapes the final agreement. Retailers display an \"original price\" next to a sale price for a similar reason. Some studies even suggest that experienced professionals, like judges, can be influenced by anchors in sentencing decisions. Knowing about the effect doesn't make you immune to it, but it can help you question where your estimates come from.",
+    "question": "What is the talk mainly about?",
+    "choices": [
+      "How an initial number can bias people's estimates",
+      "The history of the United Nations",
+      "How to win negotiations",
+      "Why people enjoy games of chance"
+    ],
+    "answer": "How an initial number can bias people's estimates",
+    "explanation": "最初に見た数字が推定をゆがめる「アンカリング効果」についての講義です。",
+    "tags": "psychology cognitive bias anchoring academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-010-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Professor: Let's continue our discussion of how people make judgments under uncertainty. Today's topic is the anchoring effect—the tendency to rely too heavily on the first number we encounter when making an estimate, even when that number is irrelevant.\n\nIn a well-known experiment from the 1970s, psychologists Amos Tversky and Daniel Kahneman spun what appeared to be a wheel of fortune in front of participants. The wheel was secretly designed to stop on either ten or sixty-five. Participants were then asked whether the percentage of African countries in the United Nations was higher or lower than that number, and then to give their own estimate. Those who saw ten gave a median estimate of about twenty-five percent; those who saw sixty-five estimated around forty-five percent. A random number had pulled their answers toward it.\n\nStudent: But people knew the wheel was random. Why would it affect them?\n\nProfessor: That's what makes the finding so striking. One explanation is that people start from the anchor and adjust, but they stop adjusting too soon. Another is that the anchor makes information consistent with it come to mind more easily.\n\nAnchoring isn't just a laboratory curiosity. In negotiations, the first offer often shapes the final agreement. Retailers display an \"original price\" next to a sale price for a similar reason. Some studies even suggest that experienced professionals, like judges, can be influenced by anchors in sentencing decisions. Knowing about the effect doesn't make you immune to it, but it can help you question where your estimates come from.",
+    "question": "What did the experiment with the wheel show?",
+    "choices": [
+      "Participants ignored the random number.",
+      "Participants who saw sixty-five gave lower estimates.",
+      "Participants' estimates moved toward the number on the wheel.",
+      "Participants knew the correct percentage."
+    ],
+    "answer": "Participants' estimates moved toward the number on the wheel.",
+    "explanation": "ルーレットの数字が大きいほど推定も大きくなり、無関係な数字に引っ張られました。",
+    "tags": "psychology cognitive bias anchoring academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-010-3",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Professor: Let's continue our discussion of how people make judgments under uncertainty. Today's topic is the anchoring effect—the tendency to rely too heavily on the first number we encounter when making an estimate, even when that number is irrelevant.\n\nIn a well-known experiment from the 1970s, psychologists Amos Tversky and Daniel Kahneman spun what appeared to be a wheel of fortune in front of participants. The wheel was secretly designed to stop on either ten or sixty-five. Participants were then asked whether the percentage of African countries in the United Nations was higher or lower than that number, and then to give their own estimate. Those who saw ten gave a median estimate of about twenty-five percent; those who saw sixty-five estimated around forty-five percent. A random number had pulled their answers toward it.\n\nStudent: But people knew the wheel was random. Why would it affect them?\n\nProfessor: That's what makes the finding so striking. One explanation is that people start from the anchor and adjust, but they stop adjusting too soon. Another is that the anchor makes information consistent with it come to mind more easily.\n\nAnchoring isn't just a laboratory curiosity. In negotiations, the first offer often shapes the final agreement. Retailers display an \"original price\" next to a sale price for a similar reason. Some studies even suggest that experienced professionals, like judges, can be influenced by anchors in sentencing decisions. Knowing about the effect doesn't make you immune to it, but it can help you question where your estimates come from.",
+    "question": "Why does the professor mention retailers' \"original prices\"?",
+    "choices": [
+      "To explain how prices are set by law",
+      "To show that sales are usually dishonest",
+      "To compare retailers with judges",
+      "To give an everyday example of anchoring"
+    ],
+    "answer": "To give an everyday example of anchoring",
+    "explanation": "日常生活でのアンカリングの例として挙げています。",
+    "tags": "psychology cognitive bias anchoring academic-talk"
+  },
+  {
+    "id": "TOEFL-LT-010-4",
+    "skill": "listening",
+    "format": "Listening: Listen to an Academic Talk",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Professor: Let's continue our discussion of how people make judgments under uncertainty. Today's topic is the anchoring effect—the tendency to rely too heavily on the first number we encounter when making an estimate, even when that number is irrelevant.\n\nIn a well-known experiment from the 1970s, psychologists Amos Tversky and Daniel Kahneman spun what appeared to be a wheel of fortune in front of participants. The wheel was secretly designed to stop on either ten or sixty-five. Participants were then asked whether the percentage of African countries in the United Nations was higher or lower than that number, and then to give their own estimate. Those who saw ten gave a median estimate of about twenty-five percent; those who saw sixty-five estimated around forty-five percent. A random number had pulled their answers toward it.\n\nStudent: But people knew the wheel was random. Why would it affect them?\n\nProfessor: That's what makes the finding so striking. One explanation is that people start from the anchor and adjust, but they stop adjusting too soon. Another is that the anchor makes information consistent with it come to mind more easily.\n\nAnchoring isn't just a laboratory curiosity. In negotiations, the first offer often shapes the final agreement. Retailers display an \"original price\" next to a sale price for a similar reason. Some studies even suggest that experienced professionals, like judges, can be influenced by anchors in sentencing decisions. Knowing about the effect doesn't make you immune to it, but it can help you question where your estimates come from.",
+    "question": "What is the professor's attitude toward knowing about the anchoring effect?",
+    "choices": [
+      "It allows people to avoid the effect completely in most situations.",
+      "It is helpful, though it does not fully protect people.",
+      "It is useless for everyday decisions.",
+      "It matters only to professionals."
+    ],
+    "answer": "It is helpful, though it does not fully protect people.",
+    "explanation": "知っていても免れはしないが、推定の根拠を疑う助けになると述べています。",
+    "tags": "psychology cognitive bias anchoring academic-talk"
+  }
+]

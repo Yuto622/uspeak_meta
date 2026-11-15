@@ -1,0 +1,650 @@
+[
+ {
+  "id": "TOEFL-RD-031-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Dear Dr. Okafor,\n\nThank you for registering for the Regional Conference on Urban Planning. Our records show that your payment has not yet been completed. To keep your place at the early-bird rate of $180, please complete payment by May 10; after this date, the standard rate of $240 will apply. Please note that your presentation slot (Session 3B, May 22, 10:15 a.m.) is confirmed regardless of the payment date.\n\nKind regards,\nConference Office",
+  "question": "Why did the conference office write to Dr. Okafor?",
+  "choices": [
+   "To cancel her registration",
+   "To change the date of her presentation",
+   "To invite her to give a keynote speech",
+   "To remind her that she has not paid yet"
+  ],
+  "answer": "To remind her that she has not paid yet",
+  "explanation": "「your payment has not yet been completed」とあり、未払いを知らせるリマインダー。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-031-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Dear Dr. Okafor,\n\nThank you for registering for the Regional Conference on Urban Planning. Our records show that your payment has not yet been completed. To keep your place at the early-bird rate of $180, please complete payment by May 10; after this date, the standard rate of $240 will apply. Please note that your presentation slot (Session 3B, May 22, 10:15 a.m.) is confirmed regardless of the payment date.\n\nKind regards,\nConference Office",
+  "question": "How much will Dr. Okafor pay if she pays on May 15?",
+  "choices": [
+   "$180",
+   "$60",
+   "$240",
+   "Nothing"
+  ],
+  "answer": "$240",
+  "explanation": "5月10日を過ぎると「the standard rate of $240 will apply」。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-031-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Dear Dr. Okafor,\n\nThank you for registering for the Regional Conference on Urban Planning. Our records show that your payment has not yet been completed. To keep your place at the early-bird rate of $180, please complete payment by May 10; after this date, the standard rate of $240 will apply. Please note that your presentation slot (Session 3B, May 22, 10:15 a.m.) is confirmed regardless of the payment date.\n\nKind regards,\nConference Office",
+  "question": "What is stated about her presentation?",
+  "choices": [
+   "It will be moved if she pays late.",
+   "It is the opening session of the conference.",
+   "Its time does not depend on when she pays.",
+   "It must be submitted by May 10."
+  ],
+  "answer": "Its time does not depend on when she pays.",
+  "explanation": "「confirmed regardless of the payment date」とあり、支払日に関係なく発表枠は確定している。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-032-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Hub 21 Coworking – Membership Update\n\nTo better serve our growing community, we're introducing a new \"Flex\" plan alongside our existing Dedicated Desk plan. Flex members can use any open desk during staffed hours (8 a.m.–7 p.m.) for $150 a month, while Dedicated Desk members keep a reserved desk with 24-hour access for $320. Meeting rooms remain bookable by all members, although Flex members are limited to four hours per month. Current members can switch plans at any time without a fee.",
+  "question": "What is the main purpose of the announcement?",
+  "choices": [
+   "To announce a price increase for all members",
+   "To introduce a new type of membership",
+   "To explain why the space will close early",
+   "To advertise meeting rooms to non-members"
+  ],
+  "answer": "To introduce a new type of membership",
+  "explanation": "新しい「Flex」プランの導入を知らせるお知らせ。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-032-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Hub 21 Coworking – Membership Update\n\nTo better serve our growing community, we're introducing a new \"Flex\" plan alongside our existing Dedicated Desk plan. Flex members can use any open desk during staffed hours (8 a.m.–7 p.m.) for $150 a month, while Dedicated Desk members keep a reserved desk with 24-hour access for $320. Meeting rooms remain bookable by all members, although Flex members are limited to four hours per month. Current members can switch plans at any time without a fee.",
+  "question": "What is an advantage of the Dedicated Desk plan?",
+  "choices": [
+   "Unlimited free coffee",
+   "A lower monthly price",
+   "A private office",
+   "Access at any hour of the day"
+  ],
+  "answer": "Access at any hour of the day",
+  "explanation": "固定席プランは「24-hour access」、いつでも利用できる。料金は Flex より高い。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-032-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Hub 21 Coworking – Membership Update\n\nTo better serve our growing community, we're introducing a new \"Flex\" plan alongside our existing Dedicated Desk plan. Flex members can use any open desk during staffed hours (8 a.m.–7 p.m.) for $150 a month, while Dedicated Desk members keep a reserved desk with 24-hour access for $320. Meeting rooms remain bookable by all members, although Flex members are limited to four hours per month. Current members can switch plans at any time without a fee.",
+  "question": "What is true about the meeting rooms?",
+  "choices": [
+   "Flex members have a monthly time limit.",
+   "Only Dedicated Desk members may use them.",
+   "They cost $150 per hour.",
+   "Flex members can use them 24 hours a day."
+  ],
+  "answer": "Flex members have a monthly time limit.",
+  "explanation": "「Flex members are limited to four hours per month」とあり、月4時間までの制限がある。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-033-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Course Announcement: ECON 210\n\nDue to a scheduling conflict, Professor Grant's lecture on Thursday, February 15, will be delivered online instead of in Hall C. A link will be posted on the course page an hour before class. Attendance will still be recorded, so please log in using your university account rather than a personal one. The lecture will also be recorded. Friday tutorials will proceed in person as usual.",
+  "question": "What is changing?",
+  "choices": [
+   "The location of the Friday tutorials",
+   "The format of one lecture",
+   "The professor who teaches the course",
+   "The date of the final exam"
+  ],
+  "answer": "The format of one lecture",
+  "explanation": "2月15日の講義だけがオンラインになる。担当教員や試験日は変わらない。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-033-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Course Announcement: ECON 210\n\nDue to a scheduling conflict, Professor Grant's lecture on Thursday, February 15, will be delivered online instead of in Hall C. A link will be posted on the course page an hour before class. Attendance will still be recorded, so please log in using your university account rather than a personal one. The lecture will also be recorded. Friday tutorials will proceed in person as usual.",
+  "question": "Why should students use their university account?",
+  "choices": [
+   "Because personal accounts cannot open the link",
+   "So that they can download the slides",
+   "Because the lecture will not be recorded",
+   "So that their attendance can be tracked"
+  ],
+  "answer": "So that their attendance can be tracked",
+  "explanation": "「Attendance will still be recorded, so please log in using your university account」とある。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-033-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Course Announcement: ECON 210\n\nDue to a scheduling conflict, Professor Grant's lecture on Thursday, February 15, will be delivered online instead of in Hall C. A link will be posted on the course page an hour before class. Attendance will still be recorded, so please log in using your university account rather than a personal one. The lecture will also be recorded. Friday tutorials will proceed in person as usual.",
+  "question": "What can be inferred about the Friday tutorials?",
+  "choices": [
+   "Students should attend them on campus.",
+   "They will be canceled.",
+   "They will be held online too.",
+   "They will be recorded."
+  ],
+  "answer": "Students should attend them on campus.",
+  "explanation": "「proceed in person as usual」とあり、いつも通り対面で行われるので大学に行く必要がある。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-034-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "We booked Casa Lumo for our anniversary based on its glowing reviews, and the food lived up to the hype—the grilled octopus was outstanding. Service, however, was another story. We waited forty minutes between courses, and our server seemed overwhelmed. To the manager's credit, she apologized and took dessert off the bill. I'd return, but probably on a quieter weeknight.",
+  "question": "How did the manager respond to the problem?",
+  "choices": [
+   "She gave them a free bottle of wine.",
+   "She moved them to another table.",
+   "She removed the cost of dessert from the bill.",
+   "She refused to discuss the problem."
+  ],
+  "answer": "She removed the cost of dessert from the bill.",
+  "explanation": "「took dessert off the bill」はデザート代を請求しなかったという意味。",
+  "tags": "TOEFL2026 reading daily-life review"
+ },
+ {
+  "id": "TOEFL-RD-034-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "We booked Casa Lumo for our anniversary based on its glowing reviews, and the food lived up to the hype—the grilled octopus was outstanding. Service, however, was another story. We waited forty minutes between courses, and our server seemed overwhelmed. To the manager's credit, she apologized and took dessert off the bill. I'd return, but probably on a quieter weeknight.",
+  "question": "What does the writer imply?",
+  "choices": [
+   "The food was disappointing.",
+   "The writer will never return.",
+   "The restaurant may not have enough staff on busy nights.",
+   "The writer did not like the octopus."
+  ],
+  "answer": "The restaurant may not have enough staff on busy nights.",
+  "explanation": "店員が手一杯で料理が遅く、次は「quieter weeknight」に来たいと言っていることから、混む日は人手が足りないと示唆している。",
+  "tags": "TOEFL2026 reading daily-life review"
+ },
+ {
+  "id": "TOEFL-RD-035-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Attention Commuters: Beginning April 3, the city will introduce contactless payment on all buses. Riders will be able to tap a bank card or smartphone instead of using a transit card. Paper tickets will be phased out by the end of the year. Remaining transit card balances can be transferred or refunded at any customer service center until December 31.",
+  "question": "The phrase \"phased out\" in the notice is closest in meaning to",
+  "choices": [
+   "suddenly increased",
+   "printed again",
+   "made cheaper",
+   "gradually discontinued"
+  ],
+  "answer": "gradually discontinued",
+  "explanation": "phase out は「段階的に廃止する」という意味。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-035-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Attention Commuters: Beginning April 3, the city will introduce contactless payment on all buses. Riders will be able to tap a bank card or smartphone instead of using a transit card. Paper tickets will be phased out by the end of the year. Remaining transit card balances can be transferred or refunded at any customer service center until December 31.",
+  "question": "What can riders do with money left on their transit cards?",
+  "choices": [
+   "Use it to buy paper tickets after December",
+   "Have it refunded at a customer service center",
+   "Transfer it to a bank card on the bus",
+   "Spend it only on weekends"
+  ],
+  "answer": "Have it refunded at a customer service center",
+  "explanation": "「can be transferred or refunded at any customer service center until December 31」とある。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-036-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Dear Ms. Tanaka,\n\nThank you for your interest in the Marketing Coordinator position. We were impressed by your application and would like to invite you to a 30-minute video interview. Please select a time that suits you from the link below by Friday. During the interview, you will be asked to briefly present one campaign you have worked on, so please have any relevant materials ready to share on screen.",
+  "question": "What is Ms. Tanaka asked to prepare?",
+  "choices": [
+   "Materials about a past campaign",
+   "A list of references",
+   "A written test",
+   "A printed résumé"
+  ],
+  "answer": "Materials about a past campaign",
+  "explanation": "面接で過去に携わったキャンペーンを紹介するため、関連資料を画面共有できるよう準備する。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-036-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Dear Ms. Tanaka,\n\nThank you for your interest in the Marketing Coordinator position. We were impressed by your application and would like to invite you to a 30-minute video interview. Please select a time that suits you from the link below by Friday. During the interview, you will be asked to briefly present one campaign you have worked on, so please have any relevant materials ready to share on screen.",
+  "question": "What can be inferred about Ms. Tanaka?",
+  "choices": [
+   "She already works for the company.",
+   "She has passed the first stage of the hiring process.",
+   "Her interview will take place in person.",
+   "The position has already been filled."
+  ],
+  "answer": "She has passed the first stage of the hiring process.",
+  "explanation": "応募書類が評価されて面接に招待されているので、書類選考を通過したと考えられる。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-037-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "TRAIL NOTICE\nDue to recent landslides, the upper section of Ridge Trail beyond Eagle Point is closed until further notice. Hikers may continue to use the lower loop (3.2 km). Do not cross the barriers; the ground remains unstable, and further slides are possible. Rangers are monitoring the situation and will post updates at the visitor center.",
+  "question": "Why is part of the trail closed?",
+  "choices": [
+   "The ground is not safe.",
+   "A bridge is being repaired.",
+   "Wild animals are nesting there.",
+   "The trail is too crowded."
+  ],
+  "answer": "The ground is not safe.",
+  "explanation": "地すべりがあり「the ground remains unstable」、地面が不安定で危険なため。",
+  "tags": "TOEFL2026 reading daily-life sign"
+ },
+ {
+  "id": "TOEFL-RD-037-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "TRAIL NOTICE\nDue to recent landslides, the upper section of Ridge Trail beyond Eagle Point is closed until further notice. Hikers may continue to use the lower loop (3.2 km). Do not cross the barriers; the ground remains unstable, and further slides are possible. Rangers are monitoring the situation and will post updates at the visitor center.",
+  "question": "What does \"until further notice\" mean?",
+  "choices": [
+   "For exactly one week",
+   "Only during the night",
+   "For a period that has not been decided",
+   "Until hikers ask for it to reopen"
+  ],
+  "answer": "For a period that has not been decided",
+  "explanation": "「追って知らせがあるまで」、つまり期間が決まっていないという意味。",
+  "tags": "TOEFL2026 reading daily-life sign"
+ },
+ {
+  "id": "TOEFL-RD-038-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Sam: Can we push our study session back to 7? My shift ends at 6:30.\nRita: Works for me, but the library closes at 9 on Fridays.\nSam: Two hours should be enough if we focus on chapters 5 and 6.\nRita: Agreed. I'll book a group room so we don't end up in the noisy area again.",
+  "question": "Why does Sam want to change the time?",
+  "choices": [
+   "The library opens at 7.",
+   "He has not read chapter 5.",
+   "Rita is busy earlier.",
+   "He has to work until 6:30."
+  ],
+  "answer": "He has to work until 6:30.",
+  "explanation": "「My shift ends at 6:30」とあり、仕事が終わるのが6時半だから。",
+  "tags": "TOEFL2026 reading daily-life chat"
+ },
+ {
+  "id": "TOEFL-RD-038-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Sam: Can we push our study session back to 7? My shift ends at 6:30.\nRita: Works for me, but the library closes at 9 on Fridays.\nSam: Two hours should be enough if we focus on chapters 5 and 6.\nRita: Agreed. I'll book a group room so we don't end up in the noisy area again.",
+  "question": "What can be inferred about their previous study session?",
+  "choices": [
+   "It was disturbed by noise.",
+   "It was held in a café.",
+   "It lasted only one hour.",
+   "Rita did not attend it."
+  ],
+  "answer": "It was disturbed by noise.",
+  "explanation": "「so we don't end up in the noisy area again」の again から、前回はうるさい場所で勉強したとわかる。",
+  "tags": "TOEFL2026 reading daily-life chat"
+ },
+ {
+  "id": "TOEFL-RD-039-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Your SoundWave headphones come with a one-year limited warranty covering manufacturing defects. The warranty does not cover damage caused by water, drops, or unauthorized repairs. To make a claim, keep your original receipt and contact support through our website. Registering your product online within 30 days extends the warranty to two years.",
+  "question": "Which situation is covered by the warranty?",
+  "choices": [
+   "Damage from dropping the headphones",
+   "Damage after swimming with them",
+   "A defect from the factory",
+   "A repair done by a local shop"
+  ],
+  "answer": "A defect from the factory",
+  "explanation": "保証の対象は「manufacturing defects」、製造上の欠陥だけ。水濡れ・落下・非正規修理は対象外。",
+  "tags": "TOEFL2026 reading daily-life information"
+ },
+ {
+  "id": "TOEFL-RD-039-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Your SoundWave headphones come with a one-year limited warranty covering manufacturing defects. The warranty does not cover damage caused by water, drops, or unauthorized repairs. To make a claim, keep your original receipt and contact support through our website. Registering your product online within 30 days extends the warranty to two years.",
+  "question": "How can a customer get a longer warranty?",
+  "choices": [
+   "By paying an extra fee",
+   "By registering the product online within a month",
+   "By keeping the original box",
+   "By buying a second pair"
+  ],
+  "answer": "By registering the product online within a month",
+  "explanation": "「Registering your product online within 30 days extends the warranty to two years.」とある。",
+  "tags": "TOEFL2026 reading daily-life information"
+ },
+ {
+  "id": "TOEFL-RD-040-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Subject: Revisions to the Academic Integrity Policy\n\nDear students,\n\nFollowing consultation with faculty and the Student Union, the University Senate has approved revisions to the Academic Integrity Policy, effective at the start of the spring term. The most significant change concerns the use of generative AI tools. Rather than imposing a university-wide ban, the revised policy delegates authority to individual instructors, who must specify in their syllabi whether, and to what extent, such tools may be used. Where a syllabus is silent, the use of these tools in assessed work will be presumed to be unauthorized. Students who are uncertain are strongly encouraged to seek clarification before submitting work.\n\nOffice of the Provost",
+  "question": "What is the most important change in the policy?",
+  "choices": [
+   "AI tools will be prohibited throughout the university.",
+   "The Student Union will judge cases of misconduct.",
+   "Students must list all of their sources on a new form.",
+   "Instructors will decide whether AI tools may be used in their courses."
+  ],
+  "answer": "Instructors will decide whether AI tools may be used in their courses.",
+  "explanation": "全学で禁止するのではなく、使用可否の判断を各教員にゆだねる点が最大の変更。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-040-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Subject: Revisions to the Academic Integrity Policy\n\nDear students,\n\nFollowing consultation with faculty and the Student Union, the University Senate has approved revisions to the Academic Integrity Policy, effective at the start of the spring term. The most significant change concerns the use of generative AI tools. Rather than imposing a university-wide ban, the revised policy delegates authority to individual instructors, who must specify in their syllabi whether, and to what extent, such tools may be used. Where a syllabus is silent, the use of these tools in assessed work will be presumed to be unauthorized. Students who are uncertain are strongly encouraged to seek clarification before submitting work.\n\nOffice of the Provost",
+  "question": "If a syllabus does not mention AI tools, what should students assume?",
+  "choices": [
+   "They are not permitted in graded assignments.",
+   "They are permitted without restriction.",
+   "They may be used only for drafts.",
+   "The Student Union will decide."
+  ],
+  "answer": "They are not permitted in graded assignments.",
+  "explanation": "「Where a syllabus is silent ... presumed to be unauthorized」とあり、記載がなければ無許可とみなされる。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-040-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Subject: Revisions to the Academic Integrity Policy\n\nDear students,\n\nFollowing consultation with faculty and the Student Union, the University Senate has approved revisions to the Academic Integrity Policy, effective at the start of the spring term. The most significant change concerns the use of generative AI tools. Rather than imposing a university-wide ban, the revised policy delegates authority to individual instructors, who must specify in their syllabi whether, and to what extent, such tools may be used. Where a syllabus is silent, the use of these tools in assessed work will be presumed to be unauthorized. Students who are uncertain are strongly encouraged to seek clarification before submitting work.\n\nOffice of the Provost",
+  "question": "The word \"delegates\" in the email is closest in meaning to",
+  "choices": [
+   "withdraws",
+   "restricts",
+   "entrusts",
+   "announces"
+  ],
+  "answer": "entrusts",
+  "explanation": "delegate authority は「権限をゆだねる」という意味で、entrusts が最も近い。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-041-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "From the Editor\n\nLast month's proposal to convert the Harbor Street parking lot into a public plaza drew more letters than any issue in recent memory. Local merchants worry, not unreasonably, that losing 120 parking spaces will deter shoppers. Yet the city's own traffic data suggest that the lot is rarely more than half full outside the holiday season. A sensible compromise might be a seasonal arrangement: a plaza from January to October, with parking restored during the busy months. Such an approach would allow the city to test the idea without committing to an irreversible change.",
+  "question": "What is the editor's main purpose?",
+  "choices": [
+   "To oppose any change to the parking lot",
+   "To report the results of a local election",
+   "To advertise holiday events in the area",
+   "To propose a middle-ground solution to a local debate"
+  ],
+  "answer": "To propose a middle-ground solution to a local debate",
+  "explanation": "季節ごとに広場と駐車場を切り替える「compromise」を提案するのが主な目的。",
+  "tags": "TOEFL2026 reading daily-life editorial"
+ },
+ {
+  "id": "TOEFL-RD-041-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "From the Editor\n\nLast month's proposal to convert the Harbor Street parking lot into a public plaza drew more letters than any issue in recent memory. Local merchants worry, not unreasonably, that losing 120 parking spaces will deter shoppers. Yet the city's own traffic data suggest that the lot is rarely more than half full outside the holiday season. A sensible compromise might be a seasonal arrangement: a plaza from January to October, with parking restored during the busy months. Such an approach would allow the city to test the idea without committing to an irreversible change.",
+  "question": "How does the editor view the merchants' concern?",
+  "choices": [
+   "As completely unreasonable",
+   "As understandable but not fully supported by the evidence",
+   "As the strongest argument in the debate",
+   "As irrelevant to the proposal"
+  ],
+  "answer": "As understandable but not fully supported by the evidence",
+  "explanation": "「not unreasonably」と理解を示しつつ、交通データでは駐車場が半分も埋まらないと反論している。",
+  "tags": "TOEFL2026 reading daily-life editorial"
+ },
+ {
+  "id": "TOEFL-RD-041-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "From the Editor\n\nLast month's proposal to convert the Harbor Street parking lot into a public plaza drew more letters than any issue in recent memory. Local merchants worry, not unreasonably, that losing 120 parking spaces will deter shoppers. Yet the city's own traffic data suggest that the lot is rarely more than half full outside the holiday season. A sensible compromise might be a seasonal arrangement: a plaza from January to October, with parking restored during the busy months. Such an approach would allow the city to test the idea without committing to an irreversible change.",
+  "question": "Why does the editor mention the city's traffic data?",
+  "choices": [
+   "To prove that shoppers prefer public transport",
+   "To show that traffic has increased",
+   "To suggest that the parking lot is often underused",
+   "To criticize the city's planning department"
+  ],
+  "answer": "To suggest that the parking lot is often underused",
+  "explanation": "繁忙期以外は「rarely more than half full」で、駐車場があまり使われていないことを示すため。",
+  "tags": "TOEFL2026 reading daily-life editorial"
+ },
+ {
+  "id": "TOEFL-RD-042-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Participants Needed: Sleep and Memory Study\n\nThe Department of Psychology is seeking healthy adults aged 18–35 to take part in a study examining how sleep affects the consolidation of newly learned information. Participants will complete a short vocabulary-learning task in the evening, sleep overnight in our laboratory while their brain activity is monitored, and be tested the following morning. Individuals with diagnosed sleep disorders or who work night shifts are not eligible. Participants will receive $80 upon completion. All data will be anonymized, and participants may withdraw at any time without penalty, although compensation is provided only for completed sessions.",
+  "question": "What is the study investigating?",
+  "choices": [
+   "How night shifts affect health",
+   "How sleep influences the retention of new information",
+   "What causes sleep disorders",
+   "How quickly children learn vocabulary"
+  ],
+  "answer": "How sleep influences the retention of new information",
+  "explanation": "「how sleep affects the consolidation of newly learned information」、睡眠が新しい記憶の定着にどう影響するかを調べる。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-042-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Participants Needed: Sleep and Memory Study\n\nThe Department of Psychology is seeking healthy adults aged 18–35 to take part in a study examining how sleep affects the consolidation of newly learned information. Participants will complete a short vocabulary-learning task in the evening, sleep overnight in our laboratory while their brain activity is monitored, and be tested the following morning. Individuals with diagnosed sleep disorders or who work night shifts are not eligible. Participants will receive $80 upon completion. All data will be anonymized, and participants may withdraw at any time without penalty, although compensation is provided only for completed sessions.",
+  "question": "Who would NOT be eligible for the study?",
+  "choices": [
+   "A 25-year-old nurse who works night shifts",
+   "A healthy 20-year-old university student",
+   "A healthy 34-year-old office worker",
+   "A healthy 18-year-old"
+  ],
+  "answer": "A 25-year-old nurse who works night shifts",
+  "explanation": "「who work night shifts are not eligible」とあり、夜勤のある人は参加できない。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-042-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Participants Needed: Sleep and Memory Study\n\nThe Department of Psychology is seeking healthy adults aged 18–35 to take part in a study examining how sleep affects the consolidation of newly learned information. Participants will complete a short vocabulary-learning task in the evening, sleep overnight in our laboratory while their brain activity is monitored, and be tested the following morning. Individuals with diagnosed sleep disorders or who work night shifts are not eligible. Participants will receive $80 upon completion. All data will be anonymized, and participants may withdraw at any time without penalty, although compensation is provided only for completed sessions.",
+  "question": "What can be inferred about a participant who leaves before the morning test?",
+  "choices": [
+   "They will have to pay a penalty.",
+   "Their data will be published with their name.",
+   "They must repeat the study later.",
+   "They will not receive the $80 payment."
+  ],
+  "answer": "They will not receive the $80 payment.",
+  "explanation": "途中でやめても罰則はないが「compensation is provided only for completed sessions」なので謝礼はもらえない。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-043-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Planning Department invites residents to comment on the proposed redevelopment of the former textile mill on Canal Road. The developer's application includes 140 residential units, ground-floor retail space, and the restoration of the mill's historic facade. Comments may address any aspect of the proposal; however, residents should note that matters such as the effect on property values fall outside the scope of planning considerations and cannot be taken into account. The consultation period closes on 14 June.",
+  "question": "Which type of comment will the department NOT consider?",
+  "choices": [
+   "Concerns about the number of housing units",
+   "Opinions about the historic facade",
+   "Concerns that nearby house prices may fall",
+   "Suggestions about the retail space"
+  ],
+  "answer": "Concerns that nearby house prices may fall",
+  "explanation": "「the effect on property values ... cannot be taken into account」とあり、不動産価格への影響は考慮されない。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-043-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Planning Department invites residents to comment on the proposed redevelopment of the former textile mill on Canal Road. The developer's application includes 140 residential units, ground-floor retail space, and the restoration of the mill's historic facade. Comments may address any aspect of the proposal; however, residents should note that matters such as the effect on property values fall outside the scope of planning considerations and cannot be taken into account. The consultation period closes on 14 June.",
+  "question": "The phrase \"fall outside the scope of\" is closest in meaning to",
+  "choices": [
+   "are not covered by",
+   "are emphasized in",
+   "are later added to",
+   "are decided by"
+  ],
+  "answer": "are not covered by",
+  "explanation": "fall outside the scope of は「…の範囲外である」という意味。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-044-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Why does my battery drain faster in cold weather?\nLithium-ion batteries rely on chemical reactions that slow down at low temperatures, temporarily reducing the energy the battery can deliver. Your device may therefore report a lower charge or even shut down unexpectedly. This effect is usually reversible: once the battery warms up, normal capacity returns. Repeatedly charging a battery while it is below freezing, however, can cause permanent damage and should be avoided.",
+  "question": "According to the text, what is usually true of the reduced capacity in cold weather?",
+  "choices": [
+   "It is permanent.",
+   "It affects only new batteries.",
+   "It occurs only while the battery is charging.",
+   "It returns to normal when the battery warms up."
+  ],
+  "answer": "It returns to normal when the battery warms up.",
+  "explanation": "「This effect is usually reversible」とあり、温まれば元の容量に戻る。",
+  "tags": "TOEFL2026 reading daily-life information"
+ },
+ {
+  "id": "TOEFL-RD-044-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Why does my battery drain faster in cold weather?\nLithium-ion batteries rely on chemical reactions that slow down at low temperatures, temporarily reducing the energy the battery can deliver. Your device may therefore report a lower charge or even shut down unexpectedly. This effect is usually reversible: once the battery warms up, normal capacity returns. Repeatedly charging a battery while it is below freezing, however, can cause permanent damage and should be avoided.",
+  "question": "What does the text advise against?",
+  "choices": [
+   "Using the device outdoors",
+   "Charging the battery when it is below freezing",
+   "Letting the battery warm up",
+   "Turning the device off in winter"
+  ],
+  "answer": "Charging the battery when it is below freezing",
+  "explanation": "氷点下での充電をくり返すと「permanent damage」の恐れがあるので避けるよう述べている。",
+  "tags": "TOEFL2026 reading daily-life information"
+ },
+ {
+  "id": "TOEFL-RD-045-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "We are pleased to announce that Brightline Logistics has entered into an agreement to acquire Corvo Freight, subject to regulatory approval. The combined company will operate under the Brightline name, although Corvo's existing customer contracts will be honored in full. Until the transaction is finalized, which we anticipate will occur in the third quarter, both companies will continue to operate independently, and customers should continue to contact their usual representatives.",
+  "question": "What should Corvo Freight customers do for now?",
+  "choices": [
+   "Sign new contracts with Brightline",
+   "Keep contacting their usual representatives",
+   "Contact the regulators directly",
+   "Stop placing orders"
+  ],
+  "answer": "Keep contacting their usual representatives",
+  "explanation": "手続き完了までは両社が別々に営業し「continue to contact their usual representatives」とある。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-045-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "We are pleased to announce that Brightline Logistics has entered into an agreement to acquire Corvo Freight, subject to regulatory approval. The combined company will operate under the Brightline name, although Corvo's existing customer contracts will be honored in full. Until the transaction is finalized, which we anticipate will occur in the third quarter, both companies will continue to operate independently, and customers should continue to contact their usual representatives.",
+  "question": "What does \"subject to regulatory approval\" indicate?",
+  "choices": [
+   "Regulators have already approved the deal.",
+   "The deal requires a vote by customers.",
+   "The deal has been canceled.",
+   "The deal depends on official authorization."
+  ],
+  "answer": "The deal depends on official authorization.",
+  "explanation": "subject to ... は「…を条件とする」。規制当局の承認が得られて初めて買収が成立する。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ }
+]

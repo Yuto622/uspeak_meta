@@ -1,0 +1,722 @@
+[
+  {
+    "id": "TOEFL-LR-041",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: I was hoping to get into Dr. Patel's seminar, but it's already full.",
+    "question": "Choose the best response.",
+    "choices": [
+      "You could ask her to add you to the waiting list.",
+      "I'm glad you enjoyed the seminar. Dr. Patel is a great speaker.",
+      "Dr. Patel is a full professor.",
+      "It's full of interesting people."
+    ],
+    "answer": "You could ask her to add you to the waiting list.",
+    "explanation": "満員のゼミに入りたいという発言に、順番待ちリストを提案するのが最も役立つ返答です。",
+    "tags": "campus seminar enrollment listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-042",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Classmate: I can't believe the assignment is worth thirty percent of our grade.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Thirty people are in our class.",
+      "I know. We'd better start on it this weekend.",
+      "I believe our final grade will be posted online at the end of the term.",
+      "The assignment was posted online."
+    ],
+    "answer": "I know. We'd better start on it this weekend.",
+    "explanation": "配点の大きさへの驚きに同意し、早く取りかかろうと述べる返答が自然です。",
+    "tags": "campus assignment grading listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-043",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Advisor: Your transcript shows you dropped calculus twice.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Calculus was invented in the 1600s.",
+      "I dropped it off at your office.",
+      "I know. I struggled with the pace, so I'd like a tutor this time.",
+      "My transcript is printed in color."
+    ],
+    "answer": "I know. I struggled with the pace, so I'd like a tutor this time.",
+    "explanation": "成績記録の指摘に対し、事情を説明し対策を示す返答が適切です。drop off（届ける）とのひっかけに注意。",
+    "tags": "advising transcript listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-044",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Do you think the professor will curve the midterm grades?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The midterm was in the curved building.",
+      "I think the professor is from Canada.",
+      "Grades are usually posted on the course website every Monday morning.",
+      "Probably, since the class average was so low."
+    ],
+    "answer": "Probably, since the class average was so low.",
+    "explanation": "得点調整されるかという推測の質問に、理由を添えて推測で答えるのが正解です。",
+    "tags": "campus grading opinion listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-045",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Staff: Unfortunately, your housing application arrived after the deadline.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Great, when can I move in?",
+      "Is there any chance I could still be placed somewhere?",
+      "I applied for a job at the café.",
+      "The deadline was very helpful."
+    ],
+    "answer": "Is there any chance I could still be placed somewhere?",
+    "explanation": "締め切り後の到着という悪い知らせに、まだ可能性があるかをたずねるのが自然です。",
+    "tags": "housing deadline listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-046",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Classmate: I thought the guest lecture was going to be about urban planning.",
+    "question": "Choose the best response.",
+    "choices": [
+      "So did I, but it focused mostly on public transportation.",
+      "Yes, the city is very large.",
+      "The guest arrived late.",
+      "I'm planning to go downtown this weekend to see the new city hall."
+    ],
+    "answer": "So did I, but it focused mostly on public transportation.",
+    "explanation": "予想と違った内容だったことに同意し、実際の内容を述べる返答が適切です。",
+    "tags": "campus lecture expectation listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-047",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Would it be possible to switch to the evening section of this course?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, the evening was quiet.",
+      "The course has three sections, and the morning one is the most popular.",
+      "I switched off my computer.",
+      "Let me check whether there are any seats left."
+    ],
+    "answer": "Let me check whether there are any seats left.",
+    "explanation": "セクション変更の依頼に、空席を確認すると答えるのが窓口の自然な対応です。",
+    "tags": "campus registration request listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-048",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Roommate: If you're going to the grocery store, could you pick up some milk?",
+    "question": "Choose the best response.",
+    "choices": [
+      "I picked it up from the floor.",
+      "The store is open twenty-four hours.",
+      "Sure, do you want whole or low-fat?",
+      "Milk is good for your bones."
+    ],
+    "answer": "Sure, do you want whole or low-fat?",
+    "explanation": "依頼を受け入れつつ、種類を確認する返答が自然です。",
+    "tags": "daily-life request listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-049",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: The professor's handwriting on my paper is impossible to read.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Her paper on handwriting was published in a journal last year.",
+      "I write by hand, too.",
+      "Why don't you ask her to go over the comments with you?",
+      "Reading is my favorite hobby."
+    ],
+    "answer": "Why don't you ask her to go over the comments with you?",
+    "explanation": "コメントが読めないという問題に、直接説明してもらうよう提案するのが適切です。",
+    "tags": "campus feedback listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-050",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Classmate: Didn't you say you'd already read this novel?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, the novel was written in French.",
+      "I'll say it again if you want.",
+      "No, I don't like to read in bed.",
+      "I did, but it was years ago, so I'm rereading it."
+    ],
+    "answer": "I did, but it was years ago, so I'm rereading it.",
+    "explanation": "既に読んだのでは？という確認に、昔なので再読中と答えるのが自然です。",
+    "tags": "campus literature listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-051",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: I'm not sure whether to take organic chemistry in the summer or the fall.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Organic food is expensive.",
+      "Summer sessions move fast, so fall might be less stressful.",
+      "The fall colors are beautiful.",
+      "I took it in the summer of 2020, and the professor was very good."
+    ],
+    "answer": "Summer sessions move fast, so fall might be less stressful.",
+    "explanation": "どちらの時期に取るか迷っている人に、理由を挙げて助言する返答が適切です。",
+    "tags": "campus advice scheduling listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-052",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Staff: We're short on volunteers for the orientation fair this Friday.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I could help out in the afternoon if that's useful.",
+      "The orientation fair was very short last year, only about two hours.",
+      "I'm oriented toward science.",
+      "Friday is my favorite day."
+    ],
+    "answer": "I could help out in the afternoon if that's useful.",
+    "explanation": "人手不足の知らせに、手伝いを申し出るのが自然です。",
+    "tags": "campus volunteering listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-053",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Is the reading list for the seminar mandatory, or just suggested?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, it's a very long list.",
+      "The seminar meets on Tuesdays.",
+      "The first three books are required; the rest are optional.",
+      "I suggested it to my friend."
+    ],
+    "answer": "The first three books are required; the rest are optional.",
+    "explanation": "必須か推奨かの選択疑問文に、区別して答えるのが正解です。",
+    "tags": "campus syllabus listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-054",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Classmate: I've been sending emails to our group, but nobody responds.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Maybe we should set up a group chat instead.",
+      "I sent it to the post office.",
+      "Our group has four members, and we meet every Tuesday afternoon.",
+      "Nobody likes long emails, either."
+    ],
+    "answer": "Maybe we should set up a group chat instead.",
+    "explanation": "連絡がつかない問題に、別の連絡手段を提案するのが建設的な返答です。",
+    "tags": "campus group communication listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-055",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Advisor: Have you thought about applying for the summer research program?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, summer is my favorite season.",
+      "The research was done in 2019.",
+      "I applied sunscreen this morning.",
+      "I have, but I'm not sure my grades are high enough."
+    ],
+    "answer": "I have, but I'm not sure my grades are high enough.",
+    "explanation": "研究プログラムへの応募の提案に、関心と不安を述べる返答が自然です。apply の別の意味にひっかけた選択肢に注意。",
+    "tags": "advising research listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-056",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: The online portal keeps logging me out before I can submit.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I logged in at nine this morning and checked all my email messages.",
+      "Try saving your answers in a document first, then pasting them in.",
+      "The portal is a new system.",
+      "Submit it by Friday."
+    ],
+    "answer": "Try saving your answers in a document first, then pasting them in.",
+    "explanation": "システムの不具合への対処法を提案する返答が最も役立ちます。",
+    "tags": "campus technology problem listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-057",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Roommate: You're not still working on that paper, are you?",
+    "question": "Choose the best response.",
+    "choices": [
+      "No, I'm not working at the café.",
+      "I'm afraid so. The conclusion is giving me trouble.",
+      "The paper was recycled.",
+      "Yes, I still have paper."
+    ],
+    "answer": "I'm afraid so. The conclusion is giving me trouble.",
+    "explanation": "付加疑問で「まだやってるの？」と聞かれ、そうだと認めて理由を述べるのが自然です。",
+    "tags": "daily-life tag question listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-058",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: How come the bookstore isn't selling the course packet anymore?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The professor decided to post it online for free.",
+      "It came in a large box.",
+      "The bookstore is near the gym, but it closes early on Fridays.",
+      "I'm selling my old bike."
+    ],
+    "answer": "The professor decided to post it online for free.",
+    "explanation": "How come（なぜ）の質問なので、理由を述べる返答が正解です。",
+    "tags": "campus reason bookstore listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-059",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Classmate: I'd rather present first and get it over with.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I'd rather have tea than coffee.",
+      "The presentation is over now.",
+      "First, open your book.",
+      "Then let's tell the professor we'll volunteer to go first."
+    ],
+    "answer": "Then let's tell the professor we'll volunteer to go first.",
+    "explanation": "先に発表したいという希望を受け、行動を提案する返答が自然です。",
+    "tags": "campus presentation preference listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-060",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Staff: The fitness center will be closed for renovations next week.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I renovated my kitchen last year, and it took more than two months.",
+      "The center is very fit.",
+      "Do you know if the pool will still be open?",
+      "I closed the door behind me."
+    ],
+    "answer": "Do you know if the pool will still be open?",
+    "explanation": "閉館の知らせに関連して、プールの状況をたずねるのが自然な返答です。",
+    "tags": "campus facilities closure listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-061",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: I'm thinking about studying abroad, but I'm worried about falling behind.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I fell down the stairs yesterday.",
+      "Many credits transfer, so check with the study abroad office.",
+      "Studying is better in the morning.",
+      "Abroad means in another country."
+    ],
+    "answer": "Many credits transfer, so check with the study abroad office.",
+    "explanation": "留学による遅れの心配に、単位互換を確認するよう助言するのが適切です。",
+    "tags": "advising study abroad listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-062",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Classmate: Wasn't the economics exam supposed to be open-book?",
+    "question": "Choose the best response.",
+    "choices": [
+      "That's what I thought, but the syllabus says otherwise.",
+      "Yes, the book is open on my desk right now if you need to look at it.",
+      "Economics is a social science.",
+      "The exam room was open early."
+    ],
+    "answer": "That's what I thought, but the syllabus says otherwise.",
+    "explanation": "持ち込み可ではなかったかの確認に、シラバスは違うと答えるのが自然です。",
+    "tags": "campus exam rules listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-063",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Excuse me, is anyone using these lab instruments?",
+    "question": "Choose the best response.",
+    "choices": [
+      "These instruments are very precise.",
+      "I'm using my phone right now.",
+      "Yes, they make music.",
+      "Dr. Kim's group reserved them until four."
+    ],
+    "answer": "Dr. Kim's group reserved them until four.",
+    "explanation": "器具を使っているかとの質問に、予約状況を伝える返答が適切です。",
+    "tags": "campus lab equipment listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-064",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Roommate: The rent is going up again next year.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I went up to the third floor.",
+      "The rent is paid at the beginning of every month by bank transfer.",
+      "Then maybe we should look into on-campus housing.",
+      "Next year I'll be a junior."
+    ],
+    "answer": "Then maybe we should look into on-campus housing.",
+    "explanation": "家賃値上げの話題に、代替案を提案する返答が自然です。",
+    "tags": "housing cost listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-065",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Professor: I'd like everyone to submit a one-page proposal before you begin your projects.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Should the proposal include a list of sources?",
+      "I began my project yesterday.",
+      "One page is very short.",
+      "I'd like to submit to you."
+    ],
+    "answer": "Should the proposal include a list of sources?",
+    "explanation": "指示に対して内容に関する確認の質問をするのが適切です。",
+    "tags": "campus assignment instruction listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-066",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Do you happen to know where the career fair is being held?",
+    "question": "Choose the best response.",
+    "choices": [
+      "It's being held next Thursday, from ten in the morning until four.",
+      "Yes, I know a lot about careers.",
+      "The fair was very crowded.",
+      "In the student union ballroom, I think."
+    ],
+    "answer": "In the student union ballroom, I think.",
+    "explanation": "Where の質問なので場所を答えます。日時を答える選択肢はひっかけです。",
+    "tags": "campus event location listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-067",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Classmate: I wish I'd started my research paper earlier.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I wish you a happy birthday.",
+      "There's still a week left. You can manage.",
+      "I started it at the library.",
+      "Research papers are long."
+    ],
+    "answer": "There's still a week left. You can manage.",
+    "explanation": "後悔の発言に励ましの言葉を返すのが自然です。",
+    "tags": "campus regret encouragement listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-068",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Staff: Your library account shows three overdue books.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I've read all three of them.",
+      "The library has many accounts.",
+      "Really? I thought I returned them last week.",
+      "Overdue means late."
+    ],
+    "answer": "Really? I thought I returned them last week.",
+    "explanation": "延滞の指摘に、返却したはずだと驚く返答が自然です。",
+    "tags": "campus library fines listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-069",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Is there any way to get feedback on my draft before the deadline?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The deadline is very strict.",
+      "Getting feedback from others is one of the most important ways to learn.",
+      "The writing center offers thirty-minute appointments.",
+      "I drafted it on my laptop."
+    ],
+    "answer": "The writing center offers thirty-minute appointments.",
+    "explanation": "締め切り前に意見をもらう方法をたずねているので、具体的な手段を示す返答が正解です。",
+    "tags": "campus writing support listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-070",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Roommate: Why don't we split the cost of a new microwave?",
+    "question": "Choose the best response.",
+    "choices": [
+      "That's fair. We both use it every day.",
+      "Because the microwave is new.",
+      "I split my shirt yesterday.",
+      "It costs a lot to cook."
+    ],
+    "answer": "That's fair. We both use it every day.",
+    "explanation": "Why don't we ～? は提案なので、賛成する返答が自然です。理由を答える選択肢はひっかけです。",
+    "tags": "daily-life suggestion cost listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-071",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: I heard the biology department is hiring undergraduate lab assistants.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I hired a car last summer when I traveled around the country with friends.",
+      "Biology is about living things.",
+      "The lab assistant is my friend.",
+      "Really? Do you know how to apply?"
+    ],
+    "answer": "Really? Do you know how to apply?",
+    "explanation": "求人の情報に興味を示し、応募方法をたずねるのが自然です。",
+    "tags": "campus employment listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-072",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Classmate: Could you explain what the professor meant by 'primary source'?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The professor is the primary teacher for this course, not the assistant.",
+      "It's an original document, like a letter or a diary from the time.",
+      "It's a source of energy.",
+      "She meant it in class."
+    ],
+    "answer": "It's an original document, like a letter or a diary from the time.",
+    "explanation": "用語の意味をたずねているので、定義を説明するのが正解です。",
+    "tags": "campus academic term history listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-073",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: The professor said we could choose any topic, which makes it harder somehow.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, the topic was hard.",
+      "She chose it for us.",
+      "I know what you mean. Too many options can be overwhelming.",
+      "Harder topics get better grades."
+    ],
+    "answer": "I know what you mean. Too many options can be overwhelming.",
+    "explanation": "自由すぎて難しいという気持ちに共感する返答が自然です。",
+    "tags": "campus assignment opinion listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-074",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Advisor: You might consider a minor in statistics, given your interest in psychology.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I'm not a minor anymore.",
+      "Psychology was my first class.",
+      "Statistics show that it's true.",
+      "That makes sense. A lot of psychology research uses statistics."
+    ],
+    "answer": "That makes sense. A lot of psychology research uses statistics.",
+    "explanation": "副専攻の提案に、理由を理解して同意する返答が適切です。minor（未成年）の別の意味に注意。",
+    "tags": "advising minor listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-075",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Staff: You'll need to renew your parking permit by the end of the month.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I parked in the permit area.",
+      "Can I do that online, or do I have to come in person?",
+      "The month ends on a Sunday.",
+      "I renewed my passport last month, and it only took about two weeks."
+    ],
+    "answer": "Can I do that online, or do I have to come in person?",
+    "explanation": "更新の連絡に対して、手続き方法をたずねるのが自然です。",
+    "tags": "campus administration listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-076",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Classmate: The lecture hall was so cold I could barely concentrate.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Same here. I'm bringing a sweater next time.",
+      "The hall was built in 1960.",
+      "I concentrated on the cold.",
+      "It's cold outside in winter."
+    ],
+    "answer": "Same here. I'm bringing a sweater next time.",
+    "explanation": "不満に共感し、対策を述べる返答が自然です。",
+    "tags": "campus complaint listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-077",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: I'm not sure Professor Gomez accepts late assignments.",
+    "question": "Choose the best response.",
+    "choices": [
+      "It says in the syllabus that she takes off ten percent per day.",
+      "Professor Gomez is from Spain, and she's been teaching here for ten years.",
+      "I accept your apology.",
+      "Late is better than never."
+    ],
+    "answer": "It says in the syllabus that she takes off ten percent per day.",
+    "explanation": "受け付けるかわからないという発言に、シラバスの規定を伝える返答が最も有益です。",
+    "tags": "campus policy listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-078",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Roommate: I'm going to the career center to get my résumé checked.",
+    "question": "Choose the best response.",
+    "choices": [
+      "My résumé was checked out.",
+      "The career center is a building.",
+      "I'm going home this weekend, so I won't be able to meet with you then.",
+      "Good idea. Could you find out if they do mock interviews, too?"
+    ],
+    "answer": "Good idea. Could you find out if they do mock interviews, too?",
+    "explanation": "相手の予定に賛同し、ついでの依頼をする返答が自然です。",
+    "tags": "campus career services listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-079",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Wouldn't it be easier to meet in person than over video?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Video games are easy.",
+      "Maybe, but two of us live off campus.",
+      "I met him in person last year.",
+      "Yes, the video was clear."
+    ],
+    "answer": "Maybe, but two of us live off campus.",
+    "explanation": "対面のほうが楽では？という提案に、事情を挙げて反論する返答が適切です。",
+    "tags": "campus group meeting listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-080",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Staff: The scholarship committee has asked for an additional reference letter.",
+    "question": "Choose the best response.",
+    "choices": [
+      "The scholarship committee meets on Fridays in the main administration building.",
+      "I referred to the letter.",
+      "I'll ask my history professor to write one this week.",
+      "Scholarships are competitive."
+    ],
+    "answer": "I'll ask my history professor to write one this week.",
+    "explanation": "推薦状の追加依頼に、具体的な対応を示す返答が適切です。",
+    "tags": "campus scholarship listen-and-choose-response"
+  }
+]

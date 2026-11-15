@@ -1,0 +1,362 @@
+[
+  {
+    "id": "TOEFL-LR-081",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Professor: I'm afraid your argument rests on an assumption you never actually justify.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I'm afraid of arguments, too.",
+      "I rested before writing the paper.",
+      "Do you mean the claim that the policy caused the drop in crime?",
+      "Justice is an important topic, and I wanted to write about it from the start."
+    ],
+    "answer": "Do you mean the claim that the policy caused the drop in crime?",
+    "explanation": "論証の弱点を指摘されたので、どの前提かを具体的に確認するのが適切です。",
+    "tags": "academic feedback argument listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-082",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: Given how much the lab results varied, I'm not sure we can draw any firm conclusions.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Then we should probably frame them as preliminary findings.",
+      "The lab was very well drawn.",
+      "Our results were firmly attached.",
+      "I concluded the meeting early."
+    ],
+    "answer": "Then we should probably frame them as preliminary findings.",
+    "explanation": "結果のばらつきへの懸念に、予備的な知見として扱うという妥当な対応を示す返答が正解です。",
+    "tags": "academic research methods listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-083",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Advisor: It might be worth reconsidering whether you need to take six courses this term.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Six courses are worth a lot of credits, so I could graduate a semester early.",
+      "I reconsidered my term paper.",
+      "This term starts in September.",
+      "You think it'd be too much on top of my part-time job?"
+    ],
+    "answer": "You think it'd be too much on top of my part-time job?",
+    "explanation": "遠回しな助言の意図（負担が大きすぎる）をくみ取って確認する返答が自然です。",
+    "tags": "advising workload implied meaning listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-084",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Classmate: That article was hardly the unbiased source the author claimed it was.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, it was hard to find.",
+      "Right, it was funded by the very industry it defended.",
+      "The author claimed a prize.",
+      "Unbiased sources are online."
+    ],
+    "answer": "Right, it was funded by the very industry it defended.",
+    "explanation": "hardly は「ほとんど～ない」の意味。偏りがあったという主張に、根拠を示して同意するのが正解です。",
+    "tags": "academic source evaluation listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-085",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Professor: Your data are solid; it's the interpretation I'd push back on a bit.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Would you suggest an alternative explanation I should address?",
+      "I pushed the data into a file.",
+      "Thank you. The data were very solid because we collected them so carefully.",
+      "My interpretation was in French."
+    ],
+    "answer": "Would you suggest an alternative explanation I should address?",
+    "explanation": "解釈に異議があると言われたので、代わりの説明を検討すべきかたずねるのが適切です。",
+    "tags": "academic feedback interpretation listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-086",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: I'd assumed the conference would cover funding at least, but it didn't come up once.",
+    "question": "Choose the best response.",
+    "choices": [
+      "The conference came up the stairs.",
+      "That's surprising, considering how much it affects every project.",
+      "Funding is assumed to be high.",
+      "I covered the conference for the student newspaper and interviewed the organizers."
+    ],
+    "answer": "That's surprising, considering how much it affects every project.",
+    "explanation": "予想に反した内容への驚きに、重要性を挙げて共感する返答が自然です。",
+    "tags": "academic conference listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-087",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Advisor: The committee was impressed by your proposal, though they flagged the timeline.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I was impressed by the committee, too.",
+      "The flag was red and white.",
+      "My proposal was very timely.",
+      "So I should revise the schedule before the final submission?"
+    ],
+    "answer": "So I should revise the schedule before the final submission?",
+    "explanation": "提案は評価されたが日程に懸念が示された、という内容を受けて修正の必要を確認するのが適切です。",
+    "tags": "advising proposal listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-088",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Classmate: You'd think a course on sustainability would assign fewer printed readings.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I think the course is sustainable.",
+      "The readings were assigned yesterday.",
+      "Ironic, isn't it? Everything could easily be digital.",
+      "Printing the readings is faster than reading them on a screen, in my experience."
+    ],
+    "answer": "Ironic, isn't it? Everything could easily be digital.",
+    "explanation": "皮肉を込めた発言に、その皮肉を認めて共感する返答が自然です。",
+    "tags": "campus irony listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-089",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: I can't decide whether to pursue the internship or stay for the research project.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I decided to pursue a degree.",
+      "The research project ended last year.",
+      "Internships are usually paid these days, especially in the technology sector.",
+      "Which one would better prepare you for graduate school?"
+    ],
+    "answer": "Which one would better prepare you for graduate school?",
+    "explanation": "二択で迷う人に、判断基準を示す問い返しをするのが有益な返答です。",
+    "tags": "advising decision listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-090",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Professor: Before we go further, I want to make sure everyone's clear on what we mean by 'validity.'",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, my ticket is still valid until the end of the month, so I can use it.",
+      "Everyone is very clear today.",
+      "Is it whether a test actually measures what it claims to measure?",
+      "We went further than last week."
+    ],
+    "answer": "Is it whether a test actually measures what it claims to measure?",
+    "explanation": "用語の確認に対し、validity（妥当性）の定義を確認する返答が適切です。",
+    "tags": "academic term psychology listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-091",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Staff: Your request for a tuition payment plan has been approved, with one condition.",
+    "question": "Choose the best response.",
+    "choices": [
+      "What exactly would I need to agree to?",
+      "Great, so I don't have to pay anything.",
+      "The condition of the building is good.",
+      "I approved the request myself."
+    ],
+    "answer": "What exactly would I need to agree to?",
+    "explanation": "条件付き承認の知らせに、その条件をたずねるのが自然です。",
+    "tags": "campus finance listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-092",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Classmate: The professor's comments were so vague that I'm not sure what to fix.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Her comments were very helpful, weren't they?",
+      "Maybe you could ask her for one concrete example.",
+      "I fixed my bike last week.",
+      "Vague means not clear."
+    ],
+    "answer": "Maybe you could ask her for one concrete example.",
+    "explanation": "あいまいなコメントへの困惑に、具体例を求めるよう提案するのが建設的です。",
+    "tags": "campus feedback listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-093",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: Isn't it a bit premature to publish before the second trial is done?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, it was published in March in a well-known medical journal.",
+      "The trial was in court.",
+      "I'm a bit early today.",
+      "Perhaps, but the first results are significant enough to share."
+    ],
+    "answer": "Perhaps, but the first results are significant enough to share.",
+    "explanation": "公表が時期尚早では？という指摘に、理由を挙げて反論する返答が適切です。",
+    "tags": "academic research ethics listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-094",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Advisor: Your thesis topic is fascinating, but the scope is rather ambitious.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Thank you, I'm a very ambitious person.",
+      "Would narrowing it to a single region make it more manageable?",
+      "My thesis is about fascinating topics.",
+      "The scope of the telescope is wide."
+    ],
+    "answer": "Would narrowing it to a single region make it more manageable?",
+    "explanation": "範囲が広すぎるという指摘に、絞り込みを提案して確認する返答が正解です。",
+    "tags": "advising thesis scope listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-095",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Professor: Some of you seem to be treating correlation as if it proved causation.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Correlation and causation are both discussed in chapter four of the textbook.",
+      "I treated my cold with tea.",
+      "So we need to rule out other variables before making causal claims?",
+      "Yes, it proved that I was right."
+    ],
+    "answer": "So we need to rule out other variables before making causal claims?",
+    "explanation": "相関と因果の混同の指摘に、他の要因を排除する必要を確認する返答が適切です。",
+    "tags": "academic statistics listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-096",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: I'd hardly call two interviews a representative sample.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Agreed. We'd need many more participants to generalize.",
+      "Two interviews took all day.",
+      "The sample was free.",
+      "I'd call him later."
+    ],
+    "answer": "Agreed. We'd need many more participants to generalize.",
+    "explanation": "二人では代表的なサンプルと言えないという指摘に同意し、理由を述べるのが正解です。",
+    "tags": "academic research sampling listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-097",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Classmate: The way the professor framed the debate left little room for disagreement.",
+    "question": "Choose the best response.",
+    "choices": [
+      "The frame was made of wood.",
+      "True. It felt like she'd already decided which side was right.",
+      "There was plenty of room in the hall for everyone who wanted to attend the debate.",
+      "I disagreed with my roommate."
+    ],
+    "answer": "True. It felt like she'd already decided which side was right.",
+    "explanation": "議論の設定の偏りへの指摘に、同意して具体的に言い換える返答が自然です。",
+    "tags": "campus discussion bias listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-098",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Staff: The archive's rare manuscripts can only be viewed by appointment.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I viewed the manuscripts yesterday.",
+      "Rare books are expensive.",
+      "The appointment was canceled.",
+      "How far in advance would I need to book?"
+    ],
+    "answer": "How far in advance would I need to book?",
+    "explanation": "予約制と知らされたので、どれくらい前に予約が必要かたずねるのが自然です。",
+    "tags": "campus archive research listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-099",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: I suspect the survey questions themselves may have influenced the responses.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I suspect the survey was completed online by most of the participants.",
+      "The responses were very fast.",
+      "You mean the wording might have led people toward certain answers?",
+      "Questions are usually short."
+    ],
+    "answer": "You mean the wording might have led people toward certain answers?",
+    "explanation": "質問文が回答に影響したという懸念を、言い換えて確認する返答が適切です。",
+    "tags": "academic survey bias listen-and-choose-response"
+  },
+  {
+    "id": "TOEFL-LR-100",
+    "skill": "listening",
+    "format": "Listening: Listen and Choose a Response",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Professor: Let's not get bogged down in the details; what's the larger point here?",
+    "question": "Choose the best response.",
+    "choices": [
+      "That the policy benefited cities far more than rural areas.",
+      "The details were all included in the appendix at the end of the report.",
+      "I got bogged down in traffic.",
+      "The larger room is next door."
+    ],
+    "answer": "That the policy benefited cities far more than rural areas.",
+    "explanation": "細部ではなく要点を求められているので、主張の核心を述べる返答が正解です。",
+    "tags": "academic discussion main point listen-and-choose-response"
+  }
+]

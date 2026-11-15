@@ -1,0 +1,362 @@
+[
+  {
+    "id": "TOEFL-LC-021-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Woman: Are you going to vote on the proposal to extend the library's hours?\nMan: I am, but I'm not sure which way. I like the idea, but it would be paid for by raising the student activity fee by fifteen dollars.\nWoman: For me, that's worth it. Lots of students work during the day and can only study late at night.\nMan: Sure, but the fee goes up for everyone, including students who never use the library at night.\nWoman: That's true for most things the fee pays for, though. I never go to the sports events, but part of my fee supports them.\nMan: Fair point. I just wish they'd looked at other options first, like opening only one floor overnight. That'd cost less.\nWoman: Actually, that was in the original plan, but security staff said it would be difficult to manage.",
+    "question": "What is the man's main concern about the proposal?",
+    "choices": [
+      "All students would pay for a service some won't use.",
+      "The library would become too crowded at night.",
+      "Security on campus is not good enough.",
+      "Sports events would lose their funding."
+    ],
+    "answer": "All students would pay for a service some won't use.",
+    "explanation": "夜に図書館を使わない学生も含め、全員の費用が上がる点を気にしています。",
+    "tags": "campus student government debate conversation"
+  },
+  {
+    "id": "TOEFL-LC-021-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Woman: Are you going to vote on the proposal to extend the library's hours?\nMan: I am, but I'm not sure which way. I like the idea, but it would be paid for by raising the student activity fee by fifteen dollars.\nWoman: For me, that's worth it. Lots of students work during the day and can only study late at night.\nMan: Sure, but the fee goes up for everyone, including students who never use the library at night.\nWoman: That's true for most things the fee pays for, though. I never go to the sports events, but part of my fee supports them.\nMan: Fair point. I just wish they'd looked at other options first, like opening only one floor overnight. That'd cost less.\nWoman: Actually, that was in the original plan, but security staff said it would be difficult to manage.",
+    "question": "Why does the woman mention sports events?",
+    "choices": [
+      "To suggest that the fee for sports events should be reduced instead",
+      "To explain why she works during the day",
+      "To show that fees often pay for things not everyone uses",
+      "To compare the cost of two proposals"
+    ],
+    "answer": "To show that fees often pay for things not everyone uses",
+    "explanation": "自分は行かないスポーツにも費用を払っている例で、男性の反論に答えています。",
+    "tags": "campus student government debate conversation"
+  },
+  {
+    "id": "TOEFL-LC-022-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Counselor: I've looked over your résumé. Overall it's well organized, but I have a couple of suggestions.\nStudent: Great, please go ahead.\nCounselor: First, under your work experience, you mostly list duties—\"answered phones,\" \"organized files.\" Employers want to know what you achieved.\nStudent: What do you mean exactly?\nCounselor: For instance, you mention you redesigned the office filing system. Did that make anything faster or easier?\nStudent: Actually, yes. It cut the time to find documents roughly in half.\nCounselor: That's exactly the kind of result to include. Numbers make an impression.\nStudent: Got it. What's the second suggestion?\nCounselor: Your résumé is two pages. For a student applying to entry-level positions, one page is usually best. You could remove the high school activities.",
+    "question": "What is the counselor's first suggestion?",
+    "choices": [
+      "Add more work experience",
+      "Remove the section on work experience",
+      "Use a different format for the dates",
+      "Describe achievements rather than only duties"
+    ],
+    "answer": "Describe achievements rather than only duties",
+    "explanation": "仕事内容だけでなく、何を達成したかを書くよう勧めています。",
+    "tags": "campus career services conversation"
+  },
+  {
+    "id": "TOEFL-LC-022-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Counselor: I've looked over your résumé. Overall it's well organized, but I have a couple of suggestions.\nStudent: Great, please go ahead.\nCounselor: First, under your work experience, you mostly list duties—\"answered phones,\" \"organized files.\" Employers want to know what you achieved.\nStudent: What do you mean exactly?\nCounselor: For instance, you mention you redesigned the office filing system. Did that make anything faster or easier?\nStudent: Actually, yes. It cut the time to find documents roughly in half.\nCounselor: That's exactly the kind of result to include. Numbers make an impression.\nStudent: Got it. What's the second suggestion?\nCounselor: Your résumé is two pages. For a student applying to entry-level positions, one page is usually best. You could remove the high school activities.",
+    "question": "Why does the counselor mention the filing system?",
+    "choices": [
+      "To criticize the student for including unimportant office tasks",
+      "As an example of an achievement that could be measured",
+      "To suggest a job the student could apply for",
+      "To show that the student lacks office skills"
+    ],
+    "answer": "As an example of an achievement that could be measured",
+    "explanation": "ファイル整理システムの改善を、成果を数字で示せる例として挙げています。",
+    "tags": "campus career services conversation"
+  },
+  {
+    "id": "TOEFL-LC-023-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Woman: Did you understand what the professor said about opportunity cost today? I got a bit lost.\nMan: I think so. It's basically what you give up when you choose one option over another.\nWoman: But isn't that just the price?\nMan: Not exactly. Say you spend Saturday working on a group project instead of working your part-time job. The project doesn't cost money, but you lose the wages you would have earned. That lost income is the opportunity cost.\nWoman: Oh, so it's the value of the best alternative you didn't choose.\nMan: Right. That's why she said even \"free\" things have a cost.\nWoman: That makes sense now. Are you going to the review session on Thursday?\nMan: Definitely. I want to ask her about the graph she drew at the end.",
+    "question": "What are the speakers mainly discussing?",
+    "choices": [
+      "How to find a part-time job",
+      "The meaning of an economics concept",
+      "The schedule for a group project",
+      "A graph the woman drew"
+    ],
+    "answer": "The meaning of an economics concept",
+    "explanation": "講義で出た「機会費用」の意味について話しています。",
+    "tags": "campus classmates lecture notes conversation"
+  },
+  {
+    "id": "TOEFL-LC-023-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Woman: Did you understand what the professor said about opportunity cost today? I got a bit lost.\nMan: I think so. It's basically what you give up when you choose one option over another.\nWoman: But isn't that just the price?\nMan: Not exactly. Say you spend Saturday working on a group project instead of working your part-time job. The project doesn't cost money, but you lose the wages you would have earned. That lost income is the opportunity cost.\nWoman: Oh, so it's the value of the best alternative you didn't choose.\nMan: Right. That's why she said even \"free\" things have a cost.\nWoman: That makes sense now. Are you going to the review session on Thursday?\nMan: Definitely. I want to ask her about the graph she drew at the end.",
+    "question": "Why does the man talk about a part-time job?",
+    "choices": [
+      "To give an example that clarifies the concept",
+      "To explain why he missed the lecture",
+      "To recommend a job to the woman",
+      "To show that projects are expensive"
+    ],
+    "answer": "To give an example that clarifies the concept",
+    "explanation": "アルバイトの例で、失われる収入＝機会費用という考えを説明しています。",
+    "tags": "campus classmates lecture notes conversation"
+  },
+  {
+    "id": "TOEFL-LC-024-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Advisor: So, you're interested in studying in Japan next spring?\nStudent: Yes. I've taken two years of Japanese, and I'd like to improve my speaking.\nAdvisor: We have two partner programs. One is at a large university in Tokyo, where most classes are in English, with one Japanese language course. The other is in a smaller city, where you'd live with a host family and take intensive Japanese every day.\nStudent: The second one sounds better for my speaking.\nAdvisor: It probably would be. Just keep in mind that the credits from intensive language courses only count as electives here, not toward your major in biology.\nStudent: Would that delay my graduation?\nAdvisor: Not if you take your remaining biology requirements in the summer. Let's map out a plan so you can see.",
+    "question": "Why is the student interested in the second program?",
+    "choices": [
+      "Its classes are taught in English.",
+      "It is located in Tokyo.",
+      "It offers biology courses.",
+      "It would give her more practice speaking Japanese."
+    ],
+    "answer": "It would give her more practice speaking Japanese.",
+    "explanation": "ホストファミリーと集中講座で、会話の上達に向いているからです。",
+    "tags": "campus study abroad advisor conversation"
+  },
+  {
+    "id": "TOEFL-LC-024-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Advisor: So, you're interested in studying in Japan next spring?\nStudent: Yes. I've taken two years of Japanese, and I'd like to improve my speaking.\nAdvisor: We have two partner programs. One is at a large university in Tokyo, where most classes are in English, with one Japanese language course. The other is in a smaller city, where you'd live with a host family and take intensive Japanese every day.\nStudent: The second one sounds better for my speaking.\nAdvisor: It probably would be. Just keep in mind that the credits from intensive language courses only count as electives here, not toward your major in biology.\nStudent: Would that delay my graduation?\nAdvisor: Not if you take your remaining biology requirements in the summer. Let's map out a plan so you can see.",
+    "question": "What concern does the advisor raise about the second program?",
+    "choices": [
+      "It is much more expensive.",
+      "It requires more Japanese experience.",
+      "Its credits would not count toward her major.",
+      "It has no host families available."
+    ],
+    "answer": "Its credits would not count toward her major.",
+    "explanation": "集中講座の単位は選択科目扱いで、生物学専攻には数えられないと注意しています。",
+    "tags": "campus study abroad advisor conversation"
+  },
+  {
+    "id": "TOEFL-LC-025-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Professor: I read your thesis proposal over the weekend. The question is genuinely interesting—how social media affects political participation among first-time voters.\nStudent: Thank you. I was worried it was too broad.\nProfessor: The question is fine. My concern is the method. You plan to survey students and ask how much time they spend on social media and whether they voted.\nStudent: Right. Then I'd look for a correlation.\nProfessor: Even if you find one, you can't tell which way it runs. Politically engaged students might simply follow more political content online. That wouldn't mean social media made them engaged.\nStudent: So I'd need some way to separate cause from effect.\nProfessor: Exactly. You might track the same group over time—measure their engagement before and after an election season. It's more work, but the findings would be far more convincing.\nStudent: That could be done during the fall election. I'll revise the design.",
+    "question": "What is the professor's main criticism of the proposal?",
+    "choices": [
+      "Its research question is too broad.",
+      "Its method cannot show which factor causes the other.",
+      "It does not include enough participants to produce reliable statistics.",
+      "It focuses on the wrong age group."
+    ],
+    "answer": "Its method cannot show which factor causes the other.",
+    "explanation": "相関を見るだけでは因果の向きがわからないという方法の問題を指摘しています。",
+    "tags": "academic professor thesis methodology conversation"
+  },
+  {
+    "id": "TOEFL-LC-025-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Professor: I read your thesis proposal over the weekend. The question is genuinely interesting—how social media affects political participation among first-time voters.\nStudent: Thank you. I was worried it was too broad.\nProfessor: The question is fine. My concern is the method. You plan to survey students and ask how much time they spend on social media and whether they voted.\nStudent: Right. Then I'd look for a correlation.\nProfessor: Even if you find one, you can't tell which way it runs. Politically engaged students might simply follow more political content online. That wouldn't mean social media made them engaged.\nStudent: So I'd need some way to separate cause from effect.\nProfessor: Exactly. You might track the same group over time—measure their engagement before and after an election season. It's more work, but the findings would be far more convincing.\nStudent: That could be done during the fall election. I'll revise the design.",
+    "question": "Why does the professor mention politically engaged students following political content?",
+    "choices": [
+      "To suggest a new topic for the thesis",
+      "To show that social media is harmful",
+      "To illustrate an alternative explanation for a correlation",
+      "To describe the results of an earlier study"
+    ],
+    "answer": "To illustrate an alternative explanation for a correlation",
+    "explanation": "もともと政治に関心のある学生が政治的な投稿を見るだけかもしれない、という別の説明の例です。",
+    "tags": "academic professor thesis methodology conversation"
+  },
+  {
+    "id": "TOEFL-LC-026-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: I'm finalizing my graduate school applications, and I'm torn about which professor to ask for my third recommendation letter.\nAdvisor: Who are you considering?\nStudent: Dr. Morgan, who's well known in the field, but I only took one large lecture course with her. Or Dr. Fields, who supervised my independent study, but she's an adjunct instructor.\nAdvisor: I understand the temptation to go with the famous name. But admissions committees mostly look for specific evidence of your abilities.\nStudent: So a detailed letter matters more than a prestigious one?\nAdvisor: Generally, yes. A letter that says \"she was among the top students in my class of three hundred\" tells them far less than one describing how you designed and carried out a research project.\nStudent: That's reassuring. I was afraid Dr. Fields' position would count against me.\nAdvisor: Her title won't matter much. What she can say about you will.",
+    "question": "What is the student trying to decide?",
+    "choices": [
+      "Whom to ask for a recommendation letter",
+      "Which graduate school to attend",
+      "Whether to do an independent study",
+      "Which course to take next semester"
+    ],
+    "answer": "Whom to ask for a recommendation letter",
+    "explanation": "3通目の推薦状をどちらの教員に頼むか迷っています。",
+    "tags": "academic graduate application advisor conversation"
+  },
+  {
+    "id": "TOEFL-LC-026-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: I'm finalizing my graduate school applications, and I'm torn about which professor to ask for my third recommendation letter.\nAdvisor: Who are you considering?\nStudent: Dr. Morgan, who's well known in the field, but I only took one large lecture course with her. Or Dr. Fields, who supervised my independent study, but she's an adjunct instructor.\nAdvisor: I understand the temptation to go with the famous name. But admissions committees mostly look for specific evidence of your abilities.\nStudent: So a detailed letter matters more than a prestigious one?\nAdvisor: Generally, yes. A letter that says \"she was among the top students in my class of three hundred\" tells them far less than one describing how you designed and carried out a research project.\nStudent: That's reassuring. I was afraid Dr. Fields' position would count against me.\nAdvisor: Her title won't matter much. What she can say about you will.",
+    "question": "What is the advisor's attitude toward Dr. Morgan as a recommender?",
+    "choices": [
+      "She is the stronger choice because of her reputation.",
+      "She is unlikely to agree to write a letter.",
+      "She should be asked in addition to Dr. Fields.",
+      "Her fame matters less than a detailed letter would."
+    ],
+    "answer": "Her fame matters less than a detailed letter would.",
+    "explanation": "有名さより、能力を具体的に示す詳しい推薦状のほうが重要だという考えです。",
+    "tags": "academic graduate application advisor conversation"
+  },
+  {
+    "id": "TOEFL-LC-027-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: Professor Okafor, I need advice about something in the lab. When I reran the analysis on our dataset, I got slightly different results from the ones in the draft paper.\nProfessor: Different in what way?\nStudent: The effect is still there, but it's smaller—and one of the comparisons is no longer statistically significant.\nProfessor: Do you know why?\nStudent: I think a few data points were accidentally entered twice in the original spreadsheet. Once I removed the duplicates, the numbers changed.\nProfessor: Then you've done exactly the right thing by bringing it to me. We'll need to correct the draft before submission.\nStudent: Won't that weaken the paper?\nProfessor: It may make it less dramatic, but accuracy isn't negotiable. Besides, a reviewer could easily have found the same error. Let's meet with the whole team tomorrow and go through the corrected analysis together.",
+    "question": "What caused the difference in results?",
+    "choices": [
+      "The student used a different statistical test.",
+      "New participants were added to the study.",
+      "The draft paper contained typing errors.",
+      "Some data had been entered more than once."
+    ],
+    "answer": "Some data had been entered more than once.",
+    "explanation": "元のスプレッドシートで一部のデータが二重に入力されていたことが原因です。",
+    "tags": "academic lab ethics professor conversation"
+  },
+  {
+    "id": "TOEFL-LC-027-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: Professor Okafor, I need advice about something in the lab. When I reran the analysis on our dataset, I got slightly different results from the ones in the draft paper.\nProfessor: Different in what way?\nStudent: The effect is still there, but it's smaller—and one of the comparisons is no longer statistically significant.\nProfessor: Do you know why?\nStudent: I think a few data points were accidentally entered twice in the original spreadsheet. Once I removed the duplicates, the numbers changed.\nProfessor: Then you've done exactly the right thing by bringing it to me. We'll need to correct the draft before submission.\nStudent: Won't that weaken the paper?\nProfessor: It may make it less dramatic, but accuracy isn't negotiable. Besides, a reviewer could easily have found the same error. Let's meet with the whole team tomorrow and go through the corrected analysis together.",
+    "question": "What is the professor's attitude toward the student's discovery?",
+    "choices": [
+      "He worries that it will delay his promotion.",
+      "He values it and insists the paper be corrected.",
+      "He doubts that the student's analysis is correct.",
+      "He thinks the change is too small to matter."
+    ],
+    "answer": "He values it and insists the paper be corrected.",
+    "explanation": "報告したことを評価し、正確さは譲れないとして修正を求めています。",
+    "tags": "academic lab ethics professor conversation"
+  },
+  {
+    "id": "TOEFL-LC-028-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Woman: What did you think of the reading on urban green spaces?\nMan: I found the main argument persuasive—that parks improve residents' mental health. But something bothered me.\nWoman: Go on.\nMan: The authors compared neighborhoods with lots of parks to neighborhoods with few, and found people in the green neighborhoods reported less stress. But green neighborhoods also tend to be wealthier.\nWoman: So income could explain the difference, not the parks themselves.\nMan: Exactly. They mention income in a footnote, but they don't really control for it.\nWoman: Although—didn't they cite another study where a city converted empty lots into small gardens, and stress levels dropped in those same neighborhoods?\nMan: You're right, I'd forgotten that. That's stronger evidence, since the residents didn't change.\nWoman: I'll bring that up in seminar tomorrow.",
+    "question": "What weakness does the man see in the authors' comparison?",
+    "choices": [
+      "The sample of neighborhoods was too small.",
+      "The parks were not well maintained.",
+      "Wealth might explain the difference in stress.",
+      "Stress was measured incorrectly."
+    ],
+    "answer": "Wealth might explain the difference in stress.",
+    "explanation": "緑の多い地域は裕福な傾向があり、収入が差の原因かもしれないと指摘しています。",
+    "tags": "campus seminar discussion classmates conversation"
+  },
+  {
+    "id": "TOEFL-LC-028-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Woman: What did you think of the reading on urban green spaces?\nMan: I found the main argument persuasive—that parks improve residents' mental health. But something bothered me.\nWoman: Go on.\nMan: The authors compared neighborhoods with lots of parks to neighborhoods with few, and found people in the green neighborhoods reported less stress. But green neighborhoods also tend to be wealthier.\nWoman: So income could explain the difference, not the parks themselves.\nMan: Exactly. They mention income in a footnote, but they don't really control for it.\nWoman: Although—didn't they cite another study where a city converted empty lots into small gardens, and stress levels dropped in those same neighborhoods?\nMan: You're right, I'd forgotten that. That's stronger evidence, since the residents didn't change.\nWoman: I'll bring that up in seminar tomorrow.",
+    "question": "Why does the woman mention the study about empty lots?",
+    "choices": [
+      "It provides evidence that addresses the man's concern.",
+      "It shows that gardens are expensive to build.",
+      "It contradicts the authors' argument that parks improve mental health.",
+      "It was the subject of the man's footnote."
+    ],
+    "answer": "It provides evidence that addresses the man's concern.",
+    "explanation": "同じ住民で比較した研究であり、収入の影響を除いた証拠として男性の疑問に答えています。",
+    "tags": "campus seminar discussion classmates conversation"
+  },
+  {
+    "id": "TOEFL-LC-029-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Advisor: You've asked about adding a second major in philosophy. What's motivating that?\nStudent: My economics courses keep raising ethical questions—about fairness, inequality—that I'd like to explore more rigorously.\nAdvisor: That's a thoughtful reason. Practically, though, a double major would mean roughly eleven more courses, and you're already in your third year.\nStudent: I know. I'd have to take five courses most semesters.\nAdvisor: That's possible, but it leaves little room for anything else—your research assistant job, for instance. Have you considered a minor instead? It's six courses, and you could choose ones focused on ethics and political philosophy.\nStudent: I'd thought a minor wouldn't really mean much.\nAdvisor: For your goals, it might mean more than you think. Graduate programs care about what you studied and how well, not the label on your diploma.\nStudent: Then I'll look at the minor requirements before deciding.",
+    "question": "Why does the student want to study philosophy?",
+    "choices": [
+      "Her economics classes have raised ethical questions she wants to explore.",
+      "She plans to become a philosophy professor.",
+      "She needs more credits to graduate.",
+      "Her research job requires it."
+    ],
+    "answer": "Her economics classes have raised ethical questions she wants to explore.",
+    "explanation": "経済学の授業で出てくる公平や不平等の倫理的な問いを深く考えたいからです。",
+    "tags": "advising double major workload conversation"
+  },
+  {
+    "id": "TOEFL-LC-029-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Advisor: You've asked about adding a second major in philosophy. What's motivating that?\nStudent: My economics courses keep raising ethical questions—about fairness, inequality—that I'd like to explore more rigorously.\nAdvisor: That's a thoughtful reason. Practically, though, a double major would mean roughly eleven more courses, and you're already in your third year.\nStudent: I know. I'd have to take five courses most semesters.\nAdvisor: That's possible, but it leaves little room for anything else—your research assistant job, for instance. Have you considered a minor instead? It's six courses, and you could choose ones focused on ethics and political philosophy.\nStudent: I'd thought a minor wouldn't really mean much.\nAdvisor: For your goals, it might mean more than you think. Graduate programs care about what you studied and how well, not the label on your diploma.\nStudent: Then I'll look at the minor requirements before deciding.",
+    "question": "What does the advisor imply about a minor?",
+    "choices": [
+      "It is not usually taken seriously by graduate admissions committees.",
+      "It could serve the student's goals without overloading her.",
+      "It requires more courses than a second major.",
+      "It would prevent her from working as an assistant."
+    ],
+    "answer": "It could serve the student's goals without overloading her.",
+    "explanation": "負担を抑えつつ、目的に合った科目を学べるので、副専攻でも十分意味があると示唆しています。",
+    "tags": "advising double major workload conversation"
+  },
+  {
+    "id": "TOEFL-LC-030-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: Professor Lin, I'm writing my paper on the painting we discussed—the one with the shipwreck—and I've found two critics who interpret it completely differently.\nProfessor: That's not unusual. What are their positions?\nStudent: One reads it as a political statement, criticizing the government for abandoning the sailors. The other argues it's mainly about the artist's experiments with light and color.\nProfessor: And which do you find more convincing?\nStudent: That's the problem. Both seem plausible.\nProfessor: Do they have to be mutually exclusive? An artist could pursue technical innovation and still make a political point.\nStudent: So I could argue that the technique actually strengthens the message?\nProfessor: If the evidence supports it. Look at where the light falls in the painting—what does it draw the viewer's eye toward?\nStudent: The figures on the raft, mostly. I'll build the argument around that.",
+    "question": "What is the student's difficulty?",
+    "choices": [
+      "She cannot find any critics who discuss the painting.",
+      "She does not understand the painting's technique.",
+      "She disagrees with the professor's interpretation.",
+      "She finds two conflicting interpretations equally convincing."
+    ],
+    "answer": "She finds two conflicting interpretations equally convincing.",
+    "explanation": "正反対の解釈がどちらももっともらしく見え、決められないことが悩みです。",
+    "tags": "academic professor art history conversation"
+  },
+  {
+    "id": "TOEFL-LC-030-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Student: Professor Lin, I'm writing my paper on the painting we discussed—the one with the shipwreck—and I've found two critics who interpret it completely differently.\nProfessor: That's not unusual. What are their positions?\nStudent: One reads it as a political statement, criticizing the government for abandoning the sailors. The other argues it's mainly about the artist's experiments with light and color.\nProfessor: And which do you find more convincing?\nStudent: That's the problem. Both seem plausible.\nProfessor: Do they have to be mutually exclusive? An artist could pursue technical innovation and still make a political point.\nStudent: So I could argue that the technique actually strengthens the message?\nProfessor: If the evidence supports it. Look at where the light falls in the painting—what does it draw the viewer's eye toward?\nStudent: The figures on the raft, mostly. I'll build the argument around that.",
+    "question": "Why does the professor ask about where the light falls?",
+    "choices": [
+      "To test whether the student has seen the original painting",
+      "To show that the political reading is wrong",
+      "To help the student find evidence linking technique and message",
+      "To change the topic of the student's paper"
+    ],
+    "answer": "To help the student find evidence linking technique and message",
+    "explanation": "光の当たり方という技法が主題を強めている証拠を見つけさせるための質問です。",
+    "tags": "academic professor art history conversation"
+  }
+]

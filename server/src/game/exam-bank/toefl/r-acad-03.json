@@ -1,0 +1,632 @@
+[
+ {
+  "id": "TOEFL-RA-016-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Seeing Inside the Earth\n\nNo one has ever traveled to the center of the Earth, and the deepest hole ever drilled reaches only about 12 kilometers, a tiny fraction of the planet's radius of roughly 6,400 kilometers. Yet geologists have a fairly detailed picture of the Earth's internal structure. Much of this knowledge comes from studying the seismic waves produced by earthquakes.\n\nEarthquakes generate several kinds of waves. Two of the most important travel through the Earth's interior. Primary waves, or P waves, are compressional waves that push and pull material in the direction they travel; they can pass through solids, liquids, and gases. Secondary waves, or S waves, move material from side to side and cannot pass through liquids. P waves also travel faster, so they are the first to arrive at a distant recording station.\n\nBy comparing the arrival times of these waves at stations around the world, scientists can infer the properties of the materials they have passed through. In the early twentieth century, researchers noticed that S waves never arrived at stations located on the opposite side of the Earth from an earthquake. Because S waves cannot travel through liquid, this \"shadow zone\" indicated that the outer part of the Earth's core must be liquid.\n\nIn 1936, the Danish seismologist Inge Lehmann studied faint P waves that appeared within the expected shadow zone. She proposed that they had been reflected by a distinct inner core, a hypothesis that was later confirmed. Today, scientists believe the inner core is solid despite its extremely high temperature, because the enormous pressure at the center of the Earth prevents the iron from melting.",
+  "question": "Why does the author mention the deepest hole ever drilled?",
+  "choices": [
+   "To explain how seismic waves are produced",
+   "To show that the Earth is smaller than once thought",
+   "To describe where earthquakes usually occur",
+   "To emphasize that direct observation of the deep Earth is impossible"
+  ],
+  "answer": "To emphasize that direct observation of the deep Earth is impossible",
+  "explanation": "掘削は約12kmにすぎず、地球内部を直接見ることはできないことを強調している。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-016-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Seeing Inside the Earth\n\nNo one has ever traveled to the center of the Earth, and the deepest hole ever drilled reaches only about 12 kilometers, a tiny fraction of the planet's radius of roughly 6,400 kilometers. Yet geologists have a fairly detailed picture of the Earth's internal structure. Much of this knowledge comes from studying the seismic waves produced by earthquakes.\n\nEarthquakes generate several kinds of waves. Two of the most important travel through the Earth's interior. Primary waves, or P waves, are compressional waves that push and pull material in the direction they travel; they can pass through solids, liquids, and gases. Secondary waves, or S waves, move material from side to side and cannot pass through liquids. P waves also travel faster, so they are the first to arrive at a distant recording station.\n\nBy comparing the arrival times of these waves at stations around the world, scientists can infer the properties of the materials they have passed through. In the early twentieth century, researchers noticed that S waves never arrived at stations located on the opposite side of the Earth from an earthquake. Because S waves cannot travel through liquid, this \"shadow zone\" indicated that the outer part of the Earth's core must be liquid.\n\nIn 1936, the Danish seismologist Inge Lehmann studied faint P waves that appeared within the expected shadow zone. She proposed that they had been reflected by a distinct inner core, a hypothesis that was later confirmed. Today, scientists believe the inner core is solid despite its extremely high temperature, because the enormous pressure at the center of the Earth prevents the iron from melting.",
+  "question": "According to paragraph 2, how do S waves differ from P waves?",
+  "choices": [
+   "They cannot travel through liquids.",
+   "They arrive at recording stations first.",
+   "They move material in the direction they travel.",
+   "They can pass through gases."
+  ],
+  "answer": "They cannot travel through liquids.",
+  "explanation": "S波は横に揺らす波で「cannot pass through liquids」。速くて先に届くのはP波。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-016-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Seeing Inside the Earth\n\nNo one has ever traveled to the center of the Earth, and the deepest hole ever drilled reaches only about 12 kilometers, a tiny fraction of the planet's radius of roughly 6,400 kilometers. Yet geologists have a fairly detailed picture of the Earth's internal structure. Much of this knowledge comes from studying the seismic waves produced by earthquakes.\n\nEarthquakes generate several kinds of waves. Two of the most important travel through the Earth's interior. Primary waves, or P waves, are compressional waves that push and pull material in the direction they travel; they can pass through solids, liquids, and gases. Secondary waves, or S waves, move material from side to side and cannot pass through liquids. P waves also travel faster, so they are the first to arrive at a distant recording station.\n\nBy comparing the arrival times of these waves at stations around the world, scientists can infer the properties of the materials they have passed through. In the early twentieth century, researchers noticed that S waves never arrived at stations located on the opposite side of the Earth from an earthquake. Because S waves cannot travel through liquid, this \"shadow zone\" indicated that the outer part of the Earth's core must be liquid.\n\nIn 1936, the Danish seismologist Inge Lehmann studied faint P waves that appeared within the expected shadow zone. She proposed that they had been reflected by a distinct inner core, a hypothesis that was later confirmed. Today, scientists believe the inner core is solid despite its extremely high temperature, because the enormous pressure at the center of the Earth prevents the iron from melting.",
+  "question": "The word \"infer\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "measure",
+   "conclude",
+   "change",
+   "predict"
+  ],
+  "answer": "conclude",
+  "explanation": "infer は証拠から「推論する・結論を引き出す」という意味。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-016-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Seeing Inside the Earth\n\nNo one has ever traveled to the center of the Earth, and the deepest hole ever drilled reaches only about 12 kilometers, a tiny fraction of the planet's radius of roughly 6,400 kilometers. Yet geologists have a fairly detailed picture of the Earth's internal structure. Much of this knowledge comes from studying the seismic waves produced by earthquakes.\n\nEarthquakes generate several kinds of waves. Two of the most important travel through the Earth's interior. Primary waves, or P waves, are compressional waves that push and pull material in the direction they travel; they can pass through solids, liquids, and gases. Secondary waves, or S waves, move material from side to side and cannot pass through liquids. P waves also travel faster, so they are the first to arrive at a distant recording station.\n\nBy comparing the arrival times of these waves at stations around the world, scientists can infer the properties of the materials they have passed through. In the early twentieth century, researchers noticed that S waves never arrived at stations located on the opposite side of the Earth from an earthquake. Because S waves cannot travel through liquid, this \"shadow zone\" indicated that the outer part of the Earth's core must be liquid.\n\nIn 1936, the Danish seismologist Inge Lehmann studied faint P waves that appeared within the expected shadow zone. She proposed that they had been reflected by a distinct inner core, a hypothesis that was later confirmed. Today, scientists believe the inner core is solid despite its extremely high temperature, because the enormous pressure at the center of the Earth prevents the iron from melting.",
+  "question": "According to paragraph 3, what did the S-wave \"shadow zone\" indicate?",
+  "choices": [
+   "The outer core is liquid.",
+   "The inner core is solid.",
+   "The crust is thicker than expected.",
+   "Earthquakes do not occur near the poles."
+  ],
+  "answer": "The outer core is liquid.",
+  "explanation": "S波は液体を通れないので、届かない領域があることは外核が液体であることを示した。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-016-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Seeing Inside the Earth\n\nNo one has ever traveled to the center of the Earth, and the deepest hole ever drilled reaches only about 12 kilometers, a tiny fraction of the planet's radius of roughly 6,400 kilometers. Yet geologists have a fairly detailed picture of the Earth's internal structure. Much of this knowledge comes from studying the seismic waves produced by earthquakes.\n\nEarthquakes generate several kinds of waves. Two of the most important travel through the Earth's interior. Primary waves, or P waves, are compressional waves that push and pull material in the direction they travel; they can pass through solids, liquids, and gases. Secondary waves, or S waves, move material from side to side and cannot pass through liquids. P waves also travel faster, so they are the first to arrive at a distant recording station.\n\nBy comparing the arrival times of these waves at stations around the world, scientists can infer the properties of the materials they have passed through. In the early twentieth century, researchers noticed that S waves never arrived at stations located on the opposite side of the Earth from an earthquake. Because S waves cannot travel through liquid, this \"shadow zone\" indicated that the outer part of the Earth's core must be liquid.\n\nIn 1936, the Danish seismologist Inge Lehmann studied faint P waves that appeared within the expected shadow zone. She proposed that they had been reflected by a distinct inner core, a hypothesis that was later confirmed. Today, scientists believe the inner core is solid despite its extremely high temperature, because the enormous pressure at the center of the Earth prevents the iron from melting.",
+  "question": "What can be inferred from paragraph 4 about the inner core?",
+  "choices": [
+   "It is cooler than the Earth's surface.",
+   "It was discovered by drilling.",
+   "Its iron would melt if the pressure were much lower.",
+   "It does not reflect seismic waves."
+  ],
+  "answer": "Its iron would melt if the pressure were much lower.",
+  "explanation": "高温でも巨大な圧力のために鉄が溶けないとあるので、圧力が低ければ溶けると推測できる。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-017-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Island Rule\n\nIslands have long been regarded as natural laboratories for the study of evolution. One of the most intriguing patterns observed on them concerns body size. In 1964, the biologist J. Bristol Foster reported that, among mammals, some lineages tend to become smaller after colonizing islands while others tend to become larger. This tendency, later formalized as the \"island rule,\" holds that large-bodied species often undergo dwarfism, whereas small-bodied species are prone to gigantism.\n\nThe fossil record provides striking examples. Dwarf elephants, some barely a meter tall at the shoulder, once inhabited several Mediterranean islands, including Sicily and Malta. Conversely, rodents on many islands have evolved to be considerably larger than their mainland relatives.\n\nSeveral explanations have been proposed, and they are not mutually exclusive. For large animals, limited food resources on a small island may favor individuals that require less energy, thereby selecting for smaller body size over many generations. For small animals, the absence of mainland predators may relax the pressure to remain small and inconspicuous, while reduced competition may allow them to exploit food sources that would otherwise be taken by larger species.\n\nThe island rule has nonetheless been the subject of considerable debate. Some researchers argue that it is less a universal law than a statistical tendency that varies considerably among groups of animals; analyses of large datasets have produced conflicting results depending on which species are included. Others emphasize that factors such as island area, isolation, and climate interact in complex ways. What is widely accepted is that island environments can drive remarkably rapid and dramatic evolutionary change.",
+  "question": "According to paragraph 1, what does the island rule state?",
+  "choices": [
+   "All mammals become smaller after reaching islands.",
+   "Island species evolve more slowly than mainland species.",
+   "Only predators change size on islands.",
+   "Large species tend to shrink and small species tend to grow on islands."
+  ],
+  "answer": "Large species tend to shrink and small species tend to grow on islands.",
+  "explanation": "大型種は小型化（dwarfism）し、小型種は大型化（gigantism）しやすいという傾向。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-017-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Island Rule\n\nIslands have long been regarded as natural laboratories for the study of evolution. One of the most intriguing patterns observed on them concerns body size. In 1964, the biologist J. Bristol Foster reported that, among mammals, some lineages tend to become smaller after colonizing islands while others tend to become larger. This tendency, later formalized as the \"island rule,\" holds that large-bodied species often undergo dwarfism, whereas small-bodied species are prone to gigantism.\n\nThe fossil record provides striking examples. Dwarf elephants, some barely a meter tall at the shoulder, once inhabited several Mediterranean islands, including Sicily and Malta. Conversely, rodents on many islands have evolved to be considerably larger than their mainland relatives.\n\nSeveral explanations have been proposed, and they are not mutually exclusive. For large animals, limited food resources on a small island may favor individuals that require less energy, thereby selecting for smaller body size over many generations. For small animals, the absence of mainland predators may relax the pressure to remain small and inconspicuous, while reduced competition may allow them to exploit food sources that would otherwise be taken by larger species.\n\nThe island rule has nonetheless been the subject of considerable debate. Some researchers argue that it is less a universal law than a statistical tendency that varies considerably among groups of animals; analyses of large datasets have produced conflicting results depending on which species are included. Others emphasize that factors such as island area, isolation, and climate interact in complex ways. What is widely accepted is that island environments can drive remarkably rapid and dramatic evolutionary change.",
+  "question": "Why does the author mention dwarf elephants on Sicily and Malta?",
+  "choices": [
+   "To show that elephants originally evolved on islands",
+   "To provide fossil evidence of dwarfism in a large-bodied species",
+   "To argue that the island rule does not apply to elephants",
+   "To compare elephants with island rodents in size"
+  ],
+  "answer": "To provide fossil evidence of dwarfism in a large-bodied species",
+  "explanation": "大型動物が島で小型化した化石の実例として挙げている。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-017-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Island Rule\n\nIslands have long been regarded as natural laboratories for the study of evolution. One of the most intriguing patterns observed on them concerns body size. In 1964, the biologist J. Bristol Foster reported that, among mammals, some lineages tend to become smaller after colonizing islands while others tend to become larger. This tendency, later formalized as the \"island rule,\" holds that large-bodied species often undergo dwarfism, whereas small-bodied species are prone to gigantism.\n\nThe fossil record provides striking examples. Dwarf elephants, some barely a meter tall at the shoulder, once inhabited several Mediterranean islands, including Sicily and Malta. Conversely, rodents on many islands have evolved to be considerably larger than their mainland relatives.\n\nSeveral explanations have been proposed, and they are not mutually exclusive. For large animals, limited food resources on a small island may favor individuals that require less energy, thereby selecting for smaller body size over many generations. For small animals, the absence of mainland predators may relax the pressure to remain small and inconspicuous, while reduced competition may allow them to exploit food sources that would otherwise be taken by larger species.\n\nThe island rule has nonetheless been the subject of considerable debate. Some researchers argue that it is less a universal law than a statistical tendency that varies considerably among groups of animals; analyses of large datasets have produced conflicting results depending on which species are included. Others emphasize that factors such as island area, isolation, and climate interact in complex ways. What is widely accepted is that island environments can drive remarkably rapid and dramatic evolutionary change.",
+  "question": "The phrase \"mutually exclusive\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "supported by each other",
+   "equally important",
+   "difficult to test",
+   "incompatible with each other"
+  ],
+  "answer": "incompatible with each other",
+  "explanation": "not mutually exclusive は「互いに両立しないわけではない」。複数の説明が同時に成り立ちうる。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-017-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Island Rule\n\nIslands have long been regarded as natural laboratories for the study of evolution. One of the most intriguing patterns observed on them concerns body size. In 1964, the biologist J. Bristol Foster reported that, among mammals, some lineages tend to become smaller after colonizing islands while others tend to become larger. This tendency, later formalized as the \"island rule,\" holds that large-bodied species often undergo dwarfism, whereas small-bodied species are prone to gigantism.\n\nThe fossil record provides striking examples. Dwarf elephants, some barely a meter tall at the shoulder, once inhabited several Mediterranean islands, including Sicily and Malta. Conversely, rodents on many islands have evolved to be considerably larger than their mainland relatives.\n\nSeveral explanations have been proposed, and they are not mutually exclusive. For large animals, limited food resources on a small island may favor individuals that require less energy, thereby selecting for smaller body size over many generations. For small animals, the absence of mainland predators may relax the pressure to remain small and inconspicuous, while reduced competition may allow them to exploit food sources that would otherwise be taken by larger species.\n\nThe island rule has nonetheless been the subject of considerable debate. Some researchers argue that it is less a universal law than a statistical tendency that varies considerably among groups of animals; analyses of large datasets have produced conflicting results depending on which species are included. Others emphasize that factors such as island area, isolation, and climate interact in complex ways. What is widely accepted is that island environments can drive remarkably rapid and dramatic evolutionary change.",
+  "question": "According to paragraph 3, which factor may allow small animals to become larger on islands?",
+  "choices": [
+   "A shortage of food on small islands",
+   "The absence of predators from the mainland",
+   "Competition with larger species",
+   "A colder climate than on the mainland"
+  ],
+  "answer": "The absence of predators from the mainland",
+  "explanation": "大陸の捕食者がいないため、小さく目立たないままでいる必要が弱まる。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-017-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Island Rule\n\nIslands have long been regarded as natural laboratories for the study of evolution. One of the most intriguing patterns observed on them concerns body size. In 1964, the biologist J. Bristol Foster reported that, among mammals, some lineages tend to become smaller after colonizing islands while others tend to become larger. This tendency, later formalized as the \"island rule,\" holds that large-bodied species often undergo dwarfism, whereas small-bodied species are prone to gigantism.\n\nThe fossil record provides striking examples. Dwarf elephants, some barely a meter tall at the shoulder, once inhabited several Mediterranean islands, including Sicily and Malta. Conversely, rodents on many islands have evolved to be considerably larger than their mainland relatives.\n\nSeveral explanations have been proposed, and they are not mutually exclusive. For large animals, limited food resources on a small island may favor individuals that require less energy, thereby selecting for smaller body size over many generations. For small animals, the absence of mainland predators may relax the pressure to remain small and inconspicuous, while reduced competition may allow them to exploit food sources that would otherwise be taken by larger species.\n\nThe island rule has nonetheless been the subject of considerable debate. Some researchers argue that it is less a universal law than a statistical tendency that varies considerably among groups of animals; analyses of large datasets have produced conflicting results depending on which species are included. Others emphasize that factors such as island area, isolation, and climate interact in complex ways. What is widely accepted is that island environments can drive remarkably rapid and dramatic evolutionary change.",
+  "question": "What can be inferred from paragraph 4 about the author's view of the island rule?",
+  "choices": [
+   "It describes a real tendency but should not be treated as a strict law.",
+   "It has been completely disproved by recent studies.",
+   "It applies equally to all animal groups.",
+   "It is the only explanation for evolution on islands."
+  ],
+  "answer": "It describes a real tendency but should not be treated as a strict law.",
+  "explanation": "普遍的な法則というより群によって異なる統計的傾向だとする議論を紹介しつつ、島で急速な進化が起きることは認めている。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-018-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Paradox of Plenty\n\nIt might seem self-evident that the discovery of valuable natural resources would enrich a nation. Yet economists have long observed that countries with abundant oil, gas, or minerals have frequently grown more slowly than resource-poor countries. This apparent contradiction is often called the \"resource curse\" or the \"paradox of plenty.\"\n\nOne of the best-documented mechanisms behind it is known as \"Dutch disease,\" a term coined by The Economist in 1977 to describe the difficulties faced by the Netherlands after the discovery of a vast natural gas field in 1959. As gas exports surged, foreign buyers needed Dutch currency, and its value rose. A stronger currency made other Dutch exports, particularly manufactured goods, more expensive abroad, undermining the competitiveness of industries that had nothing to do with gas. Simultaneously, labor and capital were drawn into the booming resource sector and related services.\n\nThe consequences can be lasting. Manufacturing is often regarded as a source of technological learning and productivity growth, so its contraction may weaken an economy's long-term prospects. Moreover, commodity prices are notoriously volatile; when they fall, a country that has become dependent on a single export may face a sudden fiscal crisis.\n\nThe resource curse is not, however, an iron law. Norway, which discovered substantial oil reserves in the late 1960s, is frequently cited as a counterexample. By channeling a large share of its petroleum revenue into a sovereign wealth fund invested largely abroad, the Norwegian government limited upward pressure on its currency and saved wealth for future generations. Such cases suggest that the effects of resource wealth depend heavily on the quality of institutions and policy.",
+  "question": "What is the \"paradox\" referred to in paragraph 1?",
+  "choices": [
+   "Countries with few resources have never developed manufacturing.",
+   "Natural resources become cheaper as they become scarcer.",
+   "Resource-rich countries have often grown more slowly than resource-poor ones.",
+   "Oil-producing countries usually have weak currencies."
+  ],
+  "answer": "Resource-rich countries have often grown more slowly than resource-poor ones.",
+  "explanation": "資源が豊富な国の方が、乏しい国より成長が遅いことが多いという逆説。",
+  "tags": "TOEFL2026 reading academic-passage economics"
+ },
+ {
+  "id": "TOEFL-RA-018-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Paradox of Plenty\n\nIt might seem self-evident that the discovery of valuable natural resources would enrich a nation. Yet economists have long observed that countries with abundant oil, gas, or minerals have frequently grown more slowly than resource-poor countries. This apparent contradiction is often called the \"resource curse\" or the \"paradox of plenty.\"\n\nOne of the best-documented mechanisms behind it is known as \"Dutch disease,\" a term coined by The Economist in 1977 to describe the difficulties faced by the Netherlands after the discovery of a vast natural gas field in 1959. As gas exports surged, foreign buyers needed Dutch currency, and its value rose. A stronger currency made other Dutch exports, particularly manufactured goods, more expensive abroad, undermining the competitiveness of industries that had nothing to do with gas. Simultaneously, labor and capital were drawn into the booming resource sector and related services.\n\nThe consequences can be lasting. Manufacturing is often regarded as a source of technological learning and productivity growth, so its contraction may weaken an economy's long-term prospects. Moreover, commodity prices are notoriously volatile; when they fall, a country that has become dependent on a single export may face a sudden fiscal crisis.\n\nThe resource curse is not, however, an iron law. Norway, which discovered substantial oil reserves in the late 1960s, is frequently cited as a counterexample. By channeling a large share of its petroleum revenue into a sovereign wealth fund invested largely abroad, the Norwegian government limited upward pressure on its currency and saved wealth for future generations. Such cases suggest that the effects of resource wealth depend heavily on the quality of institutions and policy.",
+  "question": "According to paragraph 2, how did gas exports harm other Dutch industries?",
+  "choices": [
+   "Gas production polluted manufacturing areas.",
+   "A stronger currency made other exports more expensive abroad.",
+   "The government banned the export of manufactured goods.",
+   "Foreign buyers stopped using Dutch currency."
+  ],
+  "answer": "A stronger currency made other exports more expensive abroad.",
+  "explanation": "通貨高で、ガス以外の輸出品（工業製品など）が海外で割高になり競争力を失った。",
+  "tags": "TOEFL2026 reading academic-passage economics"
+ },
+ {
+  "id": "TOEFL-RA-018-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Paradox of Plenty\n\nIt might seem self-evident that the discovery of valuable natural resources would enrich a nation. Yet economists have long observed that countries with abundant oil, gas, or minerals have frequently grown more slowly than resource-poor countries. This apparent contradiction is often called the \"resource curse\" or the \"paradox of plenty.\"\n\nOne of the best-documented mechanisms behind it is known as \"Dutch disease,\" a term coined by The Economist in 1977 to describe the difficulties faced by the Netherlands after the discovery of a vast natural gas field in 1959. As gas exports surged, foreign buyers needed Dutch currency, and its value rose. A stronger currency made other Dutch exports, particularly manufactured goods, more expensive abroad, undermining the competitiveness of industries that had nothing to do with gas. Simultaneously, labor and capital were drawn into the booming resource sector and related services.\n\nThe consequences can be lasting. Manufacturing is often regarded as a source of technological learning and productivity growth, so its contraction may weaken an economy's long-term prospects. Moreover, commodity prices are notoriously volatile; when they fall, a country that has become dependent on a single export may face a sudden fiscal crisis.\n\nThe resource curse is not, however, an iron law. Norway, which discovered substantial oil reserves in the late 1960s, is frequently cited as a counterexample. By channeling a large share of its petroleum revenue into a sovereign wealth fund invested largely abroad, the Norwegian government limited upward pressure on its currency and saved wealth for future generations. Such cases suggest that the effects of resource wealth depend heavily on the quality of institutions and policy.",
+  "question": "The word \"volatile\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "valuable",
+   "predictable",
+   "explosive",
+   "unstable"
+  ],
+  "answer": "unstable",
+  "explanation": "volatile prices は「変動が激しい価格」という意味で、unstable が最も近い。ここでは explosive の意味ではない。",
+  "tags": "TOEFL2026 reading academic-passage economics"
+ },
+ {
+  "id": "TOEFL-RA-018-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Paradox of Plenty\n\nIt might seem self-evident that the discovery of valuable natural resources would enrich a nation. Yet economists have long observed that countries with abundant oil, gas, or minerals have frequently grown more slowly than resource-poor countries. This apparent contradiction is often called the \"resource curse\" or the \"paradox of plenty.\"\n\nOne of the best-documented mechanisms behind it is known as \"Dutch disease,\" a term coined by The Economist in 1977 to describe the difficulties faced by the Netherlands after the discovery of a vast natural gas field in 1959. As gas exports surged, foreign buyers needed Dutch currency, and its value rose. A stronger currency made other Dutch exports, particularly manufactured goods, more expensive abroad, undermining the competitiveness of industries that had nothing to do with gas. Simultaneously, labor and capital were drawn into the booming resource sector and related services.\n\nThe consequences can be lasting. Manufacturing is often regarded as a source of technological learning and productivity growth, so its contraction may weaken an economy's long-term prospects. Moreover, commodity prices are notoriously volatile; when they fall, a country that has become dependent on a single export may face a sudden fiscal crisis.\n\nThe resource curse is not, however, an iron law. Norway, which discovered substantial oil reserves in the late 1960s, is frequently cited as a counterexample. By channeling a large share of its petroleum revenue into a sovereign wealth fund invested largely abroad, the Norwegian government limited upward pressure on its currency and saved wealth for future generations. Such cases suggest that the effects of resource wealth depend heavily on the quality of institutions and policy.",
+  "question": "Why does the author discuss Norway in paragraph 4?",
+  "choices": [
+   "To show that the resource curse can be avoided through careful policy",
+   "To provide another example of Dutch disease",
+   "To argue that oil is less harmful than natural gas",
+   "To explain why Norway has no manufacturing sector"
+  ],
+  "answer": "To show that the resource curse can be avoided through careful policy",
+  "explanation": "石油収入を政府系ファンドに回して通貨高を抑えた例として、資源の呪いは避けられることを示している。",
+  "tags": "TOEFL2026 reading academic-passage economics"
+ },
+ {
+  "id": "TOEFL-RA-018-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Paradox of Plenty\n\nIt might seem self-evident that the discovery of valuable natural resources would enrich a nation. Yet economists have long observed that countries with abundant oil, gas, or minerals have frequently grown more slowly than resource-poor countries. This apparent contradiction is often called the \"resource curse\" or the \"paradox of plenty.\"\n\nOne of the best-documented mechanisms behind it is known as \"Dutch disease,\" a term coined by The Economist in 1977 to describe the difficulties faced by the Netherlands after the discovery of a vast natural gas field in 1959. As gas exports surged, foreign buyers needed Dutch currency, and its value rose. A stronger currency made other Dutch exports, particularly manufactured goods, more expensive abroad, undermining the competitiveness of industries that had nothing to do with gas. Simultaneously, labor and capital were drawn into the booming resource sector and related services.\n\nThe consequences can be lasting. Manufacturing is often regarded as a source of technological learning and productivity growth, so its contraction may weaken an economy's long-term prospects. Moreover, commodity prices are notoriously volatile; when they fall, a country that has become dependent on a single export may face a sudden fiscal crisis.\n\nThe resource curse is not, however, an iron law. Norway, which discovered substantial oil reserves in the late 1960s, is frequently cited as a counterexample. By channeling a large share of its petroleum revenue into a sovereign wealth fund invested largely abroad, the Norwegian government limited upward pressure on its currency and saved wealth for future generations. Such cases suggest that the effects of resource wealth depend heavily on the quality of institutions and policy.",
+  "question": "Which of the following is NOT mentioned as a negative effect of resource wealth?",
+  "choices": [
+   "A decline in manufacturing",
+   "Movement of labor into the resource sector",
+   "A rapid increase in the national population",
+   "Vulnerability to falling commodity prices"
+  ],
+  "answer": "A rapid increase in the national population",
+  "explanation": "製造業の縮小・労働力の資源部門への移動・価格下落への脆弱性は書かれているが、人口急増は書かれていない。",
+  "tags": "TOEFL2026 reading academic-passage economics"
+ },
+ {
+  "id": "TOEFL-RA-019-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Great Vowel Shift\n\nAnyone who has learned English as a second language has probably been puzzled by its spelling. Why, for example, is the letter \"i\" pronounced differently in \"bite\" than in most other European languages, where it represents a sound similar to the vowel in \"see\"? Much of the answer lies in a series of sound changes known as the Great Vowel Shift, which transformed the pronunciation of English long vowels between roughly 1400 and 1700.\n\nIn Middle English, the language of Chaucer, long vowels were pronounced much as they still are in many continental languages. The word \"bite\" sounded roughly like modern \"beet,\" and \"house\" sounded somewhat like \"hoos.\" Over the following centuries, these long vowels were systematically raised: they came to be pronounced with the tongue higher in the mouth. The vowels that were already as high as possible, such as those in \"bite\" and \"house,\" could not be raised further, so they became diphthongs, sounds that glide from one vowel position to another.\n\nCrucially, these changes occurred after English spelling had begun to stabilize. The introduction of printing to England by William Caxton in the 1470s encouraged relatively fixed spellings, many of which reflected older pronunciations. Spelling and speech consequently drifted apart.\n\nThe causes of the shift remain contested. Some scholars have linked it to social upheaval and migration into London after the Black Death, as speakers of different dialects came into contact and certain pronunciations acquired prestige. Others argue that the shift was not a single coordinated event at all, but a set of related changes that unfolded at different times in different regions.",
+  "question": "What is the passage mainly about?",
+  "choices": [
+   "The life and work of the poet Chaucer",
+   "The introduction of printing to England",
+   "Differences between English and other European languages today",
+   "A set of historical sound changes that helps explain English spelling"
+  ],
+  "answer": "A set of historical sound changes that helps explain English spelling",
+  "explanation": "英語の長母音の発音を変えた「大母音推移」と、それが綴りと発音のずれを生んだことの説明。",
+  "tags": "TOEFL2026 reading academic-passage linguistics"
+ },
+ {
+  "id": "TOEFL-RA-019-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Great Vowel Shift\n\nAnyone who has learned English as a second language has probably been puzzled by its spelling. Why, for example, is the letter \"i\" pronounced differently in \"bite\" than in most other European languages, where it represents a sound similar to the vowel in \"see\"? Much of the answer lies in a series of sound changes known as the Great Vowel Shift, which transformed the pronunciation of English long vowels between roughly 1400 and 1700.\n\nIn Middle English, the language of Chaucer, long vowels were pronounced much as they still are in many continental languages. The word \"bite\" sounded roughly like modern \"beet,\" and \"house\" sounded somewhat like \"hoos.\" Over the following centuries, these long vowels were systematically raised: they came to be pronounced with the tongue higher in the mouth. The vowels that were already as high as possible, such as those in \"bite\" and \"house,\" could not be raised further, so they became diphthongs, sounds that glide from one vowel position to another.\n\nCrucially, these changes occurred after English spelling had begun to stabilize. The introduction of printing to England by William Caxton in the 1470s encouraged relatively fixed spellings, many of which reflected older pronunciations. Spelling and speech consequently drifted apart.\n\nThe causes of the shift remain contested. Some scholars have linked it to social upheaval and migration into London after the Black Death, as speakers of different dialects came into contact and certain pronunciations acquired prestige. Others argue that the shift was not a single coordinated event at all, but a set of related changes that unfolded at different times in different regions.",
+  "question": "According to paragraph 2, what happened to long vowels that were already as high as possible?",
+  "choices": [
+   "They were dropped from the language.",
+   "They became diphthongs.",
+   "They were lowered in the mouth.",
+   "They became short vowels."
+  ],
+  "answer": "They became diphthongs.",
+  "explanation": "それ以上高くできない母音は「became diphthongs」、二重母音になった。",
+  "tags": "TOEFL2026 reading academic-passage linguistics"
+ },
+ {
+  "id": "TOEFL-RA-019-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Great Vowel Shift\n\nAnyone who has learned English as a second language has probably been puzzled by its spelling. Why, for example, is the letter \"i\" pronounced differently in \"bite\" than in most other European languages, where it represents a sound similar to the vowel in \"see\"? Much of the answer lies in a series of sound changes known as the Great Vowel Shift, which transformed the pronunciation of English long vowels between roughly 1400 and 1700.\n\nIn Middle English, the language of Chaucer, long vowels were pronounced much as they still are in many continental languages. The word \"bite\" sounded roughly like modern \"beet,\" and \"house\" sounded somewhat like \"hoos.\" Over the following centuries, these long vowels were systematically raised: they came to be pronounced with the tongue higher in the mouth. The vowels that were already as high as possible, such as those in \"bite\" and \"house,\" could not be raised further, so they became diphthongs, sounds that glide from one vowel position to another.\n\nCrucially, these changes occurred after English spelling had begun to stabilize. The introduction of printing to England by William Caxton in the 1470s encouraged relatively fixed spellings, many of which reflected older pronunciations. Spelling and speech consequently drifted apart.\n\nThe causes of the shift remain contested. Some scholars have linked it to social upheaval and migration into London after the Black Death, as speakers of different dialects came into contact and certain pronunciations acquired prestige. Others argue that the shift was not a single coordinated event at all, but a set of related changes that unfolded at different times in different regions.",
+  "question": "The word \"stabilize\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "become simpler",
+   "become popular",
+   "become fixed",
+   "become longer"
+  ],
+  "answer": "become fixed",
+  "explanation": "stabilize は「安定する・固定される」という意味。",
+  "tags": "TOEFL2026 reading academic-passage linguistics"
+ },
+ {
+  "id": "TOEFL-RA-019-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Great Vowel Shift\n\nAnyone who has learned English as a second language has probably been puzzled by its spelling. Why, for example, is the letter \"i\" pronounced differently in \"bite\" than in most other European languages, where it represents a sound similar to the vowel in \"see\"? Much of the answer lies in a series of sound changes known as the Great Vowel Shift, which transformed the pronunciation of English long vowels between roughly 1400 and 1700.\n\nIn Middle English, the language of Chaucer, long vowels were pronounced much as they still are in many continental languages. The word \"bite\" sounded roughly like modern \"beet,\" and \"house\" sounded somewhat like \"hoos.\" Over the following centuries, these long vowels were systematically raised: they came to be pronounced with the tongue higher in the mouth. The vowels that were already as high as possible, such as those in \"bite\" and \"house,\" could not be raised further, so they became diphthongs, sounds that glide from one vowel position to another.\n\nCrucially, these changes occurred after English spelling had begun to stabilize. The introduction of printing to England by William Caxton in the 1470s encouraged relatively fixed spellings, many of which reflected older pronunciations. Spelling and speech consequently drifted apart.\n\nThe causes of the shift remain contested. Some scholars have linked it to social upheaval and migration into London after the Black Death, as speakers of different dialects came into contact and certain pronunciations acquired prestige. Others argue that the shift was not a single coordinated event at all, but a set of related changes that unfolded at different times in different regions.",
+  "question": "Why does the author mention William Caxton?",
+  "choices": [
+   "To explain why spelling came to reflect older pronunciations",
+   "To identify the person who caused the vowel shift",
+   "To show that printing was invented in England",
+   "To describe how Chaucer's works were translated"
+  ],
+  "answer": "To explain why spelling came to reflect older pronunciations",
+  "explanation": "印刷導入で綴りが固定され、古い発音を反映したまま残った理由として挙げている。",
+  "tags": "TOEFL2026 reading academic-passage linguistics"
+ },
+ {
+  "id": "TOEFL-RA-019-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "The Great Vowel Shift\n\nAnyone who has learned English as a second language has probably been puzzled by its spelling. Why, for example, is the letter \"i\" pronounced differently in \"bite\" than in most other European languages, where it represents a sound similar to the vowel in \"see\"? Much of the answer lies in a series of sound changes known as the Great Vowel Shift, which transformed the pronunciation of English long vowels between roughly 1400 and 1700.\n\nIn Middle English, the language of Chaucer, long vowels were pronounced much as they still are in many continental languages. The word \"bite\" sounded roughly like modern \"beet,\" and \"house\" sounded somewhat like \"hoos.\" Over the following centuries, these long vowels were systematically raised: they came to be pronounced with the tongue higher in the mouth. The vowels that were already as high as possible, such as those in \"bite\" and \"house,\" could not be raised further, so they became diphthongs, sounds that glide from one vowel position to another.\n\nCrucially, these changes occurred after English spelling had begun to stabilize. The introduction of printing to England by William Caxton in the 1470s encouraged relatively fixed spellings, many of which reflected older pronunciations. Spelling and speech consequently drifted apart.\n\nThe causes of the shift remain contested. Some scholars have linked it to social upheaval and migration into London after the Black Death, as speakers of different dialects came into contact and certain pronunciations acquired prestige. Others argue that the shift was not a single coordinated event at all, but a set of related changes that unfolded at different times in different regions.",
+  "question": "According to paragraph 4, which of the following is true about the causes of the Great Vowel Shift?",
+  "choices": [
+   "It was clearly caused by the Black Death.",
+   "It was planned by printers in London.",
+   "Scholars have not agreed on what caused it.",
+   "It occurred at the same time in every region."
+  ],
+  "answer": "Scholars have not agreed on what caused it.",
+  "explanation": "「The causes of the shift remain contested.」とあり、原因については複数の説があり決着していない。",
+  "tags": "TOEFL2026 reading academic-passage linguistics"
+ },
+ {
+  "id": "TOEFL-RA-020-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Göbekli Tepe and the Origins of Monuments\n\nFor much of the twentieth century, archaeologists generally assumed a particular sequence in human history. First, people adopted agriculture, which produced food surpluses and allowed them to settle in permanent villages. Only then, with the social organization and labor that settled life made possible, did communities begin to construct large monuments and develop complex religious practices.\n\nExcavations at Göbekli Tepe in southeastern Turkey, led by the German archaeologist Klaus Schmidt from 1995 onward, have challenged this view. The site contains massive circular enclosures built from T-shaped limestone pillars, some more than five meters tall and weighing many tons. Many are carved with images of animals such as foxes, snakes, scorpions, and vultures. The oldest enclosures date to roughly 9500 BCE, which makes them several thousand years older than Stonehenge. Strikingly, the people who built them appear to have relied primarily on hunting and gathering; there is no evidence of domesticated plants or animals at the site's earliest levels.\n\nSchmidt interpreted Göbekli Tepe as a ceremonial center rather than a settlement and suggested that the need to feed large gatherings of builders may have encouraged the intensive exploitation of wild cereals, a step toward domestication. In this view, monument building may have helped to drive the transition to farming rather than simply following from it.\n\nSubsequent research has complicated Schmidt's interpretation. Later excavations uncovered evidence of water collection systems, domestic buildings, and tools for processing grain, suggesting that some people may have lived at the site after all. Nevertheless, Göbekli Tepe continues to demonstrate that hunter-gatherer societies were capable of a degree of organization that archaeologists had previously underestimated.",
+  "question": "According to paragraph 1, what did archaeologists traditionally believe?",
+  "choices": [
+   "Monuments were built before people used stone tools.",
+   "Monument building came after the adoption of agriculture.",
+   "Hunter-gatherers built most of the large monuments in Europe.",
+   "Agriculture began in many regions at the same time."
+  ],
+  "answer": "Monument building came after the adoption of agriculture.",
+  "explanation": "農耕→定住→記念建造物・宗教という順番が想定されていた。",
+  "tags": "TOEFL2026 reading academic-passage archaeology"
+ },
+ {
+  "id": "TOEFL-RA-020-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Göbekli Tepe and the Origins of Monuments\n\nFor much of the twentieth century, archaeologists generally assumed a particular sequence in human history. First, people adopted agriculture, which produced food surpluses and allowed them to settle in permanent villages. Only then, with the social organization and labor that settled life made possible, did communities begin to construct large monuments and develop complex religious practices.\n\nExcavations at Göbekli Tepe in southeastern Turkey, led by the German archaeologist Klaus Schmidt from 1995 onward, have challenged this view. The site contains massive circular enclosures built from T-shaped limestone pillars, some more than five meters tall and weighing many tons. Many are carved with images of animals such as foxes, snakes, scorpions, and vultures. The oldest enclosures date to roughly 9500 BCE, which makes them several thousand years older than Stonehenge. Strikingly, the people who built them appear to have relied primarily on hunting and gathering; there is no evidence of domesticated plants or animals at the site's earliest levels.\n\nSchmidt interpreted Göbekli Tepe as a ceremonial center rather than a settlement and suggested that the need to feed large gatherings of builders may have encouraged the intensive exploitation of wild cereals, a step toward domestication. In this view, monument building may have helped to drive the transition to farming rather than simply following from it.\n\nSubsequent research has complicated Schmidt's interpretation. Later excavations uncovered evidence of water collection systems, domestic buildings, and tools for processing grain, suggesting that some people may have lived at the site after all. Nevertheless, Göbekli Tepe continues to demonstrate that hunter-gatherer societies were capable of a degree of organization that archaeologists had previously underestimated.",
+  "question": "Why does the author compare the age of Göbekli Tepe with Stonehenge?",
+  "choices": [
+   "To emphasize how early the site was constructed",
+   "To suggest that the same people built both sites",
+   "To show that Stonehenge was also built by hunter-gatherers",
+   "To argue that Stonehenge is more impressive"
+  ],
+  "answer": "To emphasize how early the site was constructed",
+  "explanation": "よく知られたストーンヘンジより数千年古いことで、建造時期の古さを強調している。",
+  "tags": "TOEFL2026 reading academic-passage archaeology"
+ },
+ {
+  "id": "TOEFL-RA-020-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Göbekli Tepe and the Origins of Monuments\n\nFor much of the twentieth century, archaeologists generally assumed a particular sequence in human history. First, people adopted agriculture, which produced food surpluses and allowed them to settle in permanent villages. Only then, with the social organization and labor that settled life made possible, did communities begin to construct large monuments and develop complex religious practices.\n\nExcavations at Göbekli Tepe in southeastern Turkey, led by the German archaeologist Klaus Schmidt from 1995 onward, have challenged this view. The site contains massive circular enclosures built from T-shaped limestone pillars, some more than five meters tall and weighing many tons. Many are carved with images of animals such as foxes, snakes, scorpions, and vultures. The oldest enclosures date to roughly 9500 BCE, which makes them several thousand years older than Stonehenge. Strikingly, the people who built them appear to have relied primarily on hunting and gathering; there is no evidence of domesticated plants or animals at the site's earliest levels.\n\nSchmidt interpreted Göbekli Tepe as a ceremonial center rather than a settlement and suggested that the need to feed large gatherings of builders may have encouraged the intensive exploitation of wild cereals, a step toward domestication. In this view, monument building may have helped to drive the transition to farming rather than simply following from it.\n\nSubsequent research has complicated Schmidt's interpretation. Later excavations uncovered evidence of water collection systems, domestic buildings, and tools for processing grain, suggesting that some people may have lived at the site after all. Nevertheless, Göbekli Tepe continues to demonstrate that hunter-gatherer societies were capable of a degree of organization that archaeologists had previously underestimated.",
+  "question": "The word \"exploitation\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "protection",
+   "study",
+   "destruction",
+   "use"
+  ],
+  "answer": "use",
+  "explanation": "ここの exploitation は資源の「利用」という意味。",
+  "tags": "TOEFL2026 reading academic-passage archaeology"
+ },
+ {
+  "id": "TOEFL-RA-020-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Göbekli Tepe and the Origins of Monuments\n\nFor much of the twentieth century, archaeologists generally assumed a particular sequence in human history. First, people adopted agriculture, which produced food surpluses and allowed them to settle in permanent villages. Only then, with the social organization and labor that settled life made possible, did communities begin to construct large monuments and develop complex religious practices.\n\nExcavations at Göbekli Tepe in southeastern Turkey, led by the German archaeologist Klaus Schmidt from 1995 onward, have challenged this view. The site contains massive circular enclosures built from T-shaped limestone pillars, some more than five meters tall and weighing many tons. Many are carved with images of animals such as foxes, snakes, scorpions, and vultures. The oldest enclosures date to roughly 9500 BCE, which makes them several thousand years older than Stonehenge. Strikingly, the people who built them appear to have relied primarily on hunting and gathering; there is no evidence of domesticated plants or animals at the site's earliest levels.\n\nSchmidt interpreted Göbekli Tepe as a ceremonial center rather than a settlement and suggested that the need to feed large gatherings of builders may have encouraged the intensive exploitation of wild cereals, a step toward domestication. In this view, monument building may have helped to drive the transition to farming rather than simply following from it.\n\nSubsequent research has complicated Schmidt's interpretation. Later excavations uncovered evidence of water collection systems, domestic buildings, and tools for processing grain, suggesting that some people may have lived at the site after all. Nevertheless, Göbekli Tepe continues to demonstrate that hunter-gatherer societies were capable of a degree of organization that archaeologists had previously underestimated.",
+  "question": "According to paragraph 3, how did Schmidt think monument building might be related to farming?",
+  "choices": [
+   "It prevented people from adopting farming.",
+   "It was only possible after farming was well established.",
+   "It had no connection with farming at all.",
+   "It may have encouraged the move toward farming."
+  ],
+  "answer": "It may have encouraged the move toward farming.",
+  "explanation": "大勢の建設者を養う必要から野生の穀物の利用が進み、農耕への移行を後押しした可能性がある、と考えた。",
+  "tags": "TOEFL2026 reading academic-passage archaeology"
+ },
+ {
+  "id": "TOEFL-RA-020-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Göbekli Tepe and the Origins of Monuments\n\nFor much of the twentieth century, archaeologists generally assumed a particular sequence in human history. First, people adopted agriculture, which produced food surpluses and allowed them to settle in permanent villages. Only then, with the social organization and labor that settled life made possible, did communities begin to construct large monuments and develop complex religious practices.\n\nExcavations at Göbekli Tepe in southeastern Turkey, led by the German archaeologist Klaus Schmidt from 1995 onward, have challenged this view. The site contains massive circular enclosures built from T-shaped limestone pillars, some more than five meters tall and weighing many tons. Many are carved with images of animals such as foxes, snakes, scorpions, and vultures. The oldest enclosures date to roughly 9500 BCE, which makes them several thousand years older than Stonehenge. Strikingly, the people who built them appear to have relied primarily on hunting and gathering; there is no evidence of domesticated plants or animals at the site's earliest levels.\n\nSchmidt interpreted Göbekli Tepe as a ceremonial center rather than a settlement and suggested that the need to feed large gatherings of builders may have encouraged the intensive exploitation of wild cereals, a step toward domestication. In this view, monument building may have helped to drive the transition to farming rather than simply following from it.\n\nSubsequent research has complicated Schmidt's interpretation. Later excavations uncovered evidence of water collection systems, domestic buildings, and tools for processing grain, suggesting that some people may have lived at the site after all. Nevertheless, Göbekli Tepe continues to demonstrate that hunter-gatherer societies were capable of a degree of organization that archaeologists had previously underestimated.",
+  "question": "What can be inferred from paragraph 4?",
+  "choices": [
+   "Schmidt's view that nobody lived at the site may have been incorrect.",
+   "Göbekli Tepe was built by farmers after all.",
+   "The site is younger than archaeologists first believed.",
+   "Later research has shown that the pillars were never carved."
+  ],
+  "answer": "Schmidt's view that nobody lived at the site may have been incorrect.",
+  "explanation": "のちの発掘で住居や水の貯留施設が見つかり、人が住んでいなかったというシュミットの解釈は誤りだった可能性がある。",
+  "tags": "TOEFL2026 reading academic-passage archaeology"
+ },
+ {
+  "id": "TOEFL-RA-021-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Patrons of the Florentine Renaissance\n\nThe artistic achievements of the Italian Renaissance are often attributed to the genius of individual artists. Yet the works of Brunelleschi, Donatello, and Botticelli would scarcely have been possible without patrons: wealthy individuals and institutions that commissioned, financed, and frequently shaped the art of their time. In fifteenth-century Florence, the most celebrated of these patrons was the Medici family, whose fortune derived primarily from banking.\n\nCosimo de' Medici, who dominated Florentine politics from 1434 until his death in 1464, spent enormous sums on churches, libraries, and his family palace. His motives were complex. Religious devotion certainly played a part; the Church condemned many banking practices, and some historians have argued that generous gifts to religious foundations served partly to ease the conscience of a man who profited from lending money. Political considerations were equally important. Although Florence was formally a republic, Cosimo exercised power largely behind the scenes, and conspicuous patronage helped to project the family's prestige while associating it with the civic pride of the city.\n\nPatronage was rarely a matter of simple payment for an artist's free expression. Contracts of the period often specified the subject, the dimensions, the deadline, and even the quantity of expensive pigments, such as ultramarine, that were to be used. Patrons sometimes requested that their own portraits, or those of family members, be included among the figures in religious scenes.\n\nIt would be misleading, however, to regard artists as mere employees. As the century progressed, the most sought-after painters and sculptors gained considerable bargaining power, and the notion that an artist's distinctive skill was itself worth paying for gradually took hold.",
+  "question": "According to paragraph 1, what was the main source of the Medici family's wealth?",
+  "choices": [
+   "The wool trade",
+   "The sale of works of art",
+   "Banking",
+   "Land owned by the Church"
+  ],
+  "answer": "Banking",
+  "explanation": "「whose fortune derived primarily from banking」とあり、銀行業が主な財源。",
+  "tags": "TOEFL2026 reading academic-passage art-history"
+ },
+ {
+  "id": "TOEFL-RA-021-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Patrons of the Florentine Renaissance\n\nThe artistic achievements of the Italian Renaissance are often attributed to the genius of individual artists. Yet the works of Brunelleschi, Donatello, and Botticelli would scarcely have been possible without patrons: wealthy individuals and institutions that commissioned, financed, and frequently shaped the art of their time. In fifteenth-century Florence, the most celebrated of these patrons was the Medici family, whose fortune derived primarily from banking.\n\nCosimo de' Medici, who dominated Florentine politics from 1434 until his death in 1464, spent enormous sums on churches, libraries, and his family palace. His motives were complex. Religious devotion certainly played a part; the Church condemned many banking practices, and some historians have argued that generous gifts to religious foundations served partly to ease the conscience of a man who profited from lending money. Political considerations were equally important. Although Florence was formally a republic, Cosimo exercised power largely behind the scenes, and conspicuous patronage helped to project the family's prestige while associating it with the civic pride of the city.\n\nPatronage was rarely a matter of simple payment for an artist's free expression. Contracts of the period often specified the subject, the dimensions, the deadline, and even the quantity of expensive pigments, such as ultramarine, that were to be used. Patrons sometimes requested that their own portraits, or those of family members, be included among the figures in religious scenes.\n\nIt would be misleading, however, to regard artists as mere employees. As the century progressed, the most sought-after painters and sculptors gained considerable bargaining power, and the notion that an artist's distinctive skill was itself worth paying for gradually took hold.",
+  "question": "According to paragraph 2, all of the following may have motivated Cosimo's patronage EXCEPT",
+  "choices": [
+   "Religious devotion",
+   "A desire to become a professional artist himself",
+   "Easing his conscience about money lending",
+   "Increasing his family's political prestige"
+  ],
+  "answer": "A desire to become a professional artist himself",
+  "explanation": "信仰心・金貸しへの後ろめたさ・政治的な威信は挙げられているが、自分が芸術家になりたかったという話はない。",
+  "tags": "TOEFL2026 reading academic-passage art-history"
+ },
+ {
+  "id": "TOEFL-RA-021-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Patrons of the Florentine Renaissance\n\nThe artistic achievements of the Italian Renaissance are often attributed to the genius of individual artists. Yet the works of Brunelleschi, Donatello, and Botticelli would scarcely have been possible without patrons: wealthy individuals and institutions that commissioned, financed, and frequently shaped the art of their time. In fifteenth-century Florence, the most celebrated of these patrons was the Medici family, whose fortune derived primarily from banking.\n\nCosimo de' Medici, who dominated Florentine politics from 1434 until his death in 1464, spent enormous sums on churches, libraries, and his family palace. His motives were complex. Religious devotion certainly played a part; the Church condemned many banking practices, and some historians have argued that generous gifts to religious foundations served partly to ease the conscience of a man who profited from lending money. Political considerations were equally important. Although Florence was formally a republic, Cosimo exercised power largely behind the scenes, and conspicuous patronage helped to project the family's prestige while associating it with the civic pride of the city.\n\nPatronage was rarely a matter of simple payment for an artist's free expression. Contracts of the period often specified the subject, the dimensions, the deadline, and even the quantity of expensive pigments, such as ultramarine, that were to be used. Patrons sometimes requested that their own portraits, or those of family members, be included among the figures in religious scenes.\n\nIt would be misleading, however, to regard artists as mere employees. As the century progressed, the most sought-after painters and sculptors gained considerable bargaining power, and the notion that an artist's distinctive skill was itself worth paying for gradually took hold.",
+  "question": "The word \"conspicuous\" in paragraph 2 is closest in meaning to",
+  "choices": [
+   "secret",
+   "unusual",
+   "costly",
+   "highly visible"
+  ],
+  "answer": "highly visible",
+  "explanation": "conspicuous は「人目を引く・目立つ」という意味。",
+  "tags": "TOEFL2026 reading academic-passage art-history"
+ },
+ {
+  "id": "TOEFL-RA-021-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Patrons of the Florentine Renaissance\n\nThe artistic achievements of the Italian Renaissance are often attributed to the genius of individual artists. Yet the works of Brunelleschi, Donatello, and Botticelli would scarcely have been possible without patrons: wealthy individuals and institutions that commissioned, financed, and frequently shaped the art of their time. In fifteenth-century Florence, the most celebrated of these patrons was the Medici family, whose fortune derived primarily from banking.\n\nCosimo de' Medici, who dominated Florentine politics from 1434 until his death in 1464, spent enormous sums on churches, libraries, and his family palace. His motives were complex. Religious devotion certainly played a part; the Church condemned many banking practices, and some historians have argued that generous gifts to religious foundations served partly to ease the conscience of a man who profited from lending money. Political considerations were equally important. Although Florence was formally a republic, Cosimo exercised power largely behind the scenes, and conspicuous patronage helped to project the family's prestige while associating it with the civic pride of the city.\n\nPatronage was rarely a matter of simple payment for an artist's free expression. Contracts of the period often specified the subject, the dimensions, the deadline, and even the quantity of expensive pigments, such as ultramarine, that were to be used. Patrons sometimes requested that their own portraits, or those of family members, be included among the figures in religious scenes.\n\nIt would be misleading, however, to regard artists as mere employees. As the century progressed, the most sought-after painters and sculptors gained considerable bargaining power, and the notion that an artist's distinctive skill was itself worth paying for gradually took hold.",
+  "question": "Why does the author mention contracts that specified the quantity of ultramarine?",
+  "choices": [
+   "To show that patrons controlled many details of the works they paid for",
+   "To explain why ultramarine was rarely used in Florence",
+   "To argue that artists were paid according to the colors they used",
+   "To show that patrons knew little about painting"
+  ],
+  "answer": "To show that patrons controlled many details of the works they paid for",
+  "explanation": "主題や寸法、高価な顔料の量まで契約で決めていた例として、注文主が作品を細かく管理していたことを示している。",
+  "tags": "TOEFL2026 reading academic-passage art-history"
+ },
+ {
+  "id": "TOEFL-RA-021-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Patrons of the Florentine Renaissance\n\nThe artistic achievements of the Italian Renaissance are often attributed to the genius of individual artists. Yet the works of Brunelleschi, Donatello, and Botticelli would scarcely have been possible without patrons: wealthy individuals and institutions that commissioned, financed, and frequently shaped the art of their time. In fifteenth-century Florence, the most celebrated of these patrons was the Medici family, whose fortune derived primarily from banking.\n\nCosimo de' Medici, who dominated Florentine politics from 1434 until his death in 1464, spent enormous sums on churches, libraries, and his family palace. His motives were complex. Religious devotion certainly played a part; the Church condemned many banking practices, and some historians have argued that generous gifts to religious foundations served partly to ease the conscience of a man who profited from lending money. Political considerations were equally important. Although Florence was formally a republic, Cosimo exercised power largely behind the scenes, and conspicuous patronage helped to project the family's prestige while associating it with the civic pride of the city.\n\nPatronage was rarely a matter of simple payment for an artist's free expression. Contracts of the period often specified the subject, the dimensions, the deadline, and even the quantity of expensive pigments, such as ultramarine, that were to be used. Patrons sometimes requested that their own portraits, or those of family members, be included among the figures in religious scenes.\n\nIt would be misleading, however, to regard artists as mere employees. As the century progressed, the most sought-after painters and sculptors gained considerable bargaining power, and the notion that an artist's distinctive skill was itself worth paying for gradually took hold.",
+  "question": "Which of the following best describes the author's view in paragraph 4?",
+  "choices": [
+   "Artists remained simple employees throughout the century.",
+   "Patrons lost all interest in art by the end of the century.",
+   "Leading artists gradually gained more independence and status.",
+   "Artists were paid less as their skills improved."
+  ],
+  "answer": "Leading artists gradually gained more independence and status.",
+  "explanation": "人気のある芸術家は交渉力を増し、技量そのものに価値があるという考えが広まったと述べている。",
+  "tags": "TOEFL2026 reading academic-passage art-history"
+ },
+ {
+  "id": "TOEFL-RA-022-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Measuring the Universe with Variable Stars\n\nMeasuring distances to objects beyond our solar system is one of the most persistent challenges in astronomy. For relatively nearby stars, astronomers can use parallax, the apparent shift in a star's position as the Earth orbits the Sun. Beyond a certain distance, however, this shift becomes too small to measure, and other methods are required.\n\nA crucial breakthrough came from the work of Henrietta Swan Leavitt, who was employed at the Harvard College Observatory in the early twentieth century to examine photographic plates. Studying thousands of variable stars in the Small Magellanic Cloud, she focused on a class now known as Cepheid variables, which brighten and dim in a regular cycle. In 1912, she published a striking observation: the brighter Cepheids took longer to complete each cycle. Because all the stars in the Small Magellanic Cloud are at roughly the same distance from Earth, differences in their apparent brightness had to reflect genuine differences in their luminosity.\n\nThe significance of this period-luminosity relationship was profound. By measuring how long a Cepheid takes to complete its cycle, astronomers can determine its true luminosity. Comparing this with how bright the star appears from Earth reveals its distance, since light dims predictably as it spreads out. Cepheids thus became \"standard candles.\"\n\nIn the 1920s, Edwin Hubble used Cepheids to show that the Andromeda Nebula lay far beyond the Milky Way, settling a long-running debate about whether such nebulae were separate galaxies. Hubble later combined distance measurements with other data to demonstrate that the universe is expanding. Leavitt, who died in 1921, received little recognition during her lifetime.",
+  "question": "According to paragraph 1, why are methods other than parallax needed?",
+  "choices": [
+   "Parallax works only for stars in other galaxies.",
+   "Parallax cannot be measured for very distant stars.",
+   "Parallax requires the Earth to stop moving.",
+   "Parallax gives the brightness of a star, not its distance."
+  ],
+  "answer": "Parallax cannot be measured for very distant stars.",
+  "explanation": "一定以上遠い星では年周視差が小さすぎて測れないため。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-022-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Measuring the Universe with Variable Stars\n\nMeasuring distances to objects beyond our solar system is one of the most persistent challenges in astronomy. For relatively nearby stars, astronomers can use parallax, the apparent shift in a star's position as the Earth orbits the Sun. Beyond a certain distance, however, this shift becomes too small to measure, and other methods are required.\n\nA crucial breakthrough came from the work of Henrietta Swan Leavitt, who was employed at the Harvard College Observatory in the early twentieth century to examine photographic plates. Studying thousands of variable stars in the Small Magellanic Cloud, she focused on a class now known as Cepheid variables, which brighten and dim in a regular cycle. In 1912, she published a striking observation: the brighter Cepheids took longer to complete each cycle. Because all the stars in the Small Magellanic Cloud are at roughly the same distance from Earth, differences in their apparent brightness had to reflect genuine differences in their luminosity.\n\nThe significance of this period-luminosity relationship was profound. By measuring how long a Cepheid takes to complete its cycle, astronomers can determine its true luminosity. Comparing this with how bright the star appears from Earth reveals its distance, since light dims predictably as it spreads out. Cepheids thus became \"standard candles.\"\n\nIn the 1920s, Edwin Hubble used Cepheids to show that the Andromeda Nebula lay far beyond the Milky Way, settling a long-running debate about whether such nebulae were separate galaxies. Hubble later combined distance measurements with other data to demonstrate that the universe is expanding. Leavitt, who died in 1921, received little recognition during her lifetime.",
+  "question": "According to paragraph 2, why was it important that the stars Leavitt studied were all at about the same distance?",
+  "choices": [
+   "It meant that the stars all had the same period.",
+   "Differences in their apparent brightness could be attributed to real differences in luminosity.",
+   "It allowed her to measure their parallax directly.",
+   "It proved that the Small Magellanic Cloud was part of the Milky Way."
+  ],
+  "answer": "Differences in their apparent brightness could be attributed to real differences in luminosity.",
+  "explanation": "距離がほぼ同じなので、見かけの明るさの差は本当の明るさ（光度）の差を表すと言えた。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-022-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Measuring the Universe with Variable Stars\n\nMeasuring distances to objects beyond our solar system is one of the most persistent challenges in astronomy. For relatively nearby stars, astronomers can use parallax, the apparent shift in a star's position as the Earth orbits the Sun. Beyond a certain distance, however, this shift becomes too small to measure, and other methods are required.\n\nA crucial breakthrough came from the work of Henrietta Swan Leavitt, who was employed at the Harvard College Observatory in the early twentieth century to examine photographic plates. Studying thousands of variable stars in the Small Magellanic Cloud, she focused on a class now known as Cepheid variables, which brighten and dim in a regular cycle. In 1912, she published a striking observation: the brighter Cepheids took longer to complete each cycle. Because all the stars in the Small Magellanic Cloud are at roughly the same distance from Earth, differences in their apparent brightness had to reflect genuine differences in their luminosity.\n\nThe significance of this period-luminosity relationship was profound. By measuring how long a Cepheid takes to complete its cycle, astronomers can determine its true luminosity. Comparing this with how bright the star appears from Earth reveals its distance, since light dims predictably as it spreads out. Cepheids thus became \"standard candles.\"\n\nIn the 1920s, Edwin Hubble used Cepheids to show that the Andromeda Nebula lay far beyond the Milky Way, settling a long-running debate about whether such nebulae were separate galaxies. Hubble later combined distance measurements with other data to demonstrate that the universe is expanding. Leavitt, who died in 1921, received little recognition during her lifetime.",
+  "question": "The word \"profound\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "mysterious",
+   "temporary",
+   "disputed",
+   "far-reaching"
+  ],
+  "answer": "far-reaching",
+  "explanation": "profound significance は「きわめて大きな（影響の広い）意義」という意味。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-022-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Measuring the Universe with Variable Stars\n\nMeasuring distances to objects beyond our solar system is one of the most persistent challenges in astronomy. For relatively nearby stars, astronomers can use parallax, the apparent shift in a star's position as the Earth orbits the Sun. Beyond a certain distance, however, this shift becomes too small to measure, and other methods are required.\n\nA crucial breakthrough came from the work of Henrietta Swan Leavitt, who was employed at the Harvard College Observatory in the early twentieth century to examine photographic plates. Studying thousands of variable stars in the Small Magellanic Cloud, she focused on a class now known as Cepheid variables, which brighten and dim in a regular cycle. In 1912, she published a striking observation: the brighter Cepheids took longer to complete each cycle. Because all the stars in the Small Magellanic Cloud are at roughly the same distance from Earth, differences in their apparent brightness had to reflect genuine differences in their luminosity.\n\nThe significance of this period-luminosity relationship was profound. By measuring how long a Cepheid takes to complete its cycle, astronomers can determine its true luminosity. Comparing this with how bright the star appears from Earth reveals its distance, since light dims predictably as it spreads out. Cepheids thus became \"standard candles.\"\n\nIn the 1920s, Edwin Hubble used Cepheids to show that the Andromeda Nebula lay far beyond the Milky Way, settling a long-running debate about whether such nebulae were separate galaxies. Hubble later combined distance measurements with other data to demonstrate that the universe is expanding. Leavitt, who died in 1921, received little recognition during her lifetime.",
+  "question": "Why does the author call Cepheids \"standard candles\"?",
+  "choices": [
+   "Their true brightness can be known, so they can be used to find distances.",
+   "They are the brightest stars in every galaxy.",
+   "They were first observed by candlelight.",
+   "They have the same period as the Sun."
+  ],
+  "answer": "Their true brightness can be known, so they can be used to find distances.",
+  "explanation": "周期から本当の明るさがわかり、見かけの明るさと比べて距離を求められる「標準光源」になるため。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-022-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "C1",
+  "band": "TOEFL目安:バンド5",
+  "passage": "Measuring the Universe with Variable Stars\n\nMeasuring distances to objects beyond our solar system is one of the most persistent challenges in astronomy. For relatively nearby stars, astronomers can use parallax, the apparent shift in a star's position as the Earth orbits the Sun. Beyond a certain distance, however, this shift becomes too small to measure, and other methods are required.\n\nA crucial breakthrough came from the work of Henrietta Swan Leavitt, who was employed at the Harvard College Observatory in the early twentieth century to examine photographic plates. Studying thousands of variable stars in the Small Magellanic Cloud, she focused on a class now known as Cepheid variables, which brighten and dim in a regular cycle. In 1912, she published a striking observation: the brighter Cepheids took longer to complete each cycle. Because all the stars in the Small Magellanic Cloud are at roughly the same distance from Earth, differences in their apparent brightness had to reflect genuine differences in their luminosity.\n\nThe significance of this period-luminosity relationship was profound. By measuring how long a Cepheid takes to complete its cycle, astronomers can determine its true luminosity. Comparing this with how bright the star appears from Earth reveals its distance, since light dims predictably as it spreads out. Cepheids thus became \"standard candles.\"\n\nIn the 1920s, Edwin Hubble used Cepheids to show that the Andromeda Nebula lay far beyond the Milky Way, settling a long-running debate about whether such nebulae were separate galaxies. Hubble later combined distance measurements with other data to demonstrate that the universe is expanding. Leavitt, who died in 1921, received little recognition during her lifetime.",
+  "question": "Why does the author mention Edwin Hubble in paragraph 4?",
+  "choices": [
+   "To show that Hubble disagreed with Leavitt's findings",
+   "To explain how Hubble discovered Cepheid variables",
+   "To illustrate the major discoveries that Leavitt's work made possible",
+   "To compare the careers of two Harvard astronomers"
+  ],
+  "answer": "To illustrate the major discoveries that Leavitt's work made possible",
+  "explanation": "リービットの周期光度関係を使ってアンドロメダが銀河系外にあることや宇宙膨張が示された、とその成果の大きさを示している。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ }
+]

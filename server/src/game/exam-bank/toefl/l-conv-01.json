@@ -1,0 +1,722 @@
+[
+  {
+    "id": "TOEFL-LC-001-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Roommate: Hi, Ken. Are you going to the library this afternoon?\nKen: Yes, I need to return two books. They're due today.\nRoommate: Could you return one for me, too? It's a cookbook. I finished it last night.\nKen: Sure. Is it in your room?\nRoommate: It's on my desk, next to the lamp. Thanks a lot.\nKen: No problem. Do you want me to get another book for you?\nRoommate: Hmm, maybe. Can you look for a book about Italian food? I want to try making pasta this weekend.\nKen: Okay. If I find one, I'll bring it back. What time are you making dinner on Saturday?\nRoommate: Around six. You can join me if you want.\nKen: Great! I'll bring a salad.",
+    "question": "What does the roommate ask Ken to do?",
+    "choices": [
+      "Cook dinner on Friday",
+      "Buy a new lamp",
+      "Find a book about Japanese food",
+      "Return a book to the library"
+    ],
+    "answer": "Return a book to the library",
+    "explanation": "ルームメイトは「1冊返してくれる？」と料理本の返却を頼んでいます。",
+    "tags": "campus library roommate conversation"
+  },
+  {
+    "id": "TOEFL-LC-001-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Roommate: Hi, Ken. Are you going to the library this afternoon?\nKen: Yes, I need to return two books. They're due today.\nRoommate: Could you return one for me, too? It's a cookbook. I finished it last night.\nKen: Sure. Is it in your room?\nRoommate: It's on my desk, next to the lamp. Thanks a lot.\nKen: No problem. Do you want me to get another book for you?\nRoommate: Hmm, maybe. Can you look for a book about Italian food? I want to try making pasta this weekend.\nKen: Okay. If I find one, I'll bring it back. What time are you making dinner on Saturday?\nRoommate: Around six. You can join me if you want.\nKen: Great! I'll bring a salad.",
+    "question": "What will Ken bring on Saturday?",
+    "choices": [
+      "A salad",
+      "Some pasta",
+      "A cookbook",
+      "A dessert"
+    ],
+    "answer": "A salad",
+    "explanation": "最後に Ken は「サラダを持っていく」と言っています。",
+    "tags": "campus library roommate conversation"
+  },
+  {
+    "id": "TOEFL-LC-002-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Student: Excuse me, is the cafeteria still serving lunch?\nStaff: Yes, until two o'clock. You have about twenty minutes.\nStudent: Great. What's the special today?\nStaff: Chicken soup and a sandwich. It's six dollars.\nStudent: That sounds good. Can I pay with my student card?\nStaff: Of course. Just put it on the machine here.\nStudent: Okay... Oh, it says there isn't enough money on my card.\nStaff: No problem. You can add money at the machine by the door. It only takes a minute.\nStudent: Thanks. I'll do that now. Can you keep a sandwich for me?\nStaff: Sure, I'll keep one here for you. Do you want the soup now, or should I wait until you come back?\nStudent: Please wait. I want it hot. I'll be back in a minute.",
+    "question": "What is the student's problem?",
+    "choices": [
+      "The cafeteria has stopped serving lunch.",
+      "There is not enough money on the student card.",
+      "The soup is too expensive.",
+      "The student lost the student card."
+    ],
+    "answer": "There is not enough money on the student card.",
+    "explanation": "機械に「お金が足りない」と表示されたことが問題です。",
+    "tags": "campus cafeteria staff conversation"
+  },
+  {
+    "id": "TOEFL-LC-002-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Student: Excuse me, is the cafeteria still serving lunch?\nStaff: Yes, until two o'clock. You have about twenty minutes.\nStudent: Great. What's the special today?\nStaff: Chicken soup and a sandwich. It's six dollars.\nStudent: That sounds good. Can I pay with my student card?\nStaff: Of course. Just put it on the machine here.\nStudent: Okay... Oh, it says there isn't enough money on my card.\nStaff: No problem. You can add money at the machine by the door. It only takes a minute.\nStudent: Thanks. I'll do that now. Can you keep a sandwich for me?\nStaff: Sure, I'll keep one here for you. Do you want the soup now, or should I wait until you come back?\nStudent: Please wait. I want it hot. I'll be back in a minute.",
+    "question": "What will the student probably do next?",
+    "choices": [
+      "Pay with cash",
+      "Go to another cafeteria",
+      "Add money at the machine by the door",
+      "Order only the soup"
+    ],
+    "answer": "Add money at the machine by the door",
+    "explanation": "スタッフが入口の機械でお金を足せると教え、学生は「今やる」と答えています。",
+    "tags": "campus cafeteria staff conversation"
+  },
+  {
+    "id": "TOEFL-LC-003-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Student A: Hi, are you a member of the tennis club?\nStudent B: Yes, I am. Are you interested in joining?\nStudent A: Maybe. I played a little in high school, but I'm not very good.\nStudent B: That's fine. We have players of all levels. Beginners practice on Tuesday evenings.\nStudent A: What time?\nStudent B: From six to eight, on the courts behind the gym.\nStudent A: Do I need my own racket?\nStudent B: The club has some rackets you can borrow, but you should bring your own shoes.\nStudent A: Okay. How much does it cost?\nStudent B: It's free for the first month. After that, it's fifteen dollars a semester.\nStudent A: Great. I'll come next Tuesday.",
+    "question": "When do beginners practice?",
+    "choices": [
+      "On Thursday mornings",
+      "On Tuesday evenings",
+      "Every weekend",
+      "On Monday afternoons"
+    ],
+    "answer": "On Tuesday evenings",
+    "explanation": "初心者の練習は「火曜日の夜」と説明されています。",
+    "tags": "campus sports club conversation"
+  },
+  {
+    "id": "TOEFL-LC-003-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "A2",
+    "band": "TOEFL目安:バンド2",
+    "passage": "Student A: Hi, are you a member of the tennis club?\nStudent B: Yes, I am. Are you interested in joining?\nStudent A: Maybe. I played a little in high school, but I'm not very good.\nStudent B: That's fine. We have players of all levels. Beginners practice on Tuesday evenings.\nStudent A: What time?\nStudent B: From six to eight, on the courts behind the gym.\nStudent A: Do I need my own racket?\nStudent B: The club has some rackets you can borrow, but you should bring your own shoes.\nStudent A: Okay. How much does it cost?\nStudent B: It's free for the first month. After that, it's fifteen dollars a semester.\nStudent A: Great. I'll come next Tuesday.",
+    "question": "What should the student bring to practice?",
+    "choices": [
+      "A racket",
+      "Fifteen dollars",
+      "A water bottle",
+      "Tennis shoes"
+    ],
+    "answer": "Tennis shoes",
+    "explanation": "ラケットは借りられるが「自分の靴を持ってくるべき」と言っています。",
+    "tags": "campus sports club conversation"
+  },
+  {
+    "id": "TOEFL-LC-004-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Professor Allen, do you have a minute? I wanted to ask about the lab report.\nProfessor: Of course. What's the question?\nStudent: The instructions say the report should be five pages, but my results section is already four pages long.\nProfessor: Hmm. Are you including all your raw data in the results?\nStudent: Yes, every measurement.\nProfessor: That's the issue. Put the raw data in an appendix at the end. The appendix doesn't count toward the page limit. In the results section, just summarize the main patterns, with one or two graphs.\nStudent: Oh, that makes sense. So the graphs stay in the results?\nProfessor: Exactly. The reader should see the main findings quickly, without reading every number.\nStudent: Great, thank you. I'll fix it tonight.",
+    "question": "Why does the student go to see the professor?",
+    "choices": [
+      "His lab report is becoming too long.",
+      "He missed a lab session.",
+      "He wants permission to submit the report a few days late.",
+      "His graphs contain errors."
+    ],
+    "answer": "His lab report is becoming too long.",
+    "explanation": "結果のセクションだけで4ページになり、5ページの制限を超えそうなことが相談の理由です。",
+    "tags": "campus office hours professor conversation"
+  },
+  {
+    "id": "TOEFL-LC-004-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Professor Allen, do you have a minute? I wanted to ask about the lab report.\nProfessor: Of course. What's the question?\nStudent: The instructions say the report should be five pages, but my results section is already four pages long.\nProfessor: Hmm. Are you including all your raw data in the results?\nStudent: Yes, every measurement.\nProfessor: That's the issue. Put the raw data in an appendix at the end. The appendix doesn't count toward the page limit. In the results section, just summarize the main patterns, with one or two graphs.\nStudent: Oh, that makes sense. So the graphs stay in the results?\nProfessor: Exactly. The reader should see the main findings quickly, without reading every number.\nStudent: Great, thank you. I'll fix it tonight.",
+    "question": "What does the professor suggest?",
+    "choices": [
+      "Removing all the graphs",
+      "Writing a shorter introduction",
+      "Moving the raw data to an appendix",
+      "Collecting new measurements"
+    ],
+    "answer": "Moving the raw data to an appendix",
+    "explanation": "生データを最後の付録に移すよう勧めています。付録はページ数に含まれません。",
+    "tags": "campus office hours professor conversation"
+  },
+  {
+    "id": "TOEFL-LC-005-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Woman: Hey, Sam, can we talk about the kitchen for a minute?\nMan: Sure. Is something wrong?\nWoman: Well, the dishes have been in the sink for three days, and I'm not sure whose they are.\nMan: Oh, some of them are mine. Sorry, I've had two exams this week.\nWoman: I understand. I'm busy too, though. Maybe we need a system.\nMan: Like a schedule?\nWoman: Yes. What if each of us washes our own dishes the same day, and we take turns cleaning the counters and floor every week?\nMan: That sounds fair. I'll make a chart and put it on the fridge.\nWoman: Perfect. And I'll buy a new sponge—the old one is pretty disgusting.\nMan: Good point. I'll wash my dishes right now.",
+    "question": "What is the conversation mainly about?",
+    "choices": [
+      "Planning a dinner party",
+      "Buying new kitchen equipment",
+      "Sharing kitchen cleaning duties",
+      "Preparing for exams together"
+    ],
+    "answer": "Sharing kitchen cleaning duties",
+    "explanation": "台所の皿洗いや掃除の分担について話し合っています。",
+    "tags": "housing roommate problem conversation"
+  },
+  {
+    "id": "TOEFL-LC-005-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Woman: Hey, Sam, can we talk about the kitchen for a minute?\nMan: Sure. Is something wrong?\nWoman: Well, the dishes have been in the sink for three days, and I'm not sure whose they are.\nMan: Oh, some of them are mine. Sorry, I've had two exams this week.\nWoman: I understand. I'm busy too, though. Maybe we need a system.\nMan: Like a schedule?\nWoman: Yes. What if each of us washes our own dishes the same day, and we take turns cleaning the counters and floor every week?\nMan: That sounds fair. I'll make a chart and put it on the fridge.\nWoman: Perfect. And I'll buy a new sponge—the old one is pretty disgusting.\nMan: Good point. I'll wash my dishes right now.",
+    "question": "What does the man agree to do?",
+    "choices": [
+      "Make a cleaning chart",
+      "Buy a new sponge",
+      "Clean the floor every day",
+      "Cook for the woman"
+    ],
+    "answer": "Make a cleaning chart",
+    "explanation": "男性は「表を作って冷蔵庫に貼る」と言っています。スポンジを買うのは女性です。",
+    "tags": "housing roommate problem conversation"
+  },
+  {
+    "id": "TOEFL-LC-006-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Hi. I bought this textbook here last week, but I just found out I don't need it. Can I return it?\nStaff: Do you have your receipt?\nStudent: Yes, here it is.\nStaff: Thanks. Hmm, the plastic wrap has been opened.\nStudent: Yes, I opened it on the first day, before the professor changed the reading list.\nStaff: Normally we can only give a full refund if the book is still wrapped. But since a professor changed the list, I can make an exception if you bring a note or an email from the department.\nStudent: I think the professor sent an email to the whole class. Can I show you on my phone?\nStaff: That works. Let me take a look... Okay, that's fine. You'll get the money back on your card in three to five days.",
+    "question": "Why might the student not get a full refund?",
+    "choices": [
+      "He lost his receipt.",
+      "He bought the book a month ago.",
+      "The book was damaged.",
+      "The book's plastic wrap was opened."
+    ],
+    "answer": "The book's plastic wrap was opened.",
+    "explanation": "通常は未開封でなければ全額返金できないと店員が説明しています。",
+    "tags": "campus bookstore staff conversation"
+  },
+  {
+    "id": "TOEFL-LC-006-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Hi. I bought this textbook here last week, but I just found out I don't need it. Can I return it?\nStaff: Do you have your receipt?\nStudent: Yes, here it is.\nStaff: Thanks. Hmm, the plastic wrap has been opened.\nStudent: Yes, I opened it on the first day, before the professor changed the reading list.\nStaff: Normally we can only give a full refund if the book is still wrapped. But since a professor changed the list, I can make an exception if you bring a note or an email from the department.\nStudent: I think the professor sent an email to the whole class. Can I show you on my phone?\nStaff: That works. Let me take a look... Okay, that's fine. You'll get the money back on your card in three to five days.",
+    "question": "How does the student solve the problem?",
+    "choices": [
+      "By exchanging the book for another one",
+      "By showing an email from the professor",
+      "By asking the department to call the store",
+      "By paying a small fee"
+    ],
+    "answer": "By showing an email from the professor",
+    "explanation": "教授からのクラス全体へのメールを携帯で見せて、例外として認められました。",
+    "tags": "campus bookstore staff conversation"
+  },
+  {
+    "id": "TOEFL-LC-007-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Advisor: So, you're planning your schedule for next semester. How can I help?\nStudent: I want to take Introduction to Psychology, but it's full.\nAdvisor: That class fills up quickly. Have you added yourself to the waiting list?\nStudent: Yes, but I'm number twenty-three.\nAdvisor: Hmm, that's a long list. Usually only about ten people get in from the waiting list. Is there a reason you need it next semester?\nStudent: Not really. I'm just interested in it.\nAdvisor: In that case, you could take it in the summer. The summer section is smaller, and it's taught by the same professor.\nStudent: Oh, I didn't know that. Would it still count toward my general requirements?\nAdvisor: Yes, it's exactly the same course. And next semester, you could take sociology instead. It still has seats.",
+    "question": "Why is the student unlikely to get into the psychology class next semester?",
+    "choices": [
+      "She is too far down the waiting list.",
+      "She has not completed a required course.",
+      "The professor is leaving the university.",
+      "The class conflicts with her other courses."
+    ],
+    "answer": "She is too far down the waiting list.",
+    "explanation": "順番待ちが23番目で、例年10人ほどしか入れないため難しいとわかります。",
+    "tags": "advising course selection conversation"
+  },
+  {
+    "id": "TOEFL-LC-007-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Advisor: So, you're planning your schedule for next semester. How can I help?\nStudent: I want to take Introduction to Psychology, but it's full.\nAdvisor: That class fills up quickly. Have you added yourself to the waiting list?\nStudent: Yes, but I'm number twenty-three.\nAdvisor: Hmm, that's a long list. Usually only about ten people get in from the waiting list. Is there a reason you need it next semester?\nStudent: Not really. I'm just interested in it.\nAdvisor: In that case, you could take it in the summer. The summer section is smaller, and it's taught by the same professor.\nStudent: Oh, I didn't know that. Would it still count toward my general requirements?\nAdvisor: Yes, it's exactly the same course. And next semester, you could take sociology instead. It still has seats.",
+    "question": "What does the advisor recommend?",
+    "choices": [
+      "Changing her major to sociology",
+      "Taking psychology in the summer",
+      "Asking the professor for permission",
+      "Waiting until next year"
+    ],
+    "answer": "Taking psychology in the summer",
+    "explanation": "同じ教授が教える夏期のクラスで心理学を取るよう勧めています。",
+    "tags": "advising course selection conversation"
+  },
+  {
+    "id": "TOEFL-LC-008-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Hello, I saw a sign saying the campus museum needs student workers.\nStaff: Yes, we're hiring two people to work at the front desk. Have you worked in a museum before?\nStudent: No, but I worked at a hotel reception desk last summer.\nStaff: That's useful experience. The job is mainly greeting visitors, selling tickets, and answering questions. Some visitors ask about the exhibits, so you'd get a short training on our collection.\nStudent: That sounds interesting. What are the hours?\nStaff: Mostly weekends—Saturday and Sunday, ten to four. Sometimes we need extra help during special events in the evening.\nStudent: Weekends are perfect, actually. My classes are all on weekdays.\nStaff: Great. Please fill out this form and attach a copy of your class schedule.",
+    "question": "Why does the staff member think the student's experience is useful?",
+    "choices": [
+      "He has studied art history.",
+      "He has volunteered at a museum.",
+      "He has worked at a reception desk before.",
+      "He knows the museum's collection."
+    ],
+    "answer": "He has worked at a reception desk before.",
+    "explanation": "ホテルの受付経験が、受付業務に役立つと言っています。",
+    "tags": "campus job staff conversation"
+  },
+  {
+    "id": "TOEFL-LC-008-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Hello, I saw a sign saying the campus museum needs student workers.\nStaff: Yes, we're hiring two people to work at the front desk. Have you worked in a museum before?\nStudent: No, but I worked at a hotel reception desk last summer.\nStaff: That's useful experience. The job is mainly greeting visitors, selling tickets, and answering questions. Some visitors ask about the exhibits, so you'd get a short training on our collection.\nStudent: That sounds interesting. What are the hours?\nStaff: Mostly weekends—Saturday and Sunday, ten to four. Sometimes we need extra help during special events in the evening.\nStudent: Weekends are perfect, actually. My classes are all on weekdays.\nStaff: Great. Please fill out this form and attach a copy of your class schedule.",
+    "question": "What does the staff member ask the student to do?",
+    "choices": [
+      "Come back for a training session tomorrow",
+      "Bring a letter from a former employer",
+      "Visit the museum during an evening event",
+      "Fill out a form and attach his schedule"
+    ],
+    "answer": "Fill out a form and attach his schedule",
+    "explanation": "用紙に記入し、授業の時間割を添付するよう頼んでいます。",
+    "tags": "campus job staff conversation"
+  },
+  {
+    "id": "TOEFL-LC-009-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Hi, I'd like to make an appointment. I've had a sore throat for about a week.\nNurse: I'm sorry to hear that. Do you have a fever?\nStudent: Not really. Just the sore throat, and I'm a bit tired.\nNurse: Okay. The doctors are fully booked today, but there's an opening tomorrow at nine fifteen.\nStudent: I have a chemistry exam at nine. Is there anything later?\nNurse: Let me look... There's one at two thirty.\nStudent: That works.\nNurse: Fine. In the meantime, drink plenty of warm liquids and try to get some rest. If you develop a high fever tonight, you can come to the walk-in clinic—it's open until ten.\nStudent: Thanks. I'll try to sleep early.",
+    "question": "Why can't the student take the nine-fifteen appointment?",
+    "choices": [
+      "She has an exam at that time.",
+      "She has a class until noon.",
+      "She works in the morning.",
+      "She has a fever."
+    ],
+    "answer": "She has an exam at that time.",
+    "explanation": "9時から化学の試験があるため、9時15分の予約は取れません。",
+    "tags": "campus health center conversation"
+  },
+  {
+    "id": "TOEFL-LC-009-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Hi, I'd like to make an appointment. I've had a sore throat for about a week.\nNurse: I'm sorry to hear that. Do you have a fever?\nStudent: Not really. Just the sore throat, and I'm a bit tired.\nNurse: Okay. The doctors are fully booked today, but there's an opening tomorrow at nine fifteen.\nStudent: I have a chemistry exam at nine. Is there anything later?\nNurse: Let me look... There's one at two thirty.\nStudent: That works.\nNurse: Fine. In the meantime, drink plenty of warm liquids and try to get some rest. If you develop a high fever tonight, you can come to the walk-in clinic—it's open until ten.\nStudent: Thanks. I'll try to sleep early.",
+    "question": "What does the nurse say about the walk-in clinic?",
+    "choices": [
+      "It is closed on weekends.",
+      "It has no doctors available today.",
+      "It is available if the student gets a high fever.",
+      "It requires an appointment."
+    ],
+    "answer": "It is available if the student gets a high fever.",
+    "explanation": "夜に高熱が出たら、10時まで開いている予約不要のクリニックに来られると言っています。",
+    "tags": "campus health center conversation"
+  },
+  {
+    "id": "TOEFL-LC-010-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Woman: Are you still planning to meet on Thursday to study for the biology exam?\nMan: I was, but I just found out I have to work that evening. Could we meet on Wednesday instead?\nWoman: Wednesday is fine for me. I'll check with Lisa and Omar.\nMan: Thanks. Where should we meet? Last time the library was so noisy.\nWoman: We could reserve one of the group study rooms. They have whiteboards, too.\nMan: Good idea. Can you reserve one online?\nWoman: Yes, but you have to do it at least a day in advance. I'll do it tonight.\nMan: Great. I'll make a list of the topics we should review, so we don't waste time.\nWoman: Perfect. Maybe each of us can explain one chapter to the others.",
+    "question": "Why does the man want to change the meeting day?",
+    "choices": [
+      "The library is closed on Thursday.",
+      "The exam was moved to Thursday.",
+      "Lisa and Omar are busy on Thursday.",
+      "He has to work on Thursday evening."
+    ],
+    "answer": "He has to work on Thursday evening.",
+    "explanation": "木曜の夜に仕事が入ったため、水曜日に変えたいと言っています。",
+    "tags": "campus study group classmates conversation"
+  },
+  {
+    "id": "TOEFL-LC-010-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Woman: Are you still planning to meet on Thursday to study for the biology exam?\nMan: I was, but I just found out I have to work that evening. Could we meet on Wednesday instead?\nWoman: Wednesday is fine for me. I'll check with Lisa and Omar.\nMan: Thanks. Where should we meet? Last time the library was so noisy.\nWoman: We could reserve one of the group study rooms. They have whiteboards, too.\nMan: Good idea. Can you reserve one online?\nWoman: Yes, but you have to do it at least a day in advance. I'll do it tonight.\nMan: Great. I'll make a list of the topics we should review, so we don't waste time.\nWoman: Perfect. Maybe each of us can explain one chapter to the others.",
+    "question": "What will the woman do tonight?",
+    "choices": [
+      "Make a list of review topics",
+      "Reserve a group study room",
+      "Explain a chapter to the group",
+      "Buy a whiteboard"
+    ],
+    "answer": "Reserve a group study room",
+    "explanation": "女性は今夜オンラインで学習室を予約すると言っています。トピックのリストは男性の担当です。",
+    "tags": "campus study group classmates conversation"
+  },
+  {
+    "id": "TOEFL-LC-011-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Hi, I'd like to buy a parking permit for the semester.\nStaff: Sure. Are you a resident or a commuter student?\nStudent: Commuter. I live about twenty minutes away.\nStaff: Okay. The commuter permit is one hundred and twenty dollars. It lets you park in lots C and D.\nStudent: Lot C is pretty far from the classrooms, isn't it?\nStaff: It's about a ten-minute walk, but there's a free shuttle bus every fifteen minutes.\nStudent: I see. Is there any cheaper option?\nStaff: Well, you could buy a daily pass for five dollars if you only drive a few days a week.\nStudent: I'm on campus four days a week, so the semester permit is probably better.\nStaff: Yes, it would save you money.",
+    "question": "What is true about lot C?",
+    "choices": [
+      "It is reserved for resident students.",
+      "It is next to the classrooms.",
+      "A free shuttle runs from it regularly.",
+      "It costs five dollars a day."
+    ],
+    "answer": "A free shuttle runs from it regularly.",
+    "explanation": "C駐車場は遠いが、無料シャトルが15分ごとに走っていると説明されています。",
+    "tags": "campus transportation parking conversation"
+  },
+  {
+    "id": "TOEFL-LC-011-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Student: Hi, I'd like to buy a parking permit for the semester.\nStaff: Sure. Are you a resident or a commuter student?\nStudent: Commuter. I live about twenty minutes away.\nStaff: Okay. The commuter permit is one hundred and twenty dollars. It lets you park in lots C and D.\nStudent: Lot C is pretty far from the classrooms, isn't it?\nStaff: It's about a ten-minute walk, but there's a free shuttle bus every fifteen minutes.\nStudent: I see. Is there any cheaper option?\nStaff: Well, you could buy a daily pass for five dollars if you only drive a few days a week.\nStudent: I'm on campus four days a week, so the semester permit is probably better.\nStaff: Yes, it would save you money.",
+    "question": "Why does the student choose the semester permit?",
+    "choices": [
+      "Daily passes are no longer sold.",
+      "He comes to campus often enough to save money.",
+      "It allows parking in every lot.",
+      "His advisor recommended it."
+    ],
+    "answer": "He comes to campus often enough to save money.",
+    "explanation": "週4日通うので、学期パスのほうが日割りより安くなるからです。",
+    "tags": "campus transportation parking conversation"
+  },
+  {
+    "id": "TOEFL-LC-012-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Man: So, how are the plans for the international food festival going?\nWoman: Pretty well. We have twelve student groups who want to cook. But we have a problem with the location.\nMan: What happened?\nWoman: We wanted to use the main lawn, but the weather forecast says it might rain that weekend.\nMan: Can we move it inside?\nWoman: The student center hall is free, but cooking isn't allowed inside the building.\nMan: Hmm. What if the groups cook their food in the dining hall kitchen beforehand, and then we just serve it in the student center?\nWoman: That could work. I'd have to ask the dining services manager.\nMan: I know her—I worked there last year. I'll send her an email today.\nWoman: Thanks! That would be a big help.",
+    "question": "What problem are the speakers discussing?",
+    "choices": [
+      "Rain may affect the outdoor festival.",
+      "Not enough student groups have signed up.",
+      "The dining hall is closed that weekend.",
+      "The festival has no budget for food."
+    ],
+    "answer": "Rain may affect the outdoor festival.",
+    "explanation": "雨の予報があり、芝生での開催が難しいかもしれないことが問題です。",
+    "tags": "campus event planning club conversation"
+  },
+  {
+    "id": "TOEFL-LC-012-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B1",
+    "band": "TOEFL目安:バンド3",
+    "passage": "Man: So, how are the plans for the international food festival going?\nWoman: Pretty well. We have twelve student groups who want to cook. But we have a problem with the location.\nMan: What happened?\nWoman: We wanted to use the main lawn, but the weather forecast says it might rain that weekend.\nMan: Can we move it inside?\nWoman: The student center hall is free, but cooking isn't allowed inside the building.\nMan: Hmm. What if the groups cook their food in the dining hall kitchen beforehand, and then we just serve it in the student center?\nWoman: That could work. I'd have to ask the dining services manager.\nMan: I know her—I worked there last year. I'll send her an email today.\nWoman: Thanks! That would be a big help.",
+    "question": "Why does the man offer to contact the dining services manager?",
+    "choices": [
+      "He is a member of the dining staff now.",
+      "The woman does not have her email address.",
+      "He is in charge of the festival budget.",
+      "He knows her from a previous job."
+    ],
+    "answer": "He knows her from a previous job.",
+    "explanation": "男性は去年食堂で働いていて、その責任者を知っているからです。",
+    "tags": "campus event planning club conversation"
+  },
+  {
+    "id": "TOEFL-LC-013-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Professor Ruiz, I was a little disappointed with my grade on the essay, and I wanted to understand what I could improve.\nProfessor: I'm glad you came. Your writing is clear, and your research was thorough. The main issue is that you mostly summarized other scholars' views.\nStudent: I thought that was what the assignment asked for.\nProfessor: Partly. The prompt asked you to evaluate the debate. That means taking a position and explaining why one argument is more convincing than another.\nStudent: So I should have included my own opinion?\nProfessor: Not just opinion—an argument supported by evidence. For example, you described two theories about why the empire declined, but you never said which one the evidence supports better.\nStudent: I see. Would it be possible to revise it?\nProfessor: Revisions aren't allowed for this essay, but apply this to the next one. You're welcome to bring me an outline beforehand.",
+    "question": "What is the main weakness of the student's essay, according to the professor?",
+    "choices": [
+      "It does not include enough research.",
+      "It summarizes other views without evaluating them.",
+      "Its writing style is unclear.",
+      "It relies on too few sources and does not include enough research."
+    ],
+    "answer": "It summarizes other views without evaluating them.",
+    "explanation": "教授は、他の学者の見解をまとめるだけで評価していない点を主な問題としています。",
+    "tags": "campus professor essay feedback conversation"
+  },
+  {
+    "id": "TOEFL-LC-013-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Professor Ruiz, I was a little disappointed with my grade on the essay, and I wanted to understand what I could improve.\nProfessor: I'm glad you came. Your writing is clear, and your research was thorough. The main issue is that you mostly summarized other scholars' views.\nStudent: I thought that was what the assignment asked for.\nProfessor: Partly. The prompt asked you to evaluate the debate. That means taking a position and explaining why one argument is more convincing than another.\nStudent: So I should have included my own opinion?\nProfessor: Not just opinion—an argument supported by evidence. For example, you described two theories about why the empire declined, but you never said which one the evidence supports better.\nStudent: I see. Would it be possible to revise it?\nProfessor: Revisions aren't allowed for this essay, but apply this to the next one. You're welcome to bring me an outline beforehand.",
+    "question": "What does the professor offer to do?",
+    "choices": [
+      "Allow the student to revise the essay",
+      "Change the student's grade",
+      "Look at an outline for the next essay",
+      "Recommend additional sources"
+    ],
+    "answer": "Look at an outline for the next essay",
+    "explanation": "書き直しは認めないが、次の課題の前にアウトラインを見せに来てよいと言っています。",
+    "tags": "campus professor essay feedback conversation"
+  },
+  {
+    "id": "TOEFL-LC-014-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: I noticed a post saying Dr. Chen's lab is looking for a research assistant. Do you think I'd be a good fit?\nAdvisor: Possibly. It's a sleep study, right? What experience do you have?\nStudent: I've taken research methods and statistics, and I got A's in both. But I haven't worked in a lab.\nAdvisor: That's typical for a sophomore. Dr. Chen mainly wants someone reliable, since participants come in at night and the assistant has to monitor equipment.\nStudent: At night? How late?\nAdvisor: I believe sessions run until about one in the morning, two nights a week.\nStudent: Hmm. That might affect my morning classes.\nAdvisor: It's worth asking whether the schedule is flexible. Some assistants just do data entry during the day.\nStudent: That would be better for me. I'll email her and ask about both options.",
+    "question": "What concern does the student have about the position?",
+    "choices": [
+      "The late hours might interfere with his classes.",
+      "He lacks statistics training.",
+      "He is not interested in sleep research.",
+      "The position is unpaid."
+    ],
+    "answer": "The late hours might interfere with his classes.",
+    "explanation": "夜1時ごろまでの仕事が朝の授業に影響するかもしれないと心配しています。",
+    "tags": "advising research assistant conversation"
+  },
+  {
+    "id": "TOEFL-LC-014-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: I noticed a post saying Dr. Chen's lab is looking for a research assistant. Do you think I'd be a good fit?\nAdvisor: Possibly. It's a sleep study, right? What experience do you have?\nStudent: I've taken research methods and statistics, and I got A's in both. But I haven't worked in a lab.\nAdvisor: That's typical for a sophomore. Dr. Chen mainly wants someone reliable, since participants come in at night and the assistant has to monitor equipment.\nStudent: At night? How late?\nAdvisor: I believe sessions run until about one in the morning, two nights a week.\nStudent: Hmm. That might affect my morning classes.\nAdvisor: It's worth asking whether the schedule is flexible. Some assistants just do data entry during the day.\nStudent: That would be better for me. I'll email her and ask about both options.",
+    "question": "What can be inferred about Dr. Chen's lab?",
+    "choices": [
+      "It only accepts graduate students.",
+      "It requires all assistants to have previous laboratory experience.",
+      "Its study has already been completed.",
+      "It may offer daytime tasks for some assistants."
+    ],
+    "answer": "It may offer daytime tasks for some assistants.",
+    "explanation": "「日中にデータ入力だけする助手もいる」と言っており、昼の仕事もあると推測できます。",
+    "tags": "advising research assistant conversation"
+  },
+  {
+    "id": "TOEFL-LC-015-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Librarian: Hi, can I help you find something?\nStudent: I hope so. I'm writing about water shortages in the American Southwest, and everything I find online seems either too general or not very reliable.\nLibrarian: Have you tried our academic databases?\nStudent: I searched one, but I got over ten thousand results.\nLibrarian: That usually means the search terms are too broad. Instead of \"water shortage,\" try a specific region and a specific issue—say, \"Colorado River\" and \"agricultural irrigation.\" You can also limit the results to peer-reviewed articles from the last ten years.\nStudent: That would help a lot. Are there government sources too?\nLibrarian: Yes, and those are often the best for data. Agencies publish reports on river flow and water use. I'll show you where to find them on our research guide page.",
+    "question": "What problem does the student have?",
+    "choices": [
+      "The library does not have access to databases.",
+      "He cannot find any sources about water.",
+      "His searches return too many unfocused results.",
+      "He does not know how to cite government reports."
+    ],
+    "answer": "His searches return too many unfocused results.",
+    "explanation": "データベースで1万件以上ヒットし、絞り込めていないことが問題です。",
+    "tags": "campus library research librarian conversation"
+  },
+  {
+    "id": "TOEFL-LC-015-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Librarian: Hi, can I help you find something?\nStudent: I hope so. I'm writing about water shortages in the American Southwest, and everything I find online seems either too general or not very reliable.\nLibrarian: Have you tried our academic databases?\nStudent: I searched one, but I got over ten thousand results.\nLibrarian: That usually means the search terms are too broad. Instead of \"water shortage,\" try a specific region and a specific issue—say, \"Colorado River\" and \"agricultural irrigation.\" You can also limit the results to peer-reviewed articles from the last ten years.\nStudent: That would help a lot. Are there government sources too?\nLibrarian: Yes, and those are often the best for data. Agencies publish reports on river flow and water use. I'll show you where to find them on our research guide page.",
+    "question": "Why does the librarian mention government sources?",
+    "choices": [
+      "They are required for the assignment.",
+      "They are easier to read than articles.",
+      "They are the only peer-reviewed sources.",
+      "They are often good for finding data."
+    ],
+    "answer": "They are often good for finding data.",
+    "explanation": "政府機関の報告書は、データを得るのに最適なことが多いと説明しています。",
+    "tags": "campus library research librarian conversation"
+  },
+  {
+    "id": "TOEFL-LC-016-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Hi, I submitted a maintenance request two weeks ago about the window in my dorm room, but nothing has happened yet.\nStaff: I'm sorry about that. Let me look up your request. You're in Baker Hall, room 312?\nStudent: That's right. The window won't close completely, and it's getting cold at night.\nStaff: I see it here. It was marked as non-urgent, which is why it's been delayed. Now that the temperature is dropping, I can change that.\nStudent: Thank you. I've been sleeping with two blankets.\nStaff: I'll mark it as high priority. A technician should come within forty-eight hours. In the meantime, I can give you a portable heater.\nStudent: That would be great.\nStaff: Just sign this form. You'll need to return the heater once the window is fixed.",
+    "question": "Why has the student's request been delayed?",
+    "choices": [
+      "The student gave the wrong room number.",
+      "It was classified as non-urgent.",
+      "The technicians were on vacation.",
+      "The form was never submitted."
+    ],
+    "answer": "It was classified as non-urgent.",
+    "explanation": "依頼が「緊急でない」と分類されていたため遅れていました。",
+    "tags": "housing staff maintenance conversation"
+  },
+  {
+    "id": "TOEFL-LC-016-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Hi, I submitted a maintenance request two weeks ago about the window in my dorm room, but nothing has happened yet.\nStaff: I'm sorry about that. Let me look up your request. You're in Baker Hall, room 312?\nStudent: That's right. The window won't close completely, and it's getting cold at night.\nStaff: I see it here. It was marked as non-urgent, which is why it's been delayed. Now that the temperature is dropping, I can change that.\nStudent: Thank you. I've been sleeping with two blankets.\nStaff: I'll mark it as high priority. A technician should come within forty-eight hours. In the meantime, I can give you a portable heater.\nStudent: That would be great.\nStaff: Just sign this form. You'll need to return the heater once the window is fixed.",
+    "question": "What will the student receive while waiting for the repair?",
+    "choices": [
+      "A portable heater",
+      "Extra blankets",
+      "A temporary room",
+      "A refund on her housing fee"
+    ],
+    "answer": "A portable heater",
+    "explanation": "スタッフは修理までの間、ポータブルヒーターを貸すと言っています。",
+    "tags": "housing staff maintenance conversation"
+  },
+  {
+    "id": "TOEFL-LC-017-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Professor Wright, can I talk to you about our group presentation? I'm a bit worried.\nProfessor: Of course. What's going on?\nStudent: One of our group members hasn't come to any of our meetings, and he isn't answering messages. The presentation is in ten days.\nProfessor: That's frustrating. Have you told him clearly what part he's responsible for?\nStudent: We assigned him the section on economic impacts, and we sent it in writing.\nProfessor: Good. Here's what I suggest. Keep a record of what each member contributes. I'll ask every group to submit a short contribution report after the presentation, so individual grades will reflect individual work.\nStudent: That's a relief. But what about his section?\nProfessor: I'll contact him myself. If I don't hear back by Friday, your group can divide that section among the three of you, and I'll take the extra work into account.",
+    "question": "Why does the student visit the professor?",
+    "choices": [
+      "A group member is not participating.",
+      "She wants to change her presentation topic.",
+      "She needs more time for the presentation.",
+      "She disagrees with her group about economics."
+    ],
+    "answer": "A group member is not participating.",
+    "explanation": "メンバーの一人が会議に来ず、連絡もつかないことを相談しています。",
+    "tags": "campus professor presentation group conversation"
+  },
+  {
+    "id": "TOEFL-LC-017-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Professor Wright, can I talk to you about our group presentation? I'm a bit worried.\nProfessor: Of course. What's going on?\nStudent: One of our group members hasn't come to any of our meetings, and he isn't answering messages. The presentation is in ten days.\nProfessor: That's frustrating. Have you told him clearly what part he's responsible for?\nStudent: We assigned him the section on economic impacts, and we sent it in writing.\nProfessor: Good. Here's what I suggest. Keep a record of what each member contributes. I'll ask every group to submit a short contribution report after the presentation, so individual grades will reflect individual work.\nStudent: That's a relief. But what about his section?\nProfessor: I'll contact him myself. If I don't hear back by Friday, your group can divide that section among the three of you, and I'll take the extra work into account.",
+    "question": "What will the professor do?",
+    "choices": [
+      "Give the group an extension",
+      "Contact the student who has been absent",
+      "Remove the economic section from the presentation",
+      "Assign the student to a different group"
+    ],
+    "answer": "Contact the student who has been absent",
+    "explanation": "教授は自分でその学生に連絡すると言っています。",
+    "tags": "campus professor presentation group conversation"
+  },
+  {
+    "id": "TOEFL-LC-018-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Hi, I received a letter saying my financial aid for next year has been reduced, and I don't understand why.\nOfficer: Let me check. Ah, I see. Your aid is based on the family income information you submitted. This year's form shows a higher household income than last year's.\nStudent: That's because my mother got a new job in January. But she was actually laid off again last month.\nOfficer: I see. In that case, you can request a review based on a change in circumstances. You'd need to provide documentation, such as a letter from her former employer.\nStudent: How long does a review take?\nOfficer: Usually four to six weeks. Since tuition is due before then, I'd also suggest signing up for our payment plan, which lets you pay in monthly installments without extra fees.\nStudent: Okay, I'll do both. Thank you.",
+    "question": "Why was the student's financial aid reduced?",
+    "choices": [
+      "His grades fell below the required level.",
+      "He submitted his form after the deadline.",
+      "His family's reported income increased.",
+      "The university changed its aid policy."
+    ],
+    "answer": "His family's reported income increased.",
+    "explanation": "提出した家計情報で、世帯収入が前年より高くなっていたためです。",
+    "tags": "campus financial aid office conversation"
+  },
+  {
+    "id": "TOEFL-LC-018-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Hi, I received a letter saying my financial aid for next year has been reduced, and I don't understand why.\nOfficer: Let me check. Ah, I see. Your aid is based on the family income information you submitted. This year's form shows a higher household income than last year's.\nStudent: That's because my mother got a new job in January. But she was actually laid off again last month.\nOfficer: I see. In that case, you can request a review based on a change in circumstances. You'd need to provide documentation, such as a letter from her former employer.\nStudent: How long does a review take?\nOfficer: Usually four to six weeks. Since tuition is due before then, I'd also suggest signing up for our payment plan, which lets you pay in monthly installments without extra fees.\nStudent: Okay, I'll do both. Thank you.",
+    "question": "Why does the officer suggest the payment plan?",
+    "choices": [
+      "The student is not eligible for a review.",
+      "It will increase his financial aid.",
+      "It is required for all students.",
+      "The review may not finish before tuition is due."
+    ],
+    "answer": "The review may not finish before tuition is due.",
+    "explanation": "審査には4～6週間かかり、学費の期限に間に合わないかもしれないからです。",
+    "tags": "campus financial aid office conversation"
+  },
+  {
+    "id": "TOEFL-LC-019-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Man: Did you hear back from the engineering firm about the summer internship?\nWoman: I did. They offered me a position, but I'm not sure I'll accept it.\nMan: Why not? I thought that was your first choice.\nWoman: It was. But they just told me it's unpaid, and the office is downtown, so I'd have to pay for parking and gas.\nMan: That adds up. Did you get any other offers?\nWoman: The city's water department offered me a paid position, but the work sounds less exciting—mostly checking data.\nMan: Honestly, data experience is valuable for engineers. And being paid means you wouldn't need a second job.\nWoman: That's true. I'd have more energy for my senior project in the fall, too.\nMan: You could also ask the firm if they offer any travel support. It doesn't hurt to ask.",
+    "question": "Why is the woman hesitant to accept the engineering firm's offer?",
+    "choices": [
+      "The work is mainly data checking.",
+      "The internship is unpaid and would cost her money.",
+      "The firm is located in another city.",
+      "She has to begin her senior project in summer."
+    ],
+    "answer": "The internship is unpaid and would cost her money.",
+    "explanation": "無給なうえ、駐車代やガソリン代がかかるため迷っています。",
+    "tags": "campus classmates internship conversation"
+  },
+  {
+    "id": "TOEFL-LC-019-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Man: Did you hear back from the engineering firm about the summer internship?\nWoman: I did. They offered me a position, but I'm not sure I'll accept it.\nMan: Why not? I thought that was your first choice.\nWoman: It was. But they just told me it's unpaid, and the office is downtown, so I'd have to pay for parking and gas.\nMan: That adds up. Did you get any other offers?\nWoman: The city's water department offered me a paid position, but the work sounds less exciting—mostly checking data.\nMan: Honestly, data experience is valuable for engineers. And being paid means you wouldn't need a second job.\nWoman: That's true. I'd have more energy for my senior project in the fall, too.\nMan: You could also ask the firm if they offer any travel support. It doesn't hurt to ask.",
+    "question": "What is the man's opinion of the water department position?",
+    "choices": [
+      "It is less valuable than the firm's offer.",
+      "It would require too much travel.",
+      "It is not related to engineering.",
+      "It would give her useful experience."
+    ],
+    "answer": "It would give her useful experience.",
+    "explanation": "男性は「データの経験はエンジニアにとって貴重」と評価しています。",
+    "tags": "campus classmates internship conversation"
+  },
+  {
+    "id": "TOEFL-LC-020-1",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Professor Hassan, I'm sorry to bother you. I missed the midterm on Monday because I was in the emergency room with a sprained ankle.\nProfessor: I'm sorry to hear that. Are you feeling better?\nStudent: Much better, thanks. I have a note from the hospital. I was wondering if I could take a make-up exam.\nProfessor: Yes, with medical documentation that's no problem. But the make-up exam isn't the same as the original. It has more short-answer questions and fewer multiple-choice items.\nStudent: Is it harder?\nProfessor: Not harder, just different. Since you can't simply recognize the right answer, you'll need to know the material well enough to explain it.\nStudent: Okay. When could I take it?\nProfessor: The testing center offers make-ups on Thursdays. Book a slot online and give them this form.",
+    "question": "Why did the student miss the midterm?",
+    "choices": [
+      "He was traveling to a conference.",
+      "He confused the exam date.",
+      "He was receiving medical treatment.",
+      "He had a family emergency."
+    ],
+    "answer": "He was receiving medical treatment.",
+    "explanation": "足首のねんざで救急外来にいたため、中間試験を受けられませんでした。",
+    "tags": "campus professor exam make-up conversation"
+  },
+  {
+    "id": "TOEFL-LC-020-2",
+    "skill": "listening",
+    "format": "Listening: Listen to a Conversation",
+    "level": "B2",
+    "band": "TOEFL目安:バンド4",
+    "passage": "Student: Professor Hassan, I'm sorry to bother you. I missed the midterm on Monday because I was in the emergency room with a sprained ankle.\nProfessor: I'm sorry to hear that. Are you feeling better?\nStudent: Much better, thanks. I have a note from the hospital. I was wondering if I could take a make-up exam.\nProfessor: Yes, with medical documentation that's no problem. But the make-up exam isn't the same as the original. It has more short-answer questions and fewer multiple-choice items.\nStudent: Is it harder?\nProfessor: Not harder, just different. Since you can't simply recognize the right answer, you'll need to know the material well enough to explain it.\nStudent: Okay. When could I take it?\nProfessor: The testing center offers make-ups on Thursdays. Book a slot online and give them this form.",
+    "question": "What does the professor imply about the make-up exam?",
+    "choices": [
+      "It requires a deeper understanding to answer.",
+      "It is much more difficult than the original.",
+      "It is only for students with a medical note.",
+      "It covers less material."
+    ],
+    "answer": "It requires a deeper understanding to answer.",
+    "explanation": "選択肢を見て選ぶのではなく、説明できるほど理解している必要があると示唆しています。",
+    "tags": "campus professor exam make-up conversation"
+  }
+]

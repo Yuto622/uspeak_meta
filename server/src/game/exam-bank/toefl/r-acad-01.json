@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-RA-001-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Camels Survive in the Desert\n\nCamels are famous for their ability to survive in hot, dry deserts where few other large animals can live. Many people believe that a camel's hump is filled with water, but this is not true. The hump actually stores fat. When food is scarce, the camel's body can break down this fat for energy. Because the fat is concentrated in one place rather than spread across the body, heat can escape more easily from the rest of the camel's skin.\n\nCamels also have several ways of dealing with a lack of water. They lose very little water in their waste. In addition, instead of sweating as soon as it gets warm, a camel allows its body temperature to rise by several degrees during the day before it begins to sweat. At night, its temperature falls again. Camels can also lose a large share of their body water, far more than most mammals, and still survive.\n\nWhen a thirsty camel finally reaches water, it can drink an enormous amount very quickly, sometimes more than 100 liters in about ten minutes. Its red blood cells have an unusual oval shape, which helps them keep flowing when the animal is dehydrated and stay undamaged when it suddenly takes in so much water. Together, these features make the camel remarkably well adapted to desert life.",
+  "question": "According to paragraph 1, what does a camel's hump contain?",
+  "choices": [
+   "Fat that can be used for energy",
+   "Water for long journeys",
+   "Extra red blood cells",
+   "Food that has not been digested"
+  ],
+  "answer": "Fat that can be used for energy",
+  "explanation": "第1段落に「The hump actually stores fat.」とあり、食べ物が少ないときにエネルギー源として使う。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-001-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Camels Survive in the Desert\n\nCamels are famous for their ability to survive in hot, dry deserts where few other large animals can live. Many people believe that a camel's hump is filled with water, but this is not true. The hump actually stores fat. When food is scarce, the camel's body can break down this fat for energy. Because the fat is concentrated in one place rather than spread across the body, heat can escape more easily from the rest of the camel's skin.\n\nCamels also have several ways of dealing with a lack of water. They lose very little water in their waste. In addition, instead of sweating as soon as it gets warm, a camel allows its body temperature to rise by several degrees during the day before it begins to sweat. At night, its temperature falls again. Camels can also lose a large share of their body water, far more than most mammals, and still survive.\n\nWhen a thirsty camel finally reaches water, it can drink an enormous amount very quickly, sometimes more than 100 liters in about ten minutes. Its red blood cells have an unusual oval shape, which helps them keep flowing when the animal is dehydrated and stay undamaged when it suddenly takes in so much water. Together, these features make the camel remarkably well adapted to desert life.",
+  "question": "The word \"scarce\" in paragraph 1 is closest in meaning to",
+  "choices": [
+   "fresh",
+   "expensive",
+   "hard to find",
+   "heavy"
+  ],
+  "answer": "hard to find",
+  "explanation": "scarce は「乏しい・不足している」という意味で、hard to find が最も近い。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-001-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Camels Survive in the Desert\n\nCamels are famous for their ability to survive in hot, dry deserts where few other large animals can live. Many people believe that a camel's hump is filled with water, but this is not true. The hump actually stores fat. When food is scarce, the camel's body can break down this fat for energy. Because the fat is concentrated in one place rather than spread across the body, heat can escape more easily from the rest of the camel's skin.\n\nCamels also have several ways of dealing with a lack of water. They lose very little water in their waste. In addition, instead of sweating as soon as it gets warm, a camel allows its body temperature to rise by several degrees during the day before it begins to sweat. At night, its temperature falls again. Camels can also lose a large share of their body water, far more than most mammals, and still survive.\n\nWhen a thirsty camel finally reaches water, it can drink an enormous amount very quickly, sometimes more than 100 liters in about ten minutes. Its red blood cells have an unusual oval shape, which helps them keep flowing when the animal is dehydrated and stay undamaged when it suddenly takes in so much water. Together, these features make the camel remarkably well adapted to desert life.",
+  "question": "All of the following are mentioned as ways camels deal with a lack of water EXCEPT",
+  "choices": [
+   "They lose very little water in their waste.",
+   "They delay sweating until their temperature rises.",
+   "They can survive losing a large amount of body water.",
+   "They can drink salt water from the sea."
+  ],
+  "answer": "They can drink salt water from the sea.",
+  "explanation": "第2段落に排泄で失う水が少ない・汗をかくのを遅らせる・大量の水分を失っても生きられるとあるが、海水を飲むことは書かれていない。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-001-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Camels Survive in the Desert\n\nCamels are famous for their ability to survive in hot, dry deserts where few other large animals can live. Many people believe that a camel's hump is filled with water, but this is not true. The hump actually stores fat. When food is scarce, the camel's body can break down this fat for energy. Because the fat is concentrated in one place rather than spread across the body, heat can escape more easily from the rest of the camel's skin.\n\nCamels also have several ways of dealing with a lack of water. They lose very little water in their waste. In addition, instead of sweating as soon as it gets warm, a camel allows its body temperature to rise by several degrees during the day before it begins to sweat. At night, its temperature falls again. Camels can also lose a large share of their body water, far more than most mammals, and still survive.\n\nWhen a thirsty camel finally reaches water, it can drink an enormous amount very quickly, sometimes more than 100 liters in about ten minutes. Its red blood cells have an unusual oval shape, which helps them keep flowing when the animal is dehydrated and stay undamaged when it suddenly takes in so much water. Together, these features make the camel remarkably well adapted to desert life.",
+  "question": "Why does the author mention that many people believe the hump is filled with water?",
+  "choices": [
+   "To show that camels need large amounts of water",
+   "To explain how camels find water",
+   "To correct a common misunderstanding",
+   "To compare camels with other desert animals"
+  ],
+  "answer": "To correct a common misunderstanding",
+  "explanation": "直後に「but this is not true」と続き、よくある誤解を正すために挙げている。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-001-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "How Camels Survive in the Desert\n\nCamels are famous for their ability to survive in hot, dry deserts where few other large animals can live. Many people believe that a camel's hump is filled with water, but this is not true. The hump actually stores fat. When food is scarce, the camel's body can break down this fat for energy. Because the fat is concentrated in one place rather than spread across the body, heat can escape more easily from the rest of the camel's skin.\n\nCamels also have several ways of dealing with a lack of water. They lose very little water in their waste. In addition, instead of sweating as soon as it gets warm, a camel allows its body temperature to rise by several degrees during the day before it begins to sweat. At night, its temperature falls again. Camels can also lose a large share of their body water, far more than most mammals, and still survive.\n\nWhen a thirsty camel finally reaches water, it can drink an enormous amount very quickly, sometimes more than 100 liters in about ten minutes. Its red blood cells have an unusual oval shape, which helps them keep flowing when the animal is dehydrated and stay undamaged when it suddenly takes in so much water. Together, these features make the camel remarkably well adapted to desert life.",
+  "question": "Which of the following best expresses the main idea of the passage?",
+  "choices": [
+   "Camels have been used by humans for transportation for centuries.",
+   "Camels have several physical features that help them live in deserts.",
+   "Camels search for water by following the movement of other animals.",
+   "Camels are larger than most other mammals that live in deserts."
+  ],
+  "answer": "Camels have several physical features that help them live in deserts.",
+  "explanation": "こぶ・体温調節・赤血球など、砂漠で生きるための体の特徴を説明する文章。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-002-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Why the Earth Has Seasons\n\nMany people think that summer happens when the Earth is closest to the Sun. In fact, the distance between the Earth and the Sun changes only slightly during the year, and the Earth is actually closest to the Sun in early January, during winter in the Northern Hemisphere. The real cause of the seasons is the tilt of the Earth's axis.\n\nThe Earth's axis is tilted at an angle of about 23.5 degrees. As the Earth travels around the Sun, this tilt stays pointed in the same direction in space. For part of the year, the Northern Hemisphere leans toward the Sun. During this time, sunlight strikes it more directly, and the days are longer, so the ground and air receive more energy. The result is summer. Six months later, the Northern Hemisphere leans away from the Sun. Sunlight arrives at a low angle and spreads over a larger area, and the days are shorter. The result is winter.\n\nBecause the two hemispheres lean in opposite directions, their seasons are reversed. When it is summer in Canada, it is winter in Australia. Near the equator, the angle of sunlight changes less during the year, so temperatures stay fairly similar. Many tropical regions therefore describe their seasons in terms of rainfall, such as wet and dry seasons, rather than temperature.",
+  "question": "According to the passage, what is the main cause of the seasons?",
+  "choices": [
+   "The tilt of the Earth's axis",
+   "Changes in the distance between the Earth and the Sun",
+   "Changes in the amount of rain",
+   "The speed at which the Earth rotates"
+  ],
+  "answer": "The tilt of the Earth's axis",
+  "explanation": "第1段落の最後に「The real cause of the seasons is the tilt of the Earth's axis.」とある。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-002-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Why the Earth Has Seasons\n\nMany people think that summer happens when the Earth is closest to the Sun. In fact, the distance between the Earth and the Sun changes only slightly during the year, and the Earth is actually closest to the Sun in early January, during winter in the Northern Hemisphere. The real cause of the seasons is the tilt of the Earth's axis.\n\nThe Earth's axis is tilted at an angle of about 23.5 degrees. As the Earth travels around the Sun, this tilt stays pointed in the same direction in space. For part of the year, the Northern Hemisphere leans toward the Sun. During this time, sunlight strikes it more directly, and the days are longer, so the ground and air receive more energy. The result is summer. Six months later, the Northern Hemisphere leans away from the Sun. Sunlight arrives at a low angle and spreads over a larger area, and the days are shorter. The result is winter.\n\nBecause the two hemispheres lean in opposite directions, their seasons are reversed. When it is summer in Canada, it is winter in Australia. Near the equator, the angle of sunlight changes less during the year, so temperatures stay fairly similar. Many tropical regions therefore describe their seasons in terms of rainfall, such as wet and dry seasons, rather than temperature.",
+  "question": "Why does the author mention that the Earth is closest to the Sun in early January?",
+  "choices": [
+   "To prove that January is the warmest month everywhere",
+   "To show that distance from the Sun does not explain the seasons",
+   "To explain why the Earth's axis is tilted",
+   "To describe the climate of Australia"
+  ],
+  "answer": "To show that distance from the Sun does not explain the seasons",
+  "explanation": "北半球が冬の1月に太陽に最も近いことを挙げ、「近いと夏」という考えが誤りだと示している。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-002-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Why the Earth Has Seasons\n\nMany people think that summer happens when the Earth is closest to the Sun. In fact, the distance between the Earth and the Sun changes only slightly during the year, and the Earth is actually closest to the Sun in early January, during winter in the Northern Hemisphere. The real cause of the seasons is the tilt of the Earth's axis.\n\nThe Earth's axis is tilted at an angle of about 23.5 degrees. As the Earth travels around the Sun, this tilt stays pointed in the same direction in space. For part of the year, the Northern Hemisphere leans toward the Sun. During this time, sunlight strikes it more directly, and the days are longer, so the ground and air receive more energy. The result is summer. Six months later, the Northern Hemisphere leans away from the Sun. Sunlight arrives at a low angle and spreads over a larger area, and the days are shorter. The result is winter.\n\nBecause the two hemispheres lean in opposite directions, their seasons are reversed. When it is summer in Canada, it is winter in Australia. Near the equator, the angle of sunlight changes less during the year, so temperatures stay fairly similar. Many tropical regions therefore describe their seasons in terms of rainfall, such as wet and dry seasons, rather than temperature.",
+  "question": "According to paragraph 2, which of the following is true of the Northern Hemisphere in summer?",
+  "choices": [
+   "It is farther from the Sun than in winter.",
+   "Sunlight spreads over a larger area.",
+   "Its axis points in a different direction in space.",
+   "It receives sunlight more directly and has longer days."
+  ],
+  "answer": "It receives sunlight more directly and has longer days.",
+  "explanation": "北半球が太陽側に傾くと「sunlight strikes it more directly, and the days are longer」。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-002-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Why the Earth Has Seasons\n\nMany people think that summer happens when the Earth is closest to the Sun. In fact, the distance between the Earth and the Sun changes only slightly during the year, and the Earth is actually closest to the Sun in early January, during winter in the Northern Hemisphere. The real cause of the seasons is the tilt of the Earth's axis.\n\nThe Earth's axis is tilted at an angle of about 23.5 degrees. As the Earth travels around the Sun, this tilt stays pointed in the same direction in space. For part of the year, the Northern Hemisphere leans toward the Sun. During this time, sunlight strikes it more directly, and the days are longer, so the ground and air receive more energy. The result is summer. Six months later, the Northern Hemisphere leans away from the Sun. Sunlight arrives at a low angle and spreads over a larger area, and the days are shorter. The result is winter.\n\nBecause the two hemispheres lean in opposite directions, their seasons are reversed. When it is summer in Canada, it is winter in Australia. Near the equator, the angle of sunlight changes less during the year, so temperatures stay fairly similar. Many tropical regions therefore describe their seasons in terms of rainfall, such as wet and dry seasons, rather than temperature.",
+  "question": "The word \"reversed\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "shortened",
+   "repeated",
+   "opposite",
+   "delayed"
+  ],
+  "answer": "opposite",
+  "explanation": "南北の半球で季節が「逆になる」という意味で、opposite が最も近い。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-002-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Why the Earth Has Seasons\n\nMany people think that summer happens when the Earth is closest to the Sun. In fact, the distance between the Earth and the Sun changes only slightly during the year, and the Earth is actually closest to the Sun in early January, during winter in the Northern Hemisphere. The real cause of the seasons is the tilt of the Earth's axis.\n\nThe Earth's axis is tilted at an angle of about 23.5 degrees. As the Earth travels around the Sun, this tilt stays pointed in the same direction in space. For part of the year, the Northern Hemisphere leans toward the Sun. During this time, sunlight strikes it more directly, and the days are longer, so the ground and air receive more energy. The result is summer. Six months later, the Northern Hemisphere leans away from the Sun. Sunlight arrives at a low angle and spreads over a larger area, and the days are shorter. The result is winter.\n\nBecause the two hemispheres lean in opposite directions, their seasons are reversed. When it is summer in Canada, it is winter in Australia. Near the equator, the angle of sunlight changes less during the year, so temperatures stay fairly similar. Many tropical regions therefore describe their seasons in terms of rainfall, such as wet and dry seasons, rather than temperature.",
+  "question": "What can be inferred about places near the equator?",
+  "choices": [
+   "Their temperatures change less across the year than in many other places.",
+   "They have four distinct seasons based on temperature.",
+   "They receive less sunlight than the poles.",
+   "They have no rain during most of the year."
+  ],
+  "answer": "Their temperatures change less across the year than in many other places.",
+  "explanation": "赤道付近は日射の角度の変化が小さく「temperatures stay fairly similar」なので、気温の年較差が小さいと推測できる。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-003-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Roads of Ancient Rome\n\nAt its height, the Roman Empire controlled lands from Britain to the Middle East. To govern such a large area, the Romans built an impressive network of roads. Over several centuries, they constructed more than 80,000 kilometers of paved roads, and many more kilometers of simpler gravel and dirt roads.\n\nRoman roads were carefully engineered. Builders usually dug a trench and filled it with layers of different materials, such as large stones, smaller stones, and gravel. On the most important roads, the top layer was made of flat stone blocks fitted tightly together. The surface was often slightly higher in the middle so that rainwater would run off to the sides. Where possible, engineers made the roads as straight as they could, because a straight road was the shortest route between two places.\n\nThe main purpose of the roads was military. They allowed soldiers to march quickly to any part of the empire where there was trouble. However, the roads soon served many other uses. Merchants transported goods along them, officials carried messages, and travelers moved between cities. Along the major routes, the government set up stations where official messengers could rest and change horses. Some Roman roads were so well built that parts of them are still visible today, and the routes of several modern highways in Europe follow the paths of the original Roman roads.",
+  "question": "According to paragraph 1, why did the Romans build a large road network?",
+  "choices": [
+   "To attract visitors from other countries",
+   "To connect Britain with Asia by trade",
+   "To provide work for farmers in winter",
+   "To help them govern a very large empire"
+  ],
+  "answer": "To help them govern a very large empire",
+  "explanation": "第1段落に「To govern such a large area, the Romans built ... roads」とある。",
+  "tags": "TOEFL2026 reading academic-passage history"
+ },
+ {
+  "id": "TOEFL-RA-003-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Roads of Ancient Rome\n\nAt its height, the Roman Empire controlled lands from Britain to the Middle East. To govern such a large area, the Romans built an impressive network of roads. Over several centuries, they constructed more than 80,000 kilometers of paved roads, and many more kilometers of simpler gravel and dirt roads.\n\nRoman roads were carefully engineered. Builders usually dug a trench and filled it with layers of different materials, such as large stones, smaller stones, and gravel. On the most important roads, the top layer was made of flat stone blocks fitted tightly together. The surface was often slightly higher in the middle so that rainwater would run off to the sides. Where possible, engineers made the roads as straight as they could, because a straight road was the shortest route between two places.\n\nThe main purpose of the roads was military. They allowed soldiers to march quickly to any part of the empire where there was trouble. However, the roads soon served many other uses. Merchants transported goods along them, officials carried messages, and travelers moved between cities. Along the major routes, the government set up stations where official messengers could rest and change horses. Some Roman roads were so well built that parts of them are still visible today, and the routes of several modern highways in Europe follow the paths of the original Roman roads.",
+  "question": "According to paragraph 2, why was the surface of many roads higher in the middle?",
+  "choices": [
+   "So that rainwater would flow away",
+   "So that soldiers could see farther",
+   "So that heavy carts would slow down",
+   "So that the stones would stay warm"
+  ],
+  "answer": "So that rainwater would flow away",
+  "explanation": "「so that rainwater would run off to the sides」とあり、雨水を両側に流すため。",
+  "tags": "TOEFL2026 reading academic-passage history"
+ },
+ {
+  "id": "TOEFL-RA-003-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Roads of Ancient Rome\n\nAt its height, the Roman Empire controlled lands from Britain to the Middle East. To govern such a large area, the Romans built an impressive network of roads. Over several centuries, they constructed more than 80,000 kilometers of paved roads, and many more kilometers of simpler gravel and dirt roads.\n\nRoman roads were carefully engineered. Builders usually dug a trench and filled it with layers of different materials, such as large stones, smaller stones, and gravel. On the most important roads, the top layer was made of flat stone blocks fitted tightly together. The surface was often slightly higher in the middle so that rainwater would run off to the sides. Where possible, engineers made the roads as straight as they could, because a straight road was the shortest route between two places.\n\nThe main purpose of the roads was military. They allowed soldiers to march quickly to any part of the empire where there was trouble. However, the roads soon served many other uses. Merchants transported goods along them, officials carried messages, and travelers moved between cities. Along the major routes, the government set up stations where official messengers could rest and change horses. Some Roman roads were so well built that parts of them are still visible today, and the routes of several modern highways in Europe follow the paths of the original Roman roads.",
+  "question": "The word \"route\" in paragraph 2 is closest in meaning to",
+  "choices": [
+   "wall",
+   "way",
+   "rule",
+   "reason"
+  ],
+  "answer": "way",
+  "explanation": "route は「道筋・経路」という意味で、way が最も近い。",
+  "tags": "TOEFL2026 reading academic-passage history"
+ },
+ {
+  "id": "TOEFL-RA-003-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Roads of Ancient Rome\n\nAt its height, the Roman Empire controlled lands from Britain to the Middle East. To govern such a large area, the Romans built an impressive network of roads. Over several centuries, they constructed more than 80,000 kilometers of paved roads, and many more kilometers of simpler gravel and dirt roads.\n\nRoman roads were carefully engineered. Builders usually dug a trench and filled it with layers of different materials, such as large stones, smaller stones, and gravel. On the most important roads, the top layer was made of flat stone blocks fitted tightly together. The surface was often slightly higher in the middle so that rainwater would run off to the sides. Where possible, engineers made the roads as straight as they could, because a straight road was the shortest route between two places.\n\nThe main purpose of the roads was military. They allowed soldiers to march quickly to any part of the empire where there was trouble. However, the roads soon served many other uses. Merchants transported goods along them, officials carried messages, and travelers moved between cities. Along the major routes, the government set up stations where official messengers could rest and change horses. Some Roman roads were so well built that parts of them are still visible today, and the routes of several modern highways in Europe follow the paths of the original Roman roads.",
+  "question": "According to the passage, all of the following used Roman roads EXCEPT",
+  "choices": [
+   "soldiers marching to areas with trouble",
+   "merchants transporting goods",
+   "farmers moving their animals to new pastures",
+   "officials carrying messages"
+  ],
+  "answer": "farmers moving their animals to new pastures",
+  "explanation": "第3段落に兵士・商人・役人・旅行者は出てくるが、家畜を移動させる農民は書かれていない。",
+  "tags": "TOEFL2026 reading academic-passage history"
+ },
+ {
+  "id": "TOEFL-RA-003-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Roads of Ancient Rome\n\nAt its height, the Roman Empire controlled lands from Britain to the Middle East. To govern such a large area, the Romans built an impressive network of roads. Over several centuries, they constructed more than 80,000 kilometers of paved roads, and many more kilometers of simpler gravel and dirt roads.\n\nRoman roads were carefully engineered. Builders usually dug a trench and filled it with layers of different materials, such as large stones, smaller stones, and gravel. On the most important roads, the top layer was made of flat stone blocks fitted tightly together. The surface was often slightly higher in the middle so that rainwater would run off to the sides. Where possible, engineers made the roads as straight as they could, because a straight road was the shortest route between two places.\n\nThe main purpose of the roads was military. They allowed soldiers to march quickly to any part of the empire where there was trouble. However, the roads soon served many other uses. Merchants transported goods along them, officials carried messages, and travelers moved between cities. Along the major routes, the government set up stations where official messengers could rest and change horses. Some Roman roads were so well built that parts of them are still visible today, and the routes of several modern highways in Europe follow the paths of the original Roman roads.",
+  "question": "What can be inferred from paragraph 3 about modern European highways?",
+  "choices": [
+   "Most of them were built by Roman engineers.",
+   "They are less straight than Roman roads.",
+   "They are used mainly for military purposes.",
+   "Some of them were planned along routes chosen long ago."
+  ],
+  "answer": "Some of them were planned along routes chosen long ago.",
+  "explanation": "「the routes of several modern highways ... follow the paths of the original Roman roads」から、古代の経路をもとにした道路があると推測できる。",
+  "tags": "TOEFL2026 reading academic-passage history"
+ },
+ {
+  "id": "TOEFL-RA-004-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spacing Effect\n\nMost students have had the experience of studying for many hours the night before an exam. This practice, often called cramming, can help a person remember information for a short time. However, research in psychology shows that it is not an efficient way to build long-term memory.\n\nIn the 1880s, the German researcher Hermann Ebbinghaus carried out a series of memory experiments on himself. He learned lists of meaningless syllables and then tested how well he remembered them. He discovered that he remembered the lists much better when he spread his practice over several days than when he did all of it at once. This finding is now known as the spacing effect. Since then, hundreds of studies with many different kinds of material, from foreign vocabulary to math skills, have confirmed it.\n\nWhy does spacing help? One explanation is that when we return to information after a break, we have partly forgotten it, so our brain must work harder to recall it. This extra effort seems to strengthen the memory. In contrast, when we repeat something many times in a row, it feels easy, and we may wrongly believe we have learned it well.\n\nThe practical lesson is simple. Instead of studying a topic for three hours on one day, students may learn more by studying it for one hour on three different days.",
+  "question": "What is the passage mainly about?",
+  "choices": [
+   "Why spreading study over time improves memory",
+   "Why students should study late at night",
+   "How Ebbinghaus became a famous psychologist",
+   "How to learn foreign vocabulary quickly"
+  ],
+  "answer": "Why spreading study over time improves memory",
+  "explanation": "学習を時間的に分散させると記憶が強まる「spacing effect」について説明した文章。",
+  "tags": "TOEFL2026 reading academic-passage psychology"
+ },
+ {
+  "id": "TOEFL-RA-004-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spacing Effect\n\nMost students have had the experience of studying for many hours the night before an exam. This practice, often called cramming, can help a person remember information for a short time. However, research in psychology shows that it is not an efficient way to build long-term memory.\n\nIn the 1880s, the German researcher Hermann Ebbinghaus carried out a series of memory experiments on himself. He learned lists of meaningless syllables and then tested how well he remembered them. He discovered that he remembered the lists much better when he spread his practice over several days than when he did all of it at once. This finding is now known as the spacing effect. Since then, hundreds of studies with many different kinds of material, from foreign vocabulary to math skills, have confirmed it.\n\nWhy does spacing help? One explanation is that when we return to information after a break, we have partly forgotten it, so our brain must work harder to recall it. This extra effort seems to strengthen the memory. In contrast, when we repeat something many times in a row, it feels easy, and we may wrongly believe we have learned it well.\n\nThe practical lesson is simple. Instead of studying a topic for three hours on one day, students may learn more by studying it for one hour on three different days.",
+  "question": "According to paragraph 2, what did Ebbinghaus discover?",
+  "choices": [
+   "He remembered meaningless syllables better than real words.",
+   "He remembered more after studying all night.",
+   "He remembered lists better when he practiced on several days.",
+   "He forgot most information within one hour."
+  ],
+  "answer": "He remembered lists better when he practiced on several days.",
+  "explanation": "「he remembered the lists much better when he spread his practice over several days」とある。",
+  "tags": "TOEFL2026 reading academic-passage psychology"
+ },
+ {
+  "id": "TOEFL-RA-004-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spacing Effect\n\nMost students have had the experience of studying for many hours the night before an exam. This practice, often called cramming, can help a person remember information for a short time. However, research in psychology shows that it is not an efficient way to build long-term memory.\n\nIn the 1880s, the German researcher Hermann Ebbinghaus carried out a series of memory experiments on himself. He learned lists of meaningless syllables and then tested how well he remembered them. He discovered that he remembered the lists much better when he spread his practice over several days than when he did all of it at once. This finding is now known as the spacing effect. Since then, hundreds of studies with many different kinds of material, from foreign vocabulary to math skills, have confirmed it.\n\nWhy does spacing help? One explanation is that when we return to information after a break, we have partly forgotten it, so our brain must work harder to recall it. This extra effort seems to strengthen the memory. In contrast, when we repeat something many times in a row, it feels easy, and we may wrongly believe we have learned it well.\n\nThe practical lesson is simple. Instead of studying a topic for three hours on one day, students may learn more by studying it for one hour on three different days.",
+  "question": "The word \"confirmed\" in paragraph 2 is closest in meaning to",
+  "choices": [
+   "questioned",
+   "supported",
+   "changed",
+   "ignored"
+  ],
+  "answer": "supported",
+  "explanation": "confirm は「（正しいと）裏付ける」という意味で、supported が最も近い。",
+  "tags": "TOEFL2026 reading academic-passage psychology"
+ },
+ {
+  "id": "TOEFL-RA-004-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spacing Effect\n\nMost students have had the experience of studying for many hours the night before an exam. This practice, often called cramming, can help a person remember information for a short time. However, research in psychology shows that it is not an efficient way to build long-term memory.\n\nIn the 1880s, the German researcher Hermann Ebbinghaus carried out a series of memory experiments on himself. He learned lists of meaningless syllables and then tested how well he remembered them. He discovered that he remembered the lists much better when he spread his practice over several days than when he did all of it at once. This finding is now known as the spacing effect. Since then, hundreds of studies with many different kinds of material, from foreign vocabulary to math skills, have confirmed it.\n\nWhy does spacing help? One explanation is that when we return to information after a break, we have partly forgotten it, so our brain must work harder to recall it. This extra effort seems to strengthen the memory. In contrast, when we repeat something many times in a row, it feels easy, and we may wrongly believe we have learned it well.\n\nThe practical lesson is simple. Instead of studying a topic for three hours on one day, students may learn more by studying it for one hour on three different days.",
+  "question": "According to paragraph 3, why might repeating something many times in a row be misleading?",
+  "choices": [
+   "It can make learners think they know the material better than they do.",
+   "It causes learners to forget the material immediately.",
+   "It requires too much effort from the brain.",
+   "It works only with meaningless syllables."
+  ],
+  "answer": "It can make learners think they know the material better than they do.",
+  "explanation": "続けて繰り返すと簡単に感じ「we may wrongly believe we have learned it well」とある。",
+  "tags": "TOEFL2026 reading academic-passage psychology"
+ },
+ {
+  "id": "TOEFL-RA-004-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "The Spacing Effect\n\nMost students have had the experience of studying for many hours the night before an exam. This practice, often called cramming, can help a person remember information for a short time. However, research in psychology shows that it is not an efficient way to build long-term memory.\n\nIn the 1880s, the German researcher Hermann Ebbinghaus carried out a series of memory experiments on himself. He learned lists of meaningless syllables and then tested how well he remembered them. He discovered that he remembered the lists much better when he spread his practice over several days than when he did all of it at once. This finding is now known as the spacing effect. Since then, hundreds of studies with many different kinds of material, from foreign vocabulary to math skills, have confirmed it.\n\nWhy does spacing help? One explanation is that when we return to information after a break, we have partly forgotten it, so our brain must work harder to recall it. This extra effort seems to strengthen the memory. In contrast, when we repeat something many times in a row, it feels easy, and we may wrongly believe we have learned it well.\n\nThe practical lesson is simple. Instead of studying a topic for three hours on one day, students may learn more by studying it for one hour on three different days.",
+  "question": "Why does the author mention studying \"for one hour on three different days\"?",
+  "choices": [
+   "To describe how Ebbinghaus organized his experiments",
+   "To give a practical example of the spacing effect",
+   "To argue that students should study less in total",
+   "To show that cramming works for some students"
+  ],
+  "answer": "To give a practical example of the spacing effect",
+  "explanation": "同じ3時間でも分けて学ぶ方がよいという、研究結果の実践例として挙げている。",
+  "tags": "TOEFL2026 reading academic-passage psychology"
+ },
+ {
+  "id": "TOEFL-RA-005-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Urban Heat Islands\n\nOn a hot summer day, the center of a large city can be several degrees warmer than the countryside around it. Scientists call this an urban heat island. The difference is often greatest at night, when rural areas cool down quickly but cities stay warm.\n\nSeveral factors cause this effect. First, cities are covered with materials such as asphalt, concrete, and brick. These dark, hard surfaces absorb a large amount of heat from the sun during the day and release it slowly at night. Second, cities have fewer trees and plants than rural areas. Plants cool the air by releasing water vapor through their leaves, so a lack of vegetation means less natural cooling. Third, tall buildings can block the wind and trap warm air between them. Finally, cars, air conditioners, and factories produce additional heat.\n\nUrban heat islands are more than an inconvenience. Higher temperatures increase the demand for air conditioning, which uses more electricity. They can also make heat waves more dangerous, especially for elderly people and those with health problems.\n\nFortunately, cities can reduce the effect. Planting trees and creating parks provide shade and cooling. Some cities encourage \"green roofs,\" which are covered with plants, or \"cool roofs,\" which are painted in light colors that reflect sunlight instead of absorbing it.",
+  "question": "According to paragraph 1, when is the temperature difference between cities and the countryside usually largest?",
+  "choices": [
+   "In the early morning",
+   "At midday",
+   "During the winter",
+   "At night"
+  ],
+  "answer": "At night",
+  "explanation": "「The difference is often greatest at night」とあり、夜に差が最も大きくなる。",
+  "tags": "TOEFL2026 reading academic-passage environmental-science"
+ },
+ {
+  "id": "TOEFL-RA-005-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Urban Heat Islands\n\nOn a hot summer day, the center of a large city can be several degrees warmer than the countryside around it. Scientists call this an urban heat island. The difference is often greatest at night, when rural areas cool down quickly but cities stay warm.\n\nSeveral factors cause this effect. First, cities are covered with materials such as asphalt, concrete, and brick. These dark, hard surfaces absorb a large amount of heat from the sun during the day and release it slowly at night. Second, cities have fewer trees and plants than rural areas. Plants cool the air by releasing water vapor through their leaves, so a lack of vegetation means less natural cooling. Third, tall buildings can block the wind and trap warm air between them. Finally, cars, air conditioners, and factories produce additional heat.\n\nUrban heat islands are more than an inconvenience. Higher temperatures increase the demand for air conditioning, which uses more electricity. They can also make heat waves more dangerous, especially for elderly people and those with health problems.\n\nFortunately, cities can reduce the effect. Planting trees and creating parks provide shade and cooling. Some cities encourage \"green roofs,\" which are covered with plants, or \"cool roofs,\" which are painted in light colors that reflect sunlight instead of absorbing it.",
+  "question": "Which of the following is NOT mentioned as a cause of urban heat islands?",
+  "choices": [
+   "Surfaces that absorb heat during the day",
+   "A lack of trees and plants",
+   "Large numbers of people breathing out warm air",
+   "Tall buildings that block the wind"
+  ],
+  "answer": "Large numbers of people breathing out warm air",
+  "explanation": "第2段落には舗装・緑の不足・高層ビル・車や冷房の排熱が挙げられているが、人の呼吸は書かれていない。",
+  "tags": "TOEFL2026 reading academic-passage environmental-science"
+ },
+ {
+  "id": "TOEFL-RA-005-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Urban Heat Islands\n\nOn a hot summer day, the center of a large city can be several degrees warmer than the countryside around it. Scientists call this an urban heat island. The difference is often greatest at night, when rural areas cool down quickly but cities stay warm.\n\nSeveral factors cause this effect. First, cities are covered with materials such as asphalt, concrete, and brick. These dark, hard surfaces absorb a large amount of heat from the sun during the day and release it slowly at night. Second, cities have fewer trees and plants than rural areas. Plants cool the air by releasing water vapor through their leaves, so a lack of vegetation means less natural cooling. Third, tall buildings can block the wind and trap warm air between them. Finally, cars, air conditioners, and factories produce additional heat.\n\nUrban heat islands are more than an inconvenience. Higher temperatures increase the demand for air conditioning, which uses more electricity. They can also make heat waves more dangerous, especially for elderly people and those with health problems.\n\nFortunately, cities can reduce the effect. Planting trees and creating parks provide shade and cooling. Some cities encourage \"green roofs,\" which are covered with plants, or \"cool roofs,\" which are painted in light colors that reflect sunlight instead of absorbing it.",
+  "question": "The word \"release\" in paragraph 2 is closest in meaning to",
+  "choices": [
+   "take in",
+   "hold back",
+   "break up",
+   "give off"
+  ],
+  "answer": "give off",
+  "explanation": "ここの release は熱を「放出する」という意味で、give off が最も近い。",
+  "tags": "TOEFL2026 reading academic-passage environmental-science"
+ },
+ {
+  "id": "TOEFL-RA-005-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Urban Heat Islands\n\nOn a hot summer day, the center of a large city can be several degrees warmer than the countryside around it. Scientists call this an urban heat island. The difference is often greatest at night, when rural areas cool down quickly but cities stay warm.\n\nSeveral factors cause this effect. First, cities are covered with materials such as asphalt, concrete, and brick. These dark, hard surfaces absorb a large amount of heat from the sun during the day and release it slowly at night. Second, cities have fewer trees and plants than rural areas. Plants cool the air by releasing water vapor through their leaves, so a lack of vegetation means less natural cooling. Third, tall buildings can block the wind and trap warm air between them. Finally, cars, air conditioners, and factories produce additional heat.\n\nUrban heat islands are more than an inconvenience. Higher temperatures increase the demand for air conditioning, which uses more electricity. They can also make heat waves more dangerous, especially for elderly people and those with health problems.\n\nFortunately, cities can reduce the effect. Planting trees and creating parks provide shade and cooling. Some cities encourage \"green roofs,\" which are covered with plants, or \"cool roofs,\" which are painted in light colors that reflect sunlight instead of absorbing it.",
+  "question": "Why does the author mention elderly people in paragraph 3?",
+  "choices": [
+   "To explain why cities use more electricity",
+   "To argue that elderly people should move to the countryside",
+   "To show that urban heat islands can be a health risk",
+   "To describe who plants trees in cities"
+  ],
+  "answer": "To show that urban heat islands can be a health risk",
+  "explanation": "熱波がとくに高齢者などにとって危険になると述べ、健康上のリスクを示している。",
+  "tags": "TOEFL2026 reading academic-passage environmental-science"
+ },
+ {
+  "id": "TOEFL-RA-005-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Urban Heat Islands\n\nOn a hot summer day, the center of a large city can be several degrees warmer than the countryside around it. Scientists call this an urban heat island. The difference is often greatest at night, when rural areas cool down quickly but cities stay warm.\n\nSeveral factors cause this effect. First, cities are covered with materials such as asphalt, concrete, and brick. These dark, hard surfaces absorb a large amount of heat from the sun during the day and release it slowly at night. Second, cities have fewer trees and plants than rural areas. Plants cool the air by releasing water vapor through their leaves, so a lack of vegetation means less natural cooling. Third, tall buildings can block the wind and trap warm air between them. Finally, cars, air conditioners, and factories produce additional heat.\n\nUrban heat islands are more than an inconvenience. Higher temperatures increase the demand for air conditioning, which uses more electricity. They can also make heat waves more dangerous, especially for elderly people and those with health problems.\n\nFortunately, cities can reduce the effect. Planting trees and creating parks provide shade and cooling. Some cities encourage \"green roofs,\" which are covered with plants, or \"cool roofs,\" which are painted in light colors that reflect sunlight instead of absorbing it.",
+  "question": "What can be inferred about \"cool roofs\"?",
+  "choices": [
+   "They are more expensive than green roofs.",
+   "They absorb less heat from the sun than dark roofs.",
+   "They are covered with trees.",
+   "They make buildings warmer in summer."
+  ],
+  "answer": "They absorb less heat from the sun than dark roofs.",
+  "explanation": "明るい色で日光を反射するので、暗い色の屋根より熱を吸収しにくいと推測できる。",
+  "tags": "TOEFL2026 reading academic-passage environmental-science"
+ },
+ {
+  "id": "TOEFL-RA-006-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Light in the Deep Sea\n\nBelow a depth of about 1,000 meters, no sunlight penetrates the ocean. Yet this dark world is far from completely black. A large proportion of the animals that live in the deep sea, including fish, squid, shrimp, and jellyfish, can produce their own light, a phenomenon known as bioluminescence. The light is generated by a chemical reaction in which a molecule called luciferin reacts with oxygen, a process assisted by an enzyme. Some animals produce these chemicals themselves, while others rely on bacteria living in special organs.\n\nBioluminescence serves a variety of functions. Some predators use light as a lure. The anglerfish, for instance, has a glowing structure that dangles in front of its mouth, attracting curious prey close enough to be swallowed. Other animals use light for defense. Certain shrimp release a cloud of glowing fluid when attacked, which may startle or distract a predator long enough for the shrimp to escape.\n\nOne of the most widespread uses is camouflage. In the middle depths, where faint light still filters down from above, an animal swimming overhead creates a dark silhouette that predators below can detect. Many fish and squid solve this problem with light-producing organs on their undersides. By matching the brightness of the light coming from above, they effectively erase their own shadow, a strategy called counterillumination.\n\nFinally, light can be used for communication. Some species appear to produce particular patterns of flashes that may help individuals recognize members of their own species, including potential mates.",
+  "question": "According to paragraph 1, what produces bioluminescence?",
+  "choices": [
+   "A chemical reaction involving luciferin and oxygen",
+   "Sunlight stored in the bodies of animals",
+   "Heat from volcanic activity on the sea floor",
+   "Electricity generated by moving water"
+  ],
+  "answer": "A chemical reaction involving luciferin and oxygen",
+  "explanation": "「a molecule called luciferin reacts with oxygen」という化学反応で光が生じる。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-006-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Light in the Deep Sea\n\nBelow a depth of about 1,000 meters, no sunlight penetrates the ocean. Yet this dark world is far from completely black. A large proportion of the animals that live in the deep sea, including fish, squid, shrimp, and jellyfish, can produce their own light, a phenomenon known as bioluminescence. The light is generated by a chemical reaction in which a molecule called luciferin reacts with oxygen, a process assisted by an enzyme. Some animals produce these chemicals themselves, while others rely on bacteria living in special organs.\n\nBioluminescence serves a variety of functions. Some predators use light as a lure. The anglerfish, for instance, has a glowing structure that dangles in front of its mouth, attracting curious prey close enough to be swallowed. Other animals use light for defense. Certain shrimp release a cloud of glowing fluid when attacked, which may startle or distract a predator long enough for the shrimp to escape.\n\nOne of the most widespread uses is camouflage. In the middle depths, where faint light still filters down from above, an animal swimming overhead creates a dark silhouette that predators below can detect. Many fish and squid solve this problem with light-producing organs on their undersides. By matching the brightness of the light coming from above, they effectively erase their own shadow, a strategy called counterillumination.\n\nFinally, light can be used for communication. Some species appear to produce particular patterns of flashes that may help individuals recognize members of their own species, including potential mates.",
+  "question": "The word \"lure\" in paragraph 2 is closest in meaning to",
+  "choices": [
+   "something that attracts",
+   "something that protects",
+   "something that warns",
+   "something that hides"
+  ],
+  "answer": "something that attracts",
+  "explanation": "lure は獲物を「おびき寄せるもの」。直後のチョウチンアンコウの例からもわかる。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-006-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Light in the Deep Sea\n\nBelow a depth of about 1,000 meters, no sunlight penetrates the ocean. Yet this dark world is far from completely black. A large proportion of the animals that live in the deep sea, including fish, squid, shrimp, and jellyfish, can produce their own light, a phenomenon known as bioluminescence. The light is generated by a chemical reaction in which a molecule called luciferin reacts with oxygen, a process assisted by an enzyme. Some animals produce these chemicals themselves, while others rely on bacteria living in special organs.\n\nBioluminescence serves a variety of functions. Some predators use light as a lure. The anglerfish, for instance, has a glowing structure that dangles in front of its mouth, attracting curious prey close enough to be swallowed. Other animals use light for defense. Certain shrimp release a cloud of glowing fluid when attacked, which may startle or distract a predator long enough for the shrimp to escape.\n\nOne of the most widespread uses is camouflage. In the middle depths, where faint light still filters down from above, an animal swimming overhead creates a dark silhouette that predators below can detect. Many fish and squid solve this problem with light-producing organs on their undersides. By matching the brightness of the light coming from above, they effectively erase their own shadow, a strategy called counterillumination.\n\nFinally, light can be used for communication. Some species appear to produce particular patterns of flashes that may help individuals recognize members of their own species, including potential mates.",
+  "question": "Why does the author mention certain shrimp in paragraph 2?",
+  "choices": [
+   "To show that shrimp are the most common deep-sea animals",
+   "To explain how bacteria produce light",
+   "To give an example of light being used for defense",
+   "To contrast predators with animals that cannot produce light"
+  ],
+  "answer": "To give an example of light being used for defense",
+  "explanation": "「Other animals use light for defense.」の具体例として、光る液体を出すエビを挙げている。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-006-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Light in the Deep Sea\n\nBelow a depth of about 1,000 meters, no sunlight penetrates the ocean. Yet this dark world is far from completely black. A large proportion of the animals that live in the deep sea, including fish, squid, shrimp, and jellyfish, can produce their own light, a phenomenon known as bioluminescence. The light is generated by a chemical reaction in which a molecule called luciferin reacts with oxygen, a process assisted by an enzyme. Some animals produce these chemicals themselves, while others rely on bacteria living in special organs.\n\nBioluminescence serves a variety of functions. Some predators use light as a lure. The anglerfish, for instance, has a glowing structure that dangles in front of its mouth, attracting curious prey close enough to be swallowed. Other animals use light for defense. Certain shrimp release a cloud of glowing fluid when attacked, which may startle or distract a predator long enough for the shrimp to escape.\n\nOne of the most widespread uses is camouflage. In the middle depths, where faint light still filters down from above, an animal swimming overhead creates a dark silhouette that predators below can detect. Many fish and squid solve this problem with light-producing organs on their undersides. By matching the brightness of the light coming from above, they effectively erase their own shadow, a strategy called counterillumination.\n\nFinally, light can be used for communication. Some species appear to produce particular patterns of flashes that may help individuals recognize members of their own species, including potential mates.",
+  "question": "According to paragraph 3, how does counterillumination help an animal?",
+  "choices": [
+   "It allows the animal to see prey in total darkness.",
+   "It warms the animal's body in cold water.",
+   "It attracts mates from great distances.",
+   "It makes the animal's outline harder to see from below."
+  ],
+  "answer": "It makes the animal's outline harder to see from below.",
+  "explanation": "腹側の発光で上からの光に明るさを合わせ、下から見えるシルエット（影）を消す。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-006-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Light in the Deep Sea\n\nBelow a depth of about 1,000 meters, no sunlight penetrates the ocean. Yet this dark world is far from completely black. A large proportion of the animals that live in the deep sea, including fish, squid, shrimp, and jellyfish, can produce their own light, a phenomenon known as bioluminescence. The light is generated by a chemical reaction in which a molecule called luciferin reacts with oxygen, a process assisted by an enzyme. Some animals produce these chemicals themselves, while others rely on bacteria living in special organs.\n\nBioluminescence serves a variety of functions. Some predators use light as a lure. The anglerfish, for instance, has a glowing structure that dangles in front of its mouth, attracting curious prey close enough to be swallowed. Other animals use light for defense. Certain shrimp release a cloud of glowing fluid when attacked, which may startle or distract a predator long enough for the shrimp to escape.\n\nOne of the most widespread uses is camouflage. In the middle depths, where faint light still filters down from above, an animal swimming overhead creates a dark silhouette that predators below can detect. Many fish and squid solve this problem with light-producing organs on their undersides. By matching the brightness of the light coming from above, they effectively erase their own shadow, a strategy called counterillumination.\n\nFinally, light can be used for communication. Some species appear to produce particular patterns of flashes that may help individuals recognize members of their own species, including potential mates.",
+  "question": "Which of the following is NOT mentioned as a function of bioluminescence?",
+  "choices": [
+   "Attracting prey",
+   "Helping animals find their way during long migrations",
+   "Distracting predators",
+   "Recognizing members of the same species"
+  ],
+  "answer": "Helping animals find their way during long migrations",
+  "explanation": "獲物をおびき寄せる・捕食者の気をそらす・同種の識別は書かれているが、回遊の道しるべは書かれていない。",
+  "tags": "TOEFL2026 reading academic-passage biology"
+ },
+ {
+  "id": "TOEFL-RA-007-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "How Glaciers Shape the Land\n\nGlaciers are large, slow-moving masses of ice that form where more snow falls in winter than melts in summer. Over many years, the accumulated snow is compressed into dense ice. When the ice becomes thick enough, its own weight causes it to flow slowly downhill or outward, typically at a rate of a few centimeters to a few meters per day.\n\nAs they move, glaciers act as powerful agents of erosion. Rocks frozen into the base of the ice scrape the ground like the teeth of a giant file, leaving long scratches, called striations, that indicate the direction in which the ice traveled. Glaciers can also pluck large blocks of rock from the bedrock beneath them. Over thousands of years, a glacier moving through a river valley transforms its shape. River valleys are typically V-shaped, but glaciers widen and deepen them into broad U-shaped valleys with steep sides.\n\nGlaciers also transport and deposit enormous quantities of material. When the ice melts, it leaves behind an unsorted mixture of clay, sand, gravel, and boulders known as till. Ridges of this material, called moraines, often mark the farthest point that a glacier reached. In some regions, geologists have found huge boulders, sometimes as large as houses, resting on ground made of completely different rock. These \"erratics\" were carried far from their source by ice.\n\nMany landscapes in northern Europe and North America were shaped during the most recent ice age, when ice sheets covered vast areas. Their features provide a record of conditions that existed long before humans kept written records.",
+  "question": "According to paragraph 1, what causes a glacier to move?",
+  "choices": [
+   "Strong winds blowing across its surface",
+   "The weight of its own ice",
+   "Water flowing under it from rivers",
+   "Earthquakes beneath the ice"
+  ],
+  "answer": "The weight of its own ice",
+  "explanation": "「its own weight causes it to flow slowly downhill or outward」とある。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-007-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "How Glaciers Shape the Land\n\nGlaciers are large, slow-moving masses of ice that form where more snow falls in winter than melts in summer. Over many years, the accumulated snow is compressed into dense ice. When the ice becomes thick enough, its own weight causes it to flow slowly downhill or outward, typically at a rate of a few centimeters to a few meters per day.\n\nAs they move, glaciers act as powerful agents of erosion. Rocks frozen into the base of the ice scrape the ground like the teeth of a giant file, leaving long scratches, called striations, that indicate the direction in which the ice traveled. Glaciers can also pluck large blocks of rock from the bedrock beneath them. Over thousands of years, a glacier moving through a river valley transforms its shape. River valleys are typically V-shaped, but glaciers widen and deepen them into broad U-shaped valleys with steep sides.\n\nGlaciers also transport and deposit enormous quantities of material. When the ice melts, it leaves behind an unsorted mixture of clay, sand, gravel, and boulders known as till. Ridges of this material, called moraines, often mark the farthest point that a glacier reached. In some regions, geologists have found huge boulders, sometimes as large as houses, resting on ground made of completely different rock. These \"erratics\" were carried far from their source by ice.\n\nMany landscapes in northern Europe and North America were shaped during the most recent ice age, when ice sheets covered vast areas. Their features provide a record of conditions that existed long before humans kept written records.",
+  "question": "Why does the author compare rocks in the base of a glacier to \"the teeth of a giant file\"?",
+  "choices": [
+   "To show that glaciers contain metal",
+   "To explain why glaciers move slowly",
+   "To describe the shape of moraines",
+   "To illustrate how glaciers scrape the surface beneath them"
+  ],
+  "answer": "To illustrate how glaciers scrape the surface beneath them",
+  "explanation": "やすりの歯のように地面を削る様子をたとえで示している。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-007-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "How Glaciers Shape the Land\n\nGlaciers are large, slow-moving masses of ice that form where more snow falls in winter than melts in summer. Over many years, the accumulated snow is compressed into dense ice. When the ice becomes thick enough, its own weight causes it to flow slowly downhill or outward, typically at a rate of a few centimeters to a few meters per day.\n\nAs they move, glaciers act as powerful agents of erosion. Rocks frozen into the base of the ice scrape the ground like the teeth of a giant file, leaving long scratches, called striations, that indicate the direction in which the ice traveled. Glaciers can also pluck large blocks of rock from the bedrock beneath them. Over thousands of years, a glacier moving through a river valley transforms its shape. River valleys are typically V-shaped, but glaciers widen and deepen them into broad U-shaped valleys with steep sides.\n\nGlaciers also transport and deposit enormous quantities of material. When the ice melts, it leaves behind an unsorted mixture of clay, sand, gravel, and boulders known as till. Ridges of this material, called moraines, often mark the farthest point that a glacier reached. In some regions, geologists have found huge boulders, sometimes as large as houses, resting on ground made of completely different rock. These \"erratics\" were carried far from their source by ice.\n\nMany landscapes in northern Europe and North America were shaped during the most recent ice age, when ice sheets covered vast areas. Their features provide a record of conditions that existed long before humans kept written records.",
+  "question": "According to paragraph 2, how do glaciers change river valleys?",
+  "choices": [
+   "They fill them with water.",
+   "They make them narrower and shallower.",
+   "They make them wider and deeper.",
+   "They change them into V-shaped valleys."
+  ],
+  "answer": "They make them wider and deeper.",
+  "explanation": "V字谷を「widen and deepen them into broad U-shaped valleys」、広く深いU字谷に変える。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-007-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "How Glaciers Shape the Land\n\nGlaciers are large, slow-moving masses of ice that form where more snow falls in winter than melts in summer. Over many years, the accumulated snow is compressed into dense ice. When the ice becomes thick enough, its own weight causes it to flow slowly downhill or outward, typically at a rate of a few centimeters to a few meters per day.\n\nAs they move, glaciers act as powerful agents of erosion. Rocks frozen into the base of the ice scrape the ground like the teeth of a giant file, leaving long scratches, called striations, that indicate the direction in which the ice traveled. Glaciers can also pluck large blocks of rock from the bedrock beneath them. Over thousands of years, a glacier moving through a river valley transforms its shape. River valleys are typically V-shaped, but glaciers widen and deepen them into broad U-shaped valleys with steep sides.\n\nGlaciers also transport and deposit enormous quantities of material. When the ice melts, it leaves behind an unsorted mixture of clay, sand, gravel, and boulders known as till. Ridges of this material, called moraines, often mark the farthest point that a glacier reached. In some regions, geologists have found huge boulders, sometimes as large as houses, resting on ground made of completely different rock. These \"erratics\" were carried far from their source by ice.\n\nMany landscapes in northern Europe and North America were shaped during the most recent ice age, when ice sheets covered vast areas. Their features provide a record of conditions that existed long before humans kept written records.",
+  "question": "The word \"deposit\" in paragraph 3 is closest in meaning to",
+  "choices": [
+   "leave behind",
+   "break apart",
+   "freeze",
+   "dig up"
+  ],
+  "answer": "leave behind",
+  "explanation": "deposit は運んだ物を「堆積させる・置いていく」という意味。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-007-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "How Glaciers Shape the Land\n\nGlaciers are large, slow-moving masses of ice that form where more snow falls in winter than melts in summer. Over many years, the accumulated snow is compressed into dense ice. When the ice becomes thick enough, its own weight causes it to flow slowly downhill or outward, typically at a rate of a few centimeters to a few meters per day.\n\nAs they move, glaciers act as powerful agents of erosion. Rocks frozen into the base of the ice scrape the ground like the teeth of a giant file, leaving long scratches, called striations, that indicate the direction in which the ice traveled. Glaciers can also pluck large blocks of rock from the bedrock beneath them. Over thousands of years, a glacier moving through a river valley transforms its shape. River valleys are typically V-shaped, but glaciers widen and deepen them into broad U-shaped valleys with steep sides.\n\nGlaciers also transport and deposit enormous quantities of material. When the ice melts, it leaves behind an unsorted mixture of clay, sand, gravel, and boulders known as till. Ridges of this material, called moraines, often mark the farthest point that a glacier reached. In some regions, geologists have found huge boulders, sometimes as large as houses, resting on ground made of completely different rock. These \"erratics\" were carried far from their source by ice.\n\nMany landscapes in northern Europe and North America were shaped during the most recent ice age, when ice sheets covered vast areas. Their features provide a record of conditions that existed long before humans kept written records.",
+  "question": "What can be inferred about erratics from paragraph 3?",
+  "choices": [
+   "They were formed from the rock directly under them.",
+   "They were moved by ancient people.",
+   "They show that ice once covered the area where they are found.",
+   "They are found only near active glaciers."
+  ],
+  "answer": "They show that ice once covered the area where they are found.",
+  "explanation": "周りと違う岩でできた巨石が氷に運ばれたとあるので、その場所がかつて氷に覆われていたことを示すと推測できる。",
+  "tags": "TOEFL2026 reading academic-passage geology"
+ },
+ {
+  "id": "TOEFL-RA-008-1",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Comets: Visitors from the Outer Solar System\n\nComets are small bodies made of ice, dust, and rock that orbit the Sun. They are often described as \"dirty snowballs.\" For most of their existence, comets are invisible from Earth, because they spend their time in the cold outer regions of the solar system, far beyond the orbit of Neptune.\n\nAstronomers believe that comets come from two main reservoirs. Comets with relatively short orbits, which return within about 200 years, are thought to originate largely in the Kuiper Belt, a disk of icy objects beyond Neptune. Comets with extremely long orbits, which may take thousands or even millions of years to complete, are believed to come from the Oort Cloud, a vast spherical shell of icy bodies that may extend a substantial fraction of the distance to the nearest star. The Oort Cloud has never been observed directly; its existence is inferred from the orbits of the long-period comets.\n\nWhen a comet's orbit brings it close to the Sun, it undergoes a dramatic transformation. Solar heat causes the ice to turn directly into gas, releasing dust as well. This material forms a glowing cloud, called a coma, around the solid nucleus. Radiation and the solar wind push the gas and dust away from the Sun, creating tails that can stretch for millions of kilometers. For this reason, a comet's tails always point away from the Sun, regardless of the direction in which the comet is traveling.\n\nBecause comets have changed little since the solar system formed about 4.6 billion years ago, scientists regard them as valuable sources of information about its early history.",
+  "question": "According to paragraph 1, why are comets usually invisible from Earth?",
+  "choices": [
+   "They are made mostly of dark rock.",
+   "They are hidden behind Neptune.",
+   "They move too quickly to be seen.",
+   "They spend most of their time far from the Sun."
+  ],
+  "answer": "They spend most of their time far from the Sun.",
+  "explanation": "「they spend their time in the cold outer regions of the solar system」とあり、ほとんどの期間は太陽から遠く離れている。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-008-2",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Comets: Visitors from the Outer Solar System\n\nComets are small bodies made of ice, dust, and rock that orbit the Sun. They are often described as \"dirty snowballs.\" For most of their existence, comets are invisible from Earth, because they spend their time in the cold outer regions of the solar system, far beyond the orbit of Neptune.\n\nAstronomers believe that comets come from two main reservoirs. Comets with relatively short orbits, which return within about 200 years, are thought to originate largely in the Kuiper Belt, a disk of icy objects beyond Neptune. Comets with extremely long orbits, which may take thousands or even millions of years to complete, are believed to come from the Oort Cloud, a vast spherical shell of icy bodies that may extend a substantial fraction of the distance to the nearest star. The Oort Cloud has never been observed directly; its existence is inferred from the orbits of the long-period comets.\n\nWhen a comet's orbit brings it close to the Sun, it undergoes a dramatic transformation. Solar heat causes the ice to turn directly into gas, releasing dust as well. This material forms a glowing cloud, called a coma, around the solid nucleus. Radiation and the solar wind push the gas and dust away from the Sun, creating tails that can stretch for millions of kilometers. For this reason, a comet's tails always point away from the Sun, regardless of the direction in which the comet is traveling.\n\nBecause comets have changed little since the solar system formed about 4.6 billion years ago, scientists regard them as valuable sources of information about its early history.",
+  "question": "According to paragraph 2, how do scientists know that the Oort Cloud exists?",
+  "choices": [
+   "They infer it from the orbits of long-period comets.",
+   "They have photographed it with telescopes.",
+   "They have sent spacecraft through it.",
+   "They have measured its temperature directly."
+  ],
+  "answer": "They infer it from the orbits of long-period comets.",
+  "explanation": "「its existence is inferred from the orbits of the long-period comets」とある。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-008-3",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Comets: Visitors from the Outer Solar System\n\nComets are small bodies made of ice, dust, and rock that orbit the Sun. They are often described as \"dirty snowballs.\" For most of their existence, comets are invisible from Earth, because they spend their time in the cold outer regions of the solar system, far beyond the orbit of Neptune.\n\nAstronomers believe that comets come from two main reservoirs. Comets with relatively short orbits, which return within about 200 years, are thought to originate largely in the Kuiper Belt, a disk of icy objects beyond Neptune. Comets with extremely long orbits, which may take thousands or even millions of years to complete, are believed to come from the Oort Cloud, a vast spherical shell of icy bodies that may extend a substantial fraction of the distance to the nearest star. The Oort Cloud has never been observed directly; its existence is inferred from the orbits of the long-period comets.\n\nWhen a comet's orbit brings it close to the Sun, it undergoes a dramatic transformation. Solar heat causes the ice to turn directly into gas, releasing dust as well. This material forms a glowing cloud, called a coma, around the solid nucleus. Radiation and the solar wind push the gas and dust away from the Sun, creating tails that can stretch for millions of kilometers. For this reason, a comet's tails always point away from the Sun, regardless of the direction in which the comet is traveling.\n\nBecause comets have changed little since the solar system formed about 4.6 billion years ago, scientists regard them as valuable sources of information about its early history.",
+  "question": "The word \"substantial\" in paragraph 2 is closest in meaning to",
+  "choices": [
+   "solid",
+   "considerable",
+   "uncertain",
+   "previous"
+  ],
+  "answer": "considerable",
+  "explanation": "substantial は「かなりの」という意味で、considerable が最も近い。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-008-4",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Comets: Visitors from the Outer Solar System\n\nComets are small bodies made of ice, dust, and rock that orbit the Sun. They are often described as \"dirty snowballs.\" For most of their existence, comets are invisible from Earth, because they spend their time in the cold outer regions of the solar system, far beyond the orbit of Neptune.\n\nAstronomers believe that comets come from two main reservoirs. Comets with relatively short orbits, which return within about 200 years, are thought to originate largely in the Kuiper Belt, a disk of icy objects beyond Neptune. Comets with extremely long orbits, which may take thousands or even millions of years to complete, are believed to come from the Oort Cloud, a vast spherical shell of icy bodies that may extend a substantial fraction of the distance to the nearest star. The Oort Cloud has never been observed directly; its existence is inferred from the orbits of the long-period comets.\n\nWhen a comet's orbit brings it close to the Sun, it undergoes a dramatic transformation. Solar heat causes the ice to turn directly into gas, releasing dust as well. This material forms a glowing cloud, called a coma, around the solid nucleus. Radiation and the solar wind push the gas and dust away from the Sun, creating tails that can stretch for millions of kilometers. For this reason, a comet's tails always point away from the Sun, regardless of the direction in which the comet is traveling.\n\nBecause comets have changed little since the solar system formed about 4.6 billion years ago, scientists regard them as valuable sources of information about its early history.",
+  "question": "According to paragraph 3, why do a comet's tails point away from the Sun?",
+  "choices": [
+   "The comet always travels toward the Sun.",
+   "Gravity pulls the gas toward the planets.",
+   "The nucleus spins rapidly.",
+   "Material is pushed outward by radiation and the solar wind."
+  ],
+  "answer": "Material is pushed outward by radiation and the solar wind.",
+  "explanation": "「Radiation and the solar wind push the gas and dust away from the Sun」とある。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ },
+ {
+  "id": "TOEFL-RA-008-5",
+  "skill": "reading",
+  "format": "Reading: Read an Academic Passage",
+  "level": "B2",
+  "band": "TOEFL目安:バンド4",
+  "passage": "Comets: Visitors from the Outer Solar System\n\nComets are small bodies made of ice, dust, and rock that orbit the Sun. They are often described as \"dirty snowballs.\" For most of their existence, comets are invisible from Earth, because they spend their time in the cold outer regions of the solar system, far beyond the orbit of Neptune.\n\nAstronomers believe that comets come from two main reservoirs. Comets with relatively short orbits, which return within about 200 years, are thought to originate largely in the Kuiper Belt, a disk of icy objects beyond Neptune. Comets with extremely long orbits, which may take thousands or even millions of years to complete, are believed to come from the Oort Cloud, a vast spherical shell of icy bodies that may extend a substantial fraction of the distance to the nearest star. The Oort Cloud has never been observed directly; its existence is inferred from the orbits of the long-period comets.\n\nWhen a comet's orbit brings it close to the Sun, it undergoes a dramatic transformation. Solar heat causes the ice to turn directly into gas, releasing dust as well. This material forms a glowing cloud, called a coma, around the solid nucleus. Radiation and the solar wind push the gas and dust away from the Sun, creating tails that can stretch for millions of kilometers. For this reason, a comet's tails always point away from the Sun, regardless of the direction in which the comet is traveling.\n\nBecause comets have changed little since the solar system formed about 4.6 billion years ago, scientists regard them as valuable sources of information about its early history.",
+  "question": "Why does the author mention that comets \"have changed little since the solar system formed\"?",
+  "choices": [
+   "To explain why comets are useful for studying the early solar system",
+   "To argue that comets are younger than the planets",
+   "To suggest that comets will soon disappear",
+   "To describe how comets form tails"
+  ],
+  "answer": "To explain why comets are useful for studying the early solar system",
+  "explanation": "形成時からあまり変化していないので、初期の太陽系の手がかりになると説明している。",
+  "tags": "TOEFL2026 reading academic-passage astronomy"
+ }
+]

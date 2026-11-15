@@ -1,0 +1,722 @@
+[
+ {
+  "id": "TOEFL-RD-001-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "CITY POOL – SUMMER HOURS\n\nFrom July 1 to August 31, the pool is open every day from 9:00 a.m. to 8:00 p.m. On Mondays, the pool opens at 12:00 p.m. because it is cleaned in the morning. Children under 10 must swim with an adult. Towels are not provided, so please bring your own.\n\nTickets: Adults $5, Children $2",
+  "question": "What time does the pool open on Mondays?",
+  "choices": [
+   "At 9:00 a.m.",
+   "At 12:00 p.m.",
+   "At 8:00 p.m.",
+   "At 10:00 a.m."
+  ],
+  "answer": "At 12:00 p.m.",
+  "explanation": "「On Mondays, the pool opens at 12:00 p.m.」とあるので正午。9:00 a.m. は月曜以外の開始時刻。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-001-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "CITY POOL – SUMMER HOURS\n\nFrom July 1 to August 31, the pool is open every day from 9:00 a.m. to 8:00 p.m. On Mondays, the pool opens at 12:00 p.m. because it is cleaned in the morning. Children under 10 must swim with an adult. Towels are not provided, so please bring your own.\n\nTickets: Adults $5, Children $2",
+  "question": "Why does the pool open late on Mondays?",
+  "choices": [
+   "It is cleaned in the morning.",
+   "Swimming lessons are held.",
+   "The staff have a meeting.",
+   "The water is too cold."
+  ],
+  "answer": "It is cleaned in the morning.",
+  "explanation": "「because it is cleaned in the morning」が理由。午前中に清掃があるため。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-001-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "CITY POOL – SUMMER HOURS\n\nFrom July 1 to August 31, the pool is open every day from 9:00 a.m. to 8:00 p.m. On Mondays, the pool opens at 12:00 p.m. because it is cleaned in the morning. Children under 10 must swim with an adult. Towels are not provided, so please bring your own.\n\nTickets: Adults $5, Children $2",
+  "question": "What should swimmers bring?",
+  "choices": [
+   "A photo ID",
+   "An adult ticket",
+   "Swimming caps",
+   "Their own towels"
+  ],
+  "answer": "Their own towels",
+  "explanation": "「Towels are not provided, so please bring your own.」とあり、タオルは各自で持参する。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-002-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Hi Mia! I'm at the bus stop, but the bus is late. I think I'll be about 20 minutes late for the movie. Can you buy the tickets and wait for me inside? I'll pay you back. Also, I'll get the popcorn! – Ken",
+  "question": "Why is Ken writing to Mia?",
+  "choices": [
+   "To cancel their movie plan",
+   "To ask Mia for a ride",
+   "To say that he will arrive late",
+   "To choose a different movie"
+  ],
+  "answer": "To say that he will arrive late",
+  "explanation": "バスが遅れて「20 minutes late」になると伝えるのが目的。映画は中止していない。",
+  "tags": "TOEFL2026 reading daily-life text-message"
+ },
+ {
+  "id": "TOEFL-RD-002-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Hi Mia! I'm at the bus stop, but the bus is late. I think I'll be about 20 minutes late for the movie. Can you buy the tickets and wait for me inside? I'll pay you back. Also, I'll get the popcorn! – Ken",
+  "question": "What does Ken ask Mia to do?",
+  "choices": [
+   "Wait at the bus stop",
+   "Buy the tickets",
+   "Pay for the popcorn",
+   "Call him later"
+  ],
+  "answer": "Buy the tickets",
+  "explanation": "「Can you buy the tickets and wait for me inside?」とチケットの購入を頼んでいる。ポップコーンはケンが買う。",
+  "tags": "TOEFL2026 reading daily-life text-message"
+ },
+ {
+  "id": "TOEFL-RD-002-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Hi Mia! I'm at the bus stop, but the bus is late. I think I'll be about 20 minutes late for the movie. Can you buy the tickets and wait for me inside? I'll pay you back. Also, I'll get the popcorn! – Ken",
+  "question": "What will Ken probably do at the theater?",
+  "choices": [
+   "Watch a different film",
+   "Sell his ticket",
+   "Buy some popcorn",
+   "Leave before the movie ends"
+  ],
+  "answer": "Buy some popcorn",
+  "explanation": "最後に「I'll get the popcorn!」とあるので、映画館でポップコーンを買うと考えられる。",
+  "tags": "TOEFL2026 reading daily-life text-message"
+ },
+ {
+  "id": "TOEFL-RD-003-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "GREEN LEAF CAFÉ – Lunch Menu (11:00–2:30)\n\nSoup of the Day … $4\nChicken Sandwich … $7\nVegetable Pasta … $8\nLunch Set (any sandwich + soup + drink) … $10\n\nAll drinks come with free refills. Students get 10% off with a student card.",
+  "question": "How much is the Lunch Set?",
+  "choices": [
+   "$10",
+   "$7",
+   "$8",
+   "$4"
+  ],
+  "answer": "$10",
+  "explanation": "メニューに「Lunch Set … $10」とある。$7 はサンドイッチ単品の値段。",
+  "tags": "TOEFL2026 reading daily-life menu"
+ },
+ {
+  "id": "TOEFL-RD-003-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "GREEN LEAF CAFÉ – Lunch Menu (11:00–2:30)\n\nSoup of the Day … $4\nChicken Sandwich … $7\nVegetable Pasta … $8\nLunch Set (any sandwich + soup + drink) … $10\n\nAll drinks come with free refills. Students get 10% off with a student card.",
+  "question": "What is true about drinks?",
+  "choices": [
+   "They cost $4 each.",
+   "They are served only after 2:30.",
+   "They are not included in the Lunch Set.",
+   "Customers can get more for free."
+  ],
+  "answer": "Customers can get more for free.",
+  "explanation": "「free refills」は無料でおかわりできるという意味。ランチセットにも飲み物が含まれている。",
+  "tags": "TOEFL2026 reading daily-life menu"
+ },
+ {
+  "id": "TOEFL-RD-003-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "GREEN LEAF CAFÉ – Lunch Menu (11:00–2:30)\n\nSoup of the Day … $4\nChicken Sandwich … $7\nVegetable Pasta … $8\nLunch Set (any sandwich + soup + drink) … $10\n\nAll drinks come with free refills. Students get 10% off with a student card.",
+  "question": "Who can get a discount?",
+  "choices": [
+   "Customers who order soup",
+   "People who come before 11:00",
+   "Customers who buy two sets",
+   "Students who show a card"
+  ],
+  "answer": "Students who show a card",
+  "explanation": "「Students get 10% off with a student card.」とあり、学生証を見せた学生が割引を受けられる。",
+  "tags": "TOEFL2026 reading daily-life menu"
+ },
+ {
+  "id": "TOEFL-RD-004-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Dear parents,\n\nOur class will visit the science museum next Friday. We will leave school at 9:00 and return by 3:00. Please give your child a packed lunch and a water bottle. The trip costs $6. Please send the money in an envelope by Wednesday.\n\nThank you,\nMs. Lopez",
+  "question": "What is the main purpose of the email?",
+  "choices": [
+   "To give information about a class trip",
+   "To invite parents to a museum event",
+   "To ask parents to help at school",
+   "To explain a change in school hours"
+  ],
+  "answer": "To give information about a class trip",
+  "explanation": "科学館への遠足の日時・持ち物・費用を知らせるメール。保護者を招待しているわけではない。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-004-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Dear parents,\n\nOur class will visit the science museum next Friday. We will leave school at 9:00 and return by 3:00. Please give your child a packed lunch and a water bottle. The trip costs $6. Please send the money in an envelope by Wednesday.\n\nThank you,\nMs. Lopez",
+  "question": "What should the children bring?",
+  "choices": [
+   "A museum ticket",
+   "A packed lunch",
+   "A science book",
+   "A camera"
+  ],
+  "answer": "A packed lunch",
+  "explanation": "「Please give your child a packed lunch and a water bottle.」とあり、お弁当と水筒を持たせる。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-004-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Dear parents,\n\nOur class will visit the science museum next Friday. We will leave school at 9:00 and return by 3:00. Please give your child a packed lunch and a water bottle. The trip costs $6. Please send the money in an envelope by Wednesday.\n\nThank you,\nMs. Lopez",
+  "question": "When must the money be sent?",
+  "choices": [
+   "On Friday morning",
+   "By Monday at 9:00",
+   "By Wednesday",
+   "After the trip"
+  ],
+  "answer": "By Wednesday",
+  "explanation": "「send the money in an envelope by Wednesday」とあり、水曜日までに費用を届ける。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-005-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "LOST CAT!\nOur cat, Pepper, has been missing since Sunday. She is small and gray with white feet. She is very friendly but may be scared. If you see her, please call Sam at 555-0142. Reward offered!",
+  "question": "What does Pepper look like?",
+  "choices": [
+   "She is large and black.",
+   "She is white with gray ears.",
+   "She is small and brown.",
+   "She is gray with white feet."
+  ],
+  "answer": "She is gray with white feet.",
+  "explanation": "「She is small and gray with white feet.」とあり、灰色で足が白い。",
+  "tags": "TOEFL2026 reading daily-life poster"
+ },
+ {
+  "id": "TOEFL-RD-005-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "LOST CAT!\nOur cat, Pepper, has been missing since Sunday. She is small and gray with white feet. She is very friendly but may be scared. If you see her, please call Sam at 555-0142. Reward offered!",
+  "question": "What will Sam probably give to the person who finds Pepper?",
+  "choices": [
+   "A reward",
+   "A kitten",
+   "A new phone",
+   "Some cat food"
+  ],
+  "answer": "A reward",
+  "explanation": "最後の「Reward offered!」は、見つけた人にお礼（報酬）を出すという意味。",
+  "tags": "TOEFL2026 reading daily-life poster"
+ },
+ {
+  "id": "TOEFL-RD-006-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Riverside Library – Weekend Events\n\nSaturday 10:00  Story Time (ages 3–6)\nSaturday 2:00  Computer Help for Beginners\nSunday 11:00  Book Club: this month's book is The Long Road\n\nAll events are free. You do not need to sign up, except for Computer Help (only 8 seats).",
+  "question": "Which event needs a reservation?",
+  "choices": [
+   "Story Time",
+   "Computer Help for Beginners",
+   "Book Club",
+   "All of the events"
+  ],
+  "answer": "Computer Help for Beginners",
+  "explanation": "「You do not need to sign up, except for Computer Help」とあり、申し込みが必要なのはパソコン教室だけ。",
+  "tags": "TOEFL2026 reading daily-life schedule"
+ },
+ {
+  "id": "TOEFL-RD-006-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Riverside Library – Weekend Events\n\nSaturday 10:00  Story Time (ages 3–6)\nSaturday 2:00  Computer Help for Beginners\nSunday 11:00  Book Club: this month's book is The Long Road\n\nAll events are free. You do not need to sign up, except for Computer Help (only 8 seats).",
+  "question": "When can a five-year-old child join an event?",
+  "choices": [
+   "On Saturday afternoon",
+   "On Sunday morning",
+   "On Saturday morning",
+   "On Sunday afternoon"
+  ],
+  "answer": "On Saturday morning",
+  "explanation": "3〜6歳向けの Story Time は土曜10時。5歳の子が参加できるのは土曜の午前。",
+  "tags": "TOEFL2026 reading daily-life schedule"
+ },
+ {
+  "id": "TOEFL-RD-007-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Just finished my first 10K run! It was raining the whole time, and my shoes got really wet, but I didn't stop. Big thanks to my sister, who trained with me every weekend for two months. Next goal: a half marathon in the spring!",
+  "question": "What did the writer do?",
+  "choices": [
+   "Won a half marathon",
+   "Bought new running shoes",
+   "Completed a 10-kilometer run",
+   "Stopped running because of rain"
+  ],
+  "answer": "Completed a 10-kilometer run",
+  "explanation": "「Just finished my first 10K run!」とあり、初めて10キロを走り切った。ハーフマラソンは次の目標。",
+  "tags": "TOEFL2026 reading daily-life social-media"
+ },
+ {
+  "id": "TOEFL-RD-007-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Just finished my first 10K run! It was raining the whole time, and my shoes got really wet, but I didn't stop. Big thanks to my sister, who trained with me every weekend for two months. Next goal: a half marathon in the spring!",
+  "question": "What is suggested about the writer's sister?",
+  "choices": [
+   "She ran a half marathon.",
+   "She helped the writer prepare.",
+   "She does not like rain.",
+   "She works on weekends."
+  ],
+  "answer": "She helped the writer prepare.",
+  "explanation": "姉（妹）は「trained with me every weekend for two months」とあり、練習を手伝ってくれた。",
+  "tags": "TOEFL2026 reading daily-life social-media"
+ },
+ {
+  "id": "TOEFL-RD-008-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "To all residents:\nThe elevator in Building B will be repaired on Tuesday, May 14, from 8:00 a.m. to 5:00 p.m. Please use the stairs during this time. If you need help carrying heavy items, call the office at extension 20. We are sorry for the trouble.",
+  "question": "What will happen on May 14?",
+  "choices": [
+   "The elevator will be fixed.",
+   "The stairs will be closed.",
+   "The office will move.",
+   "Building B will be painted."
+  ],
+  "answer": "The elevator will be fixed.",
+  "explanation": "「The elevator in Building B will be repaired」とあり、エレベーターの修理が行われる。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-008-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "To all residents:\nThe elevator in Building B will be repaired on Tuesday, May 14, from 8:00 a.m. to 5:00 p.m. Please use the stairs during this time. If you need help carrying heavy items, call the office at extension 20. We are sorry for the trouble.",
+  "question": "Why might a resident call the office?",
+  "choices": [
+   "To report a broken window",
+   "To ask about the rent",
+   "To book the elevator",
+   "To get help with heavy items"
+  ],
+  "answer": "To get help with heavy items",
+  "explanation": "「If you need help carrying heavy items, call the office」とあり、重い荷物の手伝いを頼むため。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-009-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Back in 15 minutes!\nI've gone to the post office. If you are here to pick up a repaired bike, please wait on the bench or come back after 3:00.\n– Tom, Wheelz Bike Shop",
+  "question": "Where is Tom now?",
+  "choices": [
+   "At the post office",
+   "At the bike shop",
+   "On the bench",
+   "At his home"
+  ],
+  "answer": "At the post office",
+  "explanation": "「I've gone to the post office.」とあり、今は郵便局にいる。",
+  "tags": "TOEFL2026 reading daily-life note"
+ },
+ {
+  "id": "TOEFL-RD-009-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "A2",
+  "band": "TOEFL目安:バンド2",
+  "passage": "Back in 15 minutes!\nI've gone to the post office. If you are here to pick up a repaired bike, please wait on the bench or come back after 3:00.\n– Tom, Wheelz Bike Shop",
+  "question": "What kind of business does Tom work for?",
+  "choices": [
+   "A post office",
+   "A car dealer",
+   "A bicycle repair shop",
+   "A furniture store"
+  ],
+  "answer": "A bicycle repair shop",
+  "explanation": "「pick up a repaired bike」「Bike Shop」から、自転車の修理店だとわかる。",
+  "tags": "TOEFL2026 reading daily-life note"
+ },
+ {
+  "id": "TOEFL-RD-010-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Subject: Team lunch moved\n\nHi everyone,\n\nBecause the conference room is being used for interviews on Thursday, our monthly team lunch will move to Friday at 12:30. It will be held at Bella Pizza on Main Street instead of the office. The company will pay for the food, but drinks other than water are not included. Please reply by Wednesday if you cannot come so I can update the reservation.\n\nThanks,\nPriya",
+  "question": "Why has the lunch been moved?",
+  "choices": [
+   "The restaurant was fully booked on Thursday.",
+   "Priya will be away on Thursday.",
+   "Several team members are sick.",
+   "The conference room is needed for something else."
+  ],
+  "answer": "The conference room is needed for something else.",
+  "explanation": "会議室が木曜に面接で使われるため。レストランの予約状況は書かれていない。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-010-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Subject: Team lunch moved\n\nHi everyone,\n\nBecause the conference room is being used for interviews on Thursday, our monthly team lunch will move to Friday at 12:30. It will be held at Bella Pizza on Main Street instead of the office. The company will pay for the food, but drinks other than water are not included. Please reply by Wednesday if you cannot come so I can update the reservation.\n\nThanks,\nPriya",
+  "question": "What will employees have to pay for themselves?",
+  "choices": [
+   "Their pizza",
+   "Drinks such as soda or juice",
+   "Water",
+   "The restaurant reservation"
+  ],
+  "answer": "Drinks such as soda or juice",
+  "explanation": "「drinks other than water are not included」とあり、水以外の飲み物は自己負担。料理は会社持ち。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-010-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Subject: Team lunch moved\n\nHi everyone,\n\nBecause the conference room is being used for interviews on Thursday, our monthly team lunch will move to Friday at 12:30. It will be held at Bella Pizza on Main Street instead of the office. The company will pay for the food, but drinks other than water are not included. Please reply by Wednesday if you cannot come so I can update the reservation.\n\nThanks,\nPriya",
+  "question": "What should employees do if they cannot attend?",
+  "choices": [
+   "Reply to Priya by Wednesday",
+   "Call Bella Pizza directly",
+   "Tell Priya on Friday morning",
+   "Find another person to go"
+  ],
+  "answer": "Reply to Priya by Wednesday",
+  "explanation": "「Please reply by Wednesday if you cannot come」とあり、水曜までにプリヤに返信する。",
+  "tags": "TOEFL2026 reading daily-life email"
+ },
+ {
+  "id": "TOEFL-RD-011-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Campus Shuttle Update\n\nStarting Monday, October 3, the Blue Line shuttle will no longer stop at the Sports Center. This change will make trips between the main library and the train station about ten minutes shorter. Students who need to reach the Sports Center can use the Green Line, which now runs every 15 minutes instead of every 30 minutes. Updated timetables are available on the transportation office website.",
+  "question": "What is the main purpose of the announcement?",
+  "choices": [
+   "To announce a new sports facility",
+   "To advertise a train service",
+   "To ask students to walk to campus",
+   "To explain a change to shuttle routes"
+  ],
+  "answer": "To explain a change to shuttle routes",
+  "explanation": "ブルーラインが体育館に止まらなくなるなど、シャトルバスの経路変更を知らせるお知らせ。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-011-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Campus Shuttle Update\n\nStarting Monday, October 3, the Blue Line shuttle will no longer stop at the Sports Center. This change will make trips between the main library and the train station about ten minutes shorter. Students who need to reach the Sports Center can use the Green Line, which now runs every 15 minutes instead of every 30 minutes. Updated timetables are available on the transportation office website.",
+  "question": "What benefit of the change is mentioned?",
+  "choices": [
+   "Cheaper tickets for students",
+   "More stops on the Blue Line",
+   "Shorter travel time between the library and the station",
+   "Longer opening hours at the Sports Center"
+  ],
+  "answer": "Shorter travel time between the library and the station",
+  "explanation": "「make trips between the main library and the train station about ten minutes shorter」とある。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-011-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Campus Shuttle Update\n\nStarting Monday, October 3, the Blue Line shuttle will no longer stop at the Sports Center. This change will make trips between the main library and the train station about ten minutes shorter. Students who need to reach the Sports Center can use the Green Line, which now runs every 15 minutes instead of every 30 minutes. Updated timetables are available on the transportation office website.",
+  "question": "The word \"runs\" in the announcement is closest in meaning to",
+  "choices": [
+   "hurries",
+   "operates",
+   "manages",
+   "escapes"
+  ],
+  "answer": "operates",
+  "explanation": "ここの run はバスが「運行する」という意味なので operates が最も近い。",
+  "tags": "TOEFL2026 reading daily-life announcement"
+ },
+ {
+  "id": "TOEFL-RD-012-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "★★★☆☆\nI bought this backpack for a two-week trip. The good points: it has lots of pockets, and it's light enough to carry all day. The bad point: after a few days of rain, everything inside was damp. The description says \"water-resistant,\" but I'd say it only handles light showers. If you travel somewhere dry, it's a great choice. Otherwise, buy a rain cover too.",
+  "question": "What problem did the writer have?",
+  "choices": [
+   "One of the pockets broke.",
+   "The bag was too heavy.",
+   "The bag arrived late.",
+   "The contents of the bag got wet."
+  ],
+  "answer": "The contents of the bag got wet.",
+  "explanation": "「everything inside was damp」とあり、中身が湿ってしまった。軽さはむしろ長所として書かれている。",
+  "tags": "TOEFL2026 reading daily-life review"
+ },
+ {
+  "id": "TOEFL-RD-012-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "★★★☆☆\nI bought this backpack for a two-week trip. The good points: it has lots of pockets, and it's light enough to carry all day. The bad point: after a few days of rain, everything inside was damp. The description says \"water-resistant,\" but I'd say it only handles light showers. If you travel somewhere dry, it's a great choice. Otherwise, buy a rain cover too.",
+  "question": "What does the writer recommend?",
+  "choices": [
+   "Returning the backpack",
+   "Using a rain cover in wet places",
+   "Choosing a heavier bag",
+   "Buying a bag with fewer pockets"
+  ],
+  "answer": "Using a rain cover in wet places",
+  "explanation": "「Otherwise, buy a rain cover too.」と、雨の多い場所ではレインカバーをすすめている。",
+  "tags": "TOEFL2026 reading daily-life review"
+ },
+ {
+  "id": "TOEFL-RD-012-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "★★★☆☆\nI bought this backpack for a two-week trip. The good points: it has lots of pockets, and it's light enough to carry all day. The bad point: after a few days of rain, everything inside was damp. The description says \"water-resistant,\" but I'd say it only handles light showers. If you travel somewhere dry, it's a great choice. Otherwise, buy a rain cover too.",
+  "question": "What can be inferred about the writer's opinion?",
+  "choices": [
+   "The backpack was too expensive.",
+   "The writer will never use it again.",
+   "The product description was somewhat misleading.",
+   "The writer traveled only in dry weather."
+  ],
+  "answer": "The product description was somewhat misleading.",
+  "explanation": "「water-resistant」と書いてあるのに小雨程度しか防げないと述べており、説明が誇張だと感じている。",
+  "tags": "TOEFL2026 reading daily-life review"
+ },
+ {
+  "id": "TOEFL-RD-013-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Notice to Members\n\nFrom June 1, the gym's group fitness classes will require online booking. Members can book up to seven days in advance through the FitPoint app. Anyone who books a spot but does not attend, without canceling at least two hours before the class, will be unable to book for the following week. We are introducing this system because many classes have been overcrowded while some booked spots were left empty.",
+  "question": "What is changing at the gym?",
+  "choices": [
+   "Members must reserve classes online.",
+   "Classes will become more expensive.",
+   "The gym will open earlier.",
+   "New instructors will be hired."
+  ],
+  "answer": "Members must reserve classes online.",
+  "explanation": "「group fitness classes will require online booking」とあり、クラスはオンライン予約制になる。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-013-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Notice to Members\n\nFrom June 1, the gym's group fitness classes will require online booking. Members can book up to seven days in advance through the FitPoint app. Anyone who books a spot but does not attend, without canceling at least two hours before the class, will be unable to book for the following week. We are introducing this system because many classes have been overcrowded while some booked spots were left empty.",
+  "question": "What happens to members who miss a class without canceling?",
+  "choices": [
+   "They must pay a fine.",
+   "Their membership ends.",
+   "They are moved to an earlier class.",
+   "They cannot book classes for a week."
+  ],
+  "answer": "They cannot book classes for a week.",
+  "explanation": "連絡なしで欠席すると「unable to book for the following week」、翌週は予約できない。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-013-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Notice to Members\n\nFrom June 1, the gym's group fitness classes will require online booking. Members can book up to seven days in advance through the FitPoint app. Anyone who books a spot but does not attend, without canceling at least two hours before the class, will be unable to book for the following week. We are introducing this system because many classes have been overcrowded while some booked spots were left empty.",
+  "question": "Why is the gym introducing this system?",
+  "choices": [
+   "Classes were crowded while some reserved places went unused.",
+   "Members asked for more classes.",
+   "The app was too difficult to use.",
+   "Instructors wanted smaller classes."
+  ],
+  "answer": "Classes were crowded while some reserved places went unused.",
+  "explanation": "最後の文に、混雑している一方で予約枠が空いたままになっていたことが理由として書かれている。",
+  "tags": "TOEFL2026 reading daily-life notice"
+ },
+ {
+  "id": "TOEFL-RD-014-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Lena (9:02): Are we still meeting at the station at 10?\nOmar (9:05): Yes, but the north exit is closed for construction. Let's meet at the south exit instead.\nLena (9:06): OK. Should I bring anything for the picnic?\nOmar (9:08): Could you grab some fruit? I've got sandwiches and drinks covered.\nLena (9:09): Sure. See you soon!",
+  "question": "Why do they change the meeting place?",
+  "choices": [
+   "The station is too crowded.",
+   "One of the exits is not open.",
+   "Lena lives near the south exit.",
+   "The picnic location changed."
+  ],
+  "answer": "One of the exits is not open.",
+  "explanation": "「the north exit is closed for construction」とあり、北口が工事で閉まっているため南口に変更した。",
+  "tags": "TOEFL2026 reading daily-life chat"
+ },
+ {
+  "id": "TOEFL-RD-014-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Lena (9:02): Are we still meeting at the station at 10?\nOmar (9:05): Yes, but the north exit is closed for construction. Let's meet at the south exit instead.\nLena (9:06): OK. Should I bring anything for the picnic?\nOmar (9:08): Could you grab some fruit? I've got sandwiches and drinks covered.\nLena (9:09): Sure. See you soon!",
+  "question": "What will Lena bring?",
+  "choices": [
+   "Sandwiches",
+   "Drinks",
+   "Fruit",
+   "A picnic blanket"
+  ],
+  "answer": "Fruit",
+  "explanation": "オマーが「Could you grab some fruit?」と頼み、レナが「Sure.」と答えている。",
+  "tags": "TOEFL2026 reading daily-life chat"
+ },
+ {
+  "id": "TOEFL-RD-014-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Lena (9:02): Are we still meeting at the station at 10?\nOmar (9:05): Yes, but the north exit is closed for construction. Let's meet at the south exit instead.\nLena (9:06): OK. Should I bring anything for the picnic?\nOmar (9:08): Could you grab some fruit? I've got sandwiches and drinks covered.\nLena (9:09): Sure. See you soon!",
+  "question": "What does Omar mean when he writes, \"I've got sandwiches and drinks covered\"?",
+  "choices": [
+   "He has hidden them.",
+   "He has forgotten them.",
+   "He will take care of them.",
+   "He needs help with them."
+  ],
+  "answer": "He will take care of them.",
+  "explanation": "have ... covered は「…は自分が用意する・引き受ける」という意味。",
+  "tags": "TOEFL2026 reading daily-life chat"
+ },
+ {
+  "id": "TOEFL-RD-015-1",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Learn to Cook Thai Food!\n\nJoin our four-week evening course at Spice Kitchen Studio. Each Tuesday from 6:30 to 8:30 p.m., Chef Nok will show you how to prepare two classic dishes, such as green curry and pad thai. All ingredients are included in the price of $120. Class size is limited to 12 people, so everyone gets personal attention. Beginners welcome! Register by March 5 to receive a free recipe book.",
+  "question": "How often does the class meet?",
+  "choices": [
+   "Twice a week",
+   "Once a week",
+   "Every evening",
+   "Once a month"
+  ],
+  "answer": "Once a week",
+  "explanation": "「Each Tuesday」とあり、毎週火曜日、つまり週1回。",
+  "tags": "TOEFL2026 reading daily-life advertisement"
+ },
+ {
+  "id": "TOEFL-RD-015-2",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Learn to Cook Thai Food!\n\nJoin our four-week evening course at Spice Kitchen Studio. Each Tuesday from 6:30 to 8:30 p.m., Chef Nok will show you how to prepare two classic dishes, such as green curry and pad thai. All ingredients are included in the price of $120. Class size is limited to 12 people, so everyone gets personal attention. Beginners welcome! Register by March 5 to receive a free recipe book.",
+  "question": "What reason is given for the small class size?",
+  "choices": [
+   "Each student can receive individual help.",
+   "The kitchen is very small.",
+   "The ingredients are expensive.",
+   "Chef Nok teaches several classes."
+  ],
+  "answer": "Each student can receive individual help.",
+  "explanation": "「limited to 12 people, so everyone gets personal attention」とあり、一人ひとりに目が届くため。",
+  "tags": "TOEFL2026 reading daily-life advertisement"
+ },
+ {
+  "id": "TOEFL-RD-015-3",
+  "skill": "reading",
+  "format": "Reading: Read in Daily Life",
+  "level": "B1",
+  "band": "TOEFL目安:バンド3",
+  "passage": "Learn to Cook Thai Food!\n\nJoin our four-week evening course at Spice Kitchen Studio. Each Tuesday from 6:30 to 8:30 p.m., Chef Nok will show you how to prepare two classic dishes, such as green curry and pad thai. All ingredients are included in the price of $120. Class size is limited to 12 people, so everyone gets personal attention. Beginners welcome! Register by March 5 to receive a free recipe book.",
+  "question": "How can people get a free recipe book?",
+  "choices": [
+   "By attending all four classes",
+   "By bringing a friend",
+   "By paying an extra fee",
+   "By signing up by March 5"
+  ],
+  "answer": "By signing up by March 5",
+  "explanation": "「Register by March 5 to receive a free recipe book.」とある。",
+  "tags": "TOEFL2026 reading daily-life advertisement"
+ }
+]

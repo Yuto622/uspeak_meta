@@ -1,0 +1,182 @@
+[
+  {
+    "id": "TOEFL-LA-021-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Provost: I'd like to clarify the university's revised academic integrity policy, which takes effect this semester. In brief, the use of AI writing tools is neither banned nor freely permitted; instead, each instructor will specify in the syllabus what is acceptable for that course. Where no policy is stated, students should assume that submitting AI-generated text as their own work constitutes a violation. Importantly, the burden is on students to ask if they're uncertain. \"I didn't know\" will not, by itself, be accepted as a defense. We recognize these tools are evolving rapidly, so the policy will be reviewed annually with input from student representatives.",
+    "question": "According to the new policy, who decides how AI tools may be used in a course?",
+    "choices": [
+      "Each course instructor",
+      "The student representatives",
+      "The provost's office",
+      "Each academic department"
+    ],
+    "answer": "Each course instructor",
+    "explanation": "各教員がシラバスで許容範囲を定めると説明しています。",
+    "tags": "academic policy integrity AI announcement"
+  },
+  {
+    "id": "TOEFL-LA-021-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Provost: I'd like to clarify the university's revised academic integrity policy, which takes effect this semester. In brief, the use of AI writing tools is neither banned nor freely permitted; instead, each instructor will specify in the syllabus what is acceptable for that course. Where no policy is stated, students should assume that submitting AI-generated text as their own work constitutes a violation. Importantly, the burden is on students to ask if they're uncertain. \"I didn't know\" will not, by itself, be accepted as a defense. We recognize these tools are evolving rapidly, so the policy will be reviewed annually with input from student representatives.",
+    "question": "What does the provost imply by saying \"I didn't know\" will not be accepted as a defense?",
+    "choices": [
+      "The rules will be explained in every class.",
+      "Instructors will be held responsible if their course policies are unclear.",
+      "Students are responsible for clarifying the rules themselves.",
+      "The policy will not be reviewed in the future."
+    ],
+    "answer": "Students are responsible for clarifying the rules themselves.",
+    "explanation": "不明な点は学生自身が確認する責任があるという意味です。",
+    "tags": "academic policy integrity AI announcement"
+  },
+  {
+    "id": "TOEFL-LA-022-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Graduate Dean: The annual Undergraduate Research Symposium is now accepting abstracts. This year, we're introducing an important change: in addition to the traditional poster sessions, a limited number of students will be selected to give three-minute \"lightning talks.\" These require presenting the essence of your research to a non-specialist audience, which is considerably harder than it sounds. Selection will be based not on the significance of your findings but on how clearly your abstract communicates them. Projects still in progress are eligible; preliminary results are perfectly acceptable. Abstracts of no more than two hundred and fifty words are due by February twentieth.",
+    "question": "What is new about this year's symposium?",
+    "choices": [
+      "Only completed projects can be presented.",
+      "Some students will give very short talks.",
+      "Poster sessions have been eliminated.",
+      "Graduate students may now participate."
+    ],
+    "answer": "Some students will give very short talks.",
+    "explanation": "ポスター発表に加え、3分の「ライトニングトーク」が新たに導入されます。",
+    "tags": "academic research symposium announcement"
+  },
+  {
+    "id": "TOEFL-LA-022-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Graduate Dean: The annual Undergraduate Research Symposium is now accepting abstracts. This year, we're introducing an important change: in addition to the traditional poster sessions, a limited number of students will be selected to give three-minute \"lightning talks.\" These require presenting the essence of your research to a non-specialist audience, which is considerably harder than it sounds. Selection will be based not on the significance of your findings but on how clearly your abstract communicates them. Projects still in progress are eligible; preliminary results are perfectly acceptable. Abstracts of no more than two hundred and fifty words are due by February twentieth.",
+    "question": "On what basis will lightning-talk presenters be selected?",
+    "choices": [
+      "How significant their findings are",
+      "How far their projects have progressed",
+      "How many words their abstracts contain",
+      "How clearly their abstracts explain the research"
+    ],
+    "answer": "How clearly their abstracts explain the research",
+    "explanation": "発見の重要性ではなく、要旨がどれだけわかりやすく伝えているかで選ばれます。",
+    "tags": "academic research symposium announcement"
+  },
+  {
+    "id": "TOEFL-LA-023-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Campus Planning Office: As part of developing the university's next ten-year campus plan, we're holding a series of open forums and want to hear from as many students as possible. Among the proposals under consideration are converting the central parking lot into a pedestrian plaza and building new residence halls on what is currently the athletic field. Both proposals involve trade-offs: the plaza would reduce parking capacity by roughly a third, while the residence halls would require relocating some sports facilities further from campus. No final decisions have been made. Those unable to attend may submit comments online through the end of the month.",
+    "question": "What is the purpose of the forums?",
+    "choices": [
+      "To announce final decisions about the campus",
+      "To recruit students for construction jobs",
+      "To explain new parking fees",
+      "To gather student opinions on development proposals"
+    ],
+    "answer": "To gather student opinions on development proposals",
+    "explanation": "10年計画の案について、学生の意見を集めることが目的です。",
+    "tags": "campus planning consultation announcement"
+  },
+  {
+    "id": "TOEFL-LA-023-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Campus Planning Office: As part of developing the university's next ten-year campus plan, we're holding a series of open forums and want to hear from as many students as possible. Among the proposals under consideration are converting the central parking lot into a pedestrian plaza and building new residence halls on what is currently the athletic field. Both proposals involve trade-offs: the plaza would reduce parking capacity by roughly a third, while the residence halls would require relocating some sports facilities further from campus. No final decisions have been made. Those unable to attend may submit comments online through the end of the month.",
+    "question": "Why does the speaker mention reduced parking capacity?",
+    "choices": [
+      "To point out a disadvantage of one proposal",
+      "To explain why a plaza is necessary",
+      "To announce a decision that has been made",
+      "To encourage students to use public transportation"
+    ],
+    "answer": "To point out a disadvantage of one proposal",
+    "explanation": "広場案の欠点（トレードオフ）として、駐車場が約3分の1減ることを挙げています。",
+    "tags": "campus planning consultation announcement"
+  },
+  {
+    "id": "TOEFL-LA-024-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Department Chair: I'm writing to inform biology majors of a revision to the degree requirements, effective for students entering next fall. The current requirement of two semesters of general chemistry and two of organic chemistry will be reduced to one semester of organic chemistry, replaced by a new course in quantitative biology. This reflects the field's growing reliance on data analysis and computational modeling. Current students may follow either the old or the new requirements, whichever they prefer. However, those planning to apply to medical school should be aware that many medical programs still expect two full semesters of organic chemistry and should consult an advisor before switching.",
+    "question": "Why is the department changing its requirements?",
+    "choices": [
+      "Too many students failed organic chemistry.",
+      "Biology increasingly depends on data analysis.",
+      "Medical schools requested the change.",
+      "The chemistry department lacks instructors."
+    ],
+    "answer": "Biology increasingly depends on data analysis.",
+    "explanation": "データ分析や計算モデルへの依存が高まっていることを反映した変更です。",
+    "tags": "academic department curriculum change announcement"
+  },
+  {
+    "id": "TOEFL-LA-024-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "Department Chair: I'm writing to inform biology majors of a revision to the degree requirements, effective for students entering next fall. The current requirement of two semesters of general chemistry and two of organic chemistry will be reduced to one semester of organic chemistry, replaced by a new course in quantitative biology. This reflects the field's growing reliance on data analysis and computational modeling. Current students may follow either the old or the new requirements, whichever they prefer. However, those planning to apply to medical school should be aware that many medical programs still expect two full semesters of organic chemistry and should consult an advisor before switching.",
+    "question": "What does the chair suggest to current students aiming for medical school?",
+    "choices": [
+      "They must switch to the new requirements.",
+      "They should avoid quantitative biology.",
+      "They may be better off keeping the old requirements.",
+      "They should take quantitative biology in addition to two semesters of general chemistry."
+    ],
+    "answer": "They may be better off keeping the old requirements.",
+    "explanation": "医学部は有機化学2学期分を求めることが多いので、新要件に移る前に相談するよう勧めています。",
+    "tags": "academic department curriculum change announcement"
+  },
+  {
+    "id": "TOEFL-LA-025-1",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "University Librarian: Many of you may have noticed that access to several major scientific journals ended this month. After lengthy negotiations, the university chose not to renew a contract whose price had risen by over forty percent in five years. This was not a decision taken lightly. In most cases, articles remain obtainable: authors often post free versions in public repositories, and our interlibrary loan service can supply most others within two days. We're also redirecting part of the savings to support faculty who publish in open-access journals, which make research freely available to everyone. We welcome questions at our information sessions next week.",
+    "question": "Why did the university stop subscribing to certain journals?",
+    "choices": [
+      "Faculty no longer used the journals.",
+      "The cost had risen too sharply.",
+      "The journals stopped publishing.",
+      "The journals became open-access."
+    ],
+    "answer": "The cost had risen too sharply.",
+    "explanation": "5年で40％以上値上がりした契約を更新しなかったためです。",
+    "tags": "campus library open access announcement"
+  },
+  {
+    "id": "TOEFL-LA-025-2",
+    "skill": "listening",
+    "format": "Listening: Listen to an Announcement",
+    "level": "C1",
+    "band": "TOEFL目安:バンド5",
+    "passage": "University Librarian: Many of you may have noticed that access to several major scientific journals ended this month. After lengthy negotiations, the university chose not to renew a contract whose price had risen by over forty percent in five years. This was not a decision taken lightly. In most cases, articles remain obtainable: authors often post free versions in public repositories, and our interlibrary loan service can supply most others within two days. We're also redirecting part of the savings to support faculty who publish in open-access journals, which make research freely available to everyone. We welcome questions at our information sessions next week.",
+    "question": "What is the librarian's attitude toward the decision?",
+    "choices": [
+      "It was a mistake that the university should reverse as soon as possible.",
+      "It will have no effect on research.",
+      "It was difficult but justified, and its effects can be managed.",
+      "It was made without enough discussion."
+    ],
+    "answer": "It was difficult but justified, and its effects can be managed.",
+    "explanation": "軽く決めたことではないとしつつ、論文は入手可能で影響は抑えられると説明しています。",
+    "tags": "campus library open access announcement"
+  }
+]

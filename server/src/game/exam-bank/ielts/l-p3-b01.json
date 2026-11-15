@@ -1,0 +1,682 @@
+[
+ {
+  "id": "IELTS-L3-501-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, how's the marketing project going? You're working on the launch plan for the reusable coffee cup, aren't you?\nAmara: Yes. We've finished the market research, but we're struggling a bit with the target audience.\nJonas: We originally thought students would be the main market, because they buy a lot of takeaway coffee.\nAmara: But when we looked at the survey results, students were very price-sensitive. The people most willing to pay more were office workers in their thirties.\nTutor: That's an interesting finding. So you've changed your focus?\nJonas: Yes, office workers are now our primary target, and students are secondary.\nTutor: Good. What about the promotional strategy?\nAmara: I wanted to use social media influencers, but Jonas thinks it's too expensive for a small brand.\nJonas: I suggested partnering with independent cafés instead. Customers who bring the cup get a discount on their coffee, and the café displays our cups at the counter.\nTutor: That sounds practical, and it gets the product in front of exactly the right people. Have you thought about how you'd measure success?\nAmara: We were going to count total sales, but that doesn't tell us much about whether people actually reuse the cup.\nJonas: So we're going to ask the partner cafés to record how many customers use the cups each week.\nTutor: Excellent. Now, how are you dividing the presentation?\nAmara: I'll do the research findings, because I designed the survey. Jonas will present the café partnership idea.\nJonas: And Mei, who isn't here today, is doing the budget. She's very good with spreadsheets.\nTutor: Fine. One piece of advice: your slides last week had too much text. Try to use more charts this time, especially for the survey results.\nAmara: OK, we'll work on that.",
+  "question": "Why did the students change their main target audience?",
+  "choices": [
+   "Older office workers were more willing to pay.",
+   "Students did not drink much takeaway coffee.",
+   "The tutor recommended a different group."
+  ],
+  "answer": "Older office workers were more willing to pay.",
+  "explanation": "調査で学生は価格に敏感で、30代の会社員が一番高く払う気があるとわかったため。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-501-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, how's the marketing project going? You're working on the launch plan for the reusable coffee cup, aren't you?\nAmara: Yes. We've finished the market research, but we're struggling a bit with the target audience.\nJonas: We originally thought students would be the main market, because they buy a lot of takeaway coffee.\nAmara: But when we looked at the survey results, students were very price-sensitive. The people most willing to pay more were office workers in their thirties.\nTutor: That's an interesting finding. So you've changed your focus?\nJonas: Yes, office workers are now our primary target, and students are secondary.\nTutor: Good. What about the promotional strategy?\nAmara: I wanted to use social media influencers, but Jonas thinks it's too expensive for a small brand.\nJonas: I suggested partnering with independent cafés instead. Customers who bring the cup get a discount on their coffee, and the café displays our cups at the counter.\nTutor: That sounds practical, and it gets the product in front of exactly the right people. Have you thought about how you'd measure success?\nAmara: We were going to count total sales, but that doesn't tell us much about whether people actually reuse the cup.\nJonas: So we're going to ask the partner cafés to record how many customers use the cups each week.\nTutor: Excellent. Now, how are you dividing the presentation?\nAmara: I'll do the research findings, because I designed the survey. Jonas will present the café partnership idea.\nJonas: And Mei, who isn't here today, is doing the budget. She's very good with spreadsheets.\nTutor: Fine. One piece of advice: your slides last week had too much text. Try to use more charts this time, especially for the survey results.\nAmara: OK, we'll work on that.",
+  "question": "Why does Jonas reject the idea of using influencers?",
+  "choices": [
+   "It would not reach office workers.",
+   "It would cost too much.",
+   "It is not popular with cafés."
+  ],
+  "answer": "It would cost too much.",
+  "explanation": "Jonas は小さなブランドにはインフルエンサーは高すぎると考えている。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-501-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, how's the marketing project going? You're working on the launch plan for the reusable coffee cup, aren't you?\nAmara: Yes. We've finished the market research, but we're struggling a bit with the target audience.\nJonas: We originally thought students would be the main market, because they buy a lot of takeaway coffee.\nAmara: But when we looked at the survey results, students were very price-sensitive. The people most willing to pay more were office workers in their thirties.\nTutor: That's an interesting finding. So you've changed your focus?\nJonas: Yes, office workers are now our primary target, and students are secondary.\nTutor: Good. What about the promotional strategy?\nAmara: I wanted to use social media influencers, but Jonas thinks it's too expensive for a small brand.\nJonas: I suggested partnering with independent cafés instead. Customers who bring the cup get a discount on their coffee, and the café displays our cups at the counter.\nTutor: That sounds practical, and it gets the product in front of exactly the right people. Have you thought about how you'd measure success?\nAmara: We were going to count total sales, but that doesn't tell us much about whether people actually reuse the cup.\nJonas: So we're going to ask the partner cafés to record how many customers use the cups each week.\nTutor: Excellent. Now, how are you dividing the presentation?\nAmara: I'll do the research findings, because I designed the survey. Jonas will present the café partnership idea.\nJonas: And Mei, who isn't here today, is doing the budget. She's very good with spreadsheets.\nTutor: Fine. One piece of advice: your slides last week had too much text. Try to use more charts this time, especially for the survey results.\nAmara: OK, we'll work on that.",
+  "question": "How will the group measure the success of the campaign?",
+  "choices": [
+   "by recording the total number of cups sold",
+   "by carrying out a second online survey",
+   "by counting how often customers use the cups in cafés"
+  ],
+  "answer": "by counting how often customers use the cups in cafés",
+  "explanation": "総売上では再利用がわからないので、カフェで毎週何人がカップを使うかを記録してもらう。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-501-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, how's the marketing project going? You're working on the launch plan for the reusable coffee cup, aren't you?\nAmara: Yes. We've finished the market research, but we're struggling a bit with the target audience.\nJonas: We originally thought students would be the main market, because they buy a lot of takeaway coffee.\nAmara: But when we looked at the survey results, students were very price-sensitive. The people most willing to pay more were office workers in their thirties.\nTutor: That's an interesting finding. So you've changed your focus?\nJonas: Yes, office workers are now our primary target, and students are secondary.\nTutor: Good. What about the promotional strategy?\nAmara: I wanted to use social media influencers, but Jonas thinks it's too expensive for a small brand.\nJonas: I suggested partnering with independent cafés instead. Customers who bring the cup get a discount on their coffee, and the café displays our cups at the counter.\nTutor: That sounds practical, and it gets the product in front of exactly the right people. Have you thought about how you'd measure success?\nAmara: We were going to count total sales, but that doesn't tell us much about whether people actually reuse the cup.\nJonas: So we're going to ask the partner cafés to record how many customers use the cups each week.\nTutor: Excellent. Now, how are you dividing the presentation?\nAmara: I'll do the research findings, because I designed the survey. Jonas will present the café partnership idea.\nJonas: And Mei, who isn't here today, is doing the budget. She's very good with spreadsheets.\nTutor: Fine. One piece of advice: your slides last week had too much text. Try to use more charts this time, especially for the survey results.\nAmara: OK, we'll work on that.",
+  "question": "Which part of the presentation will Mei be responsible for?",
+  "choices": [
+   "the budget",
+   "the research findings",
+   "the café partnership"
+  ],
+  "answer": "the budget",
+  "explanation": "その場にいない Mei は予算（budget）を担当する。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-501-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, how's the marketing project going? You're working on the launch plan for the reusable coffee cup, aren't you?\nAmara: Yes. We've finished the market research, but we're struggling a bit with the target audience.\nJonas: We originally thought students would be the main market, because they buy a lot of takeaway coffee.\nAmara: But when we looked at the survey results, students were very price-sensitive. The people most willing to pay more were office workers in their thirties.\nTutor: That's an interesting finding. So you've changed your focus?\nJonas: Yes, office workers are now our primary target, and students are secondary.\nTutor: Good. What about the promotional strategy?\nAmara: I wanted to use social media influencers, but Jonas thinks it's too expensive for a small brand.\nJonas: I suggested partnering with independent cafés instead. Customers who bring the cup get a discount on their coffee, and the café displays our cups at the counter.\nTutor: That sounds practical, and it gets the product in front of exactly the right people. Have you thought about how you'd measure success?\nAmara: We were going to count total sales, but that doesn't tell us much about whether people actually reuse the cup.\nJonas: So we're going to ask the partner cafés to record how many customers use the cups each week.\nTutor: Excellent. Now, how are you dividing the presentation?\nAmara: I'll do the research findings, because I designed the survey. Jonas will present the café partnership idea.\nJonas: And Mei, who isn't here today, is doing the budget. She's very good with spreadsheets.\nTutor: Fine. One piece of advice: your slides last week had too much text. Try to use more charts this time, especially for the survey results.\nAmara: OK, we'll work on that.",
+  "question": "What does the tutor advise the group to do?",
+  "choices": [
+   "shorten the presentation",
+   "use more visual charts",
+   "include more survey questions"
+  ],
+  "answer": "use more visual charts",
+  "explanation": "先週のスライドは文字が多すぎたので、グラフをもっと使うよう助言している。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-502-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Lena: OK, so we need to decide which case study to analyse for the brand repositioning assignment. I've narrowed it down to three: the bicycle company, the frozen food brand and the regional airline.\nKwame: I'd lean towards the airline. There's loads of published material on it.\nLena: That's true, but that's also the problem. Everyone in the cohort will probably pick it, and the lecturer said she values original analysis.\nKwame: Fair point. What about the frozen food brand, then? Its repositioning from cheap convenience food to a healthy option is quite dramatic.\nLena: It is, but I found it hard to get reliable sales figures. Most of the data is from the company's own press releases.\nKwame: Which wouldn't be very objective. And the bicycle company?\nLena: They shifted from targeting serious cyclists to families and commuters. There are industry reports and some interviews with their marketing director.\nKwame: Then let's go with the bicycles. It's a manageable size, and the sources are more independent.\nLena: Agreed. Now, for the framework, I was going to use the standard four Ps.\nKwame: I think that's a bit basic for a third-year project. What about combining it with a perceptual map? That would show visually how consumers' views of the brand moved over time.\nLena: Good idea, although we'd need some data on consumer perceptions.\nKwame: There's a consumer survey in one of the industry reports. It covers two years, before and after the change.\nLena: Perfect. Now, roles. I'm happy to write the literature review.\nKwame: I'll build the perceptual map, then. And we should share the conclusion, so it reflects both our views.\nLena: Yes. Let's aim to have a complete draft by the 15th, which gives us a week to revise before the deadline.\nKwame: Make it the 12th. I've got two other essays due that week.\nLena: The 12th it is.",
+  "question": "Why does Lena not want to analyse the airline?",
+  "choices": [
+   "There is too little published material.",
+   "The lecturer has already discussed it in class.",
+   "Many other students are likely to choose it."
+  ],
+  "answer": "Many other students are likely to choose it.",
+  "explanation": "資料は多いが、多くの学生が選びそうで、講師は独自の分析を重視するため。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-502-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Lena: OK, so we need to decide which case study to analyse for the brand repositioning assignment. I've narrowed it down to three: the bicycle company, the frozen food brand and the regional airline.\nKwame: I'd lean towards the airline. There's loads of published material on it.\nLena: That's true, but that's also the problem. Everyone in the cohort will probably pick it, and the lecturer said she values original analysis.\nKwame: Fair point. What about the frozen food brand, then? Its repositioning from cheap convenience food to a healthy option is quite dramatic.\nLena: It is, but I found it hard to get reliable sales figures. Most of the data is from the company's own press releases.\nKwame: Which wouldn't be very objective. And the bicycle company?\nLena: They shifted from targeting serious cyclists to families and commuters. There are industry reports and some interviews with their marketing director.\nKwame: Then let's go with the bicycles. It's a manageable size, and the sources are more independent.\nLena: Agreed. Now, for the framework, I was going to use the standard four Ps.\nKwame: I think that's a bit basic for a third-year project. What about combining it with a perceptual map? That would show visually how consumers' views of the brand moved over time.\nLena: Good idea, although we'd need some data on consumer perceptions.\nKwame: There's a consumer survey in one of the industry reports. It covers two years, before and after the change.\nLena: Perfect. Now, roles. I'm happy to write the literature review.\nKwame: I'll build the perceptual map, then. And we should share the conclusion, so it reflects both our views.\nLena: Yes. Let's aim to have a complete draft by the 15th, which gives us a week to revise before the deadline.\nKwame: Make it the 12th. I've got two other essays due that week.\nLena: The 12th it is.",
+  "question": "What is the problem with the frozen food brand?",
+  "choices": [
+   "The available data is not independent.",
+   "Its repositioning was not significant.",
+   "It has stopped selling healthy products."
+  ],
+  "answer": "The available data is not independent.",
+  "explanation": "データのほとんどが会社自身のプレスリリースで客観的でない。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-502-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Lena: OK, so we need to decide which case study to analyse for the brand repositioning assignment. I've narrowed it down to three: the bicycle company, the frozen food brand and the regional airline.\nKwame: I'd lean towards the airline. There's loads of published material on it.\nLena: That's true, but that's also the problem. Everyone in the cohort will probably pick it, and the lecturer said she values original analysis.\nKwame: Fair point. What about the frozen food brand, then? Its repositioning from cheap convenience food to a healthy option is quite dramatic.\nLena: It is, but I found it hard to get reliable sales figures. Most of the data is from the company's own press releases.\nKwame: Which wouldn't be very objective. And the bicycle company?\nLena: They shifted from targeting serious cyclists to families and commuters. There are industry reports and some interviews with their marketing director.\nKwame: Then let's go with the bicycles. It's a manageable size, and the sources are more independent.\nLena: Agreed. Now, for the framework, I was going to use the standard four Ps.\nKwame: I think that's a bit basic for a third-year project. What about combining it with a perceptual map? That would show visually how consumers' views of the brand moved over time.\nLena: Good idea, although we'd need some data on consumer perceptions.\nKwame: There's a consumer survey in one of the industry reports. It covers two years, before and after the change.\nLena: Perfect. Now, roles. I'm happy to write the literature review.\nKwame: I'll build the perceptual map, then. And we should share the conclusion, so it reflects both our views.\nLena: Yes. Let's aim to have a complete draft by the 15th, which gives us a week to revise before the deadline.\nKwame: Make it the 12th. I've got two other essays due that week.\nLena: The 12th it is.",
+  "question": "Why does Kwame suggest adding a perceptual map?",
+  "choices": [
+   "It is easier than using the four Ps.",
+   "It shows changes in consumer views clearly.",
+   "The lecturer requires it."
+  ],
+  "answer": "It shows changes in consumer views clearly.",
+  "explanation": "消費者のブランド認識が時間とともにどう変わったかを視覚的に示せるから。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-502-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Lena: OK, so we need to decide which case study to analyse for the brand repositioning assignment. I've narrowed it down to three: the bicycle company, the frozen food brand and the regional airline.\nKwame: I'd lean towards the airline. There's loads of published material on it.\nLena: That's true, but that's also the problem. Everyone in the cohort will probably pick it, and the lecturer said she values original analysis.\nKwame: Fair point. What about the frozen food brand, then? Its repositioning from cheap convenience food to a healthy option is quite dramatic.\nLena: It is, but I found it hard to get reliable sales figures. Most of the data is from the company's own press releases.\nKwame: Which wouldn't be very objective. And the bicycle company?\nLena: They shifted from targeting serious cyclists to families and commuters. There are industry reports and some interviews with their marketing director.\nKwame: Then let's go with the bicycles. It's a manageable size, and the sources are more independent.\nLena: Agreed. Now, for the framework, I was going to use the standard four Ps.\nKwame: I think that's a bit basic for a third-year project. What about combining it with a perceptual map? That would show visually how consumers' views of the brand moved over time.\nLena: Good idea, although we'd need some data on consumer perceptions.\nKwame: There's a consumer survey in one of the industry reports. It covers two years, before and after the change.\nLena: Perfect. Now, roles. I'm happy to write the literature review.\nKwame: I'll build the perceptual map, then. And we should share the conclusion, so it reflects both our views.\nLena: Yes. Let's aim to have a complete draft by the 15th, which gives us a week to revise before the deadline.\nKwame: Make it the 12th. I've got two other essays due that week.\nLena: The 12th it is.",
+  "question": "What will Kwame be mainly responsible for?",
+  "choices": [
+   "writing the literature review",
+   "writing the conclusion alone",
+   "creating the perceptual map"
+  ],
+  "answer": "creating the perceptual map",
+  "explanation": "Lena が文献レビュー、Kwame が perceptual map を作り、結論は共同で書く。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-502-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Lena: OK, so we need to decide which case study to analyse for the brand repositioning assignment. I've narrowed it down to three: the bicycle company, the frozen food brand and the regional airline.\nKwame: I'd lean towards the airline. There's loads of published material on it.\nLena: That's true, but that's also the problem. Everyone in the cohort will probably pick it, and the lecturer said she values original analysis.\nKwame: Fair point. What about the frozen food brand, then? Its repositioning from cheap convenience food to a healthy option is quite dramatic.\nLena: It is, but I found it hard to get reliable sales figures. Most of the data is from the company's own press releases.\nKwame: Which wouldn't be very objective. And the bicycle company?\nLena: They shifted from targeting serious cyclists to families and commuters. There are industry reports and some interviews with their marketing director.\nKwame: Then let's go with the bicycles. It's a manageable size, and the sources are more independent.\nLena: Agreed. Now, for the framework, I was going to use the standard four Ps.\nKwame: I think that's a bit basic for a third-year project. What about combining it with a perceptual map? That would show visually how consumers' views of the brand moved over time.\nLena: Good idea, although we'd need some data on consumer perceptions.\nKwame: There's a consumer survey in one of the industry reports. It covers two years, before and after the change.\nLena: Perfect. Now, roles. I'm happy to write the literature review.\nKwame: I'll build the perceptual map, then. And we should share the conclusion, so it reflects both our views.\nLena: Yes. Let's aim to have a complete draft by the 15th, which gives us a week to revise before the deadline.\nKwame: Make it the 12th. I've got two other essays due that week.\nLena: The 12th it is.",
+  "question": "When do they agree to finish the first draft?",
+  "choices": [
+   "the 12th",
+   "the 15th",
+   "a week after the deadline"
+  ],
+  "answer": "the 12th",
+  "explanation": "Lena は15日を提案したが、Kwame の都合で12日になった。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-503-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Ryo: Hi Grace, hi Tomas. Shall we review what we found from the focus groups for the local museum project?\nGrace: Sure. The museum asked us to find out why so few young adults visit. The main reason people gave surprised me. I expected them to say it was boring.\nTomas: Right, but most said they simply didn't know what was on. The museum's advertising is mainly in printed leaflets, which young people don't pick up.\nRyo: And opening hours were mentioned too. It closes at five, which is when most people finish work.\nGrace: So our recommendations should cover both communication and timing.\nTomas: For timing, I'd suggest late openings once a month, maybe with music or food.\nRyo: The museum manager might worry about staff costs, though.\nGrace: We could suggest starting with a trial. Three late evenings, and then measure attendance.\nTomas: Good. That's more likely to be accepted.\nRyo: For communication, what do you think? A new website?\nGrace: Their website is actually fine. It's just that nobody finds it. I think a short video series on social media would work better, showing behind-the-scenes stories, like how objects are restored.\nTomas: I like that. Several people in the focus groups said they'd be interested in seeing how the museum works.\nRyo: OK, so we have two main recommendations. How should we present them?\nTomas: The museum wants a written report, but I think we should also offer to present to the staff in person.\nGrace: Definitely. And we should include some quotes from the focus groups. They're more persuasive than numbers alone.\nRyo: Agreed. Shall I draft the report? I've got the notes.\nGrace: Yes, and I'll prepare the slides. Tomas, could you contact the manager to arrange a date?\nTomas: Will do.",
+  "question": "According to the focus groups, what was the main reason young adults did not visit?",
+  "choices": [
+   "They found the museum boring.",
+   "They were not aware of the events.",
+   "The tickets were too expensive."
+  ],
+  "answer": "They were not aware of the events.",
+  "explanation": "退屈だからと予想していたが、実際は何をやっているか知らないことが主な理由だった。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-503-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Ryo: Hi Grace, hi Tomas. Shall we review what we found from the focus groups for the local museum project?\nGrace: Sure. The museum asked us to find out why so few young adults visit. The main reason people gave surprised me. I expected them to say it was boring.\nTomas: Right, but most said they simply didn't know what was on. The museum's advertising is mainly in printed leaflets, which young people don't pick up.\nRyo: And opening hours were mentioned too. It closes at five, which is when most people finish work.\nGrace: So our recommendations should cover both communication and timing.\nTomas: For timing, I'd suggest late openings once a month, maybe with music or food.\nRyo: The museum manager might worry about staff costs, though.\nGrace: We could suggest starting with a trial. Three late evenings, and then measure attendance.\nTomas: Good. That's more likely to be accepted.\nRyo: For communication, what do you think? A new website?\nGrace: Their website is actually fine. It's just that nobody finds it. I think a short video series on social media would work better, showing behind-the-scenes stories, like how objects are restored.\nTomas: I like that. Several people in the focus groups said they'd be interested in seeing how the museum works.\nRyo: OK, so we have two main recommendations. How should we present them?\nTomas: The museum wants a written report, but I think we should also offer to present to the staff in person.\nGrace: Definitely. And we should include some quotes from the focus groups. They're more persuasive than numbers alone.\nRyo: Agreed. Shall I draft the report? I've got the notes.\nGrace: Yes, and I'll prepare the slides. Tomas, could you contact the manager to arrange a date?\nTomas: Will do.",
+  "question": "Why does Grace suggest a trial of late openings?",
+  "choices": [
+   "Staff would prefer to work evenings.",
+   "It would attract more families.",
+   "It is more likely to be approved by the museum."
+  ],
+  "answer": "It is more likely to be approved by the museum.",
+  "explanation": "人件費の心配に対し、試験的に3回だけ行えば受け入れられやすいと考えた。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-503-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Ryo: Hi Grace, hi Tomas. Shall we review what we found from the focus groups for the local museum project?\nGrace: Sure. The museum asked us to find out why so few young adults visit. The main reason people gave surprised me. I expected them to say it was boring.\nTomas: Right, but most said they simply didn't know what was on. The museum's advertising is mainly in printed leaflets, which young people don't pick up.\nRyo: And opening hours were mentioned too. It closes at five, which is when most people finish work.\nGrace: So our recommendations should cover both communication and timing.\nTomas: For timing, I'd suggest late openings once a month, maybe with music or food.\nRyo: The museum manager might worry about staff costs, though.\nGrace: We could suggest starting with a trial. Three late evenings, and then measure attendance.\nTomas: Good. That's more likely to be accepted.\nRyo: For communication, what do you think? A new website?\nGrace: Their website is actually fine. It's just that nobody finds it. I think a short video series on social media would work better, showing behind-the-scenes stories, like how objects are restored.\nTomas: I like that. Several people in the focus groups said they'd be interested in seeing how the museum works.\nRyo: OK, so we have two main recommendations. How should we present them?\nTomas: The museum wants a written report, but I think we should also offer to present to the staff in person.\nGrace: Definitely. And we should include some quotes from the focus groups. They're more persuasive than numbers alone.\nRyo: Agreed. Shall I draft the report? I've got the notes.\nGrace: Yes, and I'll prepare the slides. Tomas, could you contact the manager to arrange a date?\nTomas: Will do.",
+  "question": "What do the students say about the museum website?",
+  "choices": [
+   "It is good but not easily found.",
+   "It needs to be completely redesigned.",
+   "It contains too many videos."
+  ],
+  "answer": "It is good but not easily found.",
+  "explanation": "ウェブサイト自体は悪くないが、誰も見つけられないと言っている。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-503-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Ryo: Hi Grace, hi Tomas. Shall we review what we found from the focus groups for the local museum project?\nGrace: Sure. The museum asked us to find out why so few young adults visit. The main reason people gave surprised me. I expected them to say it was boring.\nTomas: Right, but most said they simply didn't know what was on. The museum's advertising is mainly in printed leaflets, which young people don't pick up.\nRyo: And opening hours were mentioned too. It closes at five, which is when most people finish work.\nGrace: So our recommendations should cover both communication and timing.\nTomas: For timing, I'd suggest late openings once a month, maybe with music or food.\nRyo: The museum manager might worry about staff costs, though.\nGrace: We could suggest starting with a trial. Three late evenings, and then measure attendance.\nTomas: Good. That's more likely to be accepted.\nRyo: For communication, what do you think? A new website?\nGrace: Their website is actually fine. It's just that nobody finds it. I think a short video series on social media would work better, showing behind-the-scenes stories, like how objects are restored.\nTomas: I like that. Several people in the focus groups said they'd be interested in seeing how the museum works.\nRyo: OK, so we have two main recommendations. How should we present them?\nTomas: The museum wants a written report, but I think we should also offer to present to the staff in person.\nGrace: Definitely. And we should include some quotes from the focus groups. They're more persuasive than numbers alone.\nRyo: Agreed. Shall I draft the report? I've got the notes.\nGrace: Yes, and I'll prepare the slides. Tomas, could you contact the manager to arrange a date?\nTomas: Will do.",
+  "question": "Why does Grace want to include quotes in the report?",
+  "choices": [
+   "The museum asked for them.",
+   "They are more convincing than numbers.",
+   "They make the report shorter."
+  ],
+  "answer": "They are more convincing than numbers.",
+  "explanation": "数字だけより引用のほうが説得力があるから。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-503-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Ryo: Hi Grace, hi Tomas. Shall we review what we found from the focus groups for the local museum project?\nGrace: Sure. The museum asked us to find out why so few young adults visit. The main reason people gave surprised me. I expected them to say it was boring.\nTomas: Right, but most said they simply didn't know what was on. The museum's advertising is mainly in printed leaflets, which young people don't pick up.\nRyo: And opening hours were mentioned too. It closes at five, which is when most people finish work.\nGrace: So our recommendations should cover both communication and timing.\nTomas: For timing, I'd suggest late openings once a month, maybe with music or food.\nRyo: The museum manager might worry about staff costs, though.\nGrace: We could suggest starting with a trial. Three late evenings, and then measure attendance.\nTomas: Good. That's more likely to be accepted.\nRyo: For communication, what do you think? A new website?\nGrace: Their website is actually fine. It's just that nobody finds it. I think a short video series on social media would work better, showing behind-the-scenes stories, like how objects are restored.\nTomas: I like that. Several people in the focus groups said they'd be interested in seeing how the museum works.\nRyo: OK, so we have two main recommendations. How should we present them?\nTomas: The museum wants a written report, but I think we should also offer to present to the staff in person.\nGrace: Definitely. And we should include some quotes from the focus groups. They're more persuasive than numbers alone.\nRyo: Agreed. Shall I draft the report? I've got the notes.\nGrace: Yes, and I'll prepare the slides. Tomas, could you contact the manager to arrange a date?\nTomas: Will do.",
+  "question": "Who will contact the museum manager?",
+  "choices": [
+   "Ryo",
+   "Grace",
+   "Tomas"
+  ],
+  "answer": "Tomas",
+  "explanation": "Ryo が報告書、Grace がスライド、Tomas が館長への連絡を担当する。",
+  "tags": "IELTS Listening Part3 marketing-project"
+ },
+ {
+  "id": "IELTS-L3-504-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Supervisor: Come in, Hannah. So you've just finished your first week on the children's ward. How's it going?\nHannah: Mostly well, thanks. It's very different from what I expected, though.\nSupervisor: In what way?\nHannah: I thought the hardest part would be the clinical skills, like taking blood pressure in small children. But actually, it's communicating with the parents that I find most challenging. They're often very anxious.\nSupervisor: That's very common. Have you been able to watch the senior nurses dealing with parents?\nHannah: Yes, Sister Adeyemi is brilliant. She always explains things simply, and she never rushes, even when it's busy.\nSupervisor: Good. Now, your reflective journal. How's that going?\nHannah: To be honest, I've been writing it at the end of each week, but I forget the details.\nSupervisor: Try writing a few notes after every shift, even just five minutes. Then you can write it up properly at the weekend.\nHannah: That makes sense.\nSupervisor: Let's talk about your learning goals for next week. What would you like to focus on?\nHannah: I'd like more practice with medication rounds. I've only observed so far.\nSupervisor: I'll speak to your mentor. You won't be giving medication alone, of course, but you can prepare it under supervision.\nHannah: Thank you. There's one more thing. I've been asked to do a short presentation to the other students at the end of the placement.\nSupervisor: Yes, everyone does one. What topic are you thinking of?\nHannah: I was going to talk about infection control, but two other students have chosen that. So I'll talk about play therapy, how play helps children cope with hospital.\nSupervisor: That's a great topic, and fits your experience well. Let me know if you need any articles.",
+  "question": "What has Hannah found most difficult on the placement?",
+  "choices": [
+   "talking with worried parents",
+   "taking children's blood pressure",
+   "working long shifts"
+  ],
+  "answer": "talking with worried parents",
+  "explanation": "臨床技術より、不安な親とのコミュニケーションが一番難しいと言っている。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-504-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Supervisor: Come in, Hannah. So you've just finished your first week on the children's ward. How's it going?\nHannah: Mostly well, thanks. It's very different from what I expected, though.\nSupervisor: In what way?\nHannah: I thought the hardest part would be the clinical skills, like taking blood pressure in small children. But actually, it's communicating with the parents that I find most challenging. They're often very anxious.\nSupervisor: That's very common. Have you been able to watch the senior nurses dealing with parents?\nHannah: Yes, Sister Adeyemi is brilliant. She always explains things simply, and she never rushes, even when it's busy.\nSupervisor: Good. Now, your reflective journal. How's that going?\nHannah: To be honest, I've been writing it at the end of each week, but I forget the details.\nSupervisor: Try writing a few notes after every shift, even just five minutes. Then you can write it up properly at the weekend.\nHannah: That makes sense.\nSupervisor: Let's talk about your learning goals for next week. What would you like to focus on?\nHannah: I'd like more practice with medication rounds. I've only observed so far.\nSupervisor: I'll speak to your mentor. You won't be giving medication alone, of course, but you can prepare it under supervision.\nHannah: Thank you. There's one more thing. I've been asked to do a short presentation to the other students at the end of the placement.\nSupervisor: Yes, everyone does one. What topic are you thinking of?\nHannah: I was going to talk about infection control, but two other students have chosen that. So I'll talk about play therapy, how play helps children cope with hospital.\nSupervisor: That's a great topic, and fits your experience well. Let me know if you need any articles.",
+  "question": "What does Hannah admire about Sister Adeyemi?",
+  "choices": [
+   "She is very quick in emergencies.",
+   "She stays calm and explains things clearly.",
+   "She has a lot of experience with medication."
+  ],
+  "answer": "She stays calm and explains things clearly.",
+  "explanation": "簡単に説明し、忙しくても決して急がないところを評価している。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-504-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Supervisor: Come in, Hannah. So you've just finished your first week on the children's ward. How's it going?\nHannah: Mostly well, thanks. It's very different from what I expected, though.\nSupervisor: In what way?\nHannah: I thought the hardest part would be the clinical skills, like taking blood pressure in small children. But actually, it's communicating with the parents that I find most challenging. They're often very anxious.\nSupervisor: That's very common. Have you been able to watch the senior nurses dealing with parents?\nHannah: Yes, Sister Adeyemi is brilliant. She always explains things simply, and she never rushes, even when it's busy.\nSupervisor: Good. Now, your reflective journal. How's that going?\nHannah: To be honest, I've been writing it at the end of each week, but I forget the details.\nSupervisor: Try writing a few notes after every shift, even just five minutes. Then you can write it up properly at the weekend.\nHannah: That makes sense.\nSupervisor: Let's talk about your learning goals for next week. What would you like to focus on?\nHannah: I'd like more practice with medication rounds. I've only observed so far.\nSupervisor: I'll speak to your mentor. You won't be giving medication alone, of course, but you can prepare it under supervision.\nHannah: Thank you. There's one more thing. I've been asked to do a short presentation to the other students at the end of the placement.\nSupervisor: Yes, everyone does one. What topic are you thinking of?\nHannah: I was going to talk about infection control, but two other students have chosen that. So I'll talk about play therapy, how play helps children cope with hospital.\nSupervisor: That's a great topic, and fits your experience well. Let me know if you need any articles.",
+  "question": "What does the supervisor suggest about the reflective journal?",
+  "choices": [
+   "Write it only at the end of the placement.",
+   "Ask the mentor to read it every week.",
+   "Make brief notes after each shift."
+  ],
+  "answer": "Make brief notes after each shift.",
+  "explanation": "毎シフト後に5分でもメモを取り、週末にまとめるよう勧めている。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-504-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Supervisor: Come in, Hannah. So you've just finished your first week on the children's ward. How's it going?\nHannah: Mostly well, thanks. It's very different from what I expected, though.\nSupervisor: In what way?\nHannah: I thought the hardest part would be the clinical skills, like taking blood pressure in small children. But actually, it's communicating with the parents that I find most challenging. They're often very anxious.\nSupervisor: That's very common. Have you been able to watch the senior nurses dealing with parents?\nHannah: Yes, Sister Adeyemi is brilliant. She always explains things simply, and she never rushes, even when it's busy.\nSupervisor: Good. Now, your reflective journal. How's that going?\nHannah: To be honest, I've been writing it at the end of each week, but I forget the details.\nSupervisor: Try writing a few notes after every shift, even just five minutes. Then you can write it up properly at the weekend.\nHannah: That makes sense.\nSupervisor: Let's talk about your learning goals for next week. What would you like to focus on?\nHannah: I'd like more practice with medication rounds. I've only observed so far.\nSupervisor: I'll speak to your mentor. You won't be giving medication alone, of course, but you can prepare it under supervision.\nHannah: Thank you. There's one more thing. I've been asked to do a short presentation to the other students at the end of the placement.\nSupervisor: Yes, everyone does one. What topic are you thinking of?\nHannah: I was going to talk about infection control, but two other students have chosen that. So I'll talk about play therapy, how play helps children cope with hospital.\nSupervisor: That's a great topic, and fits your experience well. Let me know if you need any articles.",
+  "question": "What will Hannah do during medication rounds next week?",
+  "choices": [
+   "prepare medication under supervision",
+   "give medication to patients alone",
+   "only observe the senior nurses"
+  ],
+  "answer": "prepare medication under supervision",
+  "explanation": "一人で投薬はしないが、監督のもとで準備をすることになる。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-504-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Supervisor: Come in, Hannah. So you've just finished your first week on the children's ward. How's it going?\nHannah: Mostly well, thanks. It's very different from what I expected, though.\nSupervisor: In what way?\nHannah: I thought the hardest part would be the clinical skills, like taking blood pressure in small children. But actually, it's communicating with the parents that I find most challenging. They're often very anxious.\nSupervisor: That's very common. Have you been able to watch the senior nurses dealing with parents?\nHannah: Yes, Sister Adeyemi is brilliant. She always explains things simply, and she never rushes, even when it's busy.\nSupervisor: Good. Now, your reflective journal. How's that going?\nHannah: To be honest, I've been writing it at the end of each week, but I forget the details.\nSupervisor: Try writing a few notes after every shift, even just five minutes. Then you can write it up properly at the weekend.\nHannah: That makes sense.\nSupervisor: Let's talk about your learning goals for next week. What would you like to focus on?\nHannah: I'd like more practice with medication rounds. I've only observed so far.\nSupervisor: I'll speak to your mentor. You won't be giving medication alone, of course, but you can prepare it under supervision.\nHannah: Thank you. There's one more thing. I've been asked to do a short presentation to the other students at the end of the placement.\nSupervisor: Yes, everyone does one. What topic are you thinking of?\nHannah: I was going to talk about infection control, but two other students have chosen that. So I'll talk about play therapy, how play helps children cope with hospital.\nSupervisor: That's a great topic, and fits your experience well. Let me know if you need any articles.",
+  "question": "Why did Hannah change her presentation topic?",
+  "choices": [
+   "Her supervisor did not approve it.",
+   "Other students had chosen the same topic.",
+   "She could not find enough articles."
+  ],
+  "answer": "Other students had chosen the same topic.",
+  "explanation": "感染管理は他の2人が選んだので、プレイセラピーに変更した。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-505-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Daniel: Hi Aisha. Have you had a chance to look at the placement allocations for next term?\nAisha: Yes, I've got the community placement, working with district nurses. I was hoping for the emergency department, to be honest.\nDaniel: I got the emergency department, but I'd actually prefer community. Do you think we could swap?\nAisha: Possibly, but I checked the handbook, and swaps have to be approved by the placement office, and they need a good reason, not just preference.\nDaniel: Hmm. I suppose living closer to the placement isn't really a strong argument.\nAisha: Actually, it might be. The handbook says travel time is taken into account if it's over ninety minutes each way. How far is the hospital from you?\nDaniel: About an hour by train. So probably not enough.\nAisha: Then maybe we should both just make the most of what we've got. Community nursing could be really useful for me. I hadn't thought about it, but a lot of patients with chronic conditions are treated at home now.\nDaniel: That's true. And I'll get experience of quick decision-making in emergencies, which I'm weak at.\nAisha: Exactly. By the way, have you started preparing for the placement assessment?\nDaniel: Not yet. It's based on the competency checklist, isn't it?\nAisha: Partly. Your mentor signs off the competencies, but there's also a written case study, where you analyse the care of one patient. That's worth sixty percent.\nDaniel: Sixty! I thought the checklist was the main part.\nAisha: No, the checklist is pass or fail. The case study gives you the actual grade.\nDaniel: Then I'd better start keeping detailed notes. Though I'd need to make sure everything's anonymous.\nAisha: Definitely. No names, dates of birth or anything that could identify the patient. We had a whole lecture on that.",
+  "question": "What does Aisha say about swapping placements?",
+  "choices": [
+   "It is not allowed under any circumstances.",
+   "It can be arranged directly with the hospital.",
+   "It needs approval and a strong reason."
+  ],
+  "answer": "It needs approval and a strong reason.",
+  "explanation": "交換は実習事務局の承認と、好み以外の十分な理由が必要。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-505-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Daniel: Hi Aisha. Have you had a chance to look at the placement allocations for next term?\nAisha: Yes, I've got the community placement, working with district nurses. I was hoping for the emergency department, to be honest.\nDaniel: I got the emergency department, but I'd actually prefer community. Do you think we could swap?\nAisha: Possibly, but I checked the handbook, and swaps have to be approved by the placement office, and they need a good reason, not just preference.\nDaniel: Hmm. I suppose living closer to the placement isn't really a strong argument.\nAisha: Actually, it might be. The handbook says travel time is taken into account if it's over ninety minutes each way. How far is the hospital from you?\nDaniel: About an hour by train. So probably not enough.\nAisha: Then maybe we should both just make the most of what we've got. Community nursing could be really useful for me. I hadn't thought about it, but a lot of patients with chronic conditions are treated at home now.\nDaniel: That's true. And I'll get experience of quick decision-making in emergencies, which I'm weak at.\nAisha: Exactly. By the way, have you started preparing for the placement assessment?\nDaniel: Not yet. It's based on the competency checklist, isn't it?\nAisha: Partly. Your mentor signs off the competencies, but there's also a written case study, where you analyse the care of one patient. That's worth sixty percent.\nDaniel: Sixty! I thought the checklist was the main part.\nAisha: No, the checklist is pass or fail. The case study gives you the actual grade.\nDaniel: Then I'd better start keeping detailed notes. Though I'd need to make sure everything's anonymous.\nAisha: Definitely. No names, dates of birth or anything that could identify the patient. We had a whole lecture on that.",
+  "question": "Why does Daniel decide not to ask for a swap?",
+  "choices": [
+   "His travel time is not long enough to qualify.",
+   "Aisha does not want to change.",
+   "The deadline for swaps has passed."
+  ],
+  "answer": "His travel time is not long enough to qualify.",
+  "explanation": "通学時間90分以上なら考慮されるが、彼は約1時間なので理由にならない。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-505-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Daniel: Hi Aisha. Have you had a chance to look at the placement allocations for next term?\nAisha: Yes, I've got the community placement, working with district nurses. I was hoping for the emergency department, to be honest.\nDaniel: I got the emergency department, but I'd actually prefer community. Do you think we could swap?\nAisha: Possibly, but I checked the handbook, and swaps have to be approved by the placement office, and they need a good reason, not just preference.\nDaniel: Hmm. I suppose living closer to the placement isn't really a strong argument.\nAisha: Actually, it might be. The handbook says travel time is taken into account if it's over ninety minutes each way. How far is the hospital from you?\nDaniel: About an hour by train. So probably not enough.\nAisha: Then maybe we should both just make the most of what we've got. Community nursing could be really useful for me. I hadn't thought about it, but a lot of patients with chronic conditions are treated at home now.\nDaniel: That's true. And I'll get experience of quick decision-making in emergencies, which I'm weak at.\nAisha: Exactly. By the way, have you started preparing for the placement assessment?\nDaniel: Not yet. It's based on the competency checklist, isn't it?\nAisha: Partly. Your mentor signs off the competencies, but there's also a written case study, where you analyse the care of one patient. That's worth sixty percent.\nDaniel: Sixty! I thought the checklist was the main part.\nAisha: No, the checklist is pass or fail. The case study gives you the actual grade.\nDaniel: Then I'd better start keeping detailed notes. Though I'd need to make sure everything's anonymous.\nAisha: Definitely. No names, dates of birth or anything that could identify the patient. We had a whole lecture on that.",
+  "question": "Why does Aisha now see value in the community placement?",
+  "choices": [
+   "It involves more emergency decisions.",
+   "Many chronic patients are now treated at home.",
+   "It is closer to where she lives."
+  ],
+  "answer": "Many chronic patients are now treated at home.",
+  "explanation": "慢性疾患の患者の多くが今は在宅で治療されていると気づいた。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-505-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Daniel: Hi Aisha. Have you had a chance to look at the placement allocations for next term?\nAisha: Yes, I've got the community placement, working with district nurses. I was hoping for the emergency department, to be honest.\nDaniel: I got the emergency department, but I'd actually prefer community. Do you think we could swap?\nAisha: Possibly, but I checked the handbook, and swaps have to be approved by the placement office, and they need a good reason, not just preference.\nDaniel: Hmm. I suppose living closer to the placement isn't really a strong argument.\nAisha: Actually, it might be. The handbook says travel time is taken into account if it's over ninety minutes each way. How far is the hospital from you?\nDaniel: About an hour by train. So probably not enough.\nAisha: Then maybe we should both just make the most of what we've got. Community nursing could be really useful for me. I hadn't thought about it, but a lot of patients with chronic conditions are treated at home now.\nDaniel: That's true. And I'll get experience of quick decision-making in emergencies, which I'm weak at.\nAisha: Exactly. By the way, have you started preparing for the placement assessment?\nDaniel: Not yet. It's based on the competency checklist, isn't it?\nAisha: Partly. Your mentor signs off the competencies, but there's also a written case study, where you analyse the care of one patient. That's worth sixty percent.\nDaniel: Sixty! I thought the checklist was the main part.\nAisha: No, the checklist is pass or fail. The case study gives you the actual grade.\nDaniel: Then I'd better start keeping detailed notes. Though I'd need to make sure everything's anonymous.\nAisha: Definitely. No names, dates of birth or anything that could identify the patient. We had a whole lecture on that.",
+  "question": "What is true about the competency checklist?",
+  "choices": [
+   "It counts for sixty percent of the grade.",
+   "It is completed by the student alone.",
+   "It is assessed as pass or fail."
+  ],
+  "answer": "It is assessed as pass or fail.",
+  "explanation": "チェックリストは合否のみで、成績は60%を占めるケーススタディで決まる。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-505-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Daniel: Hi Aisha. Have you had a chance to look at the placement allocations for next term?\nAisha: Yes, I've got the community placement, working with district nurses. I was hoping for the emergency department, to be honest.\nDaniel: I got the emergency department, but I'd actually prefer community. Do you think we could swap?\nAisha: Possibly, but I checked the handbook, and swaps have to be approved by the placement office, and they need a good reason, not just preference.\nDaniel: Hmm. I suppose living closer to the placement isn't really a strong argument.\nAisha: Actually, it might be. The handbook says travel time is taken into account if it's over ninety minutes each way. How far is the hospital from you?\nDaniel: About an hour by train. So probably not enough.\nAisha: Then maybe we should both just make the most of what we've got. Community nursing could be really useful for me. I hadn't thought about it, but a lot of patients with chronic conditions are treated at home now.\nDaniel: That's true. And I'll get experience of quick decision-making in emergencies, which I'm weak at.\nAisha: Exactly. By the way, have you started preparing for the placement assessment?\nDaniel: Not yet. It's based on the competency checklist, isn't it?\nAisha: Partly. Your mentor signs off the competencies, but there's also a written case study, where you analyse the care of one patient. That's worth sixty percent.\nDaniel: Sixty! I thought the checklist was the main part.\nAisha: No, the checklist is pass or fail. The case study gives you the actual grade.\nDaniel: Then I'd better start keeping detailed notes. Though I'd need to make sure everything's anonymous.\nAisha: Definitely. No names, dates of birth or anything that could identify the patient. We had a whole lecture on that.",
+  "question": "What must students ensure in the case study?",
+  "choices": [
+   "Patients cannot be identified.",
+   "Patients give written permission.",
+   "The mentor checks the notes daily."
+  ],
+  "answer": "Patients cannot be identified.",
+  "explanation": "名前や生年月日など患者を特定できる情報を入れないことが必要。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-506-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Mentor: Hi Leon, hi Priyanka. Before you start on the surgical ward tomorrow, I wanted to go over a few things.\nLeon: Thanks. We're both a bit nervous.\nMentor: That's normal. Now, shifts. You'll both be doing the early shift for the first week, which starts at 7.15. Please arrive ten minutes before, so you can hear the handover from the night staff.\nPriyanka: Is the handover where they talk about each patient?\nMentor: Yes. It's one of the most important parts of the day. Bring a notebook, but don't take it home, because it contains confidential information. You'll leave it in the locker room.\nLeon: OK. What will we be doing in the first few days?\nMentor: Mostly helping with basic care, like washing and feeding patients, and taking observations, such as temperature and pulse. I know some students think that's not real nursing, but it's when you notice changes in a patient's condition.\nPriyanka: I hadn't thought of it like that.\nMentor: Now, each of you will have a named mentor. Leon, yours is Carlos. Priyanka, you'll be with me for the first two weeks, and then with Bridget, who's coming back from holiday.\nPriyanka: Great.\nMentor: One thing we're very strict about is hand hygiene. There are gel dispensers at every bed, and you must use them before and after touching any patient.\nLeon: What about jewellery?\nMentor: Only a plain wedding ring. No watches, either. You'll need a watch with a second hand for taking pulses, but it must be the kind you pin to your uniform.\nLeon: I haven't got one of those.\nMentor: The hospital shop sells them, and they're not expensive.\nPriyanka: And if we're unsure about anything?\nMentor: Always ask. Nobody will think less of you. It's far worse to guess.",
+  "question": "Why should the students arrive before 7.15?",
+  "choices": [
+   "to collect their uniforms",
+   "to hear the night staff's handover",
+   "to meet their mentors"
+  ],
+  "answer": "to hear the night staff's handover",
+  "explanation": "夜勤スタッフからの申し送り（handover）を聞くため10分前に来る。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-506-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Mentor: Hi Leon, hi Priyanka. Before you start on the surgical ward tomorrow, I wanted to go over a few things.\nLeon: Thanks. We're both a bit nervous.\nMentor: That's normal. Now, shifts. You'll both be doing the early shift for the first week, which starts at 7.15. Please arrive ten minutes before, so you can hear the handover from the night staff.\nPriyanka: Is the handover where they talk about each patient?\nMentor: Yes. It's one of the most important parts of the day. Bring a notebook, but don't take it home, because it contains confidential information. You'll leave it in the locker room.\nLeon: OK. What will we be doing in the first few days?\nMentor: Mostly helping with basic care, like washing and feeding patients, and taking observations, such as temperature and pulse. I know some students think that's not real nursing, but it's when you notice changes in a patient's condition.\nPriyanka: I hadn't thought of it like that.\nMentor: Now, each of you will have a named mentor. Leon, yours is Carlos. Priyanka, you'll be with me for the first two weeks, and then with Bridget, who's coming back from holiday.\nPriyanka: Great.\nMentor: One thing we're very strict about is hand hygiene. There are gel dispensers at every bed, and you must use them before and after touching any patient.\nLeon: What about jewellery?\nMentor: Only a plain wedding ring. No watches, either. You'll need a watch with a second hand for taking pulses, but it must be the kind you pin to your uniform.\nLeon: I haven't got one of those.\nMentor: The hospital shop sells them, and they're not expensive.\nPriyanka: And if we're unsure about anything?\nMentor: Always ask. Nobody will think less of you. It's far worse to guess.",
+  "question": "What must the students do with their handover notebooks?",
+  "choices": [
+   "show them to their mentor",
+   "write them up at home",
+   "leave them at the hospital"
+  ],
+  "answer": "leave them at the hospital",
+  "explanation": "機密情報が入っているので持ち帰らず、ロッカールームに置いていく。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-506-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Mentor: Hi Leon, hi Priyanka. Before you start on the surgical ward tomorrow, I wanted to go over a few things.\nLeon: Thanks. We're both a bit nervous.\nMentor: That's normal. Now, shifts. You'll both be doing the early shift for the first week, which starts at 7.15. Please arrive ten minutes before, so you can hear the handover from the night staff.\nPriyanka: Is the handover where they talk about each patient?\nMentor: Yes. It's one of the most important parts of the day. Bring a notebook, but don't take it home, because it contains confidential information. You'll leave it in the locker room.\nLeon: OK. What will we be doing in the first few days?\nMentor: Mostly helping with basic care, like washing and feeding patients, and taking observations, such as temperature and pulse. I know some students think that's not real nursing, but it's when you notice changes in a patient's condition.\nPriyanka: I hadn't thought of it like that.\nMentor: Now, each of you will have a named mentor. Leon, yours is Carlos. Priyanka, you'll be with me for the first two weeks, and then with Bridget, who's coming back from holiday.\nPriyanka: Great.\nMentor: One thing we're very strict about is hand hygiene. There are gel dispensers at every bed, and you must use them before and after touching any patient.\nLeon: What about jewellery?\nMentor: Only a plain wedding ring. No watches, either. You'll need a watch with a second hand for taking pulses, but it must be the kind you pin to your uniform.\nLeon: I haven't got one of those.\nMentor: The hospital shop sells them, and they're not expensive.\nPriyanka: And if we're unsure about anything?\nMentor: Always ask. Nobody will think less of you. It's far worse to guess.",
+  "question": "Why does the mentor value basic care tasks?",
+  "choices": [
+   "They help nurses notice changes in patients.",
+   "They are the easiest way to learn.",
+   "They take up most of a nurse's time."
+  ],
+  "answer": "They help nurses notice changes in patients.",
+  "explanation": "基本的なケアの時に患者の状態の変化に気づくからだと言っている。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-506-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Mentor: Hi Leon, hi Priyanka. Before you start on the surgical ward tomorrow, I wanted to go over a few things.\nLeon: Thanks. We're both a bit nervous.\nMentor: That's normal. Now, shifts. You'll both be doing the early shift for the first week, which starts at 7.15. Please arrive ten minutes before, so you can hear the handover from the night staff.\nPriyanka: Is the handover where they talk about each patient?\nMentor: Yes. It's one of the most important parts of the day. Bring a notebook, but don't take it home, because it contains confidential information. You'll leave it in the locker room.\nLeon: OK. What will we be doing in the first few days?\nMentor: Mostly helping with basic care, like washing and feeding patients, and taking observations, such as temperature and pulse. I know some students think that's not real nursing, but it's when you notice changes in a patient's condition.\nPriyanka: I hadn't thought of it like that.\nMentor: Now, each of you will have a named mentor. Leon, yours is Carlos. Priyanka, you'll be with me for the first two weeks, and then with Bridget, who's coming back from holiday.\nPriyanka: Great.\nMentor: One thing we're very strict about is hand hygiene. There are gel dispensers at every bed, and you must use them before and after touching any patient.\nLeon: What about jewellery?\nMentor: Only a plain wedding ring. No watches, either. You'll need a watch with a second hand for taking pulses, but it must be the kind you pin to your uniform.\nLeon: I haven't got one of those.\nMentor: The hospital shop sells them, and they're not expensive.\nPriyanka: And if we're unsure about anything?\nMentor: Always ask. Nobody will think less of you. It's far worse to guess.",
+  "question": "Who will be Priyanka's mentor after the first two weeks?",
+  "choices": [
+   "Carlos",
+   "Bridget",
+   "the speaker"
+  ],
+  "answer": "Bridget",
+  "explanation": "最初の2週間は話し手、その後は休暇から戻る Bridget。Carlos は Leon の担当。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-506-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Mentor: Hi Leon, hi Priyanka. Before you start on the surgical ward tomorrow, I wanted to go over a few things.\nLeon: Thanks. We're both a bit nervous.\nMentor: That's normal. Now, shifts. You'll both be doing the early shift for the first week, which starts at 7.15. Please arrive ten minutes before, so you can hear the handover from the night staff.\nPriyanka: Is the handover where they talk about each patient?\nMentor: Yes. It's one of the most important parts of the day. Bring a notebook, but don't take it home, because it contains confidential information. You'll leave it in the locker room.\nLeon: OK. What will we be doing in the first few days?\nMentor: Mostly helping with basic care, like washing and feeding patients, and taking observations, such as temperature and pulse. I know some students think that's not real nursing, but it's when you notice changes in a patient's condition.\nPriyanka: I hadn't thought of it like that.\nMentor: Now, each of you will have a named mentor. Leon, yours is Carlos. Priyanka, you'll be with me for the first two weeks, and then with Bridget, who's coming back from holiday.\nPriyanka: Great.\nMentor: One thing we're very strict about is hand hygiene. There are gel dispensers at every bed, and you must use them before and after touching any patient.\nLeon: What about jewellery?\nMentor: Only a plain wedding ring. No watches, either. You'll need a watch with a second hand for taking pulses, but it must be the kind you pin to your uniform.\nLeon: I haven't got one of those.\nMentor: The hospital shop sells them, and they're not expensive.\nPriyanka: And if we're unsure about anything?\nMentor: Always ask. Nobody will think less of you. It's far worse to guess.",
+  "question": "What kind of watch are the students allowed to use?",
+  "choices": [
+   "a wristwatch with a second hand",
+   "a digital watch on a strap",
+   "one that is attached to the uniform"
+  ],
+  "answer": "one that is attached to the uniform",
+  "explanation": "腕時計は不可で、ユニフォームにピンで留めるタイプでなければならない。",
+  "tags": "IELTS Listening Part3 nursing-placement"
+ },
+ {
+  "id": "IELTS-L3-507-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, Felix and Yasmin, tell me about your plans for the coastal fieldwork.\nFelix: We're going to study how the beach at Holme Bay changes between summer and winter.\nYasmin: Specifically, we want to measure how the beach profile changes, that's the shape and slope of the beach from the cliffs down to the sea.\nTutor: How will you collect the data?\nFelix: We'll use ranging poles and a clinometer to measure angles at fixed points. We were going to do five profiles along the beach, but after the pilot visit, we've reduced it to three.\nTutor: Why was that?\nYasmin: The northern end of the beach is cut off at high tide, so it isn't safe to get to. We can only reach the middle and south.\nTutor: Sensible. What about sediment?\nFelix: We'll collect pebbles at each point and measure their size and roundness.\nTutor: How many?\nYasmin: Twenty at each point. We considered fifty, but that would take far too long, and we'd lose the tide.\nTutor: Twenty's reasonable, as long as you select them randomly. Now, how often will you go?\nFelix: Once a month from October to March.\nTutor: That's quite a commitment. What if the weather's bad?\nYasmin: We've agreed we won't go in strong winds or storms. If that happens, we'll go the following week instead.\nTutor: Good. And safety? Coastal fieldwork has real risks.\nFelix: We'll always check the tide times first, and we'll never go alone. We'll also tell my flatmate where we are.\nTutor: Excellent. One more thing. You might want to take photographs from the same position each time. Fixed-point photography is a very effective way of showing change, and it would strengthen your analysis.\nYasmin: That's a great idea. We'll pick a spot on the cliff path.",
+  "question": "Why have the students reduced the number of beach profiles?",
+  "choices": [
+   "Part of the beach is unsafe at high tide.",
+   "They did not have enough equipment.",
+   "The tutor advised them to simplify the study."
+  ],
+  "answer": "Part of the beach is unsafe at high tide.",
+  "explanation": "北側は満潮時に孤立し危険なので、5本から3本に減らした。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-507-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, Felix and Yasmin, tell me about your plans for the coastal fieldwork.\nFelix: We're going to study how the beach at Holme Bay changes between summer and winter.\nYasmin: Specifically, we want to measure how the beach profile changes, that's the shape and slope of the beach from the cliffs down to the sea.\nTutor: How will you collect the data?\nFelix: We'll use ranging poles and a clinometer to measure angles at fixed points. We were going to do five profiles along the beach, but after the pilot visit, we've reduced it to three.\nTutor: Why was that?\nYasmin: The northern end of the beach is cut off at high tide, so it isn't safe to get to. We can only reach the middle and south.\nTutor: Sensible. What about sediment?\nFelix: We'll collect pebbles at each point and measure their size and roundness.\nTutor: How many?\nYasmin: Twenty at each point. We considered fifty, but that would take far too long, and we'd lose the tide.\nTutor: Twenty's reasonable, as long as you select them randomly. Now, how often will you go?\nFelix: Once a month from October to March.\nTutor: That's quite a commitment. What if the weather's bad?\nYasmin: We've agreed we won't go in strong winds or storms. If that happens, we'll go the following week instead.\nTutor: Good. And safety? Coastal fieldwork has real risks.\nFelix: We'll always check the tide times first, and we'll never go alone. We'll also tell my flatmate where we are.\nTutor: Excellent. One more thing. You might want to take photographs from the same position each time. Fixed-point photography is a very effective way of showing change, and it would strengthen your analysis.\nYasmin: That's a great idea. We'll pick a spot on the cliff path.",
+  "question": "Why did the students decide to collect twenty pebbles at each point?",
+  "choices": [
+   "The tutor recommended that number.",
+   "Collecting more would take too long.",
+   "There were not enough pebbles on the beach."
+  ],
+  "answer": "Collecting more would take too long.",
+  "explanation": "50個も考えたが時間がかかりすぎて潮に間に合わないため。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-507-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, Felix and Yasmin, tell me about your plans for the coastal fieldwork.\nFelix: We're going to study how the beach at Holme Bay changes between summer and winter.\nYasmin: Specifically, we want to measure how the beach profile changes, that's the shape and slope of the beach from the cliffs down to the sea.\nTutor: How will you collect the data?\nFelix: We'll use ranging poles and a clinometer to measure angles at fixed points. We were going to do five profiles along the beach, but after the pilot visit, we've reduced it to three.\nTutor: Why was that?\nYasmin: The northern end of the beach is cut off at high tide, so it isn't safe to get to. We can only reach the middle and south.\nTutor: Sensible. What about sediment?\nFelix: We'll collect pebbles at each point and measure their size and roundness.\nTutor: How many?\nYasmin: Twenty at each point. We considered fifty, but that would take far too long, and we'd lose the tide.\nTutor: Twenty's reasonable, as long as you select them randomly. Now, how often will you go?\nFelix: Once a month from October to March.\nTutor: That's quite a commitment. What if the weather's bad?\nYasmin: We've agreed we won't go in strong winds or storms. If that happens, we'll go the following week instead.\nTutor: Good. And safety? Coastal fieldwork has real risks.\nFelix: We'll always check the tide times first, and we'll never go alone. We'll also tell my flatmate where we are.\nTutor: Excellent. One more thing. You might want to take photographs from the same position each time. Fixed-point photography is a very effective way of showing change, and it would strengthen your analysis.\nYasmin: That's a great idea. We'll pick a spot on the cliff path.",
+  "question": "What will the students do if the weather is bad?",
+  "choices": [
+   "go on the next calm day",
+   "cancel that month's visit",
+   "go the following week"
+  ],
+  "answer": "go the following week",
+  "explanation": "強風や嵐の日は行かず、翌週に行くことにしている。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-507-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, Felix and Yasmin, tell me about your plans for the coastal fieldwork.\nFelix: We're going to study how the beach at Holme Bay changes between summer and winter.\nYasmin: Specifically, we want to measure how the beach profile changes, that's the shape and slope of the beach from the cliffs down to the sea.\nTutor: How will you collect the data?\nFelix: We'll use ranging poles and a clinometer to measure angles at fixed points. We were going to do five profiles along the beach, but after the pilot visit, we've reduced it to three.\nTutor: Why was that?\nYasmin: The northern end of the beach is cut off at high tide, so it isn't safe to get to. We can only reach the middle and south.\nTutor: Sensible. What about sediment?\nFelix: We'll collect pebbles at each point and measure their size and roundness.\nTutor: How many?\nYasmin: Twenty at each point. We considered fifty, but that would take far too long, and we'd lose the tide.\nTutor: Twenty's reasonable, as long as you select them randomly. Now, how often will you go?\nFelix: Once a month from October to March.\nTutor: That's quite a commitment. What if the weather's bad?\nYasmin: We've agreed we won't go in strong winds or storms. If that happens, we'll go the following week instead.\nTutor: Good. And safety? Coastal fieldwork has real risks.\nFelix: We'll always check the tide times first, and we'll never go alone. We'll also tell my flatmate where we are.\nTutor: Excellent. One more thing. You might want to take photographs from the same position each time. Fixed-point photography is a very effective way of showing change, and it would strengthen your analysis.\nYasmin: That's a great idea. We'll pick a spot on the cliff path.",
+  "question": "Which safety measure do the students mention?",
+  "choices": [
+   "checking the tide times",
+   "carrying a first aid kit",
+   "wearing safety helmets"
+  ],
+  "answer": "checking the tide times",
+  "explanation": "必ず潮の時刻を確認し、一人では行かないと言っている。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-507-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: So, Felix and Yasmin, tell me about your plans for the coastal fieldwork.\nFelix: We're going to study how the beach at Holme Bay changes between summer and winter.\nYasmin: Specifically, we want to measure how the beach profile changes, that's the shape and slope of the beach from the cliffs down to the sea.\nTutor: How will you collect the data?\nFelix: We'll use ranging poles and a clinometer to measure angles at fixed points. We were going to do five profiles along the beach, but after the pilot visit, we've reduced it to three.\nTutor: Why was that?\nYasmin: The northern end of the beach is cut off at high tide, so it isn't safe to get to. We can only reach the middle and south.\nTutor: Sensible. What about sediment?\nFelix: We'll collect pebbles at each point and measure their size and roundness.\nTutor: How many?\nYasmin: Twenty at each point. We considered fifty, but that would take far too long, and we'd lose the tide.\nTutor: Twenty's reasonable, as long as you select them randomly. Now, how often will you go?\nFelix: Once a month from October to March.\nTutor: That's quite a commitment. What if the weather's bad?\nYasmin: We've agreed we won't go in strong winds or storms. If that happens, we'll go the following week instead.\nTutor: Good. And safety? Coastal fieldwork has real risks.\nFelix: We'll always check the tide times first, and we'll never go alone. We'll also tell my flatmate where we are.\nTutor: Excellent. One more thing. You might want to take photographs from the same position each time. Fixed-point photography is a very effective way of showing change, and it would strengthen your analysis.\nYasmin: That's a great idea. We'll pick a spot on the cliff path.",
+  "question": "What does the tutor suggest adding to the study?",
+  "choices": [
+   "measuring the height of the cliffs",
+   "taking photos from a fixed point",
+   "visiting a second beach for comparison"
+  ],
+  "answer": "taking photos from a fixed point",
+  "explanation": "同じ位置から写真を撮る定点撮影を勧めている。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-508-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Marta: Right, we need to finalise our hypothesis for the urban fieldwork. I think we should go with the one about air quality.\nOscar: The idea that pollution levels drop the further you get from the ring road?\nMarta: Yes. It's measurable, and we can borrow the portable monitors from the department.\nOscar: The problem is that only two monitors are available, and they're booked for most of the term. We'd only have them for one day.\nMarta: One day isn't enough to make reliable conclusions. Traffic varies so much depending on the day of the week.\nOscar: Exactly. So I'd suggest the alternative: investigating whether the quality of the environment improves with distance from the city centre. We could use an environmental quality survey, scoring things like litter, graffiti and green space.\nMarta: That's subjective, though. Two people could give the same street completely different scores.\nOscar: True, but we can reduce that. If we both score every site independently and then use the average, it's more reliable.\nMarta: And we'd need clear definitions for each score. Like, what exactly counts as a \"high\" amount of litter.\nOscar: Right. We can write a scoring guide before we start.\nMarta: OK, I'm convinced. How many sites?\nOscar: The guidelines say at least fifteen. I'd go for twenty, along a transect running south from the centre.\nMarta: South takes us through the industrial area, though. That might distort the results.\nOscar: Hmm, you're right. West, then, which is mainly residential.\nMarta: Fine. We could also add a questionnaire for residents, asking how they feel about their area.\nOscar: That'd add a human dimension. But ethics approval for questionnaires takes about a month.\nMarta: Then we'd better apply this week.",
+  "question": "Why do the students reject the air quality hypothesis?",
+  "choices": [
+   "The monitors were not accurate.",
+   "The ring road was closed for repairs.",
+   "They could not use the monitors for long enough."
+  ],
+  "answer": "They could not use the monitors for long enough.",
+  "explanation": "モニターは1日しか借りられず、信頼できる結論を出すには不十分だから。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-508-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Marta: Right, we need to finalise our hypothesis for the urban fieldwork. I think we should go with the one about air quality.\nOscar: The idea that pollution levels drop the further you get from the ring road?\nMarta: Yes. It's measurable, and we can borrow the portable monitors from the department.\nOscar: The problem is that only two monitors are available, and they're booked for most of the term. We'd only have them for one day.\nMarta: One day isn't enough to make reliable conclusions. Traffic varies so much depending on the day of the week.\nOscar: Exactly. So I'd suggest the alternative: investigating whether the quality of the environment improves with distance from the city centre. We could use an environmental quality survey, scoring things like litter, graffiti and green space.\nMarta: That's subjective, though. Two people could give the same street completely different scores.\nOscar: True, but we can reduce that. If we both score every site independently and then use the average, it's more reliable.\nMarta: And we'd need clear definitions for each score. Like, what exactly counts as a \"high\" amount of litter.\nOscar: Right. We can write a scoring guide before we start.\nMarta: OK, I'm convinced. How many sites?\nOscar: The guidelines say at least fifteen. I'd go for twenty, along a transect running south from the centre.\nMarta: South takes us through the industrial area, though. That might distort the results.\nOscar: Hmm, you're right. West, then, which is mainly residential.\nMarta: Fine. We could also add a questionnaire for residents, asking how they feel about their area.\nOscar: That'd add a human dimension. But ethics approval for questionnaires takes about a month.\nMarta: Then we'd better apply this week.",
+  "question": "What is Marta's concern about the environmental quality survey?",
+  "choices": [
+   "Different people may score sites differently.",
+   "It would take too long to complete.",
+   "It does not measure distance accurately."
+  ],
+  "answer": "Different people may score sites differently.",
+  "explanation": "主観的で、人によって同じ通りに違う点をつける可能性があると心配している。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-508-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Marta: Right, we need to finalise our hypothesis for the urban fieldwork. I think we should go with the one about air quality.\nOscar: The idea that pollution levels drop the further you get from the ring road?\nMarta: Yes. It's measurable, and we can borrow the portable monitors from the department.\nOscar: The problem is that only two monitors are available, and they're booked for most of the term. We'd only have them for one day.\nMarta: One day isn't enough to make reliable conclusions. Traffic varies so much depending on the day of the week.\nOscar: Exactly. So I'd suggest the alternative: investigating whether the quality of the environment improves with distance from the city centre. We could use an environmental quality survey, scoring things like litter, graffiti and green space.\nMarta: That's subjective, though. Two people could give the same street completely different scores.\nOscar: True, but we can reduce that. If we both score every site independently and then use the average, it's more reliable.\nMarta: And we'd need clear definitions for each score. Like, what exactly counts as a \"high\" amount of litter.\nOscar: Right. We can write a scoring guide before we start.\nMarta: OK, I'm convinced. How many sites?\nOscar: The guidelines say at least fifteen. I'd go for twenty, along a transect running south from the centre.\nMarta: South takes us through the industrial area, though. That might distort the results.\nOscar: Hmm, you're right. West, then, which is mainly residential.\nMarta: Fine. We could also add a questionnaire for residents, asking how they feel about their area.\nOscar: That'd add a human dimension. But ethics approval for questionnaires takes about a month.\nMarta: Then we'd better apply this week.",
+  "question": "How will they make the scoring more reliable?",
+  "choices": [
+   "by asking residents to score the sites",
+   "by averaging two independent scores",
+   "by scoring each site twice on different days"
+  ],
+  "answer": "by averaging two independent scores",
+  "explanation": "二人が別々に採点して平均をとることで信頼性を高める。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-508-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Marta: Right, we need to finalise our hypothesis for the urban fieldwork. I think we should go with the one about air quality.\nOscar: The idea that pollution levels drop the further you get from the ring road?\nMarta: Yes. It's measurable, and we can borrow the portable monitors from the department.\nOscar: The problem is that only two monitors are available, and they're booked for most of the term. We'd only have them for one day.\nMarta: One day isn't enough to make reliable conclusions. Traffic varies so much depending on the day of the week.\nOscar: Exactly. So I'd suggest the alternative: investigating whether the quality of the environment improves with distance from the city centre. We could use an environmental quality survey, scoring things like litter, graffiti and green space.\nMarta: That's subjective, though. Two people could give the same street completely different scores.\nOscar: True, but we can reduce that. If we both score every site independently and then use the average, it's more reliable.\nMarta: And we'd need clear definitions for each score. Like, what exactly counts as a \"high\" amount of litter.\nOscar: Right. We can write a scoring guide before we start.\nMarta: OK, I'm convinced. How many sites?\nOscar: The guidelines say at least fifteen. I'd go for twenty, along a transect running south from the centre.\nMarta: South takes us through the industrial area, though. That might distort the results.\nOscar: Hmm, you're right. West, then, which is mainly residential.\nMarta: Fine. We could also add a questionnaire for residents, asking how they feel about their area.\nOscar: That'd add a human dimension. But ethics approval for questionnaires takes about a month.\nMarta: Then we'd better apply this week.",
+  "question": "Why do they decide not to use a transect going south?",
+  "choices": [
+   "It has too few suitable sites.",
+   "It is too far from the city centre.",
+   "The industrial area could affect the results."
+  ],
+  "answer": "The industrial area could affect the results.",
+  "explanation": "南は工業地帯を通るので結果がゆがむ可能性がある。だから住宅地の西にした。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-508-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Marta: Right, we need to finalise our hypothesis for the urban fieldwork. I think we should go with the one about air quality.\nOscar: The idea that pollution levels drop the further you get from the ring road?\nMarta: Yes. It's measurable, and we can borrow the portable monitors from the department.\nOscar: The problem is that only two monitors are available, and they're booked for most of the term. We'd only have them for one day.\nMarta: One day isn't enough to make reliable conclusions. Traffic varies so much depending on the day of the week.\nOscar: Exactly. So I'd suggest the alternative: investigating whether the quality of the environment improves with distance from the city centre. We could use an environmental quality survey, scoring things like litter, graffiti and green space.\nMarta: That's subjective, though. Two people could give the same street completely different scores.\nOscar: True, but we can reduce that. If we both score every site independently and then use the average, it's more reliable.\nMarta: And we'd need clear definitions for each score. Like, what exactly counts as a \"high\" amount of litter.\nOscar: Right. We can write a scoring guide before we start.\nMarta: OK, I'm convinced. How many sites?\nOscar: The guidelines say at least fifteen. I'd go for twenty, along a transect running south from the centre.\nMarta: South takes us through the industrial area, though. That might distort the results.\nOscar: Hmm, you're right. West, then, which is mainly residential.\nMarta: Fine. We could also add a questionnaire for residents, asking how they feel about their area.\nOscar: That'd add a human dimension. But ethics approval for questionnaires takes about a month.\nMarta: Then we'd better apply this week.",
+  "question": "Why does Marta want to apply for ethics approval this week?",
+  "choices": [
+   "The approval process takes a long time.",
+   "The tutor has asked them to do so.",
+   "The questionnaire must be sent before the survey."
+  ],
+  "answer": "The approval process takes a long time.",
+  "explanation": "アンケートの倫理承認には約1か月かかるため。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ }
+]

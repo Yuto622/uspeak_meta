@@ -1,0 +1,597 @@
+[
+ {
+  "id": "IELTS-L3-509-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Welcome back, everyone. Let's review last week's river fieldwork. Ana, Ben and Chloe, you were the group on the upper section. How did it go?\nAna: Well, mostly. Our aim was to see whether the river channel gets wider and deeper downstream, as the theory predicts.\nBen: We measured at eight sites. The width and depth increased as expected, but the velocity results were strange.\nLecturer: In what way?\nChloe: The theory says velocity should increase downstream, but at two of our sites it was much slower than we expected.\nBen: We think it's because of a small weir between sites five and six. It holds the water back.\nLecturer: That's a good explanation. Human structures often interrupt natural patterns. Make sure you discuss it in your report.\nAna: We will. The other problem was the float method. We timed an orange over ten metres.\nChloe: But the wind kept blowing it towards the bank, so some timings weren't accurate.\nLecturer: That's a common issue. A flow meter would have been better. Did you repeat the measurements?\nBen: Three times at each site, and we used the average.\nLecturer: Good. What about presenting the data?\nChloe: We were going to use bar charts, but I think scatter graphs would show the relationship with distance better.\nLecturer: I agree. And you could add a line of best fit. Now, for the report, who's doing what?\nAna: I'll write the methodology section. Ben's doing the data analysis because he's best at statistics.\nChloe: And I'll write the conclusion and evaluation, including the problems with the float.\nLecturer: Fine. Please remember the report must include a risk assessment, even though we prepared one together before the trip.\nAna: Should we just copy that one?\nLecturer: No, you should add any new risks you noticed on the day.",
+  "question": "What do the students think caused the unexpected velocity results?",
+  "choices": [
+   "heavy rain the day before",
+   "a structure across the river",
+   "mistakes in measuring depth"
+  ],
+  "answer": "a structure across the river",
+  "explanation": "5番と6番の間の小さな堰（weir）が水をせき止めているためだと考えている。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-509-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Welcome back, everyone. Let's review last week's river fieldwork. Ana, Ben and Chloe, you were the group on the upper section. How did it go?\nAna: Well, mostly. Our aim was to see whether the river channel gets wider and deeper downstream, as the theory predicts.\nBen: We measured at eight sites. The width and depth increased as expected, but the velocity results were strange.\nLecturer: In what way?\nChloe: The theory says velocity should increase downstream, but at two of our sites it was much slower than we expected.\nBen: We think it's because of a small weir between sites five and six. It holds the water back.\nLecturer: That's a good explanation. Human structures often interrupt natural patterns. Make sure you discuss it in your report.\nAna: We will. The other problem was the float method. We timed an orange over ten metres.\nChloe: But the wind kept blowing it towards the bank, so some timings weren't accurate.\nLecturer: That's a common issue. A flow meter would have been better. Did you repeat the measurements?\nBen: Three times at each site, and we used the average.\nLecturer: Good. What about presenting the data?\nChloe: We were going to use bar charts, but I think scatter graphs would show the relationship with distance better.\nLecturer: I agree. And you could add a line of best fit. Now, for the report, who's doing what?\nAna: I'll write the methodology section. Ben's doing the data analysis because he's best at statistics.\nChloe: And I'll write the conclusion and evaluation, including the problems with the float.\nLecturer: Fine. Please remember the report must include a risk assessment, even though we prepared one together before the trip.\nAna: Should we just copy that one?\nLecturer: No, you should add any new risks you noticed on the day.",
+  "question": "What problem did they have with the float method?",
+  "choices": [
+   "The orange sank in deep water.",
+   "They did not have a stopwatch.",
+   "The wind pushed the orange off course."
+  ],
+  "answer": "The wind pushed the orange off course.",
+  "explanation": "風でオレンジが岸に流され、計測が不正確になった。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-509-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Welcome back, everyone. Let's review last week's river fieldwork. Ana, Ben and Chloe, you were the group on the upper section. How did it go?\nAna: Well, mostly. Our aim was to see whether the river channel gets wider and deeper downstream, as the theory predicts.\nBen: We measured at eight sites. The width and depth increased as expected, but the velocity results were strange.\nLecturer: In what way?\nChloe: The theory says velocity should increase downstream, but at two of our sites it was much slower than we expected.\nBen: We think it's because of a small weir between sites five and six. It holds the water back.\nLecturer: That's a good explanation. Human structures often interrupt natural patterns. Make sure you discuss it in your report.\nAna: We will. The other problem was the float method. We timed an orange over ten metres.\nChloe: But the wind kept blowing it towards the bank, so some timings weren't accurate.\nLecturer: That's a common issue. A flow meter would have been better. Did you repeat the measurements?\nBen: Three times at each site, and we used the average.\nLecturer: Good. What about presenting the data?\nChloe: We were going to use bar charts, but I think scatter graphs would show the relationship with distance better.\nLecturer: I agree. And you could add a line of best fit. Now, for the report, who's doing what?\nAna: I'll write the methodology section. Ben's doing the data analysis because he's best at statistics.\nChloe: And I'll write the conclusion and evaluation, including the problems with the float.\nLecturer: Fine. Please remember the report must include a risk assessment, even though we prepared one together before the trip.\nAna: Should we just copy that one?\nLecturer: No, you should add any new risks you noticed on the day.",
+  "question": "Why does Chloe prefer scatter graphs?",
+  "choices": [
+   "They show the link with distance more clearly.",
+   "They are easier to draw by hand.",
+   "The lecturer requires them."
+  ],
+  "answer": "They show the link with distance more clearly.",
+  "explanation": "距離との関係をよりよく示せると考えている。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-509-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Welcome back, everyone. Let's review last week's river fieldwork. Ana, Ben and Chloe, you were the group on the upper section. How did it go?\nAna: Well, mostly. Our aim was to see whether the river channel gets wider and deeper downstream, as the theory predicts.\nBen: We measured at eight sites. The width and depth increased as expected, but the velocity results were strange.\nLecturer: In what way?\nChloe: The theory says velocity should increase downstream, but at two of our sites it was much slower than we expected.\nBen: We think it's because of a small weir between sites five and six. It holds the water back.\nLecturer: That's a good explanation. Human structures often interrupt natural patterns. Make sure you discuss it in your report.\nAna: We will. The other problem was the float method. We timed an orange over ten metres.\nChloe: But the wind kept blowing it towards the bank, so some timings weren't accurate.\nLecturer: That's a common issue. A flow meter would have been better. Did you repeat the measurements?\nBen: Three times at each site, and we used the average.\nLecturer: Good. What about presenting the data?\nChloe: We were going to use bar charts, but I think scatter graphs would show the relationship with distance better.\nLecturer: I agree. And you could add a line of best fit. Now, for the report, who's doing what?\nAna: I'll write the methodology section. Ben's doing the data analysis because he's best at statistics.\nChloe: And I'll write the conclusion and evaluation, including the problems with the float.\nLecturer: Fine. Please remember the report must include a risk assessment, even though we prepared one together before the trip.\nAna: Should we just copy that one?\nLecturer: No, you should add any new risks you noticed on the day.",
+  "question": "Who will write about the problems with the float method?",
+  "choices": [
+   "Ana",
+   "Chloe",
+   "Ben"
+  ],
+  "answer": "Chloe",
+  "explanation": "Chloe が結論と評価を書き、その中でフロートの問題を扱う。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-509-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Welcome back, everyone. Let's review last week's river fieldwork. Ana, Ben and Chloe, you were the group on the upper section. How did it go?\nAna: Well, mostly. Our aim was to see whether the river channel gets wider and deeper downstream, as the theory predicts.\nBen: We measured at eight sites. The width and depth increased as expected, but the velocity results were strange.\nLecturer: In what way?\nChloe: The theory says velocity should increase downstream, but at two of our sites it was much slower than we expected.\nBen: We think it's because of a small weir between sites five and six. It holds the water back.\nLecturer: That's a good explanation. Human structures often interrupt natural patterns. Make sure you discuss it in your report.\nAna: We will. The other problem was the float method. We timed an orange over ten metres.\nChloe: But the wind kept blowing it towards the bank, so some timings weren't accurate.\nLecturer: That's a common issue. A flow meter would have been better. Did you repeat the measurements?\nBen: Three times at each site, and we used the average.\nLecturer: Good. What about presenting the data?\nChloe: We were going to use bar charts, but I think scatter graphs would show the relationship with distance better.\nLecturer: I agree. And you could add a line of best fit. Now, for the report, who's doing what?\nAna: I'll write the methodology section. Ben's doing the data analysis because he's best at statistics.\nChloe: And I'll write the conclusion and evaluation, including the problems with the float.\nLecturer: Fine. Please remember the report must include a risk assessment, even though we prepared one together before the trip.\nAna: Should we just copy that one?\nLecturer: No, you should add any new risks you noticed on the day.",
+  "question": "What does the lecturer say about the risk assessment?",
+  "choices": [
+   "They can copy the one made before the trip.",
+   "It is optional for this report.",
+   "It should include any new risks they noticed."
+  ],
+  "answer": "It should include any new risks they noticed.",
+  "explanation": "事前のものをそのまま写さず、当日気づいた新しいリスクを加えるよう言っている。",
+  "tags": "IELTS Listening Part3 geography-fieldwork"
+ },
+ {
+  "id": "IELTS-L3-510-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Professor: So, Zara and Kenji, show me where you are with the prototype. This is the folding stool for festival-goers, isn't it?\nZara: Yes. This is version three. The first one was made of aluminium, but it was too heavy to carry all day.\nKenji: So for this one, we switched to a recycled plastic composite. It weighs about half as much.\nProfessor: It looks light. How strong is it?\nKenji: We tested it with weights up to 120 kilograms. It held, but the legs bent slightly at around 110.\nProfessor: That might be a concern. Some users will be heavier than that, and they'll sit down suddenly, which adds force.\nZara: We've been discussing that. One option is to make the legs thicker, but that adds weight.\nKenji: The other is to add a cross bar between the legs. That would make it more stable without adding much weight.\nProfessor: I'd try the cross bar first. What about user testing?\nZara: We gave the stool to six students at the spring music festival. The main complaint wasn't comfort, which we'd expected. It was that it was hard to fold with one hand.\nKenji: People were usually holding a drink or a bag at the same time.\nProfessor: That's a really valuable finding. It's exactly the kind of thing you'd never discover in the workshop.\nZara: So we're redesigning the folding mechanism. Kenji's working on a spring-loaded catch.\nProfessor: Good. And what about the appearance? You mentioned printing patterns on the seat.\nKenji: We've dropped that idea. The printing process wasn't compatible with the recycled material.\nProfessor: Fair enough. Make sure you document these decisions in your design journal. The examiners want to see your reasoning, not just the final product.\nZara: We will.",
+  "question": "Why did the students stop using aluminium?",
+  "choices": [
+   "It made the stool too heavy.",
+   "It was too expensive.",
+   "It was not strong enough."
+  ],
+  "answer": "It made the stool too heavy.",
+  "explanation": "アルミの初号機は一日中運ぶには重すぎた。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-510-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Professor: So, Zara and Kenji, show me where you are with the prototype. This is the folding stool for festival-goers, isn't it?\nZara: Yes. This is version three. The first one was made of aluminium, but it was too heavy to carry all day.\nKenji: So for this one, we switched to a recycled plastic composite. It weighs about half as much.\nProfessor: It looks light. How strong is it?\nKenji: We tested it with weights up to 120 kilograms. It held, but the legs bent slightly at around 110.\nProfessor: That might be a concern. Some users will be heavier than that, and they'll sit down suddenly, which adds force.\nZara: We've been discussing that. One option is to make the legs thicker, but that adds weight.\nKenji: The other is to add a cross bar between the legs. That would make it more stable without adding much weight.\nProfessor: I'd try the cross bar first. What about user testing?\nZara: We gave the stool to six students at the spring music festival. The main complaint wasn't comfort, which we'd expected. It was that it was hard to fold with one hand.\nKenji: People were usually holding a drink or a bag at the same time.\nProfessor: That's a really valuable finding. It's exactly the kind of thing you'd never discover in the workshop.\nZara: So we're redesigning the folding mechanism. Kenji's working on a spring-loaded catch.\nProfessor: Good. And what about the appearance? You mentioned printing patterns on the seat.\nKenji: We've dropped that idea. The printing process wasn't compatible with the recycled material.\nProfessor: Fair enough. Make sure you document these decisions in your design journal. The examiners want to see your reasoning, not just the final product.\nZara: We will.",
+  "question": "What does the professor think about the strength test results?",
+  "choices": [
+   "They are better than expected.",
+   "They may not be good enough for real use.",
+   "They show the material is too rigid."
+  ],
+  "answer": "They may not be good enough for real use.",
+  "explanation": "110kg で脚が曲がったので、重い人や急に座る人には不安があると考えている。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-510-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Professor: So, Zara and Kenji, show me where you are with the prototype. This is the folding stool for festival-goers, isn't it?\nZara: Yes. This is version three. The first one was made of aluminium, but it was too heavy to carry all day.\nKenji: So for this one, we switched to a recycled plastic composite. It weighs about half as much.\nProfessor: It looks light. How strong is it?\nKenji: We tested it with weights up to 120 kilograms. It held, but the legs bent slightly at around 110.\nProfessor: That might be a concern. Some users will be heavier than that, and they'll sit down suddenly, which adds force.\nZara: We've been discussing that. One option is to make the legs thicker, but that adds weight.\nKenji: The other is to add a cross bar between the legs. That would make it more stable without adding much weight.\nProfessor: I'd try the cross bar first. What about user testing?\nZara: We gave the stool to six students at the spring music festival. The main complaint wasn't comfort, which we'd expected. It was that it was hard to fold with one hand.\nKenji: People were usually holding a drink or a bag at the same time.\nProfessor: That's a really valuable finding. It's exactly the kind of thing you'd never discover in the workshop.\nZara: So we're redesigning the folding mechanism. Kenji's working on a spring-loaded catch.\nProfessor: Good. And what about the appearance? You mentioned printing patterns on the seat.\nKenji: We've dropped that idea. The printing process wasn't compatible with the recycled material.\nProfessor: Fair enough. Make sure you document these decisions in your design journal. The examiners want to see your reasoning, not just the final product.\nZara: We will.",
+  "question": "Which solution does the professor recommend trying first?",
+  "choices": [
+   "making the legs thicker",
+   "changing the material again",
+   "adding a cross bar"
+  ],
+  "answer": "adding a cross bar",
+  "explanation": "重さを増やさず安定させる cross bar をまず試すよう勧めている。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-510-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Professor: So, Zara and Kenji, show me where you are with the prototype. This is the folding stool for festival-goers, isn't it?\nZara: Yes. This is version three. The first one was made of aluminium, but it was too heavy to carry all day.\nKenji: So for this one, we switched to a recycled plastic composite. It weighs about half as much.\nProfessor: It looks light. How strong is it?\nKenji: We tested it with weights up to 120 kilograms. It held, but the legs bent slightly at around 110.\nProfessor: That might be a concern. Some users will be heavier than that, and they'll sit down suddenly, which adds force.\nZara: We've been discussing that. One option is to make the legs thicker, but that adds weight.\nKenji: The other is to add a cross bar between the legs. That would make it more stable without adding much weight.\nProfessor: I'd try the cross bar first. What about user testing?\nZara: We gave the stool to six students at the spring music festival. The main complaint wasn't comfort, which we'd expected. It was that it was hard to fold with one hand.\nKenji: People were usually holding a drink or a bag at the same time.\nProfessor: That's a really valuable finding. It's exactly the kind of thing you'd never discover in the workshop.\nZara: So we're redesigning the folding mechanism. Kenji's working on a spring-loaded catch.\nProfessor: Good. And what about the appearance? You mentioned printing patterns on the seat.\nKenji: We've dropped that idea. The printing process wasn't compatible with the recycled material.\nProfessor: Fair enough. Make sure you document these decisions in your design journal. The examiners want to see your reasoning, not just the final product.\nZara: We will.",
+  "question": "What was the main complaint from festival users?",
+  "choices": [
+   "It was difficult to fold with one hand.",
+   "It was uncomfortable to sit on.",
+   "It was too low to the ground."
+  ],
+  "answer": "It was difficult to fold with one hand.",
+  "explanation": "予想した座り心地ではなく、片手でたためないことが主な不満だった。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-510-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Professor: So, Zara and Kenji, show me where you are with the prototype. This is the folding stool for festival-goers, isn't it?\nZara: Yes. This is version three. The first one was made of aluminium, but it was too heavy to carry all day.\nKenji: So for this one, we switched to a recycled plastic composite. It weighs about half as much.\nProfessor: It looks light. How strong is it?\nKenji: We tested it with weights up to 120 kilograms. It held, but the legs bent slightly at around 110.\nProfessor: That might be a concern. Some users will be heavier than that, and they'll sit down suddenly, which adds force.\nZara: We've been discussing that. One option is to make the legs thicker, but that adds weight.\nKenji: The other is to add a cross bar between the legs. That would make it more stable without adding much weight.\nProfessor: I'd try the cross bar first. What about user testing?\nZara: We gave the stool to six students at the spring music festival. The main complaint wasn't comfort, which we'd expected. It was that it was hard to fold with one hand.\nKenji: People were usually holding a drink or a bag at the same time.\nProfessor: That's a really valuable finding. It's exactly the kind of thing you'd never discover in the workshop.\nZara: So we're redesigning the folding mechanism. Kenji's working on a spring-loaded catch.\nProfessor: Good. And what about the appearance? You mentioned printing patterns on the seat.\nKenji: We've dropped that idea. The printing process wasn't compatible with the recycled material.\nProfessor: Fair enough. Make sure you document these decisions in your design journal. The examiners want to see your reasoning, not just the final product.\nZara: We will.",
+  "question": "Why was the idea of printed patterns abandoned?",
+  "choices": [
+   "Users did not like the patterns.",
+   "The printing did not work on the material.",
+   "It added too much to the cost."
+  ],
+  "answer": "The printing did not work on the material.",
+  "explanation": "印刷工程が再生素材に対応していなかったため。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-511-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Nadia: So, we've got the feedback from the user testing sessions on our app prototype for the community library. Shall we go through it?\nElliot: Yes. The good news is that everyone found the search function easy to use. That's the part we spent longest on, so I'm relieved.\nNadia: But the reservation process was a real problem. Several older users didn't realise they had to press \"confirm\" at the end, so their books weren't actually reserved.\nElliot: The button was at the bottom of the screen, and they didn't scroll down. We could move it higher up.\nNadia: Or we could remove that step entirely. If someone taps \"reserve\", why ask them to confirm?\nElliot: Because people tap things by accident. Then the library would have to deal with lots of unwanted reservations.\nNadia: Hmm. What if the reservation happens immediately, but there's an \"undo\" option for a few seconds?\nElliot: That's elegant. It keeps the process simple but still lets people correct mistakes. Let's go with that.\nNadia: Next issue: the text size. Some testers found it too small, even though we'd followed the standard guidelines.\nElliot: We could add a setting so users can increase it.\nNadia: Most of them didn't look in the settings, though. I'd rather make the default larger.\nElliot: OK, that's probably more inclusive. What about the colour scheme? The librarian said the pale green was hard to read against white.\nNadia: Yes, the contrast ratio didn't meet accessibility standards. I'll change it to a darker green.\nElliot: Then for the next round of testing, should we use the same participants?\nNadia: Some of them, so we can check the problems are fixed. But we also need new people who haven't seen the app, otherwise they'll already know how it works.\nElliot: Good point. Let's aim for half and half.",
+  "question": "Which part of the app did users find easy?",
+  "choices": [
+   "reserving books",
+   "changing the settings",
+   "searching for books"
+  ],
+  "answer": "searching for books",
+  "explanation": "全員が検索機能を使いやすいと感じた。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-511-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Nadia: So, we've got the feedback from the user testing sessions on our app prototype for the community library. Shall we go through it?\nElliot: Yes. The good news is that everyone found the search function easy to use. That's the part we spent longest on, so I'm relieved.\nNadia: But the reservation process was a real problem. Several older users didn't realise they had to press \"confirm\" at the end, so their books weren't actually reserved.\nElliot: The button was at the bottom of the screen, and they didn't scroll down. We could move it higher up.\nNadia: Or we could remove that step entirely. If someone taps \"reserve\", why ask them to confirm?\nElliot: Because people tap things by accident. Then the library would have to deal with lots of unwanted reservations.\nNadia: Hmm. What if the reservation happens immediately, but there's an \"undo\" option for a few seconds?\nElliot: That's elegant. It keeps the process simple but still lets people correct mistakes. Let's go with that.\nNadia: Next issue: the text size. Some testers found it too small, even though we'd followed the standard guidelines.\nElliot: We could add a setting so users can increase it.\nNadia: Most of them didn't look in the settings, though. I'd rather make the default larger.\nElliot: OK, that's probably more inclusive. What about the colour scheme? The librarian said the pale green was hard to read against white.\nNadia: Yes, the contrast ratio didn't meet accessibility standards. I'll change it to a darker green.\nElliot: Then for the next round of testing, should we use the same participants?\nNadia: Some of them, so we can check the problems are fixed. But we also need new people who haven't seen the app, otherwise they'll already know how it works.\nElliot: Good point. Let's aim for half and half.",
+  "question": "What was the problem with the reservation process?",
+  "choices": [
+   "Users did not see the confirm button.",
+   "Users reserved the wrong books.",
+   "The library did not receive reservations."
+  ],
+  "answer": "Users did not see the confirm button.",
+  "explanation": "ボタンが画面下にあり、スクロールしなかったので confirm を押していなかった。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-511-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Nadia: So, we've got the feedback from the user testing sessions on our app prototype for the community library. Shall we go through it?\nElliot: Yes. The good news is that everyone found the search function easy to use. That's the part we spent longest on, so I'm relieved.\nNadia: But the reservation process was a real problem. Several older users didn't realise they had to press \"confirm\" at the end, so their books weren't actually reserved.\nElliot: The button was at the bottom of the screen, and they didn't scroll down. We could move it higher up.\nNadia: Or we could remove that step entirely. If someone taps \"reserve\", why ask them to confirm?\nElliot: Because people tap things by accident. Then the library would have to deal with lots of unwanted reservations.\nNadia: Hmm. What if the reservation happens immediately, but there's an \"undo\" option for a few seconds?\nElliot: That's elegant. It keeps the process simple but still lets people correct mistakes. Let's go with that.\nNadia: Next issue: the text size. Some testers found it too small, even though we'd followed the standard guidelines.\nElliot: We could add a setting so users can increase it.\nNadia: Most of them didn't look in the settings, though. I'd rather make the default larger.\nElliot: OK, that's probably more inclusive. What about the colour scheme? The librarian said the pale green was hard to read against white.\nNadia: Yes, the contrast ratio didn't meet accessibility standards. I'll change it to a darker green.\nElliot: Then for the next round of testing, should we use the same participants?\nNadia: Some of them, so we can check the problems are fixed. But we also need new people who haven't seen the app, otherwise they'll already know how it works.\nElliot: Good point. Let's aim for half and half.",
+  "question": "What solution do they choose for reservations?",
+  "choices": [
+   "moving the confirm button higher up",
+   "an immediate reservation with a short undo option",
+   "removing the confirmation with no other change"
+  ],
+  "answer": "an immediate reservation with a short undo option",
+  "explanation": "すぐに予約し、数秒間 undo できる方法に決めた。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-511-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Nadia: So, we've got the feedback from the user testing sessions on our app prototype for the community library. Shall we go through it?\nElliot: Yes. The good news is that everyone found the search function easy to use. That's the part we spent longest on, so I'm relieved.\nNadia: But the reservation process was a real problem. Several older users didn't realise they had to press \"confirm\" at the end, so their books weren't actually reserved.\nElliot: The button was at the bottom of the screen, and they didn't scroll down. We could move it higher up.\nNadia: Or we could remove that step entirely. If someone taps \"reserve\", why ask them to confirm?\nElliot: Because people tap things by accident. Then the library would have to deal with lots of unwanted reservations.\nNadia: Hmm. What if the reservation happens immediately, but there's an \"undo\" option for a few seconds?\nElliot: That's elegant. It keeps the process simple but still lets people correct mistakes. Let's go with that.\nNadia: Next issue: the text size. Some testers found it too small, even though we'd followed the standard guidelines.\nElliot: We could add a setting so users can increase it.\nNadia: Most of them didn't look in the settings, though. I'd rather make the default larger.\nElliot: OK, that's probably more inclusive. What about the colour scheme? The librarian said the pale green was hard to read against white.\nNadia: Yes, the contrast ratio didn't meet accessibility standards. I'll change it to a darker green.\nElliot: Then for the next round of testing, should we use the same participants?\nNadia: Some of them, so we can check the problems are fixed. But we also need new people who haven't seen the app, otherwise they'll already know how it works.\nElliot: Good point. Let's aim for half and half.",
+  "question": "Why does Nadia prefer a larger default text size?",
+  "choices": [
+   "The guidelines require it.",
+   "The librarian asked for it.",
+   "Most users did not explore the settings."
+  ],
+  "answer": "Most users did not explore the settings.",
+  "explanation": "ほとんどの人が設定を見なかったので、初期設定を大きくしたほうがよいと考えた。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-511-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Nadia: So, we've got the feedback from the user testing sessions on our app prototype for the community library. Shall we go through it?\nElliot: Yes. The good news is that everyone found the search function easy to use. That's the part we spent longest on, so I'm relieved.\nNadia: But the reservation process was a real problem. Several older users didn't realise they had to press \"confirm\" at the end, so their books weren't actually reserved.\nElliot: The button was at the bottom of the screen, and they didn't scroll down. We could move it higher up.\nNadia: Or we could remove that step entirely. If someone taps \"reserve\", why ask them to confirm?\nElliot: Because people tap things by accident. Then the library would have to deal with lots of unwanted reservations.\nNadia: Hmm. What if the reservation happens immediately, but there's an \"undo\" option for a few seconds?\nElliot: That's elegant. It keeps the process simple but still lets people correct mistakes. Let's go with that.\nNadia: Next issue: the text size. Some testers found it too small, even though we'd followed the standard guidelines.\nElliot: We could add a setting so users can increase it.\nNadia: Most of them didn't look in the settings, though. I'd rather make the default larger.\nElliot: OK, that's probably more inclusive. What about the colour scheme? The librarian said the pale green was hard to read against white.\nNadia: Yes, the contrast ratio didn't meet accessibility standards. I'll change it to a darker green.\nElliot: Then for the next round of testing, should we use the same participants?\nNadia: Some of them, so we can check the problems are fixed. But we also need new people who haven't seen the app, otherwise they'll already know how it works.\nElliot: Good point. Let's aim for half and half.",
+  "question": "Who will take part in the next round of testing?",
+  "choices": [
+   "a mix of previous and new testers",
+   "only the original testers",
+   "only people who have not seen the app"
+  ],
+  "answer": "a mix of previous and new testers",
+  "explanation": "修正確認のための前回の人と、初めての人を半々にする。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-512-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: Right, Sven, Lin and Omar, you're presenting your water-filter prototype at the exhibition next month. How are things going?\nLin: We've built a working model. It's designed for families in rural areas without clean water, so it had to be cheap and easy to repair.\nSven: We're using sand, charcoal and a ceramic layer. The ceramic part was the most difficult, because the first ones we made cracked in the kiln.\nTutor: Did you solve that?\nOmar: Yes. We mixed some sawdust into the clay. When it's fired, the sawdust burns away and leaves tiny holes, which actually helps the water pass through. And the pieces stopped cracking.\nTutor: Nice. How fast does it filter?\nLin: About two litres an hour. Our target was three, so we're a bit below.\nTutor: Is that a problem?\nSven: For drinking water, two litres an hour is enough for a family of four if it runs all day. So we've decided to accept it, rather than make the holes bigger, which might let bacteria through.\nTutor: That's a sensible trade-off. Have you tested the water quality?\nOmar: We sent samples to the chemistry department. Bacteria were reduced by over ninety-nine percent.\nTutor: Impressive. Now, for the exhibition, how will you present it?\nLin: We'll have the prototype on display with a cutaway section so people can see the layers inside.\nOmar: And a short video showing it being used. We wanted to do a live demonstration, but the exhibition hall doesn't allow water near the electrical equipment.\nTutor: That's a pity, but the video will work. Who's speaking to the judges?\nSven: Lin, because she's the best at explaining technical things simply. Omar and I will answer questions.\nTutor: Good. Bring copies of your test results; the judges will want evidence.",
+  "question": "What did adding sawdust to the clay achieve?",
+  "choices": [
+   "It made the filter cheaper to produce.",
+   "It prevented cracking and improved water flow.",
+   "It removed chemicals from the water."
+  ],
+  "answer": "It prevented cracking and improved water flow.",
+  "explanation": "おがくずが燃えて小さな穴ができ、水が通りやすくなり、ひびも入らなくなった。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-512-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: Right, Sven, Lin and Omar, you're presenting your water-filter prototype at the exhibition next month. How are things going?\nLin: We've built a working model. It's designed for families in rural areas without clean water, so it had to be cheap and easy to repair.\nSven: We're using sand, charcoal and a ceramic layer. The ceramic part was the most difficult, because the first ones we made cracked in the kiln.\nTutor: Did you solve that?\nOmar: Yes. We mixed some sawdust into the clay. When it's fired, the sawdust burns away and leaves tiny holes, which actually helps the water pass through. And the pieces stopped cracking.\nTutor: Nice. How fast does it filter?\nLin: About two litres an hour. Our target was three, so we're a bit below.\nTutor: Is that a problem?\nSven: For drinking water, two litres an hour is enough for a family of four if it runs all day. So we've decided to accept it, rather than make the holes bigger, which might let bacteria through.\nTutor: That's a sensible trade-off. Have you tested the water quality?\nOmar: We sent samples to the chemistry department. Bacteria were reduced by over ninety-nine percent.\nTutor: Impressive. Now, for the exhibition, how will you present it?\nLin: We'll have the prototype on display with a cutaway section so people can see the layers inside.\nOmar: And a short video showing it being used. We wanted to do a live demonstration, but the exhibition hall doesn't allow water near the electrical equipment.\nTutor: That's a pity, but the video will work. Who's speaking to the judges?\nSven: Lin, because she's the best at explaining technical things simply. Omar and I will answer questions.\nTutor: Good. Bring copies of your test results; the judges will want evidence.",
+  "question": "Why did the group accept a slower filtering speed?",
+  "choices": [
+   "Their target was unrealistic for the materials.",
+   "The tutor told them speed was not important.",
+   "Larger holes might let bacteria through."
+  ],
+  "answer": "Larger holes might let bacteria through.",
+  "explanation": "穴を大きくすると細菌が通るかもしれないので、速度の不足を受け入れた。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-512-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: Right, Sven, Lin and Omar, you're presenting your water-filter prototype at the exhibition next month. How are things going?\nLin: We've built a working model. It's designed for families in rural areas without clean water, so it had to be cheap and easy to repair.\nSven: We're using sand, charcoal and a ceramic layer. The ceramic part was the most difficult, because the first ones we made cracked in the kiln.\nTutor: Did you solve that?\nOmar: Yes. We mixed some sawdust into the clay. When it's fired, the sawdust burns away and leaves tiny holes, which actually helps the water pass through. And the pieces stopped cracking.\nTutor: Nice. How fast does it filter?\nLin: About two litres an hour. Our target was three, so we're a bit below.\nTutor: Is that a problem?\nSven: For drinking water, two litres an hour is enough for a family of four if it runs all day. So we've decided to accept it, rather than make the holes bigger, which might let bacteria through.\nTutor: That's a sensible trade-off. Have you tested the water quality?\nOmar: We sent samples to the chemistry department. Bacteria were reduced by over ninety-nine percent.\nTutor: Impressive. Now, for the exhibition, how will you present it?\nLin: We'll have the prototype on display with a cutaway section so people can see the layers inside.\nOmar: And a short video showing it being used. We wanted to do a live demonstration, but the exhibition hall doesn't allow water near the electrical equipment.\nTutor: That's a pity, but the video will work. Who's speaking to the judges?\nSven: Lin, because she's the best at explaining technical things simply. Omar and I will answer questions.\nTutor: Good. Bring copies of your test results; the judges will want evidence.",
+  "question": "Who tested the water quality?",
+  "choices": [
+   "the chemistry department",
+   "the students themselves",
+   "a local water company"
+  ],
+  "answer": "the chemistry department",
+  "explanation": "サンプルを化学科に送って調べてもらった。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-512-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: Right, Sven, Lin and Omar, you're presenting your water-filter prototype at the exhibition next month. How are things going?\nLin: We've built a working model. It's designed for families in rural areas without clean water, so it had to be cheap and easy to repair.\nSven: We're using sand, charcoal and a ceramic layer. The ceramic part was the most difficult, because the first ones we made cracked in the kiln.\nTutor: Did you solve that?\nOmar: Yes. We mixed some sawdust into the clay. When it's fired, the sawdust burns away and leaves tiny holes, which actually helps the water pass through. And the pieces stopped cracking.\nTutor: Nice. How fast does it filter?\nLin: About two litres an hour. Our target was three, so we're a bit below.\nTutor: Is that a problem?\nSven: For drinking water, two litres an hour is enough for a family of four if it runs all day. So we've decided to accept it, rather than make the holes bigger, which might let bacteria through.\nTutor: That's a sensible trade-off. Have you tested the water quality?\nOmar: We sent samples to the chemistry department. Bacteria were reduced by over ninety-nine percent.\nTutor: Impressive. Now, for the exhibition, how will you present it?\nLin: We'll have the prototype on display with a cutaway section so people can see the layers inside.\nOmar: And a short video showing it being used. We wanted to do a live demonstration, but the exhibition hall doesn't allow water near the electrical equipment.\nTutor: That's a pity, but the video will work. Who's speaking to the judges?\nSven: Lin, because she's the best at explaining technical things simply. Omar and I will answer questions.\nTutor: Good. Bring copies of your test results; the judges will want evidence.",
+  "question": "Why will there be no live demonstration?",
+  "choices": [
+   "The prototype is too fragile to move.",
+   "Water is not allowed near the electrical equipment.",
+   "There is not enough time during the exhibition."
+  ],
+  "answer": "Water is not allowed near the electrical equipment.",
+  "explanation": "展示ホールでは電気機器の近くに水を置けないため。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-512-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: Right, Sven, Lin and Omar, you're presenting your water-filter prototype at the exhibition next month. How are things going?\nLin: We've built a working model. It's designed for families in rural areas without clean water, so it had to be cheap and easy to repair.\nSven: We're using sand, charcoal and a ceramic layer. The ceramic part was the most difficult, because the first ones we made cracked in the kiln.\nTutor: Did you solve that?\nOmar: Yes. We mixed some sawdust into the clay. When it's fired, the sawdust burns away and leaves tiny holes, which actually helps the water pass through. And the pieces stopped cracking.\nTutor: Nice. How fast does it filter?\nLin: About two litres an hour. Our target was three, so we're a bit below.\nTutor: Is that a problem?\nSven: For drinking water, two litres an hour is enough for a family of four if it runs all day. So we've decided to accept it, rather than make the holes bigger, which might let bacteria through.\nTutor: That's a sensible trade-off. Have you tested the water quality?\nOmar: We sent samples to the chemistry department. Bacteria were reduced by over ninety-nine percent.\nTutor: Impressive. Now, for the exhibition, how will you present it?\nLin: We'll have the prototype on display with a cutaway section so people can see the layers inside.\nOmar: And a short video showing it being used. We wanted to do a live demonstration, but the exhibition hall doesn't allow water near the electrical equipment.\nTutor: That's a pity, but the video will work. Who's speaking to the judges?\nSven: Lin, because she's the best at explaining technical things simply. Omar and I will answer questions.\nTutor: Good. Bring copies of your test results; the judges will want evidence.",
+  "question": "Who will present the project to the judges?",
+  "choices": [
+   "Sven",
+   "Omar",
+   "Lin"
+  ],
+  "answer": "Lin",
+  "explanation": "技術的なことを簡単に説明するのが一番うまい Lin が話し、他の二人は質問に答える。",
+  "tags": "IELTS Listening Part3 design-prototype"
+ },
+ {
+  "id": "IELTS-L3-513-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: OK, Isabel and Dev, your sociology project is about how students use the university library. Let's talk about your survey design.\nIsabel: We've drafted twenty questions. We tested them on five friends last week.\nTutor: What did the pilot show?\nDev: Mainly that it was too long. Most people took about fifteen minutes, and two of them gave up halfway.\nIsabel: So we've cut it to twelve questions. We removed the ones that were basically asking the same thing twice.\nTutor: Good. What about question types?\nDev: Most are multiple choice, but we've kept two open questions at the end, so people can explain their opinions.\nTutor: That's a good balance. Open questions take longer to analyse, but they give you richer data. How will you distribute the survey?\nIsabel: We were going to stand outside the library and ask people to fill it in on paper.\nTutor: What's the problem with that?\nDev: We'd only reach people who already use the library. We also want to know why some students don't go.\nIsabel: So we're going to post an online link in the student union newsletter as well, which goes to everyone.\nTutor: Much better. That avoids bias in your sample. How many responses are you aiming for?\nDev: At least a hundred and fifty. We considered offering a prize to encourage people, like a voucher for the campus café.\nTutor: Be careful. Prizes can attract people who just rush through the questions.\nIsabel: We'll think about it. Maybe we'll just offer to share our results instead.\nTutor: And remember, you need a consent statement at the start, explaining that answers are anonymous.\nDev: Yes, we've written one, but we'll ask you to check it.",
+  "question": "What did the pilot study show about the survey?",
+  "choices": [
+   "It took too long to complete.",
+   "Some questions were difficult to understand.",
+   "It did not have enough open questions."
+  ],
+  "answer": "It took too long to complete.",
+  "explanation": "15分かかり、途中でやめた人もいたので長すぎるとわかった。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-513-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: OK, Isabel and Dev, your sociology project is about how students use the university library. Let's talk about your survey design.\nIsabel: We've drafted twenty questions. We tested them on five friends last week.\nTutor: What did the pilot show?\nDev: Mainly that it was too long. Most people took about fifteen minutes, and two of them gave up halfway.\nIsabel: So we've cut it to twelve questions. We removed the ones that were basically asking the same thing twice.\nTutor: Good. What about question types?\nDev: Most are multiple choice, but we've kept two open questions at the end, so people can explain their opinions.\nTutor: That's a good balance. Open questions take longer to analyse, but they give you richer data. How will you distribute the survey?\nIsabel: We were going to stand outside the library and ask people to fill it in on paper.\nTutor: What's the problem with that?\nDev: We'd only reach people who already use the library. We also want to know why some students don't go.\nIsabel: So we're going to post an online link in the student union newsletter as well, which goes to everyone.\nTutor: Much better. That avoids bias in your sample. How many responses are you aiming for?\nDev: At least a hundred and fifty. We considered offering a prize to encourage people, like a voucher for the campus café.\nTutor: Be careful. Prizes can attract people who just rush through the questions.\nIsabel: We'll think about it. Maybe we'll just offer to share our results instead.\nTutor: And remember, you need a consent statement at the start, explaining that answers are anonymous.\nDev: Yes, we've written one, but we'll ask you to check it.",
+  "question": "How did the students shorten the survey?",
+  "choices": [
+   "by removing all the open questions",
+   "by removing questions that repeated each other",
+   "by combining it with another survey"
+  ],
+  "answer": "by removing questions that repeated each other",
+  "explanation": "同じことを二度聞いている質問を削って12問にした。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-513-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: OK, Isabel and Dev, your sociology project is about how students use the university library. Let's talk about your survey design.\nIsabel: We've drafted twenty questions. We tested them on five friends last week.\nTutor: What did the pilot show?\nDev: Mainly that it was too long. Most people took about fifteen minutes, and two of them gave up halfway.\nIsabel: So we've cut it to twelve questions. We removed the ones that were basically asking the same thing twice.\nTutor: Good. What about question types?\nDev: Most are multiple choice, but we've kept two open questions at the end, so people can explain their opinions.\nTutor: That's a good balance. Open questions take longer to analyse, but they give you richer data. How will you distribute the survey?\nIsabel: We were going to stand outside the library and ask people to fill it in on paper.\nTutor: What's the problem with that?\nDev: We'd only reach people who already use the library. We also want to know why some students don't go.\nIsabel: So we're going to post an online link in the student union newsletter as well, which goes to everyone.\nTutor: Much better. That avoids bias in your sample. How many responses are you aiming for?\nDev: At least a hundred and fifty. We considered offering a prize to encourage people, like a voucher for the campus café.\nTutor: Be careful. Prizes can attract people who just rush through the questions.\nIsabel: We'll think about it. Maybe we'll just offer to share our results instead.\nTutor: And remember, you need a consent statement at the start, explaining that answers are anonymous.\nDev: Yes, we've written one, but we'll ask you to check it.",
+  "question": "Why will they also distribute the survey online?",
+  "choices": [
+   "because paper surveys are too expensive",
+   "because the library would not allow it",
+   "to include students who do not use the library"
+  ],
+  "answer": "to include students who do not use the library",
+  "explanation": "図書館の外で配ると利用者にしか届かず、行かない学生の理由も知りたいから。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-513-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: OK, Isabel and Dev, your sociology project is about how students use the university library. Let's talk about your survey design.\nIsabel: We've drafted twenty questions. We tested them on five friends last week.\nTutor: What did the pilot show?\nDev: Mainly that it was too long. Most people took about fifteen minutes, and two of them gave up halfway.\nIsabel: So we've cut it to twelve questions. We removed the ones that were basically asking the same thing twice.\nTutor: Good. What about question types?\nDev: Most are multiple choice, but we've kept two open questions at the end, so people can explain their opinions.\nTutor: That's a good balance. Open questions take longer to analyse, but they give you richer data. How will you distribute the survey?\nIsabel: We were going to stand outside the library and ask people to fill it in on paper.\nTutor: What's the problem with that?\nDev: We'd only reach people who already use the library. We also want to know why some students don't go.\nIsabel: So we're going to post an online link in the student union newsletter as well, which goes to everyone.\nTutor: Much better. That avoids bias in your sample. How many responses are you aiming for?\nDev: At least a hundred and fifty. We considered offering a prize to encourage people, like a voucher for the campus café.\nTutor: Be careful. Prizes can attract people who just rush through the questions.\nIsabel: We'll think about it. Maybe we'll just offer to share our results instead.\nTutor: And remember, you need a consent statement at the start, explaining that answers are anonymous.\nDev: Yes, we've written one, but we'll ask you to check it.",
+  "question": "What is the tutor's concern about offering a prize?",
+  "choices": [
+   "People may answer carelessly.",
+   "It will be too expensive.",
+   "It is not allowed by the university."
+  ],
+  "answer": "People may answer carelessly.",
+  "explanation": "賞品目当てで急いで答える人が集まるおそれがあると注意している。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-513-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Tutor: OK, Isabel and Dev, your sociology project is about how students use the university library. Let's talk about your survey design.\nIsabel: We've drafted twenty questions. We tested them on five friends last week.\nTutor: What did the pilot show?\nDev: Mainly that it was too long. Most people took about fifteen minutes, and two of them gave up halfway.\nIsabel: So we've cut it to twelve questions. We removed the ones that were basically asking the same thing twice.\nTutor: Good. What about question types?\nDev: Most are multiple choice, but we've kept two open questions at the end, so people can explain their opinions.\nTutor: That's a good balance. Open questions take longer to analyse, but they give you richer data. How will you distribute the survey?\nIsabel: We were going to stand outside the library and ask people to fill it in on paper.\nTutor: What's the problem with that?\nDev: We'd only reach people who already use the library. We also want to know why some students don't go.\nIsabel: So we're going to post an online link in the student union newsletter as well, which goes to everyone.\nTutor: Much better. That avoids bias in your sample. How many responses are you aiming for?\nDev: At least a hundred and fifty. We considered offering a prize to encourage people, like a voucher for the campus café.\nTutor: Be careful. Prizes can attract people who just rush through the questions.\nIsabel: We'll think about it. Maybe we'll just offer to share our results instead.\nTutor: And remember, you need a consent statement at the start, explaining that answers are anonymous.\nDev: Yes, we've written one, but we'll ask you to check it.",
+  "question": "What must appear at the beginning of the survey?",
+  "choices": [
+   "a list of the researchers' names",
+   "a statement about consent and anonymity",
+   "instructions for the open questions"
+  ],
+  "answer": "a statement about consent and anonymity",
+  "explanation": "冒頭に回答が匿名であることを説明する同意文が必要。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-514-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Rosa: So, we need to decide how to collect data for our study on people's attitudes to working from home.\nHiroshi: I'd assumed we'd do an online questionnaire. It's quick, and we can reach lots of people.\nRosa: That was my first thought too, but I've been reading about it. Online surveys tend to over-represent people who are already comfortable with technology, and they're more likely to be the ones who work from home anyway.\nHiroshi: So our results would be skewed. What's the alternative? Phone interviews?\nRosa: Possibly. Or we could combine methods. An online questionnaire for breadth, and then a smaller number of in-depth interviews.\nHiroshi: A mixed-methods approach. That would give us both numbers and explanations. But it doubles the workload.\nRosa: Not necessarily. We could limit the interviews to about eight people, selected from the questionnaire respondents.\nHiroshi: How would we choose them?\nRosa: We'd pick people with different views, some strongly positive, some negative, some neutral. That's called purposive sampling.\nHiroshi: OK, that makes sense. Now, the questionnaire itself. I was going to use a five-point scale for most items, from \"strongly agree\" to \"strongly disagree\".\nRosa: Fine, but I'd remove the middle option. People often choose \"neutral\" just to avoid thinking.\nHiroshi: I'm not sure. Some people genuinely are neutral. If we force them to choose, the data might be less accurate.\nRosa: That's fair. Let's keep the five points, then.\nHiroshi: What about recording the interviews?\nRosa: We'll need written permission from each participant, and we'll have to delete the recordings once they're transcribed.\nHiroshi: I'll draft the permission form, then. You're better at writing interview questions.\nRosa: Deal.",
+  "question": "What problem does Rosa identify with online questionnaires?",
+  "choices": [
+   "They are too expensive to run.",
+   "They produce too little data.",
+   "They may not represent the population fairly."
+  ],
+  "answer": "They may not represent the population fairly.",
+  "explanation": "テクノロジーに慣れた人、つまり在宅勤務の人に偏りやすいと指摘している。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-514-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Rosa: So, we need to decide how to collect data for our study on people's attitudes to working from home.\nHiroshi: I'd assumed we'd do an online questionnaire. It's quick, and we can reach lots of people.\nRosa: That was my first thought too, but I've been reading about it. Online surveys tend to over-represent people who are already comfortable with technology, and they're more likely to be the ones who work from home anyway.\nHiroshi: So our results would be skewed. What's the alternative? Phone interviews?\nRosa: Possibly. Or we could combine methods. An online questionnaire for breadth, and then a smaller number of in-depth interviews.\nHiroshi: A mixed-methods approach. That would give us both numbers and explanations. But it doubles the workload.\nRosa: Not necessarily. We could limit the interviews to about eight people, selected from the questionnaire respondents.\nHiroshi: How would we choose them?\nRosa: We'd pick people with different views, some strongly positive, some negative, some neutral. That's called purposive sampling.\nHiroshi: OK, that makes sense. Now, the questionnaire itself. I was going to use a five-point scale for most items, from \"strongly agree\" to \"strongly disagree\".\nRosa: Fine, but I'd remove the middle option. People often choose \"neutral\" just to avoid thinking.\nHiroshi: I'm not sure. Some people genuinely are neutral. If we force them to choose, the data might be less accurate.\nRosa: That's fair. Let's keep the five points, then.\nHiroshi: What about recording the interviews?\nRosa: We'll need written permission from each participant, and we'll have to delete the recordings once they're transcribed.\nHiroshi: I'll draft the permission form, then. You're better at writing interview questions.\nRosa: Deal.",
+  "question": "Why does Hiroshi initially hesitate about mixed methods?",
+  "choices": [
+   "He thinks it will mean much more work.",
+   "He thinks interviews are unreliable.",
+   "He does not understand purposive sampling."
+  ],
+  "answer": "He thinks it will mean much more work.",
+  "explanation": "混合研究法は作業量が倍になると心配した。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-514-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Rosa: So, we need to decide how to collect data for our study on people's attitudes to working from home.\nHiroshi: I'd assumed we'd do an online questionnaire. It's quick, and we can reach lots of people.\nRosa: That was my first thought too, but I've been reading about it. Online surveys tend to over-represent people who are already comfortable with technology, and they're more likely to be the ones who work from home anyway.\nHiroshi: So our results would be skewed. What's the alternative? Phone interviews?\nRosa: Possibly. Or we could combine methods. An online questionnaire for breadth, and then a smaller number of in-depth interviews.\nHiroshi: A mixed-methods approach. That would give us both numbers and explanations. But it doubles the workload.\nRosa: Not necessarily. We could limit the interviews to about eight people, selected from the questionnaire respondents.\nHiroshi: How would we choose them?\nRosa: We'd pick people with different views, some strongly positive, some negative, some neutral. That's called purposive sampling.\nHiroshi: OK, that makes sense. Now, the questionnaire itself. I was going to use a five-point scale for most items, from \"strongly agree\" to \"strongly disagree\".\nRosa: Fine, but I'd remove the middle option. People often choose \"neutral\" just to avoid thinking.\nHiroshi: I'm not sure. Some people genuinely are neutral. If we force them to choose, the data might be less accurate.\nRosa: That's fair. Let's keep the five points, then.\nHiroshi: What about recording the interviews?\nRosa: We'll need written permission from each participant, and we'll have to delete the recordings once they're transcribed.\nHiroshi: I'll draft the permission form, then. You're better at writing interview questions.\nRosa: Deal.",
+  "question": "How will interview participants be selected?",
+  "choices": [
+   "by choosing people at random",
+   "by choosing people with a range of opinions",
+   "by choosing people who volunteer first"
+  ],
+  "answer": "by choosing people with a range of opinions",
+  "explanation": "賛成・反対・中立など異なる意見の人を選ぶ purposive sampling。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-514-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Rosa: So, we need to decide how to collect data for our study on people's attitudes to working from home.\nHiroshi: I'd assumed we'd do an online questionnaire. It's quick, and we can reach lots of people.\nRosa: That was my first thought too, but I've been reading about it. Online surveys tend to over-represent people who are already comfortable with technology, and they're more likely to be the ones who work from home anyway.\nHiroshi: So our results would be skewed. What's the alternative? Phone interviews?\nRosa: Possibly. Or we could combine methods. An online questionnaire for breadth, and then a smaller number of in-depth interviews.\nHiroshi: A mixed-methods approach. That would give us both numbers and explanations. But it doubles the workload.\nRosa: Not necessarily. We could limit the interviews to about eight people, selected from the questionnaire respondents.\nHiroshi: How would we choose them?\nRosa: We'd pick people with different views, some strongly positive, some negative, some neutral. That's called purposive sampling.\nHiroshi: OK, that makes sense. Now, the questionnaire itself. I was going to use a five-point scale for most items, from \"strongly agree\" to \"strongly disagree\".\nRosa: Fine, but I'd remove the middle option. People often choose \"neutral\" just to avoid thinking.\nHiroshi: I'm not sure. Some people genuinely are neutral. If we force them to choose, the data might be less accurate.\nRosa: That's fair. Let's keep the five points, then.\nHiroshi: What about recording the interviews?\nRosa: We'll need written permission from each participant, and we'll have to delete the recordings once they're transcribed.\nHiroshi: I'll draft the permission form, then. You're better at writing interview questions.\nRosa: Deal.",
+  "question": "What do they finally decide about the rating scale?",
+  "choices": [
+   "to remove the neutral option",
+   "to use a seven-point scale",
+   "to keep the middle option"
+  ],
+  "answer": "to keep the middle option",
+  "explanation": "Rosa は中間を削りたかったが、本当に中立の人もいるという Hiroshi の意見で5段階のままにした。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-514-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "passage": "Rosa: So, we need to decide how to collect data for our study on people's attitudes to working from home.\nHiroshi: I'd assumed we'd do an online questionnaire. It's quick, and we can reach lots of people.\nRosa: That was my first thought too, but I've been reading about it. Online surveys tend to over-represent people who are already comfortable with technology, and they're more likely to be the ones who work from home anyway.\nHiroshi: So our results would be skewed. What's the alternative? Phone interviews?\nRosa: Possibly. Or we could combine methods. An online questionnaire for breadth, and then a smaller number of in-depth interviews.\nHiroshi: A mixed-methods approach. That would give us both numbers and explanations. But it doubles the workload.\nRosa: Not necessarily. We could limit the interviews to about eight people, selected from the questionnaire respondents.\nHiroshi: How would we choose them?\nRosa: We'd pick people with different views, some strongly positive, some negative, some neutral. That's called purposive sampling.\nHiroshi: OK, that makes sense. Now, the questionnaire itself. I was going to use a five-point scale for most items, from \"strongly agree\" to \"strongly disagree\".\nRosa: Fine, but I'd remove the middle option. People often choose \"neutral\" just to avoid thinking.\nHiroshi: I'm not sure. Some people genuinely are neutral. If we force them to choose, the data might be less accurate.\nRosa: That's fair. Let's keep the five points, then.\nHiroshi: What about recording the interviews?\nRosa: We'll need written permission from each participant, and we'll have to delete the recordings once they're transcribed.\nHiroshi: I'll draft the permission form, then. You're better at writing interview questions.\nRosa: Deal.",
+  "question": "What will Hiroshi do next?",
+  "choices": [
+   "write the permission form",
+   "write the interview questions",
+   "transcribe the recordings"
+  ],
+  "answer": "write the permission form",
+  "explanation": "Hiroshi が同意書を作り、インタビューの質問は Rosa が書く。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-515-1",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Thanks for staying behind, Mia, Kaito and Femi. I've read the first draft of your report on the transport survey. There's a lot of good work, but I have some concerns about the methodology.\nMia: Is it the sample size? We only got ninety responses.\nLecturer: Actually, ninety is acceptable for a project of this scale. My main concern is how you selected people. You surveyed people at the bus station.\nKaito: Yes, because we wanted to know about public transport use.\nLecturer: But your research question asks how all residents travel to work. People at a bus station are obviously more likely to use buses.\nFemi: I see. So our finding that sixty percent of people commute by bus is probably too high.\nLecturer: Exactly. You can't change the data now, but you must discuss this limitation clearly in your report.\nMia: Should we collect more data from other places?\nLecturer: If you have time, yes. A supermarket or a library would give you a broader mix. But even then, mention the original bias.\nKaito: We could go to the shopping centre this Saturday.\nLecturer: Good. Another point: some of your questions were leading. For example, \"Don't you think buses are too expensive?\" pushes people towards agreeing.\nFemi: That was my question. I didn't realise.\nLecturer: It's a common mistake. A neutral version would be \"How would you describe bus fares?\" with a range of options.\nMia: We can't change questions we've already asked, though.\nLecturer: No, but use the neutral wording for the new survey, and compare results if you can. That could actually become an interesting part of your discussion.\nKaito: That's a good idea. When is the final deadline?\nLecturer: The 28th. Bring me a revised draft by the 20th if you'd like more feedback.",
+  "question": "What is the lecturer's main concern about the survey?",
+  "choices": [
+   "the number of responses",
+   "the place where people were surveyed",
+   "the length of the questionnaire"
+  ],
+  "answer": "the place where people were surveyed",
+  "explanation": "回答数90は問題なく、主な懸念はバス停で調査した選び方。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-515-2",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Thanks for staying behind, Mia, Kaito and Femi. I've read the first draft of your report on the transport survey. There's a lot of good work, but I have some concerns about the methodology.\nMia: Is it the sample size? We only got ninety responses.\nLecturer: Actually, ninety is acceptable for a project of this scale. My main concern is how you selected people. You surveyed people at the bus station.\nKaito: Yes, because we wanted to know about public transport use.\nLecturer: But your research question asks how all residents travel to work. People at a bus station are obviously more likely to use buses.\nFemi: I see. So our finding that sixty percent of people commute by bus is probably too high.\nLecturer: Exactly. You can't change the data now, but you must discuss this limitation clearly in your report.\nMia: Should we collect more data from other places?\nLecturer: If you have time, yes. A supermarket or a library would give you a broader mix. But even then, mention the original bias.\nKaito: We could go to the shopping centre this Saturday.\nLecturer: Good. Another point: some of your questions were leading. For example, \"Don't you think buses are too expensive?\" pushes people towards agreeing.\nFemi: That was my question. I didn't realise.\nLecturer: It's a common mistake. A neutral version would be \"How would you describe bus fares?\" with a range of options.\nMia: We can't change questions we've already asked, though.\nLecturer: No, but use the neutral wording for the new survey, and compare results if you can. That could actually become an interesting part of your discussion.\nKaito: That's a good idea. When is the final deadline?\nLecturer: The 28th. Bring me a revised draft by the 20th if you'd like more feedback.",
+  "question": "What does Femi realise about the bus commuting figure?",
+  "choices": [
+   "It was calculated incorrectly.",
+   "It is lower than in other cities.",
+   "It is probably higher than the true figure."
+  ],
+  "answer": "It is probably higher than the true figure.",
+  "explanation": "バス停で調査したので、60%という数字は高すぎるだろうと気づいた。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-515-3",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Thanks for staying behind, Mia, Kaito and Femi. I've read the first draft of your report on the transport survey. There's a lot of good work, but I have some concerns about the methodology.\nMia: Is it the sample size? We only got ninety responses.\nLecturer: Actually, ninety is acceptable for a project of this scale. My main concern is how you selected people. You surveyed people at the bus station.\nKaito: Yes, because we wanted to know about public transport use.\nLecturer: But your research question asks how all residents travel to work. People at a bus station are obviously more likely to use buses.\nFemi: I see. So our finding that sixty percent of people commute by bus is probably too high.\nLecturer: Exactly. You can't change the data now, but you must discuss this limitation clearly in your report.\nMia: Should we collect more data from other places?\nLecturer: If you have time, yes. A supermarket or a library would give you a broader mix. But even then, mention the original bias.\nKaito: We could go to the shopping centre this Saturday.\nLecturer: Good. Another point: some of your questions were leading. For example, \"Don't you think buses are too expensive?\" pushes people towards agreeing.\nFemi: That was my question. I didn't realise.\nLecturer: It's a common mistake. A neutral version would be \"How would you describe bus fares?\" with a range of options.\nMia: We can't change questions we've already asked, though.\nLecturer: No, but use the neutral wording for the new survey, and compare results if you can. That could actually become an interesting part of your discussion.\nKaito: That's a good idea. When is the final deadline?\nLecturer: The 28th. Bring me a revised draft by the 20th if you'd like more feedback.",
+  "question": "Where do the students plan to collect more data?",
+  "choices": [
+   "at a shopping centre",
+   "at a library",
+   "at a supermarket"
+  ],
+  "answer": "at a shopping centre",
+  "explanation": "講師はスーパーや図書館を例に挙げたが、学生は土曜にショッピングセンターへ行くと言っている。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-515-4",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Thanks for staying behind, Mia, Kaito and Femi. I've read the first draft of your report on the transport survey. There's a lot of good work, but I have some concerns about the methodology.\nMia: Is it the sample size? We only got ninety responses.\nLecturer: Actually, ninety is acceptable for a project of this scale. My main concern is how you selected people. You surveyed people at the bus station.\nKaito: Yes, because we wanted to know about public transport use.\nLecturer: But your research question asks how all residents travel to work. People at a bus station are obviously more likely to use buses.\nFemi: I see. So our finding that sixty percent of people commute by bus is probably too high.\nLecturer: Exactly. You can't change the data now, but you must discuss this limitation clearly in your report.\nMia: Should we collect more data from other places?\nLecturer: If you have time, yes. A supermarket or a library would give you a broader mix. But even then, mention the original bias.\nKaito: We could go to the shopping centre this Saturday.\nLecturer: Good. Another point: some of your questions were leading. For example, \"Don't you think buses are too expensive?\" pushes people towards agreeing.\nFemi: That was my question. I didn't realise.\nLecturer: It's a common mistake. A neutral version would be \"How would you describe bus fares?\" with a range of options.\nMia: We can't change questions we've already asked, though.\nLecturer: No, but use the neutral wording for the new survey, and compare results if you can. That could actually become an interesting part of your discussion.\nKaito: That's a good idea. When is the final deadline?\nLecturer: The 28th. Bring me a revised draft by the 20th if you'd like more feedback.",
+  "question": "What was wrong with Femi's question about bus fares?",
+  "choices": [
+   "It was too difficult to understand.",
+   "It encouraged a particular answer.",
+   "It had too many answer options."
+  ],
+  "answer": "It encouraged a particular answer.",
+  "explanation": "「高すぎると思いませんか」は同意に誘導する leading question だった。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ },
+ {
+  "id": "IELTS-L3-515-5",
+  "skill": "listening",
+  "format": "Part 3 会話（学術）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "passage": "Lecturer: Thanks for staying behind, Mia, Kaito and Femi. I've read the first draft of your report on the transport survey. There's a lot of good work, but I have some concerns about the methodology.\nMia: Is it the sample size? We only got ninety responses.\nLecturer: Actually, ninety is acceptable for a project of this scale. My main concern is how you selected people. You surveyed people at the bus station.\nKaito: Yes, because we wanted to know about public transport use.\nLecturer: But your research question asks how all residents travel to work. People at a bus station are obviously more likely to use buses.\nFemi: I see. So our finding that sixty percent of people commute by bus is probably too high.\nLecturer: Exactly. You can't change the data now, but you must discuss this limitation clearly in your report.\nMia: Should we collect more data from other places?\nLecturer: If you have time, yes. A supermarket or a library would give you a broader mix. But even then, mention the original bias.\nKaito: We could go to the shopping centre this Saturday.\nLecturer: Good. Another point: some of your questions were leading. For example, \"Don't you think buses are too expensive?\" pushes people towards agreeing.\nFemi: That was my question. I didn't realise.\nLecturer: It's a common mistake. A neutral version would be \"How would you describe bus fares?\" with a range of options.\nMia: We can't change questions we've already asked, though.\nLecturer: No, but use the neutral wording for the new survey, and compare results if you can. That could actually become an interesting part of your discussion.\nKaito: That's a good idea. When is the final deadline?\nLecturer: The 28th. Bring me a revised draft by the 20th if you'd like more feedback.",
+  "question": "What does the lecturer suggest about the new survey?",
+  "choices": [
+   "ask only multiple-choice questions",
+   "survey the same people again",
+   "compare results from the old and new wording"
+  ],
+  "answer": "compare results from the old and new wording",
+  "explanation": "新しい調査では中立的な表現を使い、可能なら結果を比較するよう勧めている。",
+  "tags": "IELTS Listening Part3 survey-methods"
+ }
+]
