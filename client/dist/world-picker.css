@@ -74,3 +74,58 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
 /* 下に まだ 島が つづく ことを 見せる：下の はしを うすく（さいごまで うごかすと 余白で ちゃんと 見える）。 */
 .wm-scroll { -webkit-mask-image: linear-gradient(#000 calc(100% - 52px), transparent); mask-image: linear-gradient(#000 calc(100% - 52px), transparent); padding-bottom: 64px; }
 .wm-badge.prem { left: 10px; background: #fff3c4; color: #7a5200; box-shadow: 0 2px 0 #d9b24a; }
+
+/* おすすめ（大きい 5 まい）と ほかの ワールド（小さい カード）・🎮 あそび／📖 えいご の ほし（2026-11・Roblox の Choose a World と 同じ 形）。 */
+.wm-sechead { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+#rpg-content .wm-section.big { font-size: 28px; color: #1b3a2f; margin-top: 4px; }
+.wm-legend { font-size: 15px; font-weight: 800; color: #6b7d74; margin: 0 6px 10px; }
+.wm-legend .en, .wm-legend .ja { font-style: normal; }
+.wm-rec { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; padding: 18px 6px 22px; }
+.wm-rec .wm-name, .wm-rec .wm-ja { max-width: 100%; overflow-wrap: anywhere; }
+.wm-card.big { min-height: 250px; padding-top: 30px; box-shadow: 0 0 0 7px #ffc93c, 0 12px 26px #1b3a2f2e; overflow: visible; }
+.wm-card.big:hover { box-shadow: 0 0 0 7px #ffc93c, 0 20px 34px #1b3a2f40; }
+.wm-card.big.here { box-shadow: 0 0 0 7px #ffc93c, 0 0 0 12px #fff, 0 14px 30px #1b3a2f33; }
+.wm-rib { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); z-index: 2; white-space: nowrap; font-style: normal; font-size: 15px; font-weight: 900;
+  padding: 5px 16px; border-radius: 99px; background: #ffc93c; color: #7a4a00; box-shadow: 0 3px 0 #d69e12; }
+.wm-rib .en, .wm-rib .ja { font-style: normal; }
+.wm-card.big .wm-icon { font-size: 84px; margin-bottom: 6px; }
+.wm-card.big .wm-name { font-size: 28px; }
+.wm-card.big .wm-ja { font-size: 21px; }
+.wm-card.big .wm-badge.prem { top: 22px; }
+.wm-card.big .wm-badge.here { top: auto; bottom: -15px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.wm-stars { position: relative; display: flex; gap: 10px; justify-content: center; align-items: center; margin: 2px 0 8px; padding: 4px 12px; border-radius: 99px;
+  background: #00000040; font-size: 13px; line-height: 1.2; white-space: nowrap; }
+.wm-stars > span { display: inline-flex; align-items: center; gap: 3px; }
+.wm-stars i { font-style: normal; letter-spacing: .02em; text-shadow: 0 1px 0 #0006; }
+.wm-stars i.p { color: #ffd84a; }
+.wm-stars i.e { color: #7fe0ff; }
+.wm-card.big .wm-stars { font-size: 17px; padding: 6px 16px; }
+.wm-grid.small { grid-template-columns: repeat(auto-fill, minmax(158px, 1fr)); gap: 14px; }
+.wm-grid.small .wm-card { min-height: 168px; border-radius: 24px; padding: 10px 6px 14px; }
+.wm-grid.small .wm-icon { font-size: 50px; margin-bottom: 4px; }
+.wm-grid.small .wm-name { font-size: 18px; -webkit-text-stroke-width: 4px; }
+.wm-grid.small .wm-ja { font-size: 14px; -webkit-text-stroke-width: 3px; }
+.wm-grid.small .wm-stars { font-size: 11px; gap: 6px; padding: 3px 8px; }
+.wm-grid.small .wm-badge { font-size: 11px; padding: 4px 8px; }
+@media (max-width: 1000px) {
+  /* せまい 画面：おすすめは 横に すべらせる 1 れつ（大きさは そのまま）。 */
+  .wm-rec { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 8px 12px; gap: 14px; }
+  .wm-rec .wm-card.big { flex: 0 0 210px; scroll-snap-align: start; min-height: 230px; }
+  .wm-card.big .wm-icon { font-size: 70px; }
+  .wm-card.big .wm-name { font-size: 24px; }
+}
+@media (max-width: 640px), (max-height: 560px) {
+  #rpg-content .wm-section.big { font-size: 22px; }
+  .wm-legend { font-size: 12px; }
+  .wm-rec .wm-card.big { flex-basis: 176px; min-height: 196px; padding-top: 24px; }
+  .wm-card.big .wm-icon { font-size: 54px; }
+  .wm-card.big .wm-name { font-size: 20px; -webkit-text-stroke-width: 4px; }
+  .wm-card.big .wm-ja { font-size: 15px; -webkit-text-stroke-width: 3px; }
+  .wm-card.big .wm-stars { font-size: 13px; padding: 4px 10px; }
+  .wm-rib { font-size: 12px; padding: 4px 12px; top: -14px; }
+  .wm-grid.small { grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 10px; }
+  .wm-grid.small .wm-card { min-height: 140px; }
+  .wm-grid.small .wm-icon { font-size: 40px; }
+  .wm-grid.small .wm-name { font-size: 16px; }
+  .wm-grid.small .wm-ja { font-size: 12px; }
+}

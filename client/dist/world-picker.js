@@ -27,19 +27,33 @@ const title = (r) => {
   return short === short.toUpperCase() ? short.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()) : short;
 };
 
+// おすすめ（大きな カード・上の 1 れつ）。Roblox の Choose a World と 同じ ならび。
+export const RECOMMENDED = ['main', 'homework', 'ride', 'fishworld', 'eiken5'];
+// 🎮 あそび・📖 えいご の ほし（1〜3）。どんな 島かを 子どもに 1 目で つたえる ため（判定には つかわない）。
+const STARS = {
+  main: [2, 3], homework: [1, 3], ride: [3, 2], fishworld: [2, 3], park: [3, 1], errand: [2, 3], school: [1, 3], arena: [3, 2], pet: [3, 1],
+  town: [3, 1], talk: [1, 3], conv: [1, 3], wear: [2, 1], mini: [3, 2], farm: [2, 2], land: [3, 1],
+  eiken5: [1, 3], eiken4: [1, 3], eiken3: [1, 3], eikenp2: [1, 3], eiken2: [1, 3], eikenp1: [1, 3], eiken1: [1, 3],
+};
+const starsOf = (r) => STARS[r.id] || (r.hub ? [2, 2] : [3, 2]);
+const row = (n) => '★'.repeat(n) + '☆'.repeat(3 - n);
+
 export function lookOf(r) { return LOOK[r.id] || ['🏝', hex(r.color ?? 0x5aae78)]; }
 
 // `state`: { current, unlocked(id), cleared(id), count(id) } — どれも rpg.js の store から。
 export function renderWorldPicker(host, { destinations, state, onPick, onClose, onBook }) {
-  const card = (r) => {
+  const card = (r, big = false) => {
     const [icon, color] = lookOf(r);
     const open = state.unlocked(r.id);
     const here = r.id === state.current || (r.id === 'main' && state.current === 'willow');
     const done = !r.hub && open && state.cleared(r.id);
-    const sub = r.id === 'main' ? `${r.yomi || r.name} · はしで U-Speak島へ` : (r.yomi || r.name);
-    return `<button type="button" class="wm-card${open ? '' : ' locked'}${here ? ' here' : ''}" data-world="${esc(r.id)}" style="--wc:${color}"
+    const sub = r.id === 'main' && !big ? `${r.yomi || r.name} · はしで U-Speak島へ` : (r.yomi || r.name);
+    const [play, eng] = starsOf(r);
+    return `<button type="button" class="wm-card${big ? ' big' : ''}${open ? '' : ' locked'}${here ? ' here' : ''}" data-world="${esc(r.id)}" style="--wc:${color}"
         aria-label="${esc(isJa() ? r.name : title(r))}">
+      ${big ? `<em class="wm-rib"><b class="en">★ Pick</b><i class="ja">★ おすすめ</i></em>` : ''}
       <span class="wm-icon" aria-hidden="true">${icon}</span>
+      <span class="wm-stars" aria-label="${isJa() ? `あそび ${play}・えいご ${eng}` : `Play ${play}, English ${eng}`}"><span>🎮<i class="p">${row(play)}</i></span><span>📖<i class="e">${row(eng)}</i></span></span>
       <b class="wm-name">${esc(title(r))}</b>
       <small class="wm-ja" translate="no">${esc(sub)}</small>
       ${here ? `<em class="wm-badge here"><b class="en">📍 You are here</b><i class="ja">📍 いま ここ</i></em>` : ''}
@@ -51,16 +65,21 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
   // U-Speak島（willow）は メインの島と 橋で つながっている（2026-10）。カードは 出さず、メインの島の カードに「橋で U-Speak島へ」。
   const hubs = destinations.filter((d) => d.hub && d.id !== 'willow');
   const regions = destinations.filter((d) => !d.hub);
+  const rec = RECOMMENDED.map((id) => hubs.find((d) => d.id === id)).filter(Boolean);
+  const more = hubs.filter((d) => !RECOMMENDED.includes(d.id));
   host.innerHTML = `<section class="wm">
     <header class="wm-head">
       <h2><b class="en">Choose a World</b><i class="ja">せかいを えらぼう</i></h2>
       <button type="button" class="wm-close" aria-label="とじる" data-t-label="とじる">✕</button>
     </header>
     <div class="wm-scroll">
-      <h3 class="wm-section"><b class="en">🏝 Islands</b><i class="ja">🏝 しま</i></h3>
-      <div class="wm-grid">${hubs.map(card).join('')}</div>
+      <div class="wm-sechead"><h3 class="wm-section big"><b class="en">⭐ Recommended</b><i class="ja">⭐ おすすめ</i></h3>
+        <span class="wm-legend">🎮 <b class="en">Play</b><i class="ja">あそび</i>　📖 <b class="en">English</b><i class="ja">えいご</i></span></div>
+      <div class="wm-rec">${rec.map((r) => card(r, true)).join('')}</div>
+      <h3 class="wm-section"><b class="en">More</b><i class="ja">ほかの ワールド</i></h3>
+      <div class="wm-grid small">${more.map((r) => card(r)).join('')}</div>
       <h3 class="wm-section"><b class="en">⛰ Adventure</b><i class="ja">⛰ ぼうけんの ちいき</i></h3>
-      <div class="wm-grid">${regions.map(card).join('')}</div>
+      <div class="wm-grid small">${regions.map((r) => card(r)).join('')}</div>
       <button type="button" class="wm-book"><b class="en">📖 Creature Book</b><i class="ja">📖 なかま ずかん</i></button>
     </div>
   </section>`;
