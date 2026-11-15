@@ -1,0 +1,722 @@
+[
+  {
+    "id": "TOEIC-L3-001-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Excuse me, I'm looking for a gift for my sister. She loves to cook.\nMan: We have some nice kitchen knives on sale this week. They're over here, next to the cookbooks.\nWoman: Oh, those look good. How much is this set?\nMan: It's usually sixty dollars, but this week it's forty-five.\nWoman: Great. Can you wrap it for me?\nMan: Of course. Gift wrapping is free. Just take it to the counter by the door, and my coworker will help you.",
+    "question": "Where most likely are the speakers?",
+    "choices": [
+      "At a restaurant",
+      "At a kitchen supply store",
+      "At a post office",
+      "At a cooking school"
+    ],
+    "answer": "At a kitchen supply store",
+    "explanation": "包丁の セールや 料理本の 話から 台所用品の 店と わかる。cook からの 連想で 料理学校や レストランを 選ばないこと。",
+    "tags": "TOEIC Part3 場所 推測"
+  },
+  {
+    "id": "TOEIC-L3-001-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Excuse me, I'm looking for a gift for my sister. She loves to cook.\nMan: We have some nice kitchen knives on sale this week. They're over here, next to the cookbooks.\nWoman: Oh, those look good. How much is this set?\nMan: It's usually sixty dollars, but this week it's forty-five.\nWoman: Great. Can you wrap it for me?\nMan: Of course. Gift wrapping is free. Just take it to the counter by the door, and my coworker will help you.",
+    "question": "How much will the woman most likely pay for the knife set?",
+    "choices": [
+      "$60",
+      "$15",
+      "$50",
+      "$45"
+    ],
+    "answer": "$45",
+    "explanation": "通常は 60 ドルだが 今週は 45 ドル。ラッピングは 無料なので 追加料金は ない。",
+    "tags": "TOEIC Part3 詳細 数字"
+  },
+  {
+    "id": "TOEIC-L3-001-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Excuse me, I'm looking for a gift for my sister. She loves to cook.\nMan: We have some nice kitchen knives on sale this week. They're over here, next to the cookbooks.\nWoman: Oh, those look good. How much is this set?\nMan: It's usually sixty dollars, but this week it's forty-five.\nWoman: Great. Can you wrap it for me?\nMan: Of course. Gift wrapping is free. Just take it to the counter by the door, and my coworker will help you.",
+    "question": "What will the woman probably do next?",
+    "choices": [
+      "Go to the counter by the door",
+      "Look at some cookbooks",
+      "Call her sister",
+      "Pay for gift wrapping"
+    ],
+    "answer": "Go to the counter by the door",
+    "explanation": "店員が「ドアの そばの カウンターへ」と 案内している。ラッピングは 無料なので 支払いは 不要。",
+    "tags": "TOEIC Part3 次の行動"
+  },
+  {
+    "id": "TOEIC-L3-002-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Hi, Lin. Is the printer on this floor working? I need to print some handouts for my two o'clock meeting.\nWoman: No, it's broken again. The repair person is coming tomorrow morning.\nMan: Oh, no. I need thirty copies.\nWoman: You can use the printer on the fifth floor. It's next to the elevators.\nMan: Do I need a password for it?\nWoman: No, just use your employee ID card.\nMan: Thanks. I'll go up there now.",
+    "question": "What does the man need to do?",
+    "choices": [
+      "Fix a printer",
+      "Order a new ID card",
+      "Print handouts for a meeting",
+      "Reserve a meeting room"
+    ],
+    "answer": "Print handouts for a meeting",
+    "explanation": "男性は 最初に「2 時の 会議の 配布資料を 印刷したい」と 言っている。",
+    "tags": "TOEIC Part3 目的 詳細"
+  },
+  {
+    "id": "TOEIC-L3-002-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Hi, Lin. Is the printer on this floor working? I need to print some handouts for my two o'clock meeting.\nWoman: No, it's broken again. The repair person is coming tomorrow morning.\nMan: Oh, no. I need thirty copies.\nWoman: You can use the printer on the fifth floor. It's next to the elevators.\nMan: Do I need a password for it?\nWoman: No, just use your employee ID card.\nMan: Thanks. I'll go up there now.",
+    "question": "When will the repair person come?",
+    "choices": [
+      "This afternoon",
+      "At two o'clock",
+      "Tomorrow morning",
+      "Next week"
+    ],
+    "answer": "Tomorrow morning",
+    "explanation": "女性が「修理の 人は 明日の 朝 来る」と 言っている。2 時は 会議の 時刻。",
+    "tags": "TOEIC Part3 詳細 時"
+  },
+  {
+    "id": "TOEIC-L3-002-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Hi, Lin. Is the printer on this floor working? I need to print some handouts for my two o'clock meeting.\nWoman: No, it's broken again. The repair person is coming tomorrow morning.\nMan: Oh, no. I need thirty copies.\nWoman: You can use the printer on the fifth floor. It's next to the elevators.\nMan: Do I need a password for it?\nWoman: No, just use your employee ID card.\nMan: Thanks. I'll go up there now.",
+    "question": "According to the woman, what does the man need to use the printer?",
+    "choices": [
+      "His employee ID card",
+      "A password",
+      "A key from the front desk",
+      "Permission from a manager"
+    ],
+    "answer": "His employee ID card",
+    "explanation": "パスワードは 不要で、社員証を 使えば よいと 言っている。",
+    "tags": "TOEIC Part3 詳細"
+  },
+  {
+    "id": "TOEIC-L3-003-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Hello, Green Garden Restaurant. How can I help you?\nMan: Hi, I'd like to reserve a table for six people this Saturday at seven.\nWoman: I'm sorry, we're fully booked at seven. We have a table at eight thirty.\nMan: Hmm, that's a little late. What about Sunday at seven?\nWoman: Yes, Sunday at seven is available. Can I have your name?\nMan: It's Mateo Rossi. Also, one of my guests doesn't eat meat.\nWoman: No problem. We have several vegetarian dishes on our menu.",
+    "question": "Why is the man calling?",
+    "choices": [
+      "To order food for delivery",
+      "To make a reservation",
+      "To complain about a meal",
+      "To apply for a job"
+    ],
+    "answer": "To make a reservation",
+    "explanation": "冒頭で「6 人で 席を 予約したい」と 言っている。",
+    "tags": "TOEIC Part3 目的"
+  },
+  {
+    "id": "TOEIC-L3-003-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Hello, Green Garden Restaurant. How can I help you?\nMan: Hi, I'd like to reserve a table for six people this Saturday at seven.\nWoman: I'm sorry, we're fully booked at seven. We have a table at eight thirty.\nMan: Hmm, that's a little late. What about Sunday at seven?\nWoman: Yes, Sunday at seven is available. Can I have your name?\nMan: It's Mateo Rossi. Also, one of my guests doesn't eat meat.\nWoman: No problem. We have several vegetarian dishes on our menu.",
+    "question": "When will the man most likely go to the restaurant?",
+    "choices": [
+      "On Saturday at 7:00",
+      "On Saturday at 8:30",
+      "On Sunday at 8:30",
+      "On Sunday at 7:00"
+    ],
+    "answer": "On Sunday at 7:00",
+    "explanation": "土曜 7 時は 満席、8 時半は 遅いと 断り、日曜 7 時で 決まった。",
+    "tags": "TOEIC Part3 詳細 時"
+  },
+  {
+    "id": "TOEIC-L3-003-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Hello, Green Garden Restaurant. How can I help you?\nMan: Hi, I'd like to reserve a table for six people this Saturday at seven.\nWoman: I'm sorry, we're fully booked at seven. We have a table at eight thirty.\nMan: Hmm, that's a little late. What about Sunday at seven?\nWoman: Yes, Sunday at seven is available. Can I have your name?\nMan: It's Mateo Rossi. Also, one of my guests doesn't eat meat.\nWoman: No problem. We have several vegetarian dishes on our menu.",
+    "question": "What does the man say about one of his guests?",
+    "choices": [
+      "The guest will arrive late",
+      "The guest is celebrating a birthday",
+      "The guest needs a parking space",
+      "The guest does not eat meat"
+    ],
+    "answer": "The guest does not eat meat",
+    "explanation": "「客の 1 人は 肉を 食べない」と 伝え、ベジタリアン料理が あると 答えている。",
+    "tags": "TOEIC Part3 詳細 言い換え"
+  },
+  {
+    "id": "TOEIC-L3-004-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Good evening. I have a reservation. My name is Daniel Kwon.\nWoman: Welcome, Mr. Kwon. Yes, a single room for three nights. Could I see your passport, please?\nMan: Here you are. What time is breakfast?\nWoman: From six thirty to ten in the restaurant on the second floor.\nMan: And is there a gym in the hotel?\nWoman: Yes, it's on the top floor. It's open twenty-four hours. Here's your key card. Your room is 815.",
+    "question": "Who most likely is the woman?",
+    "choices": [
+      "A restaurant server",
+      "A fitness instructor",
+      "A hotel receptionist",
+      "A travel agent"
+    ],
+    "answer": "A hotel receptionist",
+    "explanation": "予約確認・パスポート・カードキーの 受け渡しから ホテルの 受付係と わかる。",
+    "tags": "TOEIC Part3 職業 推測"
+  },
+  {
+    "id": "TOEIC-L3-004-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Good evening. I have a reservation. My name is Daniel Kwon.\nWoman: Welcome, Mr. Kwon. Yes, a single room for three nights. Could I see your passport, please?\nMan: Here you are. What time is breakfast?\nWoman: From six thirty to ten in the restaurant on the second floor.\nMan: And is there a gym in the hotel?\nWoman: Yes, it's on the top floor. It's open twenty-four hours. Here's your key card. Your room is 815.",
+    "question": "How long will the man stay at the hotel?",
+    "choices": [
+      "One night",
+      "Three nights",
+      "Two nights",
+      "One week"
+    ],
+    "answer": "Three nights",
+    "explanation": "「シングルルームで 3 泊」と 確認している。",
+    "tags": "TOEIC Part3 詳細 数字"
+  },
+  {
+    "id": "TOEIC-L3-004-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Good evening. I have a reservation. My name is Daniel Kwon.\nWoman: Welcome, Mr. Kwon. Yes, a single room for three nights. Could I see your passport, please?\nMan: Here you are. What time is breakfast?\nWoman: From six thirty to ten in the restaurant on the second floor.\nMan: And is there a gym in the hotel?\nWoman: Yes, it's on the top floor. It's open twenty-four hours. Here's your key card. Your room is 815.",
+    "question": "Where is the gym?",
+    "choices": [
+      "On the top floor",
+      "On the second floor",
+      "Next to the lobby",
+      "In the basement"
+    ],
+    "answer": "On the top floor",
+    "explanation": "ジムは 最上階。2 階は 朝食の レストラン。",
+    "tags": "TOEIC Part3 詳細 場所"
+  },
+  {
+    "id": "TOEIC-L3-005-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Excuse me, does this bus go to the City Museum?\nMan: No, this is the number 12. You need the number 7. It stops right across the street.\nWoman: How often does it come?\nMan: Every fifteen minutes, I think. But on weekends it's only every half hour.\nWoman: Today is Saturday, so I might have to wait a while.\nMan: Or you could walk. The museum is only about twenty minutes from here.\nWoman: That's a good idea. It's a nice day.",
+    "question": "Where does the woman want to go?",
+    "choices": [
+      "To a museum",
+      "To a train station",
+      "To a park",
+      "To a shopping mall"
+    ],
+    "answer": "To a museum",
+    "explanation": "最初に「この バスは 市立博物館に 行くか」と たずねている。",
+    "tags": "TOEIC Part3 目的 場所"
+  },
+  {
+    "id": "TOEIC-L3-005-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Excuse me, does this bus go to the City Museum?\nMan: No, this is the number 12. You need the number 7. It stops right across the street.\nWoman: How often does it come?\nMan: Every fifteen minutes, I think. But on weekends it's only every half hour.\nWoman: Today is Saturday, so I might have to wait a while.\nMan: Or you could walk. The museum is only about twenty minutes from here.\nWoman: That's a good idea. It's a nice day.",
+    "question": "How often does the number 7 bus run on weekends?",
+    "choices": [
+      "Every 15 minutes",
+      "Every 20 minutes",
+      "Every hour",
+      "Every 30 minutes"
+    ],
+    "answer": "Every 30 minutes",
+    "explanation": "平日は 15 分ごと、週末は every half hour（30 分ごと）。20 分は 徒歩の 時間。",
+    "tags": "TOEIC Part3 詳細 数字"
+  },
+  {
+    "id": "TOEIC-L3-005-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Excuse me, does this bus go to the City Museum?\nMan: No, this is the number 12. You need the number 7. It stops right across the street.\nWoman: How often does it come?\nMan: Every fifteen minutes, I think. But on weekends it's only every half hour.\nWoman: Today is Saturday, so I might have to wait a while.\nMan: Or you could walk. The museum is only about twenty minutes from here.\nWoman: That's a good idea. It's a nice day.",
+    "question": "What will the woman most likely do?",
+    "choices": [
+      "Take the number 12 bus",
+      "Call a taxi",
+      "Walk to the museum",
+      "Wait across the street"
+    ],
+    "answer": "Walk to the museum",
+    "explanation": "歩く 提案に「いい 考え、天気も いい」と 答えているので 歩いて 行く。",
+    "tags": "TOEIC Part3 次の行動 推測"
+  },
+  {
+    "id": "TOEIC-L3-006-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Hi, Grace. A few of us are going to the new Thai restaurant for lunch. Do you want to come?\nWoman: I'd love to, but I have a client call at twelve thirty.\nMan: That's too bad. We're leaving at noon, and we'll probably be back by one.\nWoman: Could you bring me something back? Maybe some noodles?\nMan: Sure. Do you want anything to drink, too?\nWoman: No, thanks. I have some tea at my desk. Just the noodles, please. I'll pay you when you get back.",
+    "question": "What does the man invite the woman to do?",
+    "choices": [
+      "Join a client call",
+      "Have lunch at a restaurant",
+      "Visit a new office",
+      "Go shopping"
+    ],
+    "answer": "Have lunch at a restaurant",
+    "explanation": "新しい タイ料理店での 昼食に さそっている。",
+    "tags": "TOEIC Part3 主題"
+  },
+  {
+    "id": "TOEIC-L3-006-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Hi, Grace. A few of us are going to the new Thai restaurant for lunch. Do you want to come?\nWoman: I'd love to, but I have a client call at twelve thirty.\nMan: That's too bad. We're leaving at noon, and we'll probably be back by one.\nWoman: Could you bring me something back? Maybe some noodles?\nMan: Sure. Do you want anything to drink, too?\nWoman: No, thanks. I have some tea at my desk. Just the noodles, please. I'll pay you when you get back.",
+    "question": "Why can't the woman go?",
+    "choices": [
+      "She has a call with a client",
+      "She has already eaten",
+      "She is leaving early",
+      "She does not like Thai food"
+    ],
+    "answer": "She has a call with a client",
+    "explanation": "「12 時半に 顧客との 電話が ある」と 理由を 言っている。",
+    "tags": "TOEIC Part3 詳細 理由"
+  },
+  {
+    "id": "TOEIC-L3-006-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Hi, Grace. A few of us are going to the new Thai restaurant for lunch. Do you want to come?\nWoman: I'd love to, but I have a client call at twelve thirty.\nMan: That's too bad. We're leaving at noon, and we'll probably be back by one.\nWoman: Could you bring me something back? Maybe some noodles?\nMan: Sure. Do you want anything to drink, too?\nWoman: No, thanks. I have some tea at my desk. Just the noodles, please. I'll pay you when you get back.",
+    "question": "What does the woman ask the man to do?",
+    "choices": [
+      "Make a reservation",
+      "Call a client for her",
+      "Lend her some money",
+      "Bring back some food"
+    ],
+    "answer": "Bring back some food",
+    "explanation": "「何か 持って 帰って きて、麺とか」と たのんでいる。お金は 後で 自分が 払う。",
+    "tags": "TOEIC Part3 依頼"
+  },
+  {
+    "id": "TOEIC-L3-007-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "[Schedule] Fitness Classes\nMonday 7:00 p.m. — Yoga\nTuesday 6:30 p.m. — Spinning\nWednesday 7:30 p.m. — Swimming\nFriday 6:00 p.m. — Dance\nWoman: Hi, I'm interested in joining this gym. How much is a membership?\nMan: It's thirty dollars a month. All the classes on this schedule are included.\nWoman: Great. I work late most days, but I'm free on Wednesday evenings.\nMan: Then you could try that class this week. The first class is free for new visitors.\nWoman: Perfect. What do I need to do?\nMan: Just fill out this form and show me some ID.",
+    "question": "What is the woman asking about?",
+    "choices": [
+      "A job opening",
+      "A gym membership",
+      "A lost item",
+      "A swimming competition"
+    ],
+    "answer": "A gym membership",
+    "explanation": "冒頭で ジムの 会員料金を たずねている。",
+    "tags": "TOEIC Part3 図表 主題"
+  },
+  {
+    "id": "TOEIC-L3-007-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "[Schedule] Fitness Classes\nMonday 7:00 p.m. — Yoga\nTuesday 6:30 p.m. — Spinning\nWednesday 7:30 p.m. — Swimming\nFriday 6:00 p.m. — Dance\nWoman: Hi, I'm interested in joining this gym. How much is a membership?\nMan: It's thirty dollars a month. All the classes on this schedule are included.\nWoman: Great. I work late most days, but I'm free on Wednesday evenings.\nMan: Then you could try that class this week. The first class is free for new visitors.\nWoman: Perfect. What do I need to do?\nMan: Just fill out this form and show me some ID.",
+    "question": "Look at the graphic. Which class will the woman most likely try?",
+    "choices": [
+      "Yoga",
+      "Spinning",
+      "Swimming",
+      "Dance"
+    ],
+    "answer": "Swimming",
+    "explanation": "女性は 水曜の 夜が あいている。表で 水曜は Swimming。",
+    "tags": "TOEIC Part3 図表 図表 推測"
+  },
+  {
+    "id": "TOEIC-L3-007-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "[Schedule] Fitness Classes\nMonday 7:00 p.m. — Yoga\nTuesday 6:30 p.m. — Spinning\nWednesday 7:30 p.m. — Swimming\nFriday 6:00 p.m. — Dance\nWoman: Hi, I'm interested in joining this gym. How much is a membership?\nMan: It's thirty dollars a month. All the classes on this schedule are included.\nWoman: Great. I work late most days, but I'm free on Wednesday evenings.\nMan: Then you could try that class this week. The first class is free for new visitors.\nWoman: Perfect. What do I need to do?\nMan: Just fill out this form and show me some ID.",
+    "question": "What does the man ask the woman to do?",
+    "choices": [
+      "Pay for one month",
+      "Come back on Friday",
+      "Fill out a form",
+      "Take a fitness test"
+    ],
+    "answer": "Fill out a form",
+    "explanation": "「この 用紙に 記入して、身分証を 見せて」と 言っている。",
+    "tags": "TOEIC Part3 図表 依頼"
+  },
+  {
+    "id": "TOEIC-L3-008-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Hello, I have a delivery for Pacheco Design. Is this the right office?\nWoman: Yes, it is. What is it?\nMan: Five boxes of paper and some ink cartridges. Where do you want them?\nWoman: Could you put them in the storage room? It's the first door on the left.\nMan: Sure. I also need someone to sign for them.\nWoman: I can sign. Do you have a pen?\nMan: Here you are. Please sign at the bottom.",
+    "question": "Who most likely is the man?",
+    "choices": [
+      "A graphic designer",
+      "A delivery person",
+      "An office manager",
+      "A repair technician"
+    ],
+    "answer": "A delivery person",
+    "explanation": "「Pacheco Design への 配達です」と 言っているので 配達員。",
+    "tags": "TOEIC Part3 職業"
+  },
+  {
+    "id": "TOEIC-L3-008-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Hello, I have a delivery for Pacheco Design. Is this the right office?\nWoman: Yes, it is. What is it?\nMan: Five boxes of paper and some ink cartridges. Where do you want them?\nWoman: Could you put them in the storage room? It's the first door on the left.\nMan: Sure. I also need someone to sign for them.\nWoman: I can sign. Do you have a pen?\nMan: Here you are. Please sign at the bottom.",
+    "question": "Where does the woman want the boxes?",
+    "choices": [
+      "In the storage room",
+      "At the reception desk",
+      "In her office",
+      "Next to the printer"
+    ],
+    "answer": "In the storage room",
+    "explanation": "「左側の 最初の ドアの 倉庫に」と たのんでいる。",
+    "tags": "TOEIC Part3 詳細 場所"
+  },
+  {
+    "id": "TOEIC-L3-008-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Hello, I have a delivery for Pacheco Design. Is this the right office?\nWoman: Yes, it is. What is it?\nMan: Five boxes of paper and some ink cartridges. Where do you want them?\nWoman: Could you put them in the storage room? It's the first door on the left.\nMan: Sure. I also need someone to sign for them.\nWoman: I can sign. Do you have a pen?\nMan: Here you are. Please sign at the bottom.",
+    "question": "What does the man ask the woman to do?",
+    "choices": [
+      "Open the boxes",
+      "Pay for the delivery",
+      "Call her manager",
+      "Sign for the delivery"
+    ],
+    "answer": "Sign for the delivery",
+    "explanation": "受け取りの サインを 求めている。",
+    "tags": "TOEIC Part3 依頼"
+  },
+  {
+    "id": "TOEIC-L3-009-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Hi, Kofi. I've looked over the applications for the graphic designer position. Three candidates look really strong.\nMan: Great. When do you want to interview them?\nWoman: I was thinking Thursday. But you're at the trade fair that day, aren't you?\nMan: Right, I won't be back until Friday afternoon.\nWoman: Then let's do the interviews on Monday morning. I'll ask each candidate to bring a portfolio.\nMan: Good idea. Could you send me their résumés before then? I'd like to review them over the weekend.",
+    "question": "What are the speakers mainly discussing?",
+    "choices": [
+      "Interviewing job candidates",
+      "Planning a trade fair",
+      "Designing a company logo",
+      "Reviewing a budget"
+    ],
+    "answer": "Interviewing job candidates",
+    "explanation": "デザイナー職の 応募者の 面接日程を 話している。trade fair は 一部の 話題。",
+    "tags": "TOEIC Part3 主題"
+  },
+  {
+    "id": "TOEIC-L3-009-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Hi, Kofi. I've looked over the applications for the graphic designer position. Three candidates look really strong.\nMan: Great. When do you want to interview them?\nWoman: I was thinking Thursday. But you're at the trade fair that day, aren't you?\nMan: Right, I won't be back until Friday afternoon.\nWoman: Then let's do the interviews on Monday morning. I'll ask each candidate to bring a portfolio.\nMan: Good idea. Could you send me their résumés before then? I'd like to review them over the weekend.",
+    "question": "Why is Thursday not a good day for the interviews?",
+    "choices": [
+      "The candidates are busy",
+      "The office will be closed",
+      "The man will be at a trade fair",
+      "The woman has a deadline"
+    ],
+    "answer": "The man will be at a trade fair",
+    "explanation": "「その日は 見本市に 行っているよね」と 確認され、男性が 同意している。",
+    "tags": "TOEIC Part3 詳細 理由"
+  },
+  {
+    "id": "TOEIC-L3-009-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Hi, Kofi. I've looked over the applications for the graphic designer position. Three candidates look really strong.\nMan: Great. When do you want to interview them?\nWoman: I was thinking Thursday. But you're at the trade fair that day, aren't you?\nMan: Right, I won't be back until Friday afternoon.\nWoman: Then let's do the interviews on Monday morning. I'll ask each candidate to bring a portfolio.\nMan: Good idea. Could you send me their résumés before then? I'd like to review them over the weekend.",
+    "question": "What does the man ask the woman to do?",
+    "choices": [
+      "Call the candidates",
+      "Book a meeting room",
+      "Create a portfolio",
+      "Send him the résumés"
+    ],
+    "answer": "Send him the résumés",
+    "explanation": "「週末に 見たいので 履歴書を 送って」と たのんでいる。",
+    "tags": "TOEIC Part3 依頼"
+  },
+  {
+    "id": "TOEIC-L3-010-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Facilities, this is Omar speaking.\nWoman: Hi, Omar. This is Sakura Ito on the third floor. The heating in our office isn't working, and it's really cold in here.\nMan: I'm sorry about that. Several offices on your floor have called this morning. We think there's a problem with the main heater.\nWoman: How long will it take to fix?\nMan: A technician is on the way, but it may take a few hours. In the meantime, we have portable heaters in the storage room downstairs. I can bring a couple up.\nWoman: That would be wonderful. Thank you.",
+    "question": "Why is the woman calling?",
+    "choices": [
+      "To order office supplies",
+      "To report a heating problem",
+      "To reserve a storage room",
+      "To schedule a job interview"
+    ],
+    "answer": "To report a heating problem",
+    "explanation": "「暖房が 動かない」と 報告している。",
+    "tags": "TOEIC Part3 目的"
+  },
+  {
+    "id": "TOEIC-L3-010-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Facilities, this is Omar speaking.\nWoman: Hi, Omar. This is Sakura Ito on the third floor. The heating in our office isn't working, and it's really cold in here.\nMan: I'm sorry about that. Several offices on your floor have called this morning. We think there's a problem with the main heater.\nWoman: How long will it take to fix?\nMan: A technician is on the way, but it may take a few hours. In the meantime, we have portable heaters in the storage room downstairs. I can bring a couple up.\nWoman: That would be wonderful. Thank you.",
+    "question": "What does the man say about the problem?",
+    "choices": [
+      "It was fixed yesterday",
+      "Other offices have also reported it",
+      "It affects only the woman's office",
+      "It was caused by an open window"
+    ],
+    "answer": "Other offices have also reported it",
+    "explanation": "「同じ 階の いくつかの オフィスからも 電話が あった」と 言っている。",
+    "tags": "TOEIC Part3 詳細 言い換え"
+  },
+  {
+    "id": "TOEIC-L3-010-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Facilities, this is Omar speaking.\nWoman: Hi, Omar. This is Sakura Ito on the third floor. The heating in our office isn't working, and it's really cold in here.\nMan: I'm sorry about that. Several offices on your floor have called this morning. We think there's a problem with the main heater.\nWoman: How long will it take to fix?\nMan: A technician is on the way, but it may take a few hours. In the meantime, we have portable heaters in the storage room downstairs. I can bring a couple up.\nWoman: That would be wonderful. Thank you.",
+    "question": "What does the man offer to do?",
+    "choices": [
+      "Bring some portable heaters",
+      "Move the woman to another floor",
+      "Send her home early",
+      "Call a technician tomorrow"
+    ],
+    "answer": "Bring some portable heaters",
+    "explanation": "「携帯ヒーターを 2 台 持って いける」と 申し出ている。技術者は すでに 向かっている。",
+    "tags": "TOEIC Part3 申し出"
+  },
+  {
+    "id": "TOEIC-L3-011-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Excuse me, I was supposed to be on the flight to Vancouver, but the board says it's been canceled.\nMan: Yes, I'm afraid there's a mechanical problem with the aircraft. I can put you on our next flight, which leaves at six fifteen this evening.\nWoman: Six fifteen? I have a dinner meeting with clients at seven.\nMan: I understand. There's also a flight with a partner airline at two thirty, but it stops in Calgary.\nWoman: How long is the stop?\nMan: About an hour. You'd still arrive by five.\nWoman: I'll take that one, then.",
+    "question": "Why was the woman's flight canceled?",
+    "choices": [
+      "The weather was bad",
+      "There were not enough staff",
+      "Too few passengers booked it",
+      "There was a mechanical problem"
+    ],
+    "answer": "There was a mechanical problem",
+    "explanation": "「機体の 機械的な 問題」と 説明している。",
+    "tags": "TOEIC Part3 詳細 理由"
+  },
+  {
+    "id": "TOEIC-L3-011-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Excuse me, I was supposed to be on the flight to Vancouver, but the board says it's been canceled.\nMan: Yes, I'm afraid there's a mechanical problem with the aircraft. I can put you on our next flight, which leaves at six fifteen this evening.\nWoman: Six fifteen? I have a dinner meeting with clients at seven.\nMan: I understand. There's also a flight with a partner airline at two thirty, but it stops in Calgary.\nWoman: How long is the stop?\nMan: About an hour. You'd still arrive by five.\nWoman: I'll take that one, then.",
+    "question": "Why does the woman say, \"I have a dinner meeting with clients at seven\"?",
+    "choices": [
+      "To invite the man to dinner",
+      "To ask for a meal voucher",
+      "To explain why the later flight will not work for her",
+      "To confirm her hotel booking"
+    ],
+    "answer": "To explain why the later flight will not work for her",
+    "explanation": "6 時 15 分発では 7 時の 会食に 間に合わない ことを 伝えている。",
+    "tags": "TOEIC Part3 意図問題"
+  },
+  {
+    "id": "TOEIC-L3-011-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Excuse me, I was supposed to be on the flight to Vancouver, but the board says it's been canceled.\nMan: Yes, I'm afraid there's a mechanical problem with the aircraft. I can put you on our next flight, which leaves at six fifteen this evening.\nWoman: Six fifteen? I have a dinner meeting with clients at seven.\nMan: I understand. There's also a flight with a partner airline at two thirty, but it stops in Calgary.\nWoman: How long is the stop?\nMan: About an hour. You'd still arrive by five.\nWoman: I'll take that one, then.",
+    "question": "What will the woman most likely do?",
+    "choices": [
+      "Wait for the 6:15 flight",
+      "Cancel her meeting",
+      "Rent a car",
+      "Take a flight that stops in Calgary"
+    ],
+    "answer": "Take a flight that stops in Calgary",
+    "explanation": "2 時半発（カルガリー経由）の 便に「それに する」と 答えている。",
+    "tags": "TOEIC Part3 次の行動"
+  },
+  {
+    "id": "TOEIC-L3-012-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Priya, Tom, are we ready for tomorrow's presentation to the Hartley Foods team?\nWoman: Almost. I've finished the slides on the market research. Tom, how are the cost estimates coming along?\nMan 2: I'm still waiting for the numbers from the shipping department. They promised to send them by the end of today.\nMan: OK. Let's meet at eight tomorrow to practice once before the clients arrive at ten.\nWoman: Eight is fine. Should I book the small meeting room?\nMan: Yes, please. And could you also order coffee for the client meeting?",
+    "question": "What are the speakers preparing for?",
+    "choices": [
+      "A presentation to clients",
+      "A shipping inspection",
+      "A job interview",
+      "A product launch party"
+    ],
+    "answer": "A presentation to clients",
+    "explanation": "「明日の Hartley Foods への プレゼン」の 準備を している。",
+    "tags": "TOEIC Part3 主題"
+  },
+  {
+    "id": "TOEIC-L3-012-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Priya, Tom, are we ready for tomorrow's presentation to the Hartley Foods team?\nWoman: Almost. I've finished the slides on the market research. Tom, how are the cost estimates coming along?\nMan 2: I'm still waiting for the numbers from the shipping department. They promised to send them by the end of today.\nMan: OK. Let's meet at eight tomorrow to practice once before the clients arrive at ten.\nWoman: Eight is fine. Should I book the small meeting room?\nMan: Yes, please. And could you also order coffee for the client meeting?",
+    "question": "What is Tom waiting for?",
+    "choices": [
+      "Approval from a manager",
+      "Slides from Priya",
+      "Figures from the shipping department",
+      "A reply from the clients"
+    ],
+    "answer": "Figures from the shipping department",
+    "explanation": "「配送部からの 数字を 待っている」と 言っている。numbers→figures の 言い換え。",
+    "tags": "TOEIC Part3 詳細 言い換え"
+  },
+  {
+    "id": "TOEIC-L3-012-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Priya, Tom, are we ready for tomorrow's presentation to the Hartley Foods team?\nWoman: Almost. I've finished the slides on the market research. Tom, how are the cost estimates coming along?\nMan 2: I'm still waiting for the numbers from the shipping department. They promised to send them by the end of today.\nMan: OK. Let's meet at eight tomorrow to practice once before the clients arrive at ten.\nWoman: Eight is fine. Should I book the small meeting room?\nMan: Yes, please. And could you also order coffee for the client meeting?",
+    "question": "What will the woman most likely do?",
+    "choices": [
+      "Call the shipping department",
+      "Reserve a room and order coffee",
+      "Rewrite the market research",
+      "Meet the clients at eight"
+    ],
+    "answer": "Reserve a room and order coffee",
+    "explanation": "会議室の 予約を 申し出て、コーヒーの 注文も たのまれている。",
+    "tags": "TOEIC Part3 次の行動"
+  },
+  {
+    "id": "TOEIC-L3-013-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Hi, I bought this coffee maker here last week, and it's already stopped working.\nMan: I'm sorry to hear that. Do you have your receipt?\nWoman: Yes, here it is.\nMan: Thank you. Would you like a replacement or a refund?\nWoman: Actually, I'd prefer a different model. Do you have anything with a timer?\nMan: We do. The CM-300 has a timer, but it's twenty dollars more than the one you bought.\nWoman: That's fine. I'll pay the difference.",
+    "question": "What problem does the woman mention?",
+    "choices": [
+      "She lost her receipt",
+      "She was charged twice",
+      "Her order has not arrived",
+      "Her coffee maker stopped working"
+    ],
+    "answer": "Her coffee maker stopped working",
+    "explanation": "「先週 買った コーヒーメーカーが もう 動かない」と 言っている。",
+    "tags": "TOEIC Part3 詳細 問題"
+  },
+  {
+    "id": "TOEIC-L3-013-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Hi, I bought this coffee maker here last week, and it's already stopped working.\nMan: I'm sorry to hear that. Do you have your receipt?\nWoman: Yes, here it is.\nMan: Thank you. Would you like a replacement or a refund?\nWoman: Actually, I'd prefer a different model. Do you have anything with a timer?\nMan: We do. The CM-300 has a timer, but it's twenty dollars more than the one you bought.\nWoman: That's fine. I'll pay the difference.",
+    "question": "What does the woman want?",
+    "choices": [
+      "A model with a timer",
+      "A full refund",
+      "A cheaper machine",
+      "A free repair"
+    ],
+    "answer": "A model with a timer",
+    "explanation": "交換や 返金では なく「タイマー付きの 別の 機種」を 希望している。",
+    "tags": "TOEIC Part3 詳細 希望"
+  },
+  {
+    "id": "TOEIC-L3-013-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Hi, I bought this coffee maker here last week, and it's already stopped working.\nMan: I'm sorry to hear that. Do you have your receipt?\nWoman: Yes, here it is.\nMan: Thank you. Would you like a replacement or a refund?\nWoman: Actually, I'd prefer a different model. Do you have anything with a timer?\nMan: We do. The CM-300 has a timer, but it's twenty dollars more than the one you bought.\nWoman: That's fine. I'll pay the difference.",
+    "question": "What does the woman agree to do?",
+    "choices": [
+      "Come back next week",
+      "Fill out a complaint form",
+      "Pay an additional amount",
+      "Buy a warranty"
+    ],
+    "answer": "Pay an additional amount",
+    "explanation": "「差額を 払う」と 言っている。pay the difference＝追加料金を 払う。",
+    "tags": "TOEIC Part3 詳細 言い換え"
+  },
+  {
+    "id": "TOEIC-L3-014-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Have you heard? Our department is moving to the new building on Elm Street next month.\nWoman: Yes, I saw the e-mail. I'm happy about it. The offices there are much bigger.\nMan: True, but it's farther from the train station. It'll take me twenty minutes longer to get to work.\nWoman: The company is starting a shuttle bus from the station, though. It was mentioned at the bottom of the e-mail.\nMan: Really? I must have missed that. That makes things a lot easier.",
+    "question": "What are the speakers mainly discussing?",
+    "choices": [
+      "A new train line",
+      "A department relocation",
+      "A company merger",
+      "A job transfer abroad"
+    ],
+    "answer": "A department relocation",
+    "explanation": "部署が 来月 新しい ビルに 移る 話を している。",
+    "tags": "TOEIC Part3 主題"
+  }
+]

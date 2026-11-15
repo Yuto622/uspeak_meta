@@ -1,0 +1,722 @@
+[
+  {
+    "id": "TOEIC-L3-027-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "[Schedule] Morning Program — Main Hall\n9:00 Opening remarks — Ingrid Solberg\n10:00 Supply chain trends — Marcus Bello\n11:00 Digital payments — Yuna Choi\n1:00 Customer data — Ali Rezaei\nWoman: Andre, I just got a message from Marcus Bello. His train is delayed, and he won't get here until around noon.\nMan: Oh no. His talk is at ten. Is anyone else here who could go earlier?\nWoman: Ali Rezaei arrived a few minutes ago. If he's willing to present at ten, Marcus could take Ali's afternoon slot.\nMan: That's the simplest solution. I'll go find Ali and ask him.\nWoman: Thanks. I'll let the audio-visual technicians know about the change.",
+    "question": "What will the woman do next?",
+    "choices": [
+      "Print new programs",
+      "Call Marcus Bello",
+      "Find Ali Rezaei",
+      "Inform the technicians"
+    ],
+    "answer": "Inform the technicians",
+    "explanation": "「音響映像の 技術者に 変更を 伝える」と 言っている。アリを 探すのは 男性。",
+    "tags": "TOEIC Part3 図表 次の行動"
+  },
+  {
+    "id": "TOEIC-L3-028-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Stefan, building management just sent a notice. They're testing the fire alarms on Wednesday between ten and noon.\nMan: Wednesday? That's when we have the video call with the investors.\nWoman: I know. According to the notice, the alarms will go off several times, for about a minute each.\nMan: We can't have that happening in the middle of the call. Could we reschedule it?\nWoman: The investors are in a different time zone, so the afternoon would be too late for them. How about Wednesday at eight thirty instead?\nMan: That should work. Let's check with them before we confirm anything.",
+    "question": "What is the notice about?",
+    "choices": [
+      "A fire alarm test",
+      "A building renovation",
+      "A power outage",
+      "A new security system"
+    ],
+    "answer": "A fire alarm test",
+    "explanation": "「水曜 10 時〜正午に 火災報知器の テストを する」という 通知。",
+    "tags": "TOEIC Part3 主題"
+  },
+  {
+    "id": "TOEIC-L3-028-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Stefan, building management just sent a notice. They're testing the fire alarms on Wednesday between ten and noon.\nMan: Wednesday? That's when we have the video call with the investors.\nWoman: I know. According to the notice, the alarms will go off several times, for about a minute each.\nMan: We can't have that happening in the middle of the call. Could we reschedule it?\nWoman: The investors are in a different time zone, so the afternoon would be too late for them. How about Wednesday at eight thirty instead?\nMan: That should work. Let's check with them before we confirm anything.",
+    "question": "Why is the man concerned?",
+    "choices": [
+      "He will be away from the office",
+      "The alarms could interrupt an important call",
+      "The investors are visiting in person",
+      "The notice arrived too late"
+    ],
+    "answer": "The alarms could interrupt an important call",
+    "explanation": "投資家との ビデオ通話中に 警報が 鳴る ことを 心配している。",
+    "tags": "TOEIC Part3 推測 懸念"
+  },
+  {
+    "id": "TOEIC-L3-028-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Stefan, building management just sent a notice. They're testing the fire alarms on Wednesday between ten and noon.\nMan: Wednesday? That's when we have the video call with the investors.\nWoman: I know. According to the notice, the alarms will go off several times, for about a minute each.\nMan: We can't have that happening in the middle of the call. Could we reschedule it?\nWoman: The investors are in a different time zone, so the afternoon would be too late for them. How about Wednesday at eight thirty instead?\nMan: That should work. Let's check with them before we confirm anything.",
+    "question": "What does the woman suggest?",
+    "choices": [
+      "Canceling the call",
+      "Using another building",
+      "Holding the call earlier in the day",
+      "Asking management to change the test date"
+    ],
+    "answer": "Holding the call earlier in the day",
+    "explanation": "午後は 時差で 遅すぎるので「水曜 8 時半」を 提案している。",
+    "tags": "TOEIC Part3 提案"
+  },
+  {
+    "id": "TOEIC-L3-029-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: So, what did you think of the two finalists for the project manager role?\nWoman: They're both impressive. Ms. Abara has excellent references, and her presentation was very clear.\nMan: I liked her too. But she's only been in the industry for two years.\nWoman: True, but she managed a team of fifteen at her last job. Mr. Larsen has more experience, but he seemed less interested in the position.\nMan: That's a good point. Why don't we invite Ms. Abara back to meet the department director? Then we can make a final decision.",
+    "question": "What are the speakers discussing?",
+    "choices": [
+      "Planning a presentation",
+      "Writing references",
+      "Organizing a team event",
+      "Choosing a job candidate"
+    ],
+    "answer": "Choosing a job candidate",
+    "explanation": "プロジェクトマネージャー職の 最終候補 2 人に ついて 話している。",
+    "tags": "TOEIC Part3 主題"
+  },
+  {
+    "id": "TOEIC-L3-029-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: So, what did you think of the two finalists for the project manager role?\nWoman: They're both impressive. Ms. Abara has excellent references, and her presentation was very clear.\nMan: I liked her too. But she's only been in the industry for two years.\nWoman: True, but she managed a team of fifteen at her last job. Mr. Larsen has more experience, but he seemed less interested in the position.\nMan: That's a good point. Why don't we invite Ms. Abara back to meet the department director? Then we can make a final decision.",
+    "question": "What does the man imply when he says, \"But she's only been in the industry for two years\"?",
+    "choices": [
+      "He thinks she will learn quickly",
+      "He is concerned about her lack of experience",
+      "He wants to hire her immediately",
+      "He doubts her references"
+    ],
+    "answer": "He is concerned about her lack of experience",
+    "explanation": "直前に ほめた うえで But と 言っており、経験の 短さを 心配している。",
+    "tags": "TOEIC Part3 意図問題"
+  },
+  {
+    "id": "TOEIC-L3-029-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: So, what did you think of the two finalists for the project manager role?\nWoman: They're both impressive. Ms. Abara has excellent references, and her presentation was very clear.\nMan: I liked her too. But she's only been in the industry for two years.\nWoman: True, but she managed a team of fifteen at her last job. Mr. Larsen has more experience, but he seemed less interested in the position.\nMan: That's a good point. Why don't we invite Ms. Abara back to meet the department director? Then we can make a final decision.",
+    "question": "What does the man suggest?",
+    "choices": [
+      "Arranging another meeting with Ms. Abara",
+      "Hiring Mr. Larsen",
+      "Advertising the position again",
+      "Contacting Ms. Abara's references"
+    ],
+    "answer": "Arranging another meeting with Ms. Abara",
+    "explanation": "「部長に 会って もらうため アバラさんを もう 一度 呼ぼう」と 提案している。",
+    "tags": "TOEIC Part3 提案"
+  },
+  {
+    "id": "TOEIC-L3-030-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Raj, any news on the shipment of fabric from Turkey? Our production schedule depends on it.\nMan: Unfortunately, it's being held at customs. Some of the paperwork was incomplete.\nWoman: How long will it take to sort out?\nMan: The shipping agent said two or three days, once they get the missing certificate from the supplier.\nWoman: That's going to put us behind. Do we have enough fabric in the warehouse to keep at least one production line running?\nMan: I believe so. I'll check the inventory and get back to you within the hour.",
+    "question": "What problem are the speakers discussing?",
+    "choices": [
+      "A product was damaged",
+      "An order was canceled",
+      "A shipment is being held up",
+      "Fabric prices have risen"
+    ],
+    "answer": "A shipment is being held up",
+    "explanation": "生地の 荷物が 税関で 止まっている。",
+    "tags": "TOEIC Part3 主題 言い換え"
+  },
+  {
+    "id": "TOEIC-L3-030-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Raj, any news on the shipment of fabric from Turkey? Our production schedule depends on it.\nMan: Unfortunately, it's being held at customs. Some of the paperwork was incomplete.\nWoman: How long will it take to sort out?\nMan: The shipping agent said two or three days, once they get the missing certificate from the supplier.\nWoman: That's going to put us behind. Do we have enough fabric in the warehouse to keep at least one production line running?\nMan: I believe so. I'll check the inventory and get back to you within the hour.",
+    "question": "What caused the problem?",
+    "choices": [
+      "Bad weather",
+      "Some documents were incomplete",
+      "A labor strike",
+      "A factory closure"
+    ],
+    "answer": "Some documents were incomplete",
+    "explanation": "「書類の 一部が 不備だった」と 言っている。paperwork→documents の 言い換え。",
+    "tags": "TOEIC Part3 詳細 理由"
+  },
+  {
+    "id": "TOEIC-L3-030-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Raj, any news on the shipment of fabric from Turkey? Our production schedule depends on it.\nMan: Unfortunately, it's being held at customs. Some of the paperwork was incomplete.\nWoman: How long will it take to sort out?\nMan: The shipping agent said two or three days, once they get the missing certificate from the supplier.\nWoman: That's going to put us behind. Do we have enough fabric in the warehouse to keep at least one production line running?\nMan: I believe so. I'll check the inventory and get back to you within the hour.",
+    "question": "What will the man do next?",
+    "choices": [
+      "Check the inventory",
+      "Call the supplier in Turkey",
+      "Stop all production lines",
+      "Visit the customs office"
+    ],
+    "answer": "Check the inventory",
+    "explanation": "「在庫を 確認して 1 時間以内に 連絡する」と 言っている。",
+    "tags": "TOEIC Part3 次の行動"
+  },
+  {
+    "id": "TOEIC-L3-031-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "[Schedule] Saturday Opening Shifts — June\nJune 3 — Kimura\nJune 10 — Ndlovu\nJune 17 — Petrov\nJune 24 — Alvarez\nMan: Hi, Carmen. I just realized I'm scheduled to open the store on the seventeenth, but that's the day of my sister's wedding.\nWoman: Oh, congratulations to her! Have you asked anyone to switch with you?\nMan: I asked Kimura, but she's going to be on vacation that week.\nWoman: What about the person who's opening on the twenty-fourth? He told me he wanted more hours this month.\nMan: Great, I'll ask him. If he agrees, I'll take his shift instead.\nWoman: Just remember to update the schedule on the staff portal.",
+    "question": "Why can't the man work on June 17?",
+    "choices": [
+      "He will be on vacation",
+      "He has a medical appointment",
+      "He is moving to a new home",
+      "He is attending a wedding"
+    ],
+    "answer": "He is attending a wedding",
+    "explanation": "「その日は 姉（妹）の 結婚式」と 言っている。休暇は キムラ。",
+    "tags": "TOEIC Part3 図表 詳細 理由"
+  },
+  {
+    "id": "TOEIC-L3-031-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "[Schedule] Saturday Opening Shifts — June\nJune 3 — Kimura\nJune 10 — Ndlovu\nJune 17 — Petrov\nJune 24 — Alvarez\nMan: Hi, Carmen. I just realized I'm scheduled to open the store on the seventeenth, but that's the day of my sister's wedding.\nWoman: Oh, congratulations to her! Have you asked anyone to switch with you?\nMan: I asked Kimura, but she's going to be on vacation that week.\nWoman: What about the person who's opening on the twenty-fourth? He told me he wanted more hours this month.\nMan: Great, I'll ask him. If he agrees, I'll take his shift instead.\nWoman: Just remember to update the schedule on the staff portal.",
+    "question": "Look at the graphic. Who will the man ask to switch shifts?",
+    "choices": [
+      "Kimura",
+      "Ndlovu",
+      "Alvarez",
+      "Petrov"
+    ],
+    "answer": "Alvarez",
+    "explanation": "「24 日に 開店担当の 人」に 頼む。表で 6 月 24 日は Alvarez。",
+    "tags": "TOEIC Part3 図表 図表"
+  },
+  {
+    "id": "TOEIC-L3-031-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "[Schedule] Saturday Opening Shifts — June\nJune 3 — Kimura\nJune 10 — Ndlovu\nJune 17 — Petrov\nJune 24 — Alvarez\nMan: Hi, Carmen. I just realized I'm scheduled to open the store on the seventeenth, but that's the day of my sister's wedding.\nWoman: Oh, congratulations to her! Have you asked anyone to switch with you?\nMan: I asked Kimura, but she's going to be on vacation that week.\nWoman: What about the person who's opening on the twenty-fourth? He told me he wanted more hours this month.\nMan: Great, I'll ask him. If he agrees, I'll take his shift instead.\nWoman: Just remember to update the schedule on the staff portal.",
+    "question": "What does the woman remind the man to do?",
+    "choices": [
+      "Call his sister",
+      "Work extra hours",
+      "Talk to a manager",
+      "Update an online schedule"
+    ],
+    "answer": "Update an online schedule",
+    "explanation": "「スタッフポータルの シフト表を 更新して」と 念を 押している。",
+    "tags": "TOEIC Part3 図表 依頼"
+  },
+  {
+    "id": "TOEIC-L3-032-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: As you know, we're switching to the new accounting software on the first of next month.\nWoman: Will there be any training? Most of my team has never used it.\nMan: Yes, the vendor is running two online sessions next week. They'll be recorded, too.\nMan 2: I'm more worried about the data transfer. We have ten years of records in the old system.\nMan: The vendor's IT team will handle the migration over the weekend before the switch. And we'll keep the old system available, read-only, for three months, just in case.\nWoman: That's reassuring.",
+    "question": "What is the main topic of the conversation?",
+    "choices": [
+      "Hiring an accountant",
+      "Introducing new software",
+      "Reducing training costs",
+      "Moving to a new office"
+    ],
+    "answer": "Introducing new software",
+    "explanation": "来月 新しい 会計ソフトに 切り替える 話。",
+    "tags": "TOEIC Part3 主題"
+  },
+  {
+    "id": "TOEIC-L3-032-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: As you know, we're switching to the new accounting software on the first of next month.\nWoman: Will there be any training? Most of my team has never used it.\nMan: Yes, the vendor is running two online sessions next week. They'll be recorded, too.\nMan 2: I'm more worried about the data transfer. We have ten years of records in the old system.\nMan: The vendor's IT team will handle the migration over the weekend before the switch. And we'll keep the old system available, read-only, for three months, just in case.\nWoman: That's reassuring.",
+    "question": "What is Man 2 concerned about?",
+    "choices": [
+      "Transferring old records",
+      "The cost of the software",
+      "The training schedule",
+      "Working on the weekend"
+    ],
+    "answer": "Transferring old records",
+    "explanation": "「古い システムに 10 年分の 記録が ある」ので データ移行を 心配している。",
+    "tags": "TOEIC Part3 詳細 懸念"
+  },
+  {
+    "id": "TOEIC-L3-032-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: As you know, we're switching to the new accounting software on the first of next month.\nWoman: Will there be any training? Most of my team has never used it.\nMan: Yes, the vendor is running two online sessions next week. They'll be recorded, too.\nMan 2: I'm more worried about the data transfer. We have ten years of records in the old system.\nMan: The vendor's IT team will handle the migration over the weekend before the switch. And we'll keep the old system available, read-only, for three months, just in case.\nWoman: That's reassuring.",
+    "question": "What does the woman mean when she says, \"That's reassuring\"?",
+    "choices": [
+      "She wants more information",
+      "She disagrees with the plan",
+      "She feels less worried about the change",
+      "She plans to skip the training"
+    ],
+    "answer": "She feels less worried about the change",
+    "explanation": "移行と 旧システム保持の 説明を 聞いて 安心した、という 意味。",
+    "tags": "TOEIC Part3 意図問題"
+  },
+  {
+    "id": "TOEIC-L3-033-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Jae-won, the price of salmon has gone up again. It's now twenty percent higher than it was in the spring.\nMan: That's going to hurt. The grilled salmon is one of our best-selling dishes.\nWoman: We could raise the menu price, but customers might complain.\nMan: Or we could switch to trout. It tastes similar, and our supplier says the price has been stable.\nWoman: Let's try it as a weekly special first and see what customers think.\nMan: Good idea. I'll talk to the chef about a recipe this afternoon.",
+    "question": "Where do the speakers most likely work?",
+    "choices": [
+      "At a restaurant",
+      "At a fish market",
+      "At a farm",
+      "At a grocery store"
+    ],
+    "answer": "At a restaurant",
+    "explanation": "「人気料理」「メニュー価格」「シェフ」から レストランと わかる。",
+    "tags": "TOEIC Part3 場所 推測"
+  },
+  {
+    "id": "TOEIC-L3-033-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Jae-won, the price of salmon has gone up again. It's now twenty percent higher than it was in the spring.\nMan: That's going to hurt. The grilled salmon is one of our best-selling dishes.\nWoman: We could raise the menu price, but customers might complain.\nMan: Or we could switch to trout. It tastes similar, and our supplier says the price has been stable.\nWoman: Let's try it as a weekly special first and see what customers think.\nMan: Good idea. I'll talk to the chef about a recipe this afternoon.",
+    "question": "What problem does the woman mention?",
+    "choices": [
+      "A supplier has gone out of business",
+      "An ingredient has become more expensive",
+      "A chef has quit",
+      "Customers have complained about a dish"
+    ],
+    "answer": "An ingredient has become more expensive",
+    "explanation": "サーモンの 値段が 春より 20% 上がった。",
+    "tags": "TOEIC Part3 詳細 問題"
+  },
+  {
+    "id": "TOEIC-L3-033-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Jae-won, the price of salmon has gone up again. It's now twenty percent higher than it was in the spring.\nMan: That's going to hurt. The grilled salmon is one of our best-selling dishes.\nWoman: We could raise the menu price, but customers might complain.\nMan: Or we could switch to trout. It tastes similar, and our supplier says the price has been stable.\nWoman: Let's try it as a weekly special first and see what customers think.\nMan: Good idea. I'll talk to the chef about a recipe this afternoon.",
+    "question": "What will the man do this afternoon?",
+    "choices": [
+      "Raise menu prices",
+      "Contact a new supplier",
+      "Survey customers",
+      "Speak with the chef"
+    ],
+    "answer": "Speak with the chef",
+    "explanation": "「午後 シェフと レシピに ついて 話す」と 言っている。",
+    "tags": "TOEIC Part3 次の行動"
+  },
+  {
+    "id": "TOEIC-L3-034-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: We've looked at three office spaces so far. Which one do you think suits us best?\nWoman: The one on Harbor Street has a great view, but the rent is well above our budget.\nMan: Agreed. What about the building near the university?\nWoman: It's affordable, and it's close to public transportation, which matters since half our staff doesn't drive. But it needs a lot of work.\nMan: The agent said the landlord would pay for new carpets and paint if we sign a five-year lease.\nWoman: Five years is a long commitment. Let's see if they'd accept three.",
+    "question": "What are the speakers trying to do?",
+    "choices": [
+      "Sell a building",
+      "Hire a real estate agent",
+      "Choose a new office",
+      "Recruit university students"
+    ],
+    "answer": "Choose a new office",
+    "explanation": "見学した 3 つの オフィスから どれを 選ぶか 話している。",
+    "tags": "TOEIC Part3 主題"
+  },
+  {
+    "id": "TOEIC-L3-034-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: We've looked at three office spaces so far. Which one do you think suits us best?\nWoman: The one on Harbor Street has a great view, but the rent is well above our budget.\nMan: Agreed. What about the building near the university?\nWoman: It's affordable, and it's close to public transportation, which matters since half our staff doesn't drive. But it needs a lot of work.\nMan: The agent said the landlord would pay for new carpets and paint if we sign a five-year lease.\nWoman: Five years is a long commitment. Let's see if they'd accept three.",
+    "question": "Why does the woman like the building near the university?",
+    "choices": [
+      "It has a great view",
+      "It was recently renovated",
+      "It is close to public transportation",
+      "It has a large parking lot"
+    ],
+    "answer": "It is close to public transportation",
+    "explanation": "「手ごろで 公共交通機関に 近い」と 言っている。眺めは Harbor Street の 物件。",
+    "tags": "TOEIC Part3 詳細 理由"
+  },
+  {
+    "id": "TOEIC-L3-034-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: We've looked at three office spaces so far. Which one do you think suits us best?\nWoman: The one on Harbor Street has a great view, but the rent is well above our budget.\nMan: Agreed. What about the building near the university?\nWoman: It's affordable, and it's close to public transportation, which matters since half our staff doesn't drive. But it needs a lot of work.\nMan: The agent said the landlord would pay for new carpets and paint if we sign a five-year lease.\nWoman: Five years is a long commitment. Let's see if they'd accept three.",
+    "question": "What does the woman want to do?",
+    "choices": [
+      "Visit more buildings",
+      "Negotiate a shorter lease",
+      "Pay for new carpets",
+      "Sign the lease immediately"
+    ],
+    "answer": "Negotiate a shorter lease",
+    "explanation": "「5 年は 長い。3 年で 受けて くれるか 聞こう」と 言っている。",
+    "tags": "TOEIC Part3 次の行動 推測"
+  },
+  {
+    "id": "TOEIC-L3-035-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "[Schedule] Elevator Maintenance — Week of May 8\nMonday — Elevator A\nTuesday — Elevator B\nWednesday — Freight elevator\nThursday — Elevator C\nWoman: Arjun, the furniture for the new conference room is arriving this week. We'll need to get the tables up to the ninth floor.\nMan: We'll have to use the freight elevator. The tables won't fit in the regular ones.\nWoman: When is the delivery?\nMan: Well, that's the problem. I just checked the maintenance schedule, and the furniture company picked the same day the freight elevator is being serviced.\nWoman: Then we'll have to change the delivery. Can you ask them to come the following day instead?\nMan: Sure. I'll call them right away.",
+    "question": "What is being delivered?",
+    "choices": [
+      "Elevator parts",
+      "Office supplies",
+      "Computers",
+      "Furniture"
+    ],
+    "answer": "Furniture",
+    "explanation": "新しい 会議室用の 家具（テーブル）が 届く。",
+    "tags": "TOEIC Part3 図表 詳細"
+  },
+  {
+    "id": "TOEIC-L3-035-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "[Schedule] Elevator Maintenance — Week of May 8\nMonday — Elevator A\nTuesday — Elevator B\nWednesday — Freight elevator\nThursday — Elevator C\nWoman: Arjun, the furniture for the new conference room is arriving this week. We'll need to get the tables up to the ninth floor.\nMan: We'll have to use the freight elevator. The tables won't fit in the regular ones.\nWoman: When is the delivery?\nMan: Well, that's the problem. I just checked the maintenance schedule, and the furniture company picked the same day the freight elevator is being serviced.\nWoman: Then we'll have to change the delivery. Can you ask them to come the following day instead?\nMan: Sure. I'll call them right away.",
+    "question": "Look at the graphic. On which day was the delivery originally scheduled?",
+    "choices": [
+      "Wednesday",
+      "Monday",
+      "Tuesday",
+      "Thursday"
+    ],
+    "answer": "Wednesday",
+    "explanation": "配達日は 貨物用エレベーターの 点検日と 重なっている。表で 貨物用は 水曜。",
+    "tags": "TOEIC Part3 図表 図表 推測"
+  },
+  {
+    "id": "TOEIC-L3-035-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "[Schedule] Elevator Maintenance — Week of May 8\nMonday — Elevator A\nTuesday — Elevator B\nWednesday — Freight elevator\nThursday — Elevator C\nWoman: Arjun, the furniture for the new conference room is arriving this week. We'll need to get the tables up to the ninth floor.\nMan: We'll have to use the freight elevator. The tables won't fit in the regular ones.\nWoman: When is the delivery?\nMan: Well, that's the problem. I just checked the maintenance schedule, and the furniture company picked the same day the freight elevator is being serviced.\nWoman: Then we'll have to change the delivery. Can you ask them to come the following day instead?\nMan: Sure. I'll call them right away.",
+    "question": "What does the woman ask the man to do?",
+    "choices": [
+      "Repair the elevator",
+      "Reschedule the delivery",
+      "Carry the tables up the stairs",
+      "Order smaller tables"
+    ],
+    "answer": "Reschedule the delivery",
+    "explanation": "「翌日に 来て もらうよう 頼んで」と 配達日の 変更を 依頼している。",
+    "tags": "TOEIC Part3 図表 依頼"
+  },
+  {
+    "id": "TOEIC-L3-036-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Excuse me, I checked in about an hour ago, and the air conditioning in my room isn't working. It's room 1207.\nWoman: I'm very sorry, sir. Let me call our maintenance team. ... Hi, Diego, could you take a look at the air conditioning in 1207?\nMan 2: I'm in the middle of another repair right now. It'll be at least forty-five minutes.\nWoman: Sir, rather than make you wait, I can move you to a suite on the fourteenth floor at no extra charge.\nMan: That's very kind of you. I'll go get my bags.",
+    "question": "Where does the conversation most likely take place?",
+    "choices": [
+      "At a hotel",
+      "At an appliance store",
+      "At an apartment building",
+      "At an airport"
+    ],
+    "answer": "At a hotel",
+    "explanation": "チェックイン・部屋番号・スイートへの 移動から ホテルと わかる。",
+    "tags": "TOEIC Part3 場所"
+  },
+  {
+    "id": "TOEIC-L3-036-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Excuse me, I checked in about an hour ago, and the air conditioning in my room isn't working. It's room 1207.\nWoman: I'm very sorry, sir. Let me call our maintenance team. ... Hi, Diego, could you take a look at the air conditioning in 1207?\nMan 2: I'm in the middle of another repair right now. It'll be at least forty-five minutes.\nWoman: Sir, rather than make you wait, I can move you to a suite on the fourteenth floor at no extra charge.\nMan: That's very kind of you. I'll go get my bags.",
+    "question": "Why can't Diego help right away?",
+    "choices": [
+      "He is on a break",
+      "He needs a replacement part",
+      "He has finished work for the day",
+      "He is working on another repair"
+    ],
+    "answer": "He is working on another repair",
+    "explanation": "「今 別の 修理の 途中」と 言っている。",
+    "tags": "TOEIC Part3 詳細 理由"
+  },
+  {
+    "id": "TOEIC-L3-036-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Excuse me, I checked in about an hour ago, and the air conditioning in my room isn't working. It's room 1207.\nWoman: I'm very sorry, sir. Let me call our maintenance team. ... Hi, Diego, could you take a look at the air conditioning in 1207?\nMan 2: I'm in the middle of another repair right now. It'll be at least forty-five minutes.\nWoman: Sir, rather than make you wait, I can move you to a suite on the fourteenth floor at no extra charge.\nMan: That's very kind of you. I'll go get my bags.",
+    "question": "What does the woman offer the man?",
+    "choices": [
+      "A discount on his bill",
+      "A complimentary meal",
+      "A free room upgrade",
+      "A late checkout"
+    ],
+    "answer": "A free room upgrade",
+    "explanation": "追加料金 なしで スイートに 移れると 申し出ている。",
+    "tags": "TOEIC Part3 申し出 言い換え"
+  },
+  {
+    "id": "TOEIC-L3-037-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: The numbers from the pilot stores in Lisbon look promising. Sales have exceeded our projections by about fifteen percent.\nMan: That's encouraging. Are you suggesting we open more locations there next year?\nWoman: That was my thinking. Momentum like this doesn't last forever.\nMan: I'd hold off on that. The pilot has only been running for four months, and part of the increase came from the opening promotion. I'd want to see at least two more quarters of data.\nWoman: Fair enough. Although if a competitor moves in first, we could lose our advantage.\nMan: Then let's commission a market analysis now, so we're ready to act quickly once the data is in.",
+    "question": "What are the speakers mainly discussing?",
+    "choices": [
+      "How to reduce operating costs",
+      "Whether to expand into a new market",
+      "Why a promotion failed",
+      "Who should manage the Lisbon stores"
+    ],
+    "answer": "Whether to expand into a new market",
+    "explanation": "リスボンの 試験店舗の 結果を 受けて 出店を 増やすか 話している。",
+    "tags": "TOEIC Part3 主題"
+  },
+  {
+    "id": "TOEIC-L3-037-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: The numbers from the pilot stores in Lisbon look promising. Sales have exceeded our projections by about fifteen percent.\nMan: That's encouraging. Are you suggesting we open more locations there next year?\nWoman: That was my thinking. Momentum like this doesn't last forever.\nMan: I'd hold off on that. The pilot has only been running for four months, and part of the increase came from the opening promotion. I'd want to see at least two more quarters of data.\nWoman: Fair enough. Although if a competitor moves in first, we could lose our advantage.\nMan: Then let's commission a market analysis now, so we're ready to act quickly once the data is in.",
+    "question": "What does the man mean when he says, \"I'd hold off on that\"?",
+    "choices": [
+      "He thinks it is too early to expand",
+      "He wants to end the pilot program",
+      "He agrees to open stores immediately",
+      "He wants to lower prices"
+    ],
+    "answer": "He thinks it is too early to expand",
+    "explanation": "hold off＝先送りする。データが まだ 4 か月分なので 拡大は 時期尚早と 考えている。",
+    "tags": "TOEIC Part3 意図問題 イディオム"
+  },
+  {
+    "id": "TOEIC-L3-037-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: The numbers from the pilot stores in Lisbon look promising. Sales have exceeded our projections by about fifteen percent.\nMan: That's encouraging. Are you suggesting we open more locations there next year?\nWoman: That was my thinking. Momentum like this doesn't last forever.\nMan: I'd hold off on that. The pilot has only been running for four months, and part of the increase came from the opening promotion. I'd want to see at least two more quarters of data.\nWoman: Fair enough. Although if a competitor moves in first, we could lose our advantage.\nMan: Then let's commission a market analysis now, so we're ready to act quickly once the data is in.",
+    "question": "What does the man propose?",
+    "choices": [
+      "Ending the opening promotion",
+      "Closing the pilot stores",
+      "Commissioning a market analysis",
+      "Visiting Lisbon next week"
+    ],
+    "answer": "Commissioning a market analysis",
+    "explanation": "「今 市場分析を 依頼して おこう」と 提案している。",
+    "tags": "TOEIC Part3 提案"
+  },
+  {
+    "id": "TOEIC-L3-038-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Man: Have you had a chance to look at the new data protection regulations? They take effect in January.\nWoman: I skimmed them. The biggest change for us is that customers will have to explicitly agree before we store their purchase history.\nMan: Right, and our current sign-up form doesn't ask for that. Legal estimates that around a third of our customer records could be affected.\nWoman: That's significant for our recommendation feature. Could we ask existing customers for consent through an e-mail campaign?\nMan: Possibly, but response rates for those tend to be low. It might be more effective to request consent the next time they log in.\nWoman: Let's raise both options with the product team on Monday.",
+    "question": "What are the speakers mainly discussing?",
+    "choices": [
+      "A software malfunction",
+      "A drop in online sales",
+      "Changes to a product's design",
+      "New regulations on customer data"
+    ],
+    "answer": "New regulations on customer data",
+    "explanation": "1 月に 施行される データ保護規則への 対応を 話している。",
+    "tags": "TOEIC Part3 主題"
+  },
+  {
+    "id": "TOEIC-L3-038-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Man: Have you had a chance to look at the new data protection regulations? They take effect in January.\nWoman: I skimmed them. The biggest change for us is that customers will have to explicitly agree before we store their purchase history.\nMan: Right, and our current sign-up form doesn't ask for that. Legal estimates that around a third of our customer records could be affected.\nWoman: That's significant for our recommendation feature. Could we ask existing customers for consent through an e-mail campaign?\nMan: Possibly, but response rates for those tend to be low. It might be more effective to request consent the next time they log in.\nWoman: Let's raise both options with the product team on Monday.",
+    "question": "According to the man, what is wrong with the current sign-up form?",
+    "choices": [
+      "It is too long",
+      "It does not request a certain kind of permission",
+      "It contains outdated prices",
+      "It is available in only one language"
+    ],
+    "answer": "It does not request a certain kind of permission",
+    "explanation": "「今の 登録フォームは その 同意を 求めていない」と 言っている。",
+    "tags": "TOEIC Part3 詳細 言い換え"
+  },
+  {
+    "id": "TOEIC-L3-038-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Man: Have you had a chance to look at the new data protection regulations? They take effect in January.\nWoman: I skimmed them. The biggest change for us is that customers will have to explicitly agree before we store their purchase history.\nMan: Right, and our current sign-up form doesn't ask for that. Legal estimates that around a third of our customer records could be affected.\nWoman: That's significant for our recommendation feature. Could we ask existing customers for consent through an e-mail campaign?\nMan: Possibly, but response rates for those tend to be low. It might be more effective to request consent the next time they log in.\nWoman: Let's raise both options with the product team on Monday.",
+    "question": "Why does the man prefer asking for consent at login?",
+    "choices": [
+      "It is required by law",
+      "It is cheaper to design",
+      "E-mail campaigns often get few responses",
+      "Customers dislike pop-up windows"
+    ],
+    "answer": "E-mail campaigns often get few responses",
+    "explanation": "「メールでの 依頼は 回答率が 低い 傾向が ある」ため。",
+    "tags": "TOEIC Part3 詳細 理由"
+  },
+  {
+    "id": "TOEIC-L3-039-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Now that the acquisition is final, we need to decide how to combine the two customer support teams.\nMan: Their team uses a completely different ticketing system. Asking them to switch right away could disrupt service.\nMan 2: Agreed, but running two systems in parallel indefinitely would double our licensing costs.\nWoman: What if we set a six-month transition period? Their staff could train on our system while still handling tickets on theirs.\nMan: That could work, provided we bring in a couple of their senior agents early to help design the training.\nMan 2: I'd also want a firm cutoff date, or the transition could drag on.",
+    "question": "What has recently happened?",
+    "choices": [
+      "An acquisition was completed",
+      "A ticketing system crashed",
+      "A support manager resigned",
+      "A product was recalled"
+    ],
+    "answer": "An acquisition was completed",
+    "explanation": "冒頭で「買収が 確定した ので」と 言っている。",
+    "tags": "TOEIC Part3 詳細"
+  },
+  {
+    "id": "TOEIC-L3-039-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Now that the acquisition is final, we need to decide how to combine the two customer support teams.\nMan: Their team uses a completely different ticketing system. Asking them to switch right away could disrupt service.\nMan 2: Agreed, but running two systems in parallel indefinitely would double our licensing costs.\nWoman: What if we set a six-month transition period? Their staff could train on our system while still handling tickets on theirs.\nMan: That could work, provided we bring in a couple of their senior agents early to help design the training.\nMan 2: I'd also want a firm cutoff date, or the transition could drag on.",
+    "question": "What is Man 2 concerned about?",
+    "choices": [
+      "Losing customers to competitors",
+      "A shortage of trainers",
+      "Poor service quality",
+      "Paying for two software licenses"
+    ],
+    "answer": "Paying for two software licenses",
+    "explanation": "2 つの システムを 並行すると ライセンス費用が 倍に なる ことを 心配している。",
+    "tags": "TOEIC Part3 詳細 言い換え"
+  },
+  {
+    "id": "TOEIC-L3-039-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Now that the acquisition is final, we need to decide how to combine the two customer support teams.\nMan: Their team uses a completely different ticketing system. Asking them to switch right away could disrupt service.\nMan 2: Agreed, but running two systems in parallel indefinitely would double our licensing costs.\nWoman: What if we set a six-month transition period? Their staff could train on our system while still handling tickets on theirs.\nMan: That could work, provided we bring in a couple of their senior agents early to help design the training.\nMan 2: I'd also want a firm cutoff date, or the transition could drag on.",
+    "question": "What condition does the first man mention?",
+    "choices": [
+      "Hiring an outside consultant",
+      "Involving senior agents in designing the training",
+      "Extending the transition to a year",
+      "Replacing the ticketing system immediately"
+    ],
+    "answer": "Involving senior agents in designing the training",
+    "explanation": "provided（～という 条件で）の あとに「先方の ベテラン担当者に 研修設計を 手伝って もらう」と 言っている。",
+    "tags": "TOEIC Part3 詳細 条件"
+  },
+  {
+    "id": "TOEIC-L3-040-1",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Our biggest retail client wants all its suppliers to cut plastic packaging by half within two years.\nMan: That's easier said than done. Our products need protective packaging to survive shipping.\nWoman: I know, but losing this client would cost us roughly a quarter of our revenue.\nMan: There's a molded paper material I read about that's nearly as protective as foam. The catch is that it's about thirty percent more expensive.\nWoman: If we order it in bulk, the price gap might shrink. Can you get some samples so we can run drop tests?\nMan: I'll contact a few manufacturers this week.",
+    "question": "What does the client want its suppliers to do?",
+    "choices": [
+      "Lower their prices",
+      "Ship products faster",
+      "Reduce plastic packaging",
+      "Use local manufacturers"
+    ],
+    "answer": "Reduce plastic packaging",
+    "explanation": "「2 年以内に プラスチック包装を 半分に」と 求めている。",
+    "tags": "TOEIC Part3 詳細"
+  },
+  {
+    "id": "TOEIC-L3-040-2",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Our biggest retail client wants all its suppliers to cut plastic packaging by half within two years.\nMan: That's easier said than done. Our products need protective packaging to survive shipping.\nWoman: I know, but losing this client would cost us roughly a quarter of our revenue.\nMan: There's a molded paper material I read about that's nearly as protective as foam. The catch is that it's about thirty percent more expensive.\nWoman: If we order it in bulk, the price gap might shrink. Can you get some samples so we can run drop tests?\nMan: I'll contact a few manufacturers this week.",
+    "question": "What does the man mean when he says, \"That's easier said than done\"?",
+    "choices": [
+      "The goal will be difficult to achieve",
+      "He has already met the goal",
+      "The client has changed its mind",
+      "He does not understand the request"
+    ],
+    "answer": "The goal will be difficult to achieve",
+    "explanation": "「言うのは 簡単だが 実行は 難しい」。直後に 輸送に 保護包装が 必要と 理由を 述べている。",
+    "tags": "TOEIC Part3 意図問題 イディオム"
+  },
+  {
+    "id": "TOEIC-L3-040-3",
+    "skill": "listening",
+    "format": "Part 3 会話問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Our biggest retail client wants all its suppliers to cut plastic packaging by half within two years.\nMan: That's easier said than done. Our products need protective packaging to survive shipping.\nWoman: I know, but losing this client would cost us roughly a quarter of our revenue.\nMan: There's a molded paper material I read about that's nearly as protective as foam. The catch is that it's about thirty percent more expensive.\nWoman: If we order it in bulk, the price gap might shrink. Can you get some samples so we can run drop tests?\nMan: I'll contact a few manufacturers this week.",
+    "question": "What will the man most likely do this week?",
+    "choices": [
+      "Run drop tests",
+      "Meet with the client",
+      "Place a bulk order",
+      "Contact material manufacturers"
+    ],
+    "answer": "Contact material manufacturers",
+    "explanation": "サンプルを 頼まれ「今週 数社の メーカーに 連絡する」と 答えている。",
+    "tags": "TOEIC Part3 次の行動"
+  }
+]

@@ -1,0 +1,682 @@
+[
+  {
+    "id": "TOEIC-L2-081",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: How soon can you get the revised contract to us?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The contract is for two years.",
+      "It was revised twice.",
+      "I can have it ready by tomorrow afternoon."
+    ],
+    "answer": "I can have it ready by tomorrow afternoon.",
+    "explanation": "How soon に 時で 答える。契約期間や revised の くり返しは ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 時"
+  },
+  {
+    "id": "TOEIC-L2-082",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: The client wants to add three more units to the order.",
+    "question": "Choose the best response.",
+    "choices": [
+      "The unit is on the third floor.",
+      "Then we'll need to update the invoice.",
+      "It's in order."
+    ],
+    "answer": "Then we'll need to update the invoice.",
+    "explanation": "追加注文の 情報に 対応を 述べる。unit・order の 別の 意味が ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 多義語"
+  },
+  {
+    "id": "TOEIC-L2-083",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Did the marketing team approve the ad campaign, or are they still reviewing it?",
+    "question": "Choose the best response.",
+    "choices": [
+      "They signed off yesterday.",
+      "It's a campaign for a new beverage.",
+      "Yes, it's an advertisement."
+    ],
+    "answer": "They signed off yesterday.",
+    "explanation": "文の 選択疑問。「昨日 承認した」と 前者を 選ぶ。sign off＝承認する。",
+    "tags": "TOEIC Part2 選択疑問 イディオム"
+  },
+  {
+    "id": "TOEIC-L2-084",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Why don't I take care of the hotel bookings?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Because the hotel is full.",
+      "I'll take the stairs.",
+      "That would really help."
+    ],
+    "answer": "That would really help.",
+    "explanation": "Why don't I ～? は 申し出。感謝して 受ける 応答が 正解。Because は ひっかけ。",
+    "tags": "TOEIC Part2 申し出 WhydontI"
+  },
+  {
+    "id": "TOEIC-L2-085",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: What's causing the delay on the production line?",
+    "question": "Choose the best response.",
+    "choices": [
+      "One of the machines needs a replacement part.",
+      "About two hours.",
+      "Production increased last year."
+    ],
+    "answer": "One of the machines needs a replacement part.",
+    "explanation": "原因を 答えている。遅れの 長さや production の くり返しは ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 理由"
+  },
+  {
+    "id": "TOEIC-L2-086",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Haven't the new laptops been distributed yet?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The distributor is in Chicago.",
+      "Yes, they're laptops.",
+      "They're still being set up by IT."
+    ],
+    "answer": "They're still being set up by IT.",
+    "explanation": "「まだ 設定中」と 答える。distributed→distributor の 似た語が ひっかけ。",
+    "tags": "TOEIC Part2 否定疑問 似た音"
+  },
+  {
+    "id": "TOEIC-L2-087",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Who's covering the front desk while Amira is on leave?",
+    "question": "Choose the best response.",
+    "choices": [
+      "She's leaving at five.",
+      "We've hired a temp for two weeks.",
+      "Cover it with a cloth."
+    ],
+    "answer": "We've hired a temp for two weeks.",
+    "explanation": "「派遣社員を 雇った」と 担当を 答える。leave（去る）・cover（覆う）の 多義語が ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 人物 多義語"
+  },
+  {
+    "id": "TOEIC-L2-088",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: How would you like to receive the refund?",
+    "question": "Choose the best response.",
+    "choices": [
+      "It's a refundable ticket.",
+      "I received it yesterday.",
+      "Could you put it back on my card?"
+    ],
+    "answer": "Could you put it back on my card?",
+    "explanation": "受け取り方法を 聞き返しで 答える。refund→refundable、receive→received の ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 方法"
+  },
+  {
+    "id": "TOEIC-L2-089",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: The keynote speaker's flight has been canceled.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Is there a later flight she could take?",
+      "The keynote was very inspiring.",
+      "It was a key part of the plan."
+    ],
+    "answer": "Is there a later flight she could take?",
+    "explanation": "欠航の 知らせに 代わりの 便を たずねる。keynote→key の 似た音、過去の 感想は ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 問題報告"
+  },
+  {
+    "id": "TOEIC-L2-090",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Would it be possible to extend the deadline by a week?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The cord is too short to extend.",
+      "I'll have to ask the project manager.",
+      "The project was a success."
+    ],
+    "answer": "I'll have to ask the project manager.",
+    "explanation": "「上司に 聞く」という 間接応答。extend・project の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 依頼 間接応答"
+  },
+  {
+    "id": "TOEIC-L2-091",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: You've reviewed the safety guidelines, haven't you?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The guide is waiting in the lobby.",
+      "It's safe to say.",
+      "I'm going through them this afternoon."
+    ],
+    "answer": "I'm going through them this afternoon.",
+    "explanation": "「午後に 目を 通す（まだ）」と 答える。guidelines→guide、safety→safe の ひっかけ。",
+    "tags": "TOEIC Part2 付加疑問 間接応答"
+  },
+  {
+    "id": "TOEIC-L2-092",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Where are the quarterly sales figures?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Gabriel is still finalizing them.",
+      "They're higher than last year.",
+      "In the fourth quarter."
+    ],
+    "answer": "Gabriel is still finalizing them.",
+    "explanation": "「まだ 作成中」と 間接的に 答える。quarterly→quarter の ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 間接応答"
+  },
+  {
+    "id": "TOEIC-L2-093",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Should we hold the reception indoors or outdoors?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The reception desk is to your right.",
+      "Let's check the weather forecast first.",
+      "It held about two hundred people."
+    ],
+    "answer": "Let's check the weather forecast first.",
+    "explanation": "選択疑問に「まず 天気予報を」と 判断を 保留する。reception（受付）の 多義語が ひっかけ。",
+    "tags": "TOEIC Part2 選択疑問 間接応答 多義語"
+  },
+  {
+    "id": "TOEIC-L2-094",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: I heard the cafeteria is closing for renovations.",
+    "question": "Choose the best response.",
+    "choices": [
+      "It's close to the elevator.",
+      "Yes, starting next Monday.",
+      "I'll close the door."
+    ],
+    "answer": "Yes, starting next Monday.",
+    "explanation": "聞いた 話に Yes ＋ 時期で 応じる。close（近い／閉める）の ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 多義語"
+  },
+  {
+    "id": "TOEIC-L2-095",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Why are the lights on the fourth floor still on?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The light is very bright.",
+      "Turn left on Fourth Street.",
+      "The cleaning crew is working late."
+    ],
+    "answer": "The cleaning crew is working late.",
+    "explanation": "理由（清掃員が 残業中）を 答える。light・fourth の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 理由"
+  },
+  {
+    "id": "TOEIC-L2-096",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: When are we expected to submit our travel reimbursement forms?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Within thirty days of the trip.",
+      "To the accounting department.",
+      "It was a long trip."
+    ],
+    "answer": "Within thirty days of the trip.",
+    "explanation": "When に 期限で 答える。提出先（Where）や trip の くり返しは ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 時"
+  },
+  {
+    "id": "TOEIC-L2-097",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Do you think we should lower our prices to compete?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The lower shelf is empty.",
+      "Let's look at the cost analysis first.",
+      "We competed last year."
+    ],
+    "answer": "Let's look at the cost analysis first.",
+    "explanation": "「まず コスト分析を 見よう」と 判断を 保留する 応答。lower・compete の 別の 意味が ひっかけ。",
+    "tags": "TOEIC Part2 yes/no 間接応答"
+  },
+  {
+    "id": "TOEIC-L2-098",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Are you available to train the new hires next week?",
+    "question": "Choose the best response.",
+    "choices": [
+      "My schedule is pretty full, unfortunately.",
+      "The train was delayed.",
+      "They were hired in May."
+    ],
+    "answer": "My schedule is pretty full, unfortunately.",
+    "explanation": "「予定が いっぱい」と 間接的に ことわる。train（電車）の 多義語が ひっかけ。",
+    "tags": "TOEIC Part2 yes/no 間接応答 多義語"
+  },
+  {
+    "id": "TOEIC-L2-099",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Which supplier offered the best terms?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The terms and conditions are online.",
+      "Supplies arrive on Mondays.",
+      "Larkspur Materials, by a wide margin."
+    ],
+    "answer": "Larkspur Materials, by a wide margin.",
+    "explanation": "Which に 会社名で 答える。terms（規約）・supplies の 関連語が ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 多義語"
+  },
+  {
+    "id": "TOEIC-L2-100",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: How come the conference fee went up this year?",
+    "question": "Choose the best response.",
+    "choices": [
+      "It's at the convention center.",
+      "About three hundred dollars.",
+      "The venue raised its rental rates."
+    ],
+    "answer": "The venue raised its rental rates.",
+    "explanation": "How come は Why と 同じ。理由（会場費の 値上げ）が 正解。",
+    "tags": "TOEIC Part2 wh疑問 理由 Howcome"
+  },
+  {
+    "id": "TOEIC-L2-101",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Let's ask Ms. Adeyemi to review the proposal.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, she asked me.",
+      "She's on vacation until Thursday.",
+      "The proposal was accepted."
+    ],
+    "answer": "She's on vacation until Thursday.",
+    "explanation": "提案に「木曜まで 休暇中」と 問題点を 指摘する 間接応答。ask の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 提案 間接応答"
+  },
+  {
+    "id": "TOEIC-L2-102",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Has the maintenance team looked at the leak in the ceiling?",
+    "question": "Choose the best response.",
+    "choices": [
+      "They're scheduled to come by this afternoon.",
+      "The ceiling is quite high.",
+      "Please leave it on the desk."
+    ],
+    "answer": "They're scheduled to come by this afternoon.",
+    "explanation": "「今日の 午後 来る予定（まだ）」と 答える。leak→leave の 似た音が ひっかけ。",
+    "tags": "TOEIC Part2 yes/no 間接応答 似た音"
+  },
+  {
+    "id": "TOEIC-L2-103",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Isn't it cheaper to ship these by sea?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The ship sails at noon.",
+      "Yes, but it takes much longer.",
+      "It's on sale this week."
+    ],
+    "answer": "Yes, but it takes much longer.",
+    "explanation": "Yes ＋ 欠点を 加える 応答。ship（船）の 多義語、安さからの 連想は ひっかけ。",
+    "tags": "TOEIC Part2 否定疑問 多義語"
+  },
+  {
+    "id": "TOEIC-L2-104",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Could you tell me which gate the flight to Lima departs from?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Let me check the departure board.",
+      "It departs at four.",
+      "The gate closes early."
+    ],
+    "answer": "Let me check the departure board.",
+    "explanation": "「出発案内板を 確認する」という 間接応答。時刻は 質問の 型が ちがう。",
+    "tags": "TOEIC Part2 間接疑問 間接応答"
+  },
+  {
+    "id": "TOEIC-L2-105",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: The marketing budget has been cut by fifteen percent.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I'll cut the paper.",
+      "About fifteen people.",
+      "Then we'll have to prioritize the online ads."
+    ],
+    "answer": "Then we'll have to prioritize the online ads.",
+    "explanation": "予算削減の 知らせに 対応策を 述べる。cut・fifteen の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-106",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: Do you know if the parking lot will be repaved this weekend?",
+    "question": "Choose the best response.",
+    "choices": [
+      "I parked on the second level.",
+      "There's a notice about it by the elevator.",
+      "It's a long weekend."
+    ],
+    "answer": "There's a notice about it by the elevator.",
+    "explanation": "「掲示が ある」と 情報の ありかを 示す 間接応答。parking→parked、weekend の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 間接疑問 間接応答"
+  },
+  {
+    "id": "TOEIC-L2-107",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Man: Who should I contact about renewing my lease?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The property manager handles all leases.",
+      "It's renewed every year.",
+      "Please contact me by e-mail."
+    ],
+    "answer": "The property manager handles all leases.",
+    "explanation": "連絡先の 人物を 答える。renewing→renewed、contact の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 人物"
+  },
+  {
+    "id": "TOEIC-L2-108",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B2",
+    "band": "TOEIC目安:730",
+    "passage": "Woman: I'm afraid the item you ordered is out of stock.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I ordered it online.",
+      "Stock prices fell.",
+      "When do you expect to get more?"
+    ],
+    "answer": "When do you expect to get more?",
+    "explanation": "在庫切れの 知らせに 入荷時期を たずねる。stock（株）の 多義語が ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 多義語"
+  },
+  {
+    "id": "TOEIC-L2-109",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Man: Wouldn't it make more sense to outsource the payroll processing?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The payroll is processed on the fifteenth.",
+      "We looked into that, but the savings were minimal.",
+      "Our sources are reliable."
+    ],
+    "answer": "We looked into that, but the savings were minimal.",
+    "explanation": "否定疑問の 提案に「検討したが 節約効果が 小さかった」と 反論する。outsource→sources の 似た音が ひっかけ。",
+    "tags": "TOEIC Part2 否定疑問 提案 反論"
+  },
+  {
+    "id": "TOEIC-L2-110",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Given the feedback, are we still launching in March or pushing it back?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The feedback form is online.",
+      "We launched three products last year.",
+      "Management wants to decide after Friday's review."
+    ],
+    "answer": "Management wants to decide after Friday's review.",
+    "explanation": "選択疑問に「まだ 決まっていない」と 答える。feedback・launch の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 選択疑問 間接応答 未定"
+  },
+  {
+    "id": "TOEIC-L2-111",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Man: I assume the vendor has agreed to the revised terms.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Actually, they've asked for another round of talks.",
+      "I agreed with his assumption.",
+      "The vending machine is broken."
+    ],
+    "answer": "Actually, they've asked for another round of talks.",
+    "explanation": "思い込みを Actually で 訂正する 応答。agree・assume の 派生語、vendor→vending の ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 訂正"
+  },
+  {
+    "id": "TOEIC-L2-112",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: How are we going to accommodate all the attendees if registration keeps growing?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Registration closes on Friday.",
+      "The hotel has excellent accommodations.",
+      "We could livestream some of the sessions."
+    ],
+    "answer": "We could livestream some of the sessions.",
+    "explanation": "How（方法）に 対策で 答える。accommodate→accommodations の 似た語が ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 方法"
+  },
+  {
+    "id": "TOEIC-L2-113",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Man: Hadn't the contractor promised to finish the lobby by now?",
+    "question": "Choose the best response.",
+    "choices": [
+      "There was a delay with the flooring materials.",
+      "The lobby is on the ground floor.",
+      "I promise I'll be there."
+    ],
+    "answer": "There was a delay with the flooring materials.",
+    "explanation": "完了していない 理由を 説明する 応答。promise の くり返し、floor の 関連語が ひっかけ。",
+    "tags": "TOEIC Part2 否定疑問 理由"
+  },
+  {
+    "id": "TOEIC-L2-114",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Should we inform the shareholders now, or wait until the figures are final?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Shareholders meet once a year.",
+      "It's better to give them accurate numbers.",
+      "The figure on page five."
+    ],
+    "answer": "It's better to give them accurate numbers.",
+    "explanation": "「正確な 数字を」と 間接的に 待つほうを 選ぶ。figure（図）の 多義語が ひっかけ。",
+    "tags": "TOEIC Part2 選択疑問 間接応答"
+  },
+  {
+    "id": "TOEIC-L2-115",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Man: The regional director is asking why our numbers dropped.",
+    "question": "Choose the best response.",
+    "choices": [
+      "We dropped it off at the regional office.",
+      "I've already prepared a summary of the causes.",
+      "Yes, he's the director."
+    ],
+    "answer": "I've already prepared a summary of the causes.",
+    "explanation": "「原因の まとめを 用意した」と 対応を 示す。drop off の 別の 意味が ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 多義語"
+  },
+  {
+    "id": "TOEIC-L2-116",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Why weren't the clients told about the price increase sooner?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The price includes tax.",
+      "They told me about it.",
+      "The decision was only finalized yesterday."
+    ],
+    "answer": "The decision was only finalized yesterday.",
+    "explanation": "理由（昨日 決まったばかり）を 答える。price・told の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 理由"
+  },
+  {
+    "id": "TOEIC-L2-117",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Man: Do you happen to know whether the merger will affect our department?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Nothing's been announced yet.",
+      "Our department is on the sixth floor.",
+      "It happened last year."
+    ],
+    "answer": "Nothing's been announced yet.",
+    "explanation": "「まだ 発表されていない」と わからない ことを 伝える。happen→happened の ひっかけ。",
+    "tags": "TOEIC Part2 間接疑問 わからない"
+  },
+  {
+    "id": "TOEIC-L2-118",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: Unless we hear from the supplier today, we'll have to find another source.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I'll call them again before lunch.",
+      "Yes, I heard it too.",
+      "The source code is online."
+    ],
+    "answer": "I'll call them again before lunch.",
+    "explanation": "条件文に 対し 具体的な 行動で 応じる。hear→heard、source の 別の 意味が ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 条件"
+  },
+  {
+    "id": "TOEIC-L2-119",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Man: Wasn't the training program supposed to be mandatory for all managers?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The program starts at nine.",
+      "Only for those hired after January.",
+      "He's a good manager."
+    ],
+    "answer": "Only for those hired after January.",
+    "explanation": "否定疑問に 条件つきで 訂正する 応答。program・manager の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 否定疑問 訂正"
+  },
+  {
+    "id": "TOEIC-L2-120",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "C1",
+    "band": "TOEIC目安:860",
+    "passage": "Woman: What's the rationale behind relocating the warehouse?",
+    "question": "Choose the best response.",
+    "choices": [
+      "It's located on Pine Avenue.",
+      "We'll need more shelves.",
+      "Rent in the new area is significantly lower."
+    ],
+    "answer": "Rent in the new area is significantly lower.",
+    "explanation": "rationale（理由）を 聞いているので 理由を 答える。relocating→located の ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 理由 語い"
+  }
+]

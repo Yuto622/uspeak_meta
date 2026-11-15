@@ -1,0 +1,682 @@
+[
+  {
+    "id": "TOEIC-L2-001",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Where is the copy machine?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, I made ten copies.",
+      "At three o'clock.",
+      "It's next to the reception desk."
+    ],
+    "answer": "It's next to the reception desk.",
+    "explanation": "Where で 場所を 聞いているので 場所を 答える ものが 正解。copy→copies の 関連語や、時刻の 応答は ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 場所 関連語"
+  },
+  {
+    "id": "TOEIC-L2-002",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: When does the shipment from Osaka arrive?",
+    "question": "Choose the best response.",
+    "choices": [
+      "From the warehouse in Osaka.",
+      "It should be here by Thursday.",
+      "About two hundred boxes."
+    ],
+    "answer": "It should be here by Thursday.",
+    "explanation": "When に 対し「木曜までに」と 時を 答えている。Osaka の くり返しや 数量（How many への 答え）は ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 時 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-003",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Who is leading today's training session?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Ms. Okafor from Human Resources.",
+      "In Meeting Room B.",
+      "It lasts about two hours."
+    ],
+    "answer": "Ms. Okafor from Human Resources.",
+    "explanation": "Who に 人物で 答えている。場所（Where）や 長さ（How long）の 答えは 質問の 型が ちがう。",
+    "tags": "TOEIC Part2 wh疑問 人物"
+  },
+  {
+    "id": "TOEIC-L2-004",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Is this seat taken?",
+    "question": "Choose the best response.",
+    "choices": [
+      "I'll take the bus.",
+      "No, go ahead.",
+      "It's a comfortable chair."
+    ],
+    "answer": "No, go ahead.",
+    "explanation": "席が あいているか の 質問に「いいえ、どうぞ」と 答える。take の 同語反復、seat→chair の 関連語が ひっかけ。",
+    "tags": "TOEIC Part2 yes/no 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-005",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: How much is the parking fee?",
+    "question": "Choose the best response.",
+    "choices": [
+      "In the underground garage.",
+      "The park is very large.",
+      "Eight dollars a day."
+    ],
+    "answer": "Eight dollars a day.",
+    "explanation": "How much に 金額で 答えている。parking→park の 似た音、駐車場の 場所は ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 金額 似た音"
+  },
+  {
+    "id": "TOEIC-L2-006",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Would you like some coffee?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Thanks, but I just had some.",
+      "It's from Brazil.",
+      "Yes, the café closes at six."
+    ],
+    "answer": "Thanks, but I just had some.",
+    "explanation": "申し出を ていねいに ことわる 応答。coffee→café の 関連語や 産地の 答えは ずれている。",
+    "tags": "TOEIC Part2 申し出 関連語"
+  },
+  {
+    "id": "TOEIC-L2-007",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: What time does the bank open?",
+    "question": "Choose the best response.",
+    "choices": [
+      "On the corner of Main Street.",
+      "I opened an account last year.",
+      "At nine thirty."
+    ],
+    "answer": "At nine thirty.",
+    "explanation": "What time に 時刻で 答える。open→opened の 同語反復と 場所の 答えが ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 時 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-008",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Did you send the invoice to the client?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, this morning.",
+      "I'll invite them, too.",
+      "The client's office is downtown."
+    ],
+    "answer": "Yes, this morning.",
+    "explanation": "送ったか の 質問に Yes ＋ 時で 答える。invoice→invite の 似た音、client の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 yes/no 似た音"
+  },
+  {
+    "id": "TOEIC-L2-009",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Which floor is the cafeteria on?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Sandwiches and salads.",
+      "The third floor.",
+      "The floor was just cleaned."
+    ],
+    "answer": "The third floor.",
+    "explanation": "Which floor に 階で 答える。floor の 別の 意味（床）と cafeteria の 関連語（食べ物）が ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 場所 多義語"
+  },
+  {
+    "id": "TOEIC-L2-010",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Can you help me carry these boxes?",
+    "question": "Choose the best response.",
+    "choices": [
+      "They're made of cardboard.",
+      "Sure, where do they go?",
+      "I carried them yesterday."
+    ],
+    "answer": "Sure, where do they go?",
+    "explanation": "依頼に「いいよ、どこに 運ぶ？」と 応じる。carry→carried の 同語反復や 材質の 答えは ひっかけ。",
+    "tags": "TOEIC Part2 依頼 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-011",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Why is the store closed today?",
+    "question": "Choose the best response.",
+    "choices": [
+      "It closes at eight.",
+      "I'll store them in the closet.",
+      "It's a national holiday."
+    ],
+    "answer": "It's a national holiday.",
+    "explanation": "Why に 理由で 答える。closed→closes、store（しまう）の 多義語が ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 理由 多義語"
+  },
+  {
+    "id": "TOEIC-L2-012",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: How do you get to work?",
+    "question": "Choose the best response.",
+    "choices": [
+      "I usually take the train.",
+      "About forty minutes.",
+      "I work in sales."
+    ],
+    "answer": "I usually take the train.",
+    "explanation": "How get to で 交通手段を 聞いている。所要時間は How long への 答え、work の くり返しは ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 方法"
+  },
+  {
+    "id": "TOEIC-L2-013",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Your flight leaves at noon, doesn't it?",
+    "question": "Choose the best response.",
+    "choices": [
+      "I left it on the desk.",
+      "No, it was changed to two o'clock.",
+      "The flight attendant was helpful."
+    ],
+    "answer": "No, it was changed to two o'clock.",
+    "explanation": "付加疑問に No ＋ 訂正で 答える。leaves→left、flight の 同語反復が ひっかけ。",
+    "tags": "TOEIC Part2 付加疑問 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-014",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Do you want the red folder or the blue one?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The blue one, please.",
+      "Yes, I read it.",
+      "I folded the letters."
+    ],
+    "answer": "The blue one, please.",
+    "explanation": "選択疑問には どちらかを 選んで 答える。red→read、folder→folded の 似た音が ひっかけ。",
+    "tags": "TOEIC Part2 選択疑問 似た音"
+  },
+  {
+    "id": "TOEIC-L2-015",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Let's have lunch together tomorrow.",
+    "question": "Choose the best response.",
+    "choices": [
+      "I had a sandwich.",
+      "It was launched last month.",
+      "Sounds good. Where do you want to go?"
+    ],
+    "answer": "Sounds good. Where do you want to go?",
+    "explanation": "提案に 賛成して 場所を 聞き返している。lunch→launched の 似た音が ひっかけ。",
+    "tags": "TOEIC Part2 提案 似た音"
+  },
+  {
+    "id": "TOEIC-L2-016",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Where can I buy a train ticket?",
+    "question": "Choose the best response.",
+    "choices": [
+      "From the machine by the entrance.",
+      "By ten thirty.",
+      "It's a round-trip ticket."
+    ],
+    "answer": "From the machine by the entrance.",
+    "explanation": "Where に 場所で 答える。by の 時間の 使い方や ticket の くり返しは ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 場所"
+  },
+  {
+    "id": "TOEIC-L2-017",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Have you met our new accountant?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The meeting is at ten.",
+      "Yes, we talked this morning.",
+      "I counted them twice."
+    ],
+    "answer": "Yes, we talked this morning.",
+    "explanation": "会ったか の 質問に Yes ＋ 説明。met→meeting、accountant→counted の 似た音が ひっかけ。",
+    "tags": "TOEIC Part2 yes/no 似た音"
+  },
+  {
+    "id": "TOEIC-L2-018",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: How many people are coming to the party?",
+    "question": "Choose the best response.",
+    "choices": [
+      "At the hotel downtown.",
+      "It was a nice party.",
+      "About thirty, I think."
+    ],
+    "answer": "About thirty, I think.",
+    "explanation": "How many に 人数で 答える。場所や 感想（過去形）は ずれている。",
+    "tags": "TOEIC Part2 wh疑問 数"
+  },
+  {
+    "id": "TOEIC-L2-019",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Who left this umbrella here?",
+    "question": "Choose the best response.",
+    "choices": [
+      "It's raining outside.",
+      "Turn left at the corner.",
+      "I think it's Mr. Tanaka's."
+    ],
+    "answer": "I think it's Mr. Tanaka's.",
+    "explanation": "持ち主を 答えている。left（左）の 同音異義と umbrella→rain の 関連語が ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 人物 多義語"
+  },
+  {
+    "id": "TOEIC-L2-020",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Is the printer working now?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, the technician fixed it.",
+      "I work on the fifth floor.",
+      "Print two copies, please."
+    ],
+    "answer": "Yes, the technician fixed it.",
+    "explanation": "Yes ＋ 理由で 答える。work の 同語反復、printer→print の 関連語が ひっかけ。",
+    "tags": "TOEIC Part2 yes/no 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-021",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: Could you close the window, please?",
+    "question": "Choose the best response.",
+    "choices": [
+      "It's close to the station.",
+      "Of course.",
+      "The store is closed."
+    ],
+    "answer": "Of course.",
+    "explanation": "依頼に「もちろん」と 応じる。close（近い）の 別の 意味と closed の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 依頼 多義語"
+  },
+  {
+    "id": "TOEIC-L2-022",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: When is your vacation?",
+    "question": "Choose the best response.",
+    "choices": [
+      "In the first week of August.",
+      "To Spain and Portugal.",
+      "For two weeks."
+    ],
+    "answer": "In the first week of August.",
+    "explanation": "When に 時期で 答える。行き先（Where）や 期間（How long）は ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 時"
+  },
+  {
+    "id": "TOEIC-L2-023",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Man: What's the password for the Wi-Fi?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, I passed the test.",
+      "The wireless speakers are new.",
+      "It's written on the card by the door."
+    ],
+    "answer": "It's written on the card by the door.",
+    "explanation": "パスワードの 書いてある 場所を 教える 間接応答。password→passed の 似た音、Wi-Fi→wireless の 関連語が ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 間接応答 似た音"
+  },
+  {
+    "id": "TOEIC-L2-024",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "A2",
+    "band": "TOEIC目安:400",
+    "passage": "Woman: Should I call a taxi for you?",
+    "question": "Choose the best response.",
+    "choices": [
+      "It's a tax form.",
+      "No thanks, I'll walk.",
+      "I called him yesterday."
+    ],
+    "answer": "No thanks, I'll walk.",
+    "explanation": "申し出を ことわる 応答。taxi→tax の 似た音、call→called の 同語反復が ひっかけ。",
+    "tags": "TOEIC Part2 申し出 似た音"
+  },
+  {
+    "id": "TOEIC-L2-025",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Why was the meeting moved to Friday?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The director has a conference on Thursday.",
+      "In the main conference room.",
+      "I'll move the chairs."
+    ],
+    "answer": "The director has a conference on Thursday.",
+    "explanation": "Why に 理由（部長が 木曜に 会議）で 答える。move・conference の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 理由 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-026",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Who's responsible for ordering office supplies?",
+    "question": "Choose the best response.",
+    "choices": [
+      "We need more paper and ink.",
+      "Ravi handles that now.",
+      "In the supply closet."
+    ],
+    "answer": "Ravi handles that now.",
+    "explanation": "担当者を 答えている。paper・supply など 関連語の 応答は 質問に 答えていない。",
+    "tags": "TOEIC Part2 wh疑問 人物 関連語"
+  },
+  {
+    "id": "TOEIC-L2-027",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Haven't you finished the sales report yet?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Sales went up by ten percent.",
+      "It was a big sale.",
+      "I'm adding the final figures now."
+    ],
+    "answer": "I'm adding the final figures now.",
+    "explanation": "否定疑問に「今 最後の 数字を 入れている（まだ）」と 答える。sales→sale の 同語反復が ひっかけ。",
+    "tags": "TOEIC Part2 否定疑問 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-028",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Would you prefer to meet in the morning or the afternoon?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Either is fine with me.",
+      "I met her this morning.",
+      "It's a long meeting."
+    ],
+    "answer": "Either is fine with me.",
+    "explanation": "選択疑問に「どちらでも」と 答える 定番の 正解。meet→met、morning の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 選択疑問 どちらでも"
+  },
+  {
+    "id": "TOEIC-L2-029",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: When will the new menu be available?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Pasta and grilled fish.",
+      "I haven't checked the schedule yet.",
+      "It's available in three colors."
+    ],
+    "answer": "I haven't checked the schedule yet.",
+    "explanation": "「まだ 確認していない」という わからない 系の 間接応答。available の くり返しや 料理名は ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 間接応答 わからない"
+  },
+  {
+    "id": "TOEIC-L2-030",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: The elevator is out of order again.",
+    "question": "Choose the best response.",
+    "choices": [
+      "Please order more paper.",
+      "On the eighth floor.",
+      "Let's take the stairs, then."
+    ],
+    "answer": "Let's take the stairs, then.",
+    "explanation": "故障の 報告に「では 階段で」と 応じる。order（注文する）の 多義語が ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 多義語"
+  },
+  {
+    "id": "TOEIC-L2-031",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: How long will the renovation take?",
+    "question": "Choose the best response.",
+    "choices": [
+      "It's a new kitchen.",
+      "We renovated the lobby last year.",
+      "About three months."
+    ],
+    "answer": "About three months.",
+    "explanation": "How long に 期間で 答える。renovation→renovated の 同語反復が ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 期間 同語反復"
+  },
+  {
+    "id": "TOEIC-L2-032",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Where should I put these brochures?",
+    "question": "Choose the best response.",
+    "choices": [
+      "They were printed yesterday.",
+      "On the table by the entrance.",
+      "Five hundred copies."
+    ],
+    "answer": "On the table by the entrance.",
+    "explanation": "Where に 場所で 答える。brochure から 連想される 印刷・部数は ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 場所 関連語"
+  },
+  {
+    "id": "TOEIC-L2-033",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: You've been to the Singapore office, haven't you?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, twice last year.",
+      "The office opens at eight.",
+      "It's a long flight."
+    ],
+    "answer": "Yes, twice last year.",
+    "explanation": "付加疑問で 経験を 確認している。Yes ＋ 回数が 自然。office の くり返しや 関連語の flight は ひっかけ。",
+    "tags": "TOEIC Part2 付加疑問 経験"
+  },
+  {
+    "id": "TOEIC-L2-034",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Why don't we hire a temporary worker for the busy season?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Because it's busy.",
+      "The season starts in May.",
+      "That's a good idea."
+    ],
+    "answer": "That's a good idea.",
+    "explanation": "Why don't we ～? は 提案。Because で 理由を 答えるのは 典型的な ひっかけ。",
+    "tags": "TOEIC Part2 提案 Whydontwe"
+  },
+  {
+    "id": "TOEIC-L2-035",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Is the conference room available this afternoon?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, the conference was successful.",
+      "Let me check the booking system.",
+      "It's on the second floor."
+    ],
+    "answer": "Let me check the booking system.",
+    "explanation": "「予約システムを 確認する」という 間接応答。conference の くり返しや 場所は ひっかけ。",
+    "tags": "TOEIC Part2 yes/no 間接応答"
+  },
+  {
+    "id": "TOEIC-L2-036",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: What did you think of the candidate?",
+    "question": "Choose the best response.",
+    "choices": [
+      "She seemed very qualified.",
+      "I think it's at two.",
+      "The candidate list is on my desk."
+    ],
+    "answer": "She seemed very qualified.",
+    "explanation": "意見を 聞いているので 感想で 答える。think・candidate の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 意見"
+  },
+  {
+    "id": "TOEIC-L2-037",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Do you know where Mr. Haddad's office is?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Yes, I know him well.",
+      "It's at the end of the hall.",
+      "He's a lawyer."
+    ],
+    "answer": "It's at the end of the hall.",
+    "explanation": "間接疑問は where の 部分に 答える。「彼を よく 知っている」は 焦点が ずれている。",
+    "tags": "TOEIC Part2 間接疑問 場所"
+  },
+  {
+    "id": "TOEIC-L2-038",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: Can I pay by credit card?",
+    "question": "Choose the best response.",
+    "choices": [
+      "The card was in my wallet.",
+      "I paid the bill yesterday.",
+      "Sorry, we only accept cash."
+    ],
+    "answer": "Sorry, we only accept cash.",
+    "explanation": "カードで 払えるか に「現金のみ」と 答える。card・pay の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 yes/no 買い物"
+  },
+  {
+    "id": "TOEIC-L2-039",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Man: Who should I give this package to?",
+    "question": "Choose the best response.",
+    "choices": [
+      "Leave it with the receptionist.",
+      "It weighs about two kilos.",
+      "I gave a speech."
+    ],
+    "answer": "Leave it with the receptionist.",
+    "explanation": "渡す 相手を「受付に」と 答える。give→gave の 同語反復や 重さは ひっかけ。",
+    "tags": "TOEIC Part2 wh疑問 人物"
+  },
+  {
+    "id": "TOEIC-L2-040",
+    "skill": "listening",
+    "format": "Part 2 応答問題",
+    "level": "B1",
+    "band": "TOEIC目安:600",
+    "passage": "Woman: The air conditioner is making a strange noise.",
+    "question": "Choose the best response.",
+    "choices": [
+      "The air is fresh today.",
+      "I'll call maintenance.",
+      "It's a strange idea."
+    ],
+    "answer": "I'll call maintenance.",
+    "explanation": "問題の 報告に「保守に 連絡する」と 対応する。air・strange の くり返しが ひっかけ。",
+    "tags": "TOEIC Part2 平叙文 問題報告"
+  }
+]
