@@ -10,7 +10,7 @@
     "choices": [
       "Smaller offices",
       "Higher rent",
-      "Moving costs",
+      "The cost of moving",
       "A longer commute"
     ],
     "answer": "A longer commute",
@@ -65,7 +65,7 @@
       "Catering is included in the price",
       "It is closer to the office",
       "It is less expensive",
-      "It has a larger parking lot"
+      "It has a larger parking lot for guests"
     ],
     "answer": "Catering is included in the price",
     "explanation": "「別の ケータリング業者と やりとりしなくて よい」のが 理由。",
@@ -81,7 +81,7 @@
     "question": "What will the man do this afternoon?",
     "choices": [
       "Visit Riverside Hall",
-      "Send out invitations",
+      "Send invitations to all the employees",
       "Hire a caterer",
       "Check the hotel's availability"
     ],
@@ -137,7 +137,7 @@
       "It is too expensive",
       "It is fully booked",
       "She wants to arrive with more time",
-      "It does not stop at Brookfield"
+      "It does not stop at Brookfield Station"
     ],
     "answer": "She wants to arrive with more time",
     "explanation": "急行だと 15 分前着で、土地に 不慣れなので もっと 余裕が ほしいと 言っている。",
@@ -224,7 +224,7 @@
     "passage": "Woman: Hi, I ordered a book here two weeks ago. You said it would arrive in about ten days.\nMan: Let me check. What's the name on the order?\nWoman: Ayesha Rahman.\nMan: Ah, here it is. It looks like the publisher is out of stock. They expect more copies at the end of the month.\nWoman: That's too late. I need it for a class that starts next week.\nMan: I understand. We have an e-book version you can download today. It's also a little cheaper.\nWoman: Oh, that could work.",
     "question": "What is the problem?",
     "choices": [
-      "The order was canceled",
+      "The order was canceled by mistake last week",
       "The book was damaged",
       "The publisher has run out of copies",
       "The store is closing"
@@ -260,7 +260,7 @@
     "passage": "Woman: Welcome to the Regional Marketing Conference. May I have your name?\nMan: Hiroshi Mori. I registered online last month.\nWoman: Let me see... I'm sorry, Mr. Mori, I don't see your name on the list.\nMan: Really? I have the confirmation e-mail on my phone.\nWoman: Let me ask my supervisor. Ms. Lopez, could you help us?\nWoman 2: Of course. We had a system problem with some online registrations last week. If you show me the confirmation e-mail, I'll print your badge right away.",
     "question": "Where is the conversation most likely taking place?",
     "choices": [
-      "At an airport check-in counter",
+      "At a check-in counter at an airport",
       "At a print shop",
       "At a hotel restaurant",
       "At a conference registration desk"
@@ -353,7 +353,7 @@
       "He wants a written estimate",
       "He thinks the price is fair",
       "He has not decided to replace the tires yet",
-      "He agrees to replace the tires today"
+      "He agrees to have the tires replaced this afternoon"
     ],
     "answer": "He has not decided to replace the tires yet",
     "explanation": "「考えておく」＝今は 決めない。今日は 車を 受け取るだけ と 続けている。",
@@ -387,7 +387,7 @@
     "question": "What will happen on Wednesday?",
     "choices": [
       "A replacement chair will be delivered",
-      "The man will receive a refund",
+      "The man will receive a refund for the chair",
       "A technician will visit",
       "The man will go to a store"
     ],
@@ -494,7 +494,7 @@
     "passage": "Man: Mei, we're almost out of bananas. Have you ordered more?\nWoman: It's already on the list. The delivery comes tomorrow at six a.m.\nMan: Good. Also, the freezer in aisle four is making a strange noise.\nWoman: Yes, I noticed that too. I left a message for the repair company, but they haven't called back.\nMan: Should I move the frozen food to the freezer in the back, just in case?\nWoman: That's a good idea. I'll help you after I finish counting the cash registers.",
     "question": "What does the woman mean when she says, \"It's already on the list\"?",
     "choices": [
-      "She wants the man to write a list",
+      "She would like the man to write a shopping list",
       "She cannot find the list",
       "The item is no longer sold",
       "She has already included the item in an order"
@@ -602,12 +602,12 @@
     "passage": "Woman: Before we finalize next quarter's marketing plan, I want to discuss the radio ads. The response rate has been disappointing.\nMan: I agree. Our online campaigns brought in three times as many new customers for the same cost.\nMan 2: But a lot of our older customers still hear about us through the radio. If we drop it completely, we might lose them.\nWoman: That's a fair point. What if we cut the radio budget in half and move the rest to social media?\nMan: That sounds reasonable. I can put together a revised budget by Thursday.\nWoman: Great. Let's review it at Friday's meeting.",
     "question": "Why does Man 2 disagree with stopping the radio ads completely?",
     "choices": [
-      "They cost less than online ads",
+      "They cost less than the online campaigns do",
       "The contract cannot be canceled",
-      "Some older customers learn about the company through them",
+      "Some older customers rely on them",
       "They recently won an award"
     ],
-    "answer": "Some older customers learn about the company through them",
+    "answer": "Some older customers rely on them",
     "explanation": "「年配の 顧客は 今も ラジオで 知る」ので 失う おそれが あると 言っている。",
     "tags": "TOEIC Part3 詳細 理由"
   },
@@ -639,7 +639,7 @@
     "question": "Who most likely is the woman?",
     "choices": [
       "A delivery driver",
-      "A new employee",
+      "A newly hired employee in the purchasing department",
       "A market researcher",
       "A sales representative for a supplier"
     ],

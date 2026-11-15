@@ -11,7 +11,7 @@
       "At a restaurant",
       "At a kitchen supply store",
       "At a post office",
-      "At a cooking school"
+      "At a school for professional cooks"
     ],
     "answer": "At a kitchen supply store",
     "explanation": "包丁の セールや 料理本の 話から 台所用品の 店と わかる。cook からの 連想で 料理学校や レストランを 選ばないこと。",
@@ -47,7 +47,7 @@
       "Go to the counter by the door",
       "Look at some cookbooks",
       "Call her sister",
-      "Pay for gift wrapping"
+      "Pay an extra fee for gift wrapping"
     ],
     "answer": "Go to the counter by the door",
     "explanation": "店員が「ドアの そばの カウンターへ」と 案内している。ラッピングは 無料なので 支払いは 不要。",
@@ -65,7 +65,7 @@
       "Fix a printer",
       "Order a new ID card",
       "Print handouts for a meeting",
-      "Reserve a meeting room"
+      "Reserve a room for a two o'clock meeting"
     ],
     "answer": "Print handouts for a meeting",
     "explanation": "男性は 最初に「2 時の 会議の 配布資料を 印刷したい」と 言っている。",
@@ -191,7 +191,7 @@
       "One night",
       "Three nights",
       "Two nights",
-      "One week"
+      "About one week"
     ],
     "answer": "Three nights",
     "explanation": "「シングルルームで 3 泊」と 確認している。",
@@ -299,7 +299,7 @@
       "She has a call with a client",
       "She has already eaten",
       "She is leaving early",
-      "She does not like Thai food"
+      "She does not really like Thai food"
     ],
     "answer": "She has a call with a client",
     "explanation": "「12 時半に 顧客との 電話が ある」と 理由を 言っている。",
@@ -442,7 +442,7 @@
     "choices": [
       "Interviewing job candidates",
       "Planning a trade fair",
-      "Designing a company logo",
+      "Designing a logo for the company",
       "Reviewing a budget"
     ],
     "answer": "Interviewing job candidates",
@@ -459,7 +459,7 @@
     "question": "Why is Thursday not a good day for the interviews?",
     "choices": [
       "The candidates are busy",
-      "The office will be closed",
+      "The office will be closed for a holiday",
       "The man will be at a trade fair",
       "The woman has a deadline"
     ],
@@ -514,7 +514,7 @@
     "choices": [
       "It was fixed yesterday",
       "Other offices have also reported it",
-      "It affects only the woman's office",
+      "It affects only the woman's own office",
       "It was caused by an open window"
     ],
     "answer": "Other offices have also reported it",
@@ -550,7 +550,7 @@
     "choices": [
       "The weather was bad",
       "There were not enough staff",
-      "Too few passengers booked it",
+      "Too few passengers had booked seats",
       "There was a mechanical problem"
     ],
     "answer": "There was a mechanical problem",
@@ -584,7 +584,7 @@
     "passage": "Woman: Excuse me, I was supposed to be on the flight to Vancouver, but the board says it's been canceled.\nMan: Yes, I'm afraid there's a mechanical problem with the aircraft. I can put you on our next flight, which leaves at six fifteen this evening.\nWoman: Six fifteen? I have a dinner meeting with clients at seven.\nMan: I understand. There's also a flight with a partner airline at two thirty, but it stops in Calgary.\nWoman: How long is the stop?\nMan: About an hour. You'd still arrive by five.\nWoman: I'll take that one, then.",
     "question": "What will the woman most likely do?",
     "choices": [
-      "Wait for the 6:15 flight",
+      "Wait for the 6:15 flight to Vancouver",
       "Cancel her meeting",
       "Rent a car",
       "Take a flight that stops in Calgary"
@@ -605,7 +605,7 @@
       "A presentation to clients",
       "A shipping inspection",
       "A job interview",
-      "A product launch party"
+      "A party for a new product launch"
     ],
     "answer": "A presentation to clients",
     "explanation": "「明日の Hartley Foods への プレゼン」の 準備を している。",
@@ -623,7 +623,7 @@
       "Approval from a manager",
       "Slides from Priya",
       "Figures from the shipping department",
-      "A reply from the clients"
+      "A reply from the clients about the budget"
     ],
     "answer": "Figures from the shipping department",
     "explanation": "「配送部からの 数字を 待っている」と 言っている。numbers→figures の 言い換え。",
@@ -638,7 +638,7 @@
     "passage": "Man: Priya, Tom, are we ready for tomorrow's presentation to the Hartley Foods team?\nWoman: Almost. I've finished the slides on the market research. Tom, how are the cost estimates coming along?\nMan 2: I'm still waiting for the numbers from the shipping department. They promised to send them by the end of today.\nMan: OK. Let's meet at eight tomorrow to practice once before the clients arrive at ten.\nWoman: Eight is fine. Should I book the small meeting room?\nMan: Yes, please. And could you also order coffee for the client meeting?",
     "question": "What will the woman most likely do?",
     "choices": [
-      "Call the shipping department",
+      "Call the shipping department about the numbers",
       "Reserve a room and order coffee",
       "Rewrite the market research",
       "Meet the clients at eight"
@@ -658,7 +658,7 @@
     "choices": [
       "She lost her receipt",
       "She was charged twice",
-      "Her order has not arrived",
+      "Her online order has not arrived yet",
       "Her coffee maker stopped working"
     ],
     "answer": "Her coffee maker stopped working",

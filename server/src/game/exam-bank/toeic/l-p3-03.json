@@ -46,7 +46,7 @@
     "choices": [
       "He will be away from the office",
       "The alarms could interrupt an important call",
-      "The investors are visiting in person",
+      "The investors are planning to visit in person",
       "The notice arrived too late"
     ],
     "answer": "The alarms could interrupt an important call",
@@ -98,7 +98,7 @@
     "passage": "Man: So, what did you think of the two finalists for the project manager role?\nWoman: They're both impressive. Ms. Abara has excellent references, and her presentation was very clear.\nMan: I liked her too. But she's only been in the industry for two years.\nWoman: True, but she managed a team of fifteen at her last job. Mr. Larsen has more experience, but he seemed less interested in the position.\nMan: That's a good point. Why don't we invite Ms. Abara back to meet the department director? Then we can make a final decision.",
     "question": "What does the man imply when he says, \"But she's only been in the industry for two years\"?",
     "choices": [
-      "He thinks she will learn quickly",
+      "He thinks she will learn the job very quickly",
       "He is concerned about her lack of experience",
       "He wants to hire her immediately",
       "He doubts her references"
@@ -137,7 +137,7 @@
       "A product was damaged",
       "An order was canceled",
       "A shipment is being held up",
-      "Fabric prices have risen"
+      "The price of fabric has gone up"
     ],
     "answer": "A shipment is being held up",
     "explanation": "生地の 荷物が 税関で 止まっている。",
@@ -244,7 +244,7 @@
     "choices": [
       "Hiring an accountant",
       "Introducing new software",
-      "Reducing training costs",
+      "Reducing the cost of staff training",
       "Moving to a new office"
     ],
     "answer": "Introducing new software",
@@ -317,7 +317,7 @@
       "A supplier has gone out of business",
       "An ingredient has become more expensive",
       "A chef has quit",
-      "Customers have complained about a dish"
+      "Customers have complained about a seafood dish"
     ],
     "answer": "An ingredient has become more expensive",
     "explanation": "サーモンの 値段が 春より 20% 上がった。",
@@ -371,7 +371,7 @@
       "It has a great view",
       "It was recently renovated",
       "It is close to public transportation",
-      "It has a large parking lot"
+      "It has a large parking lot for visitors"
     ],
     "answer": "It is close to public transportation",
     "explanation": "「手ごろで 公共交通機関に 近い」と 言っている。眺めは Harbor Street の 物件。",
@@ -587,7 +587,7 @@
       "It is too long",
       "It does not request a certain kind of permission",
       "It contains outdated prices",
-      "It is available in only one language"
+      "It is available in only one language at present"
     ],
     "answer": "It does not request a certain kind of permission",
     "explanation": "「今の 登録フォームは その 同意を 求めていない」と 言っている。",
@@ -622,7 +622,7 @@
     "choices": [
       "An acquisition was completed",
       "A ticketing system crashed",
-      "A support manager resigned",
+      "A support team manager has resigned",
       "A product was recalled"
     ],
     "answer": "An acquisition was completed",
@@ -675,7 +675,7 @@
     "question": "What does the client want its suppliers to do?",
     "choices": [
       "Lower their prices",
-      "Ship products faster",
+      "Ship products to stores faster",
       "Reduce plastic packaging",
       "Use local manufacturers"
     ],
@@ -712,7 +712,7 @@
     "choices": [
       "Run drop tests",
       "Meet with the client",
-      "Place a bulk order",
+      "Place a bulk order for packaging",
       "Contact material manufacturers"
     ],
     "answer": "Contact material manufacturers",

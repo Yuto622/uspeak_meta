@@ -8,7 +8,7 @@
     "passage": "Man: How soon can you get the revised contract to us?",
     "question": "Choose the best response.",
     "choices": [
-      "The contract is for two years.",
+      "The contract is for two years, with an option to renew.",
       "It was revised twice.",
       "I can have it ready by tomorrow afternoon."
     ],
@@ -25,7 +25,7 @@
     "passage": "Woman: The client wants to add three more units to the order.",
     "question": "Choose the best response.",
     "choices": [
-      "The unit is on the third floor.",
+      "The unit is on the third floor of the building.",
       "Then we'll need to update the invoice.",
       "It's in order."
     ],
@@ -78,7 +78,7 @@
     "choices": [
       "One of the machines needs a replacement part.",
       "About two hours.",
-      "Production increased last year."
+      "Production increased by twenty percent last year."
     ],
     "answer": "One of the machines needs a replacement part.",
     "explanation": "原因を 答えている。遅れの 長さや production の くり返しは ひっかけ。",
@@ -93,7 +93,7 @@
     "passage": "Woman: Haven't the new laptops been distributed yet?",
     "question": "Choose the best response.",
     "choices": [
-      "The distributor is in Chicago.",
+      "The distributor is based in Chicago.",
       "Yes, they're laptops.",
       "They're still being set up by IT."
     ],
@@ -110,7 +110,7 @@
     "passage": "Man: Who's covering the front desk while Amira is on leave?",
     "question": "Choose the best response.",
     "choices": [
-      "She's leaving at five.",
+      "She's leaving the office at five today.",
       "We've hired a temp for two weeks.",
       "Cover it with a cloth."
     ],
@@ -145,7 +145,7 @@
     "question": "Choose the best response.",
     "choices": [
       "Is there a later flight she could take?",
-      "The keynote was very inspiring.",
+      "The keynote speech was very inspiring.",
       "It was a key part of the plan."
     ],
     "answer": "Is there a later flight she could take?",
@@ -178,7 +178,7 @@
     "passage": "Man: You've reviewed the safety guidelines, haven't you?",
     "question": "Choose the best response.",
     "choices": [
-      "The guide is waiting in the lobby.",
+      "The tour guide is waiting in the lobby.",
       "It's safe to say.",
       "I'm going through them this afternoon."
     ],
@@ -212,7 +212,7 @@
     "passage": "Man: Should we hold the reception indoors or outdoors?",
     "question": "Choose the best response.",
     "choices": [
-      "The reception desk is to your right.",
+      "The reception desk is just to your right.",
       "Let's check the weather forecast first.",
       "It held about two hundred people."
     ],
@@ -264,7 +264,7 @@
     "question": "Choose the best response.",
     "choices": [
       "Within thirty days of the trip.",
-      "To the accounting department.",
+      "To the accounting department on the second floor.",
       "It was a long trip."
     ],
     "answer": "Within thirty days of the trip.",
@@ -314,7 +314,7 @@
     "passage": "Man: Which supplier offered the best terms?",
     "question": "Choose the best response.",
     "choices": [
-      "The terms and conditions are online.",
+      "The terms and conditions are on our website.",
       "Supplies arrive on Mondays.",
       "Larkspur Materials, by a wide margin."
     ],
@@ -331,7 +331,7 @@
     "passage": "Woman: How come the conference fee went up this year?",
     "question": "Choose the best response.",
     "choices": [
-      "It's at the convention center.",
+      "It's at the convention center downtown.",
       "About three hundred dollars.",
       "The venue raised its rental rates."
     ],
@@ -365,11 +365,11 @@
     "passage": "Woman: Has the maintenance team looked at the leak in the ceiling?",
     "question": "Choose the best response.",
     "choices": [
-      "They're scheduled to come by this afternoon.",
+      "They're coming this afternoon.",
       "The ceiling is quite high.",
-      "Please leave it on the desk."
+      "Please leave it on the desk by the window."
     ],
-    "answer": "They're scheduled to come by this afternoon.",
+    "answer": "They're coming this afternoon.",
     "explanation": "「今日の 午後 来る予定（まだ）」と 答える。leak→leave の 似た音が ひっかけ。",
     "tags": "TOEIC Part2 yes/no 間接応答 似た音"
   },
@@ -417,7 +417,7 @@
     "question": "Choose the best response.",
     "choices": [
       "I'll cut the paper.",
-      "About fifteen people.",
+      "About fifteen people from the marketing team.",
       "Then we'll have to prioritize the online ads."
     ],
     "answer": "Then we'll have to prioritize the online ads.",
@@ -452,7 +452,7 @@
     "choices": [
       "The property manager handles all leases.",
       "It's renewed every year.",
-      "Please contact me by e-mail."
+      "Please contact me by e-mail if you have questions."
     ],
     "answer": "The property manager handles all leases.",
     "explanation": "連絡先の 人物を 答える。renewing→renewed、contact の くり返しが ひっかけ。",
@@ -484,7 +484,7 @@
     "passage": "Man: Wouldn't it make more sense to outsource the payroll processing?",
     "question": "Choose the best response.",
     "choices": [
-      "The payroll is processed on the fifteenth.",
+      "The payroll is processed on the fifteenth of each month.",
       "We looked into that, but the savings were minimal.",
       "Our sources are reliable."
     ],
@@ -536,7 +536,7 @@
     "question": "Choose the best response.",
     "choices": [
       "Registration closes on Friday.",
-      "The hotel has excellent accommodations.",
+      "The hotel next door has excellent accommodations.",
       "We could livestream some of the sessions."
     ],
     "answer": "We could livestream some of the sessions.",
@@ -569,7 +569,7 @@
     "passage": "Woman: Should we inform the shareholders now, or wait until the figures are final?",
     "question": "Choose the best response.",
     "choices": [
-      "Shareholders meet once a year.",
+      "Shareholders usually meet once a year in June.",
       "It's better to give them accurate numbers.",
       "The figure on page five."
     ],
@@ -603,7 +603,7 @@
     "passage": "Woman: Why weren't the clients told about the price increase sooner?",
     "question": "Choose the best response.",
     "choices": [
-      "The price includes tax.",
+      "The price includes tax and delivery charges.",
       "They told me about it.",
       "The decision was only finalized yesterday."
     ],
@@ -671,7 +671,7 @@
     "passage": "Woman: What's the rationale behind relocating the warehouse?",
     "question": "Choose the best response.",
     "choices": [
-      "It's located on Pine Avenue.",
+      "It's located on Pine Avenue near the highway.",
       "We'll need more shelves.",
       "Rent in the new area is significantly lower."
     ],

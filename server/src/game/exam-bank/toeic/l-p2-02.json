@@ -43,7 +43,7 @@
     "question": "Choose the best response.",
     "choices": [
       "It's a nice color.",
-      "I'll return at five.",
+      "I'll return to the office at five.",
       "Do you have the receipt?"
     ],
     "answer": "Do you have the receipt?",
@@ -61,7 +61,7 @@
     "choices": [
       "Please transfer the call.",
       "Yes, she moved last month.",
-      "The branch closes at six."
+      "The branch closes at six on weekdays."
     ],
     "answer": "Yes, she moved last month.",
     "explanation": "否定疑問に Yes ＋ 説明で 答える。transfer（電話を つなぐ）、branch の くり返しが ひっかけ。",
@@ -111,7 +111,7 @@
     "question": "Choose the best response.",
     "choices": [
       "It was a good presentation.",
-      "I checked out of the hotel.",
+      "I checked out of the hotel early.",
       "Not at all. Send them to me."
     ],
     "answer": "Not at all. Send them to me.",
@@ -213,7 +213,7 @@
     "question": "Choose the best response.",
     "choices": [
       "Yes, it's a delivery truck.",
-      "Mostly furniture and lamps.",
+      "Mostly furniture and some floor lamps.",
       "There was a problem at the warehouse."
     ],
     "answer": "There was a problem at the warehouse.",
@@ -247,7 +247,7 @@
     "question": "Choose the best response.",
     "choices": [
       "I'll revise it this afternoon.",
-      "Do you have change for a ten?",
+      "Do you have change for a ten-dollar bill?",
       "Four times a year."
     ],
     "answer": "I'll revise it this afternoon.",
@@ -280,7 +280,7 @@
     "passage": "Man: Aren't you going to the training workshop?",
     "question": "Choose the best response.",
     "choices": [
-      "It's a workshop on safety.",
+      "It's a workshop on workplace safety.",
       "I have to finish a report first.",
       "The train leaves at six."
     ],
@@ -315,7 +315,7 @@
     "question": "Choose the best response.",
     "choices": [
       "It's soft and comfortable.",
-      "It's a software company.",
+      "It's a large software company in Seoul.",
       "The technician is coming tomorrow."
     ],
     "answer": "The technician is coming tomorrow.",
@@ -366,7 +366,7 @@
     "question": "Choose the best response.",
     "choices": [
       "It's only five minutes on foot.",
-      "Yes, the taxi is waiting.",
+      "Yes, the taxi is waiting outside the lobby.",
       "I've eaten there before."
     ],
     "answer": "It's only five minutes on foot.",
@@ -382,7 +382,7 @@
     "passage": "Man: Where's the nearest post office?",
     "question": "Choose the best response.",
     "choices": [
-      "The mail comes at eleven.",
+      "The mail usually comes at eleven.",
       "There's one two blocks from here.",
       "I posted it online."
     ],
@@ -418,7 +418,7 @@
     "choices": [
       "A freelance designer from Lagos.",
       "Yes, it looks modern.",
-      "On the website."
+      "It's on the website and the brochures."
     ],
     "answer": "A freelance designer from Lagos.",
     "explanation": "Who に 人物で 答える。wh疑問に Yes は 不可、場所も ずれている。",
@@ -484,7 +484,7 @@
     "passage": "Man: When are you moving to the new apartment?",
     "question": "Choose the best response.",
     "choices": [
-      "It has two bedrooms.",
+      "It has two bedrooms and a balcony.",
       "At the end of the month.",
       "I moved the meeting."
     ],
@@ -520,7 +520,7 @@
     "choices": [
       "Because I was sick.",
       "I have too much work today.",
-      "Take it off the shelf."
+      "Take it off the top shelf, please."
     ],
     "answer": "I have too much work today.",
     "explanation": "Why don't you ～? は 提案。「仕事が 多い」と ことわる 応答が 正解。Because は ひっかけ。",
@@ -587,7 +587,7 @@
     "question": "Choose the best response.",
     "choices": [
       "About twelve participants.",
-      "We'll package them on Monday.",
+      "We'll package them on Monday morning.",
       "Most participants found it too plain."
     ],
     "answer": "Most participants found it too plain.",
@@ -637,7 +637,7 @@
     "passage": "Woman: Who approved this expense report?",
     "question": "Choose the best response.",
     "choices": [
-      "Mostly travel expenses.",
+      "Mostly travel and hotel expenses, I think.",
       "Yes, it's expensive.",
       "It should have Mr. Diaz's signature on it."
     ],
@@ -671,11 +671,11 @@
     "passage": "Woman: Where can I find last year's audit results?",
     "question": "Choose the best response.",
     "choices": [
-      "The finance team keeps them on the shared drive.",
+      "It's on the shared drive.",
       "It was audited in March.",
-      "They drove to the office."
+      "They drove to the office this morning."
     ],
-    "answer": "The finance team keeps them on the shared drive.",
+    "answer": "It's on the shared drive.",
     "explanation": "場所（共有ドライブ）を 答える。audit→audited、drive→drove の ひっかけ。",
     "tags": "TOEIC Part2 wh疑問 場所 似た音"
   }

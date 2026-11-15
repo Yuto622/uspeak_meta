@@ -9,7 +9,7 @@
     "question": "Choose the best response.",
     "choices": [
       "Yes, I made ten copies.",
-      "At three o'clock.",
+      "At about three o'clock this afternoon.",
       "It's next to the reception desk."
     ],
     "answer": "It's next to the reception desk.",
@@ -25,7 +25,7 @@
     "passage": "Woman: When does the shipment from Osaka arrive?",
     "question": "Choose the best response.",
     "choices": [
-      "From the warehouse in Osaka.",
+      "From our main warehouse in Osaka.",
       "It should be here by Thursday.",
       "About two hundred boxes."
     ],
@@ -44,7 +44,7 @@
     "choices": [
       "Ms. Okafor from Human Resources.",
       "In Meeting Room B.",
-      "It lasts about two hours."
+      "It lasts about two hours, I believe."
     ],
     "answer": "Ms. Okafor from Human Resources.",
     "explanation": "Who に 人物で 答えている。場所（Where）や 長さ（How long）の 答えは 質問の 型が ちがう。",
@@ -196,7 +196,7 @@
     "question": "Choose the best response.",
     "choices": [
       "I usually take the train.",
-      "About forty minutes.",
+      "About forty minutes each way.",
       "I work in sales."
     ],
     "answer": "I usually take the train.",
@@ -213,10 +213,10 @@
     "question": "Choose the best response.",
     "choices": [
       "I left it on the desk.",
-      "No, it was changed to two o'clock.",
+      "No, it's at two now.",
       "The flight attendant was helpful."
     ],
-    "answer": "No, it was changed to two o'clock.",
+    "answer": "No, it's at two now.",
     "explanation": "付加疑問に No ＋ 訂正で 答える。leaves→left、flight の 同語反復が ひっかけ。",
     "tags": "TOEIC Part2 付加疑問 同語反復"
   },
@@ -265,7 +265,7 @@
     "choices": [
       "From the machine by the entrance.",
       "By ten thirty.",
-      "It's a round-trip ticket."
+      "It's a round-trip ticket to Kyoto."
     ],
     "answer": "From the machine by the entrance.",
     "explanation": "Where に 場所で 答える。by の 時間の 使い方や ticket の くり返しは ひっかけ。",
@@ -280,7 +280,7 @@
     "passage": "Man: Have you met our new accountant?",
     "question": "Choose the best response.",
     "choices": [
-      "The meeting is at ten.",
+      "The meeting starts at ten o'clock.",
       "Yes, we talked this morning.",
       "I counted them twice."
     ],
@@ -315,7 +315,7 @@
     "question": "Choose the best response.",
     "choices": [
       "It's raining outside.",
-      "Turn left at the corner.",
+      "Turn left at the next corner, please.",
       "I think it's Mr. Tanaka's."
     ],
     "answer": "I think it's Mr. Tanaka's.",
@@ -332,7 +332,7 @@
     "question": "Choose the best response.",
     "choices": [
       "Yes, the technician fixed it.",
-      "I work on the fifth floor.",
+      "I work on the fifth floor, by the stairs.",
       "Print two copies, please."
     ],
     "answer": "Yes, the technician fixed it.",
@@ -366,7 +366,7 @@
     "question": "Choose the best response.",
     "choices": [
       "In the first week of August.",
-      "To Spain and Portugal.",
+      "To Spain and Portugal, probably.",
       "For two weeks."
     ],
     "answer": "In the first week of August.",
@@ -417,7 +417,7 @@
     "question": "Choose the best response.",
     "choices": [
       "The director has a conference on Thursday.",
-      "In the main conference room.",
+      "In the main conference room on the third floor.",
       "I'll move the chairs."
     ],
     "answer": "The director has a conference on Thursday.",
@@ -450,7 +450,7 @@
     "passage": "Man: Haven't you finished the sales report yet?",
     "question": "Choose the best response.",
     "choices": [
-      "Sales went up by ten percent.",
+      "Sales went up by ten percent last quarter.",
       "It was a big sale.",
       "I'm adding the final figures now."
     ],
@@ -486,7 +486,7 @@
     "choices": [
       "Pasta and grilled fish.",
       "I haven't checked the schedule yet.",
-      "It's available in three colors."
+      "It's available in three different colors."
     ],
     "answer": "I haven't checked the schedule yet.",
     "explanation": "「まだ 確認していない」という わからない 系の 間接応答。available の くり返しや 料理名は ひっかけ。",
@@ -535,7 +535,7 @@
     "passage": "Woman: Where should I put these brochures?",
     "question": "Choose the best response.",
     "choices": [
-      "They were printed yesterday.",
+      "They were printed at the shop yesterday.",
       "On the table by the entrance.",
       "Five hundred copies."
     ],
@@ -620,7 +620,7 @@
     "passage": "Man: Do you know where Mr. Haddad's office is?",
     "question": "Choose the best response.",
     "choices": [
-      "Yes, I know him well.",
+      "Yes, I've known him for years.",
       "It's at the end of the hall.",
       "He's a lawyer."
     ],
@@ -655,7 +655,7 @@
     "question": "Choose the best response.",
     "choices": [
       "Leave it with the receptionist.",
-      "It weighs about two kilos.",
+      "It weighs about two kilos, I think.",
       "I gave a speech."
     ],
     "answer": "Leave it with the receptionist.",
