@@ -96,8 +96,8 @@
   "question": "Choose the correct answer.\n\nWhat problem is described in paragraph C?",
   "choices": [
    "The Pueblo roof beams had been damaged by fire.",
-   "Archaeologists refused to accept Douglass's methods.",
    "Two sequences could not at first be linked.",
+   "Archaeologists refused to accept Douglass's methods.",
    "There were not enough beams to build a sequence."
   ],
   "answer": "Two sequences could not at first be linked.",
@@ -390,8 +390,8 @@
   "question": "Choose the correct answer.\n\nWhy was Tudor's first voyage a failure?",
   "choices": [
    "Most of the ice melted during the journey.",
-   "The ship was damaged in a storm.",
    "There was no place to keep the ice after it arrived.",
+   "The ship was damaged in a storm.",
    "The ice was too expensive for local people."
   ],
   "answer": "There was no place to keep the ice after it arrived.",
@@ -537,8 +537,8 @@
   "question": "Choose the correct answer.\n\nWhat was the main advantage of Yoshino's design?",
   "choices": [
    "It used cobalt instead of titanium.",
-   "It could be produced without any liquid electrolyte.",
    "It did not contain any reactive lithium metal.",
+   "It could be produced without any liquid electrolyte.",
    "It doubled the voltage of earlier batteries."
   ],
   "answer": "It did not contain any reactive lithium metal.",
@@ -556,8 +556,8 @@
   "choices": [
    "reduced the demand for electric vehicles.",
    "led to the closure of many power stations.",
-   "made batteries easier to recycle.",
-   "made it easier to store energy from renewable sources."
+   "made it easier to store energy from renewable sources.",
+   "made batteries easier to recycle."
   ],
   "answer": "made it easier to store energy from renewable sources.",
   "explanation": "E段落「allowed electricity companies to store solar and wind power」。",

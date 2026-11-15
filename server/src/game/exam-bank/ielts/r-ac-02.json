@@ -96,8 +96,8 @@
   "question": "Choose the correct answer.\n\nWhy did Ebbinghaus use nonsense syllables?",
   "choices": [
    "because he had no laboratory in which to test real words",
-   "to compare memory for different languages",
    "to stop the meaning of words from affecting how easily they were remembered",
+   "to compare memory for different languages",
    "because real words were forgotten too quickly"
   ],
   "answer": "to stop the meaning of words from affecting how easily they were remembered",
@@ -243,8 +243,8 @@
   "question": "Choose the correct answer.\n\nThe wooden cylinders mentioned in paragraph C are an example of materials that",
   "choices": [
    "were designed for children with physical disabilities.",
-   "are used by the teacher to demonstrate lessons.",
    "allow children to notice and correct their own errors.",
+   "are used by the teacher to demonstrate lessons.",
    "help children to learn about numbers."
   ],
   "answer": "allow children to notice and correct their own errors.",

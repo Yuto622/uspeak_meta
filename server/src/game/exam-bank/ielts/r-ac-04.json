@@ -96,8 +96,8 @@
   "question": "Choose the correct answer.\n\nWhy are high night-time temperatures particularly dangerous?",
   "choices": [
    "They increase the amount of ozone produced at night.",
-   "Elderly people are more likely to go outside at night when it is cooler.",
    "The body has no chance to recover from the heat of the day.",
+   "Elderly people are more likely to go outside at night when it is cooler.",
    "Air conditioners are less effective after sunset."
   ],
   "answer": "The body has no chance to recover from the heat of the day.",
@@ -115,8 +115,8 @@
   "choices": [
    "It is the most effective way to protect elderly people.",
    "It is rarely used in European cities.",
-   "It reduces the formation of ground-level ozone.",
-   "It can add to the problem it is used to solve."
+   "It can add to the problem it is used to solve.",
+   "It reduces the formation of ground-level ozone."
   ],
   "answer": "It can add to the problem it is used to solve.",
   "explanation": "D段落：冷房の 需要が 増えると エネルギー消費が 増え、さらに 廃熱を 街に 出す（悪循環）。",
@@ -243,8 +243,8 @@
   "question": "Choose the correct answer.\n\nIn the intercom experiment, students were less likely to seek help when",
   "choices": [
    "they realised the voice was a recording.",
-   "they were asked to protect their privacy.",
    "they thought several other people could also hear.",
+   "they were asked to protect their privacy.",
    "the seizure continued for a long time."
   ],
   "answer": "they thought several other people could also hear.",
@@ -537,8 +537,8 @@
   "question": "Choose the correct answer.\n\nWhat did Jaime Lerner's administration do in 1974?",
   "choices": [
    "It began construction of a metro system.",
-   "It introduced extra-long buses across the city.",
    "It reserved lanes on major roads for buses.",
+   "It introduced extra-long buses across the city.",
    "It banned private cars from the city centre."
   ],
   "answer": "It reserved lanes on major roads for buses.",

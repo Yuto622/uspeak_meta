@@ -43,9 +43,9 @@
   "question": "Paragraph C: choose the most suitable heading.",
   "choices": [
    "Why demand now exceeds supply",
+   "Wartime growth and post-war decline in numbers",
    "The health benefits of growing food",
-   "Rules for keeping a plot",
-   "Wartime growth and post-war decline in numbers"
+   "Rules for keeping a plot"
   ],
   "answer": "Wartime growth and post-war decline in numbers",
   "explanation": "C段落は 二つの 世界大戦中の 増加と、戦後の 需要の 急減を 述べる。",
@@ -207,10 +207,10 @@
   "passage": "Harbour View Hotel: Guest Information\n\nA  Breakfast. Breakfast is served in the Garden Room from 7.00 to 10.00 a.m. on weekdays and from 7.30 to 10.30 a.m. at weekends. A continental breakfast can be delivered to your room for a small extra charge; please order by 10 p.m. the night before.\n\nB  Check-out. Check-out time is 11.00 a.m. Late check-out until 2.00 p.m. may be possible, depending on availability; please ask at reception. Luggage can be stored free of charge after check-out.\n\nC  Wi-Fi. Free Wi-Fi is available throughout the hotel. The network name and password are printed on your key card holder. For faster connection speeds, a premium service can be purchased at reception.\n\nD  Leisure facilities. The indoor pool and gym on the ground floor are open from 6.30 a.m. to 9.00 p.m. and are free for all guests. Spa treatments must be booked at least 24 hours in advance.\n\nE  Parking. Limited parking is available behind the hotel at £12 per night. Spaces cannot be reserved. Guests may also use the public car park on Quay Street, a five-minute walk away.",
   "question": "Choose the correct answer.\n\nWhat is said about parking at the hotel?",
   "choices": [
-   "Guests cannot book a space in advance.",
    "It is free for guests staying more than one night.",
    "The car park is a five-minute walk from the hotel.",
-   "Spaces are available at the front of the hotel."
+   "Spaces are available at the front of the hotel.",
+   "Guests cannot book a space in advance."
   ],
   "answer": "Guests cannot book a space in advance.",
   "explanation": "E「Spaces cannot be reserved」。徒歩5分なのは 公共の 駐車場。",
@@ -335,9 +335,9 @@
   "passage": "Working Less, Achieving More? The Four-Day Week\n\nA  For most of the twentieth century, the standard working week in industrialised countries shrank steadily. In the early 1900s, factory employees commonly worked six days a week; by the middle of the century, the five-day, forty-hour week had become the norm in many countries. Since then, however, the length of the standard week has barely changed, even as technology has transformed the nature of work. In recent years, a growing number of employers and campaigners have asked whether the next step should be a four-day week.\n\nB  It is important to distinguish between two very different ideas that are sometimes given the same name. A 'compressed' week involves working the same total number of hours over four days, for example four ten-hour days. A reduced-hours week, by contrast, cuts the total working time, typically to around thirty-two hours, while maintaining full pay. Advocates of the latter often refer to the '100-80-100' model: employees receive 100 per cent of their pay for 80 per cent of their time, in return for a commitment to maintain 100 per cent of their productivity.\n\nC  Some of the most widely cited evidence comes from Iceland, where trials involving around 2,500 public-sector workers took place between 2015 and 2019. Working hours were reduced from forty to thirty-five or thirty-six per week, without any reduction in pay. According to researchers who analysed the results, productivity and service provision remained the same or improved in the majority of workplaces, while workers reported lower stress and a better balance between work and home life. Following the trials, unions negotiated agreements giving many Icelandic workers the right to request shorter hours.\n\nD  In 2022, a six-month pilot involving 61 companies and almost 3,000 employees took place in the United Kingdom. The organisations ranged from small marketing agencies to a fish and chip shop. At the end of the trial, 56 of the companies chose to continue with the four-day week, 18 of them on a permanent basis. Employees reported less burnout and fewer sick days, and among the companies that provided financial data, revenue stayed broadly the same over the trial period. Many firms found that the change forced them to cut unnecessary meetings and to reorganise tasks more efficiently.\n\nE  Sceptics, however, point to several limitations. The companies taking part in such trials had volunteered, and are likely to have been those most confident that a shorter week would suit them. Six months may be too short a period to reveal long-term effects. Moreover, the model is far easier to apply in office-based work, where output can be measured in tasks completed, than in sectors such as healthcare, education or retail, where staff need to be present for fixed periods. In these areas, reducing hours without reducing pay may simply require employing more people, which raises costs.\n\nF  The debate is therefore likely to continue for some time. It seems unlikely that a single model will suit every industry, and the most successful examples so far have involved careful planning and the active involvement of employees in redesigning their work. What the trials have demonstrated, at the very least, is that the number of hours spent at work is not always a reliable measure of what is achieved there.",
   "question": "Paragraph E: choose the most suitable heading.",
   "choices": [
+   "Reasons for caution",
    "Results from a national trial in Iceland",
    "Two different meanings of the same term",
-   "Reasons for caution",
    "How meetings can be reduced"
   ],
   "answer": "Reasons for caution",

@@ -96,8 +96,8 @@
   "question": "Choose the correct answer.\n\nWhat does the example of Tok Pisin illustrate?",
   "choices": [
    "Pidgins cannot be used for official purposes.",
-   "Creoles develop most quickly in rural areas.",
    "The change from pidgin to creole can happen gradually.",
+   "Creoles develop most quickly in rural areas.",
    "A pidgin must take its vocabulary from a single source language."
   ],
   "answer": "The change from pidgin to creole can happen gradually.",
@@ -537,8 +537,8 @@
   "question": "Choose the correct answer.\n\nWhy were thermal methods adopted mainly in countries with plenty of oil and gas?",
   "choices": [
    "They produce water of higher quality.",
-   "They were invented in those countries.",
    "They require a large amount of energy.",
+   "They were invented in those countries.",
    "They do not produce any brine."
   ],
   "answer": "They require a large amount of energy.",

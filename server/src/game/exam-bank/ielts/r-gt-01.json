@@ -332,8 +332,8 @@
   "choices": [
    "Children must bring their own floating toys.",
    "Children under 8 must stay out of the deep end.",
-   "Families must book their places in advance.",
-   "One adult may supervise two under-8s at most."
+   "One adult may supervise two under-8s at most.",
+   "Families must book their places in advance."
   ],
   "answer": "One adult may supervise two under-8s at most.",
   "explanation": "B「one adult may supervise no more than two children under 8」。事前予約が 必要なのは C（Aqua fitness）。",
@@ -459,9 +459,9 @@
   "passage": "Community Noticeboard: For Sale\n\nA  Children's bicycle, suitable for ages 6–9. Blue, with stabilisers (these can be removed). Some scratches but in good working order. £35. Collection only from Elm Road. Call Sam after 6 p.m.\n\nB  Three-seater sofa, grey fabric, 2 years old. Smoke-free and pet-free home. Covers can be removed and washed. Originally £600, will accept £180. Buyer must arrange transport, as it will not fit in a normal car!\n\nC  Digital piano with stand and headphones. 88 keys, perfect for a beginner or intermediate player. Hardly used since my daughter went to university. £250 or nearest offer. Delivery possible within 5 miles for an extra £15.\n\nD  Baby pushchair, folds easily, suitable from birth to 4 years. Rain cover and shopping basket included. Minor wear on the handles. £45. Email for photos.\n\nE  Large wooden desk with three drawers. Some marks on the surface. Free to anyone who can collect it this weekend, as we are moving house.",
   "question": "Choose the correct answer.\n\nWhat does the seller of the sofa say about it?",
   "choices": [
+   "The buyer will need a suitable vehicle.",
    "It has some damage caused by a pet.",
    "It can be delivered for an extra charge.",
-   "The buyer will need a suitable vehicle.",
    "The covers are new and have never been washed."
   ],
   "answer": "The buyer will need a suitable vehicle.",
