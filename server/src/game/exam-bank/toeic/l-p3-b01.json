@@ -1,0 +1,542 @@
+[
+ {
+  "id": "TOEIC-L3-501-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Hi, I'm here to pick up a prescription for my son. His name is Daniel Moreau.\nMan: Let me check... Yes, it's ready. Has he taken this medicine before?\nWoman: No, this is the first time. The doctor said it's for his ear infection.\nMan: OK. He should take one spoonful twice a day, after breakfast and after dinner, for ten days. Please keep the bottle in the refrigerator.\nWoman: In the refrigerator? I'm glad you told me. Can I pay with a credit card?\nMan: Of course. And here's a measuring spoon. It's free with the medicine.",
+  "question": "Where most likely is the conversation taking place?",
+  "choices": [
+   "At a restaurant",
+   "At a pharmacy",
+   "At a hotel",
+   "At a school"
+  ],
+  "answer": "At a pharmacy",
+  "explanation": "処方薬（prescription）を受け取りに来ており、薬の飲み方を説明しているので薬局での会話。",
+  "tags": "TOEIC Part3 healthcare"
+ },
+ {
+  "id": "TOEIC-L3-501-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Hi, I'm here to pick up a prescription for my son. His name is Daniel Moreau.\nMan: Let me check... Yes, it's ready. Has he taken this medicine before?\nWoman: No, this is the first time. The doctor said it's for his ear infection.\nMan: OK. He should take one spoonful twice a day, after breakfast and after dinner, for ten days. Please keep the bottle in the refrigerator.\nWoman: In the refrigerator? I'm glad you told me. Can I pay with a credit card?\nMan: Of course. And here's a measuring spoon. It's free with the medicine.",
+  "question": "How often should the medicine be taken?",
+  "choices": [
+   "Three times a day",
+   "Every ten days",
+   "Twice a day",
+   "Once a day"
+  ],
+  "answer": "Twice a day",
+  "explanation": "男性が one spoonful twice a day と言っているので1日2回。ten days は服用期間。",
+  "tags": "TOEIC Part3 healthcare"
+ },
+ {
+  "id": "TOEIC-L3-501-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Hi, I'm here to pick up a prescription for my son. His name is Daniel Moreau.\nMan: Let me check... Yes, it's ready. Has he taken this medicine before?\nWoman: No, this is the first time. The doctor said it's for his ear infection.\nMan: OK. He should take one spoonful twice a day, after breakfast and after dinner, for ten days. Please keep the bottle in the refrigerator.\nWoman: In the refrigerator? I'm glad you told me. Can I pay with a credit card?\nMan: Of course. And here's a measuring spoon. It's free with the medicine.",
+  "question": "What does the man give the woman?",
+  "choices": [
+   "A refrigerator magnet",
+   "A new prescription",
+   "A measuring spoon",
+   "A discount coupon"
+  ],
+  "answer": "A measuring spoon",
+  "explanation": "最後に here's a measuring spoon と言って計量スプーンを渡している。",
+  "tags": "TOEIC Part3 healthcare"
+ },
+ {
+  "id": "TOEIC-L3-502-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Raj, Tomás, have you seen this morning's quality report? The rejection rate on Line 2 jumped to four percent.\nMan 1: Yes, I noticed that. Most of the rejected parts have scratches on the surface.\nMan 2: I think I know why. The protective pads on the conveyor were supposed to be replaced last week, but the new ones haven't arrived.\nWoman: Can't we use the spare pads from Line 4? That line is shut down for maintenance until Friday anyway.\nMan 2: That should work. I'll go and remove them now.\nMan 1: And I'll tell the supervisors to recheck everything produced since Monday.",
+  "question": "What problem are the speakers discussing?",
+  "choices": [
+   "A broken delivery truck",
+   "An increase in defective products",
+   "A delay in a customer order",
+   "A shortage of staff"
+  ],
+  "answer": "An increase in defective products",
+  "explanation": "不合格率（rejection rate）が4%に上がったという話なので、不良品の増加が問題。",
+  "tags": "TOEIC Part3 manufacturing"
+ },
+ {
+  "id": "TOEIC-L3-502-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Raj, Tomás, have you seen this morning's quality report? The rejection rate on Line 2 jumped to four percent.\nMan 1: Yes, I noticed that. Most of the rejected parts have scratches on the surface.\nMan 2: I think I know why. The protective pads on the conveyor were supposed to be replaced last week, but the new ones haven't arrived.\nWoman: Can't we use the spare pads from Line 4? That line is shut down for maintenance until Friday anyway.\nMan 2: That should work. I'll go and remove them now.\nMan 1: And I'll tell the supervisors to recheck everything produced since Monday.",
+  "question": "Why have the pads not been replaced?",
+  "choices": [
+   "New pads have not been delivered.",
+   "The supervisor did not approve it.",
+   "The line has been too busy.",
+   "The pads are too expensive."
+  ],
+  "answer": "New pads have not been delivered.",
+  "explanation": "the new ones haven't arrived と言っており、新しいパッドが届いていないことが理由。",
+  "tags": "TOEIC Part3 manufacturing"
+ },
+ {
+  "id": "TOEIC-L3-502-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Raj, Tomás, have you seen this morning's quality report? The rejection rate on Line 2 jumped to four percent.\nMan 1: Yes, I noticed that. Most of the rejected parts have scratches on the surface.\nMan 2: I think I know why. The protective pads on the conveyor were supposed to be replaced last week, but the new ones haven't arrived.\nWoman: Can't we use the spare pads from Line 4? That line is shut down for maintenance until Friday anyway.\nMan 2: That should work. I'll go and remove them now.\nMan 1: And I'll tell the supervisors to recheck everything produced since Monday.",
+  "question": "What does the woman suggest?",
+  "choices": [
+   "Shutting down Line 2 until Friday",
+   "Ordering pads from a different supplier",
+   "Rechecking the quality report",
+   "Using parts from another production line"
+  ],
+  "answer": "Using parts from another production line",
+  "explanation": "保守で停止中の4号ラインの予備パッドを使うことを提案している。",
+  "tags": "TOEIC Part3 manufacturing"
+ },
+ {
+  "id": "TOEIC-L3-503-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: Hi, Ms. Nakamura. This is Hugo from Brightwater Property Management. I'm calling about your unit on the fourth floor. The building owner has decided to replace all the windows next month.\nWoman: Oh, that's good news. The old ones let in a lot of cold air. How long will the work take?\nMan: About two days per unit. Someone will need to be home, or you can leave a key with our office.\nWoman: I'm traveling for work most of next month, so...\nMan: No problem. Just drop off a key before you leave, and we'll send you photos when the job is done.\nWoman: That would be great. I'll stop by on Thursday.",
+  "question": "Who most likely is the man?",
+  "choices": [
+   "A hotel receptionist",
+   "A travel agent",
+   "A property manager",
+   "A window manufacturer"
+  ],
+  "answer": "A property manager",
+  "explanation": "不動産管理会社（Property Management）の者だと名乗っているので、物件の管理担当者。",
+  "tags": "TOEIC Part3 real estate"
+ },
+ {
+  "id": "TOEIC-L3-503-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: Hi, Ms. Nakamura. This is Hugo from Brightwater Property Management. I'm calling about your unit on the fourth floor. The building owner has decided to replace all the windows next month.\nWoman: Oh, that's good news. The old ones let in a lot of cold air. How long will the work take?\nMan: About two days per unit. Someone will need to be home, or you can leave a key with our office.\nWoman: I'm traveling for work most of next month, so...\nMan: No problem. Just drop off a key before you leave, and we'll send you photos when the job is done.\nWoman: That would be great. I'll stop by on Thursday.",
+  "question": "Why does the woman say, \"I'm traveling for work most of next month\"?",
+  "choices": [
+   "To complain about her job",
+   "To request a lower rent",
+   "To explain that she will not be at home",
+   "To ask for help with her luggage"
+  ],
+  "answer": "To explain that she will not be at home",
+  "explanation": "在宅が必要と言われ、出張で家にいないことを伝えている。男性はその後、鍵を預ける方法を提案している。",
+  "tags": "TOEIC Part3 real estate"
+ },
+ {
+  "id": "TOEIC-L3-503-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: Hi, Ms. Nakamura. This is Hugo from Brightwater Property Management. I'm calling about your unit on the fourth floor. The building owner has decided to replace all the windows next month.\nWoman: Oh, that's good news. The old ones let in a lot of cold air. How long will the work take?\nMan: About two days per unit. Someone will need to be home, or you can leave a key with our office.\nWoman: I'm traveling for work most of next month, so...\nMan: No problem. Just drop off a key before you leave, and we'll send you photos when the job is done.\nWoman: That would be great. I'll stop by on Thursday.",
+  "question": "What will the woman do on Thursday?",
+  "choices": [
+   "Leave a key at an office",
+   "Sign a lease",
+   "Inspect the new windows",
+   "Take some photos"
+  ],
+  "answer": "Leave a key at an office",
+  "explanation": "鍵を預けるよう言われ、I'll stop by on Thursday と答えているので、木曜に事務所へ鍵を預けに行く。",
+  "tags": "TOEIC Part3 real estate"
+ },
+ {
+  "id": "TOEIC-L3-504-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Good morning, Lakeside Catering. How can I help you?\nMan: Hi, I'm organizing a retirement party for a colleague on the twelfth. We need lunch for about forty people.\nWoman: Certainly. We have a buffet package that includes three main dishes, salads, and dessert. It's twenty-two dollars per person.\nMan: That sounds good, but a few of our guests can't eat dairy products. Is that a problem?\nWoman: Not at all. Our chef can prepare dairy-free versions of most dishes. I'll just need the exact number of guests by next Monday.\nMan: OK. I'll send out a survey to everyone this afternoon and get back to you.",
+  "question": "What is the man planning?",
+  "choices": [
+   "A wedding reception",
+   "A product launch",
+   "A retirement party",
+   "A training session"
+  ],
+  "answer": "A retirement party",
+  "explanation": "同僚の退職パーティー（retirement party）を企画していると言っている。",
+  "tags": "TOEIC Part3 hospitality"
+ },
+ {
+  "id": "TOEIC-L3-504-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Good morning, Lakeside Catering. How can I help you?\nMan: Hi, I'm organizing a retirement party for a colleague on the twelfth. We need lunch for about forty people.\nWoman: Certainly. We have a buffet package that includes three main dishes, salads, and dessert. It's twenty-two dollars per person.\nMan: That sounds good, but a few of our guests can't eat dairy products. Is that a problem?\nWoman: Not at all. Our chef can prepare dairy-free versions of most dishes. I'll just need the exact number of guests by next Monday.\nMan: OK. I'll send out a survey to everyone this afternoon and get back to you.",
+  "question": "What does the man ask about?",
+  "choices": [
+   "The cost of delivery",
+   "The availability of servers",
+   "The size of the event room",
+   "Food for guests with dietary restrictions"
+  ],
+  "answer": "Food for guests with dietary restrictions",
+  "explanation": "乳製品を食べられない客がいるが問題ないかと尋ねている。",
+  "tags": "TOEIC Part3 hospitality"
+ },
+ {
+  "id": "TOEIC-L3-504-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Good morning, Lakeside Catering. How can I help you?\nMan: Hi, I'm organizing a retirement party for a colleague on the twelfth. We need lunch for about forty people.\nWoman: Certainly. We have a buffet package that includes three main dishes, salads, and dessert. It's twenty-two dollars per person.\nMan: That sounds good, but a few of our guests can't eat dairy products. Is that a problem?\nWoman: Not at all. Our chef can prepare dairy-free versions of most dishes. I'll just need the exact number of guests by next Monday.\nMan: OK. I'll send out a survey to everyone this afternoon and get back to you.",
+  "question": "What will the man do this afternoon?",
+  "choices": [
+   "Visit the catering company",
+   "Choose the desserts",
+   "Pay a deposit",
+   "Send a survey to guests"
+  ],
+  "answer": "Send a survey to guests",
+  "explanation": "正確な人数を知らせるため、今日の午後に全員へアンケートを送ると言っている。",
+  "tags": "TOEIC Part3 hospitality"
+ },
+ {
+  "id": "TOEIC-L3-505-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Hi, Grace. I'm with the IT department. I wanted to remind you that your team is getting the new project management software this week.\nWoman: Right, I saw the schedule. But we have a major client presentation on Wednesday, and the whole team will be busy preparing for it.\nMan: I see. Would it help if we moved your team to Thursday? Human Resources asked to switch with someone anyway.\nWoman: That would be perfect. Will there be any training?\nMan: Yes, there's a thirty-minute video, and I'll hold a question-and-answer session in the afternoon after installation.\n\n[Rollout Schedule]\nMonday — Sales\nTuesday — Accounting\nWednesday — Marketing\nThursday — Human Resources",
+  "question": "Look at the graphic. Which department does the woman most likely work in?",
+  "choices": [
+   "Sales",
+   "Accounting",
+   "Marketing",
+   "Human Resources"
+  ],
+  "answer": "Marketing",
+  "explanation": "女性のチームは水曜日に導入予定だったので、表から Marketing（マーケティング部）とわかる。",
+  "tags": "TOEIC Part3 IT graphic"
+ },
+ {
+  "id": "TOEIC-L3-505-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Hi, Grace. I'm with the IT department. I wanted to remind you that your team is getting the new project management software this week.\nWoman: Right, I saw the schedule. But we have a major client presentation on Wednesday, and the whole team will be busy preparing for it.\nMan: I see. Would it help if we moved your team to Thursday? Human Resources asked to switch with someone anyway.\nWoman: That would be perfect. Will there be any training?\nMan: Yes, there's a thirty-minute video, and I'll hold a question-and-answer session in the afternoon after installation.\n\n[Rollout Schedule]\nMonday — Sales\nTuesday — Accounting\nWednesday — Marketing\nThursday — Human Resources",
+  "question": "Why does the woman want to change the date?",
+  "choices": [
+   "Some team members will be on vacation.",
+   "Her team will be preparing for a presentation.",
+   "The software is not ready.",
+   "Her computer needs repairs."
+  ],
+  "answer": "Her team will be preparing for a presentation.",
+  "explanation": "水曜日に大事な顧客向けプレゼンがあり、チームがその準備で忙しいため。",
+  "tags": "TOEIC Part3 IT"
+ },
+ {
+  "id": "TOEIC-L3-505-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Hi, Grace. I'm with the IT department. I wanted to remind you that your team is getting the new project management software this week.\nWoman: Right, I saw the schedule. But we have a major client presentation on Wednesday, and the whole team will be busy preparing for it.\nMan: I see. Would it help if we moved your team to Thursday? Human Resources asked to switch with someone anyway.\nWoman: That would be perfect. Will there be any training?\nMan: Yes, there's a thirty-minute video, and I'll hold a question-and-answer session in the afternoon after installation.\n\n[Rollout Schedule]\nMonday — Sales\nTuesday — Accounting\nWednesday — Marketing\nThursday — Human Resources",
+  "question": "What does the man say he will do?",
+  "choices": [
+   "Extend the training video",
+   "Send a printed manual",
+   "Hold a question-and-answer session",
+   "Contact the client"
+  ],
+  "answer": "Hold a question-and-answer session",
+  "explanation": "インストール後の午後に質疑応答の時間を設けると言っている。",
+  "tags": "TOEIC Part3 IT"
+ },
+ {
+  "id": "TOEIC-L3-506-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Hi, I'm from Swift Freight. I have twelve boxes of office chairs for Carver Industries. Where should I unload them?\nWoman: Please use loading dock three, on the left side of the building. Our receiving staff are there.\nMan: Thanks. Can someone help me? The boxes are quite heavy.\nWoman: Sure. I'll call Paolo. He can bring a forklift. Do you have the invoice with you as well?\nMan: Yes, it's in my truck. I'll bring it after we unload.\nWoman: Great. Then I'll just need you to sign this delivery form.",
+  "question": "What is the man delivering?",
+  "choices": [
+   "Packing materials",
+   "Forklifts",
+   "Office chairs",
+   "Computers"
+  ],
+  "answer": "Office chairs",
+  "explanation": "twelve boxes of office chairs を届けに来たと言っている。",
+  "tags": "TOEIC Part3 logistics"
+ },
+ {
+  "id": "TOEIC-L3-506-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Hi, I'm from Swift Freight. I have twelve boxes of office chairs for Carver Industries. Where should I unload them?\nWoman: Please use loading dock three, on the left side of the building. Our receiving staff are there.\nMan: Thanks. Can someone help me? The boxes are quite heavy.\nWoman: Sure. I'll call Paolo. He can bring a forklift. Do you have the invoice with you as well?\nMan: Yes, it's in my truck. I'll bring it after we unload.\nWoman: Great. Then I'll just need you to sign this delivery form.",
+  "question": "Where does the woman tell the man to go?",
+  "choices": [
+   "To the front office",
+   "To the second floor",
+   "To the parking garage",
+   "To a loading dock"
+  ],
+  "answer": "To a loading dock",
+  "explanation": "建物の左側にある3番の荷積み場（loading dock three）を使うよう伝えている。",
+  "tags": "TOEIC Part3 logistics"
+ },
+ {
+  "id": "TOEIC-L3-506-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Hi, I'm from Swift Freight. I have twelve boxes of office chairs for Carver Industries. Where should I unload them?\nWoman: Please use loading dock three, on the left side of the building. Our receiving staff are there.\nMan: Thanks. Can someone help me? The boxes are quite heavy.\nWoman: Sure. I'll call Paolo. He can bring a forklift. Do you have the invoice with you as well?\nMan: Yes, it's in my truck. I'll bring it after we unload.\nWoman: Great. Then I'll just need you to sign this delivery form.",
+  "question": "What does the woman say she will do?",
+  "choices": [
+   "Call a coworker for help",
+   "Count the boxes",
+   "Move the truck",
+   "Pay the invoice"
+  ],
+  "answer": "Call a coworker for help",
+  "explanation": "I'll call Paolo と、フォークリフトを持ってくる同僚を呼ぶと言っている。",
+  "tags": "TOEIC Part3 logistics"
+ },
+ {
+  "id": "TOEIC-L3-507-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Lucas, the regional office still hasn't sent their expense figures, and we need to close the quarter by Friday.\nMan: I emailed their accountant twice this week. She says their new accounting system has been producing errors.\nWoman: That's a problem. The finance director wants the consolidated report on her desk Monday morning.\nMan: Well, I could fly out there tomorrow and go through their records in person. It's only a short flight.\nWoman: Hmm, I'm not sure the budget allows for that.\nMan: Then how about a video call? They could share their screen, and we'd check the numbers together.\nWoman: Let's do that. Set it up for tomorrow morning.",
+  "question": "What problem does the woman mention?",
+  "choices": [
+   "A report contains incorrect totals.",
+   "A deadline was moved earlier.",
+   "An accountant has resigned.",
+   "Some financial figures have not been received."
+  ],
+  "answer": "Some financial figures have not been received.",
+  "explanation": "地方支社がまだ経費の数字を送ってきていないことが問題。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-507-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Lucas, the regional office still hasn't sent their expense figures, and we need to close the quarter by Friday.\nMan: I emailed their accountant twice this week. She says their new accounting system has been producing errors.\nWoman: That's a problem. The finance director wants the consolidated report on her desk Monday morning.\nMan: Well, I could fly out there tomorrow and go through their records in person. It's only a short flight.\nWoman: Hmm, I'm not sure the budget allows for that.\nMan: Then how about a video call? They could share their screen, and we'd check the numbers together.\nWoman: Let's do that. Set it up for tomorrow morning.",
+  "question": "Why does the woman say, \"I'm not sure the budget allows for that\"?",
+  "choices": [
+   "She thinks a trip would be too costly.",
+   "She wants to hire another accountant.",
+   "She needs approval for new software.",
+   "She expects the director to reject the report."
+  ],
+  "answer": "She thinks a trip would be too costly.",
+  "explanation": "男性の出張の提案に対し、予算的に難しいと遠回しに反対している。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-507-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Lucas, the regional office still hasn't sent their expense figures, and we need to close the quarter by Friday.\nMan: I emailed their accountant twice this week. She says their new accounting system has been producing errors.\nWoman: That's a problem. The finance director wants the consolidated report on her desk Monday morning.\nMan: Well, I could fly out there tomorrow and go through their records in person. It's only a short flight.\nWoman: Hmm, I'm not sure the budget allows for that.\nMan: Then how about a video call? They could share their screen, and we'd check the numbers together.\nWoman: Let's do that. Set it up for tomorrow morning.",
+  "question": "What will the man most likely do next?",
+  "choices": [
+   "Install new software",
+   "Book a flight",
+   "Email the finance director",
+   "Arrange a video call"
+  ],
+  "answer": "Arrange a video call",
+  "explanation": "ビデオ通話を提案し、女性が明日の朝に設定するよう指示している。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-508-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Excuse me, I'd like to reserve one of the study rooms for Saturday afternoon.\nWoman: Sure. Do you have a library card?\nMan: Yes, here it is. My study group has five people. Is that OK?\nWoman: The small rooms hold four, but Room B on the second floor holds up to eight. It's available from one to four.\nMan: Great. Does it have a projector? We're practicing a presentation.\nWoman: It has a large screen, but you'd need to borrow a cable from the information desk to connect your laptop.\nMan: That's fine. I'll bring my own laptop.",
+  "question": "What does the man want to do?",
+  "choices": [
+   "Return some books",
+   "Apply for a library card",
+   "Join a study group",
+   "Reserve a room"
+  ],
+  "answer": "Reserve a room",
+  "explanation": "土曜の午後に学習室を予約したいと言っている。",
+  "tags": "TOEIC Part3 museums & libraries"
+ },
+ {
+  "id": "TOEIC-L3-508-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Excuse me, I'd like to reserve one of the study rooms for Saturday afternoon.\nWoman: Sure. Do you have a library card?\nMan: Yes, here it is. My study group has five people. Is that OK?\nWoman: The small rooms hold four, but Room B on the second floor holds up to eight. It's available from one to four.\nMan: Great. Does it have a projector? We're practicing a presentation.\nWoman: It has a large screen, but you'd need to borrow a cable from the information desk to connect your laptop.\nMan: That's fine. I'll bring my own laptop.",
+  "question": "Why is Room B suggested?",
+  "choices": [
+   "It is big enough for the group.",
+   "It has new computers.",
+   "It is available all day.",
+   "It is on the first floor."
+  ],
+  "answer": "It is big enough for the group.",
+  "explanation": "小さい部屋は4人までだが、Room B は8人まで入れるので5人のグループに適している。",
+  "tags": "TOEIC Part3 museums & libraries"
+ },
+ {
+  "id": "TOEIC-L3-508-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Excuse me, I'd like to reserve one of the study rooms for Saturday afternoon.\nWoman: Sure. Do you have a library card?\nMan: Yes, here it is. My study group has five people. Is that OK?\nWoman: The small rooms hold four, but Room B on the second floor holds up to eight. It's available from one to four.\nMan: Great. Does it have a projector? We're practicing a presentation.\nWoman: It has a large screen, but you'd need to borrow a cable from the information desk to connect your laptop.\nMan: That's fine. I'll bring my own laptop.",
+  "question": "According to the woman, what can be borrowed at the information desk?",
+  "choices": [
+   "A screen",
+   "A cable",
+   "A projector",
+   "A laptop"
+  ],
+  "answer": "A cable",
+  "explanation": "ノートPCをつなぐケーブルを案内デスクで借りる必要があると言っている。",
+  "tags": "TOEIC Part3 museums & libraries"
+ },
+ {
+  "id": "TOEIC-L3-509-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Woman: Martin, I just got off the phone with the structural engineer. She reviewed the drawings for the warehouse extension and wants the steel beams on the east side upgraded.\nMan: Upgraded? That'll add at least two weeks. The supplier told us thicker beams are back-ordered.\nWoman: I know, but it's not optional. The roof will carry solar panels, and the original design didn't account for the extra load.\nMan: Fair enough. In that case, we could start on the west side first, since nothing there changes. That way the crew isn't sitting idle.\nWoman: Good thinking. Can you revise the schedule and send it to the client today?\nMan: I'll have it done by three.",
+  "question": "Why does the engineer want the beams upgraded?",
+  "choices": [
+   "Local regulations have changed.",
+   "The original beams were damaged.",
+   "The roof will support additional equipment.",
+   "The client requested a larger building."
+  ],
+  "answer": "The roof will support additional equipment.",
+  "explanation": "屋根にソーラーパネルを載せるため、元の設計では荷重が足りないから。",
+  "tags": "TOEIC Part3 construction"
+ },
+ {
+  "id": "TOEIC-L3-509-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Woman: Martin, I just got off the phone with the structural engineer. She reviewed the drawings for the warehouse extension and wants the steel beams on the east side upgraded.\nMan: Upgraded? That'll add at least two weeks. The supplier told us thicker beams are back-ordered.\nWoman: I know, but it's not optional. The roof will carry solar panels, and the original design didn't account for the extra load.\nMan: Fair enough. In that case, we could start on the west side first, since nothing there changes. That way the crew isn't sitting idle.\nWoman: Good thinking. Can you revise the schedule and send it to the client today?\nMan: I'll have it done by three.",
+  "question": "What does the man mean when he says, \"Fair enough\"?",
+  "choices": [
+   "He wants to discuss the matter later.",
+   "He thinks the price is reasonable.",
+   "He believes the work is evenly divided.",
+   "He accepts the reason for the change."
+  ],
+  "answer": "He accepts the reason for the change.",
+  "explanation": "Fair enough は「もっともだ」という同意の表現で、変更の理由を受け入れている。",
+  "tags": "TOEIC Part3 construction"
+ },
+ {
+  "id": "TOEIC-L3-509-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Woman: Martin, I just got off the phone with the structural engineer. She reviewed the drawings for the warehouse extension and wants the steel beams on the east side upgraded.\nMan: Upgraded? That'll add at least two weeks. The supplier told us thicker beams are back-ordered.\nWoman: I know, but it's not optional. The roof will carry solar panels, and the original design didn't account for the extra load.\nMan: Fair enough. In that case, we could start on the west side first, since nothing there changes. That way the crew isn't sitting idle.\nWoman: Good thinking. Can you revise the schedule and send it to the client today?\nMan: I'll have it done by three.",
+  "question": "What will the man do by three o'clock?",
+  "choices": [
+   "Call the engineer",
+   "Revise a project schedule",
+   "Install solar panels",
+   "Order thicker beams"
+  ],
+  "answer": "Revise a project schedule",
+  "explanation": "工程表を修正して顧客に送るよう頼まれ、3時までに仕上げると答えている。",
+  "tags": "TOEIC Part3 construction"
+ },
+ {
+  "id": "TOEIC-L3-510-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man 1: So, how did the first day of the trade show go?\nWoman: Really well. We collected more than two hundred business cards, and a lot of visitors asked about our new water filters.\nMan 2: The demonstration really drew people in. Every time we ran it, a crowd gathered.\nMan 1: Great. What about the brochures?\nWoman: That's the problem. We've already handed out almost all of them. We only have about thirty left for tomorrow.\nMan 2: There's a print shop two blocks from the convention center. They do same-day orders.\nMan 1: Then let's order five hundred more. I'll call them right now.",
+  "question": "What product is the company promoting?",
+  "choices": [
+   "Business cards",
+   "Display stands",
+   "Water filters",
+   "Printing services"
+  ],
+  "answer": "Water filters",
+  "explanation": "来場者の多くが新しい浄水フィルター（water filters）について尋ねたと言っている。",
+  "tags": "TOEIC Part3 marketing"
+ },
+ {
+  "id": "TOEIC-L3-510-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man 1: So, how did the first day of the trade show go?\nWoman: Really well. We collected more than two hundred business cards, and a lot of visitors asked about our new water filters.\nMan 2: The demonstration really drew people in. Every time we ran it, a crowd gathered.\nMan 1: Great. What about the brochures?\nWoman: That's the problem. We've already handed out almost all of them. We only have about thirty left for tomorrow.\nMan 2: There's a print shop two blocks from the convention center. They do same-day orders.\nMan 1: Then let's order five hundred more. I'll call them right now.",
+  "question": "What attracted visitors to the booth?",
+  "choices": [
+   "A product demonstration",
+   "A prize drawing",
+   "A celebrity guest",
+   "Free samples"
+  ],
+  "answer": "A product demonstration",
+  "explanation": "実演（demonstration）をするたびに人だかりができたと言っている。",
+  "tags": "TOEIC Part3 marketing"
+ },
+ {
+  "id": "TOEIC-L3-510-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man 1: So, how did the first day of the trade show go?\nWoman: Really well. We collected more than two hundred business cards, and a lot of visitors asked about our new water filters.\nMan 2: The demonstration really drew people in. Every time we ran it, a crowd gathered.\nMan 1: Great. What about the brochures?\nWoman: That's the problem. We've already handed out almost all of them. We only have about thirty left for tomorrow.\nMan 2: There's a print shop two blocks from the convention center. They do same-day orders.\nMan 1: Then let's order five hundred more. I'll call them right now.",
+  "question": "What does one of the men say he will do?",
+  "choices": [
+   "Contact a print shop",
+   "Hand out business cards",
+   "Visit another booth",
+   "Run a demonstration"
+  ],
+  "answer": "Contact a print shop",
+  "explanation": "パンフレットを500部追加注文するため、すぐに印刷店に電話すると言っている。",
+  "tags": "TOEIC Part3 marketing"
+ }
+]

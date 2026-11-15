@@ -1,0 +1,542 @@
+[
+ {
+  "id": "TOEIC-L4-511-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following talk.\n\nGood morning, everyone, and welcome to your first day at Corbel Insurance. My name is Diana, and I work in human resources. Today's orientation will last until four o'clock. This morning, you'll learn about our company's history and our main products. At twelve, we'll have lunch together in the cafeteria on the second floor—it's free for you today. After lunch, you'll get your laptops and ID cards, and then you'll meet your team leaders. Please keep your ID card with you at all times; you need it to enter the building. Now, let's start with a short video about the company.",
+  "question": "Who most likely are the listeners?",
+  "choices": [
+   "Insurance customers",
+   "New employees",
+   "Team leaders",
+   "Cafeteria workers"
+  ],
+  "answer": "New employees",
+  "explanation": "初出社の日のオリエンテーションなので、聞き手は新入社員。",
+  "tags": "TOEIC Part4 HR & training talk"
+ },
+ {
+  "id": "TOEIC-L4-511-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following talk.\n\nGood morning, everyone, and welcome to your first day at Corbel Insurance. My name is Diana, and I work in human resources. Today's orientation will last until four o'clock. This morning, you'll learn about our company's history and our main products. At twelve, we'll have lunch together in the cafeteria on the second floor—it's free for you today. After lunch, you'll get your laptops and ID cards, and then you'll meet your team leaders. Please keep your ID card with you at all times; you need it to enter the building. Now, let's start with a short video about the company.",
+  "question": "What will happen at noon?",
+  "choices": [
+   "Lunch will be served.",
+   "ID cards will be given out.",
+   "A video will be shown.",
+   "The orientation will end."
+  ],
+  "answer": "Lunch will be served.",
+  "explanation": "12時に2階のカフェテリアで一緒に昼食をとる。",
+  "tags": "TOEIC Part4 HR & training talk"
+ },
+ {
+  "id": "TOEIC-L4-511-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following talk.\n\nGood morning, everyone, and welcome to your first day at Corbel Insurance. My name is Diana, and I work in human resources. Today's orientation will last until four o'clock. This morning, you'll learn about our company's history and our main products. At twelve, we'll have lunch together in the cafeteria on the second floor—it's free for you today. After lunch, you'll get your laptops and ID cards, and then you'll meet your team leaders. Please keep your ID card with you at all times; you need it to enter the building. Now, let's start with a short video about the company.",
+  "question": "What will listeners do next?",
+  "choices": [
+   "Receive their laptops",
+   "Meet their team leaders",
+   "Go to the cafeteria",
+   "Watch a video"
+  ],
+  "answer": "Watch a video",
+  "explanation": "最後に「会社についての短い動画から始めましょう」と言っている。",
+  "tags": "TOEIC Part4 HR & training talk"
+ },
+ {
+  "id": "TOEIC-L4-512-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following announcement.\n\nAttention, passengers. Due to track maintenance between Central Station and Elm Park, trains on the Blue Line will not run between those two stations this weekend. Free shuttle buses will replace the trains. The buses leave from the stop outside Exit B every ten minutes. Please allow an extra thirty minutes for your trip. Normal service will start again on Monday morning. Also, please note that the elevator at Platform Two is out of service today. Passengers who need assistance should speak to a station staff member at the ticket office. We apologize for any inconvenience and thank you for your patience.",
+  "question": "Why will trains not run between two stations?",
+  "choices": [
+   "A train has broken down.",
+   "Track work is being done.",
+   "Bad weather is expected.",
+   "There is a staff shortage."
+  ],
+  "answer": "Track work is being done.",
+  "explanation": "線路の保守作業（track maintenance）のため運休する。",
+  "tags": "TOEIC Part4 transport announcement"
+ },
+ {
+  "id": "TOEIC-L4-512-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following announcement.\n\nAttention, passengers. Due to track maintenance between Central Station and Elm Park, trains on the Blue Line will not run between those two stations this weekend. Free shuttle buses will replace the trains. The buses leave from the stop outside Exit B every ten minutes. Please allow an extra thirty minutes for your trip. Normal service will start again on Monday morning. Also, please note that the elevator at Platform Two is out of service today. Passengers who need assistance should speak to a station staff member at the ticket office. We apologize for any inconvenience and thank you for your patience.",
+  "question": "Where do the shuttle buses leave from?",
+  "choices": [
+   "At Elm Park Station",
+   "From Platform Two",
+   "Outside Exit B",
+   "Near the ticket office"
+  ],
+  "answer": "Outside Exit B",
+  "explanation": "Exit B の外の停留所から10分ごとに出る。",
+  "tags": "TOEIC Part4 transport announcement"
+ },
+ {
+  "id": "TOEIC-L4-512-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following announcement.\n\nAttention, passengers. Due to track maintenance between Central Station and Elm Park, trains on the Blue Line will not run between those two stations this weekend. Free shuttle buses will replace the trains. The buses leave from the stop outside Exit B every ten minutes. Please allow an extra thirty minutes for your trip. Normal service will start again on Monday morning. Also, please note that the elevator at Platform Two is out of service today. Passengers who need assistance should speak to a station staff member at the ticket office. We apologize for any inconvenience and thank you for your patience.",
+  "question": "What does the speaker say about the elevator?",
+  "choices": [
+   "It is being replaced this week.",
+   "It is not working today.",
+   "It is only for station staff.",
+   "It is located near Exit B."
+  ],
+  "answer": "It is not working today.",
+  "explanation": "2番ホームのエレベーターは本日使用できない（out of service）。",
+  "tags": "TOEIC Part4 transport announcement"
+ },
+ {
+  "id": "TOEIC-L4-513-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nThanks for coming in early, everyone. I want to talk about our patient waiting times. According to last month's survey, patients wait an average of thirty-five minutes after their scheduled appointment, and that's our most common complaint. After reviewing the schedule, we found that most delays begin in the morning, when several patients arrive without completing their registration forms. So starting next week, we'll send the forms by email two days before each visit, so patients can complete them at home. The front desk will also call patients who haven't returned them. I'll review the waiting times again at the end of next month. If anyone has other suggestions, please email me by Friday.",
+  "question": "What problem does the speaker discuss?",
+  "choices": [
+   "A lack of parking",
+   "Long waiting times for patients",
+   "Errors in billing",
+   "A shortage of doctors"
+  ],
+  "answer": "Long waiting times for patients",
+  "explanation": "患者の待ち時間の長さが最も多い苦情だと話している。",
+  "tags": "TOEIC Part4 healthcare excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-513-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nThanks for coming in early, everyone. I want to talk about our patient waiting times. According to last month's survey, patients wait an average of thirty-five minutes after their scheduled appointment, and that's our most common complaint. After reviewing the schedule, we found that most delays begin in the morning, when several patients arrive without completing their registration forms. So starting next week, we'll send the forms by email two days before each visit, so patients can complete them at home. The front desk will also call patients who haven't returned them. I'll review the waiting times again at the end of next month. If anyone has other suggestions, please email me by Friday.",
+  "question": "According to the speaker, what causes many delays?",
+  "choices": [
+   "Doctors who arrive late",
+   "Incomplete registration forms",
+   "Broken medical equipment",
+   "Patients who miss appointments"
+  ],
+  "answer": "Incomplete registration forms",
+  "explanation": "受付票を記入せずに来る患者がいることで朝から遅れが生じている。",
+  "tags": "TOEIC Part4 healthcare excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-513-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nThanks for coming in early, everyone. I want to talk about our patient waiting times. According to last month's survey, patients wait an average of thirty-five minutes after their scheduled appointment, and that's our most common complaint. After reviewing the schedule, we found that most delays begin in the morning, when several patients arrive without completing their registration forms. So starting next week, we'll send the forms by email two days before each visit, so patients can complete them at home. The front desk will also call patients who haven't returned them. I'll review the waiting times again at the end of next month. If anyone has other suggestions, please email me by Friday.",
+  "question": "What will the front desk do?",
+  "choices": [
+   "Call patients who have not returned forms",
+   "Open thirty minutes earlier in the morning",
+   "Send the survey results to every patient",
+   "Reschedule all morning appointments"
+  ],
+  "answer": "Call patients who have not returned forms",
+  "explanation": "用紙を返送していない患者に受付が電話をかける。",
+  "tags": "TOEIC Part4 healthcare excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-514-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHello, Mr. Lindgren. This is Anika Patel from Corvex Components. I'm calling about your order of five thousand stainless steel hinges. Unfortunately, one of our cutting machines broke down yesterday, and the replacement part won't arrive until next Tuesday. That means we won't be able to ship the full order by the fifteenth as planned. We can send three thousand hinges on time and the rest about one week later. If that works for you, there's no need to call back. However, if you need the full order by the fifteenth, please let me know, and I'll check whether our other factory can help. Again, I'm very sorry for the trouble.",
+  "question": "Why is the speaker calling?",
+  "choices": [
+   "To request a late payment",
+   "To offer a new product",
+   "To explain a delay in an order",
+   "To confirm a meeting time"
+  ],
+  "answer": "To explain a delay in an order",
+  "explanation": "注文品の一部の出荷が遅れることを説明している。",
+  "tags": "TOEIC Part4 manufacturing telephone message"
+ },
+ {
+  "id": "TOEIC-L4-514-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHello, Mr. Lindgren. This is Anika Patel from Corvex Components. I'm calling about your order of five thousand stainless steel hinges. Unfortunately, one of our cutting machines broke down yesterday, and the replacement part won't arrive until next Tuesday. That means we won't be able to ship the full order by the fifteenth as planned. We can send three thousand hinges on time and the rest about one week later. If that works for you, there's no need to call back. However, if you need the full order by the fifteenth, please let me know, and I'll check whether our other factory can help. Again, I'm very sorry for the trouble.",
+  "question": "What caused the problem?",
+  "choices": [
+   "A machine broke down.",
+   "A shipment was lost.",
+   "Materials became too expensive.",
+   "Workers went on strike."
+  ],
+  "answer": "A machine broke down.",
+  "explanation": "切断機が故障し、交換部品が来週まで届かないため。",
+  "tags": "TOEIC Part4 manufacturing telephone message"
+ },
+ {
+  "id": "TOEIC-L4-514-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHello, Mr. Lindgren. This is Anika Patel from Corvex Components. I'm calling about your order of five thousand stainless steel hinges. Unfortunately, one of our cutting machines broke down yesterday, and the replacement part won't arrive until next Tuesday. That means we won't be able to ship the full order by the fifteenth as planned. We can send three thousand hinges on time and the rest about one week later. If that works for you, there's no need to call back. However, if you need the full order by the fifteenth, please let me know, and I'll check whether our other factory can help. Again, I'm very sorry for the trouble.",
+  "question": "What should the listener do if he needs the whole order on time?",
+  "choices": [
+   "Contact the speaker",
+   "Pay an extra fee",
+   "Visit the other factory",
+   "Cancel part of the order"
+  ],
+  "answer": "Contact the speaker",
+  "explanation": "15日までに全量が必要なら連絡するよう言っている。",
+  "tags": "TOEIC Part4 manufacturing telephone message"
+ },
+ {
+  "id": "TOEIC-L4-515-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following advertisement.\n\nLooking for a new home? Come to Lakeview Gardens! Our new apartments are just five minutes from downtown and close to schools, shops, and parks. Each apartment has a large kitchen, a balcony, and free high-speed Internet. Choose from one-, two-, or three-bedroom units. Every resident can use our fitness room and rooftop garden. This month only, if you sign a one-year lease, you'll get your first month free. Visit our office on Lake Street any day from nine to six, or call 555-0193 to book a tour. Lakeview Gardens—your new home is waiting.",
+  "question": "What is being advertised?",
+  "choices": [
+   "An apartment building",
+   "A garden store",
+   "A fitness club",
+   "A moving company"
+  ],
+  "answer": "An apartment building",
+  "explanation": "新しいアパート Lakeview Gardens の広告。",
+  "tags": "TOEIC Part4 real estate advertisement"
+ },
+ {
+  "id": "TOEIC-L4-515-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following advertisement.\n\nLooking for a new home? Come to Lakeview Gardens! Our new apartments are just five minutes from downtown and close to schools, shops, and parks. Each apartment has a large kitchen, a balcony, and free high-speed Internet. Choose from one-, two-, or three-bedroom units. Every resident can use our fitness room and rooftop garden. This month only, if you sign a one-year lease, you'll get your first month free. Visit our office on Lake Street any day from nine to six, or call 555-0193 to book a tour. Lakeview Gardens—your new home is waiting.",
+  "question": "What is included in every apartment?",
+  "choices": [
+   "A fireplace",
+   "Free Internet service",
+   "A private garage",
+   "New furniture"
+  ],
+  "answer": "Free Internet service",
+  "explanation": "各部屋に無料の高速インターネットがついている。",
+  "tags": "TOEIC Part4 real estate advertisement"
+ },
+ {
+  "id": "TOEIC-L4-515-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following advertisement.\n\nLooking for a new home? Come to Lakeview Gardens! Our new apartments are just five minutes from downtown and close to schools, shops, and parks. Each apartment has a large kitchen, a balcony, and free high-speed Internet. Choose from one-, two-, or three-bedroom units. Every resident can use our fitness room and rooftop garden. This month only, if you sign a one-year lease, you'll get your first month free. Visit our office on Lake Street any day from nine to six, or call 555-0193 to book a tour. Lakeview Gardens—your new home is waiting.",
+  "question": "What special offer is mentioned?",
+  "choices": [
+   "A free gym membership",
+   "A discount on furniture",
+   "A free tour of downtown",
+   "A free first month"
+  ],
+  "answer": "A free first month",
+  "explanation": "1年契約で最初の1か月が無料になる。",
+  "tags": "TOEIC Part4 real estate advertisement"
+ },
+ {
+  "id": "TOEIC-L4-516-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following talk.\n\nOK, team, before the doors open tonight, a few reminders. We have a party of thirty from Tervo Engineering at seven, and they've pre-ordered the set menu. Two guests have nut allergies, and their seats are marked with a green card. Servers, please double-check with the kitchen before bringing out any dessert to those seats—the chocolate cake contains almonds, so they'll get the fruit tart instead. Also, our new payment tablets arrived this afternoon. Please don't use them tonight; we'll train everyone on Thursday, and until then, we'll keep using the old card readers. Finally, Jonas is out sick, so Mei will cover the patio section.",
+  "question": "Who most likely is the speaker?",
+  "choices": [
+   "A restaurant manager",
+   "A hotel guest",
+   "An engineer",
+   "A bakery chef"
+  ],
+  "answer": "A restaurant manager",
+  "explanation": "開店前に給仕係へ指示を出しているので、レストランの責任者と考えられる。",
+  "tags": "TOEIC Part4 hospitality talk"
+ },
+ {
+  "id": "TOEIC-L4-516-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following talk.\n\nOK, team, before the doors open tonight, a few reminders. We have a party of thirty from Tervo Engineering at seven, and they've pre-ordered the set menu. Two guests have nut allergies, and their seats are marked with a green card. Servers, please double-check with the kitchen before bringing out any dessert to those seats—the chocolate cake contains almonds, so they'll get the fruit tart instead. Also, our new payment tablets arrived this afternoon. Please don't use them tonight; we'll train everyone on Thursday, and until then, we'll keep using the old card readers. Finally, Jonas is out sick, so Mei will cover the patio section.",
+  "question": "Why are some seats marked with a green card?",
+  "choices": [
+   "The guests are company executives.",
+   "The guests ordered the set menu late.",
+   "The guests have food allergies.",
+   "The seats are reserved for staff."
+  ],
+  "answer": "The guests have food allergies.",
+  "explanation": "ナッツアレルギーの客の席を緑のカードで示している。",
+  "tags": "TOEIC Part4 hospitality talk"
+ },
+ {
+  "id": "TOEIC-L4-516-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following talk.\n\nOK, team, before the doors open tonight, a few reminders. We have a party of thirty from Tervo Engineering at seven, and they've pre-ordered the set menu. Two guests have nut allergies, and their seats are marked with a green card. Servers, please double-check with the kitchen before bringing out any dessert to those seats—the chocolate cake contains almonds, so they'll get the fruit tart instead. Also, our new payment tablets arrived this afternoon. Please don't use them tonight; we'll train everyone on Thursday, and until then, we'll keep using the old card readers. Finally, Jonas is out sick, so Mei will cover the patio section.",
+  "question": "What does the speaker say about the payment tablets?",
+  "choices": [
+   "They are not working properly.",
+   "They will be returned to the seller.",
+   "They will be used on the patio only.",
+   "They should not be used yet."
+  ],
+  "answer": "They should not be used yet.",
+  "explanation": "木曜に研修するまでは使わないよう指示している。",
+  "tags": "TOEIC Part4 hospitality talk"
+ },
+ {
+  "id": "TOEIC-L4-517-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHi, Ms. Oyelaran, this is Petra from the IT help desk returning your call about your laptop. I've checked the error message you described, and it looks like your hard drive is starting to fail. The good news is that your laptop is still under warranty, so we can replace the drive for free. Before we do that, we'll need to back up your files. Could you bring the laptop to our office in Room 108 tomorrow morning? The backup and repair should take about four hours, and we can lend you a spare laptop while you wait. Please call me back at extension 3320 to confirm.",
+  "question": "What is the problem with the listener's laptop?",
+  "choices": [
+   "The screen is cracked.",
+   "The hard drive is failing.",
+   "A virus was found.",
+   "The battery will not charge."
+  ],
+  "answer": "The hard drive is failing.",
+  "explanation": "ハードドライブが故障しかけていると言っている。",
+  "tags": "TOEIC Part4 IT telephone message"
+ },
+ {
+  "id": "TOEIC-L4-517-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHi, Ms. Oyelaran, this is Petra from the IT help desk returning your call about your laptop. I've checked the error message you described, and it looks like your hard drive is starting to fail. The good news is that your laptop is still under warranty, so we can replace the drive for free. Before we do that, we'll need to back up your files. Could you bring the laptop to our office in Room 108 tomorrow morning? The backup and repair should take about four hours, and we can lend you a spare laptop while you wait. Please call me back at extension 3320 to confirm.",
+  "question": "What does the speaker say about the repair?",
+  "choices": [
+   "It must be done by the manufacturer.",
+   "It will be free of charge.",
+   "It requires a new laptop.",
+   "It will take two days."
+  ],
+  "answer": "It will be free of charge.",
+  "explanation": "保証期間内なので無料で交換できる。",
+  "tags": "TOEIC Part4 IT telephone message"
+ },
+ {
+  "id": "TOEIC-L4-517-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHi, Ms. Oyelaran, this is Petra from the IT help desk returning your call about your laptop. I've checked the error message you described, and it looks like your hard drive is starting to fail. The good news is that your laptop is still under warranty, so we can replace the drive for free. Before we do that, we'll need to back up your files. Could you bring the laptop to our office in Room 108 tomorrow morning? The backup and repair should take about four hours, and we can lend you a spare laptop while you wait. Please call me back at extension 3320 to confirm.",
+  "question": "What is the listener asked to do?",
+  "choices": [
+   "Bring the laptop to an office",
+   "Back up her own files",
+   "Send an error report",
+   "Buy a new hard drive"
+  ],
+  "answer": "Bring the laptop to an office",
+  "explanation": "明朝、108号室にノートPCを持ってくるよう頼んでいる。",
+  "tags": "TOEIC Part4 IT telephone message"
+ },
+ {
+  "id": "TOEIC-L4-518-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nLet's turn to our delivery performance for the last quarter. Three of our warehouses are meeting the target of two and a half days. The exception is the one that's been dealing with a shortage of drivers since August. We've hired six new drivers there, and they'll finish training at the end of this month. In the meantime, we've signed a short-term agreement with a local courier company to handle deliveries within the city. We expect this warehouse to reach the target by the end of next quarter. I'd like the operations team to send me weekly reports on its progress starting Monday.\n\n[Average Delivery Time by Warehouse]\nNorth — 2.1 days\nSouth — 2.4 days\nEast — 3.8 days\nWest — 2.2 days",
+  "question": "Look at the graphic. Which warehouse is experiencing a shortage of drivers?",
+  "choices": [
+   "North",
+   "South",
+   "East",
+   "West"
+  ],
+  "answer": "East",
+  "explanation": "目標の2.5日を満たしていない唯一の倉庫が運転手不足の倉庫なので、3.8日の East。",
+  "tags": "TOEIC Part4 logistics excerpt from a meeting graphic"
+ },
+ {
+  "id": "TOEIC-L4-518-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nLet's turn to our delivery performance for the last quarter. Three of our warehouses are meeting the target of two and a half days. The exception is the one that's been dealing with a shortage of drivers since August. We've hired six new drivers there, and they'll finish training at the end of this month. In the meantime, we've signed a short-term agreement with a local courier company to handle deliveries within the city. We expect this warehouse to reach the target by the end of next quarter. I'd like the operations team to send me weekly reports on its progress starting Monday.\n\n[Average Delivery Time by Warehouse]\nNorth — 2.1 days\nSouth — 2.4 days\nEast — 3.8 days\nWest — 2.2 days",
+  "question": "What has the company done to solve the problem temporarily?",
+  "choices": [
+   "Extended its delivery times",
+   "Raised the drivers' pay",
+   "Closed the warehouse for a month",
+   "Hired a local courier company"
+  ],
+  "answer": "Hired a local courier company",
+  "explanation": "当面の対策として地元の配送業者と短期契約を結んだ。",
+  "tags": "TOEIC Part4 logistics excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-518-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nLet's turn to our delivery performance for the last quarter. Three of our warehouses are meeting the target of two and a half days. The exception is the one that's been dealing with a shortage of drivers since August. We've hired six new drivers there, and they'll finish training at the end of this month. In the meantime, we've signed a short-term agreement with a local courier company to handle deliveries within the city. We expect this warehouse to reach the target by the end of next quarter. I'd like the operations team to send me weekly reports on its progress starting Monday.\n\n[Average Delivery Time by Warehouse]\nNorth — 2.1 days\nSouth — 2.4 days\nEast — 3.8 days\nWest — 2.2 days",
+  "question": "What does the speaker ask the operations team to do?",
+  "choices": [
+   "Train the new drivers",
+   "Visit the warehouse",
+   "Submit weekly reports",
+   "Contact the customers"
+  ],
+  "answer": "Submit weekly reports",
+  "explanation": "月曜から毎週進捗報告を送るよう頼んでいる。",
+  "tags": "TOEIC Part4 logistics excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-519-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nI'd like to address the audit findings we received last week. Overall, the auditors were satisfied, but they flagged one issue: approval of vendor payments. Currently, a single manager can approve payments of up to fifty thousand dollars. The auditors consider that too much authority for one person, and frankly, I agree. From now on, any payment above ten thousand dollars will require a second approval from the finance department. I realize this may slow things down a bit, particularly at the end of the month. That's why we're also moving to an electronic approval system, so that requests no longer sit in someone's inbox. I know some of you have concerns, so I've set aside time on Thursday afternoon to go through the new process.",
+  "question": "What issue did the auditors identify?",
+  "choices": [
+   "Errors in employee salaries",
+   "The approval process for vendor payments",
+   "Missing financial records",
+   "Late tax payments"
+  ],
+  "answer": "The approval process for vendor payments",
+  "explanation": "監査で取引先への支払い承認の仕組みが指摘された。",
+  "tags": "TOEIC Part4 banking excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-519-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nI'd like to address the audit findings we received last week. Overall, the auditors were satisfied, but they flagged one issue: approval of vendor payments. Currently, a single manager can approve payments of up to fifty thousand dollars. The auditors consider that too much authority for one person, and frankly, I agree. From now on, any payment above ten thousand dollars will require a second approval from the finance department. I realize this may slow things down a bit, particularly at the end of the month. That's why we're also moving to an electronic approval system, so that requests no longer sit in someone's inbox. I know some of you have concerns, so I've set aside time on Thursday afternoon to go through the new process.",
+  "question": "What does the speaker mean by saying, \"frankly, I agree\"?",
+  "choices": [
+   "The auditors' concern is reasonable.",
+   "The audit was conducted unfairly.",
+   "A different auditor should be hired.",
+   "All payments will be approved personally."
+  ],
+  "answer": "The auditors' concern is reasonable.",
+  "explanation": "1人に権限が集中しすぎているという監査人の見解に同意している。",
+  "tags": "TOEIC Part4 banking excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-519-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nI'd like to address the audit findings we received last week. Overall, the auditors were satisfied, but they flagged one issue: approval of vendor payments. Currently, a single manager can approve payments of up to fifty thousand dollars. The auditors consider that too much authority for one person, and frankly, I agree. From now on, any payment above ten thousand dollars will require a second approval from the finance department. I realize this may slow things down a bit, particularly at the end of the month. That's why we're also moving to an electronic approval system, so that requests no longer sit in someone's inbox. I know some of you have concerns, so I've set aside time on Thursday afternoon to go through the new process.",
+  "question": "Why is an electronic system being introduced?",
+  "choices": [
+   "To meet a new tax requirement",
+   "To prevent delays in approvals",
+   "To reduce the number of staff",
+   "To replace the external auditors"
+  ],
+  "answer": "To prevent delays in approvals",
+  "explanation": "承認が二重になる分の遅れを防ぐため、電子承認システムを導入する。",
+  "tags": "TOEIC Part4 banking excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-520-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following announcement.\n\nAttention, library visitors. The library will be closing in fifteen minutes, at eight p.m. Please bring any books you'd like to borrow to the checkout desk on the first floor now. The self-checkout machines are not working this evening, so all books must be checked out at the desk. We'd also like to remind you about our used book sale this Saturday from ten a.m. to two p.m. in the community room. Hardcovers are two dollars and paperbacks are one dollar, and all money goes to our children's reading program. If you'd like to donate books for the sale, you can drop them off at the information desk until Friday.",
+  "question": "When will the library close today?",
+  "choices": [
+   "At ten a.m.",
+   "At eight p.m.",
+   "At two p.m.",
+   "At eight fifteen p.m."
+  ],
+  "answer": "At eight p.m.",
+  "explanation": "あと15分、午後8時に閉館すると言っている。",
+  "tags": "TOEIC Part4 museums & libraries announcement"
+ },
+ {
+  "id": "TOEIC-L4-520-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following announcement.\n\nAttention, library visitors. The library will be closing in fifteen minutes, at eight p.m. Please bring any books you'd like to borrow to the checkout desk on the first floor now. The self-checkout machines are not working this evening, so all books must be checked out at the desk. We'd also like to remind you about our used book sale this Saturday from ten a.m. to two p.m. in the community room. Hardcovers are two dollars and paperbacks are one dollar, and all money goes to our children's reading program. If you'd like to donate books for the sale, you can drop them off at the information desk until Friday.",
+  "question": "Why must visitors go to the checkout desk?",
+  "choices": [
+   "Staff need to check visitors' bags.",
+   "New books must be registered first.",
+   "The library card system has changed.",
+   "Some machines are out of order."
+  ],
+  "answer": "Some machines are out of order.",
+  "explanation": "自動貸出機が今晩使えないため、カウンターで手続きする必要がある。",
+  "tags": "TOEIC Part4 museums & libraries announcement"
+ },
+ {
+  "id": "TOEIC-L4-520-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following announcement.\n\nAttention, library visitors. The library will be closing in fifteen minutes, at eight p.m. Please bring any books you'd like to borrow to the checkout desk on the first floor now. The self-checkout machines are not working this evening, so all books must be checked out at the desk. We'd also like to remind you about our used book sale this Saturday from ten a.m. to two p.m. in the community room. Hardcovers are two dollars and paperbacks are one dollar, and all money goes to our children's reading program. If you'd like to donate books for the sale, you can drop them off at the information desk until Friday.",
+  "question": "What will the money from the book sale support?",
+  "choices": [
+   "Training for library staff",
+   "Repairs to the community room",
+   "A children's reading program",
+   "New self-checkout machines"
+  ],
+  "answer": "A children's reading program",
+  "explanation": "売上はすべて子ども向け読書プログラムに使われる。",
+  "tags": "TOEIC Part4 museums & libraries announcement"
+ }
+]

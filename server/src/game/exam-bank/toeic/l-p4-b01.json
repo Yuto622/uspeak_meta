@@ -1,0 +1,542 @@
+[
+ {
+  "id": "TOEIC-L4-501-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following telephone message.\n\nHello, this message is for Ms. Laura Kim. This is Ben from Greenway Medical Clinic. I'm calling to remind you about your appointment with Dr. Hassan tomorrow, Tuesday, at two-thirty p.m. Please arrive fifteen minutes early to fill out a short health form. Also, please bring your insurance card and a list of any medicines you are taking now. If you need to change your appointment, call us at 555-0148 before five o'clock today. Our office is on the third floor of the Riverside Building, and you can park for free in the lot behind it. Thank you, and we'll see you tomorrow.",
+  "question": "Why is the speaker calling?",
+  "choices": [
+   "To ask about an unpaid bill",
+   "To remind the listener of an appointment",
+   "To report the results of a medical test",
+   "To explain a change in a doctor's schedule"
+  ],
+  "answer": "To remind the listener of an appointment",
+  "explanation": "明日の Dr. Hassan との予約を思い出してもらうための電話。",
+  "tags": "TOEIC Part4 healthcare telephone message"
+ },
+ {
+  "id": "TOEIC-L4-501-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following telephone message.\n\nHello, this message is for Ms. Laura Kim. This is Ben from Greenway Medical Clinic. I'm calling to remind you about your appointment with Dr. Hassan tomorrow, Tuesday, at two-thirty p.m. Please arrive fifteen minutes early to fill out a short health form. Also, please bring your insurance card and a list of any medicines you are taking now. If you need to change your appointment, call us at 555-0148 before five o'clock today. Our office is on the third floor of the Riverside Building, and you can park for free in the lot behind it. Thank you, and we'll see you tomorrow.",
+  "question": "What should the listener bring?",
+  "choices": [
+   "A health form",
+   "A letter from her doctor",
+   "A parking ticket",
+   "An insurance card"
+  ],
+  "answer": "An insurance card",
+  "explanation": "保険証（insurance card）と服用中の薬のリストを持ってくるよう言っている。",
+  "tags": "TOEIC Part4 healthcare telephone message"
+ },
+ {
+  "id": "TOEIC-L4-501-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following telephone message.\n\nHello, this message is for Ms. Laura Kim. This is Ben from Greenway Medical Clinic. I'm calling to remind you about your appointment with Dr. Hassan tomorrow, Tuesday, at two-thirty p.m. Please arrive fifteen minutes early to fill out a short health form. Also, please bring your insurance card and a list of any medicines you are taking now. If you need to change your appointment, call us at 555-0148 before five o'clock today. Our office is on the third floor of the Riverside Building, and you can park for free in the lot behind it. Thank you, and we'll see you tomorrow.",
+  "question": "Why should the listener arrive early?",
+  "choices": [
+   "To pick up some medicine",
+   "To find a parking space",
+   "To fill out a form",
+   "To meet a nurse"
+  ],
+  "answer": "To fill out a form",
+  "explanation": "短い健康記入票に記入するため15分早く来るよう頼んでいる。",
+  "tags": "TOEIC Part4 healthcare telephone message"
+ },
+ {
+  "id": "TOEIC-L4-502-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following tour information.\n\nWelcome to the Halden Bicycle factory, everyone. I'm Ines, and I'll be your guide this morning. Our tour will last about an hour. We'll start in the frame shop, where our welders join the aluminum tubes, and then we'll move on to the painting area and finally the assembly line. Before we begin, please put on the safety glasses in the basket by the door. The factory floor can be noisy, so if you can't hear me, just raise your hand. Photography is allowed everywhere except in the painting area, because our color techniques are kept private. At the end of the tour, you'll each receive a coupon for fifteen percent off any bicycle in our showroom.",
+  "question": "Where most likely are the listeners?",
+  "choices": [
+   "At a sports event",
+   "At a paint store",
+   "At a factory",
+   "At a bicycle race"
+  ],
+  "answer": "At a factory",
+  "explanation": "自転車工場の見学ツアーの案内である。",
+  "tags": "TOEIC Part4 manufacturing tour information"
+ },
+ {
+  "id": "TOEIC-L4-502-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following tour information.\n\nWelcome to the Halden Bicycle factory, everyone. I'm Ines, and I'll be your guide this morning. Our tour will last about an hour. We'll start in the frame shop, where our welders join the aluminum tubes, and then we'll move on to the painting area and finally the assembly line. Before we begin, please put on the safety glasses in the basket by the door. The factory floor can be noisy, so if you can't hear me, just raise your hand. Photography is allowed everywhere except in the painting area, because our color techniques are kept private. At the end of the tour, you'll each receive a coupon for fifteen percent off any bicycle in our showroom.",
+  "question": "Why is photography not allowed in one area?",
+  "choices": [
+   "The equipment there is dangerous.",
+   "Some methods are confidential.",
+   "The lights there are too bright.",
+   "Workers asked not to be photographed."
+  ],
+  "answer": "Some methods are confidential.",
+  "explanation": "塗装の技術を社外秘にしているため、塗装エリアは撮影禁止。",
+  "tags": "TOEIC Part4 manufacturing tour information"
+ },
+ {
+  "id": "TOEIC-L4-502-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following tour information.\n\nWelcome to the Halden Bicycle factory, everyone. I'm Ines, and I'll be your guide this morning. Our tour will last about an hour. We'll start in the frame shop, where our welders join the aluminum tubes, and then we'll move on to the painting area and finally the assembly line. Before we begin, please put on the safety glasses in the basket by the door. The factory floor can be noisy, so if you can't hear me, just raise your hand. Photography is allowed everywhere except in the painting area, because our color techniques are kept private. At the end of the tour, you'll each receive a coupon for fifteen percent off any bicycle in our showroom.",
+  "question": "What will listeners receive at the end of the tour?",
+  "choices": [
+   "A free bicycle helmet",
+   "A discount coupon",
+   "A product catalog",
+   "A pair of safety glasses"
+  ],
+  "answer": "A discount coupon",
+  "explanation": "ツアーの最後に15%割引のクーポンがもらえる。",
+  "tags": "TOEIC Part4 manufacturing tour information"
+ },
+ {
+  "id": "TOEIC-L4-503-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nBefore we finish, I want to update you on the Maple Court apartment complex. As you know, we took over management of the property in January. Since then, tenant complaints have dropped by nearly forty percent, mainly because we now respond to repair requests within twenty-four hours. However, occupancy is still only eighty-two percent, which is below our target. We believe the main reason is the outdated laundry room—prospective tenants have mentioned it in several tours. So, starting next month, we'll be replacing all the washing machines and dryers and adding a card payment system. I'd like each of you to mention the upgrade when you show available units. Lina will send you a short description you can use.",
+  "question": "What is the main purpose of the talk?",
+  "choices": [
+   "To announce a rent increase",
+   "To update staff on a property",
+   "To introduce a new manager",
+   "To explain a new repair policy"
+  ],
+  "answer": "To update staff on a property",
+  "explanation": "管理している Maple Court の現状を職員に報告している。",
+  "tags": "TOEIC Part4 real estate excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-503-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nBefore we finish, I want to update you on the Maple Court apartment complex. As you know, we took over management of the property in January. Since then, tenant complaints have dropped by nearly forty percent, mainly because we now respond to repair requests within twenty-four hours. However, occupancy is still only eighty-two percent, which is below our target. We believe the main reason is the outdated laundry room—prospective tenants have mentioned it in several tours. So, starting next month, we'll be replacing all the washing machines and dryers and adding a card payment system. I'd like each of you to mention the upgrade when you show available units. Lina will send you a short description you can use.",
+  "question": "According to the speaker, why are fewer tenants complaining?",
+  "choices": [
+   "Rents have been lowered recently.",
+   "A new laundry room was built.",
+   "More maintenance staff were hired.",
+   "Repairs are handled more quickly."
+  ],
+  "answer": "Repairs are handled more quickly.",
+  "explanation": "修理依頼に24時間以内に対応するようになったことが主な理由。",
+  "tags": "TOEIC Part4 real estate excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-503-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nBefore we finish, I want to update you on the Maple Court apartment complex. As you know, we took over management of the property in January. Since then, tenant complaints have dropped by nearly forty percent, mainly because we now respond to repair requests within twenty-four hours. However, occupancy is still only eighty-two percent, which is below our target. We believe the main reason is the outdated laundry room—prospective tenants have mentioned it in several tours. So, starting next month, we'll be replacing all the washing machines and dryers and adding a card payment system. I'd like each of you to mention the upgrade when you show available units. Lina will send you a short description you can use.",
+  "question": "What are listeners asked to do?",
+  "choices": [
+   "Inspect the laundry room every week",
+   "Reduce the number of tours they give",
+   "Collect feedback from current tenants",
+   "Mention an upgrade to prospective tenants"
+  ],
+  "answer": "Mention an upgrade to prospective tenants",
+  "explanation": "空室を案内するときにランドリーの改装について伝えるよう頼んでいる。",
+  "tags": "TOEIC Part4 real estate excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-504-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following announcement.\n\nGood morning, guests of the Seaview Hotel. We'd like to inform you that our outdoor swimming pool will be closed today from ten a.m. to three p.m. for regular cleaning. During this time, guests are welcome to use the indoor pool on the lower level, which is open until nine p.m. We're also happy to offer a free fruit smoothie at the poolside café to anyone who shows their room key today. In addition, the hotel shuttle to the city center will leave every thirty minutes instead of every hour this weekend, because of the summer music festival. Shuttle tickets are available at the front desk. Thank you for staying with us.",
+  "question": "Why will the outdoor pool be closed?",
+  "choices": [
+   "A private event is being held.",
+   "It will be cleaned.",
+   "The weather is expected to be bad.",
+   "It is being repaired."
+  ],
+  "answer": "It will be cleaned.",
+  "explanation": "定期清掃（regular cleaning）のため閉鎖される。",
+  "tags": "TOEIC Part4 hospitality announcement"
+ },
+ {
+  "id": "TOEIC-L4-504-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following announcement.\n\nGood morning, guests of the Seaview Hotel. We'd like to inform you that our outdoor swimming pool will be closed today from ten a.m. to three p.m. for regular cleaning. During this time, guests are welcome to use the indoor pool on the lower level, which is open until nine p.m. We're also happy to offer a free fruit smoothie at the poolside café to anyone who shows their room key today. In addition, the hotel shuttle to the city center will leave every thirty minutes instead of every hour this weekend, because of the summer music festival. Shuttle tickets are available at the front desk. Thank you for staying with us.",
+  "question": "What can guests get by showing their room key?",
+  "choices": [
+   "A beach towel",
+   "A festival pass",
+   "A shuttle ticket",
+   "A free drink"
+  ],
+  "answer": "A free drink",
+  "explanation": "ルームキーを見せると無料のスムージーがもらえる。",
+  "tags": "TOEIC Part4 hospitality announcement"
+ },
+ {
+  "id": "TOEIC-L4-504-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following announcement.\n\nGood morning, guests of the Seaview Hotel. We'd like to inform you that our outdoor swimming pool will be closed today from ten a.m. to three p.m. for regular cleaning. During this time, guests are welcome to use the indoor pool on the lower level, which is open until nine p.m. We're also happy to offer a free fruit smoothie at the poolside café to anyone who shows their room key today. In addition, the hotel shuttle to the city center will leave every thirty minutes instead of every hour this weekend, because of the summer music festival. Shuttle tickets are available at the front desk. Thank you for staying with us.",
+  "question": "Why will the shuttle run more often?",
+  "choices": [
+   "A festival is taking place.",
+   "The hotel bought another bus.",
+   "More guests have arrived.",
+   "A new route has opened."
+  ],
+  "answer": "A festival is taking place.",
+  "explanation": "夏の音楽祭のため、シャトルの本数が増える。",
+  "tags": "TOEIC Part4 hospitality announcement"
+ },
+ {
+  "id": "TOEIC-L4-505-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following talk.\n\nHi everyone, this is Marcus from IT. As you know, we're moving to the new document management system on Monday. Here's what you need to do before then. First, by Friday at five, please move any files you want to keep from your desktop to the shared drive. Anything left on your desktop won't be transferred. Second, check your inbox for an email with the subject \"Account Activation\" and follow the link to create your password. And finally, everyone needs to complete the twenty-minute online tutorial. It covers the basics, like searching and sharing files. If you have trouble, the help desk will have extra staff on Monday morning, so don't hesitate to call.",
+  "question": "What is the talk mainly about?",
+  "choices": [
+   "Repairing broken computers",
+   "Hiring new IT staff",
+   "Preparing for a new system",
+   "Reorganizing office desks"
+  ],
+  "answer": "Preparing for a new system",
+  "explanation": "月曜からの新しい文書管理システムへの移行準備について話している。",
+  "tags": "TOEIC Part4 IT talk"
+ },
+ {
+  "id": "TOEIC-L4-505-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following talk.\n\nHi everyone, this is Marcus from IT. As you know, we're moving to the new document management system on Monday. Here's what you need to do before then. First, by Friday at five, please move any files you want to keep from your desktop to the shared drive. Anything left on your desktop won't be transferred. Second, check your inbox for an email with the subject \"Account Activation\" and follow the link to create your password. And finally, everyone needs to complete the twenty-minute online tutorial. It covers the basics, like searching and sharing files. If you have trouble, the help desk will have extra staff on Monday morning, so don't hesitate to call.",
+  "question": "What should listeners do by Friday?",
+  "choices": [
+   "Move files to a shared drive",
+   "Attend a training session",
+   "Change their email address",
+   "Return their old laptops"
+  ],
+  "answer": "Move files to a shared drive",
+  "explanation": "金曜5時までに残したいファイルを共有ドライブに移すよう指示している。",
+  "tags": "TOEIC Part4 IT talk"
+ },
+ {
+  "id": "TOEIC-L4-505-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following talk.\n\nHi everyone, this is Marcus from IT. As you know, we're moving to the new document management system on Monday. Here's what you need to do before then. First, by Friday at five, please move any files you want to keep from your desktop to the shared drive. Anything left on your desktop won't be transferred. Second, check your inbox for an email with the subject \"Account Activation\" and follow the link to create your password. And finally, everyone needs to complete the twenty-minute online tutorial. It covers the basics, like searching and sharing files. If you have trouble, the help desk will have extra staff on Monday morning, so don't hesitate to call.",
+  "question": "What does the speaker say about Monday morning?",
+  "choices": [
+   "More help-desk staff will be available.",
+   "The online tutorial will be updated.",
+   "A department meeting will be held.",
+   "The new system will not be available."
+  ],
+  "answer": "More help-desk staff will be available.",
+  "explanation": "月曜の朝はヘルプデスクの人員を増やすと言っている。",
+  "tags": "TOEIC Part4 IT talk"
+ },
+ {
+  "id": "TOEIC-L4-506-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following telephone message.\n\nHi, this is Rosa from Quick Move Storage. I'm calling for Mr. Adeyemi about your storage unit, number 47. We've received your request to move to a bigger unit. Good news: a larger unit, number 62, is now available. It's on the ground floor, so it's easy to reach with a car. The monthly price is ninety dollars, which is twenty-five dollars more than you pay now. If you want it, please come to our office before Saturday to sign the new contract. We're open every day from eight to six. Our staff can also lend you a cart to move your things. Thanks, and have a good day.",
+  "question": "What did Mr. Adeyemi request?",
+  "choices": [
+   "A delivery service",
+   "A new key for his unit",
+   "A larger storage unit",
+   "A cheaper contract"
+  ],
+  "answer": "A larger storage unit",
+  "explanation": "より大きな倉庫ユニットへの移動を希望していた。",
+  "tags": "TOEIC Part4 logistics telephone message"
+ },
+ {
+  "id": "TOEIC-L4-506-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following telephone message.\n\nHi, this is Rosa from Quick Move Storage. I'm calling for Mr. Adeyemi about your storage unit, number 47. We've received your request to move to a bigger unit. Good news: a larger unit, number 62, is now available. It's on the ground floor, so it's easy to reach with a car. The monthly price is ninety dollars, which is twenty-five dollars more than you pay now. If you want it, please come to our office before Saturday to sign the new contract. We're open every day from eight to six. Our staff can also lend you a cart to move your things. Thanks, and have a good day.",
+  "question": "What is mentioned about unit 62?",
+  "choices": [
+   "It has air-conditioning.",
+   "It is cheaper than unit 47.",
+   "It is on the top floor.",
+   "It is on the ground floor."
+  ],
+  "answer": "It is on the ground floor.",
+  "explanation": "1階（ground floor）にあり車で行きやすいと言っている。",
+  "tags": "TOEIC Part4 logistics telephone message"
+ },
+ {
+  "id": "TOEIC-L4-506-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following telephone message.\n\nHi, this is Rosa from Quick Move Storage. I'm calling for Mr. Adeyemi about your storage unit, number 47. We've received your request to move to a bigger unit. Good news: a larger unit, number 62, is now available. It's on the ground floor, so it's easy to reach with a car. The monthly price is ninety dollars, which is twenty-five dollars more than you pay now. If you want it, please come to our office before Saturday to sign the new contract. We're open every day from eight to six. Our staff can also lend you a cart to move your things. Thanks, and have a good day.",
+  "question": "What can the staff lend?",
+  "choices": [
+   "A cart",
+   "A lock",
+   "Some boxes",
+   "A car"
+  ],
+  "answer": "A cart",
+  "explanation": "荷物を運ぶためのカートを貸せると言っている。",
+  "tags": "TOEIC Part4 logistics telephone message"
+ },
+ {
+  "id": "TOEIC-L4-507-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following advertisement.\n\nAre you saving for a new home, a car, or your child's education? At Harborview Savings Bank, our new Goal Account makes it easy. Just choose a target amount and a date, and our free mobile app will show you how much to save each month. Goal Accounts earn three percent interest—one of the highest rates in the region—and there are no monthly fees. Open an account before the end of March and we'll add a twenty-five-dollar bonus once you've saved your first five hundred dollars. Visit any of our twelve branches or sign up online in just ten minutes. Harborview Savings Bank—helping you get where you want to go.",
+  "question": "What is being advertised?",
+  "choices": [
+   "A savings account",
+   "A mobile phone",
+   "An insurance plan",
+   "A loan service"
+  ],
+  "answer": "A savings account",
+  "explanation": "新しい貯蓄口座 Goal Account の広告である。",
+  "tags": "TOEIC Part4 banking advertisement"
+ },
+ {
+  "id": "TOEIC-L4-507-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following advertisement.\n\nAre you saving for a new home, a car, or your child's education? At Harborview Savings Bank, our new Goal Account makes it easy. Just choose a target amount and a date, and our free mobile app will show you how much to save each month. Goal Accounts earn three percent interest—one of the highest rates in the region—and there are no monthly fees. Open an account before the end of March and we'll add a twenty-five-dollar bonus once you've saved your first five hundred dollars. Visit any of our twelve branches or sign up online in just ten minutes. Harborview Savings Bank—helping you get where you want to go.",
+  "question": "What does the speaker say about the mobile app?",
+  "choices": [
+   "It costs three dollars a month.",
+   "It is used to apply for loans.",
+   "It shows how much to save.",
+   "It lists all branch locations."
+  ],
+  "answer": "It shows how much to save.",
+  "explanation": "毎月いくら貯めればよいかをアプリが示してくれる。",
+  "tags": "TOEIC Part4 banking advertisement"
+ },
+ {
+  "id": "TOEIC-L4-507-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following advertisement.\n\nAre you saving for a new home, a car, or your child's education? At Harborview Savings Bank, our new Goal Account makes it easy. Just choose a target amount and a date, and our free mobile app will show you how much to save each month. Goal Accounts earn three percent interest—one of the highest rates in the region—and there are no monthly fees. Open an account before the end of March and we'll add a twenty-five-dollar bonus once you've saved your first five hundred dollars. Visit any of our twelve branches or sign up online in just ten minutes. Harborview Savings Bank—helping you get where you want to go.",
+  "question": "How can customers receive a bonus?",
+  "choices": [
+   "By keeping money in the account for one full year",
+   "By visiting a branch during the month of March",
+   "By opening an account before the end of March",
+   "By referring a friend to any of the branches"
+  ],
+  "answer": "By opening an account before the end of March",
+  "explanation": "3月末までに口座を開設し、最初の500ドルを貯めるとボーナスがもらえる。",
+  "tags": "TOEIC Part4 banking advertisement"
+ },
+ {
+  "id": "TOEIC-L4-508-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Questions refer to the following speech.\n\nThank you all for coming to the reopening of the Calloway Natural History Museum. When we closed eighteen months ago, many people asked why a museum would shut its doors just to replace its heating and cooling system. The answer is simple: many of our specimens—some over a century old—are extremely sensitive to changes in temperature and humidity. The new system keeps conditions stable to within one degree. That investment also made something else possible. For the first time, we can display our collection of pressed plants, which until now had been kept in storage. I'd especially like to thank the volunteers who catalogued over six thousand items during the closure. Without them, we would not be opening today. Now, please join me in the main hall.",
+  "question": "Why was the museum closed?",
+  "choices": [
+   "The whole collection was moved elsewhere.",
+   "The building was expanded with a new wing.",
+   "It temporarily lost its government funding.",
+   "A climate control system was replaced."
+  ],
+  "answer": "A climate control system was replaced.",
+  "explanation": "冷暖房（温湿度管理）システムの交換のため閉館していた。",
+  "tags": "TOEIC Part4 museums & libraries speech"
+ },
+ {
+  "id": "TOEIC-L4-508-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Questions refer to the following speech.\n\nThank you all for coming to the reopening of the Calloway Natural History Museum. When we closed eighteen months ago, many people asked why a museum would shut its doors just to replace its heating and cooling system. The answer is simple: many of our specimens—some over a century old—are extremely sensitive to changes in temperature and humidity. The new system keeps conditions stable to within one degree. That investment also made something else possible. For the first time, we can display our collection of pressed plants, which until now had been kept in storage. I'd especially like to thank the volunteers who catalogued over six thousand items during the closure. Without them, we would not be opening today. Now, please join me in the main hall.",
+  "question": "What is newly on display?",
+  "choices": [
+   "Fossils that are a century old",
+   "A collection of pressed plants",
+   "Historical heating equipment",
+   "An art exhibit made by volunteers"
+  ],
+  "answer": "A collection of pressed plants",
+  "explanation": "これまで保管庫にあった押し花・押し葉の標本が初めて展示される。",
+  "tags": "TOEIC Part4 museums & libraries speech"
+ },
+ {
+  "id": "TOEIC-L4-508-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Questions refer to the following speech.\n\nThank you all for coming to the reopening of the Calloway Natural History Museum. When we closed eighteen months ago, many people asked why a museum would shut its doors just to replace its heating and cooling system. The answer is simple: many of our specimens—some over a century old—are extremely sensitive to changes in temperature and humidity. The new system keeps conditions stable to within one degree. That investment also made something else possible. For the first time, we can display our collection of pressed plants, which until now had been kept in storage. I'd especially like to thank the volunteers who catalogued over six thousand items during the closure. Without them, we would not be opening today. Now, please join me in the main hall.",
+  "question": "What does the speaker mean by saying, \"Without them, we would not be opening today\"?",
+  "choices": [
+   "More volunteers are needed for the museum.",
+   "The volunteers' work was essential.",
+   "The opening was delayed by the volunteers.",
+   "The volunteers will lead tours later today."
+  ],
+  "answer": "The volunteers' work was essential.",
+  "explanation": "ボランティアの目録作成がなければ再開できなかったと、その貢献の大きさを強調している。",
+  "tags": "TOEIC Part4 museums & libraries speech"
+ },
+ {
+  "id": "TOEIC-L4-509-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following news report.\n\nIn local news, construction of the new Westbridge Public Library is running ahead of schedule. City officials announced yesterday that the steel frame and roof were completed three weeks earlier than planned, thanks largely to an unusually dry autumn. The three-story building will include a children's wing, a recording studio, and a rooftop garden that will be open to the public. The project's budget of fourteen million dollars has not changed. However, the city is still looking for volunteers to help select the opening collection of books. Residents interested in joining the selection committee can apply on the city's website until November thirtieth. The library is now expected to open in early spring.",
+  "question": "What is the news report mainly about?",
+  "choices": [
+   "The opening of a new bookstore",
+   "A local weather forecast",
+   "A change in the city budget",
+   "Progress on a building project"
+  ],
+  "answer": "Progress on a building project",
+  "explanation": "新しい図書館の建設が予定より早く進んでいるというニュース。",
+  "tags": "TOEIC Part4 construction news report"
+ },
+ {
+  "id": "TOEIC-L4-509-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following news report.\n\nIn local news, construction of the new Westbridge Public Library is running ahead of schedule. City officials announced yesterday that the steel frame and roof were completed three weeks earlier than planned, thanks largely to an unusually dry autumn. The three-story building will include a children's wing, a recording studio, and a rooftop garden that will be open to the public. The project's budget of fourteen million dollars has not changed. However, the city is still looking for volunteers to help select the opening collection of books. Residents interested in joining the selection committee can apply on the city's website until November thirtieth. The library is now expected to open in early spring.",
+  "question": "What helped the project move faster?",
+  "choices": [
+   "Additional workers",
+   "New equipment",
+   "A bigger budget",
+   "Dry weather"
+  ],
+  "answer": "Dry weather",
+  "explanation": "例年になく雨の少ない秋（dry autumn）のおかげで早く進んだ。",
+  "tags": "TOEIC Part4 construction news report"
+ },
+ {
+  "id": "TOEIC-L4-509-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following news report.\n\nIn local news, construction of the new Westbridge Public Library is running ahead of schedule. City officials announced yesterday that the steel frame and roof were completed three weeks earlier than planned, thanks largely to an unusually dry autumn. The three-story building will include a children's wing, a recording studio, and a rooftop garden that will be open to the public. The project's budget of fourteen million dollars has not changed. However, the city is still looking for volunteers to help select the opening collection of books. Residents interested in joining the selection committee can apply on the city's website until November thirtieth. The library is now expected to open in early spring.",
+  "question": "What can residents apply to do?",
+  "choices": [
+   "Design the rooftop garden",
+   "Speak at the opening ceremony",
+   "Use the recording studio",
+   "Help choose books"
+  ],
+  "answer": "Help choose books",
+  "explanation": "開館時の蔵書を選ぶ委員会のボランティアに応募できる。",
+  "tags": "TOEIC Part4 construction news report"
+ },
+ {
+  "id": "TOEIC-L4-510-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nOK, let's look at the results of the customer survey for our next tablet. As you can see, the feature people care about most is clearly ahead of everything else, so it'll be the focus of our upcoming ad campaign. What surprised me is that price came in second to last. That suggests our customers are willing to pay more for quality. Now, the advertising agency will present three ideas for the campaign on Thursday. I'd like everyone in this room to attend, so please check your calendars. And before then, take a look at the competitor ads I've shared in our team folder.\n\n[Customer Survey: Most Important Feature]\nPrice — 18%\nBattery life — 41%\nCamera quality — 27%\nScreen size — 14%",
+  "question": "Look at the graphic. What will the ad campaign focus on?",
+  "choices": [
+   "Price",
+   "Battery life",
+   "Camera quality",
+   "Screen size"
+  ],
+  "answer": "Battery life",
+  "explanation": "最も重視された特徴が広告の中心になるので、41%のバッテリー持続時間。",
+  "tags": "TOEIC Part4 marketing excerpt from a meeting graphic"
+ },
+ {
+  "id": "TOEIC-L4-510-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nOK, let's look at the results of the customer survey for our next tablet. As you can see, the feature people care about most is clearly ahead of everything else, so it'll be the focus of our upcoming ad campaign. What surprised me is that price came in second to last. That suggests our customers are willing to pay more for quality. Now, the advertising agency will present three ideas for the campaign on Thursday. I'd like everyone in this room to attend, so please check your calendars. And before then, take a look at the competitor ads I've shared in our team folder.\n\n[Customer Survey: Most Important Feature]\nPrice — 18%\nBattery life — 41%\nCamera quality — 27%\nScreen size — 14%",
+  "question": "What surprised the speaker?",
+  "choices": [
+   "Few customers answered the survey at all.",
+   "Screen size was chosen as the top feature.",
+   "Price was not considered very important.",
+   "The agency presented its ideas too late."
+  ],
+  "answer": "Price was not considered very important.",
+  "explanation": "価格が下から2番目だったことに驚いたと言っている。",
+  "tags": "TOEIC Part4 marketing excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-510-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nOK, let's look at the results of the customer survey for our next tablet. As you can see, the feature people care about most is clearly ahead of everything else, so it'll be the focus of our upcoming ad campaign. What surprised me is that price came in second to last. That suggests our customers are willing to pay more for quality. Now, the advertising agency will present three ideas for the campaign on Thursday. I'd like everyone in this room to attend, so please check your calendars. And before then, take a look at the competitor ads I've shared in our team folder.\n\n[Customer Survey: Most Important Feature]\nPrice — 18%\nBattery life — 41%\nCamera quality — 27%\nScreen size — 14%",
+  "question": "What are listeners asked to do before Thursday?",
+  "choices": [
+   "Complete a customer survey",
+   "Prepare their own presentations",
+   "Review some competitor ads",
+   "Contact the advertising agency"
+  ],
+  "answer": "Review some competitor ads",
+  "explanation": "木曜までにチームフォルダの競合他社の広告を見ておくよう頼んでいる。",
+  "tags": "TOEIC Part4 marketing excerpt from a meeting"
+ }
+]

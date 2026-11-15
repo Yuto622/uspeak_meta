@@ -1,0 +1,682 @@
+[
+ {
+  "id": "TOEIC-L2-581",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Who fixed the air conditioner?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Yesterday afternoon at three.",
+   "Someone from maintenance.",
+   "It's very cold in this room."
+  ],
+  "answer": "Someone from maintenance.",
+  "explanation": "Who で人物を尋ねているので、保守担当者が正解。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-582",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Is the elevator working today?",
+  "question": "Choose the best response.",
+  "choices": [
+   "On the tenth floor, near the exit.",
+   "I'm working from home today.",
+   "No, please use the stairs."
+  ],
+  "answer": "No, please use the stairs.",
+  "explanation": "「いいえ、階段を使って」と答えている。working の繰り返しはひっかけ。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-583",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: When will the renovation be finished?",
+  "question": "Choose the best response.",
+  "choices": [
+   "By the end of next month.",
+   "The lobby and both of the hallways.",
+   "It's a really nice decoration."
+  ],
+  "answer": "By the end of next month.",
+  "explanation": "When に対して「来月末までに」と時期を答えている。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-584",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Where should the workers park their trucks?",
+  "question": "Choose the best response.",
+  "choices": [
+   "In the gravel lot directly behind the construction site.",
+   "Yes, they're working on the third floor.",
+   "About ten trucks and two vans."
+  ],
+  "answer": "In the gravel lot directly behind the construction site.",
+  "explanation": "駐車場所を尋ねているので場所が正解。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-585",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: How long will the water be shut off?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Please shut the door behind you.",
+   "About two hours.",
+   "It's a very long hallway."
+  ],
+  "answer": "About two hours.",
+  "explanation": "How long で期間を尋ねているので、「約2時間」が正解。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-586",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Why are there cones in the parking lot?",
+  "question": "Choose the best response.",
+  "choices": [
+   "They're repainting the lines.",
+   "I parked there yesterday afternoon.",
+   "Yes, a lot of them."
+  ],
+  "answer": "They're repainting the lines.",
+  "explanation": "コーンが置かれている理由として、線の塗り直しを答えている。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-587",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Haven't the safety inspections been scheduled?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Yes, the building was declared safe.",
+   "The inspector comes Wednesday.",
+   "I'll take a closer look at the menu."
+  ],
+  "answer": "The inspector comes Wednesday.",
+  "explanation": "「検査官が水曜に来る」と、予定が組まれていることを伝えている。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-588",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: The light in the stairwell keeps flickering.",
+  "question": "Choose the best response.",
+  "choices": [
+   "It's a light jacket for spring.",
+   "Yes, the stairs are still wet from cleaning.",
+   "I'll submit a work order to maintenance right away."
+  ],
+  "answer": "I'll submit a work order to maintenance right away.",
+  "explanation": "照明の不具合の報告に、作業依頼を出すと応じている。light の別の意味はひっかけ。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-589",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Should we repaint the lobby or replace the wallpaper?",
+  "question": "Choose the best response.",
+  "choices": [
+   "The budget only allows for paint.",
+   "Yes, the newspaper is in the lobby.",
+   "I painted my kitchen blue last year."
+  ],
+  "answer": "The budget only allows for paint.",
+  "explanation": "「予算は塗装分しかない」と、塗り直しの方を間接的に選んでいる。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-590",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Man: The contractor says the foundation work will run two weeks over schedule.",
+  "question": "Choose the best response.",
+  "choices": [
+   "The foundation donated the money for the park.",
+   "That delays everything, doesn't it?",
+   "I'll run with you in the morning."
+  ],
+  "answer": "That delays everything, doesn't it?",
+  "explanation": "工期遅れの報告に、全体が遅れるのではと確認している。foundation の別の意味（財団）はひっかけ。",
+  "tags": "TOEIC Part2 question-response construction"
+ },
+ {
+  "id": "TOEIC-L2-591",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Where is our booth at the trade show?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Near the main entrance, in Hall C.",
+   "It's a trade secret, I'm afraid.",
+   "For three days, starting Monday."
+  ],
+  "answer": "Near the main entrance, in Hall C.",
+  "explanation": "ブースの場所を尋ねているので場所が正解。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-592",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Did you print the brochures?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Yes, they're in the box.",
+   "The printer on our floor is brand new.",
+   "I like the weather today."
+  ],
+  "answer": "Yes, they're in the box.",
+  "explanation": "印刷したかの質問に「はい、箱に入っている」と答えている。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-593",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Who designed the new advertisement?",
+  "question": "Choose the best response.",
+  "choices": [
+   "It's a great sign for the business.",
+   "Sometime next week, I think.",
+   "An agency in Toronto."
+  ],
+  "answer": "An agency in Toronto.",
+  "explanation": "Who で作り手を尋ねているので、代理店が正解。sign は design と音が似たひっかけ。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-594",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: How many people visited our booth yesterday?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Over three hundred.",
+   "For about three hours in the afternoon.",
+   "I visited my aunt in the hospital."
+  ],
+  "answer": "Over three hundred.",
+  "explanation": "How many で人数を尋ねているので、数を答えるのが正解。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-595",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: When does the social media campaign launch?",
+  "question": "Choose the best response.",
+  "choices": [
+   "On three different platforms.",
+   "Lunch is at noon in the cafeteria.",
+   "The first week of May."
+  ],
+  "answer": "The first week of May.",
+  "explanation": "開始時期を尋ねているので、「5月の第1週」が正解。lunch は launch と音が似たひっかけ。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-596",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Should we hand out free samples or discount coupons?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Samples attract more visitors.",
+   "That coupon expired last week.",
+   "Yes, I handed in my report this morning."
+  ],
+  "answer": "Samples attract more visitors.",
+  "explanation": "選択疑問文に、サンプルの方が人を集めると理由付きで選んでいる。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-597",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Our survey results show customers prefer the green packaging.",
+  "question": "Choose the best response.",
+  "choices": [
+   "The package arrived at the office today.",
+   "Then let's use it for everything.",
+   "Yes, I filled out the survey last night."
+  ],
+  "answer": "Then let's use it for everything.",
+  "explanation": "調査結果を受けて、全製品に採用しようと提案している。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-598",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: Why don't we hire a celebrity for the campaign?",
+  "question": "Choose the best response.",
+  "choices": [
+   "It's probably far beyond our budget for this year.",
+   "Because she's very famous in Europe.",
+   "The campaign was launched in June."
+  ],
+  "answer": "It's probably far beyond our budget for this year.",
+  "explanation": "Why don't we は提案。予算を超えると間接的に反対している。Because はひっかけ。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-599",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Isn't the deadline for the trade show registration this Friday?",
+  "question": "Choose the best response.",
+  "choices": [
+   "The registration desk is downstairs by the door.",
+   "Yes, I'll show you the way.",
+   "It was extended to Wednesday."
+  ],
+  "answer": "It was extended to Wednesday.",
+  "explanation": "否定疑問文に、締め切りが延長されたと訂正して答えている。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-600",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Man: The click-through rate on the new banner ads is disappointing.",
+  "question": "Choose the best response.",
+  "choices": [
+   "Click here to register for the event.",
+   "I was disappointed by the movie.",
+   "Maybe the call to action isn't clear enough."
+  ],
+  "answer": "Maybe the call to action isn't clear enough.",
+  "explanation": "クリック率が低いという話に、行動喚起が不明確なのではと原因を推測している。",
+  "tags": "TOEIC Part2 question-response marketing"
+ },
+ {
+  "id": "TOEIC-L2-601",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: When is the orientation for new employees?",
+  "question": "Choose the best response.",
+  "choices": [
+   "In Room 5 on the second floor.",
+   "Yes, it's very new.",
+   "Next Monday at nine."
+  ],
+  "answer": "Next Monday at nine.",
+  "explanation": "When で日時を尋ねているので、「来週月曜の9時」が正解。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-602",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Where do I pick up my ID badge?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Yes, that badge is mine.",
+   "At the security office.",
+   "Please pick a number from the box."
+  ],
+  "answer": "At the security office.",
+  "explanation": "受け取り場所を尋ねているので、警備室が正解。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-603",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Who's leading the onboarding session?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Everyone is already on board the ship.",
+   "Mr. Abebe from HR.",
+   "For about two hours after lunch."
+  ],
+  "answer": "Mr. Abebe from HR.",
+  "explanation": "Who で担当者を尋ねているので、人事部の人物名が正解。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-604",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Have you completed the online safety module?",
+  "question": "Choose the best response.",
+  "choices": [
+   "The company website is safe to use.",
+   "Yes, a model airplane for my son.",
+   "I'll do it this afternoon."
+  ],
+  "answer": "I'll do it this afternoon.",
+  "explanation": "「午後にやる」と、まだ終わっていないことを間接的に伝えている。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-605",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Would you rather attend the morning or afternoon workshop?",
+  "question": "Choose the best response.",
+  "choices": [
+   "The afternoon one fits my schedule better.",
+   "It's a good shop.",
+   "Yes, I would."
+  ],
+  "answer": "The afternoon one fits my schedule better.",
+  "explanation": "選択疑問文に対し、午後の方を選んで答えている。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-606",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Why is the training room locked?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Please lock it when you leave tonight.",
+   "Yes, I trained very hard for the race.",
+   "The session moved to the auditorium."
+  ],
+  "answer": "The session moved to the auditorium.",
+  "explanation": "鍵がかかっている理由として、会場が講堂に変更されたことを答えている。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-607",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: The new hires need laptops by Monday.",
+  "question": "Choose the best response.",
+  "choices": [
+   "IT already set them up.",
+   "Monday is my day off this week.",
+   "They were hired from overseas offices."
+  ],
+  "answer": "IT already set them up.",
+  "explanation": "月曜までにノートPCが必要という話に、IT 部門が準備済みだと答えている。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-608",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: How do I apply for the internal management program?",
+  "question": "Choose the best response.",
+  "choices": [
+   "It's a very popular program.",
+   "You'll need your supervisor's recommendation first.",
+   "I applied the paint."
+  ],
+  "answer": "You'll need your supervisor's recommendation first.",
+  "explanation": "応募方法を尋ねられ、まず上司の推薦が必要だと答えている。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-609",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Aren't the performance reviews due this week?",
+  "question": "Choose the best response.",
+  "choices": [
+   "They've been pushed to the end of the month.",
+   "Yes, the performance was excellent.",
+   "I'll review the movie for the newsletter."
+  ],
+  "answer": "They've been pushed to the end of the month.",
+  "explanation": "否定疑問文に、月末に延期されたと答えている。performance の別の意味はひっかけ。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-610",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Man: Several trainees said the course moved too quickly.",
+  "question": "Choose the best response.",
+  "choices": [
+   "The trainees arrived quickly this morning.",
+   "We could split it into two sessions.",
+   "The golf course is closed for the season."
+  ],
+  "answer": "We could split it into two sessions.",
+  "explanation": "進度が速すぎるという意見に、2回に分けるという改善策を提案している。",
+  "tags": "TOEIC Part2 question-response HR & training"
+ },
+ {
+  "id": "TOEIC-L2-611",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Which gate does the flight to Seoul leave from?",
+  "question": "Choose the best response.",
+  "choices": [
+   "I'll leave in a few minutes.",
+   "Gate 14.",
+   "At 6:30 tomorrow morning."
+  ],
+  "answer": "Gate 14.",
+  "explanation": "Which gate で搭乗口を尋ねているので、番号を答えるのが正解。",
+  "tags": "TOEIC Part2 question-response transport"
+ },
+ {
+  "id": "TOEIC-L2-612",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: How often does the airport shuttle run?",
+  "question": "Choose the best response.",
+  "choices": [
+   "I often run in the park.",
+   "Every twenty minutes.",
+   "To the downtown hotels and the station."
+  ],
+  "answer": "Every twenty minutes.",
+  "explanation": "How often で頻度を尋ねているので、「20分ごと」が正解。",
+  "tags": "TOEIC Part2 question-response transport"
+ },
+ {
+  "id": "TOEIC-L2-613",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Where can I buy a monthly bus pass?",
+  "question": "Choose the best response.",
+  "choices": [
+   "It passed by very quickly.",
+   "About sixty dollars.",
+   "At any station ticket machine."
+  ],
+  "answer": "At any station ticket machine.",
+  "explanation": "購入場所を尋ねているので、券売機が正解。値段の答えはひっかけ。",
+  "tags": "TOEIC Part2 question-response transport"
+ },
+ {
+  "id": "TOEIC-L2-614",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Why was the train delayed?",
+  "question": "Choose the best response.",
+  "choices": [
+   "I'll train him on the new system.",
+   "There was a signal problem near the river bridge.",
+   "At platform three, near the stairs."
+  ],
+  "answer": "There was a signal problem near the river bridge.",
+  "explanation": "遅延の理由として信号トラブルを答えている。",
+  "tags": "TOEIC Part2 question-response transport"
+ },
+ {
+  "id": "TOEIC-L2-615",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Did you check your bag or carry it on?",
+  "question": "Choose the best response.",
+  "choices": [
+   "The bag is black with a red tag.",
+   "Yes, I checked the departure time twice.",
+   "I'm carrying it on."
+  ],
+  "answer": "I'm carrying it on.",
+  "explanation": "選択疑問文に、機内持ち込みの方を答えている。",
+  "tags": "TOEIC Part2 question-response transport"
+ },
+ {
+  "id": "TOEIC-L2-616",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Who should I talk to about a lost suitcase?",
+  "question": "Choose the best response.",
+  "choices": [
+   "The baggage service desk.",
+   "It's a large blue suitcase with wheels.",
+   "I lost the game last night."
+  ],
+  "answer": "The baggage service desk.",
+  "explanation": "相談先を尋ねているので、手荷物サービス窓口が正解。",
+  "tags": "TOEIC Part2 question-response transport"
+ },
+ {
+  "id": "TOEIC-L2-617",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: The 8:15 express has been canceled.",
+  "question": "Choose the best response.",
+  "choices": [
+   "Then I'll take the local.",
+   "I'd like to express my thanks to everyone.",
+   "It's already 8:15 by my watch."
+  ],
+  "answer": "Then I'll take the local.",
+  "explanation": "特急の運休を聞き、各駅停車に乗ると対応を答えている。",
+  "tags": "TOEIC Part2 question-response transport"
+ },
+ {
+  "id": "TOEIC-L2-618",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: Isn't there a faster way to get to the convention center?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Yes, it's right in the center of town.",
+   "The convention moved fast this year.",
+   "The subway's quicker."
+  ],
+  "answer": "The subway's quicker.",
+  "explanation": "より速い方法の質問に、地下鉄の方が速いと答えている。",
+  "tags": "TOEIC Part2 question-response transport"
+ },
+ {
+  "id": "TOEIC-L2-619",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: How long is the layover in Frankfurt?",
+  "question": "Choose the best response.",
+  "choices": [
+   "Just under two hours.",
+   "I'll lay it over there.",
+   "It's in Germany."
+  ],
+  "answer": "Just under two hours.",
+  "explanation": "How long で乗り継ぎ時間を尋ねているので、時間の長さが正解。",
+  "tags": "TOEIC Part2 question-response transport"
+ },
+ {
+  "id": "TOEIC-L2-620",
+  "skill": "listening",
+  "format": "Part 2 応答問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Man: Will the new fare system affect commuters who use paper tickets?",
+  "question": "Choose the best response.",
+  "choices": [
+   "They'll have until June to switch to smart cards.",
+   "Commuters use the east exit.",
+   "The fare was fair."
+  ],
+  "answer": "They'll have until June to switch to smart cards.",
+  "explanation": "影響を尋ねる質問に、6月までに IC カードへ切り替える必要があると間接的に答えている。fair は fare と同音のひっかけ。",
+  "tags": "TOEIC Part2 question-response transport"
+ }
+]

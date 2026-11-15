@@ -385,7 +385,7 @@
     "passage": "Speaker A: Has the return of beavers changed the river?",
     "question": "Speaker B: Make a sentence using all the words: / has / that / So / dramatically / are amazed / the river / scientists / changed /",
     "answer": "So dramatically has the river changed that scientists are amazed.",
-    "explanation": "否定・制限を表す語句（not until / rarely / little / only after など）が文頭に来ると、助動詞と主語が倒置する。正しい文は「So dramatically has the river changed that scientists are amazed.」。",
+    "explanation": "「So＋副詞」が文頭に来ると助動詞と主語が倒置し、「so ～ that …（とても～なので…）」の形になる。正しい文は「So dramatically has the river changed that scientists are amazed.」。",
     "model_answer": "So dramatically has the river changed that scientists are amazed.",
     "tags": "TOEFL writing build-a-sentence wildlife-conservation"
   },
@@ -398,7 +398,7 @@
     "passage": "Speaker A: What if a source asks to remain anonymous?",
     "question": "Speaker B: Make a sentence using all the words: / Should / anonymity, / the editor / must / request / a source / approve it /",
     "answer": "Should a source request anonymity, the editor must approve it.",
-    "explanation": "否定・制限を表す語句（not until / rarely / little / only after など）が文頭に来ると、助動詞と主語が倒置する。正しい文は「Should a source request anonymity, the editor must approve it.」。",
+    "explanation": "if を省略した仮定の表現では「Should＋主語＋動詞の原形 …, 主節」と倒置する。正しい文は「Should a source request anonymity, the editor must approve it.」。",
     "model_answer": "Should a source request anonymity, the editor must approve it.",
     "tags": "TOEFL writing build-a-sentence journalism"
   },

@@ -1,0 +1,542 @@
+[
+ {
+  "id": "TOEIC-L3-531-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Excuse me, the cash machine outside isn't working. It kept my card.\nMan: I'm sorry about that. The machine has been having problems today. Can I see some ID, please?\nWoman: Here's my driver's license.\nMan: Thank you. I'll get your card from the machine. It'll take about five minutes. Please have a seat.\nWoman: OK. Also, I need to withdraw two hundred dollars.\nMan: I can help you with that here at the counter.\nWoman: Thanks. I'm in a bit of a hurry, so I really appreciate it.",
+  "question": "Where are the speakers?",
+  "choices": [
+   "At a post office",
+   "At a car rental office",
+   "At a bank",
+   "At a supermarket"
+  ],
+  "answer": "At a bank",
+  "explanation": "ATM やお金の引き出しの話をしているので銀行での会話。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-531-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Excuse me, the cash machine outside isn't working. It kept my card.\nMan: I'm sorry about that. The machine has been having problems today. Can I see some ID, please?\nWoman: Here's my driver's license.\nMan: Thank you. I'll get your card from the machine. It'll take about five minutes. Please have a seat.\nWoman: OK. Also, I need to withdraw two hundred dollars.\nMan: I can help you with that here at the counter.\nWoman: Thanks. I'm in a bit of a hurry, so I really appreciate it.",
+  "question": "What problem does the woman have?",
+  "choices": [
+   "A machine kept her card.",
+   "She forgot her PIN.",
+   "Her account is closed.",
+   "She lost her license."
+  ],
+  "answer": "A machine kept her card.",
+  "explanation": "外の ATM がカードを吸い込んだまま返さなかった。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-531-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Excuse me, the cash machine outside isn't working. It kept my card.\nMan: I'm sorry about that. The machine has been having problems today. Can I see some ID, please?\nWoman: Here's my driver's license.\nMan: Thank you. I'll get your card from the machine. It'll take about five minutes. Please have a seat.\nWoman: OK. Also, I need to withdraw two hundred dollars.\nMan: I can help you with that here at the counter.\nWoman: Thanks. I'm in a bit of a hurry, so I really appreciate it.",
+  "question": "What does the man ask the woman to do?",
+  "choices": [
+   "Fill out a form",
+   "Come back tomorrow",
+   "Show identification",
+   "Use another machine"
+  ],
+  "answer": "Show identification",
+  "explanation": "Can I see some ID? と身分証の提示を求めている。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-532-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Hi, I'm calling about the community center's summer programs. Are there any art classes for teenagers?\nWoman: Yes, we have a painting class on Tuesday and Thursday mornings for ages thirteen to seventeen. It starts on July fifth.\nMan: My daughter is fourteen, so that sounds perfect. How much is it?\nWoman: It's eighty dollars for six weeks, and all materials are included. Residents of the city get a ten percent discount.\nMan: We live in the city. How do I register?\nWoman: You can register online or come in person. You'll just need proof of address for the discount.",
+  "question": "What is the man asking about?",
+  "choices": [
+   "A class for his daughter",
+   "Renting a room",
+   "A job at the community center",
+   "A summer festival"
+  ],
+  "answer": "A class for his daughter",
+  "explanation": "14歳の娘のための10代向け美術教室について尋ねている。",
+  "tags": "TOEIC Part3 museums & libraries"
+ },
+ {
+  "id": "TOEIC-L3-532-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Hi, I'm calling about the community center's summer programs. Are there any art classes for teenagers?\nWoman: Yes, we have a painting class on Tuesday and Thursday mornings for ages thirteen to seventeen. It starts on July fifth.\nMan: My daughter is fourteen, so that sounds perfect. How much is it?\nWoman: It's eighty dollars for six weeks, and all materials are included. Residents of the city get a ten percent discount.\nMan: We live in the city. How do I register?\nWoman: You can register online or come in person. You'll just need proof of address for the discount.",
+  "question": "What is included in the price?",
+  "choices": [
+   "A museum visit",
+   "Art materials",
+   "Lunch",
+   "Transportation"
+  ],
+  "answer": "Art materials",
+  "explanation": "all materials are included と言っている。",
+  "tags": "TOEIC Part3 museums & libraries"
+ },
+ {
+  "id": "TOEIC-L3-532-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Hi, I'm calling about the community center's summer programs. Are there any art classes for teenagers?\nWoman: Yes, we have a painting class on Tuesday and Thursday mornings for ages thirteen to seventeen. It starts on July fifth.\nMan: My daughter is fourteen, so that sounds perfect. How much is it?\nWoman: It's eighty dollars for six weeks, and all materials are included. Residents of the city get a ten percent discount.\nMan: We live in the city. How do I register?\nWoman: You can register online or come in person. You'll just need proof of address for the discount.",
+  "question": "What is required to receive a discount?",
+  "choices": [
+   "A student ID",
+   "Proof of address",
+   "A membership card",
+   "Early registration"
+  ],
+  "answer": "Proof of address",
+  "explanation": "割引には住所を証明するもの（proof of address）が必要。",
+  "tags": "TOEIC Part3 museums & libraries"
+ },
+ {
+  "id": "TOEIC-L3-533-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Hi, Douglas. I'm organizing a client visit next week, and I want to make sure the building looks its best.\nMan: Sure. What day are they coming?\nWoman: Wednesday. But I noticed on the schedule that some work will be done that day.\nMan: Yes, the crew uses a platform outside the building, so meeting rooms facing the street can get a bit noisy.\nWoman: Our conference room faces the street. Could they do that work on a different day?\nMan: I'll ask the cleaning company if they can do it on Friday instead.\nWoman: Thanks, that would really help.\n\n[Maintenance Schedule — Week of May 6]\nMonday — Lobby floor polishing\nTuesday — Elevator inspection\nWednesday — Window cleaning\nThursday — Fire alarm testing",
+  "question": "Why is the woman concerned?",
+  "choices": [
+   "Her office is too small.",
+   "The building failed an inspection.",
+   "A meeting was canceled.",
+   "Clients are visiting next week."
+  ],
+  "answer": "Clients are visiting next week.",
+  "explanation": "来週顧客の訪問があり、建物をよい状態に見せたいと考えている。",
+  "tags": "TOEIC Part3 construction"
+ },
+ {
+  "id": "TOEIC-L3-533-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Hi, Douglas. I'm organizing a client visit next week, and I want to make sure the building looks its best.\nMan: Sure. What day are they coming?\nWoman: Wednesday. But I noticed on the schedule that some work will be done that day.\nMan: Yes, the crew uses a platform outside the building, so meeting rooms facing the street can get a bit noisy.\nWoman: Our conference room faces the street. Could they do that work on a different day?\nMan: I'll ask the cleaning company if they can do it on Friday instead.\nWoman: Thanks, that would really help.\n\n[Maintenance Schedule — Week of May 6]\nMonday — Lobby floor polishing\nTuesday — Elevator inspection\nWednesday — Window cleaning\nThursday — Fire alarm testing",
+  "question": "Look at the graphic. Which task does the woman want moved?",
+  "choices": [
+   "Lobby floor polishing",
+   "Elevator inspection",
+   "Window cleaning",
+   "Fire alarm testing"
+  ],
+  "answer": "Window cleaning",
+  "explanation": "顧客訪問は水曜日なので、表から水曜の窓清掃を別の日にしてほしいとわかる。",
+  "tags": "TOEIC Part3 construction graphic"
+ },
+ {
+  "id": "TOEIC-L3-533-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Hi, Douglas. I'm organizing a client visit next week, and I want to make sure the building looks its best.\nMan: Sure. What day are they coming?\nWoman: Wednesday. But I noticed on the schedule that some work will be done that day.\nMan: Yes, the crew uses a platform outside the building, so meeting rooms facing the street can get a bit noisy.\nWoman: Our conference room faces the street. Could they do that work on a different day?\nMan: I'll ask the cleaning company if they can do it on Friday instead.\nWoman: Thanks, that would really help.\n\n[Maintenance Schedule — Week of May 6]\nMonday — Lobby floor polishing\nTuesday — Elevator inspection\nWednesday — Window cleaning\nThursday — Fire alarm testing",
+  "question": "What will the man do?",
+  "choices": [
+   "Cancel the client visit",
+   "Book another conference room",
+   "Install new windows",
+   "Contact a cleaning company"
+  ],
+  "answer": "Contact a cleaning company",
+  "explanation": "清掃会社に金曜日にできるか聞いてみると言っている。",
+  "tags": "TOEIC Part3 construction"
+ },
+ {
+  "id": "TOEIC-L3-534-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Have you finalized the booth design for the Lisbon trade show?\nMan: Almost. The designer sent two options. One has a large video wall, and the other has a small stage for live demonstrations.\nWoman: Which one do you prefer?\nMan: The stage. Last year our competitors' demos attracted huge crowds.\nWoman: But the stage version costs about four thousand euros more.\nMan: Well, we did get three major contracts from last year's show.\nWoman: Good point. Let's go with the stage, then. Can you confirm with the designer today? The organizers need our layout by Friday.",
+  "question": "What are the speakers discussing?",
+  "choices": [
+   "A competitor's merger",
+   "Plans for a trade show booth",
+   "A new product price",
+   "A video advertisement"
+  ],
+  "answer": "Plans for a trade show booth",
+  "explanation": "見本市のブースデザインをどちらにするか話している。",
+  "tags": "TOEIC Part3 marketing"
+ },
+ {
+  "id": "TOEIC-L3-534-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Have you finalized the booth design for the Lisbon trade show?\nMan: Almost. The designer sent two options. One has a large video wall, and the other has a small stage for live demonstrations.\nWoman: Which one do you prefer?\nMan: The stage. Last year our competitors' demos attracted huge crowds.\nWoman: But the stage version costs about four thousand euros more.\nMan: Well, we did get three major contracts from last year's show.\nWoman: Good point. Let's go with the stage, then. Can you confirm with the designer today? The organizers need our layout by Friday.",
+  "question": "Why does the man say, \"we did get three major contracts from last year's show\"?",
+  "choices": [
+   "To complain about a competitor",
+   "To argue that the extra cost is justified",
+   "To suggest canceling the show",
+   "To request a bonus"
+  ],
+  "answer": "To argue that the extra cost is justified",
+  "explanation": "見本市は大きな成果を生むので、追加費用をかける価値があると主張している。",
+  "tags": "TOEIC Part3 marketing"
+ },
+ {
+  "id": "TOEIC-L3-534-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Have you finalized the booth design for the Lisbon trade show?\nMan: Almost. The designer sent two options. One has a large video wall, and the other has a small stage for live demonstrations.\nWoman: Which one do you prefer?\nMan: The stage. Last year our competitors' demos attracted huge crowds.\nWoman: But the stage version costs about four thousand euros more.\nMan: Well, we did get three major contracts from last year's show.\nWoman: Good point. Let's go with the stage, then. Can you confirm with the designer today? The organizers need our layout by Friday.",
+  "question": "What deadline does the woman mention?",
+  "choices": [
+   "The layout is due by Friday.",
+   "The contracts expire on Friday.",
+   "The designer leaves on Friday.",
+   "The stage must be built by Friday."
+  ],
+  "answer": "The layout is due by Friday.",
+  "explanation": "主催者が金曜までにレイアウトを必要としていると言っている。",
+  "tags": "TOEIC Part3 marketing"
+ },
+ {
+  "id": "TOEIC-L3-535-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Hi, Priya. How is your first week going?\nWoman: Pretty well, thanks. Everyone has been very welcoming. I'm still learning the expense reporting system, though.\nMan: It's a bit confusing at first. Has anyone shown you the tutorial videos?\nWoman: No, I didn't know there were any.\nMan: They're on the training portal. There's one about expense reports that's only about ten minutes long.\nWoman: Great, I'll watch it this afternoon.\nMan: And if you still have questions, Hana in accounting is the best person to ask.",
+  "question": "Who most likely is the woman?",
+  "choices": [
+   "A new employee",
+   "A job applicant",
+   "A training instructor",
+   "An accountant"
+  ],
+  "answer": "A new employee",
+  "explanation": "入社1週目（first week）なので新入社員。",
+  "tags": "TOEIC Part3 HR & training"
+ },
+ {
+  "id": "TOEIC-L3-535-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Hi, Priya. How is your first week going?\nWoman: Pretty well, thanks. Everyone has been very welcoming. I'm still learning the expense reporting system, though.\nMan: It's a bit confusing at first. Has anyone shown you the tutorial videos?\nWoman: No, I didn't know there were any.\nMan: They're on the training portal. There's one about expense reports that's only about ten minutes long.\nWoman: Great, I'll watch it this afternoon.\nMan: And if you still have questions, Hana in accounting is the best person to ask.",
+  "question": "What is the woman having difficulty with?",
+  "choices": [
+   "Using her laptop",
+   "Her work schedule",
+   "An expense reporting system",
+   "Finding the office"
+  ],
+  "answer": "An expense reporting system",
+  "explanation": "経費報告システムをまだ覚えている途中だと言っている。",
+  "tags": "TOEIC Part3 HR & training"
+ },
+ {
+  "id": "TOEIC-L3-535-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Hi, Priya. How is your first week going?\nWoman: Pretty well, thanks. Everyone has been very welcoming. I'm still learning the expense reporting system, though.\nMan: It's a bit confusing at first. Has anyone shown you the tutorial videos?\nWoman: No, I didn't know there were any.\nMan: They're on the training portal. There's one about expense reports that's only about ten minutes long.\nWoman: Great, I'll watch it this afternoon.\nMan: And if you still have questions, Hana in accounting is the best person to ask.",
+  "question": "What does the man recommend?",
+  "choices": [
+   "Reading a manual",
+   "Watching a tutorial video",
+   "Attending a workshop",
+   "Calling the help desk"
+  ],
+  "answer": "Watching a tutorial video",
+  "explanation": "研修ポータルにある説明動画を見ることを勧めている。",
+  "tags": "TOEIC Part3 HR & training"
+ },
+ {
+  "id": "TOEIC-L3-536-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman 1: OK, Gate 22 is getting crowded. The incoming aircraft for the flight to Montreal is delayed by forty minutes.\nMan: Is it a mechanical issue?\nWoman 1: No, there's heavy fog at the departure airport. It's just arriving late.\nWoman 2: Many of these passengers have connecting flights in Montreal. Some of them might miss their connections.\nMan: Should we start rebooking them now?\nWoman 1: Let's wait for the updated arrival time first. In the meantime, make an announcement and ask passengers with connections to come to the desk.\nWoman 2: I'll make the announcement now.",
+  "question": "Where do the speakers most likely work?",
+  "choices": [
+   "At a train station",
+   "At a hotel",
+   "At an airport",
+   "At a travel agency"
+  ],
+  "answer": "At an airport",
+  "explanation": "搭乗口（Gate 22）や乗り継ぎ便の話をしているので空港。",
+  "tags": "TOEIC Part3 transport"
+ },
+ {
+  "id": "TOEIC-L3-536-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman 1: OK, Gate 22 is getting crowded. The incoming aircraft for the flight to Montreal is delayed by forty minutes.\nMan: Is it a mechanical issue?\nWoman 1: No, there's heavy fog at the departure airport. It's just arriving late.\nWoman 2: Many of these passengers have connecting flights in Montreal. Some of them might miss their connections.\nMan: Should we start rebooking them now?\nWoman 1: Let's wait for the updated arrival time first. In the meantime, make an announcement and ask passengers with connections to come to the desk.\nWoman 2: I'll make the announcement now.",
+  "question": "Why is the flight delayed?",
+  "choices": [
+   "The aircraft needs repairs.",
+   "The crew is unavailable.",
+   "The gate was changed.",
+   "Bad weather caused a late arrival."
+  ],
+  "answer": "Bad weather caused a late arrival.",
+  "explanation": "出発空港の濃霧で到着機が遅れている。機械の問題ではないと言っている。",
+  "tags": "TOEIC Part3 transport"
+ },
+ {
+  "id": "TOEIC-L3-536-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman 1: OK, Gate 22 is getting crowded. The incoming aircraft for the flight to Montreal is delayed by forty minutes.\nMan: Is it a mechanical issue?\nWoman 1: No, there's heavy fog at the departure airport. It's just arriving late.\nWoman 2: Many of these passengers have connecting flights in Montreal. Some of them might miss their connections.\nMan: Should we start rebooking them now?\nWoman 1: Let's wait for the updated arrival time first. In the meantime, make an announcement and ask passengers with connections to come to the desk.\nWoman 2: I'll make the announcement now.",
+  "question": "What will one of the women do next?",
+  "choices": [
+   "Call the Montreal airport",
+   "Make an announcement",
+   "Close the gate",
+   "Rebook all passengers"
+  ],
+  "answer": "Make an announcement",
+  "explanation": "I'll make the announcement now と言っている。",
+  "tags": "TOEIC Part3 transport"
+ },
+ {
+  "id": "TOEIC-L3-537-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Fatima, we've had a lot of customers asking about flu shots this week.\nWoman: I know. Ever since the news report about the early flu season, the phone hasn't stopped ringing.\nMan: We only have about fifty doses left. Should we order more?\nWoman: Definitely. Let's order two hundred. And maybe we should offer appointments on Saturday too, since we're usually closed then.\nMan: I can work this Saturday. I'll post a sign at the counter and update our website.\nWoman: Great. I'll call the supplier this afternoon.",
+  "question": "Where do the speakers most likely work?",
+  "choices": [
+   "At a television station",
+   "At a research laboratory",
+   "At a school",
+   "At a pharmacy"
+  ],
+  "answer": "At a pharmacy",
+  "explanation": "客にインフルエンザ予防接種を提供し、在庫を注文しているので薬局と考えられる。",
+  "tags": "TOEIC Part3 healthcare"
+ },
+ {
+  "id": "TOEIC-L3-537-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Fatima, we've had a lot of customers asking about flu shots this week.\nWoman: I know. Ever since the news report about the early flu season, the phone hasn't stopped ringing.\nMan: We only have about fifty doses left. Should we order more?\nWoman: Definitely. Let's order two hundred. And maybe we should offer appointments on Saturday too, since we're usually closed then.\nMan: I can work this Saturday. I'll post a sign at the counter and update our website.\nWoman: Great. I'll call the supplier this afternoon.",
+  "question": "Why have more customers been asking about flu shots?",
+  "choices": [
+   "Because of an advertisement",
+   "Because of a new law",
+   "Because of a news report",
+   "Because prices were reduced"
+  ],
+  "answer": "Because of a news report",
+  "explanation": "インフルエンザの流行が早いというニュース報道以来、問い合わせが増えている。",
+  "tags": "TOEIC Part3 healthcare"
+ },
+ {
+  "id": "TOEIC-L3-537-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Fatima, we've had a lot of customers asking about flu shots this week.\nWoman: I know. Ever since the news report about the early flu season, the phone hasn't stopped ringing.\nMan: We only have about fifty doses left. Should we order more?\nWoman: Definitely. Let's order two hundred. And maybe we should offer appointments on Saturday too, since we're usually closed then.\nMan: I can work this Saturday. I'll post a sign at the counter and update our website.\nWoman: Great. I'll call the supplier this afternoon.",
+  "question": "What does the woman suggest?",
+  "choices": [
+   "Hiring more pharmacists",
+   "Closing early on Fridays",
+   "Offering appointments on Saturday",
+   "Giving shots for free"
+  ],
+  "answer": "Offering appointments on Saturday",
+  "explanation": "普段は休みの土曜日にも予約を受け付けることを提案している。",
+  "tags": "TOEIC Part3 healthcare"
+ },
+ {
+  "id": "TOEIC-L3-538-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Stefan, did the lab finish testing the new batch of plastic casings?\nMan: Yes. They passed the heat test, but about two percent cracked during the drop test.\nWoman: Two percent? Our standard is under one.\nMan: I know. The lab thinks the cooling time in the molding process is too short. When we increased it on a few samples, none of them cracked.\nWoman: But a longer cooling time means fewer units per hour.\nMan: Only about five percent fewer, and we'd avoid returns from customers.\nWoman: All right. Let's run a full test batch with the longer cooling time tomorrow.",
+  "question": "What problem does the man report?",
+  "choices": [
+   "The lab is understaffed.",
+   "A machine overheated.",
+   "A shipment was returned.",
+   "Some products failed a test."
+  ],
+  "answer": "Some products failed a test.",
+  "explanation": "落下試験で約2%のケースにひびが入ったと報告している。",
+  "tags": "TOEIC Part3 manufacturing"
+ },
+ {
+  "id": "TOEIC-L3-538-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Stefan, did the lab finish testing the new batch of plastic casings?\nMan: Yes. They passed the heat test, but about two percent cracked during the drop test.\nWoman: Two percent? Our standard is under one.\nMan: I know. The lab thinks the cooling time in the molding process is too short. When we increased it on a few samples, none of them cracked.\nWoman: But a longer cooling time means fewer units per hour.\nMan: Only about five percent fewer, and we'd avoid returns from customers.\nWoman: All right. Let's run a full test batch with the longer cooling time tomorrow.",
+  "question": "What does the woman mean when she says, \"Our standard is under one\"?",
+  "choices": [
+   "The test should be repeated once.",
+   "The result is not acceptable.",
+   "The standard needs to be updated.",
+   "Only one lab should do testing."
+  ],
+  "answer": "The result is not acceptable.",
+  "explanation": "基準は1%未満なので、2%という結果は受け入れられないことを示している。",
+  "tags": "TOEIC Part3 manufacturing"
+ },
+ {
+  "id": "TOEIC-L3-538-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Stefan, did the lab finish testing the new batch of plastic casings?\nMan: Yes. They passed the heat test, but about two percent cracked during the drop test.\nWoman: Two percent? Our standard is under one.\nMan: I know. The lab thinks the cooling time in the molding process is too short. When we increased it on a few samples, none of them cracked.\nWoman: But a longer cooling time means fewer units per hour.\nMan: Only about five percent fewer, and we'd avoid returns from customers.\nWoman: All right. Let's run a full test batch with the longer cooling time tomorrow.",
+  "question": "What will the speakers do tomorrow?",
+  "choices": [
+   "Run a test with a changed process",
+   "Buy new molding machines",
+   "Contact customers about returns",
+   "Increase production speed"
+  ],
+  "answer": "Run a test with a changed process",
+  "explanation": "冷却時間を長くして試験ロットを作ることにしている。",
+  "tags": "TOEIC Part3 manufacturing"
+ },
+ {
+  "id": "TOEIC-L3-539-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Hi, Tom. My computer screen keeps going black for a few seconds. It started this morning, and it's really annoying when I'm typing emails.\nMan: Hmm. Is the cable connected properly?\nWoman: I think so. I didn't move anything.\nMan: Let me check... Ah, the cable is a little loose. There. Is that better?\nWoman: Yes, it's fine now. Thanks so much for coming over so quickly!\nMan: No problem. I'll also bring you a new cable tomorrow, just in case. If it happens again, call me at extension 215.",
+  "question": "What problem does the woman have?",
+  "choices": [
+   "Her screen keeps turning off.",
+   "Her computer is too slow.",
+   "She cannot send emails.",
+   "Her keyboard is broken."
+  ],
+  "answer": "Her screen keeps turning off.",
+  "explanation": "画面が数秒間真っ暗になる（going black）と言っている。",
+  "tags": "TOEIC Part3 IT"
+ },
+ {
+  "id": "TOEIC-L3-539-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Hi, Tom. My computer screen keeps going black for a few seconds. It started this morning, and it's really annoying when I'm typing emails.\nMan: Hmm. Is the cable connected properly?\nWoman: I think so. I didn't move anything.\nMan: Let me check... Ah, the cable is a little loose. There. Is that better?\nWoman: Yes, it's fine now. Thanks so much for coming over so quickly!\nMan: No problem. I'll also bring you a new cable tomorrow, just in case. If it happens again, call me at extension 215.",
+  "question": "What was the cause of the problem?",
+  "choices": [
+   "A dead battery",
+   "A power outage",
+   "A loose cable",
+   "A software update"
+  ],
+  "answer": "A loose cable",
+  "explanation": "ケーブルが少しゆるんでいた（a little loose）のが原因。",
+  "tags": "TOEIC Part3 IT"
+ },
+ {
+  "id": "TOEIC-L3-539-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Hi, Tom. My computer screen keeps going black for a few seconds. It started this morning, and it's really annoying when I'm typing emails.\nMan: Hmm. Is the cable connected properly?\nWoman: I think so. I didn't move anything.\nMan: Let me check... Ah, the cable is a little loose. There. Is that better?\nWoman: Yes, it's fine now. Thanks so much for coming over so quickly!\nMan: No problem. I'll also bring you a new cable tomorrow, just in case. If it happens again, call me at extension 215.",
+  "question": "What will the man bring tomorrow?",
+  "choices": [
+   "A new cable",
+   "A new computer",
+   "A user manual",
+   "A keyboard"
+  ],
+  "answer": "A new cable",
+  "explanation": "念のため明日新しいケーブルを持ってくると言っている。",
+  "tags": "TOEIC Part3 IT"
+ },
+ {
+  "id": "TOEIC-L3-540-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Man: Olga, the finance committee asked whether we should start invoicing our European clients in euros instead of dollars.\nWoman: Several clients have requested it. They don't like dealing with exchange rate changes.\nMan: But then we'd be the ones absorbing that risk. If the euro weakens, our revenue falls.\nWoman: Not necessarily. We could use forward contracts with the bank to lock in an exchange rate for a few months at a time.\nMan: That would add some fees, though.\nWoman: Modest ones, and it might help us win more contracts in Europe. I'd say it's worth presenting both options to the committee.\nMan: Agreed. Let's prepare a short comparison for next week's meeting.",
+  "question": "What have some clients requested?",
+  "choices": [
+   "Longer payment periods",
+   "To be billed in euros",
+   "Monthly reports",
+   "A discount on fees"
+  ],
+  "answer": "To be billed in euros",
+  "explanation": "複数の顧客がユーロでの請求を求めている。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-540-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Man: Olga, the finance committee asked whether we should start invoicing our European clients in euros instead of dollars.\nWoman: Several clients have requested it. They don't like dealing with exchange rate changes.\nMan: But then we'd be the ones absorbing that risk. If the euro weakens, our revenue falls.\nWoman: Not necessarily. We could use forward contracts with the bank to lock in an exchange rate for a few months at a time.\nMan: That would add some fees, though.\nWoman: Modest ones, and it might help us win more contracts in Europe. I'd say it's worth presenting both options to the committee.\nMan: Agreed. Let's prepare a short comparison for next week's meeting.",
+  "question": "What concern does the man raise?",
+  "choices": [
+   "Currency changes could reduce revenue.",
+   "Clients may stop paying.",
+   "The bank may close the account.",
+   "Contracts may be canceled."
+  ],
+  "answer": "Currency changes could reduce revenue.",
+  "explanation": "ユーロが下がると自社の収入が減るという為替リスクを心配している。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-540-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Man: Olga, the finance committee asked whether we should start invoicing our European clients in euros instead of dollars.\nWoman: Several clients have requested it. They don't like dealing with exchange rate changes.\nMan: But then we'd be the ones absorbing that risk. If the euro weakens, our revenue falls.\nWoman: Not necessarily. We could use forward contracts with the bank to lock in an exchange rate for a few months at a time.\nMan: That would add some fees, though.\nWoman: Modest ones, and it might help us win more contracts in Europe. I'd say it's worth presenting both options to the committee.\nMan: Agreed. Let's prepare a short comparison for next week's meeting.",
+  "question": "What does the woman suggest to reduce the risk?",
+  "choices": [
+   "Changing banks",
+   "Opening a European office",
+   "Raising prices in Europe",
+   "Using forward contracts"
+  ],
+  "answer": "Using forward contracts",
+  "explanation": "銀行との先物予約（forward contracts）で為替レートを固定することを提案している。",
+  "tags": "TOEIC Part3 banking"
+ }
+]

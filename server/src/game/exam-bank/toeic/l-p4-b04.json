@@ -1,0 +1,542 @@
+[
+ {
+  "id": "TOEIC-L4-531-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following announcement.\n\nGood morning, customers. Welcome to City Trust Bank. We'd like to let you know that our branch will close early today, at three p.m., because of staff training. Our ATMs in the lobby will still work until ten p.m. You can also use our mobile app to check your balance, pay bills, and send money. If you need help with the app, please ask any of our staff members before three. Tomorrow, we will be open at our normal hours, from nine a.m. to five p.m. Thank you for banking with us.",
+  "question": "Why will the branch close early?",
+  "choices": [
+   "Some repairs will be done.",
+   "It is a national holiday.",
+   "The power will be turned off.",
+   "The staff will have training."
+  ],
+  "answer": "The staff will have training.",
+  "explanation": "職員研修（staff training）のため早く閉まる。",
+  "tags": "TOEIC Part4 banking announcement"
+ },
+ {
+  "id": "TOEIC-L4-531-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following announcement.\n\nGood morning, customers. Welcome to City Trust Bank. We'd like to let you know that our branch will close early today, at three p.m., because of staff training. Our ATMs in the lobby will still work until ten p.m. You can also use our mobile app to check your balance, pay bills, and send money. If you need help with the app, please ask any of our staff members before three. Tomorrow, we will be open at our normal hours, from nine a.m. to five p.m. Thank you for banking with us.",
+  "question": "Until what time can customers use the ATMs today?",
+  "choices": [
+   "Ten p.m.",
+   "Three p.m.",
+   "Five p.m.",
+   "Nine p.m."
+  ],
+  "answer": "Ten p.m.",
+  "explanation": "ロビーの ATM は午後10時まで使える。",
+  "tags": "TOEIC Part4 banking announcement"
+ },
+ {
+  "id": "TOEIC-L4-531-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following announcement.\n\nGood morning, customers. Welcome to City Trust Bank. We'd like to let you know that our branch will close early today, at three p.m., because of staff training. Our ATMs in the lobby will still work until ten p.m. You can also use our mobile app to check your balance, pay bills, and send money. If you need help with the app, please ask any of our staff members before three. Tomorrow, we will be open at our normal hours, from nine a.m. to five p.m. Thank you for banking with us.",
+  "question": "What can staff members help customers with?",
+  "choices": [
+   "Applying for loans",
+   "Repairing the ATMs",
+   "Opening new accounts",
+   "Using a mobile app"
+  ],
+  "answer": "Using a mobile app",
+  "explanation": "アプリの使い方で困ったら3時までに職員に聞くよう言っている。",
+  "tags": "TOEIC Part4 banking announcement"
+ },
+ {
+  "id": "TOEIC-L4-532-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHello, this is Gabriel from the Eastwood Community Center. I'm calling for Ms. Yoshida about the community garden. You signed up for a garden plot last month, and I'm happy to tell you that one is now available. Your plot is number fourteen, near the main gate. The fee is thirty dollars for the season, which runs from April to October. You can pay at the front desk anytime this week. We also have a short orientation for new gardeners this Saturday at nine a.m., where we'll explain the watering schedule and show you where the tools are kept. Hope to see you there!",
+  "question": "What did Ms. Yoshida sign up for?",
+  "choices": [
+   "A garden plot",
+   "A sports team",
+   "A volunteer program",
+   "A cooking class"
+  ],
+  "answer": "A garden plot",
+  "explanation": "先月コミュニティ農園の区画に申し込んでいた。",
+  "tags": "TOEIC Part4 museums & libraries telephone message"
+ },
+ {
+  "id": "TOEIC-L4-532-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHello, this is Gabriel from the Eastwood Community Center. I'm calling for Ms. Yoshida about the community garden. You signed up for a garden plot last month, and I'm happy to tell you that one is now available. Your plot is number fourteen, near the main gate. The fee is thirty dollars for the season, which runs from April to October. You can pay at the front desk anytime this week. We also have a short orientation for new gardeners this Saturday at nine a.m., where we'll explain the watering schedule and show you where the tools are kept. Hope to see you there!",
+  "question": "How long does the season last?",
+  "choices": [
+   "For one week",
+   "From March to September",
+   "For one month",
+   "From April to October"
+  ],
+  "answer": "From April to October",
+  "explanation": "シーズンは4月から10月までと言っている。",
+  "tags": "TOEIC Part4 museums & libraries telephone message"
+ },
+ {
+  "id": "TOEIC-L4-532-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHello, this is Gabriel from the Eastwood Community Center. I'm calling for Ms. Yoshida about the community garden. You signed up for a garden plot last month, and I'm happy to tell you that one is now available. Your plot is number fourteen, near the main gate. The fee is thirty dollars for the season, which runs from April to October. You can pay at the front desk anytime this week. We also have a short orientation for new gardeners this Saturday at nine a.m., where we'll explain the watering schedule and show you where the tools are kept. Hope to see you there!",
+  "question": "What will happen on Saturday?",
+  "choices": [
+   "A repair of the main gate",
+   "A dinner for community members",
+   "A sale of plants and seeds",
+   "An orientation for new gardeners"
+  ],
+  "answer": "An orientation for new gardeners",
+  "explanation": "土曜の朝9時に新しい利用者向けの説明会がある。",
+  "tags": "TOEIC Part4 museums & libraries telephone message"
+ },
+ {
+  "id": "TOEIC-L4-533-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nBefore we close, a quick update on the renovation. Phase one is going smoothly, and the lobby should be ready on schedule. But there's a change to the next phase. The new kitchen equipment we ordered won't arrive until mid-July, so we'll switch the order of two phases: the meeting rooms will be renovated next, and the work originally planned for late June will start on July fourteenth instead. That means the temporary food trucks outside will stay a little longer than expected. Also, while the meeting rooms are closed, please book the training center on the fourth floor for any client meetings.\n\n[Renovation Phases]\nPhase 1 — Lobby — June 2 to June 20\nPhase 2 — Cafeteria — June 23 to July 11\nPhase 3 — Meeting rooms — July 14 to August 1\nPhase 4 — Parking area — August 4 to August 22",
+  "question": "Look at the graphic. Which phase has been delayed?",
+  "choices": [
+   "Phase 1",
+   "Phase 2",
+   "Phase 3",
+   "Phase 4"
+  ],
+  "answer": "Phase 2",
+  "explanation": "厨房機器の到着が遅れるため、6月下旬予定だったカフェテリアの工事（Phase 2）が7月14日開始に変更された。",
+  "tags": "TOEIC Part4 construction excerpt from a meeting graphic"
+ },
+ {
+  "id": "TOEIC-L4-533-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nBefore we close, a quick update on the renovation. Phase one is going smoothly, and the lobby should be ready on schedule. But there's a change to the next phase. The new kitchen equipment we ordered won't arrive until mid-July, so we'll switch the order of two phases: the meeting rooms will be renovated next, and the work originally planned for late June will start on July fourteenth instead. That means the temporary food trucks outside will stay a little longer than expected. Also, while the meeting rooms are closed, please book the training center on the fourth floor for any client meetings.\n\n[Renovation Phases]\nPhase 1 — Lobby — June 2 to June 20\nPhase 2 — Cafeteria — June 23 to July 11\nPhase 3 — Meeting rooms — July 14 to August 1\nPhase 4 — Parking area — August 4 to August 22",
+  "question": "Why has the schedule changed?",
+  "choices": [
+   "The budget was reduced.",
+   "Workers are unavailable.",
+   "A client requested a change.",
+   "Some equipment will arrive late."
+  ],
+  "answer": "Some equipment will arrive late.",
+  "explanation": "注文した厨房機器が7月中旬まで届かないため。",
+  "tags": "TOEIC Part4 construction excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-533-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nBefore we close, a quick update on the renovation. Phase one is going smoothly, and the lobby should be ready on schedule. But there's a change to the next phase. The new kitchen equipment we ordered won't arrive until mid-July, so we'll switch the order of two phases: the meeting rooms will be renovated next, and the work originally planned for late June will start on July fourteenth instead. That means the temporary food trucks outside will stay a little longer than expected. Also, while the meeting rooms are closed, please book the training center on the fourth floor for any client meetings.\n\n[Renovation Phases]\nPhase 1 — Lobby — June 2 to June 20\nPhase 2 — Cafeteria — June 23 to July 11\nPhase 3 — Meeting rooms — July 14 to August 1\nPhase 4 — Parking area — August 4 to August 22",
+  "question": "What are listeners asked to do?",
+  "choices": [
+   "Help move furniture to the lobby",
+   "Order lunch from the food trucks",
+   "Use another room for client meetings",
+   "Work from home during July"
+  ],
+  "answer": "Use another room for client meetings",
+  "explanation": "会議室が使えない間は4階の研修センターを顧客との会議に使うよう頼んでいる。",
+  "tags": "TOEIC Part4 construction excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-534-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHi, Ms. Oduya, this is Felix from Brightpath Media. I'm calling about the poster designs for your fitness center's spring campaign. Our designers have finished three versions, and I've just sent them to your email. Each one uses the photos your team took at the center last week. We think version two works best, because the larger text is easier to read from a distance. But of course, the final decision is yours. To print the posters in time for the March first launch, we'll need your choice by this Thursday. If you'd like to discuss any changes, I'm available tomorrow afternoon.",
+  "question": "Who most likely is the speaker?",
+  "choices": [
+   "An advertising agency employee",
+   "A photographer",
+   "A fitness instructor",
+   "A printer technician"
+  ],
+  "answer": "An advertising agency employee",
+  "explanation": "顧客のポスターデザインを制作しているので広告代理店の社員。",
+  "tags": "TOEIC Part4 marketing telephone message"
+ },
+ {
+  "id": "TOEIC-L4-534-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHi, Ms. Oduya, this is Felix from Brightpath Media. I'm calling about the poster designs for your fitness center's spring campaign. Our designers have finished three versions, and I've just sent them to your email. Each one uses the photos your team took at the center last week. We think version two works best, because the larger text is easier to read from a distance. But of course, the final decision is yours. To print the posters in time for the March first launch, we'll need your choice by this Thursday. If you'd like to discuss any changes, I'm available tomorrow afternoon.",
+  "question": "Why does the speaker prefer version two?",
+  "choices": [
+   "It is cheaper to print.",
+   "It includes more photos.",
+   "Its text is easier to read.",
+   "It uses brighter colors."
+  ],
+  "answer": "Its text is easier to read.",
+  "explanation": "文字が大きく遠くから読みやすいため。",
+  "tags": "TOEIC Part4 marketing telephone message"
+ },
+ {
+  "id": "TOEIC-L4-534-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following telephone message.\n\nHi, Ms. Oduya, this is Felix from Brightpath Media. I'm calling about the poster designs for your fitness center's spring campaign. Our designers have finished three versions, and I've just sent them to your email. Each one uses the photos your team took at the center last week. We think version two works best, because the larger text is easier to read from a distance. But of course, the final decision is yours. To print the posters in time for the March first launch, we'll need your choice by this Thursday. If you'd like to discuss any changes, I'm available tomorrow afternoon.",
+  "question": "What does the speaker need by Thursday?",
+  "choices": [
+   "Payment for the printing costs",
+   "The listener's choice of design",
+   "A list of the requested changes",
+   "New photos of the fitness center"
+  ],
+  "answer": "The listener's choice of design",
+  "explanation": "印刷に間に合わせるため、木曜までにどのデザインにするか決めてほしい。",
+  "tags": "TOEIC Part4 marketing telephone message"
+ },
+ {
+  "id": "TOEIC-L4-535-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following announcement.\n\nHi, everyone. I have a quick announcement about our new time system. Starting next Monday, you will no longer use paper time sheets. Instead, you'll use your ID card to check in and out at the machine by the front entrance. Just hold your card near the machine until it beeps. If you forget your card, please tell your manager the same day. Also, remember that lunch breaks are not recorded automatically, so you need to tap your card when you leave for lunch and when you come back. If you have any questions, come and see me in the HR office.",
+  "question": "What is the announcement about?",
+  "choices": [
+   "A new way to record working hours",
+   "A change in lunch times",
+   "The opening of a new office",
+   "A new ID card design"
+  ],
+  "answer": "A new way to record working hours",
+  "explanation": "紙の勤務表に代わる新しい勤怠記録の方法についての案内。",
+  "tags": "TOEIC Part4 HR & training announcement"
+ },
+ {
+  "id": "TOEIC-L4-535-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following announcement.\n\nHi, everyone. I have a quick announcement about our new time system. Starting next Monday, you will no longer use paper time sheets. Instead, you'll use your ID card to check in and out at the machine by the front entrance. Just hold your card near the machine until it beeps. If you forget your card, please tell your manager the same day. Also, remember that lunch breaks are not recorded automatically, so you need to tap your card when you leave for lunch and when you come back. If you have any questions, come and see me in the HR office.",
+  "question": "What should employees do if they forget their card?",
+  "choices": [
+   "Tell their manager",
+   "Use a paper time sheet",
+   "Call the HR office",
+   "Go home and get it"
+  ],
+  "answer": "Tell their manager",
+  "explanation": "カードを忘れたらその日のうちに上司に伝えるよう言っている。",
+  "tags": "TOEIC Part4 HR & training announcement"
+ },
+ {
+  "id": "TOEIC-L4-535-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following announcement.\n\nHi, everyone. I have a quick announcement about our new time system. Starting next Monday, you will no longer use paper time sheets. Instead, you'll use your ID card to check in and out at the machine by the front entrance. Just hold your card near the machine until it beeps. If you forget your card, please tell your manager the same day. Also, remember that lunch breaks are not recorded automatically, so you need to tap your card when you leave for lunch and when you come back. If you have any questions, come and see me in the HR office.",
+  "question": "When should employees tap their card at lunch?",
+  "choices": [
+   "At no time during lunch",
+   "Only when they come back",
+   "When they leave and when they return",
+   "Only when they leave for lunch"
+  ],
+  "answer": "When they leave and when they return",
+  "explanation": "昼休みは自動で記録されないので、出るときと戻るときにタッチする。",
+  "tags": "TOEIC Part4 HR & training announcement"
+ },
+ {
+  "id": "TOEIC-L4-536-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following tour information.\n\nWelcome aboard the Old Town Bus Tour. My name is Ravi, and I'll be your guide today. Our tour takes about two hours, with three stops along the way. First, we'll stop at the Clock Tower, where you'll have twenty minutes to take pictures. Then we'll visit the Riverside Market, where you can try local food. Our last stop is the Maritime Museum. Your ticket includes entry to the museum, so just show it at the door. Please be back on the bus on time at each stop, as we have a tight schedule. If you have any questions during the tour, feel free to ask.",
+  "question": "Who is the speaker?",
+  "choices": [
+   "A tour guide",
+   "A bus mechanic",
+   "A museum curator",
+   "A market vendor"
+  ],
+  "answer": "A tour guide",
+  "explanation": "I'll be your guide today と言っているのでツアーガイド。",
+  "tags": "TOEIC Part4 transport tour information"
+ },
+ {
+  "id": "TOEIC-L4-536-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following tour information.\n\nWelcome aboard the Old Town Bus Tour. My name is Ravi, and I'll be your guide today. Our tour takes about two hours, with three stops along the way. First, we'll stop at the Clock Tower, where you'll have twenty minutes to take pictures. Then we'll visit the Riverside Market, where you can try local food. Our last stop is the Maritime Museum. Your ticket includes entry to the museum, so just show it at the door. Please be back on the bus on time at each stop, as we have a tight schedule. If you have any questions during the tour, feel free to ask.",
+  "question": "What can listeners do at the Riverside Market?",
+  "choices": [
+   "Try local food",
+   "Meet a historian",
+   "Buy tour tickets",
+   "Take a boat ride"
+  ],
+  "answer": "Try local food",
+  "explanation": "川沿いの市場では地元の食べ物を試せる。",
+  "tags": "TOEIC Part4 transport tour information"
+ },
+ {
+  "id": "TOEIC-L4-536-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Questions refer to the following tour information.\n\nWelcome aboard the Old Town Bus Tour. My name is Ravi, and I'll be your guide today. Our tour takes about two hours, with three stops along the way. First, we'll stop at the Clock Tower, where you'll have twenty minutes to take pictures. Then we'll visit the Riverside Market, where you can try local food. Our last stop is the Maritime Museum. Your ticket includes entry to the museum, so just show it at the door. Please be back on the bus on time at each stop, as we have a tight schedule. If you have any questions during the tour, feel free to ask.",
+  "question": "What does the speaker say about the museum?",
+  "choices": [
+   "Entry is included in the ticket.",
+   "It is being renovated.",
+   "Photography is not allowed.",
+   "It closes early today."
+  ],
+  "answer": "Entry is included in the ticket.",
+  "explanation": "チケットに博物館の入場料が含まれている。",
+  "tags": "TOEIC Part4 transport tour information"
+ },
+ {
+  "id": "TOEIC-L4-537-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following news report.\n\nThis is Health Watch on WRKT Radio. The Pinehill Regional Hospital has announced that starting next month, patients will be able to see their test results online through a new patient portal. Until now, patients had to wait for a phone call or a follow-up appointment, which sometimes took up to two weeks. According to hospital director Dr. Amara Nwosu, the portal will also allow patients to message their doctors and request prescription refills. To protect privacy, patients will need to verify their identity at the hospital's registration desk before setting up an account. The hospital will hold free workshops for anyone who needs help using the system, especially older patients.",
+  "question": "What is the news report about?",
+  "choices": [
+   "A new online service for patients",
+   "A shortage of some medicine",
+   "A change in hospital directors",
+   "The opening of a new hospital"
+  ],
+  "answer": "A new online service for patients",
+  "explanation": "検査結果をオンラインで見られる患者ポータルの開始についてのニュース。",
+  "tags": "TOEIC Part4 healthcare news report"
+ },
+ {
+  "id": "TOEIC-L4-537-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following news report.\n\nThis is Health Watch on WRKT Radio. The Pinehill Regional Hospital has announced that starting next month, patients will be able to see their test results online through a new patient portal. Until now, patients had to wait for a phone call or a follow-up appointment, which sometimes took up to two weeks. According to hospital director Dr. Amara Nwosu, the portal will also allow patients to message their doctors and request prescription refills. To protect privacy, patients will need to verify their identity at the hospital's registration desk before setting up an account. The hospital will hold free workshops for anyone who needs help using the system, especially older patients.",
+  "question": "According to the report, what was a problem with the previous system?",
+  "choices": [
+   "Appointments were frequently canceled.",
+   "Doctors often lost patient records.",
+   "Patients waited a long time for results.",
+   "Phone calls to patients were expensive."
+  ],
+  "answer": "Patients waited a long time for results.",
+  "explanation": "以前は結果を知るまで最長2週間かかることがあった。",
+  "tags": "TOEIC Part4 healthcare news report"
+ },
+ {
+  "id": "TOEIC-L4-537-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following news report.\n\nThis is Health Watch on WRKT Radio. The Pinehill Regional Hospital has announced that starting next month, patients will be able to see their test results online through a new patient portal. Until now, patients had to wait for a phone call or a follow-up appointment, which sometimes took up to two weeks. According to hospital director Dr. Amara Nwosu, the portal will also allow patients to message their doctors and request prescription refills. To protect privacy, patients will need to verify their identity at the hospital's registration desk before setting up an account. The hospital will hold free workshops for anyone who needs help using the system, especially older patients.",
+  "question": "What must patients do before setting up an account?",
+  "choices": [
+   "Pay a registration fee",
+   "Verify their identity in person",
+   "Attend a free workshop",
+   "Call their doctor"
+  ],
+  "answer": "Verify their identity in person",
+  "explanation": "アカウント作成前に病院の受付で本人確認をする必要がある。",
+  "tags": "TOEIC Part4 healthcare news report"
+ },
+ {
+  "id": "TOEIC-L4-538-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nI know many of you were frustrated by last year's rollout of the inventory software, so let me explain how this upgrade will be different. Last time, we trained everyone in a single week and switched over immediately, and the help desk received over five hundred calls in the first month. This time, we're identifying one \"super user\" in each department—someone who'll receive in-depth training in advance and act as the first point of contact for colleagues. We'll also keep the old system running in read-only mode for sixty days, so you can always check historical records. I'm not going to pretend there won't be any problems, but we've built in a lot more support. Department heads, please send me your super user nominations by the end of next week.",
+  "question": "What is the speaker mainly discussing?",
+  "choices": [
+   "The hiring of help-desk staff",
+   "Changes to inventory levels",
+   "Results of a customer survey",
+   "Plans for a software upgrade"
+  ],
+  "answer": "Plans for a software upgrade",
+  "explanation": "在庫ソフトのアップグレードの進め方を説明している。",
+  "tags": "TOEIC Part4 IT excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-538-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nI know many of you were frustrated by last year's rollout of the inventory software, so let me explain how this upgrade will be different. Last time, we trained everyone in a single week and switched over immediately, and the help desk received over five hundred calls in the first month. This time, we're identifying one \"super user\" in each department—someone who'll receive in-depth training in advance and act as the first point of contact for colleagues. We'll also keep the old system running in read-only mode for sixty days, so you can always check historical records. I'm not going to pretend there won't be any problems, but we've built in a lot more support. Department heads, please send me your super user nominations by the end of next week.",
+  "question": "What will super users do?",
+  "choices": [
+   "Test the old system",
+   "Answer calls from customers",
+   "Help colleagues with questions",
+   "Design the new software"
+  ],
+  "answer": "Help colleagues with questions",
+  "explanation": "部署内の同僚の最初の相談窓口になる。",
+  "tags": "TOEIC Part4 IT excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-538-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "C1",
+  "band": "TOEIC目安:860",
+  "passage": "Questions refer to the following excerpt from a meeting.\n\nI know many of you were frustrated by last year's rollout of the inventory software, so let me explain how this upgrade will be different. Last time, we trained everyone in a single week and switched over immediately, and the help desk received over five hundred calls in the first month. This time, we're identifying one \"super user\" in each department—someone who'll receive in-depth training in advance and act as the first point of contact for colleagues. We'll also keep the old system running in read-only mode for sixty days, so you can always check historical records. I'm not going to pretend there won't be any problems, but we've built in a lot more support. Department heads, please send me your super user nominations by the end of next week.",
+  "question": "What does the speaker imply by saying, \"I'm not going to pretend there won't be any problems\"?",
+  "choices": [
+   "The help desk will be closed.",
+   "The software has not been tested.",
+   "Some difficulties are still likely.",
+   "The rollout may be canceled."
+  ],
+  "answer": "Some difficulties are still likely.",
+  "explanation": "支援は増やしたが、それでも多少の問題は起こりうると認めている。",
+  "tags": "TOEIC Part4 IT excerpt from a meeting"
+ },
+ {
+  "id": "TOEIC-L4-539-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following tour information.\n\nWelcome to the Hartley Art Museum, and thank you for joining this afternoon's tour. We'll spend about forty-five minutes in the east wing, which features paintings from the eighteenth and nineteenth centuries. Our first stop is a series of landscapes by Clara Vos, a painter who was largely unknown during her lifetime. Interestingly, many of her works were discovered only twenty years ago, in the attic of a farmhouse. As we walk, please stay at least one meter from the paintings—the alarms are quite sensitive. And please note that flash photography isn't permitted, as it can damage the paint over time. At the end of the tour, I'll show you where the museum shop is, which carries prints of several of the works you'll see today.",
+  "question": "Where most likely are the listeners?",
+  "choices": [
+   "In a museum",
+   "At an art school",
+   "At a farmhouse",
+   "In a photo studio"
+  ],
+  "answer": "In a museum",
+  "explanation": "美術館（Art Museum）のツアーに参加している。",
+  "tags": "TOEIC Part4 museums & libraries tour information"
+ },
+ {
+  "id": "TOEIC-L4-539-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following tour information.\n\nWelcome to the Hartley Art Museum, and thank you for joining this afternoon's tour. We'll spend about forty-five minutes in the east wing, which features paintings from the eighteenth and nineteenth centuries. Our first stop is a series of landscapes by Clara Vos, a painter who was largely unknown during her lifetime. Interestingly, many of her works were discovered only twenty years ago, in the attic of a farmhouse. As we walk, please stay at least one meter from the paintings—the alarms are quite sensitive. And please note that flash photography isn't permitted, as it can damage the paint over time. At the end of the tour, I'll show you where the museum shop is, which carries prints of several of the works you'll see today.",
+  "question": "What does the speaker say about Clara Vos's works?",
+  "choices": [
+   "They are the museum's most valuable works.",
+   "Many were found relatively recently.",
+   "They sold well during her lifetime.",
+   "They were all painted in a farmhouse."
+  ],
+  "answer": "Many were found relatively recently.",
+  "explanation": "作品の多くは20年前に農家の屋根裏で見つかった。",
+  "tags": "TOEIC Part4 museums & libraries tour information"
+ },
+ {
+  "id": "TOEIC-L4-539-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Questions refer to the following tour information.\n\nWelcome to the Hartley Art Museum, and thank you for joining this afternoon's tour. We'll spend about forty-five minutes in the east wing, which features paintings from the eighteenth and nineteenth centuries. Our first stop is a series of landscapes by Clara Vos, a painter who was largely unknown during her lifetime. Interestingly, many of her works were discovered only twenty years ago, in the attic of a farmhouse. As we walk, please stay at least one meter from the paintings—the alarms are quite sensitive. And please note that flash photography isn't permitted, as it can damage the paint over time. At the end of the tour, I'll show you where the museum shop is, which carries prints of several of the works you'll see today.",
+  "question": "Why is flash photography not permitted?",
+  "choices": [
+   "It sets off the alarms.",
+   "It can harm the artworks.",
+   "The works are under copyright.",
+   "It disturbs other visitors."
+  ],
+  "answer": "It can harm the artworks.",
+  "explanation": "フラッシュは時間とともに絵の具を傷めるため禁止されている。",
+  "tags": "TOEIC Part4 museums & libraries tour information"
+ },
+ {
+  "id": "TOEIC-L4-540-1",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following advertisement.\n\nTired of looking for parking downtown? Try the new Metro Ride card! With one card, you can ride all city buses, trains, and the river ferry. Just tap the card when you get on—there's no need to buy separate tickets. Load money onto your card at any station machine, or online. And here's the best part: after ten rides in a week, every additional ride that week is free. Students and seniors can get a special card with half-price fares. Pick up your Metro Ride card at any train station for just two dollars. Metro Ride—one card, the whole city.",
+  "question": "What is being advertised?",
+  "choices": [
+   "A public transportation card",
+   "A car rental company",
+   "A downtown parking service",
+   "A river ferry tour"
+  ],
+  "answer": "A public transportation card",
+  "explanation": "バス・電車・フェリーに使える交通カードの広告。",
+  "tags": "TOEIC Part4 transport advertisement"
+ },
+ {
+  "id": "TOEIC-L4-540-2",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following advertisement.\n\nTired of looking for parking downtown? Try the new Metro Ride card! With one card, you can ride all city buses, trains, and the river ferry. Just tap the card when you get on—there's no need to buy separate tickets. Load money onto your card at any station machine, or online. And here's the best part: after ten rides in a week, every additional ride that week is free. Students and seniors can get a special card with half-price fares. Pick up your Metro Ride card at any train station for just two dollars. Metro Ride—one card, the whole city.",
+  "question": "What happens after ten rides in a week?",
+  "choices": [
+   "Fares go up for the week.",
+   "Further rides that week are free.",
+   "Riders receive a new card.",
+   "Riders get a small gift."
+  ],
+  "answer": "Further rides that week are free.",
+  "explanation": "1週間に10回乗ると、その週のそれ以降の乗車が無料になる。",
+  "tags": "TOEIC Part4 transport advertisement"
+ },
+ {
+  "id": "TOEIC-L4-540-3",
+  "skill": "listening",
+  "format": "Part 4 説明文問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Questions refer to the following advertisement.\n\nTired of looking for parking downtown? Try the new Metro Ride card! With one card, you can ride all city buses, trains, and the river ferry. Just tap the card when you get on—there's no need to buy separate tickets. Load money onto your card at any station machine, or online. And here's the best part: after ten rides in a week, every additional ride that week is free. Students and seniors can get a special card with half-price fares. Pick up your Metro Ride card at any train station for just two dollars. Metro Ride—one card, the whole city.",
+  "question": "Who can get half-price fares?",
+  "choices": [
+   "Ferry passengers",
+   "Downtown workers",
+   "Students and seniors",
+   "New card holders"
+  ],
+  "answer": "Students and seniors",
+  "explanation": "学生と高齢者は半額の特別カードを持てる。",
+  "tags": "TOEIC Part4 transport advertisement"
+ }
+]

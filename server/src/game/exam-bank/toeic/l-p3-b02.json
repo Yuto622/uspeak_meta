@@ -1,0 +1,542 @@
+[
+ {
+  "id": "TOEIC-L3-511-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Hi, I'm Ayesha Khan. Today is my first day. I was told to come to the human resources office.\nMan: Welcome, Ayesha! I'm Ben. First, I need you to fill out these forms for your bank details and emergency contact.\nWoman: OK. Do I need to finish them now?\nMan: Yes, please, if you can. After that, I'll take you to get your photo taken for your staff ID card. Then your manager will meet you at eleven.\nWoman: Sounds good. Is there somewhere I can sit?\nMan: Sure, you can use the desk by the window.",
+  "question": "Why is the woman at the office?",
+  "choices": [
+   "She lost her ID card.",
+   "She is interviewing for a position.",
+   "She is meeting a client.",
+   "She is starting a new job."
+  ],
+  "answer": "She is starting a new job.",
+  "explanation": "Today is my first day と言っており、新しい仕事の初日である。",
+  "tags": "TOEIC Part3 HR & training"
+ },
+ {
+  "id": "TOEIC-L3-511-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Hi, I'm Ayesha Khan. Today is my first day. I was told to come to the human resources office.\nMan: Welcome, Ayesha! I'm Ben. First, I need you to fill out these forms for your bank details and emergency contact.\nWoman: OK. Do I need to finish them now?\nMan: Yes, please, if you can. After that, I'll take you to get your photo taken for your staff ID card. Then your manager will meet you at eleven.\nWoman: Sounds good. Is there somewhere I can sit?\nMan: Sure, you can use the desk by the window.",
+  "question": "What does the man ask the woman to do first?",
+  "choices": [
+   "Complete some forms",
+   "Open a bank account",
+   "Meet her manager",
+   "Have her photo taken"
+  ],
+  "answer": "Complete some forms",
+  "explanation": "First, I need you to fill out these forms と、まず書類の記入を頼んでいる。",
+  "tags": "TOEIC Part3 HR & training"
+ },
+ {
+  "id": "TOEIC-L3-511-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Woman: Hi, I'm Ayesha Khan. Today is my first day. I was told to come to the human resources office.\nMan: Welcome, Ayesha! I'm Ben. First, I need you to fill out these forms for your bank details and emergency contact.\nWoman: OK. Do I need to finish them now?\nMan: Yes, please, if you can. After that, I'll take you to get your photo taken for your staff ID card. Then your manager will meet you at eleven.\nWoman: Sounds good. Is there somewhere I can sit?\nMan: Sure, you can use the desk by the window.",
+  "question": "What will happen at eleven o'clock?",
+  "choices": [
+   "The woman will meet her manager.",
+   "The office will close for lunch.",
+   "The woman will get an ID card.",
+   "A training session will begin."
+  ],
+  "answer": "The woman will meet her manager.",
+  "explanation": "your manager will meet you at eleven と言っている。",
+  "tags": "TOEIC Part3 HR & training"
+ },
+ {
+  "id": "TOEIC-L3-512-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Excuse me, my flight to Nairobi was canceled because of the storm. What are my options?\nWoman: I'm sorry about that. The next available flight leaves tomorrow at seven a.m. I can book you on it now.\nMan: That's fine. But where will I stay tonight?\nWoman: Since the cancellation was weather-related, we can't pay for a hotel, but we have an agreement with the Airport Inn for a discounted rate. The shuttle leaves from Door 6 every half hour.\nMan: OK, I'll take it. Can I get my checked bag back?\nWoman: It'll stay with the airline and go on tomorrow's flight automatically.",
+  "question": "Why was the man's flight canceled?",
+  "choices": [
+   "Because of bad weather",
+   "Because it was overbooked",
+   "Because the crew was late",
+   "Because of a mechanical problem"
+  ],
+  "answer": "Because of bad weather",
+  "explanation": "because of the storm と言っており、悪天候による欠航。",
+  "tags": "TOEIC Part3 transport"
+ },
+ {
+  "id": "TOEIC-L3-512-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Excuse me, my flight to Nairobi was canceled because of the storm. What are my options?\nWoman: I'm sorry about that. The next available flight leaves tomorrow at seven a.m. I can book you on it now.\nMan: That's fine. But where will I stay tonight?\nWoman: Since the cancellation was weather-related, we can't pay for a hotel, but we have an agreement with the Airport Inn for a discounted rate. The shuttle leaves from Door 6 every half hour.\nMan: OK, I'll take it. Can I get my checked bag back?\nWoman: It'll stay with the airline and go on tomorrow's flight automatically.",
+  "question": "What does the woman say about the hotel?",
+  "choices": [
+   "It is within walking distance.",
+   "It is fully booked.",
+   "It is free for passengers.",
+   "It offers a reduced rate."
+  ],
+  "answer": "It offers a reduced rate.",
+  "explanation": "提携ホテルを割引料金（discounted rate）で利用できると言っている。",
+  "tags": "TOEIC Part3 transport"
+ },
+ {
+  "id": "TOEIC-L3-512-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Man: Excuse me, my flight to Nairobi was canceled because of the storm. What are my options?\nWoman: I'm sorry about that. The next available flight leaves tomorrow at seven a.m. I can book you on it now.\nMan: That's fine. But where will I stay tonight?\nWoman: Since the cancellation was weather-related, we can't pay for a hotel, but we have an agreement with the Airport Inn for a discounted rate. The shuttle leaves from Door 6 every half hour.\nMan: OK, I'll take it. Can I get my checked bag back?\nWoman: It'll stay with the airline and go on tomorrow's flight automatically.",
+  "question": "What does the woman say about the man's bag?",
+  "choices": [
+   "It will be put on the next flight.",
+   "It will be delivered to the hotel.",
+   "It has been lost.",
+   "He can pick it up at Door 6."
+  ],
+  "answer": "It will be put on the next flight.",
+  "explanation": "荷物は航空会社が預かり、明日の便に自動的に載せられると言っている。",
+  "tags": "TOEIC Part3 transport"
+ },
+ {
+  "id": "TOEIC-L3-513-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Dr. Feld, the new online booking system went live on Monday, and we've already had a problem. Some patients booked appointments on days you're at the hospital.\nMan: Really? I thought the system was linked to my calendar.\nWoman: It is, but only the clinic hours were entered, not your hospital shifts. I've called the affected patients, and most of them have rebooked.\nMan: Thanks for handling that. Can we block those days in the system?\nWoman: I've asked the software company, but they said it'll take a week.\nMan: A week? Hmm. In the meantime, maybe we should put a notice on the booking page.\nWoman: I'll write one up this morning.",
+  "question": "What are the speakers mainly discussing?",
+  "choices": [
+   "A change in hospital policy",
+   "A problem with a scheduling system",
+   "A shortage of nurses",
+   "A patient's test results"
+  ],
+  "answer": "A problem with a scheduling system",
+  "explanation": "新しいオンライン予約システムで、医師が病院にいる日に予約が入ってしまう問題を話している。",
+  "tags": "TOEIC Part3 healthcare"
+ },
+ {
+  "id": "TOEIC-L3-513-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Dr. Feld, the new online booking system went live on Monday, and we've already had a problem. Some patients booked appointments on days you're at the hospital.\nMan: Really? I thought the system was linked to my calendar.\nWoman: It is, but only the clinic hours were entered, not your hospital shifts. I've called the affected patients, and most of them have rebooked.\nMan: Thanks for handling that. Can we block those days in the system?\nWoman: I've asked the software company, but they said it'll take a week.\nMan: A week? Hmm. In the meantime, maybe we should put a notice on the booking page.\nWoman: I'll write one up this morning.",
+  "question": "What has the woman already done?",
+  "choices": [
+   "Contacted some patients",
+   "Updated the doctor's calendar",
+   "Hired an assistant",
+   "Canceled the software contract"
+  ],
+  "answer": "Contacted some patients",
+  "explanation": "I've called the affected patients と、影響を受けた患者に電話済みだと言っている。",
+  "tags": "TOEIC Part3 healthcare"
+ },
+ {
+  "id": "TOEIC-L3-513-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Dr. Feld, the new online booking system went live on Monday, and we've already had a problem. Some patients booked appointments on days you're at the hospital.\nMan: Really? I thought the system was linked to my calendar.\nWoman: It is, but only the clinic hours were entered, not your hospital shifts. I've called the affected patients, and most of them have rebooked.\nMan: Thanks for handling that. Can we block those days in the system?\nWoman: I've asked the software company, but they said it'll take a week.\nMan: A week? Hmm. In the meantime, maybe we should put a notice on the booking page.\nWoman: I'll write one up this morning.",
+  "question": "What does the woman say she will do this morning?",
+  "choices": [
+   "Call the hospital",
+   "Train the staff",
+   "Visit the software company",
+   "Write a notice"
+  ],
+  "answer": "Write a notice",
+  "explanation": "予約ページに載せるお知らせを今朝書くと言っている。",
+  "tags": "TOEIC Part3 healthcare"
+ },
+ {
+  "id": "TOEIC-L3-514-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Our current box supplier is raising prices next month, so I've compared a few others.\nMan: Thanks. The cheapest one looks attractive.\nWoman: It is, but ten days is too long. We often get rush orders from retailers.\nMan: True. We need boxes within a week, at most.\nWoman: Exactly. And I'd rather not pay over three hundred dollars per thousand.\nMan: Then the choice is clear. Can you request some samples to make sure the quality's OK?\nWoman: Sure, I'll email them this afternoon and ask how quickly they can send a few.\n\n[Packaging Suppliers]\nNorvale Packaging — $310 per 1,000 boxes — 3-day delivery\nKestrel Box Co. — $280 per 1,000 boxes — 10-day delivery\nBrightline Paper — $295 per 1,000 boxes — 5-day delivery\nOrbis Containers — $340 per 1,000 boxes — 2-day delivery",
+  "question": "Why is the woman comparing suppliers?",
+  "choices": [
+   "The company is launching a new product.",
+   "The current supplier has gone out of business.",
+   "The current supplier will raise prices.",
+   "Some boxes were damaged."
+  ],
+  "answer": "The current supplier will raise prices.",
+  "explanation": "現在の箱の仕入れ先が来月値上げするので、他社を比較している。",
+  "tags": "TOEIC Part3 manufacturing"
+ },
+ {
+  "id": "TOEIC-L3-514-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Our current box supplier is raising prices next month, so I've compared a few others.\nMan: Thanks. The cheapest one looks attractive.\nWoman: It is, but ten days is too long. We often get rush orders from retailers.\nMan: True. We need boxes within a week, at most.\nWoman: Exactly. And I'd rather not pay over three hundred dollars per thousand.\nMan: Then the choice is clear. Can you request some samples to make sure the quality's OK?\nWoman: Sure, I'll email them this afternoon and ask how quickly they can send a few.\n\n[Packaging Suppliers]\nNorvale Packaging — $310 per 1,000 boxes — 3-day delivery\nKestrel Box Co. — $280 per 1,000 boxes — 10-day delivery\nBrightline Paper — $295 per 1,000 boxes — 5-day delivery\nOrbis Containers — $340 per 1,000 boxes — 2-day delivery",
+  "question": "Look at the graphic. Which supplier will the speakers most likely choose?",
+  "choices": [
+   "Norvale Packaging",
+   "Kestrel Box Co.",
+   "Brightline Paper",
+   "Orbis Containers"
+  ],
+  "answer": "Brightline Paper",
+  "explanation": "1週間以内の納品で、1,000箱あたり300ドル以下という条件を満たすのは Brightline Paper だけ。",
+  "tags": "TOEIC Part3 manufacturing graphic"
+ },
+ {
+  "id": "TOEIC-L3-514-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Our current box supplier is raising prices next month, so I've compared a few others.\nMan: Thanks. The cheapest one looks attractive.\nWoman: It is, but ten days is too long. We often get rush orders from retailers.\nMan: True. We need boxes within a week, at most.\nWoman: Exactly. And I'd rather not pay over three hundred dollars per thousand.\nMan: Then the choice is clear. Can you request some samples to make sure the quality's OK?\nWoman: Sure, I'll email them this afternoon and ask how quickly they can send a few.\n\n[Packaging Suppliers]\nNorvale Packaging — $310 per 1,000 boxes — 3-day delivery\nKestrel Box Co. — $280 per 1,000 boxes — 10-day delivery\nBrightline Paper — $295 per 1,000 boxes — 5-day delivery\nOrbis Containers — $340 per 1,000 boxes — 2-day delivery",
+  "question": "What does the man ask the woman to do?",
+  "choices": [
+   "Request product samples",
+   "Place a rush order",
+   "Negotiate a lower price",
+   "Visit a factory"
+  ],
+  "answer": "Request product samples",
+  "explanation": "品質を確かめるためにサンプルを依頼するよう頼んでいる。",
+  "tags": "TOEIC Part3 manufacturing"
+ },
+ {
+  "id": "TOEIC-L3-515-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Hello, I saw your ad for the two-bedroom apartment on Birch Avenue. Is it still available?\nWoman: Yes, it is. It's on the third floor and gets lots of sunlight. The rent is fourteen hundred a month.\nMan: Is there parking?\nWoman: There's one free space for each apartment, behind the building.\nMan: Great. Can I see it this weekend?\nWoman: How about Saturday at ten?\nMan: That works. Should I bring anything?\nWoman: Just a photo ID. If you like it, you can fill out an application on the spot.",
+  "question": "What is the man interested in?",
+  "choices": [
+   "Buying a car",
+   "Selling a house",
+   "Renting an apartment",
+   "Advertising a business"
+  ],
+  "answer": "Renting an apartment",
+  "explanation": "広告に出ていた2LDKのアパートについて問い合わせている。",
+  "tags": "TOEIC Part3 real estate"
+ },
+ {
+  "id": "TOEIC-L3-515-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Hello, I saw your ad for the two-bedroom apartment on Birch Avenue. Is it still available?\nWoman: Yes, it is. It's on the third floor and gets lots of sunlight. The rent is fourteen hundred a month.\nMan: Is there parking?\nWoman: There's one free space for each apartment, behind the building.\nMan: Great. Can I see it this weekend?\nWoman: How about Saturday at ten?\nMan: That works. Should I bring anything?\nWoman: Just a photo ID. If you like it, you can fill out an application on the spot.",
+  "question": "What does the woman say about parking?",
+  "choices": [
+   "It is free.",
+   "It is not available.",
+   "It is on the street.",
+   "It costs extra."
+  ],
+  "answer": "It is free.",
+  "explanation": "各部屋に1台分の無料駐車スペースがあると言っている。",
+  "tags": "TOEIC Part3 real estate"
+ },
+ {
+  "id": "TOEIC-L3-515-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "A2",
+  "band": "TOEIC目安:400",
+  "passage": "Man: Hello, I saw your ad for the two-bedroom apartment on Birch Avenue. Is it still available?\nWoman: Yes, it is. It's on the third floor and gets lots of sunlight. The rent is fourteen hundred a month.\nMan: Is there parking?\nWoman: There's one free space for each apartment, behind the building.\nMan: Great. Can I see it this weekend?\nWoman: How about Saturday at ten?\nMan: That works. Should I bring anything?\nWoman: Just a photo ID. If you like it, you can fill out an application on the spot.",
+  "question": "What should the man bring on Saturday?",
+  "choices": [
+   "A reference letter",
+   "A rent payment",
+   "A signed application",
+   "Photo identification"
+  ],
+  "answer": "Photo identification",
+  "explanation": "Just a photo ID と、写真付き身分証だけ持ってくるよう言っている。",
+  "tags": "TOEIC Part3 real estate"
+ },
+ {
+  "id": "TOEIC-L3-516-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Good evening. I have a reservation under Ingrid Sorensen.\nMan: Welcome, Ms. Sorensen. I see you're staying three nights in a standard room. Oh, I'm sorry, but because of a plumbing issue, standard rooms on your floor aren't available. We've upgraded you to a suite at no extra cost.\nWoman: Oh, that's a nice surprise! Does the suite have a desk? I have some work to do.\nMan: Yes, it has a separate office area. Also, breakfast is served in the lobby restaurant from six-thirty.\nWoman: Perfect. I have an early meeting tomorrow, so I'll need a taxi at seven-fifteen.\nMan: I'll arrange that for you.",
+  "question": "Why was the woman given a different room?",
+  "choices": [
+   "She requested an upgrade.",
+   "Her reservation was lost.",
+   "The hotel is fully booked.",
+   "There is a plumbing problem."
+  ],
+  "answer": "There is a plumbing problem.",
+  "explanation": "配管の問題（plumbing issue）で予約の部屋が使えないため、スイートに変更された。",
+  "tags": "TOEIC Part3 hospitality"
+ },
+ {
+  "id": "TOEIC-L3-516-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Good evening. I have a reservation under Ingrid Sorensen.\nMan: Welcome, Ms. Sorensen. I see you're staying three nights in a standard room. Oh, I'm sorry, but because of a plumbing issue, standard rooms on your floor aren't available. We've upgraded you to a suite at no extra cost.\nWoman: Oh, that's a nice surprise! Does the suite have a desk? I have some work to do.\nMan: Yes, it has a separate office area. Also, breakfast is served in the lobby restaurant from six-thirty.\nWoman: Perfect. I have an early meeting tomorrow, so I'll need a taxi at seven-fifteen.\nMan: I'll arrange that for you.",
+  "question": "What does the woman ask about the suite?",
+  "choices": [
+   "Which floor it is on",
+   "Whether it has a desk",
+   "How much it costs",
+   "Whether it has a view"
+  ],
+  "answer": "Whether it has a desk",
+  "explanation": "仕事があるので、スイートに机があるかを尋ねている。",
+  "tags": "TOEIC Part3 hospitality"
+ },
+ {
+  "id": "TOEIC-L3-516-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman: Good evening. I have a reservation under Ingrid Sorensen.\nMan: Welcome, Ms. Sorensen. I see you're staying three nights in a standard room. Oh, I'm sorry, but because of a plumbing issue, standard rooms on your floor aren't available. We've upgraded you to a suite at no extra cost.\nWoman: Oh, that's a nice surprise! Does the suite have a desk? I have some work to do.\nMan: Yes, it has a separate office area. Also, breakfast is served in the lobby restaurant from six-thirty.\nWoman: Perfect. I have an early meeting tomorrow, so I'll need a taxi at seven-fifteen.\nMan: I'll arrange that for you.",
+  "question": "What will the man most likely do for the woman?",
+  "choices": [
+   "Reserve a meeting room",
+   "Book a taxi",
+   "Extend her stay",
+   "Bring breakfast to her room"
+  ],
+  "answer": "Book a taxi",
+  "explanation": "7時15分にタクシーが必要だと言われ、I'll arrange that と答えている。",
+  "tags": "TOEIC Part3 hospitality"
+ },
+ {
+  "id": "TOEIC-L3-517-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: IT help desk, this is Kwame.\nWoman: Hi, it's Elena in purchasing. Since last night's update, I can't open any of the spreadsheets on the shared drive. I keep getting an error message.\nMan: You're the fourth person to call about that this morning. It looks like the update reset some access permissions.\nWoman: Oh no. I need to send a price comparison to our director by noon.\nMan: I'm restoring permissions department by department. Purchasing should be done within the hour. In the meantime, if you have a copy saved on your laptop, you could work on that.\nWoman: I think I do. I'll check.",
+  "question": "What problem does the woman report?",
+  "choices": [
+   "Her laptop will not turn on.",
+   "She forgot her password.",
+   "Her email is not working.",
+   "She cannot open some files."
+  ],
+  "answer": "She cannot open some files.",
+  "explanation": "共有ドライブのスプレッドシートが開けないと報告している。",
+  "tags": "TOEIC Part3 IT"
+ },
+ {
+  "id": "TOEIC-L3-517-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: IT help desk, this is Kwame.\nWoman: Hi, it's Elena in purchasing. Since last night's update, I can't open any of the spreadsheets on the shared drive. I keep getting an error message.\nMan: You're the fourth person to call about that this morning. It looks like the update reset some access permissions.\nWoman: Oh no. I need to send a price comparison to our director by noon.\nMan: I'm restoring permissions department by department. Purchasing should be done within the hour. In the meantime, if you have a copy saved on your laptop, you could work on that.\nWoman: I think I do. I'll check.",
+  "question": "What does the man imply when he says, \"You're the fourth person to call about that this morning\"?",
+  "choices": [
+   "He is too busy to help her now.",
+   "The problem is affecting several employees.",
+   "The woman should have called earlier.",
+   "The calls are being recorded."
+  ],
+  "answer": "The problem is affecting several employees.",
+  "explanation": "同じ問題で何人も電話してきていることから、複数の社員に影響が出ていることを示している。",
+  "tags": "TOEIC Part3 IT"
+ },
+ {
+  "id": "TOEIC-L3-517-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: IT help desk, this is Kwame.\nWoman: Hi, it's Elena in purchasing. Since last night's update, I can't open any of the spreadsheets on the shared drive. I keep getting an error message.\nMan: You're the fourth person to call about that this morning. It looks like the update reset some access permissions.\nWoman: Oh no. I need to send a price comparison to our director by noon.\nMan: I'm restoring permissions department by department. Purchasing should be done within the hour. In the meantime, if you have a copy saved on your laptop, you could work on that.\nWoman: I think I do. I'll check.",
+  "question": "What does the man suggest the woman do?",
+  "choices": [
+   "Contact the director",
+   "Reinstall the update",
+   "Send the file by email",
+   "Use a copy stored on her laptop"
+  ],
+  "answer": "Use a copy stored on her laptop",
+  "explanation": "復旧までの間、ノートPCに保存したコピーで作業するよう提案している。",
+  "tags": "TOEIC Part3 IT"
+ },
+ {
+  "id": "TOEIC-L3-518-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman 1: Kofi, Mei, we just got a large order from Alder Sports. They want three hundred tents shipped by Wednesday.\nMan: Wednesday? That's tight. Most of our staff are busy with the holiday orders.\nWoman 2: Actually, I've got two people finishing the inventory count today. They could help with packing tomorrow.\nWoman 1: Great. Do we have enough tents in stock?\nMan: According to the system, we have two hundred and eighty here. The rest are at our Riverside warehouse.\nWoman 1: Then let's have the remaining twenty sent over by truck tomorrow morning.\nWoman 2: I'll call Riverside now.",
+  "question": "What are the speakers mainly discussing?",
+  "choices": [
+   "Counting inventory",
+   "Moving to a new warehouse",
+   "Hiring holiday workers",
+   "Preparing a large order"
+  ],
+  "answer": "Preparing a large order",
+  "explanation": "テント300張の大口注文を水曜までに出荷する準備について話している。",
+  "tags": "TOEIC Part3 logistics"
+ },
+ {
+  "id": "TOEIC-L3-518-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman 1: Kofi, Mei, we just got a large order from Alder Sports. They want three hundred tents shipped by Wednesday.\nMan: Wednesday? That's tight. Most of our staff are busy with the holiday orders.\nWoman 2: Actually, I've got two people finishing the inventory count today. They could help with packing tomorrow.\nWoman 1: Great. Do we have enough tents in stock?\nMan: According to the system, we have two hundred and eighty here. The rest are at our Riverside warehouse.\nWoman 1: Then let's have the remaining twenty sent over by truck tomorrow morning.\nWoman 2: I'll call Riverside now.",
+  "question": "What problem does the man mention?",
+  "choices": [
+   "Some tents are damaged.",
+   "A truck has broken down.",
+   "Many employees are already busy.",
+   "The customer canceled the order."
+  ],
+  "answer": "Many employees are already busy.",
+  "explanation": "スタッフの多くが休暇シーズンの注文で忙しいと言っている。",
+  "tags": "TOEIC Part3 logistics"
+ },
+ {
+  "id": "TOEIC-L3-518-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B1",
+  "band": "TOEIC目安:600",
+  "passage": "Woman 1: Kofi, Mei, we just got a large order from Alder Sports. They want three hundred tents shipped by Wednesday.\nMan: Wednesday? That's tight. Most of our staff are busy with the holiday orders.\nWoman 2: Actually, I've got two people finishing the inventory count today. They could help with packing tomorrow.\nWoman 1: Great. Do we have enough tents in stock?\nMan: According to the system, we have two hundred and eighty here. The rest are at our Riverside warehouse.\nWoman 1: Then let's have the remaining twenty sent over by truck tomorrow morning.\nWoman 2: I'll call Riverside now.",
+  "question": "Where will additional tents come from?",
+  "choices": [
+   "A returns department",
+   "Another warehouse",
+   "A sporting goods store",
+   "The manufacturer"
+  ],
+  "answer": "Another warehouse",
+  "explanation": "足りない20張は Riverside の倉庫からトラックで送ってもらう。",
+  "tags": "TOEIC Part3 logistics"
+ },
+ {
+  "id": "TOEIC-L3-519-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: Good afternoon. I'd like to apply for a small business loan. I'm opening a bakery on Fulton Street.\nWoman: Congratulations. Do you have an account with us?\nMan: Yes, I've had a personal account here for eight years.\nWoman: That helps. For a business loan, we'll need a business plan, your tax returns for the past two years, and an estimate of your start-up costs.\nMan: I have the business plan with me, but the tax documents are at home.\nWoman: That's all right. I can review the plan today, and you can upload the rest through our website. Decisions usually take about ten business days.",
+  "question": "Why is the man at the bank?",
+  "choices": [
+   "To close an account",
+   "To deposit cash",
+   "To open a personal account",
+   "To apply for a loan"
+  ],
+  "answer": "To apply for a loan",
+  "explanation": "パン屋開業のための事業ローンを申し込みに来ている。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-519-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: Good afternoon. I'd like to apply for a small business loan. I'm opening a bakery on Fulton Street.\nWoman: Congratulations. Do you have an account with us?\nMan: Yes, I've had a personal account here for eight years.\nWoman: That helps. For a business loan, we'll need a business plan, your tax returns for the past two years, and an estimate of your start-up costs.\nMan: I have the business plan with me, but the tax documents are at home.\nWoman: That's all right. I can review the plan today, and you can upload the rest through our website. Decisions usually take about ten business days.",
+  "question": "What does the man say about his tax documents?",
+  "choices": [
+   "He did not bring them.",
+   "His accountant has them.",
+   "He has already uploaded them.",
+   "They are incomplete."
+  ],
+  "answer": "He did not bring them.",
+  "explanation": "納税書類は家にあると言っており、持ってきていない。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-519-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Man: Good afternoon. I'd like to apply for a small business loan. I'm opening a bakery on Fulton Street.\nWoman: Congratulations. Do you have an account with us?\nMan: Yes, I've had a personal account here for eight years.\nWoman: That helps. For a business loan, we'll need a business plan, your tax returns for the past two years, and an estimate of your start-up costs.\nMan: I have the business plan with me, but the tax documents are at home.\nWoman: That's all right. I can review the plan today, and you can upload the rest through our website. Decisions usually take about ten business days.",
+  "question": "According to the woman, how long does a decision usually take?",
+  "choices": [
+   "About two days",
+   "About eight weeks",
+   "About ten business days",
+   "About one month"
+  ],
+  "answer": "About ten business days",
+  "explanation": "Decisions usually take about ten business days と言っている。",
+  "tags": "TOEIC Part3 banking"
+ },
+ {
+  "id": "TOEIC-L3-520-1",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Excuse me, I'm looking for the exhibition on traditional weaving. A friend told me it's excellent.\nMan: It is, but it's been temporarily moved. The second floor is closed while we repair the air-conditioning system, so those works are now displayed on the floor with the photography collection.\nWoman: Oh, I see. Is there an elevator?\nMan: Yes, just around the corner. By the way, there's a free talk by the curator in that gallery at two o'clock.\nWoman: Wonderful. I'll grab a coffee first and come back for it.\n\n[Museum Floor Guide]\nFloor 1 — Ancient Pottery\nFloor 2 — Textiles of Asia\nFloor 3 — Modern Sculpture\nFloor 4 — Photography",
+  "question": "Look at the graphic. Which floor should the woman go to?",
+  "choices": [
+   "Floor 1",
+   "Floor 2",
+   "Floor 3",
+   "Floor 4"
+  ],
+  "answer": "Floor 4",
+  "explanation": "織物の展示は写真コレクションと同じ階に移されたので、表から4階とわかる。",
+  "tags": "TOEIC Part3 museums & libraries graphic"
+ },
+ {
+  "id": "TOEIC-L3-520-2",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Excuse me, I'm looking for the exhibition on traditional weaving. A friend told me it's excellent.\nMan: It is, but it's been temporarily moved. The second floor is closed while we repair the air-conditioning system, so those works are now displayed on the floor with the photography collection.\nWoman: Oh, I see. Is there an elevator?\nMan: Yes, just around the corner. By the way, there's a free talk by the curator in that gallery at two o'clock.\nWoman: Wonderful. I'll grab a coffee first and come back for it.\n\n[Museum Floor Guide]\nFloor 1 — Ancient Pottery\nFloor 2 — Textiles of Asia\nFloor 3 — Modern Sculpture\nFloor 4 — Photography",
+  "question": "Why was the exhibition moved?",
+  "choices": [
+   "A new exhibit is being installed.",
+   "Repairs are being carried out.",
+   "The gallery was too small.",
+   "Photography is not allowed there."
+  ],
+  "answer": "Repairs are being carried out.",
+  "explanation": "空調設備の修理のため2階が閉鎖されている。",
+  "tags": "TOEIC Part3 museums & libraries"
+ },
+ {
+  "id": "TOEIC-L3-520-3",
+  "skill": "listening",
+  "format": "Part 3 会話問題",
+  "level": "B2",
+  "band": "TOEIC目安:730",
+  "passage": "Woman: Excuse me, I'm looking for the exhibition on traditional weaving. A friend told me it's excellent.\nMan: It is, but it's been temporarily moved. The second floor is closed while we repair the air-conditioning system, so those works are now displayed on the floor with the photography collection.\nWoman: Oh, I see. Is there an elevator?\nMan: Yes, just around the corner. By the way, there's a free talk by the curator in that gallery at two o'clock.\nWoman: Wonderful. I'll grab a coffee first and come back for it.\n\n[Museum Floor Guide]\nFloor 1 — Ancient Pottery\nFloor 2 — Textiles of Asia\nFloor 3 — Modern Sculpture\nFloor 4 — Photography",
+  "question": "What will happen at two o'clock?",
+  "choices": [
+   "The museum will close.",
+   "A curator will give a talk.",
+   "A café will open.",
+   "The elevator will be inspected."
+  ],
+  "answer": "A curator will give a talk.",
+  "explanation": "2時に学芸員（curator）による無料トークがあると言っている。",
+  "tags": "TOEIC Part3 museums & libraries"
+ }
+]
