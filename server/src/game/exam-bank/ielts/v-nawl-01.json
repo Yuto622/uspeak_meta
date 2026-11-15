@@ -1,0 +1,648 @@
+[
+ {
+  "id": "IELTS-V-001",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe university gives each department considerable ------- in deciding how to spend its budget.",
+  "choices": [
+   "membrane",
+   "autonomy",
+   "rejection",
+   "occurrence"
+  ],
+  "answer": "autonomy",
+  "explanation": "autonomy は「自主性・自治」。各学部が予算の使い方を自分で決められるという文脈。",
+  "tags": "NAWL autonomy"
+ },
+ {
+  "id": "IELTS-V-002",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nWater passes through the thin ------- that surrounds each cell.",
+  "choices": [
+   "realm",
+   "membrane",
+   "syndrome",
+   "layout"
+  ],
+  "answer": "membrane",
+  "explanation": "membrane は「膜」。細胞を囲む薄い膜を水が通過する。",
+  "tags": "NAWL membrane"
+ },
+ {
+  "id": "IELTS-V-003",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nQuestions about the origin of the universe once belonged to the ------- of philosophy rather than science.",
+  "choices": [
+   "diameter",
+   "momentum",
+   "habitat",
+   "realm"
+  ],
+  "answer": "realm",
+  "explanation": "realm は「領域・分野」。かつては科学ではなく哲学の領域に属したという意味。",
+  "tags": "NAWL realm"
+ },
+ {
+  "id": "IELTS-V-004",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe first chapter provides a brief ------- of the research before discussing each experiment in detail.",
+  "choices": [
+   "overview",
+   "rejection",
+   "incidence",
+   "artifact"
+  ],
+  "answer": "overview",
+  "explanation": "overview は「概要」。各実験を詳述する前に研究の概要を示す。",
+  "tags": "NAWL overview"
+ },
+ {
+  "id": "IELTS-V-005",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nScientists were surprised by the ------- of the earthquake, which was far stronger than predicted.",
+  "choices": [
+   "magnitude",
+   "autonomy",
+   "continuity",
+   "tolerance"
+  ],
+  "answer": "magnitude",
+  "explanation": "magnitude は「規模・大きさ」。予測よりはるかに強い地震の規模。",
+  "tags": "NAWL magnitude"
+ },
+ {
+  "id": "IELTS-V-006",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe pipe has a ------- of only five centimetres, so it can easily become blocked.",
+  "choices": [
+   "magnitude",
+   "diameter",
+   "velocity",
+   "circulation"
+  ],
+  "answer": "diameter",
+  "explanation": "diameter は「直径」。直径5センチしかないので詰まりやすい。",
+  "tags": "NAWL diameter"
+ },
+ {
+  "id": "IELTS-V-007",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nAfter organ transplants, patients take medicines to reduce the risk of -------.",
+  "choices": [
+   "emergence",
+   "overview",
+   "pathway",
+   "rejection"
+  ],
+  "answer": "rejection",
+  "explanation": "rejection は「拒絶（反応）」。臓器移植後の拒絶反応のリスク。",
+  "tags": "NAWL rejection"
+ },
+ {
+  "id": "IELTS-V-008",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe ------- of the internet in the 1990s transformed how people shared information.",
+  "choices": [
+   "rejection",
+   "disturbance",
+   "fatigue",
+   "emergence"
+  ],
+  "answer": "emergence",
+  "explanation": "emergence は「出現・台頭」。1990年代のインターネットの出現。",
+  "tags": "NAWL emergence"
+ },
+ {
+  "id": "IELTS-V-009",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nRegular exercise improves blood ------- and helps to keep the heart healthy.",
+  "choices": [
+   "circulation",
+   "diameter",
+   "utterance",
+   "monopoly"
+  ],
+  "answer": "circulation",
+  "explanation": "circulation は「循環」。血液循環が改善される。",
+  "tags": "NAWL circulation"
+ },
+ {
+  "id": "IELTS-V-010",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe ------- of the new library makes it easy for visitors to find the quiet study areas.",
+  "choices": [
+   "realm",
+   "layout",
+   "syndrome",
+   "incidence"
+  ],
+  "answer": "layout",
+  "explanation": "layout は「配置・レイアウト」。図書館の配置が分かりやすい。",
+  "tags": "NAWL layout"
+ },
+ {
+  "id": "IELTS-V-011",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nFlooding in this valley is a rare -------, happening perhaps once in fifty years.",
+  "choices": [
+   "autonomy",
+   "methodology",
+   "occurrence",
+   "equilibrium"
+  ],
+  "answer": "occurrence",
+  "explanation": "occurrence は「出来事・発生」。50年に一度程度のまれな出来事。",
+  "tags": "NAWL occurrence"
+ },
+ {
+  "id": "IELTS-V-012",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe campaign gained ------- after several well-known scientists publicly supported it.",
+  "choices": [
+   "membrane",
+   "residue",
+   "diameter",
+   "momentum"
+  ],
+  "answer": "momentum",
+  "explanation": "momentum は「勢い・弾み」。著名な科学者の支持で勢いを得た。",
+  "tags": "NAWL momentum"
+ },
+ {
+  "id": "IELTS-V-013",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe doctor explained that the ------- involves a group of symptoms that often appear together.",
+  "choices": [
+   "syndrome",
+   "layout",
+   "analogy",
+   "basin"
+  ],
+  "answer": "syndrome",
+  "explanation": "syndrome は「症候群」。一緒に現れる一群の症状。",
+  "tags": "NAWL syndrome"
+ },
+ {
+  "id": "IELTS-V-014",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe operation was successful, and there were no serious ------- afterwards.",
+  "choices": [
+   "occurrences",
+   "complications",
+   "pathways",
+   "overviews"
+  ],
+  "answer": "complications",
+  "explanation": "complication は「合併症・やっかいな問題」。手術後に重い合併症はなかった。",
+  "tags": "NAWL complication"
+ },
+ {
+  "id": "IELTS-V-015",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nSome plants have a high ------- for salt and can grow close to the sea.",
+  "choices": [
+   "magnitude",
+   "emergence",
+   "tolerance",
+   "onset"
+  ],
+  "answer": "tolerance",
+  "explanation": "tolerance は「耐性」。塩分への耐性が高い植物。",
+  "tags": "NAWL tolerance"
+ },
+ {
+  "id": "IELTS-V-016",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe destruction of forests has left many species without a suitable -------.",
+  "choices": [
+   "protocol",
+   "paradigm",
+   "velocity",
+   "habitat"
+  ],
+  "answer": "habitat",
+  "explanation": "habitat は「生息地」。森林破壊で適した生息地を失う。",
+  "tags": "NAWL habitat"
+ },
+ {
+  "id": "IELTS-V-017",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nReviewers criticised the study's -------, arguing that the sample was far too small.",
+  "choices": [
+   "methodology",
+   "habitat",
+   "momentum",
+   "continuity"
+  ],
+  "answer": "methodology",
+  "explanation": "methodology は「研究方法（論）」。標本が小さすぎるという方法論への批判。",
+  "tags": "NAWL methodology"
+ },
+ {
+  "id": "IELTS-V-018",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nBecause the data were collected carelessly, many experts questioned the ------- of the results.",
+  "choices": [
+   "circulation",
+   "validity",
+   "fringe",
+   "incidence"
+  ],
+  "answer": "validity",
+  "explanation": "validity は「妥当性」。不注意なデータ収集で結果の妥当性が疑われた。",
+  "tags": "NAWL validity"
+ },
+ {
+  "id": "IELTS-V-019",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe two lines are the same length; the difference you see is an optical -------.",
+  "choices": [
+   "occurrence",
+   "axis",
+   "illusion",
+   "artifact"
+  ],
+  "answer": "illusion",
+  "explanation": "illusion は「錯覚」。目の錯覚で長さが違って見える。",
+  "tags": "NAWL illusion"
+ },
+ {
+  "id": "IELTS-V-020",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nResearchers have identified a chemical ------- that allows the virus to enter cells.",
+  "choices": [
+   "dialect",
+   "fringe",
+   "tolerance",
+   "pathway"
+  ],
+  "answer": "pathway",
+  "explanation": "pathway は「経路」。ウイルスが細胞に侵入する化学的経路。",
+  "tags": "NAWL pathway"
+ },
+ {
+  "id": "IELTS-V-021",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe ------- of the disease has fallen sharply since the vaccine was introduced.",
+  "choices": [
+   "incidence",
+   "autonomy",
+   "layout",
+   "analogy"
+  ],
+  "answer": "incidence",
+  "explanation": "incidence は「発生率」。ワクチン導入後に病気の発生率が急減した。",
+  "tags": "NAWL incidence"
+ },
+ {
+  "id": "IELTS-V-022",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe country is trying to reduce its ------- on imported oil.",
+  "choices": [
+   "continuity",
+   "dependence",
+   "tolerance",
+   "illusion"
+  ],
+  "answer": "dependence",
+  "explanation": "dependence は「依存」。輸入石油への依存を減らす。",
+  "tags": "NAWL dependence"
+ },
+ {
+  "id": "IELTS-V-023",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nKeeping the same teacher for three years provides ------- for young pupils.",
+  "choices": [
+   "dependence",
+   "rejection",
+   "continuity",
+   "magnitude"
+  ],
+  "answer": "continuity",
+  "explanation": "continuity は「連続性・一貫性」。同じ教師が続くことで安定した一貫性が得られる。",
+  "tags": "NAWL continuity"
+ },
+ {
+  "id": "IELTS-V-024",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nNesting birds are sensitive to any -------, so visitors must keep to the paths.",
+  "choices": [
+   "continuity",
+   "incidence",
+   "methodology",
+   "disturbance"
+  ],
+  "answer": "disturbance",
+  "explanation": "disturbance は「妨害・かく乱」。営巣中の鳥はわずかな妨害にも敏感。",
+  "tags": "NAWL disturbance"
+ },
+ {
+  "id": "IELTS-V-025",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThere is a clear ------- between the minister's promise and the actual budget.",
+  "choices": [
+   "contradiction",
+   "occurrence",
+   "utterance",
+   "overview"
+  ],
+  "answer": "contradiction",
+  "explanation": "contradiction は「矛盾」。約束と実際の予算の間の矛盾。",
+  "tags": "NAWL contradiction"
+ },
+ {
+  "id": "IELTS-V-026",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nFor decades, a single state company had a ------- on the country's railways.",
+  "choices": [
+   "fringe",
+   "monopoly",
+   "membrane",
+   "dialect"
+  ],
+  "answer": "monopoly",
+  "explanation": "monopoly は「独占」。一社が鉄道を独占していた。",
+  "tags": "NAWL monopoly"
+ },
+ {
+  "id": "IELTS-V-027",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nHospital staff must follow a strict ------- when handling infectious material.",
+  "choices": [
+   "habitat",
+   "analogy",
+   "protocol",
+   "basin"
+  ],
+  "answer": "protocol",
+  "explanation": "protocol は「手順・規約」。感染性物質を扱う際の厳格な手順。",
+  "tags": "NAWL protocol"
+ },
+ {
+  "id": "IELTS-V-028",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nMany birds feed their ------- for several weeks after they hatch.",
+  "choices": [
+   "predators",
+   "mentors",
+   "variants",
+   "offspring"
+  ],
+  "answer": "offspring",
+  "explanation": "offspring は「子・子孫」。孵化後の雛に餌を与える。",
+  "tags": "NAWL offspring"
+ },
+ {
+  "id": "IELTS-V-029",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nEngineers ran a computer ------- to see how the bridge would behave in strong winds.",
+  "choices": [
+   "simulation",
+   "contradiction",
+   "monopoly",
+   "occurrence"
+  ],
+  "answer": "simulation",
+  "explanation": "simulation は「シミュレーション・模擬実験」。強風時の橋の挙動を確かめる。",
+  "tags": "NAWL simulation"
+ },
+ {
+  "id": "IELTS-V-030",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe report shows that income ------- between rich and poor regions has grown.",
+  "choices": [
+   "continuity",
+   "inequality",
+   "equilibrium",
+   "tolerance"
+  ],
+  "answer": "inequality",
+  "explanation": "inequality は「不平等・格差」。地域間の所得格差が拡大。",
+  "tags": "NAWL inequality"
+ },
+ {
+  "id": "IELTS-V-031",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe museum displays each ------- with a label explaining where it was found.",
+  "choices": [
+   "axis",
+   "onset",
+   "artifact",
+   "syndrome"
+  ],
+  "answer": "artifact",
+  "explanation": "artifact は「人工遺物・工芸品」。発見場所を説明するラベル付きで展示。",
+  "tags": "NAWL artifact"
+ },
+ {
+  "id": "IELTS-V-032",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe Earth rotates on its ------- once every twenty-four hours.",
+  "choices": [
+   "basin",
+   "fringe",
+   "node",
+   "axis"
+  ],
+  "answer": "axis",
+  "explanation": "axis は「軸」。地球は自転軸を中心に24時間で1回転する。",
+  "tags": "NAWL axis"
+ },
+ {
+  "id": "IELTS-V-033",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nSpeakers of the northern ------- use several words that are unknown in the capital.",
+  "choices": [
+   "dialect",
+   "protocol",
+   "paradigm",
+   "monopoly"
+  ],
+  "answer": "dialect",
+  "explanation": "dialect は「方言」。北部方言には首都で知られない語がある。",
+  "tags": "NAWL dialect"
+ },
+ {
+  "id": "IELTS-V-034",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nEarly treatment can delay the ------- of serious symptoms.",
+  "choices": [
+   "fringe",
+   "onset",
+   "layout",
+   "monopoly"
+  ],
+  "answer": "onset",
+  "explanation": "onset は「発症・始まり」。重い症状の発症を遅らせる。",
+  "tags": "NAWL onset"
+ },
+ {
+  "id": "IELTS-V-035",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nSurvivors of the disaster were offered counselling to help them cope with the -------.",
+  "choices": [
+   "tolerance",
+   "artifact",
+   "trauma",
+   "velocity"
+  ],
+  "answer": "trauma",
+  "explanation": "trauma は「心的外傷」。災害の心的外傷に対処するためのカウンセリング。",
+  "tags": "NAWL trauma"
+ },
+ {
+  "id": "IELTS-V-036",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe test measures reading ------- by asking students questions about a short text.",
+  "choices": [
+   "circulation",
+   "equilibrium",
+   "dominance",
+   "comprehension"
+  ],
+  "answer": "comprehension",
+  "explanation": "comprehension は「理解（力）」。読解力を測るテスト。",
+  "tags": "NAWL comprehension"
+ },
+ {
+  "id": "IELTS-V-037",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe discovery led to a ------- shift in how biologists understood inheritance.",
+  "choices": [
+   "paradigm",
+   "dialect",
+   "basin",
+   "residue"
+  ],
+  "answer": "paradigm",
+  "explanation": "paradigm は「パラダイム・理論的枠組み」。paradigm shift は「枠組みの転換」。",
+  "tags": "NAWL paradigm"
+ },
+ {
+  "id": "IELTS-V-038",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe teacher used the ------- of a postal system to explain how data travels across a network.",
+  "choices": [
+   "onset",
+   "analogy",
+   "protocol",
+   "incidence"
+  ],
+  "answer": "analogy",
+  "explanation": "analogy は「たとえ・類推」。郵便制度にたとえて説明した。",
+  "tags": "NAWL analogy"
+ }
+]

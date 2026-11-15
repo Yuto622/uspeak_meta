@@ -1,0 +1,648 @@
+[
+ {
+  "id": "IELTS-V-077",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe ------- of mobile phones and cameras means most people now carry a camera everywhere.",
+  "choices": [
+   "convergence",
+   "displacement",
+   "deviation",
+   "deficiency"
+  ],
+  "answer": "convergence",
+  "explanation": "convergence は「収束・融合」。携帯電話とカメラの融合。",
+  "tags": "NAWL convergence"
+ },
+ {
+  "id": "IELTS-V-078",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nA single ------- in a gene can sometimes cause a serious disease.",
+  "choices": [
+   "convergence",
+   "mutation",
+   "residue",
+   "portrayal"
+  ],
+  "answer": "mutation",
+  "explanation": "mutation は「突然変異」。遺伝子の一つの変異が重い病気を起こす。",
+  "tags": "NAWL mutation"
+ },
+ {
+  "id": "IELTS-V-079",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nA ------- of iron in the diet can make people feel tired and weak.",
+  "choices": [
+   "mutation",
+   "synthesis",
+   "deficiency",
+   "paradox"
+  ],
+  "answer": "deficiency",
+  "explanation": "deficiency は「欠乏」。鉄分不足で疲れやすくなる。",
+  "tags": "NAWL deficiency"
+ },
+ {
+  "id": "IELTS-V-080",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nCritics praised the film's realistic ------- of life in a fishing village.",
+  "choices": [
+   "deficiency",
+   "synthesis",
+   "trajectory",
+   "portrayal"
+  ],
+  "answer": "portrayal",
+  "explanation": "portrayal は「描写」。漁村の生活のリアルな描写。",
+  "tags": "NAWL portrayal"
+ },
+ {
+  "id": "IELTS-V-081",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nHer essay offers a detailed ------- of current housing policy.",
+  "choices": [
+   "critique",
+   "paradox",
+   "niche",
+   "footnote"
+  ],
+  "answer": "critique",
+  "explanation": "critique は「批評・批判的論評」。住宅政策への詳細な批評。",
+  "tags": "NAWL critique"
+ },
+ {
+  "id": "IELTS-V-082",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nHealth officials warned that obesity had reached ------- levels.",
+  "choices": [
+   "fossil",
+   "epidemic",
+   "elastic",
+   "soluble"
+  ],
+  "answer": "epidemic",
+  "explanation": "epidemic は「流行病・（形）流行の」。epidemic levels で「蔓延レベル」。",
+  "tags": "NAWL epidemic"
+ },
+ {
+  "id": "IELTS-V-083",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe ------- of a small dinosaur was found in a layer of rock 150 million years old.",
+  "choices": [
+   "artifact",
+   "corpus",
+   "fossil",
+   "reservoir"
+  ],
+  "answer": "fossil",
+  "explanation": "fossil は「化石」。1億5千万年前の地層から恐竜の化石が見つかった。",
+  "tags": "NAWL fossil"
+ },
+ {
+  "id": "IELTS-V-084",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe search engine uses an ------- to decide which results to show first.",
+  "choices": [
+   "analogy",
+   "axis",
+   "artifact",
+   "algorithm"
+  ],
+  "answer": "algorithm",
+  "explanation": "algorithm は「アルゴリズム・計算手順」。表示順を決める手順。",
+  "tags": "NAWL algorithm"
+ },
+ {
+  "id": "IELTS-V-085",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe forest was so ------- that very little sunlight reached the ground.",
+  "choices": [
+   "dense",
+   "shallow",
+   "elementary",
+   "marginal"
+  ],
+  "answer": "dense",
+  "explanation": "dense は「密集した」。森が密で日光が地面に届かない。",
+  "tags": "NAWL dense"
+ },
+ {
+  "id": "IELTS-V-086",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe course assumes only an ------- knowledge of mathematics.",
+  "choices": [
+   "adverse",
+   "elementary",
+   "indirect",
+   "integral"
+  ],
+  "answer": "elementary",
+  "explanation": "elementary は「初歩の」。数学の初歩的な知識だけを前提とする。",
+  "tags": "NAWL elementary"
+ },
+ {
+  "id": "IELTS-V-087",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe drug was withdrawn after reports of serious ------- effects.",
+  "choices": [
+   "viable",
+   "linear",
+   "adverse",
+   "elementary"
+  ],
+  "answer": "adverse",
+  "explanation": "adverse は「有害な・不利な」。adverse effects で「副作用・悪影響」。",
+  "tags": "NAWL adverse"
+ },
+ {
+  "id": "IELTS-V-088",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe region is trying to develop ------- tourism that does not damage the environment.",
+  "choices": [
+   "bizarre",
+   "toxic",
+   "primitive",
+   "sustainable"
+  ],
+  "answer": "sustainable",
+  "explanation": "sustainable は「持続可能な」。環境を損なわない持続可能な観光。",
+  "tags": "NAWL sustainable"
+ },
+ {
+  "id": "IELTS-V-089",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nSmoking has ------- costs for society, such as lost working days.",
+  "choices": [
+   "indirect",
+   "shallow",
+   "competent",
+   "bizarre"
+  ],
+  "answer": "indirect",
+  "explanation": "indirect は「間接的な」。労働日の損失のような間接的コスト。",
+  "tags": "NAWL indirect"
+ },
+ {
+  "id": "IELTS-V-090",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nEmployers want staff who are ------- in using basic office software.",
+  "choices": [
+   "adverse",
+   "competent",
+   "marginal",
+   "static"
+  ],
+  "answer": "competent",
+  "explanation": "competent は「有能な・十分な能力のある」。基本ソフトを使いこなせる人材。",
+  "tags": "NAWL competent"
+ },
+ {
+  "id": "IELTS-V-091",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe new policy produced only a ------- improvement in exam results.",
+  "choices": [
+   "competent",
+   "bizarre",
+   "marginal",
+   "damp"
+  ],
+  "answer": "marginal",
+  "explanation": "marginal は「わずかな・周辺的な」。成績はわずかに改善しただけ。",
+  "tags": "NAWL marginal"
+ },
+ {
+  "id": "IELTS-V-092",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nWithout government support, the rural bus service is not financially -------.",
+  "choices": [
+   "adverse",
+   "shallow",
+   "toxic",
+   "viable"
+  ],
+  "answer": "viable",
+  "explanation": "viable は「実行可能な・存続可能な」。財政的に成り立たない。",
+  "tags": "NAWL viable"
+ },
+ {
+  "id": "IELTS-V-093",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe study found a ------- relationship between hours of practice and test scores.",
+  "choices": [
+   "linear",
+   "viable",
+   "damp",
+   "indirect"
+  ],
+  "answer": "linear",
+  "explanation": "linear は「直線的な・線形の」。練習時間と得点の直線的な関係。",
+  "tags": "NAWL linear"
+ },
+ {
+  "id": "IELTS-V-094",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe judge ruled that the evidence was ------- to the case and could not be used.",
+  "choices": [
+   "integral",
+   "irrelevant",
+   "primitive",
+   "selective"
+  ],
+  "answer": "irrelevant",
+  "explanation": "irrelevant は「無関係な」。事件と無関係な証拠。",
+  "tags": "NAWL irrelevant"
+ },
+ {
+  "id": "IELTS-V-095",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nEarly humans made ------- tools by chipping pieces off stones.",
+  "choices": [
+   "irrelevant",
+   "static",
+   "primitive",
+   "implicit"
+  ],
+  "answer": "primitive",
+  "explanation": "primitive は「原始的な」。石を割って作った原始的な道具。",
+  "tags": "NAWL primitive"
+ },
+ {
+  "id": "IELTS-V-096",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nFieldwork is an ------- part of the geography degree and cannot be skipped.",
+  "choices": [
+   "elementary",
+   "adverse",
+   "irrelevant",
+   "integral"
+  ],
+  "answer": "integral",
+  "explanation": "integral は「不可欠な」。現地調査は学位に不可欠な部分。",
+  "tags": "NAWL integral"
+ },
+ {
+  "id": "IELTS-V-097",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe university is highly ------- and accepts only a small fraction of applicants.",
+  "choices": [
+   "selective",
+   "static",
+   "damp",
+   "linear"
+  ],
+  "answer": "selective",
+  "explanation": "selective は「選抜の厳しい」。志願者のごく一部しか受け入れない。",
+  "tags": "NAWL selective"
+ },
+ {
+  "id": "IELTS-V-098",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nRelying on a single supplier could prove ------- if that supplier fails.",
+  "choices": [
+   "spontaneous",
+   "problematic",
+   "pragmatic",
+   "optimal"
+  ],
+  "answer": "problematic",
+  "explanation": "problematic は「問題のある」。一社依存は問題になりうる。",
+  "tags": "NAWL problematic"
+ },
+ {
+  "id": "IELTS-V-099",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nPopulation figures have remained ------- for ten years, neither rising nor falling.",
+  "choices": [
+   "spontaneous",
+   "shallow",
+   "static",
+   "subjective"
+  ],
+  "answer": "static",
+  "explanation": "static は「変化のない」。人口が10年間横ばい。",
+  "tags": "NAWL static"
+ },
+ {
+  "id": "IELTS-V-100",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe crowd broke into ------- applause when the singer appeared.",
+  "choices": [
+   "static",
+   "quantitative",
+   "peripheral",
+   "spontaneous"
+  ],
+  "answer": "spontaneous",
+  "explanation": "spontaneous は「自然発生的な」。歌手の登場で自然に拍手が起きた。",
+  "tags": "NAWL spontaneous"
+ },
+ {
+  "id": "IELTS-V-101",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nAlthough no one said so, there was an ------- agreement that the meeting would end by five.",
+  "choices": [
+   "implicit",
+   "explicit",
+   "arbitrary",
+   "optimal"
+  ],
+  "answer": "implicit",
+  "explanation": "implicit は「暗黙の」。誰も言わなかったが暗黙の了解があった。",
+  "tags": "NAWL implicit"
+ },
+ {
+  "id": "IELTS-V-102",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe researchers combined ------- data from surveys with detailed interviews.",
+  "choices": [
+   "finite",
+   "quantitative",
+   "innate",
+   "peripheral"
+  ],
+  "answer": "quantitative",
+  "explanation": "quantitative は「量的な・定量的な」。調査の数値データとインタビューを組み合わせた。",
+  "tags": "NAWL quantitative"
+ },
+ {
+  "id": "IELTS-V-103",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nJudging art is partly -------, as different people value different qualities.",
+  "choices": [
+   "quantitative",
+   "finite",
+   "subjective",
+   "optimal"
+  ],
+  "answer": "subjective",
+  "explanation": "subjective は「主観的な」。芸術の評価は人により異なる主観的なもの。",
+  "tags": "NAWL subjective"
+ },
+ {
+  "id": "IELTS-V-104",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe ------- people of the region have lived there for thousands of years.",
+  "choices": [
+   "peripheral",
+   "arbitrary",
+   "synthetic",
+   "indigenous"
+  ],
+  "answer": "indigenous",
+  "explanation": "indigenous は「先住の・土着の」。数千年住み続けてきた先住民。",
+  "tags": "NAWL indigenous"
+ },
+ {
+  "id": "IELTS-V-105",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nRather than waiting for a perfect solution, the council decided to be -------.",
+  "choices": [
+   "pragmatic",
+   "trivial",
+   "innate",
+   "arbitrary"
+  ],
+  "answer": "pragmatic",
+  "explanation": "pragmatic は「実用的な・現実的な」。完璧な解決策を待たず現実的に対処した。",
+  "tags": "NAWL pragmatic"
+ },
+ {
+  "id": "IELTS-V-106",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nA good essay presents a ------- argument in which each paragraph follows logically.",
+  "choices": [
+   "peripheral",
+   "coherent",
+   "trivial",
+   "finite"
+  ],
+  "answer": "coherent",
+  "explanation": "coherent は「首尾一貫した」。論理的に流れる一貫した議論。",
+  "tags": "NAWL coherent"
+ },
+ {
+  "id": "IELTS-V-107",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe issue of parking was ------- to the main debate about housing.",
+  "choices": [
+   "coherent",
+   "optimal",
+   "peripheral",
+   "innate"
+  ],
+  "answer": "peripheral",
+  "explanation": "peripheral は「周辺的な・二次的な」。駐車問題は主要議論にとって二次的。",
+  "tags": "NAWL peripheral"
+ },
+ {
+  "id": "IELTS-V-108",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe ------- temperature for growing these tomatoes is between 20 and 25 degrees.",
+  "choices": [
+   "arbitrary",
+   "trivial",
+   "peripheral",
+   "optimal"
+  ],
+  "answer": "optimal",
+  "explanation": "optimal は「最適な」。トマト栽培の最適温度。",
+  "tags": "NAWL optimal"
+ },
+ {
+  "id": "IELTS-V-109",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe argument began over a ------- matter but soon became serious.",
+  "choices": [
+   "trivial",
+   "finite",
+   "plausible",
+   "coherent"
+  ],
+  "answer": "trivial",
+  "explanation": "trivial は「ささいな」。ささいなことから口論が始まった。",
+  "tags": "NAWL trivial"
+ },
+ {
+  "id": "IELTS-V-110",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nCritics said the choice of 18 as the age limit was -------, with no scientific basis.",
+  "choices": [
+   "plausible",
+   "arbitrary",
+   "coherent",
+   "optimal"
+  ],
+  "answer": "arbitrary",
+  "explanation": "arbitrary は「恣意的な・任意の」。科学的根拠のない恣意的な年齢制限。",
+  "tags": "NAWL arbitrary"
+ },
+ {
+  "id": "IELTS-V-111",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe detective considered several explanations, but only one seemed -------.",
+  "choices": [
+   "arbitrary",
+   "inferior",
+   "plausible",
+   "trivial"
+  ],
+  "answer": "plausible",
+  "explanation": "plausible は「もっともらしい」。一つの説明だけが妥当に思えた。",
+  "tags": "NAWL plausible"
+ },
+ {
+  "id": "IELTS-V-112",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nCheaper materials are often ------- in quality and wear out more quickly.",
+  "choices": [
+   "plausible",
+   "resistant",
+   "finite",
+   "inferior"
+  ],
+  "answer": "inferior",
+  "explanation": "inferior は「劣った」。安い材料は質が劣ることが多い。",
+  "tags": "NAWL inferior"
+ },
+ {
+  "id": "IELTS-V-113",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe cliff became ------- after heavy rain, and the path was closed.",
+  "choices": [
+   "unstable",
+   "susceptible",
+   "finite",
+   "nominal"
+  ],
+  "answer": "unstable",
+  "explanation": "unstable は「不安定な」。大雨の後で崖が不安定になった。",
+  "tags": "NAWL unstable"
+ },
+ {
+  "id": "IELTS-V-114",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nFarmers are planting new varieties of wheat that are ------- to disease.",
+  "choices": [
+   "coherent",
+   "resistant",
+   "inferior",
+   "nominal"
+  ],
+  "answer": "resistant",
+  "explanation": "resistant は「抵抗力のある」。病気に強い小麦の品種。",
+  "tags": "NAWL resistant"
+ }
+]

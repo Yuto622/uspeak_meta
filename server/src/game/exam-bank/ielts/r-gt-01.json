@@ -1,0 +1,483 @@
+[
+ {
+  "id": "IELTS-RG-001-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Riverside Community Centre: Autumn Evening and Weekend Courses\n\nAll courses start in the week beginning 15 September. Places are limited, so early booking is recommended.\n\nA  Beginners' Pottery. Mondays, 7.00–9.00 p.m. (8 weeks). Learn to shape simple bowls and cups by hand and on the wheel. The fee of £96 includes all clay and glazes. Please bring an old shirt or apron, as things can get messy!\n\nB  Conversational Spanish. Tuesdays, 6.30–8.00 p.m. (10 weeks). This course is designed for learners who already know some basic Spanish and want to gain confidence in speaking. Fee: £85. The course book (£12) is not included and should be bought before the first class.\n\nC  Digital Photography. Wednesdays, 7.00–8.30 p.m. (6 weeks). Find out how to get the most from your camera, from composition to editing your images on a computer. Fee: £60. Students must bring their own digital camera; unfortunately, mobile phone cameras are not suitable for this course.\n\nD  Healthy Cooking on a Budget. Thursdays, 6.00–8.00 p.m. (5 weeks). Prepare tasty, nutritious meals for less than £3 per person. All ingredients are provided, and participants take home everything they cook. Vegetarian options are available every week. Fee: £70.\n\nE  Introduction to Bookkeeping. Saturdays, 10.00 a.m.–1.00 p.m. (4 weeks). Ideal for anyone running a small business or managing the accounts of a club. Laptops are provided for use during the sessions, and a certificate is awarded to everyone who completes the course. Fee: £110.\n\nHow to enrol: Book online or in person at reception (open 9 a.m.–8 p.m., Monday to Friday). Students aged 60 and over receive a 10% discount on all course fees. Please note that courses with fewer than six enrolments may be cancelled; in this case, fees will be refunded in full.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nThe fee for every course covers all the materials that students need.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "B（スペイン語）は「The course book (£12) is not included」。すべての 講座で 教材費込みでは ないので FALSE。",
+  "tags": "IELTS reading general-training 講座案内 TFNG"
+ },
+ {
+  "id": "IELTS-RG-001-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Riverside Community Centre: Autumn Evening and Weekend Courses\n\nAll courses start in the week beginning 15 September. Places are limited, so early booking is recommended.\n\nA  Beginners' Pottery. Mondays, 7.00–9.00 p.m. (8 weeks). Learn to shape simple bowls and cups by hand and on the wheel. The fee of £96 includes all clay and glazes. Please bring an old shirt or apron, as things can get messy!\n\nB  Conversational Spanish. Tuesdays, 6.30–8.00 p.m. (10 weeks). This course is designed for learners who already know some basic Spanish and want to gain confidence in speaking. Fee: £85. The course book (£12) is not included and should be bought before the first class.\n\nC  Digital Photography. Wednesdays, 7.00–8.30 p.m. (6 weeks). Find out how to get the most from your camera, from composition to editing your images on a computer. Fee: £60. Students must bring their own digital camera; unfortunately, mobile phone cameras are not suitable for this course.\n\nD  Healthy Cooking on a Budget. Thursdays, 6.00–8.00 p.m. (5 weeks). Prepare tasty, nutritious meals for less than £3 per person. All ingredients are provided, and participants take home everything they cook. Vegetarian options are available every week. Fee: £70.\n\nE  Introduction to Bookkeeping. Saturdays, 10.00 a.m.–1.00 p.m. (4 weeks). Ideal for anyone running a small business or managing the accounts of a club. Laptops are provided for use during the sessions, and a certificate is awarded to everyone who completes the course. Fee: £110.\n\nHow to enrol: Book online or in person at reception (open 9 a.m.–8 p.m., Monday to Friday). Students aged 60 and over receive a 10% discount on all course fees. Please note that courses with fewer than six enrolments may be cancelled; in this case, fees will be refunded in full.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nPeople aged 60 or over can pay less for courses.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "最後の 案内「Students aged 60 and over receive a 10% discount」。TRUE。",
+  "tags": "IELTS reading general-training 講座案内 TFNG"
+ },
+ {
+  "id": "IELTS-RG-001-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Riverside Community Centre: Autumn Evening and Weekend Courses\n\nAll courses start in the week beginning 15 September. Places are limited, so early booking is recommended.\n\nA  Beginners' Pottery. Mondays, 7.00–9.00 p.m. (8 weeks). Learn to shape simple bowls and cups by hand and on the wheel. The fee of £96 includes all clay and glazes. Please bring an old shirt or apron, as things can get messy!\n\nB  Conversational Spanish. Tuesdays, 6.30–8.00 p.m. (10 weeks). This course is designed for learners who already know some basic Spanish and want to gain confidence in speaking. Fee: £85. The course book (£12) is not included and should be bought before the first class.\n\nC  Digital Photography. Wednesdays, 7.00–8.30 p.m. (6 weeks). Find out how to get the most from your camera, from composition to editing your images on a computer. Fee: £60. Students must bring their own digital camera; unfortunately, mobile phone cameras are not suitable for this course.\n\nD  Healthy Cooking on a Budget. Thursdays, 6.00–8.00 p.m. (5 weeks). Prepare tasty, nutritious meals for less than £3 per person. All ingredients are provided, and participants take home everything they cook. Vegetarian options are available every week. Fee: £70.\n\nE  Introduction to Bookkeeping. Saturdays, 10.00 a.m.–1.00 p.m. (4 weeks). Ideal for anyone running a small business or managing the accounts of a club. Laptops are provided for use during the sessions, and a certificate is awarded to everyone who completes the course. Fee: £110.\n\nHow to enrol: Book online or in person at reception (open 9 a.m.–8 p.m., Monday to Friday). Students aged 60 and over receive a 10% discount on all course fees. Please note that courses with fewer than six enrolments may be cancelled; in this case, fees will be refunded in full.",
+  "question": "Look at the course descriptions A–E. Which course matches the following description?\n\nIt is not intended for people who have never studied the subject.",
+  "choices": [
+   "B",
+   "C",
+   "D",
+   "E"
+  ],
+  "answer": "B",
+  "explanation": "B「designed for learners who already know some basic Spanish」＝まったくの 初心者向けでは ない。",
+  "tags": "IELTS reading general-training 講座案内 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-001-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Riverside Community Centre: Autumn Evening and Weekend Courses\n\nAll courses start in the week beginning 15 September. Places are limited, so early booking is recommended.\n\nA  Beginners' Pottery. Mondays, 7.00–9.00 p.m. (8 weeks). Learn to shape simple bowls and cups by hand and on the wheel. The fee of £96 includes all clay and glazes. Please bring an old shirt or apron, as things can get messy!\n\nB  Conversational Spanish. Tuesdays, 6.30–8.00 p.m. (10 weeks). This course is designed for learners who already know some basic Spanish and want to gain confidence in speaking. Fee: £85. The course book (£12) is not included and should be bought before the first class.\n\nC  Digital Photography. Wednesdays, 7.00–8.30 p.m. (6 weeks). Find out how to get the most from your camera, from composition to editing your images on a computer. Fee: £60. Students must bring their own digital camera; unfortunately, mobile phone cameras are not suitable for this course.\n\nD  Healthy Cooking on a Budget. Thursdays, 6.00–8.00 p.m. (5 weeks). Prepare tasty, nutritious meals for less than £3 per person. All ingredients are provided, and participants take home everything they cook. Vegetarian options are available every week. Fee: £70.\n\nE  Introduction to Bookkeeping. Saturdays, 10.00 a.m.–1.00 p.m. (4 weeks). Ideal for anyone running a small business or managing the accounts of a club. Laptops are provided for use during the sessions, and a certificate is awarded to everyone who completes the course. Fee: £110.\n\nHow to enrol: Book online or in person at reception (open 9 a.m.–8 p.m., Monday to Friday). Students aged 60 and over receive a 10% discount on all course fees. Please note that courses with fewer than six enrolments may be cancelled; in this case, fees will be refunded in full.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nIf a course is cancelled because too few people have enrolled, fees will be ______ in full.",
+  "answer": "refunded",
+  "explanation": "最後の 案内「fees will be refunded in full」。",
+  "tags": "IELTS reading general-training 講座案内 文完成"
+ },
+ {
+  "id": "IELTS-RG-002-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Greenfield Court: Notices for Residents\n\nA  Water supply. Essential repairs to the main water pipe will take place on Tuesday 8 October. The water supply to all flats will be switched off between 9.00 a.m. and 1.00 p.m. We recommend filling a few bottles or a kettle beforehand. Please do not use washing machines or dishwashers for at least an hour after the supply is restored, as the water may be discoloured.\n\nB  Lift maintenance. The lift in Block B will be out of service from Monday 14 to Wednesday 16 October for its annual safety inspection. Residents with limited mobility who need help with shopping or deliveries during this period should contact the building manager, who will arrange assistance.\n\nC  Bicycle storage. From 1 November, bicycles may no longer be kept in the entrance hall. A new secure bicycle store has been built in the basement car park. Residents can collect a key card for the store from the management office; a refundable deposit of £10 is required.\n\nD  Parcel room. The parcel room is now open from 7.00 a.m. to 10.00 p.m. every day. Parcels will be kept for a maximum of 14 days, after which they will be returned to the sender. Please bring photo ID when collecting a parcel.\n\nE  Recycling. Following a change in the council's policy, glass bottles and jars must now be placed in the green containers next to the car park entrance, not in the general recycling bins. Paper, cardboard and plastic can still be put in the blue bins as before.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nResidents will have no water for the whole of Tuesday 8 October.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "A「switched off between 9.00 a.m. and 1.00 p.m.」。一日中では ないので FALSE。",
+  "tags": "IELTS reading general-training お知らせ 住宅 TFNG"
+ },
+ {
+  "id": "IELTS-RG-002-2",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Greenfield Court: Notices for Residents\n\nA  Water supply. Essential repairs to the main water pipe will take place on Tuesday 8 October. The water supply to all flats will be switched off between 9.00 a.m. and 1.00 p.m. We recommend filling a few bottles or a kettle beforehand. Please do not use washing machines or dishwashers for at least an hour after the supply is restored, as the water may be discoloured.\n\nB  Lift maintenance. The lift in Block B will be out of service from Monday 14 to Wednesday 16 October for its annual safety inspection. Residents with limited mobility who need help with shopping or deliveries during this period should contact the building manager, who will arrange assistance.\n\nC  Bicycle storage. From 1 November, bicycles may no longer be kept in the entrance hall. A new secure bicycle store has been built in the basement car park. Residents can collect a key card for the store from the management office; a refundable deposit of £10 is required.\n\nD  Parcel room. The parcel room is now open from 7.00 a.m. to 10.00 p.m. every day. Parcels will be kept for a maximum of 14 days, after which they will be returned to the sender. Please bring photo ID when collecting a parcel.\n\nE  Recycling. Following a change in the council's policy, glass bottles and jars must now be placed in the green containers next to the car park entrance, not in the general recycling bins. Paper, cardboard and plastic can still be put in the blue bins as before.",
+  "question": "Look at the notices A–E. Which notice contains the following information?\n\nan offer of help for some residents",
+  "choices": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "explanation": "B「Residents with limited mobility who need help ... should contact the building manager, who will arrange assistance」。",
+  "tags": "IELTS reading general-training お知らせ 住宅 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-002-3",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Greenfield Court: Notices for Residents\n\nA  Water supply. Essential repairs to the main water pipe will take place on Tuesday 8 October. The water supply to all flats will be switched off between 9.00 a.m. and 1.00 p.m. We recommend filling a few bottles or a kettle beforehand. Please do not use washing machines or dishwashers for at least an hour after the supply is restored, as the water may be discoloured.\n\nB  Lift maintenance. The lift in Block B will be out of service from Monday 14 to Wednesday 16 October for its annual safety inspection. Residents with limited mobility who need help with shopping or deliveries during this period should contact the building manager, who will arrange assistance.\n\nC  Bicycle storage. From 1 November, bicycles may no longer be kept in the entrance hall. A new secure bicycle store has been built in the basement car park. Residents can collect a key card for the store from the management office; a refundable deposit of £10 is required.\n\nD  Parcel room. The parcel room is now open from 7.00 a.m. to 10.00 p.m. every day. Parcels will be kept for a maximum of 14 days, after which they will be returned to the sender. Please bring photo ID when collecting a parcel.\n\nE  Recycling. Following a change in the council's policy, glass bottles and jars must now be placed in the green containers next to the car park entrance, not in the general recycling bins. Paper, cardboard and plastic can still be put in the blue bins as before.",
+  "question": "Choose the correct answer.\n\nWhat has changed about recycling?",
+  "choices": [
+   "Plastic can no longer be recycled in the building.",
+   "The blue bins have been moved to the car park entrance.",
+   "Glass now has to go in separate containers.",
+   "Paper and cardboard must be taken to the council offices."
+  ],
+  "answer": "Glass now has to go in separate containers.",
+  "explanation": "E：びん類は 緑の コンテナへ。紙・段ボール・プラスチックは これまでどおり 青い ごみ箱。",
+  "tags": "IELTS reading general-training お知らせ 住宅 多肢選択"
+ },
+ {
+  "id": "IELTS-RG-002-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Greenfield Court: Notices for Residents\n\nA  Water supply. Essential repairs to the main water pipe will take place on Tuesday 8 October. The water supply to all flats will be switched off between 9.00 a.m. and 1.00 p.m. We recommend filling a few bottles or a kettle beforehand. Please do not use washing machines or dishwashers for at least an hour after the supply is restored, as the water may be discoloured.\n\nB  Lift maintenance. The lift in Block B will be out of service from Monday 14 to Wednesday 16 October for its annual safety inspection. Residents with limited mobility who need help with shopping or deliveries during this period should contact the building manager, who will arrange assistance.\n\nC  Bicycle storage. From 1 November, bicycles may no longer be kept in the entrance hall. A new secure bicycle store has been built in the basement car park. Residents can collect a key card for the store from the management office; a refundable deposit of £10 is required.\n\nD  Parcel room. The parcel room is now open from 7.00 a.m. to 10.00 p.m. every day. Parcels will be kept for a maximum of 14 days, after which they will be returned to the sender. Please bring photo ID when collecting a parcel.\n\nE  Recycling. Following a change in the council's policy, glass bottles and jars must now be placed in the green containers next to the car park entrance, not in the general recycling bins. Paper, cardboard and plastic can still be put in the blue bins as before.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nTo get a key card for the bicycle store, residents must pay a ______ deposit of £10.",
+  "answer": "refundable",
+  "explanation": "C「a refundable deposit of £10 is required」。",
+  "tags": "IELTS reading general-training お知らせ 住宅 文完成"
+ },
+ {
+  "id": "IELTS-RG-003-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Job Vacancy: Customer Service Adviser, Bayline Ferries\n\nLocation: Port office, Northgate Harbour | Contract: Permanent, full-time | Salary: £24,500 per year\n\nA  About us. Bayline Ferries has operated passenger and vehicle services between the mainland and the northern islands for over forty years. We carry around 600,000 passengers a year and pride ourselves on friendly, reliable service.\n\nB  The role. As a Customer Service Adviser, you will handle bookings and enquiries by phone, email and online chat, help passengers whose journeys are affected by bad weather, and deal with complaints in a calm and professional way. The role involves working on a rota that includes early mornings, evenings and some weekends. Staff work an average of 37.5 hours per week.\n\nC  About you. Experience in a customer-facing role is essential. Knowledge of the travel industry would be an advantage but is not required, as full training will be given. You should be comfortable using computer systems and able to stay calm under pressure. The ability to speak a second language is desirable.\n\nD  What we offer. In addition to a competitive salary, we offer 28 days' annual leave, a company pension scheme and free travel on all Bayline routes for staff. A shift allowance is paid for any work after 8 p.m.\n\nE  How to apply. Please send your CV with a covering letter of no more than one page, explaining why you are suited to the role, to the recruitment team at the address on our website. The closing date is 30 June. Interviews will be held in the week beginning 10 July.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nApplicants must have worked in the travel industry before.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "C「Knowledge of the travel industry would be an advantage but is not required」。必須では ないので FALSE。",
+  "tags": "IELTS reading general-training 求人広告 TFNG"
+ },
+ {
+  "id": "IELTS-RG-003-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Job Vacancy: Customer Service Adviser, Bayline Ferries\n\nLocation: Port office, Northgate Harbour | Contract: Permanent, full-time | Salary: £24,500 per year\n\nA  About us. Bayline Ferries has operated passenger and vehicle services between the mainland and the northern islands for over forty years. We carry around 600,000 passengers a year and pride ourselves on friendly, reliable service.\n\nB  The role. As a Customer Service Adviser, you will handle bookings and enquiries by phone, email and online chat, help passengers whose journeys are affected by bad weather, and deal with complaints in a calm and professional way. The role involves working on a rota that includes early mornings, evenings and some weekends. Staff work an average of 37.5 hours per week.\n\nC  About you. Experience in a customer-facing role is essential. Knowledge of the travel industry would be an advantage but is not required, as full training will be given. You should be comfortable using computer systems and able to stay calm under pressure. The ability to speak a second language is desirable.\n\nD  What we offer. In addition to a competitive salary, we offer 28 days' annual leave, a company pension scheme and free travel on all Bayline routes for staff. A shift allowance is paid for any work after 8 p.m.\n\nE  How to apply. Please send your CV with a covering letter of no more than one page, explaining why you are suited to the role, to the recruitment team at the address on our website. The closing date is 30 June. Interviews will be held in the week beginning 10 July.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nStaff members' families can travel on Bayline ferries free of charge.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "D は「free travel on all Bayline routes for staff」と 社員本人に ついてだけ。家族に ついては 書かれていない。NOT GIVEN。",
+  "tags": "IELTS reading general-training 求人広告 TFNG"
+ },
+ {
+  "id": "IELTS-RG-003-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Job Vacancy: Customer Service Adviser, Bayline Ferries\n\nLocation: Port office, Northgate Harbour | Contract: Permanent, full-time | Salary: £24,500 per year\n\nA  About us. Bayline Ferries has operated passenger and vehicle services between the mainland and the northern islands for over forty years. We carry around 600,000 passengers a year and pride ourselves on friendly, reliable service.\n\nB  The role. As a Customer Service Adviser, you will handle bookings and enquiries by phone, email and online chat, help passengers whose journeys are affected by bad weather, and deal with complaints in a calm and professional way. The role involves working on a rota that includes early mornings, evenings and some weekends. Staff work an average of 37.5 hours per week.\n\nC  About you. Experience in a customer-facing role is essential. Knowledge of the travel industry would be an advantage but is not required, as full training will be given. You should be comfortable using computer systems and able to stay calm under pressure. The ability to speak a second language is desirable.\n\nD  What we offer. In addition to a competitive salary, we offer 28 days' annual leave, a company pension scheme and free travel on all Bayline routes for staff. A shift allowance is paid for any work after 8 p.m.\n\nE  How to apply. Please send your CV with a covering letter of no more than one page, explaining why you are suited to the role, to the recruitment team at the address on our website. The closing date is 30 June. Interviews will be held in the week beginning 10 July.",
+  "question": "Look at sections A–E of the advertisement. Which section contains the following information?\n\nextra pay for working late",
+  "choices": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "explanation": "D「A shift allowance is paid for any work after 8 p.m.」。",
+  "tags": "IELTS reading general-training 求人広告 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-003-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Job Vacancy: Customer Service Adviser, Bayline Ferries\n\nLocation: Port office, Northgate Harbour | Contract: Permanent, full-time | Salary: £24,500 per year\n\nA  About us. Bayline Ferries has operated passenger and vehicle services between the mainland and the northern islands for over forty years. We carry around 600,000 passengers a year and pride ourselves on friendly, reliable service.\n\nB  The role. As a Customer Service Adviser, you will handle bookings and enquiries by phone, email and online chat, help passengers whose journeys are affected by bad weather, and deal with complaints in a calm and professional way. The role involves working on a rota that includes early mornings, evenings and some weekends. Staff work an average of 37.5 hours per week.\n\nC  About you. Experience in a customer-facing role is essential. Knowledge of the travel industry would be an advantage but is not required, as full training will be given. You should be comfortable using computer systems and able to stay calm under pressure. The ability to speak a second language is desirable.\n\nD  What we offer. In addition to a competitive salary, we offer 28 days' annual leave, a company pension scheme and free travel on all Bayline routes for staff. A shift allowance is paid for any work after 8 p.m.\n\nE  How to apply. Please send your CV with a covering letter of no more than one page, explaining why you are suited to the role, to the recruitment team at the address on our website. The closing date is 30 June. Interviews will be held in the week beginning 10 July.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nThe covering letter should be no longer than one ______.",
+  "answer": "page",
+  "explanation": "E「a covering letter of no more than one page」。",
+  "tags": "IELTS reading general-training 求人広告 文完成"
+ },
+ {
+  "id": "IELTS-RG-004-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Fixing Things Together: The Repair Café Movement\n\nA  In many households, a broken toaster, a lamp with a faulty switch or a jacket with a damaged zip ends up in the bin, even though the problem might take only a few minutes to fix. Replacing items has become so cheap and convenient that repair skills which were once common have gradually disappeared. Over the past fifteen years, however, a growing movement has set out to reverse this trend, one kettle at a time.\n\nB  The first Repair Café was organised in Amsterdam in 2009 by Martine Postma, a former journalist concerned about the amount of waste produced by modern households. The idea was simple: people would bring broken items to a local venue, where volunteers with practical skills would help them to repair them, free of charge. The event proved so popular that a foundation was set up to support others wishing to start their own, and there are now thousands of Repair Cafés around the world, from small villages to large cities.\n\nC  A typical Repair Café takes place once a month in a community hall, library or church. Visitors register on arrival and describe the fault, and are then directed to a volunteer with the relevant skills, such as electrical repairs, sewing or bicycle maintenance. Crucially, visitors are expected to stay and take part in the repair rather than simply leaving the item and collecting it later. Organisers say this is central to the purpose of the events: the aim is not only to fix objects but to give people the confidence to tackle simple repairs themselves.\n\nD  Not every repair succeeds. Some items cannot be opened without breaking them, and spare parts for certain products are unavailable or too expensive. Volunteers often report that modern electronic devices are harder to fix than older ones, partly because components are glued together rather than screwed. When a repair is impossible, volunteers can at least explain why, and visitors frequently say that understanding the problem makes them think more carefully before buying a replacement.\n\nE  The movement has also had an influence beyond the events themselves. Information collected by volunteers about which products fail and why has been shared with researchers and policymakers. In recent years, a number of governments, as well as the European Union, have introduced 'right to repair' rules requiring manufacturers to make spare parts and repair information available for certain types of products, such as washing machines and refrigerators, for a number of years after sale. Campaigners argue that these rules should be extended to a much wider range of goods.\n\nF  For many volunteers, the social side of Repair Cafés is as important as the practical one. Retired engineers, tailors and electricians find a use for skills that might otherwise be forgotten, while younger visitors learn from them. Many events also offer tea and cake, and conversations often continue long after the repair is finished. As one organiser puts it, 'People come with a broken radio, but they leave having met their neighbours.'",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nMartine Postma had previously worked as a journalist.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "B段落「Martine Postma, a former journalist」。TRUE。",
+  "tags": "IELTS reading general-training 特集記事 リペアカフェ TFNG"
+ },
+ {
+  "id": "IELTS-RG-004-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Fixing Things Together: The Repair Café Movement\n\nA  In many households, a broken toaster, a lamp with a faulty switch or a jacket with a damaged zip ends up in the bin, even though the problem might take only a few minutes to fix. Replacing items has become so cheap and convenient that repair skills which were once common have gradually disappeared. Over the past fifteen years, however, a growing movement has set out to reverse this trend, one kettle at a time.\n\nB  The first Repair Café was organised in Amsterdam in 2009 by Martine Postma, a former journalist concerned about the amount of waste produced by modern households. The idea was simple: people would bring broken items to a local venue, where volunteers with practical skills would help them to repair them, free of charge. The event proved so popular that a foundation was set up to support others wishing to start their own, and there are now thousands of Repair Cafés around the world, from small villages to large cities.\n\nC  A typical Repair Café takes place once a month in a community hall, library or church. Visitors register on arrival and describe the fault, and are then directed to a volunteer with the relevant skills, such as electrical repairs, sewing or bicycle maintenance. Crucially, visitors are expected to stay and take part in the repair rather than simply leaving the item and collecting it later. Organisers say this is central to the purpose of the events: the aim is not only to fix objects but to give people the confidence to tackle simple repairs themselves.\n\nD  Not every repair succeeds. Some items cannot be opened without breaking them, and spare parts for certain products are unavailable or too expensive. Volunteers often report that modern electronic devices are harder to fix than older ones, partly because components are glued together rather than screwed. When a repair is impossible, volunteers can at least explain why, and visitors frequently say that understanding the problem makes them think more carefully before buying a replacement.\n\nE  The movement has also had an influence beyond the events themselves. Information collected by volunteers about which products fail and why has been shared with researchers and policymakers. In recent years, a number of governments, as well as the European Union, have introduced 'right to repair' rules requiring manufacturers to make spare parts and repair information available for certain types of products, such as washing machines and refrigerators, for a number of years after sale. Campaigners argue that these rules should be extended to a much wider range of goods.\n\nF  For many volunteers, the social side of Repair Cafés is as important as the practical one. Retired engineers, tailors and electricians find a use for skills that might otherwise be forgotten, while younger visitors learn from them. Many events also offer tea and cake, and conversations often continue long after the repair is finished. As one organiser puts it, 'People come with a broken radio, but they leave having met their neighbours.'",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nMost Repair Cafés are held in large cities.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "B段落は「from small villages to large cities」と 範囲を 示すだけで、どこが 多いかは 書かれていない。NOT GIVEN。",
+  "tags": "IELTS reading general-training 特集記事 リペアカフェ TFNG"
+ },
+ {
+  "id": "IELTS-RG-004-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Fixing Things Together: The Repair Café Movement\n\nA  In many households, a broken toaster, a lamp with a faulty switch or a jacket with a damaged zip ends up in the bin, even though the problem might take only a few minutes to fix. Replacing items has become so cheap and convenient that repair skills which were once common have gradually disappeared. Over the past fifteen years, however, a growing movement has set out to reverse this trend, one kettle at a time.\n\nB  The first Repair Café was organised in Amsterdam in 2009 by Martine Postma, a former journalist concerned about the amount of waste produced by modern households. The idea was simple: people would bring broken items to a local venue, where volunteers with practical skills would help them to repair them, free of charge. The event proved so popular that a foundation was set up to support others wishing to start their own, and there are now thousands of Repair Cafés around the world, from small villages to large cities.\n\nC  A typical Repair Café takes place once a month in a community hall, library or church. Visitors register on arrival and describe the fault, and are then directed to a volunteer with the relevant skills, such as electrical repairs, sewing or bicycle maintenance. Crucially, visitors are expected to stay and take part in the repair rather than simply leaving the item and collecting it later. Organisers say this is central to the purpose of the events: the aim is not only to fix objects but to give people the confidence to tackle simple repairs themselves.\n\nD  Not every repair succeeds. Some items cannot be opened without breaking them, and spare parts for certain products are unavailable or too expensive. Volunteers often report that modern electronic devices are harder to fix than older ones, partly because components are glued together rather than screwed. When a repair is impossible, volunteers can at least explain why, and visitors frequently say that understanding the problem makes them think more carefully before buying a replacement.\n\nE  The movement has also had an influence beyond the events themselves. Information collected by volunteers about which products fail and why has been shared with researchers and policymakers. In recent years, a number of governments, as well as the European Union, have introduced 'right to repair' rules requiring manufacturers to make spare parts and repair information available for certain types of products, such as washing machines and refrigerators, for a number of years after sale. Campaigners argue that these rules should be extended to a much wider range of goods.\n\nF  For many volunteers, the social side of Repair Cafés is as important as the practical one. Retired engineers, tailors and electricians find a use for skills that might otherwise be forgotten, while younger visitors learn from them. Many events also offer tea and cake, and conversations often continue long after the repair is finished. As one organiser puts it, 'People come with a broken radio, but they leave having met their neighbours.'",
+  "question": "Paragraph D: choose the most suitable heading.",
+  "choices": [
+   "When things cannot be fixed",
+   "Sharing information with decision-makers",
+   "How a typical event is organised",
+   "Building friendships across generations"
+  ],
+  "answer": "When things cannot be fixed",
+  "explanation": "D段落は 修理が うまく いかない 場合（開けられない・部品が ない・接着されている）を 述べる。",
+  "tags": "IELTS reading general-training 特集記事 リペアカフェ 見出し"
+ },
+ {
+  "id": "IELTS-RG-004-4",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Fixing Things Together: The Repair Café Movement\n\nA  In many households, a broken toaster, a lamp with a faulty switch or a jacket with a damaged zip ends up in the bin, even though the problem might take only a few minutes to fix. Replacing items has become so cheap and convenient that repair skills which were once common have gradually disappeared. Over the past fifteen years, however, a growing movement has set out to reverse this trend, one kettle at a time.\n\nB  The first Repair Café was organised in Amsterdam in 2009 by Martine Postma, a former journalist concerned about the amount of waste produced by modern households. The idea was simple: people would bring broken items to a local venue, where volunteers with practical skills would help them to repair them, free of charge. The event proved so popular that a foundation was set up to support others wishing to start their own, and there are now thousands of Repair Cafés around the world, from small villages to large cities.\n\nC  A typical Repair Café takes place once a month in a community hall, library or church. Visitors register on arrival and describe the fault, and are then directed to a volunteer with the relevant skills, such as electrical repairs, sewing or bicycle maintenance. Crucially, visitors are expected to stay and take part in the repair rather than simply leaving the item and collecting it later. Organisers say this is central to the purpose of the events: the aim is not only to fix objects but to give people the confidence to tackle simple repairs themselves.\n\nD  Not every repair succeeds. Some items cannot be opened without breaking them, and spare parts for certain products are unavailable or too expensive. Volunteers often report that modern electronic devices are harder to fix than older ones, partly because components are glued together rather than screwed. When a repair is impossible, volunteers can at least explain why, and visitors frequently say that understanding the problem makes them think more carefully before buying a replacement.\n\nE  The movement has also had an influence beyond the events themselves. Information collected by volunteers about which products fail and why has been shared with researchers and policymakers. In recent years, a number of governments, as well as the European Union, have introduced 'right to repair' rules requiring manufacturers to make spare parts and repair information available for certain types of products, such as washing machines and refrigerators, for a number of years after sale. Campaigners argue that these rules should be extended to a much wider range of goods.\n\nF  For many volunteers, the social side of Repair Cafés is as important as the practical one. Retired engineers, tailors and electricians find a use for skills that might otherwise be forgotten, while younger visitors learn from them. Many events also offer tea and cake, and conversations often continue long after the repair is finished. As one organiser puts it, 'People come with a broken radio, but they leave having met their neighbours.'",
+  "question": "Choose the correct answer.\n\nAccording to paragraph D, why are modern electronic devices often hard to repair?",
+  "choices": [
+   "Volunteers have not been trained to repair them.",
+   "Their parts are often glued rather than screwed together.",
+   "Manufacturers refuse to sell spare parts to cafés.",
+   "They contain dangerous chemicals."
+  ],
+  "answer": "Their parts are often glued rather than screwed together.",
+  "explanation": "D段落「components are glued together rather than screwed」。",
+  "tags": "IELTS reading general-training 特集記事 リペアカフェ 多肢選択"
+ },
+ {
+  "id": "IELTS-RG-004-5",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Fixing Things Together: The Repair Café Movement\n\nA  In many households, a broken toaster, a lamp with a faulty switch or a jacket with a damaged zip ends up in the bin, even though the problem might take only a few minutes to fix. Replacing items has become so cheap and convenient that repair skills which were once common have gradually disappeared. Over the past fifteen years, however, a growing movement has set out to reverse this trend, one kettle at a time.\n\nB  The first Repair Café was organised in Amsterdam in 2009 by Martine Postma, a former journalist concerned about the amount of waste produced by modern households. The idea was simple: people would bring broken items to a local venue, where volunteers with practical skills would help them to repair them, free of charge. The event proved so popular that a foundation was set up to support others wishing to start their own, and there are now thousands of Repair Cafés around the world, from small villages to large cities.\n\nC  A typical Repair Café takes place once a month in a community hall, library or church. Visitors register on arrival and describe the fault, and are then directed to a volunteer with the relevant skills, such as electrical repairs, sewing or bicycle maintenance. Crucially, visitors are expected to stay and take part in the repair rather than simply leaving the item and collecting it later. Organisers say this is central to the purpose of the events: the aim is not only to fix objects but to give people the confidence to tackle simple repairs themselves.\n\nD  Not every repair succeeds. Some items cannot be opened without breaking them, and spare parts for certain products are unavailable or too expensive. Volunteers often report that modern electronic devices are harder to fix than older ones, partly because components are glued together rather than screwed. When a repair is impossible, volunteers can at least explain why, and visitors frequently say that understanding the problem makes them think more carefully before buying a replacement.\n\nE  The movement has also had an influence beyond the events themselves. Information collected by volunteers about which products fail and why has been shared with researchers and policymakers. In recent years, a number of governments, as well as the European Union, have introduced 'right to repair' rules requiring manufacturers to make spare parts and repair information available for certain types of products, such as washing machines and refrigerators, for a number of years after sale. Campaigners argue that these rules should be extended to a much wider range of goods.\n\nF  For many volunteers, the social side of Repair Cafés is as important as the practical one. Retired engineers, tailors and electricians find a use for skills that might otherwise be forgotten, while younger visitors learn from them. Many events also offer tea and cake, and conversations often continue long after the repair is finished. As one organiser puts it, 'People come with a broken radio, but they leave having met their neighbours.'",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nVolunteers may have skills such as electrical repairs, sewing or bicycle ______.",
+  "answer": "maintenance",
+  "explanation": "C段落「such as electrical repairs, sewing or bicycle maintenance」。",
+  "tags": "IELTS reading general-training 特集記事 リペアカフェ 文完成"
+ },
+ {
+  "id": "IELTS-RG-004-6",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Fixing Things Together: The Repair Café Movement\n\nA  In many households, a broken toaster, a lamp with a faulty switch or a jacket with a damaged zip ends up in the bin, even though the problem might take only a few minutes to fix. Replacing items has become so cheap and convenient that repair skills which were once common have gradually disappeared. Over the past fifteen years, however, a growing movement has set out to reverse this trend, one kettle at a time.\n\nB  The first Repair Café was organised in Amsterdam in 2009 by Martine Postma, a former journalist concerned about the amount of waste produced by modern households. The idea was simple: people would bring broken items to a local venue, where volunteers with practical skills would help them to repair them, free of charge. The event proved so popular that a foundation was set up to support others wishing to start their own, and there are now thousands of Repair Cafés around the world, from small villages to large cities.\n\nC  A typical Repair Café takes place once a month in a community hall, library or church. Visitors register on arrival and describe the fault, and are then directed to a volunteer with the relevant skills, such as electrical repairs, sewing or bicycle maintenance. Crucially, visitors are expected to stay and take part in the repair rather than simply leaving the item and collecting it later. Organisers say this is central to the purpose of the events: the aim is not only to fix objects but to give people the confidence to tackle simple repairs themselves.\n\nD  Not every repair succeeds. Some items cannot be opened without breaking them, and spare parts for certain products are unavailable or too expensive. Volunteers often report that modern electronic devices are harder to fix than older ones, partly because components are glued together rather than screwed. When a repair is impossible, volunteers can at least explain why, and visitors frequently say that understanding the problem makes them think more carefully before buying a replacement.\n\nE  The movement has also had an influence beyond the events themselves. Information collected by volunteers about which products fail and why has been shared with researchers and policymakers. In recent years, a number of governments, as well as the European Union, have introduced 'right to repair' rules requiring manufacturers to make spare parts and repair information available for certain types of products, such as washing machines and refrigerators, for a number of years after sale. Campaigners argue that these rules should be extended to a much wider range of goods.\n\nF  For many volunteers, the social side of Repair Cafés is as important as the practical one. Retired engineers, tailors and electricians find a use for skills that might otherwise be forgotten, while younger visitors learn from them. Many events also offer tea and cake, and conversations often continue long after the repair is finished. As one organiser puts it, 'People come with a broken radio, but they leave having met their neighbours.'",
+  "question": "Complete the summary below. Choose ONE WORD ONLY from the passage for the answer.\n\n'Right to repair' rules require manufacturers to make spare parts and repair ______ available for some products.",
+  "answer": "information",
+  "explanation": "E段落「make spare parts and repair information available」。",
+  "tags": "IELTS reading general-training 特集記事 リペアカフェ 要約完成"
+ },
+ {
+  "id": "IELTS-RG-005-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Fairview Leisure Centre: Swimming Pool Timetable (from 1 March)\n\nA  Lane swimming. Monday to Friday, 6.30–9.00 a.m. and 12.00–2.00 p.m. The pool is divided into slow, medium and fast lanes. Please choose the lane that suits your speed and swim in a clockwise direction.\n\nB  Family fun session. Saturdays and Sundays, 1.00–4.00 p.m. Inflatables and floating toys are available. Children under 8 must be accompanied by an adult in the water at all times, and one adult may supervise no more than two children under 8.\n\nC  Aqua fitness. Tuesdays and Thursdays, 7.00–8.00 p.m. A low-impact workout set to music, suitable for all fitness levels. Places must be booked in advance online or at reception, as numbers are limited to 25.\n\nD  Children's swimming lessons. Weekdays, 4.00–6.00 p.m. Lessons for ages 5 to 12 are grouped by ability rather than age. New pupils will be given a short assessment in the water before being placed in a group. Courses run for 10 weeks and must be paid for in full at the start.\n\nE  Quiet swim. Wednesdays, 8.00–9.30 p.m. An adults-only session with soft lighting and no music, ideal for those who prefer a calmer environment. The sauna is also available during this session at no extra cost.\n\nPlease note: the pool is closed for cleaning on the first Monday of every month.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nNew pupils have their swimming ability checked before they join a group.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "D「New pupils will be given a short assessment in the water before being placed in a group」。TRUE。",
+  "tags": "IELTS reading general-training 時刻表 プール TFNG"
+ },
+ {
+  "id": "IELTS-RG-005-2",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Fairview Leisure Centre: Swimming Pool Timetable (from 1 March)\n\nA  Lane swimming. Monday to Friday, 6.30–9.00 a.m. and 12.00–2.00 p.m. The pool is divided into slow, medium and fast lanes. Please choose the lane that suits your speed and swim in a clockwise direction.\n\nB  Family fun session. Saturdays and Sundays, 1.00–4.00 p.m. Inflatables and floating toys are available. Children under 8 must be accompanied by an adult in the water at all times, and one adult may supervise no more than two children under 8.\n\nC  Aqua fitness. Tuesdays and Thursdays, 7.00–8.00 p.m. A low-impact workout set to music, suitable for all fitness levels. Places must be booked in advance online or at reception, as numbers are limited to 25.\n\nD  Children's swimming lessons. Weekdays, 4.00–6.00 p.m. Lessons for ages 5 to 12 are grouped by ability rather than age. New pupils will be given a short assessment in the water before being placed in a group. Courses run for 10 weeks and must be paid for in full at the start.\n\nE  Quiet swim. Wednesdays, 8.00–9.30 p.m. An adults-only session with soft lighting and no music, ideal for those who prefer a calmer environment. The sauna is also available during this session at no extra cost.\n\nPlease note: the pool is closed for cleaning on the first Monday of every month.",
+  "question": "Look at the sessions A–E. Which session matches the following description?\n\nIt includes the use of another facility at no additional cost.",
+  "choices": [
+   "B",
+   "C",
+   "D",
+   "E"
+  ],
+  "answer": "E",
+  "explanation": "E「The sauna is also available during this session at no extra cost」。",
+  "tags": "IELTS reading general-training 時刻表 プール 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-005-3",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Fairview Leisure Centre: Swimming Pool Timetable (from 1 March)\n\nA  Lane swimming. Monday to Friday, 6.30–9.00 a.m. and 12.00–2.00 p.m. The pool is divided into slow, medium and fast lanes. Please choose the lane that suits your speed and swim in a clockwise direction.\n\nB  Family fun session. Saturdays and Sundays, 1.00–4.00 p.m. Inflatables and floating toys are available. Children under 8 must be accompanied by an adult in the water at all times, and one adult may supervise no more than two children under 8.\n\nC  Aqua fitness. Tuesdays and Thursdays, 7.00–8.00 p.m. A low-impact workout set to music, suitable for all fitness levels. Places must be booked in advance online or at reception, as numbers are limited to 25.\n\nD  Children's swimming lessons. Weekdays, 4.00–6.00 p.m. Lessons for ages 5 to 12 are grouped by ability rather than age. New pupils will be given a short assessment in the water before being placed in a group. Courses run for 10 weeks and must be paid for in full at the start.\n\nE  Quiet swim. Wednesdays, 8.00–9.30 p.m. An adults-only session with soft lighting and no music, ideal for those who prefer a calmer environment. The sauna is also available during this session at no extra cost.\n\nPlease note: the pool is closed for cleaning on the first Monday of every month.",
+  "question": "Choose the correct answer.\n\nWhat rule applies to the family fun session?",
+  "choices": [
+   "Children must bring their own floating toys.",
+   "Children under 8 must stay out of the deep end.",
+   "Families must book their places in advance.",
+   "One adult may supervise two under-8s at most."
+  ],
+  "answer": "One adult may supervise two under-8s at most.",
+  "explanation": "B「one adult may supervise no more than two children under 8」。事前予約が 必要なのは C（Aqua fitness）。",
+  "tags": "IELTS reading general-training 時刻表 プール 多肢選択"
+ },
+ {
+  "id": "IELTS-RG-005-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Fairview Leisure Centre: Swimming Pool Timetable (from 1 March)\n\nA  Lane swimming. Monday to Friday, 6.30–9.00 a.m. and 12.00–2.00 p.m. The pool is divided into slow, medium and fast lanes. Please choose the lane that suits your speed and swim in a clockwise direction.\n\nB  Family fun session. Saturdays and Sundays, 1.00–4.00 p.m. Inflatables and floating toys are available. Children under 8 must be accompanied by an adult in the water at all times, and one adult may supervise no more than two children under 8.\n\nC  Aqua fitness. Tuesdays and Thursdays, 7.00–8.00 p.m. A low-impact workout set to music, suitable for all fitness levels. Places must be booked in advance online or at reception, as numbers are limited to 25.\n\nD  Children's swimming lessons. Weekdays, 4.00–6.00 p.m. Lessons for ages 5 to 12 are grouped by ability rather than age. New pupils will be given a short assessment in the water before being placed in a group. Courses run for 10 weeks and must be paid for in full at the start.\n\nE  Quiet swim. Wednesdays, 8.00–9.30 p.m. An adults-only session with soft lighting and no music, ideal for those who prefer a calmer environment. The sauna is also available during this session at no extra cost.\n\nPlease note: the pool is closed for cleaning on the first Monday of every month.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY AND/OR A NUMBER from the passage for the answer.\n\nAqua fitness classes are limited to ______ people.",
+  "answer": "25",
+  "explanation": "C「numbers are limited to 25」。",
+  "tags": "IELTS reading general-training 時刻表 プール 文完成"
+ },
+ {
+  "id": "IELTS-RG-006-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Kestrel Logistics: Hybrid Working Policy\n\nA  Purpose and scope. This policy explains how employees may combine working from home with working in the office. It applies to all office-based staff who have completed their probationary period. It does not apply to warehouse, driving or reception staff, whose roles require them to be on site.\n\nB  Making a request. Employees who wish to work from home for part of the week should first discuss this with their line manager and then complete the online request form. Managers will normally respond within ten working days. Requests may be refused if the needs of the team or the business cannot be met.\n\nC  Attendance. Hybrid workers are expected to spend a minimum of two days per week in the office. Each team will agree on at least one 'anchor' day when all members attend, to support collaboration and training.\n\nD  Equipment and costs. The company will provide a laptop, a headset and, on request, a monitor. Employees are responsible for ensuring that they have a suitable internet connection and a safe place to work. The company does not contribute to household bills such as heating or electricity.\n\nE  Review. Hybrid arrangements will be reviewed after six months, and at any time if there are concerns about performance. Either the employee or the manager may ask for the arrangement to end, giving four weeks' notice.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nWarehouse staff are not covered by this policy.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "A「It does not apply to warehouse, driving or reception staff」。TRUE。",
+  "tags": "IELTS reading general-training 職場 規定 TFNG"
+ },
+ {
+  "id": "IELTS-RG-006-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Kestrel Logistics: Hybrid Working Policy\n\nA  Purpose and scope. This policy explains how employees may combine working from home with working in the office. It applies to all office-based staff who have completed their probationary period. It does not apply to warehouse, driving or reception staff, whose roles require them to be on site.\n\nB  Making a request. Employees who wish to work from home for part of the week should first discuss this with their line manager and then complete the online request form. Managers will normally respond within ten working days. Requests may be refused if the needs of the team or the business cannot be met.\n\nC  Attendance. Hybrid workers are expected to spend a minimum of two days per week in the office. Each team will agree on at least one 'anchor' day when all members attend, to support collaboration and training.\n\nD  Equipment and costs. The company will provide a laptop, a headset and, on request, a monitor. Employees are responsible for ensuring that they have a suitable internet connection and a safe place to work. The company does not contribute to household bills such as heating or electricity.\n\nE  Review. Hybrid arrangements will be reviewed after six months, and at any time if there are concerns about performance. Either the employee or the manager may ask for the arrangement to end, giving four weeks' notice.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nMost employees who apply for hybrid working have their requests accepted.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "B は 申請の 手順と 断られる 場合を 述べるが、承認される 割合は 書かれていない。NOT GIVEN。",
+  "tags": "IELTS reading general-training 職場 規定 TFNG"
+ },
+ {
+  "id": "IELTS-RG-006-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Kestrel Logistics: Hybrid Working Policy\n\nA  Purpose and scope. This policy explains how employees may combine working from home with working in the office. It applies to all office-based staff who have completed their probationary period. It does not apply to warehouse, driving or reception staff, whose roles require them to be on site.\n\nB  Making a request. Employees who wish to work from home for part of the week should first discuss this with their line manager and then complete the online request form. Managers will normally respond within ten working days. Requests may be refused if the needs of the team or the business cannot be met.\n\nC  Attendance. Hybrid workers are expected to spend a minimum of two days per week in the office. Each team will agree on at least one 'anchor' day when all members attend, to support collaboration and training.\n\nD  Equipment and costs. The company will provide a laptop, a headset and, on request, a monitor. Employees are responsible for ensuring that they have a suitable internet connection and a safe place to work. The company does not contribute to household bills such as heating or electricity.\n\nE  Review. Hybrid arrangements will be reviewed after six months, and at any time if there are concerns about performance. Either the employee or the manager may ask for the arrangement to end, giving four weeks' notice.",
+  "question": "Look at sections A–E of the policy. Which section contains the following information?\n\ncosts that the company will not pay",
+  "choices": [
+   "B",
+   "C",
+   "D",
+   "E"
+  ],
+  "answer": "D",
+  "explanation": "D「The company does not contribute to household bills such as heating or electricity」。",
+  "tags": "IELTS reading general-training 職場 規定 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-006-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Kestrel Logistics: Hybrid Working Policy\n\nA  Purpose and scope. This policy explains how employees may combine working from home with working in the office. It applies to all office-based staff who have completed their probationary period. It does not apply to warehouse, driving or reception staff, whose roles require them to be on site.\n\nB  Making a request. Employees who wish to work from home for part of the week should first discuss this with their line manager and then complete the online request form. Managers will normally respond within ten working days. Requests may be refused if the needs of the team or the business cannot be met.\n\nC  Attendance. Hybrid workers are expected to spend a minimum of two days per week in the office. Each team will agree on at least one 'anchor' day when all members attend, to support collaboration and training.\n\nD  Equipment and costs. The company will provide a laptop, a headset and, on request, a monitor. Employees are responsible for ensuring that they have a suitable internet connection and a safe place to work. The company does not contribute to household bills such as heating or electricity.\n\nE  Review. Hybrid arrangements will be reviewed after six months, and at any time if there are concerns about performance. Either the employee or the manager may ask for the arrangement to end, giving four weeks' notice.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nEach team will agree on at least one ______ day when everyone comes to the office.",
+  "answer": "anchor",
+  "explanation": "C「at least one 'anchor' day when all members attend」。",
+  "tags": "IELTS reading general-training 職場 規定 文完成"
+ },
+ {
+  "id": "IELTS-RG-007-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Community Noticeboard: For Sale\n\nA  Children's bicycle, suitable for ages 6–9. Blue, with stabilisers (these can be removed). Some scratches but in good working order. £35. Collection only from Elm Road. Call Sam after 6 p.m.\n\nB  Three-seater sofa, grey fabric, 2 years old. Smoke-free and pet-free home. Covers can be removed and washed. Originally £600, will accept £180. Buyer must arrange transport, as it will not fit in a normal car!\n\nC  Digital piano with stand and headphones. 88 keys, perfect for a beginner or intermediate player. Hardly used since my daughter went to university. £250 or nearest offer. Delivery possible within 5 miles for an extra £15.\n\nD  Baby pushchair, folds easily, suitable from birth to 4 years. Rain cover and shopping basket included. Minor wear on the handles. £45. Email for photos.\n\nE  Large wooden desk with three drawers. Some marks on the surface. Free to anyone who can collect it this weekend, as we are moving house.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nThe person selling the piano is a music teacher.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "C は 娘が 大学に 行ってから ほとんど 使っていないと 言うだけで、売り手の 職業は 書かれていない。NOT GIVEN。",
+  "tags": "IELTS reading general-training 広告 売ります TFNG"
+ },
+ {
+  "id": "IELTS-RG-007-2",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Community Noticeboard: For Sale\n\nA  Children's bicycle, suitable for ages 6–9. Blue, with stabilisers (these can be removed). Some scratches but in good working order. £35. Collection only from Elm Road. Call Sam after 6 p.m.\n\nB  Three-seater sofa, grey fabric, 2 years old. Smoke-free and pet-free home. Covers can be removed and washed. Originally £600, will accept £180. Buyer must arrange transport, as it will not fit in a normal car!\n\nC  Digital piano with stand and headphones. 88 keys, perfect for a beginner or intermediate player. Hardly used since my daughter went to university. £250 or nearest offer. Delivery possible within 5 miles for an extra £15.\n\nD  Baby pushchair, folds easily, suitable from birth to 4 years. Rain cover and shopping basket included. Minor wear on the handles. £45. Email for photos.\n\nE  Large wooden desk with three drawers. Some marks on the surface. Free to anyone who can collect it this weekend, as we are moving house.",
+  "question": "Look at the advertisements A–E. Which advertisement matches the following description?\n\nThe item is being given away without charge.",
+  "choices": [
+   "B",
+   "C",
+   "D",
+   "E"
+  ],
+  "answer": "E",
+  "explanation": "E「Free to anyone who can collect it this weekend」。",
+  "tags": "IELTS reading general-training 広告 売ります 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-007-3",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Community Noticeboard: For Sale\n\nA  Children's bicycle, suitable for ages 6–9. Blue, with stabilisers (these can be removed). Some scratches but in good working order. £35. Collection only from Elm Road. Call Sam after 6 p.m.\n\nB  Three-seater sofa, grey fabric, 2 years old. Smoke-free and pet-free home. Covers can be removed and washed. Originally £600, will accept £180. Buyer must arrange transport, as it will not fit in a normal car!\n\nC  Digital piano with stand and headphones. 88 keys, perfect for a beginner or intermediate player. Hardly used since my daughter went to university. £250 or nearest offer. Delivery possible within 5 miles for an extra £15.\n\nD  Baby pushchair, folds easily, suitable from birth to 4 years. Rain cover and shopping basket included. Minor wear on the handles. £45. Email for photos.\n\nE  Large wooden desk with three drawers. Some marks on the surface. Free to anyone who can collect it this weekend, as we are moving house.",
+  "question": "Choose the correct answer.\n\nWhat does the seller of the sofa say about it?",
+  "choices": [
+   "It has some damage caused by a pet.",
+   "It can be delivered for an extra charge.",
+   "The buyer will need a suitable vehicle.",
+   "The covers are new and have never been washed."
+  ],
+  "answer": "The buyer will need a suitable vehicle.",
+  "explanation": "B「Buyer must arrange transport, as it will not fit in a normal car」。配達料が かかるのは C の ピアノ。",
+  "tags": "IELTS reading general-training 広告 売ります 多肢選択"
+ },
+ {
+  "id": "IELTS-RG-007-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Community Noticeboard: For Sale\n\nA  Children's bicycle, suitable for ages 6–9. Blue, with stabilisers (these can be removed). Some scratches but in good working order. £35. Collection only from Elm Road. Call Sam after 6 p.m.\n\nB  Three-seater sofa, grey fabric, 2 years old. Smoke-free and pet-free home. Covers can be removed and washed. Originally £600, will accept £180. Buyer must arrange transport, as it will not fit in a normal car!\n\nC  Digital piano with stand and headphones. 88 keys, perfect for a beginner or intermediate player. Hardly used since my daughter went to university. £250 or nearest offer. Delivery possible within 5 miles for an extra £15.\n\nD  Baby pushchair, folds easily, suitable from birth to 4 years. Rain cover and shopping basket included. Minor wear on the handles. £45. Email for photos.\n\nE  Large wooden desk with three drawers. Some marks on the surface. Free to anyone who can collect it this weekend, as we are moving house.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY AND/OR A NUMBER from the passage for the answer.\n\nThe seller can deliver the piano within 5 miles for an extra ______.",
+  "answer": "£15",
+  "explanation": "C「Delivery possible within 5 miles for an extra £15」。",
+  "tags": "IELTS reading general-training 広告 売ります 文完成"
+ }
+]

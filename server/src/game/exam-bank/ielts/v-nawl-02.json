@@ -1,0 +1,648 @@
+[
+ {
+  "id": "IELTS-V-039",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nIn a healthy ecosystem, predator and prey populations tend to remain in -------.",
+  "choices": [
+   "inequality",
+   "fatigue",
+   "equilibrium",
+   "dependence"
+  ],
+  "answer": "equilibrium",
+  "explanation": "equilibrium は「均衡」。捕食者と被食者の数が均衡を保つ。",
+  "tags": "NAWL equilibrium"
+ },
+ {
+  "id": "IELTS-V-040",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nA new ------- of the virus spread rapidly because it was more easily transmitted.",
+  "choices": [
+   "paradigm",
+   "mentor",
+   "basin",
+   "variant"
+  ],
+  "answer": "variant",
+  "explanation": "variant は「変異体・異形」。感染しやすい新しい変異株。",
+  "tags": "NAWL variant"
+ },
+ {
+  "id": "IELTS-V-041",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nHeavy rain across the river ------- caused flooding in several towns downstream.",
+  "choices": [
+   "basin",
+   "axis",
+   "fringe",
+   "variant"
+  ],
+  "answer": "basin",
+  "explanation": "basin は「流域・盆地」。river basin は「河川流域」。",
+  "tags": "NAWL basin"
+ },
+ {
+  "id": "IELTS-V-042",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nEach new teacher is paired with an experienced ------- who offers advice during the first year.",
+  "choices": [
+   "predator",
+   "mentor",
+   "variant",
+   "offspring"
+  ],
+  "answer": "mentor",
+  "explanation": "mentor は「指導者・助言者」。経験豊富な指導者と組む。",
+  "tags": "NAWL mentor"
+ },
+ {
+  "id": "IELTS-V-043",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nDuring the drought, the water level in the ------- fell to its lowest point in decades.",
+  "choices": [
+   "corpus",
+   "axis",
+   "reservoir",
+   "footnote"
+  ],
+  "answer": "reservoir",
+  "explanation": "reservoir は「貯水池」。干ばつで貯水池の水位が下がった。",
+  "tags": "NAWL reservoir"
+ },
+ {
+  "id": "IELTS-V-044",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nGood public transport increases the ------- of people who do not own cars.",
+  "choices": [
+   "dominance",
+   "residue",
+   "trauma",
+   "mobility"
+  ],
+  "answer": "mobility",
+  "explanation": "mobility は「移動性・移動のしやすさ」。車を持たない人の移動を容易にする。",
+  "tags": "NAWL mobility"
+ },
+ {
+  "id": "IELTS-V-045",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe ------- of the river increases where the channel becomes narrower.",
+  "choices": [
+   "velocity",
+   "mobility",
+   "onset",
+   "fertility"
+  ],
+  "answer": "velocity",
+  "explanation": "velocity は「速度」。川幅が狭いところで流速が増す。",
+  "tags": "NAWL velocity"
+ },
+ {
+  "id": "IELTS-V-046",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe rescue operation required close ------- between the police, fire service and hospitals.",
+  "choices": [
+   "manipulation",
+   "coordination",
+   "deviation",
+   "residue"
+  ],
+  "answer": "coordination",
+  "explanation": "coordination は「連携・調整」。警察・消防・病院の緊密な連携。",
+  "tags": "NAWL coordination"
+ },
+ {
+  "id": "IELTS-V-047",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe scandal involved the deliberate ------- of financial data to hide losses.",
+  "choices": [
+   "coordination",
+   "absorption",
+   "manipulation",
+   "fertility"
+  ],
+  "answer": "manipulation",
+  "explanation": "manipulation は「（不正な）操作」。損失を隠すためのデータ操作。",
+  "tags": "NAWL manipulation"
+ },
+ {
+  "id": "IELTS-V-048",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe company's ------- of the market made it difficult for small competitors to survive.",
+  "choices": [
+   "mobility",
+   "transparency",
+   "irrigation",
+   "dominance"
+  ],
+  "answer": "dominance",
+  "explanation": "dominance は「優位・支配」。市場支配で小さな競合が生き残れない。",
+  "tags": "NAWL dominance"
+ },
+ {
+  "id": "IELTS-V-049",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nThe rabbit froze when it sensed a ------- nearby.",
+  "choices": [
+   "predator",
+   "mentor",
+   "novice",
+   "variant"
+  ],
+  "answer": "predator",
+  "explanation": "predator は「捕食者」。近くに捕食者を感じて固まった。",
+  "tags": "NAWL predator"
+ },
+ {
+  "id": "IELTS-V-050",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nFarmers add compost to maintain the ------- of the soil.",
+  "choices": [
+   "velocity",
+   "fertility",
+   "fatigue",
+   "deviation"
+  ],
+  "answer": "fertility",
+  "explanation": "fertility は「肥沃さ・生殖力」。土壌の肥沃さを保つ。",
+  "tags": "NAWL fertility"
+ },
+ {
+  "id": "IELTS-V-051",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nNitrogen is an essential ------- for plant growth.",
+  "choices": [
+   "predator",
+   "residue",
+   "nutrient",
+   "sediment"
+  ],
+  "answer": "nutrient",
+  "explanation": "nutrient は「栄養素」。窒素は植物成長に不可欠な栄養素。",
+  "tags": "NAWL nutrient"
+ },
+ {
+  "id": "IELTS-V-052",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nLong working hours can lead to ------- and an increased risk of accidents.",
+  "choices": [
+   "fertility",
+   "synthesis",
+   "mobility",
+   "fatigue"
+  ],
+  "answer": "fatigue",
+  "explanation": "fatigue は「疲労」。長時間労働が疲労と事故リスクにつながる。",
+  "tags": "NAWL fatigue"
+ },
+ {
+  "id": "IELTS-V-053",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe book offers a ------- of research from psychology, economics and sociology.",
+  "choices": [
+   "synthesis",
+   "trajectory",
+   "fatigue",
+   "portrayal"
+  ],
+  "answer": "synthesis",
+  "explanation": "synthesis は「統合・総合」。複数分野の研究を統合したもの。",
+  "tags": "NAWL synthesis"
+ },
+ {
+  "id": "IELTS-V-054",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nEngineers calculated the ------- of the rocket to ensure it reached the correct orbit.",
+  "choices": [
+   "synthesis",
+   "trajectory",
+   "vegetation",
+   "terminology"
+  ],
+  "answer": "trajectory",
+  "explanation": "trajectory は「軌道・軌跡」。ロケットの軌道を計算した。",
+  "tags": "NAWL trajectory"
+ },
+ {
+  "id": "IELTS-V-055",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nAfter the water evaporated, a white ------- of salt was left in the dish.",
+  "choices": [
+   "nutrient",
+   "altitude",
+   "residue",
+   "paradox"
+  ],
+  "answer": "residue",
+  "explanation": "residue は「残留物」。蒸発後に塩の白い残留物が残った。",
+  "tags": "NAWL residue"
+ },
+ {
+  "id": "IELTS-V-056",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe hills were covered in thick ------- after the wet spring.",
+  "choices": [
+   "metabolism",
+   "residue",
+   "altitude",
+   "vegetation"
+  ],
+  "answer": "vegetation",
+  "explanation": "vegetation は「植生・草木」。雨の多い春の後に草木が茂った。",
+  "tags": "NAWL vegetation"
+ },
+ {
+  "id": "IELTS-V-057",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nClimbers often suffer from headaches at high ------- because there is less oxygen.",
+  "choices": [
+   "altitude",
+   "velocity",
+   "latitude",
+   "magnitude"
+  ],
+  "answer": "altitude",
+  "explanation": "altitude は「高度」。高所では酸素が少なく頭痛が起きる。",
+  "tags": "NAWL altitude"
+ },
+ {
+  "id": "IELTS-V-058",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nCitizens demanded greater ------- in how public money is spent.",
+  "choices": [
+   "dominance",
+   "transparency",
+   "manipulation",
+   "prevalence"
+  ],
+  "answer": "transparency",
+  "explanation": "transparency は「透明性」。公金の使途の透明性を求めた。",
+  "tags": "NAWL transparency"
+ },
+ {
+  "id": "IELTS-V-059",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nAny ------- from the standard procedure must be recorded and explained.",
+  "choices": [
+   "coordination",
+   "accumulation",
+   "deviation",
+   "portrayal"
+  ],
+  "answer": "deviation",
+  "explanation": "deviation は「逸脱・偏差」。標準手順からの逸脱は記録が必要。",
+  "tags": "NAWL deviation"
+ },
+ {
+  "id": "IELTS-V-060",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe gradual ------- of sediment eventually blocked the harbour entrance.",
+  "choices": [
+   "deviation",
+   "transparency",
+   "substitution",
+   "accumulation"
+  ],
+  "answer": "accumulation",
+  "explanation": "accumulation は「蓄積」。堆積物が徐々にたまり港口をふさいだ。",
+  "tags": "NAWL accumulation"
+ },
+ {
+  "id": "IELTS-V-061",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe survey found a high ------- of back pain among office workers.",
+  "choices": [
+   "prevalence",
+   "transparency",
+   "elevation",
+   "inference"
+  ],
+  "answer": "prevalence",
+  "explanation": "prevalence は「有病率・普及度」。事務職に腰痛が多いという結果。",
+  "tags": "NAWL prevalence"
+ },
+ {
+  "id": "IELTS-V-062",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe village lies at an ------- of 2,000 metres above sea level.",
+  "choices": [
+   "accumulation",
+   "elevation",
+   "irrigation",
+   "absorption"
+  ],
+  "answer": "elevation",
+  "explanation": "elevation は「標高」。海抜2,000メートルの標高。",
+  "tags": "NAWL elevation"
+ },
+ {
+  "id": "IELTS-V-063",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe recipe allows the ------- of honey for sugar.",
+  "choices": [
+   "accumulation",
+   "elevation",
+   "substitution",
+   "inference"
+  ],
+  "answer": "substitution",
+  "explanation": "substitution は「代用・置き換え」。砂糖の代わりに蜂蜜を使える。",
+  "tags": "NAWL substitution"
+ },
+ {
+  "id": "IELTS-V-064",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nShe studied ------- and spent her summers excavating Roman sites.",
+  "choices": [
+   "terminology",
+   "metabolism",
+   "biodiversity",
+   "archaeology"
+  ],
+  "answer": "archaeology",
+  "explanation": "archaeology は「考古学」。ローマ時代の遺跡を発掘した。",
+  "tags": "NAWL archaeology"
+ },
+ {
+  "id": "IELTS-V-065",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nAfter the accident, he spent six months in ------- learning to walk again.",
+  "choices": [
+   "rehabilitation",
+   "substitution",
+   "precipitation",
+   "irrigation"
+  ],
+  "answer": "rehabilitation",
+  "explanation": "rehabilitation は「リハビリ・社会復帰」。再び歩けるようになるためのリハビリ。",
+  "tags": "NAWL rehabilitation"
+ },
+ {
+  "id": "IELTS-V-066",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nMedical ------- can be confusing for patients, so doctors should use plain language.",
+  "choices": [
+   "archaeology",
+   "terminology",
+   "vegetation",
+   "friction"
+  ],
+  "answer": "terminology",
+  "explanation": "terminology は「専門用語」。医学用語は患者に分かりにくい。",
+  "tags": "NAWL terminology"
+ },
+ {
+  "id": "IELTS-V-067",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nFrom the shape of the footprints, researchers drew the ------- that the animal walked on two legs.",
+  "choices": [
+   "absorption",
+   "friction",
+   "inference",
+   "precipitation"
+  ],
+  "answer": "inference",
+  "explanation": "inference は「推論」。足跡の形から二足歩行だと推論した。",
+  "tags": "NAWL inference"
+ },
+ {
+  "id": "IELTS-V-068",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nVitamin D helps the ------- of calcium from food.",
+  "choices": [
+   "inference",
+   "displacement",
+   "portrayal",
+   "absorption"
+  ],
+  "answer": "absorption",
+  "explanation": "absorption は「吸収」。ビタミンDはカルシウムの吸収を助ける。",
+  "tags": "NAWL absorption"
+ },
+ {
+  "id": "IELTS-V-069",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe river carries ------- from the mountains and deposits it at its mouth.",
+  "choices": [
+   "sediment",
+   "vegetation",
+   "metabolism",
+   "friction"
+  ],
+  "answer": "sediment",
+  "explanation": "sediment は「堆積物・沈殿物」。川が山から土砂を運び河口に堆積させる。",
+  "tags": "NAWL sediment"
+ },
+ {
+  "id": "IELTS-V-070",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nOil reduces ------- between the moving parts of an engine.",
+  "choices": [
+   "absorption",
+   "friction",
+   "sediment",
+   "watershed"
+  ],
+  "answer": "friction",
+  "explanation": "friction は「摩擦」。油はエンジン部品間の摩擦を減らす。",
+  "tags": "NAWL friction"
+ },
+ {
+  "id": "IELTS-V-071",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nWithout -------, crops in this dry region would fail every summer.",
+  "choices": [
+   "absorption",
+   "rehabilitation",
+   "irrigation",
+   "friction"
+  ],
+  "answer": "irrigation",
+  "explanation": "irrigation は「灌漑」。乾燥地域では灌漑がなければ作物が育たない。",
+  "tags": "NAWL irrigation"
+ },
+ {
+  "id": "IELTS-V-072",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nExercise can speed up your -------, helping your body burn energy more quickly.",
+  "choices": [
+   "archaeology",
+   "terminology",
+   "friction",
+   "metabolism"
+  ],
+  "answer": "metabolism",
+  "explanation": "metabolism は「代謝」。運動で代謝が上がる。",
+  "tags": "NAWL metabolism"
+ },
+ {
+  "id": "IELTS-V-073",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe war led to the ------- of millions of people from their homes.",
+  "choices": [
+   "displacement",
+   "absorption",
+   "substitution",
+   "elevation"
+  ],
+  "answer": "displacement",
+  "explanation": "displacement は「（強制的な）移動・追放」。戦争で数百万人が家を追われた。",
+  "tags": "NAWL displacement"
+ },
+ {
+  "id": "IELTS-V-074",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nAnnual ------- in the desert is less than 100 millimetres.",
+  "choices": [
+   "elevation",
+   "precipitation",
+   "sediment",
+   "metabolism"
+  ],
+  "answer": "precipitation",
+  "explanation": "precipitation は「降水量」。砂漠の年間降水量は100ミリ未満。",
+  "tags": "NAWL precipitation"
+ },
+ {
+  "id": "IELTS-V-075",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe course is designed for complete -------, so no experience is required.",
+  "choices": [
+   "mentors",
+   "predators",
+   "novices",
+   "variants"
+  ],
+  "answer": "novices",
+  "explanation": "novice は「初心者」。経験不要の初心者向けコース。",
+  "tags": "NAWL novice"
+ },
+ {
+  "id": "IELTS-V-076",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nTropical rainforests have extremely high -------, with thousands of species in a small area.",
+  "choices": [
+   "archaeology",
+   "rehabilitation",
+   "terminology",
+   "biodiversity"
+  ],
+  "answer": "biodiversity",
+  "explanation": "biodiversity は「生物多様性」。熱帯雨林は生物多様性が非常に高い。",
+  "tags": "NAWL biodiversity"
+ }
+]

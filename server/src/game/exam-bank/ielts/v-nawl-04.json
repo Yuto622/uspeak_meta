@@ -1,0 +1,614 @@
+[
+ {
+  "id": "IELTS-V-115",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nYoung children are particularly ------- to infections in their first year at nursery.",
+  "choices": [
+   "pragmatic",
+   "coherent",
+   "susceptible",
+   "nominal"
+  ],
+  "answer": "susceptible",
+  "explanation": "susceptible は「影響を受けやすい・かかりやすい」。感染症にかかりやすい。",
+  "tags": "NAWL susceptible"
+ },
+ {
+  "id": "IELTS-V-116",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nFossil fuels are a ------- resource and will eventually run out.",
+  "choices": [
+   "nominal",
+   "discrete",
+   "sensory",
+   "finite"
+  ],
+  "answer": "finite",
+  "explanation": "finite は「有限の」。化石燃料は有限の資源。",
+  "tags": "NAWL finite"
+ },
+ {
+  "id": "IELTS-V-117",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nSome researchers believe that the human ability to learn language is -------.",
+  "choices": [
+   "innate",
+   "discrete",
+   "synthetic",
+   "elastic"
+  ],
+  "answer": "innate",
+  "explanation": "innate は「生得的な」。言語を学ぶ生まれつきの能力。",
+  "tags": "NAWL innate"
+ },
+ {
+  "id": "IELTS-V-118",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nBabies learn about the world through ------- experiences such as touch and taste.",
+  "choices": [
+   "innate",
+   "sensory",
+   "nominal",
+   "soluble"
+  ],
+  "answer": "sensory",
+  "explanation": "sensory は「感覚の」。触覚や味覚などの感覚的経験。",
+  "tags": "NAWL sensory"
+ },
+ {
+  "id": "IELTS-V-119",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThick fur is a highly ------- feature that helps animals survive in cold climates.",
+  "choices": [
+   "soluble",
+   "nominal",
+   "adaptive",
+   "discrete"
+  ],
+  "answer": "adaptive",
+  "explanation": "adaptive は「適応的な」。寒冷地で生き延びるための適応的特徴。",
+  "tags": "NAWL adaptive"
+ },
+ {
+  "id": "IELTS-V-120",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nStir the mixture until the salt has completely -------.",
+  "choices": [
+   "rotated",
+   "emitted",
+   "erased",
+   "dissolved"
+  ],
+  "answer": "dissolved",
+  "explanation": "dissolve は「溶ける」。塩が完全に溶けるまでかき混ぜる。",
+  "tags": "NAWL dissolve"
+ },
+ {
+  "id": "IELTS-V-121",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nOpening the windows allows fresh air to ------- through the building.",
+  "choices": [
+   "circulate",
+   "constrain",
+   "subtract",
+   "censor"
+  ],
+  "answer": "circulate",
+  "explanation": "circulate は「循環する」。新鮮な空気が建物内を循環する。",
+  "tags": "NAWL circulate"
+ },
+ {
+  "id": "IELTS-V-122",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nFarmers rotate their crops to ------- yields and protect the soil.",
+  "choices": [
+   "inhibit",
+   "maximize",
+   "erase",
+   "deceive"
+  ],
+  "answer": "maximize",
+  "explanation": "maximize は「最大化する」。収穫量を最大にするため輪作する。",
+  "tags": "NAWL maximize"
+ },
+ {
+  "id": "IELTS-V-123",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nDoctors advise patients to ------- an injured leg to reduce swelling.",
+  "choices": [
+   "dilute",
+   "subtract",
+   "elevate",
+   "encode"
+  ],
+  "answer": "elevate",
+  "explanation": "elevate は「上げる・高める」。腫れを抑えるため足を高く上げる。",
+  "tags": "NAWL elevate"
+ },
+ {
+  "id": "IELTS-V-124",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe new leader hoped to ------- the divided country after years of conflict.",
+  "choices": [
+   "inhibit",
+   "dilute",
+   "simulate",
+   "unify"
+  ],
+  "answer": "unify",
+  "explanation": "unify は「統一する」。分断された国を統一する。",
+  "tags": "NAWL unify"
+ },
+ {
+  "id": "IELTS-V-125",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nCold temperatures ------- the growth of bacteria, which is why food is kept in fridges.",
+  "choices": [
+   "inhibit",
+   "maximize",
+   "circulate",
+   "affirm"
+  ],
+  "answer": "inhibit",
+  "explanation": "inhibit は「抑制する」。低温が細菌の増殖を抑える。",
+  "tags": "NAWL inhibit"
+ },
+ {
+  "id": "IELTS-V-126",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe organisation aims to ------- safety tests so that results can be compared across countries.",
+  "choices": [
+   "deceive",
+   "standardize",
+   "censor",
+   "dilute"
+  ],
+  "answer": "standardize",
+  "explanation": "standardize は「標準化する」。国際比較のために試験を標準化する。",
+  "tags": "NAWL standardize"
+ },
+ {
+  "id": "IELTS-V-127",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nOn this map, red lines ------- major roads and blue lines show rivers.",
+  "choices": [
+   "deceive",
+   "dilute",
+   "denote",
+   "conserve"
+  ],
+  "answer": "denote",
+  "explanation": "denote は「表す・示す」。赤線が主要道路を表す。",
+  "tags": "NAWL denote"
+ },
+ {
+  "id": "IELTS-V-128",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nDivers were sent to ------- the ship's data recorder from the seabed.",
+  "choices": [
+   "denote",
+   "emit",
+   "socialize",
+   "retrieve"
+  ],
+  "answer": "retrieve",
+  "explanation": "retrieve は「回収する・取り出す」。海底から記録装置を回収する。",
+  "tags": "NAWL retrieve"
+ },
+ {
+  "id": "IELTS-V-129",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe study found that sleep quality tends to ------- with academic performance.",
+  "choices": [
+   "correlate",
+   "retrieve",
+   "erase",
+   "subtract"
+  ],
+  "answer": "correlate",
+  "explanation": "correlate は「相関する」。睡眠の質と成績が相関する。",
+  "tags": "NAWL correlate"
+ },
+ {
+  "id": "IELTS-V-130",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nAfter weeks of rapid change, prices began to ------- in the spring.",
+  "choices": [
+   "contradict",
+   "stabilize",
+   "subtract",
+   "censor"
+  ],
+  "answer": "stabilize",
+  "explanation": "stabilize は「安定する」。価格が春に落ち着き始めた。",
+  "tags": "NAWL stabilize"
+ },
+ {
+  "id": "IELTS-V-131",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nLimited funding will ------- the size of the research project.",
+  "choices": [
+   "emit",
+   "affirm",
+   "constrain",
+   "socialize"
+  ],
+  "answer": "constrain",
+  "explanation": "constrain は「制約する」。資金不足が研究規模を制約する。",
+  "tags": "NAWL constrain"
+ },
+ {
+  "id": "IELTS-V-132",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nIt is dangerous to ------- from such a small sample of students.",
+  "choices": [
+   "rotate",
+   "dilute",
+   "emit",
+   "generalize"
+  ],
+  "answer": "generalize",
+  "explanation": "generalize は「一般化する」。小さな標本から一般化するのは危険。",
+  "tags": "NAWL generalize"
+ },
+ {
+  "id": "IELTS-V-133",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nStaff ------- between departments so that everyone learns every part of the business.",
+  "choices": [
+   "rotate",
+   "generalize",
+   "conserve",
+   "subtract"
+  ],
+  "answer": "rotate",
+  "explanation": "rotate は「交代する・回転する」。部署を交代で回る。",
+  "tags": "NAWL rotate"
+ },
+ {
+  "id": "IELTS-V-134",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nOther laboratories were unable to ------- the surprising results of the experiment.",
+  "choices": [
+   "denote",
+   "replicate",
+   "censor",
+   "socialize"
+  ],
+  "answer": "replicate",
+  "explanation": "replicate は「再現する」。他の研究所が結果を再現できなかった。",
+  "tags": "NAWL replicate"
+ },
+ {
+  "id": "IELTS-V-135",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nA neutral organisation was invited to ------- between the two sides in the dispute.",
+  "choices": [
+   "replicate",
+   "dilute",
+   "mediate",
+   "erase"
+  ],
+  "answer": "mediate",
+  "explanation": "mediate は「仲裁する」。紛争の両者の間を仲裁する。",
+  "tags": "NAWL mediate"
+ },
+ {
+  "id": "IELTS-V-136",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nPlastic bags can take hundreds of years to ------- in the environment.",
+  "choices": [
+   "mediate",
+   "affirm",
+   "memorize",
+   "degrade"
+  ],
+  "answer": "degrade",
+  "explanation": "degrade は「分解する・劣化する」。レジ袋は分解に数百年かかる。",
+  "tags": "NAWL degrade"
+ },
+ {
+  "id": "IELTS-V-137",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe ------- cost of the repairs is two thousand pounds, but the final figure may differ.",
+  "choices": [
+   "approximate",
+   "finite",
+   "implicit",
+   "arbitrary"
+  ],
+  "answer": "approximate",
+  "explanation": "approximate は「おおよその」。修理費のおおよその額。",
+  "tags": "NAWL approximate"
+ },
+ {
+  "id": "IELTS-V-138",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B1",
+  "band": "IELTS目安:5.5",
+  "question": "Choose the word that best completes the sentence.\nEvery autumn, these birds ------- thousands of kilometres to Africa.",
+  "choices": [
+   "mediate",
+   "migrate",
+   "replicate",
+   "denote"
+  ],
+  "answer": "migrate",
+  "explanation": "migrate は「移動する・渡る」。秋に何千キロも渡りをする。",
+  "tags": "NAWL migrate"
+ },
+ {
+  "id": "IELTS-V-139",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nUsing the bones, scientists were able to ------- the animal's appearance.",
+  "choices": [
+   "subtract",
+   "emit",
+   "reconstruct",
+   "socialize"
+  ],
+  "answer": "reconstruct",
+  "explanation": "reconstruct は「復元する・再構成する」。骨から動物の外見を復元した。",
+  "tags": "NAWL reconstruct"
+ },
+ {
+  "id": "IELTS-V-140",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe training centre uses special equipment to ------- the conditions of a real fire.",
+  "choices": [
+   "contradict",
+   "erase",
+   "affirm",
+   "simulate"
+  ],
+  "answer": "simulate",
+  "explanation": "simulate は「模擬的に再現する」。実際の火災の状況を再現する。",
+  "tags": "NAWL simulate"
+ },
+ {
+  "id": "IELTS-V-141",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe new evidence appears to ------- the witness's original statement.",
+  "choices": [
+   "contradict",
+   "simulate",
+   "conserve",
+   "elevate"
+  ],
+  "answer": "contradict",
+  "explanation": "contradict は「矛盾する・否定する」。新証拠が証言と矛盾する。",
+  "tags": "NAWL contradict"
+ },
+ {
+  "id": "IELTS-V-142",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nYou should ------- the juice with water before giving it to young children.",
+  "choices": [
+   "emit",
+   "dilute",
+   "erase",
+   "affirm"
+  ],
+  "answer": "dilute",
+  "explanation": "dilute は「薄める」。幼児に与える前に水で薄める。",
+  "tags": "NAWL dilute"
+ },
+ {
+  "id": "IELTS-V-143",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nOlder cars ------- far more pollution than modern electric vehicles.",
+  "choices": [
+   "dilute",
+   "conserve",
+   "emit",
+   "memorize"
+  ],
+  "answer": "emit",
+  "explanation": "emit は「排出する・放出する」。古い車は多くの汚染物質を排出する。",
+  "tags": "NAWL emit"
+ },
+ {
+  "id": "IELTS-V-144",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe court's decision will ------- the right of workers to join a union.",
+  "choices": [
+   "emit",
+   "dilute",
+   "subtract",
+   "affirm"
+  ],
+  "answer": "affirm",
+  "explanation": "affirm は「確認する・支持する」。労働者の組合加入権を確認する判決。",
+  "tags": "NAWL affirm"
+ },
+ {
+  "id": "IELTS-V-145",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nThe two rivers ------- just south of the city and flow together to the sea.",
+  "choices": [
+   "converge",
+   "conserve",
+   "censor",
+   "memorize"
+  ],
+  "answer": "converge",
+  "explanation": "converge は「合流する・収束する」。二つの川が市の南で合流する。",
+  "tags": "NAWL converge"
+ },
+ {
+  "id": "IELTS-V-146",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nDuring the drought, residents were asked to ------- water by taking shorter showers.",
+  "choices": [
+   "converge",
+   "conserve",
+   "emit",
+   "contradict"
+  ],
+  "answer": "conserve",
+  "explanation": "conserve は「節約する・保護する」。短いシャワーで水を節約する。",
+  "tags": "NAWL conserve"
+ },
+ {
+  "id": "IELTS-V-147",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "C1",
+  "band": "IELTS目安:7.5",
+  "question": "Choose the word that best completes the sentence.\nDNA molecules ------- the instructions needed to build and maintain living organisms.",
+  "choices": [
+   "erase",
+   "censor",
+   "encode",
+   "dilute"
+  ],
+  "answer": "encode",
+  "explanation": "encode は「（情報を）符号化する・記号化する」。DNAが生物を作る指示を記録している。",
+  "tags": "NAWL encode"
+ },
+ {
+  "id": "IELTS-V-148",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe advertisement was banned because it was designed to ------- consumers about the product's benefits.",
+  "choices": [
+   "encode",
+   "conserve",
+   "converge",
+   "deceive"
+  ],
+  "answer": "deceive",
+  "explanation": "deceive は「だます」。消費者をだます広告が禁止された。",
+  "tags": "NAWL deceive"
+ },
+ {
+  "id": "IELTS-V-149",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nThe government tried to ------- news reports that criticised its policies.",
+  "choices": [
+   "censor",
+   "memorize",
+   "converge",
+   "dilute"
+  ],
+  "answer": "censor",
+  "explanation": "censor は「検閲する」。政策批判の報道を検閲した。",
+  "tags": "NAWL censor"
+ },
+ {
+  "id": "IELTS-V-150",
+  "skill": "reading",
+  "format": "語彙（New Academic Word List）",
+  "level": "B2",
+  "band": "IELTS目安:6.5",
+  "question": "Choose the word that best completes the sentence.\nPuppies need to ------- with other dogs and people from an early age.",
+  "choices": [
+   "subtract",
+   "socialize",
+   "encode",
+   "censor"
+  ],
+  "answer": "socialize",
+  "explanation": "socialize は「社交する・社会に慣れる」。子犬は早くから他の犬や人と交流させる必要がある。",
+  "tags": "NAWL socialize"
+ }
+]
