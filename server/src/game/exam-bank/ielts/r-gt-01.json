@@ -40,14 +40,14 @@
   "level": "B1",
   "band": "IELTS目安:5.0",
   "passage": "Riverside Community Centre: Autumn Evening and Weekend Courses\n\nAll courses start in the week beginning 15 September. Places are limited, so early booking is recommended.\n\nA  Beginners' Pottery. Mondays, 7.00–9.00 p.m. (8 weeks). Learn to shape simple bowls and cups by hand and on the wheel. The fee of £96 includes all clay and glazes. Please bring an old shirt or apron, as things can get messy!\n\nB  Conversational Spanish. Tuesdays, 6.30–8.00 p.m. (10 weeks). This course is designed for learners who already know some basic Spanish and want to gain confidence in speaking. Fee: £85. The course book (£12) is not included and should be bought before the first class.\n\nC  Digital Photography. Wednesdays, 7.00–8.30 p.m. (6 weeks). Find out how to get the most from your camera, from composition to editing your images on a computer. Fee: £60. Students must bring their own digital camera; unfortunately, mobile phone cameras are not suitable for this course.\n\nD  Healthy Cooking on a Budget. Thursdays, 6.00–8.00 p.m. (5 weeks). Prepare tasty, nutritious meals for less than £3 per person. All ingredients are provided, and participants take home everything they cook. Vegetarian options are available every week. Fee: £70.\n\nE  Introduction to Bookkeeping. Saturdays, 10.00 a.m.–1.00 p.m. (4 weeks). Ideal for anyone running a small business or managing the accounts of a club. Laptops are provided for use during the sessions, and a certificate is awarded to everyone who completes the course. Fee: £110.\n\nHow to enrol: Book online or in person at reception (open 9 a.m.–8 p.m., Monday to Friday). Students aged 60 and over receive a 10% discount on all course fees. Please note that courses with fewer than six enrolments may be cancelled; in this case, fees will be refunded in full.",
-  "question": "Look at the course descriptions A–E. Which course matches the following description?\n\nIt is not intended for people who have never studied the subject.",
+  "question": "Look at the courses. Which course is NOT intended for people who have never studied the subject?",
   "choices": [
-   "B",
-   "C",
-   "D",
-   "E"
+   "Conversational Spanish",
+   "Beginners' Pottery",
+   "Digital Photography",
+   "Bookkeeping"
   ],
-  "answer": "B",
+  "answer": "Conversational Spanish",
   "explanation": "B「designed for learners who already know some basic Spanish」＝まったくの 初心者向けでは ない。",
   "tags": "IELTS reading general-training 講座案内 情報の一致"
  },
@@ -87,14 +87,14 @@
   "level": "B1",
   "band": "IELTS目安:5.0",
   "passage": "Greenfield Court: Notices for Residents\n\nA  Water supply. Essential repairs to the main water pipe will take place on Tuesday 8 October. The water supply to all flats will be switched off between 9.00 a.m. and 1.00 p.m. We recommend filling a few bottles or a kettle beforehand. Please do not use washing machines or dishwashers for at least an hour after the supply is restored, as the water may be discoloured.\n\nB  Lift maintenance. The lift in Block B will be out of service from Monday 14 to Wednesday 16 October for its annual safety inspection. Residents with limited mobility who need help with shopping or deliveries during this period should contact the building manager, who will arrange assistance.\n\nC  Bicycle storage. From 1 November, bicycles may no longer be kept in the entrance hall. A new secure bicycle store has been built in the basement car park. Residents can collect a key card for the store from the management office; a refundable deposit of £10 is required.\n\nD  Parcel room. The parcel room is now open from 7.00 a.m. to 10.00 p.m. every day. Parcels will be kept for a maximum of 14 days, after which they will be returned to the sender. Please bring photo ID when collecting a parcel.\n\nE  Recycling. Following a change in the council's policy, glass bottles and jars must now be placed in the green containers next to the car park entrance, not in the general recycling bins. Paper, cardboard and plastic can still be put in the blue bins as before.",
-  "question": "Look at the notices A–E. Which notice contains the following information?\n\nan offer of help for some residents",
+  "question": "Which notice includes an offer of help for some residents?",
   "choices": [
-   "A",
-   "B",
-   "C",
-   "D"
+   "Water supply",
+   "Lift maintenance",
+   "Parcel room",
+   "Recycling"
   ],
-  "answer": "B",
+  "answer": "Lift maintenance",
   "explanation": "B「Residents with limited mobility who need help ... should contact the building manager, who will arrange assistance」。",
   "tags": "IELTS reading general-training お知らせ 住宅 情報の一致"
  },

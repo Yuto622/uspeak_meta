@@ -1,0 +1,518 @@
+[
+ {
+  "id": "IELTS-RG-008-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Allotments: A Growing Interest\n\nA  Across Britain, on the edges of towns and squeezed between railway lines and housing estates, lie patchworks of small rectangular gardens, each with its own shed, compost heap and rows of vegetables. These are allotments: plots of land, usually owned by the local council, which individuals rent for a modest annual fee in order to grow their own food. For much of the late twentieth century, allotments were regarded as an old-fashioned pastime, associated mainly with retired men. Today they are in such demand that many councils have long waiting lists.\n\nB  The tradition has deep roots. In the eighteenth and nineteenth centuries, as common land was enclosed and rural workers lost access to land on which to grow food, small plots were provided to help poor families feed themselves. In 1908, a law required local councils in England and Wales to provide allotments where there was sufficient demand, an obligation that still exists today. A traditional plot measures ten 'poles', an old unit of measurement, which is roughly 250 square metres, or about the size of a tennis court.\n\nC  Allotments reached their peak during the two world wars, when food shortages made home-grown vegetables essential. During the Second World War, a government campaign urged people to 'Dig for Victory', and parks, playing fields and even the edges of railway lines were turned over to food production. By the end of the war there were more than a million allotments in Britain. In the decades that followed, however, as food became cheaper and more plentiful and many people moved to homes with gardens, demand fell sharply, and many sites were sold for housing.\n\nD  Interest began to revive in the early twenty-first century, driven by concerns about food quality, the environment and the cost of living, as well as by television programmes celebrating home cooking. The profile of allotment holders has also changed: younger people, families and women now make up a much larger share than in the past. Because demand has grown faster than the supply of land, some councils have divided traditional plots in half, allowing more people to have a share, and some waiting lists stretch to several years.\n\nE  Supporters argue that the benefits go well beyond cheap vegetables. Working outdoors provides regular physical exercise, and many plot holders describe their allotment as a place where they can forget the pressures of work. Several studies have linked gardening with improvements in mood and well-being. Allotment sites also bring together people of different ages and backgrounds, who share advice, seeds and surplus produce. Some doctors have even begun to recommend gardening to patients as part of so-called 'social prescribing'.\n\nF  Allotments are not without their challenges. Plots demand regular attention, especially in summer, and new tenants sometimes underestimate the work involved, abandoning their plots after a single season. Most sites have rules requiring a certain proportion of each plot to be cultivated, and tenants who neglect their land may be asked to leave. Nevertheless, for those prepared to commit the time, an allotment offers something increasingly rare in modern life: a direct connection with the seasons and with the source of their food.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nThe legal duty for councils to provide allotments has since been abolished.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "B段落「an obligation that still exists today」。今も 義務が あるので FALSE。",
+  "tags": "IELTS reading general-training 特集記事 市民農園 TFNG"
+ },
+ {
+  "id": "IELTS-RG-008-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Allotments: A Growing Interest\n\nA  Across Britain, on the edges of towns and squeezed between railway lines and housing estates, lie patchworks of small rectangular gardens, each with its own shed, compost heap and rows of vegetables. These are allotments: plots of land, usually owned by the local council, which individuals rent for a modest annual fee in order to grow their own food. For much of the late twentieth century, allotments were regarded as an old-fashioned pastime, associated mainly with retired men. Today they are in such demand that many councils have long waiting lists.\n\nB  The tradition has deep roots. In the eighteenth and nineteenth centuries, as common land was enclosed and rural workers lost access to land on which to grow food, small plots were provided to help poor families feed themselves. In 1908, a law required local councils in England and Wales to provide allotments where there was sufficient demand, an obligation that still exists today. A traditional plot measures ten 'poles', an old unit of measurement, which is roughly 250 square metres, or about the size of a tennis court.\n\nC  Allotments reached their peak during the two world wars, when food shortages made home-grown vegetables essential. During the Second World War, a government campaign urged people to 'Dig for Victory', and parks, playing fields and even the edges of railway lines were turned over to food production. By the end of the war there were more than a million allotments in Britain. In the decades that followed, however, as food became cheaper and more plentiful and many people moved to homes with gardens, demand fell sharply, and many sites were sold for housing.\n\nD  Interest began to revive in the early twenty-first century, driven by concerns about food quality, the environment and the cost of living, as well as by television programmes celebrating home cooking. The profile of allotment holders has also changed: younger people, families and women now make up a much larger share than in the past. Because demand has grown faster than the supply of land, some councils have divided traditional plots in half, allowing more people to have a share, and some waiting lists stretch to several years.\n\nE  Supporters argue that the benefits go well beyond cheap vegetables. Working outdoors provides regular physical exercise, and many plot holders describe their allotment as a place where they can forget the pressures of work. Several studies have linked gardening with improvements in mood and well-being. Allotment sites also bring together people of different ages and backgrounds, who share advice, seeds and surplus produce. Some doctors have even begun to recommend gardening to patients as part of so-called 'social prescribing'.\n\nF  Allotments are not without their challenges. Plots demand regular attention, especially in summer, and new tenants sometimes underestimate the work involved, abandoning their plots after a single season. Most sites have rules requiring a certain proportion of each plot to be cultivated, and tenants who neglect their land may be asked to leave. Nevertheless, for those prepared to commit the time, an allotment offers something increasingly rare in modern life: a direct connection with the seasons and with the source of their food.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nAllotment rents are higher in cities than in rural areas.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "A段落は「a modest annual fee」と 言うだけで、都市と 農村の 料金差は 書かれていない。NOT GIVEN。",
+  "tags": "IELTS reading general-training 特集記事 市民農園 TFNG"
+ },
+ {
+  "id": "IELTS-RG-008-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Allotments: A Growing Interest\n\nA  Across Britain, on the edges of towns and squeezed between railway lines and housing estates, lie patchworks of small rectangular gardens, each with its own shed, compost heap and rows of vegetables. These are allotments: plots of land, usually owned by the local council, which individuals rent for a modest annual fee in order to grow their own food. For much of the late twentieth century, allotments were regarded as an old-fashioned pastime, associated mainly with retired men. Today they are in such demand that many councils have long waiting lists.\n\nB  The tradition has deep roots. In the eighteenth and nineteenth centuries, as common land was enclosed and rural workers lost access to land on which to grow food, small plots were provided to help poor families feed themselves. In 1908, a law required local councils in England and Wales to provide allotments where there was sufficient demand, an obligation that still exists today. A traditional plot measures ten 'poles', an old unit of measurement, which is roughly 250 square metres, or about the size of a tennis court.\n\nC  Allotments reached their peak during the two world wars, when food shortages made home-grown vegetables essential. During the Second World War, a government campaign urged people to 'Dig for Victory', and parks, playing fields and even the edges of railway lines were turned over to food production. By the end of the war there were more than a million allotments in Britain. In the decades that followed, however, as food became cheaper and more plentiful and many people moved to homes with gardens, demand fell sharply, and many sites were sold for housing.\n\nD  Interest began to revive in the early twenty-first century, driven by concerns about food quality, the environment and the cost of living, as well as by television programmes celebrating home cooking. The profile of allotment holders has also changed: younger people, families and women now make up a much larger share than in the past. Because demand has grown faster than the supply of land, some councils have divided traditional plots in half, allowing more people to have a share, and some waiting lists stretch to several years.\n\nE  Supporters argue that the benefits go well beyond cheap vegetables. Working outdoors provides regular physical exercise, and many plot holders describe their allotment as a place where they can forget the pressures of work. Several studies have linked gardening with improvements in mood and well-being. Allotment sites also bring together people of different ages and backgrounds, who share advice, seeds and surplus produce. Some doctors have even begun to recommend gardening to patients as part of so-called 'social prescribing'.\n\nF  Allotments are not without their challenges. Plots demand regular attention, especially in summer, and new tenants sometimes underestimate the work involved, abandoning their plots after a single season. Most sites have rules requiring a certain proportion of each plot to be cultivated, and tenants who neglect their land may be asked to leave. Nevertheless, for those prepared to commit the time, an allotment offers something increasingly rare in modern life: a direct connection with the seasons and with the source of their food.",
+  "question": "Paragraph C: choose the most suitable heading.",
+  "choices": [
+   "Why demand now exceeds supply",
+   "The health benefits of growing food",
+   "Rules for keeping a plot",
+   "Wartime growth and post-war decline in numbers"
+  ],
+  "answer": "Wartime growth and post-war decline in numbers",
+  "explanation": "C段落は 二つの 世界大戦中の 増加と、戦後の 需要の 急減を 述べる。",
+  "tags": "IELTS reading general-training 特集記事 市民農園 見出し"
+ },
+ {
+  "id": "IELTS-RG-008-4",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Allotments: A Growing Interest\n\nA  Across Britain, on the edges of towns and squeezed between railway lines and housing estates, lie patchworks of small rectangular gardens, each with its own shed, compost heap and rows of vegetables. These are allotments: plots of land, usually owned by the local council, which individuals rent for a modest annual fee in order to grow their own food. For much of the late twentieth century, allotments were regarded as an old-fashioned pastime, associated mainly with retired men. Today they are in such demand that many councils have long waiting lists.\n\nB  The tradition has deep roots. In the eighteenth and nineteenth centuries, as common land was enclosed and rural workers lost access to land on which to grow food, small plots were provided to help poor families feed themselves. In 1908, a law required local councils in England and Wales to provide allotments where there was sufficient demand, an obligation that still exists today. A traditional plot measures ten 'poles', an old unit of measurement, which is roughly 250 square metres, or about the size of a tennis court.\n\nC  Allotments reached their peak during the two world wars, when food shortages made home-grown vegetables essential. During the Second World War, a government campaign urged people to 'Dig for Victory', and parks, playing fields and even the edges of railway lines were turned over to food production. By the end of the war there were more than a million allotments in Britain. In the decades that followed, however, as food became cheaper and more plentiful and many people moved to homes with gardens, demand fell sharply, and many sites were sold for housing.\n\nD  Interest began to revive in the early twenty-first century, driven by concerns about food quality, the environment and the cost of living, as well as by television programmes celebrating home cooking. The profile of allotment holders has also changed: younger people, families and women now make up a much larger share than in the past. Because demand has grown faster than the supply of land, some councils have divided traditional plots in half, allowing more people to have a share, and some waiting lists stretch to several years.\n\nE  Supporters argue that the benefits go well beyond cheap vegetables. Working outdoors provides regular physical exercise, and many plot holders describe their allotment as a place where they can forget the pressures of work. Several studies have linked gardening with improvements in mood and well-being. Allotment sites also bring together people of different ages and backgrounds, who share advice, seeds and surplus produce. Some doctors have even begun to recommend gardening to patients as part of so-called 'social prescribing'.\n\nF  Allotments are not without their challenges. Plots demand regular attention, especially in summer, and new tenants sometimes underestimate the work involved, abandoning their plots after a single season. Most sites have rules requiring a certain proportion of each plot to be cultivated, and tenants who neglect their land may be asked to leave. Nevertheless, for those prepared to commit the time, an allotment offers something increasingly rare in modern life: a direct connection with the seasons and with the source of their food.",
+  "question": "Paragraph F: choose the most suitable heading.",
+  "choices": [
+   "The commitment required",
+   "A traditional unit of measurement",
+   "New kinds of plot holders",
+   "A place to forget the pressures of work"
+  ],
+  "answer": "The commitment required",
+  "explanation": "F段落は 区画には 定期的な 手入れが 必要で、放置すると 退去を 求められる ことを 述べる。",
+  "tags": "IELTS reading general-training 特集記事 市民農園 見出し"
+ },
+ {
+  "id": "IELTS-RG-008-5",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Allotments: A Growing Interest\n\nA  Across Britain, on the edges of towns and squeezed between railway lines and housing estates, lie patchworks of small rectangular gardens, each with its own shed, compost heap and rows of vegetables. These are allotments: plots of land, usually owned by the local council, which individuals rent for a modest annual fee in order to grow their own food. For much of the late twentieth century, allotments were regarded as an old-fashioned pastime, associated mainly with retired men. Today they are in such demand that many councils have long waiting lists.\n\nB  The tradition has deep roots. In the eighteenth and nineteenth centuries, as common land was enclosed and rural workers lost access to land on which to grow food, small plots were provided to help poor families feed themselves. In 1908, a law required local councils in England and Wales to provide allotments where there was sufficient demand, an obligation that still exists today. A traditional plot measures ten 'poles', an old unit of measurement, which is roughly 250 square metres, or about the size of a tennis court.\n\nC  Allotments reached their peak during the two world wars, when food shortages made home-grown vegetables essential. During the Second World War, a government campaign urged people to 'Dig for Victory', and parks, playing fields and even the edges of railway lines were turned over to food production. By the end of the war there were more than a million allotments in Britain. In the decades that followed, however, as food became cheaper and more plentiful and many people moved to homes with gardens, demand fell sharply, and many sites were sold for housing.\n\nD  Interest began to revive in the early twenty-first century, driven by concerns about food quality, the environment and the cost of living, as well as by television programmes celebrating home cooking. The profile of allotment holders has also changed: younger people, families and women now make up a much larger share than in the past. Because demand has grown faster than the supply of land, some councils have divided traditional plots in half, allowing more people to have a share, and some waiting lists stretch to several years.\n\nE  Supporters argue that the benefits go well beyond cheap vegetables. Working outdoors provides regular physical exercise, and many plot holders describe their allotment as a place where they can forget the pressures of work. Several studies have linked gardening with improvements in mood and well-being. Allotment sites also bring together people of different ages and backgrounds, who share advice, seeds and surplus produce. Some doctors have even begun to recommend gardening to patients as part of so-called 'social prescribing'.\n\nF  Allotments are not without their challenges. Plots demand regular attention, especially in summer, and new tenants sometimes underestimate the work involved, abandoning their plots after a single season. Most sites have rules requiring a certain proportion of each plot to be cultivated, and tenants who neglect their land may be asked to leave. Nevertheless, for those prepared to commit the time, an allotment offers something increasingly rare in modern life: a direct connection with the seasons and with the source of their food.",
+  "question": "Choose the correct answer.\n\nWhy have some councils divided plots in half?",
+  "choices": [
+   "because many tenants could not manage a full plot",
+   "to give more people access to land",
+   "because traditional plots were too expensive to rent",
+   "to create space for new housing on the sites"
+  ],
+  "answer": "to give more people access to land",
+  "explanation": "D段落「some councils have divided traditional plots in half, allowing more people to have a share」。",
+  "tags": "IELTS reading general-training 特集記事 市民農園 多肢選択"
+ },
+ {
+  "id": "IELTS-RG-008-6",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Allotments: A Growing Interest\n\nA  Across Britain, on the edges of towns and squeezed between railway lines and housing estates, lie patchworks of small rectangular gardens, each with its own shed, compost heap and rows of vegetables. These are allotments: plots of land, usually owned by the local council, which individuals rent for a modest annual fee in order to grow their own food. For much of the late twentieth century, allotments were regarded as an old-fashioned pastime, associated mainly with retired men. Today they are in such demand that many councils have long waiting lists.\n\nB  The tradition has deep roots. In the eighteenth and nineteenth centuries, as common land was enclosed and rural workers lost access to land on which to grow food, small plots were provided to help poor families feed themselves. In 1908, a law required local councils in England and Wales to provide allotments where there was sufficient demand, an obligation that still exists today. A traditional plot measures ten 'poles', an old unit of measurement, which is roughly 250 square metres, or about the size of a tennis court.\n\nC  Allotments reached their peak during the two world wars, when food shortages made home-grown vegetables essential. During the Second World War, a government campaign urged people to 'Dig for Victory', and parks, playing fields and even the edges of railway lines were turned over to food production. By the end of the war there were more than a million allotments in Britain. In the decades that followed, however, as food became cheaper and more plentiful and many people moved to homes with gardens, demand fell sharply, and many sites were sold for housing.\n\nD  Interest began to revive in the early twenty-first century, driven by concerns about food quality, the environment and the cost of living, as well as by television programmes celebrating home cooking. The profile of allotment holders has also changed: younger people, families and women now make up a much larger share than in the past. Because demand has grown faster than the supply of land, some councils have divided traditional plots in half, allowing more people to have a share, and some waiting lists stretch to several years.\n\nE  Supporters argue that the benefits go well beyond cheap vegetables. Working outdoors provides regular physical exercise, and many plot holders describe their allotment as a place where they can forget the pressures of work. Several studies have linked gardening with improvements in mood and well-being. Allotment sites also bring together people of different ages and backgrounds, who share advice, seeds and surplus produce. Some doctors have even begun to recommend gardening to patients as part of so-called 'social prescribing'.\n\nF  Allotments are not without their challenges. Plots demand regular attention, especially in summer, and new tenants sometimes underestimate the work involved, abandoning their plots after a single season. Most sites have rules requiring a certain proportion of each plot to be cultivated, and tenants who neglect their land may be asked to leave. Nevertheless, for those prepared to commit the time, an allotment offers something increasingly rare in modern life: a direct connection with the seasons and with the source of their food.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nA traditional allotment plot measures ten ______.",
+  "answer": "poles",
+  "explanation": "B段落「A traditional plot measures ten 'poles'」。",
+  "tags": "IELTS reading general-training 特集記事 市民農園 文完成"
+ },
+ {
+  "id": "IELTS-RG-009-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Northway Engineering: First Aid at Work Training\n\nA  Course overview. The company is looking for volunteers to train as workplace first aiders. The three-day course, run by an approved external provider, covers the treatment of injuries such as burns, cuts and broken bones, as well as how to respond to someone who has collapsed.\n\nB  Dates and location. The next course will run from 12 to 14 May in Training Room 2 at our main site. Sessions start at 9.00 a.m. and finish at 4.30 p.m., with lunch provided.\n\nC  Who can apply. Any permanent employee may apply, but priority will be given to staff on the night shift and at the Eastfield warehouse, where we currently have fewer qualified first aiders. Applicants should be comfortable with practical activities, including kneeling on the floor.\n\nD  Assessment. Participants are assessed throughout the course through practical tasks, and there is a short written test at the end. Those who pass receive a certificate valid for three years. A one-day refresher course must be completed before the certificate expires.\n\nE  Benefits. Qualified first aiders receive an additional payment of £250 per year. Time spent on the course counts as normal working hours.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nThe course is taught by the company's own staff.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "A「run by an approved external provider」。外部の 業者が 行うので FALSE。",
+  "tags": "IELTS reading general-training 職場 研修案内 TFNG"
+ },
+ {
+  "id": "IELTS-RG-009-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Northway Engineering: First Aid at Work Training\n\nA  Course overview. The company is looking for volunteers to train as workplace first aiders. The three-day course, run by an approved external provider, covers the treatment of injuries such as burns, cuts and broken bones, as well as how to respond to someone who has collapsed.\n\nB  Dates and location. The next course will run from 12 to 14 May in Training Room 2 at our main site. Sessions start at 9.00 a.m. and finish at 4.30 p.m., with lunch provided.\n\nC  Who can apply. Any permanent employee may apply, but priority will be given to staff on the night shift and at the Eastfield warehouse, where we currently have fewer qualified first aiders. Applicants should be comfortable with practical activities, including kneeling on the floor.\n\nD  Assessment. Participants are assessed throughout the course through practical tasks, and there is a short written test at the end. Those who pass receive a certificate valid for three years. A one-day refresher course must be completed before the certificate expires.\n\nE  Benefits. Qualified first aiders receive an additional payment of £250 per year. Time spent on the course counts as normal working hours.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nStaff who attend the course are paid as normal for that time.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "E「Time spent on the course counts as normal working hours」。TRUE。",
+  "tags": "IELTS reading general-training 職場 研修案内 TFNG"
+ },
+ {
+  "id": "IELTS-RG-009-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Northway Engineering: First Aid at Work Training\n\nA  Course overview. The company is looking for volunteers to train as workplace first aiders. The three-day course, run by an approved external provider, covers the treatment of injuries such as burns, cuts and broken bones, as well as how to respond to someone who has collapsed.\n\nB  Dates and location. The next course will run from 12 to 14 May in Training Room 2 at our main site. Sessions start at 9.00 a.m. and finish at 4.30 p.m., with lunch provided.\n\nC  Who can apply. Any permanent employee may apply, but priority will be given to staff on the night shift and at the Eastfield warehouse, where we currently have fewer qualified first aiders. Applicants should be comfortable with practical activities, including kneeling on the floor.\n\nD  Assessment. Participants are assessed throughout the course through practical tasks, and there is a short written test at the end. Those who pass receive a certificate valid for three years. A one-day refresher course must be completed before the certificate expires.\n\nE  Benefits. Qualified first aiders receive an additional payment of £250 per year. Time spent on the course counts as normal working hours.",
+  "question": "Look at sections A–E of the information. Which section contains the following information?\n\nwhich employees are most likely to be chosen",
+  "choices": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "explanation": "C「priority will be given to staff on the night shift and at the Eastfield warehouse」。",
+  "tags": "IELTS reading general-training 職場 研修案内 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-009-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Northway Engineering: First Aid at Work Training\n\nA  Course overview. The company is looking for volunteers to train as workplace first aiders. The three-day course, run by an approved external provider, covers the treatment of injuries such as burns, cuts and broken bones, as well as how to respond to someone who has collapsed.\n\nB  Dates and location. The next course will run from 12 to 14 May in Training Room 2 at our main site. Sessions start at 9.00 a.m. and finish at 4.30 p.m., with lunch provided.\n\nC  Who can apply. Any permanent employee may apply, but priority will be given to staff on the night shift and at the Eastfield warehouse, where we currently have fewer qualified first aiders. Applicants should be comfortable with practical activities, including kneeling on the floor.\n\nD  Assessment. Participants are assessed throughout the course through practical tasks, and there is a short written test at the end. Those who pass receive a certificate valid for three years. A one-day refresher course must be completed before the certificate expires.\n\nE  Benefits. Qualified first aiders receive an additional payment of £250 per year. Time spent on the course counts as normal working hours.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nCertificates last for three years, and a one-day ______ course must be completed before they expire.",
+  "answer": "refresher",
+  "explanation": "D「A one-day refresher course must be completed before the certificate expires」。",
+  "tags": "IELTS reading general-training 職場 研修案内 文完成"
+ },
+ {
+  "id": "IELTS-RG-010-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Harbour View Hotel: Guest Information\n\nA  Breakfast. Breakfast is served in the Garden Room from 7.00 to 10.00 a.m. on weekdays and from 7.30 to 10.30 a.m. at weekends. A continental breakfast can be delivered to your room for a small extra charge; please order by 10 p.m. the night before.\n\nB  Check-out. Check-out time is 11.00 a.m. Late check-out until 2.00 p.m. may be possible, depending on availability; please ask at reception. Luggage can be stored free of charge after check-out.\n\nC  Wi-Fi. Free Wi-Fi is available throughout the hotel. The network name and password are printed on your key card holder. For faster connection speeds, a premium service can be purchased at reception.\n\nD  Leisure facilities. The indoor pool and gym on the ground floor are open from 6.30 a.m. to 9.00 p.m. and are free for all guests. Spa treatments must be booked at least 24 hours in advance.\n\nE  Parking. Limited parking is available behind the hotel at £12 per night. Spaces cannot be reserved. Guests may also use the public car park on Quay Street, a five-minute walk away.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nThe hotel restaurant is open for dinner every evening.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "朝食・ルームサービスの 説明は あるが、夕食や レストランの 営業に ついては 書かれていない。NOT GIVEN。",
+  "tags": "IELTS reading general-training ホテル 案内 TFNG"
+ },
+ {
+  "id": "IELTS-RG-010-2",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Harbour View Hotel: Guest Information\n\nA  Breakfast. Breakfast is served in the Garden Room from 7.00 to 10.00 a.m. on weekdays and from 7.30 to 10.30 a.m. at weekends. A continental breakfast can be delivered to your room for a small extra charge; please order by 10 p.m. the night before.\n\nB  Check-out. Check-out time is 11.00 a.m. Late check-out until 2.00 p.m. may be possible, depending on availability; please ask at reception. Luggage can be stored free of charge after check-out.\n\nC  Wi-Fi. Free Wi-Fi is available throughout the hotel. The network name and password are printed on your key card holder. For faster connection speeds, a premium service can be purchased at reception.\n\nD  Leisure facilities. The indoor pool and gym on the ground floor are open from 6.30 a.m. to 9.00 p.m. and are free for all guests. Spa treatments must be booked at least 24 hours in advance.\n\nE  Parking. Limited parking is available behind the hotel at £12 per night. Spaces cannot be reserved. Guests may also use the public car park on Quay Street, a five-minute walk away.",
+  "question": "Look at sections A–E of the guest information. Which section contains the following information?\n\nwhere guests can find the details needed to go online",
+  "choices": [
+   "B",
+   "C",
+   "D",
+   "E"
+  ],
+  "answer": "C",
+  "explanation": "C「The network name and password are printed on your key card holder」。",
+  "tags": "IELTS reading general-training ホテル 案内 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-010-3",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Harbour View Hotel: Guest Information\n\nA  Breakfast. Breakfast is served in the Garden Room from 7.00 to 10.00 a.m. on weekdays and from 7.30 to 10.30 a.m. at weekends. A continental breakfast can be delivered to your room for a small extra charge; please order by 10 p.m. the night before.\n\nB  Check-out. Check-out time is 11.00 a.m. Late check-out until 2.00 p.m. may be possible, depending on availability; please ask at reception. Luggage can be stored free of charge after check-out.\n\nC  Wi-Fi. Free Wi-Fi is available throughout the hotel. The network name and password are printed on your key card holder. For faster connection speeds, a premium service can be purchased at reception.\n\nD  Leisure facilities. The indoor pool and gym on the ground floor are open from 6.30 a.m. to 9.00 p.m. and are free for all guests. Spa treatments must be booked at least 24 hours in advance.\n\nE  Parking. Limited parking is available behind the hotel at £12 per night. Spaces cannot be reserved. Guests may also use the public car park on Quay Street, a five-minute walk away.",
+  "question": "Choose the correct answer.\n\nWhat is said about parking at the hotel?",
+  "choices": [
+   "Guests cannot book a space in advance.",
+   "It is free for guests staying more than one night.",
+   "The car park is a five-minute walk from the hotel.",
+   "Spaces are available at the front of the hotel."
+  ],
+  "answer": "Guests cannot book a space in advance.",
+  "explanation": "E「Spaces cannot be reserved」。徒歩5分なのは 公共の 駐車場。",
+  "tags": "IELTS reading general-training ホテル 案内 多肢選択"
+ },
+ {
+  "id": "IELTS-RG-010-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Harbour View Hotel: Guest Information\n\nA  Breakfast. Breakfast is served in the Garden Room from 7.00 to 10.00 a.m. on weekdays and from 7.30 to 10.30 a.m. at weekends. A continental breakfast can be delivered to your room for a small extra charge; please order by 10 p.m. the night before.\n\nB  Check-out. Check-out time is 11.00 a.m. Late check-out until 2.00 p.m. may be possible, depending on availability; please ask at reception. Luggage can be stored free of charge after check-out.\n\nC  Wi-Fi. Free Wi-Fi is available throughout the hotel. The network name and password are printed on your key card holder. For faster connection speeds, a premium service can be purchased at reception.\n\nD  Leisure facilities. The indoor pool and gym on the ground floor are open from 6.30 a.m. to 9.00 p.m. and are free for all guests. Spa treatments must be booked at least 24 hours in advance.\n\nE  Parking. Limited parking is available behind the hotel at £12 per night. Spaces cannot be reserved. Guests may also use the public car park on Quay Street, a five-minute walk away.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nLate check-out until 2.00 p.m. may be possible, depending on ______.",
+  "answer": "availability",
+  "explanation": "B「Late check-out until 2.00 p.m. may be possible, depending on availability」。",
+  "tags": "IELTS reading general-training ホテル 案内 文完成"
+ },
+ {
+  "id": "IELTS-RG-011-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Marlowe Publishing: Annual Leave Policy\n\nA  Entitlement. Full-time employees are entitled to 25 days' paid annual leave per year, in addition to public holidays. Part-time employees receive a pro-rata amount based on the number of days they work. After five years' continuous service, employees receive one additional day of leave per year of service, up to a maximum of 30 days.\n\nB  Leave year. The leave year runs from 1 January to 31 December. Employees may carry over up to five unused days into the following year, but these must be taken by 31 March or they will be lost.\n\nC  Booking leave. Requests should be submitted through the HR portal at least two weeks in advance for periods of up to five days, and at least six weeks in advance for longer periods. Leave is approved on a first-come, first-served basis.\n\nD  Busy periods. Because of our publishing schedule, no more than two members of the editorial team may be on leave at the same time during September and October.\n\nE  Sickness during leave. If you fall ill while on annual leave, you may be able to reclaim the days affected, provided that you notify your manager on the first day of illness and supply a doctor's note.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nPart-time employees receive the same number of days' leave as full-time employees.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "A「Part-time employees receive a pro-rata amount」＝勤務日数に 応じた 割合。同じでは ないので FALSE。",
+  "tags": "IELTS reading general-training 職場 休暇規定 TFNG"
+ },
+ {
+  "id": "IELTS-RG-011-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Marlowe Publishing: Annual Leave Policy\n\nA  Entitlement. Full-time employees are entitled to 25 days' paid annual leave per year, in addition to public holidays. Part-time employees receive a pro-rata amount based on the number of days they work. After five years' continuous service, employees receive one additional day of leave per year of service, up to a maximum of 30 days.\n\nB  Leave year. The leave year runs from 1 January to 31 December. Employees may carry over up to five unused days into the following year, but these must be taken by 31 March or they will be lost.\n\nC  Booking leave. Requests should be submitted through the HR portal at least two weeks in advance for periods of up to five days, and at least six weeks in advance for longer periods. Leave is approved on a first-come, first-served basis.\n\nD  Busy periods. Because of our publishing schedule, no more than two members of the editorial team may be on leave at the same time during September and October.\n\nE  Sickness during leave. If you fall ill while on annual leave, you may be able to reclaim the days affected, provided that you notify your manager on the first day of illness and supply a doctor's note.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nDays carried over must be used within the first three months of the following year.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "B「these must be taken by 31 March」＝1〜3月の 3か月以内。TRUE。",
+  "tags": "IELTS reading general-training 職場 休暇規定 TFNG"
+ },
+ {
+  "id": "IELTS-RG-011-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Marlowe Publishing: Annual Leave Policy\n\nA  Entitlement. Full-time employees are entitled to 25 days' paid annual leave per year, in addition to public holidays. Part-time employees receive a pro-rata amount based on the number of days they work. After five years' continuous service, employees receive one additional day of leave per year of service, up to a maximum of 30 days.\n\nB  Leave year. The leave year runs from 1 January to 31 December. Employees may carry over up to five unused days into the following year, but these must be taken by 31 March or they will be lost.\n\nC  Booking leave. Requests should be submitted through the HR portal at least two weeks in advance for periods of up to five days, and at least six weeks in advance for longer periods. Leave is approved on a first-come, first-served basis.\n\nD  Busy periods. Because of our publishing schedule, no more than two members of the editorial team may be on leave at the same time during September and October.\n\nE  Sickness during leave. If you fall ill while on annual leave, you may be able to reclaim the days affected, provided that you notify your manager on the first day of illness and supply a doctor's note.",
+  "question": "Look at sections A–E of the policy. Which section contains the following information?\n\na limit that applies only at certain times of the year",
+  "choices": [
+   "B",
+   "C",
+   "D",
+   "E"
+  ],
+  "answer": "D",
+  "explanation": "D「no more than two members of the editorial team ... during September and October」。",
+  "tags": "IELTS reading general-training 職場 休暇規定 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-011-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Marlowe Publishing: Annual Leave Policy\n\nA  Entitlement. Full-time employees are entitled to 25 days' paid annual leave per year, in addition to public holidays. Part-time employees receive a pro-rata amount based on the number of days they work. After five years' continuous service, employees receive one additional day of leave per year of service, up to a maximum of 30 days.\n\nB  Leave year. The leave year runs from 1 January to 31 December. Employees may carry over up to five unused days into the following year, but these must be taken by 31 March or they will be lost.\n\nC  Booking leave. Requests should be submitted through the HR portal at least two weeks in advance for periods of up to five days, and at least six weeks in advance for longer periods. Leave is approved on a first-come, first-served basis.\n\nD  Busy periods. Because of our publishing schedule, no more than two members of the editorial team may be on leave at the same time during September and October.\n\nE  Sickness during leave. If you fall ill while on annual leave, you may be able to reclaim the days affected, provided that you notify your manager on the first day of illness and supply a doctor's note.",
+  "question": "Complete the sentence below. Choose NO MORE THAN TWO WORDS from the passage for the answer.\n\nTo reclaim leave affected by illness, employees must inform their manager and supply a ______.",
+  "answer": "doctor's note",
+  "explanation": "E「notify your manager on the first day of illness and supply a doctor's note」。",
+  "tags": "IELTS reading general-training 職場 休暇規定 文完成"
+ },
+ {
+  "id": "IELTS-RG-012-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "C1",
+  "band": "IELTS目安:7.0",
+  "passage": "Working Less, Achieving More? The Four-Day Week\n\nA  For most of the twentieth century, the standard working week in industrialised countries shrank steadily. In the early 1900s, factory employees commonly worked six days a week; by the middle of the century, the five-day, forty-hour week had become the norm in many countries. Since then, however, the length of the standard week has barely changed, even as technology has transformed the nature of work. In recent years, a growing number of employers and campaigners have asked whether the next step should be a four-day week.\n\nB  It is important to distinguish between two very different ideas that are sometimes given the same name. A 'compressed' week involves working the same total number of hours over four days, for example four ten-hour days. A reduced-hours week, by contrast, cuts the total working time, typically to around thirty-two hours, while maintaining full pay. Advocates of the latter often refer to the '100-80-100' model: employees receive 100 per cent of their pay for 80 per cent of their time, in return for a commitment to maintain 100 per cent of their productivity.\n\nC  Some of the most widely cited evidence comes from Iceland, where trials involving around 2,500 public-sector workers took place between 2015 and 2019. Working hours were reduced from forty to thirty-five or thirty-six per week, without any reduction in pay. According to researchers who analysed the results, productivity and service provision remained the same or improved in the majority of workplaces, while workers reported lower stress and a better balance between work and home life. Following the trials, unions negotiated agreements giving many Icelandic workers the right to request shorter hours.\n\nD  In 2022, a six-month pilot involving 61 companies and almost 3,000 employees took place in the United Kingdom. The organisations ranged from small marketing agencies to a fish and chip shop. At the end of the trial, 56 of the companies chose to continue with the four-day week, 18 of them on a permanent basis. Employees reported less burnout and fewer sick days, and among the companies that provided financial data, revenue stayed broadly the same over the trial period. Many firms found that the change forced them to cut unnecessary meetings and to reorganise tasks more efficiently.\n\nE  Sceptics, however, point to several limitations. The companies taking part in such trials had volunteered, and are likely to have been those most confident that a shorter week would suit them. Six months may be too short a period to reveal long-term effects. Moreover, the model is far easier to apply in office-based work, where output can be measured in tasks completed, than in sectors such as healthcare, education or retail, where staff need to be present for fixed periods. In these areas, reducing hours without reducing pay may simply require employing more people, which raises costs.\n\nF  The debate is therefore likely to continue for some time. It seems unlikely that a single model will suit every industry, and the most successful examples so far have involved careful planning and the active involvement of employees in redesigning their work. What the trials have demonstrated, at the very least, is that the number of hours spent at work is not always a reliable measure of what is achieved there.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nA compressed week involves working fewer hours in total than a standard week.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "FALSE",
+  "explanation": "B段落「working the same total number of hours over four days」。合計時間は 同じなので FALSE。",
+  "tags": "IELTS reading general-training 特集記事 週休3日 TFNG"
+ },
+ {
+  "id": "IELTS-RG-012-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "C1",
+  "band": "IELTS目安:7.0",
+  "passage": "Working Less, Achieving More? The Four-Day Week\n\nA  For most of the twentieth century, the standard working week in industrialised countries shrank steadily. In the early 1900s, factory employees commonly worked six days a week; by the middle of the century, the five-day, forty-hour week had become the norm in many countries. Since then, however, the length of the standard week has barely changed, even as technology has transformed the nature of work. In recent years, a growing number of employers and campaigners have asked whether the next step should be a four-day week.\n\nB  It is important to distinguish between two very different ideas that are sometimes given the same name. A 'compressed' week involves working the same total number of hours over four days, for example four ten-hour days. A reduced-hours week, by contrast, cuts the total working time, typically to around thirty-two hours, while maintaining full pay. Advocates of the latter often refer to the '100-80-100' model: employees receive 100 per cent of their pay for 80 per cent of their time, in return for a commitment to maintain 100 per cent of their productivity.\n\nC  Some of the most widely cited evidence comes from Iceland, where trials involving around 2,500 public-sector workers took place between 2015 and 2019. Working hours were reduced from forty to thirty-five or thirty-six per week, without any reduction in pay. According to researchers who analysed the results, productivity and service provision remained the same or improved in the majority of workplaces, while workers reported lower stress and a better balance between work and home life. Following the trials, unions negotiated agreements giving many Icelandic workers the right to request shorter hours.\n\nD  In 2022, a six-month pilot involving 61 companies and almost 3,000 employees took place in the United Kingdom. The organisations ranged from small marketing agencies to a fish and chip shop. At the end of the trial, 56 of the companies chose to continue with the four-day week, 18 of them on a permanent basis. Employees reported less burnout and fewer sick days, and among the companies that provided financial data, revenue stayed broadly the same over the trial period. Many firms found that the change forced them to cut unnecessary meetings and to reorganise tasks more efficiently.\n\nE  Sceptics, however, point to several limitations. The companies taking part in such trials had volunteered, and are likely to have been those most confident that a shorter week would suit them. Six months may be too short a period to reveal long-term effects. Moreover, the model is far easier to apply in office-based work, where output can be measured in tasks completed, than in sectors such as healthcare, education or retail, where staff need to be present for fixed periods. In these areas, reducing hours without reducing pay may simply require employing more people, which raises costs.\n\nF  The debate is therefore likely to continue for some time. It seems unlikely that a single model will suit every industry, and the most successful examples so far have involved careful planning and the active involvement of employees in redesigning their work. What the trials have demonstrated, at the very least, is that the number of hours spent at work is not always a reliable measure of what is achieved there.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nThe UK pilot included businesses of very different types.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "D段落「ranged from small marketing agencies to a fish and chip shop」。TRUE。",
+  "tags": "IELTS reading general-training 特集記事 週休3日 TFNG"
+ },
+ {
+  "id": "IELTS-RG-012-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "C1",
+  "band": "IELTS目安:7.0",
+  "passage": "Working Less, Achieving More? The Four-Day Week\n\nA  For most of the twentieth century, the standard working week in industrialised countries shrank steadily. In the early 1900s, factory employees commonly worked six days a week; by the middle of the century, the five-day, forty-hour week had become the norm in many countries. Since then, however, the length of the standard week has barely changed, even as technology has transformed the nature of work. In recent years, a growing number of employers and campaigners have asked whether the next step should be a four-day week.\n\nB  It is important to distinguish between two very different ideas that are sometimes given the same name. A 'compressed' week involves working the same total number of hours over four days, for example four ten-hour days. A reduced-hours week, by contrast, cuts the total working time, typically to around thirty-two hours, while maintaining full pay. Advocates of the latter often refer to the '100-80-100' model: employees receive 100 per cent of their pay for 80 per cent of their time, in return for a commitment to maintain 100 per cent of their productivity.\n\nC  Some of the most widely cited evidence comes from Iceland, where trials involving around 2,500 public-sector workers took place between 2015 and 2019. Working hours were reduced from forty to thirty-five or thirty-six per week, without any reduction in pay. According to researchers who analysed the results, productivity and service provision remained the same or improved in the majority of workplaces, while workers reported lower stress and a better balance between work and home life. Following the trials, unions negotiated agreements giving many Icelandic workers the right to request shorter hours.\n\nD  In 2022, a six-month pilot involving 61 companies and almost 3,000 employees took place in the United Kingdom. The organisations ranged from small marketing agencies to a fish and chip shop. At the end of the trial, 56 of the companies chose to continue with the four-day week, 18 of them on a permanent basis. Employees reported less burnout and fewer sick days, and among the companies that provided financial data, revenue stayed broadly the same over the trial period. Many firms found that the change forced them to cut unnecessary meetings and to reorganise tasks more efficiently.\n\nE  Sceptics, however, point to several limitations. The companies taking part in such trials had volunteered, and are likely to have been those most confident that a shorter week would suit them. Six months may be too short a period to reveal long-term effects. Moreover, the model is far easier to apply in office-based work, where output can be measured in tasks completed, than in sectors such as healthcare, education or retail, where staff need to be present for fixed periods. In these areas, reducing hours without reducing pay may simply require employing more people, which raises costs.\n\nF  The debate is therefore likely to continue for some time. It seems unlikely that a single model will suit every industry, and the most successful examples so far have involved careful planning and the active involvement of employees in redesigning their work. What the trials have demonstrated, at the very least, is that the number of hours spent at work is not always a reliable measure of what is achieved there.",
+  "question": "Paragraph E: choose the most suitable heading.",
+  "choices": [
+   "Results from a national trial in Iceland",
+   "Two different meanings of the same term",
+   "Reasons for caution",
+   "How meetings can be reduced"
+  ],
+  "answer": "Reasons for caution",
+  "explanation": "E段落は 自発的に 参加した 企業・期間の 短さ・業種による 難しさなど、慎重に なるべき 理由を 並べる。",
+  "tags": "IELTS reading general-training 特集記事 週休3日 見出し"
+ },
+ {
+  "id": "IELTS-RG-012-4",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "C1",
+  "band": "IELTS目安:7.0",
+  "passage": "Working Less, Achieving More? The Four-Day Week\n\nA  For most of the twentieth century, the standard working week in industrialised countries shrank steadily. In the early 1900s, factory employees commonly worked six days a week; by the middle of the century, the five-day, forty-hour week had become the norm in many countries. Since then, however, the length of the standard week has barely changed, even as technology has transformed the nature of work. In recent years, a growing number of employers and campaigners have asked whether the next step should be a four-day week.\n\nB  It is important to distinguish between two very different ideas that are sometimes given the same name. A 'compressed' week involves working the same total number of hours over four days, for example four ten-hour days. A reduced-hours week, by contrast, cuts the total working time, typically to around thirty-two hours, while maintaining full pay. Advocates of the latter often refer to the '100-80-100' model: employees receive 100 per cent of their pay for 80 per cent of their time, in return for a commitment to maintain 100 per cent of their productivity.\n\nC  Some of the most widely cited evidence comes from Iceland, where trials involving around 2,500 public-sector workers took place between 2015 and 2019. Working hours were reduced from forty to thirty-five or thirty-six per week, without any reduction in pay. According to researchers who analysed the results, productivity and service provision remained the same or improved in the majority of workplaces, while workers reported lower stress and a better balance between work and home life. Following the trials, unions negotiated agreements giving many Icelandic workers the right to request shorter hours.\n\nD  In 2022, a six-month pilot involving 61 companies and almost 3,000 employees took place in the United Kingdom. The organisations ranged from small marketing agencies to a fish and chip shop. At the end of the trial, 56 of the companies chose to continue with the four-day week, 18 of them on a permanent basis. Employees reported less burnout and fewer sick days, and among the companies that provided financial data, revenue stayed broadly the same over the trial period. Many firms found that the change forced them to cut unnecessary meetings and to reorganise tasks more efficiently.\n\nE  Sceptics, however, point to several limitations. The companies taking part in such trials had volunteered, and are likely to have been those most confident that a shorter week would suit them. Six months may be too short a period to reveal long-term effects. Moreover, the model is far easier to apply in office-based work, where output can be measured in tasks completed, than in sectors such as healthcare, education or retail, where staff need to be present for fixed periods. In these areas, reducing hours without reducing pay may simply require employing more people, which raises costs.\n\nF  The debate is therefore likely to continue for some time. It seems unlikely that a single model will suit every industry, and the most successful examples so far have involved careful planning and the active involvement of employees in redesigning their work. What the trials have demonstrated, at the very least, is that the number of hours spent at work is not always a reliable measure of what is achieved there.",
+  "question": "Choose the correct answer.\n\nWhat did many companies in the UK pilot find?",
+  "choices": [
+   "Revenue rose sharply during the trial.",
+   "Staff took more sick days than before.",
+   "Most employees preferred a compressed week.",
+   "They had to organise work more efficiently."
+  ],
+  "answer": "They had to organise work more efficiently.",
+  "explanation": "D段落「the change forced them to cut unnecessary meetings and to reorganise tasks more efficiently」。病欠は 減った。",
+  "tags": "IELTS reading general-training 特集記事 週休3日 多肢選択"
+ },
+ {
+  "id": "IELTS-RG-012-5",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "C1",
+  "band": "IELTS目安:7.0",
+  "passage": "Working Less, Achieving More? The Four-Day Week\n\nA  For most of the twentieth century, the standard working week in industrialised countries shrank steadily. In the early 1900s, factory employees commonly worked six days a week; by the middle of the century, the five-day, forty-hour week had become the norm in many countries. Since then, however, the length of the standard week has barely changed, even as technology has transformed the nature of work. In recent years, a growing number of employers and campaigners have asked whether the next step should be a four-day week.\n\nB  It is important to distinguish between two very different ideas that are sometimes given the same name. A 'compressed' week involves working the same total number of hours over four days, for example four ten-hour days. A reduced-hours week, by contrast, cuts the total working time, typically to around thirty-two hours, while maintaining full pay. Advocates of the latter often refer to the '100-80-100' model: employees receive 100 per cent of their pay for 80 per cent of their time, in return for a commitment to maintain 100 per cent of their productivity.\n\nC  Some of the most widely cited evidence comes from Iceland, where trials involving around 2,500 public-sector workers took place between 2015 and 2019. Working hours were reduced from forty to thirty-five or thirty-six per week, without any reduction in pay. According to researchers who analysed the results, productivity and service provision remained the same or improved in the majority of workplaces, while workers reported lower stress and a better balance between work and home life. Following the trials, unions negotiated agreements giving many Icelandic workers the right to request shorter hours.\n\nD  In 2022, a six-month pilot involving 61 companies and almost 3,000 employees took place in the United Kingdom. The organisations ranged from small marketing agencies to a fish and chip shop. At the end of the trial, 56 of the companies chose to continue with the four-day week, 18 of them on a permanent basis. Employees reported less burnout and fewer sick days, and among the companies that provided financial data, revenue stayed broadly the same over the trial period. Many firms found that the change forced them to cut unnecessary meetings and to reorganise tasks more efficiently.\n\nE  Sceptics, however, point to several limitations. The companies taking part in such trials had volunteered, and are likely to have been those most confident that a shorter week would suit them. Six months may be too short a period to reveal long-term effects. Moreover, the model is far easier to apply in office-based work, where output can be measured in tasks completed, than in sectors such as healthcare, education or retail, where staff need to be present for fixed periods. In these areas, reducing hours without reducing pay may simply require employing more people, which raises costs.\n\nF  The debate is therefore likely to continue for some time. It seems unlikely that a single model will suit every industry, and the most successful examples so far have involved careful planning and the active involvement of employees in redesigning their work. What the trials have demonstrated, at the very least, is that the number of hours spent at work is not always a reliable measure of what is achieved there.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY AND/OR A NUMBER from the passage for the answer.\n\nSupporters of a reduced-hours week often refer to the '______' model.",
+  "answer": "100-80-100",
+  "explanation": "B段落「Advocates of the latter often refer to the '100-80-100' model」。",
+  "tags": "IELTS reading general-training 特集記事 週休3日 文完成"
+ },
+ {
+  "id": "IELTS-RG-012-6",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "C1",
+  "band": "IELTS目安:7.0",
+  "passage": "Working Less, Achieving More? The Four-Day Week\n\nA  For most of the twentieth century, the standard working week in industrialised countries shrank steadily. In the early 1900s, factory employees commonly worked six days a week; by the middle of the century, the five-day, forty-hour week had become the norm in many countries. Since then, however, the length of the standard week has barely changed, even as technology has transformed the nature of work. In recent years, a growing number of employers and campaigners have asked whether the next step should be a four-day week.\n\nB  It is important to distinguish between two very different ideas that are sometimes given the same name. A 'compressed' week involves working the same total number of hours over four days, for example four ten-hour days. A reduced-hours week, by contrast, cuts the total working time, typically to around thirty-two hours, while maintaining full pay. Advocates of the latter often refer to the '100-80-100' model: employees receive 100 per cent of their pay for 80 per cent of their time, in return for a commitment to maintain 100 per cent of their productivity.\n\nC  Some of the most widely cited evidence comes from Iceland, where trials involving around 2,500 public-sector workers took place between 2015 and 2019. Working hours were reduced from forty to thirty-five or thirty-six per week, without any reduction in pay. According to researchers who analysed the results, productivity and service provision remained the same or improved in the majority of workplaces, while workers reported lower stress and a better balance between work and home life. Following the trials, unions negotiated agreements giving many Icelandic workers the right to request shorter hours.\n\nD  In 2022, a six-month pilot involving 61 companies and almost 3,000 employees took place in the United Kingdom. The organisations ranged from small marketing agencies to a fish and chip shop. At the end of the trial, 56 of the companies chose to continue with the four-day week, 18 of them on a permanent basis. Employees reported less burnout and fewer sick days, and among the companies that provided financial data, revenue stayed broadly the same over the trial period. Many firms found that the change forced them to cut unnecessary meetings and to reorganise tasks more efficiently.\n\nE  Sceptics, however, point to several limitations. The companies taking part in such trials had volunteered, and are likely to have been those most confident that a shorter week would suit them. Six months may be too short a period to reveal long-term effects. Moreover, the model is far easier to apply in office-based work, where output can be measured in tasks completed, than in sectors such as healthcare, education or retail, where staff need to be present for fixed periods. In these areas, reducing hours without reducing pay may simply require employing more people, which raises costs.\n\nF  The debate is therefore likely to continue for some time. It seems unlikely that a single model will suit every industry, and the most successful examples so far have involved careful planning and the active involvement of employees in redesigning their work. What the trials have demonstrated, at the very least, is that the number of hours spent at work is not always a reliable measure of what is achieved there.",
+  "question": "Complete the summary below. Choose ONE WORD ONLY from the passage for the answer.\n\nAfter the Icelandic trials, unions negotiated agreements giving many workers the right to ______ shorter hours.",
+  "answer": "request",
+  "explanation": "C段落「giving many Icelandic workers the right to request shorter hours」。",
+  "tags": "IELTS reading general-training 特集記事 週休3日 要約完成"
+ },
+ {
+  "id": "IELTS-RG-013-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Westbrook Public Library: Our Services\n\nA  Borrowing. Members can borrow up to 12 items at a time, including books, DVDs and audiobooks. Items are loaned for three weeks and can be renewed twice online, by phone or in person, unless another member has reserved them.\n\nB  Membership. Membership is free for everyone who lives, works or studies in the area. To join, bring a document showing your current address. Children under 16 need a parent or guardian to sign the form.\n\nC  Study spaces. Quiet study desks are available on the first floor on a first-come, first-served basis. Group study rooms for up to six people can be booked for a maximum of two hours per day.\n\nD  Computers and printing. Free computer use is available for up to one hour a day. Printing costs 10p per black-and-white page and 50p per colour page. Staff can help with basic computer skills on Tuesday mornings.\n\nE  Events. Our weekly events include story time for under-5s on Friday mornings and a reading group for adults on the last Thursday of each month. Events are free, but places for the reading group should be booked.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nThe library is closed on Sundays.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "開館日・休館日に ついての 情報は どこにも ない。NOT GIVEN。",
+  "tags": "IELTS reading general-training 図書館 案内 TFNG"
+ },
+ {
+  "id": "IELTS-RG-013-2",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Westbrook Public Library: Our Services\n\nA  Borrowing. Members can borrow up to 12 items at a time, including books, DVDs and audiobooks. Items are loaned for three weeks and can be renewed twice online, by phone or in person, unless another member has reserved them.\n\nB  Membership. Membership is free for everyone who lives, works or studies in the area. To join, bring a document showing your current address. Children under 16 need a parent or guardian to sign the form.\n\nC  Study spaces. Quiet study desks are available on the first floor on a first-come, first-served basis. Group study rooms for up to six people can be booked for a maximum of two hours per day.\n\nD  Computers and printing. Free computer use is available for up to one hour a day. Printing costs 10p per black-and-white page and 50p per colour page. Staff can help with basic computer skills on Tuesday mornings.\n\nE  Events. Our weekly events include story time for under-5s on Friday mornings and a reading group for adults on the last Thursday of each month. Events are free, but places for the reading group should be booked.",
+  "question": "Which section of the information mentions help for people who lack confidence with technology?",
+  "choices": [
+   "Computers and printing",
+   "Borrowing",
+   "Membership",
+   "Study spaces"
+  ],
+  "answer": "Computers and printing",
+  "explanation": "D「Staff can help with basic computer skills on Tuesday mornings」。",
+  "tags": "IELTS reading general-training 図書館 案内 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-013-3",
+  "skill": "reading",
+  "format": "General Training: 多肢選択",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Westbrook Public Library: Our Services\n\nA  Borrowing. Members can borrow up to 12 items at a time, including books, DVDs and audiobooks. Items are loaned for three weeks and can be renewed twice online, by phone or in person, unless another member has reserved them.\n\nB  Membership. Membership is free for everyone who lives, works or studies in the area. To join, bring a document showing your current address. Children under 16 need a parent or guardian to sign the form.\n\nC  Study spaces. Quiet study desks are available on the first floor on a first-come, first-served basis. Group study rooms for up to six people can be booked for a maximum of two hours per day.\n\nD  Computers and printing. Free computer use is available for up to one hour a day. Printing costs 10p per black-and-white page and 50p per colour page. Staff can help with basic computer skills on Tuesday mornings.\n\nE  Events. Our weekly events include story time for under-5s on Friday mornings and a reading group for adults on the last Thursday of each month. Events are free, but places for the reading group should be booked.",
+  "question": "Choose the correct answer.\n\nWhat is true about borrowing items?",
+  "choices": [
+   "DVDs must be returned after one week.",
+   "Items cannot be renewed if someone has reserved them.",
+   "Members may borrow 12 books and 12 DVDs at once.",
+   "Renewals can only be made in person at the library."
+  ],
+  "answer": "Items cannot be renewed if someone has reserved them.",
+  "explanation": "A「can be renewed twice ... unless another member has reserved them」。合計12点まで、更新は オンライン・電話でも できる。",
+  "tags": "IELTS reading general-training 図書館 案内 多肢選択"
+ },
+ {
+  "id": "IELTS-RG-013-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B1",
+  "band": "IELTS目安:5.0",
+  "passage": "Westbrook Public Library: Our Services\n\nA  Borrowing. Members can borrow up to 12 items at a time, including books, DVDs and audiobooks. Items are loaned for three weeks and can be renewed twice online, by phone or in person, unless another member has reserved them.\n\nB  Membership. Membership is free for everyone who lives, works or studies in the area. To join, bring a document showing your current address. Children under 16 need a parent or guardian to sign the form.\n\nC  Study spaces. Quiet study desks are available on the first floor on a first-come, first-served basis. Group study rooms for up to six people can be booked for a maximum of two hours per day.\n\nD  Computers and printing. Free computer use is available for up to one hour a day. Printing costs 10p per black-and-white page and 50p per colour page. Staff can help with basic computer skills on Tuesday mornings.\n\nE  Events. Our weekly events include story time for under-5s on Friday mornings and a reading group for adults on the last Thursday of each month. Events are free, but places for the reading group should be booked.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nTo join the library, people must bring a document showing their current ______.",
+  "answer": "address",
+  "explanation": "B「bring a document showing your current address」。",
+  "tags": "IELTS reading general-training 図書館 案内 文完成"
+ },
+ {
+  "id": "IELTS-RG-014-1",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Job Description: Assistant Store Manager, GreenLeaf Garden Centres\n\nA  Job purpose. To support the Store Manager in running a busy garden centre, ensuring that customers receive excellent service and that the store meets its sales targets. You will take charge of the store in the manager's absence.\n\nB  Main responsibilities. Supervising a team of up to 20 staff, including seasonal workers; preparing weekly staff rotas; monitoring stock levels and placing orders with suppliers; ensuring that plants are properly cared for and displayed; and handling customer complaints that cannot be resolved by other staff.\n\nC  Requirements. At least two years' supervisory experience in a retail environment is essential. A knowledge of plants and gardening is desirable but not essential. A full driving licence is required, as the role involves occasional travel to other branches.\n\nD  Working hours. 40 hours per week, including alternate weekends. Additional hours may be required during the busy spring season, for which overtime is paid.\n\nE  Benefits. Staff receive a 20% discount on all products, free parking and access to the company's training programme, which can lead to a recognised management qualification.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nThe assistant manager will run the store when the manager is not there.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "TRUE",
+  "explanation": "A「You will take charge of the store in the manager's absence」。TRUE。",
+  "tags": "IELTS reading general-training 職務記述書 TFNG"
+ },
+ {
+  "id": "IELTS-RG-014-2",
+  "skill": "reading",
+  "format": "General Training: TRUE/FALSE/NOT GIVEN",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Job Description: Assistant Store Manager, GreenLeaf Garden Centres\n\nA  Job purpose. To support the Store Manager in running a busy garden centre, ensuring that customers receive excellent service and that the store meets its sales targets. You will take charge of the store in the manager's absence.\n\nB  Main responsibilities. Supervising a team of up to 20 staff, including seasonal workers; preparing weekly staff rotas; monitoring stock levels and placing orders with suppliers; ensuring that plants are properly cared for and displayed; and handling customer complaints that cannot be resolved by other staff.\n\nC  Requirements. At least two years' supervisory experience in a retail environment is essential. A knowledge of plants and gardening is desirable but not essential. A full driving licence is required, as the role involves occasional travel to other branches.\n\nD  Working hours. 40 hours per week, including alternate weekends. Additional hours may be required during the busy spring season, for which overtime is paid.\n\nE  Benefits. Staff receive a 20% discount on all products, free parking and access to the company's training programme, which can lead to a recognised management qualification.",
+  "question": "Does the following statement agree with the information given in the passage? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, or NOT GIVEN if there is no information on this.\n\nThe successful applicant will be given a company car.",
+  "choices": [
+   "TRUE",
+   "FALSE",
+   "NOT GIVEN"
+  ],
+  "answer": "NOT GIVEN",
+  "explanation": "運転免許は 必要だが、会社の 車が 支給されるかは 書かれていない（福利厚生にも ない）。NOT GIVEN。",
+  "tags": "IELTS reading general-training 職務記述書 TFNG"
+ },
+ {
+  "id": "IELTS-RG-014-3",
+  "skill": "reading",
+  "format": "General Training: 見出し・情報の一致",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Job Description: Assistant Store Manager, GreenLeaf Garden Centres\n\nA  Job purpose. To support the Store Manager in running a busy garden centre, ensuring that customers receive excellent service and that the store meets its sales targets. You will take charge of the store in the manager's absence.\n\nB  Main responsibilities. Supervising a team of up to 20 staff, including seasonal workers; preparing weekly staff rotas; monitoring stock levels and placing orders with suppliers; ensuring that plants are properly cared for and displayed; and handling customer complaints that cannot be resolved by other staff.\n\nC  Requirements. At least two years' supervisory experience in a retail environment is essential. A knowledge of plants and gardening is desirable but not essential. A full driving licence is required, as the role involves occasional travel to other branches.\n\nD  Working hours. 40 hours per week, including alternate weekends. Additional hours may be required during the busy spring season, for which overtime is paid.\n\nE  Benefits. Staff receive a 20% discount on all products, free parking and access to the company's training programme, which can lead to a recognised management qualification.",
+  "question": "Look at sections A–E of the job description. Which section contains the following information?\n\nthe reason why a particular document is needed",
+  "choices": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "explanation": "C「A full driving licence is required, as the role involves occasional travel to other branches」。",
+  "tags": "IELTS reading general-training 職務記述書 情報の一致"
+ },
+ {
+  "id": "IELTS-RG-014-4",
+  "skill": "reading",
+  "format": "General Training: 文・要約完成",
+  "level": "B2",
+  "band": "IELTS目安:6.0",
+  "passage": "Job Description: Assistant Store Manager, GreenLeaf Garden Centres\n\nA  Job purpose. To support the Store Manager in running a busy garden centre, ensuring that customers receive excellent service and that the store meets its sales targets. You will take charge of the store in the manager's absence.\n\nB  Main responsibilities. Supervising a team of up to 20 staff, including seasonal workers; preparing weekly staff rotas; monitoring stock levels and placing orders with suppliers; ensuring that plants are properly cared for and displayed; and handling customer complaints that cannot be resolved by other staff.\n\nC  Requirements. At least two years' supervisory experience in a retail environment is essential. A knowledge of plants and gardening is desirable but not essential. A full driving licence is required, as the role involves occasional travel to other branches.\n\nD  Working hours. 40 hours per week, including alternate weekends. Additional hours may be required during the busy spring season, for which overtime is paid.\n\nE  Benefits. Staff receive a 20% discount on all products, free parking and access to the company's training programme, which can lead to a recognised management qualification.",
+  "question": "Complete the sentence below. Choose ONE WORD ONLY from the passage for the answer.\n\nStaff who work additional hours in the spring are paid ______.",
+  "answer": "overtime",
+  "explanation": "D「Additional hours may be required during the busy spring season, for which overtime is paid」。",
+  "tags": "IELTS reading general-training 職務記述書 文完成"
+ }
+]
