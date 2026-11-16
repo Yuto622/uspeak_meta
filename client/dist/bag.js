@@ -36,7 +36,7 @@ export function createBagUI({ send, toast, isOnline, food, renderer = null }) {
   // ---- いまの タブの 物（カードの 並び）----
   function list(tab = state.tab) {
     const d = state.data;
-    if (tab === 'food') return food.state.bag.map((b) => ({ key: `food:${b.id}`, id: b.id, en: b.en, ja: b.ja, note: [`×${b.n} · +${b.fill} 🍗`, `×${b.n} · +${b.fill} 🍗`], info: b, learn: true }));
+    if (tab === 'food') return food.state.bag.map((b) => ({ key: `food:${b.id}`, id: b.id, en: b.en, ja: b.ja, note: food.state.hungerOn === false ? [`×${b.n}`, `×${b.n}`] : [`×${b.n} · +${b.fill} 🍗`, `×${b.n} · +${b.fill} 🍗`], info: b, learn: true }));
     if (tab === 'wear') return (d?.wear.items || []).map((it) => ({ key: `wear:${it.id}`, id: it.id, en: it.en, ja: it.ja, note: it.worn ? ['✓ Wearing', '✓ きている'] : ['', ''], info: it, on: it.worn, group: it.slot }));
     if (tab === 'house') return d?.land ? [{ key: `house:${d.land.id}`, id: d.land.id, en: d.land.en || d.land.name, ja: d.land.name, note: [`Step ${d.land.tier}`, `${d.land.tier} だんめ`], info: d.land, emoji: d.land.emoji }] : [];
     return (d?.blocks || []).map((b) => ({ key: `block:${b.id}`, id: b.id, en: b.word, ja: b.ja, note: ['', ''], info: b, learn: true }));
@@ -56,7 +56,7 @@ export function createBagUI({ send, toast, isOnline, food, renderer = null }) {
   function action(it) {
     if (!it) return '';
     if (state.tab === 'food') {
-      const full = food.hunger >= food.state.max - 0.01;
+      const full = food.state.hungerOn !== false && food.hunger >= food.state.max - 0.01;
       return `<button type="button" class="fd-buy bag-act" data-act="eat" ${full ? 'disabled' : ''}>${full ? bi('You are full!', 'おなか いっぱい！') : bi('😋 Eat', '😋 たべる')}</button>`;
     }
     if (state.tab === 'wear') return `<button type="button" class="fd-buy bag-act${it.on ? ' off' : ''}" data-act="wear">${it.on ? bi('Take off', 'ぬぐ') : bi('👕 Wear', '👕 きる')}</button>`;
@@ -74,7 +74,7 @@ export function createBagUI({ send, toast, isOnline, food, renderer = null }) {
     dialog.querySelectorAll('[data-bag-tab]').forEach((b) => b.classList.toggle('active', b.dataset.bagTab === state.tab));
     dialog.querySelectorAll('[data-n]').forEach((el) => { el.textContent = n[el.dataset.n] ? String(n[el.dataset.n]) : ''; });
     const items = list();
-    const meter = state.tab === 'food' ? `<div class="fd-meter"><span>🍗</span><i style="--p:${(food.hunger / food.state.max) * 100}%"></i><b>${Math.ceil(food.hunger)} / ${food.state.max}</b></div>` : '';
+    const meter = state.tab === 'food' && food.state.hungerOn !== false ? `<div class="fd-meter"><span>🍗</span><i style="--p:${(food.hunger / food.state.max) * 100}%"></i><b>${Math.ceil(food.hunger)} / ${food.state.max}</b></div>` : '';
     if (!items.length) { preview.stop(); body.innerHTML = `${meter}<p class="fd-empty">${bi(...EMPTY[state.tab])}</p>`; return; }
     const pickKey = items.some((it) => it.key === state.pick[state.tab]) ? state.pick[state.tab] : items[0].key;
     state.pick[state.tab] = pickKey;

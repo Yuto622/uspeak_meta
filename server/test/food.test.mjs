@@ -7,6 +7,7 @@ process.env.TEACHER_KEY = 'testkey12345';
 process.env.REPORT_SECRET = 'test-report-secret-0123456789';
 process.env.ANSWER_MIN_INTERVAL_MS = '0';
 process.env.LOG_LEVEL = 'error';
+process.env.FOOD_HUNGER = 'on'; // Web 版は ふだん へらない。この 検査は へる しくみ そのものを 見る
 
 const { MAX, RATE_MS, SHOPS, STALLS, blankFood, sanitizeFood, hungerNow, pause, resume, eat, buy, addToBag, forSave, FoodError } = await import('../src/game/food.js');
 const { startServer } = await import('../src/index.js');

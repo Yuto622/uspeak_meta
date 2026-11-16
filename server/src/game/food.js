@@ -9,6 +9,9 @@ import { readFileSync } from 'node:fs';
 
 export const MAX = 20;
 export const RATE_MS = Number(process.env.FOOD_RATE_MS) || 240_000; // 1 点へるのに 4 分（まんぷくから 0 まで 80 分＝授業 1 回では まず 0 に ならない）。検査だけ 縮める
+// 2026-11：Web 版では おなかが へらない（「どうぶつの森にも ない」）。たべものは 買って たべる たのしみだけ のこす。
+// へる しくみは FOOD_HUNGER=on（または 検査の FOOD_RATE_MS）の ときだけ うごく。
+export const HUNGER_ON = process.env.FOOD_HUNGER === 'on' || !!process.env.FOOD_RATE_MS;
 export const SLOW = 0.6;            // 0 のときの 歩く はやさ
 export const BAG_MAX = 9;           // 1 しゅるい 9 こまで
 
@@ -73,7 +76,7 @@ export function hungerNow(f, now = Date.now()) {
 }
 // 減っている時間を 止める（きれたとき）・動かす（つながったとき）。
 export function pause(f, now = Date.now()) { f.h = hungerNow(f, now); f.at = 0; return f; }
-export function resume(f, now = Date.now()) { if (!f.at) f.at = now; return f; }
+export function resume(f, now = Date.now()) { if (!HUNGER_ON) { f.h = MAX; return f; } if (!f.at) f.at = now; return f; }
 export const forSave = (f, now = Date.now()) => ({ h: Math.round(hungerNow(f, now) * 100) / 100, bag: f.bag });
 
 export function buy(f, shop, id, coins) {
@@ -92,7 +95,7 @@ export function eat(f, id, now = Date.now()) {
   if (!it) throw new FoodError('no such food');
   if (!f.bag[id]) throw new FoodError('none left');
   const before = hungerNow(f, now);
-  if (before >= MAX - 0.01) throw new FoodError('full');
+  if (HUNGER_ON && before >= MAX - 0.01) throw new FoodError('full');
   f.bag[id] -= 1;
   if (!f.bag[id]) delete f.bag[id];
   f.h = Math.min(MAX, before + it.fill);
@@ -102,7 +105,7 @@ export function eat(f, id, now = Date.now()) {
 
 export function foodPayload(f, now = Date.now()) {
   return {
-    hunger: Math.round(hungerNow(f, now) * 100) / 100, max: MAX, rateMs: f.at ? RATE_MS : 0, slow: SLOW,
+    hunger: Math.round(hungerNow(f, now) * 100) / 100, max: MAX, rateMs: f.at ? RATE_MS : 0, slow: SLOW, hungerOn: HUNGER_ON,
     bag: Object.entries(f.bag).map(([id, n]) => { const it = ITEMS.get(id); return { id, n, icon: it.icon, en: it.en, ja: it.ja, fill: it.fill }; }),
   };
 }

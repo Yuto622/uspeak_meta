@@ -167,3 +167,6 @@ body[data-arcade] .top-dock, body[data-race] .top-dock, body[data-gp] .top-dock,
 .right-rail > #hunger .hg-icons i { width: 12px; font-size: 11px; }
 @media (max-width: 640px) { .right-rail > #hunger .hg-icons i { width: 11px; } }
 @media (pointer: coarse) and (max-height: 560px) { .right-rail > #hunger { flex-wrap: nowrap; } .right-rail > #hunger .hg-icons { order: 0; flex-basis: auto; } .right-rail > #hunger .hg-go { order: 4; } }
+
+/* 2026-11：Web 版は おなかが へらない。ゲージは「🎒 もちもの」の 札だけ に する（🍗 の めもりは 出さない）。 */
+#hunger.no-hunger .hg-icons { display: none; }

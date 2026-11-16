@@ -75,6 +75,8 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
     if (m.max) state.max = m.max;
     if (m.rateMs !== undefined) state.rateMs = m.rateMs;
     if (m.slow) state.slow = m.slow;
+    // 2026-11：Web 版は おなかが へらない（サーバーの hungerOn）。古い サーバーは 書いて こないので へる あつかい。
+    if (m.hungerOn !== undefined || m.rateMs !== undefined) state.hungerOn = m.hungerOn !== undefined ? !!m.hungerOn : true;
     if (Array.isArray(m.bag)) state.bag = m.bag;
     if (m.wallet) { state.coins = m.wallet.coins; onCoins(m.wallet); }
     paintGauge();
@@ -83,6 +85,8 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
   }
 
   function paintGauge() {
+    gauge.classList.toggle('no-hunger', state.hungerOn === false);
+    if (state.hungerOn === false) { gauge.classList.remove('low', 'empty'); gauge.title = ''; state.warned = ''; paintNotice(''); return; }
     const h = now();
     const per = state.max / ICONS;
     gauge.querySelectorAll('.hg-icons i').forEach((el, i) => {
@@ -105,17 +109,18 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
     const poor = state.coins < it.price;
     return `<div class="fd-item"><span class="fd-emoji">${it.icon}</span>
       <div class="fd-name" translate="no"><b>${esc(it.en)}</b><small>${esc(it.ja)}</small></div>
-      <p class="fd-fill">${fillIcons(it.fill)} <small>+${it.fill}</small></p>
+      ${state.hungerOn === false ? '' : `<p class="fd-fill">${fillIcons(it.fill)} <small>+${it.fill}</small></p>`}
       <button type="button" class="fd-buy" data-buy="${esc(it.id)}" ${poor ? 'disabled' : ''}>${poor ? bi(`◈ ${it.price}`, `◈ ${it.price}`) : bi(`Buy ◈ ${it.price}`, `かう ◈ ${it.price}`)}</button>
       ${have ? `<span class="fd-have">×${have}</span>` : ''}</div>`;
   }
   function bagRow() {
     if (!state.bag.length) return `<p class="fd-empty">${bi('Your bag is empty. Buy food at the stalls on the Main Island.', 'かばんは からっぽ。メインの島の やたいで かえるよ。')}</p>`;
-    const full = now() >= state.max - 0.01;
-    return `<div class="fd-bag">${state.bag.map((b) => `<button type="button" class="fd-eat" data-eat="${esc(b.id)}" ${full ? 'disabled' : ''}><span class="fd-emoji">${b.icon}</span><span translate="no">${esc(b.en)}</span><small>×${b.n} · +${b.fill}</small></button>`).join('')}</div>
+    const full = state.hungerOn !== false && now() >= state.max - 0.01;
+    return `<div class="fd-bag">${state.bag.map((b) => `<button type="button" class="fd-eat" data-eat="${esc(b.id)}" ${full ? 'disabled' : ''}><span class="fd-emoji">${b.icon}</span><span translate="no">${esc(b.en)}</span><small>×${b.n}${state.hungerOn === false ? '' : ` · +${b.fill}`}</small></button>`).join('')}</div>
       ${full ? `<p class="fd-fine">${bi('You are full!', 'おなか いっぱい！')}</p>` : `<p class="fd-fine">${bi('Tap to eat.', 'おすと たべるよ。')}</p>`}`;
   }
   function meter() {
+    if (state.hungerOn === false) return '';
     const h = now();
     return `<div class="fd-meter"><span>🍗</span><i style="--p:${(h / state.max) * 100}%"></i><b>${Math.ceil(h)} / ${state.max}</b></div>`;
   }
@@ -130,7 +135,7 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
         <h3 class="fd-h3">${bi('🎒 Your bag', '🎒 かばん')}</h3>${bagRow()}`;
     } else {
       $('#fd-icon', dialog).textContent = '🎒';
-      $('#fd-kicker', dialog).textContent = 'HUNGER';
+      $('#fd-kicker', dialog).textContent = state.hungerOn === false ? 'BAG' : 'HUNGER';
       $('#fd-title', dialog).innerHTML = bi('Your bag', 'かばん');
       body.innerHTML = `${meter()}${bagRow()}`;
     }
@@ -161,7 +166,7 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
   function onAte(m) {
     apply(m);
     const b = m.bag.find((x) => x.id === m.id);
-    toast(`😋 +${Math.round(m.gained)} 🍗`);
+    toast(state.hungerOn === false ? '😋 Yum!' : `😋 +${Math.round(m.gained)} 🍗`);
     if (b || m.id) speak?.(`Yum! ${b?.en || ''}`.trim(), { japanese: false, rate: 0.9 });
     gauge.classList.remove('yum'); void gauge.offsetWidth; gauge.classList.add('yum');
   }

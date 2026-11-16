@@ -254,7 +254,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
       return;
     }
     if (FOOD_POI[id]) {
-      const el = sheet(`${head(p)}<p class="mi-sheet-desc">${bi('Buy food with U-Speak coins. Eat it to fill your hunger 🍗.', 'U-Speak コインで たべものを かえるよ。たべると おなか 🍗 が ふえる。')}</p>
+      const el = sheet(`${head(p)}<p class="mi-sheet-desc">${bi('Buy food with U-Speak coins and eat it anywhere. Learn the English names too!', 'U-Speak コインで たべものを かえるよ。どこでも たべられる。えいごの なまえも おぼえよう！')}</p>
         <div class="mi-acts"><button type="button" class="mi-act primary" data-act="stall">${bi('🛒 Go to the stall', '🛒 やたいへ いく')}</button></div>`);
       $('[data-act="stall"]', el).onclick = () => toStall(id);
       return;
