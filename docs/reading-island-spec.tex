@@ -1,0 +1,241 @@
+% U-Speak Lab ／ 最終要件定義：多読の 島（よみもの島）と こども向け UI（Raz-Kids の 置き換え提案に 向けて）
+%   組む:  cd docs && xelatex reading-island-spec.tex
+\documentclass[a4paper,10pt]{article}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[margin=18mm,top=22mm,bottom=20mm]{geometry}
+\tcbuselibrary{skins,breakable}
+
+\newcommand{\uspeakfont}[1]{\setCJKmainfont{#1}\setmainfont{#1}}
+\IfFontExistsTF{Noto Sans CJK JP}{\uspeakfont{Noto Sans CJK JP}}{%
+\IfFontExistsTF{Noto Sans JP}{\uspeakfont{Noto Sans JP}}{%
+\IfFontExistsTF{Yu Gothic}{\uspeakfont{Yu Gothic}}{%
+\IfFontExistsTF{Hiragino Sans}{\uspeakfont{Hiragino Sans}}{%
+  \GenericError{}{U-Speak: no Japanese font found}{}{Install Noto Sans CJK JP.}%
+}}}}
+
+\definecolor{deep}{HTML}{1B3A2F}
+\definecolor{orange}{HTML}{E27A2D}
+\definecolor{cream}{HTML}{FBF6EC}
+\definecolor{peach}{HTML}{FDEBDD}
+\definecolor{ink}{HTML}{22372F}
+\definecolor{soft}{HTML}{6B7F74}
+\definecolor{rule}{HTML}{CFC9B4}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\renewcommand{\arraystretch}{1.35}
+\color{ink}
+\setlist{nosep,leftmargin=1.4em,itemsep=2pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrule}{\color{rule}\hrule height 0.4pt}
+\fancyhead[L]{\footnotesize\color{deep}最終要件定義：多読の 島（よみもの島）と こども向け UI}
+\fancyhead[R]{\footnotesize\color{deep}合同会社 U-Speak Lab（社内）}
+\fancyfoot[C]{\footnotesize\color{soft}\thepage}
+
+\titleformat{\section}{\large\bfseries\color{deep}}{\thesection}{0.6em}{}[{\color{orange}\titlerule[1pt]}]
+\titleformat{\subsection}{\normalsize\bfseries\color{deep}}{\thesubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titlespacing*{\subsection}{0pt}{8pt}{3pt}
+
+\newtcolorbox{summary}[1][]{enhanced,breakable,colback=cream,colframe=deep,boxrule=0pt,leftrule=4pt,arc=2pt,left=8pt,right=8pt,top=6pt,bottom=6pt,#1}
+\newtcolorbox{note}[1][]{enhanced,breakable,colback=peach,colframe=orange,boxrule=0.6pt,arc=3pt,left=8pt,right=8pt,top=5pt,bottom=5pt,#1}
+\newcommand{\req}[1]{\textbf{\color{orange}#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\begin{document}
+
+\begin{tcolorbox}[enhanced,colback=deep,colframe=deep,arc=4pt,left=12pt,right=12pt,top=10pt,bottom=10pt]
+{\color{white}\footnotesize FINAL REQUIREMENTS · v1.0（承認待ち）}\\[2pt]
+{\color{white}\LARGE\bfseries 多読の 島「よみもの島」と こども向け UI}\\[3pt]
+{\color{white}\normalsize こう 開発します ― Raz-Kids の 置き換え提案に 向けた 最終要件定義}
+\end{tcolorbox}
+
+{\footnotesize\color{soft}作成：2026 年 11 月 17 日／作成者：U-Speak Lab（Claude）／もとの 材料：「Raz-Kids 徹底リサーチ」（2026-11-17）、商談記録（スマイルキッズ様・まなびば Jr. 様）、U-Speak Web の 現在の 実装\\
+\textbf{この 文書が 承認（Yes）されるまで、実装は はじめません。}}
+
+\begin{summary}
+\textbf{結論}\quad Raz-Kids の 強みは「\textbf{レベル別の 英語絵本を、聞いて・読んで・クイズに 答えて、ごほうびを 集める}」に しぼった \textbf{迷わない 作り}。
+U-Speak は 話す 練習・みんなで 遊べる 島・LINE の 保護者レポートで 勝っている が、\textbf{画面の わかりやすさ}で 負けている。\\[3pt]
+そこで ① \textbf{多読の 島「よみもの島」}（オリジナル絵本を ロードマップの 段階ごとに）を 新しく つくり、② \textbf{こども向けの 迷わない UI}（きょうの がくしゅう・全テキスト読み上げ・1 画面 1 問・進み具合バー・入力なしの クラス参加・タップで 移動・保護者の 数字 5 つ・3 ステップの 課題配信）を 入れ、③ それらを まとめて \textbf{先生が 管理画面で オンに できる「幼児モード」}（Raz-Kids なみに かんたんな 画面）に する。
+\textbf{U-Speak に もう ある 機能は ぜんぶ 使い}、新しく つくるのは 絵本の 画面・絵本の 材料づくり・こども用ホームの 3 つに しぼる。
+\end{summary}
+
+\section{目的と 背景}
+\begin{itemize}
+\item 商談 6 件のうち 2 件（スマイルキッズ様・まなびば Jr. 様）が Raz-Kids を 導入ずみで、比較を 求められた。どちらも「園が まとめて 契約し 子どもに 配る」予算が ある。スマイルキッズ様は「絵本の 部屋が あれば 置き換えも」。
+\item 価格は Raz-Kids（日本の 取り扱い 1 人 年 2,200〜3,300 円）より U-Speak（月 800〜1,200 円）が 数倍 高い。置き換えには \textbf{多読で 同じ ことが できる}＋\textbf{話す・LINE レポート・教室専用}の 上乗せを 見せる 必要が ある。
+\item 目標：\textbf{体験の 初日で 離脱しない}・\textbf{迷わない}・\textbf{伸びが 見える}・\textbf{Raz-Kids の 置き換え提案が できる}。
+\end{itemize}
+
+\section{開発の 基本方針（ぜんぶの 要件に かかる きまり）}
+\begin{enumerate}
+\item \req{既存機能を フルに 使う}：レベル＝ロードマップ、ごほうび＝U-Speak コイン と きせかえ・じぶんの 島、クイズ＝問題DB と 7 形式の 部品、読み上げ＝自然な 声（/api/tts）、音読判定＝面接の 音声認識、課題＝宿題、先生＝/class、保護者＝web レポートと LINE。\textbf{新しい レベル・通貨・先生画面は つくらない。}
+\item \req{判定は サーバー}：クイズの 正解・コイン・記録・段階アップは サーバーが きめる。答えは client/dist に 置かない。
+\item \req{知的財産}：Raz-Kids の 本文・絵・キャラクター・画面デザイン・名前（Star Zone・Raz Rocket など）は 使わない・まねない。「レベル別多読」「1 画面 1 問」「進み具合バー」などの \textbf{しくみ}だけを、自社の 絵・文・デザインで つくる。
+\item \req{こどもの 文字}：説明は ひらがな・分かち書き。絵本の 本文・ことば・クイズは 学習の 中身なので 訳さない（\texttt{translate="no"}）。字は 11px 以上・ボタンは 34px 以上。iPad と スマホの 横もちで 1 画面に おさまる。
+\item \req{個人情報}：子どもの 音読の 録音は 個人情報。のこす 期間・聞ける 人・1 人ぶんの 削除を きめて 守る（§6）。
+\end{enumerate}
+
+\section{機能要件}
+\subsection{F1　多読の 島「よみもの島」（本命）}
+\begin{longtable}{@{}L{30mm}L{140mm}@{}}
+\toprule
+島 & 3D の 島（\texttt{island-kit}）。としょかん（まんなか）・きく ベンチ・おんどく ブース・クイズの いえ・よんだ 本の ひろば。しまの ちずの「おすすめ」に 入れる。右の バーの 1 ボタンからも 本だなを ひらける（島に 行かなくても 読める）。\\
+本だな & \textbf{ロードマップの 12 段階（A・B・C・1〜9）で 本を ならべる}。その 子の いまの 段階の 本＋1 つ 下の 段階（かんたん）。先生が /class で 段階を かえると 本だなも かわる。表紙・タイトル（英語）・✓（読んだ）・★の 数。\\
+1 冊の 流れ & \textbf{① きく}：1 ページずつ 自然な 声で 読み上げ、読んでいる ことばを 光らせる。ゆっくり（0.75 倍）。\newline
+\textbf{② よむ}：じぶんで めくる。ことばを おすと その ことばの 発音と 日本語の いみ。\newline
+\textbf{③ おんどく}：文を 読むと 音声認識で 読めた ことばが 緑に。正確さ（％）と 1 分の 語数を 出す。\newline
+\textbf{④ クイズ}：5 問・1 画面 1 問（F5）。答えは サーバー。\\
+✓ と ★ & 4 つの うち 「きく・よむ・クイズ 80\% 以上」で ✓。★ は 4 つの 活動ごとに 1（最大 4）。★ は 本の しるし（通貨では ない）。\\
+ごほうび & 本 1 冊 ✓ で U-Speak コイン 20 まい（1 日の 上限 あり）。コインで \textbf{きせかえ・じぶんの 島・ぶきや}（すでに ある）を 買う＝「学習と ごほうびを わける」Raz-Kids の 形を 既存の 店で 実現。\\
+段階アップ & \textbf{ロードマップが きめる}。クイズの 答えは 学習記録（\texttt{roblox\_events} の quiz・world=reading・その 段階の 級）に 入り、ロードマップの「その 級の クイズ 20 問・8 割」・英検の 合格見込み・苦手単語の 復習に そのまま つながる。島の めやす「この 段階の 本 ○ 冊」「音読の 正確さ 95\%」は ロードマップ画面に「よんだ 本」として 出す（段階アップの 条件に 足すかは 運用で きめる）。\\
+\bottomrule
+\end{longtable}
+
+\subsection{F2　絵本の 材料づくり（オリジナル）}
+\begin{itemize}
+\item \textbf{材料}：AI で つくる オリジナルの 物語（段階ごとの 語数・文の 長さ・語い）、提携している 外国語大学の 素材、CC BY の オープン絵本（本ごとに ライセンス確認・NC は 使わない）。\textbf{市販の 絵本・教材は 使わない}。
+\item \textbf{流れ}：① 物語の 下書き（段階の 単語リストに そって）→ ② 絵（既存の 絵づくりの 流れ。登場人物は 本ごとに 同じ 見た目）→ ③ 読み上げ音声（/api/tts で 先に 作って 保存）→ ④ クイズ 5 問の 下書き → ⑤ 運営が たしかめて 公開。
+\item \textbf{量}：最初 \textbf{36 冊}（12 段階 × 3 冊）、つぎに \textbf{120 冊}（× 10）。1 冊 4〜16 ページ（段階で かわる）。
+\item \textbf{入れ口}：クイズは \textbf{問題DB（/admin/qbank）}に 形式「えほん」で 入れる。本の 一覧・段階・出典・公開の オンオフだけ 管理画面に 1 ページ。PDF・画像・CSV からの 読みとりは 宿題の 読みとり（AI）を 使う。
+\item \textbf{データ}：\texttt{\{ id, title, stage, words, source, pages:[\{text, image, audio\}], glossary:[\{en, ja\}] \}}。本文と 絵は \texttt{client/dist/assets/books/}、クイズの 正解は サーバーだけ。
+\end{itemize}
+
+\subsection{F3　こども用ホーム「きょうの がくしゅう」}
+\begin{itemize}
+\item ログインしたら、先生が 出した 課題・つぎに 読む 本・ロードマップの つぎの 一歩を \textbf{大きな カード 1〜3 まい}で 出す（中身は 宿題の ピン・タスク・ロードマップ。新しい 判定は つくらない）。
+\item カードを 押すと その 場所へ \textbf{自動で 移動して ひらく}（F8）。
+\item メイン画面の ボタンは こども用では \textbf{5 個 前後}（きょうの がくしゅう・本だな・しまの ちず・きせかえ・ホーム）に しぼり、ほかは「もっと 見る」へ。先生・上級者は いまの まま。
+\item 「課題を おえてから 遊びを ひらく」は \textbf{クラスごとの 設定}（先生が オン・オフ。はじめは オフ）。
+\item こども用ホームと ボタンの しぼりこみは \textbf{幼児モード（F11）の 中身}として 出す（ふつうの モードでは いまの 画面）。
+\end{itemize}
+
+\subsection{F4　全テキストの 読み上げ}
+\begin{itemize}
+\item こども用ホーム・よみもの島・クイズ画面・宿題画面の \textbf{問題文・選択肢・ボタン名・説明}に 読み上げボタン。押すと 自然な 声で 読む（日本語は 日本語の 声、英語は 英語の 声）。
+\item 漢字は やめ、ひらがな＋英語＋アイコンに そろえる（とくに 冒険ノート・復習・交流ラウンジの 見出し）。
+\end{itemize}
+
+\subsection{F5　1 画面 1 問の クイズ画面（共通）}
+\begin{itemize}
+\item 上に 問題番号の 丸（1〜5・いま どこ）、まんなかに 問題文、大きな 選択肢、\textbf{ぜんぶに 読み上げボタン}、右下に「つぎへ／おわり」。正解・不正解の 音は いまの 効果音。
+\item まず よみもの島と 宿題に 使い、英単語ハウス・英検の島へ ひろげる（7 形式の 部品の 見た目を そろえる）。
+\end{itemize}
+
+\subsection{F6　レベルの 進み具合バー}
+\begin{itemize}
+\item 「\textbf{いま 段階 A → つぎ 段階 B・あと 3 さつ／12 問}」の バーを こども用ホーム・ロードマップ・\textbf{保護者レポートの 冒頭}に 出す。英検 5 級・4 級の 目標とも 対応させる（ロードマップの 計算を そのまま 使う）。
+\end{itemize}
+
+\subsection{F7　クラス参加の 入力を なくす}
+\begin{itemize}
+\item 先生が 名簿を 登録 → 教室の \textbf{QR コード／URL}（クラス入り・すでに \texttt{?class=} が ある）で 開くと、\textbf{名簿の 名前（アイコン）を えらぶだけ}で 入れる。クラスコードの 手入力を なくす。
+\item 先生の 行は いまの とおり 先生パスワードが 要る。名前の 一覧は その クラスの QR から 開いた ときだけ 見せる（よその 子には 見えない）。
+\item 手入力の 入り方は 予備として のこす（家の パソコンなど）。
+\end{itemize}
+
+\subsection{F8　タップで 移動}
+\begin{itemize}
+\item 行き先ボタン（「本だなへ」「つりばへ」など）を 押すと \textbf{自動で 移動}（授業モードで 使っている 移動の しくみを 使う）。WASD の 説明は タブレットでは 出さない（いまも 出していない）。
+\end{itemize}
+
+\subsection{F9　保護者レポートの 冒頭に「数字 5 つ」}
+\begin{itemize}
+\item \textbf{学習時間・話した 回数・読んだ 本の 冊数・クイズの 正答率・覚えた 単語}を いちばん 上に。その 下に 進み具合バー（F6）と 最近 読んだ 本（表紙）。web・PDF・LINE の 週／月 レポートに 同じ 形で 出す。
+\end{itemize}
+
+\subsection{F10　先生の 課題配信を 3 ステップに}
+\begin{itemize}
+\item 「\textbf{えらぶ → 生徒を えらぶ → おくる}」。宿題に \textbf{「えほん」の 形}を 1 つ 足し、本だなから 本を えらべる ように する。いまの 宿題は クラスごと なので、\textbf{生徒ごと・グループごとの 配信}を 足す。しめきり・すすみぐあい・保護者レポートの 宿題の 行は いまの まま 使う。
+\end{itemize}
+
+\subsection{F11　幼児モード（先生が 管理画面で オン・オフ）}
+Raz-Kids なみに かんたんな 画面に きりかえる モード。幼稚園・年長〜小 1・はじめての 子の 教室むけ。\textbf{F3〜F8 を まとめて 1 つの スイッチ}に する。
+\begin{longtable}{@{}L{34mm}L{136mm}@{}}
+\toprule
+\textbf{どこで きりかえる} & 先生の 画面（\texttt{/teacher}・教室の パスワード）と 運営の /admin の 名簿。\textbf{クラスごと}の 既定（オン／オフ）＋ \textbf{子どもごと}に 上書き（名簿の 列「幼児モード」・CSV でも）。かえると 入ったままの 子にも 1 分以内に とどく（名簿の 読みなおしと 同じ しくみ）。\\
+\textbf{画面} & こども用ホーム（F3）が はじめに 出る。ボタンは 5 個 前後（きょうの がくしゅう・本だな・しまの ちず・きせかえ・ホーム）。上の バーは コインと 読み上げボタン だけ。冒険ノート・ランキング・交流ラウンジ・チャットの 自由入力・ビデオ通話・同梱ゲームは 出さない（先生が 個別に ゆるせる）。\\
+\textbf{文字と 声} & 説明は ひらがなと 絵だけ。ぜんぶ 読み上げボタン つき（F4）。英語は 大きく 1 行。説明の 文は 1 画面 15 字 前後まで。\\
+\textbf{操作} & タップだけ（F8 の 行き先ボタンで 自動移動）。スティック・WASD・一人称は 出さない。カメラは 自動で ついてくる。\\
+\textbf{学習} & クイズは 1 画面 1 問（F5）・2〜3 択・正解まで やりなおし。本だなは ロードマップの A〜C と 1 の 段階から。英単語ハウスは SUPER EASY。\\
+\textbf{島} & 行ける 島を しぼる（メインの島・よみもの島・つり・きせかえ・じぶんの 島）。ほかの 島は 先生が ゆるした ものだけ。\\
+\textbf{安全} & 自由入力の チャットは 出さない（定型文だけ）。ほかの 子の 名前の 表示は 先生が きめる。\\
+\textbf{つかう もの} & 名簿の 列（プレミアム・停止と 同じ 形）・名簿の 読みなおし（\texttt{recheckRole}）・画面の 出し分けは \texttt{body} の しるし（\texttt{data-mode=kids}）と CSS（スマホ・PC の 出し分けと 同じ やり方）。判定・コイン・記録は ふつうの モードと 同じ（数字が くらべられる）。\\
+\bottomrule
+\end{longtable}
+
+\section{既存機能との 対応表（新しく つくるのは 太字だけ）}
+\begin{longtable}{@{}L{48mm}L{122mm}@{}}
+\toprule
+\textbf{要件} & \textbf{使う もの（すでに ある）／新しく つくる もの} \\ \midrule
+島・建物・地図・光の柱 & island-kit・HUBS／ACTIVITY\_HUBS・しまの ちずの「おすすめ」\\
+読み上げ・ゆっくり・光る ことば & /api/tts（自然な 声・キャッシュ）・speech.js・ウーピー。\textbf{ことばを 光らせる 時間わり}\\
+音読の 判定 & 面接・話すの館の 音声認識・judgeSpoken・読めた 語が 光る 音読画面 \\
+クイズ & 問題DB（qbank）・formats-core／formats-ui・効果音。\textbf{1 画面 1 問の 共通枠} \\
+段階・上がる 条件・英検の 見込み & ロードマップ（roadmap.js）・学習記録（roblox\_events） \\
+ごほうび & U-Speak コイン・きせかえ・じぶんの 島・ぶきや・ロードマップの スタンプ・ランキング（指標を 足す）\\
+ことば & たんごちょう・苦手単語の 復習 \\
+課題 & 宿題（/teacher/homework）。\textbf{「えほん」の 形・生徒ごとの 配信} \\
+先生 & /class（ロードマップ・表・メモ）・授業モード（Move together・Review）\\
+保護者 & web レポート・LINE 週／月。\textbf{冒頭の 数字 5 つ・よんだ 本} \\
+クラス参加 & 名簿・?class= の URL・先生パスワード。\textbf{名前を えらぶ 画面・QR} \\
+こども用ホーム & 宿題の ピン・タスク・ロードマップ。\textbf{きょうの がくしゅう 画面・ボタンの しぼりこみ} \\
+幼児モード & 名簿の 列・名簿の 読みなおし・CSS の 出し分け。\textbf{先生画面の スイッチ・\texttt{data-mode=kids} の 画面} \\
+絵本 & \textbf{絵本の 画面（きく・よむ）・絵本の 材料づくり・本の 一覧の 管理ページ} \\
+\bottomrule
+\end{longtable}
+
+\section{データと サーバー}
+\begin{itemize}
+\item 本：\texttt{client/dist/assets/books/<id>/}（本文・絵・音声）。クイズ：問題DB（形式「えほん」・級＝段階の 級）。
+\item 子どもの 読書記録：\texttt{DATA\_DIR/reading.json}（本ごとの ✓・★・正確さ・語数・時間）。学習記録には world=reading で 書く。
+\item 録音：\texttt{DATA\_DIR/recordings/}。§6 の きまりで 保存・削除。
+\item 新しい 部屋メッセージ：\texttt{read:shelf}・\texttt{read:open}・\texttt{read:step}・\texttt{read:quiz}・\texttt{read:answer}・\texttt{read:aloud}（判定・コインは 部屋）。
+\end{itemize}
+
+\section{非機能要件}
+\begin{itemize}
+\item \textbf{端末}：iPad（Safari）・Android タブレット・スマホ横もち・PC。古い iPad でも 絵本の 画面は 2D で 軽く（WebGL を 使わない）。絵は 1 ページずつ 読みこみ（つぎの ページだけ 先読み）、1 枚 200KB 以下。
+\item \textbf{通信}：弱い Wi-Fi でも 読めるよう 音声は 先に 作って キャッシュ（同じ 文は 2 回目から ファイル）。
+\item \textbf{録音}：先生だけ 聞ける・保存 30 日（設定で かえる）・1 人ぶんの 削除に ふくめる・録音しない 設定（文字の 判定だけ）も もつ。
+\item \textbf{費用}：絵と 音声は 1 回 作って 保存（何度 読んでも 追加費用なし）。AI の 物語・絵の 生成は 本ごとに 1 回。
+\end{itemize}
+
+\section{開発の 段階と 受け入れ基準}
+\begin{longtable}{@{}L{18mm}L{72mm}L{80mm}@{}}
+\toprule
+\textbf{段階} & \textbf{中身} & \textbf{受け入れ基準（できたと 言える 条件）} \\ \midrule
+すぐ & F4 全テキスト読み上げ・F7 入力なしの クラス参加・F8 タップで 移動 & 初めての 子が \textbf{文字を 1 字も 打たずに} QR から 入れる。こども用の 画面の 文字は ぜんぶ 読み上げボタンで 聞ける。行き先ボタンで 目的地に 着く。\\
+つぎ & F3 こども用ホーム・F11 幼児モード（先生の スイッチ）・F5 1 画面 1 問・F6 進み具合バー・F9 保護者の 数字 5 つ & 先生が 管理画面で クラス／子どもごとに 幼児モードを オンに でき、1 分以内に 画面が かわる。幼児モードでは ログイン後 1 タップで 今日の 学習が はじまり、ボタンは 5 個 前後・文字を 打つ 場面が ない。保護者レポートと LINE の いちばん 上に 数字 5 つと 進み具合バー。\\
+本命 & F1 よみもの島・F2 絵本 36 冊（→120 冊）・F10 3 ステップ配信 & 12 段階 × 3 冊が 読める。1 冊を きく→よむ→おんどく→クイズ で ✓・コイン・学習記録に のる。先生が 3 ステップで 本を 生徒ごとに 出せる。\\
+\bottomrule
+\end{longtable}
+\textbf{検査}：サーバーの テスト（判定・コイン 1 回・記録・権限）、ブラウザの テスト（iPad／スマホ横もちの 画面・11px・はみ出し・英語モードで 学習の 中身が 訳されない）、実機の iPad で 読み上げと マイクを 確認。
+
+\section{きめて ほしい こと（承認の とき いっしょに）}
+\begin{enumerate}
+\item 段階の 順番：「すぐ → つぎ → 本命」で よいか（よみもの島を 先に したい 場合は 本命から）。
+\item 島の 名前（案：\textbf{よみもの島／Book Island}）。
+\item 絵本の 材料：AI オリジナル中心で よいか・大学の 素材は いつ 何冊 とどくか。
+\item 音読の 録音を のこすか（のこすなら 30 日で よいか）。
+\item 「課題を おえてから 遊びを ひらく」を クラス設定に するか（はじめは オフ）。
+\item 幼児モードで 出す 島と ボタンの 一覧（案は F11）・既定を オンに する クラス（幼稚園の 教室など）。
+\item クラス参加で 名簿の 名前を 一覧で えらばせて よいか（QR から 開いた ときだけ）。
+\end{enumerate}
+
+\begin{note}
+\textbf{この 要件定義に「Yes」を いただくまで、実装は はじめません。} 変えたい ところが あれば この 文書を 直して 版を 上げます。\\
+出典：「Raz-Kids 徹底リサーチ」（U-Speak Lab, 2026-11-17）、Learning A-Z 公開資料（Raz-Kids 概要・Assessing a Student's Level）、Common Sense Education、U-Speak 商談記録。
+\end{note}
+
+\end{document}
