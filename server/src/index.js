@@ -26,6 +26,7 @@ import { ClassroomStore } from './classroom/store.js';
 import { classroomAdminExtension } from './classroom/admin.js';
 import { mountTeacherHomework } from './classroom/teacher.js';
 import { RoadmapStore } from './roadmap/store.js';
+import { ReadingStore } from './reading/store.js';
 import { createRoadmapService } from './roadmap/service.js';
 import { roadmapAdminExtension } from './roadmap/admin.js';
 import { mountRoadmapApi } from './roadmap/api.js';
@@ -104,6 +105,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 宿題（/admin/homework で 入れて くばる。宿題島で とく）。答えつきなので DATA_DIR に だけ 置く。保護者レポート（LINE）も 読む。
   const homework = await new HomeworkStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'homework.json'), { log }).init();
   // ロードマップ（A・B・C・1〜9）。設定と 段階は DATA_DIR/roadmap.json、計算は 記録（Roblox と Web）から 毎回。
+  const readingStore = await new ReadingStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'reading.json'), { log }).init();
   const roadmapStore = await new RoadmapStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roadmap.json'), { log }).init();
   const roadmap = createRoadmapService({ store, roadmap: roadmapStore, roblox, log });
   const parentReports = await setupParentReports({
@@ -486,7 +488,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();

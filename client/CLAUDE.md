@@ -1368,6 +1368,19 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   週ごとの XP は 列 `week_hist_json`（さいきん 12 週）。
 - 検査は `server/test/rankings.test.mjs`。
 
+## よみもの島（多読・えほん／2026-11）
+要件は `docs/reading-island-spec.pdf`（Raz-Kids の しくみを 参考に、中身は ぜんぶ オリジナル）。
+- **島**：`reading-island.js` + `reading.json`（HUBS / ACTIVITY_HUBS の `reading`・としょかん 1 つ・戸口で `reading.open()`）。しまの ちずの「おすすめ」に 入れた（6 まい）。
+- **本は サーバー**：`server/src/game/reading-bank/<id>.json`（1 冊 1 ファイル：本文・日本語・絵の 場面・ことば・クイズ 5 問）。いま 36 冊（12 段階 × 3）。
+  **クイズの 正解は ページに 来ない**（`publicBook` は クイズを ぬく。1 問ずつ 選択肢だけ・答えた あとに 正解）。たしかめるのは `node server/scripts/check-reading-bank.mjs`。
+- **レベル＝ロードマップの 段階**（A・B・C・1〜9）。棚は いまの 段階＋ 1 つ 下（かんたん）＋ 1 つ 上（ちょうせん）。先生は どの 段階も 見られる。
+- **1 冊**：👂 きく（`playVoice` の `onstart(audio)` で 再生の 時間を 見て ことばを 光らせる）→ 📖 よむ（ことばを おすと 発音と いみ）→ 🎤 こえに だす（音声認識の 文字を 部屋へ・正確さと 1 分の 語数は 部屋）→ ❓ クイズ（1 画面 1 問・ぜんぶに 🔊）。
+  ✓＝きく・よむ・クイズ 8 割（音読は ★ だけ：マイクの ない 端末でも ✓）。★ は 4 つまで。✓ で 20 コイン（1 冊 1 回・1 日 80 まで）。
+- **絵は「場面」**：背景 20 しゅるい（`reading.js` の `BG`）＋ 絵文字の 登場人物（位置・大きさ・うごき）。画像も WebGL も 使わない。大きさは `cqh`（入れ物の 高さ）。
+- **記録**：`DATA_DIR/reading.json`（`server/src/reading/store.js`）。クイズの 答えは 学習ログ（mode `reading`）と roblox_events の quiz（world=reading・その 段階の 級）＝ロードマップ・英検の 見込み・保護者レポートに のる。音読は mode `speak`。録音は のこさない（文字の 判定だけ）。
+- 画面は `reading.js` + `reading.css`（`#reading-dialog`・入れ物は `translate="no"`・説明は `.en`/`.ja`）。検査は `server/test/reading.test.mjs`。
+- まだ：先生が 本を 宿題で 出す（3 ステップ配信）・/class の 列・LINE レポートの「よんだ 本」・幼児モード。
+
 ## ぶきや（メインの島・100 本／2026-11）
 - **品は `weapons-data.js`**（形 10 × 素材 10）。`fishing-data.js` の ITEMS に `kind: 'weapon'` で 足すので、値段と 買う 判定は サーバーの `economy.js`（表の 値段）。ページの 値段は 使わない。
 - **前からの 6 本（wood-sword・steel-sword・bow・trident・staff・sunblade）は id と 値段を かえない**（セーブが その id）。表の その マスに 入る（`LEGACY`）。

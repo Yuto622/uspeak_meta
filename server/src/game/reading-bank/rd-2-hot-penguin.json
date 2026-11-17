@@ -1,0 +1,548 @@
+{
+  "id": "rd-2-hot-penguin",
+  "stage": "2",
+  "title": "Too Hot for Pen",
+  "titleJa": "あつすぎるよ、ペン",
+  "kind": "story",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "🐧",
+        "x": 50,
+        "y": 66,
+        "s": 4.5,
+        "a": "bob"
+      },
+      {
+        "e": "☀️",
+        "x": 78,
+        "y": 18,
+        "s": 3,
+        "a": "pulse"
+      },
+      {
+        "e": "💦",
+        "x": 34,
+        "y": 48,
+        "s": 2,
+        "a": "drift"
+      },
+      {
+        "e": "🍦",
+        "x": 22,
+        "y": 76,
+        "s": 2.2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Today the weather is hot. It is very hot at the zoo.",
+      "ja": "きょうは あつい てんきです。 どうぶつえんは とても あついです。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 75,
+            "y": 18,
+            "s": 3.5,
+            "a": "pulse"
+          },
+          {
+            "e": "🐧",
+            "x": 35,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "🦁",
+            "x": 70,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "🦒",
+            "x": 88,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "💦",
+            "x": 48,
+            "y": 52,
+            "s": 1.5,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Pen the penguin is tired. He cannot play today.",
+      "ja": "ペンギンの ペンは つかれています。 きょうは あそべません。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🐧",
+            "x": 45,
+            "y": 72,
+            "s": 4
+          },
+          {
+            "e": "💦",
+            "x": 60,
+            "y": 52,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "😩",
+            "x": 45,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "⚽",
+            "x": 78,
+            "y": 82,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Swim in the water,\" says the white bear. But the water is warm.",
+      "ja": "「みずで およぎなよ」と しろくまが いいます。 でも みずは ぬるいです。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🐧",
+            "x": 30,
+            "y": 62,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "🐻‍❄️",
+            "x": 72,
+            "y": 60,
+            "s": 4
+          },
+          {
+            "e": "♨️",
+            "x": 30,
+            "y": 40,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🌊",
+            "x": 50,
+            "y": 84,
+            "s": 2.5,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Sit under my tree,\" says the brown monkey. But it is hot there, too.",
+      "ja": "「ぼくの きの したに すわりなよ」と ちゃいろの サルが いいます。 でも そこも あついです。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 62,
+            "y": 52,
+            "s": 5.5
+          },
+          {
+            "e": "🐒",
+            "x": 70,
+            "y": 30,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "🐧",
+            "x": 55,
+            "y": 76,
+            "s": 3.5
+          },
+          {
+            "e": "💦",
+            "x": 40,
+            "y": 60,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "☀️",
+            "x": 14,
+            "y": 16,
+            "s": 2.5,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the afternoon, two children look for Pen. Where is he?",
+      "ja": "ごご、 ふたりの こどもが ペンを さがします。 ペンは どこ？",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 68,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "👦",
+            "x": 52,
+            "y": 68,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "❓",
+            "x": 75,
+            "y": 40,
+            "s": 2.8,
+            "a": "bob"
+          },
+          {
+            "e": "☀️",
+            "x": 85,
+            "y": 16,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He is not in the water. He is not under the tree.",
+      "ja": "みずの なかには いません。 きの したにも いません。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌊",
+            "x": 22,
+            "y": 80,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "❌",
+            "x": 22,
+            "y": 58,
+            "s": 2
+          },
+          {
+            "e": "🌳",
+            "x": 72,
+            "y": 58,
+            "s": 4.5
+          },
+          {
+            "e": "❌",
+            "x": 72,
+            "y": 84,
+            "s": 2
+          },
+          {
+            "e": "👧",
+            "x": 48,
+            "y": 72,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "They look in the zoo store. What is that black and white thing?",
+      "ja": "どうぶつえんの おみせを みます。 あの しろくろの ものは なに？",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👧",
+            "x": 18,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "👦",
+            "x": 34,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "🧊",
+            "x": 72,
+            "y": 70,
+            "s": 4
+          },
+          {
+            "e": "⚫",
+            "x": 70,
+            "y": 52,
+            "s": 1.5
+          },
+          {
+            "e": "⚪",
+            "x": 76,
+            "y": 56,
+            "s": 1.3
+          },
+          {
+            "e": "❓",
+            "x": 72,
+            "y": 30,
+            "s": 2.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "It is Pen! He is sleeping in the ice cream box.",
+      "ja": "ペンです！ アイスクリームの はこの なかで ねています。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🧊",
+            "x": 55,
+            "y": 74,
+            "s": 5
+          },
+          {
+            "e": "🐧",
+            "x": 55,
+            "y": 56,
+            "s": 3.5
+          },
+          {
+            "e": "💤",
+            "x": 72,
+            "y": 34,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🍦",
+            "x": 22,
+            "y": 70,
+            "s": 2.5
+          },
+          {
+            "e": "🍨",
+            "x": 86,
+            "y": 72,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now Pen is cool and happy. He is eating pink ice cream.",
+      "ja": "ペンは すずしくて しあわせです。 ピンクの アイスクリームを たべています。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🐧",
+            "x": 45,
+            "y": 66,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "🍧",
+            "x": 64,
+            "y": 62,
+            "s": 2.5
+          },
+          {
+            "e": "❄️",
+            "x": 25,
+            "y": 30,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "❄️",
+            "x": 78,
+            "y": 28,
+            "s": 1.5,
+            "a": "float"
+          },
+          {
+            "e": "🧊",
+            "x": 85,
+            "y": 76,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Pen is not hot now. But the store man is angry!",
+      "ja": "ペンは もう あつくありません。 でも おみせの ひとは おこっています！",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🐧",
+            "x": 30,
+            "y": 70,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "🍧",
+            "x": 44,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "👨",
+            "x": 72,
+            "y": 62,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "💢",
+            "x": 84,
+            "y": 38,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧊",
+            "x": 12,
+            "y": 78,
+            "s": 2.5
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "weather",
+      "ja": "てんき"
+    },
+    {
+      "en": "hot",
+      "ja": "あつい"
+    },
+    {
+      "en": "zoo",
+      "ja": "どうぶつえん"
+    },
+    {
+      "en": "tired",
+      "ja": "つかれた"
+    },
+    {
+      "en": "water",
+      "ja": "みず"
+    },
+    {
+      "en": "warm",
+      "ja": "あたたかい・ぬるい"
+    },
+    {
+      "en": "afternoon",
+      "ja": "ごご"
+    },
+    {
+      "en": "store",
+      "ja": "みせ"
+    },
+    {
+      "en": "cool",
+      "ja": "すずしい"
+    },
+    {
+      "en": "angry",
+      "ja": "おこっている"
+    },
+    {
+      "en": "white",
+      "ja": "しろい"
+    },
+    {
+      "en": "brown",
+      "ja": "ちゃいろ"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの おはなし？",
+      "choices": [
+        "a penguin on a hot day",
+        "a monkey in a cold store",
+        "a bear at the hospital"
+      ],
+      "answer": "a penguin on a hot day",
+      "kind": "main"
+    },
+    {
+      "q": "Who talks to Pen first?",
+      "ja": "さいしょに ペンに はなすのは だれ？",
+      "choices": [
+        "the brown monkey",
+        "the store man",
+        "the white bear"
+      ],
+      "answer": "the white bear",
+      "kind": "sequence"
+    },
+    {
+      "q": "Where is Pen sleeping?",
+      "ja": "ペンは どこで ねている？",
+      "choices": [
+        "under the big tree",
+        "in the ice cream box",
+        "in the warm water"
+      ],
+      "answer": "in the ice cream box",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"cool\" mean?",
+      "ja": "\"cool\" の いみは？",
+      "choices": [
+        "a little cold",
+        "very hot",
+        "very tired"
+      ],
+      "answer": "a little cold",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "How is the store man at the end?",
+      "ja": "さいごに おみせの ひとは どんな きもち？",
+      "choices": [
+        "happy",
+        "tired",
+        "angry"
+      ],
+      "answer": "angry",
+      "kind": "detail"
+    }
+  ]
+}

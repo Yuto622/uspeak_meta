@@ -48,6 +48,7 @@ import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../ga
 import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
 import { GEAR, gearPayload } from '../game/blockwild-shop.js';
 import { buildItem as buildHwItem, wordOf as hwWordOf } from '../homework/items.js';
+import * as reading from '../game/reading.js';
 import { publicFormat as hwPublic } from '../../../client/dist/formats-core.js';
 import { FW, sanitizeFw, prepare as prepareFw, answer as answerFw, askPayload as fwAsk, lottery as fwLottery, catchFish, sellFrom, statePayload as fwState, fishPayload, GRADES as FW_GRADES, FAST_MS as FW_FAST_MS, XP_PER_CATCH as FW_XP, FishworldError } from '../game/fishworld.js';
 import { startSet as whStart, answer as whAnswer, askPayload as whAsk, HOUSES as WH_HOUSES, DAILY_COIN_CAP as WH_CAP, PERFECT_BONUS as WH_BONUS, WordHouseError } from '../game/wordhouse.js';
@@ -98,7 +99,7 @@ export function quizEventOf(row, lastQid = '') {
   const qid = String(row?.[3] || ''); const mode = String(row?.[4] || '');
   const head = qid.split(':')[0];
   if (!qid || mode === 'chat' || mode === 'speak' || mode === 'conv' || mode === 'mission' || mode === 'interview') return null;
-  if (['quick', 'eiken', 'fw', 'hw', 'wh', 'review', 'interview', 'conv', 'mission', 'chat'].includes(head)) return null;
+  if (['quick', 'eiken', 'fw', 'hw', 'wh', 'review', 'interview', 'conv', 'mission', 'chat', 'read'].includes(head)) return null;
   const parts = qid.split(':');
   const data = { correct: Number(row[6]) === 1, fast: false, retry: qid === lastQid };
   const word = (w) => { if (ENGLISH_WORD.test(String(w || ''))) data.word = String(w); };
@@ -203,6 +204,8 @@ export class ClassRoom extends Room {
     // 宿題（/admin/homework で 先生が くばった もの）。無ければ 宿題島は からっぽ。
     this.homework = options.homework || null;
     this.roadmap = options.roadmap || null;
+    // よみもの島（多読）の 記録（reading/store.js）。無ければ 本だなは 出るが 記録は のこらない（テスト）。
+    this.reading = options.reading || null;
     this.taskQueue = new Set();
     this.claps?.rooms?.add(this);
     if (this.roblox?.enabled) this.roblox.rooms.add(this);
@@ -305,6 +308,10 @@ export class ClassRoom extends Room {
     // ロードマップ（game/roadmap.js・roadmap/service.js）。見るだけ。段階を 上げるのは サーバーが 条件を 見て。
     this.onMessage('rm:get', (client) => this.onRoadmap(client).catch((err) => log.warn(`[room ${this.roomId}] roadmap failed:`, err?.message || err)));
     this.onMessage('hw:start', (client, msg) => this.onHwStart(client, msg));
+    // よみもの島：本だな → 1 冊（きく・よむ・おんどく・クイズ）。クイズの 正解・✓・コインは ここ（game/reading.js）。
+    for (const type of ['shelf', 'open', 'step', 'aloud', 'quiz', 'answer']) {
+      this.onMessage(`read:${type}`, (client, msg) => this.onRead(type, client, msg || {}).catch((err) => { log.warn(`[room ${this.roomId}] read:${type} failed:`, err?.message || err); client.send('read:error', { reason: 'server' }); }));
+    }
     this.onMessage('hw:answer', (client, msg) => this.onHwAnswer(client, msg));
     this.onMessage('hw:next', (client) => { const priv = this.priv.get(client.sessionId); if (priv?.hw && !priv.hw.q) this.hwNext(client); });
     this.onMessage('hw:quit', (client) => { const priv = this.priv.get(client.sessionId); if (priv) priv.hw = null; });
@@ -4869,6 +4876,95 @@ export class ClassRoom extends Room {
     this.classMode.run = null;
     const weak = [...run.missed.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([w]) => w);
     this.clients.find((c) => c.sessionId === run.teacher)?.send('class:result', { correct: run.correct, total: run.total, weak });
+  }
+
+  // ---- よみもの島（多読）-----------------------------------------------------------------
+  // 本の 段階は ロードマップの 段階（島だけの レベルは ない）。位置は 見ない（本だなは どこからでも ひらける）。
+  async readStage(sessionId) {
+    if (!this.roadmap) return 'A';
+    try { const v = await this.roadmapView(sessionId, { advance: false }); return String(v?.stage?.id || 'A'); } catch { return 'A'; }
+  }
+  readProgress(priv) { return this.reading ? this.reading.of(this.classCode, priv.name) : (priv.readMem ||= reading.blankProgress()); }
+  async onRead(type, client, msg) {
+    const sessionId = client.sessionId;
+    const priv = this.priv.get(sessionId); const player = this.state.players.get(sessionId);
+    if (!priv || !player) return;
+    const teacher = player.role === 'teacher';
+    const progress = this.readProgress(priv);
+    const now = Date.now(); const day = jstDay(now);
+    const save = () => this.reading?.save().catch((err) => log.warn(`[room ${this.roomId}] reading save failed:`, err?.message || err));
+    if (type === 'shelf') {
+      // 先生は どの 段階の 棚も 見られる（授業で 見せる・ためす）。子どもは じぶんの 段階。
+      const mine = await this.readStage(sessionId);
+      const stage = teacher && reading.SHAPE[String(msg.stage)] ? String(msg.stage) : mine;
+      priv.readStageId = mine;
+      client.send('read:shelf', { ...reading.shelfFor(stage, progress), mine, teacher, cap: { coins: reading.BOOK_COINS } });
+      return;
+    }
+    const book = reading.bookById(msg.id || priv.readQuiz?.book);
+    if (!book) { client.send('read:error', { reason: 'no book' }); return; }
+    if (!teacher) {
+      // 子どもは じぶんの 段階と その 上下 1 つまで（棚に 出て いる 本だけ）。
+      const mine = priv.readStageId || (priv.readStageId = await this.readStage(sessionId));
+      const ids = Object.keys(reading.SHAPE); const order = ['A', 'B', 'C', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      if (ids.length && Math.abs(order.indexOf(book.stage) - order.indexOf(mine)) > 1) { client.send('read:error', { reason: 'not on your shelf' }); return; }
+    }
+    const pay = (coins, why) => {
+      if (coins <= 0 || teacher) return;
+      const entry = applyOp(priv.wallet, { type: 'award', amount: coins, id: `read:${book.id}` });
+      this.store.appendCoin(this.coinRow(sessionId, entry));
+      this.awardXp(sessionId, reading.BOOK_XP, `read:${book.id}:${why}`);
+      this.persist(sessionId);
+    };
+    if (type === 'open') { client.send('read:book', reading.publicBook(book, progress)); return; }
+    if (type === 'step') {
+      if (!reading.markStep(progress, book, String(msg.step), now)) return;
+      const r = reading.settle(progress, book, { day });
+      pay(r.coins, 'done');
+      if (r.firstDone) this.robloxEvent(sessionId, 'book', 'reading', { book: book.id, title: book.title, stage: book.stage, words: book.words }, now);
+      save();
+      client.send('read:progress', { id: book.id, step: String(msg.step), ...r, book: reading.publicBook(book, progress), ...this.walletPayload(sessionId) });
+      return;
+    }
+    if (type === 'aloud') {
+      const heard = Array.isArray(msg.heard) ? msg.heard.slice(0, 20).map((t) => String(t ?? '').slice(0, 600)) : [];
+      const result = reading.judgeAloud(book, heard, msg.seconds);
+      if (result.hit > 0) {
+        reading.recordAloud(progress, book, result, now);
+        // 声に 出して 読んだ：「話す」の 記録（技能・保護者レポート）。正確さ 8 割で ○。
+        this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `read:${book.id}:aloud`, 'speak', `${Math.round(result.acc * 100)}%`, result.acc >= 0.8 ? 1 : 0, 2, sessionId]);
+        this.awardXp(sessionId, 2, `read:${book.id}:aloud`);
+        save();
+      }
+      client.send('read:aloud', { id: book.id, ...result, good: result.acc >= reading.ALOUD_GOOD, book: reading.publicBook(book, progress) });
+      return;
+    }
+    if (type === 'quiz') {
+      priv.readQuiz = reading.startQuiz(book);
+      client.send('read:ask', { id: book.id, ...reading.quizQuestion(priv.readQuiz) });
+      return;
+    }
+    if (type === 'answer') {
+      const session = priv.readQuiz;
+      if (!session || session.book !== book.id) { client.send('read:error', { reason: 'no quiz' }); return; }
+      const n = session.at + 1;
+      const result = reading.answerQuiz(session, msg.choice);
+      if (!result) return;
+      const grade = reading.gradeOfStage(book.stage);
+      this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `read:${book.id}:q${n}`, 'reading', String(msg.choice ?? '').slice(0, 80), result.correct ? 1 : 0, result.correct ? 2 : 0, sessionId]);
+      if (result.correct) this.awardXp(sessionId, 2, `read:${book.id}:q${n}`);
+      // ロードマップ・英検の 見込み・保護者レポートに のる 形（その 段階の 級つき）。
+      this.robloxEvent(sessionId, 'quiz', 'reading', { correct: result.correct, grade, level: 'Reading', format: 'mc', book: book.id, stage: book.stage }, now);
+      let done = null;
+      if (result.over) {
+        done = reading.finishQuiz(progress, book, session, { day, now });
+        pay(done.coins, 'quiz');
+        if (done.firstDone) this.robloxEvent(sessionId, 'book', 'reading', { book: book.id, title: book.title, stage: book.stage, words: book.words }, now);
+        priv.readQuiz = null;
+        save();
+      }
+      client.send('read:result', { id: book.id, ...result, next: result.over ? null : reading.quizQuestion(session), done, book: result.over ? reading.publicBook(book, progress) : undefined, ...this.walletPayload(sessionId), progress: this.progressPayload(sessionId) });
+    }
   }
 
   // ---- ロードマップ ----------------------------------------------------------------------

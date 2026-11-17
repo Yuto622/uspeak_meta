@@ -1,0 +1,39 @@
+{
+  "_": "よみもの島 (Book Island). One big library — walk in and your bookshelf opens. The books (text, scenes, glossary and the quiz ANSWERS) are not here: they live in server/src/game/reading-bank/ and the room sends a book without its answers. Coordinates are relative to the island's own x/z. Colours are decimals because island-kit.js reads them as numbers.",
+  "island": {
+    "id": "reading",
+    "name": "よみもの島",
+    "en": "BOOK ISLAND",
+    "x": -330,
+    "z": 250,
+    "radius": 5,
+    "grass": 8762223,
+    "grassTop": 10537588,
+    "spawn": {
+      "x": 0,
+      "z": 21
+    },
+    "courtyard": {
+      "x": 0,
+      "z": 9
+    },
+    "spots": [
+      {
+        "id": "library",
+        "kind": "library",
+        "name": "えほんの としょかん",
+        "en": "Storybook Library",
+        "character": "Upee",
+        "ja": "えいごの えほんを きいて・よんで・クイズに こたえる",
+        "x": 0,
+        "z": -2,
+        "color": 7031964,
+        "tone": "📚",
+        "path": {
+          "x": 0,
+          "z": 9
+        }
+      }
+    ]
+  }
+}

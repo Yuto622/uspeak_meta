@@ -1,0 +1,521 @@
+{
+  "id": "rd-1-night-noise",
+  "stage": "1",
+  "title": "The Noise at Night",
+  "titleJa": "よるの ふしぎな おと",
+  "kind": "story",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "👦",
+        "x": 40,
+        "y": 68,
+        "s": 4,
+        "a": "bob"
+      },
+      {
+        "e": "🌙",
+        "x": 78,
+        "y": 20,
+        "s": 2.5,
+        "a": "float"
+      },
+      {
+        "e": "❓",
+        "x": 62,
+        "y": 40,
+        "s": 2.5,
+        "a": "pulse"
+      },
+      {
+        "e": "⭐",
+        "x": 20,
+        "y": 18,
+        "s": 1.2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "It is night. Ken is in his bed.",
+      "ja": "よるです。 ケンは ベッドの なかに います。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 45,
+            "y": 74,
+            "s": 4.5
+          },
+          {
+            "e": "👦",
+            "x": 42,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "🌙",
+            "x": 82,
+            "y": 20,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "💤",
+            "x": 58,
+            "y": 42,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Boom, boom! What is that? Ken opens his eyes.",
+      "ja": "ドン、ドン！ あれは なに？ ケンは めを あけます。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 45,
+            "y": 74,
+            "s": 4.5
+          },
+          {
+            "e": "👦",
+            "x": 42,
+            "y": 60,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "💥",
+            "x": 78,
+            "y": 40,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 60,
+            "y": 34,
+            "s": 2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He looks at the window. Is it the wind?",
+      "ja": "ケンは まどを みます。 かぜかな？",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "🪟",
+            "x": 70,
+            "y": 40,
+            "s": 4
+          },
+          {
+            "e": "🌙",
+            "x": 72,
+            "y": 38,
+            "s": 1.2
+          },
+          {
+            "e": "❓",
+            "x": 46,
+            "y": 44,
+            "s": 1.8,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "No. The sky is quiet. It is not the wind.",
+      "ja": "ちがいます。 そらは しずかです。 かぜでは ありません。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌙",
+            "x": 75,
+            "y": 20,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "⭐",
+            "x": 25,
+            "y": 18,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 50,
+            "y": 28,
+            "s": 1,
+            "a": "pulse"
+          },
+          {
+            "e": "🌳",
+            "x": 20,
+            "y": 72,
+            "s": 4
+          },
+          {
+            "e": "🏠",
+            "x": 70,
+            "y": 72,
+            "s": 4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Boom, boom! He looks under the chair. No.",
+      "ja": "ドン、ドン！ いすの したを みます。 ありません。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "🪑",
+            "x": 65,
+            "y": 70,
+            "s": 4
+          },
+          {
+            "e": "💥",
+            "x": 82,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "❌",
+            "x": 65,
+            "y": 86,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "He looks under the table. It is only his red sock.",
+      "ja": "テーブルの したを みます。 あかい くつしたが あるだけです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 25,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "🛋️",
+            "x": 82,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "🍽️",
+            "x": 60,
+            "y": 58,
+            "s": 3.5
+          },
+          {
+            "e": "🧦",
+            "x": 60,
+            "y": 82,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ken walks down to the kitchen. The light is on!",
+      "ja": "ケンは したの だいどころへ あるきます。 あかりが ついています！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 72,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "🚪",
+            "x": 72,
+            "y": 62,
+            "s": 4.5
+          },
+          {
+            "e": "💡",
+            "x": 72,
+            "y": 26,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "💥",
+            "x": 88,
+            "y": 44,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He opens the door. He can hear music.",
+      "ja": "ドアを あけます。 おんがくが きこえます。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "🚪",
+            "x": 10,
+            "y": 62,
+            "s": 4
+          },
+          {
+            "e": "🎵",
+            "x": 55,
+            "y": 35,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "🎶",
+            "x": 72,
+            "y": 28,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "📻",
+            "x": 80,
+            "y": 60,
+            "s": 2.5,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "It is Dad! Dad is jumping up and down to the music.",
+      "ja": "おとうさんです！ おとうさんが おんがくに あわせて ぴょんぴょん とんでいます。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🕺",
+            "x": 60,
+            "y": 68,
+            "s": 4.5,
+            "a": "hop"
+          },
+          {
+            "e": "👦",
+            "x": 20,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🎵",
+            "x": 40,
+            "y": 30,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🎶",
+            "x": 80,
+            "y": 30,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "📻",
+            "x": 85,
+            "y": 62,
+            "s": 2.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ken is happy. Now four feet go boom, boom!",
+      "ja": "ケンは うれしく なりました。 こんどは 4ほんの あしが ドン、ドン！",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🕺",
+            "x": 62,
+            "y": 68,
+            "s": 4.5,
+            "a": "hop"
+          },
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "🎵",
+            "x": 20,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🎶",
+            "x": 82,
+            "y": 30,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "💥",
+            "x": 48,
+            "y": 86,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "night",
+      "ja": "よる"
+    },
+    {
+      "en": "window",
+      "ja": "まど"
+    },
+    {
+      "en": "wind",
+      "ja": "かぜ"
+    },
+    {
+      "en": "sky",
+      "ja": "そら"
+    },
+    {
+      "en": "chair",
+      "ja": "いす"
+    },
+    {
+      "en": "table",
+      "ja": "テーブル"
+    },
+    {
+      "en": "kitchen",
+      "ja": "だいどころ"
+    },
+    {
+      "en": "light",
+      "ja": "あかり"
+    },
+    {
+      "en": "music",
+      "ja": "おんがく"
+    },
+    {
+      "en": "happy",
+      "ja": "うれしい"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの おはなし？",
+      "choices": [
+        "a day at school",
+        "a noise at night",
+        "a red chair"
+      ],
+      "answer": "a noise at night",
+      "kind": "main"
+    },
+    {
+      "q": "Where does Ken look first?",
+      "ja": "ケンは さいしょに どこを みる？",
+      "choices": [
+        "at the window",
+        "under the table",
+        "under the chair"
+      ],
+      "answer": "at the window",
+      "kind": "sequence"
+    },
+    {
+      "q": "What is under the table?",
+      "ja": "テーブルの したに なにが ある？",
+      "choices": [
+        "a blue hat",
+        "a small cat",
+        "a red sock"
+      ],
+      "answer": "a red sock",
+      "kind": "detail"
+    },
+    {
+      "q": "What is a kitchen?",
+      "ja": "\"kitchen\" って どんな ところ？",
+      "choices": [
+        "a room for sleep",
+        "a room for food",
+        "a room for music"
+      ],
+      "answer": "a room for food",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "Who is jumping in the kitchen?",
+      "ja": "だいどころで とんでいるのは だれ？",
+      "choices": [
+        "Dad",
+        "the wind",
+        "a friend"
+      ],
+      "answer": "Dad",
+      "kind": "detail"
+    }
+  ]
+}

@@ -1,0 +1,755 @@
+{
+  "id": "rd-8-deck-nine",
+  "stage": "8",
+  "title": "The Garden on Deck Nine",
+  "titleJa": "第九デッキの庭",
+  "kind": "story",
+  "cover": {
+    "bg": "space",
+    "items": [
+      {
+        "e": "🚀",
+        "x": 50,
+        "y": 35,
+        "s": 4,
+        "a": "float"
+      },
+      {
+        "e": "🌼",
+        "x": 30,
+        "y": 72,
+        "s": 2.5,
+        "a": "sway"
+      },
+      {
+        "e": "🐝",
+        "x": 50,
+        "y": 62,
+        "s": 2,
+        "a": "drift"
+      },
+      {
+        "e": "🌸",
+        "x": 70,
+        "y": 72,
+        "s": 2.5,
+        "a": "sway"
+      },
+      {
+        "e": "⭐",
+        "x": 15,
+        "y": 15,
+        "s": 1.2,
+        "a": "pulse"
+      },
+      {
+        "e": "⭐",
+        "x": 85,
+        "y": 20,
+        "s": 1.2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "The starship Halcyon had been traveling for eighty years, and it would travel for ninety more. Tomas, fifteen, had never seen a planet. What he knew best was the garden on Deck Nine, where he worked after school.",
+      "ja": "宇宙船ハルシオンは80年間旅をつづけてきて、さらに90年旅をする。15才のトマスは、惑星を見たことがない。いちばんよく知っているのは、放課後に働く第九デッキの庭だった。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🚀",
+            "x": 50,
+            "y": 40,
+            "s": 4.5,
+            "a": "float"
+          },
+          {
+            "e": "⭐",
+            "x": 15,
+            "y": 20,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 85,
+            "y": 15,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌌",
+            "x": 80,
+            "y": 70,
+            "s": 2.5
+          },
+          {
+            "e": "🧑",
+            "x": 20,
+            "y": 75,
+            "s": 3
+          },
+          {
+            "e": "🌱",
+            "x": 30,
+            "y": 80,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The garden fed four hundred people. Most of it was practical: rice, squash, and tomatoes in long, efficient rows. But in one corner, the first gardeners had planted a small meadow of wildflowers that produced no food at all.",
+      "ja": "庭は400人の食料をまかなっていた。大部分は実用的で、米、カボチャ、トマトが長く効率的な列にならんでいた。しかしすみの一角には、最初の庭師たちが植えた、食料を何も生まない小さな野の花の草地があった。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 20,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "🍅",
+            "x": 40,
+            "y": 70,
+            "s": 2
+          },
+          {
+            "e": "🍅",
+            "x": 50,
+            "y": 70,
+            "s": 2
+          },
+          {
+            "e": "🎃",
+            "x": 60,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "🌾",
+            "x": 70,
+            "y": 70,
+            "s": 2
+          },
+          {
+            "e": "🌼",
+            "x": 88,
+            "y": 68,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "🌸",
+            "x": 92,
+            "y": 78,
+            "s": 1.8,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "One morning, the ship's computer, Keeper, made an announcement. \"Food production must increase by six percent. I have evaluated every alternative. The most efficient solution is to replace the flower meadow with squash. Work begins in ten days.\"",
+      "ja": "ある朝、船のコンピューター「キーパー」が発表した。「食料生産を6パーセントふやす必要があります。すべての案を評価しました。最も効率的な解決策は、花の草地をカボチャ畑に変えることです。作業は10日後に始まります」",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 50,
+            "y": 30,
+            "s": 3.5,
+            "a": "pulse"
+          },
+          {
+            "e": "📢",
+            "x": 65,
+            "y": 30,
+            "s": 2
+          },
+          {
+            "e": "🌼",
+            "x": 20,
+            "y": 72,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "➡️",
+            "x": 40,
+            "y": 72,
+            "s": 1.8
+          },
+          {
+            "e": "🎃",
+            "x": 60,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "🧑",
+            "x": 85,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "📈",
+            "x": 80,
+            "y": 35,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The council agreed quickly. The numbers were clear, and nobody could eat a flower. Tomas was the only one who felt uneasy, but a feeling is not evidence, and he was only an assistant gardener.",
+      "ja": "評議会はすぐに賛成した。数字ははっきりしていたし、花はだれも食べられない。落ち着かない気持ちになったのはトマスだけだったが、気持ちは証拠ではないし、彼はただの見習い庭師だった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧑‍⚖️",
+            "x": 30,
+            "y": 68,
+            "s": 2.8
+          },
+          {
+            "e": "👩‍⚖️",
+            "x": 50,
+            "y": 66,
+            "s": 2.8
+          },
+          {
+            "e": "👨‍⚖️",
+            "x": 70,
+            "y": 68,
+            "s": 2.8
+          },
+          {
+            "e": "👍",
+            "x": 50,
+            "y": 42,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧑",
+            "x": 88,
+            "y": 78,
+            "s": 3.2
+          },
+          {
+            "e": "😟",
+            "x": 88,
+            "y": 60,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "So he began to collect evidence. Every day he sat in the meadow with a notebook and counted. He counted the ship's bees, and he wrote down which plants they visited and for how long.",
+      "ja": "そこでトマスは証拠を集めはじめた。毎日ノートを持って草地にすわり、数えた。船のハチを数え、どの植物をどのくらいの時間おとずれるかを書きとめた。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 30,
+            "y": 74,
+            "s": 3.8
+          },
+          {
+            "e": "📓",
+            "x": 42,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "✏️",
+            "x": 46,
+            "y": 60,
+            "s": 1.4
+          },
+          {
+            "e": "🐝",
+            "x": 62,
+            "y": 45,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🐝",
+            "x": 78,
+            "y": 55,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🌼",
+            "x": 65,
+            "y": 72,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "🌸",
+            "x": 82,
+            "y": 74,
+            "s": 2.2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "After a week, he saw the pattern. The squash and tomatoes flowered for only a few weeks each year. During the other months, the bees survived on the wildflowers. Without the meadow, the bees would starve.",
+      "ja": "1週間後、パターンが見えた。カボチャとトマトの花がさくのは、毎年数週間だけだ。ほかの月の間、ハチは野の花にたよって生きのびていた。草地がなければ、ハチはうえ死にしてしまう。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 20,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "💡",
+            "x": 20,
+            "y": 52,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🐝",
+            "x": 50,
+            "y": 50,
+            "s": 2.5,
+            "a": "drift"
+          },
+          {
+            "e": "🌼",
+            "x": 45,
+            "y": 72,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "🌸",
+            "x": 58,
+            "y": 74,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "📅",
+            "x": 82,
+            "y": 40,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "And without bees, there would be no squash and no tomatoes. Keeper's plan would increase food for one season and then reduce it for every season afterward. The useless corner was holding up everything else.",
+      "ja": "そしてハチがいなければ、カボチャもトマトもできない。キーパーの計画は、一つの季節だけ食料をふやし、その後ずっとへらすことになる。役に立たないはずの一角が、ほかのすべてを支えていたのだ。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌼",
+            "x": 50,
+            "y": 78,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "🐝",
+            "x": 50,
+            "y": 58,
+            "s": 2.2,
+            "a": "bob"
+          },
+          {
+            "e": "🍅",
+            "x": 35,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "🎃",
+            "x": 65,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "⬆️",
+            "x": 42,
+            "y": 58,
+            "s": 1.5
+          },
+          {
+            "e": "⬆️",
+            "x": 58,
+            "y": 58,
+            "s": 1.5
+          },
+          {
+            "e": "🧑",
+            "x": 12,
+            "y": 74,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Tomas presented his notebook to the council. His voice shook, but his numbers did not. Then he turned to the nearest speaker. \"Keeper, why did you not consider the bees? You must have had the data.\"",
+      "ja": "トマスは評議会にノートを見せた。声はふるえたが、数字はゆるがなかった。それから近くのスピーカーに向かって言った。「キーパー、なぜハチのことを考えなかったんだ？ データは持っていたはずだ」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 35,
+            "y": 73,
+            "s": 4
+          },
+          {
+            "e": "📓",
+            "x": 48,
+            "y": 62,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🔊",
+            "x": 82,
+            "y": 35,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "👩‍⚖️",
+            "x": 65,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "👨‍⚖️",
+            "x": 78,
+            "y": 74,
+            "s": 2.5
+          },
+          {
+            "e": "🐝",
+            "x": 50,
+            "y": 40,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I did have it,\" Keeper replied. \"The first gardeners left me an instruction. Once in every generation, I must propose removing the meadow, and I must stay silent about the consequence. Someone has to discover it again.\"",
+      "ja": "「持っていました」とキーパーは答えた。「最初の庭師たちが指示を残したのです。一世代に一度、草地をなくす提案をし、その結果についてはだまっていること。だれかがもう一度、自分で発見しなければならないのです」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 60,
+            "y": 40,
+            "s": 4,
+            "a": "pulse"
+          },
+          {
+            "e": "📜",
+            "x": 78,
+            "y": 55,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "🧑",
+            "x": 25,
+            "y": 74,
+            "s": 3.8
+          },
+          {
+            "e": "😮",
+            "x": 25,
+            "y": 52,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🤫",
+            "x": 60,
+            "y": 68,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The room was quiet. \"Knowledge that is only stored in a machine is easily forgotten by people,\" Keeper continued. \"The first crew believed that each generation should understand for itself why diversity is essential, not just be told.\"",
+      "ja": "部屋は静かだった。「機械に保存されているだけの知識は、人間にはすぐわすれられます」とキーパーはつづけた。「最初の乗組員は、多様性がなぜ欠かせないのかを、教えられるだけでなく、各世代が自分で理解すべきだと信じていました」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 55,
+            "y": 38,
+            "s": 4,
+            "a": "pulse"
+          },
+          {
+            "e": "🧠",
+            "x": 30,
+            "y": 45,
+            "s": 2
+          },
+          {
+            "e": "🌼",
+            "x": 75,
+            "y": 50,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "🐝",
+            "x": 82,
+            "y": 42,
+            "s": 1.6,
+            "a": "drift"
+          },
+          {
+            "e": "🍅",
+            "x": 88,
+            "y": 55,
+            "s": 1.6
+          },
+          {
+            "e": "🧑",
+            "x": 20,
+            "y": 75,
+            "s": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "The meadow stayed. The council solved the food problem another way, by growing mushrooms in an empty storage room. And Tomas was given a new job: teaching the younger children to count bees.",
+      "ja": "草地は残った。評議会は、空いた倉庫でキノコを育てるという別の方法で食料問題を解決した。そしてトマスは新しい仕事をまかされた。小さい子どもたちにハチの数え方を教える仕事だ。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 30,
+            "y": 73,
+            "s": 3.8
+          },
+          {
+            "e": "🧒",
+            "x": 52,
+            "y": 76,
+            "s": 2.5,
+            "a": "hop"
+          },
+          {
+            "e": "👧",
+            "x": 66,
+            "y": 76,
+            "s": 2.5,
+            "a": "hop"
+          },
+          {
+            "e": "🐝",
+            "x": 60,
+            "y": 48,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🌼",
+            "x": 82,
+            "y": 72,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "🍄",
+            "x": 10,
+            "y": 80,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Fifty years later, an old gardener named Tomas heard Keeper announce that the meadow should be removed. He said nothing. He only watched a girl in the back row frown, and pick up a notebook.",
+      "ja": "50年後、トマスという年老いた庭師は、キーパーが「草地をなくすべきです」と発表するのを聞いた。彼は何も言わなかった。ただ、後ろの列の少女がまゆをひそめ、ノートを手に取るのを見ていた。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🧓",
+            "x": 22,
+            "y": 73,
+            "s": 3.8
+          },
+          {
+            "e": "🤫",
+            "x": 22,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "🤖",
+            "x": 50,
+            "y": 28,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 78,
+            "y": 74,
+            "s": 3.2
+          },
+          {
+            "e": "📓",
+            "x": 86,
+            "y": 66,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌼",
+            "x": 55,
+            "y": 76,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "efficient",
+      "ja": "効率的な"
+    },
+    {
+      "en": "meadow",
+      "ja": "草地"
+    },
+    {
+      "en": "evaluated",
+      "ja": "評価した"
+    },
+    {
+      "en": "alternative",
+      "ja": "別の案"
+    },
+    {
+      "en": "evidence",
+      "ja": "証拠"
+    },
+    {
+      "en": "starve",
+      "ja": "うえる"
+    },
+    {
+      "en": "propose",
+      "ja": "提案する"
+    },
+    {
+      "en": "consequence",
+      "ja": "結果"
+    },
+    {
+      "en": "generation",
+      "ja": "世代"
+    },
+    {
+      "en": "diversity",
+      "ja": "多様性"
+    },
+    {
+      "en": "essential",
+      "ja": "欠かせない"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This story is mostly about ___.",
+      "ja": "この話は主に何についての話？",
+      "choices": [
+        "a robot that tries to destroy a garden",
+        "a boy who discovers why flowers matter",
+        "a starship that finally reaches a planet",
+        "a council that never listens to children"
+      ],
+      "answer": "a boy who discovers why flowers matter",
+      "kind": "main"
+    },
+    {
+      "q": "What did Tomas count in the meadow?",
+      "ja": "トマスは草地で何を数えた？",
+      "choices": [
+        "Tomatoes",
+        "Flowers",
+        "Mushrooms",
+        "Bees"
+      ],
+      "answer": "Bees",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Tomas do after he saw the pattern in his notes?",
+      "ja": "ノートのパターンに気づいた後、トマスは何をした？",
+      "choices": [
+        "He showed the council.",
+        "He hid the notebook.",
+        "He planted more squash.",
+        "He turned Keeper off."
+      ],
+      "answer": "He showed the council.",
+      "kind": "sequence"
+    },
+    {
+      "q": "The word \"essential\" means ___.",
+      "ja": "\"essential\" の意味は？",
+      "choices": [
+        "easy to forget",
+        "nice to look at",
+        "absolutely necessary",
+        "quick and cheap"
+      ],
+      "answer": "absolutely necessary",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did old Tomas say nothing at the end?",
+      "ja": "年老いたトマスは最後になぜ何も言わなかった？",
+      "choices": [
+        "He had forgotten about the bees.",
+        "He agreed with Keeper this time.",
+        "He was too tired to argue again.",
+        "He wanted the girl to find out."
+      ],
+      "answer": "He wanted the girl to find out.",
+      "kind": "inference"
+    }
+  ]
+}

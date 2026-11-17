@@ -1,0 +1,738 @@
+{
+  "id": "rd-9-mapmaker",
+  "stage": "9",
+  "title": "The Mapmaker's Blank Spaces",
+  "titleJa": "地図師の空白",
+  "kind": "story",
+  "cover": {
+    "bg": "sea",
+    "items": [
+      {
+        "e": "🗺️",
+        "x": 50,
+        "y": 50,
+        "s": 5,
+        "a": "sway"
+      },
+      {
+        "e": "🧭",
+        "x": 25,
+        "y": 72,
+        "s": 2.5,
+        "a": "spin"
+      },
+      {
+        "e": "⛵",
+        "x": 78,
+        "y": 68,
+        "s": 2.5,
+        "a": "float"
+      },
+      {
+        "e": "❔",
+        "x": 62,
+        "y": 38,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "In the harbor kingdom of Tessaly, there lived a mapmaker named Orsa, whose charts were renowned for one peculiar habit. Wherever her knowledge ended, she left the paper empty and wrote a single word across it: \"Unknown.\"",
+      "ja": "港の王国テッサリーに、オルサという地図師がいた。彼女の海図は、ある変わったくせで有名だった。自分の知識がつきるところでは紙を空白のままにして、そこにただ一語「不明」と書くのだ。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👩‍🦳",
+            "x": 28,
+            "y": 73,
+            "s": 3.8
+          },
+          {
+            "e": "🗺️",
+            "x": 55,
+            "y": 58,
+            "s": 3.5
+          },
+          {
+            "e": "❔",
+            "x": 64,
+            "y": 52,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🪶",
+            "x": 42,
+            "y": 62,
+            "s": 1.6
+          },
+          {
+            "e": "⛵",
+            "x": 85,
+            "y": 55,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🏰",
+            "x": 12,
+            "y": 45,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Other mapmakers despised blank paper. They filled uncharted seas with imaginary islands and confident coastlines, because customers paid more for a map that looked complete. Orsa's maps, with their pale gaps, looked unfinished and sold poorly.",
+      "ja": "ほかの地図師は空白をきらった。完成して見える地図のほうが高く売れるので、だれも測っていない海を、想像の島や自信たっぷりの海岸線でうめた。白いすき間のあるオルサの地図は未完成に見え、あまり売れなかった。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🗺️",
+            "x": 25,
+            "y": 50,
+            "s": 3
+          },
+          {
+            "e": "🏝️",
+            "x": 20,
+            "y": 46,
+            "s": 1.2
+          },
+          {
+            "e": "🐉",
+            "x": 30,
+            "y": 52,
+            "s": 1.2
+          },
+          {
+            "e": "💰",
+            "x": 25,
+            "y": 75,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🗺️",
+            "x": 72,
+            "y": 50,
+            "s": 3
+          },
+          {
+            "e": "❔",
+            "x": 72,
+            "y": 48,
+            "s": 1.4
+          },
+          {
+            "e": "🕸️",
+            "x": 85,
+            "y": 30,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "One winter the young king summoned her. He was planning an expedition to the south, and he wanted a magnificent chart to display before his court. \"Draw me the southern ocean,\" he commanded, \"and leave nothing empty. Blankness resembles weakness.\"",
+      "ja": "ある冬、若い王がオルサを呼びだした。王は南への遠征を計画していて、宮廷で見せるりっぱな海図をほしがった。「南の大洋をえがけ。空白は一つも残すな。空白は弱さに見える」と王は命じた。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "🤴",
+            "x": 65,
+            "y": 68,
+            "s": 4
+          },
+          {
+            "e": "👑",
+            "x": 65,
+            "y": 46,
+            "s": 1.4
+          },
+          {
+            "e": "🏰",
+            "x": 88,
+            "y": 55,
+            "s": 3.5
+          },
+          {
+            "e": "👩‍🦳",
+            "x": 28,
+            "y": 74,
+            "s": 3.8
+          },
+          {
+            "e": "👉",
+            "x": 50,
+            "y": 62,
+            "s": 1.8
+          },
+          {
+            "e": "❄️",
+            "x": 20,
+            "y": 20,
+            "s": 1.8,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Orsa knew the southern ocean only as far as the Cape of Gulls. Beyond that, she had nothing but sailors' rumors, which contradicted one another. She explained this. The king was not interested in the limits of her knowledge.",
+      "ja": "オルサが知っている南の大洋は、カモメ岬までだった。その先は船乗りたちのうわさしかなく、うわさはたがいに食いちがっていた。オルサはそう説明した。だが王は、彼女の知識の限界になど興味がなかった。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "⛰️",
+            "x": 30,
+            "y": 55,
+            "s": 3.5
+          },
+          {
+            "e": "🕊️",
+            "x": 35,
+            "y": 28,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🕊️",
+            "x": 22,
+            "y": 35,
+            "s": 1.4,
+            "a": "drift"
+          },
+          {
+            "e": "🌫️",
+            "x": 72,
+            "y": 50,
+            "s": 4,
+            "a": "sway"
+          },
+          {
+            "e": "❔",
+            "x": 72,
+            "y": 48,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👩‍🦳",
+            "x": 10,
+            "y": 78,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "She worked for a month and delivered the chart. It was exquisite as far as the cape. Beyond it lay an expanse of bare paper and the familiar word. The king, humiliated before his court, dismissed her and hired a more obliging rival.",
+      "ja": "オルサは1か月かけて海図を仕上げ、納めた。岬まではこの上なく美しかった。その先には何もない紙が広がり、いつもの一語があった。宮廷ではじをかいた王は彼女をやめさせ、もっと言うことを聞くライバルをやとった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🗺️",
+            "x": 45,
+            "y": 48,
+            "s": 4.5
+          },
+          {
+            "e": "❔",
+            "x": 56,
+            "y": 44,
+            "s": 1.8
+          },
+          {
+            "e": "🤴",
+            "x": 80,
+            "y": 68,
+            "s": 3.8
+          },
+          {
+            "e": "😡",
+            "x": 80,
+            "y": 46,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👩‍🦳",
+            "x": 15,
+            "y": 76,
+            "s": 3.5
+          },
+          {
+            "e": "🚪",
+            "x": 5,
+            "y": 62,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "The rival's map was a masterpiece of plausible invention. He drew a generous open channel past the cape, decorated with dolphins. The court applauded. Orsa, meanwhile, sold her instruments one by one to pay for bread.",
+      "ja": "ライバルの地図は、もっともらしい作り話の傑作だった。岬の先に、イルカのかざり付きの広く開けた水路をえがいた。宮廷ははく手した。そのころオルサは、パンを買うために道具を一つずつ売っていた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🗺️",
+            "x": 30,
+            "y": 45,
+            "s": 4
+          },
+          {
+            "e": "🐬",
+            "x": 26,
+            "y": 42,
+            "s": 1.4
+          },
+          {
+            "e": "👏",
+            "x": 45,
+            "y": 68,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🤴",
+            "x": 12,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👩‍🦳",
+            "x": 75,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "🧭",
+            "x": 88,
+            "y": 62,
+            "s": 1.8
+          },
+          {
+            "e": "🍞",
+            "x": 88,
+            "y": 80,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "In spring the expedition sailed in two groups. The king's captains carried the splendid new chart. But an old pilot named Brenn, who distrusted anything too beautiful, had quietly bought Orsa's rejected map at a market stall for almost nothing.",
+      "ja": "春、遠征隊は二組に分かれて出航した。王の船長たちはみごとな新しい海図を持っていた。だが、美しすぎるものを信用しない老水先案内人ブレンは、市場の屋台でオルサのすてられた地図をただ同然でこっそり買っていた。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "⛵",
+            "x": 25,
+            "y": 55,
+            "s": 3,
+            "a": "float"
+          },
+          {
+            "e": "⛵",
+            "x": 42,
+            "y": 50,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "⛵",
+            "x": 55,
+            "y": 58,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "🚢",
+            "x": 85,
+            "y": 62,
+            "s": 2.8,
+            "a": "float"
+          },
+          {
+            "e": "🧔",
+            "x": 85,
+            "y": 42,
+            "s": 2
+          },
+          {
+            "e": "🗺️",
+            "x": 92,
+            "y": 44,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Past the cape, the royal ships steered confidently into the channel that the rival had drawn. There was no channel. There were reefs, and three vessels were wrecked on them in a single night, though most of the sailors reached the shore.",
+      "ja": "岬の先で、王の船団は、ライバルがえがいた水路へ自信たっぷりに進んだ。水路などなかった。あったのは岩礁で、一晩で3せきが難破した。ただ、船乗りのほとんどは岸にたどり着いた。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🪨",
+            "x": 40,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🪨",
+            "x": 60,
+            "y": 78,
+            "s": 2.5
+          },
+          {
+            "e": "⛵",
+            "x": 48,
+            "y": 62,
+            "s": 3,
+            "a": "spin"
+          },
+          {
+            "e": "🌊",
+            "x": 30,
+            "y": 80,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "🌊",
+            "x": 72,
+            "y": 82,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "🏝️",
+            "x": 90,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "⚡",
+            "x": 50,
+            "y": 20,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Brenn, reading the word \"Unknown,\" had done what the word advised. He slowed down, measured the depth every hour, and anchored at dusk. His ship crept through the reefs intact, and he returned to rescue the stranded crews.",
+      "ja": "ブレンは「不明」の一語を読み、その言葉がすすめるとおりにした。速度を落とし、1時間ごとに深さを測り、日ぐれにはいかりを下ろした。船は無傷で岩礁をぬけ、ブレンは取り残された乗組員たちを助けにもどった。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🚢",
+            "x": 45,
+            "y": 58,
+            "s": 3.5,
+            "a": "float"
+          },
+          {
+            "e": "🧔",
+            "x": 45,
+            "y": 38,
+            "s": 2
+          },
+          {
+            "e": "⚓",
+            "x": 58,
+            "y": 78,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "🪨",
+            "x": 20,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🪨",
+            "x": 78,
+            "y": 78,
+            "s": 2.2
+          },
+          {
+            "e": "🏝️",
+            "x": 90,
+            "y": 62,
+            "s": 2
+          },
+          {
+            "e": "🛟",
+            "x": 72,
+            "y": 62,
+            "s": 1.6,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The king was proud but not stupid. He summoned Orsa again and, with some difficulty, apologized. \"Your rival's map told me what I wished to hear,\" he said. \"Yours told me where to be careful. I mistook honesty for incompetence.\"",
+      "ja": "王はほこり高かったが、おろかではなかった。ふたたびオルサを呼び、言いにくそうにあやまった。「ライバルの地図は、わたしが聞きたいことを語った。そなたの地図は、どこで用心すべきかを語った。わたしは正直さを無能と取りちがえた」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🤴",
+            "x": 65,
+            "y": 70,
+            "s": 3.8
+          },
+          {
+            "e": "🙇",
+            "x": 65,
+            "y": 70,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 52,
+            "y": 48,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👩‍🦳",
+            "x": 25,
+            "y": 74,
+            "s": 3.8
+          },
+          {
+            "e": "🗺️",
+            "x": 88,
+            "y": 45,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Orsa was appointed royal mapmaker, on one condition of her own: Brenn's measurements would be added to her chart, and the word \"Unknown\" would be moved further south, but never removed entirely. It was a strange request, and the king, to his credit, granted it.",
+      "ja": "オルサは王室の地図師に任命された。ただし彼女は一つ条件をつけた。ブレンの測った記録を海図に加え、「不明」の一語はもっと南へ移すが、けっして完全には消さない、という条件だ。奇妙な願いだったが、王はりっぱにもそれを認めた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍🦳",
+            "x": 30,
+            "y": 73,
+            "s": 3.8
+          },
+          {
+            "e": "🗺️",
+            "x": 60,
+            "y": 52,
+            "s": 4.5
+          },
+          {
+            "e": "🪶",
+            "x": 45,
+            "y": 60,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "❔",
+            "x": 66,
+            "y": 66,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "⬇️",
+            "x": 66,
+            "y": 54,
+            "s": 1.4
+          },
+          {
+            "e": "🧔",
+            "x": 88,
+            "y": 76,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "It is said that her maps hang in Tessaly still, and that apprentices are shown the blank spaces first. An empty place on a map, they are taught, is not a failure. It is the most honest thing a mapmaker can draw, and an invitation.",
+      "ja": "オルサの地図は今もテッサリーにかかっていて、弟子たちは最初に空白を見せられるという。地図の上の空白は失敗ではない、と弟子たちは教わる。それは地図師がえがける最も正直なものであり、招待状でもあるのだ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🗺️",
+            "x": 50,
+            "y": 42,
+            "s": 5.5
+          },
+          {
+            "e": "❔",
+            "x": 60,
+            "y": 46,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧒",
+            "x": 22,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 78,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "👉",
+            "x": 32,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "⛵",
+            "x": 88,
+            "y": 30,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "renowned",
+      "ja": "有名な"
+    },
+    {
+      "en": "peculiar",
+      "ja": "変わった"
+    },
+    {
+      "en": "uncharted",
+      "ja": "地図にのっていない"
+    },
+    {
+      "en": "summoned",
+      "ja": "呼びだした"
+    },
+    {
+      "en": "expedition",
+      "ja": "遠征"
+    },
+    {
+      "en": "contradicted",
+      "ja": "食いちがった"
+    },
+    {
+      "en": "exquisite",
+      "ja": "この上なく美しい"
+    },
+    {
+      "en": "humiliated",
+      "ja": "はじをかかされた"
+    },
+    {
+      "en": "plausible",
+      "ja": "もっともらしい"
+    },
+    {
+      "en": "intact",
+      "ja": "無傷の"
+    },
+    {
+      "en": "stranded",
+      "ja": "取り残された"
+    },
+    {
+      "en": "incompetence",
+      "ja": "無能"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This story is mostly about ___.",
+      "ja": "この話は主に何についての話？",
+      "choices": [
+        "a king who discovers a rich southern land",
+        "the value of admitting what you do not know",
+        "two mapmakers who become business partners",
+        "an old pilot who draws a beautiful new chart"
+      ],
+      "answer": "the value of admitting what you do not know",
+      "kind": "main"
+    },
+    {
+      "q": "What did the rival draw beyond the cape?",
+      "ja": "ライバルは岬の先に何をえがいた？",
+      "choices": [
+        "An open channel",
+        "A line of reefs",
+        "A blank space",
+        "A large island"
+      ],
+      "answer": "An open channel",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened first?",
+      "ja": "最初に起きたのはどれ？",
+      "choices": [
+        "Three royal ships were wrecked.",
+        "Brenn rescued the stranded crews.",
+        "The king apologized to Orsa.",
+        "The king dismissed Orsa."
+      ],
+      "answer": "The king dismissed Orsa.",
+      "kind": "sequence"
+    },
+    {
+      "q": "The word \"plausible\" means ___.",
+      "ja": "\"plausible\" の意味は？",
+      "choices": [
+        "extremely rare",
+        "badly damaged",
+        "seeming to be true",
+        "drawn by hand"
+      ],
+      "answer": "seeming to be true",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Brenn's ship pass through the reefs safely?",
+      "ja": "ブレンの船はなぜ岩礁を無事に通れた？",
+      "choices": [
+        "He already knew the route well.",
+        "The king had warned him earlier.",
+        "The blank map made him cautious.",
+        "His ship was smaller than the rest."
+      ],
+      "answer": "The blank map made him cautious.",
+      "kind": "inference"
+    }
+  ]
+}

@@ -1,0 +1,733 @@
+{
+  "id": "rd-7-umbrella-box",
+  "stage": "7",
+  "title": "The Umbrella Box",
+  "titleJa": "かさの箱のなぞ",
+  "kind": "story",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "📦",
+        "x": 50,
+        "y": 72,
+        "s": 4
+      },
+      {
+        "e": "☂️",
+        "x": 50,
+        "y": 45,
+        "s": 3.5,
+        "a": "bob"
+      },
+      {
+        "e": "👧",
+        "x": 22,
+        "y": 74,
+        "s": 3
+      },
+      {
+        "e": "🌧️",
+        "x": 75,
+        "y": 18,
+        "s": 2.5,
+        "a": "drift"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "At Saki's small station, there was a blue box with a sign: \"Free umbrellas for the community. Please bring them back.\" Saki's class had painted it, and she felt a real responsibility for it.",
+      "ja": "サキの小さな駅には青い箱があり、「地域のみなさんへ。かさをご自由にどうぞ。使ったら返してください」と書いてあった。サキのクラスが色をぬった箱で、サキは強い責任を感じていた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "📦",
+            "x": 55,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "☂️",
+            "x": 50,
+            "y": 55,
+            "s": 2
+          },
+          {
+            "e": "🌂",
+            "x": 60,
+            "y": 56,
+            "s": 2
+          },
+          {
+            "e": "👧",
+            "x": 25,
+            "y": 74,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "🚉",
+            "x": 82,
+            "y": 60,
+            "s": 3
+          },
+          {
+            "e": "🪧",
+            "x": 70,
+            "y": 62,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "At first there were twenty umbrellas. But every rainy week the number went down. By June, only four were available, and people began to say the idea had failed.",
+      "ja": "はじめは20本のかさがあった。でも雨の週のたびに数はへっていった。6月には使えるかさは4本だけになり、人びとは「あの考えは失敗だ」と言いはじめた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "📦",
+            "x": 50,
+            "y": 74,
+            "s": 4
+          },
+          {
+            "e": "🌂",
+            "x": 44,
+            "y": 56,
+            "s": 2
+          },
+          {
+            "e": "🌂",
+            "x": 56,
+            "y": 56,
+            "s": 2
+          },
+          {
+            "e": "🌧️",
+            "x": 30,
+            "y": 18,
+            "s": 2.5,
+            "a": "drift"
+          },
+          {
+            "e": "🌧️",
+            "x": 70,
+            "y": 20,
+            "s": 2.5,
+            "a": "drift"
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 75,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Somebody is stealing them,\" said her friend Daichi. \"If people can take things for free, they will never return them. That is just human nature.\" Saki did not want to believe that.",
+      "ja": "「だれかがぬすんでいるんだ」と友だちのダイチは言った。「ただで持っていけるなら、人は返さないよ。それが人間ってものさ」。サキはそう信じたくなかった。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 65,
+            "y": 74,
+            "s": 3.5,
+            "a": "sway"
+          },
+          {
+            "e": "💬",
+            "x": 72,
+            "y": 48,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "📦",
+            "x": 88,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "🌂",
+            "x": 88,
+            "y": 62,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "So she decided to watch. On a wet Friday evening, she sat on the bench near the box with a book she was not really reading, and waited.",
+      "ja": "そこでサキは見はることにした。雨の金曜日の夕方、箱の近くのベンチにすわり、読むふりをした本を手に、じっと待った。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "📖",
+            "x": 38,
+            "y": 68,
+            "s": 1.8
+          },
+          {
+            "e": "🪑",
+            "x": 30,
+            "y": 80,
+            "s": 2.5
+          },
+          {
+            "e": "📦",
+            "x": 72,
+            "y": 75,
+            "s": 3
+          },
+          {
+            "e": "🌂",
+            "x": 72,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "🌧️",
+            "x": 55,
+            "y": 16,
+            "s": 2.5,
+            "a": "drift"
+          },
+          {
+            "e": "👀",
+            "x": 30,
+            "y": 52,
+            "s": 1.5,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Most people borrowed one umbrella and hurried away. Then an old man in a gray coat came. He looked around carefully and put three umbrellas under his arm.",
+      "ja": "たいていの人は1本借りて、急いで行ってしまった。そこへ灰色のコートのおじいさんが来た。まわりをよく見てから、3本のかさをわきにかかえた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👴",
+            "x": 62,
+            "y": 73,
+            "s": 3.5
+          },
+          {
+            "e": "🌂",
+            "x": 54,
+            "y": 66,
+            "s": 1.8
+          },
+          {
+            "e": "🌂",
+            "x": 58,
+            "y": 68,
+            "s": 1.8
+          },
+          {
+            "e": "🌂",
+            "x": 66,
+            "y": 67,
+            "s": 1.8
+          },
+          {
+            "e": "📦",
+            "x": 80,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 15,
+            "y": 74,
+            "s": 2.5
+          },
+          {
+            "e": "🌧️",
+            "x": 40,
+            "y": 16,
+            "s": 2.5,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Saki's heart beat fast. She considered shouting, but she had no confidence. Instead, she followed him quietly through the rain, past the bakery and down a narrow street.",
+      "ja": "サキの心ぞうはどきどきした。大声を出そうかと考えたが、自信がなかった。かわりに雨の中、パン屋の前を通り、細い道へと、そっと後をつけた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👴",
+            "x": 75,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "🌂",
+            "x": 70,
+            "y": 64,
+            "s": 1.5
+          },
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 75,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "💓",
+            "x": 28,
+            "y": 55,
+            "s": 1.5,
+            "a": "pulse"
+          },
+          {
+            "e": "🥖",
+            "x": 52,
+            "y": 55,
+            "s": 2
+          },
+          {
+            "e": "🌧️",
+            "x": 50,
+            "y": 15,
+            "s": 2.5,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He entered a tiny shop with no sign. Through the window, Saki saw something surprising. Dozens of umbrellas were hanging from the ceiling, and the old man was bending over one with a needle.",
+      "ja": "おじいさんはかんばんのない小さな店に入った。まどからのぞいて、サキはおどろいた。天じょうから何十本ものかさがつるされ、おじいさんは針を持って1本にかがみこんでいた。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "☂️",
+            "x": 20,
+            "y": 20,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "☂️",
+            "x": 40,
+            "y": 16,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "☂️",
+            "x": 60,
+            "y": 20,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "☂️",
+            "x": 80,
+            "y": 16,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "👴",
+            "x": 55,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "🪡",
+            "x": 66,
+            "y": 64,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 10,
+            "y": 75,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "He noticed her and opened the door. \"You must be from the station,\" he said, smiling. \"Come in. You are getting wet, and I have plenty of umbrellas, as you can see.\"",
+      "ja": "おじいさんはサキに気づいてドアを開けた。「駅から来た子だね」とにっこりした。「お入り。ぬれてしまうよ。見てのとおり、かさならたくさんあるからね」",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👴",
+            "x": 60,
+            "y": 72,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "🚪",
+            "x": 42,
+            "y": 66,
+            "s": 3.5
+          },
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "💧",
+            "x": 22,
+            "y": 55,
+            "s": 1.5,
+            "a": "drift"
+          },
+          {
+            "e": "☂️",
+            "x": 75,
+            "y": 20,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "☂️",
+            "x": 90,
+            "y": 24,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I used to make umbrellas for fifty years,\" he explained. \"The ones in your box were breaking. Nobody wants to return a broken umbrella, so they throw it away. I take them home and repair them.\"",
+      "ja": "「わしは50年かさを作っていたんだ」とおじいさんは説明した。「箱のかさはこわれかけていた。こわれたかさはだれも返したくないから、すててしまう。だから持ち帰って直しているんだよ」",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👴",
+            "x": 62,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "🌂",
+            "x": 45,
+            "y": 66,
+            "s": 2.2
+          },
+          {
+            "e": "🪡",
+            "x": 52,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🧵",
+            "x": 38,
+            "y": 74,
+            "s": 1.8
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "☂️",
+            "x": 82,
+            "y": 20,
+            "s": 2.2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Saki's face turned red. \"I thought you were a thief,\" she said. He laughed. \"In this situation, I would think so too. But I am slow now. I need young hands to support me.\"",
+      "ja": "サキの顔は赤くなった。「どろぼうだと思っていました」。おじいさんは笑った。「この状況なら、わしでもそう思うさ。でも今は手がおそくてね。支えてくれるわかい手がほしいんだ」",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "😳",
+            "x": 30,
+            "y": 54,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👴",
+            "x": 65,
+            "y": 72,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 65,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "☂️",
+            "x": 50,
+            "y": 18,
+            "s": 2.2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The next week, Saki and Daichi carried thirty repaired umbrellas back to the station. Daichi was quiet for a long time. \"Maybe I was wrong about human nature,\" he said at last.",
+      "ja": "次の週、サキとダイチは直した30本のかさを駅へ運んだ。ダイチは長いことだまっていた。そしてやっと言った。「人間ってもの、ぼくはまちがっていたのかもしれない」",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 74,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "👦",
+            "x": 55,
+            "y": 74,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "🌂",
+            "x": 22,
+            "y": 62,
+            "s": 1.8
+          },
+          {
+            "e": "🌂",
+            "x": 38,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "🌂",
+            "x": 48,
+            "y": 62,
+            "s": 1.8
+          },
+          {
+            "e": "🌂",
+            "x": 63,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "📦",
+            "x": 85,
+            "y": 76,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Saki added one line to the sign: \"Broken? Bring it back anyway. We can fix it.\" Then it started to rain, and for once, she was glad.",
+      "ja": "サキははり紙に一行書き足した。「こわれた？ それでも返してね。直せます」。そのとき雨がふりだした。サキは、めずらしく雨がうれしかった。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "📦",
+            "x": 55,
+            "y": 74,
+            "s": 4
+          },
+          {
+            "e": "☂️",
+            "x": 46,
+            "y": 54,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "☂️",
+            "x": 55,
+            "y": 50,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "☂️",
+            "x": 64,
+            "y": 54,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "🪧",
+            "x": 80,
+            "y": 66,
+            "s": 2.5
+          },
+          {
+            "e": "👧",
+            "x": 25,
+            "y": 74,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "🌧️",
+            "x": 50,
+            "y": 15,
+            "s": 3,
+            "a": "drift"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "community",
+      "ja": "地域社会"
+    },
+    {
+      "en": "responsibility",
+      "ja": "責任"
+    },
+    {
+      "en": "available",
+      "ja": "利用できる"
+    },
+    {
+      "en": "borrowed",
+      "ja": "借りた"
+    },
+    {
+      "en": "considered",
+      "ja": "よく考えた"
+    },
+    {
+      "en": "confidence",
+      "ja": "自信"
+    },
+    {
+      "en": "repair",
+      "ja": "修理する"
+    },
+    {
+      "en": "thief",
+      "ja": "どろぼう"
+    },
+    {
+      "en": "situation",
+      "ja": "状況"
+    },
+    {
+      "en": "support",
+      "ja": "支える"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This story is mostly about ___.",
+      "ja": "この話は主に何についての話？",
+      "choices": [
+        "a boy who steals umbrellas from a station",
+        "a girl who misjudges a kind old man",
+        "a class that paints a station box blue",
+        "a shop that sells umbrellas to travelers"
+      ],
+      "answer": "a girl who misjudges a kind old man",
+      "kind": "main"
+    },
+    {
+      "q": "Why did the old man take the umbrellas?",
+      "ja": "おじいさんはなぜかさを持っていった？",
+      "choices": [
+        "To sell them",
+        "To give them away",
+        "To keep them dry",
+        "To repair them"
+      ],
+      "answer": "To repair them",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Saki do right after the old man took three umbrellas?",
+      "ja": "おじいさんが3本取ったすぐ後、サキは何をした？",
+      "choices": [
+        "She followed him quietly.",
+        "She shouted at him loudly.",
+        "She called Daichi for help.",
+        "She went back to her book."
+      ],
+      "answer": "She followed him quietly.",
+      "kind": "sequence"
+    },
+    {
+      "q": "In this book, \"available\" means ___.",
+      "ja": "この本で \"available\" の意味は？",
+      "choices": [
+        "too old to fix",
+        "left in the rain",
+        "ready to be used",
+        "hard to carry"
+      ],
+      "answer": "ready to be used",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why was Saki glad when it began to rain at the end?",
+      "ja": "最後に雨がふりだしたとき、サキはなぜうれしかった？",
+      "choices": [
+        "She wanted to stay at home.",
+        "People could use the box again.",
+        "The old man would close his shop.",
+        "Daichi had forgotten his umbrella."
+      ],
+      "answer": "People could use the box again.",
+      "kind": "inference"
+    }
+  ]
+}

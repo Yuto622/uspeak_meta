@@ -1,0 +1,486 @@
+{
+  "id": "rd-1-busy-body",
+  "stage": "1",
+  "title": "My Busy Body",
+  "titleJa": "いそがしい ぼくの からだ",
+  "kind": "nonfiction",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "🧒",
+        "x": 50,
+        "y": 62,
+        "s": 4.5,
+        "a": "hop"
+      },
+      {
+        "e": "👀",
+        "x": 22,
+        "y": 30,
+        "s": 2,
+        "a": "bob"
+      },
+      {
+        "e": "👂",
+        "x": 78,
+        "y": 30,
+        "s": 2,
+        "a": "bob"
+      },
+      {
+        "e": "✋",
+        "x": 22,
+        "y": 72,
+        "s": 2,
+        "a": "sway"
+      },
+      {
+        "e": "🦶",
+        "x": 78,
+        "y": 76,
+        "s": 2,
+        "a": "hop"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "This is my body. It is busy all day.",
+      "ja": "これは ぼくの からだです。 いちにちじゅう いそがしいです。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 50,
+            "y": 64,
+            "s": 4.5,
+            "a": "hop"
+          },
+          {
+            "e": "☀️",
+            "x": 82,
+            "y": 18,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "⚽",
+            "x": 25,
+            "y": 80,
+            "s": 2,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I have two eyes. I look at the blue sky.",
+      "ja": "めが ふたつ あります。 あおい そらを みます。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "👀",
+            "x": 50,
+            "y": 62,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "☁️",
+            "x": 25,
+            "y": 25,
+            "s": 2.5,
+            "a": "drift"
+          },
+          {
+            "e": "☁️",
+            "x": 75,
+            "y": 32,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🐦",
+            "x": 55,
+            "y": 22,
+            "s": 1.5,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I have two ears. I listen to music.",
+      "ja": "みみが ふたつ あります。 おんがくを ききます。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 50,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "👂",
+            "x": 28,
+            "y": 56,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👂",
+            "x": 72,
+            "y": 56,
+            "s": 2.2,
+            "a": "pulse",
+            "flip": true
+          },
+          {
+            "e": "🎵",
+            "x": 20,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🎶",
+            "x": 80,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I have one nose. Mmm! I can smell the food.",
+      "ja": "はなが ひとつ あります。 うーん！ たべものの においが します。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 30,
+            "y": 68,
+            "s": 4
+          },
+          {
+            "e": "👃",
+            "x": 48,
+            "y": 52,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "🍛",
+            "x": 75,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "♨️",
+            "x": 75,
+            "y": 48,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I have one mouth. I eat, drink, and talk a lot.",
+      "ja": "くちが ひとつ あります。 たべて、 のんで、 たくさん はなします。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 35,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "👄",
+            "x": 35,
+            "y": 84,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🍙",
+            "x": 62,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "🥛",
+            "x": 78,
+            "y": 70,
+            "s": 2.2
+          },
+          {
+            "e": "💬",
+            "x": 58,
+            "y": 40,
+            "s": 2.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I have two hands. I open and close the window.",
+      "ja": "てが ふたつ あります。 まどを あけたり しめたり します。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 28,
+            "y": 68,
+            "s": 4
+          },
+          {
+            "e": "✋",
+            "x": 48,
+            "y": 50,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "🪟",
+            "x": 72,
+            "y": 44,
+            "s": 4.5
+          },
+          {
+            "e": "🍃",
+            "x": 86,
+            "y": 40,
+            "s": 1.5,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I have two legs. I walk, run, and jump.",
+      "ja": "あしが 2ほん あります。 あるいて、 はしって、 とびます。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 40,
+            "y": 60,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "🦵",
+            "x": 62,
+            "y": 76,
+            "s": 2.2,
+            "a": "hop"
+          },
+          {
+            "e": "🦵",
+            "x": 74,
+            "y": 76,
+            "s": 2.2,
+            "a": "hop",
+            "flip": true
+          },
+          {
+            "e": "🌳",
+            "x": 88,
+            "y": 66,
+            "s": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "I have two feet. Oh no! They smell, too!",
+      "ja": "あしが ふたつ あります。 あらら！ あしも においます！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🦶",
+            "x": 40,
+            "y": 70,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "🦶",
+            "x": 60,
+            "y": 70,
+            "s": 3.5,
+            "a": "bob",
+            "flip": true
+          },
+          {
+            "e": "👃",
+            "x": 50,
+            "y": 34,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "💨",
+            "x": 78,
+            "y": 56,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🧦",
+            "x": 85,
+            "y": 82,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "At night, my eyes close. My busy body sleeps.",
+      "ja": "よる、 めが とじます。 いそがしい からだは ねむります。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 50,
+            "y": 74,
+            "s": 4.5
+          },
+          {
+            "e": "😴",
+            "x": 48,
+            "y": 60,
+            "s": 3
+          },
+          {
+            "e": "💤",
+            "x": 66,
+            "y": 40,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🌙",
+            "x": 82,
+            "y": 18,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "eyes",
+      "ja": "め"
+    },
+    {
+      "en": "ears",
+      "ja": "みみ"
+    },
+    {
+      "en": "nose",
+      "ja": "はな"
+    },
+    {
+      "en": "mouth",
+      "ja": "くち"
+    },
+    {
+      "en": "hands",
+      "ja": "て"
+    },
+    {
+      "en": "legs",
+      "ja": "あし（ぜんたい）"
+    },
+    {
+      "en": "feet",
+      "ja": "あし（あしくびから した）"
+    },
+    {
+      "en": "listen",
+      "ja": "きく"
+    },
+    {
+      "en": "close",
+      "ja": "しめる・とじる"
+    },
+    {
+      "en": "busy",
+      "ja": "いそがしい"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの ほん？",
+      "choices": [
+        "my family at night",
+        "food at my school",
+        "what my body can do"
+      ],
+      "answer": "what my body can do",
+      "kind": "main"
+    },
+    {
+      "q": "What do the ears do?",
+      "ja": "みみは なにを する？",
+      "choices": [
+        "listen to music",
+        "look at the sky",
+        "open the window"
+      ],
+      "answer": "listen to music",
+      "kind": "detail"
+    },
+    {
+      "q": "How many noses are there?",
+      "ja": "はなは いくつ ある？",
+      "choices": [
+        "two",
+        "one",
+        "ten"
+      ],
+      "answer": "one",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"busy\" mean?",
+      "ja": "\"busy\" の いみは？",
+      "choices": [
+        "doing many things",
+        "sleeping all day",
+        "looking very small"
+      ],
+      "answer": "doing many things",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "What happens at night?",
+      "ja": "よるは どう なる？",
+      "choices": [
+        "The legs run.",
+        "The mouth eats.",
+        "The body sleeps."
+      ],
+      "answer": "The body sleeps.",
+      "kind": "sequence"
+    }
+  ]
+}

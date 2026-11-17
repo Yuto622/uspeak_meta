@@ -1,0 +1,730 @@
+{
+ "id": "rd-6-space-station",
+ "stage": "6",
+ "title": "Living on the Space Station",
+ "titleJa": "宇宙ステーションの くらし",
+ "kind": "nonfiction",
+ "cover": {
+  "bg": "space",
+  "items": [
+   {
+    "e": "🛰️",
+    "x": 50,
+    "y": 45,
+    "s": 5,
+    "a": "drift"
+   },
+   {
+    "e": "🌍",
+    "x": 20,
+    "y": 82,
+    "s": 4,
+    "a": "spin"
+   },
+   {
+    "e": "🧑‍🚀",
+    "x": 75,
+    "y": 65,
+    "s": 3,
+    "a": "float"
+   },
+   {
+    "e": "⭐",
+    "x": 85,
+    "y": 15,
+    "s": 1.4,
+    "a": "pulse"
+   }
+  ]
+ },
+ "pages": [
+  {
+   "text": "About four hundred kilometers above your head, there is a home in space. It is called the International Space Station, and people have lived there since 2000.",
+   "ja": "あなたの 頭の 上、およそ 400キロメートルの ところに、宇宙の 家が あります。国際宇宙ステーションと よばれ、2000年から 人が 住み続けています。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🛰️",
+      "x": 55,
+      "y": 35,
+      "s": 4.5,
+      "a": "drift"
+     },
+     {
+      "e": "🌍",
+      "x": 50,
+      "y": 92,
+      "s": 6
+     },
+     {
+      "e": "🧒",
+      "x": 30,
+      "y": 70,
+      "s": 1.6
+     },
+     {
+      "e": "⬆️",
+      "x": 30,
+      "y": 55,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "⭐",
+      "x": 12,
+      "y": 15,
+      "s": 1.2,
+      "a": "pulse"
+     },
+     {
+      "e": "⭐",
+      "x": 88,
+      "y": 22,
+      "s": 1.2,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "The station travels around the Earth at about 28,000 kilometers an hour. Because it is so fast, it goes around the whole planet in only ninety minutes.",
+   "ja": "ステーションは 時速 およそ 2万8千キロメートルで 地球の まわりを 回っています。とても 速いので、たった 90分で 地球を 一周します。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🌍",
+      "x": 50,
+      "y": 55,
+      "s": 5,
+      "a": "spin"
+     },
+     {
+      "e": "🛰️",
+      "x": 82,
+      "y": 30,
+      "s": 2.6,
+      "a": "drift"
+     },
+     {
+      "e": "💨",
+      "x": 68,
+      "y": 26,
+      "s": 1.6,
+      "a": "drift"
+     },
+     {
+      "e": "⏱️",
+      "x": 15,
+      "y": 22,
+      "s": 2.2,
+      "a": "pulse"
+     },
+     {
+      "e": "⭐",
+      "x": 90,
+      "y": 80,
+      "s": 1.2,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "As a result, the astronauts see the sun rise sixteen times every day. They use clocks instead of the sky to decide when to sleep.",
+   "ja": "その 結果、宇宙飛行士は 一日に 16回も 日の出を 見ます。いつ ねるかは、空の かわりに 時計を 見て 決めます。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🧑‍🚀",
+      "x": 30,
+      "y": 62,
+      "s": 3.6,
+      "a": "float"
+     },
+     {
+      "e": "🌅",
+      "x": 70,
+      "y": 35,
+      "s": 3.4,
+      "a": "pulse"
+     },
+     {
+      "e": "🌍",
+      "x": 70,
+      "y": 88,
+      "s": 4
+     },
+     {
+      "e": "🕙",
+      "x": 30,
+      "y": 30,
+      "s": 2.2,
+      "a": "bob"
+     },
+     {
+      "e": "🪟",
+      "x": 50,
+      "y": 50,
+      "s": 2
+     }
+    ]
+   }
+  },
+  {
+   "text": "Inside the station, everything floats. Many people think there is no gravity there, but the real reason is different: the station is always falling around the Earth.",
+   "ja": "ステーションの 中では、何でも うきます。重力が ないからだと 思う 人が 多いですが、本当の 理由は ちがいます。ステーションは いつも、地球の まわりを 落ち続けているのです。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🧑‍🚀",
+      "x": 35,
+      "y": 45,
+      "s": 3.6,
+      "a": "float"
+     },
+     {
+      "e": "✏️",
+      "x": 60,
+      "y": 30,
+      "s": 1.6,
+      "a": "spin"
+     },
+     {
+      "e": "🥄",
+      "x": 72,
+      "y": 55,
+      "s": 1.6,
+      "a": "spin"
+     },
+     {
+      "e": "📗",
+      "x": 55,
+      "y": 70,
+      "s": 1.8,
+      "a": "float"
+     },
+     {
+      "e": "🌍",
+      "x": 88,
+      "y": 88,
+      "s": 3.5
+     },
+     {
+      "e": "🔄",
+      "x": 88,
+      "y": 62,
+      "s": 2,
+      "a": "spin"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Floating is fun, but eating can be trouble. Bread is not used because small pieces fly into machines. Astronauts eat flat, soft tortillas instead.",
+   "ja": "うくのは 楽しいですが、食事は やっかいです。パンは 使われません。小さな くずが 機械に 飛びこむからです。宇宙飛行士は、かわりに 平たくて やわらかい トルティーヤを 食べます。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🧑‍🚀",
+      "x": 30,
+      "y": 55,
+      "s": 3.6,
+      "a": "float"
+     },
+     {
+      "e": "🫓",
+      "x": 55,
+      "y": 45,
+      "s": 2.8,
+      "a": "spin"
+     },
+     {
+      "e": "🍞",
+      "x": 78,
+      "y": 35,
+      "s": 2
+     },
+     {
+      "e": "❌",
+      "x": 78,
+      "y": 35,
+      "s": 2.6,
+      "a": "pulse"
+     },
+     {
+      "e": "⚙️",
+      "x": 85,
+      "y": 72,
+      "s": 2,
+      "a": "spin"
+     },
+     {
+      "e": "🥫",
+      "x": 50,
+      "y": 75,
+      "s": 1.6,
+      "a": "float"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Water does not fall in space. It becomes a round ball that floats in the air, so astronauts drink from special bags with straws.",
+   "ja": "宇宙では、水は 落ちません。丸い 玉に なって 空中に うかびます。だから 宇宙飛行士は、ストローの ついた とくべつな ふくろから 飲みます。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🧑‍🚀",
+      "x": 28,
+      "y": 58,
+      "s": 3.6,
+      "a": "float"
+     },
+     {
+      "e": "🔵",
+      "x": 55,
+      "y": 40,
+      "s": 2.8,
+      "a": "float"
+     },
+     {
+      "e": "💧",
+      "x": 70,
+      "y": 55,
+      "s": 1.6,
+      "a": "float"
+     },
+     {
+      "e": "🧃",
+      "x": 45,
+      "y": 70,
+      "s": 2.2,
+      "a": "bob"
+     },
+     {
+      "e": "💧",
+      "x": 82,
+      "y": 30,
+      "s": 1.2,
+      "a": "float"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Water is too heavy to bring from Earth often. So the station collects sweat and even pee, cleans them, and turns them into safe drinking water.",
+   "ja": "水は 重すぎて、地球から 何度も 運べません。そこで ステーションは、あせや おしっこまで 集めて、きれいに して、安全な 飲み水に 変えます。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🚽",
+      "x": 20,
+      "y": 65,
+      "s": 2.8
+     },
+     {
+      "e": "➡️",
+      "x": 36,
+      "y": 60,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "⚙️",
+      "x": 50,
+      "y": 58,
+      "s": 2.8,
+      "a": "spin"
+     },
+     {
+      "e": "➡️",
+      "x": 64,
+      "y": 60,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "🥤",
+      "x": 80,
+      "y": 62,
+      "s": 2.8,
+      "a": "bob"
+     },
+     {
+      "e": "✨",
+      "x": 80,
+      "y": 42,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "🧑‍🚀",
+      "x": 50,
+      "y": 25,
+      "s": 2,
+      "a": "float"
+     }
+    ]
+   }
+  },
+  {
+   "text": "There are no beds. Each astronaut sleeps in a sleeping bag that is tied to the wall. If the bag is not tied, the sleeping astronaut floats around the room.",
+   "ja": "ベッドは ありません。宇宙飛行士は それぞれ、かべに 結ばれた ねぶくろで ねむります。ねぶくろを 結ばないと、ねむったまま 部屋の 中を ただよってしまいます。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🧑‍🚀",
+      "x": 35,
+      "y": 50,
+      "s": 3.6,
+      "a": "sway"
+     },
+     {
+      "e": "💤",
+      "x": 48,
+      "y": 30,
+      "s": 2,
+      "a": "float"
+     },
+     {
+      "e": "🛏️",
+      "x": 80,
+      "y": 70,
+      "s": 2
+     },
+     {
+      "e": "❌",
+      "x": 80,
+      "y": 70,
+      "s": 2.6,
+      "a": "pulse"
+     },
+     {
+      "e": "🔗",
+      "x": 22,
+      "y": 40,
+      "s": 1.8
+     },
+     {
+      "e": "🌙",
+      "x": 85,
+      "y": 20,
+      "s": 1.6,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Bodies change in space. Muscles and bones become weak because they do not have to work hard. To stay healthy, astronauts exercise for about two hours every day.",
+   "ja": "宇宙では 体が 変わります。きん肉や ほねは、がんばらなくて よいので 弱く なります。健康で いるために、宇宙飛行士は 毎日 2時間ほど 運動します。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🧑‍🚀",
+      "x": 40,
+      "y": 60,
+      "s": 3.8,
+      "a": "hop"
+     },
+     {
+      "e": "🏋️",
+      "x": 68,
+      "y": 62,
+      "s": 2.8,
+      "a": "bob"
+     },
+     {
+      "e": "💪",
+      "x": 28,
+      "y": 40,
+      "s": 2,
+      "a": "pulse"
+     },
+     {
+      "e": "🦴",
+      "x": 82,
+      "y": 35,
+      "s": 1.8,
+      "a": "float"
+     },
+     {
+      "e": "⏱️",
+      "x": 15,
+      "y": 75,
+      "s": 1.8
+     }
+    ]
+   }
+  },
+  {
+   "text": "Here is something you may be surprised to learn. Astronauts get a few centimeters taller in space, because nothing pushes down on their backs. They return to their old height on Earth.",
+   "ja": "知ったら おどろくかも しれない ことが あります。宇宙では、せなかを 下に おす 力が ないので、宇宙飛行士の せは 数センチ のびます。地球に もどると、もとの 高さに もどります。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🧑‍🚀",
+      "x": 40,
+      "y": 55,
+      "s": 4.4,
+      "a": "float"
+     },
+     {
+      "e": "📏",
+      "x": 60,
+      "y": 52,
+      "s": 3.4
+     },
+     {
+      "e": "⬆️",
+      "x": 72,
+      "y": 35,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "😲",
+      "x": 22,
+      "y": 35,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "🌍",
+      "x": 88,
+      "y": 88,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "Why do people live in such a difficult place? They do science experiments to discover things that we cannot learn on the ground, such as how plants grow without gravity.",
+   "ja": "なぜ 人は こんなに 大変な 場所で くらすのでしょう。地上では わからない ことを 発見するために、科学の 実験を しているのです。たとえば、重力なしで 植物が どう 育つか、などです。",
+   "scene": {
+    "bg": "space",
+    "items": [
+     {
+      "e": "🧑‍🚀",
+      "x": 28,
+      "y": 58,
+      "s": 3.6,
+      "a": "float"
+     },
+     {
+      "e": "🌱",
+      "x": 55,
+      "y": 55,
+      "s": 2.8,
+      "a": "float"
+     },
+     {
+      "e": "🔬",
+      "x": 75,
+      "y": 65,
+      "s": 2.4
+     },
+     {
+      "e": "🧪",
+      "x": 68,
+      "y": 38,
+      "s": 1.8,
+      "a": "float"
+     },
+     {
+      "e": "💡",
+      "x": 40,
+      "y": 28,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "🌍",
+      "x": 90,
+      "y": 90,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "On a clear night, you can see the station without a telescope. It looks like a bright star that moves quickly across the sky. Wave to the people inside!",
+   "ja": "晴れた 夜には、ぼうえんきょうなしで ステーションが 見えます。空を すばやく 横切る、明るい 星のように 見えます。中の 人たちに 手を ふってみよう！",
+   "scene": {
+    "bg": "night",
+    "items": [
+     {
+      "e": "🧒",
+      "x": 30,
+      "y": 74,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "👋",
+      "x": 40,
+      "y": 58,
+      "s": 1.8,
+      "a": "sway"
+     },
+     {
+      "e": "🌟",
+      "x": 65,
+      "y": 20,
+      "s": 2,
+      "a": "drift"
+     },
+     {
+      "e": "➡️",
+      "x": 80,
+      "y": 20,
+      "s": 1.4,
+      "a": "drift"
+     },
+     {
+      "e": "⭐",
+      "x": 15,
+      "y": 15,
+      "s": 1,
+      "a": "pulse"
+     },
+     {
+      "e": "⭐",
+      "x": 90,
+      "y": 40,
+      "s": 1,
+      "a": "pulse"
+     },
+     {
+      "e": "🏠",
+      "x": 85,
+      "y": 72,
+      "s": 2.4
+     }
+    ]
+   }
+  }
+ ],
+ "glossary": [
+  {
+   "en": "result",
+   "ja": "結果"
+  },
+  {
+   "en": "instead",
+   "ja": "かわりに"
+  },
+  {
+   "en": "reason",
+   "ja": "理由"
+  },
+  {
+   "en": "gravity",
+   "ja": "重力"
+  },
+  {
+   "en": "trouble",
+   "ja": "やっかいなこと"
+  },
+  {
+   "en": "collects",
+   "ja": "集める"
+  },
+  {
+   "en": "safe",
+   "ja": "安全な"
+  },
+  {
+   "en": "astronauts",
+   "ja": "宇宙飛行士"
+  },
+  {
+   "en": "surprised",
+   "ja": "おどろいた"
+  },
+  {
+   "en": "discover",
+   "ja": "発見する"
+  },
+  {
+   "en": "experiments",
+   "ja": "実験"
+  },
+  {
+   "en": "exercise",
+   "ja": "運動する"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "This book is mostly about ___.",
+   "ja": "この本は おもに 何に ついてですか。",
+   "choices": [
+    "how to build a rocket at home",
+    "how people live on the space station",
+    "why the moon changes its shape",
+    "which planets have water on them"
+   ],
+   "answer": "how people live on the space station",
+   "kind": "main"
+  },
+  {
+   "q": "How many times a day do astronauts see the sun rise?",
+   "ja": "宇宙飛行士は 一日に 何回 日の出を 見ますか。",
+   "choices": [
+    "two",
+    "ninety",
+    "four hundred",
+    "sixteen"
+   ],
+   "answer": "sixteen",
+   "kind": "detail"
+  },
+  {
+   "q": "Why do astronauts eat tortillas instead of bread?",
+   "ja": "なぜ 宇宙飛行士は パンの かわりに トルティーヤを 食べるのですか。",
+   "choices": [
+    "Small pieces of bread fly into machines.",
+    "Bread is too heavy to bring from Earth.",
+    "Tortillas stay fresh for many more years.",
+    "Bread cannot be cooked without gravity."
+   ],
+   "answer": "Small pieces of bread fly into machines.",
+   "kind": "detail"
+  },
+  {
+   "q": "What is the real reason things float in the station?",
+   "ja": "ステーションの 中で 物が うく 本当の 理由は 何ですか。",
+   "choices": [
+    "The station is too far away to have any gravity.",
+    "The air inside the station pushes everything up.",
+    "The station is always falling around the Earth.",
+    "The machines in the station make things lighter."
+   ],
+   "answer": "The station is always falling around the Earth.",
+   "kind": "detail"
+  },
+  {
+   "q": "What happens to astronauts who do not exercise?",
+   "ja": "運動しない 宇宙飛行士は どう なりますか。",
+   "choices": [
+    "They grow a little shorter every week.",
+    "Their muscles and bones get weak.",
+    "They cannot sleep in their bags.",
+    "They float out of the station."
+   ],
+   "answer": "Their muscles and bones get weak.",
+   "kind": "inference"
+  }
+ ]
+}

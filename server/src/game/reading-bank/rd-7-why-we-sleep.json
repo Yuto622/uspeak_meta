@@ -1,0 +1,699 @@
+{
+  "id": "rd-7-why-we-sleep",
+  "stage": "7",
+  "title": "Why Do We Sleep?",
+  "titleJa": "人はなぜねむるのか",
+  "kind": "nonfiction",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "😴",
+        "x": 50,
+        "y": 62,
+        "s": 4.5,
+        "a": "bob"
+      },
+      {
+        "e": "🌙",
+        "x": 78,
+        "y": 20,
+        "s": 3,
+        "a": "float"
+      },
+      {
+        "e": "💤",
+        "x": 64,
+        "y": 38,
+        "s": 2.5,
+        "a": "drift"
+      },
+      {
+        "e": "⭐",
+        "x": 20,
+        "y": 18,
+        "s": 1.5,
+        "a": "pulse"
+      },
+      {
+        "e": "🧠",
+        "x": 25,
+        "y": 55,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "You will spend about one third of your life asleep. If you live to ninety, that is thirty years with your eyes closed. Why would the body waste so much time? In fact, it is not wasting anything.",
+      "ja": "人は人生のおよそ3分の1をねむってすごす。90才まで生きるなら、30年間は目をとじていることになる。体はなぜそんなに時間をむだにするのだろう。じつは、何もむだにしていない。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "😴",
+            "x": 45,
+            "y": 68,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "🛏️",
+            "x": 45,
+            "y": 80,
+            "s": 3.5
+          },
+          {
+            "e": "💤",
+            "x": 60,
+            "y": 45,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🌙",
+            "x": 82,
+            "y": 18,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "⏳",
+            "x": 18,
+            "y": 40,
+            "s": 2.2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sleep is not like turning off a light. All night, your brain moves through different stages in cycles of about ninety minutes. In one stage, your eyes move quickly and you have your most colorful dreams.",
+      "ja": "ねむりは電気を消すのとはちがう。一晩中、脳は約90分のサイクルでいくつかの段階をくり返す。ある段階では目がすばやく動き、いちばんあざやかなゆめを見る。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "😴",
+            "x": 35,
+            "y": 70,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "🧠",
+            "x": 35,
+            "y": 45,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🔄",
+            "x": 55,
+            "y": 40,
+            "s": 2,
+            "a": "spin"
+          },
+          {
+            "e": "👀",
+            "x": 70,
+            "y": 62,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "🌈",
+            "x": 75,
+            "y": 28,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "🦄",
+            "x": 88,
+            "y": 40,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "One important job of sleep is to organize knowledge. While you rest, your brain repeats what you learned during the day and stores it. Students who sleep well after studying usually remember more than those who stay up.",
+      "ja": "ねむりの大事な仕事の一つは、知識を整理することだ。休んでいる間に、脳は昼間に学んだことをくり返して保存する。勉強の後によくねむる生徒は、たいてい夜ふかしする生徒より多く覚えている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "😴",
+            "x": 35,
+            "y": 70,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "🧠",
+            "x": 55,
+            "y": 45,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "📚",
+            "x": 75,
+            "y": 55,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "📖",
+            "x": 68,
+            "y": 35,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🗄️",
+            "x": 85,
+            "y": 72,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sleep also seems to clean the brain. Studies suggest that during deep sleep, liquid flows through the brain and carries away waste that collected during the day. It is like a cleaning team that works at night.",
+      "ja": "ねむりは脳のそうじもしているらしい。研究によると、深いねむりの間に液体が脳の中を流れ、昼間にたまったごみを運び去る。夜に働くそうじチームのようなものだ。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🧠",
+            "x": 50,
+            "y": 55,
+            "s": 4.5,
+            "a": "pulse"
+          },
+          {
+            "e": "💧",
+            "x": 35,
+            "y": 40,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "💧",
+            "x": 65,
+            "y": 42,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🧹",
+            "x": 78,
+            "y": 68,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "🗑️",
+            "x": 20,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "🌙",
+            "x": 85,
+            "y": 15,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The body is busy too. Children and teenagers grow mostly during deep sleep, and the body repairs muscles. People who do not sleep enough catch colds more easily, because their defenses become weaker.",
+      "ja": "体もいそがしい。子どもや十代は主に深いねむりの間に成長し、体は筋肉を修理する。ねむりが足りない人は、体を守る力が弱くなるので、かぜをひきやすい。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "😴",
+            "x": 30,
+            "y": 70,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "📏",
+            "x": 48,
+            "y": 55,
+            "s": 2.5
+          },
+          {
+            "e": "💪",
+            "x": 65,
+            "y": 50,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "🛡️",
+            "x": 82,
+            "y": 55,
+            "s": 2.5
+          },
+          {
+            "e": "🤧",
+            "x": 82,
+            "y": 78,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Teenagers have a special situation. Around the age of thirteen, the body clock moves later. Teens feel sleepy later at night and want to wake later in the morning. This is biology, not a lazy attitude.",
+      "ja": "十代には特別な事情がある。13才ごろ、体内時計がおそいほうへずれる。夜ねむくなるのがおそくなり、朝も起きるのがおそくなる。これは生物学の話で、なまけた態度ではない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 35,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "🕛",
+            "x": 60,
+            "y": 35,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "➡️",
+            "x": 75,
+            "y": 35,
+            "s": 1.8
+          },
+          {
+            "e": "🌙",
+            "x": 88,
+            "y": 25,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "🥱",
+            "x": 35,
+            "y": 52,
+            "s": 1.8,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "However, school still begins early. As a result, many teenagers get less than the eight to ten hours they need. Some schools that started later reported that students were more awake and achieved better results.",
+      "ja": "しかし学校は早く始まる。その結果、多くの十代は必要な8〜10時間より少ししかねむれない。始業をおそくした学校の中には、生徒がよく目ざめ、よい成績を達成したと報告したところもある。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🏫",
+            "x": 70,
+            "y": 60,
+            "s": 4
+          },
+          {
+            "e": "⏰",
+            "x": 30,
+            "y": 35,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "🧑",
+            "x": 30,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "🥱",
+            "x": 30,
+            "y": 55,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "📈",
+            "x": 88,
+            "y": 35,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Screens can make the problem worse. Bright light in the evening tells the brain that it is still daytime. If you want to fall asleep more easily, avoid your phone for an hour before bed.",
+      "ja": "画面は問題を悪くすることがある。夜の明るい光は、脳に「まだ昼間だ」と伝えてしまう。らくにねむりたいなら、ねる前の1時間はスマホをさけよう。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 40,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "📱",
+            "x": 55,
+            "y": 62,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "💡",
+            "x": 55,
+            "y": 40,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧠",
+            "x": 40,
+            "y": 50,
+            "s": 1.8
+          },
+          {
+            "e": "☀️",
+            "x": 75,
+            "y": 30,
+            "s": 2,
+            "a": "spin"
+          },
+          {
+            "e": "🚫",
+            "x": 78,
+            "y": 68,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Animals show how necessary sleep is. A dolphin rests one half of its brain at a time, so it can keep swimming and breathing. A koala sleeps about twenty hours a day, while a giraffe needs fewer than five.",
+      "ja": "動物を見ると、ねむりがどれほど必要かわかる。イルカは脳を半分ずつ休ませるので、泳ぎつづけて息ができる。コアラは一日約20時間ねむるが、キリンは5時間より少なくてすむ。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🐬",
+            "x": 25,
+            "y": 60,
+            "s": 3.5,
+            "a": "float"
+          },
+          {
+            "e": "🧠",
+            "x": 25,
+            "y": 40,
+            "s": 1.6
+          },
+          {
+            "e": "🐨",
+            "x": 58,
+            "y": 45,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "💤",
+            "x": 68,
+            "y": 30,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🦒",
+            "x": 85,
+            "y": 55,
+            "s": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "No animal has found a way to live without sleep, although sleeping in the wild is dangerous. This tells scientists that sleep must provide a very great advantage, even if we do not understand all of it yet.",
+      "ja": "野生でねむるのは危険なのに、ねむらずに生きる方法を見つけた動物はいない。このことから科学者は、まだすべてはわからなくても、ねむりには非常に大きな利点があるはずだと考えている。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🦌",
+            "x": 40,
+            "y": 72,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "💤",
+            "x": 52,
+            "y": 52,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🐺",
+            "x": 85,
+            "y": 70,
+            "s": 2
+          },
+          {
+            "e": "🌙",
+            "x": 20,
+            "y": 18,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "🔬",
+            "x": 70,
+            "y": 35,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "So consider sleep a part of your training, not the opposite of effort. Go to bed at a regular time, keep your room dark and cool, and reduce sweet drinks and caffeine in the evening.",
+      "ja": "だから、ねむりを努力の反対ではなく、トレーニングの一部と考えよう。決まった時間にねて、部屋を暗くすずしくして、夜はあまい飲み物やカフェインをへらそう。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 45,
+            "y": 76,
+            "s": 4
+          },
+          {
+            "e": "🕙",
+            "x": 20,
+            "y": 35,
+            "s": 2.5
+          },
+          {
+            "e": "🌙",
+            "x": 50,
+            "y": 22,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "❄️",
+            "x": 75,
+            "y": 35,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "🥤",
+            "x": 85,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "🚫",
+            "x": 85,
+            "y": 58,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Tonight, when you close your eyes, remember that you are not doing nothing. You are saving memories, cleaning your brain, and growing. It may be the most useful thing you do all day.",
+      "ja": "今夜、目をとじるとき、何もしていないわけではないことを思い出そう。あなたは記憶を保存し、脳をそうじし、成長している。一日でいちばん役に立つことかもしれない。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "😴",
+            "x": 50,
+            "y": 68,
+            "s": 4.5,
+            "a": "bob"
+          },
+          {
+            "e": "🧠",
+            "x": 28,
+            "y": 42,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "✨",
+            "x": 40,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌱",
+            "x": 72,
+            "y": 45,
+            "s": 2.2,
+            "a": "bob"
+          },
+          {
+            "e": "🌙",
+            "x": 85,
+            "y": 18,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "⭐",
+            "x": 15,
+            "y": 15,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "knowledge",
+      "ja": "知識"
+    },
+    {
+      "en": "cycles",
+      "ja": "サイクル、周期"
+    },
+    {
+      "en": "waste",
+      "ja": "ごみ／むだにする"
+    },
+    {
+      "en": "situation",
+      "ja": "状況、事情"
+    },
+    {
+      "en": "attitude",
+      "ja": "態度"
+    },
+    {
+      "en": "achieved",
+      "ja": "達成した"
+    },
+    {
+      "en": "avoid",
+      "ja": "さける"
+    },
+    {
+      "en": "provide",
+      "ja": "あたえる"
+    },
+    {
+      "en": "advantage",
+      "ja": "利点"
+    },
+    {
+      "en": "consider",
+      "ja": "考える、みなす"
+    },
+    {
+      "en": "reduce",
+      "ja": "へらす"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は主に何についての本？",
+      "choices": [
+        "what different dreams mean",
+        "how animals hunt at night",
+        "why phones are bad for you",
+        "why sleep matters so much"
+      ],
+      "answer": "why sleep matters so much",
+      "kind": "main"
+    },
+    {
+      "q": "Which animal rests one half of its brain at a time?",
+      "ja": "脳を半分ずつ休ませる動物はどれ？",
+      "choices": [
+        "a koala",
+        "a dolphin",
+        "a giraffe",
+        "a deer"
+      ],
+      "answer": "a dolphin",
+      "kind": "detail"
+    },
+    {
+      "q": "What happens to the body clock at around thirteen?",
+      "ja": "13才ごろ、体内時計はどうなる？",
+      "choices": [
+        "It moves later.",
+        "It moves earlier.",
+        "It stops for a year.",
+        "It runs much faster."
+      ],
+      "answer": "It moves later.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, \"avoid\" means ___.",
+      "ja": "この本で \"avoid\" の意味は？",
+      "choices": [
+        "look at closely",
+        "buy something new",
+        "stay away from",
+        "share with friends"
+      ],
+      "answer": "stay away from",
+      "kind": "vocab"
+    },
+    {
+      "q": "What would the writer probably tell a student who studies all night before a test?",
+      "ja": "テスト前に一晩中勉強する生徒に、筆者は何と言いそう？",
+      "choices": [
+        "Drink more coffee to stay awake.",
+        "Sleep will help you remember.",
+        "Study with your phone in bed.",
+        "Tests are not very important."
+      ],
+      "answer": "Sleep will help you remember.",
+      "kind": "inference"
+    }
+  ]
+}

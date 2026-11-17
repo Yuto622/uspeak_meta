@@ -1,0 +1,447 @@
+{
+  "id": "rd-C-robot-is-late",
+  "stage": "C",
+  "title": "Robot Is Late",
+  "titleJa": "ロボット、おくれる！",
+  "kind": "story",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "🤖",
+        "x": 36,
+        "y": 68,
+        "s": 4,
+        "a": "hop"
+      },
+      {
+        "e": "🚀",
+        "x": 72,
+        "y": 34,
+        "s": 3,
+        "a": "float"
+      },
+      {
+        "e": "⏰",
+        "x": 16,
+        "y": 24,
+        "s": 1.8,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Robot wants to go to a party.",
+      "ja": "ロボットは パーティーに いきたい。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 34,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "💭",
+            "x": 54,
+            "y": 42,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "🎈",
+            "x": 56,
+            "y": 38,
+            "s": 1.3
+          },
+          {
+            "e": "⏰",
+            "x": 84,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Robot goes by bike. It is too slow.",
+      "ja": "ロボットは じてんしゃで いく。 おそすぎる。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 40,
+            "y": 58,
+            "s": 3
+          },
+          {
+            "e": "🚲",
+            "x": 42,
+            "y": 74,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🐌",
+            "x": 80,
+            "y": 82,
+            "s": 1.5,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Robot goes by bus. It is too slow.",
+      "ja": "ロボットは バスで いく。 おそすぎる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 48,
+            "y": 70,
+            "s": 4.4,
+            "a": "bob"
+          },
+          {
+            "e": "🤖",
+            "x": 46,
+            "y": 50,
+            "s": 2.2
+          },
+          {
+            "e": "🚦",
+            "x": 86,
+            "y": 62,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Robot goes by train. It is still too slow.",
+      "ja": "ロボットは でんしゃで いく。 まだ おそすぎる。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🚆",
+            "x": 50,
+            "y": 70,
+            "s": 4.6,
+            "a": "bob"
+          },
+          {
+            "e": "🤖",
+            "x": 48,
+            "y": 48,
+            "s": 2.2
+          },
+          {
+            "e": "⏰",
+            "x": 84,
+            "y": 22,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Robot goes by plane. The plane is fast.",
+      "ja": "ロボットは ひこうきで いく。 ひこうきは はやい。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "✈️",
+            "x": 50,
+            "y": 46,
+            "s": 4.6,
+            "a": "drift"
+          },
+          {
+            "e": "🤖",
+            "x": 46,
+            "y": 28,
+            "s": 2.2
+          },
+          {
+            "e": "☁️",
+            "x": 18,
+            "y": 70,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "☁️",
+            "x": 84,
+            "y": 76,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Faster!\" says Robot. Robot goes by rocket.",
+      "ja": "「もっと はやく！」と ロボットが いう。 ロケットで いく。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "🚀",
+            "x": 52,
+            "y": 50,
+            "s": 4.6,
+            "a": "hop"
+          },
+          {
+            "e": "🤖",
+            "x": 34,
+            "y": 62,
+            "s": 2.4
+          },
+          {
+            "e": "🔥",
+            "x": 44,
+            "y": 80,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Zoom! The rocket is very, very fast.",
+      "ja": "ビューン！ ロケットは とても とても はやい。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🚀",
+            "x": 50,
+            "y": 46,
+            "s": 4.2,
+            "a": "float"
+          },
+          {
+            "e": "🤖",
+            "x": 34,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "⭐",
+            "x": 16,
+            "y": 20,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 84,
+            "y": 30,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌍",
+            "x": 82,
+            "y": 82,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Oh no! This is not the party.",
+      "ja": "たいへん！ ここは パーティーじゃ ない。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🌕",
+            "x": 50,
+            "y": 78,
+            "s": 6
+          },
+          {
+            "e": "🤖",
+            "x": 46,
+            "y": 46,
+            "s": 3.2,
+            "a": "sway"
+          },
+          {
+            "e": "🚀",
+            "x": 80,
+            "y": 44,
+            "s": 2.2
+          },
+          {
+            "e": "❓",
+            "x": 30,
+            "y": 26,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "But look! There is a party on the moon!",
+      "ja": "でも みて！ つきでも パーティーを している！",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🌕",
+            "x": 50,
+            "y": 80,
+            "s": 6
+          },
+          {
+            "e": "🤖",
+            "x": 30,
+            "y": 48,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "👽",
+            "x": 62,
+            "y": 48,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🎂",
+            "x": 46,
+            "y": 56,
+            "s": 1.8
+          },
+          {
+            "e": "🎈",
+            "x": 80,
+            "y": 28,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "🎉",
+            "x": 16,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "robot",
+      "ja": "ロボット"
+    },
+    {
+      "en": "party",
+      "ja": "パーティー"
+    },
+    {
+      "en": "bike",
+      "ja": "じてんしゃ"
+    },
+    {
+      "en": "bus",
+      "ja": "バス"
+    },
+    {
+      "en": "train",
+      "ja": "でんしゃ"
+    },
+    {
+      "en": "plane",
+      "ja": "ひこうき"
+    },
+    {
+      "en": "rocket",
+      "ja": "ロケット"
+    },
+    {
+      "en": "slow",
+      "ja": "おそい"
+    },
+    {
+      "en": "fast",
+      "ja": "はやい"
+    },
+    {
+      "en": "moon",
+      "ja": "つき"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの おはなし？",
+      "choices": [
+        "a robot making a cake",
+        "a robot going to a party",
+        "a robot playing the piano"
+      ],
+      "answer": "a robot going to a party",
+      "kind": "main"
+    },
+    {
+      "q": "How does Robot go first?",
+      "ja": "ロボットは さいしょに なにで いく？",
+      "choices": [
+        "by bike",
+        "by taxi",
+        "by ship"
+      ],
+      "answer": "by bike",
+      "kind": "sequence"
+    },
+    {
+      "q": "What does Robot ride after the train?",
+      "ja": "でんしゃの つぎに のるのは？",
+      "choices": [
+        "a bus",
+        "a car",
+        "a plane"
+      ],
+      "answer": "a plane",
+      "kind": "sequence"
+    },
+    {
+      "q": "What does \"slow\" mean?",
+      "ja": "\"slow\" は どんな いみ？",
+      "choices": [
+        "very big",
+        "not fast",
+        "not old"
+      ],
+      "answer": "not fast",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "Where does the rocket take Robot?",
+      "ja": "ロケットは ロボットを どこへ つれていく？",
+      "choices": [
+        "to the sea",
+        "to the school",
+        "to the moon"
+      ],
+      "answer": "to the moon",
+      "kind": "detail"
+    }
+  ]
+}

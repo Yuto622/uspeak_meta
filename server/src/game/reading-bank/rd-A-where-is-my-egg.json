@@ -1,0 +1,349 @@
+{
+  "id": "rd-A-where-is-my-egg",
+  "stage": "A",
+  "title": "Where Is My Egg?",
+  "titleJa": "わたしの たまごは どこ？",
+  "kind": "story",
+  "cover": {
+    "bg": "farm",
+    "items": [
+      {
+        "e": "🐔",
+        "x": 40,
+        "y": 68,
+        "s": 4,
+        "a": "bob"
+      },
+      {
+        "e": "❓",
+        "x": 66,
+        "y": 40,
+        "s": 3,
+        "a": "float"
+      },
+      {
+        "e": "🥚",
+        "x": 78,
+        "y": 76,
+        "s": 1.6
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Where is my egg?",
+      "ja": "わたしの たまごは どこ？",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐔",
+            "x": 40,
+            "y": 70,
+            "s": 3.6,
+            "a": "sway"
+          },
+          {
+            "e": "❓",
+            "x": 62,
+            "y": 42,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "🧺",
+            "x": 72,
+            "y": 76,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The dog has a ball.",
+      "ja": "いぬは ボールを もっている。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐔",
+            "x": 22,
+            "y": 72,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🐶",
+            "x": 66,
+            "y": 70,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "⚽",
+            "x": 82,
+            "y": 78,
+            "s": 1.8,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The monkey has a banana.",
+      "ja": "さるは バナナを もっている。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐔",
+            "x": 22,
+            "y": 72,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🐵",
+            "x": 66,
+            "y": 66,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🍌",
+            "x": 82,
+            "y": 70,
+            "s": 1.8,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The mouse has cheese.",
+      "ja": "ねずみは チーズを もっている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐔",
+            "x": 22,
+            "y": 72,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🐭",
+            "x": 66,
+            "y": 72,
+            "s": 2.6,
+            "a": "bob"
+          },
+          {
+            "e": "🧀",
+            "x": 82,
+            "y": 78,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The pig has a peach.",
+      "ja": "ぶたは ももを もっている。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐔",
+            "x": 22,
+            "y": 72,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🐷",
+            "x": 66,
+            "y": 70,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🍑",
+            "x": 83,
+            "y": 76,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Look! Here is my egg!",
+      "ja": "みて！ わたしの たまごが あった！",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🐔",
+            "x": 32,
+            "y": 70,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "🥚",
+            "x": 66,
+            "y": 74,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌼",
+            "x": 86,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "✨",
+            "x": 66,
+            "y": 52,
+            "s": 1.4,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Crack! It is a duck!",
+      "ja": "パカッ！ あひるだ！",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🐔",
+            "x": 30,
+            "y": 70,
+            "s": 3.6,
+            "a": "sway"
+          },
+          {
+            "e": "🦆",
+            "x": 66,
+            "y": 72,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "❗",
+            "x": 44,
+            "y": 40,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌼",
+            "x": 86,
+            "y": 80,
+            "s": 1.4
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "egg",
+      "ja": "たまご"
+    },
+    {
+      "en": "dog",
+      "ja": "いぬ"
+    },
+    {
+      "en": "ball",
+      "ja": "ボール"
+    },
+    {
+      "en": "monkey",
+      "ja": "さる"
+    },
+    {
+      "en": "mouse",
+      "ja": "ねずみ"
+    },
+    {
+      "en": "cheese",
+      "ja": "チーズ"
+    },
+    {
+      "en": "pig",
+      "ja": "ぶた"
+    },
+    {
+      "en": "peach",
+      "ja": "もも"
+    },
+    {
+      "en": "duck",
+      "ja": "あひる"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is the chicken looking for?",
+      "ja": "にわとりは なにを さがしている？",
+      "choices": [
+        "her hat",
+        "her ball",
+        "her egg"
+      ],
+      "answer": "her egg",
+      "kind": "main"
+    },
+    {
+      "q": "Who has the ball?",
+      "ja": "ボールを もっているのは だれ？",
+      "choices": [
+        "the pig",
+        "the dog",
+        "the mouse"
+      ],
+      "answer": "the dog",
+      "kind": "detail"
+    },
+    {
+      "q": "What does the mouse have?",
+      "ja": "ねずみは なにを もっている？",
+      "choices": [
+        "cheese",
+        "a peach",
+        "a banana"
+      ],
+      "answer": "cheese",
+      "kind": "detail"
+    },
+    {
+      "q": "Who has a peach?",
+      "ja": "ももを もっているのは だれ？",
+      "choices": [
+        "the monkey",
+        "the dog",
+        "the pig"
+      ],
+      "answer": "the pig",
+      "kind": "detail"
+    },
+    {
+      "q": "What is in the egg?",
+      "ja": "たまごの なかに いたのは？",
+      "choices": [
+        "a fish",
+        "a duck",
+        "a frog"
+      ],
+      "answer": "a duck",
+      "kind": "sequence"
+    }
+  ]
+}

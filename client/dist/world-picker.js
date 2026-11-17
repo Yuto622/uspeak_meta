@@ -12,7 +12,7 @@ const LOOK = {
   willow: ['🏡', '#5aae78'], park: ['🎡', '#e27a2d'], errand: ['🛍️', '#e0a526'], school: ['🏫', '#5b97e6'],
   arena: ['⚔️', '#c8573e'], pet: ['🐣', '#f0b43c'], ride: ['🏁', '#4f86d9'], town: ['🏗️', '#7db65a'],
   eiken5: ['📗', '#4fae6b'], eiken4: ['📙', '#e08a2c'], eiken3: ['📘', '#3f6fb8'], eikenp2: ['📕', '#d9663a'], eiken2: ['📗', '#2f7a6f'], eikenp1: ['📓', '#6a4fa8'], eiken1: ['👑', '#b8902a'], talk: ['💬', '#3baacb'],
-  conv: ['🗣️', '#e0668e'], wear: ['👕', '#b06fc4'], mini: ['🎮', '#7a5cc8'], homework: ['📚', '#d9763a'], farm: ['🐄', '#8dbe45'],
+  conv: ['🗣️', '#e0668e'], wear: ['👕', '#b06fc4'], mini: ['🎮', '#7a5cc8'], homework: ['📝', '#d9763a'], reading: ['📚', '#6b4c9c'], farm: ['🐄', '#8dbe45'],
   land: ['🏝️', '#2fa3b8'], fishworld: ['🎣', '#3b9fd4'], main: ['🏠', '#e27a2d'],
   meadow: ['🌼', '#86b85c'], forest: ['🌲', '#3f8a5c'], reef: ['🪸', '#2fb3b0'], canyon: ['🏜️', '#c8783e'],
   snow: ['🏔️', '#5fa7d8'], storm: ['⛈️', '#5b6fb8'], desert: ['🐪', '#d6a03a'], ruins: ['🏛️', '#8a8f86'],
@@ -28,10 +28,10 @@ const title = (r) => {
 };
 
 // おすすめ（大きな カード・上の 1 れつ）。Roblox の Choose a World と 同じ ならび。
-export const RECOMMENDED = ['main', 'homework', 'ride', 'fishworld', 'eiken5'];
+export const RECOMMENDED = ['main', 'reading', 'homework', 'ride', 'fishworld', 'eiken5'];
 // 🎮 あそび・📖 えいご の ほし（1〜3）。どんな 島かを 子どもに 1 目で つたえる ため（判定には つかわない）。
 const STARS = {
-  main: [2, 3], homework: [1, 3], ride: [3, 2], fishworld: [2, 3], park: [3, 1], errand: [2, 3], school: [1, 3], arena: [3, 2], pet: [3, 1],
+  main: [2, 3], reading: [2, 3], homework: [1, 3], ride: [3, 2], fishworld: [2, 3], park: [3, 1], errand: [2, 3], school: [1, 3], arena: [3, 2], pet: [3, 1],
   town: [3, 1], talk: [1, 3], conv: [1, 3], wear: [2, 1], mini: [3, 2], farm: [2, 2], land: [3, 1],
   eiken5: [1, 3], eiken4: [1, 3], eiken3: [1, 3], eikenp2: [1, 3], eiken2: [1, 3], eikenp1: [1, 3], eiken1: [1, 3],
 };

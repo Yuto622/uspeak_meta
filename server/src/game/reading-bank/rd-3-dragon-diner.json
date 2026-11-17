@@ -1,0 +1,642 @@
+{
+  "id": "rd-3-dragon-diner",
+  "stage": "3",
+  "title": "The Dragon's Restaurant",
+  "titleJa": "ドラゴンの レストラン",
+  "kind": "story",
+  "cover": {
+    "bg": "mountain",
+    "items": [
+      {
+        "e": "🐉",
+        "x": 45,
+        "y": 62,
+        "s": 4.5,
+        "a": "bob"
+      },
+      {
+        "e": "🍽️",
+        "x": 75,
+        "y": 74,
+        "s": 2.5
+      },
+      {
+        "e": "🔥",
+        "x": 68,
+        "y": 46,
+        "s": 2.2,
+        "a": "pulse"
+      },
+      {
+        "e": "🏠",
+        "x": 15,
+        "y": 74,
+        "s": 2.5
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Maru was a small dragon. He wanted to open a restaurant in a quiet village.",
+      "ja": "マルは小さなドラゴンでした。しずかな村でレストランを開きたいと思っていました。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "🐉",
+            "x": 35,
+            "y": 68,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "🏠",
+            "x": 70,
+            "y": 74,
+            "s": 2.5
+          },
+          {
+            "e": "🏡",
+            "x": 86,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "💭",
+            "x": 52,
+            "y": 40,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "🍽️",
+            "x": 54,
+            "y": 36,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "He wrote a menu with steak, spaghetti, salad, and a special dessert.",
+      "ja": "ステーキ、スパゲッティ、サラダ、そしてとくべつなデザートのあるメニューを書きました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐉",
+            "x": 22,
+            "y": 68,
+            "s": 4
+          },
+          {
+            "e": "📋",
+            "x": 45,
+            "y": 46,
+            "s": 2.8
+          },
+          {
+            "e": "🥩",
+            "x": 60,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🍝",
+            "x": 72,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🥗",
+            "x": 84,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🍰",
+            "x": 72,
+            "y": 50,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the first day, many people arrived. Maru was so happy that he laughed.",
+      "ja": "最初の日、たくさんの人がやって来ました。マルはうれしくて、思わず笑いました。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🐉",
+            "x": 25,
+            "y": 66,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "👨",
+            "x": 58,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👩",
+            "x": 72,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 86,
+            "y": 74,
+            "s": 2.5
+          },
+          {
+            "e": "😄",
+            "x": 25,
+            "y": 38,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "That was a problem. When Maru laughed, fire came out of his mouth!",
+      "ja": "それが問題でした。マルが笑うと、口から火が出てしまうのです！",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐉",
+            "x": 25,
+            "y": 64,
+            "s": 4.5
+          },
+          {
+            "e": "🔥",
+            "x": 52,
+            "y": 58,
+            "s": 3.5,
+            "a": "pulse"
+          },
+          {
+            "e": "🔥",
+            "x": 70,
+            "y": 62,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "🥩",
+            "x": 86,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "❗",
+            "x": 25,
+            "y": 34,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The steak was black. The spaghetti was black. Even the salad was black.",
+      "ja": "ステーキは真っ黒。スパゲッティも真っ黒。サラダまで真っ黒でした。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🍽️",
+            "x": 22,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "⚫",
+            "x": 22,
+            "y": 66,
+            "s": 1.5
+          },
+          {
+            "e": "🍽️",
+            "x": 50,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "⚫",
+            "x": 50,
+            "y": 66,
+            "s": 1.5
+          },
+          {
+            "e": "🍽️",
+            "x": 78,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "⚫",
+            "x": 78,
+            "y": 66,
+            "s": 1.5
+          },
+          {
+            "e": "💨",
+            "x": 50,
+            "y": 38,
+            "s": 2.5,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I will be more careful tomorrow,\" he said. But the next day was the same.",
+      "ja": "「明日はもっと気をつけます」とマルは言いました。でも次の日も同じでした。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐉",
+            "x": 30,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "🔥",
+            "x": 56,
+            "y": 60,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🍝",
+            "x": 78,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "😓",
+            "x": 30,
+            "y": 38,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Soon nobody came. Maru sat alone in his empty restaurant and worried all night.",
+      "ja": "やがてだれも来なくなりました。マルはからっぽのレストランにひとりですわり、一晩中なやみました。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🐉",
+            "x": 40,
+            "y": 70,
+            "s": 4
+          },
+          {
+            "e": "🪑",
+            "x": 70,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "🪑",
+            "x": 85,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "💧",
+            "x": 46,
+            "y": 48,
+            "s": 1.5,
+            "a": "drift"
+          },
+          {
+            "e": "🌙",
+            "x": 82,
+            "y": 18,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then winter came. It was colder than any winter before, and snow covered the village.",
+      "ja": "やがて冬が来ました。これまでのどの冬よりも寒く、雪が村をおおいました。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "🏠",
+            "x": 25,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🏡",
+            "x": 50,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🏠",
+            "x": 78,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "❄️",
+            "x": 20,
+            "y": 25,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "❄️",
+            "x": 55,
+            "y": 18,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "❄️",
+            "x": 82,
+            "y": 30,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "One night, a cold family knocked on the door. \"Can we wait here? Your restaurant is so warm!\"",
+      "ja": "ある夜、こごえた家族がドアをたたきました。「ここで待ってもいいですか？ このレストランはとてもあたたかいですね！」",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "🚪",
+            "x": 30,
+            "y": 64,
+            "s": 4.5
+          },
+          {
+            "e": "👨",
+            "x": 58,
+            "y": 70,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "👩",
+            "x": 72,
+            "y": 70,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "👧",
+            "x": 85,
+            "y": 74,
+            "s": 2.5,
+            "a": "bob"
+          },
+          {
+            "e": "🥶",
+            "x": 66,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "❄️",
+            "x": 88,
+            "y": 22,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Maru had an idea. He decided to sell only hot things: toasted sandwiches, hot soup, and coffee.",
+      "ja": "マルはいいことを思いつきました。あつあつのものだけを売ることに決めたのです。焼いたサンドイッチ、熱いスープ、そしてコーヒーです。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐉",
+            "x": 25,
+            "y": 66,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "💡",
+            "x": 25,
+            "y": 34,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🥪",
+            "x": 55,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "🍲",
+            "x": 70,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "☕",
+            "x": 85,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "🔥",
+            "x": 42,
+            "y": 62,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now it is the most popular restaurant in the country. Just don't order the ice cream.",
+      "ja": "今では国でいちばん人気のレストランです。ただし、アイスクリームだけは注文しないでくださいね。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "🐉",
+            "x": 30,
+            "y": 66,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "🏠",
+            "x": 62,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "👨",
+            "x": 80,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "👩",
+            "x": 90,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🍦",
+            "x": 48,
+            "y": 44,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "💧",
+            "x": 48,
+            "y": 62,
+            "s": 1.2,
+            "a": "drift"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "restaurant",
+      "ja": "レストラン"
+    },
+    {
+      "en": "village",
+      "ja": "村"
+    },
+    {
+      "en": "menu",
+      "ja": "メニュー"
+    },
+    {
+      "en": "steak",
+      "ja": "ステーキ"
+    },
+    {
+      "en": "special",
+      "ja": "とくべつな"
+    },
+    {
+      "en": "dessert",
+      "ja": "デザート"
+    },
+    {
+      "en": "problem",
+      "ja": "問題"
+    },
+    {
+      "en": "careful",
+      "ja": "気をつける・注意深い"
+    },
+    {
+      "en": "wait",
+      "ja": "待つ"
+    },
+    {
+      "en": "decided",
+      "ja": "決めた（decide の過去形）"
+    },
+    {
+      "en": "sell",
+      "ja": "売る"
+    },
+    {
+      "en": "popular",
+      "ja": "人気のある"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本はおもに何のお話？",
+      "choices": [
+        "a dragon and his restaurant",
+        "a singer in a cold village",
+        "a doctor who loved steak",
+        "a family that lost a menu"
+      ],
+      "answer": "a dragon and his restaurant",
+      "kind": "main"
+    },
+    {
+      "q": "What happened when Maru laughed?",
+      "ja": "マルが笑うと、どうなった？",
+      "choices": [
+        "Snow fell on the village.",
+        "People started to sing.",
+        "Fire came out of his mouth.",
+        "His menu flew far away."
+      ],
+      "answer": "Fire came out of his mouth.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened after winter came?",
+      "ja": "冬が来たあと、何が起こった？",
+      "choices": [
+        "Maru wrote his first menu.",
+        "A cold family came to the door.",
+        "Many people arrived for lunch.",
+        "The salad became black."
+      ],
+      "answer": "A cold family came to the door.",
+      "kind": "sequence"
+    },
+    {
+      "q": "What does \"popular\" mean?",
+      "ja": "\"popular\" の意味は？",
+      "choices": [
+        "cooked for a long time",
+        "far from the village",
+        "colder than before",
+        "liked by many people"
+      ],
+      "answer": "liked by many people",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "Why is ice cream a bad thing to order there?",
+      "ja": "なぜ、この店でアイスクリームをたのむのはよくない？",
+      "choices": [
+        "It is too expensive.",
+        "Maru's fire will melt it.",
+        "The village has no milk.",
+        "Maru eats all of it first."
+      ],
+      "answer": "Maru's fire will melt it.",
+      "kind": "inference"
+    }
+  ]
+}

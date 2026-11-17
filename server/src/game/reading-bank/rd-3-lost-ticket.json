@@ -1,0 +1,554 @@
+{
+  "id": "rd-3-lost-ticket",
+  "stage": "3",
+  "title": "Hana's Lost Ticket",
+  "titleJa": "ハナの なくした チケット",
+  "kind": "story",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "👧",
+        "x": 35,
+        "y": 66,
+        "s": 4,
+        "a": "hop"
+      },
+      {
+        "e": "🎫",
+        "x": 65,
+        "y": 42,
+        "s": 3.5,
+        "a": "float"
+      },
+      {
+        "e": "❓",
+        "x": 65,
+        "y": 20,
+        "s": 2,
+        "a": "pulse"
+      },
+      {
+        "e": "🎤",
+        "x": 85,
+        "y": 72,
+        "s": 2.2,
+        "a": "bob"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Hana had a ticket for a concert. Her favorite singer was coming to town tonight.",
+      "ja": "ハナはコンサートのチケットを持っていました。大好きな歌手が今夜、町に来るのです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 68,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "🎫",
+            "x": 55,
+            "y": 44,
+            "s": 3,
+            "a": "float"
+          },
+          {
+            "e": "🎤",
+            "x": 78,
+            "y": 60,
+            "s": 2.5,
+            "a": "bob"
+          },
+          {
+            "e": "🎵",
+            "x": 80,
+            "y": 30,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "She put on her nice jacket and her best shoes. Then she looked for the ticket.",
+      "ja": "すてきなジャケットを着て、いちばんいいくつをはきました。それからチケットを探しました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "🧥",
+            "x": 62,
+            "y": 52,
+            "s": 2.8
+          },
+          {
+            "e": "👟",
+            "x": 62,
+            "y": 82,
+            "s": 2.2
+          },
+          {
+            "e": "🪞",
+            "x": 85,
+            "y": 60,
+            "s": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "It was not on her desk. \"Oh no! Did I lose it?\" she said.",
+      "ja": "つくえの上にはありませんでした。「たいへん！ なくしちゃったのかな？」とハナは言いました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 68,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "📚",
+            "x": 68,
+            "y": 66,
+            "s": 3
+          },
+          {
+            "e": "✏️",
+            "x": 82,
+            "y": 70,
+            "s": 1.8
+          },
+          {
+            "e": "❗",
+            "x": 44,
+            "y": 38,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "She looked under the bed. She found an old sandwich, but no ticket.",
+      "ja": "ベッドの下を見ました。古いサンドイッチは見つかりましたが、チケットはありません。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 60,
+            "y": 66,
+            "s": 5
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "🥪",
+            "x": 58,
+            "y": 88,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🕸️",
+            "x": 78,
+            "y": 88,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Don't worry,\" said her brother. \"Try to remember. Where did you put it?\"",
+      "ja": "「心配しないで」とお兄さんが言いました。「思い出してごらん。どこに置いたの？」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 68,
+            "s": 4
+          },
+          {
+            "e": "👦",
+            "x": 68,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "💬",
+            "x": 50,
+            "y": 38,
+            "s": 2.2,
+            "a": "bob"
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 42,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Hana looked in her bag and in the kitchen. The problem was getting bigger. It was already six.",
+      "ja": "ハナはかばんの中も台所も探しました。問題はどんどん大きくなってきました。もう6時だったのです。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 68,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "🎒",
+            "x": 62,
+            "y": 76,
+            "s": 2.8
+          },
+          {
+            "e": "🕕",
+            "x": 80,
+            "y": 28,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "💦",
+            "x": 48,
+            "y": 46,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then she put her cold hands in her jacket pockets. Something was there.",
+      "ja": "そのとき、冷たい手をジャケットのポケットに入れました。何かが入っていました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 66,
+            "s": 4.5
+          },
+          {
+            "e": "🧥",
+            "x": 45,
+            "y": 70,
+            "s": 2.5
+          },
+          {
+            "e": "✨",
+            "x": 60,
+            "y": 62,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 68,
+            "y": 40,
+            "s": 2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"My ticket!\" she shouted. \"I put it here because I didn't want to forget it!\"",
+      "ja": "「わたしのチケット！」とハナはさけびました。「忘れたくなかったから、ここに入れたんだった！」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 64,
+            "s": 4.5,
+            "a": "hop"
+          },
+          {
+            "e": "🎫",
+            "x": 64,
+            "y": 46,
+            "s": 3.5,
+            "a": "pulse"
+          },
+          {
+            "e": "✨",
+            "x": 78,
+            "y": 34,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "😂",
+            "x": 82,
+            "y": 70,
+            "s": 2.5,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Hana ran to the concert hall faster than a bus. She arrived at seven.",
+      "ja": "ハナはバスよりも速くコンサートホールへ走りました。7時に着きました。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 55,
+            "y": 70,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "🚌",
+            "x": 18,
+            "y": 72,
+            "s": 3.5,
+            "a": "drift"
+          },
+          {
+            "e": "💨",
+            "x": 40,
+            "y": 66,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🏛️",
+            "x": 88,
+            "y": 60,
+            "s": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "But the doors were closed, and nobody was there. Hana looked at her ticket again.",
+      "ja": "でもドアは閉まっていて、だれもいませんでした。ハナはもう一度チケットを見ました。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🏛️",
+            "x": 62,
+            "y": 58,
+            "s": 5.5
+          },
+          {
+            "e": "🔒",
+            "x": 62,
+            "y": 74,
+            "s": 2
+          },
+          {
+            "e": "👧",
+            "x": 25,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "🎫",
+            "x": 38,
+            "y": 56,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌙",
+            "x": 85,
+            "y": 16,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The concert was not tonight. It was tomorrow! Hana laughed. \"Well, I will be the first to arrive.\"",
+      "ja": "コンサートは今夜ではありませんでした。明日だったのです！ ハナは笑いました。「まあ、わたしがいちばん乗りね。」",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 68,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "🎫",
+            "x": 55,
+            "y": 50,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "📅",
+            "x": 75,
+            "y": 44,
+            "s": 3
+          },
+          {
+            "e": "🏛️",
+            "x": 88,
+            "y": 68,
+            "s": 3
+          },
+          {
+            "e": "🌙",
+            "x": 15,
+            "y": 16,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "ticket",
+      "ja": "チケット・きっぷ"
+    },
+    {
+      "en": "concert",
+      "ja": "コンサート"
+    },
+    {
+      "en": "favorite",
+      "ja": "大好きな・お気に入りの"
+    },
+    {
+      "en": "singer",
+      "ja": "歌手"
+    },
+    {
+      "en": "tonight",
+      "ja": "今夜"
+    },
+    {
+      "en": "jacket",
+      "ja": "ジャケット・上着"
+    },
+    {
+      "en": "lose",
+      "ja": "なくす"
+    },
+    {
+      "en": "worry",
+      "ja": "心配する"
+    },
+    {
+      "en": "remember",
+      "ja": "思い出す・覚えている"
+    },
+    {
+      "en": "problem",
+      "ja": "問題"
+    },
+    {
+      "en": "forget",
+      "ja": "忘れる"
+    },
+    {
+      "en": "arrived",
+      "ja": "着いた（arrive の過去形）"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about a girl who ___.",
+      "ja": "この本はおもに、どんな女の子のお話？",
+      "choices": [
+        "became a famous singer",
+        "could not find her ticket",
+        "sold her favorite jacket",
+        "forgot her brother's name"
+      ],
+      "answer": "could not find her ticket",
+      "kind": "main"
+    },
+    {
+      "q": "Where was the ticket?",
+      "ja": "チケットはどこにあった？",
+      "choices": [
+        "under her bed",
+        "on her desk",
+        "in her school bag",
+        "in her jacket pocket"
+      ],
+      "answer": "in her jacket pocket",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Hana do right after she found the ticket?",
+      "ja": "チケットを見つけたすぐあと、ハナは何をした？",
+      "choices": [
+        "She ran to the concert hall.",
+        "She looked under the bed.",
+        "She put on her best shoes.",
+        "She looked in the kitchen."
+      ],
+      "answer": "She ran to the concert hall.",
+      "kind": "sequence"
+    },
+    {
+      "q": "What does \"arrive\" mean?",
+      "ja": "\"arrive\" の意味は？",
+      "choices": [
+        "to buy a thing",
+        "to sing a song",
+        "to get to a place",
+        "to feel very sick"
+      ],
+      "answer": "to get to a place",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "Why were the doors of the concert hall closed?",
+      "ja": "コンサートホールのドアは、なぜ閉まっていた？",
+      "choices": [
+        "The singer was sick that night.",
+        "The concert was the next day.",
+        "Hana arrived much too late.",
+        "The tickets were too expensive."
+      ],
+      "answer": "The concert was the next day.",
+      "kind": "inference"
+    }
+  ]
+}

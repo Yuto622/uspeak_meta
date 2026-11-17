@@ -1,0 +1,385 @@
+{
+  "id": "rd-A-animals-can-move",
+  "stage": "A",
+  "title": "Animals Can Move",
+  "titleJa": "どうぶつは うごく",
+  "kind": "nonfiction",
+  "cover": {
+    "bg": "meadow",
+    "items": [
+      {
+        "e": "🐴",
+        "x": 26,
+        "y": 70,
+        "s": 3,
+        "a": "hop"
+      },
+      {
+        "e": "🐦",
+        "x": 55,
+        "y": 24,
+        "s": 2.4,
+        "a": "drift"
+      },
+      {
+        "e": "🐸",
+        "x": 62,
+        "y": 76,
+        "s": 2.4,
+        "a": "hop"
+      },
+      {
+        "e": "🐧",
+        "x": 84,
+        "y": 70,
+        "s": 2.8,
+        "a": "sway"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "A bird can fly.",
+      "ja": "とりは とべる。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "🐦",
+            "x": 45,
+            "y": 38,
+            "s": 3.6,
+            "a": "drift"
+          },
+          {
+            "e": "☁️",
+            "x": 20,
+            "y": 22,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "☁️",
+            "x": 80,
+            "y": 60,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A fish can swim.",
+      "ja": "さかなは およげる。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🐟",
+            "x": 48,
+            "y": 55,
+            "s": 3.6,
+            "a": "drift"
+          },
+          {
+            "e": "💦",
+            "x": 68,
+            "y": 34,
+            "s": 1.4,
+            "a": "float"
+          },
+          {
+            "e": "🌿",
+            "x": 16,
+            "y": 84,
+            "s": 1.8,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A frog can jump.",
+      "ja": "かえるは とびはねる。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐸",
+            "x": 48,
+            "y": 62,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "🍃",
+            "x": 22,
+            "y": 80,
+            "s": 1.8,
+            "a": "bob"
+          },
+          {
+            "e": "🍃",
+            "x": 80,
+            "y": 78,
+            "s": 1.8,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A horse can run.",
+      "ja": "うまは はしれる。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🐴",
+            "x": 48,
+            "y": 68,
+            "s": 3.8,
+            "a": "hop"
+          },
+          {
+            "e": "💨",
+            "x": 22,
+            "y": 70,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🌼",
+            "x": 84,
+            "y": 82,
+            "s": 1.3
+          }
+        ]
+      }
+    },
+    {
+      "text": "A monkey can climb.",
+      "ja": "さるは のぼれる。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🌴",
+            "x": 58,
+            "y": 52,
+            "s": 5
+          },
+          {
+            "e": "🐒",
+            "x": 50,
+            "y": 40,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🍌",
+            "x": 68,
+            "y": 22,
+            "s": 1.5,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A penguin is a bird.",
+      "ja": "ペンギンは とり。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "🐧",
+            "x": 42,
+            "y": 68,
+            "s": 3.8,
+            "a": "sway"
+          },
+          {
+            "e": "🐦",
+            "x": 76,
+            "y": 28,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "❄️",
+            "x": 18,
+            "y": 24,
+            "s": 1.3,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Can it fly? No!",
+      "ja": "とべる？ いいえ！",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "🐧",
+            "x": 48,
+            "y": 66,
+            "s": 3.8,
+            "a": "hop"
+          },
+          {
+            "e": "❓",
+            "x": 70,
+            "y": 34,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "❌",
+            "x": 26,
+            "y": 34,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A penguin can swim!",
+      "ja": "ペンギンは およげる！",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🐧",
+            "x": 48,
+            "y": 52,
+            "s": 3.8,
+            "a": "drift"
+          },
+          {
+            "e": "🐟",
+            "x": 78,
+            "y": 68,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "💦",
+            "x": 30,
+            "y": 30,
+            "s": 1.4,
+            "a": "float"
+          },
+          {
+            "e": "🧊",
+            "x": 84,
+            "y": 14,
+            "s": 2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "bird",
+      "ja": "とり"
+    },
+    {
+      "en": "fish",
+      "ja": "さかな"
+    },
+    {
+      "en": "frog",
+      "ja": "かえる"
+    },
+    {
+      "en": "horse",
+      "ja": "うま"
+    },
+    {
+      "en": "monkey",
+      "ja": "さる"
+    },
+    {
+      "en": "penguin",
+      "ja": "ペンギン"
+    },
+    {
+      "en": "fly",
+      "ja": "とぶ"
+    },
+    {
+      "en": "swim",
+      "ja": "およぐ"
+    },
+    {
+      "en": "jump",
+      "ja": "とびはねる"
+    },
+    {
+      "en": "climb",
+      "ja": "のぼる"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの ほん？",
+      "choices": [
+        "how animals move",
+        "what animals eat",
+        "where animals sleep"
+      ],
+      "answer": "how animals move",
+      "kind": "main"
+    },
+    {
+      "q": "What can a frog do?",
+      "ja": "かえるは なにが できる？",
+      "choices": [
+        "fly",
+        "climb",
+        "jump"
+      ],
+      "answer": "jump",
+      "kind": "detail"
+    },
+    {
+      "q": "What can a horse do?",
+      "ja": "うまは なにが できる？",
+      "choices": [
+        "swim",
+        "run",
+        "fly"
+      ],
+      "answer": "run",
+      "kind": "detail"
+    },
+    {
+      "q": "Can a penguin fly?",
+      "ja": "ペンギンは とべる？",
+      "choices": [
+        "Yes, it can.",
+        "No, it cannot.",
+        "Yes, very fast."
+      ],
+      "answer": "No, it cannot.",
+      "kind": "detail"
+    },
+    {
+      "q": "What is \"swim\"?",
+      "ja": "\"swim\" は どんな うごき？",
+      "choices": [
+        "move in the sky",
+        "move up a tree",
+        "move in water"
+      ],
+      "answer": "move in water",
+      "kind": "vocabulary"
+    }
+  ]
+}

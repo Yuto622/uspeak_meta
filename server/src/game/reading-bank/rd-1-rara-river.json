@@ -1,0 +1,546 @@
+{
+  "id": "rd-1-rara-river",
+  "stage": "1",
+  "title": "Rara and the River",
+  "titleJa": "ララと かわ",
+  "kind": "story",
+  "cover": {
+    "bg": "river",
+    "items": [
+      {
+        "e": "🐰",
+        "x": 25,
+        "y": 66,
+        "s": 4,
+        "a": "hop"
+      },
+      {
+        "e": "🐢",
+        "x": 55,
+        "y": 74,
+        "s": 3,
+        "a": "bob"
+      },
+      {
+        "e": "🦆",
+        "x": 85,
+        "y": 60,
+        "s": 2.5,
+        "a": "bob"
+      },
+      {
+        "e": "☀️",
+        "x": 80,
+        "y": 18,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Rara the rabbit looks at the river. It is big.",
+      "ja": "うさぎの ララは かわを みます。 おおきい かわです。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 20,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "🌊",
+            "x": 55,
+            "y": 78,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "🌊",
+            "x": 75,
+            "y": 80,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "☀️",
+            "x": 82,
+            "y": 18,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Her friend Duck is there, on the far side.",
+      "ja": "ともだちの ダックは あそこ、 とおい むこうがわに います。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 15,
+            "y": 68,
+            "s": 3.5
+          },
+          {
+            "e": "🦆",
+            "x": 88,
+            "y": 52,
+            "s": 1.5,
+            "a": "bob"
+          },
+          {
+            "e": "🌊",
+            "x": 50,
+            "y": 78,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "👋",
+            "x": 28,
+            "y": 50,
+            "s": 1.5,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rara can run. Rara can jump. But she cannot swim.",
+      "ja": "ララは はしれます。 とべます。 でも およげません。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 22,
+            "y": 62,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "🌊",
+            "x": 60,
+            "y": 78,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "💦",
+            "x": 45,
+            "y": 70,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "❌",
+            "x": 62,
+            "y": 60,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "She walks left. She walks right. There is no bridge.",
+      "ja": "ひだりへ あるきます。 みぎへ あるきます。 はしは ありません。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 30,
+            "y": 66,
+            "s": 3.5,
+            "a": "drift"
+          },
+          {
+            "e": "⬅️",
+            "x": 12,
+            "y": 45,
+            "s": 2
+          },
+          {
+            "e": "➡️",
+            "x": 50,
+            "y": 45,
+            "s": 2
+          },
+          {
+            "e": "🌊",
+            "x": 75,
+            "y": 78,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 44,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Sit on my back,\" says Turtle. \"I can swim.\"",
+      "ja": "「せなかに のって」と カメが いいます。「ぼくは およげるよ。」",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐢",
+            "x": 50,
+            "y": 74,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "🐰",
+            "x": 22,
+            "y": 66,
+            "s": 3.5
+          },
+          {
+            "e": "💬",
+            "x": 62,
+            "y": 52,
+            "s": 2
+          },
+          {
+            "e": "🌊",
+            "x": 80,
+            "y": 80,
+            "s": 2.5,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Turtle is slow. The morning goes. The day goes.",
+      "ja": "カメは ゆっくりです。 あさが すぎます。 ひるが すぎます。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐢",
+            "x": 40,
+            "y": 74,
+            "s": 4,
+            "a": "drift"
+          },
+          {
+            "e": "🐰",
+            "x": 40,
+            "y": 58,
+            "s": 3
+          },
+          {
+            "e": "☀️",
+            "x": 75,
+            "y": 20,
+            "s": 2.5,
+            "a": "drift"
+          },
+          {
+            "e": "🌊",
+            "x": 20,
+            "y": 82,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "🌊",
+            "x": 70,
+            "y": 82,
+            "s": 2.5,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now it is night. They are here at last!",
+      "ja": "もう よるです。 やっと つきました！",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🐢",
+            "x": 40,
+            "y": 76,
+            "s": 3.5
+          },
+          {
+            "e": "🐰",
+            "x": 55,
+            "y": 68,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "🌙",
+            "x": 78,
+            "y": 18,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "⭐",
+            "x": 25,
+            "y": 20,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌿",
+            "x": 85,
+            "y": 78,
+            "s": 2.5,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "But look! Duck is sleeping. Rara is sleepy, too.",
+      "ja": "でも みて！ ダックは ねています。 ララも ねむいです。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🦆",
+            "x": 70,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "💤",
+            "x": 80,
+            "y": 54,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🐰",
+            "x": 35,
+            "y": 70,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "🌙",
+            "x": 20,
+            "y": 18,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Good night, friends. They all sleep near the water.",
+      "ja": "おやすみ、 ともだち。 みんな みずの ちかくで ねます。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🦆",
+            "x": 70,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🐰",
+            "x": 48,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🐢",
+            "x": 25,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "💤",
+            "x": 50,
+            "y": 50,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🌙",
+            "x": 80,
+            "y": 18,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "⭐",
+            "x": 30,
+            "y": 22,
+            "s": 1,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the morning, Rara and Duck play. Turtle? He sleeps all day!",
+      "ja": "あさ、 ララと ダックは あそびます。 カメは？ いちにちじゅう ねています！",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 35,
+            "y": 62,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "🦆",
+            "x": 60,
+            "y": 64,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🐢",
+            "x": 85,
+            "y": 78,
+            "s": 3
+          },
+          {
+            "e": "💤",
+            "x": 88,
+            "y": 60,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "☀️",
+            "x": 15,
+            "y": 18,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "river",
+      "ja": "かわ"
+    },
+    {
+      "en": "friend",
+      "ja": "ともだち"
+    },
+    {
+      "en": "far",
+      "ja": "とおい"
+    },
+    {
+      "en": "near",
+      "ja": "ちかい"
+    },
+    {
+      "en": "run",
+      "ja": "はしる"
+    },
+    {
+      "en": "jump",
+      "ja": "とぶ"
+    },
+    {
+      "en": "left",
+      "ja": "ひだり"
+    },
+    {
+      "en": "right",
+      "ja": "みぎ"
+    },
+    {
+      "en": "back",
+      "ja": "せなか"
+    },
+    {
+      "en": "morning",
+      "ja": "あさ"
+    },
+    {
+      "en": "water",
+      "ja": "みず"
+    },
+    {
+      "en": "sleep",
+      "ja": "ねる"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの おはなし？",
+      "choices": [
+        "a rabbit and a river",
+        "a duck at school",
+        "a turtle and its food"
+      ],
+      "answer": "a rabbit and a river",
+      "kind": "main"
+    },
+    {
+      "q": "What can Rara NOT do?",
+      "ja": "ララが できない ことは？",
+      "choices": [
+        "run",
+        "jump",
+        "swim"
+      ],
+      "answer": "swim",
+      "kind": "detail"
+    },
+    {
+      "q": "Who helps Rara?",
+      "ja": "ララを たすけるのは だれ？",
+      "choices": [
+        "Duck",
+        "Turtle",
+        "a fish"
+      ],
+      "answer": "Turtle",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"far\" mean?",
+      "ja": "\"far\" の いみは？",
+      "choices": [
+        "very big",
+        "very slow",
+        "not near"
+      ],
+      "answer": "not near",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "What happens last?",
+      "ja": "さいごに どう なる？",
+      "choices": [
+        "Rara walks left and right.",
+        "Turtle sleeps all day.",
+        "Rara sits on Turtle."
+      ],
+      "answer": "Turtle sleeps all day.",
+      "kind": "sequence"
+    }
+  ]
+}

@@ -1,0 +1,695 @@
+{
+  "id": "rd-8-story-of-zero",
+  "stage": "8",
+  "title": "The Invention of Nothing",
+  "titleJa": "「ゼロ」の発明",
+  "kind": "nonfiction",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "⭕",
+        "x": 50,
+        "y": 55,
+        "s": 5,
+        "a": "pulse"
+      },
+      {
+        "e": "✨",
+        "x": 30,
+        "y": 30,
+        "s": 1.8,
+        "a": "pulse"
+      },
+      {
+        "e": "✨",
+        "x": 72,
+        "y": 28,
+        "s": 1.8,
+        "a": "pulse"
+      },
+      {
+        "e": "📜",
+        "x": 20,
+        "y": 75,
+        "s": 2.2
+      },
+      {
+        "e": "💻",
+        "x": 82,
+        "y": 75,
+        "s": 2.2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Try to write the number two thousand and five without using a zero. It is surprisingly difficult. Yet for most of human history, people counted, traded, and built great cities without any symbol for \"nothing.\" Zero had to be invented.",
+      "ja": "2005という数を、ゼロを使わずに書いてみよう。意外とむずかしい。しかし人類の歴史の大部分で、人びとは「何もない」を表す記号なしで数え、取引し、大きな都市を築いた。ゼロは発明される必要があったのだ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🔢",
+            "x": 22,
+            "y": 50,
+            "s": 3
+          },
+          {
+            "e": "⭕",
+            "x": 42,
+            "y": 50,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "⭕",
+            "x": 58,
+            "y": 50,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "🖐️",
+            "x": 76,
+            "y": 50,
+            "s": 3
+          },
+          {
+            "e": "✏️",
+            "x": 85,
+            "y": 75,
+            "s": 2
+          },
+          {
+            "e": "🤔",
+            "x": 15,
+            "y": 78,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "The ancient Romans, for example, wrote numbers with letters such as V, X, and C. Their system had no zero at all. It worked for recording amounts, but it was not efficient for calculation. Multiplying large numbers was a job for specialists.",
+      "ja": "たとえば古代ローマ人は、V、X、Cなどの文字で数を書いた。その方式にはゼロがまったくなかった。量を記録するには使えたが、計算には効率的でなかった。大きな数のかけ算は専門家の仕事だった。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏛️",
+            "x": 50,
+            "y": 55,
+            "s": 4.5
+          },
+          {
+            "e": "📜",
+            "x": 25,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "✖️",
+            "x": 75,
+            "y": 40,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧮",
+            "x": 78,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "😵",
+            "x": 25,
+            "y": 50,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Approximately 2,300 years ago, writers in Babylon took a first step. In their system, the position of a symbol changed its value, so they needed to mark an empty position. They used two small marks as a sign for \"nothing here.\"",
+      "ja": "およそ2300年前、バビロンの書記たちが最初の一歩をふみだした。彼らの方式では記号の位置で値が変わるので、空の位置に印をつける必要があった。そこで小さな二つの印を「ここには何もない」のしるしに使った。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🧱",
+            "x": 50,
+            "y": 65,
+            "s": 4.5
+          },
+          {
+            "e": "✍️",
+            "x": 30,
+            "y": 62,
+            "s": 2.5
+          },
+          {
+            "e": "〰️",
+            "x": 50,
+            "y": 50,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🌴",
+            "x": 85,
+            "y": 65,
+            "s": 3
+          },
+          {
+            "e": "☀️",
+            "x": 80,
+            "y": 20,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "However, this sign was only a placeholder, like an empty chair at a table. Nobody considered it a number that could be added or subtracted. Far away in Central America, the Maya independently created their own zero, drawn as a shell, for their calendars.",
+      "ja": "しかしこの印は、テーブルの空いたいすのような、場所をうめる印にすぎなかった。足したり引いたりできる数だとはだれも考えなかった。遠く中央アメリカでは、マヤの人びとがこよみのために、貝の形をした独自のゼロを生みだした。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🪑",
+            "x": 25,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🍽️",
+            "x": 40,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "🐚",
+            "x": 70,
+            "y": 55,
+            "s": 3.5,
+            "a": "pulse"
+          },
+          {
+            "e": "📅",
+            "x": 85,
+            "y": 40,
+            "s": 2.2
+          },
+          {
+            "e": "🛕",
+            "x": 70,
+            "y": 80,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "The most significant change happened in India. By the seventh century, mathematicians there treated zero as a real number. One scholar wrote clear rules in the year 628: a number minus itself is zero, and any number times zero is zero.",
+      "ja": "最も重要な変化はインドで起きた。7世紀までに、インドの数学者たちはゼロを本物の数としてあつかった。ある学者は628年にはっきりした規則を書いた。ある数からそれ自身を引くとゼロ、どんな数もゼロをかけるとゼロ、と。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🧘",
+            "x": 30,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "📜",
+            "x": 50,
+            "y": 60,
+            "s": 2.5
+          },
+          {
+            "e": "⭕",
+            "x": 70,
+            "y": 40,
+            "s": 3.5,
+            "a": "pulse"
+          },
+          {
+            "e": "➖",
+            "x": 55,
+            "y": 35,
+            "s": 1.6
+          },
+          {
+            "e": "✖️",
+            "x": 85,
+            "y": 35,
+            "s": 1.6
+          },
+          {
+            "e": "🪷",
+            "x": 85,
+            "y": 78,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "This was a bold idea. How can \"nothing\" be \"something\"? Many thinkers found the question uncomfortable. But Indian mathematicians cared about results, and the evidence was clear: with zero and nine other symbols, any number could be written and calculated quickly.",
+      "ja": "これは大胆な考えだった。「無」がどうして「何か」になれるのか。多くの思想家はこの問いを不快に感じた。しかしインドの数学者は結果を重んじ、証拠は明らかだった。ゼロとほかの9つの記号で、どんな数もすばやく書いて計算できたのだ。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🤔",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "❓",
+            "x": 22,
+            "y": 45,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "⭕",
+            "x": 50,
+            "y": 45,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "🔢",
+            "x": 68,
+            "y": 45,
+            "s": 2.5
+          },
+          {
+            "e": "✅",
+            "x": 85,
+            "y": 45,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧘",
+            "x": 60,
+            "y": 78,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "The Indian word for zero meant \"empty.\" Traders and scholars carried the system west to Baghdad, where the word was translated into Arabic as \"sifr.\" Later, in Europe, \"sifr\" slowly turned into the English word \"zero.\"",
+      "ja": "ゼロを表すインドの言葉は「空っぽ」という意味だった。商人や学者がこの方式を西のバグダッドへ運び、その言葉はアラビア語で「シフル」と訳された。のちにヨーロッパで、「シフル」は少しずつ英語の「ゼロ」へと変わった。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🐫",
+            "x": 30,
+            "y": 72,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "🐫",
+            "x": 50,
+            "y": 74,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "📚",
+            "x": 30,
+            "y": 55,
+            "s": 1.6
+          },
+          {
+            "e": "➡️",
+            "x": 68,
+            "y": 50,
+            "s": 2
+          },
+          {
+            "e": "🕌",
+            "x": 88,
+            "y": 62,
+            "s": 3.5
+          },
+          {
+            "e": "⭕",
+            "x": 68,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Europe was slow to accept it. In 1202, the son of an Italian merchant, who had studied in North Africa, wrote a book that showed how useful the new numbers were for business. Merchants began to see their potential.",
+      "ja": "ヨーロッパは受け入れるのがおそかった。1202年、北アフリカで学んだイタリアの商人の息子が、新しい数字が商売にどれほど役立つかを示す本を書いた。商人たちはその可能性に気づきはじめた。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 30,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "📕",
+            "x": 45,
+            "y": 62,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "💰",
+            "x": 70,
+            "y": 70,
+            "s": 2.2
+          },
+          {
+            "e": "⚖️",
+            "x": 85,
+            "y": 62,
+            "s": 2.5
+          },
+          {
+            "e": "⛵",
+            "x": 15,
+            "y": 35,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Not everyone was pleased. In 1299, the city of Florence banned the new numerals in bank records. Officials worried that they were not reliable, because a dishonest person could easily change a 0 into a 6 or a 9.",
+      "ja": "だれもが喜んだわけではない。1299年、フィレンツェ市は銀行の記録に新しい数字を使うことを禁じた。役人たちは信頼できないと心配した。不正直な人が0をかんたんに6や9に書きかえられるからだ。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏦",
+            "x": 50,
+            "y": 58,
+            "s": 4.5
+          },
+          {
+            "e": "🚫",
+            "x": 50,
+            "y": 30,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "⭕",
+            "x": 20,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "➡️",
+            "x": 32,
+            "y": 72,
+            "s": 1.4
+          },
+          {
+            "e": "🔢",
+            "x": 44,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "✒️",
+            "x": 80,
+            "y": 72,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the end, convenience won. With zero, ordinary people could do calculations that once required experts. It also made later innovation possible, including algebra and the mathematics that describes how planets move.",
+      "ja": "最後には便利さが勝った。ゼロがあれば、かつて専門家が必要だった計算をふつうの人ができた。ゼロは、代数や、惑星の動きを表す数学など、のちの革新も可能にした。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 20,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "➕",
+            "x": 35,
+            "y": 55,
+            "s": 1.8
+          },
+          {
+            "e": "⭕",
+            "x": 50,
+            "y": 50,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🪐",
+            "x": 75,
+            "y": 30,
+            "s": 3,
+            "a": "float"
+          },
+          {
+            "e": "🔭",
+            "x": 82,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "⭐",
+            "x": 40,
+            "y": 15,
+            "s": 1.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Today zero is essential in a way its inventors never imagined. Every computer and smartphone stores information using only two symbols, one and zero. Every photo you take and every message you send is a long line of them.",
+      "ja": "今日ゼロは、発明した人びとが想像もしなかった形で欠かせないものになっている。コンピューターもスマートフォンも、1と0という二つの記号だけで情報を保存する。あなたがとる写真も送るメッセージも、その長い列なのだ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "💻",
+            "x": 35,
+            "y": 68,
+            "s": 4
+          },
+          {
+            "e": "📱",
+            "x": 70,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "❗",
+            "x": 30,
+            "y": 35,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "⭕",
+            "x": 45,
+            "y": 30,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "❗",
+            "x": 60,
+            "y": 35,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "⭕",
+            "x": 75,
+            "y": 30,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "One mystery remains. You still cannot divide by zero; the question simply has no answer. After more than two thousand years, \"nothing\" continues to cause trouble, which is quite an achievement for something that is not there.",
+      "ja": "なぞが一つ残っている。今でもゼロで割ることはできない。その問いには答えがないのだ。2000年以上たっても、「無」は問題を起こしつづけている。そこにないものにしては、大したものだ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "➗",
+            "x": 35,
+            "y": 45,
+            "s": 3
+          },
+          {
+            "e": "⭕",
+            "x": 55,
+            "y": 45,
+            "s": 3.5,
+            "a": "spin"
+          },
+          {
+            "e": "❓",
+            "x": 78,
+            "y": 40,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🧑‍🏫",
+            "x": 20,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "😅",
+            "x": 78,
+            "y": 72,
+            "s": 2.2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "efficient",
+      "ja": "効率的な"
+    },
+    {
+      "en": "calculation",
+      "ja": "計算"
+    },
+    {
+      "en": "approximately",
+      "ja": "およそ"
+    },
+    {
+      "en": "placeholder",
+      "ja": "場所をうめる印"
+    },
+    {
+      "en": "significant",
+      "ja": "重要な"
+    },
+    {
+      "en": "evidence",
+      "ja": "証拠"
+    },
+    {
+      "en": "merchant",
+      "ja": "商人"
+    },
+    {
+      "en": "potential",
+      "ja": "可能性"
+    },
+    {
+      "en": "numerals",
+      "ja": "数字"
+    },
+    {
+      "en": "reliable",
+      "ja": "信頼できる"
+    },
+    {
+      "en": "innovation",
+      "ja": "革新"
+    },
+    {
+      "en": "essential",
+      "ja": "欠かせない"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は主に何についての本？",
+      "choices": [
+        "how zero was invented and spread",
+        "why Roman numbers are the best",
+        "how computers were first built",
+        "who owned banks in old Florence"
+      ],
+      "answer": "how zero was invented and spread",
+      "kind": "main"
+    },
+    {
+      "q": "Where was zero first treated as a real number with rules?",
+      "ja": "ゼロが規則のある本物の数として最初にあつかわれたのはどこ？",
+      "choices": [
+        "In Rome",
+        "In Florence",
+        "In India",
+        "In Babylon"
+      ],
+      "answer": "In India",
+      "kind": "detail"
+    },
+    {
+      "q": "Which of these happened last?",
+      "ja": "次のうち、最後に起きたのはどれ？",
+      "choices": [
+        "Babylon used a mark for an empty place.",
+        "Florence banned the new numerals.",
+        "An Indian scholar wrote rules for zero.",
+        "An Italian wrote a book about the numbers."
+      ],
+      "answer": "Florence banned the new numerals.",
+      "kind": "sequence"
+    },
+    {
+      "q": "The word \"reliable\" means ___.",
+      "ja": "\"reliable\" の意味は？",
+      "choices": [
+        "hard to learn",
+        "new and exciting",
+        "cheap to produce",
+        "able to be trusted"
+      ],
+      "answer": "able to be trusted",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Europe accept zero in the end?",
+      "ja": "ヨーロッパはなぜ最後にはゼロを受け入れた？",
+      "choices": [
+        "A king ordered everyone to use it.",
+        "It made calculation much easier.",
+        "Roman letters were forgotten.",
+        "Banks were closed in Florence."
+      ],
+      "answer": "It made calculation much easier.",
+      "kind": "inference"
+    }
+  ]
+}

@@ -1,0 +1,601 @@
+{
+ "id": "rd-4-airport-day",
+ "stage": "4",
+ "title": "A Busy Day at the Airport",
+ "titleJa": "空港の いそがしい 一日",
+ "kind": "nonfiction",
+ "cover": {
+  "bg": "sky",
+  "items": [
+   {
+    "e": "✈️",
+    "x": 50,
+    "y": 35,
+    "s": 5,
+    "a": "float"
+   },
+   {
+    "e": "🧳",
+    "x": 25,
+    "y": 75,
+    "s": 2.5
+   },
+   {
+    "e": "👷",
+    "x": 70,
+    "y": 74,
+    "s": 3
+   },
+   {
+    "e": "🐕",
+    "x": 85,
+    "y": 78,
+    "s": 2.2,
+    "a": "bob"
+   }
+  ]
+ },
+ "pages": [
+  {
+   "text": "An airport is a very busy place. Thousands of people leave and arrive there every day.",
+   "ja": "空港は とても いそがしい 場所です。毎日、何千人もの 人が そこから 出発し、そこに 着きます。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "✈️",
+      "x": 55,
+      "y": 25,
+      "s": 4,
+      "a": "float"
+     },
+     {
+      "e": "🧍",
+      "x": 20,
+      "y": 74,
+      "s": 2.4
+     },
+     {
+      "e": "🧍‍♀️",
+      "x": 32,
+      "y": 74,
+      "s": 2.4
+     },
+     {
+      "e": "🧳",
+      "x": 42,
+      "y": 78,
+      "s": 1.8
+     },
+     {
+      "e": "🏢",
+      "x": 80,
+      "y": 58,
+      "s": 4
+     },
+     {
+      "e": "🛬",
+      "x": 15,
+      "y": 30,
+      "s": 1.6,
+      "a": "drift"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Many people have different jobs at an airport. They work together to make every trip safe.",
+   "ja": "空港では、たくさんの 人が ちがう 仕事を しています。みんなで 力を 合わせて、すべての 旅を 安全に します。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "👷",
+      "x": 20,
+      "y": 72,
+      "s": 3,
+      "a": "bob"
+     },
+     {
+      "e": "👩‍✈️",
+      "x": 40,
+      "y": 72,
+      "s": 3,
+      "a": "bob"
+     },
+     {
+      "e": "👨‍🔧",
+      "x": 60,
+      "y": 72,
+      "s": 3,
+      "a": "bob"
+     },
+     {
+      "e": "👮",
+      "x": 80,
+      "y": 72,
+      "s": 3,
+      "a": "bob"
+     },
+     {
+      "e": "✈️",
+      "x": 50,
+      "y": 28,
+      "s": 3,
+      "a": "float"
+     }
+    ]
+   }
+  },
+  {
+   "text": "First, a worker takes your bag and puts a tag on it. The tag shows where the bag will go.",
+   "ja": "まず、係の 人が あなたの かばんを あずかり、タグを つけます。タグは かばんの 行き先を しめしています。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "🧳",
+      "x": 45,
+      "y": 70,
+      "s": 3.5
+     },
+     {
+      "e": "🏷️",
+      "x": 56,
+      "y": 56,
+      "s": 2.2,
+      "a": "sway"
+     },
+     {
+      "e": "👩‍💼",
+      "x": 75,
+      "y": 68,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "🧒",
+      "x": 18,
+      "y": 72,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "Your bag rides on long moving belts under the airport. Machines read the tag and send it to the right plane.",
+   "ja": "かばんは、空港の 地下の 長い 動く ベルトに 乗ります。機械が タグを 読んで、正しい 飛行機へ 送ります。",
+   "scene": {
+    "bg": "cave",
+    "items": [
+     {
+      "e": "🧳",
+      "x": 20,
+      "y": 62,
+      "s": 2.4,
+      "a": "drift"
+     },
+     {
+      "e": "🧳",
+      "x": 48,
+      "y": 62,
+      "s": 2.4,
+      "a": "drift"
+     },
+     {
+      "e": "🧳",
+      "x": 76,
+      "y": 62,
+      "s": 2.4,
+      "a": "drift"
+     },
+     {
+      "e": "🏷️",
+      "x": 50,
+      "y": 48,
+      "s": 1.5
+     },
+     {
+      "e": "⚙️",
+      "x": 30,
+      "y": 82,
+      "s": 2,
+      "a": "spin"
+     },
+     {
+      "e": "⚙️",
+      "x": 70,
+      "y": 82,
+      "s": 2,
+      "a": "spin"
+     },
+     {
+      "e": "➡️",
+      "x": 90,
+      "y": 45,
+      "s": 1.8
+     }
+    ]
+   }
+  },
+  {
+   "text": "Outside, workers put fuel in the plane. A big plane can carry more fuel than a thousand cars.",
+   "ja": "外では、作業員が 飛行機に 燃料を 入れます。大きな 飛行機は、車 千台分より 多くの 燃料を つめます。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "✈️",
+      "x": 50,
+      "y": 45,
+      "s": 5
+     },
+     {
+      "e": "⛽",
+      "x": 22,
+      "y": 72,
+      "s": 2.8
+     },
+     {
+      "e": "👷",
+      "x": 34,
+      "y": 74,
+      "s": 2.6,
+      "a": "bob"
+     },
+     {
+      "e": "🚗",
+      "x": 72,
+      "y": 82,
+      "s": 1.4
+     },
+     {
+      "e": "🚗",
+      "x": 82,
+      "y": 82,
+      "s": 1.4
+     },
+     {
+      "e": "🚗",
+      "x": 92,
+      "y": 82,
+      "s": 1.4
+     }
+    ]
+   }
+  },
+  {
+   "text": "Other workers check the plane before every flight. They look at the wheels, the wings, and the engines.",
+   "ja": "ほかの 作業員は、飛ぶ 前に 毎回 飛行機を 点検します。車輪、つばさ、エンジンを 見ます。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "✈️",
+      "x": 55,
+      "y": 45,
+      "s": 5
+     },
+     {
+      "e": "👨‍🔧",
+      "x": 25,
+      "y": 74,
+      "s": 3,
+      "a": "bob"
+     },
+     {
+      "e": "🔧",
+      "x": 34,
+      "y": 62,
+      "s": 1.8,
+      "a": "sway"
+     },
+     {
+      "e": "🔦",
+      "x": 18,
+      "y": 62,
+      "s": 1.6
+     },
+     {
+      "e": "✅",
+      "x": 70,
+      "y": 25,
+      "s": 2,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "In a tall tower, people watch the sky. They tell each pilot when to take off and when to land.",
+   "ja": "高い タワーでは、人々が 空を 見はっています。パイロット 一人一人に、いつ 飛び立ち、いつ おりるかを 伝えます。",
+   "scene": {
+    "bg": "sky",
+    "items": [
+     {
+      "e": "🗼",
+      "x": 22,
+      "y": 62,
+      "s": 5
+     },
+     {
+      "e": "🎧",
+      "x": 22,
+      "y": 34,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "🛫",
+      "x": 60,
+      "y": 30,
+      "s": 3,
+      "a": "float"
+     },
+     {
+      "e": "🛬",
+      "x": 85,
+      "y": 55,
+      "s": 2.4,
+      "a": "drift"
+     },
+     {
+      "e": "📡",
+      "x": 34,
+      "y": 30,
+      "s": 1.6
+     }
+    ]
+   }
+  },
+  {
+   "text": "Some workers are dogs! They use their noses to find food or dangerous things in bags.",
+   "ja": "働いている 犬も います！ 犬は 鼻を 使って、かばんの 中の 食べ物や 危ない 物を 見つけます。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "🐕",
+      "x": 35,
+      "y": 74,
+      "s": 3.8,
+      "a": "bob"
+     },
+     {
+      "e": "👃",
+      "x": 44,
+      "y": 60,
+      "s": 1.5,
+      "a": "pulse"
+     },
+     {
+      "e": "🧳",
+      "x": 62,
+      "y": 74,
+      "s": 3
+     },
+     {
+      "e": "🍎",
+      "x": 62,
+      "y": 58,
+      "s": 1.6
+     },
+     {
+      "e": "👮",
+      "x": 85,
+      "y": 68,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "When it is rainy or snowy, the work is harder. In winter, they spray warm liquid to take ice off the wings.",
+   "ja": "雨や 雪の 日は、仕事が もっと 大変です。冬には、あたたかい 液体を かけて、つばさの 氷を 落とします。",
+   "scene": {
+    "bg": "snow",
+    "items": [
+     {
+      "e": "✈️",
+      "x": 55,
+      "y": 50,
+      "s": 5
+     },
+     {
+      "e": "❄️",
+      "x": 25,
+      "y": 22,
+      "s": 1.8,
+      "a": "drift"
+     },
+     {
+      "e": "❄️",
+      "x": 75,
+      "y": 18,
+      "s": 1.8,
+      "a": "drift"
+     },
+     {
+      "e": "🚒",
+      "x": 18,
+      "y": 76,
+      "s": 2.6
+     },
+     {
+      "e": "💦",
+      "x": 36,
+      "y": 56,
+      "s": 2,
+      "a": "hop"
+     },
+     {
+      "e": "🧊",
+      "x": 62,
+      "y": 40,
+      "s": 1.5
+     }
+    ]
+   }
+  },
+  {
+   "text": "Next time you start a vacation at an airport, look outside. How many different jobs can you see?",
+   "ja": "次に 空港から 旅行に 出発する ときは、外を 見てみましょう。いくつの ちがう 仕事が 見つかるかな？",
+   "scene": {
+    "bg": "sky",
+    "items": [
+     {
+      "e": "🧒",
+      "x": 22,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "👀",
+      "x": 22,
+      "y": 56,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "✈️",
+      "x": 62,
+      "y": 40,
+      "s": 4,
+      "a": "float"
+     },
+     {
+      "e": "👷",
+      "x": 60,
+      "y": 80,
+      "s": 2
+     },
+     {
+      "e": "🐕",
+      "x": 75,
+      "y": 82,
+      "s": 1.6
+     },
+     {
+      "e": "🚚",
+      "x": 88,
+      "y": 80,
+      "s": 2
+     }
+    ]
+   }
+  }
+ ],
+ "glossary": [
+  {
+   "en": "airport",
+   "ja": "空港"
+  },
+  {
+   "en": "busy",
+   "ja": "いそがしい"
+  },
+  {
+   "en": "leave",
+   "ja": "出発する"
+  },
+  {
+   "en": "different",
+   "ja": "ちがう"
+  },
+  {
+   "en": "jobs",
+   "ja": "仕事"
+  },
+  {
+   "en": "together",
+   "ja": "いっしょに"
+  },
+  {
+   "en": "tag",
+   "ja": "タグ・荷札"
+  },
+  {
+   "en": "fuel",
+   "ja": "燃料"
+  },
+  {
+   "en": "wings",
+   "ja": "つばさ"
+  },
+  {
+   "en": "dangerous",
+   "ja": "危ない"
+  },
+  {
+   "en": "rainy",
+   "ja": "雨の"
+  },
+  {
+   "en": "vacation",
+   "ja": "休みの旅行"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "This book is mostly about ___.",
+   "ja": "この本は おもに 何に ついてですか。",
+   "choices": [
+    "the jobs people do at an airport",
+    "how to become a pilot in the future",
+    "the best places to go on vacation",
+    "why planes are faster than cars"
+   ],
+   "answer": "the jobs people do at an airport",
+   "kind": "main"
+  },
+  {
+   "q": "What does the tag on a bag show?",
+   "ja": "かばんの タグは 何を しめしますか。",
+   "choices": [
+    "how heavy the bag is",
+    "what is inside the bag",
+    "where the bag will go",
+    "when the bag was made"
+   ],
+   "answer": "where the bag will go",
+   "kind": "detail"
+  },
+  {
+   "q": "What do the people in the tall tower do?",
+   "ja": "高い タワーの 人は 何を しますか。",
+   "choices": [
+    "They put fuel into the big planes.",
+    "They tell pilots when to take off.",
+    "They wash ice off the plane wings.",
+    "They carry bags on moving belts."
+   ],
+   "answer": "They tell pilots when to take off.",
+   "kind": "detail"
+  },
+  {
+   "q": "What is \"fuel\"?",
+   "ja": "「fuel」とは 何ですか。",
+   "choices": [
+    "a paper that shows your name and age",
+    "a tool for checking the wheels",
+    "a room where bags are kept",
+    "what an engine burns to run"
+   ],
+   "answer": "what an engine burns to run",
+   "kind": "vocab"
+  },
+  {
+   "q": "How do airport dogs find things in bags?",
+   "ja": "空港の 犬は どうやって かばんの 中の 物を 見つけますか。",
+   "choices": [
+    "with their noses",
+    "with their tongues",
+    "with their paws",
+    "with their eyes"
+   ],
+   "answer": "with their noses",
+   "kind": "detail"
+  }
+ ]
+}

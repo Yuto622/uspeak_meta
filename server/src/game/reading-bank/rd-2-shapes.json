@@ -1,0 +1,436 @@
+{
+  "id": "rd-2-shapes",
+  "stage": "2",
+  "title": "Shapes Are Everywhere",
+  "titleJa": "かたちは どこにでも",
+  "kind": "nonfiction",
+  "cover": {
+    "bg": "meadow",
+    "items": [
+      {
+        "e": "🟡",
+        "x": 25,
+        "y": 45,
+        "s": 3.5,
+        "a": "bob"
+      },
+      {
+        "e": "🟦",
+        "x": 50,
+        "y": 60,
+        "s": 3.5,
+        "a": "spin"
+      },
+      {
+        "e": "🔺",
+        "x": 76,
+        "y": 45,
+        "s": 3.5,
+        "a": "hop"
+      },
+      {
+        "e": "👀",
+        "x": 50,
+        "y": 24,
+        "s": 2,
+        "a": "bob"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Look! Shapes are here and there. What shapes can you see?",
+      "ja": "みて！ かたちは あちこちに あります。 どんな かたちが みえるかな？",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🟡",
+            "x": 22,
+            "y": 50,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🟦",
+            "x": 50,
+            "y": 62,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "🔺",
+            "x": 78,
+            "y": 50,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🧒",
+            "x": 50,
+            "y": 28,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "This is a circle. A soccer ball looks like a circle.",
+      "ja": "これは まるです。 サッカーボールは まるに みえます。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🟡",
+            "x": 28,
+            "y": 46,
+            "s": 4,
+            "a": "pulse"
+          },
+          {
+            "e": "⚽",
+            "x": 68,
+            "y": 72,
+            "s": 4,
+            "a": "spin"
+          },
+          {
+            "e": "🥅",
+            "x": 90,
+            "y": 62,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "The sun is a circle, too. It is big, hot, and yellow.",
+      "ja": "たいようも まるです。 おおきくて、 あつくて、 きいろです。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 50,
+            "y": 40,
+            "s": 6,
+            "a": "pulse"
+          },
+          {
+            "e": "☁️",
+            "x": 18,
+            "y": 62,
+            "s": 2.5,
+            "a": "drift"
+          },
+          {
+            "e": "☁️",
+            "x": 84,
+            "y": 70,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "This is a square. It has four sides. A window is a square.",
+      "ja": "これは しかくです。 へんが 4つ あります。 まども しかくです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🟦",
+            "x": 25,
+            "y": 50,
+            "s": 4,
+            "a": "pulse"
+          },
+          {
+            "e": "🪟",
+            "x": 70,
+            "y": 46,
+            "s": 5
+          },
+          {
+            "e": "🪴",
+            "x": 90,
+            "y": 78,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "This is a triangle. It has three sides. Count them: one, two, three!",
+      "ja": "これは さんかくです。 へんが 3つ あります。 かぞえよう。 いち、 に、 さん！",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🔺",
+            "x": 50,
+            "y": 52,
+            "s": 6,
+            "a": "pulse"
+          },
+          {
+            "e": "☝️",
+            "x": 20,
+            "y": 70,
+            "s": 2.2,
+            "a": "bob"
+          },
+          {
+            "e": "✌️",
+            "x": 80,
+            "y": 70,
+            "s": 2.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Look at the boat on the water. Can you see a white triangle?",
+      "ja": "みずの うえの ボートを みて。 しろい さんかくが みえる？",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "⛵",
+            "x": 50,
+            "y": 58,
+            "s": 5.5,
+            "a": "bob"
+          },
+          {
+            "e": "🌊",
+            "x": 22,
+            "y": 84,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "🌊",
+            "x": 78,
+            "y": 84,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "☀️",
+            "x": 85,
+            "y": 16,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A pizza is a circle. But one small piece is a triangle!",
+      "ja": "ピザは まるです。 でも ちいさな ひときれは さんかく！",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🫓",
+            "x": 30,
+            "y": 66,
+            "s": 4.5
+          },
+          {
+            "e": "🍕",
+            "x": 72,
+            "y": 64,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "➡️",
+            "x": 52,
+            "y": 62,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Here is my sandwich. It is a square. Mother helps me cut it.",
+      "ja": "ぼくの サンドイッチです。 しかくです。 おかあさんが きるのを てつだってくれます。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🍞",
+            "x": 45,
+            "y": 68,
+            "s": 4.5
+          },
+          {
+            "e": "🔪",
+            "x": 66,
+            "y": 58,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "👩",
+            "x": 85,
+            "y": 60,
+            "s": 3.5
+          },
+          {
+            "e": "🧒",
+            "x": 15,
+            "y": 66,
+            "s": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now I have two triangles. I eat one. I eat two. No shapes now!",
+      "ja": "さんかくが ふたつに なりました。 ひとつ たべます。 もう ひとつ たべます。 かたちは もう ありません！",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 35,
+            "y": 64,
+            "s": 4.5,
+            "a": "bob"
+          },
+          {
+            "e": "🥪",
+            "x": 62,
+            "y": 68,
+            "s": 2.5
+          },
+          {
+            "e": "🍽️",
+            "x": 75,
+            "y": 76,
+            "s": 3.5
+          },
+          {
+            "e": "😋",
+            "x": 35,
+            "y": 38,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "shapes",
+      "ja": "かたち"
+    },
+    {
+      "en": "circle",
+      "ja": "まる"
+    },
+    {
+      "en": "square",
+      "ja": "しかく"
+    },
+    {
+      "en": "triangle",
+      "ja": "さんかく"
+    },
+    {
+      "en": "sides",
+      "ja": "へん（まわりの せん）"
+    },
+    {
+      "en": "four",
+      "ja": "4"
+    },
+    {
+      "en": "three",
+      "ja": "3"
+    },
+    {
+      "en": "boat",
+      "ja": "ボート・ふね"
+    },
+    {
+      "en": "yellow",
+      "ja": "きいろ"
+    },
+    {
+      "en": "white",
+      "ja": "しろ"
+    },
+    {
+      "en": "small",
+      "ja": "ちいさい"
+    },
+    {
+      "en": "helps",
+      "ja": "てつだう"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの ほん？",
+      "choices": [
+        "animals in the zoo",
+        "colors of the weather",
+        "shapes all around us"
+      ],
+      "answer": "shapes all around us",
+      "kind": "main"
+    },
+    {
+      "q": "How many sides does a triangle have?",
+      "ja": "さんかくの へんは いくつ？",
+      "choices": [
+        "two",
+        "three",
+        "four"
+      ],
+      "answer": "three",
+      "kind": "detail"
+    },
+    {
+      "q": "What shape is the sun?",
+      "ja": "たいようは どんな かたち？",
+      "choices": [
+        "a circle",
+        "a square",
+        "a triangle"
+      ],
+      "answer": "a circle",
+      "kind": "detail"
+    },
+    {
+      "q": "What is a square?",
+      "ja": "\"square\" って どんな かたち？",
+      "choices": [
+        "a shape with no sides",
+        "a shape with four sides",
+        "a shape with three sides"
+      ],
+      "answer": "a shape with four sides",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "What happens to the sandwich last?",
+      "ja": "サンドイッチは さいごに どう なる？",
+      "choices": [
+        "Mother cuts it.",
+        "It is a square.",
+        "The child eats it."
+      ],
+      "answer": "The child eats it.",
+      "kind": "sequence"
+    }
+  ]
+}

@@ -1,0 +1,404 @@
+{
+  "id": "rd-C-little-ghost",
+  "stage": "C",
+  "title": "The Little Ghost Says Boo",
+  "titleJa": "ちいさな おばけの「ばあ！」",
+  "kind": "story",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "👻",
+        "x": 50,
+        "y": 50,
+        "s": 4.5,
+        "a": "float"
+      },
+      {
+        "e": "🏚️",
+        "x": 80,
+        "y": 72,
+        "s": 2.6
+      },
+      {
+        "e": "🌙",
+        "x": 18,
+        "y": 18,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "The little ghost lives in an old house.",
+      "ja": "ちいさな おばけは ふるい いえに すんでいる。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🏚️",
+            "x": 60,
+            "y": 62,
+            "s": 5
+          },
+          {
+            "e": "👻",
+            "x": 30,
+            "y": 46,
+            "s": 3,
+            "a": "float"
+          },
+          {
+            "e": "🌙",
+            "x": 86,
+            "y": 14,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Boo!\" says the ghost. The cat is not scared.",
+      "ja": "「ばあ！」と おばけが いう。 ねこは こわがらない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👻",
+            "x": 28,
+            "y": 48,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "🐱",
+            "x": 68,
+            "y": 72,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "💤",
+            "x": 82,
+            "y": 50,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Boo!\" says the ghost. The robot is not scared.",
+      "ja": "「ばあ！」と おばけが いう。 ロボットは こわがらない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👻",
+            "x": 28,
+            "y": 48,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "🤖",
+            "x": 68,
+            "y": 70,
+            "s": 3.2,
+            "a": "sway"
+          },
+          {
+            "e": "🎵",
+            "x": 84,
+            "y": 46,
+            "s": 1.5,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Boo!\" says the ghost. The dragon is not scared.",
+      "ja": "「ばあ！」と おばけが いう。 ドラゴンは こわがらない。",
+      "scene": {
+        "bg": "cave",
+        "items": [
+          {
+            "e": "👻",
+            "x": 26,
+            "y": 48,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "🐉",
+            "x": 68,
+            "y": 66,
+            "s": 3.8,
+            "a": "sway"
+          },
+          {
+            "e": "😄",
+            "x": 84,
+            "y": 40,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "The little ghost is very sad.",
+      "ja": "ちいさな おばけは とても かなしい。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👻",
+            "x": 48,
+            "y": 58,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "💧",
+            "x": 60,
+            "y": 42,
+            "s": 1.5,
+            "a": "hop"
+          },
+          {
+            "e": "💧",
+            "x": 36,
+            "y": 42,
+            "s": 1.5,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then the baby looks at the ghost.",
+      "ja": "そのとき あかちゃんが おばけを みる。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👻",
+            "x": 30,
+            "y": 50,
+            "s": 3.4,
+            "a": "float"
+          },
+          {
+            "e": "👶",
+            "x": 68,
+            "y": 72,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "👀",
+            "x": 52,
+            "y": 40,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"BOO!\" says the baby.",
+      "ja": "「ばあ！」と あかちゃんが いう。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👻",
+            "x": 28,
+            "y": 50,
+            "s": 3.2
+          },
+          {
+            "e": "👶",
+            "x": 64,
+            "y": 68,
+            "s": 3.8,
+            "a": "hop"
+          },
+          {
+            "e": "💥",
+            "x": 48,
+            "y": 44,
+            "s": 2.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The ghost is scared! The ghost runs away.",
+      "ja": "おばけは こわくなった！ おばけは にげていく。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👻",
+            "x": 20,
+            "y": 40,
+            "s": 3,
+            "a": "drift"
+          },
+          {
+            "e": "💨",
+            "x": 38,
+            "y": 44,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "💦",
+            "x": 12,
+            "y": 24,
+            "s": 1.4,
+            "a": "hop"
+          },
+          {
+            "e": "👶",
+            "x": 72,
+            "y": 72,
+            "s": 3,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The baby laughs. Now they are friends.",
+      "ja": "あかちゃんは わらう。 もう ふたりは ともだち。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👻",
+            "x": 36,
+            "y": 56,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "👶",
+            "x": 62,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "❤️",
+            "x": 50,
+            "y": 30,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "ghost",
+      "ja": "おばけ"
+    },
+    {
+      "en": "house",
+      "ja": "いえ"
+    },
+    {
+      "en": "old",
+      "ja": "ふるい"
+    },
+    {
+      "en": "scared",
+      "ja": "こわがっている"
+    },
+    {
+      "en": "robot",
+      "ja": "ロボット"
+    },
+    {
+      "en": "dragon",
+      "ja": "ドラゴン"
+    },
+    {
+      "en": "baby",
+      "ja": "あかちゃん"
+    },
+    {
+      "en": "sad",
+      "ja": "かなしい"
+    },
+    {
+      "en": "laughs",
+      "ja": "わらう"
+    },
+    {
+      "en": "friends",
+      "ja": "ともだち"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの おはなし？",
+      "choices": [
+        "a ghost who says \"Boo!\"",
+        "a cat who can fly",
+        "a robot who is sad"
+      ],
+      "answer": "a ghost who says \"Boo!\"",
+      "kind": "main"
+    },
+    {
+      "q": "Where does the little ghost live?",
+      "ja": "ちいさな おばけは どこに すんでいる？",
+      "choices": [
+        "in a big ship",
+        "in a new car",
+        "in an old house"
+      ],
+      "answer": "in an old house",
+      "kind": "detail"
+    },
+    {
+      "q": "Why is the ghost sad?",
+      "ja": "おばけは どうして かなしいの？",
+      "choices": [
+        "The house is old.",
+        "No one is scared.",
+        "The cat runs away."
+      ],
+      "answer": "No one is scared.",
+      "kind": "detail"
+    },
+    {
+      "q": "Who says \"BOO!\" to the ghost?",
+      "ja": "おばけに「ばあ！」と いうのは だれ？",
+      "choices": [
+        "the dragon",
+        "the robot",
+        "the baby"
+      ],
+      "answer": "the baby",
+      "kind": "detail"
+    },
+    {
+      "q": "What happens last?",
+      "ja": "さいごに どうなる？",
+      "choices": [
+        "The ghost goes to bed.",
+        "They are friends.",
+        "The baby is sad."
+      ],
+      "answer": "They are friends.",
+      "kind": "sequence"
+    }
+  ]
+}

@@ -1,0 +1,700 @@
+{
+  "id": "rd-9-painting-hid",
+  "stage": "9",
+  "title": "What the Painting Hid",
+  "titleJa": "絵がかくしていたもの",
+  "kind": "story",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "🖼️",
+        "x": 50,
+        "y": 45,
+        "s": 5
+      },
+      {
+        "e": "👩",
+        "x": 22,
+        "y": 74,
+        "s": 3.2
+      },
+      {
+        "e": "🔍",
+        "x": 62,
+        "y": 62,
+        "s": 2.5,
+        "a": "pulse"
+      },
+      {
+        "e": "✒️",
+        "x": 72,
+        "y": 72,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Mina had been a restorer at the city museum for only eight months when she was entrusted with its most celebrated possession: a portrait attributed to the great master Aldo Venn, whose name appeared on every poster the museum printed.",
+      "ja": "ミナが市立美術館の修復士になってまだ8か月のとき、館でいちばん名高い所蔵品をまかされた。巨匠アルド・ヴェンの作とされる肖像画で、ヴェンの名は美術館のどのポスターにも刷られていた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🖼️",
+            "x": 55,
+            "y": 42,
+            "s": 5
+          },
+          {
+            "e": "👩",
+            "x": 22,
+            "y": 74,
+            "s": 3.8
+          },
+          {
+            "e": "🏛️",
+            "x": 88,
+            "y": 70,
+            "s": 2.5
+          },
+          {
+            "e": "📰",
+            "x": 85,
+            "y": 35,
+            "s": 2
+          },
+          {
+            "e": "✨",
+            "x": 55,
+            "y": 18,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Her task was modest. Centuries of smoke had darkened the varnish, and she was to remove it, millimeter by millimeter, with cotton and solvent. It was meticulous, solitary work, and Mina loved it precisely because nothing unexpected ever happened.",
+      "ja": "仕事はささやかなものだった。何世紀ものけむりで黒ずんだニスを、綿と溶剤で1ミリずつ取りのぞく。細心の注意がいる孤独な作業で、予想外のことが何も起きないからこそ、ミナはこの仕事が好きだった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 30,
+            "y": 73,
+            "s": 3.8
+          },
+          {
+            "e": "🖼️",
+            "x": 62,
+            "y": 45,
+            "s": 4.5
+          },
+          {
+            "e": "🧴",
+            "x": 45,
+            "y": 78,
+            "s": 2
+          },
+          {
+            "e": "☁️",
+            "x": 50,
+            "y": 62,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "🔍",
+            "x": 48,
+            "y": 50,
+            "s": 2
+          },
+          {
+            "e": "💡",
+            "x": 80,
+            "y": 18,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the nineteenth day, something unexpected happened. In the lower corner, beneath the darkened varnish and beneath Venn's famous signature, faint letters emerged. It was a second signature, older than the first, and it read \"L. Maren.\"",
+      "ja": "19日目、予想外のことが起きた。絵の下のすみ、黒ずんだニスの下、ヴェンの有名な署名のさらに下から、かすかな文字がうかび上がった。最初の署名より古い、二つ目の署名だった。「L・マレン」と読めた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🖼️",
+            "x": 55,
+            "y": 42,
+            "s": 5
+          },
+          {
+            "e": "🔍",
+            "x": 68,
+            "y": 62,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "✒️",
+            "x": 72,
+            "y": 64,
+            "s": 1.5
+          },
+          {
+            "e": "✨",
+            "x": 76,
+            "y": 56,
+            "s": 1.5,
+            "a": "pulse"
+          },
+          {
+            "e": "👩",
+            "x": 22,
+            "y": 74,
+            "s": 3.8
+          },
+          {
+            "e": "😮",
+            "x": 22,
+            "y": 52,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mina searched the archives until midnight. Lucia Maren had been an assistant in Venn's workshop, mentioned only twice in the records. Evidently, the master had painted his own name over hers, and for three hundred years nobody had scrutinized the corner.",
+      "ja": "ミナは真夜中まで資料室を調べた。ルチア・マレンはヴェンの工房の助手で、記録には二度しか出てこない。巨匠は明らかに彼女の名の上に自分の名を書いたのだ。そして300年間、だれもそのすみを細かく調べなかった。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👩",
+            "x": 35,
+            "y": 73,
+            "s": 3.8
+          },
+          {
+            "e": "📚",
+            "x": 60,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "📜",
+            "x": 50,
+            "y": 55,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🕯️",
+            "x": 75,
+            "y": 55,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🕛",
+            "x": 85,
+            "y": 22,
+            "s": 2.2
+          },
+          {
+            "e": "🗄️",
+            "x": 12,
+            "y": 68,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The director listened without interrupting. Then he spoke gently. \"Half our visitors come for that painting. If it is no longer a Venn, its value collapses, and so does our budget. A little fresh varnish, Mina, and the dilemma disappears.\"",
+      "ja": "館長は口をはさまずに聞いた。そしておだやかに言った。「来館者の半分はあの絵が目当てだ。ヴェンの作でなくなれば価値はくずれ、予算もくずれる。新しいニスを少しぬれば、ミナ、このジレンマは消えるんだよ」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👨‍💼",
+            "x": 68,
+            "y": 72,
+            "s": 3.8
+          },
+          {
+            "e": "💬",
+            "x": 78,
+            "y": 48,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "📉",
+            "x": 88,
+            "y": 30,
+            "s": 2
+          },
+          {
+            "e": "🖌️",
+            "x": 55,
+            "y": 55,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "👩",
+            "x": 25,
+            "y": 74,
+            "s": 3.8
+          },
+          {
+            "e": "🪑",
+            "x": 68,
+            "y": 84,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "He was not a villain; that was the difficulty. He was thinking of forty employees and a leaking roof. And he was right that nobody would ever know. The only witness was a junior restorer with a contract that expired in spring.",
+      "ja": "館長は悪人ではなかった。そこがむずかしいところだった。彼は40人の職員と雨もりする屋根のことを考えていた。それに、だれにも知られないというのは本当だった。ただ一人の目撃者は、春に契約が切れる新米の修復士なのだ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👨‍💼",
+            "x": 30,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "💭",
+            "x": 42,
+            "y": 42,
+            "s": 2.5
+          },
+          {
+            "e": "👥",
+            "x": 42,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "💧",
+            "x": 70,
+            "y": 30,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🪣",
+            "x": 70,
+            "y": 78,
+            "s": 2.2
+          },
+          {
+            "e": "👩",
+            "x": 88,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "📄",
+            "x": 88,
+            "y": 58,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "That evening Mina sat before the portrait. The woman in it gazed out with an ambiguous half-smile that critics had praised for generations. Mina wondered whether it was, in fact, the expression of someone who knew she would be erased.",
+      "ja": "その夕方、ミナは肖像画の前にすわった。絵の中の女性は、何世代もの批評家がほめてきた、どちらとも取れるあいまいなほほえみでこちらを見ていた。あれは実は、自分が消されると知っていた人の表情ではないか、とミナは思った。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🖼️",
+            "x": 60,
+            "y": 40,
+            "s": 5.5
+          },
+          {
+            "e": "🙂",
+            "x": 60,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "👩",
+            "x": 25,
+            "y": 76,
+            "s": 3.8
+          },
+          {
+            "e": "🪑",
+            "x": 25,
+            "y": 86,
+            "s": 2
+          },
+          {
+            "e": "🌆",
+            "x": 90,
+            "y": 25,
+            "s": 2
+          },
+          {
+            "e": "💭",
+            "x": 38,
+            "y": 52,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "She thought about her own profession. A restorer's entire purpose is to remove what later hands have added and to reveal what is authentic. To conceal the signature would be to perform her craft backwards. She could not do it and remain a restorer.",
+      "ja": "ミナは自分の職業について考えた。修復士の目的は、後の人の手が加えたものを取りのぞき、本物をあらわにすることだ。署名をかくすのは、その技術を逆向きに使うことになる。そうすれば、もう修復士ではいられない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 40,
+            "y": 73,
+            "s": 4.2
+          },
+          {
+            "e": "💡",
+            "x": 40,
+            "y": 48,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🖌️",
+            "x": 62,
+            "y": 60,
+            "s": 2.2
+          },
+          {
+            "e": "🚫",
+            "x": 62,
+            "y": 60,
+            "s": 2.8
+          },
+          {
+            "e": "🖼️",
+            "x": 85,
+            "y": 45,
+            "s": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "So she photographed everything, wrote a meticulous report, and submitted it to the director and the board simultaneously, so that it could not quietly vanish. Then she went home and began, reluctantly, to look for another job.",
+      "ja": "そこでミナはすべてを写真にとり、綿密な報告書を書き、こっそり消されないよう、館長と理事会に同時に提出した。それから家に帰り、気が進まないまま、別の仕事をさがしはじめた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 28,
+            "y": 73,
+            "s": 3.8
+          },
+          {
+            "e": "📸",
+            "x": 42,
+            "y": 58,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "📄",
+            "x": 58,
+            "y": 52,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "📨",
+            "x": 75,
+            "y": 45,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "👨‍💼",
+            "x": 90,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "💻",
+            "x": 15,
+            "y": 82,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The board argued for a month. In the end, perhaps because the report already existed, they chose to announce the discovery themselves. The portrait was given a new label: \"Lucia Maren, formerly attributed to Aldo Venn.\"",
+      "ja": "理事会は1か月議論した。結局、報告書がすでに存在していたからか、自分たちの手で発見を発表することを選んだ。肖像画には新しい札がつけられた。「ルチア・マレン作。以前はアルド・ヴェン作とされていた」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🖼️",
+            "x": 50,
+            "y": 40,
+            "s": 5
+          },
+          {
+            "e": "🏷️",
+            "x": 70,
+            "y": 68,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👥",
+            "x": 20,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "📢",
+            "x": 30,
+            "y": 50,
+            "s": 2
+          },
+          {
+            "e": "👩",
+            "x": 88,
+            "y": 76,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "The consequences were not what the director had feared. Newspapers adored the story of the erased apprentice. Visitors doubled. People who had never cared about varnish stood in line to see the corner where two signatures overlapped.",
+      "ja": "結果は、館長がおそれていたものとはちがった。新聞は「消された弟子」の物語に夢中になった。来館者は2倍になった。ニスに興味などなかった人たちが、二つの署名が重なるすみを見ようと列を作った。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏛️",
+            "x": 75,
+            "y": 55,
+            "s": 4.5
+          },
+          {
+            "e": "🧍",
+            "x": 20,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "🧍‍♀️",
+            "x": 32,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "🧍‍♂️",
+            "x": 44,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "🧍",
+            "x": 56,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "📰",
+            "x": 25,
+            "y": 35,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "📈",
+            "x": 50,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mina's contract was renewed, though the director never quite forgave her for being right. She did not mind. Some mornings, before the doors opened, she stood before the portrait, and it seemed to her that the smile had become slightly less ambiguous.",
+      "ja": "ミナの契約は更新された。もっとも館長は、彼女が正しかったことを完全にはゆるさなかった。ミナは気にしなかった。開館前の朝、肖像画の前に立つと、あのほほえみが少しだけはっきりしたように思えるのだった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🖼️",
+            "x": 60,
+            "y": 40,
+            "s": 5.5
+          },
+          {
+            "e": "😊",
+            "x": 60,
+            "y": 40,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👩",
+            "x": 25,
+            "y": 74,
+            "s": 3.8
+          },
+          {
+            "e": "🌅",
+            "x": 90,
+            "y": 22,
+            "s": 2
+          },
+          {
+            "e": "✨",
+            "x": 75,
+            "y": 22,
+            "s": 1.5,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "attributed",
+      "ja": "～の作とされる"
+    },
+    {
+      "en": "meticulous",
+      "ja": "細心の、綿密な"
+    },
+    {
+      "en": "archives",
+      "ja": "資料室、記録文書"
+    },
+    {
+      "en": "scrutinized",
+      "ja": "細かく調べた"
+    },
+    {
+      "en": "dilemma",
+      "ja": "ジレンマ、板ばさみ"
+    },
+    {
+      "en": "ambiguous",
+      "ja": "あいまいな"
+    },
+    {
+      "en": "authentic",
+      "ja": "本物の"
+    },
+    {
+      "en": "conceal",
+      "ja": "かくす"
+    },
+    {
+      "en": "simultaneously",
+      "ja": "同時に"
+    },
+    {
+      "en": "reluctantly",
+      "ja": "しぶしぶ"
+    },
+    {
+      "en": "consequences",
+      "ja": "結果"
+    },
+    {
+      "en": "apprentice",
+      "ja": "弟子、見習い"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This story is mostly about ___.",
+      "ja": "この話は主に何についての話？",
+      "choices": [
+        "a master who teaches a gifted young painter",
+        "a museum that loses its most famous work",
+        "a director who secretly sells a rare portrait",
+        "a restorer who refuses to hide the truth"
+      ],
+      "answer": "a restorer who refuses to hide the truth",
+      "kind": "main"
+    },
+    {
+      "q": "What did Mina find beneath the famous signature?",
+      "ja": "ミナは有名な署名の下に何を見つけた？",
+      "choices": [
+        "A hidden date",
+        "A second signature",
+        "A different face",
+        "A crack in the paint"
+      ],
+      "answer": "A second signature",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Mina do immediately after submitting her report?",
+      "ja": "報告書を出したすぐ後、ミナは何をした？",
+      "choices": [
+        "She began looking for a new job.",
+        "She repainted the lower corner.",
+        "She gave the story to a newspaper.",
+        "She asked the board for a raise."
+      ],
+      "answer": "She began looking for a new job.",
+      "kind": "sequence"
+    },
+    {
+      "q": "The word \"conceal\" means ___.",
+      "ja": "\"conceal\" の意味は？",
+      "choices": [
+        "to copy",
+        "to praise",
+        "to hide",
+        "to repair"
+      ],
+      "answer": "to hide",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Mina send the report to the director and the board at the same time?",
+      "ja": "ミナはなぜ報告書を館長と理事会に同時に送った？",
+      "choices": [
+        "To save paper and time",
+        "To impress the whole board",
+        "So no one could bury it",
+        "So she could be promoted"
+      ],
+      "answer": "So no one could bury it",
+      "kind": "inference"
+    }
+  ]
+}

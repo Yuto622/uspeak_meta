@@ -91,7 +91,8 @@ export function stopVoice() {
 
 // サーバーの 声で 読む。読めなければ fallback()。onend は 読みおわり（とちゅうで 止めたときは よばない）。
 // slow：ゆっくり もう一度（0.75 倍。声の 高さは かえない）。
-export function playVoice(text, { japanese = isJapanese(text), onend, fallback, slow = false } = {}) {
+// onstart(audio)：鳴りはじめた とき（えほんの「読んで いる ことばを 光らせる」が 再生の 時間を 見る）。
+export function playVoice(text, { japanese = isJapanese(text), onend, fallback, slow = false, onstart } = {}) {
   const said = forSpeech(text, japanese);
   if (!said) return;
   if (!canServe()) { fallback?.(); return; }
@@ -117,7 +118,7 @@ export function playVoice(text, { japanese = isJapanese(text), onend, fallback, 
     audio.src = url;
     try { audio.preservesPitch = true; audio.playbackRate = slow ? 0.75 : 1; } catch { /* 古い ブラウザ */ }
     const p = audio.play();
-    (p?.then ? p : Promise.resolve()).then(() => { clearTimeout(timer); fails = 0; }, () => giveUp());
+    (p?.then ? p : Promise.resolve()).then(() => { clearTimeout(timer); fails = 0; if (me === token) onstart?.(audio); }, () => giveUp());
   }).catch(() => { clearTimeout(timer); if ((fails += 1) >= 3) off = true; giveUp(); });
 }
 

@@ -1,0 +1,601 @@
+{
+  "id": "rd-3-shoe-stories",
+  "stage": "3",
+  "title": "Shoes Have Stories",
+  "titleJa": "くつには 物語が ある",
+  "kind": "nonfiction",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "👟",
+        "x": 30,
+        "y": 60,
+        "s": 3.5,
+        "a": "hop"
+      },
+      {
+        "e": "👢",
+        "x": 55,
+        "y": 56,
+        "s": 3.5,
+        "a": "bob"
+      },
+      {
+        "e": "🩴",
+        "x": 78,
+        "y": 62,
+        "s": 3,
+        "a": "sway"
+      },
+      {
+        "e": "🌍",
+        "x": 55,
+        "y": 22,
+        "s": 2.5,
+        "a": "spin"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "People wear shoes every day. But long ago, shoes were very different in each country.",
+      "ja": "人は毎日くつをはきます。でも昔は、国によってくつがまったくちがいました。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👟",
+            "x": 22,
+            "y": 72,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "👞",
+            "x": 45,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "👢",
+            "x": 68,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🌍",
+            "x": 50,
+            "y": 28,
+            "s": 3.5,
+            "a": "spin"
+          },
+          {
+            "e": "🥿",
+            "x": 88,
+            "y": 76,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "In hot, dry Egypt, people made sandals from plants. They were light and cool.",
+      "ja": "暑くてかわいたエジプトでは、人々は植物からサンダルを作りました。軽くてすずしいくつでした。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🩴",
+            "x": 45,
+            "y": 70,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "🌿",
+            "x": 72,
+            "y": 72,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "☀️",
+            "x": 82,
+            "y": 18,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "🐪",
+            "x": 15,
+            "y": 66,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the Netherlands, farmers wore wooden shoes because the ground was often wet.",
+      "ja": "オランダでは、地面がよくぬれていたので、農家の人たちは木のくつをはきました。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🧑‍🌾",
+            "x": 30,
+            "y": 64,
+            "s": 4
+          },
+          {
+            "e": "🪵",
+            "x": 60,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "👞",
+            "x": 78,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "🌷",
+            "x": 90,
+            "y": 74,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "💧",
+            "x": 55,
+            "y": 88,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "The wooden shoes were hard, but they kept the farmers' feet dry and safe.",
+      "ja": "木のくつはかたかったけれど、農家の人たちの足をかわいたまま、安全に守ってくれました。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "👞",
+            "x": 40,
+            "y": 72,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "👞",
+            "x": 60,
+            "y": 72,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "💧",
+            "x": 25,
+            "y": 86,
+            "s": 1.5
+          },
+          {
+            "e": "💧",
+            "x": 78,
+            "y": 88,
+            "s": 1.5
+          },
+          {
+            "e": "🐄",
+            "x": 88,
+            "y": 62,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "In Japan, many people wore geta. Geta were taller than other shoes, so clothes stayed clean.",
+      "ja": "日本では多くの人がげたをはきました。げたはほかのはきものより高かったので、着物がよごれませんでした。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👘",
+            "x": 40,
+            "y": 54,
+            "s": 4
+          },
+          {
+            "e": "🩴",
+            "x": 34,
+            "y": 82,
+            "s": 2
+          },
+          {
+            "e": "🩴",
+            "x": 48,
+            "y": 82,
+            "s": 2
+          },
+          {
+            "e": "⬆️",
+            "x": 70,
+            "y": 70,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "🌸",
+            "x": 85,
+            "y": 30,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the cold north, people made warm boots from animal skin. Snow could not get in.",
+      "ja": "寒い北の地方では、人々は動物の皮であたたかいブーツを作りました。雪は中に入れませんでした。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👢",
+            "x": 40,
+            "y": 70,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "👢",
+            "x": 58,
+            "y": 70,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "❄️",
+            "x": 20,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "❄️",
+            "x": 80,
+            "y": 22,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "🦭",
+            "x": 86,
+            "y": 74,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Shoes showed things about people, too. Long ago in Europe, some rich men wore very long shoes.",
+      "ja": "くつは人のことも教えてくれました。昔のヨーロッパでは、お金持ちの男の人がとても長いくつをはいていました。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🤴",
+            "x": 30,
+            "y": 60,
+            "s": 4
+          },
+          {
+            "e": "🥿",
+            "x": 55,
+            "y": 80,
+            "s": 3.5
+          },
+          {
+            "e": "↔️",
+            "x": 55,
+            "y": 62,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🏰",
+            "x": 85,
+            "y": 56,
+            "s": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Some were so long that walking was a problem! They were popular but not very useful.",
+      "ja": "長すぎて、歩くのが大変なものもありました！ 人気はあったけれど、あまり便利ではありませんでした。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🤴",
+            "x": 35,
+            "y": 60,
+            "s": 4,
+            "a": "sway"
+          },
+          {
+            "e": "🥿",
+            "x": 62,
+            "y": 82,
+            "s": 4
+          },
+          {
+            "e": "💫",
+            "x": 35,
+            "y": 34,
+            "s": 2,
+            "a": "spin"
+          },
+          {
+            "e": "😵",
+            "x": 70,
+            "y": 50,
+            "s": 2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Today you can find shoes of every size and color in a shoe shop.",
+      "ja": "今では、くつ屋さんで、あらゆるサイズと色のくつを見つけることができます。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👟",
+            "x": 20,
+            "y": 50,
+            "s": 2.5
+          },
+          {
+            "e": "👠",
+            "x": 40,
+            "y": 50,
+            "s": 2.5
+          },
+          {
+            "e": "🥾",
+            "x": 60,
+            "y": 50,
+            "s": 2.5
+          },
+          {
+            "e": "👢",
+            "x": 80,
+            "y": 50,
+            "s": 2.5
+          },
+          {
+            "e": "🩰",
+            "x": 30,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "👞",
+            "x": 55,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🧒",
+            "x": 82,
+            "y": 76,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Will future shoes be better? Maybe they will tell you the way when you travel.",
+      "ja": "未来のくつはもっとよくなるでしょうか？ 旅行するとき、道を教えてくれるかもしれません。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "👟",
+            "x": 40,
+            "y": 64,
+            "s": 4.5,
+            "a": "float"
+          },
+          {
+            "e": "✨",
+            "x": 62,
+            "y": 50,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🗺️",
+            "x": 75,
+            "y": 66,
+            "s": 2.8
+          },
+          {
+            "e": "➡️",
+            "x": 60,
+            "y": 80,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "🚀",
+            "x": 85,
+            "y": 22,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "But one problem will be the same. One shoe will always hide under your bed!",
+      "ja": "でも、1つの問題はきっと同じです。くつのかたほうは、いつもベッドの下にかくれてしまうのです！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 55,
+            "y": 62,
+            "s": 5.5
+          },
+          {
+            "e": "👟",
+            "x": 55,
+            "y": 86,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧒",
+            "x": 15,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "❓",
+            "x": 15,
+            "y": 44,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "👟",
+            "x": 30,
+            "y": 82,
+            "s": 2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "shoes",
+      "ja": "くつ"
+    },
+    {
+      "en": "country",
+      "ja": "国"
+    },
+    {
+      "en": "wooden",
+      "ja": "木でできた"
+    },
+    {
+      "en": "clothes",
+      "ja": "服・着るもの"
+    },
+    {
+      "en": "showed",
+      "ja": "見せた・表した（show の過去形）"
+    },
+    {
+      "en": "things",
+      "ja": "もの・こと"
+    },
+    {
+      "en": "problem",
+      "ja": "問題"
+    },
+    {
+      "en": "popular",
+      "ja": "人気のある"
+    },
+    {
+      "en": "find",
+      "ja": "見つける"
+    },
+    {
+      "en": "size",
+      "ja": "サイズ・大きさ"
+    },
+    {
+      "en": "shop",
+      "ja": "店"
+    },
+    {
+      "en": "travel",
+      "ja": "旅行する"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本はおもに何について書いてある？",
+      "choices": [
+        "how to sell expensive jackets",
+        "a farmer who lost his boots",
+        "shoes in different places and times",
+        "the most famous shop in Japan"
+      ],
+      "answer": "shoes in different places and times",
+      "kind": "main"
+    },
+    {
+      "q": "Why did farmers in the Netherlands wear wooden shoes?",
+      "ja": "オランダの農家の人は、なぜ木のくつをはいた？",
+      "choices": [
+        "The ground was often wet.",
+        "The weather was very hot.",
+        "They wanted to look taller.",
+        "Wood was a popular color."
+      ],
+      "answer": "The ground was often wet.",
+      "kind": "detail"
+    },
+    {
+      "q": "What were the sandals in Egypt made from?",
+      "ja": "エジプトのサンダルは何から作られた？",
+      "choices": [
+        "wood",
+        "animal skin",
+        "snow",
+        "plants"
+      ],
+      "answer": "plants",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"wooden\" mean?",
+      "ja": "\"wooden\" の意味は？",
+      "choices": [
+        "made for winter",
+        "made from wood",
+        "very expensive",
+        "easy to lose"
+      ],
+      "answer": "made from wood",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "Why were the very long shoes a problem?",
+      "ja": "とても長いくつは、なぜ問題だった？",
+      "choices": [
+        "They got wet too easily.",
+        "Nobody wanted to buy them.",
+        "It was hard to walk in them.",
+        "They were too warm in summer."
+      ],
+      "answer": "It was hard to walk in them.",
+      "kind": "inference"
+    }
+  ]
+}

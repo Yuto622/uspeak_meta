@@ -1,0 +1,700 @@
+{
+  "id": "rd-8-interpreter",
+  "stage": "8",
+  "title": "The Honest Interpreter",
+  "titleJa": "正直な通訳",
+  "kind": "story",
+  "cover": {
+    "bg": "sea",
+    "items": [
+      {
+        "e": "👧",
+        "x": 50,
+        "y": 70,
+        "s": 4
+      },
+      {
+        "e": "💬",
+        "x": 30,
+        "y": 40,
+        "s": 2.5,
+        "a": "bob"
+      },
+      {
+        "e": "💬",
+        "x": 70,
+        "y": 40,
+        "s": 2.5,
+        "a": "bob"
+      },
+      {
+        "e": "⛵",
+        "x": 85,
+        "y": 62,
+        "s": 2,
+        "a": "float"
+      },
+      {
+        "e": "🌬️",
+        "x": 15,
+        "y": 20,
+        "s": 2,
+        "a": "drift"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Aya was the only person in the fishing town of Shiomi who spoke both Japanese and English well. So when a foreign energy company came to discuss a wind farm in the bay, the mayor asked the sixteen-year-old to interpret.",
+      "ja": "アヤは、漁師町シオミで日本語と英語の両方を上手に話せるただ一人の人だった。だから外国のエネルギー会社が湾の風力発電所について話し合いに来たとき、町長は16才のアヤに通訳をたのんだ。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 73,
+            "s": 4
+          },
+          {
+            "e": "⛵",
+            "x": 75,
+            "y": 55,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "🐟",
+            "x": 85,
+            "y": 70,
+            "s": 1.5,
+            "a": "sway"
+          },
+          {
+            "e": "🏘️",
+            "x": 15,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "🌬️",
+            "x": 60,
+            "y": 20,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The company's engineer, Ms. Berg, spoke first. She explained that the project would provide clean, sustainable electricity for approximately ten thousand homes. Aya translated every sentence carefully, and her hands slowly stopped shaking.",
+      "ja": "会社の技術者ベルグさんが最初に話した。この計画は、およそ1万世帯にクリーンで持続可能な電気をとどけると説明した。アヤは一文ずつていねいに訳し、手のふるえは少しずつ止まった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍💼",
+            "x": 72,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "⚡",
+            "x": 82,
+            "y": 45,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🏠",
+            "x": 70,
+            "y": 35,
+            "s": 1.6
+          },
+          {
+            "e": "🏠",
+            "x": 90,
+            "y": 32,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 73,
+            "s": 4
+          },
+          {
+            "e": "💬",
+            "x": 52,
+            "y": 50,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then Mr. Kuroda, who had led the fishermen for thirty years, stood up. \"These people see our sea as an empty space on a map,\" he said. \"Tell her we do not sell our grandchildren's future to strangers.\"",
+      "ja": "すると、30年間漁師たちをまとめてきたクロダさんが立ち上がった。「この人たちは、わしらの海を地図の上の空白としか見ていない。孫の未来をよそ者には売らん、と伝えてくれ」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👴",
+            "x": 22,
+            "y": 70,
+            "s": 3.8,
+            "a": "bob"
+          },
+          {
+            "e": "😠",
+            "x": 22,
+            "y": 48,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🗺️",
+            "x": 35,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "👧",
+            "x": 50,
+            "y": 73,
+            "s": 4
+          },
+          {
+            "e": "👩‍💼",
+            "x": 80,
+            "y": 72,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Aya hesitated. If she translated his words exactly, the meeting might end in anger. She could say something softer, such as \"the fishermen have some concerns.\" Nobody in the room would ever know the difference.",
+      "ja": "アヤはためらった。言葉どおりに訳せば、会議はいかりの中で終わるかもしれない。「漁師のみなさんには少し心配があります」のように、やわらかく言うこともできる。そのちがいに気づく人は、部屋にだれもいない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 50,
+            "y": 72,
+            "s": 4.2
+          },
+          {
+            "e": "💭",
+            "x": 62,
+            "y": 42,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 62,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "👴",
+            "x": 15,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👩‍💼",
+            "x": 85,
+            "y": 72,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "She remembered her father, who was also a fisherman, saying that a net with one hidden hole is worse than no net. Aya took a breath and translated every word, including \"strangers.\" The room became silent.",
+      "ja": "アヤは、同じく漁師である父の言葉を思い出した。「かくれた穴が一つあるあみは、あみがないより悪い」。アヤは息をすい、「よそ者」もふくめてすべての言葉を訳した。部屋は静まり返った。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 50,
+            "y": 72,
+            "s": 4.2
+          },
+          {
+            "e": "🕸️",
+            "x": 30,
+            "y": 35,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "🎣",
+            "x": 20,
+            "y": 45,
+            "s": 1.8
+          },
+          {
+            "e": "💬",
+            "x": 65,
+            "y": 48,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🤐",
+            "x": 85,
+            "y": 68,
+            "s": 2.5
+          },
+          {
+            "e": "👴",
+            "x": 12,
+            "y": 72,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ms. Berg's face turned pale. Then she answered sharply, \"Tell him that without investment, towns like this one disappear. Half of your young people have already left.\" Aya translated that as well, though it hurt to say it.",
+      "ja": "ベルグさんの顔は青ざめた。そしてするどく答えた。「投資がなければ、このような町は消えてしまう、と伝えて。若者の半分はもう出ていったでしょう」。アヤは、口にするのがつらかったが、それも訳した。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍💼",
+            "x": 75,
+            "y": 72,
+            "s": 3.8,
+            "a": "bob"
+          },
+          {
+            "e": "😤",
+            "x": 75,
+            "y": 50,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "💰",
+            "x": 88,
+            "y": 40,
+            "s": 1.8
+          },
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 73,
+            "s": 4
+          },
+          {
+            "e": "💔",
+            "x": 45,
+            "y": 52,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👴",
+            "x": 15,
+            "y": 72,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "The meeting ended early. Outside, the mayor frowned at her. \"You could have been more diplomatic,\" he said. That night Aya could not sleep. Perhaps the only consequence of her honesty would be the end of the talks.",
+      "ja": "会議は早く終わった。外で町長はアヤに顔をしかめた。「もっとおだやかに訳せただろうに」。その夜、アヤはねむれなかった。正直に訳した結果は、話し合いが終わることだけかもしれない。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 72,
+            "s": 4
+          },
+          {
+            "e": "😟",
+            "x": 40,
+            "y": 50,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🛏️",
+            "x": 40,
+            "y": 82,
+            "s": 3
+          },
+          {
+            "e": "🌙",
+            "x": 80,
+            "y": 18,
+            "s": 2.5,
+            "a": "float"
+          },
+          {
+            "e": "🧑‍💼",
+            "x": 85,
+            "y": 70,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "But the next morning, Ms. Berg knocked on her door. \"Yesterday was the first time I understood what they actually feel,\" she said. \"Polite answers gave me nothing to work with. Will you take me to Mr. Kuroda's boat?\"",
+      "ja": "ところが次の朝、ベルグさんがアヤの家のドアをたたいた。「昨日はじめて、あの人たちの本当の気持ちがわかった。ていねいなだけの返事では何も始められなかったの。クロダさんの船へ連れていってくれる？」",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "🚪",
+            "x": 30,
+            "y": 66,
+            "s": 3.5
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 73,
+            "s": 3.8
+          },
+          {
+            "e": "👩‍💼",
+            "x": 55,
+            "y": 72,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "✊",
+            "x": 42,
+            "y": 60,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌅",
+            "x": 82,
+            "y": 28,
+            "s": 2.5
+          },
+          {
+            "e": "⛵",
+            "x": 88,
+            "y": 60,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the water, Mr. Kuroda showed her where the fish laid their eggs each spring. Ms. Berg showed him the evidence from other countries, where fish had gathered around the towers. Each began to see the other's perspective.",
+      "ja": "海の上で、クロダさんは毎年春に魚がたまごを産む場所を見せた。ベルグさんは、塔のまわりに魚が集まったという外国の証拠を見せた。二人はおたがいの見方がわかりはじめた。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "⛵",
+            "x": 50,
+            "y": 55,
+            "s": 4,
+            "a": "float"
+          },
+          {
+            "e": "👴",
+            "x": 38,
+            "y": 48,
+            "s": 2.2
+          },
+          {
+            "e": "👩‍💼",
+            "x": 62,
+            "y": 48,
+            "s": 2.2
+          },
+          {
+            "e": "👧",
+            "x": 50,
+            "y": 46,
+            "s": 2.2
+          },
+          {
+            "e": "🐟",
+            "x": 25,
+            "y": 78,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "🐠",
+            "x": 75,
+            "y": 80,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "📊",
+            "x": 82,
+            "y": 30,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "It took four months to negotiate. In the end, the towers were moved away from the egg-laying grounds, and the fishermen were hired to check them by boat. It was an alternative that neither side had imagined at first.",
+      "ja": "交渉には4か月かかった。最後には、塔は産卵場所からはなれたところへ移され、漁師たちは船で塔を点検する仕事にやとわれた。それは、最初はどちらの側も思いつかなかった別の案だった。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🗼",
+            "x": 80,
+            "y": 40,
+            "s": 2.5
+          },
+          {
+            "e": "🗼",
+            "x": 90,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "🌬️",
+            "x": 85,
+            "y": 20,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🐟",
+            "x": 20,
+            "y": 78,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "🥚",
+            "x": 28,
+            "y": 84,
+            "s": 1.4
+          },
+          {
+            "e": "🚤",
+            "x": 50,
+            "y": 62,
+            "s": 2.8,
+            "a": "float"
+          },
+          {
+            "e": "👧",
+            "x": 12,
+            "y": 55,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "At the final meeting, Mr. Kuroda shook Ms. Berg's hand. \"I still think you were strangers,\" he said, and Aya translated it. \"But strangers who listen are rare.\" Ms. Berg laughed before Aya had even finished.",
+      "ja": "最後の会議で、クロダさんはベルグさんとあく手した。「あんたたちはよそ者だったと、今でも思う」。アヤはそれを訳した。「だが、話を聞くよそ者はめずらしい」。アヤが訳し終える前に、ベルグさんは笑いだした。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👴",
+            "x": 28,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "🤝",
+            "x": 50,
+            "y": 62,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👩‍💼",
+            "x": 72,
+            "y": 72,
+            "s": 3.5
+          },
+          {
+            "e": "😄",
+            "x": 72,
+            "y": 50,
+            "s": 1.8,
+            "a": "bob"
+          },
+          {
+            "e": "👧",
+            "x": 50,
+            "y": 80,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Aya understood something then. Her job had never been to make people agree. It was to make sure that when they disagreed, they were disagreeing with each other, and not with a comfortable lie that she had invented.",
+      "ja": "そのときアヤは気づいた。自分の仕事は、人びとを賛成させることではなかった。意見がぶつかるとき、アヤが作った心地よいうそとではなく、本当の相手とぶつかれるようにすることだったのだ。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👧",
+            "x": 50,
+            "y": 72,
+            "s": 4.2
+          },
+          {
+            "e": "💡",
+            "x": 50,
+            "y": 45,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌅",
+            "x": 80,
+            "y": 25,
+            "s": 3
+          },
+          {
+            "e": "⛵",
+            "x": 20,
+            "y": 58,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🗼",
+            "x": 90,
+            "y": 50,
+            "s": 1.2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "interpret",
+      "ja": "通訳する"
+    },
+    {
+      "en": "sustainable",
+      "ja": "持続可能な"
+    },
+    {
+      "en": "approximately",
+      "ja": "およそ"
+    },
+    {
+      "en": "hesitated",
+      "ja": "ためらった"
+    },
+    {
+      "en": "investment",
+      "ja": "投資"
+    },
+    {
+      "en": "diplomatic",
+      "ja": "おだやかで角が立たない"
+    },
+    {
+      "en": "consequence",
+      "ja": "結果"
+    },
+    {
+      "en": "evidence",
+      "ja": "証拠"
+    },
+    {
+      "en": "perspective",
+      "ja": "見方、視点"
+    },
+    {
+      "en": "negotiate",
+      "ja": "交渉する"
+    },
+    {
+      "en": "alternative",
+      "ja": "別の案"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This story is mostly about ___.",
+      "ja": "この話は主に何についての話？",
+      "choices": [
+        "a town that refuses every new idea",
+        "a company that secretly tricks a fishing town",
+        "a girl who chooses to translate honestly",
+        "a mayor who learns to speak English"
+      ],
+      "answer": "a girl who chooses to translate honestly",
+      "kind": "main"
+    },
+    {
+      "q": "What did Aya's father say about a net?",
+      "ja": "アヤの父は、あみについて何と言った？",
+      "choices": [
+        "A hidden hole is worse than no net.",
+        "A net must be checked every spring.",
+        "An old net catches the biggest fish.",
+        "A net should never be sold to strangers."
+      ],
+      "answer": "A hidden hole is worse than no net.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened the morning after the first meeting?",
+      "ja": "最初の会議の次の朝、何が起きた？",
+      "choices": [
+        "The mayor fired Aya.",
+        "The company left town.",
+        "Mr. Kuroda sold his boat.",
+        "Ms. Berg visited Aya."
+      ],
+      "answer": "Ms. Berg visited Aya.",
+      "kind": "sequence"
+    },
+    {
+      "q": "In this story, \"perspective\" means ___.",
+      "ja": "この話で \"perspective\" の意味は？",
+      "choices": [
+        "a kind of fishing boat",
+        "a way of seeing things",
+        "a plan to earn money",
+        "a rule for meetings"
+      ],
+      "answer": "a way of seeing things",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why was Ms. Berg grateful for the honest translation?",
+      "ja": "ベルグさんはなぜ正直な通訳をありがたく思った？",
+      "choices": [
+        "It ended the meeting quickly.",
+        "It made the mayor look foolish.",
+        "It showed her their real feelings.",
+        "It proved the fishermen were wrong."
+      ],
+      "answer": "It showed her their real feelings.",
+      "kind": "inference"
+    }
+  ]
+}

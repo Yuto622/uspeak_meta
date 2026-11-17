@@ -1,0 +1,419 @@
+{
+  "id": "rd-B-day-and-night",
+  "stage": "B",
+  "title": "Day and Night",
+  "titleJa": "ひると よる",
+  "kind": "nonfiction",
+  "cover": {
+    "bg": "sky",
+    "items": [
+      {
+        "e": "☀️",
+        "x": 28,
+        "y": 40,
+        "s": 3.6,
+        "a": "pulse"
+      },
+      {
+        "e": "🌙",
+        "x": 72,
+        "y": 40,
+        "s": 3.4,
+        "a": "float"
+      },
+      {
+        "e": "⭐",
+        "x": 86,
+        "y": 18,
+        "s": 1.4,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "The sun is up. It is day.",
+      "ja": "おひさまが のぼった。 ひるだ。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 50,
+            "y": 20,
+            "s": 4,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 72,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🏠",
+            "x": 76,
+            "y": 70,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the day, I see flowers.",
+      "ja": "ひるは はなが みえる。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 84,
+            "y": 16,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🌷",
+            "x": 52,
+            "y": 78,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "🌻",
+            "x": 68,
+            "y": 76,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌼",
+            "x": 84,
+            "y": 80,
+            "s": 1.8,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the day, I play with a ball.",
+      "ja": "ひるは ボールで あそぶ。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 84,
+            "y": 16,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 72,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "⚽",
+            "x": 62,
+            "y": 62,
+            "s": 2.2,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The sun goes down.",
+      "ja": "おひさまが しずむ。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "🌇",
+            "x": 50,
+            "y": 44,
+            "s": 4.4,
+            "a": "bob"
+          },
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 76,
+            "s": 2.6
+          },
+          {
+            "e": "⬇️",
+            "x": 78,
+            "y": 30,
+            "s": 1.8,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The moon is up. It is night.",
+      "ja": "つきが のぼった。 よるだ。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌙",
+            "x": 50,
+            "y": 22,
+            "s": 4,
+            "a": "float"
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🏠",
+            "x": 76,
+            "y": 72,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "At night, I see stars.",
+      "ja": "よるは ほしが みえる。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "⭐",
+            "x": 22,
+            "y": 20,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 46,
+            "y": 30,
+            "s": 1.3,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 64,
+            "y": 16,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 84,
+            "y": 32,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🌙",
+            "x": 88,
+            "y": 12,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "At night, I go to bed.",
+      "ja": "よるは ベッドで ねる。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 55,
+            "y": 70,
+            "s": 4.4
+          },
+          {
+            "e": "👧",
+            "x": 44,
+            "y": 60,
+            "s": 2.4
+          },
+          {
+            "e": "💤",
+            "x": 66,
+            "y": 36,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🌙",
+            "x": 86,
+            "y": 18,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "But the owl wakes up at night!",
+      "ja": "でも ふくろうは よるに おきる！",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 50,
+            "y": 62,
+            "s": 4.6
+          },
+          {
+            "e": "🦉",
+            "x": 52,
+            "y": 40,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🌙",
+            "x": 84,
+            "y": 16,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "⭐",
+            "x": 18,
+            "y": 22,
+            "s": 1.3,
+            "a": "pulse"
+          },
+          {
+            "e": "❗",
+            "x": 72,
+            "y": 34,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "sun",
+      "ja": "おひさま"
+    },
+    {
+      "en": "day",
+      "ja": "ひる"
+    },
+    {
+      "en": "flowers",
+      "ja": "はな"
+    },
+    {
+      "en": "ball",
+      "ja": "ボール"
+    },
+    {
+      "en": "moon",
+      "ja": "つき"
+    },
+    {
+      "en": "night",
+      "ja": "よる"
+    },
+    {
+      "en": "stars",
+      "ja": "ほし"
+    },
+    {
+      "en": "bed",
+      "ja": "ベッド"
+    },
+    {
+      "en": "owl",
+      "ja": "ふくろう"
+    },
+    {
+      "en": "wakes up",
+      "ja": "おきる"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの ほん？",
+      "choices": [
+        "rain and snow",
+        "day and night",
+        "cats and dogs"
+      ],
+      "answer": "day and night",
+      "kind": "main"
+    },
+    {
+      "q": "What is up in the day?",
+      "ja": "ひるに のぼるのは なに？",
+      "choices": [
+        "the sun",
+        "the moon",
+        "the stars"
+      ],
+      "answer": "the sun",
+      "kind": "detail"
+    },
+    {
+      "q": "When do I see stars?",
+      "ja": "ほしが みえるのは いつ？",
+      "choices": [
+        "in the day",
+        "in the rain",
+        "at night"
+      ],
+      "answer": "at night",
+      "kind": "detail"
+    },
+    {
+      "q": "What happens after the sun goes down?",
+      "ja": "おひさまが しずむと どうなる？",
+      "choices": [
+        "The flowers are up.",
+        "The moon is up.",
+        "The rainbow is up."
+      ],
+      "answer": "The moon is up.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Who wakes up at night?",
+      "ja": "よるに おきるのは だれ？",
+      "choices": [
+        "the dog",
+        "the girl",
+        "the owl"
+      ],
+      "answer": "the owl",
+      "kind": "detail"
+    }
+  ]
+}

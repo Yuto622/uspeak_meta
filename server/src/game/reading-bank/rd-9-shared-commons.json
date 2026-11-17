@@ -1,0 +1,751 @@
+{
+  "id": "rd-9-shared-commons",
+  "stage": "9",
+  "title": "The Tragedy That Did Not Happen",
+  "titleJa": "起きなかった悲劇 ― 共有地のなぞ",
+  "kind": "nonfiction",
+  "cover": {
+    "bg": "meadow",
+    "items": [
+      {
+        "e": "🐄",
+        "x": 30,
+        "y": 70,
+        "s": 3,
+        "a": "bob"
+      },
+      {
+        "e": "🐄",
+        "x": 55,
+        "y": 74,
+        "s": 3,
+        "a": "bob"
+      },
+      {
+        "e": "🐑",
+        "x": 75,
+        "y": 70,
+        "s": 2.5,
+        "a": "bob"
+      },
+      {
+        "e": "🤝",
+        "x": 50,
+        "y": 35,
+        "s": 3.5,
+        "a": "pulse"
+      },
+      {
+        "e": "🌍",
+        "x": 85,
+        "y": 22,
+        "s": 2,
+        "a": "spin"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Imagine a pasture shared by ten farmers. Each farmer reasons that adding one more cow will bring extra profit, while the cost of the damaged grass will be divided among everyone. The logic is flawless, and if all ten follow it, the pasture is destroyed.",
+      "ja": "10人の農民が共有する牧草地を想像しよう。牛を1頭ふやせば自分の利益はふえ、草がいたむ損害は全員で分けることになる、とだれもが考える。理屈は完ぺきだ。そして10人全員がそうすれば、牧草地はほろびる。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🐄",
+            "x": 20,
+            "y": 70,
+            "s": 2.8,
+            "a": "bob"
+          },
+          {
+            "e": "🐄",
+            "x": 38,
+            "y": 74,
+            "s": 2.8,
+            "a": "bob"
+          },
+          {
+            "e": "🐄",
+            "x": 56,
+            "y": 70,
+            "s": 2.8,
+            "a": "bob"
+          },
+          {
+            "e": "🐄",
+            "x": 74,
+            "y": 74,
+            "s": 2.8,
+            "a": "bob"
+          },
+          {
+            "e": "➕",
+            "x": 86,
+            "y": 60,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 90,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "💰",
+            "x": 90,
+            "y": 50,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "In 1968, an American ecologist gave this scenario a memorable name: \"the tragedy of the commons.\" A commons is any resource that many people use but nobody owns. His argument was pessimistic. Freedom in a commons, he claimed, inevitably brings ruin to all.",
+      "ja": "1968年、アメリカの生態学者がこの筋書きに印象的な名前をつけた。「共有地の悲劇」だ。共有地とは、多くの人が使うがだれのものでもない資源のこと。彼の主張は悲観的で、共有地での自由は必ず全員に破滅をもたらす、というものだった。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "📄",
+            "x": 30,
+            "y": 55,
+            "s": 3.5
+          },
+          {
+            "e": "✒️",
+            "x": 42,
+            "y": 48,
+            "s": 1.8
+          },
+          {
+            "e": "🥀",
+            "x": 65,
+            "y": 72,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "🐄",
+            "x": 82,
+            "y": 74,
+            "s": 2.5
+          },
+          {
+            "e": "🌵",
+            "x": 12,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "☁️",
+            "x": 70,
+            "y": 20,
+            "s": 2.5,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "History offers alarming examples. For nearly five centuries, the cod fishery off eastern Canada seemed inexhaustible. Then modern fleets caught fish faster than they could reproduce. In 1992 the population collapsed, the fishery was closed, and roughly thirty thousand people lost their livelihoods.",
+      "ja": "歴史にはおそろしい実例がある。カナダ東岸沖のタラ漁は、500年近くの間、つきることがないように見えた。やがて近代的な船団が、魚がふえるより速くとった。1992年に群れは激減し、漁は閉じられ、約3万人が生計の道を失った。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🚢",
+            "x": 25,
+            "y": 50,
+            "s": 3.5,
+            "a": "float"
+          },
+          {
+            "e": "🚢",
+            "x": 55,
+            "y": 45,
+            "s": 3,
+            "a": "float"
+          },
+          {
+            "e": "🕸️",
+            "x": 40,
+            "y": 70,
+            "s": 2.5,
+            "a": "sway"
+          },
+          {
+            "e": "🐟",
+            "x": 75,
+            "y": 78,
+            "s": 1.5,
+            "a": "sway"
+          },
+          {
+            "e": "📉",
+            "x": 85,
+            "y": 28,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "🚫",
+            "x": 75,
+            "y": 60,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "For decades, experts believed there were only two remedies. Either the government must impose strict regulations, or the commons must be divided into private property. Ordinary users, it was assumed, were incapable of restraining themselves without an outside authority.",
+      "ja": "何十年もの間、専門家は対策は二つしかないと信じていた。政府がきびしい規制を課すか、共有地を私有地に分けるかだ。ふつうの利用者は、外からの権力なしには自分をおさえられない、と思われていた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏛️",
+            "x": 25,
+            "y": 58,
+            "s": 4
+          },
+          {
+            "e": "📜",
+            "x": 25,
+            "y": 82,
+            "s": 1.8
+          },
+          {
+            "e": "⚖️",
+            "x": 50,
+            "y": 40,
+            "s": 2.2
+          },
+          {
+            "e": "🏡",
+            "x": 75,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "🚧",
+            "x": 75,
+            "y": 82,
+            "s": 2
+          },
+          {
+            "e": "🔒",
+            "x": 88,
+            "y": 50,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "One political scientist doubted this assumption. Rather than relying on theory, she spent years gathering evidence from real communities around the world. What she discovered contradicted the pessimists, and in 2009 it earned her the Nobel Prize in economics.",
+      "ja": "ある政治学者がこの思いこみをうたがった。彼女は理論にたよらず、何年もかけて世界中の現実の共同体から証拠を集めた。その発見は悲観論者の考えと食いちがい、2009年に彼女はノーベル経済学賞を受けた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍🔬",
+            "x": 30,
+            "y": 73,
+            "s": 3.8
+          },
+          {
+            "e": "🌍",
+            "x": 60,
+            "y": 45,
+            "s": 3.5,
+            "a": "spin"
+          },
+          {
+            "e": "📓",
+            "x": 45,
+            "y": 65,
+            "s": 2
+          },
+          {
+            "e": "🔍",
+            "x": 72,
+            "y": 62,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🏅",
+            "x": 88,
+            "y": 30,
+            "s": 2.5,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In a Swiss mountain village, farmers had shared alpine meadows under written rules since the fifteenth century. In Spain, farmers had settled disputes over irrigation water at a weekly open-air court for hundreds of years. Neither commons had been ruined.",
+      "ja": "スイスの山村では、農民たちが15世紀から、文書にした規則のもとで高地の牧草地を共有してきた。スペインでは、農民たちが何百年も、週に一度の屋外の法廷で用水をめぐる争いを解決してきた。どちらの共有地もほろびていない。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "🏔️",
+            "x": 25,
+            "y": 35,
+            "s": 4
+          },
+          {
+            "e": "🐄",
+            "x": 20,
+            "y": 74,
+            "s": 2.5,
+            "a": "bob"
+          },
+          {
+            "e": "📜",
+            "x": 35,
+            "y": 62,
+            "s": 1.8
+          },
+          {
+            "e": "💧",
+            "x": 65,
+            "y": 60,
+            "s": 2.5,
+            "a": "drift"
+          },
+          {
+            "e": "⚖️",
+            "x": 78,
+            "y": 50,
+            "s": 2.5
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 88,
+            "y": 76,
+            "s": 2.5
+          },
+          {
+            "e": "🌾",
+            "x": 68,
+            "y": 80,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Japan provided further cases. For centuries, many villages collectively managed forests and grasslands, deciding together when residents could cut wood or harvest grass. Researchers have documented a great many such arrangements. These shared lands often remained productive for generations without being exhausted.",
+      "ja": "日本にも例があった。何世紀もの間、多くの村が森林や草地を共同で管理し、住民がいつ木を切り草をかってよいかをいっしょに決めていた。研究者たちはこうした取り決めを数多く記録している。こうした入会地の多くは、使いつくされることなく何世代も実りをもたらしつづけた。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🌲",
+            "x": 15,
+            "y": 60,
+            "s": 3.5
+          },
+          {
+            "e": "🌲",
+            "x": 30,
+            "y": 55,
+            "s": 3
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 50,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🪓",
+            "x": 60,
+            "y": 66,
+            "s": 1.8
+          },
+          {
+            "e": "🪵",
+            "x": 72,
+            "y": 80,
+            "s": 2
+          },
+          {
+            "e": "🛖",
+            "x": 88,
+            "y": 68,
+            "s": 3
+          },
+          {
+            "e": "📅",
+            "x": 55,
+            "y": 35,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "What distinguished the successes from the failures? She identified several recurring principles. The boundaries of the resource were clear. The people who used it made the rules themselves. And members monitored one another, so cheating was noticed quickly.",
+      "ja": "成功と失敗を分けたものは何か。彼女は、くり返し現れるいくつかの原則を見つけた。資源の境界がはっきりしていること。使う人たち自身が規則を作ること。そしてたがいに見守り合うので、ずるがすぐに見つかること。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🚧",
+            "x": 12,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🚧",
+            "x": 88,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 35,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👩‍🌾",
+            "x": 60,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "📜",
+            "x": 48,
+            "y": 50,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "👀",
+            "x": 48,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🐄",
+            "x": 75,
+            "y": 80,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Penalties mattered too, but they were graduated. A first offense brought a mild warning; only repeated violations led to severe punishment. Equally crucial, there were cheap and rapid ways to resolve conflicts before resentment could accumulate.",
+      "ja": "罰も大切だったが、段階的なものだった。最初の違反には軽い注意だけで、くり返したときにだけ重い罰になった。同じくらい重要なのは、不満がたまる前に、安くすばやく争いを解決する手段があったことだ。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "⚠️",
+            "x": 20,
+            "y": 55,
+            "s": 2.5,
+            "a": "pulse"
+          },
+          {
+            "e": "➡️",
+            "x": 38,
+            "y": 55,
+            "s": 1.6
+          },
+          {
+            "e": "🟨",
+            "x": 52,
+            "y": 55,
+            "s": 2.5
+          },
+          {
+            "e": "➡️",
+            "x": 66,
+            "y": 55,
+            "s": 1.6
+          },
+          {
+            "e": "🟥",
+            "x": 80,
+            "y": 55,
+            "s": 2.5
+          },
+          {
+            "e": "🤝",
+            "x": 50,
+            "y": 80,
+            "s": 2.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Her conclusion was not that communities always succeed. It was that tragedy is not inevitable. Human beings are capable of cooperation when they can communicate, when they trust that others will comply, and when the rules feel legitimate rather than imposed.",
+      "ja": "彼女の結論は、共同体がつねに成功するということではない。悲劇はさけられないものではない、ということだ。話し合うことができ、ほかの人も守ると信じられ、規則がおしつけではなく正当だと感じられるとき、人間は協力できる。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 22,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👩",
+            "x": 42,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🧓",
+            "x": 62,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 80,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "💬",
+            "x": 32,
+            "y": 50,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "💬",
+            "x": 70,
+            "y": 50,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🤝",
+            "x": 50,
+            "y": 30,
+            "s": 2.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The hardest test lies ahead. The atmosphere and the oceans are commons shared by eight billion strangers who cannot gather in a village square. Whether principles that work for a meadow can be scaled up to a planet remains unresolved.",
+      "ja": "最もむずかしい試練はこの先にある。大気と海は、村の広場に集まることのできない80億人の他人どうしが共有する共有地だ。牧草地で通用する原則を地球規模に広げられるかどうかは、まだ答えが出ていない。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🌍",
+            "x": 50,
+            "y": 50,
+            "s": 5.5,
+            "a": "spin"
+          },
+          {
+            "e": "☁️",
+            "x": 30,
+            "y": 30,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🌊",
+            "x": 72,
+            "y": 72,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "🏭",
+            "x": 25,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "❓",
+            "x": 82,
+            "y": 28,
+            "s": 2.5,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Still, new commons keep appearing. Online encyclopedias and free software are built and maintained by volunteers who follow rules they wrote themselves. Each time you consult one, you are witnessing, on a modest scale, a tragedy that did not happen.",
+      "ja": "それでも、新しい共有地は生まれつづけている。オンラインの百科事典や無料のソフトウェアは、自分たちで書いた規則にしたがうボランティアが作り、守っている。それを使うたびに、あなたは小さな規模で「起きなかった悲劇」を目にしているのだ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "💻",
+            "x": 50,
+            "y": 62,
+            "s": 4.5
+          },
+          {
+            "e": "📚",
+            "x": 50,
+            "y": 40,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🧑‍💻",
+            "x": 20,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "👩‍💻",
+            "x": 80,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🌐",
+            "x": 50,
+            "y": 18,
+            "s": 2.5,
+            "a": "spin"
+          },
+          {
+            "e": "✨",
+            "x": 68,
+            "y": 40,
+            "s": 1.5,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "inevitably",
+      "ja": "必ず、さけられず"
+    },
+    {
+      "en": "inexhaustible",
+      "ja": "つきることのない"
+    },
+    {
+      "en": "livelihoods",
+      "ja": "生計の道"
+    },
+    {
+      "en": "regulations",
+      "ja": "規制"
+    },
+    {
+      "en": "assumption",
+      "ja": "思いこみ、前提"
+    },
+    {
+      "en": "contradicted",
+      "ja": "食いちがった、反した"
+    },
+    {
+      "en": "disputes",
+      "ja": "争い"
+    },
+    {
+      "en": "monitored",
+      "ja": "見守った、監視した"
+    },
+    {
+      "en": "graduated",
+      "ja": "段階的な"
+    },
+    {
+      "en": "resentment",
+      "ja": "不満、うらみ"
+    },
+    {
+      "en": "cooperation",
+      "ja": "協力"
+    },
+    {
+      "en": "legitimate",
+      "ja": "正当な"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は主に何についての本？",
+      "choices": [
+        "how communities can protect shared resources",
+        "why private property always fails in villages",
+        "how the Nobel Prize winners are selected",
+        "why cod is the most valuable fish in Canada"
+      ],
+      "answer": "how communities can protect shared resources",
+      "kind": "main"
+    },
+    {
+      "q": "What happened to the cod fishery off eastern Canada in 1992?",
+      "ja": "1992年、カナダ東岸沖のタラ漁はどうなった？",
+      "choices": [
+        "It was sold to a company.",
+        "It doubled in size.",
+        "It moved to Spain.",
+        "It was closed."
+      ],
+      "answer": "It was closed.",
+      "kind": "detail"
+    },
+    {
+      "q": "Which principle did the political scientist find in successful commons?",
+      "ja": "政治学者が成功した共有地に見つけた原則はどれ？",
+      "choices": [
+        "Outsiders wrote all of the rules.",
+        "Users made the rules themselves.",
+        "First offenses were punished severely.",
+        "Boundaries were kept deliberately vague."
+      ],
+      "answer": "Users made the rules themselves.",
+      "kind": "detail"
+    },
+    {
+      "q": "The word \"inevitable\" in \"tragedy is not inevitable\" means ___.",
+      "ja": "\"tragedy is not inevitable\" の \"inevitable\" の意味は？",
+      "choices": [
+        "impossible to avoid",
+        "easy to forget",
+        "slow to appear",
+        "cheap to repair"
+      ],
+      "answer": "impossible to avoid",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why does the writer call the atmosphere \"the hardest test\"?",
+      "ja": "筆者はなぜ大気を「最もむずかしい試練」と呼ぶ？",
+      "choices": [
+        "It was ruined long ago.",
+        "No one actually uses it.",
+        "Its users cannot easily meet.",
+        "It belongs to one country."
+      ],
+      "answer": "Its users cannot easily meet.",
+      "kind": "inference"
+    }
+  ]
+}

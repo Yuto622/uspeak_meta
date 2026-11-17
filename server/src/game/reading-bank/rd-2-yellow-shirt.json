@@ -1,0 +1,512 @@
+{
+  "id": "rd-2-yellow-shirt",
+  "stage": "2",
+  "title": "Where Is My Yellow Shirt?",
+  "titleJa": "きいろい シャツは どこ？",
+  "kind": "story",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "👧",
+        "x": 35,
+        "y": 66,
+        "s": 4,
+        "a": "bob"
+      },
+      {
+        "e": "👕",
+        "x": 68,
+        "y": 40,
+        "s": 3,
+        "a": "float"
+      },
+      {
+        "e": "❓",
+        "x": 68,
+        "y": 20,
+        "s": 2,
+        "a": "pulse"
+      },
+      {
+        "e": "⚽",
+        "x": 80,
+        "y": 80,
+        "s": 2,
+        "a": "spin"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Mio has a soccer game at the park this afternoon.",
+      "ja": "ミオは きょうの ごご、 こうえんで サッカーの しあいが あります。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 66,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "⚽",
+            "x": 58,
+            "y": 80,
+            "s": 2.2,
+            "a": "spin"
+          },
+          {
+            "e": "🥅",
+            "x": 82,
+            "y": 64,
+            "s": 3.5
+          },
+          {
+            "e": "☀️",
+            "x": 18,
+            "y": 18,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "But where is her yellow shirt? It is not in her room.",
+      "ja": "でも きいろい シャツは どこ？ へやには ありません。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 68,
+            "s": 4
+          },
+          {
+            "e": "❓",
+            "x": 55,
+            "y": 38,
+            "s": 2.5,
+            "a": "bob"
+          },
+          {
+            "e": "🛏️",
+            "x": 78,
+            "y": 74,
+            "s": 3.5
+          },
+          {
+            "e": "👖",
+            "x": 18,
+            "y": 82,
+            "s": 2
+          },
+          {
+            "e": "🧦",
+            "x": 60,
+            "y": 84,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Mother, where is my shirt?\" Mother is working. \"Ask your father.\"",
+      "ja": "「おかあさん、 わたしの シャツは どこ？」 おかあさんは しごとちゅう。「おとうさんに きいて。」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 25,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "👩",
+            "x": 65,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "💻",
+            "x": 80,
+            "y": 72,
+            "s": 2.5
+          },
+          {
+            "e": "💬",
+            "x": 45,
+            "y": 40,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Father is making soup. \"Sorry, Mio. Ask your brother.\"",
+      "ja": "おとうさんは スープを つくっています。「ごめん、 ミオ。 おにいちゃんに きいて。」",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "👨",
+            "x": 62,
+            "y": 64,
+            "s": 4
+          },
+          {
+            "e": "🍲",
+            "x": 80,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "♨️",
+            "x": 80,
+            "y": 52,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Her brother is reading. \"I don't have it. I have a green shirt.\"",
+      "ja": "おにいちゃんは ほんを よんでいます。「もってないよ。 ぼくのは みどりの シャツだよ。」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "👦",
+            "x": 62,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "📖",
+            "x": 76,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "🟢",
+            "x": 62,
+            "y": 44,
+            "s": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mio is sad. She has blue pants, white socks, and no shirt!",
+      "ja": "ミオは かなしいです。 あおい ズボンと しろい くつしたは あるのに、 シャツが ない！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "😢",
+            "x": 45,
+            "y": 40,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "👖",
+            "x": 22,
+            "y": 78,
+            "s": 2.5
+          },
+          {
+            "e": "🧦",
+            "x": 72,
+            "y": 80,
+            "s": 2.2
+          },
+          {
+            "e": "❌",
+            "x": 80,
+            "y": 44,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then she looks at the dog's bed. What is that?",
+      "ja": "そのとき、 いぬの ベッドを みます。 あれは なに？",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 68,
+            "s": 3.5
+          },
+          {
+            "e": "🧺",
+            "x": 68,
+            "y": 78,
+            "s": 4
+          },
+          {
+            "e": "🟡",
+            "x": 68,
+            "y": 66,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 68,
+            "y": 42,
+            "s": 2.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "It is Poko! The small brown dog is wearing her yellow shirt.",
+      "ja": "ポコです！ ちいさな ちゃいろの いぬが ミオの きいろい シャツを きています。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐕",
+            "x": 62,
+            "y": 72,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "👕",
+            "x": 62,
+            "y": 58,
+            "s": 2.5
+          },
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 68,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "❗",
+            "x": 38,
+            "y": 40,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"That is my shirt, Poko!\" Mother helps. She has a small pink shirt.",
+      "ja": "「それは わたしの シャツよ、 ポコ！」 おかあさんが たすけます。 ちいさな ピンクの シャツを もっています。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "🐕",
+            "x": 48,
+            "y": 76,
+            "s": 3.5
+          },
+          {
+            "e": "👩",
+            "x": 78,
+            "y": 66,
+            "s": 4
+          },
+          {
+            "e": "🎽",
+            "x": 64,
+            "y": 50,
+            "s": 2.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now Mio can play. And who is her number one fan? Poko!",
+      "ja": "これで ミオは しあいに でられます。 いちばんの ファンは だれ？ ポコです！",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 64,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "⚽",
+            "x": 52,
+            "y": 80,
+            "s": 2.2,
+            "a": "spin"
+          },
+          {
+            "e": "🐕",
+            "x": 78,
+            "y": 74,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "🎽",
+            "x": 78,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "🥅",
+            "x": 12,
+            "y": 62,
+            "s": 3
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "soccer",
+      "ja": "サッカー"
+    },
+    {
+      "en": "park",
+      "ja": "こうえん"
+    },
+    {
+      "en": "afternoon",
+      "ja": "ごご"
+    },
+    {
+      "en": "yellow",
+      "ja": "きいろ"
+    },
+    {
+      "en": "shirt",
+      "ja": "シャツ"
+    },
+    {
+      "en": "pants",
+      "ja": "ズボン"
+    },
+    {
+      "en": "Mother",
+      "ja": "おかあさん"
+    },
+    {
+      "en": "Father",
+      "ja": "おとうさん"
+    },
+    {
+      "en": "brother",
+      "ja": "おにいさん・おとうと"
+    },
+    {
+      "en": "soup",
+      "ja": "スープ"
+    },
+    {
+      "en": "sad",
+      "ja": "かなしい"
+    },
+    {
+      "en": "small",
+      "ja": "ちいさい"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの おはなし？",
+      "choices": [
+        "a dog that plays soccer",
+        "a girl and her lost shirt",
+        "a father and his hot soup"
+      ],
+      "answer": "a girl and her lost shirt",
+      "kind": "main"
+    },
+    {
+      "q": "Who does Mio ask first?",
+      "ja": "ミオは さいしょに だれに きく？",
+      "choices": [
+        "her mother",
+        "her father",
+        "her brother"
+      ],
+      "answer": "her mother",
+      "kind": "sequence"
+    },
+    {
+      "q": "What is Father making?",
+      "ja": "おとうさんは なにを つくっている？",
+      "choices": [
+        "a shirt",
+        "a boat",
+        "soup"
+      ],
+      "answer": "soup",
+      "kind": "detail"
+    },
+    {
+      "q": "Who is wearing the yellow shirt?",
+      "ja": "きいろい シャツを きているのは だれ？",
+      "choices": [
+        "the brother",
+        "the dog",
+        "the teacher"
+      ],
+      "answer": "the dog",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"sad\" mean?",
+      "ja": "\"sad\" の いみは？",
+      "choices": [
+        "very hot",
+        "not small",
+        "not happy"
+      ],
+      "answer": "not happy",
+      "kind": "vocabulary"
+    }
+  ]
+}

@@ -1,0 +1,721 @@
+{
+ "id": "rd-6-missing-drum",
+ "stage": "6",
+ "title": "The Case of the Missing Drum",
+ "titleJa": "消えた たいこの なぞ",
+ "kind": "story",
+ "cover": {
+  "bg": "night",
+  "items": [
+   {
+    "e": "🥁",
+    "x": 50,
+    "y": 58,
+    "s": 5,
+    "a": "pulse"
+   },
+   {
+    "e": "❓",
+    "x": 50,
+    "y": 28,
+    "s": 2.4,
+    "a": "bob"
+   },
+   {
+    "e": "👦",
+    "x": 20,
+    "y": 72,
+    "s": 3
+   },
+   {
+    "e": "🏮",
+    "x": 82,
+    "y": 30,
+    "s": 2.4,
+    "a": "sway"
+   }
+  ]
+ },
+ "pages": [
+  {
+   "text": "Three days before the summer festival, Kenta opened the door of the shrine storehouse. The big traditional drum, which was older than his grandfather, was gone.",
+   "ja": "夏祭りの 三日前、ケンタは 神社の 倉の とびらを 開けました。おじいさんよりも 古い、大きな 伝統の たいこが、なくなっていました。",
+   "scene": {
+    "bg": "cave",
+    "items": [
+     {
+      "e": "👦",
+      "x": 25,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🚪",
+      "x": 10,
+      "y": 60,
+      "s": 3
+     },
+     {
+      "e": "❓",
+      "x": 60,
+      "y": 55,
+      "s": 3,
+      "a": "pulse"
+     },
+     {
+      "e": "🏮",
+      "x": 85,
+      "y": 30,
+      "s": 2,
+      "a": "sway"
+     },
+     {
+      "e": "😨",
+      "x": 25,
+      "y": 54,
+      "s": 1.6,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"This is big trouble,\" said his friend Mika. \"Without the drum, there is no festival. We have to collect information and find it ourselves.\"",
+   "ja": "「これは 大変な ことに なったね」と 友だちの ミカが 言いました。「たいこが なければ、お祭りは できない。情報を 集めて、自分たちで 見つけなくちゃ」",
+   "scene": {
+    "bg": "cave",
+    "items": [
+     {
+      "e": "👦",
+      "x": 30,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "👧",
+      "x": 55,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🥁",
+      "x": 80,
+      "y": 40,
+      "s": 1.6
+     },
+     {
+      "e": "❌",
+      "x": 80,
+      "y": 40,
+      "s": 2.4,
+      "a": "pulse"
+     },
+     {
+      "e": "🏮",
+      "x": 15,
+      "y": 28,
+      "s": 2,
+      "a": "sway"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Kenta took out a notebook. On the floor they discovered two clues: a little wood dust, and long tracks made by a small cart.",
+   "ja": "ケンタは ノートを 取り出しました。ゆかの 上で、二人は 手がかりを 二つ 発見しました。少しの 木の こなと、小さな 台車が つけた 長い あとです。",
+   "scene": {
+    "bg": "cave",
+    "items": [
+     {
+      "e": "👦",
+      "x": 25,
+      "y": 70,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "📓",
+      "x": 36,
+      "y": 60,
+      "s": 1.8
+     },
+     {
+      "e": "🔍",
+      "x": 48,
+      "y": 70,
+      "s": 2.4,
+      "a": "sway"
+     },
+     {
+      "e": "🪵",
+      "x": 62,
+      "y": 82,
+      "s": 1.6
+     },
+     {
+      "e": "〰️",
+      "x": 78,
+      "y": 84,
+      "s": 2.4
+     },
+     {
+      "e": "👧",
+      "x": 88,
+      "y": 70,
+      "s": 2.8
+     }
+    ]
+   }
+  },
+  {
+   "text": "The tracks led to the street and then disappeared. \"Who was here last night?\" Mika asked the woman at the rice shop next door.",
+   "ja": "台車の あとは 通りまで 続いて、そこで 消えていました。「きのうの 夜、だれが ここに いましたか」と ミカは となりの お米屋さんの 女の人に 聞きました。",
+   "scene": {
+    "bg": "shop",
+    "items": [
+     {
+      "e": "👧",
+      "x": 30,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👦",
+      "x": 15,
+      "y": 72,
+      "s": 3
+     },
+     {
+      "e": "👩",
+      "x": 68,
+      "y": 68,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🍚",
+      "x": 84,
+      "y": 62,
+      "s": 2.2
+     },
+     {
+      "e": "〰️",
+      "x": 45,
+      "y": 88,
+      "s": 2
+     },
+     {
+      "e": "❓",
+      "x": 40,
+      "y": 50,
+      "s": 1.6,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"I saw the new boy, Daichi,\" she said. \"He was pulling a cart with something big and heavy on it. He looked nervous.\"",
+   "ja": "「転校生の ダイチくんを 見たわ。何か 大きくて 重い 物を のせた 台車を 引いていたの。きんちょうしている ようだったわ」と 女の人は 言いました。",
+   "scene": {
+    "bg": "night",
+    "items": [
+     {
+      "e": "🧒",
+      "x": 40,
+      "y": 72,
+      "s": 3.2,
+      "a": "sway"
+     },
+     {
+      "e": "🛒",
+      "x": 60,
+      "y": 76,
+      "s": 2.8
+     },
+     {
+      "e": "📦",
+      "x": 60,
+      "y": 62,
+      "s": 2.4
+     },
+     {
+      "e": "😰",
+      "x": 40,
+      "y": 54,
+      "s": 1.5,
+      "a": "pulse"
+     },
+     {
+      "e": "🌙",
+      "x": 82,
+      "y": 18,
+      "s": 2.2,
+      "a": "pulse"
+     },
+     {
+      "e": "🏠",
+      "x": 12,
+      "y": 55,
+      "s": 2.6
+     }
+    ]
+   }
+  },
+  {
+   "text": "Kenta was excited. \"I knew it! Daichi said our festival was too noisy.\" He ran to Daichi's house without listening to Mika's opinion.",
+   "ja": "ケンタは こうふんしました。「やっぱり！ ダイチは、ぼくたちの 祭りは うるさすぎるって 言ってたんだ」。ケンタは ミカの 意見も 聞かずに、ダイチの 家へ 走りました。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "👦",
+      "x": 62,
+      "y": 70,
+      "s": 3.4,
+      "a": "hop"
+     },
+     {
+      "e": "💨",
+      "x": 48,
+      "y": 72,
+      "s": 1.8,
+      "a": "drift"
+     },
+     {
+      "e": "👧",
+      "x": 20,
+      "y": 72,
+      "s": 3,
+      "a": "sway"
+     },
+     {
+      "e": "✋",
+      "x": 28,
+      "y": 58,
+      "s": 1.6
+     },
+     {
+      "e": "🏠",
+      "x": 88,
+      "y": 58,
+      "s": 3.2
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"You took our drum! Give it back!\" Kenta shouted at the door. Daichi was surprised. \"A drum? I don't understand. Come in and see.\"",
+   "ja": "「ぼくたちの たいこを 取っただろ！ 返せ！」と ケンタは げんかんで さけびました。ダイチは おどろきました。「たいこ？ わからないよ。入って 見てみて」",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "👦",
+      "x": 30,
+      "y": 72,
+      "s": 3.4,
+      "a": "hop"
+     },
+     {
+      "e": "💢",
+      "x": 30,
+      "y": 52,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "🧒",
+      "x": 65,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "😮",
+      "x": 65,
+      "y": 54,
+      "s": 1.6
+     },
+     {
+      "e": "🚪",
+      "x": 82,
+      "y": 62,
+      "s": 3
+     },
+     {
+      "e": "👧",
+      "x": 10,
+      "y": 74,
+      "s": 2.6
+     }
+    ]
+   }
+  },
+  {
+   "text": "In Daichi's room there was a big brown case. Inside it was not a drum but a cello. \"I was taking it to my lesson,\" he said quietly.",
+   "ja": "ダイチの 部屋には、大きな 茶色の ケースが ありました。中に あったのは、たいこではなく チェロでした。「レッスンに 持って行く ところだったんだ」と ダイチは 小さな 声で 言いました。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "🧒",
+      "x": 25,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "🎻",
+      "x": 55,
+      "y": 62,
+      "s": 4.5,
+      "a": "sway"
+     },
+     {
+      "e": "🎵",
+      "x": 72,
+      "y": 40,
+      "s": 1.8,
+      "a": "float"
+     },
+     {
+      "e": "👦",
+      "x": 82,
+      "y": 72,
+      "s": 3.2
+     },
+     {
+      "e": "👧",
+      "x": 94,
+      "y": 74,
+      "s": 2.4
+     }
+    ]
+   }
+  },
+  {
+   "text": "Kenta's face turned red. It was a terrible mistake. \"I'm sorry, Daichi. I decided you were the thief before I had any real reason.\"",
+   "ja": "ケンタの 顔は 赤く なりました。ひどい まちがいでした。「ごめん、ダイチ。ちゃんとした 理由も ないのに、きみが 犯人だと 決めつけてしまった」",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "👦",
+      "x": 60,
+      "y": 72,
+      "s": 3.4,
+      "a": "sway"
+     },
+     {
+      "e": "😳",
+      "x": 60,
+      "y": 54,
+      "s": 1.7,
+      "a": "pulse"
+     },
+     {
+      "e": "🙇",
+      "x": 46,
+      "y": 60,
+      "s": 1.6
+     },
+     {
+      "e": "🧒",
+      "x": 28,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "🎻",
+      "x": 85,
+      "y": 64,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"It's OK,\" said Daichi. \"But you wrote about wood dust in your notebook. Old Mr. Mori repairs wooden things, doesn't he? Let's ask him instead.\"",
+   "ja": "「いいよ」と ダイチは 言いました。「でも、ノートに 木の こなの ことを 書いたよね。森さんの おじいさんは、木の 物を 直す 人でしょ？ かわりに あの人に 聞いてみようよ」",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "🧒",
+      "x": 30,
+      "y": 72,
+      "s": 3.2,
+      "a": "hop"
+     },
+     {
+      "e": "💡",
+      "x": 30,
+      "y": 50,
+      "s": 2,
+      "a": "pulse"
+     },
+     {
+      "e": "📓",
+      "x": 50,
+      "y": 64,
+      "s": 2.2,
+      "a": "sway"
+     },
+     {
+      "e": "🪵",
+      "x": 62,
+      "y": 54,
+      "s": 1.6
+     },
+     {
+      "e": "👦",
+      "x": 72,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👧",
+      "x": 88,
+      "y": 72,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "The three children hurried to Mr. Mori's workshop. There was the drum! \"Its skin was broken,\" he said, \"so I prepared a new one as a surprise.\"",
+   "ja": "三人は 森さんの 仕事場へ いそぎました。たいこが ありました！「皮が やぶれていたんだ。だから、みんなを おどろかせようと 思って、新しい 皮を 用意したんだよ」と 森さんは 言いました。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "👴",
+      "x": 72,
+      "y": 68,
+      "s": 3.6,
+      "a": "bob"
+     },
+     {
+      "e": "🥁",
+      "x": 48,
+      "y": 68,
+      "s": 4.5,
+      "a": "pulse"
+     },
+     {
+      "e": "🔨",
+      "x": 62,
+      "y": 50,
+      "s": 1.8,
+      "a": "sway"
+     },
+     {
+      "e": "👦",
+      "x": 12,
+      "y": 74,
+      "s": 2.6,
+      "a": "hop"
+     },
+     {
+      "e": "👧",
+      "x": 22,
+      "y": 74,
+      "s": 2.6,
+      "a": "hop"
+     },
+     {
+      "e": "🧒",
+      "x": 32,
+      "y": 74,
+      "s": 2.6,
+      "a": "hop"
+     },
+     {
+      "e": "✨",
+      "x": 48,
+      "y": 44,
+      "s": 1.8,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "On festival night, Kenta introduced Daichi to everyone. The drum sounded better than ever, and next to it, the boy who thought festivals were too noisy played his cello with a big smile.",
+   "ja": "お祭りの 夜、ケンタは ダイチを みんなに しょうかいしました。たいこは 今までで いちばん いい 音でした。そして その となりで、祭りは うるさすぎると 思っていた 男の子が、にこにこしながら チェロを ひいていました。",
+   "scene": {
+    "bg": "night",
+    "items": [
+     {
+      "e": "🥁",
+      "x": 35,
+      "y": 66,
+      "s": 4,
+      "a": "pulse"
+     },
+     {
+      "e": "👦",
+      "x": 20,
+      "y": 72,
+      "s": 3,
+      "a": "hop"
+     },
+     {
+      "e": "🧒",
+      "x": 62,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "🎻",
+      "x": 72,
+      "y": 68,
+      "s": 2.8,
+      "a": "sway"
+     },
+     {
+      "e": "🏮",
+      "x": 15,
+      "y": 22,
+      "s": 2.2,
+      "a": "sway"
+     },
+     {
+      "e": "🏮",
+      "x": 85,
+      "y": 22,
+      "s": 2.2,
+      "a": "sway"
+     },
+     {
+      "e": "🎆",
+      "x": 50,
+      "y": 15,
+      "s": 2.6,
+      "a": "pulse"
+     }
+    ]
+   }
+  }
+ ],
+ "glossary": [
+  {
+   "en": "traditional",
+   "ja": "伝統的な"
+  },
+  {
+   "en": "trouble",
+   "ja": "困ったこと"
+  },
+  {
+   "en": "collect",
+   "ja": "集める"
+  },
+  {
+   "en": "information",
+   "ja": "情報"
+  },
+  {
+   "en": "discovered",
+   "ja": "発見した"
+  },
+  {
+   "en": "nervous",
+   "ja": "きんちょうした"
+  },
+  {
+   "en": "excited",
+   "ja": "こうふんした"
+  },
+  {
+   "en": "opinion",
+   "ja": "意見"
+  },
+  {
+   "en": "surprised",
+   "ja": "おどろいた"
+  },
+  {
+   "en": "mistake",
+   "ja": "まちがい"
+  },
+  {
+   "en": "reason",
+   "ja": "理由"
+  },
+  {
+   "en": "instead",
+   "ja": "かわりに"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "This book is mostly about ___.",
+   "ja": "この本は おもに 何の 話ですか。",
+   "choices": [
+    "solving a mystery and fixing a mistake",
+    "learning to play the cello at a new school",
+    "building a new shrine in the town",
+    "winning a drum contest in summer"
+   ],
+   "answer": "solving a mystery and fixing a mistake",
+   "kind": "main"
+  },
+  {
+   "q": "What was Daichi really carrying on the cart?",
+   "ja": "ダイチが 台車で 運んでいたのは、本当は 何でしたか。",
+   "choices": [
+    "a drum",
+    "rice bags",
+    "a cello",
+    "old wood"
+   ],
+   "answer": "a cello",
+   "kind": "detail"
+  },
+  {
+   "q": "What was Kenta's mistake?",
+   "ja": "ケンタの まちがいは 何でしたか。",
+   "choices": [
+    "He forgot to lock the storehouse door.",
+    "He broke the skin of the old drum.",
+    "He lost his notebook on the street.",
+    "He blamed Daichi without a reason."
+   ],
+   "answer": "He blamed Daichi without a reason.",
+   "kind": "inference"
+  },
+  {
+   "q": "What happened just before the children found the drum?",
+   "ja": "子どもたちが たいこを 見つける すぐ 前に、何が ありましたか。",
+   "choices": [
+    "Kenta played the drum at the festival.",
+    "Daichi remembered the wood dust clue.",
+    "Mika talked to the rice shop woman.",
+    "Kenta opened the storehouse door."
+   ],
+   "answer": "Daichi remembered the wood dust clue.",
+   "kind": "sequence"
+  },
+  {
+   "q": "Why did Mr. Mori take the drum?",
+   "ja": "なぜ 森さんは たいこを 持って行ったのですか。",
+   "choices": [
+    "to sell it",
+    "to repair it",
+    "to hide it",
+    "to practice on it"
+   ],
+   "answer": "to repair it",
+   "kind": "detail"
+  }
+ ]
+}

@@ -1,0 +1,617 @@
+{
+ "id": "rd-4-fox-job",
+ "stage": "4",
+ "title": "The Fox Who Wanted a Job",
+ "titleJa": "しごとが したい キツネ",
+ "kind": "story",
+ "cover": {
+  "bg": "city",
+  "items": [
+   {
+    "e": "🦊",
+    "x": 45,
+    "y": 70,
+    "s": 4.5,
+    "a": "bob"
+   },
+   {
+    "e": "🧥",
+    "x": 70,
+    "y": 68,
+    "s": 2.5,
+    "a": "sway"
+   },
+   {
+    "e": "🏢",
+    "x": 18,
+    "y": 55,
+    "s": 3
+   },
+   {
+    "e": "☀️",
+    "x": 82,
+    "y": 18,
+    "s": 2,
+    "a": "pulse"
+   }
+  ]
+ },
+ "pages": [
+  {
+   "text": "Fox lived near a quiet lake. One sunny morning, he had an idea. \"I want a job, like people!\"",
+   "ja": "キツネは 静かな 湖の 近くに 住んでいました。ある 晴れた 朝、いい 考えが うかびました。「人間みたいに、ぼくも 仕事が したい！」",
+   "scene": {
+    "bg": "forest",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 40,
+      "y": 72,
+      "s": 4,
+      "a": "hop"
+     },
+     {
+      "e": "💡",
+      "x": 44,
+      "y": 38,
+      "s": 2,
+      "a": "pulse"
+     },
+     {
+      "e": "🌊",
+      "x": 78,
+      "y": 74,
+      "s": 2.5,
+      "a": "sway"
+     },
+     {
+      "e": "☀️",
+      "x": 82,
+      "y": 18,
+      "s": 2,
+      "a": "pulse"
+     },
+     {
+      "e": "🌲",
+      "x": 12,
+      "y": 62,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "He put on a coat and visited a busy office in the town. \"Can I work here?\" he asked.",
+   "ja": "キツネは コートを 着て、町の いそがしい 会社を たずねました。「ここで 働けますか？」と 聞きました。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 30,
+      "y": 72,
+      "s": 4,
+      "a": "bob"
+     },
+     {
+      "e": "🧥",
+      "x": 30,
+      "y": 60,
+      "s": 1.8
+     },
+     {
+      "e": "🏢",
+      "x": 70,
+      "y": 55,
+      "s": 4.5
+     },
+     {
+      "e": "👩‍💼",
+      "x": 58,
+      "y": 72,
+      "s": 2.8
+     },
+     {
+      "e": "❓",
+      "x": 38,
+      "y": 45,
+      "s": 1.6,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "The people gave him a computer. But Fox's paws were too big, and he pushed every key together.",
+   "ja": "会社の 人たちは コンピューターを くれました。でも キツネの 前足は 大きすぎて、キーを 全部 いっしょに おしてしまいました。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 35,
+      "y": 70,
+      "s": 4,
+      "a": "bob"
+     },
+     {
+      "e": "💻",
+      "x": 58,
+      "y": 68,
+      "s": 3
+     },
+     {
+      "e": "🐾",
+      "x": 50,
+      "y": 60,
+      "s": 1.6,
+      "a": "hop"
+     },
+     {
+      "e": "💥",
+      "x": 62,
+      "y": 50,
+      "s": 2,
+      "a": "pulse"
+     },
+     {
+      "e": "👨‍💼",
+      "x": 85,
+      "y": 70,
+      "s": 2.5
+     }
+    ]
+   }
+  },
+  {
+   "text": "Next, he tried a job at a bakery. The bread smelled wonderful, so he ate it all before lunch.",
+   "ja": "次に、パン屋の 仕事を やってみました。パンは すばらしい においだったので、昼ごはんの 前に 全部 食べてしまいました。",
+   "scene": {
+    "bg": "shop",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 40,
+      "y": 72,
+      "s": 4,
+      "a": "bob"
+     },
+     {
+      "e": "🍞",
+      "x": 60,
+      "y": 66,
+      "s": 2.5
+     },
+     {
+      "e": "🥐",
+      "x": 72,
+      "y": 66,
+      "s": 2
+     },
+     {
+      "e": "🥖",
+      "x": 25,
+      "y": 62,
+      "s": 2
+     },
+     {
+      "e": "😋",
+      "x": 44,
+      "y": 48,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "👩‍🍳",
+      "x": 86,
+      "y": 70,
+      "s": 2.8
+     }
+    ]
+   }
+  },
+  {
+   "text": "Then he started a job at the swimming pool. But he did not like water, and he ran away.",
+   "ja": "それから、プールの 仕事を 始めました。でも 水が 好きではなかったので、にげ出しました。",
+   "scene": {
+    "bg": "park",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 22,
+      "y": 72,
+      "s": 4,
+      "a": "hop",
+      "flip": true
+     },
+     {
+      "e": "🏊",
+      "x": 68,
+      "y": 70,
+      "s": 3,
+      "a": "bob"
+     },
+     {
+      "e": "💦",
+      "x": 52,
+      "y": 60,
+      "s": 2,
+      "a": "hop"
+     },
+     {
+      "e": "🌊",
+      "x": 75,
+      "y": 78,
+      "s": 2,
+      "a": "sway"
+     },
+     {
+      "e": "💨",
+      "x": 36,
+      "y": 68,
+      "s": 1.8,
+      "a": "drift"
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"I am not good at any job,\" Fox said sadly. He left the town and walked home in the rain.",
+   "ja": "「ぼくは どんな 仕事も 上手に できない」と キツネは 悲しそうに 言いました。町を 出て、雨の 中を 歩いて 帰りました。",
+   "scene": {
+    "bg": "river",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 45,
+      "y": 74,
+      "s": 4,
+      "a": "sway"
+     },
+     {
+      "e": "🌧️",
+      "x": 50,
+      "y": 18,
+      "s": 3,
+      "a": "drift"
+     },
+     {
+      "e": "💧",
+      "x": 30,
+      "y": 40,
+      "s": 1.2,
+      "a": "drift"
+     },
+     {
+      "e": "💧",
+      "x": 68,
+      "y": 45,
+      "s": 1.2,
+      "a": "drift"
+     },
+     {
+      "e": "🏢",
+      "x": 90,
+      "y": 60,
+      "s": 1.5
+     }
+    ]
+   }
+  },
+  {
+   "text": "On the bridge, he met a family with a map. \"We are lost,\" said the girl. \"Where is the lake?\"",
+   "ja": "橋の 上で、地図を 持った 家族に 会いました。「道に まよったの」と 女の子が 言いました。「湖は どこ？」",
+   "scene": {
+    "bg": "river",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 25,
+      "y": 72,
+      "s": 3.8,
+      "a": "bob"
+     },
+     {
+      "e": "👧",
+      "x": 55,
+      "y": 72,
+      "s": 3
+     },
+     {
+      "e": "👨",
+      "x": 70,
+      "y": 70,
+      "s": 3.2
+     },
+     {
+      "e": "👩",
+      "x": 83,
+      "y": 70,
+      "s": 3.2
+     },
+     {
+      "e": "🗺️",
+      "x": 60,
+      "y": 55,
+      "s": 2,
+      "a": "sway"
+     },
+     {
+      "e": "🌉",
+      "x": 50,
+      "y": 86,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"Follow me!\" said Fox. He knew every rock, every tree, and the best place to catch fish.",
+   "ja": "「ついて来て！」と キツネは 言いました。キツネは すべての 岩も、木も、魚を つかまえる いちばん いい 場所も 知っていました。",
+   "scene": {
+    "bg": "forest",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 30,
+      "y": 72,
+      "s": 4,
+      "a": "hop"
+     },
+     {
+      "e": "👧",
+      "x": 55,
+      "y": 74,
+      "s": 2.6,
+      "a": "bob"
+     },
+     {
+      "e": "👨",
+      "x": 68,
+      "y": 73,
+      "s": 2.8,
+      "a": "bob"
+     },
+     {
+      "e": "🪨",
+      "x": 15,
+      "y": 78,
+      "s": 2
+     },
+     {
+      "e": "🌲",
+      "x": 85,
+      "y": 60,
+      "s": 3.5
+     },
+     {
+      "e": "🐟",
+      "x": 80,
+      "y": 82,
+      "s": 1.8,
+      "a": "hop"
+     }
+    ]
+   }
+  },
+  {
+   "text": "The family enjoyed the tour very much. \"You are a wonderful guide!\" they said. \"Please take our friends tomorrow.\"",
+   "ja": "家族は ツアーを とても 楽しみました。「あなたは すばらしい ガイドね！ 明日は 友だちも 案内してください」と 言いました。",
+   "scene": {
+    "bg": "forest",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 35,
+      "y": 72,
+      "s": 4,
+      "a": "bob"
+     },
+     {
+      "e": "👧",
+      "x": 60,
+      "y": 72,
+      "s": 2.8,
+      "a": "hop"
+     },
+     {
+      "e": "👨",
+      "x": 75,
+      "y": 70,
+      "s": 3
+     },
+     {
+      "e": "🌊",
+      "x": 50,
+      "y": 86,
+      "s": 2.5,
+      "a": "sway"
+     },
+     {
+      "e": "⭐",
+      "x": 40,
+      "y": 42,
+      "s": 2,
+      "a": "spin"
+     },
+     {
+      "e": "❤️",
+      "x": 64,
+      "y": 48,
+      "s": 1.5,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Now Fox is busy every holiday. He does not wear a coat, and his office is the forest.",
+   "ja": "今、キツネは 休みの 日は いつも いそがしいです。コートは 着ません。そして、キツネの 会社は 森なのです。",
+   "scene": {
+    "bg": "forest",
+    "items": [
+     {
+      "e": "🦊",
+      "x": 30,
+      "y": 72,
+      "s": 4.2,
+      "a": "hop"
+     },
+     {
+      "e": "🚩",
+      "x": 38,
+      "y": 58,
+      "s": 2,
+      "a": "sway"
+     },
+     {
+      "e": "👦",
+      "x": 58,
+      "y": 74,
+      "s": 2.4,
+      "a": "bob"
+     },
+     {
+      "e": "👧",
+      "x": 68,
+      "y": 74,
+      "s": 2.4,
+      "a": "bob"
+     },
+     {
+      "e": "👵",
+      "x": 80,
+      "y": 73,
+      "s": 2.6,
+      "a": "bob"
+     },
+     {
+      "e": "🌲",
+      "x": 10,
+      "y": 60,
+      "s": 3.5
+     },
+     {
+      "e": "☀️",
+      "x": 85,
+      "y": 15,
+      "s": 2,
+      "a": "pulse"
+     }
+    ]
+   }
+  }
+ ],
+ "glossary": [
+  {
+   "en": "idea",
+   "ja": "考え・アイデア"
+  },
+  {
+   "en": "job",
+   "ja": "仕事"
+  },
+  {
+   "en": "coat",
+   "ja": "コート"
+  },
+  {
+   "en": "busy",
+   "ja": "いそがしい"
+  },
+  {
+   "en": "office",
+   "ja": "会社・事務所"
+  },
+  {
+   "en": "wonderful",
+   "ja": "すばらしい"
+  },
+  {
+   "en": "bridge",
+   "ja": "橋"
+  },
+  {
+   "en": "rock",
+   "ja": "岩"
+  },
+  {
+   "en": "catch",
+   "ja": "つかまえる"
+  },
+  {
+   "en": "tour",
+   "ja": "ツアー・見学"
+  },
+  {
+   "en": "holiday",
+   "ja": "休日"
+  },
+  {
+   "en": "wear",
+   "ja": "着る"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "This book is mostly about ___.",
+   "ja": "この本は おもに 何の 話ですか。",
+   "choices": [
+    "a family who lives by a lake",
+    "a bakery that sells sweet bread",
+    "a fox who finds the right job",
+    "a girl who loses her new coat"
+   ],
+   "answer": "a fox who finds the right job",
+   "kind": "main"
+  },
+  {
+   "q": "Why was the computer job difficult for Fox?",
+   "ja": "なぜ コンピューターの 仕事は キツネに むずかしかったのですか。",
+   "choices": [
+    "His paws were too big.",
+    "He could not read at all.",
+    "The office was too noisy.",
+    "The computer was broken."
+   ],
+   "answer": "His paws were too big.",
+   "kind": "detail"
+  },
+  {
+   "q": "What did Fox do just after the bakery job?",
+   "ja": "パン屋の 仕事の すぐ あとに、キツネは 何を しましたか。",
+   "choices": [
+    "He met a lost family.",
+    "He visited an office.",
+    "He bought a new coat.",
+    "He worked at a pool."
+   ],
+   "answer": "He worked at a pool.",
+   "kind": "sequence"
+  },
+  {
+   "q": "In this book, a \"tour\" is ___.",
+   "ja": "この本で「tour」とは どんな 意味ですか。",
+   "choices": [
+    "a kind of bread from a town bakery",
+    "a trip to see a place with a guide",
+    "a heavy coat for cold rainy days",
+    "a small boat for fishing on a lake"
+   ],
+   "answer": "a trip to see a place with a guide",
+   "kind": "vocab"
+  },
+  {
+   "q": "Why was Fox a good guide?",
+   "ja": "なぜ キツネは いい ガイドに なれたのですか。",
+   "choices": [
+    "He studied maps at the office.",
+    "He was the fastest runner in town.",
+    "He knew the forest very well.",
+    "He could speak many languages well."
+   ],
+   "answer": "He knew the forest very well.",
+   "kind": "inference"
+  }
+ ]
+}

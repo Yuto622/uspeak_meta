@@ -80,7 +80,7 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
 #rpg-content .wm-section.big { font-size: 28px; color: #1b3a2f; margin-top: 4px; }
 .wm-legend { font-size: 15px; font-weight: 800; color: #6b7d74; margin: 0 6px 10px; }
 .wm-legend .en, .wm-legend .ja { font-style: normal; }
-.wm-rec { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; padding: 18px 6px 22px; }
+.wm-rec { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; padding: 18px 6px 22px; }
 .wm-rec .wm-name, .wm-rec .wm-ja { max-width: 100%; overflow-wrap: anywhere; }
 .wm-card.big { min-height: 250px; padding-top: 30px; box-shadow: 0 0 0 7px #ffc93c, 0 12px 26px #1b3a2f2e; overflow: visible; }
 .wm-card.big:hover { box-shadow: 0 0 0 7px #ffc93c, 0 20px 34px #1b3a2f40; }
@@ -89,8 +89,8 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
   padding: 5px 16px; border-radius: 99px; background: #ffc93c; color: #7a4a00; box-shadow: 0 3px 0 #d69e12; }
 .wm-rib .en, .wm-rib .ja { font-style: normal; }
 .wm-card.big .wm-icon { font-size: 84px; margin-bottom: 6px; }
-.wm-card.big .wm-name { font-size: 28px; }
-.wm-card.big .wm-ja { font-size: 21px; }
+.wm-card.big .wm-name { font-size: 23px; }
+.wm-card.big .wm-ja { font-size: 16px; }
 .wm-card.big .wm-badge.prem { top: 22px; }
 .wm-card.big .wm-badge.here { top: auto; bottom: -15px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 .wm-stars { position: relative; display: flex; gap: 10px; justify-content: center; align-items: center; margin: 2px 0 8px; padding: 4px 12px; border-radius: 99px;
@@ -99,7 +99,7 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
 .wm-stars i { font-style: normal; letter-spacing: .02em; text-shadow: 0 1px 0 #0006; }
 .wm-stars i.p { color: #ffd84a; }
 .wm-stars i.e { color: #7fe0ff; }
-.wm-card.big .wm-stars { font-size: 17px; padding: 6px 16px; }
+.wm-card.big .wm-stars { font-size: 13px; padding: 5px 9px; gap: 6px; }
 .wm-grid.small { grid-template-columns: repeat(auto-fill, minmax(158px, 1fr)); gap: 14px; }
 .wm-grid.small .wm-card { min-height: 168px; border-radius: 24px; padding: 10px 6px 14px; }
 .wm-grid.small .wm-icon { font-size: 50px; margin-bottom: 4px; }

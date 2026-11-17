@@ -1,0 +1,694 @@
+{
+ "id": "rd-5-tomato-promise",
+ "stage": "5",
+ "title": "The Tomato Promise",
+ "titleJa": "トマトの やくそく",
+ "kind": "story",
+ "cover": {
+  "bg": "garden",
+  "items": [
+   {
+    "e": "🍅",
+    "x": 50,
+    "y": 55,
+    "s": 5,
+    "a": "bob"
+   },
+   {
+    "e": "👧",
+    "x": 22,
+    "y": 72,
+    "s": 3.2
+   },
+   {
+    "e": "🪴",
+    "x": 78,
+    "y": 72,
+    "s": 3,
+    "a": "sway"
+   },
+   {
+    "e": "💧",
+    "x": 62,
+    "y": 30,
+    "s": 1.8,
+    "a": "drift"
+   }
+  ]
+ },
+ "pages": [
+  {
+   "text": "Mr. Sato lived next door to Hana. He was going abroad for two weeks to visit his daughter.",
+   "ja": "佐藤さんは ハナの となりに 住んでいました。むすめさんに 会うため、二週間 外国へ 行く ことに なっていました。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👴",
+      "x": 65,
+      "y": 70,
+      "s": 3.5,
+      "a": "bob"
+     },
+     {
+      "e": "🧳",
+      "x": 78,
+      "y": 76,
+      "s": 2.4
+     },
+     {
+      "e": "👧",
+      "x": 25,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "🏠",
+      "x": 88,
+      "y": 52,
+      "s": 3
+     },
+     {
+      "e": "✈️",
+      "x": 50,
+      "y": 18,
+      "s": 2,
+      "a": "drift"
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"Hana, will you water my tomato plants every day?\" he asked. \"I promise,\" said Hana. \"It will be easy.\"",
+   "ja": "「ハナちゃん、毎日 わたしの トマトに 水を やってくれるかい？」「やくそくします。かんたんですよ」と ハナは 言いました。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👴",
+      "x": 70,
+      "y": 70,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "👧",
+      "x": 28,
+      "y": 72,
+      "s": 3.2,
+      "a": "hop"
+     },
+     {
+      "e": "🪴",
+      "x": 48,
+      "y": 74,
+      "s": 2.6,
+      "a": "sway"
+     },
+     {
+      "e": "🍅",
+      "x": 50,
+      "y": 62,
+      "s": 1.4
+     },
+     {
+      "e": "🤝",
+      "x": 50,
+      "y": 44,
+      "s": 2,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "For three days, Hana gave the plants water. Then her friends invited her to the pool, and she forgot.",
+   "ja": "三日間、ハナは トマトに 水を やりました。それから 友だちに プールへ さそわれて、わすれてしまいました。",
+   "scene": {
+    "bg": "park",
+    "items": [
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 70,
+      "s": 3.2,
+      "a": "hop"
+     },
+     {
+      "e": "🏊",
+      "x": 62,
+      "y": 72,
+      "s": 2.8,
+      "a": "bob"
+     },
+     {
+      "e": "👦",
+      "x": 80,
+      "y": 70,
+      "s": 2.6,
+      "a": "bob"
+     },
+     {
+      "e": "💦",
+      "x": 50,
+      "y": 58,
+      "s": 1.8,
+      "a": "hop"
+     },
+     {
+      "e": "☀️",
+      "x": 85,
+      "y": 15,
+      "s": 2.4,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "A week later, she looked out of her window. The tomato plants were brown, and their leaves were hanging down.",
+   "ja": "一週間後、ハナは まどから 外を 見ました。トマトは 茶色く なって、葉が たれ下がっていました。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👧",
+      "x": 18,
+      "y": 45,
+      "s": 3,
+      "a": "bob"
+     },
+     {
+      "e": "🪟",
+      "x": 18,
+      "y": 30,
+      "s": 2.2
+     },
+     {
+      "e": "🥀",
+      "x": 55,
+      "y": 74,
+      "s": 3,
+      "a": "sway"
+     },
+     {
+      "e": "🥀",
+      "x": 72,
+      "y": 74,
+      "s": 2.8,
+      "a": "sway"
+     },
+     {
+      "e": "🍂",
+      "x": 62,
+      "y": 84,
+      "s": 1.6,
+      "a": "drift"
+     },
+     {
+      "e": "☀️",
+      "x": 85,
+      "y": 15,
+      "s": 2.6,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"Oh no! I have broken my promise,\" she said. She ran outside with a bucket of water.",
+   "ja": "「たいへん！ やくそくを やぶっちゃった」と ハナは 言いました。水の 入った バケツを 持って、外へ 走りました。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 72,
+      "s": 3.4,
+      "a": "hop"
+     },
+     {
+      "e": "🪣",
+      "x": 46,
+      "y": 74,
+      "s": 2.2,
+      "a": "sway"
+     },
+     {
+      "e": "💦",
+      "x": 54,
+      "y": 64,
+      "s": 1.6,
+      "a": "hop"
+     },
+     {
+      "e": "🥀",
+      "x": 72,
+      "y": 74,
+      "s": 3,
+      "a": "sway"
+     },
+     {
+      "e": "😱",
+      "x": 35,
+      "y": 54,
+      "s": 1.6,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Hana wanted to save the plants. She borrowed a science book from the library to learn what was necessary.",
+   "ja": "ハナは トマトを 助けたいと 思いました。何が 必要かを 知るために、図書館で 科学の 本を 借りました。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 70,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "📗",
+      "x": 50,
+      "y": 62,
+      "s": 2.6,
+      "a": "sway"
+     },
+     {
+      "e": "📚",
+      "x": 80,
+      "y": 60,
+      "s": 3
+     },
+     {
+      "e": "🔍",
+      "x": 58,
+      "y": 50,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "🍅",
+      "x": 20,
+      "y": 40,
+      "s": 1.4
+     }
+    ]
+   }
+  },
+  {
+   "text": "The book explained that tomatoes need water in the morning, not too much, and a lot of sun. Hana got up at six every day.",
+   "ja": "本には、トマトには 朝の 水が 必要で、やりすぎは だめ、そして 日光が たくさん いると 書いてありました。ハナは 毎日 六時に 起きました。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👧",
+      "x": 30,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🚿",
+      "x": 42,
+      "y": 62,
+      "s": 2,
+      "a": "sway"
+     },
+     {
+      "e": "🪴",
+      "x": 60,
+      "y": 74,
+      "s": 2.8,
+      "a": "sway"
+     },
+     {
+      "e": "🌅",
+      "x": 82,
+      "y": 22,
+      "s": 2.8,
+      "a": "pulse"
+     },
+     {
+      "e": "⏰",
+      "x": 14,
+      "y": 50,
+      "s": 1.8,
+      "a": "hop"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Slowly, the plants improved. New green leaves came out, and small red tomatoes began to grow. But Hana still felt bad.",
+   "ja": "少しずつ、トマトは 元気に なりました。新しい 緑の 葉が 出て、小さな 赤い 実が なり始めました。でも ハナの 心は まだ 晴れませんでした。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "🪴",
+      "x": 55,
+      "y": 72,
+      "s": 3.4,
+      "a": "sway"
+     },
+     {
+      "e": "🍅",
+      "x": 50,
+      "y": 58,
+      "s": 1.5,
+      "a": "pulse"
+     },
+     {
+      "e": "🍅",
+      "x": 62,
+      "y": 62,
+      "s": 1.3,
+      "a": "pulse"
+     },
+     {
+      "e": "🌱",
+      "x": 75,
+      "y": 78,
+      "s": 2
+     },
+     {
+      "e": "👧",
+      "x": 25,
+      "y": 72,
+      "s": 3.2,
+      "a": "sway"
+     },
+     {
+      "e": "😔",
+      "x": 25,
+      "y": 55,
+      "s": 1.5
+     }
+    ]
+   }
+  },
+  {
+   "text": "When Mr. Sato returned, Hana did not hide. \"I forgot your plants for a week,\" she explained. \"I am very sorry.\"",
+   "ja": "佐藤さんが 帰って来た とき、ハナは かくれませんでした。「一週間、トマトの ことを わすれていました。本当に ごめんなさい」と 説明しました。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👴",
+      "x": 70,
+      "y": 70,
+      "s": 3.5
+     },
+     {
+      "e": "🧳",
+      "x": 84,
+      "y": 76,
+      "s": 2.2
+     },
+     {
+      "e": "👧",
+      "x": 32,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "🙇",
+      "x": 32,
+      "y": 54,
+      "s": 1.6
+     },
+     {
+      "e": "🪴",
+      "x": 52,
+      "y": 76,
+      "s": 2.4,
+      "a": "sway"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Mr. Sato was quiet. Then he picked a tomato and ate it. His eyes opened wide. \"I can't believe it!\"",
+   "ja": "佐藤さんは だまっていました。それから トマトを 一つ とって 食べました。目が 大きく 開きました。「信じられない！」",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👴",
+      "x": 60,
+      "y": 70,
+      "s": 3.6,
+      "a": "bob"
+     },
+     {
+      "e": "🍅",
+      "x": 50,
+      "y": 56,
+      "s": 2.2,
+      "a": "pulse"
+     },
+     {
+      "e": "😲",
+      "x": 60,
+      "y": 50,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "👧",
+      "x": 25,
+      "y": 72,
+      "s": 3,
+      "a": "sway"
+     },
+     {
+      "e": "🪴",
+      "x": 82,
+      "y": 74,
+      "s": 2.6
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"These are the sweetest tomatoes I have ever grown! Tomatoes that get less water become sweeter. And thank you for telling me the truth.\"",
+   "ja": "「今まで 育てた 中で いちばん あまい トマトだ！ 水が 少ない トマトは あまく なるんだよ。それに、本当の ことを 話してくれて ありがとう」",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👴",
+      "x": 62,
+      "y": 70,
+      "s": 3.6,
+      "a": "hop"
+     },
+     {
+      "e": "🍅",
+      "x": 48,
+      "y": 56,
+      "s": 2.4,
+      "a": "spin"
+     },
+     {
+      "e": "✨",
+      "x": 40,
+      "y": 44,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "👧",
+      "x": 28,
+      "y": 72,
+      "s": 3.2,
+      "a": "hop"
+     },
+     {
+      "e": "😊",
+      "x": 28,
+      "y": 54,
+      "s": 1.5
+     },
+     {
+      "e": "❤️",
+      "x": 46,
+      "y": 30,
+      "s": 1.6,
+      "a": "float"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Next summer, Mr. Sato asked Hana again. This time she never forgot. But sometimes, on purpose, she gave them a little less water.",
+   "ja": "次の 夏、佐藤さんは また ハナに たのみました。今度は 一度も わすれませんでした。でも ときどき、わざと 水を 少しだけ へらしました。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🚿",
+      "x": 46,
+      "y": 62,
+      "s": 1.8,
+      "a": "sway"
+     },
+     {
+      "e": "💧",
+      "x": 54,
+      "y": 68,
+      "s": 1,
+      "a": "drift"
+     },
+     {
+      "e": "🪴",
+      "x": 62,
+      "y": 74,
+      "s": 3,
+      "a": "sway"
+     },
+     {
+      "e": "🍅",
+      "x": 58,
+      "y": 58,
+      "s": 1.5,
+      "a": "pulse"
+     },
+     {
+      "e": "🍅",
+      "x": 68,
+      "y": 62,
+      "s": 1.5,
+      "a": "pulse"
+     },
+     {
+      "e": "😉",
+      "x": 35,
+      "y": 54,
+      "s": 1.5
+     }
+    ]
+   }
+  }
+ ],
+ "glossary": [
+  {
+   "en": "abroad",
+   "ja": "外国へ"
+  },
+  {
+   "en": "promise",
+   "ja": "やくそく（する）"
+  },
+  {
+   "en": "science",
+   "ja": "科学"
+  },
+  {
+   "en": "necessary",
+   "ja": "必要な"
+  },
+  {
+   "en": "explained",
+   "ja": "説明した"
+  },
+  {
+   "en": "improved",
+   "ja": "よくなった"
+  },
+  {
+   "en": "returned",
+   "ja": "帰って来た"
+  },
+  {
+   "en": "believe",
+   "ja": "信じる"
+  },
+  {
+   "en": "truth",
+   "ja": "本当のこと"
+  },
+  {
+   "en": "sweeter",
+   "ja": "よりあまい"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "This book is mostly about a girl who ___.",
+   "ja": "この本は おもに どんな 女の子の 話ですか。",
+   "choices": [
+    "travels abroad to visit her family",
+    "opens a vegetable shop with her friend",
+    "wins a prize for her science report",
+    "fixes a mistake and tells the truth"
+   ],
+   "answer": "fixes a mistake and tells the truth",
+   "kind": "main"
+  },
+  {
+   "q": "Why did Hana forget the plants?",
+   "ja": "なぜ ハナは トマトの ことを わすれたのですか。",
+   "choices": [
+    "She was sick in bed for a week.",
+    "She went to the pool with friends.",
+    "She had too much homework to do.",
+    "She went on a trip with her family."
+   ],
+   "answer": "She went to the pool with friends.",
+   "kind": "detail"
+  },
+  {
+   "q": "What did Hana do after she saw the brown plants?",
+   "ja": "茶色く なった トマトを 見た あと、ハナは 何を しましたか。",
+   "choices": [
+    "She ran outside with water.",
+    "She called Mr. Sato in a hurry.",
+    "She bought some new plants.",
+    "She hid in her room."
+   ],
+   "answer": "She ran outside with water.",
+   "kind": "sequence"
+  },
+  {
+   "q": "Something that is \"necessary\" is something you ___.",
+   "ja": "「necessary」な ものとは、どんな ものですか。",
+   "choices": [
+    "forget",
+    "break",
+    "need",
+    "borrow"
+   ],
+   "answer": "need",
+   "kind": "vocab"
+  },
+  {
+   "q": "Why did Mr. Sato thank Hana at the end?",
+   "ja": "さいごに 佐藤さんは なぜ ハナに お礼を 言ったのですか。",
+   "choices": [
+    "She gave him her best science book.",
+    "She was honest about her mistake.",
+    "She cleaned his whole house for him.",
+    "She cooked dinner for him."
+   ],
+   "answer": "She was honest about her mistake.",
+   "kind": "inference"
+  }
+ ]
+}

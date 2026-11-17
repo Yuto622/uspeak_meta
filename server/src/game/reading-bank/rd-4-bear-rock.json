@@ -1,0 +1,613 @@
+{
+ "id": "rd-4-bear-rock",
+ "stage": "4",
+ "title": "To the Top of Bear Rock",
+ "titleJa": "ベアロックの てっぺんへ",
+ "kind": "story",
+ "cover": {
+  "bg": "mountain",
+  "items": [
+   {
+    "e": "👧",
+    "x": 38,
+    "y": 72,
+    "s": 3.5,
+    "a": "bob"
+   },
+   {
+    "e": "👦",
+    "x": 60,
+    "y": 70,
+    "s": 3.5,
+    "a": "hop"
+   },
+   {
+    "e": "⛰️",
+    "x": 50,
+    "y": 35,
+    "s": 4
+   },
+   {
+    "e": "🗺️",
+    "x": 28,
+    "y": 60,
+    "s": 2,
+    "a": "sway"
+   },
+   {
+    "e": "🎒",
+    "x": 70,
+    "y": 62,
+    "s": 1.8
+   }
+  ]
+ },
+ "pages": [
+  {
+   "text": "Aya and Leo were at summer camp. \"Tomorrow we will climb Bear Rock,\" said the teacher.",
+   "ja": "アヤと レオは サマーキャンプに 来ていました。「明日は ベアロックに 登ります」と 先生が 言いました。",
+   "scene": {
+    "bg": "forest",
+    "items": [
+     {
+      "e": "👧",
+      "x": 30,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👦",
+      "x": 48,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👩‍🏫",
+      "x": 72,
+      "y": 70,
+      "s": 3.4
+     },
+     {
+      "e": "⛺",
+      "x": 88,
+      "y": 68,
+      "s": 3
+     },
+     {
+      "e": "⛰️",
+      "x": 60,
+      "y": 28,
+      "s": 2.5
+     },
+     {
+      "e": "🔥",
+      "x": 15,
+      "y": 78,
+      "s": 1.8,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Leo was faster than Aya. \"You are too slow,\" he said. \"I will get to the top first.\"",
+   "ja": "レオは アヤより 速く 歩けました。「きみは おそすぎるよ。ぼくが 先に てっぺんに 着くからね」と 言いました。",
+   "scene": {
+    "bg": "mountain",
+    "items": [
+     {
+      "e": "👦",
+      "x": 68,
+      "y": 62,
+      "s": 3.4,
+      "a": "hop"
+     },
+     {
+      "e": "👧",
+      "x": 25,
+      "y": 74,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "💨",
+      "x": 56,
+      "y": 64,
+      "s": 1.8,
+      "a": "drift"
+     },
+     {
+      "e": "⛰️",
+      "x": 50,
+      "y": 28,
+      "s": 3
+     },
+     {
+      "e": "🎒",
+      "x": 68,
+      "y": 52,
+      "s": 1.5
+     }
+    ]
+   }
+  },
+  {
+   "text": "Aya walked slowly because she looked at the map again and again. Leo ran up the path without a map.",
+   "ja": "アヤは 何度も 何度も 地図を 見たので、ゆっくり 歩きました。レオは 地図なしで 道を かけ上がりました。",
+   "scene": {
+    "bg": "mountain",
+    "items": [
+     {
+      "e": "👧",
+      "x": 28,
+      "y": 74,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🗺️",
+      "x": 36,
+      "y": 62,
+      "s": 2.2,
+      "a": "sway"
+     },
+     {
+      "e": "👦",
+      "x": 80,
+      "y": 48,
+      "s": 2.4,
+      "a": "hop"
+     },
+     {
+      "e": "💨",
+      "x": 70,
+      "y": 52,
+      "s": 1.4,
+      "a": "drift"
+     },
+     {
+      "e": "🌲",
+      "x": 10,
+      "y": 60,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "Soon the path became two paths. Leo did not stop. He went left because it looked easier.",
+   "ja": "やがて 道は 二つに 分かれました。レオは 止まりませんでした。左の 道が かんたんそうだったので、左へ 行きました。",
+   "scene": {
+    "bg": "forest",
+    "items": [
+     {
+      "e": "👦",
+      "x": 35,
+      "y": 66,
+      "s": 3.2,
+      "a": "hop",
+      "flip": true
+     },
+     {
+      "e": "⬅️",
+      "x": 30,
+      "y": 45,
+      "s": 2.2,
+      "a": "pulse"
+     },
+     {
+      "e": "➡️",
+      "x": 70,
+      "y": 45,
+      "s": 2.2
+     },
+     {
+      "e": "🌲",
+      "x": 50,
+      "y": 58,
+      "s": 3.5
+     },
+     {
+      "e": "🪨",
+      "x": 80,
+      "y": 78,
+      "s": 2
+     }
+    ]
+   }
+  },
+  {
+   "text": "But the left path went down to a lake. There was no bridge. Leo could not go on.",
+   "ja": "でも 左の 道は 湖へ 下っていました。橋は ありません。レオは 先へ 進めませんでした。",
+   "scene": {
+    "bg": "river",
+    "items": [
+     {
+      "e": "👦",
+      "x": 22,
+      "y": 72,
+      "s": 3.4,
+      "a": "sway"
+     },
+     {
+      "e": "🌊",
+      "x": 60,
+      "y": 76,
+      "s": 3.5,
+      "a": "sway"
+     },
+     {
+      "e": "🌊",
+      "x": 85,
+      "y": 78,
+      "s": 3,
+      "a": "sway"
+     },
+     {
+      "e": "❌",
+      "x": 55,
+      "y": 48,
+      "s": 2.2,
+      "a": "pulse"
+     },
+     {
+      "e": "😟",
+      "x": 26,
+      "y": 55,
+      "s": 1.5
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"Leo! Come back!\" called Aya from above. \"The right path is on my map. Let's go together.\"",
+   "ja": "「レオ！ もどって来て！」と アヤが 上から よびました。「右の 道が 地図に のっているよ。いっしょに 行こう」",
+   "scene": {
+    "bg": "mountain",
+    "items": [
+     {
+      "e": "👧",
+      "x": 70,
+      "y": 40,
+      "s": 3.2,
+      "a": "hop"
+     },
+     {
+      "e": "🗺️",
+      "x": 80,
+      "y": 32,
+      "s": 2,
+      "a": "sway"
+     },
+     {
+      "e": "👦",
+      "x": 22,
+      "y": 78,
+      "s": 3,
+      "a": "bob"
+     },
+     {
+      "e": "📣",
+      "x": 60,
+      "y": 36,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "🌊",
+      "x": 10,
+      "y": 88,
+      "s": 2,
+      "a": "sway"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Leo climbed back. His face was red. \"I am sorry, Aya. Your way was slower, but it was better.\"",
+   "ja": "レオは 登って もどりました。顔が 赤く なっていました。「ごめんね、アヤ。きみの やり方は おそいけど、ぼくのより よかった」",
+   "scene": {
+    "bg": "mountain",
+    "items": [
+     {
+      "e": "👦",
+      "x": 42,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "😳",
+      "x": 42,
+      "y": 55,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "👧",
+      "x": 62,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🗺️",
+      "x": 72,
+      "y": 62,
+      "s": 1.8
+     },
+     {
+      "e": "🌲",
+      "x": 12,
+      "y": 62,
+      "s": 3
+     }
+    ]
+   }
+  },
+  {
+   "text": "They climbed together. When Aya was tired, Leo carried her bag. When Leo was lost, Aya read the map.",
+   "ja": "二人は いっしょに 登りました。アヤが つかれた ときは、レオが かばんを 持ちました。レオが まよった ときは、アヤが 地図を 読みました。",
+   "scene": {
+    "bg": "mountain",
+    "items": [
+     {
+      "e": "👧",
+      "x": 40,
+      "y": 66,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👦",
+      "x": 58,
+      "y": 62,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "🎒",
+      "x": 66,
+      "y": 54,
+      "s": 1.8
+     },
+     {
+      "e": "🎒",
+      "x": 58,
+      "y": 50,
+      "s": 1.6
+     },
+     {
+      "e": "🗺️",
+      "x": 32,
+      "y": 56,
+      "s": 1.8,
+      "a": "sway"
+     },
+     {
+      "e": "⛰️",
+      "x": 80,
+      "y": 28,
+      "s": 2.5
+     }
+    ]
+   }
+  },
+  {
+   "text": "At last they stood on the top. They could see the camp, the lake, and a farm far away.",
+   "ja": "ついに 二人は てっぺんに 立ちました。キャンプも、湖も、遠くの 農場も 見えました。",
+   "scene": {
+    "bg": "sky",
+    "items": [
+     {
+      "e": "👧",
+      "x": 42,
+      "y": 62,
+      "s": 3.4,
+      "a": "hop"
+     },
+     {
+      "e": "👦",
+      "x": 58,
+      "y": 62,
+      "s": 3.4,
+      "a": "hop"
+     },
+     {
+      "e": "⛺",
+      "x": 15,
+      "y": 88,
+      "s": 1.2
+     },
+     {
+      "e": "🌊",
+      "x": 50,
+      "y": 90,
+      "s": 1.4,
+      "a": "sway"
+     },
+     {
+      "e": "🐄",
+      "x": 85,
+      "y": 88,
+      "s": 1.1
+     },
+     {
+      "e": "☀️",
+      "x": 82,
+      "y": 18,
+      "s": 2.4,
+      "a": "pulse"
+     },
+     {
+      "e": "🚩",
+      "x": 50,
+      "y": 48,
+      "s": 2,
+      "a": "sway"
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"Time for our picnic!\" said Leo. He opened his bag. It was empty. The sandwiches were still at camp. Aya laughed.",
+   "ja": "「ピクニックの 時間だ！」と レオが 言いました。かばんを 開けると……からっぽ。サンドイッチは キャンプに おいたままでした。アヤは 笑いました。",
+   "scene": {
+    "bg": "sky",
+    "items": [
+     {
+      "e": "👦",
+      "x": 58,
+      "y": 64,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🎒",
+      "x": 68,
+      "y": 72,
+      "s": 2.6,
+      "a": "sway"
+     },
+     {
+      "e": "❓",
+      "x": 68,
+      "y": 54,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "👧",
+      "x": 38,
+      "y": 64,
+      "s": 3.4,
+      "a": "hop"
+     },
+     {
+      "e": "😂",
+      "x": 38,
+      "y": 48,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "🥪",
+      "x": 12,
+      "y": 88,
+      "s": 1.2
+     }
+    ]
+   }
+  }
+ ],
+ "glossary": [
+  {
+   "en": "camp",
+   "ja": "キャンプ"
+  },
+  {
+   "en": "climb",
+   "ja": "登る"
+  },
+  {
+   "en": "top",
+   "ja": "てっぺん・頂上"
+  },
+  {
+   "en": "again",
+   "ja": "もう一度"
+  },
+  {
+   "en": "lake",
+   "ja": "湖"
+  },
+  {
+   "en": "bridge",
+   "ja": "橋"
+  },
+  {
+   "en": "together",
+   "ja": "いっしょに"
+  },
+  {
+   "en": "farm",
+   "ja": "農場"
+  },
+  {
+   "en": "picnic",
+   "ja": "ピクニック"
+  },
+  {
+   "en": "faster",
+   "ja": "より速い"
+  },
+  {
+   "en": "slower",
+   "ja": "よりおそい"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "This book is mostly about ___.",
+   "ja": "この本は おもに 何の 話ですか。",
+   "choices": [
+    "a teacher who gets lost on a mountain",
+    "two children who help each other",
+    "a boy who makes sandwiches for a picnic",
+    "a girl who draws a map of a summer camp"
+   ],
+   "answer": "two children who help each other",
+   "kind": "main"
+  },
+  {
+   "q": "Why did Aya walk slowly?",
+   "ja": "なぜ アヤは ゆっくり 歩いたのですか。",
+   "choices": [
+    "She was carrying two bags.",
+    "Her shoes were too small.",
+    "She did not like climbing.",
+    "She kept checking the map."
+   ],
+   "answer": "She kept checking the map.",
+   "kind": "detail"
+  },
+  {
+   "q": "What happened right after Leo went left?",
+   "ja": "レオが 左へ 行った すぐ あとに、何が 起こりましたか。",
+   "choices": [
+    "He came to a lake.",
+    "He reached the top.",
+    "He ate his lunch.",
+    "He found a bridge."
+   ],
+   "answer": "He came to a lake.",
+   "kind": "sequence"
+  },
+  {
+   "q": "How did Leo feel when his face was red?",
+   "ja": "顔が 赤く なった とき、レオは どんな 気持ちでしたか。",
+   "choices": [
+    "proud",
+    "sleepy",
+    "sorry",
+    "hungry"
+   ],
+   "answer": "sorry",
+   "kind": "inference"
+  },
+  {
+   "q": "What was the surprise at the end?",
+   "ja": "さいごの おどろきは 何でしたか。",
+   "choices": [
+    "A bear was sleeping on the big rock.",
+    "The sandwiches were not in the bag.",
+    "The teacher was already at the top.",
+    "It started to rain on their picnic."
+   ],
+   "answer": "The sandwiches were not in the bag.",
+   "kind": "detail"
+  }
+ ]
+}

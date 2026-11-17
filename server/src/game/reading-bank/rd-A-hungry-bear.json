@@ -1,0 +1,349 @@
+{
+  "id": "rd-A-hungry-bear",
+  "stage": "A",
+  "title": "Hungry Bear",
+  "titleJa": "はらぺこ くまさん",
+  "kind": "story",
+  "cover": {
+    "bg": "kitchen",
+    "items": [
+      {
+        "e": "🐻",
+        "x": 50,
+        "y": 62,
+        "s": 4.5,
+        "a": "bob"
+      },
+      {
+        "e": "🍎",
+        "x": 20,
+        "y": 75,
+        "s": 1.8
+      },
+      {
+        "e": "🍕",
+        "x": 80,
+        "y": 75,
+        "s": 1.8
+      },
+      {
+        "e": "🍰",
+        "x": 78,
+        "y": 30,
+        "s": 1.6,
+        "a": "float"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Bear is hungry.",
+      "ja": "くまさんは おなかが ぺこぺこ。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 45,
+            "y": 70,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "💭",
+            "x": 62,
+            "y": 42,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🍽️",
+            "x": 70,
+            "y": 78,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bear eats an apple.",
+      "ja": "くまさんは りんごを たべる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 42,
+            "y": 70,
+            "s": 2.8,
+            "a": "bob"
+          },
+          {
+            "e": "🍎",
+            "x": 66,
+            "y": 68,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bear eats a banana.",
+      "ja": "くまさんは バナナを たべる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 42,
+            "y": 69,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🍌",
+            "x": 68,
+            "y": 68,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bear eats bread.",
+      "ja": "くまさんは パンを たべる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 42,
+            "y": 68,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "🍞",
+            "x": 70,
+            "y": 68,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bear eats a cake.",
+      "ja": "くまさんは ケーキを たべる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 42,
+            "y": 67,
+            "s": 4.1,
+            "a": "bob"
+          },
+          {
+            "e": "🍰",
+            "x": 72,
+            "y": 68,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bear eats a pizza.",
+      "ja": "くまさんは ピザを たべる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 42,
+            "y": 66,
+            "s": 4.6,
+            "a": "bob"
+          },
+          {
+            "e": "🍕",
+            "x": 75,
+            "y": 68,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bear is very big now.",
+      "ja": "くまさんは とても おおきく なった。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 50,
+            "y": 62,
+            "s": 5.6,
+            "a": "pulse"
+          },
+          {
+            "e": "✨",
+            "x": 20,
+            "y": 30,
+            "s": 1.5,
+            "a": "spin"
+          },
+          {
+            "e": "✨",
+            "x": 82,
+            "y": 34,
+            "s": 1.5,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Oh no! Bear is stuck!",
+      "ja": "たいへん！ くまさんが はまって うごけない！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🚪",
+            "x": 50,
+            "y": 55,
+            "s": 4.2
+          },
+          {
+            "e": "🐻",
+            "x": 50,
+            "y": 62,
+            "s": 5.4,
+            "a": "sway"
+          },
+          {
+            "e": "💦",
+            "x": 76,
+            "y": 36,
+            "s": 1.8,
+            "a": "hop"
+          },
+          {
+            "e": "❗",
+            "x": 24,
+            "y": 32,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "bear",
+      "ja": "くま"
+    },
+    {
+      "en": "hungry",
+      "ja": "おなかが すいた"
+    },
+    {
+      "en": "eats",
+      "ja": "たべる"
+    },
+    {
+      "en": "apple",
+      "ja": "りんご"
+    },
+    {
+      "en": "banana",
+      "ja": "バナナ"
+    },
+    {
+      "en": "bread",
+      "ja": "パン"
+    },
+    {
+      "en": "cake",
+      "ja": "ケーキ"
+    },
+    {
+      "en": "pizza",
+      "ja": "ピザ"
+    },
+    {
+      "en": "big",
+      "ja": "おおきい"
+    },
+    {
+      "en": "stuck",
+      "ja": "はまって うごけない"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a sleepy cat",
+        "a hungry bear",
+        "a fast horse"
+      ],
+      "answer": "a hungry bear",
+      "kind": "main"
+    },
+    {
+      "q": "What does Bear eat first?",
+      "ja": "くまさんが さいしょに たべるのは？",
+      "choices": [
+        "an apple",
+        "a pizza",
+        "a cake"
+      ],
+      "answer": "an apple",
+      "kind": "sequence"
+    },
+    {
+      "q": "What does Bear eat last?",
+      "ja": "くまさんが さいごに たべるのは？",
+      "choices": [
+        "bread",
+        "a banana",
+        "a pizza"
+      ],
+      "answer": "a pizza",
+      "kind": "sequence"
+    },
+    {
+      "q": "What is \"bread\"?",
+      "ja": "\"bread\" は なに？",
+      "choices": [
+        "an animal",
+        "a food",
+        "a color"
+      ],
+      "answer": "a food",
+      "kind": "vocabulary"
+    },
+    {
+      "q": "Why is Bear stuck?",
+      "ja": "くまさんは どうして はまったの？",
+      "choices": [
+        "Bear is very big.",
+        "Bear is very sad.",
+        "Bear is very small."
+      ],
+      "answer": "Bear is very big.",
+      "kind": "detail"
+    }
+  ]
+}

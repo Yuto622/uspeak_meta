@@ -1,0 +1,697 @@
+{
+ "id": "rd-5-bottle-message",
+ "stage": "5",
+ "title": "A Bottle from Far Away",
+ "titleJa": "遠くから 来た びん",
+ "kind": "story",
+ "cover": {
+  "bg": "beach",
+  "items": [
+   {
+    "e": "🍾",
+    "x": 50,
+    "y": 60,
+    "s": 5,
+    "a": "sway"
+   },
+   {
+    "e": "🌊",
+    "x": 50,
+    "y": 88,
+    "s": 3,
+    "a": "sway"
+   },
+   {
+    "e": "✉️",
+    "x": 70,
+    "y": 35,
+    "s": 2.2,
+    "a": "float"
+   },
+   {
+    "e": "👧",
+    "x": 20,
+    "y": 70,
+    "s": 3
+   }
+  ]
+ },
+ "pages": [
+  {
+   "text": "Every month, Emi worked as a volunteer. Her group cleaned the beach to protect the environment.",
+   "ja": "毎月、エミは ボランティアを していました。エミの グループは、環境を 守るために 海岸を そうじしていました。",
+   "scene": {
+    "bg": "beach",
+    "items": [
+     {
+      "e": "👧",
+      "x": 30,
+      "y": 70,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🗑️",
+      "x": 46,
+      "y": 74,
+      "s": 2.4
+     },
+     {
+      "e": "👨",
+      "x": 68,
+      "y": 70,
+      "s": 2.8,
+      "a": "bob"
+     },
+     {
+      "e": "👩",
+      "x": 82,
+      "y": 70,
+      "s": 2.8,
+      "a": "bob"
+     },
+     {
+      "e": "🥤",
+      "x": 58,
+      "y": 82,
+      "s": 1.4
+     },
+     {
+      "e": "🌊",
+      "x": 50,
+      "y": 92,
+      "s": 2.5,
+      "a": "sway"
+     }
+    ]
+   }
+  },
+  {
+   "text": "One rainy Saturday, she found plastic bags, old shoes, and a green glass bottle. Something white was inside it.",
+   "ja": "ある 雨の 土曜日、エミは ビニールぶくろ、古い くつ、そして 緑色の ガラスの びんを 見つけました。中に 何か 白い 物が 入っていました。",
+   "scene": {
+    "bg": "beach",
+    "items": [
+     {
+      "e": "👧",
+      "x": 28,
+      "y": 70,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "🍾",
+      "x": 55,
+      "y": 76,
+      "s": 3,
+      "a": "pulse"
+     },
+     {
+      "e": "👟",
+      "x": 75,
+      "y": 80,
+      "s": 1.8
+     },
+     {
+      "e": "🛍️",
+      "x": 88,
+      "y": 78,
+      "s": 1.8
+     },
+     {
+      "e": "🌧️",
+      "x": 50,
+      "y": 15,
+      "s": 3,
+      "a": "drift"
+     },
+     {
+      "e": "❓",
+      "x": 55,
+      "y": 58,
+      "s": 1.6,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "It was a letter! But Emi could not read it, because it was written in a foreign language.",
+   "ja": "手紙でした！ でも エミには 読めませんでした。外国の 言葉で 書かれていたからです。",
+   "scene": {
+    "bg": "beach",
+    "items": [
+     {
+      "e": "👧",
+      "x": 32,
+      "y": 70,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "📜",
+      "x": 52,
+      "y": 58,
+      "s": 3,
+      "a": "sway"
+     },
+     {
+      "e": "❓",
+      "x": 64,
+      "y": 42,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "🍾",
+      "x": 72,
+      "y": 80,
+      "s": 2
+     },
+     {
+      "e": "🌊",
+      "x": 50,
+      "y": 92,
+      "s": 2.5,
+      "a": "sway"
+     }
+    ]
+   }
+  },
+  {
+   "text": "She showed it to Ms. Reyes, her English teacher. \"This is Tagalog, a language of the Philippines,\" said Ms. Reyes. \"It is my language!\"",
+   "ja": "エミは それを 英語の レイエス先生に 見せました。「これは タガログ語、フィリピンの 言葉よ。わたしの 言葉だわ！」と 先生は 言いました。",
+   "scene": {
+    "bg": "school",
+    "items": [
+     {
+      "e": "👧",
+      "x": 28,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👩‍🏫",
+      "x": 65,
+      "y": 70,
+      "s": 3.6,
+      "a": "hop"
+     },
+     {
+      "e": "📜",
+      "x": 46,
+      "y": 58,
+      "s": 2.4,
+      "a": "sway"
+     },
+     {
+      "e": "😃",
+      "x": 65,
+      "y": 50,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "🌏",
+      "x": 85,
+      "y": 35,
+      "s": 2,
+      "a": "spin"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Ms. Reyes read it slowly. \"My name is Luna. I am ten. If you receive this, please write to me.\"",
+   "ja": "レイエス先生は ゆっくり 読みました。「わたしの 名前は ルナ。十才です。これを 受け取ったら、手紙を ください」",
+   "scene": {
+    "bg": "school",
+    "items": [
+     {
+      "e": "👩‍🏫",
+      "x": 62,
+      "y": 70,
+      "s": 3.6,
+      "a": "bob"
+     },
+     {
+      "e": "📜",
+      "x": 48,
+      "y": 56,
+      "s": 2.8,
+      "a": "sway"
+     },
+     {
+      "e": "👧",
+      "x": 25,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "💬",
+      "x": 66,
+      "y": 40,
+      "s": 2,
+      "a": "pulse"
+     },
+     {
+      "e": "🔟",
+      "x": 80,
+      "y": 42,
+      "s": 1.6
+     }
+    ]
+   }
+  },
+  {
+   "text": "There was an address, but no date. \"Do you believe Luna will answer?\" asked Emi. \"Let's try,\" said her teacher.",
+   "ja": "住所は ありましたが、日づけは ありませんでした。「ルナは 返事を くれると 思いますか」と エミは 聞きました。「やってみましょう」と 先生は 言いました。",
+   "scene": {
+    "bg": "school",
+    "items": [
+     {
+      "e": "👧",
+      "x": 30,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👩‍🏫",
+      "x": 68,
+      "y": 70,
+      "s": 3.5,
+      "a": "bob"
+     },
+     {
+      "e": "📜",
+      "x": 50,
+      "y": 60,
+      "s": 2.2
+     },
+     {
+      "e": "🏠",
+      "x": 50,
+      "y": 42,
+      "s": 1.6
+     },
+     {
+      "e": "❓",
+      "x": 38,
+      "y": 48,
+      "s": 1.6,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Writing in English was difficult for Emi, but she continued for three evenings. She wrote about her town, her school, and the beach.",
+   "ja": "英語で 書くのは エミには むずかしかったです。でも 三日間、毎ばん 書き続けました。自分の 町、学校、そして 海岸の ことを 書きました。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 70,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "✏️",
+      "x": 48,
+      "y": 62,
+      "s": 1.8,
+      "a": "sway"
+     },
+     {
+      "e": "📝",
+      "x": 55,
+      "y": 72,
+      "s": 2.4
+     },
+     {
+      "e": "📖",
+      "x": 72,
+      "y": 72,
+      "s": 2
+     },
+     {
+      "e": "🌙",
+      "x": 85,
+      "y": 20,
+      "s": 2.2,
+      "a": "pulse"
+     },
+     {
+      "e": "💡",
+      "x": 20,
+      "y": 40,
+      "s": 1.6
+     }
+    ]
+   }
+  },
+  {
+   "text": "Weeks passed. Emi checked the mailbox every day. Nothing came. \"Maybe the address is too old,\" she thought.",
+   "ja": "何週間も すぎました。エミは 毎日 ゆうびん受けを 見ました。何も 来ません。「住所が 古すぎるのかも」と 思いました。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 72,
+      "s": 3.4,
+      "a": "sway"
+     },
+     {
+      "e": "📭",
+      "x": 62,
+      "y": 66,
+      "s": 3.2
+     },
+     {
+      "e": "😔",
+      "x": 35,
+      "y": 54,
+      "s": 1.5
+     },
+     {
+      "e": "🍂",
+      "x": 78,
+      "y": 82,
+      "s": 1.6,
+      "a": "drift"
+     },
+     {
+      "e": "🏠",
+      "x": 88,
+      "y": 50,
+      "s": 2.8
+     }
+    ]
+   }
+  },
+  {
+   "text": "Then, two months later, a blue envelope arrived from abroad. Emi's hands were shaking when she opened it.",
+   "ja": "そして 二か月後、外国から 青い ふうとうが とどきました。開ける とき、エミの 手は ふるえていました。",
+   "scene": {
+    "bg": "garden",
+    "items": [
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 72,
+      "s": 3.4,
+      "a": "hop"
+     },
+     {
+      "e": "✉️",
+      "x": 52,
+      "y": 60,
+      "s": 2.8,
+      "a": "pulse"
+     },
+     {
+      "e": "📬",
+      "x": 72,
+      "y": 66,
+      "s": 3
+     },
+     {
+      "e": "✨",
+      "x": 52,
+      "y": 44,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "✈️",
+      "x": 85,
+      "y": 18,
+      "s": 1.8,
+      "a": "drift"
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"Dear Emi, thank you! I threw that bottle into the sea thirty years ago. I am not ten now. I am forty!\"",
+   "ja": "「エミさんへ。ありがとう！ あの びんを 海に 投げたのは 三十年前です。今は 十才では ありません。四十才です！」",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "👧",
+      "x": 30,
+      "y": 70,
+      "s": 3.4,
+      "a": "hop"
+     },
+     {
+      "e": "📜",
+      "x": 52,
+      "y": 56,
+      "s": 3,
+      "a": "sway"
+     },
+     {
+      "e": "😲",
+      "x": 30,
+      "y": 52,
+      "s": 1.6,
+      "a": "pulse"
+     },
+     {
+      "e": "🍾",
+      "x": 75,
+      "y": 70,
+      "s": 2.2
+     },
+     {
+      "e": "⏳",
+      "x": 80,
+      "y": 40,
+      "s": 2,
+      "a": "spin"
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"Because of the sea, I became a science teacher. I have studied the ocean for many years. Please keep cleaning your beach. With love, Luna.\"",
+   "ja": "「海の おかげで、わたしは 理科の 先生に なりました。長い間 海を 研究しています。これからも 海岸の そうじを 続けてね。愛を こめて、ルナ」",
+   "scene": {
+    "bg": "sea",
+    "items": [
+     {
+      "e": "👩‍🔬",
+      "x": 50,
+      "y": 60,
+      "s": 4,
+      "a": "bob"
+     },
+     {
+      "e": "🔬",
+      "x": 68,
+      "y": 66,
+      "s": 2.2
+     },
+     {
+      "e": "🐠",
+      "x": 22,
+      "y": 78,
+      "s": 2,
+      "a": "drift"
+     },
+     {
+      "e": "🐢",
+      "x": 82,
+      "y": 82,
+      "s": 2,
+      "a": "drift"
+     },
+     {
+      "e": "🌊",
+      "x": 50,
+      "y": 92,
+      "s": 2.5,
+      "a": "sway"
+     },
+     {
+      "e": "❤️",
+      "x": 50,
+      "y": 36,
+      "s": 1.6,
+      "a": "float"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Emi put the letter on her wall. In the future, she wants to visit Luna. And she has already started learning Tagalog.",
+   "ja": "エミは 手紙を かべに はりました。しょうらい、ルナに 会いに 行きたいと 思っています。そして、もう タガログ語の 勉強を 始めています。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "📜",
+      "x": 60,
+      "y": 35,
+      "s": 2.4
+     },
+     {
+      "e": "📖",
+      "x": 50,
+      "y": 68,
+      "s": 2.4,
+      "a": "sway"
+     },
+     {
+      "e": "🍾",
+      "x": 80,
+      "y": 60,
+      "s": 2.2
+     },
+     {
+      "e": "✈️",
+      "x": 82,
+      "y": 22,
+      "s": 1.8,
+      "a": "float"
+     },
+     {
+      "e": "🌏",
+      "x": 18,
+      "y": 30,
+      "s": 2,
+      "a": "spin"
+     }
+    ]
+   }
+  }
+ ],
+ "glossary": [
+  {
+   "en": "volunteer",
+   "ja": "ボランティア"
+  },
+  {
+   "en": "protect",
+   "ja": "守る"
+  },
+  {
+   "en": "environment",
+   "ja": "環境"
+  },
+  {
+   "en": "foreign",
+   "ja": "外国の"
+  },
+  {
+   "en": "language",
+   "ja": "言語・言葉"
+  },
+  {
+   "en": "receive",
+   "ja": "受け取る"
+  },
+  {
+   "en": "believe",
+   "ja": "信じる"
+  },
+  {
+   "en": "difficult",
+   "ja": "むずかしい"
+  },
+  {
+   "en": "continued",
+   "ja": "続けた"
+  },
+  {
+   "en": "abroad",
+   "ja": "外国（から）"
+  },
+  {
+   "en": "future",
+   "ja": "しょうらい・未来"
+  },
+  {
+   "en": "envelope",
+   "ja": "ふうとう"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "This book is mostly about ___.",
+   "ja": "この本は おもに 何の 話ですか。",
+   "choices": [
+    "a teacher who moves to the Philippines",
+    "a letter that connects two people",
+    "a storm that damages a clean beach",
+    "a girl who loses her bottle"
+   ],
+   "answer": "a letter that connects two people",
+   "kind": "main"
+  },
+  {
+   "q": "Why couldn't Emi read the letter at first?",
+   "ja": "なぜ エミは さいしょ 手紙を 読めなかったのですか。",
+   "choices": [
+    "It was too wet from the rain.",
+    "The writing was much too small.",
+    "It was in a foreign language.",
+    "The bottle would not open at all."
+   ],
+   "answer": "It was in a foreign language.",
+   "kind": "detail"
+  },
+  {
+   "q": "What happened last?",
+   "ja": "さいごに 起こったのは どれですか。",
+   "choices": [
+    "Emi found a green bottle.",
+    "Ms. Reyes read the letter.",
+    "Emi wrote a long reply.",
+    "Emi started learning Tagalog."
+   ],
+   "answer": "Emi started learning Tagalog.",
+   "kind": "sequence"
+  },
+  {
+   "q": "What was the surprise in Luna's answer?",
+   "ja": "ルナの 返事の おどろきは 何でしたか。",
+   "choices": [
+    "She wrote it 30 years ago.",
+    "She lived in the same town as Emi.",
+    "She was really Ms. Reyes's sister.",
+    "She had never seen the sea before."
+   ],
+   "answer": "She wrote it 30 years ago.",
+   "kind": "detail"
+  },
+  {
+   "q": "How did Emi feel when the blue envelope came?",
+   "ja": "青い ふうとうが 来た とき、エミは どんな 気持ちでしたか。",
+   "choices": [
+    "bored",
+    "jealous",
+    "excited",
+    "embarrassed"
+   ],
+   "answer": "excited",
+   "kind": "inference"
+  }
+ ]
+}

@@ -1,0 +1,701 @@
+{
+ "id": "rd-6-wrong-train",
+ "stage": "6",
+ "title": "The Wrong Train",
+ "titleJa": "まちがえた 電車",
+ "kind": "story",
+ "cover": {
+  "bg": "city",
+  "items": [
+   {
+    "e": "🚆",
+    "x": 50,
+    "y": 60,
+    "s": 5,
+    "a": "drift"
+   },
+   {
+    "e": "👧",
+    "x": 22,
+    "y": 74,
+    "s": 2.8
+   },
+   {
+    "e": "👦",
+    "x": 34,
+    "y": 76,
+    "s": 2.4
+   },
+   {
+    "e": "❗",
+    "x": 50,
+    "y": 28,
+    "s": 2.4,
+    "a": "pulse"
+   }
+  ]
+ },
+ "pages": [
+  {
+   "text": "Yui and her little brother Sho were traveling alone for the first time. Their grandfather was waiting at Midori Station, only five stops away.",
+   "ja": "ユイと 弟の ショウは、はじめて 二人だけで 出かける ところでした。おじいちゃんが、たった 五つ 先の みどり駅で 待っています。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "👧",
+      "x": 30,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "👦",
+      "x": 46,
+      "y": 74,
+      "s": 2.8,
+      "a": "hop"
+     },
+     {
+      "e": "🎒",
+      "x": 30,
+      "y": 60,
+      "s": 1.6
+     },
+     {
+      "e": "🚉",
+      "x": 78,
+      "y": 58,
+      "s": 3.5
+     },
+     {
+      "e": "🖐️",
+      "x": 78,
+      "y": 30,
+      "s": 1.8
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"Don't be nervous,\" Mom said on the platform. \"I have prepared a note with all the information. Just get off at the fifth stop.\"",
+   "ja": "「きんちょうしないでね」と お母さんは ホームで 言いました。「必要な 情報は 全部 メモに 書いて 用意したわ。五つ目の 駅で おりるだけよ」",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "👩",
+      "x": 68,
+      "y": 70,
+      "s": 3.5,
+      "a": "bob"
+     },
+     {
+      "e": "📝",
+      "x": 52,
+      "y": 58,
+      "s": 2.2,
+      "a": "sway"
+     },
+     {
+      "e": "👧",
+      "x": 32,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👦",
+      "x": 18,
+      "y": 74,
+      "s": 2.8,
+      "a": "bob"
+     },
+     {
+      "e": "🚉",
+      "x": 90,
+      "y": 55,
+      "s": 2.6
+     }
+    ]
+   }
+  },
+  {
+   "text": "A train arrived, and they jumped on. Sho was excited to count the stations. But the train did not even slow down at the first one.",
+   "ja": "電車が 来て、二人は とび乗りました。ショウは わくわくして、駅を 数えようと しました。ところが 電車は、さいしょの 駅で スピードを 落としも しませんでした。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "🚆",
+      "x": 50,
+      "y": 62,
+      "s": 5,
+      "a": "drift"
+     },
+     {
+      "e": "💨",
+      "x": 20,
+      "y": 62,
+      "s": 2,
+      "a": "drift"
+     },
+     {
+      "e": "🚉",
+      "x": 85,
+      "y": 50,
+      "s": 2.2
+     },
+     {
+      "e": "👦",
+      "x": 46,
+      "y": 48,
+      "s": 1.6,
+      "a": "hop"
+     },
+     {
+      "e": "👧",
+      "x": 56,
+      "y": 48,
+      "s": 1.6
+     },
+     {
+      "e": "❓",
+      "x": 50,
+      "y": 30,
+      "s": 1.8,
+      "a": "pulse"
+     }
+    ]
+   }
+  },
+  {
+   "text": "It ran past station after station. \"Yui, this is an express train!\" said Sho. \"We have made a mistake!\" Yui's heart was beating fast.",
+   "ja": "電車は 駅を 次々に 通りすぎました。「お姉ちゃん、これ 急行だよ！ まちがえちゃった！」と ショウが 言いました。ユイの むねは どきどきしていました。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "🚄",
+      "x": 45,
+      "y": 62,
+      "s": 5,
+      "a": "drift"
+     },
+     {
+      "e": "💨",
+      "x": 15,
+      "y": 60,
+      "s": 2.2,
+      "a": "drift"
+     },
+     {
+      "e": "🚉",
+      "x": 80,
+      "y": 48,
+      "s": 1.8,
+      "a": "drift"
+     },
+     {
+      "e": "💓",
+      "x": 55,
+      "y": 34,
+      "s": 2,
+      "a": "pulse"
+     },
+     {
+      "e": "😨",
+      "x": 40,
+      "y": 34,
+      "s": 1.8
+     }
+    ]
+   }
+  },
+  {
+   "text": "She looked for Mom's note in her pocket, but it was not there. Maybe it was still on the platform far behind them.",
+   "ja": "ユイは ポケットの 中の お母さんの メモを さがしました。でも、ありません。たぶん、ずっと 後ろの ホームに 落ちた ままです。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "👧",
+      "x": 40,
+      "y": 70,
+      "s": 3.6,
+      "a": "sway"
+     },
+     {
+      "e": "👖",
+      "x": 52,
+      "y": 76,
+      "s": 1.8
+     },
+     {
+      "e": "❌",
+      "x": 60,
+      "y": 56,
+      "s": 2,
+      "a": "pulse"
+     },
+     {
+      "e": "📝",
+      "x": 88,
+      "y": 30,
+      "s": 1.4,
+      "a": "drift"
+     },
+     {
+      "e": "👦",
+      "x": 20,
+      "y": 72,
+      "s": 2.8
+     }
+    ]
+   }
+  },
+  {
+   "text": "Sho started to cry. Yui wanted to cry too, but instead she took a deep breath. \"Crying won't help. Let's think of what we can do.\"",
+   "ja": "ショウは 泣き出しました。ユイも 泣きたく なりました。でも、かわりに 大きく 息を すいました。「泣いても だめ。何が できるか 考えよう」",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "👦",
+      "x": 30,
+      "y": 72,
+      "s": 3,
+      "a": "sway"
+     },
+     {
+      "e": "😭",
+      "x": 30,
+      "y": 54,
+      "s": 1.7,
+      "a": "pulse"
+     },
+     {
+      "e": "👧",
+      "x": 58,
+      "y": 70,
+      "s": 3.6,
+      "a": "bob"
+     },
+     {
+      "e": "💭",
+      "x": 70,
+      "y": 44,
+      "s": 2.4,
+      "a": "float"
+     },
+     {
+      "e": "🪟",
+      "x": 88,
+      "y": 40,
+      "s": 2.4
+     }
+    ]
+   }
+  },
+  {
+   "text": "The train finally stopped at a big station that they had never seen. Yui found a station worker and explained their trouble in a small voice.",
+   "ja": "電車は やっと、見た ことも ない 大きな 駅に 止まりました。ユイは 駅員さんを 見つけて、小さな 声で 困っている ことを 説明しました。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "🚉",
+      "x": 82,
+      "y": 52,
+      "s": 3.6
+     },
+     {
+      "e": "👨‍✈️",
+      "x": 62,
+      "y": 68,
+      "s": 3.6,
+      "a": "bob"
+     },
+     {
+      "e": "👧",
+      "x": 34,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👦",
+      "x": 20,
+      "y": 74,
+      "s": 2.8
+     },
+     {
+      "e": "💬",
+      "x": 44,
+      "y": 52,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "🚄",
+      "x": 10,
+      "y": 50,
+      "s": 2
+     }
+    ]
+   }
+  },
+  {
+   "text": "The worker smiled kindly. \"This happens every week. You are safe. Take the local train from Platform 2 and go back four stops.\"",
+   "ja": "駅員さんは やさしく ほほえみました。「毎週 ある ことですよ。もう 安全です。2番ホームから 各駅停車に 乗って、四つ もどってください」",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "👨‍✈️",
+      "x": 60,
+      "y": 68,
+      "s": 3.8,
+      "a": "bob"
+     },
+     {
+      "e": "😊",
+      "x": 60,
+      "y": 48,
+      "s": 1.7
+     },
+     {
+      "e": "👉",
+      "x": 74,
+      "y": 58,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "🚃",
+      "x": 90,
+      "y": 66,
+      "s": 3
+     },
+     {
+      "e": "👧",
+      "x": 30,
+      "y": 72,
+      "s": 3.2,
+      "a": "bob"
+     },
+     {
+      "e": "👦",
+      "x": 16,
+      "y": 74,
+      "s": 2.8,
+      "a": "bob"
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"You can also call your grandfather from our office,\" he said. Grandpa's voice on the phone made both children feel comfortable again.",
+   "ja": "「事務室から おじいさんに 電話も できますよ」と 駅員さんは 言いました。電話で おじいちゃんの 声を 聞くと、二人は また ほっと しました。",
+   "scene": {
+    "bg": "room",
+    "items": [
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 70,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "☎️",
+      "x": 48,
+      "y": 60,
+      "s": 2.2,
+      "a": "pulse"
+     },
+     {
+      "e": "👦",
+      "x": 20,
+      "y": 72,
+      "s": 2.8,
+      "a": "hop"
+     },
+     {
+      "e": "👴",
+      "x": 80,
+      "y": 35,
+      "s": 2.6,
+      "a": "bob"
+     },
+     {
+      "e": "💬",
+      "x": 64,
+      "y": 40,
+      "s": 1.8
+     },
+     {
+      "e": "👨‍✈️",
+      "x": 90,
+      "y": 72,
+      "s": 2.6
+     }
+    ]
+   }
+  },
+  {
+   "text": "On the local train, Sho counted every stop carefully: one, two, three, four. This time the doors opened at Midori Station, and there stood Grandpa.",
+   "ja": "各駅停車の 中で、ショウは 一つ一つ ていねいに 駅を 数えました。一、二、三、四。今度は みどり駅で ドアが 開いて、そこに おじいちゃんが 立っていました。",
+   "scene": {
+    "bg": "city",
+    "items": [
+     {
+      "e": "🚃",
+      "x": 30,
+      "y": 64,
+      "s": 4.5
+     },
+     {
+      "e": "👴",
+      "x": 75,
+      "y": 70,
+      "s": 3.8,
+      "a": "hop"
+     },
+     {
+      "e": "👋",
+      "x": 86,
+      "y": 54,
+      "s": 1.8,
+      "a": "sway"
+     },
+     {
+      "e": "👧",
+      "x": 42,
+      "y": 52,
+      "s": 1.6
+     },
+     {
+      "e": "👦",
+      "x": 50,
+      "y": 54,
+      "s": 1.4,
+      "a": "hop"
+     },
+     {
+      "e": "🌳",
+      "x": 92,
+      "y": 60,
+      "s": 2.4
+     }
+    ]
+   }
+  },
+  {
+   "text": "\"I'm sorry we are late,\" said Yui. Grandpa laughed. \"Late? You discovered how to solve a problem by yourselves. That is a real success.\"",
+   "ja": "「おそく なって ごめんなさい」と ユイは 言いました。おじいちゃんは 笑いました。「おそい？ 自分たちで 問題を 解決する 方法を 見つけたんだ。それこそ 本当の 成功だよ」",
+   "scene": {
+    "bg": "park",
+    "items": [
+     {
+      "e": "👴",
+      "x": 65,
+      "y": 70,
+      "s": 3.8,
+      "a": "bob"
+     },
+     {
+      "e": "😄",
+      "x": 65,
+      "y": 50,
+      "s": 1.7,
+      "a": "pulse"
+     },
+     {
+      "e": "👧",
+      "x": 35,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "👦",
+      "x": 20,
+      "y": 74,
+      "s": 2.8,
+      "a": "hop"
+     },
+     {
+      "e": "🏅",
+      "x": 50,
+      "y": 40,
+      "s": 2.2,
+      "a": "spin"
+     }
+    ]
+   }
+  },
+  {
+   "text": "That evening, Yui wrote a message to Mom: \"We arrived safely. Next time, I will check the sign on the train. By the way, Grandpa took the wrong bus on the way home!\"",
+   "ja": "その ばん、ユイは お母さんに メッセージを 書きました。「ぶじに 着きました。次は 電車の 表示を ちゃんと 見ます。ところで、帰り道で おじいちゃんが バスを まちがえたよ！」",
+   "scene": {
+    "bg": "night",
+    "items": [
+     {
+      "e": "👧",
+      "x": 30,
+      "y": 72,
+      "s": 3.4,
+      "a": "bob"
+     },
+     {
+      "e": "📱",
+      "x": 42,
+      "y": 62,
+      "s": 2,
+      "a": "pulse"
+     },
+     {
+      "e": "🚌",
+      "x": 72,
+      "y": 70,
+      "s": 3.6,
+      "a": "drift"
+     },
+     {
+      "e": "👴",
+      "x": 72,
+      "y": 54,
+      "s": 1.6
+     },
+     {
+      "e": "❓",
+      "x": 84,
+      "y": 48,
+      "s": 1.8,
+      "a": "pulse"
+     },
+     {
+      "e": "🌙",
+      "x": 15,
+      "y": 18,
+      "s": 2.2,
+      "a": "pulse"
+     }
+    ]
+   }
+  }
+ ],
+ "glossary": [
+  {
+   "en": "nervous",
+   "ja": "きんちょうした"
+  },
+  {
+   "en": "prepared",
+   "ja": "用意した"
+  },
+  {
+   "en": "information",
+   "ja": "情報"
+  },
+  {
+   "en": "excited",
+   "ja": "わくわくした"
+  },
+  {
+   "en": "mistake",
+   "ja": "まちがい"
+  },
+  {
+   "en": "instead",
+   "ja": "かわりに"
+  },
+  {
+   "en": "trouble",
+   "ja": "困ったこと"
+  },
+  {
+   "en": "safe",
+   "ja": "安全な"
+  },
+  {
+   "en": "comfortable",
+   "ja": "安心した・楽な"
+  },
+  {
+   "en": "discovered",
+   "ja": "見つけた"
+  },
+  {
+   "en": "success",
+   "ja": "成功"
+  },
+  {
+   "en": "message",
+   "ja": "メッセージ"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "This book is mostly about two children who ___.",
+   "ja": "この本は おもに どんな 二人の 子どもの 話ですか。",
+   "choices": [
+    "buy a present for their grandfather",
+    "learn to drive a local train",
+    "get lost in a big forest at night",
+    "solve a problem on a trip alone"
+   ],
+   "answer": "solve a problem on a trip alone",
+   "kind": "main"
+  },
+  {
+   "q": "What was the mistake?",
+   "ja": "まちがいは 何でしたか。",
+   "choices": [
+    "They went to the wrong house.",
+    "They got on an express train.",
+    "They forgot to buy their tickets.",
+    "They left a bag at home."
+   ],
+   "answer": "They got on an express train.",
+   "kind": "detail"
+  },
+  {
+   "q": "What did Yui do right after Sho started to cry?",
+   "ja": "ショウが 泣き出した すぐ あと、ユイは 何を しましたか。",
+   "choices": [
+    "She called her mother.",
+    "She got off the train.",
+    "She took a deep breath.",
+    "She found the note in her bag."
+   ],
+   "answer": "She took a deep breath.",
+   "kind": "sequence"
+  },
+  {
+   "q": "If you feel \"comfortable,\" you feel ___.",
+   "ja": "「comfortable」と 感じる とき、どんな 気持ちですか。",
+   "choices": [
+    "relaxed and not worried",
+    "hungry and very tired",
+    "angry at all your friends",
+    "cold and a little sick"
+   ],
+   "answer": "relaxed and not worried",
+   "kind": "vocab"
+  },
+  {
+   "q": "Why did Grandpa call the trip a \"success\"?",
+   "ja": "なぜ おじいちゃんは この 旅を「成功」と よんだのですか。",
+   "choices": [
+    "The children arrived earlier than planned.",
+    "The children found the lost note on the train.",
+    "The children solved the problem themselves.",
+    "The children remembered to bring a gift."
+   ],
+   "answer": "The children solved the problem themselves.",
+   "kind": "inference"
+  }
+ ]
+}

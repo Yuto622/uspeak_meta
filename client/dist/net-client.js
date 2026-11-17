@@ -56,6 +56,7 @@ import { createTaskCard } from './tasks.js';
 import { createTaskGuide } from './task-guide.js';
 import { createPremiumPromo } from './premium.js';
 import { createHomework } from './homework.js';
+import { createReadingUI } from './reading.js';
 import { sfx } from './sfx.js';
 
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
@@ -255,6 +256,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     if (islandId === 'main') { sendMove(); return main.walkIn(spot); }
     // しゅくだい島：いえに 入ると 宿題の 一覧（オンラインの とき だけ。問題は 部屋に ある）。
     if (islandId === 'homework') return homework.open();
+    if (islandId === 'reading') return reading.open();
     if (islandId === 'mini') {
       const game = arcades[spot.game || spot.kind];
       if (game) { game.open(); return true; }
@@ -339,6 +341,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   createPremiumPromo({ offline: () => state.mode !== 'online' && state.mode !== 'reconnecting' });
   // 宿題（しゅくだい島の いえ）。問題・判定・ごほうびは 部屋（hw:*）。
   const homework = createHomework({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
+  // よみもの島：本だなと 1 冊（きく・よむ・おんどく・クイズ）。クイズの 正解・✓・コインは 部屋（read:*）。
+  const reading = createReadingUI({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
   const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online', guide: taskGuide, openHomework: () => homework.open() });
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
@@ -635,6 +639,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('teacher:ack', (m) => teacher.onAck(m));
     r.onMessage('xp', (m) => applyProgress(m, m.levels));
     r.onMessage('quiz:question', (m) => quiz.onQuestion(m));
+    for (const type of ['read:shelf', 'read:book', 'read:progress', 'read:aloud', 'read:ask', 'read:result', 'read:error']) {
+      r.onMessage(type, (m) => { if (m?.wallet) applyWallet(m.wallet); if (m?.progress?.level) applyProgress(m.progress); if (type === 'read:result') sfx.judge(m?.correct); reading.handle(type, m || {}); });
+    }
     r.onMessage('quiz:result', (m) => { applyWallet(m.wallet); applyProgress(m.progress); sfx.judge(m.correct); quiz.onResult(m); });
     r.onMessage('quiz:closed', (m) => quiz.onClosed(m));
     r.onMessage('quiz:error', (m) => quiz.onError(m));
@@ -1209,6 +1216,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get arcades() { return arcades; },
     // One question for the frame loop: is a whole-window guest game up?
     arcadeOpen: () => racers.isOpen || blockwild.isOpen || Object.values(arcades).some((g) => g.isOpen),
+    readingLabel: (spot) => `${spot?.tone || '📚'} ${tr('えほんを よむ')}`,
+    reading,
     homeworkLabel: (spot) => `${spot?.tone || '📚'} ${tr('しゅくだいを する')}`,
     homework,
     miniLabel: (spot) => `${spot?.tone || '🎮'} ${tr('{what} で あそぶ', { what: spot?.name || tr('ゲーム') })}`,
