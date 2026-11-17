@@ -41,7 +41,7 @@ async function openPage(name, { teacherKey = '', coins = null } = {}) {
   await page.waitForSelector('#net-lobby[open]', { timeout: 5000 });
   await page.fill('#net-name', name);
   await page.fill('#net-class', 'e2e');
-  if (teacherKey) { await page.click('#net-teacher-details summary'); await page.fill('#net-key', teacherKey); }
+  if (teacherKey) { await page.fill('#net-key', teacherKey); }
   await page.click('#net-join');
   await page.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 30000, polling: 250 });
   // ホームはメインの島（2D）。この検査は 3D の島を見るので、開いたら閉じる。

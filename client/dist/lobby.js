@@ -16,7 +16,7 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
     <p data-t="なまえを いれると、クラスの みんなと いっしょに あそべるよ。">なまえを いれると、クラスの みんなと いっしょに あそべるよ。</p>
     <label><span data-t="なまえ">なまえ</span><input id="net-name" name="name" maxlength="16" autocomplete="off" autocapitalize="off" placeholder="れい：ゆうと" data-t-ph="れい：ゆうと"></label>
     <label><span data-t="クラスコード">クラスコード</span><input id="net-class" name="class" maxlength="24" autocomplete="off" autocapitalize="off" placeholder="せんせいに きいた ことば" data-t-ph="せんせいに きいた ことば"></label>
-    <details id="net-teacher-details"><summary data-t="先生用">先生用</summary><label><span data-t="先生パスワード">先生パスワード</span><input id="net-key" name="key" type="password" autocomplete="off"></label></details>
+    <div id="net-teacher-details" class="net-optional"><label><span class="net-opt-head"><span data-t="先生パスワード">先生パスワード</span> <small class="net-opt" data-t="先生だけ・こどもは いらない">先生だけ・こどもは いらない</small></span><input id="net-key" name="key" type="password" autocomplete="off"></label></div>
     <p id="net-lobby-error" class="net-error" role="alert" hidden></p>
     <div class="net-lobby-actions">
       <button type="submit" class="primary" id="net-join" data-t="クラスに はいる →">クラスに はいる →</button>
@@ -50,13 +50,12 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
   });
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); });
 
-  // teacher: 先生パスワードが ちがった とき。たたんだ「先生用」を ひらいて、その 欄に カーソルを 置く
-  // （たたまれた ままだと 気づかず、パスワード なしで 何回も 入ろうと して しまう）。
+  // teacher: 先生パスワードが ちがった とき、その 欄に カーソルを 置く。
+  // 先生パスワードの 欄は 2026-11 から たたまずに いつも 見せる（「先生だけ」の 札つき）。
   function open({ error: msg = '', name = '', teacher = false } = {}) {
     if (name) $('#net-name').value = name;
     error(msg);
     busy(false);
-    if (teacher) $('#net-teacher-details').open = true;
     if (!dialog.open) dialog.showModal();
     setTimeout(() => $(teacher ? '#net-key' : '#net-name').focus(), 50);
   }
@@ -66,7 +65,6 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
     $('#net-name').value = '';
     $('#net-class').value = defaultClass || '';
     $('#net-key').value = '';
-    $('#net-teacher-details').open = false;
   }
   return { open, close, busy, error, reset, get isOpen() { return dialog.open; } };
 }

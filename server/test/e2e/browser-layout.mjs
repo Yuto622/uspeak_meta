@@ -116,7 +116,6 @@ try {
     await shot('1-avatar');
     await page.click('#avatar-confirm');
     await page.waitForSelector('#net-lobby[open]', { timeout: 30000 });
-    await page.click('#net-teacher-details summary');
     await shot('2-lobby');
     await page.fill('#net-name', 'Yuto');
     await page.fill('#net-class', 'a');

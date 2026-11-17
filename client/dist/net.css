@@ -183,3 +183,7 @@
 .on-journey .roblox-button,.immersive .roblox-button{opacity:0;pointer-events:none}
 @media(max-width:900px){.roblox-button{width:157px;font-size:12px}}
 @media(max-width:600px){.roblox-button{top:600px;right:14px;width:116px;padding:10px 6px;font-size:11px}}
+
+/* 先生パスワード：たたまず いつも 見せる。「先生だけ」の 札で 子どもは 空のままで いいと わかる（2026-11）。 */
+#net-lobby .net-opt-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#net-lobby .net-opt{font-size:11px;font-weight:800;color:#6e665c;background:#efe9dc;border-radius:99px;padding:2px 9px;letter-spacing:.02em}
