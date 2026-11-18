@@ -33,6 +33,8 @@ RUN if [ "$WITH_LATEX" = "1" ]; then \
 # Client (static, no build step) and server sources.
 COPY client ./client
 COPY server ./server
+# Roblox Studio の 一発 セットアップ（/roblox-setup/*.lua で くばる。鍵は 入って いない）。
+COPY roblox ./roblox
 
 # Run as the unprivileged user shipped with the base image.
 RUN mkdir -p /app/server/data && chown -R node:node /app

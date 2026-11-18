@@ -460,6 +460,19 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   mountJoinNames(app, { kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, limiter: rateLimit({ windowMs: 60_000, max: 30 }), log });
   if (classrooms) mountTeacherHomework(app, { classrooms, homework, kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
   mountReadingArt(app, { log }); // 絵本の 絵（サーバーで かく SVG）
+  // Roblox Studio の 一発 セットアップ（roblox/setup-*-place.lua）を くばる口。Studio の コマンドバーに 短い 1 行を 貼ると、
+  // ここから 読んで 走らせる（4 万字を 貼らなくて いい）。中身は Roblox 側の スクリプトだけ：鍵・答え・子どもの 記録は 入って いない
+  // （鍵は Roblox の Secrets から 読む。test/roblox-setup.test.mjs が 鍵らしい 文字が ない ことを 見る）。きまった 3 つの 名前だけ 出す。
+  const ROBLOX_SETUPS = { abc: 'setup-abc-place.lua', books: 'setup-books-place.lua', drill: 'setup-drill-place.lua' };
+  app.get('/roblox-setup/:name', (req, res) => {
+    const file = ROBLOX_SETUPS[String(req.params.name || '').replace(/\.lua$/, '')];
+    if (!file) { res.status(404).type('text/plain').send('not found'); return; }
+    fs.readFile(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../roblox', file), 'utf8', (err, text) => {
+      if (err) { res.status(404).type('text/plain').send('not found'); return; }
+      res.set('Cache-Control', 'no-store'); res.set('X-Content-Type-Options', 'nosniff');
+      res.type('text/plain; charset=utf-8').send(text);
+    });
+  });
   mountAbcArt(app, { log }); // 「ABC と おと」の 絵（文字の つみき・ことばの 絵カード）
   app.get('/api/tasks', (req, res) => { res.set('Cache-Control', 'public, max-age=60'); res.json({ ok: true, updatedAt: tasks.updatedAt, ...tasks.adopted() }); });
   // 保護者レポートの 口（Webhook・LIFF・/r/:token・教室の タブ）。

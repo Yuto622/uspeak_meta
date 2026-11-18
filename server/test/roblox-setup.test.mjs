@@ -40,3 +40,20 @@ test('ABC の 画面：子どもに 見える 字は ひらがな＋英語だけ
   const client = read('USpeakAbcClient.client.luau');
   for (const kind of ['show', 'chant', 'name', 'sound', 'picture', 'rule', 'blend', 'pair', 'word', 'spell']) assert.ok(new RegExp(`\\b${kind} = \\{|"${kind}"`).test(client), kind);
 });
+
+// サーバーが セットアップを くばる口（Studio の コマンドバーの 1 行が 読む）。
+test('/roblox-setup/<名前>.lua：きまった 3 つだけ 出る・中身は ファイルと 同じ・ほかは 404', async () => {
+  process.env.STORE_BACKEND = 'memory'; process.env.LOG_LEVEL = 'error';
+  const { startServer } = await import('../src/index.js');
+  const server = await startServer({ port: 0 });
+  try {
+    const base = `http://127.0.0.1:${server.server.address().port}`;
+    for (const [name, file] of [['abc', 'setup-abc-place.lua'], ['books', 'setup-books-place.lua'], ['drill', 'setup-drill-place.lua']]) {
+      const r = await fetch(`${base}/roblox-setup/${name}.lua`);
+      assert.equal(r.status, 200, name);
+      assert.match(r.headers.get('content-type'), /text\/plain/);
+      assert.equal(await r.text(), read(file), name);
+    }
+    for (const bad of ['nope.lua', '..%2f..%2fserver%2fpackage.json', 'USpeakAbc.server.luau']) assert.equal((await fetch(`${base}/roblox-setup/${bad}`)).status, 404, bad);
+  } finally { await server.shutdown('test'); }
+});
