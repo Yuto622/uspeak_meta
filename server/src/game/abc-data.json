@@ -1,0 +1,420 @@
+{
+ "order": [
+  "s",
+  "a",
+  "t",
+  "p",
+  "i",
+  "n",
+  "m",
+  "d",
+  "g",
+  "o",
+  "c",
+  "k",
+  "e",
+  "u",
+  "r",
+  "h",
+  "b",
+  "f",
+  "l",
+  "j",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  "q"
+ ],
+ "letters": {
+  "s": {
+   "say": "S",
+   "sound": "sss",
+   "soundJa": "ス",
+   "words": [
+    { "w": "sun", "e": "☀️" },
+    { "w": "sock", "e": "🧦" },
+    { "w": "star", "e": "⭐" }
+   ]
+  },
+  "a": {
+   "say": "A",
+   "sound": "a",
+   "soundJa": "ア",
+   "words": [
+    { "w": "apple", "e": "🍎" },
+    { "w": "ant", "e": "🐜" },
+    { "w": "astronaut", "e": "🧑‍🚀" }
+   ]
+  },
+  "t": {
+   "say": "T",
+   "sound": "t",
+   "soundJa": "トゥ",
+   "words": [
+    { "w": "tiger", "e": "🐯" },
+    { "w": "tomato", "e": "🍅" },
+    { "w": "tent", "e": "⛺" }
+   ]
+  },
+  "p": {
+   "say": "P",
+   "sound": "p",
+   "soundJa": "プ",
+   "words": [
+    { "w": "pig", "e": "🐷" },
+    { "w": "pizza", "e": "🍕" },
+    { "w": "pencil", "e": "✏️" }
+   ]
+  },
+  "i": {
+   "say": "I",
+   "sound": "i",
+   "soundJa": "イ",
+   "words": [
+    { "w": "insect", "e": "🦗" },
+    { "w": "iguana", "e": "🦎" },
+    { "w": "ill", "e": "🤒" }
+   ]
+  },
+  "n": {
+   "say": "N",
+   "sound": "nnn",
+   "soundJa": "ン",
+   "words": [
+    { "w": "nose", "e": "👃" },
+    { "w": "nut", "e": "🌰" },
+    { "w": "nest", "e": "🪺" }
+   ]
+  },
+  "m": {
+   "say": "M",
+   "sound": "mmm",
+   "soundJa": "ム",
+   "words": [
+    { "w": "moon", "e": "🌙" },
+    { "w": "monkey", "e": "🐵" },
+    { "w": "milk", "e": "🥛" }
+   ]
+  },
+  "d": {
+   "say": "D",
+   "sound": "d",
+   "soundJa": "ドゥ",
+   "words": [
+    { "w": "dog", "e": "🐶" },
+    { "w": "duck", "e": "🦆" },
+    { "w": "door", "e": "🚪" }
+   ]
+  },
+  "g": {
+   "say": "G",
+   "sound": "g",
+   "soundJa": "グ",
+   "words": [
+    { "w": "goat", "e": "🐐" },
+    { "w": "gift", "e": "🎁" },
+    { "w": "guitar", "e": "🎸" }
+   ]
+  },
+  "o": {
+   "say": "O",
+   "sound": "o",
+   "soundJa": "オ",
+   "words": [
+    { "w": "octopus", "e": "🐙" },
+    { "w": "otter", "e": "🦦" },
+    { "w": "olive", "e": "🫒" }
+   ]
+  },
+  "c": {
+   "say": "C",
+   "sound": "c",
+   "soundJa": "ク",
+   "words": [
+    { "w": "cat", "e": "🐱" },
+    { "w": "car", "e": "🚗" },
+    { "w": "cow", "e": "🐮" }
+   ]
+  },
+  "k": {
+   "say": "K",
+   "sound": "k",
+   "soundJa": "ク",
+   "words": [
+    { "w": "key", "e": "🔑" },
+    { "w": "kite", "e": "🪁" },
+    { "w": "kangaroo", "e": "🦘" }
+   ]
+  },
+  "e": {
+   "say": "E",
+   "sound": "e",
+   "soundJa": "エ",
+   "words": [
+    { "w": "egg", "e": "🥚" },
+    { "w": "elephant", "e": "🐘" },
+    { "w": "envelope", "e": "✉️" }
+   ]
+  },
+  "u": {
+   "say": "U",
+   "sound": "u",
+   "soundJa": "ア",
+   "words": [
+    { "w": "umbrella", "e": "☂️" },
+    { "w": "up", "e": "⬆️" },
+    { "w": "underwear", "e": "🩲" }
+   ]
+  },
+  "r": {
+   "say": "R",
+   "sound": "rrr",
+   "soundJa": "ル",
+   "words": [
+    { "w": "rabbit", "e": "🐰" },
+    { "w": "rainbow", "e": "🌈" },
+    { "w": "robot", "e": "🤖" }
+   ]
+  },
+  "h": {
+   "say": "H",
+   "sound": "h",
+   "soundJa": "ハ",
+   "words": [
+    { "w": "hat", "e": "🎩" },
+    { "w": "horse", "e": "🐴" },
+    { "w": "house", "e": "🏠" }
+   ]
+  },
+  "b": {
+   "say": "B",
+   "sound": "b",
+   "soundJa": "ブ",
+   "words": [
+    { "w": "bus", "e": "🚌" },
+    { "w": "banana", "e": "🍌" },
+    { "w": "bear", "e": "🐻" }
+   ]
+  },
+  "f": {
+   "say": "F",
+   "sound": "fff",
+   "soundJa": "フ",
+   "words": [
+    { "w": "fish", "e": "🐟" },
+    { "w": "fire", "e": "🔥" },
+    { "w": "foot", "e": "🦶" }
+   ]
+  },
+  "l": {
+   "say": "L",
+   "sound": "lll",
+   "soundJa": "ル",
+   "words": [
+    { "w": "lion", "e": "🦁" },
+    { "w": "lemon", "e": "🍋" },
+    { "w": "lock", "e": "🔒" }
+   ]
+  },
+  "j": {
+   "say": "J",
+   "sound": "j",
+   "soundJa": "ジュ",
+   "words": [
+    { "w": "juice", "e": "🧃" },
+    { "w": "jeans", "e": "👖" },
+    { "w": "jellyfish", "e": "🪼" }
+   ]
+  },
+  "v": {
+   "say": "V",
+   "sound": "vvv",
+   "soundJa": "ヴ",
+   "words": [
+    { "w": "violin", "e": "🎻" },
+    { "w": "van", "e": "🚐" },
+    { "w": "volcano", "e": "🌋" }
+   ]
+  },
+  "w": {
+   "say": "W",
+   "sound": "w",
+   "soundJa": "ウ",
+   "words": [
+    { "w": "watermelon", "e": "🍉" },
+    { "w": "window", "e": "🪟" },
+    { "w": "wolf", "e": "🐺" }
+   ]
+  },
+  "x": {
+   "say": "X",
+   "sound": "ks",
+   "soundJa": "クス",
+   "words": [
+    { "w": "box", "e": "📦" },
+    { "w": "fox", "e": "🦊" },
+    { "w": "six", "e": "6️⃣" }
+   ],
+   "end": true
+  },
+  "y": {
+   "say": "Y",
+   "sound": "y",
+   "soundJa": "イ",
+   "words": [
+    { "w": "yo-yo", "e": "🪀" },
+    { "w": "yarn", "e": "🧶" },
+    { "w": "yellow", "e": "🟨" }
+   ]
+  },
+  "z": {
+   "say": "Z",
+   "sound": "zzz",
+   "soundJa": "ズ",
+   "words": [
+    { "w": "zebra", "e": "🦓" },
+    { "w": "zero", "e": "0️⃣" },
+    { "w": "zzz", "e": "💤" }
+   ]
+  },
+  "q": {
+   "say": "Q",
+   "sound": "qu",
+   "soundJa": "ク",
+   "words": [
+    { "w": "queen", "e": "👸" },
+    { "w": "question", "e": "❓" },
+    { "w": "quiet", "e": "🤫" }
+   ]
+  }
+ },
+ "cvc": [
+  { "w": "cat", "e": "🐱", "parts": ["c", "a", "t"] },
+  { "w": "hat", "e": "🎩", "parts": ["h", "a", "t"] },
+  { "w": "bat", "e": "🦇", "parts": ["b", "a", "t"] },
+  { "w": "map", "e": "🗺️", "parts": ["m", "a", "p"] },
+  { "w": "van", "e": "🚐", "parts": ["v", "a", "n"] },
+  { "w": "bag", "e": "👜", "parts": ["b", "a", "g"] },
+  { "w": "can", "e": "🥫", "parts": ["c", "a", "n"] },
+  { "w": "man", "e": "👨", "parts": ["m", "a", "n"] },
+  { "w": "pan", "e": "🍳", "parts": ["p", "a", "n"] },
+  { "w": "rat", "e": "🐀", "parts": ["r", "a", "t"] },
+  { "w": "cap", "e": "🧢", "parts": ["c", "a", "p"] },
+  { "w": "cab", "e": "🚕", "parts": ["c", "a", "b"] },
+  { "w": "fan", "e": "🪭", "parts": ["f", "a", "n"] },
+  { "w": "bed", "e": "🛏️", "parts": ["b", "e", "d"] },
+  { "w": "hen", "e": "🐔", "parts": ["h", "e", "n"] },
+  { "w": "pen", "e": "🖊️", "parts": ["p", "e", "n"] },
+  { "w": "net", "e": "🥅", "parts": ["n", "e", "t"] },
+  { "w": "leg", "e": "🦵", "parts": ["l", "e", "g"] },
+  { "w": "ten", "e": "🔟", "parts": ["t", "e", "n"] },
+  { "w": "web", "e": "🕸️", "parts": ["w", "e", "b"] },
+  { "w": "jet", "e": "🛩️", "parts": ["j", "e", "t"] },
+  { "w": "red", "e": "🟥", "parts": ["r", "e", "d"] },
+  { "w": "pig", "e": "🐷", "parts": ["p", "i", "g"] },
+  { "w": "pin", "e": "📌", "parts": ["p", "i", "n"] },
+  { "w": "six", "e": "6️⃣", "parts": ["s", "i", "x"] },
+  { "w": "kid", "e": "🧒", "parts": ["k", "i", "d"] },
+  { "w": "bin", "e": "🗑️", "parts": ["b", "i", "n"] },
+  { "w": "zip", "e": "🤐", "parts": ["z", "i", "p"] },
+  { "w": "dig", "e": "⛏️", "parts": ["d", "i", "g"] },
+  { "w": "dog", "e": "🐶", "parts": ["d", "o", "g"] },
+  { "w": "fox", "e": "🦊", "parts": ["f", "o", "x"] },
+  { "w": "box", "e": "📦", "parts": ["b", "o", "x"] },
+  { "w": "pot", "e": "🍲", "parts": ["p", "o", "t"] },
+  { "w": "log", "e": "🪵", "parts": ["l", "o", "g"] },
+  { "w": "hot", "e": "🥵", "parts": ["h", "o", "t"] },
+  { "w": "dot", "e": "⚫", "parts": ["d", "o", "t"] },
+  { "w": "rod", "e": "🎣", "parts": ["r", "o", "d"] },
+  { "w": "sob", "e": "😭", "parts": ["s", "o", "b"] },
+  { "w": "sun", "e": "☀️", "parts": ["s", "u", "n"] },
+  { "w": "bus", "e": "🚌", "parts": ["b", "u", "s"] },
+  { "w": "cup", "e": "☕", "parts": ["c", "u", "p"] },
+  { "w": "bug", "e": "🐛", "parts": ["b", "u", "g"] },
+  { "w": "nut", "e": "🌰", "parts": ["n", "u", "t"] },
+  { "w": "hut", "e": "🛖", "parts": ["h", "u", "t"] },
+  { "w": "tub", "e": "🛁", "parts": ["t", "u", "b"] },
+  { "w": "run", "e": "🏃", "parts": ["r", "u", "n"] },
+  { "w": "hug", "e": "🤗", "parts": ["h", "u", "g"] }
+ ],
+ "digraphs": {
+  "sh": [
+   { "w": "ship", "e": "🚢", "parts": ["sh", "i", "p"] },
+   { "w": "shop", "e": "🏪", "parts": ["sh", "o", "p"] },
+   { "w": "fish", "e": "🐟", "parts": ["f", "i", "sh"] },
+   { "w": "shell", "e": "🐚", "parts": ["sh", "e", "ll"] },
+   { "w": "dish", "e": "🍽️", "parts": ["d", "i", "sh"] },
+   { "w": "sheep", "e": "🐑", "parts": ["sh", "ee", "p"] }
+  ],
+  "ch": [
+   { "w": "chick", "e": "🐥", "parts": ["ch", "i", "ck"] },
+   { "w": "cheese", "e": "🧀", "parts": ["ch", "ee", "se"] },
+   { "w": "chair", "e": "🪑", "parts": ["ch", "air"] },
+   { "w": "cherry", "e": "🍒", "parts": ["ch", "e", "rr", "y"] },
+   { "w": "chips", "e": "🍟", "parts": ["ch", "i", "p", "s"] },
+   { "w": "lunch", "e": "🍱", "parts": ["l", "u", "n", "ch"] }
+  ],
+  "th": [
+   { "w": "thumb", "e": "👍", "parts": ["th", "u", "mb"] },
+   { "w": "three", "e": "3️⃣", "parts": ["th", "r", "ee"] },
+   { "w": "bath", "e": "🛀", "parts": ["b", "a", "th"] },
+   { "w": "tooth", "e": "🦷", "parts": ["t", "oo", "th"] },
+   { "w": "think", "e": "🤔", "parts": ["th", "i", "n", "k"] },
+   { "w": "mouth", "e": "👄", "parts": ["m", "ou", "th"] }
+  ],
+  "ck": [
+   { "w": "duck", "e": "🦆", "parts": ["d", "u", "ck"] },
+   { "w": "sock", "e": "🧦", "parts": ["s", "o", "ck"] },
+   { "w": "clock", "e": "⏰", "parts": ["c", "l", "o", "ck"] },
+   { "w": "rock", "e": "🪨", "parts": ["r", "o", "ck"] },
+   { "w": "truck", "e": "🚚", "parts": ["t", "r", "u", "ck"] },
+   { "w": "lock", "e": "🔒", "parts": ["l", "o", "ck"] }
+  ],
+  "ng": [
+   { "w": "ring", "e": "💍", "parts": ["r", "i", "ng"] },
+   { "w": "king", "e": "🤴", "parts": ["k", "i", "ng"] },
+   { "w": "sing", "e": "🎤", "parts": ["s", "i", "ng"] },
+   { "w": "song", "e": "🎵", "parts": ["s", "o", "ng"] },
+   { "w": "wing", "e": "🪽", "parts": ["w", "i", "ng"] },
+   { "w": "strong", "e": "💪", "parts": ["s", "t", "r", "o", "ng"] }
+  ]
+ },
+ "magicE": {
+  "a_e": [
+   { "w": "cake", "e": "🎂", "parts": ["c", "a", "k", "e"] },
+   { "w": "game", "e": "🎮", "parts": ["g", "a", "m", "e"] },
+   { "w": "plane", "e": "✈️", "parts": ["p", "l", "a", "n", "e"] },
+   { "w": "snake", "e": "🐍", "parts": ["s", "n", "a", "k", "e"] },
+   { "w": "whale", "e": "🐋", "parts": ["wh", "a", "l", "e"] },
+   { "w": "wave", "e": "🌊", "parts": ["w", "a", "v", "e"] }
+  ],
+  "i_e": [
+   { "w": "bike", "e": "🚲", "parts": ["b", "i", "k", "e"] },
+   { "w": "kite", "e": "🪁", "parts": ["k", "i", "t", "e"] },
+   { "w": "five", "e": "5️⃣", "parts": ["f", "i", "v", "e"] },
+   { "w": "nine", "e": "9️⃣", "parts": ["n", "i", "n", "e"] },
+   { "w": "smile", "e": "😊", "parts": ["s", "m", "i", "l", "e"] },
+   { "w": "rice", "e": "🍚", "parts": ["r", "i", "c", "e"] },
+   { "w": "dice", "e": "🎲", "parts": ["d", "i", "c", "e"] }
+  ],
+  "o_e": [
+   { "w": "nose", "e": "👃", "parts": ["n", "o", "s", "e"] },
+   { "w": "rose", "e": "🌹", "parts": ["r", "o", "s", "e"] },
+   { "w": "bone", "e": "🦴", "parts": ["b", "o", "n", "e"] },
+   { "w": "phone", "e": "📱", "parts": ["ph", "o", "n", "e"] },
+   { "w": "home", "e": "🏡", "parts": ["h", "o", "m", "e"] },
+   { "w": "globe", "e": "🌍", "parts": ["g", "l", "o", "b", "e"] }
+  ],
+  "u_e": [
+   { "w": "cube", "e": "🧊", "parts": ["c", "u", "b", "e"] },
+   { "w": "flute", "e": "🪈", "parts": ["f", "l", "u", "t", "e"] },
+   { "w": "tube", "e": "🧪", "parts": ["t", "u", "b", "e"] },
+   { "w": "cute", "e": "🥰", "parts": ["c", "u", "t", "e"] },
+   { "w": "tune", "e": "🎶", "parts": ["t", "u", "n", "e"] },
+   { "w": "mute", "e": "🔇", "parts": ["m", "u", "t", "e"] },
+   { "w": "dune", "e": "🏜️", "parts": ["d", "u", "n", "e"] }
+  ]
+ }
+}
