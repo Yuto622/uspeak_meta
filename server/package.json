@@ -33,12 +33,12 @@
     "express": "^4.21.2",
     "google-auth-library": "^11.0.2",
     "openai": "^7.12.1",
+    "qrcode": "^1.5.4",
     "ws": "^8.18.0"
   },
   "devDependencies": {
     "colyseus.js": "0.15.28",
     "esbuild": "^0.24.2",
-    "livekit-client": "^2.22.3",
-    "qrcode": "^1.5.4"
+    "livekit-client": "^2.22.3"
   }
 }
