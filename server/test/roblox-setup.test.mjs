@@ -57,3 +57,20 @@ test('/roblox-setup/<名前>.lua：きまった 3 つだけ 出る・中身は �
     for (const bad of ['nope.lua', '..%2f..%2fserver%2fpackage.json', 'USpeakAbc.server.luau']) assert.equal((await fetch(`${base}/roblox-setup/${bad}`)).status, 404, bad);
   } finally { await server.shutdown('test'); }
 });
+
+// コマンドバー用の 1 行ずつの セットアップ（roblox/oneline/）。コマンドバーは 1 行の 入力らんで、長い 複数行の ファイルを 貼ると こわれる。
+test('roblox/oneline：どれも 1 行・コメントなし・いまの スクリプトと 同じ 中身（なおしたら scripts/make-roblox-oneline.py）', () => {
+  const unescape = (q) => q.slice(1, -1).replace(/\\(\\|"|n|t)/g, (_, c) => ({ '\\': '\\', '"': '"', n: '\n', t: '\t' }[c]));
+  const want = { 'abc-1.txt': 'USpeakAbc.server.luau', 'abc-2.txt': 'USpeakAbcClient.client.luau', 'books-1.txt': 'USpeakBooks.server.luau', 'books-2.txt': 'USpeakWalletSync.server.luau', 'books-3.txt': 'USpeakBooksClient.client.luau' };
+  for (const f of [...Object.keys(want), 'abc-3.txt', 'books-4.txt']) {
+    const t = read(`oneline/${f}`);
+    assert.ok(!t.includes('\n') && !t.includes('\r'), `${f}: 1 行で ない`);
+    assert.ok(!/--/.test(t.replace(/"(?:[^"\\]|\\.)*"/g, '""')), `${f}: コメントが ある（1 行だと うしろが ぜんぶ 消える）`);
+    assert.ok(!/USPEAK_ROBLOX_KEY\s*=|ROBLOX_OPEN_CLOUD_KEY\s*=/.test(t), `${f}: 鍵らしい もの`);
+    if (want[f]) {
+      const m = /s\.Source=("(?:[^"\\]|\\.)*");/.exec(t);
+      assert.ok(m, `${f}: Source が ない`);
+      assert.equal(unescape(m[1]), read(want[f]).replace(/\r\n/g, '\n'), `${f} が ${want[f]} と ちがう（作りなおして ください）`);
+    }
+  }
+});
