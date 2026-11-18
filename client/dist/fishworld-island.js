@@ -326,6 +326,15 @@ export function createFishworldIsland({ scene }) {
   const baseUpdate = island.update;
   const tipWorld = new THREE.Vector3();
   function update(t, player) {
+    // たすけ舟：水の 中（歩けない 場所）に 立って いたら、いちばん 近い つりばの 立つ 場所へ もどす。
+    // 前に そこで 終わった 子・ワープで 水に 落ちた 子が、出られない ままに ならない ため（つりの 演出の 間は さわらない）。
+    if (player && fx.root && island.visible && island.data?.spots && !fx.cast && Math.hypot(player.position.x - fx.root.position.x, player.position.z - fx.root.position.z) < 60 && blocked(player.position.x, player.position.z)) {
+      const lx = player.position.x - fx.root.position.x; const lz = player.position.z - fx.root.position.z;
+      let best = null; let bd = Infinity;
+      for (const sp of island.data.spots) { const d = Math.hypot(sp.x - lx, sp.z - lz); if (d < bd && !blocked(fx.root.position.x + sp.x, fx.root.position.z + sp.z)) { bd = d; best = sp; } }
+      const to = best || island.data.spawn;
+      if (to) player.position.set(fx.root.position.x + to.x, 0, fx.root.position.z + to.z);
+    }
     baseUpdate(t, player);
     fx.t = t; fx.player = player; waterTime.value = t;
     if (!fx.root || !island.visible) return;

@@ -115,8 +115,10 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
     for (const d of document.querySelectorAll('dialog[open]')) if (d.id !== 'net-lobby') d.close();
     // きせかえ島の 店は「はなす」で ひらく 店なので、その 店の たなを そのまま ひらく。
     if (islandId === 'wear') { player.position.set(isl.x + spot.x, 0, isl.z + spot.z + 4); openWardrobe({ slot: spot.slot || spot.kind }); return; }
-    // つり島は 水辺（cast）に 立つと つりが はじまる。ほかは 戸口：island-kit の 戸口は 建物の まんなかから 0.65 手前（doorNear が ひろう）。
-    if (spot.cast) player.position.set(isl.x + spot.cast.x, 0, isl.z + spot.cast.z);
+    // つり島は 水辺の 立つ 場所に 行くと つりが はじまる。ほかは 戸口：island-kit の 戸口は 建物の まんなかから 0.65 手前（doorNear が ひろう）。
+    // つり島：水辺の **立つ 場所**（spot.x, spot.z）に 立たせる。`cast` は うきが 落ちる 水の 上の 点で、そこに 立たせると
+    // まわりが ぜんぶ 水（歩けない）に なって 出られなく なる（2026-11 に それで 池の まんなかに 閉じこめた）。
+    if (spot.cast) player.position.set(isl.x + spot.x, 0, isl.z + spot.z);
     else player.position.set(isl.x + spot.x, 0, isl.z + spot.z - 0.65);
   }
 
