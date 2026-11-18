@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@googleapis/sheets": "^14.0.0",
+    "@resvg/resvg-js": "^2.6.2",
     "colyseus": "0.15.57",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
