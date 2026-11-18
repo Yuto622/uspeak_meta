@@ -123,6 +123,9 @@ export function fiveNumbers(rows, r) {
     seen.add(String(e.data.book));
     bookList.push({ id: String(e.data.book).slice(0, 60), title: String(e.data.title || '').slice(0, 60), stage: String(e.data.stage || '').slice(0, 4), words: Number(e.data.words) || 0, ts: e.ts });
   }
+  // 「ABC と おと」：その 期間の おわりまでの いちばん 新しい 記録（部屋が 1 回ぶん おわる たびに 書く type=abc）。記録の ない 子は null＝出さない。
+  const abcLast = events.filter((e) => e.type === 'abc' && e.ts <= r.end).pop();
+  const abc = abcLast ? { letters: Math.max(0, Math.min(26, Number(abcLast.data.letters) || 0)), lettersTotal: 26, rules: Math.max(0, Number(abcLast.data.rules) || 0), rulesTotal: Math.max(0, Number(abcLast.data.rulesTotal) || 0) } : null;
   return {
     minutes: Math.round(now.filter((e) => e.type === 'session').reduce((n, e) => n + (Number(e.data.seconds) || 0), 0) / 60),
     speak: now.filter((e) => e.type === 'speak').length,
@@ -131,6 +134,7 @@ export function fiveNumbers(rows, r) {
     answered: clean.length,
     words: held.size, wordsNew: [...held].filter((w) => !before.has(w)).length,
     bookList: bookList.slice(0, 8),
+    abc,
   };
 }
 

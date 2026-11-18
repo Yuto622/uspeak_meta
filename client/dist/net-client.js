@@ -33,6 +33,8 @@ import { createDashboard } from './dashboard.js';
 import { createQuick5 } from './quick5.js';
 import { createWardrobe } from './wardrobe.js';
 import { createKidsUI, KIDS_ISLANDS } from './kids.js';
+import { createAbcUI } from './abc.js';
+import { createReadAloud } from './read-aloud.js';
 import { createFarmUI, nextStep as nextFarmStep } from './farm.js';
 import { createLand } from './land-world.js';
 import { createLandUI } from './land.js';
@@ -351,13 +353,17 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // よみもの島：本だなと 1 冊（きく・よむ・おんどく・クイズ）。クイズの 正解・✓・コインは 部屋（read:*）。
   const reading = createReadingUI({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
   // 幼児モード（先生が /teacher/kids で オンに した 子の かんたんな 画面）。きめるのは 部屋（welcome・'kids'）。
+  // よみあげ（🔊）：幼児モードの どの 画面でも、おしてから さわった 文を 読む。
+  createReadAloud({ speak, isOn: kidsNow });
   // 🧸 で じぶんの 画面を きりかえた ときも、チャットの 入力らんを あわせる。
   addEventListener('uspeak:kids', () => { try { chat.setFree(); } catch { /* まだ できて いない */ } });
+  // 「ABC と おと」（幼児モードの ホームの カード）。正解・すすみ・記録は 部屋（abc:*）。
+  const abc = createAbcUI({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online', openShelf: () => reading.open() });
   const kids = createKidsUI({
     speak, toast, rpg, player, goPlace, isOnline: () => state.mode === 'online',
     pendingHomework: () => state.homeworkCount || 0,
     askHomework: () => { if (room && state.mode === 'online') room.send('hw:list'); },
-    openHomework: () => homework.open(), openReading: () => reading.open(), openWardrobe: (o = {}) => wardrobe.open(o), openMap: () => rpg.openMap(),
+    openHomework: () => homework.open(), openReading: () => reading.open(), openAbc: () => abc.open(), openWardrobe: (o = {}) => wardrobe.open(o), openMap: () => rpg.openMap(),
     enterMain: (spot) => { sendMove(); main.walkIn(spot); },
     logout: () => document.getElementById('logout-button')?.click(),
   });
@@ -659,6 +665,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('teacher:ack', (m) => teacher.onAck(m));
     r.onMessage('xp', (m) => applyProgress(m, m.levels));
     r.onMessage('quiz:question', (m) => quiz.onQuestion(m));
+    for (const type of ['abc:state', 'abc:ask', 'abc:result', 'abc:error']) {
+      r.onMessage(type, (m) => { if (m?.progress?.level) applyProgress(m.progress); if (type === 'abc:result' && m && !m.teach) sfx.judge(m.correct); abc.handle(type, m || {}); });
+    }
     for (const type of ['read:shelf', 'read:book', 'read:progress', 'read:aloud', 'read:ask', 'read:result', 'read:error']) {
       r.onMessage(type, (m) => { if (m?.wallet) applyWallet(m.wallet); if (m?.progress?.level) applyProgress(m.progress); if (type === 'read:result') sfx.judge(m?.correct); reading.handle(type, m || {}); });
     }
@@ -1240,7 +1249,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // One question for the frame loop: is a whole-window guest game up?
     arcadeOpen: () => racers.isOpen || blockwild.isOpen || Object.values(arcades).some((g) => g.isOpen),
     readingLabel: (spot) => `${spot?.tone || '📚'} ${tr('えほんを よむ')}`,
-    reading,
+    reading, abc,
     homeworkLabel: (spot) => `${spot?.tone || '📚'} ${tr('しゅくだいを する')}`,
     homework,
     miniLabel: (spot) => `${spot?.tone || '🎮'} ${tr('{what} で あそぶ', { what: spot?.name || tr('ゲーム') })}`,

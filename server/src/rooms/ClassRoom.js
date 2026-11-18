@@ -49,6 +49,8 @@ import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPa
 import { GEAR, gearPayload } from '../game/blockwild-shop.js';
 import { buildItem as buildHwItem, wordOf as hwWordOf } from '../homework/items.js';
 import * as reading from '../game/reading.js';
+import * as abcGame from '../game/abc.js';
+import { ABC_ART_VERSION } from '../game/abc-art.js';
 import { publicFormat as hwPublic } from '../../../client/dist/formats-core.js';
 import { FW, sanitizeFw, prepare as prepareFw, answer as answerFw, askPayload as fwAsk, lottery as fwLottery, catchFish, sellFrom, statePayload as fwState, fishPayload, GRADES as FW_GRADES, FAST_MS as FW_FAST_MS, XP_PER_CATCH as FW_XP, FishworldError } from '../game/fishworld.js';
 import { startSet as whStart, answer as whAnswer, askPayload as whAsk, HOUSES as WH_HOUSES, DAILY_COIN_CAP as WH_CAP, PERFECT_BONUS as WH_BONUS, WordHouseError } from '../game/wordhouse.js';
@@ -99,7 +101,7 @@ export function quizEventOf(row, lastQid = '') {
   const qid = String(row?.[3] || ''); const mode = String(row?.[4] || '');
   const head = qid.split(':')[0];
   if (!qid || mode === 'chat' || mode === 'speak' || mode === 'conv' || mode === 'mission' || mode === 'interview') return null;
-  if (['quick', 'eiken', 'fw', 'hw', 'wh', 'review', 'interview', 'conv', 'mission', 'chat', 'read'].includes(head)) return null;
+  if (['quick', 'eiken', 'fw', 'hw', 'wh', 'review', 'interview', 'conv', 'mission', 'chat', 'read', 'abc'].includes(head)) return null;
   const parts = qid.split(':');
   const data = { correct: Number(row[6]) === 1, fast: false, retry: qid === lastQid };
   const word = (w) => { if (ENGLISH_WORD.test(String(w || ''))) data.word = String(w); };
@@ -206,6 +208,7 @@ export class ClassRoom extends Room {
     this.roadmap = options.roadmap || null;
     // よみもの島（多読）の 記録（reading/store.js）。無ければ 本だなは 出るが 記録は のこらない（テスト）。
     this.reading = options.reading || null;
+    this.abc = options.abc || null; // 「ABC と おと」（幼児モードの カード）の 記録と 教室の 設定
     // 幼児モード（classroom/kids-store.js）。画面の 出し分けだけ（判定・コイン・記録は 同じ）。
     this.kids = options.kids || null;
     this.kidsVersion = this.kids?.version ?? 0;
@@ -311,6 +314,10 @@ export class ClassRoom extends Room {
     // ロードマップ（game/roadmap.js・roadmap/service.js）。見るだけ。段階を 上げるのは サーバーが 条件を 見て。
     this.onMessage('rm:get', (client) => this.onRoadmap(client).catch((err) => log.warn(`[room ${this.roomId}] roadmap failed:`, err?.message || err)));
     this.onMessage('hw:start', (client, msg) => this.onHwStart(client, msg));
+    // 「ABC と おと」（幼児モードの カード）：もじ → おと → つなげて よむ → つづる。正解・すすみ・記録は ここ（game/abc.js）。
+    for (const type of ['open', 'start', 'answer']) {
+      this.onMessage(`abc:${type}`, (client, msg) => this.onAbc(type, client, msg || {}).catch((err) => { log.warn(`[room ${this.roomId}] abc:${type} failed:`, err?.message || err); client.send('abc:error', { reason: 'failed' }); }));
+    }
     // よみもの島：本だな → 1 冊（きく・よむ・おんどく・クイズ）。クイズの 正解・✓・コインは ここ（game/reading.js）。
     for (const type of ['shelf', 'open', 'step', 'aloud', 'quiz', 'answer']) {
       this.onMessage(`read:${type}`, (client, msg) => this.onRead(type, client, msg || {}).catch((err) => { log.warn(`[room ${this.roomId}] read:${type} failed:`, err?.message || err); client.send('read:error', { reason: 'server' }); }));
@@ -4992,6 +4999,57 @@ export class ClassRoom extends Room {
         save(); await hwBook();
       }
       client.send('read:result', { id: book.id, ...result, next: result.over ? null : reading.quizQuestion(session), done, book: result.over ? reading.publicBook(book, progress) : undefined, ...this.walletPayload(sessionId), progress: this.progressPayload(sessionId) });
+    }
+  }
+
+  // ---- ABC と おと ---------------------------------------------------------------------
+  // きまりは game/abc.js。ここは「だれの 記録か」「どの 教室の 設定か」と、いつもの 記録の 道（学習ログ・roblox_events・XP）に のせる だけ。
+  // コインは 出さない（新しい コインの きまりを 作らない）。XP は ほかの 問題と 同じ 1 問 2。
+  abcProgress(priv) { return this.abc ? this.abc.of(this.classCode, priv.name) : (priv.abcMem ||= abcGame.blankProgress()); }
+  abcSettings() { return this.abc ? this.abc.settingsOf(this.classCode) : { ...abcGame.DEFAULT_SETTINGS }; }
+  async onAbc(type, client, msg) {
+    const sessionId = client.sessionId;
+    const priv = this.priv.get(sessionId);
+    if (!priv || !this.state.players.get(sessionId)) return;
+    if (!abcGame.ready()) { client.send('abc:error', { reason: 'no data' }); return; }
+    const progress = this.abcProgress(priv); const settings = this.abcSettings();
+    const state = () => ({ ...abcGame.publicState(progress, settings), artV: ABC_ART_VERSION });
+    if (type === 'open') { priv.abcRound = null; client.send('abc:state', state()); return; }
+    if (type === 'start') {
+      // はじめの 数問：学年の かわりに ロードマップの 段階を 見る（段階 1 から 上＝もじは しって いる と みて、つなげて よむ 問題から）。
+      let hi = false;
+      if (!progress.placed) { const stage = await this.readStage(sessionId); hi = ['A', 'B', 'C'].indexOf(stage) < 0; }
+      const round = abcGame.startRound(progress, settings, { review: msg.review === true, hi });
+      if (!round) { client.send('abc:error', { reason: msg.review === true ? 'no review' : 'nothing' }); return; }
+      priv.abcRound = round;
+      client.send('abc:ask', abcGame.question(round));
+      return;
+    }
+    if (type === 'answer') {
+      const round = priv.abcRound;
+      if (!round) { client.send('abc:error', { reason: 'no round' }); return; }
+      const now = Date.now();
+      const r = abcGame.answer(round, msg);
+      if (!r) return;
+      if (!r.teach) {
+        const it = r.item; const n = round.judged;
+        // 記録：きいて えらぶ＝聞く、つづる＝書く、ほかは 読む（skills.js の いつもの 分け方）。
+        const mode = it.format === 'listen' ? 'listen' : it.format === 'spell' ? 'writing' : 'reading';
+        this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `abc:${it.kind}:${it.key.slice(2)}:${n}`, mode, String(r.given).slice(0, 40), r.correct ? 1 : 0, r.correct ? 2 : 0, sessionId]);
+        if (r.correct) this.awardXp(sessionId, 2, `abc:${it.key}`);
+        // ロードマップ・保護者レポートに のる 形。ことば（cat など）は 苦手単語の 箱にも 入る。もじ 1 つは 入れない。
+        this.robloxEvent(sessionId, 'quiz', 'abc', { correct: r.correct, grade: reading.gradeOfStage(it.key[0] === 'L' ? 'A' : '1'), level: 'ABC', format: it.format === 'listen' ? 'listen' : it.format === 'spell' ? 'spell' : 'mc', ...(it.word && it.key[0] === 'R' ? { word: it.word } : {}), abc: it.key }, now);
+      }
+      let summary = null;
+      if (r.over) {
+        summary = abcGame.finish(progress, round, { now });
+        priv.abcRound = null;
+        this.abc?.save().catch((err) => log.warn(`[room ${this.roomId}] abc save failed:`, err?.message || err));
+        // 保護者レポート（LINE）の「おぼえた もじ ○/26・よめる ルール ○こ」は この 1 行を 読む。
+        this.robloxEvent(sessionId, 'abc', 'abc', abcGame.reportNumbers(progress), now + 1);
+        this.persist(sessionId);
+      }
+      client.send('abc:result', { teach: r.teach, correct: r.correct, answer: r.answer, parts: r.parts, over: r.over, next: r.over ? null : abcGame.question(round), summary, state: r.over ? state() : undefined, progress: this.progressPayload(sessionId) });
     }
   }
 

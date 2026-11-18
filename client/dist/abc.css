@@ -1,0 +1,130 @@
+/* 「ABC と おと」（幼児モードの カード）— `#abc-dialog`。1 がめん 1 もん・おおきな ボタン・ぜんぶに 🔊。
+   ひらいて いる ときだけ 出す（`<dialog>` に display を じかに 書かない）。字は 11px より 小さく しない。 */
+#abc-dialog { border: 0; padding: 0; width: min(100vw, 1100px); max-width: 100vw; height: min(100dvh, 780px); max-height: 100dvh; border-radius: 26px; background: #fff8e1; color: #2c2a4a; font-family: "Noto Sans JP", system-ui, sans-serif; overflow: hidden; box-shadow: 0 24px 60px #0006; }
+#abc-dialog::backdrop { background: #1b1640cc; }
+#abc-dialog[open] { display: flex; }
+.ab-root { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.ab-root .en, .ab-root .ja { font-style: normal; }
+
+/* ---- あたま（なまえ・すすみぐあい） ---- */
+.ab-head { position: static; inset: auto; flex: none; display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, #f2b632, #f59f2f); color: #3a2a05; }
+.ab-head h2 { margin: 0; font-size: 20px; font-weight: 900; white-space: nowrap; }
+.ab-x { flex: none; width: 48px; height: 48px; border-radius: 14px; border: 0; background: #ffffff66; color: #3a2a05; font-size: 22px; font-weight: 900; cursor: pointer; }
+.ab-bar { margin-left: auto; min-width: 0; }
+.ab-bar.az { display: flex; flex-wrap: wrap; gap: 3px; justify-content: flex-end; max-width: 62%; }
+.ab-bar.az i { width: 22px; height: 22px; border-radius: 6px; background: #ffffff59; color: #6a4d0a; font: 800 12px/22px system-ui, sans-serif; text-align: center; font-style: normal; }
+.ab-bar.az i.on { background: #2f8f5b; color: #fff; }
+.ab-bar.az i.now { outline: 3px solid #fff; background: #fff; color: #c2410c; }
+.ab-bar.rules { display: flex; align-items: center; gap: 10px; }
+.ab-bar.rules b { font-size: 15px; font-weight: 900; white-space: nowrap; }
+.ab-bar.rules span { display: flex; gap: 3px; }
+.ab-bar.rules i { width: 14px; height: 18px; border-radius: 5px; background: #ffffff59; }
+.ab-bar.rules i.on { background: #2f8f5b; } .ab-bar.rules i.now { background: #fff; }
+
+/* ---- 文＋🔊・ボタン ---- */
+.ab-t { display: inline-flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; line-height: 1.45; text-align: left; }
+.ab-t.count { font-size: 18px; color: #7a5a12; }
+.ab-t.ok { color: #1f8a4f; } .ab-t.ng { color: #c2410c; }
+.ab-say, .ab-hear { flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; background: #2c2a4a; color: #fff; font-size: 20px; cursor: pointer; display: inline-grid; place-items: center; }
+.ab-say.sm { width: 42px; height: 42px; font-size: 17px; background: #5b5a86; }
+.ab-hear.big { width: 84px; height: 84px; font-size: 36px; background: #e2572d; box-shadow: 0 5px 0 #a83a17; }
+.ab-hear:active, .ab-say:active { transform: translateY(2px); }
+.ab-btnwrap { display: inline-flex; align-items: center; gap: 8px; }
+.ab-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 60px; padding: 0 24px; border-radius: 18px; border: 3px solid #d9c9a0; background: #fff; color: #2c2a4a; font: inherit; font-size: 19px; font-weight: 900; cursor: pointer; }
+.ab-btn span { font-size: 22px; }
+.ab-btn.main { border: 0; background: #2f8f5b; color: #fff; box-shadow: 0 5px 0 #1e6a42; }
+.ab-btn:disabled { opacity: .45; box-shadow: none; cursor: default; }
+.ab-wait { flex: 1; display: grid; place-items: center; padding: 20px; }
+
+/* ---- はじめの がめん ---- */
+.ab-home { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 18px; padding: 18px; align-items: center; overflow-y: auto; }
+.ab-cover { min-height: 0; height: 100%; max-height: 420px; border-radius: 22px; overflow: hidden; background: #ffe9a8; box-shadow: 0 6px 0 #e6c563; }
+.ab-cover .ab-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ab-homebody { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; min-width: 0; }
+.ab-what { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.ab-nextcard { width: 150px; height: 150px; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 4px 0 #e6c563; }
+.ab-nextcard .ab-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.ab-nextrule b { display: inline-block; padding: 8px 22px; border-radius: 16px; background: #fff; box-shadow: 0 4px 0 #e6c563; font: 900 44px/1.2 system-ui, sans-serif; color: #c2410c; letter-spacing: .04em; }
+.ab-acts { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ---- 1 もん ---- */
+.ab-play { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding: 12px 16px 14px; }
+.ab-dots { flex: none; display: flex; gap: 6px; justify-content: center; }
+.ab-dots i { width: 22px; height: 8px; border-radius: 99px; background: #ead9a6; }
+.ab-dots i.past { background: #2f8f5b; } .ab-dots i.on { background: #e2572d; width: 34px; }
+.ab-prompt { flex: none; display: flex; justify-content: center; }
+.ab-foot { flex: none; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; min-height: 64px; }
+.ab-q, .ab-show, .ab-chant, .ab-spell { flex: 1; min-height: 0; display: flex; gap: 16px; align-items: center; justify-content: center; }
+.ab-q { flex-direction: column; }
+.ab-ask { flex: none; display: flex; align-items: center; gap: 16px; }
+.ab-ask .ab-img { width: 120px; height: 120px; object-fit: contain; border-radius: 18px; background: #fff; box-shadow: 0 4px 0 #e6c563; }
+.ab-choices { flex: 1; min-height: 0; width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 900px; }
+.ab-choices.n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 620px; }
+.ab-choice { position: relative; min-height: 0; display: flex; }
+.ab-pick { flex: 1; min-width: 0; min-height: 96px; border-radius: 22px; border: 4px solid #e6d3a0; background: #fff; cursor: pointer; display: grid; place-items: center; padding: 8px; overflow: hidden; box-shadow: 0 5px 0 #e0cb92; }
+.ab-pick .ab-img { max-width: 100%; max-height: 100%; width: auto; height: 100%; min-height: 0; object-fit: contain; display: block; }
+.ab-pick:active { transform: translateY(3px); box-shadow: 0 2px 0 #e0cb92; }
+.ab-choice .ab-say { position: absolute; right: 8px; bottom: 8px; }
+.ab-choice.right .ab-pick { border-color: #2f8f5b; background: #e3f6ea; box-shadow: 0 5px 0 #2f8f5b; }
+.ab-choice.wrong .ab-pick { border-color: #e2572d; background: #ffe7df; box-shadow: 0 5px 0 #e2572d; }
+.ab-choice.dim .ab-pick { opacity: .45; }
+.ab-big { font: 900 clamp(40px, 9vh, 76px)/1 system-ui, sans-serif; color: #2c2a4a; letter-spacing: .03em; }
+.ab-big.word { font-size: clamp(30px, 6.5vh, 54px); }
+.ab-parts { display: flex; align-items: center; gap: 8px; }
+.ab-parts b { min-width: 70px; padding: 6px 14px; border-radius: 16px; background: #fff; box-shadow: 0 5px 0 #e6c563; font: 900 clamp(40px, 9vh, 68px)/1.15 system-ui, sans-serif; text-align: center; color: #c2410c; }
+.ab-parts i { font-style: normal; font-size: 28px; color: #c9b27a; }
+
+/* おしえる がめん（みる・きく／きまり） */
+.ab-card { position: relative; flex: 1; min-width: 0; max-width: 380px; height: 100%; max-height: 360px; border-radius: 24px; background: #fff; box-shadow: 0 6px 0 #e6c563; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 12px; overflow: hidden; }
+.ab-card .ab-img { flex: 1; min-height: 0; max-width: 100%; object-fit: contain; }
+.ab-card .ab-hear { position: absolute; right: 12px; bottom: 12px; width: 64px; height: 64px; font-size: 28px; }
+.ab-word { font: 900 30px/1.2 system-ui, sans-serif; color: #2c2a4a; }
+.ab-rule { font: 900 clamp(48px, 12vh, 96px)/1 system-ui, sans-serif; color: #c2410c; }
+/* うた */
+.ab-chant { flex-direction: column; gap: 10px; }
+.ab-line { width: min(100%, 640px); display: flex; align-items: center; gap: 14px; padding: 8px 14px; border-radius: 20px; background: #fff; box-shadow: 0 4px 0 #e6c563; }
+.ab-line.on { background: #fff3b0; outline: 4px solid #f2b632; }
+.ab-line .ab-img { width: 68px; height: 68px; object-fit: contain; flex: none; }
+.ab-line b { flex: 1; font: 900 28px/1.2 system-ui, sans-serif; }
+.ab-line em { font-style: normal; font: 800 22px/1.2 system-ui, sans-serif; color: #7a5a12; }
+.ab-line .ab-hear { width: 52px; height: 52px; font-size: 22px; background: #2c2a4a; box-shadow: none; }
+/* つづる */
+.ab-spell { flex-direction: column; gap: 12px; }
+.ab-row, .ab-tray { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; min-height: 76px; }
+.ab-slot { width: 72px; height: 72px; border-radius: 16px; border: 4px dashed #d9c48a; background: #fffdf3; }
+.ab-block { min-width: 72px; height: 72px; padding: 0 14px; border-radius: 16px; border: 0; background: #f2b632; color: #3a2a05; font: 900 38px/72px system-ui, sans-serif; cursor: pointer; box-shadow: 0 5px 0 #c08a12; text-align: center; }
+.ab-block.in { background: #fff; box-shadow: 0 5px 0 #e6c563; }
+.ab-block.right { background: #e3f6ea; box-shadow: 0 5px 0 #2f8f5b; color: #1f6a40; }
+.ab-block.wrong { background: #ffe7df; box-shadow: 0 5px 0 #e2572d; }
+.ab-row.answer .ab-block { cursor: default; }
+
+/* ---- おわり ---- */
+.ab-sum { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 18px; text-align: center; overflow-y: auto; }
+.ab-sumicon { font-size: clamp(60px, 16vh, 110px); line-height: 1; }
+.ab-score { margin: 0; }
+.ab-sum .ab-acts { justify-content: center; }
+
+/* ---- よこもちの スマホ（たかさが ない） ---- */
+@media (max-height: 520px) {
+  #abc-dialog { height: 100dvh; width: 100vw; border-radius: 0; }
+  .ab-head { padding: 5px 10px; } .ab-head h2 { font-size: 16px; } .ab-x { width: 40px; height: 40px; }
+  .ab-bar.az i { width: 17px; height: 17px; font: 800 11px/17px system-ui, sans-serif; border-radius: 4px; }
+  .ab-play { gap: 5px; padding: 6px 10px 8px; }
+  .ab-t { font-size: 15px; gap: 7px; } .ab-say { width: 38px; height: 38px; font-size: 16px; } .ab-say.sm { width: 36px; height: 36px; }
+  .ab-btn { min-height: 46px; font-size: 16px; padding: 0 16px; } .ab-foot { min-height: 48px; gap: 8px; }
+  .ab-hear.big { width: 58px; height: 58px; font-size: 26px; }
+  .ab-q { flex-direction: row; } .ab-ask { flex-direction: column; gap: 8px; } .ab-ask .ab-img { width: 84px; height: 84px; }
+  .ab-pick { min-height: 60px; border-width: 3px; }
+  .ab-parts { flex-direction: row; } .ab-parts b { min-width: 46px; padding: 4px 8px; font-size: 36px; }
+  .ab-card { max-height: 100%; } .ab-card .ab-hear { width: 48px; height: 48px; font-size: 22px; }
+  .ab-chant { flex-direction: row; flex-wrap: wrap; align-content: center; gap: 6px; } .ab-line { width: auto; flex: 1 1 30%; padding: 5px 8px; gap: 6px; } .ab-line .ab-img { width: 40px; height: 40px; } .ab-line b { font-size: 16px; } .ab-line em { font-size: 14px; } .ab-line .ab-hear { width: 40px; height: 40px; font-size: 17px; }
+  .ab-spell { flex-direction: row; flex-wrap: wrap; gap: 8px; } .ab-row, .ab-tray { min-height: 56px; gap: 6px; } .ab-slot { width: 52px; height: 52px; } .ab-block { min-width: 52px; height: 52px; font: 900 28px/52px system-ui, sans-serif; padding: 0 8px; }
+  .ab-home { padding: 8px 12px; gap: 12px; } .ab-homebody { gap: 8px; } .ab-nextcard { width: 92px; height: 92px; } .ab-nextrule b { font-size: 30px; padding: 4px 14px; }
+  .ab-sum { gap: 6px; padding: 8px; }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  .ab-home { grid-template-columns: 1fr; } .ab-cover { max-height: 200px; }
+  .ab-show { flex-direction: column; } .ab-bar.az { max-width: 100%; }
+  .ab-head { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { .ab-hear:active, .ab-say:active, .ab-pick:active { transform: none; } }

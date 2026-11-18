@@ -28,8 +28,11 @@ import { mountTeacherHomework } from './classroom/teacher.js';
 import { RoadmapStore } from './roadmap/store.js';
 import { ReadingStore } from './reading/store.js';
 import { mountReadingArt } from './reading/art-route.js';
+import { mountAbcArt } from './reading/abc-art-route.js';
 import { KidsStore } from './classroom/kids-store.js';
 import { kidsAdminExtension } from './classroom/kids.js';
+import { AbcStore } from './abc/store.js';
+import { abcAdminExtension } from './abc/admin.js';
 import { mountJoinNames } from './classroom/join.js';
 import { createRoadmapService } from './roadmap/service.js';
 import { roadmapAdminExtension } from './roadmap/admin.js';
@@ -113,6 +116,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // ロードマップ（A・B・C・1〜9）。設定と 段階は DATA_DIR/roadmap.json、計算は 記録（Roblox と Web）から 毎回。
   // 幼児モード（クラスごと・子どもごとの かんたんな 画面の スイッチ）。
   const kidsStore = await new KidsStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'kids-mode.json'), { log }).init();
+  // 「ABC と おと」（幼児モードの カード）の 記録と、教室ごとの 設定（運営だけが かえる）。
+  const abcStore = await new AbcStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'abc.json'), { log }).init();
   const readingStore = await new ReadingStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'reading.json'), { log }).init();
   const roadmapStore = await new RoadmapStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roadmap.json'), { log }).init();
   const roadmap = createRoadmapService({ store, roadmap: roadmapStore, roblox, log });
@@ -420,6 +425,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 教室の パスワード（/admin/classrooms）と、英会話教室の 先生の 宿題の 画面（/teacher/homework）。
   const rosterClasses = async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class);
   const classrooms = config.reportSecret ? await new ClassroomStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'classrooms.json'), { secret: config.reportSecret, log }).init() : null;
+  const abcAdmin = abcAdminExtension({ abc: abcStore, rosterClasses, log });
   const kidsAdmin = kidsAdminExtension({ kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, log });
   const classroomAdmin = classrooms ? classroomAdminExtension({ classrooms, rosterClasses, log }) : () => {};
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
@@ -429,11 +435,11 @@ export async function startServer({ port = config.port, storeOverride = null, tt
       const name = String(req.body?.name || '').trim().slice(0, 40);
       const username = String(req.body?.username || '').trim().slice(0, 40);
       if (!classCode || !name) { res.status(400).json({ ok: false, error: 'クラスと 名前が いります' }); return; }
-      try { res.json({ ok: true, ...(await eraseStudent({ store, parentReports, homework, roadmap: roadmapStore, log }, { classCode, name, username })) }); }
+      try { res.json({ ok: true, ...(await eraseStudent({ store, parentReports, homework, roadmap: roadmapStore, abc: abcStore, log }, { classCode, name, username })) }); }
       catch (err) { log.warn('[privacy] erase failed:', err.message); res.status(500).json({ ok: false, error: '消せませんでした' }); }
     });
   };
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); kidsAdmin(ctx); } });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); kidsAdmin(ctx); abcAdmin(ctx); } });
   // 保持期間（RETENTION_DAYS、既定 400 日）：学習ログ・コインログ・送信の 記録を 毎日 消す。
   const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
   // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
@@ -442,6 +448,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   mountJoinNames(app, { kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, limiter: rateLimit({ windowMs: 60_000, max: 30 }), log });
   if (classrooms) mountTeacherHomework(app, { classrooms, homework, kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
   mountReadingArt(app, { log }); // 絵本の 絵（サーバーで かく SVG）
+  mountAbcArt(app, { log }); // 「ABC と おと」の 絵（文字の つみき・ことばの 絵カード）
   app.get('/api/tasks', (req, res) => { res.set('Cache-Control', 'public, max-age=60'); res.json({ ok: true, updatedAt: tasks.updatedAt, ...tasks.adopted() }); });
   // 保護者レポートの 口（Webhook・LIFF・/r/:token・教室の タブ）。
   parentReports.mount(app, { verifyClass, secret: config.reportSecret });
@@ -505,7 +512,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, kids: kidsStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, kids: kidsStore, abc: abcStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();

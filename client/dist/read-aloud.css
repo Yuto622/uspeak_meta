@@ -1,0 +1,15 @@
+/* よみあげ（🔊）— 幼児モードの どの 画面でも 左の まんなかに 出る。read-aloud.js */
+#ra-button { position: fixed; left: max(6px, env(safe-area-inset-left)); top: 50%; transform: translateY(-50%); z-index: 60; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; width: 56px; height: 64px; border-radius: 18px; border: 3px solid #fff; background: #2a6fd6; color: #fff; box-shadow: 0 5px 0 #1b4d9c, 0 8px 18px #0003; cursor: pointer; font-family: "Noto Sans JP", system-ui, sans-serif; }
+#ra-button[hidden], #ra-tip[hidden] { display: none !important; }
+#ra-button span { font-size: 24px; line-height: 1; }
+#ra-button small { font-size: 12px; font-weight: 900; line-height: 1.1; }
+#ra-button small .en, #ra-button small .ja { font-size: inherit; font-style: normal; font-weight: inherit; }
+#ra-button.on { background: #ffb22e; border-color: #fff3c4; box-shadow: 0 5px 0 #c9801a, 0 0 0 6px #ffd76a88; color: #3a2a00; animation: ra-pulse 1s ease-in-out infinite; }
+@keyframes ra-pulse { 50% { transform: translateY(-50%) scale(1.06); } }
+#ra-tip { position: fixed; left: 50%; top: max(12px, env(safe-area-inset-top)); transform: translateX(-50%); z-index: 61; padding: 10px 18px; border-radius: 99px; background: #1b3a2f; color: #fff; font: 900 16px/1.3 "Noto Sans JP", system-ui, sans-serif; box-shadow: 0 6px 18px #0004; pointer-events: none; white-space: nowrap; }
+body[data-ra] button, body[data-ra] a, body[data-ra] [role="button"] { cursor: help; }
+body[data-warp] #ra-button, body[data-class-pause] #ra-button { display: none; }
+@media (max-height: 480px) { #ra-button { width: 54px; height: 58px; border-radius: 16px; } #ra-button span { font-size: 22px; } }
+@media (prefers-reduced-motion: reduce) { #ra-button.on { animation: none; } }
+/* 「ABC と おと」は どの 文にも じぶんの 🔊 が ある（ここでは うかぶ ボタンを 出さない＝絵に かさならない）。 */
+#abc-dialog #ra-button, #abc-dialog #ra-tip { display: none !important; }

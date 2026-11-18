@@ -78,8 +78,10 @@ function fiveLine(d, label = '今週の 数字') {
   if (f.books) bits.push(`本${f.books}さつ`);
   if (f.accuracy !== null && f.accuracy !== undefined) bits.push(`正答率${f.accuracy}%`);
   if (f.words) bits.push(`単語${f.words}こ`);
-  if (!bits.length) return '';
-  return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ${tex(label)}}\\quad{\\fontsize{10}{13}\\selectfont\\color{brand} ${tex(bits.join('・'))}}\\\\[1.4mm]\n`;
+  // 「ABC と おと」を して いる 子だけ、じぶんの 1 行（数字の 行に つなげると 「もじ」と「12/26」の 間で 折れた）。
+  const abc = f.abc ? `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ABC と おと}\\quad{\\fontsize{10}{13}\\selectfont\\color{brand} ${tex(`おぼえた もじ ${f.abc.letters}/${f.abc.lettersTotal || 26}・よめる ルール ${f.abc.rules}こ`)}}\\\\[1.4mm]\n` : '';
+  if (!bits.length) return abc;
+  return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ${tex(label)}}\\quad{\\fontsize{10}{13}\\selectfont\\color{brand} ${tex(bits.join('・'))}}\\\\[1.4mm]\n` + abc;
 }
 // 宿題（その 期間に くばられて いた ぶん）。1 ページ目には 1 行、2 ページ目に くわしく（LINE の 画像は 1 ページ目だけ）。
 const mdDay = (s) => { const m = /^\d{4}-(\d{2})-(\d{2})$/.exec(s || ''); return m ? `${Number(m[1])}/${Number(m[2])}` : ''; };

@@ -2,7 +2,7 @@
 // きまり（✓・★・コイン）は game/reading.js、ここは 読んで 書くだけ。書きこみは write-json が 1 本ずつ 順番に する。
 import fs from 'node:fs/promises';
 import { writeJsonFile } from '../store/write-json.js';
-import { blankProgress, sanitizeProgress, bookById, artPath, ART_VERSION } from '../game/reading.js';
+import { blankProgress, sanitizeProgress, bookById, artPath, ART_VERSION, starsOf } from '../game/reading.js';
 
 const key = (classCode, name) => `${String(classCode ?? '').normalize('NFKC').toLowerCase().trim()}|${String(name ?? '').normalize('NFKC').trim()}`;
 
@@ -31,13 +31,25 @@ export class ReadingStore {
   summaryOf(classCode, name) {
     const p = this.peek(classCode, name);
     const done = []; let lastAt = 0; let last = null;
+    // 音読（いちばん よかった 回）・★・クイズの 点（保護者レポートの「えほんの くわしい 数字」）。
+    const aloud = []; let stars = 0; let quizRight = 0; let quizBooks = 0; let started = 0;
     for (const [id, e] of Object.entries(p?.books || {})) {
       const b = bookById(id); if (!b) continue;
       if ((e.at || 0) >= lastAt && (e.listen || e.read || e.quiz !== null)) { lastAt = e.at || 0; last = { id, title: b.title, titleJa: b.titleJa, at: e.at || 0, done: !!e.done }; }
+      if (e.listen || e.read || e.quiz !== null || e.aloud) started += 1;
+      if (e.aloud) aloud.push(e.aloud);
+      stars += starsOf(e);
+      if (e.quiz !== null && e.quiz !== undefined) { quizRight += e.quiz; quizBooks += 1; }
       if (e.done) done.push({ id, title: b.title, titleJa: b.titleJa, stage: b.stage, words: b.words, at: e.at || 0, cover: `${artPath(id)}/0.svg?v=${ART_VERSION}&still=1` });
     }
     done.sort((x, y) => y.at - x.at);
-    return { books: done.length, words: done.reduce((n, b) => n + b.words, 0), last, list: done.slice(0, 8) };
+    const stageOrder = ['A', 'B', 'C', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const top = done.reduce((m, b) => (stageOrder.indexOf(b.stage) > stageOrder.indexOf(m) ? b.stage : m), '');
+    return { books: done.length, words: done.reduce((n, b) => n + b.words, 0), last, list: done.slice(0, 8),
+      started, stars, topStage: top,
+      aloudBooks: aloud.length, aloudAcc: aloud.length ? Math.round((aloud.reduce((n, a) => n + (a.acc || 0), 0) / aloud.length) * 100) : null,
+      aloudWpm: aloud.length ? Math.round(Math.max(...aloud.map((a) => a.wpm || 0))) : null,
+      quizAvg: quizBooks ? Math.round((quizRight / (quizBooks * 5)) * 100) : null };
   }
   async erase(classCode, name) { const k = key(classCode, name); if (!this.students[k]) return false; delete this.students[k]; await this.save(); return true; }
 

@@ -22,7 +22,7 @@ export function fiveHtml(five, { label = '' } = {}) {
   if (!five) return '';
   const cell = (name, value, unit) => `<div><span>${esc(name)}</span><b>${esc(value)}</b><small>${esc(unit)}</small></div>`;
   return `<div class="five" aria-label="${esc(label)}の 数字">
-${cell('学習時間', five.minutes ?? 0, '分')}${cell('話した 回数', five.speak ?? 0, '回')}${cell('読んだ 本', five.books ?? 0, 'さつ')}${cell('クイズの 正答率', five.accuracy === null || five.accuracy === undefined ? '—' : five.accuracy, five.accuracy === null || five.accuracy === undefined ? 'これから' : '%')}${cell('覚えた 単語', five.words ?? 0, five.wordsNew ? `こ（+${five.wordsNew}）` : 'こ')}</div>`;
+${cell('学習時間', five.minutes ?? 0, '分')}${cell('話した 回数', five.speak ?? 0, '回')}${cell('読んだ 本', five.books ?? 0, 'さつ')}${cell('クイズの 正答率', five.accuracy === null || five.accuracy === undefined ? '—' : five.accuracy, five.accuracy === null || five.accuracy === undefined ? 'これから' : '%')}${cell('覚えた 単語', five.words ?? 0, five.wordsNew ? `こ（+${five.wordsNew}）` : 'こ')}</div>${five.abc ? `<p class="abcline" style="margin:8px 0 0;font-weight:700">🔤 ABC と おと：おぼえた もじ ${esc(five.abc.letters)}/${esc(five.abc.lettersTotal || 26)}・よめる ルール ${esc(five.abc.rules)}こ</p>` : ''}`;
 }
 export function barHtml(bar) {
   if (!bar) return '';
@@ -34,6 +34,22 @@ export function booksHtml(list, { title = '📚 よんだ 本' } = {}) {
   if (!Array.isArray(list) || !list.length) return '';
   const safe = (id) => (/^rd-[A-Za-z0-9-]{1,40}$/.test(String(id)) ? `/reading-art/${id}/0.svg?still=1` : '');
   return `<h3 class="sub" style="margin:14px 0 4px;font-size:14px;color:#5d6d62">${esc(title)}</h3><div class="books">${list.slice(0, 8).map((b) => `<figure>${(b.cover || safe(b.id)) ? `<img src="${esc(b.cover || safe(b.id))}" alt="" loading="lazy">` : ''}<figcaption>${esc(b.title)}${b.titleJa ? `<small>${esc(b.titleJa)}</small>` : ''}</figcaption></figure>`).join('')}</div>`;
+}
+
+// えほんの くわしい 数字（保護者レポート）：読んだ 語数・音読の 正確さと 速さ・★・クイズ。sum = ReadingStore.summaryOf() の 返り。
+export function readingDetailHtml(sum) {
+  if (!sum || !(sum.started || sum.books)) return '';
+  const row = (icon, name, value, note = '') => `<tr><th style="text-align:left;padding:7px 8px;font-weight:600;color:#5d6d62;font-size:13px">${icon} ${esc(name)}</th><td style="padding:7px 8px;font-size:15px"><b>${esc(value)}</b>${note ? ` <small style="color:#7b8a7f;font-size:12px">${esc(note)}</small>` : ''}</td></tr>`;
+  const rows = [
+    row('📚', 'よみおえた 本', `${sum.books} さつ`, sum.started > sum.books ? `よみはじめた 本 ${sum.started} さつ` : ''),
+    row('🔤', 'よんだ 英語の 語数', `${Number(sum.words || 0).toLocaleString()} 語`, 'よみおえた 本の 合計'),
+    sum.topStage ? row('🪜', 'いちばん 上の レベル', `レベル ${sum.topStage}`, 'よみおえた 本の 中で') : '',
+    sum.quizAvg !== null && sum.quizAvg !== undefined ? row('❓', '本の クイズ', `${sum.quizAvg}%`, 'いちばん よかった 点の 平均') : '',
+    sum.aloudBooks ? row('🎤', '音読の 正確さ', `${sum.aloudAcc}%`, `${sum.aloudBooks} さつ・いちばん よかった 回の 平均`) : row('🎤', '音読', 'まだ', 'こえに 出して 読むと 正確さと 速さが 出ます'),
+    sum.aloudBooks && sum.aloudWpm ? row('⏱', '音読の 速さ', `1 分に ${sum.aloudWpm} 語`, 'いちばん 速かった 本') : '',
+    row('⭐', 'あつめた ほし', `${sum.stars || 0} こ`, '1 さつ 4 つまで'),
+  ].join('');
+  return `<h3 class="sub" style="margin:14px 0 4px;font-size:14px;color:#5d6d62">📖 えほん（よみもの島）の くわしい 数字</h3><table style="width:100%;border-collapse:collapse;background:#fffaf0;border:1px solid #ece7d4;border-radius:12px;overflow:hidden">${rows}</table>`;
 }
 
 // /class の 表：よみもの島（✓ の 冊数・読んだ 語数・さいごに 読んだ 本）。rows = [{ name, books, words, last }]

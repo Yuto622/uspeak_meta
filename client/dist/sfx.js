@@ -9,6 +9,9 @@ const buffers = {}; let loading = null;
 const VOLUME = 0.55;
 
 export function configureSfx(opts = {}) { if (typeof opts.isMuted === 'function') isMuted = opts.isMuted; }
+// ほかの 音（abc-chant.js の はくの 音）も 同じ ♫ の スイッチと 同じ AudioContext を 使う。
+export function sfxMuted() { try { return !!isMuted(); } catch { return false; } }
+export function sfxContext() { return audio(); }
 
 function audio() {
   const Ctx = globalThis.AudioContext || globalThis.webkitAudioContext;

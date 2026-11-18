@@ -2,7 +2,7 @@
 //
 // きめるのは 部屋（welcome の `kids` と、かわった ときの 'kids' メッセージ）。ここは 画面の 出し分けだけ：
 // `body[data-mode=kids]` を 立て、kids.css が ふだんの 道具（冒険ノート・ランキング・こまかい 設定…）を しまう。
-// - こどもの ホーム（`#kids-home`）：大きな 絵の ボタン 5 つ。どれにも 🔊（読み上げ）。入った ときに まず これが 出る。
+// - こどもの ホーム（`#kids-home`）：大きな 絵の ボタン 6 つまで（2 ばんめは「ABC と おと」＝abc.js。いつも 出る）。どれにも 🔊（読み上げ）。入った ときに まず これが 出る。
 // - 島の 上では 下に 行き先ボタン（`#kids-dock`）：おすと その 戸口へ 自動で 行く（歩かなくて いい）。
 // 判定・コイン・記録は ふつうの モードと 同じ（ここでは 何も きめない）。
 import { isJa, onLangChange } from './i18n.js';
@@ -13,6 +13,7 @@ export const kidsOn = () => globalThis.document?.body?.dataset.mode === 'kids';
 
 const HOME = [
   { id: 'today', icon: '🌟', ja: 'きょうの がくしゅう', en: "Today's Lesson", color: '#e27a2d' },
+  { id: 'abc', icon: '🔤', art: '/abc-art/cover.svg', ja: 'ABC と おと', en: 'ABC and Sounds', color: '#e0a800' },
   { id: 'books', icon: '📚', ja: 'ほんだな', en: 'Books', color: '#6b4c9c' },
   { id: 'map', icon: '🗺️', ja: 'しまの ちず', en: 'Map', color: '#2fa3b8' },
   { id: 'wear', icon: '👕', ja: 'きせかえ', en: 'Dress Up', color: '#b06fc4' },
@@ -27,7 +28,7 @@ const MAIN_SPOTS = [
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const two = (o) => `<b class="en">${esc(o.en)}</b><i class="ja">${esc(o.ja)}</i>`;
 
-export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pendingHomework, askHomework, openHomework, openReading, openWardrobe, openMap, enterMain, logout }) {
+export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pendingHomework, askHomework, openHomework, openAbc, openReading, openWardrobe, openMap, enterMain, logout }) {
   const state = { on: false, home: false, island: '' };
   const say = (o) => { try { speak(isJa() ? o.ja : o.en, { japanese: isJa() }); } catch { /* 声が 出なくても 画面は つかえる */ } };
 
@@ -43,7 +44,7 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
       <header class="kh-head"><h2>${two({ en: 'Hello!', ja: 'こんにちは！' })}</h2>
         <button type="button" class="kh-say" data-say="hello" aria-label="よみあげ">🔊</button></header>
       <div class="kh-grid">${HOME.map((b) => `<div class="kh-card" style="--kc:${b.color}">
-        <button type="button" class="kh-go" data-go="${b.id}"><span class="kh-icon" aria-hidden="true">${b.icon}</span><span class="kh-name">${two(b)}</span>
+        <button type="button" class="kh-go" data-go="${b.id}">${b.art ? `<img class="kh-art" src="${b.art}" alt="" draggable="false">` : `<span class="kh-icon" aria-hidden="true">${b.icon}</span>`}<span class="kh-name">${two(b)}</span>
           ${b.id === 'today' && todo ? `<em class="kh-badge">${todo}</em>` : ''}</button>
         <button type="button" class="kh-say" data-say="${b.id}" aria-label="よみあげ">🔊</button></div>`).join('')}</div>
       <footer class="kh-foot"><button type="button" class="kh-out" data-go="out">⏏ ${two({ en: 'Log out', ja: 'おわる' })}</button></footer>
@@ -66,6 +67,7 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
     if (id !== 'play' && !isOnline()) { toast('オンラインで あそべます。'); return; }
     // 宿題・本だなは ホームの 上に ひらく（とじると ホームに もどる）。
     if (id === 'today') { if (pendingHomework?.() > 0) openHomework(); else openReading(); return; }
+    if (id === 'abc') { openAbc?.(); return; }
     if (id === 'books') { openReading(); return; }
     if (id === 'wear') { openWardrobe(); return; }
     if (id === 'map') { closeHome(); openMap(); }

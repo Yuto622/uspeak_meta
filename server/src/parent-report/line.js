@@ -149,10 +149,12 @@ export function interviewText(iv) {
 // 数字 5 つ（学習時間・話した 回数・読んだ 本・クイズの 正答率・覚えた 単語）と、よんだ 本。吹き出しの いちばん 上に 置く。
 // 正答率は 20 問 未満なら「これから」（aggregate の 決まり）。なにも して いない 期間は 出さない。
 export function fiveText(f, { nick = '', label = '今週' } = {}) {
-  if (!f || !(f.minutes || f.speak || f.books || f.answered || f.words)) return '';
+  if (!f || !(f.minutes || f.speak || f.books || f.answered || f.words || f.abc)) return '';
   const lines = [`📊 ${nick ? `${nick}さんの ` : ''}${label}の 数字`];
   lines.push(`⏱ 学習時間 約${f.minutes}分　🗣 話した ${f.speak}回　📚 読んだ本 ${f.books}さつ`);
   lines.push(`✅ クイズの 正答率 ${f.accuracy === null || f.accuracy === undefined ? 'これから（20問から 出ます）' : `${f.accuracy}%`}　🔤 覚えた単語 ${f.words}こ${f.wordsNew ? `（${label} +${f.wordsNew}）` : ''}`);
+  // 「ABC と おと」を して いる 子だけ（幼児モードの カード）。
+  if (f.abc) lines.push(`🔤 おぼえた もじ ${f.abc.letters}/${f.abc.lettersTotal || 26}　📏 よめる ルール ${f.abc.rules}こ`);
   if (f.bookList?.length) lines.push(`📖 よんだ 本：${f.bookList.slice(0, 5).map((b) => b.title).filter(Boolean).join('・')}${f.bookList.length > 5 ? ` ほか ${f.bookList.length - 5} さつ` : ''}`);
   return lines.join('\n').slice(0, 1200);
 }

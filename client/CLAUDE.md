@@ -1956,3 +1956,13 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   「なまえが ない とき」で いつもの 入力に もどる（先生は ここから 先生パスワードで）。**一覧は 入力の かわり**：入れるか どうかは いつもの `onAuth`（名簿・停止・クラスコード・先生パスワード）。
 - 気を つける こと：QR を 持つ 人は クラスの 子の なまえを 見られ、どの 子としても 入れる（なまえを 打って 入るのと 同じ 強さ。本人の たしかめは ない）。QR を かえたい ときは いまは REPORT_SECRET を かえる しか ない（オフに すれば すぐ 止まる）。
 - 検査：`server/test/join-names.test.mjs`。
+
+## 「ABC と おと」の 材料（中身・絵・うた／2026-11）
+- **中身**：`server/src/game/abc-data.json`（`order`＝音の 順 s a t p i n …、`letters`＝文字ごとの 絵の ことば 3 つ、`cvc`・`digraphs`・`magicE`＝ことばと `parts`）。
+  1 つの ことばに 1 つの 絵・1 つの 絵に 1 つの ことば。たしかめるのは `node server/scripts/check-abc-data.mjs`（`abc-art.js` の `abcProblems`）。
+- **絵は サーバーが かく**（`server/src/game/abc-art.js`・口は `server/src/reading/abc-art-route.js`）：`/abc-art/letter/<a-z>.svg?case=both|upper|lower`（つみき。
+  **文字は じぶんで かいた 線**＝端末の フォントに たよらない・a と g は 1 かいだて）、`/abc-art/word/<ことば>.svg`（絵だけ・字なし）、`/abc-art/cover.svg`。
+  `?v=ABC_ART_VERSION` で 1 年 キャッシュ。絵文字は `reading-art/emoji/`（Twemoji・CC-BY 4.0）。
+- **うた**：`abc-chant.js` の `playChant(lines, { accent, slow, onLine, onEnd })` / `stopChant()`。はくの 音は WebAudio（`sfx.js` の `sfxContext`・♫ を 切ると 音も 声も 出さず 行だけ 進む）。
+  声は `playVoice`。**サーバーの 声は アメリカ式だけ**。`accent: 'uk'` は 端末に イギリスの 声（en-GB）が ある ときだけ それで 読む。
+- 検査：`server/test/abc-data.test.mjs`。

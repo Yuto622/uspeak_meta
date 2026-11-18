@@ -111,3 +111,17 @@ body[data-warp] #kids-dock, body[data-class-pause] #kids-dock, body[data-kids-ho
 #kids-toggle small .en, #kids-toggle small .ja { font-size: inherit; font-style: normal; font-weight: inherit; }
 #kids-toggle.on { background: #1b3a2f; border-color: #1b3a2f; color: #fff; min-height: 44px; }
 @media (max-width: 700px), (max-height: 480px) { #kids-toggle small { display: none; } #kids-toggle { padding: 0 9px; } }
+
+/* ---- カードが 6 まい（ABC と おと を 足した）：iPad の はばでは 3 × 2（1 れつだと ボタンが ほそくて おしにくい）。
+   よこに ひろい 画面（1300px から）と、たかさの ない よこもちの スマホは 1 れつ。 ---- */
+#kids-home .kh-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+#kids-home .kh-art { width: clamp(84px, 17vh, 150px); height: clamp(64px, 13vh, 112px); object-fit: cover; border-radius: 14px; box-shadow: 0 4px 0 #0002; background: #ffe9a8; }
+@media (min-width: 1300px) { #kids-home .kh-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (max-height: 520px) and (min-width: 641px) { #kids-home .kh-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } #kids-home .kh-art { width: 64px; height: 48px; border-radius: 10px; } }
+@media (max-width: 640px) { #kids-home .kh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* 2 だんの とき（iPad）は カードを ひくく して、「おわる」まで 1 画面に おさめる（スクロールさせない）。 */
+@media (min-width: 641px) and (max-width: 1299px) and (min-height: 521px) {
+  #kids-home .kh-go { min-height: clamp(130px, 26vh, 240px); padding: 12px 8px 58px; gap: 6px; }
+  #kids-home .kh-icon { font-size: clamp(44px, 9vh, 84px); }
+  #kids-home .kh-art { width: clamp(76px, 12vh, 124px); height: clamp(57px, 9vh, 93px); }
+}

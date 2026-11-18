@@ -117,7 +117,10 @@ test('よみもの島の まとめ：✓ の 本だけ 冊数と 語数に 入�
   const sum = store.summaryOf('c1', 'Mio');
   assert.deepEqual([sum.books, sum.words, sum.last.id, sum.last.done, sum.list.length, sum.list[0].id], [1, a.words, b.id, false, 1, a.id]);
   assert.ok(!JSON.stringify(sum).includes('"answer"') && !JSON.stringify(sum).includes('"quiz"'));
-  assert.deepEqual(store.summaryOf('c1', 'nobody'), { books: 0, words: 0, last: null, list: [] });
+  // くわしい 数字（音読・★・クイズの 平均・いちばん 上の レベル）。
+  assert.deepEqual([sum.started, sum.quizAvg, sum.aloudBooks, sum.aloudAcc, sum.topStage, sum.stars > 0], [2, 100, 0, null, a.stage, true]);
+  const none = store.summaryOf('c1', 'nobody');
+  assert.deepEqual([none.books, none.words, none.last, none.list, none.started, none.aloudAcc, none.quizAvg], [0, 0, null, [], 0, null, null]);
 });
 
 let server; let url; let http;

@@ -5,13 +5,14 @@
 //   宿題の すすみぐあい（homework）
 //   ロードマップの 段階（roadmap）
 //   名簿（roster）は 消さない：名簿は 教室が 「入れる 人」として 持つ 表で、先生が 画面で 消す。
-export async function eraseStudent({ store, parentReports = null, homework = null, roadmap = null, log = console }, { classCode, name, username = '' }) {
+export async function eraseStudent({ store, parentReports = null, homework = null, roadmap = null, abc = null, log = console }, { classCode, name, username = '' }) {
   if (!classCode || !name) throw new Error('classCode and name are required');
   const out = { classCode, name, username, store: null, reports: null };
   out.store = await store.erasePlayer(classCode, name, { username });
   if (parentReports?.service?.eraseStudent) out.reports = await parentReports.service.eraseStudent(classCode, name);
   if (homework?.eraseStudent) out.homework = await homework.eraseStudent(classCode, name);
   if (roadmap?.eraseStudent) out.roadmap = await roadmap.eraseStudent(classCode, name);
+  if (abc?.erase) out.abc = await abc.erase(classCode, name); // 「ABC と おと」の 記録
   log.info?.(`[privacy] erased one student in class=${classCode} (store ${JSON.stringify(out.store)}, reports ${JSON.stringify(out.reports)})`);
   return out;
 }
