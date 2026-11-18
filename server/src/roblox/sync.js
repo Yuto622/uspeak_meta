@@ -18,6 +18,7 @@ import { SEED_METRICS, SEED_PREVIOUS, summarize, parseMetric } from '../game/rob
 import { sameUser } from '../store/FileStore.js';
 import { boxFromEvents, pickWords, optionsFor, dueCount } from '../game/review.js';
 import { createRobloxBooks } from './books-api.js';
+import { createRobloxAbc } from './abc-api.js';
 import { createDrill, MAX_N } from './drill.js';
 
 const MAX_EVENTS = 300;
@@ -48,7 +49,7 @@ export const signRobloxReport = (secret, username) => signLink(secret, `roblox|$
 export const verifyRobloxReport = (secret, username, token) => verifyLink(secret, `roblox|${username}`, token);
 export const robloxReportPath = (secret, username) => `/report/${encodeURIComponent(username)}?t=${signRobloxReport(secret, username)}`;
 
-export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret = '', questions = null, books = null, log = console, now = Date.now }) {
+export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret = '', questions = null, books = null, abc = null, abcStage = null, log = console, now = Date.now }) {
   const enabled = !!key;
   const rooms = new Set();          // ClassRoom が入室時に登録する（残高を押し込むため）
   const hits = new Map();           // key -> { count, at }
@@ -342,6 +343,8 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
 
     // よみもの島の 絵本（books-api.js）。絵は 審査を 通った ものだけ・クイズの 判定と 記録は ここ（Web）。
     if (books) createRobloxBooks({ secret: key, assets: books, store, now, log }).mount(api);
+    // 「ABC と おと」（abc-api.js）。問題と 判定は Web と 同じ きまり・記録は Web の 子と 同じ 1 つ。絵カードは books（BookAssets）が 上げた もの。
+    if (abc) createRobloxAbc({ abc, assets: books, store, childFor, stageOf: abcStage || (async () => 'A'), now, log }).mount(api);
 
     app.use('/api/roblox', api);
     log.info(`[roblox] /api/roblox is served (rate=${ratePerMin}/min)`);

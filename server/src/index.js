@@ -56,6 +56,9 @@ import { reportTex } from './game/report-tex.js';
 import { texToPdf, latexAvailable, LatexError } from './game/latex.js';
 import { createRoblox, verifyRobloxReport } from './roblox/sync.js';
 import { BookAssets } from './roblox/book-assets.js';
+import { withAbc } from './roblox/abc-assets.js';
+import { renderPng as renderBookPng, artHash as bookArtHash } from './roblox/book-png.js';
+import { allBooks as allReadingBooks } from './game/reading.js';
 import { robloxBooksAdminExtension } from './roblox/book-admin.js';
 import { parentHtml as robloxParentHtml, classSection as robloxClassSection, classCsv as robloxClassCsv } from './roblox/pages.js';
 import { setupParentReports } from './parent-report/index.js';
@@ -102,8 +105,11 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   const startedAt = Date.now();
   // Roblox 連携（roblox/sync.js）: 学習の記録を受け、コインを両側で同じにする。鍵がなければ口は開かない。
   // 絵本の 絵を Roblox へ 上げる 係（鍵が なければ 何も しない）。Roblox 版には 審査を 通った 絵だけ わたす。
-  const robloxBookAssets = await new BookAssets(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roblox-book-assets.json'), { ...config.robloxOpenCloud, log }).init();
-  const roblox = createRoblox({ books: robloxBookAssets, store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, questions: () => ({ updatedAt: qbank.updatedAt, items: qbank.live('roblox') }), log });
+  // 絵本の 絵と「ABC と おと」の 絵カードを 同じ 道具で 上げる（abc-assets.js）。
+  const robloxBookAssets = await new BookAssets(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roblox-book-assets.json'), { ...config.robloxOpenCloud, ...withAbc({ books: allReadingBooks, render: renderBookPng, hash: bookArtHash }), log }).init();
+  const abcStore = await new AbcStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'abc.json'), { log }).init();
+  // Roblox 版の「ABC と おと」：記録は Web と 同じ abcStore。はじめの 数問の きめ方（ロードマップの 段階）も Web と 同じ（roadmap は 下で 作る・呼ばれるのは 起動の あと）。
+  const roblox = createRoblox({ books: robloxBookAssets, abc: abcStore, abcStage: async (cls, name, username) => (await roadmap.view(cls, name, { username, advance: false }))?.stage?.id || 'A', store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, questions: () => ({ updatedAt: qbank.updatedAt, items: qbank.live('roblox') }), log });
   await roblox.ensureSeeds();
   await roblox.refreshLinks();
 
@@ -122,7 +128,6 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 幼児モード（クラスごと・子どもごとの かんたんな 画面の スイッチ）。
   const kidsStore = await new KidsStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'kids-mode.json'), { log }).init();
   // 「ABC と おと」（幼児モードの カード）の 記録と、教室ごとの 設定（運営だけが かえる）。
-  const abcStore = await new AbcStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'abc.json'), { log }).init();
   const readingStore = await new ReadingStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'reading.json'), { log }).init();
   const roadmapStore = await new RoadmapStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roadmap.json'), { log }).init();
   const roadmap = createRoadmapService({ store, roadmap: roadmapStore, roblox, log });

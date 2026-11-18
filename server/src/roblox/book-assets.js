@@ -61,7 +61,8 @@ export class BookAssets {
       for (let n = 0; n <= b.pages.length; n += 1) {
         const hash = this.hash(b, n); const e = this.pictures[keyOf(b.id, n)];
         const state = !e ? 'new' : e.hash !== hash ? 'changed' : e.state;
-        list.push({ key: keyOf(b.id, n), book: b.id, n, title: b.title, stage: b.stage, hash, state, assetId: e && e.hash === hash ? e.assetId : '' });
+        // group：管理ページで 1 行に まとめる もの（「ABC と おと」の 絵カードは 1 ことば 1 冊なので、まとめないと 百 行を こえる）。
+        list.push({ key: keyOf(b.id, n), book: b.id, n, title: b.title, stage: b.stage, group: b.group || '', groupTitle: b.groupTitle || '', hash, state, assetId: e && e.hash === hash ? e.assetId : '' });
       }
     }
     return list;
@@ -70,7 +71,8 @@ export class BookAssets {
   // 順番：表紙を 先に（本だなが 早く そろう）→ やさしい 段階の 本から。
   pending(opts) {
     const order = ['A', 'B', 'C', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    const rank = (p) => (p.n === 0 ? 0 : 1) * 100 + Math.max(0, order.indexOf(p.stage));
+    // 表紙 → ABC の 絵カード → ページ。
+    const rank = (p) => (p.group ? 50 : (p.n === 0 ? 0 : 1) * 100 + Math.max(0, order.indexOf(p.stage)));
     return this.plan(opts).filter((p) => p.state === 'new' || p.state === 'changed' || p.state === 'sending' || p.state === 'failed').sort((a, b) => rank(a) - rank(b));
   }
 
@@ -78,15 +80,16 @@ export class BookAssets {
   summary() {
     const by = new Map();
     for (const p of this.plan()) {
-      const row = by.get(p.book) || { book: p.book, title: p.title, stage: p.stage, total: 0, approved: 0, reviewing: 0, rejected: 0, failed: 0, todo: 0 };
+      const gk = p.group ? `group:${p.group}` : p.book;
+      const row = by.get(gk) || { book: p.group ? '' : p.book, group: p.group, title: p.group ? p.groupTitle : p.title, stage: p.group ? '—' : p.stage, total: 0, approved: 0, reviewing: 0, rejected: 0, failed: 0, todo: 0 };
       row.total += 1;
       if (p.state === 'approved') row.approved += 1; else if (p.state === 'reviewing' || p.state === 'working') row.reviewing += 1;
       else if (p.state === 'rejected') row.rejected += 1; else if (p.state === 'failed') { row.failed += 1; row.todo += 1; } else row.todo += 1;
-      by.set(p.book, row);
+      by.set(gk, row);
     }
     const rows = [...by.values()];
     const sum = (k) => rows.reduce((n, r) => n + r[k], 0);
-    return { rows, totals: { books: rows.length, total: sum('total'), approved: sum('approved'), reviewing: sum('reviewing'), rejected: sum('rejected'), failed: sum('failed'), todo: sum('todo') } };
+    return { rows, totals: { books: rows.filter((r) => !r.group).length, total: sum('total'), approved: sum('approved'), reviewing: sum('reviewing'), rejected: sum('rejected'), failed: sum('failed'), todo: sum('todo') } };
   }
   // Roblox の ゲームに わたす 絵（審査を 通った ものだけ）。なければ ''。
   imageFor(bookId, n) {
@@ -150,7 +153,7 @@ export class BookAssets {
     const png = book ? await this.render(book, p.n) : null;
     if (!png) { this.pictures[p.key] = { hash: p.hash, state: 'failed', op: '', assetId: '', type: this.assetType, error: 'PNG に できませんでした（@resvg/resvg-js が 入って いない？）', at: this.now() }; return; }
     const request = JSON.stringify({
-      assetType: this.assetType, displayName: `USpeak ${book.title}`.slice(0, 40) + ` p${p.n}`, description: 'U-Speak Book Island picture book (original art).',
+      assetType: this.assetType, displayName: `USpeak ${book.title}`.slice(0, 40) + (book.abc ? '' : ` p${p.n}`), description: book.abc ? 'U-Speak ABC and Sounds picture card (original art).' : 'U-Speak Book Island picture book (original art).',
       creationContext: { creator: this.groupId ? { groupId: this.groupId } : { userId: this.userId } },
     });
     // おくる 前に「おくって いる」と のこす（ここで 落ちたら つぎに もう一度 おくる。その 1 まいだけ 2 回に なる ことが ある）。

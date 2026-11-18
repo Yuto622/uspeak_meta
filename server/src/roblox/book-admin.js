@@ -3,6 +3,7 @@
 import express from 'express';
 import { allBooks } from '../game/reading.js';
 import { robloxChanges } from './safe-art.js';
+import { ROBLOX_BLOCKED, robloxWords } from './abc-assets.js';
 
 const escH = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 // Roblox に 送る 前に かえる 絵の 一覧（本・ページ・なにを なにに）。
@@ -67,6 +68,10 @@ code{background:#f4efe4;border-radius:6px;padding:1px 6px;font-size:14px}ol{marg
 <h2>Roblox の きまりに あわせて かえる 絵</h2>
 <div class="card"><p style="margin:0 0 8px">Roblox の 審査に ひっかかりそうな ものは、<b>Roblox に 送る 絵だけ</b> かえるか 外します（Web の 絵は そのまま）。おさけ → ガラスの びん、はもの → 食器・まき、お札 → コイン、宗教の たてもの → ふつうの たてもの、シャワー・トイレ・くちびるなどは 外す。</p>
 ${changesHtml()}</div>
+<h2>🔤 「ABC と おと」の 絵カード</h2>
+<div class="card"><p style="margin:0 0 8px">Roblox 版の「ABC と おと」で 使う <b>ことばの 絵カード ${robloxWords().length} まい</b>（じぶんたちで かいた 絵・512×512）も、ここで いっしょに 上げます（下の 表の「🔤 ABC と おと」の 行）。もじは 上げません（Roblox の 画面で 字として 出します）。<br>
+もじ 26 と きまり ぜんぶに 使える 絵が 審査を 通るまで、Roblox 版の「ABC と おと」は はじめられません（「えを じゅんびちゅう」と 出ます）。</p>
+<p style="margin:0"><b>Roblox には 出さない ことば</b>（上げない・Roblox 版の 問題にも 使わない。Web 版は そのまま）：${Object.entries(ROBLOX_BLOCKED).map(([w, why]) => `<code>${escH(w)}</code> ${escH(why)}`).join('・')}</p></div>
 <h2>本ごとの ようす</h2>
 <div class="card" style="padding:0;overflow:auto;max-height:70vh"><table><thead><tr><th>レベル</th><th>本</th><th>絵</th><th>通った</th><th>審査中</th><th>だめ</th><th>まだ</th></tr></thead><tbody id="rows"></tbody></table></div>
 </div><script>

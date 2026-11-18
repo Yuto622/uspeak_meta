@@ -6,17 +6,22 @@
 import path from 'node:path';
 import { config } from '../src/config.js';
 import { BookAssets } from '../src/roblox/book-assets.js';
+import { withAbc, ROBLOX_BLOCKED } from '../src/roblox/abc-assets.js';
+import { renderPng, artHash } from '../src/roblox/book-png.js';
+import { allBooks } from '../src/game/reading.js';
 
 const args = process.argv.slice(2);
 const flag = (name) => args.includes(name);
 const value = (name, d = '') => { const i = args.indexOf(name); return i >= 0 && args[i + 1] ? args[i + 1] : d; };
 const oc = config.robloxOpenCloud;
-const assets = await new BookAssets(path.resolve(config.dataDir, 'roblox-book-assets.json'), { ...oc, log: console }).init();
+const assets = await new BookAssets(path.resolve(config.dataDir, 'roblox-book-assets.json'), { ...oc, ...withAbc({ books: allBooks, render: renderPng, hash: artHash }), log: console }).init();
 const book = value('--book'); const limit = Math.max(1, Number(value('--limit', '200')) || 200);
 if (flag('--dry-run')) {
   const todo = assets.pending({ book });
   const t = assets.summary().totals;
   console.log(`絵 ぜんぶ ${t.total} まい（本 ${t.books} さつ）・通った ${t.approved}・審査中 ${t.reviewing}・だめ ${t.rejected}・まだ ${t.todo}`);
+  const abcRow = assets.summary().rows.find((r) => r.group === 'abc');
+  if (abcRow) console.log(`うち「ABC と おと」の 絵カード ${abcRow.total} まい（通った ${abcRow.approved}・審査中 ${abcRow.reviewing}・だめ ${abcRow.rejected}・まだ ${abcRow.todo}）。Roblox に 出さない ことば：${Object.keys(ROBLOX_BLOCKED).join(' ')}`);
   console.log(`おくる 絵：${todo.length} まい${todo.length ? `（はじめの ${Math.min(limit, todo.length)} まい：${todo.slice(0, Math.min(limit, 8)).map((p) => p.key).join(' ')}${todo.length > 8 ? ' …' : ''}）` : ''}`);
   if (assets.missing().length) console.log(`足りない 設定：${assets.missing().join('・')}`);
   process.exit(0);

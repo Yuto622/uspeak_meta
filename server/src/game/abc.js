@@ -42,6 +42,35 @@ export const setData = (raw) => { DATA = cleanData(raw); UNITS = null; return DA
 export const data = () => (DATA === undefined ? loadData() : DATA);
 export const ready = () => !!data();
 
+// ---- ことばを しぼって 使う（Roblox 版）--------------------------------------------------------
+// Roblox には 上げない 絵・まだ 審査を 通って いない 絵の ことばを、問題づくりから 外す。Web は いつも ぜんぶ 使う。
+// fn の あいだだけ 中身を さしかえる（同期の 処理だけ。await を はさまない こと）。もじ・ルールの ならび（id）は かえない：
+// 外すと 足りなく なる グループ（もじ＝1 つ・ルール＝3 つ 未満）は、その グループだけ もとの ことばを のこす。
+const filteredCache = new WeakMap(); // exclude(Set) → { base, sig, data, units }
+export function wordsLeft(exclude) {
+  const base = data(); if (!base) return null;
+  const ok = (x) => !exclude.has(x.w);
+  const keep = (list, min) => { const f = list.filter(ok); return f.length >= min ? f : list; };
+  const letters = Object.fromEntries(Object.entries(base.letters).map(([l, v]) => [l, { ...v, words: keep(v.words, 1) }]));
+  const cvc = VOWELS.flatMap((v) => keep(base.cvc.filter((x) => x.parts[1] === v), 3)).concat(base.cvc.filter((x) => !VOWELS.includes(x.parts[1])).filter(ok));
+  const group = (obj) => Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, keep(v, 3)]));
+  return { order: base.order, letters, cvc, digraphs: group(base.digraphs), magicE: group(base.magicE) };
+}
+export function withWords(exclude, fn) {
+  if (!(exclude instanceof Set) || !exclude.size || !ready()) return fn();
+  const base = DATA; const sig = [...exclude].sort().join(',');
+  let f = filteredCache.get(exclude);
+  if (!f || f.base !== base || f.sig !== sig) { f = { base, sig, data: wordsLeft(exclude), units: null }; filteredCache.set(exclude, f); }
+  const keepUnits = UNITS;
+  DATA = f.data; UNITS = f.units;
+  try { return fn(); } finally { f.units = UNITS; DATA = base; UNITS = keepUnits; }
+}
+// ぜんぶの ことば（かさなりなし）。
+export function allWords() {
+  const d = data(); if (!d) return [];
+  return [...new Set([...Object.values(d.letters).flatMap((l) => l.words), ...d.cvc, ...Object.values(d.digraphs).flat(), ...Object.values(d.magicE).flat()].map((x) => x.w))];
+}
+
 // 小学生の 段階の ならび（ルール）。さいごの「つづる」は ルールの 数には 入れない。
 let UNITS = null;
 export function units() {
