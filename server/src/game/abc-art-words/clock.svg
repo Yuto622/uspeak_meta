@@ -6,7 +6,7 @@
 <path d="M60 70A76 76 0 0 1 120 38" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".8"/>
 <g fill="#3b2a20">
 <circle cx="120" cy="50" r="6"/><circle cx="184" cy="114" r="6"/><circle cx="120" cy="178" r="6"/><circle cx="56" cy="114" r="6"/>
-<circle cx="152" cy="58.600" r="3.500"/><circle cx="175.400" cy="82" r="3.500"/><circle cx="175.400" cy="146" r="3.500"/><circle cx="152" cy="169.400" r="3.500"/><circle cx="88" cy="169.400" r="3.500"/><circle cx="64.600" cy="146" r="3.500"/><circle cx="64.600" cy="82" r="3.500"/><circle cx="88" cy="58.600" r="3.500"/>
+<circle cx="152" cy="58.6" r="3.5"/><circle cx="175.4" cy="82" r="3.5"/><circle cx="175.4" cy="146" r="3.5"/><circle cx="152" cy="169.4" r="3.5"/><circle cx="88" cy="169.4" r="3.5"/><circle cx="64.6" cy="146" r="3.5"/><circle cx="64.6" cy="82" r="3.5"/><circle cx="88" cy="58.6" r="3.5"/>
 </g>
 <path d="M120 114L88 92" stroke="#3b2a20" stroke-width="9" stroke-linecap="round"/>
 <path d="M120 114L166 86" stroke="#4f86d9" stroke-width="7" stroke-linecap="round"/>

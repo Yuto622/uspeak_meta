@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-<ellipse cx="128" cy="216" rx="70" ry="7" fill="#000" opacity=".12"/>
-<path d="M104 196 H168" fill="none" stroke="#ffd9b3" stroke-width="30" stroke-linecap="round"/>
-<path d="M80 40 L128 116 L106 190" fill="none" stroke="#ffd9b3" stroke-width="52" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M88 200 Q92 211 104 211 H168 Q180 211 182 200 Q176 206 166 206 H104 Q94 206 88 200z" fill="#eab98c"/>
-<path d="M140 104 Q152 118 144 134" fill="none" stroke="#eab98c" stroke-width="5" stroke-linecap="round"/>
-<path d="M118 150 L108 184" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".35"/>
-<g fill="#eab98c"><circle cx="176" cy="186" r="4"/><circle cx="166" cy="183" r="3.5"/><circle cx="157" cy="182" r="3"/></g>
-<path d="M36 44 L96 6 L134 66 L74 104z" fill="#4f86d9"/>
-<path d="M124 50 L134 66 L74 104 L64 88z" fill="#3a6dbd"/>
+<ellipse cx="128" cy="218" rx="76" ry="7" fill="#000" opacity=".12"/>
+<path d="M108 194 H170" fill="none" stroke="#e8b088" stroke-width="34" stroke-linecap="round"/>
+<circle cx="180" cy="192" r="15" fill="#e8b088"/>
+<path d="M76 30 L126 112 L104 188" fill="none" stroke="#e8b088" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M90 204 Q96 212 108 212 H172 Q188 212 194 200 Q186 206 172 206 H108 Q98 206 90 204z" fill="#d4966c"/>
+<path d="M140 100 Q154 116 144 136" fill="none" stroke="#d4966c" stroke-width="5" stroke-linecap="round"/>
+<path d="M84 150 Q78 172 82 190" fill="none" stroke="#d4966c" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+<path d="M122 146 L110 184" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".3"/>
+<ellipse cx="186" cy="186" rx="7" ry="5" fill="#fbe0cc"/>
+<g fill="none" stroke="#d4966c" stroke-width="3" stroke-linecap="round"><path d="M168 182 v10"/><path d="M158 180 v9"/><path d="M149 179 v8"/></g>
+<path d="M50 70 L118 28 L96 -8 L28 34z" fill="#4f86d9"/>
+<path d="M50 70 L118 28 L111 16 L43 58z" fill="#3a6dbd"/>
 </svg>

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-<g transform="rotate(-22 120 120)">
+<g transform="translate(12 16) scale(.88) rotate(-22 120 120)">
 <path d="M56 108 C36 104 20 110 6 120 C20 130 36 136 56 132z" fill="#f0913a"/>
 <path d="M56 113 C42 111 32 115 24 120 C32 125 42 129 56 127z" fill="#ffd24a"/>
 <polygon points="150,110 84,110 52,56 80,56" fill="#7f8d9b"/>
@@ -13,5 +13,4 @@
 <rect x="46" y="108" width="12" height="24" rx="4" fill="#5d6b78"/>
 <circle cx="120" cy="116" r="6" fill="#e2574c"/>
 </g>
-<g fill="#fff" opacity="0"><circle cx="0" cy="0" r="1"/></g>
 </svg>

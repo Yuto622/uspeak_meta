@@ -9,7 +9,7 @@
 <path d="M112 126L104 120M112 126L120 120M112 126V116" stroke="#5aae78" stroke-width="5" stroke-linecap="round"/>
 <path d="M56 190A64 16 0 0 0 184 190" fill="none" stroke="#8d99a6" stroke-width="3"/>
 <ellipse cx="120" cy="50" rx="64" ry="16" fill="#dfe5ec"/>
-<ellipse cx="120" cy="50" rx="53" ry="11.500" fill="#c3ccd5"/>
-<ellipse cx="136" cy="51" rx="14" ry="5" fill="none" stroke="#8d99a6" stroke-width="3.500"/>
-<circle cx="118" cy="50" r="3.500" fill="#8d99a6"/>
+<ellipse cx="120" cy="50" rx="53" ry="11.5" fill="#c3ccd5"/>
+<ellipse cx="136" cy="51" rx="14" ry="5" fill="none" stroke="#8d99a6" stroke-width="3.5"/>
+<circle cx="118" cy="50" r="3.5" fill="#8d99a6"/>
 </svg>

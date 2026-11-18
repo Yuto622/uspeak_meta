@@ -7,7 +7,6 @@
 <polygon points="120,6 178,70 120,70" fill="#ffd24a"/>
 <polygon points="62,70 120,70 120,168" fill="#4f86d9"/>
 <polygon points="178,70 120,70 120,168" fill="#5aae78"/>
-<polygon points="120,6 178,70 120,168 62,70" fill="none" stroke="#fff6e0" stroke-width="0"/>
 <line x1="120" y1="8" x2="120" y2="166" stroke="#6b4226" stroke-width="4" stroke-linecap="round"/>
 <line x1="64" y1="70" x2="176" y2="70" stroke="#6b4226" stroke-width="4" stroke-linecap="round"/>
 <polygon points="120,14 132,28 120,28" fill="#fff" opacity=".35"/>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<defs><clipPath id="w-tube-c"><path d="M88 36H152V176A32 32 0 0 1 88 176z"/></clipPath></defs>
+<g transform="rotate(16 120 120)">
+<path d="M88 36H152V176A32 32 0 0 1 88 176z" fill="#e3f3fa"/>
+<g clip-path="url(#w-tube-c)">
+<rect x="80" y="104" width="80" height="120" fill="#5aae78"/>
+<rect x="80" y="104" width="80" height="12" fill="#8fd0a4"/>
+<rect x="134" y="104" width="26" height="120" fill="#3f8a5c" opacity=".5"/>
+<g fill="#d6f2de"><circle cx="108" cy="150" r="7"/><circle cx="130" cy="176" r="5"/><circle cx="118" cy="128" r="4"/><circle cx="104" cy="186" r="4"/></g>
+</g>
+<path d="M88 36H152V176A32 32 0 0 1 88 176z" fill="none" stroke="#8fc3da" stroke-width="6"/>
+<path d="M102 52V92" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+<rect x="78" y="22" width="84" height="18" rx="9" fill="#8fc3da"/>
+<rect x="84" y="25" width="50" height="5" rx="2.5" fill="#fff" opacity=".6"/>
+</g>
+</svg>

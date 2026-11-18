@@ -14,7 +14,7 @@
 <circle cx="80" cy="56" r="7" fill="#e8b088"/><circle cx="160" cy="56" r="7" fill="#e8b088"/>
 <path d="M80 50 C76 22 98 8 122 10 C146 10 164 24 160 50 C150 42 142 32 110 34 C96 34 86 40 80 50z" fill="#3b2a20"/>
 <circle cx="106" cy="54" r="5" fill="#3b2a20"/><circle cx="134" cy="54" r="5" fill="#3b2a20"/>
-<circle cx="104.5" cy="52.5" r="1.7" fill="#fff"/><circle cx="132.5" cy="52.500" r="1.7" fill="#fff"/>
+<circle cx="104.5" cy="52.5" r="1.7" fill="#fff"/><circle cx="132.5" cy="52.5" r="1.7" fill="#fff"/>
 <path d="M98 66 Q110 58 120 66 Q130 58 142 66 Q132 76 120 70 Q108 76 98 66z" fill="#3b2a20"/>
 <path d="M112 76 Q120 82 128 76" fill="none" stroke="#3b2a20" stroke-width="3" stroke-linecap="round"/>
 <path d="M98 43 h14 M128 43 h14" stroke="#3b2a20" stroke-width="4" stroke-linecap="round"/>

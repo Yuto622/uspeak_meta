@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<path d="M14 206C14 120 66 46 140 46 188 46 216 78 212 114 204 96 180 88 162 98 140 110 136 144 154 166 172 186 204 190 228 194V206z" fill="#4f86d9" stroke="#4f86d9" stroke-width="8" stroke-linejoin="round"/>
+<path d="M40 206C44 140 80 84 136 72 104 100 96 150 122 182 136 198 160 204 180 206z" fill="#3baacb"/>
+<path d="M66 206C70 170 84 140 104 120 100 150 108 178 132 196 140 202 150 205 160 206z" fill="#7cc4ea"/>
+<g fill="#cfe6f5"><circle cx="150" cy="46" r="18"/><circle cx="178" cy="54" r="18"/><circle cx="200" cy="72" r="17"/><circle cx="210" cy="98" r="15"/><circle cx="122" cy="50" r="16"/><circle cx="96" cy="62" r="14"/><circle cx="200" cy="118" r="11"/><circle cx="74" cy="80" r="11"/></g>
+<g fill="#fff"><circle cx="150" cy="43" r="15"/><circle cx="178" cy="51" r="15"/><circle cx="200" cy="69" r="14"/><circle cx="209" cy="95" r="12"/><circle cx="122" cy="47" r="13"/><circle cx="96" cy="59" r="11"/><circle cx="199" cy="116" r="8"/><circle cx="74" cy="78" r="8"/></g>
+<path d="M10 204Q28 190 46 204T82 204 118 204 154 204 190 204 230 204V218H10z" fill="#3a6bb8"/>
+<g fill="#7cc4ea"><circle cx="222" cy="140" r="6"/><circle cx="206" cy="150" r="4"/><circle cx="48" cy="92" r="5"/><circle cx="34" cy="116" r="4"/></g>
+</svg>
