@@ -2,6 +2,7 @@
 // クラスごとの スイッチと、子どもごとの 上書き（クラスと おなじ・オン・オフ）。どの クラスを さわれるかは
 // サーバーが きめる（先生は ログインした 教室の クラスだけ・運営は 名簿の ぜんぶ）。置き場は kids-store.js。
 import express from 'express';
+import { config } from '../config.js';
 import QRCode from 'qrcode';
 import { KIDS_MODES } from './kids-store.js';
 import { joinPath, namesFor } from './join.js';
@@ -76,12 +77,12 @@ export function kidsAdminExtension({ kids, rosterRows, secret = '', log = consol
 }
 
 export function kidsPage({ room = null }) {
-  const cfg = { api: room ? '/teacher/api/kids' : '/admin/api/kids', header: room ? 'uspeak-teacher' : 'uspeak-admin', login: room ? '/teacher/homework' : '/admin', admin: !room };
+  const cfg = { api: room ? '/teacher/api/kids' : '/admin/api/kids', header: room ? 'uspeak-teacher' : 'uspeak-admin', login: room ? '/teacher/homework' : '/admin', admin: !room, kidsMode: !!config.kidsMode };
   const back = room
     ? `<a href="/teacher/homework">← 宿題</a> ・ <a href="/teacher/reports">保護者レポート</a> ・ <b>${esc(room.name)}</b>`
     : '<a href="/admin">← 管理トップ</a>';
   return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
-<title>幼児モード — ${room ? esc(room.name) : '管理'}</title>
+<title>${config.kidsMode ? '幼児モード' : 'なまえを えらんで 入る'} — ${room ? esc(room.name) : '管理'}</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:"Noto Sans JP",system-ui,sans-serif;background:#fffbf5;color:#1b3a2f;font-size:16px;line-height:1.7}
 .wrap{max-width:900px;margin:0 auto;padding:16px 16px 80px}h1{font-size:24px;margin:8px 0}h2{font-size:20px;margin:0}
@@ -109,16 +110,18 @@ h3{font-size:18px;margin:0}.pick{margin-top:16px;padding-top:14px;border-top:2px
 .card:not(.noprint)::before{content:"クラス " attr(data-code) " の 入り口";display:block;font-size:28px;font-weight:800;margin-bottom:8px}}
 </style></head><body><div class="wrap">
 <div class="bar"><p class="muted" style="margin:0">${back}</p>${room ? '<form method="post" action="/teacher/logout" style="margin:0"><button type="submit" class="plain">ログアウト</button></form>' : ''}</div>
-<h1>🧸 幼児モード</h1>
-<p class="muted">幼稚園・年長〜小 1・はじめての 子の ための <b>かんたんな 画面</b>に きりかえます。クラスごとに オン／オフを きめて、子どもごとに 上書きも できます。かえると、<b>入ったままの 子の 画面も 1 分 いないに かわります</b>。</p>
-<div class="what"><b>オンに すると</b>
+<style>body.nokids .kidsonly{display:none!important}</style>
+<h1>${config.kidsMode ? '🧸 幼児モード' : '📱 なまえを えらんで 入る（クラスの QR）'}</h1>
+${config.kidsMode ? '' : '<p class="muted">クラスの QR を ひらくと、名簿の なまえを おすだけで 入れます。クラスごとに オン／オフを きめます。（幼児モードは 使わない 設定です。入った 人は だれでも はじめに「せかいを えらぼう」が 出ます。）</p>'}
+<p class="muted kidsonly">幼稚園・年長〜小 1・はじめての 子の ための <b>かんたんな 画面</b>に きりかえます。クラスごとに オン／オフを きめて、子どもごとに 上書きも できます。かえると、<b>入ったままの 子の 画面も 1 分 いないに かわります</b>。</p>
+<div class="what kidsonly"><b>オンに すると</b>
 <ul><li>はじめに「こどもの ホーム」が 出ます。大きな ボタンは 5 つ（きょうの がくしゅう・ほんだな・しまの ちず・きせかえ・あそぶ）。ぜんぶ 🔊 で 読み上げます。</li>
 <li>冒険ノート・ランキング・交流ラウンジ・文字を 打つ チャット・ビデオ通話・こまかい 設定ボタンは 出ません。</li>
 <li>行ける 島は メインの島・よみもの島・つり島・きせかえ島・じぶんの 島 だけです。</li>
 <li>正解の 判定・コイン・学習の 記録は <b>ふつうの モードと 同じ</b>です（レポートの 数字は そのまま くらべられます）。</li><li><b>先生の アカウントは かわりません。</b>先生（や 見本を 見せる 人）は、あそぶ 画面の 上の <b>🧸 かんたん</b> ボタンで、じぶんの 画面だけ すぐ きりかえられます。</li></ul></div>
 <div id="msg" role="status"></div>
 <div id="classes"><p class="muted">読みこみ中…</p></div>
-${room ? '' : `<div class="card" id="addbox"><h2 style="margin:0 0 6px;font-size:18px">＋ クラスコードを 入れて 足す</h2><p class="muted" style="margin:0 0 10px;font-size:14px">上に 出て いない クラス（名簿に クラスコードを 書いて いない クラス・名簿を 使わない クラス）は、子どもが ロビーで 入れる <b>クラスコード</b>を ここに 入れると 幼児モードを オンに できます。</p><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="addcode" placeholder="例：demo" maxlength="40" autocomplete="off" style="flex:1;min-width:180px;min-height:48px;font:inherit;font-size:16px;padding:0 12px;border:2px solid #d9d1c3;border-radius:12px"><button type="button" id="addgo" style="min-height:48px;padding:0 18px;border-radius:12px;border:0;background:#2f8f5b;color:#fff;font:inherit;font-weight:800;cursor:pointer">この クラスを オンに する</button></div></div>`}
+${room ? '' : `<div class="card kidsonly" id="addbox"><h2 style="margin:0 0 6px;font-size:18px">＋ クラスコードを 入れて 足す</h2><p class="muted" style="margin:0 0 10px;font-size:14px">上に 出て いない クラス（名簿に クラスコードを 書いて いない クラス・名簿を 使わない クラス）は、子どもが ロビーで 入れる <b>クラスコード</b>を ここに 入れると 幼児モードを オンに できます。</p><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="addcode" placeholder="例：demo" maxlength="40" autocomplete="off" style="flex:1;min-width:180px;min-height:48px;font:inherit;font-size:16px;padding:0 12px;border:2px solid #d9d1c3;border-radius:12px"><button type="button" id="addgo" style="min-height:48px;padding:0 18px;border-radius:12px;border:0;background:#2f8f5b;color:#fff;font:inherit;font-weight:800;cursor:pointer">この クラスを オンに する</button></div></div>`}
 </div>
 <script>
 const CFG=${json(cfg)};
@@ -129,8 +132,8 @@ const say=(t,bad)=>{$('#msg').textContent=t;$('#msg').className=bad?'bad':''};
 const eff=(c,s)=>s.mode==='on'||(s.mode!=='off'&&c.on);
 function paint(){
   $('#classes').innerHTML=data.map((c,i)=>'<section class="card" data-code="'+esc(c.code)+'"><div class="head"><h2>クラス '+esc(c.code)+'</h2>'+
-  '<button type="button" class="sw" role="switch" aria-checked="'+c.on+'" data-class="'+i+'"><i></i><span>幼児モード '+(c.on?'オン':'オフ')+'</span></button></div>'+
-  (c.students.length?'<ul class="list">'+c.students.map((s,j)=>'<li><span class="nm">'+esc(s.name)+'<span class="now">いま：'+(eff(c,s)?'🧸 幼児モード':'ふつう')+'</span></span><span class="seg" role="group" aria-label="'+esc(s.name)+'">'+
+  (CFG.kidsMode?'<button type="button" class="sw" role="switch" aria-checked="'+c.on+'" data-class="'+i+'"><i></i><span>幼児モード '+(c.on?'オン':'オフ')+'</span></button>':'')+'</div>'+
+  (!CFG.kidsMode?'':c.students.length?'<ul class="list">'+c.students.map((s,j)=>'<li><span class="nm">'+esc(s.name)+'<span class="now">いま：'+(eff(c,s)?'🧸 幼児モード':'ふつう')+'</span></span><span class="seg" role="group" aria-label="'+esc(s.name)+'">'+
   [['inherit','クラスと おなじ'],['on','オン'],['off','オフ']].map(([m,l])=>'<button type="button" aria-pressed="'+(s.mode===m)+'" data-c="'+i+'" data-s="'+j+'" data-m="'+m+'">'+l+'</button>').join('')+'</span></li>').join('')+'</ul>'
   :'<p class="muted" style="margin:10px 0 0">名簿に この クラスの 子が まだ いません（クラスの スイッチは 使えます）。</p>')+pickHtml(c,i)+'</section>').join('')
   ||'<p class="muted">クラスが まだ ありません。</p>';
@@ -154,6 +157,7 @@ $('#classes').onclick=async e=>{const b=e.target.closest('button');if(!b)return;
   if(b.dataset.print!==undefined){const c=data[+b.dataset.print];const card=b.closest('.card');document.querySelectorAll('.card').forEach(x=>x.classList.toggle('noprint',x!==card));document.body.dataset.printing=c.code;window.print();return}
   if(b.dataset.class!==undefined){const c=data[+b.dataset.class];const r=await put({classCode:c.code,on:!c.on});if(r){c.on=r.on;paint();say('クラス '+c.code+' の 幼児モードを '+(c.on?'オン':'オフ')+'に しました（1 分 いないに とどきます）')}}
   else if(b.dataset.m){const c=data[+b.dataset.c];const s=c.students[+b.dataset.s];const r=await put({classCode:c.code,name:s.name,mode:b.dataset.m});if(r){s.mode=r.mode;paint();say(s.name+' を「'+({inherit:'クラスと おなじ',on:'オン',off:'オフ'}[s.mode])+'」に しました')}}};
+if(!CFG.kidsMode)document.body.classList.add('nokids');
 async function load(){const r=await fetch(CFG.api,{headers:H});if(r.status===401){location.href=CFG.login;return}const d=await r.json();data=d.classes||[];paint()}
 if($('#addgo'))$('#addgo').onclick=async()=>{const code=$('#addcode').value.trim();if(!code){say('クラスコードを 入れて ください',true);return}const r=await put({classCode:code,on:true});if(r){$('#addcode').value='';await load();say('クラス '+code+' の 幼児モードを オンに しました。この クラスコードで 入った 子（先生の アカウントを のぞく）は かんたんな 画面に なります')}};
 load();

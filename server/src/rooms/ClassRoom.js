@@ -5122,6 +5122,7 @@ export class ClassRoom extends Room {
       kids: !!priv?.kids,
       // この クラスが 幼児モード（クラスの 既定が オン）。先生にも 知らせる：先生の 画面も はじめは かんたんな 画面で ひらく（🧸 で もどせる）。
       kidsClass: !!this.kids?.classOf?.(this.classCode)?.on,
+      kidsMode: !!this.kids, // 幼児モードの しくみが 入って いるか（config.kidsMode）。オフなら ページは 🧸 を 出さない。
       classPaused: !!this.classMode?.paused,
       progress: this.progressPayload(sessionId),
       missionsDone: [...priv.missionsDone],

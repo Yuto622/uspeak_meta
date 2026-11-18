@@ -623,7 +623,11 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       state.homeworkCount = m.homework || 0;
       state.kids = !!m.kids && m.role !== 'teacher'; chat.setFree();
       // 幼児モードの ホームは、この ページで はじめて 入った ときに 出す（記録の ある 子＝restored でも 出す。つなぎなおしでは 出さない）。
-      kids.set(state.kids, { first: !state.kidsWelcomed, classOn: !!m.kidsClass }); state.kidsWelcomed = true;
+      kids.set(state.kids, { first: !state.kidsWelcomed, classOn: !!m.kidsClass, enabled: !!m.kidsMode });
+      // 入ったら すぐ「せかいを えらぼう」（しまの ちず）：だれでも、この ページで はじめて 入った ときに 1 回（つなぎなおしでは 出さない）。
+      // 幼児モードの ホームが 出て いる とき・ほかの 画面が ひらいて いる ときは 出さない。
+      if (!state.kidsWelcomed && !kidsNow()) setTimeout(() => { try { if (!kidsNow() && !document.querySelector('dialog[open]') && !rpg.isOpen) rpg.openMap(); } catch (err) { console.warn('[net] could not open the world map', err); } }, 900);
+      state.kidsWelcomed = true;
       // まだ おわって いない 宿題が あれば 1 回 おしらせ（しゅくだい島で とける）。
       // とちゅうの 宿題が あれば「まえの つづき」の カード（おすと その場で つづきから）。なければ 数の おしらせ。
       if (m.homeworkResume && !m.restored) setTimeout(() => homework.offerResume(m.homeworkResume), 3500);

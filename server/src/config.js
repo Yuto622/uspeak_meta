@@ -67,6 +67,9 @@ export const config = Object.freeze({
   dataDir: env.DATA_DIR ?? './data',
   // 個人情報の 保持期間（日）。学習ログ・コインログ・送信の 記録は これより 古い 行を 毎日 消す。0 で 消さない。
   retentionDays: Math.max(0, int('RETENTION_DAYS', 400)),
+  // 幼児モード（かんたんな 画面に きりかえる）。2026-11 に やめた：だれでも 入ったら「せかいを えらぼう」が 出る 形に した。
+  // コードは のこして ある（KIDS_MODE=on で もどる）。オフの あいだは 部屋が だれも 幼児モードに しない・🧸 も 出ない。
+  kidsMode: (env.KIDS_MODE ?? '').trim().toLowerCase() === 'on',
   google: {
     sheetId: (env.GOOGLE_SHEET_ID ?? '').trim(),
     email: (env.GOOGLE_SERVICE_ACCOUNT_EMAIL ?? '').trim(),

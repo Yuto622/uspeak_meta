@@ -115,7 +115,7 @@ dialog video{width:100%;border-radius:12px;background:#000}
 </style></head><body><div class="wrap">
 <div class="top">
   <div class="who">${room ? `<b>${esc(room.name)}</b> ・ クラス ${room.classes.map(esc).join('・')}` : '<a href="/admin">← 管理トップ</a> ・ <a href="/admin/qbank">問題データベース</a> ・ <a href="/admin/classrooms">教室の パスワード</a>'}</div>
-  <div class="acts"><button type="button" class="btn" id="help">❓ 使い方の 動画</button>${room ? '<a class="btn" href="/teacher/kids">🧸 幼児モード</a><a class="btn orange" href="/teacher/reports">📨 保護者レポート・QR</a><form method="post" action="/teacher/logout" style="margin:0"><button type="submit" class="btn">ログアウト</button></form>' : ''}</div>
+  <div class="acts"><button type="button" class="btn" id="help">❓ 使い方の 動画</button>${room ? '<a class="btn" href="/teacher/kids">📱 なまえで 入る QR</a><a class="btn orange" href="/teacher/reports">📨 保護者レポート・QR</a><form method="post" action="/teacher/logout" style="margin:0"><button type="submit" class="btn">ログアウト</button></form>' : ''}</div>
 </div>
 <h1>📝 宿題</h1>
 <div class="tabs" role="tablist"><button type="button" role="tab" id="tab-make" aria-selected="true">✏️ 宿題を つくる</button><button type="button" role="tab" id="tab-book" aria-selected="false">📚 えほんを くばる</button><button type="button" role="tab" id="tab-list" aria-selected="false">📋 くばった 宿題<span class="count" id="list-count">0</span></button></div>

@@ -2000,3 +2000,11 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   クイズは 英検ドリルと 同じ：答えは 署名つき token の 中・判定と 記録は Web（`quiz` world=`reading`／ ✓ で `book`。Web と 同じ 形）。Roblox は クイズ 8 割で ✓。
 - **Roblox 側**：`roblox/USpeakBooks.server.luau`・`USpeakBooksClient.client.luau`（タグ `USpeakBookShelf`・属性 `Stage`）。**Studio では まだ 動かして いない。**
 - 検査：`server/test/roblox-books.test.mjs`（にせの Open Cloud）。本物の Roblox には つないで いない。
+
+## Roblox 版の「ABC と おと」と 一発 セットアップ（2026-11）
+- **問題・判定は Web と 同じ `server/src/game/abc.js`**。口は `server/src/roblox/abc-api.js`（`/api/roblox/abc/state|start|answer`・X-USpeak-Key）。1 回ぶんは サーバーが おぼえ、Roblox には sid と 選択肢だけ（答えは 先に 出ない）。
+  記録は Web の 子と 同じ `AbcStore`（Roblox の 名前 → `childFor` で Web の クラス・名前）。判定した 答えは `quiz`（world=abc・source=roblox）、おわると `abc` の 行。
+- **Roblox 用に ことばを しぼる**：`abc.js` の `withWords(exclude, fn)`（同期の あいだだけ 中身を さしかえる。もじ・きまりの id は かえない）。外すのは `abc-assets.js` の `ROBLOX_BLOCKED`（bath・underwear・mouth・hug・leg・foot）と、まだ 審査を 通って いない 絵の ことば。そろうまで `start` は `pictures`。
+- **絵カード**は 絵本と 同じ `BookAssets` で 上げる（`withAbc()`：1 ことば＝ページの ない 1 冊 `abc-<ことば>`・管理ページでは 1 行に まとまる）。もじは 上げない（Roblox で 字として 出す）。
+- **Roblox の スクリプト**：`roblox/USpeakAbc.server.luau`・`USpeakAbcClient.client.luau`（こえは 出ない＝「きく」問題は 絵と もじを 見せる 形。型の 注釈なしの ふつうの Lua で 書いて あり、luaparse で 文法だけ 検査）。Studio では 動かして いない。
+- **一発 セットアップ**（Studio の コマンドバーに はる）：`roblox/setup-abc-place.lua`（ABC の place）・`roblox/setup-books-place.lua`（えほんの place・本だな 12 こ）。作るのは `scripts/make-roblox-abc-setup.py`・`make-roblox-books-setup.py`。スクリプトを なおしたら 作りなおす（`server/test/roblox-setup.test.mjs` が 見つける）。手順は `docs/ROBLOX_ABC.md`・`docs/ROBLOX_BOOKS.md`。

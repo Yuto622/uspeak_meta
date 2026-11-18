@@ -33,9 +33,11 @@
      **ゲーム（experience）の 持ち主と 同じ** に して ください。ちがうと ゲームの 中で 絵が 出ません。
 3. `/admin/roblox-books` を ひらいて「アップロードを はじめる」。1 回に 200 まい（数は かえられます）。
    おわったら もう一度 おすと つづきを 上げ、前に 上げた 絵の **審査の ようす** も 見なおします。
-4. Roblox Studio で `roblox/USpeakBooks.server.luau`（ServerScriptService）と `roblox/USpeakBooksClient.client.luau`（StarterPlayerScripts）を 入れ、
-   本だなに したい Part に タグ `USpeakBookShelf` と 属性 `Stage`（"A"・"B"・"C"・"1"〜"9"）を つける。
-   Secrets の `USPEAK_WEB_KEY` と「Allow HTTP Requests」は いまの Roblox 版と 同じ。
+4. **えほんの place で 一発 セットアップ**：Roblox Studio で えほん用の place を ひらき、表示 → コマンドバー に `roblox/setup-books-place.lua` の 中身を **まるごと はって Enter**。
+   スクリプト 3 つ（`USpeakBooks`・`USpeakBooksClient`・`USpeakWalletSync`）と、本だな 12 こ（レベル A〜9。タグ `USpeakBookShelf`・属性 `Stage`）が 入る。何回 走らせても 同じ 形。
+   コマンドでは できない こと：Secrets の `USPEAK_WEB_KEY`（Creator Hub → この体験 → Secrets。メインワールドと 同じ 値）・HTTP が オンに ならなかった ときの「Allow HTTP Requests」・`File → Publish to Roblox`。
+   本と 絵の 番号は セットアップには 入って いない（ゲームが 動く ときに `/api/roblox/books` から もらう＝絵が ふえても 貼りなおさない）。スクリプトを なおしたら `python3 scripts/make-roblox-books-setup.py` で 作りなおす。
+   「ABC と おと」は **べつの place**：`docs/ROBLOX_ABC.md`。
 
 ## かえられる 設定（環境変数・ふつうは いらない）
 

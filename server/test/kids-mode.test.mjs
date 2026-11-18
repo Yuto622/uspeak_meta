@@ -13,6 +13,7 @@ process.env.ADMIN_KEY = 'owner-password-123';
 process.env.REPORT_SECRET = 'test-report-secret-0123456789';
 process.env.TEACHER_KEY = 'testkey12345';
 process.env.LOG_LEVEL = 'error';
+process.env.KIDS_MODE = 'on'; // 幼児モードは ふだん オフ（config.kidsMode）。この 検査は しくみが 生きて いる ことを 見る。
 
 const { KidsStore } = await import('../src/classroom/kids-store.js');
 const { Client } = await import('colyseus.js');

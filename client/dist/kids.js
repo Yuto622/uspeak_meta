@@ -133,7 +133,7 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
   toggle.type = 'button'; toggle.id = 'kids-toggle'; toggle.hidden = true; toggle.setAttribute('translate', 'no');
   document.querySelector('header .stats')?.append(toggle);
   function paintToggle() {
-    toggle.hidden = !ready || server;
+    toggle.hidden = !ready || server || !enabled;
     // ほかの 上の ボタンと 同じ 形（絵の 下に 小さな 札＝data-cap。style.css の .stats button[data-cap]）。
     toggle.innerHTML = `<span aria-hidden="true">${state.on ? '↩' : '🧸'}</span>`;
     toggle.dataset.cap = state.on ? (isJa() ? 'ふつう' : 'Normal') : (isJa() ? 'かんたん' : 'Easy');
@@ -149,9 +149,12 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
   let ready = false;
   // 部屋からの しらせ（welcome・'kids'）。部屋が オンなら それ、オフなら じぶんの きりかえ。
   // classOn：この クラスが 幼児モード。先生や まだ えらんで いない 人も、はじめは かんたんな 画面で ひらく（🧸／↩ で もどせる）。
-  function set(on, { classOn = false, ...opts } = {}) {
-    ready = true; server = !!on;
-    if (classOn && !chosen) local = true;
+  // enabled：サーバーで 幼児モードの しくみが 入って いるか（ふだんは オフ＝🧸 も 出さず、だれも この 画面に ならない）。
+  let enabled = false;
+  function set(on, { classOn = false, enabled: en = enabled, ...opts } = {}) { // enabled を 書かない 呼び方（'kids' の しらせ）は 前の まま
+    enabled = !!en; ready = true; server = enabled && !!on;
+    if (!enabled) local = false;
+    else if (classOn && !chosen) local = true;
     apply(server || local, opts); paintToggle();
   }
 

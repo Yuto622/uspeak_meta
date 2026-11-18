@@ -524,7 +524,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, kids: kidsStore, abc: abcStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, kids: config.kidsMode ? kidsStore : null, abc: abcStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();
