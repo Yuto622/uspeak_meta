@@ -164,7 +164,16 @@ function qSound(l, rng, not = '') {
 }
 function qPicture(l, rng, not = '') {
   const w = wordOf(l, rng, not);
-  const others = otherLetters(l, rng).map((o) => { const ws = data().letters[o].words.filter((x) => !x.end && x.w[0] !== l && !x.w.endsWith(l)); return pick(ws.length ? ws : data().letters[o].words, rng).w; });
+  // まちがいの 絵：その もじで はじまらない・おわらない ことば。x の ことば（box・fox・six＝おわりの おと）しか ない ときも、
+  // b の 問題に box を 出さない（「b で はじまる 絵」なのに まちがいに されて いた。2026-11）。
+  const clear = (x) => x.w[0] !== l && !x.w.endsWith(l);
+  const others = otherLetters(l, rng).map((o) => {
+    const own = data().letters[o].words;
+    const ws = own.filter((x) => !x.end && clear(x));
+    const loose = ws.length ? ws : own.filter(clear);
+    const pool = loose.length ? loose : Object.values(data().letters).flatMap((v) => v.words).filter((x) => !x.end && clear(x) && x.w !== w.w);
+    return pick(pool, rng).w;
+  });
   return { kind: 'picture', key: `L:${l}`, format: 'mc', answer: w.w, used: w.w, pub: { letter: l, end: !!w.end, choices: shuffled([w.w, ...others], rng) } };
 }
 function qBlend(unit, w, rng) {
