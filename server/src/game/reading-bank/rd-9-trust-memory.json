@@ -1,0 +1,625 @@
+{
+  "id": "rd-9-trust-memory",
+  "stage": "9",
+  "title": "Can You Trust Your Memory?",
+  "titleJa": "記おくは 信じられる？",
+  "kind": "fact",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "🧠",
+        "x": 50,
+        "y": 46,
+        "s": 4.4,
+        "a": "pulse"
+      },
+      {
+        "e": "🖼",
+        "x": 20,
+        "y": 70,
+        "s": 2.2
+      },
+      {
+        "e": "❓",
+        "x": 80,
+        "y": 26,
+        "s": 2.4,
+        "a": "bob"
+      },
+      {
+        "e": "🧩",
+        "x": 80,
+        "y": 72,
+        "s": 2.2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Think of your earliest memory, or of something that happened on your last birthday. It probably feels like a short video stored somewhere in your head, waiting to be played. This feeling is natural. According to scientists who study memory, it is also quite misleading.",
+      "ja": "一番 古い 記おくか、この前の たん生日の 出来事を 思いうかべよう。頭の どこかに しまわれ、再生を 待つ 短い 動画のように 感じるだろう。自然な 感覚だ。だが 記おくの 研究者によれば、それは かなり 誤解を まねく 感覚でも ある。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 60,
+            "y": 30,
+            "s": 3.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🎂",
+            "x": 60,
+            "y": 29,
+            "s": 1.4
+          },
+          {
+            "e": "🎬",
+            "x": 86,
+            "y": 60,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Your brain does not record events the way a camera does. It stores scattered pieces: an image here, a sound there, a feeling, a few words. When you remember, your brain gathers these pieces and builds the scene again. Remembering is not replaying. It is reconstruction.",
+      "ja": "脳は カメラのように 出来事を 記録しない。ばらばらの 断片を しまう。ここに 映像、そこに 音、感情、いくつかの 言葉。思い出す 時、脳は 断片を 集めて 場面を 組み立て直す。思い出すとは 再生では ない。再構成なのだ。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🧠",
+            "x": 50,
+            "y": 40,
+            "s": 3.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🧩",
+            "x": 20,
+            "y": 70,
+            "s": 2
+          },
+          {
+            "e": "🧩",
+            "x": 40,
+            "y": 78,
+            "s": 2
+          },
+          {
+            "e": "🧩",
+            "x": 62,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🧩",
+            "x": 82,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "📷",
+            "x": 86,
+            "y": 24,
+            "s": 1.6
+          },
+          {
+            "e": "❌",
+            "x": 86,
+            "y": 24,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Because a memory is rebuilt each time, it can change each time. Gaps are filled in with guesses, with things you learned afterward, or with details from other occasions. The surprising part is that the rebuilt version feels exactly as real as the original.",
+      "ja": "記おくは 毎回 組み立て直されるので、毎回 変わりうる。すき間は、推測や、後で 知ったこと、別の 機会の 細部で うめられる。おどろくのは、作り直された 記おくが、元の ものと まったく 同じくらい 本物に 感じられることだ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🖼",
+            "x": 22,
+            "y": 46,
+            "s": 2.6
+          },
+          {
+            "e": "➡",
+            "x": 40,
+            "y": 46,
+            "s": 1.4
+          },
+          {
+            "e": "🖼",
+            "x": 56,
+            "y": 46,
+            "s": 2.6
+          },
+          {
+            "e": "➡",
+            "x": 72,
+            "y": 46,
+            "s": 1.4
+          },
+          {
+            "e": "🖼",
+            "x": 88,
+            "y": 46,
+            "s": 2.6
+          },
+          {
+            "e": "🖌",
+            "x": 56,
+            "y": 74,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "🔄",
+            "x": 40,
+            "y": 22,
+            "s": 1.4,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Researchers have shown this in experiments. In one famous study, people watched a film of a car accident. Some were then asked how fast the cars were going when they “smashed” into each other; others heard the word “hit.” The first group remembered the cars as traveling faster.",
+      "ja": "研究者は これを 実験で しめした。ある 有名な 研究で、人びとは 自動車事故の 映像を 見た。その後、一部の 人は 車が 「激とつした」時の 速さを、ほかの 人は 「当たった」時の 速さを 聞かれた。前者の 方が、車は 速かったと 記おくしていた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚗",
+            "x": 30,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "💥",
+            "x": 50,
+            "y": 66,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🚗",
+            "x": 70,
+            "y": 72,
+            "s": 2.8,
+            "flip": true
+          },
+          {
+            "e": "🎬",
+            "x": 20,
+            "y": 28,
+            "s": 2
+          },
+          {
+            "e": "💬",
+            "x": 70,
+            "y": 26,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👩‍🔬",
+            "x": 92,
+            "y": 72,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Later, more people in the “smashed” group also remembered seeing broken glass, although there had been none in the film. A single word in a question had quietly rewritten what they believed they had seen with their own eyes.",
+      "ja": "後日、「激とつした」と 聞かれた グループでは、われた ガラスを 見たと 記おくする 人も 多かった。映像に ガラスは なかったのに。質問の 中の たった 一語が、自分の 目で 見たと 信じている 内容を、静かに 書きかえたのだ。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💭",
+            "x": 56,
+            "y": 30,
+            "s": 3.2,
+            "a": "pulse"
+          },
+          {
+            "e": "💎",
+            "x": 52,
+            "y": 28,
+            "s": 1
+          },
+          {
+            "e": "💎",
+            "x": 60,
+            "y": 32,
+            "s": 0.9
+          },
+          {
+            "e": "❌",
+            "x": 82,
+            "y": 30,
+            "s": 1.8
+          },
+          {
+            "e": "✏",
+            "x": 82,
+            "y": 60,
+            "s": 1.8,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "It is even possible to remember things that never happened. In other studies, researchers told volunteers a false story about their childhood, such as getting lost in a shopping center. After a while, some volunteers “remembered” it clearly and even added details of their own.",
+      "ja": "起きなかったことを 思い出すことさえ ある。別の 研究では、研究者が 協力者に、子どもの ころ 買い物の 店で 迷子に なった、などの うその 話を した。しばらくすると、一部の 人は それを はっきり 「思い出し」、細部まで つけ加えた。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👶",
+            "x": 40,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "😢",
+            "x": 40,
+            "y": 54,
+            "s": 1.4
+          },
+          {
+            "e": "🛍",
+            "x": 66,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "🛒",
+            "x": 84,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "💭",
+            "x": 40,
+            "y": 24,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 66,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Confidence is not a reliable guide, either. People can be absolutely certain and completely mistaken. This matters a great deal in courtrooms, where the confident memory of a witness may seem like strong proof. Legal experts now treat such evidence much more carefully than they once did.",
+      "ja": "自信も 当てに ならない。人は 絶対に 確かだと 思いながら、完全に まちがうことが ある。これは 法ていで とても 重大だ。証人の 自信の ある 記おくは、強い 証こに 見えるからだ。今では 法律の 専門家は、そうした 証言を 以前より ずっと 注意深く あつかう。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍⚖️",
+            "x": 78,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "⚖",
+            "x": 54,
+            "y": 44,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🧑",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👉",
+            "x": 38,
+            "y": 54,
+            "s": 1.4
+          },
+          {
+            "e": "❗",
+            "x": 22,
+            "y": 26,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Why would the brain work in such an unreliable way? One answer is that memory did not develop to keep a perfect record of the past. It developed to help us act in the future. For that purpose, a flexible summary is more useful than a perfect recording.",
+      "ja": "脳は なぜ、こんなに 当てに ならない 働き方を するのか。一つの 答えは、記おくは 過去を 完全に 記録するために 発達したのでは ない、ということだ。未来の 行動を 助けるために 発達した。それには、完全な 録画より 柔軟な 要約の 方が 役立つ。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🧠",
+            "x": 30,
+            "y": 44,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "➡",
+            "x": 52,
+            "y": 44,
+            "s": 1.8
+          },
+          {
+            "e": "🧭",
+            "x": 72,
+            "y": 44,
+            "s": 2.6
+          },
+          {
+            "e": "🐾",
+            "x": 60,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "🐾",
+            "x": 78,
+            "y": 84,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Forgetting is useful, too. If you remembered every breakfast you had ever eaten in perfect detail, it would be harder to find the memories that matter. By letting details fade, the brain keeps the general lessons: fire burns, this friend is kind, that road is dangerous.",
+      "ja": "わすれることも 役に 立つ。今まで 食べた 朝食を 全部 細かく 覚えていたら、大事な 記おくを 見つけにくく なる。細部を うすれさせることで、脳は 大まかな 教訓を 残す。火は 熱い。この 友は やさしい。あの 道は 危ない。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🍳",
+            "x": 18,
+            "y": 70,
+            "s": 1.8
+          },
+          {
+            "e": "🥞",
+            "x": 34,
+            "y": 74,
+            "s": 1.6
+          },
+          {
+            "e": "🍞",
+            "x": 50,
+            "y": 70,
+            "s": 1.6
+          },
+          {
+            "e": "💨",
+            "x": 34,
+            "y": 50,
+            "s": 1.6,
+            "a": "drift"
+          },
+          {
+            "e": "🔥",
+            "x": 74,
+            "y": 68,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "⚠",
+            "x": 74,
+            "y": 34,
+            "s": 1.8
+          },
+          {
+            "e": "🧠",
+            "x": 92,
+            "y": 40,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "None of this means your memories are worthless. Most are accurate enough, most of the time. But it does suggest a little humility. When you and a friend remember the same event differently, perhaps neither of you is lying. Perhaps the past is not kept in us. Perhaps we rebuild it, a little differently, every day.",
+      "ja": "だからといって、記おくに 価値が ないわけでは ない。たいていは、十分に 正確だ。ただ、少し けんきょで いる方が いい。友人と 同じ 出来事の 記おくが 食いちがう時、どちらも うそは ついていないのかも しれない。過去は しまってあるのでは なく、毎日 少しずつ ちがう 形に 組み立て直されているのかも しれない。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💭",
+            "x": 26,
+            "y": 26,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🟦",
+            "x": 26,
+            "y": 25,
+            "s": 1
+          },
+          {
+            "e": "👧",
+            "x": 74,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💭",
+            "x": 74,
+            "y": 26,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🟥",
+            "x": 74,
+            "y": 25,
+            "s": 1
+          },
+          {
+            "e": "🤝",
+            "x": 50,
+            "y": 54,
+            "s": 2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "misleading",
+      "ja": "誤解を まねく"
+    },
+    {
+      "en": "scattered",
+      "ja": "ばらばらの"
+    },
+    {
+      "en": "reconstruction",
+      "ja": "再構成"
+    },
+    {
+      "en": "occasions",
+      "ja": "機会、場合"
+    },
+    {
+      "en": "experiments",
+      "ja": "実験"
+    },
+    {
+      "en": "volunteers",
+      "ja": "協力者"
+    },
+    {
+      "en": "confidence",
+      "ja": "自信"
+    },
+    {
+      "en": "reliable",
+      "ja": "当てに なる"
+    },
+    {
+      "en": "witness",
+      "ja": "証人"
+    },
+    {
+      "en": "evidence",
+      "ja": "証こ"
+    },
+    {
+      "en": "flexible",
+      "ja": "柔軟な"
+    },
+    {
+      "en": "humility",
+      "ja": "けんきょさ"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "Memory is rebuilt, so it can change and mislead",
+        "Cameras record events far better than most people ever do",
+        "How to improve your memory before an exam",
+        "Why car accidents are difficult to remember"
+      ],
+      "answer": "Memory is rebuilt, so it can change and mislead",
+      "kind": "main"
+    },
+    {
+      "q": "According to the book, how is remembering different from playing a video?",
+      "ja": "この本によると、思い出すことは 動画の 再生と どう ちがう？",
+      "choices": [
+        "Memories are stored only as sounds.",
+        "Memories can be played only one time.",
+        "The brain rebuilds the scene from pieces.",
+        "The brain records much more than a camera does."
+      ],
+      "answer": "The brain rebuilds the scene from pieces.",
+      "kind": "detail"
+    },
+    {
+      "q": "In the car accident study, what changed people’s memories?",
+      "ja": "自動車事故の 研究で、何が 人びとの 記おくを 変えた？",
+      "choices": [
+        "The color of the cars in the film",
+        "A single word used in the question",
+        "The number of times they watched",
+        "The age of the people who answered"
+      ],
+      "answer": "A single word used in the question",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, “reliable” means ___.",
+      "ja": "この本で “reliable” の 意味は？",
+      "choices": [
+        "easy to forget",
+        "full of feeling",
+        "very recent",
+        "able to be trusted"
+      ],
+      "answer": "able to be trusted",
+      "kind": "vocab"
+    },
+    {
+      "q": "What attitude does the last page recommend?",
+      "ja": "最後の ページは どんな 態度を すすめている？",
+      "choices": [
+        "Never believe anything you remember.",
+        "Be modest about how certain your memories are.",
+        "Always trust the more confident person.",
+        "Write down every single detail of each day in a notebook."
+      ],
+      "answer": "Be modest about how certain your memories are.",
+      "kind": "infer"
+    }
+  ]
+}

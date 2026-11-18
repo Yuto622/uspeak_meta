@@ -1,0 +1,580 @@
+{
+  "id": "rd-8-two-hometowns",
+  "stage": "8",
+  "title": "Two Hometowns",
+  "titleJa": "二つの ふるさと",
+  "kind": "story",
+  "cover": {
+    "bg": "sea",
+    "items": [
+      {
+        "e": "👧",
+        "x": 50,
+        "y": 70,
+        "s": 3.8
+      },
+      {
+        "e": "🏝",
+        "x": 18,
+        "y": 52,
+        "s": 2.8
+      },
+      {
+        "e": "🏙",
+        "x": 84,
+        "y": 50,
+        "s": 2.8
+      },
+      {
+        "e": "🏮",
+        "x": 34,
+        "y": 26,
+        "s": 1.8,
+        "a": "sway"
+      },
+      {
+        "e": "🎵",
+        "x": 68,
+        "y": 28,
+        "s": 1.8,
+        "a": "bob"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Nagisa grew up on a small island where everybody knew her name. When she was twelve, her mother found work in the city, and they moved to an apartment on the ninth floor of a gray building.",
+      "ja": "ナギサは、だれもが 自分の 名前を 知っている 小さな 島で 育った。十二才の 時、お母さんが 都会で 仕事を 見つけ、二人は 灰色の 建物の 九階の 部屋に 引っこした。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏢",
+            "x": 68,
+            "y": 50,
+            "s": 4.2
+          },
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😔",
+            "x": 28,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧳",
+            "x": 46,
+            "y": 78,
+            "s": 1.8
+          },
+          {
+            "e": "🏝",
+            "x": 10,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Before leaving, Nagisa made a promise to her grandmother and her best friend, Sho. “I’ll come back every August for the lantern festival. I’ll dance with you, just like always.” She meant every word.",
+      "ja": "島を 出る前、ナギサは おばあちゃんと 親友の ショウに 約束した。「毎年 八月の ちょうちん祭りには 帰ってくる。いつものように いっしょに おどるよ」。心からの 言葉だった。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👧",
+            "x": 50,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "👵",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👦",
+            "x": 78,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🏮",
+            "x": 36,
+            "y": 26,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "🏮",
+            "x": 64,
+            "y": 26,
+            "s": 1.8,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The city was lonely at first, but slowly it changed. Nagisa joined the school band and learned the flute. A girl named Kaho saved her a seat at lunch. By summer, the gray building no longer looked so gray.",
+      "ja": "都会は 最初は さびしかったが、少しずつ 変わっていった。ナギサは 学校の 吹奏楽部に 入り、フルートを 習った。カホという 子が 昼食の 席を 取っておいてくれた。夏には、灰色の 建物も あまり 灰色に 見えなくなった。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 34,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 34,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🎵",
+            "x": 50,
+            "y": 30,
+            "s": 1.8,
+            "a": "bob"
+          },
+          {
+            "e": "🧒",
+            "x": 66,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🪑",
+            "x": 86,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🍱",
+            "x": 78,
+            "y": 80,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then the band teacher announced the date of the summer concert, and Nagisa’s stomach dropped. It was on the same day as the lantern festival. She had a solo, and there was no other flute player.",
+      "ja": "そんな時、部の 先生が 夏の コンサートの 日を 発表し、ナギサは 息が 止まりそうに なった。ちょうちん祭りと 同じ 日だ。ナギサには ソロが あり、フルートは ほかに いない。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👩‍🏫",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "📅",
+            "x": 44,
+            "y": 30,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 68,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😨",
+            "x": 68,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🏮",
+            "x": 88,
+            "y": 28,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "For days she told nobody. If she went to the island, she would let down the band. If she stayed, she would break her promise. Worse, she was afraid of what it meant that part of her wanted to stay.",
+      "ja": "何日も、だれにも 言えなかった。島へ 行けば、部の 仲間を がっかりさせる。残れば、約束を やぶる。もっと こわかったのは、心の どこかで 残りたいと 思う 自分が いる、その 意味だった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 45,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🏝",
+            "x": 18,
+            "y": 34,
+            "s": 2
+          },
+          {
+            "e": "🎵",
+            "x": 80,
+            "y": 34,
+            "s": 2
+          },
+          {
+            "e": "↔",
+            "x": 48,
+            "y": 26,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Finally she called her grandmother and explained everything, crying a little. There was a long silence. “Nagisa,” her grandmother said, “do you know why the tide goes out? It is not leaving the beach. It is just visiting the other shore.”",
+      "ja": "とうとう おばあちゃんに 電話を かけ、少し 泣きながら 全部 話した。長い ちんもくが あった。「ナギサ、潮は なぜ 引くと 思う？ 浜を すてるんじゃ ないよ。向こう岸を たずねているだけさ」",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👵",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📱",
+            "x": 44,
+            "y": 56,
+            "s": 1.4
+          },
+          {
+            "e": "💬",
+            "x": 30,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🌊",
+            "x": 72,
+            "y": 78,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "↔",
+            "x": 72,
+            "y": 50,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "“You have two homes now,” she continued. “That is not a betrayal. It is a kind of wealth. Play your flute. But call Sho yourself, and don’t make excuses. A promise deserves an honest goodbye.”",
+      "ja": "「おまえには 今、家が 二つ あるんだよ」と おばあちゃんは 続けた。「うら切りじゃ ない。それは 豊かさだ。フルートを ふきなさい。でも ショウには 自分で 電話して、言いわけは しないこと。約束には、正直な 別れが ふさわしい」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😢",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📱",
+            "x": 56,
+            "y": 56,
+            "s": 1.4
+          },
+          {
+            "e": "🏝",
+            "x": 76,
+            "y": 32,
+            "s": 1.8
+          },
+          {
+            "e": "🏙",
+            "x": 90,
+            "y": 34,
+            "s": 1.8
+          },
+          {
+            "e": "❤",
+            "x": 83,
+            "y": 54,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Calling Sho was harder. He was quiet, and she could hear that he was hurt. “I’ll come the week after,” Nagisa said. “And I’ll bring my flute. Maybe the festival songs sound good on a flute.” “Maybe,” Sho said at last.",
+      "ja": "ショウへの 電話は もっと つらかった。ショウは 静かで、きずついているのが 伝わってきた。「次の 週に 行くよ。フルートも 持っていく。祭りの 歌、フルートでも いい 音が するかも」。「…かもな」と、やっと ショウは 言った。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👦",
+            "x": 66,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😔",
+            "x": 66,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📱",
+            "x": 52,
+            "y": 56,
+            "s": 1.4
+          },
+          {
+            "e": "🏮",
+            "x": 86,
+            "y": 30,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "💬",
+            "x": 30,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The concert went well, and Kaho cheered the loudest. A week later, Nagisa stood on the island’s beach at sunset and played the old festival song. Sho listened with his arms crossed, and then he began to hum along.",
+      "ja": "コンサートは うまく いき、カホが 一番 大きな 声で おうえんしてくれた。一週間後、ナギサは 夕暮れの 島の 浜に 立ち、昔からの 祭りの 歌を ふいた。ショウは うでを 組んで 聞いていたが、やがて ハミングを 始めた。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👧",
+            "x": 34,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🎵",
+            "x": 48,
+            "y": 34,
+            "s": 1.8,
+            "a": "bob"
+          },
+          {
+            "e": "🎶",
+            "x": 58,
+            "y": 24,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "👦",
+            "x": 72,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 72,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🌅",
+            "x": 90,
+            "y": 24,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the ferry back, Nagisa watched the island grow small. She used to think that home was a single place you could lose. Now she understood that it was something you could carry, and that her heart was large enough for two.",
+      "ja": "帰りの フェリーで、ナギサは 島が 小さく なるのを 見ていた。前は、ふるさととは 失うことも ある 一つの 場所だと 思っていた。今は 分かる。それは 持ち運べる もので、自分の 心は 二つ分の 広さが あるのだと。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🚢",
+            "x": 45,
+            "y": 58,
+            "s": 4,
+            "a": "float"
+          },
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 44,
+            "s": 2.4
+          },
+          {
+            "e": "🏝",
+            "x": 86,
+            "y": 44,
+            "s": 1.8
+          },
+          {
+            "e": "❤",
+            "x": 30,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "❤",
+            "x": 60,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "apartment",
+      "ja": "集合住宅の 部屋"
+    },
+    {
+      "en": "promise",
+      "ja": "約束"
+    },
+    {
+      "en": "lantern",
+      "ja": "ちょうちん"
+    },
+    {
+      "en": "festival",
+      "ja": "祭り"
+    },
+    {
+      "en": "announced",
+      "ja": "発表した"
+    },
+    {
+      "en": "solo",
+      "ja": "ソロ、独そう"
+    },
+    {
+      "en": "silence",
+      "ja": "ちんもく"
+    },
+    {
+      "en": "shore",
+      "ja": "岸"
+    },
+    {
+      "en": "betrayal",
+      "ja": "うら切り"
+    },
+    {
+      "en": "wealth",
+      "ja": "豊かさ、富"
+    },
+    {
+      "en": "deserves",
+      "ja": "ふさわしい、値する"
+    },
+    {
+      "en": "hum",
+      "ja": "ハミングする"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A girl who gives up music for a festival",
+        "A girl who learns she can belong to two places",
+        "A boy who moves from an island to the city",
+        "A grandmother who teaches a festival dance"
+      ],
+      "answer": "A girl who learns she can belong to two places",
+      "kind": "main"
+    },
+    {
+      "q": "Why could Nagisa not simply skip the concert?",
+      "ja": "ナギサは なぜ コンサートを 休めなかった？",
+      "choices": [
+        "Her mother had bought the tickets.",
+        "Kaho had saved a seat for her.",
+        "The teacher would not allow it.",
+        "She was the only flute player."
+      ],
+      "answer": "She was the only flute player.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did her grandmother compare Nagisa to?",
+      "ja": "おばあちゃんは ナギサを 何に たとえた？",
+      "choices": [
+        "The tide visiting another shore",
+        "A lantern floating on the sea",
+        "A ferry that never returns",
+        "A bird flying between islands"
+      ],
+      "answer": "The tide visiting another shore",
+      "kind": "detail"
+    },
+    {
+      "q": "In this story, “betrayal” means ___.",
+      "ja": "この話で “betrayal” の 意味は？",
+      "choices": [
+        "a long trip across the sea",
+        "a dance performed in summer",
+        "breaking someone’s trust",
+        "playing music by yourself"
+      ],
+      "answer": "breaking someone’s trust",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did her grandmother tell Nagisa to call Sho herself?",
+      "ja": "おばあちゃんは なぜ、自分で ショウに 電話するよう 言った？",
+      "choices": [
+        "Sho’s family did not have a telephone.",
+        "The grandmother was angry with Sho.",
+        "Being honest in person shows respect.",
+        "Sho wanted to hear about the concert."
+      ],
+      "answer": "Being honest in person shows respect.",
+      "kind": "infer"
+    }
+  ]
+}

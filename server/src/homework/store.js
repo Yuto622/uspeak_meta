@@ -1,6 +1,8 @@
 // 宿題の 置き場 — DATA_DIR/homework.json（答えつきの 問題なので リポジトリにも client/dist にも 置かない）。
 //
 // { assignments: [{ id, title, classes: [クラス], due: 'YYYY-MM-DD', status: 'draft' | 'published', items: [...], createdAt, publishedAt, via }],
+//   えほんの 宿題（2026-11）：book: '<よみもの島の 本の id>'（items は 空）。その 本が ✓ に なったら おわり（markBookDone）。
+//   students: [名前]（空＝クラス ぜんいん）。書いて あれば その 子にだけ 出る（forStudent）。
 //   progress: { '<クラス>|<名前>|<宿題の id>': { answers: { <問題の id>: { ok, tries, at } }, startedAt, doneAt, paid } } }
 // **draft は 子どもに 出ない。** 先生が admin で たしかめて「くばる」を 押すと published に なる。
 // **宿題は クラスコードごとに くばる**：クラスの ない 宿題は 保存も くばるも できない（どの クラスにも 出ない）。
@@ -8,12 +10,14 @@ import { writeJsonFile } from '../store/write-json.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { checkItems, wordOf, KIND_JA } from './items.js';
+import { bookById } from '../game/reading.js';
 
 const MAX_ASSIGNMENTS = 500;
 const NO_CLASS = 'クラスコードを 入れて ください（宿題は クラスごとに くばります）';
 const str = (v, max = 80) => String(v ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 const classKey = (s) => String(s ?? '').normalize('NFKC').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 24);
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
+const nameKey = (s) => str(s, 40).normalize('NFKC').toLowerCase();
 // 日本の 日づけ（締め切りは 日本の その日の おわりまで）
 export const jstDay = (ms) => new Date(ms + 9 * 3600e3).toISOString().slice(0, 10);
 
@@ -47,8 +51,13 @@ export class HomeworkStore {
   clean(input, prev = null) {
     const raw = input.classes === undefined ? prev?.classes ?? [] : input.classes;
     const classes = (Array.isArray(raw) ? raw : String(raw ?? '').split(/[,、\s]+/)).map(classKey).filter(Boolean);
-    const { items, problems } = checkItems(input.items ?? prev?.items ?? []);
+    const bookId = String(input.book === undefined ? prev?.book ?? '' : input.book ?? '');
+    const book = bookById(bookId) ? bookId : '';
+    const { items, problems } = book ? { items: [], problems: [] } : checkItems(input.items ?? prev?.items ?? []);
+    const rawNames = input.students === undefined ? prev?.students ?? [] : input.students;
+    const students = [...new Set((Array.isArray(rawNames) ? rawNames : String(rawNames ?? '').split(/[,、\n]+/)).map((n) => str(n, 40)).filter(Boolean))].slice(0, 80);
     return {
+      book, students,
       title: str(input.title ?? prev?.title, 60) || 'しゅくだい',
       classes: [...new Set(classes)].slice(0, 40),
       due: DAY.test(String(input.due ?? '')) ? String(input.due) : (input.due === '' ? '' : prev?.due || ''),
@@ -75,7 +84,7 @@ export class HomeworkStore {
     const c = this.clean(input, a);
     if (!c.classes.length) return { ok: false, error: NO_CLASS };
     if (a.status === 'published' && c.problems.length) return { ok: false, error: 'くばって いる 宿題に 出せない 問題が あります', problems: c.problems };
-    Object.assign(a, { title: c.title, classes: c.classes, due: c.due, note: c.note, items: c.items });
+    Object.assign(a, { title: c.title, classes: c.classes, due: c.due, note: c.note, items: c.items, book: c.book, students: c.students });
     await this.flush();
     return { ok: true, assignment: a, problems: c.problems };
   }
@@ -85,8 +94,9 @@ export class HomeworkStore {
     const a = this.get(id);
     if (!a) return { ok: false, error: 'その 宿題は ありません' };
     if (on) {
-      const { problems, items } = checkItems(a.items);
-      if (!items.length) return { ok: false, error: '問題が ありません' };
+      const { problems, items } = a.book ? { problems: [], items: [] } : checkItems(a.items);
+      if (a.book && !bookById(a.book)) return { ok: false, error: 'その 本は もう ありません' };
+      if (!a.book && !items.length) return { ok: false, error: '問題が ありません' };
       if (!a.classes.length) return { ok: false, error: NO_CLASS };
       if (problems.length) return { ok: false, error: '出せない 問題が あります。なおすか 消して ください', problems };
       a.status = 'published'; a.publishedAt = a.publishedAt || this.now();
@@ -109,6 +119,24 @@ export class HomeworkStore {
     return this.assignments.filter((a) => a.status === 'published' && a.classes.includes(c));
   }
 
+  // その 子に 出る 宿題（生徒を えらんで くばった ものは その 子にだけ）。
+  forStudent(classCode, name) {
+    const n = nameKey(name);
+    return this.forClass(classCode).filter((a) => !a.students?.length || a.students.some((x) => nameKey(x) === n));
+  }
+  // えほんの 宿題：その 本が ✓ に なった（部屋が よぶ）。まだ おわって いない ものを おわりに する。返す：おわった 宿題の id。
+  async markBookDone(classCode, name, bookId) {
+    const done = [];
+    for (const a of this.forStudent(classCode, name)) {
+      if (a.book !== bookId) continue;
+      const k = this.key(classCode, name, a.id);
+      const p = this.progress[k] || (this.progress[k] = { answers: {}, startedAt: this.now(), doneAt: 0, paid: false });
+      if (!p.doneAt) { p.doneAt = this.now(); done.push(a.id); }
+    }
+    if (done.length) await this.flush();
+    return done;
+  }
+
   key(classCode, name, id) { return `${classKey(classCode)}|${str(name, 40)}|${id}`; }
   progressOf(classCode, name, id) { return this.progress[this.key(classCode, name, id)] || null; }
 
@@ -121,7 +149,7 @@ export class HomeworkStore {
     const prev = p.answers[itemId];
     p.answers[itemId] = { ok: !!ok || !!prev?.ok, tries: (prev?.tries || 0) + 1, at: this.now() };
     let finished = false;
-    if (!p.doneAt && a.items.every((it) => p.answers[it.id])) { p.doneAt = this.now(); finished = true; }
+    if (!p.doneAt && !a.book && a.items.every((it) => p.answers[it.id])) { p.doneAt = this.now(); finished = true; }
     await this.flush();
     return { progress: p, finished };
   }
@@ -133,6 +161,12 @@ export class HomeworkStore {
 
   // 子どもの 画面・保護者レポートに 出す まとめ（答えは ふくめない）。
   summaryOf(a, p, now = this.now()) {
+    if (a.book) {
+      const b = bookById(a.book); const done = !!p?.doneAt;
+      return { id: a.id, title: a.title, due: a.due, note: a.note, total: 1, answered: done ? 1 : 0, correct: done ? 1 : 0,
+        done, doneAt: p?.doneAt || 0, startedAt: p?.startedAt || 0, overdue: !!a.due && !done && jstDay(now) > a.due, score: done ? 100 : 0,
+        kinds: ['book'], book: a.book, bookTitle: b?.title || '', bookTitleJa: b?.titleJa || '', bookStage: b?.stage || '' };
+    }
     const total = a.items.length;
     const answered = p ? a.items.filter((it) => p.answers[it.id]).length : 0;
     const correct = p ? a.items.filter((it) => p.answers[it.id]?.ok).length : 0;
@@ -145,7 +179,7 @@ export class HomeworkStore {
     };
   }
   listFor(classCode, name, now = this.now()) {
-    return this.forClass(classCode).map((a) => this.summaryOf(a, this.progressOf(classCode, name, a.id), now));
+    return this.forStudent(classCode, name).map((a) => this.summaryOf(a, this.progressOf(classCode, name, a.id), now));
   }
 
   // 保護者レポート（LINE の 週・月）：その 期間の 宿題の すすみぐあいを ぜんぶ。
@@ -155,7 +189,7 @@ export class HomeworkStore {
     const { start, end } = period;
     const dayOf = (ms) => jstDay(ms);
     const startDay = dayOf(start); const endDay = dayOf(end);
-    const list = this.forClass(classCode).filter((a) => (a.publishedAt || 0) <= end).map((a) => ({ a, p: this.progressOf(classCode, name, a.id) }))
+    const list = this.forStudent(classCode, name).filter((a) => (a.publishedAt || 0) <= end).map((a) => ({ a, p: this.progressOf(classCode, name, a.id) }))
       .filter(({ a, p }) => (p?.doneAt ? p.doneAt >= start : true) && (!a.due || a.due >= startDay || !p?.doneAt));
     const byKind = {};
     const missed = [];

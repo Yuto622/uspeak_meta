@@ -1,0 +1,674 @@
+{
+  "id": "rd-5-paper-story",
+  "stage": "5",
+  "title": "The Story of Paper",
+  "titleJa": "紙の ものがたり",
+  "kind": "fact",
+  "cover": {
+    "bg": "forest",
+    "items": [
+      {
+        "e": "🌲",
+        "x": 18,
+        "y": 56,
+        "s": 4
+      },
+      {
+        "e": "➡️",
+        "x": 40,
+        "y": 54,
+        "s": 1.8
+      },
+      {
+        "e": "📄",
+        "x": 60,
+        "y": 54,
+        "s": 3.4,
+        "a": "sway"
+      },
+      {
+        "e": "📚",
+        "x": 84,
+        "y": 70,
+        "s": 2.6
+      },
+      {
+        "e": "✏️",
+        "x": 70,
+        "y": 30,
+        "s": 1.6
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "You use paper every day. Your notebooks, comic books, tissues, and even milk cartons are made of it. But what is paper?",
+      "ja": "紙は 毎日 使う ものです。ノートも、まんがも、ティッシュも、牛にゅうパックも 紙で できています。でも、紙とは 何でしょう。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "📓",
+            "x": 18,
+            "y": 70,
+            "s": 2.4
+          },
+          {
+            "e": "📚",
+            "x": 38,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "🥛",
+            "x": 58,
+            "y": 70,
+            "s": 2.4
+          },
+          {
+            "e": "📰",
+            "x": 78,
+            "y": 72,
+            "s": 2.4
+          },
+          {
+            "e": "❓",
+            "x": 50,
+            "y": 28,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Paper is made from very thin plant threads called fibers. Most paper today is made from the wood of trees.",
+      "ja": "紙は 「せんい」と よばれる、植物の とても 細い 糸から できています。今の 紙の 多くは、木から 作られています。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🌲",
+            "x": 20,
+            "y": 54,
+            "s": 4.4
+          },
+          {
+            "e": "🌲",
+            "x": 40,
+            "y": 58,
+            "s": 3.6
+          },
+          {
+            "e": "🪵",
+            "x": 64,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "🔍",
+            "x": 80,
+            "y": 48,
+            "s": 2.6
+          },
+          {
+            "e": "〰️",
+            "x": 80,
+            "y": 48,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "People in China invented paper about two thousand years ago. Before that, people wrote on stone, wood, or animal skin.",
+      "ja": "紙は およそ 2000年前に 中国で 発明されました。それより 前は、石や 木や 動物の 皮に 文字を 書いていました。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "📜",
+            "x": 30,
+            "y": 56,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🖌️",
+            "x": 48,
+            "y": 44,
+            "s": 1.8
+          },
+          {
+            "e": "🪨",
+            "x": 68,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "🪵",
+            "x": 84,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "⏳",
+            "x": 86,
+            "y": 30,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "At a paper factory, machines first cut the wood into small chips. The chips are cooked until they become soft.",
+      "ja": "紙の 工場では、まず 機械が 木を 小さな チップに 切ります。チップは やわらかく なるまで にられます。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏭",
+            "x": 22,
+            "y": 54,
+            "s": 4.2
+          },
+          {
+            "e": "🪵",
+            "x": 48,
+            "y": 72,
+            "s": 2.4
+          },
+          {
+            "e": "⚙️",
+            "x": 62,
+            "y": 52,
+            "s": 2.4,
+            "a": "spin"
+          },
+          {
+            "e": "🍂",
+            "x": 78,
+            "y": 74,
+            "s": 1.6
+          },
+          {
+            "e": "♨️",
+            "x": 88,
+            "y": 50,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The soft, wet material is called pulp. It looks like thick soup, and it is washed until it is clean and white.",
+      "ja": "この やわらかく ぬれた 材料を 「パルプ」と 言います。こい スープのように 見え、きれいに 白く なるまで あらわれます。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🍲",
+            "x": 35,
+            "y": 64,
+            "s": 4
+          },
+          {
+            "e": "💧",
+            "x": 60,
+            "y": 44,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "➡️",
+            "x": 62,
+            "y": 66,
+            "s": 1.6
+          },
+          {
+            "e": "⚪",
+            "x": 82,
+            "y": 66,
+            "s": 3
+          },
+          {
+            "e": "✨",
+            "x": 82,
+            "y": 40,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Next, the pulp is spread on a wide moving screen. The water runs through the screen, but the fibers stay on top.",
+      "ja": "次に、パルプは 動いている 広い あみの 上に 広げられます。水は あみを 通って 落ちますが、せんいは 上に 残ります。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🟦",
+            "x": 50,
+            "y": 52,
+            "s": 5
+          },
+          {
+            "e": "〰️",
+            "x": 50,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "💧",
+            "x": 36,
+            "y": 78,
+            "s": 1.4,
+            "a": "drift"
+          },
+          {
+            "e": "💧",
+            "x": 50,
+            "y": 82,
+            "s": 1.4,
+            "a": "drift"
+          },
+          {
+            "e": "💧",
+            "x": 64,
+            "y": 78,
+            "s": 1.4,
+            "a": "drift"
+          },
+          {
+            "e": "➡️",
+            "x": 86,
+            "y": 50,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Heavy rollers press out more water. Then hot rollers dry the paper, and it is rolled up into huge rolls.",
+      "ja": "重い ローラーが さらに 水を しぼり出します。それから 熱い ローラーが 紙を かわかし、紙は 巨大な ロールに まき取られます。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "⚙️",
+            "x": 20,
+            "y": 54,
+            "s": 2.8,
+            "a": "spin"
+          },
+          {
+            "e": "⚙️",
+            "x": 40,
+            "y": 54,
+            "s": 2.8,
+            "a": "spin"
+          },
+          {
+            "e": "♨️",
+            "x": 30,
+            "y": 28,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "➡️",
+            "x": 58,
+            "y": 56,
+            "s": 1.6
+          },
+          {
+            "e": "📜",
+            "x": 80,
+            "y": 60,
+            "s": 4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Paper does not have to come from new trees. Old newspapers and boxes can be collected and made into pulp again.",
+      "ja": "紙は 新しい 木から 作らなくても かまいません。古い 新聞や 箱を 集めて、もう 一度 パルプに する ことが できます。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "📰",
+            "x": 18,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "📦",
+            "x": 38,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "➡️",
+            "x": 56,
+            "y": 62,
+            "s": 1.8
+          },
+          {
+            "e": "🍲",
+            "x": 76,
+            "y": 66,
+            "s": 3
+          },
+          {
+            "e": "🔄",
+            "x": 76,
+            "y": 30,
+            "s": 2,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "This is called recycling. It saves trees, water, and energy. That is why we put used paper in a special box.",
+      "ja": "これを リサイクルと 言います。木や 水や エネルギーの 節約に なります。だから、使った 紙を 決まった 箱に 入れるのです。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📄",
+            "x": 42,
+            "y": 56,
+            "s": 1.6
+          },
+          {
+            "e": "📦",
+            "x": 60,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🔄",
+            "x": 60,
+            "y": 44,
+            "s": 1.8,
+            "a": "spin"
+          },
+          {
+            "e": "🌲",
+            "x": 86,
+            "y": 58,
+            "s": 3
+          },
+          {
+            "e": "💧",
+            "x": 86,
+            "y": 24,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Traditional Japanese paper, called washi, is made by hand from the bark of certain plants. It is thin but very strong.",
+      "ja": "「和紙」と よばれる 日本の 伝統的な 紙は、ある 種類の 植物の 皮から 手で 作られます。うすいけれど、とても じょうぶです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👵",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📜",
+            "x": 56,
+            "y": 62,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "🏮",
+            "x": 82,
+            "y": 44,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌿",
+            "x": 86,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "💧",
+            "x": 56,
+            "y": 82,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "You can make paper at home, too. Tear old paper into pieces, mix it with water, spread it flat, and let it dry.",
+      "ja": "紙は 家でも 作れます。古い 紙を 小さく ちぎり、水と まぜて、平らに 広げて、かわかします。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "📰",
+            "x": 40,
+            "y": 72,
+            "s": 1.8
+          },
+          {
+            "e": "➡️",
+            "x": 52,
+            "y": 62,
+            "s": 1.2
+          },
+          {
+            "e": "🪣",
+            "x": 64,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "➡️",
+            "x": 76,
+            "y": 62,
+            "s": 1.2
+          },
+          {
+            "e": "📄",
+            "x": 88,
+            "y": 66,
+            "s": 2.2
+          },
+          {
+            "e": "☀️",
+            "x": 88,
+            "y": 18,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Next time you draw a picture, turn the paper over and use the other side. A tree will thank you.",
+      "ja": "次に 絵を かく ときは、紙を うら返して、反対側も 使いましょう。木が よろこんで くれますよ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "✏️",
+            "x": 46,
+            "y": 56,
+            "s": 1.4,
+            "a": "hop"
+          },
+          {
+            "e": "📄",
+            "x": 58,
+            "y": 66,
+            "s": 2.4
+          },
+          {
+            "e": "🔄",
+            "x": 58,
+            "y": 40,
+            "s": 1.6,
+            "a": "spin"
+          },
+          {
+            "e": "🌳",
+            "x": 86,
+            "y": 56,
+            "s": 3.6
+          },
+          {
+            "e": "❤️",
+            "x": 86,
+            "y": 22,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "threads",
+      "ja": "糸"
+    },
+    {
+      "en": "fibers",
+      "ja": "せんい"
+    },
+    {
+      "en": "invented",
+      "ja": "発明した"
+    },
+    {
+      "en": "factory",
+      "ja": "工場"
+    },
+    {
+      "en": "chips",
+      "ja": "小さな かけら・チップ"
+    },
+    {
+      "en": "material",
+      "ja": "材料"
+    },
+    {
+      "en": "pulp",
+      "ja": "パルプ"
+    },
+    {
+      "en": "spread",
+      "ja": "広げる"
+    },
+    {
+      "en": "screen",
+      "ja": "あみ・スクリーン"
+    },
+    {
+      "en": "recycling",
+      "ja": "リサイクル"
+    },
+    {
+      "en": "traditional",
+      "ja": "伝統的な"
+    },
+    {
+      "en": "bark",
+      "ja": "木の 皮"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "why trees are important for animals",
+        "how paper is made and recycled",
+        "how people in China wrote long ago",
+        "how to draw pictures on both sides"
+      ],
+      "answer": "how paper is made and recycled",
+      "kind": "main"
+    },
+    {
+      "q": "Where was paper invented?",
+      "ja": "紙は どこで 発明されましたか。",
+      "choices": [
+        "In China.",
+        "In Japan.",
+        "In a forest.",
+        "In a school."
+      ],
+      "answer": "In China.",
+      "kind": "detail"
+    },
+    {
+      "q": "What is pulp?",
+      "ja": "パルプとは 何ですか。",
+      "choices": [
+        "A heavy roller in a factory.",
+        "A kind of stone for writing long ago.",
+        "A special box for used paper.",
+        "Soft, wet material for making paper."
+      ],
+      "answer": "Soft, wet material for making paper.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happens just after the pulp is spread on the screen?",
+      "ja": "パルプが あみの 上に 広げられた すぐ あとに、何が 起こりますか。",
+      "choices": [
+        "The wood is cut into chips.",
+        "The chips are cooked until soft.",
+        "The water runs through the screen.",
+        "The paper is rolled into huge rolls."
+      ],
+      "answer": "The water runs through the screen.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why will a tree \"thank you\" for using both sides of paper?",
+      "ja": "紙の 両面を 使うと、なぜ 木が 「よろこぶ」のですか。",
+      "choices": [
+        "Trees like colorful pictures.",
+        "Old paper helps trees grow faster.",
+        "Paper is much stronger than wood.",
+        "Less new wood will be needed."
+      ],
+      "answer": "Less new wood will be needed.",
+      "kind": "infer"
+    }
+  ]
+}

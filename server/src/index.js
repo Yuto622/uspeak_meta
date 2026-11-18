@@ -30,10 +30,13 @@ import { ReadingStore } from './reading/store.js';
 import { mountReadingArt } from './reading/art-route.js';
 import { KidsStore } from './classroom/kids-store.js';
 import { kidsAdminExtension } from './classroom/kids.js';
+import { mountJoinNames } from './classroom/join.js';
 import { createRoadmapService } from './roadmap/service.js';
 import { roadmapAdminExtension } from './roadmap/admin.js';
 import { mountRoadmapApi } from './roadmap/api.js';
 import { roadmapClassHtml } from './roadmap/pages.js';
+import { readingClassHtml } from './reading/pages.js';
+import { progressBar } from './game/roadmap.js';
 import { setQbankWords } from './game/roadmap.js';
 import { setPierQuestions } from './game/eiken-pier.js';
 import { setExtraQuestions } from './game/eiken.js';
@@ -259,9 +262,12 @@ export async function startServer({ port = config.port, storeOverride = null, tt
         const names = [...new Set([...records.filter((r) => r?.name && r.role !== 'teacher').map((r) => r.name), ...robloxRows.map((r) => r.name || r.username).filter(Boolean)])];
         roadmapRows = await roadmap.classList(classCode, names);
       } catch (err) { log.warn('[class] roadmap failed:', err.message); }
-      if (String(req.query.format || '').toLowerCase() === 'json') { res.json({ ...view, rankings: rankings(records, { weekKey: weekIndex() }), roblox: robloxRows.map(({ reportToken, ...r }) => r), roadmap: roadmapRows }); return; }
+      // よみもの島：✓ の 冊数・読んだ 語数・さいごに 読んだ 本。
+      let readingRows = [];
+      try { readingRows = readingStore.listClass(classCode).map(({ name }) => { const { list, ...sum } = readingStore.summaryOf(classCode, name); return { name, ...sum }; }); } catch (err) { log.warn('[class] reading failed:', err.message); }
+      if (String(req.query.format || '').toLowerCase() === 'json') { res.json({ ...view, rankings: rankings(records, { weekKey: weekIndex() }), roblox: robloxRows.map(({ reportToken, ...r }) => r), roadmap: roadmapRows, reading: readingRows }); return; }
       const parentsLink = `<section style="margin:16px 0;padding:14px 16px;border-radius:14px;background:#fff3e6;border:1px solid #f0c9a5"><b>📨 保護者レポート（LINE配信）</b> — 配信の設定・QRカードの印刷・先生のひとこと：<a href="/class/${encodeURIComponent(classCode)}/parents?t=${encodeURIComponent(String(req.query.t || ''))}">ひらく →</a></section>`;
-      res.type('text/html; charset=utf-8').send(classHtml(view, { extra: parentsLink + roadmapClassHtml(roadmapRows, { classCode, token: String(req.query.t || ''), saved: String(req.query.saved || '') }) + classRankingHtml(rankings(records, { weekKey: weekIndex() })) + robloxClassSection(robloxRows, { classCode, token: String(req.query.t || '') }) }));
+      res.type('text/html; charset=utf-8').send(classHtml(view, { extra: parentsLink + roadmapClassHtml(roadmapRows, { classCode, token: String(req.query.t || ''), saved: String(req.query.saved || '') }) + readingClassHtml(readingRows) + classRankingHtml(rankings(records, { weekKey: weekIndex() })) + robloxClassSection(robloxRows, { classCode, token: String(req.query.t || '') }) }));
     });
 
     // ロードマップの 段階を 先生が 手で かえる（/class の 表の フォーム）。署名は 教室ページと 同じ。
@@ -362,6 +368,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
       try { report.homework = homework.listFor(record.class, record.name); } catch (err) { log.warn('[report] homework failed:', err.message); report.homework = []; }
       // ロードマップ（今の 段階・次まで・英検の 見込み）。見るだけ（ここでは 段階を 上げない）。
       try { report.roadmap = await roadmap.view(record.class, record.name, { advance: false }); } catch (err) { log.warn('[report] roadmap failed:', err.message); report.roadmap = null; }
+      // いちばん 上の 数字 5 つ・進み具合の バー・よんだ 本（よみもの島）。
+      try { report.reading = readingStore.summaryOf(record.class, record.name); report.bar = progressBar(report.roadmap); } catch (err) { log.warn('[report] reading failed:', err.message); report.reading = null; report.bar = null; }
       const token = String(req.query.t || '');
       const format = String(req.query.format || '').toLowerCase();
       if (format === 'json') { res.json(report); return; }
@@ -407,12 +415,12 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 管理ページ. Mounted only with ADMIN_KEY (admin/roster-admin.js).
   const tasksAdmin = tasksAdminExtension({ tasks, log });
   const qbankAdmin = qbankAdminExtension({ qbank, log });
-  const homeworkAdmin = homeworkAdminExtension({ homework, aiReady: !!config.ai.apiKey, rosterClasses: async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class), log });
+  const homeworkAdmin = homeworkAdminExtension({ homework, aiReady: !!config.ai.apiKey, rosterClasses: async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class), rosterRows: async () => (await roster.listAllRoster?.()) || [], log });
   const roadmapAdmin = roadmapAdminExtension({ roadmap: roadmapStore, log });
   // 教室の パスワード（/admin/classrooms）と、英会話教室の 先生の 宿題の 画面（/teacher/homework）。
   const rosterClasses = async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class);
   const classrooms = config.reportSecret ? await new ClassroomStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'classrooms.json'), { secret: config.reportSecret, log }).init() : null;
-  const kidsAdmin = kidsAdminExtension({ kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], log });
+  const kidsAdmin = kidsAdminExtension({ kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, log });
   const classroomAdmin = classrooms ? classroomAdminExtension({ classrooms, rosterClasses, log }) : () => {};
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
   const privacyAdmin = ({ api }) => {
@@ -430,6 +438,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
   // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
   app.use(['/api/liff', '/r', '/report', '/class', '/export', '/teacher'], rateLimit({ windowMs: 60_000, max: 120 }));
+  // なまえを えらんで 入る（クラスの QR）。その クラスの 子どもの なまえ だけ・1 つの IP から 1 分 30 回まで。
+  mountJoinNames(app, { kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, limiter: rateLimit({ windowMs: 60_000, max: 30 }), log });
   if (classrooms) mountTeacherHomework(app, { classrooms, homework, kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
   mountReadingArt(app, { log }); // 絵本の 絵（サーバーで かく SVG）
   app.get('/api/tasks', (req, res) => { res.set('Cache-Control', 'public, max-age=60'); res.json({ ok: true, updatedAt: tasks.updatedAt, ...tasks.adopted() }); });

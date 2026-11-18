@@ -1,0 +1,564 @@
+{
+  "id": "rd-7-homes-fit",
+  "stage": "7",
+  "title": "Homes That Fit Their Place",
+  "titleJa": "土地に 合った 家",
+  "kind": "fact",
+  "cover": {
+    "bg": "meadow",
+    "items": [
+      {
+        "e": "🏠",
+        "x": 22,
+        "y": 66,
+        "s": 2.8
+      },
+      {
+        "e": "⛺",
+        "x": 50,
+        "y": 68,
+        "s": 3
+      },
+      {
+        "e": "🛖",
+        "x": 78,
+        "y": 66,
+        "s": 2.8
+      },
+      {
+        "e": "🌍",
+        "x": 50,
+        "y": 22,
+        "s": 2.6,
+        "a": "spin"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Why do houses look so different around the world? People everywhere need the same things from a home: to be safe, dry, and comfortable. But the weather and the land are not the same everywhere.",
+      "ja": "世界の 家は、なぜ こんなに ちがって 見えるのだろう。どこの 人も、家に 求める ものは 同じだ。安全で、かわいていて、心地よいこと。でも 天気と 土地は、どこでも 同じでは ない。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🏠",
+            "x": 20,
+            "y": 66,
+            "s": 2.8
+          },
+          {
+            "e": "🛖",
+            "x": 46,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "🏢",
+            "x": 72,
+            "y": 58,
+            "s": 3
+          },
+          {
+            "e": "❓",
+            "x": 46,
+            "y": 24,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌍",
+            "x": 88,
+            "y": 20,
+            "s": 2,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In parts of Southeast Asia, many houses stand on tall wooden legs called stilts. When heavy rain floods the land or the river rises, the home stays dry. Air moving under the floor also keeps it cool.",
+      "ja": "東南アジアの 一部では、多くの 家が 高床の 柱という 高い 木の 足の 上に 立っている。大雨で 土地が 水に つかっても、川が 増水しても、家は ぬれない。ゆか下を 通る 風で、すずしくも なる。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🛖",
+            "x": 50,
+            "y": 42,
+            "s": 3.6
+          },
+          {
+            "e": "🪵",
+            "x": 40,
+            "y": 66,
+            "s": 1.4
+          },
+          {
+            "e": "🪵",
+            "x": 60,
+            "y": 66,
+            "s": 1.4
+          },
+          {
+            "e": "🌊",
+            "x": 50,
+            "y": 86,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🌧",
+            "x": 18,
+            "y": 18,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "🌴",
+            "x": 86,
+            "y": 58,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the wide grasslands of Mongolia, some families keep sheep, goats, and horses. The animals need fresh grass, so the families move several times a year. They need a house that can move with them.",
+      "ja": "モンゴルの 広い 草原では、ヒツジや ヤギ、馬を かう 家族が いる。動物には 新しい 草が 必要なので、家族は 年に 何度か 移動する。いっしょに 移動できる 家が 必要だ。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🐑",
+            "x": 22,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🐑",
+            "x": 40,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "🐴",
+            "x": 66,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 88,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "➡",
+            "x": 50,
+            "y": 30,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Their answer is a round tent called a ger. It has a wooden frame covered with thick felt made from sheep’s wool. A family can take it down, carry it, and build it again in a short time.",
+      "ja": "その 答えが、ゲルという 丸い テントだ。木の ほね組みを、ヒツジの 毛から 作った あつい フェルトで おおう。家族は それを たたみ、運び、短い 時間で また 組み立てることが できる。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "⛺",
+            "x": 45,
+            "y": 64,
+            "s": 4.2
+          },
+          {
+            "e": "🐑",
+            "x": 80,
+            "y": 78,
+            "s": 2
+          },
+          {
+            "e": "🪵",
+            "x": 18,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🔄",
+            "x": 78,
+            "y": 28,
+            "s": 1.8,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In hot, dry places such as North Africa, traditional houses often have thick walls of mud or stone and only small windows. The thick walls keep out the heat of the day, so the rooms stay cool.",
+      "ja": "北アフリカのような 暑くて かわいた 土地では、昔ながらの 家は、どろや 石の あつい かべと、小さな まどだけを 持つことが 多い。あつい かべが 昼の 熱を ふせぎ、部屋は すずしいままだ。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🏠",
+            "x": 48,
+            "y": 62,
+            "s": 4
+          },
+          {
+            "e": "🧱",
+            "x": 22,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "☀",
+            "x": 82,
+            "y": 14,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🪟",
+            "x": 48,
+            "y": 56,
+            "s": 1
+          },
+          {
+            "e": "🌵",
+            "x": 88,
+            "y": 70,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "In snowy mountain villages of Japan, such as Shirakawa-go, old farmhouses have very steep roofs made of thick grass. The heavy snow slides off instead of breaking the roof.",
+      "ja": "白川郷のような 日本の 雪深い 山村では、古い 農家に、あつい かやで ふいた とても 急な 屋根が ある。重い 雪は、屋根を こわさずに すべり落ちる。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "🏠",
+            "x": 45,
+            "y": 62,
+            "s": 4
+          },
+          {
+            "e": "🔺",
+            "x": 45,
+            "y": 36,
+            "s": 3.2
+          },
+          {
+            "e": "❄",
+            "x": 20,
+            "y": 24,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "❄",
+            "x": 72,
+            "y": 30,
+            "s": 1.6,
+            "a": "drift"
+          },
+          {
+            "e": "⬇",
+            "x": 70,
+            "y": 56,
+            "s": 1.4
+          },
+          {
+            "e": "⛰",
+            "x": 88,
+            "y": 40,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the far north, the Inuit people used to build shelters from blocks of hard snow when they traveled to hunt in winter. Snow holds a lot of air, so it keeps the warmth inside surprisingly well.",
+      "ja": "遠い 北の 地では、イヌイットの 人びとは、冬に かりの 旅を する時、かたい 雪の ブロックで 小屋を 作っていた。雪は 空気を たくさん ふくむので、おどろくほど よく 中の あたたかさを 保つ。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "🧊",
+            "x": 40,
+            "y": 68,
+            "s": 3.6
+          },
+          {
+            "e": "🧊",
+            "x": 54,
+            "y": 68,
+            "s": 3.6
+          },
+          {
+            "e": "🧊",
+            "x": 47,
+            "y": 52,
+            "s": 3.2
+          },
+          {
+            "e": "🔥",
+            "x": 47,
+            "y": 70,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "❄",
+            "x": 82,
+            "y": 26,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🌬",
+            "x": 16,
+            "y": 26,
+            "s": 1.8,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In crowded cities, there is not much land, so people build upward. Thousands of people can live in tall apartment buildings on a small piece of ground.",
+      "ja": "こみ合った 都市では 土地が 少ないので、人びとは 上へ 上へと 建てる。小さな 土地に 立つ 高い 集合住宅に、何千人もが 住むことが できる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏢",
+            "x": 28,
+            "y": 52,
+            "s": 3.8
+          },
+          {
+            "e": "🏢",
+            "x": 54,
+            "y": 48,
+            "s": 4.4
+          },
+          {
+            "e": "🏙",
+            "x": 82,
+            "y": 54,
+            "s": 3.2
+          },
+          {
+            "e": "⬆",
+            "x": 54,
+            "y": 14,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "👥",
+            "x": 40,
+            "y": 82,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Traditional houses were built with materials found nearby: wood in forests, grass on plains, mud in dry lands, even snow. People did not have to carry heavy materials a long way.",
+      "ja": "昔ながらの 家は、近くで 手に 入る 材料で 建てられた。森では 木、平原では 草、かわいた 土地では どろ、そして 雪さえも。重い 材料を 遠くまで 運ぶ 必要が なかった。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🪵",
+            "x": 18,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "🌾",
+            "x": 40,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🧱",
+            "x": 62,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🧊",
+            "x": 82,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🏡",
+            "x": 50,
+            "y": 34,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Every home is an answer to a question: “How can we live well in this place?” Look at your own house. What does it tell you about the weather and the land where you live?",
+      "ja": "どの 家も、一つの 問いへの 答えだ。「この 場所で、どうすれば よく くらせるか」。自分の 家を 見てみよう。あなたの 住む 土地と 天気について、その 家は 何を 教えてくれるだろう。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🤔",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🏠",
+            "x": 65,
+            "y": 62,
+            "s": 3.6
+          },
+          {
+            "e": "❓",
+            "x": 65,
+            "y": 24,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "☁",
+            "x": 88,
+            "y": 20,
+            "s": 1.8,
+            "a": "drift"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "comfortable",
+      "ja": "心地よい"
+    },
+    {
+      "en": "stilts",
+      "ja": "高床の 柱"
+    },
+    {
+      "en": "floods",
+      "ja": "水びたしに する"
+    },
+    {
+      "en": "grasslands",
+      "ja": "草原"
+    },
+    {
+      "en": "frame",
+      "ja": "ほね組み"
+    },
+    {
+      "en": "felt",
+      "ja": "フェルト"
+    },
+    {
+      "en": "traditional",
+      "ja": "昔ながらの、伝統的な"
+    },
+    {
+      "en": "steep",
+      "ja": "急な"
+    },
+    {
+      "en": "shelters",
+      "ja": "小屋、ひなん所"
+    },
+    {
+      "en": "crowded",
+      "ja": "こみ合った"
+    },
+    {
+      "en": "materials",
+      "ja": "材料"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How to build a tent in a short time",
+        "Why city buildings are getting taller",
+        "How families in Mongolia keep animals",
+        "Why homes differ with weather and land"
+      ],
+      "answer": "Why homes differ with weather and land",
+      "kind": "main"
+    },
+    {
+      "q": "Why do some houses stand on stilts?",
+      "ja": "なぜ 高床の 家が あるのか？",
+      "choices": [
+        "To let snow slide off the roof",
+        "To stay dry when water rises",
+        "To move easily to new grass",
+        "To keep out the desert heat"
+      ],
+      "answer": "To stay dry when water rises",
+      "kind": "detail"
+    },
+    {
+      "q": "What is a ger covered with?",
+      "ja": "ゲルは 何で おおわれている？",
+      "choices": [
+        "Thick felt from sheep’s wool",
+        "Blocks of hard winter snow",
+        "Dried mud and small stones",
+        "Thick grass from the mountains"
+      ],
+      "answer": "Thick felt from sheep’s wool",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, “steep” means ___.",
+      "ja": "この本で “steep” の 意味は？",
+      "choices": [
+        "made of grass",
+        "very old",
+        "rising sharply",
+        "covered in snow"
+      ],
+      "answer": "rising sharply",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did people build with materials found nearby?",
+      "ja": "人びとは なぜ 近くに ある 材料で 家を 建てた？",
+      "choices": [
+        "Nearby materials were always the strongest.",
+        "They wanted all houses to look the same.",
+        "Carrying heavy materials far was too hard.",
+        "Laws did not allow other materials."
+      ],
+      "answer": "Carrying heavy materials far was too hard.",
+      "kind": "infer"
+    }
+  ]
+}

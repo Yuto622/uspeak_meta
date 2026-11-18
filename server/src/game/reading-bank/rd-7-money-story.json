@@ -1,0 +1,583 @@
+{
+  "id": "rd-7-money-story",
+  "stage": "7",
+  "title": "From Shells to Smartphones",
+  "titleJa": "貝がらから スマホまで お金の 話",
+  "kind": "fact",
+  "cover": {
+    "bg": "shop",
+    "items": [
+      {
+        "e": "🐚",
+        "x": 20,
+        "y": 66,
+        "s": 2.6
+      },
+      {
+        "e": "🪙",
+        "x": 42,
+        "y": 58,
+        "s": 2.8,
+        "a": "spin"
+      },
+      {
+        "e": "💵",
+        "x": 64,
+        "y": 66,
+        "s": 2.6
+      },
+      {
+        "e": "📱",
+        "x": 86,
+        "y": 58,
+        "s": 2.6
+      },
+      {
+        "e": "➡",
+        "x": 53,
+        "y": 30,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Imagine a world without money. You are a fisherman and you want new shoes. You must find a shoemaker who wants fish today. If he wants bread instead, you have a problem.",
+      "ja": "お金の ない 世界を 想像してみよう。あなたは 漁師で、新しい くつが ほしい。今日 魚を ほしがっている くつ屋を さがさなければ ならない。くつ屋が パンを ほしがっていたら、こまってしまう。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 25,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🐟",
+            "x": 40,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "↔",
+            "x": 52,
+            "y": 50,
+            "s": 1.8
+          },
+          {
+            "e": "👞",
+            "x": 64,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "👨",
+            "x": 80,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🍞",
+            "x": 80,
+            "y": 26,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Long ago, people traded things directly like this. It is called barter. Barter works in a small village, but it is slow, and it is hard to agree on how many fish equal one pair of shoes.",
+      "ja": "大昔、人びとは このように 物と 物を 直せつ 交かんしていた。これを 物々交かんと いう。小さな 村では うまく いくが、時間が かかる。それに 魚 何びきが くつ 一足分かを 決めるのは むずかしい。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐟",
+            "x": 18,
+            "y": 62,
+            "s": 1.6
+          },
+          {
+            "e": "🐟",
+            "x": 28,
+            "y": 68,
+            "s": 1.6
+          },
+          {
+            "e": "🐟",
+            "x": 22,
+            "y": 76,
+            "s": 1.6
+          },
+          {
+            "e": "⚖",
+            "x": 50,
+            "y": 56,
+            "s": 3
+          },
+          {
+            "e": "👞",
+            "x": 80,
+            "y": 66,
+            "s": 2.2
+          },
+          {
+            "e": "❓",
+            "x": 50,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "So people began to use special objects that everyone agreed were valuable. In different parts of the world, people used shells, salt, cloth, or rice as money.",
+      "ja": "そこで 人びとは、だれもが 価値が あると みとめる 特別な 物を 使い始めた。世界の さまざまな 場所で、貝がらや 塩、布、米が お金として 使われた。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "🐚",
+            "x": 18,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "⚪",
+            "x": 40,
+            "y": 72,
+            "s": 1.6
+          },
+          {
+            "e": "👘",
+            "x": 62,
+            "y": 64,
+            "s": 2.4
+          },
+          {
+            "e": "🍚",
+            "x": 84,
+            "y": 70,
+            "s": 2.2
+          },
+          {
+            "e": "🌍",
+            "x": 50,
+            "y": 24,
+            "s": 2,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "But these early kinds of money had problems. Rice can rot. Salt gets wet. Shells break. People needed something that lasted long, was easy to carry, and was difficult to copy.",
+      "ja": "でも こうした 初期の お金には 問題が あった。米は くさる。塩は しめる。貝がらは われる。人びとには、長持ちして、運びやすく、まねするのが むずかしい 物が 必要だった。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🍚",
+            "x": 20,
+            "y": 70,
+            "s": 2.2
+          },
+          {
+            "e": "🤢",
+            "x": 20,
+            "y": 46,
+            "s": 1.4
+          },
+          {
+            "e": "⚪",
+            "x": 50,
+            "y": 72,
+            "s": 1.6
+          },
+          {
+            "e": "💧",
+            "x": 50,
+            "y": 52,
+            "s": 1.4,
+            "a": "bob"
+          },
+          {
+            "e": "🐚",
+            "x": 80,
+            "y": 70,
+            "s": 2.4
+          },
+          {
+            "e": "💥",
+            "x": 80,
+            "y": 48,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Metal was the answer. Gold, silver, and copper do not rot, and they can be cut into small pieces. Later, rulers made coins: round pieces of metal of the same size and weight, with a mark on them.",
+      "ja": "答えは 金ぞくだった。金、銀、銅は くさらず、小さく 切り分けることも できる。後に 支配者たちは こう貨を 作った。同じ 大きさと 重さで、しるしの ついた 丸い 金ぞくだ。",
+      "scene": {
+        "bg": "cave",
+        "items": [
+          {
+            "e": "🪨",
+            "x": 18,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "✨",
+            "x": 18,
+            "y": 54,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🔥",
+            "x": 42,
+            "y": 72,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🪙",
+            "x": 66,
+            "y": 60,
+            "s": 2.6,
+            "a": "spin"
+          },
+          {
+            "e": "🪙",
+            "x": 82,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "👑",
+            "x": 74,
+            "y": 28,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Still, a big bag of coins is heavy and dangerous to carry. In China, long ago, merchants began to leave their coins in a safe place and carry a piece of paper that showed how much they owned.",
+      "ja": "それでも、こう貨の 大きな ふくろは 重く、持ち歩くのは 危ない。昔の 中国で、商人たちは こう貨を 安全な 場所に あずけ、いくら 持っているかを しめす 紙を 持ち歩くように なった。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👨‍💼",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💰",
+            "x": 48,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "➡",
+            "x": 60,
+            "y": 60,
+            "s": 1.4
+          },
+          {
+            "e": "🔒",
+            "x": 74,
+            "y": 70,
+            "s": 2
+          },
+          {
+            "e": "📜",
+            "x": 88,
+            "y": 50,
+            "s": 2.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "This was the beginning of paper money. A bill is only paper, but it works because everyone trusts it. The shopkeeper accepts it because she knows that others will accept it from her.",
+      "ja": "これが 紙の お金の 始まりだった。おさつは ただの 紙だが、だれもが 信用するから 役目を 果たす。店の 人が 受け取るのは、ほかの 人も それを 受け取ってくれると 知っているからだ。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👩",
+            "x": 70,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 70,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💵",
+            "x": 50,
+            "y": 58,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧑",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🤝",
+            "x": 50,
+            "y": 30,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Today, much of our money is not even paper. When people pay with a card or a smartphone, no coins move. Only numbers change inside the computers of banks.",
+      "ja": "今日では、お金の 多くは 紙ですら ない。カードや スマートフォンで しはらう 時、こう貨は 動かない。銀行の コンピューターの 中で、数字が 変わるだけだ。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👧",
+            "x": 25,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📱",
+            "x": 44,
+            "y": 56,
+            "s": 2
+          },
+          {
+            "e": "📡",
+            "x": 58,
+            "y": 40,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🏦",
+            "x": 82,
+            "y": 60,
+            "s": 3
+          },
+          {
+            "e": "🔢",
+            "x": 82,
+            "y": 26,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "So what is money, really? It is not the shell, the metal, or the paper. Money is a promise that a whole society agrees to believe in.",
+      "ja": "では、お金とは 本当は 何だろう。貝がらでも、金ぞくでも、紙でも ない。お金とは、社会 全体が 信じることに 同意している 「約束」なのだ。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🤝",
+            "x": 50,
+            "y": 50,
+            "s": 3.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🐚",
+            "x": 18,
+            "y": 72,
+            "s": 1.6
+          },
+          {
+            "e": "🪙",
+            "x": 36,
+            "y": 76,
+            "s": 1.6
+          },
+          {
+            "e": "💵",
+            "x": 64,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "📱",
+            "x": 82,
+            "y": 72,
+            "s": 1.6
+          },
+          {
+            "e": "👥",
+            "x": 50,
+            "y": 82,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The next time you hold a coin, look at it closely. In your hand is one of the most powerful ideas humans have ever had: a way for strangers to trust each other.",
+      "ja": "次に こう貨を 手に したら、じっくり 見てみよう。あなたの 手の 中に あるのは、人間が 考え出した 最も 強力な アイデアの 一つ。知らない 人どうしが 信じ合う ための 方法だ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🪙",
+            "x": 56,
+            "y": 52,
+            "s": 2.6,
+            "a": "spin"
+          },
+          {
+            "e": "✨",
+            "x": 70,
+            "y": 36,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "💡",
+            "x": 56,
+            "y": 22,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "barter",
+      "ja": "物々交かん"
+    },
+    {
+      "en": "equal",
+      "ja": "等しい"
+    },
+    {
+      "en": "valuable",
+      "ja": "価値の ある"
+    },
+    {
+      "en": "rot",
+      "ja": "くさる"
+    },
+    {
+      "en": "copper",
+      "ja": "銅"
+    },
+    {
+      "en": "rulers",
+      "ja": "支配者たち"
+    },
+    {
+      "en": "merchants",
+      "ja": "商人たち"
+    },
+    {
+      "en": "accepts",
+      "ja": "受け取る"
+    },
+    {
+      "en": "society",
+      "ja": "社会"
+    },
+    {
+      "en": "strangers",
+      "ja": "知らない 人たち"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How money changed and why it works",
+        "How fishermen caught fish long ago",
+        "Why smartphones are so expensive",
+        "How banks protect their computers"
+      ],
+      "answer": "How money changed and why it works",
+      "kind": "main"
+    },
+    {
+      "q": "What is one problem with barter?",
+      "ja": "物々交かんの 問題の 一つは 何？",
+      "choices": [
+        "Villages were too small for it.",
+        "People did not like eating fish or bread.",
+        "It is hard to agree on a fair trade.",
+        "Shoes could not be made quickly."
+      ],
+      "answer": "It is hard to agree on a fair trade.",
+      "kind": "detail"
+    },
+    {
+      "q": "Why was metal better than rice or salt as money?",
+      "ja": "金ぞくは なぜ 米や 塩より お金に 向いていた？",
+      "choices": [
+        "It was easier to find than rice.",
+        "It does not rot and lasts long.",
+        "Everyone could make it at home.",
+        "It was lighter than paper bills."
+      ],
+      "answer": "It does not rot and lasts long.",
+      "kind": "detail"
+    },
+    {
+      "q": "Which kind of money came last?",
+      "ja": "どの 種類の お金が 最後に あらわれた？",
+      "choices": [
+        "Metal coins",
+        "Paper bills",
+        "Shells, salt, and cloth",
+        "Paying by smartphone"
+      ],
+      "answer": "Paying by smartphone",
+      "kind": "sequence"
+    },
+    {
+      "q": "According to the book, why does a paper bill have value?",
+      "ja": "この本によると、おさつに なぜ 価値が ある？",
+      "choices": [
+        "The paper is very rare.",
+        "Everyone trusts that others accept it.",
+        "It is made with a little gold and silver.",
+        "It is too difficult to tear."
+      ],
+      "answer": "Everyone trusts that others accept it.",
+      "kind": "infer"
+    }
+  ]
+}

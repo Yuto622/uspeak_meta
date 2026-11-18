@@ -187,3 +187,17 @@
 /* 先生パスワード：たたまず いつも 見せる。「先生だけ」の 札で 子どもは 空のままで いいと わかる（2026-11）。 */
 #net-lobby .net-opt-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 #net-lobby .net-opt{font-size:11px;font-weight:800;color:#6e665c;background:#efe9dc;border-radius:99px;padding:2px 9px;letter-spacing:.02em}
+
+/* なまえを えらんで 入る（クラスの QR・lobby.js）。大きな なまえの ボタン。入力の 欄・先生パスワード・「はいる」は しまう。 */
+#net-lobby.pick{width:min(760px,calc(100vw - 24px))}
+#net-lobby.pick form>label,#net-lobby.pick #net-teacher-details,#net-lobby.pick .net-lobby-actions,#net-lobby.pick form>p:not(.net-error):not(.net-fine){display:none}
+#net-pick[hidden]{display:none}
+#net-lobby .net-pick-lead{margin:2px 0 10px;font-size:18px;font-weight:800;color:#263d33}
+#net-pick-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px;max-height:min(52vh,420px);overflow-y:auto;padding:4px}
+.net-pick-name{display:flex;flex-direction:column;align-items:center;gap:6px;min-height:104px;padding:10px 6px;border:3px solid #e6dfc8;border-radius:18px;background:#fff;cursor:pointer;font:inherit;color:#263d33}
+.net-pick-name i{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;color:#fff;font:800 26px/1 system-ui,sans-serif;font-style:normal}
+.net-pick-name b{font-size:17px;line-height:1.2;text-align:center;overflow-wrap:anywhere}
+.net-pick-name:hover,.net-pick-name:focus-visible{border-color:#173f38;outline:0}.net-pick-name.on{border-color:#e27a2d;background:#fff4e6}
+.net-pick-other{display:block;margin:12px auto 0;min-height:44px;padding:0 16px;border:0;background:none;color:#3f6f8f;font:inherit;font-size:14px;text-decoration:underline;cursor:pointer}
+@media (max-height:480px){#net-lobby.pick{padding:14px 18px}#net-lobby.pick h2{font-size:19px;margin:2px 0}#net-lobby.pick .eyebrow,#net-lobby.pick .net-fine{display:none}#net-pick-list{max-height:calc(100vh - 222px);grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}.net-pick-name{min-height:84px;padding:6px}.net-pick-name i{width:40px;height:40px;font-size:20px}.net-pick-name b{font-size:15px}#net-lobby .net-pick-lead{font-size:16px;margin-bottom:6px}.net-pick-other{margin-top:4px}}
+#net-lobby .eyebrow{font-size:11px}

@@ -1,0 +1,575 @@
+{
+  "id": "rd-9-chess-clock",
+  "stage": "9",
+  "title": "The Clock He Forgot",
+  "titleJa": "おしわすれた 時計",
+  "kind": "story",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "👦",
+        "x": 26,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "🧒",
+        "x": 76,
+        "y": 70,
+        "s": 3.4
+      },
+      {
+        "e": "⏱",
+        "x": 51,
+        "y": 34,
+        "s": 3,
+        "a": "pulse"
+      },
+      {
+        "e": "👑",
+        "x": 51,
+        "y": 70,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "In tournament chess, each player has a clock. After making a move, you press a button that stops your own clock and starts your opponent’s. If your time runs out, you lose the game, however strong your position on the board may be.",
+      "ja": "チェスの 大会では、選手 それぞれに 時計が ある。一手 指したら ボタンを おし、自分の 時計を 止めて 相手の 時計を 動かす。持ち時間が なくなれば、ばん上で どれほど 有利でも、負けに なる。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "⏱",
+            "x": 50,
+            "y": 40,
+            "s": 3.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👉",
+            "x": 34,
+            "y": 46,
+            "s": 1.6
+          },
+          {
+            "e": "🟦",
+            "x": 30,
+            "y": 74,
+            "s": 1.6
+          },
+          {
+            "e": "⚫",
+            "x": 50,
+            "y": 76,
+            "s": 1.4
+          },
+          {
+            "e": "⚪",
+            "x": 70,
+            "y": 74,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ryo had reached the final of the prefectural championship for the first time. His opponent was a quiet boy named Kaito from a school on the other side of the mountains, a stranger he had never played before. From the first moves, Ryo sensed he was in trouble.",
+      "ja": "リョウは 初めて 県大会の 決勝に 進んだ。相手は、山の 向こうの 学校から 来た カイトという 物静かな 少年。一度も 対戦したことの ない、知らない 相手だ。最初の 数手で、リョウは まずいと 感じた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 24,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧒",
+            "x": 76,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "⏱",
+            "x": 50,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "⛰",
+            "x": 90,
+            "y": 28,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Kaito played beautifully. By the middle of the game, he had won two of Ryo’s pieces, and his own pieces controlled the center of the board. Ryo could find no escape. In ten or twelve more moves, he would certainly be defeated.",
+      "ja": "カイトの 指し方は みごとだった。中ばんまでに リョウの こまを 二つ 取り、自分の こまで ばんの 中央を おさえた。リョウに にげ道は 見つからない。あと 十手か 十二手で、まちがいなく 負ける。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 72,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 72,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "⚫",
+            "x": 44,
+            "y": 70,
+            "s": 1.4
+          },
+          {
+            "e": "⚫",
+            "x": 52,
+            "y": 78,
+            "s": 1.4
+          },
+          {
+            "e": "👦",
+            "x": 20,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😨",
+            "x": 20,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📉",
+            "x": 46,
+            "y": 30,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then Kaito made a strong move, leaned back to think about what would come next, and forgot to press his clock. His time continued to run. Ryo noticed immediately. Kaito, lost in concentration, did not. The numbers kept falling.",
+      "ja": "その時、カイトは 強い 一手を 指し、次の 展開を 考えようと 体を 後ろに たおした。そして 時計を おすのを わすれた。カイトの 時間が へり続ける。リョウは すぐ 気づいた。集中しきった カイトは 気づかない。数字は 落ちていく。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 74,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 74,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "⏱",
+            "x": 50,
+            "y": 40,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "❗",
+            "x": 50,
+            "y": 16,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👀",
+            "x": 22,
+            "y": 30,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "The rules were clear. A player is responsible for his own clock, and an opponent has no duty to remind him. If Ryo simply sat still and pretended to think, Kaito’s remaining four minutes would disappear, and Ryo would be champion.",
+      "ja": "ルールは はっきりしている。時計は 自分の 責任で、相手に 教える 義務は ない。リョウが ただ じっと すわって 考える ふりを すれば、カイトの 残り 四分は 消え、リョウが 優勝する。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤐",
+            "x": 30,
+            "y": 28,
+            "s": 1.6
+          },
+          {
+            "e": "📜",
+            "x": 58,
+            "y": 44,
+            "s": 2.2
+          },
+          {
+            "e": "⏱",
+            "x": 78,
+            "y": 60,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🏆",
+            "x": 90,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ryo’s coach had taught him that chess is a battle of minds and that you must use every legal advantage. This was legal. His heart was beating so loudly that he was afraid Kaito would hear it. Three minutes. Two minutes and fifty seconds.",
+      "ja": "コーチは 教えていた。チェスは 頭の 戦いで、ルールで 許される 有利は すべて 使え、と。これは ルール上 許される。心ぞうの 音が 大きすぎて、カイトに 聞こえそうだった。三分。二分 五十秒。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😰",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💓",
+            "x": 50,
+            "y": 58,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "⏱",
+            "x": 72,
+            "y": 44,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👨",
+            "x": 92,
+            "y": 72,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "But what would the trophy actually mean? It would say that Ryo was the best player in the prefecture, and both boys would know that this was false. He would be the champion of sitting quietly. Was that what he had practiced for six years to become?",
+      "ja": "でも、その トロフィーは 何を 意味するのか。リョウが 県で 一番だと 告げるだろう。そして 二人とも、それが うそだと 知っている。「静かに すわる 競技」の 王者だ。六年間の 練習は、そう なるためだったのか。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 38,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 38,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 64,
+            "y": 28,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "🏆",
+            "x": 64,
+            "y": 27,
+            "s": 1.3
+          },
+          {
+            "e": "❓",
+            "x": 82,
+            "y": 20,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ryo reached across the table and tapped the top of the clock with one finger. Kaito looked down, turned red, and pressed the button. “Thank you,” he whispered, astonished. Eleven moves later, Ryo tipped over his own king, the traditional sign of surrender.",
+      "ja": "リョウは テーブルごしに 手を のばし、指で 時計の 上を トンと たたいた。カイトは 下を 見て 赤くなり、ボタンを おした。「ありがとう」と おどろいて ささやいた。十一手後、リョウは 自分の キングを たおした。昔からの 降参の 合図だ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "☝",
+            "x": 42,
+            "y": 46,
+            "s": 1.6
+          },
+          {
+            "e": "⏱",
+            "x": 54,
+            "y": 44,
+            "s": 2.4
+          },
+          {
+            "e": "🧒",
+            "x": 78,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😳",
+            "x": 78,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👑",
+            "x": 54,
+            "y": 80,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the bus home, his coach said nothing for a long time. Finally he spoke. “I taught you to use every legal advantage. I still believe that. But today you played by a rule that isn’t in the book, and I can’t honestly say you were wrong.”",
+      "ja": "帰りの バスで、コーチは 長い間 何も 言わなかった。やがて 口を 開いた。「ルールで 許される 有利は 全部 使えと 教えた。今も そう 思う。だが 今日 きみは、本に ない ルールで 戦った。それが まちがいだとは、正直 言えない」",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 50,
+            "y": 62,
+            "s": 4.6
+          },
+          {
+            "e": "👨",
+            "x": 68,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "💬",
+            "x": 68,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "📖",
+            "x": 88,
+            "y": 28,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ryo still thinks about that final. Some of his friends say he was foolish; rules exist so that we do not have to argue about what is fair. Others say he was the real winner. Ryo himself is not sure. He only knows which memory he prefers to live with.",
+      "ja": "リョウは 今も あの 決勝を 考える。ばかだと 言う 友人も いる。ルールは、何が 公平かで もめない ために あるのだから。真の 勝者だと 言う 人も いる。リョウ自身にも 分からない。分かるのは、どちらの 記おくと 生きていきたいか、だけだ。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "⚖",
+            "x": 68,
+            "y": 46,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "👑",
+            "x": 22,
+            "y": 78,
+            "s": 1.4
+          },
+          {
+            "e": "🌙",
+            "x": 88,
+            "y": 14,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "tournament",
+      "ja": "大会"
+    },
+    {
+      "en": "opponent",
+      "ja": "対戦相手"
+    },
+    {
+      "en": "prefectural",
+      "ja": "県の"
+    },
+    {
+      "en": "defeated",
+      "ja": "負かされた"
+    },
+    {
+      "en": "concentration",
+      "ja": "集中"
+    },
+    {
+      "en": "responsible",
+      "ja": "責任が ある"
+    },
+    {
+      "en": "duty",
+      "ja": "義務"
+    },
+    {
+      "en": "legal",
+      "ja": "ルール上 許された"
+    },
+    {
+      "en": "advantage",
+      "ja": "有利な 点"
+    },
+    {
+      "en": "astonished",
+      "ja": "とても おどろいた"
+    },
+    {
+      "en": "surrender",
+      "ja": "降参"
+    },
+    {
+      "en": "foolish",
+      "ja": "おろかな"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A coach who breaks the rules of a chess tournament",
+        "A boy who wins a championship by playing very fast",
+        "Two strangers who become teammates after a final",
+        "A boy who gives up an unfair chance to win"
+      ],
+      "answer": "A boy who gives up an unfair chance to win",
+      "kind": "main"
+    },
+    {
+      "q": "What mistake did Kaito make?",
+      "ja": "カイトは どんな ミスを した？",
+      "choices": [
+        "He moved a piece to the wrong square.",
+        "He forgot to press his clock.",
+        "He arrived late for the final.",
+        "He tipped over his own king."
+      ],
+      "answer": "He forgot to press his clock.",
+      "kind": "detail"
+    },
+    {
+      "q": "What was the situation on the board before the mistake?",
+      "ja": "その ミスの 前、ばん上の 形勢は どうだった？",
+      "choices": [
+        "Kaito was clearly winning.",
+        "Ryo was clearly winning.",
+        "The game was exactly even.",
+        "Both players had few pieces."
+      ],
+      "answer": "Kaito was clearly winning.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Ryo do eleven moves after tapping the clock?",
+      "ja": "時計を たたいた 十一手後、リョウは 何を した？",
+      "choices": [
+        "He won the championship trophy.",
+        "He asked the coach for advice.",
+        "He tipped over his king and lost.",
+        "He pressed Kaito’s clock again."
+      ],
+      "answer": "He tipped over his king and lost.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why is Ryo “not sure” whether he was right?",
+      "ja": "リョウは なぜ 自分が 正しかったか 「分からない」のか？",
+      "choices": [
+        "He cannot remember how the game ended.",
+        "Following rules and being fair pointed different ways.",
+        "His coach told him clearly that he was wrong.",
+        "Kaito later said that he had not needed help."
+      ],
+      "answer": "Following rules and being fair pointed different ways.",
+      "kind": "infer"
+    }
+  ]
+}

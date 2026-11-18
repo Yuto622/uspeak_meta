@@ -1,0 +1,512 @@
+{
+  "id": "rd-1-rice-story",
+  "stage": "1",
+  "title": "Where Does Rice Come From?",
+  "titleJa": "おこめは どこから くるの？",
+  "kind": "fact",
+  "cover": {
+    "bg": "farm",
+    "items": [
+      {
+        "e": "🍚",
+        "x": 30,
+        "y": 68,
+        "s": 3.6,
+        "a": "bob"
+      },
+      {
+        "e": "🌾",
+        "x": 64,
+        "y": 66,
+        "s": 3.4,
+        "a": "sway"
+      },
+      {
+        "e": "❓",
+        "x": 48,
+        "y": 26,
+        "s": 2.2,
+        "a": "float"
+      },
+      {
+        "e": "🧑‍🌾",
+        "x": 88,
+        "y": 70,
+        "s": 2.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "We eat rice every day. Where does it come from?",
+      "ja": "わたしたちは まいにち ごはんを たべる。おこめは どこから くるの？",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🤔",
+            "x": 28,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🍚",
+            "x": 62,
+            "y": 70,
+            "s": 3.2,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 64,
+            "y": 30,
+            "s": 2.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rice is a plant. It grows on a farm.",
+      "ja": "おこめは しょくぶつ。のうじょうで そだつ。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🌾",
+            "x": 30,
+            "y": 68,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌾",
+            "x": 54,
+            "y": 70,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 82,
+            "y": 70,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "In spring, farmers put water in the rice fields.",
+      "ja": "はる、のうかの ひとは たんぼに みずを いれる。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🧑‍🌾",
+            "x": 22,
+            "y": 68,
+            "s": 3.2
+          },
+          {
+            "e": "💧",
+            "x": 52,
+            "y": 50,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "🌊",
+            "x": 64,
+            "y": 78,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "🌸",
+            "x": 86,
+            "y": 28,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "They plant small green rice plants in the water.",
+      "ja": "みずの なかに ちいさな みどりの なえを うえる。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🧑‍🌾",
+            "x": 20,
+            "y": 68,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🌱",
+            "x": 46,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🌱",
+            "x": 60,
+            "y": 78,
+            "s": 1.8
+          },
+          {
+            "e": "🌱",
+            "x": 74,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🌱",
+            "x": 88,
+            "y": 78,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "In summer, the plants grow tall. Frogs live there, too.",
+      "ja": "なつ、いねは たかく のびる。かえるも そこに すんでいる。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 82,
+            "y": 18,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌿",
+            "x": 24,
+            "y": 66,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌿",
+            "x": 46,
+            "y": 68,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🐸",
+            "x": 74,
+            "y": 76,
+            "s": 2.4,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In fall, the rice fields are yellow like gold.",
+      "ja": "あき、たんぼは きんいろみたいに きいろく なる。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🌾",
+            "x": 16,
+            "y": 68,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌾",
+            "x": 38,
+            "y": 70,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌾",
+            "x": 60,
+            "y": 68,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌾",
+            "x": 82,
+            "y": 70,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "✨",
+            "x": 50,
+            "y": 30,
+            "s": 1.8,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The farmers cut the rice. Then they dry it.",
+      "ja": "のうかの ひとは いねを かる。それから かわかす。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🚜",
+            "x": 34,
+            "y": 68,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "🌾",
+            "x": 70,
+            "y": 70,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "☀️",
+            "x": 80,
+            "y": 18,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Trucks take the rice to shops in the town.",
+      "ja": "トラックが おこめを まちの おみせに はこぶ。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚚",
+            "x": 36,
+            "y": 70,
+            "s": 3.8,
+            "a": "bob"
+          },
+          {
+            "e": "📦",
+            "x": 62,
+            "y": 78,
+            "s": 1.8
+          },
+          {
+            "e": "🏦",
+            "x": 84,
+            "y": 60,
+            "s": 3
+          },
+          {
+            "e": "💨",
+            "x": 12,
+            "y": 72,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "At home, we wash the rice and cook it.",
+      "ja": "いえで おこめを あらって たく。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "💧",
+            "x": 48,
+            "y": 54,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "🍲",
+            "x": 68,
+            "y": 72,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "♨️",
+            "x": 68,
+            "y": 44,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The rice is hot and white. Thank you, farmers!",
+      "ja": "ごはんは あつくて しろい。のうかの みなさん、ありがとう！",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🍚",
+            "x": 56,
+            "y": 68,
+            "s": 4,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 22,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 86,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "❤️",
+            "x": 56,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "rice",
+      "ja": "おこめ・ごはん"
+    },
+    {
+      "en": "plant",
+      "ja": "しょくぶつ・うえる"
+    },
+    {
+      "en": "farm",
+      "ja": "のうじょう"
+    },
+    {
+      "en": "farmers",
+      "ja": "のうかの ひとたち"
+    },
+    {
+      "en": "rice fields",
+      "ja": "たんぼ"
+    },
+    {
+      "en": "grow",
+      "ja": "そだつ"
+    },
+    {
+      "en": "gold",
+      "ja": "きん"
+    },
+    {
+      "en": "cut",
+      "ja": "きる・かる"
+    },
+    {
+      "en": "dry",
+      "ja": "かわかす"
+    },
+    {
+      "en": "trucks",
+      "ja": "トラック"
+    },
+    {
+      "en": "wash",
+      "ja": "あらう"
+    },
+    {
+      "en": "cook",
+      "ja": "りょうりする・たく"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book about?",
+      "ja": "これは なにの ほん？",
+      "choices": [
+        "how rice comes to us",
+        "how frogs swim in water",
+        "how trucks are made"
+      ],
+      "answer": "how rice comes to us",
+      "kind": "main"
+    },
+    {
+      "q": "When do farmers plant the rice plants?",
+      "ja": "のうかの ひとが なえを うえるのは いつ？",
+      "choices": [
+        "in winter",
+        "in fall",
+        "in spring"
+      ],
+      "answer": "in spring",
+      "kind": "detail"
+    },
+    {
+      "q": "What color are the rice fields in fall?",
+      "ja": "あきの たんぼは なにいろ？",
+      "choices": [
+        "white",
+        "yellow",
+        "blue"
+      ],
+      "answer": "yellow",
+      "kind": "detail"
+    },
+    {
+      "q": "What do farmers do after they cut the rice?",
+      "ja": "いねを かった あと なにを するの？",
+      "choices": [
+        "They dry it.",
+        "They plant it.",
+        "They put water on it."
+      ],
+      "answer": "They dry it.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why does the book say “Thank you, farmers”?",
+      "ja": "どうして 「のうかの みなさん、ありがとう」と いうの？",
+      "choices": [
+        "Farmers drive the school bus.",
+        "Farmers work hard to grow our rice.",
+        "Farmers cook rice at our homes."
+      ],
+      "answer": "Farmers work hard to grow our rice.",
+      "kind": "infer"
+    }
+  ]
+}

@@ -1,0 +1,623 @@
+{
+  "id": "rd-3-flying-pancake",
+  "stage": "3",
+  "title": "The Flying Pancake",
+  "titleJa": "空とぶ パンケーキ",
+  "kind": "story",
+  "cover": {
+    "bg": "kitchen",
+    "items": [
+      {
+        "e": "👧",
+        "x": 30,
+        "y": 70,
+        "s": 3.4
+      },
+      {
+        "e": "🍳",
+        "x": 46,
+        "y": 56,
+        "s": 2
+      },
+      {
+        "e": "🥞",
+        "x": 62,
+        "y": 24,
+        "s": 2.6,
+        "a": "spin"
+      },
+      {
+        "e": "🐶",
+        "x": 82,
+        "y": 72,
+        "s": 3
+      },
+      {
+        "e": "😲",
+        "x": 32,
+        "y": 40,
+        "s": 1.2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "It was Dad's birthday. Mio wanted to make pancakes for his breakfast.",
+      "ja": "お父さんの たん生日でした。ミオは 朝ごはんに パンケーキを 作って あげたいと 思いました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "💭",
+            "x": 54,
+            "y": 26,
+            "s": 2.4
+          },
+          {
+            "e": "🥞",
+            "x": 54,
+            "y": 24,
+            "s": 1.2
+          },
+          {
+            "e": "🎂",
+            "x": 82,
+            "y": 66,
+            "s": 2
+          },
+          {
+            "e": "📅",
+            "x": 14,
+            "y": 30,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "She mixed eggs, milk, and flour in a big bowl. Her dog Choco watched her.",
+      "ja": "ミオは 大きな ボウルに たまごと 牛にゅうと 小麦粉を 入れて まぜました。犬の チョコが 見ていました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🥚",
+            "x": 46,
+            "y": 66,
+            "s": 1.4
+          },
+          {
+            "e": "🥛",
+            "x": 56,
+            "y": 64,
+            "s": 1.6
+          },
+          {
+            "e": "🥄",
+            "x": 50,
+            "y": 52,
+            "s": 1.4,
+            "a": "spin"
+          },
+          {
+            "e": "🐶",
+            "x": 82,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👀",
+            "x": 82,
+            "y": 44,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mio put the pancake in the pan. \"Now I will turn it over, like a chef!\"",
+      "ja": "ミオは パンケーキを フライパンに 入れました。「さあ、シェフみたいに ひっくり返すよ！」",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 37,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🍳",
+            "x": 54,
+            "y": 58,
+            "s": 2.6
+          },
+          {
+            "e": "🔥",
+            "x": 54,
+            "y": 76,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "💬",
+            "x": 30,
+            "y": 20,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "She threw the pancake up high. But it did not come down.",
+      "ja": "ミオは パンケーキを 高く 投げ上げました。でも、パンケーキは 落ちて きませんでした。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🍳",
+            "x": 52,
+            "y": 58,
+            "s": 2.4
+          },
+          {
+            "e": "⬆️",
+            "x": 56,
+            "y": 34,
+            "s": 1.6,
+            "a": "hop"
+          },
+          {
+            "e": "🥞",
+            "x": 60,
+            "y": 12,
+            "s": 1.8
+          },
+          {
+            "e": "❓",
+            "x": 78,
+            "y": 34,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mio looked at the floor. She looked in the pan. Where was the pancake?",
+      "ja": "ミオは ゆかを 見ました。フライパンの 中も 見ました。パンケーキは どこでしょう？",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 42,
+            "y": 38,
+            "s": 1.2
+          },
+          {
+            "e": "🍳",
+            "x": 62,
+            "y": 64,
+            "s": 2.4
+          },
+          {
+            "e": "❓",
+            "x": 62,
+            "y": 34,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👀",
+            "x": 20,
+            "y": 82,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Choco looked up and barked. The pancake was on top of the light!",
+      "ja": "チョコが 上を 見て ほえました。パンケーキは 電気の 上に のっていました！",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "💡",
+            "x": 50,
+            "y": 20,
+            "s": 2.6
+          },
+          {
+            "e": "🥞",
+            "x": 50,
+            "y": 9,
+            "s": 2
+          },
+          {
+            "e": "🐶",
+            "x": 26,
+            "y": 72,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "💬",
+            "x": 30,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "👧",
+            "x": 72,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😲",
+            "x": 74,
+            "y": 40,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Just then, the pancake fell down. It landed on Choco's head like a hat.",
+      "ja": "ちょうど そのとき、パンケーキが 落ちて きました。ぼうしみたいに チョコの 頭に のりました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐶",
+            "x": 45,
+            "y": 74,
+            "s": 3.6
+          },
+          {
+            "e": "🥞",
+            "x": 45,
+            "y": 36,
+            "s": 2.4,
+            "a": "bob"
+          },
+          {
+            "e": "⬇️",
+            "x": 66,
+            "y": 28,
+            "s": 1.4
+          },
+          {
+            "e": "👧",
+            "x": 82,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "😄",
+            "x": 84,
+            "y": 42,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "Choco ate his hat very quickly. Mio laughed and made a new pancake.",
+      "ja": "チョコは その ぼうしを あっと いう間に 食べました。ミオは 笑って、新しい パンケーキを 作りました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐶",
+            "x": 24,
+            "y": 72,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "😋",
+            "x": 26,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👧",
+            "x": 60,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🍳",
+            "x": 78,
+            "y": 58,
+            "s": 2.4
+          },
+          {
+            "e": "🔥",
+            "x": 78,
+            "y": 76,
+            "s": 1.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "This time, she turned it slowly and carefully. It was round and golden brown.",
+      "ja": "今度は、ゆっくり ていねいに ひっくり返しました。まるくて きれいな きつね色に 焼けました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🍳",
+            "x": 52,
+            "y": 60,
+            "s": 3
+          },
+          {
+            "e": "🥞",
+            "x": 52,
+            "y": 50,
+            "s": 1.8
+          },
+          {
+            "e": "✨",
+            "x": 68,
+            "y": 40,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🥄",
+            "x": 44,
+            "y": 46,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Dad came into the kitchen. \"What a wonderful smell!\" he said.",
+      "ja": "お父さんが 台所に 入って きました。「なんて いい においだ！」と 言いました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👨",
+            "x": 26,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 28,
+            "y": 38,
+            "s": 1.2
+          },
+          {
+            "e": "🚪",
+            "x": 8,
+            "y": 60,
+            "s": 2.6
+          },
+          {
+            "e": "🥞",
+            "x": 62,
+            "y": 66,
+            "s": 2.6
+          },
+          {
+            "e": "👃",
+            "x": 44,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "👧",
+            "x": 86,
+            "y": 70,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Happy birthday, Dad!\" said Mio. \"The first pancake was Choco's present.\"",
+      "ja": "「お父さん、おたん生日 おめでとう！」と ミオは 言いました。「1まい目の パンケーキは チョコへの プレゼントに なっちゃった」",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "🥞",
+            "x": 44,
+            "y": 66,
+            "s": 2.4
+          },
+          {
+            "e": "👨",
+            "x": 66,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 68,
+            "y": 38,
+            "s": 1.2
+          },
+          {
+            "e": "🐶",
+            "x": 90,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "🎉",
+            "x": 46,
+            "y": 24,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "birthday",
+      "ja": "たん生日"
+    },
+    {
+      "en": "mixed",
+      "ja": "まぜた"
+    },
+    {
+      "en": "flour",
+      "ja": "小麦粉"
+    },
+    {
+      "en": "bowl",
+      "ja": "ボウル"
+    },
+    {
+      "en": "chef",
+      "ja": "シェフ・料理人"
+    },
+    {
+      "en": "threw",
+      "ja": "投げた"
+    },
+    {
+      "en": "floor",
+      "ja": "ゆか"
+    },
+    {
+      "en": "barked",
+      "ja": "ほえた"
+    },
+    {
+      "en": "landed",
+      "ja": "落ちて のった・着地した"
+    },
+    {
+      "en": "carefully",
+      "ja": "ていねいに・気を つけて"
+    },
+    {
+      "en": "wonderful",
+      "ja": "すばらしい"
+    },
+    {
+      "en": "present",
+      "ja": "プレゼント"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "a dog who wants a new hat",
+        "a father who cooks for a party",
+        "a girl who makes birthday pancakes",
+        "a chef who works in a big hotel kitchen"
+      ],
+      "answer": "a girl who makes birthday pancakes",
+      "kind": "main"
+    },
+    {
+      "q": "Where did the first pancake go?",
+      "ja": "1まい目の パンケーキは どこに 行きましたか。",
+      "choices": [
+        "On top of the light.",
+        "Out of the window.",
+        "Under the table.",
+        "Into the big bowl."
+      ],
+      "answer": "On top of the light.",
+      "kind": "detail"
+    },
+    {
+      "q": "Who found the pancake first?",
+      "ja": "最初に パンケーキを 見つけたのは だれですか。",
+      "choices": [
+        "Mio.",
+        "Dad.",
+        "Mom.",
+        "Choco."
+      ],
+      "answer": "Choco.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, \"landed\" means ___.",
+      "ja": "この本で「landed」は どんな 意味ですか。",
+      "choices": [
+        "burned black in the pan",
+        "came down onto something",
+        "flew away out the window",
+        "broke into small pieces"
+      ],
+      "answer": "came down onto something",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Mio turn the second pancake slowly?",
+      "ja": "ミオは なぜ 2まい目の パンケーキを ゆっくり ひっくり返したのですか。",
+      "choices": [
+        "She was very tired that morning.",
+        "Dad told her to cook slowly.",
+        "The pan was much too heavy for her.",
+        "She did not want to lose it again."
+      ],
+      "answer": "She did not want to lose it again.",
+      "kind": "infer"
+    }
+  ]
+}

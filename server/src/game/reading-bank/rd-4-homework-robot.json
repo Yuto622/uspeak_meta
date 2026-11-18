@@ -1,0 +1,692 @@
+{
+  "id": "rd-4-homework-robot",
+  "stage": "4",
+  "title": "The Homework Robot",
+  "titleJa": "宿題ロボット",
+  "kind": "story",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "🤖",
+        "x": 60,
+        "y": 70,
+        "s": 3.8,
+        "a": "bob"
+      },
+      {
+        "e": "👦",
+        "x": 26,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "📓",
+        "x": 44,
+        "y": 76,
+        "s": 1.8
+      },
+      {
+        "e": "✏️",
+        "x": 78,
+        "y": 50,
+        "s": 1.6,
+        "a": "sway"
+      },
+      {
+        "e": "❓",
+        "x": 60,
+        "y": 22,
+        "s": 1.8,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Taku did not like homework. \"I will build a robot,\" he said. \"It can do my homework for me!\"",
+      "ja": "タクは 宿題が 好きでは ありませんでした。「ロボットを 作ろう」と 言いました。「ぼくの かわりに 宿題を やって もらうんだ！」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "💡",
+            "x": 37,
+            "y": 24,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "📚",
+            "x": 64,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "📝",
+            "x": 78,
+            "y": 72,
+            "s": 1.8
+          },
+          {
+            "e": "😩",
+            "x": 60,
+            "y": 44,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "He worked all weekend with boxes, wires, and an old clock. On Sunday night, the robot opened its eyes.",
+      "ja": "タクは 箱や 線や 古い 時計を 使って、週末 ずっと 作りました。日曜日の 夜、ロボットが 目を 開けました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🔧",
+            "x": 38,
+            "y": 56,
+            "s": 1.6,
+            "a": "hop"
+          },
+          {
+            "e": "📦",
+            "x": 50,
+            "y": 78,
+            "s": 2
+          },
+          {
+            "e": "🤖",
+            "x": 70,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "✨",
+            "x": 70,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🕰️",
+            "x": 90,
+            "y": 74,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Hello, I am Bolt,\" it said. \"What is homework?\" Taku smiled and gave it his math book.",
+      "ja": "「こんにちは、ぼくは ボルトです」と ロボットは 言いました。「宿題とは 何ですか？」タクは にっこりして、算数の 本を わたしました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 66,
+            "y": 70,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "💬",
+            "x": 66,
+            "y": 20,
+            "s": 1.8
+          },
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😄",
+            "x": 30,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "📕",
+            "x": 46,
+            "y": 58,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bolt wrote very fast. But when Taku checked the answers, he was surprised. \"Two plus two is banana?\"",
+      "ja": "ボルトは とても 速く 書きました。でも タクが 答えを たしかめると、びっくり しました。「2 たす 2 は バナナ？」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 70,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "✏️",
+            "x": 58,
+            "y": 58,
+            "s": 1.4,
+            "a": "hop"
+          },
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 28,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "📄",
+            "x": 44,
+            "y": 58,
+            "s": 2
+          },
+          {
+            "e": "🍌",
+            "x": 44,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Yes,\" said Bolt. \"And five plus five is Tuesday.\" Every answer was wrong!",
+      "ja": "「はい」と ボルトは 言いました。「そして 5 たす 5 は 火曜日です」答えは 全部 まちがいでした！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 62,
+            "y": 70,
+            "s": 3.8,
+            "a": "bob"
+          },
+          {
+            "e": "💬",
+            "x": 62,
+            "y": 18,
+            "s": 1.8
+          },
+          {
+            "e": "📅",
+            "x": 82,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "❌",
+            "x": 30,
+            "y": 40,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "❌",
+            "x": 20,
+            "y": 58,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "📄",
+            "x": 26,
+            "y": 76,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I cannot give this to my teacher,\" said Taku. \"Listen, Bolt. I will show you.\"",
+      "ja": "「これは 先生に 出せないよ」と タクは 言いました。「ねえ、ボルト。ぼくが 教えて あげる」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😓",
+            "x": 32,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "📄",
+            "x": 46,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "🤖",
+            "x": 72,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "❓",
+            "x": 72,
+            "y": 24,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He used ten oranges to show adding. Then he drew pictures to show taking away.",
+      "ja": "タクは オレンジを 10こ 使って、足し算を 見せました。それから 絵を かいて、引き算を 見せました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 20,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🍊",
+            "x": 38,
+            "y": 78,
+            "s": 1.4
+          },
+          {
+            "e": "🍊",
+            "x": 46,
+            "y": 78,
+            "s": 1.4
+          },
+          {
+            "e": "🍊",
+            "x": 54,
+            "y": 78,
+            "s": 1.4
+          },
+          {
+            "e": "➕",
+            "x": 46,
+            "y": 50,
+            "s": 1.6
+          },
+          {
+            "e": "🤖",
+            "x": 78,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📝",
+            "x": 62,
+            "y": 56,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bolt asked many questions. \"Why? How?\" Taku had to think hard before he could explain.",
+      "ja": "ボルトは たくさん 質問を しました。「なぜ？ どうやって？」タクは 説明する 前に、よく 考えなければ なりませんでした。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 68,
+            "y": 70,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "❓",
+            "x": 60,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 78,
+            "y": 26,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🤔",
+            "x": 30,
+            "y": 40,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "It was late when they finished. Bolt got every answer right, and so did Taku.",
+      "ja": "終わった ときには、おそい 時間に なっていました。ボルトは 全問 正解で、タクも そうでした。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🤖",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📄",
+            "x": 47,
+            "y": 62,
+            "s": 2.2
+          },
+          {
+            "e": "⭕",
+            "x": 47,
+            "y": 40,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🌙",
+            "x": 88,
+            "y": 14,
+            "s": 1.8
+          },
+          {
+            "e": "⏰",
+            "x": 10,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The next day, Taku's teacher was surprised. \"You understand this very well! Who helped you?\"",
+      "ja": "次の 日、タクの 先生は おどろきました。「とても よく わかっているね！ だれに 手伝って もらったの？」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👩‍🏫",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 30,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "📄",
+            "x": 44,
+            "y": 56,
+            "s": 1.8
+          },
+          {
+            "e": "✅",
+            "x": 44,
+            "y": 34,
+            "s": 1.4
+          },
+          {
+            "e": "👦",
+            "x": 70,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😊",
+            "x": 72,
+            "y": 42,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I had a student,\" Taku said. \"When you teach someone, you learn a lot.\"",
+      "ja": "「ぼくには 生徒が いたんです」と タクは 言いました。「だれかに 教えると、自分も たくさん 学べるんですね」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 60,
+            "y": 70,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "💬",
+            "x": 60,
+            "y": 20,
+            "s": 1.8
+          },
+          {
+            "e": "💭",
+            "x": 82,
+            "y": 30,
+            "s": 2.2
+          },
+          {
+            "e": "🤖",
+            "x": 82,
+            "y": 28,
+            "s": 1
+          },
+          {
+            "e": "👩‍🏫",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "That night, Bolt was waiting with a science book. \"Teacher Taku, why is the sky blue?\"",
+      "ja": "その 夜、ボルトは 理科の 本を 持って 待っていました。「タク先生、空は なぜ 青いのですか？」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 62,
+            "y": 70,
+            "s": 3.8,
+            "a": "bob"
+          },
+          {
+            "e": "📗",
+            "x": 46,
+            "y": 60,
+            "s": 2
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😅",
+            "x": 24,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "❓",
+            "x": 62,
+            "y": 20,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🪟",
+            "x": 88,
+            "y": 36,
+            "s": 2.4
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "homework",
+      "ja": "宿題"
+    },
+    {
+      "en": "build",
+      "ja": "作る・組み立てる"
+    },
+    {
+      "en": "weekend",
+      "ja": "週末"
+    },
+    {
+      "en": "wires",
+      "ja": "（電気の）線"
+    },
+    {
+      "en": "checked",
+      "ja": "たしかめた"
+    },
+    {
+      "en": "surprised",
+      "ja": "おどろいた"
+    },
+    {
+      "en": "plus",
+      "ja": "たす"
+    },
+    {
+      "en": "wrong",
+      "ja": "まちがった"
+    },
+    {
+      "en": "explain",
+      "ja": "説明する"
+    },
+    {
+      "en": "understand",
+      "ja": "わかる・理解する"
+    },
+    {
+      "en": "student",
+      "ja": "生徒"
+    },
+    {
+      "en": "science",
+      "ja": "理科"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "a teacher who builds a robot for her class",
+        "a boy who learns by teaching his robot",
+        "a robot that loves bananas and oranges",
+        "a clock that stops on Sunday night"
+      ],
+      "answer": "a boy who learns by teaching his robot",
+      "kind": "main"
+    },
+    {
+      "q": "Why did Taku build the robot?",
+      "ja": "タクは なぜ ロボットを 作ったのですか。",
+      "choices": [
+        "He wanted it to clean his room.",
+        "He needed a friend to play with.",
+        "His teacher told him to make one.",
+        "He wanted it to do his homework."
+      ],
+      "answer": "He wanted it to do his homework.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Taku use to show adding?",
+      "ja": "タクは 足し算を 見せるのに 何を 使いましたか。",
+      "choices": [
+        "Ten oranges.",
+        "Two bananas.",
+        "An old clock.",
+        "Five boxes."
+      ],
+      "answer": "Ten oranges.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened after Bolt wrote the wrong answers?",
+      "ja": "ボルトが まちがった 答えを 書いた あとで、何が 起こりましたか。",
+      "choices": [
+        "Taku built Bolt with boxes.",
+        "Bolt opened its eyes.",
+        "Taku began to teach Bolt.",
+        "Taku gave Bolt a math book."
+      ],
+      "answer": "Taku began to teach Bolt.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did Taku understand math well the next day?",
+      "ja": "次の 日、タクは なぜ 算数が よく わかっていたのですか。",
+      "choices": [
+        "He explained everything to Bolt.",
+        "Bolt did all of his homework.",
+        "His teacher gave him the answers.",
+        "He slept well on Sunday night."
+      ],
+      "answer": "He explained everything to Bolt.",
+      "kind": "infer"
+    }
+  ]
+}

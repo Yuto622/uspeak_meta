@@ -1,0 +1,527 @@
+{
+  "id": "rd-2-butterfly-grows",
+  "stage": "2",
+  "title": "A Butterfly Grows Up",
+  "titleJa": "チョウが おおきく なるまで",
+  "kind": "fact",
+  "cover": {
+    "bg": "garden",
+    "items": [
+      {
+        "e": "🦋",
+        "x": 55,
+        "y": 34,
+        "s": 3.6,
+        "a": "float"
+      },
+      {
+        "e": "🐛",
+        "x": 28,
+        "y": 72,
+        "s": 2.4,
+        "a": "bob"
+      },
+      {
+        "e": "🌸",
+        "x": 76,
+        "y": 72,
+        "s": 2.4,
+        "a": "sway"
+      },
+      {
+        "e": "🌿",
+        "x": 14,
+        "y": 70,
+        "s": 2.2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Look at this leaf. There is a very small egg on it.",
+      "ja": "この はっぱを みて。とても ちいさな たまごが ついています。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌿",
+            "x": 50,
+            "y": 58,
+            "s": 5
+          },
+          {
+            "e": "🥚",
+            "x": 54,
+            "y": 48,
+            "s": 0.9,
+            "a": "pulse"
+          },
+          {
+            "e": "🔍",
+            "x": 74,
+            "y": 40,
+            "s": 2.4
+          },
+          {
+            "e": "☀️",
+            "x": 14,
+            "y": 16,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A baby comes out of the egg. It is a caterpillar.",
+      "ja": "たまごから あかちゃんが でて きます。これが いもむしです。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌿",
+            "x": 45,
+            "y": 60,
+            "s": 4.6
+          },
+          {
+            "e": "🐛",
+            "x": 52,
+            "y": 48,
+            "s": 1.4,
+            "a": "bob"
+          },
+          {
+            "e": "🥚",
+            "x": 34,
+            "y": 56,
+            "s": 0.8
+          },
+          {
+            "e": "❗",
+            "x": 70,
+            "y": 30,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The caterpillar is hungry. It eats leaves all day.",
+      "ja": "いもむしは おなかが すいています。いちにちじゅう はっぱを たべます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🐛",
+            "x": 45,
+            "y": 62,
+            "s": 2.6,
+            "a": "bob"
+          },
+          {
+            "e": "🌿",
+            "x": 68,
+            "y": 60,
+            "s": 3
+          },
+          {
+            "e": "🍃",
+            "x": 22,
+            "y": 66,
+            "s": 2.2
+          },
+          {
+            "e": "😋",
+            "x": 45,
+            "y": 34,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "It gets bigger and bigger. It changes its skin when it grows.",
+      "ja": "どんどん おおきく なります。おおきく なる とき、かわを ぬぎかえます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🐛",
+            "x": 22,
+            "y": 72,
+            "s": 1.4
+          },
+          {
+            "e": "🐛",
+            "x": 46,
+            "y": 68,
+            "s": 2.4
+          },
+          {
+            "e": "🐛",
+            "x": 76,
+            "y": 62,
+            "s": 3.8,
+            "a": "bob"
+          },
+          {
+            "e": "➡️",
+            "x": 34,
+            "y": 50,
+            "s": 1.2
+          },
+          {
+            "e": "➡️",
+            "x": 60,
+            "y": 46,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "One day, it stops eating. It hangs under a branch.",
+      "ja": "ある ひ、いもむしは たべるのを やめます。えだの したに ぶらさがります。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🪵",
+            "x": 50,
+            "y": 26,
+            "s": 4.6
+          },
+          {
+            "e": "🐛",
+            "x": 50,
+            "y": 44,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌿",
+            "x": 82,
+            "y": 60,
+            "s": 2.4
+          },
+          {
+            "e": "🚫",
+            "x": 20,
+            "y": 56,
+            "s": 1.6
+          },
+          {
+            "e": "🍃",
+            "x": 20,
+            "y": 56,
+            "s": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "It makes a hard case. It stays inside for many days.",
+      "ja": "かたい からを つくります。なんにちも その なかに います。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🪵",
+            "x": 50,
+            "y": 24,
+            "s": 4.6
+          },
+          {
+            "e": "🍂",
+            "x": 50,
+            "y": 44,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🌙",
+            "x": 84,
+            "y": 18,
+            "s": 1.8
+          },
+          {
+            "e": "📅",
+            "x": 18,
+            "y": 60,
+            "s": 2
+          },
+          {
+            "e": "💤",
+            "x": 66,
+            "y": 36,
+            "s": 1.4,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Inside the case, its body changes. Wings grow.",
+      "ja": "からの なかで、からだが かわります。はねが はえて きます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🍂",
+            "x": 40,
+            "y": 46,
+            "s": 3.6,
+            "a": "sway"
+          },
+          {
+            "e": "✨",
+            "x": 58,
+            "y": 34,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🦋",
+            "x": 72,
+            "y": 56,
+            "s": 1.6
+          },
+          {
+            "e": "❓",
+            "x": 22,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🪵",
+            "x": 40,
+            "y": 20,
+            "s": 4
+          }
+        ]
+      }
+    },
+    {
+      "text": "The case opens. A butterfly comes out! Its wings are wet.",
+      "ja": "からが ひらきます。チョウが でて きました！ はねは まだ ぬれています。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🪵",
+            "x": 45,
+            "y": 22,
+            "s": 4.4
+          },
+          {
+            "e": "🍂",
+            "x": 36,
+            "y": 42,
+            "s": 2
+          },
+          {
+            "e": "🦋",
+            "x": 56,
+            "y": 48,
+            "s": 2.8,
+            "a": "sway"
+          },
+          {
+            "e": "💧",
+            "x": 70,
+            "y": 62,
+            "s": 1.2,
+            "a": "drift"
+          },
+          {
+            "e": "❗",
+            "x": 80,
+            "y": 28,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "It waits in the sun. Soon the wings are dry.",
+      "ja": "おひさまの したで まちます。もうすぐ はねが かわきます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 80,
+            "y": 16,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🦋",
+            "x": 45,
+            "y": 52,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌿",
+            "x": 45,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🌸",
+            "x": 14,
+            "y": 74,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Before, it walked on leaves. Now it can fly to the flowers!",
+      "ja": "まえは はっぱの うえを あるいていました。いまは はなまで とんで いけます！",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🦋",
+            "x": 40,
+            "y": 30,
+            "s": 3.2,
+            "a": "float"
+          },
+          {
+            "e": "🌸",
+            "x": 72,
+            "y": 72,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🌼",
+            "x": 22,
+            "y": 74,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "🌷",
+            "x": 52,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "☀️",
+            "x": 86,
+            "y": 14,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "leaf",
+      "ja": "はっぱ（1まい）"
+    },
+    {
+      "en": "egg",
+      "ja": "たまご"
+    },
+    {
+      "en": "caterpillar",
+      "ja": "いもむし・あおむし"
+    },
+    {
+      "en": "hungry",
+      "ja": "おなかが すいた"
+    },
+    {
+      "en": "skin",
+      "ja": "かわ・ひふ"
+    },
+    {
+      "en": "branch",
+      "ja": "えだ"
+    },
+    {
+      "en": "case",
+      "ja": "から・いれもの"
+    },
+    {
+      "en": "wings",
+      "ja": "はね"
+    },
+    {
+      "en": "dry",
+      "ja": "かわいた"
+    },
+    {
+      "en": "butterfly",
+      "ja": "チョウ"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの はなし？",
+      "choices": [
+        "how flowers grow in a garden",
+        "how a butterfly grows up",
+        "how birds learn to fly"
+      ],
+      "answer": "how a butterfly grows up",
+      "kind": "main"
+    },
+    {
+      "q": "What does the caterpillar eat?",
+      "ja": "いもむしは なにを たべる？",
+      "choices": [
+        "Leaves.",
+        "Eggs.",
+        "Flowers."
+      ],
+      "answer": "Leaves.",
+      "kind": "detail"
+    },
+    {
+      "q": "Where does the caterpillar hang?",
+      "ja": "いもむしは どこに ぶらさがる？",
+      "choices": [
+        "Under a flower.",
+        "Under a rock.",
+        "Under a branch."
+      ],
+      "answer": "Under a branch.",
+      "kind": "detail"
+    },
+    {
+      "q": "What comes just after the egg?",
+      "ja": "たまごの すぐ つぎは なに？",
+      "choices": [
+        "A caterpillar.",
+        "A butterfly.",
+        "A hard case."
+      ],
+      "answer": "A caterpillar.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why does the butterfly wait in the sun?",
+      "ja": "チョウは どうして おひさまの したで まつ？",
+      "choices": [
+        "It wants to eat leaves.",
+        "It is looking for its egg.",
+        "Its wings must get dry."
+      ],
+      "answer": "Its wings must get dry.",
+      "kind": "infer"
+    }
+  ]
+}

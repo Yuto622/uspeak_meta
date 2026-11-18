@@ -170,3 +170,11 @@ html:not([data-lang=ja]) .rd-root .en, html[data-lang=ja] .rd-root .ja { display
 }
 @media (max-width: 640px) and (orientation: portrait) { .rd-spread { grid-template-columns: 1fr; grid-template-rows: 42% 1fr; } .rd-pic { border-radius: 18px 18px 6px 6px; } .rd-page { border-radius: 6px 6px 18px 18px; } .rd-choices { grid-template-columns: 1fr; } .rd-stats small { display: none; } }
 @media (prefers-reduced-motion: reduce) { .rs-i, .rd-confetti i, .rd-mic.live { animation: none !important; } .rd-spread[data-turn="1"] .rd-page { animation: none; } }
+
+/* ---- 幼児モード：まちがえたら みどりを おす・ヒントの 🔊 ---- */
+.rd-choice.tapme .rd-pick { animation: rd-tapme 1s ease-in-out infinite; cursor: pointer; }
+@keyframes rd-tapme { 50% { transform: scale(1.03); box-shadow: 0 0 0 6px #7fdcaa88; } }
+.rd-say.sm { width: 40px; height: 40px; min-width: 40px; font-size: 17px; margin-right: 6px; vertical-align: middle; }
+body[data-mode="kids"] .rd-hint { font-size: 15px; color: #5d6b82; display: flex; align-items: center; }
+body[data-mode="kids"] .rd-row h3 { display: flex; align-items: center; }
+@media (prefers-reduced-motion: reduce) { .rd-choice.tapme .rd-pick { animation: none; outline: 4px solid #7fdcaa; } }

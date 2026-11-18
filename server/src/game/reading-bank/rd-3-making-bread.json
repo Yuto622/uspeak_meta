@@ -1,0 +1,567 @@
+{
+  "id": "rd-3-making-bread",
+  "stage": "3",
+  "title": "How Bread Is Made",
+  "titleJa": "パンが できるまで",
+  "kind": "fact",
+  "cover": {
+    "bg": "farm",
+    "items": [
+      {
+        "e": "🌾",
+        "x": 18,
+        "y": 70,
+        "s": 3,
+        "a": "sway"
+      },
+      {
+        "e": "➡️",
+        "x": 38,
+        "y": 50,
+        "s": 1.6
+      },
+      {
+        "e": "🍞",
+        "x": 60,
+        "y": 60,
+        "s": 3.6,
+        "a": "pulse"
+      },
+      {
+        "e": "👩‍🍳",
+        "x": 86,
+        "y": 70,
+        "s": 3
+      },
+      {
+        "e": "☀️",
+        "x": 14,
+        "y": 16,
+        "s": 2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Do you like bread? Bread starts in a big field on a farm.",
+      "ja": "パンは 好きですか。パンは 農場の 広い 畑から 始まります。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🍞",
+            "x": 28,
+            "y": 40,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 46,
+            "y": 26,
+            "s": 1.6
+          },
+          {
+            "e": "🌾",
+            "x": 60,
+            "y": 72,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌾",
+            "x": 76,
+            "y": 72,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌾",
+            "x": 90,
+            "y": 72,
+            "s": 2.4,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Farmers grow wheat there. When it is ready, the wheat is tall and golden.",
+      "ja": "農家の 人が そこで 小麦を 育てます。できあがった 小麦は、せが 高くて 金色です。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🧑‍🌾",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🌾",
+            "x": 52,
+            "y": 68,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌾",
+            "x": 70,
+            "y": 68,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌾",
+            "x": 88,
+            "y": 68,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "☀️",
+            "x": 84,
+            "y": 14,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Machines cut the wheat and take the small seeds. The seeds are called grain.",
+      "ja": "機械が 小麦を かり取って、小さな たねを 集めます。この たねを 「こくもつ」と 言います。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🚜",
+            "x": 40,
+            "y": 68,
+            "s": 4.6,
+            "a": "bob"
+          },
+          {
+            "e": "🌾",
+            "x": 76,
+            "y": 70,
+            "s": 2.8,
+            "a": "sway"
+          },
+          {
+            "e": "🌾",
+            "x": 90,
+            "y": 70,
+            "s": 2.8,
+            "a": "sway"
+          },
+          {
+            "e": "🟡",
+            "x": 16,
+            "y": 80,
+            "s": 0.8
+          },
+          {
+            "e": "🟡",
+            "x": 22,
+            "y": 84,
+            "s": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "At a mill, the grain is made into soft white powder. This is flour.",
+      "ja": "工場で、こくもつは やわらかい 白い 粉に なります。これが 小麦粉です。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏭",
+            "x": 30,
+            "y": 56,
+            "s": 4.4
+          },
+          {
+            "e": "🌾",
+            "x": 12,
+            "y": 78,
+            "s": 1.8
+          },
+          {
+            "e": "➡️",
+            "x": 54,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "⚪",
+            "x": 72,
+            "y": 72,
+            "s": 1.6
+          },
+          {
+            "e": "⚪",
+            "x": 82,
+            "y": 76,
+            "s": 1.2
+          },
+          {
+            "e": "📦",
+            "x": 90,
+            "y": 72,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "A baker mixes flour, water, salt, and yeast. Now it is called dough.",
+      "ja": "パン屋さんが 小麦粉、水、塩、イーストを まぜます。これを 「生地」と 言います。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👩‍🍳",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "⚪",
+            "x": 52,
+            "y": 66,
+            "s": 2.6
+          },
+          {
+            "e": "💧",
+            "x": 68,
+            "y": 50,
+            "s": 1.4
+          },
+          {
+            "e": "🥄",
+            "x": 60,
+            "y": 48,
+            "s": 1.4,
+            "a": "spin"
+          },
+          {
+            "e": "🥛",
+            "x": 84,
+            "y": 68,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Yeast is very small, but it is alive. It makes gas inside the dough.",
+      "ja": "イーストは とても 小さいけれど、生きています。生地の 中で ガスを 作ります。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "⚪",
+            "x": 45,
+            "y": 62,
+            "s": 4.4
+          },
+          {
+            "e": "🔍",
+            "x": 68,
+            "y": 46,
+            "s": 2.6
+          },
+          {
+            "e": "💨",
+            "x": 46,
+            "y": 32,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "✨",
+            "x": 30,
+            "y": 44,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Because of the gas, the dough slowly gets bigger and bigger, like a balloon.",
+      "ja": "その ガスの おかげで、生地は 風船のように ゆっくり 大きく ふくらんで いきます。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "⚪",
+            "x": 22,
+            "y": 72,
+            "s": 1.8
+          },
+          {
+            "e": "➡️",
+            "x": 38,
+            "y": 64,
+            "s": 1.4
+          },
+          {
+            "e": "⚪",
+            "x": 56,
+            "y": 64,
+            "s": 3.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🎈",
+            "x": 84,
+            "y": 36,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "⏰",
+            "x": 14,
+            "y": 28,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The baker makes shapes with the dough. Some are long, and some are round.",
+      "ja": "パン屋さんは 生地で 形を 作ります。長いのも あれば、まるいのも あります。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👩‍🍳",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🥖",
+            "x": 52,
+            "y": 66,
+            "s": 2.6
+          },
+          {
+            "e": "⚪",
+            "x": 72,
+            "y": 70,
+            "s": 1.8
+          },
+          {
+            "e": "🥐",
+            "x": 86,
+            "y": 68,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then the dough goes into a very hot oven. It becomes brown and smells wonderful.",
+      "ja": "それから、生地を とても 熱い オーブンに 入れます。茶色に 焼けて、すばらしい においが します。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🔥",
+            "x": 30,
+            "y": 70,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🍞",
+            "x": 54,
+            "y": 60,
+            "s": 3.2
+          },
+          {
+            "e": "🥖",
+            "x": 76,
+            "y": 64,
+            "s": 2.6
+          },
+          {
+            "e": "♨️",
+            "x": 54,
+            "y": 30,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "👃",
+            "x": 86,
+            "y": 36,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "People around the world eat many kinds of bread. Which kind do you like?",
+      "ja": "世界中の 人が いろいろな パンを 食べています。あなたは どの パンが 好きですか。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🍞",
+            "x": 18,
+            "y": 66,
+            "s": 2.4
+          },
+          {
+            "e": "🥖",
+            "x": 36,
+            "y": 64,
+            "s": 2.4
+          },
+          {
+            "e": "🥐",
+            "x": 54,
+            "y": 68,
+            "s": 2.2
+          },
+          {
+            "e": "🫓",
+            "x": 70,
+            "y": 68,
+            "s": 2.2
+          },
+          {
+            "e": "🥪",
+            "x": 86,
+            "y": 68,
+            "s": 2.2
+          },
+          {
+            "e": "🌍",
+            "x": 50,
+            "y": 24,
+            "s": 2.4,
+            "a": "spin"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "field",
+      "ja": "畑"
+    },
+    {
+      "en": "wheat",
+      "ja": "小麦"
+    },
+    {
+      "en": "ready",
+      "ja": "じゅんびが できた"
+    },
+    {
+      "en": "grain",
+      "ja": "こくもつ（小麦などの たね）"
+    },
+    {
+      "en": "powder",
+      "ja": "粉"
+    },
+    {
+      "en": "flour",
+      "ja": "小麦粉"
+    },
+    {
+      "en": "yeast",
+      "ja": "イースト"
+    },
+    {
+      "en": "dough",
+      "ja": "（パンの）生地"
+    },
+    {
+      "en": "alive",
+      "ja": "生きている"
+    },
+    {
+      "en": "gas",
+      "ja": "ガス・気体"
+    },
+    {
+      "en": "oven",
+      "ja": "オーブン"
+    },
+    {
+      "en": "kinds",
+      "ja": "種類"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "why balloons get bigger with gas",
+        "how wheat becomes bread",
+        "what farmers eat for breakfast",
+        "where to buy bread in a town"
+      ],
+      "answer": "how wheat becomes bread",
+      "kind": "main"
+    },
+    {
+      "q": "What is flour?",
+      "ja": "小麦粉とは 何ですか。",
+      "choices": [
+        "A kind of long brown bread.",
+        "A machine on a wheat farm.",
+        "A very hot oven for bread.",
+        "Soft white powder from grain."
+      ],
+      "answer": "Soft white powder from grain.",
+      "kind": "detail"
+    },
+    {
+      "q": "What does yeast make inside the dough?",
+      "ja": "イーストは 生地の 中で 何を 作りますか。",
+      "choices": [
+        "Gas.",
+        "Salt.",
+        "Water.",
+        "Seeds."
+      ],
+      "answer": "Gas.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happens just after the baker makes shapes?",
+      "ja": "パン屋さんが 形を 作った すぐ あとに、何が 起こりますか。",
+      "choices": [
+        "The wheat is cut by machines.",
+        "The grain is made into flour.",
+        "The dough goes into the oven.",
+        "The baker adds water and salt."
+      ],
+      "answer": "The dough goes into the oven.",
+      "kind": "sequence"
+    },
+    {
+      "q": "What will happen to dough with no yeast?",
+      "ja": "イーストが ない 生地は どう なるでしょう。",
+      "choices": [
+        "It will not get much bigger.",
+        "It will become very sweet.",
+        "It will turn into wheat again.",
+        "It will be ready much faster."
+      ],
+      "answer": "It will not get much bigger.",
+      "kind": "infer"
+    }
+  ]
+}

@@ -1,0 +1,451 @@
+{
+  "id": "rd-1-letter-for-grandpa",
+  "stage": "1",
+  "title": "A Letter for Grandpa",
+  "titleJa": "おじいちゃんへの てがみ",
+  "kind": "story",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "👧",
+        "x": 30,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "✉️",
+        "x": 60,
+        "y": 46,
+        "s": 3,
+        "a": "float"
+      },
+      {
+        "e": "❤️",
+        "x": 80,
+        "y": 26,
+        "s": 1.8,
+        "a": "pulse"
+      },
+      {
+        "e": "✏️",
+        "x": 60,
+        "y": 78,
+        "s": 1.6
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Emi misses Grandpa. He lives far away.",
+      "ja": "えみは おじいちゃんに あいたい。おじいちゃんは とおくに すんでいる。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😔",
+            "x": 32,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "💭",
+            "x": 64,
+            "y": 28,
+            "s": 3,
+            "a": "float"
+          },
+          {
+            "e": "🖼️",
+            "x": 82,
+            "y": 62,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "She writes a letter. “Please come and see me.”",
+      "ja": "えみは てがみを かく。「あいに きてね。」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "✏️",
+            "x": 46,
+            "y": 58,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "📝",
+            "x": 64,
+            "y": 66,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "❤️",
+            "x": 82,
+            "y": 40,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "She puts the letter in the mailbox.",
+      "ja": "てがみを ポストに いれる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "✉️",
+            "x": 50,
+            "y": 50,
+            "s": 1.8,
+            "a": "hop"
+          },
+          {
+            "e": "📬",
+            "x": 68,
+            "y": 66,
+            "s": 3.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "One day, two days, three days. No letter comes.",
+      "ja": "１にち、２か、３か。へんじは こない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "📅",
+            "x": 30,
+            "y": 46,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 66,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😟",
+            "x": 66,
+            "y": 42,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Emi looks in the mailbox every morning. It is empty.",
+      "ja": "えみは まいあさ ポストを みる。なかは からっぽ。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😔",
+            "x": 28,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "📭",
+            "x": 64,
+            "y": 62,
+            "s": 3.6
+          },
+          {
+            "e": "🏠",
+            "x": 90,
+            "y": 60,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "On Saturday, the doorbell rings. Ding-dong!",
+      "ja": "どようび、げんかんの ベルが なる。ピンポーン！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🚪",
+            "x": 66,
+            "y": 56,
+            "s": 5
+          },
+          {
+            "e": "🔔",
+            "x": 40,
+            "y": 30,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😲",
+            "x": 20,
+            "y": 46,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Emi opens the door. It is Grandpa!",
+      "ja": "えみが ドアを あける。おじいちゃんだ！",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "😲",
+            "x": 24,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🚪",
+            "x": 46,
+            "y": 56,
+            "s": 4.4
+          },
+          {
+            "e": "👴",
+            "x": 72,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "🧳",
+            "x": 90,
+            "y": 78,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "“I have your letter,” he says. “And here I am!”",
+      "ja": "「てがみを もって きたよ」と おじいちゃん。「ほら、あいに きたよ！」",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👴",
+            "x": 60,
+            "y": 70,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 60,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "✉️",
+            "x": 40,
+            "y": 56,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Emi hugs him. This is better than a letter.",
+      "ja": "えみは おじいちゃんに だきつく。てがみより ずっと うれしい。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 38,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 38,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👴",
+            "x": 61,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 61,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "❤️",
+            "x": 50,
+            "y": 20,
+            "s": 2.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "misses",
+      "ja": "あいたいと おもう"
+    },
+    {
+      "en": "far away",
+      "ja": "とおくに"
+    },
+    {
+      "en": "writes",
+      "ja": "かく"
+    },
+    {
+      "en": "letter",
+      "ja": "てがみ"
+    },
+    {
+      "en": "mailbox",
+      "ja": "ポスト・ゆうびんうけ"
+    },
+    {
+      "en": "every morning",
+      "ja": "まいあさ"
+    },
+    {
+      "en": "empty",
+      "ja": "からっぽ"
+    },
+    {
+      "en": "Saturday",
+      "ja": "どようび"
+    },
+    {
+      "en": "doorbell",
+      "ja": "げんかんの ベル"
+    },
+    {
+      "en": "hugs",
+      "ja": "だきしめる"
+    },
+    {
+      "en": "better",
+      "ja": "もっと いい"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story about?",
+      "ja": "これは なにの おはなし？",
+      "choices": [
+        "Emi goes to school by bus every morning.",
+        "Grandpa loses his mailbox.",
+        "Emi writes to Grandpa, and he comes."
+      ],
+      "answer": "Emi writes to Grandpa, and he comes.",
+      "kind": "main"
+    },
+    {
+      "q": "Where does Emi put the letter?",
+      "ja": "えみは てがみを どこに いれるの？",
+      "choices": [
+        "in her bag",
+        "in the mailbox",
+        "under her little bed"
+      ],
+      "answer": "in the mailbox",
+      "kind": "detail"
+    },
+    {
+      "q": "When does the doorbell ring?",
+      "ja": "げんかんの ベルが なるのは いつ？",
+      "choices": [
+        "on Saturday",
+        "on Sunday",
+        "on Monday"
+      ],
+      "answer": "on Saturday",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"empty\" mean?",
+      "ja": "\"empty\" は どんな いみ？",
+      "choices": [
+        "It is very big.",
+        "It is very old.",
+        "Nothing is in it."
+      ],
+      "answer": "Nothing is in it.",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why does Grandpa come?",
+      "ja": "おじいちゃんは どうして きたの？",
+      "choices": [
+        "He reads Emi’s letter.",
+        "He wants a new mailbox.",
+        "He is lost in the town."
+      ],
+      "answer": "He reads Emi’s letter.",
+      "kind": "infer"
+    }
+  ]
+}

@@ -9,7 +9,7 @@
 // 画面の 動きは page-client.js（ふつうの JS を そのまま 入れる）。
 import { readFileSync } from 'node:fs';
 
-const CLIENT = readFileSync(new URL('./page-client.js', import.meta.url), 'utf8');
+const CLIENT = readFileSync(new URL('./page-client.js', import.meta.url), 'utf8') + '\n' + readFileSync(new URL('./book-client.js', import.meta.url), 'utf8');
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const json = (v) => JSON.stringify(v).replace(/</g, '\\u003c');
 
@@ -92,6 +92,13 @@ textarea{width:100%;min-height:140px;padding:10px;border:2px solid var(--line);b
 .card .row{margin-top:8px}
 .menu{position:relative}.menu>div{position:absolute;right:0;top:52px;z-index:5;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px #0002;padding:6px;min-width:180px}
 .menu>div[hidden]{display:none}.menu>div button{display:block;width:100%;text-align:left;min-height:46px;border:0;background:transparent;border-radius:8px;padding:6px 12px;font-weight:700}.menu>div button:hover{background:#f4efe4}
+#bk-msg.bad{color:var(--bad);font-weight:700}#bk-stages button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.bk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-top:12px}
+.bk-book{display:flex;flex-direction:column;gap:4px;align-items:stretch;text-align:left;padding:8px;border:3px solid var(--line);border-radius:14px;background:#fff;min-height:48px}
+.bk-book img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:9px;background:#f3ead6}.bk-book b{font-size:16px;line-height:1.3}.bk-book small{font-size:13px;color:var(--sub)}
+.bk-book.on{border-color:var(--go);background:#f1faf3;box-shadow:0 0 0 3px #2f8f5b33}
+.bk-names{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:12px}
+.bk-name{display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;font-weight:700;cursor:pointer}.bk-name input{width:22px;height:22px}
 table.prog{width:100%;border-collapse:collapse;margin-top:8px;font-size:15px}table.prog th,table.prog td{border-bottom:1px solid var(--line);padding:6px;text-align:left}table.prog th{background:#f4efe4}
 .empty{text-align:center;padding:30px 10px;color:var(--sub)}.empty b{display:block;font-size:44px}
 .snack{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:20;display:flex;gap:14px;align-items:center;background:#1b3a2f;color:#fff;padding:12px 16px;border-radius:14px;box-shadow:0 10px 30px #0004;font-weight:700}
@@ -111,7 +118,7 @@ dialog video{width:100%;border-radius:12px;background:#000}
   <div class="acts"><button type="button" class="btn" id="help">❓ 使い方の 動画</button>${room ? '<a class="btn" href="/teacher/kids">🧸 幼児モード</a><a class="btn orange" href="/teacher/reports">📨 保護者レポート・QR</a><form method="post" action="/teacher/logout" style="margin:0"><button type="submit" class="btn">ログアウト</button></form>' : ''}</div>
 </div>
 <h1>📝 宿題</h1>
-<div class="tabs" role="tablist"><button type="button" role="tab" id="tab-make" aria-selected="true">✏️ 宿題を つくる</button><button type="button" role="tab" id="tab-list" aria-selected="false">📋 くばった 宿題<span class="count" id="list-count">0</span></button></div>
+<div class="tabs" role="tablist"><button type="button" role="tab" id="tab-make" aria-selected="true">✏️ 宿題を つくる</button><button type="button" role="tab" id="tab-book" aria-selected="false">📚 えほんを くばる</button><button type="button" role="tab" id="tab-list" aria-selected="false">📋 くばった 宿題<span class="count" id="list-count">0</span></button></div>
 
 <section class="panel" id="make">
   <ol class="steps"><li id="st1" class="on"><b>1</b><span>もんだいを 入れる</span></li><li id="st2"><b>2</b><span>たしかめて なおす</span></li><li id="st3"><b>3</b><span>しめきりを きめて くばる</span></li></ol>
@@ -156,6 +163,30 @@ dialog video{width:100%;border-radius:12px;background:#000}
     </div>
     <div class="summary" id="summary"></div>
     <div class="row end"><button type="button" class="btn ghost" id="back2">← もんだいに もどる</button><button type="button" class="btn ghost" id="save">下書きに 保存</button><button type="button" class="btn big" id="savepub">📤 くばる</button></div>
+  </div>
+</section>
+
+<section class="panel" id="book-panel" hidden>
+  <ol class="steps"><li id="bst1" class="on"><b>1</b><span>えらぶ</span></li><li id="bst2"><b>2</b><span>生徒を えらぶ</span></li><li id="bst3"><b>3</b><span>おくる</span></li></ol>
+  <div class="step" id="bk1">
+    <p class="muted">よみもの島の 本を 宿題に 出せます。レベルは ロードマップの 段階と 同じ です（A が いちばん やさしい）。</p>
+    <div class="quick" id="bk-stages"></div>
+    <div class="bk-grid" id="bk-books"></div>
+    <div class="row end" style="margin-top:16px"><span id="bk-msg" role="status"></span><button type="button" class="btn big" id="bk-next2" disabled>つぎへ（生徒を えらぶ）→</button></div>
+  </div>
+  <div class="step" id="bk2" hidden>
+    <div class="form">
+      ${oneClass ? `<input type="hidden" id="bk-class" value="${esc(room.classes[0])}"><div><label>クラス</label><p style="margin:12px 0 0;font-size:18px"><b>${esc(room.classes[0])}</b></p></div>`
+        : `<div><label for="bk-class">クラス</label>${room ? `<select id="bk-class">${room.classes.map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join('')}</select>` : '<input id="bk-class" placeholder="6-1" list="cls-list">'}</div>`}
+      <div><label class="bk-name" style="font-size:18px"><input type="checkbox" id="bk-all" checked> クラス ぜんいんに おくる</label><p class="muted">はずすと、名前を えらんで その 子にだけ おくれます。</p></div>
+    </div>
+    <div class="bk-names" id="bk-names" hidden></div>
+    <div class="row end" style="margin-top:16px"><button type="button" class="btn ghost" id="bk-back1">← 本を えらびなおす</button><button type="button" class="btn big" id="bk-next3">つぎへ（おくる）→</button></div>
+  </div>
+  <div class="step" id="bk3" hidden>
+    <div class="form"><div><label for="bk-due">しめきり</label><input type="date" id="bk-due"><div class="quick" id="bk-quick"><button type="button" data-d="1">あした</button><button type="button" data-d="3">3 日ご</button><button type="button" data-d="7">1 しゅうかんご</button><button type="button" data-d="0" class="on">なし</button></div></div></div>
+    <div class="summary" id="bk-summary"></div>
+    <div class="row end"><button type="button" class="btn ghost" id="bk-back2">← 生徒に もどる</button><button type="button" class="btn big" id="bk-send">📤 おくる</button></div>
   </div>
 </section>
 

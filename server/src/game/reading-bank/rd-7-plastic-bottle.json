@@ -1,0 +1,567 @@
+{
+  "id": "rd-7-plastic-bottle",
+  "stage": "7",
+  "title": "The Long Life of a Plastic Bottle",
+  "titleJa": "ペットボトルの 長い 一生",
+  "kind": "fact",
+  "cover": {
+    "bg": "beach",
+    "items": [
+      {
+        "e": "🧴",
+        "x": 45,
+        "y": 55,
+        "s": 4,
+        "a": "bob"
+      },
+      {
+        "e": "🌊",
+        "x": 80,
+        "y": 80,
+        "s": 2.6,
+        "a": "sway"
+      },
+      {
+        "e": "🔄",
+        "x": 78,
+        "y": 28,
+        "s": 2.4,
+        "a": "spin"
+      },
+      {
+        "e": "🐢",
+        "x": 18,
+        "y": 80,
+        "s": 2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "You finish your drink and throw the plastic bottle away. It is gone in a second. But the bottle’s story is not over. In fact, it has only just begun.",
+      "ja": "飲み物を 飲み終えて、ペットボトルを すてる。一しゅんで 目の 前から 消える。でも ボトルの 物語は 終わっていない。じつは、始まった ばかりなのだ。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧴",
+            "x": 52,
+            "y": 56,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🗑",
+            "x": 72,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "❓",
+            "x": 72,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Most plastic is made from oil that comes from deep under the ground. In factories, the oil is changed into a light, strong material that can be shaped into almost anything.",
+      "ja": "ほとんどの プラスチックは、地下 深くから とれる 石油で 作られる。工場で 石油は、軽くて じょうぶな 材料に 変えられる。それは ほとんど どんな 形にも できる。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "⬇",
+            "x": 20,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "⚫",
+            "x": 20,
+            "y": 82,
+            "s": 1.6
+          },
+          {
+            "e": "➡",
+            "x": 40,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🏭",
+            "x": 62,
+            "y": 58,
+            "s": 3.2
+          },
+          {
+            "e": "🧴",
+            "x": 88,
+            "y": 68,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Plastic is very useful. It is cheap, it does not break easily, and it keeps food and water clean. Hospitals, cars, and computers all need it. That is why we make so much of it.",
+      "ja": "プラスチックは とても 役に 立つ。安くて、こわれにくく、食べ物や 水を 清けつに 保つ。病院も 車も コンピューターも、プラスチックを 必要と する。だから これほど 多く 作られる。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🧴",
+            "x": 18,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "🥤",
+            "x": 36,
+            "y": 70,
+            "s": 1.8
+          },
+          {
+            "e": "🚗",
+            "x": 60,
+            "y": 72,
+            "s": 2.4
+          },
+          {
+            "e": "💻",
+            "x": 84,
+            "y": 68,
+            "s": 2.2
+          },
+          {
+            "e": "👍",
+            "x": 50,
+            "y": 28,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "But its strength is also its problem. A banana skin or a piece of paper rots and returns to the soil quite quickly. Plastic does not. It can stay in nature for hundreds of years.",
+      "ja": "でも その 強さが、問題でも ある。バナナの 皮や 紙は、わりと 早く くさって 土に もどる。プラスチックは ちがう。何百年も 自然の 中に 残ることが ある。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🍌",
+            "x": 22,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "📄",
+            "x": 42,
+            "y": 78,
+            "s": 1.8
+          },
+          {
+            "e": "🌱",
+            "x": 32,
+            "y": 60,
+            "s": 1.4
+          },
+          {
+            "e": "🧴",
+            "x": 72,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "⏳",
+            "x": 72,
+            "y": 36,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A bottle left on a beach does not disappear. Sunlight and waves slowly break it into smaller and smaller pieces. These tiny pieces are called microplastics, and they are almost impossible to collect.",
+      "ja": "浜に 残された ボトルは 消えない。日光と 波が、ゆっくりと 小さく 小さく くだいていく。この 小さな かけらは マイクロプラスチックと よばれ、集めるのは ほとんど 不可能だ。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "☀",
+            "x": 82,
+            "y": 16,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🧴",
+            "x": 25,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "➡",
+            "x": 44,
+            "y": 72,
+            "s": 1.4
+          },
+          {
+            "e": "🔵",
+            "x": 58,
+            "y": 76,
+            "s": 0.8
+          },
+          {
+            "e": "🔵",
+            "x": 66,
+            "y": 80,
+            "s": 0.6
+          },
+          {
+            "e": "🔵",
+            "x": 74,
+            "y": 75,
+            "s": 0.6
+          },
+          {
+            "e": "🌊",
+            "x": 90,
+            "y": 82,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sea animals sometimes eat plastic by mistake. A floating bag can look like a jellyfish to a sea turtle. Small fish swallow microplastics, and bigger fish eat those fish.",
+      "ja": "海の 動物は、まちがって プラスチックを 食べることが ある。うかぶ ふくろは、ウミガメには クラゲに 見えることが ある。小魚が マイクロプラスチックを 飲みこみ、その 小魚を 大きな 魚が 食べる。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🐢",
+            "x": 30,
+            "y": 60,
+            "s": 2.8,
+            "a": "float"
+          },
+          {
+            "e": "🛍",
+            "x": 58,
+            "y": 50,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🐟",
+            "x": 70,
+            "y": 78,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "🐠",
+            "x": 86,
+            "y": 70,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "🔵",
+            "x": 62,
+            "y": 80,
+            "s": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "There is a better ending for the bottle. If you put it in the recycling bin, it is washed, cut into small flakes, and melted. Then it becomes material for something new.",
+      "ja": "ボトルには、もっと いい 結末が ある。リサイクルの 箱に 入れれば、あらわれ、小さな かけらに 切られ、とかされる。そして 新しい 何かの 材料に なる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🧴",
+            "x": 40,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🗑",
+            "x": 54,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "🔄",
+            "x": 54,
+            "y": 40,
+            "s": 1.8,
+            "a": "spin"
+          },
+          {
+            "e": "🏭",
+            "x": 84,
+            "y": 58,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "An old bottle can become a new bottle, a pen, or even clothes. Many fleece jackets and sports shirts are made from thread that used to be plastic bottles.",
+      "ja": "古い ボトルは、新しい ボトルや ペン、さらには 服にも なる。多くの フリースの 上着や スポーツシャツは、元は ペットボトルだった 糸から 作られている。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🧴",
+            "x": 16,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "➡",
+            "x": 32,
+            "y": 62,
+            "s": 1.4
+          },
+          {
+            "e": "🧵",
+            "x": 46,
+            "y": 68,
+            "s": 1.8
+          },
+          {
+            "e": "➡",
+            "x": 60,
+            "y": 62,
+            "s": 1.4
+          },
+          {
+            "e": "🧥",
+            "x": 76,
+            "y": 62,
+            "s": 2.6
+          },
+          {
+            "e": "👕",
+            "x": 92,
+            "y": 66,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "However, recycling uses energy, and not all plastic can be recycled. So the best plan is to use less. Carry your own water bottle and shopping bag, and use them again and again.",
+      "ja": "ただし リサイクルには エネルギーが かかるし、すべての プラスチックが リサイクルできるわけでは ない。だから 一番 いいのは、使う 量を へらすこと。水とうと 買い物ぶくろを 持ち歩き、何度も 使おう。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🥤",
+            "x": 50,
+            "y": 64,
+            "s": 1.8
+          },
+          {
+            "e": "🛍",
+            "x": 68,
+            "y": 68,
+            "s": 2.2
+          },
+          {
+            "e": "🔋",
+            "x": 86,
+            "y": 40,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Remember three words: reduce, reuse, recycle. The order matters. First use less, then use things again, and recycle last. Every bottle has a long life, so we should choose carefully where it goes.",
+      "ja": "三つの 言葉を 覚えよう。リデュース、リユース、リサイクル。順番が 大事だ。まず へらす。次に くり返し 使う。リサイクルは 最後。どの ボトルの 一生も 長い。だから 行き先を よく 考えて 選ぼう。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "➖",
+            "x": 20,
+            "y": 44,
+            "s": 2.2
+          },
+          {
+            "e": "🔄",
+            "x": 50,
+            "y": 44,
+            "s": 2.6,
+            "a": "spin"
+          },
+          {
+            "e": "🗑",
+            "x": 80,
+            "y": 50,
+            "s": 2.2
+          },
+          {
+            "e": "🧴",
+            "x": 50,
+            "y": 78,
+            "s": 2
+          },
+          {
+            "e": "🌍",
+            "x": 88,
+            "y": 20,
+            "s": 2,
+            "a": "spin"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "material",
+      "ja": "材料"
+    },
+    {
+      "en": "useful",
+      "ja": "役に 立つ"
+    },
+    {
+      "en": "strength",
+      "ja": "強さ"
+    },
+    {
+      "en": "rots",
+      "ja": "くさる"
+    },
+    {
+      "en": "soil",
+      "ja": "土"
+    },
+    {
+      "en": "microplastics",
+      "ja": "マイクロプラスチック"
+    },
+    {
+      "en": "impossible",
+      "ja": "不可能な"
+    },
+    {
+      "en": "swallow",
+      "ja": "飲みこむ"
+    },
+    {
+      "en": "melted",
+      "ja": "とかされた"
+    },
+    {
+      "en": "thread",
+      "ja": "糸"
+    },
+    {
+      "en": "reduce",
+      "ja": "へらす"
+    },
+    {
+      "en": "reuse",
+      "ja": "くり返し 使う"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How sea turtles find their food",
+        "What happens to plastic after we use it",
+        "Why fleece jackets are so warm",
+        "How oil is found deep under the ground and sea"
+      ],
+      "answer": "What happens to plastic after we use it",
+      "kind": "main"
+    },
+    {
+      "q": "What is most plastic made from?",
+      "ja": "ほとんどの プラスチックは 何から 作られる？",
+      "choices": [
+        "Oil",
+        "Sand",
+        "Paper",
+        "Thread"
+      ],
+      "answer": "Oil",
+      "kind": "detail"
+    },
+    {
+      "q": "Why might a sea turtle eat a plastic bag?",
+      "ja": "ウミガメは なぜ ビニールぶくろを 食べてしまうことが ある？",
+      "choices": [
+        "It smells like small fish.",
+        "It is softer than seaweed.",
+        "The turtle wants to clean the sea.",
+        "It can look like a jellyfish."
+      ],
+      "answer": "It can look like a jellyfish.",
+      "kind": "detail"
+    },
+    {
+      "q": "Which should come first, according to the book?",
+      "ja": "この本によると、どれを 最初に するべき？",
+      "choices": [
+        "Recycle",
+        "Reuse",
+        "Reduce",
+        "Replace"
+      ],
+      "answer": "Reduce",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why is plastic’s strength “also its problem”?",
+      "ja": "プラスチックの 強さは なぜ 「問題でも ある」？",
+      "choices": [
+        "It is too heavy to carry far.",
+        "It does not break down in nature.",
+        "It costs too much to produce.",
+        "It cannot be shaped easily."
+      ],
+      "answer": "It does not break down in nature.",
+      "kind": "infer"
+    }
+  ]
+}

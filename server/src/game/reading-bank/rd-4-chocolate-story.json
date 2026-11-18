@@ -1,0 +1,625 @@
+{
+  "id": "rd-4-chocolate-story",
+  "stage": "4",
+  "title": "From a Bean to a Chocolate Bar",
+  "titleJa": "まめから チョコレートへ",
+  "kind": "fact",
+  "cover": {
+    "bg": "forest",
+    "items": [
+      {
+        "e": "🌳",
+        "x": 20,
+        "y": 54,
+        "s": 4
+      },
+      {
+        "e": "🍋",
+        "x": 24,
+        "y": 50,
+        "s": 1.4
+      },
+      {
+        "e": "➡️",
+        "x": 46,
+        "y": 54,
+        "s": 1.8
+      },
+      {
+        "e": "🍫",
+        "x": 72,
+        "y": 58,
+        "s": 4,
+        "a": "pulse"
+      },
+      {
+        "e": "☀️",
+        "x": 86,
+        "y": 14,
+        "s": 2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Chocolate is sweet and brown. But did you know that it comes from a tree?",
+      "ja": "チョコレートは あまくて 茶色です。でも、木から できる ことを 知っていましたか。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🍫",
+            "x": 30,
+            "y": 60,
+            "s": 3.6,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 52,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌳",
+            "x": 78,
+            "y": 54,
+            "s": 4.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The cacao tree grows in hot, rainy places. Large fruits grow on its trunk and branches.",
+      "ja": "カカオの 木は、暑くて 雨の 多い 場所で 育ちます。みきや えだに 大きな 実が なります。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 45,
+            "y": 50,
+            "s": 6
+          },
+          {
+            "e": "🍋",
+            "x": 40,
+            "y": 58,
+            "s": 1.6
+          },
+          {
+            "e": "🍋",
+            "x": 52,
+            "y": 44,
+            "s": 1.6
+          },
+          {
+            "e": "🍋",
+            "x": 46,
+            "y": 72,
+            "s": 1.6
+          },
+          {
+            "e": "☀️",
+            "x": 86,
+            "y": 14,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌧️",
+            "x": 14,
+            "y": 18,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "When a fruit is ripe, farmers cut it open. Inside, there are many beans covered with soft white fruit.",
+      "ja": "実が じゅくすと、農家の 人が 切って 開けます。中には、やわらかい 白い 実に つつまれた まめが たくさん 入っています。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🧑‍🌾",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🍋",
+            "x": 52,
+            "y": 62,
+            "s": 3.4
+          },
+          {
+            "e": "⚪",
+            "x": 70,
+            "y": 66,
+            "s": 1.2
+          },
+          {
+            "e": "⚪",
+            "x": 78,
+            "y": 72,
+            "s": 1.2
+          },
+          {
+            "e": "⚪",
+            "x": 86,
+            "y": 66,
+            "s": 1.2
+          },
+          {
+            "e": "🔍",
+            "x": 70,
+            "y": 42,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The farmers keep the beans in boxes or under leaves for several days. This is important for the taste.",
+      "ja": "農家の 人は、まめを 箱の 中や 葉っぱの 下に 何日か 置いて おきます。これが 味の ために 大切なのです。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "📦",
+            "x": 30,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🌿",
+            "x": 62,
+            "y": 74,
+            "s": 3.4
+          },
+          {
+            "e": "⚪",
+            "x": 62,
+            "y": 64,
+            "s": 1
+          },
+          {
+            "e": "📅",
+            "x": 84,
+            "y": 34,
+            "s": 2.2
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 8,
+            "y": 70,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Next, the beans dry in the sun. When they are dry, they travel by ship to factories around the world.",
+      "ja": "次に、まめを 太陽の 下で かわかします。かわいたら、船で 世界中の 工場へ 運ばれます。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 16,
+            "y": 14,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🚢",
+            "x": 50,
+            "y": 62,
+            "s": 5,
+            "a": "bob"
+          },
+          {
+            "e": "📦",
+            "x": 50,
+            "y": 44,
+            "s": 1.6
+          },
+          {
+            "e": "🌍",
+            "x": 86,
+            "y": 26,
+            "s": 2.4,
+            "a": "spin"
+          },
+          {
+            "e": "🌊",
+            "x": 20,
+            "y": 84,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "At the factory, workers roast the beans in big ovens. The beans become dark and smell wonderful.",
+      "ja": "工場では、働く 人たちが 大きな オーブンで まめを いります。まめは 黒っぽく なり、すばらしい においが します。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏭",
+            "x": 22,
+            "y": 54,
+            "s": 4
+          },
+          {
+            "e": "🔥",
+            "x": 54,
+            "y": 72,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "⚫",
+            "x": 70,
+            "y": 66,
+            "s": 1.2
+          },
+          {
+            "e": "⚫",
+            "x": 78,
+            "y": 72,
+            "s": 1.2
+          },
+          {
+            "e": "⚫",
+            "x": 86,
+            "y": 66,
+            "s": 1.2
+          },
+          {
+            "e": "♨️",
+            "x": 76,
+            "y": 40,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Machines take off the shells and crush the beans. Because the beans have a lot of fat, they become a thick paste.",
+      "ja": "機械が からを 取って、まめを すりつぶします。まめには しぼうが 多いので、どろりと した ペーストに なります。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "⚙️",
+            "x": 30,
+            "y": 52,
+            "s": 3.4,
+            "a": "spin"
+          },
+          {
+            "e": "⚫",
+            "x": 30,
+            "y": 28,
+            "s": 1.2
+          },
+          {
+            "e": "⬇️",
+            "x": 30,
+            "y": 74,
+            "s": 1.4
+          },
+          {
+            "e": "➡️",
+            "x": 54,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🍫",
+            "x": 78,
+            "y": 66,
+            "s": 3
+          },
+          {
+            "e": "💧",
+            "x": 78,
+            "y": 44,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "This paste is very bitter. So workers add sugar, and for milk chocolate, they add milk too.",
+      "ja": "この ペーストは とても にがいです。だから さとうを 入れ、ミルクチョコレートには 牛にゅうも 入れます。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "😣",
+            "x": 20,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "🍫",
+            "x": 20,
+            "y": 70,
+            "s": 2.4
+          },
+          {
+            "e": "➕",
+            "x": 40,
+            "y": 58,
+            "s": 1.6
+          },
+          {
+            "e": "🥄",
+            "x": 56,
+            "y": 66,
+            "s": 2
+          },
+          {
+            "e": "➕",
+            "x": 70,
+            "y": 58,
+            "s": 1.6
+          },
+          {
+            "e": "🥛",
+            "x": 86,
+            "y": 66,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The machines mix it for many hours until it is very smooth.",
+      "ja": "機械が 何時間も まぜて、とても なめらかに します。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "⚙️",
+            "x": 40,
+            "y": 54,
+            "s": 4,
+            "a": "spin"
+          },
+          {
+            "e": "🔄",
+            "x": 40,
+            "y": 26,
+            "s": 1.8,
+            "a": "spin"
+          },
+          {
+            "e": "🍫",
+            "x": 74,
+            "y": 66,
+            "s": 3
+          },
+          {
+            "e": "⏰",
+            "x": 88,
+            "y": 28,
+            "s": 2
+          },
+          {
+            "e": "✨",
+            "x": 74,
+            "y": 44,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Finally, the warm chocolate is poured into shapes. When it cools, it becomes hard chocolate bars.",
+      "ja": "最後に、あたたかい チョコレートを 型に 流し入れます。冷えると、かたい 板チョコに なります。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🍫",
+            "x": 22,
+            "y": 66,
+            "s": 2.6
+          },
+          {
+            "e": "🍫",
+            "x": 44,
+            "y": 66,
+            "s": 2.6
+          },
+          {
+            "e": "🍫",
+            "x": 66,
+            "y": 66,
+            "s": 2.6
+          },
+          {
+            "e": "❄️",
+            "x": 84,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "📦",
+            "x": 88,
+            "y": 72,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Many people worked to make one bar. When you eat chocolate next time, remember the tree far away!",
+      "ja": "1まいの 板チョコを 作る ために、たくさんの 人が 働きました。次に チョコレートを 食べる とき、遠くの 木を 思い出してね！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😋",
+            "x": 32,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🍫",
+            "x": 48,
+            "y": 58,
+            "s": 2
+          },
+          {
+            "e": "💭",
+            "x": 70,
+            "y": 26,
+            "s": 2.6
+          },
+          {
+            "e": "🌳",
+            "x": 70,
+            "y": 24,
+            "s": 1.2
+          },
+          {
+            "e": "🌍",
+            "x": 90,
+            "y": 66,
+            "s": 2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "trunk",
+      "ja": "（木の）みき"
+    },
+    {
+      "en": "branches",
+      "ja": "えだ"
+    },
+    {
+      "en": "ripe",
+      "ja": "じゅくした"
+    },
+    {
+      "en": "beans",
+      "ja": "まめ"
+    },
+    {
+      "en": "several",
+      "ja": "いくつかの"
+    },
+    {
+      "en": "taste",
+      "ja": "味"
+    },
+    {
+      "en": "factories",
+      "ja": "工場（複数）"
+    },
+    {
+      "en": "roast",
+      "ja": "いる・焼く"
+    },
+    {
+      "en": "shells",
+      "ja": "から"
+    },
+    {
+      "en": "crush",
+      "ja": "すりつぶす"
+    },
+    {
+      "en": "bitter",
+      "ja": "にがい"
+    },
+    {
+      "en": "smooth",
+      "ja": "なめらかな"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "why children around the world love sweets",
+        "how ships carry food across the sea",
+        "how to grow a fruit tree in a garden",
+        "how chocolate is made from cacao beans"
+      ],
+      "answer": "how chocolate is made from cacao beans",
+      "kind": "main"
+    },
+    {
+      "q": "Where does the cacao tree grow?",
+      "ja": "カカオの 木は どこで 育ちますか。",
+      "choices": [
+        "In cold, snowy places.",
+        "In hot, rainy places.",
+        "In dry deserts.",
+        "In big factories."
+      ],
+      "answer": "In hot, rainy places.",
+      "kind": "detail"
+    },
+    {
+      "q": "What do workers add because the paste is bitter?",
+      "ja": "ペーストが にがいので、何を 入れますか。",
+      "choices": [
+        "Sugar.",
+        "Salt.",
+        "Water.",
+        "Leaves."
+      ],
+      "answer": "Sugar.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happens to the beans just after they dry in the sun?",
+      "ja": "まめを 太陽の 下で かわかした すぐ あとに、どう なりますか。",
+      "choices": [
+        "They are cut out of the fruit.",
+        "They are mixed with milk and sugar.",
+        "They travel by ship to factories.",
+        "They are poured into shapes."
+      ],
+      "answer": "They travel by ship to factories.",
+      "kind": "sequence"
+    },
+    {
+      "q": "What would chocolate with no sugar taste like?",
+      "ja": "さとうを 入れない チョコレートは どんな 味でしょう。",
+      "choices": [
+        "Very sweet.",
+        "Very bitter.",
+        "Very salty.",
+        "Like milk."
+      ],
+      "answer": "Very bitter.",
+      "kind": "infer"
+    }
+  ]
+}

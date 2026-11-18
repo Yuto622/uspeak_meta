@@ -1,4 +1,5 @@
-// 幼児モードの 置き場 — DATA_DIR/kids-mode.json。{ classes: { '<クラス>': { on, students: { '<名前>': 'on' | 'off' } } } }
+// 幼児モードの 置き場 — DATA_DIR/kids-mode.json。{ classes: { '<クラス>': { on, pick?, students: { '<名前>': 'on' | 'off' } } } }
+// pick：なまえを えらんで 入る（classroom/join.js）の クラスごとの スイッチ。
 // クラスごとの 既定（オン／オフ）と、子どもごとの 上書き（オン・オフ・クラスと おなじ）。画面の 出し分けだけに 使う
 // （判定・コイン・記録は ふつうの モードと 同じ）。かえると version が 上がり、部屋が 入ったままの 子に とどける。
 import fs from 'node:fs/promises';
@@ -19,7 +20,7 @@ export class KidsStore {
         for (const [code, v] of Object.entries(raw.classes || {}).slice(0, MAX_CLASSES)) {
           const students = {};
           for (const [n, m] of Object.entries(v?.students || {}).slice(0, MAX_STUDENTS)) if (m === 'on' || m === 'off') students[fold(n)] = m;
-          if (fold(code)) this.classes[fold(code)] = { on: v?.on === true, students };
+          if (fold(code)) this.classes[fold(code)] = { on: v?.on === true, students, ...(v?.pick === true ? { pick: true } : {}) };
         }
       } catch (err) { if (err.code !== 'ENOENT') this.log.warn?.('[kids] could not read', this.file, err.message); }
     }
@@ -42,6 +43,17 @@ export class KidsStore {
     if (!code) return false;
     if (!this.classes[code] && Object.keys(this.classes).length >= MAX_CLASSES) return false;
     (this.classes[code] ||= { on: false, students: {} }).on = on === true;
+    await this.save();
+    return true;
+  }
+  // なまえを えらんで 入る（classroom/join.js）。はじめは オフ：子どもの なまえを 一覧で 見せるかは 教室が きめる。
+  pickOf(classCode) { return this.classes[fold(classCode)]?.pick === true; }
+  async setPick(classCode, on) {
+    const code = fold(classCode);
+    if (!code) return false;
+    if (!this.classes[code] && Object.keys(this.classes).length >= MAX_CLASSES) return false;
+    const c = (this.classes[code] ||= { on: false, students: {} });
+    if (on === true) c.pick = true; else delete c.pick;
     await this.save();
     return true;
   }

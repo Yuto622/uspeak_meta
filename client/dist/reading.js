@@ -47,6 +47,8 @@ function sceneHtml(scene, { small = false } = {}) {
   </div>`;
 }
 
+// 幼児モード（先生が オンに した 子）か。きめるのは 部屋（kids.js が body に しるしを 立てる）。
+const kidsMode = () => globalThis.document?.body?.dataset.mode === 'kids';
 // 表紙の 色（本ごとに きまった 色）。
 const COVER_COLORS = ['#e2574c', '#e27a2d', '#d99a1e', '#4fa868', '#2f9a9a', '#3f86d0', '#5a66c8', '#8a5cc0', '#c0589a'];
 const coverColor = (id) => { let h = 0; for (const c of String(id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return COVER_COLORS[h % COVER_COLORS.length]; };
@@ -93,7 +95,7 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
         <button type="button" class="rd-x" aria-label="close">✕</button></header>
       <div class="rd-level"><span class="rd-badge">${bi('Level', 'レベル')} <b>${esc(s.stage)}</b></span>
         <div class="rd-bar"><i style="width:${pct}%"></i></div><small>${s.totals.stageDone} / ${s.totals.stageAll} ${bi('books at this level', 'さつ よんだ')}</small>${stagePick}</div>
-      <div class="rd-rows">${s.rows.map((r) => `<section class="rd-row ${r.band}"><h3><span>${band[r.band]}</span><small>${bi(`Level ${esc(r.stage)} · ${esc(r.en)}`, `レベル ${esc(r.stage)}・${esc(r.ja)}`)}</small></h3><div class="rd-books">${r.books.map(book).join('')}</div></section>`).join('') || `<p class="rd-wait">${bi('No books yet.', 'まだ 本が ないよ。')}</p>`}
+      <div class="rd-rows">${s.rows.filter((r) => !(kidsMode() && r.band === 'next')).map((r) => `<section class="rd-row ${r.band}"><h3>${kidsMode() ? `<button type="button" class="rd-say sm" data-sayja="${r.band === 'easy' ? 'かんたんに よめる' : 'いまの きみに ぴったり'}" aria-label="よみあげ">🔊</button>` : ''}<span>${band[r.band]}</span><small>${bi(`Level ${esc(r.stage)} · ${esc(r.en)}`, `レベル ${esc(r.stage)}・${esc(r.ja)}`)}</small></h3><div class="rd-books">${r.books.map(book).join('')}</div></section>`).join('') || `<p class="rd-wait">${bi('No books yet.', 'まだ 本が ないよ。')}</p>`}
         <p class="rd-how">${bi('👂 Listen → 📖 Read → 🎤 Read aloud → ❓ Quiz. Finish a book to get coins!', '👂 きく → 📖 よむ → 🎤 こえに だす → ❓ クイズ。1 さつ よめたら コイン！')}</p><p class="rd-credit">Emoji art: Twemoji (CC-BY 4.0)</p></div>`;
   }
 
@@ -118,12 +120,13 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
       ? (Speech ? `<button type="button" class="rd-mic${state.listening ? ' live' : ''}" data-act="mic"><span>🎤</span>${state.listening ? bi('Listening… tap to stop', 'きいてるよ… おすと とまる') : bi('Tap and read aloud', 'おして こえに だして よもう')}</button>`
         : `<p class="rd-nomic">${bi('This device cannot hear you. Try Chrome or Safari.', 'この たんまつでは こえを きけないよ。Chrome か Safari で ためしてね。')}</p>`)
       : '';
+    const hintJa = { listen: 'ひかる ことばを 目で おいながら きこう。', read: 'じぶんで よもう。ことばを おすと きこえるよ。', aloud: 'こえに だして よもう。よめた ことばが みどりに なるよ。' }[state.mode];
     const hint = { listen: bi('Listen and follow the glowing words.', 'ひかる ことばを 目で おいながら きこう。'), read: bi('Read by yourself. Tap a word to hear it.', 'じぶんで よもう。ことばを おすと きこえるよ。'), aloud: bi('Read the page aloud. Words you say turn green.', 'こえに だして よもう。よめた ことばが みどりに なるよ。') }[state.mode];
     const nextLabel = last ? (state.mode === 'aloud' ? bi('Finish ✓', 'おわり ✓') : bi('Finish ✓', 'おわり ✓')) : bi('Next →', 'つぎへ →');
     return `${head}<div class="rd-spread" data-turn="0">
         <div class="rd-pic">${artHtml(b, state.page + 1, p.scene)}<span class="rd-pageno">${state.page + 1} / ${b.pages.length}</span></div>
         <div class="rd-page">
-          <p class="rd-hint">${hint}</p>
+          <p class="rd-hint">${kidsMode() ? `<button type="button" class="rd-say sm" data-sayja="${esc(hintJa)}" aria-label="よみあげ">🔊</button>` : ''}${hint}</p>
           <p class="rd-text s-${esc(b.stage)}">${textHtml(p)}</p>
           <p class="rd-ja"${state.showJa ? '' : ' hidden'}>${esc(p.ja)}</p>
           <div class="rd-pop" hidden></div>
@@ -144,13 +147,15 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
     if (!q) return `<div class="rd-wait">${bi('Getting the quiz…', 'クイズを よういしています…')}</div>`;
     const dots = Array.from({ length: q.of }, (_, i) => `<i class="${i + 1 === q.n ? 'on' : i + 1 < q.n ? (state.marks?.[i] ? 'ok' : 'ng') : ''}">${i + 1}</i>`).join('');
     const r = state.result;
+    // 幼児モード：まちがえたら、みどりの 答えを じぶんで おして から つぎへ（点は はじめの 答えの まま。きめるのは 部屋）。
+    const fix = !!r && !r.correct && kidsMode() && !state.fixed;
     return `<div class="rd-quiz"><div class="rd-qdots">${dots}</div>
       <div class="rd-q"><button type="button" class="rd-say" data-say="${esc(q.q)}" aria-label="listen">🔊</button><div><p class="rd-qen">${esc(q.q)}</p><p class="rd-qja">${esc(q.ja)}</p></div></div>
       <div class="rd-choices">${q.choices.map((c, i) => {
-        const cls = r ? (c === r.answer ? ' right' : c === state.picked ? ' wrong' : ' dim') : '';
-        return `<div class="rd-choice${cls}"><button type="button" class="rd-say" data-say="${esc(c)}" aria-label="listen">🔊</button><button type="button" class="rd-pick" data-pick="${esc(c)}" ${r ? 'disabled' : ''}><b>${'ABCD'[i]}</b><span>${esc(c)}</span></button></div>`;
+        const cls = r ? (c === r.answer ? (fix ? ' right tapme' : ' right') : c === state.picked ? ' wrong' : ' dim') : '';
+        return `<div class="rd-choice${cls}"><button type="button" class="rd-say" data-say="${esc(c)}" aria-label="listen">🔊</button><button type="button" class="rd-pick" data-pick="${esc(c)}" ${r && !(fix && c === r.answer) ? 'disabled' : ''}><b>${'ABCD'[i]}</b><span>${esc(c)}</span></button></div>`;
       }).join('')}</div>
-      <div class="rd-qfoot">${r ? `<span class="rd-verdict ${r.correct ? 'ok' : 'ng'}">${r.correct ? bi('⭕ Correct!', '⭕ せいかい！') : bi('❌ The answer is shown in green.', '❌ みどりが こたえだよ。')}</span><button type="button" class="rd-nav main" data-act="qnext">${r.over ? bi('See result →', 'けっかを みる →') : bi('Next →', 'つぎへ →')}</button>` : `<span class="rd-verdict">${bi('Tap 🔊 to hear it. Pick one.', '🔊 で きける。1 つ えらぼう。')}</span>`}</div></div>`;
+      <div class="rd-qfoot">${r ? `<span class="rd-verdict ${r.correct ? 'ok' : 'ng'}">${r.correct ? bi('⭕ Correct!', '⭕ せいかい！') : fix ? bi('👆 Tap the green one.', '👆 みどりを おして みよう。') : bi('❌ The answer is shown in green.', '❌ みどりが こたえだよ。')}</span><button type="button" class="rd-nav main" data-act="qnext"${fix ? ' disabled' : ''}>${r.over ? bi('See result →', 'けっかを みる →') : bi('Next →', 'つぎへ →')}</button>` : `<span class="rd-verdict">${bi('Tap 🔊 to hear it. Pick one.', '🔊 で きける。1 つ えらぼう。')}</span>`}</div></div>`;
   }
 
   function doneHtml() {
@@ -188,6 +193,7 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
     root.querySelectorAll('[data-mode]').forEach((el) => { el.onclick = () => setMode(el.dataset.mode); });
     root.querySelectorAll('[data-act]').forEach((el) => { el.onclick = () => act(el.dataset.act); });
     root.querySelectorAll('[data-say]').forEach((el) => { el.onclick = () => say(el.dataset.say); });
+    root.querySelectorAll('[data-sayja]').forEach((el) => { el.onclick = () => { quiet(); playVoice(el.dataset.sayja, { japanese: true, fallback: () => speak?.(el.dataset.sayja, { japanese: true }) }); }; });
     root.querySelectorAll('[data-pick]').forEach((el) => { el.onclick = () => pick(el.dataset.pick); });
     root.querySelectorAll('.rd-w').forEach((el) => { el.onclick = () => tapWord(el); });
     if (state.view === 'book' && state.mode === 'aloud' && !state.aloud) markHeard();
@@ -292,7 +298,9 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
     root.querySelectorAll('.rd-w').forEach((el) => { const at = got.indexOf(el.dataset.w, from); const ok = at >= 0 && at - from <= 4; if (ok) from = at + 1; el.classList.toggle('said', ok); });
   }
 
-  function pick(choice) { if (state.result) return; state.picked = choice; root.querySelectorAll('.rd-pick').forEach((b) => { b.disabled = true; }); send('read:answer', { id: state.book.id, choice }); }
+  function pick(choice) {
+    if (state.result) { if (!state.result.correct && kidsMode() && !state.fixed && choice === state.result.answer) { state.fixed = true; say(choice); paint(); } return; }
+    state.fixed = false; state.picked = choice; root.querySelectorAll('.rd-pick').forEach((b) => { b.disabled = true; }); send('read:answer', { id: state.book.id, choice }); }
 
   // ---------------------------------------------------------------- 部屋から
   function handle(type, m = {}) {
@@ -303,7 +311,7 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
     if (type === 'read:progress') { if (state.book?.id === m.id && m.book) { state.book = m.book; if (m.firstDone) toast(L(`Book finished! ◈ +${m.coins}`, `1 さつ よめた！ ◈ +${m.coins}`)); root.querySelectorAll('.rd-tab').forEach((el) => { el.classList.toggle('ok', stepDone(state.book, el.dataset.mode)); }); } return; }
     if (type === 'read:aloud') { if (state.book?.id === m.id) { if (m.book) state.book = m.book; state.aloud = m; state.aloudStart = 0; paint(); } return; }
     if (type === 'read:ask') { if (state.book?.id === m.id) { state.quiz = m; state.result = null; state.picked = null; state.marks = []; paint(); say(m.q); } return; }
-    if (type === 'read:result') { if (state.book?.id !== m.id) return; (state.marks ||= []).push(!!m.correct); state.result = m; if (m.book) state.book = m.book; state.pendingDone = m.done || null; paint(); }
+    if (type === 'read:result') { if (state.book?.id !== m.id) return; (state.marks ||= []).push(!!m.correct); state.result = m; state.fixed = false; if (m.book) state.book = m.book; state.pendingDone = m.done || null; paint(); }
   }
 
   function open() {
@@ -314,5 +322,7 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
     return true;
   }
   onLangChange(() => { if (dialog.open && !state.result && !state.playing) paint(); });
-  return { open, handle, close: () => dialog.close(), get isOpen() { return dialog.open; }, state };
+  // 宿題の「えほん」から：その 本を すぐ ひらく。
+  const openBookById = (id) => { if (!open()) return false; openBook(String(id)); return true; };
+  return { open, openBook: openBookById, handle, close: () => dialog.close(), get isOpen() { return dialog.open; }, state };
 }

@@ -1,0 +1,593 @@
+{
+  "id": "rd-8-what-is-fair",
+  "stage": "8",
+  "title": "What Does Fair Mean?",
+  "titleJa": "「公平」って どういうこと？",
+  "kind": "fact",
+  "cover": {
+    "bg": "school",
+    "items": [
+      {
+        "e": "⚖",
+        "x": 50,
+        "y": 46,
+        "s": 4.4,
+        "a": "sway"
+      },
+      {
+        "e": "🍰",
+        "x": 22,
+        "y": 74,
+        "s": 2.4
+      },
+      {
+        "e": "👦",
+        "x": 78,
+        "y": 72,
+        "s": 2.8
+      },
+      {
+        "e": "❓",
+        "x": 50,
+        "y": 16,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "“That’s not fair!” You have probably said these words many times. Even very young children seem to care strongly about fairness. But if someone asked you to explain exactly what “fair” means, could you do it?",
+      "ja": "「そんなの 不公平だ！」。この 言葉を、たぶん 何度も 言ったことが あるだろう。とても 小さな 子どもでさえ、公平さを 強く 気に するようだ。でも 「公平」の 意味を 正確に 説明してと 言われたら、できるだろうか。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😠",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 30,
+            "y": 24,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "⚖",
+            "x": 68,
+            "y": 56,
+            "s": 3.2,
+            "a": "sway"
+          },
+          {
+            "e": "❓",
+            "x": 68,
+            "y": 22,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Imagine that three children have baked a cake together, and now they must divide it. The simplest answer is to cut three equal pieces. Many people believe that fairness means everyone gets the same amount.",
+      "ja": "三人の 子どもが いっしょに ケーキを 焼き、これから 分けるところだと 想像しよう。一番 単純な 答えは、三つの 等しい 一切れに 切ること。公平とは 全員が 同じ 量を もらうことだと、多くの 人は 考える。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👦",
+            "x": 18,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 50,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🧒",
+            "x": 82,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🍰",
+            "x": 34,
+            "y": 32,
+            "s": 1.6
+          },
+          {
+            "e": "🍰",
+            "x": 50,
+            "y": 26,
+            "s": 1.6
+          },
+          {
+            "e": "🍰",
+            "x": 66,
+            "y": 32,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "But suppose one child did almost all the work while the others played. Should she get a larger piece? Some people think that fairness means people should receive what they have earned through their effort.",
+      "ja": "でも、一人が ほとんど 全部の 作業を して、ほかの 二人は 遊んでいたと したら？ その子は 大きい 一切れを もらうべきだろうか。公平とは、努力で 得た 分を 受け取ることだと 考える 人も いる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💦",
+            "x": 44,
+            "y": 50,
+            "s": 1.2
+          },
+          {
+            "e": "🥄",
+            "x": 44,
+            "y": 62,
+            "s": 1.4
+          },
+          {
+            "e": "🍰",
+            "x": 30,
+            "y": 26,
+            "s": 2.4
+          },
+          {
+            "e": "👦",
+            "x": 66,
+            "y": 70,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "🧒",
+            "x": 88,
+            "y": 70,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "⚽",
+            "x": 77,
+            "y": 82,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now suppose one of the children has not eaten anything all day. Should he get more because he is hungrier? Others believe that fairness means giving people what they need.",
+      "ja": "今度は、一人が 朝から 何も 食べていないと しよう。より おなかが すいているのだから、多く もらうべきだろうか。公平とは、人に 必要な 分を あたえることだと 考える 人も いる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😩",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🍽",
+            "x": 60,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🍰",
+            "x": 72,
+            "y": 46,
+            "s": 2.4
+          },
+          {
+            "e": "❓",
+            "x": 72,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Equality, effort, and need: these are three different ideas of fairness, and each one sounds reasonable. The difficulty is that they often give different answers. Many arguments happen because people are using different ideas without realizing it.",
+      "ja": "平等、努力、必要。これらは 公平についての 三つの ちがう 考え方で、どれも もっともに 聞こえる。こまるのは、答えが 食いちがうことが 多い 点だ。多くの 言い争いは、気づかぬまま ちがう 考え方を 使っているから 起きる。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🟦",
+            "x": 20,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "🟨",
+            "x": 50,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "🟥",
+            "x": 80,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "👧",
+            "x": 70,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "💢",
+            "x": 50,
+            "y": 66,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "There is also another kind of fairness, which concerns not the result but the method. When two people share a cake, one well-known rule is: “One person cuts, and the other chooses.”",
+      "ja": "もう 一つ、結果では なく 方法に 関わる 公平さも ある。二人で ケーキを 分ける時の、よく 知られた ルールが ある。「一人が 切り、もう 一人が 選ぶ」。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🔪",
+            "x": 42,
+            "y": 58,
+            "s": 1.4
+          },
+          {
+            "e": "🍰",
+            "x": 54,
+            "y": 62,
+            "s": 2.6
+          },
+          {
+            "e": "👧",
+            "x": 78,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👉",
+            "x": 64,
+            "y": 52,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Why does this rule work so well? The person who cuts knows that the other will take the bigger piece. So the cutter tries hard to make the two pieces exactly equal. Nobody needs a judge.",
+      "ja": "この ルールは、なぜ うまく いくのだろう。切る 人は、相手が 大きい 方を 取ると 知っている。だから 切る 人は、二つを ぴったり 同じに しようと がんばる。審判は いらない。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🍰",
+            "x": 54,
+            "y": 60,
+            "s": 2
+          },
+          {
+            "e": "🍰",
+            "x": 68,
+            "y": 60,
+            "s": 2
+          },
+          {
+            "e": "📏",
+            "x": 61,
+            "y": 44,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 90,
+            "y": 72,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "One philosopher suggested an interesting test. Imagine you must design the rules of a game, but you do not know which player you will be: strong or weak, rich or poor. What rules would you choose then?",
+      "ja": "ある 哲学者が、おもしろい テストを 考えた。ゲームの ルールを 作るのだが、自分が どの プレーヤーに なるかは 分からないと 想像する。強いか 弱いか、豊かか 貧しいか。その時、どんな ルールを 選ぶだろう。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧔",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💭",
+            "x": 52,
+            "y": 28,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 52,
+            "y": 27,
+            "s": 1.3
+          },
+          {
+            "e": "📜",
+            "x": 70,
+            "y": 62,
+            "s": 2.4
+          },
+          {
+            "e": "💪",
+            "x": 86,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "💰",
+            "x": 90,
+            "y": 70,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Most people, when they think this way, choose rules that protect the player in the weakest position, because that player might be themselves. Rules chosen without knowing your own position are likely to be fair to everyone.",
+      "ja": "こう 考えると、ほとんどの 人は、最も 弱い 立場の プレーヤーを 守る ルールを 選ぶ。その プレーヤーが 自分かも しれないからだ。自分の 立場を 知らずに 選んだ ルールは、全員に 公平に なりやすい。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "📜",
+            "x": 50,
+            "y": 40,
+            "s": 3
+          },
+          {
+            "e": "🛡",
+            "x": 50,
+            "y": 66,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧒",
+            "x": 22,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "👦",
+            "x": 78,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "✅",
+            "x": 50,
+            "y": 16,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "So the next time you feel that something is unfair, stop and ask: which kind of fairness do I mean? And which kind does the other person mean? Asking these questions will not end every argument, but it is where understanding begins.",
+      "ja": "だから 次に 何かが 不公平だと 感じたら、立ち止まって 問おう。自分は どの 公平を 言っているのか。相手は どれを 言っているのか。それで 争いが 全部 終わるわけでは ないが、理解は そこから 始まる。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🤔",
+            "x": 28,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 72,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🤔",
+            "x": 72,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "⚖",
+            "x": 50,
+            "y": 50,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🤝",
+            "x": 50,
+            "y": 22,
+            "s": 1.8
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "fairness",
+      "ja": "公平さ"
+    },
+    {
+      "en": "divide",
+      "ja": "分ける"
+    },
+    {
+      "en": "equal",
+      "ja": "等しい"
+    },
+    {
+      "en": "earned",
+      "ja": "努力で 得た"
+    },
+    {
+      "en": "effort",
+      "ja": "努力"
+    },
+    {
+      "en": "equality",
+      "ja": "平等"
+    },
+    {
+      "en": "reasonable",
+      "ja": "もっともな"
+    },
+    {
+      "en": "arguments",
+      "ja": "言い争い"
+    },
+    {
+      "en": "method",
+      "ja": "方法"
+    },
+    {
+      "en": "philosopher",
+      "ja": "哲学者"
+    },
+    {
+      "en": "position",
+      "ja": "立場"
+    },
+    {
+      "en": "protect",
+      "ja": "守る"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "The best recipe for baking a cake",
+        "Why young children argue more than adults do",
+        "How judges decide who wins a game",
+        "Different ways of thinking about fairness"
+      ],
+      "answer": "Different ways of thinking about fairness",
+      "kind": "main"
+    },
+    {
+      "q": "Which three ideas of fairness does the book describe?",
+      "ja": "この本は どの 三つの 公平の 考え方を 説明している？",
+      "choices": [
+        "Speed, strength, and good luck",
+        "Equality, effort, and need",
+        "Rules, judges, and prizes",
+        "Age, size, and hunger"
+      ],
+      "answer": "Equality, effort, and need",
+      "kind": "detail"
+    },
+    {
+      "q": "In the cake rule, what does the second person do?",
+      "ja": "ケーキの ルールで、二人目は 何を する？",
+      "choices": [
+        "Cuts the cake again",
+        "Calls a judge",
+        "Chooses a piece",
+        "Bakes another cake"
+      ],
+      "answer": "Chooses a piece",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, “reasonable” means ___.",
+      "ja": "この本で “reasonable” の 意味は？",
+      "choices": [
+        "making good sense",
+        "hard to explain",
+        "very expensive",
+        "easily forgotten"
+      ],
+      "answer": "making good sense",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why does the cutter try to make equal pieces?",
+      "ja": "切る 人は なぜ 等しく 切ろうと する？",
+      "choices": [
+        "A judge is watching him very, very closely.",
+        "Equal pieces are easier to cut.",
+        "Otherwise he will get the smaller one.",
+        "He does not like cake very much."
+      ],
+      "answer": "Otherwise he will get the smaller one.",
+      "kind": "infer"
+    }
+  ]
+}

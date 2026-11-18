@@ -1,0 +1,500 @@
+{
+  "id": "rd-1-pets-need-us",
+  "stage": "1",
+  "title": "Pets Need Us",
+  "titleJa": "ペットの おせわ",
+  "kind": "fact",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "🐶",
+        "x": 22,
+        "y": 72,
+        "s": 3
+      },
+      {
+        "e": "🐱",
+        "x": 50,
+        "y": 72,
+        "s": 2.8
+      },
+      {
+        "e": "🐹",
+        "x": 78,
+        "y": 74,
+        "s": 2.4
+      },
+      {
+        "e": "❤️",
+        "x": 50,
+        "y": 26,
+        "s": 2.2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Many families have pets. Pets are our friends.",
+      "ja": "おおくの かぞくが ペットを かっている。ペットは わたしたちの ともだち。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🐶",
+            "x": 52,
+            "y": 72,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "🐱",
+            "x": 80,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "❤️",
+            "x": 50,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A dog likes to walk. It needs a walk every day.",
+      "ja": "いぬは さんぽが すき。まいにち さんぽが ひつよう。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🐶",
+            "x": 60,
+            "y": 72,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🌳",
+            "x": 88,
+            "y": 58,
+            "s": 3
+          },
+          {
+            "e": "🐾",
+            "x": 44,
+            "y": 84,
+            "s": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "A cat cleans its body with its tongue.",
+      "ja": "ねこは したで からだを きれいに する。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐱",
+            "x": 48,
+            "y": 70,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "✨",
+            "x": 70,
+            "y": 40,
+            "s": 1.8,
+            "a": "spin"
+          },
+          {
+            "e": "✨",
+            "x": 26,
+            "y": 46,
+            "s": 1.4,
+            "a": "spin"
+          },
+          {
+            "e": "🛋️",
+            "x": 84,
+            "y": 72,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "A rabbit has long ears. It likes to eat grass.",
+      "ja": "うさぎは みみが ながい。くさを たべるのが すき。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 44,
+            "y": 70,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "🌿",
+            "x": 70,
+            "y": 76,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "👂",
+            "x": 20,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "A hamster is small. It often runs at night.",
+      "ja": "ハムスターは ちいさい。よるに よく はしる。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🐹",
+            "x": 46,
+            "y": 74,
+            "s": 2.6,
+            "a": "hop"
+          },
+          {
+            "e": "⚙️",
+            "x": 70,
+            "y": 66,
+            "s": 3,
+            "a": "spin"
+          },
+          {
+            "e": "🌙",
+            "x": 82,
+            "y": 18,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A goldfish lives in water. It needs clean water.",
+      "ja": "きんぎょは みずの なかで くらす。きれいな みずが ひつよう。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐠",
+            "x": 50,
+            "y": 58,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "💧",
+            "x": 72,
+            "y": 36,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "✨",
+            "x": 28,
+            "y": 38,
+            "s": 1.6,
+            "a": "spin"
+          },
+          {
+            "e": "🌿",
+            "x": 78,
+            "y": 78,
+            "s": 1.6,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A turtle walks slowly. Some turtles live for many years.",
+      "ja": "かめは ゆっくり あるく。なんねんも ながく いきる かめも いる。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🐢",
+            "x": 46,
+            "y": 74,
+            "s": 3.4,
+            "a": "drift"
+          },
+          {
+            "e": "📅",
+            "x": 78,
+            "y": 34,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🪨",
+            "x": 16,
+            "y": 80,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Pets cannot say, “I am hungry.”",
+      "ja": "ペットは 「おなかが すいた」と いえない。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐶",
+            "x": 36,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "😟",
+            "x": 36,
+            "y": 48,
+            "s": 1.2
+          },
+          {
+            "e": "💭",
+            "x": 64,
+            "y": 30,
+            "s": 2.8,
+            "a": "float"
+          },
+          {
+            "e": "🦴",
+            "x": 64,
+            "y": 28,
+            "s": 1.2
+          },
+          {
+            "e": "🍽️",
+            "x": 72,
+            "y": 80,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "So we give them food and water every day.",
+      "ja": "だから わたしたちが まいにち えさと みずを あげる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🍲",
+            "x": 48,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "💧",
+            "x": 60,
+            "y": 60,
+            "s": 1.4
+          },
+          {
+            "e": "🐶",
+            "x": 78,
+            "y": 72,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 78,
+            "y": 48,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Pets need food, water, and love.",
+      "ja": "ペットには たべものと みずと あいじょうが ひつよう。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 34,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 34,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🐱",
+            "x": 60,
+            "y": 72,
+            "s": 2.8,
+            "a": "bob"
+          },
+          {
+            "e": "❤️",
+            "x": 48,
+            "y": 22,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🐢",
+            "x": 86,
+            "y": 82,
+            "s": 1.6
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "pets",
+      "ja": "ペット"
+    },
+    {
+      "en": "families",
+      "ja": "かぞく"
+    },
+    {
+      "en": "needs",
+      "ja": "ひつようと する"
+    },
+    {
+      "en": "cleans",
+      "ja": "きれいに する"
+    },
+    {
+      "en": "tongue",
+      "ja": "した"
+    },
+    {
+      "en": "ears",
+      "ja": "みみ"
+    },
+    {
+      "en": "grass",
+      "ja": "くさ"
+    },
+    {
+      "en": "hamster",
+      "ja": "ハムスター"
+    },
+    {
+      "en": "goldfish",
+      "ja": "きんぎょ"
+    },
+    {
+      "en": "turtle",
+      "ja": "かめ"
+    },
+    {
+      "en": "slowly",
+      "ja": "ゆっくり"
+    },
+    {
+      "en": "hungry",
+      "ja": "おなかが すいた"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book about?",
+      "ja": "これは なにの ほん？",
+      "choices": [
+        "animals in the zoo",
+        "food for a party",
+        "pets and what they need"
+      ],
+      "answer": "pets and what they need",
+      "kind": "main"
+    },
+    {
+      "q": "What does a dog need every day?",
+      "ja": "いぬには まいにち なにが ひつよう？",
+      "choices": [
+        "a walk",
+        "a bath",
+        "a new toy"
+      ],
+      "answer": "a walk",
+      "kind": "detail"
+    },
+    {
+      "q": "When does a hamster often run?",
+      "ja": "ハムスターが よく はしるのは いつ？",
+      "choices": [
+        "in the morning",
+        "at night",
+        "at lunch time"
+      ],
+      "answer": "at night",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"slowly\" mean?",
+      "ja": "\"slowly\" は どんな いみ？",
+      "choices": [
+        "not fast",
+        "not small",
+        "not clean"
+      ],
+      "answer": "not fast",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why do we give pets food every day?",
+      "ja": "どうして まいにち ペットに えさを あげるの？",
+      "choices": [
+        "Pets like to go to shops.",
+        "Pets are always sleeping.",
+        "Pets cannot get food by themselves."
+      ],
+      "answer": "Pets cannot get food by themselves.",
+      "kind": "infer"
+    }
+  ]
+}

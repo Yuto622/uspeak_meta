@@ -1,0 +1,644 @@
+{
+  "id": "rd-8-microbes",
+  "stage": "8",
+  "title": "The Invisible World of Microbes",
+  "titleJa": "目に 見えない び生物の 世界",
+  "kind": "fact",
+  "cover": {
+    "bg": "sea",
+    "items": [
+      {
+        "e": "🔬",
+        "x": 30,
+        "y": 62,
+        "s": 3.6
+      },
+      {
+        "e": "🟢",
+        "x": 62,
+        "y": 40,
+        "s": 2,
+        "a": "float"
+      },
+      {
+        "e": "🔵",
+        "x": 78,
+        "y": 56,
+        "s": 1.6,
+        "a": "float"
+      },
+      {
+        "e": "🟡",
+        "x": 66,
+        "y": 68,
+        "s": 1.4,
+        "a": "float"
+      },
+      {
+        "e": "🔍",
+        "x": 86,
+        "y": 28,
+        "s": 2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Look at your hand. It appears clean and empty, but it is actually crowded with life. Millions of living things too small to see are on your skin right now. We call them microbes, and they are everywhere on Earth.",
+      "ja": "自分の 手を 見てみよう。きれいで 何も ないように 見えるが、じつは 生き物で いっぱいだ。小さすぎて 見えない 何百万もの 生き物が、今 ひふの 上に いる。これを び生物と いい、地球の どこにでも いる。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🖐",
+            "x": 56,
+            "y": 52,
+            "s": 3.2
+          },
+          {
+            "e": "🔍",
+            "x": 72,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "🟢",
+            "x": 52,
+            "y": 46,
+            "s": 0.7
+          },
+          {
+            "e": "🔵",
+            "x": 60,
+            "y": 56,
+            "s": 0.7
+          },
+          {
+            "e": "🟡",
+            "x": 56,
+            "y": 60,
+            "s": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Microbes live in the soil, in the sea, in the air, and inside every animal. Bacteria are the best-known kind. A single bacterium is made of just one cell, and thousands of them could fit on the period at the end of this sentence.",
+      "ja": "び生物は 土の 中、海、空気中、そして あらゆる 動物の 体内に いる。最も よく 知られているのが 細きんだ。細きんは たった 一つの 細ぼうで できていて、この 文の 終わりの 点に 何千も のるほど 小さい。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🌱",
+            "x": 18,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🌊",
+            "x": 82,
+            "y": 82,
+            "s": 2
+          },
+          {
+            "e": "🐮",
+            "x": 50,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "🟢",
+            "x": 30,
+            "y": 40,
+            "s": 1,
+            "a": "float"
+          },
+          {
+            "e": "🔵",
+            "x": 50,
+            "y": 30,
+            "s": 1,
+            "a": "float"
+          },
+          {
+            "e": "🟢",
+            "x": 70,
+            "y": 44,
+            "s": 1,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "For most of history, nobody knew that microbes existed. Then, in the 1600s, a Dutch cloth merchant named Antonie van Leeuwenhoek made powerful lenses and looked at a drop of pond water. He was amazed to see tiny creatures swimming in it.",
+      "ja": "歴史の 大部分で、び生物の 存在は 知られていなかった。そして 千六百年代、オランダの 布商人 レーウェンフックが 強力な レンズを 作り、池の 水の 一てきを のぞいた。そこに 小さな 生き物が 泳いでいて、彼は おどろいた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👨",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 28,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🔍",
+            "x": 48,
+            "y": 56,
+            "s": 2.2
+          },
+          {
+            "e": "💧",
+            "x": 68,
+            "y": 58,
+            "s": 2.6
+          },
+          {
+            "e": "🟢",
+            "x": 66,
+            "y": 56,
+            "s": 0.6,
+            "a": "bob"
+          },
+          {
+            "e": "🟢",
+            "x": 71,
+            "y": 61,
+            "s": 0.6,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Many people think that all microbes are harmful, but that is far from true. Only a small number cause disease. Most do us no harm, and many are so helpful that we could not live without them.",
+      "ja": "び生物は すべて 有害だと 思う 人は 多いが、それは 事実から ほど遠い。病気を 起こすのは ごく 一部だ。ほとんどは 害が なく、多くは とても 役に 立つので、それなしでは 私たちは 生きられない。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🟢",
+            "x": 22,
+            "y": 50,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🟢",
+            "x": 40,
+            "y": 40,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "🔵",
+            "x": 58,
+            "y": 52,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🟡",
+            "x": 74,
+            "y": 42,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "👍",
+            "x": 48,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "⚠",
+            "x": 90,
+            "y": 60,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "For example, an enormous number of bacteria live in your intestines. They help you digest food, produce some vitamins, and make it difficult for harmful microbes to grow there.",
+      "ja": "たとえば、あなたの 腸には ものすごい 数の 細きんが すんでいる。食べ物の 消化を 助け、いくつかの ビタミンを 作り、有害な び生物が そこで ふえにくいように してくれる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🍎",
+            "x": 54,
+            "y": 56,
+            "s": 1.6
+          },
+          {
+            "e": "🥦",
+            "x": 66,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🟢",
+            "x": 80,
+            "y": 44,
+            "s": 1.2,
+            "a": "float"
+          },
+          {
+            "e": "🔵",
+            "x": 88,
+            "y": 58,
+            "s": 1.2,
+            "a": "float"
+          },
+          {
+            "e": "💪",
+            "x": 76,
+            "y": 78,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Microbes also make some of our favorite foods. Bacteria turn milk into yogurt and soybeans into natto. A microbe called yeast produces gas that makes bread rise. This process is called fermentation.",
+      "ja": "び生物は、私たちの 好きな 食べ物も 作る。細きんは 牛にゅうを ヨーグルトに、大豆を なっとうに 変える。こうぼという び生物は 気体を 出し、パンを ふくらませる。この 働きを 発こうと いう。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🥛",
+            "x": 18,
+            "y": 68,
+            "s": 2.2
+          },
+          {
+            "e": "➡",
+            "x": 32,
+            "y": 62,
+            "s": 1.2
+          },
+          {
+            "e": "🍨",
+            "x": 46,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "🍞",
+            "x": 72,
+            "y": 66,
+            "s": 2.8
+          },
+          {
+            "e": "⬆",
+            "x": 72,
+            "y": 40,
+            "s": 1.4,
+            "a": "float"
+          },
+          {
+            "e": "🟡",
+            "x": 88,
+            "y": 50,
+            "s": 1.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In nature, microbes are the great recyclers. They break down dead leaves, fallen trees, and dead animals, and return the nutrients to the soil. Without them, the forest floor would be buried under dead material.",
+      "ja": "自然界で、び生物は 偉大な リサイクル係だ。かれ葉や たおれた 木、死んだ 動物を 分解し、養分を 土に 返す。び生物が いなければ、森の 地面は 死んだ 物に うもれてしまうだろう。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🍂",
+            "x": 20,
+            "y": 78,
+            "s": 2.2
+          },
+          {
+            "e": "🪵",
+            "x": 46,
+            "y": 78,
+            "s": 2.6
+          },
+          {
+            "e": "🍄",
+            "x": 66,
+            "y": 74,
+            "s": 1.8
+          },
+          {
+            "e": "🔄",
+            "x": 50,
+            "y": 36,
+            "s": 2.2,
+            "a": "spin"
+          },
+          {
+            "e": "🌱",
+            "x": 86,
+            "y": 76,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Of course, some microbes do make us sick. Certain bacteria and viruses cause illnesses such as colds, influenza, and food poisoning. They spread through the air, through water, and from our hands.",
+      "ja": "もちろん、病気を 起こす び生物も いる。ある 種の 細きんや ウイルスは、かぜ、インフルエンザ、食中毒などの 病気を 引き起こす。空気や 水を 通して、また 私たちの 手から 広がる。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😩",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🤧",
+            "x": 35,
+            "y": 22,
+            "s": 1.4
+          },
+          {
+            "e": "💨",
+            "x": 56,
+            "y": 52,
+            "s": 1.6,
+            "a": "drift"
+          },
+          {
+            "e": "🔺",
+            "x": 72,
+            "y": 44,
+            "s": 1,
+            "a": "float"
+          },
+          {
+            "e": "🔺",
+            "x": 82,
+            "y": 56,
+            "s": 1,
+            "a": "float"
+          },
+          {
+            "e": "🛏",
+            "x": 86,
+            "y": 80,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "This is why washing your hands with soap is so effective. Soap helps lift microbes off your skin so that water can carry them away. Doctors agree that this simple habit is one of the best ways to prevent illness.",
+      "ja": "だから 石けんで 手を あらうことは、とても 効果が ある。石けんは び生物を ひふから うかせ、水が 流し去れるように する。この 単純な 習慣が 病気を ふせぐ 最良の 方法の 一つだと、医師たちは 認めている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧼",
+            "x": 50,
+            "y": 60,
+            "s": 2
+          },
+          {
+            "e": "🖐",
+            "x": 64,
+            "y": 56,
+            "s": 2.2
+          },
+          {
+            "e": "💧",
+            "x": 64,
+            "y": 76,
+            "s": 1.4,
+            "a": "bob"
+          },
+          {
+            "e": "🚿",
+            "x": 84,
+            "y": 36,
+            "s": 2.2
+          },
+          {
+            "e": "✅",
+            "x": 46,
+            "y": 26,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "So the invisible world is neither good nor bad. It is simply part of our own. We are never truly alone: each of us is a walking home for countless tiny partners, and learning to live well with them keeps us healthy.",
+      "ja": "つまり、見えない 世界は 善でも 悪でも ない。私たちの 世界の 一部なのだ。私たちは けっして 一人では ない。だれもが、無数の 小さな 仲間を 乗せた 「歩く 家」であり、うまく 共に くらすことが 健康を 守る。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.8
+          },
+          {
+            "e": "😊",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🟢",
+            "x": 22,
+            "y": 40,
+            "s": 1,
+            "a": "float"
+          },
+          {
+            "e": "🔵",
+            "x": 58,
+            "y": 36,
+            "s": 1,
+            "a": "float"
+          },
+          {
+            "e": "🟡",
+            "x": 62,
+            "y": 60,
+            "s": 0.9,
+            "a": "float"
+          },
+          {
+            "e": "🟢",
+            "x": 20,
+            "y": 62,
+            "s": 0.8,
+            "a": "float"
+          },
+          {
+            "e": "❤",
+            "x": 80,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "microbes",
+      "ja": "び生物"
+    },
+    {
+      "en": "bacteria",
+      "ja": "細きん"
+    },
+    {
+      "en": "cell",
+      "ja": "細ぼう"
+    },
+    {
+      "en": "merchant",
+      "ja": "商人"
+    },
+    {
+      "en": "lenses",
+      "ja": "レンズ"
+    },
+    {
+      "en": "harmful",
+      "ja": "有害な"
+    },
+    {
+      "en": "intestines",
+      "ja": "腸"
+    },
+    {
+      "en": "digest",
+      "ja": "消化する"
+    },
+    {
+      "en": "fermentation",
+      "ja": "発こう"
+    },
+    {
+      "en": "nutrients",
+      "ja": "養分"
+    },
+    {
+      "en": "viruses",
+      "ja": "ウイルス"
+    },
+    {
+      "en": "effective",
+      "ja": "効果の ある"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How to bake bread and make yogurt",
+        "Why all microbes should be destroyed",
+        "How microbes both help and harm us",
+        "Who built the first modern hospital"
+      ],
+      "answer": "How microbes both help and harm us",
+      "kind": "main"
+    },
+    {
+      "q": "What did Leeuwenhoek look at through his lenses?",
+      "ja": "レーウェンフックは レンズで 何を のぞいた？",
+      "choices": [
+        "A piece of Dutch cloth",
+        "A drop of pond water",
+        "The skin of his own hand",
+        "A slice of rising bread"
+      ],
+      "answer": "A drop of pond water",
+      "kind": "detail"
+    },
+    {
+      "q": "What is one thing bacteria in your intestines do?",
+      "ja": "腸の 細きんが する ことの 一つは 何？",
+      "choices": [
+        "They help you digest food.",
+        "They make bread rise.",
+        "They cause most colds.",
+        "They clean your skin."
+      ],
+      "answer": "They help you digest food.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, “harmful” means ___.",
+      "ja": "この本で “harmful” の 意味は？",
+      "choices": [
+        "too small to see",
+        "found in the soil",
+        "useful for cooking",
+        "causing damage"
+      ],
+      "answer": "causing damage",
+      "kind": "vocab"
+    },
+    {
+      "q": "What would probably happen in a forest without microbes?",
+      "ja": "び生物の いない 森は、たぶん どうなる？",
+      "choices": [
+        "Trees would grow faster than before.",
+        "Dead plants would pile up and not rot.",
+        "Animals would never become ill.",
+        "The soil would become richer."
+      ],
+      "answer": "Dead plants would pile up and not rot.",
+      "kind": "infer"
+    }
+  ]
+}

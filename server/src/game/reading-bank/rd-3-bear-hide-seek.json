@@ -1,0 +1,646 @@
+{
+  "id": "rd-3-bear-hide-seek",
+  "stage": "3",
+  "title": "Bear Plays Hide-and-Seek",
+  "titleJa": "クマくんの かくれんぼ",
+  "kind": "story",
+  "cover": {
+    "bg": "forest",
+    "items": [
+      {
+        "e": "🪨",
+        "x": 40,
+        "y": 70,
+        "s": 4
+      },
+      {
+        "e": "🐻",
+        "x": 40,
+        "y": 56,
+        "s": 2.6
+      },
+      {
+        "e": "🐰",
+        "x": 80,
+        "y": 74,
+        "s": 2.8,
+        "a": "bob"
+      },
+      {
+        "e": "❓",
+        "x": 80,
+        "y": 34,
+        "s": 1.8,
+        "a": "pulse"
+      },
+      {
+        "e": "🌲",
+        "x": 10,
+        "y": 58,
+        "s": 3.4
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Bear, Rabbit, and Fox liked to play hide-and-seek in the forest.",
+      "ja": "クマと ウサギと キツネは、森で かくれんぼを するのが 好きでした。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 22,
+            "y": 72,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🐰",
+            "x": 50,
+            "y": 74,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "🦊",
+            "x": 78,
+            "y": 72,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🌲",
+            "x": 94,
+            "y": 58,
+            "s": 3
+          },
+          {
+            "e": "☀️",
+            "x": 12,
+            "y": 16,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bear was big, but he was good at hiding. He found a great place behind a rock.",
+      "ja": "クマは 大きいけれど、かくれるのが 上手でした。岩の 後ろに いい 場所を 見つけました。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🪨",
+            "x": 55,
+            "y": 68,
+            "s": 5
+          },
+          {
+            "e": "🐻",
+            "x": 55,
+            "y": 50,
+            "s": 2.6
+          },
+          {
+            "e": "🤫",
+            "x": 74,
+            "y": 40,
+            "s": 1.6
+          },
+          {
+            "e": "🌲",
+            "x": 14,
+            "y": 58,
+            "s": 3.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rabbit looked and looked. Then she heard a strange sound. Grrr-rumble!",
+      "ja": "ウサギは あちこち さがしました。そのとき、へんな 音が 聞こえました。グルルル、ゴロゴロ！",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 28,
+            "y": 74,
+            "s": 3.2
+          },
+          {
+            "e": "👂",
+            "x": 28,
+            "y": 34,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🪨",
+            "x": 70,
+            "y": 68,
+            "s": 4.4
+          },
+          {
+            "e": "🔊",
+            "x": 62,
+            "y": 34,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 44,
+            "y": 26,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I found you, Bear!\" she said. \"Your stomach is too noisy.\"",
+      "ja": "「クマくん、見つけた！」と ウサギは 言いました。「おなかの 音が うるさすぎるよ」",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 28,
+            "y": 74,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "👉",
+            "x": 44,
+            "y": 58,
+            "s": 1.6
+          },
+          {
+            "e": "🐻",
+            "x": 68,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "😳",
+            "x": 70,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🪨",
+            "x": 92,
+            "y": 74,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "They played again. This time, Bear hid in a tall tree.",
+      "ja": "もう 一度 遊びました。今度は、クマは 高い 木の 上に かくれました。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 55,
+            "y": 48,
+            "s": 6
+          },
+          {
+            "e": "🐻",
+            "x": 55,
+            "y": 32,
+            "s": 2.2
+          },
+          {
+            "e": "🦊",
+            "x": 18,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👀",
+            "x": 20,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "🍃",
+            "x": 76,
+            "y": 30,
+            "s": 1.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rumble, rumble! \"I found you again,\" said Fox. Bear was sad.",
+      "ja": "ゴロゴロ、ゴロゴロ！「また 見つけたよ」と キツネが 言いました。クマは 悲しく なりました。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🦊",
+            "x": 24,
+            "y": 72,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🐻",
+            "x": 62,
+            "y": 72,
+            "s": 3.6
+          },
+          {
+            "e": "😢",
+            "x": 64,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🌳",
+            "x": 90,
+            "y": 52,
+            "s": 4
+          },
+          {
+            "e": "🔊",
+            "x": 46,
+            "y": 34,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I always lose because I am always hungry,\" said Bear.",
+      "ja": "「ぼくは いつも おなかが すいているから、いつも 負けちゃうんだ」と クマは 言いました。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 45,
+            "y": 72,
+            "s": 3.8
+          },
+          {
+            "e": "😔",
+            "x": 47,
+            "y": 38,
+            "s": 1.2
+          },
+          {
+            "e": "💭",
+            "x": 66,
+            "y": 24,
+            "s": 2.2
+          },
+          {
+            "e": "🍯",
+            "x": 66,
+            "y": 22,
+            "s": 1.1
+          },
+          {
+            "e": "🌲",
+            "x": 12,
+            "y": 58,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rabbit had an idea. \"Let's eat lunch first. Then we can play.\"",
+      "ja": "ウサギは いい ことを 思いつきました。「先に 昼ごはんを 食べようよ。それから 遊べば いいよ」",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 34,
+            "y": 74,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "💡",
+            "x": 34,
+            "y": 28,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧺",
+            "x": 60,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🐻",
+            "x": 84,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😊",
+            "x": 86,
+            "y": 42,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "They ate honey sandwiches and apples by the river. Bear ate six sandwiches.",
+      "ja": "みんなは 川の そばで はちみつサンドイッチと リンゴを 食べました。クマは サンドイッチを 6つ 食べました。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 22,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "🥪",
+            "x": 40,
+            "y": 72,
+            "s": 1.6
+          },
+          {
+            "e": "🥪",
+            "x": 48,
+            "y": 78,
+            "s": 1.6
+          },
+          {
+            "e": "🍯",
+            "x": 58,
+            "y": 74,
+            "s": 1.6
+          },
+          {
+            "e": "🐰",
+            "x": 74,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🍎",
+            "x": 88,
+            "y": 78,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then Bear hid one more time. His stomach was quiet. Nobody could find him.",
+      "ja": "それから クマは もう 一度 かくれました。おなかは 静かでした。だれも クマを 見つけられませんでした。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 22,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "❓",
+            "x": 22,
+            "y": 34,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🦊",
+            "x": 60,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "❓",
+            "x": 60,
+            "y": 32,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌳",
+            "x": 90,
+            "y": 52,
+            "s": 4.4
+          },
+          {
+            "e": "🌲",
+            "x": 40,
+            "y": 58,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rabbit and Fox looked for a long time. At last, they heard a new sound. Zzzzz!",
+      "ja": "ウサギと キツネは 長い 間 さがしました。とうとう、新しい 音が 聞こえました。グーグー！",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 16,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🦊",
+            "x": 42,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "👂",
+            "x": 30,
+            "y": 34,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌿",
+            "x": 78,
+            "y": 70,
+            "s": 4
+          },
+          {
+            "e": "💤",
+            "x": 80,
+            "y": 36,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bear was sleeping under a bush. \"Found you!\" they laughed.",
+      "ja": "クマは しげみの 下で ねむっていました。「見つけた！」と 二人は 笑いました。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 55,
+            "y": 74,
+            "s": 3.6
+          },
+          {
+            "e": "💤",
+            "x": 62,
+            "y": 34,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🌿",
+            "x": 78,
+            "y": 66,
+            "s": 3.4
+          },
+          {
+            "e": "🐰",
+            "x": 16,
+            "y": 74,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 18,
+            "y": 46,
+            "s": 1.1
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "hiding",
+      "ja": "かくれること"
+    },
+    {
+      "en": "behind",
+      "ja": "〜の 後ろに"
+    },
+    {
+      "en": "rock",
+      "ja": "岩"
+    },
+    {
+      "en": "strange",
+      "ja": "へんな"
+    },
+    {
+      "en": "sound",
+      "ja": "音"
+    },
+    {
+      "en": "stomach",
+      "ja": "おなか"
+    },
+    {
+      "en": "noisy",
+      "ja": "うるさい"
+    },
+    {
+      "en": "lose",
+      "ja": "負ける"
+    },
+    {
+      "en": "quiet",
+      "ja": "静かな"
+    },
+    {
+      "en": "at last",
+      "ja": "とうとう"
+    },
+    {
+      "en": "bush",
+      "ja": "しげみ・低い 木"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "a fox who is afraid of tall trees",
+        "a bear whose stomach is too noisy",
+        "a rabbit who cannot find her lunch",
+        "a forest with a very loud river"
+      ],
+      "answer": "a bear whose stomach is too noisy",
+      "kind": "main"
+    },
+    {
+      "q": "Where did Bear hide first?",
+      "ja": "クマは 最初に どこに かくれましたか。",
+      "choices": [
+        "In a tall tree.",
+        "Under a bush.",
+        "Behind a rock.",
+        "By the river."
+      ],
+      "answer": "Behind a rock.",
+      "kind": "detail"
+    },
+    {
+      "q": "What was Rabbit's idea?",
+      "ja": "ウサギの 考えは 何でしたか。",
+      "choices": [
+        "To play a different game.",
+        "To hide together with Bear.",
+        "To go home and sleep all day.",
+        "To eat lunch before playing."
+      ],
+      "answer": "To eat lunch before playing.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did they do just before Bear hid the last time?",
+      "ja": "クマが 最後に かくれる すぐ前に、みんなは 何を しましたか。",
+      "choices": [
+        "They ate by the river.",
+        "They climbed a tall tree.",
+        "They slept under a bush.",
+        "They looked behind a rock."
+      ],
+      "answer": "They ate by the river.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did Bear fall asleep at the end?",
+      "ja": "クマは 最後に なぜ ねむって しまったのですか。",
+      "choices": [
+        "He was afraid of the dark.",
+        "He was full after a big lunch.",
+        "He was sick from the cold.",
+        "He was tired of his friends."
+      ],
+      "answer": "He was full after a big lunch.",
+      "kind": "infer"
+    }
+  ]
+}

@@ -95,7 +95,7 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
     next();
   });
   mountHomeworkApi(api, {
-    homework, aiReady, log, header: 'uspeak-teacher',
+    homework, aiReady, log, header: 'uspeak-teacher', rosterRows,
     scope: (req) => req.classroom.classes,
     // 読みとり（AI）は お金が かかるので、1 つの 教室で 1 時間 EXTRACTS_PER_HOUR 回まで。
     extractLimit: (req) => {
@@ -105,7 +105,7 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
       list.push(t); extracts.set(id, list); return true;
     },
   });
-  if (kids) mountKidsApi(api, { kids, scope: (req) => req.classroom.classes, rosterRows, header: 'uspeak-teacher', log });
+  if (kids) mountKidsApi(api, { kids, scope: (req) => req.classroom.classes, rosterRows, header: 'uspeak-teacher', secret, log });
   router.use('/api', api);
   app.use('/teacher', router);
 }

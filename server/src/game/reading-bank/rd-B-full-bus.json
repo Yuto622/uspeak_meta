@@ -1,0 +1,339 @@
+{
+  "id": "rd-B-full-bus",
+  "stage": "B",
+  "title": "The Bus Is Full",
+  "titleJa": "バスは まんいん",
+  "kind": "story",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "🚌",
+        "x": 54,
+        "y": 66,
+        "s": 5.2,
+        "a": "bob"
+      },
+      {
+        "e": "🐻",
+        "x": 14,
+        "y": 72,
+        "s": 2.8
+      },
+      {
+        "e": "☀️",
+        "x": 84,
+        "y": 18,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "The bus stops. A boy gets on.",
+      "ja": "バスが とまる。おとこのこが のる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 64,
+            "y": 66,
+            "s": 4.8
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🪧",
+            "x": 6,
+            "y": 60,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The bus stops. A grandma gets on.",
+      "ja": "バスが とまる。おばあさんが のる。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 64,
+            "y": 66,
+            "s": 4.8
+          },
+          {
+            "e": "👵",
+            "x": 22,
+            "y": 70,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🧺",
+            "x": 38,
+            "y": 78,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The bus stops. A dog gets on.",
+      "ja": "バスが とまる。いぬが のる。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 64,
+            "y": 66,
+            "s": 4.8
+          },
+          {
+            "e": "🐶",
+            "x": 22,
+            "y": 72,
+            "s": 2.8,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The bus stops. A big bear gets on!",
+      "ja": "バスが とまる。おおきな くまが のる！",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 66,
+            "y": 66,
+            "s": 4.8,
+            "a": "sway"
+          },
+          {
+            "e": "🐻",
+            "x": 22,
+            "y": 68,
+            "s": 3.8,
+            "a": "bob"
+          },
+          {
+            "e": "❗",
+            "x": 42,
+            "y": 26,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now the bus is full.",
+      "ja": "バスは もう まんいん。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 50,
+            "y": 62,
+            "s": 6,
+            "a": "pulse"
+          },
+          {
+            "e": "💦",
+            "x": 82,
+            "y": 30,
+            "s": 1.8,
+            "a": "hop"
+          },
+          {
+            "e": "💦",
+            "x": 18,
+            "y": 30,
+            "s": 1.8,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The bus stops at the park.",
+      "ja": "バスが こうえんで とまる。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 40,
+            "y": 66,
+            "s": 4.8
+          },
+          {
+            "e": "🌳",
+            "x": 84,
+            "y": 58,
+            "s": 3.4
+          },
+          {
+            "e": "🌷",
+            "x": 70,
+            "y": 80,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Everyone gets off. It is picnic time!",
+      "ja": "みんな おりる。ピクニックの じかんだ！",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 10,
+            "y": 70,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "👵",
+            "x": 32,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "🧺",
+            "x": 46,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "🐶",
+            "x": 60,
+            "y": 74,
+            "s": 2.4,
+            "a": "hop"
+          },
+          {
+            "e": "🐻",
+            "x": 84,
+            "y": 68,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🥪",
+            "x": 46,
+            "y": 60,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "bus",
+      "ja": "バス"
+    },
+    {
+      "en": "stops",
+      "ja": "とまる"
+    },
+    {
+      "en": "gets on",
+      "ja": "のる"
+    },
+    {
+      "en": "gets off",
+      "ja": "おりる"
+    },
+    {
+      "en": "bear",
+      "ja": "くま"
+    },
+    {
+      "en": "full",
+      "ja": "いっぱい・まんいん"
+    },
+    {
+      "en": "park",
+      "ja": "こうえん"
+    },
+    {
+      "en": "everyone",
+      "ja": "みんな"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a train to the sea",
+        "a boat on a river",
+        "a bus to the park"
+      ],
+      "answer": "a bus to the park",
+      "kind": "main"
+    },
+    {
+      "q": "Who gets on first?",
+      "ja": "さいしょに のるのは だれ？",
+      "choices": [
+        "a boy",
+        "a dog",
+        "a bear"
+      ],
+      "answer": "a boy",
+      "kind": "sequence"
+    },
+    {
+      "q": "Who gets on after the dog?",
+      "ja": "いぬの つぎに のるのは だれ？",
+      "choices": [
+        "a grandma",
+        "a big bear",
+        "a boy"
+      ],
+      "answer": "a big bear",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"full\" mean?",
+      "ja": "\"full\" は どんな いみ？",
+      "choices": [
+        "There is no more room.",
+        "There is no bus.",
+        "It is very fast."
+      ],
+      "answer": "There is no more room.",
+      "kind": "vocab"
+    },
+    {
+      "q": "Where does everyone get off?",
+      "ja": "みんなは どこで おりるの？",
+      "choices": [
+        "at the school",
+        "at the park",
+        "at the shop"
+      ],
+      "answer": "at the park",
+      "kind": "detail"
+    }
+  ]
+}

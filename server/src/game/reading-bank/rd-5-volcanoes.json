@@ -1,0 +1,703 @@
+{
+  "id": "rd-5-volcanoes",
+  "stage": "5",
+  "title": "Mountains of Fire: Volcanoes",
+  "titleJa": "火の 山・火山の ひみつ",
+  "kind": "fact",
+  "cover": {
+    "bg": "mountain",
+    "items": [
+      {
+        "e": "⛰️",
+        "x": 50,
+        "y": 58,
+        "s": 6
+      },
+      {
+        "e": "🔥",
+        "x": 50,
+        "y": 24,
+        "s": 2.6,
+        "a": "pulse"
+      },
+      {
+        "e": "💨",
+        "x": 64,
+        "y": 14,
+        "s": 2.4,
+        "a": "drift"
+      },
+      {
+        "e": "♨️",
+        "x": 16,
+        "y": 76,
+        "s": 2
+      },
+      {
+        "e": "⚠️",
+        "x": 86,
+        "y": 74,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "A volcano is a mountain with an opening to the hot inside of the Earth. Most of the time, it is quiet.",
+      "ja": "火山とは、地球の 熱い 内部に つながる 口を 持った 山です。ふだんは 静かに しています。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "⛰️",
+            "x": 50,
+            "y": 58,
+            "s": 6
+          },
+          {
+            "e": "💨",
+            "x": 52,
+            "y": 22,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "🌲",
+            "x": 14,
+            "y": 72,
+            "s": 2.4
+          },
+          {
+            "e": "🏠",
+            "x": 86,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "☁️",
+            "x": 82,
+            "y": 16,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Deep under the ground, it is so hot that rock melts. This melted rock is called magma.",
+      "ja": "地面の 深い ところは とても 熱く、岩が とけて しまいます。この とけた 岩を 「マグマ」と 言います。",
+      "scene": {
+        "bg": "cave",
+        "items": [
+          {
+            "e": "🔥",
+            "x": 30,
+            "y": 66,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "🔥",
+            "x": 55,
+            "y": 72,
+            "s": 3.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🔥",
+            "x": 78,
+            "y": 66,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "🪨",
+            "x": 20,
+            "y": 34,
+            "s": 2.4
+          },
+          {
+            "e": "🪨",
+            "x": 80,
+            "y": 30,
+            "s": 2.4
+          },
+          {
+            "e": "⬇️",
+            "x": 50,
+            "y": 22,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Magma is lighter than the hard rock around it, so it slowly rises. Sometimes it pushes out through the top of a volcano.",
+      "ja": "マグマは まわりの かたい 岩より 軽いので、ゆっくり 上がって いきます。ときには 火山の てっぺんから おし出される ことが あります。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "⛰️",
+            "x": 50,
+            "y": 60,
+            "s": 6
+          },
+          {
+            "e": "🔥",
+            "x": 50,
+            "y": 80,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "⬆️",
+            "x": 50,
+            "y": 54,
+            "s": 2,
+            "a": "hop"
+          },
+          {
+            "e": "🔥",
+            "x": 50,
+            "y": 26,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🪨",
+            "x": 86,
+            "y": 78,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "This is called an eruption. When magma comes out, we call it lava. Lava can be hotter than one thousand degrees.",
+      "ja": "これを 「ふん火」と 言います。外に 出た マグマは 「よう岩」と よばれます。よう岩は 1000度より 熱く なる ことが あります。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "⛰️",
+            "x": 45,
+            "y": 60,
+            "s": 6
+          },
+          {
+            "e": "🔥",
+            "x": 45,
+            "y": 22,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "💥",
+            "x": 45,
+            "y": 10,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🔥",
+            "x": 62,
+            "y": 54,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🔥",
+            "x": 30,
+            "y": 62,
+            "s": 1.6,
+            "a": "drift"
+          },
+          {
+            "e": "⚠️",
+            "x": 88,
+            "y": 72,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Some volcanoes also send ash and gas high into the sky. The ash can fall on towns far away, like gray snow.",
+      "ja": "灰や ガスを 空高く ふき上げる 火山も あります。灰は 遠くの 町にも、灰色の 雪のように ふる ことが あります。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "⛰️",
+            "x": 16,
+            "y": 56,
+            "s": 3.6
+          },
+          {
+            "e": "💨",
+            "x": 22,
+            "y": 24,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "☁️",
+            "x": 50,
+            "y": 16,
+            "s": 3,
+            "a": "drift"
+          },
+          {
+            "e": "⚫",
+            "x": 62,
+            "y": 40,
+            "s": 0.7,
+            "a": "drift"
+          },
+          {
+            "e": "⚫",
+            "x": 74,
+            "y": 50,
+            "s": 0.7,
+            "a": "drift"
+          },
+          {
+            "e": "⚫",
+            "x": 84,
+            "y": 36,
+            "s": 0.7,
+            "a": "drift"
+          },
+          {
+            "e": "🏘️",
+            "x": 76,
+            "y": 72,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "When lava cools, it becomes hard, new rock. Over many years, eruptions can build a tall mountain or even a new island.",
+      "ja": "よう岩は 冷えると、かたい 新しい 岩に なります。長い 年月を かけて、ふん火は 高い 山や、新しい 島さえ 作る ことが あります。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🏝️",
+            "x": 50,
+            "y": 60,
+            "s": 5
+          },
+          {
+            "e": "🔥",
+            "x": 50,
+            "y": 34,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "💨",
+            "x": 56,
+            "y": 18,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🌊",
+            "x": 16,
+            "y": 80,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🌊",
+            "x": 86,
+            "y": 82,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🪨",
+            "x": 76,
+            "y": 70,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Japan has many volcanoes. Mt. Fuji, the highest mountain in Japan, is one of them. It has been quiet for more than three hundred years.",
+      "ja": "日本には 火山が たくさん あります。日本一 高い 山、富士山も その 一つです。300年以上 静かに しています。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🏔️",
+            "x": 50,
+            "y": 50,
+            "s": 6
+          },
+          {
+            "e": "🗾",
+            "x": 14,
+            "y": 30,
+            "s": 2.4
+          },
+          {
+            "e": "🌸",
+            "x": 20,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🌸",
+            "x": 84,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "☁️",
+            "x": 80,
+            "y": 20,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Volcanoes can be dangerous, so scientists watch them carefully. Small earthquakes and changes in the ground can show that magma is moving.",
+      "ja": "火山は きけんな ことも あるので、科学者が 注意深く 見守っています。小さな 地しんや 地面の 変化から、マグマが 動いている ことが わかります。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "⛰️",
+            "x": 72,
+            "y": 56,
+            "s": 4.6
+          },
+          {
+            "e": "👩‍🔬",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💻",
+            "x": 44,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "📈",
+            "x": 44,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "📡",
+            "x": 92,
+            "y": 74,
+            "s": 1.8
+          },
+          {
+            "e": "〰️",
+            "x": 62,
+            "y": 84,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "With this information, people can leave the area before a big eruption. Many towns near volcanoes practice what to do.",
+      "ja": "この 情報が あれば、大きな ふん火の 前に ひなんする ことが できます。火山の 近くの 町の 多くは、どう するかを 練習しています。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "⛰️",
+            "x": 12,
+            "y": 52,
+            "s": 3.4
+          },
+          {
+            "e": "📢",
+            "x": 34,
+            "y": 44,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👨",
+            "x": 50,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 74,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "➡️",
+            "x": 90,
+            "y": 60,
+            "s": 2
+          },
+          {
+            "e": "🎒",
+            "x": 62,
+            "y": 82,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "But volcanoes also give us good things. The heat under the ground warms water and makes hot springs.",
+      "ja": "でも、火山は よい ものも くれます。地下の 熱が 水を あたため、温泉を 作るのです。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "♨️",
+            "x": 50,
+            "y": 62,
+            "s": 4.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🐵",
+            "x": 24,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "😊",
+            "x": 26,
+            "y": 46,
+            "s": 1.1
+          },
+          {
+            "e": "🪨",
+            "x": 76,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "⛰️",
+            "x": 86,
+            "y": 40,
+            "s": 2.6
+          },
+          {
+            "e": "❄️",
+            "x": 14,
+            "y": 20,
+            "s": 1.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Volcanic ash makes the soil rich, too. Farmers near old volcanoes often grow delicious vegetables and fruit.",
+      "ja": "火山灰は 土を ゆたかにも します。古い 火山の 近くの 農家は、おいしい 野菜や くだものを 育てている ことが 多いです。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "⛰️",
+            "x": 82,
+            "y": 40,
+            "s": 3.4
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🥕",
+            "x": 46,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🍅",
+            "x": 58,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🥔",
+            "x": 70,
+            "y": 78,
+            "s": 1.6
+          },
+          {
+            "e": "🍇",
+            "x": 46,
+            "y": 52,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "A volcano shows us that the Earth is not just a quiet ball of rock. Deep inside, it is hot and always moving.",
+      "ja": "火山は、地球が ただの 静かな 岩の ボールでは ない ことを 教えて くれます。地球の 奥深くは 熱く、いつも 動いているのです。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🌍",
+            "x": 50,
+            "y": 52,
+            "s": 5.6,
+            "a": "spin"
+          },
+          {
+            "e": "🔥",
+            "x": 50,
+            "y": 52,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "✨",
+            "x": 20,
+            "y": 24,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 84,
+            "y": 20,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "volcano",
+      "ja": "火山"
+    },
+    {
+      "en": "melts",
+      "ja": "とける"
+    },
+    {
+      "en": "magma",
+      "ja": "マグマ"
+    },
+    {
+      "en": "rises",
+      "ja": "上がる"
+    },
+    {
+      "en": "eruption",
+      "ja": "ふん火"
+    },
+    {
+      "en": "lava",
+      "ja": "よう岩"
+    },
+    {
+      "en": "degrees",
+      "ja": "度"
+    },
+    {
+      "en": "ash",
+      "ja": "灰"
+    },
+    {
+      "en": "island",
+      "ja": "島"
+    },
+    {
+      "en": "dangerous",
+      "ja": "きけんな"
+    },
+    {
+      "en": "earthquakes",
+      "ja": "地しん"
+    },
+    {
+      "en": "hot springs",
+      "ja": "温泉"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "how volcanoes work and what they give us",
+        "how to climb the highest mountain in Japan",
+        "why farmers grow vegetables in summer",
+        "where to find the best hot springs"
+      ],
+      "answer": "how volcanoes work and what they give us",
+      "kind": "main"
+    },
+    {
+      "q": "What is magma?",
+      "ja": "マグマとは 何ですか。",
+      "choices": [
+        "Gray ash that falls from the sky.",
+        "A small earthquake at night.",
+        "Melted rock under the ground.",
+        "Hot water in a spring."
+      ],
+      "answer": "Melted rock under the ground.",
+      "kind": "detail"
+    },
+    {
+      "q": "How do scientists know that magma is moving?",
+      "ja": "科学者は どうやって マグマが 動いている ことを 知りますか。",
+      "choices": [
+        "They see farmers leave the area.",
+        "They feel the hot springs get cold.",
+        "They count the new islands.",
+        "They notice small earthquakes."
+      ],
+      "answer": "They notice small earthquakes.",
+      "kind": "detail"
+    },
+    {
+      "q": "An \"eruption\" happens when ___.",
+      "ja": "「eruption」は どんな ときに 起こりますか。",
+      "choices": [
+        "snow falls on a tall mountain",
+        "magma pushes out of a volcano",
+        "farmers grow vegetables in ash",
+        "scientists visit a quiet town"
+      ],
+      "answer": "magma pushes out of a volcano",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why are there many hot springs in Japan?",
+      "ja": "日本には なぜ 温泉が 多いのでしょう。",
+      "choices": [
+        "Japan has a lot of rain.",
+        "Japan is close to the sea.",
+        "Japan has many volcanoes.",
+        "Japan has long, hot summers."
+      ],
+      "answer": "Japan has many volcanoes.",
+      "kind": "infer"
+    }
+  ]
+}

@@ -3472,9 +3472,14 @@ export class ClassRoom extends Room {
 
   // ✕ で やめる：魚は逃げる（問題も、釣れる寸前の魚も捨てる）。
   // ---- 宿題 ---------------------------------------------------------------------------------------
-  onHwList(client) {
+  async onHwList(client) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
+    // えほんの 宿題：くばる 前に もう ✓ だった 本は、ここで「おわり」に する。
+    if (this.homework && this.reading) {
+      const books = this.readProgress(priv).books || {};
+      for (const a of this.homework.forStudent(this.classCode, priv.name)) if (a.book && books[a.book]?.done) await this.homework.markBookDone(this.classCode, priv.name, a.book);
+    }
     client.send('hw:list', { items: this.homework ? this.homework.listFor(this.classCode, priv.name) : [] });
     this.payOwedHomework(client);
   }
@@ -3532,8 +3537,9 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(client.sessionId);
     if (!priv || !this.homework) return;
     const aid = typeof msg?.aid === 'string' ? msg.aid : '';
-    const ok = this.homework.forClass(this.classCode).some((a) => a.id === aid);
-    if (!ok) { client.send('hw:error', { reason: 'no such homework' }); return; }
+    const mine = this.homework.forStudent(this.classCode, priv.name).find((a) => a.id === aid);
+    if (!mine) { client.send('hw:error', { reason: 'no such homework' }); return; }
+    if (mine.book) { client.send('hw:book', { aid, id: mine.book }); return; } // えほんの 宿題は 本を ひらく（問題は ない）
     priv.hw = { aid, q: null, n: 0, seen: new Set(), coins: 0, redo: !!msg?.redo };
     this.payOwedHomework(client);
     this.hwNext(client);
@@ -4921,8 +4927,16 @@ export class ClassRoom extends Room {
       // 子どもは じぶんの 段階と その 上下 1 つまで（棚に 出て いる 本だけ）。
       const mine = priv.readStageId || (priv.readStageId = await this.readStage(sessionId));
       const ids = Object.keys(reading.SHAPE); const order = ['A', 'B', 'C', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-      if (ids.length && Math.abs(order.indexOf(book.stage) - order.indexOf(mine)) > 1) { client.send('read:error', { reason: 'not on your shelf' }); return; }
+      // 先生が 宿題で 出した 本は、棚の 外でも ひらける。
+      const assigned = !!this.homework?.forStudent(this.classCode, priv.name).some((a) => a.book === book.id);
+      if (!assigned && ids.length && Math.abs(order.indexOf(book.stage) - order.indexOf(mine)) > 1) { client.send('read:error', { reason: 'not on your shelf' }); return; }
     }
+    // ✓ に なったら、その 本の「えほんの 宿題」を おわりに する（左の カードも 書きなおす）。
+    const hwBook = async () => {
+      if (teacher || !this.homework || !progress.books?.[book.id]?.done) return;
+      try { if ((await this.homework.markBookDone(this.classCode, priv.name, book.id)).length) { taskBumpKey(priv.tasks, 'homework'); this.taskTouch(sessionId); this.taskSend(sessionId); } }
+      catch (err) { log.warn(`[room ${this.roomId}] book homework failed:`, err?.message || err); }
+    };
     const pay = (coins, why) => {
       if (coins <= 0 || teacher) return;
       const entry = applyOp(priv.wallet, { type: 'award', amount: coins, id: `read:${book.id}` });
@@ -4936,7 +4950,7 @@ export class ClassRoom extends Room {
       const r = reading.settle(progress, book, { day });
       pay(r.coins, 'done');
       if (r.firstDone) this.robloxEvent(sessionId, 'book', 'reading', { book: book.id, title: book.title, stage: book.stage, words: book.words }, now);
-      save();
+      save(); await hwBook();
       client.send('read:progress', { id: book.id, step: String(msg.step), ...r, book: reading.publicBook(book, progress), ...this.walletPayload(sessionId) });
       return;
     }
@@ -4975,7 +4989,7 @@ export class ClassRoom extends Room {
         pay(done.coins, 'quiz');
         if (done.firstDone) this.robloxEvent(sessionId, 'book', 'reading', { book: book.id, title: book.title, stage: book.stage, words: book.words }, now);
         priv.readQuiz = null;
-        save();
+        save(); await hwBook();
       }
       client.send('read:result', { id: book.id, ...result, next: result.over ? null : reading.quizQuestion(session), done, book: result.over ? reading.publicBook(book, progress) : undefined, ...this.walletPayload(sessionId), progress: this.progressPayload(sessionId) });
     }

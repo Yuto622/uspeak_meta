@@ -1,0 +1,546 @@
+{
+  "id": "rd-6-pencil-story",
+  "stage": "6",
+  "title": "The Story of the Pencil",
+  "titleJa": "えんぴつの 物語",
+  "kind": "fact",
+  "cover": {
+    "bg": "school",
+    "items": [
+      {
+        "e": "✏",
+        "x": 50,
+        "y": 50,
+        "s": 5,
+        "a": "bob"
+      },
+      {
+        "e": "📄",
+        "x": 25,
+        "y": 74,
+        "s": 2.2
+      },
+      {
+        "e": "🪵",
+        "x": 78,
+        "y": 74,
+        "s": 2.2
+      },
+      {
+        "e": "✨",
+        "x": 70,
+        "y": 26,
+        "s": 1.6,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "You probably use a pencil every day. It is so simple that we never think about it. But this small tool has a long and interesting story.",
+      "ja": "みなさんは たぶん 毎日 えんぴつを 使うでしょう。とても 単純なので、ふだん 気にも とめません。でも この 小さな 道具には、長くて おもしろい 物語が あります。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "✏",
+            "x": 50,
+            "y": 60,
+            "s": 2.4
+          },
+          {
+            "e": "📝",
+            "x": 66,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "❓",
+            "x": 50,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "People sometimes say that a pencil has “lead” inside. That is not true! The dark part is graphite, a soft black material that comes from the ground.",
+      "ja": "えんぴつの 中には 「なまり」が 入っていると 言う 人が います。それは まちがい！ 黒い 部分は 黒えん。地中から とれる、やわらかくて 黒い 物質です。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "✏",
+            "x": 30,
+            "y": 50,
+            "s": 3.6
+          },
+          {
+            "e": "❌",
+            "x": 30,
+            "y": 24,
+            "s": 1.6
+          },
+          {
+            "e": "⚫",
+            "x": 62,
+            "y": 70,
+            "s": 2
+          },
+          {
+            "e": "🪨",
+            "x": 80,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "⬇",
+            "x": 72,
+            "y": 44,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Hundreds of years ago, people in England found a large amount of graphite in the hills. It is said that farmers used it to mark their sheep.",
+      "ja": "何百年も 前、イギリスの 人びとが おかで たくさんの 黒えんを 見つけました。農家の 人は、それで ヒツジに しるしを つけたと 言われています。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🧑‍🌾",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🐑",
+            "x": 58,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "⚫",
+            "x": 58,
+            "y": 66,
+            "s": 0.8
+          },
+          {
+            "e": "🐑",
+            "x": 82,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "⛰",
+            "x": 85,
+            "y": 30,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "But graphite made people’s hands dirty. So they wrapped the sticks in string or sheepskin. Later, someone had a better idea: put the graphite inside wood.",
+      "ja": "でも 黒えんは 手を よごしました。そこで 人びとは、ぼうを ひもや ヒツジの 皮で 包みました。その後、だれかが もっと いい 考えを 出しました。黒えんを 木の 中に 入れるのです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🖐",
+            "x": 20,
+            "y": 60,
+            "s": 2.2
+          },
+          {
+            "e": "⚫",
+            "x": 20,
+            "y": 62,
+            "s": 0.8
+          },
+          {
+            "e": "🧵",
+            "x": 45,
+            "y": 70,
+            "s": 2
+          },
+          {
+            "e": "➡",
+            "x": 60,
+            "y": 60,
+            "s": 1.4
+          },
+          {
+            "e": "🪵",
+            "x": 78,
+            "y": 70,
+            "s": 2.4
+          },
+          {
+            "e": "💡",
+            "x": 78,
+            "y": 28,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Pure graphite breaks easily. So pencil makers learned to mix graphite powder with clay and bake it. This made the core of the pencil much stronger.",
+      "ja": "黒えんだけでは すぐ おれます。そこで えんぴつ職人は、黒えんの 粉を ねんどと まぜて 焼く 方法を 学びました。これで えんぴつの しんは ずっと 強く なりました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "⚫",
+            "x": 20,
+            "y": 66,
+            "s": 1.6
+          },
+          {
+            "e": "➕",
+            "x": 34,
+            "y": 66,
+            "s": 1.2
+          },
+          {
+            "e": "🧱",
+            "x": 48,
+            "y": 68,
+            "s": 1.8
+          },
+          {
+            "e": "🔥",
+            "x": 70,
+            "y": 70,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "💪",
+            "x": 88,
+            "y": 50,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "This mix also changes how a pencil writes. More clay makes a hard pencil with a light line. More graphite makes a soft pencil with a dark line.",
+      "ja": "この まぜ方で、書き味も 変わります。ねんどが 多いと、うすい 線の かたい えんぴつに。黒えんが 多いと、こい 線の やわらかい えんぴつに なります。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "✏",
+            "x": 25,
+            "y": 40,
+            "s": 2.6
+          },
+          {
+            "e": "〰",
+            "x": 25,
+            "y": 62,
+            "s": 2
+          },
+          {
+            "e": "✏",
+            "x": 72,
+            "y": 40,
+            "s": 2.6
+          },
+          {
+            "e": "➖",
+            "x": 72,
+            "y": 62,
+            "s": 2.6
+          },
+          {
+            "e": "📄",
+            "x": 50,
+            "y": 80,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Look at the letters on your pencil. “H” means hard, and “B” means black. An HB pencil is in the middle, so it is good for writing.",
+      "ja": "えんぴつの 文字を 見てみましょう。Hは 「かたい」、Bは 「黒い」という 意味です。HBの えんぴつは 真ん中なので、字を 書くのに 向いています。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🔍",
+            "x": 46,
+            "y": 54,
+            "s": 1.8
+          },
+          {
+            "e": "✏",
+            "x": 64,
+            "y": 52,
+            "s": 3.2
+          },
+          {
+            "e": "📝",
+            "x": 84,
+            "y": 74,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "What about mistakes? Before rubber erasers, people used soft bread to rub out pencil marks. Later, someone put a small eraser on the end of a pencil.",
+      "ja": "まちがえた 時は？ ゴムの 消しゴムが できる前、人びとは やわらかい パンで えんぴつの あとを こすって 消しました。後に、えんぴつの はしに 小さな 消しゴムを つける 人が 出てきました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🍞",
+            "x": 30,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "📄",
+            "x": 55,
+            "y": 72,
+            "s": 2.4
+          },
+          {
+            "e": "❌",
+            "x": 55,
+            "y": 60,
+            "s": 1.2
+          },
+          {
+            "e": "✏",
+            "x": 80,
+            "y": 50,
+            "s": 2.8
+          },
+          {
+            "e": "😲",
+            "x": 30,
+            "y": 30,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "How does a pencil write? When you move it across paper, tiny pieces of graphite stay on the paper’s rough surface. An eraser picks those pieces up again.",
+      "ja": "えんぴつは どうして 書けるのでしょう。紙の 上で 動かすと、黒えんの 小さな つぶが 紙の ざらざらした 表面に 残ります。消しゴムは その つぶを また 取りのぞきます。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "✏",
+            "x": 35,
+            "y": 44,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "📄",
+            "x": 50,
+            "y": 74,
+            "s": 3.2
+          },
+          {
+            "e": "⚫",
+            "x": 44,
+            "y": 68,
+            "s": 0.6
+          },
+          {
+            "e": "⚫",
+            "x": 54,
+            "y": 70,
+            "s": 0.6
+          },
+          {
+            "e": "⚫",
+            "x": 62,
+            "y": 67,
+            "s": 0.6
+          },
+          {
+            "e": "🔍",
+            "x": 78,
+            "y": 50,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Today we have computers and tablets, but people still make a huge number of pencils every year. A simple, good idea can last a very long time.",
+      "ja": "今は コンピューターや タブレットが ありますが、今でも 毎年 ものすごい 数の えんぴつが 作られています。単純で いい アイデアは、とても 長く 生き続けるのです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "💻",
+            "x": 22,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "✏",
+            "x": 50,
+            "y": 50,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "✏",
+            "x": 64,
+            "y": 56,
+            "s": 2.2
+          },
+          {
+            "e": "✏",
+            "x": 76,
+            "y": 50,
+            "s": 2.6
+          },
+          {
+            "e": "👩",
+            "x": 90,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "✨",
+            "x": 50,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "tool",
+      "ja": "道具"
+    },
+    {
+      "en": "graphite",
+      "ja": "黒えん"
+    },
+    {
+      "en": "material",
+      "ja": "物質、材料"
+    },
+    {
+      "en": "wrapped",
+      "ja": "包んだ"
+    },
+    {
+      "en": "string",
+      "ja": "ひも"
+    },
+    {
+      "en": "clay",
+      "ja": "ねんど"
+    },
+    {
+      "en": "core",
+      "ja": "しん"
+    },
+    {
+      "en": "eraser",
+      "ja": "消しゴム"
+    },
+    {
+      "en": "rough",
+      "ja": "ざらざらした"
+    },
+    {
+      "en": "surface",
+      "ja": "表面"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How to draw a sheep",
+        "Why computers are better than pencils",
+        "How to bake bread at home",
+        "How the pencil was made and improved"
+      ],
+      "answer": "How the pencil was made and improved",
+      "kind": "main"
+    },
+    {
+      "q": "What is the dark part of a pencil made of?",
+      "ja": "えんぴつの 黒い 部分は 何で できている？",
+      "choices": [
+        "Graphite",
+        "Lead",
+        "Rubber",
+        "Burned wood"
+      ],
+      "answer": "Graphite",
+      "kind": "detail"
+    },
+    {
+      "q": "What did people use before rubber erasers?",
+      "ja": "ゴムの 消しゴムの 前、人びとは 何を 使った？",
+      "choices": [
+        "Wet cloth",
+        "Sheepskin",
+        "Soft bread",
+        "White clay"
+      ],
+      "answer": "Soft bread",
+      "kind": "detail"
+    },
+    {
+      "q": "Which idea came first?",
+      "ja": "どの 考えが 最初に 出てきた？",
+      "choices": [
+        "Putting an eraser on the pencil",
+        "Wrapping graphite in string",
+        "Mixing graphite with clay",
+        "Putting graphite inside wood"
+      ],
+      "answer": "Wrapping graphite in string",
+      "kind": "sequence"
+    },
+    {
+      "q": "Which pencil would be best for a very dark drawing?",
+      "ja": "とても こい 絵を かくには、どの えんぴつが 一番 いい？",
+      "choices": [
+        "One with more graphite",
+        "One with more clay",
+        "One with a hard core",
+        "One with no eraser"
+      ],
+      "answer": "One with more graphite",
+      "kind": "infer"
+    }
+  ]
+}

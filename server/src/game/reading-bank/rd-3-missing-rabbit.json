@@ -1,0 +1,595 @@
+{
+  "id": "rd-3-missing-rabbit",
+  "stage": "3",
+  "title": "The Missing School Rabbit",
+  "titleJa": "いなくなった 学校の ウサギ",
+  "kind": "story",
+  "cover": {
+    "bg": "school",
+    "items": [
+      {
+        "e": "🐇",
+        "x": 60,
+        "y": 74,
+        "s": 2.8,
+        "a": "hop"
+      },
+      {
+        "e": "🐾",
+        "x": 36,
+        "y": 82,
+        "s": 1.6
+      },
+      {
+        "e": "🐾",
+        "x": 22,
+        "y": 78,
+        "s": 1.4
+      },
+      {
+        "e": "🥕",
+        "x": 80,
+        "y": 78,
+        "s": 1.8
+      },
+      {
+        "e": "❓",
+        "x": 60,
+        "y": 34,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Class 3 had a white rabbit named Mochi. She lived in a little house by the garden.",
+      "ja": "3年生の クラスには モチと いう 白い ウサギが いました。モチは 庭の そばの 小さな 小屋に 住んでいました。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🐇",
+            "x": 40,
+            "y": 74,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🛖",
+            "x": 72,
+            "y": 62,
+            "s": 3.6
+          },
+          {
+            "e": "🌷",
+            "x": 14,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "☀️",
+            "x": 86,
+            "y": 16,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "On Monday morning, Sota went to feed her. The door was open, and Mochi was gone!",
+      "ja": "月曜日の 朝、ソウタは えさを あげに 行きました。ドアが 開いていて、モチは いなく なっていました！",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 28,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🥕",
+            "x": 40,
+            "y": 64,
+            "s": 1.4
+          },
+          {
+            "e": "🛖",
+            "x": 70,
+            "y": 62,
+            "s": 3.8
+          },
+          {
+            "e": "🚪",
+            "x": 86,
+            "y": 70,
+            "s": 1.8
+          },
+          {
+            "e": "❗",
+            "x": 70,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"We must find her before lunch,\" said Ms. Hara. The children looked around.",
+      "ja": "「昼ごはんの 前に 見つけなくちゃ」と ハラ先生は 言いました。子どもたちは あたりを 見回しました。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👩‍🏫",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👦",
+            "x": 50,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "👧",
+            "x": 76,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "👀",
+            "x": 62,
+            "y": 40,
+            "s": 1.6
+          },
+          {
+            "e": "🕙",
+            "x": 90,
+            "y": 20,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sota found small footprints on the ground. They went to the school garden.",
+      "ja": "ソウタは 地面に 小さな 足あとを 見つけました。足あとは 学校の 畑に 続いていました。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 20,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🔍",
+            "x": 34,
+            "y": 58,
+            "s": 1.8
+          },
+          {
+            "e": "🐾",
+            "x": 48,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "🐾",
+            "x": 60,
+            "y": 76,
+            "s": 1.4
+          },
+          {
+            "e": "🐾",
+            "x": 72,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "🌱",
+            "x": 90,
+            "y": 74,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the garden, Aoi found a carrot. Someone took a big bite of it.",
+      "ja": "畑で、アオイは ニンジンを 見つけました。だれかが 大きく 一口 かじっていました。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🥕",
+            "x": 58,
+            "y": 72,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "❗",
+            "x": 58,
+            "y": 38,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌱",
+            "x": 82,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🌱",
+            "x": 92,
+            "y": 78,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then they saw some big green leaves. The leaves were moving, but there was no wind.",
+      "ja": "それから、大きな 緑の 葉っぱが 見えました。風が ないのに、葉っぱが 動いていました。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌿",
+            "x": 60,
+            "y": 68,
+            "s": 4.6,
+            "a": "sway"
+          },
+          {
+            "e": "👦",
+            "x": 16,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "❓",
+            "x": 60,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sota looked under the leaves. Two long white ears came up.",
+      "ja": "ソウタは 葉っぱの 下を のぞきました。長くて 白い 耳が 2本 出て きました。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌿",
+            "x": 62,
+            "y": 72,
+            "s": 4.4
+          },
+          {
+            "e": "🐰",
+            "x": 62,
+            "y": 58,
+            "s": 2
+          },
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😮",
+            "x": 26,
+            "y": 40,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "It was Mochi! Her mouth was green, and her stomach was round.",
+      "ja": "モチでした！ 口は 緑色で、おなかは まんまるでした。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🐇",
+            "x": 50,
+            "y": 72,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "🌿",
+            "x": 22,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🥕",
+            "x": 80,
+            "y": 78,
+            "s": 1.6
+          },
+          {
+            "e": "😋",
+            "x": 50,
+            "y": 40,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The children carried her home. But how did she open the door?",
+      "ja": "子どもたちは モチを 小屋に 連れて 帰りました。でも、モチは どうやって ドアを 開けたのでしょう？",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🐇",
+            "x": 44,
+            "y": 58,
+            "s": 1.8
+          },
+          {
+            "e": "🛖",
+            "x": 74,
+            "y": 62,
+            "s": 3.8
+          },
+          {
+            "e": "🚪",
+            "x": 90,
+            "y": 70,
+            "s": 1.6
+          },
+          {
+            "e": "❓",
+            "x": 74,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Aoi looked at the lock. It was old and loose. Mochi pushed it with her nose!",
+      "ja": "アオイは かぎを 調べました。古くて ゆるく なっていました。モチが 鼻で おしたのです！",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🔍",
+            "x": 40,
+            "y": 54,
+            "s": 1.8
+          },
+          {
+            "e": "🔒",
+            "x": 60,
+            "y": 56,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🐇",
+            "x": 84,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "💡",
+            "x": 24,
+            "y": 24,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The class fixed the door with a new lock. Then they made a carrot garden just for Mochi.",
+      "ja": "クラスの みんなは 新しい かぎで ドアを 直しました。それから、モチだけの 小さな ニンジン畑を 作りました。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🛖",
+            "x": 20,
+            "y": 62,
+            "s": 3.4
+          },
+          {
+            "e": "🔒",
+            "x": 20,
+            "y": 50,
+            "s": 1.4
+          },
+          {
+            "e": "🐇",
+            "x": 46,
+            "y": 74,
+            "s": 2.6,
+            "a": "hop"
+          },
+          {
+            "e": "🥕",
+            "x": 68,
+            "y": 76,
+            "s": 1.6
+          },
+          {
+            "e": "🥕",
+            "x": 78,
+            "y": 76,
+            "s": 1.6
+          },
+          {
+            "e": "🥕",
+            "x": 88,
+            "y": 76,
+            "s": 1.6
+          },
+          {
+            "e": "🪧",
+            "x": 78,
+            "y": 56,
+            "s": 1.8
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "feed",
+      "ja": "えさを あげる"
+    },
+    {
+      "en": "gone",
+      "ja": "いなく なった"
+    },
+    {
+      "en": "footprints",
+      "ja": "足あと"
+    },
+    {
+      "en": "ground",
+      "ja": "地面"
+    },
+    {
+      "en": "carrot",
+      "ja": "ニンジン"
+    },
+    {
+      "en": "bite",
+      "ja": "一口 かじること"
+    },
+    {
+      "en": "leaves",
+      "ja": "葉っぱ（複数）"
+    },
+    {
+      "en": "carried",
+      "ja": "運んだ・だいて 行った"
+    },
+    {
+      "en": "lock",
+      "ja": "かぎ・じょう"
+    },
+    {
+      "en": "loose",
+      "ja": "ゆるい"
+    },
+    {
+      "en": "fixed",
+      "ja": "直した"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "children who look for their class rabbit",
+        "a teacher who grows carrots at school",
+        "a rabbit who is afraid of the wind",
+        "a boy who loses the key to the school door"
+      ],
+      "answer": "children who look for their class rabbit",
+      "kind": "main"
+    },
+    {
+      "q": "What did Sota find on the ground?",
+      "ja": "ソウタは 地面に 何を 見つけましたか。",
+      "choices": [
+        "An old lock.",
+        "A white ear.",
+        "Small footprints.",
+        "Green leaves."
+      ],
+      "answer": "Small footprints.",
+      "kind": "detail"
+    },
+    {
+      "q": "Where was Mochi hiding?",
+      "ja": "モチは どこに かくれていましたか。",
+      "choices": [
+        "In the classroom.",
+        "Behind the school bus.",
+        "Inside her little house.",
+        "Under some big leaves."
+      ],
+      "answer": "Under some big leaves.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did the children find after the footprints?",
+      "ja": "足あとの 次に、子どもたちは 何を 見つけましたか。",
+      "choices": [
+        "A new lock for the door.",
+        "A carrot with a bite.",
+        "An open door.",
+        "A small garden."
+      ],
+      "answer": "A carrot with a bite.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why was Mochi's mouth green?",
+      "ja": "モチの 口は なぜ 緑色だったのですか。",
+      "choices": [
+        "She was sick that morning.",
+        "She played with green paint.",
+        "She ate a lot of leaves.",
+        "She drank some green tea."
+      ],
+      "answer": "She ate a lot of leaves.",
+      "kind": "infer"
+    }
+  ]
+}

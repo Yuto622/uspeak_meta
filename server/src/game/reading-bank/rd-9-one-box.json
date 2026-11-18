@@ -1,0 +1,607 @@
+{
+  "id": "rd-9-one-box",
+  "stage": "9",
+  "title": "One Box Each",
+  "titleJa": "一人 一箱",
+  "kind": "story",
+  "cover": {
+    "bg": "farm",
+    "items": [
+      {
+        "e": "👧",
+        "x": 35,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "📦",
+        "x": 62,
+        "y": 74,
+        "s": 3
+      },
+      {
+        "e": "🏡",
+        "x": 84,
+        "y": 52,
+        "s": 2.6
+      },
+      {
+        "e": "🍊",
+        "x": 22,
+        "y": 30,
+        "s": 1.8,
+        "a": "sway"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "The house had belonged to Nao’s family for four generations. It had a persimmon tree, a creaking staircase, and a kitchen that smelled of soy sauce and smoke. But the village school had closed, the last shop had closed, and now the family was leaving too.",
+      "ja": "その 家は 四代に わたって ナオの 家族の ものだった。かきの 木と、きしむ 階段と、しょうゆと けむりの においの する 台所が あった。でも 村の 学校は 閉まり、最後の 店も 閉まり、今度は 家族も 出ていく。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🏡",
+            "x": 60,
+            "y": 54,
+            "s": 4.2
+          },
+          {
+            "e": "🌳",
+            "x": 20,
+            "y": 52,
+            "s": 3.4
+          },
+          {
+            "e": "🍊",
+            "x": 16,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🍊",
+            "x": 26,
+            "y": 46,
+            "s": 1.2
+          },
+          {
+            "e": "👧",
+            "x": 86,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "🚚",
+            "x": 40,
+            "y": 80,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Their new apartment in the city was small. “One box each for personal things,” her mother said gently. “I’m sorry. There simply isn’t room for more.” Nao looked at the cardboard box on her floor. It seemed impossible that a whole childhood should fit inside it.",
+      "ja": "都会の 新しい 部屋は せまい。「自分の 物は 一人 一箱ね」と お母さんは やさしく 言った。「ごめんね。それ以上は 本当に 入らないの」。ナオは ゆかの 段ボール箱を 見た。子ども時代が まるごと ここに 入るとは、とても 思えなかった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "💬",
+            "x": 22,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "📦",
+            "x": 55,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 80,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😟",
+            "x": 80,
+            "y": 48,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "She began with what mattered most: the photo album, her grandmother’s sewing box, the wooden bird her grandfather had carved, her diaries, the stones she had collected from the river. The box was full within minutes, and her shelves still looked untouched.",
+      "ja": "まず 一番 大切な 物から 入れた。アルバム、祖母の さいほう箱、祖父が ほった 木の 鳥、日記、川で 集めた 石。箱は 数分で いっぱいに なった。それなのに、たなは 手つかずに 見えた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📦",
+            "x": 54,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "📓",
+            "x": 46,
+            "y": 56,
+            "s": 1.4
+          },
+          {
+            "e": "🐦",
+            "x": 58,
+            "y": 52,
+            "s": 1.4
+          },
+          {
+            "e": "🪨",
+            "x": 68,
+            "y": 58,
+            "s": 1.2
+          },
+          {
+            "e": "🧵",
+            "x": 52,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "📚",
+            "x": 88,
+            "y": 60,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "She took things out and put other things in. Every object seemed to argue for its place. If she left the bird, was she leaving the afternoon when Grandpa had carved it? If she left the stones, would she forget the sound of the river?",
+      "ja": "物を 出しては、別の 物を 入れた。どの 品も、自分を 入れてと うったえるようだった。鳥を 置いていけば、祖父が それを ほった 午後も 置いていくのか。石を 置いていけば、川の 音を わすれてしまうのか。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😢",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🐦",
+            "x": 18,
+            "y": 50,
+            "s": 1.8
+          },
+          {
+            "e": "🪨",
+            "x": 68,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "📦",
+            "x": 82,
+            "y": 78,
+            "s": 2.4
+          },
+          {
+            "e": "↔",
+            "x": 44,
+            "y": 26,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "That evening she found her little brother, Yuta, crying beside his own box. He was six. He had packed his toy trains, and now there was no space for the old, torn blanket he had slept with since he was a baby. He could not choose.",
+      "ja": "その夕方、弟の ユウタが 自分の 箱の 横で 泣いていた。六才だ。おもちゃの 電車を つめたら、赤ちゃんの ころから いっしょに ねてきた、古くて やぶれた 毛布を 入れる 場所が なくなった。ユウタには 選べなかった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 60,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "😭",
+            "x": 60,
+            "y": 50,
+            "s": 1.6
+          },
+          {
+            "e": "📦",
+            "x": 80,
+            "y": 78,
+            "s": 2.4
+          },
+          {
+            "e": "🚃",
+            "x": 80,
+            "y": 60,
+            "s": 1.4
+          },
+          {
+            "e": "🧣",
+            "x": 42,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "👧",
+            "x": 16,
+            "y": 70,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Nao looked at her own box for a long moment. Then she took out the river stones and the diaries from her earliest years, and she folded Yuta’s blanket into the space they left. “It can travel with me,” she said. “I’ve got room.”",
+      "ja": "ナオは 自分の 箱を 長い間 見つめた。それから 川の 石と、一番 古い 日記を 取り出し、空いた 所に ユウタの 毛布を たたんで 入れた。「これは 私と いっしょに 行けるよ。場所なら あるから」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 32,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📦",
+            "x": 56,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "🧣",
+            "x": 56,
+            "y": 56,
+            "s": 1.6
+          },
+          {
+            "e": "🪨",
+            "x": 12,
+            "y": 84,
+            "s": 1.2
+          },
+          {
+            "e": "📓",
+            "x": 20,
+            "y": 86,
+            "s": 1.2
+          },
+          {
+            "e": "👦",
+            "x": 82,
+            "y": 72,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Her grandfather had been watching from the doorway. Later he sat with her under the persimmon tree. “I’m not taking a box,” he said. Nao stared at him. “Nothing at all?” He tapped his chest. “Seventy years of this house are already packed in here.”",
+      "ja": "祖父は 戸口から 見ていた。後で、かきの 木の 下に ナオと すわった。「わしは 箱を 持っていかんよ」。ナオは 祖父を 見つめた。「何も？」。祖父は むねを たたいた。「この 家の 七十年は、もう ここに つめてある」",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "👴",
+            "x": 62,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 62,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "❤",
+            "x": 62,
+            "y": 26,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🌳",
+            "x": 88,
+            "y": 50,
+            "s": 3.4
+          },
+          {
+            "e": "🍊",
+            "x": 86,
+            "y": 38,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "“Things help us remember,” he went on, “but they are not the memory itself. What you did for your brother tonight — he will remember that longer than any blanket. That is how a family carries a home from one place to another.”",
+      "ja": "「物は 思い出す 助けに なる」と 祖父は 続けた。「だが 物は、記おく そのものでは ない。今夜 おまえが 弟に したこと。あの子は どんな 毛布より 長く 覚えているだろう。家族は そうやって、家を 次の 場所へ 運ぶんだ」",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👴",
+            "x": 66,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "💬",
+            "x": 66,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 34,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🏡",
+            "x": 12,
+            "y": 56,
+            "s": 2.2
+          },
+          {
+            "e": "➡",
+            "x": 46,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "🌙",
+            "x": 88,
+            "y": 14,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the last morning, Nao returned her stones to the river, one by one. It felt less like losing them than like putting them back where they belonged. Then she climbed into the truck, with the box on her knees and Yuta asleep against her shoulder.",
+      "ja": "最後の 朝、ナオは 石を 一つずつ 川に 返した。失うというより、元の 居場所に もどす 感じが した。それから トラックに 乗りこんだ。ひざの 上には 箱、かたには ねむる ユウタが もたれていた。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🪨",
+            "x": 48,
+            "y": 78,
+            "s": 1.4
+          },
+          {
+            "e": "🪨",
+            "x": 58,
+            "y": 84,
+            "s": 1.2
+          },
+          {
+            "e": "💧",
+            "x": 54,
+            "y": 66,
+            "s": 1.2,
+            "a": "bob"
+          },
+          {
+            "e": "🚚",
+            "x": 84,
+            "y": 66,
+            "s": 3
+          },
+          {
+            "e": "🌅",
+            "x": 60,
+            "y": 20,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Nao is older now, and she has moved several more times. She has noticed that she owns less after each move, and misses less than she expected. She sometimes asks herself: if I could keep only one box, what would be in it? And what would I discover I never needed?",
+      "ja": "ナオは 大人に なり、その後も 何度か 引っこした。引っこす たびに 持ち物は へり、思ったほど こいしくは ならないと 気づいた。時々 自分に 問う。一箱しか 残せないなら、何を 入れるだろう。そして、何が 本当は いらなかったと 分かるだろう。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👩‍💼",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📦",
+            "x": 62,
+            "y": 76,
+            "s": 2.8
+          },
+          {
+            "e": "❓",
+            "x": 62,
+            "y": 44,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🏙",
+            "x": 88,
+            "y": 54,
+            "s": 2.4
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "generations",
+      "ja": "世代"
+    },
+    {
+      "en": "staircase",
+      "ja": "階段"
+    },
+    {
+      "en": "personal",
+      "ja": "自分の、個人の"
+    },
+    {
+      "en": "cardboard",
+      "ja": "段ボール"
+    },
+    {
+      "en": "childhood",
+      "ja": "子ども時代"
+    },
+    {
+      "en": "carved",
+      "ja": "ほった"
+    },
+    {
+      "en": "diaries",
+      "ja": "日記"
+    },
+    {
+      "en": "untouched",
+      "ja": "手つかずの"
+    },
+    {
+      "en": "blanket",
+      "ja": "毛布"
+    },
+    {
+      "en": "folded",
+      "ja": "たたんだ"
+    },
+    {
+      "en": "doorway",
+      "ja": "戸口"
+    },
+    {
+      "en": "belonged",
+      "ja": "あるべき 所に あった"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "Learning what is truly worth carrying with us",
+        "A grandfather who refuses to leave his village",
+        "How to pack a truck when moving to the city",
+        "A boy who loses his blanket during a move"
+      ],
+      "answer": "Learning what is truly worth carrying with us",
+      "kind": "main"
+    },
+    {
+      "q": "Why was the family leaving the village?",
+      "ja": "家族は なぜ 村を 出るのか？",
+      "choices": [
+        "Their old house had burned down in a big fire.",
+        "The grandfather had become ill.",
+        "The school and the last shop had closed.",
+        "The river had flooded the fields."
+      ],
+      "answer": "The school and the last shop had closed.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Nao take out to make room for the blanket?",
+      "ja": "ナオは 毛布を 入れるために 何を 取り出した？",
+      "choices": [
+        "The photo album and the sewing box",
+        "The wooden bird her grandfather had carved",
+        "Her brother’s toy trains",
+        "The river stones and her oldest diaries"
+      ],
+      "answer": "The river stones and her oldest diaries",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Nao do on the last morning, before getting into the truck?",
+      "ja": "最後の 朝、トラックに 乗る前に ナオは 何を した？",
+      "choices": [
+        "She climbed the persimmon tree.",
+        "She returned her stones to the river.",
+        "She packed a second box in secret.",
+        "She gave the wooden bird to Yuta."
+      ],
+      "answer": "She returned her stones to the river.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did the grandfather take no box?",
+      "ja": "祖父は なぜ 箱を 持っていかなかった？",
+      "choices": [
+        "He planned to come back for his things later.",
+        "He felt his memories were already inside him.",
+        "He was too weak to carry anything heavy.",
+        "He wanted to leave everything for Yuta."
+      ],
+      "answer": "He felt his memories were already inside him.",
+      "kind": "infer"
+    }
+  ]
+}

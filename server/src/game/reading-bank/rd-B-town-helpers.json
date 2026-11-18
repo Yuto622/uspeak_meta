@@ -1,0 +1,402 @@
+{
+  "id": "rd-B-town-helpers",
+  "stage": "B",
+  "title": "People in My Town",
+  "titleJa": "まちで はたらく ひとたち",
+  "kind": "fact",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "👩‍🍳",
+        "x": 18,
+        "y": 70,
+        "s": 3
+      },
+      {
+        "e": "👷",
+        "x": 42,
+        "y": 70,
+        "s": 3
+      },
+      {
+        "e": "👩‍🏫",
+        "x": 66,
+        "y": 70,
+        "s": 3
+      },
+      {
+        "e": "👮",
+        "x": 90,
+        "y": 70,
+        "s": 3
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Many people work in my town.",
+      "ja": "わたしの まちでは たくさんの ひとが はたらいている。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏠",
+            "x": 16,
+            "y": 62,
+            "s": 2.8
+          },
+          {
+            "e": "🏫",
+            "x": 46,
+            "y": 58,
+            "s": 3.2
+          },
+          {
+            "e": "🏢",
+            "x": 78,
+            "y": 54,
+            "s": 3.4
+          },
+          {
+            "e": "🚌",
+            "x": 50,
+            "y": 82,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The farmer grows vegetables.",
+      "ja": "のうかの ひとは やさいを そだてる。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🧑‍🌾",
+            "x": 30,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🥕",
+            "x": 58,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🥦",
+            "x": 72,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🍅",
+            "x": 86,
+            "y": 76,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The cook makes lunch.",
+      "ja": "コックさんは ひるごはんを つくる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👩‍🍳",
+            "x": 32,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🍲",
+            "x": 62,
+            "y": 72,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🍚",
+            "x": 82,
+            "y": 74,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The teacher helps us read.",
+      "ja": "せんせいは よむのを てつだって くれる。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👩‍🏫",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📖",
+            "x": 50,
+            "y": 60,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 74,
+            "y": 72,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The builder makes houses.",
+      "ja": "だいくさんは いえを つくる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👷",
+            "x": 28,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🔨",
+            "x": 46,
+            "y": 58,
+            "s": 1.6,
+            "a": "hop"
+          },
+          {
+            "e": "🏠",
+            "x": 72,
+            "y": 60,
+            "s": 3.8
+          },
+          {
+            "e": "🧱",
+            "x": 52,
+            "y": 80,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The pilot flies a plane.",
+      "ja": "パイロットは ひこうきを とばす。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "✈️",
+            "x": 58,
+            "y": 34,
+            "s": 4,
+            "a": "drift"
+          },
+          {
+            "e": "👩‍✈️",
+            "x": 22,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "☁️",
+            "x": 84,
+            "y": 60,
+            "s": 2.2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The police officer helps lost children.",
+      "ja": "おまわりさんは まいごの こどもを たすける。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👮",
+            "x": 32,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👶",
+            "x": 62,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "😢",
+            "x": 62,
+            "y": 52,
+            "s": 1.2
+          },
+          {
+            "e": "🤝",
+            "x": 47,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I help, too. I clean my room.",
+      "ja": "ぼくも おてつだい。じぶんの へやを そうじする。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 34,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 34,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🧹",
+            "x": 56,
+            "y": 66,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🧸",
+            "x": 80,
+            "y": 76,
+            "s": 1.6
+          },
+          {
+            "e": "✨",
+            "x": 76,
+            "y": 40,
+            "s": 1.6,
+            "a": "spin"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "town",
+      "ja": "まち"
+    },
+    {
+      "en": "work",
+      "ja": "はたらく"
+    },
+    {
+      "en": "farmer",
+      "ja": "のうかの ひと"
+    },
+    {
+      "en": "cook",
+      "ja": "コック・りょうりを する ひと"
+    },
+    {
+      "en": "teacher",
+      "ja": "せんせい"
+    },
+    {
+      "en": "builder",
+      "ja": "いえを たてる ひと"
+    },
+    {
+      "en": "pilot",
+      "ja": "パイロット"
+    },
+    {
+      "en": "police officer",
+      "ja": "けいさつかん・おまわりさん"
+    },
+    {
+      "en": "helps",
+      "ja": "たすける・てつだう"
+    },
+    {
+      "en": "clean",
+      "ja": "そうじする"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの ほん？",
+      "choices": [
+        "animals on a big farm",
+        "people and their work",
+        "toys in a room"
+      ],
+      "answer": "people and their work",
+      "kind": "main"
+    },
+    {
+      "q": "Who grows vegetables?",
+      "ja": "やさいを そだてるのは だれ？",
+      "choices": [
+        "the police officer",
+        "the cook",
+        "the farmer"
+      ],
+      "answer": "the farmer",
+      "kind": "detail"
+    },
+    {
+      "q": "What does the builder make?",
+      "ja": "だいくさんは なにを つくるの？",
+      "choices": [
+        "houses",
+        "lunch",
+        "planes"
+      ],
+      "answer": "houses",
+      "kind": "detail"
+    },
+    {
+      "q": "What is a \"teacher\"?",
+      "ja": "\"teacher\" は どんな ひと？",
+      "choices": [
+        "a person at a school",
+        "a person on a farm",
+        "a person in a big plane"
+      ],
+      "answer": "a person at a school",
+      "kind": "vocab"
+    },
+    {
+      "q": "How does the boy help?",
+      "ja": "おとこのこは どんな おてつだいを するの？",
+      "choices": [
+        "He makes lunch.",
+        "He cleans his room.",
+        "He flies a plane."
+      ],
+      "answer": "He cleans his room.",
+      "kind": "detail"
+    }
+  ]
+}

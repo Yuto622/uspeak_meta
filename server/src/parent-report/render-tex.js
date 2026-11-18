@@ -68,6 +68,19 @@ function ranksLine(d) {
   return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries クラスの 順位}\\quad{\\fontsize{10}{13}\\selectfont\\color{brand} ${list.map((x) => tex(`${x.ja} ${x.rank}位 / ${x.of}人`)).join('　・　')}}\\\\[1.4mm]\n`;
 }
 
+// 数字 5 つ（学習時間・話した 回数・読んだ 本・クイズの 正答率・覚えた 単語）を 1 行に（1 行に おさまる 短い 書き方）。0 の ものは 書かない。
+function fiveLine(d, label = '今週の 数字') {
+  const f = d.five;
+  if (!f) return '';
+  const bits = [];
+  if (f.minutes) bits.push(`学習${f.minutes}分`);
+  if (f.speak) bits.push(`話した${f.speak}回`);
+  if (f.books) bits.push(`本${f.books}さつ`);
+  if (f.accuracy !== null && f.accuracy !== undefined) bits.push(`正答率${f.accuracy}%`);
+  if (f.words) bits.push(`単語${f.words}こ`);
+  if (!bits.length) return '';
+  return `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ${tex(label)}}\\quad{\\fontsize{10}{13}\\selectfont\\color{brand} ${tex(bits.join('・'))}}\\\\[1.4mm]\n`;
+}
 // 宿題（その 期間に くばられて いた ぶん）。1 ページ目には 1 行、2 ページ目に くわしく（LINE の 画像は 1 ページ目だけ）。
 const mdDay = (s) => { const m = /^\d{4}-(\d{2})-(\d{2})$/.exec(s || ''); return m ? `${Number(m[1])}/${Number(m[2])}` : ''; };
 function homeworkLine(d) {
@@ -193,7 +206,7 @@ export function weeklyTex(d, { preview = false } = {}) {
   }
 
   // 先生の ひとこと・宿題・順位が ぜんぶ ある 週は 1 まいに 入らないので、ことわりの 1 行を 省く。
-  const crowded = !!d.teacher?.text && !!(d.homework?.total || d.ranks?.length || d.roadmap);
+  const crowded = !!d.teacher?.text && !!(d.homework?.total || d.ranks?.length || d.roadmap || d.five);
   let nextBlock;
   if (d.next) {
     const ja = d.next.ja ? `\\;{\\fontsize{10}{12}\\selectfont\\color{gray}（${tex(d.next.ja)}）}` : (d.next.fromMiss ? `\\;{\\fontsize{9}{12}\\selectfont\\color{gray}${tex(W.nextFromMiss)}}` : '');
@@ -208,7 +221,7 @@ export function weeklyTex(d, { preview = false } = {}) {
 
   const goal = goalText(d, W);
   if (goal) nextBlock = `{\\fontsize{10}{12}\\selectfont\\color{accent}\\bfseries ${tex(W.goalTitle)}}\\\\[0.5mm]{\\fontsize{11.5}{15}\\selectfont\\color{brand}\\bfseries ${tex(goal)}}\\\\[2mm]\n${nextBlock}`;
-  nextBlock = roadmapLine(d) + homeworkLine(d) + ranksLine(d) + nextBlock;
+  nextBlock = fiveLine(d) + roadmapLine(d) + homeworkLine(d) + ranksLine(d) + nextBlock;
   return fill(weekly, {
     badge: badge(preview, true),
     sender: d.sender || '教室', nick: d.nick, range: d.range, titleSize: titleSize(d.nick, 17, 14),
@@ -280,7 +293,7 @@ export function monthlyTex(d, { preview = false } = {}) {
   else if (d.game?.kind === 'place') game = `{\\small\\color{brand} ${tex(fmt(M.gamePlace, d.game))}}\\\\[1mm]\n{\\scriptsize\\note{${tex(M.gamePlaceTalk)}}}`;
   else game = `{\\small\\color{gray} ${tex(M.gameNone)}}`;
 
-  { const rl = roadmapLine(d) + homeworkLine(d) + ranksLine(d); if (rl) game = `${rl}${game}`; }
+  { const rl = fiveLine(d, '今月の 数字') + roadmapLine(d) + homeworkLine(d) + ranksLine(d); if (rl) game = `${rl}${game}`; }
   const step = d.nextStep || { key: 'keep' };
   return fill(monthly, {
     badge: badge(preview, false),

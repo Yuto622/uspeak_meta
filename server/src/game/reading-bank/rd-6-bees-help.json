@@ -1,0 +1,559 @@
+{
+  "id": "rd-6-bees-help",
+  "stage": "6",
+  "title": "How Bees Help Us Eat",
+  "titleJa": "ハチは 食べ物の 味方",
+  "kind": "fact",
+  "cover": {
+    "bg": "garden",
+    "items": [
+      {
+        "e": "🐝",
+        "x": 50,
+        "y": 35,
+        "s": 3.2,
+        "a": "float"
+      },
+      {
+        "e": "🌼",
+        "x": 25,
+        "y": 72,
+        "s": 2.6,
+        "a": "sway"
+      },
+      {
+        "e": "🍎",
+        "x": 72,
+        "y": 70,
+        "s": 2.2
+      },
+      {
+        "e": "🍓",
+        "x": 88,
+        "y": 76,
+        "s": 1.6
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Do you like apples, strawberries, or pumpkins? Then you should say thank you to bees. Without them, we would have much less of this food.",
+      "ja": "リンゴや イチゴ、カボチャは 好きですか。それなら ハチに 「ありがとう」を 言いましょう。ハチが いなければ、こうした 食べ物は ずっと 少なくなります。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🍎",
+            "x": 25,
+            "y": 68,
+            "s": 2.4
+          },
+          {
+            "e": "🍓",
+            "x": 48,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "🎃",
+            "x": 72,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "🐝",
+            "x": 55,
+            "y": 28,
+            "s": 2.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bees visit flowers to drink a sweet liquid called nectar. They also collect a yellow powder called pollen. Both are food for the bees and their babies.",
+      "ja": "ハチは 花を おとずれて、みつという あまい 液体を 飲みます。花粉という 黄色い 粉も 集めます。どちらも ハチと その 子どもの 食べ物です。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌻",
+            "x": 40,
+            "y": 62,
+            "s": 3.6,
+            "a": "sway"
+          },
+          {
+            "e": "🐝",
+            "x": 58,
+            "y": 36,
+            "s": 2.4,
+            "a": "bob"
+          },
+          {
+            "e": "💧",
+            "x": 30,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🟡",
+            "x": 70,
+            "y": 52,
+            "s": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "A bee’s body is covered with tiny hairs. When a bee lands on a flower, pollen sticks to these hairs like dust on a sweater.",
+      "ja": "ハチの 体は 小さな 毛で おおわれています。ハチが 花に 止まると、セーターに つく ほこりのように、花粉が 毛に くっつきます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🐝",
+            "x": 50,
+            "y": 42,
+            "s": 4.2,
+            "a": "bob"
+          },
+          {
+            "e": "🟡",
+            "x": 40,
+            "y": 36,
+            "s": 0.8
+          },
+          {
+            "e": "🟡",
+            "x": 60,
+            "y": 50,
+            "s": 0.8
+          },
+          {
+            "e": "🟡",
+            "x": 56,
+            "y": 32,
+            "s": 0.7
+          },
+          {
+            "e": "🌼",
+            "x": 50,
+            "y": 76,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then the bee flies to the next flower, and some of the pollen falls off there. This is called pollination. Now that flower can make seeds and fruit.",
+      "ja": "それから ハチは 次の 花へ 飛び、そこで 花粉が 少し 落ちます。これを 受粉と いいます。これで その花は 種や 実を 作ることが できます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌸",
+            "x": 20,
+            "y": 68,
+            "s": 2.8,
+            "a": "sway"
+          },
+          {
+            "e": "🐝",
+            "x": 48,
+            "y": 34,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "➡",
+            "x": 48,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "🌸",
+            "x": 78,
+            "y": 68,
+            "s": 2.8,
+            "a": "sway"
+          },
+          {
+            "e": "🟡",
+            "x": 76,
+            "y": 46,
+            "s": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Many plants cannot make fruit without this help. Apples, cherries, melons, and almonds all need insects such as bees to carry their pollen.",
+      "ja": "多くの 植物は、この 助けが ないと 実を つけられません。リンゴ、サクランボ、メロン、アーモンドは みな、花粉を 運ぶ ハチなどの 虫を 必要と します。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 25,
+            "y": 58,
+            "s": 3.4
+          },
+          {
+            "e": "🍎",
+            "x": 22,
+            "y": 44,
+            "s": 1.4
+          },
+          {
+            "e": "🍒",
+            "x": 55,
+            "y": 70,
+            "s": 2.2
+          },
+          {
+            "e": "🍉",
+            "x": 80,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🐝",
+            "x": 62,
+            "y": 30,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Honeybees live together in a large group called a colony. Each colony has one queen and a great many worker bees.",
+      "ja": "ミツバチは コロニーと よばれる 大きな 群れで いっしょに くらします。それぞれの コロニーには、一ぴきの 女王バチと、とても たくさんの 働きバチが います。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🍯",
+            "x": 50,
+            "y": 66,
+            "s": 3.2
+          },
+          {
+            "e": "👑",
+            "x": 50,
+            "y": 38,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🐝",
+            "x": 50,
+            "y": 50,
+            "s": 2
+          },
+          {
+            "e": "🐝",
+            "x": 22,
+            "y": 44,
+            "s": 1.4,
+            "a": "float"
+          },
+          {
+            "e": "🐝",
+            "x": 78,
+            "y": 40,
+            "s": 1.4,
+            "a": "float"
+          },
+          {
+            "e": "🐝",
+            "x": 82,
+            "y": 68,
+            "s": 1.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "When a honeybee finds good flowers, she returns home and does a special dance. The dance tells the other bees which way to fly and how far to go.",
+      "ja": "ミツバチは いい 花を 見つけると、巣に もどって 特別な ダンスを します。その ダンスは、どちらへ 飛ぶか、どのくらい 遠くまで 行くかを 仲間に 教えます。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🐝",
+            "x": 40,
+            "y": 48,
+            "s": 3,
+            "a": "spin"
+          },
+          {
+            "e": "🎵",
+            "x": 56,
+            "y": 28,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "🐝",
+            "x": 78,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🐝",
+            "x": 86,
+            "y": 44,
+            "s": 1.4
+          },
+          {
+            "e": "🌼",
+            "x": 12,
+            "y": 74,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Honeybees are not the only bees. There are many kinds of wild bees, too. Some of them live alone in small holes in the ground or in wood.",
+      "ja": "ハチは ミツバチだけでは ありません。野生の ハチにも 多くの 種類が います。地面や 木の 小さな 穴に 一ぴきで くらす ものも います。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🪵",
+            "x": 40,
+            "y": 74,
+            "s": 3.2
+          },
+          {
+            "e": "⚫",
+            "x": 40,
+            "y": 72,
+            "s": 0.8
+          },
+          {
+            "e": "🐝",
+            "x": 58,
+            "y": 52,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "🌿",
+            "x": 80,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🐝",
+            "x": 16,
+            "y": 36,
+            "s": 1.4,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Today, bees are in trouble in many places. There are fewer wild flowers, and some chemicals used on farms can harm them.",
+      "ja": "今、多くの 場所で ハチは こまっています。野の 花が へり、畑で 使われる 化学物質の 中には ハチに 害を あたえる ものも あります。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐝",
+            "x": 45,
+            "y": 40,
+            "s": 2.6,
+            "a": "bob"
+          },
+          {
+            "e": "⚠",
+            "x": 70,
+            "y": 28,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🥀",
+            "x": 25,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🚜",
+            "x": 82,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "🧪",
+            "x": 60,
+            "y": 74,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "We can help. Plant flowers, leave a wild corner in the garden, and never hurt a bee. Small insects do a very big job for us.",
+      "ja": "私たちにも できることが あります。花を 植え、庭の すみを 自然の ままに 残し、ハチを けっして いじめないこと。小さな 虫が、私たちの ために とても 大きな 仕事を しています。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 28,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🌱",
+            "x": 50,
+            "y": 78,
+            "s": 1.6
+          },
+          {
+            "e": "🌷",
+            "x": 66,
+            "y": 72,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "🌼",
+            "x": 82,
+            "y": 74,
+            "s": 2.2,
+            "a": "sway"
+          },
+          {
+            "e": "🐝",
+            "x": 72,
+            "y": 36,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "liquid",
+      "ja": "液体"
+    },
+    {
+      "en": "nectar",
+      "ja": "花の みつ"
+    },
+    {
+      "en": "powder",
+      "ja": "粉"
+    },
+    {
+      "en": "pollen",
+      "ja": "花粉"
+    },
+    {
+      "en": "pollination",
+      "ja": "受粉"
+    },
+    {
+      "en": "seeds",
+      "ja": "種"
+    },
+    {
+      "en": "insects",
+      "ja": "虫、こん虫"
+    },
+    {
+      "en": "colony",
+      "ja": "コロニー、群れ"
+    },
+    {
+      "en": "wild",
+      "ja": "野生の"
+    },
+    {
+      "en": "chemicals",
+      "ja": "化学物質"
+    },
+    {
+      "en": "harm",
+      "ja": "害を あたえる"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How to make honey at home",
+        "Why bees matter for our food",
+        "Where apples are sold",
+        "How to catch wild insects"
+      ],
+      "answer": "Why bees matter for our food",
+      "kind": "main"
+    },
+    {
+      "q": "What sticks to the hairs on a bee’s body?",
+      "ja": "ハチの 体の 毛には 何が くっつく？",
+      "choices": [
+        "Nectar",
+        "Seeds",
+        "Pollen",
+        "Water"
+      ],
+      "answer": "Pollen",
+      "kind": "detail"
+    },
+    {
+      "q": "How does a honeybee tell others where flowers are?",
+      "ja": "ミツバチは 花の 場所を どうやって 仲間に 伝える？",
+      "choices": [
+        "She does a special dance.",
+        "She makes a loud sound.",
+        "She carries a flower home.",
+        "She draws a line in the air."
+      ],
+      "answer": "She does a special dance.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, “harm” means ___.",
+      "ja": "この本で “harm” の 意味は？",
+      "choices": [
+        "to feed",
+        "to follow",
+        "to count",
+        "to hurt"
+      ],
+      "answer": "to hurt",
+      "kind": "vocab"
+    },
+    {
+      "q": "What would probably happen if all bees disappeared?",
+      "ja": "もし ハチが みんな いなくなったら、たぶん どうなる？",
+      "choices": [
+        "Flowers would grow much bigger.",
+        "Many fruits would become hard to get.",
+        "Farms would need less water.",
+        "Wild flowers would cover the cities."
+      ],
+      "answer": "Many fruits would become hard to get.",
+      "kind": "infer"
+    }
+  ]
+}

@@ -1,0 +1,539 @@
+{
+  "id": "rd-1-leos-bad-morning",
+  "stage": "1",
+  "title": "Leo’s Bad Morning",
+  "titleJa": "レオの ついてない あさ",
+  "kind": "story",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "🌧️",
+        "x": 50,
+        "y": 14,
+        "s": 2.8,
+        "a": "drift"
+      },
+      {
+        "e": "👦",
+        "x": 34,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "😠",
+        "x": 34,
+        "y": 40,
+        "s": 1.2
+      },
+      {
+        "e": "☂️",
+        "x": 56,
+        "y": 50,
+        "s": 2.4
+      },
+      {
+        "e": "🐶",
+        "x": 76,
+        "y": 76,
+        "s": 2.4
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Leo gets up late. He cannot find his socks.",
+      "ja": "レオは ねぼうした。くつしたが みつからない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 32,
+            "y": 70,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "😟",
+            "x": 32,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "⏰",
+            "x": 62,
+            "y": 40,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧦",
+            "x": 84,
+            "y": 82,
+            "s": 1.4
+          },
+          {
+            "e": "❓",
+            "x": 80,
+            "y": 26,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "At breakfast, his milk falls. His shirt is wet.",
+      "ja": "あさごはんで ぎゅうにゅうを こぼす。シャツが ぬれた。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👦",
+            "x": 34,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😣",
+            "x": 34,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🥛",
+            "x": 62,
+            "y": 70,
+            "s": 2.2,
+            "a": "spin"
+          },
+          {
+            "e": "💦",
+            "x": 50,
+            "y": 58,
+            "s": 1.6,
+            "a": "hop"
+          },
+          {
+            "e": "🍞",
+            "x": 82,
+            "y": 76,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "It is raining. Leo runs to the bus stop.",
+      "ja": "あめが ふっている。レオは バスていへ はしる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 50,
+            "y": 14,
+            "s": 2.8,
+            "a": "drift"
+          },
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "☂️",
+            "x": 54,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "💨",
+            "x": 20,
+            "y": 70,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🪧",
+            "x": 86,
+            "y": 62,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "The bus is going away. Leo is angry.",
+      "ja": "バスは いって しまう。レオは おこっている。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 80,
+            "y": 66,
+            "s": 3.2,
+            "a": "drift"
+          },
+          {
+            "e": "💨",
+            "x": 58,
+            "y": 70,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😠",
+            "x": 24,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "💢",
+            "x": 40,
+            "y": 28,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He sits down. “This is a bad morning,” he says.",
+      "ja": "レオは すわる。「ついてない あさだ」と いう。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 30,
+            "y": 14,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "🪑",
+            "x": 50,
+            "y": 76,
+            "s": 2.6
+          },
+          {
+            "e": "👦",
+            "x": 50,
+            "y": 66,
+            "s": 3.2
+          },
+          {
+            "e": "😔",
+            "x": 50,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🪧",
+            "x": 86,
+            "y": 62,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "A little dog comes. It is wet and cold.",
+      "ja": "ちいさな いぬが くる。ぬれて さむそうだ。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 60,
+            "y": 14,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "🐶",
+            "x": 66,
+            "y": 74,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "😢",
+            "x": 66,
+            "y": 52,
+            "s": 1.2
+          },
+          {
+            "e": "💧",
+            "x": 82,
+            "y": 50,
+            "s": 1.2,
+            "a": "bob"
+          },
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Leo holds his umbrella over the dog.",
+      "ja": "レオは いぬの うえに かさを さして あげる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "☂️",
+            "x": 60,
+            "y": 44,
+            "s": 3.2,
+            "a": "sway"
+          },
+          {
+            "e": "🐶",
+            "x": 62,
+            "y": 76,
+            "s": 2.6
+          },
+          {
+            "e": "🌧️",
+            "x": 60,
+            "y": 12,
+            "s": 2.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The dog licks his hand. Leo laughs.",
+      "ja": "いぬが レオの てを なめる。レオは わらう。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 32,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 32,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🐶",
+            "x": 58,
+            "y": 74,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "❤️",
+            "x": 46,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The next bus comes. Leo waves goodbye to the dog.",
+      "ja": "つぎの バスが くる。レオは いぬに バイバイと てを ふる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 26,
+            "y": 66,
+            "s": 4.2
+          },
+          {
+            "e": "👦",
+            "x": 56,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👋",
+            "x": 70,
+            "y": 48,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "🐶",
+            "x": 86,
+            "y": 76,
+            "s": 2.4,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "“It is not a bad morning now,” he says.",
+      "ja": "「もう ついてない あさじゃ ないや」と レオは いう。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 80,
+            "y": 18,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🚌",
+            "x": 50,
+            "y": 68,
+            "s": 5,
+            "a": "bob"
+          },
+          {
+            "e": "😊",
+            "x": 20,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌈",
+            "x": 40,
+            "y": 22,
+            "s": 2.2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "late",
+      "ja": "おそく"
+    },
+    {
+      "en": "socks",
+      "ja": "くつした"
+    },
+    {
+      "en": "breakfast",
+      "ja": "あさごはん"
+    },
+    {
+      "en": "wet",
+      "ja": "ぬれている"
+    },
+    {
+      "en": "bus stop",
+      "ja": "バスてい"
+    },
+    {
+      "en": "angry",
+      "ja": "おこっている"
+    },
+    {
+      "en": "umbrella",
+      "ja": "かさ"
+    },
+    {
+      "en": "licks",
+      "ja": "なめる"
+    },
+    {
+      "en": "laughs",
+      "ja": "わらう"
+    },
+    {
+      "en": "next",
+      "ja": "つぎの"
+    },
+    {
+      "en": "waves",
+      "ja": "てを ふる"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story about?",
+      "ja": "これは なにの おはなし？",
+      "choices": [
+        "A bad morning gets better.",
+        "A dog gets on a school bus.",
+        "A boy buys a new umbrella."
+      ],
+      "answer": "A bad morning gets better.",
+      "kind": "main"
+    },
+    {
+      "q": "What falls at breakfast?",
+      "ja": "あさごはんで こぼしたのは なに？",
+      "choices": [
+        "his bread",
+        "his milk",
+        "his egg"
+      ],
+      "answer": "his milk",
+      "kind": "detail"
+    },
+    {
+      "q": "What does Leo hold over the dog?",
+      "ja": "レオは いぬの うえに なにを さして あげるの？",
+      "choices": [
+        "his bag",
+        "his shirt",
+        "his umbrella"
+      ],
+      "answer": "his umbrella",
+      "kind": "detail"
+    },
+    {
+      "q": "What happens first?",
+      "ja": "さいしょに おこるのは どれ？",
+      "choices": [
+        "Leo cannot find his socks.",
+        "The dog licks Leo’s hand.",
+        "The bus goes away."
+      ],
+      "answer": "Leo cannot find his socks.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why is the morning not bad at the end?",
+      "ja": "どうして さいごは 「ついてない あさ」じゃ ないの？",
+      "choices": [
+        "The rain stops at once.",
+        "Leo helps a dog and feels happy.",
+        "Leo finds his socks on the bus."
+      ],
+      "answer": "Leo helps a dog and feels happy.",
+      "kind": "infer"
+    }
+  ]
+}

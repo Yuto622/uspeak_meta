@@ -1,0 +1,401 @@
+{
+  "id": "rd-A-rain-on-my-hat",
+  "stage": "A",
+  "title": "Rain on My Hat",
+  "titleJa": "ぼうしに あめ",
+  "kind": "story",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "🌧️",
+        "x": 50,
+        "y": 16,
+        "s": 3,
+        "a": "drift"
+      },
+      {
+        "e": "👦",
+        "x": 34,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "🐸",
+        "x": 68,
+        "y": 74,
+        "s": 2.8,
+        "a": "hop"
+      },
+      {
+        "e": "💧",
+        "x": 82,
+        "y": 40,
+        "s": 1.2,
+        "a": "bob"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Rain on my hat.",
+      "ja": "ぼうしに あめ。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 50,
+            "y": 14,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧢",
+            "x": 66,
+            "y": 62,
+            "s": 3.2,
+            "a": "pulse"
+          },
+          {
+            "e": "💧",
+            "x": 66,
+            "y": 36,
+            "s": 1.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rain on my coat.",
+      "ja": "コートに あめ。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 50,
+            "y": 14,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧥",
+            "x": 66,
+            "y": 62,
+            "s": 3.4,
+            "a": "pulse"
+          },
+          {
+            "e": "💧",
+            "x": 66,
+            "y": 34,
+            "s": 1.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rain on my boots.",
+      "ja": "ながぐつに あめ。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 50,
+            "y": 14,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "👢",
+            "x": 66,
+            "y": 70,
+            "s": 3.2,
+            "a": "pulse"
+          },
+          {
+            "e": "💦",
+            "x": 82,
+            "y": 74,
+            "s": 1.6,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rain on my dog.",
+      "ja": "いぬに あめ。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 50,
+            "y": 14,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🐶",
+            "x": 64,
+            "y": 72,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "💧",
+            "x": 64,
+            "y": 34,
+            "s": 1.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Is the frog sad?",
+      "ja": "かえるさんは かなしいの？",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 30,
+            "y": 14,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "🐸",
+            "x": 52,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "❓",
+            "x": 76,
+            "y": 28,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "🍃",
+            "x": 20,
+            "y": 76,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "No! The frog sings.",
+      "ja": "ちがうよ！ かえるさんは うたっている。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 26,
+            "y": 14,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "🐸",
+            "x": 50,
+            "y": 72,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 50,
+            "y": 46,
+            "s": 1.2
+          },
+          {
+            "e": "🎵",
+            "x": 72,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🎶",
+            "x": 84,
+            "y": 18,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "We sing, too!",
+      "ja": "ぼくたちも うたうよ！",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 50,
+            "y": 12,
+            "s": 2.4,
+            "a": "drift"
+          },
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 24,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🐶",
+            "x": 50,
+            "y": 72,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "🐸",
+            "x": 76,
+            "y": 74,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "🎶",
+            "x": 62,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "rain",
+      "ja": "あめ"
+    },
+    {
+      "en": "hat",
+      "ja": "ぼうし"
+    },
+    {
+      "en": "coat",
+      "ja": "コート・うわぎ"
+    },
+    {
+      "en": "boots",
+      "ja": "ながぐつ"
+    },
+    {
+      "en": "frog",
+      "ja": "かえる"
+    },
+    {
+      "en": "sad",
+      "ja": "かなしい"
+    },
+    {
+      "en": "sings",
+      "ja": "うたう"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a hot day",
+        "a snowy day",
+        "a rainy day"
+      ],
+      "answer": "a rainy day",
+      "kind": "main"
+    },
+    {
+      "q": "What is first in the rain?",
+      "ja": "さいしょに あめに ぬれるのは？",
+      "choices": [
+        "the hat",
+        "the boots",
+        "the dog"
+      ],
+      "answer": "the hat",
+      "kind": "sequence"
+    },
+    {
+      "q": "Is the frog sad?",
+      "ja": "かえるさんは かなしいの？",
+      "choices": [
+        "Yes. It is sad.",
+        "No. It sings.",
+        "Yes. It is cold."
+      ],
+      "answer": "No. It sings.",
+      "kind": "detail"
+    },
+    {
+      "q": "What are \"boots\"?",
+      "ja": "\"boots\" は なに？",
+      "choices": [
+        "food",
+        "toys",
+        "shoes"
+      ],
+      "answer": "shoes",
+      "kind": "vocab"
+    },
+    {
+      "q": "What do they do at the end?",
+      "ja": "さいごに みんなは なにを するの？",
+      "choices": [
+        "They sing.",
+        "They sleep.",
+        "They eat."
+      ],
+      "answer": "They sing.",
+      "kind": "detail"
+    }
+  ]
+}

@@ -1,0 +1,722 @@
+{
+  "id": "rd-5-roof-stars",
+  "stage": "5",
+  "title": "Stars on the Roof",
+  "titleJa": "屋上の 星空",
+  "kind": "story",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "🏢",
+        "x": 22,
+        "y": 54,
+        "s": 4
+      },
+      {
+        "e": "👦",
+        "x": 55,
+        "y": 70,
+        "s": 3.4
+      },
+      {
+        "e": "🕯️",
+        "x": 76,
+        "y": 74,
+        "s": 2,
+        "a": "pulse"
+      },
+      {
+        "e": "⭐",
+        "x": 40,
+        "y": 14,
+        "s": 1.8,
+        "a": "pulse"
+      },
+      {
+        "e": "⭐",
+        "x": 78,
+        "y": 22,
+        "s": 1.4,
+        "a": "pulse"
+      },
+      {
+        "e": "⭐",
+        "x": 60,
+        "y": 10,
+        "s": 1.2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "It was a hot summer evening. Haru was playing a video game when suddenly everything went dark and quiet.",
+      "ja": "暑い 夏の 夕方でした。ハルが テレビゲームを していると、とつぜん 何もかも 暗く 静かに なりました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 37,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "📺",
+            "x": 68,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "⚫",
+            "x": 68,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "❗",
+            "x": 50,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"The power is out in the whole building,\" said his mother. She found a flashlight, but its light was weak.",
+      "ja": "「建物 全体が 停電みたいね」と お母さんが 言いました。かい中電灯を 見つけましたが、その 光は 弱いものでした。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👩",
+            "x": 30,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "🔦",
+            "x": 48,
+            "y": 54,
+            "s": 2
+          },
+          {
+            "e": "✨",
+            "x": 62,
+            "y": 50,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 76,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🏢",
+            "x": 94,
+            "y": 50,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Haru did not like the dark. The apartment felt strange without the sound of the TV and the air conditioner.",
+      "ja": "ハルは 暗いのが 苦手でした。テレビや エアコンの 音が しない 部屋は、いつもと ちがう 感じが しました。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👦",
+            "x": 45,
+            "y": 72,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 47,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "📺",
+            "x": 80,
+            "y": 70,
+            "s": 2.2
+          },
+          {
+            "e": "🚫",
+            "x": 80,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "🛋️",
+            "x": 14,
+            "y": 76,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Let's go up to the roof,\" his mother said. \"It will be cooler there.\" They climbed the stairs slowly.",
+      "ja": "「屋上に 行きましょう」と お母さんが 言いました。「あっちの ほうが すずしいわ」二人は ゆっくり 階だんを 上りました。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👩",
+            "x": 28,
+            "y": 64,
+            "s": 3.2
+          },
+          {
+            "e": "🔦",
+            "x": 44,
+            "y": 50,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 56,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "⬆️",
+            "x": 78,
+            "y": 36,
+            "s": 2,
+            "a": "hop"
+          },
+          {
+            "e": "🪜",
+            "x": 84,
+            "y": 62,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the roof, they were surprised. Many neighbors were already there, and someone had brought candles.",
+      "ja": "屋上に 着いて、二人は おどろきました。近所の 人たちが もう たくさん 来ていて、だれかが ろうそくを 持って きていました。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👦",
+            "x": 14,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😲",
+            "x": 16,
+            "y": 44,
+            "s": 1.1
+          },
+          {
+            "e": "👴",
+            "x": 42,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👵",
+            "x": 68,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🕯️",
+            "x": 55,
+            "y": 82,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🕯️",
+            "x": 86,
+            "y": 80,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👥",
+            "x": 90,
+            "y": 60,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mr. Sato from the third floor had a problem. \"My ice cream will melt in the freezer,\" he said. \"Please help me eat it!\"",
+      "ja": "3階の サトウさんは こまっていました。「冷とう庫の アイスクリームが とけて しまうんだ」と 言いました。「食べるのを 手伝って ください！」",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👴",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😅",
+            "x": 37,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🍦",
+            "x": 54,
+            "y": 58,
+            "s": 2.2
+          },
+          {
+            "e": "🍨",
+            "x": 66,
+            "y": 74,
+            "s": 2
+          },
+          {
+            "e": "🍧",
+            "x": 78,
+            "y": 74,
+            "s": 2
+          },
+          {
+            "e": "💧",
+            "x": 54,
+            "y": 76,
+            "s": 1.2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Soon everybody was sharing food. Mrs. Lin brought dumplings, and the twins from next door brought a watermelon.",
+      "ja": "まもなく、みんなが 食べ物を 分け合い始めました。リンさんは ぎょうざを、となりの ふたごは スイカを 持って きました。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👩‍🦳",
+            "x": 18,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🥟",
+            "x": 34,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🧒",
+            "x": 50,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "🍉",
+            "x": 64,
+            "y": 78,
+            "s": 2.2
+          },
+          {
+            "e": "👧",
+            "x": 80,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "🕯️",
+            "x": 92,
+            "y": 82,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "An old woman began to play her guitar. Haru had lived there for five years, but he had never heard her play.",
+      "ja": "おばあさんが ギターを ひき始めました。ハルは ここに 5年 住んでいますが、おばあさんの 演そうを 聞いたのは 初めてでした。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👵",
+            "x": 34,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🎸",
+            "x": 50,
+            "y": 62,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🎵",
+            "x": 62,
+            "y": 34,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "🎶",
+            "x": 22,
+            "y": 30,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "👦",
+            "x": 80,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😮",
+            "x": 82,
+            "y": 44,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then a little girl pointed up. \"Look!\" Without the city lights, the sky was full of stars.",
+      "ja": "そのとき、小さな 女の子が 上を 指さしました。「見て！」町の 明かりが ないので、空は 星で いっぱいでした。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👉",
+            "x": 40,
+            "y": 46,
+            "s": 1.6
+          },
+          {
+            "e": "⭐",
+            "x": 20,
+            "y": 14,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 44,
+            "y": 22,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 62,
+            "y": 12,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 82,
+            "y": 24,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🌟",
+            "x": 72,
+            "y": 34,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I have never seen so many,\" said Haru. He lay on his back and forgot that he was afraid of the dark.",
+      "ja": "「こんなに たくさん 見たのは 初めてだ」と ハルは 言いました。あおむけに ねころんで、暗いのが こわい ことを わすれました。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👦",
+            "x": 45,
+            "y": 76,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 47,
+            "y": 48,
+            "s": 1.2
+          },
+          {
+            "e": "⭐",
+            "x": 24,
+            "y": 16,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 50,
+            "y": 12,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 76,
+            "y": 20,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "💫",
+            "x": 64,
+            "y": 32,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "When the lights came back on, everyone said, \"Oh...\" Nobody wanted to go home yet.",
+      "ja": "電気が もどると、みんな 「ああ…」と 言いました。まだ だれも 家に 帰りたく なかったのです。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🏢",
+            "x": 16,
+            "y": 52,
+            "s": 4
+          },
+          {
+            "e": "💡",
+            "x": 16,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 44,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😔",
+            "x": 46,
+            "y": 44,
+            "s": 1.1
+          },
+          {
+            "e": "👴",
+            "x": 70,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👵",
+            "x": 94,
+            "y": 70,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now, on the first Saturday of every month, the neighbors meet on the roof. They call it \"Lights Out Night.\"",
+      "ja": "今では、毎月 最初の 土曜日に、近所の 人たちが 屋上に 集まります。みんなは それを 「消灯ナイト」と よんでいます。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "📅",
+            "x": 14,
+            "y": 30,
+            "s": 2.2
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👵",
+            "x": 54,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🎸",
+            "x": 68,
+            "y": 64,
+            "s": 2
+          },
+          {
+            "e": "👴",
+            "x": 86,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🕯️",
+            "x": 42,
+            "y": 82,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 60,
+            "y": 12,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "suddenly",
+      "ja": "とつぜん"
+    },
+    {
+      "en": "power",
+      "ja": "電気・電力"
+    },
+    {
+      "en": "flashlight",
+      "ja": "かい中電灯"
+    },
+    {
+      "en": "weak",
+      "ja": "弱い"
+    },
+    {
+      "en": "roof",
+      "ja": "屋上・屋根"
+    },
+    {
+      "en": "neighbors",
+      "ja": "近所の 人たち"
+    },
+    {
+      "en": "candles",
+      "ja": "ろうそく"
+    },
+    {
+      "en": "melt",
+      "ja": "とける"
+    },
+    {
+      "en": "sharing",
+      "ja": "分け合っている"
+    },
+    {
+      "en": "twins",
+      "ja": "ふたご"
+    },
+    {
+      "en": "pointed",
+      "ja": "指さした"
+    },
+    {
+      "en": "afraid",
+      "ja": "こわがって"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "a boy who wins a difficult video game",
+        "neighbors who become friends in the dark",
+        "an old woman who teaches guitar lessons",
+        "a family who moves to a new apartment"
+      ],
+      "answer": "neighbors who become friends in the dark",
+      "kind": "main"
+    },
+    {
+      "q": "Why did Haru and his mother go to the roof?",
+      "ja": "ハルと お母さんは なぜ 屋上に 行ったのですか。",
+      "choices": [
+        "They heard guitar music from there.",
+        "They wanted to fix the power.",
+        "A neighbor invited them to dinner.",
+        "It was cooler than their apartment."
+      ],
+      "answer": "It was cooler than their apartment.",
+      "kind": "detail"
+    },
+    {
+      "q": "What was Mr. Sato's problem?",
+      "ja": "サトウさんは 何に こまっていましたか。",
+      "choices": [
+        "His ice cream was going to melt.",
+        "His flashlight was too weak.",
+        "He could not climb the stairs.",
+        "He had lost his favorite guitar."
+      ],
+      "answer": "His ice cream was going to melt.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened just after the girl pointed up?",
+      "ja": "女の子が 上を 指さした すぐ あとに、何が 起こりましたか。",
+      "choices": [
+        "The neighbors shared dumplings.",
+        "Haru's video game went dark.",
+        "Haru looked at the stars.",
+        "An old woman played her guitar."
+      ],
+      "answer": "Haru looked at the stars.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did everyone say \"Oh...\" when the lights came back?",
+      "ja": "電気が もどった とき、みんなは なぜ 「ああ…」と 言ったのですか。",
+      "choices": [
+        "They were having a good time.",
+        "They were afraid of the lights.",
+        "The ice cream was all gone.",
+        "The stars were too bright."
+      ],
+      "answer": "They were having a good time.",
+      "kind": "infer"
+    }
+  ]
+}

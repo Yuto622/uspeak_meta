@@ -15,6 +15,7 @@
 .hw-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .hw-card { display: flex; gap: 12px; align-items: center; background: #fff; border: 2px solid #f0e2c4; border-radius: 16px; padding: 12px 14px; }
 .hw-card.is-done { background: #f6fbf6; border-color: #cfe6d3; }
+.hw-cover { flex: none; width: 92px; height: 69px; object-fit: cover; border-radius: 10px; box-shadow: 0 0 0 2px #fff, 0 2px 6px #0003; background: #f3ead6; }
 .hw-card-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
 .hw-name { font-size: 17px; }
 .hw-card-main small { font-size: 12px; color: #6e665c; }

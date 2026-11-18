@@ -1,0 +1,592 @@
+{
+  "id": "rd-8-lights-out",
+  "stage": "8",
+  "title": "The Night the Lights Went Out",
+  "titleJa": "明かりが 消えた 夜",
+  "kind": "story",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "🏢",
+        "x": 50,
+        "y": 50,
+        "s": 4.6
+      },
+      {
+        "e": "🔦",
+        "x": 26,
+        "y": 76,
+        "s": 2,
+        "a": "sway"
+      },
+      {
+        "e": "🕯",
+        "x": 74,
+        "y": 76,
+        "s": 2,
+        "a": "pulse"
+      },
+      {
+        "e": "⚡",
+        "x": 80,
+        "y": 20,
+        "s": 2.2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Tomo had lived in the same apartment building for nine years, but he knew almost none of his neighbors. People nodded in the elevator, looked at their phones, and closed their doors. That was simply how the building was.",
+      "ja": "トモは 同じ 集合住宅に 九年 住んでいたが、近所の 人を ほとんど 知らなかった。みんな エレベーターで 軽く 頭を 下げ、スマホを 見て、ドアを しめる。この 建物は そういう 所だった。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏢",
+            "x": 50,
+            "y": 48,
+            "s": 4.4
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🧑",
+            "x": 78,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "📱",
+            "x": 68,
+            "y": 60,
+            "s": 1.2
+          },
+          {
+            "e": "🚪",
+            "x": 92,
+            "y": 68,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "One evening in August, a powerful storm passed over the city. At eight o’clock, there was a loud crack, and every light in the building went out. The air conditioners stopped. The elevator stopped. Tomo’s mother was still at work.",
+      "ja": "八月の ある 夕方、強い あらしが 町を 通った。八時、大きな 音が して、建物の 明かりが 全部 消えた。エアコンが 止まった。エレベーターも 止まった。お母さんは まだ 仕事中だった。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "⚡",
+            "x": 30,
+            "y": 20,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🌧",
+            "x": 68,
+            "y": 18,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "🏢",
+            "x": 50,
+            "y": 54,
+            "s": 4
+          },
+          {
+            "e": "👦",
+            "x": 18,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "😲",
+            "x": 18,
+            "y": 54,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Tomo found a flashlight and felt quite proud of how calm he was. Then he remembered the old man on the eighth floor. He walked with a cane, and Tomo had never once seen anyone visit him.",
+      "ja": "トモは かい中電灯を 見つけ、自分の 落ち着きを ちょっと ほこらしく 思った。その時、八階の おじいさんを 思い出した。つえを ついて 歩く 人で、だれかが たずねてくるのを 一度も 見たことが ない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🔦",
+            "x": 50,
+            "y": 58,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "💭",
+            "x": 68,
+            "y": 28,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👴",
+            "x": 68,
+            "y": 27,
+            "s": 1.3
+          },
+          {
+            "e": "🛋",
+            "x": 86,
+            "y": 76,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "It was not Tomo’s responsibility. He did not even know the man’s name. Besides, the stairs were completely dark, and his mother had told him to stay inside. There were plenty of good reasons to do nothing.",
+      "ja": "それは トモの 責任では ない。名前さえ 知らないのだ。それに 階段は 真っ暗で、お母さんには 家に いるよう 言われている。何も しないで いる もっともな 理由は、いくらでも あった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🚪",
+            "x": 72,
+            "y": 62,
+            "s": 3.2
+          },
+          {
+            "e": "🚫",
+            "x": 72,
+            "y": 30,
+            "s": 1.8
+          },
+          {
+            "e": "🔦",
+            "x": 22,
+            "y": 80,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "But the heat was already rising, and an old person alone in a dark, hot room could be in real danger. Tomo sent his mother a message, filled a bottle with cold water, and climbed five floors with his flashlight.",
+      "ja": "でも 室温は もう 上がり始めている。暗くて 暑い 部屋に 一人で いる お年寄りは、本当に 危ないかも しれない。トモは お母さんに メッセージを 送り、ボトルに 冷たい 水を 入れ、かい中電灯を 手に 五階分 のぼった。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🪜",
+            "x": 62,
+            "y": 54,
+            "s": 4
+          },
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "🔦",
+            "x": 48,
+            "y": 56,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "🥤",
+            "x": 22,
+            "y": 76,
+            "s": 1.6
+          },
+          {
+            "e": "⬆",
+            "x": 82,
+            "y": 30,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He knocked. No answer. He knocked again, louder. “Hello? I live on the third floor! Are you all right?” At last the door opened slowly. The old man stood there, breathing hard, holding the wall with one hand.",
+      "ja": "ノックした。返事は ない。もう一度、もっと 強く ノックした。「こんばんは。三階の 者です！ 大じょうぶですか」。やっと ドアが ゆっくり 開いた。おじいさんが、あらい 息で、片手を かべに ついて 立っていた。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🚪",
+            "x": 60,
+            "y": 62,
+            "s": 3.4
+          },
+          {
+            "e": "👴",
+            "x": 80,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😟",
+            "x": 80,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "✊",
+            "x": 46,
+            "y": 54,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🔦",
+            "x": 16,
+            "y": 78,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "“I couldn’t find my flashlight,” the man said, embarrassed. “I was afraid of falling.” His name was Mr. Hayashi. Tomo gave him the water, opened the windows, and helped him to a chair near the cool night air.",
+      "ja": "「かい中電灯が 見つからなくてね」と おじいさんは はずかしそうに 言った。「転ぶのが こわかったんだ」。名前は ハヤシさん。トモは 水を わたし、まどを 開け、すずしい 夜風の 入る いすまで 手を かした。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👴",
+            "x": 64,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🪑",
+            "x": 64,
+            "y": 80,
+            "s": 2.2
+          },
+          {
+            "e": "🥤",
+            "x": 48,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🪟",
+            "x": 88,
+            "y": 40,
+            "s": 2.6
+          },
+          {
+            "e": "🌬",
+            "x": 88,
+            "y": 22,
+            "s": 1.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then Tomo had an idea. He went along the hallway knocking on doors. Soon a nurse from the seventh floor was checking on Mr. Hayashi, a family brought candles, and children carried chairs into the hallway.",
+      "ja": "そこで トモは 思いついた。ろう下を 歩いて、ドアを 次々と ノックしたのだ。まもなく 七階の 看護師が ハヤシさんの 様子を 見てくれ、ある 家族が ろうそくを 持ってきて、子どもたちが いすを ろう下に 運んだ。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👦",
+            "x": 20,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "💡",
+            "x": 20,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🚪",
+            "x": 42,
+            "y": 64,
+            "s": 2.6
+          },
+          {
+            "e": "👩",
+            "x": 64,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🕯",
+            "x": 80,
+            "y": 74,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🪑",
+            "x": 92,
+            "y": 78,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "For two hours, people who had never spoken sat together by candlelight, sharing snacks and stories. Mr. Hayashi, it turned out, had been a ship’s engineer, and he had sailed to more than thirty countries.",
+      "ja": "二時間の 間、話したことも なかった 人たちが、ろうそくの 明かりの 下で いっしょに すわり、おかしと 話を 分け合った。ハヤシさんは、じつは 船の 機関士で、三十か国 以上へ 航海した 人だった。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👴",
+            "x": 50,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😄",
+            "x": 50,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🚢",
+            "x": 50,
+            "y": 24,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "🕯",
+            "x": 32,
+            "y": 80,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🕯",
+            "x": 68,
+            "y": 80,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 18,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "👥",
+            "x": 84,
+            "y": 72,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "When the lights came back, everybody cheered, but nobody hurried home. After that night, people in the building said good morning to each other. And every Sunday, Tomo climbed five floors to hear another story about the sea.",
+      "ja": "明かりが もどると、みんな かん声を 上げたが、急いで 帰る 人は いなかった。その夜から、建物の 人たちは 「おはよう」と 言い合うように なった。そして 毎週 日曜日、トモは 海の 話を 聞きに、五階分 のぼった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👴",
+            "x": 64,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💬",
+            "x": 64,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🌊",
+            "x": 84,
+            "y": 30,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "💡",
+            "x": 46,
+            "y": 16,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "neighbors",
+      "ja": "近所の 人たち"
+    },
+    {
+      "en": "elevator",
+      "ja": "エレベーター"
+    },
+    {
+      "en": "flashlight",
+      "ja": "かい中電灯"
+    },
+    {
+      "en": "cane",
+      "ja": "つえ"
+    },
+    {
+      "en": "responsibility",
+      "ja": "責任"
+    },
+    {
+      "en": "plenty",
+      "ja": "たくさん"
+    },
+    {
+      "en": "danger",
+      "ja": "危険"
+    },
+    {
+      "en": "embarrassed",
+      "ja": "はずかしそうな"
+    },
+    {
+      "en": "hallway",
+      "ja": "ろう下"
+    },
+    {
+      "en": "candles",
+      "ja": "ろうそく"
+    },
+    {
+      "en": "engineer",
+      "ja": "機関士、技術者"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A storm that destroys an old building",
+        "An engineer who repairs the electricity",
+        "A mother who comes home very late from her work",
+        "A boy whose kindness connects his neighbors"
+      ],
+      "answer": "A boy whose kindness connects his neighbors",
+      "kind": "main"
+    },
+    {
+      "q": "Why was Tomo worried about the old man?",
+      "ja": "トモは なぜ おじいさんを 心配した？",
+      "choices": [
+        "He had heard him shouting loudly for help.",
+        "He lived alone and walked with a cane.",
+        "His mother had asked him to visit.",
+        "The man had been sick the day before."
+      ],
+      "answer": "He lived alone and walked with a cane.",
+      "kind": "detail"
+    },
+    {
+      "q": "What had Mr. Hayashi done as a job?",
+      "ja": "ハヤシさんは どんな 仕事を していた？",
+      "choices": [
+        "He had been a nurse.",
+        "He had built apartment buildings.",
+        "He had been a ship’s engineer.",
+        "He had sold candles."
+      ],
+      "answer": "He had been a ship’s engineer.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Tomo do just before he climbed the stairs?",
+      "ja": "トモは 階段を のぼる 直前に 何を した？",
+      "choices": [
+        "He sent his mother a message.",
+        "He knocked on every door.",
+        "He carried chairs to the hallway.",
+        "He listened to stories of the sea."
+      ],
+      "answer": "He sent his mother a message.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did nobody hurry home when the lights came back?",
+      "ja": "明かりが もどった時、なぜ だれも 急いで 帰らなかった？",
+      "choices": [
+        "They were enjoying each other’s company.",
+        "The elevator was still not working.",
+        "They were afraid of another storm.",
+        "Mr. Hayashi asked them all to stay."
+      ],
+      "answer": "They were enjoying each other’s company.",
+      "kind": "infer"
+    }
+  ]
+}

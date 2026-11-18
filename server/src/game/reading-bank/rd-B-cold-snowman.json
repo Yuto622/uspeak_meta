@@ -1,0 +1,412 @@
+{
+  "id": "rd-B-cold-snowman",
+  "stage": "B",
+  "title": "My Snowman Is Cold",
+  "titleJa": "ゆきだるまが さむそう",
+  "kind": "story",
+  "cover": {
+    "bg": "snow",
+    "items": [
+      {
+        "e": "⛄",
+        "x": 62,
+        "y": 66,
+        "s": 4.4
+      },
+      {
+        "e": "👦",
+        "x": 28,
+        "y": 70,
+        "s": 3.4,
+        "a": "bob"
+      },
+      {
+        "e": "❄️",
+        "x": 20,
+        "y": 22,
+        "s": 1.6,
+        "a": "drift"
+      },
+      {
+        "e": "❄️",
+        "x": 84,
+        "y": 30,
+        "s": 1.4,
+        "a": "drift"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "It is white outside. Snow!",
+      "ja": "そとは まっしろ。ゆきだ！",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👦",
+            "x": 36,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 36,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "❄️",
+            "x": 20,
+            "y": 22,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "❄️",
+            "x": 62,
+            "y": 30,
+            "s": 1.6,
+            "a": "drift"
+          },
+          {
+            "e": "🏠",
+            "x": 80,
+            "y": 62,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "I make a big ball of snow.",
+      "ja": "おおきい ゆきの たまを つくる。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "⚪",
+            "x": 64,
+            "y": 72,
+            "s": 3.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I make a small ball of snow.",
+      "ja": "ちいさい ゆきの たまを つくる。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "⚪",
+            "x": 64,
+            "y": 74,
+            "s": 3.6
+          },
+          {
+            "e": "⚪",
+            "x": 64,
+            "y": 50,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I give him a carrot nose.",
+      "ja": "にんじんの はなを つけて あげる。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🥕",
+            "x": 46,
+            "y": 50,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "⛄",
+            "x": 68,
+            "y": 66,
+            "s": 4.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "My snowman looks cold.",
+      "ja": "ゆきだるまが さむそうだ。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "⛄",
+            "x": 60,
+            "y": 66,
+            "s": 4.4,
+            "a": "sway"
+          },
+          {
+            "e": "🥶",
+            "x": 82,
+            "y": 34,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😟",
+            "x": 24,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "💨",
+            "x": 42,
+            "y": 30,
+            "s": 1.8,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I give him my hat and scarf.",
+      "ja": "ぼくの ぼうしと マフラーを あげる。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "⛄",
+            "x": 64,
+            "y": 68,
+            "s": 4.2
+          },
+          {
+            "e": "🧢",
+            "x": 64,
+            "y": 38,
+            "s": 1.8
+          },
+          {
+            "e": "🧣",
+            "x": 44,
+            "y": 56,
+            "s": 1.8,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now I am cold! I run home.",
+      "ja": "こんどは ぼくが さむい！ はしって かえる。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👦",
+            "x": 46,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😨",
+            "x": 46,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "💨",
+            "x": 26,
+            "y": 66,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🏠",
+            "x": 82,
+            "y": 62,
+            "s": 3.2
+          },
+          {
+            "e": "❄️",
+            "x": 30,
+            "y": 22,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "My snowman is warm. I am warm, too.",
+      "ja": "ゆきだるまは あったかい。ぼくも あったかい。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😊",
+            "x": 30,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "☕",
+            "x": 52,
+            "y": 74,
+            "s": 1.8
+          },
+          {
+            "e": "🪟",
+            "x": 78,
+            "y": 42,
+            "s": 3.4
+          },
+          {
+            "e": "⛄",
+            "x": 78,
+            "y": 44,
+            "s": 1.6
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "snow",
+      "ja": "ゆき"
+    },
+    {
+      "en": "snowman",
+      "ja": "ゆきだるま"
+    },
+    {
+      "en": "make",
+      "ja": "つくる"
+    },
+    {
+      "en": "give",
+      "ja": "あげる"
+    },
+    {
+      "en": "nose",
+      "ja": "はな"
+    },
+    {
+      "en": "cold",
+      "ja": "さむい"
+    },
+    {
+      "en": "scarf",
+      "ja": "マフラー"
+    },
+    {
+      "en": "warm",
+      "ja": "あたたかい"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a boy and his little dog",
+        "a very hot day",
+        "a boy and his snowman"
+      ],
+      "answer": "a boy and his snowman",
+      "kind": "main"
+    },
+    {
+      "q": "What is the snowman’s nose?",
+      "ja": "ゆきだるまの はなは なに？",
+      "choices": [
+        "a banana",
+        "a carrot",
+        "a ball"
+      ],
+      "answer": "a carrot",
+      "kind": "detail"
+    },
+    {
+      "q": "What does the boy give the snowman?",
+      "ja": "おとこのこは ゆきだるまに なにを あげるの？",
+      "choices": [
+        "his hat and scarf",
+        "his bag and books",
+        "his shoes"
+      ],
+      "answer": "his hat and scarf",
+      "kind": "detail"
+    },
+    {
+      "q": "What does the boy make first?",
+      "ja": "おとこのこが さいしょに つくるのは？",
+      "choices": [
+        "a small ball",
+        "a big ball",
+        "a nose"
+      ],
+      "answer": "a big ball",
+      "kind": "sequence"
+    },
+    {
+      "q": "What does \"cold\" mean?",
+      "ja": "\"cold\" は どんな いみ？",
+      "choices": [
+        "not warm",
+        "not big",
+        "not sad"
+      ],
+      "answer": "not warm",
+      "kind": "vocab"
+    }
+  ]
+}

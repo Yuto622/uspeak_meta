@@ -1,0 +1,532 @@
+{
+  "id": "rd-6-green-gate",
+  "stage": "6",
+  "title": "The House with the Green Gate",
+  "titleJa": "緑の 門の 家",
+  "kind": "story",
+  "cover": {
+    "bg": "beach",
+    "items": [
+      {
+        "e": "👧",
+        "x": 35,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "🏡",
+        "x": 72,
+        "y": 58,
+        "s": 3.4
+      },
+      {
+        "e": "🧺",
+        "x": 50,
+        "y": 76,
+        "s": 1.6
+      },
+      {
+        "e": "🦀",
+        "x": 85,
+        "y": 80,
+        "s": 1.4,
+        "a": "hop"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Yui’s family moved to a small town by the sea in March. Their new house had a green gate, but to Yui it did not feel like home.",
+      "ja": "ユイの 家族は 三月に、海の そばの 小さな 町へ 引っこした。新しい 家には 緑の 門が あったが、ユイには 自分の 家だと 思えなかった。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "🏡",
+            "x": 68,
+            "y": 58,
+            "s": 3.6
+          },
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😔",
+            "x": 28,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📦",
+            "x": 45,
+            "y": 78,
+            "s": 1.8
+          },
+          {
+            "e": "🚚",
+            "x": 90,
+            "y": 70,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "She missed her old room, her old school, and most of all her best friend, Kana. Every day after school, Yui stayed inside and looked at old photos.",
+      "ja": "前の 部屋も、前の 学校も こいしかった。何よりも、親友の カナに 会いたかった。毎日 学校の 後、ユイは 家の 中で 古い 写真を 見ていた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😢",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🖼",
+            "x": 68,
+            "y": 40,
+            "s": 2.2
+          },
+          {
+            "e": "🖼",
+            "x": 84,
+            "y": 46,
+            "s": 1.8
+          },
+          {
+            "e": "📦",
+            "x": 18,
+            "y": 76,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "One Saturday, Mom baked the lemon cookies that everyone in their old town had loved. “Our neighbors have a boy your age,” she said. “Will you take some to them?”",
+      "ja": "ある土曜日、お母さんは、前の 町で みんなが 大好きだった レモンクッキーを 焼いた。「おとなりに 同い年の 男の子が いるのよ。少し 持っていってくれる？」",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👩",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🍪",
+            "x": 52,
+            "y": 62,
+            "s": 2
+          },
+          {
+            "e": "🍋",
+            "x": 64,
+            "y": 62,
+            "s": 1.4
+          },
+          {
+            "e": "👧",
+            "x": 78,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "💬",
+            "x": 30,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Yui’s stomach hurt. “What if he doesn’t like me? What if I say something strange?” It was easier to stay in her room. Nobody could laugh at her there.",
+      "ja": "ユイは おなかが いたくなった。「きらわれたら どうしよう。変なことを 言ったら どうしよう」。部屋に いる方が 楽だ。そこなら だれにも 笑われない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 45,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 65,
+            "y": 30,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 65,
+            "y": 28,
+            "s": 1.2
+          },
+          {
+            "e": "🛏",
+            "x": 82,
+            "y": 76,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "She picked up the phone and called Kana. “I was scared when you first talked to me, too,” Kana said. “But you said hello first. I am so glad you did.”",
+      "ja": "ユイは 電話を 取って カナに かけた。「はじめて 話しかけられた時、私も こわかったよ」と カナは 言った。「でも ユイが 先に 『こんにちは』って 言ってくれた。本当に うれしかった」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "📱",
+            "x": 55,
+            "y": 55,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 68,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "❤",
+            "x": 82,
+            "y": 30,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Yui thought about that for a while. Then she put the cookies in a basket, walked to the house next door, and knocked before she could change her mind.",
+      "ja": "ユイは しばらく そのことを 考えた。それから クッキーを かごに 入れ、となりの 家まで 歩いて、気が 変わる前に ドアを ノックした。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧺",
+            "x": 50,
+            "y": 74,
+            "s": 1.8
+          },
+          {
+            "e": "🚪",
+            "x": 68,
+            "y": 62,
+            "s": 3.2
+          },
+          {
+            "e": "✊",
+            "x": 58,
+            "y": 52,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A boy with sandy feet opened the door. “Hello. I’m Yui. I live next door,” she said in a small voice. “These are for your family.”",
+      "ja": "足に すなの ついた 男の子が ドアを 開けた。「こんにちは。ユイです。となりに 住んでいます」と 小さな声で 言った。「これ、ご家族で どうぞ」",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👦",
+            "x": 70,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🚪",
+            "x": 88,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧺",
+            "x": 50,
+            "y": 72,
+            "s": 1.8
+          },
+          {
+            "e": "💬",
+            "x": 32,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "“Wow, thanks! I’m Taro,” the boy said, and he ate one at once. “These are great! Do you want to see the crabs? The tide is low now.”",
+      "ja": "「わあ、ありがとう！ ぼくは タロウ」と 男の子は 言って、すぐに 一つ 食べた。「おいしい！ カニを 見に 行かない？ 今は 潮が 引いているんだ」",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👦",
+            "x": 65,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 65,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🍪",
+            "x": 52,
+            "y": 56,
+            "s": 1.4
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🌊",
+            "x": 88,
+            "y": 78,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "They ran to the beach, and Taro showed her tiny crabs hiding under the rocks. Yui laughed for the first time since the move.",
+      "ja": "二人は 浜へ 走り、タロウは 岩の 下に かくれている 小さな カニを 見せてくれた。ユイは 引っこしてから はじめて 笑った。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 28,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 58,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🪨",
+            "x": 80,
+            "y": 78,
+            "s": 2.2
+          },
+          {
+            "e": "🦀",
+            "x": 78,
+            "y": 86,
+            "s": 1.4,
+            "a": "hop"
+          },
+          {
+            "e": "🦀",
+            "x": 90,
+            "y": 84,
+            "s": 1.1,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "That evening, Yui wrote to Kana. “I still miss you. But today I said hello first again. Maybe a home is a place where you have someone to say hello to.”",
+      "ja": "その夕方、ユイは カナに 書いた。「今も 会いたいよ。でも 今日、また 自分から 『こんにちは』って 言えた。家って、『こんにちは』を 言う 相手が いる 場所なのかも」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "✉",
+            "x": 62,
+            "y": 62,
+            "s": 1.8
+          },
+          {
+            "e": "✏",
+            "x": 72,
+            "y": 66,
+            "s": 1.2
+          },
+          {
+            "e": "🌅",
+            "x": 84,
+            "y": 28,
+            "s": 2.2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "moved",
+      "ja": "引っこした"
+    },
+    {
+      "en": "missed",
+      "ja": "こいしく思った"
+    },
+    {
+      "en": "neighbors",
+      "ja": "近所の人たち"
+    },
+    {
+      "en": "stomach",
+      "ja": "おなか"
+    },
+    {
+      "en": "scared",
+      "ja": "こわがって"
+    },
+    {
+      "en": "basket",
+      "ja": "かご"
+    },
+    {
+      "en": "knocked",
+      "ja": "ノックした"
+    },
+    {
+      "en": "tide",
+      "ja": "潮"
+    },
+    {
+      "en": "hiding",
+      "ja": "かくれている"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A girl who learns to bake cookies",
+        "A girl who makes a friend in a new town",
+        "A boy who catches crabs to sell at the market",
+        "A family that paints a gate green"
+      ],
+      "answer": "A girl who makes a friend in a new town",
+      "kind": "main"
+    },
+    {
+      "q": "What did Mom ask Yui to take to the neighbors?",
+      "ja": "お母さんは ユイに、おとなりへ 何を 持っていくよう たのんだ？",
+      "choices": [
+        "Old photos",
+        "A green basket",
+        "A letter from Kana",
+        "Lemon cookies"
+      ],
+      "answer": "Lemon cookies",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Taro show Yui at the beach?",
+      "ja": "タロウは 浜で ユイに 何を 見せた？",
+      "choices": [
+        "A big fishing boat",
+        "His new bicycle",
+        "Tiny crabs under the rocks",
+        "A photo of his school"
+      ],
+      "answer": "Tiny crabs under the rocks",
+      "kind": "detail"
+    },
+    {
+      "q": "In this story, “scared” means ___.",
+      "ja": "この話で “scared” の 意味は？",
+      "choices": [
+        "afraid",
+        "hungry",
+        "sleepy",
+        "proud"
+      ],
+      "answer": "afraid",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Yui knock quickly on the door?",
+      "ja": "ユイは なぜ すぐに ドアを ノックした？",
+      "choices": [
+        "She was late for dinner.",
+        "She was afraid she might give up.",
+        "She heard Taro calling her from the beach.",
+        "She wanted to go home early."
+      ],
+      "answer": "She was afraid she might give up.",
+      "kind": "infer"
+    }
+  ]
+}

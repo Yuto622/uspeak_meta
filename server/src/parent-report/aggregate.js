@@ -107,6 +107,33 @@ export function interviewSummary(events, r) {
     missed: (Array.isArray(last.data.missed) ? last.data.missed : []).map(String).slice(0, 3) };
 }
 
+// ---- 数字 5 つ（レポートの いちばん 上）-------------------------------------------------------
+// その 期間の 学習時間（session の 秒）・英語で 話した 回数（speak）・読んだ 本（よみもの島で ✓ に なった 本＝book）・
+// クイズの 正答率（はじめての 回答だけ。MIN_SHOWN 問 未満は null＝出さない）・覚えた 単語（期間の おわりに 覚えている 数と、期間中に ふえた 数）。
+// どれも 上の 決まりと 同じ 数え方（新しい 指標は 作らない）。
+export function fiveNumbers(rows, r) {
+  const events = Array.isArray(rows) && rows.every((e) => e && e.data && typeof e.ts === 'number') ? rows : normalize(rows);
+  const now = events.filter((e) => inRange(e, r));
+  const clean = now.filter(isQuiz).filter(isClean).filter((e) => correctOf(e) !== null);
+  const changes = masteryTimeline(events.filter((e) => isQuiz(e) && e.ts <= r.end));
+  const held = masteredAt(changes, r.end); const before = masteredAt(changes, r.start - 1);
+  const seen = new Set(); const bookList = [];
+  for (const e of [...now].reverse()) {
+    if (e.type !== 'book' || !e.data.book || seen.has(String(e.data.book))) continue;
+    seen.add(String(e.data.book));
+    bookList.push({ id: String(e.data.book).slice(0, 60), title: String(e.data.title || '').slice(0, 60), stage: String(e.data.stage || '').slice(0, 4), words: Number(e.data.words) || 0, ts: e.ts });
+  }
+  return {
+    minutes: Math.round(now.filter((e) => e.type === 'session').reduce((n, e) => n + (Number(e.data.seconds) || 0), 0) / 60),
+    speak: now.filter((e) => e.type === 'speak').length,
+    books: bookList.length,
+    accuracy: clean.length >= MIN_SHOWN ? Math.round((clean.filter((e) => correctOf(e) === true).length / clean.length) * 100) : null,
+    answered: clean.length,
+    words: held.size, wordsNew: [...held].filter((w) => !before.has(w)).length,
+    bookList: bookList.slice(0, 8),
+  };
+}
+
 // ---- 毎週版 -------------------------------------------------------------------------------
 export function weeklyData(rows, { week, nick = '', sender = '', teacher = null } = {}) {
   const events = normalize(rows);
@@ -183,6 +210,7 @@ export function weeklyData(rows, { week, nick = '', sender = '', teacher = null 
     days, dayCount, streak, answers, prevAnswers, diff, bySource: bySource(inWeek), interview: interviewSummary(events, week),
     learned, next: next ? { en: next, ja: meaningOf(next), fromMiss: nextFromMiss } : null,
     situation, situationArgs: { n: graduated, level: newGrade },
+    five: fiveNumbers(events, week),
     zero: dayCount === 0,
   };
 }
@@ -292,6 +320,7 @@ export function monthlyData(rows, { month, nick = '', sender = '', teacher = nul
     kind: 'monthly', periodKey: month.key, range: jaRange(month), month: month.m, nick, sender, teacher,
     learned: { then, now, sameMonth, firstLabel: `${firstMonth.m}月`, nowLabel: `${month.m}月`, months: Math.max(1, monthsBetween) },
     calendar, firstWeekday, dayCount, skills, best, grade, game, nextStep, bySource: bySource(quiz.filter((e) => inRange(e, month))), interview: interviewSummary(events, month),
+    five: fiveNumbers(events, month),
     zero: dayCount === 0,
   };
 }

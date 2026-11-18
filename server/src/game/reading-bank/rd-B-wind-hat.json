@@ -1,0 +1,407 @@
+{
+  "id": "rd-B-wind-hat",
+  "stage": "B",
+  "title": "The Wind Takes My Hat",
+  "titleJa": "かぜと わたしの ぼうし",
+  "kind": "story",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "👧",
+        "x": 30,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "👒",
+        "x": 66,
+        "y": 28,
+        "s": 2.6,
+        "a": "float"
+      },
+      {
+        "e": "💨",
+        "x": 46,
+        "y": 36,
+        "s": 2,
+        "a": "drift"
+      },
+      {
+        "e": "🌳",
+        "x": 86,
+        "y": 58,
+        "s": 3.4
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "I have a yellow hat.",
+      "ja": "わたしは きいろい ぼうしを もっている。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 34,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😊",
+            "x": 34,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👒",
+            "x": 64,
+            "y": 62,
+            "s": 3,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The wind takes my hat!",
+      "ja": "かぜが ぼうしを とばした！",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 26,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "💨",
+            "x": 50,
+            "y": 40,
+            "s": 2.4,
+            "a": "drift"
+          },
+          {
+            "e": "👒",
+            "x": 72,
+            "y": 34,
+            "s": 2.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "My hat goes up, up, up.",
+      "ja": "ぼうしは うえへ うえへ とんでいく。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "👒",
+            "x": 56,
+            "y": 30,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "☁️",
+            "x": 22,
+            "y": 24,
+            "s": 2.4,
+            "a": "drift"
+          },
+          {
+            "e": "⬆️",
+            "x": 78,
+            "y": 36,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "💨",
+            "x": 44,
+            "y": 60,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "It stops in a tall tree.",
+      "ja": "たかい きに ひっかかった。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 62,
+            "y": 54,
+            "s": 5.6
+          },
+          {
+            "e": "👒",
+            "x": 62,
+            "y": 26,
+            "s": 1.8
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 72,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "I am sad. I cannot get it.",
+      "ja": "かなしい。とどかないよ。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 66,
+            "y": 54,
+            "s": 5.6
+          },
+          {
+            "e": "👒",
+            "x": 66,
+            "y": 26,
+            "s": 1.8
+          },
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😢",
+            "x": 26,
+            "y": 42,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "A bird sits in my hat.",
+      "ja": "とりが ぼうしの なかに すわった。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 50,
+            "y": 76,
+            "s": 5.6
+          },
+          {
+            "e": "👒",
+            "x": 50,
+            "y": 48,
+            "s": 3.2
+          },
+          {
+            "e": "🐦",
+            "x": 50,
+            "y": 36,
+            "s": 2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "She has three eggs in it.",
+      "ja": "ぼうしの なかに たまごが みっつ。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "👒",
+            "x": 50,
+            "y": 62,
+            "s": 5
+          },
+          {
+            "e": "🥚",
+            "x": 38,
+            "y": 50,
+            "s": 1.4
+          },
+          {
+            "e": "🥚",
+            "x": 50,
+            "y": 48,
+            "s": 1.4
+          },
+          {
+            "e": "🥚",
+            "x": 62,
+            "y": 50,
+            "s": 1.4
+          },
+          {
+            "e": "🐦",
+            "x": 80,
+            "y": 34,
+            "s": 2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I smile. It is her home now.",
+      "ja": "わたしは にっこり。もう とりさんの おうちだね。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 68,
+            "y": 54,
+            "s": 5.4
+          },
+          {
+            "e": "👒",
+            "x": 68,
+            "y": 28,
+            "s": 1.8
+          },
+          {
+            "e": "🐦",
+            "x": 68,
+            "y": 18,
+            "s": 1.2
+          },
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😊",
+            "x": 26,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "❤️",
+            "x": 44,
+            "y": 26,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "wind",
+      "ja": "かぜ"
+    },
+    {
+      "en": "hat",
+      "ja": "ぼうし"
+    },
+    {
+      "en": "yellow",
+      "ja": "きいろ"
+    },
+    {
+      "en": "tall",
+      "ja": "たかい"
+    },
+    {
+      "en": "tree",
+      "ja": "き"
+    },
+    {
+      "en": "bird",
+      "ja": "とり"
+    },
+    {
+      "en": "eggs",
+      "ja": "たまご"
+    },
+    {
+      "en": "home",
+      "ja": "おうち"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a lost dog",
+        "a girl’s hat",
+        "a rainy day"
+      ],
+      "answer": "a girl’s hat",
+      "kind": "main"
+    },
+    {
+      "q": "What takes the hat?",
+      "ja": "ぼうしを とばしたのは なに？",
+      "choices": [
+        "the rain",
+        "a cat",
+        "the wind"
+      ],
+      "answer": "the wind",
+      "kind": "detail"
+    },
+    {
+      "q": "Where does the hat stop?",
+      "ja": "ぼうしは どこで とまるの？",
+      "choices": [
+        "in a tree",
+        "in the sea",
+        "on a bus"
+      ],
+      "answer": "in a tree",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"tall\" mean?",
+      "ja": "\"tall\" は どんな いみ？",
+      "choices": [
+        "very small",
+        "very high",
+        "very wet"
+      ],
+      "answer": "very high",
+      "kind": "vocab"
+    },
+    {
+      "q": "What is in the hat at the end?",
+      "ja": "さいごに ぼうしの なかに あるのは？",
+      "choices": [
+        "three apples",
+        "three balls",
+        "three eggs"
+      ],
+      "answer": "three eggs",
+      "kind": "detail"
+    }
+  ]
+}

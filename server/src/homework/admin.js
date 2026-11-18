@@ -4,6 +4,7 @@ import express from 'express';
 import { extractHomework } from './extract.js';
 import { KINDS, KIND_JA, checkItems, buildItem } from './items.js';
 import { page } from './page.js';
+import { allBooks, bookById, artPath, ART_VERSION } from '../game/reading.js';
 export { page };
 
 // store.js の クラスの 書きかたに そろえる（名簿の「6-1」と 宿題の「6-1」が 同じ クラスに なるように）。
@@ -12,7 +13,7 @@ const classKeyOf = (s) => String(s ?? '').normalize('NFKC').toLowerCase().replac
 
 // 宿題の API。運営（/admin/api）は ぜんぶの クラス、教室（/teacher/api）は その 教室の クラスだけ（scope）。
 // scope(req) → null（運営）か [クラス]（教室）。**どの クラスを さわれるかは いつも サーバーが きめる。**
-export function mountHomeworkApi(api, { homework, aiReady = false, rosterClasses = async () => [], scope = () => null, header = 'uspeak-admin', extractLimit = null, log = console }) {
+export function mountHomeworkApi(api, { homework, aiReady = false, rosterClasses = async () => [], rosterRows = async () => [], scope = () => null, header = 'uspeak-admin', extractLimit = null, log = console }) {
   api.use('/homework', express.json({ limit: '60mb' }));
   const guard = (req, res) => {
     if (req.get('x-requested-with') !== header) { res.status(403).json({ ok: false, error: 'header' }); return false; }
@@ -20,7 +21,8 @@ export function mountHomeworkApi(api, { homework, aiReady = false, rosterClasses
   };
   const view = (a, allowed) => {
     const rows = homework.classProgress(a.id).filter((r) => !allowed || allowed.includes(r.classCode));
-    return { ...a, problems: checkItems(a.items).problems, started: rows.length, finished: rows.filter((r) => r.done).length, editable: !allowed || a.classes.every((c) => allowed.includes(c)) };
+    const b = a.book ? bookById(a.book) : null;
+    return { ...a, ...(a.book ? { bookTitle: b?.title || '（なくなった 本）', bookTitleJa: b?.titleJa || '' } : {}), problems: a.book ? [] : checkItems(a.items).problems, started: rows.length, finished: rows.filter((r) => r.done).length, editable: !allowed || a.classes.every((c) => allowed.includes(c)) };
   };
   // 教室の 先生が さわれる 宿題か（ぜんぶの クラスが その 教室の もの）。
   const mine = (req, res, id) => {
@@ -53,6 +55,21 @@ export function mountHomeworkApi(api, { homework, aiReady = false, rosterClasses
     }
     const items = homework.assignments.filter((a) => !allowed || a.classes.some((c) => allowed.includes(c)));
     res.json({ ok: true, kinds: KINDS, kindJa: KIND_JA, ai: aiReady, classes, items: items.map((a) => view(a, allowed)) });
+  });
+  // えほんの 宿題：えらべる 本（段階ごと。クイズの 答えは 入れない）と、その クラスの 子どもの 名前（生徒を えらんで くばる）。
+  api.get('/homework/books', (req, res) => {
+    const order = ['A', 'B', 'C', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const by = new Map(order.map((id) => [id, []]));
+    for (const b of allBooks().values()) by.get(b.stage)?.push({ id: b.id, title: b.title, titleJa: b.titleJa, words: b.words, pages: b.pages.length, kind: b.kind || '', cover: `${artPath(b.id)}/0.svg?v=${ART_VERSION}&still=1` });
+    res.json({ ok: true, stages: order.map((id) => ({ id, books: by.get(id) })).filter((s) => s.books.length) });
+  });
+  api.get('/homework/students', async (req, res) => {
+    const allowed = scope(req); const c = classKeyOf(req.query.class);
+    if (!c || (allowed && !allowed.includes(c))) { res.status(403).json({ ok: false, error: 'この 教室の クラスでは ありません' }); return; }
+    let rows = [];
+    try { rows = await rosterRows(); } catch (err) { log.warn('[homework] roster rows failed:', err.message); }
+    const names = [...new Set(rows.filter((r) => r && r.name && !r.teacher && !r.stopped && classKeyOf(r.class) === c).map((r) => String(r.name)))].sort((x, y) => x.localeCompare(y, 'ja'));
+    res.json({ ok: true, classCode: c, names });
   });
   // 読みとるだけ（保存しない）。文・ファイル（写真・PDF・Word・Excel・CSV…）を まとめて。
   api.post('/homework/extract', async (req, res) => {
@@ -88,13 +105,13 @@ export function mountHomeworkApi(api, { homework, aiReady = false, rosterClasses
   });
 }
 
-export function homeworkAdminExtension({ homework, aiReady = false, rosterClasses = async () => [], log = console }) {
+export function homeworkAdminExtension({ homework, aiReady = false, rosterClasses = async () => [], rosterRows = async () => [], log = console }) {
   return ({ router, api, authed }) => {
     router.get('/homework', (req, res) => {
       if (!authed(req)) { res.redirect(303, '/admin'); return; }
       res.type('text/html; charset=utf-8').send(page({ aiReady }));
     });
-    mountHomeworkApi(api, { homework, aiReady, rosterClasses, log });
+    mountHomeworkApi(api, { homework, aiReady, rosterClasses, rosterRows, log });
   };
 }
 

@@ -1,0 +1,618 @@
+{
+  "id": "rd-3-long-scarf",
+  "stage": "3",
+  "title": "Grandma's Very Long Scarf",
+  "titleJa": "おばあちゃんの 長い 長い マフラー",
+  "kind": "story",
+  "cover": {
+    "bg": "snow",
+    "items": [
+      {
+        "e": "👵",
+        "x": 22,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "🧣",
+        "x": 50,
+        "y": 62,
+        "s": 3.6,
+        "a": "sway"
+      },
+      {
+        "e": "👦",
+        "x": 78,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "❄️",
+        "x": 50,
+        "y": 18,
+        "s": 1.8,
+        "a": "drift"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Winter was coming, so Grandma started to make a scarf for Riku.",
+      "ja": "冬が 近づいて きたので、おばあちゃんは リクの マフラーを あみ始めました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👵",
+            "x": 35,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧣",
+            "x": 58,
+            "y": 66,
+            "s": 2.2
+          },
+          {
+            "e": "🪟",
+            "x": 82,
+            "y": 36,
+            "s": 2.8
+          },
+          {
+            "e": "❄️",
+            "x": 82,
+            "y": 34,
+            "s": 1.2,
+            "a": "drift"
+          },
+          {
+            "e": "🛋️",
+            "x": 12,
+            "y": 74,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "She loved making it. She worked in the morning and at night.",
+      "ja": "おばあちゃんは あむのが 大好きでした。朝も 夜も あみました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👵",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 32,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🧣",
+            "x": 54,
+            "y": 68,
+            "s": 3
+          },
+          {
+            "e": "🧣",
+            "x": 74,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🌙",
+            "x": 86,
+            "y": 16,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"It is finished!\" she said. But the scarf was as long as a bus!",
+      "ja": "「できたよ！」と おばあちゃんは 言いました。でも マフラーは バスと 同じくらい 長かったのです！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👵",
+            "x": 14,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🧣",
+            "x": 36,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🧣",
+            "x": 54,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🧣",
+            "x": 72,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🧣",
+            "x": 90,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "❗",
+            "x": 54,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Riku put it around his neck again and again. He could not move!",
+      "ja": "リクは マフラーを 首に 何回も 何回も まきました。動けなく なって しまいました！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 50,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🧣",
+            "x": 50,
+            "y": 58,
+            "s": 4.4
+          },
+          {
+            "e": "😲",
+            "x": 52,
+            "y": 36,
+            "s": 1.2
+          },
+          {
+            "e": "🔄",
+            "x": 78,
+            "y": 40,
+            "s": 1.8,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I look like a ball,\" he said. His little sister began to laugh.",
+      "ja": "「ボールみたいだ」と リクは 言いました。妹が 笑い始めました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 32,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧣",
+            "x": 32,
+            "y": 58,
+            "s": 4
+          },
+          {
+            "e": "👧",
+            "x": 70,
+            "y": 72,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 72,
+            "y": 44,
+            "s": 1.1
+          },
+          {
+            "e": "💬",
+            "x": 30,
+            "y": 22,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Riku did not want to make Grandma sad. He thought hard.",
+      "ja": "リクは おばあちゃんを 悲しませたく ありませんでした。一生けんめい 考えました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 42,
+            "y": 38,
+            "s": 1.2
+          },
+          {
+            "e": "💭",
+            "x": 60,
+            "y": 24,
+            "s": 2.2
+          },
+          {
+            "e": "🧣",
+            "x": 76,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "🛏️",
+            "x": 14,
+            "y": 76,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "The next morning was very cold. His friends were waiting for the school bus.",
+      "ja": "次の 朝は とても 寒い 日でした。友だちが スクールバスを 待っていました。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "🥶",
+            "x": 22,
+            "y": 46,
+            "s": 1.1
+          },
+          {
+            "e": "👦",
+            "x": 46,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🧒",
+            "x": 72,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "🚌",
+            "x": 92,
+            "y": 60,
+            "s": 2
+          },
+          {
+            "e": "❄️",
+            "x": 34,
+            "y": 18,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Come here, everyone!\" Riku called. He put the long scarf around all five friends.",
+      "ja": "「みんな、こっちに 来て！」と リクは よびました。長い マフラーを 5人の 友だち みんなに まきました。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👦",
+            "x": 16,
+            "y": 70,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "🧒",
+            "x": 64,
+            "y": 72,
+            "s": 2.8
+          },
+          {
+            "e": "👩",
+            "x": 88,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "🧣",
+            "x": 28,
+            "y": 60,
+            "s": 2.2
+          },
+          {
+            "e": "🧣",
+            "x": 52,
+            "y": 60,
+            "s": 2.2
+          },
+          {
+            "e": "🧣",
+            "x": 76,
+            "y": 60,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "They were warm together. They walked like a long, colorful snake.",
+      "ja": "みんな いっしょに あたたかく なりました。長くて カラフルな ヘビのように 歩きました。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👦",
+            "x": 14,
+            "y": 70,
+            "s": 2.8,
+            "a": "bob"
+          },
+          {
+            "e": "👧",
+            "x": 38,
+            "y": 72,
+            "s": 2.6,
+            "a": "bob"
+          },
+          {
+            "e": "🧒",
+            "x": 62,
+            "y": 72,
+            "s": 2.6,
+            "a": "bob"
+          },
+          {
+            "e": "🧣",
+            "x": 26,
+            "y": 58,
+            "s": 2.4
+          },
+          {
+            "e": "🧣",
+            "x": 50,
+            "y": 58,
+            "s": 2.4
+          },
+          {
+            "e": "❤️",
+            "x": 50,
+            "y": 24,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🏫",
+            "x": 90,
+            "y": 56,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Grandma saw them from the window and smiled. \"Next, I will make a hat,\" she said.",
+      "ja": "おばあちゃんは まどから それを 見て、にっこり しました。「次は ぼうしを あもうかね」と 言いました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🪟",
+            "x": 70,
+            "y": 40,
+            "s": 4
+          },
+          {
+            "e": "👵",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 32,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🧢",
+            "x": 52,
+            "y": 62,
+            "s": 1.8
+          },
+          {
+            "e": "💭",
+            "x": 46,
+            "y": 22,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Thank you, Grandma. But a small one, please!\" said Riku quickly.",
+      "ja": "「ありがとう、おばあちゃん。でも 小さいのに してね！」と リクは すぐに 言いました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 66,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😅",
+            "x": 68,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "👵",
+            "x": 26,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🧣",
+            "x": 46,
+            "y": 76,
+            "s": 2.4
+          },
+          {
+            "e": "💬",
+            "x": 66,
+            "y": 20,
+            "s": 1.6
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "scarf",
+      "ja": "マフラー"
+    },
+    {
+      "en": "finished",
+      "ja": "できあがった・終わった"
+    },
+    {
+      "en": "neck",
+      "ja": "首"
+    },
+    {
+      "en": "move",
+      "ja": "動く"
+    },
+    {
+      "en": "laugh",
+      "ja": "笑う"
+    },
+    {
+      "en": "thought",
+      "ja": "考えた"
+    },
+    {
+      "en": "waiting",
+      "ja": "待っている"
+    },
+    {
+      "en": "around",
+      "ja": "〜の まわりに"
+    },
+    {
+      "en": "together",
+      "ja": "いっしょに"
+    },
+    {
+      "en": "colorful",
+      "ja": "カラフルな・色とりどりの"
+    },
+    {
+      "en": "quickly",
+      "ja": "すぐに・すばやく"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "a boy who loses his winter hat",
+        "a snake that lives at a school",
+        "a bus that is late on a cold day",
+        "a scarf that is much too long"
+      ],
+      "answer": "a scarf that is much too long",
+      "kind": "main"
+    },
+    {
+      "q": "How long was the scarf?",
+      "ja": "マフラーは どのくらい 長かったですか。",
+      "choices": [
+        "As long as a bus.",
+        "As long as a bed.",
+        "As long as a river.",
+        "As long as a train."
+      ],
+      "answer": "As long as a bus.",
+      "kind": "detail"
+    },
+    {
+      "q": "Who laughed at Riku in the scarf?",
+      "ja": "マフラーを まいた リクを 見て 笑ったのは だれですか。",
+      "choices": [
+        "His grandma.",
+        "His little sister.",
+        "His teacher.",
+        "His bus driver."
+      ],
+      "answer": "His little sister.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened the next morning?",
+      "ja": "次の 朝、何が 起こりましたか。",
+      "choices": [
+        "Riku could not move his neck.",
+        "Riku cut the scarf into two.",
+        "Riku shared the scarf with friends.",
+        "Grandma started to make a new scarf."
+      ],
+      "answer": "Riku shared the scarf with friends.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did Riku say, \"A small one, please\"?",
+      "ja": "リクは なぜ 「小さいのに してね」と 言ったのですか。",
+      "choices": [
+        "He did not want a very big hat.",
+        "He did not like hats at all.",
+        "He wanted a hat for his dog.",
+        "He wanted to make it himself."
+      ],
+      "answer": "He did not want a very big hat.",
+      "kind": "infer"
+    }
+  ]
+}

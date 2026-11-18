@@ -1,0 +1,598 @@
+{
+  "id": "rd-8-spare-motor",
+  "stage": "8",
+  "title": "The Spare Motor",
+  "titleJa": "予備の モーター",
+  "kind": "story",
+  "cover": {
+    "bg": "school",
+    "items": [
+      {
+        "e": "🤖",
+        "x": 50,
+        "y": 70,
+        "s": 4,
+        "a": "bob"
+      },
+      {
+        "e": "⚙",
+        "x": 24,
+        "y": 34,
+        "s": 2.4,
+        "a": "spin"
+      },
+      {
+        "e": "🏆",
+        "x": 80,
+        "y": 34,
+        "s": 2.4,
+        "a": "pulse"
+      },
+      {
+        "e": "🔧",
+        "x": 78,
+        "y": 78,
+        "s": 1.6
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "The regional robot contest was the most important day of Riku’s year. For six months, he and his teammate Mei had spent every afternoon building Bolt, a small robot designed to carry balls across a field and drop them into a basket.",
+      "ja": "地区の ロボット大会は、リクにとって 一年で 最も 大切な 日だった。半年の 間、リクと チームメイトの メイは、毎日 放課後に ボルトを 作ってきた。ボールを 運んで かごに 入れる 小さな ロボットだ。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👧",
+            "x": 46,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🤖",
+            "x": 72,
+            "y": 72,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "⚽",
+            "x": 86,
+            "y": 80,
+            "s": 1.2
+          },
+          {
+            "e": "🧺",
+            "x": 92,
+            "y": 70,
+            "s": 1.8
+          },
+          {
+            "e": "🔧",
+            "x": 34,
+            "y": 80,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bolt performed perfectly all morning. By lunchtime only two teams remained: Riku’s team and a team from Minato Junior High, whose robot was famous for its speed. The final would begin in thirty minutes.",
+      "ja": "午前中、ボルトは 完ぺきに 動いた。昼には 二チームだけが 残った。リクの チームと、スピードで 有名な ロボットを 持つ 港中学の チームだ。決勝は 三十分後に 始まる。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 30,
+            "y": 72,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "✨",
+            "x": 30,
+            "y": 28,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🤖",
+            "x": 72,
+            "y": 72,
+            "s": 3.2,
+            "flip": true
+          },
+          {
+            "e": "💨",
+            "x": 86,
+            "y": 74,
+            "s": 1.4
+          },
+          {
+            "e": "⏱",
+            "x": 50,
+            "y": 24,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then Riku noticed that something was wrong at the other team’s table. Their captain, Jun, was staring at their robot with a pale face. One of its motors had burned out, and they had no replacement.",
+      "ja": "その時 リクは、相手チームの テーブルの 様子が おかしいことに 気づいた。キャプテンの ジュンが、青い 顔で ロボットを 見つめている。モーターの 一つが 焼き切れ、かわりの 部品が ないのだ。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 64,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😨",
+            "x": 64,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🤖",
+            "x": 90,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "💨",
+            "x": 90,
+            "y": 32,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "⚙",
+            "x": 80,
+            "y": 84,
+            "s": 1.2
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Riku knew that motor well. It was exactly the same model as the spare one in his own toolbox. Without it, Minato could not compete, and Riku’s team would win the championship automatically.",
+      "ja": "リクは その モーターを よく 知っていた。自分の 道具箱に ある 予備と、まったく 同じ 型だ。それが なければ 港中は 出場できず、リクの チームは 自動的に 優勝する。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📦",
+            "x": 58,
+            "y": 78,
+            "s": 2.2
+          },
+          {
+            "e": "⚙",
+            "x": 58,
+            "y": 60,
+            "s": 1.8,
+            "a": "spin"
+          },
+          {
+            "e": "🏆",
+            "x": 84,
+            "y": 36,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "“Don’t even think about it,” Mei whispered. “That spare is our insurance. If Bolt’s motor fails in the final, we’ll have nothing. Besides, nobody expects us to help our opponent.” She was right, and Riku knew it.",
+      "ja": "「考えるのも やめて」と メイは ささやいた。「あの 予備は 私たちの 保険よ。決勝で ボルトの モーターが こわれたら、何も 残らない。それに 相手を 助けるなんて、だれも 期待していないわ」。そのとおりだった。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😠",
+            "x": 68,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 68,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "⚙",
+            "x": 48,
+            "y": 62,
+            "s": 1.6
+          },
+          {
+            "e": "🤖",
+            "x": 90,
+            "y": 76,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "But he also imagined holding the trophy while Jun’s team packed their silent robot into a box. Would that be a real victory? They had come to find out whose robot was better, not whose luck was better.",
+      "ja": "でも リクは 想像した。自分が トロフィーを 持ち、ジュンたちが 動かない ロボットを 箱に しまう 場面を。それは 本当の 勝利だろうか。ここへ 来たのは、どちらの ロボットが 上かを 知るためで、運を くらべるためでは ない。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 58,
+            "y": 28,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "🏆",
+            "x": 58,
+            "y": 27,
+            "s": 1.3
+          },
+          {
+            "e": "🧒",
+            "x": 86,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "📦",
+            "x": 72,
+            "y": 80,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Riku picked up the spare motor. “I want to win,” he told Mei, “but I want to win against their best.” Mei sighed deeply, then handed him a screwdriver. “Fine. But you owe me an ice cream if we lose.”",
+      "ja": "リクは 予備の モーターを 手に 取った。「勝ちたい。でも、最高の 状態の 相手に 勝ちたいんだ」。メイは 深く ため息を つき、ドライバーを わたした。「分かった。でも 負けたら アイスを おごってよ」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 32,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "⚙",
+            "x": 46,
+            "y": 52,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 66,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🔧",
+            "x": 54,
+            "y": 64,
+            "s": 1.6
+          },
+          {
+            "e": "🍦",
+            "x": 84,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Jun could hardly believe it. The two teams worked side by side, and the motor was installed with four minutes to spare. “Why are you doing this?” Jun asked. Riku shrugged. “I’d want someone to do it for me.”",
+      "ja": "ジュンは 信じられない ようだった。二つの チームは ならんで 作業し、残り 四分で モーターは 取りつけられた。「どうして こんなことを？」と ジュン。リクは かたを すくめた。「ぼくなら、だれかに そうしてほしいから」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧒",
+            "x": 50,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 50,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🤖",
+            "x": 74,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🔧",
+            "x": 64,
+            "y": 60,
+            "s": 1.4,
+            "a": "sway"
+          },
+          {
+            "e": "⏱",
+            "x": 90,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The final was the closest match of the day. Both robots moved quickly and accurately. In the last ten seconds, Minato’s robot dropped one more ball into the basket. Riku’s team lost by a single point.",
+      "ja": "決勝は、その日 一番の 接戦だった。どちらの ロボットも 速く、正確に 動いた。最後の 十秒で、港中の ロボットが もう 一つ ボールを かごに 入れた。リクの チームは 一点差で 負けた。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🤖",
+            "x": 25,
+            "y": 72,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "🤖",
+            "x": 68,
+            "y": 72,
+            "s": 3,
+            "a": "hop",
+            "flip": true
+          },
+          {
+            "e": "⚽",
+            "x": 82,
+            "y": 50,
+            "s": 1.2,
+            "a": "bob"
+          },
+          {
+            "e": "🧺",
+            "x": 88,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "📊",
+            "x": 50,
+            "y": 24,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Riku bought Mei her ice cream. He was disappointed, of course. But when the judges announced a special award for sportsmanship and the whole hall stood up to applaud, he realized that some prizes cannot be won by a robot.",
+      "ja": "リクは メイに アイスを おごった。もちろん くやしかった。でも 審査員が スポーツマンシップ特別賞を 発表し、会場 全体が 立って はく手した 時、リクは 気づいた。ロボットには 勝ち取れない 賞も あるのだと。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 34,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 34,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🏅",
+            "x": 34,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 62,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🍦",
+            "x": 72,
+            "y": 54,
+            "s": 1.4
+          },
+          {
+            "e": "👏",
+            "x": 88,
+            "y": 44,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "regional",
+      "ja": "地区の"
+    },
+    {
+      "en": "designed",
+      "ja": "設計された"
+    },
+    {
+      "en": "remained",
+      "ja": "残った"
+    },
+    {
+      "en": "replacement",
+      "ja": "かわりの 物"
+    },
+    {
+      "en": "spare",
+      "ja": "予備の"
+    },
+    {
+      "en": "compete",
+      "ja": "競う、出場する"
+    },
+    {
+      "en": "insurance",
+      "ja": "保険"
+    },
+    {
+      "en": "opponent",
+      "ja": "対戦相手"
+    },
+    {
+      "en": "victory",
+      "ja": "勝利"
+    },
+    {
+      "en": "installed",
+      "ja": "取りつけられた"
+    },
+    {
+      "en": "accurately",
+      "ja": "正確に"
+    },
+    {
+      "en": "applaud",
+      "ja": "はく手する"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A robot that breaks during the final",
+        "A girl who repairs broken motors to earn money",
+        "A boy who helps his rival compete fairly",
+        "A team that cheats to win a trophy"
+      ],
+      "answer": "A boy who helps his rival compete fairly",
+      "kind": "main"
+    },
+    {
+      "q": "What was wrong with Minato’s robot?",
+      "ja": "港中の ロボットは どこが 悪かった？",
+      "choices": [
+        "One of its motors had burned out.",
+        "It was far too slow to carry the balls.",
+        "Its basket was the wrong size.",
+        "Its battery had been stolen."
+      ],
+      "answer": "One of its motors had burned out.",
+      "kind": "detail"
+    },
+    {
+      "q": "Why did Mei not want to give away the motor?",
+      "ja": "メイは なぜ モーターを あげたくなかった？",
+      "choices": [
+        "She disliked the captain of Minato.",
+        "The rules did not allow sharing.",
+        "The motor belonged to her father.",
+        "They might need it if Bolt broke."
+      ],
+      "answer": "They might need it if Bolt broke.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this story, “opponent” means ___.",
+      "ja": "この話で “opponent” の 意味は？",
+      "choices": [
+        "a judge who gives awards",
+        "the side you compete against",
+        "a spare part for a robot",
+        "a friend on your own team"
+      ],
+      "answer": "the side you compete against",
+      "kind": "vocab"
+    },
+    {
+      "q": "What did Riku mean by “I want to win against their best”?",
+      "ja": "リクの 「最高の 状態の 相手に 勝ちたい」は どういう 意味？",
+      "choices": [
+        "He was sure Bolt could never lose.",
+        "He wanted Minato’s best player on his team.",
+        "He hoped the judges would notice him.",
+        "A win only matters if the contest is fair."
+      ],
+      "answer": "A win only matters if the contest is fair.",
+      "kind": "infer"
+    }
+  ]
+}

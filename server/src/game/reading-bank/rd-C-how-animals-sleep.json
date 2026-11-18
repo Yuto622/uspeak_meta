@@ -1,0 +1,389 @@
+{
+  "id": "rd-C-how-animals-sleep",
+  "stage": "C",
+  "title": "How Animals Sleep",
+  "titleJa": "どうぶつは どうやって ねるの？",
+  "kind": "fact",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "🐨",
+        "x": 34,
+        "y": 66,
+        "s": 3.4
+      },
+      {
+        "e": "💤",
+        "x": 54,
+        "y": 34,
+        "s": 2.4,
+        "a": "float"
+      },
+      {
+        "e": "🦩",
+        "x": 76,
+        "y": 66,
+        "s": 3.2
+      },
+      {
+        "e": "🌙",
+        "x": 16,
+        "y": 18,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Animals sleep, too. But how?",
+      "ja": "どうぶつも ねむる。でも どうやって？",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🐴",
+            "x": 22,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "🦉",
+            "x": 50,
+            "y": 46,
+            "s": 2.2
+          },
+          {
+            "e": "🐟",
+            "x": 78,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "❓",
+            "x": 50,
+            "y": 18,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A horse can sleep standing up.",
+      "ja": "うまは たったまま ねむれる。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐴",
+            "x": 48,
+            "y": 64,
+            "s": 4.6
+          },
+          {
+            "e": "💤",
+            "x": 72,
+            "y": 30,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "🌾",
+            "x": 14,
+            "y": 78,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "A flamingo can sleep on one leg.",
+      "ja": "フラミンゴは かたあしで ねむれる。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🦩",
+            "x": 48,
+            "y": 62,
+            "s": 4.6
+          },
+          {
+            "e": "💤",
+            "x": 70,
+            "y": 28,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "🌿",
+            "x": 86,
+            "y": 76,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "A koala is sleeping in a tree.",
+      "ja": "コアラは きの うえで ねむっている。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 46,
+            "y": 56,
+            "s": 5.6
+          },
+          {
+            "e": "🐨",
+            "x": 72,
+            "y": 60,
+            "s": 2.6
+          },
+          {
+            "e": "💤",
+            "x": 86,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Many fish sleep with their eyes open.",
+      "ja": "おおくの さかなは めを あけたまま ねむる。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🐟",
+            "x": 44,
+            "y": 58,
+            "s": 4,
+            "a": "bob"
+          },
+          {
+            "e": "👀",
+            "x": 72,
+            "y": 34,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "💤",
+            "x": 26,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Many owls sleep in the day.",
+      "ja": "おおくの ふくろうは ひるまに ねむる。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 18,
+            "y": 18,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🌳",
+            "x": 56,
+            "y": 58,
+            "s": 5
+          },
+          {
+            "e": "🦉",
+            "x": 56,
+            "y": 44,
+            "s": 2.4
+          },
+          {
+            "e": "💤",
+            "x": 76,
+            "y": 22,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Some bears sleep for a long time in winter.",
+      "ja": "ふゆの あいだ ながく ねむる くまも いる。",
+      "scene": {
+        "bg": "cave",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 46,
+            "y": 72,
+            "s": 3.6
+          },
+          {
+            "e": "💤",
+            "x": 68,
+            "y": 36,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "❄️",
+            "x": 88,
+            "y": 24,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "How do you sleep? Good night!",
+      "ja": "あなたは どうやって ねる？ おやすみなさい！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 50,
+            "y": 76,
+            "s": 4.6
+          },
+          {
+            "e": "👦",
+            "x": 46,
+            "y": 64,
+            "s": 3
+          },
+          {
+            "e": "💤",
+            "x": 68,
+            "y": 32,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "🧸",
+            "x": 84,
+            "y": 80,
+            "s": 1.6
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "animals",
+      "ja": "どうぶつ"
+    },
+    {
+      "en": "sleep",
+      "ja": "ねむる"
+    },
+    {
+      "en": "horse",
+      "ja": "うま"
+    },
+    {
+      "en": "standing up",
+      "ja": "たったまま"
+    },
+    {
+      "en": "flamingo",
+      "ja": "フラミンゴ"
+    },
+    {
+      "en": "leg",
+      "ja": "あし"
+    },
+    {
+      "en": "koala",
+      "ja": "コアラ"
+    },
+    {
+      "en": "eyes",
+      "ja": "め"
+    },
+    {
+      "en": "owls",
+      "ja": "ふくろう"
+    },
+    {
+      "en": "bears",
+      "ja": "くま"
+    },
+    {
+      "en": "winter",
+      "ja": "ふゆ"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの ほん？",
+      "choices": [
+        "how animals eat",
+        "how animals sleep",
+        "how animals run"
+      ],
+      "answer": "how animals sleep",
+      "kind": "main"
+    },
+    {
+      "q": "What can sleep standing up?",
+      "ja": "たったまま ねむれるのは どれ？",
+      "choices": [
+        "a koala",
+        "a fish",
+        "a horse"
+      ],
+      "answer": "a horse",
+      "kind": "detail"
+    },
+    {
+      "q": "Where is the koala sleeping?",
+      "ja": "コアラは どこで ねむっているの？",
+      "choices": [
+        "in a tree",
+        "in the sea",
+        "in a bed"
+      ],
+      "answer": "in a tree",
+      "kind": "detail"
+    },
+    {
+      "q": "When do many owls sleep?",
+      "ja": "おおくの ふくろうは いつ ねむるの？",
+      "choices": [
+        "at night",
+        "in the day",
+        "in the rain"
+      ],
+      "answer": "in the day",
+      "kind": "detail"
+    },
+    {
+      "q": "What is \"winter\"?",
+      "ja": "\"winter\" は なに？",
+      "choices": [
+        "a hot season",
+        "a big animal",
+        "a cold season"
+      ],
+      "answer": "a cold season",
+      "kind": "vocab"
+    }
+  ]
+}

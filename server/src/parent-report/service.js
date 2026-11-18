@@ -12,8 +12,11 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { weeklyData, monthlyData, periodStats, periodRanks } from './aggregate.js';
 import { weeklyTex, monthlyTex, qrCardsTex, templateVersion, texts, goalText } from './render-tex.js';
-import { childMessages, homeworkText, interviewText, sourceText, roadmapText, homeTip, bundle, retryUuid, mask } from './line.js';
+import { progressBar } from '../game/roadmap.js';
+import { childMessages, homeworkText, interviewText, sourceText, roadmapText, fiveText, homeTip, bundle, retryUuid, mask } from './line.js';
 // web と Roblox の 内わけは、ほかの 文が ある 吹き出しの 先頭に だけ 足す（吹き出しの 数を ふやさない：1 回に 5 つまで）。
+// 数字 5 つの 文は、吹き出しが もう ある ときだけ いちばん 上に 足す（数字の 行は 画像にも ある。吹き出しを ふやすと LINE の 通数が ふえる）。
+const withFive = (parts, five) => (parts.length && five ? [five, ...parts] : parts);
 const withSource = (parts, bs) => (parts.length && sourceText(bs) ? [sourceText(bs), ...parts] : parts);
 import { menuAction, menuReply } from './menu.js';
 import { newToken } from './store.js';
@@ -248,7 +251,7 @@ export function createParentReports({
           const best = (data.ranks || [])[0];
           const altRank = best ? `（クラスで ${best.ja} ${best.rank}位）` : '';
           const altHw = data.homework ? `・宿題 ${data.homework.done}/${data.homework.total} おわり` : '';
-          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt + altRank + altHw, homework: withTip(withSource([roadmapText(data.roadmap), interviewText(data.interview), homeworkText(data.homework, { nick: student.nick, range: data.range })].filter(Boolean), data.bySource).join('\n\n'), kind === 'weekly' ? homeTip(data) : '') });
+          messages = childMessages({ nick: student.nick, range: data.range, sender: senderOf(s, classCode), png: report.png_url, thumb: report.thumb_url, pdf: report.pdf_url, monthlyPdf, altText: alt + altRank + altHw, homework: withTip(withSource(withFive([roadmapText(data.roadmap), interviewText(data.interview), homeworkText(data.homework, { nick: student.nick, range: data.range })].filter(Boolean), fiveText(data.five, { nick: student.nick, label: kind === 'monthly' ? '今月' : '今週' })), data.bySource).join('\n\n'), kind === 'weekly' ? homeTip(data) : '') });
         }
         for (const l of links) {
           if (!groups.has(l.line_user_id)) groups.set(l.line_user_id, []);
@@ -461,9 +464,9 @@ export function createParentReports({
       .slice(0, 8)
       .map((r) => ({ range: rangeOf(r), token: r.access_token }));
     const clappedToday = reports.claps({ classroom_id: t.classroom_id, student_username: t.student_username, day: dayKey(now()) }).length > 0;
-    let goal = '';
-    try { goal = goalText(JSON.parse(latest?.data_json || '{}')); } catch { /* なくても よい */ }
-    return { ...base0, clappedToday, goal, lineUrl: liffId && !line.dryRun ? `https://liff.line.me/${liffId}?t=${token}` : '', latest: latest ? { token: latest.access_token, range: rangeOf(latest), png: !!latest.png_url } : null, past, error };
+    let goal = ''; let five = null; let bar = null;
+    try { const d = JSON.parse(latest?.data_json || '{}'); goal = goalText(d); five = d.five || null; bar = progressBar(d.roadmap); } catch { /* なくても よい */ }
+    return { ...base0, clappedToday, goal, five, bar, lineUrl: liffId && !line.dryRun ? `https://liff.line.me/${liffId}?t=${token}` : '', latest: latest ? { token: latest.access_token, range: rangeOf(latest), png: !!latest.png_url } : null, past, error };
   }
   // 1か月の まとめ（先月）。押されたときに 作る。
   async function studentMonthly(token) {

@@ -60,6 +60,9 @@ import { createHomework } from './homework.js';
 import { createReadingUI } from './reading.js';
 import { sfx } from './sfx.js';
 
+// いま 幼児モードの 画面か（部屋が オンに した 子＋ じぶんで 🧸 を おした 人）。
+const kidsNow = () => globalThis.document?.body?.dataset.mode === 'kids';
+
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
   let fwAutoAt = ''; // いま 自動で つりはじめた 水辺（はなれると 空に もどる）
   let main = null; // メインの島（下で作る。財布と進み具合が届くたびに数字を書き直す）
@@ -98,7 +101,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     speak, toast,
     isPaused: () => state.chatPaused && state.role !== 'teacher',
     // 幼児モードの 子は 定型文だけ（文字を 打つ 場面を なくす。部屋も 通さない）。
-    isFree: () => (state.freeChat !== false || state.role === 'teacher') && !state.kids,
+    isFree: () => (state.freeChat !== false || state.role === 'teacher') && !kidsNow(),
   });
   const teacher = createTeacherPanel({
     send: (msg) => room?.send('teacher', msg), toast,
@@ -256,7 +259,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // the game, and none of it needs the server, so it opens offline too.
     // メインの島：英単語ハウス・看板・つり場・かいとりや・ゲート。何をするかは main-island.js の walkIn。
     // 幼児モード：メインの島の ゲートと BLOCKWILD は、行ける 島（kids.js の KIDS_ISLANDS）だけ 通す。
-    if (islandId === 'main' && state.kids && (spot?.kind === 'blockwild' || (spot?.kind === 'gate' && !KIDS_ISLANDS.includes(spot.to)))) { toast(tr('ここは せんせいに きいてね')); return true; }
+    if (islandId === 'main' && kidsNow() && (spot?.kind === 'blockwild' || (spot?.kind === 'gate' && !KIDS_ISLANDS.includes(spot.to)))) { toast(tr('ここは せんせいに きいてね')); return true; }
     if (islandId === 'main') { sendMove(); return main.walkIn(spot); }
     // しゅくだい島：いえに 入ると 宿題の 一覧（オンラインの とき だけ。問題は 部屋に ある）。
     if (islandId === 'homework') return homework.open();
@@ -344,13 +347,16 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // ⭐ プレミアムの おしらせ（🔒 の 島や お店を おした とき）。
   createPremiumPromo({ offline: () => state.mode !== 'online' && state.mode !== 'reconnecting' });
   // 宿題（しゅくだい島の いえ）。問題・判定・ごほうびは 部屋（hw:*）。
-  const homework = createHomework({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
+  const homework = createHomework({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online', openBook: (id) => reading.openBook(id) });
   // よみもの島：本だなと 1 冊（きく・よむ・おんどく・クイズ）。クイズの 正解・✓・コインは 部屋（read:*）。
   const reading = createReadingUI({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
   // 幼児モード（先生が /teacher/kids で オンに した 子の かんたんな 画面）。きめるのは 部屋（welcome・'kids'）。
+  // 🧸 で じぶんの 画面を きりかえた ときも、チャットの 入力らんを あわせる。
+  addEventListener('uspeak:kids', () => { try { chat.setFree(); } catch { /* まだ できて いない */ } });
   const kids = createKidsUI({
     speak, toast, rpg, player, goPlace, isOnline: () => state.mode === 'online',
     pendingHomework: () => state.homeworkCount || 0,
+    askHomework: () => { if (room && state.mode === 'online') room.send('hw:list'); },
     openHomework: () => homework.open(), openReading: () => reading.open(), openWardrobe: (o = {}) => wardrobe.open(o), openMap: () => rpg.openMap(),
     enterMain: (spot) => { sendMove(); main.walkIn(spot); },
     logout: () => document.getElementById('logout-button')?.click(),
@@ -718,13 +724,15 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('fw:ask', (m) => fishworld.onAsk(m));
     r.onMessage('fw:result', (m) => { if (m.progress) applyProgress(m.progress, m.levels); sfx.judge(m.correct); fishworld.onResult(m); });
     r.onMessage('fw:catch', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onCatch(m); });
-    r.onMessage('hw:list', (m) => homework.onList(m));
+    // のこりの 宿題の 数（幼児モードの「きょうの がくしゅう」の 札）も ここで あたらしく する。
+    r.onMessage('hw:list', (m) => { state.homeworkCount = (m.items || []).filter((h) => !h.done).length; kids.refresh(); homework.onList(m); });
     r.onMessage('rm:state', (m) => roadmap.onState(m));
     r.onMessage('parent:qr', (m) => parentQr.onQr(m));
     r.onMessage('rm:up', (m) => { if (m.wallet) applyWallet(m.wallet); roadmap.onUp(m); });
     r.onMessage('hw:ask', (m) => homework.onAsk(m));
     r.onMessage('hw:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); sfx.judge(m.correct); homework.onResult(m); });
     r.onMessage('hw:done', (m) => homework.onDone(m));
+    r.onMessage('hw:book', (m) => { homework.close(); reading.openBook(m.id); }); // えほんの 宿題は 本を ひらく
     r.onMessage('hw:error', (m) => homework.onError(m));
     r.onMessage('fw:sold', (m) => { if (m.wallet) applyWallet(m.wallet); fishworld.onSold(m); });
     r.onMessage('fw:error', (m) => fishworld.onError(m));

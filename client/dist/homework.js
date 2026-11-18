@@ -8,7 +8,7 @@ import { renderFormat, confetti } from './formats-ui.js';
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const day = (d) => (d ? `${Number(d.slice(5, 7))}/${Number(d.slice(8, 10))}` : '');
 
-export function createHomework({ send, speak = null, toast = () => {}, isOnline = () => true }) {
+export function createHomework({ send, speak = null, toast = () => {}, isOnline = () => true, openBook = null }) {
   const dialog = document.createElement('dialog');
   dialog.id = 'homework-dialog';
   dialog.setAttribute('aria-labelledby', 'hw-title');
@@ -48,6 +48,16 @@ export function createHomework({ send, speak = null, toast = () => {}, isOnline 
         : h.overdue ? `<span class="hw-tag late">⏰ ${esc(tr('しめきり すぎ'))}</span>`
           : h.answered ? `<span class="hw-tag mid">${esc(tr('とちゅう'))} ${h.answered}/${h.total}</span>` : `<span class="hw-tag new">${esc(tr('あたらしい'))}</span>`;
       const redo = h.done && h.correct < h.total;
+      // えほんの 宿題：本の 表紙と「よむ」。おすと よみもの島の 本が ひらく（✓ に なると おわり）。
+      if (h.book) {
+        const btag = h.done ? `<span class="hw-tag done">✅ ${esc(tr('おわり'))}</span>` : h.overdue ? `<span class="hw-tag late">⏰ ${esc(tr('しめきり すぎ'))}</span>` : `<span class="hw-tag new">📖 ${esc(tr('えほん'))}</span>`;
+        return `<li class="hw-card hw-book${h.done ? ' is-done' : ''}">
+          <img class="hw-cover" src="/reading-art/${esc(h.book)}/0.svg?still=1" alt="" loading="lazy" draggable="false">
+          <div class="hw-card-main"><b class="hw-name" translate="no">${esc(h.bookTitle || h.title)}</b>${btag}
+            <small><span translate="no">${esc(h.bookTitleJa || '')}</span>${h.due ? ` · ${esc(tr('しめきり {0}', [day(h.due)]))}` : ''}</small>
+            ${h.note ? `<small class="hw-note" translate="no">${esc(h.note)}</small>` : ''}</div>
+          <div class="hw-card-go"><button type="button" class="hw-go" data-book="${esc(h.book)}">${esc(h.done ? tr('もう いちど よむ') : tr('よむ'))} →</button></div></li>`;
+      }
       return `<li class="hw-card${h.done ? ' is-done' : ''}">
         <div class="hw-card-main"><b class="hw-name" translate="no">${esc(h.title)}</b>${tag}
           <small>${esc(tr('{0} もん', [h.total]))}${h.due ? ` · ${esc(tr('しめきり {0}', [day(h.due)]))}` : ''}</small>
@@ -62,6 +72,7 @@ export function createHomework({ send, speak = null, toast = () => {}, isOnline 
     const b = e.target.closest('button');
     if (!b) return;
     // redo は × だった 問題だけ もう いちど。
+    if (b.dataset.book) { close(); if (!openBook?.(b.dataset.book)) toast(tr('その しゅくだいは もう ないよ。')); return; }
     if (b.dataset.go) { state.view = 'ask'; send('hw:start', { aid: b.dataset.go }); }
     if (b.dataset.redo) { state.view = 'ask'; send('hw:start', { aid: b.dataset.redo, redo: true }); }
     if (b.dataset.back !== undefined) { state.view = 'list'; send('hw:list'); }

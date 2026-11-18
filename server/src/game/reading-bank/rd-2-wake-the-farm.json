@@ -1,0 +1,557 @@
+{
+  "id": "rd-2-wake-the-farm",
+  "stage": "2",
+  "title": "Who Can Wake the Farm?",
+  "titleJa": "だれが みんなを おこす？",
+  "kind": "story",
+  "cover": {
+    "bg": "farm",
+    "items": [
+      {
+        "e": "🐓",
+        "x": 30,
+        "y": 70,
+        "s": 3.4,
+        "a": "bob"
+      },
+      {
+        "e": "👧",
+        "x": 70,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "🎺",
+        "x": 56,
+        "y": 50,
+        "s": 2,
+        "a": "sway"
+      },
+      {
+        "e": "☀️",
+        "x": 84,
+        "y": 16,
+        "s": 2,
+        "a": "pulse"
+      },
+      {
+        "e": "💤",
+        "x": 28,
+        "y": 34,
+        "s": 1.6,
+        "a": "float"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Every morning, Rooster sings, and the farm wakes up.",
+      "ja": "まいあさ おんどりが うたうと、のうじょうの みんなが おきます。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐓",
+            "x": 30,
+            "y": 66,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "🎵",
+            "x": 46,
+            "y": 30,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "☀️",
+            "x": 84,
+            "y": 18,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🏠",
+            "x": 78,
+            "y": 62,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "But today Rooster had a cold. He could not sing.",
+      "ja": "でも きょう おんどりは かぜを ひいていました。うたえませんでした。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐓",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🧣",
+            "x": 45,
+            "y": 80,
+            "s": 1.6
+          },
+          {
+            "e": "🤧",
+            "x": 62,
+            "y": 40,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🚫",
+            "x": 26,
+            "y": 30,
+            "s": 1.4
+          },
+          {
+            "e": "🎵",
+            "x": 26,
+            "y": 30,
+            "s": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "The sun came up. Everyone on the farm was sleeping.",
+      "ja": "おひさまが のぼりました。のうじょうの みんなは まだ ねていました。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 50,
+            "y": 16,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🐷",
+            "x": 22,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🐮",
+            "x": 52,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🐑",
+            "x": 82,
+            "y": 76,
+            "s": 2.4
+          },
+          {
+            "e": "💤",
+            "x": 30,
+            "y": 40,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "💤",
+            "x": 62,
+            "y": 38,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I can do it,\" said Pig. \"Oink!\" But it was too quiet.",
+      "ja": "「ぼくが やるよ」と ブタが いいました。「ブー！」でも こえが ちいさすぎました。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐷",
+            "x": 32,
+            "y": 72,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "💬",
+            "x": 36,
+            "y": 28,
+            "s": 1.6
+          },
+          {
+            "e": "🐓",
+            "x": 66,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "🐑",
+            "x": 88,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "💤",
+            "x": 88,
+            "y": 48,
+            "s": 1.4,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I can do it,\" said Cow. \"Moo!\" But nobody woke up.",
+      "ja": "「わたしが やるわ」と ウシが いいました。「モー！」でも だれも おきませんでした。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐮",
+            "x": 34,
+            "y": 72,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "💬",
+            "x": 38,
+            "y": 26,
+            "s": 1.6
+          },
+          {
+            "e": "🏠",
+            "x": 76,
+            "y": 60,
+            "s": 3.4
+          },
+          {
+            "e": "💤",
+            "x": 76,
+            "y": 30,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "🐓",
+            "x": 12,
+            "y": 74,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then a girl named Emi came with her trumpet.",
+      "ja": "そこへ エミと いう おんなのこが トランペットを もって やって きました。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🎺",
+            "x": 56,
+            "y": 54,
+            "s": 2.2
+          },
+          {
+            "e": "🐓",
+            "x": 78,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "❗",
+            "x": 78,
+            "y": 40,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "She played it. TOOT! It was very, very loud.",
+      "ja": "エミは トランペットを ふきました。プーッ！ とても とても おおきな おとでした。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🎺",
+            "x": 46,
+            "y": 52,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🔊",
+            "x": 64,
+            "y": 40,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "💥",
+            "x": 82,
+            "y": 34,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🎵",
+            "x": 72,
+            "y": 62,
+            "s": 1.6,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Everyone jumped out of bed. \"Good morning!\" said the farmer.",
+      "ja": "みんな ベッドから とびおきました。「おはよう！」と のうかの ひとが いいました。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🧑‍🌾",
+            "x": 30,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "😲",
+            "x": 32,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🛏️",
+            "x": 58,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "🐷",
+            "x": 82,
+            "y": 72,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "☀️",
+            "x": 84,
+            "y": 16,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Emi gave Rooster warm soup. \"Thank you,\" he said quietly.",
+      "ja": "エミは おんどりに あたたかい スープを あげました。「ありがとう」と おんどりは ちいさな こえで いいました。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🍲",
+            "x": 50,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "🐓",
+            "x": 70,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "❤️",
+            "x": 60,
+            "y": 34,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The next day, Rooster sang again. And Emi played, too!",
+      "ja": "つぎの ひ、おんどりは また うたいました。エミも いっしょに ふきました！",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🐓",
+            "x": 28,
+            "y": 66,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "👧",
+            "x": 68,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🎺",
+            "x": 54,
+            "y": 52,
+            "s": 2
+          },
+          {
+            "e": "🎵",
+            "x": 40,
+            "y": 28,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "🎶",
+            "x": 82,
+            "y": 30,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "☀️",
+            "x": 12,
+            "y": 16,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "morning",
+      "ja": "あさ"
+    },
+    {
+      "en": "farm",
+      "ja": "のうじょう"
+    },
+    {
+      "en": "cold",
+      "ja": "かぜ"
+    },
+    {
+      "en": "sleeping",
+      "ja": "ねている"
+    },
+    {
+      "en": "quiet",
+      "ja": "しずかな・こえが ちいさい"
+    },
+    {
+      "en": "nobody",
+      "ja": "だれも 〜ない"
+    },
+    {
+      "en": "trumpet",
+      "ja": "トランペット"
+    },
+    {
+      "en": "loud",
+      "ja": "おとが おおきい"
+    },
+    {
+      "en": "soup",
+      "ja": "スープ"
+    },
+    {
+      "en": "again",
+      "ja": "また・もういちど"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの おはなし？",
+      "choices": [
+        "a pig who likes soup",
+        "a farmer and his new bed",
+        "waking up a sleeping farm"
+      ],
+      "answer": "waking up a sleeping farm",
+      "kind": "main"
+    },
+    {
+      "q": "Why could Rooster not sing?",
+      "ja": "おんどりは どうして うたえなかった？",
+      "choices": [
+        "He was too hungry.",
+        "He had a cold.",
+        "He was not at home."
+      ],
+      "answer": "He had a cold.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Emi bring to the farm?",
+      "ja": "エミは のうじょうに なにを もって きた？",
+      "choices": [
+        "A trumpet.",
+        "A drum.",
+        "A clock."
+      ],
+      "answer": "A trumpet.",
+      "kind": "detail"
+    },
+    {
+      "q": "Who tried first to wake the farm?",
+      "ja": "さいしょに みんなを おこそうと したのは だれ？",
+      "choices": [
+        "Cow.",
+        "Pig.",
+        "Emi."
+      ],
+      "answer": "Pig.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did everyone wake up at last?",
+      "ja": "さいごに みんなが おきたのは どうして？",
+      "choices": [
+        "The trumpet was very loud.",
+        "The farmer was very hungry.",
+        "The sun was very hot."
+      ],
+      "answer": "The trumpet was very loud.",
+      "kind": "infer"
+    }
+  ]
+}

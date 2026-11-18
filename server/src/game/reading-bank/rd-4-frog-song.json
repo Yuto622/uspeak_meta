@@ -1,0 +1,673 @@
+{
+  "id": "rd-4-frog-song",
+  "stage": "4",
+  "title": "Frog's Terrible Song",
+  "titleJa": "カエルの ひどい 歌",
+  "kind": "story",
+  "cover": {
+    "bg": "river",
+    "items": [
+      {
+        "e": "🐸",
+        "x": 45,
+        "y": 70,
+        "s": 4,
+        "a": "bob"
+      },
+      {
+        "e": "🎵",
+        "x": 64,
+        "y": 34,
+        "s": 2.2,
+        "a": "float"
+      },
+      {
+        "e": "🎶",
+        "x": 26,
+        "y": 30,
+        "s": 2,
+        "a": "float"
+      },
+      {
+        "e": "🪨",
+        "x": 45,
+        "y": 86,
+        "s": 2.6
+      },
+      {
+        "e": "🌙",
+        "x": 86,
+        "y": 16,
+        "s": 2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Frog loved to sing. Every evening, he sat on a rock by the pond and sang as loudly as he could.",
+      "ja": "カエルは 歌うのが 大好きでした。毎ばん、池の そばの 岩に すわって、できるだけ 大きな 声で 歌いました。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐸",
+            "x": 40,
+            "y": 68,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "🪨",
+            "x": 40,
+            "y": 86,
+            "s": 2.8
+          },
+          {
+            "e": "🎵",
+            "x": 58,
+            "y": 34,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🎶",
+            "x": 24,
+            "y": 28,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "🌙",
+            "x": 86,
+            "y": 16,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "But his voice was terrible. \"CROAK! CROAK!\" It sounded like a broken door.",
+      "ja": "でも、カエルの 声は ひどい ものでした。「ゲロッ！ ゲロッ！」こわれた ドアのような 音でした。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐸",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🔊",
+            "x": 52,
+            "y": 44,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "💥",
+            "x": 72,
+            "y": 36,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🚪",
+            "x": 86,
+            "y": 66,
+            "s": 2.6,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Please stop!\" said Rabbit. \"My babies cannot sleep when you sing.\"",
+      "ja": "「おねがい、やめて！」と ウサギが 言いました。「あなたが 歌うと、うちの 赤ちゃんが ねむれないの」",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 28,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "😠",
+            "x": 30,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "✋",
+            "x": 44,
+            "y": 54,
+            "s": 1.4
+          },
+          {
+            "e": "🐸",
+            "x": 68,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🐇",
+            "x": 10,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "🌙",
+            "x": 86,
+            "y": 16,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Can you sing quietly?\" asked Bear. Frog tried, but his quiet voice was still very loud.",
+      "ja": "「静かに 歌えないかい？」と クマが 聞きました。カエルは やってみましたが、小さな 声でも まだ とても うるさかったのです。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🐻",
+            "x": 24,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "🤫",
+            "x": 40,
+            "y": 44,
+            "s": 1.4
+          },
+          {
+            "e": "🐸",
+            "x": 66,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "🔊",
+            "x": 82,
+            "y": 46,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🎵",
+            "x": 84,
+            "y": 26,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Frog felt sad because nobody liked his song. He decided to sing only inside his head.",
+      "ja": "だれも 自分の 歌を 好きに なって くれないので、カエルは 悲しく なりました。頭の 中だけで 歌う ことに しました。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐸",
+            "x": 45,
+            "y": 72,
+            "s": 3.8
+          },
+          {
+            "e": "😔",
+            "x": 47,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "💭",
+            "x": 66,
+            "y": 24,
+            "s": 2.4
+          },
+          {
+            "e": "🎵",
+            "x": 66,
+            "y": 22,
+            "s": 1.1
+          },
+          {
+            "e": "🪨",
+            "x": 14,
+            "y": 80,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "One night, thick fog came over the pond. Mother Duck was crying. \"My baby is lost! I cannot see anything!\"",
+      "ja": "ある 夜、こい きりが 池を おおいました。お母さんアヒルが ないていました。「うちの 子が まいごなの！ 何も 見えないわ！」",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🌫️",
+            "x": 30,
+            "y": 40,
+            "s": 4,
+            "a": "drift"
+          },
+          {
+            "e": "🌫️",
+            "x": 72,
+            "y": 52,
+            "s": 4,
+            "a": "drift"
+          },
+          {
+            "e": "🦆",
+            "x": 45,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "💧",
+            "x": 54,
+            "y": 56,
+            "s": 1.2,
+            "a": "drift"
+          },
+          {
+            "e": "❗",
+            "x": 45,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Everyone called the little duck. But their voices were too soft, and the fog was too thick.",
+      "ja": "みんなで 小さな アヒルを よびました。でも みんなの 声は 小さすぎて、きりは こすぎました。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 16,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🐻",
+            "x": 44,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🦆",
+            "x": 72,
+            "y": 76,
+            "s": 2.4
+          },
+          {
+            "e": "📣",
+            "x": 30,
+            "y": 46,
+            "s": 1.6
+          },
+          {
+            "e": "🌫️",
+            "x": 60,
+            "y": 30,
+            "s": 4,
+            "a": "drift"
+          },
+          {
+            "e": "🌫️",
+            "x": 88,
+            "y": 44,
+            "s": 3.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Frog, we need you!\" said Rabbit. \"Sing your loudest song!\"",
+      "ja": "「カエルくん、あなたが 必要よ！」と ウサギが 言いました。「いちばん 大きな 声で 歌って！」",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐰",
+            "x": 28,
+            "y": 72,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "👉",
+            "x": 44,
+            "y": 56,
+            "s": 1.6
+          },
+          {
+            "e": "🐸",
+            "x": 68,
+            "y": 74,
+            "s": 3.2
+          },
+          {
+            "e": "😲",
+            "x": 70,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🌫️",
+            "x": 88,
+            "y": 28,
+            "s": 3,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Frog jumped on his rock and sang. \"CROAK! CROAK!\" The sound went far across the dark water.",
+      "ja": "カエルは 岩に とびのって 歌いました。「ゲロッ！ ゲロッ！」その 音は 暗い 水の 上を 遠くまで ひびきました。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐸",
+            "x": 26,
+            "y": 66,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "🪨",
+            "x": 26,
+            "y": 86,
+            "s": 2.8
+          },
+          {
+            "e": "🔊",
+            "x": 46,
+            "y": 44,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🎵",
+            "x": 64,
+            "y": 36,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🎶",
+            "x": 82,
+            "y": 44,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🌫️",
+            "x": 78,
+            "y": 22,
+            "s": 3,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Far away, the little duck heard it. She swam to the sound, and soon she was home.",
+      "ja": "遠くで、小さな アヒルが それを 聞きました。音の するほうへ 泳いで、まもなく 家に 帰って きました。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐥",
+            "x": 62,
+            "y": 76,
+            "s": 2.4,
+            "a": "bob"
+          },
+          {
+            "e": "👂",
+            "x": 62,
+            "y": 50,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🎵",
+            "x": 40,
+            "y": 40,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🐸",
+            "x": 14,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "🌊",
+            "x": 84,
+            "y": 82,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Thank you, Frog!\" said Mother Duck. \"Your voice is the best in the forest.\"",
+      "ja": "「カエルさん、ありがとう！」と お母さんアヒルが 言いました。「あなたの 声は 森で いちばんよ」",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🦆",
+            "x": 28,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🐥",
+            "x": 44,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "🐸",
+            "x": 70,
+            "y": 72,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😊",
+            "x": 72,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "❤️",
+            "x": 50,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now Frog sings every foggy night. On other nights, his friends just cover their ears and smile.",
+      "ja": "今では、カエルは きりの 夜には いつも 歌います。ほかの 夜は、友だちは 耳を ふさいで にっこり するだけです。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐸",
+            "x": 26,
+            "y": 68,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🎵",
+            "x": 40,
+            "y": 34,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🐰",
+            "x": 58,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🎧",
+            "x": 58,
+            "y": 50,
+            "s": 1.6
+          },
+          {
+            "e": "🐻",
+            "x": 86,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😊",
+            "x": 88,
+            "y": 42,
+            "s": 1.1
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "voice",
+      "ja": "声"
+    },
+    {
+      "en": "terrible",
+      "ja": "ひどい"
+    },
+    {
+      "en": "broken",
+      "ja": "こわれた"
+    },
+    {
+      "en": "quietly",
+      "ja": "静かに"
+    },
+    {
+      "en": "decided",
+      "ja": "決めた"
+    },
+    {
+      "en": "fog",
+      "ja": "きり"
+    },
+    {
+      "en": "lost",
+      "ja": "まいごの"
+    },
+    {
+      "en": "soft",
+      "ja": "（音が）小さい・やわらかい"
+    },
+    {
+      "en": "thick",
+      "ja": "こい・あつい"
+    },
+    {
+      "en": "loudest",
+      "ja": "いちばん 大きな 音の"
+    },
+    {
+      "en": "across",
+      "ja": "〜を こえて・横切って"
+    },
+    {
+      "en": "cover",
+      "ja": "ふさぐ・おおう"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "a duck who learns how to swim",
+        "a rabbit who cannot sleep at night",
+        "a bear who sings beautiful songs at night",
+        "a frog whose loud voice helps a friend"
+      ],
+      "answer": "a frog whose loud voice helps a friend",
+      "kind": "main"
+    },
+    {
+      "q": "Why did Rabbit ask Frog to stop singing?",
+      "ja": "ウサギは なぜ カエルに 歌を やめるように たのんだのですか。",
+      "choices": [
+        "Her babies could not sleep.",
+        "She wanted to sing herself.",
+        "The pond was too cold.",
+        "Bear was afraid of the song."
+      ],
+      "answer": "Her babies could not sleep.",
+      "kind": "detail"
+    },
+    {
+      "q": "Why could Mother Duck not find her baby?",
+      "ja": "お母さんアヒルは なぜ 子どもを 見つけられなかったのですか。",
+      "choices": [
+        "The baby was hiding in a tree.",
+        "The snow was very deep.",
+        "The fog was very thick.",
+        "The pond had no water."
+      ],
+      "answer": "The fog was very thick.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened just after Frog sang in the fog?",
+      "ja": "カエルが きりの 中で 歌った すぐ あとに、何が 起こりましたか。",
+      "choices": [
+        "Bear asked him to sing quietly.",
+        "The little duck swam home.",
+        "Frog decided to stop singing.",
+        "Thick fog came over the pond."
+      ],
+      "answer": "The little duck swam home.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why was Frog the best one to call the little duck?",
+      "ja": "小さな アヒルを よぶのに、なぜ カエルが いちばん よかったのですか。",
+      "choices": [
+        "He was the duck's teacher.",
+        "He could swim the fastest.",
+        "His voice could go very far.",
+        "He could see well in the fog."
+      ],
+      "answer": "His voice could go very far.",
+      "kind": "infer"
+    }
+  ]
+}

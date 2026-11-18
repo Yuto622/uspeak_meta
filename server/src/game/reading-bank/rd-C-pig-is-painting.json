@@ -1,0 +1,501 @@
+{
+  "id": "rd-C-pig-is-painting",
+  "stage": "C",
+  "title": "Pig Is Painting",
+  "titleJa": "ぶたくんの おえかき",
+  "kind": "story",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "🐷",
+        "x": 30,
+        "y": 72,
+        "s": 3.4,
+        "a": "bob"
+      },
+      {
+        "e": "🖌️",
+        "x": 48,
+        "y": 50,
+        "s": 1.8,
+        "a": "sway"
+      },
+      {
+        "e": "🖼️",
+        "x": 72,
+        "y": 56,
+        "s": 4
+      },
+      {
+        "e": "🎨",
+        "x": 12,
+        "y": 80,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Pig is painting a big picture.",
+      "ja": "ぶたくんは おおきな えを かいている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐷",
+            "x": 26,
+            "y": 72,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🖌️",
+            "x": 44,
+            "y": 52,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "📄",
+            "x": 70,
+            "y": 56,
+            "s": 5
+          },
+          {
+            "e": "🎨",
+            "x": 10,
+            "y": 82,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "He is painting the sky blue.",
+      "ja": "そらを あおく ぬっている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐷",
+            "x": 24,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🖌️",
+            "x": 44,
+            "y": 44,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "📄",
+            "x": 70,
+            "y": 56,
+            "s": 5
+          },
+          {
+            "e": "🟦",
+            "x": 70,
+            "y": 42,
+            "s": 2.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He is painting the sun yellow.",
+      "ja": "たいようを きいろく ぬっている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐷",
+            "x": 24,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🖌️",
+            "x": 46,
+            "y": 40,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "📄",
+            "x": 70,
+            "y": 56,
+            "s": 5
+          },
+          {
+            "e": "🟦",
+            "x": 70,
+            "y": 42,
+            "s": 2.6
+          },
+          {
+            "e": "🟡",
+            "x": 76,
+            "y": 40,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He is painting the grass green.",
+      "ja": "くさを みどりに ぬっている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐷",
+            "x": 24,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🖌️",
+            "x": 46,
+            "y": 64,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "📄",
+            "x": 70,
+            "y": 56,
+            "s": 5
+          },
+          {
+            "e": "🟦",
+            "x": 70,
+            "y": 42,
+            "s": 2.6
+          },
+          {
+            "e": "🟡",
+            "x": 76,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "🟢",
+            "x": 70,
+            "y": 68,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Oh no! Cat is walking on the picture.",
+      "ja": "たいへん！ ねこさんが えの うえを あるいている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐷",
+            "x": 18,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😲",
+            "x": 18,
+            "y": 48,
+            "s": 1.2
+          },
+          {
+            "e": "📄",
+            "x": 66,
+            "y": 70,
+            "s": 5.4
+          },
+          {
+            "e": "🐱",
+            "x": 66,
+            "y": 62,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "❗",
+            "x": 36,
+            "y": 26,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now there are little red marks on it.",
+      "ja": "えに ちいさな あかい あとが ついた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "📄",
+            "x": 50,
+            "y": 56,
+            "s": 5.8
+          },
+          {
+            "e": "🐾",
+            "x": 36,
+            "y": 46,
+            "s": 1.4
+          },
+          {
+            "e": "🐾",
+            "x": 50,
+            "y": 58,
+            "s": 1.4
+          },
+          {
+            "e": "🐾",
+            "x": 64,
+            "y": 48,
+            "s": 1.4
+          },
+          {
+            "e": "🐾",
+            "x": 58,
+            "y": 70,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Cat is sorry. But Pig is not angry.",
+      "ja": "ねこさんは 「ごめんね」。でも ぶたくんは おこっていない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐱",
+            "x": 30,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😢",
+            "x": 30,
+            "y": 48,
+            "s": 1.2
+          },
+          {
+            "e": "🐷",
+            "x": 68,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "😊",
+            "x": 68,
+            "y": 48,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "“They can be flowers!” says Pig.",
+      "ja": "「これは おはなに なるよ！」と ぶたくんは いう。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐷",
+            "x": 28,
+            "y": 72,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "💡",
+            "x": 28,
+            "y": 26,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "📄",
+            "x": 70,
+            "y": 58,
+            "s": 4.6
+          },
+          {
+            "e": "🐾",
+            "x": 64,
+            "y": 52,
+            "s": 1.2
+          },
+          {
+            "e": "🐾",
+            "x": 76,
+            "y": 62,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Pig and Cat are painting flowers together.",
+      "ja": "ぶたくんと ねこさんは いっしょに おはなを かいている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐷",
+            "x": 16,
+            "y": 72,
+            "s": 3,
+            "a": "bob"
+          },
+          {
+            "e": "📄",
+            "x": 50,
+            "y": 56,
+            "s": 5
+          },
+          {
+            "e": "🌷",
+            "x": 42,
+            "y": 54,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌷",
+            "x": 56,
+            "y": 60,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🐱",
+            "x": 84,
+            "y": 72,
+            "s": 2.8,
+            "a": "bob"
+          },
+          {
+            "e": "🖌️",
+            "x": 70,
+            "y": 46,
+            "s": 1.4,
+            "a": "sway"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "painting",
+      "ja": "えを かいている・ぬっている"
+    },
+    {
+      "en": "picture",
+      "ja": "え"
+    },
+    {
+      "en": "sky",
+      "ja": "そら"
+    },
+    {
+      "en": "grass",
+      "ja": "くさ"
+    },
+    {
+      "en": "walking",
+      "ja": "あるいている"
+    },
+    {
+      "en": "marks",
+      "ja": "あと・しるし"
+    },
+    {
+      "en": "sorry",
+      "ja": "ごめんなさい"
+    },
+    {
+      "en": "angry",
+      "ja": "おこっている"
+    },
+    {
+      "en": "flowers",
+      "ja": "はな"
+    },
+    {
+      "en": "together",
+      "ja": "いっしょに"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a pig in a race",
+        "a cat in a tree",
+        "a pig and his picture"
+      ],
+      "answer": "a pig and his picture",
+      "kind": "main"
+    },
+    {
+      "q": "What color is the sky in the picture?",
+      "ja": "えの そらは なにいろ？",
+      "choices": [
+        "blue",
+        "green",
+        "yellow"
+      ],
+      "answer": "blue",
+      "kind": "detail"
+    },
+    {
+      "q": "Who is walking on the picture?",
+      "ja": "えの うえを あるくのは だれ？",
+      "choices": [
+        "Pig",
+        "Cat",
+        "Dog"
+      ],
+      "answer": "Cat",
+      "kind": "detail"
+    },
+    {
+      "q": "What does Pig paint after the sun?",
+      "ja": "たいようの つぎに ぬるのは なに？",
+      "choices": [
+        "the sky",
+        "the sea",
+        "the grass"
+      ],
+      "answer": "the grass",
+      "kind": "sequence"
+    },
+    {
+      "q": "What do the red marks become?",
+      "ja": "あかい あとは なにに なるの？",
+      "choices": [
+        "stars",
+        "flowers",
+        "apples"
+      ],
+      "answer": "flowers",
+      "kind": "detail"
+    }
+  ]
+}

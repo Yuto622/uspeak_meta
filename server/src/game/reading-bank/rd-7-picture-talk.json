@@ -1,0 +1,584 @@
+{
+  "id": "rd-7-picture-talk",
+  "stage": "7",
+  "title": "The Boy Who Talked with Pictures",
+  "titleJa": "絵で 話した 少年",
+  "kind": "story",
+  "cover": {
+    "bg": "school",
+    "items": [
+      {
+        "e": "👦",
+        "x": 35,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "📓",
+        "x": 58,
+        "y": 62,
+        "s": 2.4
+      },
+      {
+        "e": "✏",
+        "x": 70,
+        "y": 54,
+        "s": 1.6
+      },
+      {
+        "e": "💬",
+        "x": 72,
+        "y": 26,
+        "s": 2.2,
+        "a": "pulse"
+      },
+      {
+        "e": "🐕",
+        "x": 88,
+        "y": 78,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "When Haru was eleven, his father got a job in Canada, and the whole family moved there. Haru had studied English in Japan, but real English was fast, like a river after rain.",
+      "ja": "ハルが 十一才の 時、お父さんが カナダで 仕事に つき、家族 みんなで 引っこした。ハルは 日本で 英語を 勉強していたが、本物の 英語は 雨の 後の 川のように 速かった。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧳",
+            "x": 48,
+            "y": 78,
+            "s": 1.8
+          },
+          {
+            "e": "✈",
+            "x": 72,
+            "y": 20,
+            "s": 2.4,
+            "a": "drift"
+          },
+          {
+            "e": "🏙",
+            "x": 86,
+            "y": 56,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "At his new school, he understood only a few words. When classmates spoke to him, he smiled and nodded, but inside he felt like a ghost that nobody could really see.",
+      "ja": "新しい 学校では、ほんの 少しの 単語しか 分からなかった。クラスメイトに 話しかけられると、にっこり うなずいたが、心の 中では、だれにも 見えない ゆうれいの ような 気が した。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 50,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😔",
+            "x": 50,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 20,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "💬",
+            "x": 80,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 50,
+            "y": 22,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "During lunch he sat alone and drew in his sketchbook. He drew his old street, his dog Mugi, and the ramen shop on the corner. Drawing was the one language he still spoke well.",
+      "ja": "昼食の 時間、ハルは 一人で すわって スケッチブックに 絵を かいた。前に 住んでいた 通り、犬の ムギ、角の ラーメン屋。絵は、今も 上手に 話せる ただ 一つの 言葉だった。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "📓",
+            "x": 50,
+            "y": 64,
+            "s": 2.2
+          },
+          {
+            "e": "✏",
+            "x": 60,
+            "y": 56,
+            "s": 1.4
+          },
+          {
+            "e": "🐕",
+            "x": 76,
+            "y": 34,
+            "s": 1.8
+          },
+          {
+            "e": "🍜",
+            "x": 90,
+            "y": 38,
+            "s": 1.6
+          },
+          {
+            "e": "🏠",
+            "x": 62,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "One day a boy named Ben looked over his shoulder. “Whoa! Did you draw that?” Haru nodded. He wrote “Mugi” under the dog and drew a heart. Ben laughed and drew his own cat, badly.",
+      "ja": "ある日、ベンという 男の子が かたごしに のぞきこんだ。「わあ！ それ、きみが かいたの？」。ハルは うなずいた。犬の 下に 「ムギ」と 書き、ハートを かいた。ベンは 笑って、自分の ネコを 下手に かいた。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 68,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 34,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "📓",
+            "x": 50,
+            "y": 64,
+            "s": 2
+          },
+          {
+            "e": "❤",
+            "x": 50,
+            "y": 40,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🐈",
+            "x": 90,
+            "y": 80,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "After that, they talked with pictures every day. Ben wrote the English word under each drawing, and Haru wrote the Japanese one. The sketchbook slowly became their own dictionary.",
+      "ja": "それからは 毎日、二人は 絵で 話した。ベンは それぞれの 絵の 下に 英語の 単語を 書き、ハルは 日本語を 書いた。スケッチブックは 少しずつ、二人だけの 辞書に なっていった。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧒",
+            "x": 70,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📖",
+            "x": 50,
+            "y": 62,
+            "s": 2.6
+          },
+          {
+            "e": "✏",
+            "x": 42,
+            "y": 50,
+            "s": 1.2
+          },
+          {
+            "e": "✏",
+            "x": 58,
+            "y": 50,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "In spring, the teacher announced a class project: a presentation about “a place I love.” Each pair had to speak in front of the whole class. Ben chose Haru at once. Haru’s hands turned cold.",
+      "ja": "春、先生が クラスの 課題を 発表した。「私の 大好きな 場所」についての 発表だ。二人組で クラス 全員の 前で 話さなければ ならない。ベンは すぐ ハルを 選んだ。ハルの 手は 冷たくなった。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👩‍🏫",
+            "x": 20,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "💬",
+            "x": 20,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🧒",
+            "x": 50,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👉",
+            "x": 62,
+            "y": 56,
+            "s": 1.4
+          },
+          {
+            "e": "👦",
+            "x": 78,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😨",
+            "x": 78,
+            "y": 48,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "“I can draw the poster, but you do all the talking,” Haru said that evening. Ben was quiet for a moment. “I’ll do that if you really want. But I think the class wants to hear you, too.”",
+      "ja": "「ポスターは ぼくが かく。でも 話すのは 全部 きみが やって」と、その夕方 ハルは 言った。ベンは 少し だまった。「本当に そうしたいなら、そうするよ。でも クラスの みんなは、きみの 声も 聞きたいと 思う」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧒",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💬",
+            "x": 68,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🖼",
+            "x": 50,
+            "y": 60,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Haru could hide behind his pictures, or he could try and maybe fail. He thought about it all night. In the morning, he asked Ben to help him practice just three sentences.",
+      "ja": "絵の 後ろに かくれることも できる。やってみて、失敗するかも しれない 道も ある。ハルは 一ばん中 考えた。朝に なって、ベンに たのんだ。三つの 文だけ、練習を 手伝ってほしいと。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👦",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 45,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 66,
+            "y": 28,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🖼",
+            "x": 20,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "🌙",
+            "x": 86,
+            "y": 16,
+            "s": 2.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the day, Haru held up his drawing of the ramen shop. “This is my favorite place in Japan,” he said slowly. “The soup is hot. The owner knows my name.” His voice shook, but everyone understood and clapped.",
+      "ja": "当日、ハルは ラーメン屋の 絵を かかげた。「ここは 日本で 一番 好きな 場所です」と ゆっくり 言った。「スープは 熱いです。店長は ぼくの 名前を 知っています」。声は ふるえたが、全員に 伝わり、はく手が 起きた。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🖼",
+            "x": 35,
+            "y": 26,
+            "s": 2.2
+          },
+          {
+            "e": "🍜",
+            "x": 52,
+            "y": 28,
+            "s": 1.4
+          },
+          {
+            "e": "💬",
+            "x": 54,
+            "y": 50,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👏",
+            "x": 76,
+            "y": 50,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👥",
+            "x": 82,
+            "y": 72,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Haru’s English was still not perfect. But he had discovered something. Pictures had opened the door for him, and now he was brave enough to walk through it with his own voice.",
+      "ja": "ハルの 英語は、まだ 完ぺきでは なかった。でも 気づいたことが あった。絵が ドアを 開けてくれた。そして 今の ハルには、自分の 声で その ドアを 通りぬける 勇気が あった。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🚪",
+            "x": 72,
+            "y": 62,
+            "s": 3.4
+          },
+          {
+            "e": "✨",
+            "x": 72,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "📓",
+            "x": 18,
+            "y": 76,
+            "s": 1.8
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "ghost",
+      "ja": "ゆうれい"
+    },
+    {
+      "en": "sketchbook",
+      "ja": "スケッチブック"
+    },
+    {
+      "en": "shoulder",
+      "ja": "かた"
+    },
+    {
+      "en": "dictionary",
+      "ja": "辞書"
+    },
+    {
+      "en": "announced",
+      "ja": "発表した"
+    },
+    {
+      "en": "presentation",
+      "ja": "発表"
+    },
+    {
+      "en": "pair",
+      "ja": "二人組"
+    },
+    {
+      "en": "fail",
+      "ja": "失敗する"
+    },
+    {
+      "en": "owner",
+      "ja": "店長、持ち主"
+    },
+    {
+      "en": "discovered",
+      "ja": "発見した"
+    },
+    {
+      "en": "brave",
+      "ja": "勇気の ある"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A boy who finds his voice in a new country",
+        "A dog that gets lost in a big city",
+        "A teacher who opens a ramen shop near a school",
+        "A boy who wins a drawing contest"
+      ],
+      "answer": "A boy who finds his voice in a new country",
+      "kind": "main"
+    },
+    {
+      "q": "What did Haru and Ben make together?",
+      "ja": "ハルと ベンは いっしょに 何を 作った？",
+      "choices": [
+        "A bowl of ramen",
+        "A small house for Mugi",
+        "Their own dictionary",
+        "A map of Canada"
+      ],
+      "answer": "Their own dictionary",
+      "kind": "detail"
+    },
+    {
+      "q": "What place did Haru talk about in class?",
+      "ja": "ハルは クラスで どの 場所について 話した？",
+      "choices": [
+        "His school in Canada",
+        "A river after the rain",
+        "Ben’s house and garden",
+        "A ramen shop in Japan"
+      ],
+      "answer": "A ramen shop in Japan",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened right after the teacher announced the project?",
+      "ja": "先生が 課題を 発表した すぐ後、何が 起きた？",
+      "choices": [
+        "Haru drew his dog Mugi.",
+        "Ben chose Haru as his partner.",
+        "Haru moved back to Japan.",
+        "The class clapped for Haru."
+      ],
+      "answer": "Ben chose Haru as his partner.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did Haru ask to practice only three sentences?",
+      "ja": "ハルは なぜ 三つの 文だけ 練習したいと 言った？",
+      "choices": [
+        "He chose a small step he could manage.",
+        "He thought the project was boring.",
+        "Ben did not want him to speak for too long.",
+        "The teacher allowed only three."
+      ],
+      "answer": "He chose a small step he could manage.",
+      "kind": "infer"
+    }
+  ]
+}

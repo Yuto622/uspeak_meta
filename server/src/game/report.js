@@ -8,6 +8,7 @@
 // another family's child. The signature is an HMAC of the class and the name with a
 // secret that never leaves the server, so a link cannot be edited into somebody else's.
 import { parentLines } from './roadmap.js';
+import { TOP_CSS, fiveHtml, barHtml, booksHtml } from '../reading/pages.js';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { totalXp, xpToNext } from './progression.js';
 import { ROOMS } from './town.js';
@@ -308,6 +309,13 @@ function roadmapBlock(r) {
  <p class="fine">${esc(L.note)}</p>`;
 }
 
+// いちばん 上：数字 5 つ（はじめてからの 合計）・進み具合の バー・よんだ 本。どれも もとからある 記録
+// （学習時間＝study_ms、話した 回数＝chats、読んだ 本＝よみもの島の ✓、正答率＝correct / attempts、覚えた 単語＝ロードマップの 数え方）。
+function topBlock(r) {
+  const five = { minutes: r.studyMinutes || 0, speak: r.phrases || 0, books: r.reading?.books || 0, accuracy: r.accuracy, words: r.roadmap?.mastered ?? 0 };
+  return `<h3 class="sub" style="margin-top:18px">はじめてからの 数字</h3>${fiveHtml(five, { label: 'はじめてから' })}${barHtml(r.bar)}${booksHtml(r.reading?.list)}`;
+}
+
 function notesBlock(r) {
   if (!r.notes?.length) return '';
   return `<div class="notes"><h3 class="sub">先生から</h3>${r.notes.map((n) => `<p><small>${esc(new Date(n.at).toLocaleDateString('ja-JP', JST))}</small>${esc(n.text).replace(/\n/g, '<br>')}</p>`).join('')}</div>`;
@@ -426,6 +434,7 @@ export function reportHtml(r, { token = '', view = '' } = {}) {
  table.exam th small, table.exam td small { display: block; font-size: 11px; color: #7b8a7f; }
  .ex-ready { color: #2f6b3f; } .ex-close { color: #8a5a12; } .ex-practice { color: #5d6d62; }
  p.fine { font-size: 12px; color: #7b8a7f; margin: 6px 2px 0; }
+ ${TOP_CSS}
  .notes { background: #fffaf0; border-radius: 16px; padding: 4px 16px 10px; margin-top: 8px; }
  .notes p { margin: 8px 0; } .notes p small { display: block; }
  /* 面談メモ。机の向こうの保護者にも読めるよう、字を大きく。 */
@@ -444,6 +453,7 @@ export function reportHtml(r, { token = '', view = '' } = {}) {
 <p>クラス ${esc(r.classCode)}${seen ? ` · さいごに あそんだ日 ${esc(seen)}` : ''}</p></div></header>
 <main>
 ${meet ? `<div class="points"><h2>きょう お話しすること</h2><ol>${talkingPoints(r).map((t) => `<li>${esc(t)}</li>`).join('')}</ol></div>` : ''}
+${topBlock(r)}
 ${monthBlock(r)}
 ${inARowLine(r)}
 ${schoolLine(r)}

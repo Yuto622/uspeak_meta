@@ -1,0 +1,555 @@
+{
+  "id": "rd-6-water-trip",
+  "stage": "6",
+  "title": "The Never-Ending Trip of Water",
+  "titleJa": "水の 終わらない 旅",
+  "kind": "fact",
+  "cover": {
+    "bg": "sea",
+    "items": [
+      {
+        "e": "💧",
+        "x": 50,
+        "y": 40,
+        "s": 4,
+        "a": "bob"
+      },
+      {
+        "e": "☁",
+        "x": 22,
+        "y": 20,
+        "s": 2.6,
+        "a": "drift"
+      },
+      {
+        "e": "☀",
+        "x": 82,
+        "y": 18,
+        "s": 2.6,
+        "a": "pulse"
+      },
+      {
+        "e": "🌊",
+        "x": 50,
+        "y": 82,
+        "s": 2.6,
+        "a": "sway"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "The water in your glass is very old. It may have been in a river, a cloud, or even the sea long before you were born. Water is always traveling.",
+      "ja": "コップの 中の 水は、とても 古い ものです。あなたが 生まれる ずっと 前に、川や 雲、海に あったかも しれません。水は いつも 旅を しています。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🥛",
+            "x": 50,
+            "y": 64,
+            "s": 2.6
+          },
+          {
+            "e": "💧",
+            "x": 50,
+            "y": 40,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "❓",
+            "x": 68,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The trip begins with the sun. The sun warms the sea, lakes, and rivers. Some of the water changes into a gas called water vapor and rises into the air.",
+      "ja": "旅は 太陽から 始まります。太陽は 海や 湖、川を あたためます。水の 一部は 水じょう気という 気体に 変わり、空気の 中へ のぼっていきます。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "☀",
+            "x": 78,
+            "y": 16,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "🌊",
+            "x": 50,
+            "y": 80,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "⬆",
+            "x": 30,
+            "y": 46,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "⬆",
+            "x": 50,
+            "y": 40,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "♨",
+            "x": 68,
+            "y": 54,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "This change is called evaporation. You can see it at home. Wet clothes become dry in the sun because the water goes into the air.",
+      "ja": "この 変化を じょう発と いいます。家でも 見ることが できます。ぬれた 服が 日なたで かわくのは、水が 空気の 中へ 出ていくからです。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👕",
+            "x": 30,
+            "y": 44,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🧦",
+            "x": 55,
+            "y": 46,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "👖",
+            "x": 76,
+            "y": 46,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "☀",
+            "x": 85,
+            "y": 14,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "💧",
+            "x": 30,
+            "y": 68,
+            "s": 1.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "High in the sky, the air is cold. There the water vapor cools and changes back into tiny drops of water. Millions of these drops together make a cloud.",
+      "ja": "空の 高い 所では、空気が 冷たいです。そこで 水じょう気は 冷えて、小さな 水の つぶに もどります。その つぶが 何百万も 集まって、雲に なります。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "☁",
+            "x": 50,
+            "y": 34,
+            "s": 4.4,
+            "a": "drift"
+          },
+          {
+            "e": "💧",
+            "x": 36,
+            "y": 62,
+            "s": 1,
+            "a": "bob"
+          },
+          {
+            "e": "💧",
+            "x": 50,
+            "y": 66,
+            "s": 1,
+            "a": "bob"
+          },
+          {
+            "e": "💧",
+            "x": 64,
+            "y": 62,
+            "s": 1,
+            "a": "bob"
+          },
+          {
+            "e": "❄",
+            "x": 86,
+            "y": 20,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Inside the cloud, the tiny drops join and become bigger and heavier. At last they fall as rain. If the air is very cold, they fall as snow.",
+      "ja": "雲の 中で、小さな つぶは くっつき合い、大きく 重く なります。そして ついに 雨として 落ちます。空気が とても 冷たければ、雪として ふります。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "🌧",
+            "x": 30,
+            "y": 22,
+            "s": 3.2,
+            "a": "drift"
+          },
+          {
+            "e": "💧",
+            "x": 26,
+            "y": 54,
+            "s": 1.2,
+            "a": "bob"
+          },
+          {
+            "e": "💧",
+            "x": 38,
+            "y": 62,
+            "s": 1.2,
+            "a": "bob"
+          },
+          {
+            "e": "☁",
+            "x": 74,
+            "y": 20,
+            "s": 2.8,
+            "a": "drift"
+          },
+          {
+            "e": "❄",
+            "x": 70,
+            "y": 50,
+            "s": 1.4,
+            "a": "drift"
+          },
+          {
+            "e": "❄",
+            "x": 82,
+            "y": 60,
+            "s": 1.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Some rain falls on mountains and runs down into streams. Streams join to make rivers, and most rivers finally flow back to the sea.",
+      "ja": "山に ふった 雨の 一部は、流れ下って 小川に なります。小川は 集まって 川に なり、ほとんどの 川は 最後に 海へ もどります。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "⛰",
+            "x": 18,
+            "y": 34,
+            "s": 3.4
+          },
+          {
+            "e": "🌧",
+            "x": 20,
+            "y": 12,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "💧",
+            "x": 40,
+            "y": 56,
+            "s": 1.4,
+            "a": "drift"
+          },
+          {
+            "e": "➡",
+            "x": 60,
+            "y": 62,
+            "s": 1.6
+          },
+          {
+            "e": "🌊",
+            "x": 86,
+            "y": 78,
+            "s": 2.6,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Some rain goes down into the ground. Plants drink it with their roots. Some of it stays deep under the ground, and people take it out through wells.",
+      "ja": "地面に しみこむ 雨も あります。植物は それを 根から すいます。地下の 深い 所に たまる 水も あり、人びとは 井戸で くみ上げます。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🌱",
+            "x": 25,
+            "y": 72,
+            "s": 2.4
+          },
+          {
+            "e": "💧",
+            "x": 25,
+            "y": 86,
+            "s": 1.2
+          },
+          {
+            "e": "⬇",
+            "x": 48,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🪣",
+            "x": 72,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "👩‍🌾",
+            "x": 90,
+            "y": 70,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then the sun warms the water again, and the trip starts once more. This is called the water cycle. It never stops.",
+      "ja": "そして 太陽が また 水を あたため、旅は もう一度 始まります。これを 水の じゅんかんと いいます。けっして 止まることは ありません。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🔄",
+            "x": 50,
+            "y": 44,
+            "s": 4,
+            "a": "spin"
+          },
+          {
+            "e": "☀",
+            "x": 82,
+            "y": 16,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "☁",
+            "x": 20,
+            "y": 20,
+            "s": 2.4,
+            "a": "drift"
+          },
+          {
+            "e": "🌊",
+            "x": 50,
+            "y": 86,
+            "s": 2.4,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The amount of water on Earth stays almost the same. But only a small part of it is fresh water that we can drink. Most of it is salty sea water.",
+      "ja": "地球の 水の 量は、ほとんど 変わりません。でも 私たちが 飲める 真水は、その ほんの 一部です。ほとんどは、しおからい 海の 水です。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🌍",
+            "x": 40,
+            "y": 50,
+            "s": 4.6,
+            "a": "spin"
+          },
+          {
+            "e": "🌊",
+            "x": 76,
+            "y": 66,
+            "s": 2.2
+          },
+          {
+            "e": "🥛",
+            "x": 80,
+            "y": 30,
+            "s": 1.6
+          },
+          {
+            "e": "💧",
+            "x": 88,
+            "y": 32,
+            "s": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "So clean water is precious. Turn off the tap when you brush your teeth. The water you save today has been traveling for a very long time.",
+      "ja": "だから きれいな 水は 大切です。歯を みがく 時は、じゃ口を しめましょう。今日 あなたが 節約する 水は、とても 長い 間 旅を してきたのです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🪥",
+            "x": 46,
+            "y": 54,
+            "s": 1.6
+          },
+          {
+            "e": "🚿",
+            "x": 68,
+            "y": 40,
+            "s": 2.4
+          },
+          {
+            "e": "💧",
+            "x": 68,
+            "y": 66,
+            "s": 1.4,
+            "a": "bob"
+          },
+          {
+            "e": "✅",
+            "x": 86,
+            "y": 30,
+            "s": 1.8
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "gas",
+      "ja": "気体"
+    },
+    {
+      "en": "water vapor",
+      "ja": "水じょう気"
+    },
+    {
+      "en": "evaporation",
+      "ja": "じょう発"
+    },
+    {
+      "en": "drops",
+      "ja": "つぶ、しずく"
+    },
+    {
+      "en": "streams",
+      "ja": "小川"
+    },
+    {
+      "en": "flow",
+      "ja": "流れる"
+    },
+    {
+      "en": "roots",
+      "ja": "根"
+    },
+    {
+      "en": "wells",
+      "ja": "井戸"
+    },
+    {
+      "en": "cycle",
+      "ja": "じゅんかん"
+    },
+    {
+      "en": "precious",
+      "ja": "大切な、貴重な"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How to wash clothes",
+        "Why the sea is blue",
+        "How water moves around the Earth",
+        "How to dig a deep well in the ground"
+      ],
+      "answer": "How water moves around the Earth",
+      "kind": "main"
+    },
+    {
+      "q": "What makes water rise into the air?",
+      "ja": "水は 何によって 空気の 中へ のぼる？",
+      "choices": [
+        "The wind from the mountains",
+        "The heat of the sun",
+        "The roots of plants",
+        "The cold of the sky"
+      ],
+      "answer": "The heat of the sun",
+      "kind": "detail"
+    },
+    {
+      "q": "What is a cloud made of?",
+      "ja": "雲は 何で できている？",
+      "choices": [
+        "Smoke from cities",
+        "Salt from the sea",
+        "Dust and sand",
+        "Tiny drops of water"
+      ],
+      "answer": "Tiny drops of water",
+      "kind": "detail"
+    },
+    {
+      "q": "What happens just before rain falls?",
+      "ja": "雨が ふる すぐ前に 何が 起きる？",
+      "choices": [
+        "Drops join and become heavy.",
+        "Rivers flow back to the sea.",
+        "Plants drink with their roots.",
+        "The sun warms the lakes."
+      ],
+      "answer": "Drops join and become heavy.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why should we save clean water?",
+      "ja": "なぜ きれいな 水を 節約するべき？",
+      "choices": [
+        "Water disappears when we use it.",
+        "Rain will soon stop falling.",
+        "Sea water is getting colder.",
+        "Only a little water is good to drink."
+      ],
+      "answer": "Only a little water is good to drink.",
+      "kind": "infer"
+    }
+  ]
+}

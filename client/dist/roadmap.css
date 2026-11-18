@@ -133,6 +133,12 @@
 .rm2-stage > b { font-size: 24px; color: #fff; }
 .rm2-stage > small { font-size: 13px; }
 .rm2-goal { margin: 6px 0; font-weight: 700; color: #ffe9a8; }
+.rm2-bar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 4px 8px; margin: 8px 0 10px; }
+.rm2-bar > i { display: block; height: 14px; border-radius: 7px; background: #ffffff2e; overflow: hidden; }
+.rm2-bar > i > em { display: block; height: 100%; border-radius: 7px; background: linear-gradient(90deg, #7fdcaa, #ffd24a); }
+.rm2-barEnd { min-width: 30px; text-align: center; padding: 2px 8px; border-radius: 99px; background: #fff; color: #1b3a2f; font-size: 14px; font-weight: 900; }
+.rm2-barEnd.next { background: #ffd24a; }
+.rm2-bar .rm-bi { grid-column: 1 / -1; font-size: 13px; font-weight: 700; color: #fff; }
 .rm2-goal .rm-bi > b { font-size: 16px; }
 .rm2-stamps { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 10px; }
 .rm2-stamps > span { display: grid; justify-items: center; min-width: 52px; padding: 6px 6px 4px; border-radius: 12px; font-size: 22px; line-height: 1;

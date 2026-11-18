@@ -1,0 +1,450 @@
+{
+  "id": "rd-C-moon-follows-me",
+  "stage": "C",
+  "title": "The Moon Is Following Me",
+  "titleJa": "おつきさまが ついてくる",
+  "kind": "story",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "🌙",
+        "x": 72,
+        "y": 20,
+        "s": 3.2,
+        "a": "pulse"
+      },
+      {
+        "e": "👧",
+        "x": 34,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "⭐",
+        "x": 20,
+        "y": 22,
+        "s": 1.4,
+        "a": "pulse"
+      },
+      {
+        "e": "🏠",
+        "x": 86,
+        "y": 66,
+        "s": 2.4
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "I am walking home with Dad. It is night.",
+      "ja": "パパと いえに かえる とちゅう。もう よる。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 34,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "👨",
+            "x": 60,
+            "y": 70,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "⭐",
+            "x": 20,
+            "y": 20,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 84,
+            "y": 30,
+            "s": 1.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The moon is over the shop.",
+      "ja": "おつきさまが おみせの うえに いる。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🏦",
+            "x": 62,
+            "y": 62,
+            "s": 4
+          },
+          {
+            "e": "🌙",
+            "x": 62,
+            "y": 18,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 72,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "I am walking. The moon is walking, too.",
+      "ja": "わたしが あるく。おつきさまも あるく。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🌙",
+            "x": 44,
+            "y": 16,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "🌳",
+            "x": 84,
+            "y": 60,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "I am running. The moon is running, too!",
+      "ja": "わたしが はしる。おつきさまも はしる！",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 62,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "💨",
+            "x": 40,
+            "y": 70,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🌙",
+            "x": 66,
+            "y": 16,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "💨",
+            "x": 46,
+            "y": 18,
+            "s": 1.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I stop. The moon stops.",
+      "ja": "わたしが とまる。おつきさまも とまる。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 50,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 50,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🌙",
+            "x": 52,
+            "y": 14,
+            "s": 2.6
+          },
+          {
+            "e": "✋",
+            "x": 72,
+            "y": 56,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "“Dad, the moon is following me!”",
+      "ja": "「パパ、おつきさまが ついてくるよ！」",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "👉",
+            "x": 46,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "🌙",
+            "x": 56,
+            "y": 14,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👨",
+            "x": 72,
+            "y": 70,
+            "s": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "text": "Dad is smiling. “It likes you,” he says.",
+      "ja": "パパは にっこり。「きみが すきなんだね」と いう。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👨",
+            "x": 60,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 60,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😊",
+            "x": 32,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🌙",
+            "x": 84,
+            "y": 16,
+            "s": 2.2
+          },
+          {
+            "e": "❤️",
+            "x": 46,
+            "y": 20,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "At home, I can see the moon from my bed.",
+      "ja": "いえの ベッドからも おつきさまが みえる。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 34,
+            "y": 74,
+            "s": 4.4
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 62,
+            "s": 2.8
+          },
+          {
+            "e": "🪟",
+            "x": 78,
+            "y": 38,
+            "s": 3.6
+          },
+          {
+            "e": "🌙",
+            "x": 78,
+            "y": 36,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "“Good night, my friend,” I say.",
+      "ja": "「おやすみ、わたしの おともだち」と いう。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌙",
+            "x": 66,
+            "y": 26,
+            "s": 4,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 24,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🏠",
+            "x": 34,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "💤",
+            "x": 44,
+            "y": 44,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "moon",
+      "ja": "つき"
+    },
+    {
+      "en": "night",
+      "ja": "よる"
+    },
+    {
+      "en": "walking",
+      "ja": "あるいている"
+    },
+    {
+      "en": "running",
+      "ja": "はしっている"
+    },
+    {
+      "en": "stop",
+      "ja": "とまる"
+    },
+    {
+      "en": "following",
+      "ja": "ついてきている"
+    },
+    {
+      "en": "shop",
+      "ja": "おみせ"
+    },
+    {
+      "en": "bed",
+      "ja": "ベッド"
+    },
+    {
+      "en": "friend",
+      "ja": "ともだち"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a girl and the moon",
+        "a boy and the sun",
+        "a dad and a shop"
+      ],
+      "answer": "a girl and the moon",
+      "kind": "main"
+    },
+    {
+      "q": "Who is walking with the girl?",
+      "ja": "おんなのこと いっしょに あるいているのは だれ？",
+      "choices": [
+        "her mom",
+        "her dog",
+        "her dad"
+      ],
+      "answer": "her dad",
+      "kind": "detail"
+    },
+    {
+      "q": "What does the moon do when the girl stops?",
+      "ja": "おんなのこが とまると おつきさまは どう するの？",
+      "choices": [
+        "It runs.",
+        "It stops.",
+        "It sings."
+      ],
+      "answer": "It stops.",
+      "kind": "detail"
+    },
+    {
+      "q": "What does the girl do after walking?",
+      "ja": "あるいた あと おんなのこは なにを するの？",
+      "choices": [
+        "She is swimming.",
+        "She is eating.",
+        "She is running."
+      ],
+      "answer": "She is running.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Where can she see the moon at home?",
+      "ja": "いえでは どこから おつきさまが みえるの？",
+      "choices": [
+        "from the kitchen",
+        "from her bed",
+        "from the bath"
+      ],
+      "answer": "from her bed",
+      "kind": "detail"
+    }
+  ]
+}

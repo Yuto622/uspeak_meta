@@ -1,0 +1,593 @@
+{
+  "id": "rd-7-snow-envelope",
+  "stage": "7",
+  "title": "The Envelope in the Snow",
+  "titleJa": "雪の 中の ふうとう",
+  "kind": "story",
+  "cover": {
+    "bg": "snow",
+    "items": [
+      {
+        "e": "👧",
+        "x": 35,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "✉",
+        "x": 62,
+        "y": 78,
+        "s": 2.4,
+        "a": "pulse"
+      },
+      {
+        "e": "❄",
+        "x": 25,
+        "y": 22,
+        "s": 1.8,
+        "a": "drift"
+      },
+      {
+        "e": "❄",
+        "x": 78,
+        "y": 30,
+        "s": 1.6,
+        "a": "drift"
+      },
+      {
+        "e": "🎹",
+        "x": 88,
+        "y": 70,
+        "s": 2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Sora wanted a pair of ice skates more than anything. She had saved her pocket money for five months, but she still needed three thousand yen, and the winter sale ended on Saturday.",
+      "ja": "ソラは、何よりも アイススケートの くつが ほしかった。五か月間 おこづかいを ためたが、まだ 三千円 足りない。そして 冬の セールは 土曜日で 終わってしまう。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🥾",
+            "x": 62,
+            "y": 60,
+            "s": 2.6
+          },
+          {
+            "e": "🏷",
+            "x": 76,
+            "y": 46,
+            "s": 1.6
+          },
+          {
+            "e": "🪙",
+            "x": 46,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "📅",
+            "x": 88,
+            "y": 28,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "On Thursday, snow covered the town. Walking home, Sora saw something brown by the bus stop. It was an envelope. Inside were three thousand-yen bills — exactly the amount she needed.",
+      "ja": "木曜日、雪が 町を おおった。帰り道、ソラは バス停の そばに 茶色い 物を 見つけた。ふうとうだった。中には 千円さつが 三まい。ちょうど 必要な 金がくだった。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😲",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "✉",
+            "x": 58,
+            "y": 80,
+            "s": 2
+          },
+          {
+            "e": "💵",
+            "x": 60,
+            "y": 62,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🚌",
+            "x": 86,
+            "y": 66,
+            "s": 2.6
+          },
+          {
+            "e": "❄",
+            "x": 50,
+            "y": 20,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "There was no name on the envelope, only a few words in shaky handwriting: “For Mika’s piano lessons — January.” Sora looked around. The street was empty and white.",
+      "ja": "ふうとうに 名前は なく、ふるえた 字で 短く 書いてあるだけだった。「ミカの ピアノの 月しゃ 一月分」。ソラは あたりを 見回した。通りには だれも おらず、真っ白だった。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "✉",
+            "x": 55,
+            "y": 58,
+            "s": 2.2
+          },
+          {
+            "e": "🎹",
+            "x": 72,
+            "y": 30,
+            "s": 1.8
+          },
+          {
+            "e": "👀",
+            "x": 35,
+            "y": 26,
+            "s": 1.6
+          },
+          {
+            "e": "❄",
+            "x": 88,
+            "y": 40,
+            "s": 1.6,
+            "a": "drift"
+          },
+          {
+            "e": "❄",
+            "x": 12,
+            "y": 30,
+            "s": 1.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Her heart beat fast. Nobody had seen her. The money could not tell anyone where it had gone. And was it not strange luck that it was exactly three thousand yen?",
+      "ja": "心ぞうが どきどきした。だれにも 見られていない。お金は、どこへ 行ったかを だれにも 話せない。それに、ちょうど 三千円だなんて、ふしぎな 幸運では ないだろうか。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 45,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💓",
+            "x": 60,
+            "y": 54,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "💭",
+            "x": 70,
+            "y": 28,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🥾",
+            "x": 70,
+            "y": 27,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "She put the envelope in her pocket and walked on. But with every step it seemed heavier. Somewhere, a person was searching in the snow. Somewhere, a girl named Mika was waiting for her lessons.",
+      "ja": "ソラは ふうとうを ポケットに 入れて 歩き続けた。でも 一歩ごとに、ふうとうは 重くなるようだった。どこかで だれかが 雪の 中を さがしている。どこかで ミカという 子が レッスンを 待っている。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 58,
+            "y": 28,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🎹",
+            "x": 58,
+            "y": 27,
+            "s": 1.2
+          },
+          {
+            "e": "🐾",
+            "x": 70,
+            "y": 82,
+            "s": 1.4
+          },
+          {
+            "e": "🐾",
+            "x": 84,
+            "y": 84,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sora stopped. There was only one piano school in town, near the post office. It was a long walk in the opposite direction from her warm home. She turned around.",
+      "ja": "ソラは 立ち止まった。町に ピアノ教室は 一つだけ。ゆうびん局の 近くだ。あたたかい 家とは 反対の 方向へ、長く 歩かなければ ならない。ソラは 向きを 変えた。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 70,
+            "s": 3.6,
+            "flip": true
+          },
+          {
+            "e": "🏠",
+            "x": 88,
+            "y": 62,
+            "s": 2.4
+          },
+          {
+            "e": "⬅",
+            "x": 30,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🎵",
+            "x": 10,
+            "y": 40,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "❄",
+            "x": 60,
+            "y": 20,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The piano teacher looked at the envelope and gasped. “That is Mr. Aoki’s handwriting! He pays for his granddaughter’s lessons every month. He called an hour ago, very upset.”",
+      "ja": "ピアノの 先生は ふうとうを 見て、息を のんだ。「アオキさんの 字だわ！ 毎月、おまごさんの 月しゃを はらっているの。一時間前に 電話が あって、とても あわてていたのよ」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 68,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "✉",
+            "x": 50,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🎹",
+            "x": 90,
+            "y": 68,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Soon an old man hurried in, with snow on his hat. When he saw the envelope, his eyes filled with tears. “I looked everywhere. I thought Mika would have to stop. Thank you, thank you.”",
+      "ja": "まもなく、ぼうしに 雪を のせた おじいさんが 急いで 入ってきた。ふうとうを 見ると、目に なみだが あふれた。「どこも かしこも さがしたんだ。ミカは やめるしか ないと 思った。ありがとう、ありがとう」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👴",
+            "x": 66,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😢",
+            "x": 66,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "❄",
+            "x": 66,
+            "y": 30,
+            "s": 1.2
+          },
+          {
+            "e": "✉",
+            "x": 48,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🚪",
+            "x": 92,
+            "y": 62,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "He tried to give Sora a thousand yen, but she shook her head. Strangely, she did not want it. From the next room came the sound of a girl playing the piano, a little clumsy but happy.",
+      "ja": "おじいさんは ソラに 千円を わたそうと したが、ソラは 首を ふった。ふしぎと、ほしくなかった。となりの 部屋から、女の子が ピアノを ひく 音が 聞こえた。少し ぎこちないが、楽しそうだった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👴",
+            "x": 70,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💵",
+            "x": 54,
+            "y": 58,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🎵",
+            "x": 88,
+            "y": 28,
+            "s": 1.8,
+            "a": "bob"
+          },
+          {
+            "e": "🎶",
+            "x": 14,
+            "y": 28,
+            "s": 1.6,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sora did not get her skates that winter. She bought them in spring, when nobody was skating anymore. But whenever she heard a piano, she felt warm, as if she owned a small part of the music.",
+      "ja": "その冬、ソラは スケートぐつを 買えなかった。買ったのは 春。もう だれも すべっていない ころだった。でも ピアノの 音を 聞く たびに、その 音楽の 小さな 一部が 自分の もののようで、心が あたたかくなった。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🥾",
+            "x": 55,
+            "y": 78,
+            "s": 2
+          },
+          {
+            "e": "🌸",
+            "x": 80,
+            "y": 60,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🎵",
+            "x": 62,
+            "y": 26,
+            "s": 1.8,
+            "a": "bob"
+          },
+          {
+            "e": "❤",
+            "x": 35,
+            "y": 24,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "envelope",
+      "ja": "ふうとう"
+    },
+    {
+      "en": "bills",
+      "ja": "おさつ"
+    },
+    {
+      "en": "amount",
+      "ja": "金がく、量"
+    },
+    {
+      "en": "handwriting",
+      "ja": "手書きの 字"
+    },
+    {
+      "en": "luck",
+      "ja": "運"
+    },
+    {
+      "en": "searching",
+      "ja": "さがしている"
+    },
+    {
+      "en": "gasped",
+      "ja": "息を のんだ"
+    },
+    {
+      "en": "upset",
+      "ja": "あわてて、動ようして"
+    },
+    {
+      "en": "clumsy",
+      "ja": "ぎこちない"
+    },
+    {
+      "en": "owned",
+      "ja": "持っていた"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A girl who learns to play the piano",
+        "An old man who sells ice skates",
+        "A girl who returns money she found",
+        "A teacher who loses her envelope"
+      ],
+      "answer": "A girl who returns money she found",
+      "kind": "main"
+    },
+    {
+      "q": "What was written on the envelope?",
+      "ja": "ふうとうには 何と 書いてあった？",
+      "choices": [
+        "Mr. Aoki’s name and address",
+        "Words about Mika’s piano lessons",
+        "The price of a new pair of ice skates",
+        "The name of the bus stop"
+      ],
+      "answer": "Words about Mika’s piano lessons",
+      "kind": "detail"
+    },
+    {
+      "q": "Where did Sora take the envelope?",
+      "ja": "ソラは ふうとうを どこへ 持っていった？",
+      "choices": [
+        "To the town post office",
+        "To her warm home",
+        "To the skate shop",
+        "To the piano school"
+      ],
+      "answer": "To the piano school",
+      "kind": "detail"
+    },
+    {
+      "q": "In this story, “upset” means ___.",
+      "ja": "この話で “upset” の 意味は？",
+      "choices": [
+        "worried and unhappy",
+        "sleepy and slow",
+        "proud and excited",
+        "cold and hungry"
+      ],
+      "answer": "worried and unhappy",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Sora refuse the thousand yen?",
+      "ja": "ソラは なぜ 千円を ことわった？",
+      "choices": [
+        "She already had enough money for the skates.",
+        "Her mother had told her to refuse.",
+        "She was afraid of the old man.",
+        "Doing the right thing felt like enough."
+      ],
+      "answer": "Doing the right thing felt like enough.",
+      "kind": "infer"
+    }
+  ]
+}

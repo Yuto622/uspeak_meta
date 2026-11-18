@@ -1,0 +1,672 @@
+{
+  "id": "rd-5-animal-doctor",
+  "stage": "5",
+  "title": "The Animal Doctor",
+  "titleJa": "どうぶつの お医者さん",
+  "kind": "fact",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "👩‍🔬",
+        "x": 26,
+        "y": 70,
+        "s": 3.4
+      },
+      {
+        "e": "🐶",
+        "x": 60,
+        "y": 72,
+        "s": 3.2,
+        "a": "bob"
+      },
+      {
+        "e": "❤️",
+        "x": 44,
+        "y": 34,
+        "s": 1.8,
+        "a": "pulse"
+      },
+      {
+        "e": "🐈",
+        "x": 86,
+        "y": 78,
+        "s": 2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "When you are sick, you go to a doctor. But where does a sick dog or cat go? It goes to a vet.",
+      "ja": "病気に なったら、あなたは お医者さんに 行きます。では、病気の 犬や ねこは どこへ 行くのでしょう。じゅう医さんの ところです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐶",
+            "x": 28,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "😢",
+            "x": 30,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🐱",
+            "x": 62,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "❓",
+            "x": 46,
+            "y": 26,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🏠",
+            "x": 88,
+            "y": 60,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "A vet is an animal doctor. The job is difficult because the patients cannot say, \"My stomach hurts.\"",
+      "ja": "じゅう医は 動物の お医者さんです。かん者が 「おなかが いたい」と 言えないので、むずかしい 仕事です。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍🔬",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🐶",
+            "x": 62,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "😟",
+            "x": 64,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "💬",
+            "x": 62,
+            "y": 20,
+            "s": 2
+          },
+          {
+            "e": "❌",
+            "x": 62,
+            "y": 20,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "So a vet must be a good detective. She asks the owner questions. Is the animal eating? Is it sleeping more than usual?",
+      "ja": "だから じゅう医は、すぐれた たんていで なければ なりません。かい主に 質問を します。食べていますか。いつもより 長く ねていますか。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍🔬",
+            "x": 22,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🔍",
+            "x": 38,
+            "y": 50,
+            "s": 1.8
+          },
+          {
+            "e": "👦",
+            "x": 62,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🐈",
+            "x": 82,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "📋",
+            "x": 38,
+            "y": 30,
+            "s": 1.8
+          },
+          {
+            "e": "❓",
+            "x": 62,
+            "y": 26,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then she checks the animal carefully. She looks in its eyes, ears, and mouth, and she listens to its heart.",
+      "ja": "それから 動物を ていねいに 調べます。目や 耳や 口の 中を 見て、心ぞうの 音を 聞きます。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍🔬",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🔦",
+            "x": 44,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "🐱",
+            "x": 64,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "❤️",
+            "x": 64,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👂",
+            "x": 84,
+            "y": 40,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sometimes she takes an X-ray. This special picture shows the bones and can show things that the animal ate by mistake, like a coin.",
+      "ja": "レントゲンを とる ことも あります。この 特別な 写真には ほねが うつり、動物が まちがって 飲みこんだ コインなども 見つける ことが できます。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🖼️",
+            "x": 40,
+            "y": 40,
+            "s": 4.4
+          },
+          {
+            "e": "🦴",
+            "x": 36,
+            "y": 38,
+            "s": 1.8
+          },
+          {
+            "e": "🪙",
+            "x": 48,
+            "y": 46,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🐶",
+            "x": 78,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😓",
+            "x": 80,
+            "y": 44,
+            "s": 1.1
+          },
+          {
+            "e": "👩‍🔬",
+            "x": 12,
+            "y": 70,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "Many animals are afraid at the clinic. A good vet speaks in a soft voice and moves slowly so that they feel safe.",
+      "ja": "病院を こわがる 動物は 多いです。よい じゅう医は、動物が 安心できるように、やさしい 声で 話し、ゆっくり 動きます。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🐇",
+            "x": 60,
+            "y": 76,
+            "s": 2.6
+          },
+          {
+            "e": "💦",
+            "x": 70,
+            "y": 58,
+            "s": 1.2
+          },
+          {
+            "e": "👩‍🔬",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 28,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "❤️",
+            "x": 44,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🤫",
+            "x": 84,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Vets do not only help sick animals. They also give healthy pets shots so that they do not get sick later.",
+      "ja": "じゅう医は 病気の 動物を 助けるだけでは ありません。元気な ペットにも、あとで 病気に ならないように 注射を します。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍🔬",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🐶",
+            "x": 62,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "😊",
+            "x": 64,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🛡️",
+            "x": 84,
+            "y": 40,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "📅",
+            "x": 10,
+            "y": 28,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Not all vets work with pets. Some drive to farms to take care of cows, horses, and pigs.",
+      "ja": "すべての じゅう医が ペットを みる わけでは ありません。車で 農場に 行き、ウシや ウマや ブタの 世話を する 人も います。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🚗",
+            "x": 14,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "👩‍🔬",
+            "x": 36,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🐄",
+            "x": 60,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🐴",
+            "x": 78,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "🐷",
+            "x": 94,
+            "y": 74,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Others work in zoos. Imagine checking the teeth of a lion or giving medicine to an elephant!",
+      "ja": "動物園で 働く じゅう医も います。ライオンの 歯を 調べたり、ゾウに 薬を あげたり する ところを 想ぞうして みて ください！",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👩‍🔬",
+            "x": 16,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "😅",
+            "x": 18,
+            "y": 42,
+            "s": 1.1
+          },
+          {
+            "e": "🦁",
+            "x": 46,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "🐘",
+            "x": 80,
+            "y": 66,
+            "s": 4.4
+          },
+          {
+            "e": "🔦",
+            "x": 30,
+            "y": 54,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "To become a vet, you must study for many years at a university. You need to learn about many kinds of animals.",
+      "ja": "じゅう医に なるには、大学で 何年も 勉強しなければ なりません。いろいろな 種類の 動物に ついて 学ぶ 必要が あります。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🧑",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📚",
+            "x": 50,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "📖",
+            "x": 44,
+            "y": 52,
+            "s": 1.8
+          },
+          {
+            "e": "🐕",
+            "x": 72,
+            "y": 78,
+            "s": 1.8
+          },
+          {
+            "e": "🐓",
+            "x": 84,
+            "y": 78,
+            "s": 1.6
+          },
+          {
+            "e": "🐢",
+            "x": 94,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "🏫",
+            "x": 80,
+            "y": 34,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "The work can be sad when an animal is very sick. But it is wonderful when a pet goes home healthy.",
+      "ja": "動物の 病気が とても 重い ときは、悲しい 仕事にも なります。でも、ペットが 元気に なって 家に 帰る ときは、すばらしい 気持ちです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍🔬",
+            "x": 20,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👋",
+            "x": 34,
+            "y": 48,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "👧",
+            "x": 60,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😄",
+            "x": 62,
+            "y": 44,
+            "s": 1.1
+          },
+          {
+            "e": "🐶",
+            "x": 86,
+            "y": 74,
+            "s": 2.8,
+            "a": "hop"
+          },
+          {
+            "e": "❤️",
+            "x": 74,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Do you love animals and like science? Maybe one day, you will be an animal doctor, too.",
+      "ja": "動物が 大好きで、理科も 好きですか。もしかしたら いつか、あなたも 動物の お医者さんに なるかも しれませんね。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "💭",
+            "x": 56,
+            "y": 24,
+            "s": 2.8
+          },
+          {
+            "e": "🔬",
+            "x": 56,
+            "y": 22,
+            "s": 1.2
+          },
+          {
+            "e": "🐱",
+            "x": 72,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🐇",
+            "x": 92,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "⭐",
+            "x": 16,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "vet",
+      "ja": "じゅう医"
+    },
+    {
+      "en": "patients",
+      "ja": "かん者"
+    },
+    {
+      "en": "detective",
+      "ja": "たんてい"
+    },
+    {
+      "en": "owner",
+      "ja": "かい主・持ち主"
+    },
+    {
+      "en": "usual",
+      "ja": "いつもの"
+    },
+    {
+      "en": "bones",
+      "ja": "ほね"
+    },
+    {
+      "en": "mistake",
+      "ja": "まちがい"
+    },
+    {
+      "en": "clinic",
+      "ja": "病院・しんりょう所"
+    },
+    {
+      "en": "healthy",
+      "ja": "健康な・元気な"
+    },
+    {
+      "en": "shots",
+      "ja": "注射"
+    },
+    {
+      "en": "medicine",
+      "ja": "薬"
+    },
+    {
+      "en": "university",
+      "ja": "大学"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "how to choose a good pet for your family",
+        "why lions and elephants live in zoos",
+        "what a vet does to help animals",
+        "how farmers take care of their cows"
+      ],
+      "answer": "what a vet does to help animals",
+      "kind": "main"
+    },
+    {
+      "q": "Why is a vet's job difficult?",
+      "ja": "じゅう医の 仕事は なぜ むずかしいのですか。",
+      "choices": [
+        "Animals cannot say what is wrong.",
+        "Vets must work only at night.",
+        "Pets do not like their owners.",
+        "Clinics are always far away."
+      ],
+      "answer": "Animals cannot say what is wrong.",
+      "kind": "detail"
+    },
+    {
+      "q": "What can an X-ray show?",
+      "ja": "レントゲンで 何が わかりますか。",
+      "choices": [
+        "What the animal is thinking.",
+        "How old the owner is.",
+        "What the animal likes to eat.",
+        "Bones and things like a coin."
+      ],
+      "answer": "Bones and things like a coin.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, \"healthy\" means ___.",
+      "ja": "この本で「healthy」は どんな 意味ですか。",
+      "choices": [
+        "very afraid",
+        "not sick",
+        "very old",
+        "not clever"
+      ],
+      "answer": "not sick",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why does the book say a vet must be \"a good detective\"?",
+      "ja": "この本は なぜ、じゅう医は 「すぐれた たんてい」で なければ ならないと 言っているのですか。",
+      "choices": [
+        "A vet often looks for lost pets.",
+        "A vet must find hidden problems.",
+        "A vet works together with the police.",
+        "A vet has to catch animals that run away."
+      ],
+      "answer": "A vet must find hidden problems.",
+      "kind": "infer"
+    }
+  ]
+}

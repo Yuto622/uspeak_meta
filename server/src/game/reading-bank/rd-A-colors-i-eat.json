@@ -1,0 +1,320 @@
+{
+  "id": "rd-A-colors-i-eat",
+  "stage": "A",
+  "title": "Colors I Eat",
+  "titleJa": "たべものの いろ",
+  "kind": "fact",
+  "cover": {
+    "bg": "kitchen",
+    "items": [
+      {
+        "e": "🍌",
+        "x": 20,
+        "y": 66,
+        "s": 2.4
+      },
+      {
+        "e": "🍎",
+        "x": 40,
+        "y": 70,
+        "s": 2.4,
+        "a": "bob"
+      },
+      {
+        "e": "🥕",
+        "x": 60,
+        "y": 66,
+        "s": 2.4
+      },
+      {
+        "e": "🥦",
+        "x": 80,
+        "y": 70,
+        "s": 2.4,
+        "a": "bob"
+      },
+      {
+        "e": "🌈",
+        "x": 50,
+        "y": 24,
+        "s": 3
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "A banana is yellow.",
+      "ja": "バナナは きいろ。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🍌",
+            "x": 46,
+            "y": 62,
+            "s": 4.4,
+            "a": "bob"
+          },
+          {
+            "e": "🟡",
+            "x": 82,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "An apple is red.",
+      "ja": "りんごは あか。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🍎",
+            "x": 50,
+            "y": 62,
+            "s": 4.4,
+            "a": "bob"
+          },
+          {
+            "e": "🌳",
+            "x": 14,
+            "y": 58,
+            "s": 3.2
+          },
+          {
+            "e": "❤️",
+            "x": 82,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A carrot is orange.",
+      "ja": "にんじんは オレンジいろ。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🥕",
+            "x": 48,
+            "y": 62,
+            "s": 4.4,
+            "a": "bob"
+          },
+          {
+            "e": "🐰",
+            "x": 84,
+            "y": 74,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Grapes are purple.",
+      "ja": "ぶどうは むらさき。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🍇",
+            "x": 50,
+            "y": 60,
+            "s": 4.4,
+            "a": "bob"
+          },
+          {
+            "e": "🧺",
+            "x": 84,
+            "y": 76,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Broccoli is green.",
+      "ja": "ブロッコリーは みどり。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🥦",
+            "x": 50,
+            "y": 62,
+            "s": 4.4,
+            "a": "bob"
+          },
+          {
+            "e": "🟢",
+            "x": 82,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Rice is white.",
+      "ja": "ごはんは しろ。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🍚",
+            "x": 50,
+            "y": 64,
+            "s": 4.4,
+            "a": "bob"
+          },
+          {
+            "e": "⚪",
+            "x": 82,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🥄",
+            "x": 20,
+            "y": 74,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "I eat many colors!",
+      "ja": "わたしは たくさんの いろを たべる！",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 26,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🍱",
+            "x": 62,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🌈",
+            "x": 64,
+            "y": 28,
+            "s": 2.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "yellow",
+      "ja": "きいろ"
+    },
+    {
+      "en": "red",
+      "ja": "あか"
+    },
+    {
+      "en": "orange",
+      "ja": "オレンジいろ"
+    },
+    {
+      "en": "purple",
+      "ja": "むらさき"
+    },
+    {
+      "en": "green",
+      "ja": "みどり"
+    },
+    {
+      "en": "white",
+      "ja": "しろ"
+    },
+    {
+      "en": "colors",
+      "ja": "いろ"
+    },
+    {
+      "en": "eat",
+      "ja": "たべる"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの ほん？",
+      "choices": [
+        "animals and homes",
+        "toys and games",
+        "food and colors"
+      ],
+      "answer": "food and colors",
+      "kind": "main"
+    },
+    {
+      "q": "What color is a banana?",
+      "ja": "バナナは なにいろ？",
+      "choices": [
+        "yellow",
+        "purple",
+        "white"
+      ],
+      "answer": "yellow",
+      "kind": "detail"
+    },
+    {
+      "q": "What is orange?",
+      "ja": "オレンジいろなのは どれ？",
+      "choices": [
+        "rice",
+        "a carrot",
+        "an apple"
+      ],
+      "answer": "a carrot",
+      "kind": "detail"
+    },
+    {
+      "q": "What is green?",
+      "ja": "みどりなのは どれ？",
+      "choices": [
+        "broccoli",
+        "grapes",
+        "a banana"
+      ],
+      "answer": "broccoli",
+      "kind": "detail"
+    },
+    {
+      "q": "What is \"rice\"?",
+      "ja": "\"rice\" は なに？",
+      "choices": [
+        "a color",
+        "a food",
+        "an animal"
+      ],
+      "answer": "a food",
+      "kind": "vocab"
+    }
+  ]
+}

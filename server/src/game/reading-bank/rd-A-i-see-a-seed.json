@@ -1,0 +1,385 @@
+{
+  "id": "rd-A-i-see-a-seed",
+  "stage": "A",
+  "title": "I See a Seed",
+  "titleJa": "たねが ひとつ",
+  "kind": "story",
+  "cover": {
+    "bg": "garden",
+    "items": [
+      {
+        "e": "👦",
+        "x": 30,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "🌱",
+        "x": 66,
+        "y": 74,
+        "s": 3,
+        "a": "sway"
+      },
+      {
+        "e": "☀️",
+        "x": 82,
+        "y": 18,
+        "s": 2.2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "I see a seed.",
+      "ja": "たねが みえる。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "⚫",
+            "x": 64,
+            "y": 76,
+            "s": 0.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👉",
+            "x": 46,
+            "y": 66,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "I see rain.",
+      "ja": "あめが みえる。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌧️",
+            "x": 60,
+            "y": 16,
+            "s": 3,
+            "a": "drift"
+          },
+          {
+            "e": "💧",
+            "x": 62,
+            "y": 46,
+            "s": 1.4,
+            "a": "bob"
+          },
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "⚫",
+            "x": 64,
+            "y": 78,
+            "s": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "I see the sun.",
+      "ja": "おひさまが みえる。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 66,
+            "y": 20,
+            "s": 3.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "⚫",
+            "x": 64,
+            "y": 78,
+            "s": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "I see a leaf.",
+      "ja": "はっぱが みえる。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🌱",
+            "x": 64,
+            "y": 74,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "❗",
+            "x": 44,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I see a flower.",
+      "ja": "はなが みえる。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🌿",
+            "x": 64,
+            "y": 72,
+            "s": 3.2,
+            "a": "sway"
+          },
+          {
+            "e": "🌼",
+            "x": 66,
+            "y": 52,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "I see a bee.",
+      "ja": "はちが みえる。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌿",
+            "x": 60,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🌼",
+            "x": 62,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "🐝",
+            "x": 78,
+            "y": 38,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "I see a red tomato!",
+      "ja": "あかい トマトが みえる！",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌿",
+            "x": 62,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🍅",
+            "x": 64,
+            "y": 54,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😲",
+            "x": 26,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "✨",
+            "x": 82,
+            "y": 36,
+            "s": 1.4,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Yum! I eat it.",
+      "ja": "おいしい！ ぼくは それを たべる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 40,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🍅",
+            "x": 64,
+            "y": 62,
+            "s": 2.2
+          },
+          {
+            "e": "🍽️",
+            "x": 64,
+            "y": 76,
+            "s": 2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "seed",
+      "ja": "たね"
+    },
+    {
+      "en": "rain",
+      "ja": "あめ"
+    },
+    {
+      "en": "sun",
+      "ja": "おひさま・たいよう"
+    },
+    {
+      "en": "leaf",
+      "ja": "はっぱ"
+    },
+    {
+      "en": "flower",
+      "ja": "はな"
+    },
+    {
+      "en": "bee",
+      "ja": "はち"
+    },
+    {
+      "en": "tomato",
+      "ja": "トマト"
+    },
+    {
+      "en": "eat",
+      "ja": "たべる"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a bee and a bird",
+        "a seed and a tomato",
+        "a boy and a dog"
+      ],
+      "answer": "a seed and a tomato",
+      "kind": "main"
+    },
+    {
+      "q": "What does the boy see first?",
+      "ja": "おとこのこが さいしょに みるのは？",
+      "choices": [
+        "a flower",
+        "a bee",
+        "a seed"
+      ],
+      "answer": "a seed",
+      "kind": "sequence"
+    },
+    {
+      "q": "What does he see after the leaf?",
+      "ja": "はっぱの つぎに みるのは？",
+      "choices": [
+        "a flower",
+        "the sun",
+        "rain"
+      ],
+      "answer": "a flower",
+      "kind": "sequence"
+    },
+    {
+      "q": "What color is the tomato?",
+      "ja": "トマトは なにいろ？",
+      "choices": [
+        "green",
+        "yellow",
+        "red"
+      ],
+      "answer": "red",
+      "kind": "detail"
+    },
+    {
+      "q": "What does the boy do at the end?",
+      "ja": "おとこのこは さいごに なにを するの？",
+      "choices": [
+        "He sleeps.",
+        "He eats the tomato.",
+        "He sees a cat."
+      ],
+      "answer": "He eats the tomato.",
+      "kind": "detail"
+    }
+  ]
+}

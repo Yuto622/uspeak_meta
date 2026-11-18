@@ -1,0 +1,546 @@
+{
+  "id": "rd-6-ten-minutes",
+  "stage": "6",
+  "title": "Ten Minutes to Kickoff",
+  "titleJa": "キックオフまで 十分",
+  "kind": "story",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "👦",
+        "x": 30,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "👵",
+        "x": 68,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "⚽",
+        "x": 46,
+        "y": 80,
+        "s": 1.6,
+        "a": "bob"
+      },
+      {
+        "e": "⏰",
+        "x": 50,
+        "y": 22,
+        "s": 2.2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "It was the day of the big soccer game. Daiki was the goalkeeper, and his coach had said, “Be at the field by nine. Do not be late.”",
+      "ja": "大事な サッカーの 試合の 日だった。ダイキは ゴールキーパーで、コーチは こう 言っていた。「九時までに グラウンドに 来なさい。おくれては いけないよ」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "⚽",
+            "x": 52,
+            "y": 80,
+            "s": 1.6
+          },
+          {
+            "e": "🥅",
+            "x": 80,
+            "y": 62,
+            "s": 3.2
+          },
+          {
+            "e": "⏰",
+            "x": 55,
+            "y": 22,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Daiki was hurrying past the station when he saw an old woman standing alone. She was holding a small paper map and looking left and right.",
+      "ja": "ダイキが 駅の 前を 急いでいると、一人で 立っている おばあさんが 見えた。小さな 紙の 地図を 持って、左や 右を 見ていた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👵",
+            "x": 70,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😟",
+            "x": 70,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🗺",
+            "x": 84,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 25,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🚉",
+            "x": 48,
+            "y": 56,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Many people walked past her quickly. Daiki looked at his watch. He had only ten minutes. “Someone else will help her,” he told himself, and he kept walking.",
+      "ja": "たくさんの 人が 足早に 通りすぎた。ダイキは 時計を 見た。あと 十分しか ない。「ほかの だれかが 助けるだろう」と 自分に 言い聞かせて、歩き続けた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 25,
+            "y": 70,
+            "s": 3.4,
+            "flip": true
+          },
+          {
+            "e": "⏰",
+            "x": 25,
+            "y": 26,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👵",
+            "x": 78,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👥",
+            "x": 52,
+            "y": 70,
+            "s": 2.2
+          },
+          {
+            "e": "💨",
+            "x": 40,
+            "y": 74,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "But after a few steps he stopped. The woman’s face looked just like his grandmother’s when she was worried. What if nobody else stopped?",
+      "ja": "でも 何歩か 歩いて、立ち止まった。おばあさんの 顔は、心配している時の 自分の 祖母に そっくりだった。もし ほかに だれも 止まらなかったら？",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 55,
+            "y": 28,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "👵",
+            "x": 82,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "❓",
+            "x": 55,
+            "y": 26,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "He ran back. “Excuse me, are you all right?” The woman smiled with relief. “I am looking for Sakura Clinic. My eyes are weak, and I cannot read this map.”",
+      "ja": "ダイキは 走って もどった。「すみません、大じょうぶですか」。おばあさんは ほっとして ほほえんだ。「さくらクリニックを さがしているの。目が 悪くて、この 地図が 読めなくてね」",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 32,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💬",
+            "x": 32,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👵",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 68,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🗺",
+            "x": 50,
+            "y": 62,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The clinic was in the opposite direction from the field. Daiki took a deep breath. “I will walk with you,” he said. “It is not far.”",
+      "ja": "クリニックは グラウンドとは 反対の 方向に あった。ダイキは 深く 息を すった。「いっしょに 歩きます」と 言った。「遠くないですよ」",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👵",
+            "x": 64,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🏢",
+            "x": 90,
+            "y": 56,
+            "s": 2.8
+          },
+          {
+            "e": "⬅",
+            "x": 14,
+            "y": 30,
+            "s": 1.6
+          },
+          {
+            "e": "🥅",
+            "x": 12,
+            "y": 64,
+            "s": 1.8
+          },
+          {
+            "e": "➡",
+            "x": 80,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "They walked slowly together. The woman told him that she had been a runner when she was young. At the clinic door, she held his hand. “You are a kind boy. Thank you.”",
+      "ja": "二人は ゆっくり いっしょに 歩いた。おばあさんは、若いころ ランナーだったと 話してくれた。クリニックの 入口で、ダイキの 手を にぎった。「やさしい 子だね。ありがとう」",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👵",
+            "x": 60,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 60,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 34,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🚪",
+            "x": 84,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "❤",
+            "x": 47,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Daiki ran to the field as fast as he could. He was fifteen minutes late. The coach was frowning. “The game has started without you. Where were you?”",
+      "ja": "ダイキは 全速力で グラウンドへ 走った。十五分の ちこくだった。コーチは 顔を しかめていた。「試合は きみ ぬきで 始まったぞ。どこに いたんだ」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👨",
+            "x": 72,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😠",
+            "x": 72,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "💦",
+            "x": 20,
+            "y": 52,
+            "s": 1.4
+          },
+          {
+            "e": "🥅",
+            "x": 92,
+            "y": 64,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Daiki explained everything honestly. The coach listened, and his face slowly changed. “I see. Rules are important,” he said, “but so is what you did. You will play in the second half.”",
+      "ja": "ダイキは すべてを 正直に 説明した。コーチは 聞いて、顔つきが ゆっくり 変わった。「そうか。ルールは 大事だ。でも きみの したことも 大事だ。後半に 出なさい」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👨",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 68,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 68,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "⚽",
+            "x": 48,
+            "y": 80,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Daiki’s team lost by one goal. But that night he was not sad. He kept thinking of the old woman’s smile, and he knew he had chosen well.",
+      "ja": "ダイキの チームは 一点差で 負けた。でも その夜、ダイキは 悲しくなかった。おばあさんの 笑顔を 何度も 思い出し、自分は 正しく 選んだと 分かっていた。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👦",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 45,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 66,
+            "y": 30,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "❤",
+            "x": 66,
+            "y": 29,
+            "s": 1.2
+          },
+          {
+            "e": "⚽",
+            "x": 22,
+            "y": 80,
+            "s": 1.6
+          },
+          {
+            "e": "🌙",
+            "x": 86,
+            "y": 16,
+            "s": 2.2,
+            "a": "float"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "goalkeeper",
+      "ja": "ゴールキーパー"
+    },
+    {
+      "en": "coach",
+      "ja": "コーチ"
+    },
+    {
+      "en": "hurrying",
+      "ja": "急いでいる"
+    },
+    {
+      "en": "relief",
+      "ja": "ほっとすること"
+    },
+    {
+      "en": "opposite",
+      "ja": "反対の"
+    },
+    {
+      "en": "direction",
+      "ja": "方向"
+    },
+    {
+      "en": "frowning",
+      "ja": "顔を しかめている"
+    },
+    {
+      "en": "honestly",
+      "ja": "正直に"
+    },
+    {
+      "en": "chosen",
+      "ja": "選んだ"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A boy who stops to help a stranger",
+        "A team that wins a big game",
+        "A woman who teaches running",
+        "A coach who forgets the time of a game"
+      ],
+      "answer": "A boy who stops to help a stranger",
+      "kind": "main"
+    },
+    {
+      "q": "What was the old woman looking for?",
+      "ja": "おばあさんは 何を さがしていた？",
+      "choices": [
+        "The soccer field",
+        "Her grandson",
+        "Sakura Clinic",
+        "The station"
+      ],
+      "answer": "Sakura Clinic",
+      "kind": "detail"
+    },
+    {
+      "q": "Why could she not read the map?",
+      "ja": "おばあさんは なぜ 地図が 読めなかった？",
+      "choices": [
+        "It was written in English.",
+        "Her eyes were weak.",
+        "It was wet from the rain.",
+        "The map was too old."
+      ],
+      "answer": "Her eyes were weak.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this story, “opposite” means ___.",
+      "ja": "この話で “opposite” の 意味は？",
+      "choices": [
+        "very near",
+        "the same",
+        "much longer",
+        "completely different"
+      ],
+      "answer": "completely different",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did the coach let Daiki play in the second half?",
+      "ja": "コーチは なぜ ダイキを 後半に 出した？",
+      "choices": [
+        "The team had no other players that day.",
+        "The old woman asked him to.",
+        "He respected what Daiki had done.",
+        "He did not hear Daiki’s story."
+      ],
+      "answer": "He respected what Daiki had done.",
+      "kind": "infer"
+    }
+  ]
+}

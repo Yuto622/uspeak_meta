@@ -56,6 +56,16 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
     const w = v.words; const q = v.quiz;
     return Math.round((pct(w.known, w.need) * 0.5) + (pct(Math.min(q.n, q.min), q.min) * 0.3) + (pct(q.acc ?? 0, q.rate) * 0.2));
   }
+  // 進み具合の バー：「いま 段階 A → つぎ 段階 B・あと N」（輪と 同じ 割合。あと＝上がる 条件の のこり）。
+  function stageBar(v, p) {
+    const next = v.last ? null : v.stages[v.index + 1];
+    const w = v.words; const q = v.quiz;
+    const en = []; const ja = [];
+    if (w.left) { en.push(`${w.left} words`); ja.push(`ことば ${w.left} こ`); }
+    if (q.left) { en.push(`${q.left} quizzes`); ja.push(`クイズ ${q.left} 問`); }
+    const left = v.last ? bi('Top stage!', 'さいごの 段階だよ') : v.ready || !ja.length ? bi('Ready to level up!', 'つぎに ひらくと だんかい アップ！') : bi(`${en.join(' · ')} to go`, `あと ${ja.join('・')}`);
+    return `<div class="rm2-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${p}"><b class="rm2-barEnd">${esc(v.stage.id)}</b><i><em style="width:${Math.max(3, p)}%"></em></i><b class="rm2-barEnd next">${next ? esc(next.id) : '🏁'}</b>${left}</div>`;
+  }
   function todayStep(v) {
     const w = v.words; const q = v.quiz;
     if (v.last) return bi('You reached the top! Keep your words fresh.', 'いちばん 上まで きたよ！ ことばを わすれない ように つづけよう');
@@ -85,6 +95,7 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
       <div class="rm2-heroText">
         ${bi(`Stage ${s.id} · ${s.en}`, `いまの 段階 ${s.id}「${s.ja}」`, 'rm2-stage')}
         ${s.cando?.ja ? `<p class="rm2-goal">🎯 ${bi(s.cando.en, s.cando.ja)}</p>` : ''}
+        ${stageBar(v, p)}
         <div class="rm2-stamps">${stamps.map((c) => `<span class="${c.reached ? 'on' : ''}" title="${c.start ? 'start' : `${c.p}%`}">${c.reached ? (c.start ? '🚩' : '🎖') : '○'}<small>${c.start ? 'スタート' : `${c.p}%`}</small></span>`).join('')}<span class="goal">${v.ready || v.last ? '⭐' : '☆'}<small>ゴール</small></span>
           ${v.last ? '' : `<span class="prize">🎁<small>${esc(`◈100・🏅 ${v.stages[v.index]?.id || ''}`)}</small></span>`}</div>
         <div class="rm2-today"><div>${bi('Today\'s step', 'きょうの 1 歩', 'rm2-todayHead')}${todayStep(v)}</div>

@@ -1,0 +1,563 @@
+{
+  "id": "rd-9-whose-idea",
+  "stage": "9",
+  "title": "Whose Idea Was It?",
+  "titleJa": "それは だれの アイデア？",
+  "kind": "story",
+  "cover": {
+    "bg": "school",
+    "items": [
+      {
+        "e": "👧",
+        "x": 32,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "🧒",
+        "x": 70,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "💡",
+        "x": 51,
+        "y": 26,
+        "s": 3,
+        "a": "pulse"
+      },
+      {
+        "e": "📝",
+        "x": 51,
+        "y": 66,
+        "s": 2
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Sana had been staring at a blank page for a week. The national essay contest had a simple theme, “What is courage?”, and every sentence she wrote sounded like something from a greeting card. The deadline was only three days away.",
+      "ja": "サナは 一週間、白紙の ページを 見つめていた。全国作文コンクールの テーマは 単純だ。「勇気とは 何か」。でも 書く 文は どれも、カードの 決まり文句のように 聞こえた。しめ切りは 三日後だった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😩",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📄",
+            "x": 58,
+            "y": 64,
+            "s": 2.4
+          },
+          {
+            "e": "✏",
+            "x": 70,
+            "y": 70,
+            "s": 1.4
+          },
+          {
+            "e": "📅",
+            "x": 86,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Walking home with her friend Rin, she complained about it. Rin kicked a stone thoughtfully. “My grandfather says courage isn’t the opposite of fear. He says it’s what you do while your knees are still shaking. He was a firefighter, so I guess he would know.”",
+      "ja": "友人の リンと 帰る 道で、サナは ぐちを こぼした。リンは 考えながら 石を けった。「祖父が 言うの。勇気は こわさの 反対じゃない。ひざが ふるえたまま する 行動の ことだって。消防士だったから、よく 知っているんだと 思う」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 66,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💬",
+            "x": 66,
+            "y": 24,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🪨",
+            "x": 82,
+            "y": 82,
+            "s": 1.2
+          },
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🚒",
+            "x": 90,
+            "y": 40,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "That night the essay seemed to write itself. Sana described her own fear of speaking in public and built everything around one idea: that courage is not the absence of fear but action in spite of it. She wrote until two in the morning.",
+      "ja": "その夜、作文は ひとりでに 書けていくようだった。サナは 人前で 話す 自分の こわさを えがき、一つの 考えを 中心に すえた。勇気とは こわさが ないことでは なく、こわくても 行動することだ、と。午前二時まで 書いた。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 38,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "✏",
+            "x": 54,
+            "y": 60,
+            "s": 1.4,
+            "a": "sway"
+          },
+          {
+            "e": "📝",
+            "x": 62,
+            "y": 68,
+            "s": 2.4
+          },
+          {
+            "e": "💡",
+            "x": 38,
+            "y": 22,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌙",
+            "x": 86,
+            "y": 14,
+            "s": 2.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A month later, the principal called her to the stage. She had won first prize in the entire country. There was a certificate, a ceremony, and a line in the judges’ comments that she read again and again: “A remarkably original definition of courage.”",
+      "ja": "一か月後、校長が サナを だん上に よんだ。全国で 一位を とったのだ。賞状が あり、式が あり、審査員の 講評には、サナが 何度も 読み返した 一行が あった。「勇気についての、きわめて 独創的な 定義」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "📜",
+            "x": 56,
+            "y": 56,
+            "s": 2
+          },
+          {
+            "e": "🏆",
+            "x": 72,
+            "y": 62,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "👨‍💼",
+            "x": 16,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👏",
+            "x": 88,
+            "y": 44,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Original. The word followed her through the day like a pebble in her shoe. In the crowd of applauding students, she had seen Rin clapping harder than anyone. Rin had said nothing. Perhaps she had not even recognized her grandfather’s idea.",
+      "ja": "独創的。その 言葉は、くつの 中の 小石のように 一日中 サナに ついて回った。はく手する 生徒の 中で、リンが だれよりも 強く 手を たたいていた。リンは 何も 言わなかった。祖父の 考えだと 気づいても いないのかも しれない。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧒",
+            "x": 72,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👏",
+            "x": 58,
+            "y": 52,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "😄",
+            "x": 72,
+            "y": 50,
+            "s": 1.4
+          },
+          {
+            "e": "🪨",
+            "x": 30,
+            "y": 88,
+            "s": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sana argued with herself for days. She had written every word. The examples, the structure, and the sleepless night were hers. People borrow ideas from conversations all the time. Was she supposed to footnote every walk home from school?",
+      "ja": "サナは 何日も 自分と 言い争った。一語 残らず 自分で 書いた。例も、構成も、ねむれなかった 夜も 自分の ものだ。人は いつも 会話から 考えを 借りている。下校の おしゃべり 全部に 注を つけろと いうのか。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 45,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 20,
+            "y": 30,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "💭",
+            "x": 72,
+            "y": 30,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "⚖",
+            "x": 46,
+            "y": 22,
+            "s": 1.8,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "And yet she knew that without that one sentence, there would have been no essay at all. She had built the house, but someone else had given her the land. Staying silent was not exactly lying. It simply was not the whole truth.",
+      "ja": "それでも 分かっていた。あの 一文が なければ、作文は 生まれなかった。家を 建てたのは 自分でも、土地を くれたのは 別の 人だ。だまっているのは、うそとは ちがう。ただ、真実の 全部では ないだけだ。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😔",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🏠",
+            "x": 68,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "🌱",
+            "x": 68,
+            "y": 84,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Finally she told Rin. To her surprise, Rin laughed. “I noticed on the first page! I was waiting to see if you’d say anything.” Then she grew serious. “I wasn’t angry. But I’m glad you told me. Grandpa would be thrilled, by the way.”",
+      "ja": "ついに サナは リンに 話した。おどろいたことに、リンは 笑った。「一ページ目で 気づいたよ！ 何か 言うかなって 待ってたの」。それから 真顔に なった。「おこっては いなかった。でも 話してくれて うれしい。祖父は 大喜びするよ」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 66,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 66,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "💬",
+            "x": 30,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "❤",
+            "x": 48,
+            "y": 34,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sana wrote to the contest organizers and asked them to add a line to the published essay: “The central idea of this essay came from Mr. Kenji Mori, a retired firefighter, as told to me by his granddaughter.” They agreed without any difficulty.",
+      "ja": "サナは コンクールの 主さい者に 手紙を 書き、発表される 作文に 一行 加えてほしいと たのんだ。「この 作文の 中心の 考えは、元 消防士の モリ ケンジ氏の もので、孫から 聞きました」。主さい者は すぐに みとめた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "✉",
+            "x": 52,
+            "y": 62,
+            "s": 2.2
+          },
+          {
+            "e": "✏",
+            "x": 62,
+            "y": 54,
+            "s": 1.2
+          },
+          {
+            "e": "👴",
+            "x": 82,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🚒",
+            "x": 82,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Later, Sana wondered about it. Mr. Mori had probably heard the idea from someone else, who had heard it from someone before. Perhaps no idea truly belongs to one person. Perhaps the only thing we can really own is our honesty about where our ideas came from.",
+      "ja": "後に なって サナは 考えた。モリさんも たぶん、だれかから 聞いたのだ。その 人も、前の だれかから。考えは、本当は だれか 一人の ものでは ないのかも しれない。本当に 自分の ものと 言えるのは、どこから 得たかを 正直に 言うこと だけかも しれない。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 72,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 28,
+            "y": 50,
+            "s": 1.6
+          },
+          {
+            "e": "💡",
+            "x": 50,
+            "y": 40,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "💡",
+            "x": 68,
+            "y": 30,
+            "s": 1.5,
+            "a": "pulse"
+          },
+          {
+            "e": "💡",
+            "x": 84,
+            "y": 22,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🔗",
+            "x": 59,
+            "y": 36,
+            "s": 1
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "courage",
+      "ja": "勇気"
+    },
+    {
+      "en": "deadline",
+      "ja": "しめ切り"
+    },
+    {
+      "en": "absence",
+      "ja": "ないこと、不在"
+    },
+    {
+      "en": "certificate",
+      "ja": "賞状"
+    },
+    {
+      "en": "remarkably",
+      "ja": "きわめて"
+    },
+    {
+      "en": "original",
+      "ja": "独創的な"
+    },
+    {
+      "en": "definition",
+      "ja": "定義"
+    },
+    {
+      "en": "recognized",
+      "ja": "気づいた、見分けた"
+    },
+    {
+      "en": "structure",
+      "ja": "構成"
+    },
+    {
+      "en": "thrilled",
+      "ja": "大喜びして"
+    },
+    {
+      "en": "organizers",
+      "ja": "主さい者"
+    },
+    {
+      "en": "honesty",
+      "ja": "正直さ"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A firefighter who teaches children to be brave",
+        "A girl who gives credit for a borrowed idea",
+        "Two friends who compete in an essay contest",
+        "A judge who discovers that an essay was copied"
+      ],
+      "answer": "A girl who gives credit for a borrowed idea",
+      "kind": "main"
+    },
+    {
+      "q": "Where did the central idea of Sana’s essay come from?",
+      "ja": "サナの 作文の 中心の 考えは どこから 来た？",
+      "choices": [
+        "From a greeting card she had read",
+        "From the judges’ written comments",
+        "From her own great fear of public speaking",
+        "From Rin’s grandfather, a firefighter"
+      ],
+      "answer": "From Rin’s grandfather, a firefighter",
+      "kind": "detail"
+    },
+    {
+      "q": "How did Rin react when Sana told her the truth?",
+      "ja": "サナが 本当のことを 話した時、リンは どう した？",
+      "choices": [
+        "She laughed and said she had noticed.",
+        "She became angry and walked away.",
+        "She asked for half of the prize.",
+        "She told the principal about it immediately."
+      ],
+      "answer": "She laughed and said she had noticed.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this story, “original” means ___.",
+      "ja": "この話で “original” の 意味は？",
+      "choices": [
+        "written late at night",
+        "chosen by a judge",
+        "new and not copied",
+        "longer than usual"
+      ],
+      "answer": "new and not copied",
+      "kind": "vocab"
+    },
+    {
+      "q": "What does “she had built the house, but someone else had given her the land” suggest?",
+      "ja": "「家を 建てたのは 自分でも、土地を くれたのは 別の 人」は 何を 表している？",
+      "choices": [
+        "Sana should return the prize to the judges.",
+        "Rin had secretly written part of the essay.",
+        "Her work was real, but it rested on another’s idea.",
+        "Essays should only be about your own family."
+      ],
+      "answer": "Her work was real, but it rested on another’s idea.",
+      "kind": "infer"
+    }
+  ]
+}

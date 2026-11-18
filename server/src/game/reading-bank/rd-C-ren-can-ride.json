@@ -1,0 +1,441 @@
+{
+  "id": "rd-C-ren-can-ride",
+  "stage": "C",
+  "title": "Ren Can Ride",
+  "titleJa": "れんくん、じてんしゃに のれた",
+  "kind": "story",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "👦",
+        "x": 34,
+        "y": 68,
+        "s": 3.6
+      },
+      {
+        "e": "🚲",
+        "x": 64,
+        "y": 72,
+        "s": 3.6,
+        "a": "bob"
+      },
+      {
+        "e": "☀️",
+        "x": 84,
+        "y": 18,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Ren has a new bike today.",
+      "ja": "きょう、れんくんは あたらしい じてんしゃを もらった。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 28,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🚲",
+            "x": 64,
+            "y": 70,
+            "s": 3.8
+          },
+          {
+            "e": "✨",
+            "x": 82,
+            "y": 44,
+            "s": 1.6,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "He is sitting on the bike. He is shaking.",
+      "ja": "じてんしゃに すわっている。ぶるぶる ふるえている。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🚲",
+            "x": 50,
+            "y": 74,
+            "s": 3.8,
+            "a": "sway"
+          },
+          {
+            "e": "👦",
+            "x": 50,
+            "y": 62,
+            "s": 3.2,
+            "a": "sway"
+          },
+          {
+            "e": "😨",
+            "x": 50,
+            "y": 36,
+            "s": 1.2
+          },
+          {
+            "e": "💦",
+            "x": 70,
+            "y": 30,
+            "s": 1.4,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Dad is holding the bike. Ren is riding.",
+      "ja": "パパが じてんしゃを もっている。れんくんは こいでいる。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👨",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🚲",
+            "x": 56,
+            "y": 74,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "👦",
+            "x": 56,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "🌳",
+            "x": 90,
+            "y": 58,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "“Do not let go, Dad!” says Ren.",
+      "ja": "「パパ、てを はなさないでね！」と れんくんは いう。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👨",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 26,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🚲",
+            "x": 58,
+            "y": 74,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "👦",
+            "x": 58,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "😟",
+            "x": 58,
+            "y": 38,
+            "s": 1.2
+          },
+          {
+            "e": "💬",
+            "x": 78,
+            "y": 22,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ren is riding and riding. He is smiling.",
+      "ja": "れんくんは どんどん こいでいる。にこにこ している。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🚲",
+            "x": 56,
+            "y": 74,
+            "s": 3.8,
+            "a": "bob"
+          },
+          {
+            "e": "👦",
+            "x": 56,
+            "y": 62,
+            "s": 3.2
+          },
+          {
+            "e": "😄",
+            "x": 56,
+            "y": 36,
+            "s": 1.2
+          },
+          {
+            "e": "💨",
+            "x": 30,
+            "y": 70,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🌷",
+            "x": 86,
+            "y": 80,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "He looks back. Dad is far away!",
+      "ja": "うしろを みる。パパは ずっと とおくに いる！",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👨",
+            "x": 10,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🚲",
+            "x": 66,
+            "y": 74,
+            "s": 3.8
+          },
+          {
+            "e": "👦",
+            "x": 66,
+            "y": 62,
+            "s": 3.2,
+            "flip": true
+          },
+          {
+            "e": "😲",
+            "x": 66,
+            "y": 36,
+            "s": 1.2
+          },
+          {
+            "e": "❗",
+            "x": 40,
+            "y": 26,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Dad is waving. He is not holding the bike.",
+      "ja": "パパは てを ふっている。じてんしゃを もっていない。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👨",
+            "x": 46,
+            "y": 70,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 46,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "👋",
+            "x": 66,
+            "y": 44,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "🌳",
+            "x": 12,
+            "y": 58,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "“I can ride! I can ride!” says Ren.",
+      "ja": "「のれた！ のれたよ！」と れんくんは いう。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🚲",
+            "x": 50,
+            "y": 74,
+            "s": 4,
+            "a": "hop"
+          },
+          {
+            "e": "👦",
+            "x": 50,
+            "y": 62,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 50,
+            "y": 34,
+            "s": 1.2
+          },
+          {
+            "e": "🎉",
+            "x": 20,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 80,
+            "y": 26,
+            "s": 2,
+            "a": "spin"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "bike",
+      "ja": "じてんしゃ"
+    },
+    {
+      "en": "new",
+      "ja": "あたらしい"
+    },
+    {
+      "en": "sitting",
+      "ja": "すわっている"
+    },
+    {
+      "en": "shaking",
+      "ja": "ふるえている"
+    },
+    {
+      "en": "holding",
+      "ja": "もっている・ささえている"
+    },
+    {
+      "en": "riding",
+      "ja": "のっている・こいでいる"
+    },
+    {
+      "en": "let go",
+      "ja": "てを はなす"
+    },
+    {
+      "en": "far away",
+      "ja": "とおくに"
+    },
+    {
+      "en": "waving",
+      "ja": "てを ふっている"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a boy and his new dog",
+        "a boy and his new bike",
+        "a dad and his new car"
+      ],
+      "answer": "a boy and his new bike",
+      "kind": "main"
+    },
+    {
+      "q": "Who is holding the bike at first?",
+      "ja": "はじめに じてんしゃを もっているのは だれ？",
+      "choices": [
+        "Dad",
+        "Mom",
+        "a friend"
+      ],
+      "answer": "Dad",
+      "kind": "detail"
+    },
+    {
+      "q": "What does Ren see when he looks back?",
+      "ja": "うしろを みると なにが みえるの？",
+      "choices": [
+        "Dad is sleeping.",
+        "Dad is running.",
+        "Dad is far away."
+      ],
+      "answer": "Dad is far away.",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"new\" mean?",
+      "ja": "\"new\" は どんな いみ？",
+      "choices": [
+        "not big",
+        "not old",
+        "not fast"
+      ],
+      "answer": "not old",
+      "kind": "vocab"
+    },
+    {
+      "q": "What can Ren do at the end?",
+      "ja": "さいごに れんくんは なにが できるの？",
+      "choices": [
+        "He can ride a bike.",
+        "He can swim fast.",
+        "He can fly a kite."
+      ],
+      "answer": "He can ride a bike.",
+      "kind": "detail"
+    }
+  ]
+}

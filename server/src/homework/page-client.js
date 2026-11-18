@@ -27,7 +27,8 @@ const msg = (t, bad = false) => { const m = $('#msg'); m.textContent = t || ''; 
 function tab(which) {
   $('#tab-make').setAttribute('aria-selected', String(which === 'make'));
   $('#tab-list').setAttribute('aria-selected', String(which === 'list'));
-  $('#make').hidden = which !== 'make'; $('#list-panel').hidden = which !== 'list';
+  $('#tab-book').setAttribute('aria-selected', String(which === 'book'));
+  $('#make').hidden = which !== 'make'; $('#list-panel').hidden = which !== 'list'; $('#book-panel').hidden = which !== 'book';
   if (which === 'list') load();
 }
 function step(n) {
@@ -259,10 +260,10 @@ function card(a) {
   const pct = a.started ? Math.round((a.finished / Math.max(1, a.started)) * 100) : 0;
   const acts = a.editable === false ? '<p class="muted">ほかの 教室とも いっしょの 宿題なので、ここでは なおせません。</p>'
     : `<div class="row">${a.status === 'published' ? '' : `<button type="button" class="btn big" data-pub="${a.id}" data-on="1" style="min-height:48px;font-size:16px">📤 くばる</button>`}
-        <button type="button" class="btn" data-prog="${a.id}">📊 すすみぐあい</button><button type="button" class="btn" data-edit="${a.id}">✏️ なおす</button>
+        <button type="button" class="btn" data-prog="${a.id}">📊 すすみぐあい</button>${a.book ? '' : `<button type="button" class="btn" data-edit="${a.id}">✏️ なおす</button>`}
         <span class="menu"><button type="button" class="btn" data-menu="${a.id}" aria-label="ほかの そうさ">… ほか</button><div hidden id="m-${a.id}">${a.status === 'published' ? `<button type="button" data-pub="${a.id}" data-on="0">⏸ くばるのを やめる</button>` : ''}<button type="button" data-rm="${a.id}">🗑 消す</button></div></span></div>`;
   return `<div class="card" id="c-${a.id}"><h3>${esc(a.title)} ${chip}</h3>
-    <div class="muted">${a.items.length} もん ・ クラス ${a.classes.length ? esc(a.classes.join(', ')) : '<b style="color:var(--bad)">なし（なおす で 入れて ください）</b>'}${a.due ? ` ・ しめきり ${esc(a.due.slice(5).replace('-', '/'))}` : ''}${a.problems.length ? ` ・ <b style="color:var(--bad)">出せない 問題 ${a.problems.length}</b>` : ''}</div>
+    <div class="muted">${a.book ? `📚 えほん「${esc(a.bookTitle || '')}」${a.students?.length ? ` ・ 👤 ${a.students.length} 人だけ（${esc(a.students.join('・'))}）` : ''}` : `${a.items.length} もん`} ・ クラス ${a.classes.length ? esc(a.classes.join(', ')) : '<b style="color:var(--bad)">なし（なおす で 入れて ください）</b>'}${a.due ? ` ・ しめきり ${esc(a.due.slice(5).replace('-', '/'))}` : ''}${a.problems.length ? ` ・ <b style="color:var(--bad)">出せない 問題 ${a.problems.length}</b>` : ''}</div>
     ${a.status === 'published' ? `<div class="muted">👧 はじめた <b>${a.started}</b> 人 ・ ✅ おわった <b>${a.finished}</b> 人</div><div class="meter"><i style="width:${pct}%"></i></div>` : ''}
     ${acts}<div id="p-${a.id}"></div></div>`;
 }

@@ -1,0 +1,400 @@
+{
+  "id": "rd-C-moms-glasses",
+  "stage": "C",
+  "title": "Mom Cannot Find Her Glasses",
+  "titleJa": "ママの めがねは どこ？",
+  "kind": "story",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "👩",
+        "x": 36,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "🤔",
+        "x": 36,
+        "y": 40,
+        "s": 1.2
+      },
+      {
+        "e": "👓",
+        "x": 70,
+        "y": 56,
+        "s": 2.8,
+        "a": "float"
+      },
+      {
+        "e": "❓",
+        "x": 72,
+        "y": 26,
+        "s": 2.2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Mom cannot find her glasses.",
+      "ja": "ママは めがねを みつけられない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 40,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "😟",
+            "x": 40,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "❓",
+            "x": 66,
+            "y": 28,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "📖",
+            "x": 72,
+            "y": 76,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "She is looking on the sofa. No glasses.",
+      "ja": "ソファーの うえを さがしている。めがねは ない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 24,
+            "y": 70,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "🛋️",
+            "x": 66,
+            "y": 70,
+            "s": 4.2
+          },
+          {
+            "e": "🔍",
+            "x": 44,
+            "y": 56,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "❌",
+            "x": 66,
+            "y": 34,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "She is looking under the bed. No glasses.",
+      "ja": "ベッドの したを さがしている。めがねは ない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 34,
+            "y": 68,
+            "s": 4.4
+          },
+          {
+            "e": "👩",
+            "x": 76,
+            "y": 72,
+            "s": 3.2,
+            "a": "sway"
+          },
+          {
+            "e": "🧦",
+            "x": 34,
+            "y": 86,
+            "s": 1.2
+          },
+          {
+            "e": "❌",
+            "x": 34,
+            "y": 34,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "She is looking in her bag. No glasses.",
+      "ja": "かばんの なかを さがしている。めがねは ない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🛍️",
+            "x": 64,
+            "y": 72,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "🔑",
+            "x": 80,
+            "y": 54,
+            "s": 1.2,
+            "a": "hop"
+          },
+          {
+            "e": "❌",
+            "x": 64,
+            "y": 34,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "I am looking at Mom. I am smiling.",
+      "ja": "ぼくは ママを みている。ぼくは にこにこ している。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 28,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👀",
+            "x": 48,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "👩",
+            "x": 72,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👓",
+            "x": 72,
+            "y": 26,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "“Mom, they are on your head!”",
+      "ja": "「ママ、めがねは あたまの うえだよ！」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "👉",
+            "x": 46,
+            "y": 44,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "👩",
+            "x": 70,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😲",
+            "x": 70,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👓",
+            "x": 70,
+            "y": 24,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mom is laughing. Now she can see.",
+      "ja": "ママは わらっている。これで よく みえる。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 36,
+            "y": 70,
+            "s": 3.5,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 36,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "👦",
+            "x": 64,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 64,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "✨",
+            "x": 50,
+            "y": 22,
+            "s": 1.6,
+            "a": "spin"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "glasses",
+      "ja": "めがね"
+    },
+    {
+      "en": "find",
+      "ja": "みつける"
+    },
+    {
+      "en": "looking",
+      "ja": "さがしている・みている"
+    },
+    {
+      "en": "sofa",
+      "ja": "ソファー"
+    },
+    {
+      "en": "under",
+      "ja": "〜の した"
+    },
+    {
+      "en": "head",
+      "ja": "あたま"
+    },
+    {
+      "en": "smiling",
+      "ja": "にこにこ している"
+    },
+    {
+      "en": "laughing",
+      "ja": "わらっている"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "Mom’s new bed",
+        "Mom’s glasses",
+        "Mom’s lunch"
+      ],
+      "answer": "Mom’s glasses",
+      "kind": "main"
+    },
+    {
+      "q": "Where is Mom looking first?",
+      "ja": "ママが さいしょに さがすのは どこ？",
+      "choices": [
+        "on the sofa",
+        "in her bag",
+        "under the bed"
+      ],
+      "answer": "on the sofa",
+      "kind": "sequence"
+    },
+    {
+      "q": "Where are the glasses?",
+      "ja": "めがねは どこに あるの？",
+      "choices": [
+        "under the bed",
+        "in the kitchen",
+        "on Mom’s head"
+      ],
+      "answer": "on Mom’s head",
+      "kind": "detail"
+    },
+    {
+      "q": "Who can see the glasses?",
+      "ja": "めがねが みえているのは だれ？",
+      "choices": [
+        "the boy",
+        "the dog",
+        "Dad"
+      ],
+      "answer": "the boy",
+      "kind": "detail"
+    },
+    {
+      "q": "What are \"glasses\" for?",
+      "ja": "\"glasses\" は なにの ための もの？",
+      "choices": [
+        "for eating",
+        "for seeing",
+        "for running"
+      ],
+      "answer": "for seeing",
+      "kind": "vocab"
+    }
+  ]
+}

@@ -1,0 +1,550 @@
+{
+  "id": "rd-8-correction",
+  "stage": "8",
+  "title": "The Correction",
+  "titleJa": "訂正記事",
+  "kind": "story",
+  "cover": {
+    "bg": "school",
+    "items": [
+      {
+        "e": "👧",
+        "x": 35,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "📰",
+        "x": 62,
+        "y": 54,
+        "s": 3.2,
+        "a": "bob"
+      },
+      {
+        "e": "✏",
+        "x": 80,
+        "y": 74,
+        "s": 1.6
+      },
+      {
+        "e": "❗",
+        "x": 62,
+        "y": 22,
+        "s": 1.8,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Riko was the editor of her school newspaper, and she was proud of it. Most articles were about club results and school trips, but Riko wanted to write something that mattered. Then she found her story: food waste in the cafeteria.",
+      "ja": "リコは 学校新聞の 編集長で、それを ほこりに 思っていた。記事の 多くは 部活の 結果や 遠足の 話だったが、リコは 意味の ある ことを 書きたかった。そして 題材を 見つけた。食堂の 食品ロスだ。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "📰",
+            "x": 52,
+            "y": 60,
+            "s": 2.4
+          },
+          {
+            "e": "✏",
+            "x": 64,
+            "y": 70,
+            "s": 1.4
+          },
+          {
+            "e": "🗑",
+            "x": 84,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "🍞",
+            "x": 84,
+            "y": 56,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "She interviewed students, took photos of the bins, and asked the kitchen staff for their records. Her article said that the cafeteria threw away forty percent of the food it cooked. It appeared on the front page under a dramatic headline.",
+      "ja": "リコは 生徒に 取材し、ごみ箱の 写真を とり、調理員に 記録を 見せてもらった。記事には、食堂は 作った 料理の 四十パーセントを すてていると 書いた。それは 派手な 見出しで 一面に のった。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📷",
+            "x": 44,
+            "y": 56,
+            "s": 1.6
+          },
+          {
+            "e": "🗑",
+            "x": 62,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "📋",
+            "x": 78,
+            "y": 56,
+            "s": 1.8
+          },
+          {
+            "e": "📰",
+            "x": 90,
+            "y": 30,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The reaction was enormous. Students talked about it for days, and some parents complained to the principal. Riko’s teacher praised her courage. For the first time, she felt like a real journalist.",
+      "ja": "反響は とても 大きかった。生徒たちは 何日も その 話を し、校長に 苦情を 言う 親も いた。先生は リコの 勇気を ほめた。リコは 初めて、本物の 記者に なった 気が した。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😄",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧑‍🏫",
+            "x": 68,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👏",
+            "x": 52,
+            "y": 54,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "📰",
+            "x": 88,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "👥",
+            "x": 88,
+            "y": 74,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "A week later, while organizing her notes, Riko looked at the kitchen records again and felt her blood turn cold. She had misread a column. The real figure was not forty percent. It was fourteen.",
+      "ja": "一週間後、メモを 整理しながら 調理室の 記録を もう一度 見て、リコは 血の 気が 引いた。らんを 読みまちがえていたのだ。本当の 数字は 四十パーセントでは ない。十四だった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 38,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😱",
+            "x": 38,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📋",
+            "x": 60,
+            "y": 62,
+            "s": 2.4
+          },
+          {
+            "e": "🔍",
+            "x": 72,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "❗",
+            "x": 60,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Fourteen percent was still a problem, but it was a different story. Meanwhile, Ms. Yamada, the head cook, had stopped smiling at students. Riko had heard that she felt ashamed, as if she had been accused of carelessness.",
+      "ja": "十四パーセントも 問題では あるが、話は ちがってくる。一方、調理主任の ヤマダさんは、生徒に 笑いかけなく なっていた。不注意だと 責められたように 感じ、はずかしく 思っていると リコは 聞いていた。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👩‍🍳",
+            "x": 65,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😔",
+            "x": 65,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🍲",
+            "x": 85,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "😟",
+            "x": 20,
+            "y": 50,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Riko told only her friend Daichi. “Nobody has noticed,” he said. “If you print a correction, people will stop trusting the paper, and everyone will know you made a mistake. Just be more careful next time.”",
+      "ja": "リコは 友人の ダイチにだけ 話した。「だれも 気づいていないよ」と ダイチは 言った。「訂正を のせたら、新聞は 信用されなく なるし、きみの ミスが みんなに 知られる。次から 気を つければ いいさ」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💬",
+            "x": 68,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "It was tempting. But Riko kept thinking about a sentence she had written in her very first editorial: “A newspaper’s job is to tell the truth, even when it is uncomfortable.” She had not imagined that the uncomfortable truth would be about herself.",
+      "ja": "心が ゆれた。でも リコは、最初の 社説に 書いた 一文を 思い出していた。「新聞の 仕事は、たとえ 気まずくても 真実を 伝えることだ」。その 気まずい 真実が 自分自身の ことに なるとは、思っても みなかった。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 42,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 42,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📰",
+            "x": 68,
+            "y": 40,
+            "s": 2.6
+          },
+          {
+            "e": "💭",
+            "x": 60,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌙",
+            "x": 88,
+            "y": 14,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "First, she went to the kitchen and apologized to Ms. Yamada in person. Then she wrote a correction and placed it on the front page, in the same size letters as the original headline, so nobody could miss it.",
+      "ja": "まず リコは 調理室へ 行き、ヤマダさんに 直せつ あやまった。それから 訂正記事を 書き、一面に のせた。だれも 見のがさないよう、元の 見出しと 同じ 大きさの 文字で。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🙇",
+            "x": 46,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "👩‍🍳",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📰",
+            "x": 88,
+            "y": 34,
+            "s": 2.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Some students laughed at her. But Ms. Yamada invited her into the kitchen to see how the staff were already trying to reduce waste. Riko’s next article, written together with the cooks, explained how students could help by taking only what they could eat.",
+      "ja": "リコを 笑う 生徒も いた。でも ヤマダさんは リコを 調理室に まねき、ロスを へらす 取り組みを 見せてくれた。調理員と いっしょに 書いた 次の 記事は、食べられる 分だけ 取るという、生徒に できる 協力を 伝えた。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👩‍🍳",
+            "x": 66,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 66,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "📝",
+            "x": 46,
+            "y": 62,
+            "s": 1.6
+          },
+          {
+            "e": "🍽",
+            "x": 86,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "🥕",
+            "x": 86,
+            "y": 54,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "At the end of the year, a younger student asked Riko what she had learned as editor. She thought for a moment. “Anyone can print a story,” she said. “You find out what kind of paper you are when you have to print a correction.”",
+      "ja": "年度の 終わりに、下級生が リコに、編集長として 何を 学んだかを たずねた。リコは 少し 考えた。「記事を のせるのは だれでも できる。どんな 新聞かが 分かるのは、訂正を のせなければ ならない 時よ」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 35,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🧒",
+            "x": 68,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "📰",
+            "x": 88,
+            "y": 60,
+            "s": 2.2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "editor",
+      "ja": "編集長"
+    },
+    {
+      "en": "articles",
+      "ja": "記事"
+    },
+    {
+      "en": "interviewed",
+      "ja": "取材した"
+    },
+    {
+      "en": "headline",
+      "ja": "見出し"
+    },
+    {
+      "en": "enormous",
+      "ja": "とても 大きい"
+    },
+    {
+      "en": "praised",
+      "ja": "ほめた"
+    },
+    {
+      "en": "figure",
+      "ja": "数字"
+    },
+    {
+      "en": "ashamed",
+      "ja": "はずかしく 思って"
+    },
+    {
+      "en": "accused",
+      "ja": "責められた"
+    },
+    {
+      "en": "correction",
+      "ja": "訂正"
+    },
+    {
+      "en": "tempting",
+      "ja": "心を さそう"
+    },
+    {
+      "en": "original",
+      "ja": "元の"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "An editor who admits her own error publicly",
+        "A cook who wastes food in a school cafeteria",
+        "A student who starts a new school newspaper",
+        "A friend who discovers a mistake in an article"
+      ],
+      "answer": "An editor who admits her own error publicly",
+      "kind": "main"
+    },
+    {
+      "q": "What was Riko’s mistake?",
+      "ja": "リコの まちがいは 何だった？",
+      "choices": [
+        "She forgot to interview the cooks.",
+        "She printed the wrong photographs.",
+        "She misread a number in the records.",
+        "She copied another writer’s article."
+      ],
+      "answer": "She misread a number in the records.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Daichi advise Riko to do?",
+      "ja": "ダイチは リコに どうするよう 助言した？",
+      "choices": [
+        "Apologize to the whole school",
+        "Stay silent and be careful next time",
+        "Ask the teacher to write a correction",
+        "Stop working for the newspaper"
+      ],
+      "answer": "Stay silent and be careful next time",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Riko do first after she decided to correct the error?",
+      "ja": "まちがいを 正すと 決めた後、リコは 最初に 何を した？",
+      "choices": [
+        "She printed the correction on the front page.",
+        "She wrote a new article with the cooks.",
+        "She told the principal about the figure.",
+        "She apologized to Ms. Yamada in person."
+      ],
+      "answer": "She apologized to Ms. Yamada in person.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did Riko make the correction as large as the headline?",
+      "ja": "リコは なぜ 訂正を 見出しと 同じ 大きさに した？",
+      "choices": [
+        "The teacher had ordered her to do so.",
+        "The truth deserved as much attention as the error.",
+        "She wanted to fill an empty space on the page.",
+        "Large letters were cheaper to print that week."
+      ],
+      "answer": "The truth deserved as much attention as the error.",
+      "kind": "infer"
+    }
+  ]
+}

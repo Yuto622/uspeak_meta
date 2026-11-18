@@ -406,6 +406,22 @@ export function chanceText(c) {
   else if (c.plan?.kind === 'raise') next = `。${SKILL_JA[c.plan.skill]}の 正解率を ${c.plan.now}% → ${c.plan.acc}% に 上げて ${c.plan.perSkill} 問 とくと 80% に とどく 見こみ`;
   return `英検${c.ja}（一次）の 合格見込み 約${c.chance}%${next}`;
 }
+// 進み具合の バー（F6）：「いま 段階 A → つぎ 段階 B・あと N」。**新しい 決まりは 作らない**：割合は ロードマップの 画面の 輪と 同じ 式
+// （単語 5 割・クイズの 数 3 割・正解率 2 割）、「あと」は 上がる 条件の のこり（words.left・quiz.left）を そのまま。
+export function progressBar(v) {
+  if (!v?.stage) return null;
+  const pc = (a, b) => (b > 0 ? Math.max(0, Math.min(100, Math.round((a / b) * 100))) : 100);
+  const w = v.words; const q = v.quiz;
+  const pct = v.last || v.ready ? 100 : Math.round(pc(w.known, w.need) * 0.5 + pc(Math.min(q.n, q.min), q.min) * 0.3 + pc(q.acc ?? 0, q.rate) * 0.2);
+  const next = v.last ? null : v.stages?.[v.index + 1] || null;
+  const bits = [];
+  if (w.left) bits.push(`単語 あと ${w.left} こ`);
+  if (q.left) bits.push(`クイズ あと ${q.left} 問`);
+  else if (q.acc !== null && q.acc < q.rate) bits.push(`正解率 ${q.acc}% → ${q.rate}%`);
+  const left = v.last ? 'さいごの 段階です' : v.ready || !bits.length ? 'つぎに ゲームを ひらくと 次の 段階へ' : bits.join('・');
+  return { from: v.stage.id, fromJa: v.stage.ja, to: next?.id || '', toJa: next?.ja || '', pct, left, last: !!v.last };
+}
+
 export function parentLines(v) {
   if (!v?.stage) return null;
   const s = v.stage;

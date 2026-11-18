@@ -1,0 +1,677 @@
+{
+  "id": "rd-4-whose-suitcase",
+  "stage": "4",
+  "title": "Whose Suitcase Is This?",
+  "titleJa": "この スーツケースは だれの？",
+  "kind": "story",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "🧳",
+        "x": 50,
+        "y": 70,
+        "s": 4,
+        "a": "bob"
+      },
+      {
+        "e": "🎩",
+        "x": 50,
+        "y": 36,
+        "s": 2.4,
+        "a": "float"
+      },
+      {
+        "e": "👧",
+        "x": 20,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "😲",
+        "x": 22,
+        "y": 40,
+        "s": 1.2
+      },
+      {
+        "e": "❓",
+        "x": 80,
+        "y": 28,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Mei and her mother took a train to visit Grandpa. At the station, Mei picked up their blue suitcase.",
+      "ja": "メイと お母さんは、おじいちゃんの 家に 行く ために 電車に 乗りました。駅で、メイは 青い スーツケースを 持ちました。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚃",
+            "x": 30,
+            "y": 62,
+            "s": 4.4
+          },
+          {
+            "e": "👧",
+            "x": 60,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🧳",
+            "x": 74,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "👩",
+            "x": 90,
+            "y": 68,
+            "s": 3.2
+          },
+          {
+            "e": "🚉",
+            "x": 12,
+            "y": 30,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "At Grandpa's house, she opened it to get her pajamas. But her pajamas were not there!",
+      "ja": "おじいちゃんの 家で、メイは パジャマを 出そうと スーツケースを 開けました。でも、パジャマは 入っていませんでした！",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 32,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🧳",
+            "x": 60,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "❗",
+            "x": 60,
+            "y": 34,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🛏️",
+            "x": 88,
+            "y": 76,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Inside, she found a tall black hat, a long red scarf, and a toy rabbit.",
+      "ja": "中には、せの 高い 黒い ぼうしと、長い 赤い マフラーと、おもちゃの ウサギが 入っていました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧳",
+            "x": 20,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🎩",
+            "x": 44,
+            "y": 66,
+            "s": 2.6
+          },
+          {
+            "e": "🧣",
+            "x": 64,
+            "y": 68,
+            "s": 2.4
+          },
+          {
+            "e": "🐇",
+            "x": 84,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "❓",
+            "x": 54,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"This is not our suitcase,\" said Mei. \"Someone has my pajamas, and I have their rabbit!\"",
+      "ja": "「これは うちの スーツケースじゃ ないわ」と メイは 言いました。「だれかが わたしの パジャマを 持っていて、わたしは その 人の ウサギを 持っているのね！」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 37,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🐇",
+            "x": 52,
+            "y": 58,
+            "s": 1.8
+          },
+          {
+            "e": "🧳",
+            "x": 74,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "💬",
+            "x": 35,
+            "y": 18,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Grandpa looked at the name tag. \"It says 'The Great Zeno, Town Hall, seven o'clock.'\"",
+      "ja": "おじいちゃんは 名ふだを 見ました。「『グレート・ゼノ、公会堂、7時』と 書いて あるよ」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👴",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👓",
+            "x": 28,
+            "y": 36,
+            "s": 1.2
+          },
+          {
+            "e": "🏷️",
+            "x": 50,
+            "y": 54,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🧳",
+            "x": 72,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🕰️",
+            "x": 90,
+            "y": 30,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"A magician!\" said Mei. \"He needs these things for his show tonight. We must hurry!\"",
+      "ja": "「マジシャンだわ！」と メイは 言いました。「今夜の ショーに これが 必要なのよ。急がなくちゃ！」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "💡",
+            "x": 42,
+            "y": 22,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🎩",
+            "x": 66,
+            "y": 62,
+            "s": 2.4
+          },
+          {
+            "e": "✨",
+            "x": 78,
+            "y": 44,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🕕",
+            "x": 90,
+            "y": 24,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "They ran to the town hall. A worried man was standing by the door with a blue suitcase.",
+      "ja": "二人は 公会堂へ 走りました。心配そうな 男の人が、青い スーツケースを 持って ドアの そばに 立っていました。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏛️",
+            "x": 76,
+            "y": 52,
+            "s": 4.4
+          },
+          {
+            "e": "🧔",
+            "x": 60,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😟",
+            "x": 62,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🧳",
+            "x": 46,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "👧",
+            "x": 18,
+            "y": 70,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "💨",
+            "x": 6,
+            "y": 72,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"My hat! My rabbit!\" he cried when he saw them. \"I only had pajamas with little bears on them!\"",
+      "ja": "「わたしの ぼうし！ わたしの ウサギ！」男の人は それを 見て さけびました。「こっちには 小さな クマの もようの パジャマしか なかったんだよ！」",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🧔",
+            "x": 62,
+            "y": 70,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 64,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🎩",
+            "x": 44,
+            "y": 56,
+            "s": 2
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🧸",
+            "x": 84,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "👕",
+            "x": 84,
+            "y": 76,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mei's face turned red, but she laughed. They changed the suitcases back.",
+      "ja": "メイは 顔が 赤く なりましたが、笑いました。二人は スーツケースを 元どおりに 交かんしました。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😳",
+            "x": 28,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🧳",
+            "x": 42,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🔄",
+            "x": 50,
+            "y": 50,
+            "s": 2,
+            "a": "spin"
+          },
+          {
+            "e": "🧳",
+            "x": 60,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🧔",
+            "x": 76,
+            "y": 70,
+            "s": 3.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Please stay and watch,\" said the Great Zeno. He gave them seats in the front row.",
+      "ja": "「どうぞ、見て いって ください」と グレート・ゼノは 言いました。いちばん 前の 列の 席を 用意して くれました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧔",
+            "x": 22,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "🎩",
+            "x": 22,
+            "y": 34,
+            "s": 1.6
+          },
+          {
+            "e": "🎫",
+            "x": 42,
+            "y": 54,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 62,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👴",
+            "x": 86,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🪑",
+            "x": 74,
+            "y": 80,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "At the end of the show, he pulled something out of his hat. It was a new name tag for Mei.",
+      "ja": "ショーの 最後に、ゼノは ぼうしから 何かを 取り出しました。それは メイの 新しい 名ふだでした。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧔",
+            "x": 30,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "🎩",
+            "x": 48,
+            "y": 60,
+            "s": 2.6
+          },
+          {
+            "e": "🏷️",
+            "x": 48,
+            "y": 38,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "✨",
+            "x": 60,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 80,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "😲",
+            "x": 82,
+            "y": 44,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Now you will never lose your pajamas again,\" he said. Everyone laughed and clapped.",
+      "ja": "「これで もう パジャマを なくさないね」と ゼノは 言いました。みんな 笑って、はく手を しました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧔",
+            "x": 24,
+            "y": 68,
+            "s": 3.2
+          },
+          {
+            "e": "👧",
+            "x": 55,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 57,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🧳",
+            "x": 72,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🏷️",
+            "x": 72,
+            "y": 62,
+            "s": 1.2
+          },
+          {
+            "e": "👏",
+            "x": 86,
+            "y": 44,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "station",
+      "ja": "駅"
+    },
+    {
+      "en": "suitcase",
+      "ja": "スーツケース"
+    },
+    {
+      "en": "pajamas",
+      "ja": "パジャマ"
+    },
+    {
+      "en": "name tag",
+      "ja": "名ふだ"
+    },
+    {
+      "en": "magician",
+      "ja": "マジシャン・手品師"
+    },
+    {
+      "en": "hurry",
+      "ja": "急ぐ"
+    },
+    {
+      "en": "worried",
+      "ja": "心配そうな"
+    },
+    {
+      "en": "cried",
+      "ja": "さけんだ"
+    },
+    {
+      "en": "seats",
+      "ja": "席"
+    },
+    {
+      "en": "front row",
+      "ja": "いちばん 前の 列"
+    },
+    {
+      "en": "pulled",
+      "ja": "引っぱった・取り出した"
+    },
+    {
+      "en": "clapped",
+      "ja": "はく手を した"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "a girl who takes the wrong suitcase",
+        "a rabbit who runs away at a station",
+        "a grandpa who loses his glasses",
+        "a train that arrives very late"
+      ],
+      "answer": "a girl who takes the wrong suitcase",
+      "kind": "main"
+    },
+    {
+      "q": "What was NOT in the suitcase Mei opened?",
+      "ja": "メイが 開けた スーツケースに 入って いなかった ものは どれですか。",
+      "choices": [
+        "A tall black hat.",
+        "A long red scarf.",
+        "A pair of pajamas.",
+        "A toy rabbit."
+      ],
+      "answer": "A pair of pajamas.",
+      "kind": "detail"
+    },
+    {
+      "q": "How did they learn who the owner was?",
+      "ja": "持ち主が だれか、どうやって わかりましたか。",
+      "choices": [
+        "The station called them.",
+        "They read the name tag.",
+        "Mei's mother knew him.",
+        "They saw him on the train."
+      ],
+      "answer": "They read the name tag.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, \"hurry\" means ___.",
+      "ja": "この本で「hurry」は どんな 意味ですか。",
+      "choices": [
+        "to open something slowly",
+        "to forget something",
+        "to laugh at someone",
+        "to do something quickly"
+      ],
+      "answer": "to do something quickly",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Mei's face turn red?",
+      "ja": "メイの 顔は なぜ 赤く なったのですか。",
+      "choices": [
+        "She ran too fast in the sun.",
+        "She was angry at the magician.",
+        "The town hall was very hot.",
+        "A stranger saw her bear pajamas."
+      ],
+      "answer": "A stranger saw her bear pajamas.",
+      "kind": "infer"
+    }
+  ]
+}

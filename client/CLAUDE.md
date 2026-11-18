@@ -1401,6 +1401,22 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 画面は `reading.js` + `reading.css`（`#reading-dialog`・入れ物は `translate="no"`・説明は `.en`/`.ja`）。検査は `server/test/reading.test.mjs`。
 - まだ：先生が 本を 宿題で 出す（3 ステップ配信）・/class の 列・LINE レポートの「よんだ 本」・幼児モード。
 
+## えほんの 宿題・レポートの 数字 5 つ・進み具合の バー（F10・F9・F6／2026-11）
+- **えほんの 宿題**：宿題に `book`（よみもの島の 本の id・`items` は 空）と `students`（名前の 一覧・空＝クラス ぜんいん）が 足せる（`server/src/homework/store.js`）。
+  子どもに 出るのは `forStudent(class, name)`（`listFor`・`periodSummary`・部屋の `hw:start` も これ）。**その 本が ✓ に なると おわり**（`markBookDone`：部屋の `onRead` の `hwBook()`。
+  くばる 前に ✓ だった 本は `hw:list` の ときに おわりに する）。宿題に 出た 本は **棚の 外（±1 段階より 遠い）でも ひらける**。ごほうびは ふつうの 宿題と 同じ（`payHomework`・1 回）。
+- **先生の 画面**（/teacher/homework・/admin/homework）：タブ「📚 えほんを くばる」＝ **えらぶ → 生徒を えらぶ → おくる**（`server/src/homework/book-client.js`・page.js が page-client.js の あとに 入れる）。
+  口は `GET /homework/books`（段階ごとの 本・答えなし）と `GET /homework/students?class=`（名簿の 子ども。教室の 先生は その 教室の クラスだけ＝403）。
+- **子どもの 画面**（`homework.js`）：えほんの カードは 表紙（`/reading-art/<id>/0.svg?still=1`）と「よむ →」。おすと `reading.openBook(id)`（`reading.js` が 出す）。部屋が `hw:book` を 返した ときも 同じ。
+- **/class**：「📚 よみもの島」の 表（よんだ 本 ✓・よんだ 語数・さいごに 読んだ 本）。`ReadingStore.summaryOf` と `server/src/reading/pages.js` の `readingClassHtml`。`?format=json` の `reading`。
+- **数字 5 つ**（学習時間・話した 回数・読んだ 本・クイズの 正答率・覚えた 単語）：週・月は `parent-report/aggregate.js` の `fiveNumbers`（roblox_events の session・speak・book・quiz。**前からの 決まりの まま**：
+  正答率は はじめての 回答だけ・20 問 未満は 出さない、覚えた 単語は 2 日ルール）。`weeklyData` / `monthlyData` の `five`。出る 場所：LINE の 画像（`render-tex.js` の `fiveLine`・1 行）、
+  LINE の 吹き出し（`line.js` の `fiveText`。**吹き出しが もう ある ときだけ** 上に 足す＝通数を ふやさない）、保護者の 専用ページ `/r/<合言葉>` の いちばん 上、web の `/report/<クラス>/<名前>` の いちばん 上
+  （こちらは はじめてからの 合計：study_ms・chats・よみもの島の ✓・correct/attempts・ロードマップの `mastered`）。HTML は `reading/pages.js` の `fiveHtml` / `booksHtml`。
+- **進み具合の バー**：`game/roadmap.js` の `progressBar(v)`（割合は ロードマップの 輪と 同じ 式・「あと」は 上がる 条件の のこり。新しい 決まりなし）。出る 場所：web レポートと 保護者ページの 上（`barHtml`）、
+  ロードマップの 画面（`roadmap.js` の `stageBar`・`.rm2-bar`）。LINE の カード（`roadmapFlex`）には 前から バーが ある。
+- 検査：`server/test/homework-book.test.mjs`（生徒を えらぶ・✓ で おわり・棚の 外の 本・先生の API）、`server/test/report-five.test.mjs`（数字・文・組版 1040×1300・バー・HTML・/class）。
+
 ## ぶきや（メインの島・100 本／2026-11）
 - **品は `weapons-data.js`**（形 10 × 素材 10）。`fishing-data.js` の ITEMS に `kind: 'weapon'` で 足すので、値段と 買う 判定は サーバーの `economy.js`（表の 値段）。ページの 値段は 使わない。
 - **前からの 6 本（wood-sword・steel-sword・bow・trident・staff・sunblade）は id と 値段を かえない**（セーブが その id）。表の その マスに 入る（`LEGACY`）。
@@ -1928,3 +1944,15 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   - オンライン：`net-client.js` の `quiz/gym/eiken/quick/farm/fw/hw/wh:result`・`interview:turn`・`review:result`（ok）・`battle:turn`（quiz.correct）で 鳴らす（判定は サーバー）。
   - オフラインでも 判定する 画面：game.js の レッスン・fishing.js・adventure.js の バトル。`answer:result` では 鳴らさない（その 3 つと 二重に なるので）。
   - ♫ を 切ると 鳴らない（game.js が `configureSfx({ isMuted })`）。
+
+## なまえを えらんで 入る（クラスの QR／2026-11）
+クラスコードと なまえを 打たずに 入る 入り口（要件の F7）。**はじめは オフ**：子どもの なまえを 一覧で 見せるかは 教室が きめる。
+- **スイッチ**：先生の `/teacher/kids`（運営は `/admin/kids`）の クラスの カードの 下「📱 なまえを えらんで 入る」。置き場は 幼児モードと 同じ `kids-mode.json` の `pick`（`kids-store.js` の `pickOf` / `setPick`・幼児モードとは べつの スイッチ）。
+  オンに すると 入り口の URL（`/?class=<コード>&k=<署名>`）と QR（サーバーが `qrcode` で かく SVG・`/teacher/api/kids/qr`。外の サービスは 使わない）・「QR を 印刷」。
+- **署名**：`server/src/classroom/join.js` の `signJoin`（REPORT_SECRET の HMAC・クラスに むすぶ・`join|` を まぜる＝レポートや 教室の ようすの リンクとは 読みかえられない・400 日）。REPORT_SECRET が ないと 使えない。
+- **口**：`GET /api/join/names?class=&k=`（1 分 30 回・no-store）。返すのは **その クラスの 子の なまえ だけ**（先生の 行・停止の 行・クラスコードの 書いて いない 行は 出さない・60 人まで）。
+  署名ちがい・オフ・知らない クラス・だれも いない は どれも 同じ 404 `{ok:false}`。
+- **ロビー**（`lobby.js`）：`?class=` と `&k=` が あって なまえが 返った ときだけ `#net-lobby.pick`（大きな なまえの ボタン `#net-pick-list`。入力の 欄と 先生パスワードは しまう）。
+  「なまえが ない とき」で いつもの 入力に もどる（先生は ここから 先生パスワードで）。**一覧は 入力の かわり**：入れるか どうかは いつもの `onAuth`（名簿・停止・クラスコード・先生パスワード）。
+- 気を つける こと：QR を 持つ 人は クラスの 子の なまえを 見られ、どの 子としても 入れる（なまえを 打って 入るのと 同じ 強さ。本人の たしかめは ない）。QR を かえたい ときは いまは REPORT_SECRET を かえる しか ない（オフに すれば すぐ 止まる）。
+- 検査：`server/test/join-names.test.mjs`。

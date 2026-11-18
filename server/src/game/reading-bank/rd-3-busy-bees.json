@@ -1,0 +1,643 @@
+{
+  "id": "rd-3-busy-bees",
+  "stage": "3",
+  "title": "The Busy World of Bees",
+  "titleJa": "ミツバチの いそがしい 世界",
+  "kind": "fact",
+  "cover": {
+    "bg": "garden",
+    "items": [
+      {
+        "e": "🐝",
+        "x": 40,
+        "y": 36,
+        "s": 3.4,
+        "a": "float"
+      },
+      {
+        "e": "🌻",
+        "x": 72,
+        "y": 64,
+        "s": 3.6,
+        "a": "sway"
+      },
+      {
+        "e": "🍯",
+        "x": 20,
+        "y": 74,
+        "s": 2.4
+      },
+      {
+        "e": "🌸",
+        "x": 90,
+        "y": 78,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "On a warm day, you can see bees on flowers. What are they doing?",
+      "ja": "あたたかい 日には、花に とまる ハチが 見られます。何を しているのでしょう。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌸",
+            "x": 30,
+            "y": 70,
+            "s": 2.8,
+            "a": "sway"
+          },
+          {
+            "e": "🌼",
+            "x": 60,
+            "y": 72,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🐝",
+            "x": 34,
+            "y": 44,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "🐝",
+            "x": 64,
+            "y": 46,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "☀️",
+            "x": 86,
+            "y": 16,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 14,
+            "y": 28,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "They are drinking sweet juice from the flowers. It is called nectar.",
+      "ja": "花から あまい しるを 飲んでいるのです。これを 「みつ」と 言います。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌻",
+            "x": 50,
+            "y": 62,
+            "s": 5,
+            "a": "sway"
+          },
+          {
+            "e": "🐝",
+            "x": 56,
+            "y": 36,
+            "s": 2.6,
+            "a": "bob"
+          },
+          {
+            "e": "💧",
+            "x": 40,
+            "y": 46,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "✨",
+            "x": 68,
+            "y": 50,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Honeybees live together in a home called a hive. Thousands of bees live in one hive.",
+      "ja": "ミツバチは 「す」と よばれる 家に いっしょに 住んでいます。1つの すに 何千びきもの ハチが 住んでいます。",
+      "scene": {
+        "bg": "forest",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 30,
+            "y": 50,
+            "s": 5
+          },
+          {
+            "e": "🍯",
+            "x": 62,
+            "y": 56,
+            "s": 3
+          },
+          {
+            "e": "🐝",
+            "x": 50,
+            "y": 34,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "🐝",
+            "x": 72,
+            "y": 30,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "🐝",
+            "x": 82,
+            "y": 50,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "🐝",
+            "x": 58,
+            "y": 76,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Each hive has one queen. She is the biggest bee, and she lays all the eggs.",
+      "ja": "それぞれの すには 女王バチが 1ぴき います。いちばん 大きな ハチで、たまごを 全部 産みます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🐝",
+            "x": 45,
+            "y": 54,
+            "s": 4.4
+          },
+          {
+            "e": "👑",
+            "x": 45,
+            "y": 28,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🥚",
+            "x": 70,
+            "y": 72,
+            "s": 1
+          },
+          {
+            "e": "🥚",
+            "x": 78,
+            "y": 76,
+            "s": 1
+          },
+          {
+            "e": "🥚",
+            "x": 86,
+            "y": 72,
+            "s": 1
+          },
+          {
+            "e": "🐝",
+            "x": 14,
+            "y": 70,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The worker bees carry nectar back to the hive. There, they make it into honey.",
+      "ja": "はたらきバチは みつを すに 運びます。そこで、みつを ハチミツに 変えます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌸",
+            "x": 12,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "🐝",
+            "x": 30,
+            "y": 44,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🐝",
+            "x": 50,
+            "y": 40,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "➡️",
+            "x": 66,
+            "y": 46,
+            "s": 1.4
+          },
+          {
+            "e": "🍯",
+            "x": 84,
+            "y": 64,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Honey is food for the bees. They eat it in winter when there are no flowers.",
+      "ja": "ハチミツは ハチの 食べ物です。花が ない 冬に、それを 食べます。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "🍯",
+            "x": 45,
+            "y": 68,
+            "s": 3.6
+          },
+          {
+            "e": "🐝",
+            "x": 60,
+            "y": 48,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "🐝",
+            "x": 30,
+            "y": 50,
+            "s": 2,
+            "a": "bob"
+          },
+          {
+            "e": "❄️",
+            "x": 82,
+            "y": 22,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "❄️",
+            "x": 14,
+            "y": 18,
+            "s": 1.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "When a bee finds good flowers, she dances at home. The dance shows the others the way.",
+      "ja": "ハチは よい 花を 見つけると、すで ダンスを します。その ダンスで、花への 道を なかまに 教えます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🐝",
+            "x": 40,
+            "y": 52,
+            "s": 3.4,
+            "a": "spin"
+          },
+          {
+            "e": "🎵",
+            "x": 58,
+            "y": 30,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "🐝",
+            "x": 76,
+            "y": 62,
+            "s": 1.8
+          },
+          {
+            "e": "🐝",
+            "x": 86,
+            "y": 46,
+            "s": 1.8
+          },
+          {
+            "e": "🌼",
+            "x": 14,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "👉",
+            "x": 22,
+            "y": 52,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bees also help plants. Yellow powder from one flower sticks to a bee's body.",
+      "ja": "ハチは 植物の 手伝いも します。花の 黄色い 粉が ハチの 体に くっつきます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌻",
+            "x": 34,
+            "y": 62,
+            "s": 4.6
+          },
+          {
+            "e": "🐝",
+            "x": 60,
+            "y": 40,
+            "s": 3
+          },
+          {
+            "e": "🟡",
+            "x": 54,
+            "y": 50,
+            "s": 0.8
+          },
+          {
+            "e": "🟡",
+            "x": 66,
+            "y": 48,
+            "s": 0.8
+          },
+          {
+            "e": "🟡",
+            "x": 60,
+            "y": 56,
+            "s": 0.8
+          },
+          {
+            "e": "🔍",
+            "x": 84,
+            "y": 36,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The bee carries the powder to the next flower. Then the plant can make fruit and seeds.",
+      "ja": "ハチは その 粉を 次の 花に 運びます。すると、植物は 実や たねを 作る ことが できます。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌸",
+            "x": 16,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "🐝",
+            "x": 40,
+            "y": 40,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "➡️",
+            "x": 58,
+            "y": 44,
+            "s": 1.4
+          },
+          {
+            "e": "🌸",
+            "x": 76,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "🍎",
+            "x": 92,
+            "y": 40,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "But remember, bees can sting. Just watch them quietly and do not touch.",
+      "ja": "でも わすれないで。ハチは さす ことが あります。静かに 見るだけに して、さわらないように しましょう。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🤫",
+            "x": 28,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🐝",
+            "x": 64,
+            "y": 44,
+            "s": 2.6,
+            "a": "float"
+          },
+          {
+            "e": "🌼",
+            "x": 66,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "✋",
+            "x": 46,
+            "y": 54,
+            "s": 1.4
+          },
+          {
+            "e": "🚫",
+            "x": 46,
+            "y": 54,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Apples, strawberries, and many other foods need bees. Thank you, little bees!",
+      "ja": "リンゴや イチゴなど、たくさんの 食べ物には ハチが 必要です。小さな ハチさん、ありがとう！",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🍎",
+            "x": 20,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "🍓",
+            "x": 42,
+            "y": 72,
+            "s": 2.4
+          },
+          {
+            "e": "🍒",
+            "x": 62,
+            "y": 70,
+            "s": 2.2
+          },
+          {
+            "e": "🍯",
+            "x": 82,
+            "y": 70,
+            "s": 2.4
+          },
+          {
+            "e": "🐝",
+            "x": 50,
+            "y": 32,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "❤️",
+            "x": 68,
+            "y": 24,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "nectar",
+      "ja": "花の みつ"
+    },
+    {
+      "en": "hive",
+      "ja": "ハチの す"
+    },
+    {
+      "en": "thousands",
+      "ja": "何千"
+    },
+    {
+      "en": "queen",
+      "ja": "女王"
+    },
+    {
+      "en": "lays",
+      "ja": "（たまごを）産む"
+    },
+    {
+      "en": "carry",
+      "ja": "運ぶ"
+    },
+    {
+      "en": "honey",
+      "ja": "ハチミツ"
+    },
+    {
+      "en": "dances",
+      "ja": "ダンスを する"
+    },
+    {
+      "en": "powder",
+      "ja": "粉"
+    },
+    {
+      "en": "sticks",
+      "ja": "くっつく"
+    },
+    {
+      "en": "seeds",
+      "ja": "たね"
+    },
+    {
+      "en": "sting",
+      "ja": "さす"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "how to grow apples in a garden",
+        "why flowers are yellow in summer",
+        "how bees live and help plants",
+        "how people make sweet juice"
+      ],
+      "answer": "how bees live and help plants",
+      "kind": "main"
+    },
+    {
+      "q": "Who lays all the eggs in a hive?",
+      "ja": "すの 中で たまごを 全部 産むのは だれですか。",
+      "choices": [
+        "The worker bees.",
+        "The queen.",
+        "The smallest bee.",
+        "The dancing bee."
+      ],
+      "answer": "The queen.",
+      "kind": "detail"
+    },
+    {
+      "q": "When do bees eat their honey?",
+      "ja": "ハチは いつ ハチミツを 食べますか。",
+      "choices": [
+        "In winter.",
+        "In spring.",
+        "Only at night.",
+        "Only on warm days."
+      ],
+      "answer": "In winter.",
+      "kind": "detail"
+    },
+    {
+      "q": "A \"hive\" is ___.",
+      "ja": "「hive」とは 何ですか。",
+      "choices": [
+        "a sweet juice in a flower",
+        "a dance for finding food",
+        "a yellow powder on a bee",
+        "a home for many bees"
+      ],
+      "answer": "a home for many bees",
+      "kind": "vocab"
+    },
+    {
+      "q": "What may happen if there are no bees?",
+      "ja": "ハチが いなく なったら、どう なるでしょう。",
+      "choices": [
+        "Winter will be much colder.",
+        "Flowers will grow much taller.",
+        "We will have less fruit to eat.",
+        "Plants will not need any water."
+      ],
+      "answer": "We will have less fruit to eat.",
+      "kind": "infer"
+    }
+  ]
+}

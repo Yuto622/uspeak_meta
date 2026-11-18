@@ -1,0 +1,530 @@
+{
+  "id": "rd-2-pochi-school",
+  "stage": "2",
+  "title": "Pochi Goes to School",
+  "titleJa": "ポチ、がっこうへ いく",
+  "kind": "story",
+  "cover": {
+    "bg": "city",
+    "items": [
+      {
+        "e": "🐶",
+        "x": 40,
+        "y": 72,
+        "s": 3.8,
+        "a": "hop"
+      },
+      {
+        "e": "🍱",
+        "x": 60,
+        "y": 70,
+        "s": 2
+      },
+      {
+        "e": "🏫",
+        "x": 82,
+        "y": 54,
+        "s": 3
+      },
+      {
+        "e": "💨",
+        "x": 20,
+        "y": 70,
+        "s": 1.8,
+        "a": "drift"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Nana went to school in the morning. Her dog Pochi stayed home.",
+      "ja": "あさ、ナナは がっこうへ いきました。いぬの ポチは いえに のこりました。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 70,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🎒",
+            "x": 82,
+            "y": 66,
+            "s": 1.6
+          },
+          {
+            "e": "🐶",
+            "x": 26,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🏠",
+            "x": 12,
+            "y": 56,
+            "s": 3
+          },
+          {
+            "e": "👋",
+            "x": 58,
+            "y": 48,
+            "s": 1.4,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Pochi saw something on the table. It was Nana's lunch box!",
+      "ja": "ポチは テーブルの うえに なにかを みつけました。ナナの おべんとうばこです！",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐶",
+            "x": 28,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 30,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🍱",
+            "x": 64,
+            "y": 56,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "❗",
+            "x": 64,
+            "y": 28,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Nana will be hungry,\" thought Pochi. He took the box.",
+      "ja": "「ナナが おなかを すかせちゃう」と ポチは おもいました。ポチは はこを もちました。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🐶",
+            "x": 45,
+            "y": 72,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "🍱",
+            "x": 62,
+            "y": 66,
+            "s": 2
+          },
+          {
+            "e": "💭",
+            "x": 50,
+            "y": 24,
+            "s": 2.2
+          },
+          {
+            "e": "🚪",
+            "x": 88,
+            "y": 58,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "He ran down the street. He ran past the park.",
+      "ja": "ポチは とおりを はしりました。こうえんの まえも はしって いきました。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🐶",
+            "x": 45,
+            "y": 72,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "🍱",
+            "x": 60,
+            "y": 68,
+            "s": 1.6
+          },
+          {
+            "e": "💨",
+            "x": 24,
+            "y": 70,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🌳",
+            "x": 84,
+            "y": 56,
+            "s": 3.4
+          },
+          {
+            "e": "🚦",
+            "x": 10,
+            "y": 54,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "A cat said, \"That smells good. Give it to me!\"",
+      "ja": "ねこが いいました。「いい においだね。それ、ちょうだい！」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🐱",
+            "x": 72,
+            "y": 72,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "😋",
+            "x": 74,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🐶",
+            "x": 30,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🍱",
+            "x": 46,
+            "y": 68,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 72,
+            "y": 24,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"No! It is for Nana,\" said Pochi. He ran faster.",
+      "ja": "「だめ！ これは ナナのだよ」と ポチは いいました。もっと はやく はしりました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🐶",
+            "x": 62,
+            "y": 72,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "🍱",
+            "x": 78,
+            "y": 68,
+            "s": 1.6
+          },
+          {
+            "e": "💨",
+            "x": 40,
+            "y": 70,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "🐱",
+            "x": 12,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "😠",
+            "x": 14,
+            "y": 46,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "At school, the children were opening their lunch boxes.",
+      "ja": "がっこうでは、こどもたちが おべんとうばこを あけていました。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🍱",
+            "x": 34,
+            "y": 78,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 56,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🍙",
+            "x": 68,
+            "y": 78,
+            "s": 1.4
+          },
+          {
+            "e": "🕛",
+            "x": 86,
+            "y": 22,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Nana looked in her bag. \"Oh no! Where is my lunch?\"",
+      "ja": "ナナは かばんの なかを みました。「あれ！ わたしの おべんとうは どこ？」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😟",
+            "x": 47,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🎒",
+            "x": 66,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "❓",
+            "x": 66,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then she saw Pochi at the window with her box.",
+      "ja": "そのとき ナナは まどの ところに、はこを もった ポチを みつけました。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🪟",
+            "x": 72,
+            "y": 44,
+            "s": 4
+          },
+          {
+            "e": "🐶",
+            "x": 72,
+            "y": 50,
+            "s": 2.2,
+            "a": "bob"
+          },
+          {
+            "e": "🍱",
+            "x": 86,
+            "y": 62,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😲",
+            "x": 28,
+            "y": 40,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Good dog!\" said Nana. She gave Pochi a piece of her egg.",
+      "ja": "「いいこね！」と ナナは いいました。ナナは ポチに たまごを ひとくち あげました。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 34,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🐶",
+            "x": 64,
+            "y": 72,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "🍱",
+            "x": 48,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🍳",
+            "x": 56,
+            "y": 58,
+            "s": 1.2
+          },
+          {
+            "e": "❤️",
+            "x": 50,
+            "y": 26,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "stayed",
+      "ja": "のこった"
+    },
+    {
+      "en": "lunch box",
+      "ja": "おべんとうばこ"
+    },
+    {
+      "en": "hungry",
+      "ja": "おなかが すいた"
+    },
+    {
+      "en": "thought",
+      "ja": "おもった"
+    },
+    {
+      "en": "street",
+      "ja": "とおり"
+    },
+    {
+      "en": "past",
+      "ja": "〜を とおりすぎて"
+    },
+    {
+      "en": "smells",
+      "ja": "においが する"
+    },
+    {
+      "en": "faster",
+      "ja": "もっと はやく"
+    },
+    {
+      "en": "window",
+      "ja": "まど"
+    },
+    {
+      "en": "piece",
+      "ja": "ひときれ・ひとくち"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの おはなし？",
+      "choices": [
+        "a cat who lives in a park",
+        "a dog who helps a girl",
+        "a school with a big window"
+      ],
+      "answer": "a dog who helps a girl",
+      "kind": "main"
+    },
+    {
+      "q": "What did Pochi see on the table?",
+      "ja": "ポチは テーブルの うえに なにを みた？",
+      "choices": [
+        "Nana's school bag.",
+        "Nana's red shoes.",
+        "Nana's lunch box."
+      ],
+      "answer": "Nana's lunch box.",
+      "kind": "detail"
+    },
+    {
+      "q": "Who wanted the lunch on the way?",
+      "ja": "とちゅうで おべんとうを ほしがったのは だれ？",
+      "choices": [
+        "A cat.",
+        "A bird.",
+        "A boy."
+      ],
+      "answer": "A cat.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Pochi do after he met the cat?",
+      "ja": "ねこに あった あと、ポチは どうした？",
+      "choices": [
+        "He went back home.",
+        "He ran faster.",
+        "He ate the lunch."
+      ],
+      "answer": "He ran faster.",
+      "kind": "sequence"
+    },
+    {
+      "q": "How did Nana feel at the end?",
+      "ja": "さいごに ナナは どんな きもちだった？",
+      "choices": [
+        "Happy.",
+        "Angry.",
+        "Sleepy."
+      ],
+      "answer": "Happy.",
+      "kind": "infer"
+    }
+  ]
+}

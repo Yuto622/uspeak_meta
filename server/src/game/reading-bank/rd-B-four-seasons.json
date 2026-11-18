@@ -1,0 +1,411 @@
+{
+  "id": "rd-B-four-seasons",
+  "stage": "B",
+  "title": "Four Seasons",
+  "titleJa": "よっつの きせつ",
+  "kind": "fact",
+  "cover": {
+    "bg": "meadow",
+    "items": [
+      {
+        "e": "🌸",
+        "x": 18,
+        "y": 40,
+        "s": 2.4,
+        "a": "sway"
+      },
+      {
+        "e": "🌻",
+        "x": 40,
+        "y": 66,
+        "s": 2.6
+      },
+      {
+        "e": "🍂",
+        "x": 62,
+        "y": 40,
+        "s": 2.4,
+        "a": "drift"
+      },
+      {
+        "e": "⛄",
+        "x": 84,
+        "y": 68,
+        "s": 2.6
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "In Japan, a year has four seasons.",
+      "ja": "にほんの いちねんには よっつの きせつが ある。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🗾",
+            "x": 50,
+            "y": 44,
+            "s": 3.6
+          },
+          {
+            "e": "🌸",
+            "x": 14,
+            "y": 74,
+            "s": 1.8
+          },
+          {
+            "e": "🌻",
+            "x": 38,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "🍂",
+            "x": 62,
+            "y": 76,
+            "s": 1.8
+          },
+          {
+            "e": "❄️",
+            "x": 86,
+            "y": 74,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "In spring, flowers come out.",
+      "ja": "はるには はなが さく。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "🌸",
+            "x": 22,
+            "y": 50,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "🌷",
+            "x": 50,
+            "y": 72,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🌼",
+            "x": 74,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🦋",
+            "x": 70,
+            "y": 34,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In summer, it is hot. We swim.",
+      "ja": "なつは あつい。みんなで およぐ。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 80,
+            "y": 18,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "🌊",
+            "x": 66,
+            "y": 72,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "🍉",
+            "x": 10,
+            "y": 80,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "In fall, many leaves are red and yellow.",
+      "ja": "あきには たくさんの はっぱが あかや きいろに なる。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🍂",
+            "x": 30,
+            "y": 36,
+            "s": 2.4,
+            "a": "drift"
+          },
+          {
+            "e": "🍂",
+            "x": 60,
+            "y": 28,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "🍂",
+            "x": 76,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🌳",
+            "x": 14,
+            "y": 58,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "In winter, it is cold. Sometimes it snows.",
+      "ja": "ふゆは さむい。ときどき ゆきが ふる。",
+      "scene": {
+        "bg": "snow",
+        "items": [
+          {
+            "e": "❄️",
+            "x": 24,
+            "y": 24,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "❄️",
+            "x": 70,
+            "y": 32,
+            "s": 1.6,
+            "a": "drift"
+          },
+          {
+            "e": "⛄",
+            "x": 62,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🧣",
+            "x": 44,
+            "y": 74,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then spring comes again.",
+      "ja": "そして また はるが くる。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🌱",
+            "x": 30,
+            "y": 76,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "🌸",
+            "x": 60,
+            "y": 44,
+            "s": 2.8,
+            "a": "sway"
+          },
+          {
+            "e": "🔄",
+            "x": 82,
+            "y": 26,
+            "s": 2,
+            "a": "spin"
+          },
+          {
+            "e": "🐦",
+            "x": 18,
+            "y": 34,
+            "s": 1.6,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Which season do you like?",
+      "ja": "あなたは どの きせつが すき？",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 50,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "🤔",
+            "x": 50,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🌸",
+            "x": 14,
+            "y": 30,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "☀️",
+            "x": 36,
+            "y": 16,
+            "s": 1.8
+          },
+          {
+            "e": "🍂",
+            "x": 66,
+            "y": 18,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "❄️",
+            "x": 86,
+            "y": 30,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "year",
+      "ja": "いちねん"
+    },
+    {
+      "en": "seasons",
+      "ja": "きせつ"
+    },
+    {
+      "en": "spring",
+      "ja": "はる"
+    },
+    {
+      "en": "summer",
+      "ja": "なつ"
+    },
+    {
+      "en": "fall",
+      "ja": "あき"
+    },
+    {
+      "en": "winter",
+      "ja": "ふゆ"
+    },
+    {
+      "en": "leaves",
+      "ja": "はっぱ"
+    },
+    {
+      "en": "hot",
+      "ja": "あつい"
+    },
+    {
+      "en": "cold",
+      "ja": "さむい"
+    },
+    {
+      "en": "again",
+      "ja": "また"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの ほん？",
+      "choices": [
+        "the four seasons",
+        "the days of the week",
+        "the colors of flowers"
+      ],
+      "answer": "the four seasons",
+      "kind": "main"
+    },
+    {
+      "q": "When do flowers come out?",
+      "ja": "はなが さくのは いつ？",
+      "choices": [
+        "in winter",
+        "in spring",
+        "in fall"
+      ],
+      "answer": "in spring",
+      "kind": "detail"
+    },
+    {
+      "q": "When is it hot?",
+      "ja": "あついのは いつ？",
+      "choices": [
+        "in winter",
+        "in spring",
+        "in summer"
+      ],
+      "answer": "in summer",
+      "kind": "detail"
+    },
+    {
+      "q": "What comes after winter?",
+      "ja": "ふゆの つぎに くるのは？",
+      "choices": [
+        "summer",
+        "spring",
+        "fall"
+      ],
+      "answer": "spring",
+      "kind": "sequence"
+    },
+    {
+      "q": "What does \"cold\" mean?",
+      "ja": "\"cold\" は どんな いみ？",
+      "choices": [
+        "not big",
+        "not red",
+        "not hot"
+      ],
+      "answer": "not hot",
+      "kind": "vocab"
+    }
+  ]
+}

@@ -1,0 +1,394 @@
+{
+  "id": "rd-B-first-day",
+  "stage": "B",
+  "title": "My First Day",
+  "titleJa": "はじめての がっこう",
+  "kind": "story",
+  "cover": {
+    "bg": "school",
+    "items": [
+      {
+        "e": "👧",
+        "x": 34,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "🏫",
+        "x": 72,
+        "y": 54,
+        "s": 4.2
+      },
+      {
+        "e": "🎒",
+        "x": 14,
+        "y": 76,
+        "s": 2
+      },
+      {
+        "e": "🌸",
+        "x": 88,
+        "y": 22,
+        "s": 1.6,
+        "a": "drift"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Today is my first day of school.",
+      "ja": "きょうは はじめて がっこうに いく ひ。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🎒",
+            "x": 52,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🏫",
+            "x": 80,
+            "y": 56,
+            "s": 3.2
+          },
+          {
+            "e": "🌸",
+            "x": 14,
+            "y": 24,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The school is big. I am scared.",
+      "ja": "がっこうは おおきい。わたしは こわい。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🏫",
+            "x": 64,
+            "y": 50,
+            "s": 5.6
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "😨",
+            "x": 20,
+            "y": 50,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "I see a boy. He is scared, too.",
+      "ja": "おとこのこが いる。そのこも こわがっている。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😟",
+            "x": 26,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👦",
+            "x": 72,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😨",
+            "x": 72,
+            "y": 42,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "I say hello. He says hello.",
+      "ja": "わたしは 「こんにちは」と いう。そのこも 「こんにちは」と いう。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😊",
+            "x": 30,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👋",
+            "x": 50,
+            "y": 52,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "👦",
+            "x": 70,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "😊",
+            "x": 70,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "💬",
+            "x": 50,
+            "y": 24,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "We draw. We sing. We play.",
+      "ja": "えを かく。うたう。あそぶ。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "🎨",
+            "x": 46,
+            "y": 74,
+            "s": 2
+          },
+          {
+            "e": "🎵",
+            "x": 50,
+            "y": 26,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "👦",
+            "x": 72,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "⚽",
+            "x": 90,
+            "y": 78,
+            "s": 1.6,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now school is fun.",
+      "ja": "もう がっこうは たのしい。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 40,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "⭐",
+            "x": 68,
+            "y": 28,
+            "s": 2,
+            "a": "spin"
+          },
+          {
+            "e": "📚",
+            "x": 74,
+            "y": 76,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "I have a new friend.",
+      "ja": "あたらしい ともだちが できた。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 36,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 36,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👦",
+            "x": 62,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 62,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "❤️",
+            "x": 49,
+            "y": 22,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "first",
+      "ja": "はじめての"
+    },
+    {
+      "en": "school",
+      "ja": "がっこう"
+    },
+    {
+      "en": "scared",
+      "ja": "こわい"
+    },
+    {
+      "en": "hello",
+      "ja": "こんにちは"
+    },
+    {
+      "en": "draw",
+      "ja": "えを かく"
+    },
+    {
+      "en": "sing",
+      "ja": "うたう"
+    },
+    {
+      "en": "fun",
+      "ja": "たのしい"
+    },
+    {
+      "en": "friend",
+      "ja": "ともだち"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "a day at the zoo",
+        "a first day at school",
+        "a day at home"
+      ],
+      "answer": "a first day at school",
+      "kind": "main"
+    },
+    {
+      "q": "How is the girl at first?",
+      "ja": "おんなのこは はじめ どんな きもち？",
+      "choices": [
+        "She is scared.",
+        "She is sleepy.",
+        "She is hungry."
+      ],
+      "answer": "She is scared.",
+      "kind": "detail"
+    },
+    {
+      "q": "What does the girl say to the boy?",
+      "ja": "おんなのこは おとこのこに なんと いうの？",
+      "choices": [
+        "Goodbye",
+        "Thank you",
+        "Hello"
+      ],
+      "answer": "Hello",
+      "kind": "detail"
+    },
+    {
+      "q": "What is a \"friend\"?",
+      "ja": "\"friend\" は どんな ひと？",
+      "choices": [
+        "someone you like",
+        "someone you do not see",
+        "someone very old"
+      ],
+      "answer": "someone you like",
+      "kind": "vocab"
+    },
+    {
+      "q": "How is school at the end?",
+      "ja": "さいごに がっこうは どう なった？",
+      "choices": [
+        "It is sad.",
+        "It is cold.",
+        "It is fun."
+      ],
+      "answer": "It is fun.",
+      "kind": "detail"
+    }
+  ]
+}

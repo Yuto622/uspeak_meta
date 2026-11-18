@@ -1,0 +1,566 @@
+{
+  "id": "rd-7-relay-team",
+  "stage": "7",
+  "title": "The Slowest Runner",
+  "titleJa": "いちばん おそい ランナー",
+  "kind": "story",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "👧",
+        "x": 30,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "🧒",
+        "x": 68,
+        "y": 70,
+        "s": 3.4,
+        "a": "hop"
+      },
+      {
+        "e": "🏅",
+        "x": 50,
+        "y": 24,
+        "s": 2.4,
+        "a": "pulse"
+      },
+      {
+        "e": "💨",
+        "x": 84,
+        "y": 74,
+        "s": 1.6
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Nana was the fastest runner in her school. This autumn, her relay team had a real chance to win the city race for the first time, and she wanted that gold medal badly.",
+      "ja": "ナナは 学校で 一番 足が 速かった。この秋、ナナの リレーチームには、市の 大会で 初めて 優勝する チャンスが あった。ナナは 金メダルが どうしても ほしかった。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "💨",
+            "x": 20,
+            "y": 74,
+            "s": 1.6
+          },
+          {
+            "e": "🏅",
+            "x": 62,
+            "y": 26,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🍂",
+            "x": 80,
+            "y": 78,
+            "s": 1.6,
+            "a": "drift"
+          },
+          {
+            "e": "🍂",
+            "x": 90,
+            "y": 40,
+            "s": 1.4,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "But there was one problem. Hina, the third runner, was much slower than the others. In every practice, the team lost several seconds while Hina was running.",
+      "ja": "でも 問題が 一つ あった。第三走者の ヒナは、ほかの メンバーより ずっと おそかったのだ。練習の たびに、ヒナが 走る 間に チームは 何秒も おくれた。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 55,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "💦",
+            "x": 68,
+            "y": 52,
+            "s": 1.4
+          },
+          {
+            "e": "⏱",
+            "x": 82,
+            "y": 28,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "😟",
+            "x": 20,
+            "y": 50,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "One day, a fast girl from another class asked to join. The coach looked at the team. “The race is yours, so the choice is yours too. Talk about it and tell me tomorrow.”",
+      "ja": "ある日、別の クラスの 足の 速い 子が、チームに 入りたいと 言ってきた。コーチは みんなを 見た。「走るのは きみたちだ。だから 決めるのも きみたちだ。話し合って、明日 教えなさい」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👩‍🏫",
+            "x": 72,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💬",
+            "x": 72,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🧒",
+            "x": 46,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "❓",
+            "x": 34,
+            "y": 28,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "After practice, two teammates came to Nana. “If we change Hina for the new girl, we can win,” they said. “You are the captain. You should tell her.” Nana’s heart felt heavy.",
+      "ja": "練習の 後、二人の チームメイトが ナナの 所へ 来た。「ヒナを あの子と 交代させれば 勝てるよ。ナナは キャプテンでしょ。ナナから 言ってよ」。ナナの 心は 重くなった。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👥",
+            "x": 72,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "💬",
+            "x": 72,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🏅",
+            "x": 88,
+            "y": 30,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "On her way home, Nana passed the school field. Somebody was still running there in the dark. It was Hina, practicing her start again and again, all alone.",
+      "ja": "帰り道、ナナは 学校の グラウンドの そばを 通った。暗い 中、まだ だれかが 走っていた。ヒナだった。たった 一人で、スタートの 練習を 何度も 何度も くり返していた。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 65,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "💦",
+            "x": 78,
+            "y": 52,
+            "s": 1.2
+          },
+          {
+            "e": "👧",
+            "x": 18,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🌙",
+            "x": 85,
+            "y": 16,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "🏫",
+            "x": 40,
+            "y": 52,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Nana watched for a long time. She thought about the medal. Then she thought about how she would feel if her own team threw her away. She put down her bag and walked onto the field.",
+      "ja": "ナナは 長い間 見ていた。メダルの ことを 考えた。それから、もし 自分が チームに すてられたら どんな 気持ちに なるかを 考えた。ナナは かばんを 置いて、グラウンドに 入っていった。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 55,
+            "y": 28,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🏅",
+            "x": 55,
+            "y": 27,
+            "s": 1.1
+          },
+          {
+            "e": "🎒",
+            "x": 14,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "🧒",
+            "x": 82,
+            "y": 72,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "“Your arms are too stiff,” Nana said. “Swing them like this. And don’t look back when you take the baton.” Hina looked surprised, and then she nodded seriously.",
+      "ja": "「うでが かたすぎるよ」と ナナは 言った。「こうやって ふるの。それから、バトンを 受け取る 時は 後ろを 見ないで」。ヒナは おどろいた 顔を して、それから 真けんに うなずいた。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 32,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "💪",
+            "x": 46,
+            "y": 50,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "💬",
+            "x": 32,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🧒",
+            "x": 68,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 68,
+            "y": 48,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The next day, Nana told the coach, “We will keep our team.” Her teammates complained, but soon all four were practicing together every evening. Hina’s time got better little by little.",
+      "ja": "次の日、ナナは コーチに 言った。「今の チームで 走ります」。チームメイトは 文句を 言ったが、やがて 四人 全員が 毎夕 いっしょに 練習するように なった。ヒナの タイムは 少しずつ よくなった。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "🧒",
+            "x": 44,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "👥",
+            "x": 70,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "⏱",
+            "x": 86,
+            "y": 28,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "📈",
+            "x": 60,
+            "y": 28,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the day of the race, Hina ran the fastest she had ever run. The baton passed smoothly from hand to hand. The team finished third, only a step behind second place.",
+      "ja": "大会の 日、ヒナは 今までで 一番 速く 走った。バトンは 手から 手へ なめらかに わたった。チームは 三位。二位とは たった 一歩の 差だった。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 60,
+            "y": 70,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 60,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💨",
+            "x": 44,
+            "y": 74,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🥉",
+            "x": 84,
+            "y": 30,
+            "s": 2.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "There was no gold medal. But the four girls jumped and hugged as if they had won. Nana realized that she would remember this race much longer than any race she had won alone.",
+      "ja": "金メダルは なかった。でも 四人は、まるで 優勝したかのように とびはねて だき合った。ナナは 気づいた。一人で 勝った どの レースよりも、この レースを ずっと 長く 覚えているだろう。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 34,
+            "y": 70,
+            "s": 3.6,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 34,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧒",
+            "x": 60,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 60,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🎉",
+            "x": 47,
+            "y": 22,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "👥",
+            "x": 86,
+            "y": 72,
+            "s": 2.4
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "relay",
+      "ja": "リレー"
+    },
+    {
+      "en": "practice",
+      "ja": "練習"
+    },
+    {
+      "en": "several",
+      "ja": "いくつかの"
+    },
+    {
+      "en": "captain",
+      "ja": "キャプテン"
+    },
+    {
+      "en": "stiff",
+      "ja": "かたい"
+    },
+    {
+      "en": "swing",
+      "ja": "ふる"
+    },
+    {
+      "en": "nodded",
+      "ja": "うなずいた"
+    },
+    {
+      "en": "complained",
+      "ja": "文句を 言った"
+    },
+    {
+      "en": "smoothly",
+      "ja": "なめらかに"
+    },
+    {
+      "en": "realized",
+      "ja": "気づいた"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A coach who chooses a new team",
+        "A captain who keeps a slow teammate",
+        "A girl who wins a race by herself",
+        "A runner who loses her gold medal"
+      ],
+      "answer": "A captain who keeps a slow teammate",
+      "kind": "main"
+    },
+    {
+      "q": "Who had to decide about the new girl?",
+      "ja": "新しい 子の ことを 決めなければ ならなかったのは だれ？",
+      "choices": [
+        "The coach alone",
+        "Hina’s parents",
+        "The school principal",
+        "The team members"
+      ],
+      "answer": "The team members",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Nana see on her way home?",
+      "ja": "ナナは 帰り道に 何を 見た？",
+      "choices": [
+        "Hina practicing alone in the dark",
+        "The new girl running with the coach",
+        "Her teammates buying a medal",
+        "A race at another school field"
+      ],
+      "answer": "Hina practicing alone in the dark",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Nana do right after she watched Hina?",
+      "ja": "ナナは ヒナを 見た すぐ後、何を した？",
+      "choices": [
+        "She called the coach at home.",
+        "She asked Hina to leave the team.",
+        "She went to help Hina practice.",
+        "She ran home to tell her mother."
+      ],
+      "answer": "She went to help Hina practice.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why will Nana remember this race for a long time?",
+      "ja": "ナナは なぜ この レースを 長く 覚えているだろう？",
+      "choices": [
+        "It was her first gold medal.",
+        "The team earned it together.",
+        "She ran faster than ever before.",
+        "The coach was angry with her."
+      ],
+      "answer": "The team earned it together.",
+      "kind": "infer"
+    }
+  ]
+}

@@ -27,7 +27,7 @@ const MAIN_SPOTS = [
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const two = (o) => `<b class="en">${esc(o.en)}</b><i class="ja">${esc(o.ja)}</i>`;
 
-export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pendingHomework, openHomework, openReading, openWardrobe, openMap, enterMain, logout }) {
+export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pendingHomework, askHomework, openHomework, openReading, openWardrobe, openMap, enterMain, logout }) {
   const state = { on: false, home: false, island: '' };
   const say = (o) => { try { speak(isJa() ? o.ja : o.en, { japanese: isJa() }); } catch { /* 声が 出なくても 画面は つかえる */ } };
 
@@ -74,6 +74,7 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
     if (!state.on) return;
     for (const d of document.querySelectorAll('dialog[open]')) if (d.id !== 'net-lobby' && d.id !== 'avatar-dialog') d.close();
     renderHome(); home.hidden = false; state.home = true; document.body.dataset.kidsHome = '1';
+    askHomework?.(); // 入った あとで くばられた 宿題も 札に 出す（へんじが 来たら refresh）
   }
   function closeHome() { home.hidden = true; state.home = false; delete document.body.dataset.kidsHome; renderDock(true); }
 
@@ -117,9 +118,34 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
     else player.position.set(isl.x + spot.x, 0, isl.z + spot.z - 0.65);
   }
 
-  function set(on, { first = false } = {}) {
+  // ---- じぶんの 画面で きりかえる（🧸）----
+  // 先生が オンに した 子（部屋が kids=true）は じぶんでは 外せない。それ以外の 人（先生・ふつうの 子・商談で 見せる 人）は
+  // 上の 🧸 で すぐ きりかえられる（この 画面だけ・この タブの あいだ だけ。部屋の 判定や ほかの 人には かかわらない）。
+  const LOCAL_KEY = 'uspeak-kids-local';
+  let server = false; let local = false;
+  try { local = sessionStorage.getItem(LOCAL_KEY) === '1'; } catch { /* 保存が 使えなくても 動く */ }
+  const toggle = document.createElement('button');
+  toggle.type = 'button'; toggle.id = 'kids-toggle'; toggle.hidden = true; toggle.setAttribute('translate', 'no');
+  document.querySelector('header .stats')?.append(toggle);
+  function paintToggle() {
+    toggle.hidden = !ready || server;
+    toggle.innerHTML = state.on ? `<span aria-hidden="true">↩</span><small>${two({ en: 'Normal', ja: 'ふつう' })}</small>` : `<span aria-hidden="true">🧸</span><small>${two({ en: 'Easy', ja: 'かんたん' })}</small>`;
+    toggle.setAttribute('aria-label', state.on ? 'ふつうの がめんに もどす' : 'かんたんな がめん（幼児モード）に する');
+    toggle.classList.toggle('on', state.on); toggle.title = state.on ? 'ふつうの がめんに もどす' : 'かんたんな がめん（幼児モード）を 見る';
+  }
+  toggle.addEventListener('click', () => {
+    if (server) return;
+    local = !local;
+    try { sessionStorage.setItem(LOCAL_KEY, local ? '1' : '0'); } catch { /* */ }
+    apply(local, { first: true });
+  });
+  let ready = false;
+  // 部屋からの しらせ（welcome・'kids'）。部屋が オンなら それ、オフなら じぶんの きりかえ。
+  function set(on, opts = {}) { ready = true; server = !!on; apply(server || local, opts); paintToggle(); }
+
+  function apply(on, { first = false } = {}) {
     on = !!on;
-    if (on === state.on) { if (on && first) openHome(); return; }
+    if (on === state.on) { if (on && first) openHome(); paintToggle(); return; }
     state.on = on;
     if (on) {
       document.body.dataset.mode = 'kids';
@@ -130,8 +156,19 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
       delete document.body.dataset.mode; delete document.body.dataset.kidsHome;
       home.hidden = true; dock.hidden = true; state.home = false;
     }
+    paintToggle();
     dispatchEvent(new CustomEvent('uspeak:kids', { detail: on }));
   }
+  // キーボードの ショートカット（冒険ノート・たんごちょう・じぶんの め・ちず など）は 幼児モードでは 止める。
+  // 動く キー（WASD・やじるし・スペース・E・Enter・Esc）と、文字を 打つ 場所は そのまま。
+  const MOVE_KEYS = new Set(['w', 'a', 's', 'd', 'e', ' ', 'enter', 'escape', 'tab', 'shift', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright']);
+  addEventListener('keydown', (e) => {
+    if (!state.on || e.ctrlKey || e.metaKey || e.altKey) return;
+    const t = e.target;
+    if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName || ''))) return;
+    if (MOVE_KEYS.has(String(e.key || '').toLowerCase())) return;
+    e.stopImmediatePropagation();
+  }, true);
   // いる 島が かわったら 行き先を かきかえる（飛んでいる 間・全画面の あそびの 間は CSS が しまう）。
   setInterval(() => { if (state.on && !state.home) renderDock(); }, 600);
   onLangChange(() => { if (state.on) { if (state.home) renderHome(); renderDock(true); } });

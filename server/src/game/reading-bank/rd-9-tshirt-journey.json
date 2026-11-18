@@ -1,0 +1,627 @@
+{
+  "id": "rd-9-tshirt-journey",
+  "stage": "9",
+  "title": "The Journey of a T-Shirt",
+  "titleJa": "一まいの Tシャツの 旅",
+  "kind": "fact",
+  "cover": {
+    "bg": "sea",
+    "items": [
+      {
+        "e": "👕",
+        "x": 50,
+        "y": 42,
+        "s": 4.4,
+        "a": "bob"
+      },
+      {
+        "e": "🚢",
+        "x": 22,
+        "y": 74,
+        "s": 2.6,
+        "a": "float"
+      },
+      {
+        "e": "🌍",
+        "x": 82,
+        "y": 24,
+        "s": 2.4,
+        "a": "spin"
+      },
+      {
+        "e": "🏷",
+        "x": 70,
+        "y": 60,
+        "s": 1.6
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Take a look at the label inside your T-shirt. It probably names just one country. But that label tells only the last chapter of a long story. Before it reached you, your shirt may have traveled farther than most people travel in several years.",
+      "ja": "Tシャツの 内側の ラベルを 見てみよう。たぶん 国の 名前が 一つだけ 書いてある。でも その ラベルが 語るのは、長い 物語の 最後の 章だけだ。あなたに とどく 前に、シャツは 多くの 人が 数年で 移動するより 遠くまで 旅を したかも しれない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👕",
+            "x": 54,
+            "y": 54,
+            "s": 3.2
+          },
+          {
+            "e": "🏷",
+            "x": 66,
+            "y": 44,
+            "s": 1.4
+          },
+          {
+            "e": "🔍",
+            "x": 74,
+            "y": 52,
+            "s": 1.8
+          },
+          {
+            "e": "🌍",
+            "x": 88,
+            "y": 24,
+            "s": 2,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The story usually begins in a cotton field, perhaps in India, the United States, or China. Cotton is a thirsty plant. Growing enough of it for a single shirt requires a very large amount of water, far more than a person drinks in a whole year.",
+      "ja": "物語は たいてい、綿花畑から 始まる。インドか、アメリカか、中国かも しれない。綿は 水を たくさん ほしがる 植物だ。シャツ 一まい分を 育てるのに、とても 大量の 水が いる。一人が 一年間に 飲む 量より、はるかに 多い。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "🌱",
+            "x": 20,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "☁",
+            "x": 20,
+            "y": 56,
+            "s": 1.2
+          },
+          {
+            "e": "🌱",
+            "x": 42,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "☁",
+            "x": 42,
+            "y": 58,
+            "s": 1.2
+          },
+          {
+            "e": "👩‍🌾",
+            "x": 68,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "💧",
+            "x": 86,
+            "y": 46,
+            "s": 2.4,
+            "a": "bob"
+          },
+          {
+            "e": "💧",
+            "x": 92,
+            "y": 64,
+            "s": 1.6,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "After harvest, the cotton is cleaned and pressed into heavy bales. These are often shipped to another country, where machines spin the fibers into thread. The thread may then travel again to a factory where it is knitted into cloth and dyed.",
+      "ja": "しゅうかくの 後、綿は きれいに され、重い かたまりに 圧縮される。それは しばしば 別の 国へ 船で 送られ、機械で せんいが 糸に つむがれる。糸は さらに 別の 工場へ 運ばれ、布に 編まれ、染められることも ある。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "📦",
+            "x": 16,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "➡",
+            "x": 30,
+            "y": 62,
+            "s": 1.4
+          },
+          {
+            "e": "🏭",
+            "x": 48,
+            "y": 56,
+            "s": 3
+          },
+          {
+            "e": "🧵",
+            "x": 68,
+            "y": 70,
+            "s": 2
+          },
+          {
+            "e": "➡",
+            "x": 78,
+            "y": 62,
+            "s": 1.4
+          },
+          {
+            "e": "🎨",
+            "x": 90,
+            "y": 68,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Next comes sewing. In a garment factory, each worker usually performs one small task: one sews sleeves, another attaches collars. Many of these factories are in countries where wages are low, which is one reason the shirt can be sold so cheaply.",
+      "ja": "次は ぬう 工程だ。ぬい製工場では、ふつう 一人の 働き手が 一つの 小さな 作業を 受け持つ。そでを ぬう 人、えりを つける 人。こうした 工場の 多くは 賃金の 低い 国に あり、それが シャツを とても 安く 売れる 理由の 一つだ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩",
+            "x": 26,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🪡",
+            "x": 42,
+            "y": 58,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "👕",
+            "x": 56,
+            "y": 64,
+            "s": 2.2
+          },
+          {
+            "e": "🧑",
+            "x": 80,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🧵",
+            "x": 66,
+            "y": 78,
+            "s": 1.4
+          },
+          {
+            "e": "🪙",
+            "x": 90,
+            "y": 30,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "The finished shirts are packed into steel containers and loaded onto enormous ships. A single ship can carry thousands of containers. After weeks at sea, the shirts are unloaded, driven to warehouses, and finally delivered to the shop where you found yours.",
+      "ja": "完成した シャツは 鉄の コンテナに つめられ、巨大な 船に 積まれる。一せきの 船が 何千もの コンテナを 運べる。何週間も 海を 進んだ 後、シャツは おろされ、倉庫へ 運ばれ、最後に、あなたが それを 見つけた 店に とどく。",
+      "scene": {
+        "bg": "sea",
+        "items": [
+          {
+            "e": "🚢",
+            "x": 40,
+            "y": 56,
+            "s": 4.6,
+            "a": "float"
+          },
+          {
+            "e": "📦",
+            "x": 34,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "📦",
+            "x": 46,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "🟦",
+            "x": 40,
+            "y": 30,
+            "s": 1.2
+          },
+          {
+            "e": "🚚",
+            "x": 86,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🌊",
+            "x": 14,
+            "y": 84,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Farmers, factory workers, sailors, truck drivers, shop staff: a great many people in several countries cooperated to make one ordinary shirt. None of them knows the others. None of them knows you. Yet their work is touching your skin right now.",
+      "ja": "農家、工場の 働き手、船員、トラックの 運転手、店員。いくつもの 国の、とても 多くの 人が 力を 合わせて、ごく ふつうの シャツ 一まいを 作った。その 人たちは たがいを 知らない。あなたの ことも 知らない。それでも その 仕事は、今 あなたの はだに ふれている。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "👩‍🌾",
+            "x": 12,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "👷",
+            "x": 36,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "👨‍✈️",
+            "x": 60,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "👩‍💼",
+            "x": 84,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "🔗",
+            "x": 24,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🔗",
+            "x": 48,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🔗",
+            "x": 72,
+            "y": 44,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "This global system has real benefits. It gives jobs to millions of people, and it makes clothing affordable for almost everyone. A century ago, most families owned few clothes and repaired them for years. Today, a T-shirt can cost less than a lunch.",
+      "ja": "この 世界規模の しくみには、たしかな 利点が ある。何百万人もの 人に 仕事を もたらし、ほとんど だれもが 服を 買えるように している。百年前、多くの 家庭は 服を 少ししか 持たず、何年も 直して 着た。今では Tシャツが 昼食より 安いことも ある。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👕",
+            "x": 22,
+            "y": 50,
+            "s": 2.4
+          },
+          {
+            "e": "👕",
+            "x": 40,
+            "y": 50,
+            "s": 2.4
+          },
+          {
+            "e": "👕",
+            "x": 58,
+            "y": 50,
+            "s": 2.4
+          },
+          {
+            "e": "🏷",
+            "x": 40,
+            "y": 28,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 82,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😊",
+            "x": 82,
+            "y": 48,
+            "s": 1.5
+          },
+          {
+            "e": "🍱",
+            "x": 62,
+            "y": 80,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "But a low price can hide costs that somebody else pays. Rivers may be polluted by dyes. Workers may labor for long hours in unsafe buildings. And because clothes are so cheap, huge quantities are thrown away after being worn only a few times.",
+      "ja": "だが 安い 値段は、別の だれかが はらう 代しょうを かくすことが ある。川は 染料で よごれるかも しれない。働き手は 危険な 建物で 長時間 働くかも しれない。そして 服が とても 安いために、数回 着ただけで 大量に すてられている。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🏭",
+            "x": 22,
+            "y": 52,
+            "s": 3
+          },
+          {
+            "e": "🌊",
+            "x": 55,
+            "y": 82,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "🟥",
+            "x": 46,
+            "y": 78,
+            "s": 0.9
+          },
+          {
+            "e": "🟦",
+            "x": 62,
+            "y": 80,
+            "s": 0.9
+          },
+          {
+            "e": "🗑",
+            "x": 86,
+            "y": 72,
+            "s": 2.4
+          },
+          {
+            "e": "👕",
+            "x": 86,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "⚠",
+            "x": 55,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "What can one person do? There are no perfect answers, but there are reasonable ones. Buy fewer clothes and wear them longer. Repair them. Pass them on, or buy second-hand. Ask companies where and how their products are made.",
+      "ja": "一人に 何が できるだろう。完ぺきな 答えは ないが、もっともな 答えなら ある。買う 服を へらし、長く 着る。直す。人に ゆずるか、古着を 買う。会社に、製品が どこで、どのように 作られているかを たずねる。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🪡",
+            "x": 46,
+            "y": 58,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "👕",
+            "x": 60,
+            "y": 62,
+            "s": 2.4
+          },
+          {
+            "e": "🔄",
+            "x": 82,
+            "y": 40,
+            "s": 2,
+            "a": "spin"
+          },
+          {
+            "e": "❓",
+            "x": 82,
+            "y": 70,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The price tag tells you what a shirt costs you. It does not tell you what it cost the river, the farmer, or the person at the sewing machine. Perhaps the true price of a thing is the whole story behind it. How much of that story do we have a responsibility to know?",
+      "ja": "値札は、シャツが あなたに いくら かかるかを 教える。川や、農家や、ミシンの 前の 人に 何を はらわせたかは 教えない。物の 本当の 値段とは、その 後ろに ある 物語の 全部なのかも しれない。私たちは その 物語を、どこまで 知る 責任が あるのだろう。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🏷",
+            "x": 30,
+            "y": 44,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "👕",
+            "x": 62,
+            "y": 52,
+            "s": 3
+          },
+          {
+            "e": "🌊",
+            "x": 18,
+            "y": 80,
+            "s": 1.6
+          },
+          {
+            "e": "👩‍🌾",
+            "x": 50,
+            "y": 80,
+            "s": 2
+          },
+          {
+            "e": "🪡",
+            "x": 82,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "❓",
+            "x": 62,
+            "y": 18,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "label",
+      "ja": "ラベル"
+    },
+    {
+      "en": "harvest",
+      "ja": "しゅうかく"
+    },
+    {
+      "en": "fibers",
+      "ja": "せんい"
+    },
+    {
+      "en": "knitted",
+      "ja": "編まれた"
+    },
+    {
+      "en": "dyed",
+      "ja": "染められた"
+    },
+    {
+      "en": "garment",
+      "ja": "衣服"
+    },
+    {
+      "en": "wages",
+      "ja": "賃金"
+    },
+    {
+      "en": "containers",
+      "ja": "コンテナ"
+    },
+    {
+      "en": "warehouses",
+      "ja": "倉庫"
+    },
+    {
+      "en": "cooperated",
+      "ja": "力を 合わせた"
+    },
+    {
+      "en": "affordable",
+      "ja": "手ごろな 値段の"
+    },
+    {
+      "en": "quantities",
+      "ja": "量"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How to sew a T-shirt in a garment factory",
+        "The long journey and hidden costs of clothing",
+        "Why cotton plants grow best in very dry countries",
+        "How container ships cross the ocean safely"
+      ],
+      "answer": "The long journey and hidden costs of clothing",
+      "kind": "main"
+    },
+    {
+      "q": "What does the book say about growing cotton?",
+      "ja": "この本は 綿の さいばいについて 何と 言っている？",
+      "choices": [
+        "It can only be done in one country.",
+        "It takes several years for each plant.",
+        "It is done entirely by machines.",
+        "It requires a great deal of water."
+      ],
+      "answer": "It requires a great deal of water.",
+      "kind": "detail"
+    },
+    {
+      "q": "According to the book, why can a T-shirt be sold so cheaply?",
+      "ja": "この本によると、Tシャツは なぜ とても 安く 売れる？",
+      "choices": [
+        "Many factories are in places with low wages.",
+        "Cotton needs almost no water to grow.",
+        "Ships carry the shirts free of charge.",
+        "Shops sell them for much less than they paid."
+      ],
+      "answer": "Many factories are in places with low wages.",
+      "kind": "detail"
+    },
+    {
+      "q": "Which step comes right after the thread is made?",
+      "ja": "糸が できた すぐ後の 工程は どれ？",
+      "choices": [
+        "The cotton is pressed into bales.",
+        "The shirts are loaded onto ships.",
+        "The thread is knitted into cloth and dyed.",
+        "The shirts are delivered to shops."
+      ],
+      "answer": "The thread is knitted into cloth and dyed.",
+      "kind": "sequence"
+    },
+    {
+      "q": "What does the book suggest “the true price of a thing” includes?",
+      "ja": "この本は 「物の 本当の 値段」に 何が ふくまれると 言っている？",
+      "choices": [
+        "Effects on nature and on the people who made it",
+        "Only the number that is printed on the price tag itself",
+        "The cost of the shop’s lights and staff",
+        "How fashionable the item is this year"
+      ],
+      "answer": "Effects on nature and on the people who made it",
+      "kind": "infer"
+    }
+  ]
+}

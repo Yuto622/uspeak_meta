@@ -1,0 +1,542 @@
+{
+  "id": "rd-2-kite-in-tree",
+  "stage": "2",
+  "title": "The Kite in the Tree",
+  "titleJa": "きの うえの たこ",
+  "kind": "story",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "🌳",
+        "x": 62,
+        "y": 52,
+        "s": 5
+      },
+      {
+        "e": "🪁",
+        "x": 60,
+        "y": 24,
+        "s": 2.2,
+        "a": "sway"
+      },
+      {
+        "e": "👦",
+        "x": 22,
+        "y": 70,
+        "s": 3.4
+      },
+      {
+        "e": "😮",
+        "x": 24,
+        "y": 40,
+        "s": 1.2
+      },
+      {
+        "e": "👟",
+        "x": 76,
+        "y": 34,
+        "s": 1.4
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Kai had a new kite. It was a windy day.",
+      "ja": "カイは あたらしい たこを もっていました。かぜの つよい ひでした。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "🪁",
+            "x": 62,
+            "y": 30,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "💨",
+            "x": 82,
+            "y": 44,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "☁️",
+            "x": 20,
+            "y": 16,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The kite flew up, up, up. Then it stopped in a tree.",
+      "ja": "たこは たかく たかく あがりました。それから きに ひっかかって とまりました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 66,
+            "y": 52,
+            "s": 5
+          },
+          {
+            "e": "🪁",
+            "x": 64,
+            "y": 22,
+            "s": 2.2
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😲",
+            "x": 24,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "❗",
+            "x": 40,
+            "y": 28,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Kai threw his ball at the kite. The ball stayed in the tree.",
+      "ja": "カイは たこに ボールを なげました。ボールも きに のこって しまいました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 66,
+            "y": 52,
+            "s": 5
+          },
+          {
+            "e": "🪁",
+            "x": 64,
+            "y": 22,
+            "s": 2
+          },
+          {
+            "e": "⚽",
+            "x": 76,
+            "y": 34,
+            "s": 1.4
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "💨",
+            "x": 44,
+            "y": 44,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "He threw his shoe. The shoe stayed in the tree, too!",
+      "ja": "カイは くつを なげました。くつも きに のこって しまいました！",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 66,
+            "y": 52,
+            "s": 5
+          },
+          {
+            "e": "🪁",
+            "x": 64,
+            "y": 22,
+            "s": 2
+          },
+          {
+            "e": "⚽",
+            "x": 76,
+            "y": 34,
+            "s": 1.4
+          },
+          {
+            "e": "👟",
+            "x": 54,
+            "y": 36,
+            "s": 1.4
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😟",
+            "x": 24,
+            "y": 40,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Oh no,\" said Kai. \"Now I have one shoe.\"",
+      "ja": "「ああ、どうしよう」と カイは いいました。「くつが かたほうだけに なっちゃった」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😢",
+            "x": 47,
+            "y": 38,
+            "s": 1.2
+          },
+          {
+            "e": "👟",
+            "x": 45,
+            "y": 86,
+            "s": 1.4
+          },
+          {
+            "e": "🌳",
+            "x": 86,
+            "y": 54,
+            "s": 3.6
+          },
+          {
+            "e": "💬",
+            "x": 62,
+            "y": 26,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "His sister Mina came. She looked up and laughed.",
+      "ja": "おねえさんの ミナが きました。うえを みて わらいました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 30,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "👦",
+            "x": 54,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🌳",
+            "x": 84,
+            "y": 52,
+            "s": 4.4
+          },
+          {
+            "e": "🪁",
+            "x": 82,
+            "y": 22,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Do not throw your other shoe,\" she said. \"Wait here.\"",
+      "ja": "「もう かたほうの くつは なげないでね」と ミナは いいました。「ここで まってて」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "✋",
+            "x": 44,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 62,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👟",
+            "x": 76,
+            "y": 60,
+            "s": 1.6,
+            "a": "bob"
+          },
+          {
+            "e": "💬",
+            "x": 30,
+            "y": 24,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "She came back with Dad. Dad had a long ladder.",
+      "ja": "ミナは おとうさんと もどって きました。おとうさんは ながい はしごを もっていました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👨",
+            "x": 26,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "🪜",
+            "x": 44,
+            "y": 58,
+            "s": 3.4
+          },
+          {
+            "e": "👧",
+            "x": 66,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🌳",
+            "x": 90,
+            "y": 52,
+            "s": 4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Dad got the kite, the ball, and the shoe.",
+      "ja": "おとうさんは たこと ボールと くつを とって くれました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌳",
+            "x": 70,
+            "y": 52,
+            "s": 5
+          },
+          {
+            "e": "🪜",
+            "x": 52,
+            "y": 58,
+            "s": 3.6
+          },
+          {
+            "e": "👨",
+            "x": 28,
+            "y": 68,
+            "s": 3.2
+          },
+          {
+            "e": "🪁",
+            "x": 22,
+            "y": 36,
+            "s": 1.8
+          },
+          {
+            "e": "⚽",
+            "x": 38,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "👟",
+            "x": 12,
+            "y": 80,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"Thank you!\" said Kai. \"Next time, I will fly it at the beach.\"",
+      "ja": "「ありがとう！」と カイは いいました。「こんどは うみで あげるね」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 34,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 36,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🪁",
+            "x": 54,
+            "y": 46,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "👨",
+            "x": 76,
+            "y": 68,
+            "s": 3.2
+          },
+          {
+            "e": "🏖️",
+            "x": 56,
+            "y": 20,
+            "s": 1.8
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "kite",
+      "ja": "たこ"
+    },
+    {
+      "en": "windy",
+      "ja": "かぜが つよい"
+    },
+    {
+      "en": "threw",
+      "ja": "なげた"
+    },
+    {
+      "en": "stayed",
+      "ja": "のこった"
+    },
+    {
+      "en": "shoe",
+      "ja": "くつ（かたほう）"
+    },
+    {
+      "en": "sister",
+      "ja": "おねえさん・いもうと"
+    },
+    {
+      "en": "laughed",
+      "ja": "わらった"
+    },
+    {
+      "en": "other",
+      "ja": "もう ひとつの"
+    },
+    {
+      "en": "ladder",
+      "ja": "はしご"
+    },
+    {
+      "en": "beach",
+      "ja": "はまべ・うみべ"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この ほんは おもに なにの おはなし？",
+      "choices": [
+        "a kite that stopped in a tree",
+        "a girl who lost her new shoe",
+        "a boy who swims at the beach"
+      ],
+      "answer": "a kite that stopped in a tree",
+      "kind": "main"
+    },
+    {
+      "q": "What did Kai throw first?",
+      "ja": "カイは さいしょに なにを なげた？",
+      "choices": [
+        "His shoe.",
+        "His hat.",
+        "His ball."
+      ],
+      "answer": "His ball.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Dad bring?",
+      "ja": "おとうさんは なにを もって きた？",
+      "choices": [
+        "A new kite.",
+        "A long ladder.",
+        "A big ball."
+      ],
+      "answer": "A long ladder.",
+      "kind": "detail"
+    },
+    {
+      "q": "A \"windy\" day is a day with ___.",
+      "ja": "「windy」な ひとは、どんな ひ？",
+      "choices": [
+        "a lot of rain",
+        "a lot of snow",
+        "a lot of wind"
+      ],
+      "answer": "a lot of wind",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Mina laugh?",
+      "ja": "ミナは どうして わらった？",
+      "choices": [
+        "Dad told a very funny story.",
+        "Kai's things were in the tree.",
+        "The kite flew to the beach."
+      ],
+      "answer": "Kai's things were in the tree.",
+      "kind": "infer"
+    }
+  ]
+}

@@ -1,0 +1,596 @@
+{
+  "id": "rd-4-strong-bones",
+  "stage": "4",
+  "title": "Your Amazing Bones",
+  "titleJa": "すごいぞ！ きみの ほね",
+  "kind": "fact",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "🦴",
+        "x": 50,
+        "y": 44,
+        "s": 4.4,
+        "a": "spin"
+      },
+      {
+        "e": "👦",
+        "x": 24,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "💪",
+        "x": 76,
+        "y": 62,
+        "s": 2.6,
+        "a": "pulse"
+      },
+      {
+        "e": "✨",
+        "x": 70,
+        "y": 26,
+        "s": 1.8,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Touch your arm. Can you feel something hard inside? That is a bone.",
+      "ja": "うでを さわって みましょう。中に かたい ものが あるのを 感じますか。それが ほねです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.8
+          },
+          {
+            "e": "💪",
+            "x": 58,
+            "y": 54,
+            "s": 2.4
+          },
+          {
+            "e": "🦴",
+            "x": 80,
+            "y": 50,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 58,
+            "y": 26,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "You have bones from your head to your toes. Together, they are called your skeleton.",
+      "ja": "ほねは 頭から 足の 指先まで あります。その 全部を まとめて 「こっかく」と 言います。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧍",
+            "x": 45,
+            "y": 60,
+            "s": 4.6
+          },
+          {
+            "e": "🦴",
+            "x": 72,
+            "y": 34,
+            "s": 1.8
+          },
+          {
+            "e": "🦴",
+            "x": 76,
+            "y": 56,
+            "s": 1.8
+          },
+          {
+            "e": "🦴",
+            "x": 72,
+            "y": 78,
+            "s": 1.8
+          },
+          {
+            "e": "⬇️",
+            "x": 20,
+            "y": 50,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Without bones, your body would be soft like an octopus. Bones help you stand, walk, and jump.",
+      "ja": "ほねが なかったら、体は タコのように ぐにゃぐにゃです。ほねの おかげで、立ったり 歩いたり とんだり できます。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "🐙",
+            "x": 24,
+            "y": 74,
+            "s": 3.4,
+            "a": "sway"
+          },
+          {
+            "e": "👧",
+            "x": 66,
+            "y": 68,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "🦴",
+            "x": 46,
+            "y": 40,
+            "s": 2
+          },
+          {
+            "e": "⬆️",
+            "x": 84,
+            "y": 40,
+            "s": 1.6,
+            "a": "hop"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bones also protect you. The bones in your head are like a helmet for your brain.",
+      "ja": "ほねは 体を 守る 役目も します。頭の ほねは、のうを 守る ヘルメットのような ものです。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧠",
+            "x": 45,
+            "y": 50,
+            "s": 4.4
+          },
+          {
+            "e": "🛡️",
+            "x": 72,
+            "y": 50,
+            "s": 3,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 14,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "✨",
+            "x": 45,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The bones in your chest are called ribs. They make a strong cage around your heart.",
+      "ja": "むねの ほねは 「ろっこつ」と 言います。心ぞうの まわりに じょうぶな かごを 作っています。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "❤️",
+            "x": 45,
+            "y": 52,
+            "s": 3.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🦴",
+            "x": 26,
+            "y": 42,
+            "s": 2.2
+          },
+          {
+            "e": "🦴",
+            "x": 26,
+            "y": 60,
+            "s": 2.2
+          },
+          {
+            "e": "🦴",
+            "x": 64,
+            "y": 42,
+            "s": 2.2,
+            "flip": true
+          },
+          {
+            "e": "🦴",
+            "x": 64,
+            "y": 60,
+            "s": 2.2,
+            "flip": true
+          },
+          {
+            "e": "🛡️",
+            "x": 86,
+            "y": 50,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "A baby has more bones than an adult. When the baby grows, some bones join together.",
+      "ja": "赤ちゃんの ほねの 数は、大人より 多いです。成長すると、いくつかの ほねが くっついて 1つに なります。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👶",
+            "x": 24,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🦴",
+            "x": 24,
+            "y": 40,
+            "s": 1.4
+          },
+          {
+            "e": "🦴",
+            "x": 34,
+            "y": 34,
+            "s": 1.4
+          },
+          {
+            "e": "➡️",
+            "x": 50,
+            "y": 56,
+            "s": 1.8
+          },
+          {
+            "e": "👨",
+            "x": 76,
+            "y": 68,
+            "s": 3.6
+          },
+          {
+            "e": "🦴",
+            "x": 76,
+            "y": 30,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bones look dry and hard, but they are alive. They grow when you grow.",
+      "ja": "ほねは かわいて かたそうに 見えますが、生きています。あなたが 大きく なると、ほねも 大きく なります。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 22,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "🦴",
+            "x": 22,
+            "y": 44,
+            "s": 1.4
+          },
+          {
+            "e": "➡️",
+            "x": 46,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "🧑",
+            "x": 74,
+            "y": 68,
+            "s": 3.6
+          },
+          {
+            "e": "🦴",
+            "x": 74,
+            "y": 26,
+            "s": 2.2
+          },
+          {
+            "e": "📏",
+            "x": 92,
+            "y": 62,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "When a bone breaks, a doctor keeps it still. Then the bone slowly fixes itself.",
+      "ja": "ほねが 折れた ときは、お医者さんが 動かないように 固定します。すると、ほねは 少しずつ 自分で 治ります。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👩‍🔬",
+            "x": 26,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👦",
+            "x": 62,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🦴",
+            "x": 82,
+            "y": 40,
+            "s": 2.4
+          },
+          {
+            "e": "✨",
+            "x": 82,
+            "y": 22,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🛏️",
+            "x": 90,
+            "y": 78,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Your smallest bones are inside your ears. They help you hear sounds.",
+      "ja": "いちばん 小さい ほねは、耳の 中に あります。音を 聞く 手伝いを しています。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👂",
+            "x": 40,
+            "y": 52,
+            "s": 4.6
+          },
+          {
+            "e": "🦴",
+            "x": 44,
+            "y": 52,
+            "s": 0.9,
+            "a": "pulse"
+          },
+          {
+            "e": "🔍",
+            "x": 66,
+            "y": 44,
+            "s": 2.6
+          },
+          {
+            "e": "🎵",
+            "x": 86,
+            "y": 30,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "How can you make your bones strong? Drink milk, eat fish, and play outside in the sun.",
+      "ja": "どう すれば ほねを 強く できるでしょう。牛にゅうを 飲み、魚を 食べ、太陽の 下で 外遊びを しましょう。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🥛",
+            "x": 18,
+            "y": 70,
+            "s": 2.6
+          },
+          {
+            "e": "🐟",
+            "x": 40,
+            "y": 72,
+            "s": 2.4
+          },
+          {
+            "e": "☀️",
+            "x": 84,
+            "y": 14,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 70,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "💪",
+            "x": 54,
+            "y": 42,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Running and jumping are good for bones, too. So go and play — your bones will thank you!",
+      "ja": "走ったり とんだり する ことも、ほねに いいのです。さあ、遊びに 行こう。ほねが よろこぶよ！",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 68,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "👧",
+            "x": 62,
+            "y": 70,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "⚽",
+            "x": 46,
+            "y": 80,
+            "s": 1.6,
+            "a": "hop"
+          },
+          {
+            "e": "🦴",
+            "x": 84,
+            "y": 36,
+            "s": 2.2,
+            "a": "spin"
+          },
+          {
+            "e": "❤️",
+            "x": 84,
+            "y": 16,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "bone",
+      "ja": "ほね"
+    },
+    {
+      "en": "toes",
+      "ja": "足の 指"
+    },
+    {
+      "en": "skeleton",
+      "ja": "こっかく・がいこつ"
+    },
+    {
+      "en": "octopus",
+      "ja": "タコ"
+    },
+    {
+      "en": "protect",
+      "ja": "守る"
+    },
+    {
+      "en": "brain",
+      "ja": "のう"
+    },
+    {
+      "en": "chest",
+      "ja": "むね"
+    },
+    {
+      "en": "ribs",
+      "ja": "ろっこつ"
+    },
+    {
+      "en": "adult",
+      "ja": "大人"
+    },
+    {
+      "en": "join",
+      "ja": "くっつく・つながる"
+    },
+    {
+      "en": "alive",
+      "ja": "生きている"
+    },
+    {
+      "en": "still",
+      "ja": "動かない"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "what bones do and how to keep them strong",
+        "why an octopus lives deep in the sea",
+        "how doctors work in a big hospital",
+        "which sports are the most fun for children"
+      ],
+      "answer": "what bones do and how to keep them strong",
+      "kind": "main"
+    },
+    {
+      "q": "What do the bones in your head protect?",
+      "ja": "頭の ほねは 何を 守っていますか。",
+      "choices": [
+        "Your heart.",
+        "Your ears.",
+        "Your brain.",
+        "Your toes."
+      ],
+      "answer": "Your brain.",
+      "kind": "detail"
+    },
+    {
+      "q": "Where are your smallest bones?",
+      "ja": "いちばん 小さい ほねは どこに ありますか。",
+      "choices": [
+        "In your fingers.",
+        "In your nose.",
+        "In your toes.",
+        "In your ears."
+      ],
+      "answer": "In your ears.",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, \"protect\" means ___.",
+      "ja": "この本で「protect」は どんな 意味ですか。",
+      "choices": [
+        "to make something bigger",
+        "to keep something safe",
+        "to break something hard",
+        "to count many things"
+      ],
+      "answer": "to keep something safe",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why does an adult have fewer bones than a baby?",
+      "ja": "大人の ほねの 数は、なぜ 赤ちゃんより 少ないのですか。",
+      "choices": [
+        "Adults lose bones when they run.",
+        "Some bones became one bone.",
+        "Babies need more bones to sleep.",
+        "Doctors take out the old bones."
+      ],
+      "answer": "Some bones became one bone.",
+      "kind": "infer"
+    }
+  ]
+}

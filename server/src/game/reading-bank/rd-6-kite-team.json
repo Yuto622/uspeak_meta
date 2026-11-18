@@ -1,0 +1,541 @@
+{
+  "id": "rd-6-kite-team",
+  "stage": "6",
+  "title": "Room for One More",
+  "titleJa": "もう一人 入れる 場所",
+  "kind": "story",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "👦",
+        "x": 28,
+        "y": 70,
+        "s": 3.4
+      },
+      {
+        "e": "🧒",
+        "x": 52,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "👧",
+        "x": 78,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "🪁",
+        "x": 55,
+        "y": 22,
+        "s": 3,
+        "a": "float"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Ren and Sota had made kites together since they were six. This year they wanted to win the big kite contest at Hill Park.",
+      "ja": "レンと ソウタは、六才の ころから いっしょに たこを 作ってきた。今年は ヒル公園の 大きな たこあげ大会で 勝ちたいと 思っていた。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧒",
+            "x": 58,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🪁",
+            "x": 78,
+            "y": 25,
+            "s": 2.6,
+            "a": "float"
+          },
+          {
+            "e": "🏆",
+            "x": 88,
+            "y": 72,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "One week before the contest, a new girl named Mia watched them from the fence. “Your kite is cool,” she said quietly. “Can I join your team?”",
+      "ja": "大会の 一週間前、ミアという 転校生の 女の子が さくの 所から 二人を 見ていた。「そのたこ、かっこいいね」と 小さな声で 言った。「チームに 入っても いい？」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 82,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "💬",
+            "x": 82,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧒",
+            "x": 48,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🪁",
+            "x": 35,
+            "y": 25,
+            "s": 2.4,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sota shook his head. “We have always been a team of two,” he whispered to Ren. “If you say yes to her, I will be sad.”",
+      "ja": "ソウタは 首を ふった。「ぼくたちは ずっと 二人の チームだったよね」と レンに ささやいた。「あの子に いいよと 言ったら、ぼくは 悲しいな」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 55,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😔",
+            "x": 55,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💬",
+            "x": 60,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 88,
+            "y": 72,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ren looked at Mia, who was walking away alone. He felt a pain in his chest. He did not want to hurt Sota, but he remembered being new once, too.",
+      "ja": "レンは、一人で 歩いていく ミアを 見た。むねが いたんだ。ソウタを きずつけたくない。でも、自分も 前に 転校生だったことを 思い出した。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 82,
+            "y": 72,
+            "s": 2.6,
+            "flip": true
+          },
+          {
+            "e": "💭",
+            "x": 42,
+            "y": 28,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🌳",
+            "x": 60,
+            "y": 62,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "That night Ren could not decide. Then he thought, “A good friend tells the truth.” The next morning he said to Sota, “I want to ask Mia. Please give her one chance.”",
+      "ja": "その夜、レンは 決められなかった。そして 思った。「いい友だちは 本当のことを 言うものだ」。次の朝、ソウタに 言った。「ミアを さそいたい。一度だけ チャンスを あげて」",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👦",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 45,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🛏",
+            "x": 45,
+            "y": 82,
+            "s": 3
+          },
+          {
+            "e": "🌙",
+            "x": 80,
+            "y": 18,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "💭",
+            "x": 62,
+            "y": 30,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sota was silent for a long time. “One chance,” he said at last. So the three children met at Ren’s house. Mia was shy, but she had brought a notebook full of kite drawings.",
+      "ja": "ソウタは 長い間 だまっていた。「一度だけだよ」と やっと 言った。そこで 三人は レンの家に 集まった。ミアは はずかしそうだったが、たこの 絵で いっぱいの ノートを 持ってきていた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 75,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📓",
+            "x": 62,
+            "y": 60,
+            "s": 1.8
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🧒",
+            "x": 46,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🪁",
+            "x": 12,
+            "y": 30,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "“The tail is too short,” Mia explained. “That is why your kite spins in strong wind.” She added a long paper tail. Sota watched carefully and slowly began to smile.",
+      "ja": "「しっぽが 短すぎるの」と ミアは 説明した。「だから 強い風で たこが くるくる 回るんだよ」。ミアは 長い 紙の しっぽを つけた。ソウタは じっと 見て、少しずつ 笑顔に なった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🪁",
+            "x": 52,
+            "y": 55,
+            "s": 2.8
+          },
+          {
+            "e": "〰",
+            "x": 52,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🧒",
+            "x": 78,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😊",
+            "x": 78,
+            "y": 48,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the contest day, the wind was very strong. Many kites spun and fell. But the children’s kite climbed higher and higher, steady in the blue sky.",
+      "ja": "大会の日、風は とても 強かった。たくさんの たこが 回って 落ちた。でも 三人の たこは、青い空で 安定したまま、どんどん 高く 上がっていった。",
+      "scene": {
+        "bg": "sky",
+        "items": [
+          {
+            "e": "🪁",
+            "x": 50,
+            "y": 22,
+            "s": 3.4,
+            "a": "float"
+          },
+          {
+            "e": "🪁",
+            "x": 15,
+            "y": 62,
+            "s": 1.8,
+            "a": "spin"
+          },
+          {
+            "e": "🪁",
+            "x": 85,
+            "y": 70,
+            "s": 1.8,
+            "a": "spin"
+          },
+          {
+            "e": "🌬",
+            "x": 22,
+            "y": 30,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "☁",
+            "x": 80,
+            "y": 20,
+            "s": 2,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "They did not win first prize. They got second. But Sota held up the silver medal and laughed. “Next year, the three of us will make an even better one!”",
+      "ja": "一等賞は とれなかった。二等だった。でも ソウタは 銀メダルを 高く 上げて 笑った。「来年は 三人で もっと いいのを 作ろう！」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🧒",
+            "x": 50,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😄",
+            "x": 50,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🏅",
+            "x": 50,
+            "y": 26,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👧",
+            "x": 78,
+            "y": 70,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ren looked at his two friends. Making room for one more person had not made their friendship smaller. It had made it bigger.",
+      "ja": "レンは 二人の 友だちを 見た。もう一人の ために 場所を 作っても、友情は 小さく ならなかった。もっと 大きく なったのだ。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 50,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 50,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧒",
+            "x": 24,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👧",
+            "x": 76,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🌅",
+            "x": 85,
+            "y": 22,
+            "s": 2.4
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "contest",
+      "ja": "大会、コンテスト"
+    },
+    {
+      "en": "fence",
+      "ja": "さく"
+    },
+    {
+      "en": "whispered",
+      "ja": "ささやいた"
+    },
+    {
+      "en": "chest",
+      "ja": "むね"
+    },
+    {
+      "en": "decide",
+      "ja": "決める"
+    },
+    {
+      "en": "chance",
+      "ja": "チャンス、機会"
+    },
+    {
+      "en": "silent",
+      "ja": "だまっている"
+    },
+    {
+      "en": "explained",
+      "ja": "説明した"
+    },
+    {
+      "en": "steady",
+      "ja": "安定した"
+    },
+    {
+      "en": "friendship",
+      "ja": "友情"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A boy who wins first prize alone",
+        "A girl who breaks a kite",
+        "A boy who lets a new girl join",
+        "A park that closes in winter"
+      ],
+      "answer": "A boy who lets a new girl join",
+      "kind": "main"
+    },
+    {
+      "q": "What did Mia bring to Ren’s house?",
+      "ja": "ミアは レンの家に 何を 持ってきた？",
+      "choices": [
+        "A notebook of kite drawings",
+        "A silver medal from last year",
+        "A box of lemon cookies",
+        "A very long rope"
+      ],
+      "answer": "A notebook of kite drawings",
+      "kind": "detail"
+    },
+    {
+      "q": "Why did the old kite spin in strong wind?",
+      "ja": "前の たこは なぜ 強い風で 回った？",
+      "choices": [
+        "It was too heavy.",
+        "The string was old.",
+        "It had a hole.",
+        "The tail was too short."
+      ],
+      "answer": "The tail was too short.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened after Ren talked to Sota in the morning?",
+      "ja": "レンが 朝 ソウタと 話した後、何が 起きた？",
+      "choices": [
+        "Mia moved away to another town far away.",
+        "The three children met at Ren’s house.",
+        "Sota left the team.",
+        "The contest was stopped."
+      ],
+      "answer": "The three children met at Ren’s house.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did Ren want to give Mia a chance?",
+      "ja": "レンは なぜ ミアに チャンスを あげたかった？",
+      "choices": [
+        "He knew how it felt to be new.",
+        "He was angry with Sota.",
+        "His teacher told him to be kind to her.",
+        "He wanted her notebook."
+      ],
+      "answer": "He knew how it felt to be new.",
+      "kind": "infer"
+    }
+  ]
+}

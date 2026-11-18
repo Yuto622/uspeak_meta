@@ -1,0 +1,649 @@
+{
+  "id": "rd-4-moon-shapes",
+  "stage": "4",
+  "title": "Why Does the Moon Change Shape?",
+  "titleJa": "月の 形は なぜ 変わる？",
+  "kind": "fact",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "🌕",
+        "x": 30,
+        "y": 30,
+        "s": 3.4,
+        "a": "pulse"
+      },
+      {
+        "e": "🌙",
+        "x": 70,
+        "y": 30,
+        "s": 3,
+        "a": "sway"
+      },
+      {
+        "e": "👧",
+        "x": 50,
+        "y": 72,
+        "s": 3.2
+      },
+      {
+        "e": "🔭",
+        "x": 72,
+        "y": 74,
+        "s": 2.2
+      },
+      {
+        "e": "⭐",
+        "x": 50,
+        "y": 12,
+        "s": 1.4,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Look at the sky tonight. Is the moon round, or is it thin like a banana?",
+      "ja": "今夜、空を 見て みましょう。月は まるいですか。それとも バナナのように 細いですか。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌙",
+            "x": 70,
+            "y": 22,
+            "s": 3,
+            "a": "sway"
+          },
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👉",
+            "x": 46,
+            "y": 46,
+            "s": 1.6
+          },
+          {
+            "e": "⭐",
+            "x": 20,
+            "y": 16,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🍌",
+            "x": 88,
+            "y": 50,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The moon looks different every night. But the moon itself does not really change shape.",
+      "ja": "月は 毎ばん ちがって 見えます。でも、月 そのものの 形が 本当に 変わる わけでは ありません。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌙",
+            "x": 20,
+            "y": 30,
+            "s": 2.4
+          },
+          {
+            "e": "🌛",
+            "x": 50,
+            "y": 26,
+            "s": 2.6
+          },
+          {
+            "e": "🌕",
+            "x": 80,
+            "y": 30,
+            "s": 2.6
+          },
+          {
+            "e": "➡️",
+            "x": 35,
+            "y": 30,
+            "s": 1.2
+          },
+          {
+            "e": "➡️",
+            "x": 65,
+            "y": 30,
+            "s": 1.2
+          },
+          {
+            "e": "❓",
+            "x": 50,
+            "y": 60,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The moon is a big ball of rock. It does not make its own light.",
+      "ja": "月は 岩で できた 大きな ボールです。自分で 光を 出しては いません。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🌕",
+            "x": 45,
+            "y": 50,
+            "s": 5.4
+          },
+          {
+            "e": "🪨",
+            "x": 80,
+            "y": 70,
+            "s": 2.2
+          },
+          {
+            "e": "💡",
+            "x": 82,
+            "y": 28,
+            "s": 1.8
+          },
+          {
+            "e": "❌",
+            "x": 82,
+            "y": 28,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "It shines because light from the sun hits it. One half of the moon is always bright.",
+      "ja": "月が かがやくのは、太陽の 光が 当たるからです。月の 半分は いつも 明るく なっています。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 14,
+            "y": 40,
+            "s": 4,
+            "a": "pulse"
+          },
+          {
+            "e": "➡️",
+            "x": 40,
+            "y": 44,
+            "s": 2
+          },
+          {
+            "e": "🌛",
+            "x": 72,
+            "y": 46,
+            "s": 4.4
+          },
+          {
+            "e": "✨",
+            "x": 56,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The moon goes around the Earth. One trip takes about one month.",
+      "ja": "月は 地球の まわりを 回っています。1しゅうするのに、およそ 1か月 かかります。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🌍",
+            "x": 45,
+            "y": 52,
+            "s": 4.4,
+            "a": "spin"
+          },
+          {
+            "e": "🌕",
+            "x": 80,
+            "y": 34,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "🔄",
+            "x": 45,
+            "y": 18,
+            "s": 2,
+            "a": "spin"
+          },
+          {
+            "e": "📅",
+            "x": 14,
+            "y": 74,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "When the moon moves, we see its bright half from different sides.",
+      "ja": "月が 動くと、わたしたちは 明るい 半分を ちがう 方向から 見る ことに なります。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🌍",
+            "x": 30,
+            "y": 60,
+            "s": 3.6
+          },
+          {
+            "e": "👀",
+            "x": 30,
+            "y": 36,
+            "s": 1.6
+          },
+          {
+            "e": "🌛",
+            "x": 62,
+            "y": 30,
+            "s": 2.4
+          },
+          {
+            "e": "🌕",
+            "x": 84,
+            "y": 56,
+            "s": 2.4
+          },
+          {
+            "e": "☀️",
+            "x": 8,
+            "y": 16,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sometimes we see all of the bright half. We call this a full moon.",
+      "ja": "明るい 半分が 全部 見える ことも あります。これを 「満月」と 言います。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌕",
+            "x": 55,
+            "y": 28,
+            "s": 4.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😄",
+            "x": 30,
+            "y": 42,
+            "s": 1.1
+          },
+          {
+            "e": "🐇",
+            "x": 78,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "⭐",
+            "x": 12,
+            "y": 14,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sometimes we see only a little of it. Then the moon looks thin and curved.",
+      "ja": "少ししか 見えない ことも あります。そんな とき、月は 細く 曲がって 見えます。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌙",
+            "x": 55,
+            "y": 26,
+            "s": 4.2,
+            "a": "sway"
+          },
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "⭐",
+            "x": 82,
+            "y": 18,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 14,
+            "y": 30,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🏠",
+            "x": 84,
+            "y": 68,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "When the bright side faces away from us, we cannot see the moon at all. This is a new moon.",
+      "ja": "明るい 側が わたしたちの 反対を 向くと、月は まったく 見えません。これが 「新月」です。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "⚫",
+            "x": 55,
+            "y": 26,
+            "s": 3.4
+          },
+          {
+            "e": "❓",
+            "x": 55,
+            "y": 26,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🤔",
+            "x": 30,
+            "y": 42,
+            "s": 1.1
+          },
+          {
+            "e": "⭐",
+            "x": 84,
+            "y": 18,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 12,
+            "y": 20,
+            "s": 1.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Long ago, people used the moon like a calendar. They counted the days from one full moon to the next.",
+      "ja": "昔の 人は、月を カレンダーのように 使いました。満月から 次の 満月までの 日数を 数えたのです。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌕",
+            "x": 20,
+            "y": 24,
+            "s": 2.6
+          },
+          {
+            "e": "➡️",
+            "x": 40,
+            "y": 24,
+            "s": 1.4
+          },
+          {
+            "e": "🌕",
+            "x": 60,
+            "y": 24,
+            "s": 2.6
+          },
+          {
+            "e": "📅",
+            "x": 84,
+            "y": 40,
+            "s": 2.4
+          },
+          {
+            "e": "👴",
+            "x": 40,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🔥",
+            "x": 70,
+            "y": 76,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "More than fifty years ago, people flew to the moon and walked on it.",
+      "ja": "50年以上 前に、人間が 月まで 飛んで 行き、月の 上を 歩きました。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🧑‍🚀",
+            "x": 40,
+            "y": 68,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "🚀",
+            "x": 76,
+            "y": 60,
+            "s": 3
+          },
+          {
+            "e": "🌍",
+            "x": 82,
+            "y": 16,
+            "s": 2.2
+          },
+          {
+            "e": "🚩",
+            "x": 16,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "⭐",
+            "x": 30,
+            "y": 14,
+            "s": 1.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Watch the moon every night this month and draw it. You will see the changes yourself!",
+      "ja": "今月は 毎ばん 月を 見て、絵に かいて みましょう。自分の 目で 変化が わかりますよ！",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "✏️",
+            "x": 46,
+            "y": 58,
+            "s": 1.4,
+            "a": "hop"
+          },
+          {
+            "e": "📓",
+            "x": 54,
+            "y": 68,
+            "s": 2
+          },
+          {
+            "e": "🌛",
+            "x": 76,
+            "y": 22,
+            "s": 2.8,
+            "a": "sway"
+          },
+          {
+            "e": "🪟",
+            "x": 76,
+            "y": 26,
+            "s": 4.2
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "thin",
+      "ja": "細い"
+    },
+    {
+      "en": "different",
+      "ja": "ちがう"
+    },
+    {
+      "en": "itself",
+      "ja": "それ自体"
+    },
+    {
+      "en": "shines",
+      "ja": "かがやく"
+    },
+    {
+      "en": "half",
+      "ja": "半分"
+    },
+    {
+      "en": "bright",
+      "ja": "明るい"
+    },
+    {
+      "en": "full moon",
+      "ja": "満月"
+    },
+    {
+      "en": "curved",
+      "ja": "曲がった"
+    },
+    {
+      "en": "faces",
+      "ja": "〜の ほうを 向く"
+    },
+    {
+      "en": "calendar",
+      "ja": "カレンダー"
+    },
+    {
+      "en": "counted",
+      "ja": "数えた"
+    },
+    {
+      "en": "changes",
+      "ja": "変化"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "how people built rockets a long time ago",
+        "why the sun is hotter than the moon",
+        "why the moon looks different each night",
+        "how to read a calendar at school"
+      ],
+      "answer": "why the moon looks different each night",
+      "kind": "main"
+    },
+    {
+      "q": "Why does the moon shine?",
+      "ja": "月は なぜ かがやくのですか。",
+      "choices": [
+        "Light from the sun hits it.",
+        "It burns like a big fire.",
+        "The Earth sends light to it.",
+        "It is covered with white snow."
+      ],
+      "answer": "Light from the sun hits it.",
+      "kind": "detail"
+    },
+    {
+      "q": "About how long does the moon take to go around the Earth?",
+      "ja": "月が 地球の まわりを 1しゅうするのに、およそ どのくらい かかりますか。",
+      "choices": [
+        "One day.",
+        "One week.",
+        "One year.",
+        "One month."
+      ],
+      "answer": "One month.",
+      "kind": "detail"
+    },
+    {
+      "q": "A \"full moon\" is the moon when it looks ___.",
+      "ja": "「full moon」とは、月が どう 見える ときですか。",
+      "choices": [
+        "thin and curved",
+        "big and round",
+        "dark and small",
+        "red and hot"
+      ],
+      "answer": "big and round",
+      "kind": "vocab"
+    },
+    {
+      "q": "If you see a full moon tonight, when will the next one be?",
+      "ja": "今夜が 満月なら、次の 満月は いつでしょう。",
+      "choices": [
+        "Tomorrow night.",
+        "In about a week.",
+        "In about a month.",
+        "In about a year."
+      ],
+      "answer": "In about a month.",
+      "kind": "infer"
+    }
+  ]
+}

@@ -1,0 +1,479 @@
+{
+  "id": "rd-1-pancakes-for-mom",
+  "stage": "1",
+  "title": "Pancakes for Mom",
+  "titleJa": "ママに パンケーキ",
+  "kind": "story",
+  "cover": {
+    "bg": "kitchen",
+    "items": [
+      {
+        "e": "👧",
+        "x": 26,
+        "y": 70,
+        "s": 3.4,
+        "a": "bob"
+      },
+      {
+        "e": "🥞",
+        "x": 52,
+        "y": 66,
+        "s": 3.4,
+        "a": "pulse"
+      },
+      {
+        "e": "👨",
+        "x": 78,
+        "y": 70,
+        "s": 3.4
+      },
+      {
+        "e": "❤️",
+        "x": 52,
+        "y": 26,
+        "s": 2,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "It is Sunday morning. Mom is still sleeping.",
+      "ja": "にちようびの あさ。ママは まだ ねている。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🛏️",
+            "x": 50,
+            "y": 74,
+            "s": 4.8
+          },
+          {
+            "e": "👩",
+            "x": 46,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "💤",
+            "x": 68,
+            "y": 30,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "☀️",
+            "x": 14,
+            "y": 18,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Yui and Dad are in the kitchen. They want to make pancakes.",
+      "ja": "ゆいと パパは だいどころに いる。パンケーキを つくりたい。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "👨",
+            "x": 58,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "💭",
+            "x": 80,
+            "y": 26,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "🥞",
+            "x": 80,
+            "y": 24,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Yui puts eggs and milk in a bowl.",
+      "ja": "ゆいは ボウルに たまごと ぎゅうにゅうを いれる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🥚",
+            "x": 46,
+            "y": 50,
+            "s": 1.6,
+            "a": "hop"
+          },
+          {
+            "e": "🥛",
+            "x": 62,
+            "y": 50,
+            "s": 1.8,
+            "a": "hop"
+          },
+          {
+            "e": "🍲",
+            "x": 54,
+            "y": 76,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Dad cooks the first pancake. Oh no! It is black.",
+      "ja": "パパが １まいめを やく。たいへん！ まっくろだ。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👨",
+            "x": 28,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "😲",
+            "x": 28,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🍳",
+            "x": 60,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "⚫",
+            "x": 62,
+            "y": 66,
+            "s": 1.4
+          },
+          {
+            "e": "💨",
+            "x": 64,
+            "y": 40,
+            "s": 2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The second pancake falls down. The dog eats it.",
+      "ja": "２まいめは おちて しまう。いぬが それを たべる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👨",
+            "x": 22,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🥞",
+            "x": 52,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "🐶",
+            "x": 72,
+            "y": 74,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "⬇️",
+            "x": 50,
+            "y": 50,
+            "s": 1.6,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The third pancake is big and round. It is good!",
+      "ja": "３まいめは おおきくて まるい。じょうずに できた！",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "🥞",
+            "x": 54,
+            "y": 62,
+            "s": 4.6,
+            "a": "pulse"
+          },
+          {
+            "e": "✨",
+            "x": 80,
+            "y": 34,
+            "s": 1.8,
+            "a": "spin"
+          },
+          {
+            "e": "👧",
+            "x": 18,
+            "y": 72,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "😄",
+            "x": 18,
+            "y": 46,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Yui puts red strawberries on it.",
+      "ja": "ゆいは あかい いちごを のせる。",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🥞",
+            "x": 60,
+            "y": 72,
+            "s": 3.8
+          },
+          {
+            "e": "🍓",
+            "x": 54,
+            "y": 54,
+            "s": 1.6,
+            "a": "hop"
+          },
+          {
+            "e": "🍓",
+            "x": 68,
+            "y": 56,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "“Good morning, Mom! This is for you.”",
+      "ja": "「おはよう、ママ！ これ、ママに どうぞ。」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🥞",
+            "x": 40,
+            "y": 62,
+            "s": 2
+          },
+          {
+            "e": "👩",
+            "x": 62,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 62,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "👨",
+            "x": 88,
+            "y": 70,
+            "s": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mom smiles. “Thank you! Let’s eat it together.”",
+      "ja": "ママは にっこり。「ありがとう！ いっしょに たべましょう。」",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👧",
+            "x": 14,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👩",
+            "x": 40,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 40,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🥞",
+            "x": 60,
+            "y": 76,
+            "s": 2.4
+          },
+          {
+            "e": "👨",
+            "x": 84,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "❤️",
+            "x": 60,
+            "y": 22,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "Sunday",
+      "ja": "にちようび"
+    },
+    {
+      "en": "kitchen",
+      "ja": "だいどころ"
+    },
+    {
+      "en": "pancakes",
+      "ja": "パンケーキ"
+    },
+    {
+      "en": "bowl",
+      "ja": "ボウル・おわん"
+    },
+    {
+      "en": "cooks",
+      "ja": "りょうりする・やく"
+    },
+    {
+      "en": "first",
+      "ja": "１ばんめの"
+    },
+    {
+      "en": "second",
+      "ja": "２ばんめの"
+    },
+    {
+      "en": "third",
+      "ja": "３ばんめの"
+    },
+    {
+      "en": "round",
+      "ja": "まるい"
+    },
+    {
+      "en": "strawberries",
+      "ja": "いちご"
+    },
+    {
+      "en": "together",
+      "ja": "いっしょに"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story about?",
+      "ja": "これは なにの おはなし？",
+      "choices": [
+        "Yui and Dad make pancakes for Mom.",
+        "Mom makes dinner for the dog.",
+        "Yui and Mom go to a cake shop."
+      ],
+      "answer": "Yui and Dad make pancakes for Mom.",
+      "kind": "main"
+    },
+    {
+      "q": "What does Yui put in the bowl?",
+      "ja": "ゆいは ボウルに なにを いれるの？",
+      "choices": [
+        "rice and water",
+        "apples and sugar",
+        "eggs and milk"
+      ],
+      "answer": "eggs and milk",
+      "kind": "detail"
+    },
+    {
+      "q": "Who eats the second pancake?",
+      "ja": "２まいめの パンケーキを たべるのは だれ？",
+      "choices": [
+        "Dad",
+        "the dog",
+        "Mom"
+      ],
+      "answer": "the dog",
+      "kind": "detail"
+    },
+    {
+      "q": "Which pancake is black?",
+      "ja": "まっくろなのは なんまいめ？",
+      "choices": [
+        "the first one",
+        "the second one",
+        "the third one"
+      ],
+      "answer": "the first one",
+      "kind": "sequence"
+    },
+    {
+      "q": "How does Mom feel at the end?",
+      "ja": "さいごに ママは どんな きもち？",
+      "choices": [
+        "She is angry.",
+        "She is sleepy.",
+        "She is happy."
+      ],
+      "answer": "She is happy.",
+      "kind": "infer"
+    }
+  ]
+}

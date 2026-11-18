@@ -1,0 +1,590 @@
+{
+  "id": "rd-9-bread-basket",
+  "stage": "9",
+  "title": "The Boy Who Took the Bread",
+  "titleJa": "パンを 取った 少年",
+  "kind": "story",
+  "cover": {
+    "bg": "shop",
+    "items": [
+      {
+        "e": "👧",
+        "x": 28,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "🧺",
+        "x": 56,
+        "y": 76,
+        "s": 2.6
+      },
+      {
+        "e": "🥖",
+        "x": 56,
+        "y": 58,
+        "s": 1.8
+      },
+      {
+        "e": "👦",
+        "x": 82,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "🍞",
+        "x": 40,
+        "y": 34,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Maya’s family ran a small bakery near the station. Every evening after school, she worked at the counter while her father baked in the back. She knew the regular customers by name, and she knew exactly how many rolls should remain on each tray.",
+      "ja": "マヤの 家は、駅の 近くで 小さな パン屋を していた。毎日 放課後、父が おくで 焼く 間、マヤは カウンターに 立った。常連客の 名前を 知っていたし、どの トレーに パンが いくつ 残るはずかも 正確に 分かっていた。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🍞",
+            "x": 50,
+            "y": 56,
+            "s": 2
+          },
+          {
+            "e": "🥐",
+            "x": 64,
+            "y": 58,
+            "s": 1.8
+          },
+          {
+            "e": "🥖",
+            "x": 78,
+            "y": 54,
+            "s": 2
+          },
+          {
+            "e": "👨",
+            "x": 92,
+            "y": 72,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "That was how she noticed. Every Tuesday and Friday, just before closing, a thin boy of about ten came in, looked at the shelves for a long time, and left without buying anything. And each time, one bread roll was missing.",
+      "ja": "だから 気づいた。毎週 火曜と 金曜、閉店の 少し 前に、十才くらいの やせた 少年が 入ってきて、たなを 長い間 見つめ、何も 買わずに 出ていく。そして その たびに、パンが 一つ 足りなかった。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👦",
+            "x": 68,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🍞",
+            "x": 44,
+            "y": 54,
+            "s": 1.8
+          },
+          {
+            "e": "❓",
+            "x": 44,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🤔",
+            "x": 20,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🚪",
+            "x": 92,
+            "y": 64,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The third time, she saw it happen. He slipped a roll inside his jacket while she was serving another customer. Her face grew hot with anger. Her father got up at four every morning. Each roll was his work, and this boy was simply taking it.",
+      "ja": "三度目、マヤは その 場面を 見た。別の 客の 相手を している 間に、少年は パンを 上着の 中へ すべりこませた。いかりで 顔が 熱くなった。父は 毎朝 四時に 起きる。パンは どれも 父の 仕事だ。それを ただ 取っていく。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👦",
+            "x": 72,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🍞",
+            "x": 60,
+            "y": 62,
+            "s": 1.4
+          },
+          {
+            "e": "🧥",
+            "x": 84,
+            "y": 52,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😠",
+            "x": 26,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "👩",
+            "x": 48,
+            "y": 72,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "She could have shouted, or told her father, or called the police box across the street. That is what the rules said: stealing is stealing. Instead, without quite knowing why, she closed the shop early and followed him at a distance.",
+      "ja": "さけぶことも、父に 言うことも、通りの 向かいの 交番を よぶことも できた。ルールは そう 告げている。ぬすみは ぬすみだ。でも マヤは、自分でも なぜか 分からないまま、早めに 店を 閉め、はなれて 少年の 後を 追った。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 78,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🐾",
+            "x": 50,
+            "y": 82,
+            "s": 1.4
+          },
+          {
+            "e": "👮",
+            "x": 50,
+            "y": 34,
+            "s": 1.6
+          },
+          {
+            "e": "🌆",
+            "x": 90,
+            "y": 30,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "He walked to an old apartment building by the railway. On the outside stairs sat a small girl, perhaps four years old. The boy broke the roll in two and gave her the larger half. He ate his own half slowly, as if trying to make it last.",
+      "ja": "少年は 線路ぞいの 古い 集合住宅へ 歩いた。外階段に、四才くらいの 小さな 女の子が すわっていた。少年は パンを 二つに わり、大きい 方を 女の子に わたした。自分の 分は、長持ちさせるように ゆっくり 食べた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏚",
+            "x": 80,
+            "y": 50,
+            "s": 3.6
+          },
+          {
+            "e": "👦",
+            "x": 56,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👶",
+            "x": 82,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "🍞",
+            "x": 69,
+            "y": 60,
+            "s": 1.4
+          },
+          {
+            "e": "🚃",
+            "x": 18,
+            "y": 44,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "👧",
+            "x": 10,
+            "y": 74,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Maya walked home with her anger gone and a harder feeling in its place. The boy was a thief. He was also a brother feeding his sister. Both things were true at once, and she did not know what to do with two truths that would not fit together.",
+      "ja": "帰り道、いかりは 消え、かわりに もっと 重い 気持ちが 残った。少年は どろぼうだ。同時に、妹に 食べさせる 兄でも ある。どちらも 本当だった。かみ合わない 二つの 真実を、どう あつかえば いいのか 分からなかった。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 45,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 22,
+            "y": 30,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "❌",
+            "x": 22,
+            "y": 29,
+            "s": 1.1
+          },
+          {
+            "e": "💭",
+            "x": 72,
+            "y": 30,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "❤",
+            "x": 72,
+            "y": 29,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "She told her father everything. He was silent, wiping flour from his hands. “If we report him, we are right, and two children go hungry,” he said. “If we ignore it, we teach him that stealing works. Neither answer is good enough. Let us find a third.”",
+      "ja": "マヤは 父に 全部 話した。父は だまって、手の 粉を ふいた。「通報すれば、わたしたちは 正しい。そして 子どもが 二人、おなかを すかせる。見のがせば、ぬすみは うまく いくと 教えることに なる。どちらも 十分じゃない。三つ目を さがそう」",
+      "scene": {
+        "bg": "kitchen",
+        "items": [
+          {
+            "e": "👨",
+            "x": 66,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 66,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 66,
+            "y": 24,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🍞",
+            "x": 88,
+            "y": 70,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The next week, a basket appeared by the door with a handwritten sign: “Yesterday’s bread. Still good. Take what you need — no questions.” On Tuesday the boy stood before it for a full minute. Then he took two rolls, and for the first time he looked Maya in the eye.",
+      "ja": "次の 週、ドアの 横に かごが 置かれ、手書きの 札が ついた。「昨日の パン。まだ おいしい。必要な 分を どうぞ。何も 聞きません」。火曜日、少年は その 前に 一分間 立っていた。そして 二つ 取り、初めて マヤの 目を 見た。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "🧺",
+            "x": 50,
+            "y": 76,
+            "s": 2.8
+          },
+          {
+            "e": "🍞",
+            "x": 46,
+            "y": 62,
+            "s": 1.4
+          },
+          {
+            "e": "🥖",
+            "x": 56,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🪧",
+            "x": 50,
+            "y": 36,
+            "s": 2.2
+          },
+          {
+            "e": "👦",
+            "x": 78,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 70,
+            "s": 3.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "He did not say thank you, and she understood why. A few weeks later, though, he started arriving early on Saturdays to sweep the pavement in front of the shop. Nobody had asked him. Her father pretended not to notice, and left a warm loaf on the step.",
+      "ja": "少年は 礼を 言わなかった。マヤには その わけが 分かった。でも 数週間後、少年は 土曜の 朝 早く 来て、店の 前の 歩道を はくように なった。だれも たのんでいない。父は 気づかない ふりを して、段の 上に 温かい パンを 置いた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧹",
+            "x": 56,
+            "y": 66,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🏠",
+            "x": 84,
+            "y": 56,
+            "s": 3
+          },
+          {
+            "e": "🍞",
+            "x": 72,
+            "y": 80,
+            "s": 1.6
+          },
+          {
+            "e": "♨",
+            "x": 72,
+            "y": 66,
+            "s": 1,
+            "a": "float"
+          },
+          {
+            "e": "🌅",
+            "x": 16,
+            "y": 24,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Maya still wonders about that winter. Was the boy wrong to steal? Was she wrong not to report it? The basket did not answer those questions. But perhaps rules tell us where to begin thinking, not where to stop — and perhaps kindness sometimes means finding a door that lets someone keep their pride.",
+      "ja": "マヤは 今も あの 冬を 思う。少年が ぬすんだのは 悪かったのか。通報しなかった 自分は まちがっていたのか。かごは 答えを くれない。ただ、ルールは 考え始める 場所で、考え終える 場所では ないのかも しれない。やさしさとは、相手が ほこりを 保てる 戸口を 見つけることかも しれない。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "🧺",
+            "x": 62,
+            "y": 78,
+            "s": 2.2
+          },
+          {
+            "e": "🚪",
+            "x": 84,
+            "y": 62,
+            "s": 3
+          },
+          {
+            "e": "❓",
+            "x": 62,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "bakery",
+      "ja": "パン屋"
+    },
+    {
+      "en": "customers",
+      "ja": "客"
+    },
+    {
+      "en": "shelves",
+      "ja": "たな"
+    },
+    {
+      "en": "slipped",
+      "ja": "すべりこませた"
+    },
+    {
+      "en": "distance",
+      "ja": "きょり、はなれた 所"
+    },
+    {
+      "en": "thief",
+      "ja": "どろぼう"
+    },
+    {
+      "en": "flour",
+      "ja": "小麦粉"
+    },
+    {
+      "en": "report",
+      "ja": "通報する"
+    },
+    {
+      "en": "ignore",
+      "ja": "見のがす、無視する"
+    },
+    {
+      "en": "pavement",
+      "ja": "歩道"
+    },
+    {
+      "en": "pretended",
+      "ja": "ふりを した"
+    },
+    {
+      "en": "pride",
+      "ja": "ほこり"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A bakery that loses money and has to close",
+        "A police officer who catches a young thief",
+        "Finding a kind answer when a rule is not enough",
+        "A girl who learns to bake bread from her father"
+      ],
+      "answer": "Finding a kind answer when a rule is not enough",
+      "kind": "main"
+    },
+    {
+      "q": "How did Maya first notice the problem?",
+      "ja": "マヤは 最初、どうやって 問題に 気づいた？",
+      "choices": [
+        "A roll was missing after each visit.",
+        "A customer complained to her father.",
+        "The boy asked her for free bread.",
+        "She found crumbs near the door."
+      ],
+      "answer": "A roll was missing after each visit.",
+      "kind": "detail"
+    },
+    {
+      "q": "What did the boy do with the roll?",
+      "ja": "少年は その パンを どうした？",
+      "choices": [
+        "He sold it at the railway station.",
+        "He ate all of it on the way home.",
+        "He fed it to birds near his building.",
+        "He shared it with his little sister."
+      ],
+      "answer": "He shared it with his little sister.",
+      "kind": "detail"
+    },
+    {
+      "q": "What happened after the basket appeared?",
+      "ja": "かごが 置かれた 後、何が 起きた？",
+      "choices": [
+        "Maya followed the boy to his home.",
+        "The boy began sweeping in front of the shop.",
+        "Her father called the police box.",
+        "The boy slipped a roll inside his jacket."
+      ],
+      "answer": "The boy began sweeping in front of the shop.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did the sign say “no questions”?",
+      "ja": "札には なぜ 「何も 聞きません」と 書かれていた？",
+      "choices": [
+        "The family was too busy to talk to customers.",
+        "The old bread was not safe enough to sell.",
+        "Her father did not know who the boy was.",
+        "People could take bread without feeling ashamed."
+      ],
+      "answer": "People could take bread without feeling ashamed.",
+      "kind": "infer"
+    }
+  ]
+}

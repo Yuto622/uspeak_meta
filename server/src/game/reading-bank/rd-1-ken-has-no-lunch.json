@@ -1,0 +1,484 @@
+{
+  "id": "rd-1-ken-has-no-lunch",
+  "stage": "1",
+  "title": "Ken Has No Lunch",
+  "titleJa": "けんの おべんとうが ない",
+  "kind": "story",
+  "cover": {
+    "bg": "school",
+    "items": [
+      {
+        "e": "👦",
+        "x": 34,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "😟",
+        "x": 34,
+        "y": 40,
+        "s": 1.2
+      },
+      {
+        "e": "🎒",
+        "x": 64,
+        "y": 72,
+        "s": 3
+      },
+      {
+        "e": "❓",
+        "x": 66,
+        "y": 30,
+        "s": 2.4,
+        "a": "float"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "It is lunch time at school. Ken opens his bag.",
+      "ja": "がっこうの おひるの じかん。けんは かばんを あける。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 32,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🎒",
+            "x": 62,
+            "y": 72,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🕛",
+            "x": 84,
+            "y": 24,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Oh no! His lunch box is not there.",
+      "ja": "たいへん！ おべんとうが はいっていない。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 30,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🎒",
+            "x": 62,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🍱",
+            "x": 64,
+            "y": 34,
+            "s": 1.8
+          },
+          {
+            "e": "❌",
+            "x": 64,
+            "y": 34,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ken is hungry. He is very sad.",
+      "ja": "けんは おなかが すいた。とても かなしい。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 46,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😢",
+            "x": 46,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "💭",
+            "x": 72,
+            "y": 28,
+            "s": 2.4,
+            "a": "float"
+          },
+          {
+            "e": "🍙",
+            "x": 72,
+            "y": 26,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mai sees Ken. She gives him a rice ball.",
+      "ja": "まいが けんに きづく。おにぎりを ひとつ あげる。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 26,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "🍙",
+            "x": 48,
+            "y": 58,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 70,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😮",
+            "x": 70,
+            "y": 42,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Sota gives him some grapes. They are sweet.",
+      "ja": "そうたは ぶどうを くれる。あまい ぶどうだ。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 28,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🍇",
+            "x": 50,
+            "y": 58,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧒",
+            "x": 72,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The teacher gives him half of her sandwich.",
+      "ja": "せんせいは サンドイッチを はんぶん くれる。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👩‍🏫",
+            "x": 26,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "🥪",
+            "x": 48,
+            "y": 58,
+            "s": 2,
+            "a": "pulse"
+          },
+          {
+            "e": "👦",
+            "x": 70,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 70,
+            "y": 42,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now Ken has a big lunch. He is happy.",
+      "ja": "けんの おひるごはんは たくさんに なった。うれしい。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 70,
+            "s": 3.4,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 24,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🍙",
+            "x": 50,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "🍇",
+            "x": 66,
+            "y": 72,
+            "s": 2
+          },
+          {
+            "e": "🥪",
+            "x": 82,
+            "y": 72,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then Dad runs into the room with a lunch box.",
+      "ja": "そこへ パパが おべんとうを もって はしって くる。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🚪",
+            "x": 12,
+            "y": 58,
+            "s": 4
+          },
+          {
+            "e": "👨",
+            "x": 36,
+            "y": 70,
+            "s": 3.5,
+            "a": "hop"
+          },
+          {
+            "e": "💦",
+            "x": 50,
+            "y": 34,
+            "s": 1.4,
+            "a": "hop"
+          },
+          {
+            "e": "🍱",
+            "x": 56,
+            "y": 60,
+            "s": 2.2
+          },
+          {
+            "e": "👦",
+            "x": 80,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "😲",
+            "x": 80,
+            "y": 44,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Now Ken has too much food! He shares it with everyone.",
+      "ja": "こんどは たべものが おおすぎる！ けんは みんなに わける。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 12,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "👦",
+            "x": 36,
+            "y": 70,
+            "s": 3.2,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 36,
+            "y": 44,
+            "s": 1.2
+          },
+          {
+            "e": "🍱",
+            "x": 50,
+            "y": 78,
+            "s": 2.2
+          },
+          {
+            "e": "🧒",
+            "x": 64,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "👩‍🏫",
+            "x": 88,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "❤️",
+            "x": 50,
+            "y": 22,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "lunch",
+      "ja": "ひるごはん"
+    },
+    {
+      "en": "lunch box",
+      "ja": "おべんとう"
+    },
+    {
+      "en": "hungry",
+      "ja": "おなかが すいた"
+    },
+    {
+      "en": "rice ball",
+      "ja": "おにぎり"
+    },
+    {
+      "en": "grapes",
+      "ja": "ぶどう"
+    },
+    {
+      "en": "sweet",
+      "ja": "あまい"
+    },
+    {
+      "en": "half",
+      "ja": "はんぶん"
+    },
+    {
+      "en": "sandwich",
+      "ja": "サンドイッチ"
+    },
+    {
+      "en": "too much",
+      "ja": "おおすぎる"
+    },
+    {
+      "en": "shares",
+      "ja": "わける"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story about?",
+      "ja": "これは なにの おはなし？",
+      "choices": [
+        "Ken makes a big lunch for his dad at home.",
+        "Ken has no lunch, and his friends help.",
+        "Ken goes to a new school."
+      ],
+      "answer": "Ken has no lunch, and his friends help.",
+      "kind": "main"
+    },
+    {
+      "q": "What does Mai give Ken?",
+      "ja": "まいは けんに なにを あげるの？",
+      "choices": [
+        "a rice ball",
+        "a sandwich",
+        "some grapes"
+      ],
+      "answer": "a rice ball",
+      "kind": "detail"
+    },
+    {
+      "q": "Who gives Ken a sandwich?",
+      "ja": "サンドイッチを くれるのは だれ？",
+      "choices": [
+        "Sota",
+        "Dad",
+        "the teacher"
+      ],
+      "answer": "the teacher",
+      "kind": "detail"
+    },
+    {
+      "q": "What does \"hungry\" mean?",
+      "ja": "\"hungry\" は どんな いみ？",
+      "choices": [
+        "You want to sleep.",
+        "You want to eat.",
+        "You want to play."
+      ],
+      "answer": "You want to eat.",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why does Dad run to the school?",
+      "ja": "パパは どうして がっこうに はしって くるの？",
+      "choices": [
+        "Ken’s lunch box is at home.",
+        "Dad wants to play with Ken at school.",
+        "Dad is the new teacher."
+      ],
+      "answer": "Ken’s lunch box is at home.",
+      "kind": "infer"
+    }
+  ]
+}

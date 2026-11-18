@@ -16,7 +16,7 @@ body[data-mode=kids] #hunger-notice,
 body[data-mode=kids] .guest-dock,
 body[data-mode=kids] .brand .edition { display: none !important; }
 /* 上の バーは コインと 音（♫）だけ */
-body[data-mode=kids] header .stats > :not(#coin-hud):not(#sound) { display: none !important; }
+body[data-mode=kids] header .stats > :not(#coin-hud):not(#sound):not(#kids-toggle) { display: none !important; }
 html body[data-mode=kids][data-mode][data-mode] header .stats > #sound { display: flex !important; align-items: center; justify-content: center; width: 44px; height: 44px; font-size: 20px; border-radius: 12px; }
 body[data-mode=kids] header .stats { gap: 10px; padding: 7px 9px; }
 /* ホームの 上にも コインと 音は 見せる */
@@ -103,3 +103,11 @@ body[data-warp] #kids-dock, body[data-class-pause] #kids-dock, body[data-kids-ho
   #kids-home .kh-go { min-height: 150px; }
   #kids-dock .kd-btn { width: 66px; }
 }
+
+/* ---- 🧸 じぶんの 画面で きりかえる（先生が オンに した 子には 出ない） ---- */
+#kids-toggle { display: inline-flex; align-items: center; gap: 5px; min-height: 40px; padding: 0 11px; border-radius: 12px; border: 2px solid #e2c98f; background: #fff7df; color: #5a4520; font: 800 13px/1 "Noto Sans JP", system-ui, sans-serif; cursor: pointer; white-space: nowrap; }
+#kids-toggle[hidden] { display: none !important; }
+#kids-toggle span { font-size: 18px; } #kids-toggle small { font-size: 12px; font-weight: 800; }
+#kids-toggle small .en, #kids-toggle small .ja { font-size: inherit; font-style: normal; font-weight: inherit; }
+#kids-toggle.on { background: #1b3a2f; border-color: #1b3a2f; color: #fff; min-height: 44px; }
+@media (max-width: 700px), (max-height: 480px) { #kids-toggle small { display: none; } #kids-toggle { padding: 0 9px; } }

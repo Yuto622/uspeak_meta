@@ -1,0 +1,646 @@
+{
+  "id": "rd-9-who-owns-night",
+  "stage": "9",
+  "title": "Who Owns the Night?",
+  "titleJa": "夜は だれの もの？",
+  "kind": "fact",
+  "cover": {
+    "bg": "night",
+    "items": [
+      {
+        "e": "🌌",
+        "x": 50,
+        "y": 26,
+        "s": 4
+      },
+      {
+        "e": "🏙",
+        "x": 26,
+        "y": 66,
+        "s": 3.2
+      },
+      {
+        "e": "🐢",
+        "x": 70,
+        "y": 80,
+        "s": 2.2
+      },
+      {
+        "e": "⭐",
+        "x": 80,
+        "y": 16,
+        "s": 1.6,
+        "a": "pulse"
+      },
+      {
+        "e": "🦉",
+        "x": 88,
+        "y": 50,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "For almost all of human history, night meant darkness. Once the sun had set, people everywhere could look up and see thousands of stars and the pale band of the Milky Way. Today, most people who live in cities have never seen that sight.",
+      "ja": "人類の 歴史の ほぼ すべての 間、夜は 暗やみを 意味した。日が しずめば、どこの 人も 空を 見上げ、何千もの 星と、あわい 帯のような 天の川を 見ることが できた。今、都市に 住む 人の 多くは、その 光景を 一度も 見たことが ない。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌌",
+            "x": 50,
+            "y": 24,
+            "s": 4.4
+          },
+          {
+            "e": "⭐",
+            "x": 16,
+            "y": 18,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 84,
+            "y": 30,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🧑",
+            "x": 30,
+            "y": 74,
+            "s": 3
+          },
+          {
+            "e": "👧",
+            "x": 62,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "⛺",
+            "x": 88,
+            "y": 74,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The reason is artificial light. Streetlamps, advertising signs, office towers, and car headlights send light in every direction, including upward. This light is scattered by the air and forms a bright haze over the city. Scientists call this light pollution.",
+      "ja": "原因は 人工の 光だ。街灯、広告の かん板、オフィスビル、車の ライトは、上も ふくめた あらゆる 方向へ 光を 出す。その 光は 空気で 散らばり、都市の 上に 明るい もやを 作る。科学者は これを 光害と よぶ。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏙",
+            "x": 30,
+            "y": 56,
+            "s": 3.6
+          },
+          {
+            "e": "🏢",
+            "x": 62,
+            "y": 54,
+            "s": 3.4
+          },
+          {
+            "e": "💡",
+            "x": 82,
+            "y": 40,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "⬆",
+            "x": 30,
+            "y": 20,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "⬆",
+            "x": 62,
+            "y": 18,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "🚗",
+            "x": 86,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "🌫",
+            "x": 48,
+            "y": 12,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Compared with dirty air or polluted water, too much light may not sound like a serious problem. After all, light helps us to see, work, and feel safe after dark. But living things developed over millions of years in a world with a regular rhythm of day and night.",
+      "ja": "よごれた 空気や 水に くらべれば、光が 多すぎることは 深こくな 問題に 聞こえないかも しれない。光は、暗くなった 後に 見て、働き、安心する 助けに なる。だが 生き物は 何百万年もの 間、昼と 夜の 規則正しい リズムの 中で 発達してきた。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "☀",
+            "x": 20,
+            "y": 20,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🔄",
+            "x": 50,
+            "y": 36,
+            "s": 2.4,
+            "a": "spin"
+          },
+          {
+            "e": "🌙",
+            "x": 80,
+            "y": 20,
+            "s": 2.2
+          },
+          {
+            "e": "🦌",
+            "x": 30,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "🦉",
+            "x": 72,
+            "y": 60,
+            "s": 2
+          },
+          {
+            "e": "🌳",
+            "x": 90,
+            "y": 58,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Consider baby sea turtles. They hatch on beaches at night and must find the sea quickly. Their instinct is to crawl toward the brightest horizon, which was once the ocean reflecting the moon and stars. Now hotel and street lights often lead them inland, away from the water.",
+      "ja": "ウミガメの 赤ちゃんを 考えよう。夜の 浜で かえり、すぐに 海を 見つけなければ ならない。本能は、一番 明るい 水平線へ はっていくこと。昔は それが、月と 星を 映す 海だった。今は ホテルや 街灯の 光が、子ガメを 海から 遠い 陸へ 導いてしまう。",
+      "scene": {
+        "bg": "beach",
+        "items": [
+          {
+            "e": "🐢",
+            "x": 40,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "🐢",
+            "x": 52,
+            "y": 84,
+            "s": 1.4
+          },
+          {
+            "e": "🥚",
+            "x": 30,
+            "y": 86,
+            "s": 1.2
+          },
+          {
+            "e": "🌊",
+            "x": 10,
+            "y": 78,
+            "s": 2.4,
+            "a": "sway"
+          },
+          {
+            "e": "🏢",
+            "x": 86,
+            "y": 54,
+            "s": 3
+          },
+          {
+            "e": "💡",
+            "x": 86,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "➡",
+            "x": 64,
+            "y": 72,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Birds are affected as well. Many species migrate at night and use the stars to navigate. Brightly lit buildings can confuse them, drawing them off course or causing them to circle until they are exhausted. Some cities now dim their towers during the migration seasons.",
+      "ja": "鳥も えいきょうを 受ける。多くの 種は 夜に わたりを し、星を たよりに 進路を 決める。明るい 建物は 鳥を まどわせ、コースから 外れさせたり、つかれ果てるまで 旋回させたりする。わたりの 季節に ビルの 明かりを 落とす 都市も ある。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🏢",
+            "x": 50,
+            "y": 58,
+            "s": 4.2
+          },
+          {
+            "e": "💡",
+            "x": 50,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🐦",
+            "x": 24,
+            "y": 28,
+            "s": 1.8,
+            "a": "drift"
+          },
+          {
+            "e": "🐦",
+            "x": 76,
+            "y": 24,
+            "s": 1.6,
+            "a": "spin"
+          },
+          {
+            "e": "🐦",
+            "x": 82,
+            "y": 44,
+            "s": 1.4,
+            "a": "spin"
+          },
+          {
+            "e": "⭐",
+            "x": 14,
+            "y": 12,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Insects suffer, too. Everyone has seen moths circling a lamp. Insects trapped around lights do not feed or lay eggs, and they are easy prey. Since many plants depend on night-flying insects for pollination, the effects can spread much further than the lamp itself.",
+      "ja": "虫も 苦しむ。ランプの まわりを 回る ガは、だれもが 見たことが ある。光に とらわれた 虫は、えさを 食べず、たまごも 産まず、かんたんに えものに なる。夜に 飛ぶ 虫に 受粉を たよる 植物は 多いので、えいきょうは ランプの ずっと 先まで 広がる。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "💡",
+            "x": 50,
+            "y": 28,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🦋",
+            "x": 34,
+            "y": 30,
+            "s": 1.4,
+            "a": "spin"
+          },
+          {
+            "e": "🦋",
+            "x": 66,
+            "y": 34,
+            "s": 1.2,
+            "a": "spin"
+          },
+          {
+            "e": "🦋",
+            "x": 52,
+            "y": 46,
+            "s": 1,
+            "a": "spin"
+          },
+          {
+            "e": "🌸",
+            "x": 20,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🌼",
+            "x": 82,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🦉",
+            "x": 88,
+            "y": 40,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Humans are not separate from this. Our bodies use darkness as a signal to prepare for sleep. Bright light late in the evening, including the light of screens, can delay that signal and make it harder to fall asleep.",
+      "ja": "人間も 例外では ない。私たちの 体は、暗さを ねむる 準備の 合図として 使っている。夜 おそくの 明るい 光は、画面の 光も ふくめて、その 合図を おくらせ、ねつきを 悪くすることが ある。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "📱",
+            "x": 56,
+            "y": 58,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🛏",
+            "x": 40,
+            "y": 84,
+            "s": 3
+          },
+          {
+            "e": "😩",
+            "x": 40,
+            "y": 50,
+            "s": 1.5
+          },
+          {
+            "e": "🕛",
+            "x": 82,
+            "y": 26,
+            "s": 2.2
+          },
+          {
+            "e": "🌙",
+            "x": 16,
+            "y": 16,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The encouraging news is that light pollution is one of the easiest kinds of pollution to reduce. Lamps can be shaded so that they shine only downward, where the light is needed. Lights can be dimmed, put on timers, or switched off when nobody is there.",
+      "ja": "明るい 知らせも ある。光害は、最も へらしやすい 公害の 一つなのだ。ランプに かさを つければ、光の 必要な 下だけを 照らせる。明るさを 落とすことも、タイマーを つけることも、だれも いない 時に 消すことも できる。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "💡",
+            "x": 30,
+            "y": 30,
+            "s": 2.4
+          },
+          {
+            "e": "⬇",
+            "x": 30,
+            "y": 54,
+            "s": 1.8
+          },
+          {
+            "e": "🟡",
+            "x": 30,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "⏱",
+            "x": 62,
+            "y": 44,
+            "s": 2.2
+          },
+          {
+            "e": "✅",
+            "x": 84,
+            "y": 34,
+            "s": 2
+          },
+          {
+            "e": "🏘",
+            "x": 78,
+            "y": 72,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "And unlike plastic in the ocean, light pollution leaves nothing behind. The moment unnecessary lights are turned off, the darkness returns, and the stars with it. Some communities have created “dark sky” parks, where visitors can see the night as their ancestors did.",
+      "ja": "そして 海の プラスチックと ちがい、光害は 何も 残さない。不要な 明かりを 消した しゅん間、暗やみは もどり、星も もどる。「星空保護区」を 作った 地いきも あり、おとずれた 人は、祖先が 見たのと 同じ 夜を 見ることが できる。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "🌌",
+            "x": 50,
+            "y": 22,
+            "s": 4.4
+          },
+          {
+            "e": "⭐",
+            "x": 20,
+            "y": 16,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 82,
+            "y": 26,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "⛺",
+            "x": 30,
+            "y": 76,
+            "s": 2.4
+          },
+          {
+            "e": "🔭",
+            "x": 56,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "👧",
+            "x": 78,
+            "y": 74,
+            "s": 2.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Nobody wants cities without light. The question is one of balance, and of ownership. A dark sky cannot be bought or fenced, yet a single bright sign can take it from everyone nearby. If the night belongs to all of us — and to turtles, birds, and moths — who should decide how much of it we light?",
+      "ja": "明かりの ない 都市を 望む 人は いない。問題は バランスと、だれの ものか、という 点だ。暗い 空は 買うことも 囲うことも できない。なのに 明るい かん板 一つが、近くの 全員から それを うばえる。夜が みんなの もの、カメや 鳥や ガの ものでも あるなら、どこまで 照らすかは だれが 決めるべきだろう。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "⚖",
+            "x": 50,
+            "y": 36,
+            "s": 3.2,
+            "a": "sway"
+          },
+          {
+            "e": "💡",
+            "x": 26,
+            "y": 36,
+            "s": 1.6
+          },
+          {
+            "e": "⭐",
+            "x": 74,
+            "y": 36,
+            "s": 1.6
+          },
+          {
+            "e": "🐢",
+            "x": 18,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "🐦",
+            "x": 84,
+            "y": 68,
+            "s": 1.6
+          },
+          {
+            "e": "🧑",
+            "x": 50,
+            "y": 80,
+            "s": 2.6
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "artificial",
+      "ja": "人工の"
+    },
+    {
+      "en": "scattered",
+      "ja": "散らばった"
+    },
+    {
+      "en": "pollution",
+      "ja": "公害、おせん"
+    },
+    {
+      "en": "instinct",
+      "ja": "本能"
+    },
+    {
+      "en": "horizon",
+      "ja": "水平線"
+    },
+    {
+      "en": "migrate",
+      "ja": "わたりを する"
+    },
+    {
+      "en": "navigate",
+      "ja": "進路を 決める"
+    },
+    {
+      "en": "exhausted",
+      "ja": "つかれ果てた"
+    },
+    {
+      "en": "prey",
+      "ja": "えもの"
+    },
+    {
+      "en": "delay",
+      "ja": "おくらせる"
+    },
+    {
+      "en": "ancestors",
+      "ja": "祖先"
+    },
+    {
+      "en": "ownership",
+      "ja": "所有、だれの ものか"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How sea turtles find their way across the ocean",
+        "Why cities should remove all of their lights",
+        "How to photograph the Milky Way at night",
+        "The harm of too much artificial light at night"
+      ],
+      "answer": "The harm of too much artificial light at night",
+      "kind": "main"
+    },
+    {
+      "q": "Why do baby sea turtles sometimes crawl away from the sea?",
+      "ja": "ウミガメの 赤ちゃんは なぜ 海から はなれてしまうことが ある？",
+      "choices": [
+        "They move toward the brightest lights.",
+        "They are afraid of the sound of waves.",
+        "They search for food near hotels.",
+        "They follow adult turtles onto land."
+      ],
+      "answer": "They move toward the brightest lights.",
+      "kind": "detail"
+    },
+    {
+      "q": "How does the book say lamps can be improved?",
+      "ja": "この本は、ランプを どう 改良できると 言っている？",
+      "choices": [
+        "By making them much brighter",
+        "By placing them on taller poles",
+        "By shading them to shine downward",
+        "By painting them a darker color"
+      ],
+      "answer": "By shading them to shine downward",
+      "kind": "detail"
+    },
+    {
+      "q": "In this book, “exhausted” means ___.",
+      "ja": "この本で “exhausted” の 意味は？",
+      "choices": [
+        "lost in the dark",
+        "extremely tired",
+        "very hungry",
+        "badly injured"
+      ],
+      "answer": "extremely tired",
+      "kind": "vocab"
+    },
+    {
+      "q": "How is light pollution different from plastic in the ocean?",
+      "ja": "光害は 海の プラスチックと どう ちがう？",
+      "choices": [
+        "It harms people but never animals.",
+        "It can only be found in large cities.",
+        "It disappears as soon as the cause is removed.",
+        "It is far more expensive to clean up."
+      ],
+      "answer": "It disappears as soon as the cause is removed.",
+      "kind": "infer"
+    }
+  ]
+}

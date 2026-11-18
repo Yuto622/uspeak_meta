@@ -1,4 +1,5 @@
 // 保護者レポートの 画面（HTML）。依存なし・1 ファイルずつ。色は ブランド（深緑 #1B3A2F・オレンジ #E27A2D・クリーム #FFFBF5）。
+import { TOP_CSS, fiveHtml, barHtml, booksHtml } from '../reading/pages.js';
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const BASE_CSS = `
@@ -64,11 +65,11 @@ const post = (url, body) => fetch(url, { method: 'POST', headers: { 'content-typ
 }
 
 // ---- お子さまごとの 専用ページ（/r/<QR の 合言葉>）--------------------------------------------
-export function studentPageHtml({ token, nick, classroom, paused = false, latest = null, past = [], lineUrl = '', clappedToday = false, goal = '' }) {
+export function studentPageHtml({ token, nick, classroom, paused = false, latest = null, past = [], lineUrl = '', clappedToday = false, goal = '', five = null, bar = null }) {
   const t = encodeURIComponent(token);
   const body = paused
     ? '<div class="card"><p>いまは 公開を 止めています。くわしくは 教室に お問い合わせください。</p></div>'
-    : `<div class="card">${latest
+    : `${five || bar ? `<div class="card"><h2>${esc(latest?.range || '')} の 数字</h2>${fiveHtml(five, { label: '今週' })}${barHtml(bar)}${booksHtml(five?.bookList)}</div>` : ''}<div class="card">${latest
       ? `<h2>${esc(latest.range)}</h2>${latest.png ? `<a href="/r/${encodeURIComponent(latest.token)}"><img src="/r/${encodeURIComponent(latest.token)}.png" alt="${esc(nick)}さんの英語きろく" style="width:100%;max-width:520px;border:1px solid #e9e2d6;border-radius:12px"></a>` : ''}
         ${goal ? `<p style="margin:12px 0 4px"><b style="color:#e27a2d">来週の めあて</b><br><b>${esc(goal)}</b></p>` : ''}
         <p class="row"><a class="btn" href="/r/${encodeURIComponent(latest.token)}">PDFで見る</a><a class="btn ghost" href="/r/${t}/month">先月の まとめ（PDF）</a></p>`
@@ -79,7 +80,7 @@ export function studentPageHtml({ token, nick, classroom, paused = false, latest
       ${past.length ? `<div class="card"><h2>これまでの 週</h2><ul>${past.map((p) => `<li><a href="/r/${encodeURIComponent(p.token)}">${esc(p.range)}</a></li>`).join('')}</ul></div>` : ''}`;
   return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex"><title>${esc(nick)}さんの英語きろく</title>
-<style>${BASE_CSS}.wrap{max-width:560px}.row{display:flex;gap:8px;flex-wrap:wrap}</style></head>
+<style>${BASE_CSS}.wrap{max-width:560px}.row{display:flex;gap:8px;flex-wrap:wrap}${TOP_CSS}</style></head>
 <body><div class="wrap">
 <p class="muted">${esc(classroom)}より</p>
 <h1>${esc(nick)}さんの英語きろく</h1>

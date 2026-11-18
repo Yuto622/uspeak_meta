@@ -1,0 +1,584 @@
+{
+  "id": "rd-3-desert-life",
+  "stage": "3",
+  "title": "Life in the Desert",
+  "titleJa": "さばくの 生き物たち",
+  "kind": "fact",
+  "cover": {
+    "bg": "desert",
+    "items": [
+      {
+        "e": "🐪",
+        "x": 40,
+        "y": 68,
+        "s": 4
+      },
+      {
+        "e": "🌵",
+        "x": 78,
+        "y": 66,
+        "s": 3.4
+      },
+      {
+        "e": "☀️",
+        "x": 84,
+        "y": 16,
+        "s": 2.6,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "A desert is a very dry place. It almost never rains there.",
+      "ja": "さばくは とても かわいた 場所です。雨は ほとんど ふりません。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 80,
+            "y": 16,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🌵",
+            "x": 26,
+            "y": 68,
+            "s": 3
+          },
+          {
+            "e": "🪨",
+            "x": 62,
+            "y": 78,
+            "s": 2
+          },
+          {
+            "e": "🌧️",
+            "x": 30,
+            "y": 22,
+            "s": 1.8
+          },
+          {
+            "e": "🚫",
+            "x": 30,
+            "y": 22,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the daytime, many deserts are very hot. But at night, they can be very cold.",
+      "ja": "昼間、多くの さばくは とても 暑いです。でも 夜は、とても 寒く なる ことが あります。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 22,
+            "y": 18,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🔥",
+            "x": 22,
+            "y": 44,
+            "s": 1.4
+          },
+          {
+            "e": "↔️",
+            "x": 50,
+            "y": 34,
+            "s": 1.8
+          },
+          {
+            "e": "🥶",
+            "x": 78,
+            "y": 44,
+            "s": 1.4
+          },
+          {
+            "e": "⭐",
+            "x": 78,
+            "y": 16,
+            "s": 1.6
+          },
+          {
+            "e": "🌵",
+            "x": 50,
+            "y": 70,
+            "s": 3
+          }
+        ]
+      }
+    },
+    {
+      "text": "How can plants live there? A cactus keeps water inside its thick body.",
+      "ja": "植物は どうやって 生きているのでしょう。サボテンは 太い 体の 中に 水を ためています。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🌵",
+            "x": 45,
+            "y": 62,
+            "s": 5.4
+          },
+          {
+            "e": "💧",
+            "x": 45,
+            "y": 56,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 74,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🪨",
+            "x": 84,
+            "y": 78,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "It has sharp needles, not big leaves. So animals do not eat it easily.",
+      "ja": "サボテンには 大きな 葉っぱは なく、するどい とげが あります。だから 動物は かんたんには 食べられません。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🌵",
+            "x": 36,
+            "y": 64,
+            "s": 4.8
+          },
+          {
+            "e": "🔍",
+            "x": 56,
+            "y": 44,
+            "s": 2.4
+          },
+          {
+            "e": "🐇",
+            "x": 82,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "❗",
+            "x": 82,
+            "y": 48,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Camels can walk in the desert for many days without water.",
+      "ja": "ラクダは 水を 飲まなくても、さばくを 何日も 歩く ことが できます。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🐪",
+            "x": 30,
+            "y": 68,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "🐫",
+            "x": 64,
+            "y": 68,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "☀️",
+            "x": 86,
+            "y": 16,
+            "s": 2.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🐾",
+            "x": 88,
+            "y": 82,
+            "s": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "A camel's hump is full of fat, not water. The fat helps when there is no food.",
+      "ja": "ラクダの こぶの 中は、水ではなく しぼうです。食べ物が ない とき、その しぼうが 役に 立ちます。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🐪",
+            "x": 45,
+            "y": 64,
+            "s": 5.4
+          },
+          {
+            "e": "⬇️",
+            "x": 46,
+            "y": 22,
+            "s": 1.6,
+            "a": "hop"
+          },
+          {
+            "e": "💧",
+            "x": 78,
+            "y": 36,
+            "s": 1.4
+          },
+          {
+            "e": "❌",
+            "x": 78,
+            "y": 36,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "A camel also has long eyelashes. They keep sand out of its eyes.",
+      "ja": "ラクダには 長い まつげも あります。目に すなが 入らないように して くれます。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🐫",
+            "x": 40,
+            "y": 64,
+            "s": 5.2
+          },
+          {
+            "e": "👀",
+            "x": 72,
+            "y": 34,
+            "s": 2.2
+          },
+          {
+            "e": "💨",
+            "x": 84,
+            "y": 62,
+            "s": 2.2,
+            "a": "drift"
+          },
+          {
+            "e": "🟡",
+            "x": 90,
+            "y": 54,
+            "s": 0.7
+          },
+          {
+            "e": "🟡",
+            "x": 80,
+            "y": 70,
+            "s": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "text": "Many small animals sleep under the ground in the daytime. It is cooler there.",
+      "ja": "多くの 小さな 動物は、昼間は 地面の 下で ねむります。そこの ほうが すずしいからです。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "☀️",
+            "x": 82,
+            "y": 14,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🌵",
+            "x": 20,
+            "y": 64,
+            "s": 3
+          },
+          {
+            "e": "🐭",
+            "x": 55,
+            "y": 82,
+            "s": 2
+          },
+          {
+            "e": "💤",
+            "x": 62,
+            "y": 60,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "🪨",
+            "x": 80,
+            "y": 78,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "At night, they come out and look for food under the moon and stars.",
+      "ja": "夜に なると、月と 星の 下に 出て きて、食べ物を さがします。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🌙",
+            "x": 80,
+            "y": 16,
+            "s": 2.4
+          },
+          {
+            "e": "⭐",
+            "x": 30,
+            "y": 14,
+            "s": 1.4,
+            "a": "pulse"
+          },
+          {
+            "e": "⭐",
+            "x": 55,
+            "y": 22,
+            "s": 1.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🐭",
+            "x": 36,
+            "y": 76,
+            "s": 2.6,
+            "a": "hop"
+          },
+          {
+            "e": "🌵",
+            "x": 70,
+            "y": 66,
+            "s": 3
+          },
+          {
+            "e": "🦉",
+            "x": 90,
+            "y": 50,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Some people live in deserts, too. They wear long, loose clothes to stay cool.",
+      "ja": "さばくに 住む 人たちも います。すずしく すごす ために、長くて ゆったりした 服を 着ます。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "👨",
+            "x": 28,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "🧣",
+            "x": 28,
+            "y": 56,
+            "s": 1.4
+          },
+          {
+            "e": "🐪",
+            "x": 62,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "⛺",
+            "x": 88,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "☀️",
+            "x": 84,
+            "y": 14,
+            "s": 2.2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The desert looks empty. But if you look carefully, it is full of life.",
+      "ja": "さばくは 何も ないように 見えます。でも よく 見ると、生き物で いっぱいです。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "🌵",
+            "x": 16,
+            "y": 66,
+            "s": 3
+          },
+          {
+            "e": "🐪",
+            "x": 42,
+            "y": 68,
+            "s": 3
+          },
+          {
+            "e": "🐭",
+            "x": 66,
+            "y": 80,
+            "s": 1.8
+          },
+          {
+            "e": "🦉",
+            "x": 84,
+            "y": 46,
+            "s": 1.8
+          },
+          {
+            "e": "🔍",
+            "x": 60,
+            "y": 30,
+            "s": 2.2
+          },
+          {
+            "e": "⭐",
+            "x": 20,
+            "y": 14,
+            "s": 1.4
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "desert",
+      "ja": "さばく"
+    },
+    {
+      "en": "dry",
+      "ja": "かわいた"
+    },
+    {
+      "en": "daytime",
+      "ja": "昼間"
+    },
+    {
+      "en": "cactus",
+      "ja": "サボテン"
+    },
+    {
+      "en": "thick",
+      "ja": "太い・あつい"
+    },
+    {
+      "en": "sharp",
+      "ja": "するどい"
+    },
+    {
+      "en": "needles",
+      "ja": "とげ・はり"
+    },
+    {
+      "en": "hump",
+      "ja": "（ラクダの）こぶ"
+    },
+    {
+      "en": "fat",
+      "ja": "しぼう"
+    },
+    {
+      "en": "sand",
+      "ja": "すな"
+    },
+    {
+      "en": "loose",
+      "ja": "ゆったりした"
+    },
+    {
+      "en": "empty",
+      "ja": "からっぽの・何も ない"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "how plants and animals live in deserts",
+        "how camels carry water for people",
+        "why the moon is so bright in the desert",
+        "how to grow a cactus at home"
+      ],
+      "answer": "how plants and animals live in deserts",
+      "kind": "main"
+    },
+    {
+      "q": "What is inside a camel's hump?",
+      "ja": "ラクダの こぶの 中には 何が 入っていますか。",
+      "choices": [
+        "Water.",
+        "Sand.",
+        "Fat.",
+        "Air."
+      ],
+      "answer": "Fat.",
+      "kind": "detail"
+    },
+    {
+      "q": "What do a camel's long eyelashes do?",
+      "ja": "ラクダの 長い まつげは 何を しますか。",
+      "choices": [
+        "They help it find food far away.",
+        "They keep sand out of its eyes.",
+        "They keep its body cool.",
+        "They help it hear at night."
+      ],
+      "answer": "They keep sand out of its eyes.",
+      "kind": "detail"
+    },
+    {
+      "q": "A \"dry\" place is a place with ___.",
+      "ja": "「dry」な 場所とは、どんな 場所ですか。",
+      "choices": [
+        "many tall trees",
+        "a lot of snow",
+        "many big rivers",
+        "very little water"
+      ],
+      "answer": "very little water",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why do many small animals look for food at night?",
+      "ja": "多くの 小さな 動物は、なぜ 夜に 食べ物を さがすのですか。",
+      "choices": [
+        "They are afraid of the camels.",
+        "The daytime is too hot for them.",
+        "They cannot see in the daytime.",
+        "Plants grow only at night."
+      ],
+      "answer": "The daytime is too hot for them.",
+      "kind": "infer"
+    }
+  ]
+}

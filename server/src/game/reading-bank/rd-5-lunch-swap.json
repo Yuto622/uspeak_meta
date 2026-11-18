@@ -1,0 +1,689 @@
+{
+  "id": "rd-5-lunch-swap",
+  "stage": "5",
+  "title": "The Great Lunch Swap",
+  "titleJa": "おべんとう 大こうかん会",
+  "kind": "story",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "👦",
+        "x": 26,
+        "y": 70,
+        "s": 3.4
+      },
+      {
+        "e": "🍱",
+        "x": 50,
+        "y": 72,
+        "s": 3,
+        "a": "pulse"
+      },
+      {
+        "e": "👧",
+        "x": 76,
+        "y": 70,
+        "s": 3.4
+      },
+      {
+        "e": "🔄",
+        "x": 50,
+        "y": 40,
+        "s": 2.2,
+        "a": "spin"
+      },
+      {
+        "e": "🫓",
+        "x": 36,
+        "y": 44,
+        "s": 1.6
+      },
+      {
+        "e": "🍙",
+        "x": 66,
+        "y": 44,
+        "s": 1.6
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Leo was new at school. His family had moved from another country, and he did not know many Japanese words yet.",
+      "ja": "レオは 転校生でした。家族で 外国から 引っこして きた ばかりで、日本語の 言葉を まだ あまり 知りませんでした。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😟",
+            "x": 47,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🎒",
+            "x": 66,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "🌍",
+            "x": 80,
+            "y": 30,
+            "s": 2.2
+          },
+          {
+            "e": "❓",
+            "x": 22,
+            "y": 30,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "At lunchtime on the school trip, everyone opened their lunch boxes. Leo's lunch looked different from all the others.",
+      "ja": "遠足の 昼ごはんの 時間、みんなが おべんとう箱を 開けました。レオの おべんとうは、ほかの だれのとも ちがって 見えました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 24,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🫓",
+            "x": 38,
+            "y": 80,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 56,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🍙",
+            "x": 70,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "🧒",
+            "x": 88,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🍱",
+            "x": 94,
+            "y": 84,
+            "s": 1.2
+          },
+          {
+            "e": "☀️",
+            "x": 84,
+            "y": 14,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "He had flat bread, yellow rice, and small brown balls made of beans. A boy looked at them. \"What is that?\"",
+      "ja": "レオの おべんとうは、平たい パンと、黄色い ごはんと、まめで できた 小さな 茶色い ボールでした。男の子が 見て 言いました。「それ、何？」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🫓",
+            "x": 22,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "🍚",
+            "x": 40,
+            "y": 74,
+            "s": 2.2
+          },
+          {
+            "e": "🥔",
+            "x": 56,
+            "y": 76,
+            "s": 1.4
+          },
+          {
+            "e": "🥔",
+            "x": 63,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "🧒",
+            "x": 84,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "❓",
+            "x": 84,
+            "y": 30,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Leo's face became hot. He closed the lid halfway and began to eat quickly so that nobody could see.",
+      "ja": "レオは 顔が 熱く なりました。ふたを 半分 しめて、だれにも 見られないように 急いで 食べ始めました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 45,
+            "y": 72,
+            "s": 3.6
+          },
+          {
+            "e": "😳",
+            "x": 47,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🍱",
+            "x": 64,
+            "y": 78,
+            "s": 2.4
+          },
+          {
+            "e": "💦",
+            "x": 60,
+            "y": 46,
+            "s": 1.4
+          },
+          {
+            "e": "🌳",
+            "x": 90,
+            "y": 54,
+            "s": 3.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Saki was sitting next to him. She was curious, not unkind. \"It smells really good,\" she said. \"May I try one?\"",
+      "ja": "サキは レオの となりに すわっていました。サキは きょうみが あっただけで、いじわるでは ありません。「すごく いい におい」と 言いました。「一つ 食べて みても いい？」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 64,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 66,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👃",
+            "x": 50,
+            "y": 46,
+            "s": 1.4
+          },
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🍱",
+            "x": 44,
+            "y": 80,
+            "s": 2
+          },
+          {
+            "e": "💬",
+            "x": 66,
+            "y": 20,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Leo was surprised, but he gave her a bean ball. Saki's eyes opened wide. \"This is delicious! Did your father make it?\"",
+      "ja": "レオは おどろきましたが、まめの ボールを 一つ あげました。サキは 目を 丸く しました。「おいしい！ お父さんが 作ったの？」",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 26,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🥔",
+            "x": 44,
+            "y": 58,
+            "s": 1.4
+          },
+          {
+            "e": "👧",
+            "x": 64,
+            "y": 72,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😋",
+            "x": 66,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "✨",
+            "x": 80,
+            "y": 30,
+            "s": 1.8,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"My grandmother,\" said Leo. \"She gets up at five.\" Saki gave him a piece of her rolled egg. It was sweet and soft.",
+      "ja": "「おばあちゃんだよ」と レオは 言いました。「5時に 起きるんだ」サキは 自分の たまご焼きを 一切れ あげました。あまくて やわらかい 味でした。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👧",
+            "x": 66,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🍳",
+            "x": 48,
+            "y": 58,
+            "s": 1.6
+          },
+          {
+            "e": "👦",
+            "x": 28,
+            "y": 72,
+            "s": 3.4
+          },
+          {
+            "e": "😄",
+            "x": 30,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "💭",
+            "x": 30,
+            "y": 18,
+            "s": 2
+          },
+          {
+            "e": "⏰",
+            "x": 30,
+            "y": 16,
+            "s": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "Soon other children came. \"Can I try, too?\" They gave Leo rice balls, fried chicken, and a small red sausage shaped like an octopus.",
+      "ja": "まもなく ほかの 子どもたちも 来ました。「ぼくも 食べて いい？」みんなは レオに、おにぎりや からあげ、タコの 形の 小さな 赤い ソーセージを くれました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 20,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "🍙",
+            "x": 38,
+            "y": 74,
+            "s": 1.8
+          },
+          {
+            "e": "🍤",
+            "x": 50,
+            "y": 78,
+            "s": 1.6
+          },
+          {
+            "e": "🐙",
+            "x": 62,
+            "y": 74,
+            "s": 1.6
+          },
+          {
+            "e": "🧒",
+            "x": 84,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "👥",
+            "x": 94,
+            "y": 54,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Leo laughed at the octopus sausage. \"In my country, sausages do not have legs,\" he said, and everyone laughed with him.",
+      "ja": "レオは タコの ソーセージを 見て 笑いました。「ぼくの 国では、ソーセージに 足は ないよ」と 言うと、みんなも いっしょに 笑いました。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "👦",
+            "x": 35,
+            "y": 70,
+            "s": 3.6,
+            "a": "bob"
+          },
+          {
+            "e": "😄",
+            "x": 37,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🐙",
+            "x": 55,
+            "y": 56,
+            "s": 2.2,
+            "a": "hop"
+          },
+          {
+            "e": "👧",
+            "x": 76,
+            "y": 72,
+            "s": 3.2
+          },
+          {
+            "e": "😂",
+            "x": 78,
+            "y": 44,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "On the bus home, Saki had an idea. \"Let's do this every month. Everyone brings one food to share and tells its story.\"",
+      "ja": "帰りの バスで、サキは いい ことを 思いつきました。「これ、毎月 やろうよ。みんなが 分け合う 食べ物を 一つ 持って きて、その 話を するの」",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 50,
+            "y": 62,
+            "s": 6,
+            "a": "bob"
+          },
+          {
+            "e": "👧",
+            "x": 20,
+            "y": 76,
+            "s": 2.4
+          },
+          {
+            "e": "💡",
+            "x": 20,
+            "y": 44,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "📅",
+            "x": 86,
+            "y": 26,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "The teacher liked the idea. They called it the Great Lunch Swap, and Leo's grandmother sent bean balls for the whole class.",
+      "ja": "先生も その 考えを 気に入りました。「おべんとう 大こうかん会」と 名づけられ、レオの おばあさんは クラス 全員分の まめの ボールを 送って くれました。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👩‍🏫",
+            "x": 18,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👍",
+            "x": 32,
+            "y": 46,
+            "s": 1.6
+          },
+          {
+            "e": "👵",
+            "x": 54,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🥔",
+            "x": 68,
+            "y": 74,
+            "s": 1.4
+          },
+          {
+            "e": "🥔",
+            "x": 74,
+            "y": 80,
+            "s": 1.4
+          },
+          {
+            "e": "🥔",
+            "x": 80,
+            "y": 74,
+            "s": 1.4
+          },
+          {
+            "e": "📦",
+            "x": 90,
+            "y": 76,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Leo still did not know many Japanese words. But now he knew the most useful one: \"Oishii!\"",
+      "ja": "レオは まだ 日本語の 言葉を あまり 知りませんでした。でも 今では、いちばん 役に 立つ 言葉を 知っています。「おいしい！」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👦",
+            "x": 40,
+            "y": 70,
+            "s": 3.8,
+            "a": "hop"
+          },
+          {
+            "e": "😋",
+            "x": 42,
+            "y": 38,
+            "s": 1.2
+          },
+          {
+            "e": "💬",
+            "x": 62,
+            "y": 22,
+            "s": 2.6
+          },
+          {
+            "e": "🍙",
+            "x": 62,
+            "y": 20,
+            "s": 1.1
+          },
+          {
+            "e": "👧",
+            "x": 84,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "❤️",
+            "x": 20,
+            "y": 28,
+            "s": 1.6,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "country",
+      "ja": "国"
+    },
+    {
+      "en": "different",
+      "ja": "ちがう"
+    },
+    {
+      "en": "flat",
+      "ja": "平たい"
+    },
+    {
+      "en": "beans",
+      "ja": "まめ"
+    },
+    {
+      "en": "lid",
+      "ja": "ふた"
+    },
+    {
+      "en": "halfway",
+      "ja": "半分まで"
+    },
+    {
+      "en": "curious",
+      "ja": "きょうみが ある・知りたがりの"
+    },
+    {
+      "en": "delicious",
+      "ja": "おいしい"
+    },
+    {
+      "en": "rolled",
+      "ja": "まいた"
+    },
+    {
+      "en": "shaped",
+      "ja": "〜の 形を した"
+    },
+    {
+      "en": "share",
+      "ja": "分け合う"
+    },
+    {
+      "en": "useful",
+      "ja": "役に 立つ"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "a girl who cooks for the whole school",
+        "a long bus trip to a faraway country",
+        "a grandmother who opens a restaurant",
+        "a new boy who makes friends through food"
+      ],
+      "answer": "a new boy who makes friends through food",
+      "kind": "main"
+    },
+    {
+      "q": "What was in Leo's lunch?",
+      "ja": "レオの おべんとうには 何が 入っていましたか。",
+      "choices": [
+        "Rice balls and fried chicken.",
+        "Flat bread, rice, and bean balls.",
+        "A rolled egg and a sausage.",
+        "Sandwiches, an apple, and juice."
+      ],
+      "answer": "Flat bread, rice, and bean balls.",
+      "kind": "detail"
+    },
+    {
+      "q": "Who made Leo's lunch?",
+      "ja": "レオの おべんとうを 作ったのは だれですか。",
+      "choices": [
+        "His grandmother.",
+        "His father.",
+        "His teacher.",
+        "Leo himself."
+      ],
+      "answer": "His grandmother.",
+      "kind": "detail"
+    },
+    {
+      "q": "Saki was \"curious.\" This means she ___.",
+      "ja": "サキは 「curious」でした。これは どういう 意味ですか。",
+      "choices": [
+        "was very hungry",
+        "felt a little angry",
+        "wanted to know more",
+        "was tired from the trip"
+      ],
+      "answer": "wanted to know more",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Leo close the lid of his lunch box halfway?",
+      "ja": "レオは なぜ おべんとう箱の ふたを 半分 しめたのですか。",
+      "choices": [
+        "He was already full and wanted to stop.",
+        "He felt shy about his different lunch.",
+        "He wanted to keep the food warm.",
+        "He was saving it for Saki."
+      ],
+      "answer": "He felt shy about his different lunch.",
+      "kind": "infer"
+    }
+  ]
+}

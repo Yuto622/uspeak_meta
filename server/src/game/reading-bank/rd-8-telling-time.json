@@ -1,0 +1,569 @@
+{
+  "id": "rd-8-telling-time",
+  "stage": "8",
+  "title": "How the World Learned to Tell Time",
+  "titleJa": "世界は こうして 時間を 知った",
+  "kind": "fact",
+  "cover": {
+    "bg": "sky",
+    "items": [
+      {
+        "e": "🕰",
+        "x": 50,
+        "y": 50,
+        "s": 4.4,
+        "a": "bob"
+      },
+      {
+        "e": "☀",
+        "x": 16,
+        "y": 20,
+        "s": 2.4,
+        "a": "pulse"
+      },
+      {
+        "e": "⏳",
+        "x": 22,
+        "y": 74,
+        "s": 2.2
+      },
+      {
+        "e": "⚙",
+        "x": 82,
+        "y": 74,
+        "s": 2.2,
+        "a": "spin"
+      },
+      {
+        "e": "🚆",
+        "x": 84,
+        "y": 30,
+        "s": 1.8
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "What time is it? You can answer that question in a second by glancing at a clock or a phone. But for most of human history, knowing the exact time was difficult, and for most people it was not even necessary.",
+      "ja": "今、何時？ 時計か スマホを ちらっと 見れば、一秒で 答えられる。でも 人類の 歴史の 大部分で、正確な 時こくを 知ることは むずかしく、ほとんどの 人には 必要ですら なかった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📱",
+            "x": 46,
+            "y": 56,
+            "s": 1.6
+          },
+          {
+            "e": "⏰",
+            "x": 70,
+            "y": 56,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "❓",
+            "x": 70,
+            "y": 24,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "The first clock was the sky. People got up at sunrise and stopped working at sunset. To divide the day, ancient people used sundials: a stick casts a shadow, and the shadow moves as the sun crosses the sky.",
+      "ja": "最初の 時計は 空だった。人びとは 日の出に 起き、日ぼつに 仕事を やめた。一日を 区切るために、古代の 人は 日時計を 使った。ぼうが かげを 落とし、太陽が 空を 動くにつれて かげも 動く。",
+      "scene": {
+        "bg": "desert",
+        "items": [
+          {
+            "e": "☀",
+            "x": 78,
+            "y": 16,
+            "s": 2.8,
+            "a": "pulse"
+          },
+          {
+            "e": "📏",
+            "x": 45,
+            "y": 62,
+            "s": 2.6
+          },
+          {
+            "e": "➖",
+            "x": 34,
+            "y": 80,
+            "s": 2.2
+          },
+          {
+            "e": "🧑‍🌾",
+            "x": 16,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "➡",
+            "x": 60,
+            "y": 30,
+            "s": 1.6,
+            "a": "drift"
+          }
+        ]
+      }
+    },
+    {
+      "text": "However, a sundial is useless at night or on a cloudy day. So people invented water clocks. Water dripped slowly from one container into another, and the level of the water showed how much time had passed.",
+      "ja": "しかし 日時計は、夜や くもりの 日には 役に 立たない。そこで 水時計が 発明された。水が 一つの 入れ物から 別の 入れ物へ ゆっくり 落ち、水位が どれだけ 時間が たったかを しめした。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "🌙",
+            "x": 82,
+            "y": 16,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "☁",
+            "x": 22,
+            "y": 20,
+            "s": 2.4,
+            "a": "drift"
+          },
+          {
+            "e": "🪣",
+            "x": 40,
+            "y": 50,
+            "s": 2.4
+          },
+          {
+            "e": "💧",
+            "x": 44,
+            "y": 66,
+            "s": 1.2,
+            "a": "bob"
+          },
+          {
+            "e": "🪣",
+            "x": 52,
+            "y": 80,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "Other simple timers were also popular. An hourglass measures time with falling sand. In some places, people burned candles or sticks of incense marked with lines, and read the time from how much had burned away.",
+      "ja": "ほかの 単純な タイマーも よく 使われた。すな時計は、落ちる すなで 時間を はかる。線を 入れた ろうそくや 線こうを もやし、どれだけ もえたかで 時間を 読む 地いきも あった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "⏳",
+            "x": 28,
+            "y": 62,
+            "s": 3.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🕯",
+            "x": 62,
+            "y": 64,
+            "s": 3
+          },
+          {
+            "e": "➖",
+            "x": 70,
+            "y": 56,
+            "s": 0.8
+          },
+          {
+            "e": "➖",
+            "x": 70,
+            "y": 66,
+            "s": 0.8
+          },
+          {
+            "e": "♨",
+            "x": 86,
+            "y": 60,
+            "s": 1.8,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "In the Middle Ages, mechanical clocks appeared in Europe. They used falling weights and turning gears, and were often placed in tall towers. Many of them had no face at all; they simply rang a bell every hour.",
+      "ja": "中世に なると、ヨーロッパに 機械式の 時計が あらわれた。落ちる おもりと 回る 歯車を 使い、多くは 高い とうに 置かれた。文字ばんの ない ものも 多く、一時間ごとに かねを 鳴らすだけだった。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🏰",
+            "x": 45,
+            "y": 52,
+            "s": 4.4
+          },
+          {
+            "e": "🔔",
+            "x": 45,
+            "y": 24,
+            "s": 2,
+            "a": "sway"
+          },
+          {
+            "e": "⚙",
+            "x": 76,
+            "y": 60,
+            "s": 2.4,
+            "a": "spin"
+          },
+          {
+            "e": "⚙",
+            "x": 88,
+            "y": 72,
+            "s": 1.6,
+            "a": "spin"
+          },
+          {
+            "e": "🎵",
+            "x": 62,
+            "y": 18,
+            "s": 1.4,
+            "a": "bob"
+          }
+        ]
+      }
+    },
+    {
+      "text": "A great improvement came in the 1600s with the pendulum clock. A pendulum swings back and forth at a very regular rate, so clocks became far more accurate. Now it made sense to add a minute hand.",
+      "ja": "千六百年代、ふりこ時計によって 大きな 進歩が あった。ふりこは とても 規則正しい 速さで 左右に ゆれるので、時計は はるかに 正確に なった。こうして、分を しめす はりを つける 意味が 生まれた。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "🕰",
+            "x": 45,
+            "y": 50,
+            "s": 4.6
+          },
+          {
+            "e": "↔",
+            "x": 45,
+            "y": 84,
+            "s": 1.8,
+            "a": "sway"
+          },
+          {
+            "e": "✨",
+            "x": 72,
+            "y": 30,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👨",
+            "x": 86,
+            "y": 72,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Even so, every town kept its own time, based on the sun above it. When it was noon in one city, it might be several minutes before noon in a city to the west. For centuries, this caused no trouble.",
+      "ja": "それでも、どの 町も、頭上の 太陽を もとに 自分たちの 時間を 使っていた。ある 都市が 正午の 時、西の 都市では 正午の 数分前、ということも あった。何世紀もの 間、それで こまることは なかった。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🏘",
+            "x": 20,
+            "y": 64,
+            "s": 2.8
+          },
+          {
+            "e": "🕛",
+            "x": 20,
+            "y": 30,
+            "s": 2
+          },
+          {
+            "e": "🏘",
+            "x": 80,
+            "y": 64,
+            "s": 2.8
+          },
+          {
+            "e": "🕙",
+            "x": 80,
+            "y": 30,
+            "s": 2
+          },
+          {
+            "e": "☀",
+            "x": 50,
+            "y": 14,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "↔",
+            "x": 50,
+            "y": 56,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "Then came the railways. Trains traveled fast between cities, and timetables became hopelessly confusing when every station had its own time. So countries introduced standard time, and the world was later divided into time zones.",
+      "ja": "そこへ 鉄道が あらわれた。列車は 都市の 間を 速く 走り、駅ごとに 時間が ちがうと、時こく表は どうしようもなく こん乱した。そこで 各国は 標準時を 取り入れ、後に 世界は 時間帯に 分けられた。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚆",
+            "x": 42,
+            "y": 70,
+            "s": 3.8
+          },
+          {
+            "e": "🚉",
+            "x": 82,
+            "y": 60,
+            "s": 2.8
+          },
+          {
+            "e": "📋",
+            "x": 18,
+            "y": 44,
+            "s": 2.2
+          },
+          {
+            "e": "😵",
+            "x": 18,
+            "y": 22,
+            "s": 1.4
+          },
+          {
+            "e": "🌐",
+            "x": 64,
+            "y": 22,
+            "s": 2.2,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Today, the most accurate clocks do not use pendulums or springs. Atomic clocks count the extremely rapid, regular vibrations of atoms. The best of them would not gain or lose a second in millions of years.",
+      "ja": "今日、最も 正確な 時計は、ふりこも ばねも 使わない。原子時計は、原子の きわめて 速く 規則正しい しん動を 数える。最高の ものは、何百万年 たっても 一秒も くるわない。",
+      "scene": {
+        "bg": "space",
+        "items": [
+          {
+            "e": "🔬",
+            "x": 28,
+            "y": 66,
+            "s": 3
+          },
+          {
+            "e": "🔵",
+            "x": 60,
+            "y": 46,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "💫",
+            "x": 60,
+            "y": 46,
+            "s": 3.2,
+            "a": "spin"
+          },
+          {
+            "e": "⏱",
+            "x": 86,
+            "y": 66,
+            "s": 2.2
+          },
+          {
+            "e": "✅",
+            "x": 86,
+            "y": 30,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The clock in your phone is regularly corrected by signals based on atomic clocks. We have traveled a long way from a stick in the sand. Yet the purpose has never changed: time is an agreement that lets people act together.",
+      "ja": "スマホの 時計は、原子時計に もとづく 信号で 定期的に 直されている。すなに 立てた ぼうから、ずいぶん 遠くまで 来た。でも 目的は 変わらない。時間とは、人びとが いっしょに 動く ための 「取り決め」なのだ。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "👧",
+            "x": 25,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📱",
+            "x": 42,
+            "y": 56,
+            "s": 1.8
+          },
+          {
+            "e": "📡",
+            "x": 62,
+            "y": 44,
+            "s": 2.2,
+            "a": "pulse"
+          },
+          {
+            "e": "🛰",
+            "x": 84,
+            "y": 18,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "👥",
+            "x": 78,
+            "y": 76,
+            "s": 2.4
+          },
+          {
+            "e": "🤝",
+            "x": 52,
+            "y": 24,
+            "s": 1.6
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "glancing",
+      "ja": "ちらっと 見ること"
+    },
+    {
+      "en": "ancient",
+      "ja": "古代の"
+    },
+    {
+      "en": "sundials",
+      "ja": "日時計"
+    },
+    {
+      "en": "container",
+      "ja": "入れ物"
+    },
+    {
+      "en": "incense",
+      "ja": "線こう"
+    },
+    {
+      "en": "mechanical",
+      "ja": "機械式の"
+    },
+    {
+      "en": "gears",
+      "ja": "歯車"
+    },
+    {
+      "en": "pendulum",
+      "ja": "ふりこ"
+    },
+    {
+      "en": "accurate",
+      "ja": "正確な"
+    },
+    {
+      "en": "timetables",
+      "ja": "時こく表"
+    },
+    {
+      "en": "standard",
+      "ja": "標準の"
+    },
+    {
+      "en": "vibrations",
+      "ja": "しん動"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this book mostly about?",
+      "ja": "この本は 主に 何についての 本？",
+      "choices": [
+        "How ways of measuring time developed",
+        "How railways were built across Europe",
+        "Why phones have replaced wall clocks",
+        "How to make a sundial in the sand"
+      ],
+      "answer": "How ways of measuring time developed",
+      "kind": "main"
+    },
+    {
+      "q": "What was the weakness of a sundial?",
+      "ja": "日時計の 弱点は 何だった？",
+      "choices": [
+        "It was too heavy to move.",
+        "It needed water to work.",
+        "It rang a bell too loudly.",
+        "It was useless without sunlight."
+      ],
+      "answer": "It was useless without sunlight.",
+      "kind": "detail"
+    },
+    {
+      "q": "Why did railways make standard time necessary?",
+      "ja": "鉄道は なぜ 標準時を 必要と した？",
+      "choices": [
+        "Trains needed clocks with pendulums.",
+        "Passengers refused to carry watches.",
+        "Different local times confused timetables.",
+        "Stations were built in tall towers."
+      ],
+      "answer": "Different local times confused timetables.",
+      "kind": "detail"
+    },
+    {
+      "q": "Which of these was invented last?",
+      "ja": "この中で 最後に 発明されたのは どれ？",
+      "choices": [
+        "The water clock",
+        "The atomic clock",
+        "The pendulum clock",
+        "The tower clock with a bell"
+      ],
+      "answer": "The atomic clock",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why does the book call time “an agreement”?",
+      "ja": "この本は なぜ 時間を 「取り決め」と よぶ？",
+      "choices": [
+        "People must share one time to cooperate.",
+        "Clock makers signed a contract long ago.",
+        "Nobody can measure time accurately.",
+        "Each town still chooses its own time."
+      ],
+      "answer": "People must share one time to cooperate.",
+      "kind": "infer"
+    }
+  ]
+}

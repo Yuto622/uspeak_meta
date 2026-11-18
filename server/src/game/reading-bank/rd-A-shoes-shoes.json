@@ -1,0 +1,310 @@
+{
+  "id": "rd-A-shoes-shoes",
+  "stage": "A",
+  "title": "Shoes, Shoes, Shoes",
+  "titleJa": "くつ くつ くつ",
+  "kind": "story",
+  "cover": {
+    "bg": "room",
+    "items": [
+      {
+        "e": "👞",
+        "x": 24,
+        "y": 72,
+        "s": 2.8
+      },
+      {
+        "e": "👠",
+        "x": 48,
+        "y": 72,
+        "s": 2.6
+      },
+      {
+        "e": "🥾",
+        "x": 72,
+        "y": 72,
+        "s": 2.8
+      },
+      {
+        "e": "👟",
+        "x": 50,
+        "y": 34,
+        "s": 2.4,
+        "a": "hop"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Dad has big shoes.",
+      "ja": "パパの くつは おおきい。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👨",
+            "x": 32,
+            "y": 70,
+            "s": 3.5
+          },
+          {
+            "e": "👞",
+            "x": 68,
+            "y": 72,
+            "s": 4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Mom has red shoes.",
+      "ja": "ママの くつは あかい。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👩",
+            "x": 32,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "👠",
+            "x": 68,
+            "y": 72,
+            "s": 3.2,
+            "a": "pulse"
+          },
+          {
+            "e": "✨",
+            "x": 84,
+            "y": 48,
+            "s": 1.4,
+            "a": "spin"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Grandpa has boots.",
+      "ja": "おじいちゃんは ながぐつを はく。",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👴",
+            "x": 32,
+            "y": 70,
+            "s": 3.3
+          },
+          {
+            "e": "🥾",
+            "x": 68,
+            "y": 72,
+            "s": 3.4,
+            "a": "pulse"
+          },
+          {
+            "e": "🌷",
+            "x": 90,
+            "y": 76,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "The baby has no shoes.",
+      "ja": "あかちゃんは くつを はいていない。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👶",
+            "x": 36,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🦶",
+            "x": 68,
+            "y": 70,
+            "s": 2.6,
+            "a": "bob"
+          },
+          {
+            "e": "🧸",
+            "x": 88,
+            "y": 78,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "I have one shoe.",
+      "ja": "わたしの くつは ひとつだけ。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 34,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🤔",
+            "x": 34,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "👟",
+            "x": 66,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "❓",
+            "x": 82,
+            "y": 30,
+            "s": 2.4,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Oh! The dog has my shoe!",
+      "ja": "あっ！ いぬが わたしの くつを もっている！",
+      "scene": {
+        "bg": "garden",
+        "items": [
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 70,
+            "s": 3.4,
+            "a": "hop"
+          },
+          {
+            "e": "😲",
+            "x": 24,
+            "y": 42,
+            "s": 1.2
+          },
+          {
+            "e": "🐶",
+            "x": 66,
+            "y": 72,
+            "s": 3.2,
+            "a": "hop"
+          },
+          {
+            "e": "👟",
+            "x": 82,
+            "y": 66,
+            "s": 1.8,
+            "a": "bob"
+          },
+          {
+            "e": "❗",
+            "x": 46,
+            "y": 26,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "shoes",
+      "ja": "くつ（ふたつ）"
+    },
+    {
+      "en": "shoe",
+      "ja": "くつ（ひとつ）"
+    },
+    {
+      "en": "boots",
+      "ja": "ながぐつ・ブーツ"
+    },
+    {
+      "en": "big",
+      "ja": "おおきい"
+    },
+    {
+      "en": "red",
+      "ja": "あかい"
+    },
+    {
+      "en": "baby",
+      "ja": "あかちゃん"
+    },
+    {
+      "en": "dog",
+      "ja": "いぬ"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is about ___.",
+      "ja": "この ほんは なにの おはなし？",
+      "choices": [
+        "shoes",
+        "hats",
+        "bags"
+      ],
+      "answer": "shoes",
+      "kind": "main"
+    },
+    {
+      "q": "Who has big shoes?",
+      "ja": "おおきい くつは だれの？",
+      "choices": [
+        "Mom",
+        "the baby",
+        "Dad"
+      ],
+      "answer": "Dad",
+      "kind": "detail"
+    },
+    {
+      "q": "What color are Mom’s shoes?",
+      "ja": "ママの くつは なにいろ？",
+      "choices": [
+        "blue",
+        "red",
+        "white"
+      ],
+      "answer": "red",
+      "kind": "detail"
+    },
+    {
+      "q": "What is a \"baby\"?",
+      "ja": "\"baby\" は どんな ひと？",
+      "choices": [
+        "a very old man",
+        "a big dog",
+        "a very small child"
+      ],
+      "answer": "a very small child",
+      "kind": "vocab"
+    },
+    {
+      "q": "Who has the girl’s shoe?",
+      "ja": "おんなのこの くつを もっているのは だれ？",
+      "choices": [
+        "the cat",
+        "the dog",
+        "Grandpa"
+      ],
+      "answer": "the dog",
+      "kind": "detail"
+    }
+  ]
+}

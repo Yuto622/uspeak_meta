@@ -1,0 +1,556 @@
+{
+  "id": "rd-6-rainy-book",
+  "stage": "6",
+  "title": "The Rainy Library Book",
+  "titleJa": "雨に ぬれた 図書館の 本",
+  "kind": "story",
+  "cover": {
+    "bg": "park",
+    "items": [
+      {
+        "e": "👧",
+        "x": 35,
+        "y": 70,
+        "s": 3.6
+      },
+      {
+        "e": "📕",
+        "x": 60,
+        "y": 72,
+        "s": 2.4
+      },
+      {
+        "e": "🌧",
+        "x": 62,
+        "y": 22,
+        "s": 2.6,
+        "a": "drift"
+      },
+      {
+        "e": "🐋",
+        "x": 85,
+        "y": 40,
+        "s": 2,
+        "a": "float"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Emi loved the town library. One Friday she borrowed a beautiful book about whales, with big photos on every page.",
+      "ja": "エミは 町の 図書館が 大好きだった。ある金曜日、クジラについての 美しい 本を 借りた。どの ページにも 大きな 写真が のっていた。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📕",
+            "x": 55,
+            "y": 60,
+            "s": 2
+          },
+          {
+            "e": "🐋",
+            "x": 72,
+            "y": 35,
+            "s": 2.2,
+            "a": "float"
+          },
+          {
+            "e": "📚",
+            "x": 88,
+            "y": 72,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "On Saturday she read it on a bench in the park. Then her friends called her to play tag, and she left the book on the bench and forgot it.",
+      "ja": "土曜日、エミは 公園の ベンチで その本を 読んだ。それから 友だちに おにごっこに さそわれ、本を ベンチに 置いたまま わすれてしまった。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🪑",
+            "x": 25,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "📕",
+            "x": 25,
+            "y": 62,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 58,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "🧒",
+            "x": 84,
+            "y": 70,
+            "s": 3,
+            "a": "hop"
+          },
+          {
+            "e": "🌳",
+            "x": 8,
+            "y": 60,
+            "s": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "That night it rained hard. In the morning Emi remembered and ran to the park. The book was still there, but its pages were wet, wavy, and stuck together.",
+      "ja": "その夜、はげしい 雨が ふった。朝に なって エミは 思い出し、公園へ 走った。本は まだ そこに あったが、ページは ぬれて、波うち、くっついていた。",
+      "scene": {
+        "bg": "park",
+        "items": [
+          {
+            "e": "🌧",
+            "x": 50,
+            "y": 18,
+            "s": 2.6,
+            "a": "drift"
+          },
+          {
+            "e": "🪑",
+            "x": 62,
+            "y": 74,
+            "s": 2.6
+          },
+          {
+            "e": "📕",
+            "x": 62,
+            "y": 62,
+            "s": 1.6
+          },
+          {
+            "e": "💧",
+            "x": 72,
+            "y": 56,
+            "s": 1.2,
+            "a": "bob"
+          },
+          {
+            "e": "👧",
+            "x": 28,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 28,
+            "y": 48,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Emi felt cold all over. She tried to dry the book with a hair dryer, but it only became worse. The beautiful whale on the cover was now gray and wrinkled.",
+      "ja": "エミは 体じゅうが 冷たくなった。ドライヤーで 本を かわかそうと したが、もっと ひどく なっただけだった。表紙の 美しい クジラは、今は 灰色で しわしわだった。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😢",
+            "x": 35,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📕",
+            "x": 60,
+            "y": 64,
+            "s": 2.2
+          },
+          {
+            "e": "💨",
+            "x": 50,
+            "y": 52,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "🐋",
+            "x": 80,
+            "y": 36,
+            "s": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "text": "“You could just drop it in the return box at night,” her brother said. “There are hundreds of books. Nobody will know it was you.”",
+      "ja": "「夜に 返却ボックスへ 入れておけば いいよ」と お兄ちゃんは 言った。「本は 何百さつも あるんだ。エミが やったとは だれにも 分からないよ」",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👦",
+            "x": 72,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "💬",
+            "x": 72,
+            "y": 28,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "📦",
+            "x": 88,
+            "y": 76,
+            "s": 2
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📕",
+            "x": 46,
+            "y": 68,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "Emi thought about it. It would be so easy. But then other children would open the book and find it ruined, and Ms. Hara would never know why.",
+      "ja": "エミは 考えた。とても かんたんだ。でも そうしたら、ほかの 子が 本を 開いて だめに なっているのを 見つける。ハラさんには 理由が ずっと 分からない。",
+      "scene": {
+        "bg": "night",
+        "items": [
+          {
+            "e": "👧",
+            "x": 45,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "🤔",
+            "x": 45,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💭",
+            "x": 66,
+            "y": 30,
+            "s": 2.6,
+            "a": "pulse"
+          },
+          {
+            "e": "📕",
+            "x": 66,
+            "y": 29,
+            "s": 1.2
+          },
+          {
+            "e": "🌙",
+            "x": 14,
+            "y": 18,
+            "s": 2.2,
+            "a": "float"
+          }
+        ]
+      }
+    },
+    {
+      "text": "On Monday she carried the book to the desk with shaking hands. “I left it in the rain. It was my mistake. I am very sorry,” she said.",
+      "ja": "月曜日、エミは ふるえる 手で 本を カウンターへ 持っていった。「雨の 中に 置きっぱなしに しました。私の まちがいです。本当に ごめんなさい」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😟",
+            "x": 30,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📕",
+            "x": 48,
+            "y": 66,
+            "s": 1.8
+          },
+          {
+            "e": "👩",
+            "x": 74,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📚",
+            "x": 92,
+            "y": 70,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Ms. Hara looked at the book and then at Emi. “Thank you for telling me yourself. That was not easy,” she said. “Would you like to help me repair some old books?”",
+      "ja": "ハラさんは 本を 見て、それから エミを 見た。「自分で 話してくれて ありがとう。かんたんでは なかったでしょう。古い 本を 直すのを 手伝ってくれる？」",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👩",
+            "x": 68,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 68,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "💬",
+            "x": 68,
+            "y": 26,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "📚",
+            "x": 90,
+            "y": 72,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Every Wednesday for a month, Emi cleaned covers and fixed torn pages with special tape. She also saved her pocket money to help buy a new whale book.",
+      "ja": "一か月の 間、毎週 水曜日に、エミは 表紙を ふき、やぶれた ページを 特別な テープで 直した。新しい クジラの 本を 買う 助けに なるよう、おこづかいも ためた。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 35,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "📖",
+            "x": 55,
+            "y": 66,
+            "s": 2
+          },
+          {
+            "e": "🧽",
+            "x": 68,
+            "y": 66,
+            "s": 1.4
+          },
+          {
+            "e": "📚",
+            "x": 85,
+            "y": 70,
+            "s": 2.4
+          },
+          {
+            "e": "🪙",
+            "x": 16,
+            "y": 76,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "When the new book came, Ms. Hara let Emi put it on the shelf. Emi smiled. She could not undo her mistake, but she had made something right again.",
+      "ja": "新しい 本が とどくと、ハラさんは エミに 本だなへ ならべさせてくれた。エミは ほほえんだ。まちがいは 取り消せない。でも 何かを もう一度 正しく できたのだ。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "👧",
+            "x": 40,
+            "y": 70,
+            "s": 3.6
+          },
+          {
+            "e": "😊",
+            "x": 40,
+            "y": 48,
+            "s": 1.6
+          },
+          {
+            "e": "📕",
+            "x": 58,
+            "y": 50,
+            "s": 2
+          },
+          {
+            "e": "📚",
+            "x": 76,
+            "y": 68,
+            "s": 2.6
+          },
+          {
+            "e": "🐋",
+            "x": 76,
+            "y": 28,
+            "s": 2,
+            "a": "float"
+          },
+          {
+            "e": "👩",
+            "x": 14,
+            "y": 70,
+            "s": 2.8
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "borrowed",
+      "ja": "借りた"
+    },
+    {
+      "en": "bench",
+      "ja": "ベンチ"
+    },
+    {
+      "en": "wavy",
+      "ja": "波うった"
+    },
+    {
+      "en": "wrinkled",
+      "ja": "しわの よった"
+    },
+    {
+      "en": "return",
+      "ja": "返却"
+    },
+    {
+      "en": "ruined",
+      "ja": "だめに なった"
+    },
+    {
+      "en": "mistake",
+      "ja": "まちがい"
+    },
+    {
+      "en": "repair",
+      "ja": "直す、修理する"
+    },
+    {
+      "en": "torn",
+      "ja": "やぶれた"
+    },
+    {
+      "en": "shelf",
+      "ja": "たな"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "What is this story mostly about?",
+      "ja": "この話は 主に 何についての 話？",
+      "choices": [
+        "A girl who sees a whale at sea",
+        "A librarian who loses a book",
+        "A brother who plays tag in the rain all night long",
+        "A girl who tells the truth about a mistake"
+      ],
+      "answer": "A girl who tells the truth about a mistake",
+      "kind": "main"
+    },
+    {
+      "q": "Where did Emi leave the book?",
+      "ja": "エミは 本を どこに 置いてきた？",
+      "choices": [
+        "In the return box",
+        "On a park bench",
+        "At her school desk",
+        "In her brother’s room"
+      ],
+      "answer": "On a park bench",
+      "kind": "detail"
+    },
+    {
+      "q": "What did her brother tell her to do?",
+      "ja": "お兄ちゃんは 何を するよう 言った？",
+      "choices": [
+        "Return it secretly at night",
+        "Buy a new book at once",
+        "Tell Ms. Hara the truth",
+        "Dry it in the sun"
+      ],
+      "answer": "Return it secretly at night",
+      "kind": "detail"
+    },
+    {
+      "q": "What did Emi do right after she talked to Ms. Hara?",
+      "ja": "エミは ハラさんと 話した すぐ後、何を した？",
+      "choices": [
+        "She stopped going to the library.",
+        "She read the book in the park.",
+        "She helped repair old books.",
+        "She tried to dry the book."
+      ],
+      "answer": "She helped repair old books.",
+      "kind": "sequence"
+    },
+    {
+      "q": "Why did Ms. Hara thank Emi?",
+      "ja": "ハラさんは なぜ エミに お礼を 言った？",
+      "choices": [
+        "Emi found a whale book that was lost.",
+        "Emi paid for all the books.",
+        "Emi cleaned the park bench.",
+        "Emi was honest when it was hard."
+      ],
+      "answer": "Emi was honest when it was hard.",
+      "kind": "infer"
+    }
+  ]
+}

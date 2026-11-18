@@ -1,0 +1,672 @@
+{
+  "id": "rd-5-sheep-thirteen",
+  "stage": "5",
+  "title": "Sheep Number Thirteen",
+  "titleJa": "13ばんめの ヒツジ",
+  "kind": "story",
+  "cover": {
+    "bg": "mountain",
+    "items": [
+      {
+        "e": "🐑",
+        "x": 55,
+        "y": 70,
+        "s": 4,
+        "a": "hop"
+      },
+      {
+        "e": "🔔",
+        "x": 55,
+        "y": 86,
+        "s": 1.4,
+        "a": "sway"
+      },
+      {
+        "e": "👧",
+        "x": 20,
+        "y": 70,
+        "s": 3.2
+      },
+      {
+        "e": "🐑",
+        "x": 86,
+        "y": 76,
+        "s": 2
+      },
+      {
+        "e": "❓",
+        "x": 30,
+        "y": 30,
+        "s": 1.8,
+        "a": "pulse"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "text": "Every summer, Nina helped her grandfather on his farm in the mountains. Her job was to count the sheep each evening.",
+      "ja": "毎年 夏に なると、ニナは 山の 農場で おじいさんの 手伝いを しました。ニナの 仕事は、毎日 夕方に ヒツジを 数える ことでした。",
+      "scene": {
+        "bg": "mountain",
+        "items": [
+          {
+            "e": "👧",
+            "x": 22,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "👴",
+            "x": 46,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "🐑",
+            "x": 70,
+            "y": 74,
+            "s": 2.4
+          },
+          {
+            "e": "🐑",
+            "x": 84,
+            "y": 70,
+            "s": 2.4
+          },
+          {
+            "e": "🐑",
+            "x": 94,
+            "y": 78,
+            "s": 2.2
+          },
+          {
+            "e": "🌅",
+            "x": 80,
+            "y": 20,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "There were thirteen sheep. But every evening, Nina could only count twelve. Number Thirteen was always missing.",
+      "ja": "ヒツジは 13頭 いました。でも 毎日 夕方、ニナが 数えると 12頭しか いません。13番は いつも いなく なっていました。",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "👧",
+            "x": 18,
+            "y": 70,
+            "s": 3.2
+          },
+          {
+            "e": "🤔",
+            "x": 20,
+            "y": 42,
+            "s": 1.1
+          },
+          {
+            "e": "🐑",
+            "x": 44,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "🐑",
+            "x": 58,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "🐑",
+            "x": 72,
+            "y": 72,
+            "s": 2.2
+          },
+          {
+            "e": "🐑",
+            "x": 86,
+            "y": 76,
+            "s": 2.2
+          },
+          {
+            "e": "❓",
+            "x": 64,
+            "y": 32,
+            "s": 2,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Number Thirteen was a small sheep with a black spot on her nose. She was clever, and she hated staying in the field.",
+      "ja": "13番は、鼻に 黒い 点が ある 小さな ヒツジでした。かしこくて、牧場に じっと しているのが 大きらいでした。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🐑",
+            "x": 45,
+            "y": 68,
+            "s": 5,
+            "a": "hop"
+          },
+          {
+            "e": "⚫",
+            "x": 31,
+            "y": 62,
+            "s": 0.7
+          },
+          {
+            "e": "💨",
+            "x": 74,
+            "y": 70,
+            "s": 2,
+            "a": "drift"
+          },
+          {
+            "e": "🚧",
+            "x": 88,
+            "y": 74,
+            "s": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "On Monday, Nina found her in the village bakery. She was standing in line behind two customers.",
+      "ja": "月曜日、ニナは 村の パン屋で 13番を 見つけました。二人の お客さんの 後ろで、列に ならんでいました。",
+      "scene": {
+        "bg": "shop",
+        "items": [
+          {
+            "e": "👩‍🍳",
+            "x": 12,
+            "y": 70,
+            "s": 2.8
+          },
+          {
+            "e": "👩",
+            "x": 36,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👨",
+            "x": 60,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🐑",
+            "x": 82,
+            "y": 74,
+            "s": 2.8
+          },
+          {
+            "e": "🍞",
+            "x": 12,
+            "y": 44,
+            "s": 1.8
+          },
+          {
+            "e": "🥖",
+            "x": 24,
+            "y": 46,
+            "s": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "text": "On Tuesday, she was at the school. The children were feeding her their sandwiches under the desks.",
+      "ja": "火曜日は 学校に いました。子どもたちが つくえの 下で、サンドイッチを 食べさせていました。",
+      "scene": {
+        "bg": "school",
+        "items": [
+          {
+            "e": "🐑",
+            "x": 50,
+            "y": 76,
+            "s": 3
+          },
+          {
+            "e": "👦",
+            "x": 22,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "🥪",
+            "x": 36,
+            "y": 76,
+            "s": 1.6
+          },
+          {
+            "e": "👧",
+            "x": 78,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "😄",
+            "x": 80,
+            "y": 42,
+            "s": 1.1
+          },
+          {
+            "e": "🤫",
+            "x": 22,
+            "y": 30,
+            "s": 1.4
+          }
+        ]
+      }
+    },
+    {
+      "text": "On Wednesday, she was waiting at the bus stop. \"Does she have a ticket?\" the driver asked Nina.",
+      "ja": "水曜日は バス停で 待っていました。「この 子は きっぷを 持っているのかい？」と 運転手さんが ニナに 聞きました。",
+      "scene": {
+        "bg": "city",
+        "items": [
+          {
+            "e": "🚌",
+            "x": 70,
+            "y": 64,
+            "s": 4.6
+          },
+          {
+            "e": "🐑",
+            "x": 36,
+            "y": 76,
+            "s": 2.8
+          },
+          {
+            "e": "🎫",
+            "x": 36,
+            "y": 50,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 12,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "😓",
+            "x": 14,
+            "y": 42,
+            "s": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "text": "\"I cannot run after her every day,\" Nina told her grandfather. \"I am more tired than the sheep!\"",
+      "ja": "「毎日 追いかけるなんて できないわ」と ニナは おじいさんに 言いました。「わたしの ほうが ヒツジより つかれちゃう！」",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😩",
+            "x": 32,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "💦",
+            "x": 44,
+            "y": 46,
+            "s": 1.4
+          },
+          {
+            "e": "👴",
+            "x": 68,
+            "y": 68,
+            "s": 3.4
+          },
+          {
+            "e": "🐑",
+            "x": 92,
+            "y": 76,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Grandfather thought for a moment. Then he took an old bell from the wall. \"My father used this,\" he said.",
+      "ja": "おじいさんは 少し 考えました。それから かべに かけて あった 古い ベルを 取りました。「わたしの 父が 使っていた ものだよ」と 言いました。",
+      "scene": {
+        "bg": "room",
+        "items": [
+          {
+            "e": "👴",
+            "x": 35,
+            "y": 68,
+            "s": 3.6
+          },
+          {
+            "e": "🔔",
+            "x": 55,
+            "y": 48,
+            "s": 2.6,
+            "a": "sway"
+          },
+          {
+            "e": "✨",
+            "x": 66,
+            "y": 34,
+            "s": 1.6,
+            "a": "pulse"
+          },
+          {
+            "e": "👧",
+            "x": 80,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🖼️",
+            "x": 14,
+            "y": 30,
+            "s": 2
+          }
+        ]
+      }
+    },
+    {
+      "text": "They put the bell around the neck of Number Thirteen. Ding, ding! Now Nina could hear where she was going.",
+      "ja": "二人は 13番の 首に ベルを つけました。チリン、チリン！ これで ニナは、13番が どこへ 行くのか 聞こえるように なりました。",
+      "scene": {
+        "bg": "meadow",
+        "items": [
+          {
+            "e": "🐑",
+            "x": 50,
+            "y": 68,
+            "s": 4.4,
+            "a": "hop"
+          },
+          {
+            "e": "🔔",
+            "x": 42,
+            "y": 84,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "🎵",
+            "x": 66,
+            "y": 40,
+            "s": 1.8,
+            "a": "float"
+          },
+          {
+            "e": "👧",
+            "x": 14,
+            "y": 70,
+            "s": 3
+          },
+          {
+            "e": "👂",
+            "x": 16,
+            "y": 40,
+            "s": 1.4,
+            "a": "pulse"
+          }
+        ]
+      }
+    },
+    {
+      "text": "The next evening, Nina heard the bell far away. She followed the sound to the river and stopped in surprise.",
+      "ja": "次の 日の 夕方、ニナは 遠くで ベルの 音を 聞きました。音を たどって 川まで 行き、おどろいて 立ち止まりました。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "👧",
+            "x": 24,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😲",
+            "x": 26,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🔔",
+            "x": 60,
+            "y": 40,
+            "s": 1.6,
+            "a": "sway"
+          },
+          {
+            "e": "🎵",
+            "x": 72,
+            "y": 32,
+            "s": 1.6,
+            "a": "float"
+          },
+          {
+            "e": "🌅",
+            "x": 86,
+            "y": 16,
+            "s": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "text": "Number Thirteen was not alone. A tiny new lamb stood beside her. This time, she had looked for a quiet place.",
+      "ja": "13番は ひとりでは ありませんでした。生まれた ばかりの 小さな 子ヒツジが そばに 立っていました。今回は、静かな 場所を さがしていたのです。",
+      "scene": {
+        "bg": "river",
+        "items": [
+          {
+            "e": "🐑",
+            "x": 40,
+            "y": 68,
+            "s": 4
+          },
+          {
+            "e": "🐑",
+            "x": 66,
+            "y": 78,
+            "s": 1.8,
+            "a": "bob"
+          },
+          {
+            "e": "❤️",
+            "x": 54,
+            "y": 36,
+            "s": 1.8,
+            "a": "pulse"
+          },
+          {
+            "e": "🌿",
+            "x": 86,
+            "y": 72,
+            "s": 2.6
+          },
+          {
+            "e": "🌊",
+            "x": 14,
+            "y": 84,
+            "s": 2,
+            "a": "sway"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Nina carried the lamb home. \"Now we have fourteen,\" she said. \"I hope this one likes staying in the field!\"",
+      "ja": "ニナは 子ヒツジを だいて 帰りました。「これで 14頭ね」と 言いました。「この 子は 牧場に いるのが 好きだと いいんだけど！」",
+      "scene": {
+        "bg": "farm",
+        "items": [
+          {
+            "e": "👧",
+            "x": 30,
+            "y": 70,
+            "s": 3.4
+          },
+          {
+            "e": "😊",
+            "x": 32,
+            "y": 40,
+            "s": 1.2
+          },
+          {
+            "e": "🐑",
+            "x": 46,
+            "y": 60,
+            "s": 1.6
+          },
+          {
+            "e": "🐑",
+            "x": 72,
+            "y": 72,
+            "s": 3
+          },
+          {
+            "e": "🔔",
+            "x": 66,
+            "y": 86,
+            "s": 1.2
+          },
+          {
+            "e": "👴",
+            "x": 94,
+            "y": 68,
+            "s": 3
+          }
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "en": "count",
+      "ja": "数える"
+    },
+    {
+      "en": "missing",
+      "ja": "いなく なった・見つからない"
+    },
+    {
+      "en": "spot",
+      "ja": "点・はん点"
+    },
+    {
+      "en": "hated",
+      "ja": "大きらいだった"
+    },
+    {
+      "en": "village",
+      "ja": "村"
+    },
+    {
+      "en": "customers",
+      "ja": "お客さん"
+    },
+    {
+      "en": "feeding",
+      "ja": "食べ物を あげている"
+    },
+    {
+      "en": "tired",
+      "ja": "つかれた"
+    },
+    {
+      "en": "bell",
+      "ja": "ベル・すず"
+    },
+    {
+      "en": "followed",
+      "ja": "ついて 行った・たどった"
+    },
+    {
+      "en": "lamb",
+      "ja": "子ヒツジ"
+    },
+    {
+      "en": "beside",
+      "ja": "〜の そばに"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "This book is mostly about ___.",
+      "ja": "この本は おもに 何の 話ですか。",
+      "choices": [
+        "a sheep that keeps leaving the farm",
+        "a girl who learns to drive a bus",
+        "a bakery in a small mountain village",
+        "a grandfather who collects old bells"
+      ],
+      "answer": "a sheep that keeps leaving the farm",
+      "kind": "main"
+    },
+    {
+      "q": "Where was Number Thirteen on Tuesday?",
+      "ja": "火曜日、13番は どこに いましたか。",
+      "choices": [
+        "At the bakery.",
+        "At the bus stop.",
+        "At the school.",
+        "By the river."
+      ],
+      "answer": "At the school.",
+      "kind": "detail"
+    },
+    {
+      "q": "How did the bell help Nina?",
+      "ja": "ベルは ニナに とって どう 役に 立ちましたか。",
+      "choices": [
+        "It kept the sheep inside the field.",
+        "She could hear where the sheep was.",
+        "It told her when it was evening.",
+        "The sheep was afraid of the sound."
+      ],
+      "answer": "She could hear where the sheep was.",
+      "kind": "detail"
+    },
+    {
+      "q": "A \"lamb\" is ___.",
+      "ja": "「lamb」とは 何ですか。",
+      "choices": [
+        "a bell for farm animals",
+        "a field in the mountains",
+        "a worker in a bakery",
+        "a baby sheep"
+      ],
+      "answer": "a baby sheep",
+      "kind": "vocab"
+    },
+    {
+      "q": "Why did Number Thirteen go to the river?",
+      "ja": "13番は なぜ 川へ 行ったのですか。",
+      "choices": [
+        "She wanted to swim in the water.",
+        "She was looking for some bread to eat.",
+        "She was running away from the bell.",
+        "She needed a quiet place for her baby."
+      ],
+      "answer": "She needed a quiet place for her baby.",
+      "kind": "infer"
+    }
+  ]
+}
