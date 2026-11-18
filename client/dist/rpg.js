@@ -67,10 +67,10 @@ export function setupRpg({scene,camera,player,water,box,park,fishing,avatars,atm
   renderWorldPicker(body,{destinations:DESTINATIONS,state:{current:state.current,unlocked:id=>store.unlocked(id)&&!premiumLock.has(id),premium:id=>premiumAll.has(id)||premiumLock.has(id),cleared:id=>store.cleared(id),count:id=>store.count(id)},
    onClose:()=>$('#rpg-close').click(),
    onBook:()=>{bookRegion='all';bookPage=0;page='book';renderBook()},
-   onPick:id=>{const r=REGION_BY_ID[id];selected=id;if(id===state.current){modal.close();return}
+   onPick:id=>{const r=REGION_BY_ID[id];selected=id;if(id===state.current){modal.close();dispatchEvent(new CustomEvent('uspeak:mappick',{detail:id}));return}
     if(premiumLock.has(id)){dispatchEvent(new CustomEvent('uspeak:premium',{detail:id}));return}
     if(!store.unlocked(id)){toast(tr('ひらく じょうけん：{what}',{what:(r.needs||[]).map(n=>tr('{where}の 物語 ＋ さがす もくひょう',{where:isJa()?REGION_BY_ID[n].name:REGION_BY_ID[n].en||REGION_BY_ID[n].name})).join(' ＋ ')}));return}
-    fly(id)}});}
+    dispatchEvent(new CustomEvent('uspeak:mappick',{detail:id}));fly(id)}});}
  function renderBook(){
  page='book';refresh();document.querySelectorAll('[data-ad-tab]').forEach(b=>b.classList.remove('active'));
  const s=store.state,a=adventure?.progress.state||{seen:[],words:{}},pool=CREATURES.filter(c=>(bookRegion==='all'||c.region===bookRegion)&&(!bookOwned||s.caught.includes(c.id))&&(bookSkill==='all'||COMPANION_META[c.id].role===bookSkill)&&(!bookReview||a.words[c.wordId]?.miss>0));

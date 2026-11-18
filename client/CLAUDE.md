@@ -2008,3 +2008,12 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **絵カード**は 絵本と 同じ `BookAssets` で 上げる（`withAbc()`：1 ことば＝ページの ない 1 冊 `abc-<ことば>`・管理ページでは 1 行に まとまる）。もじは 上げない（Roblox で 字として 出す）。
 - **Roblox の スクリプト**：`roblox/USpeakAbc.server.luau`・`USpeakAbcClient.client.luau`（こえは 出ない＝「きく」問題は 絵と もじを 見せる 形。型の 注釈なしの ふつうの Lua で 書いて あり、luaparse で 文法だけ 検査）。Studio では 動かして いない。
 - **一発 セットアップ**（Studio の コマンドバーに はる）：`roblox/setup-abc-place.lua`（ABC の place）・`roblox/setup-books-place.lua`（えほんの place・本だな 12 こ）。作るのは `scripts/make-roblox-abc-setup.py`・`make-roblox-books-setup.py`。スクリプトを なおしたら 作りなおす（`server/test/roblox-setup.test.mjs` が 見つける）。手順は `docs/ROBLOX_ABC.md`・`docs/ROBLOX_BOOKS.md`。
+
+## 入ったら すぐ「せかいを えらぼう」・えらんだら すぐ はじまる（2026-11）
+- **幼児モードは やめた**（`config.kidsMode`＝`KIDS_MODE=on` で もどる。コードは のこして ある：`kids.js`・`kids-store.js`・`/teacher/kids`）。オフの あいだは 部屋が だれも 幼児モードに せず、🧸 も よみあげ ボタン（`read-aloud.js`）も 出ない。`/teacher/kids`・`/admin/kids` は「なまえを えらんで 入る（QR）」だけ のこる。
+- **だれでも、入った とき（この ページで はじめての welcome）に しまの ちずが ひらく**（`net-client.js` の welcome：`rpg.openMap()`。つなぎなおしでは 出さない・ほかの 画面が ひらいて いたら 出さない）。
+- **カードを おすと、その 島の「だいひょうの 場所」が すぐ ひらく**（`net-client.js` の `QUICK_SPOT`。`rpg.js` の 地図が `uspeak:mappick` を 出し、島に ついたら 戸口の 前に 立たせる＝いつもの 戸口の しくみで ひらく）。
+  メイン＝英単語ハウス（やさしい）・ABC＝つみきの いえ・よみもの＝本だな・しゅくだい＝一覧・つり＝池・ことばの学校＝やさしい 小屋・アリーナ＝やさしい 台の バトル・英検＝リーディング・のりもの＝レースの スタート・まちづくり＝ブロックの ひろば。
+  「はなす」で ひらく 場所（のりもの・アリーナ）は そばに 立たせて `enter()` を 呼ぶ。**つり島は `spot.x/z`（立つ 場所）。`cast` は 水の 中**（そこに 立たせて 出られなく した ことが ある。`fishworld-island.js` に たすけ舟）。
+  島を 足したら `QUICK_SPOT` に 1 行（書かなければ 何も ひらかない＝歩いて さがす）。
+- **ABC の 島**（`abc-island.js` + `abc-island.json`・HUBS / ACTIVITY_HUBS の `abc`・おすすめの 2 ばんめ）：つみきの いえに 入ると `abc.open()`。

@@ -355,6 +355,39 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // よみもの島：本だなと 1 冊（きく・よむ・おんどく・クイズ）。クイズの 正解・✓・コインは 部屋（read:*）。
   const reading = createReadingUI({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
   // 幼児モード（先生が /teacher/kids で オンに した 子の かんたんな 画面）。きめるのは 部屋（welcome・'kids'）。
+  // ---- しまの ちずで えらんだら、その 島の「だいひょうの 問題」が すぐ はじまる ----
+  // カードを おす → 島に つく → その 島の 入口（下の 表の 場所）に 立たせる＝いつもの 戸口の しくみで 問題が ひらく。
+  // すぐ 英語に ふれられる ように（島を 歩いて さがさなくて いい）。とじた あとは 島を 歩いて ほかの 問題へ。
+  // 本だな・宿題は えらぶ 画面が ひらく（1 問を かってに 始めない）。のりもの島は レース、まちづくり島は ブロックの ひろば、つり島は つりが すぐ はじまる。
+  const QUICK_SPOT = {
+    main: 'hut_easy', abc: 'abchouse', reading: 'library', homework: 'desk', fishworld: 'pond', school: 'easy', arena: 'easy',
+    ride: 'start',   // のりもの島：すぐ レースの スタート
+    town: 'plaza',   // まちづくり島：すぐ じぶんの ひろばで ブロックを つめる
+    eiken5: 'reading', eiken4: 'reading', eiken3: 'reading', eikenp2: 'reading', eiken2: 'reading', eikenp1: 'reading', eiken1: 'reading',
+  };
+  let quickPick = null; // { id, until }
+  addEventListener('uspeak:mappick', (e) => { const id = String(e.detail || ''); quickPick = QUICK_SPOT[id] ? { id, until: Date.now() + 30000 } : null; });
+  setInterval(() => {
+    if (!quickPick) return;
+    if (Date.now() > quickPick.until) { quickPick = null; return; }
+    if (rpg.state.current !== quickPick.id || rpg.state.mode === 'flight' || rpg.isOpen || state.mode !== 'online') return;
+    if (document.querySelector('dialog[open]') || document.body.dataset.warp || document.body.dataset.classPause) return;
+    const id = quickPick.id; quickPick = null;
+    try {
+      const isl = rpg[id]?.data; const spot = isl?.spots?.find((x) => x.id === QUICK_SPOT[id]);
+      if (!isl || !spot) return;
+      if (id === 'main') { if (goPlace({ island: 'main', to: spot.id })) { sendMove(); main.walkIn(spot); } return; }
+      // のりもの島の スタートは「はなす」で ひらく 場所（戸口では ない）ので、そばに 立たせて そのまま ひらく。
+      if (id === 'ride') { player.position.set(isl.x + spot.x, 0, isl.z + spot.z + 2); state.lastSent.s = ''; sendMove(); ride.enter(spot); return; }
+      // えいごアリーナの 台も「はなす」で はじまる（やさしい 台の バトル）。
+      if (id === 'arena') { player.position.set(isl.x + spot.x, 0, isl.z + spot.z + 2); state.lastSent.s = ''; sendMove(); battle.enter(spot); return; }
+      // つり島は 水辺の 立つ 場所（うきの 落ちる cast では ない：そこは 水の 中で 出られなく なる）。ほかは 戸口の すぐ 前。
+      if (spot.cast) player.position.set(isl.x + spot.x, 0, isl.z + spot.z);
+      else player.position.set(isl.x + spot.x, 0, isl.z + spot.z - 0.65);
+      state.lastSent.s = '';
+    } catch (err) { console.warn('[net] quick start failed', err); }
+  }, 300);
+
   // よみあげ（🔊）：幼児モードの どの 画面でも、おしてから さわった 文を 読む。
   createReadAloud({ speak, isOn: kidsNow });
   // 🧸 で じぶんの 画面を きりかえた ときも、チャットの 入力らんを あわせる。
