@@ -2,7 +2,7 @@
 //
 // ・文字の つみき（letterSvg）：文字は **じぶんで かいた 線**（球と 棒の 学校の 字：a・g は 1 かいだて）。端末の フォントに たよらないので
 //   どの iPad でも 同じ 形。色は 文字ごとに ちがう。
-// ・ことばの 絵カード（wordSvg）：絵文字（reading-art/emoji の Twemoji・CC-BY 4.0）を 大きく。**字は 入れない**
+// ・ことばの 絵カード（wordSvg）：**じぶんたちで かいた 絵**（abc-art-words/・2026-11）。まだ かいて いない ことばだけ 絵文字（Twemoji）。**字は 入れない**
 //   （「この おとで はじまる 絵は どれ？」の 選択肢に そのまま 使える）。
 // ・ホームの カードの 絵（coverSvg）：A・B・C の つみき。
 // お金は かからない（画像生成の API を 呼ばない）。かき方を 変えたら ABC_ART_VERSION を 上げる。
@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const EMOJI_DIR = path.resolve(HERE, 'reading-art', 'emoji');
 export const ABC_DATA_FILE = path.resolve(HERE, 'abc-data.json');
-export const ABC_ART_VERSION = 1;
+export const ABC_ART_VERSION = 2;
 export const artPath = { letter: (l) => `/abc-art/letter/${l}.svg`, word: (w) => `/abc-art/word/${w}.svg`, cover: () => '/abc-art/cover.svg' };
 
 const n = (v) => Math.round(v * 10) / 10;
@@ -156,7 +156,40 @@ export function letterSvg(letter, mode = 'both') {
 }
 
 // ことばの 絵カード（字は 入れない）。
+// じぶんたちで かいた 絵（abc-art-words/<ことば>.svg・240×240・字なし）。ある ことばは これを 使い、ない ことばだけ 絵文字。
+const DRAWN_DIR = path.resolve(HERE, 'abc-art-words');
+const SAFE_DRAWN = /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="0 0 240 240">[\s\S]*<\/svg>\s*$/;
+const BAD_DRAWN = /<(?!\/?(?:svg|g|path|circle|ellipse|rect|polygon|polyline|line|linearGradient|radialGradient|stop|defs|clipPath)\b)[a-zA-Z!?]|\son[a-z]+\s*=|href\s*=|url\(\s*(?!#)|javascript:/i;
+const drawn = new Map();
+// かいた 絵が だめな 理由（よければ null）。検査（scripts/check-abc-words.mjs）と ここが 同じ きまりを 見る。
+export function drawnProblem(word, svg) {
+  if (typeof svg !== 'string' || !SAFE_DRAWN.test(svg.trim())) return 'はじまりは <svg xmlns=… viewBox="0 0 240 240">・おわりは </svg>';
+  if (BAD_DRAWN.test(svg)) return '使えない 部品（text・image・use・style・script・filter・外への リンク）が ある';
+  if (svg.length > 9500) return `大きすぎる（${svg.length} 文字）`;
+  const slug = String(word).replace(/[^a-z0-9-]/g, '');
+  for (const m of svg.matchAll(/\sid="([^"]+)"/g)) if (!m[1].startsWith(`w-${slug}-`)) return `id は w-${slug}- で はじめる（${m[1]}）`;
+  return null;
+}
+export function drawnInner(word) {
+  const w = String(word || '');
+  if (!/^[a-z][a-z-]{0,20}$/.test(w)) return null;
+  if (!drawn.has(w)) {
+    const p = path.join(DRAWN_DIR, `${w}.svg`); let inner = null;
+    if (existsSync(p)) { const svg = readFileSync(p, 'utf8').trim(); if (!drawnProblem(w, svg)) inner = svg.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, ''); }
+    drawn.set(w, inner);
+  }
+  return drawn.get(w);
+}
+
 export function wordSvg(word) {
+  const own = drawnInner(word);
+  if (own) {
+    let h = 0; for (const c of String(word)) h = (h * 31 + c.charCodeAt(0)) % 360;
+    return `${svgOpen(400, 400)}${backdrop(h, 400, 400)}
+    <rect x="30" y="36" width="340" height="340" rx="44" fill="#000" opacity=".1"/><rect x="26" y="26" width="348" height="340" rx="44" fill="#fff"/>
+    <rect x="26" y="26" width="348" height="340" rx="44" fill="none" stroke="${hsl(h, 60, 78)}" stroke-width="6"/>
+    <svg x="50" y="46" width="300" height="300" viewBox="0 0 240 240">${own}</svg></svg>`;
+  }
   const e = wordEmoji(word); const inner = e && emojiInner(e);
   if (!inner) return null;
   let h = 0; for (const c of String(word)) h = (h * 31 + c.charCodeAt(0)) % 360;
