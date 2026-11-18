@@ -15,8 +15,8 @@
 <rect x="24" y="44" width="76" height="86" rx="34" fill="#f8f3e8"/>
 <path d="M72 44Q98 46 100 70Q82 66 72 44Z" fill="#4a3a30"/>
 <ellipse cx="62" cy="114" rx="36" ry="23" fill="#ffb3c4"/>
-<ellipse cx="50" cy="110" rx="5" ry="6.500" fill="#3b2a20" opacity=".7"/><ellipse cx="74" cy="110" rx="5" ry="6.500" fill="#3b2a20" opacity=".7"/>
+<ellipse cx="50" cy="110" rx="5" ry="6.5" fill="#3b2a20" opacity=".7"/><ellipse cx="74" cy="110" rx="5" ry="6.5" fill="#3b2a20" opacity=".7"/>
 <path d="M52 124Q62 131 72 124" fill="none" stroke="#3b2a20" stroke-width="3" stroke-linecap="round"/>
-<circle cx="46" cy="78" r="6.500" fill="#3b2a20"/><circle cx="80" cy="78" r="6.500" fill="#3b2a20"/>
-<circle cx="48" cy="76" r="2.300" fill="#fff"/><circle cx="82" cy="76" r="2.300" fill="#fff"/>
+<circle cx="46" cy="78" r="6.5" fill="#3b2a20"/><circle cx="80" cy="78" r="6.5" fill="#3b2a20"/>
+<circle cx="48" cy="76" r="2.3" fill="#fff"/><circle cx="82" cy="76" r="2.3" fill="#fff"/>
 </svg>

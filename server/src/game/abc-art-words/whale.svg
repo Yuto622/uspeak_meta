@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<defs><clipPath id="w-whale-c"><ellipse cx="104" cy="144" rx="88" ry="56"/></clipPath></defs>
+<g transform="translate(-8 4)">
+<path d="M78 92V66" stroke="#7cc4ea" stroke-width="7" stroke-linecap="round"/>
+<path d="M78 66C78 40 54 34 44 50M78 66C78 40 102 34 112 50" fill="none" stroke="#7cc4ea" stroke-width="7" stroke-linecap="round"/>
+<g fill="#7cc4ea"><circle cx="36" cy="66" r="5"/><circle cx="120" cy="66" r="5"/><circle cx="78" cy="30" r="5"/></g>
+<path d="M150 118C184 118 192 96 194 76L212 80C214 112 206 156 168 176z" fill="#4f86d9"/>
+<path d="M198 84C180 78 168 60 172 44 190 48 202 62 202 82z" fill="#4f86d9" stroke="#4f86d9" stroke-width="6" stroke-linejoin="round"/>
+<path d="M204 84C204 64 216 50 234 48 236 64 224 80 206 86z" fill="#4f86d9" stroke="#4f86d9" stroke-width="6" stroke-linejoin="round"/>
+<ellipse cx="104" cy="144" rx="88" ry="56" fill="#4f86d9"/>
+<g clip-path="url(#w-whale-c)">
+<path d="M10 156C50 182 140 186 200 150V210H10z" fill="#cfe2f8"/>
+<path d="M40 178C70 190 120 192 160 180M60 192C86 200 118 200 140 194" fill="none" stroke="#a9c8f2" stroke-width="4" stroke-linecap="round"/>
+<path d="M60 104C80 92 116 92 140 102" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".3"/>
+</g>
+<path d="M112 168C120 186 136 198 152 198 150 182 138 168 122 162z" fill="#3a6bb8"/>
+<circle cx="56" cy="134" r="7" fill="#3b2a20"/><circle cx="58" cy="132" r="2.4" fill="#fff"/>
+<path d="M18 150q18 14 36 8" fill="none" stroke="#3b2a20" stroke-width="4.5" stroke-linecap="round"/>
+<ellipse cx="70" cy="152" rx="9" ry="6" fill="#ff8fab" opacity=".5"/>
+</g>
+</svg>

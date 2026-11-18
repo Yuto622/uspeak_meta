@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-<g transform="rotate(24 120 120)">
+<g transform="translate(-16 -5) scale(1.1) rotate(24 120 120)">
 <path d="M190 30V206" stroke="#8a5636" stroke-width="5" stroke-linecap="round"/>
 <path d="M183 40V196" stroke="#e8dcc0" stroke-width="3"/>
 <rect x="180" y="192" width="13" height="18" rx="3" fill="#3b2a20"/><path d="M190 30l-7 10" stroke="#8a5636" stroke-width="5" stroke-linecap="round"/>

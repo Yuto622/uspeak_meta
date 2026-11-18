@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<defs><clipPath id="w-zebra-c"><ellipse cx="104" cy="134" rx="60" ry="36"/><path d="M128 126L146 56 186 66 164 148z"/><ellipse cx="180" cy="66" rx="34" ry="23" transform="rotate(24 180 66)"/><rect x="56" y="150" width="17" height="56" rx="7"/><rect x="80" y="150" width="17" height="56" rx="7"/><rect x="118" y="150" width="17" height="56" rx="7"/><rect x="142" y="150" width="17" height="56" rx="7"/></clipPath></defs>
+<ellipse cx="108" cy="214" rx="78" ry="7" fill="#000" opacity=".12"/>
+<path d="M46 126C34 134 30 150 34 166" fill="none" stroke="#dfe6ee" stroke-width="7" stroke-linecap="round"/>
+<ellipse cx="34" cy="172" rx="7" ry="12" fill="#3b2a20"/>
+<path d="M150 30Q140 28 142 40L128 108 142 114 158 46z" fill="#3b2a20"/>
+<path d="M160 50L158 22Q170 22 176 46z" fill="#fff" stroke="#cfd6de" stroke-width="3" stroke-linejoin="round"/>
+<path d="M163 44L162 30Q168 32 171 44z" fill="#ffc9d6"/>
+<g fill="#fff" stroke="#cfd6de" stroke-width="3">
+<rect x="80" y="150" width="17" height="56" rx="7"/><rect x="142" y="150" width="17" height="56" rx="7"/>
+<rect x="56" y="150" width="17" height="56" rx="7"/><rect x="118" y="150" width="17" height="56" rx="7"/>
+<ellipse cx="104" cy="134" rx="60" ry="36"/>
+<path d="M128 126L146 56 186 66 164 148z" stroke-linejoin="round"/>
+<ellipse cx="180" cy="66" rx="34" ry="23" transform="rotate(24 180 66)"/>
+</g>
+<ellipse cx="104" cy="134" rx="58" ry="34" fill="#fff"/><path d="M130 126L148 60 184 68 162 144z" fill="#fff"/>
+<g clip-path="url(#w-zebra-c)">
+<g stroke="#3b2a20" stroke-width="9" stroke-linecap="round" fill="none">
+<path d="M52 104Q58 130 50 160M72 96Q80 130 70 170M94 94Q102 130 94 172M116 94Q124 130 118 172M138 98Q144 124 142 170"/>
+<path d="M134 110L160 120M138 92L166 102M142 74L170 84M148 58L172 66"/>
+<path d="M54 172H76M54 188H76M78 176H100M78 192H100M116 172H138M116 188H138M140 176H162M140 192H162"/>
+</g>
+<path d="M196 58L224 70V100L190 96z" fill="#5b4a42"/>
+<path d="M40 196H170V210H40z" fill="#3b2a20"/>
+</g>
+<circle cx="182" cy="60" r="6" fill="#3b2a20"/><circle cx="184" cy="58" r="2" fill="#fff"/>
+<circle cx="206" cy="80" r="2.5" fill="#fff" opacity=".7"/>
+<ellipse cx="178" cy="76" rx="7" ry="5" fill="#ff8fab" opacity=".5"/>
+</svg>

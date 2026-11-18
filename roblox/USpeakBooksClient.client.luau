@@ -65,7 +65,9 @@ round(head, 24)
 local title = label(head, "わたしの ほんだな", 24, { TextColor3 = Color3.new(1, 1, 1), Position = UDim2.fromOffset(84, 0), Size = UDim2.new(1, -168, 1, 0), TextXAlignment = Enum.TextXAlignment.Left })
 local back = button(head, "←", Color3.fromRGB(74, 92, 160), { Size = UDim2.fromOffset(52, 48), Position = UDim2.fromOffset(12, 8), Visible = false })
 local close = button(head, "✕", Color3.fromRGB(74, 92, 160), { Size = UDim2.fromOffset(52, 48), AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -12, 0, 8) })
-local body = make("Frame", { BackgroundTransparency = 1, Position = UDim2.fromOffset(16, 76), Size = UDim2.new(1, -32, 1, -92) }, panel)
+local body = make("Frame", { BackgroundTransparency = 1, Position = UDim2.fromOffset(16, 76), Size = UDim2.new(1, -32, 1, -106) }, panel)
+-- 絵の 小物は Twemoji（CC-BY 4.0）。きまりで クレジットを いつも 出す（Web 版の 本だなと 同じ 文）。
+label(panel, "Emoji art: Twemoji (CC-BY 4.0)", 12, { TextColor3 = Color3.fromRGB(140, 148, 162), Font = Enum.Font.Gotham, AnchorPoint = Vector2.new(0.5, 1), Position = UDim2.new(0.5, 0, 1, -6), Size = UDim2.new(1, -32, 0, 16) })
 
 local state: { shelf: any?, book: any?, page: number, quiz: number, busy: boolean } = { shelf = nil, book = nil, page = 1, quiz = 0, busy = false }
 local function clear() for _, c in ipairs(body:GetChildren()) do c:Destroy() end end

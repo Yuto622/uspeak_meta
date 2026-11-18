@@ -13,8 +13,8 @@
 <path d="M88 150Q120 176 152 150Q120 166 88 150Z" fill="#b4bdc9"/>
 <ellipse cx="120" cy="134" rx="26" ry="18" fill="#fff"/>
 <circle cx="94" cy="114" r="12" fill="#3b2a20"/><circle cx="146" cy="114" r="12" fill="#3b2a20"/>
-<circle cx="98" cy="110" r="4.500" fill="#fff"/><circle cx="150" cy="110" r="4.500" fill="#fff"/>
-<circle cx="90" cy="119" r="2.200" fill="#fff"/><circle cx="142" cy="119" r="2.200" fill="#fff"/>
+<circle cx="98" cy="110" r="4.5" fill="#fff"/><circle cx="150" cy="110" r="4.5" fill="#fff"/>
+<circle cx="90" cy="119" r="2.2" fill="#fff"/><circle cx="142" cy="119" r="2.2" fill="#fff"/>
 <polygon points="115,128 125,128 120,134" fill="#ff8fab"/>
 <path d="M120 134Q115 142 108 138M120 134Q125 142 132 138" fill="none" stroke="#3b2a20" stroke-width="3" stroke-linecap="round"/>
 <ellipse cx="78" cy="134" rx="9" ry="6" fill="#ff8fab" opacity=".5"/><ellipse cx="162" cy="134" rx="9" ry="6" fill="#ff8fab" opacity=".5"/>

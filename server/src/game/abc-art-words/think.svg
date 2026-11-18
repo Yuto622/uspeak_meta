@@ -16,7 +16,7 @@
 <circle cx="150" cy="160" r="19" fill="#b57a52"/><circle cx="150" cy="157" r="18" fill="#c98c62"/>
 <path d="M140 150q10-6 20 0M138 160q12-6 24 0" fill="none" stroke="#b57a52" stroke-width="3" stroke-linecap="round"/>
 </g>
-<g fill="#b9cfe6"><circle cx="170" cy="92" r="7"/><circle cx="184" cy="74" r="10"/><circle cx="176" cy="40" r="23"/><circle cx="204" cy="34" r="25"/><circle cx="210" cy="52" r="21"/><circle cx="186" cy="56" r="21"/></g>
-<g fill="#fff"><circle cx="170" cy="92" r="4.5"/><circle cx="184" cy="74" r="7.5"/><circle cx="176" cy="40" r="20"/><circle cx="204" cy="34" r="22"/><circle cx="210" cy="52" r="18"/><circle cx="186" cy="56" r="18"/></g>
+<g fill="#b9cfe6"><circle cx="184" cy="74" r="10"/><circle cx="176" cy="40" r="23"/><circle cx="204" cy="34" r="25"/><circle cx="210" cy="52" r="21"/><circle cx="186" cy="56" r="21"/></g>
+<g fill="#fff"><circle cx="184" cy="74" r="7.5"/><circle cx="176" cy="40" r="20"/><circle cx="204" cy="34" r="22"/><circle cx="210" cy="52" r="18"/><circle cx="186" cy="56" r="18"/></g>
 <g fill="#9aa7b4"><circle cx="178" cy="45" r="5"/><circle cx="194" cy="45" r="5"/><circle cx="210" cy="45" r="5"/></g>
 </svg>
