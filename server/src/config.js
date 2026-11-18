@@ -160,6 +160,16 @@ export const config = Object.freeze({
     // 1つの鍵あたりの上限（1分に何回まで）。
     ratePerMin: Math.max(10, int('ROBLOX_RATE_PER_MIN', 120)),
   },
+  // 絵本の 絵を Roblox へ 上げる（Open Cloud の Assets API・roblox/book-assets.js）。鍵は ここ（環境変数）だけ。
+  // 鍵の 権限：assets の Read と Write。作り手は 個人（USER_ID）か グループ（GROUP_ID）の どちらか。鍵が なければ 何も しない。
+  robloxOpenCloud: {
+    apiKey: (env.ROBLOX_OPEN_CLOUD_KEY ?? '').trim(),
+    userId: (env.ROBLOX_CREATOR_USER_ID ?? '').trim().replace(/\D/g, ''),
+    groupId: (env.ROBLOX_CREATOR_GROUP_ID ?? '').trim().replace(/\D/g, ''),
+    assetType: (env.ROBLOX_BOOK_ASSET_TYPE ?? '').trim() === 'Decal' ? 'Decal' : 'Image',
+    perMin: Math.max(1, Math.min(120, int('ROBLOX_UPLOAD_PER_MIN', 30))),
+    baseUrl: (env.ROBLOX_OPEN_CLOUD_URL ?? '').trim() || 'https://apis.roblox.com',
+  },
   publicServerUrl: (env.PUBLIC_SERVER_URL ?? '').trim(),
   publicDefaultClass: (env.PUBLIC_DEFAULT_CLASS ?? '').trim(),
   // Optional JSON object merged into the client's NET tuning constants, e.g.

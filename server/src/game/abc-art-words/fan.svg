@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<g transform="translate(0 -14)">
+<g stroke="#a56a43" stroke-width="7" stroke-linecap="round">
+<line x1="120" y1="200" x2="77.7" y2="184.6"/><line x1="120" y1="200" x2="85.5" y2="171.1"/><line x1="120" y1="200" x2="97.5" y2="161"/><line x1="120" y1="200" x2="112.2" y2="155.7"/><line x1="120" y1="200" x2="127.8" y2="155.7"/><line x1="120" y1="200" x2="142.5" y2="161"/><line x1="120" y1="200" x2="154.5" y2="171.1"/><line x1="120" y1="200" x2="162.3" y2="184.6"/>
+</g>
+<polygon points="11.9,160.7 31.9,126.1 85.5,171.1 77.7,184.6" fill="#ff8fab"/>
+<polygon points="31.9,126.1 62.5,100.4 97.5,161 85.5,171.1" fill="#f06c90"/>
+<polygon points="62.5,100.4 100,86.7 112.2,155.7 97.5,161" fill="#ff8fab"/>
+<polygon points="100,86.7 140,86.7 127.8,155.7 112.2,155.7" fill="#f06c90"/>
+<polygon points="140,86.7 177.5,100.4 142.5,161 127.8,155.7" fill="#ff8fab"/>
+<polygon points="177.5,100.4 208.1,126.1 154.5,171.1 142.5,161" fill="#f06c90"/>
+<polygon points="208.1,126.1 228.1,160.7 162.3,184.6 154.5,171.1" fill="#ff8fab"/>
+<g fill="#ffd24a">
+<circle cx="40" cy="152" r="7"/><circle cx="75" cy="122" r="7"/><circle cx="120" cy="108" r="7"/><circle cx="165" cy="122" r="7"/><circle cx="200" cy="152" r="7"/>
+</g>
+<g fill="#fff6e0">
+<circle cx="56" cy="134" r="5"/><circle cx="97" cy="111" r="5"/><circle cx="143" cy="111" r="5"/><circle cx="184" cy="134" r="5"/>
+</g>
+<circle cx="120" cy="200" r="11" fill="#a56a43"/>
+<circle cx="120" cy="200" r="4.5" fill="#ffd24a"/>
+</g>
+<ellipse cx="120" cy="212" rx="60" ry="7" fill="#000" opacity=".12"/>
+</svg>

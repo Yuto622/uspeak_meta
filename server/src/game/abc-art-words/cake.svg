@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<ellipse cx="120" cy="214" rx="100" ry="8" fill="#000" opacity=".12"/>
+<ellipse cx="120" cy="202" rx="102" ry="13" fill="#cfdde8"/>
+<rect x="38" y="106" width="164" height="96" rx="16" fill="#f3d9b0"/>
+<rect x="38" y="162" width="164" height="12" fill="#e2574c"/>
+<path d="M176 106H186Q202 106 202 122V186Q202 202 186 202H176Z" fill="#e3c191"/>
+<rect x="176" y="162" width="26" height="12" fill="#c9463c"/>
+<path d="M38 124Q38 100 60 100H180Q202 100 202 124V134Q202 146 191 146Q180 146 180 136Q180 128 170 128Q160 128 160 142Q160 158 148 158Q136 158 136 142Q136 128 124 128Q112 128 112 138Q112 150 102 150Q92 150 92 138Q92 128 80 128Q68 128 68 142Q68 154 53 154Q38 154 38 140Z" fill="#ff8fab"/>
+<path d="M52 114Q56 108 68 108" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".6"/>
+<rect x="74" y="58" width="13" height="46" rx="4" fill="#3baacb"/><rect x="113.500" y="58" width="13" height="46" rx="4" fill="#ffd24a"/><rect x="153" y="58" width="13" height="46" rx="4" fill="#9b6fc4"/>
+<g fill="#f0913a"><path d="M80.500 22C90 36 90 52 80.500 52C71 52 71 36 80.500 22Z"/><path d="M120 22C129.500 36 129.500 52 120 52C110.500 52 110.500 36 120 22Z"/><path d="M159.500 22C169 36 169 52 159.500 52C150 52 150 36 159.500 22Z"/></g>
+<g fill="#ffd24a"><circle cx="80.500" cy="44" r="4"/><circle cx="120" cy="44" r="4"/><circle cx="159.500" cy="44" r="4"/></g>
+<g fill="#fff6e0"><circle cx="58" cy="184" r="4"/><circle cx="90" cy="190" r="4"/><circle cx="124" cy="184" r="4"/><circle cx="156" cy="190" r="4"/></g>
+</svg>

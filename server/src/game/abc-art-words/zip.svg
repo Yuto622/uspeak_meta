@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<defs><clipPath id="w-zip-c"><rect x="34" y="20" width="172" height="200" rx="26"/></clipPath></defs>
+<g clip-path="url(#w-zip-c)">
+<rect x="34" y="20" width="172" height="200" fill="#e2574c"/>
+<path d="M72 14H168L120 124z" fill="#ffd24a"/>
+<path d="M88 14H152L120 86z" fill="#eeb02c" opacity=".5"/>
+<path d="M70 12L120 126 170 12M120 126V226" fill="none" stroke="#b93a32" stroke-width="22" stroke-linejoin="round"/>
+<path d="M70 12L120 126M170 12L120 126" fill="none" stroke="#dfe6ee" stroke-width="11" stroke-dasharray="6 5"/>
+<path d="M120 130V226" fill="none" stroke="#dfe6ee" stroke-width="15" stroke-dasharray="5 4"/>
+<path d="M120 130V226" fill="none" stroke="#9aa7b4" stroke-width="3"/>
+</g>
+<path d="M100 108H140L134 142Q120 150 106 142z" fill="#7d8ea0"/>
+<path d="M102 106H138L132 138Q120 146 108 138z" fill="#b4c0cc"/>
+<rect x="110" y="132" width="20" height="52" rx="10" fill="#7d8ea0"/>
+<rect x="111" y="130" width="18" height="50" rx="9" fill="#dfe6ee"/>
+<rect x="116" y="150" width="8" height="22" rx="4" fill="#7d8ea0"/>
+</svg>

@@ -17,6 +17,7 @@ import express from 'express';
 import { SEED_METRICS, SEED_PREVIOUS, summarize, parseMetric } from '../game/roblox-metrics.js';
 import { sameUser } from '../store/FileStore.js';
 import { boxFromEvents, pickWords, optionsFor, dueCount } from '../game/review.js';
+import { createRobloxBooks } from './books-api.js';
 import { createDrill, MAX_N } from './drill.js';
 
 const MAX_EVENTS = 300;
@@ -47,7 +48,7 @@ export const signRobloxReport = (secret, username) => signLink(secret, `roblox|$
 export const verifyRobloxReport = (secret, username, token) => verifyLink(secret, `roblox|${username}`, token);
 export const robloxReportPath = (secret, username) => `/report/${encodeURIComponent(username)}?t=${signRobloxReport(secret, username)}`;
 
-export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret = '', questions = null, log = console, now = Date.now }) {
+export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret = '', questions = null, books = null, log = console, now = Date.now }) {
   const enabled = !!key;
   const rooms = new Set();          // ClassRoom が入室時に登録する（残高を押し込むため）
   const hits = new Map();           // key -> { count, at }
@@ -338,6 +339,9 @@ export function createRoblox({ store, key = '', ratePerMin = 120, reportSecret =
         classCode: str(b.classCode, 24), ms: b.ms, world: str(b.world, 40) || 'eiken-drill', placeId: str(b.placeId, 32) });
       res.status(out.ok ? 200 : 400).json(out);
     });
+
+    // よみもの島の 絵本（books-api.js）。絵は 審査を 通った ものだけ・クイズの 判定と 記録は ここ（Web）。
+    if (books) createRobloxBooks({ secret: key, assets: books, store, now, log }).mount(api);
 
     app.use('/api/roblox', api);
     log.info(`[roblox] /api/roblox is served (rate=${ratePerMin}/min)`);

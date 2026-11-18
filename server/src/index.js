@@ -54,6 +54,8 @@ import { sanitizeMonths } from './game/months.js';
 import { reportTex } from './game/report-tex.js';
 import { texToPdf, latexAvailable, LatexError } from './game/latex.js';
 import { createRoblox, verifyRobloxReport } from './roblox/sync.js';
+import { BookAssets } from './roblox/book-assets.js';
+import { robloxBooksAdminExtension } from './roblox/book-admin.js';
 import { parentHtml as robloxParentHtml, classSection as robloxClassSection, classCsv as robloxClassCsv } from './roblox/pages.js';
 import { setupParentReports } from './parent-report/index.js';
 import { log } from './log.js';
@@ -98,7 +100,9 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   const cpuPercent = createCpuSampler();
   const startedAt = Date.now();
   // Roblox 連携（roblox/sync.js）: 学習の記録を受け、コインを両側で同じにする。鍵がなければ口は開かない。
-  const roblox = createRoblox({ store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, questions: () => ({ updatedAt: qbank.updatedAt, items: qbank.live('roblox') }), log });
+  // 絵本の 絵を Roblox へ 上げる 係（鍵が なければ 何も しない）。Roblox 版には 審査を 通った 絵だけ わたす。
+  const robloxBookAssets = await new BookAssets(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roblox-book-assets.json'), { ...config.robloxOpenCloud, log }).init();
+  const roblox = createRoblox({ books: robloxBookAssets, store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, questions: () => ({ updatedAt: qbank.updatedAt, items: qbank.live('roblox') }), log });
   await roblox.ensureSeeds();
   await roblox.refreshLinks();
 
@@ -439,7 +443,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
       catch (err) { log.warn('[privacy] erase failed:', err.message); res.status(500).json({ ok: false, error: '消せませんでした' }); }
     });
   };
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); kidsAdmin(ctx); abcAdmin(ctx); } });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); robloxBooksAdminExtension({ assets: robloxBookAssets, log })(ctx); kidsAdmin(ctx); abcAdmin(ctx); } });
   // 保持期間（RETENTION_DAYS、既定 400 日）：学習ログ・コインログ・送信の 記録を 毎日 消す。
   const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
   // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。

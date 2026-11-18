@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<defs><clipPath id="w-map-c"><polygon points="20,62 86,40 154,62 220,40 220,186 154,208 86,186 20,208"/></clipPath></defs>
+<ellipse cx="120" cy="214" rx="96" ry="7" fill="#000" opacity=".12"/>
+<polygon points="20,62 86,40 154,62 220,40 220,186 154,208 86,186 20,208" fill="#fff0cc"/>
+<g clip-path="url(#w-map-c)">
+<path d="M10 150 C40 130 60 150 90 140 C110 132 120 110 150 116 C180 122 190 150 230 140 V220 H10z" fill="#9fd4a8"/>
+<path d="M10 40 H70 C80 60 60 80 40 84 C28 86 18 96 10 100z" fill="#9fd4a8"/>
+<path d="M180 30 C170 60 190 80 176 104 C166 122 190 150 176 176 C168 192 176 204 180 214" fill="none" stroke="#7cc4e4" stroke-width="14" stroke-linecap="round"/>
+<path d="M44 176 C60 150 90 170 104 146 C116 124 100 104 124 90" fill="none" stroke="#e2574c" stroke-width="5" stroke-linecap="round" stroke-dasharray="3 12"/>
+<g fill="#5aae78"><path d="M50 120 l12 -22 l12 22z"/><path d="M68 126 l10 -18 l10 18z"/><circle cx="130" cy="170" r="10"/><circle cx="144" cy="178" r="8"/></g>
+<polygon points="86,40 154,62 154,208 86,186" fill="#000" opacity=".07"/>
+</g>
+<path d="M36 170 l14 14 M50 170 l-14 14" stroke="#e2574c" stroke-width="6" stroke-linecap="round"/>
+<path d="M130 92 C112 70 110 60 110 52 A20 20 0 0 1 150 52 C150 60 148 70 130 92z" fill="#e2574c"/>
+<circle cx="130" cy="52" r="8" fill="#fff"/>
+</svg>

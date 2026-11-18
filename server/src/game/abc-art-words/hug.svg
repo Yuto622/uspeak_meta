@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<ellipse cx="120" cy="218" rx="84" ry="8" fill="#000" opacity=".12"/>
+<path d="M120 40 C108 30 110 18 116 18 C119 18 120 21 120 23 C120 21 121 18 124 18 C130 18 132 30 120 40z" fill="#e2574c"/>
+<path d="M36 52 C28 45 30 37 34 37 C36 37 36 39 36 40 C36 39 37 37 39 37 C43 37 44 45 36 52z" fill="#ff8fab"/>
+<path d="M204 52 C196 45 198 37 202 37 C204 37 204 39 204 40 C204 39 205 37 207 37 C211 37 212 45 204 52z" fill="#ff8fab"/>
+<g fill="#3a6dbd"><rect x="60" y="176" width="22" height="38" rx="8"/><rect x="88" y="176" width="22" height="38" rx="8"/></g>
+<g fill="#7d55a6"><rect x="130" y="176" width="22" height="38" rx="8"/><rect x="158" y="176" width="22" height="38" rx="8"/></g>
+<path d="M50 150 Q50 118 84 118 Q118 118 118 150 V186 Q118 194 110 194 H58 Q50 194 50 186z" fill="#3baacb"/>
+<path d="M122 150 Q122 118 156 118 Q190 118 190 150 V186 Q190 194 182 194 H130 Q122 194 122 186z" fill="#ff8fab"/>
+<circle cx="88" cy="88" r="40" fill="#ffd9b3"/>
+<circle cx="152" cy="88" r="40" fill="#c98c62"/>
+<path d="M48 88 C44 56 66 42 90 44 C106 46 118 54 122 66 C104 70 84 66 72 60 C66 72 56 82 48 88z" fill="#6b4226"/>
+<path d="M192 92 C198 58 176 42 152 44 C136 46 124 54 120 66 C140 72 160 66 170 58 C176 72 184 84 192 92z" fill="#3b2a20"/>
+<circle cx="186" cy="60" r="12" fill="#3b2a20"/>
+<g fill="none" stroke="#3b2a20" stroke-width="3.5" stroke-linecap="round">
+<path d="M66 90 q7 -8 14 0"/><path d="M96 90 q7 -8 14 0"/><path d="M130 90 q7 -8 14 0"/><path d="M160 90 q7 -8 14 0"/>
+<path d="M78 106 q10 9 20 0"/><path d="M142 106 q10 9 20 0"/>
+</g>
+<g fill="#ff8fab" opacity=".5"><ellipse cx="64" cy="102" rx="8" ry="5.5"/><ellipse cx="112" cy="102" rx="7" ry="5.5"/><ellipse cx="176" cy="102" rx="8" ry="5.5"/></g>
+<path d="M60 146 Q110 176 174 158" fill="none" stroke="#2f8fae" stroke-width="22" stroke-linecap="round"/>
+<circle cx="178" cy="157" r="12" fill="#ffd9b3"/>
+<path d="M182 134 Q130 150 66 134" fill="none" stroke="#f06c90" stroke-width="20" stroke-linecap="round"/>
+<circle cx="62" cy="133" r="12" fill="#c98c62"/>
+</svg>

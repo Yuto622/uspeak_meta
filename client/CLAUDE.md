@@ -1988,3 +1988,15 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **声の かぎり**：合成の 声は もじの「おと」だけを 正しく 言えない。おとは かならず ことばで きかせる（うた＝"S, s, sun"、きく 問題＝ことばを きいて はじめの もじを えらぶ）。
   イギリス式は たんまつの イギリス英語の 声（なければ いつもの アメリカ式の 声）。**実機で 聞いて たしかめること。**
 - 検査：`server/test/abc.test.mjs`（とばす・8 割・答えは 先に 送らない・記録・にがて・設定は 運営だけ・レポート）。
+
+## 絵本を Roblox 版へ（自動アップロード／2026-11）
+くわしくは `docs/ROBLOX_BOOKS.md`。
+- **絵を PNG に**：`server/src/roblox/book-png.js`（@resvg/resvg-js・1024×768・`still`）。`artHash` ＝ 場面＋`ART_VERSION`＋大きさ。
+- **上げる 係**：`server/src/roblox/book-assets.js`（`BookAssets`）。Open Cloud の `POST /assets/v1/assets`（multipart）→ `operations/<id>` を 見て assetId と 審査。
+  記録は `DATA_DIR/roblox-book-assets.json`（絵ごとに hash・op・assetId・state）。同じ 絵は 1 回・かわった 絵だけ 上げなおす・rejected は 上げなおさない・429 は Retry-After で 待つ。
+  **鍵は 環境変数だけ**（`ROBLOX_OPEN_CLOUD_KEY`・`ROBLOX_CREATOR_GROUP_ID` か `ROBLOX_CREATOR_USER_ID`）。なければ 何も しない。エラーの 文は `scrub()` を 通す（鍵を 出さない）。
+- **運営**：`/admin/roblox-books`（数・はじめる／つづける・止める）と `server/scripts/roblox-upload-books.mjs`（`--dry-run`）。先生の 画面には ない。
+- **Roblox へ わたす**：`server/src/roblox/books-api.js`（`/api/roblox/books`・`/books/<id>`・`/books/check`。合言葉は sync.js）。絵は 審査を 通った ものだけ（まだは `image: ""`）。
+  クイズは 英検ドリルと 同じ：答えは 署名つき token の 中・判定と 記録は Web（`quiz` world=`reading`／ ✓ で `book`。Web と 同じ 形）。Roblox は クイズ 8 割で ✓。
+- **Roblox 側**：`roblox/USpeakBooks.server.luau`・`USpeakBooksClient.client.luau`（タグ `USpeakBookShelf`・属性 `Stage`）。**Studio では まだ 動かして いない。**
+- 検査：`server/test/roblox-books.test.mjs`（にせの Open Cloud）。本物の Roblox には つないで いない。
