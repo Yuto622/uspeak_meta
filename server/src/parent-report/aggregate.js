@@ -129,7 +129,7 @@ export function fiveNumbers(rows, r) {
   return {
     minutes: Math.round(now.filter((e) => e.type === 'session').reduce((n, e) => n + (Number(e.data.seconds) || 0), 0) / 60),
     speak: now.filter((e) => e.type === 'speak').length,
-    books: bookList.length,
+    books: bookList.length, bookWords: bookList.reduce((n, b) => n + (b.words || 0), 0), // 読みおえた 本の 英語の 語数
     accuracy: clean.length >= MIN_SHOWN ? Math.round((clean.filter((e) => correctOf(e) === true).length / clean.length) * 100) : null,
     answered: clean.length,
     words: held.size, wordsNew: [...held].filter((w) => !before.has(w)).length,

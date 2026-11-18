@@ -151,7 +151,7 @@ export function interviewText(iv) {
 export function fiveText(f, { nick = '', label = '今週' } = {}) {
   if (!f || !(f.minutes || f.speak || f.books || f.answered || f.words || f.abc)) return '';
   const lines = [`📊 ${nick ? `${nick}さんの ` : ''}${label}の 数字`];
-  lines.push(`⏱ 学習時間 約${f.minutes}分　🗣 話した ${f.speak}回　📚 読んだ本 ${f.books}さつ`);
+  lines.push(`⏱ 学習時間 約${f.minutes}分　🗣 話した ${f.speak}回　📚 読んだ本 ${f.books}さつ${f.bookWords ? `（英語 ${f.bookWords}語）` : ''}`);
   lines.push(`✅ クイズの 正答率 ${f.accuracy === null || f.accuracy === undefined ? 'これから（20問から 出ます）' : `${f.accuracy}%`}　🔤 覚えた単語 ${f.words}こ${f.wordsNew ? `（${label} +${f.wordsNew}）` : ''}`);
   // 「ABC と おと」を して いる 子だけ（幼児モードの カード）。
   if (f.abc) lines.push(`🔤 おぼえた もじ ${f.abc.letters}/${f.abc.lettersTotal || 26}　📏 よめる ルール ${f.abc.rules}こ`);

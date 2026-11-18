@@ -113,7 +113,8 @@
   .ab-t { font-size: 15px; gap: 7px; } .ab-say { width: 38px; height: 38px; font-size: 16px; } .ab-say.sm { width: 36px; height: 36px; }
   .ab-btn { min-height: 46px; font-size: 16px; padding: 0 16px; } .ab-foot { min-height: 48px; gap: 8px; }
   .ab-hear.big { width: 58px; height: 58px; font-size: 26px; }
-  .ab-q { flex-direction: row; } .ab-ask { flex-direction: column; gap: 8px; } .ab-ask .ab-img { width: 84px; height: 84px; }
+  /* きく ボタンと 絵は 右（左の まんなかには よみあげの まるい ボタンが うく ので かさねない） */
+  .ab-q { flex-direction: row-reverse; } .ab-ask { flex-direction: column; gap: 8px; } .ab-ask .ab-img { width: 84px; height: 84px; }
   .ab-pick { min-height: 60px; border-width: 3px; }
   .ab-parts { flex-direction: row; } .ab-parts b { min-width: 46px; padding: 4px 8px; font-size: 36px; }
   .ab-card { max-height: 100%; } .ab-card .ab-hear { width: 48px; height: 48px; font-size: 22px; }

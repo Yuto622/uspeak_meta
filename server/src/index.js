@@ -38,7 +38,8 @@ import { createRoadmapService } from './roadmap/service.js';
 import { roadmapAdminExtension } from './roadmap/admin.js';
 import { mountRoadmapApi } from './roadmap/api.js';
 import { roadmapClassHtml } from './roadmap/pages.js';
-import { readingClassHtml } from './reading/pages.js';
+import { readingClassHtml, abcDetailHtml } from './reading/pages.js';
+import { reportNumbers as abcNumbers } from './game/abc.js';
 import { progressBar } from './game/roadmap.js';
 import { setQbankWords } from './game/roadmap.js';
 import { setPierQuestions } from './game/eiken-pier.js';
@@ -379,6 +380,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
       try { report.roadmap = await roadmap.view(record.class, record.name, { advance: false }); } catch (err) { log.warn('[report] roadmap failed:', err.message); report.roadmap = null; }
       // いちばん 上の 数字 5 つ・進み具合の バー・よんだ 本（よみもの島）。
       try { report.reading = readingStore.summaryOf(record.class, record.name); report.bar = progressBar(report.roadmap); } catch (err) { log.warn('[report] reading failed:', err.message); report.reading = null; report.bar = null; }
+      // 「ABC と おと」：おぼえた もじ・よめる ルール・にがてな もじ（記録の ある 子だけ）。
+      try { const ap = abcStore.peek(record.class, record.name); report.abcHtml = ap ? abcDetailHtml(abcNumbers(ap), { weak: Object.entries(ap.weak || {}).sort((x, y) => (Number(y[1]) || 0) - (Number(x[1]) || 0)).map(([k]) => String(k).slice(2)), track: ap.track }) : ''; } catch (err) { log.warn('[report] abc failed:', err.message); report.abcHtml = ''; }
       const token = String(req.query.t || '');
       const format = String(req.query.format || '').toLowerCase();
       if (format === 'json') { res.json(report); return; }

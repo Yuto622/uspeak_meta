@@ -52,6 +52,15 @@ export function readingDetailHtml(sum) {
   return `<h3 class="sub" style="margin:14px 0 4px;font-size:14px;color:#5d6d62">📖 えほん（よみもの島）の くわしい 数字</h3><table style="width:100%;border-collapse:collapse;background:#fffaf0;border:1px solid #ece7d4;border-radius:12px;overflow:hidden">${rows}</table>`;
 }
 
+// 「ABC と おと」（保護者レポート）：おぼえた もじ・よめる ルール・にがてな もじ。nums = abc.reportNumbers()、weak = ['b','d',…]。
+export function abcDetailHtml(nums, { weak = [], track = '' } = {}) {
+  if (!nums || !(nums.letters || nums.rules || track)) return '';
+  const pct = (a, b) => Math.max(2, Math.min(100, Math.round((a / Math.max(1, b)) * 100)));
+  const bar = (label, a, b, unit) => `<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px;color:#5d6d62"><span>${esc(label)}</span><b style="font-size:16px;color:#173f38">${a} / ${b} ${esc(unit)}</b></div><div style="height:12px;border-radius:6px;background:#e8eeea;overflow:hidden;margin-top:4px"><i style="display:block;height:100%;width:${pct(a, b)}%;border-radius:6px;background:linear-gradient(90deg,#f0b43c,#e27a2d)"></i></div></div>`;
+  const weakRow = weak.length ? `<p style="margin:8px 0 0;font-size:13px;color:#22372f">にがてな もじ・おと：<b style="letter-spacing:.12em">${esc(weak.slice(0, 10).join(' '))}</b><small style="display:block;color:#7b8a7f;font-size:12px">「ABC と おと」の「にがてを まとめて ふくしゅう」で 練習できます。</small></p>` : '';
+  return `<h3 class="sub" style="margin:14px 0 4px;font-size:14px;color:#5d6d62">🔤 ABC と おと（文字と 音）</h3><div style="background:#fffaf0;border:1px solid #ece7d4;border-radius:12px;padding:10px 14px">${bar('おぼえた もじ', nums.letters || 0, nums.lettersTotal || 26, 'もじ')}${bar('よめる ルール', nums.rules || 0, nums.rulesTotal || 0, 'こ')}${weakRow}</div>`;
+}
+
 // /class の 表：よみもの島（✓ の 冊数・読んだ 語数・さいごに 読んだ 本）。rows = [{ name, books, words, last }]
 export function readingClassHtml(rows) {
   const list = (rows || []).filter((r) => r && (r.books || r.last));
