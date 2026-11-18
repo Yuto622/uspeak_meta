@@ -13,3 +13,5 @@ body[data-warp] #ra-button, body[data-class-pause] #ra-button { display: none; }
 @media (prefers-reduced-motion: reduce) { #ra-button.on { animation: none; } }
 /* 「ABC と おと」は どの 文にも じぶんの 🔊 が ある（ここでは うかぶ ボタンを 出さない＝絵に かさならない）。 */
 #abc-dialog #ra-button, #abc-dialog #ra-tip { display: none !important; }
+/* こどもの ホームは どの カードにも 🔊 が ある（左の カードに かさならない ように ここでは 出さない）。 */
+body[data-kids-home] > #ra-button, body[data-kids-home] > #ra-tip { display: none !important; }
