@@ -32,6 +32,7 @@ import { createKartGame } from './kart-game.js';
 import { createDashboard } from './dashboard.js';
 import { createQuick5 } from './quick5.js';
 import { createWardrobe } from './wardrobe.js';
+import { createKidsUI, KIDS_ISLANDS } from './kids.js';
 import { createFarmUI, nextStep as nextFarmStep } from './farm.js';
 import { createLand } from './land-world.js';
 import { createLandUI } from './land.js';
@@ -96,7 +97,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     onSay: (text) => room?.send('chat', { text }),
     speak, toast,
     isPaused: () => state.chatPaused && state.role !== 'teacher',
-    isFree: () => state.freeChat !== false || state.role === 'teacher',
+    // 幼児モードの 子は 定型文だけ（文字を 打つ 場面を なくす。部屋も 通さない）。
+    isFree: () => (state.freeChat !== false || state.role === 'teacher') && !state.kids,
   });
   const teacher = createTeacherPanel({
     send: (msg) => room?.send('teacher', msg), toast,
@@ -253,6 +255,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // ミニゲーム島 is nothing but doors to other games: the house a child walks into is
     // the game, and none of it needs the server, so it opens offline too.
     // メインの島：英単語ハウス・看板・つり場・かいとりや・ゲート。何をするかは main-island.js の walkIn。
+    // 幼児モード：メインの島の ゲートと BLOCKWILD は、行ける 島（kids.js の KIDS_ISLANDS）だけ 通す。
+    if (islandId === 'main' && state.kids && (spot?.kind === 'blockwild' || (spot?.kind === 'gate' && !KIDS_ISLANDS.includes(spot.to)))) { toast(tr('ここは せんせいに きいてね')); return true; }
     if (islandId === 'main') { sendMove(); return main.walkIn(spot); }
     // しゅくだい島：いえに 入ると 宿題の 一覧（オンラインの とき だけ。問題は 部屋に ある）。
     if (islandId === 'homework') return homework.open();
@@ -343,6 +347,14 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const homework = createHomework({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
   // よみもの島：本だなと 1 冊（きく・よむ・おんどく・クイズ）。クイズの 正解・✓・コインは 部屋（read:*）。
   const reading = createReadingUI({ send: (type, msg) => room?.send(type, msg), speak, toast, isOnline: () => state.mode === 'online' });
+  // 幼児モード（先生が /teacher/kids で オンに した 子の かんたんな 画面）。きめるのは 部屋（welcome・'kids'）。
+  const kids = createKidsUI({
+    speak, toast, rpg, player, goPlace, isOnline: () => state.mode === 'online',
+    pendingHomework: () => state.homeworkCount || 0,
+    openHomework: () => homework.open(), openReading: () => reading.open(), openWardrobe: () => wardrobe.open({}), openMap: () => rpg.openMap(),
+    enterMain: (spot) => { sendMove(); main.walkIn(spot); },
+    logout: () => document.getElementById('logout-button')?.click(),
+  });
   const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online', guide: taskGuide, openHomework: () => homework.open() });
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
@@ -594,6 +606,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       teacher.setEikenLevel(r.state?.eikenLevel);
       eiken.setLevel(r.state?.eikenLevel);
       if (m.wallet) applyWallet(m.wallet);
+      state.homeworkCount = m.homework || 0;
+      state.kids = !!m.kids && m.role !== 'teacher'; chat.setFree(); kids.set(state.kids, { first: !m.restored });
       // まだ おわって いない 宿題が あれば 1 回 おしらせ（しゅくだい島で とける）。
       // とちゅうの 宿題が あれば「まえの つづき」の カード（おすと その場で つづきから）。なければ 数の おしらせ。
       if (m.homeworkResume && !m.restored) setTimeout(() => homework.offerResume(m.homeworkResume), 3500);
@@ -722,6 +736,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       classMode.setRole(state.role);
       setMode(state.mode);
     });
+    r.onMessage('kids', (m) => { state.kids = !!m.kids && state.role !== 'teacher'; chat.setFree(); kids.set(state.kids); });
     r.onMessage('food:state', (m) => food.apply(m));
     r.onMessage('food:menu', (m) => food.onMenu(m));
     r.onMessage('food:bought', (m) => food.onBought(m));

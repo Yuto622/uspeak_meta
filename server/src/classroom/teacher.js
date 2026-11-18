@@ -12,6 +12,7 @@ import express from 'express';
 import { ipTag } from '../log.js';
 import { mountHomeworkApi, page as homeworkPage } from '../homework/admin.js';
 import { signClass } from '../game/report.js';
+import { mountKidsApi, kidsPage } from './kids.js';
 
 const COOKIE = 'uspeak_teacher';
 const SESSION_MS = 12 * 60 * 60 * 1000;
@@ -23,7 +24,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(';').map((c) => c.trim().split('=')).filter((p) => p[0]).map(([k, ...v]) => [k, decodeURIComponent(v.join('='))]));
 const safeEqual = (a, b) => { const x = Buffer.from(String(a)); const y = Buffer.from(String(b)); return x.length === y.length && timingSafeEqual(x, y); };
 
-export function mountTeacherHomework(app, { classrooms, homework, secret, aiReady = false, isProduction = false, log = console, now = Date.now }) {
+export function mountTeacherHomework(app, { classrooms, homework, secret, aiReady = false, isProduction = false, log = console, now = Date.now, kids = null, rosterRows = async () => [] }) {
   if (!secret) return;
   const sign = (exp, id, setAt) => createHmac('sha256', secret).update(`teacher|${exp}|${id}|${setAt}`).digest('hex');
   const fails = new Map();
@@ -65,6 +66,13 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
     if (!room) { res.redirect(303, '/teacher/homework'); return; }
     res.send(reportsHtml(room, (c) => signClass(secret, c)));
   });
+  // 幼児モード（クラスごとの スイッチと 子どもごとの 上書き）。その 教室の クラスだけ。
+  router.get('/kids', (req, res) => {
+    const room = roomOf(req);
+    res.type('text/html; charset=utf-8');
+    if (!room || !kids) { res.redirect(303, '/teacher/homework'); return; }
+    res.send(kidsPage({ room: { name: room.name, classes: room.classes } }));
+  });
   router.post('/login', express.urlencoded({ extended: false, limit: '4kb' }), (req, res) => {
     const ip = req.get('fly-client-ip') || req.ip || 'unknown';
     if (locked(ip)) { log.warn(`[teacher] login locked for ${ipTag(ip)}`); res.redirect(303, '/teacher/homework?locked'); return; }
@@ -97,6 +105,7 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
       list.push(t); extracts.set(id, list); return true;
     },
   });
+  if (kids) mountKidsApi(api, { kids, scope: (req) => req.classroom.classes, rosterRows, header: 'uspeak-teacher', log });
   router.use('/api', api);
   app.use('/teacher', router);
 }
@@ -115,7 +124,7 @@ h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:0 0 10px}.muted{color:#6
 .card{background:#fff;border:1px solid #eadfcd;border-radius:14px;padding:14px 16px;margin:12px 0}.card p{margin:8px 0}
 .btn{display:inline-block;min-height:44px;padding:11px 16px;border-radius:12px;border:1px solid #d9d1c3;background:#fff;color:#1b3a2f;font-weight:700;text-decoration:none}.btn.main{background:#e27a2d;border-color:#e27a2d;color:#fff}
 button{min-height:38px;border:1px solid #d9d1c3;border-radius:10px;background:#fff;font:inherit;font-weight:700;padding:0 12px;cursor:pointer}</style></head><body><div class="wrap">
-<div class="bar"><p class="muted" style="margin:0"><a href="/teacher/homework">← 宿題</a> ・ <b>${esc(room.name)}</b></p><form method="post" action="/teacher/logout" style="margin:0"><button type="submit">ログアウト</button></form></div>
+<div class="bar"><p class="muted" style="margin:0"><a href="/teacher/homework">← 宿題</a> ・ <a href="/teacher/kids">🧸 幼児モード</a> ・ <b>${esc(room.name)}</b></p><form method="post" action="/teacher/logout" style="margin:0"><button type="submit">ログアウト</button></form></div>
 <h1>📨 保護者レポート</h1>
 <p class="muted">保護者の 方に LINE で 週・月の レポートを とどけます。<b>QR カード</b>（A4・8 人ぶん）を 印刷して わたすと、保護者の 方が 読みとって 登録できます。登録の ようす・配信の 設定・先生の ひとことも ここから。</p>
 ${rows}

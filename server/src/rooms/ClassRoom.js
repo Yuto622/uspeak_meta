@@ -206,6 +206,9 @@ export class ClassRoom extends Room {
     this.roadmap = options.roadmap || null;
     // よみもの島（多読）の 記録（reading/store.js）。無ければ 本だなは 出るが 記録は のこらない（テスト）。
     this.reading = options.reading || null;
+    // 幼児モード（classroom/kids-store.js）。画面の 出し分けだけ（判定・コイン・記録は 同じ）。
+    this.kids = options.kids || null;
+    this.kidsVersion = this.kids?.version ?? 0;
     this.taskQueue = new Set();
     this.claps?.rooms?.add(this);
     if (this.roblox?.enabled) this.roblox.rooms.add(this);
@@ -506,6 +509,7 @@ export class ClassRoom extends Room {
     priv.premium = !!(await this.gate?.isPremium?.({ classCode: this.classCode, name: auth.name }));
     // 名簿に ある 子か（先生は いつも）。ページは これを 覚えて、ひとりで あそぶ（オフライン）を 期限なしに する。
     priv.onRoster = auth.role === 'teacher' || !!(await this.gate?.onRegister?.({ classCode: this.classCode, name: auth.name }));
+    priv.kids = this.kidsFor(auth.role, auth.name);
     WALLET_WATCH.set(priv.wallet, (op) => { taskOp(priv.tasks, op); this.taskTouch(client.sessionId); });
 
     const player = new Player();
@@ -557,6 +561,11 @@ export class ClassRoom extends Room {
         this.taskSend(id, true);
       }
     }
+    // 幼児モード も 先生が かえたら 入ったままの 子に とどく（先生は いつも ふつうの 画面）。
+    if (player && priv && this.kids) {
+      const on = this.kidsFor(player.role, player.name);
+      if (on !== !!priv.kids) { priv.kids = on; this.clientOf(id)?.send('kids', { kids: on }); }
+    }
     if (!player || !priv || priv.byKey || !this.gate?.isTeacher) return false;
     const want = (await this.gate.isTeacher({ classCode: this.classCode, name: player.name, pin: priv.teacherPin || '' })) ? 'teacher' : 'student';
     if (want === player.role || !this.state.players.has(id)) return false;
@@ -570,9 +579,11 @@ export class ClassRoom extends Room {
       this.state.teacherId = next;
     }
     client?.send('role', { role: want, teacherId: this.state.teacherId });
+    if (this.kids) { const on = this.kidsFor(want, player.name); if (on !== !!priv.kids) { priv.kids = on; client?.send('kids', { kids: on }); } }
     log.info(`[room ${this.roomId}] role of ${who(player.name)} is now ${want} (register)`);
     return true;
   }
+  kidsFor(role, name) { return role !== 'teacher' && !!this.kids?.isKids(this.classCode, name); }
   async recheckRoles() {
     if (this.rolesChecking) return;
     this.rolesChecking = true;
@@ -766,6 +777,8 @@ export class ClassRoom extends Room {
     if (now - priv.lastChatAt < config.chatMinIntervalMs) { client.send('chat:blocked', { reason: 'rate' }); return; }
     priv.lastChatAt = now;
     if (typed) {
+      // 幼児モードの 子は 定型文だけ（画面にも 入力欄は 出ない）。
+      if (priv.kids) { client.send('chat:blocked', { reason: 'kids' }); return; }
       const text = this.acceptSay(client, msg.text, 'chat');
       if (!text) return;
       this.broadcast('chat', { from: client.sessionId, name: player.name, text, t: now });
@@ -1154,7 +1167,8 @@ export class ClassRoom extends Room {
   tick() {
     const now = Date.now();
     const v = this.accessVersion();
-    if (v !== this.rolesVersion || now - this.rolesCheckedAt > ROLE_RECHECK_MS) { this.rolesVersion = v; this.rolesCheckedAt = now; this.recheckRoles(); }
+    const kv = this.kids?.version ?? 0;
+    if (v !== this.rolesVersion || kv !== this.kidsVersion || now - this.rolesCheckedAt > ROLE_RECHECK_MS) { this.rolesVersion = v; this.kidsVersion = kv; this.rolesCheckedAt = now; this.recheckRoles(); }
     this.tickWorld(now);
     this.tickRace(now);
     this.tickVoice(now);
@@ -5033,6 +5047,7 @@ export class ClassRoom extends Room {
       food: foodPayload(priv.food),
       tasks: this.taskPayload(sessionId),
       ...this.premiumPayload(sessionId),
+      kids: !!priv?.kids,
       classPaused: !!this.classMode?.paused,
       progress: this.progressPayload(sessionId),
       missionsDone: [...priv.missionsDone],

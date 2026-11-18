@@ -47,6 +47,16 @@ function sceneHtml(scene, { small = false } = {}) {
   </div>`;
 }
 
+// 表紙の 色（本ごとに きまった 色）。
+const COVER_COLORS = ['#e2574c', '#e27a2d', '#d99a1e', '#4fa868', '#2f9a9a', '#3f86d0', '#5a66c8', '#8a5cc0', '#c0589a'];
+const coverColor = (id) => { let h = 0; for (const c of String(id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return COVER_COLORS[h % COVER_COLORS.length]; };
+
+// 絵：サーバーが かいた 絵（/reading-art/<本>/<ページ>.svg）。読めなかった ときだけ、前の 絵文字の 場面に もどす。
+function artHtml(book, n, scene, { small = false } = {}) {
+  if (!book?.art) return sceneHtml(scene, { small });
+  return `<img class="rd-art${small ? ' small' : ''}" src="${esc(book.art)}/${n}.svg?v=${esc(book.artV ?? 1)}${small ? '&amp;still=1' : ''}" alt="" draggable="false" decoding="async"${small ? ' loading="lazy"' : ''} data-fb="${esc(JSON.stringify(scene || {}))}"${small ? ' data-small="1"' : ''}>`;
+}
+
 export function createReadingUI({ send, toast = () => {}, isOnline = () => true, speak = null }) {
   const state = { view: 'shelf', shelf: null, book: null, mode: 'listen', page: 0, slow: false, showJa: false, playing: false, quiz: null, picked: null, result: null, done: null,
     heard: [], listening: false, aloudStart: 0, aloud: null, viewStage: '', pop: null, reached: 0 };
@@ -59,6 +69,8 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
   document.body.append(dialog);
   const root = dialog.firstElementChild;
   dialog.addEventListener('close', () => { quiet(); });
+  // 絵が 読めなかった（通信・古い サーバー）ときは 絵文字の 場面で 出す。
+  root.addEventListener('error', (e) => { const img = e.target; if (!img?.classList?.contains('rd-art')) return; let sc = {}; try { sc = JSON.parse(img.dataset.fb || '{}'); } catch { /* */ } img.outerHTML = sceneHtml(sc, { small: !!img.dataset.small }); }, true);
   dialog.addEventListener('cancel', (e) => { if (state.view !== 'shelf') { e.preventDefault(); toShelf(); } });
 
   function quiet() { stopVoice(); try { globalThis.speechSynthesis?.cancel(); } catch { /* */ } cancelAnimationFrame(raf); clearTimeout(turnTimer); stopMic(); state.playing = false; }
@@ -71,8 +83,8 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
     const band = { now: bi('Just right for you', 'いまの きみに ぴったり'), easy: bi('Easy reads', 'かんたんに よめる'), next: bi('Challenge', 'ちょうせん') };
     const stars = (n) => `<span class="rd-stars">${'★'.repeat(n)}<i>${'★'.repeat(4 - n)}</i></span>`;
     const book = (b) => `<button type="button" class="rd-book${b.done ? ' done' : ''}" data-book="${esc(b.id)}">
-        <span class="rd-cover">${sceneHtml(b.cover, { small: true })}<span class="rd-spine"></span>${b.done ? '<em class="rd-check">✓</em>' : ''}</span>
-        <b class="rd-title">${esc(b.title)}</b><small class="rd-sub">${esc(b.titleJa)}</small>
+        <span class="rd-cover" style="--cv:${coverColor(b.id)}"><b class="rd-ct">${esc(b.title)}</b><span class="rd-cpic">${artHtml(b, 0, b.cover, { small: true })}</span><span class="rd-spine"></span>${b.done ? '<em class="rd-check">✓</em>' : ''}</span>
+        <small class="rd-sub">${esc(b.titleJa)}</small>
         <span class="rd-meta">${stars(b.stars)}<small>${b.words} ${L('words', 'ご')}</small></span></button>`;
     const pct = s.totals.stageAll ? Math.round((s.totals.stageDone / s.totals.stageAll) * 100) : 0;
     const stagePick = s.teacher ? `<label class="rd-teach">${bi('Level (teacher)', 'だんかい（先生）')} <select id="rd-stage">${['A', 'B', 'C', '1', '2', '3', '4', '5', '6', '7', '8', '9'].map((id) => `<option value="${id}"${id === s.stage ? ' selected' : ''}>${id}</option>`).join('')}</select></label>` : '';
@@ -82,7 +94,7 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
       <div class="rd-level"><span class="rd-badge">${bi('Level', 'レベル')} <b>${esc(s.stage)}</b></span>
         <div class="rd-bar"><i style="width:${pct}%"></i></div><small>${s.totals.stageDone} / ${s.totals.stageAll} ${bi('books at this level', 'さつ よんだ')}</small>${stagePick}</div>
       <div class="rd-rows">${s.rows.map((r) => `<section class="rd-row ${r.band}"><h3><span>${band[r.band]}</span><small>${bi(`Level ${esc(r.stage)} · ${esc(r.en)}`, `レベル ${esc(r.stage)}・${esc(r.ja)}`)}</small></h3><div class="rd-books">${r.books.map(book).join('')}</div></section>`).join('') || `<p class="rd-wait">${bi('No books yet.', 'まだ 本が ないよ。')}</p>`}
-        <p class="rd-how">${bi('👂 Listen → 📖 Read → 🎤 Read aloud → ❓ Quiz. Finish a book to get coins!', '👂 きく → 📖 よむ → 🎤 こえに だす → ❓ クイズ。1 さつ よめたら コイン！')}</p></div>`;
+        <p class="rd-how">${bi('👂 Listen → 📖 Read → 🎤 Read aloud → ❓ Quiz. Finish a book to get coins!', '👂 きく → 📖 よむ → 🎤 こえに だす → ❓ クイズ。1 さつ よめたら コイン！')}</p><p class="rd-credit">Emoji art: Twemoji (CC-BY 4.0)</p></div>`;
   }
 
   // ---------------------------------------------------------------- 1 冊
@@ -109,7 +121,7 @@ export function createReadingUI({ send, toast = () => {}, isOnline = () => true,
     const hint = { listen: bi('Listen and follow the glowing words.', 'ひかる ことばを 目で おいながら きこう。'), read: bi('Read by yourself. Tap a word to hear it.', 'じぶんで よもう。ことばを おすと きこえるよ。'), aloud: bi('Read the page aloud. Words you say turn green.', 'こえに だして よもう。よめた ことばが みどりに なるよ。') }[state.mode];
     const nextLabel = last ? (state.mode === 'aloud' ? bi('Finish ✓', 'おわり ✓') : bi('Finish ✓', 'おわり ✓')) : bi('Next →', 'つぎへ →');
     return `${head}<div class="rd-spread" data-turn="0">
-        <div class="rd-pic">${sceneHtml(p.scene)}<span class="rd-pageno">${state.page + 1} / ${b.pages.length}</span></div>
+        <div class="rd-pic">${artHtml(b, state.page + 1, p.scene)}<span class="rd-pageno">${state.page + 1} / ${b.pages.length}</span></div>
         <div class="rd-page">
           <p class="rd-hint">${hint}</p>
           <p class="rd-text s-${esc(b.stage)}">${textHtml(p)}</p>

@@ -45,11 +45,19 @@ html:not([data-lang=ja]) .rd-root .en, html[data-lang=ja] .rd-root .ja { display
 .rd-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 12px; background: linear-gradient(90deg, #0000003a, #0000000a 70%, #ffffff30); }
 .rd-check { position: absolute; right: 8px; top: 8px; width: 34px; height: 34px; border-radius: 50%; background: #2f8f5b; color: #fff; display: grid; place-items: center; font: 900 18px/1 var(--rd-font); box-shadow: 0 0 0 3px #fff; }
 .rd-title { margin-top: 8px; font-size: 15px; font-weight: 900; line-height: 1.2; text-align: center; }
-.rd-sub { font-size: 12px; color: #6b7a90; text-align: center; line-height: 1.25; }
+.rd-sub { margin-top: 8px; font-size: 12px; color: #6b7a90; text-align: center; line-height: 1.25; }
 .rd-meta { display: flex; align-items: center; gap: 8px; } .rd-meta small { font-size: 11px; color: #8a94a6; font-weight: 700; }
 .rd-stars { color: #f0b429; font-size: 14px; letter-spacing: 1px; } .rd-stars i { color: #dcd5c4; font-style: normal; }
 .rd-how { margin: 18px 4px 0; text-align: center; font-size: 13px; color: #6b7a90; font-weight: 700; }
 
+/* ---- サーバーが かいた 絵（SVG） ---- */
+.rd-art { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 88%; border-radius: 16px; background: #f3ead6; user-select: none; -webkit-user-drag: none; }
+.rd-cover { background: var(--cv, #3f86d0); }
+.rd-cover { background: linear-gradient(160deg, color-mix(in srgb, var(--cv, #3f86d0) 82%, #fff), var(--cv, #3f86d0) 55%, color-mix(in srgb, var(--cv, #3f86d0) 80%, #000)); }
+.rd-ct { position: absolute; left: 16px; right: 8px; top: 8px; height: 62px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; font: 900 14px/1.22 var(--rd-font); color: #fff; text-align: center; text-shadow: 0 1.5px 0 #0000004d; align-content: center; }
+.rd-cpic { position: absolute; left: 16px; right: 8px; bottom: 10px; height: 100px; border-radius: 9px; overflow: hidden; box-shadow: 0 0 0 3px #fff, 0 3px 6px #0000004d; background: #f3ead6; }
+.rd-cpic .rd-art, .rd-cpic .rs { position: absolute; inset: 0; border-radius: 0; }
+.rd-credit { margin: 6px 4px 0; text-align: center; font-size: 11px; color: #9aa3b2; }
 /* ---- 場面（絵） ---- */
 .rs { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 22px; container-type: size; }
 .rs-ground { position: absolute; left: -10%; right: -10%; bottom: -34%; height: 62%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; box-shadow: inset 0 10px 0 #ffffff33; }
@@ -78,11 +86,11 @@ html:not([data-lang=ja]) .rd-root .en, html[data-lang=ja] .rd-root .ja { display
 .rd-tab { position: relative; display: flex; align-items: center; gap: 5px; min-height: 44px; padding: 0 12px; border-radius: 14px; border: 2px solid #ffffff40; background: #ffffff14; color: #fff; font: 800 13px/1 var(--rd-font); cursor: pointer; }
 .rd-tab span { font-size: 18px; } .rd-tab.on { background: #fff; color: #2a3d7a; border-color: #fff; }
 .rd-tab em { position: absolute; right: -5px; top: -7px; font-style: normal; font-size: 15px; color: #ffd24a; text-shadow: 0 1px 0 #7a5200; }
-.rd-spread { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 1.08fr 1fr; gap: 0; padding: 14px 16px 6px; perspective: 1800px; }
+.rd-spread { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 1.3fr 1fr; gap: 0; padding: 14px 16px 6px; perspective: 1800px; }
 .rd-pic, .rd-page { min-height: 0; background: #fffdf6; box-shadow: 0 6px 20px #5a3d1c26; }
 .rd-pic { position: relative; border-radius: 22px 6px 6px 22px; padding: 10px; }
 .rd-page { position: relative; border-radius: 6px 22px 22px 6px; padding: 14px 22px 12px; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; background: linear-gradient(90deg, #efe6d2, #fffdf6 7%); transform-origin: left center; }
-.rd-spread[data-turn="1"] .rd-page { animation: rd-turn .42s ease-out; } .rd-spread[data-turn="1"] .rd-pic .rs { animation: rd-fade .42s ease-out; }
+.rd-spread[data-turn="1"] .rd-page { animation: rd-turn .42s ease-out; } .rd-spread[data-turn="1"] .rd-pic .rs, .rd-spread[data-turn="1"] .rd-pic .rd-art { animation: rd-fade .42s ease-out; }
 @keyframes rd-turn { from { transform: rotateY(-70deg); opacity: .2; } } @keyframes rd-fade { from { opacity: .2; scale: .97; } }
 .rd-pageno { position: absolute; left: 20px; bottom: 18px; background: #0006; color: #fff; border-radius: 99px; padding: 3px 11px; font-size: 12px; font-weight: 800; }
 .rd-hint { margin: 0; font-size: 13px; color: #8a94a6; font-weight: 700; }
@@ -149,7 +157,7 @@ html:not([data-lang=ja]) .rd-root .en, html[data-lang=ja] .rd-root .ja { display
   .rd-stats span { padding: 4px 9px; font-size: 12px; } .rd-meta small, .rd-row h3 small, .rd-sub { font-size: 12px; } .rd-stats b { font-size: 14px; }
   .rd-tab { min-height: 40px; padding: 0 9px; } .rd-tab .en, .rd-tab .ja { display: none !important; }
   .rd-level { padding: 6px 12px; } .rd-rows { padding: 4px 12px 14px; }
-  .rd-book { width: 128px; } .rd-cover { width: 116px; height: 146px; } .rd-title { font-size: 13px; }
+  .rd-book { width: 128px; } .rd-cover { width: 116px; height: 146px; } .rd-title { font-size: 13px; } .rd-ct { top: 5px; left: 14px; right: 6px; height: 46px; font-size: 12px; } .rd-cpic { left: 14px; right: 6px; bottom: 8px; height: 76px; }
   .rd-spread { padding: 8px 10px 4px; } .rd-page { padding: 8px 14px; gap: 5px; } .rd-hint { font-size: 11px; }
   .rd-text { font-size: 24px; line-height: 1.4; } .rd-text.s-A, .rd-text.s-B { font-size: 32px; } .rd-text.s-C, .rd-text.s-1 { font-size: 28px; } .rd-text.s-2, .rd-text.s-3 { font-size: 23px; }
   .rd-text.s-4, .rd-text.s-5 { font-size: 19px; } .rd-text.s-6, .rd-text.s-7 { font-size: 16px; } .rd-text.s-8, .rd-text.s-9 { font-size: 14px; line-height: 1.45; }

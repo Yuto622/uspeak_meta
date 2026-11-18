@@ -7,6 +7,7 @@
 // 島の名前の定義元は rpg-data.js の HUBS / REGIONS（`en` / `name` / `yomi`）。ここに書くのは
 // 絵と色だけ。新しい島を足したら LOOK に1行（無ければ 🏝 と 島の色で出る）。
 import { isJa } from './i18n.js';
+import { KIDS_ISLANDS, kidsOn } from './kids.js';
 
 const LOOK = {
   willow: ['🏡', '#5aae78'], park: ['🎡', '#e27a2d'], errand: ['🛍️', '#e0a526'], school: ['🏫', '#5b97e6'],
@@ -63,8 +64,10 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
     </button>`;
   };
   // U-Speak島（willow）は メインの島と 橋で つながっている（2026-10）。カードは 出さず、メインの島の カードに「橋で U-Speak島へ」。
-  const hubs = destinations.filter((d) => d.hub && d.id !== 'willow');
-  const regions = destinations.filter((d) => !d.hub);
+  // 幼児モード：行ける 島を しぼる（メイン・よみもの・つり・きせかえ・じぶんの 島）。ぼうけんの ちいきと ずかんは 出さない。
+  const kid = kidsOn();
+  const hubs = destinations.filter((d) => d.hub && d.id !== 'willow' && (!kid || KIDS_ISLANDS.includes(d.id)));
+  const regions = kid ? [] : destinations.filter((d) => !d.hub);
   const rec = RECOMMENDED.map((id) => hubs.find((d) => d.id === id)).filter(Boolean);
   const more = hubs.filter((d) => !RECOMMENDED.includes(d.id));
   host.innerHTML = `<section class="wm">
@@ -76,14 +79,14 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
       <div class="wm-sechead"><h3 class="wm-section big"><b class="en">⭐ Recommended</b><i class="ja">⭐ おすすめ</i></h3>
         <span class="wm-legend">🎮 <b class="en">Play</b><i class="ja">あそび</i>　📖 <b class="en">English</b><i class="ja">えいご</i></span></div>
       <div class="wm-rec">${rec.map((r) => card(r, true)).join('')}</div>
-      <h3 class="wm-section"><b class="en">More</b><i class="ja">ほかの ワールド</i></h3>
-      <div class="wm-grid small">${more.map((r) => card(r)).join('')}</div>
-      <h3 class="wm-section"><b class="en">⛰ Adventure</b><i class="ja">⛰ ぼうけんの ちいき</i></h3>
+      ${more.length ? `<h3 class="wm-section"><b class="en">More</b><i class="ja">ほかの ワールド</i></h3>
+      <div class="wm-grid small">${more.map((r) => card(r)).join('')}</div>` : ''}
+      ${kid ? '' : `<h3 class="wm-section"><b class="en">⛰ Adventure</b><i class="ja">⛰ ぼうけんの ちいき</i></h3>
       <div class="wm-grid small">${regions.map((r) => card(r)).join('')}</div>
-      <button type="button" class="wm-book"><b class="en">📖 Creature Book</b><i class="ja">📖 なかま ずかん</i></button>
+      <button type="button" class="wm-book"><b class="en">📖 Creature Book</b><i class="ja">📖 なかま ずかん</i></button>`}
     </div>
   </section>`;
   host.querySelector('.wm-close').onclick = () => onClose?.();
-  host.querySelector('.wm-book').onclick = () => onBook?.();
+  const book = host.querySelector('.wm-book'); if (book) book.onclick = () => onBook?.();
   host.querySelectorAll('[data-world]').forEach((b) => { b.onclick = () => onPick?.(b.dataset.world); });
 }

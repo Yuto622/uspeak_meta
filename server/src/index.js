@@ -27,6 +27,9 @@ import { classroomAdminExtension } from './classroom/admin.js';
 import { mountTeacherHomework } from './classroom/teacher.js';
 import { RoadmapStore } from './roadmap/store.js';
 import { ReadingStore } from './reading/store.js';
+import { mountReadingArt } from './reading/art-route.js';
+import { KidsStore } from './classroom/kids-store.js';
+import { kidsAdminExtension } from './classroom/kids.js';
 import { createRoadmapService } from './roadmap/service.js';
 import { roadmapAdminExtension } from './roadmap/admin.js';
 import { mountRoadmapApi } from './roadmap/api.js';
@@ -105,6 +108,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 宿題（/admin/homework で 入れて くばる。宿題島で とく）。答えつきなので DATA_DIR に だけ 置く。保護者レポート（LINE）も 読む。
   const homework = await new HomeworkStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'homework.json'), { log }).init();
   // ロードマップ（A・B・C・1〜9）。設定と 段階は DATA_DIR/roadmap.json、計算は 記録（Roblox と Web）から 毎回。
+  // 幼児モード（クラスごと・子どもごとの かんたんな 画面の スイッチ）。
+  const kidsStore = await new KidsStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'kids-mode.json'), { log }).init();
   const readingStore = await new ReadingStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'reading.json'), { log }).init();
   const roadmapStore = await new RoadmapStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roadmap.json'), { log }).init();
   const roadmap = createRoadmapService({ store, roadmap: roadmapStore, roblox, log });
@@ -407,6 +412,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 教室の パスワード（/admin/classrooms）と、英会話教室の 先生の 宿題の 画面（/teacher/homework）。
   const rosterClasses = async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class);
   const classrooms = config.reportSecret ? await new ClassroomStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'classrooms.json'), { secret: config.reportSecret, log }).init() : null;
+  const kidsAdmin = kidsAdminExtension({ kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], log });
   const classroomAdmin = classrooms ? classroomAdminExtension({ classrooms, rosterClasses, log }) : () => {};
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
   const privacyAdmin = ({ api }) => {
@@ -419,12 +425,13 @@ export async function startServer({ port = config.port, storeOverride = null, tt
       catch (err) { log.warn('[privacy] erase failed:', err.message); res.status(500).json({ ok: false, error: '消せませんでした' }); }
     });
   };
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); } });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); kidsAdmin(ctx); } });
   // 保持期間（RETENTION_DAYS、既定 400 日）：学習ログ・コインログ・送信の 記録を 毎日 消す。
   const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
   // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
   app.use(['/api/liff', '/r', '/report', '/class', '/export', '/teacher'], rateLimit({ windowMs: 60_000, max: 120 }));
-  if (classrooms) mountTeacherHomework(app, { classrooms, homework, secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
+  if (classrooms) mountTeacherHomework(app, { classrooms, homework, kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
+  mountReadingArt(app, { log }); // 絵本の 絵（サーバーで かく SVG）
   app.get('/api/tasks', (req, res) => { res.set('Cache-Control', 'public, max-age=60'); res.json({ ok: true, updatedAt: tasks.updatedAt, ...tasks.adopted() }); });
   // 保護者レポートの 口（Webhook・LIFF・/r/:token・教室の タブ）。
   parentReports.mount(app, { verifyClass, secret: config.reportSecret });
@@ -488,7 +495,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, kids: kidsStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();

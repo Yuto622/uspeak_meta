@@ -1,0 +1,105 @@
+/* 幼児モード（kids.js）。`body[data-mode=kids]` の とき だけ 効く。
+   しまう もの は ここ 1 か所（ほかの CSS は さわらない）。字は 11px より 小さく しない。 */
+
+/* ---- しまう：ふだんの 道具 ---- */
+body[data-mode=kids] .right-rail,
+body[data-mode=kids] .top-dock,
+body[data-mode=kids] .quest-panel,
+body[data-mode=kids] .bottom,
+body[data-mode=kids] .crosshair,
+body[data-mode=kids] #fp-hud,
+body[data-mode=kids] #rpg-region-panel,
+body[data-mode=kids] #mission-button,
+body[data-mode=kids] #voice-panel,
+body[data-mode=kids] #review-offer,
+body[data-mode=kids] #hunger-notice,
+body[data-mode=kids] .guest-dock,
+body[data-mode=kids] .brand .edition { display: none !important; }
+/* 上の バーは コインと 音（♫）だけ */
+body[data-mode=kids] header .stats > :not(#coin-hud):not(#sound) { display: none !important; }
+html body[data-mode=kids][data-mode][data-mode] header .stats > #sound { display: flex !important; align-items: center; justify-content: center; width: 44px; height: 44px; font-size: 20px; border-radius: 12px; }
+body[data-mode=kids] header .stats { gap: 10px; padding: 7px 9px; }
+/* ホームの 上にも コインと 音は 見せる */
+body[data-mode=kids] header { z-index: 29; pointer-events: none; }
+body[data-mode=kids] header > * { pointer-events: auto; }
+body[data-mode=kids][data-kids-home] header .location { display: none; }
+/* 文字を 打つ チャットは 出さない（定型文は のこす）。ホームが 出ている 間は 右下も しまう */
+body[data-mode=kids][data-kids-home] .net-dock,
+body[data-mode=kids][data-kids-home] .mobile-pad,
+body[data-mode=kids][data-kids-home] #near,
+body[data-mode=kids][data-kids-home] #interact { display: none !important; }
+
+/* ---- こどもの ホーム ---- */
+#kids-home[hidden], #kids-dock[hidden] { display: none; }
+#kids-home {
+  position: fixed; inset: 0; z-index: 28; overflow: auto;
+  background: linear-gradient(180deg, #bfe8f7 0%, #e9f7e4 58%, #fff6dc 100%);
+  padding: max(96px, calc(env(safe-area-inset-top) + 84px)) 20px max(18px, env(safe-area-inset-bottom));
+  font-family: "Noto Sans JP", system-ui, sans-serif; color: #1b3a2f;
+}
+#kids-home .kh-inner { max-width: 1040px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; gap: 16px; }
+#kids-home .kh-head { display: flex; align-items: center; justify-content: center; gap: 12px; }
+#kids-home .kh-head h2 { margin: 0; font-size: clamp(24px, 4.2vh, 38px); font-weight: 900; }
+#kids-home .kh-grid { flex: 1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; align-content: center; }
+#kids-home .kh-card { position: relative; display: flex; }
+#kids-home .kh-go {
+  position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  min-height: clamp(150px, 42vh, 320px); padding: 16px 8px 54px; border: 0; border-radius: 28px; cursor: pointer;
+  background: var(--kc); color: #fff; font: inherit; box-shadow: 0 8px 0 color-mix(in srgb, var(--kc) 70%, #000), 0 14px 24px #0002;
+  transition: transform .08s;
+}
+#kids-home .kh-go:active { transform: translateY(5px); box-shadow: 0 3px 0 color-mix(in srgb, var(--kc) 70%, #000); }
+#kids-home .kh-icon { font-size: clamp(54px, 13vh, 104px); line-height: 1; filter: drop-shadow(0 4px 0 #0002); }
+#kids-home .kh-name { font-size: clamp(16px, 2.9vh, 24px); font-weight: 900; line-height: 1.25; text-align: center; text-shadow: 0 2px 0 #0003; word-break: keep-all; overflow-wrap: anywhere; }
+#kids-home .kh-name .en, #kids-home .kh-name .ja { font-size: inherit; font-weight: inherit; font-style: normal; }
+#kids-home .kh-badge { position: absolute; top: 10px; right: 10px; min-width: 34px; height: 34px; padding: 0 8px; border-radius: 99px; background: #fff; color: #c8432b; font: 900 18px/34px system-ui; text-align: center; }
+#kids-home .kh-say {
+  width: 48px; height: 48px; border-radius: 50%; border: 3px solid #fff; background: #fffbe9; color: #1b3a2f; font-size: 22px; line-height: 1; cursor: pointer;
+  display: grid; place-items: center; box-shadow: 0 3px 0 #0002;
+}
+#kids-home .kh-card .kh-say { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); }
+#kids-home .kh-foot { display: flex; justify-content: flex-end; }
+#kids-home .kh-out { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 14px; border: 2px solid #c9d8cf; background: #ffffffcc; color: #3d5a4e; font: 700 15px/1 "Noto Sans JP", system-ui, sans-serif; cursor: pointer; }
+#kids-home .kh-out .en, #kids-home .kh-out .ja { font-size: inherit; font-style: normal; font-weight: inherit; }
+#kids-home h2 .en, #kids-home h2 .ja { font-size: inherit; font-style: normal; font-weight: inherit; }
+
+/* ---- 島の 上：行き先ボタン ---- */
+#kids-dock {
+  position: fixed; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 27;
+  display: flex; gap: 10px; padding: 8px; border-radius: 26px; background: #fffbebe6; box-shadow: 0 6px 20px #0003;
+  max-width: calc(100vw - 24px); font-family: "Noto Sans JP", system-ui, sans-serif;
+}
+#kids-dock .kd-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; width: 92px; min-height: 76px; padding: 6px 4px;
+  border: 0; border-radius: 20px; background: #2f8f5b; color: #fff; cursor: pointer; font: inherit; box-shadow: 0 5px 0 #1e6a42;
+}
+#kids-dock .kd-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #1e6a42; }
+#kids-dock .kd-home { background: #e27a2d; box-shadow: 0 5px 0 #a9541a; }
+#kids-dock .kd-home:active { box-shadow: 0 2px 0 #a9541a; }
+#kids-dock .kd-btn > span { font-size: 30px; line-height: 1; }
+#kids-dock .kd-btn small { font-size: 13px; font-weight: 800; line-height: 1.2; text-align: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#kids-dock .kd-btn small .en, #kids-dock .kd-btn small .ja { font-size: inherit; font-style: normal; font-weight: inherit; }
+/* 飛んでいる 間・授業の ストップ・全画面の あそびの 間は しまう */
+body[data-warp] #kids-dock, body[data-class-pause] #kids-dock, body[data-kids-home] #kids-dock { display: none; }
+
+/* スマホの 横もち・ひくい 画面 */
+@media (max-height: 520px) {
+  #kids-home { padding-top: 70px; padding-left: 12px; padding-right: 12px; }
+  #kids-home .kh-inner { gap: 6px; }
+  #kids-home .kh-grid { gap: 10px; }
+  #kids-home .kh-go { min-height: 0; height: clamp(150px, 54vh, 230px); padding: 8px 4px 50px; border-radius: 20px; gap: 4px; }
+  #kids-home .kh-icon { font-size: clamp(40px, 15vh, 64px); }
+  #kids-home .kh-say { width: 44px; height: 44px; font-size: 20px; }
+  #kids-home .kh-card .kh-say { bottom: 6px; }
+  #kids-home .kh-out { min-height: 40px; }
+  #kids-dock { bottom: 8px; gap: 6px; padding: 6px; }
+  #kids-dock .kd-btn { width: 78px; min-height: 60px; }
+  #kids-dock .kd-btn > span { font-size: 24px; }
+  #kids-dock .kd-btn small { font-size: 12px; }
+}
+/* たての スマホ：2 れつ */
+@media (max-width: 640px) {
+  #kids-home .kh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #kids-home .kh-go { min-height: 150px; }
+  #kids-dock .kd-btn { width: 66px; }
+}

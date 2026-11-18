@@ -3,7 +3,8 @@
 // ・本は server/src/game/reading-bank/*.json（1 冊 1 ファイル。本文・絵の 場面・ことば・クイズ）。**クイズの 正解は ここだけ**：
 //   ページには 本文と 場面と ことばだけ 送る（publicBook）。クイズは 1 問ずつ 選択肢だけ 送り、答えた あとに 正解を 返す。
 // ・本の レベルは ロードマップの 12 段階（A・B・C・1〜9）を そのまま 使う（島だけの レベルは 持たない）。
-// ・絵は「場面」（背景 1 つ＋絵文字の 登場人物）で 書く。ページが それを うごく 絵に する（画像ファイルを 持たない）。
+// ・絵は「場面」（背景 1 つ＋登場人物・小物）で 書く。**サーバーが 1 ページずつ SVG の 絵に かく**（reading-art/render.js・/reading-art/<本>/<ページ>.svg。
+//   体の ある 人物・おくゆきの ある 背景。画像生成の API は 使わない＝お金は かからない）。絵の かき方を 変えたら ART_VERSION を 上げる。
 // 中身は U-Speak Lab の オリジナル（CC BY 4.0）。市販の 絵本・ほかの サービスの 本は 入れない。
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
@@ -12,6 +13,8 @@ import { STAGE_IDS, DEFAULT_STAGES } from './roadmap.js';
 
 export const BANK_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'reading-bank');
 export const BACKGROUNDS = ['meadow', 'forest', 'sea', 'beach', 'sky', 'night', 'room', 'kitchen', 'school', 'city', 'snow', 'farm', 'space', 'cave', 'garden', 'mountain', 'river', 'desert', 'park', 'shop'];
+export const ART_VERSION = 4;          // 絵の 版（URL の ?v=。上げると ブラウザーが 読みなおす）
+export const artPath = (id) => `/reading-art/${id}`;
 export const MOVES = ['none', 'bob', 'float', 'sway', 'hop', 'spin', 'drift', 'pulse'];
 export const STEPS = ['listen', 'read', 'aloud', 'quiz'];
 export const QUIZ_PASS = 0.8;          // クイズ 8 割で ごうかく（Learning A-Z の 公開の めやすと 同じ）
@@ -129,7 +132,7 @@ export function shelfFor(stageId, progress) {
     const st = DEFAULT_STAGES[idx];
     const books = [...BOOKS.values()].filter((b) => b.stage === id).map((b) => {
       const e = progress.books[b.id];
-      return { id: b.id, title: b.title, titleJa: b.titleJa, words: b.words, pages: b.pages.length, cover: b.cover, stars: starsOf(e), done: !!e?.done, quiz: e?.quiz ?? null };
+      return { id: b.id, title: b.title, titleJa: b.titleJa, words: b.words, pages: b.pages.length, cover: b.cover, art: artPath(b.id), artV: ART_VERSION, stars: starsOf(e), done: !!e?.done, quiz: e?.quiz ?? null };
     });
     if (books.length) rows.push({ stage: id, band, en: st.en, ja: st.ja, books });
   };
@@ -145,7 +148,7 @@ export function shelfFor(stageId, progress) {
 // ページに 送る 本（クイズは 入れない）。
 export function publicBook(book, progress) {
   const e = progress.books[book.id] || null;
-  return { id: book.id, stage: book.stage, title: book.title, titleJa: book.titleJa, words: book.words, cover: book.cover,
+  return { id: book.id, stage: book.stage, title: book.title, titleJa: book.titleJa, words: book.words, cover: book.cover, art: artPath(book.id), artV: ART_VERSION,
     pages: book.pages.map((p) => ({ text: p.text, ja: p.ja, scene: p.scene })), glossary: book.glossary.map((g) => ({ en: g.en, ja: g.ja })),
     steps: { listen: !!e?.listen, read: !!e?.read, aloud: e?.aloud || null, quiz: e?.quiz ?? null }, done: !!e?.done, stars: starsOf(e), quizCount: book.quiz.length };
 }
