@@ -56,7 +56,12 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
     if (b) go(b.dataset.go);
   });
   function go(id) {
-    if (id === 'out') { logout?.(); return; }
+    // おわる は 2 回 おして はじめて 出る（小さい 子が まちがえて おしても ぬけない）。
+    if (id === 'out') {
+      const b = document.querySelector('.kh-out');
+      if (b && b.dataset.sure !== '1') { b.dataset.sure = '1'; b.textContent = '⏏ もう いちど おすと おわるよ'; setTimeout(() => { if (b.isConnected) { b.dataset.sure = ''; b.textContent = '⏏ おわる'; } }, 3500); return; }
+      logout?.(); return;
+    }
     if (id === 'play') { closeHome(); return; }
     if (id !== 'play' && !isOnline()) { toast('オンラインで あそべます。'); return; }
     // 宿題・本だなは ホームの 上に ひらく（とじると ホームに もどる）。
@@ -105,8 +110,11 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
       return;
     }
     for (const d of document.querySelectorAll('dialog[open]')) if (d.id !== 'net-lobby') d.close();
-    // island-kit の 戸口は 建物の まんなかから 0.65 手前（doorNear が ひろう）。
-    player.position.set(isl.x + spot.x, 0, isl.z + spot.z - 0.65);
+    // きせかえ島の 店は「はなす」で ひらく 店なので、その 店の たなを そのまま ひらく。
+    if (islandId === 'wear') { player.position.set(isl.x + spot.x, 0, isl.z + spot.z + 4); openWardrobe({ slot: spot.slot || spot.kind }); return; }
+    // つり島は 水辺（cast）に 立つと つりが はじまる。ほかは 戸口：island-kit の 戸口は 建物の まんなかから 0.65 手前（doorNear が ひろう）。
+    if (spot.cast) player.position.set(isl.x + spot.cast.x, 0, isl.z + spot.cast.z);
+    else player.position.set(isl.x + spot.x, 0, isl.z + spot.z - 0.65);
   }
 
   function set(on, { first = false } = {}) {

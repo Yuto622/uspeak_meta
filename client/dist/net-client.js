@@ -351,7 +351,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const kids = createKidsUI({
     speak, toast, rpg, player, goPlace, isOnline: () => state.mode === 'online',
     pendingHomework: () => state.homeworkCount || 0,
-    openHomework: () => homework.open(), openReading: () => reading.open(), openWardrobe: () => wardrobe.open({}), openMap: () => rpg.openMap(),
+    openHomework: () => homework.open(), openReading: () => reading.open(), openWardrobe: (o = {}) => wardrobe.open(o), openMap: () => rpg.openMap(),
     enterMain: (spot) => { sendMove(); main.walkIn(spot); },
     logout: () => document.getElementById('logout-button')?.click(),
   });
