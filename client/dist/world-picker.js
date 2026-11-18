@@ -25,11 +25,12 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const title = (r) => {
   const en = String(r.en || r.name);
   const short = r.hub ? en.replace(/\s+Island$/i, '') : en;
-  return short === short.toUpperCase() ? short.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()) : short;
+  // ぜんぶ 大文字の 名前は 読みやすく（FIRSTLIGHT MEADOW → Firstlight Meadow）。「ABC」の ような 3 文字までの 略語は そのまま。
+  return short === short.toUpperCase() && short.length > 3 ? short.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()) : short;
 };
 
 // おすすめ（大きな カード・上の 1 れつ）。Roblox の Choose a World と 同じ ならび。
-export const RECOMMENDED = ['main', 'abc', 'reading', 'homework', 'ride', 'fishworld', 'eiken5'];
+export const RECOMMENDED = ['main', 'abc', 'reading', 'homework', 'wear', 'ride', 'fishworld', 'eiken5'];
 // 🎮 あそび・📖 えいご の ほし（1〜3）。どんな 島かを 子どもに 1 目で つたえる ため（判定には つかわない）。
 const STARS = {
   main: [2, 3], abc: [2, 3], reading: [2, 3], homework: [1, 3], ride: [3, 2], fishworld: [2, 3], park: [3, 1], errand: [2, 3], school: [1, 3], arena: [3, 2], pet: [3, 1],
@@ -78,7 +79,7 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
     <div class="wm-scroll">
       <div class="wm-sechead"><h3 class="wm-section big"><b class="en">⭐ Recommended</b><i class="ja">⭐ おすすめ</i></h3>
         <span class="wm-legend">🎮 <b class="en">Play</b><i class="ja">あそび</i>　📖 <b class="en">English</b><i class="ja">えいご</i></span></div>
-      <div class="wm-rec" style="--wm-n:${rec.length}">${rec.map((r) => card(r, true)).join('')}</div>
+      <div class="wm-rec${rec.length > 6 ? ' two' : ''}" style="--wm-n:${rec.length > 6 ? Math.ceil(rec.length / 2) : rec.length}">${rec.map((r) => card(r, true)).join('')}</div>
       ${more.length ? `<h3 class="wm-section"><b class="en">More</b><i class="ja">ほかの ワールド</i></h3>
       <div class="wm-grid small">${more.map((r) => card(r)).join('')}</div>` : ''}
       ${kid ? '' : `<h3 class="wm-section"><b class="en">⛰ Adventure</b><i class="ja">⛰ ぼうけんの ちいき</i></h3>

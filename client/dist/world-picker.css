@@ -129,3 +129,9 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
   .wm-grid.small .wm-name { font-size: 16px; }
   .wm-grid.small .wm-ja { font-size: 12px; }
 }
+/* おすすめが 7 まい 以上の とき：2 段（上の リボンと 下の「いま ここ」が かさならない ように 段の あいだを あける）。 */
+.wm-rec.two { row-gap: 40px; }
+.wm-rec.two .wm-card.big { min-height: 196px; padding-top: 26px; }
+.wm-rec.two .wm-card.big .wm-icon { font-size: 62px; margin-bottom: 4px; }
+.wm-rec.two .wm-card.big .wm-name { font-size: 21px; }
+.wm-rec.two .wm-card.big .wm-ja { font-size: 15px; }

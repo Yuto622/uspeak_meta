@@ -363,6 +363,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     main: 'hut_easy', abc: 'abchouse', reading: 'library', homework: 'desk', fishworld: 'pond', school: 'easy', arena: 'easy',
     ride: 'start',   // のりもの島：スタートの そばに 立たせて、すぐ AURORA KART を ひらく
     town: 'plaza',   // まちづくり島：すぐ じぶんの ひろばで ブロックを つめる
+    wear: 'hat-shop', // きせかえ島：すぐ きせかえの 店（アバターの きせかえ）
     eiken5: 'reading', eiken4: 'reading', eiken3: 'reading', eikenp2: 'reading', eiken2: 'reading', eikenp1: 'reading', eiken1: 'reading',
   };
   let quickPick = null; // { id, until }
@@ -379,6 +380,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (id === 'main') { if (goPlace({ island: 'main', to: spot.id })) { sendMove(); main.walkIn(spot); } return; }
       // のりもの島の スタートは「はなす」で ひらく 場所（戸口では ない）ので、そばに 立たせて そのまま ひらく。
       if (id === 'ride') { player.position.set(isl.x + spot.x, 0, isl.z + spot.z + 2); state.lastSent.s = ''; sendMove(); racers.open(); return; } // すぐ AURORA KART（レースの ゲーム）
+      // きせかえ島の 店も「はなす」で ひらく：その 店の たなを そのまま ひらく。
+      if (id === 'wear') { player.position.set(isl.x + spot.x, 0, isl.z + spot.z + 4); state.lastSent.s = ''; sendMove(); wardrobe.open({ slot: spot.slot || spot.kind }); return; }
       // えいごアリーナの 台も「はなす」で はじまる（やさしい 台の バトル）。
       if (id === 'arena') { player.position.set(isl.x + spot.x, 0, isl.z + spot.z + 2); state.lastSent.s = ''; sendMove(); battle.enter(spot); return; }
       // つり島は 水辺の 立つ 場所（うきの 落ちる cast では ない：そこは 水の 中で 出られなく なる）。ほかは 戸口の すぐ 前。
