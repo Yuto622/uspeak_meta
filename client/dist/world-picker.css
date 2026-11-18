@@ -80,7 +80,7 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
 #rpg-content .wm-section.big { font-size: 28px; color: #1b3a2f; margin-top: 4px; }
 .wm-legend { font-size: 15px; font-weight: 800; color: #6b7d74; margin: 0 6px 10px; }
 .wm-legend .en, .wm-legend .ja { font-style: normal; }
-.wm-rec { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; padding: 18px 6px 22px; }
+.wm-rec { display: grid; grid-template-columns: repeat(var(--wm-n, 6), minmax(0, 1fr)); gap: 14px; padding: 18px 6px 22px; }
 .wm-rec .wm-name, .wm-rec .wm-ja { max-width: 100%; overflow-wrap: anywhere; }
 .wm-card.big { min-height: 250px; padding-top: 30px; box-shadow: 0 0 0 7px #ffc93c, 0 12px 26px #1b3a2f2e; overflow: visible; }
 .wm-card.big:hover { box-shadow: 0 0 0 7px #ffc93c, 0 20px 34px #1b3a2f40; }

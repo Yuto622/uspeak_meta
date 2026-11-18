@@ -635,7 +635,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     return c;
   }
   const KIND_ICON = {
-    plaza: '⛲', library: '📚', shop: '🛒', hut: '📖', gym: '💪', booth: '💬', hat: '🎩', face: '👓', back: '🎒', chest: '🏅',
+    plaza: '⛲', library: '📚', abc: '🔤', shop: '🛒', hut: '📖', gym: '💪', booth: '💬', hat: '🎩', face: '👓', back: '🎒', chest: '🏅',
     puyo: '🟢', suika: '🍉', barn: '🐄', field: '🌱', kitchen: '🍳', ship: '🚢', ferry: '⛵', board: '📋', office: '🏠',
     pond: '🎣', river: '🎣', sea: '🎣', interview: '🎤', speaking: '🗣', writing: '✏️', reading: '📖', listening: '🎧',
     start: '🏁', gate: '🚩', door: '🚪', furniture: '🛋', agent: '🏡', blockwild: '⛏', dojo: '🥋', stand: '🏟', pvp: '⚔',

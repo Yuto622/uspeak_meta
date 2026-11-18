@@ -8,7 +8,7 @@
 import { isJa, onLangChange } from './i18n.js';
 
 // 幼児モードで 行ける 島（しまの ちずに 出す もの）。world-picker.js も これを 見る。
-export const KIDS_ISLANDS = ['main', 'reading', 'fishworld', 'wear', 'land'];
+export const KIDS_ISLANDS = ['main', 'abc', 'reading', 'fishworld', 'wear', 'land'];
 export const kidsOn = () => globalThis.document?.body?.dataset.mode === 'kids';
 
 const HOME = [

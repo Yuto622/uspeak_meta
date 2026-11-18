@@ -1,0 +1,30 @@
+{
+  "_": "ABC の 島 (ABC Island). One big block house — walk in and「ABC と おと」opens (client/dist/abc.js). The letters, sounds, questions and answers are not here: the room builds and judges them (server/src/game/abc.js). Coordinates are relative to the island's own x/z. Colours are decimals because island-kit.js reads them as numbers.",
+  "island": {
+    "id": "abc",
+    "name": "ABC の 島",
+    "en": "ABC ISLAND",
+    "x": -200,
+    "z": 300,
+    "radius": 5,
+    "grass": 9226358,
+    "grassTop": 11067528,
+    "spawn": { "x": 0, "z": 21 },
+    "courtyard": { "x": 0, "z": 9 },
+    "spots": [
+      {
+        "id": "abchouse",
+        "kind": "abc",
+        "name": "ABC と おと の いえ",
+        "en": "ABC and Sounds House",
+        "character": "Upee",
+        "ja": "もじの なまえと おとを きいて、えらんで、ならべる",
+        "x": 0,
+        "z": -2,
+        "color": 14723072,
+        "tone": "🔤",
+        "path": { "x": 0, "z": 9 }
+      }
+    ]
+  }
+}

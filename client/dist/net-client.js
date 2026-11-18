@@ -266,6 +266,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // しゅくだい島：いえに 入ると 宿題の 一覧（オンラインの とき だけ。問題は 部屋に ある）。
     if (islandId === 'homework') return homework.open();
     if (islandId === 'reading') return reading.open();
+    // ABC の 島：つみきの いえに 入ると「ABC と おと」（幼児モードで なくても あそべる）。
+    if (islandId === 'abc') return abc.open();
     if (islandId === 'mini') {
       const game = arcades[spot.game || spot.kind];
       if (game) { game.open(); return true; }
@@ -1251,6 +1253,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // One question for the frame loop: is a whole-window guest game up?
     arcadeOpen: () => racers.isOpen || blockwild.isOpen || Object.values(arcades).some((g) => g.isOpen),
     readingLabel: (spot) => `${spot?.tone || '📚'} ${tr('えほんを よむ')}`,
+    abcLabel: (spot) => `${spot?.tone || '🔤'} ${tr('ABC と おと')}`,
     reading, abc,
     homeworkLabel: (spot) => `${spot?.tone || '📚'} ${tr('しゅくだいを する')}`,
     homework,

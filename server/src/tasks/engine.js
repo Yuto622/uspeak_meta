@@ -144,7 +144,7 @@ export function have(prog, check, stats) {
 
 
 // 光の道の 行き先：{ island, spot? }。spot は メインの島の 場所（main_island.json）。分からなければ null。
-const HUBS = new Set(['main', 'reading', 'willow', 'park', 'errand', 'school', 'arena', 'pet', 'ride', 'town', 'eiken5', 'eiken4', 'eiken3', 'eikenp2', 'eiken2', 'eikenp1', 'eiken1', 'talk', 'conv', 'wear', 'mini', 'farm', 'land', 'fishworld', 'homework']);
+const HUBS = new Set(['main', 'reading', 'abc', 'willow', 'park', 'errand', 'school', 'arena', 'pet', 'ride', 'town', 'eiken5', 'eiken4', 'eiken3', 'eikenp2', 'eiken2', 'eikenp1', 'eiken1', 'talk', 'conv', 'wear', 'mini', 'farm', 'land', 'fishworld', 'homework']);
 const GO_RULES = [
   [/^(sell|award:fish_sell)/, { island: 'main', spot: 'fish_buy' }],
   [/^\$(fish|dex)$/, { island: 'main', spot: 'fishing_pier' }],

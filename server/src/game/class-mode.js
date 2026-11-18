@@ -33,6 +33,7 @@ export const DESTINATIONS = [
   { id: 'mini', en: 'Minigame Island', jp: 'ミニゲーム じま', icon: '🍉' },
   { id: 'homework', en: 'Homework Island', jp: 'しゅくだい じま', icon: '📚' },
   { id: 'reading', en: 'Book Island', jp: 'よみもの じま', icon: '📖' },
+  { id: 'abc', en: 'ABC Island', jp: 'ABC の しま', icon: '🔤' },
 ];
 export const DEST_BY_ID = new Map(DESTINATIONS.map((d) => [d.id, d]));
 
