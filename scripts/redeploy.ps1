@@ -61,16 +61,29 @@ if ($LASTEXITCODE -ne 0) { throw "deploy failed. Run: fly logs --app $AppName" }
 Write-Host ''
 Write-Host '==> checking the live site'
 $url = "https://$AppName.fly.dev"
-Start-Sleep -Seconds 6
-try {
-  $health = Invoke-RestMethod -Uri "$url/healthz" -TimeoutSec 20
-  Write-Host ("healthz : " + ($health | ConvertTo-Json -Compress))
-} catch { Write-Warning "healthz did not answer yet: $_" }
-foreach ($file in 'lang.json', 'i18n.js') {
+# The machine restarts after an 'immediate' deploy and pulls a ~400 MB image first, so the
+# site can be silent for a minute or two. Ask every 10 s for up to 3 minutes before warning.
+$healthy = $false
+for ($i = 1; $i -le 18 -and -not $healthy; $i++) {
+  Start-Sleep -Seconds 10
   try {
-    $r = Invoke-WebRequest -Uri "$url/$file" -TimeoutSec 20 -UseBasicParsing
-    Write-Host ("{0,-10}: {1} ({2} bytes)" -f $file, $r.StatusCode, $r.RawContentLength)
-  } catch { Write-Warning "$file did not load: $_" }
+    $health = Invoke-RestMethod -Uri "$url/healthz" -TimeoutSec 15
+    Write-Host ("healthz : " + ($health | ConvertTo-Json -Compress) + "  (after about $($i * 10) s)")
+    $healthy = $true
+  } catch { Write-Host "  waiting for the site... ($($i * 10) s)" }
+}
+if ($healthy) {
+  foreach ($file in 'lang.json', 'i18n.js') {
+    try {
+      $r = Invoke-WebRequest -Uri "$url/$file" -TimeoutSec 20 -UseBasicParsing
+      Write-Host ("{0,-10}: {1} ({2} bytes)" -f $file, $r.StatusCode, $r.RawContentLength)
+    } catch { Write-Warning "$file did not load: $_" }
+  }
+} else {
+  Write-Warning 'the site did not answer within 3 minutes. Machine state and the last log lines:'
+  fly status --app $AppName
+  fly logs --app $AppName --no-tail 2>&1 | Select-Object -Last 40
+  Write-Host 'Paste the lines above into the chat (they contain no keys or passwords).'
 }
 Write-Host ''
 Write-Host "done. $url"
