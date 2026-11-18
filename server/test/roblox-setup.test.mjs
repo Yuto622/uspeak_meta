@@ -31,7 +31,7 @@ test('セットアップと スクリプトに 鍵は 入って いない（鍵�
 });
 
 test('ABC の 画面：子どもに 見える 字は ひらがな＋英語だけ（漢字・カタカナなし）・10 しゅるいの もんだいを あつかう', () => {
-  for (const f of ['USpeakAbcClient.client.luau', 'USpeakAbc.server.luau']) {
+  for (const f of ['USpeakAbcClient.client.luau', 'USpeakAbc.server.luau', 'USpeakAbcLocal.server.luau']) {
     for (const [i, line] of read(f).split('\n').entries()) {
       if (line.trim().startsWith('--')) continue;
       for (const m of line.split(' -- ')[0].matchAll(/"([^"]*)"/g)) assert.ok(!/[一-龯ァ-ヶ]/.test(m[1]), `${f}:${i + 1} ${m[1]}`);
@@ -76,4 +76,29 @@ test('roblox/oneline：どれも 1 行・コメントなし・いまの スク�
       assert.equal(unescape(m[1]), read(want[f]).replace(/\r\n/g, '\n'), `${f} が ${want[f]} と ちがう（作りなおして ください）`);
     }
   }
+});
+
+// Roblox だけで うごく「ABC と おと」の 1 行（abc-local）。Web の サーバー・Secrets・絵の アップロードに ふれない。
+test('roblox/oneline/abc-local：1 行・コメントなし・いまの スクリプトと 同じ・Web に つなぐ Script を はずす・HTTP と Secrets に ふれない', () => {
+  const unescape = (q) => q.slice(1, -1).replace(/\\(\\|"|n|t)/g, (_, c) => ({ '\\': '\\', '"': '"', n: '\n', t: '\t' }[c]));
+  // 貼る 行を みじかく する ため、字下げ・空の 行・コメントだけの 行は ぬいて ある（scripts/make-roblox-oneline.py の slim）。
+  const slim = (src) => `${src.replace(/\r\n/g, '\n').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('--')).join('\n')}\n`;
+  const want = { 'abc-local-1.txt': 'USpeakAbcLocal.server.luau', 'abc-local-2.txt': 'USpeakAbcClient.client.luau' };
+  const files = ['abc-local-1.txt', 'abc-local-2.txt', 'abc-local-3.txt'];
+  const all = read('oneline/abc-local-all.txt');
+  assert.equal(all, files.map((f) => `do ${read(`oneline/${f}`)} end`).join(' '));
+  assert.ok(all.length < 60000, `長すぎる：${all.length}`);
+  for (const f of files) {
+    const t = read(`oneline/${f}`);
+    assert.ok(!t.includes('\n') && !t.includes('\r'), `${f}: 1 行で ない`);
+    assert.ok(!/--/.test(t.replace(/"(?:[^"\\]|\\.)*"/g, '""')), `${f}: コメントが ある`);
+    if (want[f]) {
+      const m = /s\.Source=("(?:[^"\\]|\\.)*");/.exec(t);
+      assert.ok(m, `${f}: Source が ない`);
+      assert.equal(unescape(m[1]), slim(read(want[f])), `${f} が ${want[f]} と ちがう（作りなおして ください）`);
+    }
+  }
+  assert.ok(read('oneline/abc-local-1.txt').startsWith('local x=game:GetService("ServerScriptService"):FindFirstChild("USpeakAbc"); if x then x:Destroy() end;'));
+  assert.ok(all.includes('CollectionService:AddTag(board, "USpeakAbcBoard")'));
+  for (const bad of ['HttpService', 'HttpEnabled', 'GetSecret', 'Secrets', 'USPEAK_WEB_KEY', '/admin/', 'https://']) assert.ok(!all.includes(bad), bad);
 });

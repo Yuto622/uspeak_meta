@@ -42,6 +42,33 @@ Web 版で「きいて えらぶ」問題は、Roblox では **絵と もじを 
 
 スクリプトを なおしたら `python3 scripts/make-roblox-abc-setup.py` で セットアップを 作りなおす（`server/test/roblox-setup.test.mjs` が 作りなおし わすれを 見つける）。
 
+## Roblox だけで うごく 版（Web に つながない）
+
+Web の サーバー・Secrets・絵の アップロードを 使わずに、place の 中だけで うごく 版も あります。
+
+**入れかた**：`roblox/oneline/abc-local-all.txt` の 中身（1 行・約 58,000 字）を Studio の コマンドバーに 貼って Enter → Play。
+入るのは `USpeakAbcLocal`（Script）・`USpeakAbcClient`（LocalScript・Web に つなぐ 版と 同じ もの）・入口の かんばん。
+Web に つなぐ `USpeakAbc` が あれば はずします（2 つ いっしょには うごかしません）。HTTP の 設定には さわりません。
+
+| | Web に つなぐ 版（`USpeakAbc`） | Roblox だけの 版（`USpeakAbcLocal`） |
+|---|---|---|
+| 用意 | Secrets `USPEAK_WEB_KEY`・HTTP オン・絵の アップロードと 審査 | 1 行を 貼るだけ |
+| もんだいと きまり | Web の サーバー（`abc.js`） | 同じ きまりを Lua に うつした もの（スクリプトの 中） |
+| 絵 | かいた 絵カード | emoji（もじ） |
+| きろく | Web と 共通（Web で 進めた 子は つづきから） | Roblox の DataStore だけ（Web とは べつ） |
+| 保護者の レポート・学習の 記録 | のる | のらない |
+| 教室ごとの 設定（大文字／小文字・もじの 順） | きく | きかない（小文字と 大文字の 両方・データの 順） |
+| はじめる 場所 | ロードマップの 級で 決まる ことが ある | いつも「はじめの もんだい」（もじ 4 もん）から |
+| こえ | どちらも なし（上の「こえに ついて」） | 同じ |
+
+- 中の ことばは `server/scripts/make-roblox-abc-local.mjs` が `abc-data.json` から 作ります（Roblox に 出さない 6 語は ぬく）。
+  ことばを なおしたら：`node server/scripts/make-roblox-abc-local.mjs && python3 scripts/make-roblox-oneline.py`。
+- きろくを のこすには、place を 公開して Game Settings → Security → **Enable Studio Access to API Services** を オンに します
+  （オフでも あそべます。その ときは あそんで いる あいだだけ おぼえます）。
+- たしかめた こと：Roblox の そとの Lua（fengari）で スクリプトを まるごと うごかし、子どもを 何人も あそばせた
+  （`server/test/roblox-abc-local.test.mjs`）。**Studio では まだ うごかして いません。** emoji の 中には Roblox の 字に ない ものが
+  あるかも しれません（四角に 見えたら その ことばの emoji を `abc-data.json` で かえる）。
+
 ## まだ たしかめて いない こと
 
 - **Roblox の スクリプトは Studio で 動かして いません。** 文法だけ、ふつうの Lua の 文法の 検査（luaparse）を 通して あります（そのため 型の 注釈や `+=` を 使わずに 書いて あります）。画面の 大きさ・フォント・ボタンの 位置は Studio で 見て なおす 必要が ある はずです。

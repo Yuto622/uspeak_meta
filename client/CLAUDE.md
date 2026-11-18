@@ -2008,6 +2008,7 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **絵カード**は 絵本と 同じ `BookAssets` で 上げる（`withAbc()`：1 ことば＝ページの ない 1 冊 `abc-<ことば>`・管理ページでは 1 行に まとまる）。もじは 上げない（Roblox で 字として 出す）。
 - **Roblox の スクリプト**：`roblox/USpeakAbc.server.luau`・`USpeakAbcClient.client.luau`（こえは 出ない＝「きく」問題は 絵と もじを 見せる 形。型の 注釈なしの ふつうの Lua で 書いて あり、luaparse で 文法だけ 検査）。Studio では 動かして いない。
 - **一発 セットアップ**（Studio の コマンドバーに はる）：`roblox/setup-abc-place.lua`（ABC の place）・`roblox/setup-books-place.lua`（えほんの place・本だな 12 こ）。作るのは `scripts/make-roblox-abc-setup.py`・`make-roblox-books-setup.py`。スクリプトを なおしたら 作りなおす（`server/test/roblox-setup.test.mjs` が 見つける）。手順は `docs/ROBLOX_ABC.md`・`docs/ROBLOX_BOOKS.md`。
+- **Roblox だけで うごく「ABC と おと」**：`roblox/USpeakAbcLocal.server.luau`（`abc.js` の きまりを Lua に うつした もの・HTTP も Secrets も なし・絵は emoji・きろくは DataStore）。貼るのは `roblox/oneline/abc-local-all.txt`（1 行）。中の ことばは `node server/scripts/make-roblox-abc-local.mjs` → `python3 scripts/make-roblox-oneline.py` で 作りなおす。`abc.js` の きまりを かえたら こちらも 合わせる（`docs/ROBLOX_ABC.md`・`server/test/roblox-abc-local.test.mjs`）。
 
 ## 入ったら すぐ「せかいを えらぼう」・えらんだら すぐ はじまる（2026-11）
 - **幼児モードは やめた**（`config.kidsMode`＝`KIDS_MODE=on` で もどる。コードは のこして ある：`kids.js`・`kids-store.js`・`/teacher/kids`）。オフの あいだは 部屋が だれも 幼児モードに せず、🧸 も よみあげ ボタン（`read-aloud.js`）も 出ない。`/teacher/kids`・`/admin/kids` は「なまえを えらんで 入る（QR）」だけ のこる。

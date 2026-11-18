@@ -308,6 +308,8 @@ local function qPicture(l, notWord)
 	for _, o in ipairs(otherLetters(l)) do
 		local all = DATA.letters[o].words
 		local ws = filter(all, function(x) return not x.fin and string.sub(x.w, 1, 1) ~= l and string.sub(x.w, -1) ~= l end)
+		-- Web 版は ここで「ぜんぶ」に もどる ので、b の もんだいに box が まざる ことが ある。こちらは その もじで はじまる・おわる ことばを さける。
+		if #ws == 0 then ws = filter(all, function(x) return string.sub(x.w, 1, 1) ~= l and string.sub(x.w, -1) ~= l end) end
 		others[#others + 1] = pick(#ws > 0 and ws or all).w
 	end
 	return { kind = "picture", key = "L:" .. l, format = "mc", answer = w.w, used = w.w, pub = { letter = l, ["end"] = w.fin == true, choices = shuffled(join({ w.w }, others)) } }
