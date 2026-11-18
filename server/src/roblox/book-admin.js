@@ -1,6 +1,19 @@
 // /admin/roblox-books — 絵本の 絵を Roblox へ 上げる（運営だけ・ADMIN_KEY）。上げるのは サーバーの うしろで 動く（book-assets.js）。
 // 画面は 数と ボタンだけ。鍵（ROBLOX_OPEN_CLOUD_KEY）は 出さない：足りない 設定は 名前だけ 見せる。
 import express from 'express';
+import { allBooks } from '../game/reading.js';
+import { robloxChanges } from './safe-art.js';
+
+const escH = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// Roblox に 送る 前に かえる 絵の 一覧（本・ページ・なにを なにに）。
+function changesHtml() {
+  const rows = [];
+  for (const b of allBooks().values()) {
+    const c = robloxChanges(b); if (!c.length) continue;
+    rows.push(`<tr><td>${escH(b.stage)}</td><td>${escH(b.title)}</td><td>${c.map((x) => `${x.n === 0 ? '表紙' : `p${x.n}`} ${escH(x.from)}→${x.to ? escH(x.to) : '外す'}`).join('・')}</td></tr>`);
+  }
+  return rows.length ? `<table><thead><tr><th>レベル</th><th>本</th><th>かえる 絵</th></tr></thead><tbody>${rows.join('')}</tbody></table>` : '<p>かえる 絵は ありません。</p>';
+}
 
 export function robloxBooksAdminExtension({ assets, log = console }) {
   return ({ router, api, authed }) => {
@@ -51,6 +64,9 @@ code{background:#f4efe4;border-radius:6px;padding:1px 6px;font-size:14px}ol{marg
 <li>キーは <b>チャットや メールに はらず</b>、パソコンの ターミナルで <code>fly secrets set ROBLOX_OPEN_CLOUD_KEY=…</code> と 入れる。</li>
 <li>絵の 持ち主を 入れる：グループなら <code>fly secrets set ROBLOX_CREATOR_GROUP_ID=数字</code>、個人なら <code>ROBLOX_CREATOR_USER_ID=数字</code>（<b>ゲームの 持ち主と 同じ</b>に する。ちがうと ゲームで 絵が 出ません）。</li>
 <li>この 画面で「アップロードを はじめる」。数が ふえるのを 見て、審査が おわるまで ときどき「つづける」を おす（審査の ようすを 見なおします）。</li></ol></div>
+<h2>Roblox の きまりに あわせて かえる 絵</h2>
+<div class="card"><p style="margin:0 0 8px">Roblox の 審査に ひっかかりそうな ものは、<b>Roblox に 送る 絵だけ</b> かえるか 外します（Web の 絵は そのまま）。おさけ → ガラスの びん、はもの → 食器・まき、お札 → コイン、宗教の たてもの → ふつうの たてもの、シャワー・トイレ・くちびるなどは 外す。</p>
+${changesHtml()}</div>
 <h2>本ごとの ようす</h2>
 <div class="card" style="padding:0;overflow:auto;max-height:70vh"><table><thead><tr><th>レベル</th><th>本</th><th>絵</th><th>通った</th><th>審査中</th><th>だめ</th><th>まだ</th></tr></thead><tbody id="rows"></tbody></table></div>
 </div><script>

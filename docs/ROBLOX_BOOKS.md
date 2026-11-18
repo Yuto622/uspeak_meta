@@ -53,3 +53,9 @@
 - 審査に かかる 時間・1 か月に 上げられる 数の 上限は、アカウント（本人確認の 有無 など）で かわります。
 
 参考（公式）：Usage guide for assets（create.roblox.com/docs/cloud/guides/usage-assets）・Assets API v1（…/docs/cloud/reference … assets/v1）。
+
+## Roblox の きまりに あわせた 絵（2026-11）
+Roblox に 送る 絵だけ、審査に ひっかかりそうな ものを かえるか 外す（`server/src/roblox/safe-art.js`。Web の 絵は かわらない）。
+おさけ → ガラスの びん、はもの → 食器・まき、お札 → コイン、宗教の たてもの → ふつうの たてもの、シャワー・トイレ・くちびる・下着などは 外す。
+いま かわるのは 13 冊・22 まい。一覧は `/admin/roblox-books` の「Roblox の きまりに あわせて かえる 絵」。表を かえたら `SAFE_VERSION` を 上げる（かわった 絵だけ 上げなおす）。
+検査は `server/test/roblox-safe-art.test.mjs`。「ABC と おと」の 絵カードは Roblox には 送って いない。

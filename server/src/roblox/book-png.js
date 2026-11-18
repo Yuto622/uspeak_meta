@@ -4,6 +4,7 @@
 import { createHash } from 'node:crypto';
 import { renderScene } from '../game/reading-art/render.js';
 import { ART_VERSION } from '../game/reading.js';
+import { robloxScene, SAFE_VERSION } from './safe-art.js';
 
 export const PNG_WIDTH = 1024; export const PNG_HEIGHT = 768;
 let Resvg = null; let tried = false;
@@ -16,12 +17,13 @@ export const pngReady = async () => !!(await load());
 // 本の n ばんめの 絵（0＝表紙、1〜＝ページ）の SVG。ない ときは null。
 export function sceneSvg(book, n) {
   const scene = n === 0 ? book.cover : book.pages[n - 1]?.scene;
-  return scene ? renderScene(scene, { seed: book.id, still: true }) : null;
+  // Roblox の 審査に ひっかかりそうな 絵は、送る 前に かえる／外す（safe-art.js）。Web の 絵は かわらない。
+  return scene ? renderScene(robloxScene(scene).scene, { seed: book.id, still: true }) : null;
 }
 // 絵の しるし（同じ 絵は 同じ しるし）。絵の かき方（ART_VERSION）か 場面が かわると かわる＝上げなおす。
 export function artHash(book, n) {
   const svg = sceneSvg(book, n);
-  return svg ? createHash('sha256').update(`${ART_VERSION}|${PNG_WIDTH}x${PNG_HEIGHT}|${svg}`).digest('hex').slice(0, 32) : '';
+  return svg ? createHash('sha256').update(`${ART_VERSION}|${SAFE_VERSION}|${PNG_WIDTH}x${PNG_HEIGHT}|${svg}`).digest('hex').slice(0, 32) : '';
 }
 export async function renderPng(book, n) {
   const R = await load(); const svg = sceneSvg(book, n);
