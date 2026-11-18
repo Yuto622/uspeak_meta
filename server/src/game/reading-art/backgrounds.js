@@ -201,7 +201,7 @@ const SCENES = {
     let doors = '';
     for (let x = 14; x < W; x += 132) doors += `<rect x="${x}" y="366" width="118" height="100" rx="6" fill="#f7b877"/><circle cx="${x + 100}" cy="416" r="5" fill="#b0764a"/>`;
     a.add(doors);
-    a.add('<g transform="translate(380,330)"><rect x="-60" y="-12" width="120" height="12" rx="4" fill="#555"/><circle cx="-28" cy="-12" r="18" fill="#333" opacity=".35"/><circle cx="28" cy="-12" r="18" fill="#333" opacity=".35"/><path d="M-50,-14 L-46,-50 L-8,-50 L-4,-14 Z" fill="#8fa3b8"/><rect x="-58" y="-56" width="62" height="8" rx="4" fill="#6e8296"/></g>');
+    a.add('<g transform="translate(706,330)"><rect x="-60" y="-12" width="120" height="12" rx="4" fill="#555"/><circle cx="-28" cy="-12" r="18" fill="#333" opacity=".35"/><circle cx="28" cy="-12" r="18" fill="#333" opacity=".35"/><path d="M-50,-14 L-46,-50 L-8,-50 L-4,-14 Z" fill="#8fa3b8"/><rect x="-58" y="-56" width="62" height="8" rx="4" fill="#6e8296"/></g>');
     a.add(`<rect y="476" width="${W}" height="124" fill="${a.g([[0, '#ead9c0'], [1, '#d9c3a2']])}"/>`);
     let fl = '';
     for (let x = 0; x < W; x += 100) for (let y = 476; y < H; y += 62) if (((x / 100) + ((y - 476) / 62)) % 2) fl += `<rect x="${x}" y="${y}" width="100" height="62" fill="#fff" opacity=".28"/>`;

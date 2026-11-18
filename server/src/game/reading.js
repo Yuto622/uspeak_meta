@@ -13,7 +13,7 @@ import { STAGE_IDS, DEFAULT_STAGES } from './roadmap.js';
 
 export const BANK_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'reading-bank');
 export const BACKGROUNDS = ['meadow', 'forest', 'sea', 'beach', 'sky', 'night', 'room', 'kitchen', 'school', 'city', 'snow', 'farm', 'space', 'cave', 'garden', 'mountain', 'river', 'desert', 'park', 'shop'];
-export const ART_VERSION = 4;          // 絵の 版（URL の ?v=。上げると ブラウザーが 読みなおす）
+export const ART_VERSION = 5;          // 絵の 版（URL の ?v=。上げると ブラウザーが 読みなおす）
 export const artPath = (id) => `/reading-art/${id}`;
 export const MOVES = ['none', 'bob', 'float', 'sway', 'hop', 'spin', 'drift', 'pulse'];
 export const STEPS = ['listen', 'read', 'aloud', 'quiz'];
