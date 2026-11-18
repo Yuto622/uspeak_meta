@@ -57,7 +57,18 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local CollectionService = game:GetService("CollectionService")
 
 local BASE = "https://uspeak-multiplayer.fly.dev/api/roblox"
-local KEY = HttpService:GetSecret("USPEAK_WEB_KEY")
+-- かぎ（Secrets の USPEAK_WEB_KEY）。まだ 入れて いない ときに ここで 止まると 画面も 出なく なるので、止めずに おぼえて おく。
+-- Studio で ためす とき：ホーム → ゲーム設定 → セキュリティ → Secrets に 入れる。公開した 体験：Creator Hub → その体験 → Secrets。
+local KEY = nil
+local function loadKey()
+	if KEY then return true end
+	local ok, secret = pcall(function() return HttpService:GetSecret("USPEAK_WEB_KEY") end)
+	if ok and secret then KEY = secret return true end
+	return false
+end
+if not loadKey() then
+	warn("[uspeak abc] Secrets に USPEAK_WEB_KEY が ありません。いれるまで もんだいは でません（がめんには「じゅんびちゅう」と でます）。")
+end
 local BOARD_TAG = "USpeakAbcBoard"
 
 local function remote(className, name)
@@ -77,6 +88,7 @@ local Quit = remote("RemoteEvent", "USpeakAbcQuit")
 -- ---- HTTP ---------------------------------------------------------------------------------------
 -- 返す：data（JSON）, status。つながらない ときは nil, 0。400 の へんじ（{ ok=false, error=… }）も data で 返す。
 local function request(method, path, body)
+	if not loadKey() then return { ok = false, error = "no key" }, 0 end
 	local ok, res = pcall(function()
 		return HttpService:RequestAsync({
 			Url = BASE .. path,
@@ -110,6 +122,7 @@ local ERRORS = {
 	nothing = "ぜんぶ できたよ！ すごいね。",
 	["no review"] = "いまは にがてな ものが ないよ。",
 	["no data"] = "いまは つかえないよ。せんせいに きいてね。",
+	["no key"] = "まだ じゅんびちゅう だよ。せんせいに きいてね。",
 }
 local function errorText(code)
 	return ERRORS[tostring(code)] or "いまは つながらないよ。すこし まってから もう いちど。"
@@ -177,6 +190,17 @@ end
 
 Quit.OnServerEvent:Connect(function(player) sessions[player] = nil end)
 Players.PlayerRemoving:Connect(function(player) sessions[player] = nil end)
+
+-- ---- 入った しゅんかんに ひらく ---------------------------------------------------------------------
+-- かんばんまで 歩かなくても、入ったら すぐ「ABC と おと」が ひらく（とじた あとは かんばんの「あそぶ」で もう いちど）。
+-- 画面の スクリプトが できるまで 少し まつ。RemoteEvent は 聞く 人が できるまで ためて おかれる。
+local function openOnJoin(player)
+	task.delay(2, function()
+		if player.Parent then openBoard(player) end
+	end)
+end
+Players.PlayerAdded:Connect(openOnJoin)
+for _, player in ipairs(Players:GetPlayers()) do openOnJoin(player) end
 
 -- ---- 入口（タグ USpeakAbcBoard の Part）-----------------------------------------------------------
 local function hookBoard(part)
