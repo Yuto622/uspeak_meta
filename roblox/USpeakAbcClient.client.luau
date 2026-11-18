@@ -86,8 +86,12 @@ local function picture(parent, image, props)
 	local holder = make("Frame", { BackgroundColor3 = WHITE, BorderSizePixel = 0, ClipsDescendants = true, Size = UDim2.fromOffset(170, 170) }, parent)
 	if props then for k, v in pairs(props) do holder[k] = v end end
 	round(holder, 22)
-	if type(image) == "string" and image ~= "" then
+	local isAsset = type(image) == "string" and (string.sub(image, 1, 3) == "rbx" or string.sub(image, 1, 4) == "http")
+	if isAsset then
 		make("ImageLabel", { BackgroundTransparency = 1, Image = image, ScaleType = Enum.ScaleType.Fit, Size = UDim2.fromScale(1, 1) }, holder)
+	elseif type(image) == "string" and image ~= "" then
+		-- Roblox だけで うごく 版：えは もじ（emoji）で くる。
+		make("TextLabel", { BackgroundTransparency = 1, AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5), Size = UDim2.fromScale(0.8, 0.8), Text = image, TextScaled = true, Font = Enum.Font.SourceSans, TextColor3 = INK }, holder)
 	else
 		label(holder, "じゅんびちゅう", 18, { Size = UDim2.fromScale(1, 1), TextColor3 = Color3.fromRGB(138, 148, 166) })
 	end
