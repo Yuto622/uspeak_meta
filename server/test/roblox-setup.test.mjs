@@ -62,6 +62,9 @@ test('/roblox-setup/<名前>.lua：きまった 3 つだけ 出る・中身は �
 test('roblox/oneline：どれも 1 行・コメントなし・いまの スクリプトと 同じ 中身（なおしたら scripts/make-roblox-oneline.py）', () => {
   const unescape = (q) => q.slice(1, -1).replace(/\\(\\|"|n|t)/g, (_, c) => ({ '\\': '\\', '"': '"', n: '\n', t: '\t' }[c]));
   const want = { 'abc-1.txt': 'USpeakAbc.server.luau', 'abc-2.txt': 'USpeakAbcClient.client.luau', 'books-1.txt': 'USpeakBooks.server.luau', 'books-2.txt': 'USpeakWalletSync.server.luau', 'books-3.txt': 'USpeakBooksClient.client.luau' };
+  // ぜんぶ 入りの 1 行（1 回 貼るだけ）は、分けた 行を do … end で つないだ もの。
+  assert.equal(read('oneline/abc-all.txt'), ['abc-1.txt', 'abc-2.txt', 'abc-3.txt'].map((f) => `do ${read(`oneline/${f}`)} end`).join(' '));
+  assert.equal(read('oneline/books-all.txt'), ['books-1.txt', 'books-2.txt', 'books-3.txt', 'books-4.txt'].map((f) => `do ${read(`oneline/${f}`)} end`).join(' '));
   for (const f of [...Object.keys(want), 'abc-3.txt', 'books-4.txt']) {
     const t = read(`oneline/${f}`);
     assert.ok(!t.includes('\n') && !t.includes('\r'), `${f}: 1 行で ない`);

@@ -66,7 +66,12 @@ def main():
         tail = tail_one_line(open(os.path.join(R, spec['setup']), encoding='utf8').read())
         assert '\n' not in tail
         open(os.path.join(OUT, f'{place}-{n}.txt'), 'w', encoding='utf8', newline='').write(tail)
-        print(place, n, 'files')
+        # ぜんぶを 1 行に まとめた 版（1 回 貼るだけ）。名前が ぶつからない ように 1 つずつ do … end で かこむ。
+        parts = [open(os.path.join(OUT, f'{place}-{k}.txt'), encoding='utf8').read() for k in range(1, n + 1)]
+        allin = ' '.join(f'do {x} end' for x in parts)
+        assert '\n' not in allin
+        open(os.path.join(OUT, f'{place}-all.txt'), 'w', encoding='utf8', newline='').write(allin)
+        print(place, n, 'files +', f'{place}-all.txt', len(allin), 'chars')
 
 if __name__ == '__main__':
     main()
