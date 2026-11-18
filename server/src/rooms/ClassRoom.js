@@ -5120,6 +5120,8 @@ export class ClassRoom extends Room {
       tasks: this.taskPayload(sessionId),
       ...this.premiumPayload(sessionId),
       kids: !!priv?.kids,
+      // この クラスが 幼児モード（クラスの 既定が オン）。先生にも 知らせる：先生の 画面も はじめは かんたんな 画面で ひらく（🧸 で もどせる）。
+      kidsClass: !!this.kids?.classOf?.(this.classCode)?.on,
       classPaused: !!this.classMode?.paused,
       progress: this.progressPayload(sessionId),
       missionsDone: [...priv.missionsDone],

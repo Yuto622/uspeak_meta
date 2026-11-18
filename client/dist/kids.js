@@ -125,25 +125,33 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
   // 上の 🧸 で すぐ きりかえられる（この 画面だけ・この タブの あいだ だけ。部屋の 判定や ほかの 人には かかわらない）。
   const LOCAL_KEY = 'uspeak-kids-local';
   let server = false; let local = false;
-  try { local = sessionStorage.getItem(LOCAL_KEY) === '1'; } catch { /* 保存が 使えなくても 動く */ }
+  let chosen = false; // この タブで 🧸 を じぶんで おしたか（おして いなければ クラスの 既定に したがう）
+  try { const v = sessionStorage.getItem(LOCAL_KEY); local = v === '1'; chosen = v === '1' || v === '0'; } catch { /* 保存が 使えなくても 動く */ }
   const toggle = document.createElement('button');
   toggle.type = 'button'; toggle.id = 'kids-toggle'; toggle.hidden = true; toggle.setAttribute('translate', 'no');
   document.querySelector('header .stats')?.append(toggle);
   function paintToggle() {
     toggle.hidden = !ready || server;
-    toggle.innerHTML = state.on ? `<span aria-hidden="true">↩</span><small>${two({ en: 'Normal', ja: 'ふつう' })}</small>` : `<span aria-hidden="true">🧸</span><small>${two({ en: 'Easy', ja: 'かんたん' })}</small>`;
+    // ほかの 上の ボタンと 同じ 形（絵の 下に 小さな 札＝data-cap。style.css の .stats button[data-cap]）。
+    toggle.innerHTML = `<span aria-hidden="true">${state.on ? '↩' : '🧸'}</span>`;
+    toggle.dataset.cap = state.on ? (isJa() ? 'ふつう' : 'Normal') : (isJa() ? 'かんたん' : 'Easy');
     toggle.setAttribute('aria-label', state.on ? 'ふつうの がめんに もどす' : 'かんたんな がめん（幼児モード）に する');
     toggle.classList.toggle('on', state.on); toggle.title = state.on ? 'ふつうの がめんに もどす' : 'かんたんな がめん（幼児モード）を 見る';
   }
   toggle.addEventListener('click', () => {
     if (server) return;
-    local = !local;
+    local = !local; chosen = true;
     try { sessionStorage.setItem(LOCAL_KEY, local ? '1' : '0'); } catch { /* */ }
     apply(local, { first: true });
   });
   let ready = false;
   // 部屋からの しらせ（welcome・'kids'）。部屋が オンなら それ、オフなら じぶんの きりかえ。
-  function set(on, opts = {}) { ready = true; server = !!on; apply(server || local, opts); paintToggle(); }
+  // classOn：この クラスが 幼児モード。先生や まだ えらんで いない 人も、はじめは かんたんな 画面で ひらく（🧸／↩ で もどせる）。
+  function set(on, { classOn = false, ...opts } = {}) {
+    ready = true; server = !!on;
+    if (classOn && !chosen) local = true;
+    apply(server || local, opts); paintToggle();
+  }
 
   function apply(on, { first = false } = {}) {
     on = !!on;
@@ -173,7 +181,7 @@ export function createKidsUI({ speak, toast, rpg, player, goPlace, isOnline, pen
   }, true);
   // いる 島が かわったら 行き先を かきかえる（飛んでいる 間・全画面の あそびの 間は CSS が しまう）。
   setInterval(() => { if (state.on && !state.home) renderDock(); }, 600);
-  onLangChange(() => { if (state.on) { if (state.home) renderHome(); renderDock(true); } });
+  onLangChange(() => { paintToggle(); if (state.on) { if (state.home) renderHome(); renderDock(true); } });
 
   return { set, openHome, closeHome, refresh: () => { if (state.home) renderHome(); }, get on() { return state.on; }, get homeOpen() { return state.home; }, state };
 }

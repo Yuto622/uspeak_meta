@@ -105,12 +105,11 @@ body[data-warp] #kids-dock, body[data-class-pause] #kids-dock, body[data-kids-ho
 }
 
 /* ---- 🧸 じぶんの 画面で きりかえる（先生が オンに した 子には 出ない） ---- */
-#kids-toggle { display: inline-flex; align-items: center; gap: 5px; min-height: 40px; padding: 0 11px; border-radius: 12px; border: 2px solid #e2c98f; background: #fff7df; color: #5a4520; font: 800 13px/1 "Noto Sans JP", system-ui, sans-serif; cursor: pointer; white-space: nowrap; }
+#kids-toggle { width: auto; min-width: 52px; height: auto; min-height: 44px; padding: 4px 8px 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; line-height: 1.1; border-radius: 12px; border: 2px solid #e2c98f; background: #fff7df; color: #5a4520; cursor: pointer; }
 #kids-toggle[hidden] { display: none !important; }
-#kids-toggle span { font-size: 18px; } #kids-toggle small { font-size: 12px; font-weight: 800; }
-#kids-toggle small .en, #kids-toggle small .ja { font-size: inherit; font-style: normal; font-weight: inherit; }
-#kids-toggle.on { background: #1b3a2f; border-color: #1b3a2f; color: #fff; min-height: 44px; }
-@media (max-width: 700px), (max-height: 480px) { #kids-toggle small { display: none; } #kids-toggle { padding: 0 9px; } }
+#kids-toggle span { font-size: 18px; line-height: 1; }
+#kids-toggle.on { background: #1b3a2f; border-color: #1b3a2f; color: #fff; }
+#kids-toggle.on::after { opacity: .95; }
 
 /* ---- カードが 6 まい（ABC と おと を 足した）：iPad の はばでは 3 × 2（1 れつだと ボタンが ほそくて おしにくい）。
    よこに ひろい 画面（1300px から）と、たかさの ない よこもちの スマホは 1 れつ。 ---- */

@@ -619,7 +619,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       eiken.setLevel(r.state?.eikenLevel);
       if (m.wallet) applyWallet(m.wallet);
       state.homeworkCount = m.homework || 0;
-      state.kids = !!m.kids && m.role !== 'teacher'; chat.setFree(); kids.set(state.kids, { first: !m.restored });
+      state.kids = !!m.kids && m.role !== 'teacher'; chat.setFree();
+      // 幼児モードの ホームは、この ページで はじめて 入った ときに 出す（記録の ある 子＝restored でも 出す。つなぎなおしでは 出さない）。
+      kids.set(state.kids, { first: !state.kidsWelcomed, classOn: !!m.kidsClass }); state.kidsWelcomed = true;
       // まだ おわって いない 宿題が あれば 1 回 おしらせ（しゅくだい島で とける）。
       // とちゅうの 宿題が あれば「まえの つづき」の カード（おすと その場で つづきから）。なければ 数の おしらせ。
       if (m.homeworkResume && !m.restored) setTimeout(() => homework.offerResume(m.homeworkResume), 3500);
