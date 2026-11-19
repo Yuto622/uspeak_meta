@@ -241,7 +241,7 @@ function loginHtml({ bad = false, locked = false } = {}) {
 </style></head><body>
 <form method="post" action="/admin/login" autocomplete="off">
   <h1>U-Speak 管理</h1>
-  <p>名簿（ログインできるアカウント名）の管理ページです。</p>
+  <p>名簿（ログインできるユーザーネーム）の管理ページです。</p>
   <input type="password" name="password" placeholder="管理パスワード" autofocus required>
   ${msg ? `<div class="bad">${esc(msg)}</div>` : ''}
   <button type="submit">入る</button>

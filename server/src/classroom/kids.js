@@ -121,7 +121,7 @@ ${config.kidsMode ? '' : '<p class="muted">クラスの QR を ひらくと、�
 <li>正解の 判定・コイン・学習の 記録は <b>ふつうの モードと 同じ</b>です（レポートの 数字は そのまま くらべられます）。</li><li><b>先生の アカウントは かわりません。</b>先生（や 見本を 見せる 人）は、あそぶ 画面の 上の <b>🧸 かんたん</b> ボタンで、じぶんの 画面だけ すぐ きりかえられます。</li></ul></div>
 <div id="msg" role="status"></div>
 <div id="classes"><p class="muted">読みこみ中…</p></div>
-${room ? '' : `<div class="card kidsonly" id="addbox"><h2 style="margin:0 0 6px;font-size:18px">＋ クラスコードを 入れて 足す</h2><p class="muted" style="margin:0 0 10px;font-size:14px">上に 出て いない クラス（名簿に クラスコードを 書いて いない クラス・名簿を 使わない クラス）は、子どもが ロビーで 入れる <b>クラスコード</b>を ここに 入れると 幼児モードを オンに できます。</p><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="addcode" placeholder="例：demo" maxlength="40" autocomplete="off" style="flex:1;min-width:180px;min-height:48px;font:inherit;font-size:16px;padding:0 12px;border:2px solid #d9d1c3;border-radius:12px"><button type="button" id="addgo" style="min-height:48px;padding:0 18px;border-radius:12px;border:0;background:#2f8f5b;color:#fff;font:inherit;font-weight:800;cursor:pointer">この クラスを オンに する</button></div></div>`}
+${room ? '' : `<div class="card kidsonly" id="addbox"><h2 style="margin:0 0 6px;font-size:18px">＋ クラスの パスワードを 入れて 足す</h2><p class="muted" style="margin:0 0 10px;font-size:14px">上に 出て いない クラス（名簿に クラスの パスワードを 書いて いない クラス・名簿を 使わない クラス）は、子どもが ロビーで 入れる <b>クラスの パスワード</b>を ここに 入れると 幼児モードを オンに できます。</p><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="addcode" placeholder="例：demo" maxlength="40" autocomplete="off" style="flex:1;min-width:180px;min-height:48px;font:inherit;font-size:16px;padding:0 12px;border:2px solid #d9d1c3;border-radius:12px"><button type="button" id="addgo" style="min-height:48px;padding:0 18px;border-radius:12px;border:0;background:#2f8f5b;color:#fff;font:inherit;font-weight:800;cursor:pointer">この クラスを オンに する</button></div></div>`}
 </div>
 <script>
 const CFG=${json(cfg)};
@@ -141,10 +141,10 @@ function paint(){
 // なまえを えらんで 入る（クラスの QR）。オンの ときだけ リンクと QR を 出す。
 function pickHtml(c,i){
   const url=c.join?location.origin+c.join:'';
-  return '<div class="pick"><div class="head"><div><h3>📱 なまえを えらんで 入る</h3><p class="muted" style="margin:2px 0 0;font-size:15px">クラスの QR を ひらくと、<b>名簿の なまえを おすだけ</b>で 入れます（クラスコードを 打ちません）。</p></div>'+
+  return '<div class="pick"><div class="head"><div><h3>📱 なまえを えらんで 入る</h3><p class="muted" style="margin:2px 0 0;font-size:15px">クラスの QR を ひらくと、<b>名簿の なまえを おすだけ</b>で 入れます（クラスの パスワードを 打ちません）。</p></div>'+
   '<button type="button" class="sw" role="switch" aria-checked="'+!!c.pick+'" data-pick="'+i+'"'+(c.pickReady?'':' disabled')+'><i></i><span>'+(c.pick?'オン':'オフ')+'</span></button></div>'+
   (!c.pickReady?'<p class="warn">この サーバーでは まだ 使えません（運営の 設定が いります）。</p>':'')+
-  (c.pick?(c.pickCount?'':'<p class="warn">この クラスの 子が 名簿に いません。名簿の「クラスコード」の 列に この クラスを 書いた 子だけ 一覧に 出ます。</p>')+
+  (c.pick?(c.pickCount?'':'<p class="warn">この クラスの 子が 名簿に いません。名簿の「クラスの パスワード」の 列に この クラスを 書いた 子だけ 一覧に 出ます。</p>')+
   '<div class="join"><img class="qr" alt="クラスの QR" src="'+CFG.api+'/qr?classCode='+encodeURIComponent(c.code)+'&origin='+encodeURIComponent(location.origin)+'"><div class="jr"><p style="margin:0"><b>いま 一覧に 出る 子：'+c.pickCount+' 人</b>（先生・停止の 行は 出ません）</p>'+
   '<input class="url" readonly value="'+esc(url)+'" aria-label="入り口の URL"><div class="acts"><button type="button" class="plain" data-copy="'+i+'">URL を コピー</button><button type="button" class="plain" data-print="'+i+'">🖨 QR を 印刷</button></div>'+
   '<p class="muted" style="margin:6px 0 0;font-size:14px">⚠ この QR を 持って いる 人は <b>クラスの 子の なまえ</b>を 見られます。教室の 中だけで 使い、SNS などに のせないで ください。オフに すると すぐ 見えなく なります。</p></div></div>':'')+'</div>';
@@ -159,7 +159,7 @@ $('#classes').onclick=async e=>{const b=e.target.closest('button');if(!b)return;
   else if(b.dataset.m){const c=data[+b.dataset.c];const s=c.students[+b.dataset.s];const r=await put({classCode:c.code,name:s.name,mode:b.dataset.m});if(r){s.mode=r.mode;paint();say(s.name+' を「'+({inherit:'クラスと おなじ',on:'オン',off:'オフ'}[s.mode])+'」に しました')}}};
 if(!CFG.kidsMode)document.body.classList.add('nokids');
 async function load(){const r=await fetch(CFG.api,{headers:H});if(r.status===401){location.href=CFG.login;return}const d=await r.json();data=d.classes||[];paint()}
-if($('#addgo'))$('#addgo').onclick=async()=>{const code=$('#addcode').value.trim();if(!code){say('クラスコードを 入れて ください',true);return}const r=await put({classCode:code,on:true});if(r){$('#addcode').value='';await load();say('クラス '+code+' の 幼児モードを オンに しました。この クラスコードで 入った 子（先生の アカウントを のぞく）は かんたんな 画面に なります')}};
+if($('#addgo'))$('#addgo').onclick=async()=>{const code=$('#addcode').value.trim();if(!code){say('クラスの パスワードを 入れて ください',true);return}const r=await put({classCode:code,on:true});if(r){$('#addcode').value='';await load();say('クラス '+code+' の 幼児モードを オンに しました。この クラスの パスワードで 入った 子（先生の アカウントを のぞく）は かんたんな 画面に なります')}};
 load();
 </script></body></html>`;
 }

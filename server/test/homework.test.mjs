@@ -119,7 +119,7 @@ test('先生が くばるまで 出ない・出せない 問題が あれば く
   // 宿題は クラスコードごと：クラスの ない 宿題は 作れない・クラスを けす なおしも できない
   const none = await hw.create({ title: 'no class', items: [{ en: 'red', ja: 'あか' }, { en: 'blue', ja: 'あお' }] });
   assert.equal(none.ok, false);
-  assert.match(none.error, /クラスコード/);
+  assert.match(none.error, /クラスの パスワード/);
   assert.equal((await hw.update(a.id, { classes: '' })).ok, false);
   assert.equal((await hw.update(a.id, { title: 'Unit 2b' })).ok, true, 'leaving the classes out keeps them');
   assert.deepEqual(hw.get(a.id).classes, ['6-1']);

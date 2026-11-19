@@ -61,7 +61,7 @@ export class ClassroomStore {
       const pw = String(row?.password ?? '').trim();
       if (!name && !cls.length && !pw) continue; // からの 行
       if (!name) { problems.push({ index: i, reason: '教室の 名前を 入れて ください' }); continue; }
-      if (!cls.length) { problems.push({ index: i, reason: 'クラスコードを 入れて ください' }); continue; }
+      if (!cls.length) { problems.push({ index: i, reason: 'クラスの パスワードを 入れて ください' }); continue; }
       if (pw && pw.length < MIN_PASSWORD) { problems.push({ index: i, reason: `パスワードは ${MIN_PASSWORD} 文字 以上に して ください` }); continue; }
       if (pw && /\s/.test(pw)) { problems.push({ index: i, reason: 'パスワードに 空白は 入れられません' }); continue; }
       const key = pw ? this.keyOf(pw) : prev?.key || '';

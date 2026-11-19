@@ -13,7 +13,7 @@ import { checkItems, wordOf, KIND_JA } from './items.js';
 import { bookById } from '../game/reading.js';
 
 const MAX_ASSIGNMENTS = 500;
-const NO_CLASS = 'クラスコードを 入れて ください（宿題は クラスごとに くばります）';
+const NO_CLASS = 'クラスの パスワードを 入れて ください（宿題は クラスごとに くばります）';
 const str = (v, max = 80) => String(v ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 const classKey = (s) => String(s ?? '').normalize('NFKC').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 24);
 const DAY = /^\d{4}-\d{2}-\d{2}$/;

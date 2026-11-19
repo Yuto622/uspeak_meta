@@ -37,10 +37,10 @@ th{background:#1b3a2f;color:#fff}td input{width:100%}tr.bad td{background:#fff1e
 <p class="muted"><a href="/admin">← 管理トップ</a> ・ <a href="/admin/homework">宿題（運営）</a></p>
 <h1>🔑 教室の パスワード</h1>
 <div class="share"><div><b>教室に わたす 管理画面の URL</b><a id="share-url" href="/teacher/homework" target="_blank" rel="noopener">/teacher/homework</a></div><button id="copy-url">URL を コピー</button></div>
-<p class="muted">英会話教室の 先生は <code id="url">/teacher/homework</code> を ひらいて、ここの <b>パスワード</b> だけで 入れます。<b>パスワードで 教室と クラスが きまる</b>ので、先生は クラスコードを 入れません。その 教室の クラスの 宿題だけ 見えて、作れて、くばれます。<br>
+<p class="muted">英会話教室の 先生は <code id="url">/teacher/homework</code> を ひらいて、ここの <b>先生の パスワード</b> だけで 入れます。<b>パスワードで 教室と クラスが きまる</b>ので、先生は クラスの パスワードを 入れません。その 教室の クラスの 宿題だけ 見えて、作れて、くばれます。<br>
 パスワードは サーバーに のこさないので、<b>作った ときに 1 回だけ 見えます</b>。「作る」→ コピーして 教室に わたす → 「保存」。わすれたら 作りなおして ください（前の パスワードでは 入れなく なります）。<br>
 1 つの 教室に クラスを いくつでも（, で 区切る）。1 つの クラスは 1 つの 教室だけ。パスワードは 教室ごとに ちがう もので、<span id="min">8</span> 文字 以上。</p>
-<table><thead><tr><th style="width:24%">教室の 名前</th><th style="width:26%">クラスコード（, で 区切る）</th><th>パスワード（入れると かわる・空なら そのまま）</th><th style="width:70px"></th></tr></thead><tbody id="rows"></tbody></table>
+<table><thead><tr><th style="width:24%">教室の 名前</th><th style="width:26%">クラスの パスワード（, で 区切る）</th><th>先生の パスワード（入れると かわる・空なら そのまま）</th><th style="width:70px"></th></tr></thead><tbody id="rows"></tbody></table>
 <datalist id="cls-list"></datalist>
 <div class="bar"><button id="add">＋ 教室を 足す</button><button class="main" id="save">保存</button><span id="msg"></span></div>
 </div>

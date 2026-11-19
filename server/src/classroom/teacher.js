@@ -145,7 +145,7 @@ function loginHtml({ bad, locked }) {
 </style></head><body>
 <form method="post" action="/teacher/login" autocomplete="off">
   <h1>📝 U-Speak 宿題</h1>
-  <p>教室の パスワードを 入れて ください。<br>パスワードで 教室と クラスが きまります（クラスコードを 入れる ひつようは ありません）。</p>
+  <p>教室の パスワードを 入れて ください。<br>パスワードで 教室と クラスが きまります（クラスの パスワードを 入れる ひつようは ありません）。</p>
   <input type="password" name="password" placeholder="教室の パスワード" autofocus required autocomplete="current-password">
   ${msg ? `<div class="bad">${esc(msg)}</div>` : ''}
   <button type="submit">入る</button>

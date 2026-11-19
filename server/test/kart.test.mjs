@@ -10,8 +10,8 @@ test('kart: questions have three different choices and the payload carries no an
       assert.equal(new Set(q.choices).size, 3);
       assert.equal(q.choices[q.answer], q.en);
     }
-    const sent = JSON.stringify(kartPayload(s));
-    assert.ok(!/"answer"|"en"/.test(sent), 'the answer must stay on the server');
+    // 単語そのものが "answer" の ことも あるので、文字では なく キーで 見る。
+    for (const q of kartPayload(s).questions) assert.deepEqual(Object.keys(q).sort(), ['choices', 'emoji', 'ja'], 'the answer must stay on the server');
   }
   assert.equal(createKartSession(5, 999).questions.length, KART_MAX);
   assert.ok(KART_GRADES.includes(createKartSession('nope', 3).grade));

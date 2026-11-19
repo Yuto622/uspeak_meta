@@ -198,7 +198,7 @@ function render() {
   const w = document.getElementById('who'); if (w) w.onchange = () => { who = w.value; render(); };
   document.querySelectorAll('[data-cmt]').forEach((b) => { b.onclick = async () => { const r = await post('/comment', { username: who, text: b.dataset.cmt }); if (!r.ok) alert(r.error); else { S.comments = r.comments; render(); } }; });
   document.getElementById('stopAll').onclick = async () => {
-    const typed = prompt('本当に停止しますか？ 確認のため、クラスコード「' + CODE + '」を入力してください。');
+    const typed = prompt('本当に停止しますか？ 確認のため、クラスの パスワード「' + CODE + '」を入力してください。');
     if (typed !== CODE) return;
     const r = await post('/stop-all', { confirm: CODE });
     alert(r.ok ? '停止しました。' : r.error); load();

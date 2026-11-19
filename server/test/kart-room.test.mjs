@@ -37,7 +37,7 @@ test('kart: the room deals the questions without answers and pays only for a rig
   const quiz = await nextMessage(room, 'kart:quiz');
   assert.equal(quiz.ref, 'r1');
   assert.equal(quiz.questions.length, 3);
-  assert.ok(!/"answer"|"en"/.test(JSON.stringify(quiz)), 'no answer in the payload');
+  for (const q of quiz.questions) assert.deepEqual(Object.keys(q).sort(), ['choices', 'emoji', 'ja'], 'no answer in the payload');
 
   // 1問目：3つの レーンを 順に ためす ことは できない（1問 1回）。
   room.send('kart:answer', { id: quiz.id, i: 0, choice: 0 });

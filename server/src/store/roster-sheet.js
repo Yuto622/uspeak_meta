@@ -18,8 +18,8 @@
 // The tab is ROSTER_SHEET_TAB if set, else a tab called `roster`, else the first tab.
 
 const fold = (s) => String(s ?? '').normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
-const HEADER_CLASS = new Set(['class', 'クラス', 'くらす', 'class code', 'classcode', 'クラスコード', '組', 'クラス名']);
-const HEADER_NAME = new Set(['name', 'なまえ', '名前', 'account', 'アカウント', 'アカウント名', 'account name', 'user', 'ユーザー', 'ユーザー名', 'id']);
+const HEADER_CLASS = new Set(['class', 'クラス', 'くらす', 'class code', 'classcode', 'クラスコード', 'クラスの パスワード', 'クラスのパスワード', '組', 'クラス名']);
+const HEADER_NAME = new Set(['name', 'なまえ', '名前', 'account', 'アカウント', 'アカウント名', 'account name', 'user', 'ユーザー', 'ユーザー名', 'ユーザーネーム', 'username', 'user name', 'id']);
 export const ANY_CLASS = '*';
 // 先生の 列（2026-10）：true の 人は 講師キーなしで 先生として 入る（授業モードの ボタンが 出る）。
 const HEADER_TEACHER = new Set(['teacher', 'is teacher', 'isteacher', '先生', 'せんせい', '先生か', '講師', 'role', 'ロール']);
