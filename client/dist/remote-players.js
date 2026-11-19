@@ -2,7 +2,7 @@
 // snap on teleports, name labels and chat bubbles. Positions are never trusted for
 // gameplay; they are only rendered.
 import * as THREE from './three.module.js';
-import { buildAvatar, dressAvatar } from './avatars.js';
+import { buildAvatar, dressAvatar, bodyConfig } from './avatars.js';
 import { itemModel } from './wardrobe-models.js';
 import { NET } from './net-config.js';
 import { createPetBuddy } from './pet-models.js';
@@ -48,14 +48,24 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
   // Anything already on screen when the table lands gets dressed then.
   import('./wardrobe-data.js')
     .then((m) => m.loadWardrobe())
-    .then((table) => { wardrobe = table; for (const r of remotes.values()) dress(r); })
+    .then((table) => {
+      wardrobe = table;
+      for (const r of remotes.values()) {
+        let config = { id: 'kai' };
+        try { config = { ...config, ...JSON.parse(r.avatarJson || '{}') }; } catch { /* keep default */ }
+        if (bodyOf(config).id !== config.id) { r.group.remove(r.model); r.model = buildAvatar(bodyOf(config)); r.group.add(r.model); }
+        dress(r);
+      }
+    })
     .catch(() => { /* no clothes today; the class still works */ });
 
+  // 買った すがた（wear の 中の「すがた」）を きて いれば 体は それ。表が とどく 前は はじめの 体で 立ち、とどいたら 建てなおす。
+  const bodyOf = (config) => bodyConfig(config, wardrobe ? (config.wear || []).map((id) => wardrobe.byId.get(id)).filter(Boolean) : []);
   function makeRemote(id, info) {
     let config = { id: 'kai' };
     try { config = { ...config, ...JSON.parse(info.avatar || '{}') }; } catch { /* keep default */ }
     const group = new THREE.Group();
-    const model = buildAvatar(config);
+    const model = buildAvatar(bodyOf(config));
     setShadows(model);
     group.add(model);
     const label = textSprite(info.role === 'teacher' ? `★ ${info.name}` : info.name, { bg: info.role === 'teacher' ? '#8a4b2c' : '#345344', scale: 0.55 });
@@ -81,7 +91,7 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
       r.group.remove(r.model);
       let config = { id: 'kai' };
       try { config = { ...config, ...JSON.parse(info.avatar) }; } catch { /* ignore */ }
-      r.model = buildAvatar(config);
+      r.model = buildAvatar(bodyOf(config));
       setShadows(r.model);
       r.group.add(r.model);
       r.avatarJson = info.avatar;

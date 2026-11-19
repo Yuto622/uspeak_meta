@@ -13,7 +13,7 @@
 // Nothing here decides anything: what is owned, what is worn and what it costs all come
 // from the room, and buying is a request the room can refuse.
 import * as THREE from './three.module.js';
-import { buildAvatar, dressAvatar } from './avatars.js';
+import { buildAvatar, dressAvatar, bodyConfig } from './avatars.js';
 import { itemModel } from './wardrobe-models.js';
 import { loadWardrobe } from './wardrobe-data.js';
 
@@ -163,7 +163,8 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
     }
     // Turned a little before it is framed, so flat things — a cape, a badge, a pair of
     // glasses — show an edge instead of reading as a coloured rectangle.
-    model.rotation.set(0.1, -0.52, 0);
+    const whole = item.slot === 'avatar'; // すがたは 体ごと：顔と むねを 大きく
+    model.rotation.set(whole ? 0 : 0.1, whole ? -0.42 : -0.52, 0);
     model.updateMatrixWorld(true);
     shotScene.add(model);
     // Frame whatever it is. A wizard hat is a metre tall and a badge is two centimetres;
@@ -173,8 +174,8 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
     const mid = bounds.getCenter(new THREE.Vector3());
     const reach = Math.max(size.x, size.y, size.z, 0.2);
     const away = reach * 2.5;
-    shotCam.position.set(mid.x + away * 0.5, mid.y + away * 0.42, mid.z + away * 0.88);
-    shotCam.lookAt(mid);
+    if (whole) { const look = new THREE.Vector3(mid.x, bounds.min.y + size.y * 0.68, mid.z); const far = size.y * 1.4; shotCam.position.set(look.x + far * 0.18, look.y + far * 0.12, look.z + far); shotCam.lookAt(look); }
+    else { shotCam.position.set(mid.x + away * 0.5, mid.y + away * 0.42, mid.z + away * 0.88); shotCam.lookAt(mid); }
     shotCam.updateProjectionMatrix();
 
     // The stage is mid-render behind this dialog; put back everything we touch.
@@ -246,11 +247,13 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
     ensureStage();
     // Rebuilt when the child changes face or colour, so the shop shows who they are now
     // rather than who they were when they first opened it.
-    const who = JSON.stringify(avatars.config);
+    // ためして いる・きて いる「すがた」が あれば 体は それ。
+    const body = bodyConfig(avatars.config, previewList());
+    const who = JSON.stringify(body);
     if (model && who !== wearing) { scene.remove(model); model = null; }
     if (!model) {
       wearing = who;
-      model = buildAvatar(avatars.config);
+      model = buildAvatar(body);
       model.position.y = -1.15;
       scene.add(model);
     }

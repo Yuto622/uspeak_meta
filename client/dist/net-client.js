@@ -364,7 +364,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     abc: 'abchouse', reading: 'library', homework: 'desk', fishworld: 'pond', school: 'easy', arena: 'easy',
     ride: 'start',   // のりもの島：スタートの そばに 立たせて、すぐ AURORA KART を ひらく
     town: 'plaza',   // まちづくり島：すぐ ブロックの 世界（BLOCKWILD）
-    wear: 'hat-shop', // きせかえ島：すぐ きせかえの 店（アバターの きせかえ）
+    wear: 'avatar-shop', // きせかえ島：すぐ すがたや（アバターを 買う・きがえる）
     eiken5: 'reading', eiken4: 'reading', eiken3: 'reading', eikenp2: 'reading', eiken2: 'reading', eikenp1: 'reading', eiken1: 'reading',
   };
   let quickPick = null; // { id, until }

@@ -2019,3 +2019,11 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   「はなす」で ひらく 場所（のりもの・アリーナ）は そばに 立たせて `enter()` を 呼ぶ。**つり島は `spot.x/z`（立つ 場所）。`cast` は 水の 中**（そこに 立たせて 出られなく した ことが ある。`fishworld-island.js` に たすけ舟）。
   島を 足したら `QUICK_SPOT` に 1 行（書かなければ 何も ひらかない＝歩いて さがす）。
 - **ABC の 島**（`abc-island.js` + `abc-island.json`・HUBS / ACTIVITY_HUBS の `abc`・おすすめの 2 ばんめ）：つみきの いえに 入ると `abc.open()`。
+
+## きせかえ島で 買える すがた（アバター／2026-11）
+- **5 つめの スロット `avatar`（すがた）**：`wardrobe.json` の 先頭に 8 人（ねこ・パンダ・にんじゃ・ひめ・ヒーロー・きし・ドラゴン・ユニコーン。`kind` ＝ 体の id `av-…`）。島には 5 けんめの 店「すがたや」（`avatar-shop`）。
+- **体は `avatar-bodies.js`**（three だけ・サーバーの 検査からも 読める）。`buildPremiumAvatar(id)` は `buildAvatar` と 同じ 約束（`userData.limbs`・`anchors`）で 返すので、歩く うごきも ぼうし・めがね・かばんも そのまま。
+- **買う・きるは ほかの きせかえと 同じ 道**（`wear:buy` / `wear:put`・部屋が コインと レベルを 見る）。サーバーの コードは 足して いない：きて いる すがたは `player.avatar` の `wear` に 入って くばられる。
+- **体を きめるのは `avatars.js` の `bodyConfig(config, items)`**：`wear` に すがたが あれば 体は それ、なければ はじめに えらんだ 体。じぶん（`setupAvatars` の `apply`）・となりの 子（`remote-players.js` の `bodyOf`）・店の プレビュー（`wardrobe.js` の `redress`）が 同じ 関数を 使う。
+  部屋へ 送る `avatars.config` は はじめに えらんだ 体の まま（`avatars.body` が いま 見えて いる 体）。「ぬぐ」と はじめの 体に もどる。
+- 値段の きまり（`wardrobe.test.mjs`）：300 コイン 以上は レベル 5 から・どの スロットにも レベル 1 で 100 コイン 以下が 1 つ。

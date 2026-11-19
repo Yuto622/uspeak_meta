@@ -3,6 +3,9 @@ import * as THREE from './three.module.js';
 // ヘッダーの「あ」で日本語になる。`type` と `style` は**辞書の鍵**なので日本語のまま置く。
 // `update(t, moving)` の `t` とぶつかるので、`t as tr` として import する（game.js と同じ）。
 import {t as tr, onLangChange} from './i18n.js';
+import {buildPremiumAvatar,isPremiumAvatar} from './avatar-bodies.js';
+// きせかえで「すがた」を きて いれば、体は その すがた（買った アバター）。なければ はじめに えらんだ 体。
+export const bodyConfig=(config,items)=>{const it=(items||[]).find(i=>i&&i.slot==='avatar'&&isPremiumAvatar(i.kind));return it?{...config,id:it.kind}:config};
 export const AVATARS=[
  {id:'kai',name:'Kai',type:'おとこのこ',style:'みじかい かみ・ぼうけんか',hair:0x343137,skin:0xe6b68e,shirt:0x397e87,cut:'short'},
  {id:'mia',name:'Mia',type:'おんなのこ',style:'ながい かみ・たびびと',hair:0x55362b,skin:0xf1c9a2,shirt:0xc38189,cut:'long'},
@@ -14,7 +17,7 @@ export const AVATARS=[
  {id:'bolt',name:'Bolt',type:'とくべつ',style:'ロボット・ことばの あいぼう',hair:0x425d6b,skin:0xadc4c7,shirt:0x5396ab,cut:'robot'}
 ];
 const geometry=new THREE.BoxGeometry(),materials=new Map();const material=c=>{if(!materials.has(c))materials.set(c,new THREE.MeshStandardMaterial({color:c,roughness:.7}));return materials.get(c)};
-export function buildAvatar(config){const a=AVATARS.find(a=>a.id===config.id)||AVATARS[0],skin=config.skin??a.skin,shirt=config.shirt??a.shirt,g=new THREE.Group();
+export function buildAvatar(config){if(isPremiumAvatar(config?.id))return buildPremiumAvatar(config.id);const a=AVATARS.find(a=>a.id===config.id)||AVATARS[0],skin=config.skin??a.skin,shirt=config.shirt??a.shirt,g=new THREE.Group();
  function b(x,y,z,w,h,d,c,parent=g){const m=new THREE.Mesh(geometry,material(c));m.position.set(x,y,z);m.scale.set(w,h,d);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m}
  const limbs=[];for(const side of[-1,1]){const leg=new THREE.Group();leg.position.set(side*.23,.91,0);g.add(leg);b(0,-.34,0,.34,.72,.43,a.cut==='space'?0xd0dadb:0x43515c,leg);b(0,-.75,.07,.39,.2,.57,0x35454b,leg);limbs.push(leg)}
  b(0,1.29,0,.94,.81,.54,shirt);b(0,1.61,.29,.31,.16,.04,0xf2dfb3);b(0,1.06,.29,.88,.08,.04,0xd6bd89);
@@ -48,6 +51,7 @@ export function dressAvatar(model,items,build){
  const want=new Set((items||[]).map(i=>i.id));
  for(const [id,mesh] of [...worn]){if(want.has(id))continue;mesh.parent?.remove(mesh);worn.delete(id)}
  for(const item of items||[]){
+  if(item.slot==='avatar')continue; // 体そのもの（bodyConfig）。のせる ものでは ない
   if(worn.has(item.id))continue;
   const anchor=anchors[item.slot==='hat'?'head':item.slot==='face'?'face':item.slot==='back'?'back':'chest'];
   if(!anchor)continue;
@@ -65,7 +69,7 @@ export function setupAvatars({player,toast,renderer:worldRenderer}){
  // きせかえ: what this child has on. Held here so that rebuilding the body — a new face,
  // a new colour — puts the clothes back on rather than quietly undressing them.
  let outfit=[],dressWith=null;
- function apply(){player.clear();model=buildAvatar(committed);player.add(model);if(dressWith)dressWith(model,outfit);$('#avatar-button').textContent='◉ '+AVATARS.find(a=>a.id===committed.id).name}
+ function apply(){player.clear();model=buildAvatar(bodyConfig(committed,outfit));player.add(model);if(dressWith)dressWith(model,outfit);$('#avatar-button').textContent='◉ '+AVATARS.find(a=>a.id===committed.id).name}
  function resize(){if(!previewRenderer)return;const c=$('#avatar-preview'),w=c.clientWidth||280,h=c.clientHeight||330;previewRenderer.setSize(w,h,false);previewCamera.aspect=w/h;previewCamera.updateProjectionMatrix()}
  function preview(){if(previewModel)previewScene.remove(previewModel);previewModel=buildAvatar(draft);previewScene.add(previewModel);const a=AVATARS.find(a=>a.id===draft.id);$('#avatar-name').textContent=a.name;$('#avatar-description').textContent=a.style;$('#avatar-skin-section').hidden=a.cut==='robot';renderChoices();resize()}
  function renderChoices(){$('#avatar-choices').innerHTML=AVATARS.map(a=>`<button type="button" class="avatar-choice ${a.id===draft.id?'chosen':''}" data-avatar="${a.id}" aria-pressed="${a.id===draft.id}"><span>${tr(a.type)}</span><strong>${a.name}</strong><small>${tr(a.style)}</small></button>`).join('');document.querySelectorAll('[data-avatar]').forEach(b=>b.onclick=()=>{draft={id:b.dataset.avatar};preview()});const a=AVATARS.find(a=>a.id===draft.id);for(const [target,key,colors]of[['#avatar-skins','skin',skinColors],['#avatar-outfits','shirt',outfitColors]]){$(target).innerHTML=colors.map((c,i)=>`<button type="button" class="avatar-swatch" style="--swatch:#${c.toString(16).padStart(6,'0')}" data-${key}="${c}" aria-label="${tr(key==='skin'?'はだの いろ':'ふくの いろ')} ${i+1}" aria-pressed="${(draft[key]??a[key])===c}"></button>`).join('');document.querySelectorAll(`[data-${key}]`).forEach(b=>b.onclick=()=>{draft[key]=Number(b.dataset[key]);preview()})}}
@@ -80,6 +84,8 @@ onLangChange(()=>{if(modal.open){renderChoices();cancelLabel();$('#avatar-confir
  return {open,update,get config(){return {...committed}},get isOpen(){return modal.open},get first(){return first},
   // The wardrobe hands in both the list and the way to build it, so avatars.js does
   // not have to know what an item looks like.
-  setOutfit(items,dresser){outfit=items||[];if(dresser)dressWith=dresser;if(model&&dressWith)dressWith(model,outfit)},
+  setOutfit(items,dresser){const was=bodyConfig(committed,outfit).id;outfit=items||[];if(dresser)dressWith=dresser;if(bodyConfig(committed,outfit).id!==was){apply();return}if(model&&dressWith)dressWith(model,outfit)},
+  // いま 見えて いる 体（買った すがたを きて いれば それ）。部屋へ 送るのは config（はじめに えらんだ 体）の まま。
+  get body(){return bodyConfig(committed,outfit)},
   get outfit(){return [...outfit]}};
 }
