@@ -577,7 +577,8 @@
   /* 下：スティック・ホットバー（2 つ）・つうしんの ボタン */
   .mobile-pad { left: calc(12px + env(safe-area-inset-left)); bottom: calc(10px + env(safe-area-inset-bottom)); }
   .stick { width: 100px; height: 100px; }
-  .hotbar #explore, .hotbar #mapbtn { display: none; }
+  /* 3 つめは「せかいを えらぶ」（2026-11：iPad の 下の バーにも ほしいと 言われた。✈ が ☰ の 中に しまわれて いるため） */
+  .hotbar #explore { display: none; }
   .hotbar { padding: 4px; gap: 4px; }
   .hotbar button { min-height: 44px; padding: 4px 10px; flex-direction: row; gap: 6px; }
   .hotbar button small { display: none; }
