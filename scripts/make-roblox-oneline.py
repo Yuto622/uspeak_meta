@@ -23,6 +23,10 @@ PLACES = {
     'abc-local': {'setup': 'setup-abc-place.lua', 'local': True, 'remove': [('ServerScriptService', 'USpeakAbc')], 'scripts': [
         ('ServerScriptService', 'Script', 'USpeakAbcLocal', 'USpeakAbcLocal.server.luau'),
         ('StarterPlayerScripts', 'LocalScript', 'USpeakAbcClient', 'USpeakAbcClient.client.luau')]},
+    # えほん（かぎ なし 版）：Secrets が いらない。Web の だれでも 読める 口（/api/public/books）から 本を もらう。きろく・コインは なし。
+    'books-open': {'setup': 'setup-books-place.lua', 'slim': True, 'tail': 'books-open', 'remove': [('ServerScriptService', 'USpeakBooks')], 'scripts': [
+        ('ServerScriptService', 'Script', 'USpeakBooksOpen', 'USpeakBooksOpen.server.luau'),
+        ('StarterPlayerScripts', 'LocalScript', 'USpeakBooksClient', 'USpeakBooksClient.client.luau')]},
     'books': {'setup': 'setup-books-place.lua', 'scripts': [
         ('ServerScriptService', 'Script', 'USpeakBooks', 'USpeakBooks.server.luau'),
         ('ServerScriptService', 'Script', 'USpeakWalletSync', 'USpeakWalletSync.server.luau'),
@@ -74,20 +78,35 @@ def tail_local(setup_text: str) -> str:
     done = 'print("✅ できました：「ABC と おと」が この place だけで うごきます。Play を おすと すぐ はじまります。") print("きろくを のこすには File → Publish to Roblox の あと、Game Settings → Security → Enable Studio Access to API Services を オンに します。")'
     return head + ' ' + ' '.join(lines) + ' ' + done
 
+def tail_books_open(setup_text: str) -> str:
+    """えほん（かぎ なし 版）の さいごの 1 行：HTTP を オン・本だな 12 こ。Secrets の 話は 出さない。"""
+    a, b = setup_text.index('-- ② HTTP'), setup_text.index('-- ④')
+    lines = []
+    for raw in setup_text[a:b].split('\n'):
+        line = raw.strip()
+        if not line or line.startswith('--'): continue
+        assert '--' not in re.sub(r'"(?:[^"\\]|\\.)*"', '""', line), f'行の とちゅうに コメント: {line}'
+        lines.append(line)
+    head = 'local CollectionService = game:GetService("CollectionService");'
+    done = ('print("✅ できました：えほんの スクリプト 2 つ と 本だな 12 こ（レベル A〜9）を 入れました。Play を おすと 2 びょうで 本だなが ひらきます。") '
+            'if not httpOk then warn("⚠ HTTP を オンに できませんでした：Game Settings → Security → Allow HTTP Requests を オンに して ください。") end '
+            'print("絵は Roblox の 審査を 通った ものから 出ます（まだの ページは 色の 板。文は 読めます）。さいごに File → Publish to Roblox。")')
+    return head + ' ' + ' '.join(lines) + ' ' + done
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     for place, spec in PLACES.items():
         n = len(spec['scripts']) + 1
         for k, (where, cls, name, file) in enumerate(spec['scripts'], 1):
             src = open(os.path.join(R, file), encoding='utf8').read()
-            if spec.get('local'): src = slim(src)
+            if spec.get('local') or spec.get('slim'): src = slim(src)
             gone = ''.join(f'local x={parent_expr(w)}:FindFirstChild("{nm}"); if x then x:Destroy() end; ' for w, nm in spec.get('remove', [])) if k == 1 else ''
             line = (f'{gone}local p={parent_expr(where)}; local o=p:FindFirstChild("{name}"); if o then o:Destroy() end; '
                     f'local s=Instance.new("{cls}"); s.Name="{name}"; s.Source={lua_string(src)}; s.Parent=p; '
                     f'print("✅ {k}/{n} {name} を 入れました")')
             assert '\n' not in line
             open(os.path.join(OUT, f'{place}-{k}.txt'), 'w', encoding='utf8', newline='').write(line)
-        tail = (tail_local if spec.get('local') else tail_one_line)(open(os.path.join(R, spec['setup']), encoding='utf8').read())
+        tail = (tail_books_open if spec.get('tail') == 'books-open' else tail_local if spec.get('local') else tail_one_line)(open(os.path.join(R, spec['setup']), encoding='utf8').read())
         assert '\n' not in tail
         open(os.path.join(OUT, f'{place}-{n}.txt'), 'w', encoding='utf8', newline='').write(tail)
         # ぜんぶを 1 行に まとめた 版（1 回 貼るだけ）。名前が ぶつからない ように 1 つずつ do … end で かこむ。

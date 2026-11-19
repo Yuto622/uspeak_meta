@@ -101,3 +101,99 @@
   .wear-body { grid-template-columns: 190px 1fr; gap: 12px; }
   .wear-grid { max-height: 210px; }
 }
+
+/* ===== きせかえ：大きな ステージと 大きな カード（2026-11 作りなおし） =====================================
+ * 子どもが 1 目で わかる 形：左に 明るい ステージと 全身の じぶん、右に 大きな しゅるいの ボタンと 絵の カード。
+ * 上の 古い きまりを ここで 上書きする（下に 書いた ほうが 勝つ）。動かすのは transform と opacity だけ。 */
+#wear-dialog { width: min(1120px, 96vw); height: min(760px, 92dvh); padding: 0; overflow: hidden; border-radius: 28px; background: #fffaf0; border: 0; box-shadow: 0 24px 60px #0b1f1a55; }
+#wear-dialog[open] { display: flex; flex-direction: column; }
+#wear-dialog .close { position: absolute; right: 14px; top: 12px; z-index: 3; width: 48px; height: 48px; border-radius: 50%; background: #ffffff33; color: #fff; font-size: 26px; line-height: 1; }
+.wear-head { flex: none; align-items: center; padding: 12px 76px 12px 20px; background: linear-gradient(100deg, #7b4bb5, #b06fc4 55%, #e0668e); color: #fff; }
+.wear-title { display: flex; align-items: center; gap: 12px; }
+.wear-logo { font-size: 38px; line-height: 1; filter: drop-shadow(0 3px 0 #0000002e); }
+.wear-eyebrow { color: #ffe3f3; font-size: 11px; letter-spacing: 3px; }
+#wear-dialog h2 { margin: 0; font-size: 26px; color: #fff; font-weight: 900; }
+.wear-coins { padding: 9px 18px 9px 10px; font-size: 20px; box-shadow: 0 3px 0 #00000033; }
+.wear-coins .coin-face { width: 28px; height: 28px; }
+
+.wear-body { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(280px, 40%) 1fr; gap: 0; margin: 0; }
+
+/* --- ステージ：空・スポットライト・木の ゆか --- */
+.wear-stage { min-height: 0; padding: 16px 12px 14px 16px; gap: 10px; }
+.wear-spot { position: relative; flex: 1 1 auto; min-height: 0; border-radius: 24px; overflow: hidden; background: linear-gradient(#8fd3ff, #d9f2ff 58%, #fff3d6 72%); box-shadow: inset 0 0 0 5px #fff, 0 8px 22px #4a2f6e33; }
+.wear-rays { position: absolute; left: 50%; top: -30%; width: 150%; aspect-ratio: 1; transform: translateX(-50%); background: radial-gradient(closest-side, #ffffffcc, #ffffff00 70%); pointer-events: none; }
+.wear-floor { position: absolute; left: -10%; right: -10%; bottom: -8%; height: 34%; border-radius: 50% 50% 0 0 / 46% 46% 0 0; background: linear-gradient(#e7b77a, #c98f52); box-shadow: inset 0 8px 0 #f6d3a0; pointer-events: none; }
+#wear-canvas { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 0; background: none; touch-action: none; cursor: grab; }
+#wear-canvas:active { cursor: grabbing; }
+.wear-turn { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); padding: 5px 14px; border-radius: 99px; background: #ffffffd9; color: #5a3d7a; font-size: 13px; font-weight: 800; white-space: nowrap; pointer-events: none; }
+.wear-caption { flex: none; min-height: 92px; justify-content: center; gap: 9px; padding: 10px 14px; border-radius: 18px; background: #fff; box-shadow: 0 4px 0 #eadfcd; font-size: 15px; }
+.wear-caption b { font-size: 19px; color: #33243f; }
+.wear-caption > span { font-size: 15px; }
+.wear-locked { font-size: 14px; }
+.wear-do { min-height: 54px; padding: 10px 20px; border-radius: 16px; font-size: 19px; font-weight: 900; background: #2f8f5b; box-shadow: 0 5px 0 #1e6a42; }
+.wear-do:active { transform: translateY(4px); box-shadow: 0 1px 0 #1e6a42; }
+.wear-do.buy { background: #e27a2d; box-shadow: 0 5px 0 #a8551a; }
+.wear-do:disabled { background: #d8d2c4; color: #7b7466; box-shadow: none; transform: none; }
+.wear-do .coin-face { width: 24px; height: 24px; }
+
+/* --- しゅるい（大きな 絵の ボタン） --- */
+.wear-pick { display: flex; flex-direction: column; min-height: 0; padding: 16px 16px 14px 6px; }
+.wear-slots { flex: none; gap: 10px; margin-bottom: 12px; flex-wrap: nowrap; }
+.wear-slots button { flex: 1 1 0; min-width: 0; min-height: 76px; padding: 8px 6px; border-radius: 18px; flex-direction: column; justify-content: center; gap: 2px; background: #fff; color: #5a4a6a; box-shadow: 0 4px 0 #eadfcd; }
+.wear-slots button span { font-size: 32px; line-height: 1; }
+.wear-slots button b { font-size: 15px; font-weight: 900; }
+.wear-slots button.on { background: #7b4bb5; color: #fff; box-shadow: 0 4px 0 #56307f; transform: translateY(-2px); }
+
+/* --- カード（絵が 大きい） --- */
+.wear-grid { flex: 1 1 auto; min-height: 0; max-height: none; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 4px 6px 10px 2px; align-content: start; }
+.wear-card { min-height: 0; gap: 4px; padding: 12px 8px 12px; border-radius: 20px; background: #fff; border: 3px solid #f0e6d4; box-shadow: 0 5px 0 #eadfcd; transition: transform .12s; }
+.wear-card:hover { transform: translateY(-3px); }
+.wear-card:active { transform: translateY(3px); box-shadow: 0 2px 0 #eadfcd; }
+.wear-card b { font-size: 15px; color: #33243f; font-weight: 900; }
+.wear-card small { font-size: 12px; color: #9a8fa6; }
+.wear-card em { font-size: 12px; font-weight: 700; }
+.wear-swatch { flex: none; width: 104px; height: 104px; border-radius: 20px; }
+.wear-swatch.shot { background: linear-gradient(#f3ecff, #fdf6ff); box-shadow: inset 0 0 0 2px #e9dcf7; }
+.wear-price { margin-top: 2px; padding: 4px 12px; border-radius: 99px; background: #fff1c9; font-size: 15px; color: #7a5200; }
+.wear-price .coin-face { width: 19px; height: 19px; }
+.wear-price.owned { background: #dff3e4; color: #23794a; }
+.wear-card.owned { border-color: #cfe9d6; }
+.wear-card.worn { border-color: #2f8f5b; background: #f1faf3; box-shadow: 0 5px 0 #bfe0c9; }
+.wear-card.trying { border-color: #e27a2d; box-shadow: 0 0 0 4px #ffd9b8, 0 5px 0 #eadfcd; }
+.wear-card.locked { opacity: 1; background: #f6f3ee; border-color: #e7e0d4; }
+.wear-card.locked .wear-swatch { filter: grayscale(.7); opacity: .7; }
+.wear-flag { position: absolute; left: 50%; top: -11px; transform: translateX(-50%); padding: 3px 12px; border-radius: 99px; background: #2f8f5b; color: #fff; font-size: 12px; font-weight: 900; text-decoration: none; white-space: nowrap; box-shadow: 0 2px 0 #1e6a42; }
+.wear-flag.lock { left: 6px; right: auto; top: 6px; transform: none; padding: 2px 8px; background: #ffffffcc; color: #7b7466; box-shadow: none; font-size: 15px; }
+.wear-grid { padding-top: 14px; grid-auto-rows: max-content; overflow-y: auto; }
+.wear-card { flex: none; overflow: visible; height: auto; }
+.wear-card b { overflow-wrap: anywhere; }
+
+@media (max-width: 760px) {
+  #wear-dialog { height: 94dvh; }
+  .wear-body { grid-template-columns: 1fr; grid-template-rows: minmax(190px, 36%) 1fr; }
+  .wear-stage { flex-direction: row; padding: 10px 10px 4px; }
+  .wear-spot { flex: 1 1 50%; }
+  .wear-caption { flex: 1 1 50%; min-height: 0; }
+  .wear-pick { padding: 6px 10px 10px; }
+  .wear-slots button { min-height: 60px; } .wear-slots button span { font-size: 24px; } .wear-slots button b { font-size: 13px; }
+  .wear-grid { grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); }
+  .wear-swatch { width: 84px; height: 84px; }
+}
+@media (max-height: 560px) {
+  #wear-dialog { height: 96dvh; padding: 0; border-radius: 20px; }
+  .wear-head { padding: 6px 66px 6px 14px; } #wear-dialog h2 { font-size: 20px; } .wear-logo { font-size: 28px; } .wear-eyebrow { display: none; }
+  #wear-dialog .close { width: 40px; height: 40px; top: 5px; }
+  .wear-coins { padding: 5px 13px 5px 7px; font-size: 16px; }
+  .wear-body { grid-template-columns: minmax(200px, 34%) 1fr; gap: 0; }
+  .wear-stage { padding: 8px 6px 8px 10px; gap: 6px; }
+  .wear-caption { min-height: 0; padding: 6px 10px; gap: 5px; } .wear-caption b { font-size: 15px; }
+  .wear-do { min-height: 44px; font-size: 16px; padding: 6px 14px; }
+  .wear-turn { display: none; }
+  .wear-pick { padding: 8px 10px 8px 4px; }
+  .wear-slots { margin-bottom: 6px; gap: 6px; }
+  .wear-slots button { min-height: 46px; flex-direction: row; gap: 6px; } .wear-slots button span { font-size: 22px; } .wear-slots button b { font-size: 13px; }
+  .wear-grid { max-height: none; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 9px; padding-top: 12px; }
+  .wear-swatch { width: 72px; height: 72px; border-radius: 14px; }
+  .wear-card { padding: 9px 6px 8px; border-radius: 16px; } .wear-card b { font-size: 13px; } .wear-card small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .wear-card, .wear-do, .wear-slots button { transition: none; } }

@@ -3,6 +3,30 @@
 よみもの島の 絵本（120 冊・表紙と ページで 1,309 まい）を、Roblox 版でも 読める ように する しくみです。
 絵は サーバーが かいた ものを 画像（PNG 1024×768）に して、Roblox の Open Cloud（Assets API）へ **自動で** 上げます。
 
+## いちばん かんたんな やり方（コマンド 1 つ ＋ 貼る 1 行。Roblox の Secrets は いらない・2026-11）
+
+**① Windows の PowerShell で 1 回：**
+
+```
+cd C:\Users\yukim\uspeak_meta; git pull; .\scripts\roblox-books.ps1
+```
+
+- Roblox の Open Cloud の 鍵が Fly に まだ なければ、その 場で たずねます（字は 出ない・入る 先は `fly secrets` だけ）。作り手の 番号（`ROBLOX_CREATOR_USER_ID`）も 入れます。
+- サーバーが 古い 版なら 先に デプロイ（`scripts\redeploy.ps1`）。
+- サーバーの 中で `server/scripts/roblox-books-run.mjs` が 動き、まず 5 まい ためして から ぜんぶ（絵本 1,309 ＋ ABC 157 まい）おくり、15 秒ごとに「おくった・通った・審査中・通らなかった・のこり」を 出します。
+  鍵の 権限や 絵の 種類で ことわられたら、そこで 止まって 何を なおすかを 出します。なんど 走らせても、おくった 絵は もう おくりません。
+- さいごに、Studio に 貼る 1 行が クリップボードに 入ります。
+
+**② Roblox Studio（絵本の place）で：** コマンドバーを クリック → Ctrl+V → Enter → File → Publish to Roblox。
+貼るのは `roblox/oneline/books-open-all.txt`（1 行・18,424 字。分けて 貼るなら `books-open-1.txt`〜`-3.txt`）。絵を おくらずに これだけ 欲しい ときは `.\scripts\roblox-books.ps1 -PasteOnly`。
+
+- 入るのは `USpeakBooksOpen`（サーバー）・`USpeakBooksClient`（画面）・本だな 12 こ・HTTP オン。前の `USpeakBooks`（Secrets が いる 版）は はずします。
+- 入って 2 秒で 本だなが ひらきます。まだ 審査を 通って いない ページは 色の 板（文は 読めます）。絵が 通ると、貼りなおさなくても 出て きます。
+- 本は `GET /api/public/books`・`/api/public/books/<id>`（**答えは 入らない**）、こたえ合わせは `POST /api/public/books/<id>/check`（`server/src/roblox/books-public.js`）。
+  だれでも 読める 口なので、1 つの IP から 1 分 600 回まで（`PUBLIC_BOOKS_PER_MIN`）。
+- **この やり方では 学習の 記録と コインは つきません**（だれが 読んだかを サーバーが たしかめられない ため）。記録と コインが いる ときは、下の Secrets つきの やり方（`roblox/oneline/books-all.txt`）。
+- 検査：`server/test/roblox-books-public.test.mjs`・`server/test/roblox-setup.test.mjs`。PowerShell と Studio と 本物の Roblox では まだ 動かして いません。
+
 ## しくみ
 
 | 仕事 | ファイル |

@@ -102,3 +102,29 @@ test('roblox/oneline/abc-local：1 行・コメントなし・いまの スク�
   assert.ok(all.includes('CollectionService:AddTag(board, "USpeakAbcBoard")'));
   for (const bad of ['HttpService', 'HttpEnabled', 'GetSecret', 'Secrets', 'USPEAK_WEB_KEY', '/admin/', 'https://']) assert.ok(!all.includes(bad), bad);
 });
+
+// 合言葉（Secrets）なしで うごく 絵本の 1 行（books-open）。だれでも 読める /api/public/books だけを 使う。
+test('roblox/oneline/books-open：1 行・コメントなし・いまの スクリプトと 同じ・Secrets に ふれない・古い 絵本の Script を はずす', () => {
+  const unescape = (q) => q.slice(1, -1).replace(/\\(\\|"|n|t)/g, (_, c) => ({ '\\': '\\', '"': '"', n: '\n', t: '\t' }[c]));
+  const slim = (src) => `${src.replace(/\r\n/g, '\n').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('--')).join('\n')}\n`;
+  const want = { 'books-open-1.txt': 'USpeakBooksOpen.server.luau', 'books-open-2.txt': 'USpeakBooksClient.client.luau' };
+  const files = ['books-open-1.txt', 'books-open-2.txt', 'books-open-3.txt'];
+  const all = read('oneline/books-open-all.txt');
+  assert.equal(all, files.map((f) => `do ${read(`oneline/${f}`)} end`).join(' '));
+  assert.ok(all.length < 36000, `長すぎる：${all.length}（コマンドバーで たしかめた 長さは 36,869 字）`);
+  for (const f of files) {
+    const t = read(`oneline/${f}`);
+    assert.ok(!t.includes('\n') && !t.includes('\r'), `${f}: 1 行で ない`);
+    assert.ok(!/--/.test(t.replace(/"(?:[^"\\]|\\.)*"/g, '""')), `${f}: コメントが ある`);
+    if (want[f]) {
+      const m = /s\.Source=("(?:[^"\\]|\\.)*");/.exec(t);
+      assert.ok(m, `${f}: Source が ない`);
+      assert.equal(unescape(m[1]), slim(read(want[f])), `${f} が ${want[f]} と ちがう（作りなおして ください）`);
+    }
+  }
+  assert.ok(read('oneline/books-open-1.txt').startsWith('local x=game:GetService("ServerScriptService"):FindFirstChild("USpeakBooks"); if x then x:Destroy() end;'));
+  assert.ok(all.includes('/api/public/books') && all.includes('HttpEnabled = true') && all.includes('USpeakBookShelf'));
+  for (const bad of ['GetSecret', 'Secrets', 'USPEAK_WEB_KEY', 'USPEAK_ROBLOX_KEY', 'ROBLOX_OPEN_CLOUD_KEY', 'x-uspeak-key', '/admin/', '/api/roblox/']) assert.ok(!all.includes(bad), bad);
+  // 型の 書きかた（: string など）・+= は 使わない（Lua 5.1 の 文法の たしかめに 通す ため）。
+  assert.ok(!/\+=|-=|\.\.=/.test(slim(read('USpeakBooksOpen.server.luau'))));
+});

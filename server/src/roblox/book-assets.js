@@ -167,7 +167,7 @@ export class BookAssets {
     });
     const e = this.pictures[p.key];
     if (r.status === 401 || r.status === 403) { e.state = 'failed'; e.error = `鍵が うけつけられません（${r.status}）`; throw new Error(`Roblox が 鍵を うけつけません（${r.status}）。鍵の 権限（assets の Read・Write）と 作り手の ID を 見て ください`); }
-    if (r.status !== 200 || !r.json) { e.state = 'failed'; e.error = scrub(`${r.status} ${r.json?.message || r.text || ''}`, this.apiKey); return; }
+    if (r.status !== 200 || !r.json) { e.state = 'failed'; e.error = scrub(`${r.status} ${r.json?.message || r.text || ''}`, this.apiKey).slice(0, 300); this.job.lastFail = e.error; return; }
     e.op = String(r.json.operationId || String(r.json.path || '').replace(/^operations\//, '') || '');
     if (r.json.done) this.applyOperation(e, r.json); else e.state = e.op ? 'working' : 'failed';
     if (!e.op && e.state === 'failed') e.error = 'no operation id';

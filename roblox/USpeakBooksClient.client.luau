@@ -188,7 +188,17 @@ end
 -- ---- サーバーから ----------------------------------------------------------------------------------
 Show.OnClientEvent:Connect(function(msg: any)
 	if type(msg) ~= "table" then return end
-	if msg.error then warn(msg.error); return end
+	if msg.error then
+		-- よみこめない ときは 画面にも 出す（前は 出力らんに だけ 出て、子どもには 何も 見えなかった）。
+		warn(msg.error)
+		state.book = nil
+		gui.Enabled = true
+		clear()
+		back.Visible = false
+		title.Text = "えほん"
+		label(body, tostring(msg.error), 24, { Size = UDim2.new(1, 0, 0.5, 0), Position = UDim2.fromScale(0, 0.2) })
+		return
+	end
 	if msg.shelf then
 		state.shelf = msg.shelf; state.book = nil
 		gui.Enabled = true

@@ -56,6 +56,7 @@ import { reportTex } from './game/report-tex.js';
 import { texToPdf, latexAvailable, LatexError } from './game/latex.js';
 import { createRoblox, verifyRobloxReport } from './roblox/sync.js';
 import { BookAssets } from './roblox/book-assets.js';
+import { mountPublicBooks } from './roblox/books-public.js';
 import { withAbc } from './roblox/abc-assets.js';
 import { renderPng as renderBookPng, artHash as bookArtHash } from './roblox/book-png.js';
 import { allBooks as allReadingBooks } from './game/reading.js';
@@ -460,6 +461,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   mountJoinNames(app, { kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, limiter: rateLimit({ windowMs: 60_000, max: 30 }), log });
   if (classrooms) mountTeacherHomework(app, { classrooms, homework, kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
   mountReadingArt(app, { log }); // 絵本の 絵（サーバーで かく SVG）
+  // 絵本を 合言葉なしで わたす 口（Roblox の 絵本の place が Secrets なしで 読む）。答えは 入れない・記録も しない。
+  mountPublicBooks(app, { express, assets: robloxBookAssets, readLimiter: rateLimit({ windowMs: 60_000, max: config.publicBooksPerMin }), checkLimiter: rateLimit({ windowMs: 60_000, max: config.publicBooksPerMin }) });
   // Roblox Studio の 一発 セットアップ（roblox/setup-*-place.lua）を くばる口。Studio の コマンドバーに 短い 1 行を 貼ると、
   // ここから 読んで 走らせる（4 万字を 貼らなくて いい）。中身は Roblox 側の スクリプトだけ：鍵・答え・子どもの 記録は 入って いない
   // （鍵は Roblox の Secrets から 読む。test/roblox-setup.test.mjs が 鍵らしい 文字が ない ことを 見る）。きまった 3 つの 名前だけ 出す。

@@ -26,12 +26,16 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
   dialog.innerHTML = `
     <button class="close" id="wear-close" aria-label="閉じる">×</button>
     <div class="wear-head">
-      <div><span class="wear-eyebrow">DRESS UP</span><h2>きせかえ</h2></div>
+      <div class="wear-title"><span class="wear-logo" aria-hidden="true">👕</span><div><span class="wear-eyebrow">DRESS UP</span><h2>きせかえ</h2></div></div>
       <div class="wear-coins"><i class="coin-face" aria-hidden="true"></i><b id="wear-coins">0</b></div>
     </div>
     <div class="wear-body">
       <section class="wear-stage">
-        <canvas id="wear-canvas" aria-label="きせかえのプレビュー"></canvas>
+        <div class="wear-spot">
+          <i class="wear-rays" aria-hidden="true"></i><i class="wear-floor" aria-hidden="true"></i>
+          <canvas id="wear-canvas" aria-label="きせかえのプレビュー"></canvas>
+          <span class="wear-turn" aria-hidden="true">↔ まわせるよ</span>
+        </div>
         <p id="wear-fallback" hidden>3Dプレビューを ひょうじ できません。かうことは できます。</p>
         <p class="wear-caption" id="wear-caption"></p>
       </section>
@@ -53,14 +57,21 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
   let renderer = null;
   let failed = false;
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x1d3f43);
+  scene.background = null; // ステージの 絵は CSS（.wear-spot）。ここは 人だけ えがく
   scene.add(new THREE.HemisphereLight(0xdff0ff, 0x35545c, 2.6));
   const key = new THREE.DirectionalLight(0xfff0cf, 2.6);
   key.position.set(-3, 6, 5);
   scene.add(key);
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 40);
-  camera.position.set(0, 1.6, 5.4);
-  camera.lookAt(0, 1.25, 0);
+  // 頭の 上（ぼうし）から 足もとまで 入る 位置。前は 腰から 下が 切れて いた。
+  camera.position.set(0, 1.25, 7.4);
+  camera.lookAt(0, 1.02, 0);
+  // 足もとの 影（ステージの 上に 立って 見える ように）。
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(0.95, 40), new THREE.MeshBasicMaterial({ color: 0x1b3a2f, transparent: true, opacity: 0.22 }));
+  shadow.rotation.x = -Math.PI / 2; shadow.position.y = 0.01; shadow.scale.z = 0.55;
+  scene.add(shadow);
+  let turn = 0; let dragX = null; // 指・マウスで まわした ぶん
+  let fitted = null; // カメラを あわせた からだ
   let model = null;
   let spin = 0;
   let spinning = false;
@@ -92,9 +103,29 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    if (model) { spin += 0.008; model.rotation.y = Math.sin(spin) * 0.6; }
+    if (model) {
+      // からだの 大きさに カメラを あわせる（ぼうしの 上から 足もとまで）。からだを 作りなおした ときだけ はかる。
+      if (fitted !== model) {
+        fitted = model; model.rotation.y = 0;
+        const box = new THREE.Box3().setFromObject(model); const size = box.getSize(new THREE.Vector3()); const mid = box.getCenter(new THREE.Vector3());
+        const tall = Math.max(size.y, 1) * 1.34; // 上に ぼうし・下に 影の ぶんの よゆう
+        const dist = (tall / 2) / Math.tan((camera.fov * Math.PI) / 360);
+        camera.position.set(mid.x, mid.y + size.y * 0.08, mid.z + dist);
+        camera.lookAt(mid.x, mid.y + size.y * 0.02, mid.z);
+        shadow.position.set(mid.x, box.min.y + 0.01, mid.z);
+      }
+      if (dragX === null) spin += 0.008; model.rotation.y = Math.sin(spin) * 0.5 + turn;
+    }
     renderer.render(scene, camera);
     requestAnimationFrame(draw);
+  }
+  // 指・マウスで 左右に なぞると まわる（はなすと ゆっくり ゆれに もどる）。
+  {
+    const c = $('#wear-canvas', dialog);
+    c.addEventListener('pointerdown', (e) => { dragX = e.clientX; try { c.setPointerCapture(e.pointerId); } catch { /* */ } });
+    c.addEventListener('pointermove', (e) => { if (dragX === null) return; turn += (e.clientX - dragX) * 0.012; dragX = e.clientX; });
+    const up = () => { dragX = null; };
+    c.addEventListener('pointerup', up); c.addEventListener('pointercancel', up);
   }
   function spinUp() { if (renderer && dialog.open && !spinning) { spinning = true; draw(); } }
 
@@ -233,7 +264,7 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
     $('#wear-coins', dialog).textContent = (shop.coins || 0).toLocaleString();
     $('#wear-slots', dialog).innerHTML = (shop.slots || []).map((s) => `
       <button type="button" data-slot="${esc(s.id)}" class="${s.id === slot ? 'on' : ''}" aria-pressed="${s.id === slot}">
-        <span>${esc(s.icon)}</span>${esc(s.ja)}
+        <span>${esc(s.icon)}</span><b>${esc(s.ja)}</b>
       </button>`).join('');
     dialog.querySelectorAll('[data-slot]').forEach((b) => {
       b.onclick = () => { slot = b.dataset.slot; trying = null; render(); redress(); };
@@ -241,10 +272,11 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
 
     const items = (shop.items || []).filter((i) => i.slot === slot);
     $('#wear-grid', dialog).innerHTML = items.map((i) => {
-      const state = i.worn ? 'きているよ' : i.owned ? 'もっている' : i.locked ? `レベル ${i.level} から`
+      const state = i.worn ? '' : i.owned ? 'もっている' : i.locked ? `レベル ${i.level} から`
         : i.afford ? '' : `あと ${(i.price - shop.coins).toLocaleString()} コイン`;
       return `
-        <button type="button" class="wear-card ${i.worn ? 'worn' : ''} ${i.locked ? 'locked' : ''}" data-item="${esc(i.id)}">
+        <button type="button" class="wear-card ${i.worn ? 'worn' : ''} ${i.owned ? 'owned' : ''} ${i.locked ? 'locked' : ''} ${trying && trying.id === i.id ? 'trying' : ''}" data-item="${esc(i.id)}">
+          ${i.worn ? '<u class="wear-flag">✓ きているよ</u>' : i.locked ? '<u class="wear-flag lock">🔒</u>' : ''}
           <i class="wear-swatch" style="--c:#${esc(i.colour)}"><img data-shot="${esc(i.id)}" alt="" hidden></i>
           <b>${esc(i.ja)}</b>
           <small>${esc(i.en)}</small>

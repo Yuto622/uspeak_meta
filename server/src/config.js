@@ -70,6 +70,8 @@ export const config = Object.freeze({
   // 幼児モード（かんたんな 画面に きりかえる）。2026-11 に やめた：だれでも 入ったら「せかいを えらぼう」が 出る 形に した。
   // コードは のこして ある（KIDS_MODE=on で もどる）。オフの あいだは 部屋が だれも 幼児モードに しない・🧸 も 出ない。
   kidsMode: (env.KIDS_MODE ?? '').trim().toLowerCase() === 'on',
+  // 合言葉なしの 絵本の 口（/api/public/books）：1 つの IP から 1 分に 何回まで（Roblox の サーバーは 同じ IP から 何人ぶんも 来る）。
+  publicBooksPerMin: Math.max(10, int('PUBLIC_BOOKS_PER_MIN', 600)),
   google: {
     sheetId: (env.GOOGLE_SHEET_ID ?? '').trim(),
     email: (env.GOOGLE_SERVICE_ACCOUNT_EMAIL ?? '').trim(),

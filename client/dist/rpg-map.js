@@ -22,7 +22,7 @@ const project=(r,w,h)=>({x:(r.x+400)/860*w,y:(r.z+470)/920*h});
 // is. Below that they would be dots, so there is a floor.
 function fit(count,w,h){
  const cell=Math.sqrt((w*h)/(count*3.6));
- return Math.max(.42,Math.min(1,cell/86));
+ return Math.max(.34,Math.min(1,cell/92));
 }
 
 function footprint(r,w,h,scale,font){

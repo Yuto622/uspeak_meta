@@ -1991,6 +1991,7 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 
 ## 絵本を Roblox 版へ（自動アップロード／2026-11）
 くわしくは `docs/ROBLOX_BOOKS.md`。
+- **Secrets なしの 一発（2026-11）**：Windows で `.\scripts\roblox-books.ps1`（鍵を fly secrets へ → サーバーの 中で `server/scripts/roblox-books-run.mjs` が ぜんぶ おくって 審査を 見はる → 貼る 1 行を クリップボードへ）、Studio に `roblox/oneline/books-open-all.txt`。本は 合言葉なしの `/api/public/books…`（`server/src/roblox/books-public.js`・答えは 入らない・記録と コインは つかない）。
 - **絵を PNG に**：`server/src/roblox/book-png.js`（@resvg/resvg-js・1024×768・`still`）。`artHash` ＝ 場面＋`ART_VERSION`＋大きさ。
 - **上げる 係**：`server/src/roblox/book-assets.js`（`BookAssets`）。Open Cloud の `POST /assets/v1/assets`（multipart）→ `operations/<id>` を 見て assetId と 審査。
   記録は `DATA_DIR/roblox-book-assets.json`（絵ごとに hash・op・assetId・state）。同じ 絵は 1 回・かわった 絵だけ 上げなおす・rejected は 上げなおさない・429 は Retry-After で 待つ。
