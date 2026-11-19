@@ -94,15 +94,12 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
     forget(classCode) { if (classCode) cache.delete(classCode); else cache.clear(); },
     // 名簿の「先生」列が true の 人か（admin ページ）。入場の きりかえ（open / roster）とは 関係なく 見る：
     // 名簿を 使わない 教室でも、先生だけ 名簿に 書いて おけば 授業モードが 出る。読めなければ false（先生に しない）。
-    // 2026-10：名前だけでは 先生に ならない。名簿の 行に あいことば（pin）が あり、それと 一致した ときだけ。
-    // あいことばの ない 先生の 行は、講師キー（TEACHER_KEY）で 入る（admin の 画面に そう 書いてある）。
-    async isTeacher({ classCode, name, pin = '' }) {
+    // 2026-11：先生パスワードは なくした。名簿の「先生」列が true の ユーザーネームで 入れば 先生
+    // （入る ときに 入れるのは ユーザーネームと クラスの パスワードだけ）。
+    async isTeacher({ classCode, name }) {
       try {
         const entry = await register(classCode);
-        if (!entry?.teachers?.has(fold(name))) return false;
-        const want = entry.pins?.get(fold(name)) || '';
-        if (!want) { log.warn?.(`[gate] teacher row without a pin in class=${classCode}: not granted (set 先生パスワード in /admin)`); return false; }
-        return samePin(want, pin);
+        return !!entry?.teachers?.has(fold(name));
       } catch { return false; }
     },
     // 名簿に この 名前が あるか（入場の open / roster とは 関係なく）。オフラインで あそべる 期間の 判定に 使う。
@@ -125,16 +122,6 @@ export function createGate({ store, roster = store, mode = OPEN, ttlMs = 5 * 60 
       if (!byKey) {
         const e = await register(classCode);
         if (e?.stopped?.has(fold(name))) return { ok: false, reason: 'stopped' };
-      }
-      // 先生の 行（あいことばつき）は、その あいことばが ないと 入れない（名前だけで 先生の 席に すわらせない）。
-      // 子どもの あいことば（ロビーの「じぶんの あいことば」）は 2026-11 に なくした：子どもの 行の pin は 見ない。
-      if (role !== 'teacher') {
-        const entry0 = await register(classCode);
-        // 先生の 行は、先生パスワードが 一致しないと 入れない（パスワードが 空の 先生の 行も 入れない。講師キーなら 入れる）。
-        if (entry0?.teachers?.has(fold(name))) {
-          const want = entry0?.pins?.get(fold(name)) || '';
-          if (!want || !samePin(want, pin)) return { ok: false, reason: 'wrong pin' };
-        }
       }
       if (modeNow() !== ROSTER) return { ok: true, reason: 'open' };
       if (role === 'teacher') return { ok: true, reason: 'teacher key' };

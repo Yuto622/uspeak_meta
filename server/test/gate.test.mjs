@@ -33,12 +33,12 @@ test('あいことば: only teacher rows are guarded by their pin (children have
   const store = { calls: 0, async listRoster() { this.calls += 1; return rows.map((r) => ({ ...r })); }, async loadPlayer() { return null; } };
   const gate = createGate({ store, mode: OPEN, log: quiet });
   assert.equal((await gate.allow({ classCode: '6-1', name: 'Aki', role: 'student' })).ok, true, 'a child row with an old pin: the pin is ignored');
-  assert.equal((await gate.allow({ classCode: '6-1', name: 'Ms Sato', role: 'student' })).reason, 'wrong pin', 'nobody sits down as the teacher by name');
-  assert.equal((await gate.allow({ classCode: '6-1', name: 'Ben', role: 'student' })).ok, true, 'no pin on the row: as before');
-  assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Ms Sato', pin: 'sato' }), true);
-  assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Ms Sato' }), false);
-  assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Mr Nopin' }), false, 'a teacher row without a pin is never a teacher by name');
-  assert.equal((await gate.allow({ classCode: '6-1', name: 'Mr Nopin', role: 'student' })).reason, 'wrong pin', 'and does not get in as a student either');
+  // 2026-11：先生パスワードは なくした。名簿の「先生」列だけで 先生が きまる（pin は 見ない）。
+  assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Ms Sato' }), true);
+  assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'mr nopin' }), true, 'a teacher row without a pin is a teacher too');
+  assert.equal(await gate.isTeacher({ classCode: '6-1', name: 'Aki' }), false);
+  assert.equal((await gate.allow({ classCode: '6-1', name: 'Ms Sato', role: 'teacher' })).ok, true);
+  assert.equal((await gate.allow({ classCode: '6-1', name: 'Ben', role: 'student' })).ok, true, 'open gate: as before');
   assert.equal((await gate.allow({ classCode: '6-1', name: 'Mr Nopin', role: 'teacher', byKey: true })).ok, true, 'the TEACHER_KEY still works');
 });
 

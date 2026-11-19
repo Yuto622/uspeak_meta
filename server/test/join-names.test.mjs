@@ -120,5 +120,9 @@ test('一覧は 入力の かわり：入れるか どうかは いつもの 部
   assert.equal(welcome.role, 'student');
   await room.leave();
   await assert.rejects(() => new Client(ws).joinOrCreate('class', { classCode: 'sakura', name: 'Yame' }), 'とめた アカウントは 入れない');
-  await assert.rejects(() => new Client(ws).joinOrCreate('class', { classCode: 'sakura', name: 'Sensei' }), '先生の 行は 先生パスワードが いる');
+  // 2026-11：先生パスワードは なくした。先生の 行は ユーザーネームだけで 先生として 入る（一覧には 先生の なまえを 出さない）。
+  const sensei = await new Client(ws).joinOrCreate('class', { classCode: 'sakura', name: 'Sensei' });
+  const sw = await new Promise((resolve, reject) => { const t = setTimeout(() => reject(new Error('no welcome')), 5000); sensei.onMessage('welcome', (m) => { clearTimeout(t); resolve(m); }); });
+  assert.equal(sw.role, 'teacher');
+  await sensei.leave();
 });

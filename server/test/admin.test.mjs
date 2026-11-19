@@ -145,24 +145,21 @@ test('the 先生か column: true + あいことば makes a teacher without the k
   const csv = Buffer.from(await (await api('/roster.csv')).arrayBuffer()).toString('utf8');
   assert.match(csv, /^,Ms Sato,TRUE,FALSE,sato-pass,FALSE$/m);
   assert.match(csv, /^,Ken,FALSE,FALSE,,FALSE$/m);
-  // Gate open (the default): the teacher row + its pin decide the role. The name alone is a student.
-  const t = await join('ms sato', '6-1', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t, 'welcome')).role, 'teacher'); await t.leave(); await sleep(100);
-  // The name alone, or a wrong pin, does not even get in (nobody can sit down as the teacher).
-  await assert.rejects(() => join('ms sato'), /password|4005/);
-  await assert.rejects(() => join('ms sato', '6-1', { teacherKey: 'wrong' }), /password|4005/);
+  // 2026-11：先生パスワードは なくした。「先生か」が true の ユーザーネームで 入れば 先生（入れるのは ユーザーネームと クラスの パスワードだけ）。
+  const t = await join('ms sato'); assert.equal((await nextMessage(t, 'welcome')).role, 'teacher'); await t.leave(); await sleep(100);
+  // 古い ページが 先生パスワードを 送って きても（合って いても ちがって いても）同じ。
+  const tw = await join('ms sato', '6-1', { teacherKey: 'wrong' }); assert.equal((await nextMessage(tw, 'welcome')).role, 'teacher'); await tw.leave(); await sleep(100);
   const k = await join('Ken'); assert.equal((await nextMessage(k, 'welcome')).role, 'student'); await k.leave(); await sleep(100);
-  // 先生の あいことばを「じぶんの あいことば」の 欄（pin）に 入れても 先生（前は だまって 生徒に なり、授業モードが 出なかった）。
-  const tp = await join('Ms Sato', '6-1', { pin: 'sato-pass' }); assert.equal((await nextMessage(tp, 'welcome')).role, 'teacher'); await tp.leave(); await sleep(100);
-  await assert.rejects(() => join('Ms Sato', '6-1', { pin: 'wrong' }), /password|4005/);
   // Gate on: same.
   await api('/enforce', { method: 'PUT', body: { enforce: true } });
-  const t2 = await join('Ms Sato', '6-1', { teacherKey: 'sato-pass' }); assert.equal((await nextMessage(t2, 'welcome')).role, 'teacher'); await t2.leave(); await sleep(100);
-  // 先生の 行に 先生パスワードが ないと 保存できない（空だと 名前だけで 生徒として 入れて しまう）。
+  const t2 = await join('Ms Sato', '6-1'); assert.equal((await nextMessage(t2, 'welcome')).role, 'teacher'); await t2.leave(); await sleep(100);
+  // 先生の 行は 先生パスワードが なくても 保存できる。
   const noPin = await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: true }, { name: 'Ken', teacher: false }] } });
-  assert.equal(noPin.status, 400); assert.match((await noPin.json()).error, /先生パスワード.*Ms Sato/);
+  assert.equal(noPin.status, 200);
+  const t4 = await join('Ms Sato', '6-1'); assert.equal((await nextMessage(t4, 'welcome')).role, 'teacher'); await t4.leave(); await sleep(100);
   // Unticked again: back to a student at the next join.
-  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: false, pin: 'sato-pass' }, { name: 'Ken', teacher: false }] } });
-  const t3 = await join('Ms Sato', '6-1', { pin: 'sato-pass' }); assert.equal((await nextMessage(t3, 'welcome')).role, 'student'); await t3.leave(); await sleep(100);
+  await api('/roster', { method: 'PUT', body: { rows: [{ name: 'Ms Sato', teacher: false }, { name: 'Ken', teacher: false }] } });
+  const t3 = await join('Ms Sato', '6-1'); assert.equal((await nextMessage(t3, 'welcome')).role, 'student'); await t3.leave(); await sleep(100);
   await api('/enforce', { method: 'PUT', body: { enforce: false } });
 });
 

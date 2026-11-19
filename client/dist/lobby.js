@@ -18,7 +18,7 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
       <button type="button" class="net-pick-other" id="net-pick-other" data-t="なまえが ない とき">なまえが ない とき</button></div>
     <label><span data-t="ユーザーネーム">ユーザーネーム</span><input id="net-name" name="name" maxlength="16" autocomplete="off" autocapitalize="off" placeholder="れい：ゆうと" data-t-ph="れい：ゆうと"></label>
     <label><span data-t="パスワード">パスワード</span><input id="net-class" name="class" maxlength="24" autocomplete="off" autocapitalize="off" placeholder="せんせいに きいた パスワード" data-t-ph="せんせいに きいた パスワード"></label>
-    <div id="net-teacher-details" class="net-optional"><label><span class="net-opt-head"><span data-t="先生パスワード">先生パスワード</span> <small class="net-opt" data-t="先生だけ・こどもは いらない">先生だけ・こどもは いらない</small></span><input id="net-key" name="key" type="password" autocomplete="off"></label></div>
+    <div id="net-teacher-details" class="net-optional" hidden><label><span class="net-opt-head"><span data-t="先生パスワード">先生パスワード</span> <small class="net-opt" data-t="先生だけ・こどもは いらない">先生だけ・こどもは いらない</small></span><input id="net-key" name="key" type="password" autocomplete="off"></label></div>
     <p id="net-lobby-error" class="net-error" role="alert" hidden></p>
     <div class="net-lobby-actions">
       <button type="submit" class="primary" id="net-join" data-t="クラスに はいる →">クラスに はいる →</button>
@@ -36,6 +36,8 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
   $('#net-name').value = prefs?.name || '';
   $('#net-class').value = prefs?.classCode || defaultClass || '';
   // 先生の 鍵は localStorage に 入れない・読まない（共用の iPad で 次の 子に 見えない ように）。
+  // 入れるのは ユーザーネームと パスワードだけ。先生かは 名簿の「先生」列で きまる。講師キーの 欄は 運営用（?staff=1 の ときだけ 出す）。
+  if (new URLSearchParams(location.search).has('staff')) $('#net-teacher-details').hidden = false;
   $('#net-key').value = '';
 
   function busy(v) { $('#net-join').disabled = v; $('#net-join').textContent = t(v ? '接続中…' : 'クラスに はいる →'); }

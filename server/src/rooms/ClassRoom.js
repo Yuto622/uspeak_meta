@@ -436,17 +436,9 @@ export class ClassRoom extends Room {
     // 先生は 2 とおり：講師キーを 持っている 人と、admin の 名簿で「先生」に ✓ ＋ あいことば が 合った 人。
     // ロビーの「先生用」の 1 つの 入力が、講師キーにも 先生の あいことばにも なる。
     const byKey = isTeacherKey(options?.teacherKey);
-    // 先生の あいことばは ロビーの「先生用」（teacherKey）。古い ページが pin で 送って きても 先生に する
-    // （2026-11：下の「じぶんの あいことば」に 入れた 先生が だまって 生徒に なり、授業モードが 出なかった。その 欄は もう ない）。
-    const keyIn = typeof options?.teacherKey === 'string' ? options.teacherKey : '';
-    const pinIn = typeof options?.pin === 'string' ? options.pin : '';
-    let teacherPin = '';
-    if (!byKey) {
-      for (const cand of [keyIn, pinIn]) {
-        if (cand && await this.gate.isTeacher?.({ classCode: this.classCode, name, pin: cand })) { teacherPin = cand; break; }
-      }
-    }
-    const role = byKey || teacherPin ? 'teacher' : 'student';
+    // 2026-11：先生パスワードは なくした。名簿の「先生」列が true の ユーザーネームなら 先生（講師キーは 運営用に のこす）。
+    const listed = !byKey && !!(await this.gate.isTeacher?.({ classCode: this.classCode, name }));
+    const role = byKey || listed ? 'teacher' : 'student';
     // 入場ゲート. A refusal here is a locked door, so the gate is written never to throw
     // and never to refuse a child it has seen before.
     const pass = await this.gate.allow({ classCode: this.classCode, name, role, byKey, pin: typeof options?.pin === 'string' ? options.pin : '' });
@@ -470,7 +462,7 @@ export class ClassRoom extends Room {
       log.info(`[room ${this.roomId}] evicting silent seat ${who(name)} (${id}, ${silentFor}ms)`);
       ghost?.leave(4003);
     }
-    return { name, role, byKey, teacherPin, avatar: sanitizeAvatar(options?.avatar) };
+    return { name, role, byKey, avatar: sanitizeAvatar(options?.avatar) };
   }
 
   async onJoin(client, options, auth) {
@@ -514,7 +506,6 @@ export class ClassRoom extends Room {
     priv.lastMoveAt = now;
     // 講師キーで 入った 先生か（名簿の 先生は あとで 名簿が かわると 生徒に もどる。recheckRoles）。
     priv.byKey = !!auth.byKey;
-    priv.teacherPin = auth.teacherPin || '';
     this.priv.set(client.sessionId, priv);
     priv.premium = !!(await this.gate?.isPremium?.({ classCode: this.classCode, name: auth.name }));
     // 名簿に ある 子か（先生は いつも）。ページは これを 覚えて、ひとりで あそぶ（オフライン）を 期限なしに する。
@@ -577,7 +568,7 @@ export class ClassRoom extends Room {
       if (on !== !!priv.kids) { priv.kids = on; this.clientOf(id)?.send('kids', { kids: on }); }
     }
     if (!player || !priv || priv.byKey || !this.gate?.isTeacher) return false;
-    const want = (await this.gate.isTeacher({ classCode: this.classCode, name: player.name, pin: priv.teacherPin || '' })) ? 'teacher' : 'student';
+    const want = (await this.gate.isTeacher({ classCode: this.classCode, name: player.name })) ? 'teacher' : 'student';
     if (want === player.role || !this.state.players.has(id)) return false;
     player.role = want;
     const client = this.clients.find((c) => c.sessionId === id);
