@@ -13,11 +13,11 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
   dialog.innerHTML = `<form method="dialog" id="net-lobby-form">
     <div class="eyebrow">U-SPEAK · CLASSROOM</div>
     <h2 id="net-lobby-title" data-t="クラスに はいろう">クラスに はいろう</h2>
-    <p data-t="なまえを いれると、クラスの みんなと いっしょに あそべるよ。">なまえを いれると、クラスの みんなと いっしょに あそべるよ。</p>
+    <p data-t="ユーザーネームと パスワードを いれると、クラスの みんなと いっしょに あそべるよ。">ユーザーネームと パスワードを いれると、クラスの みんなと いっしょに あそべるよ。</p>
     <div id="net-pick" hidden><p class="net-pick-lead" data-t="じぶんの なまえを おしてね">じぶんの なまえを おしてね</p><div id="net-pick-list" role="list" translate="no"></div>
       <button type="button" class="net-pick-other" id="net-pick-other" data-t="なまえが ない とき">なまえが ない とき</button></div>
-    <label><span data-t="なまえ">なまえ</span><input id="net-name" name="name" maxlength="16" autocomplete="off" autocapitalize="off" placeholder="れい：ゆうと" data-t-ph="れい：ゆうと"></label>
-    <label><span data-t="クラスコード">クラスコード</span><input id="net-class" name="class" maxlength="24" autocomplete="off" autocapitalize="off" placeholder="せんせいに きいた ことば" data-t-ph="せんせいに きいた ことば"></label>
+    <label><span data-t="ユーザーネーム">ユーザーネーム</span><input id="net-name" name="name" maxlength="16" autocomplete="off" autocapitalize="off" placeholder="れい：ゆうと" data-t-ph="れい：ゆうと"></label>
+    <label><span data-t="パスワード">パスワード</span><input id="net-class" name="class" maxlength="24" autocomplete="off" autocapitalize="off" placeholder="せんせいに きいた パスワード" data-t-ph="せんせいに きいた パスワード"></label>
     <div id="net-teacher-details" class="net-optional"><label><span class="net-opt-head"><span data-t="先生パスワード">先生パスワード</span> <small class="net-opt" data-t="先生だけ・こどもは いらない">先生だけ・こどもは いらない</small></span><input id="net-key" name="key" type="password" autocomplete="off"></label></div>
     <p id="net-lobby-error" class="net-error" role="alert" hidden></p>
     <div class="net-lobby-actions">
@@ -44,9 +44,9 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
   $('#net-lobby-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = $('#net-name').value.trim();
-    if (!name) { error(t('なまえを いれてね。')); return; }
+    if (!name) { error(t('ユーザーネームを いれてね。')); return; }
     const classCode = $('#net-class').value.trim();
-    if (!classCode) { error(t('クラスコードを いれてね。先生に きいてね。')); $('#net-class').focus(); return; }
+    if (!classCode) { error(t('パスワードを いれてね。先生に きいてね。')); $('#net-class').focus(); return; }
     error('');
     onJoin({ name, classCode, teacherKey: $('#net-key').value });
   });

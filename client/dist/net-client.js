@@ -625,15 +625,15 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function friendlyError(err) {
     const code = err?.code;
     const text = String(err?.message || err || '');
-    if (code === 4001 || /name in use/.test(text)) return tr('その名前は もう つかわれています。べつの 名前に してね。');
-    if (code === 4000 || /name required/.test(text)) return tr('なまえを いれてね。');
-    if (code === 4007 || /class required/.test(text)) return tr('クラスコードを いれてね。先生に きいてね。');
+    if (code === 4001 || /name in use/.test(text)) return tr('その ユーザーネームは いま つかわれています。先生に きいてね。');
+    if (code === 4000 || /name required/.test(text)) return tr('ユーザーネームを いれてね。');
+    if (code === 4007 || /class required/.test(text)) return tr('パスワードを いれてね。先生に きいてね。');
     if (code === 4002 || /class is full/.test(text)) return tr('この クラスは いっぱいです。先生に つたえてね。');
     // 入場ゲート: the class register did not have this name. Say what to check, not what
     // went wrong - a child cannot fix a register.
     if (code === 4008 || /stopped/.test(text)) return tr('この アカウントは いま つかえません。先生に きいてね。');
     if (code === 4005 || /password/.test(text)) return tr('先生パスワードが ちがいます。「先生用」を ひらいて いれてね。');
-    if (code === 4004 || /register/.test(text)) return tr('この 名前は この クラスの めいぼに ありません。クラスコードと なまえを たしかめて、先生に 聞いて ください。');
+    if (code === 4004 || /register/.test(text)) return tr('ユーザーネームか パスワードが ちがいます。たしかめて、先生に 聞いて ください。');
     if (/Failed to fetch|NetworkError|Load failed|ECONN|timeout/i.test(text)) return tr('サーバーに つながりません。Wi-Fi を たしかめて ください。');
     return tr('つなげませんでした（{why}）', { why: text.slice(0, 80) });
   }
@@ -992,7 +992,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
 
   // ログアウト：クラスから でて、この ブラウザが おぼえている なまえ・クラスも わすれる（つぎの 人が つかえる）。
   function logout() {
-    if (!confirm(tr('ログアウトしますか？ なまえと クラスを わすれます。'))) return;
+    if (!confirm(tr('ログアウトしますか？ ユーザーネームと パスワードを わすれます。'))) return;
     leaveClass();
     storage.remove(localStorage, STORAGE_KEYS.prefs);
     state.name = ''; state.classCode = ''; state.teacherKey = ''; state.pin = ''; state.role = 'student';
