@@ -1038,7 +1038,7 @@ function buildQuiz(){
   for(let i=choices.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[choices[i],choices[j]]=[choices[j],choices[i]]}
   quizGates.push({d:(lap+(g+.5)/per)*length,word,choices,answer:choices.findIndex(c=>c[2]===word[2]),lap});
  }
- buildQuizGates();updateQuizScore();
+ buildQuizGates();updateQuizScore();remoteQuiz();
 }
 function buildQuizGates(){
  const seen=new Set();
@@ -1060,6 +1060,12 @@ function buildQuizGates(){
 }
 const QUIZ_LANES=[7.4,0,-7.4],QUIZ_LANE_COLORS=['#2f7fe0','#f0832a','#8b4fd8'];let quizGateAt=new Map();
 function laneTexture(text,i){const c=document.createElement('canvas');c.width=528;c.height=240;const x=c.getContext('2d');x.fillStyle=QUIZ_LANE_COLORS[i];x.beginPath();x.roundRect(4,4,520,232,44);x.fill();x.fillStyle='#fff';x.beginPath();x.roundRect(20,20,488,200,30);x.fill();let size=118;x.textAlign='center';x.textBaseline='middle';do{x.font='900 '+size+'px sans-serif';size-=6}while(x.measureText(text).width>450&&size>40);x.fillStyle='#12283a';x.fillText(text,264,126);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t}
+// U-Speak の 島から ひらいた ときは、問題と 正解を 教室の サーバーが 持つ（コインと 学習記録の ため）。
+// サーバーの 問題が とどいたら ゲートの 中身を 入れかえる。とどかなければ ゲームの 中の 問題で 走る。
+function remoteQuiz(){const hook=window.USPEAK_KART,gates=quizGates;if(!hook||!gates.length)return;
+ Promise.resolve(hook.start(quizGrade,gates.length)).then(set=>{if(!set||quizGates!==gates||!Array.isArray(set.questions))return;
+  gates.forEach((gate,i)=>{const q=set.questions[i];if(!q||i<quizIndex||quizActive?.gate===gate)return;gate.word=[q.emoji,q.ja,''];gate.choices=q.choices.map(c=>['','',c]);gate.answer=-1;gate.remote={id:set.id,i}});
+  const seen=new Set();for(const gate of gates){const k=Math.round(mod(gate.d,length));if(gate.remote&&!seen.has(k)){seen.add(k);paintQuizGate(gate)}}}).catch(()=>{})}
 function paintQuizGate(gate){const g=quizGateAt.get(Math.round(mod(gate.d,length)));if(!g)return;g.userData.lanes.forEach((m,i)=>{m.material.map?.dispose();m.material.map=laneTexture(gate.choices[i][2],i);m.material.needsUpdate=true})}
 function sayWord(text){try{const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch{}}
 {const st=document.createElement('style');st.textContent='.quiz{bottom:auto!important;top:10px!important;width:min(94vw,560px)!important;pointer-events:none!important}.quiz-card{padding:8px 12px 8px!important;display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center}.quiz-top,.quiz-timer{display:none!important}.quiz-emoji{font-size:34px!important;margin:0!important;grid-row:1}.quiz-jp{font-size:20px!important;margin:0!important;text-align:left!important}.quiz-choices{grid-column:1/-1;margin-top:6px}.quiz-choices button{min-height:40px!important;background:#fff!important;color:#12283a!important;font-size:19px!important;border-width:3px!important}.quiz-choices button:nth-child(1){border-color:#2f7fe0!important}.quiz-choices button:nth-child(2){border-color:#f0832a!important}.quiz-choices button:nth-child(3){border-color:#8b4fd8!important}.quiz-choices button i{display:none!important}.quiz-choices button.right{background:#b6ff7e!important}.quiz-choices button.miss{background:#ff8f7e!important}.quiz-choices button.on{background:#ffe066!important;transform:translateY(2px)}.quiz-result{grid-column:1/-1}';document.head.append(st)}
@@ -1080,8 +1086,13 @@ function askQuestion(gate){
 }
 function answerQuiz(index){
  if(!quizActive||quizActive.answered)return;
- const {gate}=quizActive,correct=index===gate.answer,card=$('quiz').firstElementChild;
- quizActive.answered=true;quizActive.time=.95;
+ const active=quizActive,{gate}=active;active.answered=true;
+ if(gate.remote&&window.USPEAK_KART){active.time=3;
+  Promise.resolve(window.USPEAK_KART.answer(gate.remote.id,gate.remote.i,index)).then(r=>{gate.answer=r.answer;gate.word[2]=gate.choices[r.answer]?.[2]||'';if(quizActive===active)active.time=1.1;settleQuiz(gate,index,!!r.correct,quizActive===active)})
+   .catch(()=>{if(quizActive===active){active.time=.6;$('quizResult').textContent='つながって いません'}});return}
+ active.time=.95;settleQuiz(gate,index,index===gate.answer,true)}
+function settleQuiz(gate,index,correct,showing){
+ const card=$('quiz').firstElementChild;if(!showing){quizLog.push({word:gate.word,correct});if(correct){quizCorrect++;quizStreak++;quizBestStreak=Math.max(quizBestStreak,quizStreak)}else quizStreak=0;updateQuizScore();return}
  card.classList.add('answered',correct?'correct':'wrong');
  [...$('quizChoices').children].forEach((b,i)=>{b.classList.add(i===gate.answer?'right':i===index?'miss':'dim')});
  quizLog.push({word:gate.word,correct});

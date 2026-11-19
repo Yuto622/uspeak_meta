@@ -14,6 +14,7 @@ import { cleanSay, scrubContact, MAX_CHARS } from '../game/say.js';
 import { MISSIONS } from '../game/missions.js';
 import { blankProgress, sanitizeProgress, grantXp, totalXp, xpToNext, REWARDS, eikenReward } from '../game/progression.js';
 import { SCHOOL, createSession, questionPayload, answerSession, QUESTIONS_PER_SESSION } from '../game/wordquiz.js';
+import { createKartSession, kartPayload, answerKart } from '../game/kart.js';
 import { MODES as GYM_MODES, WORDS, createSet, questionPayload as gymPayload, answerSet } from '../game/gym.js';
 import { ARENA, createBattle, statePayload, quizPayload, chooseWaza, answerQuiz, BattleError, DAILY_CAP } from '../game/battle.js';
 import { moveForFish, sanitizeMove } from '../game/fish-moves.js';
@@ -266,6 +267,8 @@ export class ClassRoom extends Room {
     this.onMessage('quiz:start', (client, msg) => this.onQuizStart(client, msg));
     this.onMessage('quiz:answer', (client, msg) => this.onQuizAnswer(client, msg));
     this.onMessage('quiz:quit', (client) => this.onQuizQuit(client));
+    this.onMessage('kart:start', (client, msg) => this.onKartStart(client, msg));
+    this.onMessage('kart:answer', (client, msg) => this.onKartAnswer(client, msg));
     this.onMessage('gym:start', (client, msg) => this.onGymStart(client, msg));
     this.onMessage('gym:answer', (client, msg) => this.onGymAnswer(client, msg));
     this.onMessage('gym:quit', (client) => this.onGymQuit(client));
@@ -2045,6 +2048,49 @@ export class ClassRoom extends Room {
     payload.next = priv.quiz ? questionPayload(priv.quiz) : null;
     this.persist(client.sessionId);
     client.send('quiz:result', payload);
+  }
+
+  // のりもの島の レース：ことばの ゲートの 問題を くばる（正解は 送らない）。
+  onKartStart(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    const now = Date.now();
+    if (now - (priv.lastKartStart || 0) < 2000) { client.send('kart:error', { reason: 'too fast', ref: msg?.ref }); return; }
+    priv.lastKartStart = now;
+    priv.kart = createKartSession(msg?.grade, msg?.count);
+    client.send('kart:quiz', { ...kartPayload(priv.kart), ref: msg?.ref });
+  }
+
+  // くぐった レーンを うけとり、正解・コイン・学習記録を ここで 決める。
+  onKartAnswer(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const session = priv?.kart;
+    if (!priv || !session || msg?.id !== session.id) { client.send('kart:error', { reason: 'no race', id: msg?.id, i: msg?.i }); return; }
+    const now = Date.now();
+    // ゲートは 何秒も はなれて いる。それより 速い 答えは 車では 出せない。
+    if (now - (priv.lastKartAt || 0) < 1200) { client.send('kart:error', { reason: 'too fast', id: session.id, i: msg?.i }); return; }
+    const result = answerKart(session, msg?.i, msg?.choice);
+    if (!result) { client.send('kart:error', { reason: 'answered', id: session.id, i: msg?.i }); return; }
+    priv.lastKartAt = now;
+    priv.stats.attempts += 1;
+    const payload = { id: session.id, i: result.i, correct: result.correct, answer: result.answer };
+    if (result.correct) {
+      priv.stats.correct += 1;
+      const entry = applyOp(priv.wallet, { type: 'award', amount: REWARDS.kart.coins, id: `kart:g${session.grade}` });
+      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      const level = this.awardXp(client.sessionId, REWARDS.kart.xp, `kart:g${session.grade}`);
+      payload.levels = level?.levels || 0;
+      payload.coins = REWARDS.kart.coins;
+    }
+    this.appendLearning([
+      new Date(now).toISOString(), this.classCode, priv.name, `race:kart:${result.en}`, 'race', // 学習記録では「レース」の ことば（quizEventOf が racing に 分ける）
+      String(result.en).slice(0, 80), result.correct ? 1 : 0, result.correct ? REWARDS.kart.xp : 0, client.sessionId,
+    ]);
+    if (result.done) priv.kart = null;
+    payload.progress = this.progressPayload(client.sessionId);
+    payload.wallet = this.walletPayload(client.sessionId).wallet;
+    this.persist(client.sessionId);
+    client.send('kart:result', payload);
   }
 
   onQuizQuit(client) {

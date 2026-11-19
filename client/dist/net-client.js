@@ -461,7 +461,19 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     onClose: () => { remotes.setTags(true); rpg.holdDoors(false); },
     toast,
   };
-  const racers = createRacers(guest);          // AURORA KART, from のりもの島
+  // レースの ことばの ゲート：問題を もらい（kart:start）、くぐった レーンを 送る（kart:answer）。正解と コインは 部屋が 決める。
+  const kartWait = { start: new Map(), answer: new Map(), n: 0 };
+  const kartAsk = (map, key, type, msg) => new Promise((resolve, reject) => {
+    if (state.mode !== 'online' || !room) { reject(new Error('offline')); return; }
+    const t = setTimeout(() => { map.delete(key); reject(new Error('timeout')); }, 6000);
+    map.set(key, { resolve: (v) => { clearTimeout(t); map.delete(key); resolve(v); }, reject: (e) => { clearTimeout(t); map.delete(key); reject(e); } });
+    room.send(type, msg);
+  });
+  const kart = {
+    start: (grade, count) => { const ref = `r${kartWait.n += 1}`; return kartAsk(kartWait.start, ref, 'kart:start', { grade, count, ref }); },
+    answer: (id, i, choice) => kartAsk(kartWait.answer, `${id}:${i}`, 'kart:answer', { id, i, choice }),
+  };
+  const racers = createRacers({ ...guest, kart });          // AURORA KART, from のりもの島
   // ブロック屋で買った物は BLOCKWILD の持ち物でもある。持ち主はサーバー（`block:shop`）で、
   // ここにあるのはその写し — 部屋が言ってきたら更新し、オフラインのために書き留めておく。
   let ownedBlocks = [];
@@ -831,6 +843,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('bw:shop', (m) => { if (Array.isArray(m.gear)) shelf.gear = m.gear; rememberBlocks(m); blockwild.onShop(m); });
     r.onMessage('bw:bought', (m) => { if (m.wallet) applyWallet(m.wallet); blockwild.onBought(m); });
     r.onMessage('bw:error', (m) => blockwild.onError(m));
+    r.onMessage('kart:quiz', (m) => kartWait.start.get(m.ref)?.resolve(m));
+    r.onMessage('kart:result', (m) => { if (m.wallet) applyWallet(m.wallet); kartWait.answer.get(`${m.id}:${m.i}`)?.resolve(m); });
+    r.onMessage('kart:error', (m) => { (m.ref ? kartWait.start.get(m.ref) : kartWait.answer.get(`${m.id}:${m.i}`))?.reject(new Error(m.reason)); });
     r.onMessage('block:error', (m) => town.onError(m));
     r.onMessage('room:state', (m) => town.onRoomState(m));
     r.onMessage('room:placed', (m) => town.onPlaced(m));

@@ -4,7 +4,7 @@
 // two things that are true of THIS guest.
 import { createArcade, homeButton } from './arcade.js';
 
-export function createRacers({ toast, onOpen, onClose }) {
+export function createRacers({ toast, onOpen, onClose, kart }) {
   return createArcade({
     id: 'racers',
     home: './racers/index.html',
@@ -30,6 +30,8 @@ export function createRacers({ toast, onOpen, onClose }) {
         doc.querySelector('#modes')?.after(note);
       }
       // えいごの レース（ことばの ゲートを 車で くぐる）を はじめから えらんで おく。
+      // ことばの ゲートの 問題・正解・コインは 教室の サーバーが 持つ（kart:*）。ゲームは これを 見つけたら サーバーの 問題で 走る。
+      if (kart) doc.defaultView.USPEAK_KART = kart;
       doc.querySelector('[data-mode="uspeak"]')?.click();
       return homeButton(doc, doc.querySelector('.top-actions'), close);
     },
