@@ -37,7 +37,7 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
   const acts = document.createElement('div');
   acts.id = 'room-acts';
   acts.hidden = true;
-  acts.innerHTML = `<button type="button" id="room-place">おく<small>E</small></button>
+  acts.innerHTML = `<button type="button" id="room-place">おく<small>Enter</small></button>
     <button type="button" id="room-remove">ほる<small>Q</small></button>
     <button type="button" id="room-turn" hidden>むき<small>R</small></button>
     <button type="button" id="room-exit">そとへ</button>`;

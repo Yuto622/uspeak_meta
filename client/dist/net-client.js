@@ -360,7 +360,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // すぐ 英語に ふれられる ように（島を 歩いて さがさなくて いい）。とじた あとは 島を 歩いて ほかの 問題へ。
   // 本だな・宿題は えらぶ 画面が ひらく（1 問を かってに 始めない）。のりもの島は レース、まちづくり島は ブロックの ひろば、つり島は つりが すぐ はじまる。
   const QUICK_SPOT = {
-    main: 'hut_easy', abc: 'abchouse', reading: 'library', homework: 'desk', fishworld: 'pond', school: 'easy', arena: 'easy',
+    // メインの島は どこにも 入れない：えらんだら 島に 出るだけ（リスポーン）。
+    abc: 'abchouse', reading: 'library', homework: 'desk', fishworld: 'pond', school: 'easy', arena: 'easy',
     ride: 'start',   // のりもの島：スタートの そばに 立たせて、すぐ AURORA KART を ひらく
     town: 'plaza',   // まちづくり島：すぐ ブロックの 世界（BLOCKWILD）
     wear: 'hat-shop', // きせかえ島：すぐ きせかえの 店（アバターの きせかえ）
@@ -377,7 +378,6 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     try {
       const isl = rpg[id]?.data; const spot = isl?.spots?.find((x) => x.id === QUICK_SPOT[id]);
       if (!isl || !spot) return;
-      if (id === 'main') { if (goPlace({ island: 'main', to: spot.id })) { sendMove(); main.walkIn(spot); } return; }
       // のりもの島の スタートは「はなす」で ひらく 場所（戸口では ない）ので、そばに 立たせて そのまま ひらく。
       if (id === 'ride') { player.position.set(isl.x + spot.x, 0, isl.z + spot.z + 2); state.lastSent.s = ''; sendMove(); racers.open(); return; } // すぐ AURORA KART（レースの ゲーム）
       // きせかえ島の 店も「はなす」で ひらく：その 店の たなを そのまま ひらく。
