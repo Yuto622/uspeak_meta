@@ -105,6 +105,20 @@ const SHOP_CSS = `
 .usp-card { background:#fff; border:1px solid #dfd6c2; border-radius:12px; padding:8px 10px; display:flex; flex-direction:column; gap:4px; font-size:12px; }
 .usp-card .big { font-size:30px; line-height:1; }
 .usp-card .sw { width:28px; height:28px; border-radius:6px; border:1px solid #0002; }
+.cube-stage { display:grid; place-items:center; height:92px; border-radius:10px; background:radial-gradient(circle at 50% 78%,#0000001f 0 22%,transparent 46%),linear-gradient(#eaf6ff,#f6efe0); perspective:420px; }
+.cube { position:relative; width:46px; height:46px; transform-style:preserve-3d; animation:uspCube 7s linear infinite; }
+.cube i { position:absolute; inset:0; background:var(--c); border:1px solid #0000002e; box-shadow:inset 0 0 0 3px #ffffff1f, inset 0 -10px 14px #0000001a; }
+.cube .f { transform:translateZ(23px); } .cube .b { transform:rotateY(180deg) translateZ(23px); }
+.cube .r { transform:rotateY(90deg) translateZ(23px); filter:brightness(.82); } .cube .l { transform:rotateY(-90deg) translateZ(23px); filter:brightness(.82); }
+.cube .t { transform:rotateX(90deg) translateZ(23px); filter:brightness(1.16); } .cube .d { transform:rotateX(-90deg) translateZ(23px); filter:brightness(.6); }
+.cube.k-glass i, .cube.k-water i { opacity:.62; } .cube.k-glass i { box-shadow:inset 0 0 0 3px #ffffffb0; }
+.cube.k-lamp i { box-shadow:inset 0 0 14px #fffffff0; border-color:#e0a52688; }
+.cube.k-grass i:not(.t) { background:linear-gradient(var(--c) 0 26%,#8a5a34 26%); } .cube.k-grass .d { background:#8a5a34; }
+.cube.k-brick i { background-image:linear-gradient(#0000002e 2px,transparent 2px),linear-gradient(90deg,#0000002e 2px,transparent 2px); background-size:23px 11.5px; background-color:var(--c); }
+.cube.k-wood i { background-image:repeating-linear-gradient(90deg,#00000020 0 2px,transparent 2px 11px); background-color:var(--c); }
+.cube.k-stone i { background-image:radial-gradient(#0000001f 18%,transparent 20%); background-size:13px 13px; background-color:var(--c); }
+@keyframes uspCube { from { transform:rotateX(-24deg) rotateY(0deg); } to { transform:rotateX(-24deg) rotateY(360deg); } }
+@media (prefers-reduced-motion:reduce) { .cube { animation:none; transform:rotateX(-24deg) rotateY(38deg); } }
 .usp-card b { font-size:14px; color:#1f3a22; }
 .usp-card .price { font-weight:800; color:#a9721e; }
 .usp-card button { min-height:34px; border-radius:10px; border:0; background:#4a7338; color:#fff; font-weight:800; cursor:pointer; }
@@ -141,7 +155,9 @@ function shopUI(doc, { send, shelf, coins, ownedBlocks, close, lang }) {
     const blockCards = blocks.map((b) => {
       const mine = owned.has(b.id);
       const sw = typeof b.color === 'number' ? `#${b.color.toString(16).padStart(6, '0')}` : (b.color || '#ccc');
-      return `<div class="usp-card ${mine ? 'owned' : ''}"><span class="sw" style="background:${sw}"></span><b translate="no">${b.word}</b><small translate="no">${b.ja}</small><span class="price">${mine ? '✓ ' + tr('もっている') : `◈ ${b.price}`}</span>${mine ? '' : `<button type="button" data-kind="block" data-id="${b.id}" ${c < b.price ? 'disabled' : ''}>${c < b.price ? tr('コインが たりない') : `🛒 ${tr('かう')}`}</button>`}</div>`;
+      // ブロックは 3D（CSS の 立方体）で 見せる：ゆっくり まわり、ガラスと 水は すける、ランプは ひかる。
+      const cube = `<span class="cube-stage"><span class="cube k-${b.id}" style="--c:${sw}">${['f', 'b', 'r', 'l', 't', 'd'].map((f) => `<i class="${f}"></i>`).join('')}</span></span>`;
+      return `<div class="usp-card ${mine ? 'owned' : ''}">${cube}<b translate="no">${b.word}</b><small translate="no">${b.ja}</small><span class="price">${mine ? '✓ ' + tr('もっている') : `◈ ${b.price}`}</span>${mine ? '' : `<button type="button" data-kind="block" data-id="${b.id}" ${c < b.price ? 'disabled' : ''}>${c < b.price ? tr('コインが たりない') : `🛒 ${tr('かう')}`}</button>`}</div>`;
     }).join('');
     const kinds = [...new Set(gear.map((g) => g.kind))];
     const gearCards = kinds.map((k) => `<h3>${ja ? KIND[k]?.[0] || k : KIND[k]?.[1] || k}</h3><div class="usp-grid">${gear.filter((g) => g.kind === k).map((g) => `<div class="usp-card"><span class="big">${g.emoji}</span><b>${ja ? g.ja : g.en}</b><span class="price">◈ ${g.price}</span><button type="button" data-kind="gear" data-id="${g.id}" ${c < g.price ? 'disabled' : ''}>${c < g.price ? tr('コインが たりない') : `🛒 ${tr('かう')}`}</button></div>`).join('')}</div>`).join('');

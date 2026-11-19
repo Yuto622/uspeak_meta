@@ -772,7 +772,7 @@ function bind(){
  $('lobbyLeave').onclick=()=>{if(net&&net.id)net.leave();closeLobby();renderLobby()};
  $('playerName').onchange=()=>{const p=profilePayload();if(net&&net.id)net.send({t:'profile',...p})};
  $('joinCode').oninput=()=>{$('joinCode').value=$('joinCode').value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,4)};
- $('quizChoices').addEventListener('click',e=>{const b=e.target.closest('[data-choice]');if(b)answerQuiz(Number(b.dataset.choice))});
+ 
  document.querySelectorAll('[data-grade]').forEach(b=>b.onclick=()=>{quizGrade=Number(b.dataset.grade);refreshSelections();savePreferences();if(net&&net.isHost)net.send({t:'settings',settings:{grade:quizGrade}})});
  $('mirror').onclick=()=>{mirrorMode=!mirrorMode;$('mirror').setAttribute('aria-checked',String(mirrorMode));savePreferences();refreshSelections();buildCourse();toast(mirrorMode?'ミラーモード：コースが左右反転します':'ミラーモード解除')};
  $('laps').onchange=()=>{totalLaps=Number($('laps').value)||3;savePreferences();refreshSelections()};
@@ -1025,7 +1025,7 @@ function gatesPerLap(){return totalLaps<=1?5:totalLaps===2?4:3}
 function buildQuiz(){
  quizGates=[];quizIndex=0;quizActive=null;quizClock=0;quizAsked=0;quizCorrect=0;quizStreak=0;quizBestStreak=0;quizLog=[];quizBoost=0;
  $('quiz').hidden=true;document.body.classList.remove('quizzing');$('quizScore').innerHTML='';
- for(const m of quizGateMeshes){scene.remove(m);disposeUnique(m)}quizGateMeshes=[];
+ for(const m of quizGateMeshes){scene.remove(m);disposeUnique(m)}quizGateMeshes=[];quizGateAt=new Map();
  if(!quizEnabled())return;
  const pool=vocabulary[quizGrade]||vocabulary[5],random=mulberry(quizSeed*7919+quizGrade*31+selectedTrack),per=gatesPerLap();
  const order=pool.map((w,i)=>i);
@@ -1051,8 +1051,18 @@ function buildQuizGates(){
   panel.position.set(0,10.9,.8);group.add(panel);
   const arch=box(0xdcff7e,group,0,9.9,0,25,.4,.5);arch.material=mat(0xdcff7e,true);
   scene.add(group);quizGateMeshes.push(group);addGlow(group,0,10.4,0,0xdcff7e,16);
+  // U-Speak: the answer is a lane. Three word panels stand across the road; driving through one answers.
+  group.updateMatrixWorld(true);group.userData.lanes=QUIZ_LANES.map((lane,i)=>{
+   const m=new THREE.Mesh(new THREE.PlaneGeometry(6.6,3),new THREE.MeshBasicMaterial({map:laneTexture(gate.choices[i][2],i),side:THREE.DoubleSide,transparent:true,opacity:.94,depthWrite:false}));
+   m.position.copy(group.worldToLocal(sample(q,lane).p.clone()));m.position.y+=3.1;m.rotation.y=Math.PI;group.add(m);return m});
+  quizGateAt.set(Math.round(q),group);
  }
 }
+const QUIZ_LANES=[7.4,0,-7.4],QUIZ_LANE_COLORS=['#2f7fe0','#f0832a','#8b4fd8'];let quizGateAt=new Map();
+function laneTexture(text,i){const c=document.createElement('canvas');c.width=528;c.height=240;const x=c.getContext('2d');x.fillStyle=QUIZ_LANE_COLORS[i];x.beginPath();x.roundRect(4,4,520,232,44);x.fill();x.fillStyle='#fff';x.beginPath();x.roundRect(20,20,488,200,30);x.fill();let size=118;x.textAlign='center';x.textBaseline='middle';do{x.font='900 '+size+'px sans-serif';size-=6}while(x.measureText(text).width>450&&size>40);x.fillStyle='#12283a';x.fillText(text,264,126);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t}
+function paintQuizGate(gate){const g=quizGateAt.get(Math.round(mod(gate.d,length)));if(!g)return;g.userData.lanes.forEach((m,i)=>{m.material.map?.dispose();m.material.map=laneTexture(gate.choices[i][2],i);m.material.needsUpdate=true})}
+function sayWord(text){try{const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch{}}
+{const st=document.createElement('style');st.textContent='.quiz{bottom:auto!important;top:10px!important;width:min(94vw,560px)!important;pointer-events:none!important}.quiz-card{padding:8px 12px 8px!important;display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center}.quiz-top,.quiz-timer{display:none!important}.quiz-emoji{font-size:34px!important;margin:0!important;grid-row:1}.quiz-jp{font-size:20px!important;margin:0!important;text-align:left!important}.quiz-choices{grid-column:1/-1;margin-top:6px}.quiz-choices button{min-height:40px!important;background:#fff!important;color:#12283a!important;font-size:19px!important;border-width:3px!important}.quiz-choices button:nth-child(1){border-color:#2f7fe0!important}.quiz-choices button:nth-child(2){border-color:#f0832a!important}.quiz-choices button:nth-child(3){border-color:#8b4fd8!important}.quiz-choices button i{display:none!important}.quiz-choices button.right{background:#b6ff7e!important}.quiz-choices button.miss{background:#ff8f7e!important}.quiz-choices button.on{background:#ffe066!important;transform:translateY(2px)}.quiz-result{grid-column:1/-1}';document.head.append(st)}
 function updateQuizScore(){
  const on=quizEnabled()&&quizGates.length>0;
  $('wordBox').hidden=!on;$('quizScore').innerHTML=on&&quizStreak>1?`<i>${quizStreak} 連続せいかい</i>`:'';
@@ -1065,6 +1075,7 @@ function askQuestion(gate){
  $('quizEmoji').textContent=gate.word[0];$('quizJp').textContent=gate.word[1];$('quizResult').textContent='';
  $('quizChoices').innerHTML=gate.choices.map((c,i)=>`<button data-choice="${i}"><i>${i+1}</i>${c[2]}</button>`).join('');
  $('quizBar').style.width='100%';$('quiz').hidden=false;document.body.classList.add('quizzing');
+ paintQuizGate(gate);$('quizResult').textContent='';
  sfx('quiz');
 }
 function answerQuiz(index){
@@ -1077,10 +1088,10 @@ function answerQuiz(index){
  if(correct){
   quizCorrect++;quizStreak++;quizBestStreak=Math.max(quizBestStreak,quizStreak);
   quizBoost=QUIZ_BOOST;$('quizResult').textContent=quizStreak>1?`せいかい！ ${quizStreak}連続でブースト`:'せいかい！ ブースト';
-  banner('CORRECT!',gate.word[2].toUpperCase()+' = '+gate.word[1]);sfx('correct');addCombo();
+  banner('CORRECT!',gate.word[2].toUpperCase()+' = '+gate.word[1]);sfx('correct');addCombo();sayWord(gate.word[2]);
   spark(racers[0],0xb6ff7e,20);
  }else{
-  quizStreak=0;$('quizResult').textContent=`せいかい： ${gate.word[2]}`;
+  quizStreak=0;$('quizResult').textContent=`せいかい： ${gate.word[2]}`;sayWord(gate.word[2]);
   spinOut();sfx('wrong');
  }
  updateQuizScore();
@@ -1095,17 +1106,20 @@ function quizStep(dt){
  quizBoost=Math.max(0,quizBoost-dt);
  if(quizActive){
   quizActive.time-=dt;
-  if(!quizActive.answered){quizClock=Math.max(0,quizClock-dt);$('quizBar').style.width=(quizClock/QUIZ_TIME*100).toFixed(1)+'%';
-   if(quizClock<=0){$('quizResult').textContent=`じかんぎれ： ${quizActive.gate.word[2]}`;answerQuiz(-1)}}
+  if(!quizActive.answered){const now=quizLane(racers[0].lane);[...$('quizChoices').children].forEach((b,i)=>b.classList.toggle('on',i===now))}
   else if(quizActive.time<=0){quizActive=null;$('quiz').hidden=true;document.body.classList.remove('quizzing')}
  }
  const r=racers[0];
  while(quizIndex<quizGates.length&&r.d>=quizGates[quizIndex].d){
   const gate=quizGates[quizIndex];quizIndex++;
-  if(quizActive)continue;
-  askQuestion(gate);break;
+  if(quizActive&&quizActive.gate!==gate){quizActive=null}
+  if(!quizActive)askQuestion(gate);
+  answerQuiz(quizLane(r.lane));
  }
+ const next=quizGates[quizIndex];
+ if(next&&!quizActive&&r.d>=next.d-Math.max(190,r.speed*3.4))askQuestion(next);
 }
+const quizLane=lane=>lane>3.7?0:lane<-3.7?2:1;
 // ---- Post processing ---------------------------------------------------------
 // A hand-rolled composer: the scene lands in a render target, bright areas are pulled
 // out and blurred at two scales, and one composite pass adds bloom, a per-course grade,

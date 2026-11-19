@@ -29,6 +29,8 @@ export function createRacers({ toast, onOpen, onClose }) {
         note.textContent = 'みんなで いっしょに はしるのは、のりもの島の 「レースに でる」 から。';
         doc.querySelector('#modes')?.after(note);
       }
+      // えいごの レース（ことばの ゲートを 車で くぐる）を はじめから えらんで おく。
+      doc.querySelector('[data-mode="uspeak"]')?.click();
       return homeButton(doc, doc.querySelector('.top-actions'), close);
     },
   });
