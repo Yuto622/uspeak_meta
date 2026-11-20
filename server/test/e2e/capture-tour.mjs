@@ -12,6 +12,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { waitForServer } from './lib/walk.mjs';
 import { characterWebm, routeCharacter } from './lib/character-webm.mjs';
+import { phaseAt, PHASES } from '../../../client/dist/world-clock.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const serverDir = path.resolve(here, '../..');
@@ -40,7 +41,14 @@ async function adminCookie() {
   return (r.headers.get('set-cookie') || '').split(';')[0];
 }
 const cookie = await adminCookie();
-await fetch(`${base}/admin/api/roster`, { method: 'PUT', headers: { cookie, 'x-requested-with': 'uspeak-admin', 'content-type': 'application/json' }, body: JSON.stringify({ rows: [{ name: NAME, premium: true }] }) });
+const api = (method, url, body) => fetch(`${base}/admin/api${url}`, { method, headers: { cookie, 'x-requested-with': 'uspeak-admin', 'content-type': 'application/json' }, body: body && JSON.stringify(body) }).then((r) => r.json()).catch(() => ({}));
+await api('PUT', '/roster', { rows: [{ name: NAME, premium: true, class: 'tour' }, { name: 'さくら', class: 'tour' }, { name: 'はると', class: 'tour' }, { name: 'さなだ先生', teacher: true, class: 'tour' }] });
+// 子どもに 出す 宿題を 1 つ（先生の 画面と 子どもの 画面の 両方を 撮る）。
+{
+  const r = await api('POST', '/homework', { title: 'Unit 3 どうぶつ', classes: 'tour', due: '', items: [
+    { en: 'dog', ja: 'いぬ' }, { en: 'cat', ja: 'ねこ' }, { en: 'rabbit', ja: 'うさぎ' }, { en: 'bird', ja: 'とり' }, { en: 'fish', ja: 'さかな' }, { en: 'horse', ja: 'うま' }] });
+  if (r.assignment) await api('POST', `/homework/${r.assignment.id}/publish`, { on: true });
+}
 
 const browser = await chromium.launch({
   ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
@@ -68,6 +76,41 @@ async function stand(island, spotId, dz = 1.6) {
     return true;
   }, [island, spotId, dz], { timeout: 120000, polling: 500 });
   await sleep(1500);
+}
+
+// はじめての 画面（ユーザーネームと パスワード）。島に 入る 前なので べつの ページで。
+if (!ONLY.length || ONLY.some((o) => 'tour-lobby'.startsWith(o))) {
+  const first = await ctx.newPage();
+  await first.goto(`${base}/`, { waitUntil: 'commit', timeout: 240000 });
+  await first.waitForSelector('#avatar-dialog[open]', { timeout: 240000 });
+  await first.click('#avatar-cancel');
+  await first.waitForSelector('#net-lobby[open]');
+  await first.fill('#net-name', 'さくら'); await first.fill('#net-class', 'tour');
+  await sleep(1200);
+  await first.screenshot({ path: path.join(OUT, 'tour-lobby.jpg'), type: 'jpeg', quality: 86, timeout: 120000 }); console.log('  docs/figures/tour-lobby.jpg');
+  await first.close();
+}
+// 島の 写真は 昼に（世界の 時計で 夜なら 次の 昼まで 待つ。capture-figures.mjs と 同じ）。
+async function daylight(need = 25) {
+  const skew = await page.evaluate(() => uspeak.net.serverNow() - Date.now()).catch(() => 0);
+  const now = phaseAt(Date.now() + skew);
+  if (now.id !== 'day' || now.endsIn < need) {
+    let wait = now.endsIn;
+    for (let i = (now.index + 1) % PHASES.length; PHASES[i].id !== 'day'; i = (i + 1) % PHASES.length) wait += PHASES[i].seconds;
+    console.log(`  …${now.ja}。あと ${Math.ceil(wait)} 秒で ひるま`);
+    await sleep(Math.ceil(wait * 1000) + 500);
+  }
+  await page.waitForFunction(() => uspeak.atmosphere.state.night < 0.06, null, { timeout: 240000, polling: 1000 }).catch(() => {});
+}
+
+// メインの島の 場所に 入る（main.walkIn は 戸口を 歩いて 入った ときと 同じ）。
+async function walkIn(id) {
+  await page.evaluate(async (id) => {
+    if (!uspeak.rpg.insideBuilding) { uspeak.rpg.fly('main'); uspeak.rpg.finishFlight?.(); await new Promise((r) => setTimeout(r, 1500)); }
+    const r = await fetch('main_island.json'); const d = await r.json();
+    const spot = (d.island?.spots || d.spots).find((s) => s.id === id);
+    uspeak.net.main.walkIn(spot);
+  }, id);
 }
 
 await page.goto(`${base}/`, { waitUntil: 'commit', timeout: 240000 });
@@ -118,6 +161,64 @@ const STEPS = {
     await page.evaluate(() => uspeak.net.eikenInteract()); await sleep(9000);
     await shot('tour-interview'); await closeAll();
   },
+
+  // メインの島の お店（戸口を 歩いて 入ったのと 同じ 道）。
+  async 'tour-wordhouse'() { await closeAll(); await walkIn('hut_easy'); await sleep(5000); await shot('tour-wordhouse'); await closeAll(); },
+  async 'tour-weapons'() { await closeAll(); await walkIn('weapons'); await sleep(7000); await shot('tour-weapons'); await closeAll(); },
+  async 'tour-bag'() { await closeAll(); await page.evaluate(() => uspeak.net.bag.open('wear')); await sleep(6000); await shot('tour-bag'); await closeAll(); },
+  async 'tour-pier'() {
+    await closeAll(); await page.evaluate(() => { uspeak.rpg.fly('main'); uspeak.rpg.finishFlight?.(); }); await sleep(2500);
+    await walkIn('pier_g5'); await sleep(16000); await shot('tour-pier'); await closeAll();
+  },
+  async 'tour-talkshop'() {
+    await closeAll(); await page.evaluate(() => { uspeak.rpg.fly('main'); uspeak.rpg.finishFlight?.(); }); await sleep(2500);
+    await walkIn('pizza'); await sleep(4000); await walkIn('pizza'); await sleep(9000); await shot('tour-talkshop');
+    await page.evaluate(() => document.querySelector('#conv-close')?.click()); await page.evaluate(() => uspeak.rpg.inside?.leave?.(true)); await closeAll();
+  },
+  // えほん
+  async 'tour-reading'() {
+    await closeAll(); await page.evaluate(() => uspeak.net.reading.open()); await sleep(6000); await shot('tour-reading-shelf');
+    await page.evaluate(() => uspeak.net.reading.openBook('rd-A-hungry-bear')); await sleep(7000); await shot('tour-reading-book'); await closeAll();
+  },
+  // しゅくだい（子どもの 画面）
+  async 'tour-homework-kid'() {
+    await closeAll(); await page.evaluate(() => uspeak.net.homework.open()); await sleep(4000); await shot('tour-homework-list');
+    await page.evaluate(() => document.querySelector('#homework-dialog .hw-go')?.click()); await sleep(5000);
+    await shot('tour-homework-kid'); await closeAll();
+  },
+  // つり島：水辺に 立つと すぐ なげる → 問題
+  async 'tour-fw'() {
+    await closeAll(); await stand('fishworld', 'pond', 0);
+    await page.evaluate(() => uspeak.net.fishworldInteract?.());
+    await page.waitForSelector('#fw-dialog[open] .fmt, #fw-dialog[open] [class*="fmt-"]', { timeout: 60000 }).catch(() => {});
+    await sleep(2500); await shot('tour-fw'); await closeAll();
+  },
+  async 'tour-farm'() { await closeAll(); await stand('farm', 'seeds'); await page.evaluate(() => uspeak.net.farmInteract()); await sleep(7000); await shot('tour-farm'); await closeAll(); },
+  async 'tour-land'() { await closeAll(); await stand('land', 'office'); await page.evaluate(() => uspeak.net.landInteract()); await sleep(12000); await shot('tour-land'); await closeAll(); },
+  async 'tour-blockshop'() { await closeAll(); await stand('town', 'shop'); await page.evaluate(() => uspeak.net.townInteract()); await sleep(5000); await shot('tour-blockshop'); await closeAll(); },
+  // 先生（名簿の 先生の 列だけで 入る）
+  async 'tour-teacher'() {
+    const t = await ctx.newPage();
+    await t.goto(`${base}/`, { waitUntil: 'commit', timeout: 240000 });
+    await t.waitForSelector('#avatar-dialog[open]', { timeout: 240000 }); await t.click('#avatar-cancel');
+    await t.waitForSelector('#net-lobby[open]'); await t.fill('#net-name', 'さなだ先生'); await t.fill('#net-class', 'tour'); await t.click('#net-join');
+    await t.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 120000 });
+    await sleep(3000); await t.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+    await t.evaluate(() => document.querySelector('#net-teacher-button')?.click()); await sleep(3000);
+    await t.screenshot({ path: path.join(OUT, 'tour-teacher.jpg'), type: 'jpeg', quality: 86, timeout: 120000 }); console.log('  docs/figures/tour-teacher.jpg');
+    await t.evaluate(() => document.querySelector('#net-teacher-button')?.click());
+    await t.click('#class-mode-button').catch(() => {}); await sleep(5000);
+    await t.screenshot({ path: path.join(OUT, 'tour-classmode.jpg'), type: 'jpeg', quality: 86, timeout: 120000 }); console.log('  docs/figures/tour-classmode.jpg');
+    await t.close();
+  },
+  // 保護者の web レポート（いちばん 上に 数字 5 つと 進み具合）
+  async 'tour-report-web'() {
+    const { signReport } = await import('../../src/game/report.js');
+    const t = signReport('tour-report-secret-0123456789', 'tour', NAME);
+    await page.goto(`${base}/report/tour/${encodeURIComponent(NAME)}?t=${encodeURIComponent(t)}`); await sleep(2500); await shot('tour-report-web');
+  },
+  async 'tour-admin-roster'() { await page.goto(`${base}/admin`); await sleep(3000); await shot('tour-admin-roster'); },
+  async 'tour-admin-qr'() { await page.goto(`${base}/admin/kids`); await sleep(3000); await shot('tour-admin-qr'); },
   // 先生・運営の 画面（同じ ブラウザに 運営の ログインを 入れて ある）。
   async 'tour-homework-admin'() { await page.goto(`${base}/admin/homework`); await sleep(3000); await shot('tour-homework-admin'); },
   async 'tour-phonics-admin'() { await page.goto(`${base}/admin/abc`); await sleep(2500); await page.evaluate(() => document.querySelector('#ph')?.scrollIntoView()); await sleep(800); await shot('tour-phonics-admin'); },
@@ -126,7 +227,7 @@ const STEPS = {
 try {
   for (const [id, run] of Object.entries(STEPS)) {
     if (ONLY.length && !ONLY.some((o) => id.startsWith(o))) continue;
-    try { console.log(id); await run(); } catch (err) { console.log(`  ${id} failed:`, err.message.split('\n')[0]); }
+    try { console.log(id); if (!/admin|report|lobby|teacher|line/.test(id)) await daylight(); await run(); } catch (err) { console.log(`  ${id} failed:`, err.message.split('\n')[0]); }
   }
 } finally {
   await browser.close();
