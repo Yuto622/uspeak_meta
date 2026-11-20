@@ -72,11 +72,21 @@ GOLD = (232, 195, 104)
 MINT = (116, 195, 154)
 
 
-OUT = DOCS / "tour"
+# 台本は 2 つ：Web 版（tour-cuts.json → tour/・tour.html）と Roblox 版（tour-roblox-cuts.json → tour-roblox/・tour-roblox.html）。
+#   python3 docs/make-tour.py [all|player|full] [--script tour-roblox-cuts.json]
+SCRIPT = "tour-cuts.json"
+if "--script" in sys.argv:
+    SCRIPT = sys.argv[sys.argv.index("--script") + 1]
+    del sys.argv[sys.argv.index("--script"):sys.argv.index("--script") + 2]
+_meta = json.loads((DOCS / SCRIPT).read_text(encoding="utf-8"))
+NAME = _meta.get("out", "tour")                       # 動画の フォルダ（docs/<NAME>/）
+PAGE = _meta.get("page", "tour.html")                 # プレーヤー
+SCRIPT_MD = _meta.get("script_md", "tour-script.md")  # 台本
+OUT = DOCS / NAME
 
 
 def load():
-    data = json.loads((DOCS / "tour-cuts.json").read_text(encoding="utf-8"))
+    data = json.loads((DOCS / SCRIPT).read_text(encoding="utf-8"))
     return data["title"], data["cuts"], data.get("chapters", {})
 
 
@@ -163,17 +173,17 @@ def build_player(title, cuts, meta):
         m = meta.get(name, {})
         chapters.append({
             "n": n, "name": name, "lead": m.get("lead", ""), "for": m.get("for", []),
-            "file": f"tour/ch-{n:02d}.mp4", "sec": round(sec, 1), "thumb": f"figures/{rows[0]['fig']}.jpg",
+            "file": f"{NAME}/ch-{n:02d}.mp4", "sec": round(sec, 1), "thumb": f"figures/{rows[0]['fig']}.jpg",
             "cuts": [{"title": r["title"], "at": r["at"]} for r in rows],
         })
         total += sec
     full_total = total + toc_row["sec"]
-    payload = json.dumps({"digest": {"file": "tour/digest.mp4", "sec": round(td, 1),
+    payload = json.dumps({"digest": {"file": f"{NAME}/digest.mp4", "sec": round(td, 1),
                                       "cuts": [{"title": r["title"], "at": r["at"]} for r in digest]},
-                          "chapters": chapters, "full": {"file": "tour/full.mp4", "sec": round(full_total, 1), "toc": toc}},
+                          "chapters": chapters, "full": {"file": f"{NAME}/full.mp4", "sec": round(full_total, 1), "toc": toc}},
                          ensure_ascii=False)
     html = PLAYER.replace("__DATA__", payload).replace("__TITLE__", title)
-    (DOCS / "tour.html").write_text(html, encoding="utf-8")
+    (DOCS / PAGE).write_text(html, encoding="utf-8")
     print(f"  docs/tour.html          まとめ {mmss(td)} ・ {len(chapters)} 章 ・ ぜんぶで {mmss(total)}")
 
 
@@ -181,7 +191,7 @@ def build_player(title, cuts, meta):
 
 def build_script(title, cuts):
     lines = [f"# {title} — ナレーション台本", "",
-             "`docs/tour-cuts.json` から生成しています。**直すのは JSON のほうです。**", "",
+             f"`docs/{SCRIPT}` から生成しています。**直すのは JSON のほうです。**", "",
              "秒数は1分およそ336文字で読んだときの目安です。", ""]
     for name, mode in (("まとめ", "digest"), ("章ごと（通し）", "full")):
         rows, total = plan(cuts, mode)
@@ -195,8 +205,8 @@ def build_script(title, cuts):
                       f"<sub>{r['sec']}秒 ・ 図 `figures/{r['fig']}.jpg`</sub>", "",
                       f"> {r['text']}", ""]
         lines.append("")
-    (DOCS / "tour-script.md").write_text("\n".join(lines), encoding="utf-8")
-    print("  docs/tour-script.md")
+    (DOCS / SCRIPT_MD).write_text("\n".join(lines), encoding="utf-8")
+    print(f"  docs/{SCRIPT_MD}")
 
 
 # ---- 動画 -----------------------------------------------------------------------
@@ -453,9 +463,9 @@ def build_full(cuts):
         f.unlink(missing_ok=True)
     if code != 0:
         raise SystemExit("ffmpeg concat failed")
-    (OUT / "toc.txt").write_text("U-Speak ウェブ版 紹介動画（通し）もくじ\n" + "\n".join(toc_lines(toc, total)) + "\n",
+    (OUT / "toc.txt").write_text(f"{_meta['title']}（通し）もくじ\n" + "\n".join(toc_lines(toc, total)) + "\n",
                                  encoding="utf-8")
-    print(f"  docs/tour/full.mp4  {mmss(total)} ・ {(OUT / 'full.mp4').stat().st_size / 1e6:.1f} MB ・ もくじ docs/tour/toc.txt")
+    print(f"  docs/{NAME}/full.mp4  {mmss(total)} ・ {(OUT / 'full.mp4').stat().st_size / 1e6:.1f} MB ・ もくじ docs/{NAME}/toc.txt")
 
 
 def build_videos(cuts):
@@ -673,7 +683,7 @@ function playFull(at) {
   if ($('v').readyState >= 1) go(); else $('v').addEventListener('loadedmetadata', go, { once: true });
   $('v').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
-const tocText = () => ['U-Speak ウェブ版 紹介動画（通し）もくじ',
+const tocText = () => [`${document.title}（通し）もくじ`,
   ...DATA.full.toc.map((c) => `${mmss(c.at)} ${c.n}. ${c.name}`), `（ぜんぶで ${mmss(DATA.full.sec)}）`].join('\n');
 $('toc').replaceChildren(...DATA.full.toc.map((c) => {
   const li = document.createElement('li'); const b = document.createElement('button');

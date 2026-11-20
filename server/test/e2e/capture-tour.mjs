@@ -162,6 +162,31 @@ const STEPS = {
     await shot('tour-interview'); await closeAll();
   },
 
+
+  // 「せかいを えらぼう」の どの カードを おすか（1 まいずつ 赤い わく）。docs/figures/tour-pick-<島>.jpg
+  async 'tour-pick'() {
+    await closeAll(); await page.evaluate(() => uspeak.rpg.openMap()); await sleep(4000);
+    const ids = await page.evaluate(() => [...document.querySelectorAll('#rpg-dialog [data-world]')].map((b) => b.dataset.world));
+    for (const id of ids) {
+      await page.evaluate((id) => {
+        document.querySelectorAll('.tour-pick-mark').forEach((n) => n.remove());
+        document.querySelectorAll('[data-tour-pick]').forEach((n) => { n.style.outline = ''; n.removeAttribute('data-tour-pick'); });
+        const b = document.querySelector(`#rpg-dialog [data-world="${id}"]`);
+        b.scrollIntoView({ block: 'center' });
+        b.setAttribute('data-tour-pick', '');
+        b.style.outline = '7px solid #e53935'; b.style.outlineOffset = '4px';
+        const r = b.getBoundingClientRect();
+        const tag = document.createElement('div'); tag.className = 'tour-pick-mark';
+        tag.textContent = 'ここを おす';
+        Object.assign(tag.style, { position: 'fixed', zIndex: 2147483647, left: `${Math.max(8, r.left + r.width / 2 - 70)}px`, top: `${Math.max(8, r.top - 46)}px`,
+          background: '#e53935', color: '#fff', font: '700 20px "Noto Sans JP",sans-serif', padding: '6px 14px', borderRadius: '10px', pointerEvents: 'none' });
+        document.querySelector('#rpg-dialog').append(tag);
+      }, id);
+      await sleep(900); await shot(`tour-pick-${id}`);
+    }
+    await page.evaluate(() => { document.querySelectorAll('.tour-pick-mark').forEach((n) => n.remove()); });
+    await closeAll();
+  },
   // メインの島の お店（戸口を 歩いて 入ったのと 同じ 道）。
   async 'tour-wordhouse'() { await closeAll(); await walkIn('hut_easy'); await sleep(5000); await shot('tour-wordhouse'); await closeAll(); },
   async 'tour-weapons'() { await closeAll(); await walkIn('weapons'); await sleep(7000); await shot('tour-weapons'); await closeAll(); },
@@ -227,7 +252,7 @@ const STEPS = {
 try {
   for (const [id, run] of Object.entries(STEPS)) {
     if (ONLY.length && !ONLY.some((o) => id.startsWith(o))) continue;
-    try { console.log(id); if (!/admin|report|lobby|teacher|line/.test(id)) await daylight(); await run(); } catch (err) { console.log(`  ${id} failed:`, err.message.split('\n')[0]); }
+    try { console.log(id); if (!/admin|report|lobby|teacher|line|pick/.test(id)) await daylight(); await run(); } catch (err) { console.log(`  ${id} failed:`, err.message.split('\n')[0]); }
   }
 } finally {
   await browser.close();

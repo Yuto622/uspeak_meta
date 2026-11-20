@@ -1,0 +1,322 @@
+{
+  "title": "U-Speak Roblox ・ 使い方と できること",
+  "out": "tour-roblox",
+  "page": "tour-roblox.html",
+  "script_md": "tour-roblox-script.md",
+  "note": "Roblox 版の 紹介動画の 台本（docs/make-tour.py --script tour-roblox-cuts.json）。図 rb-*.jpg は 使い方動画（Roblox 実機の 録画）から 切り出した もの、rb-pick-*.jpg は Choose a World の カードに 赤い わく。",
+  "chapters": {
+    "はじめかた": {
+      "lead": "アプリ・クラスコード・うごきかた",
+      "for": [
+        "はじめての方"
+      ]
+    },
+    "メインのまち（Main Town）": {
+      "lead": "英単語ハウス・問題の形・つり",
+      "for": [
+        "先生",
+        "保護者"
+      ]
+    },
+    "ワールドを 1つずつ": {
+      "lead": "Choose a World の 14まいを 赤い わくで 1つずつ",
+      "for": [
+        "はじめての方",
+        "先生"
+      ]
+    },
+    "先生の ボタン（Class）": {
+      "lead": "Gather・Freeze・Review・Move together・きろく",
+      "for": [
+        "先生"
+      ]
+    },
+    "Web と つながる 記録・LINE": {
+      "lead": "LINE レポート・ロードマップ・宿題・名簿",
+      "for": [
+        "教室のオーナー",
+        "保護者"
+      ]
+    },
+    "こまったとき・無料体験": {
+      "lead": "こまったとき・無料体験",
+      "for": [
+        "はじめての方"
+      ]
+    }
+  },
+  "cuts": [
+    {
+      "chapter": "はじめかた",
+      "fig": "rb-cw",
+      "title": "U-Speak Roblox",
+      "ja": "U-Speak Roblox の使い方と、できることを、すべてご紹介します。子どもたちが Roblox の中で、遊びながら英語の宿題をする世界です。",
+      "digest": "U-Speak Roblox は、Roblox の中で、遊びながら英語の宿題をする世界です。"
+    },
+    {
+      "chapter": "はじめかた",
+      "fig": "rb-app",
+      "title": "Roblox アプリから 入る",
+      "ja": "タブレットやパソコンに Roblox アプリを入れ、教室のアカウントでログインします。ＱＲコードか、この ＵＲＬから U-Speak を開きます。"
+    },
+    {
+      "chapter": "はじめかた",
+      "fig": "rb-code",
+      "title": "プレイを おして、クラスコード",
+      "ja": "緑のプレイボタンを押します。はじめてのときだけ、四けたのクラスコードを入れます。コードは先生に聞いてください。二回目からは、そのまま入れます。",
+      "digest": "プレイを押して、はじめてのときだけ、四けたのクラスコードを入れます。"
+    },
+    {
+      "chapter": "はじめかた",
+      "fig": "rb-cw",
+      "title": "Choose a World",
+      "ja": "入ると、さいしょに Choose a World、世界を選ぶ画面が出ます。上の五つがおすすめ、下がほかの世界です。カードの星は、あそびと、えいごの多さです。このあと、カードを一枚ずつ、赤い枠でご案内します。",
+      "digest": "入ると、世界を選ぶ画面。上がおすすめ、下がほかの世界です。"
+    },
+    {
+      "chapter": "はじめかた",
+      "fig": "rb-move",
+      "title": "うごく",
+      "ja": "動くときは、iPad は左下のスティック、パソコンは W、A、S、D のキーです。"
+    },
+    {
+      "chapter": "はじめかた",
+      "fig": "rb-look",
+      "title": "みる むきを かえる",
+      "ja": "見る向きは、画面を指でなぞります。パソコンは、右クリックしたままマウスを動かします。"
+    },
+    {
+      "chapter": "はじめかた",
+      "fig": "rb-level",
+      "title": "レベルと コイン",
+      "ja": "右上は、いまのレベルとコインです。クイズに正解すると増えます。"
+    },
+    {
+      "chapter": "はじめかた",
+      "fig": "rb-menu",
+      "title": "左の ボタン",
+      "ja": "左のボタンからは、英単語タイピング、きろく、ＡＩチャットが開きます。"
+    },
+    {
+      "chapter": "はじめかた",
+      "fig": "rb-worlds",
+      "title": "ほかの 世界へ",
+      "ja": "ほかの世界へ行くときは、左上の Worlds。さいしょの画面が、もう一度開きます。"
+    },
+    {
+      "chapter": "メインのまち（Main Town）",
+      "fig": "rb-pick-main",
+      "title": "どの カード？ ・ Main Town",
+      "ja": "まずは、おすすめのいちばん左、Main Town。メインのまちです。"
+    },
+    {
+      "chapter": "メインのまち（Main Town）",
+      "fig": "rb-quiz2",
+      "title": "英単語ハウスの クイズ",
+      "ja": "メインのまちには、英単語ハウスがあります。スーパーイージーとイージー、ミディアム、ハードの小屋。答えをタップするか、Ａ、Ｂ、Ｃの台にのっても答えられます。スピーカーのボタンで、もう一度聞けます。",
+      "digest": "英単語ハウスのクイズに正解すると、コインと経験値がたまります。"
+    },
+    {
+      "chapter": "メインのまち（Main Town）",
+      "fig": "rb-match",
+      "title": "いろいろな 問題の形",
+      "ja": "問題の形は、えらぶ、線でつなぐ、ならべかえ、タイピングなど、いろいろ。まちがえても大丈夫です。"
+    },
+    {
+      "chapter": "メインのまち（Main Town）",
+      "fig": "rb-fishq",
+      "title": "つり",
+      "ja": "水辺では釣りができます。魚がかかったら、ひっぱる。英語の問題に正解すると、釣れます。"
+    },
+    {
+      "chapter": "メインのまち（Main Town）",
+      "fig": "rb-catch",
+      "title": "さかなと 図鑑",
+      "ja": "魚は百種類。初めて釣った魚は図鑑に入り、かいとりやで売るとコインになります。"
+    },
+    {
+      "chapter": "メインのまち（Main Town）",
+      "fig": "rb-level",
+      "title": "まちの ほかの 場所",
+      "ja": "まちには、ほかにも、えいごアリーナのクイズバトル、ＡＩと話せる仲間、洋服屋さん、ブロック屋さん、おうちやさん、季節のクイズ、毎日のログインボーナスがあります。夜にはおばけも出ますが、こわいものではありません。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-homework",
+      "title": "どの カード？ ・ Homework",
+      "ja": "おすすめの二つめ、Homework。しゅくだいのワールドです。カードの星は、あそび一つ、えいご三つ。学習が中心です。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-racing",
+      "title": "どの カード？ ・ Racing",
+      "ja": "三つめ、Racing。レースのワールドです。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-race",
+      "title": "レース ・ ことばの ゲート",
+      "ja": "レースでは、三つのことばから、正しい英語のゲートを車でくぐります。",
+      "digest": "レースでは、正しい英語のゲートを車でくぐります。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-fishing",
+      "title": "どの カード？ ・ Fishing",
+      "ja": "四つめ、Fishing。釣りのワールドです。池、川、海があり、英語の問題に答えて釣ります。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-eiken",
+      "title": "どの カード？ ・ EIKEN Prep",
+      "ja": "五つめ、EIKEN Prep。英検対策のワールドです。級を選ぶと十問。メインのまちと同じ七つの形で出て、正解と記録は Web の サーバーが決めます。",
+      "digest": "EIKEN Prep は英検対策。級ごとに十問です。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-rpg",
+      "title": "どの カード？ ・ RPG Quest",
+      "ja": "ここからは、ほかの世界。RPG Quest、ぼうけんのワールドです。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-building",
+      "title": "どの カード？ ・ Building",
+      "ja": "Building、けんちくのワールドです。ブロックを置いて、建物を建てます。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-park",
+      "title": "どの カード？ ・ Theme Park",
+      "ja": "Theme Park、ゆうえんちのワールドです。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-farm",
+      "title": "どの カード？ ・ Farm",
+      "ja": "Farm、ぼくじょうのワールドです。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-island",
+      "title": "どの カード？ ・ Island",
+      "ja": "Island、しまのワールドです。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-books",
+      "title": "どの カード？ ・ Picture Books",
+      "ja": "Picture Books、えほんのワールドです。英語の絵本を読み、内容のクイズに答えます。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-toeic",
+      "title": "どの カード？ ・ TOEIC Prep",
+      "ja": "TOEIC Prep、TOEIC 対策のワールドです。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-ielts",
+      "title": "どの カード？ ・ IELTS Prep",
+      "ja": "IELTS Prep、IELTS 対策のワールドです。"
+    },
+    {
+      "chapter": "ワールドを 1つずつ",
+      "fig": "rb-pick-toefl",
+      "title": "どの カード？ ・ TOEFL Prep",
+      "ja": "いちばん下、TOEFL Prep。TOEFL 対策のワールドです。"
+    },
+    {
+      "chapter": "先生の ボタン（Class）",
+      "fig": "rb-classbtn",
+      "title": "先生は 左上の Class",
+      "ja": "先生は、左上の Class ボタン。授業で使うボタンは四つです。",
+      "digest": "先生は、左上の Class ボタンで、全員を集めたり、止めたりできます。"
+    },
+    {
+      "chapter": "先生の ボタン（Class）",
+      "fig": "rb-gather",
+      "title": "Gather ・ あつめる",
+      "ja": "Gather。はなれた生徒を、先生のいる場所に集めます。"
+    },
+    {
+      "chapter": "先生の ボタン（Class）",
+      "fig": "rb-freeze",
+      "title": "Freeze ・ ストップ",
+      "ja": "Freeze。全員の画面を止めます。説明を聞かせたいときに。"
+    },
+    {
+      "chapter": "先生の ボタン（Class）",
+      "fig": "rb-review",
+      "title": "Review weak words",
+      "ja": "Review weak words。一人ひとりの苦手な単語を、一斉に復習させます。苦手な単語の箱は Web 版と同じ一つです。"
+    },
+    {
+      "chapter": "先生の ボタン（Class）",
+      "fig": "rb-movetog",
+      "title": "Move together",
+      "ja": "Move together。全員で、選んだ世界へ移動します。釣り、レース、ＲＰＧ、けんちく、テーマパーク、ぼくじょう、しま、クイズラボ。先生もいっしょです。"
+    },
+    {
+      "chapter": "先生の ボタン（Class）",
+      "fig": "rb-records",
+      "title": "きろく",
+      "ja": "きろくでは、正解率、学んだ時間、苦手な単語が見られます。"
+    },
+    {
+      "chapter": "Web と つながる 記録・LINE",
+      "fig": "tour-line-real",
+      "title": "毎週 LINE に とどく",
+      "ja": "Roblox で答えた問題も、Web と同じサーバーに記録されます。毎週、保護者の LINE にレポートが届き、Web と Roblox を合わせた答えの数、覚えた単語、ロードマップ、来週のめあてが載ります。これは実際の画面です。",
+      "digest": "Roblox の記録も Web と同じサーバーに残り、毎週、保護者の LINE にレポートが届きます。"
+    },
+    {
+      "chapter": "Web と つながる 記録・LINE",
+      "fig": "tour-line-real",
+      "title": "LINE の メニュー",
+      "ja": "LINE の下のメニューからは、今週のがんばり、英語のロードマップ、いまの宿題、おうちで一分クイズ、そのまま遊ぶボタンが使えます。"
+    },
+    {
+      "chapter": "Web と つながる 記録・LINE",
+      "fig": "tour-line-monthly",
+      "title": "月に 一回の PDF",
+      "ja": "月に一回は、Ａ４のＰＤＦ。始めたころと今のくらべ、四つの力、先生のひとこと。印刷して面談でも使えます。"
+    },
+    {
+      "chapter": "Web と つながる 記録・LINE",
+      "fig": "tour-roadmap",
+      "title": "英語の ロードマップ",
+      "ja": "ロードマップは、Web と Roblox の答えを合わせて進みます。単語とクイズが八割になると、サーバーが次の段階に上げます。英検の合格見込みも出ます。"
+    },
+    {
+      "chapter": "Web と つながる 記録・LINE",
+      "fig": "tour-report-web",
+      "title": "保護者の ページ",
+      "ja": "保護者の方は、スマートフォンで、学習時間、話した回数、読んだ本、正答率、覚えた単語の五つの数字を見られます。"
+    },
+    {
+      "chapter": "Web と つながる 記録・LINE",
+      "fig": "tour-homework-admin",
+      "title": "宿題を くばる",
+      "ja": "先生は、運営の画面に、プリントの写真やファイルを入れるだけで宿題を作れます。ＡＩが読みとり、先生がたしかめてから配ります。"
+    },
+    {
+      "chapter": "Web と つながる 記録・LINE",
+      "fig": "tour-admin-roster",
+      "title": "名簿",
+      "ja": "名簿は Web 版と共通です。先生の列、プレミアムの列、停止の列で、教室ごとに管理できます。コインも Web と Roblox でそろえています。"
+    },
+    {
+      "chapter": "こまったとき・無料体験",
+      "fig": "rb-trouble",
+      "title": "こまった ときは",
+      "ja": "こまったときは。うごけないときは、画面を一回タップ、だめなら入りなおす。音が出ないときは、本体の音量と消音スイッチを見る。入れないときは、クラスコードを先生にかくにん。まいごになったら、左上の Worlds から Main Town へ。"
+    },
+    {
+      "chapter": "こまったとき・無料体験",
+      "fig": "rb-cw",
+      "title": "１か月の無料体験",
+      "ja": "一か月の無料体験をご用意しています。Web 版もあわせて、教室のクラスをお作りします。ご覧いただき、ありがとうございました。"
+    }
+  ]
+}
