@@ -11,6 +11,7 @@
 // ・どこで 失敗しても 例外を 外に 出さない（声が 出なくても 行は 進み、onEnd は 呼ばれる）。
 import { playVoice, stopVoice } from './speech.js';
 import { sfxContext, sfxMuted } from './sfx.js';
+import { playSounds, stopSounds } from './phonics-play.js';
 
 let token = 0;
 let nodes = [];   // 予約した 音（止める とき用）
@@ -28,6 +29,7 @@ export function stopChant() {
   token += 1;
   hush();
   try { stopVoice(); } catch { /* */ }
+  try { stopSounds(); } catch { /* */ }
   try { globalThis.speechSynthesis?.cancel(); } catch { /* */ }
 }
 
@@ -105,6 +107,28 @@ export function playChant(lines, { accent = 'us', slow = false, onLine, onEnd } 
     addBar();
     if (muted) { spoken = true; return; }
     const text = list[i].text.trim();
+    // 行に steps（{say} と フォニックスの おと {snd}）が あれば、その じゅんに 鳴らす（"S … sss sss … sun"）。
+    if (Array.isArray(list[i].steps) && list[i].steps.length) {
+      (async () => {
+        for (const st of list[i].steps) {
+          if (me !== token) return;
+          try {
+            if (st.snd) await playSounds(st.snd, { gap: st.gap ?? 0.25 });
+            else if (st.say) {
+              await new Promise((res) => {
+                const t = setTimeout(res, 1400 + String(st.say).length * 110);
+                const end = () => { clearTimeout(t); res(); };
+                if (uk) device(st.say, 'en-GB', slow, end);
+                else playVoice(st.say, { japanese: false, slow, onend: end, fallback: () => device(st.say, 'en-US', slow, end) });
+              });
+            }
+          } catch { /* つぎへ */ }
+        }
+        done();
+      })();
+      later(() => { if (me === token && !spoken && Date.now() - started >= barMs * 3 - 50) spoken = true; }, barMs * 3);
+      return;
+    }
     try {
       if (uk) device(text, 'en-GB', slow, done);
       else playVoice(text, { japanese: false, slow, onend: done, fallback: () => { if (me === token) device(text, 'en-US', slow, done); } });

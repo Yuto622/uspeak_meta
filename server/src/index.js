@@ -33,6 +33,7 @@ import { KidsStore } from './classroom/kids-store.js';
 import { kidsAdminExtension } from './classroom/kids.js';
 import { AbcStore } from './abc/store.js';
 import { abcAdminExtension } from './abc/admin.js';
+import { PhonicsVoices, mountPhonics } from './abc/phonics-voices.js';
 import { mountJoinNames } from './classroom/join.js';
 import { createRoadmapService } from './roadmap/service.js';
 import { roadmapAdminExtension } from './roadmap/admin.js';
@@ -109,6 +110,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 絵本の 絵と「ABC と おと」の 絵カードを 同じ 道具で 上げる（abc-assets.js）。
   const robloxBookAssets = await new BookAssets(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roblox-book-assets.json'), { ...config.robloxOpenCloud, ...withAbc({ books: allReadingBooks, render: renderBookPng, hash: bookArtHash }), log }).init();
   const abcStore = await new AbcStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'abc.json'), { log }).init();
+  // フォニックスの おと：運営が ろくおん した 声（なければ 同梱の 自作の 音）。
+  const phonicsVoices = await new PhonicsVoices(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'phonics'), { log }).init();
   // Roblox 版の「ABC と おと」：記録は Web と 同じ abcStore。はじめの 数問の きめ方（ロードマップの 段階）も Web と 同じ（roadmap は 下で 作る・呼ばれるのは 起動の あと）。
   const roblox = createRoblox({ books: robloxBookAssets, abc: abcStore, abcStage: async (cls, name, username) => (await roadmap.view(cls, name, { username, advance: false }))?.stage?.id || 'A', store, key: config.roblox.key, ratePerMin: config.roblox.ratePerMin, reportSecret: config.reportSecret, questions: () => ({ updatedAt: qbank.updatedAt, items: qbank.live('roblox') }), log });
   await roblox.ensureSeeds();
@@ -438,7 +441,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 教室の パスワード（/admin/classrooms）と、英会話教室の 先生の 宿題の 画面（/teacher/homework）。
   const rosterClasses = async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class);
   const classrooms = config.reportSecret ? await new ClassroomStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'classrooms.json'), { secret: config.reportSecret, log }).init() : null;
-  const abcAdmin = abcAdminExtension({ abc: abcStore, rosterClasses, log });
+  const abcAdmin = abcAdminExtension({ abc: abcStore, voices: phonicsVoices, rosterClasses, log });
   const kidsAdmin = kidsAdminExtension({ kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, log });
   const classroomAdmin = classrooms ? classroomAdminExtension({ classrooms, rosterClasses, log }) : () => {};
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
@@ -477,6 +480,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
     });
   });
   mountAbcArt(app, { log }); // 「ABC と おと」の 絵（文字の つみき・ことばの 絵カード）
+  mountPhonics(app, { voices: phonicsVoices, log }); // フォニックスの おと（/phonics/<id>）
   app.get('/api/tasks', (req, res) => { res.set('Cache-Control', 'public, max-age=60'); res.json({ ok: true, updatedAt: tasks.updatedAt, ...tasks.adopted() }); });
   // 保護者レポートの 口（Webhook・LIFF・/r/:token・教室の タブ）。
   parentReports.mount(app, { verifyClass, secret: config.reportSecret });
@@ -540,7 +544,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, kids: config.kidsMode ? kidsStore : null, abc: abcStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, phonics: phonicsVoices, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, kids: config.kidsMode ? kidsStore : null, abc: abcStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();

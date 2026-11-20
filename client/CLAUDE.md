@@ -2027,3 +2027,12 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **体を きめるのは `avatars.js` の `bodyConfig(config, items)`**：`wear` に すがたが あれば 体は それ、なければ はじめに えらんだ 体。じぶん（`setupAvatars` の `apply`）・となりの 子（`remote-players.js` の `bodyOf`）・店の プレビュー（`wardrobe.js` の `redress`）が 同じ 関数を 使う。
   部屋へ 送る `avatars.config` は はじめに えらんだ 体の まま（`avatars.body` が いま 見えて いる 体）。「ぬぐ」と はじめの 体に もどる。
 - 値段の きまり（`wardrobe.test.mjs`）：300 コイン 以上は レベル 5 から・どの スロットにも レベル 1 で 100 コイン 以下が 1 つ。
+
+## フォニックス（もじの「おと」／2026-11）
+- **フォニックス＝もじの なまえ（エー・ビー）では なく、ことばの 中の おと（/æ/ /b/）を おぼえ、つなげて よむ きまり**（c-a-t → /k/ /æ/ /t/ → cat）。合成の 声は おと 1 つだけを 正しく 言えないので、**おとは 音の ファイル**。
+- 表は `phonics.js`（ページと サーバーが 同じ ものを 読む）：`PHONEMES`（37 の おと）・`letterSound(l)`・`soundsOf(word, parts)`（さいごの e で ぼいんが ながく なり e は だまる＝null、やわらかい c・nose の s＝/z/・u_e の /uː/ と /juː/ は ことばごとの 例外）。
+- 音は `assets/phonics/<id>.mp3`（`docs/make-phonics.py` の フォルマント合成・U-Speak Lab の 自作・ハッシュは `SOURCE.json`）。口は `/phonics/<id>?v=<版>`（`server/src/abc/phonics-voices.js`）。**運営が /admin/abc で ろくおん した 声（DATA_DIR/phonics/<id>.wav）が あれば そちら**。版は `abc:state` の `phonicsV`（ろくおんが かわると かわる）。
+- 鳴らすのは `phonics-play.js`（WebAudio で ならべて 予約・♫ オフでは 鳴らさず 光だけ すすむ）：`playSounds(ids, {gap, onStep})`・`blendSounds`（1 つずつ → かさねて つなげる）。
+- 画面（`abc.js`）：もじの カード＝「🔊 なまえ」と「🔉 おと」、うた＝なまえ → おと 2 かい → ことば（`abc-chant.js` の 行の `steps`）、つなげて よむ・きまり＝つみきを おすと その おと・「🔉 つなげて きく」で 光りながら つなげる（こたえの あとに ことば）、きいて えらぶ もじ・2 もじの 🔉 は おと、つみきを ならべる＝おすと その おと。
+- 部屋は もんだいに `sounds`（つみきごと）・`sound`（もじ）・ブロックの `s` を のせる（答えは のせない）。検査：`server/test/phonics.test.mjs`。
+- **合成の 音は 人の 声に かなわない。実機で 聞き、できれば /admin/abc で 先生の 声を ろくおん する こと。**

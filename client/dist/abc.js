@@ -5,11 +5,14 @@
 // ・こどもに 見せる 文字は ひらがな＋えいご＋アイコンだけ（かんじ・カタカナの ことばを 入れない。検査が 見て いる）。
 // ・**ぜんぶの 文に 🔊**：もんだい・えらぶ もの・ボタンの なまえ・せつめい・うた。
 // ・声：アメリカしきは いつもの 声（speech.js の playVoice）。イギリスしきは たんまつの イギリスの 声（なければ いつもの 声）。
-//   合成の 声は もじの「おと」だけを 正しく 言えないので、おとは かならず ことばで きかせる（"S, s, sun"）。
+//   **もじの「おと」（フォニックス）は 音の ファイル**（phonics-play.js・/phonics/<id>）。合成の 声は おと 1 つだけを 正しく 言えないため。
+//   もじ → なまえ（声）・おと（ファイル）・ことば（声）。つなげて よむ もんだいは おとを 1 つずつ → つなげて（blendSounds）。
 // ・え は サーバーが かく（/abc-art/…）。うたは abc-chant.js（はくの 音＋声）。
 import { isJa } from './i18n.js';
 import { playVoice, stopVoice } from './speech.js';
 import { playChant, stopChant } from './abc-chant.js';
+import { letterSound } from './phonics.js';
+import { playSounds, blendSounds, stopSounds, preloadSounds, setPhonicsVersion } from './phonics-play.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const L = (en, ja) => (isJa() ? ja : en);
@@ -22,7 +25,8 @@ export function createAbcUI({ send, toast = () => {}, speak = null, isOnline = (
   dialog.innerHTML = '<div class="ab-root" translate="no"></div>';
   document.body.append(dialog);
   const root = dialog.firstElementChild;
-  const quiet = () => { try { stopChant(); } catch { /* */ } try { stopVoice(); } catch { /* */ } try { globalThis.speechSynthesis?.cancel(); } catch { /* */ } state.chanting = -1; };
+  let seqToken = 0;
+  const quiet = () => { seqToken += 1; try { stopChant(); } catch { /* */ } try { stopSounds(); } catch { /* */ } try { stopVoice(); } catch { /* */ } try { globalThis.speechSynthesis?.cancel(); } catch { /* */ } state.chanting = -1; };
   dialog.addEventListener('close', quiet);
   dialog.addEventListener('cancel', (e) => { if (state.view !== 'home') { e.preventDefault(); toHome(); } });
 
@@ -43,6 +47,37 @@ export function createAbcUI({ send, toast = () => {}, speak = null, isOnline = (
   function sayJa(text) { quiet(); const t = String(text || ''); if (t) playVoice(t, { japanese: true, fallback: () => speak?.(t, { japanese: true }) }); }
   // がめんの 文（にほんご／えいご）を 読む。
   const sayText = (en, ja) => (isJa() ? sayJa(ja) : sayEn(en));
+  // 声 1 つ（おわったら resolve。おわりが 知らされない 端末でも 止まらない ように 時間でも すすむ）。
+  const say1 = (text, { slow = false } = {}) => new Promise((resolve) => {
+    let done = false; const fin = () => { if (!done) { done = true; resolve(); } };
+    const t = setTimeout(fin, 1400 + String(text).length * 110);
+    const end = () => { clearTimeout(t); setTimeout(fin, 120); };
+    try {
+      if (accent() === 'uk') {
+        const synth = globalThis.speechSynthesis; const v = synth?.getVoices?.().find((x) => /^en[-_]GB/i.test(x.lang));
+        if (v) { const u = new SpeechSynthesisUtterance(text); u.voice = v; u.lang = 'en-GB'; u.rate = slow ? 0.6 : 0.85; u.onend = end; u.onerror = end; synth.speak(u); return; }
+      }
+      playVoice(text, { japanese: false, slow, onend: end, fallback: () => speak?.(text, { japanese: false, slow }) });
+    } catch { end(); }
+  });
+  // 声と おとを じゅんばんに（{say}・{snd:[…], gap}・{blend:[…]}・{wait}）。ほかの 音が はじまったら とまる。
+  async function seq(steps) {
+    quiet(); const me = seqToken;
+    for (const st of steps) {
+      if (me !== seqToken) return;
+      try {
+        if (st.say) await say1(st.say, st);
+        else if (st.snd) await playSounds(st.snd, { gap: st.gap ?? 0.3, onStep: st.onStep });
+        else if (st.blend) await blendSounds(st.blend, { onStep: st.onStep });
+        else if (st.wait) await new Promise((r) => setTimeout(r, st.wait));
+      } catch { /* つぎへ */ }
+    }
+  }
+  // もじ 1 つの「おと」を 2 かい（"sss… sss"）。
+  const sayLetterSound = (l) => { const id = letterSound(l); if (id) seq([{ snd: [id, id], gap: 0.35 }]); else sayEn(upper(l)); };
+  // つみき（つづりの かたまり）を 1 つずつ 光らせて 鳴らす。
+  const lightPart = (i) => root.querySelectorAll('.ab-parts .ab-part').forEach((el, k) => el.classList.toggle('on', i === 'all' ? !el.classList.contains('silent') : k === i));
+  const blendIt = (sounds, then = []) => seq([{ blend: sounds, onStep: lightPart }, ...then]);
 
   // ---- ぶひん ----
   const art = { letter: (l, c) => `/abc-art/letter/${encodeURIComponent(l)}.svg?case=${c || state.st?.caseFirst || 'both'}&v=${state.artV}`, word: (w) => `/abc-art/word/${encodeURIComponent(w)}.svg?v=${state.artV}`, cover: () => `/abc-art/cover.svg?v=${state.artV}` };
@@ -97,18 +132,24 @@ export function createAbcUI({ send, toast = () => {}, speak = null, isOnline = (
     word: ['Listen. Which spelling is right?', 'きいてね。ただしい つづりは どれ？'],
     spell: ['Put the blocks in order to make the word.', 'もじの つみきを ならべて、ことばを つくろう。'],
   };
-  const tiles = (parts) => `<div class="ab-parts">${parts.map((p) => `<b>${esc(p)}</b>`).join('<i>·</i>')}</div>`;
+  const tiles = (parts, sounds = []) => `<div class="ab-parts">${parts.map((p, i) => (sounds[i] ? `<button type="button" class="ab-part" data-snd="${esc(sounds[i])}">${esc(p)}</button>` : `<b class="ab-part${sounds.length ? ' silent' : ''}">${esc(p)}</b>`)).join('<i>·</i>')}</div>`;
+  // 「つなげて きく」の ボタン（おとを 1 つずつ → つなげて）。
+  const blendBtn = (sounds) => (sounds?.length ? `<button type="button" class="ab-blend" data-blend="${esc(sounds.map((x) => x || '').join(','))}">🔉 <b>${esc(L('Blend', 'つなげて きく'))}</b></button>` : '');
+  // もじの「おと」の ボタン。
+  const soundBtn = (l) => (letterSound(l) ? `<button type="button" class="ab-snd" data-lsound="${esc(l)}">🔉 <b>${esc(L('Sound', 'おと'))}</b></button>` : '');
   const hear = (enText, { big = true } = {}) => `<button type="button" class="ab-hear${big ? ' big' : ''}" data-hear="${esc(enText)}" aria-label="${esc(L('Listen', 'きく'))}">🔊</button>`;
 
   function choiceHtml(q, c, i) {
     const r = state.result; const isAnswer = r && c === r.answer; const mine = c === state.picked;
     const cls = r ? (isAnswer ? ' right' : mine ? ' wrong' : ' dim') : '';
     let inner; let sayIt;
-    if (q.kind === 'name' || q.kind === 'sound') { inner = img(art.letter(c), 'letter'); sayIt = upper(c); }
+    let lsnd = '';
+    if (q.kind === 'name') { inner = img(art.letter(c), 'letter'); sayIt = upper(c); }
+    else if (q.kind === 'sound') { inner = img(art.letter(c), 'letter'); sayIt = upper(c); lsnd = c; }
     else if (q.kind === 'picture' || q.kind === 'blend') { inner = img(art.word(c), 'pic'); sayIt = c; }
-    else if (q.kind === 'pair') { inner = `<b class="ab-big">${esc(c)}</b>`; sayIt = spellOut(c); }
+    else if (q.kind === 'pair') { inner = `<b class="ab-big">${esc(c)}</b>`; sayIt = spellOut(c); lsnd = c; }
     else { inner = `<b class="ab-big word">${esc(c)}</b>`; sayIt = spellOut(c); }
-    return `<div class="ab-choice${cls}"><button type="button" class="ab-pick" data-pick="${esc(c)}" ${r || state.waiting ? 'disabled' : ''} aria-label="${'ABC'[i] || ''}">${inner}</button><button type="button" class="ab-say sm" data-hear="${esc(sayIt)}" aria-label="${esc(L('Listen', 'きく'))}">🔊</button></div>`;
+    return `<div class="ab-choice${cls}"><button type="button" class="ab-pick" data-pick="${esc(c)}" ${r || state.waiting ? 'disabled' : ''} aria-label="${'ABC'[i] || ''}">${inner}</button>${lsnd && letterSound(lsnd) ? `<button type="button" class="ab-say sm" data-lsound="${esc(lsnd)}" aria-label="${esc(L('Sound', 'おと'))}">🔉</button>` : `<button type="button" class="ab-say sm" data-hear="${esc(sayIt)}" aria-label="${esc(L('Listen', 'きく'))}">🔊</button>`}</div>`;
   }
 
   function questionHtml() {
@@ -119,13 +160,13 @@ export function createAbcUI({ send, toast = () => {}, speak = null, isOnline = (
     const dots = `<div class="ab-dots">${Array.from({ length: q.of }, (_, i) => `<i class="${i + 1 === q.n ? 'on' : i + 1 < q.n ? 'past' : ''}"></i>`).join('')}</div>`;
     let stage = ''; let foot = '';
     if (q.kind === 'show') {
-      stage = `<div class="ab-show"><div class="ab-card">${img(art.letter(q.letter), 'letter')}${hear(upper(q.letter))}</div><div class="ab-card">${img(art.word(q.word), 'pic')}<b class="ab-word">${esc(q.word)}</b>${hear(q.word)}</div></div>`;
+      stage = `<div class="ab-show"><div class="ab-card">${img(art.letter(q.letter), 'letter')}<div class="ab-hears"><button type="button" class="ab-snd name" data-hear="${esc(upper(q.letter))}">🔊 <b>${esc(L('Name', 'なまえ'))}</b></button>${soundBtn(q.letter)}</div></div><div class="ab-card">${img(art.word(q.word), 'pic')}<b class="ab-word">${esc(q.word)}</b>${hear(q.word)}</div></div>`;
       foot = btn('seen', 'Next', 'つぎへ', { cls: 'main', icon: '→' });
     } else if (q.kind === 'chant') {
       stage = `<div class="ab-chant">${q.lines.map((ln, i) => `<div class="ab-line${state.chanting === i ? ' on' : ''}" data-line="${i}">${img(art.word(ln.word), 'pic')}<b>${esc(ln.parts ? ln.parts.join(' · ') : ln.text)}</b>${ln.parts ? `<em>${esc(ln.word)}</em>` : ''}${hear(ln.text, { big: false })}</div>`).join('')}</div>`;
       foot = `${btn('sing', 'Play the song', 'うたを きく', { icon: '🎵' })}${btn('seen', 'Next', 'つぎへ', { cls: 'main', icon: '→' })}`;
     } else if (q.kind === 'rule') {
-      stage = `<div class="ab-show"><div class="ab-card rule"><b class="ab-rule">${esc(q.rule)}</b>${tiles(q.parts)}</div><div class="ab-card">${img(art.word(q.word), 'pic')}<b class="ab-word">${esc(q.word)}</b>${hear(q.word)}</div></div>`;
+      stage = `<div class="ab-show"><div class="ab-card rule"><b class="ab-rule">${esc(q.rule)}</b>${tiles(q.parts, q.sounds)}${blendBtn(q.sounds)}</div><div class="ab-card">${img(art.word(q.word), 'pic')}<b class="ab-word">${esc(q.word)}</b>${hear(q.word)}</div></div>`;
       foot = btn('seen', 'Next', 'つぎへ', { cls: 'main', icon: '→' });
     } else if (q.kind === 'spell') {
       const left = q.blocks.filter((b) => !state.row.includes(b.id));
@@ -134,13 +175,13 @@ export function createAbcUI({ send, toast = () => {}, speak = null, isOnline = (
       stage = `<div class="ab-spell"><div class="ab-ask">${img(art.word(q.word), 'pic')}${hear(q.say)}</div>
         <div class="ab-row">${slots}</div>
         ${r && !r.correct && r.parts ? `<div class="ab-row answer">${r.parts.map((p) => `<b class="ab-block right">${esc(p)}</b>`).join('')}</div>` : ''}
-        <div class="ab-tray">${left.map((b) => `<button type="button" class="ab-block" data-in="${esc(b.id)}" ${r || state.waiting ? 'disabled' : ''}>${esc(b.t)}</button>`).join('')}</div></div>`;
+        <div class="ab-tray">${left.map((b) => `<button type="button" class="ab-block" data-in="${esc(b.id)}" data-s="${esc(b.s || '')}" ${r || state.waiting ? 'disabled' : ''}>${esc(b.t)}</button>`).join('')}</div></div>`;
       if (!r) foot = btn('spell', 'Done', 'できた', { cls: 'main', icon: '✓', disabled: state.row.length !== q.blocks.length || state.waiting });
     } else {
       const top = q.kind === 'name' ? hear(q.say)
         : q.kind === 'sound' ? `<div class="ab-ask">${img(art.word(q.say), 'pic')}${hear(q.say)}</div>`
-          : q.kind === 'picture' ? `<div class="ab-ask">${img(art.letter(q.letter), 'letter')}${hear(upper(q.letter))}</div>`
-            : q.kind === 'blend' ? `<div class="ab-ask">${tiles(q.parts)}</div>`
+          : q.kind === 'picture' ? `<div class="ab-ask">${img(art.letter(q.letter), 'letter')}${soundBtn(q.letter) || hear(upper(q.letter))}</div>`
+            : q.kind === 'blend' ? `<div class="ab-ask">${tiles(q.parts, q.sounds)}${blendBtn(q.sounds)}</div>`
               : `<div class="ab-ask">${img(art.word(q.word), 'pic')}${hear(q.say)}</div>`;
       stage = `<div class="ab-q">${top}<div class="ab-choices n${q.choices.length}">${q.choices.map((c, i) => choiceHtml(q, c, i)).join('')}</div></div>`;
     }
@@ -169,10 +210,13 @@ export function createAbcUI({ send, toast = () => {}, speak = null, isOnline = (
   function paint() {
     root.innerHTML = state.view === 'play' ? questionHtml() : state.view === 'summary' ? summaryHtml() : homeHtml();
     root.querySelectorAll('.ab-say').forEach((el) => { el.onclick = (e) => { e.stopPropagation(); if (el.dataset.hear !== undefined) sayEn(el.dataset.hear); else sayText(el.dataset.en, el.dataset.ja); }; });
-    root.querySelectorAll('.ab-hear').forEach((el) => { el.onclick = () => sayEn(el.dataset.hear); });
+    root.querySelectorAll('.ab-hear, .ab-snd[data-hear]').forEach((el) => { el.onclick = () => sayEn(el.dataset.hear); });
     root.querySelectorAll('[data-act]').forEach((el) => { el.onclick = () => act(el.dataset.act); });
     root.querySelectorAll('[data-pick]').forEach((el) => { el.onclick = () => pick(el.dataset.pick); });
-    root.querySelectorAll('[data-in]').forEach((el) => { el.onclick = () => { state.row.push(el.dataset.in); paint(); }; });
+    root.querySelectorAll('[data-in]').forEach((el) => { el.onclick = () => { const snd = el.dataset.s; state.row.push(el.dataset.in); paint(); if (snd) seq([{ snd: [snd] }]); }; });
+    root.querySelectorAll('[data-lsound]').forEach((el) => { el.onclick = (e) => { e.stopPropagation(); sayLetterSound(el.dataset.lsound); }; });
+    root.querySelectorAll('.ab-part[data-snd]').forEach((el) => { el.onclick = () => { const all = [...root.querySelectorAll('.ab-parts .ab-part')]; const i = all.indexOf(el); seq([{ snd: [el.dataset.snd], onStep: (k) => lightPart(k < 0 ? -1 : i) }]); }; });
+    root.querySelectorAll('[data-blend]').forEach((el) => { el.onclick = () => blendIt(el.dataset.blend.split(',').map((x) => x || null)); });
     root.querySelectorAll('[data-out]').forEach((el) => { el.onclick = () => { state.row = state.row.filter((id) => id !== el.dataset.out); paint(); }; });
     root.querySelectorAll('img.ab-img').forEach((el) => { el.onerror = () => { el.style.visibility = 'hidden'; }; });
   }
@@ -180,9 +224,15 @@ export function createAbcUI({ send, toast = () => {}, speak = null, isOnline = (
   // 1 もんが 出た とき：もんだいを こえで きかせる（きく もんだいは きく ことばを）。
   function introduce(q) {
     if (!q) return;
+    preloadSounds([...(q.sounds || []), ...(q.blocks || []).map((b) => b.s), q.sound, ...((q.choices || []).map((c) => letterSound(c)))]);
+    const ls = q.letter ? letterSound(q.letter) : null;
     if (q.kind === 'name' || q.kind === 'sound' || q.kind === 'pair' || q.kind === 'word' || q.kind === 'spell') sayEn(q.say);
-    else if (q.kind === 'show') sayEn(`${upper(q.letter)}. ${q.word}.`);
-    else if (q.kind === 'rule') sayEn(q.word);
+    // もじ：なまえ → おと 2 かい → ことば（"S … sss sss … sun"）。
+    else if (q.kind === 'show') seq([{ say: `${upper(q.letter)}.` }, ...(ls ? [{ snd: [ls, ls], gap: 0.35 }] : []), { say: `${q.word}.` }]);
+    // きまり：おとを つなげて → ことば。
+    else if (q.kind === 'rule') blendIt(q.sounds || [], [{ say: q.word }]);
+    else if (q.kind === 'blend') { const [pe, pj] = PROMPT.blend; seq([isJa() ? { wait: 1 } : { say: pe }, { blend: q.sounds || [], onStep: lightPart }]); }
+    else if (q.kind === 'picture' && ls) { const [pe, pj] = PROMPT[q.end ? 'pictureEnd' : 'picture']; if (isJa()) { sayJa(pj); setTimeout(() => sayLetterSound(q.letter), 2200); } else seq([{ say: pe }, { snd: [ls, ls], gap: 0.35 }]); }
     else if (q.kind === 'chant') sing();
     else { const end = q.end && q.kind === 'picture'; const [pe, pj] = PROMPT[end ? 'pictureEnd' : q.kind]; sayText(pe, pj); }
   }
@@ -190,7 +240,9 @@ export function createAbcUI({ send, toast = () => {}, speak = null, isOnline = (
     const q = state.q; if (!q?.lines) return;
     quiet();
     const mark = (i) => { state.chanting = i; root.querySelectorAll('.ab-line').forEach((el) => el.classList.toggle('on', Number(el.dataset.line) === i)); };
-    try { playChant(q.lines.map((ln) => ({ text: ln.text })), { accent: accent(), slow: false, onLine: (i) => mark(i), onEnd: () => mark(-1) }); } catch { /* うたが 出なくても つぎへ すすめる */ }
+    // もじの うた＝なまえ・おと・おと・ことば（"S, sss sss, sun"）。きまりの うた＝おとを つなげて・ことば。
+    const steps = (ln) => (ln.sound ? [{ say: `${ln.name}.` }, { snd: [ln.sound, ln.sound], gap: 0.25 }, { say: ln.word }] : ln.sounds ? [{ snd: ln.sounds, gap: 0.12 }, { say: ln.word }] : null);
+    try { playChant(q.lines.map((ln) => ({ text: ln.text, steps: steps(ln) })), { accent: accent(), slow: false, onLine: (i) => mark(i), onEnd: () => mark(-1) }); } catch { /* うたが 出なくても つぎへ すすめる */ }
   }
 
   function toHome() { quiet(); state.view = 'home'; state.q = null; state.result = null; state.summary = null; state.row = []; state.waiting = false; paint(); send('abc:open', {}); }
@@ -213,18 +265,20 @@ export function createAbcUI({ send, toast = () => {}, speak = null, isOnline = (
   function pick(choice) { if (state.result || state.waiting) return; state.picked = choice; state.waiting = true; paint(); send('abc:answer', { choice }); }
 
   function handle(type, m) {
-    if (type === 'abc:state') { state.st = m; if (m.artV) state.artV = m.artV; if (state.view === 'home') paint(); return; }
+    if (type === 'abc:state') { state.st = m; if (m.artV) state.artV = m.artV; if (m.phonicsV) setPhonicsVersion(m.phonicsV); if (state.view === 'home') paint(); return; }
     if (type === 'abc:ask') { state.q = m; state.result = null; state.picked = null; state.row = []; state.waiting = false; state.view = 'play'; paint(); introduce(m); return; }
     if (type === 'abc:result') {
       state.waiting = false;
-      if (m.state) { state.st = m.state; if (m.state.artV) state.artV = m.state.artV; }
+      if (m.state) { state.st = m.state; if (m.state.artV) state.artV = m.state.artV; if (m.state.phonicsV) setPhonicsVersion(m.state.phonicsV); }
       if (m.summary) state.summary = m.summary;
       if (m.teach) { // おしえる がめん：そのまま つぎへ
         if (m.over) { state.view = 'summary'; state.q = null; state.result = null; paint(); return; }
         state.q = m.next; state.result = null; state.picked = null; state.row = []; paint(); introduce(state.q); return;
       }
       state.result = m; paint();
-      if (!m.correct && state.q && (state.q.kind === 'spell')) sayEn(state.q.say);
+      // つなげて よむ：こたえが でたら おとを つなげて → ことば。つづる：こたえの ことば。
+      if (state.q?.kind === 'blend' && m.answer) blendIt(state.q.sounds || [], [{ say: m.answer }]);
+      else if (state.q?.kind === 'spell') sayEn(state.q.say);
       return;
     }
     if (type === 'abc:error') {

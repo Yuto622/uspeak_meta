@@ -1,0 +1,192 @@
+{
+  "_": "フォニックスの おと（もじ 1 つずつの おと）。docs/make-phonics.py が フォルマント合成で 作った U-Speak Lab の 自作の 音（外の 素材なし）。作りなおしたら この ファイルも かわる。運営が /admin/abc で ろくおん した 声が あれば /phonics/<id> は そちらを かえす。",
+  "generator": "docs/make-phonics.py",
+  "sampleRate": 32000,
+  "files": {
+    "s.mp3": {
+      "sha256": "7c01f09bda2d382039a67f1f01afb0e51b5c2955b7db653714bd3897f1182945",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "z.mp3": {
+      "sha256": "2b65dabfa3b49a7b7652757071fe8d8005017ac969fe5774ff9a32a058eb8152",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "f.mp3": {
+      "sha256": "eda5c0062de8140189b8755fc9ceb11baf44737b576a6dde6028cd9f5de93795",
+      "bytes": 4320,
+      "seconds": 0.48
+    },
+    "v.mp3": {
+      "sha256": "12af33ec96d8dc9a7ba518e57fd9618f8c834c14c967f8094106969311866463",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "th.mp3": {
+      "sha256": "001440c86c475d3c20aa6f53a27a8521c158d3b9823f4d43d2e985b1fb123c23",
+      "bytes": 4320,
+      "seconds": 0.48
+    },
+    "sh.mp3": {
+      "sha256": "a1ebefcf5db5adc3f136c162c4179cc2789241cf5f075f8c44d554dfc46897c5",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "h.mp3": {
+      "sha256": "513cfb26442f7c0b8c844b837016187ee4ef34d92690edef990f2ff5202fdf46",
+      "bytes": 3744,
+      "seconds": 0.4
+    },
+    "m.mp3": {
+      "sha256": "372c00bd1ac1d6f8c0484e63748b40799425cec3e7386c4dfa1599a036f6fb0b",
+      "bytes": 4608,
+      "seconds": 0.53
+    },
+    "n.mp3": {
+      "sha256": "93da4af256593ea35f7afd62116c56e2e1e3ae0e6a2508ffccf06c702a3c5fda",
+      "bytes": 4608,
+      "seconds": 0.53
+    },
+    "ng.mp3": {
+      "sha256": "850a5a5f5208cb9bca5a3d2e26ea9f6601e8dd20dc51da9c853a5da7fe88b430",
+      "bytes": 4608,
+      "seconds": 0.53
+    },
+    "l.mp3": {
+      "sha256": "c2a128bd4910a5e75c8b67cefddad05461d2e8b6fcc491f6334fe8cd5db5f10a",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "r.mp3": {
+      "sha256": "20c459d138fcacb1822ce8a26c7ab3aae42e4e11620ff6a32968ae4545d38813",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "w.mp3": {
+      "sha256": "f84d0e7ee5952a6433a17c995d2901230cb286d46ef51a298252bed0ca2b6cc1",
+      "bytes": 3456,
+      "seconds": 0.38
+    },
+    "y.mp3": {
+      "sha256": "b2439e2d50a5651811a3397257d514642beb4265bcf2e046423b1fc9efa31e53",
+      "bytes": 3456,
+      "seconds": 0.38
+    },
+    "p.mp3": {
+      "sha256": "a4882ad7511149778ebf69a86e79cefaf64b189533f53c85468559a3a479b52b",
+      "bytes": 2016,
+      "seconds": 0.192
+    },
+    "b.mp3": {
+      "sha256": "e37c25dfb8b9fc964c1f45b0218261b2c8cb9e6f6c6dcda23561fc1cf2630fa1",
+      "bytes": 2304,
+      "seconds": 0.218
+    },
+    "t.mp3": {
+      "sha256": "b3a3c8f85141229e82f2bb738df7475ae01ca22dcdeb8827ff4108b90ab8b93d",
+      "bytes": 2016,
+      "seconds": 0.192
+    },
+    "d.mp3": {
+      "sha256": "54abdfadfecb7eb3a0e20c880d33a967dea3a945431368af40b5f3064ec4fb47",
+      "bytes": 2304,
+      "seconds": 0.218
+    },
+    "k.mp3": {
+      "sha256": "a2de5c7c95f7970ff8677f38b43242db3b0304fce7f0fac4b50c3a95aaca15ef",
+      "bytes": 2016,
+      "seconds": 0.192
+    },
+    "g.mp3": {
+      "sha256": "ecf1affa313d839d8202b56ff28a4422e51f9d130ff3a5d534533689708fb59c",
+      "bytes": 2304,
+      "seconds": 0.218
+    },
+    "ch.mp3": {
+      "sha256": "abcdd69b4e1d2a49ca66a13eca3cd1672024fd09c860d9ba21afd53e1edb46ba",
+      "bytes": 2880,
+      "seconds": 0.322
+    },
+    "j.mp3": {
+      "sha256": "de4e368bd302e641387e83839ff3c004979a66e60bee3615c091c9d166ccd5c7",
+      "bytes": 2880,
+      "seconds": 0.306
+    },
+    "ks.mp3": {
+      "sha256": "430e23e0b7a9f8f03ee72cfbb190013ec9be209760b6e0d9837374b6234f9981",
+      "bytes": 4032,
+      "seconds": 0.462
+    },
+    "kw.mp3": {
+      "sha256": "90d999870de3d84f16e5fad6573c2249c02ca2c376440f808092f41648c6e34c",
+      "bytes": 3744,
+      "seconds": 0.432
+    },
+    "a.mp3": {
+      "sha256": "67e82e08fe89605913ac5efe026a0057017c7cafbe4458b324ac5c1effda5525",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "e.mp3": {
+      "sha256": "207503cbed054d4e59fbfaf1d969e3220b746ee84e80ce13d455fa1a57236cb5",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "i.mp3": {
+      "sha256": "85653a2df4cf162cb8c0e0d92bbaf1e6d9c803da8f67a63de01d574e6c17828f",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "o.mp3": {
+      "sha256": "774fcde401c70afea30cfa31d187d83b0c6ca71e9fe007350e9044d5ea44dce8",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "u.mp3": {
+      "sha256": "95ece07284a6ce24eff2823ae08c93b3e658d46b20fd58c56f622579e8bd7469",
+      "bytes": 4320,
+      "seconds": 0.5
+    },
+    "ay.mp3": {
+      "sha256": "15cede95b02cb8029be52fa303e127250604dfba08950fdb7a75bdb4258ebe6d",
+      "bytes": 5184,
+      "seconds": 0.58
+    },
+    "ee.mp3": {
+      "sha256": "5b7331eb38109c526e7b68f70e18c5d94ec252da682bb7ecf8bcddcea608bdd5",
+      "bytes": 4896,
+      "seconds": 0.56
+    },
+    "ie.mp3": {
+      "sha256": "6a8dea39394f6c27cda8aa8b27522bd107b7d84130d771e9097e1b7294d64141",
+      "bytes": 5184,
+      "seconds": 0.58
+    },
+    "oa.mp3": {
+      "sha256": "b11464691820c1651ac6ac5a776ac0dbbe3cdf82249deafeaf7b2aef8acbb588",
+      "bytes": 5184,
+      "seconds": 0.58
+    },
+    "oo.mp3": {
+      "sha256": "51c1fd9b0d663bafd9bb0d96dbc68c7c5f04a9cd8a043636bac4554777caf1c8",
+      "bytes": 4896,
+      "seconds": 0.56
+    },
+    "yoo.mp3": {
+      "sha256": "4a16844c2afa288d06620e87a30bfa6faecf1150b0dc839c5e9f77fff3917180",
+      "bytes": 5184,
+      "seconds": 0.6
+    },
+    "ow.mp3": {
+      "sha256": "84456844507e3cf8e81c5506132d87933fd00c5a0b8d560502b90d7f61225046",
+      "bytes": 5184,
+      "seconds": 0.58
+    },
+    "air.mp3": {
+      "sha256": "dba3c2e945e2aa024a5bcfec8b756c85b83a94834867877dd60c375e1a5f48db",
+      "bytes": 5472,
+      "seconds": 0.63
+    }
+  }
+}

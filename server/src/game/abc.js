@@ -7,6 +7,7 @@
 // ・1 つの もじ／ルールは 正答率 8 割で つぎへ。まちがえた もじ・おとは「にがて」に ためて、まとめて ふくしゅう できる。
 // ・声は 合成の 声なので、もじの「おと」だけを 単独では 言わせない（不正確）。かならず ことばに つなげる（"s, s, sun"）。
 // 部屋（ClassRoom.onAbc）が ここを よび、記録は いつもの 道（appendLearning・roblox_events）に 書く。コインは 出さない。
+import { letterSound, soundsOf } from '../../../client/dist/phonics.js';
 import { readFileSync } from 'node:fs';
 
 export const PASS = 0.8;
@@ -151,11 +152,11 @@ function otherLetters(l, rng, n = 2) {
   return take(ALPHA.filter((x) => !bad.has(x)), n, rng);
 }
 
-function qShow(l) { const w = data().letters[l].words[0]; return { kind: 'show', teach: true, key: `L:${l}`, pub: { letter: l, word: w.w, end: !!w.end } }; }
+function qShow(l) { const w = data().letters[l].words[0]; return { kind: 'show', teach: true, key: `L:${l}`, pub: { letter: l, word: w.w, end: !!w.end, sound: letterSound(l) } }; }
 function qChant(l) {
   const ws = data().letters[l].words.slice(0, 3);
   // うた：1 もじずつ「もじの なまえ、もじの なまえ、ことば」。おとは ことばで きかせる（合成の 声は おとだけを 正しく 言えない）。
-  return { kind: 'chant', teach: true, key: `L:${l}`, pub: { letter: l, lines: ws.map((x) => ({ text: `${l.toUpperCase()}, ${l}, ${x.w}`, word: x.w, end: !!x.end })) } };
+  return { kind: 'chant', teach: true, key: `L:${l}`, pub: { letter: l, sound: letterSound(l), lines: ws.map((x) => ({ text: `${l.toUpperCase()}, ${l}, ${x.w}`, word: x.w, end: !!x.end, name: l.toUpperCase(), sound: letterSound(l) })) } };
 }
 function qName(l, rng) { return { kind: 'name', key: `L:${l}`, format: 'listen', answer: l, pub: { say: l.toUpperCase(), choices: shuffled([l, ...otherLetters(l, rng)], rng) } }; }
 function qSound(l, rng, not = '') {
@@ -179,10 +180,10 @@ function qPicture(l, rng, not = '') {
 function qBlend(unit, w, rng) {
   const pool = (unit.type === 'cvc' ? data().cvc : unit.words).filter((x) => x.w !== w.w);
   const others = take(pool.length >= 2 ? pool : data().cvc.filter((x) => x.w !== w.w), 2, rng).map((x) => x.w);
-  return { kind: 'blend', key: `R:${unit.id}`, format: 'mc', answer: w.w, word: w.w, pub: { parts: w.parts, choices: shuffled([...new Set([w.w, ...others])], rng) } };
+  return { kind: 'blend', key: `R:${unit.id}`, format: 'mc', answer: w.w, word: w.w, pub: { parts: w.parts, sounds: soundsOf(w.w, w.parts), choices: shuffled([...new Set([w.w, ...others])], rng) } };
 }
-function qRule(unit) { const w = unit.words[0]; return { kind: 'rule', teach: true, key: `R:${unit.id}`, pub: { rule: unit.label, type: unit.type, word: w.w, parts: w.parts } }; }
-function qRuleChant(unit) { return { kind: 'chant', teach: true, key: `R:${unit.id}`, pub: { rule: unit.label, type: unit.type, lines: unit.words.slice(0, 3).map((x) => ({ text: x.w, word: x.w, parts: x.parts })) } }; }
+function qRule(unit) { const w = unit.words[0]; return { kind: 'rule', teach: true, key: `R:${unit.id}`, pub: { rule: unit.label, type: unit.type, word: w.w, parts: w.parts, sounds: soundsOf(w.w, w.parts) } }; }
+function qRuleChant(unit) { return { kind: 'chant', teach: true, key: `R:${unit.id}`, pub: { rule: unit.label, type: unit.type, lines: unit.words.slice(0, 3).map((x) => ({ text: x.w, word: x.w, sounds: soundsOf(x.w, x.parts), parts: x.parts })) } }; }
 function qPair(unit, w, rng) {
   const labels = Object.keys(data().digraphs).filter((k) => k !== unit.id && !w.w.includes(k));
   return { kind: 'pair', key: `R:${unit.id}`, format: 'listen', answer: unit.id, word: w.w, pub: { say: w.w, word: w.w, choices: shuffled([unit.id, ...take(labels, 2, rng)], rng) } };
@@ -195,9 +196,10 @@ function qWord(unit, w, rng) {
   return { kind: 'word', key: `R:${unit.id}`, format: 'listen', answer: w.w, word: w.w, pub: { say: w.w, word: w.w, choices: shuffled(choices, rng) } };
 }
 function qSpell(unit, w, rng) {
-  let order = w.parts.map((t, i) => ({ id: `b${i}`, t }));
+  const ss = soundsOf(w.w, w.parts);
+  let order = w.parts.map((t, i) => ({ id: `b${i}`, t, s: ss[i] }));
   for (let i = 0; i < 6; i += 1) { order = shuffled(order, rng); if (order.map((b) => b.t).join('|') !== w.parts.join('|')) break; }
-  return { kind: 'spell', key: `R:${unit.id}`, format: 'spell', answer: w.parts.join(''), word: w.w, parts: w.parts, blocks: order, pub: { say: w.w, word: w.w, blocks: order.map((b) => ({ id: b.id, t: b.t })) } };
+  return { kind: 'spell', key: `R:${unit.id}`, format: 'spell', answer: w.parts.join(''), word: w.w, parts: w.parts, blocks: order, pub: { say: w.w, word: w.w, blocks: order.map((b) => ({ id: b.id, t: b.t, s: b.s })) } };
 }
 // にがての 1 問（もじ → きいて えらぶ か 絵、ルール → その ルールの 問題）。
 function qFor(key, rng) {

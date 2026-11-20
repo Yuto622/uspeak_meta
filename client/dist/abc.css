@@ -73,6 +73,18 @@
 .ab-parts { display: flex; align-items: center; gap: 8px; }
 .ab-parts b { min-width: 70px; padding: 6px 14px; border-radius: 16px; background: #fff; box-shadow: 0 5px 0 #e6c563; font: 900 clamp(40px, 9vh, 68px)/1.15 system-ui, sans-serif; text-align: center; color: #c2410c; }
 .ab-parts i { font-style: normal; font-size: 28px; color: #c9b27a; }
+/* フォニックス：つみきを おすと その おと。鳴って いる つみきが 光る。だまる e は うすく。 */
+.ab-parts .ab-part { min-width: 70px; padding: 6px 14px; border-radius: 16px; border: 0; background: #fff; box-shadow: 0 5px 0 #e6c563; font: 900 clamp(40px, 9vh, 68px)/1.15 system-ui, sans-serif; text-align: center; color: #c2410c; cursor: pointer; transition: transform .12s, background .12s, box-shadow .12s; }
+.ab-parts .ab-part.on { background: #ffe066; transform: translateY(-6px) scale(1.06); box-shadow: 0 10px 0 #e2a400; }
+.ab-parts .ab-part.silent { color: #c9bfae; box-shadow: 0 5px 0 #eee3cf; }
+.ab-parts .ab-part:active { transform: translateY(3px); }
+.ab-blend, .ab-snd { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 52px; padding: 0 18px; border: 0; border-radius: 999px; background: #7c3aed; color: #fff; font-size: 22px; box-shadow: 0 5px 0 #5b21b6; cursor: pointer; }
+.ab-blend b, .ab-snd b { font-size: 18px; }
+.ab-blend:active, .ab-snd:active { transform: translateY(3px); box-shadow: 0 2px 0 #5b21b6; }
+.ab-card.rule { gap: 14px; }
+.ab-card .ab-hears { position: absolute; left: 0; right: 0; bottom: 12px; display: flex; justify-content: center; gap: 10px; align-items: center; }
+.ab-snd.name { background: #2c2a4a; box-shadow: 0 5px 0 #15142a; }
+.ab-card:has(.ab-hears) .ab-img { margin-bottom: 56px; }
 
 /* おしえる がめん（みる・きく／きまり） */
 .ab-card { position: relative; flex: 1; min-width: 0; max-width: 380px; height: 100%; max-height: 360px; border-radius: 24px; background: #fff; box-shadow: 0 6px 0 #e6c563; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 12px; overflow: hidden; }
@@ -117,6 +129,7 @@
   .ab-q { flex-direction: row-reverse; } .ab-ask { flex-direction: column; gap: 8px; } .ab-ask .ab-img { width: 84px; height: 84px; }
   .ab-pick { min-height: 60px; border-width: 3px; }
   .ab-parts { flex-direction: row; } .ab-parts b { min-width: 46px; padding: 4px 8px; font-size: 36px; }
+  .ab-parts .ab-part { min-width: 46px; padding: 4px 8px; font-size: 36px; } .ab-blend, .ab-snd { min-height: 44px; padding: 0 12px; font-size: 18px; } .ab-blend b, .ab-snd b { font-size: 15px; }
   .ab-card { max-height: 100%; } .ab-card .ab-hear { width: 48px; height: 48px; font-size: 22px; }
   .ab-chant { flex-direction: row; flex-wrap: wrap; align-content: center; gap: 6px; } .ab-line { width: auto; flex: 1 1 30%; padding: 5px 8px; gap: 6px; } .ab-line .ab-img { width: 40px; height: 40px; } .ab-line b { font-size: 16px; } .ab-line em { font-size: 14px; } .ab-line .ab-hear { width: 40px; height: 40px; font-size: 17px; }
   .ab-spell { flex-direction: row; flex-wrap: wrap; gap: 8px; } .ab-row, .ab-tray { min-height: 56px; gap: 6px; } .ab-slot { width: 52px; height: 52px; } .ab-block { min-width: 52px; height: 52px; font: 900 28px/52px system-ui, sans-serif; padding: 0 8px; }

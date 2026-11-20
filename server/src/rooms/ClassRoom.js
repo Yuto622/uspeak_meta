@@ -209,6 +209,7 @@ export class ClassRoom extends Room {
     this.roadmap = options.roadmap || null;
     // よみもの島（多読）の 記録（reading/store.js）。無ければ 本だなは 出るが 記録は のこらない（テスト）。
     this.reading = options.reading || null;
+    this.phonics = options.phonics || null; // フォニックスの おとの 版（ろくおんが かわると かわる）
     this.abc = options.abc || null; // 「ABC と おと」（幼児モードの カード）の 記録と 教室の 設定
     // 幼児モード（classroom/kids-store.js）。画面の 出し分けだけ（判定・コイン・記録は 同じ）。
     this.kids = options.kids || null;
@@ -5050,7 +5051,7 @@ export class ClassRoom extends Room {
     if (!priv || !this.state.players.get(sessionId)) return;
     if (!abcGame.ready()) { client.send('abc:error', { reason: 'no data' }); return; }
     const progress = this.abcProgress(priv); const settings = this.abcSettings();
-    const state = () => ({ ...abcGame.publicState(progress, settings), artV: ABC_ART_VERSION });
+    const state = () => ({ ...abcGame.publicState(progress, settings), artV: ABC_ART_VERSION, phonicsV: this.phonics?.version() || 'b1' });
     if (type === 'open') { priv.abcRound = null; client.send('abc:state', state()); return; }
     if (type === 'start') {
       // はじめの 数問：学年の かわりに ロードマップの 段階を 見る（段階 1 から 上＝もじは しって いる と みて、つなげて よむ 問題から）。
