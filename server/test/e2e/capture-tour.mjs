@@ -48,6 +48,9 @@ await api('PUT', '/roster', { rows: [{ name: NAME, premium: true, class: 'tour' 
   const r = await api('POST', '/homework', { title: 'Unit 3 どうぶつ', classes: 'tour', due: '', items: [
     { en: 'dog', ja: 'いぬ' }, { en: 'cat', ja: 'ねこ' }, { en: 'rabbit', ja: 'うさぎ' }, { en: 'bird', ja: 'とり' }, { en: 'fish', ja: 'さかな' }, { en: 'horse', ja: 'うま' }] });
   if (r.assignment) await api('POST', `/homework/${r.assignment.id}/publish`, { on: true });
+  // 同じ 宿題が 2 つ 以上 あれば 1 つに（撮りなおしで ふえない ように）。
+  const all = await api('GET', '/homework');
+  for (const a of (all.items || []).filter((a) => a.title === 'Unit 3 どうぶつ' && a.id !== r.assignment?.id)) await api('DELETE', `/homework/${a.id}`);
 }
 
 const browser = await chromium.launch({
@@ -265,7 +268,11 @@ const STEPS = {
   },
   async 'tour-talkshop'() {
     await closeAll(); await page.evaluate(() => { uspeak.rpg.fly('main'); uspeak.rpg.finishFlight?.(); }); await sleep(2500);
-    await walkIn('pizza'); await sleep(4000); await walkIn('pizza'); await sleep(9000); await shot('tour-talkshop');
+    await walkIn('pizza'); await sleep(8000);
+    await page.waitForFunction(() => !!uspeak.rpg.insideBuilding, null, { timeout: 60000, polling: 500 }).catch(() => console.log('  (not inside the shop)'));
+    await sleep(3000); await walkIn('pizza');
+    await page.waitForSelector('#conv-dialog[open]', { timeout: 60000 }).catch(() => console.log('  (conv did not open)'));
+    await page.click('#conv-picker [data-topic]').catch(() => {}); await sleep(10000); await shot('tour-talkshop');
     await page.evaluate(() => document.querySelector('#conv-close')?.click()); await page.evaluate(() => uspeak.rpg.inside?.leave?.(true)); await closeAll();
   },
   // えほん
