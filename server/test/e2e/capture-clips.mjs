@@ -16,6 +16,7 @@ import { mkdirSync, renameSync, rmSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { waitForServer } from './lib/walk.mjs';
+import { characterWebm, routeCharacter } from './lib/character-webm.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const serverDir = path.resolve(here, '../..');
@@ -32,7 +33,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const server = spawn('node', ['src/index.js'], {
   cwd: serverDir,
-  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'error' },
+  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'error', ADMIN_KEY: process.env.ADMIN_KEY || 'clip-admin-key-123' },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 await waitForServer(PORT);
@@ -106,9 +107,9 @@ const CLIPS = {
 
   // ウーピーとのやりとり。打つ・送る・返事が来る・目標が埋まる、が順に動く。
   //
-  // **この端末ではキャラクターは絵のフクロウになる。** 本物は mp4 の動画だが、この
-  // Chromium に H.264 が入っていないので character.js が絵に切り替える（そういう作り）。
-  // 教室の端末では動画のウーピーが出る。口が動くのはどちらも同じ。
+  // **キャラクターは 本物の ゆぴちゃん（ピンク）。** この Chromium は H.264 を 再生できないので、
+  // lib/character-webm.mjs が 同じ 動画を WebM で わたす（前は 絵の フクロウに なって いた）。
+  // 英会話島は プレミアムの 島なので、録る 子を 名簿で プレミアムに して おく（premium()）。
   async conv(page) {
     // **近さの判定はフレームループの中。** 1秒に数コマしか回らないので、置いて1回待つ
     // だけでは間に合わないことがある（実際そうなって開かなかった）。近いと言うまで置き直す。
@@ -133,7 +134,9 @@ const CLIPS = {
     await page.waitForFunction(() => !document.querySelector('#conv-foot')?.hidden,
       null, { timeout: 60000, polling: 300 }).catch(() => {});
     await sleep(3500);
+    // 書く 欄は「⌨️ かく」（#conv-write）を おした ときだけ 出る（ふだんは 大きな 🎤）。
     for (const line of ['Hello! My name is Kai.', "I'm fine, thank you!"]) {
+      if (!(await page.isVisible('#conv-text'))) await page.click('#conv-write').catch(() => {});
       await page.click('#conv-text');
       await page.type('#conv-text', line, { delay: 110 });   // 打っているところを見せる
       await sleep(600);
@@ -148,7 +151,17 @@ const CLIPS = {
 };
 
 const results = [];
+const CHAR = characterWebm(path.join(TMP, '..', 'clip-character'));
+// 英会話島は プレミアム：録る 子（みほん）を 名簿で プレミアムに する。
+async function premium() {
+  const base = `http://127.0.0.1:${PORT}`;
+  const login = await fetch(`${base}/admin/login`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: `password=${encodeURIComponent(process.env.ADMIN_KEY || 'clip-admin-key-123')}`, redirect: 'manual' });
+  const cookie = (login.headers.get('set-cookie') || '').split(';')[0];
+  const r = await fetch(`${base}/admin/api/roster`, { method: 'PUT', headers: { cookie, 'x-requested-with': 'uspeak-admin', 'content-type': 'application/json' }, body: JSON.stringify({ rows: [{ name: 'みほん', premium: true }] }) });
+  if (!r.ok) console.log('  (could not make the clip child premium)', r.status);
+}
 try {
+  await premium();
   for (const [id, drive] of Object.entries(CLIPS)) {
     if (ONLY.length && !ONLY.includes(id)) continue;
     rmSync(TMP, { recursive: true, force: true });
@@ -156,6 +169,7 @@ try {
     // makeHelpers は録画の設定を渡せないので、ここだけ自分でコンテキストを作る。
     // Playwright は**コンテキストを閉じたとき**に動画を書き出すので、1本ずつ閉じる。
     const ctx = await browser.newContext({ viewport: SIZE, recordVideo: { dir: TMP, size: SIZE } });
+    await routeCharacter(ctx, CHAR);
     const page = await ctx.newPage();
     page.on('pageerror', (e) => console.log(`  [${id}] pageerror`, e.message));
     await page.goto(`http://127.0.0.1:${PORT}/`, { waitUntil: 'commit', timeout: 240000 });
