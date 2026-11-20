@@ -114,8 +114,9 @@ async function walkIn(id) {
 }
 
 await page.goto(`${base}/`, { waitUntil: 'commit', timeout: 240000 });
-await page.waitForSelector('#avatar-dialog[open]', { timeout: 240000 });
-await page.click('#avatar-cancel');
+// すがた えらびは はじめての ときだけ（ロビーの 写真で 1 回 すすめた あとは 出ない）。
+await page.waitForSelector('#avatar-dialog[open], #net-lobby[open]', { timeout: 240000 });
+if (await page.$('#avatar-dialog[open]')) await page.click('#avatar-cancel');
 await page.waitForSelector('#net-lobby[open]');
 await page.fill('#net-name', NAME); await page.fill('#net-class', 'tour'); await page.click('#net-join');
 await page.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 120000 });
@@ -187,6 +188,17 @@ const STEPS = {
     await page.evaluate(() => { document.querySelectorAll('.tour-pick-mark').forEach((n) => n.remove()); });
     await closeAll();
   },
+
+  // 画面ぜんぶを 英語に（「A」）。外国人の 先生むけ。
+  async 'tour-english'() {
+    await closeAll(); await page.click('#lang-toggle').catch(() => {}); await sleep(7000); await shot('tour-english');
+    await page.click('#lang-toggle').catch(() => {}); await sleep(2500);
+  },
+  async 'tour-guide'() { await closeAll(); await page.evaluate(() => uspeak.net.guide?.open?.()); await sleep(4000); await shot('tour-guide'); await closeAll(); },
+  async 'tour-chat'() { await closeAll(); await page.click('#net-chat-button').catch(() => {}); await sleep(3000); await shot('tour-chat'); await page.click('#net-chat-close').catch(() => {}); },
+  async 'tour-fp'() { await closeAll(); await page.click('#fp-button').catch(() => {}); await sleep(6000); await shot('tour-fp'); await page.click('#fp-button').catch(() => {}); await sleep(1500); },
+  async 'tour-adventure'() { await closeAll(); await page.evaluate(() => uspeak.rpg.adventure?.open?.('team')); await sleep(6000); await shot('tour-adventure'); await closeAll(); },
+  async 'tour-daily'() { await closeAll(); await page.evaluate(() => uspeak.net.daily?.openLogin?.()); await sleep(3500); await shot('tour-daily'); await closeAll(); },
   // メインの島の お店（戸口を 歩いて 入ったのと 同じ 道）。
   async 'tour-wordhouse'() { await closeAll(); await walkIn('hut_easy'); await sleep(5000); await shot('tour-wordhouse'); await closeAll(); },
   async 'tour-weapons'() { await closeAll(); await walkIn('weapons'); await sleep(7000); await shot('tour-weapons'); await closeAll(); },
