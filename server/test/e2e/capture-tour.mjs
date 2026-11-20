@@ -199,6 +199,62 @@ const STEPS = {
   async 'tour-fp'() { await closeAll(); await page.click('#fp-button').catch(() => {}); await sleep(6000); await shot('tour-fp'); await page.click('#fp-button').catch(() => {}); await sleep(1500); },
   async 'tour-adventure'() { await closeAll(); await page.evaluate(() => uspeak.rpg.adventure?.open?.('team')); await sleep(6000); await shot('tour-adventure'); await closeAll(); },
   async 'tour-daily'() { await closeAll(); await page.evaluate(() => uspeak.net.daily?.openLogin?.()); await sleep(3500); await shot('tour-daily'); await closeAll(); },
+
+  // 操作（iPad の 横もち）：左下の スティック・下の バー・右上の ☰ を 赤い わくで。
+  async 'tour-ipad'() {
+    const c2 = await browser.newContext({ viewport: { width: 1180, height: 820 }, hasTouch: true,
+      userAgent: 'Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1' });
+    await routeCharacter(c2, characterWebm(path.join(TMP, 'character')));
+    const t = await c2.newPage();
+    await t.goto(`${base}/`, { waitUntil: 'commit', timeout: 240000 });
+    await t.waitForSelector('#avatar-dialog[open], #net-lobby[open]', { timeout: 240000 });
+    if (await t.$('#avatar-dialog[open]')) await t.click('#avatar-cancel');
+    await t.waitForSelector('#net-lobby[open]'); await t.fill('#net-name', 'はると'); await t.fill('#net-class', 'tour'); await t.click('#net-join');
+    await t.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 120000 });
+    await sleep(4000);
+    await t.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+    await sleep(3000);
+    const mark = (list) => t.evaluate((list) => {
+      document.querySelectorAll('.tour-mark').forEach((n) => n.remove());
+      for (const [sel, text] of list) {
+        const el = document.querySelector(sel); if (!el) continue;
+        const r = el.getBoundingClientRect(); if (!r.width) continue;
+        const box = document.createElement('div'); box.className = 'tour-mark';
+        Object.assign(box.style, { position: 'fixed', zIndex: 2147483647, left: `${r.left - 6}px`, top: `${r.top - 6}px`, width: `${r.width + 12}px`, height: `${r.height + 12}px`,
+          border: '6px solid #e53935', borderRadius: '14px', pointerEvents: 'none', boxSizing: 'border-box' });
+        const tag = document.createElement('div'); tag.className = 'tour-mark'; tag.textContent = text;
+        const above = r.top > 60;
+        Object.assign(tag.style, { position: 'fixed', zIndex: 2147483647, left: `${Math.min(innerWidth - 260, Math.max(6, r.left))}px`, top: `${above ? r.top - 46 : r.bottom + 10}px`,
+          background: '#e53935', color: '#fff', font: '700 19px "Noto Sans JP",sans-serif', padding: '5px 12px', borderRadius: '9px', pointerEvents: 'none', whiteSpace: 'nowrap' });
+        document.body.append(box, tag);
+      }
+    }, list);
+    const snap = async (id) => { await t.screenshot({ path: path.join(OUT, `${id}.jpg`), type: 'jpeg', quality: 86, timeout: 120000 }); console.log(`  docs/figures/${id}.jpg`); };
+    await mark([['.mobile-pad .stick', 'うごく（スティック）'], ['.hotbar', '下の バー'], ['#rail-toggle', '☰ メニュー']]);
+    await sleep(800); await snap('tour-ipad-controls');
+    await t.evaluate(() => document.querySelectorAll('.tour-mark').forEach((n) => n.remove()));
+    await t.click('#rail-toggle').catch(() => {}); await sleep(1500);
+    await mark([['#rail-toggle', '☰ を おすと ならぶ']]);
+    await sleep(600); await snap('tour-ipad-menu');
+    await c2.close();
+  },
+  // 操作（パソコン）：WASD・下の バー・Enter
+  async 'tour-pc-controls'() {
+    await closeAll(); await sleep(2000);
+    await page.evaluate(() => {
+      document.querySelectorAll('.tour-mark').forEach((n) => n.remove());
+      for (const [sel, text] of [['.control-hint', 'WASD・やじるしで うごく'], ['.hotbar', '下の バー（1〜4 の キー）']]) {
+        const el = document.querySelector(sel); if (!el) continue; const r = el.getBoundingClientRect(); if (!r.width) continue;
+        const box = document.createElement('div'); box.className = 'tour-mark';
+        Object.assign(box.style, { position: 'fixed', zIndex: 2147483647, left: `${r.left - 6}px`, top: `${r.top - 6}px`, width: `${r.width + 12}px`, height: `${r.height + 12}px`, border: '6px solid #e53935', borderRadius: '14px', pointerEvents: 'none', boxSizing: 'border-box' });
+        const tag = document.createElement('div'); tag.className = 'tour-mark'; tag.textContent = text;
+        Object.assign(tag.style, { position: 'fixed', zIndex: 2147483647, left: `${Math.max(6, r.left)}px`, top: `${r.top - 46}px`, background: '#e53935', color: '#fff', font: '700 19px "Noto Sans JP",sans-serif', padding: '5px 12px', borderRadius: '9px', pointerEvents: 'none', whiteSpace: 'nowrap' });
+        document.body.append(box, tag);
+      }
+    });
+    await sleep(800); await shot('tour-pc-controls');
+    await page.evaluate(() => document.querySelectorAll('.tour-mark').forEach((n) => n.remove()));
+  },
   // メインの島の お店（戸口を 歩いて 入ったのと 同じ 道）。
   async 'tour-wordhouse'() { await closeAll(); await walkIn('hut_easy'); await sleep(5000); await shot('tour-wordhouse'); await closeAll(); },
   async 'tour-weapons'() { await closeAll(); await walkIn('weapons'); await sleep(7000); await shot('tour-weapons'); await closeAll(); },
@@ -264,7 +320,7 @@ const STEPS = {
 try {
   for (const [id, run] of Object.entries(STEPS)) {
     if (ONLY.length && !ONLY.some((o) => id.startsWith(o))) continue;
-    try { console.log(id); if (!/admin|report|lobby|teacher|line|pick/.test(id)) await daylight(); await run(); } catch (err) { console.log(`  ${id} failed:`, err.message.split('\n')[0]); }
+    try { console.log(id); if (!/admin|report|lobby|teacher|line|pick|ipad/.test(id)) await daylight(); await run(); } catch (err) { console.log(`  ${id} failed:`, err.message.split('\n')[0]); }
   }
 } finally {
   await browser.close();
