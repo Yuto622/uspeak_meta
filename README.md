@@ -1206,7 +1206,7 @@ cd docs && xelatex uspeak-guide.tex && xelatex uspeak-guide.tex
 - 文中の数字（問題数・値段・品数）は、すべて `client/dist/*.json` と
   `server/src/game/*-bank.json` の実データから拾っています。**足したら資料も直すこと。**
 
-## 紹介動画（1分半の まとめ ＋ 見たい 章だけ・mp4）
+## 紹介動画（1分15秒の まとめ ＋ 見たい 章だけ・mp4）
 
 `docs/tour-cuts.json`（台本）から、`docs/make-tour.py` が作ります。
 
@@ -1221,7 +1221,7 @@ node test/e2e/capture-clips.mjs racers                  # 1本だけ録り直す
 node test/e2e/capture-tour.mjs                          # 紹介動画の 画面写真（docs/figures/tour-*.jpg）
 ```
 
-**構成は「まず 1 分半の まとめ → あとは 見たい 章だけ」。** 1 本の 長い 動画は 最後まで 見られない
+**構成は「まず 1 分少しの まとめ → あとは 見たい 章だけ」。** 1 本の 長い 動画は 最後まで 見られない
 （Wistia の 集計で 1 分を こえると 見られる 割合が 下がる）うえ、見る 人ごとに 知りたい 所が ちがう
 （オーナーは 記録と 運用、先生は 宿題と 英検）。章は 1〜3 分。`tour-cuts.json` の `chapters` に
 章の 一言と「向いている 人」、`digest` の 文が ある カットだけで まとめが できる。

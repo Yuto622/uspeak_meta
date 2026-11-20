@@ -74,7 +74,7 @@
     <h2>この動画の場面</h2>
     <ol class="scenes" id="scenes"></ol>
     <div class="row">
-      <button id="digest">▶ 1分半のまとめ</button>
+      <button id="digest">▶ まとめを見る</button>
       <button id="all">▶ ぜんぶ通しで</button>
     </div>
     <div class="row"><a id="dl" download>⤓ いま見ている動画をダウンロード</a></div>
@@ -108,7 +108,7 @@ function load(kind, i, play = true) {
   const item = kind === 'digest' ? DATA.digest : DATA.chapters[i];
   $('v').src = item.file; $('dl').href = item.file;
   $('playing').innerHTML = kind === 'digest'
-    ? `まずはここから<strong>1分半のまとめ（${mmss(item.sec)}）</strong>`
+    ? `まずはここから<strong>ぜんたいのまとめ（${mmss(item.sec)}）</strong>`
     : `${through ? 'ぜんぶ通し ・ ' : ''}${item.n} / ${DATA.chapters.length} 章<strong>${esc(item.name)}（${mmss(item.sec)}）</strong>`;
   $('scenes').replaceChildren(...item.cuts.map((c) => {
     const li = document.createElement('li'); const b = document.createElement('button');

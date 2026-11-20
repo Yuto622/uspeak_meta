@@ -5,7 +5,7 @@
     python3 docs/make-tour.py player     # docs/tour.html だけ（速い）
 
 出るもの:
-  docs/tour/digest.mp4           1分半の まとめ（digest の 文が ある カットだけ）
+  docs/tour/digest.mp4           1分少しの まとめ（digest の 文が ある カットだけ）
   docs/tour/ch-01.mp4 …          章ごとの 動画（1〜3分。ナレーション入り・字幕焼き込み・H.264 + AAC）
   docs/tour/full.mp4             章を つないだ 通し（PowerPoint・メール用）
   docs/tour.html                 えらんで 見る プレーヤー（まとめ → 見たい 章だけ）
@@ -14,7 +14,7 @@
 **なぜ 章ごとに 分けるか。** 1 本の 長い 動画は 見られない（Wistia の 1,300 万本の 集計：
 1 分を こえると 見られる 割合が 下がり、5〜10 分の 動画は はじめの 数秒で 17% が 去る）。
 そして 見る 人ごとに 知りたい ところが ちがう（オーナーは 記録と 運用、先生は 宿題と 英検）。
-だから さいしょに 1 分半の まとめで ぜんたいを 見せ、あとは 見たい 章だけを 選んで 見る
+だから さいしょに 1 分少しの まとめで ぜんたいを 見せ、あとは 見たい 章だけを 選んで 見る
 （Mayer の segmenting principle：見る 人が 区切りを 進める 形の ほうが よく 伝わる）。
 
 **声は端末の中で作る。** 日本語の読み上げは pyopenjtalk（Open JTalk）。**外に何も
@@ -179,7 +179,7 @@ def build_script(title, cuts):
     lines = [f"# {title} — ナレーション台本", "",
              "`docs/tour-cuts.json` から生成しています。**直すのは JSON のほうです。**", "",
              "秒数は1分およそ336文字で読んだときの目安です。", ""]
-    for name, mode in (("まとめ（1分半）", "digest"), ("章ごと（通し）", "full")):
+    for name, mode in (("まとめ", "digest"), ("章ごと（通し）", "full")):
         rows, total = plan(cuts, mode)
         lines += [f"## {name}（全 {int(total) // 60}分{int(total) % 60}秒 ・ {len(rows)}カット）", ""]
         chapter = None
@@ -465,7 +465,7 @@ PLAYER = r"""<!doctype html>
     <h2>この動画の場面</h2>
     <ol class="scenes" id="scenes"></ol>
     <div class="row">
-      <button id="digest">▶ 1分半のまとめ</button>
+      <button id="digest">▶ まとめを見る</button>
       <button id="all">▶ ぜんぶ通しで</button>
     </div>
     <div class="row"><a id="dl" download>⤓ いま見ている動画をダウンロード</a></div>
@@ -499,7 +499,7 @@ function load(kind, i, play = true) {
   const item = kind === 'digest' ? DATA.digest : DATA.chapters[i];
   $('v').src = item.file; $('dl').href = item.file;
   $('playing').innerHTML = kind === 'digest'
-    ? `まずはここから<strong>1分半のまとめ（${mmss(item.sec)}）</strong>`
+    ? `まずはここから<strong>ぜんたいのまとめ（${mmss(item.sec)}）</strong>`
     : `${through ? 'ぜんぶ通し ・ ' : ''}${item.n} / ${DATA.chapters.length} 章<strong>${esc(item.name)}（${mmss(item.sec)}）</strong>`;
   $('scenes').replaceChildren(...item.cuts.map((c) => {
     const li = document.createElement('li'); const b = document.createElement('button');
