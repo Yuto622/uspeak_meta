@@ -1206,25 +1206,34 @@ cd docs && xelatex uspeak-guide.tex && xelatex uspeak-guide.tex
 - 文中の数字（問題数・値段・品数）は、すべて `client/dist/*.json` と
   `server/src/game/*-bank.json` の実データから拾っています。**足したら資料も直すこと。**
 
-## 紹介動画（１０分版・５分版・mp4）
+## 紹介動画（1分半の まとめ ＋ 見たい 章だけ・mp4）
 
 `docs/tour-cuts.json`（台本）から、`docs/make-tour.py` が作ります。
 
 ```sh
 pip install imageio-ffmpeg pyopenjtalk        # 初回だけ（mp4 を書く ffmpeg と、日本語の読み上げ）
-python3 docs/make-tour.py                     # 全部（3分ほど）
+python3 docs/make-tour.py                     # 全部（15分ほど）
 python3 docs/make-tour.py player              # docs/tour.html だけ
 
 # 実際に遊んでいるところの録画（3本・入れ直すときだけ。1本あたり数分）
 cd server && node test/e2e/capture-clips.mjs            # racers / blockwild / conv
 node test/e2e/capture-clips.mjs racers                  # 1本だけ録り直す
+node test/e2e/capture-tour.mjs                          # 紹介動画の 画面写真（docs/figures/tour-*.jpg）
 ```
+
+**構成は「まず 1 分半の まとめ → あとは 見たい 章だけ」。** 1 本の 長い 動画は 最後まで 見られない
+（Wistia の 集計で 1 分を こえると 見られる 割合が 下がる）うえ、見る 人ごとに 知りたい 所が ちがう
+（オーナーは 記録と 運用、先生は 宿題と 英検）。章は 1〜3 分。`tour-cuts.json` の `chapters` に
+章の 一言と「向いている 人」、`digest` の 文が ある カットだけで まとめが できる。
+ゆぴちゃん（ピンクの キャラクター）は 録画の とき `test/e2e/lib/character-webm.mjs` が 動画を WebM に して 出す
+（この Chromium は H.264 を 再生できず、そのままだと ふくろうに なる）。
 
 | できるもの | 中身 |
 |---|---|
-| **`docs/uspeak-tour-10min.mp4`** | 9分34秒・33カット。**ナレーション入り・字幕焼き込み**（H.264 + AAC） |
-| **`docs/uspeak-tour-5min.mp4`** | 4分56秒・24カット。同上 |
-| `docs/tour.html` | 章立てから飛べるプレーヤー（上の mp4 を再生します） |
+| **`docs/tour/digest.mp4`** | 1分15秒の まとめ。**ナレーション入り・字幕焼き込み**（H.264 + AAC） |
+| **`docs/tour/ch-01.mp4` 〜 `ch-09.mp4`** | 章ごと（1〜3分）。同上 |
+| `docs/tour/full.mp4` | 章を つないだ 通し（15分46秒） |
+| `docs/tour.html` | まとめ → 見たい 章を 選んで 見る プレーヤー（目的で しぼる・見た章に ✓・つぎの章） |
 | `docs/tour-script.md` | 台本（読み上げの実測秒数つき） |
 | `docs/clips/clip-*.webm` | 素材：**実際に遊んでいるところの録画**3本（カート・ブロックの世界・AI英会話） |
 

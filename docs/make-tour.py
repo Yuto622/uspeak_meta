@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
 """紹介動画を作る。台本は docs/tour-cuts.json ひとつだけ。
 
-    python3 docs/make-tour.py            # 全部（10分ほど）
+    python3 docs/make-tour.py            # 全部（15分ほど）
     python3 docs/make-tour.py player     # docs/tour.html だけ（速い）
 
 出るもの:
-  docs/uspeak-tour-10min.mp4     ナレーション入り・字幕焼き込み（H.264 + AAC）
-  docs/uspeak-tour-5min.mp4      同・簡潔版
-  docs/tour.html                 章立てから飛べるプレーヤー（上の mp4 を再生する）
+  docs/tour/digest.mp4           1分半の まとめ（digest の 文が ある カットだけ）
+  docs/tour/ch-01.mp4 …          章ごとの 動画（1〜3分。ナレーション入り・字幕焼き込み・H.264 + AAC）
+  docs/tour/full.mp4             章を つないだ 通し（PowerPoint・メール用）
+  docs/tour.html                 えらんで 見る プレーヤー（まとめ → 見たい 章だけ）
   docs/tour-script.md            台本（読み上げの実測秒数つき）
+
+**なぜ 章ごとに 分けるか。** 1 本の 長い 動画は 見られない（Wistia の 1,300 万本の 集計：
+1 分を こえると 見られる 割合が 下がり、5〜10 分の 動画は はじめの 数秒で 17% が 去る）。
+そして 見る 人ごとに 知りたい ところが ちがう（オーナーは 記録と 運用、先生は 宿題と 英検）。
+だから さいしょに 1 分半の まとめで ぜんたいを 見せ、あとは 見たい 章だけを 選んで 見る
+（Mayer の segmenting principle：見る 人が 区切りを 進める 形の ほうが よく 伝わる）。
 
 **声は端末の中で作る。** 日本語の読み上げは pyopenjtalk（Open JTalk）。**外に何も
 送らない** — この環境からは読み上げサービスへ出られないし、出せたとしても台本を
@@ -63,9 +70,20 @@ GOLD = (232, 195, 104)
 MINT = (116, 195, 154)
 
 
+OUT = DOCS / "tour"
+
+
 def load():
     data = json.loads((DOCS / "tour-cuts.json").read_text(encoding="utf-8"))
-    return data["title"], data["cuts"]
+    return data["title"], data["cuts"], data.get("chapters", {})
+
+
+def chapter_names(cuts):
+    names = []
+    for c in cuts:
+        if c["chapter"] not in names:
+            names.append(c["chapter"])
+    return names
 
 
 SR = 48000          # pyopenjtalk が返す標本化周波数
@@ -92,7 +110,7 @@ def narrate(text):
         return path, w.getnframes() / w.getframerate()
 
 
-def plan(cuts, short=False):
+def plan(cuts, mode="full"):
     """カットの一覧に、読む文・読み上げた声・長さを足して返す。
 
     **長さは読み上げの実測から決める。** 文字数から見積もると、数字や英語の混じった文で
@@ -100,9 +118,14 @@ def plan(cuts, short=False):
     """
     out, t = [], 0.0
     for c in cuts:
-        if short and not c.get("in5", True):
-            continue
-        text = (c.get("short") or c["ja"]) if short else c["ja"]
+        if mode == "digest":
+            if not c.get("digest"):
+                continue
+            text = c["digest"]
+        else:
+            if mode != "full" and c["chapter"] != mode:
+                continue
+            text = c["ja"]
         wav, spoken = narrate(text)
         # 絵の長さは fps の整数倍に丸める。音もあとで同じ長さに詰めるので、33カット
         # 積み上げても音と絵がずれない。
@@ -125,15 +148,29 @@ def plan(cuts, short=False):
 
 # ---- プレーヤー -----------------------------------------------------------------
 
-def build_player(title, cuts):
-    full, tf = plan(cuts, False)
-    five, t5 = plan(cuts, True)
-    payload = json.dumps({"full": full, "five": five}, ensure_ascii=False)
-    mmss = lambda s: f"{int(s) // 60}:{int(s) % 60:02d}"
+def mmss(s):
+    return f"{int(s) // 60}:{int(s) % 60:02d}"
+
+
+def build_player(title, cuts, meta):
+    digest, td = plan(cuts, "digest")
+    chapters, total = [], 0.0
+    for n, name in enumerate(chapter_names(cuts), 1):
+        rows, sec = plan(cuts, name)
+        m = meta.get(name, {})
+        chapters.append({
+            "n": n, "name": name, "lead": m.get("lead", ""), "for": m.get("for", []),
+            "file": f"tour/ch-{n:02d}.mp4", "sec": round(sec, 1), "thumb": f"figures/{rows[0]['fig']}.jpg",
+            "cuts": [{"title": r["title"], "at": r["at"]} for r in rows],
+        })
+        total += sec
+    payload = json.dumps({"digest": {"file": "tour/digest.mp4", "sec": round(td, 1),
+                                      "cuts": [{"title": r["title"], "at": r["at"]} for r in digest]},
+                          "chapters": chapters, "full": {"file": "tour/full.mp4", "sec": round(total, 1)}},
+                         ensure_ascii=False)
     html = PLAYER.replace("__DATA__", payload).replace("__TITLE__", title)
-    html = html.replace("__LEN_FULL__", mmss(tf)).replace("__LEN_FIVE__", mmss(t5))
     (DOCS / "tour.html").write_text(html, encoding="utf-8")
-    print(f"  docs/tour.html          10分版 {mmss(tf)} / 5分版 {mmss(t5)}")
+    print(f"  docs/tour.html          まとめ {mmss(td)} ・ {len(chapters)} 章 ・ ぜんぶで {mmss(total)}")
 
 
 # ---- 収録用の台本 ---------------------------------------------------------------
@@ -142,8 +179,8 @@ def build_script(title, cuts):
     lines = [f"# {title} — ナレーション台本", "",
              "`docs/tour-cuts.json` から生成しています。**直すのは JSON のほうです。**", "",
              "秒数は1分およそ336文字で読んだときの目安です。", ""]
-    for name, short in (("10分版", False), ("5分版", True)):
-        rows, total = plan(cuts, short)
+    for name, mode in (("まとめ（1分半）", "digest"), ("章ごと（通し）", "full")):
+        rows, total = plan(cuts, mode)
         lines += [f"## {name}（全 {int(total) // 60}分{int(total) % 60}秒 ・ {len(rows)}カット）", ""]
         chapter = None
         for r in rows:
@@ -240,9 +277,10 @@ def build_audio(rows, out_wav):
             out.writeframes(pcm)
 
 
-def build_video(title, cuts, short, out_name, fps=FPS, size=(1280, 720)):
+def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
+    """rows（plan の 出力）を 1 本の mp4 に する。下の 進みぐあいの 線は この 1 本の 中での 位置。"""
     from PIL import Image, ImageDraw, ImageFont
-    rows, total = plan(cuts, short)
+    base = rows[0]["at"]
     W, H = size
     BAND = 230   # 帯の高さ。見出し（40px）と字幕2行が触れない最小がこれ
     f_title = ImageFont.truetype(FONT_BOLD, 40, index=0)
@@ -261,7 +299,7 @@ def build_video(title, cuts, short, out_name, fps=FPS, size=(1280, 720)):
          "-c:v", "libx264", "-preset", "medium", "-crf", "23", "-pix_fmt", "yuv420p",
          "-profile:v", "high", "-level", "4.0", "-movflags", "+faststart",
          "-c:a", "aac", "-b:a", "128k", "-ar", "44100", "-ac", "2",
-         "-shortest", str(DOCS / out_name)],
+         "-shortest", str(out_path)],
         stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
     # 帯は毎フレーム同じなので一度だけ作る
@@ -313,7 +351,7 @@ def build_video(title, cuts, short, out_name, fps=FPS, size=(1280, 720)):
             for n, line in enumerate(lines[:2]):
                 d.text((56, H - 116 + n * 38), line, font=f_sub, fill=(214, 226, 214))
             # 進みぐあい
-            at = (r["at"] + f / fps) / total
+            at = (r["at"] - base + f / fps) / total
             d.rectangle([0, H - 6, W, H], fill=(255, 255, 255, 30))
             d.rectangle([0, H - 6, int(W * at), H], fill=GOLD)
             d.text((W - 150, H - BAND + 16), "U-Speak Lab", font=f_foot, fill=(140, 170, 155))
@@ -327,8 +365,28 @@ def build_video(title, cuts, short, out_name, fps=FPS, size=(1280, 720)):
     track.unlink(missing_ok=True)
     if code != 0:
         raise SystemExit("ffmpeg failed:\n" + err[-2000:])
-    mb = (DOCS / out_name).stat().st_size / 1e6
-    print(f"  docs/{out_name}  {int(total) // 60}分{int(total) % 60}秒 ・ {done} frames ・ {mb:.1f} MB")
+    mb = out_path.stat().st_size / 1e6
+    print(f"  {out_path.relative_to(DOCS.parent)}  {mmss(total)} ・ {done} frames ・ {mb:.1f} MB          ")
+
+
+def build_videos(cuts):
+    """まとめ・章ごと・通し。通しは 章の mp4 を そのまま つなぐ（作りなおさない）。"""
+    OUT.mkdir(exist_ok=True)
+    rows, total = plan(cuts, "digest")
+    build_video(rows, total, OUT / "digest.mp4")
+    parts = []
+    for n, name in enumerate(chapter_names(cuts), 1):
+        rows, total = plan(cuts, name)
+        build_video(rows, total, OUT / f"ch-{n:02d}.mp4")
+        parts.append(OUT / f"ch-{n:02d}.mp4")
+    listing = OUT / ".concat.txt"
+    listing.write_text("".join(f"file '{p.name}'\n" for p in parts), encoding="utf-8")
+    code = subprocess.run([FFMPEG, "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", str(listing),
+                           "-c", "copy", "-movflags", "+faststart", str(OUT / "full.mp4")]).returncode
+    listing.unlink(missing_ok=True)
+    if code != 0:
+        raise SystemExit("ffmpeg concat failed")
+    print(f"  docs/tour/full.mp4  {(OUT / 'full.mp4').stat().st_size / 1e6:.1f} MB")
 
 
 PLAYER = r"""<!doctype html>
@@ -336,106 +394,194 @@ PLAYER = r"""<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>__TITLE__</title>
 <style>
-  :root{--deep:#0c2a24;--green:#173f38;--cream:#f4f1e3;--gold:#e8c368;--mint:#74c39a;--rule:#2c4a43}
+  :root{--deep:#0c2a24;--panel:#12332c;--card:#163a32;--cream:#f4f1e3;--gold:#e8c368;--mint:#74c39a;--rule:#2c4a43;--dim:#93ab9f}
   *{box-sizing:border-box}
   body{margin:0;background:var(--deep);color:var(--cream);
        font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif}
-  .wrap{max-width:1180px;margin:0 auto;padding:18px 18px 40px}
-  header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
-  header h1{font-size:19px;margin:0;letter-spacing:1px}
-  header small{color:var(--mint);font-size:12px;letter-spacing:2px}
-  video{width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;display:block;
-        box-shadow:0 20px 60px #0008}
-  .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
-  button{font:inherit;color:inherit;background:#1d4239;border:1px solid var(--rule);
-         border-radius:11px;padding:10px 16px;cursor:pointer}
+  .wrap{max-width:1180px;margin:0 auto;padding:18px 16px 48px}
+  .top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+  .top h1{font-size:19px;margin:0;letter-spacing:1px}
+  .top small{color:var(--mint);font-size:12px;letter-spacing:2px}
+  .stage{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+  @media (max-width:900px){.stage{grid-template-columns:1fr}}
+  .screen{position:relative}
+  video{width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;display:block;box-shadow:0 20px 60px #0008}
+  .next{position:absolute;inset:auto 14px 60px auto;display:none;background:#0c2a24ee;border:1px solid var(--gold);
+        border-radius:14px;padding:12px 14px;max-width:320px}
+  .next.show{display:block}
+  .next p{margin:0 0 8px;font-size:12px;color:var(--dim)}
+  .next b{display:block;font-size:15px;margin-bottom:10px}
+  .playing{margin:12px 0 4px;font-size:13px;color:var(--mint);letter-spacing:1px}
+  .playing strong{display:block;color:var(--cream);font-size:18px;letter-spacing:0;margin-top:2px}
+  button{font:inherit;color:inherit;background:#1d4239;border:1px solid var(--rule);border-radius:11px;
+         padding:9px 14px;cursor:pointer}
   button:hover{border-color:var(--mint)}
-  button.on{background:var(--gold);color:#22372f;border-color:var(--gold);font-weight:700}
-  a.dl{margin-left:auto;color:var(--mint);font-size:13px}
-  .note{color:#8fa79b;font-size:12px;line-height:1.8;margin:10px 0 18px}
-  .note b{color:var(--cream)}
-  h2.now{font-size:15px;margin:16px 0 8px;color:var(--gold);letter-spacing:1px}
-  ol.chapters{list-style:none;margin:0;padding:0;display:grid;
-              grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
-  ol.chapters li button{width:100%;text-align:left;display:flex;gap:10px;align-items:baseline;
-                        background:#12332c;padding:9px 12px}
-  ol.chapters li button.now{background:#1f4a3c;border-color:var(--mint);color:var(--cream)}
-  ol.chapters em{font-style:normal;color:#89a496;font-size:11px;font-variant-numeric:tabular-nums;flex:none}
-  ol.chapters span{font-size:13px}
+  button.gold{background:var(--gold);color:#22372f;border-color:var(--gold);font-weight:700}
+  .side{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:14px}
+  .side h2{font-size:13px;margin:0 0 8px;color:var(--gold);letter-spacing:1px}
+  .scenes{list-style:none;margin:0;padding:0;display:grid;gap:4px;max-height:320px;overflow:auto}
+  .scenes button{width:100%;text-align:left;display:flex;gap:10px;align-items:baseline;background:transparent;
+                 border-color:transparent;padding:6px 8px;font-size:13px}
+  .scenes button.now{background:#1f4a3c;border-color:var(--mint)}
+  .scenes em{font-style:normal;color:var(--dim);font-size:11px;font-variant-numeric:tabular-nums;flex:none}
+  .side .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .side a{color:var(--mint);font-size:13px}
+  h2.sec{font-size:17px;margin:30px 0 4px}
+  .hint{color:var(--dim);font-size:13px;margin:0 0 12px;line-height:1.7}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+  .chips button{border-radius:999px;padding:7px 14px;font-size:13px}
+  .chips button.on{background:var(--mint);color:#0c2a24;border-color:var(--mint);font-weight:700}
+  .grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .card{display:flex;flex-direction:column;width:100%;height:100%;padding:0;text-align:left;overflow:hidden;
+        background:var(--card);border-radius:14px}
+  .card.now{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+  .card.dim{opacity:.38}
+  .thumb{position:relative;aspect-ratio:16/10;background:#000 center/cover no-repeat}
+  .thumb .len{position:absolute;right:8px;bottom:8px;background:#000c;border-radius:6px;padding:2px 7px;font-size:12px;
+              font-variant-numeric:tabular-nums}
+  .thumb .num{position:absolute;left:8px;top:8px;background:var(--gold);color:#22372f;border-radius:6px;padding:2px 8px;
+              font-size:12px;font-weight:700}
+  .thumb .seen{position:absolute;right:8px;top:8px;background:var(--mint);color:#0c2a24;border-radius:6px;padding:2px 7px;
+               font-size:12px;font-weight:700;display:none}
+  .card.watched .seen{display:block}
+  .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .body b{font-size:15px}
+  .body span{font-size:13px;color:var(--dim);line-height:1.6}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+  .tags i{font-style:normal;font-size:11px;border:1px solid var(--rule);border-radius:999px;padding:1px 8px;color:var(--mint)}
+  .foot{margin-top:28px;color:var(--dim);font-size:12px;line-height:1.8}
+  .foot a{color:var(--mint)}
 </style></head><body><div class="wrap">
-<header><h1>__TITLE__</h1><small>U-SPEAK LAB</small></header>
+<div class="top"><h1>__TITLE__</h1><small>U-SPEAK LAB</small></div>
 
-<video id="v" controls playsinline preload="metadata" src="uspeak-tour-10min.mp4"></video>
-
-<div class="controls">
-  <button id="len10" class="on">10分版（__LEN_FULL__）</button>
-  <button id="len5">5分版（__LEN_FIVE__）</button>
-  <a class="dl" id="dl" href="uspeak-tour-10min.mp4" download>⤓ この動画をダウンロード</a>
+<div class="stage">
+  <div class="screen">
+    <video id="v" controls playsinline preload="metadata"></video>
+    <div class="next" id="next"><p id="nextlabel">つぎの章</p><b id="nexttitle"></b>
+      <button class="gold" id="nextgo">▶ つづけて見る</button></div>
+    <div class="playing" id="playing"></div>
+  </div>
+  <aside class="side">
+    <h2>この動画の場面</h2>
+    <ol class="scenes" id="scenes"></ol>
+    <div class="row">
+      <button id="digest">▶ 1分半のまとめ</button>
+      <button id="all">▶ ぜんぶ通しで</button>
+    </div>
+    <div class="row"><a id="dl" download>⤓ いま見ている動画をダウンロード</a></div>
+  </aside>
 </div>
 
-<p class="note">
-  ナレーションと字幕は<b>動画に入っています</b>。そのまま再生してください。
-  下の章立てを押すと、その場面へ飛びます。
-  <b>mp4 なので、PowerPoint に貼っても、メールで送っても、そのまま再生できます。</b>
-</p>
+<h2 class="sec">見たいところだけ選ぶ</h2>
+<p class="hint">章ごとに1〜3分の動画です。押すと上で再生します。見おわった章には ✓ がつきます。</p>
+<div class="chips" id="chips"></div>
+<ul class="grid" id="grid"></ul>
 
-<h2 class="now" id="now"></h2>
-<ol class="chapters" id="chapters"></ol>
+<p class="foot">ナレーションと字幕は動画に入っています。mp4 なので、PowerPoint に貼っても、メールで送ってもそのまま再生できます。
+通しの1本は <a id="fulldl" download>こちら</a>。</p>
 </div>
 <script>
 const DATA = __DATA__;
-let cuts = DATA.full;
 const $ = (id) => document.getElementById(id);
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const KEY = 'uspeak-tour-seen-v1';
+let seen = new Set();
+try { seen = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch { /* なくても 動く */ }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify([...seen])); } catch { /* */ } };
 
-function buildChapters() {
-  $('chapters').replaceChildren(...cuts.map((c, n) => {
-    const li = document.createElement('li');
-    const b = document.createElement('button');
-    b.innerHTML = `<em>${mmss(c.at)}</em><span>${c.title}</span>`;
-    b.onclick = () => { $('v').currentTime = c.at + 0.05; follow(); $('v').play?.(); };
-    li.append(b);
-    return li;
+let now = null;        // { kind: 'digest' | 'chapter', i }
+let through = false;   // ぜんぶ通し（章を つづけて 自動で）
+let filter = 'all';
+
+function load(kind, i, play = true) {
+  now = { kind, i };
+  const item = kind === 'digest' ? DATA.digest : DATA.chapters[i];
+  $('v').src = item.file; $('dl').href = item.file;
+  $('playing').innerHTML = kind === 'digest'
+    ? `まずはここから<strong>1分半のまとめ（${mmss(item.sec)}）</strong>`
+    : `${through ? 'ぜんぶ通し ・ ' : ''}${item.n} / ${DATA.chapters.length} 章<strong>${esc(item.name)}（${mmss(item.sec)}）</strong>`;
+  $('scenes').replaceChildren(...item.cuts.map((c) => {
+    const li = document.createElement('li'); const b = document.createElement('button');
+    b.innerHTML = `<em>${mmss(c.at - item.cuts[0].at)}</em><span>${esc(c.title)}</span>`;
+    b.onclick = () => { $('v').currentTime = c.at - item.cuts[0].at + 0.05; $('v').play?.(); };
+    li.append(b); return li;
+  }));
+  $('next').classList.remove('show');
+  paintGrid(); follow();
+  if (play) $('v').play?.().catch(() => {});
+}
+
+function follow() {
+  if (!now) return;
+  const item = now.kind === 'digest' ? DATA.digest : DATA.chapters[now.i];
+  const t = $('v').currentTime + item.cuts[0].at;
+  let k = 0;
+  while (k + 1 < item.cuts.length && item.cuts[k + 1].at <= t) k += 1;
+  [...$('scenes').children].forEach((li, n) => li.firstChild.classList.toggle('now', n === k));
+}
+
+function nextChapter() {
+  if (now.kind === 'digest') return 0;
+  return now.i + 1 < DATA.chapters.length ? now.i + 1 : -1;
+}
+
+$('v').addEventListener('timeupdate', follow);
+$('v').addEventListener('ended', () => {
+  if (now.kind === 'chapter') { seen.add(DATA.chapters[now.i].n); save(); paintGrid(); }
+  const n = nextChapter();
+  if (n < 0) { through = false; return; }
+  if (through) { load('chapter', n); return; }
+  $('nextlabel').textContent = now.kind === 'digest' ? 'くわしく見るなら、下から章を選ぶか' : 'つぎの章';
+  $('nexttitle').textContent = `${DATA.chapters[n].n}. ${DATA.chapters[n].name}（${mmss(DATA.chapters[n].sec)}）`;
+  $('nextgo').onclick = () => load('chapter', n);
+  $('next').classList.add('show');
+});
+
+function paintGrid() {
+  $('grid').replaceChildren(...DATA.chapters.map((c, i) => {
+    const li = document.createElement('li'); const b = document.createElement('button');
+    const match = filter === 'all' || c.for.includes(filter);
+    b.className = `card${seen.has(c.n) ? ' watched' : ''}${now && now.kind === 'chapter' && now.i === i ? ' now' : ''}${match ? '' : ' dim'}`;
+    b.innerHTML = `<div class="thumb" style="background-image:url('${c.thumb}')"><span class="num">${c.n}</span>`
+      + `<span class="seen">✓ 見た</span><span class="len">${mmss(c.sec)}</span></div>`
+      + `<div class="body"><b>${esc(c.name)}</b><span>${esc(c.lead)}</span>`
+      + `<div class="tags">${c.for.map((f) => `<i>${esc(f)}</i>`).join('')}</div></div>`;
+    b.onclick = () => { through = false; load('chapter', i); $('v').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+    li.append(b); return li;
   }));
 }
 
-// いま流れている場面を光らせる。動画の中の字幕と、下の一覧が同じところを指す。
-function follow() {
-  const t = $('v').currentTime;
-  let i = 0;
-  while (i + 1 < cuts.length && cuts[i + 1].at <= t) i += 1;
-  $('now').textContent = `${cuts[i].chapter} ・ ${cuts[i].title}`;
-  [...$('chapters').children].forEach((li, n) => li.firstChild.classList.toggle('now', n === i));
+function paintChips() {
+  const all = [...new Set(DATA.chapters.flatMap((c) => c.for))];
+  $('chips').replaceChildren(...['all', ...all].map((f) => {
+    const b = document.createElement('button');
+    b.textContent = f === 'all' ? 'すべて' : `${f}むけ`;
+    b.className = filter === f ? 'on' : '';
+    b.onclick = () => { filter = f; paintChips(); paintGrid(); };
+    return b;
+  }));
 }
 
-function setLength(which) {
-  const five = which === 'five';
-  cuts = five ? DATA.five : DATA.full;
-  const src = five ? 'uspeak-tour-5min.mp4' : 'uspeak-tour-10min.mp4';
-  $('v').src = src; $('dl').href = src;
-  $('len10').classList.toggle('on', !five);
-  $('len5').classList.toggle('on', five);
-  buildChapters(); follow();
-}
-$('len10').onclick = () => setLength('full');
-$('len5').onclick = () => setLength('five');
-$('v').addEventListener('timeupdate', follow);
-
-buildChapters(); follow();
+$('digest').onclick = () => { through = false; load('digest', 0); };
+$('all').onclick = () => { through = true; load('chapter', 0); };
+$('fulldl').href = DATA.full.file;
+$('fulldl').textContent = `こちら（${mmss(DATA.full.sec)}）`;
+paintChips();
+load('digest', 0, false);
 </script></body></html>
 """
 
 
 def main():
     what = sys.argv[1] if len(sys.argv) > 1 else "all"
-    title, cuts = load()
+    title, cuts, meta = load()
     print(f"{title} — {len(cuts)} カット")
-    build_player(title, cuts)
+    build_player(title, cuts, meta)
     build_script(title, cuts)
     if what == "player":
         return
-    build_video(title, cuts, False, "uspeak-tour-10min.mp4")
-    build_video(title, cuts, True, "uspeak-tour-5min.mp4")
+    build_videos(cuts)
 
 
 if __name__ == "__main__":
