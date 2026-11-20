@@ -58,6 +58,9 @@
   .body span{font-size:13px;color:var(--dim);line-height:1.6}
   .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
   .tags i{font-style:normal;font-size:11px;border:1px solid var(--rule);border-radius:999px;padding:1px 8px;color:var(--mint)}
+  .toc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px}
+  .toc button{width:100%;text-align:left;display:flex;gap:12px;align-items:baseline;background:var(--panel)}
+  .toc em{font-style:normal;color:var(--mint);font-variant-numeric:tabular-nums;flex:none;font-weight:700}
   .foot{margin-top:28px;color:var(--dim);font-size:12px;line-height:1.8}
   .foot a{color:var(--mint)}
 </style></head><body><div class="wrap">
@@ -86,11 +89,20 @@
 <div class="chips" id="chips"></div>
 <ul class="grid" id="grid"></ul>
 
+<h2 class="sec">ぜんぶ見る方へ ・ 通しの1本のもくじ</h2>
+<p class="hint">通しの動画は、最初に このもくじが出ます。時間を押すと、そこから再生します。</p>
+<ol class="toc" id="toc"></ol>
+<div class="row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+  <button id="playfull" class="gold">▶ 通しの1本を最初から</button>
+  <button id="copytoc">もくじをコピー（メール用）</button>
+  <a id="fulldl" download style="color:var(--mint);font-size:13px;align-self:center">⤓ 通しの1本をダウンロード</a>
+</div>
+
 <p class="foot">ナレーションと字幕は動画に入っています。mp4 なので、PowerPoint に貼っても、メールで送ってもそのまま再生できます。
-通しの1本は <a id="fulldl" download>こちら</a>。</p>
+通しの1本には動画のチャプターも入っているので、対応するプレーヤー（QuickTime・VLC など）では章を選んで飛べます。</p>
 </div>
 <script>
-const DATA = {"digest": {"file": "tour/digest.mp4", "sec": 75.1, "cuts": [{"title": "U-Speak ウェブ版", "at": 0.0}, {"title": "せかいを えらぼう ・ ２６の島", "at": 14.4}, {"title": "おとを つなげて よむ", "at": 27.0}, {"title": "めんせつの間 ・ 面接官は ゆぴちゃん", "at": 35.7}, {"title": "ゆぴちゃんと 話す", "at": 43.4}, {"title": "レース ・ ことばの レーンを 走る", "at": 50.8}, {"title": "保護者レポート ・ A4 ２ページ", "at": 57.6}, {"title": "宿題を くばる ・ ３ステップ", "at": 66.2}]}, "chapters": [{"n": 1, "name": "はじめに", "lead": "はじめかたと、入ってすぐの画面", "for": ["はじめての方"], "file": "tour/ch-01.mp4", "sec": 107.6, "thumb": "figures/island-willow.jpg", "cuts": [{"title": "U-Speak ウェブ版", "at": 0.0}, {"title": "ユーザーネームと パスワードだけ", "at": 23.3}, {"title": "せかいを えらぼう ・ ２６の島", "at": 44.4}, {"title": "メインの島 ・ つぎに やること", "at": 68.9}, {"title": "英単語ハウス", "at": 91.1}]}, {"n": 2, "name": "学習の島", "lead": "単語クイズ・ジム・アリーナ・ＡＢＣとフォニックス", "for": ["先生", "保護者"], "file": "tour/ch-02.mp4", "sec": 112.9, "thumb": "figures/island-school.jpg", "cuts": [{"title": "ことばの学校島", "at": 0.0}, {"title": "単語クイズ ・ １,５０１問", "at": 11.1}, {"title": "ことばのジム ・ 聞いて、声に出す", "at": 35.8}, {"title": "えいごアリーナ島", "at": 48.2}, {"title": "正解が、そのまま攻撃になる", "at": 54.2}, {"title": "ＡＢＣと おと ・ もじの なまえと おと", "at": 69.5}, {"title": "おとを つなげて よむ", "at": 92.6}]}, {"n": 3, "name": "えほん・しゅくだい", "lead": "英語の絵本１２０冊と、配られた宿題", "for": ["先生", "保護者"], "file": "tour/ch-03.mp4", "sec": 67.2, "thumb": "figures/island-reading.jpg", "cuts": [{"title": "よみもの島 ・ 英語の えほん", "at": 0.0}, {"title": "本だな ・ いまの レベルに ぴったり", "at": 16.3}, {"title": "きく ・ よむ ・ こえに出す ・ クイズ", "at": 31.1}, {"title": "しゅくだい島", "at": 51.4}]}, {"n": 4, "name": "英検", "lead": "４技能と、ゆぴちゃんの面接練習", "for": ["先生", "保護者"], "file": "tour/ch-04.mp4", "sec": 68.1, "thumb": "figures/island-eiken5.jpg", "cuts": [{"title": "英検５級の島", "at": 0.0}, {"title": "４技能を、級ごとに", "at": 19.5}, {"title": "めんせつの間 ・ 面接官は ゆぴちゃん", "at": 36.7}, {"title": "きょうの ５ふん", "at": 57.5}]}, {"n": 5, "name": "話す（AI英会話・ビデオ通話）", "lead": "ゆぴちゃんと話す・おつかい・みんなで話す", "for": ["先生", "保護者"], "file": "tour/ch-05.mp4", "sec": 70.8, "thumb": "figures/island-conv.jpg", "cuts": [{"title": "英会話島", "at": 0.0}, {"title": "ゆぴちゃんと 話す", "at": 13.5}, {"title": "おつかい島 ・ 歩いて回るAI英会話", "at": 34.9}, {"title": "みんなで はなす しま ・ ビデオ通話", "at": 49.3}]}, {"n": 6, "name": "つり・ぼくじょう・レース", "lead": "遊びながら英語にふれる島", "for": ["子ども向けの説明"], "file": "tour/ch-06.mp4", "sec": 104.9, "thumb": "figures/screen-fishing.jpg", "cuts": [{"title": "はじまりの島 ・ 英単語釣り", "at": 0.0}, {"title": "つり島 ・ ７つの 問題の形", "at": 14.3}, {"title": "ぼくじょう島", "at": 38.2}, {"title": "ペット島", "at": 54.3}, {"title": "のりもの島", "at": 62.5}, {"title": "レース ・ ３周", "at": 73.9}, {"title": "レース ・ ことばの レーンを 走る", "at": 86.4}]}, {"n": 7, "name": "つくる・きせかえ・ゲーム", "lead": "コインの使い道と、同梱ゲーム", "for": ["子ども向けの説明"], "file": "tour/ch-07.mp4", "sec": 161.8, "thumb": "figures/island-town.jpg", "cuts": [{"title": "まちづくり島", "at": 0.0}, {"title": "ひろば ・ クラス全員で一つの世界", "at": 11.3}, {"title": "ブロック屋 ・ どれも英単語", "at": 27.1}, {"title": "土地島 ・ じぶんだけの しま", "at": 41.5}, {"title": "きせかえ島", "at": 50.9}, {"title": "きせかえ ・ すがたも 買える", "at": 60.7}, {"title": "テーマパーク", "at": 78.1}, {"title": "AURORA KART ・ BLOCKWILD", "at": 88.9}, {"title": "BLOCKWILD ・ ブロック屋とつながっている", "at": 114.5}, {"title": "ミニゲーム島", "at": 142.8}]}, {"n": 8, "name": "記録・保護者レポート", "lead": "ロードマップ・ランキング・レポート", "for": ["教室のオーナー", "保護者"], "file": "tour/ch-08.mp4", "sec": 122.8, "thumb": "figures/screen-dashboard.jpg", "cuts": [{"title": "マイページ ・ ５技能", "at": 0.0}, {"title": "ロードマップ ・ １２の 段階", "at": 12.9}, {"title": "ランキング ・ じぶんくらべ", "at": 33.5}, {"title": "苦手単語の 復習", "at": 48.1}, {"title": "保護者レポート ・ A4 ２ページ", "at": 61.0}, {"title": "数字は だれが決めているか", "at": 77.2}, {"title": "正誤も、コインも、サーバーが決める", "at": 91.8}]}, {"n": 9, "name": "先生の画面・教室での運用", "lead": "授業モード・宿題・安全・無料体験", "for": ["教室のオーナー", "先生"], "file": "tour/ch-09.mp4", "sec": 130.7, "thumb": "figures/screen-teacher.jpg", "cuts": [{"title": "先生コンソール", "at": 0.0}, {"title": "授業モード", "at": 23.9}, {"title": "宿題を くばる ・ ３ステップ", "at": 36.6}, {"title": "フォニックスの おとを 録音", "at": 57.3}, {"title": "安全と、人数", "at": 69.2}, {"title": "１か月の無料体験", "at": 102.6}]}], "full": {"file": "tour/full.mp4", "sec": 946.8}};
+const DATA = {"digest": {"file": "tour/digest.mp4", "sec": 75.1, "cuts": [{"title": "U-Speak ウェブ版", "at": 0.0}, {"title": "せかいを えらぼう ・ ２６の島", "at": 14.4}, {"title": "おとを つなげて よむ", "at": 27.0}, {"title": "めんせつの間 ・ 面接官は ゆぴちゃん", "at": 35.7}, {"title": "ゆぴちゃんと 話す", "at": 43.4}, {"title": "レース ・ ことばの レーンを 走る", "at": 50.8}, {"title": "保護者レポート ・ A4 ２ページ", "at": 57.6}, {"title": "宿題を くばる ・ ３ステップ", "at": 66.2}]}, "chapters": [{"n": 1, "name": "はじめに", "lead": "はじめかたと、入ってすぐの画面", "for": ["はじめての方"], "file": "tour/ch-01.mp4", "sec": 107.6, "thumb": "figures/island-willow.jpg", "cuts": [{"title": "U-Speak ウェブ版", "at": 0.0}, {"title": "ユーザーネームと パスワードだけ", "at": 23.3}, {"title": "せかいを えらぼう ・ ２６の島", "at": 44.4}, {"title": "メインの島 ・ つぎに やること", "at": 68.9}, {"title": "英単語ハウス", "at": 91.1}]}, {"n": 2, "name": "学習の島", "lead": "単語クイズ・ジム・アリーナ・ＡＢＣとフォニックス", "for": ["先生", "保護者"], "file": "tour/ch-02.mp4", "sec": 112.9, "thumb": "figures/island-school.jpg", "cuts": [{"title": "ことばの学校島", "at": 0.0}, {"title": "単語クイズ ・ １,５０１問", "at": 11.1}, {"title": "ことばのジム ・ 聞いて、声に出す", "at": 35.8}, {"title": "えいごアリーナ島", "at": 48.2}, {"title": "正解が、そのまま攻撃になる", "at": 54.2}, {"title": "ＡＢＣと おと ・ もじの なまえと おと", "at": 69.5}, {"title": "おとを つなげて よむ", "at": 92.6}]}, {"n": 3, "name": "えほん・しゅくだい", "lead": "英語の絵本１２０冊と、配られた宿題", "for": ["先生", "保護者"], "file": "tour/ch-03.mp4", "sec": 67.2, "thumb": "figures/island-reading.jpg", "cuts": [{"title": "よみもの島 ・ 英語の えほん", "at": 0.0}, {"title": "本だな ・ いまの レベルに ぴったり", "at": 16.3}, {"title": "きく ・ よむ ・ こえに出す ・ クイズ", "at": 31.1}, {"title": "しゅくだい島", "at": 51.4}]}, {"n": 4, "name": "英検", "lead": "４技能と、ゆぴちゃんの面接練習", "for": ["先生", "保護者"], "file": "tour/ch-04.mp4", "sec": 68.1, "thumb": "figures/island-eiken5.jpg", "cuts": [{"title": "英検５級の島", "at": 0.0}, {"title": "４技能を、級ごとに", "at": 19.5}, {"title": "めんせつの間 ・ 面接官は ゆぴちゃん", "at": 36.7}, {"title": "きょうの ５ふん", "at": 57.5}]}, {"n": 5, "name": "話す（AI英会話・ビデオ通話）", "lead": "ゆぴちゃんと話す・おつかい・みんなで話す", "for": ["先生", "保護者"], "file": "tour/ch-05.mp4", "sec": 70.8, "thumb": "figures/island-conv.jpg", "cuts": [{"title": "英会話島", "at": 0.0}, {"title": "ゆぴちゃんと 話す", "at": 13.5}, {"title": "おつかい島 ・ 歩いて回るAI英会話", "at": 34.9}, {"title": "みんなで はなす しま ・ ビデオ通話", "at": 49.3}]}, {"n": 6, "name": "つり・ぼくじょう・レース", "lead": "遊びながら英語にふれる島", "for": ["子ども向けの説明"], "file": "tour/ch-06.mp4", "sec": 104.9, "thumb": "figures/screen-fishing.jpg", "cuts": [{"title": "はじまりの島 ・ 英単語釣り", "at": 0.0}, {"title": "つり島 ・ ７つの 問題の形", "at": 14.3}, {"title": "ぼくじょう島", "at": 38.2}, {"title": "ペット島", "at": 54.3}, {"title": "のりもの島", "at": 62.5}, {"title": "レース ・ ３周", "at": 73.9}, {"title": "レース ・ ことばの レーンを 走る", "at": 86.4}]}, {"n": 7, "name": "つくる・きせかえ・ゲーム", "lead": "コインの使い道と、同梱ゲーム", "for": ["子ども向けの説明"], "file": "tour/ch-07.mp4", "sec": 161.8, "thumb": "figures/island-town.jpg", "cuts": [{"title": "まちづくり島", "at": 0.0}, {"title": "ひろば ・ クラス全員で一つの世界", "at": 11.3}, {"title": "ブロック屋 ・ どれも英単語", "at": 27.1}, {"title": "土地島 ・ じぶんだけの しま", "at": 41.5}, {"title": "きせかえ島", "at": 50.9}, {"title": "きせかえ ・ すがたも 買える", "at": 60.7}, {"title": "テーマパーク", "at": 78.1}, {"title": "AURORA KART ・ BLOCKWILD", "at": 88.9}, {"title": "BLOCKWILD ・ ブロック屋とつながっている", "at": 114.5}, {"title": "ミニゲーム島", "at": 142.8}]}, {"n": 8, "name": "記録・保護者レポート", "lead": "ロードマップ・ランキング・レポート", "for": ["教室のオーナー", "保護者"], "file": "tour/ch-08.mp4", "sec": 122.8, "thumb": "figures/screen-dashboard.jpg", "cuts": [{"title": "マイページ ・ ５技能", "at": 0.0}, {"title": "ロードマップ ・ １２の 段階", "at": 12.9}, {"title": "ランキング ・ じぶんくらべ", "at": 33.5}, {"title": "苦手単語の 復習", "at": 48.1}, {"title": "保護者レポート ・ A4 ２ページ", "at": 61.0}, {"title": "数字は だれが決めているか", "at": 77.2}, {"title": "正誤も、コインも、サーバーが決める", "at": 91.8}]}, {"n": 9, "name": "先生の画面・教室での運用", "lead": "授業モード・宿題・安全・無料体験", "for": ["教室のオーナー", "先生"], "file": "tour/ch-09.mp4", "sec": 130.7, "thumb": "figures/screen-teacher.jpg", "cuts": [{"title": "先生コンソール", "at": 0.0}, {"title": "授業モード", "at": 23.9}, {"title": "宿題を くばる ・ ３ステップ", "at": 36.6}, {"title": "フォニックスの おとを 録音", "at": 57.3}, {"title": "安全と、人数", "at": 69.2}, {"title": "１か月の無料体験", "at": 102.6}]}], "full": {"file": "tour/full.mp4", "sec": 960.1, "toc": [{"n": 1, "name": "はじめに", "at": 13.3}, {"n": 2, "name": "学習の島", "at": 120.9}, {"n": 3, "name": "えほん・しゅくだい", "at": 233.8}, {"n": 4, "name": "英検", "at": 301.0}, {"n": 5, "name": "話す（AI英会話・ビデオ通話）", "at": 369.1}, {"n": 6, "name": "つり・ぼくじょう・レース", "at": 439.9}, {"n": 7, "name": "つくる・きせかえ・ゲーム", "at": 544.8}, {"n": 8, "name": "記録・保護者レポート", "at": 706.6}, {"n": 9, "name": "先生の画面・教室での運用", "at": 829.4}]}};
 const $ = (id) => document.getElementById(id);
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -137,11 +149,12 @@ function nextChapter() {
 
 $('v').addEventListener('timeupdate', follow);
 $('v').addEventListener('ended', () => {
+  if (!now) return;
   if (now.kind === 'chapter') { seen.add(DATA.chapters[now.i].n); save(); paintGrid(); }
   const n = nextChapter();
   if (n < 0) { through = false; return; }
   if (through) { load('chapter', n); return; }
-  $('nextlabel').textContent = now.kind === 'digest' ? 'くわしく見るなら、下から章を選ぶか' : 'つぎの章';
+  $('nextlabel').textContent = now.kind === 'digest' ? 'くわしく見るなら、1章から（下から選ぶこともできます）' : 'つぎの章';
   $('nexttitle').textContent = `${DATA.chapters[n].n}. ${DATA.chapters[n].name}（${mmss(DATA.chapters[n].sec)}）`;
   $('nextgo').onclick = () => load('chapter', n);
   $('next').classList.add('show');
@@ -174,8 +187,36 @@ function paintChips() {
 
 $('digest').onclick = () => { through = false; load('digest', 0); };
 $('all').onclick = () => { through = true; load('chapter', 0); };
+function playFull(at) {
+  through = false; now = null;
+  $('v').src = DATA.full.file; $('dl').href = DATA.full.file;
+  $('playing').innerHTML = `通しの1本<strong>はじめから おわりまで（${mmss(DATA.full.sec)}）</strong>`;
+  $('scenes').replaceChildren(...DATA.full.toc.map((c) => {
+    const li = document.createElement('li'); const b = document.createElement('button');
+    b.innerHTML = `<em>${mmss(c.at)}</em><span>${c.n}. ${esc(c.name)}</span>`;
+    b.onclick = () => playFull(c.at);
+    li.append(b); return li;
+  }));
+  $('next').classList.remove('show'); paintGrid();
+  const go = () => { $('v').currentTime = at; $('v').play?.().catch(() => {}); };
+  if ($('v').readyState >= 1) go(); else $('v').addEventListener('loadedmetadata', go, { once: true });
+  $('v').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+const tocText = () => ['U-Speak ウェブ版 紹介動画（通し）もくじ',
+  ...DATA.full.toc.map((c) => `${mmss(c.at)} ${c.n}. ${c.name}`), `（ぜんぶで ${mmss(DATA.full.sec)}）`].join('\n');
+$('toc').replaceChildren(...DATA.full.toc.map((c) => {
+  const li = document.createElement('li'); const b = document.createElement('button');
+  b.innerHTML = `<em>${mmss(c.at)}</em><span>${c.n}. ${esc(c.name)}</span>`;
+  b.onclick = () => playFull(c.at);
+  li.append(b); return li;
+}));
+$('playfull').onclick = () => playFull(0);
+$('copytoc').onclick = async () => {
+  try { await navigator.clipboard.writeText(tocText()); $('copytoc').textContent = 'コピーしました'; }
+  catch { prompt('もくじ', tocText()); }
+};
 $('fulldl').href = DATA.full.file;
-$('fulldl').textContent = `こちら（${mmss(DATA.full.sec)}）`;
+$('fulldl').textContent = `⤓ 通しの1本をダウンロード（${mmss(DATA.full.sec)}）`;
 paintChips();
 load('digest', 0, false);
 </script></body></html>

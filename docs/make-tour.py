@@ -3,11 +3,13 @@
 
     python3 docs/make-tour.py            # 全部（15分ほど）
     python3 docs/make-tour.py player     # docs/tour.html だけ（速い）
+    python3 docs/make-tour.py full       # 通し（もくじ＋章を つなぐ）だけ
 
 出るもの:
   docs/tour/digest.mp4           1分少しの まとめ（digest の 文が ある カットだけ）
   docs/tour/ch-01.mp4 …          章ごとの 動画（1〜3分。ナレーション入り・字幕焼き込み・H.264 + AAC）
-  docs/tour/full.mp4             章を つないだ 通し（PowerPoint・メール用）
+  docs/tour/full.mp4             通し：はじめに もくじ（何分から 何の 章か）＋ 章を つないだ もの。mp4 の チャプター入り
+  docs/tour/toc.txt              通しの もくじ（メール・説明欄に はる 文）
   docs/tour.html                 えらんで 見る プレーヤー（まとめ → 見たい 章だけ）
   docs/tour-script.md            台本（読み上げの実測秒数つき）
 
@@ -154,6 +156,7 @@ def mmss(s):
 
 def build_player(title, cuts, meta):
     digest, td = plan(cuts, "digest")
+    toc_row, toc = toc_plan(cuts)
     chapters, total = [], 0.0
     for n, name in enumerate(chapter_names(cuts), 1):
         rows, sec = plan(cuts, name)
@@ -164,9 +167,10 @@ def build_player(title, cuts, meta):
             "cuts": [{"title": r["title"], "at": r["at"]} for r in rows],
         })
         total += sec
+    full_total = total + toc_row["sec"]
     payload = json.dumps({"digest": {"file": "tour/digest.mp4", "sec": round(td, 1),
                                       "cuts": [{"title": r["title"], "at": r["at"]} for r in digest]},
-                          "chapters": chapters, "full": {"file": "tour/full.mp4", "sec": round(total, 1)}},
+                          "chapters": chapters, "full": {"file": "tour/full.mp4", "sec": round(full_total, 1), "toc": toc}},
                          ensure_ascii=False)
     html = PLAYER.replace("__DATA__", payload).replace("__TITLE__", title)
     (DOCS / "tour.html").write_text(html, encoding="utf-8")
@@ -309,7 +313,7 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
     done = 0
     for i, r in enumerate(rows):
         shots = clip_frames(r["clip"], r["from"], r["sec"], fps, H - BAND, scratch) if r.get("clip") else None
-        src = Image.open(FIGS / f"{r['fig']}.jpg").convert("RGB")
+        src = toc_image(r["toc"], W, H - BAND) if r.get("toc") else Image.open(FIGS / f"{r['fig']}.jpg").convert("RGB")
         # 写真は帯の上ぜんぶ。
         #
         # **横に寄せず、縦にゆっくり流す。** 元は 1280x800 の画面写真で、ここは 1280x490。
@@ -369,24 +373,100 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
     print(f"  {out_path.relative_to(DOCS.parent)}  {mmss(total)} ・ {done} frames ・ {mb:.1f} MB          ")
 
 
+TOC_TEXT = ("この動画の もくじです。九つの章に分かれています。"
+            "見たいところがあれば、その時間まで飛ばしてご覧ください。もちろん、最初から通してご覧いただけます。")
+
+
+def toc_plan(cuts):
+    """通しの 頭に つける もくじの カットと、各章が 通しの 何秒から はじまるか。
+
+    熱心な お客さまは 全部 見る。全部 見る 人にも「いま どこで、あと 何が あるか」と
+    「ここだけ 見たい」を 最初に 渡す（YouTube の 説明欄の 目次と 同じ 考え）。
+    """
+    wav, spoken = narrate(TOC_TEXT)
+    frames = max(round(FLOOR * FPS), math.ceil((spoken + TAIL) * FPS))
+    at = frames / FPS
+    toc = []
+    for n, name in enumerate(chapter_names(cuts), 1):
+        _, sec = plan(cuts, name)
+        toc.append({"n": n, "name": name, "at": round(at, 1)})
+        at += sec
+    row = {"chapter": "もくじ", "fig": "", "title": "この動画の もくじ", "text": TOC_TEXT, "sec": frames / FPS,
+           "at": 0.0, "wav": str(wav), "spoken": spoken, "frames": frames, "toc": toc}
+    return row, toc
+
+
+def toc_image(toc, W, Hs):
+    """もくじの 絵（帯の 上ぜんぶ）。2 れつ。"""
+    from PIL import Image, ImageDraw, ImageFont
+    im = Image.new("RGB", (W, Hs), GREEN)
+    d = ImageDraw.Draw(im)
+    f_h = ImageFont.truetype(FONT_BOLD, 30, index=0)
+    f_t = ImageFont.truetype(FONT_BOLD, 26, index=0)
+    f_n = ImageFont.truetype(FONT_REG, 26, index=0)
+    d.text((56, 30), "もくじ", font=f_h, fill=GOLD)
+    half = (len(toc) + 1) // 2
+    for i, c in enumerate(toc):
+        x = 56 + (i // half) * (W // 2)
+        y = 92 + (i % half) * 76
+        d.text((x, y), mmss(c["at"]), font=f_t, fill=MINT)
+        d.text((x + 92, y), f"{c['n']}. {c['name']}", font=f_n, fill=CREAM)
+    return im
+
+
+def toc_lines(toc, total):
+    return [f"{mmss(c['at'])} {c['n']}. {c['name']}" for c in toc] + [f"（ぜんぶで {mmss(total)}）"]
+
+
+def build_full(cuts):
+    """通し＝もくじ ＋ 章の mp4 を そのまま つなぐ（章は 作りなおさない）。mp4 の チャプターも 入れる。"""
+    row, toc = toc_plan(cuts)
+    build_video([row], row["sec"], OUT / ".toc.mp4")
+    names = chapter_names(cuts)
+    parts = [OUT / ".toc.mp4"] + [OUT / f"ch-{n:02d}.mp4" for n in range(1, len(names) + 1)]
+    listing = OUT / ".concat.txt"
+    listing.write_text("".join(f"file '{p.name}'\n" for p in parts), encoding="utf-8")
+    total = toc[-1]["at"] + plan(cuts, names[-1])[1]
+    # mp4 の チャプターは 場面ごと。ffmpeg は 1 つが 90 秒を こえる チャプターを 正しく 書けない
+    # （時刻が 0 に つぶれる）ので、章 まるごとでは なく 場面（30 秒まで）で 区切る。
+    marks, num = [(0.0, "もくじ")], {c["name"]: c["n"] for c in toc}
+    rows, _ = plan(cuts, "full")
+    for k, r in enumerate(rows):
+        first = k == 0 or rows[k - 1]["chapter"] != r["chapter"]
+        n = num[r["chapter"]]
+        marks.append((row["sec"] + r["at"], f"{n}. {r['chapter']} ― {r['title']}" if first else f"{n}. {r['title']}"))
+    meta = [";FFMETADATA1"]
+    for k, (a, name) in enumerate(marks):
+        b = marks[k + 1][0] if k + 1 < len(marks) else total
+        meta += ["[CHAPTER]", "TIMEBASE=1/1000", f"START={int(a * 1000)}", f"END={int(b * 1000)}", f"title={name}"]
+    meta_file = OUT / ".chapters.txt"
+    meta_file.write_text("\n".join(meta) + "\n", encoding="utf-8")
+    # つなぐ のと チャプターを 入れる のは 分ける（concat の 入力に チャプターを 足すと 時刻が くずれた）。
+    joined = OUT / ".joined.mp4"
+    code = subprocess.run([FFMPEG, "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", str(listing),
+                           "-map", "0:v", "-map", "0:a", "-c", "copy", str(joined)]).returncode
+    if code == 0:
+        code = subprocess.run([FFMPEG, "-y", "-v", "error", "-i", str(joined), "-f", "ffmetadata", "-i", str(meta_file),
+                               "-map", "0:v", "-map", "0:a", "-map_metadata", "1", "-map_chapters", "1",
+                               "-c", "copy", "-movflags", "+faststart", str(OUT / "full.mp4")]).returncode
+    for f in (listing, meta_file, joined, OUT / ".toc.mp4"):
+        f.unlink(missing_ok=True)
+    if code != 0:
+        raise SystemExit("ffmpeg concat failed")
+    (OUT / "toc.txt").write_text("U-Speak ウェブ版 紹介動画（通し）もくじ\n" + "\n".join(toc_lines(toc, total)) + "\n",
+                                 encoding="utf-8")
+    print(f"  docs/tour/full.mp4  {mmss(total)} ・ {(OUT / 'full.mp4').stat().st_size / 1e6:.1f} MB ・ もくじ docs/tour/toc.txt")
+
+
 def build_videos(cuts):
-    """まとめ・章ごと・通し。通しは 章の mp4 を そのまま つなぐ（作りなおさない）。"""
+    """まとめ・章ごと・通し。"""
     OUT.mkdir(exist_ok=True)
     rows, total = plan(cuts, "digest")
     build_video(rows, total, OUT / "digest.mp4")
-    parts = []
     for n, name in enumerate(chapter_names(cuts), 1):
         rows, total = plan(cuts, name)
         build_video(rows, total, OUT / f"ch-{n:02d}.mp4")
-        parts.append(OUT / f"ch-{n:02d}.mp4")
-    listing = OUT / ".concat.txt"
-    listing.write_text("".join(f"file '{p.name}'\n" for p in parts), encoding="utf-8")
-    code = subprocess.run([FFMPEG, "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", str(listing),
-                           "-c", "copy", "-movflags", "+faststart", str(OUT / "full.mp4")]).returncode
-    listing.unlink(missing_ok=True)
-    if code != 0:
-        raise SystemExit("ffmpeg concat failed")
-    print(f"  docs/tour/full.mp4  {(OUT / 'full.mp4').stat().st_size / 1e6:.1f} MB")
+    build_full(cuts)
 
 
 PLAYER = r"""<!doctype html>
@@ -449,6 +529,9 @@ PLAYER = r"""<!doctype html>
   .body span{font-size:13px;color:var(--dim);line-height:1.6}
   .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
   .tags i{font-style:normal;font-size:11px;border:1px solid var(--rule);border-radius:999px;padding:1px 8px;color:var(--mint)}
+  .toc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px}
+  .toc button{width:100%;text-align:left;display:flex;gap:12px;align-items:baseline;background:var(--panel)}
+  .toc em{font-style:normal;color:var(--mint);font-variant-numeric:tabular-nums;flex:none;font-weight:700}
   .foot{margin-top:28px;color:var(--dim);font-size:12px;line-height:1.8}
   .foot a{color:var(--mint)}
 </style></head><body><div class="wrap">
@@ -477,8 +560,17 @@ PLAYER = r"""<!doctype html>
 <div class="chips" id="chips"></div>
 <ul class="grid" id="grid"></ul>
 
+<h2 class="sec">ぜんぶ見る方へ ・ 通しの1本のもくじ</h2>
+<p class="hint">通しの動画は、最初に このもくじが出ます。時間を押すと、そこから再生します。</p>
+<ol class="toc" id="toc"></ol>
+<div class="row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+  <button id="playfull" class="gold">▶ 通しの1本を最初から</button>
+  <button id="copytoc">もくじをコピー（メール用）</button>
+  <a id="fulldl" download style="color:var(--mint);font-size:13px;align-self:center">⤓ 通しの1本をダウンロード</a>
+</div>
+
 <p class="foot">ナレーションと字幕は動画に入っています。mp4 なので、PowerPoint に貼っても、メールで送ってもそのまま再生できます。
-通しの1本は <a id="fulldl" download>こちら</a>。</p>
+通しの1本には動画のチャプターも入っているので、対応するプレーヤー（QuickTime・VLC など）では章を選んで飛べます。</p>
 </div>
 <script>
 const DATA = __DATA__;
@@ -528,11 +620,12 @@ function nextChapter() {
 
 $('v').addEventListener('timeupdate', follow);
 $('v').addEventListener('ended', () => {
+  if (!now) return;
   if (now.kind === 'chapter') { seen.add(DATA.chapters[now.i].n); save(); paintGrid(); }
   const n = nextChapter();
   if (n < 0) { through = false; return; }
   if (through) { load('chapter', n); return; }
-  $('nextlabel').textContent = now.kind === 'digest' ? 'くわしく見るなら、下から章を選ぶか' : 'つぎの章';
+  $('nextlabel').textContent = now.kind === 'digest' ? 'くわしく見るなら、1章から（下から選ぶこともできます）' : 'つぎの章';
   $('nexttitle').textContent = `${DATA.chapters[n].n}. ${DATA.chapters[n].name}（${mmss(DATA.chapters[n].sec)}）`;
   $('nextgo').onclick = () => load('chapter', n);
   $('next').classList.add('show');
@@ -565,8 +658,36 @@ function paintChips() {
 
 $('digest').onclick = () => { through = false; load('digest', 0); };
 $('all').onclick = () => { through = true; load('chapter', 0); };
+function playFull(at) {
+  through = false; now = null;
+  $('v').src = DATA.full.file; $('dl').href = DATA.full.file;
+  $('playing').innerHTML = `通しの1本<strong>はじめから おわりまで（${mmss(DATA.full.sec)}）</strong>`;
+  $('scenes').replaceChildren(...DATA.full.toc.map((c) => {
+    const li = document.createElement('li'); const b = document.createElement('button');
+    b.innerHTML = `<em>${mmss(c.at)}</em><span>${c.n}. ${esc(c.name)}</span>`;
+    b.onclick = () => playFull(c.at);
+    li.append(b); return li;
+  }));
+  $('next').classList.remove('show'); paintGrid();
+  const go = () => { $('v').currentTime = at; $('v').play?.().catch(() => {}); };
+  if ($('v').readyState >= 1) go(); else $('v').addEventListener('loadedmetadata', go, { once: true });
+  $('v').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+const tocText = () => ['U-Speak ウェブ版 紹介動画（通し）もくじ',
+  ...DATA.full.toc.map((c) => `${mmss(c.at)} ${c.n}. ${c.name}`), `（ぜんぶで ${mmss(DATA.full.sec)}）`].join('\n');
+$('toc').replaceChildren(...DATA.full.toc.map((c) => {
+  const li = document.createElement('li'); const b = document.createElement('button');
+  b.innerHTML = `<em>${mmss(c.at)}</em><span>${c.n}. ${esc(c.name)}</span>`;
+  b.onclick = () => playFull(c.at);
+  li.append(b); return li;
+}));
+$('playfull').onclick = () => playFull(0);
+$('copytoc').onclick = async () => {
+  try { await navigator.clipboard.writeText(tocText()); $('copytoc').textContent = 'コピーしました'; }
+  catch { prompt('もくじ', tocText()); }
+};
 $('fulldl').href = DATA.full.file;
-$('fulldl').textContent = `こちら（${mmss(DATA.full.sec)}）`;
+$('fulldl').textContent = `⤓ 通しの1本をダウンロード（${mmss(DATA.full.sec)}）`;
 paintChips();
 load('digest', 0, false);
 </script></body></html>
@@ -580,6 +701,9 @@ def main():
     build_player(title, cuts, meta)
     build_script(title, cuts)
     if what == "player":
+        return
+    if what == "full":        # 章は そのまま、もくじと 通しだけ
+        build_full(cuts)
         return
     build_videos(cuts)
 

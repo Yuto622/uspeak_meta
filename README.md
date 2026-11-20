@@ -1232,7 +1232,8 @@ node test/e2e/capture-tour.mjs                          # 紹介動画の 画面
 |---|---|
 | **`docs/tour/digest.mp4`** | 1分15秒の まとめ。**ナレーション入り・字幕焼き込み**（H.264 + AAC） |
 | **`docs/tour/ch-01.mp4` 〜 `ch-09.mp4`** | 章ごと（1〜3分）。同上 |
-| `docs/tour/full.mp4` | 章を つないだ 通し（15分46秒） |
+| `docs/tour/full.mp4` | 通し（16分）。**はじめに もくじ（何分から 何の 章か）**、mp4 の チャプター（場面ごと）入り |
+| `docs/tour/toc.txt` | 通しの もくじ（メールに はる 文） |
 | `docs/tour.html` | まとめ → 見たい 章を 選んで 見る プレーヤー（目的で しぼる・見た章に ✓・つぎの章） |
 | `docs/tour-script.md` | 台本（読み上げの実測秒数つき） |
 | `docs/clips/clip-*.webm` | 素材：**実際に遊んでいるところの録画**3本（カート・ブロックの世界・AI英会話） |
