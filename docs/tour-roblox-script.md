@@ -54,7 +54,7 @@
 > Roblox の記録も Web と同じサーバーに残り、毎週、保護者の LINE にレポートが届きます。
 
 
-## 章ごと（通し）（全 8分16秒 ・ 45カット）
+## 章ごと（通し）（全 8分54秒 ・ 49カット）
 
 
 ### はじめかた
@@ -95,162 +95,178 @@
 
 > 左のボタンからは、英単語タイピング、きろく、ＡＩチャットが開きます。
 
-**1:56  ほかの 世界へ**　<sub>9.1秒 ・ 図 `figures/rb-worlds.jpg`</sub>
+**1:56  英単語タイピング**　<sub>9.7秒 ・ 図 `figures/rb-menu.jpg`</sub>
+
+> 左のボタンの英単語タイピングでは、絵と英単語が出て、つづりを打ちこみます。終わると、スコアと時間が出ます。
+
+**2:06  チャットの 設定（13さい 以上）**　<sub>10.2秒 ・ 図 `figures/rb-menu.jpg`</sub>
+
+> 十三歳以上の生徒は、Roblox の設定のプライバシーから、テキストチャットと音声の会話をオンにできます。
+
+**2:16  ほかの 世界へ**　<sub>9.1秒 ・ 図 `figures/rb-worlds.jpg`</sub>
 
 > ほかの世界へ行くときは、左上の Worlds。さいしょの画面が、もう一度開きます。
 
 
 ### メインのまち（Main Town）
 
-**2:06  どの カード？ ・ Main Town**　<sub>7.4秒 ・ 図 `figures/rb-pick-main.jpg`</sub>
+**2:25  どの カード？ ・ Main Town**　<sub>7.4秒 ・ 図 `figures/rb-pick-main.jpg`</sub>
 
 > まずは、おすすめのいちばん左、Main Town。メインのまちです。
 
-**2:13  英単語ハウスの クイズ**　<sub>16.6秒 ・ 図 `figures/rb-quiz2.jpg`</sub>
+**2:33  英単語ハウスの クイズ**　<sub>16.6秒 ・ 図 `figures/rb-quiz2.jpg`</sub>
 
 > メインのまちには、英単語ハウスがあります。スーパーイージーとイージー、ミディアム、ハードの小屋。答えをタップするか、Ａ、Ｂ、Ｃの台にのっても答えられます。スピーカーのボタンで、もう一度聞けます。
 
-**2:30  いろいろな 問題の形**　<sub>9.9秒 ・ 図 `figures/rb-match.jpg`</sub>
+**2:49  いろいろな 問題の形**　<sub>9.9秒 ・ 図 `figures/rb-match.jpg`</sub>
 
 > 問題の形は、えらぶ、線でつなぐ、ならべかえ、タイピングなど、いろいろ。まちがえても大丈夫です。
 
-**2:39  つり**　<sub>8.9秒 ・ 図 `figures/rb-fishq.jpg`</sub>
+**2:59  つり**　<sub>8.9秒 ・ 図 `figures/rb-fishq.jpg`</sub>
 
 > 水辺では釣りができます。魚がかかったら、ひっぱる。英語の問題に正解すると、釣れます。
 
-**2:48  さかなと 図鑑**　<sub>8.0秒 ・ 図 `figures/rb-catch.jpg`</sub>
+**3:08  さかなと 図鑑**　<sub>8.0秒 ・ 図 `figures/rb-catch.jpg`</sub>
 
 > 魚は百種類。初めて釣った魚は図鑑に入り、かいとりやで売るとコインになります。
 
-**2:56  まちの ほかの 場所**　<sub>17.6秒 ・ 図 `figures/rb-level.jpg`</sub>
+**3:16  まちの ほかの 場所**　<sub>17.6秒 ・ 図 `figures/rb-level.jpg`</sub>
 
 > まちには、ほかにも、えいごアリーナのクイズバトル、ＡＩと話せる仲間、洋服屋さん、ブロック屋さん、おうちやさん、季節のクイズ、毎日のログインボーナスがあります。夜にはおばけも出ますが、こわいものではありません。
 
 
 ### ワールドを 1つずつ
 
-**3:14  どの カード？ ・ Homework**　<sub>12.1秒 ・ 図 `figures/rb-pick-homework.jpg`</sub>
+**3:34  どの カード？ ・ Homework**　<sub>12.1秒 ・ 図 `figures/rb-pick-homework.jpg`</sub>
 
 > おすすめの二つめ、Homework。しゅくだいのワールドです。カードの星は、あそび一つ、えいご三つ。学習が中心です。
 
-**3:26  どの カード？ ・ Racing**　<sub>6.0秒 ・ 図 `figures/rb-pick-racing.jpg`</sub>
+**3:46  どの カード？ ・ Racing**　<sub>6.0秒 ・ 図 `figures/rb-pick-racing.jpg`</sub>
 
 > 三つめ、Racing。レースのワールドです。
 
-**3:32  レース ・ ことばの ゲート**　<sub>6.7秒 ・ 図 `figures/rb-race.jpg`</sub>
+**3:52  レース ・ ことばの ゲート**　<sub>6.7秒 ・ 図 `figures/rb-race.jpg`</sub>
 
 > レースでは、三つのことばから、正しい英語のゲートを車でくぐります。
 
-**3:39  どの カード？ ・ Fishing**　<sub>10.4秒 ・ 図 `figures/rb-pick-fishing.jpg`</sub>
+**3:59  どの カード？ ・ Fishing**　<sub>10.4秒 ・ 図 `figures/rb-pick-fishing.jpg`</sub>
 
 > 四つめ、Fishing。釣りのワールドです。池、川、海があり、英語の問題に答えて釣ります。
 
-**3:49  どの カード？ ・ EIKEN Prep**　<sub>15.7秒 ・ 図 `figures/rb-pick-eiken.jpg`</sub>
+**4:09  つりの ようす**　<sub>9.9秒 ・ 図 `figures/rb-fishq.jpg`</sub>
+
+> うきがしずむと英語の問題。正解すると、ひっぱるのボタンで釣り上げます。英語が、そのままごほうびになります。
+
+**4:19  どの カード？ ・ EIKEN Prep**　<sub>15.7秒 ・ 図 `figures/rb-pick-eiken.jpg`</sub>
 
 > 五つめ、EIKEN Prep。英検対策のワールドです。級を選ぶと十問。メインのまちと同じ七つの形で出て、正解と記録は Web の サーバーが決めます。
 
-**4:05  どの カード？ ・ RPG Quest**　<sub>7.8秒 ・ 図 `figures/rb-pick-rpg.jpg`</sub>
+**4:35  どの カード？ ・ RPG Quest**　<sub>7.8秒 ・ 図 `figures/rb-pick-rpg.jpg`</sub>
 
 > ここからは、ほかの世界。RPG Quest、ぼうけんのワールドです。
 
-**4:13  どの カード？ ・ Building**　<sub>6.8秒 ・ 図 `figures/rb-pick-building.jpg`</sub>
+**4:42  どの カード？ ・ Building**　<sub>6.0秒 ・ 図 `figures/rb-pick-building.jpg`</sub>
 
-> Building、けんちくのワールドです。ブロックを置いて、建物を建てます。
+> Building、けんちくのワールドです。
 
-**4:19  どの カード？ ・ Theme Park**　<sub>6.0秒 ・ 図 `figures/rb-pick-park.jpg`</sub>
+**4:48  けんちく ・ ブロックを 買って 建てる**　<sub>6.0秒 ・ 図 `figures/rb-level.jpg`</sub>
+
+> 英語でためたコインでブロックを買って、自由に建てます。
+
+**4:54  どの カード？ ・ Theme Park**　<sub>6.0秒 ・ 図 `figures/rb-pick-park.jpg`</sub>
 
 > Theme Park、ゆうえんちのワールドです。
 
-**4:25  どの カード？ ・ Farm**　<sub>6.0秒 ・ 図 `figures/rb-pick-farm.jpg`</sub>
+**5:00  どの カード？ ・ Farm**　<sub>6.0秒 ・ 図 `figures/rb-pick-farm.jpg`</sub>
 
 > Farm、ぼくじょうのワールドです。
 
-**4:31  どの カード？ ・ Island**　<sub>6.0秒 ・ 図 `figures/rb-pick-island.jpg`</sub>
+**5:06  どの カード？ ・ Island**　<sub>6.0秒 ・ 図 `figures/rb-pick-island.jpg`</sub>
 
 > Island、しまのワールドです。
 
-**4:37  どの カード？ ・ Picture Books**　<sub>8.7秒 ・ 図 `figures/rb-pick-books.jpg`</sub>
+**5:12  どの カード？ ・ Picture Books**　<sub>8.7秒 ・ 図 `figures/rb-pick-books.jpg`</sub>
 
 > Picture Books、えほんのワールドです。英語の絵本を読み、内容のクイズに答えます。
 
-**4:46  どの カード？ ・ TOEIC Prep**　<sub>6.2秒 ・ 図 `figures/rb-pick-toeic.jpg`</sub>
+**5:21  どの カード？ ・ TOEIC Prep**　<sub>6.2秒 ・ 図 `figures/rb-pick-toeic.jpg`</sub>
 
 > TOEIC Prep、TOEIC 対策のワールドです。
 
-**4:52  どの カード？ ・ IELTS Prep**　<sub>7.0秒 ・ 図 `figures/rb-pick-ielts.jpg`</sub>
+**5:27  どの カード？ ・ IELTS Prep**　<sub>7.0秒 ・ 図 `figures/rb-pick-ielts.jpg`</sub>
 
 > IELTS Prep、IELTS 対策のワールドです。
 
-**4:59  どの カード？ ・ TOEFL Prep**　<sub>7.2秒 ・ 図 `figures/rb-pick-toefl.jpg`</sub>
+**5:34  どの カード？ ・ TOEFL Prep**　<sub>7.2秒 ・ 図 `figures/rb-pick-toefl.jpg`</sub>
 
 > いちばん下、TOEFL Prep。TOEFL 対策のワールドです。
 
 
 ### 先生の ボタン（Class）
 
-**5:07  先生は 左上の Class**　<sub>8.0秒 ・ 図 `figures/rb-classbtn.jpg`</sub>
+**5:42  先生は 左上の Class**　<sub>8.0秒 ・ 図 `figures/rb-classbtn.jpg`</sub>
 
 > 先生は、左上の Class ボタン。授業で使うボタンは四つです。
 
-**5:15  Gather ・ あつめる**　<sub>6.7秒 ・ 図 `figures/rb-gather.jpg`</sub>
+**5:50  Gather ・ あつめる**　<sub>6.7秒 ・ 図 `figures/rb-gather.jpg`</sub>
 
 > Gather。はなれた生徒を、先生のいる場所に集めます。
 
-**5:21  Freeze ・ ストップ**　<sub>6.4秒 ・ 図 `figures/rb-freeze.jpg`</sub>
+**5:56  Freeze ・ ストップ**　<sub>6.4秒 ・ 図 `figures/rb-freeze.jpg`</sub>
 
 > Freeze。全員の画面を止めます。説明を聞かせたいときに。
 
-**5:28  Review weak words**　<sub>13.4秒 ・ 図 `figures/rb-review.jpg`</sub>
+**6:03  Review weak words**　<sub>13.4秒 ・ 図 `figures/rb-review.jpg`</sub>
 
 > Review weak words。一人ひとりの苦手な単語を、一斉に復習させます。苦手な単語の箱は Web 版と同じ一つです。
 
-**5:41  Move together**　<sub>16.6秒 ・ 図 `figures/rb-movetog.jpg`</sub>
+**6:16  Move together**　<sub>16.6秒 ・ 図 `figures/rb-movetog.jpg`</sub>
 
 > Move together。全員で、選んだ世界へ移動します。釣り、レース、ＲＰＧ、けんちく、テーマパーク、ぼくじょう、しま、クイズラボ。先生もいっしょです。
 
-**5:58  きろく**　<sub>6.7秒 ・ 図 `figures/rb-records.jpg`</sub>
+**6:33  きろく**　<sub>8.8秒 ・ 図 `figures/rb-records.jpg`</sub>
 
-> きろくでは、正解率、学んだ時間、苦手な単語が見られます。
+> きろくでは、正解率、学んだ時間、苦手な単語が見られます。クラスのランキングもあります。
 
 
 ### Web と つながる 記録・LINE
 
-**6:04  毎週 LINE に とどく**　<sub>22.8秒 ・ 図 `figures/tour-line-real.jpg`</sub>
+**6:41  毎週 LINE に とどく**　<sub>22.8秒 ・ 図 `figures/tour-line-real.jpg`</sub>
 
 > Roblox で答えた問題も、Web と同じサーバーに記録されます。毎週、保護者の LINE にレポートが届き、Web と Roblox を合わせた答えの数、覚えた単語、ロードマップ、来週のめあてが載ります。これは実際の画面です。
 
-**6:27  LINE の メニュー**　<sub>11.9秒 ・ 図 `figures/tour-line-real.jpg`</sub>
+**7:04  LINE の メニュー**　<sub>11.9秒 ・ 図 `figures/tour-line-real.jpg`</sub>
 
 > LINE の下のメニューからは、今週のがんばり、英語のロードマップ、いまの宿題、おうちで一分クイズ、そのまま遊ぶボタンが使えます。
 
-**6:39  月に 一回の PDF**　<sub>11.4秒 ・ 図 `figures/tour-line-monthly.jpg`</sub>
+**7:16  月に 一回の PDF**　<sub>11.4秒 ・ 図 `figures/tour-line-monthly.jpg`</sub>
 
 > 月に一回は、Ａ４のＰＤＦ。始めたころと今のくらべ、四つの力、先生のひとこと。印刷して面談でも使えます。
 
-**6:50  英語の ロードマップ**　<sub>14.7秒 ・ 図 `figures/tour-roadmap.jpg`</sub>
+**7:28  英語の ロードマップ**　<sub>14.7秒 ・ 図 `figures/tour-roadmap.jpg`</sub>
 
 > ロードマップは、Web と Roblox の答えを合わせて進みます。単語とクイズが八割になると、サーバーが次の段階に上げます。英検の合格見込みも出ます。
 
-**7:05  保護者の ページ**　<sub>11.6秒 ・ 図 `figures/tour-report-web.jpg`</sub>
+**7:42  保護者の ページ**　<sub>11.6秒 ・ 図 `figures/tour-report-web.jpg`</sub>
 
 > 保護者の方は、スマートフォンで、学習時間、話した回数、読んだ本、正答率、覚えた単語の五つの数字を見られます。
 
-**7:17  宿題を くばる**　<sub>11.2秒 ・ 図 `figures/tour-homework-admin.jpg`</sub>
+**7:54  宿題を くばる**　<sub>11.2秒 ・ 図 `figures/tour-homework-admin.jpg`</sub>
 
 > 先生は、運営の画面に、プリントの写真やファイルを入れるだけで宿題を作れます。ＡＩが読みとり、先生がたしかめてから配ります。
 
-**7:28  名簿**　<sub>15.9秒 ・ 図 `figures/tour-admin-roster.jpg`</sub>
+**8:05  名簿**　<sub>15.9秒 ・ 図 `figures/tour-admin-roster.jpg`</sub>
 
 > 名簿は Web 版と共通です。先生の列、プレミアムの列、停止の列で、教室ごとに管理できます。コインも Web と Roblox でそろえています。
 
 
 ### こまったとき・無料体験
 
-**7:44  こまった ときは**　<sub>21.3秒 ・ 図 `figures/rb-trouble.jpg`</sub>
+**8:21  こまった ときは**　<sub>21.3秒 ・ 図 `figures/rb-trouble.jpg`</sub>
 
 > こまったときは。うごけないときは、画面を一回タップ、だめなら入りなおす。音が出ないときは、本体の音量と消音スイッチを見る。入れないときは、クラスコードを先生にかくにん。まいごになったら、左上の Worlds から Main Town へ。
 
-**8:05  １か月の無料体験**　<sub>11.4秒 ・ 図 `figures/rb-cw.jpg`</sub>
+**8:42  １か月の無料体験**　<sub>11.4秒 ・ 図 `figures/rb-cw.jpg`</sub>
 
 > 一か月の無料体験をご用意しています。Web 版もあわせて、教室のクラスをお作りします。ご覧いただき、ありがとうございました。
 
