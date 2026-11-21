@@ -31,7 +31,7 @@ const base = `http://127.0.0.1:${PORT}`;
 
 const server = spawn('node', ['src/index.js'], {
   cwd: serverDir,
-  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'error', ADMIN_KEY: ADMIN, REPORT_SECRET: 'tour-report-secret-0123456789' },
+  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'error', ADMIN_KEY: ADMIN, TEACHER_KEY: 'tour-teacher-key-0123', REPORT_SECRET: 'tour-report-secret-0123456789' },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 await waitForServer(PORT);

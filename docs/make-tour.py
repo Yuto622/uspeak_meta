@@ -184,7 +184,7 @@ def build_player(title, cuts, meta):
                          ensure_ascii=False)
     html = PLAYER.replace("__DATA__", payload).replace("__TITLE__", title)
     (DOCS / PAGE).write_text(html, encoding="utf-8")
-    print(f"  docs/tour.html          まとめ {mmss(td)} ・ {len(chapters)} 章 ・ ぜんぶで {mmss(total)}")
+    print(f"  docs/{PAGE}          まとめ {mmss(td)} ・ {len(chapters)} 章 ・ ぜんぶで {mmss(total)}")
 
 
 # ---- 収録用の台本 ---------------------------------------------------------------
@@ -383,7 +383,12 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
     print(f"  {out_path.relative_to(DOCS.parent)}  {mmss(total)} ・ {done} frames ・ {mb:.1f} MB          ")
 
 
-TOC_TEXT = ("この動画の もくじです。九つの章に分かれています。"
+KANJI = "〇一二三四五六七八九十"
+
+
+def toc_text(n):
+    num = KANJI[n] if n <= 10 else f"十{KANJI[n - 10]}" if n < 20 else str(n)
+    return (f"この動画の もくじです。{num}つの章に分かれています。"
             "見たいところがあれば、その時間まで飛ばしてご覧ください。もちろん、最初から通してご覧いただけます。")
 
 
@@ -393,7 +398,8 @@ def toc_plan(cuts):
     熱心な お客さまは 全部 見る。全部 見る 人にも「いま どこで、あと 何が あるか」と
     「ここだけ 見たい」を 最初に 渡す（YouTube の 説明欄の 目次と 同じ 考え）。
     """
-    wav, spoken = narrate(TOC_TEXT)
+    text = toc_text(len(chapter_names(cuts)))
+    wav, spoken = narrate(text)
     frames = max(round(FLOOR * FPS), math.ceil((spoken + TAIL) * FPS))
     at = frames / FPS
     toc = []
@@ -401,7 +407,7 @@ def toc_plan(cuts):
         _, sec = plan(cuts, name)
         toc.append({"n": n, "name": name, "at": round(at, 1)})
         at += sec
-    row = {"chapter": "もくじ", "fig": "", "title": "この動画の もくじ", "text": TOC_TEXT, "sec": frames / FPS,
+    row = {"chapter": "もくじ", "fig": "", "title": "この動画の もくじ", "text": text, "sec": frames / FPS,
            "at": 0.0, "wav": str(wav), "spoken": spoken, "frames": frames, "toc": toc}
     return row, toc
 

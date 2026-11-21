@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>U-Speak Roblox ・ 使い方と できること</title>
+<style>
+  :root{--deep:#0c2a24;--panel:#12332c;--card:#163a32;--cream:#f4f1e3;--gold:#e8c368;--mint:#74c39a;--rule:#2c4a43;--dim:#93ab9f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--deep);color:var(--cream);
+       font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:18px 16px 48px}
+  .top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+  .top h1{font-size:19px;margin:0;letter-spacing:1px}
+  .top small{color:var(--mint);font-size:12px;letter-spacing:2px}
+  .stage{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+  @media (max-width:900px){.stage{grid-template-columns:1fr}}
+  .screen{position:relative}
+  video{width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;display:block;box-shadow:0 20px 60px #0008}
+  .next{position:absolute;inset:auto 14px 60px auto;display:none;background:#0c2a24ee;border:1px solid var(--gold);
+        border-radius:14px;padding:12px 14px;max-width:320px}
+  .next.show{display:block}
+  .next p{margin:0 0 8px;font-size:12px;color:var(--dim)}
+  .next b{display:block;font-size:15px;margin-bottom:10px}
+  .playing{margin:12px 0 4px;font-size:13px;color:var(--mint);letter-spacing:1px}
+  .playing strong{display:block;color:var(--cream);font-size:18px;letter-spacing:0;margin-top:2px}
+  button{font:inherit;color:inherit;background:#1d4239;border:1px solid var(--rule);border-radius:11px;
+         padding:9px 14px;cursor:pointer}
+  button:hover{border-color:var(--mint)}
+  button.gold{background:var(--gold);color:#22372f;border-color:var(--gold);font-weight:700}
+  .side{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:14px}
+  .side h2{font-size:13px;margin:0 0 8px;color:var(--gold);letter-spacing:1px}
+  .scenes{list-style:none;margin:0;padding:0;display:grid;gap:4px;max-height:320px;overflow:auto}
+  .scenes button{width:100%;text-align:left;display:flex;gap:10px;align-items:baseline;background:transparent;
+                 border-color:transparent;padding:6px 8px;font-size:13px}
+  .scenes button.now{background:#1f4a3c;border-color:var(--mint)}
+  .scenes em{font-style:normal;color:var(--dim);font-size:11px;font-variant-numeric:tabular-nums;flex:none}
+  .side .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .side a{color:var(--mint);font-size:13px}
+  h2.sec{font-size:17px;margin:30px 0 4px}
+  .hint{color:var(--dim);font-size:13px;margin:0 0 12px;line-height:1.7}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+  .chips button{border-radius:999px;padding:7px 14px;font-size:13px}
+  .chips button.on{background:var(--mint);color:#0c2a24;border-color:var(--mint);font-weight:700}
+  .grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .card{display:flex;flex-direction:column;width:100%;height:100%;padding:0;text-align:left;overflow:hidden;
+        background:var(--card);border-radius:14px}
+  .card.now{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+  .card.dim{opacity:.38}
+  .thumb{position:relative;aspect-ratio:16/10;background:#000 center/cover no-repeat}
+  .thumb .len{position:absolute;right:8px;bottom:8px;background:#000c;border-radius:6px;padding:2px 7px;font-size:12px;
+              font-variant-numeric:tabular-nums}
+  .thumb .num{position:absolute;left:8px;top:8px;background:var(--gold);color:#22372f;border-radius:6px;padding:2px 8px;
+              font-size:12px;font-weight:700}
+  .thumb .seen{position:absolute;right:8px;top:8px;background:var(--mint);color:#0c2a24;border-radius:6px;padding:2px 7px;
+               font-size:12px;font-weight:700;display:none}
+  .card.watched .seen{display:block}
+  .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .body b{font-size:15px}
+  .body span{font-size:13px;color:var(--dim);line-height:1.6}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+  .tags i{font-style:normal;font-size:11px;border:1px solid var(--rule);border-radius:999px;padding:1px 8px;color:var(--mint)}
+  .toc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px}
+  .toc button{width:100%;text-align:left;display:flex;gap:12px;align-items:baseline;background:var(--panel)}
+  .toc em{font-style:normal;color:var(--mint);font-variant-numeric:tabular-nums;flex:none;font-weight:700}
+  .foot{margin-top:28px;color:var(--dim);font-size:12px;line-height:1.8}
+  .foot a{color:var(--mint)}
+</style></head><body><div class="wrap">
+<div class="top"><h1>U-Speak Roblox ・ 使い方と できること</h1><small>U-SPEAK LAB</small></div>
+
+<div class="stage">
+  <div class="screen">
+    <video id="v" controls playsinline preload="metadata"></video>
+    <div class="next" id="next"><p id="nextlabel">つぎの章</p><b id="nexttitle"></b>
+      <button class="gold" id="nextgo">▶ つづけて見る</button></div>
+    <div class="playing" id="playing"></div>
+  </div>
+  <aside class="side">
+    <h2>この動画の場面</h2>
+    <ol class="scenes" id="scenes"></ol>
+    <div class="row">
+      <button id="digest">▶ まとめを見る</button>
+      <button id="all">▶ ぜんぶ通しで</button>
+    </div>
+    <div class="row"><a id="dl" download>⤓ いま見ている動画をダウンロード</a></div>
+  </aside>
+</div>
+
+<h2 class="sec">見たいところだけ選ぶ</h2>
+<p class="hint">章ごとに1〜3分の動画です。押すと上で再生します。見おわった章には ✓ がつきます。</p>
+<div class="chips" id="chips"></div>
+<ul class="grid" id="grid"></ul>
+
+<h2 class="sec">ぜんぶ見る方へ ・ 通しの1本のもくじ</h2>
+<p class="hint">通しの動画は、最初に このもくじが出ます。時間を押すと、そこから再生します。</p>
+<ol class="toc" id="toc"></ol>
+<div class="row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+  <button id="playfull" class="gold">▶ 通しの1本を最初から</button>
+  <button id="copytoc">もくじをコピー（メール用）</button>
+  <a id="fulldl" download style="color:var(--mint);font-size:13px;align-self:center">⤓ 通しの1本をダウンロード</a>
+</div>
+
+<p class="foot">ナレーションと字幕は動画に入っています。mp4 なので、PowerPoint に貼っても、メールで送ってもそのまま再生できます。
+通しの1本には動画のチャプターも入っているので、対応するプレーヤー（QuickTime・VLC など）では章を選んで飛べます。</p>
+</div>
+<script>
+const DATA = {"digest": {"file": "tour-roblox/digest.mp4", "sec": 63.7, "cuts": [{"title": "U-Speak Roblox", "at": 0.0}, {"title": "プレイを おして、クラスコード", "at": 11.4}, {"title": "Choose a World", "at": 17.6}, {"title": "英単語ハウスの クイズ", "at": 24.5}, {"title": "レース ・ ことばの ゲート", "at": 30.7}, {"title": "どの カード？ ・ EIKEN Prep", "at": 36.7}, {"title": "先生は 左上の Class", "at": 43.8}, {"title": "毎週 LINE に とどく", "at": 52.6}]}, "chapters": [{"n": 1, "name": "はじめかた", "lead": "アプリ・クラスコード・うごきかた", "for": ["はじめての方"], "file": "tour-roblox/ch-01.mp4", "sec": 126.0, "thumb": "figures/rb-cw.jpg", "cuts": [{"title": "U-Speak Roblox", "at": 0.0}, {"title": "Roblox アプリから 入る", "at": 16.3}, {"title": "プレイを おして、クラスコード", "at": 31.1}, {"title": "Choose a World", "at": 43.2}, {"title": "ぜんがめんに する", "at": 63.4}, {"title": "うごく", "at": 81.4}, {"title": "みる むきを かえる", "at": 92.1}, {"title": "レベルと コイン", "at": 103.4}, {"title": "左の ボタン", "at": 109.8}, {"title": "ほかの 世界へ", "at": 116.9}]}, {"n": 2, "name": "メインのまち（Main Town）", "lead": "英単語ハウス・問題の形・つり", "for": ["先生", "保護者"], "file": "tour-roblox/ch-02.mp4", "sec": 68.4, "thumb": "figures/rb-pick-main.jpg", "cuts": [{"title": "どの カード？ ・ Main Town", "at": 0.0}, {"title": "英単語ハウスの クイズ", "at": 7.4}, {"title": "いろいろな 問題の形", "at": 24.0}, {"title": "つり", "at": 33.9}, {"title": "さかなと 図鑑", "at": 42.8}, {"title": "まちの ほかの 場所", "at": 50.8}]}, {"n": 3, "name": "ワールドを 1つずつ", "lead": "Choose a World の 14まいを 赤い わくで 1つずつ", "for": ["はじめての方", "先生"], "file": "tour-roblox/ch-03.mp4", "sec": 112.6, "thumb": "figures/rb-pick-homework.jpg", "cuts": [{"title": "どの カード？ ・ Homework", "at": 0.0}, {"title": "どの カード？ ・ Racing", "at": 12.1}, {"title": "レース ・ ことばの ゲート", "at": 18.1}, {"title": "どの カード？ ・ Fishing", "at": 24.8}, {"title": "どの カード？ ・ EIKEN Prep", "at": 35.2}, {"title": "どの カード？ ・ RPG Quest", "at": 50.9}, {"title": "どの カード？ ・ Building", "at": 58.7}, {"title": "どの カード？ ・ Theme Park", "at": 65.5}, {"title": "どの カード？ ・ Farm", "at": 71.5}, {"title": "どの カード？ ・ Island", "at": 77.5}, {"title": "どの カード？ ・ Picture Books", "at": 83.5}, {"title": "どの カード？ ・ TOEIC Prep", "at": 92.2}, {"title": "どの カード？ ・ IELTS Prep", "at": 98.4}, {"title": "どの カード？ ・ TOEFL Prep", "at": 105.4}]}, {"n": 4, "name": "先生の ボタン（Class）", "lead": "Gather・Freeze・Review・Move together・きろく", "for": ["先生"], "file": "tour-roblox/ch-04.mp4", "sec": 57.8, "thumb": "figures/rb-classbtn.jpg", "cuts": [{"title": "先生は 左上の Class", "at": 0.0}, {"title": "Gather ・ あつめる", "at": 8.0}, {"title": "Freeze ・ ストップ", "at": 14.7}, {"title": "Review weak words", "at": 21.1}, {"title": "Move together", "at": 34.5}, {"title": "きろく", "at": 51.1}]}, {"n": 5, "name": "Web と つながる 記録・LINE", "lead": "LINE レポート・ロードマップ・宿題・名簿", "for": ["教室のオーナー", "保護者"], "file": "tour-roblox/ch-05.mp4", "sec": 99.5, "thumb": "figures/tour-line-real.jpg", "cuts": [{"title": "毎週 LINE に とどく", "at": 0.0}, {"title": "LINE の メニュー", "at": 22.8}, {"title": "月に 一回の PDF", "at": 34.7}, {"title": "英語の ロードマップ", "at": 46.1}, {"title": "保護者の ページ", "at": 60.8}, {"title": "宿題を くばる", "at": 72.4}, {"title": "名簿", "at": 83.6}]}, {"n": 6, "name": "こまったとき・無料体験", "lead": "こまったとき・無料体験", "for": ["はじめての方"], "file": "tour-roblox/ch-06.mp4", "sec": 32.7, "thumb": "figures/rb-trouble.jpg", "cuts": [{"title": "こまった ときは", "at": 0.0}, {"title": "１か月の無料体験", "at": 21.3}]}], "full": {"file": "tour-roblox/full.mp4", "sec": 510.1, "toc": [{"n": 1, "name": "はじめかた", "at": 13.1}, {"n": 2, "name": "メインのまち（Main Town）", "at": 139.1}, {"n": 3, "name": "ワールドを 1つずつ", "at": 207.5}, {"n": 4, "name": "先生の ボタン（Class）", "at": 320.1}, {"n": 5, "name": "Web と つながる 記録・LINE", "at": 377.9}, {"n": 6, "name": "こまったとき・無料体験", "at": 477.4}]}};
+const $ = (id) => document.getElementById(id);
+const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const KEY = 'uspeak-tour-seen-v1';
+let seen = new Set();
+try { seen = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch { /* なくても 動く */ }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify([...seen])); } catch { /* */ } };
+
+let now = null;        // { kind: 'digest' | 'chapter', i }
+let through = false;   // ぜんぶ通し（章を つづけて 自動で）
+let filter = 'all';
+
+function load(kind, i, play = true) {
+  now = { kind, i };
+  const item = kind === 'digest' ? DATA.digest : DATA.chapters[i];
+  $('v').src = item.file; $('dl').href = item.file;
+  $('playing').innerHTML = kind === 'digest'
+    ? `まずはここから<strong>ぜんたいのまとめ（${mmss(item.sec)}）</strong>`
+    : `${through ? 'ぜんぶ通し ・ ' : ''}${item.n} / ${DATA.chapters.length} 章<strong>${esc(item.name)}（${mmss(item.sec)}）</strong>`;
+  $('scenes').replaceChildren(...item.cuts.map((c) => {
+    const li = document.createElement('li'); const b = document.createElement('button');
+    b.innerHTML = `<em>${mmss(c.at - item.cuts[0].at)}</em><span>${esc(c.title)}</span>`;
+    b.onclick = () => { $('v').currentTime = c.at - item.cuts[0].at + 0.05; $('v').play?.(); };
+    li.append(b); return li;
+  }));
+  $('next').classList.remove('show');
+  paintGrid(); follow();
+  if (play) $('v').play?.().catch(() => {});
+}
+
+function follow() {
+  if (!now) return;
+  const item = now.kind === 'digest' ? DATA.digest : DATA.chapters[now.i];
+  const t = $('v').currentTime + item.cuts[0].at;
+  let k = 0;
+  while (k + 1 < item.cuts.length && item.cuts[k + 1].at <= t) k += 1;
+  [...$('scenes').children].forEach((li, n) => li.firstChild.classList.toggle('now', n === k));
+}
+
+function nextChapter() {
+  if (now.kind === 'digest') return 0;
+  return now.i + 1 < DATA.chapters.length ? now.i + 1 : -1;
+}
+
+$('v').addEventListener('timeupdate', follow);
+$('v').addEventListener('ended', () => {
+  if (!now) return;
+  if (now.kind === 'chapter') { seen.add(DATA.chapters[now.i].n); save(); paintGrid(); }
+  const n = nextChapter();
+  if (n < 0) { through = false; return; }
+  if (through) { load('chapter', n); return; }
+  $('nextlabel').textContent = now.kind === 'digest' ? 'くわしく見るなら、1章から（下から選ぶこともできます）' : 'つぎの章';
+  $('nexttitle').textContent = `${DATA.chapters[n].n}. ${DATA.chapters[n].name}（${mmss(DATA.chapters[n].sec)}）`;
+  $('nextgo').onclick = () => load('chapter', n);
+  $('next').classList.add('show');
+});
+
+function paintGrid() {
+  $('grid').replaceChildren(...DATA.chapters.map((c, i) => {
+    const li = document.createElement('li'); const b = document.createElement('button');
+    const match = filter === 'all' || c.for.includes(filter);
+    b.className = `card${seen.has(c.n) ? ' watched' : ''}${now && now.kind === 'chapter' && now.i === i ? ' now' : ''}${match ? '' : ' dim'}`;
+    b.innerHTML = `<div class="thumb" style="background-image:url('${c.thumb}')"><span class="num">${c.n}</span>`
+      + `<span class="seen">✓ 見た</span><span class="len">${mmss(c.sec)}</span></div>`
+      + `<div class="body"><b>${esc(c.name)}</b><span>${esc(c.lead)}</span>`
+      + `<div class="tags">${c.for.map((f) => `<i>${esc(f)}</i>`).join('')}</div></div>`;
+    b.onclick = () => { through = false; load('chapter', i); $('v').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+    li.append(b); return li;
+  }));
+}
+
+function paintChips() {
+  const all = [...new Set(DATA.chapters.flatMap((c) => c.for))];
+  $('chips').replaceChildren(...['all', ...all].map((f) => {
+    const b = document.createElement('button');
+    b.textContent = f === 'all' ? 'すべて' : `${f}むけ`;
+    b.className = filter === f ? 'on' : '';
+    b.onclick = () => { filter = f; paintChips(); paintGrid(); };
+    return b;
+  }));
+}
+
+$('digest').onclick = () => { through = false; load('digest', 0); };
+$('all').onclick = () => { through = true; load('chapter', 0); };
+function playFull(at) {
+  through = false; now = null;
+  $('v').src = DATA.full.file; $('dl').href = DATA.full.file;
+  $('playing').innerHTML = `通しの1本<strong>はじめから おわりまで（${mmss(DATA.full.sec)}）</strong>`;
+  $('scenes').replaceChildren(...DATA.full.toc.map((c) => {
+    const li = document.createElement('li'); const b = document.createElement('button');
+    b.innerHTML = `<em>${mmss(c.at)}</em><span>${c.n}. ${esc(c.name)}</span>`;
+    b.onclick = () => playFull(c.at);
+    li.append(b); return li;
+  }));
+  $('next').classList.remove('show'); paintGrid();
+  const go = () => { $('v').currentTime = at; $('v').play?.().catch(() => {}); };
+  if ($('v').readyState >= 1) go(); else $('v').addEventListener('loadedmetadata', go, { once: true });
+  $('v').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+const tocText = () => [`${document.title}（通し）もくじ`,
+  ...DATA.full.toc.map((c) => `${mmss(c.at)} ${c.n}. ${c.name}`), `（ぜんぶで ${mmss(DATA.full.sec)}）`].join('\n');
+$('toc').replaceChildren(...DATA.full.toc.map((c) => {
+  const li = document.createElement('li'); const b = document.createElement('button');
+  b.innerHTML = `<em>${mmss(c.at)}</em><span>${c.n}. ${esc(c.name)}</span>`;
+  b.onclick = () => playFull(c.at);
+  li.append(b); return li;
+}));
+$('playfull').onclick = () => playFull(0);
+$('copytoc').onclick = async () => {
+  try { await navigator.clipboard.writeText(tocText()); $('copytoc').textContent = 'コピーしました'; }
+  catch { prompt('もくじ', tocText()); }
+};
+$('fulldl').href = DATA.full.file;
+$('fulldl').textContent = `⤓ 通しの1本をダウンロード（${mmss(DATA.full.sec)}）`;
+paintChips();
+load('digest', 0, false);
+</script></body></html>
