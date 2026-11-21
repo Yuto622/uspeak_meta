@@ -298,10 +298,10 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
     from PIL import Image, ImageDraw, ImageFont
     base = rows[0]["at"]
     W, H = size
-    BAND = 230   # 帯の高さ。見出し（40px）と字幕2行が触れない最小がこれ
-    f_title = ImageFont.truetype(FONT_BOLD, 40, index=0)
-    f_chap = ImageFont.truetype(FONT_BOLD, 20, index=0)
-    f_sub = ImageFont.truetype(FONT_REG, 27, index=0)
+    BAND = 176   # 帯の高さ（見出し 32px と 字幕 2 行）。写真を 大きく 見せるため 低め
+    f_title = ImageFont.truetype(FONT_BOLD, 32, index=0)
+    f_chap = ImageFont.truetype(FONT_BOLD, 18, index=0)
+    f_sub = ImageFont.truetype(FONT_REG, 24, index=0)
     f_foot = ImageFont.truetype(FONT_REG, 18, index=0)
 
     # 声を先に1本にまとめてから、絵と一緒に包む。
@@ -337,10 +337,13 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
         # き しか入っていない」と言っている最中に、そのバーが切れて写らなかった。
         # 横幅ぴったりに合わせて（文字の大きさは原寸のまま）、上から下へ流せば、
         # そのカットの間に写真のすみずみが一度は映る。
+        # **写真は 動かさない**（2026-11：「上下に スライド しなくて いい・最初から 固定で 全画面」）。
+        # 帯の 上に 写真の ぜんたいが 入る 大きさで、まんなかに 置く（どこも 切らない）。
         stage_h = H - BAND
-        scale = W / src.width
-        big = src.resize((W, math.ceil(src.height * scale)), Image.LANCZOS)
-        drop = big.height - stage_h
+        scale = min(W / src.width, stage_h / src.height)
+        big = src.resize((round(src.width * scale), round(src.height * scale)), Image.LANCZOS)
+        still = Image.new("RGB", (W, stage_h), DEEP)
+        still.paste(big, ((W - big.width) // 2, (stage_h - big.height) // 2))
         frames = r["frames"]
         # 字幕は文字数の割合で切り替える。読み上げと同じ配分なので、声と字幕がずれない。
         parts = chunks(ruler, r["text"], f_sub, W - 112)
@@ -360,21 +363,19 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
                 live = Image.open(shots[min(f, len(shots) - 1)]).convert("RGB")
                 frame.paste(live, ((W - live.width) // 2, 0))
             else:
-                span = 0.10 + 0.80 * (ease if i % 2 == 0 else 1 - ease)
-                y = max(0, min(drop, int(drop * span)))
-                frame.paste(big.crop((0, y, W, y + stage_h)), (0, 0))
+                frame.paste(still, (0, 0))
             frame.paste(band, (0, H - BAND), band)
             d = ImageDraw.Draw(frame)
             d.line([(0, H - BAND), (W, H - BAND)], fill=GOLD, width=3)
-            d.text((56, H - BAND + 20), r["chapter"], font=f_chap, fill=MINT)
-            d.text((56, H - BAND + 44), r["title"], font=f_title, fill=CREAM)
+            d.text((48, H - BAND + 14), r["chapter"], font=f_chap, fill=MINT)
+            d.text((48, H - BAND + 36), r["title"], font=f_title, fill=CREAM)
             for n, line in enumerate(lines[:2]):
-                d.text((56, H - 116 + n * 38), line, font=f_sub, fill=(214, 226, 214))
+                d.text((48, H - 92 + n * 34), line, font=f_sub, fill=(214, 226, 214))
             # 進みぐあい
             at = (r["at"] - base + f / fps) / total
             d.rectangle([0, H - 6, W, H], fill=(255, 255, 255, 30))
             d.rectangle([0, H - 6, int(W * at), H], fill=GOLD)
-            d.text((W - 150, H - BAND + 16), "U-Speak Lab", font=f_foot, fill=(140, 170, 155))
+            d.text((W - 150, H - BAND + 12), "U-Speak Lab", font=f_foot, fill=(140, 170, 155))
             frame.save(proc.stdin, "JPEG", quality=92, subsampling=0)
             done += 1
         print(f"    {r['title']}  ({done} frames)", end="\r")
