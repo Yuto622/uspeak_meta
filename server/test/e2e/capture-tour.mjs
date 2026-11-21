@@ -31,7 +31,7 @@ const base = `http://127.0.0.1:${PORT}`;
 
 const server = spawn('node', ['src/index.js'], {
   cwd: serverDir,
-  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'error', ADMIN_KEY: ADMIN, TEACHER_KEY: 'tour-teacher-key-0123', REPORT_SECRET: 'tour-report-secret-0123456789' },
+  env: { ...process.env, PORT: String(PORT), STORE_BACKEND: 'memory', LOG_LEVEL: 'error', ADMIN_KEY: ADMIN, REPORT_SECRET: 'tour-report-secret-0123456789' },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 await waitForServer(PORT);
@@ -273,6 +273,7 @@ const STEPS = {
       const d = await (await fetch('main_island.json')).json();
       const s = d.island.spots.find((x) => x.id === 'pizza');
       uspeak.player.position.set(d.island.x + s.x, 0, d.island.z + s.z - 0.65);
+      uspeak.rpg.inside.enter('main', s);   // 戸口を 歩いて 入った ときと 同じ 入りかた
     });
     await page.waitForFunction(() => !!uspeak.rpg.insideBuilding, null, { timeout: 60000, polling: 500 }).catch(() => console.log('  (not inside the shop)'));
     await sleep(3000); await walkIn('pizza');
@@ -327,7 +328,7 @@ const STEPS = {
     const t = signReport('tour-report-secret-0123456789', 'tour', NAME);
     await page.goto(`${base}/report/tour/${encodeURIComponent(NAME)}?t=${encodeURIComponent(t)}`); await sleep(2500); await shot('tour-report-web');
   },
-  async 'tour-admin-roster'() { await page.goto(`${base}/admin`); await sleep(3000); await shot('tour-admin-roster'); },
+  async 'tour-admin-roster'() { await page.goto(`${base}/admin`); await sleep(3000); await page.evaluate(() => { const n = document.querySelector('#teacher-notice'); if (n) n.hidden = true; }); await shot('tour-admin-roster'); },
   async 'tour-admin-qr'() { await page.goto(`${base}/admin/kids`); await sleep(3000); await shot('tour-admin-qr'); },
   // 先生・運営の 画面（同じ ブラウザに 運営の ログインを 入れて ある）。
   async 'tour-homework-admin'() { await page.goto(`${base}/admin/homework`); await sleep(3000); await shot('tour-homework-admin'); },
