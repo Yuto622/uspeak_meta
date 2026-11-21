@@ -243,7 +243,7 @@ const STEPS = {
   },
   // 操作（パソコン）：WASD・下の バー・Enter
   async 'tour-pc-controls'() {
-    await closeAll(); await sleep(2000);
+    await closeAll(); await page.evaluate(() => document.body.classList.remove('pc-moved')); await sleep(2000);
     await page.evaluate(() => {
       document.querySelectorAll('.tour-mark').forEach((n) => n.remove());
       for (const [sel, text] of [['.control-hint', 'WASD・やじるしで うごく'], ['.hotbar', '下の バー（1〜4 の キー）']]) {
