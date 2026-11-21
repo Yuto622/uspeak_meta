@@ -21,27 +21,9 @@ if (stats) {
   document.addEventListener('pointerdown', (e) => { if (document.body.dataset.more && !stats.contains(e.target)) set(false); });
 }
 
-// スマホは さいしょに さわった とき、だまって 全画面に する（ブラウザの バーを 消す）。
-// 全画面は「指で さわった」あとでないと ブラウザが みとめないので、1 回目の タッチで たのむ。
-// 一度 じぶんで ぬけた 子には もう たのまない（もどるたびに 全画面に されると こまる）。
-// iPhone は Apple が ページの 全画面を みとめていない（requestFullscreen が ない）ので 何も しない
-// ＝ iPhone は ホーム画面の アイコン（PWA）から ひらくと バーが 出ない。iPad・パソコンも 何も しない。
+// 全画面（ブラウザの バーを 消す）と 横の 固定は fullscreen.js（ボタンと、さわった ときに たのむ ところ）。
 const root = document.documentElement;
 const phone = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) <= 500;
-const installed = matchMedia('(display-mode: standalone), (display-mode: fullscreen)').matches || navigator.standalone;
-// 横で 固定する（Android の Chrome は 全画面か ホーム画面の アイコンの ときだけ みとめる。iPhone・iPad は ない）。
-const lockSideways = () => { try { screen.orientation?.lock?.('landscape')?.catch?.(() => {}); } catch { /* not allowed here */ } };
-if (phone && !installed && root.requestFullscreen) {
-  const ask = () => {
-    removeEventListener('pointerup', ask, true);
-    removeEventListener('touchend', ask, true);
-    if (document.fullscreenElement) { lockSideways(); return; }
-    root.requestFullscreen({ navigationUI: 'hide' }).then(lockSideways, () => {});
-  };
-  addEventListener('pointerup', ask, true);
-  addEventListener('touchend', ask, true);
-}
-if (phone && installed) lockSideways();
 
 // **スマホは いつも 横で あそぶ。** 向きを 固定 できない 端末（iPhone は Apple が みとめていない）では、
 // 縦に もっている 間 画面を かくして「よこに してね」だけ 出す（mobile.css の 17。`html.sideways-only`）。

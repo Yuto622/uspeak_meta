@@ -12,7 +12,7 @@ try { seen = !!localStorage.getItem(KEY); } catch { /* private mode: 出さな�
 const SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 8l5-5 5 5M5 12v8h14v-8"/></svg>';
 const PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
 
-function show() {
+export function showInstallHint() {
   const box = document.createElement('div');
   box.id = 'install-hint';
   box.setAttribute('role', 'dialog');
@@ -39,6 +39,6 @@ if (iphone && !installed && !seen) {
     const busy = document.getElementById('loading') || document.querySelector('dialog[open]')
       || document.body.dataset.main || document.body.dataset.arcade || document.body.dataset.race || document.body.dataset.gp;
     calm = busy ? 0 : calm + 1;
-    if (calm >= 10) { clearInterval(timer); show(); }
+    if (calm >= 10) { clearInterval(timer); showInstallHint(); }
   }, 1000);
 }

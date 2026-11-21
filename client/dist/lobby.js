@@ -22,6 +22,7 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
     <p id="net-lobby-error" class="net-error" role="alert" hidden></p>
     <div class="net-lobby-actions">
       <button type="submit" class="primary" id="net-join" data-t="クラスに はいる →">クラスに はいる →</button>
+      <button type="button" class="net-fs" id="net-fs" data-fs-button hidden><span aria-hidden="true">⛶</span> <span data-t="ぜんがめんに する">ぜんがめんに する</span></button>
     </div>
     <p class="net-fine" data-t="オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。">オンラインではコイン・正解の記録はサーバーに保存され、先生と保護者向けレポートに使われます。 <a href="/privacy.html" target="_blank" rel="noopener" data-t="プライバシーポリシー">プライバシーポリシー</a></p>
   </form>`;

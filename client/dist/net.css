@@ -201,3 +201,17 @@
 .net-pick-other{display:block;margin:12px auto 0;min-height:44px;padding:0 16px;border:0;background:none;color:#3f6f8f;font:inherit;font-size:14px;text-decoration:underline;cursor:pointer}
 @media (max-height:480px){#net-lobby.pick{padding:14px 18px}#net-lobby.pick h2{font-size:19px;margin:2px 0}#net-lobby.pick .eyebrow,#net-lobby.pick .net-fine{display:none}#net-pick-list{max-height:calc(100vh - 222px);grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}.net-pick-name{min-height:84px;padding:6px}.net-pick-name i{width:40px;height:40px;font-size:20px}.net-pick-name b{font-size:15px}#net-lobby .net-pick-lead{font-size:16px;margin-bottom:6px}.net-pick-other{margin-top:4px}}
 #net-lobby .eyebrow{font-size:11px}
+
+/* 全画面に する ボタン（fullscreen.js）。島の 上は 上の まんなか、ロビーは「クラスに はいる」の となり。 */
+.fs-button { position: fixed; z-index: 30; top: calc(env(safe-area-inset-top, 0px) + 74px); left: 50%; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 8px 16px; border-radius: 999px;
+  border: 2px solid #fff; background: #e27a2d; color: #fff; font: 700 14px/1.2 inherit; cursor: pointer; box-shadow: 0 4px 14px #0004; }
+.fs-button[hidden] { display: none; }
+.fs-button span[aria-hidden] { font-size: 17px; }
+body[data-arcade] .fs-button, body[data-race] .fs-button, body[data-gp] .fs-button, body[data-warp] .fs-button { display: none; }
+.net-lobby-actions .net-fs { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px;
+  border-radius: 12px; border: 2px solid #e27a2d; background: #fff7ef; color: #b0561a; font-weight: 700; font-size: 14px; }
+.net-lobby-actions .net-fs[hidden] { display: none; }
+.avatar-stage .net-fs { display: inline-flex; margin-top: 10px; position: relative; z-index: 1; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 0 14px;
+  border-radius: 12px; border: 2px solid #e27a2d; background: #fff7ef; color: #b0561a; font-weight: 700; font-size: 14px; }
+.avatar-stage .net-fs[hidden] { display: none; }
