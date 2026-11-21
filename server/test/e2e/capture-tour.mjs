@@ -197,7 +197,7 @@ const STEPS = {
     await closeAll(); await page.click('#lang-toggle').catch(() => {}); await sleep(7000); await shot('tour-english');
     await page.click('#lang-toggle').catch(() => {}); await sleep(2500);
   },
-  async 'tour-guide'() { await closeAll(); await page.click('#help').catch(() => {}); await page.waitForSelector('#guide-dialog[open]', { timeout: 30000 }).catch(() => {}); await sleep(4000); await shot('tour-guide'); await closeAll(); },
+  async 'tour-guide'() { await closeAll(); await page.evaluate(() => document.querySelector('#help').click()); await page.waitForSelector('#guide-dialog[open]', { timeout: 30000 }).catch(() => {}); await sleep(4000); await shot('tour-guide'); await closeAll(); },
   async 'tour-chat'() { await closeAll(); await page.click('#net-chat-button').catch(() => {}); await sleep(3000); await shot('tour-chat'); await page.click('#net-chat-close').catch(() => {}); },
   async 'tour-fp'() { await closeAll(); await page.click('#fp-button').catch(() => {}); await sleep(6000); await shot('tour-fp'); await page.click('#fp-button').catch(() => {}); await sleep(1500); },
   async 'tour-adventure'() { await closeAll(); await page.evaluate(() => uspeak.rpg.adventure?.open?.('team')); await sleep(6000); await shot('tour-adventure'); await closeAll(); },
