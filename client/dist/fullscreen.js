@@ -40,24 +40,36 @@ addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installEven
 addEventListener('appinstalled', () => { installEvent = null; });
 const apple = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
 const kind = () => (apple ? 'ios' : /Android/.test(ua) ? 'android' : 'pc');
-function offerHome() {
+// パソコン（Windows の Chrome・Edge）で「インストール」を おすと、デスクトップと スタートメニューに アイコンが できる
+// （Edge は その あとの 画面で「デスクトップに ショートカット」を えらぶ）。ページから じかに デスクトップへ 置く 方法は ない。
+// **全画面と いっしょに 出すと ことわられる**：全画面は タップ 1 回ぶんの「ゆるし」を つかって しまい、つぎの prompt() は
+// 「ユーザーの 操作では ない」で 何も 出ない。だから 出せる ときは インストールを 先に して、全画面は その タップでは たのまない
+// （インストールした アプリは じぶんの まどで ひらく。出さなかった ときは つぎの タップで 全画面に なる）。
+const canPrompt = () => !installed && !!installEvent;
+function prompt() {
+  const e = installEvent; installEvent = null;
+  try {
+    const p = e.prompt();
+    if (p && p.catch) p.catch(() => showInstallHint(kind()));
+  } catch { showInstallHint(kind()); }
+}
+const isButton = (t) => !!t?.closest?.('#fs-button, [data-fs-button]');
+
+// ボタンを おしたとき：インストールの 画面を 出せる ときは それ。出せない ときは 全画面に して、やりかたの 案内。
+function press() {
   if (installed) return;
-  if (installEvent) {
-    const e = installEvent; installEvent = null;
-    try { e.prompt(); e.userChoice?.catch?.(() => {}); } catch { showInstallHint(kind()); }
-    return;
-  }
+  if (canPrompt()) { prompt(); return; }
+  if (request) goFullscreen();
   showInstallHint(kind());
 }
-
-// ボタンを おしたとき：全画面に して（できる 端末だけ）、ホーム画面に 追加も すすめる。
-function press() { if (request) goFullscreen(); offerHome(); }
 
 if (installed) lockSideways();
 
 if (offer) {
   // さいしょの タップ（アカウント作成・サインイン）と、ぬけた あとの つぎの タップで 全画面に。
-  if (request) for (const type of ['pointerup', 'touchend', 'keydown']) document.addEventListener(type, goFullscreen, true);
+  // ボタンの 上の タップは ここで 全画面に しない（インストールの 画面を 先に 出すため。press() が きめる）。
+  const tap = (e) => { if (canPrompt() && isButton(e.target)) return; goFullscreen(); };
+  if (request) for (const type of ['pointerup', 'touchend', 'keydown']) document.addEventListener(type, tap, true);
 
   // 島の 上の ボタン（サインイン ずみで 全画面で ない とき）。
   const button = document.createElement('button');
