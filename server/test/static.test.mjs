@@ -87,7 +87,8 @@ test('ホーム画面に 追加できる（manifest と アイコン）', async 
     const base = `http://127.0.0.1:${PORT}`;
     const html = await (await fetch(`${base}/index.html`)).text();
     assert.match(html, /<link rel="manifest" href="manifest\.webmanifest">/);
-    assert.match(html, /manifest\.webmanifest\?class=/, 'the page must ask for its own class in the manifest');
+    assert.match(html, /manifest\.webmanifest\?"\+o/, 'the page must ask for its own class (and name-pick QR) in the manifest');
+    assert.match(html, /\["class","room","k"\]/, 'class, classroom QR and its key all reach the home-screen icon');
     assert.match(html, /<link rel="apple-touch-icon" href="assets\/app\/apple-touch-icon\.png">/);
     const res = await fetch(`${base}/manifest.webmanifest`);
     assert.equal(res.status, 200);

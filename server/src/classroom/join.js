@@ -16,6 +16,28 @@ export const signJoin = (secret, classCode) => signLink(secret, `join|${fold(cla
 export const verifyJoin = (secret, classCode, token) => !!secret && !!fold(classCode) && verifyLink(secret, `join|${fold(classCode)}`, token);
 export const joinPath = (secret, classCode) => `/?class=${encodeURIComponent(classCode)}&k=${encodeURIComponent(signJoin(secret, classCode))}`;
 
+// 教室 まとめての QR（2026-11：「クラスは わかれて いるけど ぜんぶ iac。1 つの QR に」）。
+// 教室＝/admin/classrooms の 1 行（いくつかの クラス）。URL は `/?room=<教室の id>&k=<署名>`。署名は クラスの QR とも レポートとも べつの 文字（`joinroom|`）。
+// 一覧は 教室の クラス ぜんぶの 子。なまえを おすと **その 子の クラス**で 入る（入れるか どうかは いつもの onAuth）。
+export const signJoinRoom = (secret, roomId) => signLink(secret, `joinroom|${String(roomId)}`, JOIN_TTL_MS);
+export const verifyJoinRoom = (secret, roomId, token) => !!secret && !!roomId && verifyLink(secret, `joinroom|${String(roomId)}`, token);
+export const joinRoomPath = (secret, roomId) => `/?room=${encodeURIComponent(roomId)}&k=${encodeURIComponent(signJoinRoom(secret, roomId))}`;
+const MAX_ROOM_NAMES = 200;
+
+// 教室の クラス ぜんぶの 子（クラスの 順・先生・停止は のぞく）。同じ なまえが 2 つの クラスに いれば 両方 出す（クラスで 見分ける）。
+export function entriesForRoom(rows, classes) {
+  const out = []; const seen = new Set();
+  for (const code of classes || []) {
+    for (const name of namesFor(rows, code)) {
+      const k = `${fold(code)}|${fold(name)}`;
+      if (seen.has(k)) continue;
+      seen.add(k); out.push({ name, class: code });
+      if (out.length >= MAX_ROOM_NAMES) return out;
+    }
+  }
+  return out;
+}
+
 // その クラスの 子どもの なまえ（先生・停止・クラスなしの 行は のぞく）。
 export function namesFor(rows, classCode) {
   const code = fold(classCode); const seen = new Set(); const out = [];
@@ -29,13 +51,23 @@ export function namesFor(rows, classCode) {
   return out;
 }
 
-export function mountJoinNames(app, { kids, rosterRows = async () => [], secret, limiter = null, log = console }) {
+export function mountJoinNames(app, { kids, classrooms = null, rosterRows = async () => [], secret, limiter = null, log = console }) {
   const handlers = [];
   if (limiter) handlers.push(limiter);
   handlers.push(async (req, res) => {
     res.set('Cache-Control', 'no-store'); res.set('X-Robots-Tag', 'noindex, nofollow'); res.set('Referrer-Policy', 'no-referrer');
     const classCode = String(req.query.class ?? '').trim().slice(0, 40);
+    const roomId = String(req.query.room ?? '').trim().slice(0, 64);
     const none = () => res.status(404).json({ ok: false });
+    if (roomId) {
+      const room = classrooms?.get?.(roomId);
+      if (!secret || !kids || !room || !kids.roomPickOf(roomId) || !verifyJoinRoom(secret, roomId, String(req.query.k ?? '').slice(0, 200))) { none(); return; }
+      let entries = [];
+      try { entries = entriesForRoom(await rosterRows(), room.classes); } catch (err) { log.warn?.('[join] roster failed:', err.message); }
+      if (!entries.length) { none(); return; }
+      res.json({ ok: true, names: entries.map((e) => e.name), entries });
+      return;
+    }
     if (!secret || !kids || !classCode || !kids.pickOf(classCode) || !verifyJoin(secret, classCode, String(req.query.k ?? '').slice(0, 200))) { none(); return; }
     let names = [];
     try { names = namesFor(await rosterRows(), classCode); } catch (err) { log.warn?.('[join] roster failed:', err.message); }

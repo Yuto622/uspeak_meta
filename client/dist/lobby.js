@@ -60,29 +60,36 @@ export function createLobby({ onJoin, defaultClass, prefs }) {
   // 一覧は 入力の かわり：入れるか どうかは いつもどおり サーバーが きめる。先生は「なまえが ない とき」から 先生パスワードで 入る。
   const PICK_COLORS = ['#e2574c', '#e27a2d', '#d99a1e', '#4fa868', '#2f9a9a', '#3f86d0', '#5a66c8', '#8a5cc0', '#c0589a'];
   const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const pick = { classCode: '', names: [] };
+  // 教室 まとめての QR（?room=<教室>&k=<署名>）：いくつかの クラスの 子が 1 つの 一覧に 出る。なまえごとに クラスが ついて くる（entries）。
+  const pick = { classCode: '', names: [], classes: [] };
   function setPick(on) { dialog.classList.toggle('pick', on); $('#net-pick').hidden = !on; }
   (async () => {
     let q; try { q = new URLSearchParams(location.search); } catch { return; }
-    const classCode = (q.get('class') || '').trim(); const k = q.get('k') || '';
-    if (!classCode || !k) return;
+    const classCode = (q.get('class') || '').trim(); const room = (q.get('room') || '').trim(); const k = q.get('k') || '';
+    if ((!classCode && !room) || !k) return;
     try {
-      const res = await fetch(`/api/join/names?class=${encodeURIComponent(classCode)}&k=${encodeURIComponent(k)}`, { cache: 'no-store' });
+      const by = room ? `room=${encodeURIComponent(room)}` : `class=${encodeURIComponent(classCode)}`;
+      const res = await fetch(`/api/join/names?${by}&k=${encodeURIComponent(k)}`, { cache: 'no-store' });
       const data = res.ok ? await res.json() : null;
       if (!data?.ok || !Array.isArray(data.names) || !data.names.length) return;
-      pick.classCode = classCode; pick.names = data.names.map((n) => String(n).slice(0, 16)).filter(Boolean).slice(0, 60);
-      $('#net-pick-list').innerHTML = pick.names.map((n, i) => { let h = 0; for (const c of n) h = (h * 31 + c.codePointAt(0)) >>> 0; return `<button type="button" class="net-pick-name" role="listitem" data-i="${i}"><i style="background:${PICK_COLORS[h % PICK_COLORS.length]}">${esc([...n][0] || '?')}</i><b>${esc(n)}</b></button>`; }).join('');
-      $('#net-class').value = classCode;
+      const list = (Array.isArray(data.entries) && data.entries.length ? data.entries : data.names.map((name) => ({ name, class: classCode })))
+        .map((e) => ({ name: String(e?.name ?? '').slice(0, 16), class: String(e?.class ?? classCode).slice(0, 40) })).filter((e) => e.name && e.class).slice(0, 200);
+      if (!list.length) return;
+      pick.classCode = room ? '' : classCode; pick.names = list.map((e) => e.name); pick.classes = list.map((e) => e.class);
+      // 同じ なまえが 2 つの クラスに いる ときだけ、クラスを 小さく そえる（見分けるため）。
+      const twice = new Set(pick.names.filter((n, i) => pick.names.indexOf(n) !== i));
+      $('#net-pick-list').innerHTML = pick.names.map((n, i) => { let h = 0; for (const c of n) h = (h * 31 + c.codePointAt(0)) >>> 0; return `<button type="button" class="net-pick-name" role="listitem" data-i="${i}"><i style="background:${PICK_COLORS[h % PICK_COLORS.length]}">${esc([...n][0] || '?')}</i><b>${esc(n)}</b>${twice.has(n) ? `<small>${esc(pick.classes[i])}</small>` : ''}</button>`; }).join('');
+      if (!room) $('#net-class').value = classCode;
       setPick(true);
     } catch { /* いつもの 入力の まま */ }
   })();
   $('#net-pick-list').addEventListener('click', (e) => {
     const b = e.target.closest('.net-pick-name'); if (!b || $('#net-join').disabled) return;
-    const name = pick.names[Number(b.dataset.i)]; if (!name) return;
-    $('#net-name').value = name; $('#net-class').value = pick.classCode; $('#net-key').value = '';
+    const i = Number(b.dataset.i); const name = pick.names[i]; const classCode = pick.classes[i] || pick.classCode; if (!name || !classCode) return;
+    $('#net-name').value = name; $('#net-class').value = classCode; $('#net-key').value = '';
     error('');
     for (const x of dialog.querySelectorAll('.net-pick-name')) x.classList.toggle('on', x === b);
-    onJoin({ name, classCode: pick.classCode, teacherKey: '' });
+    onJoin({ name, classCode, teacherKey: '' });
   });
   $('#net-pick-other').addEventListener('click', () => { setPick(false); setTimeout(() => $('#net-name').focus(), 30); });
 

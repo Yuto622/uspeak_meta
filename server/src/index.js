@@ -442,7 +442,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   const rosterClasses = async () => ((await roster.listAllRoster?.()) || []).map((r) => r.class);
   const classrooms = config.reportSecret ? await new ClassroomStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'classrooms.json'), { secret: config.reportSecret, log }).init() : null;
   const abcAdmin = abcAdminExtension({ abc: abcStore, voices: phonicsVoices, rosterClasses, log });
-  const kidsAdmin = kidsAdminExtension({ kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, log });
+  const kidsAdmin = kidsAdminExtension({ kids: kidsStore, classrooms, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, log });
   const classroomAdmin = classrooms ? classroomAdminExtension({ classrooms, rosterClasses, log }) : () => {};
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
   const privacyAdmin = ({ api }) => {
@@ -461,7 +461,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
   app.use(['/api/liff', '/r', '/report', '/class', '/export', '/teacher'], rateLimit({ windowMs: 60_000, max: 120 }));
   // なまえを えらんで 入る（クラスの QR）。その クラスの 子どもの なまえ だけ・1 つの IP から 1 分 30 回まで。
-  mountJoinNames(app, { kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, limiter: rateLimit({ windowMs: 60_000, max: 30 }), log });
+  mountJoinNames(app, { kids: kidsStore, classrooms, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, limiter: rateLimit({ windowMs: 60_000, max: 30 }), log });
   if (classrooms) mountTeacherHomework(app, { classrooms, homework, kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
   mountReadingArt(app, { log }); // 絵本の 絵（サーバーで かく SVG）
   // 絵本を 合言葉なしで わたす 口（Roblox の 絵本の place が Secrets なしで 読む）。答えは 入れない・記録も しない。
@@ -509,9 +509,12 @@ export async function startServer({ port = config.port, storeOverride = null, tt
       try {
         manifest ||= JSON.parse(await fs.promises.readFile(path.join(clientDir, 'manifest.webmanifest'), 'utf8'));
       } catch { next(); return; }
-      const cls = String(req.query.class || '').trim().slice(0, 64);
+      // 名前を えらんで 入る QR（`room` か `class` と 署名 `k`）から 追加した アイコンも、ひらくと なまえの 一覧が 出る ように 両方 のこす。
+      const start = new URLSearchParams();
+      for (const [key, max] of [['class', 64], ['room', 64], ['k', 200]]) { const v = String(req.query[key] || '').trim().slice(0, max); if (v) start.set(key, v); }
+      if (start.has('k') && !start.has('class') && !start.has('room')) start.delete('k');
       res.set('Cache-Control', 'no-cache');
-      res.type('application/manifest+json').send(JSON.stringify({ ...manifest, start_url: cls ? `/?class=${encodeURIComponent(cls)}` : '/' }));
+      res.type('application/manifest+json').send(JSON.stringify({ ...manifest, start_url: start.toString() ? `/?${start}` : '/' }));
     });
     const VENDORED = /[\\/](racers|blockwild|puyo|suika|assets|vendor)[\\/]/;
     app.use(express.static(clientDir, {

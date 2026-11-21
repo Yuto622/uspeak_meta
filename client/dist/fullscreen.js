@@ -56,11 +56,18 @@ function prompt() {
 const isButton = (t) => !!t?.closest?.('#fs-button, [data-fs-button]');
 
 // ボタンを おしたとき：インストールの 画面を 出せる ときは それ。出せない ときは 全画面に して、やりかたの 案内。
+// パソコンで ブラウザが インストールの 画面を 出せない とき（もう インストール ずみ・まだ 条件が そろわない・Firefox など）は、
+// 全画面に するだけ。やりかたの 案内は この ブラウザで 1 回だけ（2026-11：「パソコンでも これ 出てきた」。毎回 ゲームの 上に かぶさって じゃま）。
+const PC_HINT_KEY = 'uspeak-pc-install-hint-v1';
+function pcHintOnce() {
+  try { if (localStorage.getItem(PC_HINT_KEY)) return; localStorage.setItem(PC_HINT_KEY, '1'); } catch { return; }
+  showInstallHint('pc');
+}
 function press() {
   if (installed) return;
   if (canPrompt()) { prompt(); return; }
   if (request) goFullscreen();
-  showInstallHint(kind());
+  if (kind() === 'pc') pcHintOnce(); else showInstallHint(kind());
 }
 
 if (installed) lockSideways();

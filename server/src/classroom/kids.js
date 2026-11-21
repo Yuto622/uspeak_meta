@@ -5,14 +5,17 @@ import express from 'express';
 import { config } from '../config.js';
 import QRCode from 'qrcode';
 import { KIDS_MODES } from './kids-store.js';
-import { joinPath, namesFor } from './join.js';
+import { joinPath, namesFor, joinRoomPath, entriesForRoom } from './join.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const json = (v) => JSON.stringify(v).replace(/</g, '\\u003c');
 const fold = (s) => String(s ?? '').normalize('NFKC').trim().toLowerCase();
 
 // `scope(req)`：さわれる クラスの 一覧（null なら 名簿に ある クラス ぜんぶ＝運営）。`rosterRows()`：名簿の 行。
-export function mountKidsApi(api, { kids, scope, rosterRows = async () => [], header, secret = '', log = console }) {
+// `rooms(req)`：さわれる 教室（{id, name, classes}）。教室 まとめての QR に 使う。
+export function mountKidsApi(api, { kids, scope, rooms = () => [], rosterRows = async () => [], header, secret = '', log = console }) {
+  const roomsFor = (req) => { try { return (rooms(req) || []).filter((r) => r?.id && Array.isArray(r.classes)); } catch { return []; } };
+  const roomOf = (req, id) => roomsFor(req).find((r) => r.id === String(id ?? '')) || null;
   const classesFor = async (req) => {
     let rows = [];
     try { rows = (await rosterRows()) || []; } catch (err) { log.warn('[kids] roster failed:', err.message); }
@@ -35,10 +38,23 @@ export function mountKidsApi(api, { kids, scope, rosterRows = async () => [], he
         const pick = kids.pickOf(code);
         return { code, on: c.on, students: names.map((name) => ({ name, mode: kids.modeOf(code, name) })), pick, pickReady: !!secret, join: pick && secret ? joinPath(secret, code) : '', pickCount: namesFor(rows, code).length };
       }),
+      rooms: roomsFor(req).map((r) => {
+        const pick = kids.roomPickOf(r.id);
+        return { id: r.id, name: r.name, classes: r.classes, pick, pickReady: !!secret, join: pick && secret ? joinRoomPath(secret, r.id) : '', pickCount: entriesForRoom(rows, r.classes).length };
+      }),
     });
   });
   api.put('/kids', express.json({ limit: '4kb' }), async (req, res) => {
     if (req.get('x-requested-with') !== header) { res.status(403).json({ ok: false, error: 'header' }); return; }
+    if (req.body?.room !== undefined) {
+      const room = roomOf(req, req.body.room);
+      if (!room || typeof req.body?.pick !== 'boolean' || (req.body.pick && !secret)) { res.status(403).json({ ok: false, error: 'この 教室は かえられません' }); return; }
+      await kids.setRoomPick(room.id, req.body.pick);
+      log.info(`[kids] room ${room.name} name pick ${req.body.pick ? 'on' : 'off'}`);
+      const pick = kids.roomPickOf(room.id);
+      res.json({ ok: true, pick, join: pick && secret ? joinRoomPath(secret, room.id) : '' });
+      return;
+    }
     const classCode = String(req.body?.classCode ?? '').trim().slice(0, 40);
     if (!classCode || !may(req, classCode)) { res.status(403).json({ ok: false, error: 'この クラスは かえられません' }); return; }
     const name = String(req.body?.name ?? '').trim().slice(0, 40);
@@ -55,24 +71,26 @@ export function mountKidsApi(api, { kids, scope, rosterRows = async () => [], he
   // 入り口の QR（SVG）。リンクは サーバーが 作る（クラスは さわれる ものだけ・オンの ときだけ）。外の サービスは 使わない。
   api.get('/kids/qr', async (req, res) => {
     const classCode = String(req.query.classCode ?? '').trim().slice(0, 40);
+    const room = req.query.room !== undefined ? roomOf(req, req.query.room) : null;
     let origin = '';
     try { const u = new URL(String(req.query.origin ?? '').slice(0, 200)); if (u.protocol === 'https:' || u.protocol === 'http:') origin = u.origin; } catch { /* だめな origin */ }
-    if (!classCode || !origin || !secret || !may(req, classCode) || !kids.pickOf(classCode)) { res.status(404).type('text/plain').send('not found'); return; }
+    const ok = room ? kids.roomPickOf(room.id) : classCode && may(req, classCode) && kids.pickOf(classCode);
+    if (!origin || !secret || !ok) { res.status(404).type('text/plain').send('not found'); return; }
     try {
-      const svg = await QRCode.toString(origin + joinPath(secret, classCode), { type: 'svg', margin: 2, errorCorrectionLevel: 'M' });
+      const svg = await QRCode.toString(origin + (room ? joinRoomPath(secret, room.id) : joinPath(secret, classCode)), { type: 'svg', margin: 2, errorCorrectionLevel: 'M' });
       res.set('Cache-Control', 'no-store'); res.type('image/svg+xml; charset=utf-8').send(svg);
     } catch (err) { log.warn('[kids] qr failed:', err.message); res.status(500).type('text/plain').send('error'); }
   });
 }
 
 // 運営の /admin/kids。
-export function kidsAdminExtension({ kids, rosterRows, secret = '', log = console }) {
+export function kidsAdminExtension({ kids, rosterRows, classrooms = null, secret = '', log = console }) {
   return ({ router, api, authed }) => {
     router.get('/kids', (req, res) => {
       if (!authed(req)) { res.redirect(303, '/admin'); return; }
       res.type('text/html; charset=utf-8').send(kidsPage({ room: null }));
     });
-    mountKidsApi(api, { kids, scope: () => null, rosterRows, header: 'uspeak-admin', secret, log });
+    mountKidsApi(api, { kids, scope: () => null, rooms: () => classrooms?.list?.() || [], rosterRows, header: 'uspeak-admin', secret, log });
   };
 }
 
@@ -107,7 +125,7 @@ h3{font-size:18px;margin:0}.pick{margin-top:16px;padding-top:14px;border-top:2px
 .join{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-top:12px}.qr{width:180px;height:180px;border:2px solid #e3d9c7;border-radius:12px;background:#fff}
 .jr{flex:1 1 280px;min-width:0}.url{width:100%;min-height:44px;margin:8px 0;padding:0 10px;border:2px solid #d9d1c3;border-radius:10px;font:14px ui-monospace,Menlo,monospace;background:#faf7f0}.acts{display:flex;flex-wrap:wrap;gap:8px}
 @media print{body{background:#fff}.bar,h1,.what,#msg,.wrap>.muted,.card.noprint,.list,.card>.head,.pick .sw,.acts,.url,.warn{display:none!important}.card{border:0;padding:0}.pick{border:0;margin:0;padding:0}.qr{width:90mm;height:90mm}
-.card:not(.noprint)::before{content:"クラス " attr(data-code) " の 入り口";display:block;font-size:28px;font-weight:800;margin-bottom:8px}}
+.card:not(.noprint)::before{content:attr(data-title) " の 入り口";display:block;font-size:28px;font-weight:800;margin-bottom:8px}}
 </style></head><body><div class="wrap">
 <div class="bar"><p class="muted" style="margin:0">${back}</p>${room ? '<form method="post" action="/teacher/logout" style="margin:0"><button type="submit" class="plain">ログアウト</button></form>' : ''}</div>
 <style>body.nokids .kidsonly{display:none!important}</style>
@@ -120,6 +138,7 @@ ${config.kidsMode ? '' : '<p class="muted">クラスの QR を ひらくと、�
 <li>行ける 島は メインの島・よみもの島・つり島・きせかえ島・じぶんの 島 だけです。</li>
 <li>正解の 判定・コイン・学習の 記録は <b>ふつうの モードと 同じ</b>です（レポートの 数字は そのまま くらべられます）。</li><li><b>先生の アカウントは かわりません。</b>先生（や 見本を 見せる 人）は、あそぶ 画面の 上の <b>🧸 かんたん</b> ボタンで、じぶんの 画面だけ すぐ きりかえられます。</li></ul></div>
 <div id="msg" role="status"></div>
+<div id="rooms"></div>
 <div id="classes"><p class="muted">読みこみ中…</p></div>
 ${room ? '' : `<div class="card kidsonly" id="addbox"><h2 style="margin:0 0 6px;font-size:18px">＋ クラスの パスワードを 入れて 足す</h2><p class="muted" style="margin:0 0 10px;font-size:14px">上に 出て いない クラス（名簿に クラスの パスワードを 書いて いない クラス・名簿を 使わない クラス）は、子どもが ロビーで 入れる <b>クラスの パスワード</b>を ここに 入れると 幼児モードを オンに できます。</p><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="addcode" placeholder="例：demo" maxlength="40" autocomplete="off" style="flex:1;min-width:180px;min-height:48px;font:inherit;font-size:16px;padding:0 12px;border:2px solid #d9d1c3;border-radius:12px"><button type="button" id="addgo" style="min-height:48px;padding:0 18px;border-radius:12px;border:0;background:#2f8f5b;color:#fff;font:inherit;font-weight:800;cursor:pointer">この クラスを オンに する</button></div></div>`}
 </div>
@@ -127,16 +146,28 @@ ${room ? '' : `<div class="card kidsonly" id="addbox"><h2 style="margin:0 0 6px;
 const CFG=${json(cfg)};
 const $=s=>document.querySelector(s);const H={'x-requested-with':CFG.header,'content-type':'application/json'};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let data=[];
+let data=[];let rooms=[];
 const say=(t,bad)=>{$('#msg').textContent=t;$('#msg').className=bad?'bad':''};
 const eff=(c,s)=>s.mode==='on'||(s.mode!=='off'&&c.on);
 function paint(){
-  $('#classes').innerHTML=data.map((c,i)=>'<section class="card" data-code="'+esc(c.code)+'"><div class="head"><h2>クラス '+esc(c.code)+'</h2>'+
+  $('#rooms').innerHTML=rooms.length?'<h2 style="margin:18px 0 0">🏫 教室 まとめての QR</h2><p class="muted" style="margin:4px 0 0">教室の クラス ぜんぶを <b>1 つの QR</b> に します。ひらくと クラス ぜんぶの 子の なまえが 出て、おすと その 子の クラスで 入ります。教室と クラスの まとまりは '+(CFG.admin?'<a href="/admin/classrooms">教室の 表</a>':'運営')+' で きめます。</p>'+rooms.map((r,i)=>'<section class="card" data-title="'+esc(r.name)+'">'+roomHtml(r,i)+'</section>').join('')+'<h2 style="margin:22px 0 0">クラスごとの QR</h2>':(CFG.admin?'<p class="muted">いくつかの クラスを 1 つの QR に まとめるには、<a href="/admin/classrooms">教室の 表</a> で 教室に クラスを 入れて ください。</p>':'');
+  $('#classes').innerHTML=data.map((c,i)=>'<section class="card" data-code="'+esc(c.code)+'" data-title="クラス '+esc(c.code)+'"><div class="head"><h2>クラス '+esc(c.code)+'</h2>'+
   (CFG.kidsMode?'<button type="button" class="sw" role="switch" aria-checked="'+c.on+'" data-class="'+i+'"><i></i><span>幼児モード '+(c.on?'オン':'オフ')+'</span></button>':'')+'</div>'+
   (!CFG.kidsMode?'':c.students.length?'<ul class="list">'+c.students.map((s,j)=>'<li><span class="nm">'+esc(s.name)+'<span class="now">いま：'+(eff(c,s)?'🧸 幼児モード':'ふつう')+'</span></span><span class="seg" role="group" aria-label="'+esc(s.name)+'">'+
   [['inherit','クラスと おなじ'],['on','オン'],['off','オフ']].map(([m,l])=>'<button type="button" aria-pressed="'+(s.mode===m)+'" data-c="'+i+'" data-s="'+j+'" data-m="'+m+'">'+l+'</button>').join('')+'</span></li>').join('')+'</ul>'
   :'<p class="muted" style="margin:10px 0 0">名簿に この クラスの 子が まだ いません（クラスの スイッチは 使えます）。</p>')+pickHtml(c,i)+'</section>').join('')
   ||'<p class="muted">クラスが まだ ありません。</p>';
+}
+// 教室 まとめての QR。
+function roomHtml(r,i){
+  const url=r.join?location.origin+r.join:'';
+  return '<div class="head"><div><h2>🏫 '+esc(r.name)+'</h2><p class="muted" style="margin:2px 0 0;font-size:15px">クラス：'+r.classes.map(esc).join('・')+'</p></div>'+
+  '<button type="button" class="sw" role="switch" aria-checked="'+!!r.pick+'" data-roompick="'+i+'"'+(r.pickReady?'':' disabled')+'><i></i><span>'+(r.pick?'オン':'オフ')+'</span></button></div>'+
+  (!r.pickReady?'<p class="warn">この サーバーでは まだ 使えません（運営の 設定が いります）。</p>':'')+
+  (r.pick?(r.pickCount?'':'<p class="warn">この 教室の クラスの 子が 名簿に いません。</p>')+
+  '<div class="join"><img class="qr" alt="教室の QR" src="'+CFG.api+'/qr?room='+encodeURIComponent(r.id)+'&origin='+encodeURIComponent(location.origin)+'"><div class="jr"><p style="margin:0"><b>いま 一覧に 出る 子：'+r.pickCount+' 人</b>（'+r.classes.length+' クラス・先生・停止の 行は 出ません）</p>'+
+  '<input class="url" readonly value="'+esc(url)+'" aria-label="入り口の URL"><div class="acts"><button type="button" class="plain" data-roomcopy="'+i+'">URL を コピー</button><button type="button" class="plain" data-roomprint="'+i+'">🖨 QR を 印刷</button></div>'+
+  '<p class="muted" style="margin:6px 0 0;font-size:14px">⚠ この QR を 持って いる 人は <b>教室の 子の なまえ</b>を 見られます。教室の 中だけで 使い、SNS などに のせないで ください。オフに すると すぐ 見えなく なります。</p></div></div>':'');
 }
 // なまえを えらんで 入る（クラスの QR）。オンの ときだけ リンクと QR を 出す。
 function pickHtml(c,i){
@@ -151,6 +182,10 @@ function pickHtml(c,i){
 }
 async function put(body){const r=await fetch(CFG.api,{method:'PUT',headers:H,body:JSON.stringify(body)}).then(async r=>({status:r.status,...(await r.json().catch(()=>({})))})).catch(()=>({ok:false,error:'つうしんできません'}));
   if(r.status===401){location.href=CFG.login;return null}if(!r.ok){say('かえられませんでした：'+(r.error||''),true);return null}return r}
+$('#rooms').onclick=async e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.roompick!==undefined){const r0=rooms[+b.dataset.roompick];if(!r0.pick&&!confirm(r0.name+' の QR を ひらいた 人に、教室の クラス ぜんぶの 子の なまえの 一覧を 見せます。よろしいですか？'))return;const r=await put({room:r0.id,pick:!r0.pick});if(r){r0.pick=r.pick;r0.join=r.join;await load();say(r0.name+' の QR を '+(r.pick?'オン':'オフ')+'に しました')}return}
+  if(b.dataset.roomcopy!==undefined){const r0=rooms[+b.dataset.roomcopy];try{await navigator.clipboard.writeText(location.origin+r0.join);say('URL を コピーしました')}catch{say('コピーできません。手で えらんで コピーして ください',true)}return}
+  if(b.dataset.roomprint!==undefined){const card=b.closest('.card');document.querySelectorAll('.card').forEach(x=>x.classList.toggle('noprint',x!==card));window.print();return}};
 $('#classes').onclick=async e=>{const b=e.target.closest('button');if(!b)return;
   if(b.dataset.pick!==undefined){const c=data[+b.dataset.pick];if(!c.pick&&!confirm('クラス '+c.code+' の QR を ひらいた 人に、この クラスの 子の なまえの 一覧を 見せます。よろしいですか？'))return;const r=await put({classCode:c.code,pick:!c.pick});if(r){c.pick=r.pick;c.join=r.join;paint();say('クラス '+c.code+' の「なまえを えらんで 入る」を '+(c.pick?'オン':'オフ')+'に しました')}return}
   if(b.dataset.copy!==undefined){const c=data[+b.dataset.copy];try{await navigator.clipboard.writeText(location.origin+c.join);say('URL を コピーしました')}catch{say('コピーできません。手で えらんで コピーして ください',true)}return}
@@ -158,7 +193,7 @@ $('#classes').onclick=async e=>{const b=e.target.closest('button');if(!b)return;
   if(b.dataset.class!==undefined){const c=data[+b.dataset.class];const r=await put({classCode:c.code,on:!c.on});if(r){c.on=r.on;paint();say('クラス '+c.code+' の 幼児モードを '+(c.on?'オン':'オフ')+'に しました（1 分 いないに とどきます）')}}
   else if(b.dataset.m){const c=data[+b.dataset.c];const s=c.students[+b.dataset.s];const r=await put({classCode:c.code,name:s.name,mode:b.dataset.m});if(r){s.mode=r.mode;paint();say(s.name+' を「'+({inherit:'クラスと おなじ',on:'オン',off:'オフ'}[s.mode])+'」に しました')}}};
 if(!CFG.kidsMode)document.body.classList.add('nokids');
-async function load(){const r=await fetch(CFG.api,{headers:H});if(r.status===401){location.href=CFG.login;return}const d=await r.json();data=d.classes||[];paint()}
+async function load(){const r=await fetch(CFG.api,{headers:H});if(r.status===401){location.href=CFG.login;return}const d=await r.json();data=d.classes||[];rooms=d.rooms||[];paint()}
 if($('#addgo'))$('#addgo').onclick=async()=>{const code=$('#addcode').value.trim();if(!code){say('クラスの パスワードを 入れて ください',true);return}const r=await put({classCode:code,on:true});if(r){$('#addcode').value='';await load();say('クラス '+code+' の 幼児モードを オンに しました。この クラスの パスワードで 入った 子（先生の アカウントを のぞく）は かんたんな 画面に なります')}};
 load();
 </script></body></html>`;

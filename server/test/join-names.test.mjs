@@ -126,3 +126,61 @@ test('一覧は 入力の かわり：入れるか どうかは いつもの 部
   assert.equal(sw.role, 'teacher');
   await sensei.leave();
 });
+
+// 教室 まとめての QR（2026-11）：教室の クラス ぜんぶの 子が 1 つの 一覧に・なまえごとに クラス・その クラスで 入れる。
+test('教室 まとめての QR：クラスを またいで なまえが 出て、えらんだ 子の クラスで 入れる', async () => {
+  const { signJoinRoom, verifyJoinRoom, joinRoomPath, entriesForRoom } = await import('../src/classroom/join.js');
+  let r = await adminApi('/classrooms', put({ rows: [{ name: 'さくら', classes: 'sakura', password: 'sakura-pass-1' }, { name: 'もみじ', classes: 'momiji', password: 'momiji-pass-1' }, { name: 'IAC', classes: 'iac1, iac2', password: 'iac-pass-123' }] }));
+  assert.equal(r.status, 200);
+  r = await adminApi('/roster', put({ rows: [
+    { class: 'sakura', name: 'Mio' }, { class: 'iac1', name: 'Hana' }, { class: 'iac2', name: 'Riku' }, { class: 'iac2', name: 'Hana' },
+    { class: 'iac1', name: 'Sensei', teacher: 'TRUE', pin: 'sensei-pin-1' }, { class: 'momiji', name: 'Aoi' },
+  ] }));
+  assert.equal(r.status, 200);
+  assert.deepEqual(entriesForRoom([{ class: 'b', name: 'X' }, { class: 'a', name: 'Y' }], ['a', 'b']).map((e) => e.name), ['Y', 'X'], 'クラスの 順');
+
+  let d = await (await adminApi('/kids')).json();
+  const room = d.rooms.find((x) => x.name === 'IAC');
+  assert.ok(room && !room.pick && !room.join, 'はじめは オフ');
+  const k = signJoinRoom(SECRET, room.id);
+  assert.ok(verifyJoinRoom(SECRET, room.id, k));
+  assert.equal(verifyJoinRoom(SECRET, room.id, signJoin(SECRET, 'iac1')), false, 'クラスの 署名では 教室は ひらかない');
+  assert.equal(verifyJoin(SECRET, room.id, k), false);
+  const byRoom = (id, key) => fetch(`${http}/api/join/names?room=${encodeURIComponent(id)}&k=${encodeURIComponent(key)}`);
+  assert.equal((await byRoom(room.id, k)).status, 404, 'オフの あいだは 出ない');
+
+  r = await adminApi('/kids', put({ room: room.id, pick: true }));
+  const on = await r.json();
+  assert.ok(on.ok && on.pick && on.join.startsWith(`/?room=${encodeURIComponent(room.id)}&k=`));
+  assert.equal(joinRoomPath(SECRET, room.id).split('&k=')[0], on.join.split('&k=')[0]);
+  const got = await (await byRoom(room.id, k)).json();
+  assert.deepEqual(got.entries, [{ name: 'Hana', class: 'iac1' }, { name: 'Riku', class: 'iac2' }, { name: 'Hana', class: 'iac2' }], '先生・よその 教室の 子は 出ない・同じ なまえは クラスで 2 つ');
+  assert.equal((await byRoom(room.id, 'bad')).status, 404);
+  assert.equal((await byRoom('nope', k)).status, 404);
+  const qr = await adminApi(`/kids/qr?room=${encodeURIComponent(room.id)}&origin=${encodeURIComponent(http)}`);
+  assert.equal(qr.status, 200); assert.match(await qr.text(), /<svg/);
+
+  // 教室の 先生は じぶんの 教室だけ。
+  const momiji = await login('momiji-pass-1');
+  const tm = await (await teacherApi(momiji, '/kids')).json();
+  assert.deepEqual(tm.rooms.map((x) => x.name), ['もみじ']);
+  assert.equal((await teacherApi(momiji, '/kids', put({ room: room.id, pick: false }))).status, 403);
+  const iac = await login('iac-pass-123');
+  const ti = await (await teacherApi(iac, '/kids')).json();
+  assert.ok(ti.rooms[0].pick && ti.rooms[0].pickCount === 3);
+
+  // えらんだ 子の クラス（iac2）で 入れる。
+  const client = new Client(ws);
+  const roomConn = await client.joinOrCreate('class', { name: 'Riku', classCode: 'iac2' });
+  assert.ok(roomConn.sessionId);
+  await roomConn.leave();
+
+  // ホーム画面の アイコン：room と k も start_url に のこる。
+  const m = await (await fetch(`${http}/manifest.webmanifest?room=${encodeURIComponent(room.id)}&k=${encodeURIComponent(k)}`)).json();
+  assert.equal(m.start_url, `/?room=${encodeURIComponent(room.id)}&k=${encodeURIComponent(k)}`);
+  assert.equal((await (await fetch(`${http}/manifest.webmanifest?k=x`)).json()).start_url, '/');
+
+  r = await adminApi('/kids', put({ room: room.id, pick: false }));
+  assert.equal((await r.json()).pick, false);
+  assert.equal((await byRoom(room.id, k)).status, 404, 'オフに すると すぐ 止まる');
+});

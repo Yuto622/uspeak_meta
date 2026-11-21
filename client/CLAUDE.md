@@ -546,7 +546,7 @@ UI側でもnearby()で現地にいることを再確認します。
 - 上の バーは コイン・LV・**⋯**。きせかえ・アバター・おと・？・A・⏏ は ⋯ を 押すと 2 だん目に 出る（`body[data-more]`）。
 - 右は ふだん **☰ 1 つ**（`#rail-toggle`・`body[data-rail]`、mobile.css の 14）。押すと ☰ の 左に 絵だけの まるい ボタンが 横 1 列（🏠 ✈ 🎣 📖 📹 🏆、`::before` の 絵文字）。どれかを 押すか ほかを さわると しまう。下の つうしんは 人数の 札を 出さない。ミニマップ・時計・Roblox の きろく は 出さない。
 - ホットバーは たんごちょう・🌍 せかいを えらぶ（`#mapbtn`＝`rpg.openMap()`・2026-11 に もどした：✈ が ☰ の 中で 見つからない）・じぶんの め の 3 つ。🎒 おなかは ロゴの となり（めもりだけ）。
-- **全画面は `fullscreen.js`**（2026-11）：どの 端末でも、さわった ときに（`pointerup`・`touchend`・`keydown`。**`pointerdown` は Chrome が「ユーザーの 操作では ない」と ことわる**）全画面を たのむ。ぬけても つぎに さわると もどる。全画面で ない あいだは「⛶ ぜんがめんに する」ボタン（島の 上の まんなか `#fs-button`・すがた えらびの 左 `#avatar-fs`・ロビーの「クラスに はいる」の 下 `#net-fs`）。iPhone は ページの 全画面が ない（Apple が みとめていない）ので、ボタンは「ホーム画面に 追加」の 案内（`install-hint.js` の `showInstallHint`）。ホーム画面の アイコンから ひらいた とき（standalone）と 自動の 検査（`navigator.webdriver`・`?fs=1` で 出す）は 何も 出さない。
+- **全画面は `fullscreen.js`**（2026-11）：どの 端末でも、さわった ときに（`pointerup`・`touchend`・`keydown`。**`pointerdown` は Chrome が「ユーザーの 操作では ない」と ことわる**）全画面を たのむ。ぬけても つぎに さわると もどる。全画面で ない あいだは「⛶ ぜんがめんに する」ボタン（島の 上の まんなか `#fs-button`・すがた えらびの 左 `#avatar-fs`・ロビーの「クラスに はいる」の 下 `#net-fs`）。iPhone は ページの 全画面が ない（Apple が みとめていない）ので、ボタンは「ホーム画面に 追加」の 案内（`install-hint.js` の `showInstallHint`）。Chrome・Edge が インストールの 画面（`beforeinstallprompt`）を 出せる ときは、ボタンは **それを 先に** 出す（全画面と いっしょに たのむと タップの ゆるしを 全画面が つかって ことわられる）。パソコンで 出せない ときは 全画面だけ・やりかたの 案内は この ブラウザで 1 回（`uspeak-pc-install-hint-v1`）。ホーム画面の アイコンから ひらいた とき（standalone）と 自動の 検査（`navigator.webdriver`・`?fs=1` で 出す）は 何も 出さない。
 - 右の 列に ボタンを 足したら、ここにも `order` と 絵文字を 1 行 足す（足さないと 空の まるが 出る）。#hunger は この 列の 規則から 外してある。
 - **タスクは 消さない。左上に 1 行の 札**（`.quest-panel.tasks-folded` ＋ `#task-card.folded`）。`tasks.js` は この 画面幅では **保存を 読まず いつも たたんで はじめ**（PC で ひらいた 覚えが 効くと 画面の 半分が カードに なった）、札を 押すと 220px の 小さい カード（いまの 1 つ・つぎの 一覧と 章の ごほうびは 出さない）。カードの そとを さわると たたむ。先生（`body.cm-teacher`）は 🎓 の まるい ボタンの 下に 同じ 札（tasks.css / class-mode.css の 「先生は 隠す」を `!important` で 上書き）。
 - **光の 道の 行き先の 光は ☰ にも のる**（`task-guide.js` の `.task-glow` は `#flight-button, #mapbtn, #rail-toggle`）。✈ が しまわれている あいだ、子は ☰ が 光るのを 見て ひらく。
@@ -1956,6 +1956,10 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
   「なまえが ない とき」で いつもの 入力に もどる（先生は ここから 先生パスワードで）。**一覧は 入力の かわり**：入れるか どうかは いつもの `onAuth`（名簿・停止・クラスコード・先生パスワード）。
 - 気を つける こと：QR を 持つ 人は クラスの 子の なまえを 見られ、どの 子としても 入れる（なまえを 打って 入るのと 同じ 強さ。本人の たしかめは ない）。QR を かえたい ときは いまは REPORT_SECRET を かえる しか ない（オフに すれば すぐ 止まる）。
 - 検査：`server/test/join-names.test.mjs`。
+- **教室 まとめての QR（2026-11）**：教室（`/admin/classrooms` の 1 行＝いくつかの クラス。IAC の iac202601〜 など）を 1 つの QR に。`/teacher/kids`・`/admin/kids` の 上の「🏫 教室 まとめての QR」で オン（`kids-mode.json` の `rooms`・これも はじめは オフ）。
+  URL は `/?room=<教室の id>&k=<署名>`（`join.js` の `signJoinRoom`・`joinroom|`＝クラスの QR とは べつの 署名）。口は 同じ `/api/join/names?room=`：教室の クラス ぜんぶの 子を `entries`（`{name, class}`）で 返す。
+  ロビーは なまえを おすと **その 子の クラス**で 入る。同じ なまえが 2 クラスに いる ときだけ クラスを 小さく そえる。教室の 先生は じぶんの 教室だけ。
+- **ホーム画面の アイコンも QR を おぼえる**：`index.html` が `class`・`room`・`k` を manifest へ わたし、サーバーが start_url に のこす。QR から 追加した アイコンは ひらくと なまえの 一覧が 出る。
 
 ## 「ABC と おと」の 材料（中身・絵・うた／2026-11）
 - **中身**：`server/src/game/abc-data.json`（`order`＝音の 順 s a t p i n …、`letters`＝文字ごとの 絵の ことば 3 つ、`cvc`・`digraphs`・`magicE`＝ことばと `parts`）。

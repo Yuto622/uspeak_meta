@@ -105,7 +105,7 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
       list.push(t); extracts.set(id, list); return true;
     },
   });
-  if (kids) mountKidsApi(api, { kids, scope: (req) => req.classroom.classes, rosterRows, header: 'uspeak-teacher', secret, log });
+  if (kids) mountKidsApi(api, { kids, scope: (req) => req.classroom.classes, rooms: (req) => [{ id: req.classroom.id, name: req.classroom.name, classes: req.classroom.classes }], rosterRows, header: 'uspeak-teacher', secret, log });
   router.use('/api', api);
   app.use('/teacher', router);
 }
