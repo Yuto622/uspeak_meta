@@ -12,7 +12,24 @@ try { seen = !!localStorage.getItem(KEY); } catch { /* private mode: 出さな�
 const SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 8l5-5 5 5M5 12v8h14v-8"/></svg>';
 const PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
 
-export function showInstallHint() {
+const DOTS = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
+const INSTALL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 8v6M9 11l3 3 3-3M8 20h8"/></svg>';
+
+// kind：'ios'（iPhone・iPad の Safari）／'android'（Chrome）／'pc'（Chrome・Edge）。
+// 「ぜんがめんに する」ボタン（fullscreen.js）からも よぶ。ブラウザが じぶんで 追加の 画面を 出せる ときは そちらが 先（ここは 出ない）。
+export function showInstallHint(kind = 'ios') {
+  document.getElementById('install-hint')?.remove();
+  const steps = {
+    ios: `<li><span class="ih-ic">${SHARE}</span><span><b data-t="「きょうゆう」ボタンを おす">「きょうゆう」ボタンを おす</b><small data-t="みつからない ときは「•••」の なか">みつからない ときは「•••」の なか</small></span></li>
+      <li><span class="ih-ic">${PLUS}</span><b data-t="「ホーム画面に追加」を おす">「ホーム画面に追加」を おす</b></li>
+      <li><span class="ih-ic ih-add" data-t="追加">追加</span><b data-t="みぎうえの「追加」を おす">みぎうえの「追加」を おす</b></li>`,
+    android: `<li><span class="ih-ic">${DOTS}</span><b data-t="みぎうえの「⋮」を おす">みぎうえの「⋮」を おす</b></li>
+      <li><span class="ih-ic">${PLUS}</span><b data-t="「ホーム画面に追加」を おす">「ホーム画面に追加」を おす</b></li>
+      <li><span class="ih-ic ih-add" data-t="追加">追加</span><b data-t="「追加」か「インストール」を おす">「追加」か「インストール」を おす</b></li>`,
+    pc: `<li><span class="ih-ic">${INSTALL}</span><span><b data-t="アドレスバーの みぎの「インストール」を おす">アドレスバーの みぎの「インストール」を おす</b><small data-t="ない ときは「⋮」→「キャスト、保存、共有」の なか">ない ときは「⋮」→「キャスト、保存、共有」の なか</small></span></li>
+      <li><span class="ih-ic ih-add" data-t="インストール">インストール</span><b data-t="「インストール」を おす">「インストール」を おす</b></li>
+      <li><span class="ih-ic">${PLUS}</span><b data-t="つぎから アイコンで ひらく">つぎから アイコンで ひらく</b></li>`,
+  }[kind] || '';
   const box = document.createElement('div');
   box.id = 'install-hint';
   box.setAttribute('role', 'dialog');
@@ -20,11 +37,7 @@ export function showInstallHint() {
     <div class="ih-head"><img src="assets/app/icon-192.png" alt="" width="44" height="44"><div>
       <b data-t="ホーム画面に ついかすると、ぜんがめんで あそべるよ">ホーム画面に ついかすると、ぜんがめんで あそべるよ</b>
       <small data-t="つぎから アイコンを おすだけで ひらけるよ。">つぎから アイコンを おすだけで ひらけるよ。</small></div></div>
-    <ol class="ih-steps">
-      <li><span class="ih-ic">${SHARE}</span><span><b data-t="「きょうゆう」ボタンを おす">「きょうゆう」ボタンを おす</b><small data-t="みつからない ときは「•••」の なか">みつからない ときは「•••」の なか</small></span></li>
-      <li><span class="ih-ic">${PLUS}</span><b data-t="「ホーム画面に追加」を おす">「ホーム画面に追加」を おす</b></li>
-      <li><span class="ih-ic ih-add" data-t="追加">追加</span><b data-t="みぎうえの「追加」を おす">みぎうえの「追加」を おす</b></li>
-    </ol>
+    <ol class="ih-steps">${steps}</ol>
     <button type="button" class="ih-ok" data-t="わかった">わかった</button></div>`;
   applyDom(box);
   box.querySelector('.ih-ok').onclick = () => box.remove();

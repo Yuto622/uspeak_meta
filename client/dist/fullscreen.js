@@ -32,8 +32,26 @@ export function goFullscreen() {
   } catch { /* ことわられた：つぎの タップで また たのむ */ }
 }
 
-// ボタンを おしたとき：全画面に できる 端末は 全画面、iPhone は ホーム画面に 追加の 案内。
-function press() { if (request) goFullscreen(); else showInstallHint(); }
+// ホーム画面に 追加（2026-11：「ボタンを おすと、ホーム画面にも 追加できるように」）。
+// Chrome・Edge（Android・パソコン）は ブラウザが じぶんで「インストール」の 画面を 出せる（beforeinstallprompt）。
+// とって おいて、ボタンを おした ときに 出す。出せない ブラウザ（Safari・まだ 条件が そろって いない とき）は やりかたの 案内。
+let installEvent = null;
+addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installEvent = e; });
+addEventListener('appinstalled', () => { installEvent = null; });
+const apple = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+const kind = () => (apple ? 'ios' : /Android/.test(ua) ? 'android' : 'pc');
+function offerHome() {
+  if (installed) return;
+  if (installEvent) {
+    const e = installEvent; installEvent = null;
+    try { e.prompt(); e.userChoice?.catch?.(() => {}); } catch { showInstallHint(kind()); }
+    return;
+  }
+  showInstallHint(kind());
+}
+
+// ボタンを おしたとき：全画面に して（できる 端末だけ）、ホーム画面に 追加も すすめる。
+function press() { if (request) goFullscreen(); offerHome(); }
 
 if (installed) lockSideways();
 

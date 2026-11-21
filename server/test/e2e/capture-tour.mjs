@@ -259,6 +259,40 @@ const STEPS = {
     await sleep(800); await shot('tour-pc-controls');
     await page.evaluate(() => document.querySelectorAll('.tour-mark').forEach((n) => n.remove()));
   },
+
+  // 「ぜんがめんに する」ボタン（fullscreen.js）。自動の 検査では 出ないので ?fs=1 で 出す。
+  async 'tour-fs'() {
+    await page.goto('about:blank');
+    const c4 = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    await routeCharacter(c4, characterWebm(path.join(TMP, 'character')));
+    const t = await c4.newPage(); t.setDefaultTimeout(240000);
+    const mark = (sel, text) => t.evaluate(([sel, text]) => {
+      document.querySelectorAll('.tour-mark').forEach((n) => n.remove());
+      const el = document.querySelector(sel); if (!el) return;
+      const r = el.getBoundingClientRect();
+      const box = document.createElement('div'); box.className = 'tour-mark';
+      Object.assign(box.style, { position: 'fixed', zIndex: 2147483647, left: `${r.left - 6}px`, top: `${r.top - 6}px`, width: `${r.width + 12}px`, height: `${r.height + 12}px`, border: '6px solid #e53935', borderRadius: '14px', pointerEvents: 'none', boxSizing: 'border-box' });
+      const tag = document.createElement('div'); tag.className = 'tour-mark'; tag.textContent = text;
+      Object.assign(tag.style, { position: 'fixed', zIndex: 2147483647, left: `${Math.max(6, r.left)}px`, top: `${r.bottom + 12}px`, background: '#e53935', color: '#fff', font: '700 19px "Noto Sans JP",sans-serif', padding: '5px 12px', borderRadius: '9px', pointerEvents: 'none', whiteSpace: 'nowrap' });
+      const host = el.closest('dialog[open]') || document.body; host.append(box, tag);
+    }, [sel, text]);
+    const snap = async (id) => { await t.screenshot({ path: path.join(OUT, `${id}.jpg`), type: 'jpeg', quality: 86, timeout: 120000 }); console.log(`  docs/figures/${id}.jpg`); };
+    await t.goto(`${base}/?fs=1`, { waitUntil: 'commit', timeout: 240000 });
+    await t.waitForSelector('#avatar-dialog[open], #net-lobby[open]');
+    if (await t.$('#avatar-dialog[open]')) {
+      await sleep(3000); await mark('#avatar-fs', 'ここを おすと ぜんがめん'); await sleep(600); await snap('tour-fs-avatar');
+      await t.evaluate(() => document.querySelector('#avatar-cancel').click());
+    }
+    await t.waitForSelector('#net-lobby[open]'); await sleep(1500);
+    await mark('#net-fs', 'ここを おすと ぜんがめん'); await sleep(600); await snap('tour-fs-lobby');
+    await t.evaluate(() => document.querySelectorAll('.tour-mark').forEach((n) => n.remove()));
+    await t.fill('#net-name', 'はると'); await t.fill('#net-class', 'tour');
+    await t.evaluate(() => document.querySelector('#net-join').click());
+    await t.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 180000 });
+    await sleep(4000); await t.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); }); await sleep(3000);
+    await mark('#fs-button', '全画面で ない ときは ここ'); await sleep(600); await snap('tour-fs-island');
+    await c4.close();
+  },
   // メインの島の お店（戸口を 歩いて 入ったのと 同じ 道）。
   async 'tour-wordhouse'() { await closeAll(); await walkIn('hut_easy'); await sleep(5000); await shot('tour-wordhouse'); await closeAll(); },
   async 'tour-weapons'() { await closeAll(); await walkIn('weapons'); await sleep(7000); await shot('tour-weapons'); await closeAll(); },
@@ -340,7 +374,7 @@ const STEPS = {
 try {
   for (const [id, run] of Object.entries(STEPS)) {
     if (ONLY.length && !ONLY.some((o) => id.startsWith(o))) continue;
-    try { console.log(id); if (!/admin|report|lobby|teacher|line|pick|ipad/.test(id)) await daylight(); await run(); } catch (err) { console.log(`  ${id} failed:`, err.message.split('\n')[0]); }
+    try { console.log(id); if (!/admin|report|lobby|teacher|line|pick|ipad|fs/.test(id)) await daylight(); await run(); } catch (err) { console.log(`  ${id} failed:`, err.message.split('\n')[0]); }
   }
 } finally {
   await browser.close();
