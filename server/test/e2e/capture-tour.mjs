@@ -197,7 +197,7 @@ const STEPS = {
     await closeAll(); await page.click('#lang-toggle').catch(() => {}); await sleep(7000); await shot('tour-english');
     await page.click('#lang-toggle').catch(() => {}); await sleep(2500);
   },
-  async 'tour-guide'() { await closeAll(); await page.evaluate(() => uspeak.net.guide?.open?.()); await sleep(4000); await shot('tour-guide'); await closeAll(); },
+  async 'tour-guide'() { await closeAll(); await page.click('#help').catch(() => {}); await page.waitForSelector('#guide-dialog[open]', { timeout: 30000 }).catch(() => {}); await sleep(4000); await shot('tour-guide'); await closeAll(); },
   async 'tour-chat'() { await closeAll(); await page.click('#net-chat-button').catch(() => {}); await sleep(3000); await shot('tour-chat'); await page.click('#net-chat-close').catch(() => {}); },
   async 'tour-fp'() { await closeAll(); await page.click('#fp-button').catch(() => {}); await sleep(6000); await shot('tour-fp'); await page.click('#fp-button').catch(() => {}); await sleep(1500); },
   async 'tour-adventure'() { await closeAll(); await page.evaluate(() => uspeak.rpg.adventure?.open?.('team')); await sleep(6000); await shot('tour-adventure'); await closeAll(); },
@@ -298,7 +298,10 @@ const STEPS = {
   async 'tour-blockshop'() { await closeAll(); await stand('town', 'shop'); await page.evaluate(() => uspeak.net.townInteract()); await sleep(5000); await shot('tour-blockshop'); await closeAll(); },
   // 先生（名簿の 先生の 列だけで 入る）
   async 'tour-teacher'() {
-    const t = await ctx.newPage();
+    // べつの ブラウザ（同じ ブラウザだと 子どもの なまえで 自動で 入って しまう）。
+    const c3 = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    await routeCharacter(c3, characterWebm(path.join(TMP, 'character')));
+    const t = await c3.newPage();
     await t.goto(`${base}/`, { waitUntil: 'commit', timeout: 240000 });
     await t.waitForSelector('#avatar-dialog[open], #net-lobby[open]', { timeout: 240000 });
     if (await t.$('#avatar-dialog[open]')) await t.click('#avatar-cancel');
@@ -310,7 +313,7 @@ const STEPS = {
     await t.evaluate(() => document.querySelector('#net-teacher-button')?.click());
     await t.click('#class-mode-button').catch(() => {}); await sleep(5000);
     await t.screenshot({ path: path.join(OUT, 'tour-classmode.jpg'), type: 'jpeg', quality: 86, timeout: 120000 }); console.log('  docs/figures/tour-classmode.jpg');
-    await t.close();
+    await c3.close();
   },
   // 保護者の web レポート（いちばん 上に 数字 5 つと 進み具合）
   async 'tour-report-web'() {
