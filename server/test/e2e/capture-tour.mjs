@@ -300,7 +300,8 @@ const STEPS = {
   async 'tour-teacher'() {
     const t = await ctx.newPage();
     await t.goto(`${base}/`, { waitUntil: 'commit', timeout: 240000 });
-    await t.waitForSelector('#avatar-dialog[open]', { timeout: 240000 }); await t.click('#avatar-cancel');
+    await t.waitForSelector('#avatar-dialog[open], #net-lobby[open]', { timeout: 240000 });
+    if (await t.$('#avatar-dialog[open]')) await t.click('#avatar-cancel');
     await t.waitForSelector('#net-lobby[open]'); await t.fill('#net-name', 'さなだ先生'); await t.fill('#net-class', 'tour'); await t.click('#net-join');
     await t.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 120000 });
     await sleep(3000); await t.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
