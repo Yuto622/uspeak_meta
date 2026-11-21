@@ -211,8 +211,8 @@ const STEPS = {
     const t = await c2.newPage();
     await t.goto(`${base}/`, { waitUntil: 'commit', timeout: 240000 });
     await t.waitForSelector('#avatar-dialog[open], #net-lobby[open]', { timeout: 240000 });
-    if (await t.$('#avatar-dialog[open]')) await t.click('#avatar-cancel');
-    await t.waitForSelector('#net-lobby[open]'); await t.fill('#net-name', 'はると'); await t.fill('#net-class', 'tour'); await t.click('#net-join');
+    if (await t.$('#avatar-dialog[open]')) await t.evaluate(() => document.querySelector('#avatar-cancel').click());
+    await t.waitForSelector('#net-lobby[open]'); await t.fill('#net-name', 'はると'); await t.fill('#net-class', 'tour'); await t.evaluate(() => document.querySelector('#net-join').click());
     await t.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 120000 });
     await sleep(4000);
     await t.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
@@ -236,7 +236,7 @@ const STEPS = {
     await mark([['.mobile-pad .stick', 'うごく（スティック）'], ['.hotbar', '下の バー'], ['#rail-toggle', '☰ メニュー']]);
     await sleep(800); await snap('tour-ipad-controls');
     await t.evaluate(() => document.querySelectorAll('.tour-mark').forEach((n) => n.remove()));
-    await t.click('#rail-toggle').catch(() => {}); await sleep(1500);
+    await t.evaluate(() => document.querySelector('#rail-toggle')?.click()); await sleep(1500);
     await mark([['#rail-toggle', '☰ を おすと ならぶ']]);
     await sleep(600); await snap('tour-ipad-menu');
     await c2.close();
@@ -267,14 +267,20 @@ const STEPS = {
     await walkIn('pier_g5'); await sleep(16000); await shot('tour-pier'); await closeAll();
   },
   async 'tour-talkshop'() {
-    await closeAll(); await page.evaluate(() => { uspeak.rpg.fly('main'); uspeak.rpg.finishFlight?.(); }); await sleep(2500);
-    await walkIn('pizza'); await sleep(8000);
+    // 戸口に 立つと 中に 入る（歩いて 入ったのと 同じ）→ 中で 話しかける（ゆぴちゃんが 店員）。
+    await closeAll(); await page.evaluate(() => { uspeak.rpg.inside?.leave?.(true); uspeak.rpg.fly('main'); uspeak.rpg.finishFlight?.(); }); await sleep(3000);
+    await page.evaluate(async () => {
+      const d = await (await fetch('main_island.json')).json();
+      const s = d.island.spots.find((x) => x.id === 'pizza');
+      uspeak.player.position.set(d.island.x + s.x, 0, d.island.z + s.z - 0.65);
+    });
     await page.waitForFunction(() => !!uspeak.rpg.insideBuilding, null, { timeout: 60000, polling: 500 }).catch(() => console.log('  (not inside the shop)'));
     await sleep(3000); await walkIn('pizza');
     await page.waitForSelector('#conv-dialog[open]', { timeout: 60000 }).catch(() => console.log('  (conv did not open)'));
     await page.click('#conv-picker [data-topic]').catch(() => {}); await sleep(10000); await shot('tour-talkshop');
     await page.evaluate(() => document.querySelector('#conv-close')?.click()); await page.evaluate(() => uspeak.rpg.inside?.leave?.(true)); await closeAll();
   },
+
   // えほん
   async 'tour-reading'() {
     await closeAll(); await page.evaluate(() => uspeak.net.reading.open()); await sleep(6000); await shot('tour-reading-shelf');
