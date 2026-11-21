@@ -205,10 +205,11 @@ const STEPS = {
 
   // 操作（iPad の 横もち）：左下の スティック・下の バー・右上の ☰ を 赤い わくで。
   async 'tour-ipad'() {
+    await page.goto('about:blank');   // この 端末は 遅いので、もう 1 まいの 3D を 止めて から（でないと 読みこみが おわらない）
     const c2 = await browser.newContext({ viewport: { width: 1180, height: 820 }, hasTouch: true,
       userAgent: 'Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1' });
     await routeCharacter(c2, characterWebm(path.join(TMP, 'character')));
-    const t = await c2.newPage();
+    const t = await c2.newPage(); t.setDefaultTimeout(180000);
     await t.goto(`${base}/`, { waitUntil: 'commit', timeout: 240000 });
     await t.waitForSelector('#avatar-dialog[open], #net-lobby[open]', { timeout: 240000 });
     if (await t.$('#avatar-dialog[open]')) await t.evaluate(() => document.querySelector('#avatar-cancel').click());
@@ -305,6 +306,7 @@ const STEPS = {
   async 'tour-blockshop'() { await closeAll(); await stand('town', 'shop'); await page.evaluate(() => uspeak.net.townInteract()); await sleep(5000); await shot('tour-blockshop'); await closeAll(); },
   // 先生（名簿の 先生の 列だけで 入る）
   async 'tour-teacher'() {
+    await page.goto('about:blank');   // この 端末は 遅いので、もう 1 まいの 3D を 止めて から（でないと 読みこみが おわらない）
     // べつの ブラウザ（同じ ブラウザだと 子どもの なまえで 自動で 入って しまう）。
     const c3 = await browser.newContext({ viewport: { width: 1280, height: 800 } });
     await routeCharacter(c3, characterWebm(path.join(TMP, 'character')));

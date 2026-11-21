@@ -720,6 +720,14 @@ def main():
     build_script(title, cuts)
     if what == "player":
         return
+    if what == "ch":          # 章を えらんで 作る：make-tour.py ch 2,3,4（digest も 書ける）
+        OUT.mkdir(exist_ok=True)
+        names = chapter_names(cuts)
+        for part in sys.argv[2].split(","):
+            if part == "digest":
+                rows, total = plan(cuts, "digest"); build_video(rows, total, OUT / "digest.mp4"); continue
+            n = int(part); rows, total = plan(cuts, names[n - 1]); build_video(rows, total, OUT / f"ch-{n:02d}.mp4")
+        return
     if what == "full":        # 章は そのまま、もくじと 通しだけ
         build_full(cuts)
         return
