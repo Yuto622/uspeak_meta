@@ -305,17 +305,21 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
     f_foot = ImageFont.truetype(FONT_REG, 18, index=0)
 
     # 声を先に1本にまとめてから、絵と一緒に包む。
+    # **音は 入れない**（字幕だけ・2026-11 に「音は いらない」と 言われた）。台本の "audio": true で 声を もどせる。
+    # 長さは いままでどおり 読み上げの 実測で 決める（字幕を 読みおえる 時間の めやすに なる）。
     track = DOCS / ".tour-track.wav"
-    build_audio(rows, track)
+    voice = bool(_meta.get("audio", False))
+    if voice:
+        build_audio(rows, track)
     proc = subprocess.Popen(
         # 絵は JPEG で流し込む（PNG より速く、画質は字幕が読める程度に十分）。
         # `-` ではなく `pipe:0`：ビルドによっては `-` の解決に失敗する。
         [FFMPEG, "-y", "-f", "image2pipe", "-vcodec", "mjpeg", "-framerate", str(fps), "-i", "pipe:0",
-         "-i", str(track),
+         *(["-i", str(track)] if voice else []),
          "-c:v", "libx264", "-preset", "medium", "-crf", "23", "-pix_fmt", "yuv420p",
          "-profile:v", "high", "-level", "4.0", "-movflags", "+faststart",
-         "-c:a", "aac", "-b:a", "128k", "-ar", "44100", "-ac", "2",
-         "-shortest", str(out_path)],
+         *(["-c:a", "aac", "-b:a", "128k", "-ar", "44100", "-ac", "2", "-shortest"] if voice else ["-an"]),
+         str(out_path)],
         stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
     # 帯は毎フレーム同じなので一度だけ作る
@@ -462,10 +466,10 @@ def build_full(cuts):
     # つなぐ のと チャプターを 入れる のは 分ける（concat の 入力に チャプターを 足すと 時刻が くずれた）。
     joined = OUT / ".joined.mp4"
     code = subprocess.run([FFMPEG, "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", str(listing),
-                           "-map", "0:v", "-map", "0:a", "-c", "copy", str(joined)]).returncode
+                           "-map", "0:v", "-map", "0:a?", "-c", "copy", str(joined)]).returncode
     if code == 0:
         code = subprocess.run([FFMPEG, "-y", "-v", "error", "-i", str(joined), "-f", "ffmetadata", "-i", str(meta_file),
-                               "-map", "0:v", "-map", "0:a", "-map_metadata", "1", "-map_chapters", "1",
+                               "-map", "0:v", "-map", "0:a?", "-map_metadata", "1", "-map_chapters", "1",
                                "-c", "copy", "-movflags", "+faststart", str(OUT / "full.mp4")]).returncode
     for f in (listing, meta_file, joined, OUT / ".toc.mp4"):
         f.unlink(missing_ok=True)
@@ -587,7 +591,7 @@ PLAYER = r"""<!doctype html>
   <a id="fulldl" download style="color:var(--mint);font-size:13px;align-self:center">⤓ 通しの1本をダウンロード</a>
 </div>
 
-<p class="foot">ナレーションと字幕は動画に入っています。mp4 なので、PowerPoint に貼っても、メールで送ってもそのまま再生できます。
+<p class="foot">字幕は動画に入っています（音はありません）。mp4 なので、PowerPoint に貼っても、メールで送ってもそのまま再生できます。
 通しの1本には動画のチャプターも入っているので、対応するプレーヤー（QuickTime・VLC など）では章を選んで飛べます。</p>
 </div>
 <script>
