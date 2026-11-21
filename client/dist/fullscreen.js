@@ -40,43 +40,54 @@ addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installEven
 addEventListener('appinstalled', () => { installEvent = null; });
 const apple = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
 const kind = () => (apple ? 'ios' : /Android/.test(ua) ? 'android' : 'pc');
-// パソコン（Windows の Chrome・Edge）で「インストール」を おすと、デスクトップと スタートメニューに アイコンが できる
-// （Edge は その あとの 画面で「デスクトップに ショートカット」を えらぶ）。ページから じかに デスクトップへ 置く 方法は ない。
-// **全画面と いっしょに 出すと ことわられる**：全画面は タップ 1 回ぶんの「ゆるし」を つかって しまい、つぎの prompt() は
-// 「ユーザーの 操作では ない」で 何も 出ない。だから 出せる ときは インストールを 先に して、全画面は その タップでは たのまない
-// （インストールした アプリは じぶんの まどで ひらく。出さなかった ときは つぎの タップで 全画面に なる）。
+// 2026-11：「全画面に する を おすと パソコンで インストールしようと する」→ ボタンは **いつも 全画面**。
+// インストール（デスクトップ・ホーム画面の アイコン）は べつの えらぶ ことに する：全画面に なった あと、小さな カード
+// 「デスクトップに アイコンを つくる？［つくる］［いまは しない］」。［つくる］の タップで ブラウザの インストールの 画面（prompt）を 出す。
+// （1 回の タップで 全画面と prompt の 両方は できない：全画面が タップの「ゆるし」を つかって prompt が ことわられる。だから タップを 2 回に わける。）
+// 出せる のは Chrome・Edge（パソコン・Android）が beforeinstallprompt を くれた ときだけ。［いまは しない］は 30 日 たつまで 出さない。
+// iPhone・iPad は prompt が ないので、いままで どおり やりかたの 案内。パソコンで 出せない とき（もう インストール ずみ など）は 全画面だけ。
 const canPrompt = () => !installed && !!installEvent;
+const LATER_KEY = 'uspeak-install-later-v1';
+const later = () => { try { return Date.now() - Number(localStorage.getItem(LATER_KEY) || 0) < 30 * 864e5; } catch { return false; } };
 function prompt() {
   const e = installEvent; installEvent = null;
   try {
     const p = e.prompt();
-    if (p && p.catch) p.catch(() => showInstallHint(kind()));
-  } catch { showInstallHint(kind()); }
+    if (p && p.catch) p.catch(() => {});
+  } catch { /* ことわられた */ }
 }
-const isButton = (t) => !!t?.closest?.('#fs-button, [data-fs-button]');
+function offerInstall() {
+  if (!canPrompt() || later() || document.getElementById('install-offer')) return;
+  const pc = kind() === 'pc';
+  const box = document.createElement('div');
+  box.id = 'install-offer'; box.setAttribute('role', 'dialog');
+  const q = pc ? 'デスクトップに アイコンを つくる？' : 'ホーム画面に アイコンを つくる？';
+  box.innerHTML = `<b>${pc ? '🖥' : '📱'} <span data-t="${q}">${q}</span></b><small data-t="つぎから アイコンを おすだけで ひらけるよ。">つぎから アイコンを おすだけで ひらけるよ。</small>
+    <span class="io-acts"><button type="button" class="io-yes" data-t="アイコンを つくる">アイコンを つくる</button><button type="button" class="io-no" data-t="いまは しない">いまは しない</button></span>`;
+  const close = () => box.remove();
+  box.querySelector('.io-yes').addEventListener('click', (ev) => { ev.stopPropagation(); close(); prompt(); });
+  box.querySelector('.io-no').addEventListener('click', (ev) => { ev.stopPropagation(); close(); try { localStorage.setItem(LATER_KEY, String(Date.now())); } catch { /* のこせない */ } });
+  // すがた えらびや ロビー（modal の dialog）の 上でも おせる ように、いちばん 上の 層（popover）に 出す。古い ブラウザは ふつうに body へ。
+  // modal の dialog は ほかを おせなく する（inert）ので、ひらいて いる dialog の 中に 入れて、そのうえで いちばん 上の 層へ。
+  (document.querySelector('dialog[open]:modal') || document.body).append(box); applyDom(box);
+  if (box.showPopover) { box.popover = 'manual'; try { box.showPopover(); } catch { /* ふつうの まま */ } }
+  setTimeout(close, 20000);
+}
 
-// ボタンを おしたとき：インストールの 画面を 出せる ときは それ。出せない ときは 全画面に して、やりかたの 案内。
-// パソコンで ブラウザが インストールの 画面を 出せない とき（もう インストール ずみ・まだ 条件が そろわない・Firefox など）は、
-// 全画面に するだけ。やりかたの 案内は この ブラウザで 1 回だけ（2026-11：「パソコンでも これ 出てきた」。毎回 ゲームの 上に かぶさって じゃま）。
-const PC_HINT_KEY = 'uspeak-pc-install-hint-v1';
-function pcHintOnce() {
-  try { if (localStorage.getItem(PC_HINT_KEY)) return; localStorage.setItem(PC_HINT_KEY, '1'); } catch { return; }
-  showInstallHint('pc');
-}
+// ボタンを おしたとき：全画面（できる 端末）。そのあと インストールを えらべる カード、iPhone・iPad は やりかたの 案内。
 function press() {
   if (installed) return;
-  if (canPrompt()) { prompt(); return; }
   if (request) goFullscreen();
-  if (kind() === 'pc') pcHintOnce(); else showInstallHint(kind());
+  if (apple) showInstallHint('ios');
+  else setTimeout(offerInstall, 600);
 }
 
 if (installed) lockSideways();
 
 if (offer) {
   // さいしょの タップ（アカウント作成・サインイン）と、ぬけた あとの つぎの タップで 全画面に。
-  // ボタンの 上の タップは ここで 全画面に しない（インストールの 画面を 先に 出すため。press() が きめる）。
-  const tap = (e) => { if (canPrompt() && isButton(e.target)) return; goFullscreen(); };
-  if (request) for (const type of ['pointerup', 'touchend', 'keydown']) document.addEventListener(type, tap, true);
+  // iPad の Safari が「ユーザーの 操作」と みとめる ものを ぜんぶ（click も）。どれかで 全画面に なれば あとは isFull() で 何も しない。
+  if (request) for (const type of ['pointerup', 'touchend', 'click', 'keydown']) document.addEventListener(type, goFullscreen, true);
 
   // 島の 上の ボタン（サインイン ずみで 全画面で ない とき）。
   const button = document.createElement('button');

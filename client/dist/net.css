@@ -233,3 +233,13 @@ body[data-arcade] .fs-button, body[data-race] .fs-button, body[data-gp] .fs-butt
   #install-hint .ih-add { width: auto; padding: 0 8px; font-size: 13px; font-weight: 800; }
   #install-hint .ih-ok { width: 100%; min-height: 44px; border-radius: 14px; background: #1b3a2f; color: #fff6e6; font-size: 15px; font-weight: 800; border: 0; cursor: pointer; }
 }
+
+/* 「デスクトップ／ホーム画面に アイコンを つくる？」（fullscreen.js の offerInstall）。全画面の あと 上の まんなかに 小さく。 */
+#install-offer { position: fixed; inset: auto; margin: 0; border: 0; z-index: 61; top: calc(env(safe-area-inset-top, 0px) + 16px); left: 50%; transform: translateX(-50%);
+  width: min(460px, calc(100vw - 24px)); display: grid; gap: 4px; padding: 12px 14px; border-radius: 16px; background: #fffbf5; color: #1b3a2f; box-shadow: 0 12px 30px #0005; }
+#install-offer b { font-size: 16px; }
+#install-offer small { font-size: 13px; color: #5b6b62; }
+#install-offer .io-acts { display: flex; gap: 8px; margin-top: 6px; }
+#install-offer button { flex: 1; min-height: 44px; border-radius: 12px; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; border: 2px solid #1b3a2f; }
+#install-offer .io-yes { background: #1b3a2f; color: #fff6e6; }
+#install-offer .io-no { background: #fff; color: #1b3a2f; }
