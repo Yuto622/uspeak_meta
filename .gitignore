@@ -18,3 +18,9 @@ __pycache__/
 
 # 読み上げた wav のキャッシュ（docs/make-tour.py が作り直せる）
 docs/.tour-voice/
+docs/.tour-track.wav
+docs/.tour-frames/
+docs/tour*/.toc.mp4
+docs/tour*/.joined.mp4
+docs/tour*/.concat.txt
+docs/tour*/.chapters.txt
