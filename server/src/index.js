@@ -443,7 +443,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   const classrooms = config.reportSecret ? await new ClassroomStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'classrooms.json'), { secret: config.reportSecret, log }).init() : null;
   const abcAdmin = abcAdminExtension({ abc: abcStore, voices: phonicsVoices, rosterClasses, log });
   const kidsAdmin = kidsAdminExtension({ kids: kidsStore, classrooms, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, log });
-  const classroomAdmin = classrooms ? classroomAdminExtension({ classrooms, rosterClasses, log }) : () => {};
+  const classroomAdmin = classrooms ? classroomAdminExtension({ classrooms, rosterClasses, rosterRows: async () => (await roster.listAllRoster?.()) || [], store, log }) : () => {};
   // 個人情報の 削除（/admin の「この 子の 記録を 消す」）。名簿の 行は 先生が 名簿で 消す。
   const privacyAdmin = ({ api }) => {
     api.post('/erase', express.json({ limit: '4kb' }), async (req, res) => {
