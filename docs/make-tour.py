@@ -153,6 +153,8 @@ def plan(cuts, mode="full"):
         if c.get("clip"):
             row["clip"] = c["clip"]
             row["from"] = c.get("from", 0)
+            if c.get("to"):   # ここまでで 止める（となりの 場面まで 流さない。足りない ぶんは さいごの こまで 待つ）
+                row["to"] = c["to"]
         out.append(row)
         t += sec
     return out, t
@@ -322,7 +324,7 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
     scratch = DOCS / ".tour-frames"
     done = 0
     for i, r in enumerate(rows):
-        shots = clip_frames(r["clip"], r["from"], r["sec"], fps, H - BAND, scratch) if r.get("clip") else None
+        shots = clip_frames(r["clip"], r["from"], min(r["sec"], r["to"] - r["from"]) if r.get("to") else r["sec"], fps, H - BAND, scratch) if r.get("clip") else None
         src = toc_image(r["toc"], W, H - BAND) if r.get("toc") else Image.open(FIGS / f"{r['fig']}.jpg").convert("RGB")
         # 写真は帯の上ぜんぶ。
         #
