@@ -291,6 +291,13 @@ const STEPS = {
     await t.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 180000 });
     await sleep(4000); await t.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); }); await sleep(3000);
     await mark('#fs-button', '全画面で ない ときは ここ'); await sleep(600); await snap('tour-fs-island');
+    // ボタンを おすと 出る「ホーム画面に 追加」の 案内（端末ごと）。
+    await t.evaluate(() => document.querySelectorAll('.tour-mark').forEach((n) => n.remove()));
+    for (const kind of ['pc', 'android', 'ios']) {
+      await t.evaluate((k) => import(`${location.origin}/install-hint.js`).then((m) => m.showInstallHint(k)), kind);
+      await sleep(1200); await snap(`tour-home-${kind}`);
+    }
+    await t.evaluate(() => document.getElementById('install-hint')?.remove());
     await c4.close();
   },
   // メインの島の お店（戸口を 歩いて 入ったのと 同じ 道）。
