@@ -42,7 +42,12 @@ async function adminCookie() {
 }
 const cookie = await adminCookie();
 const api = (method, url, body) => fetch(`${base}/admin/api${url}`, { method, headers: { cookie, 'x-requested-with': 'uspeak-admin', 'content-type': 'application/json' }, body: body && JSON.stringify(body) }).then((r) => r.json()).catch(() => ({}));
-await api('PUT', '/roster', { rows: [{ name: NAME, premium: true, class: 'tour' }, { name: 'さくら', class: 'tour' }, { name: 'はると', class: 'tour' }, { name: 'さなだ先生', teacher: true, class: 'tour' }] });
+await api('PUT', '/roster', { rows: [{ name: NAME, premium: true, class: 'tour' }, { name: 'さくら', class: 'tour' }, { name: 'はると', class: 'tour' }, { name: 'さなだ先生', teacher: true, class: 'tour' },
+  { name: 'ゆい', class: 'tour2' }, { name: 'そうた', class: 'tour2' }, { name: 'めい', class: 'tour3' }] });
+// 教室 まとめての QR（クラス 3 つを 1 つの QR に）。
+await api('PUT', '/classrooms', { rows: [{ name: 'ツアー英会話', classes: 'tour, tour2, tour3', password: 'tour-room-pass-1' }] });
+const TOUR_ROOM = ((await api('GET', '/kids')).rooms || [])[0];
+if (TOUR_ROOM) await api('PUT', '/kids', { room: TOUR_ROOM.id, pick: true });
 // 子どもに 出す 宿題を 1 つ（先生の 画面と 子どもの 画面の 両方を 撮る）。
 {
   const r = await api('POST', '/homework', { title: 'Unit 3 どうぶつ', classes: 'tour', due: '', items: [
@@ -291,6 +296,13 @@ const STEPS = {
     await t.waitForFunction(() => document.querySelector('#net-status')?.classList.contains('online'), null, { timeout: 180000 });
     await sleep(4000); await t.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); }); await sleep(3000);
     await mark('#fs-button', '全画面で ない ときは ここ'); await sleep(600); await snap('tour-fs-island');
+    // パソコン：ボタン → 全画面 → 「デスクトップに アイコンを つくる？」（ブラウザが インストールを 出せる ときの 形）。
+    await t.evaluate(() => { document.querySelectorAll('.tour-mark').forEach((n) => n.remove()); try { localStorage.removeItem('uspeak-install-later-v1'); } catch {} const e = new Event('beforeinstallprompt', { cancelable: true }); e.prompt = () => Promise.resolve(); dispatchEvent(e); });
+    await t.evaluate(() => { const b = document.getElementById('fs-button'); if (b) { b.hidden = false; b.click(); } });
+    const offered = await t.waitForSelector('#install-offer .io-yes:not([disabled])', { timeout: 60000 }).then(() => true, () => false);
+    console.log('  install offer:', offered);
+    await mark('#install-offer', 'おすと デスクトップに アイコン'); await sleep(400); await snap('tour-fs-offer');
+    await t.evaluate(() => { document.getElementById('install-offer')?.remove(); document.querySelectorAll('.tour-mark').forEach((n) => n.remove()); if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); });
     // ボタンを おすと 出る「ホーム画面に 追加」の 案内（端末ごと）。
     await t.evaluate(() => document.querySelectorAll('.tour-mark').forEach((n) => n.remove()));
     for (const kind of ['pc', 'android', 'ios']) {
@@ -373,6 +385,21 @@ const STEPS = {
   },
   async 'tour-admin-roster'() { await page.goto(`${base}/admin`); await sleep(3000); await page.evaluate(() => { const n = document.querySelector('#teacher-notice'); if (n) n.hidden = true; }); await shot('tour-admin-roster'); },
   async 'tour-admin-qr'() { await page.goto(`${base}/admin/kids`); await sleep(3000); await shot('tour-admin-qr'); },
+  // 教室 まとめての QR を 読んだ 子の 画面（クラス 3 つの なまえが 1 つに）。べつの ブラウザで（同じだと 自動で 入る）。
+  async 'tour-room-pick'() {
+    if (!TOUR_ROOM) return;
+    const join = ((await api('GET', '/kids')).rooms || [])[0]?.join; if (!join) return;
+    await page.goto('about:blank');
+    const c5 = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    await routeCharacter(c5, characterWebm(path.join(TMP, 'character')));
+    const t = await c5.newPage(); t.setDefaultTimeout(240000);
+    await t.goto(`${base}${join}`, { waitUntil: 'commit', timeout: 240000 });
+    await t.waitForSelector('#avatar-dialog[open], #net-lobby[open]');
+    if (await t.$('#avatar-dialog[open]')) { await sleep(2500); await t.evaluate(() => document.querySelector('#avatar-cancel').click()); }
+    await t.waitForSelector('#net-lobby.pick', { timeout: 120000 }); await sleep(1500);
+    await t.screenshot({ path: path.join(OUT, 'tour-room-pick.jpg'), type: 'jpeg', quality: 86, timeout: 120000 }); console.log('  docs/figures/tour-room-pick.jpg');
+    await c5.close();
+  },
   // 先生・運営の 画面（同じ ブラウザに 運営の ログインを 入れて ある）。
   async 'tour-homework-admin'() { await page.goto(`${base}/admin/homework`); await sleep(3000); await shot('tour-homework-admin'); },
   async 'tour-phonics-admin'() { await page.goto(`${base}/admin/abc`); await sleep(2500); await page.evaluate(() => document.querySelector('#ph')?.scrollIntoView()); await sleep(800); await shot('tour-phonics-admin'); },

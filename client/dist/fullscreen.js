@@ -36,7 +36,9 @@ export function goFullscreen() {
 // Chrome・Edge（Android・パソコン）は ブラウザが じぶんで「インストール」の 画面を 出せる（beforeinstallprompt）。
 // とって おいて、ボタンを おした ときに 出す。出せない ブラウザ（Safari・まだ 条件が そろって いない とき）は やりかたの 案内。
 let installEvent = null;
-addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installEvent = e; });
+// カードが 待って いる ときは、とどいた ところで［アイコンを つくる］を おせる ように する（ready）。
+const ready = new Set();
+addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installEvent = e; for (const f of [...ready]) f(); });
 addEventListener('appinstalled', () => { installEvent = null; });
 const apple = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
 const kind = () => (apple ? 'ios' : /Android/.test(ua) ? 'android' : 'pc');
@@ -65,15 +67,26 @@ function offerInstall() {
   box.id = 'install-offer'; box.setAttribute('role', 'dialog');
   const q = pc ? 'デスクトップに アイコンを つくる？' : 'ホーム画面に アイコンを つくる？';
   box.innerHTML = `<b>${pc ? '🖥' : '📱'} <span data-t="${q}">${q}</span></b><small data-t="つぎから アイコンを おすだけで ひらけるよ。">つぎから アイコンを おすだけで ひらけるよ。</small>
-    <span class="io-acts">${direct ? '<button type="button" class="io-yes" data-t="アイコンを つくる">アイコンを つくる</button>' : '<button type="button" class="io-yes" data-t="やりかたを 見る">やりかたを 見る</button>'}<button type="button" class="io-no" data-t="いまは しない">いまは しない</button></span>`;
-  const close = () => box.remove();
-  box.querySelector('.io-yes').addEventListener('click', (ev) => { ev.stopPropagation(); close(); if (direct && canPrompt()) prompt(); else showInstallHint(kind()); });
+    <span class="io-acts"><button type="button" class="io-yes" data-t="アイコンを つくる">アイコンを つくる</button><button type="button" class="io-no" data-t="いまは しない">いまは しない</button></span>`;
+  // 2026-11：「やりかたじゃなくて インストール ボタンを」。Chrome は ページを しばらく つかって から（30 秒ほど）でないと
+  // インストールの 画面を ゆるさない（beforeinstallprompt が まだ 来ない）。その あいだは ボタンを「じゅんび ちゅう…」で 待たせ、
+  // とどいたら［アイコンを つくる］に もどす。45 秒 待っても 来ない（もう インストール ずみ・前に とじた・Firefox など）ときだけ［やりかたを 見る］。
+  const btn = box.querySelector('.io-yes');
+  const label = (t) => { btn.dataset.t = t; btn.textContent = t; applyDom(btn); };
+  const onReady = () => { ready.delete(onReady); btn.disabled = false; label('アイコンを つくる'); };
+  let timer = 0;
+  const close = () => { ready.delete(onReady); clearTimeout(timer); box.remove(); };
+  if (!direct) {
+    btn.disabled = true; label('じゅんび ちゅう…'); ready.add(onReady);
+    setTimeout(() => { if (!canPrompt() && box.isConnected) { ready.delete(onReady); btn.disabled = false; label('やりかたを 見る'); } }, 45000);
+  }
+  btn.addEventListener('click', (ev) => { ev.stopPropagation(); close(); if (canPrompt()) prompt(); else showInstallHint(kind()); });
   box.querySelector('.io-no').addEventListener('click', (ev) => { ev.stopPropagation(); close(); try { localStorage.setItem(LATER_KEY, String(Date.now())); } catch { /* のこせない */ } });
   // すがた えらびや ロビー（modal の dialog）の 上でも おせる ように、いちばん 上の 層（popover）に 出す。古い ブラウザは ふつうに body へ。
   // modal の dialog は ほかを おせなく する（inert）ので、ひらいて いる dialog の 中に 入れて、そのうえで いちばん 上の 層へ。
   (document.querySelector('dialog[open]:modal') || document.body).append(box); applyDom(box);
   if (box.showPopover) { box.popover = 'manual'; try { box.showPopover(); } catch { /* ふつうの まま */ } }
-  setTimeout(close, 20000);
+  timer = setTimeout(close, direct ? 20000 : 60000);
 }
 
 // ボタンを おしたとき：全画面（できる 端末）。そのあと インストールを えらべる カード、iPhone・iPad は やりかたの 案内。
