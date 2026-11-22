@@ -243,3 +243,6 @@ body[data-arcade] .fs-button, body[data-race] .fs-button, body[data-gp] .fs-butt
 #install-offer button { flex: 1; min-height: 44px; border-radius: 12px; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; border: 2px solid #1b3a2f; }
 #install-offer .io-yes { background: #1b3a2f; color: #fff6e6; }
 #install-offer .io-no { background: #fff; color: #1b3a2f; }
+
+/* 案内を popover（いちばん 上の 層）で 出す ときは、ブラウザの popover の 見た目（まんなかの 小さな 箱・わく）を けして 画面いっぱいに。 */
+#install-hint[popover] { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0; overflow: auto; color: inherit; }

@@ -26,7 +26,7 @@ export function showInstallHint(kind = 'ios') {
     android: `<li><span class="ih-ic">${DOTS}</span><b data-t="みぎうえの「⋮」を おす">みぎうえの「⋮」を おす</b></li>
       <li><span class="ih-ic">${PLUS}</span><b data-t="「ホーム画面に追加」を おす">「ホーム画面に追加」を おす</b></li>
       <li><span class="ih-ic ih-add" data-t="追加">追加</span><b data-t="「追加」か「インストール」を おす">「追加」か「インストール」を おす</b></li>`,
-    pc: `<li><span class="ih-ic">${INSTALL}</span><span><b data-t="アドレスバーの みぎの「インストール」を おす">アドレスバーの みぎの「インストール」を おす</b><small data-t="ない ときは「⋮」→「キャスト、保存、共有」の なか">ない ときは「⋮」→「キャスト、保存、共有」の なか</small></span></li>
+    pc: `<li><span class="ih-ic">${INSTALL}</span><span><b data-t="アドレスバーの みぎの「インストール」を おす">アドレスバーの みぎの「インストール」を おす</b>${/Edg\//.test(navigator.userAgent) ? '<small data-t="ない ときは「…」→「アプリ」→「この サイトを アプリとして インストール」">ない ときは「…」→「アプリ」→「この サイトを アプリとして インストール」</small>' : '<small data-t="ない ときは「⋮」→「キャスト、保存、共有」の なか">ない ときは「⋮」→「キャスト、保存、共有」の なか</small>'}</span></li>
       <li><span class="ih-ic ih-add" data-t="インストール">インストール</span><b data-t="「インストール」を おす">「インストール」を おす</b></li>
       <li><span class="ih-ic">${PLUS}</span><b data-t="つぎから アイコンで ひらく">つぎから アイコンで ひらく</b></li>`,
   }[kind] || '';
@@ -35,13 +35,15 @@ export function showInstallHint(kind = 'ios') {
   box.setAttribute('role', 'dialog');
   box.innerHTML = `<div class="ih-card">
     <div class="ih-head"><img src="assets/app/icon-192.png" alt="" width="44" height="44"><div>
-      <b data-t="ホーム画面に ついかすると、ぜんがめんで あそべるよ">ホーム画面に ついかすると、ぜんがめんで あそべるよ</b>
+      ${kind === 'pc' ? '<b data-t="デスクトップに アイコンを つくると、すぐ ひらけるよ">デスクトップに アイコンを つくると、すぐ ひらけるよ</b>' : '<b data-t="ホーム画面に ついかすると、ぜんがめんで あそべるよ">ホーム画面に ついかすると、ぜんがめんで あそべるよ</b>'}
       <small data-t="つぎから アイコンを おすだけで ひらけるよ。">つぎから アイコンを おすだけで ひらけるよ。</small></div></div>
     <ol class="ih-steps">${steps}</ol>
     <button type="button" class="ih-ok" data-t="わかった">わかった</button></div>`;
   applyDom(box);
   box.querySelector('.ih-ok').onclick = () => box.remove();
-  document.body.append(box);
+  // modal の dialog（すがた えらび・ロビー）が ひらいて いると ほかは おせない（inert）ので、その 中に 入れて いちばん 上の 層へ。
+  (document.querySelector('dialog[open]:modal') || document.body).append(box);
+  if (box.showPopover) { box.popover = 'manual'; try { box.showPopover(); } catch { /* ふつうの まま */ } }
   try { localStorage.setItem(KEY, String(Date.now())); } catch { /* ignore */ }
 }
 

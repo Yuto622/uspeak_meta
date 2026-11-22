@@ -57,15 +57,17 @@ function prompt() {
   } catch { /* ことわられた */ }
 }
 function offerInstall() {
-  if (!canPrompt() || later() || document.getElementById('install-offer')) return;
-  const pc = kind() === 'pc';
+  // ブラウザが インストールの 画面を 出せない とき（Firefox・Safari・まだ 条件が そろって いない など）も カードは 出す。
+  // その ときの ボタンは「やりかたを 見る」＝やりかたの 案内（install-hint.js）。2026-11：「パソコンで インストールも 案内する ように」。
+  if (later() || document.getElementById('install-offer')) return;
+  const pc = kind() === 'pc'; const direct = canPrompt();
   const box = document.createElement('div');
   box.id = 'install-offer'; box.setAttribute('role', 'dialog');
   const q = pc ? 'デスクトップに アイコンを つくる？' : 'ホーム画面に アイコンを つくる？';
   box.innerHTML = `<b>${pc ? '🖥' : '📱'} <span data-t="${q}">${q}</span></b><small data-t="つぎから アイコンを おすだけで ひらけるよ。">つぎから アイコンを おすだけで ひらけるよ。</small>
-    <span class="io-acts"><button type="button" class="io-yes" data-t="アイコンを つくる">アイコンを つくる</button><button type="button" class="io-no" data-t="いまは しない">いまは しない</button></span>`;
+    <span class="io-acts">${direct ? '<button type="button" class="io-yes" data-t="アイコンを つくる">アイコンを つくる</button>' : '<button type="button" class="io-yes" data-t="やりかたを 見る">やりかたを 見る</button>'}<button type="button" class="io-no" data-t="いまは しない">いまは しない</button></span>`;
   const close = () => box.remove();
-  box.querySelector('.io-yes').addEventListener('click', (ev) => { ev.stopPropagation(); close(); prompt(); });
+  box.querySelector('.io-yes').addEventListener('click', (ev) => { ev.stopPropagation(); close(); if (direct && canPrompt()) prompt(); else showInstallHint(kind()); });
   box.querySelector('.io-no').addEventListener('click', (ev) => { ev.stopPropagation(); close(); try { localStorage.setItem(LATER_KEY, String(Date.now())); } catch { /* のこせない */ } });
   // すがた えらびや ロビー（modal の dialog）の 上でも おせる ように、いちばん 上の 層（popover）に 出す。古い ブラウザは ふつうに body へ。
   // modal の dialog は ほかを おせなく する（inert）ので、ひらいて いる dialog の 中に 入れて、そのうえで いちばん 上の 層へ。
