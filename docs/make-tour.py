@@ -126,7 +126,9 @@ def prefetch(texts):
             seen.add(str(p)); jobs.append({"text": t, "out": str(p)})
     if not jobs:
         return
-    py = os.environ.get("SBV2_PYTHON", str(Path.home() / ".venvs/sbv2/bin/python"))
+    py = os.environ.get("SBV2_PYTHON") or next((str(p) for p in (Path.home() / ".venvs/sbv2/bin/python", Path("/home/user/.venvs/sbv2/bin/python")) if p.exists()), "")
+    if not py:
+        raise SystemExit("自然な 声の 用意が ありません（docs/tts-sbv2.py の 頭の「用意」を 見て ください。SBV2_PYTHON でも 指定できます）")
     print(f"  ナレーション（自然な 声）を {len(jobs)} 文 作ります…", flush=True)
     subprocess.run([py, str(DOCS / "tts-sbv2.py")], input=json.dumps(jobs, ensure_ascii=False), text=True, check=True,
                    env={**os.environ, "FFMPEG": FFMPEG})
