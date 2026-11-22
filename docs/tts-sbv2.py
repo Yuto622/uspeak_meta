@@ -42,7 +42,7 @@ def main():
 
     files = [f for f in list_repo_files(MODEL_REPO) if f.startswith(MODEL + "/")]
     pick = lambda end: hf_hub_download(MODEL_REPO, next(f for f in files if f.endswith(end)))
-    bert_models.load_model(Languages.JP, BERT)
+    bert_models.load_model(Languages.JP, BERT).float()   # transformers 5 は 保存された 型（半分の 精度）で 読むので、CPU 用に もどす
     bert_models.load_tokenizer(Languages.JP, BERT)
     model = TTSModel(model_path=pick(".safetensors"), config_path=pick("config.json"), style_vec_path=pick("style_vectors.npy"), device="cpu")
     ffmpeg = os.environ.get("FFMPEG", "ffmpeg")
