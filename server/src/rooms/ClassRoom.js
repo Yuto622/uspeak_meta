@@ -4336,7 +4336,7 @@ export class ClassRoom extends Room {
         [choices[i], choices[j]] = [choices[j], choices[i]];
       }
       racer.quiz = { answer: word.en, box: out.box };
-      client.send('gp:box', { box: out.box, ja: word.ja, emoji: word.emoji || '', choices, ms: 6000 });
+      client.send('gp:box', { box: out.box, ja: word.ja, emoji: word.emoji || '', choices, ms: 12000 });   // 小さい 子でも えらべる 時間（カートは その あいだ ゆっくり）
       return;
     }
 

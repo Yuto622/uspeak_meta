@@ -70,6 +70,7 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
   let scene = null;
   let camera = null;
   let trackRoot = null;
+  const QUIZ_CRAWL = 6;   // 📦 の もんだいの あいだの はやさ（m/s）
   let boxes = null;
   let raf = 0;
   let lastFrame = 0;
@@ -313,6 +314,9 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
       track: t,
       now: state.now,
     });
+    // 📦 の もんだいが 出て いる あいだは カートを ゆっくりに する（2026-11：「はやすぎて 3 たくを えらぶ 時間が ない」）。
+    // 1 秒ほどで 歩く くらい（6 m/s）まで おちる。せいかいの ダッシュで もどる。
+    if (state.box && me.kart.speed > QUIZ_CRAWL) me.kart.speed = Math.max(QUIZ_CRAWL, me.kart.speed * Math.exp(-3 * dt));
     for (const e of ev) {
       if (e.type === 'turbo') banner(['', 'ミニターボ！', 'スーパー ミニターボ！', 'ウルトラ ミニターボ！'][e.level], 700);
       if (e.type === 'land' && e.clean) banner('ナイス ジャンプ！', 700);
@@ -441,9 +445,18 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
         if (state.now - (b.tookAt || -9999) > 1200) { b.tookAt = state.now; boostKart(me.kart, 'pad', state.now); banner('ブースト！', 600); }
       }
     }
+    // 前の コマから いまの コマまでの 線で 見る（2026-11：「そら とんだら 3 たく ない」）。ジャンプ中や おそい 端末では 1 コマで
+    // 何 m も すすむので、点で 見ると 箱を とびこえて しまう。ジャンプ中も 箱の 上を とおれば とれる（高さは 見ない）。
+    const px = me.prevX ?? me.kart.x; const pz = me.prevZ ?? me.kart.z;
+    me.prevX = me.kart.x; me.prevZ = me.kart.z;
+    const near = (x, z, r) => {
+      const dx = me.kart.x - px; const dz = me.kart.z - pz; const len2 = dx * dx + dz * dz;
+      const u = len2 > 0 && len2 < 40 * 40 ? Math.max(0, Math.min(1, ((x - px) * dx + (z - pz) * dz) / len2)) : 1;
+      return Math.hypot(px + dx * u - x, pz + dz * u - z) < r;
+    };
     for (const b of boxes.boxes) {
       if (b.takenUntil > state.now || state.box) continue;
-      if (Math.hypot(me.kart.x - b.def.x, me.kart.z - b.def.z) < 2.6) {
+      if (near(b.def.x, b.def.z, 2.6)) {
         b.takenUntil = state.now + 6000;
         b.mesh.visible = false;
         // The room cannot see the kart, so the claim carries where on the circuit it was.
@@ -913,13 +926,14 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     // right. The answer is never in the page.
     onItem(m) {
       state.box = m;
+      me.kart.boostUntil = 0;   // ブーストの まま もんだいを 出さない
       $('#gp-quiz-emoji', screen).textContent = m.emoji || '📦';
       $('#gp-quiz-ja', screen).textContent = m.ja || '';
       $('#gp-quiz-choices', screen).innerHTML = (m.choices || []).map((c) => `<button type="button" data-pick="${esc(c)}">${esc(c)}</button>`).join('');
       quiz.querySelectorAll('[data-pick]').forEach((b) => { b.onclick = () => answer(b.dataset.pick); });
       quiz.hidden = false;
       clearTimeout(answer.t);
-      answer.t = setTimeout(() => answer(''), m.ms || 5000);
+      answer.t = setTimeout(() => answer(''), m.ms || 12000);
     },
     onBoost(m) {
       if (m.ok) { boostKart(me.kart, 'item', state.now); banner('せいかい！ ダッシュ！', 900, 'gp-go'); }
