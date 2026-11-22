@@ -33,6 +33,7 @@ ffmpeg は imageio-ffmpeg（H.264 と AAC が入っている完全版）。同�
 import hashlib
 import json
 import math
+import os
 import shutil
 import subprocess
 import sys
@@ -101,6 +102,36 @@ def chapter_names(cuts):
 SR = 48000          # pyopenjtalk が返す標本化周波数
 
 
+# 声の 種類（台本の "voice"）。"openjtalk"＝いままでの 合成（機械っぽい）／"sbv2"＝Style-Bert-VITS2 の 自然な 声（docs/tts-sbv2.py）。
+# どちらも この 端末の 中だけで 作る（文を 外の サービスに 送らない）。声が かわれば キャッシュの 鍵も かわる。
+ENGINE = _meta.get("voice", "openjtalk")
+SBV2_CREDIT = "ナレーション：Style-Bert-VITS2（JVNV コーパス モデル・CC BY-SA 4.0）"
+
+
+def voice_path(text):
+    tag = "" if ENGINE == "openjtalk" else f"{ENGINE}\n"
+    key = hashlib.sha1(f"{tag}{SPEED}\n{text}".encode("utf-8")).hexdigest()[:16]
+    return VOICE / f"{key}.wav"
+
+
+def prefetch(texts):
+    """自然な 声（sbv2）は モデルの 読みこみが 重いので、まだ ない 文を まとめて 1 回で 作る。"""
+    if ENGINE != "sbv2":
+        return
+    VOICE.mkdir(exist_ok=True)
+    jobs, seen = [], set()
+    for t in texts:
+        p = voice_path(t)
+        if t and not p.exists() and str(p) not in seen:
+            seen.add(str(p)); jobs.append({"text": t, "out": str(p)})
+    if not jobs:
+        return
+    py = os.environ.get("SBV2_PYTHON", str(Path.home() / ".venvs/sbv2/bin/python"))
+    print(f"  ナレーション（自然な 声）を {len(jobs)} 文 作ります…", flush=True)
+    subprocess.run([py, str(DOCS / "tts-sbv2.py")], input=json.dumps(jobs, ensure_ascii=False), text=True, check=True,
+                   env={**os.environ, "FFMPEG": FFMPEG})
+
+
 def narrate(text):
     """その一文を読み上げた wav を返す（中身が同じなら作り直さない）。
 
@@ -108,8 +139,9 @@ def narrate(text):
     絵だけ直したいときにも音が作り直される。文をそのまま鍵にして残しておく。
     """
     VOICE.mkdir(exist_ok=True)
-    key = hashlib.sha1(f"{SPEED}\n{text}".encode("utf-8")).hexdigest()[:16]
-    path = VOICE / f"{key}.wav"
+    path = voice_path(text)
+    if not path.exists() and ENGINE == "sbv2":
+        prefetch([text])
     if not path.exists():
         import numpy as np
         import pyopenjtalk
@@ -207,6 +239,8 @@ def build_script(title, cuts):
                       f"<sub>{r['sec']}秒 ・ 図 `figures/{r['fig']}.jpg`</sub>", "",
                       f"> {r['text']}", ""]
         lines.append("")
+    if ENGINE == "sbv2":
+        lines += ["---", "", SBV2_CREDIT, ""]
     (DOCS / SCRIPT_MD).write_text("\n".join(lines), encoding="utf-8")
     print(f"  docs/{SCRIPT_MD}")
 
@@ -476,7 +510,7 @@ def build_full(cuts):
         f.unlink(missing_ok=True)
     if code != 0:
         raise SystemExit("ffmpeg concat failed")
-    (OUT / "toc.txt").write_text(f"{_meta['title']}（通し）もくじ\n" + "\n".join(toc_lines(toc, total)) + "\n",
+    (OUT / "toc.txt").write_text(f"{_meta['title']}（通し）もくじ\n" + "\n".join(toc_lines(toc, total)) + "\n" + (f"\n{SBV2_CREDIT}\n" if ENGINE == "sbv2" else ""),
                                  encoding="utf-8")
     print(f"  docs/{NAME}/full.mp4  {mmss(total)} ・ {(OUT / 'full.mp4').stat().st_size / 1e6:.1f} MB ・ もくじ docs/{NAME}/toc.txt")
 
@@ -721,6 +755,8 @@ def main():
     what = sys.argv[1] if len(sys.argv) > 1 else "all"
     title, cuts, meta = load()
     print(f"{title} — {len(cuts)} カット")
+    # 自然な 声は さきに まとめて 作る（プレーヤーも 長さを 読み上げの 実測で きめるので、その 前に）。
+    prefetch([c["ja"] for c in cuts] + [c["digest"] for c in cuts if c.get("digest")] + [toc_text(len(chapter_names(cuts)))])
     build_player(title, cuts, meta)
     build_script(title, cuts)
     if what == "player":
