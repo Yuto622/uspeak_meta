@@ -65,6 +65,27 @@ import { sfx } from './sfx.js';
 // いま 幼児モードの 画面か（部屋が オンに した 子＋ じぶんで 🧸 を おした 人）。
 const kidsNow = () => globalThis.document?.body?.dataset.mode === 'kids';
 
+// アバターの 3D の 形を、three.js に たよらない データに する（{ parts: [{ pos, norm, index, color, matrix }], height }）。
+// 体は player の 子の うち `userData.limbs` を 持つ もの（avatars.js の buildAvatar）。かげ・名札・ペットは 入れない。
+function avatarBlueprint(player) {
+  const model = player.children.find((c) => c.userData?.limbs) || null;
+  if (!model) return null;
+  model.updateWorldMatrix(true, true);
+  const inv = model.matrixWorld.clone().invert();
+  const parts = []; let top = 0;
+  model.traverse((o) => {
+    if (!o.isMesh || !o.visible || o.isInstancedMesh || !o.geometry?.attributes?.position) return;
+    const mat = Array.isArray(o.material) ? o.material[0] : o.material;
+    if (!mat?.color || (mat.transparent && mat.opacity < 0.6)) return;
+    for (let p = o.parent; p && p !== model; p = p.parent) if (!p.visible) return;
+    const g = o.geometry; const matrix = inv.clone().multiply(o.matrixWorld);
+    if (!g.boundingBox) g.computeBoundingBox();
+    top = Math.max(top, g.boundingBox.clone().applyMatrix4(matrix).max.y);
+    parts.push({ pos: Array.from(g.attributes.position.array), norm: g.attributes.normal ? Array.from(g.attributes.normal.array) : null, index: g.index ? Array.from(g.index.array) : null, color: mat.color.getHex(), matrix: matrix.toArray() });
+  });
+  return parts.length && parts.length < 400 ? { parts, height: top || 2 } : null;
+}
+
 export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, park, renderer, toast, speak, learn, guide = null }) {
   let fwAutoAt = ''; // いま 自動で つりはじめた 水辺（はなれると 空に もどる）
   let main = null; // メインの島（下で作る。財布と進み具合が届くたびに数字を書き直す）
@@ -472,6 +493,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const kart = {
     start: (grade, count) => { const ref = `r${kartWait.n += 1}`; return kartAsk(kartWait.start, ref, 'kart:start', { grade, count, ref }); },
     answer: (id, i, choice) => kartAsk(kartWait.answer, `${id}:${i}`, 'kart:answer', { id, i, choice }),
+    // じぶんの アバター（きせかえ島で 買った すがた・ぼうし なども）の 形。AURORA KART は three.js の 版が ちがうので、
+    // 頂点・色・位置だけを わたして あちらで 組み立てる（racers/game.js の uspeakDriver）。
+    get avatar() { try { return avatarBlueprint(player); } catch { return null; } },
   };
   const racers = createRacers({ ...guest, kart });          // AURORA KART, from のりもの島
   // ブロック屋で買った物は BLOCKWILD の持ち物でもある。持ち主はサーバー（`block:shop`）で、
