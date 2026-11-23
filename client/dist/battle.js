@@ -143,6 +143,7 @@ export function createBattleUI({ send, speak, toast, isOnline, renderer = null, 
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); send('battle:quit', {}); close(); });
 
   return {
+    get stage() { return stage; },   // 検査・撮影用
     get staged() { if (stage?.running && !dialog.open) stage.stop(); return !!stage?.running && dialog.open; },
     label(spot) {
       if (spot.kind === 'pvp') return `${spot.tone} ${spot.name}（じゅんび中）`;

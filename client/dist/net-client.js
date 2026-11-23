@@ -1300,7 +1300,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get remotes() { return remotes; },
     get gp() { return gp; },
     // えいごアリーナの 3D の 舞台が 島の renderer を 使って いる あいだ（game.js は 島を 描かない）。
-    get battleStage() { return { running: battle.staged }; },
+    get battleStage() { return { running: battle.staged, stage: battle.stage }; },
     get dash() { return dash; },
     get roadmap() { return roadmap; },
     get quick() { return quick; },
