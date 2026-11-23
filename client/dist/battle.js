@@ -42,10 +42,10 @@ export function createBattleUI({ send, speak, toast, isOnline, renderer = null, 
     for (const e of events) {
       if (e.who === 'you' && e.fizzled) stage?.play('fizzle', 'you', delay);
       else if (e.who === 'you' && e.heal) stage?.play('heal', 'you', delay);
-      else if (e.who === 'you') stage?.play('attack', 'you', delay);
+      else if (e.who === 'you') stage?.play('attack', 'you', delay, ['poyon', 'beam', 'super'].includes(e.waza) ? e.waza : 'poyon');   // わざごとの 光
       else if (e.missed) stage?.play('miss', 'foe', delay);
-      else stage?.play('attack', 'foe', delay);
-      delay += .9;
+      else stage?.play('attack', 'foe', delay, 'void');
+      delay += e.who === 'you' && e.waza === 'super' ? 1.6 : 1.25;
     }
     return delay;
   }
@@ -136,11 +136,14 @@ export function createBattleUI({ send, speak, toast, isOnline, renderer = null, 
     $('#battle-leave', dialog).onclick = close;
   }
 
+  // ダイアログが **どの 道で とじても**（ほかの 画面が dialog.close() した・島を うつった・つなぎなおし）舞台を 止めて 島を かえす。
+  // 2026-11：止めわすれて 舞台の 絵が のこり、島が 描かれず「ぬけ出せない」に なった。
+  dialog.addEventListener('close', () => { stopTimer(); stage?.stop(); dialog.classList.remove('staged'); });
   $('#battle-close', dialog).onclick = () => { send('battle:quit', {}); close(); };
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); send('battle:quit', {}); close(); });
 
   return {
-    get staged() { return !!stage?.running; },
+    get staged() { if (stage?.running && !dialog.open) stage.stop(); return !!stage?.running && dialog.open; },
     label(spot) {
       if (spot.kind === 'pvp') return `${spot.tone} ${spot.name}（じゅんび中）`;
       return `${spot.tone} ${spot.name} で バトル`;
