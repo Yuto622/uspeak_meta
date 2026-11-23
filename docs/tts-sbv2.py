@@ -25,7 +25,14 @@ import wave
 MODEL_REPO = os.environ.get("SBV2_REPO", "litagin/style_bert_vits2_jvnv")
 MODEL = os.environ.get("SBV2_MODEL", "jvnv-F1-jp")            # 女性・JP-Extra（いちばん 自然）
 STYLE = os.environ.get("SBV2_STYLE", "Neutral")
-LENGTH = float(os.environ.get("SBV2_LENGTH", "0.95"))          # 1 より 小さいと すこし はやく 読む
+LENGTH = float(os.environ.get("SBV2_LENGTH", "1.1"))           # 1 より 大きいと ゆっくり（教育用・アナウンサーの ように 落ちついて）
+# 落ちついた 読み（2026-11：「もっと 落ちついた。アナウンサーみたいな」）：感情を うすく（style_weight）、ゆれを 小さく（sdp・noise）、
+# 抑揚を すこし ひかえめに（intonation）。
+STYLE_WEIGHT = float(os.environ.get("SBV2_STYLE_WEIGHT", "0.5"))
+SDP = float(os.environ.get("SBV2_SDP", "0.1"))
+NOISE = float(os.environ.get("SBV2_NOISE", "0.45"))
+NOISE_W = float(os.environ.get("SBV2_NOISE_W", "0.6"))
+INTONATION = float(os.environ.get("SBV2_INTONATION", "0.9"))
 BERT = "ku-nlp/deberta-v2-large-japanese-char-wwm"
 SR_OUT = 48000
 
@@ -47,7 +54,8 @@ def main():
     model = TTSModel(model_path=pick(".safetensors"), config_path=pick("config.json"), style_vec_path=pick("style_vectors.npy"), device="cpu")
     ffmpeg = os.environ.get("FFMPEG", "ffmpeg")
     for i, job in enumerate(jobs, 1):
-        sr, audio = model.infer(text=job["text"], language=Languages.JP, style=STYLE, length=LENGTH)
+        sr, audio = model.infer(text=job["text"], language=Languages.JP, style=STYLE, length=LENGTH, style_weight=STYLE_WEIGHT,
+                                sdp_ratio=SDP, noise=NOISE, noise_w=NOISE_W, intonation_scale=INTONATION)
         audio = np.asarray(audio)
         if audio.dtype != np.int16:
             audio = np.clip(audio * (32767 if np.abs(audio).max() <= 1.0 else 1), -32768, 32767).astype(np.int16)
