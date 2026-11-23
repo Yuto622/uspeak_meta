@@ -8,6 +8,7 @@
 // Furniture here, blocks on the plaza (plaza-world.js). A room is somewhere to live in,
 // not a quarry, so what goes in it is bought at the かぐ屋 and stands on the floor.
 import * as THREE from './three.module.js';
+import { SPACE_BG, addStars } from './cosmic-kit.js';
 import { say, live } from './canvas-say.js';
 
 const CELL = 1;                 // one floor square, one metre
@@ -15,8 +16,10 @@ const REACH = 8;                // how far the crosshair carries, in squares
 
 export function createRoom({ player, camera, view, send, toast, speak, learn, onLeave }) {
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x1b2a33);
-  scene.add(new THREE.HemisphereLight(0xeaf4ff, 0x5b6a55, 1.9));
+  // 異次元の へや：宇宙に うかぶ。かべ・床だけ かえる（子どもが 買った かぐの 色は そのまま）。
+  scene.background = new THREE.Color(SPACE_BG);
+  addStars(scene);
+  scene.add(new THREE.HemisphereLight(0xe6eaff, 0x4a3a8e, 2.0));
   const sun = new THREE.DirectionalLight(0xfff0d0, 1.5);
   sun.position.set(6, 14, 8);
   scene.add(sun);
@@ -176,44 +179,50 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
   function buildShell(room) {
     shell.clear();
     const half = room.grid / 2;
-    floor = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.4, room.grid), mat(0x8b7f68));
+    floor = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.4, room.grid), mat(0x5fc8d8, 0.16));
     floor.position.y = -0.2;
     floor.receiveShadow = true;
     shell.add(floor);
     // A checkerboard so the squares a child is furnishing are visible without a shader.
     for (let x = -half; x < half; x += 1) {
       for (let z = -half; z < half; z += 1) {
-        if ((x + z) % 2) continue;
-        const tile = new THREE.Mesh(geo, mat(0x9a8d74));
+        const tile = new THREE.Mesh(geo, mat((x + z) % 2 ? 0x1a1c4a : 0x24285e, 0.06));
         tile.position.set(x, 0.005, z);
-        tile.scale.set(0.98, 0.02, 0.98);
+        tile.scale.set(0.96, 0.02, 0.96);
         shell.add(tile);
       }
     }
     const wallH = room.height + 0.5;
     for (const [dx, dz, w, d] of [[0, -half, room.grid, 0.3], [-half, 0, 0.3, room.grid], [half, 0, 0.3, room.grid]]) {
-      const wall = new THREE.Mesh(new THREE.BoxGeometry(w, wallH, d), mat(0xd8cdb4));
+      const wall = new THREE.Mesh(new THREE.BoxGeometry(w, wallH, d), mat(0x1c1a5c, 0.2));
       wall.position.set(dx, wallH / 2, dz);
       shell.add(wall);
     }
     // The fourth wall has the doorway in it, so a child can always see the way out.
     for (const side of [-1, 1]) {
-      const piece = new THREE.Mesh(new THREE.BoxGeometry(half - 1, wallH, 0.3), mat(0xd8cdb4));
+      const piece = new THREE.Mesh(new THREE.BoxGeometry(half - 1, wallH, 0.3), mat(0x1c1a5c, 0.2));
       piece.position.set(side * (half + 1) / 2, wallH / 2, half);
       shell.add(piece);
     }
-    const lintel = new THREE.Mesh(new THREE.BoxGeometry(2.6, wallH - 2.4, 0.3), mat(0xd8cdb4));
+    const lintel = new THREE.Mesh(new THREE.BoxGeometry(2.6, wallH - 2.4, 0.3), mat(0x1c1a5c, 0.2));
     lintel.position.set(0, wallH - (wallH - 2.4) / 2, half);
     shell.add(lintel);
-    const rail = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.18, 0.36), mat(0xc0b394));
+    const rail = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.18, 0.36), mat(0xff7ad9, 0.5));
     rail.position.set(0, 1.15, -half + 0.1);
     shell.add(rail);
-    const window = new THREE.Mesh(new THREE.BoxGeometry(3.4, 1.9, 0.16), mat(0x9fd0dc, 0.35));
+    const window = new THREE.Mesh(new THREE.BoxGeometry(3.4, 1.9, 0.16), mat(0xb06bff, 0.5));
     window.position.set(0, 2.6, -half + 0.05);
     shell.add(window);
-    const light = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.25, 1.1), mat(0xffe1a1, 1.1));
+    const light = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.25, 1.1), mat(0xffffff, 0.8));
     light.position.set(0, room.height - 0.3, 0);
+    light.rotation.set(0.62, 0.78, 0);
     shell.add(light);
+    // ネオンの ふち：かべの 上に 光の 帯。
+    for (const [dx, dz, w, d] of [[0, -half + 0.2, room.grid, 0.12], [-half + 0.2, 0, 0.12, room.grid], [half - 0.2, 0, 0.12, room.grid]]) {
+      const trim = new THREE.Mesh(new THREE.BoxGeometry(w, 0.12, d), mat(0x7df9ff, 0.5));
+      trim.position.set(dx, wallH - 0.2, dz);
+      shell.add(trim);
+    }
   }
 
   function enter(payload, furniture) {
@@ -405,11 +414,11 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     const half = state.room.grid / 2;
     const scale = 120 / state.room.grid;
     ctx.clearRect(0, 0, 180, 140);
-    ctx.fillStyle = '#22333d';
+    ctx.fillStyle = '#070a24';
     ctx.fillRect(0, 0, 180, 140);
-    ctx.fillStyle = '#9a8d74';
+    ctx.fillStyle = '#1c1f5c';
     ctx.fillRect(90 - half * scale, 70 - half * scale, state.room.grid * scale, state.room.grid * scale);
-    ctx.fillStyle = '#e6d9b4';
+    ctx.fillStyle = '#7df9ff';
     for (const { prop } of state.props.values()) {
       for (const c of cellsOf(prop)) ctx.fillRect(90 + (c.x - 0.5) * scale, 70 + (c.z - 0.5) * scale, scale, scale);
     }

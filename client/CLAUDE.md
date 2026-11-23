@@ -661,6 +661,9 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **えいごアリーナは 3D の たいせんがめん**（`battle-stage.js`・`#battle-dialog.staged`）：宇宙に うかぶ ネオンの 舞台で、じぶんの なかま（ペット・なければ きつね）が 手前の ひだり、マスターウーピー（ふくろう＝`creatureModel`）が おくの みぎ。メッセージは 左下・わざは 右下・HP の 札は 上。
   島と 同じ renderer に べつの シーンを 描いて、ダイアログの 2D の canvas に うつす（WebGL を ふやさない）。ひらいて いる あいだ `game.js` は 島を 描かない（`net.battleStage.running`）。**見せるだけ**：ダメージ・勝ち負けは 部屋。battle.js の `act(events)` が とびこむ・ゆれる・かいふく・よける・たおれる を わたす。描けない 端末は いままでの カードの 画面。
 
+- **内装は ぜんぶ 異次元**（2026-11）：共通の 部品は `cosmic-kit.js`（`SPACE_BG`・`cosmicColor()`・`addStars()`）。みんなの 部屋・お店＝`island-interior.js`、公園の ロビーと U-Speak島の 建物の 中＝`park-interior.js` の `material()`（`building-room.js` も ここを 通る）、じぶんの へや＝`room-world.js`、ひろば＝`plaza-world.js`。
+  **へやと ひろばは 床・かべ・さくだけ**（子どもが 買った かぐ・置いた ブロックの 色は かえない）。はだの 色は `KEEP` で そのまま。光は ふやさない（emissive と 星の Points 1 つ）。bloom が あるので emissive は 0.5 まで。
+
 ## おつかい島（2026-09 追加）
 
 `errand-data.js`（missions.json の共有ローダー）/ `errand-island.js`（島の地形・お店・住人・
