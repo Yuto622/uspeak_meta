@@ -95,25 +95,23 @@ test('the grass is slower than the road, and lets a kart back out', () => {
   assert.ok(kart.speed > 3, 'but it is still moving');
 });
 
-test('a drift charges three times and each one pays', () => {
+// 2026-11：加速は 📦 の 3 たく せいかいだけ。ドリフトは すべる だけで、ためても 何も はらわない（KART.driftBoost = false）。
+test('a drift slides but pays nothing: the only boost is a right answer', () => {
+  assert.equal(KART.driftBoost, false); assert.equal(KART.landBoost, false);
   const seen = [];
   const k = createKart();
   gridKart(k, track.grid[0]);
   let now = 0;
-  // Hold a drift on an empty stretch: throttle, one way, drift down.
   for (let i = 0; i < 60 * 6; i += 1) {
     const evs = advance(k, { seconds: 1 / 60, input: { throttle: true, brake: false, steer: 1, drift: true }, track, now });
     for (const e of evs) if (e.type === 'spark') seen.push(e.level);
     now += 1000 / 60;
   }
-  assert.deepEqual(seen, [1, 2, 3], `sparks came in order: ${seen.join(',')}`);
-  // Let go: a boost, and the kart is quicker for it.
-  const before = k.speed;
+  assert.deepEqual(seen, [], 'no sparks to charge');
   const evs = advance(k, { seconds: 1 / 60, input: { throttle: true, brake: false, steer: 0, drift: false }, track, now });
-  const turbo = evs.find((e) => e.type === 'turbo');
-  assert.ok(turbo && turbo.level === 3, 'a purple turbo');
-  assert.ok(k.boostUntil > now, 'the boost is running');
-  assert.ok(k.speed >= before, 'and it did not slow down for it');
+  assert.equal(evs.find((e) => e.type === 'turbo'), undefined, 'no turbo');
+  assert.ok(!(k.boostUntil > now), 'no boost running');
+  assert.equal(track.boosts.length, 0, 'no boost pads on the circuit');
 });
 
 test('a boost is faster than the top speed, and wears off', () => {

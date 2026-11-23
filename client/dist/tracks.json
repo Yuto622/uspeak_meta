@@ -230,25 +230,8 @@
           ]
         }
       ],
-      "boosts": [
-        {
-          "t": 0.215,
-          "o": 3.5
-        },
-        {
-          "t": 0.46,
-          "o": -4
-        },
-        {
-          "t": 0.66,
-          "o": 0
-        },
-        {
-          "t": 0.895,
-          "o": 4
-        }
-      ],
-      "note4": "The jump: a ramp at t, and the landing far enough along that a kart at speed clears the gap. `lift` is how hard it throws the kart up.",
+      "boosts": [],
+      "note4": "The jump: a ramp at t, and the landing far enough along that a kart at speed clears the gap. `lift` is how hard it throws the kart up.（2026-11：ブーストの 板は なくした。加速は 📦 の 3 たく せいかいだけ）",
       "jumps": [
         {
           "t": 0.7,

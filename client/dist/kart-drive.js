@@ -44,6 +44,10 @@ export const KART = {
   boostTop: 34,
   boostAccel: 60,
   padMs: 1200,           // a boost pad
+  // 2026-11：「3 たく せいかいの ときだけ 加速。それ以外は いらない」。ドリフトの ミニターボと ジャンプの 着地ブーストは 切る
+  // （ドリフトで すべる こと・ジャンプ そのものは のこる）。もどす ときは true に。
+  driftBoost: false,
+  landBoost: false,
   itemMs: 1800,          // an item box answered right
 
   // Off the road, and into the wall.
@@ -135,7 +139,7 @@ export function stepKart(kart, { dt, input, track, now }) {
     if (kart.driftWay) {
       kart.drift += dt * 1000;
       const was = kart.sparks;
-      kart.sparks = kart.drift >= KART.charge[2] ? 3 : kart.drift >= KART.charge[1] ? 2 : kart.drift >= KART.charge[0] ? 1 : 0;
+      kart.sparks = !KART.driftBoost ? 0 : kart.drift >= KART.charge[2] ? 3 : kart.drift >= KART.charge[1] ? 2 : kart.drift >= KART.charge[0] ? 1 : 0;
       if (kart.sparks !== was && kart.sparks) ev.push({ type: 'spark', level: kart.sparks });
     }
   } else if (kart.driftWay) {
@@ -221,8 +225,10 @@ export function stepKart(kart, { dt, input, track, now }) {
       let miss = ((kart.heading - face + Math.PI) % (Math.PI * 2)) - Math.PI;
       if (miss < -Math.PI) miss += Math.PI * 2;
       if (Math.abs(miss) < KART.landAngle) {
-        kart.boostUntil = Math.max(kart.boostUntil, now + KART.landBoostMs);
-        kart.boostKind = 'land';
+        if (KART.landBoost) {
+          kart.boostUntil = Math.max(kart.boostUntil, now + KART.landBoostMs);
+          kart.boostKind = 'land';
+        }
         ev.push({ type: 'land', clean: true });
       } else {
         kart.speed *= 0.8;

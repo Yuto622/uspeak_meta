@@ -319,7 +319,7 @@ export function createKartGame({ renderer, send, toast, onExit, isOnline }) {
     if (state.box && me.kart.speed > QUIZ_CRAWL) me.kart.speed = Math.max(QUIZ_CRAWL, me.kart.speed * Math.exp(-3 * dt));
     for (const e of ev) {
       if (e.type === 'turbo') banner(['', 'ミニターボ！', 'スーパー ミニターボ！', 'ウルトラ ミニターボ！'][e.level], 700);
-      if (e.type === 'land' && e.clean) banner('ナイス ジャンプ！', 700);
+      if (e.type === 'land' && e.clean && KART.landBoost) banner('ナイス ジャンプ！', 700);
     }
     if (racing) {
       rescue(me, me.kart, dt);
