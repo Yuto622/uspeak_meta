@@ -20,9 +20,18 @@ const NEAR_COUNTER = 3.4;
 
 export function createIslandInteriors({ player, camera, toast }) {
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x14232b);
-  scene.add(new THREE.HemisphereLight(0xeaf4ff, 0x6a705c, 1.75));
-  const sun = new THREE.DirectionalLight(0xffeccd, 1.35);
+  // 異次元の 内装（2026-11：「内装を すべて 異次元に」）：宇宙に うかぶ 部屋。くらい ガラスの かべ・ネオンの ふち・光る 目地の 床・星。
+  // 明るさは 前と 同じ くらいに たもつ（子どもの 顔と カウンターが 見える こと）。光る ものは emissive だけ＝光の 数は ふやさない。
+  scene.background = new THREE.Color(0x070a24);
+  scene.add(new THREE.HemisphereLight(0xdfe6ff, 0x4a3a8e, 1.9));
+  {
+    let seed = 5; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    const pts = new Float32Array(420 * 3);
+    for (let i = 0; i < 420; i += 1) { const a = rnd() * Math.PI * 2; const e = (rnd() - .5) * 2.6; const r = 60 + rnd() * 30; pts.set([Math.cos(a) * Math.cos(e) * r, Math.sin(e) * r, Math.sin(a) * Math.cos(e) * r], i * 3); }
+    const sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.BufferAttribute(pts, 3));
+    scene.add(new THREE.Points(sg, new THREE.PointsMaterial({ color: 0xcfe6ff, size: 0.5, sizeAttenuation: true })));
+  }
+  const sun = new THREE.DirectionalLight(0xfff0ff, 1.35);
   sun.position.set(5, 12, 7);
   scene.add(sun);
   const root = new THREE.Group();
@@ -39,7 +48,12 @@ export function createIslandInteriors({ player, camera, toast }) {
     }
     return materials.get(key);
   };
+  // かぐ・小物の 色は 宇宙の 色に よせる（もとの 色あいは のこす＝本だなは 本だな、カウンターは お店の 色）。
+  let tinting = false;
+  const SPACE = new THREE.Color(0x2a1f8e);
+  const cosmic = (color) => new THREE.Color(color).lerp(SPACE, 0.42).offsetHSL(0, 0.12, 0).getHex();
   const B = (x, y, z, w, h, d, color, emissive = 0) => {
+    if (tinting) { color = cosmic(color); emissive = Math.max(emissive, 0.12); }
     const m = new THREE.Mesh(geo, mat(color, emissive));
     m.position.set(x, y, z);
     m.scale.set(w, h, d);
@@ -56,13 +70,14 @@ export function createIslandInteriors({ player, camera, toast }) {
     // 言語を切り替えたら描き直す（`canvas-say.js`）。
     const paint = () => {
       ctx.clearRect(0, 0, 768, 200);
-      ctx.fillStyle = '#183946';
+      ctx.fillStyle = '#12164a';
       ctx.beginPath(); ctx.roundRect(4, 4, 760, 192, 22); ctx.fill();
+      ctx.lineWidth = 6; ctx.strokeStyle = '#7df9ff'; ctx.beginPath(); ctx.roundRect(7, 7, 754, 186, 20); ctx.stroke();
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#f3dfaa';
+      ctx.fillStyle = '#ffffff';
       ctx.font = '700 62px sans-serif';
       ctx.fillText(say(text), 384, 88, 700);
-      ctx.fillStyle = '#bcd7d0';
+      ctx.fillStyle = '#9fe8ff';
       ctx.font = '600 38px sans-serif';
       ctx.fillText(say(sub), 384, 150, 700);
     };
@@ -144,33 +159,39 @@ export function createIslandInteriors({ player, camera, toast }) {
   function build(islandId, spot) {
     root.clear();
     npc = null;
-    const wall = 0xe4dcc2;
+    const wall = 0x1c1a5c;
     const accent = Number(spot.color) || 0xcbbb95;
-    // Floor, walls, and a doorway that is always behind you as you come in.
-    B(0, -0.2, 0, HALF_X * 2 + 1.2, 0.4, 19, 0x6f6a58);
+    // 床：光る 板の 上に こい 色の タイル（すきまが ネオンの 目地に 見える）。かべ：くらい ガラス＋上と 下に 光の 帯。
+    B(0, -0.2, 0, HALF_X * 2 + 1.2, 0.4, 19, 0x7df9ff, 0.28);
     for (let x = -HALF_X + 1; x < HALF_X; x += 2) {
-      for (let z = -7; z < 9; z += 2) B(x, 0.03, z, 1.94, 0.1, 1.94, (x + z) % 4 === 0 ? 0xece6d3 : 0xdcd5bd);
+      for (let z = -7; z < 9; z += 2) B(x, 0.03, z, 1.88, 0.1, 1.88, (x + z) % 4 === 0 ? 0x232a78 : 0x191d5c, 0.15);
     }
-    B(0, 2.6, -7.4, HALF_X * 2 + 1.2, 5.2, 0.4, wall);
-    for (const x of [-HALF_X - 0.3, HALF_X + 0.3]) B(x, 2.6, 0.6, 0.4, 5.2, 17, wall);
-    for (const side of [-1, 1]) B(side * (HALF_X / 2 + 1.4), 2.6, DOOR_Z + 0.5, HALF_X - 1.4, 5.2, 0.4, wall);
-    B(0, 4.4, DOOR_Z + 0.5, 3.2, 1.6, 0.4, wall);
-    // A window on each side so it is not a box, and a lamp so it is not dark.
+    B(0, 2.6, -7.4, HALF_X * 2 + 1.2, 5.2, 0.4, wall, 0.2);
+    for (const x of [-HALF_X - 0.3, HALF_X + 0.3]) B(x, 2.6, 0.6, 0.4, 5.2, 17, wall, 0.2);
+    for (const side of [-1, 1]) B(side * (HALF_X / 2 + 1.4), 2.6, DOOR_Z + 0.5, HALF_X - 1.4, 5.2, 0.4, wall, 0.2);
+    B(0, 4.4, DOOR_Z + 0.5, 3.2, 1.6, 0.4, wall, 0.2);
+    B(0, 5.12, -7.15, HALF_X * 2 + 0.6, 0.14, 0.14, 0x7df9ff, 0.5); B(0, 0.22, -7.15, HALF_X * 2 + 0.6, 0.12, 0.12, 0xff7ad9, 0.5);
+    for (const x of [-HALF_X - 0.05, HALF_X + 0.05]) { B(x, 5.12, 0.6, 0.14, 0.14, 16.6, 0x7df9ff, 0.5); B(x, 0.22, 0.6, 0.12, 0.12, 16.6, 0xff7ad9, 0.5); }
+    // まど＝べつの 次元が のぞく 門（むらさきの 光と 金の わく）。あかり＝うかぶ クリスタル。
     for (const x of [-HALF_X - 0.05, HALF_X + 0.05]) {
-      B(x, 3, 1.4, 0.15, 1.9, 3.4, 0x9fd0dc, 0.35);
-      B(x, 3, 1.4, 0.2, 0.14, 3.5, 0x8a7a58);
+      B(x, 3, 1.4, 0.15, 1.9, 3.4, 0xb06bff, 0.55);
+      B(x, 3, 1.4, 0.2, 0.14, 3.5, 0xffd166, 0.4); B(x, 3.98, 1.4, 0.2, 0.12, 3.5, 0xffd166, 0.4); B(x, 2.02, 1.4, 0.2, 0.12, 3.5, 0xffd166, 0.4);
     }
-    B(0, 5.1, 0.4, 1.1, 0.25, 1.1, 0xffe1a1, 1.1);
-    const lamp = new THREE.PointLight(0xffe0a8, 12, 20, 2);
+    const gem = B(0, 5.0, 0.4, 0.8, 0.8, 0.8, 0xffffff, 0.8); gem.rotation.set(0.62, 0.78, 0); gem.castShadow = false;
+    const lamp = new THREE.PointLight(0xe8e0ff, 13, 22, 2);
     lamp.position.set(0, 4.8, 0.4);
     root.add(lamp);
 
     // The counter, in the same place in every building.
-    B(0, 0.95, COUNTER_Z, 7.4, 1.5, 1.6, accent);
-    B(0, 1.78, COUNTER_Z, 7.8, 0.18, 1.9, 0xf5ead0);
+    B(0, 0.95, COUNTER_Z, 7.4, 1.5, 1.6, cosmic(accent), 0.25);
+    B(0, 1.78, COUNTER_Z, 7.8, 0.18, 1.9, 0x9fdcf0, 0.25);
+    B(0, 0.24, COUNTER_Z + 0.82, 7.4, 0.1, 0.06, 0xff7ad9, 0.5);
     // メインの島の お店（spot.decor）は お店ごとの 内装（shop-interiors.js）。当たり判定も そこから。
-    solid = spot.decor ? furnish(spot.decor, { B, root }) : [];
-    if (!spot.decor) for (const [x, y, z, w, h, d, c] of DRESSING[spot.kind] || DRESSING.plaza) B(x, y, z, w, h, d, c);
+    tinting = true;
+    try {
+      solid = spot.decor ? furnish(spot.decor, { B, root }) : [];
+      if (!spot.decor) for (const [x, y, z, w, h, d, c] of DRESSING[spot.kind] || DRESSING.plaza) B(x, y, z, w, h, d, c);
+    } finally { tinting = false; }
     npc = person(accent, 0, COUNTER_Z - 1.5);
     npc.rotation.y = Math.PI;
     sign(`${spot.tone || spot.icon || ''} ${spot.name}`.trim(), spot.character || '', 0, 4.2, -6.9);
