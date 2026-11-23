@@ -525,7 +525,7 @@ def toc_image(toc, W, Hs):
     for i, c in enumerate(toc):
         x = 56 + (i // half) * (W // 2)
         y = 92 + (i % half) * 76
-        d.rounded_rectangle([x - 12, y - 8, x + W // 2 - 80, y + 46], radius=14, fill=(255, 255, 255, 0), outline=(120, 124, 220), width=1)
+        d.rounded_rectangle([x - 12, y - 8, x + W // 2 - 80, y + 46], radius=14, fill=(24, 22, 78), outline=(120, 124, 220), width=1)
         d.text((x, y), mmss(c["at"]), font=f_t, fill=NEON)
         d.text((x + 92, y), f"{c['n']}. {c['name']}", font=f_n, fill=(255, 255, 255))
     return im
