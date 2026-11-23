@@ -72,6 +72,60 @@ GREEN = (23, 63, 56)
 GOLD = (232, 195, 104)
 MINT = (116, 195, 154)
 
+# 異次元の デザイン（2026-11：「動画も 異次元に。デザイン」）— ゲームの ランキング・アリーナと 同じ 宇宙の 色。
+SPACE0, SPACE1, SPACE2 = (9, 12, 44), (28, 20, 92), (48, 26, 116)
+NEON, PINK, STAR = (125, 249, 255), (255, 122, 217), (255, 209, 102)
+_bg_cache = {}
+
+
+def cosmic_bg(W, H):
+    """宇宙の 地（こん〜むらさきの グラデーション・星雲の 光・星）。大きさごとに 1 回だけ 作る。"""
+    if (W, H) not in _bg_cache:
+        import numpy as np
+        from PIL import Image
+        yy, xx = np.mgrid[0:H, 0:W].astype("float32")
+        t = np.clip((xx / W) * 0.55 + (yy / H) * 0.45, 0, 1)[..., None]
+        a, b, c = (np.array(v, dtype="float32") for v in (SPACE0, SPACE1, SPACE2))
+        img = np.where(t < 0.55, a + (b - a) * (t / 0.55), b + (c - b) * ((t - 0.55) / 0.45))
+        for cx, cy, r, col, k in ((0.86, 0.02, 0.5, PINK, 0.30), (0.02, 0.98, 0.45, NEON, 0.22), (0.45, 0.4, 0.6, (122, 60, 255), 0.16)):
+            d = np.sqrt(((xx - cx * W) / (r * W)) ** 2 + ((yy - cy * H) / (r * W)) ** 2)
+            img += np.clip(1 - d, 0, 1)[..., None] ** 2 * np.array(col, dtype="float32") * k
+        rng = np.random.default_rng(7)
+        for _ in range(int(W * H / 5200)):
+            x, y = int(rng.integers(0, W)), int(rng.integers(0, H)); v = float(rng.uniform(120, 255))
+            img[y, x] = np.maximum(img[y, x], v)
+            if rng.random() < 0.18 and 0 < x < W - 1 and 0 < y < H - 1:
+                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    img[y + dy, x + dx] = np.maximum(img[y + dy, x + dx], v * 0.5)
+        _bg_cache[(W, H)] = Image.fromarray(np.clip(img, 0, 255).astype("uint8"), "RGB")
+    return _bg_cache[(W, H)].copy()
+
+
+def neon_line(d, x0, x1, y, width=3):
+    """左から 右へ 水色 → ピンクの 光の 線。"""
+    n = max(1, x1 - x0)
+    for x in range(x0, x1, 4):
+        k = (x - x0) / n
+        d.line([(x, y), (min(x1, x + 4), y)], fill=tuple(round(NEON[i] + (PINK[i] - NEON[i]) * k) for i in range(3)), width=width)
+
+
+def framed(src, W, stage_h, pad=12):
+    """写真を 宇宙の 地の まんなかに、角を まるく して ネオンの ふちで 置く（どこも 切らない）。"""
+    from PIL import Image, ImageDraw, ImageFilter
+    scale = min((W - pad * 2) / src.width, (stage_h - pad * 2) / src.height)
+    big = src.resize((round(src.width * scale), round(src.height * scale)), Image.LANCZOS)
+    x, y = (W - big.width) // 2, (stage_h - big.height) // 2
+    out = cosmic_bg(W, stage_h + 200).crop((0, 0, W, stage_h))
+    halo = Image.new("RGBA", (W, stage_h), (0, 0, 0, 0))
+    hd = ImageDraw.Draw(halo)
+    hd.rounded_rectangle([x - 5, y - 5, x + big.width + 5, y + big.height + 5], radius=20, outline=(*NEON, 190), width=7)
+    out.paste(halo.filter(ImageFilter.GaussianBlur(9)), (0, 0), halo.filter(ImageFilter.GaussianBlur(9)))
+    mask = Image.new("L", big.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, big.width - 1, big.height - 1], radius=14, fill=255)
+    out.paste(big, (x, y), mask)
+    ImageDraw.Draw(out).rounded_rectangle([x - 1, y - 1, x + big.width, y + big.height], radius=15, outline=(190, 236, 255), width=2)
+    return out
+
 
 # 台本は 2 つ：Web 版（tour-cuts.json → tour/・tour.html）と Roblox 版（tour-roblox-cuts.json → tour-roblox/・tour-roblox.html）。
 #   python3 docs/make-tour.py [all|player|full] [--script tour-roblox-cuts.json]
@@ -359,7 +413,9 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
         stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
     # 帯は毎フレーム同じなので一度だけ作る
-    band = Image.new("RGBA", (W, BAND), (*DEEP, 232))
+    # 帯：宇宙の 地を くらく した 板。上に 水色 → ピンクの 光の 線。
+    space = cosmic_bg(W, H)
+    band = Image.alpha_composite(space.crop((0, H - BAND, W, H)).convert("RGBA"), Image.new("RGBA", (W, BAND), (6, 8, 30, 150)))
     ruler = ImageDraw.Draw(Image.new("RGB", (8, 8)))
     scratch = DOCS / ".tour-frames"
     done = 0
@@ -376,10 +432,7 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
         # **写真は 動かさない**（2026-11：「上下に スライド しなくて いい・最初から 固定で 全画面」）。
         # 帯の 上に 写真の ぜんたいが 入る 大きさで、まんなかに 置く（どこも 切らない）。
         stage_h = H - BAND
-        scale = min(W / src.width, stage_h / src.height)
-        big = src.resize((round(src.width * scale), round(src.height * scale)), Image.LANCZOS)
-        still = Image.new("RGB", (W, stage_h), DEEP)
-        still.paste(big, ((W - big.width) // 2, (stage_h - big.height) // 2))
+        still = src if r.get("toc") else framed(src, W, stage_h)
         frames = r["frames"]
         # 字幕は文字数の割合で切り替える。読み上げと同じ配分なので、声と字幕がずれない。
         parts = chunks(ruler, r["text"], f_sub, W - 112)
@@ -393,7 +446,7 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
             lines = next(ln for a, b, ln in spans if a <= f < b)
             k = f / max(1, frames - 1)
             ease = 0.5 - 0.5 * math.cos(math.pi * k)       # 端で止まって見えるように
-            frame = Image.new("RGB", (W, H), DEEP)
+            frame = space.copy()
             if shots:
                 # 動いているものは、こちらで動かさない。切らずに真ん中へ置く。
                 live = Image.open(shots[min(f, len(shots) - 1)]).convert("RGB")
@@ -402,16 +455,18 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
                 frame.paste(still, (0, 0))
             frame.paste(band, (0, H - BAND), band)
             d = ImageDraw.Draw(frame)
-            d.line([(0, H - BAND), (W, H - BAND)], fill=GOLD, width=3)
-            d.text((48, H - BAND + 14), r["chapter"], font=f_chap, fill=MINT)
-            d.text((48, H - BAND + 36), r["title"], font=f_title, fill=CREAM)
+            neon_line(d, 0, W, H - BAND, 3)
+            d.polygon([(54, H - BAND + 18), (60, H - BAND + 26), (54, H - BAND + 34), (48, H - BAND + 26)], fill=STAR)   # ひし形の 星（字の ✦ は この フォントに ない）
+            d.text((68, H - BAND + 14), r["chapter"], font=f_chap, fill=NEON)
+            d.text((48, H - BAND + 36), r["title"], font=f_title, fill=(255, 255, 255))
             for n, line in enumerate(lines[:2]):
-                d.text((48, H - 92 + n * 34), line, font=f_sub, fill=(214, 226, 214))
-            # 進みぐあい
+                d.text((48, H - 92 + n * 34), line, font=f_sub, fill=(226, 224, 255))
+            # 進みぐあい（光の 線が のびて、先に 星）
             at = (r["at"] - base + f / fps) / total
-            d.rectangle([0, H - 6, W, H], fill=(255, 255, 255, 30))
-            d.rectangle([0, H - 6, int(W * at), H], fill=GOLD)
-            d.text((W - 150, H - BAND + 12), "U-Speak Lab", font=f_foot, fill=(140, 170, 155))
+            d.rectangle([0, H - 6, W, H], fill=(40, 36, 96))
+            neon_line(d, 0, max(1, int(W * at)), H - 3, 6)
+            d.ellipse([int(W * at) - 6, H - 10, int(W * at) + 6, H + 2], fill=STAR)
+            d.text((W - 150, H - BAND + 12), "U-Speak Lab", font=f_foot, fill=(170, 176, 232))
             frame.save(proc.stdin, "JPEG", quality=92, subsampling=0)
             done += 1
         print(f"    {r['title']}  ({done} frames)", end="\r")
@@ -458,18 +513,21 @@ def toc_plan(cuts):
 def toc_image(toc, W, Hs):
     """もくじの 絵（帯の 上ぜんぶ）。2 れつ。"""
     from PIL import Image, ImageDraw, ImageFont
-    im = Image.new("RGB", (W, Hs), GREEN)
+    im = cosmic_bg(W, Hs + 200).crop((0, 0, W, Hs))
     d = ImageDraw.Draw(im)
     f_h = ImageFont.truetype(FONT_BOLD, 30, index=0)
     f_t = ImageFont.truetype(FONT_BOLD, 26, index=0)
     f_n = ImageFont.truetype(FONT_REG, 26, index=0)
-    d.text((56, 30), "もくじ", font=f_h, fill=GOLD)
+    d.polygon([(66, 34), (76, 48), (66, 62), (56, 48)], fill=NEON)
+    d.text((90, 30), "もくじ", font=f_h, fill=STAR)
+    neon_line(d, 56, W - 56, 76, 2)
     half = (len(toc) + 1) // 2
     for i, c in enumerate(toc):
         x = 56 + (i // half) * (W // 2)
         y = 92 + (i % half) * 76
-        d.text((x, y), mmss(c["at"]), font=f_t, fill=MINT)
-        d.text((x + 92, y), f"{c['n']}. {c['name']}", font=f_n, fill=CREAM)
+        d.rounded_rectangle([x - 12, y - 8, x + W // 2 - 80, y + 46], radius=14, fill=(255, 255, 255, 0), outline=(120, 124, 220), width=1)
+        d.text((x, y), mmss(c["at"]), font=f_t, fill=NEON)
+        d.text((x + 92, y), f"{c['n']}. {c['name']}", font=f_n, fill=(255, 255, 255))
     return im
 
 
