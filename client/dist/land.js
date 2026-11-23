@@ -18,7 +18,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const THUMB_W = 220;
 const THUMB_H = 150;
 
-export function createLandUI({ send, toast, isOnline, world }) {
+export function createLandUI({ send, toast, isOnline, world, goOffice = null }) {
   const state = { mode: 'office', land: null, coins: 0, board: null, pick: '', confirm: false, busy: false };
   let data = null;
   const looks = new Map();          // look id -> { ...look, tier, grid }
@@ -48,7 +48,9 @@ export function createLandUI({ send, toast, isOnline, world }) {
     <div class="land-grid" id="land-grid"></div>
     <p class="land-note" id="land-note"></p>`;
   const close = () => { try { dialog.close(); } catch { /* already closed */ } };
-  $('#land-close', dialog).onclick = close;
+  // ひらいた ばかりの × は きかない：Enter で ひらくと、× に フォーカスが 入って 同じ Enter で すぐ とじて いた（2026-11）。
+  let openedAt = 0;
+  $('#land-close', dialog).onclick = () => { if (performance.now() - openedAt > 450) close(); };
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
   dialog.addEventListener('keydown', (e) => e.stopPropagation());
   dialog.addEventListener('close', () => { spinning = false; });
@@ -318,7 +320,7 @@ export function createLandUI({ send, toast, isOnline, world }) {
     if (spot.kind === 'ferry') { send('land:enter', {}); return true; }
     state.mode = spot.kind === 'board' ? 'board' : 'office';
     state.confirm = false; state.busy = false;
-    if (!dialog.open) dialog.showModal();
+    if (!dialog.open) { dialog.showModal(); openedAt = performance.now(); document.activeElement?.blur?.(); }
     render();
     send(spot.kind === 'board' ? 'land:board' : 'land:open', {});
     return true;
@@ -345,6 +347,9 @@ export function createLandUI({ send, toast, isOnline, world }) {
       'same look': tr('もう その しま だよ。'), 'no such look': tr('その しまは いま えらべない。'), 'no such child': tr('その 子は クラスに いない。'),
     }[m?.reason];
     if (said) toast(said);
+    // ⛵ で「まだ しまが ない」：小さな おしらせ だけでは 気づかれず「Enter を おしても 行けない」に なった（2026-11）。
+    // ふどうさんの 前へ つれて いって、しまを えらぶ 画面を そのまま ひらく。
+    if (m?.reason === 'no island' && !m?.name && goOffice) { state.confirm = false; goOffice(); return; }
     state.confirm = false;
     render();
   }

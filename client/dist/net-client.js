@@ -271,7 +271,15 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // the room says they bought, walked around, left from the jetty.
   const myLand = createLand({ player, camera, view, toast, onLeave: () => rpg.activate('land', true) });
   rpg.attachLand(myLand);
-  const land = createLandUI({ send: atSend, toast, isOnline: () => state.mode === 'online', world: myLand });
+  const land = createLandUI({
+    send: atSend, toast, isOnline: () => state.mode === 'online', world: myLand,
+    // じぶんの しまが まだ ない 子を、ふどうさんの 戸口へ（歩いて 入ったのと 同じ 場所）つれて いって ひらく。
+    goOffice: () => {
+      const isl = rpg.land?.data; const office = isl?.spots?.find((x) => x.id === 'office'); if (!isl || !office) return;
+      // 戸口の すぐ 前（世界を えらんだ ときと 同じ 置き方）。戸口の しくみが そのまま 画面を ひらく。
+      player.position.set(isl.x + office.x, 0, isl.z + office.z - 0.65); state.lastSent.s = ''; sendMove();
+    },
+  });
   // つり島: Roblox の釣りワールド。池・川・海の水辺に立って さおを なげる。くじは部屋。
   const fishworld = createFishworldUI({ send: atSend, toast, speak, isOnline: () => state.mode === 'online', island: rpg.fishworld });
   // Walking into the doorway is what opens both of them. There is no counter inside and
