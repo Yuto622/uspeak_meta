@@ -187,7 +187,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     onFarm: (f) => { rpg.farm?.setFarm?.(f); rpg.farm?.setTarget?.(nextFarmStep(f)?.spot || ''); },
   });
   const battle = createBattleUI({
-    send: atSend,
+    send: atSend, renderer, getPet: () => state.pet,
     speak, toast, isOnline: () => state.mode === 'online',
   });
   const dojo = createDojoUI({
@@ -1299,6 +1299,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get wallet() { return state.wallet; },
     get remotes() { return remotes; },
     get gp() { return gp; },
+    // えいごアリーナの 3D の 舞台が 島の renderer を 使って いる あいだ（game.js は 島を 描かない）。
+    get battleStage() { return { running: battle.staged }; },
     get dash() { return dash; },
     get roadmap() { return roadmap; },
     get quick() { return quick; },

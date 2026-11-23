@@ -112,3 +112,59 @@
 #mission-dialog .mission-grade::before, #battle-dialog .battle-side.foe .battle-hp i { animation: cosmic-pulse 2.4s ease-in-out infinite; }
 @keyframes cosmic-pulse { 50% { opacity: .65; } }
 @media (prefers-reduced-motion: reduce) { #mission-dialog .mission-grade::before, #battle-dialog .battle-side.foe .battle-hp i { animation: none; } #mission-dialog .mission-cards button, #battle-dialog .battle-waza button { transition: none; } }
+
+/* ---- えいごアリーナの 3D の たいせんがめん（#battle-dialog.staged・battle-stage.js）----
+   画面いっぱいの 舞台の 上に、HP の 札（上）・メッセージ（左下）・わざ（右下）だけ のせる。舞台が 描けない 端末は .staged が つかず 上の カードの 画面。 */
+#battle-stage { display: none; }
+#battle-dialog.staged { width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; background: #0b1030; box-shadow: none; overflow: hidden; }
+#battle-dialog.staged[open] { display: block; }
+#battle-dialog.staged #battle-stage { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+#battle-dialog.staged .quiz-head { position: absolute; z-index: 3; top: calc(env(safe-area-inset-top, 0px) + 10px); left: 50%; transform: translateX(-50%); padding: 6px 8px 6px 14px; gap: 10px; border: 1px solid #ffffff40; border-radius: 999px; background: #0b1030cc; }
+#battle-dialog.staged .quiz-head > div:first-child { display: none; }
+#battle-dialog.staged #battle-turn { margin: 0; }
+#battle-dialog.staged #battle-body { position: absolute; inset: 0; padding: 0; overflow: visible; pointer-events: none; }
+#battle-dialog.staged #battle-body > * { pointer-events: auto; }
+#battle-dialog.staged .battle-name span { white-space: nowrap; }
+#battle-dialog.staged .battle-side { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); width: min(360px, 36vw); margin: 0; padding: 10px 14px; background: #0b1030d9; }
+#battle-dialog.staged .battle-side.foe { right: calc(env(safe-area-inset-right, 0px) + 14px); }
+#battle-dialog.staged .battle-side.you { left: calc(env(safe-area-inset-left, 0px) + 14px); }
+/* メッセージ：左下に 大きな 白い 字（ふちどり）。1 つの できごとが 1 行。 */
+#battle-dialog.staged .battle-events { position: absolute; left: calc(env(safe-area-inset-left, 0px) + 4vw); bottom: calc(env(safe-area-inset-bottom, 0px) + 5vh); width: min(46vw, 640px); margin: 0; padding: 0; border: 0; background: none;
+  color: #fff; font-size: clamp(17px, 2.5vw, 30px); font-weight: 800; line-height: 1.5; letter-spacing: .04em; text-shadow: 0 2px 0 #0b1030, 0 0 8px #0b1030, 2px 0 0 #0b1030, -2px 0 0 #0b1030, 0 -2px 0 #0b1030; pointer-events: none; }
+#battle-dialog.staged .battle-events span { display: block; }
+#battle-dialog.staged .battle-events i { display: none; }
+#battle-dialog.staged .battle-hint { display: none; }
+#battle-dialog.staged .battle-waza { position: absolute; right: calc(env(safe-area-inset-right, 0px) + 14px); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); width: min(44vw, 520px); }
+#battle-dialog.staged .battle-waza button { background: #0b1030e0; }
+#battle-dialog.staged .quiz-actions { position: absolute; left: calc(env(safe-area-inset-left, 0px) + 14px); top: calc(env(safe-area-inset-top, 0px) + 92px); margin: 0; }
+#battle-dialog.staged .quiz-actions button { background: #0b1030cc; }
+/* もんだい：右がわの 列（上＝もんだい・下＝こたえ）。 */
+#battle-dialog.staged .battle-quiz { position: absolute; right: calc(env(safe-area-inset-right, 0px) + 14px); top: calc(env(safe-area-inset-top, 0px) + 100px); width: min(34vw, 400px); padding: 10px 14px; margin: 0; background: #0b1030e6; }
+#battle-dialog.staged .battle-choices { position: absolute; right: calc(env(safe-area-inset-right, 0px) + 14px); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); width: min(44vw, 520px); }
+#battle-dialog.staged .battle-choices button { background: #0b1030e6; }
+/* おわり：まんなかの カード。 */
+#battle-dialog.staged .quiz-done { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(420px, calc(100vw - 28px)); padding: 22px 20px; border-radius: 22px; border: 1px solid #ffffff40; background: #0b1030e6; }
+#battle-dialog.staged .quiz-done .quiz-actions { position: static; }
+#battle-dialog.staged .quiz-done strong { font-size: 34px; }
+/* せまい 画面（スマホの よこ）：字と 札を つめる。 */
+@media (max-height: 520px) {
+  #battle-dialog.staged .battle-side { padding: 6px 10px; }
+  #battle-dialog.staged .battle-name strong { font-size: 13px; }
+  #battle-dialog.staged .battle-hp { height: 12px; }
+  #battle-dialog.staged .battle-waza button { padding: 9px 10px 9px 50px; }
+  #battle-dialog.staged .battle-waza button strong { font-size: 14px; }
+  #battle-dialog.staged .quiz-actions { top: calc(env(safe-area-inset-top, 0px) + 66px); }
+  #battle-dialog.staged .battle-quiz { top: calc(env(safe-area-inset-top, 0px) + 74px); padding: 8px 12px; }
+  #battle-dialog.staged .battle-quiz p { font-size: 18px; margin: 4px 0; }
+  #battle-dialog.staged .battle-quiz > button { display: none; }
+  #battle-dialog.staged .battle-choices { gap: 5px; }
+  #battle-dialog.staged .battle-choices button { padding: 7px 10px; font-size: 14px; }
+}
+/* たてに 長い 画面：わざは 下いっぱい、メッセージは その 上。 */
+@media (max-width: 700px) and (orientation: portrait) {
+  #battle-dialog.staged .battle-side { width: 44vw; top: calc(env(safe-area-inset-top, 0px) + 60px); }
+  #battle-dialog.staged .battle-waza, #battle-dialog.staged .battle-choices { left: 12px; right: 12px; width: auto; }
+  #battle-dialog.staged .battle-events { left: 14px; width: calc(100vw - 28px); bottom: calc(env(safe-area-inset-bottom, 0px) + 250px); font-size: 17px; }
+  #battle-dialog.staged .battle-quiz { left: 12px; right: 12px; width: auto; top: calc(env(safe-area-inset-top, 0px) + 150px); }
+  #battle-dialog.staged .quiz-actions { top: calc(env(safe-area-inset-top, 0px) + 140px); }
+}

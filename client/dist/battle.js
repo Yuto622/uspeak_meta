@@ -3,10 +3,14 @@
 // Renders HP, the four moves, and the question a strong move asks. It never computes
 // damage and never knows the answer; both arrive from the server, the answer only after
 // the child has committed.
+import { createBattleStage } from './battle-stage.js';
+
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export function createBattleUI({ send, speak, toast, isOnline }) {
+// renderer（島の WebGLRenderer）が あれば 3D の たいせんがめん（battle-stage.js）。なければ いままでの カードの 画面。
+export function createBattleUI({ send, speak, toast, isOnline, renderer = null, getPet = () => null }) {
+  const stage = renderer ? createBattleStage({ renderer }) : null;
   let state = null;      // the last battle:state / battle:turn payload
   let quiz = null;       // a pending question
   let busy = false;
@@ -15,7 +19,7 @@ export function createBattleUI({ send, speak, toast, isOnline }) {
   const dialog = document.createElement('dialog');
   dialog.id = 'battle-dialog';
   dialog.setAttribute('aria-labelledby', 'battle-title');
-  dialog.innerHTML = `<div class="quiz-head">
+  dialog.innerHTML = `<canvas id="battle-stage" aria-hidden="true"></canvas><div class="quiz-head">
       <div><span class="eyebrow">WORD ARENA</span><h2 id="battle-title">えいごアリーナ</h2></div>
       <span id="battle-turn"></span>
       <button type="button" id="battle-close" aria-label="閉じる">×</button>
@@ -23,9 +27,28 @@ export function createBattleUI({ send, speak, toast, isOnline }) {
   document.body.append(dialog);
   const body = () => $('#battle-body', dialog);
 
-  function open() { if (!dialog.open) dialog.showModal(); }
+  function open() {
+    if (dialog.open) return;
+    dialog.showModal();
+    // 3D の 舞台。描けない 端末では class が つかず、カードの 画面の まま。
+    const staged = !!stage && stage.start($('#battle-stage', dialog), { pet: getPet()?.species || '' });
+    dialog.classList.toggle('staged', staged);
+  }
   function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
-  function close() { stopTimer(); state = null; quiz = null; busy = false; dialog.close(); }
+  function close() { stopTimer(); stage?.stop(); state = null; quiz = null; busy = false; if (dialog.open) dialog.close(); }
+  // 部屋の できごとを 舞台の うごきに（見せるだけ。数字は 部屋の もの）。
+  function act(events = []) {
+    let delay = 0;
+    for (const e of events) {
+      if (e.who === 'you' && e.fizzled) stage?.play('fizzle', 'you', delay);
+      else if (e.who === 'you' && e.heal) stage?.play('heal', 'you', delay);
+      else if (e.who === 'you') stage?.play('attack', 'you', delay);
+      else if (e.missed) stage?.play('miss', 'foe', delay);
+      else stage?.play('attack', 'foe', delay);
+      delay += .9;
+    }
+    return delay;
+  }
 
   const bar = (who, label, hp, max) => `<div class="battle-side ${who}">
       <div class="battle-name"><strong>${esc(label)}</strong><span>${hp} / ${max}</span></div>
@@ -63,7 +86,7 @@ export function createBattleUI({ send, speak, toast, isOnline }) {
       if (e.who === 'you') return `${esc(state.waza.find((w) => w.id === e.waza)?.name || '')}！ ${e.damage} ダメージ`;
       if (e.missed) return 'あいての こうげきは 外れた！';
       return `あいての こうげき！ ${e.damage} ダメージ`;
-    }).join('　→　')}</p>`;
+    }).map((t) => `<span>${t}</span>`).join('<i aria-hidden="true">　→　</i>')}</p>`;
   }
 
   function renderQuiz() {
@@ -117,6 +140,7 @@ export function createBattleUI({ send, speak, toast, isOnline }) {
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); send('battle:quit', {}); close(); });
 
   return {
+    get staged() { return !!stage?.running; },
     label(spot) {
       if (spot.kind === 'pvp') return `${spot.tone} ${spot.name}（じゅんび中）`;
       return `${spot.tone} ${spot.name} で バトル`;
@@ -127,14 +151,15 @@ export function createBattleUI({ send, speak, toast, isOnline }) {
       if (!isOnline()) { toast('アリーナは クラスに入っているときだけ 遊べます。'); return; }
       send('battle:start', { stand: spot.id });
     },
-    onState(m) { state = m; quiz = null; busy = false; open(); renderMoves(); },
+    onState(m) { state = m; quiz = null; busy = false; open(); stage?.reset(); renderMoves(); },
     onQuiz(m) { quiz = m; busy = false; renderQuiz(); },
     onTurn(m) {
       state = { ...state, ...m };
       state.stand = state.stand || m.stand;
       quiz = null;
       busy = false;
-      if (m.over) { renderEnd({ ...m, stand: state.stand }); return; }
+      const took = act(m.events);
+      if (m.over) { stage?.end(!!m.won, took); renderEnd({ ...m, stand: state.stand }); return; }
       renderMoves(m.events);
     },
     onClosed() { close(); },

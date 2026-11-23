@@ -154,7 +154,7 @@ const clock=new THREE.Clock(),target=new THREE.Vector3(),desired=new THREE.Vecto
 // 島の音（風・鳥・虫・BGM）もここでしまう。あちらにはあちらの音があるので、
 // 重ねると教室では ただうるさいだけになる。
 const fullscreen=!!(net.gp?.running||net.arcadeOpen());ambience.setBusy(fullscreen);if(fullscreen)stick.release();
-if(fullscreen){clock.getDelta();return}if(net.main?.isOpen){clock.getDelta();stick.release();return}let dx=0,dz=0,push=1;const menus=document.querySelector('dialog[open]')||document.body.dataset.call==='full'||document.body.dataset.classPause==='1'||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy||!!rpg.fishworld?.casting;
+if(fullscreen){clock.getDelta();return}/* えいごアリーナの 3D の 舞台が 同じ renderer に 描いて いる あいだは 島を 描かない（音は そのまま） */if(net.battleStage?.running){clock.getDelta();stick.release();return}if(net.main?.isOpen){clock.getDelta();stick.release();return}let dx=0,dz=0,push=1;const menus=document.querySelector('dialog[open]')||document.body.dataset.call==='full'||document.body.dataset.classPause==='1'||park.state.busy||avatars.isOpen||fishing.isOpen||fishing.state.busy||rpg.isOpen||rpg.state.busy||!!rpg.fishworld?.casting;
 // のりもの島のレース中は歩かない：W はアクセル、A/D はハンドル、スペースはドリフト。
 // 操作の中身は kart.js、当たり判定と速度はいつもと同じものを渡している。
 if(net.race?.driving){net.race.drive(dt,menus?new Set():keys,blocked,net.speed());net.race.update(dt);player.position.y=0}
