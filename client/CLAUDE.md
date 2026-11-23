@@ -655,6 +655,10 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - 判定データ（`*-data.js`, `lesson-data.js`, `adventure-quiz.js`, `phrases.json`）はサーバーも import する。
   これらのファイルの形を変えるときは `server/test` を実行すること。
 
+## 異次元 UI（`cosmic-panels.css`／2026-11）
+- おつかいクエスト（`#mission-dialog`）と えいごアリーナ（`#battle-dialog`）を 宇宙の 見た目に（紺〜むらさきの 地・星・ネオンの 小見出し・光る カード・グラデーションの HP）。**色と 形だけの 上書き**で、`mission.css`・`battle.css`・JS は そのまま（もとに もどすなら index.html の 1 行を 外す）。
+- 重く しない：backdrop-filter・filter・画面いっぱいの 動く もの は 使わない。動くのは 小さな 光だけ（`prefers-reduced-motion` で 止まる）。字は 11px 以上。ほかの 画面に ひろげる ときは 同じ 変数（`--c-*`）で セレクターを 足す。
+
 ## おつかい島（2026-09 追加）
 
 `errand-data.js`（missions.json の共有ローダー）/ `errand-island.js`（島の地形・お店・住人・
