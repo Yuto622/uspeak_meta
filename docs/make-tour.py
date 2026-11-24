@@ -73,8 +73,9 @@ GOLD = (232, 195, 104)
 MINT = (116, 195, 154)
 
 # 異次元の デザイン（2026-11：「動画も 異次元に。デザイン」）— ゲームの ランキング・アリーナと 同じ 宇宙の 色。
-SPACE0, SPACE1, SPACE2 = (9, 12, 44), (28, 20, 92), (48, 26, 116)
-NEON, PINK, STAR = (125, 249, 255), (255, 122, 217), (255, 209, 102)
+# 色は U-Speak の ブランド（深緑・オレンジ・クリーム。2026-11 に むらさきから かえた）。形（星・光の 線）は 宇宙の まま。
+SPACE0, SPACE1, SPACE2 = (8, 22, 15), (18, 53, 40), (27, 58, 47)
+NEON, PINK, STAR = (255, 176, 102), (143, 240, 200), (255, 209, 102)
 _bg_cache = {}
 
 
@@ -87,7 +88,7 @@ def cosmic_bg(W, H):
         t = np.clip((xx / W) * 0.55 + (yy / H) * 0.45, 0, 1)[..., None]
         a, b, c = (np.array(v, dtype="float32") for v in (SPACE0, SPACE1, SPACE2))
         img = np.where(t < 0.55, a + (b - a) * (t / 0.55), b + (c - b) * ((t - 0.55) / 0.45))
-        for cx, cy, r, col, k in ((0.86, 0.02, 0.5, PINK, 0.30), (0.02, 0.98, 0.45, NEON, 0.22), (0.45, 0.4, 0.6, (122, 60, 255), 0.16)):
+        for cx, cy, r, col, k in ((0.86, 0.02, 0.5, (226, 122, 45), 0.26), (0.02, 0.98, 0.45, (47, 143, 106), 0.30), (0.45, 0.4, 0.6, (60, 122, 90), 0.14)):
             d = np.sqrt(((xx - cx * W) / (r * W)) ** 2 + ((yy - cy * H) / (r * W)) ** 2)
             img += np.clip(1 - d, 0, 1)[..., None] ** 2 * np.array(col, dtype="float32") * k
         rng = np.random.default_rng(7)
@@ -123,7 +124,7 @@ def framed(src, W, stage_h, pad=12):
     mask = Image.new("L", big.size, 0)
     ImageDraw.Draw(mask).rounded_rectangle([0, 0, big.width - 1, big.height - 1], radius=14, fill=255)
     out.paste(big, (x, y), mask)
-    ImageDraw.Draw(out).rounded_rectangle([x - 1, y - 1, x + big.width, y + big.height], radius=15, outline=(190, 236, 255), width=2)
+    ImageDraw.Draw(out).rounded_rectangle([x - 1, y - 1, x + big.width, y + big.height], radius=15, outline=(255, 214, 170), width=2)
     return out
 
 
@@ -415,7 +416,7 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
     # 帯は毎フレーム同じなので一度だけ作る
     # 帯：宇宙の 地を くらく した 板。上に 水色 → ピンクの 光の 線。
     space = cosmic_bg(W, H)
-    band = Image.alpha_composite(space.crop((0, H - BAND, W, H)).convert("RGBA"), Image.new("RGBA", (W, BAND), (6, 8, 30, 150)))
+    band = Image.alpha_composite(space.crop((0, H - BAND, W, H)).convert("RGBA"), Image.new("RGBA", (W, BAND), (5, 16, 11, 150)))
     ruler = ImageDraw.Draw(Image.new("RGB", (8, 8)))
     scratch = DOCS / ".tour-frames"
     done = 0
@@ -460,13 +461,13 @@ def build_video(rows, total, out_path, fps=FPS, size=(1280, 720)):
             d.text((68, H - BAND + 14), r["chapter"], font=f_chap, fill=NEON)
             d.text((48, H - BAND + 36), r["title"], font=f_title, fill=(255, 255, 255))
             for n, line in enumerate(lines[:2]):
-                d.text((48, H - 92 + n * 34), line, font=f_sub, fill=(226, 224, 255))
+                d.text((48, H - 92 + n * 34), line, font=f_sub, fill=(255, 244, 214))
             # 進みぐあい（光の 線が のびて、先に 星）
             at = (r["at"] - base + f / fps) / total
-            d.rectangle([0, H - 6, W, H], fill=(40, 36, 96))
+            d.rectangle([0, H - 6, W, H], fill=(22, 63, 49))
             neon_line(d, 0, max(1, int(W * at)), H - 3, 6)
             d.ellipse([int(W * at) - 6, H - 10, int(W * at) + 6, H + 2], fill=STAR)
-            d.text((W - 150, H - BAND + 12), "U-Speak Lab", font=f_foot, fill=(170, 176, 232))
+            d.text((W - 150, H - BAND + 12), "U-Speak Lab", font=f_foot, fill=(207, 232, 216))
             frame.save(proc.stdin, "JPEG", quality=92, subsampling=0)
             done += 1
         print(f"    {r['title']}  ({done} frames)", end="\r")
@@ -525,7 +526,7 @@ def toc_image(toc, W, Hs):
     for i, c in enumerate(toc):
         x = 56 + (i // half) * (W // 2)
         y = 92 + (i % half) * 76
-        d.rounded_rectangle([x - 12, y - 8, x + W // 2 - 80, y + 46], radius=14, fill=(24, 22, 78), outline=(120, 124, 220), width=1)
+        d.rounded_rectangle([x - 12, y - 8, x + W // 2 - 80, y + 46], radius=14, fill=(18, 53, 40), outline=(95, 154, 128), width=1)
         d.text((x, y), mmss(c["at"]), font=f_t, fill=NEON)
         d.text((x + 92, y), f"{c['n']}. {c['name']}", font=f_n, fill=(255, 255, 255))
     return im

@@ -19,7 +19,7 @@ export function createPlaza({ player, camera, view, send, toast, speak, learn, o
   // 異次元の ひろば：宇宙に うかぶ ネオンの 台。子どもが 置いた ブロックの 色は そのまま。
   scene.background = new THREE.Color(SPACE_BG);
   addStars(scene);
-  scene.add(new THREE.HemisphereLight(0xe6eaff, 0x4a3a8e, 2.0));
+  scene.add(new THREE.HemisphereLight(0xfff6e8, 0x2f6b55, 2.0));
   const sun = new THREE.DirectionalLight(0xfff0d0, 1.5);
   sun.position.set(6, 14, 8);
   scene.add(sun);
@@ -74,14 +74,14 @@ export function createPlaza({ player, camera, view, send, toast, speak, learn, o
   function buildShell(area) {
     shell.clear();
     const half = area.grid / 2;
-    floor = new THREE.Mesh(new THREE.BoxGeometry(area.grid + 4, 0.4, area.grid + 4), mat(0x5fc8d8, 0.16));
+    floor = new THREE.Mesh(new THREE.BoxGeometry(area.grid + 4, 0.4, area.grid + 4), mat(0xe0a060, 0.16));
     floor.position.y = -0.2;
     floor.receiveShadow = true;
     shell.add(floor);
     // The buildable squares, marked out on the grass so a child can see the lot.
     for (let x = -half + 1; x < half; x += 1) {
       for (let z = -half + 1; z < half; z += 1) {
-        const tile = new THREE.Mesh(geo, mat((x + z) % 2 ? 0x1a1c4a : 0x24285e, 0.06));
+        const tile = new THREE.Mesh(geo, mat((x + z) % 2 ? 0x143528 : 0x1b4a39, 0.06));
         tile.position.set(x, 0.006, z);
         tile.scale.set(0.96, 0.02, 0.96);
         shell.add(tile);
@@ -90,7 +90,7 @@ export function createPlaza({ player, camera, view, send, toast, speak, learn, o
     // A fence, so the lot has an edge without having a ceiling. The gap is the way out.
     for (const [ax, az] of [[1, 0], [-1, 0], [0, -1]]) {
       for (let i = -half; i <= half; i += 1) {
-        const post = new THREE.Mesh(geo, mat(0xff7ad9, 0.45));
+        const post = new THREE.Mesh(geo, mat(0x8ff0c8, 0.45));
         post.position.set(ax ? ax * half : i, 0.6, az ? az * half : i);
         post.scale.set(0.22, 1.2, 0.22);
         post.castShadow = true;
@@ -99,7 +99,7 @@ export function createPlaza({ player, camera, view, send, toast, speak, learn, o
     }
     for (const side of [-1, 1]) {
       for (let i = 2; i <= half; i += 1) {
-        const post = new THREE.Mesh(geo, mat(0xff7ad9, 0.45));
+        const post = new THREE.Mesh(geo, mat(0x8ff0c8, 0.45));
         post.position.set(side * i, 0.6, half);
         post.scale.set(0.22, 1.2, 0.22);
         shell.add(post);
@@ -107,12 +107,12 @@ export function createPlaza({ player, camera, view, send, toast, speak, learn, o
     }
     // The gateway, straight ahead as a child arrives, so the way out is never hunted for.
     for (const side of [-1.6, 1.6]) {
-      const pillar = new THREE.Mesh(geo, mat(0x7df9ff, 0.5));
+      const pillar = new THREE.Mesh(geo, mat(0xffb066, 0.5));
       pillar.position.set(side, 1.4, half);
       pillar.scale.set(0.5, 2.8, 0.5);
       shell.add(pillar);
     }
-    const arch = new THREE.Mesh(geo, mat(0x7df9ff, 0.5));
+    const arch = new THREE.Mesh(geo, mat(0xffb066, 0.5));
     arch.position.set(0, 2.9, half);
     arch.scale.set(3.8, 0.5, 0.5);
     shell.add(arch);
@@ -304,11 +304,11 @@ export function createPlaza({ player, camera, view, send, toast, speak, learn, o
     const half = state.room.grid / 2;
     const scale = 120 / state.room.grid;
     ctx.clearRect(0, 0, 180, 140);
-    ctx.fillStyle = '#070a24';
+    ctx.fillStyle = '#08160f';
     ctx.fillRect(0, 0, 180, 140);
-    ctx.fillStyle = '#1c1f5c';
+    ctx.fillStyle = '#163f31';
     ctx.fillRect(90 - half * scale, 70 - half * scale, state.room.grid * scale, state.room.grid * scale);
-    ctx.fillStyle = '#7df9ff';
+    ctx.fillStyle = '#ffb066';
     for (const k of state.cells.keys()) {
       const [x, y, z] = k.split(',').map(Number);
       if (y) continue;

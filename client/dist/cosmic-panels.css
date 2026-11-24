@@ -1,24 +1,24 @@
 /* 異次元 UI（2026-11）— おつかいクエスト（#mission-dialog）と えいごアリーナ（#battle-dialog）を、ランキング・ロードマップと 同じ
-   「宇宙」の 見た目に。**色と 形だけ**（中身・ボタンの id・class は mission.js / battle.js の まま）。
+   「宇宙」の 見た目に。**色は U-Speak の ブランド**（深緑・オレンジ・クリーム。2026-11 に むらさきから かえた）。**色と 形だけ**（中身・ボタンの id・class は mission.js / battle.js の まま）。
    重く しない きまり：backdrop-filter・filter・画面いっぱいの 動く もの は 使わない。動くのは 小さな 光（opacity / transform）だけ。 */
 #mission-dialog, #battle-dialog {
-  --c-bg0: #0b1030; --c-bg1: #1a1456; --c-bg2: #2a1a6e; --c-ink: #f3f1ff; --c-soft: #b9b6e6; --c-line: #ffffff24;
-  --c-card: #ffffff12; --c-card2: #ffffff1c; --c-glow: #7df9ff; --c-pink: #ff7ad9; --c-gold: #ffd166; --c-green: #6ef0a8;
-  color: var(--c-ink); border: 1px solid #8f8cff66; border-radius: 26px;
+  --c-bg0: #11251d; --c-bg1: #1f4334; --c-bg2: #275642; --c-ink: #fff9f1; --c-soft: #e6d1b6; --c-line: #ffffff24;
+  --c-card: #ffffff12; --c-card2: #ffffff1c; --c-glow: #ffba7d; --c-pink: #87f2c5; --c-gold: #ffd166; --c-green: #6ef0a8;
+  color: var(--c-ink); border: 1px solid #ffcd8c66; border-radius: 26px;
   background:
     radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 78% 12%, #fff 50%, transparent 51%),
     radial-gradient(1px 1px at 34% 72%, #cfe 50%, transparent 51%), radial-gradient(1.5px 1.5px at 88% 64%, #fff 50%, transparent 51%),
     radial-gradient(1px 1px at 58% 38%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 6% 88%, #fff 50%, transparent 51%),
-    radial-gradient(60% 45% at 85% 0%, #ff7ad933, transparent 70%), radial-gradient(55% 40% at 0% 100%, #7df9ff2b, transparent 70%),
+    radial-gradient(60% 45% at 85% 0%, #87f2c533, transparent 70%), radial-gradient(55% 40% at 0% 100%, #ffba7d2b, transparent 70%),
     linear-gradient(160deg, var(--c-bg0), var(--c-bg1) 55%, var(--c-bg2));
-  box-shadow: 0 0 0 1px #ffffff14 inset, 0 30px 80px #05061acc;
+  box-shadow: 0 0 0 1px #ffffff14 inset, 0 30px 80px #08140fcc;
 }
-#mission-dialog::backdrop, #battle-dialog::backdrop { background: #05061ab8; backdrop-filter: none; }
+#mission-dialog::backdrop, #battle-dialog::backdrop { background: #08140fb8; backdrop-filter: none; }
 
 /* 頭：ネオンの 小見出し・虹の 題名・光る ×。 */
-#mission-dialog .mission-head, #battle-dialog .quiz-head { border-bottom: 1px solid var(--c-line); background: linear-gradient(90deg, #7df9ff14, #ff7ad914); }
+#mission-dialog .mission-head, #battle-dialog .quiz-head { border-bottom: 1px solid var(--c-line); background: linear-gradient(90deg, #ffba7d14, #87f2c514); }
 #mission-dialog .eyebrow, #battle-dialog .eyebrow { color: var(--c-glow); letter-spacing: .28em; font-size: 11px; }
-#mission-dialog h2, #battle-dialog h2 { color: var(--c-ink); background: linear-gradient(90deg, #fff, #9fe8ff 45%, #ffb3ec); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+#mission-dialog h2, #battle-dialog h2 { color: var(--c-ink); background: linear-gradient(90deg, #fff, #ffcc9f 45%, #bbf7de); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 #mission-dialog .mission-head button, #battle-dialog .quiz-head button { background: #ffffff1f; color: var(--c-ink); border: 1px solid #ffffff3d; }
 #battle-dialog #battle-turn { color: var(--c-gold); font-size: 13px; padding: 4px 10px; border-radius: 999px; background: #ffd1661f; border: 1px solid #ffd16655; }
 
@@ -26,9 +26,9 @@
 #mission-dialog .mission-lead { color: var(--c-soft); font-size: 14px; line-height: 1.7; }
 #mission-dialog .mission-lead b { color: var(--c-glow); }
 #mission-dialog .mission-warn { background: #ff9f6b26; color: #ffd9c2; border: 1px solid #ff9f6b66; }
-#mission-dialog .mission-featured { background: linear-gradient(120deg, #3b2ea8, #7a2fb0); border: 1px solid #ffffff3d; color: #fff; }
+#mission-dialog .mission-featured { background: linear-gradient(120deg, #418468, #b0782f); border: 1px solid #ffffff3d; color: #fff; }
 #mission-dialog .mission-grade { display: inline-flex; align-items: center; gap: 8px; margin: 18px 0 10px; padding: 4px 14px; border-radius: 999px; font-size: 13px; letter-spacing: .12em; font-weight: 800;
-  color: #0b1030; background: linear-gradient(90deg, var(--c-glow), #a6b4ff); }
+  color: #11251d; background: linear-gradient(90deg, var(--c-glow), #ffd8a6); }
 #mission-dialog .mission-grade::before { content: "✦"; }
 #mission-dialog .mission-cards { gap: 10px; }
 #mission-dialog .mission-cards button { position: relative; padding: 14px 14px 12px 46px; border-radius: 16px; color: var(--c-ink); background: linear-gradient(140deg, var(--c-card2), var(--c-card)); border: 1px solid var(--c-line); transition: transform .12s, border-color .12s; }
@@ -53,28 +53,28 @@
 #mission-dialog .mission-goals li.met span { background: var(--c-green); color: #0b3a22; }
 #mission-dialog .mission-hint { background: #ffd16622; color: #ffe9b0; border: 1px solid #ffd16655; }
 #mission-dialog .mission-input label, #mission-dialog #mission-status { color: var(--c-soft); }
-#mission-dialog .mission-row input { background: #0b1030; color: #fff; border-color: #8f8cff88; }
+#mission-dialog .mission-row input { background: #11251d; color: #fff; border-color: #ffcd8c88; }
 #mission-dialog .mission-row input:focus { border-color: var(--c-glow); }
 #mission-dialog .mission-row button, #mission-dialog .mission-actions button { background: #ffffff1f; color: var(--c-ink); border: 1px solid #ffffff33; }
 #mission-dialog .mission-row button.primary, #mission-dialog .mission-actions button.primary, #mission-dialog .mission-featured button {
-  background: linear-gradient(90deg, #7df9ff, #a6b4ff); color: #0b1030; border: 0; font-weight: 800; }
-#mission-dialog .mission-done { background: linear-gradient(140deg, #6ef0a833, #7df9ff1f); border: 1px solid #6ef0a880; }
+  background: linear-gradient(90deg, #ffba7d, #ffd8a6); color: #11251d; border: 0; font-weight: 800; }
+#mission-dialog .mission-done { background: linear-gradient(140deg, #6ef0a833, #ffba7d1f); border: 1px solid #6ef0a880; }
 #mission-dialog .mission-done strong { color: #fff; }
 #mission-dialog .mission-done span { color: #d8ffe9; }
 
 /* ---- えいごアリーナ ---- */
 #battle-dialog .battle-side { padding: 12px 14px; border-radius: 16px; background: var(--c-card); border: 1px solid var(--c-line); }
-#battle-dialog .battle-side.foe { border-color: #ff7ad966; background: linear-gradient(140deg, #ff7ad91f, #ffffff0d); }
+#battle-dialog .battle-side.foe { border-color: #87f2c566; background: linear-gradient(140deg, #87f2c51f, #ffffff0d); }
 #battle-dialog .battle-side:not(.foe) { border-color: #6ef0a866; background: linear-gradient(140deg, #6ef0a81f, #ffffff0d); }
 #battle-dialog .battle-name { font-size: 14px; }
 #battle-dialog .battle-name strong { font-size: 16px; color: #fff; }
 #battle-dialog .battle-side.foe .battle-name strong::before { content: "👾 "; }
 #battle-dialog .battle-side:not(.foe) .battle-name strong::before { content: "🚀 "; }
 #battle-dialog .battle-name span { color: var(--c-gold); font-variant-numeric: tabular-nums; }
-#battle-dialog .battle-hp { height: 16px; border-radius: 999px; background: #05061a; border: 1px solid #ffffff2e; }
-#battle-dialog .battle-hp i { border-radius: 999px; background: linear-gradient(90deg, #2de38a, #7df9ff); }
-#battle-dialog .battle-side.foe .battle-hp i { background: linear-gradient(90deg, #ff5fa2, #ffb347); }
-#battle-dialog .battle-events { background: #05061a99; color: #eaf6ff; border: 1px dashed #7df9ff66; font-size: 14px; }
+#battle-dialog .battle-hp { height: 16px; border-radius: 999px; background: #08140f; border: 1px solid #ffffff2e; }
+#battle-dialog .battle-hp i { border-radius: 999px; background: linear-gradient(90deg, #2de38a, #ffba7d); }
+#battle-dialog .battle-side.foe .battle-hp i { background: linear-gradient(90deg, #6fefba, #ffb347); }
+#battle-dialog .battle-events { background: #08140f99; color: #fff6ea; border: 1px dashed #ffba7d66; font-size: 14px; }
 #battle-dialog .battle-hint { color: var(--c-soft); font-size: 13px; }
 #battle-dialog .battle-waza { gap: 10px; }
 #battle-dialog .battle-waza button { position: relative; padding: 16px 14px 14px 58px; border-radius: 18px; color: var(--c-ink); border: 1px solid var(--c-line); background: linear-gradient(140deg, var(--c-card2), var(--c-card)); transition: transform .12s, border-color .12s; }
@@ -83,30 +83,30 @@
 #battle-dialog .battle-waza button:nth-child(2)::before { content: "🔫"; }
 #battle-dialog .battle-waza button:nth-child(3)::before { content: "💥"; }
 #battle-dialog .battle-waza button:nth-child(4)::before { content: "💚"; }
-#battle-dialog .battle-waza button:nth-child(1) { border-color: #a6b4ff88; }
-#battle-dialog .battle-waza button:nth-child(2) { border-color: #7df9ff88; }
-#battle-dialog .battle-waza button:nth-child(3) { border-color: #ff7ad988; }
+#battle-dialog .battle-waza button:nth-child(1) { border-color: #ffd8a688; }
+#battle-dialog .battle-waza button:nth-child(2) { border-color: #ffba7d88; }
+#battle-dialog .battle-waza button:nth-child(3) { border-color: #87f2c588; }
 #battle-dialog .battle-waza button:nth-child(4) { border-color: #6ef0a888; }
 #battle-dialog .battle-waza button strong { font-size: 16px; color: #fff; }
 #battle-dialog .battle-waza button small { font-size: 12px; color: var(--c-soft); }
 #battle-dialog .battle-waza button:hover, #battle-dialog .battle-waza button:focus-visible { transform: translateY(-2px); border-color: #fff; outline: 0; }
 #battle-dialog .battle-waza button:active { background: #ffffff2e; transform: none; }
-#battle-dialog .battle-quiz { background: linear-gradient(140deg, #ffffff24, #ffffff12); border: 1px solid #7df9ff66; }
+#battle-dialog .battle-quiz { background: linear-gradient(140deg, #ffffff24, #ffffff12); border: 1px solid #ffba7d66; }
 #battle-dialog .battle-quiz small { color: var(--c-glow); font-size: 12px; }
 #battle-dialog .battle-quiz p { color: #fff; }
 #battle-dialog .battle-quiz > button { background: #ffffff24; color: var(--c-ink); border: 1px solid #ffffff33; }
-#battle-dialog .battle-clock { background: #05061a; border: 1px solid #ffffff2e; height: 8px; }
-#battle-dialog .battle-clock i { background: linear-gradient(90deg, var(--c-gold), #ff7ad9); }
+#battle-dialog .battle-clock { background: #08140f; border: 1px solid #ffffff2e; height: 8px; }
+#battle-dialog .battle-clock i { background: linear-gradient(90deg, var(--c-gold), #87f2c5); }
 #battle-dialog #battle-left { color: var(--c-gold); }
 #battle-dialog .battle-choices button { color: var(--c-ink); background: linear-gradient(140deg, var(--c-card2), var(--c-card)); border: 1px solid var(--c-line); }
-#battle-dialog .battle-choices button b { background: linear-gradient(90deg, #7df9ff, #a6b4ff); color: #0b1030; }
+#battle-dialog .battle-choices button b { background: linear-gradient(90deg, #ffba7d, #ffd8a6); color: #11251d; }
 #battle-dialog .battle-choices button:hover, #battle-dialog .battle-choices button:focus-visible { border-color: var(--c-glow); outline: 0; }
 #battle-dialog .battle-choices button:active { background: #ffffff2e; }
 #battle-dialog .battle-capped { background: #ffd16622; color: #ffe9b0; border: 1px solid #ffd16655; }
 #battle-dialog .quiz-done strong { color: #fff; }
 #battle-dialog .quiz-done p { color: var(--c-soft); }
 #battle-dialog .quiz-actions button { background: #ffffff1f; color: var(--c-ink); border: 1px solid #ffffff33; }
-#battle-dialog .quiz-actions button.primary { background: linear-gradient(90deg, #7df9ff, #a6b4ff); color: #0b1030; border: 0; font-weight: 800; }
+#battle-dialog .quiz-actions button.primary { background: linear-gradient(90deg, #ffba7d, #ffd8a6); color: #11251d; border: 0; font-weight: 800; }
 
 /* 小さな 光（動くのは これだけ）。うごきを へらす 設定では 止める。 */
 #mission-dialog .mission-grade::before, #battle-dialog .battle-side.foe .battle-hp i { animation: cosmic-pulse 2.4s ease-in-out infinite; }
@@ -116,34 +116,34 @@
 /* ---- えいごアリーナの 3D の たいせんがめん（#battle-dialog.staged・battle-stage.js）----
    画面いっぱいの 舞台の 上に、HP の 札（上）・メッセージ（左下）・わざ（右下）だけ のせる。舞台が 描けない 端末は .staged が つかず 上の カードの 画面。 */
 #battle-stage { display: none; }
-#battle-dialog.staged { width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; background: #0b1030; box-shadow: none; overflow: hidden; }
+#battle-dialog.staged { width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; background: #11251d; box-shadow: none; overflow: hidden; }
 #battle-dialog.staged[open] { display: block; }
 #battle-dialog.staged #battle-stage { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
-#battle-dialog.staged .quiz-head { position: absolute; z-index: 3; top: calc(env(safe-area-inset-top, 0px) + 10px); left: 50%; transform: translateX(-50%); padding: 6px 8px 6px 14px; gap: 10px; border: 1px solid #ffffff40; border-radius: 999px; background: #0b1030cc; }
+#battle-dialog.staged .quiz-head { position: absolute; z-index: 3; top: calc(env(safe-area-inset-top, 0px) + 10px); left: 50%; transform: translateX(-50%); padding: 6px 8px 6px 14px; gap: 10px; border: 1px solid #ffffff40; border-radius: 999px; background: #11251dcc; }
 #battle-dialog.staged .quiz-head > div:first-child { display: none; }
 #battle-dialog.staged #battle-turn { margin: 0; }
 #battle-dialog.staged #battle-body { position: absolute; inset: 0; padding: 0; overflow: visible; pointer-events: none; }
 #battle-dialog.staged #battle-body > * { pointer-events: auto; }
 #battle-dialog.staged .battle-name span { white-space: nowrap; }
-#battle-dialog.staged .battle-side { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); width: min(360px, 36vw); margin: 0; padding: 10px 14px; background: #0b1030d9; }
+#battle-dialog.staged .battle-side { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); width: min(360px, 36vw); margin: 0; padding: 10px 14px; background: #11251dd9; }
 #battle-dialog.staged .battle-side.foe { right: calc(env(safe-area-inset-right, 0px) + 14px); }
 #battle-dialog.staged .battle-side.you { left: calc(env(safe-area-inset-left, 0px) + 14px); }
 /* メッセージ：左下に 大きな 白い 字（ふちどり）。1 つの できごとが 1 行。 */
 #battle-dialog.staged .battle-events { position: absolute; left: calc(env(safe-area-inset-left, 0px) + 4vw); bottom: calc(env(safe-area-inset-bottom, 0px) + 5vh); width: min(46vw, 640px); margin: 0; padding: 0; border: 0; background: none;
-  color: #fff; font-size: clamp(17px, 2.5vw, 30px); font-weight: 800; line-height: 1.5; letter-spacing: .04em; text-shadow: 0 2px 0 #0b1030, 0 0 8px #0b1030, 2px 0 0 #0b1030, -2px 0 0 #0b1030, 0 -2px 0 #0b1030; pointer-events: none; }
+  color: #fff; font-size: clamp(17px, 2.5vw, 30px); font-weight: 800; line-height: 1.5; letter-spacing: .04em; text-shadow: 0 2px 0 #11251d, 0 0 8px #11251d, 2px 0 0 #11251d, -2px 0 0 #11251d, 0 -2px 0 #11251d; pointer-events: none; }
 #battle-dialog.staged .battle-events span { display: block; }
 #battle-dialog.staged .battle-events i { display: none; }
 #battle-dialog.staged .battle-hint { display: none; }
 #battle-dialog.staged .battle-waza { position: absolute; right: calc(env(safe-area-inset-right, 0px) + 14px); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); width: min(44vw, 520px); }
-#battle-dialog.staged .battle-waza button { background: #0b1030e0; }
+#battle-dialog.staged .battle-waza button { background: #11251de0; }
 #battle-dialog.staged .quiz-actions { position: absolute; left: calc(env(safe-area-inset-left, 0px) + 14px); top: calc(env(safe-area-inset-top, 0px) + 92px); margin: 0; }
-#battle-dialog.staged .quiz-actions button { background: #0b1030cc; }
+#battle-dialog.staged .quiz-actions button { background: #11251dcc; }
 /* もんだい：右がわの 列（上＝もんだい・下＝こたえ）。 */
-#battle-dialog.staged .battle-quiz { position: absolute; right: calc(env(safe-area-inset-right, 0px) + 14px); top: calc(env(safe-area-inset-top, 0px) + 100px); width: min(34vw, 400px); padding: 10px 14px; margin: 0; background: #0b1030e6; }
+#battle-dialog.staged .battle-quiz { position: absolute; right: calc(env(safe-area-inset-right, 0px) + 14px); top: calc(env(safe-area-inset-top, 0px) + 100px); width: min(34vw, 400px); padding: 10px 14px; margin: 0; background: #11251de6; }
 #battle-dialog.staged .battle-choices { position: absolute; right: calc(env(safe-area-inset-right, 0px) + 14px); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); width: min(44vw, 520px); }
-#battle-dialog.staged .battle-choices button { background: #0b1030e6; }
+#battle-dialog.staged .battle-choices button { background: #11251de6; }
 /* おわり：まんなかの カード。 */
-#battle-dialog.staged .quiz-done { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(420px, calc(100vw - 28px)); padding: 22px 20px; border-radius: 22px; border: 1px solid #ffffff40; background: #0b1030e6; }
+#battle-dialog.staged .quiz-done { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(420px, calc(100vw - 28px)); padding: 22px 20px; border-radius: 22px; border: 1px solid #ffffff40; background: #11251de6; }
 #battle-dialog.staged .quiz-done .quiz-actions { position: static; }
 #battle-dialog.staged .quiz-done strong { font-size: 34px; }
 /* せまい 画面（スマホの よこ）：字と 札を つめる。 */

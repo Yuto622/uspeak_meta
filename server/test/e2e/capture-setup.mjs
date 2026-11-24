@@ -27,16 +27,16 @@ async function mark(page, marks) {
     const host = document.querySelector('dialog[open]:modal') || document.body;
     for (const m of marks) {
       if (!m.rect) continue;
-      const [x, y, w, h] = m.rect; const pad = m.pad ?? 8; const col = m.no ? '#ff5a7a' : '#7df9ff';
+      const [x, y, w, h] = m.rect; const pad = m.pad ?? 8; const col = m.no ? '#ff5a7a' : '#ffb066';
       const box = document.createElement('div'); box.className = 'setup-mark';
-      box.style.cssText = `position:fixed;z-index:2147483647;pointer-events:none;left:${x - pad}px;top:${y - pad}px;width:${w + pad * 2}px;height:${h + pad * 2}px;border:4px solid ${col};border-radius:14px;box-shadow:0 0 0 3px #ff7ad9aa,0 0 22px ${col},inset 0 0 14px ${col}55;box-sizing:border-box;`;
+      box.style.cssText = `position:fixed;z-index:2147483647;pointer-events:none;left:${x - pad}px;top:${y - pad}px;width:${w + pad * 2}px;height:${h + pad * 2}px;border:4px solid ${col};border-radius:14px;box-shadow:0 0 0 3px #8ff0c8aa,0 0 22px ${col},inset 0 0 14px ${col}55;box-sizing:border-box;`;
       if (m.no) box.style.background = 'linear-gradient(to top right, transparent calc(50% - 3px), #ff5a7a calc(50% - 3px), #ff5a7a calc(50% + 3px), transparent calc(50% + 3px))';
       host.append(box);
       if (m.n || m.label) {
         const tag = document.createElement('div'); tag.className = 'setup-mark';
         const side = m.side || 'left';
-        if (m.n) { const b = document.createElement('b'); b.textContent = m.n; b.style.cssText = 'display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#7df9ff,#ff7ad9);color:#070a24;font:900 26px/1 sans-serif;'; tag.append(b); }
-        if (m.label) { const sp = document.createElement('span'); sp.textContent = m.label; sp.style.cssText = `padding:8px 14px;border-radius:12px;background:#12164aee;border:2px solid ${col};color:#fff;font:800 20px/1.2 'Noto Sans CJK JP',sans-serif;white-space:nowrap;`; tag.append(sp); }
+        if (m.n) { const b = document.createElement('b'); b.textContent = m.n; b.style.cssText = 'display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ffb066,#8ff0c8);color:#08160f;font:900 26px/1 sans-serif;'; tag.append(b); }
+        if (m.label) { const sp = document.createElement('span'); sp.textContent = m.label; sp.style.cssText = `padding:8px 14px;border-radius:12px;background:#123528ee;border:2px solid ${col};color:#fff;font:800 20px/1.2 'Noto Sans CJK JP',sans-serif;white-space:nowrap;`; tag.append(sp); }
         tag.style.cssText = 'position:fixed;z-index:2147483647;pointer-events:none;display:flex;align-items:center;gap:8px;';
         host.append(tag);
         const tw = tag.getBoundingClientRect().width, th = tag.getBoundingClientRect().height;
@@ -55,17 +55,17 @@ const shot = async (page, name) => { await page.screenshot({ path: path.join(OUT
 
 // 文だけの カード（じゅんび・こまったとき）。異次元の 見た目。
 const card = (step, title, rows, foot = '') => `<!doctype html><meta charset="utf-8"><style>
-body{margin:0;width:1280px;height:800px;overflow:hidden;font-family:"Noto Sans CJK JP",sans-serif;color:#fff;background:radial-gradient(900px 600px at 80% 10%,#5b2bd6 0,transparent 60%),radial-gradient(800px 600px at 10% 90%,#1466c9 0,transparent 60%),#070a24;}
-.s{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 70% 60%,#fff,transparent),radial-gradient(1px 1px at 40% 80%,#cfe6ff,transparent),radial-gradient(1px 1px at 85% 25%,#cfe6ff,transparent),radial-gradient(1.5px 1.5px at 55% 15%,#fff,transparent),radial-gradient(1px 1px at 10% 60%,#fff,transparent);}
+body{margin:0;width:1280px;height:800px;overflow:hidden;font-family:"Noto Sans CJK JP",sans-serif;color:#fff;background:radial-gradient(900px 600px at 80% 10%,#b8601f 0,transparent 60%),radial-gradient(800px 600px at 10% 90%,#2f8f6a 0,transparent 60%),#08160f;}
+.s{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 70% 60%,#fff,transparent),radial-gradient(1px 1px at 40% 80%,#fff4d6,transparent),radial-gradient(1px 1px at 85% 25%,#fff4d6,transparent),radial-gradient(1.5px 1.5px at 55% 15%,#fff,transparent),radial-gradient(1px 1px at 10% 60%,#fff,transparent);}
 main{position:absolute;inset:56px 70px;display:flex;flex-direction:column;gap:20px}
-.step{align-self:flex-start;padding:8px 22px;border-radius:999px;background:linear-gradient(90deg,#7df9ff,#ff7ad9);color:#070a24;font-weight:900;font-size:24px;letter-spacing:.06em}
-h1{margin:0;font-size:58px;line-height:1.2;text-shadow:0 0 24px #7df9ff88}
+.step{align-self:flex-start;padding:8px 22px;border-radius:999px;background:linear-gradient(90deg,#ffb066,#8ff0c8);color:#08160f;font-weight:900;font-size:24px;letter-spacing:.06em}
+h1{margin:0;font-size:58px;line-height:1.2;text-shadow:0 0 24px #ffb06688}
 ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:16px}
-li{display:flex;align-items:center;gap:20px;padding:18px 26px;border-radius:20px;background:#12164acc;border:2px solid #7df9ff88;font-size:32px;font-weight:700;box-shadow:0 0 18px #7df9ff33}
-li b{flex:none;display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#7df9ff,#ff7ad9);color:#070a24;font-size:30px;font-weight:900}
-li small{display:block;font-size:22px;font-weight:500;color:#bfe9ff;margin-top:4px}
+li{display:flex;align-items:center;gap:20px;padding:18px 26px;border-radius:20px;background:#123528cc;border:2px solid #ffb06688;font-size:32px;font-weight:700;box-shadow:0 0 18px #ffb06633}
+li b{flex:none;display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#ffb066,#8ff0c8);color:#08160f;font-size:30px;font-weight:900}
+li small{display:block;font-size:22px;font-weight:500;color:#cfe8d8;margin-top:4px}
 li.no{border-color:#ff5a7a} li.no b{background:#ff5a7a;color:#fff}
-p{margin:auto 0 0;font-size:24px;color:#bfe9ff}
+p{margin:auto 0 0;font-size:24px;color:#cfe8d8}
 </style><div class="s"></div><main><span class="step">${step}</span><h1>${title}</h1><ul>${rows.map(([i, t, s, no]) => `<li class="${no ? 'no' : ''}"><b>${i}</b><span>${t}${s ? `<small>${s}</small>` : ''}</span></li>`).join('')}</ul><p>${foot}</p></main>`;
 
 const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--no-sandbox'], ...(process.env.HTTPS_PROXY ? { proxy: { server: process.env.HTTPS_PROXY, bypass: '127.0.0.1,localhost' } } : {}) });
