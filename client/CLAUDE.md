@@ -664,6 +664,8 @@ GPU・実ブラウザー描画・タッチ操作の実機QAは未実施です。
 - **内装は ぜんぶ 異次元**（2026-11）：共通の 部品は `cosmic-kit.js`（`SPACE_BG`・`cosmicColor()`・`addStars()`）。みんなの 部屋・お店＝`island-interior.js`、公園の ロビーと U-Speak島の 建物の 中＝`park-interior.js` の `material()`（`building-room.js` も ここを 通る）、じぶんの へや＝`room-world.js`、ひろば＝`plaza-world.js`。
   **へやと ひろばは 床・かべ・さくだけ**（子どもが 買った かぐ・置いた ブロックの 色は かえない）。はだの 色は `KEEP` で そのまま。光は ふやさない（emissive と 星の Points 1 つ）。bloom が あるので emissive は 0.5 まで。
 
+- **サインインだけの セットアップ動画**（2026-11）：台本は `docs/setup-web-cuts.json`・`docs/setup-roblox-cuts.json`（`python3 docs/make-tour.py --script <台本>`）。写真は `server/test/e2e/capture-setup.mjs [cards|web|roblox]`（ネオンの わくと 番号を ページに かさねて 撮る。Roblox の ぶんは roblox.com と アプリストアへ 出られる 環境だけ・サインインは しない）。配る ファイルは `docs/Web版_サインインガイド.mp4`・`docs/Roblox版_サインインガイド.mp4`。
+
 ## おつかい島（2026-09 追加）
 
 `errand-data.js`（missions.json の共有ローダー）/ `errand-island.js`（島の地形・お店・住人・
