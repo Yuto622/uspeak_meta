@@ -168,3 +168,54 @@
   #battle-dialog.staged .battle-quiz { left: 12px; right: 12px; width: auto; top: calc(env(safe-area-inset-top, 0px) + 150px); }
   #battle-dialog.staged .quiz-actions { top: calc(env(safe-area-inset-top, 0px) + 140px); }
 }
+
+/* ── すがた えらび（#avatar-dialog）を 異次元に（2026-11）。**色は U-Speak の ブランド**（深緑 #1b3a2f・オレンジ #e27a2d・クリーム #fff4d6）＝宇宙の 形だけ 借りる。色と 形だけ：style.css・mobile.css の 並びは そのまま。 ── */
+#avatar-dialog { background: #0c241c; color: #fff4d6; border: 2px solid #ff9d4d99; box-shadow: 0 0 0 3px #8ff0c833, 0 0 46px #e27a2d66; }
+#avatar-dialog::backdrop { background: radial-gradient(900px 600px at 80% 10%, #e27a2d55 0, transparent 60%), radial-gradient(800px 600px at 10% 90%, #2f8f6acc 0, transparent 60%), #08160ff2; backdrop-filter: none; }
+#avatar-dialog .avatar-stage { background: radial-gradient(420px 320px at 50% 40%, #2a5a48 0, #08160f 75%); color: #fff; }
+#avatar-dialog .avatar-stage canvas { border-radius: 18px; }
+#avatar-dialog .eyebrow { color: #ffb066; }
+#avatar-dialog .avatar-stage h2 { color: #fff; text-shadow: 0 0 18px #ff9d4daa; letter-spacing: 0; }
+#avatar-dialog .avatar-stage p, #avatar-dialog .avatar-stage-note { color: #cfe8d8; }
+#avatar-dialog .avatar-settings { background: linear-gradient(160deg, #173f38, #0c241c); }
+#avatar-dialog .avatar-settings h2 { color: #fff; }
+#avatar-dialog .avatar-settings > p, #avatar-dialog .avatar-settings h3 { color: #cfe8d8; }
+#avatar-dialog #avatar-choices { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+#avatar-dialog .avatar-choice { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1px; padding: 8px 4px 9px; min-height: 0; background: #163a2e; border: 2px solid #2f6b55; border-radius: 16px; color: #fff; cursor: pointer; }
+#avatar-dialog .avatar-choice.kigu { background: linear-gradient(160deg, #1f5a45, #2f6b3f); border-color: #ffb066aa; }
+#avatar-dialog .avatar-icon { font-style: normal; font-size: 34px; line-height: 1.15; }
+#avatar-dialog .avatar-choice span { order: 3; font-size: 11px; color: #cfe8d8; display: none; }
+#avatar-dialog .avatar-choice strong { font-size: 15px; margin: 0; color: #fff; }
+#avatar-dialog .avatar-choice strong i, #avatar-dialog .avatar-choice small i, #avatar-dialog .avatar-stage h2 i, #avatar-dialog .avatar-stage p i { font-style: normal; }
+#avatar-dialog .avatar-choice small { font-size: 11px; color: #cfe8d8; }
+#avatar-dialog .avatar-choice:hover { border-color: #ffb066; }
+#avatar-dialog .avatar-choice.chosen { background: linear-gradient(160deg, #f2b04a, #e27a2d); border-color: #fff4d6; box-shadow: 0 0 0 2px #8ff0c8, 0 0 18px #ff9d4daa; color: #1b3a2f; }
+#avatar-dialog .avatar-choice.chosen small, #avatar-dialog .avatar-choice.chosen span, #avatar-dialog .avatar-choice.chosen strong { color: #1b3a2f; }
+#avatar-dialog .avatar-swatch { border-color: #0c241c; box-shadow: 0 0 0 1px #5f9a80; }
+#avatar-dialog .avatar-swatch[aria-pressed=true] { box-shadow: 0 0 0 3px #ffb066, 0 0 12px #ff9d4d; }
+#avatar-dialog .avatar-actions .primary { background: linear-gradient(90deg, #f2b04a, #e27a2d); color: #1b3a2f; font-weight: 900; font-size: 16px; border: 0; border-radius: 999px; min-height: 48px; }
+#avatar-dialog .avatar-actions #avatar-cancel { color: #cfe8d8; border: 1px solid #5f9a80; border-radius: 999px; padding: 8px 14px; }
+#avatar-dialog #avatar-fs { color: #fff; }
+@media (max-width: 650px) { #avatar-dialog .avatar-icon { font-size: 26px; } #avatar-dialog .avatar-choice strong { font-size: 13px; } #avatar-dialog .avatar-choice small { display: none; } }
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 560px) {
+  #avatar-dialog #avatar-choices { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+  #avatar-dialog .avatar-choice { padding: 3px 2px 4px; border-radius: 10px; }
+  #avatar-dialog .avatar-icon { font-size: 20px; }
+  #avatar-dialog .avatar-choice strong { font-size: 11px; }
+  #avatar-dialog .avatar-choice small { display: none; }
+}
+/* 16 まいを 1 画面に：むかしからの 8 人は 絵と なまえだけ（せつめいは ひだりの 大きい 絵の 下に 出る）。 */
+#avatar-dialog .avatar-choice:not(.kigu) small { display: none; }
+#avatar-dialog .avatar-choice:not(.kigu) .avatar-icon { font-size: 26px; }
+#avatar-dialog .avatar-settings { padding-top: 22px; padding-bottom: 20px; }
+#avatar-dialog .avatar-settings h3 { margin: 12px 0 8px; }
+#avatar-dialog .avatar-actions { margin-top: 16px; }
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 560px) {
+  #avatar-dialog .avatar-choice:not(.kigu) .avatar-icon { font-size: 18px; }
+  #avatar-dialog .avatar-icon { font-size: 18px; line-height: 1.05; }
+  #avatar-dialog .avatar-settings { padding-top: 6px; padding-bottom: 0; }
+  #avatar-dialog .avatar-settings > p { display: none; }
+  #avatar-dialog .avatar-settings h3 { margin: 4px 0 2px; }
+  #avatar-dialog #avatar-skin-section { display: none; }
+  #avatar-dialog .avatar-actions { margin-top: 6px; }
+}

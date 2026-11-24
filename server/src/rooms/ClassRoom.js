@@ -139,7 +139,8 @@ const STALE_MOVE_MS = 5000;
 const GHOST_MS = 3000; // silent connected seat considered dead (heartbeat is 500 ms)
 const PERSIST_ALL_MS = 30000;
 const WORLD_LIMIT = 600;
-const AVATAR_IDS = ['kai', 'mia', 'ren', 'leo', 'aya', 'noa', 'nova', 'bolt'];
+// k-…＝はじめに えらべる きぐるみ（client/dist/avatars.js の AVATARS と そろえる）。
+const AVATAR_IDS = ['kai', 'mia', 'ren', 'leo', 'aya', 'noa', 'nova', 'bolt', 'k-rabbit', 'k-bear', 'k-dino', 'k-penguin', 'k-fox', 'k-frog', 'k-chick', 'k-shark'];
 
 export function sanitizeName(raw) {
   return String(raw ?? '').normalize('NFKC')
