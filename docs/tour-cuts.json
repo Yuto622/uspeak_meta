@@ -1,7 +1,7 @@
 {
   "title": "U-Speak ウェブ版 ・ サービス紹介",
   "note": "紹介動画の台本。ここが唯一の元データで、docs/make-tour.py が プレーヤー（docs/tour.html）・動画（docs/tour/）・台本（docs/tour-script.md）を作る。秒数は書かない（読み上げの実測で決まる）。章（chapter）ごとに 1 本の動画になり、chapters に その章の 一言（lead）と 向いている人（for）。digest の 文が ある カットだけで 1分少しの まとめ動画に なる。clip を書くと docs/clips/clip-<clip>.webm を from 秒から流す。",
-  "audio": true,
+  "audio": false,
   "voice": "sbv2",
   "cuts": [
     {
