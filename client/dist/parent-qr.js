@@ -13,6 +13,17 @@ function qrSvg(create, text) {
   return `<svg viewBox="0 0 ${n + q * 2} ${n + q * 2}" shape-rendering="crispEdges" role="img" aria-label="QR"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#10302a"/></svg>`;
 }
 
+// QR の よこに 出す 見本（2026-11：「QR を 読みこんだら LINE で 何が 見られるか も 見せる」）。
+// 絵は じっさいの LINE の 画面（教室名と 名前は ぼかして ある・assets/guide/line-sample.jpg）。dialog を ひらいた ときだけ 読む。
+const sample = (teacher) => `<aside class="pq-sample"><img src="assets/guide/line-sample.jpg" alt="" loading="lazy" width="320" height="616">
+  <div class="pq-can">${bi('What you get on LINE', 'LINE で 見られる もの', 'pq-can-title')}<ul>
+    <li>${bi('📊 Weekly report', 'まいしゅうの レポート（英語を した 日・こたえた 数）')}</li>
+    <li>${bi('🗺 English roadmap', '英語の ロードマップ（いま どこ・あと どれだけ）')}</li>
+    <li>${bi('📚 Homework', 'いまの 宿題と すすみぐあい')}</li>
+    <li>${bi('🏠 1-minute quiz at home', 'おうちで 1分クイズ')}</li>
+    ${teacher ? `<li>${bi('👩‍🏫 For teachers: the whole class', '先生には クラス ぜんいんの まとめ')}</li>` : ''}
+  </ul></div></aside>`;
+
 export function createParentQrUI({ send }) {
   const dialog = document.createElement('dialog');
   dialog.id = 'parent-qr-dialog';
@@ -64,7 +75,7 @@ export function createParentQrUI({ send }) {
         <li>${bi('Tap "Agree" in LINE.', 'LINE で「同意して受け取る」を おす')}</li>
       </ol>
       <p class="pq-note">${bi('Every student, on the report day.', '保護者レポートと 同じ日に、ぜんいんの 日数・問題・宿題・面接が とどく')}</p>
-      <p class="pq-note">${bi('For teachers only. Do not show children or parents.', '先生 だけ。子どもや 保護者には 見せないでください')}</p></div></div>`;
+      <p class="pq-note">${bi('For teachers only. Do not show children or parents.', '先生 だけ。子どもや 保護者には 見せないでください')}</p></div>${sample(true)}</div>`;
       return;
     }
     body.innerHTML = `<div class="pq-card"><div class="pq-qr">${svg}</div>
@@ -75,7 +86,7 @@ export function createParentQrUI({ send }) {
         <li>${bi('Tap "Get it on LINE" on the page.', 'ひらいた ページの「LINE で うけとる」を おす')}</li>
       </ol>
       <p class="pq-note">${bi('Your week comes on LINE every weekend.', 'まいしゅう がんばった ことが LINE に とどくよ')}</p>
-      <p class="pq-note">${bi('This QR is only for you. Do not share it.', 'この QR は きみ だけの もの。ほかの 人に わたさないでね')}</p></div></div>`;
+      <p class="pq-note">${bi('This QR is only for you. Do not share it.', 'この QR は きみ だけの もの。ほかの 人に わたさないでね')}</p></div>${sample(false)}</div>`;
   }
 
   return {

@@ -219,3 +219,26 @@
   #avatar-dialog #avatar-skin-section { display: none; }
   #avatar-dialog .avatar-actions { margin-top: 6px; }
 }
+
+/* ── もちもの（#bag-dialog）を 異次元に（2026-11）。色は ブランド（深緑・オレンジ・クリーム）。food.css の 並びは そのまま。 ── */
+#bag-dialog { background: radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 78% 12%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 34% 72%, #fff4d6 50%, transparent 51%), radial-gradient(1.5px 1.5px at 88% 64%, #fff 50%, transparent 51%), radial-gradient(60% 45% at 85% 0%, #e27a2d33, transparent 70%), linear-gradient(160deg, #0c241c, #123528 55%, #1b3a2f); color: #fff4d6; border: 2px solid #ff9d4d88; box-shadow: 0 0 0 3px #8ff0c822, 0 30px 80px #06120dcc; }
+#bag-dialog::backdrop { background: #08160fcc; }
+#bag-dialog .fd-head { background: linear-gradient(90deg, #ffb06622, #8ff0c81a); border-bottom: 1px solid #ffffff24; }
+#bag-dialog .fd-head small { color: #ffb066; letter-spacing: .28em; opacity: 1; }
+#bag-dialog .fd-head h2 { color: #fff; text-shadow: 0 0 16px #ff9d4d88; }
+#bag-dialog .bag-tabs { background: #08160f99; border-bottom: 1px solid #ffffff1f; }
+#bag-dialog .bag-tabs button { color: #cfe8d8; border-radius: 14px 14px 0 0; }
+#bag-dialog .bag-tabs button.active { background: linear-gradient(180deg, #ffb06633, #ffb06611); color: #fff; box-shadow: inset 0 -3px 0 #ffb066, 0 0 18px #ff9d4d44; }
+#bag-dialog .bag-stage-row { background: radial-gradient(circle at 22% 50%, #2a5a48, #0c241c 70%); border: 1px solid #ffb06655; box-shadow: 0 0 22px #ff9d4d22 inset; }
+#bag-dialog .bag-stage-info h3 { color: #fff; }
+#bag-dialog .bag-ja, #bag-dialog .bag-house small { color: #cfe8d8; }
+#bag-dialog .bag-card { background: linear-gradient(160deg, #1f5a45, #163a2e); box-shadow: inset 0 0 0 2px #2f6b55; color: #fff4d6; }
+#bag-dialog .bag-card.picked { box-shadow: inset 0 0 0 3px #ffb066, 0 0 18px #ff9d4d66; }
+#bag-dialog .bag-card.on { background: linear-gradient(160deg, #2f8f5b, #1f5a45); }
+#bag-dialog .bag-name, #bag-dialog .bag-card small, #bag-dialog .bag-card span { color: #fff4d6; }
+#bag-dialog .fd-buy { background: linear-gradient(90deg, #f2b04a, #e27a2d); color: #1b3a2f; box-shadow: 0 3px 0 #a9541b, 0 0 16px #ff9d4d55; }
+#bag-dialog .bag-act.off { background: #2f6b55; color: #fff4d6; box-shadow: 0 3px 0 #163a2e; }
+#bag-dialog .bag-house { background: linear-gradient(120deg, #1f5a45, #2a5a48); box-shadow: inset 0 0 0 2px #ffb06655; color: #fff4d6; }
+#bag-dialog .bag-ask { background: #ffb0661f; border: 1px solid #ffb06666; color: #fff4d6; }
+#bag-dialog .bag-no { background: #2f6b55; color: #fff4d6; }
+#bag-dialog .fd-empty, #bag-dialog p { color: #cfe8d8; }

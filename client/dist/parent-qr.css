@@ -1,5 +1,5 @@
 /* 👪 おうちの ひとの LINE（parent-qr.js）。英語は 大きく、日本語は 小さく。字は 11px より 小さく しない。 */
-#parent-qr-dialog { width: min(640px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; border: 0; border-radius: 22px;
+#parent-qr-dialog { width: min(1040px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; border: 0; border-radius: 22px;
   background: linear-gradient(160deg, #10302a, #173f38 55%, #1f4d44); color: #f4f1e3; box-shadow: 0 24px 70px rgba(0, 0, 0, .45); overflow: auto; }
 #parent-qr-dialog::backdrop { background: rgba(6, 18, 15, .6); }
 .pq-head { position: static; display: flex; align-items: center; justify-content: space-between; padding: 14px 18px 8px; }
@@ -24,3 +24,13 @@
   .pq-text ol { gap: 4px; margin: 6px 0; }
 }
 @media (max-width: 520px) { .pq-card { flex-direction: column; } }
+/* よこの 見本：じっさいの LINE の 画面と、見られる もの。 */
+.pq-card { align-items: flex-start; }
+.pq-sample { flex: none; display: flex; gap: 14px; align-items: flex-start; margin-left: auto; padding: 12px; border-radius: 18px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 217, 120, .35); }
+.pq-sample img { display: block; width: 168px; height: auto; border-radius: 14px; box-shadow: 0 6px 20px rgba(0, 0, 0, .4); }
+.pq-can { max-width: 230px; }
+.pq-can-title > b { font-size: 16px; color: #ffd978; }
+.pq-can ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 9px; }
+.pq-can li .pq-bi > b { font-size: 14px; }
+@media (max-width: 900px) { .pq-card { flex-wrap: wrap; } .pq-sample { margin-left: 0; width: 100%; box-sizing: border-box; } .pq-can { max-width: none; } }
+@media (max-height: 520px) { .pq-sample img { width: 110px; } .pq-can ul { gap: 4px; } }

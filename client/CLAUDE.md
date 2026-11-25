@@ -2049,6 +2049,12 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **AURORA KART の かんたん メニュー**（`racers.js` の `simpleMenu`・`arcade-fit/racers.css` の `body.uspeak-simple`）：① コース ② くるま ③ えいごの レベル → ▶ スタート。ほかは「⚙ せってい」の 中（消して いない）。
 - **ランキング・ロードマップも ブランド色**（`rank.css`・`roadmap.css`）。
 
+- **すがたやは 40 体**（2026-11）：前の 8 体＋ `avatar-bodies.js` の `SPECS`（とくちょうの 表）から 組み立てる 32 体。足す ときは 表に 1 行＋ `wardrobe.json` に 1 行（300 コイン 以上は レベル 5 から）。
+- **土地島・ぼくじょう島にも えらぶ パネル**（`PICKS.land`・`PICKS.farm`）。
+- **つりばの 3D**（`fishing-zone-preview.js`）：U-Speak島の つりの 画面の 左で、えらんだ 池・川・海の もけいが まわる（魚の プレビューと 同じ renderer）。ずかん・つれた さかなでは 魚の 写真に もどる。
+- **おうちの ひとの LINE の QR の 横に 見本**（`parent-qr.js` の `sample()`・`assets/guide/line-sample.jpg`＝じっさいの LINE の 画面・名前は ぼかし ずみ）。差しかえる ときも 名前と 教室名を ぼかす こと。
+- **もちもの（#bag-dialog）も 異次元・ブランド色**（`cosmic-panels.css` の さいご）。
+
 ## きせかえ島で 買える すがた（アバター／2026-11）
 - **5 つめの スロット `avatar`（すがた）**：`wardrobe.json` の 先頭に 8 人（ねこ・パンダ・にんじゃ・ひめ・ヒーロー・きし・ドラゴン・ユニコーン。`kind` ＝ 体の id `av-…`）。島には 5 けんめの 店「すがたや」（`avatar-shop`）。
 - **体は `avatar-bodies.js`**（three だけ・サーバーの 検査からも 読める）。`buildPremiumAvatar(id)` は `buildAvatar` と 同じ 約束（`userData.limbs`・`anchors`）で 返すので、歩く うごきも ぼうし・めがね・かばんも そのまま。
