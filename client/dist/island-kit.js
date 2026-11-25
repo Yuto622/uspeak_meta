@@ -589,13 +589,16 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   const my = (z) => 72 + z * MAP_K;
   function paintBase() {
     const c = document.createElement('canvas');
-    c.width = 180; c.height = 140;
+    c.width = 360; c.height = 280;   // 2 倍の こまかさ（描く 座標は 180×140 の まま）
     const g = c.getContext?.('2d');
     if (!g || !g.fillRect || !g.roundRect || !g.ellipse) return null;
+    g.scale?.(2, 2);
     const k = MAP_K;
-    g.fillStyle = '#6fb7c9'; g.fillRect(0, 0, 180, 140);
+    // 海は こい 緑の 夜空（異次元・ブランド色）。島の 形が はっきり 見える。
+    g.fillStyle = '#0f3a34'; g.fillRect(0, 0, 180, 140);
+    g.fillStyle = '#fff4d6'; for (let i = 0; i < 26; i += 1) g.fillRect((i * 53) % 180, (i * 37) % 140, 0.8, 0.8);
     // 波打ちぎわの うすい 輪。
-    g.fillStyle = '#9fd3dc';
+    g.fillStyle = '#2f8f7a';
     for (const [x, z, beach] of mapTiles) if (beach) g.fillRect(mx(x - 1.8), my(z - 1.8), 3.6 * k, 3.6 * k);
     const grass = hex(data.grassTop ?? data.grass, '#a9cf7c');
     for (const [x, z, beach] of mapTiles) {
@@ -645,18 +648,19 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     if (!built || !root.visible) return false;
     if (!mapBase) mapBase = paintBase();
     ctx.clearRect(0, 0, 180, 140);
-    if (mapBase && ctx.drawImage) ctx.drawImage(mapBase, 0, 0);
+    if (mapBase && ctx.drawImage) ctx.drawImage(mapBase, 0, 0, 180, 140);
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     for (const sp of spots) {
       const def = sp.def;
       const target = def.id === targetId;
       const x = mx(def.x); const y = my(def.z);
-      const r = target ? 6.5 : 5.2;
-      ctx.fillStyle = target ? '#ffd246' : '#ffffff';
-      ctx.beginPath(); ctx.arc(x, y, r + 1.4, 0, Math.PI * 2); ctx.fill();
+      const r = target ? 8.2 : 6.8;
+      if (target) { const pulse = 2.5 + Math.sin(Date.now() / 260) * 1.5; ctx.fillStyle = '#ffb06677'; ctx.beginPath(); ctx.arc(x, y, r + 2 + pulse, 0, Math.PI * 2); ctx.fill(); }
+      ctx.fillStyle = target ? '#ffb066' : '#fff4d6';
+      ctx.beginPath(); ctx.arc(x, y, r + 1.5, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = KIND_COLOR[def.kind] || (def.color !== undefined ? hex(def.color) : '#4fae6b');
       ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
-      ctx.font = '7px sans-serif';
+      ctx.font = '9px sans-serif';
       ctx.fillText(def.icon || KIND_ICON[def.kind] || (/\p{Extended_Pictographic}/u.test(def.tone || '') ? def.tone : '💬'), x, y + 0.5);
     }
     // 光の 柱が 建物でない 場所（ぼくじょうの 畑など）を さしているとき。
@@ -665,14 +669,17 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     }
     // きみ（オレンジ）。
     const me = { x: player.position.x - root.position.x, z: player.position.z - root.position.z };
-    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(mx(me.x), my(me.z), 4.6, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#e27a2d'; ctx.beginPath(); ctx.arc(mx(me.x), my(me.z), 3.2, 0, Math.PI * 2); ctx.fill();
+    const beat = 6.5 + Math.sin(Date.now() / 300) * 1.6;
+    ctx.fillStyle = '#e27a2d55'; ctx.beginPath(); ctx.arc(mx(me.x), my(me.z), beat, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(mx(me.x), my(me.z), 4.8, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#e27a2d'; ctx.beginPath(); ctx.arc(mx(me.x), my(me.z), 3.4, 0, Math.PI * 2); ctx.fill();
     // 島の 名前（ミニマップは 毎フレーム 描き直すので、焼き直しの 仕掛けは 要らない）。
     const name = isJa() ? data.name : (data.en || data.name);
     ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'left';
     const tw = ctx.measureText?.(name)?.width ?? name.length * 5;
-    ctx.fillStyle = '#ffffffcc'; ctx.fillRect(3, 2, tw + 8, 13);
-    ctx.fillStyle = '#12333a'; ctx.fillText(name, 7, 9);
+    ctx.fillStyle = '#0c241ce6'; ctx.fillRect(3, 2, tw + 11, 14);
+    ctx.fillStyle = '#ffb066'; ctx.fillRect(3, 2, 2.4, 14);
+    ctx.fillStyle = '#fff4d6'; ctx.fillText(name, 9, 9.5);
     return true;
   }
 

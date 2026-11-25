@@ -32,6 +32,34 @@ export function creatureModel(c,evolution=null,cosmetic=null){const g=new THREE.
  if(c.variant===8){const ring=P(torus(.27,.03,6,32),0,addY+.12,0,1,1,1,accent,g,.35);ring.rotation.x=Math.PI/2;for(let j=0;j<3;j++)S((j-1)*.18,addY,-.05,.09,.08,.07,accent)}
  if(c.variant===9){const h=P(torus(.55,.025,6,48),0,1.15,-.3,1,1,1,accent,g,.5);parts.halo=h;for(const side of[-1,1])S(side*.55,.9,-.13,.21,.39,.07,cream)}
  if(c.slot===9){const mantle=new THREE.Group();g.add(mantle);parts.legend=mantle;const gem=P(octa(.2),0,1.65,.8,1,1.35,.5,accent,mantle,.7);for(let i=0;i<3+c.variant%3;i++){const a=i/(3+c.variant%3)*Math.PI*2;P(octa(.065),Math.cos(a)*.88,1.3+Math.sin(a)*.6,-.1,1,1.5,1,accent,mantle,.6)}if(c.variant===7){for(const angle of[0,1.1,-1.1]){const r=P(torus(.92,.028,7,64),0,1,-.28,1,1,1,accent,mantle,.55);r.rotation.y=angle;} }else if(c.variant===8){const moon=P(torus(.96,.11,8,48,Math.PI*1.55),0,1.5,-.28,1,1,1,0xe6c7fa,mantle,.45);moon.rotation.z=-.86;for(const side of[-1,1])P(cone,side*.52,1.95,-.1,.12,.63,.12,accent);}else if(c.variant===9){wing(-1,1.2,-.25,1.8);wing(1,1.2,-.25,1.8);for(const side of[-1,1])for(let i=0;i<3;i++){const plume=P(cone,side*(.85+i*.2),1.15-i*.14,-.35,.15,.9,.12,0xf5e4b2,mantle,.16);plume.rotation.z=-side*.65;}}}
+ // ひとり ひとりの とくちょう（2026-11：「キャラデザイン それぞれ 個性的に」）。同じ 形（archetype）の 10 ぴきは 地域（variant）で
+ // こものが ぜんぶ ちがい、もよう・かおも 組み合わせで かわる＝100 ぴき ぜんぶ ちがう。頭の 場所は 形ごとの 表（HEAD）。
+ {const H={fox:[1.14,.38,.5],owl:[1.15,.04,.56],turtle:[.52,.68,.34],deer:[1.42,.49,.38],dragon:[1.27,.18,.42],slime:[.62,0,.7],rabbit:[1.04,.1,.45],golem:[1.29,.02,.38],manta:[.74,.1,.46],lion:[1.19,.51,.42]}[type]||[1.1,.2,.45],hy=H[0],hz=H[1],hr=H[2],top=hy+hr*.92,front=hz+hr*.86,k=c.variant,sl=c.slot,alt=new THREE.Color(accent).offsetHSL(.5,0,-.05).getHex(),pale=new THREE.Color(col).offsetHSL(0,-.1,.22).getHex(),deep=new THREE.Color(col).offsetHSL(0,.05,-.2).getHex();
+  // こもの（10）：地域ごとに 1 つ。
+  if(k===0){S(0,top+.1,hz,.3,.07,.3,0xe2c77a);S(0,top+.2,hz,.2,.12,.2,0xe2c77a);P(box,0,top+.13,hz,.42,.04,.42,alt)}                                   // むぎわらぼうし
+  else if(k===1){for(const side of[-1,1]){S(side*.12,hy-hr*.75,front-.08,.13,.1,.06,alt)}S(0,hy-hr*.75,front-.06,.06,.06,.05,0xffffff)}                // ちょうネクタイ
+  else if(k===2){for(let j=0;j<5;j++){const a=j/5*Math.PI*2;S(Math.cos(a)*hr*.6,top+.02,hz+Math.sin(a)*hr*.6,.08,.07,.08,[0xf7a8c8,0xffe08a,0xffffff][j%3])}} // はなかんむり
+  else if(k===3){for(const side of[-1,1]){P(torus(.1,.022,6,16),side*.2,hy+.06,front+.03,1,1,1,dark)}P(box,0,hy+.06,front+.03,.14,.025,.02,dark)}       // めがね
+  else if(k===4){P(box,0,hy-hr*.8,hz,hr*1.9,.12,hr*1.7,alt);P(box,.2,hy-hr*.8-.2,front-.1,.12,.34,.05,alt)}                                           // マフラー
+  else if(k===5){P(cone,0,top+.2,hz,.2,.42,.2,alt);S(0,top+.42,hz,.07,.07,.07,0xffffff);P(box,0,top+.02,hz,.46,.05,.46,alt)}                         // とんがりぼうし
+  else if(k===6){P(box,0,top-.02,hz,hr*1.9,.1,hr*1.8,alt);for(const side of[-1,1])S(side*hr*.95,top-.12,hz-.1,.07,.18,.07,alt)}                       // はちまき
+  else if(k===7){P(torus(hr*.7,.03,6,24),0,top-.04,hz,1,1,1,dark).rotation.x=Math.PI/2;for(const side of[-1,1])S(side*hr*.98,hy+.04,hz,.1,.17,.14,alt)} // ヘッドホン
+  else if(k===8){P(box,0,top+.06,hz,.36,.1,.36,dark);P(box,0,top+.22,hz,.24,.26,.24,dark);P(box,0,top+.12,hz,.26,.05,.26,alt)}                          // シルクハット
+  else{P(box,0,top+.04,hz,.4,.1,.4,0xffd447,g,.3);for(const x of[-.14,0,.14])P(cone,x,top+.16,hz,.06,.16,.06,0xffd447,g,.3);S(0,top+.06,hz+.2,.045,.045,.03,0xd8323c)} // おうかん
+  // かお（4）：ほっぺ・まゆ・した・きば。
+  const fz=front+.04,mood=(k+sl*3)%4;
+  if(mood===0){for(const side of[-1,1])S(side*hr*.62,hy-.1,fz-.08,.09,.055,.03,0xf7a0a8)}
+  else if(mood===1){for(const side of[-1,1]){const b=P(box,side*.2,hy+.24,fz-.06,.16,.035,.03,deep);b.rotation.z=side*.35}}
+  else if(mood===2){S(0,hy-.2,fz-.04,.06,.08,.03,0xf28a9a)}
+  else{for(const side of[-1,1])P(cone,side*.07,hy-.19,fz-.05,.025,.07,.025,0xffffff).rotation.x=Math.PI}
+  // もよう（5）：くつした・しま・ほし・せなかの ぶち・おなかの ハート。
+  const pat=(k*3+sl)%5;
+  if(pat===0){for(const x of[-.32,.32])for(const z of[-.3,.3])S(x,.07,z,.21,.09,.24,pale)}
+  else if(pat===1){for(let j=0;j<3;j++)P(box,0,.45+j*.16,-.05,.92-j*.12,.045,.9-j*.1,deep)}
+  else if(pat===2){for(const[x,y,z]of[[-.3,.75,.3],[.32,.6,.25],[.1,.9,-.35]])P(octa(.07),x,y,z,1,1,.5,0xffe9a8,g,.5)}
+  else if(pat===3){for(const[x,y,z]of[[-.2,.82,-.35],[.25,.7,-.4],[0,.55,-.5]])S(x,y,z,.13,.11,.06,deep)}
+  else{for(const side of[-1,1])S(side*.06,.62,.5,.07,.07,.03,0xf7a0a8);P(cone,0,.54,.5,.1,.12,.03,0xf7a0a8).rotation.x=Math.PI}
+ }
  // Unique signature crest and spots vary across all 100 companions, not only by hue.
  for(let j=0;j<1+c.number%4;j++){const a=(j-(c.number%4)/2)*.2;S(a,.69+(c.slot%3)*.06,.48,.045+.012*(c.variant%3),.06,.035,accent)}
  g.scale.set(1+(c.variant%3)*.055,1+(c.variant%4)*.027,1-(c.variant%3)*.035);

@@ -242,3 +242,46 @@
 #bag-dialog .bag-ask { background: #ffb0661f; border: 1px solid #ffb06666; color: #fff4d6; }
 #bag-dialog .bag-no { background: #2f6b55; color: #fff4d6; }
 #bag-dialog .fd-empty, #bag-dialog p { color: #cfe8d8; }
+
+/* ── ミニマップの わく（.map-panel）を 異次元・ブランド色に（2026-11）。大きさ・場所は style.css / mobile.css / pc-tidy.css の まま。 ── */
+.map-panel { background: linear-gradient(160deg, #0c241c, #1b3a2f); border: 2px solid #ff9d4d99; box-shadow: 0 0 0 2px #8ff0c822, 0 10px 30px #06120d88; backdrop-filter: none; }
+.map-panel > div { color: #ffb066; font-size: 11px; font-weight: 800; }
+.map-panel canvas { border-radius: 10px; box-shadow: 0 0 0 1px #ffffff22 inset; }
+.map-panel p { color: #fff4d6; font-size: 12px; font-weight: 700; margin-top: 4px; }
+.map-panel p > span:last-child { color: #8ff0c8; font-size: 11px; }
+.map-panel .dot { background: #e27a2d; box-shadow: 0 0 8px #ff9d4d; }
+
+/* ── ぼうけんの ノート（#rpg-dialog）を 異次元・ブランド色に（2026-11）。しまの ちず（data-page="map"）は そのまま。
+   わく（頭・タブ・左の 3D）は ぜんぶの タブで、中身を くらく するのは なかま ずかん（.rpg-cards の ある ページ）だけ
+   ＝ほかの タブ（冒険ノート・リーグ…）の 明るい カードの 字が 読めなく ならない ように。 ── */
+#rpg-dialog:not([data-page="map"]) { border: 2px solid #ff9d4d88; box-shadow: 0 0 0 3px #8ff0c822, 0 30px 80px #06120dcc; background: #0c241c; }
+#rpg-dialog:not([data-page="map"]) .rpg-header { background: radial-gradient(1px 1px at 12% 30%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 62% 22%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 84% 70%, #fff4d6 50%, transparent 51%), radial-gradient(50% 120% at 90% 0%, #e27a2d44, transparent 70%), linear-gradient(110deg, #0c241c, #1b3a2f); color: #fff4d6; border-bottom: 1px solid #ffb06655; }
+#rpg-dialog:not([data-page="map"]) .rpg-header > div > span { color: #ffb066; }
+#rpg-dialog:not([data-page="map"]) .rpg-header h2 { color: #fff; text-shadow: 0 0 18px #ff9d4d77; }
+#rpg-dialog:not([data-page="map"]) .rpg-tabs { background: #08160f; border-bottom: 1px solid #ffffff1f; }
+#rpg-dialog:not([data-page="map"]) .rpg-tabs button { color: #cfe8d8; }
+#rpg-dialog:not([data-page="map"]) .rpg-tabs button.active, #rpg-dialog:not([data-page="map"]) .rpg-tabs button[aria-selected="true"], #rpg-dialog:not([data-page="map"]) .rpg-tabs button[aria-pressed="true"] { color: #fff; background: linear-gradient(180deg, #ffb06633, #ffb0660d); box-shadow: inset 0 -3px 0 #ffb066; }
+#rpg-dialog:not([data-page="map"]) #rpg-preview-panel { background: radial-gradient(1px 1px at 20% 12%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 78% 8%, #fff 50%, transparent 51%), radial-gradient(ellipse at 50% 38%, #2f6b55, #0c241c 72%); color: #fff4d6; border-right: 1px solid #ffb06644; }
+#rpg-dialog:not([data-page="map"]) #rpg-preview-panel canvas { border-radius: 20px; box-shadow: 0 0 0 2px #ffb06666, 0 0 30px #ff9d4d33; }
+#rpg-dialog:not([data-page="map"]) #rpg-preview-panel h3 { color: #fff; text-shadow: 0 0 14px #ff9d4d88; }
+#rpg-dialog:not([data-page="map"]) #rpg-preview-panel p, #rpg-dialog:not([data-page="map"]) #rpg-preview-panel .rpg-eyebrow { color: #cfe8d8; }
+#rpg-content:has(.rpg-cards) { background: linear-gradient(160deg, #123528, #0c241c); color: #fff4d6; }
+#rpg-content:has(.rpg-cards) h2 { color: #fff; }
+#rpg-content:has(.rpg-cards) > p, #rpg-content:has(.rpg-cards) .rpg-fine { color: #cfe8d8; }
+#rpg-content:has(.rpg-cards) .rpg-eyebrow { color: #ffb066; font-size: 11px; }
+#rpg-content:has(.rpg-cards) .rpg-book-filters select { background: #163a2e; color: #fff4d6; border-color: #2f6b55; }
+#rpg-content:has(.rpg-cards) .rpg-book-filters button { background: #1f5a45; color: #fff4d6; }
+#rpg-content:has(.rpg-cards) .rpg-book-filters button[aria-pressed=true] { background: linear-gradient(90deg, #f2b04a, #e27a2d); color: #1b3a2f; }
+#rpg-content:has(.rpg-cards) .rpg-selected-info { background: #ffb0661a; border: 1px solid #ffb06666; color: #fff4d6; }
+#rpg-content:has(.rpg-cards) .rpg-selected-info > span { color: #cfe8d8; }
+#rpg-content:has(.rpg-cards) .rpg-selected-info > button { background: linear-gradient(90deg, #f2b04a, #e27a2d); color: #1b3a2f; font-weight: 800; }
+#rpg-content:has(.rpg-cards) .rpg-cards > button { background: linear-gradient(160deg, #1f5a45, #163a2e); border-color: #2f6b55; color: #fff4d6; border-radius: 14px; }
+#rpg-content:has(.rpg-cards) .rpg-cards > button.selected { border-color: #ffb066; background: linear-gradient(160deg, #2a5a48, #1f5a45); box-shadow: 0 0 16px #ff9d4d66; }
+#rpg-content:has(.rpg-cards) .rpg-cards > button.owned { box-shadow: inset 0 -3px #8ff0c8; }
+#rpg-content:has(.rpg-cards) .rpg-portrait { background: radial-gradient(circle at 50% 40%, #2f6b55, #0c241c); border-radius: 10px; }
+#rpg-content:has(.rpg-cards) .rpg-cards small, #rpg-content:has(.rpg-cards) .rpg-cards span { color: #cfe8d8; }
+#rpg-content:has(.rpg-cards) .rpg-cards strong { color: #fff; }
+#rpg-content:has(.rpg-cards) .rpg-pagination { color: #fff4d6; }
+#rpg-content:has(.rpg-cards) .rpg-pagination button { background: #1f5a45; color: #fff4d6; }
+#rpg-content:has(.rpg-cards) .rpg-selected-info strong, #rpg-content:has(.rpg-cards) .rpg-selected-info b { color: #fff; }
+#rpg-content:has(.rpg-cards) .rpg-selected-info > *:not(button) { color: #fff4d6; }
